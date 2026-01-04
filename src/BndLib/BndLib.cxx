@@ -369,7 +369,7 @@ void BndLib::Add(const gp_Lin&       L,
   {
     if (Precision::IsNegativeInfinite(P2))
     {
-      throw Standard_Failure("BndLib::bad parameter");
+      throw ExceptionBase("BndLib::bad parameter");
     }
     else if (Precision::IsPositiveInfinite(P2))
     {
@@ -391,7 +391,7 @@ void BndLib::Add(const gp_Lin&       L,
     }
     else if (Precision::IsPositiveInfinite(P2))
     {
-      throw Standard_Failure("BndLib::bad parameter");
+      throw ExceptionBase("BndLib::bad parameter");
     }
     else
     {
@@ -429,7 +429,7 @@ void BndLib::Add(const gp_Lin2d&     L,
   {
     if (Precision::IsNegativeInfinite(P2))
     {
-      throw Standard_Failure("BndLib::bad parameter");
+      throw ExceptionBase("BndLib::bad parameter");
     }
     else if (Precision::IsPositiveInfinite(P2))
     {
@@ -451,7 +451,7 @@ void BndLib::Add(const gp_Lin2d&     L,
     }
     else if (Precision::IsPositiveInfinite(P2))
     {
-      throw Standard_Failure("BndLib::bad parameter");
+      throw ExceptionBase("BndLib::bad parameter");
     }
     else
     {
@@ -875,7 +875,7 @@ void BndLib::Add(const gp_Parab&     P,
   {
     if (Precision::IsNegativeInfinite(P2))
     {
-      throw Standard_Failure("BndLib::bad parameter");
+      throw ExceptionBase("BndLib::bad parameter");
     }
     else if (Precision::IsPositiveInfinite(P2))
     {
@@ -901,7 +901,7 @@ void BndLib::Add(const gp_Parab&     P,
     }
     else if (Precision::IsPositiveInfinite(P2))
     {
-      throw Standard_Failure("BndLib::bad parameter");
+      throw ExceptionBase("BndLib::bad parameter");
     }
     else
     {
@@ -947,7 +947,7 @@ void BndLib::Add(const gp_Parab2d&   P,
   {
     if (Precision::IsNegativeInfinite(P2))
     {
-      throw Standard_Failure("BndLib::bad parameter");
+      throw ExceptionBase("BndLib::bad parameter");
     }
     else if (Precision::IsPositiveInfinite(P2))
     {
@@ -970,7 +970,7 @@ void BndLib::Add(const gp_Parab2d&   P,
     }
     else if (Precision::IsPositiveInfinite(P2))
     {
-      throw Standard_Failure("BndLib::bad parameter");
+      throw ExceptionBase("BndLib::bad parameter");
     }
     else
     {
@@ -1014,7 +1014,7 @@ void BndLib::Add(const gp_Hypr&      H,
   {
     if (Precision::IsNegativeInfinite(P2))
     {
-      throw Standard_Failure("BndLib::bad parameter");
+      throw ExceptionBase("BndLib::bad parameter");
     }
     else if (Precision::IsPositiveInfinite(P2))
     {
@@ -1040,7 +1040,7 @@ void BndLib::Add(const gp_Hypr&      H,
     }
     else if (Precision::IsPositiveInfinite(P2))
     {
-      throw Standard_Failure("BndLib::bad parameter");
+      throw ExceptionBase("BndLib::bad parameter");
     }
     else
     {
@@ -1084,7 +1084,7 @@ void BndLib::Add(const gp_Hypr2d&    H,
   {
     if (Precision::IsNegativeInfinite(P2))
     {
-      throw Standard_Failure("BndLib::bad parameter");
+      throw ExceptionBase("BndLib::bad parameter");
     }
     else if (Precision::IsPositiveInfinite(P2))
     {
@@ -1107,7 +1107,7 @@ void BndLib::Add(const gp_Hypr2d&    H,
     }
     else if (Precision::IsPositiveInfinite(P2))
     {
-      throw Standard_Failure("BndLib::bad parameter");
+      throw ExceptionBase("BndLib::bad parameter");
     }
     else
     {
@@ -1166,7 +1166,7 @@ void BndLib::Add(const gp_Cylinder&  S,
   {
     if (Precision::IsNegativeInfinite(VMax))
     {
-      throw Standard_Failure("BndLib::bad parameter");
+      throw ExceptionBase("BndLib::bad parameter");
     }
     else if (Precision::IsPositiveInfinite(VMax))
     {
@@ -1186,7 +1186,7 @@ void BndLib::Add(const gp_Cylinder&  S,
     }
     else if (Precision::IsPositiveInfinite(VMax))
     {
-      throw Standard_Failure("BndLib::bad parameter");
+      throw ExceptionBase("BndLib::bad parameter");
     }
     else
     {
@@ -1270,7 +1270,7 @@ void BndLib::Add(const gp_Cone&      S,
   {
     if (Precision::IsNegativeInfinite(VMax))
     {
-      throw Standard_Failure("BndLib::bad parameter");
+      throw ExceptionBase("BndLib::bad parameter");
     }
     else if (Precision::IsPositiveInfinite(VMax))
     {
@@ -1293,7 +1293,7 @@ void BndLib::Add(const gp_Cone&      S,
     }
     else if (Precision::IsPositiveInfinite(VMax))
     {
-      throw Standard_Failure("BndLib::bad parameter");
+      throw ExceptionBase("BndLib::bad parameter");
     }
     else
     {

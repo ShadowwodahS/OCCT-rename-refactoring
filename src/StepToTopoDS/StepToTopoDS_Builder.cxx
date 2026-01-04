@@ -740,7 +740,7 @@ void StepToTopoDS_Builder::Init(const Handle(StepShape_GeometricSet)&           
           OCC_CATCH_SIGNALS
           aGeomCrv = StepToGeom::MakeCurve(aCrv, theLocalFactors);
         }
-        catch (Standard_Failure const& anException)
+        catch (ExceptionBase const& anException)
         {
           Message_Messenger::StreamBuffer sout = TP->Messenger()->SendInfo();
           sout << "StepToTopoDS, GeometricSet, elem " << i << " of " << nbElem << ": exception ";

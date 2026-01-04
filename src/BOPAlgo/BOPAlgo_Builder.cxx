@@ -224,7 +224,7 @@ void BOPAlgo_Builder::PerformInternal(const BOPAlgo_PaveFiller&    theFiller,
     PerformInternal1(theFiller, theRange);
   }
   //
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     AddError(new BOPAlgo_AlertBuilderFailed);
   }

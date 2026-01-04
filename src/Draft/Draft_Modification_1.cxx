@@ -2156,7 +2156,7 @@ static Standard_Real Parameter(const Handle(Geom_Curve)& C, const gp_Pnt& P, Sta
     Extrema_ExtPC     myExtPC(P, TheCurve);
     if (!myExtPC.IsDone())
     {
-      throw Standard_Failure("Draft_Modification_1::Parameter: ExtremaPC not done.");
+      throw ExceptionBase("Draft_Modification_1::Parameter: ExtremaPC not done.");
     }
     if (myExtPC.NbExt() >= 1)
     {

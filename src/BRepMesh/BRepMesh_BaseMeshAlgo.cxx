@@ -59,7 +59,7 @@ void BRepMesh_BaseMeshAlgo::Perform(const IMeshData::IFaceHandle& theDFace,
       commitSurfaceTriangulation();
     }
   }
-  catch (Standard_Failure const& /*theException*/)
+  catch (ExceptionBase const& /*theException*/)
   {
   }
 

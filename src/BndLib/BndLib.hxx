@@ -69,7 +69,7 @@ public:
   //! Tol is the tolerance value to enlarge the minimum and maximum dimension
   //! P1 and P2 may represent infinite values.
   //! Exceptions
-  //! Standard_Failure if P1 and P2 are either two negative
+  //! ExceptionBase if P1 and P2 are either two negative
   //! infinite real numbers, or two positive infinite real numbers.
   Standard_EXPORT static void Add(const gp_Lin&       L,
                                   const Standard_Real P1,
@@ -136,7 +136,7 @@ public:
   //! then enlarges B by the tolerance value Tol.
   //! P1 and P2 may represent infinite values.
   //! Exceptions
-  //! Standard_Failure if P1 and P2 are either two negative
+  //! ExceptionBase if P1 and P2 are either two negative
   //! infinite real numbers, or two positive infinite real numbers.
   Standard_EXPORT static void Add(const gp_Parab2d&   P,
                                   const Standard_Real P1,
@@ -155,7 +155,7 @@ public:
   //! and then enlarges B by the tolerance value Tol.
   //! P1 and P2 may represent infinite values.
   //! Exceptions
-  //! Standard_Failure if P1 and P2 are either two negative
+  //! ExceptionBase if P1 and P2 are either two negative
   //! infinite real numbers, or two positive infinite real numbers.
   Standard_EXPORT static void Add(const gp_Hypr2d&    H,
                                   const Standard_Real P1,
@@ -180,7 +180,7 @@ public:
   //! B is then enlarged by the tolerance value Tol.
   //! VMin and VMax may represent infinite values.
   //! Exceptions
-  //! Standard_Failure if VMin and VMax are either two
+  //! ExceptionBase if VMin and VMax are either two
   //! negative infinite real numbers, or two positive infinite real numbers.
   Standard_EXPORT static void Add(const gp_Cylinder&  S,
                                   const Standard_Real VMin,
@@ -205,7 +205,7 @@ public:
   //! B is then enlarged by the tolerance value Tol.
   //! VMin and VMax may represent infinite values.
   //! Exceptions
-  //! Standard_Failure if VMin and VMax are either two
+  //! ExceptionBase if VMin and VMax are either two
   //! negative infinite real numbers, or two positive infinite real numbers.
   Standard_EXPORT static void Add(const gp_Cone&      S,
                                   const Standard_Real VMin,

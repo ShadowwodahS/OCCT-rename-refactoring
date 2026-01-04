@@ -92,7 +92,7 @@ void IVtkOCC_ShapeMesher::internalBuild()
       OCC_CATCH_SIGNALS
       addWFFace(anOcctFace, GetShapeObj()->GetSubShapeId(anOcctFace), aShapeDeflection);
     }
-    catch (const Standard_Failure& anException)
+    catch (const ExceptionBase& anException)
     {
       Message::SendFail(TCollection_AsciiString(
                           "Error: addWireFrameFaces() wireframe presentation builder has failed (")

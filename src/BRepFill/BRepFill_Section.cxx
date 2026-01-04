@@ -68,7 +68,7 @@ BRepFill_Section::BRepFill_Section(const TopoDS_Shape&    Profile,
     wire.Closed(Standard_True);
   }
   else
-    throw Standard_Failure("BRepFill_Section: bad shape type of section");
+    throw ExceptionBase("BRepFill_Section: bad shape type of section");
 }
 
 void BRepFill_Section::Set(const Standard_Boolean IsLaw)

@@ -40,7 +40,7 @@ public:
 
       return performInternal(theModel, theParameters, theRange);
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
       return Standard_False;
     }

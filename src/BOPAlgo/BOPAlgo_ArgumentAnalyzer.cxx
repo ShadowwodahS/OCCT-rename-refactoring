@@ -236,7 +236,7 @@ void BOPAlgo_ArgumentAnalyzer::Perform(const Message_ProgressRange& theRange)
         TestCurveOnSurface();
     }
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     BOPAlgo_CheckResult aResult;
     aResult.SetCheckStatus(BOPAlgo_CheckUnknown);

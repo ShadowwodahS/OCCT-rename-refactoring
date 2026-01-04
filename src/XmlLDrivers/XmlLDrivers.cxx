@@ -56,7 +56,7 @@ const Handle(RefObject)& XmlLDrivers::Factory(const Standard_GUID& theGUID)
     return model_rd;
   }
 
-  throw Standard_Failure("XmlLDrivers : unknown GUID");
+  throw ExceptionBase("XmlLDrivers : unknown GUID");
 }
 
 #define SLENGTH 80

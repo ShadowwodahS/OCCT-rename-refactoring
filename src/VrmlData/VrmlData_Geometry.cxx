@@ -69,7 +69,7 @@ const Handle(TopoDS_TShape)& VrmlData_Box::TShape()
       SetTShape(aShell.TShape());
       myIsModified = Standard_False;
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
       myTShape.Nullify();
     }
@@ -137,7 +137,7 @@ const Handle(TopoDS_TShape)& VrmlData_Cone::TShape()
         myTShape = aBuilder.Shell().TShape();
       myIsModified = Standard_False;
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
       myTShape.Nullify();
     }
@@ -255,7 +255,7 @@ const Handle(TopoDS_TShape)& VrmlData_Cylinder::TShape()
       myTShape     = aShell.TShape();
       myIsModified = Standard_False;
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
       myTShape.Nullify();
     }
@@ -371,7 +371,7 @@ const Handle(TopoDS_TShape)& VrmlData_Sphere::TShape()
       myTShape     = BRepPrim_Sphere(myRadius).Shell().TShape();
       myIsModified = Standard_False;
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
       myTShape.Nullify();
     }

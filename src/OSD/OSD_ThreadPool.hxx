@@ -49,7 +49,7 @@
 //!   in the pool allowing other threads to be used concurrently.
 //! - OSD_ThreadPool::Launcher locks thread one-by-one from thread pool in a thread-safe way.
 //! - Each working thread catches exceptions occurred during job execution, and Launcher will
-//!   throw Standard_Failure in a caller thread on completed execution.
+//!   throw ExceptionBase in a caller thread on completed execution.
 class OSD_ThreadPool : public RefObject
 {
   DEFINE_STANDARD_RTTIEXT(OSD_ThreadPool, RefObject)
@@ -185,7 +185,7 @@ protected:
   private:
     OSD_ThreadPool*          myPool;
     JobInterface*            myJob;
-    Handle(Standard_Failure) myFailure;
+    Handle(ExceptionBase) myFailure;
     Standard_Condition       myWakeEvent;
     Standard_Condition       myIdleEvent;
     int                      myThreadIndex;
@@ -336,7 +336,7 @@ protected:
   void release();
 
   //! Perform the job and catch exceptions.
-  static void performJob(Handle(Standard_Failure)&     theFailure,
+  static void performJob(Handle(ExceptionBase)&     theFailure,
                          OSD_ThreadPool::JobInterface* theJob,
                          int                           theThreadIndex);
 

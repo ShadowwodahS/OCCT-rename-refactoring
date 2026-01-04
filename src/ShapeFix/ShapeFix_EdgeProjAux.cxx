@@ -188,7 +188,7 @@ static Standard_Boolean FindParameterWithExt(const gp_Pnt&                   Pt1
     else
       return Standard_False;
   } // end try
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
 #ifdef OCCT_DEBUG
     //: s5

@@ -17,9 +17,9 @@
 #include <Standard_Type.hxx>
 
 //! Defines an exception class \a C1 that inherits an exception class \a C2.
-/*! \a C2 must be Standard_Failure or its ancestor.
+/*! \a C2 must be ExceptionBase or its ancestor.
     The macro defines empty constructor, copy constructor and static methods Raise() and
-   NewInstance(). Since Standard_Failure implements class manipulated by handle,
+   NewInstance(). Since ExceptionBase implements class manipulated by handle,
    DEFINE_STANDARD_RTTI macro is also added to enable RTTI.
 
     When using DEFINE_STANDARD_EXCEPTION in your code make sure you also insert a macro

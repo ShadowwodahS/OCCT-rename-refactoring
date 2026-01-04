@@ -2348,7 +2348,7 @@ void TPrsStd_ConstraintTools::ComputeRound(const Handle(TDataXtd_Constraint)& aC
         }
       }
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
       ais.Nullify();
     }

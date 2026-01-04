@@ -235,7 +235,7 @@ void TopOpeBRepBuild_Builder::GWESMakeFaces(const TopoDS_Shape&          FF,
     const TopoDS_Face& FA   = TopoDS::Face(FF);
     Standard_Boolean   puok = TopOpeBRepTool::PurgeClosingEdges(FA, LOF, MWisOld, MshNOK);
     if (!puok)
-      throw Standard_Failure("TopOpeBRepBuild::GWESMakeFaces");
+      throw ExceptionBase("TopOpeBRepBuild::GWESMakeFaces");
     topurge = !MshNOK.IsEmpty();
 
 #ifdef OCCT_DEBUG
@@ -249,7 +249,7 @@ void TopOpeBRepBuild_Builder::GWESMakeFaces(const TopoDS_Shape&          FF,
     TopTools_ListOfShape LOFF;
     Standard_Boolean     puok = TopOpeBRepTool::MakeFaces(TopoDS::Face(FF), LOF, MshNOK, LOFF);
     if (!puok)
-      throw Standard_Failure("TopOpeBRepBuild::GWESMakeFaces");
+      throw ExceptionBase("TopOpeBRepBuild::GWESMakeFaces");
     LOF.Clear();
     LOF.Assign(LOFF);
   }

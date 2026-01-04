@@ -213,7 +213,7 @@ static Standard_Integer isPeriodic(Draw_Interpretor& di, Standard_Integer argc, 
       di << "Surface is not v-periodic \n";
     }
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     di << "isperiodic Exception \n";
     return 0;
@@ -300,7 +300,7 @@ static Standard_Integer OCC486(Draw_Interpretor& di, Standard_Integer argc, cons
     else
       return 1;
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     di << "OCC486 Exception \n";
     return 1;
@@ -429,7 +429,7 @@ static Standard_Integer OCC712(Draw_Interpretor& di, Standard_Integer argc, cons
       DBRep::Set(argv[1], slabShape);
     }
   }
-  catch (Standard_Failure const&) //--------------------> STEP:2
+  catch (ExceptionBase const&) //--------------------> STEP:2
   {
     di << " Error in Draft Slab \n";
     return 1;
@@ -535,11 +535,11 @@ static Standard_Integer OCC822_1(Draw_Interpretor& di, Standard_Integer argc, co
 
     performTriangulation(theRes, di);
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     di << "*********************************************************\n";
     di << "*****                                              ******\n";
-    di << "***** Standard_Failure : Exception in Shoe Function *****\n";
+    di << "***** ExceptionBase : Exception in Shoe Function *****\n";
     di << "*****                                              ******\n";
     di << "*********************************************************\n";
     return 1;
@@ -593,11 +593,11 @@ static Standard_Integer OCC822_2(Draw_Interpretor& di, Standard_Integer argc, co
 
     performTriangulation(fuse, di);
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     di << "*********************************************************\n";
     di << "*****                                              ******\n";
-    di << "***** Standard_Failure : Exception in HSP Function ******\n";
+    di << "***** ExceptionBase : Exception in HSP Function ******\n";
     di << "*****                                              ******\n";
     di << "*********************************************************\n";
     return 1;
@@ -652,11 +652,11 @@ static Standard_Integer OCC823(Draw_Interpretor& di, Standard_Integer argc, cons
 
     performTriangulation(fuse, di);
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     di << "*********************************************************\n";
     di << "*****                                              ******\n";
-    di << "***** Standard_Failure : Exception in TEE Function ******\n";
+    di << "***** ExceptionBase : Exception in TEE Function ******\n";
     di << "*****                                              ******\n";
     di << "*********************************************************\n";
     return 1;
@@ -706,11 +706,11 @@ static Standard_Integer OCC824(Draw_Interpretor& di, Standard_Integer argc, cons
 
     performTriangulation(fuse, di);
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     di << "*********************************************************\n";
     di << "*****                                              ******\n";
-    di << "***** Standard_Failure : Exception in YOU Function ******\n";
+    di << "***** ExceptionBase : Exception in YOU Function ******\n";
     di << "*****                                              ******\n";
     di << "*********************************************************\n";
     return 1;
@@ -798,11 +798,11 @@ static Standard_Integer OCC825(Draw_Interpretor& di, Standard_Integer argc, cons
     di << "Trianglating Faces of CUT 2 .....\n";
     performTriangulation(cut2, di);
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     di << "*********************************************************\n";
     di << "*****                                              ******\n";
-    di << "***** Standard_Failure : Exception in HSP Function ******\n";
+    di << "***** ExceptionBase : Exception in HSP Function ******\n";
     di << "*****                                              ******\n";
     di << "*********************************************************\n";
     return 1;
@@ -873,11 +873,11 @@ static Standard_Integer OCC826(Draw_Interpretor& di, Standard_Integer argc, cons
     di << "Fuse Created !   Triangulating !\n";
     performTriangulation(fuse, di);
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     di << "*********************************************************\n";
     di << "*****                                              ******\n";
-    di << "***** Standard_Failure : Exception in SPH Function ******\n";
+    di << "***** ExceptionBase : Exception in SPH Function ******\n";
     di << "*****                                              ******\n";
     di << "*********************************************************\n";
     return 1;
@@ -959,11 +959,11 @@ static Standard_Integer OCC827(Draw_Interpretor& di, Standard_Integer argc, cons
 
     performTriangulation(fuse2, di);
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     di << "*********************************************************\n";
     di << "*****                                              ******\n";
-    di << "***** Standard_Failure : Exception in REV Function ******\n";
+    di << "***** ExceptionBase : Exception in REV Function ******\n";
     di << "*****                                              ******\n";
     di << "*********************************************************\n";
     return 1;
@@ -1003,7 +1003,7 @@ int performBlend(const TopoDS_Shape& aShape,
       status = 1;
     }
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     status = 1;
   }
@@ -1114,7 +1114,7 @@ static Standard_Integer OCC828(Draw_Interpretor& di, Standard_Integer argc, cons
     //       std::cout << "Blending Successfully Done !   Now Triangulating ..." << std::endl;
     //       performTriangulation(aShape);
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     di << " Error in Draft Slab \n";
     return 1;

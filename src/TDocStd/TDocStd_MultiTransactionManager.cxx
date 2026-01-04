@@ -104,7 +104,7 @@ void TDocStd_MultiTransactionManager::OpenCommand()
                  "previous one is not committed or aborted"
               << std::endl;
 #endif
-    throw Standard_Failure("Can't start new application transaction"
+    throw ExceptionBase("Can't start new application transaction"
                            "while a previous one is not committed or aborted");
   }
   myOpenTransaction = Standard_True;

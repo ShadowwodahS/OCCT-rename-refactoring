@@ -46,13 +46,13 @@ BRepFill_CurveConstraint ::BRepFill_CurveConstraint(
   myLProp = SLP;
   myOrder = Tang;
   if ((Tang < -1) || (Tang > 2))
-    throw Standard_Failure("BRepFill : The continuity is not G0 G1 or G2");
+    throw ExceptionBase("BRepFill : The continuity is not G0 G1 or G2");
   myNbPoints = NPt;
   myConstG0  = Standard_True;
   myConstG1  = Standard_True;
   myConstG2  = Standard_True;
   if (myFrontiere.IsNull())
-    throw Standard_Failure("BRepFill_CurveConstraint : Curve must be on a Surface");
+    throw ExceptionBase("BRepFill_CurveConstraint : Curve must be on a Surface");
   Handle(Geom_Surface)        Surf;
   Handle(GeomAdaptor_Surface) GS1;
   GS1 = Handle(GeomAdaptor_Surface)::DownCast(myFrontiere->GetSurface());

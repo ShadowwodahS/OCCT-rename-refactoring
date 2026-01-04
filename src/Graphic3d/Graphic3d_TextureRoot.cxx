@@ -62,7 +62,7 @@ TCollection_AsciiString Graphic3d_TextureRoot::TexturesFolder()
         << "Both environment variables CSF_MDTVTexturesDirectory and CASROOT are undefined!\n"
         << "At least one should be defined to use standard Textures.\n";
 #endif
-      throw Standard_Failure("CSF_MDTVTexturesDirectory and CASROOT are undefined");
+      throw ExceptionBase("CSF_MDTVTexturesDirectory and CASROOT are undefined");
     }
 
     const OSD_Path                aDirPath(VarName);
@@ -75,7 +75,7 @@ TCollection_AsciiString Graphic3d_TextureRoot::TexturesFolder()
       std::cerr << " CSF_MDTVTexturesDirectory or CASROOT not correctly set\n";
       std::cerr << " not all files are found in : " << VarName.ToCString() << std::endl;
 #endif
-      throw Standard_Failure("CSF_MDTVTexturesDirectory or CASROOT not correctly set");
+      throw ExceptionBase("CSF_MDTVTexturesDirectory or CASROOT not correctly set");
     }
   }
   return VarName;

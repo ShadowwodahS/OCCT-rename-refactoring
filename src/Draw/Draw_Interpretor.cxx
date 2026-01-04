@@ -158,7 +158,7 @@ static Standard_Integer CommandCmd(ClientData       theClientData,
       code = TCL_ERROR;
     }
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     // fail if Draw_ExitOnCatch is set
     const char* toExitOnCatch = Tcl_GetVar(interp, "Draw_ExitOnCatch", TCL_GLOBAL_ONLY);
@@ -502,7 +502,7 @@ Draw_Interpretor::~Draw_Interpretor()
     OCC_CATCH_SIGNALS
     Tcl_Exit(0);
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
   #ifdef OCCT_DEBUG
     std::cout << "Tcl_Exit have an exception" << std::endl;

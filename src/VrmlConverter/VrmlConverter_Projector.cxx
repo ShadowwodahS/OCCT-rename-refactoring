@@ -113,7 +113,7 @@ VrmlConverter_Projector::VrmlConverter_Projector(const TopTools_Array1OfShape&  
 
   if (Ypers.IsParallel(Zpers, Precision::Angular()))
   {
-    throw Standard_Failure("Projection Vector is Parallel to High Point Direction");
+    throw ExceptionBase("Projection Vector is Parallel to High Point Direction");
   }
   gp_Dir Xpers = Ypers.Crossed(Zpers);
 

@@ -122,7 +122,7 @@ public:
                                const Standard_CString            name = "");
 
   //! Adds the currently caught exception
-  Standard_EXPORT void AddRaised(const Handle(Standard_Failure)& theException,
+  Standard_EXPORT void AddRaised(const Handle(ExceptionBase)& theException,
                                  const Standard_CString          name = "");
 
   //! Adds a Shape (recorded as a HShape)

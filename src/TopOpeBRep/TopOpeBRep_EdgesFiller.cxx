@@ -438,7 +438,7 @@ void TopOpeBRep_EdgesFiller::Face(const Standard_Integer ISI, const TopoDS_Shape
   else if (ISI == 2)
     myF2 = TopoDS::Face(F);
   else
-    throw Standard_Failure("Face(i,f) : ISI incorrect");
+    throw ExceptionBase("Face(i,f) : ISI incorrect");
 }
 
 //=================================================================================================
@@ -450,7 +450,7 @@ const TopoDS_Shape& TopOpeBRep_EdgesFiller::Face(const Standard_Integer ISI) con
   else if (ISI == 2)
     return myF2;
   else
-    throw Standard_Failure("Face(i) : ISI incorrect");
+    throw ExceptionBase("Face(i) : ISI incorrect");
 }
 
 //=================================================================================================

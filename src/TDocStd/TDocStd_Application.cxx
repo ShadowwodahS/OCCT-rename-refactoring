@@ -262,13 +262,13 @@ PCDM_ReaderStatus TDocStd_Application::Open(const TCollection_ExtendedString& pa
       CDF_Application::Open(D);
     theDoc = D;
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     //    status = GetRetrieveStatus();
     if (!MessageDriver().IsNull())
     {
       //      Standard_SStream aMsg;
-      //      aMsg << Standard_Failure::Caught() << std::endl;
+      //      aMsg << ExceptionBase::Caught() << std::endl;
       //      std::cout << "TDocStd_Application::Open(): " << aMsg.rdbuf()->str() << std::endl;
       TCollection_ExtendedString aString(anException.GetMessageString());
       MessageDriver()->Send(aString.ToExtString(), Message_Fail);
@@ -303,7 +303,7 @@ PCDM_ReaderStatus TDocStd_Application::Open(Standard_IStream&                the
     }
   }
 
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     if (!MessageDriver().IsNull())
     {
@@ -342,7 +342,7 @@ PCDM_StoreStatus TDocStd_Application::SaveAs(const Handle(TDocStd_Document)&   t
     OCC_CATCH_SIGNALS
     storer.Realize(theRange);
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     if (!MessageDriver().IsNull())
     {
@@ -385,7 +385,7 @@ PCDM_StoreStatus TDocStd_Application::SaveAs(const Handle(TDocStd_Document)& the
 
     return aDocStorageDriver->GetStoreStatus();
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     if (!MessageDriver().IsNull())
     {
@@ -410,7 +410,7 @@ PCDM_StoreStatus TDocStd_Application::Save(const Handle(TDocStd_Document)& D,
       OCC_CATCH_SIGNALS
       storer.Realize(theRange);
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
       if (!MessageDriver().IsNull())
       {
@@ -460,7 +460,7 @@ PCDM_StoreStatus TDocStd_Application::SaveAs(const Handle(TDocStd_Document)&   D
       OCC_CATCH_SIGNALS
       storer.Realize(theRange);
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
       if (!MessageDriver().IsNull())
       {
@@ -510,7 +510,7 @@ PCDM_StoreStatus TDocStd_Application::SaveAs(const Handle(TDocStd_Document)& the
 
     return aDocStorageDriver->GetStoreStatus();
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     if (!MessageDriver().IsNull())
     {
@@ -536,7 +536,7 @@ PCDM_StoreStatus TDocStd_Application::Save(const Handle(TDocStd_Document)& D,
       OCC_CATCH_SIGNALS
       storer.Realize(theRange);
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
       if (!MessageDriver().IsNull())
       {

@@ -46,7 +46,7 @@ Standard_Boolean ExprIntrp::Parse(const Handle(ExprIntrp_Generator)& gen,
       ExprIntrp_stop_string();
       return Standard_True;
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
     }
   }

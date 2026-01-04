@@ -298,7 +298,7 @@ Standard_Boolean DE_Wrapper::Save(const TCollection_AsciiString&   theResourcePa
       OCC_CATCH_SIGNALS
       aFile.Build(OSD_ReadWrite, aProt);
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
       return Standard_False;
     }

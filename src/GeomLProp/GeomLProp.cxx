@@ -136,7 +136,7 @@ GeomAbs_Shape GeomLProp::Continuity(const Handle(Geom_Curve)& C1,
   GeomLProp_CLProps clp2(C2, u2, n2, tl);
   if (!(clp1.Value().IsEqual(clp2.Value(), tl)))
   {
-    throw Standard_Failure("Courbes non jointives");
+    throw ExceptionBase("Courbes non jointives");
   }
   Standard_Integer min = Min(n1, n2);
   if (min >= 1)

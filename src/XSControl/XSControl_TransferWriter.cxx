@@ -100,7 +100,7 @@ IFSelect_ReturnStatus XSControl_TransferWriter::TransferWriteTransient(
                                                   myTransferMode,
                                                   theProgress);
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     sout << "****  ****  TransferWriteShape, EXCEPTION : ";
     sout << anException.GetMessageString();
@@ -155,7 +155,7 @@ IFSelect_ReturnStatus XSControl_TransferWriter::TransferWriteShape(
                                               myTransferMode,
                                               theProgress);
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     sout << "****  ****  TransferWriteShape, EXCEPTION : ";
     sout << anException.GetMessageString();

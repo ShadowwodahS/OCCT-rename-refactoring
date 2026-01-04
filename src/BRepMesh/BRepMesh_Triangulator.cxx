@@ -263,7 +263,7 @@ Standard_Boolean BRepMesh_Triangulator::triangulate(
       thePolyTriangles.Append(aT);
     }
   }
-  catch (Standard_Failure const& aFailure)
+  catch (ExceptionBase const& aFailure)
   {
     TCollection_AsciiString aStr(
       "makeTrianglesUsingBRepMesh: Exception raised during polygon triangulation: ");

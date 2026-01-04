@@ -23,7 +23,7 @@
 #include <Standard_Failure.hxx>
 
 class GccAna_NoSolution;
-DEFINE_STANDARD_HANDLE(GccAna_NoSolution, Standard_Failure)
+DEFINE_STANDARD_HANDLE(GccAna_NoSolution, ExceptionBase)
 
 #if !defined No_Exception && !defined No_GccAna_NoSolution
   #define GccAna_NoSolution_Raise_if(CONDITION, MESSAGE)                                           \
@@ -33,6 +33,6 @@ DEFINE_STANDARD_HANDLE(GccAna_NoSolution, Standard_Failure)
   #define GccAna_NoSolution_Raise_if(CONDITION, MESSAGE)
 #endif
 
-DEFINE_STANDARD_EXCEPTION(GccAna_NoSolution, Standard_Failure)
+DEFINE_STANDARD_EXCEPTION(GccAna_NoSolution, ExceptionBase)
 
 #endif // _GccAna_NoSolution_HeaderFile

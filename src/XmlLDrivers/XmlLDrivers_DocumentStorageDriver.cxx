@@ -101,7 +101,7 @@ void XmlLDrivers_DocumentStorageDriver::Write(const Handle(CDM_Document)&       
                                       + " cannot be opened for writing";
 
     theDocument->Application()->MessageDriver()->Send(aMsg.ToExtString(), Message_Fail);
-    throw Standard_Failure("File cannot be opened for writing");
+    throw ExceptionBase("File cannot be opened for writing");
   }
 }
 
@@ -139,7 +139,7 @@ void XmlLDrivers_DocumentStorageDriver::Write(const Handle(CDM_Document)&  theDo
         TCollection_ExtendedString("Error: the stream is bad and") + " cannot be used for writing";
       theDocument->Application()->MessageDriver()->Send(aMsg.ToExtString(), Message_Fail);
 
-      throw Standard_Failure("File cannot be opened for writing");
+      throw ExceptionBase("File cannot be opened for writing");
     }
 
     ::take_time(0, " +++++ Fin formatting to XML : ", aMessageDriver);
@@ -332,7 +332,7 @@ Standard_Boolean XmlLDrivers_DocumentStorageDriver::WriteToDomDocument(
         return IsError();
       }
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
       SetIsError(Standard_True);
       SetStoreStatus(PCDM_SS_Failure);

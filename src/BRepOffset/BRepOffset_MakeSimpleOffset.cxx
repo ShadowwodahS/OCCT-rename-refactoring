@@ -345,7 +345,7 @@ static void ComputeMaxAngleOnShape(const TopoDS_Shape& S, Standard_Real& theResA
         {
           tgtfaces(E, F1, F2, couture, theResAngle);
         }
-        catch (Standard_Failure const&)
+        catch (ExceptionBase const&)
         {
         }
       }
@@ -558,7 +558,7 @@ TopoDS_Face BRepOffset_MakeSimpleOffset::BuildWallFace(const TopoDS_Edge& theOri
     if (aFM.IsDone())
       aF = aFM.Face();
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
   }
 

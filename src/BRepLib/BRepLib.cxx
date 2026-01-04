@@ -2323,7 +2323,7 @@ static void EncodeRegularity(const TopoDS_Shape&        theShape,
         BRepLib::EncodeRegularity(E, F1, F2, theTolAng);
     }
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
 #ifdef OCCT_DEBUG
     std::cout << "Warning: Exception in BRepLib::EncodeRegularity(): ";
@@ -2390,7 +2390,7 @@ void BRepLib::EncodeRegularity(TopoDS_Edge&        E,
       GeomAbs_Shape aCont = ContinuityOfFaces(E, F1, F2, TolAng);
       B.Continuity(E, F1, F2, aCont);
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
 #ifdef OCCT_DEBUG
       std::cout << "Failure: Exception in BRepLib::EncodeRegularity" << std::endl;

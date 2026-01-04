@@ -198,7 +198,7 @@ TopoDS_Shape IGESToBRep_CurveAndSurface::TransferCurveAndSurface(
         Standard_Real Eps = GetEpsGeom()*GetUnitFactor();
         BRepLib::SameParameter(res,Eps);
       }
-      catch(Standard_Failure) {
+      catch(ExceptionBase) {
       Message_Msg msg1010("IGES_1010");
         SendWarning (start,msg1010);
       }
@@ -247,7 +247,7 @@ TopoDS_Shape IGESToBRep_CurveAndSurface::TransferGeometry(const Handle(IGESData_
       OCC_CATCH_SIGNALS
       res = TransferCurveAndSurface(start, theProgress);
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
       Message_Msg msg1015("IGES_1015");
       SendFail(start, msg1015);
@@ -284,7 +284,7 @@ TopoDS_Shape IGESToBRep_CurveAndSurface::TransferGeometry(const Handle(IGESData_
         OCC_CATCH_SIGNALS
         res = TransferGeometry(stsub, theProgress);
       }
-      catch (Standard_Failure const&)
+      catch (ExceptionBase const&)
       {
         res.Nullify();
         Message_Msg msg1015("IGES_1015");
@@ -336,7 +336,7 @@ TopoDS_Shape IGESToBRep_CurveAndSurface::TransferGeometry(const Handle(IGESData_
           OCC_CATCH_SIGNALS
           item = TransferGeometry(st308->AssociatedEntity(i), aRange);
         }
-        catch (Standard_Failure const&)
+        catch (ExceptionBase const&)
         {
           item.Nullify();
           Message_Msg msg1015("IGES_1015");
@@ -401,7 +401,7 @@ TopoDS_Shape IGESToBRep_CurveAndSurface::TransferGeometry(const Handle(IGESData_
           OCC_CATCH_SIGNALS
           item = TransferGeometry(st402f1->Entity(i), aRange);
         }
-        catch (Standard_Failure const&)
+        catch (ExceptionBase const&)
         {
           item.Nullify();
           Message_Msg msg1015("IGES_1015");
@@ -476,7 +476,7 @@ TopoDS_Shape IGESToBRep_CurveAndSurface::TransferGeometry(const Handle(IGESData_
           OCC_CATCH_SIGNALS
           item = TransferGeometry(st402f7->Entity(i), aRange);
         }
-        catch (Standard_Failure const&)
+        catch (ExceptionBase const&)
         {
           item.Nullify();
           Message_Msg msg1015("IGES_1015");

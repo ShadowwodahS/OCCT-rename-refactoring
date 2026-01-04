@@ -120,7 +120,7 @@ Standard_Integer IGESFile_Read(char*                                  nomfic,
         OCC_CATCH_SIGNALS
         IGESFile_ReadHeader(IR);
       } // fin essai 1 (global)
-      catch (Standard_Failure const&)
+      catch (ExceptionBase const&)
       {
         // Sending of message : Internal error during the header reading
         Message_Msg Msg11 = Message_Msg("XSTEP_11");
@@ -137,7 +137,7 @@ Standard_Integer IGESFile_Read(char*                                  nomfic,
 
         // Sending of message : Loaded data
       } // fin essai 2 (entites)
-      catch (Standard_Failure const&)
+      catch (ExceptionBase const&)
       {
         // Sending of message : Internal error during the content reading
         if (recupnp == 0)

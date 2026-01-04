@@ -571,7 +571,7 @@ void GeomFill_ConstrainedFilling::SetDomain(const Standard_Real                 
 void GeomFill_ConstrainedFilling::ReBuild()
 {
   if (!appdone)
-    throw Standard_Failure("GeomFill_ConstrainedFilling::ReBuild Approx non faite");
+    throw ExceptionBase("GeomFill_ConstrainedFilling::ReBuild Approx non faite");
   MatchKnots();
   PerformS0();
   PerformS1();

@@ -274,7 +274,7 @@ void Interface_FileReaderTool::LoadModel(const Handle(Interface_InterfaceModel)&
       OCC_CATCH_SIGNALS
       BeginRead(amodel); // selon la norme
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
       // Sendinf of message : Internal error during the header reading
       if (!TF.IsNull())
@@ -333,7 +333,7 @@ void Interface_FileReaderTool::LoadModel(const Handle(Interface_InterfaceModel)&
 
     //   En cas d erreur NON PREVUE par l analyse, recuperation par defaut
     //   Attention : la recuperation peut elle-meme planter ... (cf ierr)
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
       //      Au passage suivant, on attaquera le record suivant
       // clang-format off
@@ -466,7 +466,7 @@ void Interface_FileReaderTool::LoadModel(const Handle(Interface_InterfaceModel)&
       OCC_CATCH_SIGNALS
       EndRead(amodel); // selon la norme
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
       // Sendinf of message : Internal error during the header reading
       if (!TF.IsNull())

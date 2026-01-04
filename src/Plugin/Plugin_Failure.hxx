@@ -23,7 +23,7 @@
 #include <Standard_Failure.hxx>
 
 class Plugin_Failure;
-DEFINE_STANDARD_HANDLE(Plugin_Failure, Standard_Failure)
+DEFINE_STANDARD_HANDLE(Plugin_Failure, ExceptionBase)
 
 #if !defined No_Exception && !defined No_Plugin_Failure
   #define Plugin_Failure_Raise_if(CONDITION, MESSAGE)                                              \
@@ -33,6 +33,6 @@ DEFINE_STANDARD_HANDLE(Plugin_Failure, Standard_Failure)
   #define Plugin_Failure_Raise_if(CONDITION, MESSAGE)
 #endif
 
-DEFINE_STANDARD_EXCEPTION(Plugin_Failure, Standard_Failure)
+DEFINE_STANDARD_EXCEPTION(Plugin_Failure, ExceptionBase)
 
 #endif // _Plugin_Failure_HeaderFile

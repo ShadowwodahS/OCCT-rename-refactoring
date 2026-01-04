@@ -2341,7 +2341,7 @@ Standard_Boolean TNaming_Name::Solve(const TDF_Label& aLab, const TDF_LabelMap& 
       }
     }
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
 #ifdef OCCT_DEBUG
     std::cout << "Name::Solve: EXCEPTION==> NameType = " << NameTypeToString(myType) << "  ";

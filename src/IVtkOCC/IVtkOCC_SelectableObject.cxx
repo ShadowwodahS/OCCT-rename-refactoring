@@ -112,7 +112,7 @@ void IVtkOCC_SelectableObject::ComputeSelection(const Handle(SelectMgr_Selection
                                       aDrawer->DeviationAngle(),
                                       aDrawer->IsAutoTriangulation());
   }
-  catch (const Standard_Failure& anException)
+  catch (const ExceptionBase& anException)
   {
     Message::SendFail(TCollection_AsciiString("Error: IVtkOCC_SelectableObject::ComputeSelection(")
                       + theMode + ") has failed (" + anException.GetMessageString() + ")");

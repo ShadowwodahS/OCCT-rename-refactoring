@@ -789,7 +789,7 @@ gp_Trsf GeomFill_SectionPlacement::Transformation(const Standard_Boolean WithTra
     Standard_Real angle;
 
     if (!isplan)
-      throw Standard_Failure("Illegal usage: can't rotate non-planar profile");
+      throw ExceptionBase("Illegal usage: can't rotate non-planar profile");
 
     gp_Dir ProfileNormal = TheAxe.Direction();
     gp_Dir SpineStartDir = Paxe.Direction();
@@ -827,7 +827,7 @@ gp_Trsf GeomFill_SectionPlacement::Transformation(const Standard_Boolean WithTra
     //     gp_Trsf Rot;
 
     //     if (!isplan)
-    //       throw Standard_Failure("Illegal usage: can't rotate non-planar profile");
+    //       throw ExceptionBase("Illegal usage: can't rotate non-planar profile");
 
     //     gp_Dir ProfileNormal = TheAxe.Direction();
     //     gp_Dir SpineStartDir = Paxe.Direction();

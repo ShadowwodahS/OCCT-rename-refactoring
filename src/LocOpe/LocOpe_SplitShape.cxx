@@ -575,7 +575,7 @@ Standard_Boolean LocOpe_SplitShape::Add(const TopoDS_Wire& W, const TopoDS_Face&
         return Standard_False;
     }
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
 #ifdef OCCT_DEBUG
     std::cout << "Warning: SpliShape internal problem detected, some faces may be lost. Check "

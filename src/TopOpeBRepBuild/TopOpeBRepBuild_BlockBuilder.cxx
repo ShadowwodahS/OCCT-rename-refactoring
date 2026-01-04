@@ -192,7 +192,7 @@ const TopoDS_Shape& TopOpeBRepBuild_BlockBuilder::Element(
 {
   Standard_Boolean isbound = BI.More();
   if (!isbound)
-    throw Standard_Failure("OutOfRange");
+    throw ExceptionBase("OutOfRange");
 
   Standard_Integer    index = BI.Value();
   const TopoDS_Shape& E     = myOrientedShapeMap(index);
@@ -203,7 +203,7 @@ const TopoDS_Shape& TopOpeBRepBuild_BlockBuilder::Element(const Standard_Integer
 {
   Standard_Boolean isbound = myOrientedShapeMapIsValid.IsBound(index);
   if (!isbound)
-    throw Standard_Failure("OutOfRange");
+    throw ExceptionBase("OutOfRange");
 
   const TopoDS_Shape& E = myOrientedShapeMap(index);
   return E;
@@ -213,7 +213,7 @@ Standard_Integer TopOpeBRepBuild_BlockBuilder::Element(const TopoDS_Shape& E) co
 {
   Standard_Boolean isbound = myOrientedShapeMap.Contains(E);
   if (!isbound)
-    throw Standard_Failure("OutOfRange");
+    throw ExceptionBase("OutOfRange");
 
   Standard_Integer I = myOrientedShapeMap.FindIndex(E);
   return I;

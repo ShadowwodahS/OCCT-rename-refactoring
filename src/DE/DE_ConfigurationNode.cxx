@@ -60,7 +60,7 @@ bool DE_ConfigurationNode::Save(const TCollection_AsciiString& theResourcePath) 
       OCC_CATCH_SIGNALS
       aFile.Build(OSD_ReadWrite, aProt);
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
       Message::SendFail() << "Error: Configuration writing process was stopped. Can't build file.";
       return false;

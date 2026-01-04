@@ -169,7 +169,7 @@ const TopoDS_Shape& TopOpeBRep_ShapeIntersector::CurrentGeomShape(
     }
   }
 
-  throw Standard_Failure("CurrentGeomShape : no intersection");
+  throw ExceptionBase("CurrentGeomShape : no intersection");
 }
 
 // modified by NIZNHY-PKV Fri Sep 24 11:02:59 1999 from
@@ -1006,7 +1006,7 @@ const TopoDS_Shape& TopOpeBRep_ShapeIntersector::Shape(const Standard_Integer In
   else if (Index == 2)
     return myShape2;
 
-  throw Standard_Failure("ShapeIntersector : no shape");
+  throw ExceptionBase("ShapeIntersector : no shape");
 }
 
 //=================================================================================================

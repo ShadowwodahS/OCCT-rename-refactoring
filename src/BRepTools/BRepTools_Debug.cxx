@@ -37,7 +37,7 @@ const char* BRepTools_Write(const char* theFileStr, void* theShapePtr)
     else
       return "Error: write failed";
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     return anException.GetMessageString();
   }
@@ -60,7 +60,7 @@ const char* BRepTools_Dump(void* theShapePtr)
 
     return "Shape dumped to std::cout";
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     return anException.GetMessageString();
   }
@@ -85,7 +85,7 @@ const char* BRepTools_DumpLoc(void* theLocationPtr)
 
     return "Location dumped to std::cout";
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     return anException.GetMessageString();
   }

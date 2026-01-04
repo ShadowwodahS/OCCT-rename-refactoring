@@ -308,7 +308,7 @@ Standard_Boolean Resource_Manager::Save() const
         OCC_CATCH_SIGNALS
         Dir.Build(OSD_Protection(OSD_RX, OSD_RWXD, OSD_RX, OSD_RX));
       }
-      catch (Standard_Failure const&)
+      catch (ExceptionBase const&)
       {
         aStatus = Standard_False;
       }
@@ -340,7 +340,7 @@ Standard_Boolean Resource_Manager::Save() const
       OCC_CATCH_SIGNALS
       File.Build(OSD_ReadWrite, theProt);
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
       aStatus = Standard_False;
     }

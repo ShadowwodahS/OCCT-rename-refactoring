@@ -486,7 +486,7 @@ void GeomPlate_BuildPlateSurface::Perform(const Message_ProgressRange& theProgre
       for (Standard_Integer l = 1; l <= NTLinCont; l++)
         myInitOrder->SetValue(l, l);
       if (!CourbeJointive(myTol3d))
-      { //    throw Standard_Failure("Curves are not joined");
+      { //    throw ExceptionBase("Curves are not joined");
 #ifdef OCCT_DEBUG
         std::cout << "WARNING : Courbes non jointives a " << myTol3d << " pres" << std::endl;
 #endif
@@ -1540,7 +1540,7 @@ void GeomPlate_BuildPlateSurface::ComputeSurfInit(const Message_ProgressRange& t
     if (NTPntCont != 0)
       nopt = 1; // Calculate by the method of plane of inertia
     else if (!CourbeJoint || NTLinCont != myNbBounds)
-    { //    throw Standard_Failure("Curves are not joined");
+    { //    throw ExceptionBase("Curves are not joined");
 #ifdef OCCT_DEBUG
       std::cout << "WARNING : Curves are non-adjacent with tolerance " << myTol3d << std::endl;
 #endif

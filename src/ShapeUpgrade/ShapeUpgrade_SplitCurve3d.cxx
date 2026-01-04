@@ -199,10 +199,10 @@ void ShapeUpgrade_SplitCurve3d::Build(const Standard_Boolean Segment)
             else if (myCurve->IsKind (STANDARD_TYPE (Geom_BezierCurve)))
               Handle(Geom_BezierCurve)::DownCast(theNewCurve)->Segment (First, Last);
           }
-            catch (Standard_Failure) {
+            catch (ExceptionBase) {
       #ifdef OCCT_DEBUG
             std::cout << "Warning: ShapeUpgrade_Split3dCurve::Build(): Exception in Segment      :";
-            Standard_Failure::Caught()->Print(std::cout); std::cout << std::endl;
+            ExceptionBase::Caught()->Print(std::cout); std::cout << std::endl;
       #endif
             theNewCurve = new
       Geom_TrimmedCurve(Handle(Geom_Curve)::DownCast(myCurve->Copy()),First,Last);
@@ -261,7 +261,7 @@ void ShapeUpgrade_SplitCurve3d::Build(const Standard_Boolean Segment)
             Handle(Geom_BezierCurve)::DownCast(theNewCurve)->Segment(Firstt, Lastt);
           myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
         }
-        catch (Standard_Failure const& anException)
+        catch (ExceptionBase const& anException)
         {
 #ifdef OCCT_DEBUG
           std::cout << "Warning: ShapeUpgrade_Split3dCurve::Build(): Exception in Segment      :";

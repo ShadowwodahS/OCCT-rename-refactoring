@@ -819,7 +819,7 @@ void ChFi3d_FilBuilder::PerformTwoCorner(const Standard_Integer Index)
       // it is necessary to make difference with
       if (!OkinterCC)
       {
-        throw Standard_Failure("TwoCorner : No intersection pc pc");
+        throw ExceptionBase("TwoCorner : No intersection pc pc");
       }
       Handle(ChFiDS_Stripe)   stsam, stdif;
       Handle(ChFiDS_SurfData) sdsam, sddif;
@@ -858,7 +858,7 @@ void ChFi3d_FilBuilder::PerformTwoCorner(const Standard_Integer Index)
       }
       else
       {
-        throw Standard_Failure("TwoCorner : Config unknown");
+        throw ExceptionBase("TwoCorner : Config unknown");
       }
       // It is checked if surface ondiff has a point on arc from the side opposed
       // to the common face and if this arc is connected to the base face
@@ -866,7 +866,7 @@ void ChFi3d_FilBuilder::PerformTwoCorner(const Standard_Integer Index)
       ChFiDS_CommonPoint& cpopdif = sddif->ChangeVertex(isfirstdif, ifaopdif);
       if (!cpopdif.IsOnArc())
       {
-        throw Standard_Failure("TwoCorner : No point on restriction on surface OnDiff");
+        throw ExceptionBase("TwoCorner : No point on restriction on surface OnDiff");
       }
       const TopoDS_Edge& Arcopdif = cpopdif.Arc();
       const TopoDS_Face& Fopsam   = TopoDS::Face(DStr.Shape(sdsam->Index(ifaopsam)));
@@ -879,7 +879,7 @@ void ChFi3d_FilBuilder::PerformTwoCorner(const Standard_Integer Index)
         }
         else if (!ex.More())
         {
-          throw Standard_Failure("TwoCorner : No common face to loop the contour");
+          throw ExceptionBase("TwoCorner : No common face to loop the contour");
         }
       }
 #ifdef OCCT_DEBUG
@@ -960,7 +960,7 @@ void ChFi3d_FilBuilder::PerformTwoCorner(const Standard_Integer Index)
       ChFi3d_ResultChron(ch, t_remplissage); // result perf filling
 #endif
       if (!done)
-        throw Standard_Failure("concavites inverted : fail");
+        throw ExceptionBase("concavites inverted : fail");
 #ifdef OCCT_DEBUG
       ChFi3d_InitChron(ch); // init perf update DS
 #endif

@@ -23,7 +23,7 @@
 #include <Standard_Failure.hxx>
 
 class Standard_AbortiveTransaction;
-DEFINE_STANDARD_HANDLE(Standard_AbortiveTransaction, Standard_Failure)
+DEFINE_STANDARD_HANDLE(Standard_AbortiveTransaction, ExceptionBase)
 
 #if !defined No_Exception && !defined No_Standard_AbortiveTransaction
   #define Standard_AbortiveTransaction_Raise_if(CONDITION, MESSAGE)                                \
@@ -33,6 +33,6 @@ DEFINE_STANDARD_HANDLE(Standard_AbortiveTransaction, Standard_Failure)
   #define Standard_AbortiveTransaction_Raise_if(CONDITION, MESSAGE)
 #endif
 
-DEFINE_STANDARD_EXCEPTION(Standard_AbortiveTransaction, Standard_Failure)
+DEFINE_STANDARD_EXCEPTION(Standard_AbortiveTransaction, ExceptionBase)
 
 #endif // _Standard_AbortiveTransaction_HeaderFile

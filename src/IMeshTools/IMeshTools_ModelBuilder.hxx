@@ -49,7 +49,7 @@ public:
 
       return performInternal(theShape, theParameters);
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
       SetStatus(Message_Fail2);
       return NULL;

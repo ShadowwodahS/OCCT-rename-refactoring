@@ -417,7 +417,7 @@ void Geom2dAPI_PointsToBSpline::Init(const TColgp_Array1OfPnt2d& Points,
   {
     Variation.Approximate();
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     return;
   }

@@ -495,7 +495,7 @@ void BRepOffsetAPI_ThruSections::Build(const Message_ProgressRange& /*theRange*/
       CreateSmoothed();
     }
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     NotDone();
     return;

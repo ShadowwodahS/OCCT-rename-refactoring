@@ -182,7 +182,7 @@ void ChFi2d_AnaFilletAlgo::Init(const TopoDS_Wire& theWire, const gp_Pln& thePla
   TopoDS_Vertex v1, v2;
   TopExp::Vertices(e1, v1, v2, Standard_True);
   if (v1.IsNull() || v2.IsNull())
-    throw Standard_Failure("An infinite edge.");
+    throw ExceptionBase("An infinite edge.");
 
   gp_Pnt   P1 = BRep_Tool::Pnt(v1);
   gp_Pnt   P2 = BRep_Tool::Pnt(v2);
@@ -211,7 +211,7 @@ void ChFi2d_AnaFilletAlgo::Init(const TopoDS_Wire& theWire, const gp_Pln& thePla
 
   TopExp::Vertices(e2, v1, v2, Standard_True);
   if (v1.IsNull() || v2.IsNull())
-    throw Standard_Failure("An infinite edge.");
+    throw ExceptionBase("An infinite edge.");
 
   P1 = BRep_Tool::Pnt(v1);
   P2 = BRep_Tool::Pnt(v2);
@@ -246,7 +246,7 @@ void ChFi2d_AnaFilletAlgo::Init(const TopoDS_Edge& theEdge1,
   TopExp::Vertices(theEdge1, v11, v12, Standard_True);
   TopExp::Vertices(theEdge2, v21, v22, Standard_True);
   if (v11.IsNull() || v12.IsNull() || v21.IsNull() || v22.IsNull())
-    throw Standard_Failure("An infinite edge.");
+    throw ExceptionBase("An infinite edge.");
 
   gp_Pnt p11 = BRep_Tool::Pnt(v11);
   gp_Pnt p12 = BRep_Tool::Pnt(v12);
@@ -263,7 +263,7 @@ void ChFi2d_AnaFilletAlgo::Init(const TopoDS_Edge& theEdge1,
     pcommon = p12;
   }
   else
-    throw Standard_Failure("The edges have no common point.");
+    throw ExceptionBase("The edges have no common point.");
 
   // Reverse the edges in case of need (to construct a wire).
   Standard_Boolean is1stReversed(Standard_False), is2ndReversed(Standard_False);
@@ -283,7 +283,7 @@ void ChFi2d_AnaFilletAlgo::Init(const TopoDS_Edge& theEdge1,
   else
     mkWire.Add(theEdge2);
   if (!mkWire.IsDone())
-    throw Standard_Failure("Can't make a wire.");
+    throw ExceptionBase("Can't make a wire.");
 
   const TopoDS_Wire& W = mkWire.Wire();
   Init(W, thePlane);

@@ -23,7 +23,7 @@
 #include <Standard_Failure.hxx>
 
 class PCDM_DriverError;
-DEFINE_STANDARD_HANDLE(PCDM_DriverError, Standard_Failure)
+DEFINE_STANDARD_HANDLE(PCDM_DriverError, ExceptionBase)
 
 #if !defined No_Exception && !defined No_PCDM_DriverError
   #define PCDM_DriverError_Raise_if(CONDITION, MESSAGE)                                            \
@@ -33,6 +33,6 @@ DEFINE_STANDARD_HANDLE(PCDM_DriverError, Standard_Failure)
   #define PCDM_DriverError_Raise_if(CONDITION, MESSAGE)
 #endif
 
-DEFINE_STANDARD_EXCEPTION(PCDM_DriverError, Standard_Failure)
+DEFINE_STANDARD_EXCEPTION(PCDM_DriverError, ExceptionBase)
 
 #endif // _PCDM_DriverError_HeaderFile

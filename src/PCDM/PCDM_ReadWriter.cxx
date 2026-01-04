@@ -61,7 +61,7 @@ void PCDM_ReadWriter::Open(const Handle(Storage_BaseDriver)& aDriver,
         break;
     }
     aMsg << (char)0;
-    throw Standard_Failure(aMsg.str().c_str());
+    throw ExceptionBase(aMsg.str().c_str());
   }
 }
 
@@ -130,7 +130,7 @@ TCollection_ExtendedString PCDM_ReadWriter::FileFormat(const TCollection_Extende
       theFormat = td.Types()->Value(1);
     }
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
   }
 

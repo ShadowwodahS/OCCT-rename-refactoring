@@ -213,7 +213,7 @@ private:
 
       this->registerNode(BRep_Tool::Pnt(theVertex), aPnt2d, BRepMesh_Fixed, Standard_False);
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
     }
   }

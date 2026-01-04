@@ -36,7 +36,7 @@ Graphic3d_CubeMapSeparate::Graphic3d_CubeMapSeparate(
   }
   else
   {
-    throw Standard_Failure("Invalid number of paths to load Graphic3d_CubeMapSeparate");
+    throw ExceptionBase("Invalid number of paths to load Graphic3d_CubeMapSeparate");
   }
 }
 
@@ -79,7 +79,7 @@ Graphic3d_CubeMapSeparate::Graphic3d_CubeMapSeparate(
   }
   else
   {
-    throw Standard_Failure("Invalid number of images in Graphic3d_CubeMapSeparate initialization");
+    throw ExceptionBase("Invalid number of images in Graphic3d_CubeMapSeparate initialization");
   }
 }
 

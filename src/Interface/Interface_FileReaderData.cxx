@@ -257,7 +257,7 @@ const Handle(RefObject)& Interface_FileReaderData::BoundEntity(
 
  //   return dummy;
  // }
-    catch (Standard_Failure) {
+    catch (ExceptionBase) {
 
     // some work-around, the best would be to modify CDL to
     // return "Handle(RefObject)" not "const Handle(RefObject)&"

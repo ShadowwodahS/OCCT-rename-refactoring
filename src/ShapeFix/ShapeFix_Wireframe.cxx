@@ -414,7 +414,7 @@ static Standard_Boolean JoinEdges(const TopoDS_Edge&          E1,
     E3 = newedge;
     return ReplaceFirst;
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
 #ifdef OCCT_DEBUG
     std::cout << "Error: ShapeFix_Wireframe::FixSmallEdges: JoinEdges: Exception in "

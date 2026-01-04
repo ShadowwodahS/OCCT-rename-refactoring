@@ -530,7 +530,7 @@ void ShapeUpgrade_SplitSurface::Build(const Standard_Boolean Segment)
           }
           myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
         }
-        catch (Standard_Failure const& anException)
+        catch (ExceptionBase const& anException)
         {
 #ifdef OCCT_DEBUG
           std::cout << "Warning: ShapeUpgrade_SplitSurface::Build(): Exception in Segment      :";

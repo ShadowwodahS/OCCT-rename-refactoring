@@ -467,7 +467,7 @@ void TopoDSToStep_MakeStepFace::Init(const TopoDS_Face&                    aFace
       done    = Standard_False;
     }
   }
-  catch (Standard_Failure const& theFailure)
+  catch (ExceptionBase const& theFailure)
   {
     FP->AddFail(errShape, theFailure.GetMessageString());
     myError = TopoDSToStep_FaceOther;

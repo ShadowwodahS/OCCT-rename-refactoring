@@ -355,7 +355,7 @@ Standard_Boolean ShapeFix_Wire::FixGap3d(const Standard_Integer num, const Stand
             tc = new Geom_TrimmedCurve(c, first, last);
           bsp = GeomConvert::CurveToBSplineCurve(tc);
         }
-        catch (Standard_Failure const& anException)
+        catch (ExceptionBase const& anException)
         {
 #ifdef OCCT_DEBUG
           std::cout << "Warning: ShapeFix_Wire_1::FixGap3d: Exception in TrimmedCurve" << first
@@ -618,7 +618,7 @@ Standard_Boolean ShapeFix_Wire::FixGap3d(const Standard_Integer num, const Stand
               done1 = done2 = Standard_True;
             }
           }
-          catch (Standard_Failure const&)
+          catch (ExceptionBase const&)
           {
           }
         }
@@ -668,7 +668,7 @@ Standard_Boolean ShapeFix_Wire::FixGap3d(const Standard_Integer num, const Stand
           }
         }
       }
-      catch (Standard_Failure const& anException)
+      catch (ExceptionBase const& anException)
       {
 #ifdef OCCT_DEBUG
         std::cout << "Warning: ShapeFix_Wire_1::FixGap3d: Exception in TrimmedCurve      :"
@@ -1006,7 +1006,7 @@ Standard_Boolean ShapeFix_Wire::FixGap2d(const Standard_Integer num, const Stand
             c = new Geom2d_TrimmedCurve(pc, first, last);
           bsp = Geom2dConvert::CurveToBSplineCurve(c);
         }
-        catch (Standard_Failure const& anException)
+        catch (ExceptionBase const& anException)
         {
 #ifdef OCCT_DEBUG
           std::cout << "Warning: ShapeFix_Wire_1::FixGap2d: Exception in TrimmedCurve2d" << first
@@ -1681,7 +1681,7 @@ Standard_Boolean ShapeFix_Wire::FixGap2d(const Standard_Integer num, const Stand
           }
         }
       }
-      catch (Standard_Failure const& anException)
+      catch (ExceptionBase const& anException)
       {
 #ifdef OCCT_DEBUG
         std::cout << "Warning: ShapeFix_Wire_1::FixGap2d: Exception in TrimmedCurve2d  :"

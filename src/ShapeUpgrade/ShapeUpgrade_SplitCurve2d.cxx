@@ -172,7 +172,7 @@ void ShapeUpgrade_SplitCurve2d::Build(const Standard_Boolean Segment)
           else if (myCurve->IsKind(STANDARD_TYPE(Geom2d_BezierCurve)))
             Handle(Geom2d_BezierCurve)::DownCast(theNewCurve)->Segment(First, Last);
         }
-        catch (Standard_Failure const& anException)
+        catch (ExceptionBase const& anException)
         {
 #ifdef OCCT_DEBUG
           std::cout << "Warning: ShapeUpgrade_Split2dCurve::Build(): Exception in Segment      :";
@@ -239,7 +239,7 @@ void ShapeUpgrade_SplitCurve2d::Build(const Standard_Boolean Segment)
             Handle(Geom2d_BezierCurve)::DownCast(theNewCurve)->Segment(Firstt, Lastt);
           myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
         }
-        catch (Standard_Failure const& anException)
+        catch (ExceptionBase const& anException)
         {
 #ifdef OCCT_DEBUG
           std::cout << "Warning: ShapeUpgrade_Split2dCurve::Build(): Exception in Segment      :";

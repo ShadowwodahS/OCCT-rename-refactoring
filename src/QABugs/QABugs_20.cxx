@@ -1897,7 +1897,7 @@ int test<4>()
       for (;;)
         aList.Append(Standard::Allocate(aBlockSizes[i]));
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
       aStatus |= OUMCatchOK;
     }
@@ -2143,7 +2143,7 @@ static Standard_Integer OCC26930(Draw_Interpretor& theDI,
       Handle(Geom_Curve) aTmpCurve = aCurve; // to use reference in Perform()
       aProj.Perform(aTmpCurve, aStart, anEnd, aPCurve);
     }
-    catch (const Standard_Failure&)
+    catch (const ExceptionBase&)
     {
     }
   }
@@ -2519,7 +2519,7 @@ static Standard_Integer OCC27357(Draw_Interpretor& theDI, Standard_Integer, cons
         aCircleBuilder(qualifiedC1, qualifiedC2, Geom2dAdaptor_Curve(normalLine), 1e-9, g1, g1, g3);
       aDuumyList.Append(aCircleBuilder.NbSolutions());
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
       theDI << "Exception was caught\n";
     }
@@ -2569,7 +2569,7 @@ static Standard_Integer OCC26270(Draw_Interpretor& theDI,
         DBRep::Set(theArgVal[2], bsp_face1);
       }
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
       theDI << "ERROR: Exception in GeomFill_NSections\n";
     }
@@ -3633,7 +3633,7 @@ static Standard_Integer OCC29925(Draw_Interpretor& theDI, Standard_Integer, cons
       anOp = "UpperCase";
       UpperCase(c);
     }
-    catch (const Handle(Standard_Failure)& e)
+    catch (const Handle(ExceptionBase)& e)
     {
       theDI << anOp << "() fails for " << c << " (" << e->DynamicType()->Name() << ")\n";
     }
@@ -4156,7 +4156,7 @@ static Standard_Integer OCC30708_1(Draw_Interpretor& di, Standard_Integer, const
     TopoDS_Shape empty;
     it.Initialize(empty);
   }
-  catch (const Standard_Failure&)
+  catch (const ExceptionBase&)
   {
     di << "Cannot initialize TopoDS_Iterator with null shape\n";
     return 0;
@@ -4181,7 +4181,7 @@ static Standard_Integer OCC30708_2(Draw_Interpretor& di, Standard_Integer, const
     TopoDS_Wire      empty;
     BRepLib_MakeWire aWBuilder(empty);
   }
-  catch (const Standard_Failure&)
+  catch (const ExceptionBase&)
   {
     di << "Cannot initialize BRepLib_MakeWire with null wire\n";
   }
@@ -4670,7 +4670,7 @@ private:
       OCC_CATCH_SIGNALS
       aLoader->perform();
     }
-    catch (Standard_Failure const& theExcep)
+    catch (ExceptionBase const& theExcep)
     {
       Message::SendFail() << "Error: unexpected exception " << theExcep;
       return 0;

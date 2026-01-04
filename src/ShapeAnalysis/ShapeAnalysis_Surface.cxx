@@ -524,7 +524,7 @@ static Handle(Geom_Curve) ComputeIso(const Handle(Geom_Surface)& surf,
     else
       iso = surf->VIso(par);
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
 #ifdef OCCT_DEBUG
     //: s5
@@ -1385,7 +1385,7 @@ gp_Pnt2d ShapeAnalysis_Surface::ValueOfUV(const gp_Pnt& P3D, const Standard_Real
 
     } // end Try ValueOfUV (CKY 30-DEC-1997)
 
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
 #ifdef OCCT_DEBUG
       //   Pas de raison mais qui sait. Mieux vaut retourner un truc faux que stopper
@@ -1713,7 +1713,7 @@ Standard_Real ShapeAnalysis_Surface::UVFromIso(const gp_Pnt&       P3d,
     V = VV;
 
   } // fin try RAJOUT
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
 #ifdef OCCT_DEBUG
     //: s5

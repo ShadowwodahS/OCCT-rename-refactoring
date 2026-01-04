@@ -211,7 +211,7 @@ void IGESSelect_WorkLibrary::DumpEntity(const Handle(Interface_InterfaceModel)& 
     OCC_CATCH_SIGNALS
     dump.Dump(igesent, S, level, (level - 1) / 3);
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     S << " **  Dump Interrupt **" << std::endl;
   }

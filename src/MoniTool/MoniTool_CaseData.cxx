@@ -148,7 +148,7 @@ void MoniTool_CaseData::AddData(const Handle(RefObject)& val,
   thesubst = 0;
 }
 
-void MoniTool_CaseData::AddRaised(const Handle(Standard_Failure)& theException,
+void MoniTool_CaseData::AddRaised(const Handle(ExceptionBase)& theException,
                                   const Standard_CString          name)
 {
   AddData(theException, 1, name);

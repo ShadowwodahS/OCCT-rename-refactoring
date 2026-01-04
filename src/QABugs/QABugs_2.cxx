@@ -129,7 +129,7 @@ static Standard_Integer OCC527(Draw_Interpretor& di, Standard_Integer argc, cons
       }
     }
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     di << "OCC527 Exception \n";
     return 0;

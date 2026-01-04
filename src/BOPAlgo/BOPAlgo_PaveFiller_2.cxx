@@ -114,7 +114,7 @@ public:
 
       myFlag = myContext->ComputeVE(myV, myE, myT, myTolVNew, myFuzzyValue);
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
       AddError(new BOPAlgo_AlertIntersectionFailed);
     }

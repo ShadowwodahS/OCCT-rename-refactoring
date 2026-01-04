@@ -23,7 +23,7 @@
 #include <Standard_Failure.hxx>
 
 class Standard_NumericError;
-DEFINE_STANDARD_HANDLE(Standard_NumericError, Standard_Failure)
+DEFINE_STANDARD_HANDLE(Standard_NumericError, ExceptionBase)
 
 #if !defined No_Exception && !defined No_Standard_NumericError
   #define Standard_NumericError_Raise_if(CONDITION, MESSAGE)                                       \
@@ -33,6 +33,6 @@ DEFINE_STANDARD_HANDLE(Standard_NumericError, Standard_Failure)
   #define Standard_NumericError_Raise_if(CONDITION, MESSAGE)
 #endif
 
-DEFINE_STANDARD_EXCEPTION(Standard_NumericError, Standard_Failure)
+DEFINE_STANDARD_EXCEPTION(Standard_NumericError, ExceptionBase)
 
 #endif // _Standard_NumericError_HeaderFile

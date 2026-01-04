@@ -165,7 +165,7 @@ static Standard_Real ComputeTolReached(const Handle(Adaptor3d_Curve)&  c3d,
       Pc3d  = c3d->Value(u);
       Pcons = cons.Value(u);
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
       d2 = Precision::Infinite();
       break;

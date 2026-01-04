@@ -23,7 +23,7 @@
 #include <Standard_Failure.hxx>
 
 class StdFail_Undefined;
-DEFINE_STANDARD_HANDLE(StdFail_Undefined, Standard_Failure)
+DEFINE_STANDARD_HANDLE(StdFail_Undefined, ExceptionBase)
 
 #if !defined No_Exception && !defined No_StdFail_Undefined
   #define StdFail_Undefined_Raise_if(CONDITION, MESSAGE)                                           \
@@ -33,6 +33,6 @@ DEFINE_STANDARD_HANDLE(StdFail_Undefined, Standard_Failure)
   #define StdFail_Undefined_Raise_if(CONDITION, MESSAGE)
 #endif
 
-DEFINE_STANDARD_EXCEPTION(StdFail_Undefined, Standard_Failure)
+DEFINE_STANDARD_EXCEPTION(StdFail_Undefined, ExceptionBase)
 
 #endif // _StdFail_Undefined_HeaderFile

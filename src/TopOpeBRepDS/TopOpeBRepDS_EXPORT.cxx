@@ -437,7 +437,7 @@ Standard_EXPORT Standard_Real FDS_Parameter(const Handle(TopOpeBRepDS_Interferen
     p = Handle(TopOpeBRepDS_CurvePointInterference)::DownCast(I)->Parameter();
   else
   {
-    throw Standard_Failure("FDS_Parameter");
+    throw ExceptionBase("FDS_Parameter");
   }
   return p;
 }

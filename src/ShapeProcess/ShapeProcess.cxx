@@ -167,7 +167,7 @@ Standard_Boolean ShapeProcess::Perform(const Handle(ShapeProcess_Context)& conte
       if (op->Perform(context, aRange))
         isDone = Standard_True;
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
       Message_Msg SMSG2("SP.Sequence.Error.Except"); // Operator %s failed with exception %s
       SMSG2 << oper << anException.GetMessageString();
@@ -211,7 +211,7 @@ Standard_Boolean ShapeProcess::Perform(const Handle(ShapeProcess_Context)&  theC
       OCC_CATCH_SIGNALS;
       anIsAnySuccess |= anOperation->Perform(theContext, aProgressRange);
     }
-    catch (const Standard_Failure& anException)
+    catch (const ExceptionBase& anException)
     {
       Message_Msg aMessage("SP.Sequence.Error.Except"); // Operator %s failed with exception %s
       aMessage << anOperationName << anException.GetMessageString();

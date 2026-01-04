@@ -869,7 +869,7 @@ void GeomLib::SameRange(const Standard_Real         Tolerance,
                         Handle(Geom2d_Curve)&       NewCurvePtr)
 {
   if (CurvePtr.IsNull())
-    throw Standard_Failure();
+    throw ExceptionBase();
   if (Abs(LastOnCurve - RequestedLast) <= Tolerance
       && Abs(FirstOnCurve - RequestedFirst) <= Tolerance)
   {

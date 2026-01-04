@@ -616,12 +616,12 @@ void TopOpeBRepBuild_FaceBuilder::NextEdge()
 const TopoDS_Shape& TopOpeBRepBuild_FaceBuilder::Edge() const
 {
   if (!myBlockIterator.More())
-    throw Standard_Failure("OutOfRange");
+    throw ExceptionBase("OutOfRange");
 
   const Standard_Integer i       = myBlockIterator.Value();
   Standard_Boolean       isvalid = myBlockBuilder.ElementIsValid(i);
   if (!isvalid)
-    throw Standard_Failure("Edge not Valid");
+    throw ExceptionBase("Edge not Valid");
 
   const TopoDS_Shape& E = myBlockBuilder.Element(i);
   return E;

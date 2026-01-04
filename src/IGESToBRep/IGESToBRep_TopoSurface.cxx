@@ -797,7 +797,7 @@ TopoDS_Shape IGESToBRep_TopoSurface::TransferSurfaceOfRevolution(
         } // if ( !aResultSurf.IsNull())
       } // if (extractCurve3d(generatrix, aBasisCurve))
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
 #ifdef OCCT_DEBUG
       std::cout << "Warning: IgesToBRep_TopoSurface::"
@@ -806,7 +806,7 @@ TopoDS_Shape IGESToBRep_TopoSurface::TransferSurfaceOfRevolution(
       std::cout << std::endl;
 #endif
       (void)anException;
-    } // catch (Standard_Failure)
+    } // catch (ExceptionBase)
   }
 
   if (res.IsNull())
@@ -944,7 +944,7 @@ TopoDS_Shape IGESToBRep_TopoSurface::TransferTabulatedCylinder(
         }
       }
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
 #ifdef OCCT_DEBUG
       std::cout

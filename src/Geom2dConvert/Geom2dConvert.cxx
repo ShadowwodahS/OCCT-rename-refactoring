@@ -853,7 +853,7 @@ static GeomAbs_Shape Continuity(const Handle(Geom2d_Curve)& C1,
     }
   }
   else
-    throw Standard_Failure("Courbes non jointives");
+    throw ExceptionBase("Courbes non jointives");
   return cont;
 }
 

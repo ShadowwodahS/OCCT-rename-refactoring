@@ -77,7 +77,7 @@ public:
       // aRes = Draw::GetInterpretor().Eval (theCommand.c_str());
       aRes = Draw_Interprete(theCommand.c_str()) ? 1 : 0;
     }
-    catch (Standard_Failure& anExcept)
+    catch (ExceptionBase& anExcept)
     {
       std::cout << "Failed to evaluate command: " << anExcept.GetMessageString() << std::endl;
     }

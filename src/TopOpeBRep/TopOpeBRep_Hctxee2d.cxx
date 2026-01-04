@@ -62,7 +62,7 @@ void TopOpeBRep_Hctxee2d::SetEdges(const TopoDS_Edge&         E1,
   Handle(Geom2d_Curve) PC1;
   PC1 = FC2D_CurveOnSurface(myEdge1, F1, first, last, tolpc);
   if (PC1.IsNull())
-    throw Standard_Failure("TopOpeBRep_Hctxee2d::SetEdges : no 2d curve");
+    throw ExceptionBase("TopOpeBRep_Hctxee2d::SetEdges : no 2d curve");
   myCurve1.Load(PC1);
   BRep_Tool::UVPoints(myEdge1, F1, pfirst, plast);
   tole = BRep_Tool::Tolerance(myEdge1);
@@ -194,7 +194,7 @@ const TopoDS_Shape& TopOpeBRep_Hctxee2d::Edge(const Standard_Integer Index) cons
   else if (Index == 2)
     return myEdge2;
   else
-    throw Standard_Failure("TopOpeBRep_Hctxee2d::Edge");
+    throw ExceptionBase("TopOpeBRep_Hctxee2d::Edge");
 }
 
 //=================================================================================================
@@ -206,7 +206,7 @@ const Geom2dAdaptor_Curve& TopOpeBRep_Hctxee2d::Curve(const Standard_Integer Ind
   else if (Index == 2)
     return myCurve2;
   else
-    throw Standard_Failure("TopOpeBRep_Hctxee2d::Curve");
+    throw ExceptionBase("TopOpeBRep_Hctxee2d::Curve");
 }
 
 //=================================================================================================
@@ -218,5 +218,5 @@ const IntRes2d_Domain& TopOpeBRep_Hctxee2d::Domain(const Standard_Integer Index)
   else if (Index == 2)
     return myDomain2;
   else
-    throw Standard_Failure("TopOpeBRep_Hctxee2d::Domain");
+    throw ExceptionBase("TopOpeBRep_Hctxee2d::Domain");
 }

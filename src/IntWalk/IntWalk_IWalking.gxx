@@ -2883,7 +2883,7 @@ void IntWalk_IWalking::MakeWalkingPoint(const Standard_Integer Case,
   //                  The computation of the tangency on is done
   // Case == 10 + i : make a WalkinkPoint according to i.
   //                  but F is updated according to U and V
-  // Case == other  : the exception Standard_Failure is raised.
+  // Case == other  : the exception ExceptionBase is raised.
 
   if ((Case == 1) || (Case == 2))
   {

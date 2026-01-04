@@ -210,7 +210,7 @@ Standard_Boolean StepToTopoDS_TranslateCompositeCurve::Init(
           }
         }
       }
-      catch (Standard_Failure const& anException)
+      catch (ExceptionBase const& anException)
       {
 #ifdef OCCT_DEBUG
         std::cout << "Warning: StepToTopoDS_TranslateCompositeCurve: Exception: ";
@@ -256,7 +256,7 @@ Standard_Boolean StepToTopoDS_TranslateCompositeCurve::Init(
           }
         }
       }
-      catch (Standard_Failure const& anException)
+      catch (ExceptionBase const& anException)
       {
 #ifdef OCCT_DEBUG
         std::cout << "Warning: StepToTopoDS_TranslateCompositeCurve: Exception: ";

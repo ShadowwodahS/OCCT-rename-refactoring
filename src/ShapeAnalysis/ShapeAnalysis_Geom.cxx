@@ -199,7 +199,7 @@ Standard_Boolean ShapeAnalysis_Geom::PositionTrsf(const Handle(TColStd_HArray2Of
   if (tp.X() != 0 || tp.Y() != 0 || tp.Z() != 0)
     trsf.SetTranslationPart(tp);
   /* }
-  catch(Standard_Failure) {
+  catch(ExceptionBase) {
     trsf = gp_Trsf();
     result = Standard_False;
   } */

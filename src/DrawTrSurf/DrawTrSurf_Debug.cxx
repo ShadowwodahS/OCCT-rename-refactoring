@@ -51,7 +51,7 @@ Standard_EXPORT const char* DrawTrSurf_Set(const char* theNameStr, void* theHand
 
     return "Error: Not a geometric object";
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     return anException.GetMessageString();
   }
@@ -77,7 +77,7 @@ Standard_EXPORT const char* DrawTrSurf_SetPnt(const char* theNameStr, void* theP
     DrawTrSurf::Set(theNameStr, aP);
     return buff;
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     return anException.GetMessageString();
   }
@@ -98,7 +98,7 @@ Standard_EXPORT const char* DrawTrSurf_SetPnt2d(const char* theNameStr, void* th
     DrawTrSurf::Set(theNameStr, aP);
     return buff;
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     return anException.GetMessageString();
   }

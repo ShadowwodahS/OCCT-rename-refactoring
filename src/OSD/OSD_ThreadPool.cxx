@@ -253,7 +253,7 @@ void OSD_ThreadPool::Launcher::wait()
 
 //=================================================================================================
 
-void OSD_ThreadPool::performJob(Handle(Standard_Failure)&     theFailure,
+void OSD_ThreadPool::performJob(Handle(ExceptionBase)&     theFailure,
                                 OSD_ThreadPool::JobInterface* theJob,
                                 int                           theThreadIndex)
 {
@@ -262,7 +262,7 @@ void OSD_ThreadPool::performJob(Handle(Standard_Failure)&     theFailure,
     OCC_CATCH_SIGNALS
     theJob->Perform(theThreadIndex);
   }
-  catch (Standard_Failure const& aFailure)
+  catch (ExceptionBase const& aFailure)
   {
     TCollection_AsciiString aMsg =
       TCollection_AsciiString(aFailure.DynamicType()->Name()) + ": " + aFailure.GetMessageString();

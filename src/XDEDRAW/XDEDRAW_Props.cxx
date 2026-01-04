@@ -75,7 +75,7 @@ static double TetraVol(gp_Pnt RefPoint, gp_Pnt Som1, gp_Pnt Som2, gp_Pnt Som3)
       N        = v1 ^ v2;
       Plane123 = gp_Pln(Som1, gp_Dir(N));
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
       return (0.);
     }
@@ -625,7 +625,7 @@ static Standard_Integer CheckProps(Draw_Interpretor& di, Standard_Integer argc, 
                 (wholeDoc ? "" : "\n"));
         di << string2;
       }
-      catch (Standard_Failure const&)
+      catch (ExceptionBase const&)
       {
         // printf ( "%-16.16s", "exception" );
         char string3[260];
@@ -726,7 +726,7 @@ static Standard_Integer CheckProps(Draw_Interpretor& di, Standard_Integer argc, 
           di << string8;
         }
       }
-      catch (Standard_Failure const& anException)
+      catch (ExceptionBase const& anException)
       {
         // printf ( "%40.40s", "exception" );
         char string9[260];

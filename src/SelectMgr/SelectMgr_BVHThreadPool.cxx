@@ -136,7 +136,7 @@ void SelectMgr_BVHThreadPool::BVHThread::performThread()
         OCC_CATCH_SIGNALS
         anEntity->BVH();
       }
-      catch (Standard_Failure const& aFailure)
+      catch (ExceptionBase const& aFailure)
       {
         TCollection_AsciiString aMsg = TCollection_AsciiString(aFailure.DynamicType()->Name())
                                        + ": " + aFailure.GetMessageString();

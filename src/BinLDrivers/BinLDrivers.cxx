@@ -55,7 +55,7 @@ const Handle(RefObject)& BinLDrivers::Factory(const Standard_GUID& theGUID)
     return model_rd;
   }
 
-  throw Standard_Failure("BinLDrivers : unknown GUID");
+  throw ExceptionBase("BinLDrivers : unknown GUID");
 }
 
 //=================================================================================================

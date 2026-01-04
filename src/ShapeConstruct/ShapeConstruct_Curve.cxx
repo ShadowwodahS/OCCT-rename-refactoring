@@ -174,7 +174,7 @@ Handle(Geom_BSplineCurve) ShapeConstruct_Curve::ConvertToBSpline(const Handle(Ge
       OCC_CATCH_SIGNALS
       bspl = GeomConvert::CurveToBSplineCurve(tc);
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
 #ifdef OCCT_DEBUG
       std::cout << "Warning: ShapeConstruct_Curve::ConvertToBSpline(): Exception in GeomConvert: ";
@@ -209,7 +209,7 @@ Handle(Geom_BSplineCurve) ShapeConstruct_Curve::ConvertToBSpline(const Handle(Ge
       bspl->Segment(fbsp, lbsp);
       return bspl;
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
 #ifdef OCCT_DEBUG
       std::cout << "Warning: ShapeConstruct_Curve::ConvertToBSpline(): Exception in Segment: ";
@@ -234,7 +234,7 @@ Handle(Geom_BSplineCurve) ShapeConstruct_Curve::ConvertToBSpline(const Handle(Ge
     if (Conv.IsDone() || Conv.HasResult())
       bspl = Conv.Curve();
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
 #ifdef OCCT_DEBUG
     std::cout << "Warning: ShapeConstruct_Curve::ConvertToBSpline(): Exception in Approx_Curve3d: ";
@@ -267,7 +267,7 @@ Handle(Geom2d_BSplineCurve) ShapeConstruct_Curve::ConvertToBSpline(const Handle(
       OCC_CATCH_SIGNALS
       bspl = Geom2dConvert::CurveToBSplineCurve(tc);
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
 #ifdef OCCT_DEBUG
       std::cout
@@ -303,7 +303,7 @@ Handle(Geom2d_BSplineCurve) ShapeConstruct_Curve::ConvertToBSpline(const Handle(
       bspl->Segment(fbsp, lbsp);
       return bspl;
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
 #ifdef OCCT_DEBUG
       std::cout << "Warning: ShapeConstruct_Curve::ConvertToBSpline(): Exception in Segment: ";
@@ -335,7 +335,7 @@ Handle(Geom2d_BSplineCurve) ShapeConstruct_Curve::ConvertToBSpline(const Handle(
     if (Conv.IsDone() || Conv.HasResult())
       bspl = Conv.Curve();
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
 #ifdef OCCT_DEBUG
     std::cout << "Warning: ShapeConstruct_Curve::ConvertToBSpline(): Exception in Approx_Curve3d: ";

@@ -2139,7 +2139,7 @@ Standard_Integer ChFi3d_SolidIndex(const Handle(ChFiDS_Spine)& sp,
                                    ChFiDS_Map&                 MapESh)
 {
   if (sp.IsNull() || sp->NbEdges() == 0)
-    throw Standard_Failure("SolidIndex : Spine incomplete");
+    throw ExceptionBase("SolidIndex : Spine incomplete");
   TopoDS_Shape edref = sp->Edges(1);
   TopoDS_Shape shellousolid;
   if (!MapESo(edref).IsEmpty())

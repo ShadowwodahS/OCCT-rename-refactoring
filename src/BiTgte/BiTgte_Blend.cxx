@@ -916,7 +916,7 @@ void BiTgte_Blend::Perform(const Standard_Boolean BuildShape)
   Sew->Perform();
   TopoDS_Shape SewedShape = Sew->SewedShape();
   if (SewedShape.IsNull())
-    throw Standard_Failure("Sewing aux fraises");
+    throw ExceptionBase("Sewing aux fraises");
 
   // Check if the sewing modified the orientation.
   expf.Init(myShape, TopAbs_FACE);

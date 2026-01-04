@@ -333,7 +333,7 @@ Standard_Boolean IGESToBRep::TransferPCurve(const TopoDS_Edge& fromedge,
           result = Standard_False;
         }
       }
-      catch (Standard_Failure const& anException)
+      catch (ExceptionBase const& anException)
       {
 #ifdef OCCT_DEBUG
         std::cout << "\n**IGESToBRep::TransferPCurve: Exception in SameRange : ";

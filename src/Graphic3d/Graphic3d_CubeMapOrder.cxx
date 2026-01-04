@@ -70,7 +70,7 @@ Graphic3d_ValidatedCubeMapOrder Graphic3d_CubeMapOrder::Validated() const
 {
   if (!IsValid())
   {
-    throw Standard_Failure(
+    throw ExceptionBase(
       "Try of Graphic3d_ValidatedCubeMapOrder creation using invalid Graphic3d_CubeMapOrder");
   }
 

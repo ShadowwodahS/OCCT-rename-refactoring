@@ -42,7 +42,7 @@ inline Standard_Boolean ChFiDS_SurfData::IsOnCurve1() const
 inline Standard_Integer ChFiDS_SurfData::IndexOfC1() const
 {
   if (!isoncurv1)
-    throw Standard_Failure("Interference pas sur courbe");
+    throw ExceptionBase("Interference pas sur courbe");
   return indexOfC1;
 }
 
@@ -85,7 +85,7 @@ inline Standard_Boolean ChFiDS_SurfData::IsOnCurve2() const
 inline Standard_Integer ChFiDS_SurfData::IndexOfC2() const
 {
   if (!isoncurv2)
-    throw Standard_Failure("Interference pas sur courbe");
+    throw ExceptionBase("Interference pas sur courbe");
   return indexOfC2;
 }
 
@@ -302,11 +302,11 @@ inline Standard_Integer ChFiDS_SurfData::IndexOfC(const Standard_Integer OnS) co
   if (OnS == 1)
   {
     if (!isoncurv1)
-      throw Standard_Failure("Interference pas sur courbe");
+      throw ExceptionBase("Interference pas sur courbe");
     return indexOfC1;
   }
   if (!isoncurv2)
-    throw Standard_Failure("Interference pas sur courbe");
+    throw ExceptionBase("Interference pas sur courbe");
   return indexOfC2;
 }
 

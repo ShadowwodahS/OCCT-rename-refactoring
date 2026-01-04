@@ -63,7 +63,7 @@
 #ifdef _WIN32
   #define EXCEPTION ...
 #else
-  #define EXCEPTION Standard_Failure const&
+  #define EXCEPTION ExceptionBase const&
 #endif
 #include <ModelDefinitions.hxx>
 
@@ -778,7 +778,7 @@ static Standard_Integer DNaming_AttachShape(Draw_Interpretor& di,
             if (!aSelector.Select(aShape, aCONTEXT, aGeometry, aKeepOrientation))
               return 1;
           }
-          catch (Standard_Failure const&)
+          catch (ExceptionBase const&)
           {
             std::cout << "EXCEPTION: SELECTION_IMPOSSIBLE" << std::endl;
           }
@@ -868,7 +868,7 @@ static Standard_Integer DNaming_XAttachShape(Draw_Interpretor& di,
               if (!aSelector.Select(aShape, aCONTEXT, aGeometry, aKeepOrientation))
                 return 1;
             }
-            catch (Standard_Failure const&)
+            catch (ExceptionBase const&)
             {
               std::cout << "EXCEPTION: SELECTION_IMPOSSIBLE" << std::endl;
             }
@@ -2250,7 +2250,7 @@ static Standard_Integer DNaming_TestSingle(Draw_Interpretor& theDI,
               isSelected = MakeXSelection(auxObj, aCurShape, aCntObj, Geometry, Orientation);
           }
         }
-        catch (Standard_Failure const& anException)
+        catch (ExceptionBase const& anException)
         {
           std::cout << "%%%INFO:Error: ::TestSingleSelection failed :";
           std::cout << anException.GetMessageString() << std::endl;
@@ -2406,7 +2406,7 @@ static Standard_Integer DNaming_Multiple(Draw_Interpretor& theDI,
               isSelected = MakeXSelection(auxObj, aCurShape, aCntObj, Geometry, Orientation);
           }
         }
-        catch (Standard_Failure const& anException)
+        catch (ExceptionBase const& anException)
         {
           std::cout << "%%%INFO:Error: ::TestSingleSelection failed :";
           std::cout << anException.GetMessageString() << std::endl;

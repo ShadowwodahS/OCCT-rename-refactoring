@@ -39,7 +39,7 @@ Standard_EXPORT const char* DBRep_Set(const char* theNameStr, void* theShapePtr)
     DBRep::Set(theNameStr, *(TopoDS_Shape*)theShapePtr);
     return theNameStr;
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     return anException.GetMessageString();
   }
@@ -61,7 +61,7 @@ static Standard_Boolean fromContainer(void* theContainer, TopoDS_Compound& theSh
     }
     return true;
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     return false;
   }

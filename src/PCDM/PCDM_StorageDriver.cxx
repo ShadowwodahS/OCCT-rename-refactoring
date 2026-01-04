@@ -51,7 +51,7 @@ void PCDM_StorageDriver::Write(const Handle(CDM_Document)&       aDocument,
     {
       OCC_CATCH_SIGNALS Make(aDocument, thePersistentDocuments);
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
       aMsg << anException << (char)0;
       Failure = Standard_True;

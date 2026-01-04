@@ -30,7 +30,7 @@ Vrml_DirectionalLight::Vrml_DirectionalLight(const Standard_Boolean aOnOff,
   myOnOff = aOnOff;
   if (aIntensity < 0. || aIntensity > 1.)
   {
-    throw Standard_Failure("Error : Light intensity must be in the range 0.0 to 1.0, inclusive.");
+    throw ExceptionBase("Error : Light intensity must be in the range 0.0 to 1.0, inclusive.");
   }
   myIntensity = aIntensity;
   myColor     = aColor;
@@ -51,7 +51,7 @@ void Vrml_DirectionalLight::SetIntensity(const Standard_Real aIntensity)
 {
   if (aIntensity < 0. || aIntensity > 1.)
   {
-    throw Standard_Failure("Error : Light intensity must be in the range 0.0 to 1.0, inclusive.");
+    throw ExceptionBase("Error : Light intensity must be in the range 0.0 to 1.0, inclusive.");
   }
   myIntensity = aIntensity;
 }

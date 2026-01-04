@@ -292,15 +292,15 @@ void BinTools_Curve2dSet::WriteCurve2d(const Handle(Geom2d_Curve)& C, BinTools_O
     }
     else
     {
-      throw Standard_Failure("UNKNOWN CURVE2d TYPE");
+      throw ExceptionBase("UNKNOWN CURVE2d TYPE");
     }
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     Standard_SStream aMsg;
     aMsg << "EXCEPTION in BinTools_Curve2dSet::WriteCurve2d(..)" << std::endl;
     aMsg << anException << std::endl;
-    throw Standard_Failure(aMsg.str().c_str());
+    throw ExceptionBase(aMsg.str().c_str());
   }
 }
 
@@ -584,18 +584,18 @@ Standard_IStream& BinTools_Curve2dSet::ReadCurve2d(Standard_IStream& IS, Handle(
 
       default: {
         C = NULL;
-        throw Standard_Failure("UNKNOWN CURVE2d TYPE");
+        throw ExceptionBase("UNKNOWN CURVE2d TYPE");
       }
       break;
     }
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     C = NULL;
     Standard_SStream aMsg;
     aMsg << "EXCEPTION in BinTools_Curve2dSet::ReadCurve2d(...)" << std::endl;
     aMsg << anException << std::endl;
-    throw Standard_Failure(aMsg.str().c_str());
+    throw ExceptionBase(aMsg.str().c_str());
   }
   return IS;
 }
@@ -614,7 +614,7 @@ void BinTools_Curve2dSet::Read(Standard_IStream& IS, const Message_ProgressRange
 #ifdef OCCT_DEBUG
     std::cout << "Curve2dSet buffer: " << buffer << std::endl;
 #endif
-    throw Standard_Failure(aMsg.str().c_str());
+    throw ExceptionBase(aMsg.str().c_str());
     return;
   }
 

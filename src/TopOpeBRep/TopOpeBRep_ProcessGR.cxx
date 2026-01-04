@@ -110,7 +110,7 @@ TopAbs_State TopOpeBRep_FacesFiller::StBipVPonF(const TopOpeBRep_VPointInter& vp
     if (IArc == 0)
     {
 #ifdef OCCT_DEBUG
-      throw Standard_Failure("StBipVPonF");
+      throw ExceptionBase("StBipVPonF");
 #else
       return TopAbs_UNKNOWN;
 #endif

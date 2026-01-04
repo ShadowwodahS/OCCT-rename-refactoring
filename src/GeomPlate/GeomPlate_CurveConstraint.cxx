@@ -69,7 +69,7 @@ GeomPlate_CurveConstraint ::GeomPlate_CurveConstraint(const Handle(Adaptor3d_Cur
 {
   myOrder = Tang;
   if ((Tang < -1) || (Tang > 2))
-    throw Standard_Failure("GeomPlate : The continuity is not G0 G1 or G2");
+    throw ExceptionBase("GeomPlate : The continuity is not G0 G1 or G2");
   myNbPoints = NPt;
   myConstG0  = Standard_True;
   myConstG1  = Standard_True;
@@ -97,7 +97,7 @@ GeomPlate_CurveConstraint ::GeomPlate_CurveConstraint(const Handle(Adaptor3d_Cur
       //      BS1=Handle(BRepAdaptor_Surface)::DownCast(myFrontiere->
       //                                            ChangeCurve().GetSurface());
       //      Surf = BRep_Tool::Surface(BS1->ChangeSurface().Face());
-      throw Standard_Failure("GeomPlate_CurveConstraint : Surface must be GeomAdaptor_Surface");
+      throw ExceptionBase("GeomPlate_CurveConstraint : Surface must be GeomAdaptor_Surface");
     }
 
     myLProp.SetSurface(Surf);
@@ -184,7 +184,7 @@ void GeomPlate_CurveConstraint ::D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V1
 {
   gp_Pnt2d P2d;
   if (!my3dCurve.IsNull())
-    throw Standard_Failure("GeomPlate_CurveConstraint.cxx : Curve must be on a Surface");
+    throw ExceptionBase("GeomPlate_CurveConstraint.cxx : Curve must be on a Surface");
 
   P2d = myFrontiere->GetCurve()->Value(U);
   myFrontiere->GetSurface()->D1(P2d.Coord(1), P2d.Coord(2), P, V1, V2);
@@ -203,7 +203,7 @@ void GeomPlate_CurveConstraint ::D2(const Standard_Real U,
 {
   gp_Pnt2d P2d;
   if (!my3dCurve.IsNull())
-    throw Standard_Failure("GeomPlate_CurveConstraint.cxx : Curve must be on a Surface");
+    throw ExceptionBase("GeomPlate_CurveConstraint.cxx : Curve must be on a Surface");
 
   P2d = myFrontiere->GetCurve()->Value(U);
   myFrontiere->GetSurface()->D2(P2d.Coord(1), P2d.Coord(2), P, V1, V2, V3, V4, V5);
@@ -224,7 +224,7 @@ void GeomPlate_CurveConstraint ::SetG0Criterion(const Handle(Law_Function)& G0Cr
 void GeomPlate_CurveConstraint ::SetG1Criterion(const Handle(Law_Function)& G1Crit)
 {
   if (!my3dCurve.IsNull())
-    throw Standard_Failure("GeomPlate_CurveConstraint.cxx : Curve must be on a Surface");
+    throw ExceptionBase("GeomPlate_CurveConstraint.cxx : Curve must be on a Surface");
   myG1Crit  = G1Crit;
   myConstG1 = Standard_False;
 }
@@ -235,7 +235,7 @@ void GeomPlate_CurveConstraint ::SetG1Criterion(const Handle(Law_Function)& G1Cr
 void GeomPlate_CurveConstraint ::SetG2Criterion(const Handle(Law_Function)& G2Crit)
 {
   if (!my3dCurve.IsNull())
-    throw Standard_Failure("GeomPlate_CurveConstraint.cxx : Curve must be on a Surface");
+    throw ExceptionBase("GeomPlate_CurveConstraint.cxx : Curve must be on a Surface");
   myG2Crit  = G2Crit;
   myConstG2 = Standard_False;
 }
@@ -257,7 +257,7 @@ Standard_Real GeomPlate_CurveConstraint ::G0Criterion(const Standard_Real U) con
 Standard_Real GeomPlate_CurveConstraint ::G1Criterion(const Standard_Real U) const
 {
   if (!my3dCurve.IsNull())
-    throw Standard_Failure("GeomPlate_CurveConstraint.cxx : Curve must be on a Surface");
+    throw ExceptionBase("GeomPlate_CurveConstraint.cxx : Curve must be on a Surface");
   if (myConstG1)
     return myTolAng;
   else
@@ -270,7 +270,7 @@ Standard_Real GeomPlate_CurveConstraint ::G1Criterion(const Standard_Real U) con
 Standard_Real GeomPlate_CurveConstraint ::G2Criterion(const Standard_Real U) const
 {
   if (!my3dCurve.IsNull())
-    throw Standard_Failure("GeomPlate_CurveConstraint.cxx : Curve must be on a Surface");
+    throw ExceptionBase("GeomPlate_CurveConstraint.cxx : Curve must be on a Surface");
   if (myConstG2)
     return myTolCurv;
   else
@@ -380,7 +380,7 @@ void GeomPlate_CurveConstraint::SetOrder(const Standard_Integer Order)
 GeomLProp_SLProps& GeomPlate_CurveConstraint::LPropSurf(const Standard_Real U)
 {
   if (myFrontiere.IsNull())
-    throw Standard_Failure("GeomPlate_CurveConstraint.cxx : Curve must be on a Surface");
+    throw ExceptionBase("GeomPlate_CurveConstraint.cxx : Curve must be on a Surface");
   gp_Pnt2d P2d = myFrontiere->GetCurve()->Value(U);
   myLProp.SetParameters(P2d.X(), P2d.Y());
   return myLProp;

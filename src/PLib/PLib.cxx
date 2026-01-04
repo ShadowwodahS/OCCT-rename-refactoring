@@ -1679,7 +1679,7 @@ void PLib::Trimming(const Standard_Real    U1,
   if (rat)
   {
     if (len != WCoefs->Length())
-      throw Standard_Failure("PLib::Trimming : nbcoefs/dim != nbweights !!!");
+      throw ExceptionBase("PLib::Trimming : nbcoefs/dim != nbweights !!!");
     upw = WCoefs->Upper();
   }
   len--;

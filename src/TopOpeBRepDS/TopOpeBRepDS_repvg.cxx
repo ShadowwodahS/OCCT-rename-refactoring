@@ -99,7 +99,7 @@ Standard_EXPORT void FDS_repvg2(const TopOpeBRepDS_DataStructure& BDS,
     else if (isvertex)
       VDS = BDS.Shape(G1);
     else
-      throw Standard_Failure("TopOpeBRepDS FDS_repvg2 1");
+      throw ExceptionBase("TopOpeBRepDS FDS_repvg2 1");
 
     Standard_Boolean isEd1 = BRep_Tool::Degenerated(E1);
     if (isEd1)

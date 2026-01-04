@@ -43,7 +43,7 @@ IMPLEMENT_DOMSTRING(Value, "value")
 #ifdef _WIN32
   #define EXCEPTION ...
 #else
-  #define EXCEPTION Standard_Failure const&
+  #define EXCEPTION ExceptionBase const&
 #endif
 //=================================================================================================
 

@@ -387,9 +387,9 @@ void ChFi3d_ChBuilder::PerformThreeCorner(const Standard_Integer Jndex)
     CornerAllSame = Standard_True;
   }
   else
-    throw Standard_Failure("FD en vis a vis non trouvees");
+    throw ExceptionBase("FD en vis a vis non trouvees");
   if (!okinter)
-    throw Standard_Failure("Echec intersection PCurves OnCommonFace");
+    throw ExceptionBase("Echec intersection PCurves OnCommonFace");
 
   // on a le pivot, le CD deb et le CD fin (enfin on espere !?!) :
   // -------------------------------------------------------------

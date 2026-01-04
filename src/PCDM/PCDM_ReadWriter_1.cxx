@@ -263,7 +263,7 @@ Standard_Integer PCDM_ReadWriter_1::ReadReferenceCounter(
         {
           OCC_CATCH_SIGNALS theReferencesCounter = refUserInfo(i).Token(" ", 2).IntegerValue();
         }
-        catch (Standard_Failure const&)
+        catch (ExceptionBase const&)
         {
           //	  std::cout << "warning: could not read the reference counter in " << aFileName <<
           // std::endl;
@@ -275,7 +275,7 @@ Standard_Integer PCDM_ReadWriter_1::ReadReferenceCounter(
       }
     }
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
   }
 
@@ -430,7 +430,7 @@ Standard_Integer PCDM_ReadWriter_1::ReadDocumentVersion(
         {
           OCC_CATCH_SIGNALS theVersion = refUserInfo(i).Token(" ", 2).IntegerValue();
         }
-        catch (Standard_Failure const&)
+        catch (ExceptionBase const&)
         {
           //	  std::cout << "warning: could not read the version in " << aFileName << std::endl;
           TCollection_ExtendedString aMsg("Warning: ");
@@ -442,7 +442,7 @@ Standard_Integer PCDM_ReadWriter_1::ReadDocumentVersion(
     }
   }
 
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
   }
 

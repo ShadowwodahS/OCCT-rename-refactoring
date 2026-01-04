@@ -2893,7 +2893,7 @@ void AIS_ViewController::handleSelectionPoly(const Handle(AIS_InteractiveContext
       {
         theCtx->Display(myRubberBand, 0, -1, false, AIS_DS_Displayed);
       }
-      catch (const Standard_Failure& theEx)
+      catch (const ExceptionBase& theEx)
       {
         Message::SendWarning(
           TCollection_AsciiString("Internal error while displaying rubber-band: ")

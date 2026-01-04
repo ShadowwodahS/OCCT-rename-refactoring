@@ -124,7 +124,7 @@ Standard_EXPORT void FUN_ComputeGeomData(const TopoDS_Shape& F,
                                             //          describes "direct" geometry
     }
     else
-      throw Standard_Failure("FUN_ComputeGeomData");
+      throw ExceptionBase("FUN_ComputeGeomData");
 
     D1                 = Norm;
     Standard_Real    x = D1.X(), y = D1.Y(), z = D1.Z(), tol = Precision::Confusion();

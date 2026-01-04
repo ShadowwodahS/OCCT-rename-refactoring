@@ -47,7 +47,7 @@ void ChFiDS_ChamfSpine::GetDist(Standard_Real& Dis) const
 {
   if (mChamf != ChFiDS_Sym)
   {
-    throw Standard_Failure("Chamfer is not symmetric");
+    throw ExceptionBase("Chamfer is not symmetric");
   }
   Dis = d1;
 }
@@ -66,7 +66,7 @@ void ChFiDS_ChamfSpine::SetDist(const Standard_Real Dis)
 void ChFiDS_ChamfSpine::Dists(Standard_Real& Dis1, Standard_Real& Dis2) const
 {
   if (mChamf != ChFiDS_TwoDist)
-    throw Standard_Failure("Chamfer is not a Two Dists Chamfer");
+    throw ExceptionBase("Chamfer is not a Two Dists Chamfer");
   Dis1 = d1;
   Dis2 = d2;
 }
@@ -87,7 +87,7 @@ void ChFiDS_ChamfSpine::GetDistAngle(Standard_Real& Dis, Standard_Real& Angle) c
 // Standard_Boolean& DisOnF1)const
 {
   if (mChamf != ChFiDS_DistAngle)
-    throw Standard_Failure("Chamfer is not a Two Dists Chamfer");
+    throw ExceptionBase("Chamfer is not a Two Dists Chamfer");
   Dis   = d1;
   Angle = angle;
   // DisOnF1 = dison1;

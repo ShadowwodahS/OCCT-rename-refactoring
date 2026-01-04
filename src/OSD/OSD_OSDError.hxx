@@ -21,7 +21,7 @@
 #include <Standard_Failure.hxx>
 
 class OSD_OSDError;
-DEFINE_STANDARD_HANDLE(OSD_OSDError, Standard_Failure)
+DEFINE_STANDARD_HANDLE(OSD_OSDError, ExceptionBase)
 
 #if !defined No_Exception && !defined No_OSD_OSDError
   #define OSD_OSDError_Raise_if(CONDITION, MESSAGE)                                                \
@@ -31,6 +31,6 @@ DEFINE_STANDARD_HANDLE(OSD_OSDError, Standard_Failure)
   #define OSD_OSDError_Raise_if(CONDITION, MESSAGE)
 #endif
 
-DEFINE_STANDARD_EXCEPTION(OSD_OSDError, Standard_Failure)
+DEFINE_STANDARD_EXCEPTION(OSD_OSDError, ExceptionBase)
 
 #endif // _OSD_OSDError_HeaderFile

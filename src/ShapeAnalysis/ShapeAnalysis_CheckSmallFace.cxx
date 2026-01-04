@@ -1085,7 +1085,7 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckPinEdges(const TopoDS_Edge& 
   //     angle1 = V11.Angle(V12);
   //     angle2 = V21.Angle(V22);
   //   }
-  //   catch (Standard_Failure)
+  //   catch (ExceptionBase)
   //     {
   //       std::cout << "Couldn't compute angle between derivative vectors"  <<std::endl;
   //       return Standard_False;
@@ -1139,7 +1139,7 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckPinEdges(const TopoDS_Edge& 
       angle1 = V11.Angle(V12);
       angle2 = V21.Angle(V22);
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
 #ifdef OCCT_DEBUG
       std::cout << "Couldn't compute angle between derivative vectors" << std::endl;

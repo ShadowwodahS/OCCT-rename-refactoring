@@ -114,7 +114,7 @@ Standard_EXPORT Standard_Boolean DEBTEFOR(const TopOpeBRepBuild_Builder& B,
 #ifdef OCCT_DEBUG
 Standard_EXPORT void FUN_RaiseON()
 {
-  throw Standard_Failure("BuilderON");
+  throw ExceptionBase("BuilderON");
 }
 
 static void FUN_cout(const TopoDS_Shape& eON)

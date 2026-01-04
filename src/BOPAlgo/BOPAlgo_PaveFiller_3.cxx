@@ -111,7 +111,7 @@ public:
 
       IntTools_EdgeEdge::Perform();
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
       AddError(new BOPAlgo_AlertIntersectionFailed);
     }

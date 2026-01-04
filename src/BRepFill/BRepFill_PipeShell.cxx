@@ -940,7 +940,7 @@ void BRepFill_PipeShell::Prepare()
       wdeg                      = wdeg && (BRep_Tool::Degenerated(anEdge));
     }
     if (wdeg)
-      throw Standard_Failure("Wrong usage of punctual sections");
+      throw ExceptionBase("Wrong usage of punctual sections");
   }
   if (mySeq.Length() <= 2)
   {
@@ -952,7 +952,7 @@ void BRepFill_PipeShell::Prepare()
         wdeg                      = wdeg && (BRep_Tool::Degenerated(anEdge));
       }
     if (wdeg)
-      throw Standard_Failure("Wrong usage of punctual sections");
+      throw ExceptionBase("Wrong usage of punctual sections");
   }
 
   // Construction of the law of location

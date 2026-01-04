@@ -113,7 +113,7 @@ static void FUN_Raise()
   Standard_Boolean trc = TopOpeBRepTool_GettraceREGUFA();
   if (trc)
     std::cout << "*** Raise REGUW" << std::endl;
-//  throw Standard_Failure("REGUW");
+//  throw ExceptionBase("REGUW");
 #endif
 }
 
@@ -154,7 +154,7 @@ void TopOpeBRepTool_REGUW::SetEsplits(TopTools_DataMapOfShapeListOfShape& Esplit
 void TopOpeBRepTool_REGUW::GetEsplits(TopTools_DataMapOfShapeListOfShape& Esplits) const
 {
   if (!HasInit())
-    throw Standard_Failure("TopOpeBRepTool_REGUW : NO INIT");
+    throw ExceptionBase("TopOpeBRepTool_REGUW : NO INIT");
   Esplits = myEsplits;
 }
 
@@ -170,7 +170,7 @@ void TopOpeBRepTool_REGUW::SetOwNw(TopTools_DataMapOfShapeListOfShape& OwNw)
 void TopOpeBRepTool_REGUW::GetOwNw(TopTools_DataMapOfShapeListOfShape& OwNw) const
 {
   if (!HasInit())
-    throw Standard_Failure("TopOpeBRepTool_REGUW : NO INIT");
+    throw ExceptionBase("TopOpeBRepTool_REGUW : NO INIT");
   OwNw = myOwNw;
 }
 
@@ -179,7 +179,7 @@ void TopOpeBRepTool_REGUW::GetOwNw(TopTools_DataMapOfShapeListOfShape& OwNw) con
 Standard_Boolean TopOpeBRepTool_REGUW::SplitEds()
 {
   if (!HasInit())
-    throw Standard_Failure("TopOpeBRepTool_REGUW : NO INIT");
+    throw ExceptionBase("TopOpeBRepTool_REGUW : NO INIT");
 #ifdef OCCT_DEBUG
   Standard_Boolean trc = TopOpeBRepTool_GettraceREGUFA();
   if (trc)
@@ -255,7 +255,7 @@ Standard_Boolean TopOpeBRepTool_REGUW::SplitEds()
 const TopoDS_Shape& TopOpeBRepTool_REGUW::S() const
 {
   if (!HasInit())
-    throw Standard_Failure("TopOpeBRepTool_REGUW : NO INIT");
+    throw ExceptionBase("TopOpeBRepTool_REGUW : NO INIT");
   return myS;
 }
 
@@ -279,7 +279,7 @@ Standard_Boolean TopOpeBRepTool_REGUW::HasInit() const
 void TopOpeBRepTool_REGUW::InitStep(const TopoDS_Shape& S)
 {
   if (!HasInit())
-    throw Standard_Failure("TopOpeBRepTool_REGUW : NO INIT");
+    throw ExceptionBase("TopOpeBRepTool_REGUW : NO INIT");
   TopoDS_Shape null;
   myCORRISO.Init(null);
   myCORRISO.Init(S);
@@ -294,7 +294,7 @@ void TopOpeBRepTool_REGUW::InitStep(const TopoDS_Shape& S)
 Standard_Boolean TopOpeBRepTool_REGUW::MapS()
 {
   if (!HasInit())
-    throw Standard_Failure("TopOpeBRepTool_REGUW : NO INIT");
+    throw ExceptionBase("TopOpeBRepTool_REGUW : NO INIT");
 #ifdef OCCT_DEBUG
   Standard_Boolean trc = TopOpeBRepTool_GettraceREGUFA();
   if (trc)
@@ -484,7 +484,7 @@ static void FUN_nextdata(const Standard_Integer      iStep,
 Standard_Boolean TopOpeBRepTool_REGUW::InitBlock()
 {
   if (!HasInit())
-    throw Standard_Failure("TopOpeBRepTool_REGUW : NO INIT");
+    throw ExceptionBase("TopOpeBRepTool_REGUW : NO INIT");
 #ifdef OCCT_DEBUG
   Standard_Boolean trc = TopOpeBRepTool_GettraceREGUFA();
 #endif
@@ -624,7 +624,7 @@ Standard_Boolean TopOpeBRepTool_REGUW::NearestE(const TopTools_ListOfShape& loe,
 #endif
 
   if (!HasInit())
-    throw Standard_Failure("TopOpeBRepTool_REGUW : NO INIT");
+    throw ExceptionBase("TopOpeBRepTool_REGUW : NO INIT");
   efound.Nullify();
   Standard_Real    fac   = 0.45678;
   Standard_Real    tola  = Precision::Angular();
@@ -707,7 +707,7 @@ Standard_Boolean TopOpeBRepTool_REGUW::NearestE(const TopTools_ListOfShape& loe,
 Standard_Boolean TopOpeBRepTool_REGUW::NextinBlock()
 {
   if (!HasInit())
-    throw Standard_Failure("TopOpeBRepTool_REGUW : NO INIT");
+    throw ExceptionBase("TopOpeBRepTool_REGUW : NO INIT");
 #ifdef OCCT_DEBUG
   Standard_Boolean trc = TopOpeBRepTool_GettraceREGUFA();
   if (trc)
@@ -843,7 +843,7 @@ Standard_Boolean TopOpeBRepTool_REGUW::REGU(const Standard_Integer istep,
                                             TopTools_ListOfShape& Splits)
 {
   if (!HasInit())
-    throw Standard_Failure("TopOpeBRepTool_REGUW : NO INIT");
+    throw ExceptionBase("TopOpeBRepTool_REGUW : NO INIT");
   iStep = istep;
 #ifdef OCCT_DEBUG
   Standard_Boolean trc = TopOpeBRepTool_GettraceREGUFA();
@@ -1041,7 +1041,7 @@ Standard_Boolean TopOpeBRepTool_REGUW::REGU(const Standard_Integer istep,
 Standard_Boolean TopOpeBRepTool_REGUW::REGU()
 {
   if (!HasInit())
-    throw Standard_Failure("TopOpeBRepTool_REGUW : NO INIT");
+    throw ExceptionBase("TopOpeBRepTool_REGUW : NO INIT");
   TopTools_ListOfShape null;
 
   Standard_Boolean toregu = !myListVmultiple.IsEmpty();
@@ -1099,7 +1099,7 @@ Standard_Boolean TopOpeBRepTool_REGUW::REGU()
 Standard_Boolean TopOpeBRepTool_REGUW::GetSplits(TopTools_ListOfShape& Splits) const
 {
   if (!HasInit())
-    throw Standard_Failure("TopOpeBRepTool_REGUW : NO INIT");
+    throw ExceptionBase("TopOpeBRepTool_REGUW : NO INIT");
   Standard_Boolean isb = myOwNw.IsBound(S());
   if (!isb)
     return Standard_False;
@@ -1113,7 +1113,7 @@ Standard_Boolean TopOpeBRepTool_REGUW::Connexity(const TopoDS_Vertex&      v,
                                                  TopOpeBRepTool_connexity& co) const
 {
   if (!HasInit())
-    throw Standard_Failure("TopOpeBRepTool_REGUW : NO INIT");
+    throw ExceptionBase("TopOpeBRepTool_REGUW : NO INIT");
   Standard_Boolean isb = mymapvEds.Contains(v);
   if (!isb)
     return Standard_False;
@@ -1128,7 +1128,7 @@ Standard_Boolean TopOpeBRepTool_REGUW::AddNewConnexity(const TopoDS_Vertex&   v,
                                                        const TopoDS_Edge&     e)
 {
   if (!HasInit())
-    throw Standard_Failure("TopOpeBRepTool_REGUW : NO INIT");
+    throw ExceptionBase("TopOpeBRepTool_REGUW : NO INIT");
   Standard_Boolean isb = mymapvEds.Contains(v);
   if (!isb)
     return Standard_False;
@@ -1168,7 +1168,7 @@ Standard_Boolean TopOpeBRepTool_REGUW::RemoveOldConnexity(const TopoDS_Vertex&  
                                                           const TopoDS_Edge&     e)
 {
   if (!HasInit())
-    throw Standard_Failure("TopOpeBRepTool_REGUW : NO INIT");
+    throw ExceptionBase("TopOpeBRepTool_REGUW : NO INIT");
   Standard_Boolean isb = mymapvEds.Contains(v);
   if (!isb)
     return Standard_False;
@@ -1205,7 +1205,7 @@ Standard_Boolean TopOpeBRepTool_REGUW::RemoveOldConnexity(const TopoDS_Vertex&  
 Standard_Boolean TopOpeBRepTool_REGUW::UpdateMultiple(const TopoDS_Vertex& v)
 {
   if (!HasInit())
-    throw Standard_Failure("TopOpeBRepTool_REGUW : NO INIT");
+    throw ExceptionBase("TopOpeBRepTool_REGUW : NO INIT");
   Standard_Boolean isb = mymapvEds.Contains(v);
   if (!isb)
     return Standard_False;

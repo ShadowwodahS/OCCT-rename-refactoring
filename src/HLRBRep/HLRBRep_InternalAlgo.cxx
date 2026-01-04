@@ -95,7 +95,7 @@ void HLRBRep_InternalAlgo::Update()
         de        = DS[i - 1]->NbEdges();
         df        = DS[i - 1]->NbFaces();
       }
-      catch (Standard_Failure const& anException)
+      catch (ExceptionBase const& anException)
       {
         if (myDebug)
         {

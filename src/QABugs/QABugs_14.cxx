@@ -871,7 +871,7 @@ static Standard_Integer OCC984(Draw_Interpretor& di, Standard_Integer argc, cons
 //       Standard_Integer b = 0;
 //       Standard_Integer c = a / b;
 //     }
-//     catch ( Standard_Failure ) {
+//     catch ( ExceptionBase ) {
 //       isCaught = Standard_True;
 //       std::cout << "OCC1723 Case 1 : OK" << std::endl;
 //     }
@@ -886,7 +886,7 @@ static Standard_Integer OCC984(Draw_Interpretor& di, Standard_Integer argc, cons
 //       Standard_Real d = -1.0;
 //       Standard_Real e = sqrt(d);
 //     }
-//     catch ( Standard_Failure ) {
+//     catch ( ExceptionBase ) {
 //       isCaught = Standard_True;
 //       std::cout << "OCC1723 Case 2 : OK" << std::endl;
 //     }
@@ -902,7 +902,7 @@ static Standard_Integer OCC984(Draw_Interpretor& di, Standard_Integer argc, cons
 //       Standard_Real g = 1.0e-200;
 //       Standard_Real h = f * g;
 //     }
-//     catch ( Standard_Failure ) {
+//     catch ( ExceptionBase ) {
 //       isCaught = Standard_True;
 //       std::cout << "OCC1723 Case 3 : OK" << std::endl;
 //     }
@@ -919,7 +919,7 @@ static Standard_Integer OCC984(Draw_Interpretor& di, Standard_Integer argc, cons
 //       Standard_Real j = 1.0e+200;
 //       Standard_Real k = i * j;
 //     }
-//     catch ( Standard_Failure ) {
+//     catch ( ExceptionBase ) {
 //       isCaught = Standard_True;
 //       std::cout << "OCC1723 Case 4 : OK" << std::endl;
 //     }

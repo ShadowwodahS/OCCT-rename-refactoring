@@ -23,7 +23,7 @@
 #include <Standard_Failure.hxx>
 
 class Interface_InterfaceError;
-DEFINE_STANDARD_HANDLE(Interface_InterfaceError, Standard_Failure)
+DEFINE_STANDARD_HANDLE(Interface_InterfaceError, ExceptionBase)
 
 #if !defined No_Exception && !defined No_Interface_InterfaceError
   #define Interface_InterfaceError_Raise_if(CONDITION, MESSAGE)                                    \
@@ -33,6 +33,6 @@ DEFINE_STANDARD_HANDLE(Interface_InterfaceError, Standard_Failure)
   #define Interface_InterfaceError_Raise_if(CONDITION, MESSAGE)
 #endif
 
-DEFINE_STANDARD_EXCEPTION(Interface_InterfaceError, Standard_Failure)
+DEFINE_STANDARD_EXCEPTION(Interface_InterfaceError, ExceptionBase)
 
 #endif // _Interface_InterfaceError_HeaderFile

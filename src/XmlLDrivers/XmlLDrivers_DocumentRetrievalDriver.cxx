@@ -184,7 +184,7 @@ void XmlLDrivers_DocumentRetrievalDriver::Read(const TCollection_ExtendedString&
                                       + " cannot be opened for reading";
 
     theApplication->MessageDriver()->Send(aMsg.ToExtString(), Message_Fail);
-    throw Standard_Failure("File cannot be opened for reading");
+    throw ExceptionBase("File cannot be opened for reading");
   }
 }
 
@@ -294,7 +294,7 @@ void XmlLDrivers_DocumentRetrievalDriver::ReadFromDomDocument(
               Standard_Integer        aRefCounter = anInf.Token(" ", 2).IntegerValue();
               theNewDocument->SetReferenceCounter(aRefCounter);
             }
-            catch (Standard_Failure const&)
+            catch (ExceptionBase const&)
             {
               //    std::cout << "warning: could not read the reference counter in " << aFileName <<
               //    std::endl;
@@ -314,7 +314,7 @@ void XmlLDrivers_DocumentRetrievalDriver::ReadFromDomDocument(
               Standard_Integer        aModCounter = anInf.Token(" ", 2).IntegerValue();
               theNewDocument->SetModifications(aModCounter);
             }
-            catch (Standard_Failure const&)
+            catch (ExceptionBase const&)
             {
               TCollection_ExtendedString aMsg("Warning: could not read the modification counter\0");
               if (!aMsgDriver.IsNull())
@@ -484,7 +484,7 @@ void XmlLDrivers_DocumentRetrievalDriver::ReadFromDomDocument(
     else
       myReaderStatus = PCDM_RS_OK;
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     TCollection_ExtendedString anErrorString(anException.GetMessageString());
     aMsgDriver->Send(anErrorString.ToExtString(), Message_Fail);

@@ -457,7 +457,7 @@ void BRepOffsetAPI_MakeOffset::Perform(const Standard_Real Offset, const Standar
     else
       Done();
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
 #ifdef OCCT_DEBUG
     std::cout << "An exception was caught in BRepOffsetAPI_MakeOffset::Perform : ";

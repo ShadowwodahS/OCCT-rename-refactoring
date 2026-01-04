@@ -561,7 +561,7 @@ Handle(Geom2d_Curve) StepToTopoDS_TranslateEdge::MakePCurve(
                                               theLocalFactors.FactorDegreeRadian());
     }
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     return C2d;
   }

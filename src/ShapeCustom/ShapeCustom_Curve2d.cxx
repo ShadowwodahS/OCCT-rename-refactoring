@@ -168,7 +168,7 @@ Standard_Boolean ShapeCustom_Curve2d::SimplifyBSpline2d(Handle(Geom2d_BSplineCur
           OCC_CATCH_SIGNALS
           theBSpline2d->RemoveKnot(aKnotIndx, aMult - 1, theTolerance);
         }
-        catch (Standard_Failure const&)
+        catch (ExceptionBase const&)
         {
         }
       }

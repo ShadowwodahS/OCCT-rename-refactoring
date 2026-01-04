@@ -67,12 +67,12 @@ Geom2dGcc_Circ2dTanCenGeo::Geom2dGcc_Circ2dTanCenGeo(const Geom2dGcc_QCurve& Qua
                           Tol);
   if (!distmin.IsDone())
   {
-    throw Standard_Failure();
+    throw ExceptionBase();
   }
   Standard_Integer nbext = distmin.NbExt();
   if (nbext == 0)
   {
-    throw Standard_Failure();
+    throw ExceptionBase();
   }
   while (i <= nbext)
   {

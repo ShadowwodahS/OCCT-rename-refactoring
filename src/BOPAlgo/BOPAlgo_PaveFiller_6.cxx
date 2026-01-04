@@ -183,7 +183,7 @@ public:
 
       IntTools_FaceFace::Perform(aF1, aF2, myRunParallel);
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
       AddError(new BOPAlgo_AlertIntersectionFailed);
     }

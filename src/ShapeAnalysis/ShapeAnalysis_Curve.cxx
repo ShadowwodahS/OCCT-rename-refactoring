@@ -268,7 +268,7 @@ Standard_Real ShapeAnalysis_Curve::ProjectAct(const Adaptor3d_Curve& C3D,
       }
     }
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
 #ifdef OCCT_DEBUG
     //: s5
@@ -932,7 +932,7 @@ static void AppendControlPoles(TColgp_SequenceOfPnt& seq, const Handle(Geom_Curv
         AppendControlPoles(seq, bslp);
         done = Standard_True;
       }
-      catch (Standard_Failure const&)
+      catch (ExceptionBase const&)
       {
       }
     }
@@ -947,7 +947,7 @@ static void AppendControlPoles(TColgp_SequenceOfPnt& seq, const Handle(Geom_Curv
         AppendControlPoles(seq, bz);
         done = Standard_True;
       }
-      catch (Standard_Failure const&)
+      catch (ExceptionBase const&)
       {
       }
     }

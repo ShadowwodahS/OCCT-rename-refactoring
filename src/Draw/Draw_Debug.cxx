@@ -36,7 +36,7 @@ Standard_EXPORT const char* Draw_Eval(const char* theCommandStr)
     std::cout << aCommands.Result() << std::endl;
     return aCommands.Result();
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     return anException.GetMessageString();
   }

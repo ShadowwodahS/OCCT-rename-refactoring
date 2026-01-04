@@ -605,7 +605,7 @@ static Standard_Integer OCC570(Draw_Interpretor& di, Standard_Integer argc, cons
 
       DBRep::Set(argv[1], aFinalShape);
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
       di << argv[0] << ": Exception in fillet\n";
       return 2;
@@ -786,7 +786,7 @@ static Standard_Integer OCC606(Draw_Interpretor& di, Standard_Integer n, const c
         DBRep::Set(a[1], bsp_face1);
       }
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
       di << "ERROR: Exception in GeomFill_NSections\n";
     }

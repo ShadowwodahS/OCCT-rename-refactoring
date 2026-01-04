@@ -633,17 +633,17 @@ void CDM_Document::Close()
   switch (CanClose())
   {
     case CDM_CCS_NotOpen:
-      throw Standard_Failure("cannot close a document that has not been opened");
+      throw ExceptionBase("cannot close a document that has not been opened");
       break;
     case CDM_CCS_UnstoredReferenced:
-      throw Standard_Failure("cannot close an unstored document which is referenced");
+      throw ExceptionBase("cannot close an unstored document which is referenced");
       break;
     case CDM_CCS_ModifiedReferenced:
-      throw Standard_Failure("cannot close a document which is referenced when "
+      throw ExceptionBase("cannot close a document which is referenced when "
                              "the document has been modified since it was stored.");
       break;
     case CDM_CCS_ReferenceRejection:
-      throw Standard_Failure("cannot close this document because a document "
+      throw ExceptionBase("cannot close this document because a document "
                              "referencing it refuses");
       break;
     default:
@@ -706,7 +706,7 @@ void CDM_Document::CloseReference(const Handle(CDM_Document)& /*aDocument*/,
 const Handle(CDM_Application)& CDM_Document::Application() const
 {
   if (!IsOpened())
-    throw Standard_Failure("this document has not yet been opened "
+    throw ExceptionBase("this document has not yet been opened "
                            "by any application");
   return myApplication;
 }
@@ -839,7 +839,7 @@ Handle(Resource_Manager) CDM_Document::StorageResource()
     Standard_SStream aMsg;
     aMsg << "this document of format " << StorageFormat()
          << " has not yet been opened by any application. " << std::endl;
-    throw Standard_Failure(aMsg.str().c_str());
+    throw ExceptionBase(aMsg.str().c_str());
   }
   return myApplication->Resources();
 }

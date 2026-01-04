@@ -1045,7 +1045,7 @@ static Standard_Integer checkshape(Draw_Interpretor& theCommands,
       }
     }
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     theCommands << "checkshape exception : ";
     theCommands << anException.GetMessageString();

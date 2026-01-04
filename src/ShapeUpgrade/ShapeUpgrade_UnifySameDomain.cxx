@@ -1457,7 +1457,7 @@ static Standard_Boolean IsSameDomain(
 
       return anIIInt.TangentFaces();
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
       return Standard_False;
     }

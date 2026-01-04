@@ -122,7 +122,7 @@ void BRepMesh_FaceDiscret::process(const Standard_Integer       theFaceIndex,
     }
     aMeshingAlgo->Perform(aDFace, myParameters, theRange);
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     aDFace->SetStatus(IMeshData_Failure);
   }

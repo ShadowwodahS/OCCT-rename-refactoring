@@ -85,7 +85,7 @@ static void FUN_Raise()
   Standard_Boolean trc = TopOpeBRepTool_GettraceREGUSO();
   if (trc)
     std::cout << "***** Failure in REGUS **********" << std::endl;
-//  throw Standard_Failure("REGUS");
+//  throw ExceptionBase("REGUS");
 #endif
 }
 

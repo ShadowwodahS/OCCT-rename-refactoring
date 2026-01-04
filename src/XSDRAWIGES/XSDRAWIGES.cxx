@@ -292,7 +292,7 @@ static Standard_Integer igesbrep(Draw_Interpretor& theDI,
           OCC_CATCH_SIGNALS
           DBRep::Set(fname, shape);
         }
-        catch (Standard_Failure const& anException)
+        catch (ExceptionBase const& anException)
         {
           theDI << "** Exception : ";
           theDI << anException.GetMessageString();
@@ -324,7 +324,7 @@ static Standard_Integer igesbrep(Draw_Interpretor& theDI,
             OCC_CATCH_SIGNALS
             DBRep::Set(fname, shape);
           }
-          catch (Standard_Failure const& anException)
+          catch (ExceptionBase const& anException)
           {
             theDI << "** Exception : ";
             theDI << anException.GetMessageString();
@@ -399,7 +399,7 @@ static Standard_Integer igesbrep(Draw_Interpretor& theDI,
           OCC_CATCH_SIGNALS
           DBRep::Set(fname, shape);
         }
-        catch (Standard_Failure const& anException)
+        catch (ExceptionBase const& anException)
         {
           theDI << "** Exception : ";
           theDI << anException.GetMessageString();

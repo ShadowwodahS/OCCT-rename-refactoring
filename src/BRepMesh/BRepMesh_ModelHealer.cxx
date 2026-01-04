@@ -281,7 +281,7 @@ void BRepMesh_ModelHealer::process(const IMeshData::IFaceHandle& theDFace) const
       }
     }
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     theDFace->SetStatus(IMeshData_Failure);
   }

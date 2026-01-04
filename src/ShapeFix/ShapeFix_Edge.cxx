@@ -566,7 +566,7 @@ Standard_Boolean ShapeFix_Edge::FixAddPCurve(const TopoDS_Edge&                 
       B.Range(edge, G3dCFirst, G3dCLast, Standard_True);
     }
   } // end try
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
 #ifdef OCCT_DEBUG
     //: s5
@@ -784,7 +784,7 @@ Standard_Boolean ShapeFix_Edge::FixSameParameter(const TopoDS_Edge&  edge,
           myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
       }
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
 #ifdef OCCT_DEBUG
       std::cout << "\nWarning: ShapeFix_Edge: Exception in SameParameter: ";

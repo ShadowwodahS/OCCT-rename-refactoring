@@ -1270,7 +1270,7 @@ Standard_Boolean Init_Appli()
     OCC_CATCH_SIGNALS
     Tk_Init(interp);
   }
-  catch (Standard_Failure const& theFail)
+  catch (ExceptionBase const& theFail)
   {
     Message::SendFail() << "TK_Init() failed with " << theFail;
   }
@@ -1303,7 +1303,7 @@ Standard_Boolean Init_Appli()
     {
       Draw_DisplayConnection = new Aspect_DisplayConnection();
     }
-    catch (Standard_Failure const& theFail)
+    catch (ExceptionBase const& theFail)
     {
       std::cout << "Cannot open display (" << theFail << "). Interpret commands in batch mode."
                 << std::endl;
@@ -1438,7 +1438,7 @@ static void StdinProc(ClientData clientData, int theMask)
       Prompt(Draw::GetInterpretor().Interp(), gotPartial);
     }
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
   }
 }
@@ -1642,7 +1642,7 @@ Standard_Boolean Init_Appli(HINSTANCE hInst, HINSTANCE hPrevInst, int nShow, HWN
       OCC_CATCH_SIGNALS
       Tk_Init(interp);
     }
-    catch (Standard_Failure& anExcept)
+    catch (ExceptionBase& anExcept)
     {
       std::cout << "Failed to initialize Tk: " << anExcept.GetMessageString() << std::endl;
     }
@@ -1925,7 +1925,7 @@ static DWORD WINAPI tkLoop(const LPVOID theThreadParameter)
     #endif
       }
     }
-    catch (const Standard_Failure&)
+    catch (const ExceptionBase&)
     {
       std::cout << "tkLoop: exception in TK_Init\n";
     }

@@ -239,12 +239,12 @@ void BinTools_ShapeWriter::WriteShape(BinTools_OStream& theStream, const TopoDS_
       }
     }
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     Standard_SStream aMsg;
     aMsg << "EXCEPTION in BinTools_ShapeWriter::WriteShape" << std::endl;
     aMsg << anException << std::endl;
-    throw Standard_Failure(aMsg.str().c_str());
+    throw ExceptionBase(aMsg.str().c_str());
   }
   theStream.PutBools(aShape.Free(),
                      aShape.Modified(),
@@ -306,12 +306,12 @@ void BinTools_ShapeWriter::WriteLocation(BinTools_OStream&      theStream,
     }
     myLocationPos.Bind(theLocation, aNewLoc);
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     Standard_SStream aMsg;
     aMsg << "EXCEPTION in BinTools_ShapeWriter::WriteLocation" << std::endl;
     aMsg << anException << std::endl;
-    throw Standard_Failure(aMsg.str().c_str());
+    throw ExceptionBase(aMsg.str().c_str());
   }
 }
 

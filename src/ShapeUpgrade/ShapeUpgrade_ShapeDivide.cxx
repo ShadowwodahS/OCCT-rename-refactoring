@@ -209,7 +209,7 @@ Standard_Boolean ShapeUpgrade_ShapeDivide::Perform(const Standard_Boolean newCon
             }
           }
         }
-        catch (Standard_Failure const& anException)
+        catch (ExceptionBase const& anException)
         {
 #ifdef OCCT_DEBUG
           std::cout << "\nError: Exception in ShapeUpgrade_FaceDivide::Perform(): ";

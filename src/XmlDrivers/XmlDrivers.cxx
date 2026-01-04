@@ -56,7 +56,7 @@ const Handle(RefObject)& XmlDrivers::Factory(const Standard_GUID& theGUID)
     return model_rd;
   }
 
-  throw Standard_Failure("XmlDrivers : unknown GUID");
+  throw ExceptionBase("XmlDrivers : unknown GUID");
 }
 
 //=================================================================================================

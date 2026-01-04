@@ -23,7 +23,7 @@
 #include <Standard_Failure.hxx>
 
 class Draw_Failure;
-DEFINE_STANDARD_HANDLE(Draw_Failure, Standard_Failure)
+DEFINE_STANDARD_HANDLE(Draw_Failure, ExceptionBase)
 
 #if !defined No_Exception && !defined No_Draw_Failure
   #define Draw_Failure_Raise_if(CONDITION, MESSAGE)                                                \
@@ -33,6 +33,6 @@ DEFINE_STANDARD_HANDLE(Draw_Failure, Standard_Failure)
   #define Draw_Failure_Raise_if(CONDITION, MESSAGE)
 #endif
 
-DEFINE_STANDARD_EXCEPTION(Draw_Failure, Standard_Failure)
+DEFINE_STANDARD_EXCEPTION(Draw_Failure, ExceptionBase)
 
 #endif // _Draw_Failure_HeaderFile

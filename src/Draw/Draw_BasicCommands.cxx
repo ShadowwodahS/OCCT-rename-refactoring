@@ -1167,7 +1167,7 @@ static int ddebugtraces(Draw_Interpretor& theDI, Standard_Integer theArgNb, cons
 {
   if (theArgNb < 2)
   {
-    theDI << Standard_Failure::DefaultStackTraceLength();
+    theDI << ExceptionBase::DefaultStackTraceLength();
     return 0;
   }
   else if (theArgNb != 2)
@@ -1176,7 +1176,7 @@ static int ddebugtraces(Draw_Interpretor& theDI, Standard_Integer theArgNb, cons
     return 1;
   }
 
-  Standard_Failure::SetDefaultStackTraceLength(Draw::Atoi(theArgVec[1]));
+  ExceptionBase::SetDefaultStackTraceLength(Draw::Atoi(theArgVec[1]));
   return 0;
 }
 
@@ -1377,7 +1377,7 @@ void Draw::BasicCommands(Draw_Interpretor& theCommands)
   theCommands.Add(
     "ddebugtraces",
     "ddebugtraces nbTraces"
-    "\n\t\t: Sets the number of lines for the stack trace within Standard_Failure constructor."
+    "\n\t\t: Sets the number of lines for the stack trace within ExceptionBase constructor."
     "\n\t\t: Intended for debug purposes.",
     __FILE__,
     ddebugtraces,

@@ -916,7 +916,7 @@ void ChFi3d_Builder::PerformOneCorner(const Standard_Integer Index,
     ChFi3d_BoundFac(Bs, uu1, uu2, vv1, vv2);
 
     if (!ChFi3d_ComputeCurves(HGs, HBs, Pardeb, Parfin, Cc, Ps, Pc, tolapp3d, tol2d, tolreached))
-      throw Standard_Failure("OneCorner : echec calcul intersection");
+      throw ExceptionBase("OneCorner : echec calcul intersection");
 
     Udeb = Cc->FirstParameter();
     Ufin = Cc->LastParameter();
@@ -1354,7 +1354,7 @@ void ChFi3d_Builder::PerformOneCorner(const Standard_Integer Index,
                               tolapp3d,
                               tol2d,
                               tolreached))
-      throw Standard_Failure("OneCorner : echec calcul intersection");
+      throw ExceptionBase("OneCorner : echec calcul intersection");
 
     Udeb = zob3d->FirstParameter();
     Ufin = zob3d->LastParameter();
@@ -2162,7 +2162,7 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
           cherche_edge1(Face[nb - 1], Face[nb], Edge[nb]);
           nb++;
           if (nb >= nn)
-            throw Standard_Failure("IntersectionAtEnd : the max number of faces reached");
+            throw ExceptionBase("IntersectionAtEnd : the max number of faces reached");
         }
         if (!findonf2)
           Edge[nb] = CV2.Arc();
@@ -2190,7 +2190,7 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
           cherche_edge1(Face[nb - 1], Face[nb], Edge[nb]);
           nb++;
           if (nb >= nn)
-            throw Standard_Failure("IntersectionAtEnd : the max number of faces reached");
+            throw ExceptionBase("IntersectionAtEnd : the max number of faces reached");
         }
         Edge[nb] = CV2.Arc();
       }
@@ -2228,7 +2228,7 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
         {
           nb++;
           if (nb >= nn)
-            throw Standard_Failure("IntersectionAtEnd : the max number of faces reached");
+            throw ExceptionBase("IntersectionAtEnd : the max number of faces reached");
           if (nb != 1)
             F3 = Face[nb - 2];
           Face[nb - 1] = F3;
@@ -2405,7 +2405,7 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
                                 CV1,
                                 pfac1,
                                 Ufi)) // out
-          throw Standard_Failure("IntersectionAtEnd: pb intersection Face - Fi");
+          throw ExceptionBase("IntersectionAtEnd: pb intersection Face - Fi");
         Fi1 = Fi;
         if (intersOnSameFailed)
         { // probable at fillet building
@@ -2645,7 +2645,7 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
         }
       }
       else
-        throw Standard_Failure("IntersectionAtEnd: pb intersection Face cb");
+        throw ExceptionBase("IntersectionAtEnd: pb intersection Face cb");
     }
     else
     {
@@ -2711,7 +2711,7 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
                               CV2,
                               pfac2,
                               Ufi)) // out
-        throw Standard_Failure("IntersectionAtEnd: pb intersection Face - Fi");
+        throw ExceptionBase("IntersectionAtEnd: pb intersection Face - Fi");
       Fi2 = Fi;
       if (intersOnSameFailed)
       { // probable at fillet building
@@ -2940,7 +2940,7 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
         else if (containV(F1, V2) || containV(F2, V2))
           ori = TopAbs_REVERSED;
         else
-          throw Standard_Failure("IntersectionAtEnd : pb orientation");
+          throw ExceptionBase("IntersectionAtEnd : pb orientation");
 
         if (containV(F1, V1) && containV(F1, V2))
         {
@@ -4304,7 +4304,7 @@ void ChFi3d_Builder::IntersectMoreCorner(const Standard_Integer Index)
 #endif
   {
     if (!CV1.IsOnArc() && !CV2.IsOnArc())
-      throw Standard_Failure("Corner intersmore : no point on arc");
+      throw ExceptionBase("Corner intersmore : no point on arc");
     else if (CV1.IsOnArc() && CV2.IsOnArc())
     {
       Standard_Boolean sur2 = 0;
@@ -4556,7 +4556,7 @@ void ChFi3d_Builder::IntersectMoreCorner(const Standard_Integer Index)
     ChFi3d_BoundFac(Bs, uu1, uu2, vv1, vv2);
 
     if (!ChFi3d_ComputeCurves(HGs, HBs, Pardeb, Parfin, Cc, Ps, Pc, tolapp3d, tol2d, tolreached))
-      throw Standard_Failure("OneCorner : failed calculation intersection");
+      throw ExceptionBase("OneCorner : failed calculation intersection");
 
     Udeb = Cc->FirstParameter();
     Ufin = Cc->LastParameter();
@@ -4854,7 +4854,7 @@ void ChFi3d_Builder::IntersectMoreCorner(const Standard_Integer Index)
                               tolapp3d,
                               tol2d,
                               tolreached))
-      throw Standard_Failure("OneCorner : echec calcul intersection");
+      throw ExceptionBase("OneCorner : echec calcul intersection");
 
     Udeb = zob3d->FirstParameter();
     Ufin = zob3d->LastParameter();

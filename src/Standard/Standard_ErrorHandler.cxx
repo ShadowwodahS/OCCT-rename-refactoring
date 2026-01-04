@@ -154,7 +154,7 @@ Standard_Boolean Standard_ErrorHandler::IsInTryBlock()
 //====    Abort if there is a non null 'Error'
 //============================================================================
 
-void Standard_ErrorHandler::Abort(const Handle(Standard_Failure)& theError)
+void Standard_ErrorHandler::Abort(const Handle(ExceptionBase)& theError)
 {
   Standard_ErrorHandler* anActive = FindHandler(Standard_HandlerVoid, Standard_True);
 
@@ -196,9 +196,9 @@ Standard_Boolean Standard_ErrorHandler::Catches(const Handle(TypeInfo)& AType)
   }
 }
 
-Handle(Standard_Failure) Standard_ErrorHandler::LastCaughtError()
+Handle(ExceptionBase) Standard_ErrorHandler::LastCaughtError()
 {
-  Handle(Standard_Failure) aHandle;
+  Handle(ExceptionBase) aHandle;
   Standard_ErrorHandler*   anActive = FindHandler(Standard_HandlerProcessed, Standard_False);
   if (anActive != 0)
     aHandle = anActive->myCaughtError;
@@ -206,12 +206,12 @@ Handle(Standard_Failure) Standard_ErrorHandler::LastCaughtError()
   return aHandle;
 }
 
-Handle(Standard_Failure) Standard_ErrorHandler::Error() const
+Handle(ExceptionBase) Standard_ErrorHandler::Error() const
 {
   return myCaughtError;
 }
 
-void Standard_ErrorHandler::Error(const Handle(Standard_Failure)& theError)
+void Standard_ErrorHandler::Error(const Handle(ExceptionBase)& theError)
 {
   Standard_ErrorHandler* anActive = FindHandler(Standard_HandlerVoid, Standard_False);
   if (anActive == NULL)

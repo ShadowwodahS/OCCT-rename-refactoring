@@ -47,7 +47,7 @@ IMPLEMENT_STANDARD_RTTIEXT(DNaming_TransformationDriver, TFunction_Driver)
 #ifdef _WIN32
   #define EXCEPTION ...
 #else
-  #define EXCEPTION Standard_Failure const&
+  #define EXCEPTION ExceptionBase const&
 #endif
 
 #define FACES_TAG 1
@@ -131,7 +131,7 @@ Standard_Integer DNaming_TransformationDriver::Execute(Handle(TFunction_Logbook)
       Handle(TNaming_NamedShape)  aLineNS  = DNaming::GetObjectValue(aLineObj);
       gp_Ax1                      anAxis;
       if (!DNaming::ComputeAxis(aLineNS, anAxis))
-        throw Standard_Failure();
+        throw ExceptionBase();
       gp_Vec aVector(anAxis.Direction());
       aVector.Normalize();
       Standard_Real anOffset = DNaming::GetReal(aFunction, PTRANSF_OFF)->Get();
@@ -144,7 +144,7 @@ Standard_Integer DNaming_TransformationDriver::Execute(Handle(TFunction_Logbook)
       Handle(TNaming_NamedShape)  aLineNS  = DNaming::GetObjectValue(aLineObj);
       gp_Ax1                      anAxis;
       if (!DNaming::ComputeAxis(aLineNS, anAxis))
-        throw Standard_Failure();
+        throw ExceptionBase();
 
       Standard_Real anAngle = DNaming::GetReal(aFunction, PTRANSF_ANG)->Get();
       aTransformation.SetRotation(anAxis, anAngle);
@@ -156,12 +156,12 @@ Standard_Integer DNaming_TransformationDriver::Execute(Handle(TFunction_Logbook)
 
       if (aNS.IsNull() || aNS->IsEmpty() || aNS->Get().IsNull()
           || aNS->Get().ShapeType() != TopAbs_FACE)
-        throw Standard_Failure();
+        throw ExceptionBase();
       TopoDS_Face             aFace = TopoDS::Face(aNS->Get());
       Handle(Geom_Surface)    aSurf = BRep_Tool::Surface(aFace);
       GeomLib_IsPlanarSurface isPlanarSurface(aSurf);
       if (!isPlanarSurface.IsPlanar())
-        throw Standard_Failure();
+        throw ExceptionBase();
       gp_Pln aPlane     = isPlanarSurface.Plan();
       gp_Ax2 aMirrorAx2 = aPlane.Position().Ax2();
       aTransformation.SetMirror(aMirrorAx2);

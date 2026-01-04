@@ -1474,7 +1474,7 @@ void HLRBRep_Data::LocalLEGeometry2D(const Standard_Real Param,
 {
   myLLProps.SetParameter(Param);
   if (!myLLProps.IsTangentDefined())
-    throw Standard_Failure("HLRBRep_Data::LocalGeometry2D");
+    throw ExceptionBase("HLRBRep_Data::LocalGeometry2D");
   myLLProps.Tangent(Tg);
   Cu = myLLProps.Curvature();
   if (Cu > Epsilon(1.) && !Precision::IsInfinite(Cu))
@@ -1495,7 +1495,7 @@ void HLRBRep_Data::LocalFEGeometry2D(const Standard_Integer FE,
   myFLProps.SetCurve(aCurve);
   myFLProps.SetParameter(Param);
   if (!myFLProps.IsTangentDefined())
-    throw Standard_Failure("HLRBRep_Data::LocalGeometry2D");
+    throw ExceptionBase("HLRBRep_Data::LocalGeometry2D");
   myFLProps.Tangent(Tg);
   Cu = myFLProps.Curvature();
   if (Cu > Epsilon(1.) && !Precision::IsInfinite(Cu))

@@ -81,7 +81,7 @@ public:
               aResEdge->SetStatus(ste);
             }
           }
-          catch (Standard_Failure const& anException)
+          catch (ExceptionBase const& anException)
           {
             (void)anException;
             if (!aResult.IsNull())
@@ -103,7 +103,7 @@ public:
                 aResOfVertex->InContext(aShape);
               }
             }
-            catch (Standard_Failure const& anException)
+            catch (ExceptionBase const& anException)
             {
               (void)anException;
               if (!aResult.IsNull())
@@ -136,7 +136,7 @@ public:
                 aFaceVertexRes->InContext(aShape);
               }
             }
-            catch (Standard_Failure const& anException)
+            catch (ExceptionBase const& anException)
             {
               (void)anException;
               if (!aResult.IsNull())
@@ -185,7 +185,7 @@ public:
                 }
               }
             }
-            catch (Standard_Failure const& anException)
+            catch (ExceptionBase const& anException)
             {
               (void)anException;
               if (!aResult.IsNull())
@@ -228,7 +228,7 @@ public:
                 }
               }
             }
-            catch (Standard_Failure const& anException)
+            catch (ExceptionBase const& anException)
             {
               (void)anException;
               if (!aResult.IsNull())
@@ -267,7 +267,7 @@ public:
               aFaceRes->SetUnorientable();
             }
           }
-          catch (Standard_Failure const& anException)
+          catch (ExceptionBase const& anException)
           {
             (void)anException;
             if (!aResult.IsNull())
@@ -302,7 +302,7 @@ public:
               OCC_CATCH_SIGNALS
               aSolidRes->InContext(aShape);
             }
-            catch (Standard_Failure const& anException)
+            catch (ExceptionBase const& anException)
             {
               (void)anException;
               if (!aResult.IsNull())

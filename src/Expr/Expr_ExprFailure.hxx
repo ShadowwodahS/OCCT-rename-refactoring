@@ -23,7 +23,7 @@
 #include <Standard_Failure.hxx>
 
 class Expr_ExprFailure;
-DEFINE_STANDARD_HANDLE(Expr_ExprFailure, Standard_Failure)
+DEFINE_STANDARD_HANDLE(Expr_ExprFailure, ExceptionBase)
 
 #if !defined No_Exception && !defined No_Expr_ExprFailure
   #define Expr_ExprFailure_Raise_if(CONDITION, MESSAGE)                                            \
@@ -33,6 +33,6 @@ DEFINE_STANDARD_HANDLE(Expr_ExprFailure, Standard_Failure)
   #define Expr_ExprFailure_Raise_if(CONDITION, MESSAGE)
 #endif
 
-DEFINE_STANDARD_EXCEPTION(Expr_ExprFailure, Standard_Failure)
+DEFINE_STANDARD_EXCEPTION(Expr_ExprFailure, ExceptionBase)
 
 #endif // _Expr_ExprFailure_HeaderFile

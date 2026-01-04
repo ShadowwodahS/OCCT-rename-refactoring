@@ -50,7 +50,7 @@ const Handle(RefObject)& BinXCAFDrivers::Factory(const Standard_GUID& theGUID)
     return model_rd;
   }
 
-  throw Standard_Failure("XCAFBinDrivers : unknown GUID");
+  throw ExceptionBase("XCAFBinDrivers : unknown GUID");
 }
 
 //=================================================================================================

@@ -114,7 +114,7 @@ Standard_Boolean TObj_Application::LoadDocument(const TCollection_ExtendedString
     {
       aStatus = Open(theSourceFile, theTargetDoc);
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
 #ifdef OCCT_DEBUG
       ErrorMessage(Message_Msg("TObj_Appl_Exception") << anException.GetMessageString());
@@ -145,7 +145,7 @@ Standard_Boolean TObj_Application::LoadDocument(Standard_IStream&         theISt
     {
       aStatus = Open(theIStream, theTargetDoc);
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
 #ifdef OCCT_DEBUG
       ErrorMessage(Message_Msg("TObj_Appl_Exception") << anException.GetMessageString());

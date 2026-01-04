@@ -789,7 +789,7 @@ void HLRBRep_Hider::Hide(const Standard_Integer FI, BRepTopAdaptor_MapOfShapeToo
       }
     }
 
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
 #ifdef OCCT_DEBUG
       std::cout << "An exception was caught when hiding edge " << E;

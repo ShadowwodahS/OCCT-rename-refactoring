@@ -848,7 +848,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertSurface(
           }
         }
 
-        catch (Standard_Failure const& anException)
+        catch (ExceptionBase const& anException)
         {
 #ifdef OCCT_DEBUG
           std::cout << "Warning: GeomConvert_ApproxSurface Exception: try to decrease continuity ";
@@ -1262,7 +1262,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve(const Handle(Geom_
           return Standard_True;
         }
       }
-      catch (Standard_Failure const& anException)
+      catch (ExceptionBase const& anException)
       {
 #ifdef OCCT_DEBUG
         std::cout << "Warning: GeomConvert_ApproxCurve Exception: Wrong Coefficient : Decrease "
@@ -1639,7 +1639,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve2d(const Handle(Geo
           return Standard_True;
         }
       }
-      catch (Standard_Failure const& anException)
+      catch (ExceptionBase const& anException)
       {
 #ifdef OCCT_DEBUG
         std::cout << "Warning: Geom2dConvert_ApproxCurve Exception: Wrong Coefficient :Decrease "

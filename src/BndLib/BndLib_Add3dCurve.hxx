@@ -52,7 +52,7 @@ public:
   //! Standard_Real Tol = ... ;
   //! Add3dCurve::Add ( C, Tol, B );
   //! Exceptions
-  //! Standard_Failure if the curve is built from:
+  //! ExceptionBase if the curve is built from:
   //! -   a Geom_Line, or
   //! -   a Geom_Parabola, or
   //! -   a Geom_Hyperbola,
@@ -80,7 +80,7 @@ public:
   //! Standard_Real Tol = ... ;
   //! Add3dCurve::Add ( C, Tol, B );
   //! Exceptions
-  //! Standard_Failure if the curve is built from:
+  //! ExceptionBase if the curve is built from:
   //! -   a Geom_Line, or
   //! -   a Geom_Parabola, or
   //! -   a Geom_Hyperbola,

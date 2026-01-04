@@ -196,7 +196,7 @@ void BOPAlgo_CheckerSI::Perform(const Message_ProgressRange& theRange)
     PostTreat();
   }
   //
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     AddError(new BOPAlgo_AlertIntersectionFailed);
   }

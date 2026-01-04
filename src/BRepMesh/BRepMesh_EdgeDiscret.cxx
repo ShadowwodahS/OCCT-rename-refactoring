@@ -171,7 +171,7 @@ void BRepMesh_EdgeDiscret::process(const Standard_Integer theEdgeIndex) const
       Tessellate2d(aDEdge, Standard_True);
     }
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     aDEdge->SetStatus(IMeshData_Failure);
   }

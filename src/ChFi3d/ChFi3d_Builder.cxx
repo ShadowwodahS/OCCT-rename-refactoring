@@ -218,7 +218,7 @@ void ChFi3d_Builder::Compute()
   UpdateTolesp();
 
   if (myListStripe.IsEmpty())
-    throw Standard_Failure("There are no suitable edges for chamfer or fillet");
+    throw ExceptionBase("There are no suitable edges for chamfer or fillet");
 
   Reset();
   myDS                             = new TopOpeBRepDS_HDataStructure();
@@ -257,7 +257,7 @@ void ChFi3d_Builder::Compute()
       OCC_CATCH_SIGNALS
       PerformSetOfSurf(itel.ChangeValue());
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
 #ifdef OCCT_DEBUG
       std::cout << "EXCEPTION Stripe compute " << anException << std::endl;
@@ -290,7 +290,7 @@ void ChFi3d_Builder::Compute()
         OCC_CATCH_SIGNALS
         PerformFilletOnVertex(j);
       }
-      catch (Standard_Failure const& anException)
+      catch (ExceptionBase const& anException)
       {
 #ifdef OCCT_DEBUG
         std::cout << "EXCEPTION Corner compute " << anException << std::endl;
@@ -349,7 +349,7 @@ void ChFi3d_Builder::Compute()
           OCC_CATCH_SIGNALS
           ChFi3d_StripeEdgeInter(st, aCheckStripe, DStr, tol2d);
         }
-        catch (Standard_Failure const& anException)
+        catch (ExceptionBase const& anException)
         {
 #ifdef OCCT_DEBUG
           std::cout << "EXCEPTION Fillets compute " << anException << std::endl;

@@ -311,7 +311,7 @@ TopoDS_Shell ShapeFix_FaceConnect::Build(const TopoDS_Shell& shell,
                 {
                   OCC_CATCH_SIGNALS theSewer.Perform();
                 }
-                catch (Standard_Failure const&)
+                catch (ExceptionBase const&)
                 {
                   sewing_ok = Standard_False;
                 }

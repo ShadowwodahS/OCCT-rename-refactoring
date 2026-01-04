@@ -860,7 +860,7 @@ void ChFi3d_FilBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           Data,
                      RecRst);
     if (!done)
     {
-      throw Standard_Failure("SimulSurf : Failed process!");
+      throw ExceptionBase("SimulSurf : Failed process!");
     }
     Standard_Integer nbp = lin->NbPoints();
     sec                  = new ChFiDS_SecHArray1(1, nbp);
@@ -936,7 +936,7 @@ void ChFi3d_FilBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           Data,
                      RecS,
                      RecRst);
     if (!done)
-      throw Standard_Failure("SimulSurf : Fail !");
+      throw ExceptionBase("SimulSurf : Fail !");
     Standard_Integer nbp = lin->NbPoints();
     sec                  = new ChFiDS_SecHArray1(1, nbp);
     for (Standard_Integer i = 1; i <= nbp; i++)
@@ -1079,7 +1079,7 @@ void ChFi3d_FilBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           Data,
                      RecS,
                      RecRst);
     if (!done)
-      throw Standard_Failure("SimulSurf : Failed Processing!");
+      throw ExceptionBase("SimulSurf : Failed Processing!");
     Standard_Integer nbp = lin->NbPoints();
     sec                  = new ChFiDS_SecHArray1(1, nbp);
     for (Standard_Integer i = 1; i <= nbp; i++)
@@ -1154,7 +1154,7 @@ void ChFi3d_FilBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           Data,
                      RecS,
                      RecRst);
     if (!done)
-      throw Standard_Failure("SimulSurf : Fail !");
+      throw ExceptionBase("SimulSurf : Fail !");
     Standard_Integer nbp = lin->NbPoints();
     sec                  = new ChFiDS_SecHArray1(1, nbp);
     for (Standard_Integer i = 1; i <= nbp; i++)
@@ -1315,7 +1315,7 @@ void ChFi3d_FilBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           Data,
                      RecP2,
                      RecRst2);
     if (!done)
-      throw Standard_Failure("SimulSurf : Failed processing!");
+      throw ExceptionBase("SimulSurf : Failed processing!");
     Standard_Integer nbp = lin->NbPoints();
     sec                  = new ChFiDS_SecHArray1(1, nbp);
     for (Standard_Integer i = 1; i <= nbp; i++)
@@ -1397,7 +1397,7 @@ void ChFi3d_FilBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           Data,
                      RecRst2);
 
     if (!done)
-      throw Standard_Failure("SimulSurf : Fail !");
+      throw ExceptionBase("SimulSurf : Fail !");
     Standard_Integer nbp = lin->NbPoints();
     sec                  = new ChFiDS_SecHArray1(1, nbp);
     for (Standard_Integer i = 1; i <= nbp; i++)
@@ -1575,7 +1575,7 @@ Standard_Boolean ChFi3d_FilBuilder::PerformSurf(ChFiDS_SequenceOfSurfData&      
 #endif
 
     if (!done)
-      throw Standard_Failure("PerformSurf : Failed approximation!");
+      throw ExceptionBase("PerformSurf : Failed approximation!");
     maybesingular = (Func.GetMinimalDistance() <= 100 * tolapp3d);
   }
   else
@@ -1636,7 +1636,7 @@ Standard_Boolean ChFi3d_FilBuilder::PerformSurf(ChFiDS_SequenceOfSurfData&      
 #endif
 
     if (!done)
-      throw Standard_Failure("PerformSurf : Failed approximation!");
+      throw ExceptionBase("PerformSurf : Failed approximation!");
     maybesingular = (Func.GetMinimalDistance() <= 100 * tolapp3d);
   }
   if (maybesingular)
@@ -1732,12 +1732,12 @@ void ChFi3d_FilBuilder::PerformSurf(ChFiDS_SequenceOfSurfData&         SeqData,
     if (!done)
     {
       Spine->SetErrorStatus(ChFiDS_WalkingFailure);
-      throw Standard_Failure("PerformSurf : Failed processing!");
+      throw ExceptionBase("PerformSurf : Failed processing!");
     }
     TopAbs_Orientation Or = HS2->Face().Orientation();
     done                  = CompleteData(Data, func, lin, HS1, HS2, Or, 1);
     if (!done)
-      throw Standard_Failure("PerformSurf : Failed approximation!");
+      throw ExceptionBase("PerformSurf : Failed approximation!");
     maybesingular = (func.GetMinimalDistance() <= 100 * tolapp3d);
   }
   else
@@ -1789,12 +1789,12 @@ void ChFi3d_FilBuilder::PerformSurf(ChFiDS_SequenceOfSurfData&         SeqData,
     if (!done)
     {
       Spine->SetErrorStatus(ChFiDS_WalkingFailure);
-      throw Standard_Failure("PerformSurf : Failed processing!");
+      throw ExceptionBase("PerformSurf : Failed processing!");
     }
     TopAbs_Orientation Or = HS2->Face().Orientation();
     done                  = CompleteData(Data, func, lin, HS1, HS2, Or, 1);
     if (!done)
-      throw Standard_Failure("PerformSurf : Failed approximation!");
+      throw ExceptionBase("PerformSurf : Failed approximation!");
     maybesingular = (func.GetMinimalDistance() <= 100 * tolapp3d);
   }
   if (maybesingular)
@@ -1889,12 +1889,12 @@ void ChFi3d_FilBuilder::PerformSurf(ChFiDS_SequenceOfSurfData&         SeqData,
     if (!done)
     {
       Spine->SetErrorStatus(ChFiDS_WalkingFailure);
-      throw Standard_Failure("PerformSurf : Failed processing!");
+      throw ExceptionBase("PerformSurf : Failed processing!");
     }
     TopAbs_Orientation Or = HS1->Face().Orientation();
     done                  = CompleteData(Data, func, lin, HS1, HS2, Or, 0);
     if (!done)
-      throw Standard_Failure("PerformSurf : Failed approximation!");
+      throw ExceptionBase("PerformSurf : Failed approximation!");
     maybesingular = (func.GetMinimalDistance() <= 100 * tolapp3d);
   }
   else
@@ -1947,12 +1947,12 @@ void ChFi3d_FilBuilder::PerformSurf(ChFiDS_SequenceOfSurfData&         SeqData,
     if (!done)
     {
       Spine->SetErrorStatus(ChFiDS_WalkingFailure);
-      throw Standard_Failure("PerformSurf : Failed processing!");
+      throw ExceptionBase("PerformSurf : Failed processing!");
     }
     TopAbs_Orientation Or = HS1->Face().Orientation();
     done                  = CompleteData(Data, func, lin, HS1, HS2, Or, 0);
     if (!done)
-      throw Standard_Failure("PerformSurf : Failed approximation!");
+      throw ExceptionBase("PerformSurf : Failed approximation!");
     maybesingular = (func.GetMinimalDistance() <= 100 * tolapp3d);
   }
   if (maybesingular)
@@ -2064,12 +2064,12 @@ void ChFi3d_FilBuilder::PerformSurf(ChFiDS_SequenceOfSurfData&         SeqData,
     if (!done)
     {
       Spine->SetErrorStatus(ChFiDS_WalkingFailure);
-      throw Standard_Failure("PerformSurf : Failed processing!");
+      throw ExceptionBase("PerformSurf : Failed processing!");
     }
     TopAbs_Orientation Or = HS1->Face().Orientation();
     done                  = CompleteData(Data, func, lin, HS1, HS2, Or);
     if (!done)
-      throw Standard_Failure("PerformSurf : Failed approximation!");
+      throw ExceptionBase("PerformSurf : Failed approximation!");
     maybesingular = (func.GetMinimalDistance() <= 100 * tolapp3d);
   }
   else
@@ -2137,12 +2137,12 @@ void ChFi3d_FilBuilder::PerformSurf(ChFiDS_SequenceOfSurfData&         SeqData,
     if (!done)
     {
       Spine->SetErrorStatus(ChFiDS_WalkingFailure);
-      throw Standard_Failure("PerformSurf : Failed processing!");
+      throw ExceptionBase("PerformSurf : Failed processing!");
     }
     TopAbs_Orientation Or = HS1->Face().Orientation();
     done                  = CompleteData(Data, func, lin, HS1, HS2, Or);
     if (!done)
-      throw Standard_Failure("PerformSurf : Failed approximation!");
+      throw ExceptionBase("PerformSurf : Failed approximation!");
     maybesingular = (func.GetMinimalDistance() <= 100 * tolapp3d);
   }
   if (maybesingular)

@@ -596,7 +596,7 @@ Standard_Boolean BRepBlend_Walking::PerformFirstSection(Blend_Function&        F
     }
     break;
     default: {
-      throw Standard_Failure("BRepBlend_Walking::PerformFirstSection : echec");
+      throw ExceptionBase("BRepBlend_Walking::PerformFirstSection : echec");
     }
   }
   if (sens < 0.0)

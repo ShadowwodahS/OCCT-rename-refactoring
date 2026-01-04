@@ -68,7 +68,7 @@ const char* GeomTools_Dump(void* theHandlePtr)
 
     return "Error: Not a geometric object";
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     return anException.GetMessageString();
   }

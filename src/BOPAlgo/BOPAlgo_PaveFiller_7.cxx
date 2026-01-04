@@ -277,7 +277,7 @@ public:
         UpdateVertices(aCopyE, myF);
       }
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
       AddError(new BOPAlgo_AlertBuildingPCurveFailed(TopoDS_Shape()));
     }

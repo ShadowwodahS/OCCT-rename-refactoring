@@ -1217,7 +1217,7 @@ void ChFi3d_ChBuilder::SimulSurf(Handle(ChFiDS_SurfData)&,
                                  const Standard_Boolean,
                                  const math_Vector&)
 {
-  throw Standard_Failure("SimulSurf Not Implemented");
+  throw ExceptionBase("SimulSurf Not Implemented");
 }
 
 void ChFi3d_ChBuilder::SimulSurf(Handle(ChFiDS_SurfData)&,
@@ -1245,7 +1245,7 @@ void ChFi3d_ChBuilder::SimulSurf(Handle(ChFiDS_SurfData)&,
                                  const Standard_Boolean,
                                  const math_Vector&)
 {
-  throw Standard_Failure("SimulSurf Not Implemented");
+  throw ExceptionBase("SimulSurf Not Implemented");
 }
 
 void ChFi3d_ChBuilder::SimulSurf(Handle(ChFiDS_SurfData)&,
@@ -1279,7 +1279,7 @@ void ChFi3d_ChBuilder::SimulSurf(Handle(ChFiDS_SurfData)&,
                                  const Standard_Boolean,
                                  const math_Vector&)
 {
-  throw Standard_Failure("SimulSurf Not Implemented");
+  throw ExceptionBase("SimulSurf Not Implemented");
 }
 
 //------------------------MODIFS---------------------------------------
@@ -1649,7 +1649,7 @@ Standard_Boolean ChFi3d_ChBuilder::PerformSurf(ChFiDS_SequenceOfSurfData&       
       return Standard_False; // ratrappage possible PMN 14/05/1998
     done = CompleteData(Data, *pFunc, lin, S1, S2, Or, gd1, gd2, gf1, gf2);
     if (!done)
-      throw Standard_Failure("PerformSurf : Fail of approximation!");
+      throw ExceptionBase("PerformSurf : Fail of approximation!");
   }
   else if (chsp->IsChamfer() == ChFiDS_TwoDist)
   {
@@ -1722,7 +1722,7 @@ Standard_Boolean ChFi3d_ChBuilder::PerformSurf(ChFiDS_SequenceOfSurfData&       
       return Standard_False; // ratrappage possible PMN 14/05/1998
     done = CompleteData(Data, *pFunc, lin, S1, S2, Or, gd1, gd2, gf1, gf2);
     if (!done)
-      throw Standard_Failure("PerformSurf : Fail of approximation!");
+      throw ExceptionBase("PerformSurf : Fail of approximation!");
   }
   else
   { // distance and angle
@@ -1769,7 +1769,7 @@ Standard_Boolean ChFi3d_ChBuilder::PerformSurf(ChFiDS_SequenceOfSurfData&       
       return Standard_False; // ratrappage possible PMN 14/05/1998
     done = CompleteData(Data, Func, lin, S1, S2, Or, gd1, gd2, gf1, gf2);
     if (!done)
-      throw Standard_Failure("PerformSurf : Fail of approximation!");
+      throw ExceptionBase("PerformSurf : Fail of approximation!");
   }
 
   return Standard_True;
@@ -1801,7 +1801,7 @@ void ChFi3d_ChBuilder::PerformSurf(ChFiDS_SequenceOfSurfData&,
                                    const Standard_Boolean,
                                    const math_Vector&)
 {
-  throw Standard_Failure("PerformSurf Not Implemented");
+  throw ExceptionBase("PerformSurf Not Implemented");
 }
 
 void ChFi3d_ChBuilder::PerformSurf(ChFiDS_SequenceOfSurfData&,
@@ -1830,7 +1830,7 @@ void ChFi3d_ChBuilder::PerformSurf(ChFiDS_SequenceOfSurfData&,
                                    const Standard_Boolean,
                                    const math_Vector&)
 {
-  throw Standard_Failure("PerformSurf Not Implemented");
+  throw ExceptionBase("PerformSurf Not Implemented");
 }
 
 void ChFi3d_ChBuilder::PerformSurf(ChFiDS_SequenceOfSurfData&,
@@ -1865,7 +1865,7 @@ void ChFi3d_ChBuilder::PerformSurf(ChFiDS_SequenceOfSurfData&,
                                    const Standard_Boolean,
                                    const math_Vector&)
 {
-  throw Standard_Failure("PerformSurf Not Implemented");
+  throw ExceptionBase("PerformSurf Not Implemented");
 }
 
 //=======================================================================

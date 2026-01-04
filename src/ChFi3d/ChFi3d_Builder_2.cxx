@@ -1085,7 +1085,7 @@ void ChFi3d_Builder::StartSol(const Handle(ChFiDS_Stripe)&      Stripe,
     }
   }
   Spine->SetErrorStatus(ChFiDS_StartsolFailure);
-  throw Standard_Failure("StartSol echec");
+  throw ExceptionBase("StartSol echec");
 }
 
 //=================================================================================================
@@ -1119,7 +1119,7 @@ static void ChFi3d_BuildPlane(TopOpeBRepDS_DataStructure&    DStr,
       return; // everything is good !
     }
   }
-  throw Standard_Failure("ChFi3d_BuildPlane : echec .");
+  throw ExceptionBase("ChFi3d_BuildPlane : echec .");
 }
 
 //=======================================================================
@@ -1306,15 +1306,15 @@ Standard_Boolean ChFi3d_Builder::StartSol(
     // connected to FRef along the newedge.
     if (newedge.IsNull())
     {
-      throw Standard_Failure("StartSol : chain is not possible, new obstacle not found");
+      throw ExceptionBase("StartSol : chain is not possible, new obstacle not found");
     }
     if (IsG1(myEFMap, newedge, Fref, Fv))
     {
-      throw Standard_Failure("StartSol : chain is not possible, config non processed");
+      throw ExceptionBase("StartSol : chain is not possible, config non processed");
     }
     else if (Fv.IsNull())
     {
-      throw Standard_Failure("StartSol : chain is not possible, new obstacle not found");
+      throw ExceptionBase("StartSol : chain is not possible, new obstacle not found");
     }
     else
     {
@@ -2048,7 +2048,7 @@ static void InsertAfter(Handle(ChFiDS_Stripe)&   Stripe,
                         Handle(ChFiDS_SurfData)& Item)
 {
   if (Ref == Item)
-    throw Standard_Failure("InsertAfter : twice the same surfdata.");
+    throw ExceptionBase("InsertAfter : twice the same surfdata.");
 
   ChFiDS_SequenceOfSurfData& Seq = Stripe->ChangeSetOfSurfData()->ChangeSequence();
 
@@ -2105,7 +2105,7 @@ static void InsertBefore(Handle(ChFiDS_Stripe)&   Stripe,
                          Handle(ChFiDS_SurfData)& Item)
 {
   if (Ref == Item)
-    throw Standard_Failure("InsertBefore : twice the same surfdata.");
+    throw ExceptionBase("InsertBefore : twice the same surfdata.");
 
   ChFiDS_SequenceOfSurfData& Seq = Stripe->ChangeSetOfSurfData()->ChangeSequence();
 
@@ -2469,7 +2469,7 @@ void ChFi3d_Builder::PerformSetOfSurfOnElSpine(const Handle(ChFiDS_ElSpine)&    
         }
       }
       else
-        throw Standard_Failure("PerformSetOfSurfOnElSpine : Chaining is impossible.");
+        throw ExceptionBase("PerformSetOfSurfOnElSpine : Chaining is impossible.");
     }
 
     // Definition of the domain of patch It1, It2
@@ -2789,7 +2789,7 @@ void ChFi3d_Builder::PerformSetOfSurfOnElSpine(const Handle(ChFiDS_ElSpine)&    
       else
       { // Otherwise invalidation of the stripe.
         Spine->SetErrorStatus(ChFiDS_WalkingFailure);
-        throw Standard_Failure("CallPerformSurf : Path failed!");
+        throw ExceptionBase("CallPerformSurf : Path failed!");
       }
     }
 
@@ -3278,7 +3278,7 @@ void ChFi3d_Builder::PerformSetOfKGen(Handle(ChFiDS_Stripe)& Stripe, const Stand
       if ((tw1 && !possibleon1) || (tw2 && !possibleon2))
       {
         Spine->SetErrorStatus(ChFiDS_TwistedSurface);
-        throw Standard_Failure("adjustment by reprocessing the non-written points");
+        throw ExceptionBase("adjustment by reprocessing the non-written points");
       }
 
       // It is checked if there are presentable neighbors
@@ -3319,7 +3319,7 @@ void ChFi3d_Builder::PerformSetOfKGen(Handle(ChFiDS_Stripe)& Stripe, const Stand
         if (!yaprevon1 || !yanexton1)
         {
           Spine->SetErrorStatus(ChFiDS_TwistedSurface);
-          throw Standard_Failure("adjustment by reprocessing the non-written points: no neighbor");
+          throw ExceptionBase("adjustment by reprocessing the non-written points: no neighbor");
         }
         ChFiDS_FaceInterference& previntf1 = prevsd->ChangeInterferenceOnS1();
         ChFiDS_FaceInterference& nextintf1 = nextsd->ChangeInterferenceOnS1();
@@ -3390,7 +3390,7 @@ void ChFi3d_Builder::PerformSetOfKGen(Handle(ChFiDS_Stripe)& Stripe, const Stand
       {
         if (!yaprevon2 || !yanexton2)
         {
-          throw Standard_Failure("adjustment by reprocessing the non-written points: no neighbor");
+          throw ExceptionBase("adjustment by reprocessing the non-written points: no neighbor");
         }
         ChFiDS_FaceInterference& previntf2 = prevsd->ChangeInterferenceOnS2();
         ChFiDS_FaceInterference& nextintf2 = nextsd->ChangeInterferenceOnS2();

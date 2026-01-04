@@ -23,7 +23,7 @@
 
 #include <string.h>
 
-IMPLEMENT_STANDARD_RTTIEXT(Standard_Failure, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(ExceptionBase, RefObject)
 
 namespace
 {
@@ -33,7 +33,7 @@ static Standard_Integer Standard_Failure_DefaultStackTraceLength = 0;
 
 //=================================================================================================
 
-Standard_Failure::StringRef* Standard_Failure::StringRef::allocate_message(
+ExceptionBase::StringRef* ExceptionBase::StringRef::allocate_message(
   const Standard_CString theString)
 {
   if (theString == NULL || *theString == '\0')
@@ -53,8 +53,8 @@ Standard_Failure::StringRef* Standard_Failure::StringRef::allocate_message(
 
 //=================================================================================================
 
-Standard_Failure::StringRef* Standard_Failure::StringRef::copy_message(
-  Standard_Failure::StringRef* theString)
+ExceptionBase::StringRef* ExceptionBase::StringRef::copy_message(
+  ExceptionBase::StringRef* theString)
 {
   if (theString == NULL)
   {
@@ -67,7 +67,7 @@ Standard_Failure::StringRef* Standard_Failure::StringRef::copy_message(
 
 //=================================================================================================
 
-void Standard_Failure::StringRef::deallocate_message(Standard_Failure::StringRef* theString)
+void ExceptionBase::StringRef::deallocate_message(ExceptionBase::StringRef* theString)
 {
   if (theString != NULL)
   {
@@ -80,7 +80,7 @@ void Standard_Failure::StringRef::deallocate_message(Standard_Failure::StringRef
 
 //=================================================================================================
 
-Standard_Failure::Standard_Failure()
+ExceptionBase::ExceptionBase()
     : myMessage(NULL),
       myStackTrace(NULL)
 {
@@ -102,7 +102,7 @@ Standard_Failure::Standard_Failure()
 
 //=================================================================================================
 
-Standard_Failure::Standard_Failure(const Standard_CString theDesc)
+ExceptionBase::ExceptionBase(const Standard_CString theDesc)
     : myMessage(NULL),
       myStackTrace(NULL)
 {
@@ -123,7 +123,7 @@ Standard_Failure::Standard_Failure(const Standard_CString theDesc)
 
 //=================================================================================================
 
-Standard_Failure::Standard_Failure(const Standard_CString theDesc,
+ExceptionBase::ExceptionBase(const Standard_CString theDesc,
                                    const Standard_CString theStackTrace)
     : myMessage(NULL),
       myStackTrace(NULL)
@@ -134,7 +134,7 @@ Standard_Failure::Standard_Failure(const Standard_CString theDesc,
 
 //=================================================================================================
 
-Standard_Failure::Standard_Failure(const Standard_Failure& theFailure)
+ExceptionBase::ExceptionBase(const ExceptionBase& theFailure)
     : RefObject(theFailure),
       myMessage(NULL),
       myStackTrace(NULL)
@@ -145,7 +145,7 @@ Standard_Failure::Standard_Failure(const Standard_Failure& theFailure)
 
 //=================================================================================================
 
-Standard_Failure::~Standard_Failure()
+ExceptionBase::~ExceptionBase()
 {
   StringRef::deallocate_message(myMessage);
   StringRef::deallocate_message(myStackTrace);
@@ -153,14 +153,14 @@ Standard_Failure::~Standard_Failure()
 
 //=================================================================================================
 
-Standard_CString Standard_Failure::GetMessageString() const
+Standard_CString ExceptionBase::GetMessageString() const
 {
   return myMessage != NULL ? myMessage->GetMessage() : "";
 }
 
 //=================================================================================================
 
-void Standard_Failure::SetMessageString(const Standard_CString theDesc)
+void ExceptionBase::SetMessageString(const Standard_CString theDesc)
 {
   if (theDesc == GetMessageString())
   {
@@ -173,14 +173,14 @@ void Standard_Failure::SetMessageString(const Standard_CString theDesc)
 
 //=================================================================================================
 
-Standard_CString Standard_Failure::GetStackString() const
+Standard_CString ExceptionBase::GetStackString() const
 {
   return myStackTrace != NULL ? myStackTrace->GetMessage() : "";
 }
 
 //=================================================================================================
 
-void Standard_Failure::SetStackString(const Standard_CString theStack)
+void ExceptionBase::SetStackString(const Standard_CString theStack)
 {
   if (theStack == GetStackString())
   {
@@ -193,23 +193,23 @@ void Standard_Failure::SetStackString(const Standard_CString theStack)
 
 //=================================================================================================
 
-void Standard_Failure::Raise(const Standard_CString theDesc)
+void ExceptionBase::Raise(const Standard_CString theDesc)
 {
-  Handle(Standard_Failure) aFailure = new Standard_Failure();
+  Handle(ExceptionBase) aFailure = new ExceptionBase();
   aFailure->Reraise(theDesc);
 }
 
 //=================================================================================================
 
-void Standard_Failure::Raise(const Standard_SStream& theReason)
+void ExceptionBase::Raise(const Standard_SStream& theReason)
 {
-  Handle(Standard_Failure) aFailure = new Standard_Failure();
+  Handle(ExceptionBase) aFailure = new ExceptionBase();
   aFailure->Reraise(theReason);
 }
 
 //=================================================================================================
 
-void Standard_Failure::Reraise(const Standard_CString theDesc)
+void ExceptionBase::Reraise(const Standard_CString theDesc)
 {
   SetMessageString(theDesc);
   Reraise();
@@ -217,7 +217,7 @@ void Standard_Failure::Reraise(const Standard_CString theDesc)
 
 //=================================================================================================
 
-void Standard_Failure::Reraise(const Standard_SStream& theReason)
+void ExceptionBase::Reraise(const Standard_SStream& theReason)
 {
   SetMessageString(theReason.str().c_str());
   Reraise();
@@ -225,14 +225,14 @@ void Standard_Failure::Reraise(const Standard_SStream& theReason)
 
 //=================================================================================================
 
-void Standard_Failure::Reraise()
+void ExceptionBase::Reraise()
 {
   Throw();
 }
 
 //=================================================================================================
 
-void Standard_Failure::Jump()
+void ExceptionBase::Jump()
 {
 #if defined(OCC_CONVERT_SIGNALS)
   Standard_ErrorHandler::Error(this);
@@ -244,14 +244,14 @@ void Standard_Failure::Jump()
 
 //=================================================================================================
 
-void Standard_Failure::Throw() const
+void ExceptionBase::Throw() const
 {
   throw *this;
 }
 
 //=================================================================================================
 
-void Standard_Failure::Print(Standard_OStream& theStream) const
+void ExceptionBase::Print(Standard_OStream& theStream) const
 {
   if (myMessage != NULL)
   {
@@ -269,29 +269,29 @@ void Standard_Failure::Print(Standard_OStream& theStream) const
 
 //=================================================================================================
 
-Handle(Standard_Failure) Standard_Failure::NewInstance(Standard_CString theString)
+Handle(ExceptionBase) ExceptionBase::NewInstance(Standard_CString theString)
 {
-  return new Standard_Failure(theString);
+  return new ExceptionBase(theString);
 }
 
 //=================================================================================================
 
-Handle(Standard_Failure) Standard_Failure::NewInstance(Standard_CString theMessage,
+Handle(ExceptionBase) ExceptionBase::NewInstance(Standard_CString theMessage,
                                                        Standard_CString theStackTrace)
 {
-  return new Standard_Failure(theMessage, theStackTrace);
+  return new ExceptionBase(theMessage, theStackTrace);
 }
 
 //=================================================================================================
 
-Standard_Integer Standard_Failure::DefaultStackTraceLength()
+Standard_Integer ExceptionBase::DefaultStackTraceLength()
 {
   return Standard_Failure_DefaultStackTraceLength;
 }
 
 //=================================================================================================
 
-void Standard_Failure::SetDefaultStackTraceLength(Standard_Integer theNbStackTraces)
+void ExceptionBase::SetDefaultStackTraceLength(Standard_Integer theNbStackTraces)
 {
   Standard_Failure_DefaultStackTraceLength = theNbStackTraces;
 }

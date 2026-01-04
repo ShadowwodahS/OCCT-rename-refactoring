@@ -23,7 +23,7 @@
 #include <Standard_Failure.hxx>
 
 class ExprIntrp_SyntaxError;
-DEFINE_STANDARD_HANDLE(ExprIntrp_SyntaxError, Standard_Failure)
+DEFINE_STANDARD_HANDLE(ExprIntrp_SyntaxError, ExceptionBase)
 
 #if !defined No_Exception && !defined No_ExprIntrp_SyntaxError
   #define ExprIntrp_SyntaxError_Raise_if(CONDITION, MESSAGE)                                       \
@@ -33,6 +33,6 @@ DEFINE_STANDARD_HANDLE(ExprIntrp_SyntaxError, Standard_Failure)
   #define ExprIntrp_SyntaxError_Raise_if(CONDITION, MESSAGE)
 #endif
 
-DEFINE_STANDARD_EXCEPTION(ExprIntrp_SyntaxError, Standard_Failure)
+DEFINE_STANDARD_EXCEPTION(ExprIntrp_SyntaxError, ExceptionBase)
 
 #endif // _ExprIntrp_SyntaxError_HeaderFile

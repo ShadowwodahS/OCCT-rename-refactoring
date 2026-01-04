@@ -140,7 +140,7 @@ Standard_Boolean TObj_Model::Load(const TCollection_ExtendedString& theFile)
         {
           isValid = isValid && aLabel.Data() == aDoc->GetData();
         }
-        catch (Standard_Failure const&)
+        catch (ExceptionBase const&)
         {
           isValid = Standard_False;
         }
@@ -172,7 +172,7 @@ Standard_Boolean TObj_Model::Load(const TCollection_ExtendedString& theFile)
       {
         isInitOk = initNewModel(isFileEmpty);
       }
-      catch (Standard_Failure const& anException)
+      catch (ExceptionBase const& anException)
       {
 #ifdef OCCT_DEBUG
         TCollection_ExtendedString aString(anException.DynamicType()->Name());
@@ -226,7 +226,7 @@ Standard_Boolean TObj_Model::Load(Standard_IStream& theIStream)
     {
       isValid = (isValid && aLabel.Data() == aDoc->GetData());
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
       isValid = Standard_False;
     }
@@ -269,7 +269,7 @@ Standard_Boolean TObj_Model::Load(Standard_IStream& theIStream)
     {
       isInitOk = initNewModel(!isFileLoaded);
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
 #ifdef OCCT_DEBUG
       TCollection_ExtendedString aString(anException.DynamicType()->Name());

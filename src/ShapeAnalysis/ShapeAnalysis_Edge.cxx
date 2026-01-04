@@ -156,7 +156,7 @@ Standard_Boolean ShapeAnalysis_Edge::HasPCurve(const TopoDS_Edge&          edge,
   Handle(Geom2d_Curve) c2d = BRep_Tool::CurveOnSurface(edge, surface, location, cf, cl);
   return !c2d.IsNull();
   /* }
-  catch (Standard_Failure) {
+  catch (ExceptionBase) {
   }
   return Standard_False; */
 }

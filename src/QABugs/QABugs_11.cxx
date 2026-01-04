@@ -951,7 +951,7 @@ static Standard_Integer OCC363(Draw_Interpretor& di, Standard_Integer argc, cons
       if (!seq.Value(i).FindAttribute(TPrsStd_AISPresentation::GetID(), prs))
         prs = TPrsStd_AISPresentation::Set(seq.Value(i), XCAFPrs_Driver::GetID());
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     di << "FAULTY OCC363 : Exception during reading document.\n";
     return 0;
@@ -1002,7 +1002,7 @@ static Standard_Integer OCC363(Draw_Interpretor& di, Standard_Integer argc, cons
 //       return 0;
 //     }
 //   }
-//   catch (Standard_Failure) { di<<"OCC372 FAULTY. Exception raised"; }
+//   catch (ExceptionBase) { di<<"OCC372 FAULTY. Exception raised"; }
 //
 //   return 0;
 // }
@@ -1115,7 +1115,7 @@ static Standard_Integer OCC377(Draw_Interpretor& di, Standard_Integer argc, cons
       }
     }
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     di << "OCC377 Exception";
   }
@@ -1192,7 +1192,7 @@ static Standard_Integer OCC22(Draw_Interpretor& di, Standard_Integer argc, const
     // 4.3. Create result Draw shape
     DBRep::Set(argv[1], aResultShape);
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     di << "OCC22 Exception \n";
     return 0;
@@ -1260,7 +1260,7 @@ static Standard_Integer OCC24(Draw_Interpretor& di, Standard_Integer argc, const
     // 5 Create resultant Draw shape
     DBRep::Set(argv[1], aResultShape);
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     di << "OCC24 Exception \n";
     return 0;
@@ -1300,7 +1300,7 @@ static Standard_Integer OCC369(Draw_Interpretor& di, Standard_Integer argc, cons
     aMeshParams.Angle      = M_PI / 6.0;
     BRepMesh_IncrementalMesh aMesh(aShape, aMeshParams);
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     di << "OCC369 Exception \n";
     return 0;
@@ -1617,7 +1617,7 @@ static Standard_Integer OCC670(Draw_Interpretor& di, Standard_Integer argc, cons
   {
     throw Standard_OutOfRange();
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     std::cout << "Caught successfully: ";
     std::cout << anException << std::endl;
@@ -2309,7 +2309,7 @@ static Standard_Integer OCC6143(Draw_Interpretor& di, Standard_Integer argc, con
     {
       di << "Caught, OK\n";
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
       di << " Caught (";
       di << anException.GetMessageString();
@@ -2345,9 +2345,9 @@ static Standard_Integer OCC6143(Draw_Interpretor& di, Standard_Integer argc, con
     {
       di << "Caught, OK\n";
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
-      // std::cout << " Caught (" << Standard_Failure::Caught() << ")... KO" << std::endl;
+      // std::cout << " Caught (" << ExceptionBase::Caught() << ")... KO" << std::endl;
       di << " Caught (";
       di << anException.GetMessageString();
       di << ")... KO\n";
@@ -2388,9 +2388,9 @@ static Standard_Integer OCC6143(Draw_Interpretor& di, Standard_Integer argc, con
     {
       di << "Caught, OK\n";
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
-      // std::cout << " Caught (" << Standard_Failure::Caught() << ")... KO" << std::endl;
+      // std::cout << " Caught (" << ExceptionBase::Caught() << ")... KO" << std::endl;
       di << " Caught (";
       di << anException.GetMessageString();
       di << ")... KO\n";
@@ -2422,9 +2422,9 @@ static Standard_Integer OCC6143(Draw_Interpretor& di, Standard_Integer argc, con
     {
       di << "Caught, OK\n";
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
-      // std::cout << " Caught (" << Standard_Failure::Caught() << ")... KO" << std::endl;
+      // std::cout << " Caught (" << ExceptionBase::Caught() << ")... KO" << std::endl;
       di << " Caught (";
       di << anException.GetMessageString();
       di << ")... KO\n";
@@ -2459,9 +2459,9 @@ static Standard_Integer OCC6143(Draw_Interpretor& di, Standard_Integer argc, con
       di << "Exception caught, KO\n";
       Succes = Standard_False;
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
-      // std::cout << " Caught (" << Standard_Failure::Caught() << ")... KO" << std::endl;
+      // std::cout << " Caught (" << ExceptionBase::Caught() << ")... KO" << std::endl;
       di << " Caught (";
       di << anException.GetMessageString();
       di << ")... KO\n";
@@ -2486,9 +2486,9 @@ static Standard_Integer OCC6143(Draw_Interpretor& di, Standard_Integer argc, con
     {
       di << "Caught, OK\n";
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
-      // std::cout << " Caught (" << Standard_Failure::Caught() << ")... KO" << std::endl;
+      // std::cout << " Caught (" << ExceptionBase::Caught() << ")... KO" << std::endl;
       di << " Caught (";
       di << anException.GetMessageString();
       di << ")... KO\n";
@@ -2517,9 +2517,9 @@ static Standard_Integer OCC6143(Draw_Interpretor& di, Standard_Integer argc, con
     {
       di << "Caught, OK\n";
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
-      // std::cout << " Caught (" << Standard_Failure::Caught() << ")... KO" << std::endl;
+      // std::cout << " Caught (" << ExceptionBase::Caught() << ")... KO" << std::endl;
       di << " Caught (";
       di << anException.GetMessageString();
       di << ")... KO\n";
@@ -2544,9 +2544,9 @@ static Standard_Integer OCC6143(Draw_Interpretor& di, Standard_Integer argc, con
     {
       di << "Caught, OK\n";
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
-      // std::cout << " Caught (" << Standard_Failure::Caught() << ")... KO" << std::endl;
+      // std::cout << " Caught (" << ExceptionBase::Caught() << ")... KO" << std::endl;
       di << " Caught (";
       di << anException.GetMessageString();
       di << ")... KO\n";
@@ -2605,7 +2605,7 @@ struct TestParallelFunctor
       {
         Standard_Atomic_Increment(&myNbSigSegv);
       }
-      catch (Standard_Failure const&)
+      catch (ExceptionBase const&)
       {
         Standard_Atomic_Increment(&myNbUnknown);
       }
@@ -2718,7 +2718,7 @@ static Standard_NOINLINE Standard_Integer OCC30762(Draw_Interpretor& theDI,
       theDI << aSegException.GetStackString();
       theDI << ")... OK\n";
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
       theDI << " Caught (";
       theDI << anException.GetMessageString();
@@ -2787,10 +2787,10 @@ static Standard_Integer OCC7141(Draw_Interpretor& di, Standard_Integer argc, con
   {
     di << "Failed : STACK OVERFLOW\n\n";
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     di << "Failed :\n\n";
-    // std::cout << Standard_Failure::Caught() << std::endl;
+    // std::cout << ExceptionBase::Caught() << std::endl;
     di << anException.GetMessageString();
   }
   di << argv[0] << " : Finish\n";
@@ -5050,7 +5050,7 @@ Standard_Integer CR23403(Draw_Interpretor& di, Standard_Integer argc, const char
     OCC_CATCH_SIGNALS
     myExpr->Process(aString);
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     di << "Exception : " << anException.GetMessageString() << "\n";
   }

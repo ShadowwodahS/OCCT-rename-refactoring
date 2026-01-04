@@ -24,37 +24,37 @@
 #include <Standard_OStream.hxx>
 #include <Standard_SStream.hxx>
 
-DEFINE_STANDARD_HANDLE(Standard_Failure, RefObject)
+DEFINE_STANDARD_HANDLE(ExceptionBase, RefObject)
 
 //! Forms the root of the entire exception hierarchy.
-class Standard_Failure : public RefObject
+class ExceptionBase : public RefObject
 {
 public:
   //! Creates a status object of type "Failure".
-  Standard_EXPORT Standard_Failure();
+  Standard_EXPORT ExceptionBase();
 
   //! Copy constructor
-  Standard_EXPORT Standard_Failure(const Standard_Failure& f);
+  Standard_EXPORT ExceptionBase(const ExceptionBase& f);
 
   //! Creates a status object of type "Failure".
   //! @param[in] theDesc  exception description
-  Standard_EXPORT Standard_Failure(const Standard_CString theDesc);
+  Standard_EXPORT ExceptionBase(const Standard_CString theDesc);
 
   //! Creates a status object of type "Failure" with stack trace.
   //! @param[in] theDesc  exception description
   //! @param[in] theStackTrace  associated stack trace
-  Standard_EXPORT Standard_Failure(const Standard_CString theDesc,
+  Standard_EXPORT ExceptionBase(const Standard_CString theDesc,
                                    const Standard_CString theStackTrace);
 
   //! Assignment operator
-  Standard_EXPORT Standard_Failure& operator=(const Standard_Failure& f);
+  Standard_EXPORT ExceptionBase& operator=(const ExceptionBase& f);
 
   //! Destructor
-  Standard_EXPORT ~Standard_Failure();
+  Standard_EXPORT ~ExceptionBase();
 
   //! Prints on the stream @p theStream the exception name followed by the error message.
   //!
-  //! Note: there is a short-cut @c operator<< (Standard_OStream&, Handle(Standard_Failure)&)
+  //! Note: there is a short-cut @c operator<< (Standard_OStream&, Handle(ExceptionBase)&)
   Standard_EXPORT void Print(Standard_OStream& theStream) const;
 
   //! Returns error message
@@ -90,17 +90,17 @@ public:
   //! Used to construct an instance of the exception object as a handle.
   //! Shall be used to protect against possible construction of exception object in C stack,
   //! which is dangerous since some of methods require that object was allocated dynamically.
-  Standard_EXPORT static Handle(Standard_Failure) NewInstance(Standard_CString theMessage);
+  Standard_EXPORT static Handle(ExceptionBase) NewInstance(Standard_CString theMessage);
 
   //! Used to construct an instance of the exception object as a handle.
-  Standard_EXPORT static Handle(Standard_Failure) NewInstance(Standard_CString theMessage,
+  Standard_EXPORT static Handle(ExceptionBase) NewInstance(Standard_CString theMessage,
                                                               Standard_CString theStackTrace);
 
-  //! Returns the default length of stack trace to be captured by Standard_Failure constructor;
+  //! Returns the default length of stack trace to be captured by ExceptionBase constructor;
   //! 0 by default meaning no stack trace.
   Standard_EXPORT static Standard_Integer DefaultStackTraceLength();
 
-  //! Sets default length of stack trace to be captured by Standard_Failure constructor.
+  //! Sets default length of stack trace to be captured by ExceptionBase constructor.
   Standard_EXPORT static void SetDefaultStackTraceLength(Standard_Integer theNbStackTraces);
 
 public:
@@ -111,7 +111,7 @@ public:
   //! converted to C++ exception.
   Standard_EXPORT void Jump();
 
-  DEFINE_STANDARD_RTTIEXT(Standard_Failure, RefObject)
+  DEFINE_STANDARD_RTTIEXT(ExceptionBase, RefObject)
 
 protected:
   //! Used only if standard C++ exceptions are used.
@@ -152,7 +152,7 @@ private:
 // purpose  :
 // =======================================================================
 inline Standard_OStream& operator<<(Standard_OStream&               theStream,
-                                    const Handle(Standard_Failure)& theFailure)
+                                    const Handle(ExceptionBase)& theFailure)
 {
   theFailure->Print(theStream);
   return theStream;
@@ -162,7 +162,7 @@ inline Standard_OStream& operator<<(Standard_OStream&               theStream,
 // function : operator<<
 // purpose  :
 // =======================================================================
-inline Standard_OStream& operator<<(Standard_OStream& theStream, const Standard_Failure& theFailure)
+inline Standard_OStream& operator<<(Standard_OStream& theStream, const ExceptionBase& theFailure)
 {
   theFailure.Print(theStream);
   return theStream;

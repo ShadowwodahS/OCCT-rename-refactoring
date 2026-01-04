@@ -186,7 +186,7 @@ void BinDrivers_DocumentStorageDriver::WriteShapeSection(BinLDrivers_DocumentSec
         Handle(BinMNaming_NamedShapeDriver)::DownCast(aDriver);
       aNamedShapeDriver->WriteShapeSection(theOS, theDocVer, theRange);
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
       TCollection_ExtendedString anErrorStr("BinDrivers_DocumentStorageDriver, Shape Section :");
       myMsgDriver->Send(anErrorStr + anException.GetMessageString(), Message_Fail);

@@ -827,7 +827,7 @@ Handle(Transfer_Binder) Transfer_ProcessForTransient::Transferring(
       binder->AddFail("Transfer in dead Loop");
       thelevel = oldlev;
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
       if (binder.IsNull())
       {

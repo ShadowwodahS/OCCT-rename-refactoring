@@ -1675,7 +1675,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
       found = Standard_True;
     }
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     TP->AddFail(start, "Exception is raised. Entity was not translated.");
     TP->Bind(start, shbinder);
@@ -1902,7 +1902,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
     TP->Bind(fs, sb);
     return sb; // TP->Find (start);
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     TP->AddFail(fs, "Exception is raised. Entity was not translated.");
     sb.Nullify();

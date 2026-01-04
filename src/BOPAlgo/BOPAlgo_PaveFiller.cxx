@@ -229,7 +229,7 @@ void BOPAlgo_PaveFiller::Perform(const Message_ProgressRange& theRange)
     PerformInternal(theRange);
   }
   //
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     AddError(new BOPAlgo_AlertIntersectionFailed);
   }

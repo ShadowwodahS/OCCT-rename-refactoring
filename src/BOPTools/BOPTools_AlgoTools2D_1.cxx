@@ -131,7 +131,7 @@ Standard_Integer BOPTools_AlgoTools2D::AttachExistingPCurve(const TopoDS_Edge& t
     BRepLib::SameParameter(aE1T);
     BRepLib::SameRange(aE1T);
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     iRet = 6;
     return iRet;

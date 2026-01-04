@@ -3136,7 +3136,7 @@ static Standard_Boolean TryBendingPCurve(const TopoDS_Edge&     E,
       if (!TryNewPCurve(E, face, c2d, first, last, tol))
         return Standard_False;
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
 #ifdef OCCT_DEBUG
       std::cout << "Warning: ShapeFix_Wire::FixLacking: Exception in Geom2d_BSplineCurve::Segment()"

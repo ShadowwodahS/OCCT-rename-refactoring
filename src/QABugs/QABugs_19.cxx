@@ -2064,7 +2064,7 @@ static Standard_Integer OCC24834(Draw_Interpretor& di, Standard_Integer n, const
       aList.Append(MyStubObject(Standard::Allocate(aLargeBlockSize)));
     }
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     di << "caught out of memory for large blocks: OK\n";
   }
@@ -2081,7 +2081,7 @@ static Standard_Integer OCC24834(Draw_Interpretor& di, Standard_Integer n, const
       aList.Append(MyStubObject(Standard::Allocate(aSmallBlockSize)));
     }
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     di << "caught out of memory for small blocks: OK\n";
   }
@@ -3394,7 +3394,7 @@ static Standard_Integer OCC26139(Draw_Interpretor& theDI, Standard_Integer argc,
 #ifdef _WIN32
   #define EXCEPTION ...
 #else
-  #define EXCEPTION Standard_Failure const&
+  #define EXCEPTION ExceptionBase const&
 #endif
 
 static ShapeExtend_Status getStatusGap(const Handle(ShapeFix_Wire)& theFix,
@@ -4422,7 +4422,7 @@ static Standard_Integer OCC26313(Draw_Interpretor& di, Standard_Integer n, const
     {
       DBRep::Set(a[1], gtrf.ModifiedShape(aSrcShape));
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
       di << "Error: Exception is thrown\n";
     }

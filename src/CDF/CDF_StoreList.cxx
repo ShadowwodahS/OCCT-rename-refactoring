@@ -25,7 +25,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(CDF_StoreList, RefObject)
 
-static void CAUGHT(const Standard_Failure&           theException,
+static void CAUGHT(const ExceptionBase&           theException,
                    TCollection_ExtendedString&       status,
                    const TCollection_ExtendedString& what)
 {
@@ -151,7 +151,7 @@ PCDM_StoreStatus CDF_StoreList::Store(Handle(CDM_MetaData)&        aMetaData,
           }
         }
       }
-      catch (Standard_Failure const& anException)
+      catch (ExceptionBase const& anException)
       {
         CAUGHT(anException,
                aStatusAssociatedText,

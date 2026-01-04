@@ -57,7 +57,7 @@ public:
 
       (aP1.XYZ() - aP2.XYZ()).Coord(theF(anIndF), theF(anIndF + 1), theF(anIndF + 2));
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
       return Standard_False;
     }
@@ -94,7 +94,7 @@ public:
                                            theD(anIndRD + 1, anIndCD + 2),
                                            theD(anIndRD + 2, anIndCD + 2));
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
       return Standard_False;
     }

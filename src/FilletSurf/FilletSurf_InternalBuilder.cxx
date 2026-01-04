@@ -422,7 +422,7 @@ Standard_Boolean FilletSurf_InternalBuilder::PerformSurf(ChFiDS_SequenceOfSurfDa
   }
   done = CompleteData(Data, Func, lin, S1, S2, Or, 0, 0, 0, 0);
   if (!done)
-    throw Standard_Failure("PerformSurf : Failed approximation!");
+    throw ExceptionBase("PerformSurf : Failed approximation!");
   //  maybesingular = (Func.GetMinimalDistance()<=100*tolapp3d);
   Standard_Boolean ok = Standard_False;
   if (!Forward)

@@ -130,7 +130,7 @@ void AIS_Shape::Compute(const Handle(PrsMgr_PresentationManager)&,
         OCC_CATCH_SIGNALS
         StdPrs_WFShape::Add(thePrs, myshape, myDrawer);
       }
-      catch (Standard_Failure const& anException)
+      catch (ExceptionBase const& anException)
       {
         Message::SendFail(
           TCollection_AsciiString(
@@ -166,7 +166,7 @@ void AIS_Shape::Compute(const Handle(PrsMgr_PresentationManager)&,
               myUVRepeat,
               myUVScale);
           }
-          catch (Standard_Failure const& anException)
+          catch (ExceptionBase const& anException)
           {
             Message::SendFail(
               TCollection_AsciiString(
@@ -270,7 +270,7 @@ void AIS_Shape::computeHlrPresentation(const Handle(Graphic3d_Camera)&   theProj
         }
       }
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
       Message::SendFail(
         TCollection_AsciiString("Error: AIS_Shape::Compute() HLR Algorithm has failed (")
@@ -312,7 +312,7 @@ void AIS_Shape::ComputeSelection(const Handle(SelectMgr_Selection)& aSelection,
                                       myDrawer->DeviationAngle(),
                                       myDrawer->IsAutoTriangulation());
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     Message::SendFail(TCollection_AsciiString("Error: AIS_Shape::ComputeSelection(") + aMode
                       + ") has failed (" + anException.GetMessageString() + ")");

@@ -65,7 +65,7 @@ const TCollection_AsciiString& Graphic3d_ShaderProgram::ShadersFolder()
     {
       std::cerr << "Standard GLSL programs are not found in: " << THE_SHADERS_FOLDER.ToCString()
                 << std::endl;
-      throw Standard_Failure("CSF_ShadersDirectory or CASROOT is set incorrectly");
+      throw ExceptionBase("CSF_ShadersDirectory or CASROOT is set incorrectly");
     }
   }
   return THE_SHADERS_FOLDER;

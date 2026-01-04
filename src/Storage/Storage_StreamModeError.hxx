@@ -23,7 +23,7 @@
 #include <Standard_Failure.hxx>
 
 class Storage_StreamModeError;
-DEFINE_STANDARD_HANDLE(Storage_StreamModeError, Standard_Failure)
+DEFINE_STANDARD_HANDLE(Storage_StreamModeError, ExceptionBase)
 
 #if !defined No_Exception && !defined No_Storage_StreamModeError
   #define Storage_StreamModeError_Raise_if(CONDITION, MESSAGE)                                     \
@@ -33,6 +33,6 @@ DEFINE_STANDARD_HANDLE(Storage_StreamModeError, Standard_Failure)
   #define Storage_StreamModeError_Raise_if(CONDITION, MESSAGE)
 #endif
 
-DEFINE_STANDARD_EXCEPTION(Storage_StreamModeError, Standard_Failure)
+DEFINE_STANDARD_EXCEPTION(Storage_StreamModeError, ExceptionBase)
 
 #endif // _Storage_StreamModeError_HeaderFile

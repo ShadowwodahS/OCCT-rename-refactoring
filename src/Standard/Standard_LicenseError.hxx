@@ -23,7 +23,7 @@
 #include <Standard_Failure.hxx>
 
 class Standard_LicenseError;
-DEFINE_STANDARD_HANDLE(Standard_LicenseError, Standard_Failure)
+DEFINE_STANDARD_HANDLE(Standard_LicenseError, ExceptionBase)
 
 #if !defined No_Exception && !defined No_Standard_LicenseError
   #define Standard_LicenseError_Raise_if(CONDITION, MESSAGE)                                       \
@@ -33,6 +33,6 @@ DEFINE_STANDARD_HANDLE(Standard_LicenseError, Standard_Failure)
   #define Standard_LicenseError_Raise_if(CONDITION, MESSAGE)
 #endif
 
-DEFINE_STANDARD_EXCEPTION(Standard_LicenseError, Standard_Failure)
+DEFINE_STANDARD_EXCEPTION(Standard_LicenseError, ExceptionBase)
 
 #endif // _Standard_LicenseError_HeaderFile

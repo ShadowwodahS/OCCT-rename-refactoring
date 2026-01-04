@@ -162,7 +162,7 @@ void BRepMesh_DelabellaBaseMeshAlgo::buildBaseTriangulation()
     aTriangulator->Destroy();
     aTriangulator = NULL;
   }
-  catch (Standard_Failure const& theException)
+  catch (ExceptionBase const& theException)
   {
     if (aTriangulator != NULL)
     {
@@ -170,7 +170,7 @@ void BRepMesh_DelabellaBaseMeshAlgo::buildBaseTriangulation()
       aTriangulator = NULL;
     }
 
-    throw Standard_Failure(theException);
+    throw ExceptionBase(theException);
   }
   catch (...)
   {
@@ -180,7 +180,7 @@ void BRepMesh_DelabellaBaseMeshAlgo::buildBaseTriangulation()
       aTriangulator = NULL;
     }
 
-    throw Standard_Failure("BRepMesh_DelabellaBaseMeshAlgo::buildBaseTriangulation: exception in "
+    throw ExceptionBase("BRepMesh_DelabellaBaseMeshAlgo::buildBaseTriangulation: exception in "
                            "triangulation algorithm");
   }
 }

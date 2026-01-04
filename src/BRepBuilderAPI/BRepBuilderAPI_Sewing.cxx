@@ -128,7 +128,7 @@ Handle(Geom2d_Curve) BRepBuilderAPI_Sewing::SameRange(const Handle(Geom2d_Curve)
                        RequestedLast,
                        NewCurvePtr);
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
 #ifdef OCCT_DEBUG
     std::cout << "Exception in BRepBuilderAPI_Sewing::SameRange: ";
@@ -310,7 +310,7 @@ void BRepBuilderAPI_Sewing::SameParameter(const TopoDS_Edge& edge) const
 
     BRepLib::SameParameter(edge);
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
 #ifdef OCCT_DEBUG
     std::cout << "Exception in BRepBuilderAPI_Sewing::SameParameter: ";
@@ -967,7 +967,7 @@ TopoDS_Edge BRepBuilderAPI_Sewing::SameParameterEdge(const TopoDS_Edge&         
     }
   }
 
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     isSamePar = Standard_False;
   }
@@ -2443,10 +2443,10 @@ void BRepBuilderAPI_Sewing::FaceAnalysis(const Message_ProgressRange& theProgres
             Standard_Real length = GCPnts_AbscissaPoint::Length(cAdapt,first,last);
             isSmall = (length <= MinTolerance());
               }
-              catch (Standard_Failure) {
+              catch (ExceptionBase) {
     #ifdef OCCT_DEBUG
             std::cout << "Warning: Possibly small edge can be sewed: ";
-            Standard_Failure::Caught()->Print(std::cout); std::cout << std::endl;
+            ExceptionBase::Caught()->Print(std::cout); std::cout << std::endl;
     #endif
               }*/
             }
@@ -4864,7 +4864,7 @@ void BRepBuilderAPI_Sewing::ProjectPointsOnCurve(const TColgp_Array1OfPnt& arrPn
         }
       }
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
 #ifdef OCCT_DEBUG
       std::cout << "Exception in BRepBuilderAPI_Sewing::ProjectPointsOnCurve: ";
@@ -5247,10 +5247,10 @@ void BRepBuilderAPI_Sewing::CreateSections(const TopoDS_Shape&             secti
         // Handle(Geom2d_BSplineCurve)::DownCast(c2d1New)->Segment(Max(first2d1,par1),Min(par2,last2d1));
       }
       //}
-      /*catch (Standard_Failure) {
+      /*catch (ExceptionBase) {
       #ifdef OCCT_DEBUG
       std::cout << "Exception in CreateSections: segment [" << par1 << "," << par2 << "]: ";
-      Standard_Failure::Caught()->Print(std::cout); std::cout << std::endl;
+      ExceptionBase::Caught()->Print(std::cout); std::cout << std::endl;
       #endif
       Handle(Geom2d_TrimmedCurve) c2dT = new
       Geom2d_TrimmedCurve(c2dNew,Max(first2d,par1),Min(par2,last2d)); c2dNew = c2dT;
@@ -5289,7 +5289,7 @@ void BRepBuilderAPI_Sewing::SameParameterShape()
 
       BRepLib::SameParameter(sec, BRep_Tool::Tolerance(sec));
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
 #ifdef OCCT_DEBUG
       std::cout

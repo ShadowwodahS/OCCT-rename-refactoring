@@ -161,7 +161,7 @@ Standard_Boolean Graphic3d_CubeMapPacked::checkOrder(
 
   if (!anOrderIsValid)
   {
-    throw Standard_Failure("Invalid order format in tiles of Graphic3d_CubeMapPacked");
+    throw ExceptionBase("Invalid order format in tiles of Graphic3d_CubeMapPacked");
   }
 
   return anOrderIsValid;

@@ -1925,7 +1925,7 @@ Handle(Geom_Surface) StepToGeom::MakeSurface(const Handle(StepGeom_Surface)& SS,
       }
     }
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
 #ifdef OCCT_DEBUG
     //   ShapeTool_DB ?

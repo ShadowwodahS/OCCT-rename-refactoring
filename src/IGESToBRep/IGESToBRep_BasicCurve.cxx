@@ -207,7 +207,7 @@ Handle(Geom_Curve) IGESToBRep_BasicCurve::TransferBasicCurve(
     }
 
   } //: 36
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
 #ifdef OCCT_DEBUG
     std::cout << "\n** Exception in IGESToBRep_BasicCurve::TransferBasicCurve : ";
@@ -279,7 +279,7 @@ Handle(Geom2d_Curve) IGESToBRep_BasicCurve::Transfer2dBasicCurve(
       return res;
     }
   } //: h8
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
 #ifdef OCCT_DEBUG
     std::cout << "\n** Exception in IGESToBRep_BasicCurve::Transfer2dBasicCurve : ";
@@ -1145,7 +1145,7 @@ Handle(Geom_Curve) IGESToBRep_BasicCurve::TransferBSplineCurve(
       else
         BSplineRes = new Geom_BSplineCurve(Poles, Weight, Knot, Mult, Degree);
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
 #ifdef OCCT_DEBUG
       std::cout << "\n** Exception in IGESToBRep_BasicCurve::TransferBSplineCurve during creation "
@@ -1182,7 +1182,7 @@ Handle(Geom_Curve) IGESToBRep_BasicCurve::TransferBSplineCurve(
         BSplineRes->Segment(Udeb, Ufin);
       res = BSplineRes;
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
       Handle(Geom_TrimmedCurve) gtc = new Geom_TrimmedCurve(BSplineRes2, Udeb, Ufin);
       res                           = gtc;

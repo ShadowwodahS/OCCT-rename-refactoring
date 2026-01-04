@@ -102,7 +102,7 @@ static Standard_Integer OCC5696(Draw_Interpretor& di, Standard_Integer argc, con
     di << "par_edge = " << par_edge << "\n";
   }
 
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     di << "OCC5696 Exception \n";
     return 0;

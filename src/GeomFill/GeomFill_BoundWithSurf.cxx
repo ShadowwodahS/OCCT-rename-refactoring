@@ -74,7 +74,7 @@ gp_Vec GeomFill_BoundWithSurf::Norm(const Standard_Real U) const
 {
   // voir s il ne faudrait pas utiliser LProp ou autre.
   if (!HasNormals())
-    throw Standard_Failure("BoundWithSurf Norm : pas de contrainte");
+    throw ExceptionBase("BoundWithSurf Norm : pas de contrainte");
 
   //  Handle(Adaptor3d_Surface)& S = myConS.GetSurface();
   //  Handle(Adaptor2d_Curve2d)& C2d = myConS.GetCurve();
@@ -96,7 +96,7 @@ gp_Vec GeomFill_BoundWithSurf::Norm(const Standard_Real U) const
 void GeomFill_BoundWithSurf::D1Norm(const Standard_Real U, gp_Vec& N, gp_Vec& DN) const
 {
   if (!HasNormals())
-    throw Standard_Failure("BoundWithSurf Norm : pas de contrainte");
+    throw ExceptionBase("BoundWithSurf Norm : pas de contrainte");
   //  Handle(Adaptor3d_Surface)& S = myConS.GetSurface();
   //  Handle(Adaptor2d_Curve2d)& C2d = myConS.GetCurve();
   gp_Pnt2d      P2d;

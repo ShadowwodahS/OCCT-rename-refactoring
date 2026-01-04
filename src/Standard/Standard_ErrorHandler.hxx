@@ -53,7 +53,7 @@
     Standard_ErrorHandler _aHandler;                                                               \
     if (setjmp(_aHandler.Label()))                                                                 \
     {                                                                                              \
-      _aHandler.Catches(STANDARD_TYPE(Standard_Failure));                                          \
+      _aHandler.Catches(STANDARD_TYPE(ExceptionBase));                                          \
       _aHandler.Error()->Reraise();                                                                \
     }
 
@@ -69,7 +69,7 @@
 
 #endif
 
-class Standard_Failure;
+class ExceptionBase;
 
 //! Class implementing mechanics of conversion of signals to exceptions.
 //!
@@ -105,10 +105,10 @@ public:
   Standard_JmpBuf& Label() { return myLabel; }
 
   //! Returns the current Error.
-  Standard_EXPORT Handle(Standard_Failure) Error() const;
+  Standard_EXPORT Handle(ExceptionBase) Error() const;
 
   //! Returns the caught exception.
-  Standard_EXPORT static Handle(Standard_Failure) LastCaughtError();
+  Standard_EXPORT static Handle(ExceptionBase) LastCaughtError();
 
   //! Test if the code is currently running in a try block
   Standard_EXPORT static Standard_Boolean IsInTryBlock();
@@ -119,10 +119,10 @@ private:
   //! to "calling routines".
   //! Warning: If no catch is prepared for this exception, it displays the
   //! exception name and calls "exit(1)".
-  Standard_EXPORT static void Abort(const Handle(Standard_Failure)& theError);
+  Standard_EXPORT static void Abort(const Handle(ExceptionBase)& theError);
 
   //! Set the Error which will be transmitted to "calling routines".
-  Standard_EXPORT static void Error(const Handle(Standard_Failure)& aError);
+  Standard_EXPORT static void Error(const Handle(ExceptionBase)& aError);
 
   //! Returns the current handler (closest in the stack in the current execution thread)
   Standard_EXPORT static Standard_PErrorHandler FindHandler(const Standard_HandlerStatus theStatus,
@@ -193,13 +193,13 @@ public:
 
 private:
   Standard_PErrorHandler   myPrevious;
-  Handle(Standard_Failure) myCaughtError;
+  Handle(ExceptionBase) myCaughtError;
   Standard_JmpBuf          myLabel;
   Standard_HandlerStatus   myStatus;
   Standard_ThreadId        myThread;
   Callback*                myCallbackPtr;
 
-  friend class Standard_Failure;
+  friend class ExceptionBase;
 };
 
 // If OCC_CONVERT_SIGNALS is not defined,

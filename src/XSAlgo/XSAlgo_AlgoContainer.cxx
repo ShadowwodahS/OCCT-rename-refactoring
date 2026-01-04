@@ -107,7 +107,7 @@ TopoDS_Shape XSAlgo_AlgoContainer::ProcessShape(const TopoDS_Shape&          the
           aContext->SetResult(aShape);
         }
       }
-      catch (Standard_Failure const& anException)
+      catch (ExceptionBase const& anException)
       {
         (void)anException;
       }

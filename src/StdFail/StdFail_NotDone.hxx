@@ -23,7 +23,7 @@
 #include <Standard_Failure.hxx>
 
 class StdFail_NotDone;
-DEFINE_STANDARD_HANDLE(StdFail_NotDone, Standard_Failure)
+DEFINE_STANDARD_HANDLE(StdFail_NotDone, ExceptionBase)
 
 #if !defined No_Exception && !defined No_StdFail_NotDone
   #define StdFail_NotDone_Raise_if(CONDITION, MESSAGE)                                             \
@@ -33,6 +33,6 @@ DEFINE_STANDARD_HANDLE(StdFail_NotDone, Standard_Failure)
   #define StdFail_NotDone_Raise_if(CONDITION, MESSAGE)
 #endif
 
-DEFINE_STANDARD_EXCEPTION(StdFail_NotDone, Standard_Failure)
+DEFINE_STANDARD_EXCEPTION(StdFail_NotDone, ExceptionBase)
 
 #endif // _StdFail_NotDone_HeaderFile

@@ -27,20 +27,20 @@ public:
 
   //! Sets or removes signal and FPE (floating-point exception) handlers.
   //! OCCT signal handlers translate signals raised by C subsystem to C++
-  //! exceptions inheriting Standard_Failure.
+  //! exceptions inheriting ExceptionBase.
   //!
   //! ### Windows-specific notes
   //!
   //! Compiled with MS VC++ sets 3 main handlers:
   //! @li Signal handlers (via ::signal() functions) that translate system signals
   //! (SIGSEGV, SIGFPE, SIGILL) into C++ exceptions (classes inheriting
-  //! Standard_Failure). They only be called if function ::raise() is called
+  //! ExceptionBase). They only be called if function ::raise() is called
   //! with one of supported signal type set.
   //! @li Exception handler OSD::WntHandler() (via ::SetUnhandledExceptionFilter())
   //! that will be used when user's code is compiled with /EHs option.
   //! @li Structured exception (SE) translator (via _set_se_translator()) that
   //! translates SE exceptions (aka asynchronous exceptions) into the
-  //! C++ exceptions inheriting Standard_Failure. This translator will be
+  //! C++ exceptions inheriting ExceptionBase. This translator will be
   //! used when user's code is compiled with /EHa option.
   //!
   //! This approach ensures that regardless of the option the user chooses to
@@ -137,7 +137,7 @@ public:
 
   //! Returns a length of stack trace to be put into exception redirected from signal;
   //! 0 by default meaning no stack trace.
-  //! @sa Standard_Failure::GetStackString()
+  //! @sa ExceptionBase::GetStackString()
   Standard_EXPORT static Standard_Integer SignalStackTraceLength();
 
   //! Sets a length of stack trace to be put into exception redirected from signal.

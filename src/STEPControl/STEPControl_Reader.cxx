@@ -116,7 +116,7 @@ IFSelect_ReturnStatus STEPControl_Reader::ReadFile(const Standard_CString filena
     else
       status = IFSelect_RetFail;
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     Message_Messenger::StreamBuffer sout = Message::SendInfo();
     sout << "    ****    Interruption ReadFile par Exception :   ****\n";
@@ -160,7 +160,7 @@ IFSelect_ReturnStatus STEPControl_Reader::ReadFile(const Standard_CString   file
     else
       status = IFSelect_RetFail;
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     Message_Messenger::StreamBuffer sout = Message::SendInfo();
     sout << "    ****    Interruption ReadFile par Exception :   ****\n";
@@ -204,7 +204,7 @@ IFSelect_ReturnStatus STEPControl_Reader::ReadStream(const Standard_CString theN
     else
       status = IFSelect_RetFail;
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     Message_Messenger::StreamBuffer sout = Message::SendInfo();
     sout << "    ****    Interruption ReadFile par Exception :   ****\n";
@@ -249,7 +249,7 @@ IFSelect_ReturnStatus STEPControl_Reader::ReadStream(const Standard_CString   th
     else
       status = IFSelect_RetFail;
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     Message_Messenger::StreamBuffer sout = Message::SendInfo();
     sout << "    ****    Interruption ReadFile par Exception :   ****\n";

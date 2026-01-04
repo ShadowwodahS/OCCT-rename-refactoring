@@ -300,15 +300,15 @@ void BinTools_CurveSet::WriteCurve(const Handle(Geom_Curve)& C, BinTools_OStream
     }
     else
     {
-      throw Standard_Failure("UNKNOWN CURVE TYPE");
+      throw ExceptionBase("UNKNOWN CURVE TYPE");
     }
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     Standard_SStream aMsg;
     aMsg << "EXCEPTION in BinTools_CurveSet::WriteCurve(..)" << std::endl;
     aMsg << anException << std::endl;
-    throw Standard_Failure(aMsg.str().c_str());
+    throw ExceptionBase(aMsg.str().c_str());
   }
 }
 
@@ -598,17 +598,17 @@ Standard_IStream& BinTools_CurveSet::ReadCurve(Standard_IStream& IS, Handle(Geom
 
       default: {
         C = NULL;
-        throw Standard_Failure("UNKNOWN CURVE TYPE");
+        throw ExceptionBase("UNKNOWN CURVE TYPE");
       }
     }
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     C = NULL;
     Standard_SStream aMsg;
     aMsg << "EXCEPTION in BinTools_CurveSet::ReadCurve(..)" << std::endl;
     aMsg << anException << std::endl;
-    throw Standard_Failure(aMsg.str().c_str());
+    throw ExceptionBase(aMsg.str().c_str());
   }
   return IS;
 }
@@ -626,7 +626,7 @@ void BinTools_CurveSet::Read(Standard_IStream& IS, const Message_ProgressRange& 
 #ifdef OCCT_DEBUG
     std::cout << "CurveSet buffer: " << buffer << std::endl;
 #endif
-    throw Standard_Failure(aMsg.str().c_str());
+    throw ExceptionBase(aMsg.str().c_str());
     return;
   }
 

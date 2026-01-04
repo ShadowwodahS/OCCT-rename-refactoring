@@ -321,7 +321,7 @@ Standard_Boolean ShapeProcess_Context::GetBoolean(const Standard_CString param,
     val = myRC->Integer(MakeName(myScope, param)->ToCString()) != 0;
     return Standard_True;
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
 #ifdef OCCT_DEBUG
     std::cout << "Warning: ShapeProcess_Context::GetInteger(): " << param << ": ";
@@ -372,7 +372,7 @@ Standard_CString ShapeProcess_Context::StringVal(const Standard_CString param,
     OCC_CATCH_SIGNALS
     return myRC->Value(MakeName(myScope, param)->ToCString());
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
 #ifdef OCCT_DEBUG
     std::cout << "Warning: ShapeProcess_Context::GetInteger(): " << param << ": ";

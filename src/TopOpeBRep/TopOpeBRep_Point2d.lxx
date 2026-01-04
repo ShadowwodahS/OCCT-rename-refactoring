@@ -42,7 +42,7 @@ inline Standard_Boolean TopOpeBRep_Point2d::HasPint() const
 inline const IntRes2d_IntersectionPoint& TopOpeBRep_Point2d::Pint() const
 {
   if (!HasPint())
-    throw Standard_Failure("TopOpeBRep_Point2d::Pint");
+    throw ExceptionBase("TopOpeBRep_Point2d::Pint");
   return mypint;
 }
 
@@ -57,7 +57,7 @@ inline void TopOpeBRep_Point2d::SetIsVertex(const Standard_Integer Index, const 
   else if (Index == 2)
     myisvertex2 = B;
   else
-    throw Standard_Failure("TopOpeBRep_Point2d::SetIsVertex");
+    throw ExceptionBase("TopOpeBRep_Point2d::SetIsVertex");
 }
 
 //=======================================================================
@@ -71,7 +71,7 @@ inline Standard_Boolean TopOpeBRep_Point2d::IsVertex(const Standard_Integer Inde
   else if (Index == 2)
     return myisvertex2;
   else
-    throw Standard_Failure("TopOpeBRep_Point2d::IsVertex");
+    throw ExceptionBase("TopOpeBRep_Point2d::IsVertex");
 }
 
 //=======================================================================
@@ -91,7 +91,7 @@ inline void TopOpeBRep_Point2d::SetVertex(const Standard_Integer Index, const To
     myisvertex2 = Standard_True;
   }
   else
-    throw Standard_Failure("TopOpeBRep_Point2d::SetVertex");
+    throw ExceptionBase("TopOpeBRep_Point2d::SetVertex");
 }
 
 //=======================================================================
@@ -106,7 +106,7 @@ inline void TopOpeBRep_Point2d::SetTransition(const Standard_Integer         Ind
   else if (Index == 2)
     mytransition2 = T;
   else
-    throw Standard_Failure("TopOpeBRep_Point2d::SetTransition");
+    throw ExceptionBase("TopOpeBRep_Point2d::SetTransition");
 }
 
 //=======================================================================
@@ -120,7 +120,7 @@ inline void TopOpeBRep_Point2d::SetParameter(const Standard_Integer Index, const
   else if (Index == 2)
     myparameter2 = P;
   else
-    throw Standard_Failure("TopOpeBRep_Point2d::SetParameter");
+    throw ExceptionBase("TopOpeBRep_Point2d::SetParameter");
 }
 
 //=======================================================================
@@ -134,7 +134,7 @@ inline Standard_Real TopOpeBRep_Point2d::Parameter(const Standard_Integer Index)
   else if (Index == 2)
     return myparameter2;
   else
-    throw Standard_Failure("TopOpeBRep_Point2d::Parameter");
+    throw ExceptionBase("TopOpeBRep_Point2d::Parameter");
 }
 
 //=======================================================================

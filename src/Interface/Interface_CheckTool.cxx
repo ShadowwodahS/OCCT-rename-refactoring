@@ -38,7 +38,7 @@
 
 static int errh = 1;
 
-static void raisecheck(Standard_Failure& theException, Handle(Interface_Check)& ach)
+static void raisecheck(ExceptionBase& theException, Handle(Interface_Check)& ach)
 {
   char mess[100];
   sprintf(mess, "** Exception Raised during Check : %s **", theException.DynamicType()->Name());
@@ -117,7 +117,7 @@ void Interface_CheckTool::FillCheck(const Handle(RefObject)& ent,
       OCC_CATCH_SIGNALS
       module->CheckCase(CN, ent, sh, ach);
     }
-    catch (Standard_Failure& anException)
+    catch (ExceptionBase& anException)
     {
       raisecheck(anException, ach);
     }
@@ -285,7 +285,7 @@ Interface_CheckIterator Interface_CheckTool::CompleteCheckList()
       }
       n0 = nb + 1;
     }
-    catch (Standard_Failure& anException)
+    catch (ExceptionBase& anException)
     {
       n0 = i + 1;
       raisecheck(anException, ach);
@@ -354,7 +354,7 @@ Interface_CheckIterator Interface_CheckTool::CheckList()
       }
       n0 = nb + 1;
     }
-    catch (Standard_Failure& anException)
+    catch (ExceptionBase& anException)
     {
       n0 = i + 1;
       raisecheck(anException, ach);
@@ -398,7 +398,7 @@ Interface_CheckIterator Interface_CheckTool::AnalyseCheckList()
       }
       n0 = nb + 1;
     }
-    catch (Standard_Failure& anException)
+    catch (ExceptionBase& anException)
     {
       n0 = i + 1;
       raisecheck(anException, ach);
@@ -448,7 +448,7 @@ Interface_CheckIterator Interface_CheckTool::VerifyCheckList()
       }
       n0 = nb + 1;
     }
-    catch (Standard_Failure& anException)
+    catch (ExceptionBase& anException)
     {
       n0 = i + 1;
       raisecheck(anException, ach);
@@ -505,7 +505,7 @@ Interface_CheckIterator Interface_CheckTool::WarningCheckList()
       }
       n0 = nb + 1;
     }
-    catch (Standard_Failure& anException)
+    catch (ExceptionBase& anException)
     {
       n0 = i + 1;
       raisecheck(anException, ach);

@@ -23,7 +23,7 @@
 #include <Standard_Failure.hxx>
 
 class LProp_BadContinuity;
-DEFINE_STANDARD_HANDLE(LProp_BadContinuity, Standard_Failure)
+DEFINE_STANDARD_HANDLE(LProp_BadContinuity, ExceptionBase)
 
 #if !defined No_Exception && !defined No_LProp_BadContinuity
   #define LProp_BadContinuity_Raise_if(CONDITION, MESSAGE)                                         \
@@ -33,6 +33,6 @@ DEFINE_STANDARD_HANDLE(LProp_BadContinuity, Standard_Failure)
   #define LProp_BadContinuity_Raise_if(CONDITION, MESSAGE)
 #endif
 
-DEFINE_STANDARD_EXCEPTION(LProp_BadContinuity, Standard_Failure)
+DEFINE_STANDARD_EXCEPTION(LProp_BadContinuity, ExceptionBase)
 
 #endif // _LProp_BadContinuity_HeaderFile

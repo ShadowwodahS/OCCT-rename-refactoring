@@ -32,7 +32,7 @@
 const IntRes2d_IntersectionSegment& TopOpeBRep_EdgesIntersector::Segment1() const
 {
   if (!IsPointOfSegment1())
-    throw Standard_Failure("TopOpeBRep_EdgesIntersector : Not a segment point");
+    throw ExceptionBase("TopOpeBRep_EdgesIntersector : Not a segment point");
   Standard_Integer iseg = 1 + (myPointIndex - myNbPoints - 1) / 2;
   return mylseg.Value(iseg);
 }
@@ -223,7 +223,7 @@ TopOpeBRepDS_Transition TopOpeBRep_EdgesIntersector::Transition1(
                 staA = staINON;
               }
               else // Middle/Middle is impossible
-                throw Standard_Failure("TopOpeBRep_EdgesIntersector : Situation Unknown MM");
+                throw ExceptionBase("TopOpeBRep_EdgesIntersector : Situation Unknown MM");
             }
             else
             { // posother = Head or End
@@ -277,7 +277,7 @@ TopOpeBRepDS_Transition TopOpeBRep_EdgesIntersector::Transition1(
             }
             else
             { // Middle is impossible
-              throw Standard_Failure("TopOpeBRep_EdgesIntersector : Situation Unknown M");
+              throw ExceptionBase("TopOpeBRep_EdgesIntersector : Situation Unknown M");
             }
           } // point is not a segment point
 
@@ -288,7 +288,7 @@ TopOpeBRepDS_Transition TopOpeBRep_EdgesIntersector::Transition1(
       break;
 
     case IntRes2d_Undecided:
-      throw Standard_Failure("TopOpeBRep_EdgesIntersector : TransitionType Undecided");
+      throw ExceptionBase("TopOpeBRep_EdgesIntersector : TransitionType Undecided");
       break;
 
   } // switch TransitionType()
@@ -416,7 +416,7 @@ Standard_Boolean TopOpeBRep_EdgesIntersector::IsVertex1(const Standard_Integer I
 const TopoDS_Shape& TopOpeBRep_EdgesIntersector::Vertex1(const Standard_Integer Index)
 {
   if (!IsVertex1(Index))
-    throw Standard_Failure("TopOpeBRep_EdgesIntersector : Vertex1");
+    throw ExceptionBase("TopOpeBRep_EdgesIntersector : Vertex1");
   return myIsVertexVertex;
 }
 

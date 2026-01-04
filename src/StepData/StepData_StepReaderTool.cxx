@@ -83,7 +83,7 @@ void StepData_StepReaderTool::Prepare(const Standard_Boolean optim)
       stepdat->SetEntityNumbers(optim);
       SetEntities();
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
       Message_Messenger::StreamBuffer sout = Message::SendInfo();
       sout << " Exception Raised during Preparation :\n";

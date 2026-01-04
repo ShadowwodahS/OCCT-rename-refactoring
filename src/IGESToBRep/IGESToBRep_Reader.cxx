@@ -83,7 +83,7 @@ static Standard_Boolean EncodeRegul(const TopoDS_Shape& theShape)
     OCC_CATCH_SIGNALS
     BRepLib::EncodeRegularity(theShape, aToleranceAngle);
   }
-  catch (const Standard_Failure&)
+  catch (const ExceptionBase&)
   {
     return Standard_False;
   }
@@ -384,7 +384,7 @@ void IGESToBRep_Reader::TransferRoots(const Standard_Boolean       onlyvisible,
         TP.Transfer(ent, aRange);
         shape = TransferBRep::ShapeResult(theProc, ent);
       }
-      catch (Standard_Failure const&)
+      catch (ExceptionBase const&)
       {
         Message_Msg msg1005("IGES_1005");
         TF->Send(msg1005, Message_Info);
@@ -504,7 +504,7 @@ Standard_Boolean IGESToBRep_Reader::Transfer(const Standard_Integer       num,
       if (aPS.UserBreak())
         return Standard_False;
     }
-    catch (Standard_Failure const&)
+    catch (ExceptionBase const&)
     {
       Message_Msg msg1015("IGES_1015");
       TF->Send(msg1015, Message_Info);

@@ -679,7 +679,7 @@ Standard_Boolean ShapeBuild_Edge::BuildCurve3d(const TopoDS_Edge& edge) const
       return Standard_True;
     }
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
 #ifdef OCCT_DEBUG
     std::cout << "\nWarning: ShapeBuild_Edge: Exception in BuildCurve3d: ";

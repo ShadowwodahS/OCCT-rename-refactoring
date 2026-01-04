@@ -827,7 +827,7 @@ static Standard_Integer meshcolors(Draw_Interpretor& theDI,
               OCC_CATCH_SIGNALS
               aScaleValue = (aCoords.Value(1) - (Standard_Real)aMinX) / aDelta;
             }
-            catch (Standard_Failure const&)
+            catch (ExceptionBase const&)
             {
               aScaleValue = 0;
             }
@@ -853,7 +853,7 @@ static Standard_Integer meshcolors(Draw_Interpretor& theDI,
       }
     }
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     theDI << "Error\n";
   }
@@ -1195,7 +1195,7 @@ static Standard_Integer mesh_edge_width(Draw_Interpretor& theDI,
     aDrawer->SetDouble(MeshVS_DA_EdgeWidth, aWidth);
     anIC->Redisplay(aMesh, Standard_True);
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     theDI << "Error\n";
   }

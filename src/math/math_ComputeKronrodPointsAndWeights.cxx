@@ -184,7 +184,7 @@ math_ComputeKronrodPointsAndWeights::math_ComputeKronrodPointsAndWeights(
       myIsDone = Standard_True;
     }
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
   }
 }

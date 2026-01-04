@@ -72,7 +72,7 @@ AIS_Axis::AIS_Axis(const Handle(Geom_Axis2Placement)& aComponent, const AIS_Type
   {
     aLength = UnitsAPI::AnyToLS(100., "mm");
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     aLength = 0.1;
   }

@@ -328,7 +328,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(
         mycurve = bspl;
       }
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
 #ifdef OCCT_DEBUG
       std::cout << "Warning: GeomToIGES_GeomCurve: can't trim bspline" << std::endl;
@@ -885,7 +885,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(
       res = TransferCurve(GeomConvert::CurveToBSplineCurve(start), U1, U2);
       return res;
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
 #ifdef OCCT_DEBUG
       std::cout << "writing non-planar offset curve." << std::endl;

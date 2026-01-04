@@ -47,7 +47,7 @@ Handle(RefObject) StdDrivers::Factory(const Standard_GUID& aGUID)
     return model_rd;
   }
 
-  throw Standard_Failure("StdDrivers : unknown GUID");
+  throw ExceptionBase("StdDrivers : unknown GUID");
 }
 
 //=================================================================================================

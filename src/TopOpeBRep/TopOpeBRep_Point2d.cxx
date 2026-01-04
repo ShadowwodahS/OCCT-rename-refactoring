@@ -49,13 +49,13 @@ TopOpeBRep_Point2d::TopOpeBRep_Point2d()
 const TopoDS_Vertex& TopOpeBRep_Point2d::Vertex(const Standard_Integer Index) const
 {
   if (!IsVertex(Index))
-    throw Standard_Failure("TopOpeBRep_Point2d::Vertex");
+    throw ExceptionBase("TopOpeBRep_Point2d::Vertex");
   if (Index == 1)
     return myvertex1;
   else if (Index == 2)
     return myvertex2;
   else
-    throw Standard_Failure("TopOpeBRep_Point2d::Vertex");
+    throw ExceptionBase("TopOpeBRep_Point2d::Vertex");
 }
 
 //=================================================================================================
@@ -67,7 +67,7 @@ const TopOpeBRepDS_Transition& TopOpeBRep_Point2d::Transition(const Standard_Int
   else if (Index == 2)
     return mytransition2;
   else
-    throw Standard_Failure("TopOpeBRep_Point2d::Transition");
+    throw ExceptionBase("TopOpeBRep_Point2d::Transition");
 }
 
 //=================================================================================================
@@ -79,7 +79,7 @@ TopOpeBRepDS_Transition& TopOpeBRep_Point2d::ChangeTransition(const Standard_Int
   else if (Index == 2)
     return mytransition2;
   else
-    throw Standard_Failure("TopOpeBRep_Point2d::ChangeTransition");
+    throw ExceptionBase("TopOpeBRep_Point2d::ChangeTransition");
 }
 
 //=================================================================================================

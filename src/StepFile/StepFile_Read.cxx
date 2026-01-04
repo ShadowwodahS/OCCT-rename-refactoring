@@ -106,7 +106,7 @@ static Standard_Integer StepFile_Read(const char*                            the
       return 1;
     }
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     Message::SendFail() << " ...  Exception Raised while reading Step File : '" << theName << "':\n"
                         << anException << "    ...";

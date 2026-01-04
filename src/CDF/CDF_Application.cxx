@@ -183,7 +183,7 @@ PCDM_ReaderStatus CDF_Application::CanRetrieve(const TCollection_ExtendedString&
         if (aReader.IsNull())
           return PCDM_RS_NoDriver;
       }
-      catch (Standard_Failure const&)
+      catch (ExceptionBase const&)
       {
         // no need to report error, this was just check for availability
       }
@@ -262,7 +262,7 @@ Handle(CDM_Document) CDF_Application::Retrieve(const Handle(CDM_MetaData)& aMeta
         myRetrievableStatus = PCDM_RS_OK;
     }
     if (myRetrievableStatus != PCDM_RS_OK)
-      throw Standard_Failure(aMsg.str().c_str());
+      throw ExceptionBase(aMsg.str().c_str());
     myRetrievableStatus = PCDM_RS_DriverFailure;
   }
   Standard_Boolean AlreadyRetrieved = aMetaData->IsRetrieved();
@@ -306,14 +306,14 @@ Handle(CDM_Document) CDF_Application::Retrieve(const Handle(CDM_MetaData)& aMeta
       OCC_CATCH_SIGNALS
       theReader->Read(aMetaData->FileName(), aDocument, this, theFilter, theRange);
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
       myRetrievableStatus = theReader->GetStatus();
       if (myRetrievableStatus > PCDM_RS_AlreadyRetrieved)
       {
         Standard_SStream aMsg;
         aMsg << anException << std::endl;
-        throw Standard_Failure(aMsg.str().c_str());
+        throw ExceptionBase(aMsg.str().c_str());
       }
     }
     myRetrievableStatus = theReader->GetStatus();
@@ -378,13 +378,13 @@ void CDF_Application::Read(Standard_IStream&                theIStream,
 
     aFormat = PCDM_ReadWriter::FileFormat(theIStream, dData);
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     myRetrievableStatus = PCDM_RS_FormatFailure;
 
     Standard_SStream aMsg;
     aMsg << anException << std::endl;
-    throw Standard_Failure(aMsg.str().c_str());
+    throw ExceptionBase(aMsg.str().c_str());
   }
 
   if (aFormat.IsEmpty())
@@ -422,14 +422,14 @@ void CDF_Application::Read(Standard_IStream&                theIStream,
     OCC_CATCH_SIGNALS
     aReader->Read(theIStream, dData, theDocument, this, theFilter, theRange);
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     myRetrievableStatus = aReader->GetStatus();
     if (myRetrievableStatus > PCDM_RS_AlreadyRetrieved)
     {
       Standard_SStream aMsg;
       aMsg << anException << std::endl;
-      throw Standard_Failure(aMsg.str().c_str());
+      throw ExceptionBase(aMsg.str().c_str());
     }
   }
 
@@ -471,7 +471,7 @@ Handle(PCDM_Reader) CDF_Application::ReaderFromFormat(const TCollection_Extended
     OCC_CATCH_SIGNALS
     aReader = Handle(PCDM_RetrievalDriver)::DownCast(Plugin::Load(aPluginId));
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     myRetrievableStatus = PCDM_RS_WrongResource;
     throw anException;
@@ -526,7 +526,7 @@ Handle(PCDM_StorageDriver) CDF_Application::WriterFromFormat(
     OCC_CATCH_SIGNALS
     aDriver = Handle(PCDM_StorageDriver)::DownCast(Plugin::Load(aPluginId));
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     myWriters.Add(theFormat, aDriver);
     myRetrievableStatus = PCDM_RS_WrongResource;

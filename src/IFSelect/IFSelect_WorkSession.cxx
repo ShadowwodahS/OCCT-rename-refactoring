@@ -177,7 +177,7 @@ IFSelect_ReturnStatus IFSelect_WorkSession::ReadFile(const Standard_CString file
     else
       status = IFSelect_RetFail;
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     Message_Messenger::StreamBuffer sout = Message::SendInfo();
     sout << "    ****    Interruption ReadFile par Exception :   ****\n";
@@ -216,7 +216,7 @@ IFSelect_ReturnStatus IFSelect_WorkSession::ReadStream(const Standard_CString th
     else
       status = IFSelect_RetFail;
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     Message_Messenger::StreamBuffer sout = Message::SendInfo();
     sout << "    ****    Interruption ReadFile par Exception :   ****\n";
@@ -1184,7 +1184,7 @@ Interface_EntityIterator IFSelect_WorkSession::EvalSelection(
       OCC_CATCH_SIGNALS
       iter = EvalSelection(sel); // appel normal (donc, code pas duplique)
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
       Message_Messenger::StreamBuffer sout = Message::SendInfo();
       sout << "    ****    Interruption EvalSelection par Exception :   ****\n";
@@ -1223,7 +1223,7 @@ Handle(TColStd_HSequenceOfTransient) IFSelect_WorkSession::SelectionResult(
       OCC_CATCH_SIGNALS
       res = SelectionResult(sel); // appel normal (->code unique)
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
       Message_Messenger::StreamBuffer sout = Message::SendInfo();
       sout << "    ****    Interruption SelectionResult par Exception :   ****\n";
@@ -1884,7 +1884,7 @@ void IFSelect_WorkSession::EvaluateFile()
       OCC_CATCH_SIGNALS
       EvaluateFile(); // appel normal (donc, code pas duplique)
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
       Message_Messenger::StreamBuffer sout = Message::SendInfo();
       sout << "    ****    Interruption EvaluateFile par Exception :   ****\n";
@@ -1968,7 +1968,7 @@ Standard_Boolean IFSelect_WorkSession::SendSplit()
       OCC_CATCH_SIGNALS
       return SendSplit(); // appel normal (donc, code pas duplique)
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
       Message_Messenger::StreamBuffer sout = Message::SendInfo();
       sout << "    ****    Interruption SendSplit par Exception :   ****\n";
@@ -2217,7 +2217,7 @@ IFSelect_ReturnStatus IFSelect_WorkSession::SendAll(const Standard_CString filen
       ComputeGraph(computegraph);
       checks = thecopier->SendAll(filename, thegraph->Graph(), thelibrary, theprotocol);
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
       Message_Messenger::StreamBuffer sout = Message::SendInfo();
       sout << "    ****    Interruption SendAll par Exception :   ****\n";
@@ -2270,7 +2270,7 @@ IFSelect_ReturnStatus IFSelect_WorkSession::SendSelected(const Standard_CString 
       ComputeGraph(computegraph);
       return SendSelected(filename, sel); // appel normal
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
       Message_Messenger::StreamBuffer sout = Message::SendInfo();
       sout << "    ****    Interruption SendSelected par Exception :   ****\n";
@@ -3358,7 +3358,7 @@ void IFSelect_WorkSession::DumpModel(const Standard_Integer level, Standard_OStr
         else
           C = CT.CompleteCheckList();
       }
-      catch (Standard_Failure const&)
+      catch (ExceptionBase const&)
       {
         Message_Messenger::StreamBuffer sout = Message::SendInfo();
         sout << "    ****    Interruption DumpModel (Check) par Exception    ****\n";
@@ -3377,7 +3377,7 @@ void IFSelect_WorkSession::DumpModel(const Standard_Integer level, Standard_OStr
       OCC_CATCH_SIGNALS
       C.Print(S, myModel, (level == 3));
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
       Message_Messenger::StreamBuffer sout = Message::SendInfo();
       sout << "    ****    Interruption DumpModel par Exception :   ****\n";
@@ -3565,7 +3565,7 @@ void IFSelect_WorkSession::EvaluateSelection(const Handle(IFSelect_Selection)& s
       OCC_CATCH_SIGNALS
       EvaluateSelection(sel); // appel normal (->code unique)
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
       sout << "    ****    Interruption EvaluateSelection par Exception    ****  Intitule\n";
       sout << anException.GetMessageString();
@@ -3607,7 +3607,7 @@ void IFSelect_WorkSession::EvaluateDispatch(const Handle(IFSelect_Dispatch)& dis
       OCC_CATCH_SIGNALS
       EvaluateDispatch(disp, mode); // appel normal (->code unique)
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
       sout << "    ****    Interruption EvaluateDispatch par Exception    ****  Intitule\n";
       sout << anException.GetMessageString();
@@ -3701,7 +3701,7 @@ void IFSelect_WorkSession::EvaluateComplete(const Standard_Integer mode) const
       OCC_CATCH_SIGNALS
       EvaluateComplete(mode); // appel normal (donc, code pas duplique)
     }
-    catch (Standard_Failure const& anException)
+    catch (ExceptionBase const& anException)
     {
       sout << "    ****    Interruption EvaluateComplete par Exception :   ****\n";
       sout << anException.GetMessageString();
@@ -3875,7 +3875,7 @@ void IFSelect_WorkSession::ListEntities(const Interface_EntityIterator& iter,
     if (mode == 2)
       sout << ")" << std::endl;
   }
-  catch (Standard_Failure const& anException)
+  catch (ExceptionBase const& anException)
   {
     sout << "    ****    Interruption ListEntities par Exception :   ****\n";
     sout << anException.GetMessageString();

@@ -599,7 +599,7 @@ Standard_Integer RWObj_Reader::triangulatePolygon(
     }
     return aNbTrisAdded;
   }
-  catch (Standard_Failure const& theFailure)
+  catch (ExceptionBase const& theFailure)
   {
     Message::SendWarning(TCollection_AsciiString("Error: exception raised during polygon split\n[")
                          + theFailure.GetMessageString() + "]");

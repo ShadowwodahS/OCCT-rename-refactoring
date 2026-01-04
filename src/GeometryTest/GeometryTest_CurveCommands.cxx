@@ -1123,7 +1123,7 @@ static Standard_Integer uniformAbscissa(Draw_Interpretor& di, Standard_Integer n
     }
   }
 
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     di << " Standard Failure  \n";
   }
@@ -1172,7 +1172,7 @@ static Standard_Integer EllipsUniformAbscissa(Draw_Interpretor& di,
     DBRep::Set("Ellipse", edge_curve);
   }
 
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     di << " Standard Failure  \n";
   }
@@ -1201,7 +1201,7 @@ static Standard_Integer EllipsUniformAbscissa(Draw_Interpretor& di,
     }
   }
 
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     di << " Standard Failure  \n";
   }

@@ -62,7 +62,7 @@ Storage_Error StdStorage::Read(const TCollection_AsciiString& theFileName,
     OCC_CATCH_SIGNALS
     PCDM_ReadWriter::Open(aDriver, theFileName, Storage_VSRead);
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     return Storage_VSOpenError;
   }

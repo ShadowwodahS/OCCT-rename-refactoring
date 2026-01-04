@@ -307,11 +307,11 @@ void BRepBuilderAPI_FastSewing::Perform(void)
 
     myResShape = aQuilt.Shells();
   }
-  catch (Standard_Failure const&)
+  catch (ExceptionBase const&)
   {
     SetStatus(FS_Exception);
 #ifdef OCCT_DEBUG
-    // Standard_Failure::Caught()->Print(std::cout);
+    // ExceptionBase::Caught()->Print(std::cout);
 #endif
     return;
   }

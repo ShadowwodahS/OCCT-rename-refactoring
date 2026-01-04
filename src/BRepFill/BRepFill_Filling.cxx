@@ -333,7 +333,7 @@ void BRepFill_Filling::AddConstraints(const BRepFill_SequenceOfEdgeFaceAndOrder&
         BRep_Tool::CurveOnSurface(CurEdge, C2d, Surface, loc, f, l);
         if (Surface.IsNull())
         {
-          throw Standard_Failure("Add");
+          throw ExceptionBase("Add");
           return;
         }
         Surface = Handle(Geom_Surface)::DownCast(Surface->Copy());

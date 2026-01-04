@@ -23,7 +23,7 @@
 #include <Standard_Failure.hxx>
 
 class StdFail_InfiniteSolutions;
-DEFINE_STANDARD_HANDLE(StdFail_InfiniteSolutions, Standard_Failure)
+DEFINE_STANDARD_HANDLE(StdFail_InfiniteSolutions, ExceptionBase)
 
 #if !defined No_Exception && !defined No_StdFail_InfiniteSolutions
   #define StdFail_InfiniteSolutions_Raise_if(CONDITION, MESSAGE)                                   \
@@ -33,6 +33,6 @@ DEFINE_STANDARD_HANDLE(StdFail_InfiniteSolutions, Standard_Failure)
   #define StdFail_InfiniteSolutions_Raise_if(CONDITION, MESSAGE)
 #endif
 
-DEFINE_STANDARD_EXCEPTION(StdFail_InfiniteSolutions, Standard_Failure)
+DEFINE_STANDARD_EXCEPTION(StdFail_InfiniteSolutions, ExceptionBase)
 
 #endif // _StdFail_InfiniteSolutions_HeaderFile
