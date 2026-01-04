@@ -679,7 +679,7 @@ void FSD_BinaryFile::ReadCompleteInfo(Standard_IStream& theIStream, Handle(Stora
       Standard_Integer            aRef;
       TCollection_AsciiString     aRootName, aTypeName;
       Handle(Storage_Root)        aRoot;
-      Handle(Standard_Persistent) aPer;
+      Handle(DbObject) aPer;
 
       for (Standard_Integer i = 1; i <= aRootSectionSize; i++)
       {

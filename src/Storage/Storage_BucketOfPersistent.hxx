@@ -28,13 +28,13 @@ class Storage_Bucket
   friend class Storage_Schema;
   friend class Storage_BucketOfPersistent;
 
-  Standard_Persistent** mySpace;
+  DbObject** mySpace;
   Standard_Integer      mySpaceSize;
   Standard_Integer      myCurrentSpace;
 
-  void Append(Standard_Persistent*);
+  void Append(DbObject*);
 
-  Standard_Persistent* Value(const Standard_Integer theIndex) const;
+  DbObject* Value(const Standard_Integer theIndex) const;
 
 public:
   Storage_Bucket()
@@ -42,7 +42,7 @@ public:
         mySpaceSize(200000),
         myCurrentSpace(-1)
   {
-    mySpace = (Standard_Persistent**)Standard::Allocate(sizeof(Standard_Persistent*) * mySpaceSize);
+    mySpace = (DbObject**)Standard::Allocate(sizeof(DbObject*) * mySpaceSize);
   }
 
   Storage_Bucket(const Standard_Integer theSpaceSize)
@@ -50,7 +50,7 @@ public:
         mySpaceSize(theSpaceSize),
         myCurrentSpace(-1)
   {
-    mySpace = (Standard_Persistent**)Standard::Allocate(sizeof(Standard_Persistent*) * mySpaceSize);
+    mySpace = (DbObject**)Standard::Allocate(sizeof(DbObject*) * mySpaceSize);
   }
 
   void Clear();
@@ -75,9 +75,9 @@ public:
 
   Standard_Integer Length() const { return myLength; }
 
-  void Append(const Handle(Standard_Persistent)& sp);
+  void Append(const Handle(DbObject)& sp);
 
-  Standard_Persistent* Value(const Standard_Integer theIndex);
+  DbObject* Value(const Standard_Integer theIndex);
 
   void Clear();
 
@@ -98,7 +98,7 @@ public:
   void Init(Storage_BucketOfPersistent*);
   void Reset();
 
-  Standard_Persistent* Value() const
+  DbObject* Value() const
   {
     if (myCurrentBucket)
     {

@@ -127,7 +127,7 @@ void Storage_RootData::RemoveRoot(const TCollection_AsciiString& aName)
 }
 
 void Storage_RootData::UpdateRoot(const TCollection_AsciiString&     aName,
-                                  const Handle(Standard_Persistent)& aPers)
+                                  const Handle(DbObject)& aPers)
 {
   if (myObjects.IsBound(aName))
   {

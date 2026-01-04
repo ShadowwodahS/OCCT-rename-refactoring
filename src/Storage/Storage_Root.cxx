@@ -25,7 +25,7 @@ Storage_Root::Storage_Root()
 }
 
 Storage_Root::Storage_Root(const TCollection_AsciiString&     theName,
-                           const Handle(Standard_Persistent)& theObject)
+                           const Handle(DbObject)& theObject)
     : myName(theName),
       myObject(theObject),
       myRef(0)
@@ -51,12 +51,12 @@ TCollection_AsciiString Storage_Root::Name() const
   return myName;
 }
 
-void Storage_Root::SetObject(const Handle(Standard_Persistent)& anObject)
+void Storage_Root::SetObject(const Handle(DbObject)& anObject)
 {
   myObject = anObject;
 }
 
-Handle(Standard_Persistent) Storage_Root::Object() const
+Handle(DbObject) Storage_Root::Object() const
 {
   return myObject;
 }

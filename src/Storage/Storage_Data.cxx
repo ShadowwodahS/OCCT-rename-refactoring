@@ -33,7 +33,7 @@ Storage_Data::Storage_Data()
   myHeaderData = new Storage_HeaderData;
 }
 
-void Storage_Data::AddRoot(const Handle(Standard_Persistent)& anObject) const
+void Storage_Data::AddRoot(const Handle(DbObject)& anObject) const
 {
   Handle(Storage_Root) aRoot =
     new Storage_Root(TCollection_AsciiString(myRootData->NumberOfRoots() + 1), anObject);
@@ -41,7 +41,7 @@ void Storage_Data::AddRoot(const Handle(Standard_Persistent)& anObject) const
 }
 
 void Storage_Data::AddRoot(const TCollection_AsciiString&     aName,
-                           const Handle(Standard_Persistent)& anObject) const
+                           const Handle(DbObject)& anObject) const
 {
   Handle(Storage_Root) aRoot = new Storage_Root(aName, anObject);
   myRootData->AddRoot(aRoot);

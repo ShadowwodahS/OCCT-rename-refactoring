@@ -23,7 +23,7 @@
 #include <TCollection_AsciiString.hxx>
 #include <Standard_Integer.hxx>
 #include <Standard_Transient.hxx>
-class Standard_Persistent;
+class DbObject;
 
 class Storage_Root;
 DEFINE_STANDARD_HANDLE(Storage_Root, RefObject)
@@ -48,7 +48,7 @@ public:
   Standard_EXPORT Storage_Root();
 
   Standard_EXPORT Storage_Root(const TCollection_AsciiString&     theName,
-                               const Handle(Standard_Persistent)& theObject);
+                               const Handle(DbObject)& theObject);
 
   Standard_EXPORT Storage_Root(const TCollection_AsciiString& theName,
                                const Standard_Integer         theRef,
@@ -72,10 +72,10 @@ public:
   //! into the container.
   Standard_EXPORT TCollection_AsciiString Name() const;
 
-  Standard_EXPORT void SetObject(const Handle(Standard_Persistent)& anObject);
+  Standard_EXPORT void SetObject(const Handle(DbObject)& anObject);
 
   //! Returns the persistent object encapsulated by this root.
-  Standard_EXPORT Handle(Standard_Persistent) Object() const;
+  Standard_EXPORT Handle(DbObject) Object() const;
 
   //! Returns the name of this root type.
   Standard_EXPORT TCollection_AsciiString Type() const;
@@ -94,7 +94,7 @@ protected:
 private:
   TCollection_AsciiString     myName;
   TCollection_AsciiString     myType;
-  Handle(Standard_Persistent) myObject;
+  Handle(DbObject) myObject;
   Standard_Integer            myRef;
 };
 

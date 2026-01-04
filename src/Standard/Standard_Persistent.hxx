@@ -19,18 +19,18 @@
 
 //! Root of "persistent" classes, a legacy support of
 //! object oriented databases, now outdated.
-class Standard_Persistent : public RefObject
+class DbObject : public RefObject
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_Persistent()
+  DbObject()
       : _typenum(0),
         _refnum(0)
   {
   }
 
-  DEFINE_STANDARD_RTTIEXT(Standard_Persistent, RefObject)
+  DEFINE_STANDARD_RTTIEXT(DbObject, RefObject)
 
   Standard_Integer& TypeNum() { return _typenum; }
 

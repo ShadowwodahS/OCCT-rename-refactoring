@@ -17,4 +17,4 @@
 #include <PCDM_Document.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(PCDM_Document, Standard_Persistent)
+IMPLEMENT_STANDARD_RTTIEXT(PCDM_Document, DbObject)

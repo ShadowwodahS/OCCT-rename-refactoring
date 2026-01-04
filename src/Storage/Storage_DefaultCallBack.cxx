@@ -22,25 +22,25 @@ IMPLEMENT_STANDARD_RTTIEXT(Storage_DefaultCallBack, Storage_CallBack)
 
 Storage_DefaultCallBack::Storage_DefaultCallBack() {}
 
-Handle(Standard_Persistent) Storage_DefaultCallBack::New() const
+Handle(DbObject) Storage_DefaultCallBack::New() const
 {
-  Handle(Standard_Persistent) res = new Standard_Persistent;
+  Handle(DbObject) res = new DbObject;
 
   return res;
 }
 
-void Storage_DefaultCallBack::Add(const Handle(Standard_Persistent)&,
+void Storage_DefaultCallBack::Add(const Handle(DbObject)&,
                                   const Handle(Storage_Schema)&) const
 {
 }
 
-void Storage_DefaultCallBack::Write(const Handle(Standard_Persistent)&,
+void Storage_DefaultCallBack::Write(const Handle(DbObject)&,
                                     const Handle(Storage_BaseDriver)&,
                                     const Handle(Storage_Schema)&) const
 {
 }
 
-void Storage_DefaultCallBack::Read(const Handle(Standard_Persistent)&,
+void Storage_DefaultCallBack::Read(const Handle(DbObject)&,
                                    const Handle(Storage_BaseDriver)& theDriver,
                                    const Handle(Storage_Schema)&) const
 {

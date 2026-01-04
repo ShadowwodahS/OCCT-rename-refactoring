@@ -21,7 +21,7 @@
 public:                                                                                            \
   Standard_EXPORT Handle(Storage_CallBack) CallBackSelection(const TCollection_AsciiString&)       \
     const;                                                                                         \
-  Standard_EXPORT Handle(Storage_CallBack) AddTypeSelection(const Handle(Standard_Persistent)&)    \
+  Standard_EXPORT Handle(Storage_CallBack) AddTypeSelection(const Handle(DbObject)&)    \
     const;                                                                                         \
   Standard_EXPORT const TColStd_SequenceOfAsciiString& SchemaKnownTypes() const;
 
@@ -30,7 +30,7 @@ public:                                                                         
 #define Storage_BEGIN_READ_SELECTION(schema)                                                       \
   Handle(Storage_CallBack) schema::CallBackSelection(const TCollection_AsciiString& rt) const      \
   {                                                                                                \
-    Handle(Standard_Persistent) p;                                                                 \
+    Handle(DbObject) p;                                                                 \
     Handle(Storage_CallBack)    cback;
 
 #define Storage_READ_SELECTION(schema, classe, callback)                                           \
@@ -66,7 +66,7 @@ public:                                                                         
 //
 
 #define Storage_BEGIN_ADD_TYPES(schema)                                                            \
-  Handle(Storage_CallBack) schema::AddTypeSelection(const Handle(Standard_Persistent)& p) const    \
+  Handle(Storage_CallBack) schema::AddTypeSelection(const Handle(DbObject)& p) const    \
   {                                                                                                \
     Handle(Storage_CallBack) cback;                                                                \
     if (!p.IsNull())                                                                               \

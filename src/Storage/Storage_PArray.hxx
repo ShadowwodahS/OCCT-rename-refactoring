@@ -20,6 +20,6 @@
 #include <Standard_Persistent.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<Handle(Standard_Persistent)> Storage_PArray;
+typedef NCollection_Array1<Handle(DbObject)> Storage_PArray;
 
 #endif

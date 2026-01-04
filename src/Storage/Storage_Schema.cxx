@@ -65,7 +65,7 @@ void Storage_Bucket::Clear()
 
 //=================================================================================================
 
-void Storage_Bucket::Append(Standard_Persistent* sp)
+void Storage_Bucket::Append(DbObject* sp)
 {
   myCurrentSpace++;
   mySpace[myCurrentSpace] = sp;
@@ -73,7 +73,7 @@ void Storage_Bucket::Append(Standard_Persistent* sp)
 
 //=================================================================================================
 
-Standard_Persistent* Storage_Bucket::Value(const Standard_Integer theIndex) const
+DbObject* Storage_Bucket::Value(const Standard_Integer theIndex) const
 {
   return mySpace[theIndex];
 }
@@ -121,7 +121,7 @@ Storage_BucketOfPersistent::~Storage_BucketOfPersistent()
 
 //=================================================================================================
 
-Standard_Persistent* Storage_BucketOfPersistent::Value(const Standard_Integer theIndex)
+DbObject* Storage_BucketOfPersistent::Value(const Standard_Integer theIndex)
 {
   Standard_Integer theInd, theCurrentBucketNumber, tecurrentind = theIndex - 1;
   theCurrentBucketNumber = tecurrentind / myBucketSize;
@@ -132,7 +132,7 @@ Standard_Persistent* Storage_BucketOfPersistent::Value(const Standard_Integer th
 
 //=================================================================================================
 
-void Storage_BucketOfPersistent::Append(const Handle(Standard_Persistent)& sp)
+void Storage_BucketOfPersistent::Append(const Handle(DbObject)& sp)
 {
   myCurrentBucket->myCurrentSpace++;
 
@@ -312,7 +312,7 @@ void Storage_Schema::Write(const Handle(Storage_BaseDriver)& theDriver,
   // add all the persistent to write...
   //
   Standard_Integer            posfrom, posto;
-  Handle(Standard_Persistent) p;
+  Handle(DbObject) p;
   Handle(Storage_HSeqOfRoot)  plist;
   TCollection_AsciiString     errorContext("AddPersistent");
   Storage_Schema::ISetCurrentData(aData);
@@ -635,7 +635,7 @@ Handle(Storage_CallBack) Storage_Schema::TypeBinding(const TCollection_AsciiStri
 
 //=================================================================================================
 
-Standard_Boolean Storage_Schema::AddPersistent(const Handle(Standard_Persistent)& sp,
+Standard_Boolean Storage_Schema::AddPersistent(const Handle(DbObject)& sp,
                                                const Standard_CString             tName) const
 {
   Standard_Boolean result = Standard_False;
@@ -665,7 +665,7 @@ Standard_Boolean Storage_Schema::AddPersistent(const Handle(Standard_Persistent)
 
 //=================================================================================================
 
-Standard_Boolean Storage_Schema::PersistentToAdd(const Handle(Standard_Persistent)& sp) const
+Standard_Boolean Storage_Schema::PersistentToAdd(const Handle(DbObject)& sp) const
 {
   Standard_Boolean result = Standard_False;
 

@@ -21,7 +21,7 @@
 #include <Standard_Type.hxx>
 
 #include <Standard_Transient.hxx>
-class Standard_Persistent;
+class DbObject;
 class Storage_Schema;
 class Storage_BaseDriver;
 
@@ -31,16 +31,16 @@ DEFINE_STANDARD_HANDLE(Storage_CallBack, RefObject)
 class Storage_CallBack : public RefObject
 {
 public:
-  Standard_EXPORT virtual Handle(Standard_Persistent) New() const = 0;
+  Standard_EXPORT virtual Handle(DbObject) New() const = 0;
 
-  Standard_EXPORT virtual void Add(const Handle(Standard_Persistent)& aPers,
+  Standard_EXPORT virtual void Add(const Handle(DbObject)& aPers,
                                    const Handle(Storage_Schema)&      aSchema) const = 0;
 
-  Standard_EXPORT virtual void Write(const Handle(Standard_Persistent)& aPers,
+  Standard_EXPORT virtual void Write(const Handle(DbObject)& aPers,
                                      const Handle(Storage_BaseDriver)&  aDriver,
                                      const Handle(Storage_Schema)&      aSchema) const = 0;
 
-  Standard_EXPORT virtual void Read(const Handle(Standard_Persistent)& aPers,
+  Standard_EXPORT virtual void Read(const Handle(DbObject)& aPers,
                                     const Handle(Storage_BaseDriver)&  aDriver,
                                     const Handle(Storage_Schema)&      aSchema) const = 0;
 

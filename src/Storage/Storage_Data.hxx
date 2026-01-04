@@ -31,7 +31,7 @@ class Storage_RootData;
 class Storage_TypeData;
 class Storage_InternalData;
 class TCollection_ExtendedString;
-class Standard_Persistent;
+class DbObject;
 class Storage_Root;
 
 class Storage_Data;
@@ -163,7 +163,7 @@ public:
 
   //! add a persistent root to write. the name of the root
   //! is a driver reference number.
-  Standard_EXPORT void AddRoot(const Handle(Standard_Persistent)& anObject) const;
+  Standard_EXPORT void AddRoot(const Handle(DbObject)& anObject) const;
 
   //! Adds the root anObject to this set of data.
   //! The name of the root is aName if given; if not, it
@@ -173,7 +173,7 @@ public:
   //! objects by significant references rather than by
   //! references without any semantic values.
   Standard_EXPORT void AddRoot(const TCollection_AsciiString&     aName,
-                               const Handle(Standard_Persistent)& anObject) const;
+                               const Handle(DbObject)& anObject) const;
 
   //! Removes from this set of data the root object named aName.
   //! Warning

@@ -14,4 +14,4 @@
 
 #include <Standard_Persistent.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Standard_Persistent, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(DbObject, RefObject)

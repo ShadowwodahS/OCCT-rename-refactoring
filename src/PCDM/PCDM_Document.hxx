@@ -23,13 +23,13 @@
 #include <Standard_Persistent.hxx>
 
 class PCDM_Document;
-DEFINE_STANDARD_HANDLE(PCDM_Document, Standard_Persistent)
+DEFINE_STANDARD_HANDLE(PCDM_Document, DbObject)
 
-class PCDM_Document : public Standard_Persistent
+class PCDM_Document : public DbObject
 {
 
 public:
-  DEFINE_STANDARD_RTTIEXT(PCDM_Document, Standard_Persistent)
+  DEFINE_STANDARD_RTTIEXT(PCDM_Document, DbObject)
 
 protected:
 private:

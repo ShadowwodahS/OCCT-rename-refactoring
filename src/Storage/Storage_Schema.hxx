@@ -146,22 +146,22 @@ public:
   //! UseDefaultCallBack() is set.
   Standard_EXPORT Handle(Storage_CallBack) DefaultCallBack() const;
 
-  void WritePersistentObjectHeader(const Handle(Standard_Persistent)& sp,
+  void WritePersistentObjectHeader(const Handle(DbObject)& sp,
                                    const Handle(Storage_BaseDriver)&  theDriver)
   {
     theDriver->WritePersistentObjectHeader(sp->_refnum, sp->_typenum);
   }
 
-  void WritePersistentReference(const Handle(Standard_Persistent)& sp,
+  void WritePersistentReference(const Handle(DbObject)& sp,
                                 const Handle(Storage_BaseDriver)&  theDriver)
   {
     theDriver->PutReference(sp.IsNull() ? 0 : sp->_refnum);
   }
 
-  Standard_EXPORT Standard_Boolean AddPersistent(const Handle(Standard_Persistent)& sp,
+  Standard_EXPORT Standard_Boolean AddPersistent(const Handle(DbObject)& sp,
                                                  const Standard_CString             tName) const;
 
-  Standard_EXPORT Standard_Boolean PersistentToAdd(const Handle(Standard_Persistent)& sp) const;
+  Standard_EXPORT Standard_Boolean PersistentToAdd(const Handle(DbObject)& sp) const;
 
   DEFINE_STANDARD_RTTIEXT(Storage_Schema, RefObject)
 

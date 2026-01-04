@@ -23,7 +23,7 @@
 #include <Standard_Type.hxx>
 
 class RefObject;
-class Standard_Persistent;
+class DbObject;
 class Standard_Type;
 
 // Obsolete macros kept for compatibility

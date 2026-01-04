@@ -21,7 +21,7 @@
 #include <Standard_Type.hxx>
 
 #include <Storage_CallBack.hxx>
-class Standard_Persistent;
+class DbObject;
 class Storage_Schema;
 class Storage_BaseDriver;
 class Storage_DefaultCallBack;
@@ -33,16 +33,16 @@ class Storage_DefaultCallBack : public Storage_CallBack
 public:
   Standard_EXPORT Storage_DefaultCallBack();
 
-  Standard_EXPORT Handle(Standard_Persistent) New() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(DbObject) New() const Standard_OVERRIDE;
 
-  Standard_EXPORT void Add(const Handle(Standard_Persistent)& thePers,
+  Standard_EXPORT void Add(const Handle(DbObject)& thePers,
                            const Handle(Storage_Schema)&      theSchema) const Standard_OVERRIDE;
 
-  Standard_EXPORT void Write(const Handle(Standard_Persistent)& thePers,
+  Standard_EXPORT void Write(const Handle(DbObject)& thePers,
                              const Handle(Storage_BaseDriver)&  theDriver,
                              const Handle(Storage_Schema)&      theSchema) const Standard_OVERRIDE;
 
-  Standard_EXPORT void Read(const Handle(Standard_Persistent)& thePers,
+  Standard_EXPORT void Read(const Handle(DbObject)& thePers,
                             const Handle(Storage_BaseDriver)&  theDriver,
                             const Handle(Storage_Schema)&      theSchema) const Standard_OVERRIDE;
 

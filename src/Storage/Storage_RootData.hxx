@@ -28,7 +28,7 @@
 #include <Storage_HSeqOfRoot.hxx>
 class Storage_BaseDriver;
 class Storage_Root;
-class Standard_Persistent;
+class DbObject;
 
 class Storage_RootData;
 DEFINE_STANDARD_HANDLE(Storage_RootData, RefObject)
@@ -66,7 +66,7 @@ public:
   Standard_EXPORT void ClearErrorStatus();
 
   Standard_EXPORT void UpdateRoot(const TCollection_AsciiString&     aName,
-                                  const Handle(Standard_Persistent)& aPers);
+                                  const Handle(DbObject)& aPers);
 
   friend class Storage_Schema;
 
