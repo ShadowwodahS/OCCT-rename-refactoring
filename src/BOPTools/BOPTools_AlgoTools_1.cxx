@@ -920,7 +920,7 @@ void CorrectEdgeTolerance(const TopoDS_Edge&                myShape,
     if (!pcurvefound)
     {
       Handle(Geom_Plane)    P;
-      Handle(Standard_Type) styp = Su->DynamicType();
+      Handle(TypeInfo) styp = Su->DynamicType();
       if (styp == STANDARD_TYPE(Geom_RectangularTrimmedSurface))
       {
         P = Handle(Geom_Plane)::DownCast(

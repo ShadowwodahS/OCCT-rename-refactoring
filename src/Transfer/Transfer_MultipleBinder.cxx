@@ -32,7 +32,7 @@ Standard_Boolean Transfer_MultipleBinder::IsMultiple() const
   return (themulres->Length() != 1);
 }
 
-Handle(Standard_Type) Transfer_MultipleBinder::ResultType() const
+Handle(TypeInfo) Transfer_MultipleBinder::ResultType() const
 {
   return STANDARD_TYPE(RefObject);
 }

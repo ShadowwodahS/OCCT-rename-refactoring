@@ -1376,7 +1376,7 @@ Standard_Boolean BRepFeat_Form::TransformShapeFU(const Standard_Integer flag)
     TopoDS_Face fac = TopoDS::Face(exp.Current());
 
     Handle(Geom_Surface)  S    = BRep_Tool::Surface(fac);
-    Handle(Standard_Type) styp = S->DynamicType();
+    Handle(TypeInfo) styp = S->DynamicType();
     if (styp == STANDARD_TYPE(Geom_RectangularTrimmedSurface))
     {
       S    = Handle(Geom_RectangularTrimmedSurface)::DownCast(S)->BasisSurface();

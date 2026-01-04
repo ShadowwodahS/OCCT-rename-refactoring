@@ -512,7 +512,7 @@ void MAT2d_Circuit::DoubleLine(TColGeom2d_SequenceOfGeometry& Line,
                                const Handle(MAT2d_Connexion)& ConnexionFather,
                                const Standard_Real            SideRef) const
 {
-  Handle(Standard_Type)       Type;
+  Handle(TypeInfo)       Type;
   Handle(Geom2d_TrimmedCurve) Curve;
   Standard_Integer            NbItems = Line.Length();
   Standard_Integer            i;
@@ -884,7 +884,7 @@ static Standard_Real CrossProd(const Handle(Geom2d_Geometry)& Geom1,
 //==========================================================================
 void MAT2d_DrawCurve(const Handle(Geom2d_Curve)& aCurve, const Standard_Integer /*Indice*/)
 {
-  Handle(Standard_Type) type = aCurve->DynamicType();
+  Handle(TypeInfo) type = aCurve->DynamicType();
   Handle(Geom2d_Curve)  curve, CurveDraw;
   #ifdef DRAW
   Handle(DrawTrSurf_Curve2d) dr;

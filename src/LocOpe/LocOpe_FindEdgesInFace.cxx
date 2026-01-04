@@ -50,7 +50,7 @@ void LocOpe_FindEdgesInFace::Set(const TopoDS_Shape& Sh, const TopoDS_Face& F)
   Handle(Geom_Surface)  S;
   TopLoc_Location       Loc;
   Standard_Real         f, l;
-  Handle(Standard_Type) Tc, Ts;
+  Handle(TypeInfo) Tc, Ts;
   Standard_Boolean      ToAdd;
   gp_Pln                pl;
   gp_Cylinder           cy;

@@ -37,9 +37,9 @@ Handle(TDF_Attribute) XmlMDataStd_GenericEmptyDriver::NewEmpty() const
 
 //=================================================================================================
 
-Handle(Standard_Type) XmlMDataStd_GenericEmptyDriver::SourceType() const
+Handle(TypeInfo) XmlMDataStd_GenericEmptyDriver::SourceType() const
 {
-  return Standard_Type::Instance<TDataStd_GenericEmpty>();
+  return TypeInfo::Instance<TDataStd_GenericEmpty>();
 }
 
 //=================================================================================================

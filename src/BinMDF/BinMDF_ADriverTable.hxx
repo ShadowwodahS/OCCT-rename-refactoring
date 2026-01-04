@@ -51,7 +51,7 @@ public:
 
   //! Adds a translation driver for the derived attribute. The base driver must be already added.
   //! @param theDerivedType is registered attribute type using IMPLEMENT_DERIVED_ATTRIBUTE macro
-  Standard_EXPORT const Handle(Standard_Type)& AddDerivedDriver(Standard_CString theDerivedType);
+  Standard_EXPORT const Handle(TypeInfo)& AddDerivedDriver(Standard_CString theDerivedType);
 
   //! Assigns the IDs to the drivers of the given Types.
   //! It uses indices in the map as IDs.
@@ -65,7 +65,7 @@ public:
 
   //! Gets a driver <theDriver> according to <theType>.
   //! Returns Type ID if the driver was assigned an ID; 0 otherwise.
-  Standard_Integer GetDriver(const Handle(Standard_Type)& theType,
+  Standard_Integer GetDriver(const Handle(TypeInfo)& theType,
                              Handle(BinMDF_ADriver)&      theDriver);
 
   //! Returns a driver according to <theTypeId>.
@@ -77,7 +77,7 @@ public:
 protected:
 private:
   //! Assigns the ID to the driver of the Type
-  void AssignId(const Handle(Standard_Type)& theType, const Standard_Integer theId);
+  void AssignId(const Handle(TypeInfo)& theType, const Standard_Integer theId);
 
   BinMDF_TypeADriverMap myMap;
   BinMDF_TypeIdMap      myMapId;

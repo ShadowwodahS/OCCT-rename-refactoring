@@ -73,7 +73,7 @@ public:
   //! Kind of the type, else a Null Handle
   //! Returns True if OK, False if no Context
   Standard_EXPORT Standard_Boolean GetContext(const Standard_CString       name,
-                                              const Handle(Standard_Type)& type,
+                                              const Handle(TypeInfo)& type,
                                               Handle(RefObject)&  ctx) const;
 
   //! Returns (modifiable) the whole definition of Context
@@ -95,7 +95,7 @@ public:
   //! kind of a given type. Calls TypedSharings from Graph
   //! Returns an empty list if the Graph has not been acknowledged
   Standard_EXPORT Interface_EntityIterator TypedSharings(const Handle(RefObject)& start,
-                                                         const Handle(Standard_Type)& type) const;
+                                                         const Handle(TypeInfo)& type) const;
 
   //! Tells if an entity is well loaded from file (even if its data
   //! fail on checking, they are present). Mostly often, answers

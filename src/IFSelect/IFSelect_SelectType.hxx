@@ -37,14 +37,14 @@ public:
   Standard_EXPORT IFSelect_SelectType();
 
   //! Creates a SelectType for a given Type
-  Standard_EXPORT IFSelect_SelectType(const Handle(Standard_Type)& atype);
+  Standard_EXPORT IFSelect_SelectType(const Handle(TypeInfo)& atype);
 
   //! Sets a TYpe for filter
-  Standard_EXPORT void SetType(const Handle(Standard_Type)& atype);
+  Standard_EXPORT void SetType(const Handle(TypeInfo)& atype);
 
   //! Returns the Type to be matched for select : this is the type
   //! given at instantiation time
-  Standard_EXPORT Handle(Standard_Type) TypeForMatch() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(TypeInfo) TypeForMatch() const Standard_OVERRIDE;
 
   //! Returns a text defining the criterium.
   //! (should by gotten from Type of Entity used for instantiation)
@@ -54,7 +54,7 @@ public:
 
 protected:
 private:
-  Handle(Standard_Type) thetype;
+  Handle(TypeInfo) thetype;
 };
 
 #endif // _IFSelect_SelectType_HeaderFile

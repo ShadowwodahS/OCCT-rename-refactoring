@@ -36,7 +36,7 @@ Standard_Real Draft::Angle(const TopoDS_Face& F, const gp_Dir& D)
 
   TopLoc_Location       Lo;
   Handle(Geom_Surface)  S     = BRep_Tool::Surface(F, Lo);
-  Handle(Standard_Type) TypeS = S->DynamicType();
+  Handle(TypeInfo) TypeS = S->DynamicType();
   if (TypeS == STANDARD_TYPE(Geom_RectangularTrimmedSurface))
   {
     S     = Handle(Geom_RectangularTrimmedSurface)::DownCast(S)->BasisSurface();

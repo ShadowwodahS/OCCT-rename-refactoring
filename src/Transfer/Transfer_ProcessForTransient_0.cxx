@@ -589,7 +589,7 @@ void Transfer_ProcessForTransient::AddMultiple(const Handle(RefObject)& start,
 
 Standard_Boolean Transfer_ProcessForTransient::FindTypedTransient(
   const Handle(RefObject)& start,
-  const Handle(Standard_Type)&      atype,
+  const Handle(TypeInfo)&      atype,
   Handle(RefObject)&       val) const
 {
   return GetTypedTransient(Find(start), atype, val);
@@ -599,7 +599,7 @@ Standard_Boolean Transfer_ProcessForTransient::FindTypedTransient(
 
 Standard_Boolean Transfer_ProcessForTransient::GetTypedTransient(
   const Handle(Transfer_Binder)& binder,
-  const Handle(Standard_Type)&   atype,
+  const Handle(TypeInfo)&   atype,
   Handle(RefObject)&    val) const
 {
   return Transfer_SimpleBinderOfTransient::GetTypedResult(binder, atype, val);

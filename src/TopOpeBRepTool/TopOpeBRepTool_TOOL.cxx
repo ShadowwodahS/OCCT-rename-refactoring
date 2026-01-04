@@ -1060,7 +1060,7 @@ Standard_Boolean TopOpeBRepTool_TOOL::UVISO(const Handle(Geom2d_Curve)& PC,
   if (PC.IsNull())
     return Standard_False;
   Handle(Geom2d_Curve)  LLL      = BASISCURVE2D(PC);
-  Handle(Standard_Type) T2       = LLL->DynamicType();
+  Handle(TypeInfo) T2       = LLL->DynamicType();
   Standard_Boolean      isline2d = (T2 == STANDARD_TYPE(Geom2d_Line));
   if (!isline2d)
     return Standard_False;

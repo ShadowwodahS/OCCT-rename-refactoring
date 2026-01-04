@@ -521,7 +521,7 @@ void BRepFeat::FaceUntil(const TopoDS_Shape& Sbase, TopoDS_Face& FUntil)
   Standard_Real diam = 10. * Sqrt(B.SquareExtent());
 
   Handle(Geom_Surface)  s    = BRep_Tool::Surface(FUntil);
-  Handle(Standard_Type) styp = s->DynamicType();
+  Handle(TypeInfo) styp = s->DynamicType();
   if (styp == STANDARD_TYPE(Geom_RectangularTrimmedSurface))
   {
     s    = Handle(Geom_RectangularTrimmedSurface)::DownCast(s)->BasisSurface();

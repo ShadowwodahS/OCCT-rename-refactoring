@@ -944,7 +944,7 @@ Handle(TCollection_HAsciiString) IFSelect_WorkSession::ItemLabel(const Standard_
 //=================================================================================================
 
 Handle(TColStd_HSequenceOfInteger) IFSelect_WorkSession::ItemIdents(
-  const Handle(Standard_Type)& type) const
+  const Handle(TypeInfo)& type) const
 {
   Handle(TColStd_HSequenceOfInteger) list = new TColStd_HSequenceOfInteger();
   Standard_Integer                   nb   = theitems.Extent();
@@ -959,7 +959,7 @@ Handle(TColStd_HSequenceOfInteger) IFSelect_WorkSession::ItemIdents(
 //=================================================================================================
 
 Handle(TColStd_HSequenceOfHAsciiString) IFSelect_WorkSession::ItemNames(
-  const Handle(Standard_Type)& type) const
+  const Handle(TypeInfo)& type) const
 {
   Handle(TColStd_HSequenceOfHAsciiString) list = new TColStd_HSequenceOfHAsciiString();
   NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>::Iterator IT(thenames);

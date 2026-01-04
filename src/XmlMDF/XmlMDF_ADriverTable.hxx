@@ -49,7 +49,7 @@ public:
 
   //! Adds a translation driver for the derived attribute. The base driver must be already added.
   //! @param theDerivedType is registered attribute type using IMPLEMENT_DERIVED_ATTRIBUTE macro
-  Standard_EXPORT const Handle(Standard_Type)& AddDerivedDriver(Standard_CString theDerivedType);
+  Standard_EXPORT const Handle(TypeInfo)& AddDerivedDriver(Standard_CString theDerivedType);
 
   //! Fills the map by all registered drivers.
   Standard_EXPORT void CreateDrvMap(XmlMDF_MapOfDriver& theDriverMap);
@@ -57,7 +57,7 @@ public:
   //! Gets a driver <aDriver> according to <aType>
   //!
   //! Returns True if a driver is found; false otherwise.
-  Standard_EXPORT Standard_Boolean GetDriver(const Handle(Standard_Type)& theType,
+  Standard_EXPORT Standard_Boolean GetDriver(const Handle(TypeInfo)& theType,
                                              Handle(XmlMDF_ADriver)&      theDriver);
 
   DEFINE_STANDARD_RTTIEXT(XmlMDF_ADriverTable, RefObject)

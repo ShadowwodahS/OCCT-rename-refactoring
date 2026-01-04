@@ -700,7 +700,7 @@ static Standard_Integer XSDRAWIGES_tplosttrim(Draw_Interpretor& theDI,
   const Handle(Transfer_TransientProcess)& anTransientProcess =
     aWorkSession->TransferReader()->TransientProcess();
   TColStd_Array1OfAsciiString                  aTypeStrings(1, 3);
-  NCollection_Array1 < Handle(Standard_Type >) aKindTypes(1, 3);
+  NCollection_Array1 < Handle(TypeInfo >) aKindTypes(1, 3);
   aTypeStrings.SetValue(1, "xst-type(CurveOnSurface)");
   aTypeStrings.SetValue(2, "xst-type(Boundary)");
   aTypeStrings.SetValue(3, "xst-type(Loop)");

@@ -54,7 +54,7 @@ static void SimpleExpression(const Bisector_Bisec& B, Handle(Geom2d_Curve)& Bis)
 {
   Bis = B.Value();
 
-  Handle(Standard_Type) BT = Bis->DynamicType();
+  Handle(TypeInfo) BT = Bis->DynamicType();
   if (BT == STANDARD_TYPE(Geom2d_TrimmedCurve))
   {
     Handle(Geom2d_TrimmedCurve) TrBis  = Handle(Geom2d_TrimmedCurve)::DownCast(Bis);

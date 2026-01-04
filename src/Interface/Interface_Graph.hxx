@@ -232,7 +232,7 @@ public:
   //! kind of a given type. A sharing entity kind of this type
   //! ends the exploration of its branch
   Standard_EXPORT Interface_EntityIterator TypedSharings(const Handle(RefObject)& ent,
-                                                         const Handle(Standard_Type)& type) const;
+                                                         const Handle(TypeInfo)& type) const;
 
   //! Returns the Entities which are not Shared (their Sharing List
   //! is empty) in the Model

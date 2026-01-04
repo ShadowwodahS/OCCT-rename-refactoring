@@ -499,7 +499,7 @@ TopoDS_Edge MakeEdge(const Handle(Geom2d_Curve)& theCurve,
 GeomAbs_CurveType GetCurveType(const Handle(Geom2d_Curve)& theC2d)
 {
   GeomAbs_CurveType     aTypeCurve = GeomAbs_OtherCurve;
-  Handle(Standard_Type) TheType    = theC2d->DynamicType();
+  Handle(TypeInfo) TheType    = theC2d->DynamicType();
   if (TheType == STANDARD_TYPE(Geom2d_TrimmedCurve))
   {
     TheType = Handle(Geom2d_TrimmedCurve)::DownCast(theC2d)->BasisCurve()->DynamicType();

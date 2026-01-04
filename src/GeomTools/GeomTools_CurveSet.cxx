@@ -438,7 +438,7 @@ void GeomTools_CurveSet::PrintCurve(const Handle(Geom_Curve)& C,
                                     Standard_OStream&         OS,
                                     const Standard_Boolean    compact)
 {
-  Handle(Standard_Type) TheType = C->DynamicType();
+  Handle(TypeInfo) TheType = C->DynamicType();
 
   if (TheType == STANDARD_TYPE(Geom_Line))
   {

@@ -418,7 +418,7 @@ void GeomTools_Curve2dSet::PrintCurve2d(const Handle(Geom2d_Curve)& C,
                                         Standard_OStream&           OS,
                                         const Standard_Boolean      compact)
 {
-  Handle(Standard_Type) TheType = C->DynamicType();
+  Handle(TypeInfo) TheType = C->DynamicType();
 
   if (TheType == STANDARD_TYPE(Geom2d_Circle))
   {

@@ -32,7 +32,7 @@ Standard_CString IFSelect_SignType::Value(const Handle(RefObject)& ent,
 {
   if (ent.IsNull())
     return nulsign;
-  DeclareAndCast(Standard_Type, atype, ent);
+  DeclareAndCast(TypeInfo, atype, ent);
   if (atype.IsNull())
     atype = ent->DynamicType();
   Standard_CString tn = atype->Name();

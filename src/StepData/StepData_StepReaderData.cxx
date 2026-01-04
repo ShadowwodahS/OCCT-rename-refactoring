@@ -1448,7 +1448,7 @@ Standard_Boolean StepData_StepReaderData::ReadEntity(const Standard_Integer     
                                                      const Standard_Integer       nump,
                                                      const Standard_CString       mess,
                                                      Handle(Interface_Check)&     ach,
-                                                     const Handle(Standard_Type)& atype,
+                                                     const Handle(TypeInfo)& atype,
                                                      Handle(RefObject)&  ent) const
 {
   Handle(String)   errmess; // Null si pas d erreur

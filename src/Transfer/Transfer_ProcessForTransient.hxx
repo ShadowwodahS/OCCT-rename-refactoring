@@ -251,7 +251,7 @@ public:
   //! found with the good type, it is loaded in <val> and can be
   //! immediately used, well initialised
   Standard_EXPORT Standard_Boolean FindTypedTransient(const Handle(RefObject)& start,
-                                                      const Handle(Standard_Type)&      atype,
+                                                      const Handle(TypeInfo)&      atype,
                                                       Handle(RefObject)&       val) const;
 
   //! Searches for a transient result recorded in a Binder, whatever
@@ -262,7 +262,7 @@ public:
   //!
   //! Apart from this, works as FindTypedTransient
   Standard_EXPORT Standard_Boolean GetTypedTransient(const Handle(Transfer_Binder)& binder,
-                                                     const Handle(Standard_Type)&   atype,
+                                                     const Handle(TypeInfo)&   atype,
                                                      Handle(RefObject)&    val) const;
 
   //! Returns the maximum possible value for Map Index

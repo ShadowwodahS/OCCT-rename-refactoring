@@ -97,7 +97,7 @@ public:
   //! Kind of the type, else a Null Handle
   //! Returns True if OK, False if no Context
   Standard_EXPORT Standard_Boolean GetContext(const Standard_CString       theName,
-                                              const Handle(Standard_Type)& theType,
+                                              const Handle(TypeInfo)& theType,
                                               Handle(RefObject)&  theCtx) const;
 
   //! Returns (modifiable) the whole definition of Context

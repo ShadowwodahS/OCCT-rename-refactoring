@@ -252,7 +252,7 @@ VrmlData_ErrorStatus VrmlData_Node::ReadMultiString(
 
 VrmlData_ErrorStatus VrmlData_Node::ReadNode(VrmlData_InBuffer&           theBuffer,
                                              Handle(VrmlData_Node)&       theNode,
-                                             const Handle(Standard_Type)& theType)
+                                             const Handle(TypeInfo)& theType)
 {
   Handle(VrmlData_Node) aNode;
   VrmlData_ErrorStatus  aStatus;

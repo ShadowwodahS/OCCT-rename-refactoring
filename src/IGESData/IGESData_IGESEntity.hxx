@@ -280,12 +280,12 @@ public:
   Standard_EXPORT Interface_EntityIterator Associativities() const;
 
   //! gives how many Associativities have a given type
-  Standard_EXPORT Standard_Integer NbTypedAssociativities(const Handle(Standard_Type)& atype) const;
+  Standard_EXPORT Standard_Integer NbTypedAssociativities(const Handle(TypeInfo)& atype) const;
 
   //! returns the Associativity of a given Type (if only one exists)
   //! Error if none or more than one
   Standard_EXPORT Handle(IGESData_IGESEntity) TypedAssociativity(
-    const Handle(Standard_Type)& atype) const;
+    const Handle(TypeInfo)& atype) const;
 
   //! Sets "me" in the Associativity list of another Entity
   Standard_EXPORT void Associate(const Handle(IGESData_IGESEntity)& ent) const;
@@ -305,11 +305,11 @@ public:
   Standard_EXPORT Interface_EntityIterator Properties() const;
 
   //! gives how many Properties have a given type
-  Standard_EXPORT Standard_Integer NbTypedProperties(const Handle(Standard_Type)& atype) const;
+  Standard_EXPORT Standard_Integer NbTypedProperties(const Handle(TypeInfo)& atype) const;
 
   //! returns the Property of a given Type
   //! Error if none or more than one
-  Standard_EXPORT Handle(IGESData_IGESEntity) TypedProperty(const Handle(Standard_Type)& atype,
+  Standard_EXPORT Handle(IGESData_IGESEntity) TypedProperty(const Handle(TypeInfo)& atype,
                                                             const Standard_Integer anum = 0) const;
 
   //! Adds a Property in the list

@@ -26,7 +26,7 @@ Transfer_VoidBinder::Transfer_VoidBinder() {}
 //    Standard_Boolean  Transfer_VoidBinder::IsMultiple () const
 //      { return Standard_False;  }
 
-Handle(Standard_Type) Transfer_VoidBinder::ResultType() const
+Handle(TypeInfo) Transfer_VoidBinder::ResultType() const
 {
   return DynamicType();
 }

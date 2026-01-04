@@ -114,13 +114,13 @@ public:
 
   //! Finds builder by its type the string represents
   Standard_DEPRECATED("This method will be removed right after 7.9 release. \
-Use FindBuilder(const Handle(Standard_Type)&) instead \
+Use FindBuilder(const Handle(TypeInfo)&) instead \
 or directly iterate under sequence of builders.")
   Standard_EXPORT Handle(MeshVS_PrsBuilder) FindBuilder(const Standard_CString TypeString) const;
 
   //! Finds builder by its type the type represents
   Standard_EXPORT Handle(MeshVS_PrsBuilder) FindBuilder(
-    const Handle(Standard_Type)& TypeString) const;
+    const Handle(TypeInfo)& TypeString) const;
 
   //! Returns map of owners.
   Standard_EXPORT const MeshVS_DataMapOfIntegerOwner& GetOwnerMaps(

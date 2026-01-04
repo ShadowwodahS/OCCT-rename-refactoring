@@ -99,7 +99,7 @@ public:
 
   //! Returns "True" if the caught exception has the same type
   //! or inherits from "aType"
-  Standard_EXPORT Standard_Boolean Catches(const Handle(Standard_Type)& aType);
+  Standard_EXPORT Standard_Boolean Catches(const Handle(TypeInfo)& aType);
 
   //! Returns label for jump
   Standard_JmpBuf& Label() { return myLabel; }

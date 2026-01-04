@@ -168,7 +168,7 @@ Standard_Boolean STEPConstruct_Assembly::CheckSRRReversesNAUO(
     return Standard_False;
 
   // find SDRs corresponding to Rep1 and Rep2 and remember their PDs
-  Handle(Standard_Type)    tSDR   = STANDARD_TYPE(StepShape_ShapeDefinitionRepresentation);
+  Handle(TypeInfo)    tSDR   = STANDARD_TYPE(StepShape_ShapeDefinitionRepresentation);
   Interface_EntityIterator anIter = theGraph.Sharings(rep1);
   for (; anIter.More() && pd1.IsNull(); anIter.Next())
   {

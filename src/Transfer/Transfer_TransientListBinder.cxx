@@ -43,7 +43,7 @@ Standard_Boolean Transfer_TransientListBinder::IsMultiple() const
 
 //=================================================================================================
 
-Handle(Standard_Type) Transfer_TransientListBinder::ResultType() const
+Handle(TypeInfo) Transfer_TransientListBinder::ResultType() const
 {
   return STANDARD_TYPE(Transfer_TransientListBinder);
 }

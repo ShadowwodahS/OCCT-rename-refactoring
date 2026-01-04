@@ -90,17 +90,17 @@ void TObj_Assistant::ClearModelMap()
 
 //=================================================================================================
 
-Handle(Standard_Type) TObj_Assistant::FindType(const Standard_Integer theTypeIndex)
+Handle(TypeInfo) TObj_Assistant::FindType(const Standard_Integer theTypeIndex)
 {
   if (theTypeIndex > 0 && theTypeIndex <= getTypes().Extent())
-    return Handle(Standard_Type)::DownCast(getTypes().FindKey(theTypeIndex));
+    return Handle(TypeInfo)::DownCast(getTypes().FindKey(theTypeIndex));
 
   return 0;
 }
 
 //=================================================================================================
 
-Standard_Integer TObj_Assistant::FindTypeIndex(const Handle(Standard_Type)& theType)
+Standard_Integer TObj_Assistant::FindTypeIndex(const Handle(TypeInfo)& theType)
 {
   if (!getTypes().Contains(theType))
     return 0;
@@ -125,7 +125,7 @@ DEFINE_STANDARD_HANDLE(TObj_Assistant_UnknownType, RefObject)
 
 //=================================================================================================
 
-Standard_Integer TObj_Assistant::BindType(const Handle(Standard_Type)& theType)
+Standard_Integer TObj_Assistant::BindType(const Handle(TypeInfo)& theType)
 {
   if (theType.IsNull())
   {

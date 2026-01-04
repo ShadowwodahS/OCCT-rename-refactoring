@@ -501,11 +501,11 @@ Standard_Boolean STEPConstruct_Styles::LoadStyles()
   // find all MDGPRs and DMs and collect all defined styles in myStyles
   Handle(Interface_InterfaceModel) model = Model();
   Standard_Integer                 nb    = model->NbEntities();
-  Handle(Standard_Type)            tMDGPR =
+  Handle(TypeInfo)            tMDGPR =
     STANDARD_TYPE(StepVisual_MechanicalDesignGeometricPresentationRepresentation);
-  Handle(Standard_Type) tDM = STANDARD_TYPE(StepVisual_DraughtingModel);
-  Handle(Standard_Type) tSI = STANDARD_TYPE(StepVisual_StyledItem);
-  Handle(Standard_Type) tSR = STANDARD_TYPE(StepShape_ShapeRepresentation);
+  Handle(TypeInfo) tDM = STANDARD_TYPE(StepVisual_DraughtingModel);
+  Handle(TypeInfo) tSI = STANDARD_TYPE(StepVisual_StyledItem);
+  Handle(TypeInfo) tSR = STANDARD_TYPE(StepShape_ShapeRepresentation);
   for (Standard_Integer i = 1; i <= nb; i++)
   {
     Handle(RefObject) enti = model->Value(i);
@@ -555,7 +555,7 @@ Standard_Boolean STEPConstruct_Styles::LoadInvisStyles(
 {
   Handle(Interface_InterfaceModel) model         = Model();
   Standard_Integer                 nb            = model->NbEntities();
-  Handle(Standard_Type)            tInvisibility = STANDARD_TYPE(StepVisual_Invisibility);
+  Handle(TypeInfo)            tInvisibility = STANDARD_TYPE(StepVisual_Invisibility);
   // search for invisibility
   for (Standard_Integer i = 1; i <= nb; i++)
   {

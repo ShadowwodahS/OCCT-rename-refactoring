@@ -196,7 +196,7 @@ void TopOpeBRep_EdgesFiller::Insert(const TopoDS_Shape&                        E
           Handle(TopOpeBRepDS_Interference) I   = it.Value();
           TopOpeBRepDS_Kind                 ki  = I->GeometryType();
           Standard_Integer                  gi  = I->Geometry();
-          Handle(Standard_Type)             DTI = I->DynamicType();
+          Handle(TypeInfo)             DTI = I->DynamicType();
           Standard_Boolean iscpi   = (DTI == STANDARD_TYPE(TopOpeBRepDS_CurvePointInterference));
           Standard_Boolean condcpi = ((ki == TopOpeBRepDS_POINT) && (gi == G) && iscpi);
           if (condcpi)

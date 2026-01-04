@@ -161,7 +161,7 @@ void GeomAdaptor_Surface::load(const Handle(Geom_Surface)& S,
     myNestedEvaluator.Nullify();
     myBSplineSurface.Nullify();
 
-    const Handle(Standard_Type)& TheType = S->DynamicType();
+    const Handle(TypeInfo)& TheType = S->DynamicType();
     if (TheType == STANDARD_TYPE(Geom_RectangularTrimmedSurface))
     {
       Load(Handle(Geom_RectangularTrimmedSurface)::DownCast(S)->BasisSurface(),

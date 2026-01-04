@@ -117,7 +117,7 @@ private:
   Standard_EXPORT void WriteInfoSection(const Handle(CDM_Document)& theDocument,
                                         Standard_OStream&           theOStream);
 
-  Standard_EXPORT void UnsupportedAttrMsg(const Handle(Standard_Type)& theType);
+  Standard_EXPORT void UnsupportedAttrMsg(const Handle(TypeInfo)& theType);
 
   //! Writes sizes along the file where it is needed for quick part mode
   Standard_EXPORT void WriteSizes(Standard_OStream& theOS);

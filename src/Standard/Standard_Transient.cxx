@@ -18,10 +18,10 @@
 #include <Standard_CString.hxx>
 #include <Standard_ProgramError.hxx>
 
-const Handle(Standard_Type)& RefObject::get_type_descriptor()
+const Handle(TypeInfo)& RefObject::get_type_descriptor()
 {
-  static const Handle(Standard_Type) THE_TYPE_INSTANCE =
-    Standard_Type::Register(typeid(RefObject),
+  static const Handle(TypeInfo) THE_TYPE_INSTANCE =
+    TypeInfo::Register(typeid(RefObject),
                             get_type_name(),
                             sizeof(RefObject),
                             nullptr);
@@ -30,14 +30,14 @@ const Handle(Standard_Type)& RefObject::get_type_descriptor()
 
 //
 //
-const Handle(Standard_Type)& RefObject::DynamicType() const
+const Handle(TypeInfo)& RefObject::DynamicType() const
 {
   return get_type_descriptor();
 }
 
 //
 //
-Standard_Boolean RefObject::IsInstance(const Handle(Standard_Type)& AType) const
+Standard_Boolean RefObject::IsInstance(const Handle(TypeInfo)& AType) const
 {
   return (AType == DynamicType());
 }
@@ -51,7 +51,7 @@ Standard_Boolean RefObject::IsInstance(const Standard_CString theTypeName) const
 
 //
 //
-Standard_Boolean RefObject::IsKind(const Handle(Standard_Type)& aType) const
+Standard_Boolean RefObject::IsKind(const Handle(TypeInfo)& aType) const
 {
   return DynamicType()->SubType(aType);
 }

@@ -150,7 +150,7 @@ Standard_Boolean IFSelect_SessionFile::RecognizeFile(const Standard_CString head
     sout << "File Form Incorrect" << std::endl;
     return Standard_False;
   }
-  Handle(Standard_Type) sesstype = thesess->DynamicType();
+  Handle(TypeInfo) sesstype = thesess->DynamicType();
   if (!theline.Value(1).IsEqual("!XSTEP") || !theline.Value(2).IsEqual("SESSION")
       || !theline.Value(4).IsEqual(sesstype->Name()))
   {
@@ -488,7 +488,7 @@ Standard_Integer IFSelect_SessionFile::ReadSession()
     sout << "File Form Incorrect" << std::endl;
     return 1;
   }
-  Handle(Standard_Type) sesstype = thesess->DynamicType();
+  Handle(TypeInfo) sesstype = thesess->DynamicType();
   if (!theline.Value(1).IsEqual("!XSTEP") || !theline.Value(2).IsEqual("SESSION")
       || !theline.Value(4).IsEqual(sesstype->Name()))
   {

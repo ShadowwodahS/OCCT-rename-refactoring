@@ -47,7 +47,7 @@ public:
   }
 
   //! Creates a filter to skip only one type of attributes.
-  Standard_EXPORT PCDM_ReaderFilter(const Handle(Standard_Type)& theSkipped);
+  Standard_EXPORT PCDM_ReaderFilter(const Handle(TypeInfo)& theSkipped);
 
   //! Creates a filter to read only sub-labels of a label-path.
   //! Like, for "0:2" it will read all attributes for labels "0:2", "0:2:1", etc.
@@ -60,7 +60,7 @@ public:
   Standard_EXPORT ~PCDM_ReaderFilter();
 
   //! Adds skipped attribute by type.
-  Standard_EXPORT void AddSkipped(const Handle(Standard_Type)& theSkipped)
+  Standard_EXPORT void AddSkipped(const Handle(TypeInfo)& theSkipped)
   {
     mySkip.Add(theSkipped->Name());
   }
@@ -72,7 +72,7 @@ public:
   }
 
   //! Adds attribute to read by type. Disables the skipped attributes added.
-  Standard_EXPORT void AddRead(const Handle(Standard_Type)& theRead)
+  Standard_EXPORT void AddRead(const Handle(TypeInfo)& theRead)
   {
     myRead.Add(theRead->Name());
   }
@@ -91,7 +91,7 @@ public:
 
   //! Returns true if attribute must be read.
   Standard_EXPORT virtual Standard_Boolean IsPassed(
-    const Handle(Standard_Type)& theAttributeID) const;
+    const Handle(TypeInfo)& theAttributeID) const;
   //! Returns true if attribute must be read.
   Standard_EXPORT virtual Standard_Boolean IsPassedAttr(
     const TCollection_AsciiString& theAttributeType) const;

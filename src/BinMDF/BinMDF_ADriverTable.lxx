@@ -18,7 +18,7 @@
 // purpose  : Assigns the ID to the driver of the Type
 //=======================================================================
 
-inline void BinMDF_ADriverTable::AssignId(const Handle(Standard_Type)& theType,
+inline void BinMDF_ADriverTable::AssignId(const Handle(TypeInfo)& theType,
                                           const Standard_Integer       theId)
 {
   myMapId.Bind(theType, theId);
@@ -30,7 +30,7 @@ inline void BinMDF_ADriverTable::AssignId(const Handle(Standard_Type)& theType,
 //           Returns Type ID if the driver was assigned an ID; 0 otherwise.
 //=======================================================================
 
-inline Standard_Integer BinMDF_ADriverTable::GetDriver(const Handle(Standard_Type)& theType,
+inline Standard_Integer BinMDF_ADriverTable::GetDriver(const Handle(TypeInfo)& theType,
                                                        Handle(BinMDF_ADriver)&      theDriver)
 {
   if (!myMap.IsBound(theType)) // try to assign driver for derived type
@@ -59,7 +59,7 @@ inline Handle(BinMDF_ADriver) BinMDF_ADriverTable::GetDriver(const Standard_Inte
   Handle(BinMDF_ADriver) aDriver;
   if (myMapId.IsBound2(theTypeId))
   {
-    const Handle(Standard_Type)& aType = myMapId.Find2(theTypeId);
+    const Handle(TypeInfo)& aType = myMapId.Find2(theTypeId);
     aDriver                            = myMap(aType);
   }
   return aDriver;

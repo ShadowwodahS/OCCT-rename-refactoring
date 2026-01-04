@@ -53,7 +53,7 @@ Standard_Boolean IGESSelect_Dumper::WriteOwn(IFSelect_SessionFile&             f
 {
   if (item.IsNull())
     return Standard_False;
-  Handle(Standard_Type) type = item->DynamicType();
+  Handle(TypeInfo) type = item->DynamicType();
   if (type == STANDARD_TYPE(IGESSelect_DispPerSingleView))
     return Standard_True;
   if (type == STANDARD_TYPE(IGESSelect_DispPerDrawing))

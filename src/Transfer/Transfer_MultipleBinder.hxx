@@ -58,7 +58,7 @@ public:
   Standard_EXPORT virtual Standard_Boolean IsMultiple() const Standard_OVERRIDE;
 
   //! Returns the Type permitted for Results, i.e. here Transient
-  Standard_EXPORT Handle(Standard_Type) ResultType() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(TypeInfo) ResultType() const Standard_OVERRIDE;
 
   //! Returns the Name of the Type which characterizes the Result
   //! Here, returns "(list)"

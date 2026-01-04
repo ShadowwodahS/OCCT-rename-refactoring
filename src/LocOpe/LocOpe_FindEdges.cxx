@@ -45,7 +45,7 @@ void LocOpe_FindEdges::Set(const TopoDS_Shape& FFrom, const TopoDS_Shape& FTo)
   Handle(Geom_Curve)    Cf, Ct;
   TopLoc_Location       Loc;
   Standard_Real         ff, lf, ft, lt;
-  Handle(Standard_Type) Tf, Tt;
+  Handle(TypeInfo) Tf, Tt;
 
   for (expf.Init(myFFrom, TopAbs_EDGE); expf.More(); expf.Next())
   {

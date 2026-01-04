@@ -82,7 +82,7 @@ static Standard_Boolean AffichDist = Standard_False;
 static IntRes2d_Domain Domain(const Handle(Geom2d_TrimmedCurve)& Bisector1,
                               const Standard_Real                Tolerance);
 
-static Handle(Standard_Type) Type(const Handle(Geom2d_Geometry)& acurve);
+static Handle(TypeInfo) Type(const Handle(Geom2d_Geometry)& acurve);
 
 static Standard_Boolean AreNeighbours(const Standard_Integer IEdge1,
                                       const Standard_Integer IEdge2,
@@ -170,7 +170,7 @@ Standard_Integer MAT2d_Tool2d::FirstPoint(const Standard_Integer anitem, Standar
     return theNumberOfPnts;
   }
 
-  Handle(Standard_Type) type;
+  Handle(TypeInfo) type;
   type = theCircuit->Value(anitem)->DynamicType();
   dist = 0.;
 
@@ -209,7 +209,7 @@ Standard_Integer MAT2d_Tool2d::TangentBefore(const Standard_Integer anitem,
     return theNumberOfVecs;
   }
 
-  Handle(Standard_Type) type;
+  Handle(TypeInfo) type;
   type = theCircuit->Value(anitem)->DynamicType();
   if (type != STANDARD_TYPE(Geom2d_CartesianPoint))
   {
@@ -259,7 +259,7 @@ Standard_Integer MAT2d_Tool2d::TangentAfter(const Standard_Integer anitem,
     return theNumberOfVecs;
   }
 
-  Handle(Standard_Type) type;
+  Handle(TypeInfo) type;
   type = theCircuit->Value(anitem)->DynamicType();
   if (type != STANDARD_TYPE(Geom2d_CartesianPoint))
   {
@@ -324,9 +324,9 @@ void MAT2d_Tool2d::CreateBisector(const Handle(MAT_Bisector)& abisector)
   elt1 = theCircuit->Value(edge1number);
   elt2 = theCircuit->Value(edge2number);
 
-  Handle(Standard_Type) type1;
+  Handle(TypeInfo) type1;
   type1 = theCircuit->Value(edge1number)->DynamicType();
-  Handle(Standard_Type) type2;
+  Handle(TypeInfo) type2;
   type2 = theCircuit->Value(edge2number)->DynamicType();
   Handle(Geom2d_Curve) item1;
   Handle(Geom2d_Curve) item2;
@@ -438,7 +438,7 @@ void MAT2d_Tool2d::CreateBisector(const Handle(MAT_Bisector)& abisector)
     Dump(abisector->BisectorNumber(), 1);
   if (Store)
   {
-    Handle(Standard_Type) Type1 = Type(bisector.Value()->BasisCurve());
+    Handle(TypeInfo) Type1 = Type(bisector.Value()->BasisCurve());
     Handle(Geom2d_Curve)  BasisCurve;
     if (Type1 == STANDARD_TYPE(Bisector_BisecAna))
     {
@@ -476,7 +476,7 @@ void MAT2d_Tool2d::TrimBisec(Bisector_Bisec&        B1,
   Standard_Integer INext;
   INext = (IndexEdge == theCircuit->NumberOfItems()) ? 1 : (IndexEdge + 1);
 
-  Handle(Standard_Type) EdgeType = theCircuit->Value(IndexEdge)->DynamicType();
+  Handle(TypeInfo) EdgeType = theCircuit->Value(IndexEdge)->DynamicType();
 
   if (EdgeType != STANDARD_TYPE(Geom2d_CartesianPoint))
   {
@@ -599,7 +599,7 @@ Standard_Boolean MAT2d_Tool2d::Projection(const Standard_Integer IEdge,
 {
   gp_Pnt2d                    PEdge;
   Handle(Geom2d_Geometry)     Elt  = theCircuit->Value(IEdge);
-  Handle(Standard_Type)       Type = Elt->DynamicType();
+  Handle(TypeInfo)       Type = Elt->DynamicType();
   Handle(Geom2d_TrimmedCurve) Curve;
   Standard_Integer            INext;
   Standard_Real               Eps = MAT2d_TOLCONF; //*10.;
@@ -1209,7 +1209,7 @@ void MAT2d_Tool2d::BisecFusion(const Standard_Integer I1, const Standard_Integer
   UF1       = Bisector1->FirstParameter();
   UL1       = Bisector1->LastParameter();
 
-  Handle(Standard_Type) Type1 = Bisector1->BasisCurve()->DynamicType();
+  Handle(TypeInfo) Type1 = Bisector1->BasisCurve()->DynamicType();
   if (Type1 == STANDARD_TYPE(Bisector_BisecCC))
   {
     //------------------------------------------------------------------------------------
@@ -1264,9 +1264,9 @@ void MAT2d_Tool2d::BisecFusion(const Standard_Integer I1, const Standard_Integer
 
 //=================================================================================================
 
-static Handle(Standard_Type) Type(const Handle(Geom2d_Geometry)& aGeom)
+static Handle(TypeInfo) Type(const Handle(Geom2d_Geometry)& aGeom)
 {
-  Handle(Standard_Type) type = aGeom->DynamicType();
+  Handle(TypeInfo) type = aGeom->DynamicType();
   Handle(Geom2d_Curve)  curve;
 
   if (type == STANDARD_TYPE(Geom2d_TrimmedCurve))
@@ -1343,7 +1343,7 @@ IntRes2d_Domain Domain(const Handle(Geom2d_TrimmedCurve)& Bisector1, const Stand
   if (Param2 > 10000.)
   {
     Param2                      = 10000.;
-    Handle(Standard_Type) Type1 = Type(Bisector1->BasisCurve());
+    Handle(TypeInfo) Type1 = Type(Bisector1->BasisCurve());
     Handle(Geom2d_Curve)  BasisCurve;
     if (Type1 == STANDARD_TYPE(Bisector_BisecAna))
     {
@@ -1396,7 +1396,7 @@ Standard_Boolean CheckEnds(const Handle(Geom2d_Geometry)& Elt,
                            const Standard_Real            Tol)
 
 {
-  Handle(Standard_Type)       Type = Elt->DynamicType();
+  Handle(TypeInfo)       Type = Elt->DynamicType();
   Handle(Geom2d_TrimmedCurve) Curve;
 
   if (Type == STANDARD_TYPE(Geom2d_CartesianPoint))
@@ -1430,7 +1430,7 @@ Standard_Boolean CheckEnds(const Handle(Geom2d_Geometry)& Elt,
 //==========================================================================
 void MAT2d_DrawCurve(const Handle(Geom2d_Curve)& aCurve, const Standard_Integer /*Indice*/)
 {
-  Handle(Standard_Type) type = aCurve->DynamicType();
+  Handle(TypeInfo) type = aCurve->DynamicType();
   Handle(Geom2d_Curve)  curve, CurveDraw;
   #ifdef DRAW
   Handle(DrawTrSurf_Curve2d) dr;

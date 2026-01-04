@@ -238,8 +238,8 @@ void Bisector_BisecAna::Perform(const Handle(Geom2d_Curve)& afirstcurve,
   Standard_Integer        nbsolution;
   constexpr Standard_Real PreConf = Precision::Confusion();
 
-  Handle(Standard_Type) type1 = afirstcurve->DynamicType();
-  Handle(Standard_Type) type2 = asecondcurve->DynamicType();
+  Handle(TypeInfo) type1 = afirstcurve->DynamicType();
+  Handle(TypeInfo) type2 = asecondcurve->DynamicType();
   Handle(Geom2d_Curve)  CurveF;
   Handle(Geom2d_Curve)  CurveE;
   Handle(GccInt_Bisec)  TheSol;
@@ -920,7 +920,7 @@ void Bisector_BisecAna::Perform(const Handle(Geom2d_Curve)& afirstcurve,
 
   Standard_Integer cas = 0;
 
-  Handle(Standard_Type) aFirstCurveType = afirstcurve->DynamicType();
+  Handle(TypeInfo) aFirstCurveType = afirstcurve->DynamicType();
 
   if (aFirstCurveType == STANDARD_TYPE(Geom2d_TrimmedCurve))
   {
@@ -1233,7 +1233,7 @@ Standard_Boolean Bisector_BisecAna::IsExtendAtEnd() const
 void Bisector_BisecAna::SetTrim(const Handle(Geom2d_Curve)&)
 {
   /*
-    Handle(Standard_Type)       Type;
+    Handle(TypeInfo)       Type;
     Handle(Geom2d_Curve)        TheCurve;
     Handle(Geom2d_Circle)       CircleCu;
     Handle(Geom2d_Line)         LineCu;
@@ -1338,7 +1338,7 @@ void Bisector_BisecAna::SetTrim(const Handle(Geom2d_Curve)&)
     if (UB2 > 10000.) {
       UB2 = 10000.;
       Handle(Geom2d_Curve)  BasisCurve = thebisector->BasisCurve();
-      Handle(Standard_Type) Type1 = BasisCurve->DynamicType();
+      Handle(TypeInfo) Type1 = BasisCurve->DynamicType();
       gp_Parab2d gpParabola;
       gp_Hypr2d  gpHyperbola;
       Standard_Real Focus;
@@ -1571,7 +1571,7 @@ Standard_Real Bisector_BisecAna::Parameter(const gp_Pnt2d& P) const
   gp_Lin2d   gpline;
 
   Handle(Geom2d_Curve)  BasisCurve = thebisector->BasisCurve();
-  Handle(Standard_Type) Type       = BasisCurve->DynamicType();
+  Handle(TypeInfo) Type       = BasisCurve->DynamicType();
 
   if (Type == STANDARD_TYPE(Geom2d_Line))
   {

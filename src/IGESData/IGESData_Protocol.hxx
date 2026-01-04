@@ -47,7 +47,7 @@ public:
   //! Returns a Case Number, specific of each recognized Type
   //! Here, Undefined and Free Format Entities have the Number 1.
   Standard_EXPORT Standard_Integer
-    TypeNumber(const Handle(Standard_Type)& atype) const Standard_OVERRIDE;
+    TypeNumber(const Handle(TypeInfo)& atype) const Standard_OVERRIDE;
 
   //! Creates an empty Model for IGES Norm
   Standard_EXPORT Handle(Interface_InterfaceModel) NewModel() const Standard_OVERRIDE;

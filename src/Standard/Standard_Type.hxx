@@ -48,16 +48,16 @@ public:                                                                         
     OCCT_CHECK_BASE_CLASS(Class, Base);                                                            \
     return #Class;                                                                                 \
   }                                                                                                \
-  static const Handle(Standard_Type)& get_type_descriptor()                                        \
+  static const Handle(TypeInfo)& get_type_descriptor()                                        \
   {                                                                                                \
-    static const Handle(Standard_Type) THE_TYPE_INSTANCE =                                         \
-      Standard_Type::Register(typeid(Class),                                                       \
+    static const Handle(TypeInfo) THE_TYPE_INSTANCE =                                         \
+      TypeInfo::Register(typeid(Class),                                                       \
                               get_type_name(),                                                     \
                               sizeof(Class),                                                       \
                               Base::get_type_descriptor());                                        \
     return THE_TYPE_INSTANCE;                                                                      \
   }                                                                                                \
-  virtual const Handle(Standard_Type)& DynamicType() const Standard_OVERRIDE                       \
+  virtual const Handle(TypeInfo)& DynamicType() const Standard_OVERRIDE                       \
   {                                                                                                \
     return get_type_descriptor();                                                                  \
   }
@@ -74,22 +74,22 @@ public:                                                                         
     OCCT_CHECK_BASE_CLASS(Class, Base);                                                            \
     return #Class;                                                                                 \
   }                                                                                                \
-  Standard_EXPORT static const Handle(Standard_Type)&  get_type_descriptor();                      \
-  Standard_EXPORT virtual const Handle(Standard_Type)& DynamicType() const Standard_OVERRIDE;
+  Standard_EXPORT static const Handle(TypeInfo)&  get_type_descriptor();                      \
+  Standard_EXPORT virtual const Handle(TypeInfo)& DynamicType() const Standard_OVERRIDE;
 
 //! Defines implementation of type descriptor and DynamicType() function
 #define IMPLEMENT_STANDARD_RTTIEXT(Class, Base)                                                    \
   OCCT_CHECK_BASE_CLASS(Class, Base)                                                               \
-  const Handle(Standard_Type)& Class::get_type_descriptor()                                        \
+  const Handle(TypeInfo)& Class::get_type_descriptor()                                        \
   {                                                                                                \
-    static const Handle(Standard_Type) THE_TYPE_INSTANCE =                                         \
-      Standard_Type::Register(typeid(Class),                                                       \
+    static const Handle(TypeInfo) THE_TYPE_INSTANCE =                                         \
+      TypeInfo::Register(typeid(Class),                                                       \
                               get_type_name(),                                                     \
                               sizeof(Class),                                                       \
                               Class::base_type::get_type_descriptor());                            \
     return THE_TYPE_INSTANCE;                                                                      \
   }                                                                                                \
-  const Handle(Standard_Type)& Class::DynamicType() const                                          \
+  const Handle(TypeInfo)& Class::DynamicType() const                                          \
   {                                                                                                \
     return STANDARD_TYPE(Class);                                                                   \
   }
@@ -98,7 +98,7 @@ public:                                                                         
 //! information (RTTI) for OCCT classes inheriting from RefObject.
 //!
 //! In addition to features provided by standard C++ RTTI (type_info),
-//! Standard_Type allows passing descriptor as an object and using it for
+//! TypeInfo allows passing descriptor as an object and using it for
 //! analysis of the type:
 //! - get descriptor of a parent class
 //! - get user-defined name of the class
@@ -117,7 +117,7 @@ public:                                                                         
 //!
 //! Only single chain of inheritance is supported, with a root base class RefObject.
 
-class Standard_Type : public RefObject
+class TypeInfo : public RefObject
 {
 public:
   //! Returns the system type name of the class (typeinfo.name)
@@ -130,11 +130,11 @@ public:
   Standard_Size Size() const { return mySize; }
 
   //! Returns descriptor of the base class in the hierarchy
-  const Handle(Standard_Type)& Parent() const { return myParent; }
+  const Handle(TypeInfo)& Parent() const { return myParent; }
 
   //! Returns True if this type is the same as theOther, or inherits from theOther.
   //! Note that multiple inheritance is not supported.
-  Standard_EXPORT Standard_Boolean SubType(const Handle(Standard_Type)& theOther) const;
+  Standard_EXPORT Standard_Boolean SubType(const Handle(TypeInfo)& theOther) const;
 
   //! Returns True if this type is the same as theOther, or inherits from theOther.
   //! Note that multiple inheritance is not supported.
@@ -149,7 +149,7 @@ public:
   //!
   //! See helper macro DEFINE_STANDARD_RTTI for defining these items in the class.
   template <class T>
-  static const Handle(Standard_Type)& Instance()
+  static const Handle(TypeInfo)& Instance()
   {
     return T::get_type_descriptor();
   }
@@ -162,40 +162,40 @@ public:
   //! @param theParent base class in the Transient hierarchy
   //!
   //! Note that this function is intended for use by STANDARD_RTTIEXT macros only.
-  Standard_EXPORT static Standard_Type* Register(const std::type_info&        theInfo,
+  Standard_EXPORT static TypeInfo* Register(const std::type_info&        theInfo,
                                                  const char*                  theName,
                                                  Standard_Size                theSize,
-                                                 const Handle(Standard_Type)& theParent);
+                                                 const Handle(TypeInfo)& theParent);
 
   //! Destructor removes the type from the registry
-  Standard_EXPORT ~Standard_Type();
+  Standard_EXPORT ~TypeInfo();
 
   // Define own RTTI
-  DEFINE_STANDARD_RTTIEXT(Standard_Type, RefObject)
+  DEFINE_STANDARD_RTTIEXT(TypeInfo, RefObject)
 
 private:
   //! Constructor is private
-  Standard_Type(const char*                  theSystemName,
+  TypeInfo(const char*                  theSystemName,
                 const char*                  theName,
                 Standard_Size                theSize,
-                const Handle(Standard_Type)& theParent);
+                const Handle(TypeInfo)& theParent);
 
 private:
   Standard_CString      mySystemName; //!< System name of the class
   Standard_CString      myName;       //!< Given name of the class
   Standard_Size         mySize;       //!< Size of the class instance, in bytes
-  Handle(Standard_Type) myParent;     //!< Type descriptor of parent class
+  Handle(TypeInfo) myParent;     //!< Type descriptor of parent class
 };
 
 //! Operator printing type descriptor to stream
 inline Standard_OStream& operator<<(Standard_OStream&            theStream,
-                                    const Handle(Standard_Type)& theType)
+                                    const Handle(TypeInfo)& theType)
 {
   theType->Print(theStream);
   return theStream;
 }
 
 //! Definition of Handle_Standard_Type as typedef for compatibility
-DEFINE_STANDARD_HANDLE(Standard_Type, RefObject)
+DEFINE_STANDARD_HANDLE(TypeInfo, RefObject)
 
 #endif // _Standard_Type_HeaderFile

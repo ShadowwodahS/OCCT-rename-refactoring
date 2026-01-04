@@ -34,7 +34,7 @@ void Transfer_TransferIterator::AddItem(const Handle(Transfer_Binder)& atr)
   themaxi = theselect->Length();
 }
 
-void Transfer_TransferIterator::SelectBinder(const Handle(Standard_Type)& atype,
+void Transfer_TransferIterator::SelectBinder(const Handle(TypeInfo)& atype,
                                              const Standard_Boolean       keep)
 {
   for (Standard_Integer i = theitems->Length(); i > 0; i--)
@@ -48,7 +48,7 @@ void Transfer_TransferIterator::SelectBinder(const Handle(Standard_Type)& atype,
   }
 }
 
-void Transfer_TransferIterator::SelectResult(const Handle(Standard_Type)& atype,
+void Transfer_TransferIterator::SelectResult(const Handle(TypeInfo)& atype,
                                              const Standard_Boolean       keep)
 {
   Standard_Integer casetype = 0;
@@ -58,7 +58,7 @@ void Transfer_TransferIterator::SelectResult(const Handle(Standard_Type)& atype,
   for (Standard_Integer i = theitems->Length(); i > 0; i--)
   {
     Handle(Transfer_Binder) atr   = theitems->Value(i);
-    Handle(Standard_Type)   btype = ResultType();
+    Handle(TypeInfo)   btype = ResultType();
     Standard_Boolean        matchtype;
     if (!atr->HasResult())
       matchtype = Standard_False;
@@ -166,9 +166,9 @@ Standard_Boolean Transfer_TransferIterator::HasUniqueResult() const
   return atr->HasResult();
 }
 
-Handle(Standard_Type) Transfer_TransferIterator::ResultType() const
+Handle(TypeInfo) Transfer_TransferIterator::ResultType() const
 {
-  Handle(Standard_Type)   btype;
+  Handle(TypeInfo)   btype;
   Handle(Transfer_Binder) atr = Value();
   if (!atr->IsMultiple())
     btype = atr->ResultType();
@@ -178,7 +178,7 @@ Handle(Standard_Type) Transfer_TransferIterator::ResultType() const
 
 Standard_Boolean Transfer_TransferIterator::HasTransientResult() const
 {
-  Handle(Standard_Type) btype = ResultType();
+  Handle(TypeInfo) btype = ResultType();
   if (btype.IsNull())
     return Standard_False;
   return btype->SubType(STANDARD_TYPE(RefObject));

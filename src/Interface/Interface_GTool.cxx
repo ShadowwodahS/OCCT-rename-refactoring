@@ -104,7 +104,7 @@ Standard_Boolean Interface_GTool::Select(const Handle(RefObject)& ent,
                                          Standard_Integer&                 CN,
                                          const Standard_Boolean            enforce)
 {
-  const Handle(Standard_Type)& aType = ent->DynamicType();
+  const Handle(TypeInfo)& aType = ent->DynamicType();
   Standard_Integer             num   = thentmod.FindIndex(aType); // (ent);
   if (num == 0 || enforce)
   {

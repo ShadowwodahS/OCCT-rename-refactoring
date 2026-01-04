@@ -375,13 +375,13 @@ public:
   //! Remark : <type> = TYPE(RefObject) gives all the
   //! Idents which are suitable in the WorkSession
   Standard_EXPORT Handle(TColStd_HSequenceOfInteger) ItemIdents(
-    const Handle(Standard_Type)& type) const;
+    const Handle(TypeInfo)& type) const;
 
   //! Fills a Sequence with the list of the Names attached to Items
   //! of which Type complies with (IsKind) <type> (alphabetic order)
   //! Remark : <type> = TYPE(RefObject) gives all the Names
   Standard_EXPORT Handle(TColStd_HSequenceOfHAsciiString) ItemNames(
-    const Handle(Standard_Type)& type) const;
+    const Handle(TypeInfo)& type) const;
 
   //! Fills a Sequence with the NAMES of the control items, of which
   //! the label matches <label> (contain it) : see NextIdentForLabel

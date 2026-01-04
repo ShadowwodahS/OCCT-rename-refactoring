@@ -43,7 +43,7 @@ Standard_Boolean MoniTool_TransientElem::Equates(const Handle(MoniTool_Element)&
   return theval == another->Value();
 }
 
-Handle(Standard_Type) MoniTool_TransientElem::ValueType() const
+Handle(TypeInfo) MoniTool_TransientElem::ValueType() const
 {
   return MoniTool_DataInfo::Type(theval);
 }

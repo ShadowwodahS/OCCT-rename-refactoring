@@ -36,7 +36,7 @@ public:
   //! sub-children too
   Standard_EXPORT TObj_OcafObjectIterator(
     const TDF_Label&             theLabel,
-    const Handle(Standard_Type)& theType           = NULL,
+    const Handle(TypeInfo)& theType           = NULL,
     const Standard_Boolean       theRecursive      = Standard_False,
     const Standard_Boolean       theAllSubChildren = Standard_False);
 
@@ -45,7 +45,7 @@ protected:
   virtual Standard_EXPORT void MakeStep() Standard_OVERRIDE;
 
 protected:
-  Handle(Standard_Type) myType; //!< type of objects to iterate on
+  Handle(TypeInfo) myType; //!< type of objects to iterate on
   // clang-format off
   Standard_Boolean myAllSubChildren; //!< to iterate all sub-children, do not stop on the first level
   // clang-format on

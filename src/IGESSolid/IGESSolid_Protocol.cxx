@@ -56,7 +56,7 @@ Handle(Interface_Protocol) IGESSolid_Protocol::Resource(const Standard_Integer /
   return res;
 }
 
-Standard_Integer IGESSolid_Protocol::TypeNumber(const Handle(Standard_Type)& atype) const
+Standard_Integer IGESSolid_Protocol::TypeNumber(const Handle(TypeInfo)& atype) const
 {
   if (atype == STANDARD_TYPE(IGESSolid_Block))
     return 1;

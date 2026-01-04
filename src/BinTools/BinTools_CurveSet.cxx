@@ -258,7 +258,7 @@ static BinTools_OStream& operator<<(BinTools_OStream& OS, const Handle(Geom_Offs
 
 void BinTools_CurveSet::WriteCurve(const Handle(Geom_Curve)& C, BinTools_OStream& OS)
 {
-  Handle(Standard_Type) TheType = C->DynamicType();
+  Handle(TypeInfo) TheType = C->DynamicType();
   try
   {
     OCC_CATCH_SIGNALS

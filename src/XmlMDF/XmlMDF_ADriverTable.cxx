@@ -30,7 +30,7 @@ XmlMDF_ADriverTable::XmlMDF_ADriverTable() {}
 
 void XmlMDF_ADriverTable::AddDriver(const Handle(XmlMDF_ADriver)& anHDriver)
 {
-  const Handle(Standard_Type)& type = anHDriver->SourceType();
+  const Handle(TypeInfo)& type = anHDriver->SourceType();
 
   // to make possible for applications to redefine standard attribute drivers
   myMap.UnBind(type);
@@ -42,10 +42,10 @@ void XmlMDF_ADriverTable::AddDriver(const Handle(XmlMDF_ADriver)& anHDriver)
 
 void XmlMDF_ADriverTable::AddDerivedDriver(const Handle(TDF_Attribute)& theInstance)
 {
-  const Handle(Standard_Type)& anInstanceType = theInstance->DynamicType();
+  const Handle(TypeInfo)& anInstanceType = theInstance->DynamicType();
   if (!myMap.IsBound(anInstanceType)) // no direct driver, use a derived one
   {
-    for (Handle(Standard_Type) aType = anInstanceType->Parent(); !aType.IsNull();
+    for (Handle(TypeInfo) aType = anInstanceType->Parent(); !aType.IsNull();
          aType                       = aType->Parent())
     {
       if (myMap.IsBound(aType))
@@ -60,20 +60,20 @@ void XmlMDF_ADriverTable::AddDerivedDriver(const Handle(TDF_Attribute)& theInsta
 
 //=================================================================================================
 
-const Handle(Standard_Type)& XmlMDF_ADriverTable::AddDerivedDriver(Standard_CString theDerivedType)
+const Handle(TypeInfo)& XmlMDF_ADriverTable::AddDerivedDriver(Standard_CString theDerivedType)
 {
   if (Handle(TDF_Attribute) anInstance = TDF_DerivedAttribute::Attribute(theDerivedType))
   {
     AddDerivedDriver(anInstance);
     return anInstance->DynamicType();
   }
-  static const Handle(Standard_Type) aNullType;
+  static const Handle(TypeInfo) aNullType;
   return aNullType;
 }
 
 //=================================================================================================
 
-Standard_Boolean XmlMDF_ADriverTable::GetDriver(const Handle(Standard_Type)& aType,
+Standard_Boolean XmlMDF_ADriverTable::GetDriver(const Handle(TypeInfo)& aType,
                                                 Handle(XmlMDF_ADriver)&      anHDriver)
 {
   if (!myMap.IsBound(aType)) // try to assign driver for derived type

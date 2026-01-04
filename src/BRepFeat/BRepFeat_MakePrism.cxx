@@ -1181,7 +1181,7 @@ static Standard_Boolean ToFuse(const TopoDS_Face& F1, const TopoDS_Face& F2)
 
   Handle(Geom_Surface)    S1, S2;
   TopLoc_Location         loc1, loc2;
-  Handle(Standard_Type)   typS1, typS2;
+  Handle(TypeInfo)   typS1, typS2;
   constexpr Standard_Real tollin = Precision::Confusion();
   constexpr Standard_Real tolang = Precision::Angular();
 

@@ -821,7 +821,7 @@ Standard_Boolean BndLib_Box2dCurve::IsTypeBase(const Handle(Geom2d_Curve)& aC2D,
                                                GeomAbs_CurveType&          aTypeB)
 {
   Standard_Boolean      bRet;
-  Handle(Standard_Type) aType;
+  Handle(TypeInfo) aType;
   //
   bRet = Standard_True;
   //

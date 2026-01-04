@@ -58,7 +58,7 @@ Handle(Interface_Protocol) IGESAppli_Protocol::Resource(const Standard_Integer n
   return res;
 }
 
-Standard_Integer IGESAppli_Protocol::TypeNumber(const Handle(Standard_Type)& atype) const
+Standard_Integer IGESAppli_Protocol::TypeNumber(const Handle(TypeInfo)& atype) const
 {
   if (atype == STANDARD_TYPE(IGESAppli_DrilledHole))
     return 1;

@@ -274,7 +274,7 @@ private:
   TCollection_AsciiString                                        thename;
   TCollection_AsciiString                                        thelabel;
   Interface_ParamType                                            thetype;
-  Handle(Standard_Type)                                          theotyp;
+  Handle(TypeInfo)                                          theotyp;
   Handle(Interface_Static)                                       thewild;
   Standard_Integer                                               thelims;
   Standard_Integer                                               theintlow;

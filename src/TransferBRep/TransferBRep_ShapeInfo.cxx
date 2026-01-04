@@ -15,7 +15,7 @@
 #include <TopoDS_TShape.hxx>
 #include <TransferBRep_ShapeInfo.hxx>
 
-Handle(Standard_Type) TransferBRep_ShapeInfo::Type(const TopoDS_Shape& /*ent*/)
+Handle(TypeInfo) TransferBRep_ShapeInfo::Type(const TopoDS_Shape& /*ent*/)
 {
   return STANDARD_TYPE(TopoDS_TShape);
 }

@@ -548,10 +548,10 @@ static Standard_Integer bisec(Draw_Interpretor& di, Standard_Integer n, const ch
 
   if (!C1.IsNull())
   {
-    Handle(Standard_Type) Type1 = C1->DynamicType();
+    Handle(TypeInfo) Type1 = C1->DynamicType();
     if (!C2.IsNull())
     {
-      Handle(Standard_Type) Type2 = C2->DynamicType();
+      Handle(TypeInfo) Type2 = C2->DynamicType();
       if (Type1 == STANDARD_TYPE(Geom2d_Line) && Type2 == STANDARD_TYPE(Geom2d_Line))
       {
         GccAna_Lin2dBisec Bis(Handle(Geom2d_Line)::DownCast(C1)->Lin2d(),
@@ -690,7 +690,7 @@ static Standard_Integer bisec(Draw_Interpretor& di, Standard_Integer n, const ch
   {
     if (!C2.IsNull())
     {
-      Handle(Standard_Type) Type2 = C2->DynamicType();
+      Handle(TypeInfo) Type2 = C2->DynamicType();
       if (Type2 == STANDARD_TYPE(Geom2d_Circle))
       {
         GccAna_CircPnt2dBisec Bis(Handle(Geom2d_Circle)::DownCast(C2)->Circ2d(), P1);

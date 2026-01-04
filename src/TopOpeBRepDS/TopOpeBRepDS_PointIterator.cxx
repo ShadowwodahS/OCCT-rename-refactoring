@@ -59,7 +59,7 @@ TopAbs_Orientation TopOpeBRepDS_PointIterator::Orientation(const TopAbs_State S)
 Standard_Real TopOpeBRepDS_PointIterator::Parameter() const
 {
   const Handle(TopOpeBRepDS_Interference)& I = Value();
-  Handle(Standard_Type)                    T = I->DynamicType();
+  Handle(TypeInfo)                    T = I->DynamicType();
   if (T == STANDARD_TYPE(TopOpeBRepDS_CurvePointInterference))
   {
     return Handle(TopOpeBRepDS_CurvePointInterference)::DownCast(I)->Parameter();

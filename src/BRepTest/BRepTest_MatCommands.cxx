@@ -205,7 +205,7 @@ static Standard_Integer result(Draw_Interpretor&, Standard_Integer, const char**
 //==========================================================================
 void DrawCurve(const Handle(Geom2d_Curve)& aCurve, const Standard_Integer Indice)
 {
-  Handle(Standard_Type)      type = aCurve->DynamicType();
+  Handle(TypeInfo)      type = aCurve->DynamicType();
   Handle(Geom2d_Curve)       curve, CurveDraw;
   Handle(DrawTrSurf_Curve2d) dr;
   Draw_Color                 Couleur;

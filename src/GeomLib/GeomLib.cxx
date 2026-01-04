@@ -574,7 +574,7 @@ void GeomLib::EvalMaxDistanceAlongParameter(const Adaptor3d_Curve&      ACurve,
 Handle(Geom_Curve) GeomLib::To3d(const gp_Ax2& Position, const Handle(Geom2d_Curve)& Curve2d)
 {
   Handle(Geom_Curve)    Curve3d;
-  Handle(Standard_Type) KindOfCurve = Curve2d->DynamicType();
+  Handle(TypeInfo) KindOfCurve = Curve2d->DynamicType();
 
   if (KindOfCurve == STANDARD_TYPE(Geom2d_TrimmedCurve))
   {
@@ -719,7 +719,7 @@ Handle(Geom2d_Curve) GeomLib::GTransform(const Handle(Geom2d_Curve)& Curve, cons
     // La geometrie des courbes est alors changee, et les conics devront
     // etre converties en BSplines.
 
-    Handle(Standard_Type) TheType = Curve->DynamicType();
+    Handle(TypeInfo) TheType = Curve->DynamicType();
 
     if (TheType == STANDARD_TYPE(Geom2d_TrimmedCurve))
     {
@@ -728,7 +728,7 @@ Handle(Geom2d_Curve) GeomLib::GTransform(const Handle(Geom2d_Curve)& Curve, cons
 
       Handle(Geom2d_TrimmedCurve) C = Handle(Geom2d_TrimmedCurve)::DownCast(Curve->Copy());
 
-      Handle(Standard_Type) TheBasisType = (C->BasisCurve())->DynamicType();
+      Handle(TypeInfo) TheBasisType = (C->BasisCurve())->DynamicType();
 
       if (TheBasisType == STANDARD_TYPE(Geom2d_BSplineCurve)
           || TheBasisType == STANDARD_TYPE(Geom2d_BezierCurve))

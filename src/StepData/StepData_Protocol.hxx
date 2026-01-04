@@ -61,7 +61,7 @@ public:
   //! Returns a Case Number, specific of each recognized Type
   //! Here, only Unknown Entity is recognized
   Standard_EXPORT Standard_Integer
-    TypeNumber(const Handle(Standard_Type)& atype) const Standard_OVERRIDE;
+    TypeNumber(const Handle(TypeInfo)& atype) const Standard_OVERRIDE;
 
   //! Returns the Schema Name attached to each class of Protocol
   //! To be redefined by each sub-class

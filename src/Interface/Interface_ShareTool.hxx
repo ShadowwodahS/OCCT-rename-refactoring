@@ -87,13 +87,13 @@ public:
   //! Returns the count of Sharing Entities of an Entity, which
   //! are Kind of a given Type
   Standard_EXPORT Standard_Integer NbTypedSharings(const Handle(RefObject)& ent,
-                                                   const Handle(Standard_Type)&      atype) const;
+                                                   const Handle(TypeInfo)&      atype) const;
 
   //! Returns the Sharing Entity of an Entity, which is Kind of a
   //! given Type. Allows to access a Sharing Entity of a given type
   //! when there is one and only one (current case)
   Standard_EXPORT Handle(RefObject) TypedSharing(const Handle(RefObject)& ent,
-                                                          const Handle(Standard_Type)& atype) const;
+                                                          const Handle(TypeInfo)& atype) const;
 
   //! Returns the complete list of entities shared by <ent> at any
   //! level, including <ent> itself

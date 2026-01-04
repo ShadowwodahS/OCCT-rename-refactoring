@@ -70,7 +70,7 @@ public:
    */
   Standard_EXPORT VrmlData_ErrorStatus ReadNode(VrmlData_InBuffer&           theBuffer,
                                                 Handle(VrmlData_Node)&       theNode,
-                                                const Handle(Standard_Type)& Type = NULL);
+                                                const Handle(TypeInfo)& Type = NULL);
 
   /**
    * Read the Node from input stream.

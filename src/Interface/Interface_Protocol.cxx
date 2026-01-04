@@ -75,7 +75,7 @@ Standard_Integer Interface_Protocol::NbTypes(const Handle(RefObject)& /*obj*/) c
 
 //=================================================================================================
 
-Handle(Standard_Type) Interface_Protocol::Type(const Handle(RefObject)& obj,
+Handle(TypeInfo) Interface_Protocol::Type(const Handle(RefObject)& obj,
                                                const Standard_Integer /*nt*/) const
 {
   if (obj.IsNull())

@@ -61,7 +61,7 @@ Standard_Boolean StepData_SelectType::IsNull() const
   return thevalue.IsNull();
 }
 
-Handle(Standard_Type) StepData_SelectType::Type() const
+Handle(TypeInfo) StepData_SelectType::Type() const
 {
   if (thevalue.IsNull())
     return STANDARD_TYPE(RefObject);

@@ -30,7 +30,7 @@ size_t Transfer_Finder::GetHashCode() const
   return thecode;
 }
 
-Handle(Standard_Type) Transfer_Finder::ValueType() const
+Handle(TypeInfo) Transfer_Finder::ValueType() const
 {
   return DynamicType();
 }
@@ -58,7 +58,7 @@ Standard_Boolean Transfer_Finder::RemoveAttribute(const Standard_CString name)
 }
 
 Standard_Boolean Transfer_Finder::GetAttribute(const Standard_CString       name,
-                                               const Handle(Standard_Type)& type,
+                                               const Handle(TypeInfo)& type,
                                                Handle(RefObject)&  val) const
 {
   if (theattrib.IsEmpty())

@@ -57,10 +57,10 @@ public:
   Standard_EXPORT Interface_EntityIterator Header() const;
 
   //! says if a Header entity has a specified type
-  Standard_EXPORT Standard_Boolean HasHeaderEntity(const Handle(Standard_Type)& atype) const;
+  Standard_EXPORT Standard_Boolean HasHeaderEntity(const Handle(TypeInfo)& atype) const;
 
   //! Returns Header entity with specified type, if there is
-  Standard_EXPORT Handle(RefObject) HeaderEntity(const Handle(Standard_Type)& atype) const;
+  Standard_EXPORT Handle(RefObject) HeaderEntity(const Handle(TypeInfo)& atype) const;
 
   //! Clears the Header
   Standard_EXPORT void ClearHeader() Standard_OVERRIDE;

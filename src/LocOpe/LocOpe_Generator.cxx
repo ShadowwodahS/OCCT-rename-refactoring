@@ -1221,7 +1221,7 @@ Standard_Boolean ToFuse(const TopoDS_Face& F1, const TopoDS_Face& F2)
 
   Handle(Geom_Surface)    S1, S2;
   TopLoc_Location         loc1, loc2;
-  Handle(Standard_Type)   typS1, typS2;
+  Handle(TypeInfo)   typS1, typS2;
   constexpr Standard_Real tollin = Precision::Confusion();
   constexpr Standard_Real tolang = Precision::Angular();
 
@@ -1279,7 +1279,7 @@ Standard_Boolean ToFuse(const TopoDS_Edge& E1, const TopoDS_Edge& E2)
 
   Handle(Geom_Curve)      C1, C2;
   TopLoc_Location         loc1, loc2;
-  Handle(Standard_Type)   typC1, typC2;
+  Handle(TypeInfo)   typC1, typC2;
   constexpr Standard_Real tollin = Precision::Confusion();
   constexpr Standard_Real tolang = Precision::Angular();
   Standard_Real           f, l;
@@ -1367,7 +1367,7 @@ Standard_Real NewParameter(const TopoDS_Edge&   Edg,
 
   Handle(Geom_Curve)    C;
   TopLoc_Location       loc;
-  Handle(Standard_Type) typC;
+  Handle(TypeInfo) typC;
   Standard_Real         f, l;
 
   gp_Pnt P = BRep_Tool::Pnt(NewVtx);

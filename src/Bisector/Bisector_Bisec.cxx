@@ -78,8 +78,8 @@ void Bisector_Bisec::Perform(const Handle(Geom2d_Curve)& afirstcurve,
                              const Standard_Real         tolerance,
                              const Standard_Boolean      oncurve)
 {
-  Handle(Standard_Type)  Type1 = afirstcurve->DynamicType();
-  Handle(Standard_Type)  Type2 = asecondcurve->DynamicType();
+  Handle(TypeInfo)  Type1 = afirstcurve->DynamicType();
+  Handle(TypeInfo)  Type2 = asecondcurve->DynamicType();
   Handle(Bisector_Curve) Bis;
   Standard_Real          UFirst, ULast;
 
@@ -287,7 +287,7 @@ void Bisector_Bisec::Perform(const Handle(Geom2d_Curve)& afirstcurve,
   // gp_Pnt2d SecondPnt = asecondpoint->Pnt2d();
 
   Handle(Bisector_Curve) Bis;
-  Handle(Standard_Type)  Type1 = afirstcurve->DynamicType();
+  Handle(TypeInfo)  Type1 = afirstcurve->DynamicType();
   Standard_Real          UFirst, ULast;
 
   if (Type1 == STANDARD_TYPE(Geom2d_TrimmedCurve))
@@ -441,7 +441,7 @@ void Bisector_Bisec::Perform(const Handle(Geom2d_Point)& afirstpoint,
   // gp_Pnt2d FirstPnt = afirstpoint->Pnt2d();
 
   Handle(Bisector_Curve) Bis;
-  Handle(Standard_Type)  Type1 = asecondcurve->DynamicType();
+  Handle(TypeInfo)  Type1 = asecondcurve->DynamicType();
   Standard_Real          UFirst, ULast;
 
   if (Type1 == STANDARD_TYPE(Geom2d_TrimmedCurve))

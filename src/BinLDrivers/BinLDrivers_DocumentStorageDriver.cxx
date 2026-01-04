@@ -215,7 +215,7 @@ void BinLDrivers_DocumentStorageDriver::Write(const Handle(CDM_Document)&  theDo
 
 //=================================================================================================
 
-void BinLDrivers_DocumentStorageDriver::UnsupportedAttrMsg(const Handle(Standard_Type)& theType)
+void BinLDrivers_DocumentStorageDriver::UnsupportedAttrMsg(const Handle(TypeInfo)& theType)
 {
 #ifdef OCCT_DEBUG
   TCollection_ExtendedString aMsg(
@@ -263,7 +263,7 @@ void BinLDrivers_DocumentStorageDriver::WriteSubTree(const TDF_Label&           
   for (; itAtt.More() && theOS && aPS.More(); itAtt.Next())
   {
     const Handle(TDF_Attribute)  tAtt  = itAtt.Value();
-    const Handle(Standard_Type)& aType = tAtt->DynamicType();
+    const Handle(TypeInfo)& aType = tAtt->DynamicType();
     // Get type ID and driver
     Handle(BinMDF_ADriver) aDriver;
     const Standard_Integer aTypeId = myDrivers->GetDriver(aType, aDriver);
@@ -350,7 +350,7 @@ Standard_Boolean BinLDrivers_DocumentStorageDriver::FirstPassSubTree(const TDF_L
   TDF_AttributeIterator itAtt(L);
   for (; itAtt.More(); itAtt.Next())
   {
-    const Handle(Standard_Type)& aType = itAtt.Value()->DynamicType();
+    const Handle(TypeInfo)& aType = itAtt.Value()->DynamicType();
     Handle(BinMDF_ADriver)       aDriver;
     // do not rely on a value returned by GetDriver here, because
     // the IDs have not yet been assigned to the types

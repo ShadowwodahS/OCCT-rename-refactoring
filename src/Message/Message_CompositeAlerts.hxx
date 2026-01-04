@@ -53,7 +53,7 @@ public:
   //! @param theType an alert type
   //! @param theGravity an alert gravity
   //! @return true if the alert is found in a container of children
-  Standard_EXPORT Standard_Boolean HasAlert(const Handle(Standard_Type)& theType,
+  Standard_EXPORT Standard_Boolean HasAlert(const Handle(TypeInfo)& theType,
                                             Message_Gravity              theGravity);
 
   //! Clears all collected alerts
@@ -65,7 +65,7 @@ public:
 
   //! Clears collected alerts with specified type
   //! @param theType an alert type
-  Standard_EXPORT void Clear(const Handle(Standard_Type)& theType);
+  Standard_EXPORT void Clear(const Handle(TypeInfo)& theType);
 
   //! Dumps the content of me into the stream
   Standard_EXPORT void DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth = -1) const;

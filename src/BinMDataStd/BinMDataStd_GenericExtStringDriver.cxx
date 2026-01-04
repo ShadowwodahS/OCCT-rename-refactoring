@@ -37,9 +37,9 @@ Handle(TDF_Attribute) BinMDataStd_GenericExtStringDriver::NewEmpty() const
 
 //=================================================================================================
 
-const Handle(Standard_Type)& BinMDataStd_GenericExtStringDriver::SourceType() const
+const Handle(TypeInfo)& BinMDataStd_GenericExtStringDriver::SourceType() const
 {
-  return Standard_Type::Instance<TDataStd_GenericExtString>();
+  return TypeInfo::Instance<TDataStd_GenericExtString>();
 }
 
 //=======================================================================

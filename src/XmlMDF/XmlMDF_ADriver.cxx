@@ -53,7 +53,7 @@ Standard_Integer XmlMDF_ADriver::VersionNumber() const
 
 //=================================================================================================
 
-Handle(Standard_Type) XmlMDF_ADriver::SourceType() const
+Handle(TypeInfo) XmlMDF_ADriver::SourceType() const
 {
   return NewEmpty()->DynamicType();
 }

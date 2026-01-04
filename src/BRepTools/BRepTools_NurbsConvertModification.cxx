@@ -239,7 +239,7 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewSurface(const TopoDS_Fac
     return Standard_False;
   }
 
-  Handle(Standard_Type) TheTypeSS = SS->DynamicType();
+  Handle(TypeInfo) TheTypeSS = SS->DynamicType();
   if ((TheTypeSS == STANDARD_TYPE(Geom_BSplineSurface))
       || (TheTypeSS == STANDARD_TYPE(Geom_BezierSurface)))
   {
@@ -439,7 +439,7 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve(const TopoDS_Edge&
     L.Identity();
     return Standard_False;
   }
-  Handle(Standard_Type) TheType = Caux->DynamicType();
+  Handle(TypeInfo) TheType = Caux->DynamicType();
   if ((TheType == STANDARD_TYPE(Geom_BSplineCurve)) || (TheType == STANDARD_TYPE(Geom_BezierCurve)))
   {
     if (IsConvert(E))
@@ -574,7 +574,7 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve2d(const TopoDS_Edg
   }
   if (!BRepTools::IsReallyClosed(E, F))
   {
-    Handle(Standard_Type) TheTypeC2d = C2d->DynamicType();
+    Handle(TypeInfo) TheTypeC2d = C2d->DynamicType();
 
     if (TheTypeC2d == STANDARD_TYPE(Geom2d_TrimmedCurve))
     {
@@ -612,12 +612,12 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve2d(const TopoDS_Edg
 
     Standard_Real         Uinf, Usup, Vinf, Vsup, u = 0, v = 0;
     Handle(Geom_Surface)  S   = BRep_Tool::Surface(F);
-    Handle(Standard_Type) myT = S->DynamicType();
+    Handle(TypeInfo) myT = S->DynamicType();
     if (myT != STANDARD_TYPE(Geom_Plane))
     {
       if (newF.IsNull())
       {
-        Handle(Standard_Type) st = C2d->DynamicType();
+        Handle(TypeInfo) st = C2d->DynamicType();
         if ((st == STANDARD_TYPE(Geom2d_BSplineCurve)) || (st == STANDARD_TYPE(Geom2d_BezierCurve)))
         {
           if (isConvert2d)
@@ -785,7 +785,7 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve2d(const TopoDS_Edg
       TopoDS_Edge                 ERevers = E;
       ERevers.Reverse();
       C2dBis                              = BRep_Tool::CurveOnSurface(ERevers, F, f2dBis, l2dBis);
-      Handle(Standard_Type) TheTypeC2dBis = C2dBis->DynamicType();
+      Handle(TypeInfo) TheTypeC2dBis = C2dBis->DynamicType();
       C2dBis                              = new Geom2d_TrimmedCurve(C2dBis, f2dBis, l2dBis);
       Geom2dAdaptor_Curve         G2dACBis(C2dBis, f2dBis, l2dBis);
       Handle(Geom2dAdaptor_Curve) G2dAHCBis = new Geom2dAdaptor_Curve(G2dACBis);
@@ -821,11 +821,11 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve2d(const TopoDS_Edg
       Handle(GeomAdaptor_Curve) G3dAHC = new GeomAdaptor_Curve(G3dAC);
 
       Handle(Geom_Surface)  S   = BRep_Tool::Surface(F);
-      Handle(Standard_Type) myT = S->DynamicType();
+      Handle(TypeInfo) myT = S->DynamicType();
       if (newF.IsNull())
       {
         mylcu.Append(C2dBis);
-        Handle(Standard_Type) st = C2d->DynamicType();
+        Handle(TypeInfo) st = C2d->DynamicType();
         if ((st == STANDARD_TYPE(Geom2d_BSplineCurve)) || (st == STANDARD_TYPE(Geom2d_BezierCurve)))
         {
           if (isConvert2d)
@@ -910,7 +910,7 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve2d(const TopoDS_Edg
     else
     { // on est au 2ieme tour
       C2d                      = Handle(Geom2d_Curve)::DownCast(itlcu.Value());
-      Handle(Standard_Type) st = C2d->DynamicType();
+      Handle(TypeInfo) st = C2d->DynamicType();
       if (!(st == STANDARD_TYPE(Geom2d_BSplineCurve)) && !(st == STANDARD_TYPE(Geom2d_BezierCurve)))
       {
         return Standard_False;

@@ -117,7 +117,7 @@ void StepData_PDescr::AddEnumDef(const Standard_CString enumdef)
   theenum.AddDefinition(enumdef);
 }
 
-void StepData_PDescr::SetType(const Handle(Standard_Type)& atype)
+void StepData_PDescr::SetType(const Handle(TypeInfo)& atype)
 {
   thekind = KindEntity;
   thetype = atype;
@@ -249,7 +249,7 @@ Standard_Boolean StepData_PDescr::IsEntity() const
   return (thekind == KindEntity);
 }
 
-Standard_Boolean StepData_PDescr::IsType(const Handle(Standard_Type)& atype) const
+Standard_Boolean StepData_PDescr::IsType(const Handle(TypeInfo)& atype) const
 {
   if (atype.IsNull())
     return Standard_False;
@@ -265,7 +265,7 @@ Standard_Boolean StepData_PDescr::IsType(const Handle(Standard_Type)& atype) con
   return Standard_False;
 }
 
-Handle(Standard_Type) StepData_PDescr::Type() const
+Handle(TypeInfo) StepData_PDescr::Type() const
 {
   return thetype;
 }

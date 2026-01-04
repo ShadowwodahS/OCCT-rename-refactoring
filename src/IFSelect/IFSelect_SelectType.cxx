@@ -23,17 +23,17 @@ IFSelect_SelectType::IFSelect_SelectType()
   thetype = STANDARD_TYPE(RefObject);
 }
 
-IFSelect_SelectType::IFSelect_SelectType(const Handle(Standard_Type)& atype)
+IFSelect_SelectType::IFSelect_SelectType(const Handle(TypeInfo)& atype)
 {
   thetype = atype;
 }
 
-void IFSelect_SelectType::SetType(const Handle(Standard_Type)& atype)
+void IFSelect_SelectType::SetType(const Handle(TypeInfo)& atype)
 {
   thetype = atype;
 }
 
-Handle(Standard_Type) IFSelect_SelectType::TypeForMatch() const
+Handle(TypeInfo) IFSelect_SelectType::TypeForMatch() const
 {
   return thetype;
 }

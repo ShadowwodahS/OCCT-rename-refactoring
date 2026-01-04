@@ -198,7 +198,7 @@ public:
   //! and the returned value is True
   //! Else, <val> is unchanged and the returned value is False
   Standard_EXPORT Standard_Boolean GetData(const Standard_Integer       nd,
-                                           const Handle(Standard_Type)& type,
+                                           const Handle(TypeInfo)& type,
                                            Handle(RefObject)&  val) const;
 
   //! Returns the kind of a data :

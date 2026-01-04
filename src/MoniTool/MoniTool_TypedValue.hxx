@@ -191,12 +191,12 @@ public:
 
   //! Sets type of which an Object TypedValue must be kind of
   //! Error for a TypedValue not an Object (Entity)
-  Standard_EXPORT void SetObjectType(const Handle(Standard_Type)& typ);
+  Standard_EXPORT void SetObjectType(const Handle(TypeInfo)& typ);
 
   //! Returns the type of which an Object TypedValue must be kind of
   //! Default is RefObject
   //! Null for a TypedValue not an Object
-  Standard_EXPORT Handle(Standard_Type) ObjectType() const;
+  Standard_EXPORT Handle(TypeInfo) ObjectType() const;
 
   //! Sets a specific Interpret function
   Standard_EXPORT void SetInterpret(const MoniTool_ValueInterpret func);
@@ -342,7 +342,7 @@ private:
   TCollection_AsciiString                                        thedef;
   TCollection_AsciiString                                        thelabel;
   MoniTool_ValueType                                             thetype;
-  Handle(Standard_Type)                                          theotyp;
+  Handle(TypeInfo)                                          theotyp;
   Standard_Integer                                               thelims;
   Standard_Integer                                               themaxlen;
   Standard_Integer                                               theintlow;

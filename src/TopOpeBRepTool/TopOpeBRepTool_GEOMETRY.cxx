@@ -33,7 +33,7 @@
 // ----------------------------------------------------------------------
 Standard_EXPORT Handle(Geom2d_Curve) BASISCURVE2D(const Handle(Geom2d_Curve)& C)
 {
-  Handle(Standard_Type) T = C->DynamicType();
+  Handle(TypeInfo) T = C->DynamicType();
   if (T == STANDARD_TYPE(Geom2d_OffsetCurve))
     return ::BASISCURVE2D(Handle(Geom2d_OffsetCurve)::DownCast(C)->BasisCurve());
   else if (T == STANDARD_TYPE(Geom2d_TrimmedCurve))
@@ -50,7 +50,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_IsUViso(const Handle(Geom2d_Curve)& PC
   isoU = isoV = Standard_False;
   if (PC.IsNull()) return Standard_False;
   Handle(Geom2d_Curve) LLL = BASISCURVE2D(PC);
-  Handle(Standard_Type) T2 = LLL->DynamicType();
+  Handle(TypeInfo) T2 = LLL->DynamicType();
   Standard_Boolean isline2d = (T2 == STANDARD_TYPE(Geom2d_Line));
   if (!isline2d) return Standard_False;
 

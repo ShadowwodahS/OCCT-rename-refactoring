@@ -586,7 +586,7 @@ void TopOpeBRepBuild_WireEdgeSet::IsUVISO(const TopoDS_Edge& E,
   if (PC.IsNull())
     throw Standard_ProgramError("TopOpeBRepBuild_WireEdgeSet::IsUVISO");
 
-  Handle(Standard_Type) TheType = PC->DynamicType();
+  Handle(TypeInfo) TheType = PC->DynamicType();
   if (TheType == STANDARD_TYPE(Geom2d_Line))
   {
     Handle(Geom2d_Line) HL(Handle(Geom2d_Line)::DownCast(PC));

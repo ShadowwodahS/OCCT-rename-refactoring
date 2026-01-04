@@ -31,7 +31,7 @@ TObj_SequenceIterator::TObj_SequenceIterator()
 //=================================================================================================
 
 TObj_SequenceIterator::TObj_SequenceIterator(const Handle(TObj_HSequenceOfObject)& theObjects,
-                                             const Handle(Standard_Type)&          theType)
+                                             const Handle(TypeInfo)&          theType)
 {
   myIndex   = 1;
   myType    = theType;

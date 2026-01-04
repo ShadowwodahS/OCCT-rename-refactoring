@@ -40,9 +40,9 @@ Handle(TDF_Attribute) BinMDataStd_GenericEmptyDriver::NewEmpty() const
 
 //=================================================================================================
 
-const Handle(Standard_Type)& BinMDataStd_GenericEmptyDriver::SourceType() const
+const Handle(TypeInfo)& BinMDataStd_GenericEmptyDriver::SourceType() const
 {
-  return Standard_Type::Instance<TDataStd_GenericEmpty>();
+  return TypeInfo::Instance<TDataStd_GenericEmpty>();
 }
 
 //=======================================================================

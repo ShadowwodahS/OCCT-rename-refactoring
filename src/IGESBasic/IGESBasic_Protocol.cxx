@@ -47,7 +47,7 @@ Handle(Interface_Protocol) IGESBasic_Protocol::Resource(const Standard_Integer /
   return res;
 }
 
-Standard_Integer IGESBasic_Protocol::TypeNumber(const Handle(Standard_Type)& atype) const
+Standard_Integer IGESBasic_Protocol::TypeNumber(const Handle(TypeInfo)& atype) const
 {
   if (atype == STANDARD_TYPE(IGESBasic_AssocGroupType))
     return 1;

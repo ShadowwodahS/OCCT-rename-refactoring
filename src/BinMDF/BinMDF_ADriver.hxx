@@ -38,7 +38,7 @@ public:
 
   //! Returns the type of source object,
   //! inheriting from Attribute from TDF.
-  Standard_EXPORT virtual const Handle(Standard_Type)& SourceType() const;
+  Standard_EXPORT virtual const Handle(TypeInfo)& SourceType() const;
 
   //! Returns the type name of the attribute object
   const TCollection_AsciiString& TypeName() const;

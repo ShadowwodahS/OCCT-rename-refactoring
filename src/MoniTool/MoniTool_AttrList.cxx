@@ -42,7 +42,7 @@ Standard_Boolean MoniTool_AttrList::RemoveAttribute(const Standard_CString name)
 }
 
 Standard_Boolean MoniTool_AttrList::GetAttribute(const Standard_CString       name,
-                                                 const Handle(Standard_Type)& type,
+                                                 const Handle(TypeInfo)& type,
                                                  Handle(RefObject)&  val) const
 {
   if (theattrib.IsEmpty())

@@ -29,7 +29,7 @@ BinMDF_ADriver::BinMDF_ADriver(const Handle(Message_Messenger)& theMsgDriver,
 
 //=================================================================================================
 
-const Handle(Standard_Type)& BinMDF_ADriver::SourceType() const
+const Handle(TypeInfo)& BinMDF_ADriver::SourceType() const
 {
   return NewEmpty()->DynamicType();
 }

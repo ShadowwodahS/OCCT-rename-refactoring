@@ -240,8 +240,8 @@ void Bisector_Inter::SinglePerform(const Handle(Geom2d_Curve)& CBis1,
   const Handle(Geom2d_Curve)& Bis1 = CBis1;
   const Handle(Geom2d_Curve)& Bis2 = CBis2;
 
-  Handle(Standard_Type) Type1 = Bis1->DynamicType();
-  Handle(Standard_Type) Type2 = Bis2->DynamicType();
+  Handle(TypeInfo) Type1 = Bis1->DynamicType();
+  Handle(TypeInfo) Type2 = Bis2->DynamicType();
 
   if (Type1 == STANDARD_TYPE(Bisector_BisecAna) || Type2 == STANDARD_TYPE(Bisector_BisecAna))
   {

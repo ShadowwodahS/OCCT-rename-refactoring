@@ -110,7 +110,7 @@ void TNaming_Translator::DumpMap(const Standard_Boolean isWrite) const
   {
     std::cout << "TNaming_Translator::DumpMap:  Index = " << i
               << " Type = " << (myMap.FindKey(i))->DynamicType() << std::endl;
-    Handle(Standard_Type) T = (myMap.FindKey(i))->DynamicType();
+    Handle(TypeInfo) T = (myMap.FindKey(i))->DynamicType();
     if ((T == STANDARD_TYPE(BRep_TVertex)) || (T == STANDARD_TYPE(BRep_TEdge))
         || T == STANDARD_TYPE(BRep_TFace) || T == STANDARD_TYPE(TopoDS_TWire)
         || T == STANDARD_TYPE(TopoDS_TShell) || T == STANDARD_TYPE(TopoDS_TSolid)

@@ -140,7 +140,7 @@ public:
 protected:
   Standard_EXPORT Handle(StepFEA_HSequenceOfElementRepresentation) GetFeaElements(
     const Handle(StepFEA_FeaModel)& theFeaModel,
-    const Handle(Standard_Type)&    theType) const;
+    const Handle(TypeInfo)&    theType) const;
 
 private:
 };

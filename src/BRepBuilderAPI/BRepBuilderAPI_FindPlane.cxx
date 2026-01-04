@@ -81,7 +81,7 @@ void BRepBuilderAPI_FindPlane::Init(const TopoDS_Shape& S, const Standard_Real T
       Handle(Geom_Curve) c3dptr =
         Handle(Geom_Curve)::DownCast(c3d->Transformed(loc.Transformation()));
 
-      Handle(Standard_Type) cType = c3dptr->DynamicType();
+      Handle(TypeInfo) cType = c3dptr->DynamicType();
 
       if (cType == STANDARD_TYPE(Geom_Line))
       {

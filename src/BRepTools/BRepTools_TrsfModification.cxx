@@ -342,7 +342,7 @@ Standard_Boolean BRepTools_TrsfModification::NewCurve2d(const TopoDS_Edge& E,
 
   Standard_Real newf, newl;
 
-  Handle(Standard_Type) TheType = NewC->DynamicType();
+  Handle(TypeInfo) TheType = NewC->DynamicType();
 
   if (TheType == STANDARD_TYPE(Geom2d_TrimmedCurve))
   {

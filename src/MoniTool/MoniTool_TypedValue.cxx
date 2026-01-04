@@ -634,14 +634,14 @@ Standard_Integer MoniTool_TypedValue::EnumCase(const Standard_CString val) const
 
 //  ******  object/entity  ******
 
-void MoniTool_TypedValue::SetObjectType(const Handle(Standard_Type)& typ)
+void MoniTool_TypedValue::SetObjectType(const Handle(TypeInfo)& typ)
 {
   if (thetype != MoniTool_ValueIdent)
     throw Standard_ConstructionError("MoniTool_TypedValue : AddEnum, Not an Entity/Object");
   theotyp = typ;
 }
 
-Handle(Standard_Type) MoniTool_TypedValue::ObjectType() const
+Handle(TypeInfo) MoniTool_TypedValue::ObjectType() const
 {
   if (!theotyp.IsNull())
     return theotyp;

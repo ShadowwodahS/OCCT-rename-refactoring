@@ -42,7 +42,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Interface_InterfaceModel, RefObject)
 // STATICS : les TEMPLATES
 static NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)> atemp;
 
-static const Handle(Standard_Type)& typerep()
+static const Handle(TypeInfo)& typerep()
 {
   return STANDARD_TYPE(Interface_ReportEntity);
 }
@@ -224,7 +224,7 @@ Standard_Integer Interface_InterfaceModel::NbTypes(const Handle(RefObject)& ent)
 
 //=================================================================================================
 
-Handle(Standard_Type) Interface_InterfaceModel::Type(const Handle(RefObject)& ent,
+Handle(TypeInfo) Interface_InterfaceModel::Type(const Handle(RefObject)& ent,
                                                      const Standard_Integer            nt) const
 {
   if (Protocol().IsNull())

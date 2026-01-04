@@ -1078,7 +1078,7 @@ Standard_Boolean PrsDim_AngleDimension::InitConeAngle()
   TopoDS_Face                      aFace;
   PrsDim_KindOfSurface             aSurfType;
   Standard_Real                    anOffset = 0.;
-  Handle(Standard_Type)            aType;
+  Handle(TypeInfo)            aType;
 
   const Standard_Real aMaxV = aConeAdaptor.FirstVParameter();
   const Standard_Real aMinV = aConeAdaptor.LastVParameter();

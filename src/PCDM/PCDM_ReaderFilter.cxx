@@ -15,7 +15,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(PCDM_ReaderFilter, RefObject)
 
-PCDM_ReaderFilter::PCDM_ReaderFilter(const Handle(Standard_Type)& theSkipped)
+PCDM_ReaderFilter::PCDM_ReaderFilter(const Handle(TypeInfo)& theSkipped)
     : myAppend(AppendMode_Forbid)
 {
   mySkip.Add(theSkipped->Name());
@@ -44,7 +44,7 @@ PCDM_ReaderFilter::~PCDM_ReaderFilter()
   ClearTree();
 }
 
-Standard_Boolean PCDM_ReaderFilter::IsPassed(const Handle(Standard_Type)& theAttributeID) const
+Standard_Boolean PCDM_ReaderFilter::IsPassed(const Handle(TypeInfo)& theAttributeID) const
 {
   return IsPassedAttr(theAttributeID->Name());
 }

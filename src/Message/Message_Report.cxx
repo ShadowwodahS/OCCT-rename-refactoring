@@ -79,7 +79,7 @@ const Message_ListOfAlert& Message_Report::GetAlerts(Message_Gravity theGravity)
 
 //=================================================================================================
 
-Standard_Boolean Message_Report::HasAlert(const Handle(Standard_Type)& theType)
+Standard_Boolean Message_Report::HasAlert(const Handle(TypeInfo)& theType)
 {
   for (int iGravity = Message_Trace; iGravity <= Message_Fail; ++iGravity)
   {
@@ -91,7 +91,7 @@ Standard_Boolean Message_Report::HasAlert(const Handle(Standard_Type)& theType)
 
 //=================================================================================================
 
-Standard_Boolean Message_Report::HasAlert(const Handle(Standard_Type)& theType,
+Standard_Boolean Message_Report::HasAlert(const Handle(TypeInfo)& theType,
                                           Message_Gravity              theGravity)
 {
   if (compositeAlerts().IsNull())
@@ -251,7 +251,7 @@ void Message_Report::Clear(Message_Gravity theGravity)
 
 //=================================================================================================
 
-void Message_Report::Clear(const Handle(Standard_Type)& theType)
+void Message_Report::Clear(const Handle(TypeInfo)& theType)
 {
   if (compositeAlerts().IsNull())
   {

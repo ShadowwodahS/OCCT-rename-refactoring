@@ -87,7 +87,7 @@ Standard_Boolean BinTObjDrivers_ObjectDriver::Paste(const BinObjMgt_Persistent& 
   else
   {
     // use anID to get the type from earlier registered ones
-    Handle(Standard_Type) aType = TObj_Assistant::FindType(anID);
+    Handle(TypeInfo) aType = TObj_Assistant::FindType(anID);
     if (!aType.IsNull())
       anObject = TObj_Persistence::CreateNewObject(aType->Name(), theTarget->Label());
     else
@@ -115,7 +115,7 @@ void BinTObjDrivers_ObjectDriver::Paste(const Handle(TDF_Attribute)& theSource,
   if (anIObject.IsNull())
     return;
 
-  Handle(Standard_Type) aType = anIObject->DynamicType();
+  Handle(TypeInfo) aType = anIObject->DynamicType();
 
   Standard_Integer anID = TObj_Assistant::FindTypeIndex(anIObject->DynamicType());
 

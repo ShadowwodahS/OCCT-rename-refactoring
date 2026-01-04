@@ -40,7 +40,7 @@ public:
 
   //! Returns the Effective (Dynamic) Type of the Result
   //! (RefObject if no Result is defined)
-  Standard_EXPORT Handle(Standard_Type) ResultType() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(TypeInfo) ResultType() const Standard_OVERRIDE;
 
   //! Returns the Effective Name of (Dynamic) Type of the Result
   //! (void) if no result is defined
@@ -61,7 +61,7 @@ public:
   //! found with the good type, it is loaded in <res> and can be
   //! immediately used, well initialised
   Standard_EXPORT static Standard_Boolean GetTypedResult(const Handle(Transfer_Binder)& bnd,
-                                                         const Handle(Standard_Type)&   atype,
+                                                         const Handle(TypeInfo)&   atype,
                                                          Handle(RefObject)&    res);
 
   DEFINE_STANDARD_RTTIEXT(Transfer_SimpleBinderOfTransient, Transfer_Binder)

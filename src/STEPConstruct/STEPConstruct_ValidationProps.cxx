@@ -498,7 +498,7 @@ Standard_Boolean STEPConstruct_ValidationProps::LoadProps(TColStd_SequenceOfTran
 {
   // parse on PropertyDefinitionRepresentations
   Standard_Integer      nb   = Model()->NbEntities();
-  Handle(Standard_Type) tPDR = STANDARD_TYPE(StepRepr_PropertyDefinitionRepresentation);
+  Handle(TypeInfo) tPDR = STANDARD_TYPE(StepRepr_PropertyDefinitionRepresentation);
   for (Standard_Integer i = 1; i <= nb; i++)
   {
     Handle(RefObject) enti = Model()->Value(i);

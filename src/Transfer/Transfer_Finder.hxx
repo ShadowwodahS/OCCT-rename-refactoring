@@ -50,7 +50,7 @@ public:
 
   //! Returns the Type of the Value. By default, returns the
   //! DynamicType of <me>, but can be redefined
-  Standard_EXPORT virtual Handle(Standard_Type) ValueType() const;
+  Standard_EXPORT virtual Handle(TypeInfo) ValueType() const;
 
   //! Returns the name of the Type of the Value. Default is name
   //! of ValueType, unless it is for a non-handled object
@@ -70,7 +70,7 @@ public:
   //! type, <val> is Null and returned value is False
   //! Else, it is True
   Standard_EXPORT Standard_Boolean GetAttribute(const Standard_CString       name,
-                                                const Handle(Standard_Type)& type,
+                                                const Handle(TypeInfo)& type,
                                                 Handle(RefObject)&  val) const;
 
   //! Returns an attribute from its name. Null Handle if not recorded

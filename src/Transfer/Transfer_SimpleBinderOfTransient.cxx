@@ -24,7 +24,7 @@ Transfer_SimpleBinderOfTransient::Transfer_SimpleBinderOfTransient() {}
 //    Standard_Boolean  Transfer_SimpleBinderOfTransient::IsMultiple() const
 //      {  return Standard_False;  }
 
-Handle(Standard_Type) Transfer_SimpleBinderOfTransient::ResultType() const
+Handle(TypeInfo) Transfer_SimpleBinderOfTransient::ResultType() const
 {
   if (!HasResult() || theres.IsNull())
     return STANDARD_TYPE(RefObject);
@@ -51,7 +51,7 @@ const Handle(RefObject)& Transfer_SimpleBinderOfTransient::Result() const
 
 Standard_Boolean Transfer_SimpleBinderOfTransient::GetTypedResult(
   const Handle(Transfer_Binder)& bnd,
-  const Handle(Standard_Type)&   atype,
+  const Handle(TypeInfo)&   atype,
   Handle(RefObject)&    res)
 {
   if (atype.IsNull())

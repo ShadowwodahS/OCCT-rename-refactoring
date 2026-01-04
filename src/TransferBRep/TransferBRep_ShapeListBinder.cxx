@@ -43,7 +43,7 @@ Standard_Boolean TransferBRep_ShapeListBinder::IsMultiple() const
   return (NbShapes() > 1);
 }
 
-Handle(Standard_Type) TransferBRep_ShapeListBinder::ResultType() const
+Handle(TypeInfo) TransferBRep_ShapeListBinder::ResultType() const
 {
   return STANDARD_TYPE(TransferBRep_ShapeListBinder);
 }

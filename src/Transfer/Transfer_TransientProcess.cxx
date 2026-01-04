@@ -86,7 +86,7 @@ void Transfer_TransientProcess::SetContext(const Standard_CString            nam
 //=================================================================================================
 
 Standard_Boolean Transfer_TransientProcess::GetContext(const Standard_CString       name,
-                                                       const Handle(Standard_Type)& type,
+                                                       const Handle(TypeInfo)& type,
                                                        Handle(RefObject)&  ctx) const
 {
   if (thectx.IsEmpty())
@@ -142,7 +142,7 @@ Standard_Integer Transfer_TransientProcess::CheckNum(const Handle(RefObject)& st
 
 Interface_EntityIterator Transfer_TransientProcess::TypedSharings(
   const Handle(RefObject)& start,
-  const Handle(Standard_Type)&      type) const
+  const Handle(TypeInfo)&      type) const
 {
   Interface_EntityIterator iter;
   if (thegraph.IsNull())

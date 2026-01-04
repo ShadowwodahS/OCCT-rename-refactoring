@@ -106,7 +106,7 @@ void XSControl_TransferReader::SetContext(const Standard_CString            name
 //=================================================================================================
 
 Standard_Boolean XSControl_TransferReader::GetContext(const Standard_CString       name,
-                                                      const Handle(Standard_Type)& type,
+                                                      const Handle(TypeInfo)& type,
                                                       Handle(RefObject)&  ctx) const
 {
   if (myContext.IsEmpty())

@@ -1491,8 +1491,8 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::OldWay(
 
   // process subcomponents of assembly (CDSR) and hybrid models (SRR)
   Interface_EntityIterator subs   = graph.Shareds(start);
-  Handle(Standard_Type)    tCDSR  = STANDARD_TYPE(StepShape_ContextDependentShapeRepresentation);
-  Handle(Standard_Type)    tSRR   = STANDARD_TYPE(StepRepr_ShapeRepresentationRelationship);
+  Handle(TypeInfo)    tCDSR  = STANDARD_TYPE(StepShape_ContextDependentShapeRepresentation);
+  Handle(TypeInfo)    tSRR   = STANDARD_TYPE(StepRepr_ShapeRepresentationRelationship);
   Standard_Integer         nbitem = 0;
   for (subs.Start(); subs.More(); subs.Next())
     nbitem++;

@@ -47,7 +47,7 @@ Handle(Interface_Protocol) IGESGraph_Protocol::Resource(const Standard_Integer /
   return res;
 }
 
-Standard_Integer IGESGraph_Protocol::TypeNumber(const Handle(Standard_Type)& atype) const
+Standard_Integer IGESGraph_Protocol::TypeNumber(const Handle(TypeInfo)& atype) const
 {
   if (atype == STANDARD_TYPE(IGESGraph_Color))
     return 1;

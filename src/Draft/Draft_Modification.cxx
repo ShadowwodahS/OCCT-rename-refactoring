@@ -358,7 +358,7 @@ Standard_Boolean Draft_Modification::NewCurve2d(const TopoDS_Edge& E,
     C = GeomProjLib::Curve2d(TC, Fp, Lp, SB, Tol);
   }
 
-  Handle(Standard_Type) typs = SB->DynamicType();
+  Handle(TypeInfo) typs = SB->DynamicType();
   if (typs == STANDARD_TYPE(Geom_RectangularTrimmedSurface))
   {
     SB   = Handle(Geom_RectangularTrimmedSurface)::DownCast(SB)->BasisSurface();
@@ -369,7 +369,7 @@ Standard_Boolean Draft_Modification::NewCurve2d(const TopoDS_Edge& E,
   if (typs == STANDARD_TYPE(Geom_SurfaceOfLinearExtrusion))
   {
     Handle(Geom_Curve)    aC   = Handle(Geom_SurfaceOfLinearExtrusion)::DownCast(SB)->BasisCurve();
-    Handle(Standard_Type) typc = aC->DynamicType();
+    Handle(TypeInfo) typc = aC->DynamicType();
     if (typc == STANDARD_TYPE(Geom_Circle))
       JeRecadre = Standard_True;
   }
@@ -437,7 +437,7 @@ Standard_Boolean Draft_Modification::NewParameter(const TopoDS_Vertex& V,
 
   P                          = myVMap.ChangeFromKey(V).Parameter(E);
   Handle(Geom_Curve)    GC   = myEMap.FindFromKey(E).Geometry();
-  Handle(Standard_Type) typc = GC->DynamicType();
+  Handle(TypeInfo) typc = GC->DynamicType();
   if (typc == STANDARD_TYPE(Geom_TrimmedCurve))
   {
     GC   = Handle(Geom_TrimmedCurve)::DownCast(GC);

@@ -571,7 +571,7 @@ Handle(StepFEA_HSequenceOfElementRepresentation) StepAP209_Construct::GetElement
 
 Handle(StepFEA_HSequenceOfElementRepresentation) StepAP209_Construct::GetFeaElements(
   const Handle(StepFEA_FeaModel)& theFeaModel,
-  const Handle(Standard_Type)&    theType) const
+  const Handle(TypeInfo)&    theType) const
 {
   Handle(StepFEA_HSequenceOfElementRepresentation) aSequence;
   if (!theType->SubType(STANDARD_TYPE(StepFEA_ElementRepresentation)))

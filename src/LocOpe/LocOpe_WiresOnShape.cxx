@@ -694,7 +694,7 @@ void PutPCurve(const TopoDS_Edge& Edg, const TopoDS_Face& Fac)
   TopLoc_Location LocFac;
 
   Handle(Geom_Surface)  S    = BRep_Tool::Surface(Fac, LocFac);
-  Handle(Standard_Type) styp = S->DynamicType();
+  Handle(TypeInfo) styp = S->DynamicType();
 
   if (styp == STANDARD_TYPE(Geom_RectangularTrimmedSurface))
   {
@@ -900,7 +900,7 @@ void PutPCurves(const TopoDS_Edge& Efrom, const TopoDS_Edge& Eto, const TopoDS_S
 
   BRep_Builder          B;
   Handle(Geom_Surface)  S;
-  Handle(Standard_Type) styp;
+  Handle(TypeInfo) styp;
   Handle(Geom_Curve)    C;
   Standard_Real         Umin, Umax, Vmin, Vmax;
   Standard_Real         f, l;

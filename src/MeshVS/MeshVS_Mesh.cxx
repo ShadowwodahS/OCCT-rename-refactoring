@@ -1213,7 +1213,7 @@ Handle(MeshVS_PrsBuilder) MeshVS_Mesh::FindBuilder(const Standard_CString theTyp
   return nullptr;
 }
 
-Handle(MeshVS_PrsBuilder) MeshVS_Mesh::FindBuilder(const Handle(Standard_Type)& theType) const
+Handle(MeshVS_PrsBuilder) MeshVS_Mesh::FindBuilder(const Handle(TypeInfo)& theType) const
 {
   for (const Handle(MeshVS_PrsBuilder)& aBuilder : myBuilders)
   {

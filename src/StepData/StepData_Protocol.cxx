@@ -56,7 +56,7 @@ Standard_Integer StepData_Protocol::CaseNumber(const Handle(RefObject)& obj) con
   return DescrNumber(dc->Description());
 }
 
-Standard_Integer StepData_Protocol::TypeNumber(const Handle(Standard_Type)& atype) const
+Standard_Integer StepData_Protocol::TypeNumber(const Handle(TypeInfo)& atype) const
 {
   if (atype == STANDARD_TYPE(StepData_UndefinedEntity))
     return 1;

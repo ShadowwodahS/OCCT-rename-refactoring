@@ -21,7 +21,7 @@
 
 #include <atomic>
 
-class Standard_Type;
+class TypeInfo;
 
 namespace opencascade
 {
@@ -65,14 +65,14 @@ public:
   static constexpr const char* get_type_name() { return "RefObject"; }
 
   //! Returns type descriptor of RefObject class
-  Standard_EXPORT static const opencascade::handle<Standard_Type>& get_type_descriptor();
+  Standard_EXPORT static const opencascade::handle<TypeInfo>& get_type_descriptor();
 
   //! Returns a type descriptor about this object.
-  Standard_EXPORT virtual const opencascade::handle<Standard_Type>& DynamicType() const;
+  Standard_EXPORT virtual const opencascade::handle<TypeInfo>& DynamicType() const;
 
   //! Returns a true value if this is an instance of Type.
   Standard_EXPORT Standard_Boolean
-    IsInstance(const opencascade::handle<Standard_Type>& theType) const;
+    IsInstance(const opencascade::handle<TypeInfo>& theType) const;
 
   //! Returns a true value if this is an instance of TypeName.
   Standard_EXPORT Standard_Boolean IsInstance(const Standard_CString theTypeName) const;
@@ -80,7 +80,7 @@ public:
   //! Returns true if this is an instance of Type or an
   //! instance of any class that inherits from Type.
   //! Note that multiple inheritance is not supported by OCCT RTTI mechanism.
-  Standard_EXPORT Standard_Boolean IsKind(const opencascade::handle<Standard_Type>& theType) const;
+  Standard_EXPORT Standard_Boolean IsKind(const opencascade::handle<TypeInfo>& theType) const;
 
   //! Returns true if this is an instance of TypeName or an
   //! instance of any class that inherits from TypeName.

@@ -546,7 +546,7 @@ void GeomTools_SurfaceSet::PrintSurface(const Handle(Geom_Surface)& S,
                                         Standard_OStream&           OS,
                                         const Standard_Boolean      compact)
 {
-  Handle(Standard_Type) TheType = S->DynamicType();
+  Handle(TypeInfo) TheType = S->DynamicType();
 
   if (TheType == STANDARD_TYPE(Geom_Plane))
   {

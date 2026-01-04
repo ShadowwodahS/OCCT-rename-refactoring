@@ -139,7 +139,7 @@ public:
 
   //! Returns a type, given its rank : defined by the Protocol
   //! (by default, the first one)
-  Standard_EXPORT Handle(Standard_Type) Type(const Handle(RefObject)& ent,
+  Standard_EXPORT Handle(TypeInfo) Type(const Handle(RefObject)& ent,
                                              const Standard_Integer            num = 1) const;
 
   //! Returns the type name of an entity, from the list of types

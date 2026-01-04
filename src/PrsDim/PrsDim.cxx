@@ -799,7 +799,7 @@ Standard_Boolean PrsDim::GetPlaneFromFace(const TopoDS_Face&    aFace,
   {
     if (isOffset)
     {
-      Handle(Standard_Type) TheType = aSurf->DynamicType();
+      Handle(TypeInfo) TheType = aSurf->DynamicType();
       if (TheType == STANDARD_TYPE(Geom_CylindricalSurface)
           || TheType == STANDARD_TYPE(Geom_ConicalSurface)
           || TheType == STANDARD_TYPE(Geom_SphericalSurface)
@@ -813,7 +813,7 @@ Standard_Boolean PrsDim::GetPlaneFromFace(const TopoDS_Face&    aFace,
         aSurf  = Handle(Geom_OffsetSurface)::DownCast(aSurf)->BasisSurface();
       }
     }
-    Handle(Standard_Type) TheType = aSurf->DynamicType();
+    Handle(TypeInfo) TheType = aSurf->DynamicType();
     if (TheType == STANDARD_TYPE(Geom_CylindricalSurface))
       aSurfType = PrsDim_KOS_Cylinder;
     else if (TheType == STANDARD_TYPE(Geom_ConicalSurface))

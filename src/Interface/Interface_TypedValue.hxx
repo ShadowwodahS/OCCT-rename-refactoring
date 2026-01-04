@@ -78,7 +78,7 @@ private:
   TCollection_AsciiString                                        thename;
   TCollection_AsciiString                                        thedef;
   TCollection_AsciiString                                        thelabel;
-  Handle(Standard_Type)                                          theotyp;
+  Handle(TypeInfo)                                          theotyp;
   TCollection_AsciiString                                        theunidef;
   Handle(TColStd_HArray1OfAsciiString)                           theenums;
   NCollection_DataMap<TCollection_AsciiString, Standard_Integer> theeadds;

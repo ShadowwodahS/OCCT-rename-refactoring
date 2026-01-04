@@ -2651,7 +2651,7 @@ static Standard_Integer OCC27884(Draw_Interpretor& theDI,
   Standard_Real      aCheck = Draw::Atof(theArgVec[3]);
   Handle(Geom_Curve) aCur   = DrawTrSurf::GetCurve(theArgVec[1]);
 
-  const Handle(Standard_Type)& aType = aCur->DynamicType();
+  const Handle(TypeInfo)& aType = aCur->DynamicType();
 
   Standard_Real aF = aCur->FirstParameter();
   Standard_Real aL = aCur->LastParameter();

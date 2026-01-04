@@ -112,7 +112,7 @@ Interface_EntityIterator Interface_ShareTool::Sharings(const Handle(RefObject)& 
 }
 
 Standard_Integer Interface_ShareTool::NbTypedSharings(const Handle(RefObject)& ent,
-                                                      const Handle(Standard_Type)&      atype) const
+                                                      const Handle(TypeInfo)&      atype) const
 {
   Interface_Graph&                     thegraph = theHGraph->CGraph();
   Handle(TColStd_HSequenceOfTransient) list     = thegraph.GetSharings(ent);
@@ -134,7 +134,7 @@ Standard_Integer Interface_ShareTool::NbTypedSharings(const Handle(RefObject)& e
 
 Handle(RefObject) Interface_ShareTool::TypedSharing(
   const Handle(RefObject)& ent,
-  const Handle(Standard_Type)&      atype) const
+  const Handle(TypeInfo)&      atype) const
 {
   Interface_Graph&                     thegraph = theHGraph->CGraph();
   Handle(TColStd_HSequenceOfTransient) list     = thegraph.GetSharings(ent);

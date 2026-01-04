@@ -14,7 +14,7 @@
 #include <MoniTool_DataInfo.hxx>
 #include <Standard_Transient.hxx>
 
-Handle(Standard_Type) MoniTool_DataInfo::Type(const Handle(RefObject)& ent)
+Handle(TypeInfo) MoniTool_DataInfo::Type(const Handle(RefObject)& ent)
 {
   return ent->DynamicType();
 }

@@ -54,7 +54,7 @@ Standard_Boolean TransferBRep_ShapeMapper::Equates(const Handle(Transfer_Finder)
 
 //=================================================================================================
 
-Handle(Standard_Type) TransferBRep_ShapeMapper::ValueType() const
+Handle(TypeInfo) TransferBRep_ShapeMapper::ValueType() const
 {
   return TransferBRep_ShapeInfo::Type(theval);
 }

@@ -105,7 +105,7 @@ void XSControl_Utils::TraceLines(const Handle(RefObject)& lines) const
 //  #######   TRANSIENT : Quelques  acces  de  base   #######
 
 Standard_Boolean XSControl_Utils::IsKind(const Handle(RefObject)& item,
-                                         const Handle(Standard_Type)&      what) const
+                                         const Handle(TypeInfo)&      what) const
 {
   if (item.IsNull())
     return Standard_False;
@@ -119,7 +119,7 @@ Standard_CString XSControl_Utils::TypeName(const Handle(RefObject)& item,
 {
   if (item.IsNull())
     return "";
-  DeclareAndCast(Standard_Type, atype, item);
+  DeclareAndCast(TypeInfo, atype, item);
   if (atype.IsNull())
     atype = item->DynamicType();
   Standard_CString tn = atype->Name();

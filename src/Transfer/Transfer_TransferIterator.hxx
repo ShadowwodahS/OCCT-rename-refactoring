@@ -53,7 +53,7 @@ public:
   //! Selects Items on the Type of Binder : keep only
   //! Binders which are of a given Type (if keep is True) or
   //! reject only them (if keep is False)
-  Standard_EXPORT void SelectBinder(const Handle(Standard_Type)& atype,
+  Standard_EXPORT void SelectBinder(const Handle(TypeInfo)& atype,
                                     const Standard_Boolean       keep);
 
   //! Selects Items on the Type of Result. Considers only Unique
@@ -62,7 +62,7 @@ public:
   //!
   //! Results which are of a given Type (if keep is True) or reject
   //! only them (if keep is False)
-  Standard_EXPORT void SelectResult(const Handle(Standard_Type)& atype,
+  Standard_EXPORT void SelectResult(const Handle(TypeInfo)& atype,
                                     const Standard_Boolean       keep);
 
   //! Select Items according Unicity : keep only Unique Results (if
@@ -104,7 +104,7 @@ public:
   //! returns a Null Handle
   //! The Type is : the Dynamic Type for a Transient Result,
   //! the Type defined by the Binder Class else
-  Standard_EXPORT Handle(Standard_Type) ResultType() const;
+  Standard_EXPORT Handle(TypeInfo) ResultType() const;
 
   //! Returns True if the current Item has a Transient Unique
   //! Result (if yes, use TransientResult to get it)

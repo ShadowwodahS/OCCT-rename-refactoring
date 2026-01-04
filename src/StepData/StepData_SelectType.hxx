@@ -80,7 +80,7 @@ public:
 
   //! Returns the Effective (Dynamic) Type of the Stored Entity
   //! If it is Null, returns TYPE(Transient)
-  Standard_EXPORT Handle(Standard_Type) Type() const;
+  Standard_EXPORT Handle(TypeInfo) Type() const;
 
   //! Recognizes the Type of the stored Entity, or zero if it is
   //! Null or SelectMember. Calls the first method CaseNum on Value

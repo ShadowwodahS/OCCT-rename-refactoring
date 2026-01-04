@@ -319,7 +319,7 @@ static BinTools_OStream& operator<<(BinTools_OStream& OS, const Handle(Geom_Offs
 
 void BinTools_SurfaceSet::WriteSurface(const Handle(Geom_Surface)& S, BinTools_OStream& OS)
 {
-  Handle(Standard_Type) TheType = S->DynamicType();
+  Handle(TypeInfo) TheType = S->DynamicType();
   try
   {
     OCC_CATCH_SIGNALS

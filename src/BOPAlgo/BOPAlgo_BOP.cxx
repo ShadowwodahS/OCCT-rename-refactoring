@@ -1364,7 +1364,7 @@ Standard_Boolean BOPAlgo_BOP::CheckArgsForOpenSolid()
     const Message_ListOfAlert& aList = myReport->GetAlerts(Message_Warning);
     for (Message_ListOfAlert::Iterator aIt(aList); aIt.More(); aIt.Next())
     {
-      const Handle(Standard_Type)& aType = aIt.Value()->DynamicType();
+      const Handle(TypeInfo)& aType = aIt.Value()->DynamicType();
       if (aType != STANDARD_TYPE(BOPAlgo_AlertSolidBuilderUnusedFaces))
         continue;
 

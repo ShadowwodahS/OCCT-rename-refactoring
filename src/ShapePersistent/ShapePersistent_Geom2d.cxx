@@ -117,7 +117,7 @@ Handle(ShapePersistent_Geom2d::Curve) ShapePersistent_Geom2d::Translate(
       aPC = Handle(ShapePersistent_Geom2d::Curve)::DownCast(theMap.Find(theCurve));
     else
     {
-      Handle(Standard_Type) aCT = theCurve->DynamicType();
+      Handle(TypeInfo) aCT = theCurve->DynamicType();
       if (aCT == STANDARD_TYPE(Geom2d_Line))
       {
         aPC =

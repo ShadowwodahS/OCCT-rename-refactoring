@@ -92,7 +92,7 @@ Standard_Boolean BRepTools_GTrsfModification::NewSurface(const TopoDS_Face&    F
   RevFace  = myGTrsf.IsNegative();
   S        = Handle(Geom_Surface)::DownCast(S->Transformed(L.Transformation()));
 
-  Handle(Standard_Type) TheTypeS = S->DynamicType();
+  Handle(TypeInfo) TheTypeS = S->DynamicType();
   if (TheTypeS == STANDARD_TYPE(Geom_BSplineSurface))
   {
     Handle(Geom_BSplineSurface) S2 = Handle(Geom_BSplineSurface)::DownCast(S);
@@ -143,7 +143,7 @@ Standard_Boolean BRepTools_GTrsfModification::NewCurve(const TopoDS_Edge&  E,
   if (!C.IsNull())
   {
     C = Handle(Geom_Curve)::DownCast(C->Copy()->Transformed(L.Transformation()));
-    Handle(Standard_Type) TheTypeC = C->DynamicType();
+    Handle(TypeInfo) TheTypeC = C->DynamicType();
     if (TheTypeC == STANDARD_TYPE(Geom_BSplineCurve))
     {
       Handle(Geom_BSplineCurve) C2 = Handle(Geom_BSplineCurve)::DownCast(C);

@@ -312,7 +312,7 @@ Handle(MAT2d_Connexion) MAT2d_MiniPath::MinimumL1L2(
   for (IC1 = 1; IC1 <= L1.Length(); IC1++)
   {
 
-    Handle(Standard_Type) Type1 = L1.Value(IC1)->DynamicType();
+    Handle(TypeInfo) Type1 = L1.Value(IC1)->DynamicType();
     if (Type1 != STANDARD_TYPE(Geom2d_CartesianPoint))
     {
       Item1 = Handle(Geom2d_Curve)::DownCast(L1.Value(IC1));
@@ -325,7 +325,7 @@ Handle(MAT2d_Connexion) MAT2d_MiniPath::MinimumL1L2(
     for (IC2 = 1; IC2 <= L2.Length(); IC2++)
     {
 
-      Handle(Standard_Type) Type2 = L2.Value(IC2)->DynamicType();
+      Handle(TypeInfo) Type2 = L2.Value(IC2)->DynamicType();
       if (Type2 != STANDARD_TYPE(Geom2d_CartesianPoint))
       {
         Item2 = Handle(Geom2d_Curve)::DownCast(L2.Value(IC2));

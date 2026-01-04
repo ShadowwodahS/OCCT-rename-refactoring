@@ -68,7 +68,7 @@ public:
   Standard_EXPORT void TraceLines(const Handle(RefObject)& lines) const;
 
   Standard_EXPORT Standard_Boolean IsKind(const Handle(RefObject)& item,
-                                          const Handle(Standard_Type)&      what) const;
+                                          const Handle(TypeInfo)&      what) const;
 
   //! Returns the name of the dynamic type of an object, i.e. :
   //! If it is a Type, its Name

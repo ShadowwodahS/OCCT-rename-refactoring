@@ -1228,7 +1228,7 @@ TopoDS_Edge BRepLib::SameParameter(const TopoDS_Edge&  theEdge,
 
   // modified by NIZHNY-OCC486  Tue Aug 27 17:15:13 2002 :
   Standard_Boolean      m_TrimmedPeriodical = Standard_False;
-  Handle(Standard_Type) TheType             = C3d->DynamicType();
+  Handle(TypeInfo) TheType             = C3d->DynamicType();
   if (TheType == STANDARD_TYPE(Geom_TrimmedCurve))
   {
     Handle(Geom_Curve) gtC(Handle(Geom_TrimmedCurve)::DownCast(C3d)->BasisCurve());

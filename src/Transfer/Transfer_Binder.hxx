@@ -70,7 +70,7 @@ public:
   Standard_EXPORT virtual Standard_Boolean IsMultiple() const;
 
   //! Returns the Type which characterizes the Result (if known)
-  Standard_EXPORT virtual Handle(Standard_Type) ResultType() const = 0;
+  Standard_EXPORT virtual Handle(TypeInfo) ResultType() const = 0;
 
   //! Returns the Name of the Type which characterizes the Result
   //! Can be returned even if ResultType itself is unknown

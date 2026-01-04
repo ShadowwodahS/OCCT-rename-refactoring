@@ -1169,7 +1169,7 @@ Standard_Boolean SameSupport(const TopoDS_Edge& E1, const TopoDS_Edge& E2)
   Handle(Geom_Curve)    C1, C2;
   TopLoc_Location       loc;
   Standard_Real         f1, l1, f2, l2;
-  Handle(Standard_Type) typC1, typC2;
+  Handle(TypeInfo) typC1, typC2;
 
   C1 = BRep_Tool::Curve(E1, loc, f1, l1);
   if (!loc.IsIdentity())

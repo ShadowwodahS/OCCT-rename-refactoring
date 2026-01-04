@@ -35,7 +35,7 @@ public:
   Standard_EXPORT HeaderSection_Protocol();
 
   //! Returns a Case Number for each of the HeaderSection Entities
-  Standard_EXPORT virtual Standard_Integer TypeNumber(const Handle(Standard_Type)& atype) const
+  Standard_EXPORT virtual Standard_Integer TypeNumber(const Handle(TypeInfo)& atype) const
     Standard_OVERRIDE;
 
   Standard_EXPORT virtual Standard_CString SchemaName(const Handle(Interface_InterfaceModel)&) const

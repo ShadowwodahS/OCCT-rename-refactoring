@@ -30,7 +30,7 @@ void StepData_FileProtocol::Add(const Handle(StepData_Protocol)& protocol)
 {
   if (protocol.IsNull())
     return;
-  Handle(Standard_Type) ptype = protocol->DynamicType();
+  Handle(TypeInfo) ptype = protocol->DynamicType();
   Standard_Integer      nb    = thecomps.Length();
   for (Standard_Integer i = 1; i <= nb; i++)
   {
@@ -50,7 +50,7 @@ Handle(Interface_Protocol) StepData_FileProtocol::Resource(const Standard_Intege
   return Handle(Interface_Protocol)::DownCast(thecomps.Value(num));
 }
 
-Standard_Integer StepData_FileProtocol::TypeNumber(const Handle(Standard_Type)& /*atype*/) const
+Standard_Integer StepData_FileProtocol::TypeNumber(const Handle(TypeInfo)& /*atype*/) const
 {
   return 0;
 }

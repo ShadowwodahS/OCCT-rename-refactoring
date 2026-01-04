@@ -154,7 +154,7 @@ static void addObjToOrderSequence(const Handle(TObj_Object)&      theObj,
   }
 }
 
-Handle(TObj_ObjectIterator) TObj_Object::GetChildren(const Handle(Standard_Type)& theType) const
+Handle(TObj_ObjectIterator) TObj_Object::GetChildren(const Handle(TypeInfo)& theType) const
 {
   Handle(TObj_ObjectIterator) anItr =
     new TObj_OcafObjectIterator(GetChildLabel(), theType, Standard_True);
@@ -330,7 +330,7 @@ Standard_Boolean TObj_Object::HasReference(const Handle(TObj_Object)& theObject)
 
 //=================================================================================================
 
-Handle(TObj_ObjectIterator) TObj_Object::GetReferences(const Handle(Standard_Type)& theType) const
+Handle(TObj_ObjectIterator) TObj_Object::GetReferences(const Handle(TypeInfo)& theType) const
 {
   return new TObj_ReferenceIterator(GetReferenceLabel(), theType);
 }
@@ -378,7 +378,7 @@ void TObj_Object::RemoveBackReference(const Handle(TObj_Object)& theObject,
 //=================================================================================================
 
 Handle(TObj_ObjectIterator) TObj_Object::GetBackReferences(
-  const Handle(Standard_Type)& theType) const
+  const Handle(TypeInfo)& theType) const
 {
   return new TObj_SequenceIterator(myHSeqBackRef, theType);
 }
@@ -541,7 +541,7 @@ Standard_Boolean TObj_Object::GetObj(const TDF_Label&       theLabel,
 //           theType gives type of father object to search
 //=======================================================================
 
-Handle(TObj_Object) TObj_Object::GetFatherObject(const Handle(Standard_Type)& theType) const
+Handle(TObj_Object) TObj_Object::GetFatherObject(const Handle(TypeInfo)& theType) const
 {
   Handle(TObj_Object) aFather;
 

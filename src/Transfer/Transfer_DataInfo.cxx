@@ -14,7 +14,7 @@
 #include <Standard_Transient.hxx>
 #include <Transfer_DataInfo.hxx>
 
-Handle(Standard_Type) Transfer_DataInfo::Type(const Handle(RefObject)& ent)
+Handle(TypeInfo) Transfer_DataInfo::Type(const Handle(RefObject)& ent)
 {
   return ent->DynamicType();
 }

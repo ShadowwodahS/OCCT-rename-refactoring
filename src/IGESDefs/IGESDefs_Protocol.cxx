@@ -40,7 +40,7 @@ Handle(Interface_Protocol) IGESDefs_Protocol::Resource(const Standard_Integer /*
   return res;
 }
 
-Standard_Integer IGESDefs_Protocol::TypeNumber(const Handle(Standard_Type)& atype) const
+Standard_Integer IGESDefs_Protocol::TypeNumber(const Handle(TypeInfo)& atype) const
 {
   if (atype == STANDARD_TYPE(IGESDefs_AssociativityDef))
     return 1;

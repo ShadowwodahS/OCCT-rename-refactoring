@@ -185,7 +185,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
          << "_HeaderFile_\n"
             "\n"
             "#include <Standard.hxx>\n"
-            "#include <Standard_Type.hxx>\n";
+            "#include <TypeInfo.hxx>\n";
     if (myInherit->Length() < 1)
     {
       anInheritName = "RefObject";

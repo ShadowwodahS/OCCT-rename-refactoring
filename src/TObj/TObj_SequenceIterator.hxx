@@ -43,7 +43,7 @@ public:
 
   //! Creates an iterator an initialize it by sequence of objects.
   Standard_EXPORT TObj_SequenceIterator(const Handle(TObj_HSequenceOfObject)& theObjects,
-                                        const Handle(Standard_Type)&          theType = NULL);
+                                        const Handle(TypeInfo)&          theType = NULL);
 
 public:
   /**
@@ -64,7 +64,7 @@ protected:
    * Fields
    */
   Standard_Integer               myIndex;   //!< current index of object in sequence
-  Handle(Standard_Type)          myType;    //!< type of object
+  Handle(TypeInfo)          myType;    //!< type of object
   Handle(TObj_HSequenceOfObject) myObjects; //!< sequence of objects
 
 public:

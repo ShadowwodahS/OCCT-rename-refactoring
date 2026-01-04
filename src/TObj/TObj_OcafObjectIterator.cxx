@@ -23,7 +23,7 @@ IMPLEMENT_STANDARD_RTTIEXT(TObj_OcafObjectIterator, TObj_LabelIterator)
 //=================================================================================================
 
 TObj_OcafObjectIterator::TObj_OcafObjectIterator(const TDF_Label&             theLabel,
-                                                 const Handle(Standard_Type)& theType,
+                                                 const Handle(TypeInfo)& theType,
                                                  const Standard_Boolean       theRecursive,
                                                  const Standard_Boolean       theAllSubChildren)
     : TObj_LabelIterator(theLabel, theRecursive),

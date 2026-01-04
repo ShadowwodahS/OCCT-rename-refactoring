@@ -121,7 +121,7 @@ public:
    *   that type is returned.
    */
   Standard_EXPORT Handle(VrmlData_Node) FindNode(const char*                  theName,
-                                                 const Handle(Standard_Type)& theType = 0L) const;
+                                                 const Handle(TypeInfo)& theType = 0L) const;
 
   /**
    * Find a node by its name.
@@ -323,7 +323,7 @@ protected:
    */
   Standard_EXPORT VrmlData_ErrorStatus createNode(VrmlData_InBuffer&           theBuffer,
                                                   Handle(VrmlData_Node)&       theNode,
-                                                  const Handle(Standard_Type)& Type);
+                                                  const Handle(TypeInfo)& Type);
 
   /**
    * Create a single Shape object from all geometric nodes in the list.

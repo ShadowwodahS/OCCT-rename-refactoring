@@ -57,7 +57,7 @@ public:
   //! type, <val> is Null and returned value is False
   //! Else, it is True
   Standard_EXPORT Standard_Boolean GetAttribute(const Standard_CString       name,
-                                                const Handle(Standard_Type)& type,
+                                                const Handle(TypeInfo)& type,
                                                 Handle(RefObject)&  val) const;
 
   //! Returns an attribute from its name. Null Handle if not

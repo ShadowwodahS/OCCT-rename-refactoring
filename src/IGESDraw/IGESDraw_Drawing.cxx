@@ -111,7 +111,7 @@ gp_XY IGESDraw_Drawing::ViewToDrawing(const Standard_Integer NumView,
 Standard_Boolean IGESDraw_Drawing::DrawingUnit(Standard_Real& val) const
 {
   val                           = 0.;
-  Handle(Standard_Type) typunit = STANDARD_TYPE(IGESGraph_DrawingUnits);
+  Handle(TypeInfo) typunit = STANDARD_TYPE(IGESGraph_DrawingUnits);
   if (NbTypedProperties(typunit) != 1)
     return Standard_False;
   DeclareAndCast(IGESGraph_DrawingUnits, units, TypedProperty(typunit));
@@ -124,7 +124,7 @@ Standard_Boolean IGESDraw_Drawing::DrawingUnit(Standard_Real& val) const
 Standard_Boolean IGESDraw_Drawing::DrawingSize(Standard_Real& X, Standard_Real& Y) const
 {
   X = Y                         = 0.;
-  Handle(Standard_Type) typsize = STANDARD_TYPE(IGESGraph_DrawingSize);
+  Handle(TypeInfo) typsize = STANDARD_TYPE(IGESGraph_DrawingSize);
   if (NbTypedProperties(typsize) != 1)
     return Standard_False;
   DeclareAndCast(IGESGraph_DrawingSize, size, TypedProperty(typsize));

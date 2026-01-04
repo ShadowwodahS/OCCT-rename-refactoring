@@ -73,7 +73,7 @@ public:
   Standard_Boolean HasErrors() const { return !myReport->GetAlerts(Message_Fail).IsEmpty(); }
 
   //! Returns true if algorithm has generated error of specified type
-  Standard_Boolean HasError(const Handle(Standard_Type)& theType) const
+  Standard_Boolean HasError(const Handle(TypeInfo)& theType) const
   {
     return myReport->HasAlert(theType, Message_Fail);
   }
@@ -82,7 +82,7 @@ public:
   Standard_Boolean HasWarnings() const { return !myReport->GetAlerts(Message_Warning).IsEmpty(); }
 
   //! Returns true if algorithm has generated warning of specified type
-  Standard_Boolean HasWarning(const Handle(Standard_Type)& theType) const
+  Standard_Boolean HasWarning(const Handle(TypeInfo)& theType) const
   {
     return myReport->HasAlert(theType, Message_Warning);
   }

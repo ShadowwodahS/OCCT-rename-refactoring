@@ -35,7 +35,7 @@ Standard_Boolean IFSelect_SignAncestor::Matches(const Handle(RefObject)& ent,
 {
   if (ent.IsNull())
     return Standard_False;
-  DeclareAndCast(Standard_Type, atype, ent);
+  DeclareAndCast(TypeInfo, atype, ent);
   if (atype.IsNull())
     atype = ent->DynamicType();
   return atype->SubType(text.ToCString());

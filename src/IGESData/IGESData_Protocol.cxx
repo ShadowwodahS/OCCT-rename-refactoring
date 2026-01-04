@@ -37,7 +37,7 @@ Handle(Interface_Protocol) IGESData_Protocol::Resource(const Standard_Integer /*
 
 //  TypeNumber : Ici, on reconnait UndefinedEntity (faut bien quelqu un)
 
-Standard_Integer IGESData_Protocol::TypeNumber(const Handle(Standard_Type)& atype) const
+Standard_Integer IGESData_Protocol::TypeNumber(const Handle(TypeInfo)& atype) const
 {
   if (atype->SubType(STANDARD_TYPE(IGESData_UndefinedEntity)))
     return 1;

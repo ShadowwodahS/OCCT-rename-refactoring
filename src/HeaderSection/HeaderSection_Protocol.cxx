@@ -24,7 +24,7 @@ static Standard_CString schemaName = "header_section";
 
 HeaderSection_Protocol::HeaderSection_Protocol() {}
 
-Standard_Integer HeaderSection_Protocol::TypeNumber(const Handle(Standard_Type)& atype) const
+Standard_Integer HeaderSection_Protocol::TypeNumber(const Handle(TypeInfo)& atype) const
 {
   if (atype == STANDARD_TYPE(HeaderSection_FileName))
     return 1;

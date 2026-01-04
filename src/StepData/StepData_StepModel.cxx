@@ -68,13 +68,13 @@ Interface_EntityIterator StepData_StepModel::Header() const
   return iter;
 }
 
-Standard_Boolean StepData_StepModel::HasHeaderEntity(const Handle(Standard_Type)& atype) const
+Standard_Boolean StepData_StepModel::HasHeaderEntity(const Handle(TypeInfo)& atype) const
 {
   return (theheader.NbTypedEntities(atype) == 1);
 }
 
 Handle(RefObject) StepData_StepModel::HeaderEntity(
-  const Handle(Standard_Type)& atype) const
+  const Handle(TypeInfo)& atype) const
 {
   return theheader.TypedEntity(atype);
 }

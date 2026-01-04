@@ -92,7 +92,7 @@ void BOPTest::ReportAlerts(const Handle(Message_Report)& theReport)
     for (Message_ListOfAlert::Iterator aIt(aList); aIt.More(); aIt.Next())
     {
       // check that this type of warnings has not yet been processed
-      const Handle(Standard_Type)& aType = aIt.Value()->DynamicType();
+      const Handle(TypeInfo)& aType = aIt.Value()->DynamicType();
       if (!aPassedTypes.Add(aType))
         continue;
 

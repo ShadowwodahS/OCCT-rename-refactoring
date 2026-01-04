@@ -52,17 +52,17 @@ public:
 
   //! Selects entities with are Kind of a given type,  keep only
   //! them (is keep is True) or reject only them (if keep is False)
-  Standard_EXPORT void SelectType(const Handle(Standard_Type)& atype, const Standard_Boolean keep);
+  Standard_EXPORT void SelectType(const Handle(TypeInfo)& atype, const Standard_Boolean keep);
 
   //! Returns count of entities which will be iterated on
   //! Calls Start if not yet done
   Standard_EXPORT Standard_Integer NbEntities() const;
 
   //! Returns count of entities of a given type (kind of)
-  Standard_EXPORT Standard_Integer NbTyped(const Handle(Standard_Type)& type) const;
+  Standard_EXPORT Standard_Integer NbTyped(const Handle(TypeInfo)& type) const;
 
   //! Returns the list of entities of a given type (kind of)
-  Standard_EXPORT Interface_EntityIterator Typed(const Handle(Standard_Type)& type) const;
+  Standard_EXPORT Interface_EntityIterator Typed(const Handle(TypeInfo)& type) const;
 
   //! Allows re-iteration (useless for the first iteration)
   Standard_EXPORT virtual void Start() const;

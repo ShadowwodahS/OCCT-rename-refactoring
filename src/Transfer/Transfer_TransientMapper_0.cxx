@@ -52,7 +52,7 @@ Standard_Boolean Transfer_TransientMapper::Equates(const Handle(Transfer_Finder)
 
 //=================================================================================================
 
-Handle(Standard_Type) Transfer_TransientMapper::ValueType() const
+Handle(TypeInfo) Transfer_TransientMapper::ValueType() const
 {
   return Transfer_DataInfo::Type(theval);
 }

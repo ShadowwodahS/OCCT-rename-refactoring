@@ -523,7 +523,7 @@ Standard_Boolean Express_Select::generateSelectMember(
 
     // includes
     anOS << "#include <Standard.hxx>\n"
-            "#include <Standard_Type.hxx>\n"
+            "#include <TypeInfo.hxx>\n"
             "#include <Standard_Boolean.hxx>\n"
             "#include <Standard_CString.hxx>\n"
             "#include <Standard_Integer.hxx>\n"

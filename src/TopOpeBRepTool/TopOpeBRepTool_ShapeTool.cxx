@@ -82,7 +82,7 @@ gp_Pnt TopOpeBRepTool_ShapeTool::Pnt(const TopoDS_Shape& S)
 
 Handle(Geom_Curve) TopOpeBRepTool_ShapeTool::BASISCURVE(const Handle(Geom_Curve)& C)
 {
-  Handle(Standard_Type) T = C->DynamicType();
+  Handle(TypeInfo) T = C->DynamicType();
   if (T == STANDARD_TYPE(Geom_OffsetCurve))
     return BASISCURVE(Handle(Geom_OffsetCurve)::DownCast(C)->BasisCurve());
   else if (T == STANDARD_TYPE(Geom_TrimmedCurve))
@@ -109,7 +109,7 @@ Handle(Geom_Curve) TopOpeBRepTool_ShapeTool::BASISCURVE(const TopoDS_Edge& E)
 
 Handle(Geom_Surface) TopOpeBRepTool_ShapeTool::BASISSURFACE(const Handle(Geom_Surface)& S)
 {
-  Handle(Standard_Type) T = S->DynamicType();
+  Handle(TypeInfo) T = S->DynamicType();
   if (T == STANDARD_TYPE(Geom_OffsetSurface))
     return BASISSURFACE(Handle(Geom_OffsetSurface)::DownCast(S)->BasisSurface());
   else if (T == STANDARD_TYPE(Geom_RectangularTrimmedSurface))
@@ -136,7 +136,7 @@ void TopOpeBRepTool_ShapeTool::UVBOUNDS(const Handle(Geom_Surface)& S,
                                         Standard_Real&              Vmax)
 {
   const Handle(Geom_Surface) BS = BASISSURFACE(S);
-  Handle(Standard_Type)      T  = BS->DynamicType();
+  Handle(TypeInfo)      T  = BS->DynamicType();
 
   if (T == STANDARD_TYPE(Geom_SurfaceOfRevolution))
   {
@@ -322,7 +322,7 @@ Standard_Real TopOpeBRepTool_ShapeTool::PeriodizeParameter(const Standard_Real p
   if (PC.IsNull())
     throw Standard_ProgramError("ShapeTool::PeriodizeParameter : no 2d curve");
 
-  Handle(Standard_Type) TheType = PC->DynamicType();
+  Handle(TypeInfo) TheType = PC->DynamicType();
   if (TheType == STANDARD_TYPE(Geom2d_Line))
   {
 

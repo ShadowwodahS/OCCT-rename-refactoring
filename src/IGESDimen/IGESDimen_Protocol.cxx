@@ -62,7 +62,7 @@ Handle(Interface_Protocol) IGESDimen_Protocol::Resource(const Standard_Integer n
   return res;
 }
 
-Standard_Integer IGESDimen_Protocol::TypeNumber(const Handle(Standard_Type)& atype) const
+Standard_Integer IGESDimen_Protocol::TypeNumber(const Handle(TypeInfo)& atype) const
 {
   if (atype == STANDARD_TYPE(IGESDimen_AngularDimension))
     return 1;

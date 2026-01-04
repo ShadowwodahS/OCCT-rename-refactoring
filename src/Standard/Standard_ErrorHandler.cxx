@@ -176,7 +176,7 @@ void Standard_ErrorHandler::Abort(const Handle(Standard_Failure)& theError)
 //====          returns True and clean 'Error', else returns False.
 //============================================================================
 
-Standard_Boolean Standard_ErrorHandler::Catches(const Handle(Standard_Type)& AType)
+Standard_Boolean Standard_ErrorHandler::Catches(const Handle(TypeInfo)& AType)
 {
   Standard_ErrorHandler* anActive = FindHandler(Standard_HandlerJumped, Standard_False);
   if (anActive == 0)

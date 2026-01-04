@@ -122,7 +122,7 @@ public:
   }
 
 protected:
-  NCollection_DataMap<Handle(Standard_Type), Quantity_Color> myMapEntityColors;
+  NCollection_DataMap<Handle(TypeInfo), Quantity_Color> myMapEntityColors;
 };
 
 //! Help class for filling pixel with normalized depth of ray.

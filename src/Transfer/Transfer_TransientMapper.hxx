@@ -48,7 +48,7 @@ public:
 
   //! Returns the Type of the Value. By default, returns the
   //! DynamicType of <me>, but can be redefined
-  Standard_EXPORT virtual Handle(Standard_Type) ValueType() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(TypeInfo) ValueType() const Standard_OVERRIDE;
 
   //! Returns the name of the Type of the Value. Default is name
   //! of ValueType, unless it is for a non-handled object

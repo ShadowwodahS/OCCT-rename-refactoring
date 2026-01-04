@@ -52,7 +52,7 @@ public:
 
   //! Returns the Type permitted for the Result, i.e. the Type
   //! of the Parameter Class <Shape from TopoDS> (statically defined)
-  Standard_EXPORT Handle(Standard_Type) ResultType() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(TypeInfo) ResultType() const Standard_OVERRIDE;
 
   //! Returns the Type Name computed for the Result (dynamic)
   Standard_EXPORT Standard_CString ResultTypeName() const Standard_OVERRIDE;

@@ -46,7 +46,7 @@ Handle(Interface_Protocol) IGESDraw_Protocol::Resource(const Standard_Integer /*
   return res;
 }
 
-Standard_Integer IGESDraw_Protocol::TypeNumber(const Handle(Standard_Type)& atype) const
+Standard_Integer IGESDraw_Protocol::TypeNumber(const Handle(TypeInfo)& atype) const
 {
   if (atype == STANDARD_TYPE(IGESDraw_CircArraySubfigure))
     return 1;

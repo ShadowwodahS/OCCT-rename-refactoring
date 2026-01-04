@@ -71,7 +71,7 @@ public:                                                                         
     Handle(Storage_CallBack) cback;                                                                \
     if (!p.IsNull())                                                                               \
     {                                                                                              \
-      const Handle(Standard_Type)&   t = p->DynamicType();                                         \
+      const Handle(TypeInfo)&   t = p->DynamicType();                                         \
       static TCollection_AsciiString theTypeName;                                                  \
       theTypeName = t->Name();                                                                     \
       if (HasTypeBinding(theTypeName))                                                             \

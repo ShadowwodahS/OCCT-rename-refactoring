@@ -51,7 +51,7 @@ Handle(Geom_Surface) BRepOffset::Surface(const Handle(Geom_Surface)& Surface,
   theStatus = BRepOffset_Good;
   Handle(Geom_Surface) Result;
 
-  Handle(Standard_Type) TheType = Surface->DynamicType();
+  Handle(TypeInfo) TheType = Surface->DynamicType();
 
   if (TheType == STANDARD_TYPE(Geom_Plane))
   {
@@ -195,7 +195,7 @@ Handle(Geom_Surface) BRepOffset::CollapseSingularities(const Handle(Geom_Surface
                                                        Standard_Real               thePrecision)
 {
   // check surface type to see if it can be processed
-  Handle(Standard_Type) aType = theSurface->DynamicType();
+  Handle(TypeInfo) aType = theSurface->DynamicType();
   if (aType != STANDARD_TYPE(Geom_BSplineSurface))
   {
     // for the moment, only bspline surfaces are treated;

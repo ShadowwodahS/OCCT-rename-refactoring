@@ -23,7 +23,7 @@
 //=================================================================================================
 
 static Standard_Boolean printerType(const TCollection_AsciiString& theTypeName,
-                                    Handle(Standard_Type)&         theType)
+                                    Handle(TypeInfo)&         theType)
 {
   if (theTypeName == "ostream")
   {
@@ -51,7 +51,7 @@ static Standard_Boolean printerType(const TCollection_AsciiString& theTypeName,
 
 //=================================================================================================
 
-static Handle(Message_Printer) createPrinter(const Handle(Standard_Type)& theType,
+static Handle(Message_Printer) createPrinter(const Handle(TypeInfo)& theType,
                                              Draw_Interpretor&            theDI)
 {
   const TCollection_AsciiString aTypeName(theType->Name());
@@ -156,7 +156,7 @@ static Standard_Integer SetMessagePrinter(Draw_Interpretor& theDI,
        anIterator.More();
        anIterator.Next())
   {
-    Handle(Standard_Type) aPrinterType;
+    Handle(TypeInfo) aPrinterType;
     if (!printerType(anIterator.Value(), aPrinterType))
     {
       theDI << "Syntax error: unknown printer type '" << anIterator.Value() << "'";

@@ -37,7 +37,7 @@ class IFSelect_SelectAnyType : public IFSelect_SelectExtract
 
 public:
   //! Returns the Type which has to be matched for select
-  Standard_EXPORT virtual Handle(Standard_Type) TypeForMatch() const = 0;
+  Standard_EXPORT virtual Handle(TypeInfo) TypeForMatch() const = 0;
 
   //! Returns True for an Entity (model->Value(num)) which is kind
   //! of the chosen type, given by the method TypeForMatch.

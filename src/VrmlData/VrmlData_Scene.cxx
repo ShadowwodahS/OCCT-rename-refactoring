@@ -372,7 +372,7 @@ VrmlData_Scene& VrmlData_Scene::operator<<(Standard_IStream& theInput)
 //=================================================================================================
 
 Handle(VrmlData_Node) VrmlData_Scene::FindNode(const char* theName,
-                                               const Handle(Standard_Type)& /*theType*/) const
+                                               const Handle(TypeInfo)& /*theType*/) const
 {
   Handle(VrmlData_Node) aResult;
 #ifdef USE_LIST_API
@@ -458,7 +458,7 @@ VrmlData_ErrorStatus VrmlData_Scene::ReadWord(VrmlData_InBuffer&       theBuffer
 
 VrmlData_ErrorStatus VrmlData_Scene::createNode(VrmlData_InBuffer&           theBuffer,
                                                 Handle(VrmlData_Node)&       theNode,
-                                                const Handle(Standard_Type)& theType)
+                                                const Handle(TypeInfo)& theType)
 {
   VrmlData_ErrorStatus    aStatus;
   Handle(VrmlData_Node)   aNode;

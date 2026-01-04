@@ -163,7 +163,7 @@ public:
   //! Removes printers of specified type (including derived classes)
   //! from the messenger.
   //! Returns number of removed printers.
-  Standard_EXPORT Standard_Integer RemovePrinters(const Handle(Standard_Type)& theType);
+  Standard_EXPORT Standard_Integer RemovePrinters(const Handle(TypeInfo)& theType);
 
   //! Returns current sequence of printers
   const Message_SequenceOfPrinters& Printers() const { return myPrinters; }

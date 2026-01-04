@@ -36,7 +36,7 @@ BinMDF_ADriverTable::BinMDF_ADriverTable() {}
 
 void BinMDF_ADriverTable::AddDriver(const Handle(BinMDF_ADriver)& theDriver)
 {
-  const Handle(Standard_Type)& aType = theDriver->SourceType();
+  const Handle(TypeInfo)& aType = theDriver->SourceType();
   myMap.Bind(aType, theDriver);
 }
 
@@ -44,10 +44,10 @@ void BinMDF_ADriverTable::AddDriver(const Handle(BinMDF_ADriver)& theDriver)
 
 void BinMDF_ADriverTable::AddDerivedDriver(const Handle(TDF_Attribute)& theInstance)
 {
-  const Handle(Standard_Type)& anInstanceType = theInstance->DynamicType();
+  const Handle(TypeInfo)& anInstanceType = theInstance->DynamicType();
   if (!myMap.IsBound(anInstanceType)) // no direct driver, use a derived one
   {
-    for (Handle(Standard_Type) aType = anInstanceType->Parent(); !aType.IsNull();
+    for (Handle(TypeInfo) aType = anInstanceType->Parent(); !aType.IsNull();
          aType                       = aType->Parent())
     {
       if (myMap.IsBound(aType))
@@ -62,14 +62,14 @@ void BinMDF_ADriverTable::AddDerivedDriver(const Handle(TDF_Attribute)& theInsta
 
 //=================================================================================================
 
-const Handle(Standard_Type)& BinMDF_ADriverTable::AddDerivedDriver(Standard_CString theDerivedType)
+const Handle(TypeInfo)& BinMDF_ADriverTable::AddDerivedDriver(Standard_CString theDerivedType)
 {
   if (Handle(TDF_Attribute) anInstance = TDF_DerivedAttribute::Attribute(theDerivedType))
   {
     AddDerivedDriver(anInstance);
     return anInstance->DynamicType();
   }
-  static const Handle(Standard_Type) aNullType;
+  static const Handle(TypeInfo) aNullType;
   return aNullType;
 }
 
@@ -86,7 +86,7 @@ void BinMDF_ADriverTable::AssignIds(const TColStd_IndexedMapOfTransient& theType
   Standard_Integer i;
   for (i = 1; i <= theTypes.Extent(); i++)
   {
-    Handle(Standard_Type) aType(Handle(Standard_Type)::DownCast(theTypes(i)));
+    Handle(TypeInfo) aType(Handle(TypeInfo)::DownCast(theTypes(i)));
     if (myMap.IsBound(aType))
     {
       myMapId.Bind(aType, i);
@@ -122,7 +122,7 @@ void BinMDF_ADriverTable::AssignIds(const TColStd_SequenceOfAsciiString& theType
   BinMDF_DataMapIteratorOfTypeADriverMap it(myMap);
   for (; it.More(); it.Next())
   {
-    const Handle(Standard_Type)&   aType     = it.Key();
+    const Handle(TypeInfo)&   aType     = it.Key();
     const Handle(BinMDF_ADriver)&  aDriver   = it.Value();
     const TCollection_AsciiString& aTypeName = aDriver->TypeName();
     if (aStringIdMap.IsBound(aTypeName))
@@ -137,7 +137,7 @@ void BinMDF_ADriverTable::AssignIds(const TColStd_SequenceOfAsciiString& theType
   {
     if (!myMapId.IsBound2(aStrId.Value()))
     {
-      if (Handle(Standard_Type) anAdded = AddDerivedDriver(aStrId.Key().ToCString()))
+      if (Handle(TypeInfo) anAdded = AddDerivedDriver(aStrId.Key().ToCString()))
       {
         myMapId.Bind(anAdded, aStrId.Value());
       }

@@ -247,13 +247,13 @@ public:
   //! found with the good type, it is loaded in <val> and can be
   //! immediately used, well initialised
   Standard_EXPORT Standard_Boolean FindTypedTransient(const Handle(Transfer_Finder)& start,
-                                                      const Handle(Standard_Type)&   atype,
+                                                      const Handle(TypeInfo)&   atype,
                                                       Handle(RefObject)&    val) const;
 
   //! Safe variant for arbitrary type of argument
   template <class T>
   Standard_Boolean FindTypedTransient(const Handle(Transfer_Finder)& start,
-                                      const Handle(Standard_Type)&   atype,
+                                      const Handle(TypeInfo)&   atype,
                                       Handle(T)&                     val) const
   {
     Handle(RefObject) aVal = val;
@@ -268,13 +268,13 @@ public:
   //!
   //! Apart from this, works as FindTypedTransient
   Standard_EXPORT Standard_Boolean GetTypedTransient(const Handle(Transfer_Binder)& binder,
-                                                     const Handle(Standard_Type)&   atype,
+                                                     const Handle(TypeInfo)&   atype,
                                                      Handle(RefObject)&    val) const;
 
   //! Safe variant for arbitrary type of argument
   template <class T>
   Standard_Boolean GetTypedTransient(const Handle(Transfer_Binder)& start,
-                                     const Handle(Standard_Type)&   atype,
+                                     const Handle(TypeInfo)&   atype,
                                      Handle(T)&                     val) const
   {
     Handle(RefObject) aVal = val;

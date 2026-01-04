@@ -74,7 +74,7 @@ Standard_Boolean Message_Messenger::RemovePrinter(const Handle(Message_Printer)&
 
 //=================================================================================================
 
-Standard_Integer Message_Messenger::RemovePrinters(const Handle(Standard_Type)& theType)
+Standard_Integer Message_Messenger::RemovePrinters(const Handle(TypeInfo)& theType)
 {
   // remove printers from the list
   Standard_Integer nb = 0;

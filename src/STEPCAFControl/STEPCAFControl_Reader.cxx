@@ -1518,9 +1518,9 @@ Standard_Boolean STEPCAFControl_Reader::ReadNames(
 
   // iterate on model to find all SDRs and CDSRs
   Standard_Integer      nb     = Model->NbEntities();
-  Handle(Standard_Type) tNAUO  = STANDARD_TYPE(StepRepr_NextAssemblyUsageOccurrence);
-  Handle(Standard_Type) tPD    = STANDARD_TYPE(StepBasic_ProductDefinition);
-  Handle(Standard_Type) tPDWAD = STANDARD_TYPE(StepBasic_ProductDefinitionWithAssociatedDocuments);
+  Handle(TypeInfo) tNAUO  = STANDARD_TYPE(StepRepr_NextAssemblyUsageOccurrence);
+  Handle(TypeInfo) tPD    = STANDARD_TYPE(StepBasic_ProductDefinition);
+  Handle(TypeInfo) tPDWAD = STANDARD_TYPE(StepBasic_ProductDefinitionWithAssociatedDocuments);
   Handle(TCollection_HAsciiString) name;
   TDF_Label                        L;
   for (Standard_Integer i = 1; i <= nb; i++)
@@ -1803,7 +1803,7 @@ Standard_Boolean STEPCAFControl_Reader::ReadLayers(const Handle(XSControl_WorkSe
   if (LTool.IsNull())
     return Standard_False;
 
-  Handle(Standard_Type)            tSVPLA = STANDARD_TYPE(StepVisual_PresentationLayerAssignment);
+  Handle(TypeInfo)            tSVPLA = STANDARD_TYPE(StepVisual_PresentationLayerAssignment);
   Standard_Integer                 nb     = Model->NbEntities();
   Handle(TCollection_HAsciiString) name;
 

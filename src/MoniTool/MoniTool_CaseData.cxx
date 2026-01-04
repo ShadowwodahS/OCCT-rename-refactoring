@@ -276,7 +276,7 @@ Handle(RefObject) MoniTool_CaseData::Data(const Standard_Integer nd) const
 }
 
 Standard_Boolean MoniTool_CaseData::GetData(const Standard_Integer       nd,
-                                            const Handle(Standard_Type)& type,
+                                            const Handle(TypeInfo)& type,
                                             Handle(RefObject)&  val) const
 {
   if (type.IsNull())

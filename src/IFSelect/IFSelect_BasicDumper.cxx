@@ -53,7 +53,7 @@ IFSelect_BasicDumper::IFSelect_BasicDumper() {}
 Standard_Boolean IFSelect_BasicDumper::WriteOwn(IFSelect_SessionFile&             file,
                                                 const Handle(RefObject)& item) const
 {
-  Handle(Standard_Type) type = item->DynamicType();
+  Handle(TypeInfo) type = item->DynamicType();
   if (type == STANDARD_TYPE(IFSelect_SelectModelRoots))
     return Standard_True;
   if (type == STANDARD_TYPE(IFSelect_SelectModelEntities))

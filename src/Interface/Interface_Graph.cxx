@@ -486,7 +486,7 @@ Interface_EntityIterator Interface_Graph::Sharings(const Handle(RefObject)& ent)
 }
 
 static void AddTypedSharings(const Handle(RefObject)& ent,
-                             const Handle(Standard_Type)&      type,
+                             const Handle(TypeInfo)&      type,
                              Interface_EntityIterator&         iter,
                              const Standard_Integer            n,
                              const Interface_Graph&            G)
@@ -511,7 +511,7 @@ static void AddTypedSharings(const Handle(RefObject)& ent,
 }
 
 Interface_EntityIterator Interface_Graph::TypedSharings(const Handle(RefObject)& ent,
-                                                        const Handle(Standard_Type)& type) const
+                                                        const Handle(TypeInfo)& type) const
 {
   Interface_EntityIterator iter;
   Standard_Integer         n = Size();

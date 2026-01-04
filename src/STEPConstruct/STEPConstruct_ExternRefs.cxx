@@ -162,8 +162,8 @@ Standard_Boolean STEPConstruct_ExternRefs::LoadExternRefs()
   // iterate on entities in the model and find AEIAs
   // or PDWADs (for AP203)
   Handle(Interface_InterfaceModel) model = Model();
-  Handle(Standard_Type)            tADR  = STANDARD_TYPE(StepAP214_AppliedDocumentReference);
-  Handle(Standard_Type) tPDWAD = STANDARD_TYPE(StepBasic_ProductDefinitionWithAssociatedDocuments);
+  Handle(TypeInfo)            tADR  = STANDARD_TYPE(StepAP214_AppliedDocumentReference);
+  Handle(TypeInfo) tPDWAD = STANDARD_TYPE(StepBasic_ProductDefinitionWithAssociatedDocuments);
   Standard_Integer      nb     = model->NbEntities();
 
   // PTV 28.01.2003 CAX-IF TRJ11, file ext_ref_master.stp

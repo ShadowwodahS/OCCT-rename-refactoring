@@ -183,7 +183,7 @@ void Interface_EntityList::FillIterator(Interface_EntityIterator& iter) const
     iter.GetOneItem(theval);
 }
 
-Standard_Integer Interface_EntityList::NbTypedEntities(const Handle(Standard_Type)& atype) const
+Standard_Integer Interface_EntityList::NbTypedEntities(const Handle(TypeInfo)& atype) const
 {
   Standard_Integer res = 0;
   if (theval.IsNull())
@@ -211,7 +211,7 @@ Standard_Integer Interface_EntityList::NbTypedEntities(const Handle(Standard_Typ
   return res;
 }
 
-Handle(RefObject) Interface_EntityList::TypedEntity(const Handle(Standard_Type)& atype,
+Handle(RefObject) Interface_EntityList::TypedEntity(const Handle(TypeInfo)& atype,
                                                              const Standard_Integer       num) const
 {
   Standard_Integer           res = 0;

@@ -729,7 +729,7 @@ static Standard_Integer trianglesinfo(Draw_Interpretor& theDI,
     {
     }
 
-    NCollection_IndexedDataMap<Handle(Standard_Type), Standard_Integer> TypeMap;
+    NCollection_IndexedDataMap<Handle(TypeInfo), Standard_Integer> TypeMap;
     Standard_Integer                                                    NbFaces;
     Standard_Integer                                                    NbEmptyFaces;
     Standard_Integer                                                    NbTriangles;
@@ -956,7 +956,7 @@ static Standard_Integer trianglesinfo(Draw_Interpretor& theDI,
       // Add types
       aLODsStatStr += TCollection_AsciiString("        Types: ");
       Standard_Integer aCounter = 0;
-      for (NCollection_IndexedDataMap<Handle(Standard_Type), Standard_Integer>::Iterator aTypeIter(
+      for (NCollection_IndexedDataMap<Handle(TypeInfo), Standard_Integer>::Iterator aTypeIter(
              aLodStat.TypeMap);
            aTypeIter.More();
            aTypeIter.Next(), aCounter++)

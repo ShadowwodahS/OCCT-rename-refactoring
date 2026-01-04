@@ -1171,7 +1171,7 @@ void GeomInt_IntSS::BuildPCurves(const Standard_Real         theFirst,
       theTol += Precision::Confusion();
       theCurve2d = GeomProjLib::Curve2d(theCurve, theFirst, theLast, theSurface, theTol);
     }
-    const Handle(Standard_Type)& aType = theCurve2d->DynamicType();
+    const Handle(TypeInfo)& aType = theCurve2d->DynamicType();
     if (aType == STANDARD_TYPE(Geom2d_BSplineCurve))
     {
       // Check first, last knots to avoid problems with trimming

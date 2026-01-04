@@ -46,7 +46,7 @@ Standard_Boolean Message_CompositeAlerts::AddAlert(Message_Gravity              
   if (theAlert->SupportsMerge() && !aList.IsEmpty())
   {
     // merge is performed only for alerts of exactly same type
-    const Handle(Standard_Type)& aType = theAlert->DynamicType();
+    const Handle(TypeInfo)& aType = theAlert->DynamicType();
     for (Message_ListOfAlert::Iterator anIt(aList); anIt.More(); anIt.Next())
     {
       // if merged successfully, just return
@@ -97,7 +97,7 @@ Standard_Boolean Message_CompositeAlerts::HasAlert(const Handle(Message_Alert)& 
 
 //=================================================================================================
 
-Standard_Boolean Message_CompositeAlerts::HasAlert(const Handle(Standard_Type)& theType,
+Standard_Boolean Message_CompositeAlerts::HasAlert(const Handle(TypeInfo)& theType,
                                                    Message_Gravity              theGravity)
 {
   Standard_ASSERT_RETURN(theGravity >= 0
@@ -137,7 +137,7 @@ void Message_CompositeAlerts::Clear(Message_Gravity theGravity)
 
 //=================================================================================================
 
-void Message_CompositeAlerts::Clear(const Handle(Standard_Type)& theType)
+void Message_CompositeAlerts::Clear(const Handle(TypeInfo)& theType)
 {
   for (unsigned int i = 0; i < sizeof(myAlerts) / sizeof(myAlerts[0]); ++i)
   {

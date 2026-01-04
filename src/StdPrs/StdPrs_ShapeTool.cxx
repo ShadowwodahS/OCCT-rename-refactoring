@@ -94,7 +94,7 @@ Standard_Boolean StdPrs_ShapeTool::IsPlanarFace(const TopoDS_Face& theFace)
     return Standard_False;
   }
 
-  Handle(Standard_Type) TheType = S->DynamicType();
+  Handle(TypeInfo) TheType = S->DynamicType();
 
   if (TheType == STANDARD_TYPE(Geom_RectangularTrimmedSurface))
   {

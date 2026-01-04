@@ -86,12 +86,12 @@ public:
   Standard_EXPORT void FillIterator(Interface_EntityIterator& iter) const;
 
   //! Returns count of Entities of a given Type (0 : none)
-  Standard_EXPORT Standard_Integer NbTypedEntities(const Handle(Standard_Type)& atype) const;
+  Standard_EXPORT Standard_Integer NbTypedEntities(const Handle(TypeInfo)& atype) const;
 
   //! Returns the Entity which is of a given type.
   //! If num = 0 (D), there must be ONE AND ONLY ONE
   //! If num > 0, returns the num-th entity of this type
-  Standard_EXPORT Handle(RefObject) TypedEntity(const Handle(Standard_Type)& atype,
+  Standard_EXPORT Handle(RefObject) TypedEntity(const Handle(TypeInfo)& atype,
                                                          const Standard_Integer num = 0) const;
 
 protected:

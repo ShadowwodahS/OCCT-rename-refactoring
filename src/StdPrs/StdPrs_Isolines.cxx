@@ -204,7 +204,7 @@ void StdPrs_Isolines::AddOnTriangulation(const TopoDS_Face&          theFace,
       aSurface->Transformed((aLocSurface / aLocTriangulation).Transformation()));
   }
 
-  const Handle(Standard_Type)& TheType = aSurface->DynamicType();
+  const Handle(TypeInfo)& TheType = aSurface->DynamicType();
   if (TheType == STANDARD_TYPE(Geom_OffsetSurface))
   {
     Standard_Real u1, u2, v1, v2;

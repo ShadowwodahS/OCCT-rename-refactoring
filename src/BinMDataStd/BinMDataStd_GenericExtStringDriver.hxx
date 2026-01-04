@@ -36,7 +36,7 @@ public:
 
   Standard_EXPORT Handle(TDF_Attribute) NewEmpty() const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual const Handle(Standard_Type)& SourceType() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const Handle(TypeInfo)& SourceType() const Standard_OVERRIDE;
 
   //! persistent -> transient (retrieve)
   Standard_EXPORT Standard_Boolean

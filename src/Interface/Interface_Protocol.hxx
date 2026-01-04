@@ -78,12 +78,12 @@ public:
   //! processed, according its rank in its definition list (see
   //! NbTypes).
   //! By default, returns DynamicType
-  Standard_EXPORT Handle(Standard_Type) Type(const Handle(RefObject)& obj,
+  Standard_EXPORT Handle(TypeInfo) Type(const Handle(RefObject)& obj,
                                              const Standard_Integer            nt = 1) const;
 
   //! Returns a unique positive CaseNumber for each Recognized Type,
   //! Returns Zero for "<type> not recognized"
-  Standard_EXPORT virtual Standard_Integer TypeNumber(const Handle(Standard_Type)& atype) const = 0;
+  Standard_EXPORT virtual Standard_Integer TypeNumber(const Handle(TypeInfo)& atype) const = 0;
 
   //! Evaluates a Global Check for a model (with its Graph)
   //! Returns True when done, False if data in model do not apply

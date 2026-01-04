@@ -208,7 +208,7 @@ void Message_Algorithm::SendStatusMessages(const Message_ExecStatus& theStatus,
 
     // find message, prefixed by class type name, iterating by base classes if necessary
     TCollection_AsciiString aMsgName;
-    for (Handle(Standard_Type) aType = DynamicType(); !aType.IsNull(); aType = aType->Parent())
+    for (Handle(TypeInfo) aType = DynamicType(); !aType.IsNull(); aType = aType->Parent())
     {
       aMsgName = aType->Name();
       aMsgName += aSuffix;

@@ -411,7 +411,7 @@ void TopOpeBRepBuild_Builder::GFABUMakeFaces(const TopoDS_Shape&             FF,
   //       du 29/07/1998
   //  GeomAdaptor_Surface GAS1(Surf);
   //  GeomAbs_SurfaceType tt1 = GAS1.GetType();
-  //  Handle(Standard_Type) T = Surf->DynamicType();
+  //  Handle(TypeInfo) T = Surf->DynamicType();
   //  Standard_Boolean istrim = ( T == STANDARD_TYPE(Geom_RectangularTrimmedSurface) );
   //  if ( istrim && tt1 == GeomAbs_Plane) Surf =
   //  Handle(Geom_RectangularTrimmedSurface)::DownCast(Surf)->BasisSurface();
@@ -693,7 +693,7 @@ void TopOpeBRepBuild_Builder::GFABUMakeFaces(const TopoDS_Shape&             FF,
     // Le changement de surface de trim a basis causait la perte des regularites de l'edge
     // j'ai change par un recadrage du trim en attendant mieux. DPF le 29/07/1998.
     // Le danger est de modifier une donnee d'entree.
-    Handle(Standard_Type) T      = Surf->DynamicType();
+    Handle(TypeInfo) T      = Surf->DynamicType();
     Standard_Boolean      istrim = (T == STANDARD_TYPE(Geom_RectangularTrimmedSurface));
     if (istrim)
     {

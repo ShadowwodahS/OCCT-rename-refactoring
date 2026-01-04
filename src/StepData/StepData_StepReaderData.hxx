@@ -304,7 +304,7 @@ public:
                                               const Standard_Integer       nump,
                                               const Standard_CString       mess,
                                               Handle(Interface_Check)&     ach,
-                                              const Handle(Standard_Type)& atype,
+                                              const Handle(TypeInfo)& atype,
                                               Handle(RefObject)&  ent) const;
 
   //! Safe variant for arbitrary type of argument
@@ -313,7 +313,7 @@ public:
                               const Standard_Integer       nump,
                               const Standard_CString       mess,
                               Handle(Interface_Check)&     ach,
-                              const Handle(Standard_Type)& atype,
+                              const Handle(TypeInfo)& atype,
                               Handle(T)&                   ent) const
   {
     Handle(RefObject) anEnt = ent;

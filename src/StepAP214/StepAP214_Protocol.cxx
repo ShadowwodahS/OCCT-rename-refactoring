@@ -1571,7 +1571,7 @@ StepAP214_Protocol::StepAP214_Protocol()
 
 //=================================================================================================
 
-Standard_Integer StepAP214_Protocol::TypeNumber(const Handle(Standard_Type)& atype) const
+Standard_Integer StepAP214_Protocol::TypeNumber(const Handle(TypeInfo)& atype) const
 {
   if (types.IsBound(atype))
     return types.Find(atype);

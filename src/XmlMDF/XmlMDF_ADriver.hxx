@@ -46,7 +46,7 @@ public:
 
   //! Returns the type of source object,
   //! inheriting from Attribute from TDF.
-  Standard_EXPORT virtual Handle(Standard_Type) SourceType() const;
+  Standard_EXPORT virtual Handle(TypeInfo) SourceType() const;
 
   //! Returns the full XML tag name (including NS prefix)
   Standard_EXPORT const TCollection_AsciiString& TypeName() const;

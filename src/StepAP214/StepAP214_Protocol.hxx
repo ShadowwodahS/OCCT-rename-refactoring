@@ -37,7 +37,7 @@ public:
   Standard_EXPORT StepAP214_Protocol();
 
   //! Returns a Case Number for each of the StepAP214 Entities
-  Standard_EXPORT virtual Standard_Integer TypeNumber(const Handle(Standard_Type)& atype) const
+  Standard_EXPORT virtual Standard_Integer TypeNumber(const Handle(TypeInfo)& atype) const
     Standard_OVERRIDE;
 
   Standard_EXPORT virtual Standard_CString SchemaName(

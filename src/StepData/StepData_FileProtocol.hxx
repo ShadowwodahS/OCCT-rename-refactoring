@@ -59,7 +59,7 @@ public:
   //! Returns a Case Number, specific of each recognized Type
   //! Here, NO Type at all is recognized properly : all Types are
   //! recognized by the resources
-  Standard_EXPORT virtual Standard_Integer TypeNumber(const Handle(Standard_Type)& atype) const
+  Standard_EXPORT virtual Standard_Integer TypeNumber(const Handle(TypeInfo)& atype) const
     Standard_OVERRIDE;
 
   //! Calls GlobalCheck for each of its recorded resources

@@ -139,7 +139,7 @@ void BRepMAT2d_LinkTopoBilo::LinkToWire(const TopoDS_Wire&              W,
   TopoDS_Vertex            VF, VL;
   TopoDS_Shape             S;
   Handle(MAT_BasicElt)     BE;
-  Handle(Standard_Type)    Type;
+  Handle(TypeInfo)    Type;
   TopTools_SequenceOfShape TopoSeq;
   MAT_SequenceOfBasicElt   EmptySeq;
 
@@ -208,7 +208,7 @@ void LinkToContour(const BRepMAT2d_Explorer&        Explo,
 {
   Handle(MAT_BasicElt)    BE;
   Handle(Geom2d_Geometry) GeomBE;
-  Handle(Standard_Type)   Type;
+  Handle(TypeInfo)   Type;
   Standard_Boolean        DirectSense = Standard_True;
   Standard_Boolean        LastPoint   = Standard_False;
   Standard_Integer        NbSect, ISect;

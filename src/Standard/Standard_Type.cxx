@@ -19,12 +19,12 @@
 #include <Standard_Assert.hxx>
 #include <Standard_Mutex.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Standard_Type, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(TypeInfo, RefObject)
 
-Standard_Type::Standard_Type(const char*                  theSystemName,
+TypeInfo::TypeInfo(const char*                  theSystemName,
                              const char*                  theName,
                              Standard_Size                theSize,
-                             const Handle(Standard_Type)& theParent)
+                             const Handle(TypeInfo)& theParent)
     : mySystemName(theSystemName),
       myName(theName),
       mySize(theSize),
@@ -32,13 +32,13 @@ Standard_Type::Standard_Type(const char*                  theSystemName,
 {
 }
 
-Standard_Boolean Standard_Type::SubType(const Handle(Standard_Type)& theOther) const
+Standard_Boolean TypeInfo::SubType(const Handle(TypeInfo)& theOther) const
 {
   if (theOther.IsNull())
   {
     return false;
   }
-  const Standard_Type* aTypeIter = this;
+  const TypeInfo* aTypeIter = this;
   while (aTypeIter && theOther->mySize <= aTypeIter->mySize)
   {
     if (theOther.get() == aTypeIter)
@@ -50,13 +50,13 @@ Standard_Boolean Standard_Type::SubType(const Handle(Standard_Type)& theOther) c
   return false;
 }
 
-Standard_Boolean Standard_Type::SubType(const Standard_CString theName) const
+Standard_Boolean TypeInfo::SubType(const Standard_CString theName) const
 {
   if (!theName)
   {
     return false;
   }
-  const Standard_Type* aTypeIter = this;
+  const TypeInfo* aTypeIter = this;
   while (aTypeIter)
   {
     if (IsEqual(theName, aTypeIter->Name()))
@@ -68,7 +68,7 @@ Standard_Boolean Standard_Type::SubType(const Standard_CString theName) const
   return false;
 }
 
-void Standard_Type::Print(Standard_OStream& AStream) const
+void TypeInfo::Print(Standard_OStream& AStream) const
 {
   AStream << std::hex << (Standard_Address)this << " : " << std::dec << myName;
 }
@@ -94,7 +94,7 @@ struct typeNameHasher
   }
 };
 
-using registry_type = NCollection_DataMap<Standard_CString, Standard_Type*, typeNameHasher>;
+using registry_type = NCollection_DataMap<Standard_CString, TypeInfo*, typeNameHasher>;
 
 // Registry is made static in the function to ensure that it gets
 // initialized by the time of first access
@@ -105,22 +105,22 @@ registry_type& GetRegistry()
 }
 
 // To initialize theRegistry map as soon as possible to be destroyed the latest
-Handle(Standard_Type) theType = STANDARD_TYPE(RefObject);
+Handle(TypeInfo) theType = STANDARD_TYPE(RefObject);
 } // namespace
 
-Standard_Type* Standard_Type::Register(const std::type_info&        theInfo,
+TypeInfo* TypeInfo::Register(const std::type_info&        theInfo,
                                        const char*                  theName,
                                        Standard_Size                theSize,
-                                       const Handle(Standard_Type)& theParent)
+                                       const Handle(TypeInfo)& theParent)
 {
   // Access to registry is protected by mutex; it should not happen often because
-  // instances are cached by Standard_Type::Instance() (one per binary module)
+  // instances are cached by TypeInfo::Instance() (one per binary module)
   static Standard_Mutex  aMutex;
   Standard_Mutex::Sentry aSentry(aMutex);
 
   // return existing descriptor if already in the registry
   registry_type& aRegistry = GetRegistry();
-  Standard_Type* aType;
+  TypeInfo* aType;
   if (aRegistry.Find(theInfo.name(), aType))
   {
     return aType;
@@ -130,29 +130,29 @@ Standard_Type* Standard_Type::Register(const std::type_info&        theInfo,
   const Standard_Size anInfoNameLen = strlen(theInfo.name()) + 1;
   const Standard_Size aNameLen      = strlen(theName) + 1;
 
-  // Allocate memory block for Standard_Type and the two strings
+  // Allocate memory block for TypeInfo and the two strings
   char* aMemoryBlock =
-    static_cast<char*>(Standard::AllocateOptimal(sizeof(Standard_Type) + anInfoNameLen + aNameLen));
+    static_cast<char*>(Standard::AllocateOptimal(sizeof(TypeInfo) + anInfoNameLen + aNameLen));
 
   // Pointers to the locations for the deep copies of the strings
-  char* anInfoNameCopy = aMemoryBlock + sizeof(Standard_Type);
+  char* anInfoNameCopy = aMemoryBlock + sizeof(TypeInfo);
   char* aNameCopy      = anInfoNameCopy + anInfoNameLen;
 
   // Deep copy the strings using strncpy
   strncpy(anInfoNameCopy, theInfo.name(), anInfoNameLen);
   strncpy(aNameCopy, theName, aNameLen);
 
-  aType = new (aMemoryBlock) Standard_Type(anInfoNameCopy, aNameCopy, theSize, theParent);
+  aType = new (aMemoryBlock) TypeInfo(anInfoNameCopy, aNameCopy, theSize, theParent);
 
   // Insert the descriptor into the registry
   aRegistry.Bind(anInfoNameCopy, aType);
   return aType;
 }
 
-Standard_Type::~Standard_Type()
+TypeInfo::~TypeInfo()
 {
   // remove descriptor from the registry
   registry_type& aRegistry = GetRegistry();
   Standard_ASSERT(aRegistry.UnBind(mySystemName),
-                  "Standard_Type::~Standard_Type() cannot find itself in registry", );
+                  "TypeInfo::~TypeInfo() cannot find itself in registry", );
 }

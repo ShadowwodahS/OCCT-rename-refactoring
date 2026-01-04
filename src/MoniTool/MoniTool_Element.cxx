@@ -31,7 +31,7 @@ size_t MoniTool_Element::GetHashCode() const
   return thecode;
 }
 
-Handle(Standard_Type) MoniTool_Element::ValueType() const
+Handle(TypeInfo) MoniTool_Element::ValueType() const
 {
   return DynamicType();
 }

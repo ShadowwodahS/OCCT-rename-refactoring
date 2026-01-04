@@ -787,7 +787,7 @@ Handle(Geom_Surface) Geom_OffsetSurface::Surface() const
   constexpr Standard_Real Tol = Precision::Confusion();
   Handle(Geom_Surface)    Result, Base;
   Result.Nullify();
-  Handle(Standard_Type) TheType = basisSurf->DynamicType();
+  Handle(TypeInfo) TheType = basisSurf->DynamicType();
   Standard_Boolean      IsTrimmed;
   Standard_Real         U1 = 0., V1 = 0., U2 = 0., V2 = 0.;
 

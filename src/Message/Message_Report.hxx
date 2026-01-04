@@ -67,10 +67,10 @@ public:
   Standard_EXPORT const Message_ListOfAlert& GetAlerts(Message_Gravity theGravity) const;
 
   //! Returns true if specific type of alert is recorded
-  Standard_EXPORT Standard_Boolean HasAlert(const Handle(Standard_Type)& theType);
+  Standard_EXPORT Standard_Boolean HasAlert(const Handle(TypeInfo)& theType);
 
   //! Returns true if specific type of alert is recorded with specified gravity
-  Standard_EXPORT Standard_Boolean HasAlert(const Handle(Standard_Type)& theType,
+  Standard_EXPORT Standard_Boolean HasAlert(const Handle(TypeInfo)& theType,
                                             Message_Gravity              theGravity);
 
   //! Returns true if a report printer for the current report is registered in the messenger
@@ -105,7 +105,7 @@ public:
   Standard_EXPORT void Clear(Message_Gravity theGravity);
 
   //! Clears collected alerts with specified type
-  Standard_EXPORT void Clear(const Handle(Standard_Type)& theType);
+  Standard_EXPORT void Clear(const Handle(TypeInfo)& theType);
 
   //! Returns computed metrics when alerts are performed
   const NCollection_IndexedMap<Message_MetricType>& ActiveMetrics() const

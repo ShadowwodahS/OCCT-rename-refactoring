@@ -41,9 +41,9 @@ Handle(TDF_Attribute) XmlMDataStd_GenericExtStringDriver::NewEmpty() const
 
 //=================================================================================================
 
-Handle(Standard_Type) XmlMDataStd_GenericExtStringDriver::SourceType() const
+Handle(TypeInfo) XmlMDataStd_GenericExtStringDriver::SourceType() const
 {
-  return Standard_Type::Instance<TDataStd_GenericExtString>();
+  return TypeInfo::Instance<TDataStd_GenericExtString>();
 }
 
 //=================================================================================================

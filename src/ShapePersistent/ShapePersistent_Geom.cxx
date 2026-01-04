@@ -49,7 +49,7 @@ Handle(ShapePersistent_Geom::Curve) ShapePersistent_Geom::Translate(
       aPC = Handle(Curve)::DownCast(theMap.Find(theCurve));
     else
     {
-      Handle(Standard_Type) aCT = theCurve->DynamicType();
+      Handle(TypeInfo) aCT = theCurve->DynamicType();
       if (aCT == STANDARD_TYPE(Geom_Line))
       {
         aPC = ShapePersistent_Geom_Curve::Translate(Handle(Geom_Line)::DownCast(theCurve), theMap);
@@ -119,7 +119,7 @@ Handle(ShapePersistent_Geom::Surface) ShapePersistent_Geom::Translate(
       aPS = Handle(Surface)::DownCast(theMap.Find(theSurf));
     else
     {
-      Handle(Standard_Type) aST = theSurf->DynamicType();
+      Handle(TypeInfo) aST = theSurf->DynamicType();
       if (aST == STANDARD_TYPE(Geom_Plane))
       {
         aPS =

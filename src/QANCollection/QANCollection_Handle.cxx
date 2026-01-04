@@ -538,12 +538,12 @@ static Standard_Integer QAHandleKind(Draw_Interpretor& /*theDI*/,
                                      Standard_Integer /*theArgNb*/,
                                      const char** /*theArgVec*/)
 {
-  Handle(Standard_Type) aType00 = STANDARD_TYPE(qaclass00_50);
-  Handle(Standard_Type) aType10 = STANDARD_TYPE(qaclass10_50);
-  Handle(Standard_Type) aType20 = STANDARD_TYPE(qaclass20_50);
-  Handle(Standard_Type) aType30 = STANDARD_TYPE(qaclass30_50);
-  Handle(Standard_Type) aType40 = STANDARD_TYPE(qaclass40_50);
-  Handle(Standard_Type) aType50 = STANDARD_TYPE(qaclass50_50);
+  Handle(TypeInfo) aType00 = STANDARD_TYPE(qaclass00_50);
+  Handle(TypeInfo) aType10 = STANDARD_TYPE(qaclass10_50);
+  Handle(TypeInfo) aType20 = STANDARD_TYPE(qaclass20_50);
+  Handle(TypeInfo) aType30 = STANDARD_TYPE(qaclass30_50);
+  Handle(TypeInfo) aType40 = STANDARD_TYPE(qaclass40_50);
+  Handle(TypeInfo) aType50 = STANDARD_TYPE(qaclass50_50);
 
   Handle(qaclass00_50) aHandle = new qaclass40_50();
 
@@ -555,7 +555,7 @@ static Standard_Integer QAHandleKind(Draw_Interpretor& /*theDI*/,
   }
 
   std::cout << "Check instance of " << aHandle->DynamicType()->Name() << "\n";
-  for (Handle(Standard_Type) aType = aHandle->DynamicType(); !aType.IsNull();
+  for (Handle(TypeInfo) aType = aHandle->DynamicType(); !aType.IsNull();
        aType                       = aType->Parent())
   {
     std::cout << " - " << aType->Name() << "\n";

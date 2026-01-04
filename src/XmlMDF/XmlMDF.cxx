@@ -81,7 +81,7 @@ Standard_Integer XmlMDF::WriteSubTree(const TDF_Label&                   theLabe
   for (; itr1.More(); itr1.Next())
   {
     const Handle(TDF_Attribute)& tAtt  = itr1.Value();
-    const Handle(Standard_Type)& aType = tAtt->DynamicType();
+    const Handle(TypeInfo)& aType = tAtt->DynamicType();
     Handle(XmlMDF_ADriver)       aDriver;
     if (theDrivers->GetDriver(aType, aDriver))
     {

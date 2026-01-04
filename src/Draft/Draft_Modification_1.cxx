@@ -139,7 +139,7 @@ Standard_Boolean Draft_Modification::InternalAdd(const TopoDS_Face&     F,
   Standard_Boolean postponed = (Flag == Standard_False);
   if (postponed)
   {
-    Handle(Standard_Type) typS = S->DynamicType();
+    Handle(TypeInfo) typS = S->DynamicType();
     if (typS == STANDARD_TYPE(Geom_CylindricalSurface)
         || typS == STANDARD_TYPE(Geom_SurfaceOfLinearExtrusion))
     {
@@ -204,7 +204,7 @@ Standard_Boolean Draft_Modification::InternalAdd(const TopoDS_Face&     F,
       return Standard_False;
     }
     // To avoid some problems with infinite restrictions
-    const Handle(Standard_Type)& typs = NewS->DynamicType();
+    const Handle(TypeInfo)& typs = NewS->DynamicType();
     if (typs == STANDARD_TYPE(Geom_CylindricalSurface)
         || typs == STANDARD_TYPE(Geom_ConicalSurface))
     {
@@ -388,7 +388,7 @@ Standard_Boolean Draft_Modification::InternalAdd(const TopoDS_Face&     F,
             alocalSurface =
               Handle(Geom_RectangularTrimmedSurface)::DownCast(alocalSurface)->BasisSurface();
           }
-          Handle(Standard_Type) typS = alocalSurface->DynamicType();
+          Handle(TypeInfo) typS = alocalSurface->DynamicType();
           if (typS == STANDARD_TYPE(Geom_CylindricalSurface)
               || typS == STANDARD_TYPE(Geom_SurfaceOfLinearExtrusion))
           {
@@ -520,7 +520,7 @@ Standard_Boolean Draft_Modification::Propagate()
         Handle(Geom_Surface) NewS =
           Handle(Geom_Surface)::DownCast(S->Transformed(L.Transformation()));
 
-        const Handle(Standard_Type)& typs = S->DynamicType();
+        const Handle(TypeInfo)& typs = S->DynamicType();
         if (typs == STANDARD_TYPE(Geom_CylindricalSurface)
             || typs == STANDARD_TYPE(Geom_ConicalSurface))
         {
@@ -1724,7 +1724,7 @@ Handle(Geom_Surface) Draft_Modification::NewSurface(const Handle(Geom_Surface)& 
 {
   Handle(Geom_Surface) NewS;
 
-  Handle(Standard_Type) TypeS = S->DynamicType();
+  Handle(TypeInfo) TypeS = S->DynamicType();
 
   if (TypeS == STANDARD_TYPE(Geom_Plane))
   {
@@ -1910,7 +1910,7 @@ Handle(Geom_Curve) Draft_Modification::NewCurve(const Handle(Geom_Curve)&   C,
 {
   Handle(Geom_Curve) NewC;
 
-  Handle(Standard_Type) TypeS = S->DynamicType();
+  Handle(TypeInfo) TypeS = S->DynamicType();
 
   if (TypeS == STANDARD_TYPE(Geom_Plane))
   {
@@ -2115,7 +2115,7 @@ static Standard_Real Parameter(const Handle(Geom_Curve)& C, const gp_Pnt& P, Sta
 {
   done                        = 0;
   Handle(Geom_Curve)    cbase = C;
-  Handle(Standard_Type) ctyp  = C->DynamicType();
+  Handle(TypeInfo) ctyp  = C->DynamicType();
   if (ctyp == STANDARD_TYPE(Geom_TrimmedCurve))
   {
     cbase = Handle(Geom_TrimmedCurve)::DownCast(C)->BasisCurve();

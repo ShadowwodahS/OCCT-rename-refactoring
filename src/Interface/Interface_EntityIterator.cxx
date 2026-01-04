@@ -76,7 +76,7 @@ void Interface_EntityIterator::Reset()
 //  Facon "bete" : supprimer les termes qui ne conviennent pas : lent !
 //  Mieux vaut refaire une autre sequence a cote
 
-void Interface_EntityIterator::SelectType(const Handle(Standard_Type)& atype,
+void Interface_EntityIterator::SelectType(const Handle(TypeInfo)& atype,
                                           const Standard_Boolean       keep)
 {
   if (thelist.IsNull())
@@ -102,7 +102,7 @@ Standard_Integer Interface_EntityIterator::NbEntities() const
   return thelist->Length();
 }
 
-Standard_Integer Interface_EntityIterator::NbTyped(const Handle(Standard_Type)& atype) const
+Standard_Integer Interface_EntityIterator::NbTyped(const Handle(TypeInfo)& atype) const
 {
   Standard_Integer res = 0;
   if (thelist.IsNull())
@@ -116,7 +116,7 @@ Standard_Integer Interface_EntityIterator::NbTyped(const Handle(Standard_Type)& 
   return res;
 }
 
-Interface_EntityIterator Interface_EntityIterator::Typed(const Handle(Standard_Type)& atype) const
+Interface_EntityIterator Interface_EntityIterator::Typed(const Handle(TypeInfo)& atype) const
 {
   Interface_EntityIterator res;
   if (thelist.IsNull())

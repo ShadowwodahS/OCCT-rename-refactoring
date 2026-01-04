@@ -519,13 +519,13 @@ Interface_EntityIterator IGESData_IGESEntity::Associativities() const
 }
 
 Standard_Integer IGESData_IGESEntity::NbTypedAssociativities(
-  const Handle(Standard_Type)& atype) const
+  const Handle(TypeInfo)& atype) const
 {
   return theAssocs.NbTypedEntities(atype);
 }
 
 Handle(IGESData_IGESEntity) IGESData_IGESEntity::TypedAssociativity(
-  const Handle(Standard_Type)& atype) const
+  const Handle(TypeInfo)& atype) const
 {
   return GetCasted(IGESData_IGESEntity, theAssocs.TypedEntity(atype));
 }
@@ -584,12 +584,12 @@ Interface_EntityIterator IGESData_IGESEntity::Properties() const
   return iter;
 }
 
-Standard_Integer IGESData_IGESEntity::NbTypedProperties(const Handle(Standard_Type)& atype) const
+Standard_Integer IGESData_IGESEntity::NbTypedProperties(const Handle(TypeInfo)& atype) const
 {
   return theProps.NbTypedEntities(atype);
 }
 
-Handle(IGESData_IGESEntity) IGESData_IGESEntity::TypedProperty(const Handle(Standard_Type)& atype,
+Handle(IGESData_IGESEntity) IGESData_IGESEntity::TypedProperty(const Handle(TypeInfo)& atype,
                                                                const Standard_Integer anum) const
 {
   return GetCasted(IGESData_IGESEntity, theProps.TypedEntity(atype, anum));

@@ -51,7 +51,7 @@ public:
 
   Standard_EXPORT virtual Standard_Boolean IsMultiple() const Standard_OVERRIDE;
 
-  Standard_EXPORT Handle(Standard_Type) ResultType() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(TypeInfo) ResultType() const Standard_OVERRIDE;
 
   Standard_EXPORT Standard_CString ResultTypeName() const Standard_OVERRIDE;
 

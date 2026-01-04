@@ -47,7 +47,7 @@ public:
   //! Modules attached to this class of Protocol must use them
   //! in accordance (for a given value of TypeNumber, they must
   //! consider the same Type as the Protocol defines)
-  Standard_EXPORT virtual Standard_Integer TypeNumber(const Handle(Standard_Type)& atype) const
+  Standard_EXPORT virtual Standard_Integer TypeNumber(const Handle(TypeInfo)& atype) const
     Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IGESGraph_Protocol, IGESData_Protocol)

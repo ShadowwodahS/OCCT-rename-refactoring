@@ -771,7 +771,7 @@ Standard_Boolean BRepLib_FuseEdges::SameSupport(const TopoDS_Edge& E1, const Top
   Handle(Geom_Curve)    C1, C2;
   TopLoc_Location       loc;
   Standard_Real         f1, l1, f2, l2;
-  Handle(Standard_Type) typC1, typC2;
+  Handle(TypeInfo) typC1, typC2;
 
   C1 = BRep_Tool::Curve(E1, loc, f1, l1);
   // modified by NIZNHY-PKV Mon Nov 15 16:24:10 1999

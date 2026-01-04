@@ -28,7 +28,7 @@ class TObj_Model;
 //!
 //! Static data:
 //! 1. DataMap of Modeller name - handle to model to be used in loading of references
-//! 2. Indexed map of Standard_Type to be used during save or load of object type
+//! 2. Indexed map of TypeInfo to be used during save or load of object type
 //! 3. Handle to the current model - model that is loaded at the current moment
 
 class TObj_Assistant
@@ -52,17 +52,17 @@ public:
    * Interface for Map of Standard Types
    */
 
-  //! Finds Standard_Type by index;
+  //! Finds TypeInfo by index;
   //! returns NULL handle if not found
-  static Standard_EXPORT Handle(Standard_Type) FindType(const Standard_Integer theTypeIndex);
+  static Standard_EXPORT Handle(TypeInfo) FindType(const Standard_Integer theTypeIndex);
 
-  //! Rinds index by Standard_Type;
+  //! Rinds index by TypeInfo;
   //! returns 0 if not found
-  static Standard_EXPORT Standard_Integer FindTypeIndex(const Handle(Standard_Type)& theType);
+  static Standard_EXPORT Standard_Integer FindTypeIndex(const Handle(TypeInfo)& theType);
 
-  //! Binds Standard_Type to the map;
+  //! Binds TypeInfo to the map;
   //! returns index of bound type
-  static Standard_EXPORT Standard_Integer BindType(const Handle(Standard_Type)& theType);
+  static Standard_EXPORT Standard_Integer BindType(const Handle(TypeInfo)& theType);
 
   //! Clears map of types
   static Standard_EXPORT void ClearTypeMap();

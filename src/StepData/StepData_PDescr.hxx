@@ -81,7 +81,7 @@ public:
   Standard_EXPORT void AddEnumDef(const Standard_CString enumdef);
 
   //! Sets <me> for an Entity which must match a Type (early-bound)
-  Standard_EXPORT void SetType(const Handle(Standard_Type)& atype);
+  Standard_EXPORT void SetType(const Handle(TypeInfo)& atype);
 
   //! Sets <me> for a Described Entity, whose Description must match
   //! the type name  <dscnam>
@@ -163,11 +163,11 @@ public:
 
   //! Tells if <me> is for an entity of a given CDL type (early-bnd)
   //! (works for <me> + nexts if <me> is a Select)
-  Standard_EXPORT Standard_Boolean IsType(const Handle(Standard_Type)& atype) const;
+  Standard_EXPORT Standard_Boolean IsType(const Handle(TypeInfo)& atype) const;
 
   //! Returns the type to match (IsKind), for a CDL Entity
   //! (else, null handle)
-  Standard_EXPORT Handle(Standard_Type) Type() const;
+  Standard_EXPORT Handle(TypeInfo) Type() const;
 
   //! Tells if <me> is for a Described entity of a given EDescr
   //! (does this EDescr match description name ?). For late-bnd
@@ -218,7 +218,7 @@ private:
   Handle(StepData_PDescr) thenext;
   Standard_Integer        thekind;
   StepData_EnumTool       theenum;
-  Handle(Standard_Type)   thetype;
+  Handle(TypeInfo)   thetype;
   TCollection_AsciiString thednam;
   Standard_Integer        thearit;
   Handle(StepData_PDescr) thefrom;

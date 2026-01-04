@@ -34,7 +34,7 @@ public:
 
   //! Returns the Type attached to an object
   //! Here, the Dynamic Type of a Transient. Null Type if unknown
-  Standard_EXPORT static Handle(Standard_Type) Type(const Handle(RefObject)& ent);
+  Standard_EXPORT static Handle(TypeInfo) Type(const Handle(RefObject)& ent);
 
   //! Returns Type Name (string)
   //! Allows to name type of non-handled objects

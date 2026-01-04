@@ -128,7 +128,7 @@ public:
   //! The default implementation search for children on 1 sublavel
   //! of the children sub label
   virtual Standard_EXPORT Handle(TObj_ObjectIterator) GetChildren(
-    const Handle(Standard_Type)& theType = NULL) const;
+    const Handle(TypeInfo)& theType = NULL) const;
 
   //! Returns the label under which children are stored
   Standard_EXPORT TDF_Label GetChildLabel() const;
@@ -196,7 +196,7 @@ public:
   //! Returns an Iterator containing objects that compose the this one
   //! theType narrows a variety of iterated objects
   virtual Standard_EXPORT Handle(TObj_ObjectIterator) GetReferences(
-    const Handle(Standard_Type)& theType = NULL) const;
+    const Handle(TypeInfo)& theType = NULL) const;
 
   //! Remove all references to other objects, by removing all reference attributes
   virtual Standard_EXPORT void RemoveAllReferences();
@@ -205,7 +205,7 @@ public:
   //! These referring objects may belong to other models.
   //! theType narrows a variety of iterated objects
   virtual Standard_EXPORT Handle(TObj_ObjectIterator) GetBackReferences(
-    const Handle(Standard_Type)& theType = NULL) const;
+    const Handle(TypeInfo)& theType = NULL) const;
 
   //! Registers another object as being dependent on this one.
   //! Stores back references under sublabel 2 (purely transient data,
@@ -308,7 +308,7 @@ public:
   //! Returns the father object, which may be NULL
   //! theType gives type of father object to search
   Standard_EXPORT Handle(TObj_Object) GetFatherObject(
-    const Handle(Standard_Type)& theType = NULL) const;
+    const Handle(TypeInfo)& theType = NULL) const;
 
 public:
   /**

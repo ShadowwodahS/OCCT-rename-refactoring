@@ -18,13 +18,13 @@
 //! @file
 //! This file provides obsolete low-level helper macros used to define OCCT handles and types,
 //! for compatibility with previous versions of OCCT.
-//! Since OCCT 7.0, relevant macros are provided by Standard_Type.hxx and Standard_Handle.hxx.
+//! Since OCCT 7.0, relevant macros are provided by TypeInfo.hxx and Standard_Handle.hxx.
 
 #include <Standard_Type.hxx>
 
 class RefObject;
 class DbObject;
-class Standard_Type;
+class TypeInfo;
 
 // Obsolete macros kept for compatibility
 #define IMPLEMENT_DOWNCAST(C1, BC)

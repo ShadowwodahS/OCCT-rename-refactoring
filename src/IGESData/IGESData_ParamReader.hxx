@@ -257,7 +257,7 @@ public:
   Standard_EXPORT Standard_Boolean ReadEntity(const Handle(IGESData_IGESReaderData)& IR,
                                               const IGESData_ParamCursor&            PC,
                                               IGESData_Status&                       aStatus,
-                                              const Handle(Standard_Type)&           type,
+                                              const Handle(TypeInfo)&           type,
                                               Handle(IGESData_IGESEntity)&           val,
                                               const Standard_Boolean canbenul = Standard_False);
 
@@ -266,7 +266,7 @@ public:
   Standard_Boolean ReadEntity(const Handle(IGESData_IGESReaderData)& IR,
                               const IGESData_ParamCursor&            PC,
                               IGESData_Status&                       aStatus,
-                              const Handle(Standard_Type)&           type,
+                              const Handle(TypeInfo)&           type,
                               Handle(T)&                             val,
                               const Standard_Boolean                 canbenul = Standard_False)
   {
@@ -284,7 +284,7 @@ public:
   Standard_EXPORT Standard_Boolean ReadEntity(const Handle(IGESData_IGESReaderData)& IR,
                                               const IGESData_ParamCursor&            PC,
                                               const Standard_CString                 mess,
-                                              const Handle(Standard_Type)&           type,
+                                              const Handle(TypeInfo)&           type,
                                               Handle(IGESData_IGESEntity)&           val,
                                               const Standard_Boolean canbenul = Standard_False);
 
@@ -293,7 +293,7 @@ public:
   Standard_Boolean ReadEntity(const Handle(IGESData_IGESReaderData)& IR,
                               const IGESData_ParamCursor&            PC,
                               const Standard_CString                 mess,
-                              const Handle(Standard_Type)&           type,
+                              const Handle(TypeInfo)&           type,
                               Handle(T)&                             val,
                               const Standard_Boolean                 canbenul = Standard_False)
   {

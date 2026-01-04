@@ -190,7 +190,7 @@ void GeomAdaptor_Curve::load(const Handle(Geom_Curve)& C,
     myNestedEvaluator.Nullify();
     myBSplineCurve.Nullify();
 
-    const Handle(Standard_Type)& TheType = C->DynamicType();
+    const Handle(TypeInfo)& TheType = C->DynamicType();
     if (TheType == STANDARD_TYPE(Geom_TrimmedCurve))
     {
       Load(Handle(Geom_TrimmedCurve)::DownCast(C)->BasisCurve(), UFirst, ULast);

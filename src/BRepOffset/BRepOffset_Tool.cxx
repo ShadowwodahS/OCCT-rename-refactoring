@@ -343,7 +343,7 @@ static void BuildPCurves(const TopoDS_Edge& E, const TopoDS_Face& F)
 
   // Try to find pcurve on a bound of BSpline or Bezier surface
   Handle(Geom_Surface)  theSurf = BRep_Tool::Surface(F);
-  Handle(Standard_Type) typS    = theSurf->DynamicType();
+  Handle(TypeInfo) typS    = theSurf->DynamicType();
   if (typS == STANDARD_TYPE(Geom_OffsetSurface))
     typS = Handle(Geom_OffsetSurface)::DownCast(theSurf)->BasisSurface()->DynamicType();
   if (typS == STANDARD_TYPE(Geom_BezierSurface) || typS == STANDARD_TYPE(Geom_BSplineSurface))

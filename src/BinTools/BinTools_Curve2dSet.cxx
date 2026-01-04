@@ -250,7 +250,7 @@ static BinTools_OStream& operator<<(BinTools_OStream& OS, const Handle(Geom2d_Of
 
 void BinTools_Curve2dSet::WriteCurve2d(const Handle(Geom2d_Curve)& C, BinTools_OStream& OS)
 {
-  Handle(Standard_Type) TheType = C->DynamicType();
+  Handle(TypeInfo) TheType = C->DynamicType();
   try
   {
     OCC_CATCH_SIGNALS

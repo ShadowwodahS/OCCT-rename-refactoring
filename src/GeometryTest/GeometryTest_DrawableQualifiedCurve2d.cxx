@@ -77,7 +77,7 @@ void GeometryTest_DrawableQualifiedCurve2d::Dump(Standard_OStream& theStream) co
 
 void GeometryTest_DrawableQualifiedCurve2d::Whatis(Draw_Interpretor& theDI) const
 {
-  Handle(Standard_Type) aType = GetCurve()->DynamicType();
+  Handle(TypeInfo) aType = GetCurve()->DynamicType();
 
   if (aType == STANDARD_TYPE(Geom2d_Circle))
   {

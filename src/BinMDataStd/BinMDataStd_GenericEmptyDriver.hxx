@@ -35,7 +35,7 @@ public:
 
   Standard_EXPORT virtual Handle(TDF_Attribute) NewEmpty() const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual const Handle(Standard_Type)& SourceType() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const Handle(TypeInfo)& SourceType() const Standard_OVERRIDE;
 
   Standard_EXPORT virtual Standard_Boolean Paste(const BinObjMgt_Persistent&  Source,
                                                  const Handle(TDF_Attribute)& Target,

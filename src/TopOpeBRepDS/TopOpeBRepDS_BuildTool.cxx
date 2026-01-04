@@ -70,8 +70,8 @@ Standard_Boolean FUN_UisoLineOnSphe(const TopoDS_Shape& F, const Handle(Geom2d_C
 
   Handle(Geom_Surface)  SSS      = TopOpeBRepTool_ShapeTool::BASISSURFACE(TopoDS::Face(F));
   Handle(Geom2d_Curve)  LLL      = ::BASISCURVE2D(PC);
-  Handle(Standard_Type) TS       = SSS->DynamicType();
-  Handle(Standard_Type) T2       = LLL->DynamicType();
+  Handle(TypeInfo) TS       = SSS->DynamicType();
+  Handle(TypeInfo) T2       = LLL->DynamicType();
   Standard_Boolean      issphere = (TS == STANDARD_TYPE(Geom_SphericalSurface));
   Standard_Boolean      isline2d = (T2 == STANDARD_TYPE(Geom2d_Line));
   Standard_Boolean      isisoU   = Standard_False;
