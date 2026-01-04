@@ -26,7 +26,7 @@
 #include <Standard_Integer.hxx>
 #include <Standard_Boolean.hxx>
 class Interface_InterfaceModel;
-class Standard_Transient;
+class RefObject;
 class Interface_EntityIterator;
 class Interface_GraphContent;
 
@@ -87,7 +87,7 @@ public:
   //! Adds an Entity : into load status if in Load mode, to the
   //! current part if there is one. If shared is True, adds
   //! also its shared ones (shared at all levels)
-  Standard_EXPORT void GetFromEntity(const Handle(Standard_Transient)& ent,
+  Standard_EXPORT void GetFromEntity(const Handle(RefObject)& ent,
                                      const Standard_Boolean            shared);
 
   //! Adds a list of Entities (into Load mode or to a Part),
@@ -111,14 +111,14 @@ public:
 
   //! Returns True if an Entity is loaded (either set into a
   //! sub-part or not)
-  Standard_EXPORT Standard_Boolean IsLoaded(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Boolean IsLoaded(const Handle(RefObject)& ent) const;
 
   //! Returns True if an Entity is Present in a sub-part
-  Standard_EXPORT Standard_Boolean IsInPart(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Boolean IsInPart(const Handle(RefObject)& ent) const;
 
   //! Returns number of the sub-part in which an Entity has been set
   //! if it is not in a sub-part (or not loaded at all), Returns 0
-  Standard_EXPORT Standard_Integer EntityPartNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer EntityPartNum(const Handle(RefObject)& ent) const;
 
   //! Sets iteration to its beginning; calls Evaluate
   Standard_EXPORT void Start();
@@ -138,7 +138,7 @@ public:
   //! Returns the first entity of current sub-part, that is for a
   //! Single one, the only one it contains
   //! Error : same as above (end of iteration)
-  Standard_EXPORT Handle(Standard_Transient) FirstEntity() const;
+  Standard_EXPORT Handle(RefObject) FirstEntity() const;
 
   //! Returns current sub-part, not as a "Value", but as an Iterator
   //! on Entities it contains

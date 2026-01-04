@@ -22,7 +22,7 @@
 
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepGeom_Plane;
 class StepVisual_CameraModelD3MultiClippingIntersection;
 
@@ -38,7 +38,7 @@ public:
   //! 1 -> Plane
   //! 2 -> CameraModelD3MultiClippingIntersection
   //! 0 else
-  Standard_EXPORT Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! returns Value as a Plane (Null if another type)
   Standard_EXPORT Handle(StepGeom_Plane) Plane() const;

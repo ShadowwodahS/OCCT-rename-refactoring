@@ -87,7 +87,7 @@ Handle(TCollection_HAsciiString) STEPEdit_EditContext::StringValue(
 }
 
 Standard_Boolean STEPEdit_EditContext::Load(const Handle(IFSelect_EditForm)& form,
-                                            const Handle(Standard_Transient)& /*ent*/,
+                                            const Handle(RefObject)& /*ent*/,
                                             const Handle(Interface_InterfaceModel)& model) const
 {
   Handle(StepData_StepModel) modl = Handle(StepData_StepModel)::DownCast(model);
@@ -114,7 +114,7 @@ Standard_Boolean STEPEdit_EditContext::Load(const Handle(IFSelect_EditForm)& for
 }
 
 Standard_Boolean STEPEdit_EditContext::Apply(const Handle(IFSelect_EditForm)& form,
-                                             const Handle(Standard_Transient)& /*ent*/,
+                                             const Handle(RefObject)& /*ent*/,
                                              const Handle(Interface_InterfaceModel)& model) const
 {
   Handle(StepData_StepModel) modl = Handle(StepData_StepModel)::DownCast(model);

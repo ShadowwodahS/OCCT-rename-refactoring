@@ -46,7 +46,7 @@ public:
   //! Adds an attribute with a given name (replaces the former one
   //! with the same name if already exists)
   Standard_EXPORT void SetAttribute(const Standard_CString            name,
-                                    const Handle(Standard_Transient)& val);
+                                    const Handle(RefObject)& val);
 
   //! Removes an attribute
   //! Returns True when done, False if this attribute did not exist
@@ -58,14 +58,14 @@ public:
   //! Else, it is True
   Standard_EXPORT Standard_Boolean GetAttribute(const Standard_CString       name,
                                                 const Handle(Standard_Type)& type,
-                                                Handle(Standard_Transient)&  val) const;
+                                                Handle(RefObject)&  val) const;
 
   //! Returns an attribute from its name. Null Handle if not
   //! recorded         (whatever Transient, Integer, Real ...)
   //! Integer is recorded as IntVal
   //! Real is recorded as RealVal
   //! Text is recorded as HAsciiString
-  Standard_EXPORT Handle(Standard_Transient) Attribute(const Standard_CString name) const;
+  Standard_EXPORT Handle(RefObject) Attribute(const Standard_CString name) const;
 
   //! Returns the type of an attribute :
   //! ValueInt , ValueReal , ValueText (String) , ValueIdent (any)
@@ -112,7 +112,7 @@ public:
   Standard_EXPORT Standard_CString StringAttribute(const Standard_CString name) const;
 
   //! Returns the exhaustive list of attributes
-  Standard_EXPORT const NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)>&
+  Standard_EXPORT const NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>&
                         AttrList() const;
 
   //! Gets the list of attributes from <other>, as such, i.e.
@@ -138,7 +138,7 @@ public:
 
 protected:
 private:
-  NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)> theattrib;
+  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)> theattrib;
 };
 
 #endif // _MoniTool_AttrList_HeaderFile

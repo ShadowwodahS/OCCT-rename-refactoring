@@ -13,7 +13,7 @@
 
 #include <Message_ProgressIndicator.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Message_ProgressIndicator, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Message_ProgressIndicator, RefObject)
 
 //=================================================================================================
 

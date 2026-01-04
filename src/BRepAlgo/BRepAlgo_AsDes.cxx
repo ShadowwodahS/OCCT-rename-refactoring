@@ -20,7 +20,7 @@
 #include <TopoDS_Shape.hxx>
 #include <TopTools_MapOfOrientedShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepAlgo_AsDes, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(BRepAlgo_AsDes, RefObject)
 
 //=================================================================================================
 

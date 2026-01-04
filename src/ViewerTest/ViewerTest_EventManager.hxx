@@ -24,13 +24,13 @@ class AIS_InteractiveContext;
 class Aspect_Window;
 class V3d_View;
 
-DEFINE_STANDARD_HANDLE(ViewerTest_EventManager, Standard_Transient)
+DEFINE_STANDARD_HANDLE(ViewerTest_EventManager, RefObject)
 
 //! used to manage mouse event (move,select)
 //! By default the events are transmitted to interactive context.
-class ViewerTest_EventManager : public Standard_Transient, public AIS_ViewController
+class ViewerTest_EventManager : public RefObject, public AIS_ViewController
 {
-  DEFINE_STANDARD_RTTIEXT(ViewerTest_EventManager, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(ViewerTest_EventManager, RefObject)
 public:
   //! Return TRUE if View should be closed on escape.
   static Standard_Boolean& ToCloseViewOnEscape()

@@ -28,7 +28,7 @@ StepRepr_ConfigurationDesignItem::StepRepr_ConfigurationDesignItem() {}
 //=================================================================================================
 
 Standard_Integer StepRepr_ConfigurationDesignItem::CaseNum(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

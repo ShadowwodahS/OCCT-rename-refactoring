@@ -17,7 +17,7 @@
 #include <STEPSelections_AssemblyComponent.hxx>
 #include <StepShape_ShapeDefinitionRepresentation.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(STEPSelections_AssemblyComponent, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(STEPSelections_AssemblyComponent, RefObject)
 
 STEPSelections_AssemblyComponent::STEPSelections_AssemblyComponent() {}
 

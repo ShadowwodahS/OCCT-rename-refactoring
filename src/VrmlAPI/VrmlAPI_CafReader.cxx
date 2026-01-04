@@ -23,7 +23,7 @@
 
 #include <memory>
 
-IMPLEMENT_STANDARD_RTTIEXT(VrmlAPI_CafReader, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(VrmlAPI_CafReader, RefObject)
 
 namespace
 {

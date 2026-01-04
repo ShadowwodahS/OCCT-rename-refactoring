@@ -27,7 +27,7 @@ StepDimTol_ToleranceZoneTarget::StepDimTol_ToleranceZoneTarget() {}
 //=================================================================================================
 
 Standard_Integer StepDimTol_ToleranceZoneTarget::CaseNum(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

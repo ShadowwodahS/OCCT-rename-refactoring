@@ -22,7 +22,7 @@
 
 #include <cstdlib>
 
-IMPLEMENT_STANDARD_RTTIEXT(Image_Diff, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Image_Diff, RefObject)
 
 namespace
 {

@@ -32,9 +32,9 @@
 //! Note that defining (many) planes will lead to performance degradation, and Graphics Driver may
 //! limit the overall number of simultaneously active clipping planes - but at least 6 planes should
 //! be supported on all configurations.
-class Graphic3d_SequenceOfHClipPlane : public Standard_Transient
+class Graphic3d_SequenceOfHClipPlane : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_SequenceOfHClipPlane, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Graphic3d_SequenceOfHClipPlane, RefObject)
 public:
   //! Iterator through clipping planes.
   class Iterator : public NCollection_Sequence<Handle(Graphic3d_ClipPlane)>::Iterator
@@ -112,6 +112,6 @@ protected:
   Standard_Boolean                                  myToOverrideGlobal;
 };
 
-DEFINE_STANDARD_HANDLE(Graphic3d_SequenceOfHClipPlane, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Graphic3d_SequenceOfHClipPlane, RefObject)
 
 #endif // _Graphic3d_SequenceOfHClipPlane_HeaderFile

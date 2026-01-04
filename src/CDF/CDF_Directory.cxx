@@ -21,7 +21,7 @@
 #include <Standard_NoSuchObject.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(CDF_Directory, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(CDF_Directory, RefObject)
 
 CDF_Directory::CDF_Directory() {}
 

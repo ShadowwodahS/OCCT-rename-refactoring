@@ -18,7 +18,7 @@
 
 #include <Standard_Type.hxx>
 
-DEFINE_STANDARD_HANDLE(Message_Alert, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Message_Alert, RefObject)
 
 //! Base class of the hierarchy of classes describing various situations
 //! occurring during execution of some algorithm or procedure.
@@ -31,7 +31,7 @@ DEFINE_STANDARD_HANDLE(Message_Alert, Standard_Transient)
 //! can be merged with another one of the same type. Method SupportsMerge()
 //! should return true if merge is supported; method Merge() should do the
 //! merge if possible and return true in that case and false otherwise.
-class Message_Alert : public Standard_Transient
+class Message_Alert : public RefObject
 {
 public:
   //! Return a C string to be used as a key for generating text user
@@ -56,7 +56,7 @@ public:
                                         Standard_Integer  theDepth = -1) const;
 
   // OCCT RTTI
-  DEFINE_STANDARD_RTTIEXT(Message_Alert, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Message_Alert, RefObject)
 };
 
 //! Macro allowing to define simple alert (without data) in single line of code

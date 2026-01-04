@@ -26,9 +26,9 @@
 class TCollection_HAsciiString;
 
 class StepBasic_Person;
-DEFINE_STANDARD_HANDLE(StepBasic_Person, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_Person, RefObject)
 
-class StepBasic_Person : public Standard_Transient
+class StepBasic_Person : public RefObject
 {
 
 public:
@@ -108,7 +108,7 @@ public:
 
   Standard_EXPORT Standard_Integer NbSuffixTitles() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_Person, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_Person, RefObject)
 
 protected:
 private:

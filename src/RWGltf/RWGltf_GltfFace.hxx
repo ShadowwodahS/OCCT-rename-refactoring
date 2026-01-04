@@ -22,7 +22,7 @@
 #include <XCAFPrs_Style.hxx>
 
 //! Low-level glTF data structure holding single Face (one primitive array) definition.
-class RWGltf_GltfFace : public Standard_Transient
+class RWGltf_GltfFace : public RefObject
 {
 public:
   RWGltf_GltfAccessor NodePos;  //!< accessor for nodal positions

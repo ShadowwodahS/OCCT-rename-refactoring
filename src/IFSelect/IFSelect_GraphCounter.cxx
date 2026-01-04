@@ -51,7 +51,7 @@ void IFSelect_GraphCounter::AddWithGraph(const Handle(TColStd_HSequenceOfTransie
   for (i = 1; i <= nb; i++)
   {
     char                       val[12];
-    Handle(Standard_Transient) ent = list->Value(i);
+    Handle(RefObject) ent = list->Value(i);
     theapplied->Alternate()->SetEntity(ent);
     Interface_EntityIterator iter = theapplied->UniqueResult(graph);
     Standard_Integer         n    = iter.NbEntities();

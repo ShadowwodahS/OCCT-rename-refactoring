@@ -20,7 +20,7 @@
 #include <TCollection_AsciiString.hxx>
 #include <TCollection_ExtendedString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Storage_HeaderData, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Storage_HeaderData, RefObject)
 
 Storage_HeaderData::Storage_HeaderData()
     : myNBObj(0),

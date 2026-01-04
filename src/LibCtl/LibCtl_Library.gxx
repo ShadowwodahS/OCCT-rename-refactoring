@@ -60,7 +60,7 @@ static Handle(LibCtl_Node) thelast;
 
 //  Ajout d un Protocol : attention, desoptimise (sinon risque de confusion !)
     void LibCtl_Library::AddProtocol
-  (const Handle(Standard_Transient)& aprotocol)
+  (const Handle(RefObject)& aprotocol)
 {
 //  DownCast car Protocol->Resources, meme redefini et utilise dans d autres
 //  librairies, doit toujours renvoyer le type le plus haut

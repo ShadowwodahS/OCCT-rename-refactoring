@@ -24,9 +24,9 @@
 class StepVisual_Colour;
 
 class StepVisual_TextStyleForDefinedFont;
-DEFINE_STANDARD_HANDLE(StepVisual_TextStyleForDefinedFont, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepVisual_TextStyleForDefinedFont, RefObject)
 
-class StepVisual_TextStyleForDefinedFont : public Standard_Transient
+class StepVisual_TextStyleForDefinedFont : public RefObject
 {
 
 public:
@@ -39,7 +39,7 @@ public:
 
   Standard_EXPORT Handle(StepVisual_Colour) TextColour() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepVisual_TextStyleForDefinedFont, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepVisual_TextStyleForDefinedFont, RefObject)
 
 protected:
 private:

@@ -28,7 +28,7 @@
 class Interface_InterfaceModel;
 class Interface_CopyControl;
 class Interface_CopyMap;
-class Standard_Transient;
+class RefObject;
 class Interface_GeneralModule;
 class Interface_Protocol;
 class Interface_EntityIterator;
@@ -107,8 +107,8 @@ public:
   //! does not recognize <ent>.
   //! It basically makes a Deep Copy without changing the Types.
   //! It can be redefined for special uses.
-  Standard_EXPORT virtual Standard_Boolean Copy(const Handle(Standard_Transient)& entfrom,
-                                                Handle(Standard_Transient)&       entto,
+  Standard_EXPORT virtual Standard_Boolean Copy(const Handle(RefObject)& entfrom,
+                                                Handle(RefObject)&       entto,
                                                 const Standard_Boolean            mapped,
                                                 const Standard_Boolean            errstat);
 
@@ -117,21 +117,21 @@ public:
   //! the ReportEntity will also be copied with its Content if it
   //! has one (at least ShallowCopy; Complete Copy if the Protocol
   //! recognizes the Content : see method Copy)
-  Standard_EXPORT Handle(Standard_Transient) Transferred(const Handle(Standard_Transient)& ent);
+  Standard_EXPORT Handle(RefObject) Transferred(const Handle(RefObject)& ent);
 
   //! Defines a Result for the Transfer of a Starting object.
   //! Used by method Transferred (which performs a normal Copy),
   //! but can also be called to enforce a result : in the latter
   //! case, the enforced result must be compatible with the other
   //! Transfers which are performed
-  Standard_EXPORT void Bind(const Handle(Standard_Transient)& ent,
-                            const Handle(Standard_Transient)& res);
+  Standard_EXPORT void Bind(const Handle(RefObject)& ent,
+                            const Handle(RefObject)& res);
 
   //! Search for the result of a Starting Object (i.e. an Entity)
   //! Returns True  if a  Result is Bound (and fills "result")
   //! Returns False if no result is Bound
-  Standard_EXPORT Standard_Boolean Search(const Handle(Standard_Transient)& ent,
-                                          Handle(Standard_Transient)&       res) const;
+  Standard_EXPORT Standard_Boolean Search(const Handle(RefObject)& ent,
+                                          Handle(RefObject)&       res) const;
 
   //! Clears LastFlags only. This allows to know what Entities are
   //! copied after its call (see method LastCopiedAfter). It can be
@@ -148,12 +148,12 @@ public:
   //! .. Process Starting <ent> and its Result <res>
   //! }
   Standard_EXPORT Standard_Integer LastCopiedAfter(const Standard_Integer      numfrom,
-                                                   Handle(Standard_Transient)& ent,
-                                                   Handle(Standard_Transient)& res) const;
+                                                   Handle(RefObject)& ent,
+                                                   Handle(RefObject)& res) const;
 
   //! Transfers one Entity and records result into the Transfer List
   //! Calls method Transferred
-  Standard_EXPORT void TransferEntity(const Handle(Standard_Transient)& ent);
+  Standard_EXPORT void TransferEntity(const Handle(RefObject)& ent);
 
   //! Renews the Implied References. These References do not involve
   //! Copying of referenced Entities. For such a Reference, if the
@@ -190,15 +190,15 @@ protected:
   //! to produce <ento> from <entfrom> : hence it is not void)
   //!
   //! No mapping is managed by this method
-  Standard_EXPORT virtual Standard_Boolean NewVoid(const Handle(Standard_Transient)& entfrom,
-                                                   Handle(Standard_Transient)&       entto);
+  Standard_EXPORT virtual Standard_Boolean NewVoid(const Handle(RefObject)& entfrom,
+                                                   Handle(RefObject)&       entto);
 
   Interface_GeneralLib thelib;
 
 private:
   //! Renews the Implied References of one already Copied Entity
-  Standard_EXPORT virtual void Implied(const Handle(Standard_Transient)& entfrom,
-                                       const Handle(Standard_Transient)& entto);
+  Standard_EXPORT virtual void Implied(const Handle(RefObject)& entfrom,
+                                       const Handle(RefObject)& entto);
 
   Handle(Interface_InterfaceModel) themod;
   Handle(Interface_CopyControl)    themap;
@@ -207,7 +207,7 @@ private:
   Standard_Integer                 thelev;
   TColStd_SequenceOfInteger        therts;
   Standard_Boolean                 theimp;
-  Handle(Standard_Transient)       theent;
+  Handle(RefObject)       theent;
   Handle(Interface_GeneralModule)  themdu;
   Standard_Integer                 theCN;
 };

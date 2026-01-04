@@ -23,10 +23,10 @@
 class StepFEA_FeaParametricPoint;
 
 class StepFEA_CurveElementLocation;
-DEFINE_STANDARD_HANDLE(StepFEA_CurveElementLocation, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepFEA_CurveElementLocation, RefObject)
 
 //! Representation of STEP entity CurveElementLocation
-class StepFEA_CurveElementLocation : public Standard_Transient
+class StepFEA_CurveElementLocation : public RefObject
 {
 
 public:
@@ -42,7 +42,7 @@ public:
   //! Set field Coordinate
   Standard_EXPORT void SetCoordinate(const Handle(StepFEA_FeaParametricPoint)& Coordinate);
 
-  DEFINE_STANDARD_RTTIEXT(StepFEA_CurveElementLocation, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepFEA_CurveElementLocation, RefObject)
 
 protected:
 private:

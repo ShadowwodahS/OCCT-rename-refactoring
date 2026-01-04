@@ -27,7 +27,7 @@
 #include <Standard_Type.hxx>
 #include <Transfer_StatusExec.hxx>
 class Transfer_Binder;
-class Standard_Transient;
+class RefObject;
 class Interface_Check;
 
 // resolve name collisions with X11 headers
@@ -113,7 +113,7 @@ public:
   //! Returns the Transient Result of the current Item if there is
   //! (else, returns a null Handle)
   //! Supposes that Binding is done by a SimpleBinderOfTransient
-  Standard_EXPORT const Handle(Standard_Transient)& TransientResult() const;
+  Standard_EXPORT const Handle(RefObject)& TransientResult() const;
 
   //! Returns Execution Status of current Binder
   //! Normal transfer corresponds to StatusDone

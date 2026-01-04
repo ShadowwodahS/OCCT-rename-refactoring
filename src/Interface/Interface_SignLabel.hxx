@@ -22,7 +22,7 @@
 
 #include <MoniTool_SignText.hxx>
 class TCollection_AsciiString;
-class Standard_Transient;
+class RefObject;
 
 class Interface_SignLabel;
 DEFINE_STANDARD_HANDLE(Interface_SignLabel, MoniTool_SignText)
@@ -40,8 +40,8 @@ public:
   //! Considers context as an InterfaceModel and returns the Label
   //! computed by it
   Standard_EXPORT TCollection_AsciiString
-    Text(const Handle(Standard_Transient)& ent,
-         const Handle(Standard_Transient)& context) const Standard_OVERRIDE;
+    Text(const Handle(RefObject)& ent,
+         const Handle(RefObject)& context) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(Interface_SignLabel, MoniTool_SignText)
 

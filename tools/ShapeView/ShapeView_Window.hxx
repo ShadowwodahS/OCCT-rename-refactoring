@@ -98,7 +98,7 @@ private:
   //! Fills controls of the plugin by parameters:
   //! - Fine AIS_InteractiveObject and fills View if it if it differs from the current context
   //! \param theParameters a parameters container
-  void Init(NCollection_List<Handle(Standard_Transient)>& theParameters);
+  void Init(NCollection_List<Handle(RefObject)>& theParameters);
 
   //! Reads Shape from the file name, add Shape into tree view
   //! \param theFileName BREP file name

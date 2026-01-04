@@ -20,7 +20,7 @@
   #include FT_FREETYPE_H
 #endif
 
-IMPLEMENT_STANDARD_RTTIEXT(Font_FTLibrary, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Font_FTLibrary, RefObject)
 
 //=================================================================================================
 

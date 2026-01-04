@@ -37,7 +37,7 @@ STEPSelections_SelectGSCurves::STEPSelections_SelectGSCurves()
 }
 
 Standard_Boolean STEPSelections_SelectGSCurves::Explore(const Standard_Integer /*level*/,
-                                                        const Handle(Standard_Transient)& start,
+                                                        const Handle(RefObject)& start,
                                                         const Interface_Graph&            G,
                                                         Interface_EntityIterator& explored) const
 {

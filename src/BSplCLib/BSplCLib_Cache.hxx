@@ -21,7 +21,7 @@
 //!
 //! Defines all data, that can be cached on a span of a curve.
 //! The data should be recalculated in going from span to span.
-class BSplCLib_Cache : public Standard_Transient
+class BSplCLib_Cache : public RefObject
 {
 public:
   //! Constructor, prepares data structures for caching values on a 2d curve.
@@ -123,7 +123,7 @@ public:
                           gp_Vec&              theCurvature,
                           gp_Vec&              theTorsion) const;
 
-  DEFINE_STANDARD_RTTIEXT(BSplCLib_Cache, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(BSplCLib_Cache, RefObject)
 
 protected:
   //! Fills array of derivatives in the selected point of the curve
@@ -152,6 +152,6 @@ private:
   // clang-format on
 };
 
-DEFINE_STANDARD_HANDLE(BSplCLib_Cache, Standard_Transient)
+DEFINE_STANDARD_HANDLE(BSplCLib_Cache, RefObject)
 
 #endif

@@ -23,10 +23,10 @@
 #include <Standard_Integer.hxx>
 
 class TColStd_HPackedMapOfInteger;
-DEFINE_STANDARD_HANDLE(TColStd_HPackedMapOfInteger, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TColStd_HPackedMapOfInteger, RefObject)
 
 //! Extension of TColStd_PackedMapOfInteger class to be manipulated by handle.
-class TColStd_HPackedMapOfInteger : public Standard_Transient
+class TColStd_HPackedMapOfInteger : public RefObject
 {
 
 public:
@@ -38,7 +38,7 @@ public:
 
   TColStd_PackedMapOfInteger& ChangeMap();
 
-  DEFINE_STANDARD_RTTIEXT(TColStd_HPackedMapOfInteger, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TColStd_HPackedMapOfInteger, RefObject)
 
 protected:
 private:

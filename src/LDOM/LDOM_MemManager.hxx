@@ -24,12 +24,12 @@ class LDOM_MemManager;
 class LDOMBasicString;
 
 // Define handle class for LDOM_MemManager
-DEFINE_STANDARD_HANDLE(LDOM_MemManager, Standard_Transient)
+DEFINE_STANDARD_HANDLE(LDOM_MemManager, RefObject)
 
 //  Class LDOM_MemManager (underlying structure of LDOM_Document)
 //
 
-class LDOM_MemManager : public Standard_Transient
+class LDOM_MemManager : public RefObject
 {
 public:
   // ---------- PUBLIC METHODS ----------
@@ -132,7 +132,7 @@ private:
 
 public:
   // CASCADE RTTI
-  DEFINE_STANDARD_RTTIEXT(LDOM_MemManager, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(LDOM_MemManager, RefObject)
 };
 
 #endif

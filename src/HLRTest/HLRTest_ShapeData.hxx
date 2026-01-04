@@ -24,10 +24,10 @@
 #include <Standard_Transient.hxx>
 
 class HLRTest_ShapeData;
-DEFINE_STANDARD_HANDLE(HLRTest_ShapeData, Standard_Transient)
+DEFINE_STANDARD_HANDLE(HLRTest_ShapeData, RefObject)
 
 //! Contains the colors of a shape.
-class HLRTest_ShapeData : public Standard_Transient
+class HLRTest_ShapeData : public RefObject
 {
 
 public:
@@ -62,7 +62,7 @@ public:
 
   Draw_Color HiddenIsoColor() const;
 
-  DEFINE_STANDARD_RTTIEXT(HLRTest_ShapeData, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(HLRTest_ShapeData, RefObject)
 
 protected:
 private:

@@ -29,12 +29,12 @@
 class TCollection_HAsciiString;
 class NCollection_Buffer;
 
-DEFINE_STANDARD_HANDLE(Font_FontMgr, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Font_FontMgr, RefObject)
 
 //! Collects and provides information about available fonts in system.
-class Font_FontMgr : public Standard_Transient
+class Font_FontMgr : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Font_FontMgr, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Font_FontMgr, RefObject)
 public:
   //! Return global instance of font manager.
   Standard_EXPORT static Handle(Font_FontMgr) GetInstance();

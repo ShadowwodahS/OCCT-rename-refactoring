@@ -33,9 +33,9 @@ typedef NCollection_Sequence<Handle(Graphic3d_ShaderVariable)> Graphic3d_ShaderV
 typedef NCollection_Sequence<Handle(Graphic3d_ShaderAttribute)> Graphic3d_ShaderAttributeList;
 
 //! This class is responsible for managing shader programs.
-class Graphic3d_ShaderProgram : public Standard_Transient
+class Graphic3d_ShaderProgram : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_ShaderProgram, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Graphic3d_ShaderProgram, RefObject)
 public:
   //! Default value of THE_MAX_LIGHTS macros within GLSL program (see Declarations.glsl).
   static const Standard_Integer THE_MAX_LIGHTS_DEFAULT = 8;
@@ -262,7 +262,7 @@ private:
   // clang-format on
 };
 
-DEFINE_STANDARD_HANDLE(Graphic3d_ShaderProgram, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Graphic3d_ShaderProgram, RefObject)
 
 // =======================================================================
 // function : PushVariable

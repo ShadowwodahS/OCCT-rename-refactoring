@@ -37,11 +37,11 @@ class Poly_Polygon3D;
 class Poly_PolygonOnTriangulation;
 
 class BRepTools_Modification;
-DEFINE_STANDARD_HANDLE(BRepTools_Modification, Standard_Transient)
+DEFINE_STANDARD_HANDLE(BRepTools_Modification, RefObject)
 
 //! Defines geometric modifications to a shape, i.e.
 //! changes to faces, edges and vertices.
-class BRepTools_Modification : public Standard_Transient
+class BRepTools_Modification : public RefObject
 {
 
 public:
@@ -147,7 +147,7 @@ public:
                                                    const TopoDS_Face& NewF1,
                                                    const TopoDS_Face& NewF2) = 0;
 
-  DEFINE_STANDARD_RTTIEXT(BRepTools_Modification, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(BRepTools_Modification, RefObject)
 
 protected:
 private:

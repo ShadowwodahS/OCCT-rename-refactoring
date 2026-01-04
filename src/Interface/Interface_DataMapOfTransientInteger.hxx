@@ -21,9 +21,9 @@
 #include <Standard_Integer.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<Handle(Standard_Transient), Standard_Integer>
+typedef NCollection_DataMap<Handle(RefObject), Standard_Integer>
   Interface_DataMapOfTransientInteger;
-typedef NCollection_DataMap<Handle(Standard_Transient), Standard_Integer>::Iterator
+typedef NCollection_DataMap<Handle(RefObject), Standard_Integer>::Iterator
   Interface_DataMapIteratorOfDataMapOfTransientInteger;
 
 #endif

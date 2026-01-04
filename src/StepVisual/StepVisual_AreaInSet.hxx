@@ -25,9 +25,9 @@ class StepVisual_PresentationArea;
 class StepVisual_PresentationSet;
 
 class StepVisual_AreaInSet;
-DEFINE_STANDARD_HANDLE(StepVisual_AreaInSet, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepVisual_AreaInSet, RefObject)
 
-class StepVisual_AreaInSet : public Standard_Transient
+class StepVisual_AreaInSet : public RefObject
 {
 
 public:
@@ -45,7 +45,7 @@ public:
 
   Standard_EXPORT Handle(StepVisual_PresentationSet) InSet() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepVisual_AreaInSet, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepVisual_AreaInSet, RefObject)
 
 protected:
 private:

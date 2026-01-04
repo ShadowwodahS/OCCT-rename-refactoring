@@ -36,7 +36,7 @@ class Graphic3d_Group;
 class Graphic3d_Structure;
 class Graphic3d_TextureEnv;
 
-DEFINE_STANDARD_HANDLE(V3d_View, Standard_Transient)
+DEFINE_STANDARD_HANDLE(V3d_View, RefObject)
 
 //! Defines the application object VIEW for the
 //! VIEWER application.
@@ -53,9 +53,9 @@ DEFINE_STANDARD_HANDLE(V3d_View, Standard_Transient)
 //!
 //! View->Move(10.,20.,0.,True)     (Starting motion)
 //! View->Move(15.,-5.,0.,False)    (Next motion)
-class V3d_View : public Standard_Transient
+class V3d_View : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(V3d_View, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(V3d_View, RefObject)
 public:
   //! Initializes the view.
   Standard_EXPORT V3d_View(const Handle(V3d_Viewer)& theViewer,

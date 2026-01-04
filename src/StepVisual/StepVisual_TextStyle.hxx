@@ -25,9 +25,9 @@ class TCollection_HAsciiString;
 class StepVisual_TextStyleForDefinedFont;
 
 class StepVisual_TextStyle;
-DEFINE_STANDARD_HANDLE(StepVisual_TextStyle, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepVisual_TextStyle, RefObject)
 
-class StepVisual_TextStyle : public Standard_Transient
+class StepVisual_TextStyle : public RefObject
 {
 
 public:
@@ -46,7 +46,7 @@ public:
 
   Standard_EXPORT Handle(StepVisual_TextStyleForDefinedFont) CharacterAppearance() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepVisual_TextStyle, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepVisual_TextStyle, RefObject)
 
 protected:
 private:

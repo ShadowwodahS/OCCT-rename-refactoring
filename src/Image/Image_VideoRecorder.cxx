@@ -59,7 +59,7 @@ Standard_DISABLE_DEPRECATION_WARNINGS
 
 #endif
 
-IMPLEMENT_STANDARD_RTTIEXT(Image_VideoRecorder, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Image_VideoRecorder, RefObject)
 
 //=================================================================================================
 

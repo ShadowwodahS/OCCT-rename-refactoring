@@ -27,15 +27,15 @@ class TCollection_ExtendedString;
 class TCollection_AsciiString;
 
 class Message_Printer;
-DEFINE_STANDARD_HANDLE(Message_Printer, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Message_Printer, RefObject)
 
 //! Abstract interface class defining printer as output context for text messages
 //!
 //! The message, besides being text string, has associated gravity
 //! level, which can be used by printer to decide either to process a message or ignore it.
-class Message_Printer : public Standard_Transient
+class Message_Printer : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Message_Printer, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Message_Printer, RefObject)
 public:
   //! Return trace level used for filtering messages;
   //! messages with lover gravity will be ignored.
@@ -72,7 +72,7 @@ public:
   //! Send a string message with specified trace level.
   //! The object is converted to string in format: <object kind> : <object pointer>.
   //! Default implementation calls first method Send().
-  Standard_EXPORT virtual void SendObject(const Handle(Standard_Transient)& theObject,
+  Standard_EXPORT virtual void SendObject(const Handle(RefObject)& theObject,
                                           const Message_Gravity             theGravity) const;
 
 protected:

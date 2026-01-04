@@ -23,7 +23,7 @@
 
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepVisual_FillAreaStyleColour;
 
 class StepVisual_FillStyleSelect : public StepData_SelectType
@@ -41,7 +41,7 @@ public:
   //! 4 -> ExternallyDefinedHatchStyle
   //! 5 -> FillAreaStyleHatching
   //! 0 else
-  Standard_EXPORT Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! returns Value as a FillAreaStyleColour (Null if another type)
   Standard_EXPORT Handle(StepVisual_FillAreaStyleColour) FillAreaStyleColour() const;

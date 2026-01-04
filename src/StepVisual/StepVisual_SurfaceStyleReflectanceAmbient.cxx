@@ -16,7 +16,7 @@
 
 #include <StepVisual_SurfaceStyleReflectanceAmbient.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_SurfaceStyleReflectanceAmbient, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepVisual_SurfaceStyleReflectanceAmbient, RefObject)
 
 //=================================================================================================
 

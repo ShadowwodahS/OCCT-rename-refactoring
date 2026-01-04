@@ -42,7 +42,7 @@
 #include <Adaptor3d_Curve.hxx>
 #include <BSplCLib.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeFix_EdgeProjAux, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(ShapeFix_EdgeProjAux, RefObject)
 
 //=================================================================================================
 

@@ -95,7 +95,7 @@ void View_Displayer::SetDisplayMode(const int                   theDisplayMode,
 // function : DisplayPresentation
 // purpose :
 // =======================================================================
-void View_Displayer::DisplayPresentation(const Handle(Standard_Transient)& thePresentation,
+void View_Displayer::DisplayPresentation(const Handle(RefObject)& thePresentation,
                                          const View_PresentationType       theType,
                                          const bool                        theToUpdateViewer)
 {
@@ -137,7 +137,7 @@ void View_Displayer::DisplayPresentation(const Handle(Standard_Transient)& thePr
 // function : RedisplayPresentation
 // purpose :
 // =======================================================================
-void View_Displayer::RedisplayPresentation(const Handle(Standard_Transient)& thePresentation,
+void View_Displayer::RedisplayPresentation(const Handle(RefObject)& thePresentation,
                                            const bool                        theToUpdateViewer)
 {
   Handle(AIS_InteractiveObject) aPresentation =
@@ -204,7 +204,7 @@ void View_Displayer::ErasePresentations(const View_PresentationType theType,
 // function : ErasePresentation
 // purpose :
 // =======================================================================
-void View_Displayer::ErasePresentation(const Handle(Standard_Transient)& thePresentation,
+void View_Displayer::ErasePresentation(const Handle(RefObject)& thePresentation,
                                        const View_PresentationType       theType,
                                        const bool                        theToUpdateViewer)
 {
@@ -309,7 +309,7 @@ bool View_Displayer::IsVisible(const TopoDS_Shape&         theShape,
 // =======================================================================
 void View_Displayer::UpdatePreview(
   const View_DisplayActionType                        theType,
-  const NCollection_List<Handle(Standard_Transient)>& thePresentations)
+  const NCollection_List<Handle(RefObject)>& thePresentations)
 {
   myDisplayPreview->UpdatePreview(theType, thePresentations);
   if (myFitAllActive)
@@ -399,7 +399,7 @@ Handle(AIS_InteractiveObject) View_Displayer::FindPresentation(
 // function : CreatePresentation
 // purpose :
 // =======================================================================
-Handle(Standard_Transient) View_Displayer::CreatePresentation(const TopoDS_Shape& theShape)
+Handle(RefObject) View_Displayer::CreatePresentation(const TopoDS_Shape& theShape)
 {
   Handle(AIS_Shape) aPresentation = new AIS_Shape(theShape);
   aPresentation->Attributes()->SetAutoTriangulation(Standard_False);

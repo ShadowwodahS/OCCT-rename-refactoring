@@ -25,9 +25,9 @@ class StepRepr_RepresentationItem;
 class StepRepr_Representation;
 
 class StepRepr_RepresentationMap;
-DEFINE_STANDARD_HANDLE(StepRepr_RepresentationMap, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepRepr_RepresentationMap, RefObject)
 
-class StepRepr_RepresentationMap : public Standard_Transient
+class StepRepr_RepresentationMap : public RefObject
 {
 
 public:
@@ -46,7 +46,7 @@ public:
 
   Standard_EXPORT Handle(StepRepr_Representation) MappedRepresentation() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepRepr_RepresentationMap, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepRepr_RepresentationMap, RefObject)
 
 protected:
 private:

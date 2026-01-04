@@ -18,7 +18,7 @@
 #include <Interface_ParamSet.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Interface_ParamSet, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Interface_ParamSet, RefObject)
 
 Interface_ParamSet::Interface_ParamSet(const Standard_Integer nres, const Standard_Integer) // nst)
 {

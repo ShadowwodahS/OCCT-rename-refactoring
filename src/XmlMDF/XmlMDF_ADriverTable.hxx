@@ -26,14 +26,14 @@
 class XmlMDF_ADriver;
 
 class XmlMDF_ADriverTable;
-DEFINE_STANDARD_HANDLE(XmlMDF_ADriverTable, Standard_Transient)
+DEFINE_STANDARD_HANDLE(XmlMDF_ADriverTable, RefObject)
 
 //! A driver table is an object building links between
 //! object types and object drivers. In the
 //! translation process, a driver table is asked to
 //! give a translation driver for each current object
 //! to be translated.
-class XmlMDF_ADriverTable : public Standard_Transient
+class XmlMDF_ADriverTable : public RefObject
 {
 
 public:
@@ -60,7 +60,7 @@ public:
   Standard_EXPORT Standard_Boolean GetDriver(const Handle(Standard_Type)& theType,
                                              Handle(XmlMDF_ADriver)&      theDriver);
 
-  DEFINE_STANDARD_RTTIEXT(XmlMDF_ADriverTable, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(XmlMDF_ADriverTable, RefObject)
 
 protected:
 private:

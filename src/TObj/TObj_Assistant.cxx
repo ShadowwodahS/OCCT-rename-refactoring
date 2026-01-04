@@ -110,18 +110,18 @@ Standard_Integer TObj_Assistant::FindTypeIndex(const Handle(Standard_Type)& theT
 
 //=================================================================================================
 
-class TObj_Assistant_UnknownType : public Standard_Transient
+class TObj_Assistant_UnknownType : public RefObject
 {
 public:
   TObj_Assistant_UnknownType() {}
   // Empty constructor
 
   // CASCADE RTTI
-  DEFINE_STANDARD_RTTI_INLINE(TObj_Assistant_UnknownType, Standard_Transient)
+  DEFINE_STANDARD_RTTI_INLINE(TObj_Assistant_UnknownType, RefObject)
 };
 
 // Define handle class for TObj_Assistant_UnknownType
-DEFINE_STANDARD_HANDLE(TObj_Assistant_UnknownType, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TObj_Assistant_UnknownType, RefObject)
 
 //=================================================================================================
 
@@ -129,7 +129,7 @@ Standard_Integer TObj_Assistant::BindType(const Handle(Standard_Type)& theType)
 {
   if (theType.IsNull())
   {
-    Handle(Standard_Transient) anUnknownType;
+    Handle(RefObject) anUnknownType;
     anUnknownType = new TObj_Assistant_UnknownType;
     return getTypes().Add(anUnknownType);
   }

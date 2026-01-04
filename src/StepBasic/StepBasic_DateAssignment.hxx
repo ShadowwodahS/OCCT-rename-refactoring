@@ -25,9 +25,9 @@ class StepBasic_Date;
 class StepBasic_DateRole;
 
 class StepBasic_DateAssignment;
-DEFINE_STANDARD_HANDLE(StepBasic_DateAssignment, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_DateAssignment, RefObject)
 
-class StepBasic_DateAssignment : public Standard_Transient
+class StepBasic_DateAssignment : public RefObject
 {
 
 public:
@@ -42,7 +42,7 @@ public:
 
   Standard_EXPORT Handle(StepBasic_DateRole) Role() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_DateAssignment, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_DateAssignment, RefObject)
 
 protected:
 private:

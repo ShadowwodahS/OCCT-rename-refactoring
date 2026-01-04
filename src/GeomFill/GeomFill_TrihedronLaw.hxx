@@ -25,10 +25,10 @@
 class gp_Vec;
 
 class GeomFill_TrihedronLaw;
-DEFINE_STANDARD_HANDLE(GeomFill_TrihedronLaw, Standard_Transient)
+DEFINE_STANDARD_HANDLE(GeomFill_TrihedronLaw, RefObject)
 
 //! To define Trihedron along one Curve
-class GeomFill_TrihedronLaw : public Standard_Transient
+class GeomFill_TrihedronLaw : public RefObject
 {
 
 public:
@@ -109,7 +109,7 @@ public:
   //! Return False by Default.
   Standard_EXPORT virtual Standard_Boolean IsOnlyBy3dCurve() const;
 
-  DEFINE_STANDARD_RTTIEXT(GeomFill_TrihedronLaw, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(GeomFill_TrihedronLaw, RefObject)
 
 protected:
   Handle(Adaptor3d_Curve) myCurve;

@@ -29,10 +29,10 @@ class Expr_NamedUnknown;
 class TCollection_AsciiString;
 
 class Expr_GeneralExpression;
-DEFINE_STANDARD_HANDLE(Expr_GeneralExpression, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Expr_GeneralExpression, RefObject)
 
 //! Defines the general purposes of any expression.
-class Expr_GeneralExpression : public Standard_Transient
+class Expr_GeneralExpression : public RefObject
 {
 
 public:
@@ -114,7 +114,7 @@ public:
   //! returns a string representing <me> in a readable way.
   Standard_EXPORT virtual TCollection_AsciiString String() const = 0;
 
-  DEFINE_STANDARD_RTTIEXT(Expr_GeneralExpression, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Expr_GeneralExpression, RefObject)
 
 protected:
 private:

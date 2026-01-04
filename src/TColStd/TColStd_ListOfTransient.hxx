@@ -18,8 +18,8 @@
 #include <Standard_Transient.hxx>
 #include <NCollection_List.hxx>
 
-typedef NCollection_List<Handle(Standard_Transient)> TColStd_ListOfTransient;
-typedef NCollection_List<Handle(Standard_Transient)>::Iterator
+typedef NCollection_List<Handle(RefObject)> TColStd_ListOfTransient;
+typedef NCollection_List<Handle(RefObject)>::Iterator
   TColStd_ListIteratorOfListOfTransient;
 
 #endif

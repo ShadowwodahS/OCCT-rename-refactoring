@@ -35,7 +35,7 @@
 #include <TopOpeBRepTool_ShapeTool.hxx>
 #include <TopTools_ListOfShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TopOpeBRepDS_Check, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(TopOpeBRepDS_Check, RefObject)
 
 //=================================================================================================
 

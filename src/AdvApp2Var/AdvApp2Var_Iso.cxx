@@ -24,7 +24,7 @@
 #include <TColStd_HArray1OfReal.hxx>
 #include <TColStd_HArray2OfReal.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AdvApp2Var_Iso, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(AdvApp2Var_Iso, RefObject)
 
 //=================================================================================================
 

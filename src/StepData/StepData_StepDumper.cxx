@@ -43,7 +43,7 @@ StepData_StepWriter& StepData_StepDumper::StepWriter()
 }
 
 Standard_Boolean StepData_StepDumper::Dump(Standard_OStream&                 S,
-                                           const Handle(Standard_Transient)& ent,
+                                           const Handle(RefObject)& ent,
                                            const Standard_Integer            level)
 {
   Standard_Integer        i, nb = themodel->NbEntities();
@@ -90,7 +90,7 @@ Standard_Boolean StepData_StepDumper::Dump(Standard_OStream&                 S,
   else if (level == 1)
   {
     //  ...  Idents  ...
-    Handle(Standard_Transient)      anent;
+    Handle(RefObject)      anent;
     Handle(Interface_GeneralModule) module;
     Standard_Integer                CN;
     if (theslib.Select(ent, module, CN))
@@ -111,7 +111,7 @@ Standard_Boolean StepData_StepDumper::Dump(Standard_OStream&                 S,
   }
   else
   {
-    Handle(Standard_Transient) anent;
+    Handle(RefObject) anent;
     //    S<< " --  Dumping Entity n0 " << num << "  --" << std::endl;
     //  ...  Envoi  ...
     TColStd_Array1OfInteger tab(0, nb);
@@ -247,6 +247,6 @@ Standard_Boolean StepData_StepDumper::Dump(Standard_OStream&      S,
 {
   if (num <= 0 || num > themodel->NbEntities())
     return Standard_False;
-  Handle(Standard_Transient) ent = themodel->Value(num);
+  Handle(RefObject) ent = themodel->Value(num);
   return Dump(S, ent, level);
 }

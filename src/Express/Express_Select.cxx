@@ -121,7 +121,7 @@ Standard_Boolean Express_Select::GenerateClass() const
             "#include <Standard_Integer.hxx>\n"
             "\n";
 
-    anOS << "class Standard_Transient;\n";
+    anOS << "class RefObject;\n";
     if (!aSeqMember->IsEmpty())
       anOS << "class StepData_SelectMember;\n";
 
@@ -168,7 +168,7 @@ Standard_Boolean Express_Select::GenerateClass() const
       Standard_Integer anIdx = aSeqEntities->Value(i);
       anOS << "  //! -- " << i << " -> " << myNames->Value(anIdx)->String() << "\n";
     }
-    anOS << "  Standard_EXPORT Standard_Integer CaseNum (const Handle(Standard_Transient)& theEnt) "
+    anOS << "  Standard_EXPORT Standard_Integer CaseNum (const Handle(RefObject)& theEnt) "
             "const Standard_OVERRIDE;\n"
             "\n";
 
@@ -269,7 +269,7 @@ Standard_Boolean Express_Select::GenerateClass() const
     // write CaseNum method
     Express::WriteMethodStamp(anOS, "CaseNum");
     anOS << "Standard_Integer " << aCPPName
-         << "::CaseNum (const Handle(Standard_Transient)& theEnt) const\n"
+         << "::CaseNum (const Handle(RefObject)& theEnt) const\n"
             "{\n";
 
     if (!aSeqEntities->IsEmpty())

@@ -23,10 +23,10 @@
 #include <HLRAlgo_PolyData.hxx>
 
 class HLRAlgo_PolyShellData;
-DEFINE_STANDARD_HANDLE(HLRAlgo_PolyShellData, Standard_Transient)
+DEFINE_STANDARD_HANDLE(HLRAlgo_PolyShellData, RefObject)
 
 //! All the PolyData of a Shell
-class HLRAlgo_PolyShellData : public Standard_Transient
+class HLRAlgo_PolyShellData : public RefObject
 {
 
 public:
@@ -51,7 +51,7 @@ public:
 
   ShellIndices& Indices() { return myIndices; }
 
-  DEFINE_STANDARD_RTTIEXT(HLRAlgo_PolyShellData, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(HLRAlgo_PolyShellData, RefObject)
 
 private:
   ShellIndices                                 myIndices;

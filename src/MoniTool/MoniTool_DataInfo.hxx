@@ -22,7 +22,7 @@
 #include <Standard_Handle.hxx>
 
 #include <Standard_Type.hxx>
-class Standard_Transient;
+class RefObject;
 
 //! Gives information on an object
 //! Used as template to instantiate Elem, etc
@@ -34,11 +34,11 @@ public:
 
   //! Returns the Type attached to an object
   //! Here, the Dynamic Type of a Transient. Null Type if unknown
-  Standard_EXPORT static Handle(Standard_Type) Type(const Handle(Standard_Transient)& ent);
+  Standard_EXPORT static Handle(Standard_Type) Type(const Handle(RefObject)& ent);
 
   //! Returns Type Name (string)
   //! Allows to name type of non-handled objects
-  Standard_EXPORT static Standard_CString TypeName(const Handle(Standard_Transient)& ent);
+  Standard_EXPORT static Standard_CString TypeName(const Handle(RefObject)& ent);
 
 protected:
 private:

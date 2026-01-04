@@ -14,7 +14,7 @@
 #include <MoniTool_IntVal.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(MoniTool_IntVal, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(MoniTool_IntVal, RefObject)
 
 MoniTool_IntVal::MoniTool_IntVal(const Standard_Integer val)
 {

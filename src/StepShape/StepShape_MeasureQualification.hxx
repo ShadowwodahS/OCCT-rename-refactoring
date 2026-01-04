@@ -27,10 +27,10 @@ class StepBasic_MeasureWithUnit;
 class StepShape_ValueQualifier;
 
 class StepShape_MeasureQualification;
-DEFINE_STANDARD_HANDLE(StepShape_MeasureQualification, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepShape_MeasureQualification, RefObject)
 
 //! Added for Dimensional Tolerances
-class StepShape_MeasureQualification : public Standard_Transient
+class StepShape_MeasureQualification : public RefObject
 {
 
 public:
@@ -65,7 +65,7 @@ public:
   Standard_EXPORT void SetQualifiersValue(const Standard_Integer          num,
                                           const StepShape_ValueQualifier& aqualifier);
 
-  DEFINE_STANDARD_RTTIEXT(StepShape_MeasureQualification, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepShape_MeasureQualification, RefObject)
 
 protected:
 private:

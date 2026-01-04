@@ -51,7 +51,7 @@
 #endif
 #include <limits>
 
-IMPLEMENT_STANDARD_RTTIEXT(OpenGl_Context, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(OpenGl_Context, RefObject)
 
 #if defined(HAVE_EGL)
   #include <EGL/egl.h>

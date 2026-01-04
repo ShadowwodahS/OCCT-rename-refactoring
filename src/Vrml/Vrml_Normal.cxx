@@ -14,7 +14,7 @@
 #include <Standard_Type.hxx>
 #include <Vrml_Normal.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Vrml_Normal, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Vrml_Normal, RefObject)
 
 Vrml_Normal::Vrml_Normal(const Handle(TColgp_HArray1OfVec)& aVector)
 {

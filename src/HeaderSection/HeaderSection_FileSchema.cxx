@@ -15,7 +15,7 @@
 #include <Standard_Type.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(HeaderSection_FileSchema, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(HeaderSection_FileSchema, RefObject)
 
 HeaderSection_FileSchema::HeaderSection_FileSchema() {}
 

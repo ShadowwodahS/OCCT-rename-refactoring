@@ -27,9 +27,9 @@ class TCollection_HAsciiString;
 class StepBasic_ProductContext;
 
 class StepBasic_Product;
-DEFINE_STANDARD_HANDLE(StepBasic_Product, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_Product, RefObject)
 
-class StepBasic_Product : public Standard_Transient
+class StepBasic_Product : public RefObject
 {
 
 public:
@@ -63,7 +63,7 @@ public:
 
   Standard_EXPORT Standard_Integer NbFrameOfReference() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_Product, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_Product, RefObject)
 
 protected:
 private:

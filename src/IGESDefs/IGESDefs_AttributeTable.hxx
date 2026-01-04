@@ -24,7 +24,7 @@
 #include <IGESData_IGESEntity.hxx>
 #include <Standard_Integer.hxx>
 class IGESDefs_AttributeDef;
-class Standard_Transient;
+class RefObject;
 class TCollection_HAsciiString;
 
 class IGESDefs_AttributeTable;
@@ -73,7 +73,7 @@ public:
   //! it is read in the Definition.
   Standard_EXPORT Standard_Integer ValueCount(const Standard_Integer Atnum) const;
 
-  Standard_EXPORT Handle(Standard_Transient) AttributeList(const Standard_Integer Attribnum,
+  Standard_EXPORT Handle(RefObject) AttributeList(const Standard_Integer Attribnum,
                                                            const Standard_Integer Rownum) const;
 
   //! Returns Attribute Value <AtNum, Rownum, rank ValNum> as an Integer

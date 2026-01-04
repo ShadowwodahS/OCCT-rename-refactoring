@@ -28,7 +28,7 @@ class TObj_Object;
  * (implements TObj_ObjectIterator interface)
  */
 
-class TObj_ObjectIterator : public Standard_Transient
+class TObj_ObjectIterator : public RefObject
 {
 public:
   /*
@@ -50,11 +50,11 @@ public:
 
 public:
   //! CASCADE RTTI
-  DEFINE_STANDARD_RTTIEXT(TObj_ObjectIterator, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TObj_ObjectIterator, RefObject)
 };
 
 //! Define handle class for TObj_ObjectIterator
-DEFINE_STANDARD_HANDLE(TObj_ObjectIterator, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TObj_ObjectIterator, RefObject)
 
 #endif
 

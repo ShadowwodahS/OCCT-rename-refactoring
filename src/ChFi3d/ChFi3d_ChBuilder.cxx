@@ -628,7 +628,7 @@ Handle(ChFiDS_SecHArray1) ChFi3d_ChBuilder::Sect(const Standard_Integer IC,
   {
     if (i == IC)
     {
-      Handle(Standard_Transient) bid = itel.Value()->SetOfSurfData()->Value(IS)->Simul();
+      Handle(RefObject) bid = itel.Value()->SetOfSurfData()->Value(IS)->Simul();
       res                            = Handle(ChFiDS_SecHArray1)::DownCast(bid);
       return res;
     }

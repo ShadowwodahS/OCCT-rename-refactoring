@@ -51,7 +51,7 @@ IGESSelect_SignColor::IGESSelect_SignColor(const Standard_Integer mode)
     SetIntCase(Standard_True, 0, Standard_True, 0);
 }
 
-Standard_CString IGESSelect_SignColor::Value(const Handle(Standard_Transient)&       ent,
+Standard_CString IGESSelect_SignColor::Value(const Handle(RefObject)&       ent,
                                              const Handle(Interface_InterfaceModel)& model) const
 {
   Standard_Real red = -1, green = -1, blue = -1;

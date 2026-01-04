@@ -14,7 +14,7 @@
 #include <Standard_Type.hxx>
 #include <Vrml_IndexedLineSet.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Vrml_IndexedLineSet, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Vrml_IndexedLineSet, RefObject)
 
 Vrml_IndexedLineSet::Vrml_IndexedLineSet(const Handle(TColStd_HArray1OfInteger)& aCoordIndex,
                                          const Handle(TColStd_HArray1OfInteger)& aMaterialIndex,

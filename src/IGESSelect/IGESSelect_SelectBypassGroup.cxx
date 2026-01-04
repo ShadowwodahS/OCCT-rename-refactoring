@@ -30,7 +30,7 @@ IGESSelect_SelectBypassGroup::IGESSelect_SelectBypassGroup(const Standard_Intege
 }
 
 Standard_Boolean IGESSelect_SelectBypassGroup::Explore(const Standard_Integer /*level*/,
-                                                       const Handle(Standard_Transient)& ent,
+                                                       const Handle(RefObject)& ent,
                                                        const Interface_Graph& /*G*/,
                                                        Interface_EntityIterator& explored) const
 {

@@ -20,7 +20,7 @@
 StepVisual_PresentationRepresentationSelect::StepVisual_PresentationRepresentationSelect() {}
 
 Standard_Integer StepVisual_PresentationRepresentationSelect::CaseNum(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

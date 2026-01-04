@@ -16,7 +16,7 @@
 
 #include <TopOpeBRepBuild_Loop.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TopOpeBRepBuild_Loop, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(TopOpeBRepBuild_Loop, RefObject)
 
 //=================================================================================================
 

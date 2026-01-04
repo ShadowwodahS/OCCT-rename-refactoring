@@ -23,7 +23,7 @@ class IMeshData_Model;
 struct IMeshTools_Parameters;
 
 //! Interface class providing API for algorithms intended to update or modify discrete model.
-class IMeshTools_ModelAlgo : public Standard_Transient
+class IMeshTools_ModelAlgo : public RefObject
 {
 public:
   //! Destructor.
@@ -46,7 +46,7 @@ public:
     }
   }
 
-  DEFINE_STANDARD_RTTIEXT(IMeshTools_ModelAlgo, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IMeshTools_ModelAlgo, RefObject)
 
 protected:
   //! Constructor.

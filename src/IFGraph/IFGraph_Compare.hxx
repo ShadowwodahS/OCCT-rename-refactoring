@@ -23,7 +23,7 @@
 
 #include <Interface_Graph.hxx>
 #include <Interface_GraphContent.hxx>
-class Standard_Transient;
+class RefObject;
 class Interface_EntityIterator;
 
 //! this class evaluates effect of two compared sub-parts :
@@ -41,7 +41,7 @@ public:
 
   //! adds an entity and its shared ones to the list :
   //! first True means adds to the first sub-list, else to the 2nd
-  Standard_EXPORT void GetFromEntity(const Handle(Standard_Transient)& ent,
+  Standard_EXPORT void GetFromEntity(const Handle(RefObject)& ent,
                                      const Standard_Boolean            first);
 
   //! adds a list of entities (as an iterator) as such, that is,

@@ -328,17 +328,17 @@ static Standard_Integer QAHandleBool(Draw_Interpretor& theDI,
 }
 
 // Auxiliary class to define new virtual methods
-class Transient_Root : public Standard_Transient
+class Transient_Root : public RefObject
 {
 public:
   virtual const char* Name() const { return "Transient_Root"; }
 
-  virtual Standard_Transient* CreateParent() const { return new Standard_Transient; }
+  virtual RefObject* CreateParent() const { return new RefObject; }
 
-  virtual Standard_Transient* Clone() const { return new Transient_Root; }
-  DEFINE_STANDARD_RTTI_INLINE(Transient_Root, Standard_Transient)
+  virtual RefObject* Clone() const { return new Transient_Root; }
+  DEFINE_STANDARD_RTTI_INLINE(Transient_Root, RefObject)
 };
-DEFINE_STANDARD_HANDLE(Transient_Root, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Transient_Root, RefObject)
 
 // Auxiliary macros to create hierarchy of 50 classes
 #define QA_DEFINECLASS(theClass, theParent)                                                        \
@@ -349,11 +349,11 @@ DEFINE_STANDARD_HANDLE(Transient_Root, Standard_Transient)
     {                                                                                              \
       return #theClass;                                                                            \
     }                                                                                              \
-    virtual Standard_Transient* CreateParent() const Standard_OVERRIDE                             \
+    virtual RefObject* CreateParent() const Standard_OVERRIDE                             \
     {                                                                                              \
       return new theParent();                                                                      \
     }                                                                                              \
-    virtual Standard_Transient* Clone() const Standard_OVERRIDE                                    \
+    virtual RefObject* Clone() const Standard_OVERRIDE                                    \
     {                                                                                              \
       return new theClass();                                                                       \
     }                                                                                              \
@@ -503,15 +503,15 @@ static Standard_Integer QAHandleInc(Draw_Interpretor& theDI,
     return 1;
   }
 
-  Handle(Standard_Transient)          aHandle = new Standard_Transient();
-  std::shared_ptr<Standard_Transient> aSharePtr(new Standard_Transient());
+  Handle(RefObject)          aHandle = new RefObject();
+  std::shared_ptr<RefObject> aSharePtr(new RefObject());
   theDI << "Time of creating and destroying " << aNbIters
         << " smart pointers to the same object, per item, ns:";
   {
     {
       QATimer aTimer(theDI, "\nOCCT Handle:    ", QATimer::ns, aNbIters);
       {
-        std::vector<Handle(Standard_Transient)> aHandles(aNbIters);
+        std::vector<Handle(RefObject)> aHandles(aNbIters);
         for (Standard_Integer anIter = 0; anIter < aNbIters; ++anIter)
         {
           aHandles[anIter] = aHandle;
@@ -521,7 +521,7 @@ static Standard_Integer QAHandleInc(Draw_Interpretor& theDI,
     {
       QATimer aTimer(theDI, "\nC++ shared_ptr: ", QATimer::ns, aNbIters);
       {
-        std::vector<std::shared_ptr<Standard_Transient>> aSharePointers(aNbIters);
+        std::vector<std::shared_ptr<RefObject>> aSharePointers(aNbIters);
         for (Standard_Integer anIter = 0; anIter < aNbIters; ++anIter)
         {
           aSharePointers[anIter] = aSharePtr;
@@ -627,9 +627,9 @@ static Standard_Integer QAHandleKind(Draw_Interpretor& /*theDI*/,
   QA_CHECK("is type_index (aType00)    : ", aCppType == typeid(qaclass00_50), false);
   QA_CHECK("is type_index (aType40)    : ", aCppType == typeid(qaclass40_50), true);
 
-  QA_CHECK("IsClass(Standard_Transient): ",
-           std::is_class<Standard_Transient>::value
-             == !!STANDARD_TYPE(Standard_Transient)->IsClass(),
+  QA_CHECK("IsClass(RefObject): ",
+           std::is_class<RefObject>::value
+             == !!STANDARD_TYPE(RefObject)->IsClass(),
            true);
   // QA_CHECK ("IsEnum (Message_Status)    : ", std::is_enum<Message_Status>::value ==
   // !!STANDARD_TYPE(Message_Status)->IsEnumeration(), true);

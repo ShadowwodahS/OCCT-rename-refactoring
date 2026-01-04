@@ -21,7 +21,7 @@
 #include <TCollection_AsciiString.hxx>
 
 //! Describes custom vertex shader attribute.
-class Graphic3d_ShaderAttribute : public Standard_Transient
+class Graphic3d_ShaderAttribute : public RefObject
 {
 public:
   //! Creates new attribute.
@@ -42,9 +42,9 @@ protected:
   int                     myLocation; //!< attribute location
 
 public:
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_ShaderAttribute, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Graphic3d_ShaderAttribute, RefObject)
 };
 
-DEFINE_STANDARD_HANDLE(Graphic3d_ShaderAttribute, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Graphic3d_ShaderAttribute, RefObject)
 
 #endif // _Graphic3d_ShaderAttribute_HeaderFile

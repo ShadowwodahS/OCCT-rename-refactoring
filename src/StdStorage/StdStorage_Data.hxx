@@ -50,7 +50,7 @@ class StdStorage_RootData;
 //! are not maintained by the storage/retrieval
 //! mechanism: external references are not
 //! supported by Storage_Schema algorithm
-class StdStorage_Data : public Standard_Transient
+class StdStorage_Data : public RefObject
 {
 
 public:

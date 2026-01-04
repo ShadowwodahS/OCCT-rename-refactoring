@@ -20,7 +20,7 @@
 #include <Standard_Transient.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Interface_GTool, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Interface_GTool, RefObject)
 
 Interface_GTool::Interface_GTool() {}
 
@@ -45,7 +45,7 @@ Handle(Interface_SignType) Interface_GTool::SignType() const
   return thesign;
 }
 
-Standard_CString Interface_GTool::SignValue(const Handle(Standard_Transient)&       ent,
+Standard_CString Interface_GTool::SignValue(const Handle(RefObject)&       ent,
                                             const Handle(Interface_InterfaceModel)& model) const
 {
   if (ent.IsNull())
@@ -99,7 +99,7 @@ void Interface_GTool::ClearEntities()
 
 //=================================================================================================
 
-Standard_Boolean Interface_GTool::Select(const Handle(Standard_Transient)& ent,
+Standard_Boolean Interface_GTool::Select(const Handle(RefObject)& ent,
                                          Handle(Interface_GeneralModule)&  gmod,
                                          Standard_Integer&                 CN,
                                          const Standard_Boolean            enforce)

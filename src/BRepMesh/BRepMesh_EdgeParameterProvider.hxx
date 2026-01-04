@@ -34,7 +34,7 @@ class TopoDS_Face;
 //! Auxiliary class provides correct parameters
 //! on curve regarding SameParameter flag.
 template <class ParametersCollection>
-class BRepMesh_EdgeParameterProvider : public Standard_Transient
+class BRepMesh_EdgeParameterProvider : public RefObject
 {
 public:
   DEFINE_STANDARD_ALLOC

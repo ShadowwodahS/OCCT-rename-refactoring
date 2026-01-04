@@ -29,7 +29,7 @@
 class StepShape_ShapeDefinitionRepresentation;
 class StepBasic_ProductDefinition;
 class STEPSelections_AssemblyComponent;
-class Standard_Transient;
+class RefObject;
 class StepRepr_NextAssemblyUsageOccurrence;
 
 class STEPSelections_AssemblyExplorer
@@ -48,7 +48,7 @@ public:
 
   Standard_EXPORT void FillListWithGraph(const Handle(STEPSelections_AssemblyComponent)& cmp);
 
-  Standard_EXPORT Handle(Standard_Transient) FindItemWithNAUO(
+  Standard_EXPORT Handle(RefObject) FindItemWithNAUO(
     const Handle(StepRepr_NextAssemblyUsageOccurrence)& nauo) const;
 
   //! Returns the number of root assemblies;

@@ -120,7 +120,7 @@ void IFGraph_SubPartsIterator::SetPartNum(const Standard_Integer num)
   thepart = num;
 }
 
-void IFGraph_SubPartsIterator::GetFromEntity(const Handle(Standard_Transient)& ent,
+void IFGraph_SubPartsIterator::GetFromEntity(const Handle(RefObject)& ent,
                                              const Standard_Boolean            shared)
 {
   thegraph.GetFromEntity(ent, shared, thepart, thepart, Standard_False);
@@ -163,12 +163,12 @@ Interface_Graph IFGraph_SubPartsIterator::LoadedGraph() const
   return G;
 }
 
-Standard_Boolean IFGraph_SubPartsIterator::IsLoaded(const Handle(Standard_Transient)& ent) const
+Standard_Boolean IFGraph_SubPartsIterator::IsLoaded(const Handle(RefObject)& ent) const
 {
   return thegraph.IsPresent(thegraph.EntityNumber(ent));
 }
 
-Standard_Boolean IFGraph_SubPartsIterator::IsInPart(const Handle(Standard_Transient)& ent) const
+Standard_Boolean IFGraph_SubPartsIterator::IsInPart(const Handle(RefObject)& ent) const
 {
   Standard_Integer num = thegraph.EntityNumber(ent);
   if (!thegraph.IsPresent(num))
@@ -177,7 +177,7 @@ Standard_Boolean IFGraph_SubPartsIterator::IsInPart(const Handle(Standard_Transi
 }
 
 Standard_Integer IFGraph_SubPartsIterator::EntityPartNum(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   Standard_Integer num = thegraph.EntityNumber(ent);
   if (!thegraph.IsPresent(num))
@@ -257,7 +257,7 @@ Standard_Boolean IFGraph_SubPartsIterator::IsSingle() const
   return (theparts->Value(thecurr) == 1);
 }
 
-Handle(Standard_Transient) IFGraph_SubPartsIterator::FirstEntity() const
+Handle(RefObject) IFGraph_SubPartsIterator::FirstEntity() const
 {
   if (thecurr < 1 || thecurr > theparts->Length())
     throw Standard_NoSuchObject("IFGraph_SubPartsIterator : FirstEntity");

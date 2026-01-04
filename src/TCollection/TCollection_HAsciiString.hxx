@@ -28,7 +28,7 @@
 class TCollection_HExtendedString;
 
 class TCollection_HAsciiString;
-DEFINE_STANDARD_HANDLE(TCollection_HAsciiString, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TCollection_HAsciiString, RefObject)
 
 //! A variable-length sequence of ASCII characters
 //! (normal 8-bit character type). It provides editing
@@ -38,7 +38,7 @@ DEFINE_STANDARD_HANDLE(TCollection_HAsciiString, Standard_Transient)
 //! -   HAsciiString strings may be shared by several objects.
 //! -   You may use an AsciiString object to get the actual string.
 //! Note: HAsciiString objects use an AsciiString string as a field.
-class TCollection_HAsciiString : public Standard_Transient
+class TCollection_HAsciiString : public RefObject
 {
 
 public:
@@ -485,7 +485,7 @@ public:
 
   Standard_EXPORT Standard_Boolean IsSameState(const Handle(TCollection_HAsciiString)& other) const;
 
-  DEFINE_STANDARD_RTTIEXT(TCollection_HAsciiString, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TCollection_HAsciiString, RefObject)
 
 protected:
 private:

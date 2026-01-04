@@ -13,4 +13,4 @@
 
 #include <Prs3d_BasicAspect.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Prs3d_BasicAspect, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Prs3d_BasicAspect, RefObject)

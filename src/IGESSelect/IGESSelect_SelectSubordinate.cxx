@@ -33,7 +33,7 @@ Standard_Integer IGESSelect_SelectSubordinate::Status() const
 
 Standard_Boolean IGESSelect_SelectSubordinate::Sort(
   const Standard_Integer,
-  const Handle(Standard_Transient)& ent,
+  const Handle(RefObject)& ent,
   const Handle(Interface_InterfaceModel)& /*model*/) const
 {
   DeclareAndCast(IGESData_IGESEntity, igesent, ent);

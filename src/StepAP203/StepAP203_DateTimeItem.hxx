@@ -23,7 +23,7 @@
 
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepBasic_ProductDefinition;
 class StepAP203_ChangeRequest;
 class StepAP203_StartRequest;
@@ -54,7 +54,7 @@ public:
   //! 8 -> SecurityClassification from StepBasic
   //! 9 -> Certification from StepBasic
   //! 0 else
-  Standard_EXPORT Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! Returns Value as ProductDefinition (or Null if another type)
   Standard_EXPORT Handle(StepBasic_ProductDefinition) ProductDefinition() const;

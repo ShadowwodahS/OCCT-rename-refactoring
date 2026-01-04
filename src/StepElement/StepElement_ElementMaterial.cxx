@@ -18,7 +18,7 @@
 #include <StepElement_ElementMaterial.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepElement_ElementMaterial, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepElement_ElementMaterial, RefObject)
 
 //=================================================================================================
 

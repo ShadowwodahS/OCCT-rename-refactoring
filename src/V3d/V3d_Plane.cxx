@@ -21,7 +21,7 @@
 #include <gp_Pln.hxx>
 #include <V3d_Viewer.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(V3d_Plane, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(V3d_Plane, RefObject)
 
 //=================================================================================================
 

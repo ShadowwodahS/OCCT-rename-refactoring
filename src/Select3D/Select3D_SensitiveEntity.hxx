@@ -26,9 +26,9 @@ class Graphic3d_TransformPers;
 class SelectMgr_EntityOwner;
 
 //! Abstract framework to define 3D sensitive entities.
-class Select3D_SensitiveEntity : public Standard_Transient
+class Select3D_SensitiveEntity : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Select3D_SensitiveEntity, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Select3D_SensitiveEntity, RefObject)
 public:
   //! Returns pointer to owner of the entity
   const Handle(SelectMgr_EntityOwner)& OwnerId() const { return myOwnerId; }
@@ -115,7 +115,7 @@ protected:
   Standard_Integer                mySFactor;
 };
 
-DEFINE_STANDARD_HANDLE(Select3D_SensitiveEntity, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Select3D_SensitiveEntity, RefObject)
 
 Standard_DEPRECATED("Deprecated alias - Select3D_SensitiveEntity should be used "
                     "instead")

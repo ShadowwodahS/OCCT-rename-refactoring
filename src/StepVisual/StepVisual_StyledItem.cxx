@@ -20,7 +20,7 @@ IMPLEMENT_STANDARD_RTTIEXT(StepVisual_StyledItem, StepRepr_RepresentationItem)
 void StepVisual_StyledItem::Init(
   const Handle(TCollection_HAsciiString)&                        aName,
   const Handle(StepVisual_HArray1OfPresentationStyleAssignment)& aStyles,
-  const Handle(Standard_Transient)&                              aItem)
+  const Handle(RefObject)&                              aItem)
 {
   // --- classe own fields ---
   myStyles   = aStyles;

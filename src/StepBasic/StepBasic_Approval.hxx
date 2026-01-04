@@ -30,9 +30,9 @@ class TCollection_HAsciiString;
 #endif
 
 class StepBasic_Approval;
-DEFINE_STANDARD_HANDLE(StepBasic_Approval, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_Approval, RefObject)
 
-class StepBasic_Approval : public Standard_Transient
+class StepBasic_Approval : public RefObject
 {
 
 public:
@@ -50,7 +50,7 @@ public:
 
   Standard_EXPORT Handle(TCollection_HAsciiString) Level() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_Approval, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_Approval, RefObject)
 
 protected:
 private:

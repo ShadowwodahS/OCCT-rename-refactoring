@@ -19,7 +19,7 @@
 #include <StepFEA_ElementGeometricRelationship.hxx>
 #include <StepFEA_ElementOrElementGroup.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepFEA_ElementGeometricRelationship, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepFEA_ElementGeometricRelationship, RefObject)
 
 //=================================================================================================
 

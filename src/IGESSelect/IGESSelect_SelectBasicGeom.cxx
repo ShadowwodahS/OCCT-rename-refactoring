@@ -38,7 +38,7 @@ IGESSelect_SelectBasicGeom::IGESSelect_SelectBasicGeom(const Standard_Integer mo
 }
 
 Standard_Boolean IGESSelect_SelectBasicGeom::Explore(const Standard_Integer /*level*/,
-                                                     const Handle(Standard_Transient)& ent,
+                                                     const Handle(RefObject)& ent,
                                                      const Interface_Graph& /*G*/,
                                                      Interface_EntityIterator& explored) const
 {

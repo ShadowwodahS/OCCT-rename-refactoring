@@ -23,9 +23,9 @@
 class IGESToBRep_ToolContainer;
 
 class IGESToBRep_AlgoContainer;
-DEFINE_STANDARD_HANDLE(IGESToBRep_AlgoContainer, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IGESToBRep_AlgoContainer, RefObject)
 
-class IGESToBRep_AlgoContainer : public Standard_Transient
+class IGESToBRep_AlgoContainer : public RefObject
 {
 
 public:
@@ -38,7 +38,7 @@ public:
   //! Returns ToolContainer
   Handle(IGESToBRep_ToolContainer) ToolContainer() const;
 
-  DEFINE_STANDARD_RTTIEXT(IGESToBRep_AlgoContainer, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IGESToBRep_AlgoContainer, RefObject)
 
 protected:
 private:

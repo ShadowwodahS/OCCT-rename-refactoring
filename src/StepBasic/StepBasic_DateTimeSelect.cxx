@@ -20,7 +20,7 @@
 
 StepBasic_DateTimeSelect::StepBasic_DateTimeSelect() {}
 
-Standard_Integer StepBasic_DateTimeSelect::CaseNum(const Handle(Standard_Transient)& ent) const
+Standard_Integer StepBasic_DateTimeSelect::CaseNum(const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

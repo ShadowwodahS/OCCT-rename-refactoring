@@ -24,10 +24,10 @@ class TCollection_HAsciiString;
 class StepRepr_ShapeAspect;
 
 class StepRepr_ShapeAspectRelationship;
-DEFINE_STANDARD_HANDLE(StepRepr_ShapeAspectRelationship, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepRepr_ShapeAspectRelationship, RefObject)
 
 //! Representation of STEP entity ShapeAspectRelationship
-class StepRepr_ShapeAspectRelationship : public Standard_Transient
+class StepRepr_ShapeAspectRelationship : public RefObject
 {
 
 public:
@@ -70,7 +70,7 @@ public:
   Standard_EXPORT void SetRelatedShapeAspect(
     const Handle(StepRepr_ShapeAspect)& RelatedShapeAspect);
 
-  DEFINE_STANDARD_RTTIEXT(StepRepr_ShapeAspectRelationship, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepRepr_ShapeAspectRelationship, RefObject)
 
 protected:
 private:

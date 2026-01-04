@@ -26,10 +26,10 @@
 #include <XCAFView_ProjectionType.hxx>
 
 class XCAFView_Object;
-DEFINE_STANDARD_HANDLE(XCAFView_Object, Standard_Transient)
+DEFINE_STANDARD_HANDLE(XCAFView_Object, RefObject)
 
 //! Access object for saved view
-class XCAFView_Object : public Standard_Transient
+class XCAFView_Object : public RefObject
 {
 
 public:
@@ -140,7 +140,7 @@ public:
       return gp_Pnt();
   }
 
-  DEFINE_STANDARD_RTTIEXT(XCAFView_Object, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(XCAFView_Object, RefObject)
 
 private:
   Handle(TCollection_HAsciiString) myName;

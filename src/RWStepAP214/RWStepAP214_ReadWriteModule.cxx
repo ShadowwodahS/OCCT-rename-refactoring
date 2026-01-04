@@ -6217,7 +6217,7 @@ void RWStepAP214_ReadWriteModule::ReadStep(const Standard_Integer               
                                            const Handle(StepData_StepReaderData)& data,
                                            const Standard_Integer                 num,
                                            Handle(Interface_Check)&               ach,
-                                           const Handle(Standard_Transient)&      ent) const
+                                           const Handle(RefObject)&      ent) const
 {
   if (CN == 0)
   {
@@ -10829,7 +10829,7 @@ void RWStepAP214_ReadWriteModule::ReadStep(const Standard_Integer               
 
 void RWStepAP214_ReadWriteModule::WriteStep(const Standard_Integer            CN,
                                             StepData_StepWriter&              SW,
-                                            const Handle(Standard_Transient)& ent) const
+                                            const Handle(RefObject)& ent) const
 {
   if (CN == 0)
     return;

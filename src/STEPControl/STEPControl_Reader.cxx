@@ -286,7 +286,7 @@ Standard_Integer STEPControl_Reader::NbRootsForTransfer()
   Standard_Integer nb = Model()->NbEntities();
   for (Standard_Integer i = 1; i <= nb; i++)
   {
-    Handle(Standard_Transient) ent = Model()->Value(i);
+    Handle(RefObject) ent = Model()->Value(i);
     if (aStepModel->InternalParameters.ReadAllShapes == 1)
     {
       // Special case to read invalid shape_representation without links to shapes.
@@ -548,7 +548,7 @@ void STEPControl_Reader::FileUnits(TColStd_SequenceOfAsciiString& theUnitLengthN
 
   for (Standard_Integer i = 1; i <= nbroots; i++)
   {
-    Handle(Standard_Transient) anEnt = theroots(i);
+    Handle(RefObject) anEnt = theroots(i);
     Standard_Integer           num   = graph.EntityNumber(anEnt);
     if (!num)
       continue;
@@ -620,7 +620,7 @@ void STEPControl_Reader::FileUnits(TColStd_SequenceOfAsciiString& theUnitLengthN
     Standard_Integer nb = aModel->NbEntities();
     for (Standard_Integer i = 1; i <= nb; i++)
     {
-      Handle(Standard_Transient)             anEnt = aModel->Value(i);
+      Handle(RefObject)             anEnt = aModel->Value(i);
       Handle(StepRepr_RepresentationContext) aRepCont =
         Handle(StepRepr_RepresentationContext)::DownCast(anEnt);
       if (aRepCont.IsNull())

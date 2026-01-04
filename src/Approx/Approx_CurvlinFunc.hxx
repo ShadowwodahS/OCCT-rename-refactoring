@@ -23,11 +23,11 @@
 #include <TColStd_Array1OfReal.hxx>
 #include <TColStd_HArray1OfReal.hxx>
 
-DEFINE_STANDARD_HANDLE(Approx_CurvlinFunc, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Approx_CurvlinFunc, RefObject)
 
 //! defines an abstract curve with
 //! curvilinear parametrization
-class Approx_CurvlinFunc : public Standard_Transient
+class Approx_CurvlinFunc : public RefObject
 {
 
 public:
@@ -101,7 +101,7 @@ public:
                                              const Standard_Integer Order,
                                              TColStd_Array1OfReal&  Result);
 
-  DEFINE_STANDARD_RTTIEXT(Approx_CurvlinFunc, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Approx_CurvlinFunc, RefObject)
 
 protected:
 private:

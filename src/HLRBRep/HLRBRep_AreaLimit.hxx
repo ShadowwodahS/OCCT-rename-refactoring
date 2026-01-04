@@ -25,12 +25,12 @@
 #include <Standard_Transient.hxx>
 
 class HLRBRep_AreaLimit;
-DEFINE_STANDARD_HANDLE(HLRBRep_AreaLimit, Standard_Transient)
+DEFINE_STANDARD_HANDLE(HLRBRep_AreaLimit, RefObject)
 
 //! The  private  nested class AreaLimit represents   a --
 //! vertex on  the Edge with the  state on the left and --
 //! the right.
-class HLRBRep_AreaLimit : public Standard_Transient
+class HLRBRep_AreaLimit : public RefObject
 {
 
 public:
@@ -75,7 +75,7 @@ public:
 
   Standard_EXPORT void Clear();
 
-  DEFINE_STANDARD_RTTIEXT(HLRBRep_AreaLimit, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(HLRBRep_AreaLimit, RefObject)
 
 protected:
 private:

@@ -28,10 +28,10 @@ class ChFiDS_Spine;
 class Geom2d_Curve;
 
 class ChFiDS_Stripe;
-DEFINE_STANDARD_HANDLE(ChFiDS_Stripe, Standard_Transient)
+DEFINE_STANDARD_HANDLE(ChFiDS_Stripe, RefObject)
 
 //! Data characterising a band of fillet.
-class ChFiDS_Stripe : public Standard_Transient
+class ChFiDS_Stripe : public RefObject
 {
 
 public:
@@ -149,7 +149,7 @@ public:
   //! Returns nb of SurfData's at end being in DS
   Standard_EXPORT Standard_Integer IsInDS(const Standard_Boolean First) const;
 
-  DEFINE_STANDARD_RTTIEXT(ChFiDS_Stripe, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(ChFiDS_Stripe, RefObject)
 
 protected:
 private:

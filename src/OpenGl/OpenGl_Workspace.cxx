@@ -23,7 +23,7 @@
 #include <OpenGl_View.hxx>
 #include <OpenGl_Window.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(OpenGl_Workspace, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(OpenGl_Workspace, RefObject)
 
 //=================================================================================================
 

@@ -28,9 +28,9 @@ class StepRepr_RepresentationContext;
 class StepRepr_RepresentationItem;
 
 class StepRepr_Representation;
-DEFINE_STANDARD_HANDLE(StepRepr_Representation, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepRepr_Representation, RefObject)
 
-class StepRepr_Representation : public Standard_Transient
+class StepRepr_Representation : public RefObject
 {
 
 public:
@@ -58,7 +58,7 @@ public:
 
   Standard_EXPORT Handle(StepRepr_RepresentationContext) ContextOfItems() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepRepr_Representation, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepRepr_Representation, RefObject)
 
 protected:
 private:

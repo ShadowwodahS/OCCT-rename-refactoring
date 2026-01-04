@@ -23,7 +23,7 @@
 #include <TColStd_Array1OfInteger.hxx>
 #include <TColStd_HArray1OfReal.hxx>
 
-DEFINE_STANDARD_HANDLE(Poly_PolygonOnTriangulation, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Poly_PolygonOnTriangulation, RefObject)
 
 //! This class provides a polygon in 3D space, based on the triangulation
 //! of a surface. It may be the approximate representation of a
@@ -37,9 +37,9 @@ DEFINE_STANDARD_HANDLE(Poly_PolygonOnTriangulation, Standard_Transient)
 //! on a surface, you can associate with each of its nodes the
 //! value of the parameter of the corresponding point on the
 //! curve.represents a 3d Polygon
-class Poly_PolygonOnTriangulation : public Standard_Transient
+class Poly_PolygonOnTriangulation : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Poly_PolygonOnTriangulation, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Poly_PolygonOnTriangulation, RefObject)
 public:
   //! Constructs a 3D polygon on the triangulation of a shape with specified size of nodes.
   Standard_EXPORT Poly_PolygonOnTriangulation(const Standard_Integer theNbNodes,

@@ -133,11 +133,11 @@ public:
   //! as a partial result
   //! Returns RetDone if item is not Null, RetFail if item is Null
   //! Remark : it is nullified for each Perform
-  Standard_EXPORT IFSelect_ReturnStatus RecordItem(const Handle(Standard_Transient)& item);
+  Standard_EXPORT IFSelect_ReturnStatus RecordItem(const Handle(RefObject)& item);
 
   //! Returns the Transient Object which was recorded with the
   //! current Line Command. If none was, returns a Null Handle
-  Standard_EXPORT Handle(Standard_Transient) RecordedItem() const;
+  Standard_EXPORT Handle(RefObject) RecordedItem() const;
 
   //! Clears the recorded information (commands, objects)
   Standard_EXPORT void Clear();
@@ -216,7 +216,7 @@ private:
   TColStd_Array1OfInteger       thewordeb;
   Standard_Boolean              therecord;
   Standard_Integer              thenumrec;
-  Handle(Standard_Transient)    theobjrec;
+  Handle(RefObject)    theobjrec;
   TColStd_SequenceOfAsciiString thecomlist;
 };
 

@@ -22,7 +22,7 @@
 
 #include <IFSelect_Signature.hxx>
 #include <Standard_CString.hxx>
-class Standard_Transient;
+class RefObject;
 class Interface_InterfaceModel;
 
 // Avoid possible conflict with SetForm macro defined by windows.h
@@ -52,7 +52,7 @@ public:
   //! Returns the signature for IGES, "mmm nnn" or "mmm" according
   //! creation choice (Type & Form or Type only)
   Standard_EXPORT Standard_CString
-    Value(const Handle(Standard_Transient)&       ent,
+    Value(const Handle(RefObject)&       ent,
           const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IGESSelect_IGESTypeForm, IFSelect_Signature)

@@ -15,7 +15,7 @@
 #include <StepVisual_Colour.hxx>
 #include <StepVisual_TextStyleForDefinedFont.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_TextStyleForDefinedFont, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepVisual_TextStyleForDefinedFont, RefObject)
 
 StepVisual_TextStyleForDefinedFont::StepVisual_TextStyleForDefinedFont() {}
 

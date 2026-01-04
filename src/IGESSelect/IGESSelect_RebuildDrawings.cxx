@@ -74,7 +74,7 @@ void IGESSelect_RebuildDrawings::Performing(IFSelect_ContextModif&            ct
     Interface_EntityIterator newset;
     for (setl.Start(); setl.More(); setl.Next())
     {
-      Handle(Standard_Transient) newent;
+      Handle(RefObject) newent;
       if (TC.Search(setl.Value(), newent))
         newset.AddItem(newent);
     }
@@ -110,7 +110,7 @@ void IGESSelect_RebuildDrawings::Performing(IFSelect_ContextModif&            ct
       Standard_Integer                     ia; // svv Jan11 2000 : porting on DEC
       for (ia = 1; ia <= nba; ia++)
       {
-        Handle(Standard_Transient) annot;
+        Handle(RefObject) annot;
         if (TC.Search(draw->Annotation(ia), annot))
           framelist.GetOneItem(annot);
       }
@@ -164,7 +164,7 @@ void IGESSelect_RebuildDrawings::Performing(IFSelect_ContextModif&            ct
       Standard_Integer                     ia; // svv Jan11 2000 : porting on DEC
       for (ia = 1; ia <= nba; ia++)
       {
-        Handle(Standard_Transient) annot;
+        Handle(RefObject) annot;
         if (TC.Search(draw->Annotation(ia), annot))
           framelist.GetOneItem(annot);
       }
@@ -192,7 +192,7 @@ void IGESSelect_RebuildDrawings::Performing(IFSelect_ContextModif&            ct
       Handle(IGESData_ViewKindEntity) vieworig = ent->View();
       if (vieworig.IsNull())
         continue;
-      Handle(Standard_Transient) aView;
+      Handle(RefObject) aView;
       if (!TC.Search(vieworig, aView))
         continue;
       Handle(IGESData_ViewKindEntity) viewnew = Handle(IGESData_ViewKindEntity)::DownCast(aView);

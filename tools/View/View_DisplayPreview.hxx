@@ -53,7 +53,7 @@ public:
   //! Updates visibility of the presentations for the display type
   Standard_EXPORT void UpdatePreview(
     const View_DisplayActionType                        theType,
-    const NCollection_List<Handle(Standard_Transient)>& thePresentations);
+    const NCollection_List<Handle(RefObject)>& thePresentations);
 
   //! Returns true if preview presentation is shown
   Standard_Boolean HasPreview() const { return !myPreviewPresentation.IsNull(); }

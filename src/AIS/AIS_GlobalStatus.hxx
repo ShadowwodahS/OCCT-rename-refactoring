@@ -24,12 +24,12 @@
 #include <Standard_Integer.hxx>
 #include <Standard_Transient.hxx>
 
-DEFINE_STANDARD_HANDLE(AIS_GlobalStatus, Standard_Transient)
+DEFINE_STANDARD_HANDLE(AIS_GlobalStatus, RefObject)
 
 //! Stores information about objects in graphic context:
-class AIS_GlobalStatus : public Standard_Transient
+class AIS_GlobalStatus : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(AIS_GlobalStatus, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(AIS_GlobalStatus, RefObject)
 public:
   //! Default constructor.
   Standard_EXPORT AIS_GlobalStatus();

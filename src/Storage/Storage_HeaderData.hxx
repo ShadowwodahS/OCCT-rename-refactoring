@@ -28,9 +28,9 @@
 class Storage_BaseDriver;
 
 class Storage_HeaderData;
-DEFINE_STANDARD_HANDLE(Storage_HeaderData, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Storage_HeaderData, RefObject)
 
-class Storage_HeaderData : public Standard_Transient
+class Storage_HeaderData : public RefObject
 {
 
 public:
@@ -93,7 +93,7 @@ public:
 
   friend class Storage_Schema;
 
-  DEFINE_STANDARD_RTTIEXT(Storage_HeaderData, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Storage_HeaderData, RefObject)
 
 public:
   Standard_EXPORT void SetNumberOfObjects(const Standard_Integer anObjectNumber);

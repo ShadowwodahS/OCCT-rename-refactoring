@@ -33,7 +33,7 @@ IGESSelect_RemoveCurves::IGESSelect_RemoveCurves(const Standard_Boolean UV)
 {
 }
 
-static Standard_Boolean Edit(const Handle(Standard_Transient)& ent, const Standard_Boolean UV)
+static Standard_Boolean Edit(const Handle(RefObject)& ent, const Standard_Boolean UV)
 {
   Standard_Boolean res = Standard_False;
   DeclareAndCast(IGESGeom_TrimmedSurface, trsu, ent);

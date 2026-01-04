@@ -464,7 +464,7 @@ static Standard_Integer igesbrep(Draw_Interpretor& theDI,
         {
           for (Standard_Integer ill = 1; ill <= nbl; ill++)
           {
-            Handle(Standard_Transient) ent = list->Value(ill);
+            Handle(RefObject) ent = list->Value(ill);
             theDI << "  "; // model->Print(ent,theDI);
           }
           theDI << "\n";
@@ -758,7 +758,7 @@ static Standard_Integer XSDRAWIGES_tplosttrim(Draw_Interpretor& theDI,
     }
     for (anIterator.Start(); anIterator.More(); anIterator.Next())
     {
-      Handle(Standard_Transient)           anEntity         = anIterator.Starting();
+      Handle(RefObject)           anEntity         = anIterator.Starting();
       Handle(TColStd_HSequenceOfTransient) aSharingEntities = aWorkSession->Sharings(anEntity);
       if (!aSharingEntities.IsNull())
       {

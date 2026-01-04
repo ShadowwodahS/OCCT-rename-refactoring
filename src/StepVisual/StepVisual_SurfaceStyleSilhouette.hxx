@@ -24,9 +24,9 @@
 class StepVisual_CurveStyle;
 
 class StepVisual_SurfaceStyleSilhouette;
-DEFINE_STANDARD_HANDLE(StepVisual_SurfaceStyleSilhouette, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepVisual_SurfaceStyleSilhouette, RefObject)
 
-class StepVisual_SurfaceStyleSilhouette : public Standard_Transient
+class StepVisual_SurfaceStyleSilhouette : public RefObject
 {
 
 public:
@@ -40,7 +40,7 @@ public:
 
   Standard_EXPORT Handle(StepVisual_CurveStyle) StyleOfSilhouette() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepVisual_SurfaceStyleSilhouette, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepVisual_SurfaceStyleSilhouette, RefObject)
 
 protected:
 private:

@@ -18,7 +18,7 @@
 
 #include <Standard_Handle.hxx>
 
-class Standard_Transient;
+class RefObject;
 class Standard_GUID;
 class TCollection_AsciiString;
 class XmlMDF_ADriverTable;
@@ -28,7 +28,7 @@ class TDocStd_Application;
 class XmlLDrivers
 {
 public:
-  Standard_EXPORT static const Handle(Standard_Transient)& Factory(const Standard_GUID& theGUID);
+  Standard_EXPORT static const Handle(RefObject)& Factory(const Standard_GUID& theGUID);
 
   Standard_EXPORT static TCollection_AsciiString CreationDate();
 

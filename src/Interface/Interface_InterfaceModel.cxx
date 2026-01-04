@@ -32,7 +32,7 @@
 #include <TColStd_Array1OfTransient.hxx>
 #include <TColStd_DataMapIteratorOfDataMapOfIntegerTransient.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Interface_InterfaceModel, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Interface_InterfaceModel, RefObject)
 
 // Un Modele d`Interface est un ensemble ferme d`Entites d`interface : chacune
 // est dans un seul modele a la fois; elle y a un numero (Number) qui permet de
@@ -40,7 +40,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Interface_InterfaceModel, Standard_Transient)
 // performantes, de fournir un identifieur numerique
 // Il est a meme d`etre utilise dans des traitements de Graphe
 // STATICS : les TEMPLATES
-static NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)> atemp;
+static NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)> atemp;
 
 static const Handle(Standard_Type)& typerep()
 {
@@ -138,7 +138,7 @@ void Interface_InterfaceModel::ClearEntities()
     /*    Handle(Interface_GeneralModule) module;  Standard_Integer CN;
         Standard_Integer nb = NbEntities();
         for (Standard_Integer i = 1; i <= nb ; i ++) {
-          Handle(Standard_Transient) anent = Value(i);
+          Handle(RefObject) anent = Value(i);
           if (thegtool->Select (anent,module,CN))
         module->WhenDeleteCase (CN,anent,isdispatch);
         }*/
@@ -160,7 +160,7 @@ Standard_Integer Interface_InterfaceModel::NbEntities() const
 //=================================================================================================
 
 Standard_Boolean Interface_InterfaceModel::Contains(
-  const Handle(Standard_Transient)& anentity) const
+  const Handle(RefObject)& anentity) const
 {
   if (theentities.Contains(anentity))
     return Standard_True;
@@ -172,7 +172,7 @@ Standard_Boolean Interface_InterfaceModel::Contains(
 
 //=================================================================================================
 
-Standard_Integer Interface_InterfaceModel::Number(const Handle(Standard_Transient)& anentity) const
+Standard_Integer Interface_InterfaceModel::Number(const Handle(RefObject)& anentity) const
 {
   if (anentity.IsNull())
     return 0;
@@ -190,7 +190,7 @@ Standard_Integer Interface_InterfaceModel::Number(const Handle(Standard_Transien
 
 /*
 Standard_Integer Interface_InterfaceModel::DENumber
-                 (const Handle(Standard_Transient)& anentity) const
+                 (const Handle(RefObject)& anentity) const
 {
   if (anentity.IsNull()) return 0;
   Standard_Integer num = theentities.FindIndex(anentity);
@@ -208,14 +208,14 @@ Standard_Integer Interface_InterfaceModel::DENumber
 
 //=================================================================================================
 
-const Handle(Standard_Transient)& Interface_InterfaceModel::Value(const Standard_Integer num) const
+const Handle(RefObject)& Interface_InterfaceModel::Value(const Standard_Integer num) const
 {
   return theentities.FindKey(num);
 }
 
 //=================================================================================================
 
-Standard_Integer Interface_InterfaceModel::NbTypes(const Handle(Standard_Transient)& ent) const
+Standard_Integer Interface_InterfaceModel::NbTypes(const Handle(RefObject)& ent) const
 {
   if (Protocol().IsNull())
     return 1;
@@ -224,7 +224,7 @@ Standard_Integer Interface_InterfaceModel::NbTypes(const Handle(Standard_Transie
 
 //=================================================================================================
 
-Handle(Standard_Type) Interface_InterfaceModel::Type(const Handle(Standard_Transient)& ent,
+Handle(Standard_Type) Interface_InterfaceModel::Type(const Handle(RefObject)& ent,
                                                      const Standard_Integer            nt) const
 {
   if (Protocol().IsNull())
@@ -234,7 +234,7 @@ Handle(Standard_Type) Interface_InterfaceModel::Type(const Handle(Standard_Trans
 
 //=================================================================================================
 
-Standard_CString Interface_InterfaceModel::TypeName(const Handle(Standard_Transient)& ent,
+Standard_CString Interface_InterfaceModel::TypeName(const Handle(RefObject)& ent,
                                                     const Standard_Boolean            complet) const
 {
   if (!thegtool.IsNull())
@@ -345,7 +345,7 @@ Standard_Boolean Interface_InterfaceModel::SetReportEntity(
   const Handle(Interface_ReportEntity)& rep)
 {
   Standard_Integer           nm = num;
-  Handle(Standard_Transient) ent;
+  Handle(RefObject) ent;
   if (num > 0)
   {
     ent = Value(nm);
@@ -385,7 +385,7 @@ Standard_Boolean Interface_InterfaceModel::AddReportEntity(
 {
   if (rep.IsNull())
     return Standard_False;
-  Handle(Standard_Transient) ent = rep->Concerned();
+  Handle(RefObject) ent = rep->Concerned();
   if (ent.IsNull())
     return Standard_False;
   Standard_Integer num = Number(ent);
@@ -416,8 +416,8 @@ void Interface_InterfaceModel::FillSemanticChecks(const Interface_CheckIterator&
 {
   if (!checks.Model().IsNull())
   {
-    Handle(Standard_Transient) t1 = checks.Model();
-    Handle(Standard_Transient) t2 = this;
+    Handle(RefObject) t1 = checks.Model();
+    Handle(RefObject) t2 = this;
     if (t2 != t1)
       return;
   }
@@ -439,7 +439,7 @@ void Interface_InterfaceModel::FillSemanticChecks(const Interface_CheckIterator&
       thechecksem->GetMessages(ach);
     else
     {
-      Handle(Standard_Transient)     ent = Value(num);
+      Handle(RefObject)     ent = Value(num);
       Handle(Interface_ReportEntity) rep = new Interface_ReportEntity(ach, ent);
       therepch.Bind(num, rep);
     }
@@ -469,7 +469,7 @@ const Handle(Interface_Check)& Interface_InterfaceModel::Check(
   }
   if (!(syntactic ? thereports.IsBound(num) : therepch.IsBound(num)))
     return nulch();
-  Handle(Standard_Transient) trep;
+  Handle(RefObject) trep;
   if (syntactic)
     trep = thereports.Find(num);
   else
@@ -494,7 +494,7 @@ void Interface_InterfaceModel::Reservate(const Standard_Integer nbent)
 
 //=================================================================================================
 
-void Interface_InterfaceModel::AddEntity(const Handle(Standard_Transient)& anentity)
+void Interface_InterfaceModel::AddEntity(const Handle(RefObject)& anentity)
 {
   // Standard_Integer newnum; svv #2
   if (!anentity->IsKind(typerep()))
@@ -516,7 +516,7 @@ void Interface_InterfaceModel::AddEntity(const Handle(Standard_Transient)& anent
 
 //=================================================================================================
 
-void Interface_InterfaceModel::AddWithRefs(const Handle(Standard_Transient)& anent,
+void Interface_InterfaceModel::AddWithRefs(const Handle(RefObject)& anent,
                                            const Handle(Interface_Protocol)& proto,
                                            const Standard_Integer            level,
                                            const Standard_Boolean            listall)
@@ -536,7 +536,7 @@ void Interface_InterfaceModel::AddWithRefs(const Handle(Standard_Transient)& ane
 
 //=================================================================================================
 
-void Interface_InterfaceModel::AddWithRefs(const Handle(Standard_Transient)& anent,
+void Interface_InterfaceModel::AddWithRefs(const Handle(RefObject)& anent,
                                            const Standard_Integer            level,
                                            const Standard_Boolean            listall)
 {
@@ -548,7 +548,7 @@ void Interface_InterfaceModel::AddWithRefs(const Handle(Standard_Transient)& ane
 
 //=================================================================================================
 
-void Interface_InterfaceModel::AddWithRefs(const Handle(Standard_Transient)& anent,
+void Interface_InterfaceModel::AddWithRefs(const Handle(RefObject)& anent,
                                            const Interface_GeneralLib&       lib,
                                            const Standard_Integer            level,
                                            const Standard_Boolean            listall)
@@ -583,7 +583,7 @@ void Interface_InterfaceModel::AddWithRefs(const Handle(Standard_Transient)& ane
 //=================================================================================================
 
 void Interface_InterfaceModel::ReplaceEntity(const Standard_Integer            nument,
-                                             const Handle(Standard_Transient)& anent)
+                                             const Handle(RefObject)& anent)
 {
   theentities.Substitute(nument, anent);
 }
@@ -615,7 +615,7 @@ void Interface_InterfaceModel::ReverseOrders(const Standard_Integer after)
   for (i = nb; i > after; i--)
   {
     Standard_Integer           i2 = nb + after - i;
-    Handle(Standard_Transient) rep1, rep2;
+    Handle(RefObject) rep1, rep2;
     if (thereports.IsBound(i))
       rep1 = thereports.Find(i);
     if (thereports.IsBound(i2))
@@ -666,7 +666,7 @@ void Interface_InterfaceModel::ChangeOrder(
   Standard_Integer difnum = mxnum - minum;
   for (i = minum; i < minum + cnt; i++)
   {
-    Handle(Standard_Transient) rep1, rep2;
+    Handle(RefObject) rep1, rep2;
     if (thereports.IsBound(i))
       rep1 = thereports.Find(i);
     if (thereports.IsBound(i + difnum))
@@ -693,7 +693,7 @@ void Interface_InterfaceModel::GetFromTransfer(const Interface_EntityIterator& a
   theentities.ReSize(aniter.NbEntities());
   for (aniter.Start(); aniter.More(); aniter.Next())
   {
-    const Handle(Standard_Transient)& ent = aniter.Value();
+    const Handle(RefObject)& ent = aniter.Value();
     AddEntity(ent);
   }
 }
@@ -817,7 +817,7 @@ void Interface_InterfaceModel::VerifyCheck(Handle(Interface_Check)& /*ach*/) con
 
 //=================================================================================================
 
-void Interface_InterfaceModel::Print(const Handle(Standard_Transient)& ent,
+void Interface_InterfaceModel::Print(const Handle(RefObject)& ent,
                                      Standard_OStream&                 S,
                                      const Standard_Integer            mode) const
 {
@@ -843,7 +843,7 @@ void Interface_InterfaceModel::Print(const Handle(Standard_Transient)& ent,
 
 //=================================================================================================
 
-void Interface_InterfaceModel::PrintToLog(const Handle(Standard_Transient)& ent,
+void Interface_InterfaceModel::PrintToLog(const Handle(RefObject)& ent,
                                           Standard_OStream&                 S) const
 {
   PrintLabel(ent, S);
@@ -930,7 +930,7 @@ Handle(TColStd_HSequenceOfHAsciiString) Interface_InterfaceModel::ListTemplates(
   Handle(TColStd_HSequenceOfHAsciiString) list = new TColStd_HSequenceOfHAsciiString();
   if (atemp.IsEmpty())
     return list;
-  NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)>::Iterator iter(atemp);
+  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>::Iterator iter(atemp);
   for (; iter.More(); iter.Next())
   {
     list->Append(new TCollection_HAsciiString(iter.Key()));

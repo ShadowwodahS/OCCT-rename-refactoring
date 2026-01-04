@@ -13,7 +13,7 @@
 
 #include <Image_SupportedFormats.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Image_SupportedFormats, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Image_SupportedFormats, RefObject)
 
 //=================================================================================================
 

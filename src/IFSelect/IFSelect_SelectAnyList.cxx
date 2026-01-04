@@ -92,7 +92,7 @@ Interface_EntityIterator IFSelect_SelectAnyList::RootResult(const Interface_Grap
   if (input.NbEntities() == 0)
     return input;
 
-  Handle(Standard_Transient) ent;
+  Handle(RefObject) ent;
   for (input.Start(); input.More(); input.Next())
     ent = input.Value();
 

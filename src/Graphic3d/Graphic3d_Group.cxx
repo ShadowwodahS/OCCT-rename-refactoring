@@ -28,7 +28,7 @@
 #include <TCollection_AsciiString.hxx>
 #include <TCollection_ExtendedString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_Group, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_Group, RefObject)
 
 //=================================================================================================
 

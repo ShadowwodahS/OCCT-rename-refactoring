@@ -20,7 +20,7 @@
 #include <Standard_Transient.hxx>
 
 //! Low-level buffer object.
-class NCollection_Buffer : public Standard_Transient
+class NCollection_Buffer : public RefObject
 {
 
 public:
@@ -117,9 +117,9 @@ protected:
   Handle(NCollection_BaseAllocator) myAllocator; //!< buffer allocator
 
 public:
-  DEFINE_STANDARD_RTTI_INLINE(NCollection_Buffer, Standard_Transient) // Type definition
+  DEFINE_STANDARD_RTTI_INLINE(NCollection_Buffer, RefObject) // Type definition
 };
 
-DEFINE_STANDARD_HANDLE(NCollection_Buffer, Standard_Transient)
+DEFINE_STANDARD_HANDLE(NCollection_Buffer, RefObject)
 
 #endif // _NCollection_Buffer_HeaderFile

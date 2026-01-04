@@ -37,7 +37,7 @@ RWHeaderSection_GeneralModule::RWHeaderSection_GeneralModule()
 }
 
 void RWHeaderSection_GeneralModule::FillSharedCase(const Standard_Integer            CN,
-                                                   const Handle(Standard_Transient)& ent,
+                                                   const Handle(RefObject)& ent,
                                                    Interface_EntityIterator&         iter) const
 {
   if (CN != 4)
@@ -48,15 +48,15 @@ void RWHeaderSection_GeneralModule::FillSharedCase(const Standard_Integer       
 }
 
 void RWHeaderSection_GeneralModule::CheckCase(const Standard_Integer,
-                                              const Handle(Standard_Transient)&,
+                                              const Handle(RefObject)&,
                                               const Interface_ShareTool&,
                                               Handle(Interface_Check)&) const
 {
 }
 
 void RWHeaderSection_GeneralModule::CopyCase(const Standard_Integer            CN,
-                                             const Handle(Standard_Transient)& entfrom,
-                                             const Handle(Standard_Transient)& entto,
+                                             const Handle(RefObject)& entfrom,
+                                             const Handle(RefObject)& entto,
                                              Interface_CopyTool&               TC) const
 {
   //   ajout manuel
@@ -127,7 +127,7 @@ void RWHeaderSection_GeneralModule::CopyCase(const Standard_Integer            C
 // --- Construction of empty class ---
 
 Standard_Boolean RWHeaderSection_GeneralModule::NewVoid(const Standard_Integer      CN,
-                                                        Handle(Standard_Transient)& ent) const
+                                                        Handle(RefObject)& ent) const
 {
   if (CN == 0)
     return Standard_False;

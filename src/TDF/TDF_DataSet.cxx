@@ -24,7 +24,7 @@
 #include <TDF_MapIteratorOfAttributeMap.hxx>
 #include <TDF_MapIteratorOfLabelMap.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TDF_DataSet, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(TDF_DataSet, RefObject)
 
 //=======================================================================
 // function : TDF_DataSet

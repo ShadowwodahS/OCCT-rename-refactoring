@@ -25,9 +25,9 @@ class StepBasic_PersonAndOrganization;
 class StepBasic_PersonAndOrganizationRole;
 
 class StepBasic_PersonAndOrganizationAssignment;
-DEFINE_STANDARD_HANDLE(StepBasic_PersonAndOrganizationAssignment, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_PersonAndOrganizationAssignment, RefObject)
 
-class StepBasic_PersonAndOrganizationAssignment : public Standard_Transient
+class StepBasic_PersonAndOrganizationAssignment : public RefObject
 {
 
 public:
@@ -44,7 +44,7 @@ public:
 
   Standard_EXPORT Handle(StepBasic_PersonAndOrganizationRole) Role() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_PersonAndOrganizationAssignment, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_PersonAndOrganizationAssignment, RefObject)
 
 protected:
 private:

@@ -14,6 +14,6 @@
 #include <Standard_Type.hxx>
 #include <StepVisual_PresentationSet.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_PresentationSet, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepVisual_PresentationSet, RefObject)
 
 StepVisual_PresentationSet::StepVisual_PresentationSet() {}

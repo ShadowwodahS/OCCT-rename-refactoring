@@ -66,10 +66,10 @@ class Graphic3d_TransformPers;
 //! Graphic3d_Group with aspects and primitives and choose the group usage model beforehand out of
 //! application needs. Note that some Graphic3d_Group class virtual methods contain only base
 //! implementation that is extended by the descendant class in OpenGl package.
-class Graphic3d_Group : public Standard_Transient
+class Graphic3d_Group : public RefObject
 {
   friend class Graphic3d_Structure;
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_Group, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Graphic3d_Group, RefObject)
 
 public:
   //! Suppress all primitives and attributes of <me>.
@@ -320,6 +320,6 @@ protected:
   bool                            myIsClosed;  //!< flag indicating closed volume
 };
 
-DEFINE_STANDARD_HANDLE(Graphic3d_Group, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Graphic3d_Group, RefObject)
 
 #endif // _Graphic3d_Group_HeaderFile

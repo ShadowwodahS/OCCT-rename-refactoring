@@ -21,7 +21,7 @@
 #include <Prs3d_Presentation.hxx>
 #include <Select3D_SensitiveEntity.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(MeshVS_PrsBuilder, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(MeshVS_PrsBuilder, RefObject)
 
 //=================================================================================================
 

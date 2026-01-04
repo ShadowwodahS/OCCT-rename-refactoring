@@ -14,7 +14,7 @@
 #include <Standard_Type.hxx>
 #include <StepData_SelectMember.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepData_SelectMember, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepData_SelectMember, RefObject)
 
 //  Definitions reprises de Field :
 #define KindInteger 1

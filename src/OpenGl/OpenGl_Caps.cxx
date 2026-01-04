@@ -15,7 +15,7 @@
 
 #include <OpenGl_Caps.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(OpenGl_Caps, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(OpenGl_Caps, RefObject)
 
 //=================================================================================================
 

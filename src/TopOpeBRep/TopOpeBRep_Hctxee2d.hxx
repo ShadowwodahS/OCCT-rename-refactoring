@@ -29,9 +29,9 @@ class BRepAdaptor_Surface;
 class TopoDS_Shape;
 
 class TopOpeBRep_Hctxee2d;
-DEFINE_STANDARD_HANDLE(TopOpeBRep_Hctxee2d, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TopOpeBRep_Hctxee2d, RefObject)
 
-class TopOpeBRep_Hctxee2d : public Standard_Transient
+class TopOpeBRep_Hctxee2d : public RefObject
 {
 
 public:
@@ -48,7 +48,7 @@ public:
 
   Standard_EXPORT const IntRes2d_Domain& Domain(const Standard_Integer I) const;
 
-  DEFINE_STANDARD_RTTIEXT(TopOpeBRep_Hctxee2d, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TopOpeBRep_Hctxee2d, RefObject)
 
 protected:
 private:

@@ -260,17 +260,17 @@ Handle(Interface_InterfaceModel) XSDRAW::NewModel()
   return Session()->NewModel();
 }
 
-Handle(Standard_Transient) XSDRAW::Entity(const Standard_Integer num)
+Handle(RefObject) XSDRAW::Entity(const Standard_Integer num)
 {
   return thepilot->Session()->StartingEntity(num);
 }
 
-Standard_Integer XSDRAW::Number(const Handle(Standard_Transient)& ent)
+Standard_Integer XSDRAW::Number(const Handle(RefObject)& ent)
 {
   return thepilot->Session()->StartingNumber(ent);
 }
 
-void XSDRAW::SetTransferProcess(const Handle(Standard_Transient)& ATP)
+void XSDRAW::SetTransferProcess(const Handle(RefObject)& ATP)
 {
   DeclareAndCast(Transfer_FinderProcess, FP, ATP);
   DeclareAndCast(Transfer_TransientProcess, TP, ATP);
@@ -313,7 +313,7 @@ Handle(XSControl_TransferReader) XSDRAW::TransferReader()
 
 //  ############  AUXILIAIRES  #############
 
-Handle(Standard_Transient) XSDRAW::GetEntity(const Standard_CString name)
+Handle(RefObject) XSDRAW::GetEntity(const Standard_CString name)
 {
   return IFSelect_Functions::GiveEntity(Session(), name);
 }

@@ -15,7 +15,7 @@
 
 #include <Graphic3d_CView.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_FrameStats, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_FrameStats, RefObject)
 
 namespace
 {

@@ -58,7 +58,7 @@ class IFSelect_PacketList;
 class IFSelect_SignatureList;
 
 class IFSelect_WorkSession;
-DEFINE_STANDARD_HANDLE(IFSelect_WorkSession, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IFSelect_WorkSession, RefObject)
 
 //! This class can be used to simply manage a process such as
 //! splitting a file, extracting a set of Entities ...
@@ -66,7 +66,7 @@ DEFINE_STANDARD_HANDLE(IFSelect_WorkSession, Standard_Transient)
 //! Text Parameters, Selections, Dispatches, in addition to a
 //! ShareOut. To each of these variables, a unique Integer
 //! Identifier is attached. A Name can be attached too as desired.
-class IFSelect_WorkSession : public Standard_Transient
+class IFSelect_WorkSession : public RefObject
 {
 
 public:
@@ -162,11 +162,11 @@ public:
 
   //! Returns an  Entity stored in the Model of the WorkSession
   //! (Null Handle is no Model or num out of range)
-  Standard_EXPORT Handle(Standard_Transient) StartingEntity(const Standard_Integer num) const;
+  Standard_EXPORT Handle(RefObject) StartingEntity(const Standard_Integer num) const;
 
   //! Returns the Number of an Entity in the Model
   //! (0 if no Model set or <ent> not in the Model)
-  Standard_EXPORT Standard_Integer StartingNumber(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer StartingNumber(const Handle(RefObject)& ent) const;
 
   //! From a given label in Model, returns the corresponding number
   //! Starts from first entity by Default, may start after a given
@@ -184,28 +184,28 @@ public:
   //! If <ent> is not in the Model or if no Model is loaded, a Null
   //! Handle is returned
   Standard_EXPORT Handle(TCollection_HAsciiString) EntityLabel(
-    const Handle(Standard_Transient)& ent) const;
+    const Handle(RefObject)& ent) const;
 
   //! Returns the Name of an Entity
   //! This Name is computed by the general service Name
   //! Returns a Null Handle if fails
   Standard_EXPORT Handle(TCollection_HAsciiString) EntityName(
-    const Handle(Standard_Transient)& ent) const;
+    const Handle(RefObject)& ent) const;
 
   //! Returns the Category Number determined for an entity
   //! it is computed by the class Category
   //! An unknown entity (number 0) gives a value -1
-  Standard_EXPORT Standard_Integer CategoryNumber(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer CategoryNumber(const Handle(RefObject)& ent) const;
 
   //! Returns the Category Name determined for an entity
   //! it is computed by the class Category
   //! Remark : an unknown entity gives an empty string
-  Standard_EXPORT Standard_CString CategoryName(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_CString CategoryName(const Handle(RefObject)& ent) const;
 
   //! Returns the Validity Name determined for an entity
   //! it is computed by the class SignValidity
   //! Remark : an unknown entity gives an empty string
-  Standard_EXPORT Standard_CString ValidityName(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_CString ValidityName(const Handle(RefObject)& ent) const;
 
   //! Clears recorded data (not the items) according mode :
   //! 1 : all Data : Model, Graph, CheckList, + ClearData 4
@@ -236,12 +236,12 @@ public:
   //! Returns the list of entities shared by <ent> (can be empty)
   //! Returns a null Handle if <ent> is unknown
   Standard_EXPORT Handle(TColStd_HSequenceOfTransient) Shareds(
-    const Handle(Standard_Transient)& ent);
+    const Handle(RefObject)& ent);
 
   //! Returns the list of entities sharing <ent> (can be empty)
   //! Returns a null Handle if <ent> is unknown
   Standard_EXPORT Handle(TColStd_HSequenceOfTransient) Sharings(
-    const Handle(Standard_Transient)& ent);
+    const Handle(RefObject)& ent);
 
   //! Returns True if a Model is defined and really loaded (not
   //! empty), a Protocol is set and a Graph has been computed.
@@ -269,7 +269,7 @@ public:
   //! if <ent> is Null or equates the current Model, it gives the
   //! Global Check, else the Check for the given entity
   //! <complete> as for ModelCheckList
-  Standard_EXPORT Interface_CheckIterator CheckOne(const Handle(Standard_Transient)& ent,
+  Standard_EXPORT Interface_CheckIterator CheckOne(const Handle(RefObject)& ent,
                                                    const Standard_Boolean complete = Standard_True);
 
   //! Returns the Check List produced by the last execution of
@@ -287,40 +287,40 @@ public:
 
   //! Returns an Item, given its Ident. Returns a Null Handle if
   //! no Item corresponds to this Ident.
-  Standard_EXPORT Handle(Standard_Transient) Item(const Standard_Integer id) const;
+  Standard_EXPORT Handle(RefObject) Item(const Standard_Integer id) const;
 
   //! Returns the Ident attached to an Item in the WorkSession, or
   //! Zero if it is unknown
-  Standard_EXPORT Standard_Integer ItemIdent(const Handle(Standard_Transient)& item) const;
+  Standard_EXPORT Standard_Integer ItemIdent(const Handle(RefObject)& item) const;
 
   //! Returns the Item which corresponds to a Variable, given its
   //! Name (whatever the type of this Item).
   //! Returns a Null Handle if this Name is not recorded
-  Standard_EXPORT Handle(Standard_Transient) NamedItem(const Standard_CString name) const;
+  Standard_EXPORT Handle(RefObject) NamedItem(const Standard_CString name) const;
 
   //! Same as above, but <name> is given through a Handle
   //! Especially useful with methods SelectionNames, etc...
-  Standard_EXPORT Handle(Standard_Transient) NamedItem(
+  Standard_EXPORT Handle(RefObject) NamedItem(
     const Handle(TCollection_HAsciiString)& name) const;
 
   //! Returns the Ident attached to a Name, 0 if name not recorded
   Standard_EXPORT Standard_Integer NameIdent(const Standard_CString name) const;
 
   //! Returns True if an Item of the WorkSession has an attached Name
-  Standard_EXPORT Standard_Boolean HasName(const Handle(Standard_Transient)& item) const;
+  Standard_EXPORT Standard_Boolean HasName(const Handle(RefObject)& item) const;
 
   //! Returns the Name attached to an Item as a Variable of this
   //! WorkSession. If <item> is Null or not recorded, returns an
   //! empty string.
   Standard_EXPORT Handle(TCollection_HAsciiString) Name(
-    const Handle(Standard_Transient)& item) const;
+    const Handle(RefObject)& item) const;
 
   //! Adds an Item and returns its attached Ident. Does nothing
   //! if <item> is already recorded (and returns its attached Ident)
   //! <active> if True commands call to SetActive (see below)
   //! Remark : the determined Ident is used if <item> is a Dispatch,
   //! to fill the ShareOut
-  Standard_EXPORT Standard_Integer AddItem(const Handle(Standard_Transient)& item,
+  Standard_EXPORT Standard_Integer AddItem(const Handle(RefObject)& item,
                                            const Standard_Boolean active = Standard_True);
 
   //! Adds an Item with an attached Name. If the Name is already
@@ -331,7 +331,7 @@ public:
   //! method tries to attached a Name to it
   //! <active> if True commands call to SetActive (see below)
   Standard_EXPORT Standard_Integer AddNamedItem(const Standard_CString            name,
-                                                const Handle(Standard_Transient)& item,
+                                                const Handle(RefObject)& item,
                                                 const Standard_Boolean active = Standard_True);
 
   //! Following the type of <item> :
@@ -339,7 +339,7 @@ public:
   //! - GeneralModifier : Adds or Removes it for final sending
   //! (i.e. in the ModelCopier)
   //! Returns True if it did something, False else (state unchanged)
-  Standard_EXPORT Standard_Boolean SetActive(const Handle(Standard_Transient)& item,
+  Standard_EXPORT Standard_Boolean SetActive(const Handle(RefObject)& item,
                                              const Standard_Boolean            mode);
 
   //! Removes an Item from the Session, given its Name
@@ -354,7 +354,7 @@ public:
   //! Removes an Item given its Ident. Returns False if <id> is
   //! attached to no Item in the WorkSession. For a Named Item,
   //! also removes its Name.
-  Standard_EXPORT Standard_Boolean RemoveItem(const Handle(Standard_Transient)& item);
+  Standard_EXPORT Standard_Boolean RemoveItem(const Handle(RefObject)& item);
 
   //! Clears all the recorded Items : Selections, Dispatches,
   //! Modifiers, and Strings & IntParams, with their Idents & Names.
@@ -372,14 +372,14 @@ public:
 
   //! Fills a Sequence with the List of Idents attached to the Items
   //! of which Type complies with (IsKind) <type> (alphabetic order)
-  //! Remark : <type> = TYPE(Standard_Transient) gives all the
+  //! Remark : <type> = TYPE(RefObject) gives all the
   //! Idents which are suitable in the WorkSession
   Standard_EXPORT Handle(TColStd_HSequenceOfInteger) ItemIdents(
     const Handle(Standard_Type)& type) const;
 
   //! Fills a Sequence with the list of the Names attached to Items
   //! of which Type complies with (IsKind) <type> (alphabetic order)
-  //! Remark : <type> = TYPE(Standard_Transient) gives all the Names
+  //! Remark : <type> = TYPE(RefObject) gives all the Names
   Standard_EXPORT Handle(TColStd_HSequenceOfHAsciiString) ItemNames(
     const Handle(Standard_Type)& type) const;
 
@@ -414,7 +414,7 @@ public:
   //! it by its name. Else this creates a String which is the value
   //! of the Static.
   //! Returns a null handle if <statname> is unknown as a Static
-  Standard_EXPORT Handle(Standard_Transient) NewParamFromStatic(const Standard_CString statname,
+  Standard_EXPORT Handle(RefObject) NewParamFromStatic(const Standard_CString statname,
                                                                 const Standard_CString name = "");
 
   //! Returns an IntParam, given its Ident in the Session
@@ -464,7 +464,7 @@ public:
   //! Returns an empty string if the entity does not belong to the
   //! loaded model
   Standard_EXPORT Standard_CString SignValue(const Handle(IFSelect_Signature)& sign,
-                                             const Handle(Standard_Transient)& ent) const;
+                                             const Handle(RefObject)& ent) const;
 
   //! Returns a Selection, given its Ident in the Session
   //! Null result if <id> is not suitable for a Selection
@@ -508,18 +508,18 @@ public:
   //! <sel>  Null  causes this Selection to be nullified
   //! Returns False if <item> is not of a suitable type, or
   //! <item> or <sel> is not in the WorkSession
-  Standard_EXPORT Standard_Boolean SetItemSelection(const Handle(Standard_Transient)& item,
+  Standard_EXPORT Standard_Boolean SetItemSelection(const Handle(RefObject)& item,
                                                     const Handle(IFSelect_Selection)& sel);
 
   //! Resets input Selection which was set by SetItemSelection
   //! Same conditions as for SetItemSelection
   //! Returns True if done, False if <item> is not in the WorkSession
-  Standard_EXPORT Standard_Boolean ResetItemSelection(const Handle(Standard_Transient)& item);
+  Standard_EXPORT Standard_Boolean ResetItemSelection(const Handle(RefObject)& item);
 
   //! Returns the Selection of a Dispatch or a GeneralModifier.
   //! Returns a Null Handle if none is defined or <item> not good type
   Standard_EXPORT Handle(IFSelect_Selection) ItemSelection(
-    const Handle(Standard_Transient)& item) const;
+    const Handle(RefObject)& item) const;
 
   //! Returns a SignCounter from its ident in the Session
   //! Null result if <id> is not suitable for a SignCounter
@@ -616,7 +616,7 @@ public:
   //! - item is a Dispatch : applies for this dispatch only
   //! Returns True if done, False if <modif> or <item> not in <me>
   Standard_EXPORT Standard_Boolean SetAppliedModifier(const Handle(IFSelect_GeneralModifier)& modif,
-                                                      const Handle(Standard_Transient)&       item);
+                                                      const Handle(RefObject)&       item);
 
   //! Resets a GeneralModifier to be applied
   //! Returns True if done, False if <modif> was not applied
@@ -626,7 +626,7 @@ public:
   //! Returns the item on which a GeneralModifier is applied :
   //! the ShareOut, or a given Dispatch
   //! Returns a Null Handle if <modif> is not applied
-  Standard_EXPORT Handle(Standard_Transient) UsesAppliedModifier(
+  Standard_EXPORT Handle(RefObject) UsesAppliedModifier(
     const Handle(IFSelect_GeneralModifier)& modif) const;
 
   //! Returns a Transformer, given its Ident in the Session
@@ -960,7 +960,7 @@ public:
   //! else, an empty HSequence
   //! <obj> the Model it self : ALL its content (not only the roots)
   Standard_EXPORT Handle(TColStd_HSequenceOfTransient) GiveList(
-    const Handle(Standard_Transient)& obj) const;
+    const Handle(RefObject)& obj) const;
 
   //! Computes a List of entities from two alphanums,
   //! first and second, as follows :
@@ -991,7 +991,7 @@ public:
   //! GiveList
   Standard_EXPORT Handle(TColStd_HSequenceOfTransient) GiveListFromList(
     const Standard_CString            selname,
-    const Handle(Standard_Transient)& ent) const;
+    const Handle(RefObject)& ent) const;
 
   //! Combines two lists and returns the result, according to mode :
   //! <mode> < 0 : entities in <l1> AND NOT in <l2>
@@ -1013,13 +1013,13 @@ public:
   //! 2 : immediate fail, no inherited check
   //! +10 : idem but some inherited warning (no fail)
   //! +20 : idem but some inherited fail
-  Standard_EXPORT Standard_Integer QueryCheckStatus(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer QueryCheckStatus(const Handle(RefObject)& ent) const;
 
   //! Determines if <entdad> is parent of <entson> (in the graph),
   //! returns : -1 if no; 0 if <entdad> = <entson>
   //! 1 if immediate parent, > 1 if parent, gives count of steps
-  Standard_EXPORT Standard_Integer QueryParent(const Handle(Standard_Transient)& entdad,
-                                               const Handle(Standard_Transient)& entson) const;
+  Standard_EXPORT Standard_Integer QueryParent(const Handle(RefObject)& entdad,
+                                               const Handle(RefObject)& entson) const;
 
   //! Sets a list of Parameters, i.e. TypedValue, to be handled
   //! through an Editor
@@ -1039,7 +1039,7 @@ public:
   //! xst-params-split    4     Split
   //! xst-param-read      5     Transfer on Reading
   //! xst-param-write     6     Transfer on Writing
-  Standard_EXPORT void SetParams(const NCollection_Vector<Handle(Standard_Transient)>& params,
+  Standard_EXPORT void SetParams(const NCollection_Vector<Handle(RefObject)>& params,
                                  const NCollection_Vector<Standard_Integer>&           uselist);
 
   //! Traces the Statics attached to a given use number
@@ -1087,20 +1087,20 @@ public:
   //! <level> is to be interpreted for each norm : see specific
   //! classes of WorkLibrary for it. Generally, 0 if for very basic
   //! (only type ...), greater values give more and more details.
-  Standard_EXPORT void DumpEntity(const Handle(Standard_Transient)& ent,
+  Standard_EXPORT void DumpEntity(const Handle(RefObject)& ent,
                                   const Standard_Integer            level,
                                   Standard_OStream&                 S) const;
 
   //! Prints main information about an entity : its number, type,
   //! validity (and checks if any), category, shareds and sharings..
   //! mutable because it can recompute checks as necessary
-  Standard_EXPORT void PrintEntityStatus(const Handle(Standard_Transient)& ent,
+  Standard_EXPORT void PrintEntityStatus(const Handle(RefObject)& ent,
                                          Standard_OStream&                 S);
 
   //! Dumps an entity from the current Model as inherited DumpEntity
   //! on currently defined Default Trace File
   //! (<level> interpreted according to the Norm, see WorkLibrary)
-  Standard_EXPORT void TraceDumpEntity(const Handle(Standard_Transient)& ent,
+  Standard_EXPORT void TraceDumpEntity(const Handle(RefObject)& ent,
                                        const Standard_Integer            level) const;
 
   //! Prints a CheckIterator to the current Trace File, controlled
@@ -1158,13 +1158,13 @@ public:
                                     const Standard_Integer          mode,
                                     Standard_OStream&               S) const;
 
-  DEFINE_STANDARD_RTTIEXT(IFSelect_WorkSession, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IFSelect_WorkSession, RefObject)
 
 protected:
   Handle(Interface_HGraph)                                                 thegraph;
   Interface_CheckIterator                                                  thecheckrun;
   TColStd_IndexedDataMapOfTransientTransient                               theitems;
-  NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)> thenames;
+  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)> thenames;
 
 private:
   Standard_Boolean                 theerrhand;

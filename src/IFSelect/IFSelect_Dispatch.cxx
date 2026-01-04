@@ -21,7 +21,7 @@
 #include <TCollection_AsciiString.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IFSelect_Dispatch, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(IFSelect_Dispatch, RefObject)
 
 void IFSelect_Dispatch::SetRootName(const Handle(TCollection_HAsciiString)& name)
 {

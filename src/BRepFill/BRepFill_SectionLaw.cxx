@@ -25,7 +25,7 @@
 #include <TopoDS_Shape.hxx>
 #include <TopoDS_Wire.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepFill_SectionLaw, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(BRepFill_SectionLaw, RefObject)
 
 //=======================================================================
 // function : NbLaw

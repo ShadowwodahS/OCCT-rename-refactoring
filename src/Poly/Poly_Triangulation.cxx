@@ -22,7 +22,7 @@
 #include <Standard_Dump.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Poly_Triangulation, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Poly_Triangulation, RefObject)
 
 //=================================================================================================
 

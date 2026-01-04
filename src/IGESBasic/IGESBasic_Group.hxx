@@ -22,7 +22,7 @@
 #include <IGESData_HArray1OfIGESEntity.hxx>
 #include <IGESData_IGESEntity.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 
 class IGESBasic_Group;
 DEFINE_STANDARD_HANDLE(IGESBasic_Group, IGESData_IGESEntity)
@@ -82,7 +82,7 @@ public:
   Standard_EXPORT Handle(IGESData_IGESEntity) Entity(const Standard_Integer Index) const;
 
   //! returns the specific entity from the Group
-  Standard_EXPORT Handle(Standard_Transient) Value(const Standard_Integer Index) const;
+  Standard_EXPORT Handle(RefObject) Value(const Standard_Integer Index) const;
 
   //! Sets a new value for item <Index>
   Standard_EXPORT void SetValue(const Standard_Integer             Index,

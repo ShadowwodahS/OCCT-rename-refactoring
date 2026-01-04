@@ -76,23 +76,23 @@ public:
   Standard_EXPORT Interface_EntityIterator RootEntities() const;
 
   //! Returns True if <ent> is Shared by other Entities in the Model
-  Standard_EXPORT Standard_Boolean IsShared(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Boolean IsShared(const Handle(RefObject)& ent) const;
 
   //! Returns the List of Entities Shared by a given Entity <ent>
-  Standard_EXPORT Interface_EntityIterator Shareds(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Interface_EntityIterator Shareds(const Handle(RefObject)& ent) const;
 
   //! Returns the List of Entities Sharing a given Entity <ent>
-  Standard_EXPORT Interface_EntityIterator Sharings(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Interface_EntityIterator Sharings(const Handle(RefObject)& ent) const;
 
   //! Returns the count of Sharing Entities of an Entity, which
   //! are Kind of a given Type
-  Standard_EXPORT Standard_Integer NbTypedSharings(const Handle(Standard_Transient)& ent,
+  Standard_EXPORT Standard_Integer NbTypedSharings(const Handle(RefObject)& ent,
                                                    const Handle(Standard_Type)&      atype) const;
 
   //! Returns the Sharing Entity of an Entity, which is Kind of a
   //! given Type. Allows to access a Sharing Entity of a given type
   //! when there is one and only one (current case)
-  Standard_EXPORT Handle(Standard_Transient) TypedSharing(const Handle(Standard_Transient)& ent,
+  Standard_EXPORT Handle(RefObject) TypedSharing(const Handle(RefObject)& ent,
                                                           const Handle(Standard_Type)& atype) const;
 
   //! Returns the complete list of entities shared by <ent> at any
@@ -103,7 +103,7 @@ public:
   //! entities and ends by the root. Else, the root is first and
   //! the lower level entities are at end
   Standard_EXPORT Interface_EntityIterator
-    All(const Handle(Standard_Transient)& ent,
+    All(const Handle(RefObject)& ent,
         const Standard_Boolean            rootlast = Standard_True) const;
 
   //! Utility method which Prints the content of an iterator

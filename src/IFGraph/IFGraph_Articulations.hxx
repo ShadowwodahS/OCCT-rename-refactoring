@@ -26,7 +26,7 @@
 #include <TColStd_HSequenceOfInteger.hxx>
 #include <Interface_GraphContent.hxx>
 #include <Standard_Boolean.hxx>
-class Standard_Transient;
+class RefObject;
 class Interface_EntityIterator;
 
 //! this class gives entities which are Articulation points
@@ -47,7 +47,7 @@ public:
                                         const Standard_Boolean whole);
 
   //! adds an entity and its shared ones to the list
-  Standard_EXPORT void GetFromEntity(const Handle(Standard_Transient)& ent);
+  Standard_EXPORT void GetFromEntity(const Handle(RefObject)& ent);
 
   //! adds a list of entities (as an iterator)
   Standard_EXPORT void GetFromIter(const Interface_EntityIterator& iter);

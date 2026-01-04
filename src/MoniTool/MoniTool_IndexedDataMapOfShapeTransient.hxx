@@ -22,7 +22,7 @@
 #include <NCollection_IndexedDataMap.hxx>
 
 typedef NCollection_IndexedDataMap<TopoDS_Shape,
-                                   Handle(Standard_Transient),
+                                   Handle(RefObject),
                                    TopTools_ShapeMapHasher>
   MoniTool_IndexedDataMapOfShapeTransient;
 

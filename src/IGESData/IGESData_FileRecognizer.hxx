@@ -26,9 +26,9 @@ class Standard_NoSuchObject;
 class IGESData_IGESType;
 
 class IGESData_FileRecognizer;
-DEFINE_STANDARD_HANDLE(IGESData_FileRecognizer, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IGESData_FileRecognizer, RefObject)
 
-class IGESData_FileRecognizer : public Standard_Transient
+class IGESData_FileRecognizer : public RefObject
 {
 
 public:
@@ -50,7 +50,7 @@ public:
   //! and to the second if there is still no result, and so on
   Standard_EXPORT void Add(const Handle(IGESData_FileRecognizer)& reco);
 
-  DEFINE_STANDARD_RTTI_INLINE(IGESData_FileRecognizer, Standard_Transient)
+  DEFINE_STANDARD_RTTI_INLINE(IGESData_FileRecognizer, RefObject)
 
 protected:
   //! Assumes that no result has yet been recognized

@@ -22,7 +22,7 @@
 #include <StepData_SelectType.hxx>
 #include <StepData_UndefinedEntity.hxx>
 
-Standard_Boolean StepData_SelectType::Matches(const Handle(Standard_Transient)& ent) const
+Standard_Boolean StepData_SelectType::Matches(const Handle(RefObject)& ent) const
 {
   if (CaseNum(ent) > 0)
     return Standard_True;
@@ -34,7 +34,7 @@ Standard_Boolean StepData_SelectType::Matches(const Handle(Standard_Transient)& 
   return Standard_False;
 }
 
-void StepData_SelectType::SetValue(const Handle(Standard_Transient)& ent)
+void StepData_SelectType::SetValue(const Handle(RefObject)& ent)
 {
   if (ent.IsNull())
     thevalue.Nullify();
@@ -51,7 +51,7 @@ void StepData_SelectType::Nullify()
   thevalue.Nullify();
 }
 
-const Handle(Standard_Transient)& StepData_SelectType::Value() const
+const Handle(RefObject)& StepData_SelectType::Value() const
 {
   return thevalue;
 }
@@ -64,7 +64,7 @@ Standard_Boolean StepData_SelectType::IsNull() const
 Handle(Standard_Type) StepData_SelectType::Type() const
 {
   if (thevalue.IsNull())
-    return STANDARD_TYPE(Standard_Transient);
+    return STANDARD_TYPE(RefObject);
   return thevalue->DynamicType();
 }
 
@@ -133,7 +133,7 @@ void StepData_SelectType::SetInt(const Standard_Integer val)
 
 //  **********   Types Immediats : Differents Cas  ***********
 
-static Handle(StepData_SelectMember) SelectVal(const Handle(Standard_Transient)& thevalue,
+static Handle(StepData_SelectMember) SelectVal(const Handle(RefObject)& thevalue,
                                                const Standard_CString            name,
                                                const int                         mode)
 {

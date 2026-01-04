@@ -26,9 +26,9 @@
 #include <Standard_Integer.hxx>
 
 class IGESBasic_HArray1OfHArray1OfIGESEntity;
-DEFINE_STANDARD_HANDLE(IGESBasic_HArray1OfHArray1OfIGESEntity, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IGESBasic_HArray1OfHArray1OfIGESEntity, RefObject)
 
-class IGESBasic_HArray1OfHArray1OfIGESEntity : public Standard_Transient
+class IGESBasic_HArray1OfHArray1OfIGESEntity : public RefObject
 {
 
 public:
@@ -46,7 +46,7 @@ public:
 
   Standard_EXPORT Handle(IGESData_HArray1OfIGESEntity) Value(const Standard_Integer num) const;
 
-  DEFINE_STANDARD_RTTI_INLINE(IGESBasic_HArray1OfHArray1OfIGESEntity, Standard_Transient)
+  DEFINE_STANDARD_RTTI_INLINE(IGESBasic_HArray1OfHArray1OfIGESEntity, RefObject)
 
 protected:
 private:

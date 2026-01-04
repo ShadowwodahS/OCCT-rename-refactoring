@@ -19,9 +19,9 @@
 #include <Standard_Type.hxx>
 
 //! Structure holding information about supported texture formats.
-class Image_SupportedFormats : public Standard_Transient
+class Image_SupportedFormats : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Image_SupportedFormats, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Image_SupportedFormats, RefObject)
 public:
   //! Empty constructor.
   Standard_EXPORT Image_SupportedFormats();

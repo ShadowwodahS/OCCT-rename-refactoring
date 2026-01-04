@@ -14,7 +14,7 @@
 #include <Standard_Type.hxx>
 #include <Vrml_Coordinate3.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Vrml_Coordinate3, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Vrml_Coordinate3, RefObject)
 
 Vrml_Coordinate3::Vrml_Coordinate3(const Handle(TColgp_HArray1OfVec)& aPoint)
 {

@@ -24,7 +24,7 @@
 
 struct DE_ShapeFixParameters;
 class Transfer_Binder;
-class Standard_Transient;
+class RefObject;
 class Transfer_ProcessForTransient;
 class Transfer_TransientProcess;
 
@@ -38,17 +38,17 @@ public:
   Standard_EXPORT Transfer_ActorOfTransientProcess();
 
   Standard_EXPORT virtual Handle(Transfer_Binder) Transferring(
-    const Handle(Standard_Transient)&           start,
+    const Handle(RefObject)&           start,
     const Handle(Transfer_ProcessForTransient)& TP,
     const Message_ProgressRange& theProgress = Message_ProgressRange()) Standard_OVERRIDE;
 
   Standard_EXPORT virtual Handle(Transfer_Binder) Transfer(
-    const Handle(Standard_Transient)&        start,
+    const Handle(RefObject)&        start,
     const Handle(Transfer_TransientProcess)& TP,
     const Message_ProgressRange&             theProgress = Message_ProgressRange());
 
-  Standard_EXPORT virtual Handle(Standard_Transient) TransferTransient(
-    const Handle(Standard_Transient)&        start,
+  Standard_EXPORT virtual Handle(RefObject) TransferTransient(
+    const Handle(RefObject)&        start,
     const Handle(Transfer_TransientProcess)& TP,
     const Message_ProgressRange&             theProgress = Message_ProgressRange());
 

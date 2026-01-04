@@ -34,7 +34,7 @@ Standard_Boolean Transfer_MultipleBinder::IsMultiple() const
 
 Handle(Standard_Type) Transfer_MultipleBinder::ResultType() const
 {
-  return STANDARD_TYPE(Standard_Transient);
+  return STANDARD_TYPE(RefObject);
 }
 
 Standard_CString Transfer_MultipleBinder::ResultTypeName() const
@@ -44,7 +44,7 @@ Standard_CString Transfer_MultipleBinder::ResultTypeName() const
 
 //  ....        Gestion du Resultat Multiple        ....
 
-void Transfer_MultipleBinder::AddResult(const Handle(Standard_Transient)& res)
+void Transfer_MultipleBinder::AddResult(const Handle(RefObject)& res)
 {
   if (themulres.IsNull())
     themulres = new TColStd_HSequenceOfTransient();
@@ -56,7 +56,7 @@ Standard_Integer Transfer_MultipleBinder::NbResults() const
   return (themulres.IsNull() ? 0 : themulres->Length());
 }
 
-Handle(Standard_Transient) Transfer_MultipleBinder::ResultValue(const Standard_Integer num) const
+Handle(RefObject) Transfer_MultipleBinder::ResultValue(const Standard_Integer num) const
 {
   return themulres->Value(num);
 }

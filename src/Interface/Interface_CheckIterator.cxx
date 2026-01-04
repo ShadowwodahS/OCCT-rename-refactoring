@@ -154,7 +154,7 @@ const Handle(Interface_Check)& Interface_CheckIterator::Check(const Standard_Int
 //=================================================================================================
 
 const Handle(Interface_Check)& Interface_CheckIterator::Check(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   Standard_Integer num = -1;
   if (!themod.IsNull())
@@ -189,7 +189,7 @@ Handle(Interface_Check)& Interface_CheckIterator::CCheck(const Standard_Integer 
 
 //=================================================================================================
 
-Handle(Interface_Check)& Interface_CheckIterator::CCheck(const Handle(Standard_Transient)& ent)
+Handle(Interface_Check)& Interface_CheckIterator::CCheck(const Handle(RefObject)& ent)
 {
   Standard_Integer num = -1;
   if (!themod.IsNull())
@@ -486,7 +486,7 @@ void Interface_CheckIterator::Print(Standard_OStream&                       S,
       nbw = ach->NbWarnings();
     if (nbf + nbw == 0)
       continue;
-    Handle(Standard_Transient) ent    = ach->Entity();
+    Handle(RefObject) ent    = ach->Entity();
     Standard_Integer           nm0    = thenums->Value(i);
     Standard_Boolean           entnul = ent.IsNull();
     Standard_Integer           num    = nm0;

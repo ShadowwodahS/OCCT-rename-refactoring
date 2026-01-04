@@ -19,7 +19,7 @@
 #include <Standard_Type.hxx>
 #include <NCollection_Sequence.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Interface_EntityCluster, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Interface_EntityCluster, RefObject)
 
 // Un Cluster, ce sont 4 entites qui se suivent (dans le principe, nombre fixe,
 // meme si pas 4). Elles sont remplies depuis 0. Il y a donc autant d Entites
@@ -30,7 +30,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Interface_EntityCluster, Standard_Transient)
 //  ....                        CONSTRUCTEURS                        ....
 Interface_EntityCluster::Interface_EntityCluster() {}
 
-Interface_EntityCluster::Interface_EntityCluster(const Handle(Standard_Transient)& ent)
+Interface_EntityCluster::Interface_EntityCluster(const Handle(RefObject)& ent)
 {
   theents[0] = ent;
 }
@@ -40,7 +40,7 @@ Interface_EntityCluster::Interface_EntityCluster(const Handle(Interface_EntityCl
   thenext = ec;
 }
 
-Interface_EntityCluster::Interface_EntityCluster(const Handle(Standard_Transient)&      ent,
+Interface_EntityCluster::Interface_EntityCluster(const Handle(RefObject)&      ent,
                                                  const Handle(Interface_EntityCluster)& ec)
 {
   theents[0] = ent;
@@ -49,7 +49,7 @@ Interface_EntityCluster::Interface_EntityCluster(const Handle(Standard_Transient
 
 //  ....                        AJOUT - SUPPRESSION                        ....
 
-void Interface_EntityCluster::Append(const Handle(Standard_Transient)& ent)
+void Interface_EntityCluster::Append(const Handle(RefObject)& ent)
 {
   if (ent.IsNull())
     throw Standard_NullObject("Interface_EntityCluster Append");
@@ -75,7 +75,7 @@ void Interface_EntityCluster::Append(const Handle(Standard_Transient)& ent)
   }
 }
 
-Standard_Boolean Interface_EntityCluster::Remove(const Handle(Standard_Transient)& ent)
+Standard_Boolean Interface_EntityCluster::Remove(const Handle(RefObject)& ent)
 {
   if (ent.IsNull())
     throw Standard_NullObject("Interface_EntityCluster Remove");
@@ -134,7 +134,7 @@ Standard_Integer Interface_EntityCluster::NbEntities() const
   return nb;
 }
 
-const Handle(Standard_Transient)& Interface_EntityCluster::Value(const Standard_Integer num) const
+const Handle(RefObject)& Interface_EntityCluster::Value(const Standard_Integer num) const
 {
   Standard_Integer nb = NbLocal(), aLocalNum = num;
   if (num <= 0)
@@ -156,7 +156,7 @@ const Handle(Standard_Transient)& Interface_EntityCluster::Value(const Standard_
 }
 
 void Interface_EntityCluster::SetValue(const Standard_Integer            num,
-                                       const Handle(Standard_Transient)& ent)
+                                       const Handle(RefObject)& ent)
 {
   if (ent.IsNull())
     throw Standard_NullObject("Interface_EntityCluster SetValue");
@@ -200,7 +200,7 @@ Standard_Boolean Interface_EntityCluster::IsLocalFull() const
 {
   // Solaris Forte C++ compiler insisted it couldn't cast this,
   // even though it seems to do so elsewhere
-  Handle(Standard_Transient) tmp = Handle(Standard_Transient)(theents[3]);
+  Handle(RefObject) tmp = Handle(RefObject)(theents[3]);
   return (!tmp.IsNull());
 }
 

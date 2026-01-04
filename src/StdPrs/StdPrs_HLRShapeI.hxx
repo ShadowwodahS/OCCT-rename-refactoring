@@ -24,9 +24,9 @@ class Graphic3d_Camera;
 
 //! Computes the presentation of objects with removal of their hidden lines for a specific
 //! projector.
-class StdPrs_HLRShapeI : public Standard_Transient
+class StdPrs_HLRShapeI : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(StdPrs_HLRShapeI, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StdPrs_HLRShapeI, RefObject)
 public:
   //! Compute presentation for specified shape.
   virtual void ComputeHLR(const Handle(Prs3d_Presentation)& thePrs,

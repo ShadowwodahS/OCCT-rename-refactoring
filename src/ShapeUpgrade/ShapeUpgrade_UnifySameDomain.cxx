@@ -90,7 +90,7 @@
 #include <ElSLib.hxx>
 #include <GeomProjLib.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeUpgrade_UnifySameDomain, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(ShapeUpgrade_UnifySameDomain, RefObject)
 
 static Standard_Boolean IsOnSingularity(const TopTools_ListOfShape& theEdgeList)
 {

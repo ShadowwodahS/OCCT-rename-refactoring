@@ -25,9 +25,9 @@
 class StepVisual_PresentationStyleSelect;
 
 class StepVisual_PresentationStyleAssignment;
-DEFINE_STANDARD_HANDLE(StepVisual_PresentationStyleAssignment, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepVisual_PresentationStyleAssignment, RefObject)
 
-class StepVisual_PresentationStyleAssignment : public Standard_Transient
+class StepVisual_PresentationStyleAssignment : public RefObject
 {
 
 public:
@@ -45,7 +45,7 @@ public:
 
   Standard_EXPORT Standard_Integer NbStyles() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepVisual_PresentationStyleAssignment, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepVisual_PresentationStyleAssignment, RefObject)
 
 protected:
 private:

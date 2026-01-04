@@ -18,7 +18,7 @@
 #include <Font_FontMgr.hxx>
 #include <OSD_Path.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Font_SystemFont, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Font_SystemFont, RefObject)
 
 //=================================================================================================
 

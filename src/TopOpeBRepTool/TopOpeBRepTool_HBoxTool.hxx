@@ -28,9 +28,9 @@ class TopoDS_Shape;
 class Bnd_Box;
 
 class TopOpeBRepTool_HBoxTool;
-DEFINE_STANDARD_HANDLE(TopOpeBRepTool_HBoxTool, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TopOpeBRepTool_HBoxTool, RefObject)
 
-class TopOpeBRepTool_HBoxTool : public Standard_Transient
+class TopOpeBRepTool_HBoxTool : public RefObject
 {
 
 public:
@@ -66,7 +66,7 @@ public:
 
   Standard_EXPORT const TopOpeBRepTool_IndexedDataMapOfShapeBox& IMS() const;
 
-  DEFINE_STANDARD_RTTIEXT(TopOpeBRepTool_HBoxTool, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TopOpeBRepTool_HBoxTool, RefObject)
 
 protected:
 private:

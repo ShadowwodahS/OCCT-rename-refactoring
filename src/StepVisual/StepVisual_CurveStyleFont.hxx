@@ -27,9 +27,9 @@ class TCollection_HAsciiString;
 class StepVisual_CurveStyleFontPattern;
 
 class StepVisual_CurveStyleFont;
-DEFINE_STANDARD_HANDLE(StepVisual_CurveStyleFont, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepVisual_CurveStyleFont, RefObject)
 
-class StepVisual_CurveStyleFont : public Standard_Transient
+class StepVisual_CurveStyleFont : public RefObject
 {
 
 public:
@@ -53,7 +53,7 @@ public:
 
   Standard_EXPORT Standard_Integer NbPatternList() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepVisual_CurveStyleFont, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepVisual_CurveStyleFont, RefObject)
 
 protected:
 private:

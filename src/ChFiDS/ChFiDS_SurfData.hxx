@@ -28,11 +28,11 @@
 #include <Standard_Transient.hxx>
 
 class ChFiDS_SurfData;
-DEFINE_STANDARD_HANDLE(ChFiDS_SurfData, Standard_Transient)
+DEFINE_STANDARD_HANDLE(ChFiDS_SurfData, RefObject)
 
 //! data structure for all information related to  the
 //! fillet and to 2 faces vis a vis
-class ChFiDS_SurfData : public Standard_Transient
+class ChFiDS_SurfData : public RefObject
 {
 
 public:
@@ -128,9 +128,9 @@ public:
 
   Standard_EXPORT void LastExtensionValue(const Standard_Real Extend);
 
-  Standard_EXPORT Handle(Standard_Transient) Simul() const;
+  Standard_EXPORT Handle(RefObject) Simul() const;
 
-  Standard_EXPORT void SetSimul(const Handle(Standard_Transient)& S);
+  Standard_EXPORT void SetSimul(const Handle(RefObject)& S);
 
   Standard_EXPORT void ResetSimul();
 
@@ -155,7 +155,7 @@ public:
 
   void TwistOnS2(const Standard_Boolean T);
 
-  DEFINE_STANDARD_RTTIEXT(ChFiDS_SurfData, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(ChFiDS_SurfData, RefObject)
 
 protected:
 private:
@@ -173,7 +173,7 @@ private:
   Standard_Real              ulspine;
   Standard_Real              myfirstextend;
   Standard_Real              mylastextend;
-  Handle(Standard_Transient) simul;
+  Handle(RefObject) simul;
   Standard_Integer           indexOfS1;
   Standard_Integer           indexOfC1;
   Standard_Integer           indexOfS2;

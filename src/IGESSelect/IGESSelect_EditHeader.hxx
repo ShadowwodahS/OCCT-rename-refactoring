@@ -25,7 +25,7 @@
 class TCollection_AsciiString;
 class IFSelect_EditForm;
 class TCollection_HAsciiString;
-class Standard_Transient;
+class RefObject;
 class Interface_InterfaceModel;
 
 class IGESSelect_EditHeader;
@@ -50,7 +50,7 @@ public:
 
   Standard_EXPORT Standard_Boolean
     Load(const Handle(IFSelect_EditForm)&        form,
-         const Handle(Standard_Transient)&       ent,
+         const Handle(RefObject)&       ent,
          const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual Standard_Boolean Update(const Handle(IFSelect_EditForm)&        form,
@@ -61,7 +61,7 @@ public:
 
   Standard_EXPORT Standard_Boolean
     Apply(const Handle(IFSelect_EditForm)&        form,
-          const Handle(Standard_Transient)&       ent,
+          const Handle(RefObject)&       ent,
           const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IGESSelect_EditHeader, IFSelect_Editor)

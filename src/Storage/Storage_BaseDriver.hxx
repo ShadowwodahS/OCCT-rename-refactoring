@@ -26,17 +26,17 @@
 
 class TCollection_ExtendedString;
 
-DEFINE_STANDARD_HANDLE(Storage_BaseDriver, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Storage_BaseDriver, RefObject)
 
 //! Root class for drivers. A driver assigns a physical container
 //! to data to be stored or retrieved, for instance a file.
 //! The FSD package provides two derived concrete classes :
 //! -   FSD_File is a general driver which defines a
 //! file as the container of data.
-class Storage_BaseDriver : public Standard_Transient
+class Storage_BaseDriver : public RefObject
 {
 public:
-  DEFINE_STANDARD_RTTIEXT(Storage_BaseDriver, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Storage_BaseDriver, RefObject)
 
 public:
   Standard_EXPORT virtual ~Storage_BaseDriver();

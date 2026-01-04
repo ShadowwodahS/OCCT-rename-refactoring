@@ -31,13 +31,13 @@ class Graphic3d_MaterialAspect;
 class TCollection_AsciiString;
 
 class MeshVS_Drawer;
-DEFINE_STANDARD_HANDLE(MeshVS_Drawer, Standard_Transient)
+DEFINE_STANDARD_HANDLE(MeshVS_Drawer, RefObject)
 
 //! This class provided the common interface to share between classes
 //! big set of constants affecting to object appearance. By default, this class
 //! can store integers, doubles, OCC colors, OCC materials. Each of OCC enum members
 //! can be stored as integers.
-class MeshVS_Drawer : public Standard_Transient
+class MeshVS_Drawer : public RefObject
 {
 
 public:
@@ -88,7 +88,7 @@ public:
 
   Standard_EXPORT Standard_Boolean RemoveAsciiString(const Standard_Integer Key);
 
-  DEFINE_STANDARD_RTTIEXT(MeshVS_Drawer, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(MeshVS_Drawer, RefObject)
 
 protected:
 private:

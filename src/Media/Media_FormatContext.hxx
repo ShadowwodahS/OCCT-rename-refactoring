@@ -25,9 +25,9 @@ struct AVStream;
 struct AVRational;
 
 //! AVFormatContext wrapper - the media input/output stream holder.
-class Media_FormatContext : public Standard_Transient
+class Media_FormatContext : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Media_FormatContext, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Media_FormatContext, RefObject)
 public:
   //! Returns string description for AVError code.
   Standard_EXPORT static TCollection_AsciiString FormatAVErrorDescription(int theErrCodeAV);

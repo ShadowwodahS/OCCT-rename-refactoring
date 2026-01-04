@@ -26,7 +26,7 @@
 #include <Standard_OStream.hxx>
 
 class Vrml_Material;
-DEFINE_STANDARD_HANDLE(Vrml_Material, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Vrml_Material, RefObject)
 
 //! defines a Material node of VRML specifying properties of geometry
 //! and its appearance.
@@ -34,7 +34,7 @@ DEFINE_STANDARD_HANDLE(Vrml_Material, Standard_Transient)
 //! Material sets several components of the current material during traversal. Different shapes
 //! interpret materials with multiple values differently. To bind materials to shapes, use a
 //! MaterialBinding node.
-class Vrml_Material : public Standard_Transient
+class Vrml_Material : public RefObject
 {
 
 public:
@@ -73,7 +73,7 @@ public:
 
   Standard_EXPORT Standard_OStream& Print(Standard_OStream& anOStream) const;
 
-  DEFINE_STANDARD_RTTIEXT(Vrml_Material, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Vrml_Material, RefObject)
 
 protected:
 private:

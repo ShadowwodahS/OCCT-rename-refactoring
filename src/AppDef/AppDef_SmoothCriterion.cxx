@@ -19,4 +19,4 @@
 #include <math_Matrix.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AppDef_SmoothCriterion, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(AppDef_SmoothCriterion, RefObject)

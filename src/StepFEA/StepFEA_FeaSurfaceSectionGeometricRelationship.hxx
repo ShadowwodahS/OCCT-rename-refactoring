@@ -24,10 +24,10 @@ class StepElement_SurfaceSection;
 class StepElement_AnalysisItemWithinRepresentation;
 
 class StepFEA_FeaSurfaceSectionGeometricRelationship;
-DEFINE_STANDARD_HANDLE(StepFEA_FeaSurfaceSectionGeometricRelationship, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepFEA_FeaSurfaceSectionGeometricRelationship, RefObject)
 
 //! Representation of STEP entity FeaSurfaceSectionGeometricRelationship
-class StepFEA_FeaSurfaceSectionGeometricRelationship : public Standard_Transient
+class StepFEA_FeaSurfaceSectionGeometricRelationship : public RefObject
 {
 
 public:
@@ -50,7 +50,7 @@ public:
   //! Set field Item
   Standard_EXPORT void SetItem(const Handle(StepElement_AnalysisItemWithinRepresentation)& Item);
 
-  DEFINE_STANDARD_RTTIEXT(StepFEA_FeaSurfaceSectionGeometricRelationship, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepFEA_FeaSurfaceSectionGeometricRelationship, RefObject)
 
 protected:
 private:

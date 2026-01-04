@@ -32,7 +32,7 @@
 #include <TopoDS.hxx>
 #include <TopTools_MapOfShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepBuilderAPI_FastSewing, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(BRepBuilderAPI_FastSewing, RefObject)
 
 //=======================================================================
 // function : IntersetctionOfSets

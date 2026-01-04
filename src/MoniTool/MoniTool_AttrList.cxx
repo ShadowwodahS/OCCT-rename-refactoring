@@ -29,7 +29,7 @@ MoniTool_AttrList::MoniTool_AttrList(const MoniTool_AttrList& other)
 // Integer -> IntVal, Real -> RealVal, CString -> HAsciiString
 
 void MoniTool_AttrList::SetAttribute(const Standard_CString            name,
-                                     const Handle(Standard_Transient)& val)
+                                     const Handle(RefObject)& val)
 {
   theattrib.Bind(name, val);
 }
@@ -43,7 +43,7 @@ Standard_Boolean MoniTool_AttrList::RemoveAttribute(const Standard_CString name)
 
 Standard_Boolean MoniTool_AttrList::GetAttribute(const Standard_CString       name,
                                                  const Handle(Standard_Type)& type,
-                                                 Handle(Standard_Transient)&  val) const
+                                                 Handle(RefObject)&  val) const
 {
   if (theattrib.IsEmpty())
   {
@@ -63,9 +63,9 @@ Standard_Boolean MoniTool_AttrList::GetAttribute(const Standard_CString       na
   return Standard_True;
 }
 
-Handle(Standard_Transient) MoniTool_AttrList::Attribute(const Standard_CString name) const
+Handle(RefObject) MoniTool_AttrList::Attribute(const Standard_CString name) const
 {
-  Handle(Standard_Transient) atr;
+  Handle(RefObject) atr;
   if (theattrib.IsEmpty())
     return atr;
   if (!theattrib.Find(name, atr))
@@ -75,7 +75,7 @@ Handle(Standard_Transient) MoniTool_AttrList::Attribute(const Standard_CString n
 
 MoniTool_ValueType MoniTool_AttrList::AttributeType(const Standard_CString name) const
 {
-  Handle(Standard_Transient) atr = Attribute(name);
+  Handle(RefObject) atr = Attribute(name);
   if (atr.IsNull())
     return MoniTool_ValueVoid;
   if (atr->DynamicType() == STANDARD_TYPE(MoniTool_IntVal))
@@ -172,7 +172,7 @@ Standard_CString MoniTool_AttrList::StringAttribute(const Standard_CString name)
   return hval->ToCString();
 }
 
-const NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)>& MoniTool_AttrList::
+const NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>& MoniTool_AttrList::
   AttrList() const
 {
   return theattrib;
@@ -187,19 +187,19 @@ void MoniTool_AttrList::GetAttributes(const MoniTool_AttrList& other,
                                       const Standard_CString   fromname,
                                       const Standard_Boolean   copied)
 {
-  const NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)>& list =
+  const NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>& list =
     other.AttrList();
   if (list.IsEmpty())
     return;
 
-  NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)>::Iterator iter(list);
+  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>::Iterator iter(list);
   for (; iter.More(); iter.Next())
   {
     const TCollection_AsciiString& name = iter.Key();
     if (!name.StartsWith(fromname))
       continue;
-    const Handle(Standard_Transient)& atr    = iter.Value();
-    Handle(Standard_Transient)        newatr = atr;
+    const Handle(RefObject)& atr    = iter.Value();
+    Handle(RefObject)        newatr = atr;
 
     //    Copy ? according type
     if (copied)

@@ -17,13 +17,13 @@
 #include <Standard_Transient.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Interface_ReaderModule, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Interface_ReaderModule, RefObject)
 
 Standard_Boolean Interface_ReaderModule::NewRead(const Standard_Integer,
                                                  const Handle(Interface_FileReaderData)&,
                                                  const Standard_Integer,
                                                  Handle(Interface_Check)&,
-                                                 Handle(Standard_Transient)&) const
+                                                 Handle(RefObject)&) const
 {
   return Standard_False;
 }

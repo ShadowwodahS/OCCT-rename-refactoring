@@ -25,10 +25,10 @@
 #include <StepVisual_Colour.hxx>
 
 class StepVisual_SurfaceStyleRendering;
-DEFINE_STANDARD_HANDLE(StepVisual_SurfaceStyleRendering, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepVisual_SurfaceStyleRendering, RefObject)
 
 //! Representation of STEP entity SurfaceStyleRendering
-class StepVisual_SurfaceStyleRendering : public Standard_Transient
+class StepVisual_SurfaceStyleRendering : public RefObject
 {
 public:
   //! default constructor
@@ -48,7 +48,7 @@ public:
   //! Sets field SurfaceColour
   Standard_EXPORT void SetSurfaceColour(const Handle(StepVisual_Colour)& theSurfaceColour);
 
-  DEFINE_STANDARD_RTTIEXT(StepVisual_SurfaceStyleRendering, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepVisual_SurfaceStyleRendering, RefObject)
 
 private:
   StepVisual_ShadingSurfaceMethod myRenderingMethod;

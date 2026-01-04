@@ -23,7 +23,7 @@
 
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepGeom_Axis2Placement2d;
 class StepGeom_Axis2Placement3d;
 
@@ -39,7 +39,7 @@ public:
   //! 1 -> Axis2Placement2d
   //! 2 -> Axis2Placement3d
   //! 0 else
-  Standard_EXPORT Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! returns Value as a Axis2Placement2d (Null if another type)
   Standard_EXPORT Handle(StepGeom_Axis2Placement2d) Axis2Placement2d() const;

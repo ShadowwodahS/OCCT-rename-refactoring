@@ -174,7 +174,7 @@ void IGESDraw_ToolViewsVisible::OwnRenew(const Handle(IGESDraw_ViewsVisible)& an
   if (up == 0)
     return;
   Handle(IGESData_HArray1OfIGESEntity) tempDisplayEntities;
-  Handle(Standard_Transient)           anew;
+  Handle(RefObject)           anew;
   for (I = 1; I <= up; I++)
   {
     if (TC.Search(another->DisplayedEntity(I), anew))

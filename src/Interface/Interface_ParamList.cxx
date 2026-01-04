@@ -18,7 +18,7 @@
 #include <Standard_OutOfMemory.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Interface_ParamList, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Interface_ParamList, RefObject)
 
 //=================================================================================================
 

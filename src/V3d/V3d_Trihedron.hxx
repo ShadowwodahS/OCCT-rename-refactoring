@@ -26,9 +26,9 @@
 class V3d_View;
 
 //! Class for presentation of trihedron object.
-class V3d_Trihedron : public Standard_Transient
+class V3d_Trihedron : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(V3d_Trihedron, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(V3d_Trihedron, RefObject)
 public:
   //! Creates a default trihedron.
   Standard_EXPORT V3d_Trihedron();
@@ -164,6 +164,6 @@ protected:
   Standard_Boolean myToCompute;
 };
 
-DEFINE_STANDARD_HANDLE(V3d_Trihedron, Standard_Transient)
+DEFINE_STANDARD_HANDLE(V3d_Trihedron, RefObject)
 
 #endif

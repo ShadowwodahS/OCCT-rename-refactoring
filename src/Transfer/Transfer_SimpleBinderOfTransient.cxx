@@ -18,7 +18,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(Transfer_SimpleBinderOfTransient, Transfer_Binder)
 
-//  "Handle(Standard_Transient)" : la classe de base pour le Resultat
+//  "Handle(RefObject)" : la classe de base pour le Resultat
 Transfer_SimpleBinderOfTransient::Transfer_SimpleBinderOfTransient() {}
 
 //    Standard_Boolean  Transfer_SimpleBinderOfTransient::IsMultiple() const
@@ -27,7 +27,7 @@ Transfer_SimpleBinderOfTransient::Transfer_SimpleBinderOfTransient() {}
 Handle(Standard_Type) Transfer_SimpleBinderOfTransient::ResultType() const
 {
   if (!HasResult() || theres.IsNull())
-    return STANDARD_TYPE(Standard_Transient);
+    return STANDARD_TYPE(RefObject);
   return Result()->DynamicType();
 }
 
@@ -38,13 +38,13 @@ Standard_CString Transfer_SimpleBinderOfTransient::ResultTypeName() const
   return Result()->DynamicType()->Name();
 }
 
-void Transfer_SimpleBinderOfTransient::SetResult(const Handle(Standard_Transient)& res)
+void Transfer_SimpleBinderOfTransient::SetResult(const Handle(RefObject)& res)
 {
   SetResultPresent();
   theres = res;
 }
 
-const Handle(Standard_Transient)& Transfer_SimpleBinderOfTransient::Result() const
+const Handle(RefObject)& Transfer_SimpleBinderOfTransient::Result() const
 {
   return theres;
 }
@@ -52,7 +52,7 @@ const Handle(Standard_Transient)& Transfer_SimpleBinderOfTransient::Result() con
 Standard_Boolean Transfer_SimpleBinderOfTransient::GetTypedResult(
   const Handle(Transfer_Binder)& bnd,
   const Handle(Standard_Type)&   atype,
-  Handle(Standard_Transient)&    res)
+  Handle(RefObject)&    res)
 {
   if (atype.IsNull())
     return Standard_False;
@@ -64,7 +64,7 @@ Standard_Boolean Transfer_SimpleBinderOfTransient::GetTypedResult(
     bn = bn->NextResult();
     if (trb.IsNull())
       continue;
-    const Handle(Standard_Transient)& rs = trb->Result();
+    const Handle(RefObject)& rs = trb->Result();
     if (rs.IsNull())
       continue;
     if (!rs->IsKind(atype))

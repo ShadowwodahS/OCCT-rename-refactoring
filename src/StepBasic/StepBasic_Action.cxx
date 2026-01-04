@@ -20,7 +20,7 @@
 #include <StepBasic_ActionMethod.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_Action, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_Action, RefObject)
 
 //=================================================================================================
 

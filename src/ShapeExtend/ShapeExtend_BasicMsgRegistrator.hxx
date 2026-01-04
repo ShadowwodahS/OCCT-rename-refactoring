@@ -25,7 +25,7 @@ class Message_Msg;
 class TopoDS_Shape;
 
 class ShapeExtend_BasicMsgRegistrator;
-DEFINE_STANDARD_HANDLE(ShapeExtend_BasicMsgRegistrator, Standard_Transient)
+DEFINE_STANDARD_HANDLE(ShapeExtend_BasicMsgRegistrator, RefObject)
 
 //! Abstract class that can be used for attaching messages
 //! to the objects (e.g. shapes).
@@ -36,7 +36,7 @@ DEFINE_STANDARD_HANDLE(ShapeExtend_BasicMsgRegistrator, Standard_Transient)
 //! The methods of this class are empty and redefined, for instance,
 //! in the classes for Data Exchange processors for attaching
 //! messages to interface file entities or CAS.CADE shapes.
-class ShapeExtend_BasicMsgRegistrator : public Standard_Transient
+class ShapeExtend_BasicMsgRegistrator : public RefObject
 {
 
 public:
@@ -45,7 +45,7 @@ public:
 
   //! Sends a message to be attached to the object.
   //! Object can be of any type interpreted by redefined MsgRegistrator.
-  Standard_EXPORT virtual void Send(const Handle(Standard_Transient)& object,
+  Standard_EXPORT virtual void Send(const Handle(RefObject)& object,
                                     const Message_Msg&                message,
                                     const Message_Gravity             gravity);
 
@@ -57,7 +57,7 @@ public:
   //! Calls Send method with Null Transient.
   Standard_EXPORT virtual void Send(const Message_Msg& message, const Message_Gravity gravity);
 
-  DEFINE_STANDARD_RTTIEXT(ShapeExtend_BasicMsgRegistrator, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(ShapeExtend_BasicMsgRegistrator, RefObject)
 
 protected:
 private:

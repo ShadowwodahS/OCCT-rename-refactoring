@@ -22,7 +22,7 @@
 
 //! The purpose of this class is to mark sensitive entities selectable or not
 //! depending on current active selection of parent object for proper BVH traverse
-class SelectMgr_SensitiveEntity : public Standard_Transient
+class SelectMgr_SensitiveEntity : public RefObject
 {
 public:
   //! Creates new inactive for selection object with base entity theEntity
@@ -50,13 +50,13 @@ public:
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const;
 
-  DEFINE_STANDARD_RTTIEXT(SelectMgr_SensitiveEntity, Standard_Transient) // Type definition
+  DEFINE_STANDARD_RTTIEXT(SelectMgr_SensitiveEntity, RefObject) // Type definition
 
 private:
   Handle(Select3D_SensitiveEntity) mySensitive;            //!< Related SelectBasics entity
   mutable Standard_Boolean         myIsActiveForSelection; //!< Selection activity status
 };
 
-DEFINE_STANDARD_HANDLE(SelectMgr_SensitiveEntity, Standard_Transient)
+DEFINE_STANDARD_HANDLE(SelectMgr_SensitiveEntity, RefObject)
 
 #endif // _SelectMgr_SensitiveEntity_HeaderFile

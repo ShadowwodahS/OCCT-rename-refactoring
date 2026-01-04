@@ -25,10 +25,10 @@ class TCollection_HAsciiString;
 class StepBasic_ProductCategory;
 
 class StepBasic_ProductCategoryRelationship;
-DEFINE_STANDARD_HANDLE(StepBasic_ProductCategoryRelationship, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_ProductCategoryRelationship, RefObject)
 
 //! Representation of STEP entity ProductCategoryRelationship
-class StepBasic_ProductCategoryRelationship : public Standard_Transient
+class StepBasic_ProductCategoryRelationship : public RefObject
 {
 
 public:
@@ -69,7 +69,7 @@ public:
   //! Set field SubCategory
   Standard_EXPORT void SetSubCategory(const Handle(StepBasic_ProductCategory)& SubCategory);
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_ProductCategoryRelationship, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_ProductCategoryRelationship, RefObject)
 
 protected:
 private:

@@ -26,9 +26,9 @@ class StepGeom_CartesianPoint;
 class StepVisual_PlanarBox;
 
 class StepVisual_ViewVolume;
-DEFINE_STANDARD_HANDLE(StepVisual_ViewVolume, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepVisual_ViewVolume, RefObject)
 
-class StepVisual_ViewVolume : public Standard_Transient
+class StepVisual_ViewVolume : public RefObject
 {
 
 public:
@@ -81,7 +81,7 @@ public:
 
   Standard_EXPORT Handle(StepVisual_PlanarBox) ViewWindow() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepVisual_ViewVolume, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepVisual_ViewVolume, RefObject)
 
 protected:
 private:

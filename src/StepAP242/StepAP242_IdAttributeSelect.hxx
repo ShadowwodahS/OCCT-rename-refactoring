@@ -22,7 +22,7 @@
 
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepBasic_Action;
 class StepBasic_Address;
 class StepBasic_ApplicationContext;
@@ -57,7 +57,7 @@ public:
   //! 11 -> ShapeAspect
   //! 12 -> ShapeAspectRelationship
   //! 0 else
-  Standard_EXPORT Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! returns Value as a Action (Null if another type)
   Standard_EXPORT Handle(StepBasic_Action) Action() const;

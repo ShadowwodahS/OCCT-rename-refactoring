@@ -25,7 +25,7 @@
 #include <VrmlData_TextureTransform.hxx>
 #include <VrmlData_Texture.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(VrmlData_Node, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(VrmlData_Node, RefObject)
 
 #ifdef _MSC_VER
   #define _CRT_SECURE_NO_DEPRECATE

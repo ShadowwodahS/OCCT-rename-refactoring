@@ -16,7 +16,7 @@
 
 #include <Standard_Assert.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_Animation, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(AIS_Animation, RefObject)
 
 //=================================================================================================
 

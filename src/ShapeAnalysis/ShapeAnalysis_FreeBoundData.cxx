@@ -20,7 +20,7 @@
 #include <TopoDS_Wire.hxx>
 #include <TopTools_HSequenceOfShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeAnalysis_FreeBoundData, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(ShapeAnalysis_FreeBoundData, RefObject)
 
 //=======================================================================
 // function : ShapeAnalysis_FreeBoundData

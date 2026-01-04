@@ -15,7 +15,7 @@
 
 #include <Graphic3d_ShaderAttribute.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_ShaderAttribute, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_ShaderAttribute, RefObject)
 
 //=================================================================================================
 

@@ -23,7 +23,7 @@
 #include <Standard_NotImplemented.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GeomFill_LocationLaw, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(GeomFill_LocationLaw, RefObject)
 
 Standard_Boolean GeomFill_LocationLaw::D1(const Standard_Real,
                                           gp_Mat&,

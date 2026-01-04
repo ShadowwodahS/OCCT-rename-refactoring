@@ -19,7 +19,7 @@
 
 #include <Precision.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Font_TextFormatter, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Font_TextFormatter, RefObject)
 
 namespace
 {

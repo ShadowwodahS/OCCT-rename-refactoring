@@ -34,7 +34,7 @@ class gp_Vec2d;
 class Geom2d_BezierCurve;
 class Geom2d_BSplineCurve;
 
-DEFINE_STANDARD_HANDLE(Adaptor2d_Curve2d, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Adaptor2d_Curve2d, RefObject)
 
 //! Root class for 2D curves on which geometric
 //! algorithms work.
@@ -47,9 +47,9 @@ DEFINE_STANDARD_HANDLE(Adaptor2d_Curve2d, Standard_Transient)
 //! Polynomial coefficients of BSpline curves used for their evaluation are
 //! cached for better performance. Therefore these evaluations are not
 //! thread-safe and parallel evaluations need to be prevented.
-class Adaptor2d_Curve2d : public Standard_Transient
+class Adaptor2d_Curve2d : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Adaptor2d_Curve2d, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Adaptor2d_Curve2d, RefObject)
 public:
   //! Shallow copy of adaptor
   Standard_EXPORT virtual Handle(Adaptor2d_Curve2d) ShallowCopy() const;

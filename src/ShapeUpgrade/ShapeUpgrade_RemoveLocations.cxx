@@ -32,7 +32,7 @@
 #include <TopoDS_Shape.hxx>
 #include <TopoDS_Vertex.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeUpgrade_RemoveLocations, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(ShapeUpgrade_RemoveLocations, RefObject)
 
 // #include <ShapeUpgrade_DataMapOfShapeListOfTransient.hxx>
 //=================================================================================================

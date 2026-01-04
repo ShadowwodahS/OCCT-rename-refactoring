@@ -92,14 +92,14 @@ public:
   //! \param theType presentation type
   //! \param isToUpdateView boolean state if viewer should be updated
   Standard_EXPORT void DisplayPresentation(
-    const Handle(Standard_Transient)& thePresentation,
+    const Handle(RefObject)& thePresentation,
     const View_PresentationType       theType           = View_PresentationType_Main,
     const bool                        theToUpdateViewer = true);
 
   //! Redisplays the parameter presentation in current context
   //! \param thePresentation a presentation, it will be casted to AIS_InteractiveObject
   //! \param isToUpdateView boolean state if viewer should be updated
-  Standard_EXPORT void RedisplayPresentation(const Handle(Standard_Transient)& thePresentation,
+  Standard_EXPORT void RedisplayPresentation(const Handle(RefObject)& thePresentation,
                                              const bool theToUpdateViewer = true);
 
   //! Erases all presentations from viewer. Iterates by internal map of displayed presentations and
@@ -119,7 +119,7 @@ public:
   //! \param theType presentation type
   //! \param isToUpdateView boolean state if viewer should be updated
   Standard_EXPORT void ErasePresentation(
-    const Handle(Standard_Transient)& thePresentation,
+    const Handle(RefObject)& thePresentation,
     const View_PresentationType       theType           = View_PresentationType_Main,
     const bool                        theToUpdateViewer = true);
 
@@ -151,7 +151,7 @@ public:
   //! Updates visibility of the presentations for the display type
   Standard_EXPORT void UpdatePreview(
     const View_DisplayActionType                        theType,
-    const NCollection_List<Handle(Standard_Transient)>& thePresentations);
+    const NCollection_List<Handle(RefObject)>& thePresentations);
 
   //! Calls UpdateCurrentViewer of context
   Standard_EXPORT void UpdateViewer();
@@ -187,7 +187,7 @@ public:
   //! Creates AIS_Shape for the shape
   //! \param theShape a shape
   //! \return presentation
-  Standard_EXPORT static Handle(Standard_Transient) CreatePresentation(
+  Standard_EXPORT static Handle(RefObject) CreatePresentation(
     const TopoDS_Shape& theShape);
 
 private:

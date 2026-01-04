@@ -23,7 +23,7 @@
 #include <TColStd_HSequenceOfTransient.hxx>
 #include <Transfer_Binder.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 
 class Transfer_TransientListBinder;
 DEFINE_STANDARD_HANDLE(Transfer_TransientListBinder, Transfer_Binder)
@@ -47,16 +47,16 @@ public:
   Standard_EXPORT Standard_CString ResultTypeName() const Standard_OVERRIDE;
 
   //! Adds an item to the result list
-  Standard_EXPORT void AddResult(const Handle(Standard_Transient)& res);
+  Standard_EXPORT void AddResult(const Handle(RefObject)& res);
 
   Standard_EXPORT Handle(TColStd_HSequenceOfTransient) Result() const;
 
   //! Changes an already defined sub-result
-  Standard_EXPORT void SetResult(const Standard_Integer num, const Handle(Standard_Transient)& res);
+  Standard_EXPORT void SetResult(const Standard_Integer num, const Handle(RefObject)& res);
 
   Standard_EXPORT Standard_Integer NbTransients() const;
 
-  Standard_EXPORT const Handle(Standard_Transient)& Transient(const Standard_Integer num) const;
+  Standard_EXPORT const Handle(RefObject)& Transient(const Standard_Integer num) const;
 
   DEFINE_STANDARD_RTTIEXT(Transfer_TransientListBinder, Transfer_Binder)
 

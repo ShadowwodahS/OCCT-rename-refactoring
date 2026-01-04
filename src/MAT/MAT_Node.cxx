@@ -18,7 +18,7 @@
 #include <Precision.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(MAT_Node, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(MAT_Node, RefObject)
 
 //=================================================================================================
 

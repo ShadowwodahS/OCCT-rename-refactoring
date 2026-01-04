@@ -14,7 +14,7 @@
 #include <StepBasic_Effectivity.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_Effectivity, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_Effectivity, RefObject)
 
 StepBasic_Effectivity::StepBasic_Effectivity() {}
 

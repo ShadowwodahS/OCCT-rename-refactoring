@@ -89,7 +89,7 @@ static Standard_Integer BinderStatus(const Handle(Transfer_Binder)& binder)
 }
 
 Standard_CString XSControl_SignTransferStatus::Value(
-  const Handle(Standard_Transient)& ent,
+  const Handle(RefObject)& ent,
   const Handle(Interface_InterfaceModel)& /*model*/) const
 {
   if (ent.IsNull())

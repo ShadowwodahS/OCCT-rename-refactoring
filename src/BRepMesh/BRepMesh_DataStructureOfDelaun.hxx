@@ -21,7 +21,7 @@ class BRepMesh_Edge;
 
 //! Describes the data structure necessary for the mesh algorithms in
 //! two dimensions plane or on surface by meshing in UV space.
-class BRepMesh_DataStructureOfDelaun : public Standard_Transient
+class BRepMesh_DataStructureOfDelaun : public RefObject
 {
 public:
   //! Constructor.
@@ -200,7 +200,7 @@ public: //! @name Auxiliary API
     clearDeletedNodes();
   }
 
-  DEFINE_STANDARD_RTTIEXT(BRepMesh_DataStructureOfDelaun, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(BRepMesh_DataStructureOfDelaun, RefObject)
 
 private:
   //! Get list of links attached to the node with the given index.

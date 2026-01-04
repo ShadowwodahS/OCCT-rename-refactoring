@@ -14,7 +14,7 @@
 #include <Standard_Type.hxx>
 #include <Vrml_SFImage.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Vrml_SFImage, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Vrml_SFImage, RefObject)
 
 Vrml_SFImage::Vrml_SFImage()
 {

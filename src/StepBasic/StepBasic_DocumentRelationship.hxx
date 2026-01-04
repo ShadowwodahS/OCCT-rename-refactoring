@@ -25,9 +25,9 @@ class TCollection_HAsciiString;
 class StepBasic_Document;
 
 class StepBasic_DocumentRelationship;
-DEFINE_STANDARD_HANDLE(StepBasic_DocumentRelationship, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_DocumentRelationship, RefObject)
 
-class StepBasic_DocumentRelationship : public Standard_Transient
+class StepBasic_DocumentRelationship : public RefObject
 {
 
 public:
@@ -54,7 +54,7 @@ public:
 
   Standard_EXPORT void SetRelatedDocument(const Handle(StepBasic_Document)& aRelated);
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_DocumentRelationship, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_DocumentRelationship, RefObject)
 
 protected:
 private:

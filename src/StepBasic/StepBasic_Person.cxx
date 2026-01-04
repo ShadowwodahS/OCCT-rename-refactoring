@@ -14,7 +14,7 @@
 #include <StepBasic_Person.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_Person, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_Person, RefObject)
 
 StepBasic_Person::StepBasic_Person() {}
 

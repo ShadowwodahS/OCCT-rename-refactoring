@@ -53,7 +53,7 @@ STEPSelections_Counter::STEPSelections_Counter()
 }
 
 void STEPSelections_Counter::Count(const Interface_Graph&            graph,
-                                   const Handle(Standard_Transient)& start)
+                                   const Handle(RefObject)& start)
 {
   if (start.IsNull())
     return;
@@ -153,7 +153,7 @@ void STEPSelections_Counter::Count(const Interface_Graph&            graph,
     for (Standard_Integer i = 1; i <= nbElem; i++)
     {
       StepShape_GeometricSetSelect      aGSS   = gs->ElementsValue(i);
-      const Handle(Standard_Transient)& ent    = aGSS.Value();
+      const Handle(RefObject)& ent    = aGSS.Value();
       Handle(StepGeom_CompositeCurve)   ccurve = Handle(StepGeom_CompositeCurve)::DownCast(ent);
       if (!ccurve.IsNull())
       {
@@ -222,7 +222,7 @@ void STEPSelections_Counter::Count(const Interface_Graph&            graph,
     DeclareAndCast(StepRepr_ShapeRepresentationRelationship, und, start);
     for (Standard_Integer i = 1; i <= 2; i++)
     {
-      Handle(Standard_Transient) anitem;
+      Handle(RefObject) anitem;
       if (i == 1)
         anitem = und->Rep1();
       if (i == 2)

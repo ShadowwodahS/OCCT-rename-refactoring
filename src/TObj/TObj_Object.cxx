@@ -52,7 +52,7 @@
 #include <TDocStd_Owner.hxx>
 #include <TDF_TagSource.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TObj_Object, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(TObj_Object, RefObject)
 
 //=================================================================================================
 

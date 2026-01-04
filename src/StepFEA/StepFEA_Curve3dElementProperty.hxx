@@ -25,10 +25,10 @@
 class TCollection_HAsciiString;
 
 class StepFEA_Curve3dElementProperty;
-DEFINE_STANDARD_HANDLE(StepFEA_Curve3dElementProperty, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepFEA_Curve3dElementProperty, RefObject)
 
 //! Representation of STEP entity Curve3dElementProperty
-class StepFEA_Curve3dElementProperty : public Standard_Transient
+class StepFEA_Curve3dElementProperty : public RefObject
 {
 
 public:
@@ -76,7 +76,7 @@ public:
   Standard_EXPORT void SetEndReleases(
     const Handle(StepFEA_HArray1OfCurveElementEndRelease)& EndReleases);
 
-  DEFINE_STANDARD_RTTIEXT(StepFEA_Curve3dElementProperty, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepFEA_Curve3dElementProperty, RefObject)
 
 protected:
 private:

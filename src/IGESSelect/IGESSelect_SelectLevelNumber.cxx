@@ -37,7 +37,7 @@ Handle(IFSelect_IntParam) IGESSelect_SelectLevelNumber::LevelNumber() const
 
 Standard_Boolean IGESSelect_SelectLevelNumber::Sort(
   const Standard_Integer /*rank*/,
-  const Handle(Standard_Transient)& ent,
+  const Handle(RefObject)& ent,
   const Handle(Interface_InterfaceModel)& /*model*/) const
 {
   DeclareAndCast(IGESData_IGESEntity, igesent, ent);

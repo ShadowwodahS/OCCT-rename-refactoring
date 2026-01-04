@@ -14,7 +14,7 @@
 #include <Standard_Type.hxx>
 #include <StepBasic_DimensionalExponents.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_DimensionalExponents, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_DimensionalExponents, RefObject)
 
 StepBasic_DimensionalExponents::StepBasic_DimensionalExponents() {}
 

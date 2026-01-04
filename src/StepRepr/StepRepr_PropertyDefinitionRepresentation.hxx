@@ -23,10 +23,10 @@
 class StepRepr_Representation;
 
 class StepRepr_PropertyDefinitionRepresentation;
-DEFINE_STANDARD_HANDLE(StepRepr_PropertyDefinitionRepresentation, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepRepr_PropertyDefinitionRepresentation, RefObject)
 
 //! Representation of STEP entity PropertyDefinitionRepresentation
-class StepRepr_PropertyDefinitionRepresentation : public Standard_Transient
+class StepRepr_PropertyDefinitionRepresentation : public RefObject
 {
 
 public:
@@ -50,7 +50,7 @@ public:
   Standard_EXPORT void SetUsedRepresentation(
     const Handle(StepRepr_Representation)& UsedRepresentation);
 
-  DEFINE_STANDARD_RTTIEXT(StepRepr_PropertyDefinitionRepresentation, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepRepr_PropertyDefinitionRepresentation, RefObject)
 
 protected:
 private:

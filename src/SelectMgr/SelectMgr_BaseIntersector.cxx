@@ -18,7 +18,7 @@
 
 #include <algorithm>
 
-IMPLEMENT_STANDARD_RTTIEXT(SelectMgr_BaseIntersector, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(SelectMgr_BaseIntersector, RefObject)
 
 //=================================================================================================
 

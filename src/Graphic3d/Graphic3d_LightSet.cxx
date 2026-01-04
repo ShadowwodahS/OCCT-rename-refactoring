@@ -15,7 +15,7 @@
 
 #include <NCollection_LocalArray.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_LightSet, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_LightSet, RefObject)
 
 namespace
 {

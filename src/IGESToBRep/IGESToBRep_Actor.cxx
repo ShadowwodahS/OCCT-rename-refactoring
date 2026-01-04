@@ -113,7 +113,7 @@ Standard_Integer IGESToBRep_Actor::GetContinuity() const
 
 //=======================================================================
 
-Standard_Boolean IGESToBRep_Actor::Recognize(const Handle(Standard_Transient)& start)
+Standard_Boolean IGESToBRep_Actor::Recognize(const Handle(RefObject)& start)
 {
   DeclareAndCast(IGESData_IGESModel, mymodel, themodel);
   DeclareAndCast(IGESData_IGESEntity, ent, start);
@@ -134,7 +134,7 @@ Standard_Boolean IGESToBRep_Actor::Recognize(const Handle(Standard_Transient)& s
 
 //=======================================================================
 
-Handle(Transfer_Binder) IGESToBRep_Actor::Transfer(const Handle(Standard_Transient)&        start,
+Handle(Transfer_Binder) IGESToBRep_Actor::Transfer(const Handle(RefObject)&        start,
                                                    const Handle(Transfer_TransientProcess)& TP,
                                                    const Message_ProgressRange& theProgress)
 {

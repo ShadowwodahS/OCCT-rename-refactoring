@@ -18,7 +18,7 @@
 #include <Storage_StreamTypeMismatchError.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StdStorage_TypeData, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StdStorage_TypeData, RefObject)
 
 StdStorage_TypeData::StdStorage_TypeData()
     : myTypeId(0),

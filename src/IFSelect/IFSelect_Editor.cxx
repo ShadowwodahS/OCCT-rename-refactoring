@@ -24,7 +24,7 @@
 #include <TCollection_HAsciiString.hxx>
 
 #include <string.h>
-IMPLEMENT_STANDARD_RTTIEXT(IFSelect_Editor, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(IFSelect_Editor, RefObject)
 
 IFSelect_Editor::IFSelect_Editor(const Standard_Integer nbval)
     : thenbval(nbval),

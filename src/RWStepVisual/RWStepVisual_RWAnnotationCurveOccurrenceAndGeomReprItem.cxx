@@ -63,8 +63,8 @@ void RWStepVisual_RWAnnotationCurveOccurrenceAndGeomReprItem::ReadStep(
   }
 
   // Inherited field : item
-  Handle(Standard_Transient) aItem;
-  data->ReadEntity(num, 2, "item", ach, STANDARD_TYPE(Standard_Transient), aItem);
+  Handle(RefObject) aItem;
+  data->ReadEntity(num, 2, "item", ach, STANDARD_TYPE(RefObject), aItem);
 
   // Initialization of the read entity
   ent->Init(aName, aStyles, aItem);

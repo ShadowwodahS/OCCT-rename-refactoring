@@ -20,7 +20,7 @@
 #include <TCollection_HAsciiString.hxx>
 #include <TColStd_HSequenceOfTransient.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IFSelect_SignatureList, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(IFSelect_SignatureList, RefObject)
 
 IFSelect_SignatureList::IFSelect_SignatureList(const Standard_Boolean withlist)
 {
@@ -48,7 +48,7 @@ void IFSelect_SignatureList::Clear()
   thediclist.Clear();
 }
 
-void IFSelect_SignatureList::Add(const Handle(Standard_Transient)& ent, const Standard_CString sign)
+void IFSelect_SignatureList::Add(const Handle(RefObject)& ent, const Standard_CString sign)
 {
   if (thesignonly)
   {
@@ -90,7 +90,7 @@ Standard_CString IFSelect_SignatureList::LastValue() const
 void IFSelect_SignatureList::Init(
   const Standard_CString                                                                 name,
   const NCollection_IndexedDataMap<TCollection_AsciiString, Standard_Integer>&           theCount,
-  const NCollection_IndexedDataMap<TCollection_AsciiString, Handle(Standard_Transient)>& list,
+  const NCollection_IndexedDataMap<TCollection_AsciiString, Handle(RefObject)>& list,
   const Standard_Integer                                                                 nbnuls)
 {
   thelastval.Clear();
@@ -139,7 +139,7 @@ Handle(TColStd_HSequenceOfTransient) IFSelect_SignatureList::Entities(
   const Standard_CString sign) const
 {
   Handle(TColStd_HSequenceOfTransient) list;
-  Handle(Standard_Transient)           aTList;
+  Handle(RefObject)           aTList;
   if (!thelistat)
     return list;
   if (thediclist.FindFromKey(sign, aTList))
@@ -199,7 +199,7 @@ void IFSelect_SignatureList::PrintList(Standard_OStream&                       S
     return;
   }
   Standard_Integer nbtot = 0, nbsign = 0;
-  NCollection_IndexedDataMap<TCollection_AsciiString, Handle(Standard_Transient)>::Iterator iter(
+  NCollection_IndexedDataMap<TCollection_AsciiString, Handle(RefObject)>::Iterator iter(
     thediclist);
   for (; iter.More(); iter.Next())
   {

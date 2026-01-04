@@ -17,7 +17,7 @@
 #include <NCollection_DataMap.hxx>
 #include <Standard_Transient.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepData_FreeFormEntity, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepData_FreeFormEntity, RefObject)
 
 void StepData_FreeFormEntity::SetStepType(const Standard_CString typenam)
 {
@@ -103,14 +103,14 @@ Standard_Boolean StepData_FreeFormEntity::Reorder(Handle(StepData_FreeFormEntity
   //  remise en ordre avec un dictionnaire
   e1 = ent;
   e2.Nullify();
-  NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)> dic;
+  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)> dic;
   while (!e1.IsNull())
   {
     dic.Bind(e1->StepType(), e1);
     e1 = e1->Next();
   }
   //  d abord effacer les next en cours ...
-  for (NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)>::Iterator iter(dic);
+  for (NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>::Iterator iter(dic);
        iter.More();
        iter.Next())
   {
@@ -120,7 +120,7 @@ Standard_Boolean StepData_FreeFormEntity::Reorder(Handle(StepData_FreeFormEntity
   }
   //  ... puis les remettre dans l ordre
   e1.Nullify();
-  for (NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)>::Iterator iter(dic);
+  for (NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>::Iterator iter(dic);
        iter.More();
        iter.Next())
   {

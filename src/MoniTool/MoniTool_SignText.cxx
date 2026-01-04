@@ -16,11 +16,11 @@
 #include <Standard_Type.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(MoniTool_SignText, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(MoniTool_SignText, RefObject)
 
-TCollection_AsciiString MoniTool_SignText::TextAlone(const Handle(Standard_Transient)& ent) const
+TCollection_AsciiString MoniTool_SignText::TextAlone(const Handle(RefObject)& ent) const
 {
-  Handle(Standard_Transient) nulctx; // no context
+  Handle(RefObject) nulctx; // no context
   TCollection_AsciiString    atext = Text(ent, nulctx);
   if (atext.Length() == 0)
   {

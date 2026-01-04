@@ -26,7 +26,7 @@
 #include <TColgp_Array1OfPnt2d.hxx>
 #include <Standard_Real.hxx>
 #include <Standard_OStream.hxx>
-class Standard_Transient;
+class RefObject;
 class gp_Pnt;
 class gp_Pnt2d;
 
@@ -128,8 +128,8 @@ public:
   Standard_EXPORT virtual void Dump(Standard_OStream& o) const;
 
 protected:
-  Handle(Standard_Transient) ttabPoint;
-  Handle(Standard_Transient) ttabPoint2d;
+  Handle(RefObject) ttabPoint;
+  Handle(RefObject) ttabPoint2d;
   Standard_Integer           nbP;
   Standard_Integer           nbP2d;
 

@@ -30,7 +30,7 @@
 #include <TopOpeBRepDS_HDataStructure.hxx>
 #include <TopOpeBRepTool_ShapeTool.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TopOpeBRep_FFDumper, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(TopOpeBRep_FFDumper, RefObject)
 
 #ifdef OCCT_DEBUG
 static TCollection_AsciiString PRODINP("dinp ");

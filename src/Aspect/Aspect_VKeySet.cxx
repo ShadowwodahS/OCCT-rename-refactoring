@@ -13,7 +13,7 @@
 
 #include "Aspect_VKeySet.hxx"
 
-IMPLEMENT_STANDARD_RTTIEXT(Aspect_VKeySet, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Aspect_VKeySet, RefObject)
 
 //=================================================================================================
 

@@ -30,7 +30,7 @@
 #include <TColStd_HSequenceOfAsciiString.hxx>
 
 #include <stdio.h>
-IMPLEMENT_STANDARD_RTTIEXT(Storage_Schema, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Storage_Schema, RefObject)
 
 #define DATATYPE_MIGRATION
 

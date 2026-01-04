@@ -17,13 +17,13 @@
 #include <Transfer_ResultFromTransient.hxx>
 #include <Transfer_TransientProcess.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Transfer_ResultFromTransient, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Transfer_ResultFromTransient, RefObject)
 
 static Handle(Interface_Check) voidcheck = new Interface_Check;
 
 Transfer_ResultFromTransient::Transfer_ResultFromTransient() {}
 
-void Transfer_ResultFromTransient::SetStart(const Handle(Standard_Transient)& start)
+void Transfer_ResultFromTransient::SetStart(const Handle(RefObject)& start)
 {
   thestart = start;
 }
@@ -33,7 +33,7 @@ void Transfer_ResultFromTransient::SetBinder(const Handle(Transfer_Binder)& bind
   thebinder = binder;
 }
 
-Handle(Standard_Transient) Transfer_ResultFromTransient::Start() const
+Handle(RefObject) Transfer_ResultFromTransient::Start() const
 {
   return thestart;
 }
@@ -64,7 +64,7 @@ Interface_CheckStatus Transfer_ResultFromTransient::CheckStatus() const
 }
 
 Handle(Transfer_ResultFromTransient) Transfer_ResultFromTransient::ResultFromKey(
-  const Handle(Standard_Transient)& key) const
+  const Handle(RefObject)& key) const
 {
   Handle(Transfer_ResultFromTransient) res;
   if (key == thestart)

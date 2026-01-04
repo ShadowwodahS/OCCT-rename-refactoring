@@ -23,7 +23,7 @@
 
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepGeom_GeometricRepresentationItem;
 class StepBasic_GroupRelationship;
 class StepRepr_MappedItem;
@@ -63,7 +63,7 @@ public:
   //! 13 -> StyledItem
   //! 14 -> TopologicalRepresentationItem
   //! 0 else
-  Standard_EXPORT virtual Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT virtual Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! returns Value as a  GeometricRepresentationItem (Null if another type)
   Standard_EXPORT virtual Handle(StepGeom_GeometricRepresentationItem) GeometricRepresentationItem()

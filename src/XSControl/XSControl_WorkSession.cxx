@@ -125,7 +125,7 @@ Standard_CString XSControl_WorkSession::SelectedNorm(const Standard_Boolean rsc)
 //=================================================================================================
 
 void XSControl_WorkSession::SetAllContext(
-  const NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)>& context)
+  const NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>& context)
 {
   myContext                   = context;
   myTransferReader->Context() = context;
@@ -154,7 +154,7 @@ Standard_Boolean XSControl_WorkSession::PrintTransferStatus(const Standard_Integ
 
   Handle(Transfer_Binder)    binder;
   Handle(Transfer_Finder)    finder;
-  Handle(Standard_Transient) ent;
+  Handle(RefObject) ent;
 
   //   ***   WRITE  ***
   if (wri)
@@ -368,7 +368,7 @@ Standard_Boolean XSControl_WorkSession::SetMapReader(const Handle(Transfer_Trans
 
 //=================================================================================================
 
-Handle(Standard_Transient) XSControl_WorkSession::Result(const Handle(Standard_Transient)& ent,
+Handle(RefObject) XSControl_WorkSession::Result(const Handle(RefObject)& ent,
                                                          const Standard_Integer mode) const
 {
   Standard_Integer ouca = (mode % 10);
@@ -401,7 +401,7 @@ Handle(Standard_Transient) XSControl_WorkSession::Result(const Handle(Standard_T
 
 //=================================================================================================
 
-Standard_Integer XSControl_WorkSession::TransferReadOne(const Handle(Standard_Transient)& ent,
+Standard_Integer XSControl_WorkSession::TransferReadOne(const Handle(RefObject)& ent,
                                                         const Message_ProgressRange& theProgress)
 {
   Handle(Interface_InterfaceModel) model = Model();
@@ -497,7 +497,7 @@ void XSControl_WorkSession::ClearBinders()
     Handle(Transfer_Binder) bnd = FP->MapItem(i);
     if (!bnd.IsNull())
       aSeqBnd.Append(bnd);
-    Handle(Standard_Transient) ash(FP->Mapped(i));
+    Handle(RefObject) ash(FP->Mapped(i));
     aSeqShapes.Append(ash);
   }
   // removing finder process containing result of translation.
@@ -509,7 +509,7 @@ void XSControl_WorkSession::ClearBinders()
   while (aSeqBnd.Length() > 0)
   {
     Handle(Transfer_Binder)    aBnd = Handle(Transfer_Binder)::DownCast(aSeqBnd.Value(1));
-    Handle(Standard_Transient) ash  = aSeqShapes.Value(1);
+    Handle(RefObject) ash  = aSeqShapes.Value(1);
     aSeqBnd.Remove(1);
     aSeqShapes.Remove(1);
     ash.Nullify();

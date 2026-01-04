@@ -26,10 +26,10 @@ class TCollection_HAsciiString;
 class StepRepr_ProductConcept;
 
 class StepRepr_ConfigurationItem;
-DEFINE_STANDARD_HANDLE(StepRepr_ConfigurationItem, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepRepr_ConfigurationItem, RefObject)
 
 //! Representation of STEP entity ConfigurationItem
-class StepRepr_ConfigurationItem : public Standard_Transient
+class StepRepr_ConfigurationItem : public RefObject
 {
 
 public:
@@ -81,7 +81,7 @@ public:
   //! Returns True if optional field Purpose is defined
   Standard_EXPORT Standard_Boolean HasPurpose() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepRepr_ConfigurationItem, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepRepr_ConfigurationItem, RefObject)
 
 protected:
 private:

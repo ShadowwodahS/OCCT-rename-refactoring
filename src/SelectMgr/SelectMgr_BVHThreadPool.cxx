@@ -16,7 +16,7 @@
 #include <OSD.hxx>
 #include <OSD_Parallel.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(SelectMgr_BVHThreadPool, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(SelectMgr_BVHThreadPool, RefObject)
 
 //=================================================================================================
 

@@ -32,7 +32,7 @@ class handle;
 //! Abstract class which forms the root of the entire
 //! Transient class hierarchy.
 
-class Standard_Transient
+class RefObject
 {
 public:
   // Standard OCCT memory allocation stuff
@@ -40,31 +40,31 @@ public:
 
 public:
   //! Empty constructor
-  Standard_Transient()
+  RefObject()
       : myRefCount_(0)
   {
   }
 
   //! Copy constructor -- does nothing
-  Standard_Transient(const Standard_Transient&)
+  RefObject(const RefObject&)
       : myRefCount_(0)
   {
   }
 
   //! Assignment operator, needed to avoid copying reference counter
-  Standard_Transient& operator=(const Standard_Transient&) { return *this; }
+  RefObject& operator=(const RefObject&) { return *this; }
 
   //! Destructor must be virtual
-  virtual ~Standard_Transient() {}
+  virtual ~RefObject() {}
 
 public:
   //!@name Support of run-time type information (RTTI)
 
   typedef void base_type;
 
-  static constexpr const char* get_type_name() { return "Standard_Transient"; }
+  static constexpr const char* get_type_name() { return "RefObject"; }
 
-  //! Returns type descriptor of Standard_Transient class
+  //! Returns type descriptor of RefObject class
   Standard_EXPORT static const opencascade::handle<Standard_Type>& get_type_descriptor();
 
   //! Returns a type descriptor about this object.
@@ -91,7 +91,7 @@ public:
   //! For protection against creating handle to objects allocated in stack
   //! or call from constructor, it will raise exception Standard_ProgramError
   //! if reference counter is zero.
-  Standard_EXPORT Standard_Transient* This() const;
+  Standard_EXPORT RefObject* This() const;
 
 public:
   //!@name Reference counting, for use by handle<>
@@ -120,6 +120,6 @@ private:
 
 Standard_DEPRECATED("This typedef will be removed right after 7.9 release. Use Handle(T) directly "
                     "instead.")
-typedef opencascade::handle<Standard_Transient> Handle_Standard_Transient;
+typedef opencascade::handle<RefObject> Handle_Standard_Transient;
 
 #endif

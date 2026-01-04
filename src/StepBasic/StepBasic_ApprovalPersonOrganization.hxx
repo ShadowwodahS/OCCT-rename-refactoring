@@ -26,9 +26,9 @@ class StepBasic_Approval;
 class StepBasic_ApprovalRole;
 
 class StepBasic_ApprovalPersonOrganization;
-DEFINE_STANDARD_HANDLE(StepBasic_ApprovalPersonOrganization, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_ApprovalPersonOrganization, RefObject)
 
-class StepBasic_ApprovalPersonOrganization : public Standard_Transient
+class StepBasic_ApprovalPersonOrganization : public RefObject
 {
 
 public:
@@ -52,7 +52,7 @@ public:
 
   Standard_EXPORT Handle(StepBasic_ApprovalRole) Role() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_ApprovalPersonOrganization, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_ApprovalPersonOrganization, RefObject)
 
 protected:
 private:

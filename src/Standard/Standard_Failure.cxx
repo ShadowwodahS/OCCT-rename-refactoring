@@ -23,7 +23,7 @@
 
 #include <string.h>
 
-IMPLEMENT_STANDARD_RTTIEXT(Standard_Failure, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Standard_Failure, RefObject)
 
 namespace
 {
@@ -135,7 +135,7 @@ Standard_Failure::Standard_Failure(const Standard_CString theDesc,
 //=================================================================================================
 
 Standard_Failure::Standard_Failure(const Standard_Failure& theFailure)
-    : Standard_Transient(theFailure),
+    : RefObject(theFailure),
       myMessage(NULL),
       myStackTrace(NULL)
 {

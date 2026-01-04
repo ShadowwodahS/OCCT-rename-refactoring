@@ -59,7 +59,7 @@ void IGESSelect_RebuildGroups::Performing(IFSelect_ContextModif&            ctx,
     if (ent->TypeNumber() != 402)
       continue;
     Standard_Integer           casenum = 0;
-    Handle(Standard_Transient) newent;
+    Handle(RefObject) newent;
     Interface_EntityIterator   newlist;
     if (TC.Search(ent, newent))
       continue; // deja passe

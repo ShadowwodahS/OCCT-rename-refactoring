@@ -32,9 +32,9 @@ class AdvApp2Var_Framework;
 class AdvApp2Var_Criterion;
 
 //! used to store results on a domain [Ui,Ui+1]x[Vj,Vj+1]
-class AdvApp2Var_Patch : public Standard_Transient
+class AdvApp2Var_Patch : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(AdvApp2Var_Patch, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(AdvApp2Var_Patch, RefObject)
 public:
   Standard_EXPORT AdvApp2Var_Patch();
 

@@ -104,8 +104,8 @@ void Interface_CopyTool::Clear()
   ClearLastFlags();
 }
 
-Standard_Boolean Interface_CopyTool::NewVoid(const Handle(Standard_Transient)& entfrom,
-                                             Handle(Standard_Transient)&       entto)
+Standard_Boolean Interface_CopyTool::NewVoid(const Handle(RefObject)& entfrom,
+                                             Handle(RefObject)&       entto)
 {
   if (entfrom == theent)
   {
@@ -123,8 +123,8 @@ Standard_Boolean Interface_CopyTool::NewVoid(const Handle(Standard_Transient)& e
   return res;
 }
 
-Standard_Boolean Interface_CopyTool::Copy(const Handle(Standard_Transient)& entfrom,
-                                          Handle(Standard_Transient)&       entto,
+Standard_Boolean Interface_CopyTool::Copy(const Handle(RefObject)& entfrom,
+                                          Handle(RefObject)&       entto,
                                           const Standard_Boolean            mapped,
                                           const Standard_Boolean            errstat)
 {
@@ -167,8 +167,8 @@ Standard_Boolean Interface_CopyTool::Copy(const Handle(Standard_Transient)& entf
   return res;
 }
 
-void Interface_CopyTool::Implied(const Handle(Standard_Transient)& entfrom,
-                                 const Handle(Standard_Transient)& entto)
+void Interface_CopyTool::Implied(const Handle(RefObject)& entfrom,
+                                 const Handle(RefObject)& entto)
 {
   Handle(Interface_GeneralModule) module;
   Standard_Integer                CN;
@@ -178,9 +178,9 @@ void Interface_CopyTool::Implied(const Handle(Standard_Transient)& entfrom,
 
 //  ....                Alimentation de la Map                ....
 
-Handle(Standard_Transient) Interface_CopyTool::Transferred(const Handle(Standard_Transient)& ent)
+Handle(RefObject) Interface_CopyTool::Transferred(const Handle(RefObject)& ent)
 {
-  Handle(Standard_Transient) res;
+  Handle(RefObject) res;
   if (ent.IsNull())
     return res; // Copie d un Null : tres simple ...
   Standard_Integer nument = themod->Number(ent);
@@ -212,7 +212,7 @@ Handle(Standard_Transient) Interface_CopyTool::Transferred(const Handle(Standard
         therep->Bind(ent, new Interface_ReportEntity(res));
       else
       {
-        Handle(Standard_Transient) contfrom, contto;
+        Handle(RefObject) contfrom, contto;
         contfrom                             = rep->Content();
         Handle(Interface_ReportEntity) repto = new Interface_ReportEntity(rep->Check(), res);
         if (!contfrom.IsNull())
@@ -234,16 +234,16 @@ Handle(Standard_Transient) Interface_CopyTool::Transferred(const Handle(Standard
   return res;
 }
 
-void Interface_CopyTool::Bind(const Handle(Standard_Transient)& ent,
-                              const Handle(Standard_Transient)& res)
+void Interface_CopyTool::Bind(const Handle(RefObject)& ent,
+                              const Handle(RefObject)& res)
 {
   Standard_Integer num = themod->Number(ent);
   themap->Bind(ent, res);
   thelst.SetTrue(num);
 }
 
-Standard_Boolean Interface_CopyTool::Search(const Handle(Standard_Transient)& ent,
-                                            Handle(Standard_Transient)&       res) const
+Standard_Boolean Interface_CopyTool::Search(const Handle(RefObject)& ent,
+                                            Handle(RefObject)&       res) const
 {
   return themap->Search(ent, res);
 }
@@ -257,8 +257,8 @@ void Interface_CopyTool::ClearLastFlags()
 }
 
 Standard_Integer Interface_CopyTool::LastCopiedAfter(const Standard_Integer      numfrom,
-                                                     Handle(Standard_Transient)& ent,
-                                                     Handle(Standard_Transient)& res) const
+                                                     Handle(RefObject)& ent,
+                                                     Handle(RefObject)& res) const
 {
   Standard_Integer nb = thelst.Length();
   for (Standard_Integer num = numfrom + 1; num <= nb; num++)
@@ -276,9 +276,9 @@ Standard_Integer Interface_CopyTool::LastCopiedAfter(const Standard_Integer     
 //  #########################################################################
 //  ....                        Actions Generales                        ....
 
-void Interface_CopyTool::TransferEntity(const Handle(Standard_Transient)& ent)
+void Interface_CopyTool::TransferEntity(const Handle(RefObject)& ent)
 {
-  Handle(Standard_Transient) res = Transferred(ent);
+  Handle(RefObject) res = Transferred(ent);
 }
 
 void Interface_CopyTool::RenewImpliedRefs()
@@ -295,12 +295,12 @@ void Interface_CopyTool::RenewImpliedRefs()
   Standard_Integer nb = themod->NbEntities();
   for (Standard_Integer i = 1; i <= nb; i++)
   {
-    Handle(Standard_Transient) ent = themod->Value(i);
-    Handle(Standard_Transient) res;
+    Handle(RefObject) ent = themod->Value(i);
+    Handle(RefObject) res;
     if (!themap->Search(ent, res))
       continue; // entite pas transferee
                 //    Reconduction des references "Imply".  Attention, ne pas copier si non chargee
-    Handle(Standard_Transient) aRep;
+    Handle(RefObject) aRep;
     if (!therep->Search(ent, aRep))
     {
       Implied(ent, res);
@@ -336,13 +336,13 @@ Interface_EntityIterator Interface_CopyTool::CompleteResult(
   Standard_Integer         nb = themod->NbEntities();
   for (Standard_Integer i = 1; i <= nb; i++)
   {
-    Handle(Standard_Transient) ent = themod->Value(i);
-    Handle(Standard_Transient) res;
+    Handle(RefObject) ent = themod->Value(i);
+    Handle(RefObject) res;
     if (!themap->Search(ent, res))
       continue;
     if (withreports)
     {
-      Handle(Standard_Transient) rep;
+      Handle(RefObject) rep;
       if (therep->Search(ent, rep))
         res = rep;
     }
@@ -358,13 +358,13 @@ Interface_EntityIterator Interface_CopyTool::RootResult(const Standard_Boolean w
   for (Standard_Integer i = 1; i <= nb; i++)
   {
     Standard_Integer           j   = therts.Value(i);
-    Handle(Standard_Transient) ent = themod->Value(j);
-    Handle(Standard_Transient) res;
+    Handle(RefObject) ent = themod->Value(j);
+    Handle(RefObject) res;
     if (!themap->Search(ent, res))
       continue;
     if (withreports)
     {
-      Handle(Standard_Transient) rep;
+      Handle(RefObject) rep;
       if (therep->Search(ent, rep))
         res = rep;
     }

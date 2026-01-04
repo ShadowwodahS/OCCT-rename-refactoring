@@ -18,7 +18,7 @@
 #include <StepRepr_DataEnvironment.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepRepr_DataEnvironment, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepRepr_DataEnvironment, RefObject)
 
 //=================================================================================================
 

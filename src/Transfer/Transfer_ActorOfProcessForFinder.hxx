@@ -30,12 +30,12 @@ class Transfer_ProcessForFinder;
 class Transfer_IteratorOfProcessForFinder;
 class Transfer_Binder;
 class Transfer_SimpleBinderOfTransient;
-class Standard_Transient;
+class RefObject;
 
 class Transfer_ActorOfProcessForFinder;
-DEFINE_STANDARD_HANDLE(Transfer_ActorOfProcessForFinder, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Transfer_ActorOfProcessForFinder, RefObject)
 
-class Transfer_ActorOfProcessForFinder : public Standard_Transient
+class Transfer_ActorOfProcessForFinder : public RefObject
 {
 
 public:
@@ -67,7 +67,7 @@ public:
   //! Prepares and Returns a Binder for a Transient Result
   //! Returns a Null Handle if <res> is itself Null
   Standard_EXPORT Handle(Transfer_SimpleBinderOfTransient) TransientResult(
-    const Handle(Standard_Transient)& res) const;
+    const Handle(RefObject)& res) const;
 
   //! Returns a Binder for No Result, i.e. a Null Handle
   Standard_EXPORT Handle(Transfer_Binder) NullResult() const;
@@ -92,7 +92,7 @@ public:
   //! Returns the Actor defined as Next, or a Null Handle
   Standard_EXPORT Handle(Transfer_ActorOfProcessForFinder) Next() const;
 
-  DEFINE_STANDARD_RTTI_INLINE(Transfer_ActorOfProcessForFinder, Standard_Transient)
+  DEFINE_STANDARD_RTTI_INLINE(Transfer_ActorOfProcessForFinder, RefObject)
 
 protected:
 private:

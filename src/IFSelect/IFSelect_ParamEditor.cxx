@@ -69,7 +69,7 @@ Handle(TCollection_HAsciiString) IFSelect_ParamEditor::StringValue(
 }
 
 Standard_Boolean IFSelect_ParamEditor::Load(const Handle(IFSelect_EditForm)& form,
-                                            const Handle(Standard_Transient)& /*ent*/,
+                                            const Handle(RefObject)& /*ent*/,
                                             const Handle(Interface_InterfaceModel)& /*model*/) const
 {
   Standard_Integer i, nb = NbValues();
@@ -81,7 +81,7 @@ Standard_Boolean IFSelect_ParamEditor::Load(const Handle(IFSelect_EditForm)& for
 
 Standard_Boolean IFSelect_ParamEditor::Apply(
   const Handle(IFSelect_EditForm)& form,
-  const Handle(Standard_Transient)& /*ent*/,
+  const Handle(RefObject)& /*ent*/,
   const Handle(Interface_InterfaceModel)& /*model*/) const
 {
   Standard_Integer i, nb = NbValues();

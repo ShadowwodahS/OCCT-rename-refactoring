@@ -23,10 +23,10 @@
 #include <Standard_Transient.hxx>
 
 class StepFEA_CurveElementEndRelease;
-DEFINE_STANDARD_HANDLE(StepFEA_CurveElementEndRelease, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepFEA_CurveElementEndRelease, RefObject)
 
 //! Representation of STEP entity CurveElementEndRelease
-class StepFEA_CurveElementEndRelease : public Standard_Transient
+class StepFEA_CurveElementEndRelease : public RefObject
 {
 
 public:
@@ -52,7 +52,7 @@ public:
   Standard_EXPORT void SetReleases(
     const Handle(StepElement_HArray1OfCurveElementEndReleasePacket)& Releases);
 
-  DEFINE_STANDARD_RTTIEXT(StepFEA_CurveElementEndRelease, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepFEA_CurveElementEndRelease, RefObject)
 
 protected:
 private:

@@ -15,7 +15,7 @@
 #include <StepRepr_ShapeRepresentationRelationship.hxx>
 #include <StepShape_ContextDependentShapeRepresentation.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepShape_ContextDependentShapeRepresentation, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepShape_ContextDependentShapeRepresentation, RefObject)
 
 StepShape_ContextDependentShapeRepresentation::StepShape_ContextDependentShapeRepresentation() {}
 

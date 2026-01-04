@@ -19,7 +19,7 @@
 #include <Standard_Type.hxx>
 #include <gp_Pnt.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Approx_SweepFunction, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Approx_SweepFunction, RefObject)
 
 // Standard_Boolean Approx_SweepFunction::D1(const Standard_Real Param,const Standard_Real
 // First,const Standard_Real Last,TColgp_Array1OfPnt& Poles,TColgp_Array1OfVec&

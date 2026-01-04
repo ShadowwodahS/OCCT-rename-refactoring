@@ -31,9 +31,9 @@ class TopOpeBRep_VPointInter;
 class TopoDS_Shape;
 
 class TopOpeBRep_FFDumper;
-DEFINE_STANDARD_HANDLE(TopOpeBRep_FFDumper, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TopOpeBRep_FFDumper, RefObject)
 
-class TopOpeBRep_FFDumper : public Standard_Transient
+class TopOpeBRep_FFDumper : public RefObject
 {
 
 public:
@@ -59,7 +59,7 @@ public:
 
   Standard_EXPORT TopOpeBRep_PFacesFiller PFacesFillerDummy() const;
 
-  DEFINE_STANDARD_RTTIEXT(TopOpeBRep_FFDumper, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TopOpeBRep_FFDumper, RefObject)
 
 protected:
 private:

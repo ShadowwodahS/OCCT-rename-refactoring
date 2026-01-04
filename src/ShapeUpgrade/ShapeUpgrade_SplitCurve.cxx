@@ -25,7 +25,7 @@
 #include <TColGeom_HArray1OfCurve.hxx>
 #include <TColStd_HSequenceOfReal.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeUpgrade_SplitCurve, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(ShapeUpgrade_SplitCurve, RefObject)
 
 //=================================================================================================
 

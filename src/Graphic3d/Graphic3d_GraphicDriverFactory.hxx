@@ -24,9 +24,9 @@ class Graphic3d_GraphicDriverFactory;
 typedef NCollection_List<Handle(Graphic3d_GraphicDriverFactory)> Graphic3d_GraphicDriverFactoryList;
 
 //! This class for creation of Graphic3d_GraphicDriver.
-class Graphic3d_GraphicDriverFactory : public Standard_Transient
+class Graphic3d_GraphicDriverFactory : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_GraphicDriverFactory, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Graphic3d_GraphicDriverFactory, RefObject)
 public:
   //! Registers factory.
   //! @param[in] theFactory      factory to register

@@ -23,8 +23,8 @@
 #include <Interface_Protocol.hxx>
 #include <Interface_GlobalNodeOfGeneralLib.hxx>
 
-#define TheObject Handle(Standard_Transient)
-#define TheObject_hxx <Standard_Transient.hxx>
+#define TheObject Handle(RefObject)
+#define TheObject_hxx <RefObject.hxx>
 #define Handle_TheModule Handle(Interface_GeneralModule)
 #define TheModule Interface_GeneralModule
 #define TheModule_hxx <Interface_GeneralModule.hxx>

@@ -16,7 +16,7 @@
 #include <IntSurf_PntOn2S.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IntSurf_LineOn2S, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(IntSurf_LineOn2S, RefObject)
 
 IntSurf_LineOn2S::IntSurf_LineOn2S(const IntSurf_Allocator& theAllocator)
     : mySeq(theAllocator)

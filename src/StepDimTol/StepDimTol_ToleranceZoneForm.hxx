@@ -25,10 +25,10 @@
 class TCollection_HAsciiString;
 
 class StepDimTol_ToleranceZoneForm;
-DEFINE_STANDARD_HANDLE(StepDimTol_ToleranceZoneForm, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepDimTol_ToleranceZoneForm, RefObject)
 
 //! Added for Dimensional Tolerances
-class StepDimTol_ToleranceZoneForm : public Standard_Transient
+class StepDimTol_ToleranceZoneForm : public RefObject
 {
 
 public:
@@ -43,7 +43,7 @@ public:
   //! Set field Name
   inline void SetName(const Handle(TCollection_HAsciiString)& theName) { myName = theName; }
 
-  DEFINE_STANDARD_RTTIEXT(StepDimTol_ToleranceZoneForm, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepDimTol_ToleranceZoneForm, RefObject)
 
 private:
   Handle(TCollection_HAsciiString) myName;

@@ -25,9 +25,9 @@ class Image_PixMap;
 //! Texture image definition.
 //! The image can be stored as path to image file, as file path with the given offset and as a data
 //! buffer of encoded image.
-class Image_Texture : public Standard_Transient
+class Image_Texture : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Image_Texture, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Image_Texture, RefObject)
 public:
   //! Constructor pointing to file location.
   Standard_EXPORT explicit Image_Texture(const TCollection_AsciiString& theFileName);

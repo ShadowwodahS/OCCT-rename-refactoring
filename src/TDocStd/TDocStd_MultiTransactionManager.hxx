@@ -27,7 +27,7 @@ class TCollection_ExtendedString;
 class TDocStd_Document;
 
 class TDocStd_MultiTransactionManager;
-DEFINE_STANDARD_HANDLE(TDocStd_MultiTransactionManager, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TDocStd_MultiTransactionManager, RefObject)
 
 //! Class for synchronization of transactions within multiple documents.
 //! Each transaction of this class involvess one transaction in each modified document.
@@ -44,7 +44,7 @@ DEFINE_STANDARD_HANDLE(TDocStd_MultiTransactionManager, Standard_Transient)
 //!
 //! NOTE: When you invoke CommitTransaction of multi transaction
 //! manager, all nested transaction of its documents will be closed (committed).
-class TDocStd_MultiTransactionManager : public Standard_Transient
+class TDocStd_MultiTransactionManager : public RefObject
 {
 
 public:
@@ -137,7 +137,7 @@ public:
   //! Clears redos in the manager and in documents.
   Standard_EXPORT void ClearRedos();
 
-  DEFINE_STANDARD_RTTIEXT(TDocStd_MultiTransactionManager, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TDocStd_MultiTransactionManager, RefObject)
 
 protected:
 private:

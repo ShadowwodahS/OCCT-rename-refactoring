@@ -25,10 +25,10 @@ class TCollection_HAsciiString;
 class StepBasic_ExternalSource;
 
 class StepBasic_ProductDefinitionReference;
-DEFINE_STANDARD_HANDLE(StepBasic_ProductDefinitionReference, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_ProductDefinitionReference, RefObject)
 
 //! Representation of STEP entity Product_Definition_Reference
-class StepBasic_ProductDefinitionReference : public Standard_Transient
+class StepBasic_ProductDefinitionReference : public RefObject
 {
 public:
   //! Empty constructor
@@ -107,7 +107,7 @@ public:
     return hasIdOwningOrganizationName;
   }
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_ProductDefinitionReference, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_ProductDefinitionReference, RefObject)
 
 private:
   Handle(StepBasic_ExternalSource) mySource;

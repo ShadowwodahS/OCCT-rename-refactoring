@@ -23,7 +23,7 @@
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
 
-class Standard_Transient;
+class RefObject;
 class StepGeom_CompositeCurve;
 class StepShape_Path;
 
@@ -41,7 +41,7 @@ public:
   //! -- 1 -> CompositeCurve
   //! -- 2 -> Path
   Standard_EXPORT Standard_Integer
-    CaseNum(const Handle(Standard_Transient)& ent) const Standard_OVERRIDE;
+    CaseNum(const Handle(RefObject)& ent) const Standard_OVERRIDE;
 
   //! Returns Value as CompositeCurve (or Null if another type)
   Standard_EXPORT Handle(StepGeom_CompositeCurve) CompositeCurve() const;

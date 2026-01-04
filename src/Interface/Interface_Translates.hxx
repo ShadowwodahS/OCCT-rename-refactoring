@@ -39,7 +39,7 @@
 
 //  SeqToArrayCast(seq,arr,Interface_HArray1OfHAsciiString,TCollection_HAsciiString)  will :
 //    do as SeqToArray, but array values are Handles to be casted
-//      (if <seq> does not work with the same type, e.g. Standard_Transient)
+//      (if <seq> does not work with the same type, e.g. RefObject)
 //    fill array value by the result of DownCast of the type <typent>
 
 //  ArrayToSeq(arr,seq) will fill <seq> a sequence with the items of <arr> a

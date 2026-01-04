@@ -40,7 +40,7 @@
 
 #include <stdio.h>
 
-IMPLEMENT_STANDARD_RTTIEXT(Units_UnitsDictionary, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Units_UnitsDictionary, RefObject)
 
 //=================================================================================================
 

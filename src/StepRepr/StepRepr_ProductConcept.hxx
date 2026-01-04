@@ -25,10 +25,10 @@ class TCollection_HAsciiString;
 class StepBasic_ProductConceptContext;
 
 class StepRepr_ProductConcept;
-DEFINE_STANDARD_HANDLE(StepRepr_ProductConcept, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepRepr_ProductConcept, RefObject)
 
 //! Representation of STEP entity ProductConcept
-class StepRepr_ProductConcept : public Standard_Transient
+class StepRepr_ProductConcept : public RefObject
 {
 
 public:
@@ -70,7 +70,7 @@ public:
   Standard_EXPORT void SetMarketContext(
     const Handle(StepBasic_ProductConceptContext)& MarketContext);
 
-  DEFINE_STANDARD_RTTIEXT(StepRepr_ProductConcept, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepRepr_ProductConcept, RefObject)
 
 protected:
 private:

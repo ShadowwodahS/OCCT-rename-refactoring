@@ -27,7 +27,7 @@
 #include <Standard_Integer.hxx>
 
 class ShapeAnalysis_FreeBoundData;
-DEFINE_STANDARD_HANDLE(ShapeAnalysis_FreeBoundData, Standard_Transient)
+DEFINE_STANDARD_HANDLE(ShapeAnalysis_FreeBoundData, RefObject)
 
 //! This class is intended to represent free bound and to store
 //! its properties.
@@ -45,7 +45,7 @@ DEFINE_STANDARD_HANDLE(ShapeAnalysis_FreeBoundData, Standard_Transient)
 //!
 //! This class provides methods for setting and getting fields
 //! only.
-class ShapeAnalysis_FreeBoundData : public Standard_Transient
+class ShapeAnalysis_FreeBoundData : public RefObject
 {
 
 public:
@@ -109,7 +109,7 @@ public:
   //! on the contour
   Standard_EXPORT Standard_Real NotchWidth(const TopoDS_Wire& notch) const;
 
-  DEFINE_STANDARD_RTTIEXT(ShapeAnalysis_FreeBoundData, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(ShapeAnalysis_FreeBoundData, RefObject)
 
 protected:
 private:

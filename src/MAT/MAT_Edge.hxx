@@ -25,9 +25,9 @@
 class MAT_Bisector;
 
 class MAT_Edge;
-DEFINE_STANDARD_HANDLE(MAT_Edge, Standard_Transient)
+DEFINE_STANDARD_HANDLE(MAT_Edge, RefObject)
 
-class MAT_Edge : public Standard_Transient
+class MAT_Edge : public RefObject
 {
 
 public:
@@ -55,7 +55,7 @@ public:
 
   Standard_EXPORT void Dump(const Standard_Integer ashift, const Standard_Integer alevel) const;
 
-  DEFINE_STANDARD_RTTIEXT(MAT_Edge, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(MAT_Edge, RefObject)
 
 protected:
 private:

@@ -25,9 +25,9 @@
 class TCollection_HAsciiString;
 
 class StepBasic_Address;
-DEFINE_STANDARD_HANDLE(StepBasic_Address, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_Address, RefObject)
 
-class StepBasic_Address : public Standard_Transient
+class StepBasic_Address : public RefObject
 {
 
 public:
@@ -157,7 +157,7 @@ public:
 
   Standard_EXPORT Standard_Boolean HasTelexNumber() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_Address, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_Address, RefObject)
 
 protected:
 private:

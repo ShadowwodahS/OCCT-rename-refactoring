@@ -16,7 +16,7 @@
 
 #include <OpenGl_Texture.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(OpenGl_TextureSet, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(OpenGl_TextureSet, RefObject)
 
 //=================================================================================================
 

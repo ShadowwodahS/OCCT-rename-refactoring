@@ -30,7 +30,7 @@ class gp_Parab2d;
 class gp_Elips2d;
 
 class GccInt_Bisec;
-DEFINE_STANDARD_HANDLE(GccInt_Bisec, Standard_Transient)
+DEFINE_STANDARD_HANDLE(GccInt_Bisec, RefObject)
 
 //! The deferred class GccInt_Bisec is the root class for
 //! elementary bisecting loci between two simple geometric
@@ -51,7 +51,7 @@ DEFINE_STANDARD_HANDLE(GccInt_Bisec, Standard_Transient)
 //! The GccAna package provides numerous algorithms for
 //! computing the bisecting loci between circles, lines or
 //! points, whose solutions are these types of elementary bisecting locus.
-class GccInt_Bisec : public Standard_Transient
+class GccInt_Bisec : public RefObject
 {
 
 public:
@@ -83,7 +83,7 @@ public:
   //! An exception DomainError is raised if ArcType is not an Ell.
   Standard_EXPORT virtual gp_Elips2d Ellipse() const;
 
-  DEFINE_STANDARD_RTTIEXT(GccInt_Bisec, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(GccInt_Bisec, RefObject)
 
 protected:
 private:

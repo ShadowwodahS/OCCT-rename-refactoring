@@ -39,9 +39,9 @@ class TopoDS_Face;
 class Geom_Curve;
 
 class ShapeAlgo_AlgoContainer;
-DEFINE_STANDARD_HANDLE(ShapeAlgo_AlgoContainer, Standard_Transient)
+DEFINE_STANDARD_HANDLE(ShapeAlgo_AlgoContainer, RefObject)
 
-class ShapeAlgo_AlgoContainer : public Standard_Transient
+class ShapeAlgo_AlgoContainer : public RefObject
 {
 
 public:
@@ -135,7 +135,7 @@ public:
     const Standard_Integer    MaxSegments,
     const Standard_Integer    MaxDegree) const;
 
-  DEFINE_STANDARD_RTTIEXT(ShapeAlgo_AlgoContainer, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(ShapeAlgo_AlgoContainer, RefObject)
 
 protected:
 private:

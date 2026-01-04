@@ -18,7 +18,7 @@
 #include <HLRTest_ShapeData.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(HLRTest_ShapeData, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(HLRTest_ShapeData, RefObject)
 
 //=================================================================================================
 

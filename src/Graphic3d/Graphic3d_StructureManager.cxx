@@ -19,7 +19,7 @@
 #include <Graphic3d_GraphicDriver.hxx>
 #include <Graphic3d_Structure.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_StructureManager, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_StructureManager, RefObject)
 
 #include <Graphic3d_MapIteratorOfMapOfStructure.hxx>
 #include <Graphic3d_CView.hxx>
@@ -181,7 +181,7 @@ void Graphic3d_StructureManager::RecomputeStructures(
 
 //=================================================================================================
 
-void Graphic3d_StructureManager::RegisterObject(const Handle(Standard_Transient)&     theObject,
+void Graphic3d_StructureManager::RegisterObject(const Handle(RefObject)&     theObject,
                                                 const Handle(Graphic3d_ViewAffinity)& theAffinity)
 {
   Handle(Graphic3d_ViewAffinity) aResult;
@@ -195,7 +195,7 @@ void Graphic3d_StructureManager::RegisterObject(const Handle(Standard_Transient)
 
 //=================================================================================================
 
-void Graphic3d_StructureManager::UnregisterObject(const Handle(Standard_Transient)& theObject)
+void Graphic3d_StructureManager::UnregisterObject(const Handle(RefObject)& theObject)
 {
   myRegisteredObjects.UnBind(theObject.operator->());
 }
@@ -203,7 +203,7 @@ void Graphic3d_StructureManager::UnregisterObject(const Handle(Standard_Transien
 //=================================================================================================
 
 const Handle(Graphic3d_ViewAffinity)& Graphic3d_StructureManager::ObjectAffinity(
-  const Handle(Standard_Transient)& theObject) const
+  const Handle(RefObject)& theObject) const
 {
   const Handle(Graphic3d_ViewAffinity)* aResult = myRegisteredObjects.Seek(theObject.operator->());
   if (aResult == nullptr)

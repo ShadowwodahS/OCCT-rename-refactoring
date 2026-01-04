@@ -26,10 +26,10 @@ class TDF_Attribute;
 class BinObjMgt_Persistent;
 
 class BinMDF_ADriver;
-DEFINE_STANDARD_HANDLE(BinMDF_ADriver, Standard_Transient)
+DEFINE_STANDARD_HANDLE(BinMDF_ADriver, RefObject)
 
 //! Attribute Storage/Retrieval Driver.
-class BinMDF_ADriver : public Standard_Transient
+class BinMDF_ADriver : public RefObject
 {
 
 public:
@@ -60,7 +60,7 @@ public:
   //! Returns the current message driver of this driver
   const Handle(Message_Messenger)& MessageDriver() const { return myMessageDriver; }
 
-  DEFINE_STANDARD_RTTIEXT(BinMDF_ADriver, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(BinMDF_ADriver, RefObject)
 
 protected:
   Standard_EXPORT BinMDF_ADriver(const Handle(Message_Messenger)& theMsgDriver,

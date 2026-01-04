@@ -26,9 +26,9 @@
 #include <Standard_Transient.hxx>
 
 class Storage_InternalData;
-DEFINE_STANDARD_HANDLE(Storage_InternalData, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Storage_InternalData, RefObject)
 
-class Storage_InternalData : public Standard_Transient
+class Storage_InternalData : public RefObject
 {
 
 public:
@@ -40,7 +40,7 @@ public:
 
   friend class Storage_Schema;
 
-  DEFINE_STANDARD_RTTIEXT(Storage_InternalData, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Storage_InternalData, RefObject)
 
 protected:
 private:

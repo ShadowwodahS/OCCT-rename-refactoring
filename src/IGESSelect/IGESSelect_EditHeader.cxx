@@ -265,7 +265,7 @@ Handle(TCollection_HAsciiString) IGESSelect_EditHeader::StringValue(
 }
 
 Standard_Boolean IGESSelect_EditHeader::Load(const Handle(IFSelect_EditForm)& form,
-                                             const Handle(Standard_Transient)& /*ent*/,
+                                             const Handle(RefObject)& /*ent*/,
                                              const Handle(Interface_InterfaceModel)& model) const
 {
   Handle(IGESData_IGESModel) modl = Handle(IGESData_IGESModel)::DownCast(model);
@@ -373,7 +373,7 @@ Standard_Boolean IGESSelect_EditHeader::Update(const Handle(IFSelect_EditForm)& 
 }
 
 Standard_Boolean IGESSelect_EditHeader::Apply(const Handle(IFSelect_EditForm)& form,
-                                              const Handle(Standard_Transient)& /*ent*/,
+                                              const Handle(RefObject)& /*ent*/,
                                               const Handle(Interface_InterfaceModel)& model) const
 {
   Handle(IGESData_IGESModel) modl = Handle(IGESData_IGESModel)::DownCast(model);

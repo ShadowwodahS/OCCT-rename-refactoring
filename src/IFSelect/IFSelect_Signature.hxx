@@ -23,7 +23,7 @@
 #include <TColStd_HSequenceOfAsciiString.hxx>
 #include <TCollection_AsciiString.hxx>
 #include <Interface_SignType.hxx>
-class Standard_Transient;
+class RefObject;
 class Interface_InterfaceModel;
 
 class IFSelect_Signature;
@@ -84,7 +84,7 @@ public:
   //! a criterium <exact>.
   //! The default definition calls MatchValue
   //! Can be redefined
-  Standard_EXPORT virtual Standard_Boolean Matches(const Handle(Standard_Transient)&       ent,
+  Standard_EXPORT virtual Standard_Boolean Matches(const Handle(RefObject)&       ent,
                                                    const Handle(Interface_InterfaceModel)& model,
                                                    const TCollection_AsciiString&          text,
                                                    const Standard_Boolean exact) const;

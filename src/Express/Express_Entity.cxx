@@ -188,7 +188,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
             "#include <Standard_Type.hxx>\n";
     if (myInherit->Length() < 1)
     {
-      anInheritName = "Standard_Transient";
+      anInheritName = "RefObject";
       anOS << "#include <" << anInheritName << ".hxx>\n";
     }
     else
@@ -810,7 +810,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
     if (CheckFlag())
     {
       Express::WriteMethodStamp(anOS, "Check");
-      anOS << "void " << aRWCPPName << "::Check (const Handle(Standard_Transient)& entt,\n";
+      anOS << "void " << aRWCPPName << "::Check (const Handle(RefObject)& entt,\n";
       writeSpaces(anOS, 18 + aRWCPPName.Length());
       anOS << "const Interface_ShareTool& shares,\n";
       writeSpaces(anOS, 18 + aRWCPPName.Length());
@@ -826,7 +826,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
       Express::WriteMethodStamp(anOS, "FillShared");
       anOS << "void " << aRWCPPName << "::Share(const Handle(Interface_InterfaceModel)& model,\n";
       writeSpaces(anOS, 18 + aRWCPPName.Length());
-      anOS << "const Handle(Standard_Transient)& entt,\n";
+      anOS << "const Handle(RefObject)& entt,\n";
       writeSpaces(anOS, 18 + aRWCPPName.Length());
       anOS << "Interface_EntityIterator& iter) const\n"
               "{\n";

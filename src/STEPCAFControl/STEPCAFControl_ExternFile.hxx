@@ -26,11 +26,11 @@ class XSControl_WorkSession;
 class TCollection_HAsciiString;
 
 class STEPCAFControl_ExternFile;
-DEFINE_STANDARD_HANDLE(STEPCAFControl_ExternFile, Standard_Transient)
+DEFINE_STANDARD_HANDLE(STEPCAFControl_ExternFile, RefObject)
 
 //! Auxiliary class serving as container for data resulting
 //! from translation of external file
-class STEPCAFControl_ExternFile : public Standard_Transient
+class STEPCAFControl_ExternFile : public RefObject
 {
 
 public:
@@ -61,7 +61,7 @@ public:
 
   TDF_Label GetLabel() const;
 
-  DEFINE_STANDARD_RTTIEXT(STEPCAFControl_ExternFile, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(STEPCAFControl_ExternFile, RefObject)
 
 protected:
 private:

@@ -200,7 +200,7 @@ Standard_Integer IFSelect_SessionFile::WriteSession()
   Standard_Integer i; // svv Jan11 2000 : porting on DEC
   for (i = 1; i <= nbidents; i++)
   {
-    Handle(Standard_Transient) item = thesess->Item(i);
+    Handle(RefObject) item = thesess->Item(i);
     if (!item.IsNull())
       thenums->SetValue(i, -1);
   }
@@ -453,7 +453,7 @@ void IFSelect_SessionFile::WriteLine(const Standard_CString line, const Standard
   }
 }
 
-Standard_Boolean IFSelect_SessionFile::WriteOwn(const Handle(Standard_Transient)& item)
+Standard_Boolean IFSelect_SessionFile::WriteOwn(const Handle(RefObject)& item)
 {
   if (item.IsNull())
     return Standard_False;
@@ -620,7 +620,7 @@ Standard_Integer IFSelect_SessionFile::ReadSession()
       }
       SetLastGeneral(firstown - 1);
     }
-    Handle(Standard_Transient) item; // a fournir ...
+    Handle(RefObject) item; // a fournir ...
     ReadOwn(item);
     if (item.IsNull())
       continue;
@@ -711,7 +711,7 @@ Standard_Integer IFSelect_SessionFile::ReadSession()
       sout << "Lineno." << thenl << " : A Modifier is badly defined" << std::endl;
       continue;
     }
-    Handle(Standard_Transient) item; // a fournir ...
+    Handle(RefObject) item; // a fournir ...
     ReadOwn(item);
     if (item.IsNull())
       continue;
@@ -737,7 +737,7 @@ Standard_Integer IFSelect_SessionFile::ReadSession()
       sout << "Lineno." << thenl << " : A Transformer is badly defined" << std::endl;
       continue;
     }
-    Handle(Standard_Transient) item; // a fournir ...
+    Handle(RefObject) item; // a fournir ...
     ReadOwn(item);
     if (item.IsNull())
       continue;
@@ -765,7 +765,7 @@ Standard_Integer IFSelect_SessionFile::ReadSession()
     }
     DeclareAndCast(IFSelect_Selection, input, ItemValue(3));
     SetLastGeneral(3);
-    Handle(Standard_Transient) item; // a fournir ...
+    Handle(RefObject) item; // a fournir ...
     ReadOwn(item);
     if (item.IsNull())
       continue;
@@ -908,7 +908,7 @@ void IFSelect_SessionFile::SplitLine(const Standard_CString line)
   thelastgen = 0;
 }
 
-Standard_Boolean IFSelect_SessionFile::ReadOwn(Handle(Standard_Transient)& item)
+Standard_Boolean IFSelect_SessionFile::ReadOwn(Handle(RefObject)& item)
 {
   Message_Messenger::StreamBuffer sout = Message::SendInfo();
 
@@ -933,7 +933,7 @@ Standard_Boolean IFSelect_SessionFile::ReadOwn(Handle(Standard_Transient)& item)
   return (!dumper.IsNull()); // IsNull -> echec
 }
 
-void IFSelect_SessionFile::AddItem(const Handle(Standard_Transient)& item,
+void IFSelect_SessionFile::AddItem(const Handle(RefObject)& item,
                                    const Standard_Boolean            active)
 {
   Message_Messenger::StreamBuffer sout = Message::SendInfo();
@@ -968,7 +968,7 @@ Handle(IFSelect_WorkSession) IFSelect_SessionFile::WorkSession() const
 //  ########                Actions Unitaires d ECRITURE               ########
 
 void IFSelect_SessionFile::NewItem(const Standard_Integer            ident,
-                                   const Handle(Standard_Transient)& par)
+                                   const Handle(RefObject)& par)
 {
   char laligne[100];
   if (!thesess->HasName(par))
@@ -993,7 +993,7 @@ void IFSelect_SessionFile::SendVoid()
   WriteLine(" $");
 }
 
-void IFSelect_SessionFile::SendItem(const Handle(Standard_Transient)& par)
+void IFSelect_SessionFile::SendItem(const Handle(RefObject)& par)
 {
   Message_Messenger::StreamBuffer sout = Message::SendInfo();
 
@@ -1085,11 +1085,11 @@ TCollection_AsciiString IFSelect_SessionFile::TextValue(const Standard_Integer n
   return res;
 }
 
-Handle(Standard_Transient) IFSelect_SessionFile::ItemValue(const Standard_Integer num) const
+Handle(RefObject) IFSelect_SessionFile::ItemValue(const Standard_Integer num) const
 {
   Message_Messenger::StreamBuffer sout = Message::SendInfo();
 
-  Handle(Standard_Transient) res;
+  Handle(RefObject) res;
   Standard_Integer           nm = num + thelastgen;
   if (nm <= 0 || nm > theline.Length())
     return res;

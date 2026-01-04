@@ -24,10 +24,10 @@ class HLRAlgo_EdgeStatus;
 class HLRAlgo_PolyShellData;
 
 class HLRAlgo_PolyAlgo;
-DEFINE_STANDARD_HANDLE(HLRAlgo_PolyAlgo, Standard_Transient)
+DEFINE_STANDARD_HANDLE(HLRAlgo_PolyAlgo, RefObject)
 
 //! to remove Hidden lines on Triangulations.
-class HLRAlgo_PolyAlgo : public Standard_Transient
+class HLRAlgo_PolyAlgo : public RefObject
 {
 
 public:
@@ -79,7 +79,7 @@ public:
                                                  Standard_Boolean& outl,
                                                  Standard_Boolean& intl);
 
-  DEFINE_STANDARD_RTTIEXT(HLRAlgo_PolyAlgo, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(HLRAlgo_PolyAlgo, RefObject)
 
 private:
   NCollection_Array1<Handle(HLRAlgo_PolyShellData)> myHShell;

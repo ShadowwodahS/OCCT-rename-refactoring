@@ -17,7 +17,7 @@
 #include <StepData_Field.hxx>
 #include <StepData_PDescr.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepData_PDescr, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepData_PDescr, RefObject)
 
 #define KindInteger 1
 #define KindBoolean 2

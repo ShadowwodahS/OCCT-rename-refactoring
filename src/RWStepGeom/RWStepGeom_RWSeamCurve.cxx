@@ -52,7 +52,7 @@ void RWStepGeom_RWSeamCurve::ReadStep(const Handle(StepData_StepReaderData)& dat
 
   Handle(StepGeom_HArray1OfPcurveOrSurface) aAssociatedGeometry;
   StepGeom_PcurveOrSurface                  aAssociatedGeometryItem;
-  Handle(Standard_Transient)                assgeomval;
+  Handle(RefObject)                assgeomval;
   Standard_Integer                          nsub3;
   if (data->ReadSubList(num, 3, "associated_geometry", ach, nsub3))
   {

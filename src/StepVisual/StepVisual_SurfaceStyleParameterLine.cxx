@@ -14,7 +14,7 @@
 #include <StepVisual_CurveStyle.hxx>
 #include <StepVisual_SurfaceStyleParameterLine.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_SurfaceStyleParameterLine, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepVisual_SurfaceStyleParameterLine, RefObject)
 
 StepVisual_SurfaceStyleParameterLine::StepVisual_SurfaceStyleParameterLine() {}
 

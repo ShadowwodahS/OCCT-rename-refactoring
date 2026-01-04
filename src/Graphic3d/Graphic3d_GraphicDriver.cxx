@@ -18,7 +18,7 @@
 
 #include <Graphic3d_Layer.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_GraphicDriver, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_GraphicDriver, RefObject)
 
 //=================================================================================================
 

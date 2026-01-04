@@ -32,14 +32,14 @@ class ShapeExtend_BasicMsgRegistrator;
 class Message_Msg;
 
 class ShapeFix_Root;
-DEFINE_STANDARD_HANDLE(ShapeFix_Root, Standard_Transient)
+DEFINE_STANDARD_HANDLE(ShapeFix_Root, RefObject)
 
 //! Root class for fixing operations
 //! Provides context for recording changes (optional),
 //! basic precision value and limit (minimal and
 //! maximal) values for tolerances,
 //! and message registrator
-class ShapeFix_Root : public Standard_Transient
+class ShapeFix_Root : public RefObject
 {
 
 public:
@@ -107,7 +107,7 @@ public:
   //! Calls previous method for myShape.
   void SendFail(const Message_Msg& message) const;
 
-  DEFINE_STANDARD_RTTIEXT(ShapeFix_Root, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(ShapeFix_Root, RefObject)
 
 protected:
   //! Auxiliary method for work with three-position

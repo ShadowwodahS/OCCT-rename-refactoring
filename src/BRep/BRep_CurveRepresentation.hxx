@@ -31,11 +31,11 @@ class Poly_Polygon2D;
 class Poly_PolygonOnTriangulation;
 
 class BRep_CurveRepresentation;
-DEFINE_STANDARD_HANDLE(BRep_CurveRepresentation, Standard_Transient)
+DEFINE_STANDARD_HANDLE(BRep_CurveRepresentation, RefObject)
 
 //! Root class for the curve representations. Contains
 //! a location.
-class BRep_CurveRepresentation : public Standard_Transient
+class BRep_CurveRepresentation : public RefObject
 {
 
 public:
@@ -150,7 +150,7 @@ public:
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const;
 
-  DEFINE_STANDARD_RTTIEXT(BRep_CurveRepresentation, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(BRep_CurveRepresentation, RefObject)
 
 protected:
   Standard_EXPORT BRep_CurveRepresentation(const TopLoc_Location& L);

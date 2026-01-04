@@ -49,7 +49,7 @@ public:
 
   //! Returns data object of the item.
   //! \return object
-  virtual const Handle(Standard_Transient)& Object() const Standard_OVERRIDE
+  virtual const Handle(RefObject)& Object() const Standard_OVERRIDE
   {
     initItem();
     return myIO;
@@ -75,7 +75,7 @@ public:
   //! Returns presentation of the attribute to be visualized in the view
   //! \thePresentations[out]  container of presentation handles to be visualized
   Standard_EXPORT virtual void Presentations(
-    NCollection_List<Handle(Standard_Transient)>& thePresentations) Standard_OVERRIDE;
+    NCollection_List<Handle(RefObject)>& thePresentations) Standard_OVERRIDE;
 
 protected:
   //! Initialize the current item. It is empty because Reset() is also empty.

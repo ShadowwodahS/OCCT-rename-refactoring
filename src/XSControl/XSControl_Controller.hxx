@@ -40,7 +40,7 @@ class Transfer_FinderProcess;
 class TopoDS_Shape;
 
 class XSControl_Controller;
-DEFINE_STANDARD_HANDLE(XSControl_Controller, Standard_Transient)
+DEFINE_STANDARD_HANDLE(XSControl_Controller, RefObject)
 
 //! This class allows a general X-STEP engine to run generic
 //! functions on any interface norm, in the same way. It includes
@@ -57,7 +57,7 @@ DEFINE_STANDARD_HANDLE(XSControl_Controller, Standard_Transient)
 //!
 //! It does not manage the produced data, but the Actors make the
 //! link between the norm and the application
-class XSControl_Controller : public Standard_Transient
+class XSControl_Controller : public RefObject
 {
 public:
   //! Changes names
@@ -152,7 +152,7 @@ public:
   //! By default, asks the ActorWrite if known (through a
   //! TransientMapper). Can be redefined
   Standard_EXPORT virtual Standard_Boolean RecognizeWriteTransient(
-    const Handle(Standard_Transient)& obj,
+    const Handle(RefObject)& obj,
     const Standard_Integer            modetrans = 0) const;
 
   //! Takes one Transient Object and transfers it to an
@@ -166,7 +166,7 @@ public:
   //! -1 bad conditions ,  -2 bad model or null model
   //! For type of object not recognized : should return 1
   Standard_EXPORT virtual IFSelect_ReturnStatus TransferWriteTransient(
-    const Handle(Standard_Transient)&       obj,
+    const Handle(RefObject)&       obj,
     const Handle(Transfer_FinderProcess)&   FP,
     const Handle(Interface_InterfaceModel)& model,
     const Standard_Integer                  modetrans   = 0,
@@ -199,24 +199,24 @@ public:
   //! Remark : this method is to be called at Create time,
   //! the recorded items will be used by Customise
   //! Warning : if <name> conflicts, the last recorded item is kept
-  Standard_EXPORT void AddSessionItem(const Handle(Standard_Transient)& theItem,
+  Standard_EXPORT void AddSessionItem(const Handle(RefObject)& theItem,
                                       const Standard_CString            theName,
                                       const Standard_Boolean            toApply = Standard_False);
 
   //! Returns an item given its name to record in a Session
   //! If <name> is unknown, returns a Null Handle
-  Standard_EXPORT Handle(Standard_Transient) SessionItem(const Standard_CString theName) const;
+  Standard_EXPORT Handle(RefObject) SessionItem(const Standard_CString theName) const;
 
   //! Customises a WorkSession, by adding to it the recorded items (by AddSessionItem)
   Standard_EXPORT virtual void Customise(Handle(XSControl_WorkSession)& WS);
 
-  const NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)>& AdaptorSession()
+  const NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>& AdaptorSession()
     const
   {
     return myAdaptorSession;
   }
 
-  DEFINE_STANDARD_RTTIEXT(XSControl_Controller, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(XSControl_Controller, RefObject)
 
 protected:
   //! Initializing with names
@@ -235,11 +235,11 @@ protected:
   // szv:Handle(IFSelect_Signature) mySignType;
   Handle(Transfer_ActorOfTransientProcess)                                 myAdaptorRead;
   Handle(Transfer_ActorOfFinderProcess)                                    myAdaptorWrite;
-  NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)> myAdaptorSession;
+  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)> myAdaptorSession;
 
 private:
   TColStd_SequenceOfTransient                    myAdaptorApplied;
-  NCollection_Vector<Handle(Standard_Transient)> myParams;
+  NCollection_Vector<Handle(RefObject)> myParams;
   NCollection_Vector<Standard_Integer>           myParamUses;
   Handle(Interface_HArray1OfHAsciiString)        myModeWriteShapeN;
 };

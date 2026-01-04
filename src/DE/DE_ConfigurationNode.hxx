@@ -46,9 +46,9 @@ class NCollection_Buffer;
 //!   4.2) Export (if "::IsExportSupported: returns TRUE)
 //!     4.2.1) Use created provider's "::Write" method
 //! 5) Check the provider's output
-class DE_ConfigurationNode : public Standard_Transient
+class DE_ConfigurationNode : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(DE_ConfigurationNode, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(DE_ConfigurationNode, RefObject)
 public:
   //! Initializes all field by default
   Standard_EXPORT DE_ConfigurationNode();

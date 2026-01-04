@@ -54,7 +54,7 @@ Handle(Transfer_Binder) Transfer_ActorOfProcessForFinder::Transferring(
 //=================================================================================================
 
 Handle(Transfer_SimpleBinderOfTransient) Transfer_ActorOfProcessForFinder::TransientResult(
-  const Handle(Standard_Transient)& res) const
+  const Handle(RefObject)& res) const
 {
   Handle(Transfer_SimpleBinderOfTransient) binder;
   if (res.IsNull())

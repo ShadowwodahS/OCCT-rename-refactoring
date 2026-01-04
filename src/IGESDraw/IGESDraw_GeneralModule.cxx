@@ -440,7 +440,7 @@ void IGESDraw_GeneralModule::OwnCheckCase(const Standard_Integer             CN,
 }
 
 Standard_Boolean IGESDraw_GeneralModule::NewVoid(const Standard_Integer      CN,
-                                                 Handle(Standard_Transient)& ent) const
+                                                 Handle(RefObject)& ent) const
 {
   switch (CN)
   {
@@ -651,7 +651,7 @@ void IGESDraw_GeneralModule::OwnDeleteCase(const Standard_Integer             CN
 }
 
 Standard_Integer IGESDraw_GeneralModule::CategoryNumber(const Standard_Integer CN,
-                                                        const Handle(Standard_Transient)&,
+                                                        const Handle(RefObject)&,
                                                         const Interface_ShareTool&) const
 {
   if (CN == 9)

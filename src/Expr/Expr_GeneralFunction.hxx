@@ -29,10 +29,10 @@ class Expr_NamedUnknown;
 class TCollection_AsciiString;
 
 class Expr_GeneralFunction;
-DEFINE_STANDARD_HANDLE(Expr_GeneralFunction, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Expr_GeneralFunction, RefObject)
 
 //! Defines the general purposes of any function.
-class Expr_GeneralFunction : public Standard_Transient
+class Expr_GeneralFunction : public RefObject
 {
 
 public:
@@ -74,7 +74,7 @@ public:
 
   Standard_EXPORT virtual TCollection_AsciiString GetStringName() const = 0;
 
-  DEFINE_STANDARD_RTTIEXT(Expr_GeneralFunction, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Expr_GeneralFunction, RefObject)
 
 protected:
 private:

@@ -30,7 +30,7 @@ class TCollection_HAsciiString;
 class Interface_CopyTool;
 
 class Interface_UndefinedContent;
-DEFINE_STANDARD_HANDLE(Interface_UndefinedContent, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Interface_UndefinedContent, RefObject)
 
 //! Defines resources for an "Undefined Entity" : such an Entity
 //! is used to describe an Entity which complies with the Norm,
@@ -54,7 +54,7 @@ DEFINE_STANDARD_HANDLE(Interface_UndefinedContent, Standard_Transient)
 //!
 //! Finally, the Protocols of each norm have to Create and
 //! Recognize Unknown Entities of this norm
-class Interface_UndefinedContent : public Standard_Transient
+class Interface_UndefinedContent : public RefObject
 {
 
 public:
@@ -72,7 +72,7 @@ public:
   //! Returned value (Boolean) : True if it is an Entity, False else
   Standard_EXPORT Standard_Boolean ParamData(const Standard_Integer            num,
                                              Interface_ParamType&              ptype,
-                                             Handle(Standard_Transient)&       ent,
+                                             Handle(RefObject)&       ent,
                                              Handle(TCollection_HAsciiString)& val) const;
 
   //! Returns the ParamType of a Param, given its rank
@@ -84,7 +84,7 @@ public:
   Standard_EXPORT Standard_Boolean IsParamEntity(const Standard_Integer num) const;
 
   //! Returns Entity corresponding to a Param, given its rank
-  Standard_EXPORT Handle(Standard_Transient) ParamEntity(const Standard_Integer num) const;
+  Standard_EXPORT Handle(RefObject) ParamEntity(const Standard_Integer num) const;
 
   //! Returns literal value of a Parameter, given its rank
   Standard_EXPORT Handle(TCollection_HAsciiString) ParamValue(const Standard_Integer num) const;
@@ -99,7 +99,7 @@ public:
 
   //! Adds a Parameter which references an Entity
   Standard_EXPORT void AddEntity(const Interface_ParamType         ptype,
-                                 const Handle(Standard_Transient)& ent);
+                                 const Handle(RefObject)& ent);
 
   //! Removes a Parameter given its rank
   Standard_EXPORT void RemoveParam(const Standard_Integer num);
@@ -114,11 +114,11 @@ public:
   //! Entity. To simply change the Entity, see the variant below
   Standard_EXPORT void SetEntity(const Standard_Integer            num,
                                  const Interface_ParamType         ptype,
-                                 const Handle(Standard_Transient)& ent);
+                                 const Handle(RefObject)& ent);
 
   //! Changes the Entity referenced by the Parameter <num>
   //! (with same ParamType)
-  Standard_EXPORT void SetEntity(const Standard_Integer num, const Handle(Standard_Transient)& ent);
+  Standard_EXPORT void SetEntity(const Standard_Integer num, const Handle(RefObject)& ent);
 
   //! Returns globally the list of param entities. Note that it can
   //! be used as shared entity list for the UndefinedEntity
@@ -130,7 +130,7 @@ public:
   Standard_EXPORT void GetFromAnother(const Handle(Interface_UndefinedContent)& other,
                                       Interface_CopyTool&                       TC);
 
-  DEFINE_STANDARD_RTTIEXT(Interface_UndefinedContent, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Interface_UndefinedContent, RefObject)
 
 protected:
 private:

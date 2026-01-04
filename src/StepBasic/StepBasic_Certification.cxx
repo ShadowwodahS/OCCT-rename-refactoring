@@ -20,7 +20,7 @@
 #include <StepBasic_CertificationType.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_Certification, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_Certification, RefObject)
 
 //=================================================================================================
 

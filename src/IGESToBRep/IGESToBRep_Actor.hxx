@@ -26,7 +26,7 @@
 
 struct DE_ShapeFixParameters;
 class Interface_InterfaceModel;
-class Standard_Transient;
+class RefObject;
 class Transfer_Binder;
 class Transfer_TransientProcess;
 
@@ -53,11 +53,11 @@ public:
   //! Return "thecontinuity"
   Standard_EXPORT Standard_Integer GetContinuity() const;
 
-  Standard_EXPORT virtual Standard_Boolean Recognize(const Handle(Standard_Transient)& start)
+  Standard_EXPORT virtual Standard_Boolean Recognize(const Handle(RefObject)& start)
     Standard_OVERRIDE;
 
   Standard_EXPORT virtual Handle(Transfer_Binder) Transfer(
-    const Handle(Standard_Transient)&        start,
+    const Handle(RefObject)&        start,
     const Handle(Transfer_TransientProcess)& TP,
     const Message_ProgressRange& theProgress = Message_ProgressRange()) Standard_OVERRIDE;
 

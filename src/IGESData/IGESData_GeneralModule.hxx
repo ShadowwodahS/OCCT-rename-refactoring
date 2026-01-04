@@ -22,7 +22,7 @@
 
 #include <Interface_GeneralModule.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class Interface_EntityIterator;
 class IGESData_IGESEntity;
 class Interface_ShareTool;
@@ -48,7 +48,7 @@ public:
   //! Considers Properties and Directory Part, and calls
   //! OwnSharedCase (which is adapted to each Type of Entity)
   Standard_EXPORT void FillSharedCase(const Standard_Integer            CN,
-                                      const Handle(Standard_Transient)& ent,
+                                      const Handle(RefObject)& ent,
                                       Interface_EntityIterator& iter) const Standard_OVERRIDE;
 
   //! Lists the Entities shared by a given IGESEntity <ent>, from
@@ -60,7 +60,7 @@ public:
   //! Lists the Implied References of <ent>. Here, these are the
   //! Associativities, plus the Entities defined by OwnSharedCase
   Standard_EXPORT virtual void ListImpliedCase(const Standard_Integer            CN,
-                                               const Handle(Standard_Transient)& ent,
+                                               const Handle(RefObject)& ent,
                                                Interface_EntityIterator&         iter) const
     Standard_OVERRIDE;
 
@@ -75,7 +75,7 @@ public:
   //! which use DirChecker, then call OwnCheck which does a check
   //! specific for each type of Entity
   Standard_EXPORT void CheckCase(const Standard_Integer            CN,
-                                 const Handle(Standard_Transient)& ent,
+                                 const Handle(RefObject)& ent,
                                  const Interface_ShareTool&        shares,
                                  Handle(Interface_Check)&          ach) const Standard_OVERRIDE;
 
@@ -95,12 +95,12 @@ public:
   //! Specific answer to the question "is Copy properly implemented"
   //! For IGES, answer is always True
   Standard_EXPORT virtual Standard_Boolean CanCopy(const Standard_Integer            CN,
-                                                   const Handle(Standard_Transient)& ent) const
+                                                   const Handle(RefObject)& ent) const
     Standard_OVERRIDE;
 
   //! Specific creation of a new void entity
   Standard_EXPORT virtual Standard_Boolean NewVoid(const Standard_Integer      CN,
-                                                   Handle(Standard_Transient)& entto) const
+                                                   Handle(RefObject)& entto) const
     Standard_OVERRIDE = 0;
 
   //! Copy ("Deep") from <entfrom> to <entto> (same type)
@@ -108,8 +108,8 @@ public:
   //! For IGESEntities, Copies general data (Directory Part, List of
   //! Properties) and call OwnCopyCase
   Standard_EXPORT void CopyCase(const Standard_Integer            CN,
-                                const Handle(Standard_Transient)& entfrom,
-                                const Handle(Standard_Transient)& entto,
+                                const Handle(RefObject)& entfrom,
+                                const Handle(RefObject)& entto,
                                 Interface_CopyTool&               TC) const Standard_OVERRIDE;
 
   //! Copies parameters which are specific of each Type of Entity
@@ -122,8 +122,8 @@ public:
   //! For IGESEntities, Copies general data(List of Associativities)
   //! and calls OwnRenewCase
   Standard_EXPORT virtual void RenewImpliedCase(const Standard_Integer            CN,
-                                                const Handle(Standard_Transient)& entfrom,
-                                                const Handle(Standard_Transient)& entto,
+                                                const Handle(RefObject)& entfrom,
+                                                const Handle(RefObject)& entto,
                                                 const Interface_CopyTool&         TC) const
     Standard_OVERRIDE;
 
@@ -140,7 +140,7 @@ public:
   //! While dispatch requires to copy the entities, <dispatched> is
   //! ignored, entities are cleared in any case
   Standard_EXPORT virtual void WhenDeleteCase(const Standard_Integer            CN,
-                                              const Handle(Standard_Transient)& ent,
+                                              const Handle(RefObject)& ent,
                                               const Standard_Boolean            dispatched) const
     Standard_OVERRIDE;
 
@@ -153,7 +153,7 @@ public:
   //! Can be redefined for an even more specific case ...
   Standard_EXPORT virtual Handle(TCollection_HAsciiString) Name(
     const Standard_Integer            CN,
-    const Handle(Standard_Transient)& ent,
+    const Handle(RefObject)& ent,
     const Interface_ShareTool&        shares) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IGESData_GeneralModule, Interface_GeneralModule)

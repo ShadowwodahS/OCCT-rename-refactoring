@@ -40,7 +40,7 @@ static Handle(Standard_Type) GetStepType(const Handle(StepData_ReadWriteModule)&
   Standard_Integer num = module->CaseStep(type);
   if (num == 0)
     return atype;
-  Handle(Standard_Transient) ent;
+  Handle(RefObject) ent;
   RWStepAP214_GeneralModule  genModul;
   genModul.NewVoid(num, ent);
   atype = ent->DynamicType();
@@ -48,7 +48,7 @@ static Handle(Standard_Type) GetStepType(const Handle(StepData_ReadWriteModule)&
 }
 
 Standard_Boolean STEPSelections_SelectDerived::Matches(
-  const Handle(Standard_Transient)& ent,
+  const Handle(RefObject)& ent,
   const Handle(Interface_InterfaceModel)& /*model*/,
   const TCollection_AsciiString& text,
   const Standard_Boolean /*exact*/) const

@@ -14,7 +14,7 @@
 #include <StepRepr_FunctionallyDefinedTransformation.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepRepr_FunctionallyDefinedTransformation, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepRepr_FunctionallyDefinedTransformation, RefObject)
 
 StepRepr_FunctionallyDefinedTransformation::StepRepr_FunctionallyDefinedTransformation() {}
 

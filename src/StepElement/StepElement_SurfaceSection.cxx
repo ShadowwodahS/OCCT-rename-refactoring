@@ -17,7 +17,7 @@
 
 #include <StepElement_SurfaceSection.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepElement_SurfaceSection, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepElement_SurfaceSection, RefObject)
 
 //=================================================================================================
 

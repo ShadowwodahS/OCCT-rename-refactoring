@@ -27,7 +27,7 @@ StepFEA_SymmetricTensor22d::StepFEA_SymmetricTensor22d() {}
 
 //=================================================================================================
 
-Standard_Integer StepFEA_SymmetricTensor22d::CaseNum(const Handle(Standard_Transient)& ent) const
+Standard_Integer StepFEA_SymmetricTensor22d::CaseNum(const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

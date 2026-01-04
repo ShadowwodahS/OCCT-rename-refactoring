@@ -22,9 +22,9 @@
 #include <Quantity_ColorRGBA.hxx>
 
 //! Class represents packed image plane.
-class Image_PixMap : public Standard_Transient
+class Image_PixMap : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Image_PixMap, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Image_PixMap, RefObject)
 public:
   //! Determine Big-Endian at runtime
   static inline bool IsBigEndianHost()
@@ -508,6 +508,6 @@ private:
   Image_PixMap& operator=(const Image_PixMap&);
 };
 
-DEFINE_STANDARD_HANDLE(Image_PixMap, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Image_PixMap, RefObject)
 
 #endif // _Image_PixMap_H__

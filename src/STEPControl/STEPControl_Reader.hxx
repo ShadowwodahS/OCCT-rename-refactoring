@@ -48,7 +48,7 @@ class StepRepr_RepresentationContext;
 //! To transfer entities from a model the following methods can be used:
 //! for the whole model - reader.TransferRoots();
 //! to transfer a list of entities: reader.TransferList(list);
-//! to transfer one entity Handle(Standard_Transient)
+//! to transfer one entity Handle(RefObject)
 //! ent = reader.RootForTransfer(num);
 //! reader.TransferEntity(ent), or
 //! reader.TransferOneRoot(num), or

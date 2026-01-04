@@ -37,13 +37,13 @@ struct UIView;
 class OpenGl_Context;
 class OpenGl_GraphicDriver;
 
-DEFINE_STANDARD_HANDLE(OpenGl_Window, Standard_Transient)
+DEFINE_STANDARD_HANDLE(OpenGl_Window, RefObject)
 
 //! This class represents low-level wrapper over window with GL context.
 //! The window itself should be provided to constructor.
-class OpenGl_Window : public Standard_Transient
+class OpenGl_Window : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(OpenGl_Window, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(OpenGl_Window, RefObject)
 public:
   //! Empty constructor.
   Standard_EXPORT OpenGl_Window();

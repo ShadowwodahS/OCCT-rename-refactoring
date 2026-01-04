@@ -16,7 +16,7 @@
 #include <StepBasic_DateAssignment.hxx>
 #include <StepBasic_DateRole.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_DateAssignment, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_DateAssignment, RefObject)
 
 void StepBasic_DateAssignment::Init(const Handle(StepBasic_Date)&     aAssignedDate,
                                     const Handle(StepBasic_DateRole)& aRole)

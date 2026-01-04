@@ -17,4 +17,4 @@
 #include <PLib_Base.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(PLib_Base, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(PLib_Base, RefObject)

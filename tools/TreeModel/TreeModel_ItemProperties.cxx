@@ -28,7 +28,7 @@
 #include <QFont>
 #include <Standard_WarningsRestore.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TreeModel_ItemProperties, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(TreeModel_ItemProperties, RefObject)
 
 // =======================================================================
 // function : Init
@@ -62,7 +62,7 @@ void TreeModel_ItemProperties::InitByStream(const Standard_SStream& aStream)
     }
     else
     {
-      const Handle(Standard_Transient)& anItemObject = Item()->Object();
+      const Handle(RefObject)& anItemObject = Item()->Object();
       aKey = anItemObject.IsNull() ? "Dump" : anItemObject->DynamicType()->Name();
     }
     aKeyValue = Standard_DumpValue(aStreamText, 1);
@@ -291,7 +291,7 @@ bool TreeModel_ItemProperties::SetData(const int       theRow,
 // purpose :
 // =======================================================================
 void TreeModel_ItemProperties::Presentations(
-  NCollection_List<Handle(Standard_Transient)>& thePresentations)
+  NCollection_List<Handle(RefObject)>& thePresentations)
 {
   if (!Item())
   {

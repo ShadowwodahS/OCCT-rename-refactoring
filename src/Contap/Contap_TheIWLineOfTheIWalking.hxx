@@ -35,9 +35,9 @@ class IntSurf_PntOn2S;
 class gp_Vec;
 
 class Contap_TheIWLineOfTheIWalking;
-DEFINE_STANDARD_HANDLE(Contap_TheIWLineOfTheIWalking, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Contap_TheIWLineOfTheIWalking, RefObject)
 
-class Contap_TheIWLineOfTheIWalking : public Standard_Transient
+class Contap_TheIWLineOfTheIWalking : public RefObject
 {
 
 public:
@@ -145,7 +145,7 @@ public:
 
   Standard_Boolean IsTangentAtEnd() const;
 
-  DEFINE_STANDARD_RTTI_INLINE(Contap_TheIWLineOfTheIWalking, Standard_Transient)
+  DEFINE_STANDARD_RTTI_INLINE(Contap_TheIWLineOfTheIWalking, RefObject)
 
 protected:
 private:

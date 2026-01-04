@@ -15,7 +15,7 @@
 #include <StepBasic_Approval.hxx>
 #include <StepBasic_ApprovalAssignment.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_ApprovalAssignment, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_ApprovalAssignment, RefObject)
 
 void StepBasic_ApprovalAssignment::Init(const Handle(StepBasic_Approval)& aAssignedApproval)
 {

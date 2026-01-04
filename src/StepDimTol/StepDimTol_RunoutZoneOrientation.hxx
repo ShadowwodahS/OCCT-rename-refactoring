@@ -23,10 +23,10 @@
 #include <StepBasic_PlaneAngleMeasureWithUnit.hxx>
 
 class StepDimTol_RunoutZoneOrientation;
-DEFINE_STANDARD_HANDLE(StepDimTol_RunoutZoneOrientation, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepDimTol_RunoutZoneOrientation, RefObject)
 
 //! Added for Dimensional Tolerances
-class StepDimTol_RunoutZoneOrientation : public Standard_Transient
+class StepDimTol_RunoutZoneOrientation : public RefObject
 {
 
 public:
@@ -44,7 +44,7 @@ public:
     myAngle = theAngle;
   }
 
-  DEFINE_STANDARD_RTTIEXT(StepDimTol_RunoutZoneOrientation, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepDimTol_RunoutZoneOrientation, RefObject)
 
 private:
   Handle(StepBasic_PlaneAngleMeasureWithUnit) myAngle;

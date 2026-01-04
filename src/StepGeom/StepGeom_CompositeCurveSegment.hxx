@@ -25,9 +25,9 @@
 class StepGeom_Curve;
 
 class StepGeom_CompositeCurveSegment;
-DEFINE_STANDARD_HANDLE(StepGeom_CompositeCurveSegment, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepGeom_CompositeCurveSegment, RefObject)
 
-class StepGeom_CompositeCurveSegment : public Standard_Transient
+class StepGeom_CompositeCurveSegment : public RefObject
 {
 
 public:
@@ -50,7 +50,7 @@ public:
 
   Standard_EXPORT Handle(StepGeom_Curve) ParentCurve() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepGeom_CompositeCurveSegment, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepGeom_CompositeCurveSegment, RefObject)
 
 protected:
 private:

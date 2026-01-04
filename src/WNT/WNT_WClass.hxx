@@ -46,10 +46,10 @@
 //! the Window class and do not use the WClass at all.
 //! We implemented this class for sake of flexibility of
 //! event processing.
-class WNT_WClass : public Standard_Transient
+class WNT_WClass : public RefObject
 {
   friend class WNT_Window;
-  DEFINE_STANDARD_RTTIEXT(WNT_WClass, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(WNT_WClass, RefObject)
 public:
   //! Creates a Windows NT window class and registers it.
   Standard_EXPORT WNT_WClass(
@@ -80,7 +80,7 @@ protected:
   Standard_Address        myWndProc;
 };
 
-DEFINE_STANDARD_HANDLE(WNT_WClass, Standard_Transient)
+DEFINE_STANDARD_HANDLE(WNT_WClass, RefObject)
 
 #endif // _WIN32
 #endif // _WNT_WClass_HeaderFile

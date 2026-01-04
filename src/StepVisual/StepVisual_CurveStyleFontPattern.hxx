@@ -23,9 +23,9 @@
 #include <Standard_Transient.hxx>
 
 class StepVisual_CurveStyleFontPattern;
-DEFINE_STANDARD_HANDLE(StepVisual_CurveStyleFontPattern, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepVisual_CurveStyleFontPattern, RefObject)
 
-class StepVisual_CurveStyleFontPattern : public Standard_Transient
+class StepVisual_CurveStyleFontPattern : public RefObject
 {
 
 public:
@@ -43,7 +43,7 @@ public:
 
   Standard_EXPORT Standard_Real InvisibleSegmentLength() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepVisual_CurveStyleFontPattern, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepVisual_CurveStyleFontPattern, RefObject)
 
 protected:
 private:

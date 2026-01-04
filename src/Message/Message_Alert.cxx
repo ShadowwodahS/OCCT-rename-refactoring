@@ -16,7 +16,7 @@
 #include <Message_Alert.hxx>
 #include <Standard_Dump.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Message_Alert, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Message_Alert, RefObject)
 
 //=================================================================================================
 

@@ -29,7 +29,7 @@ class Message_Printer;
 #endif
 
 class Message_Messenger;
-DEFINE_STANDARD_HANDLE(Message_Messenger, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Message_Messenger, RefObject)
 
 //! Messenger is API class providing general-purpose interface for
 //! libraries that may issue text messages without knowledge
@@ -50,9 +50,9 @@ DEFINE_STANDARD_HANDLE(Message_Messenger, Standard_Transient)
 //! The message is sent to messenger on destruction of the stream buffer,
 //! call to Flush(), or passing manipulator std::ends, std::endl, or std::flush.
 //! Empty messages are not sent except if manipulator is used.
-class Message_Messenger : public Standard_Transient
+class Message_Messenger : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Message_Messenger, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Message_Messenger, RefObject)
 public:
   //! Auxiliary class wrapping std::stringstream thus allowing constructing
   //! message via stream interface, and putting result into its creator
@@ -194,7 +194,7 @@ public:
   StreamBuffer Send(Message_Gravity theGravity) { return StreamBuffer(this, theGravity); }
 
   //! See above
-  Standard_EXPORT void Send(const Handle(Standard_Transient)& theObject,
+  Standard_EXPORT void Send(const Handle(RefObject)& theObject,
                             const Message_Gravity             theGravity = Message_Warning) const;
 
   //! Create string buffer for sending Fail message

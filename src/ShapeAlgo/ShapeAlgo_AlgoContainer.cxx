@@ -48,7 +48,7 @@
 #include <TopoDS_Shape.hxx>
 #include <TopoDS_Wire.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeAlgo_AlgoContainer, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(ShapeAlgo_AlgoContainer, RefObject)
 
 //=================================================================================================
 

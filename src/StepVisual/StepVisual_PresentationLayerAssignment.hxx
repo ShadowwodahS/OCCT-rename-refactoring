@@ -27,9 +27,9 @@ class TCollection_HAsciiString;
 class StepVisual_LayeredItem;
 
 class StepVisual_PresentationLayerAssignment;
-DEFINE_STANDARD_HANDLE(StepVisual_PresentationLayerAssignment, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepVisual_PresentationLayerAssignment, RefObject)
 
-class StepVisual_PresentationLayerAssignment : public Standard_Transient
+class StepVisual_PresentationLayerAssignment : public RefObject
 {
 
 public:
@@ -57,7 +57,7 @@ public:
 
   Standard_EXPORT Standard_Integer NbAssignedItems() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepVisual_PresentationLayerAssignment, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepVisual_PresentationLayerAssignment, RefObject)
 
 protected:
 private:

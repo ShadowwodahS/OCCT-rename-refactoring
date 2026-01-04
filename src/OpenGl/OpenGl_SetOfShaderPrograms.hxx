@@ -23,9 +23,9 @@
 class OpenGl_ShaderProgram;
 
 //! Alias to programs array of predefined length
-class OpenGl_SetOfPrograms : public Standard_Transient
+class OpenGl_SetOfPrograms : public RefObject
 {
-  DEFINE_STANDARD_RTTI_INLINE(OpenGl_SetOfPrograms, Standard_Transient)
+  DEFINE_STANDARD_RTTI_INLINE(OpenGl_SetOfPrograms, RefObject)
 public:
   //! Empty constructor
   OpenGl_SetOfPrograms() {}
@@ -41,9 +41,9 @@ protected:
 };
 
 //! Alias to 2D programs array of predefined length
-class OpenGl_SetOfShaderPrograms : public Standard_Transient
+class OpenGl_SetOfShaderPrograms : public RefObject
 {
-  DEFINE_STANDARD_RTTI_INLINE(OpenGl_SetOfShaderPrograms, Standard_Transient)
+  DEFINE_STANDARD_RTTI_INLINE(OpenGl_SetOfShaderPrograms, RefObject)
 public:
   //! Empty constructor
   OpenGl_SetOfShaderPrograms() {}

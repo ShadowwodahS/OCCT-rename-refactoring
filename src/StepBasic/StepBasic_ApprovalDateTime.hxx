@@ -25,10 +25,10 @@
 class StepBasic_Approval;
 
 class StepBasic_ApprovalDateTime;
-DEFINE_STANDARD_HANDLE(StepBasic_ApprovalDateTime, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_ApprovalDateTime, RefObject)
 
 //! Added from StepBasic Rev2 to Rev4
-class StepBasic_ApprovalDateTime : public Standard_Transient
+class StepBasic_ApprovalDateTime : public RefObject
 {
 
 public:
@@ -45,7 +45,7 @@ public:
 
   Standard_EXPORT Handle(StepBasic_Approval) DatedApproval() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_ApprovalDateTime, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_ApprovalDateTime, RefObject)
 
 protected:
 private:

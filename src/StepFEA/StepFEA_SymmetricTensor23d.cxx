@@ -28,7 +28,7 @@ StepFEA_SymmetricTensor23d::StepFEA_SymmetricTensor23d() {}
 //=================================================================================================
 
 Standard_Integer StepFEA_SymmetricTensor23d::CaseNum(
-  const Handle(Standard_Transient)& /*ent*/) const
+  const Handle(RefObject)& /*ent*/) const
 {
   return 0;
 }

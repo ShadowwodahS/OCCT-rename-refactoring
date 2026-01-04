@@ -19,7 +19,7 @@
 #include <ShapeUpgrade_Tool.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeUpgrade_Tool, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(ShapeUpgrade_Tool, RefObject)
 
 //=================================================================================================
 

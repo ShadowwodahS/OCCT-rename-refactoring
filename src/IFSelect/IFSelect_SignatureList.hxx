@@ -29,7 +29,7 @@ class TCollection_HAsciiString;
 class Interface_InterfaceModel;
 
 class IFSelect_SignatureList;
-DEFINE_STANDARD_HANDLE(IFSelect_SignatureList, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IFSelect_SignatureList, RefObject)
 
 //! A SignatureList is given as result from a Counter (any kind)
 //! It gives access to a list of signatures, with counts, and
@@ -39,7 +39,7 @@ DEFINE_STANDARD_HANDLE(IFSelect_SignatureList, Standard_Transient)
 //! Mode. This can be useful for a specific counter (used in a
 //! Selection), while it remains better to use a Signature
 //! whenever possible
-class IFSelect_SignatureList : public Standard_Transient
+class IFSelect_SignatureList : public RefObject
 {
 
 public:
@@ -68,7 +68,7 @@ public:
   //!
   //! If SignOnly Mode is set, this work is replaced by just
   //! setting LastValue
-  Standard_EXPORT void Add(const Handle(Standard_Transient)& ent, const Standard_CString sign);
+  Standard_EXPORT void Add(const Handle(RefObject)& ent, const Standard_CString sign);
 
   //! Returns the last value recorded by Add (only if SignMode set)
   //! Cleared by Clear or Init
@@ -78,7 +78,7 @@ public:
   Standard_EXPORT void Init(
     const Standard_CString                                                                 name,
     const NCollection_IndexedDataMap<TCollection_AsciiString, Standard_Integer>&           count,
-    const NCollection_IndexedDataMap<TCollection_AsciiString, Handle(Standard_Transient)>& list,
+    const NCollection_IndexedDataMap<TCollection_AsciiString, Handle(RefObject)>& list,
     const Standard_Integer                                                                 nbnuls);
 
   //! Returns the list of signatures, as a sequence of strings
@@ -135,7 +135,7 @@ public:
   //! minimum values, cumul, average
   Standard_EXPORT virtual void PrintSum(Standard_OStream& S) const;
 
-  DEFINE_STANDARD_RTTIEXT(IFSelect_SignatureList, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IFSelect_SignatureList, RefObject)
 
 protected:
 private:
@@ -145,7 +145,7 @@ private:
   Handle(TCollection_HAsciiString)                                                thename;
   TCollection_AsciiString                                                         thelastval;
   NCollection_IndexedDataMap<TCollection_AsciiString, Standard_Integer>           thedicount;
-  NCollection_IndexedDataMap<TCollection_AsciiString, Handle(Standard_Transient)> thediclist;
+  NCollection_IndexedDataMap<TCollection_AsciiString, Handle(RefObject)> thediclist;
 };
 
 #endif // _IFSelect_SignatureList_HeaderFile

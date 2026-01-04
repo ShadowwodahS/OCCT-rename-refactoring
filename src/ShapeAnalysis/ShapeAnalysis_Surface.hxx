@@ -28,7 +28,7 @@
 class Geom_Surface;
 class Geom_Curve;
 
-DEFINE_STANDARD_HANDLE(ShapeAnalysis_Surface, Standard_Transient)
+DEFINE_STANDARD_HANDLE(ShapeAnalysis_Surface, RefObject)
 
 //! Complements standard tool Geom_Surface by providing additional
 //! functionality for detection surface singularities, checking
@@ -55,7 +55,7 @@ DEFINE_STANDARD_HANDLE(ShapeAnalysis_Surface, Standard_Transient)
 //! one is also provided.
 //!
 //! This tool is optimised: computes most information only once
-class ShapeAnalysis_Surface : public Standard_Transient
+class ShapeAnalysis_Surface : public RefObject
 {
 
 public:
@@ -306,7 +306,7 @@ public:
 
   Standard_EXPORT const Bnd_Box& GetBoxVL();
 
-  DEFINE_STANDARD_RTTIEXT(ShapeAnalysis_Surface, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(ShapeAnalysis_Surface, RefObject)
 
 protected:
   Handle(Geom_Surface)        mySurf;

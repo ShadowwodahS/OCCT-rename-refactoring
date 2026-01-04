@@ -14,7 +14,7 @@
 
 #include <Media_Timer.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Media_Timer, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Media_Timer, RefObject)
 
 //=================================================================================================
 

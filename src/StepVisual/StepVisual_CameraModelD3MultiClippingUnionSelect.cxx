@@ -27,7 +27,7 @@ StepVisual_CameraModelD3MultiClippingUnionSelect::StepVisual_CameraModelD3MultiC
 //=================================================================================================
 
 Standard_Integer StepVisual_CameraModelD3MultiClippingUnionSelect::CaseNum(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

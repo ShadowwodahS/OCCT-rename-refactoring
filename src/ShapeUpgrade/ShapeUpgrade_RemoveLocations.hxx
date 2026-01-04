@@ -25,10 +25,10 @@
 #include <Standard_Transient.hxx>
 
 class ShapeUpgrade_RemoveLocations;
-DEFINE_STANDARD_HANDLE(ShapeUpgrade_RemoveLocations, Standard_Transient)
+DEFINE_STANDARD_HANDLE(ShapeUpgrade_RemoveLocations, RefObject)
 
 //! Removes all locations sub-shapes of specified shape
-class ShapeUpgrade_RemoveLocations : public Standard_Transient
+class ShapeUpgrade_RemoveLocations : public RefObject
 {
 
 public:
@@ -57,7 +57,7 @@ public:
   //! Returns map of modified shapes.
   const TopTools_DataMapOfShapeShape& GetModifiedShapesMap() const { return myMapNewShapes; }
 
-  DEFINE_STANDARD_RTTIEXT(ShapeUpgrade_RemoveLocations, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(ShapeUpgrade_RemoveLocations, RefObject)
 
 protected:
 private:

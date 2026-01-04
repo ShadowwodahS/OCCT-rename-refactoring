@@ -32,7 +32,7 @@ typedef NCollection_Vector<Poly_CoherentLink>::Iterator     Poly_BaseIteratorOfC
 
 //! Definition of HANDLE object using Standard_DefineHandle.hxx
 #include <Standard_Type.hxx>
-DEFINE_STANDARD_HANDLE(Poly_CoherentTriangulation, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Poly_CoherentTriangulation, RefObject)
 
 /**
  * Triangulation structure that allows to:
@@ -102,7 +102,7 @@ DEFINE_STANDARD_HANDLE(Poly_CoherentTriangulation, Standard_Transient)
  * you can use NCollection_IncAllocator instead.
  * </ul>
  */
-class Poly_CoherentTriangulation : public Standard_Transient
+class Poly_CoherentTriangulation : public RefObject
 {
 public:
   /**
@@ -371,7 +371,7 @@ protected:
 
 public:
   // Declaration of CASCADE RTTI
-  DEFINE_STANDARD_RTTIEXT(Poly_CoherentTriangulation, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Poly_CoherentTriangulation, RefObject)
 
   friend class IteratorOfTriangle;
   friend class IteratorOfNode;

@@ -25,9 +25,9 @@ class TCollection_HAsciiString;
 class StepRepr_Representation;
 
 class StepRepr_RepresentationRelationship;
-DEFINE_STANDARD_HANDLE(StepRepr_RepresentationRelationship, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepRepr_RepresentationRelationship, RefObject)
 
-class StepRepr_RepresentationRelationship : public Standard_Transient
+class StepRepr_RepresentationRelationship : public RefObject
 {
 
 public:
@@ -57,7 +57,7 @@ public:
 
   Standard_EXPORT Handle(StepRepr_Representation) Rep2() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepRepr_RepresentationRelationship, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepRepr_RepresentationRelationship, RefObject)
 
 protected:
 private:

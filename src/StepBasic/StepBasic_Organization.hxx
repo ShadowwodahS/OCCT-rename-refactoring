@@ -25,9 +25,9 @@
 class TCollection_HAsciiString;
 
 class StepBasic_Organization;
-DEFINE_STANDARD_HANDLE(StepBasic_Organization, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_Organization, RefObject)
 
-class StepBasic_Organization : public Standard_Transient
+class StepBasic_Organization : public RefObject
 {
 
 public:
@@ -55,7 +55,7 @@ public:
 
   Standard_EXPORT Handle(TCollection_HAsciiString) Description() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_Organization, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_Organization, RefObject)
 
 protected:
 private:

@@ -18,7 +18,7 @@
 #include <TopOpeBRepDS_Interference.hxx>
 #include <TopOpeBRepDS_Transition.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TopOpeBRepDS_Interference, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(TopOpeBRepDS_Interference, RefObject)
 
 //=================================================================================================
 

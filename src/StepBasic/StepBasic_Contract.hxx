@@ -25,10 +25,10 @@ class TCollection_HAsciiString;
 class StepBasic_ContractType;
 
 class StepBasic_Contract;
-DEFINE_STANDARD_HANDLE(StepBasic_Contract, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_Contract, RefObject)
 
 //! Representation of STEP entity Contract
-class StepBasic_Contract : public Standard_Transient
+class StepBasic_Contract : public RefObject
 {
 
 public:
@@ -58,7 +58,7 @@ public:
   //! Set field Kind
   Standard_EXPORT void SetKind(const Handle(StepBasic_ContractType)& Kind);
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_Contract, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_Contract, RefObject)
 
 protected:
 private:

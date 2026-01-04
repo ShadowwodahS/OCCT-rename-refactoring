@@ -26,7 +26,7 @@
 #include <Standard_Boolean.hxx>
 #include <Standard_Integer.hxx>
 class Interface_IntVal;
-class Standard_Transient;
+class RefObject;
 
 //! Defines an Iterator on Entities.
 //! Allows considering of various criteria
@@ -45,10 +45,10 @@ public:
   Standard_EXPORT void AddList(const Handle(TColStd_HSequenceOfTransient)& list);
 
   //! Adds to the iteration list a defined entity
-  Standard_EXPORT void AddItem(const Handle(Standard_Transient)& anentity);
+  Standard_EXPORT void AddItem(const Handle(RefObject)& anentity);
 
   //! same as AddItem (kept for compatibility)
-  Standard_EXPORT void GetOneItem(const Handle(Standard_Transient)& anentity);
+  Standard_EXPORT void GetOneItem(const Handle(RefObject)& anentity);
 
   //! Selects entities with are Kind of a given type,  keep only
   //! them (is keep is True) or reject only them (if keep is False)
@@ -76,7 +76,7 @@ public:
 
   //! Returns the current Entity iterated, to be used by Interface
   //! tools
-  Standard_EXPORT const Handle(Standard_Transient)& Value() const;
+  Standard_EXPORT const Handle(RefObject)& Value() const;
 
   //! Returns the content of the Iterator, accessed through a Handle
   //! to be used by a frontal-engine logic

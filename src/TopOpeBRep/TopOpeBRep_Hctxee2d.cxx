@@ -28,7 +28,7 @@
 #include <TopOpeBRepTool_GEOMETRY.hxx>
 #include <TopOpeBRepTool_PROJECT.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TopOpeBRep_Hctxee2d, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(TopOpeBRep_Hctxee2d, RefObject)
 
 #ifdef OCCT_DEBUG
   #include <GeomTools_SurfaceSet.hxx>

@@ -207,7 +207,7 @@ Standard_Boolean Standard_Dump::InitValue(const TCollection_AsciiString& theStre
 
 //=================================================================================================
 
-TCollection_AsciiString Standard_Dump::GetPointerInfo(const Handle(Standard_Transient)& thePointer,
+TCollection_AsciiString Standard_Dump::GetPointerInfo(const Handle(RefObject)& thePointer,
                                                       const bool                        isShortInfo)
 {
   if (thePointer.IsNull())

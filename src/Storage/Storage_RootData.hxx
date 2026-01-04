@@ -31,9 +31,9 @@ class Storage_Root;
 class Standard_Persistent;
 
 class Storage_RootData;
-DEFINE_STANDARD_HANDLE(Storage_RootData, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Storage_RootData, RefObject)
 
-class Storage_RootData : public Standard_Transient
+class Storage_RootData : public RefObject
 {
 
 public:
@@ -70,7 +70,7 @@ public:
 
   friend class Storage_Schema;
 
-  DEFINE_STANDARD_RTTIEXT(Storage_RootData, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Storage_RootData, RefObject)
 
 protected:
 private:

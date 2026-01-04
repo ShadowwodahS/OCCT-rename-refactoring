@@ -36,7 +36,7 @@ namespace
 //            required type is found, returns nullptr.
 // ================================================================
 template <typename StepShapeType>
-Handle(StepShapeType) GetSharing(const Handle(Standard_Transient)& theStepEntity,
+Handle(StepShapeType) GetSharing(const Handle(RefObject)& theStepEntity,
                                  const Interface_ShareTool&        theShareTool)
 {
   Interface_EntityIterator aSharedEntitiesIt = theShareTool.Sharings(theStepEntity);

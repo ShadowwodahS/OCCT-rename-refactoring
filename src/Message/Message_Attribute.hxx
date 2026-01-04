@@ -18,13 +18,13 @@
 #include <NCollection_DefineAlloc.hxx>
 #include <TCollection_AsciiString.hxx>
 
-DEFINE_STANDARD_HANDLE(Message_Attribute, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Message_Attribute, RefObject)
 
 //! Additional information of extended alert attribute
 //! To provide other custom attribute container, it might be redefined.
-class Message_Attribute : public Standard_Transient
+class Message_Attribute : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Message_Attribute, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Message_Attribute, RefObject)
 public:
   //! Empty constructor
   Standard_EXPORT Message_Attribute(

@@ -32,7 +32,7 @@ static NCollection_Vector<TCollection_AsciiString>& theCats()
   return aCat;
 }
 
-Standard_Integer Interface_Category::CatNum(const Handle(Standard_Transient)& theEnt,
+Standard_Integer Interface_Category::CatNum(const Handle(RefObject)& theEnt,
                                             const Interface_ShareTool&        theShares)
 {
   if (theEnt.IsNull())
@@ -58,7 +58,7 @@ void Interface_Category::Compute(const Handle(Interface_InterfaceModel)& theMode
   myNum->Init(0);
   for (i = 1; i <= nb; i++)
   {
-    Handle(Standard_Transient) anEnt = theModel->Value(i);
+    Handle(RefObject) anEnt = theModel->Value(i);
     if (anEnt.IsNull())
       continue;
     Handle(Interface_GeneralModule) aModule;

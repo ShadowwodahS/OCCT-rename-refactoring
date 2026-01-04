@@ -19,7 +19,7 @@
 #include <StepFEA_CurveElementLocation.hxx>
 #include <StepFEA_FeaParametricPoint.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepFEA_CurveElementLocation, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepFEA_CurveElementLocation, RefObject)
 
 //=================================================================================================
 

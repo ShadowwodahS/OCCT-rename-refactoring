@@ -25,9 +25,9 @@
 class StepBasic_MeasureValueMember;
 
 class StepBasic_MeasureWithUnit;
-DEFINE_STANDARD_HANDLE(StepBasic_MeasureWithUnit, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_MeasureWithUnit, RefObject)
 
-class StepBasic_MeasureWithUnit : public Standard_Transient
+class StepBasic_MeasureWithUnit : public RefObject
 {
 
 public:
@@ -49,7 +49,7 @@ public:
 
   Standard_EXPORT StepBasic_Unit UnitComponent() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_MeasureWithUnit, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_MeasureWithUnit, RefObject)
 
 protected:
 private:

@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 class Interface_EntityIterator;
 class Interface_Graph;
-class Standard_Transient;
+class RefObject;
 class Interface_InterfaceModel;
 class TCollection_AsciiString;
 
@@ -65,7 +65,7 @@ public:
   //! This method is specific to each class of SelectExtract
   Standard_EXPORT virtual Standard_Boolean Sort(
     const Standard_Integer                  rank,
-    const Handle(Standard_Transient)&       ent,
+    const Handle(RefObject)&       ent,
     const Handle(Interface_InterfaceModel)& model) const = 0;
 
   //! Works as Sort but works on the Graph
@@ -73,7 +73,7 @@ public:
   //! If SortInGraph is redefined, Sort should be defined even if
   //! not called (to avoid deferred methods in a final class)
   Standard_EXPORT virtual Standard_Boolean SortInGraph(const Standard_Integer            rank,
-                                                       const Handle(Standard_Transient)& ent,
+                                                       const Handle(RefObject)& ent,
                                                        const Interface_Graph&            G) const;
 
   //! Returns a text saying "Picked" or "Removed", plus the

@@ -24,9 +24,9 @@
 class StepBasic_Approval;
 
 class StepBasic_ApprovalAssignment;
-DEFINE_STANDARD_HANDLE(StepBasic_ApprovalAssignment, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_ApprovalAssignment, RefObject)
 
-class StepBasic_ApprovalAssignment : public Standard_Transient
+class StepBasic_ApprovalAssignment : public RefObject
 {
 
 public:
@@ -36,7 +36,7 @@ public:
 
   Standard_EXPORT Handle(StepBasic_Approval) AssignedApproval() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_ApprovalAssignment, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_ApprovalAssignment, RefObject)
 
 protected:
 private:

@@ -23,7 +23,7 @@
 
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepGeom_Vector;
 class StepGeom_Direction;
 
@@ -39,7 +39,7 @@ public:
   //! 1 -> Vector
   //! 2 -> Direction
   //! 0 else
-  Standard_EXPORT Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! returns Value as a Vector (Null if another type)
   Standard_EXPORT Handle(StepGeom_Vector) Vector() const;

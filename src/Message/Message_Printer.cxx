@@ -19,7 +19,7 @@
 #include <TCollection_AsciiString.hxx>
 #include <TCollection_ExtendedString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Message_Printer, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Message_Printer, RefObject)
 
 //=================================================================================================
 
@@ -73,7 +73,7 @@ void Message_Printer::SendStringStream(const Standard_SStream& theStream,
 
 //=================================================================================================
 
-void Message_Printer::SendObject(const Handle(Standard_Transient)& theObject,
+void Message_Printer::SendObject(const Handle(RefObject)& theObject,
                                  const Message_Gravity             theGravity) const
 {
   if (!theObject.IsNull() && theGravity >= myTraceLevel)

@@ -24,15 +24,15 @@
 class CDF_MetaDataDriver;
 
 class CDF_MetaDataDriverFactory;
-DEFINE_STANDARD_HANDLE(CDF_MetaDataDriverFactory, Standard_Transient)
+DEFINE_STANDARD_HANDLE(CDF_MetaDataDriverFactory, RefObject)
 
-class CDF_MetaDataDriverFactory : public Standard_Transient
+class CDF_MetaDataDriverFactory : public RefObject
 {
 
 public:
   Standard_EXPORT virtual Handle(CDF_MetaDataDriver) Build() const = 0;
 
-  DEFINE_STANDARD_RTTIEXT(CDF_MetaDataDriverFactory, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(CDF_MetaDataDriverFactory, RefObject)
 
 protected:
 private:

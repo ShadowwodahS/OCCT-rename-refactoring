@@ -17,7 +17,7 @@
 #include <Transfer_SimpleBinderOfTransient.hxx>
 #include <Transfer_TransferIterator.hxx>
 
-static Handle(Standard_Transient) nultrans; // pour retour const&(Null)
+static Handle(RefObject) nultrans; // pour retour const&(Null)
 
 Transfer_TransferIterator::Transfer_TransferIterator()
 {
@@ -52,7 +52,7 @@ void Transfer_TransferIterator::SelectResult(const Handle(Standard_Type)& atype,
                                              const Standard_Boolean       keep)
 {
   Standard_Integer casetype = 0;
-  if (atype->SubType(STANDARD_TYPE(Standard_Transient)))
+  if (atype->SubType(STANDARD_TYPE(RefObject)))
     casetype = 2;
 
   for (Standard_Integer i = theitems->Length(); i > 0; i--)
@@ -181,10 +181,10 @@ Standard_Boolean Transfer_TransferIterator::HasTransientResult() const
   Handle(Standard_Type) btype = ResultType();
   if (btype.IsNull())
     return Standard_False;
-  return btype->SubType(STANDARD_TYPE(Standard_Transient));
+  return btype->SubType(STANDARD_TYPE(RefObject));
 }
 
-const Handle(Standard_Transient)& Transfer_TransferIterator::TransientResult() const
+const Handle(RefObject)& Transfer_TransferIterator::TransientResult() const
 {
   Handle(Transfer_SimpleBinderOfTransient) atr =
     Handle(Transfer_SimpleBinderOfTransient)::DownCast(Value());

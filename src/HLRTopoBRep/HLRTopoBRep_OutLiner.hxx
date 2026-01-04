@@ -29,9 +29,9 @@ class HLRAlgo_Projector;
 class TopoDS_Face;
 
 class HLRTopoBRep_OutLiner;
-DEFINE_STANDARD_HANDLE(HLRTopoBRep_OutLiner, Standard_Transient)
+DEFINE_STANDARD_HANDLE(HLRTopoBRep_OutLiner, RefObject)
 
-class HLRTopoBRep_OutLiner : public Standard_Transient
+class HLRTopoBRep_OutLiner : public RefObject
 {
 
 public:
@@ -55,7 +55,7 @@ public:
                             BRepTopAdaptor_MapOfShapeTool& MST,
                             const Standard_Integer         nbIso);
 
-  DEFINE_STANDARD_RTTIEXT(HLRTopoBRep_OutLiner, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(HLRTopoBRep_OutLiner, RefObject)
 
 protected:
 private:

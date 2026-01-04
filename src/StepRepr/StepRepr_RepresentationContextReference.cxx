@@ -16,7 +16,7 @@
 
 #include <StepRepr_RepresentationContextReference.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepRepr_RepresentationContextReference, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepRepr_RepresentationContextReference, RefObject)
 
 //=================================================================================================
 

@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 #include <StepElement_ElementVolume.hxx>
 #include <StepElement_CurveEdge.hxx>
-class Standard_Transient;
+class RefObject;
 class StepData_SelectMember;
 
 //! Representation of STEP SELECT type ElementAspect
@@ -39,7 +39,7 @@ public:
   //! Recognizes a kind of ElementAspect select type
   //! return 0
   Standard_EXPORT Standard_Integer
-    CaseNum(const Handle(Standard_Transient)& ent) const Standard_OVERRIDE;
+    CaseNum(const Handle(RefObject)& ent) const Standard_OVERRIDE;
 
   //! Recognizes a items of select member ElementAspectMember
   //! 1 -> ElementVolume

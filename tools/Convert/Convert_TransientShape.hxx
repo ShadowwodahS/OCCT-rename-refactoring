@@ -26,7 +26,7 @@
 
 //! \class Convert_TransientShape
 //! \brief An interface to convert a shape into a transient object to be used in arguments
-class Convert_TransientShape : public Standard_Transient
+class Convert_TransientShape : public RefObject
 {
 public:
   //! Constructor
@@ -41,7 +41,7 @@ public:
   //! Fills current shape
   void SetShape(const TopoDS_Shape& theShape) { myShape = theShape; }
 
-  DEFINE_STANDARD_RTTI_INLINE(Convert_TransientShape, Standard_Transient)
+  DEFINE_STANDARD_RTTI_INLINE(Convert_TransientShape, RefObject)
 
 private:
   TopoDS_Shape myShape; //!< the shape

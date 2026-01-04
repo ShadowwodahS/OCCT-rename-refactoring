@@ -14,7 +14,7 @@
 #include <StepBasic_Organization.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_Organization, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_Organization, RefObject)
 
 StepBasic_Organization::StepBasic_Organization() {}
 

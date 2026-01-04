@@ -43,7 +43,7 @@ Handle(Interface_Protocol) StepData_Protocol::Resource(const Standard_Integer /*
   return nulproto;
 }
 
-Standard_Integer StepData_Protocol::CaseNumber(const Handle(Standard_Transient)& obj) const
+Standard_Integer StepData_Protocol::CaseNumber(const Handle(RefObject)& obj) const
 {
   if (obj.IsNull())
     return 0;
@@ -79,12 +79,12 @@ Standard_Boolean StepData_Protocol::IsSuitableModel(
   return model->IsKind(STANDARD_TYPE(StepData_StepModel));
 }
 
-Handle(Standard_Transient) StepData_Protocol::UnknownEntity() const
+Handle(RefObject) StepData_Protocol::UnknownEntity() const
 {
   return new StepData_UndefinedEntity;
 }
 
-Standard_Boolean StepData_Protocol::IsUnknownEntity(const Handle(Standard_Transient)& ent) const
+Standard_Boolean StepData_Protocol::IsUnknownEntity(const Handle(RefObject)& ent) const
 {
   if (!ent.IsNull())
     return ent->IsKind(STANDARD_TYPE(StepData_UndefinedEntity));
@@ -127,7 +127,7 @@ Handle(StepData_EDescr) StepData_Protocol::Descr(const Standard_Integer num) con
     return dsc;
   char fonom[10];
   sprintf(fonom, "%d", num);
-  Handle(Standard_Transient) aTDsc;
+  Handle(RefObject) aTDsc;
   if (thedscnam.Find(fonom, aTDsc))
     dsc = Handle(StepData_EDescr)::DownCast(aTDsc);
   else
@@ -141,7 +141,7 @@ Handle(StepData_EDescr) StepData_Protocol::Descr(const Standard_CString name,
   Handle(StepData_EDescr) sd;
   if (!thedscnam.IsEmpty())
   {
-    Handle(Standard_Transient) aTSd;
+    Handle(RefObject) aTSd;
     if (thedscnam.Find(name, aTSd))
       return Handle(StepData_EDescr)::DownCast(aTSd);
   }
@@ -220,7 +220,7 @@ Handle(StepData_PDescr) StepData_Protocol::PDescr(const Standard_CString name,
   Handle(StepData_PDescr) sd;
   if (!thepdescr.IsEmpty())
   {
-    Handle(Standard_Transient) aTSd;
+    Handle(RefObject) aTSd;
     if (thepdescr.Find(name, aTSd))
       return Handle(StepData_PDescr)::DownCast(aTSd);
   }
@@ -251,7 +251,7 @@ Handle(StepData_EDescr) StepData_Protocol::BasicDescr(const Standard_CString nam
   Handle(StepData_EDescr) sd;
   if (!thedscbas.IsEmpty())
   {
-    Handle(Standard_Transient) aTSd;
+    Handle(RefObject) aTSd;
     if (thedscbas.Find(name, aTSd))
       return Handle(StepData_EDescr)::DownCast(aTSd);
   }

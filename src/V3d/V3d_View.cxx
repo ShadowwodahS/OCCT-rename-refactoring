@@ -49,7 +49,7 @@
 #include <V3d_UnMapped.hxx>
 #include <V3d_Viewer.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(V3d_View, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(V3d_View, RefObject)
 
 #define DEUXPI (2. * M_PI)
 
@@ -2736,8 +2736,8 @@ Standard_Boolean V3d_View::ToPixMap(Image_PixMap& theImage, const V3d_ImageDumpO
   aTargetSize.x() = (Standard_Integer)theImage.SizeX();
   aTargetSize.y() = (Standard_Integer)theImage.SizeY();
 
-  Handle(Standard_Transient) aFBOPtr;
-  Handle(Standard_Transient) aPrevFBOPtr = myView->FBO();
+  Handle(RefObject) aFBOPtr;
+  Handle(RefObject) aPrevFBOPtr = myView->FBO();
   Graphic3d_Vec2i            aFBOVPSize  = aTargetSize;
 
   bool isTiling = false;

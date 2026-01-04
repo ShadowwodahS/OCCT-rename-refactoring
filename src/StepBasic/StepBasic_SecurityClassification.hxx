@@ -25,9 +25,9 @@ class TCollection_HAsciiString;
 class StepBasic_SecurityClassificationLevel;
 
 class StepBasic_SecurityClassification;
-DEFINE_STANDARD_HANDLE(StepBasic_SecurityClassification, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_SecurityClassification, RefObject)
 
-class StepBasic_SecurityClassification : public Standard_Transient
+class StepBasic_SecurityClassification : public RefObject
 {
 
 public:
@@ -51,7 +51,7 @@ public:
 
   Standard_EXPORT Handle(StepBasic_SecurityClassificationLevel) SecurityLevel() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_SecurityClassification, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_SecurityClassification, RefObject)
 
 protected:
 private:

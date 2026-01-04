@@ -37,7 +37,7 @@ void IFGraph_ConnectedComponants::Evaluate()
   Reset();
   for (loaded.Start(); loaded.More(); loaded.Next())
   {
-    const Handle(Standard_Transient)& ent = loaded.Value();
+    const Handle(RefObject)& ent = loaded.Value();
     if (IsInPart(ent))
       continue;
     IFGraph_AllConnected connect(Model(), ent);

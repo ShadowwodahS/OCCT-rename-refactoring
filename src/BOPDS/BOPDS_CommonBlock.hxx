@@ -26,7 +26,7 @@
 class BOPDS_PaveBlock;
 
 class BOPDS_CommonBlock;
-DEFINE_STANDARD_HANDLE(BOPDS_CommonBlock, Standard_Transient)
+DEFINE_STANDARD_HANDLE(BOPDS_CommonBlock, RefObject)
 
 //! The class BOPDS_CommonBlock is to store the information
 //! about pave blocks that have geometrical coincidence
@@ -35,7 +35,7 @@ DEFINE_STANDARD_HANDLE(BOPDS_CommonBlock, Standard_Transient)
 //! b) face(s).<br>
 //! First pave block in the common block (real pave block)
 //! is always a pave block with the minimal index of the original edge.
-class BOPDS_CommonBlock : public Standard_Transient
+class BOPDS_CommonBlock : public RefObject
 {
 
 public:
@@ -137,7 +137,7 @@ public:
   //! Return the tolerance of common block
   Standard_Real Tolerance() const { return myTolerance; }
 
-  DEFINE_STANDARD_RTTIEXT(BOPDS_CommonBlock, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(BOPDS_CommonBlock, RefObject)
 
 protected:
   BOPDS_ListOfPaveBlock myPaveBlocks; //!< Pave blocks of the common block

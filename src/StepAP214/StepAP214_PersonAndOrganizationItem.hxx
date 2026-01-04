@@ -23,7 +23,7 @@
 
 #include <StepAP214_ApprovalItem.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepAP214_AppliedOrganizationAssignment;
 class StepAP214_AppliedSecurityClassificationAssignment;
 class StepBasic_Approval;
@@ -53,7 +53,7 @@ public:
   //! 14 -> AppliedSecurityClassificationAssignment
   //! 15 -> Approval
   //! 0 else
-  Standard_EXPORT virtual Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const
+  Standard_EXPORT virtual Standard_Integer CaseNum(const Handle(RefObject)& ent) const
     Standard_OVERRIDE;
 
   //! returns Value as a AppliedOrganizationAssignment (Null if another type)

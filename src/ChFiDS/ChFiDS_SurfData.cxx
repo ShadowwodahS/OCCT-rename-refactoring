@@ -19,7 +19,7 @@
 #include <Standard_Transient.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ChFiDS_SurfData, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(ChFiDS_SurfData, RefObject)
 
 ChFiDS_SurfData::ChFiDS_SurfData()
     : ufspine(0.0),
@@ -189,14 +189,14 @@ void ChFiDS_SurfData::LastExtensionValue(const Standard_Real Extend)
 
 //=================================================================================================
 
-Handle(Standard_Transient) ChFiDS_SurfData::Simul() const
+Handle(RefObject) ChFiDS_SurfData::Simul() const
 {
   return simul;
 }
 
 //=================================================================================================
 
-void ChFiDS_SurfData::SetSimul(const Handle(Standard_Transient)& S)
+void ChFiDS_SurfData::SetSimul(const Handle(RefObject)& S)
 {
   simul = S;
 }

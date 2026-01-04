@@ -18,7 +18,7 @@
 #include <TCollection_AsciiString.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Express_Field, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Express_Field, RefObject)
 
 //=================================================================================================
 

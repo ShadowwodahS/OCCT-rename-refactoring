@@ -53,7 +53,7 @@ public:
   Standard_EXPORT virtual void GetAttributeReferences(
     const Handle(TDF_Attribute)&             theAttribute,
     NCollection_List<Handle(TDF_Attribute)>& theRefAttributes,
-    Handle(Standard_Transient)&              theRefPresentation) Standard_OVERRIDE;
+    Handle(RefObject)&              theRefPresentation) Standard_OVERRIDE;
 
 protected:
   //! Defines widths of table columns

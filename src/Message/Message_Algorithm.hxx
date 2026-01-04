@@ -41,7 +41,7 @@ class Message_Msg;
 class TColStd_HPackedMapOfInteger;
 
 class Message_Algorithm;
-DEFINE_STANDARD_HANDLE(Message_Algorithm, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Message_Algorithm, RefObject)
 
 //! Class Message_Algorithm is intended to be the base class for
 //! classes implementing algorithms or any operations that need
@@ -84,7 +84,7 @@ DEFINE_STANDARD_HANDLE(Message_Algorithm, Standard_Transient)
 //! The messages are output to the messenger, stored in the field;
 //! though messenger can be changed, it is guaranteed to be non-null.
 //! By default, Message::DefaultMessenger() is used.
-class Message_Algorithm : public Standard_Transient
+class Message_Algorithm : public RefObject
 {
 
 public:
@@ -214,7 +214,7 @@ public:
     const TColStd_SequenceOfHExtendedString& theReportSeq,
     const Standard_Integer                   theMaxCount);
 
-  DEFINE_STANDARD_RTTIEXT(Message_Algorithm, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Message_Algorithm, RefObject)
 
 protected:
   Message_ExecStatus        myStatus;

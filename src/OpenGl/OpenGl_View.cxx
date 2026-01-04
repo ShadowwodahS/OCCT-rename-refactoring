@@ -895,21 +895,21 @@ Bnd_Box OpenGl_View::MinMaxValues(const Standard_Boolean theToIncludeAuxiliary) 
 
 //=================================================================================================
 
-Handle(Standard_Transient) OpenGl_View::FBO() const
+Handle(RefObject) OpenGl_View::FBO() const
 {
-  return Handle(Standard_Transient)(myFBO);
+  return Handle(RefObject)(myFBO);
 }
 
 //=================================================================================================
 
-void OpenGl_View::SetFBO(const Handle(Standard_Transient)& theFbo)
+void OpenGl_View::SetFBO(const Handle(RefObject)& theFbo)
 {
   myFBO = Handle(OpenGl_FrameBuffer)::DownCast(theFbo);
 }
 
 //=================================================================================================
 
-Handle(Standard_Transient) OpenGl_View::FBOCreate(const Standard_Integer theWidth,
+Handle(RefObject) OpenGl_View::FBOCreate(const Standard_Integer theWidth,
                                                   const Standard_Integer theHeight)
 {
   return myWorkspace->FBOCreate(theWidth, theHeight);
@@ -917,7 +917,7 @@ Handle(Standard_Transient) OpenGl_View::FBOCreate(const Standard_Integer theWidt
 
 //=================================================================================================
 
-void OpenGl_View::FBORelease(Handle(Standard_Transient)& theFbo)
+void OpenGl_View::FBORelease(Handle(RefObject)& theFbo)
 {
   Handle(OpenGl_FrameBuffer) aFrameBuffer = Handle(OpenGl_FrameBuffer)::DownCast(theFbo);
   if (aFrameBuffer.IsNull())
@@ -931,7 +931,7 @@ void OpenGl_View::FBORelease(Handle(Standard_Transient)& theFbo)
 
 //=================================================================================================
 
-void OpenGl_View::FBOGetDimensions(const Handle(Standard_Transient)& theFbo,
+void OpenGl_View::FBOGetDimensions(const Handle(RefObject)& theFbo,
                                    Standard_Integer&                 theWidth,
                                    Standard_Integer&                 theHeight,
                                    Standard_Integer&                 theWidthMax,
@@ -951,7 +951,7 @@ void OpenGl_View::FBOGetDimensions(const Handle(Standard_Transient)& theFbo,
 
 //=================================================================================================
 
-void OpenGl_View::FBOChangeViewport(const Handle(Standard_Transient)& theFbo,
+void OpenGl_View::FBOChangeViewport(const Handle(RefObject)& theFbo,
                                     const Standard_Integer            theWidth,
                                     const Standard_Integer            theHeight)
 {

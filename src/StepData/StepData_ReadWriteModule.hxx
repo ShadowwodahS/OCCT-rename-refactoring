@@ -24,7 +24,7 @@
 class Interface_FileReaderData;
 class TCollection_AsciiString;
 class Interface_Check;
-class Standard_Transient;
+class RefObject;
 class StepData_StepReaderData;
 class StepData_StepWriter;
 
@@ -100,19 +100,19 @@ public:
                             const Handle(Interface_FileReaderData)& data,
                             const Standard_Integer                  num,
                             Handle(Interface_Check)&                ach,
-                            const Handle(Standard_Transient)&       ent) const Standard_OVERRIDE;
+                            const Handle(RefObject)&       ent) const Standard_OVERRIDE;
 
   //! Specific Read Function. Works with StepReaderData
   Standard_EXPORT virtual void ReadStep(const Standard_Integer                 CN,
                                         const Handle(StepData_StepReaderData)& data,
                                         const Standard_Integer                 num,
                                         Handle(Interface_Check)&               ach,
-                                        const Handle(Standard_Transient)&      ent) const = 0;
+                                        const Handle(RefObject)&      ent) const = 0;
 
   //! Write Function, switched by CaseNum
   Standard_EXPORT virtual void WriteStep(const Standard_Integer            CN,
                                          StepData_StepWriter&              SW,
-                                         const Handle(Standard_Transient)& ent) const = 0;
+                                         const Handle(RefObject)& ent) const = 0;
 
   DEFINE_STANDARD_RTTIEXT(StepData_ReadWriteModule, Interface_ReaderModule)
 

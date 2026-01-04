@@ -20,7 +20,7 @@
 
 //! Root class for a temporary persistent object corresponding to an attribute.
 template <class Transient>
-class StdObjMgt_Attribute : public Standard_Transient
+class StdObjMgt_Attribute : public RefObject
 {
   class base : public StdObjMgt_Persistent
   {

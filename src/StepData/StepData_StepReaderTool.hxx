@@ -29,7 +29,7 @@ class StepData_FileRecognizer;
 class StepData_StepReaderData;
 class StepData_Protocol;
 class Interface_Check;
-class Standard_Transient;
+class RefObject;
 class Interface_InterfaceModel;
 
 //! Specific FileReaderTool for Step; works with FileReaderData
@@ -66,7 +66,7 @@ public:
   //! RecognizeByLib
   Standard_EXPORT Standard_Boolean Recognize(const Standard_Integer      num,
                                              Handle(Interface_Check)&    ach,
-                                             Handle(Standard_Transient)& ent) Standard_OVERRIDE;
+                                             Handle(RefObject)& ent) Standard_OVERRIDE;
 
   //! bounds empty entities and sub-lists to header records
   //! works like Prepare + SetEntityNumbers, but for header
@@ -84,7 +84,7 @@ public:
   //! to load each entity, which must be a Transient
   //! Actually, returned value is True if no fail, False else
   Standard_EXPORT Standard_Boolean AnalyseRecord(const Standard_Integer            num,
-                                                 const Handle(Standard_Transient)& anent,
+                                                 const Handle(RefObject)& anent,
                                                  Handle(Interface_Check)& acheck) Standard_OVERRIDE;
 
   //! Ends file reading after reading all the entities

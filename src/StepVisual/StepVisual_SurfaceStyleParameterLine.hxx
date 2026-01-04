@@ -27,9 +27,9 @@ class StepVisual_CurveStyle;
 class StepVisual_DirectionCountSelect;
 
 class StepVisual_SurfaceStyleParameterLine;
-DEFINE_STANDARD_HANDLE(StepVisual_SurfaceStyleParameterLine, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepVisual_SurfaceStyleParameterLine, RefObject)
 
-class StepVisual_SurfaceStyleParameterLine : public Standard_Transient
+class StepVisual_SurfaceStyleParameterLine : public RefObject
 {
 
 public:
@@ -55,7 +55,7 @@ public:
 
   Standard_EXPORT Standard_Integer NbDirectionCounts() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepVisual_SurfaceStyleParameterLine, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepVisual_SurfaceStyleParameterLine, RefObject)
 
 protected:
 private:

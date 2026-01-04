@@ -22,7 +22,7 @@
 #include <TCollection_HAsciiString.hxx>
 #include <TColStd_HSequenceOfHAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IFSelect_EditForm, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(IFSelect_EditForm, RefObject)
 
 IFSelect_EditForm::IFSelect_EditForm(const Handle(IFSelect_Editor)& editor,
                                      const Standard_Boolean         readonly,
@@ -84,14 +84,14 @@ void IFSelect_EditForm::ClearData()
   theloaded = Standard_False;
 }
 
-void IFSelect_EditForm::SetData(const Handle(Standard_Transient)&       ent,
+void IFSelect_EditForm::SetData(const Handle(RefObject)&       ent,
                                 const Handle(Interface_InterfaceModel)& model)
 {
   theent   = ent;
   themodel = model;
 }
 
-void IFSelect_EditForm::SetEntity(const Handle(Standard_Transient)& ent)
+void IFSelect_EditForm::SetEntity(const Handle(RefObject)& ent)
 {
   theent = ent;
 }
@@ -101,7 +101,7 @@ void IFSelect_EditForm::SetModel(const Handle(Interface_InterfaceModel)& model)
   themodel = model;
 }
 
-Handle(Standard_Transient) IFSelect_EditForm::Entity() const
+Handle(RefObject) IFSelect_EditForm::Entity() const
 {
   return theent;
 }
@@ -197,7 +197,7 @@ void IFSelect_EditForm::LoadDefault()
   }
 }
 
-Standard_Boolean IFSelect_EditForm::LoadData(const Handle(Standard_Transient)&       ent,
+Standard_Boolean IFSelect_EditForm::LoadData(const Handle(RefObject)&       ent,
                                              const Handle(Interface_InterfaceModel)& model)
 {
   thetouched = 0;
@@ -208,7 +208,7 @@ Standard_Boolean IFSelect_EditForm::LoadData(const Handle(Standard_Transient)&  
   return Standard_True;
 }
 
-Standard_Boolean IFSelect_EditForm::LoadEntity(const Handle(Standard_Transient)& ent)
+Standard_Boolean IFSelect_EditForm::LoadEntity(const Handle(RefObject)& ent)
 {
   thetouched = 0;
   Handle(Interface_InterfaceModel) model;
@@ -222,7 +222,7 @@ Standard_Boolean IFSelect_EditForm::LoadEntity(const Handle(Standard_Transient)&
 Standard_Boolean IFSelect_EditForm::LoadModel(const Handle(Interface_InterfaceModel)& model)
 {
   thetouched = 0;
-  Handle(Standard_Transient) ent;
+  Handle(RefObject) ent;
   if (!theeditor->Load(this, ent, model))
     return Standard_False;
   SetData(ent, model);
@@ -234,7 +234,7 @@ Standard_Boolean IFSelect_EditForm::LoadData()
 {
   thetouched = 0;
   Handle(Interface_InterfaceModel) model;
-  Handle(Standard_Transient)       ent;
+  Handle(RefObject)       ent;
   if (!theeditor->Load(this, ent, model))
     return Standard_False;
   theloaded = Standard_True;
@@ -637,7 +637,7 @@ Standard_Boolean IFSelect_EditForm::Recognize() const
   return theeditor->Recognize(this);
 }
 
-Standard_Boolean IFSelect_EditForm::ApplyData(const Handle(Standard_Transient)&       ent,
+Standard_Boolean IFSelect_EditForm::ApplyData(const Handle(RefObject)&       ent,
                                               const Handle(Interface_InterfaceModel)& model)
 {
   return theeditor->Apply(this, ent, model);

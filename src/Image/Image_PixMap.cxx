@@ -92,7 +92,7 @@ static const Image_FormatInfo Image_Table_ImageFormats[Image_CompressedFormat_NB
 } // namespace
 
 IMPLEMENT_STANDARD_RTTIEXT(Image_PixMapData, NCollection_Buffer)
-IMPLEMENT_STANDARD_RTTIEXT(Image_PixMap, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Image_PixMap, RefObject)
 
 //=================================================================================================
 

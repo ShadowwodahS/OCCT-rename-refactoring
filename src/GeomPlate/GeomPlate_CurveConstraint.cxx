@@ -32,7 +32,7 @@
 #include <ProjLib_ProjectedCurve.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GeomPlate_CurveConstraint, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(GeomPlate_CurveConstraint, RefObject)
 
 //---------------------------------------------------------
 //         Constructeur vide

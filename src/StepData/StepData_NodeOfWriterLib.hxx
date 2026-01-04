@@ -22,15 +22,15 @@
 
 #include <Standard_Transient.hxx>
 class StepData_GlobalNodeOfWriterLib;
-class Standard_Transient;
+class RefObject;
 class StepData_ReadWriteModule;
 class StepData_Protocol;
 class StepData_WriterLib;
 
 class StepData_NodeOfWriterLib;
-DEFINE_STANDARD_HANDLE(StepData_NodeOfWriterLib, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepData_NodeOfWriterLib, RefObject)
 
-class StepData_NodeOfWriterLib : public Standard_Transient
+class StepData_NodeOfWriterLib : public RefObject
 {
 
 public:
@@ -51,7 +51,7 @@ public:
   //! is a Null Handle
   Standard_EXPORT const Handle(StepData_NodeOfWriterLib)& Next() const;
 
-  DEFINE_STANDARD_RTTI_INLINE(StepData_NodeOfWriterLib, Standard_Transient)
+  DEFINE_STANDARD_RTTI_INLINE(StepData_NodeOfWriterLib, RefObject)
 
 protected:
 private:

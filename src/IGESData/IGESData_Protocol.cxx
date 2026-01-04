@@ -55,12 +55,12 @@ Standard_Boolean IGESData_Protocol::IsSuitableModel(
   return model->IsKind(STANDARD_TYPE(IGESData_IGESModel));
 }
 
-Handle(Standard_Transient) IGESData_Protocol::UnknownEntity() const
+Handle(RefObject) IGESData_Protocol::UnknownEntity() const
 {
   return new IGESData_UndefinedEntity;
 }
 
-Standard_Boolean IGESData_Protocol::IsUnknownEntity(const Handle(Standard_Transient)& ent) const
+Standard_Boolean IGESData_Protocol::IsUnknownEntity(const Handle(RefObject)& ent) const
 {
   return ent->IsKind(STANDARD_TYPE(IGESData_UndefinedEntity));
 }

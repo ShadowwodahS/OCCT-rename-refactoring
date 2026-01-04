@@ -24,10 +24,10 @@
 class StepBasic_Action;
 
 class StepBasic_ActionAssignment;
-DEFINE_STANDARD_HANDLE(StepBasic_ActionAssignment, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_ActionAssignment, RefObject)
 
 //! Representation of STEP entity ActionAssignment
-class StepBasic_ActionAssignment : public Standard_Transient
+class StepBasic_ActionAssignment : public RefObject
 {
 
 public:
@@ -43,7 +43,7 @@ public:
   //! Set field AssignedAction
   Standard_EXPORT void SetAssignedAction(const Handle(StepBasic_Action)& AssignedAction);
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_ActionAssignment, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_ActionAssignment, RefObject)
 
 protected:
 private:

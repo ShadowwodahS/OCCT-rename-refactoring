@@ -47,7 +47,7 @@ class Bnd_OBB;
 //! and topological toolkit (classifiers, projectors, etc).
 //! The intersection Context is for caching the tools
 //! to increase the performance.
-class IntTools_Context : public Standard_Transient
+class IntTools_Context : public RefObject
 {
 public:
   Standard_EXPORT IntTools_Context();
@@ -240,7 +240,7 @@ public:
   //! correct value for all projectors
   Standard_EXPORT void SetPOnSProjectionTolerance(const Standard_Real theValue);
 
-  DEFINE_STANDARD_RTTIEXT(IntTools_Context, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IntTools_Context, RefObject)
 
 protected:
   Handle(NCollection_BaseAllocator)                                              myAllocator;
@@ -268,6 +268,6 @@ private:
   Standard_EXPORT void clearCachedPOnSProjectors();
 };
 
-DEFINE_STANDARD_HANDLE(IntTools_Context, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IntTools_Context, RefObject)
 
 #endif // _IntTools_Context_HeaderFile

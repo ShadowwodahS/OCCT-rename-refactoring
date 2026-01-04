@@ -31,9 +31,9 @@
 #include <TCollection_HAsciiString.hxx>
 
 //! This class defines graphic attributes.
-class Graphic3d_Aspects : public Standard_Transient
+class Graphic3d_Aspects : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_Aspects, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Graphic3d_Aspects, RefObject)
 public:
   //! Creates a context table for drawing primitives defined with the following default values:
   Standard_EXPORT Graphic3d_Aspects();
@@ -621,6 +621,6 @@ protected:
   bool myIsTextZoomable;
 };
 
-DEFINE_STANDARD_HANDLE(Graphic3d_Aspects, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Graphic3d_Aspects, RefObject)
 
 #endif // _Graphic3d_Aspects_HeaderFile

@@ -36,7 +36,7 @@
 #include "../Shaders/Shaders_SkydomBackground_fs.pxx"
 #include "../Shaders/Shaders_TangentSpaceNormal_glsl.pxx"
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_ShaderManager, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_ShaderManager, RefObject)
 
 namespace
 {

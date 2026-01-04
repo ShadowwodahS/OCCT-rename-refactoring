@@ -29,10 +29,10 @@
 class Geom_Surface;
 
 class GeomPlate_PointConstraint;
-DEFINE_STANDARD_HANDLE(GeomPlate_PointConstraint, Standard_Transient)
+DEFINE_STANDARD_HANDLE(GeomPlate_PointConstraint, RefObject)
 
 //! Defines points as constraints to be used to deform a surface.
-class GeomPlate_PointConstraint : public Standard_Transient
+class GeomPlate_PointConstraint : public RefObject
 {
 
 public:
@@ -134,7 +134,7 @@ public:
 
   Standard_EXPORT GeomLProp_SLProps& LPropSurf();
 
-  DEFINE_STANDARD_RTTIEXT(GeomPlate_PointConstraint, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(GeomPlate_PointConstraint, RefObject)
 
 protected:
   Standard_Integer myOrder;

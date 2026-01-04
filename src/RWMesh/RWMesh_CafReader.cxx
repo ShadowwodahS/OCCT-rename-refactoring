@@ -33,7 +33,7 @@
 #include <XCAFDoc_ShapeTool.hxx>
 #include <XCAFDoc_VisMaterialTool.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(RWMesh_CafReader, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(RWMesh_CafReader, RefObject)
 
 //=================================================================================================
 

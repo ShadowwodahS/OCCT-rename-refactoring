@@ -161,7 +161,7 @@ Handle(IGESData_Protocol) IGESSelect_WorkLibrary::DefineProtocol()
 
 void IGESSelect_WorkLibrary::DumpEntity(const Handle(Interface_InterfaceModel)& model,
                                         const Handle(Interface_Protocol)&       protocol,
-                                        const Handle(Standard_Transient)&       entity,
+                                        const Handle(RefObject)&       entity,
                                         Standard_OStream&                       S,
                                         const Standard_Integer                  level) const
 {
@@ -176,7 +176,7 @@ void IGESSelect_WorkLibrary::DumpEntity(const Handle(Interface_InterfaceModel)& 
 
   S << " --- Entity " << num;
   Standard_Boolean           iserr = model->IsRedefinedContent(num);
-  Handle(Standard_Transient) con;
+  Handle(RefObject) con;
   if (iserr)
     con = model->ReportEntity(num)->Content();
   if (entity.IsNull())

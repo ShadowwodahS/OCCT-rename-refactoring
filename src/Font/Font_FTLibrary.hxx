@@ -23,7 +23,7 @@
 typedef struct FT_LibraryRec_* FT_Library;
 
 //! Wrapper over FT_Library. Provides access to FreeType library.
-class Font_FTLibrary : public Standard_Transient
+class Font_FTLibrary : public RefObject
 {
 
 public:
@@ -48,9 +48,9 @@ private:
   Font_FTLibrary& operator=(const Font_FTLibrary&);
 
 public:
-  DEFINE_STANDARD_RTTIEXT(Font_FTLibrary, Standard_Transient) // Type definition
+  DEFINE_STANDARD_RTTIEXT(Font_FTLibrary, RefObject) // Type definition
 };
 
-DEFINE_STANDARD_HANDLE(Font_FTLibrary, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Font_FTLibrary, RefObject)
 
 #endif // _Font_FTLibrary_H__

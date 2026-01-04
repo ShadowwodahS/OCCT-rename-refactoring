@@ -25,9 +25,9 @@ class TCollection_HAsciiString;
 class StepBasic_Product;
 
 class StepBasic_ProductDefinitionFormation;
-DEFINE_STANDARD_HANDLE(StepBasic_ProductDefinitionFormation, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_ProductDefinitionFormation, RefObject)
 
-class StepBasic_ProductDefinitionFormation : public Standard_Transient
+class StepBasic_ProductDefinitionFormation : public RefObject
 {
 
 public:
@@ -50,7 +50,7 @@ public:
 
   Standard_EXPORT Handle(StepBasic_Product) OfProduct() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_ProductDefinitionFormation, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_ProductDefinitionFormation, RefObject)
 
 protected:
 private:

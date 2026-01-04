@@ -22,7 +22,7 @@
 #include <V3d_View.hxx>
 #include <V3d_Viewer.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(PrsMgr_PresentationManager, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(PrsMgr_PresentationManager, RefObject)
 
 //=================================================================================================
 

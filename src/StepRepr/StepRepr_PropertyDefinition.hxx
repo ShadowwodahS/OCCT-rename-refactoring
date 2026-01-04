@@ -24,10 +24,10 @@
 class TCollection_HAsciiString;
 
 class StepRepr_PropertyDefinition;
-DEFINE_STANDARD_HANDLE(StepRepr_PropertyDefinition, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepRepr_PropertyDefinition, RefObject)
 
 //! Representation of STEP entity PropertyDefinition
-class StepRepr_PropertyDefinition : public Standard_Transient
+class StepRepr_PropertyDefinition : public RefObject
 {
 
 public:
@@ -61,7 +61,7 @@ public:
   //! Set field Definition
   Standard_EXPORT void SetDefinition(const StepRepr_CharacterizedDefinition& Definition);
 
-  DEFINE_STANDARD_RTTIEXT(StepRepr_PropertyDefinition, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepRepr_PropertyDefinition, RefObject)
 
 protected:
 private:

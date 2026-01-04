@@ -143,7 +143,7 @@ NCollection_List<TCollection_AsciiString> TInspector_Window::RegisteredPlugins()
 // purpose :
 // =======================================================================
 void TInspector_Window::Init(const TCollection_AsciiString&                      thePluginName,
-                             const NCollection_List<Handle(Standard_Transient)>& theParameters,
+                             const NCollection_List<Handle(RefObject)>& theParameters,
                              const Standard_Boolean                              theAppend)
 {
   if (thePluginName.IsEmpty())
@@ -160,11 +160,11 @@ void TInspector_Window::Init(const TCollection_AsciiString&                     
 
   if (theAppend)
   {
-    NCollection_List<Handle(Standard_Transient)> aParameters;
+    NCollection_List<Handle(RefObject)> aParameters;
     if (myParameters->FindParameters(thePluginName))
       aParameters = myParameters->Parameters(thePluginName);
 
-    for (NCollection_List<Handle(Standard_Transient)>::Iterator anIterator(theParameters);
+    for (NCollection_List<Handle(RefObject)>::Iterator anIterator(theParameters);
          anIterator.More();
          anIterator.Next())
       aParameters.Append(anIterator.Value());
@@ -266,7 +266,7 @@ void TInspector_Window::SetSelected(const NCollection_List<TCollection_AsciiStri
 // function : SetSelected
 // purpose :
 // =======================================================================
-void TInspector_Window::SetSelected(const NCollection_List<Handle(Standard_Transient)>& theObjects)
+void TInspector_Window::SetSelected(const NCollection_List<Handle(RefObject)>& theObjects)
 {
   TInspector_ToolInfo anInfo;
   if (!activeToolInfo(anInfo))

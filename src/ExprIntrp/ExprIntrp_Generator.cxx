@@ -18,7 +18,7 @@
 #include <Standard_Type.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ExprIntrp_Generator, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(ExprIntrp_Generator, RefObject)
 
 #include <ExprIntrp_yaccanal.hxx>
 ExprIntrp_Analysis ExprIntrp_Recept;

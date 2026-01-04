@@ -35,7 +35,7 @@ class Interface_GeneralLib;
 class Interface_EntityIterator;
 
 class Interface_InterfaceModel;
-DEFINE_STANDARD_HANDLE(Interface_InterfaceModel, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Interface_InterfaceModel, RefObject)
 
 //! Defines an (Indexed) Set of data corresponding to a complete
 //! Transfer by a File Interface, i.e. File Header and Transient
@@ -63,7 +63,7 @@ DEFINE_STANDARD_HANDLE(Interface_InterfaceModel, Standard_Transient)
 //! under another name).
 //!
 //! See also Graph, ShareTool, CheckTool for more
-class Interface_InterfaceModel : public Standard_Transient
+class Interface_InterfaceModel : public RefObject
 {
 
 public:
@@ -114,14 +114,14 @@ public:
 
   //! Returns True if a Model contains an Entity (for a ReportEntity,
   //! looks for the ReportEntity itself AND its Concerned Entity)
-  Standard_EXPORT Standard_Boolean Contains(const Handle(Standard_Transient)& anentity) const;
+  Standard_EXPORT Standard_Boolean Contains(const Handle(RefObject)& anentity) const;
 
   //! Returns the Number of an Entity in the Model if it contains it.
   //! Else returns 0. For a ReportEntity, looks at Concerned Entity.
   //! Returns the Directory entry   Number of  an Entity in
   //! the  Model if it contains it.   Else returns  0.  For a
   //! ReportEntity, looks at Concerned Entity.
-  Standard_EXPORT Standard_Integer Number(const Handle(Standard_Transient)& anentity) const;
+  Standard_EXPORT Standard_Integer Number(const Handle(RefObject)& anentity) const;
 
   //! Returns an Entity identified by its number in the Model
   //! Each sub-class of InterfaceModel can define its own method
@@ -130,16 +130,16 @@ public:
   //! Remark : For a Reported Entity, (Erroneous, Corrected, Unknown), this
   //! method returns this Reported Entity.
   //! See ReportEntity for other questions.
-  Standard_EXPORT const Handle(Standard_Transient)& Value(const Standard_Integer num) const;
+  Standard_EXPORT const Handle(RefObject)& Value(const Standard_Integer num) const;
 
   //! Returns the count of DISTINCT types under which an entity may
   //! be processed. Defined by the Protocol, which gives default as
   //! 1 (dynamic Type).
-  Standard_EXPORT Standard_Integer NbTypes(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer NbTypes(const Handle(RefObject)& ent) const;
 
   //! Returns a type, given its rank : defined by the Protocol
   //! (by default, the first one)
-  Standard_EXPORT Handle(Standard_Type) Type(const Handle(Standard_Transient)& ent,
+  Standard_EXPORT Handle(Standard_Type) Type(const Handle(RefObject)& ent,
                                              const Standard_Integer            num = 1) const;
 
   //! Returns the type name of an entity, from the list of types
@@ -147,7 +147,7 @@ public:
   //! <complete> True (D) gives the complete type, else packages are
   //! removed
   //! WARNING : buffered, to be immediately copied or printed
-  Standard_EXPORT Standard_CString TypeName(const Handle(Standard_Transient)& ent,
+  Standard_EXPORT Standard_CString TypeName(const Handle(RefObject)& ent,
                                             const Standard_Boolean complete = Standard_True) const;
 
   //! From a CDL Type Name, returns the Class part (package dropped)
@@ -246,7 +246,7 @@ public:
   //! Reports, its Concerned Entity (Erroneous or Corrected, else
   //! Unknown) is added to the list of Entities.
   //! That is, the ReportEntity must be created before Adding
-  Standard_EXPORT virtual void AddEntity(const Handle(Standard_Transient)& anentity);
+  Standard_EXPORT virtual void AddEntity(const Handle(RefObject)& anentity);
 
   //! Adds to the Model, an Entity with all its References, as they
   //! are defined by General Services FillShared and ListImplied.
@@ -259,25 +259,25 @@ public:
   //! the Model is not analysed, only the newly added ones are.
   //! If <listall> is True, all items are analysed (this allows to
   //! ensure the consistency of an adding made by steps)
-  Standard_EXPORT void AddWithRefs(const Handle(Standard_Transient)& anent,
+  Standard_EXPORT void AddWithRefs(const Handle(RefObject)& anent,
                                    const Handle(Interface_Protocol)& proto,
                                    const Standard_Integer            level   = 0,
                                    const Standard_Boolean            listall = Standard_False);
 
   //! Same as above, but works with the Protocol of the Model
-  Standard_EXPORT void AddWithRefs(const Handle(Standard_Transient)& anent,
+  Standard_EXPORT void AddWithRefs(const Handle(RefObject)& anent,
                                    const Standard_Integer            level   = 0,
                                    const Standard_Boolean            listall = Standard_False);
 
   //! Same as above, but works with an already created GeneralLib
-  Standard_EXPORT void AddWithRefs(const Handle(Standard_Transient)& anent,
+  Standard_EXPORT void AddWithRefs(const Handle(RefObject)& anent,
                                    const Interface_GeneralLib&       lib,
                                    const Standard_Integer            level   = 0,
                                    const Standard_Boolean            listall = Standard_False);
 
   //! Replace Entity with Number=nument on other entity - "anent"
   Standard_EXPORT void ReplaceEntity(const Standard_Integer            nument,
-                                     const Handle(Standard_Transient)& anent);
+                                     const Handle(RefObject)& anent);
 
   //! Reverses the Numbers of the Entities, between <after> and the
   //! total count of Entities. Thus, the entities :
@@ -367,27 +367,27 @@ public:
   //! <mode> = 0 (D) : prints its number plus '/' plus PrintLabel
   //! If <ent> == <me>, simply prints "Global"
   //! If <ent> is unknown, prints "??/its type"
-  Standard_EXPORT void Print(const Handle(Standard_Transient)& ent,
+  Standard_EXPORT void Print(const Handle(RefObject)& ent,
                              Standard_OStream&                 s,
                              const Standard_Integer            mode = 0) const;
 
   //! Prints label specific to each norm, for a given entity.
   //! Must only print label itself, in order to be included in a
   //! phrase. Can call the result of StringLabel, but not obliged.
-  Standard_EXPORT virtual void PrintLabel(const Handle(Standard_Transient)& ent,
+  Standard_EXPORT virtual void PrintLabel(const Handle(RefObject)& ent,
                                           Standard_OStream&                 S) const = 0;
 
   //! Prints label specific to each norm in log format, for
   //! a given entity.
   //! By default, just calls PrintLabel, can be redefined
-  Standard_EXPORT virtual void PrintToLog(const Handle(Standard_Transient)& ent,
+  Standard_EXPORT virtual void PrintToLog(const Handle(RefObject)& ent,
                                           Standard_OStream&                 S) const;
 
   //! Returns a string with the label attached to a given entity.
   //! Warning : While this string may be edited on the spot, if it is a read
   //! field, the returned value must be copied before.
   Standard_EXPORT virtual Handle(TCollection_HAsciiString) StringLabel(
-    const Handle(Standard_Transient)& ent) const = 0;
+    const Handle(RefObject)& ent) const = 0;
 
   //! Searches a label which matches with one entity.
   //! Begins from <lastnum>+1 (default:1) and scans the entities
@@ -421,7 +421,7 @@ public:
   //! Returns the complete list of names attached to template models
   Standard_EXPORT static Handle(TColStd_HSequenceOfHAsciiString) ListTemplates();
 
-  DEFINE_STANDARD_RTTIEXT(Interface_InterfaceModel, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Interface_InterfaceModel, RefObject)
 
 protected:
   //! Defines empty InterfaceModel, ready to be filled

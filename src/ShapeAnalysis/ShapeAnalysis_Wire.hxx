@@ -47,7 +47,7 @@ class TopoDS_Edge;
 #endif
 
 class ShapeAnalysis_Wire;
-DEFINE_STANDARD_HANDLE(ShapeAnalysis_Wire, Standard_Transient)
+DEFINE_STANDARD_HANDLE(ShapeAnalysis_Wire, RefObject)
 
 //! This class provides analysis of a wire to be compliant to
 //! CAS.CADE requirements.
@@ -86,7 +86,7 @@ DEFINE_STANDARD_HANDLE(ShapeAnalysis_Wire, Standard_Transient)
 //!
 //! In order to prepare an analyzer, it is necessary to load a wire,
 //! set face and precision.
-class ShapeAnalysis_Wire : public Standard_Transient
+class ShapeAnalysis_Wire : public RefObject
 {
 
 public:
@@ -570,7 +570,7 @@ public:
   //! CheckContinuity2d
   Standard_Real MaxDistance2d() const;
 
-  DEFINE_STANDARD_RTTIEXT(ShapeAnalysis_Wire, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(ShapeAnalysis_Wire, RefObject)
 
 protected:
   Handle(ShapeExtend_WireData)  myWire;

@@ -2647,7 +2647,7 @@ static Standard_Integer OCC30775(Draw_Interpretor& theDI, Standard_Integer theNb
   #pragma optimize("", off)
 #endif
 //! Auxiliary functions for printing synthetic backtrace
-class MyTestInterface : public Standard_Transient
+class MyTestInterface : public RefObject
 {
 public:
   virtual int Standard_NOINLINE testMethod3(int* theIntPtr, bool theToPrintStack) = 0;

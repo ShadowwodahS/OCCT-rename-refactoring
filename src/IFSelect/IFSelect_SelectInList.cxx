@@ -22,7 +22,7 @@ IMPLEMENT_STANDARD_RTTIEXT(IFSelect_SelectInList, IFSelect_SelectAnyList)
 //         dont chaque item est une Entite
 void IFSelect_SelectInList::FillResult(const Standard_Integer            n1,
                                        const Standard_Integer            n2,
-                                       const Handle(Standard_Transient)& ent,
+                                       const Handle(RefObject)& ent,
                                        Interface_EntityIterator&         result) const
 {
   for (Standard_Integer i = n1; i <= n2; i++)

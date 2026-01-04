@@ -27,12 +27,12 @@
 #include <TColStd_MapOfInteger.hxx>
 
 class BOPDS_PaveBlock;
-DEFINE_STANDARD_HANDLE(BOPDS_PaveBlock, Standard_Transient)
+DEFINE_STANDARD_HANDLE(BOPDS_PaveBlock, RefObject)
 
 //! The class BOPDS_PaveBlock is to store
 //! the information about pave block on an edge.
 //! Two adjacent paves on edge make up pave block.
-class BOPDS_PaveBlock : public Standard_Transient
+class BOPDS_PaveBlock : public RefObject
 {
 
 public:
@@ -179,7 +179,7 @@ public:
   //! shrunk range and cannot be split, otherwise returns TRUE
   Standard_Boolean IsSplittable() const { return myIsSplittable; }
 
-  DEFINE_STANDARD_RTTIEXT(BOPDS_PaveBlock, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(BOPDS_PaveBlock, RefObject)
 
 protected:
   Handle(NCollection_BaseAllocator) myAllocator;

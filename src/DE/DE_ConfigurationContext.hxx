@@ -25,10 +25,10 @@ typedef NCollection_DataMap<TCollection_AsciiString, TCollection_AsciiString> DE
 //! if scope is defined as "ToV4" and requested parameter
 //! is "exec.op", value of "ToV4.exec.op" parameter from
 //! the resource file will be returned
-class DE_ConfigurationContext : public Standard_Transient
+class DE_ConfigurationContext : public RefObject
 {
 public:
-  DEFINE_STANDARD_RTTIEXT(DE_ConfigurationContext, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(DE_ConfigurationContext, RefObject)
 
   //! Creates an empty tool
   Standard_EXPORT DE_ConfigurationContext();

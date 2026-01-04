@@ -32,7 +32,7 @@
 class Interface_GeneralLib;
 class Interface_Protocol;
 class Interface_GTool;
-class Standard_Transient;
+class RefObject;
 class Interface_EntityIterator;
 
 // resolve name collisions with X11 headers
@@ -114,7 +114,7 @@ public:
   //! creation time (Entities loaded from the Model)
   //! Returns 0 if <ent> not contained by Model used to create <me>
   //! (that is, <ent> is unknown from <me>)
-  Standard_EXPORT Standard_Integer EntityNumber(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer EntityNumber(const Handle(RefObject)& ent) const;
 
   //! Returns True if an Entity is noted as present in the graph
   //! (See methods Get... which determine this status)
@@ -124,10 +124,10 @@ public:
   //! Same as above but directly on an Entity <ent> : if it is not
   //! contained in the Model, returns False. Else calls
   //! IsPresent(num)  with <num> given by EntityNumber
-  Standard_EXPORT Standard_Boolean IsPresent(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Boolean IsPresent(const Handle(RefObject)& ent) const;
 
   //! Returns mapped Entity given its no (if it is present)
-  Standard_EXPORT const Handle(Standard_Transient)& Entity(const Standard_Integer num) const;
+  Standard_EXPORT const Handle(RefObject)& Entity(const Standard_Integer num) const;
 
   //! Returns Status associated to a numero (only to read it)
   Standard_EXPORT Standard_Integer Status(const Standard_Integer num) const;
@@ -161,7 +161,7 @@ public:
   //! Items already present in graph remain unchanged
   //! Of course, redefinitions of Shared lists are taken into
   //! account if there are some
-  Standard_EXPORT void GetFromEntity(const Handle(Standard_Transient)& ent,
+  Standard_EXPORT void GetFromEntity(const Handle(RefObject)& ent,
                                      const Standard_Boolean            shared,
                                      const Standard_Integer            newstat = 0);
 
@@ -172,7 +172,7 @@ public:
   //! - if they have another status, this one is modified :
   //! if cumul is True,  to former status + overlapstat (cumul)
   //! if cumul is False, to overlapstat (enforce)
-  Standard_EXPORT void GetFromEntity(const Handle(Standard_Transient)& ent,
+  Standard_EXPORT void GetFromEntity(const Handle(RefObject)& ent,
                                      const Standard_Boolean            shared,
                                      const Standard_Integer            newstat,
                                      const Standard_Integer            overlapstat,
@@ -209,29 +209,29 @@ public:
   //! (not redefined) contains items unknown from this Graph
   //! Remark : apart from the status HasShareError, these items
   //! are ignored
-  Standard_EXPORT Standard_Boolean HasShareErrors(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Boolean HasShareErrors(const Handle(RefObject)& ent) const;
 
   //! Returns the sequence of Entities Shared by an Entity
   Standard_EXPORT Handle(TColStd_HSequenceOfTransient) GetShareds(
-    const Handle(Standard_Transient)& ent) const;
+    const Handle(RefObject)& ent) const;
 
   //! Returns the list of Entities Shared by an Entity, as recorded
   //! by the Graph. That is, by default Basic Shared List, else it
   //! can be redefined by methods SetShare, SetNoShare ... see below
-  Standard_EXPORT Interface_EntityIterator Shareds(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Interface_EntityIterator Shareds(const Handle(RefObject)& ent) const;
 
   //! Returns the list of Entities which Share an Entity, computed
   //! from the Basic or Redefined Shared Lists
-  Standard_EXPORT Interface_EntityIterator Sharings(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Interface_EntityIterator Sharings(const Handle(RefObject)& ent) const;
 
   //! Returns the sequence of Entities Sharings by an Entity
   Standard_EXPORT Handle(TColStd_HSequenceOfTransient) GetSharings(
-    const Handle(Standard_Transient)& ent) const;
+    const Handle(RefObject)& ent) const;
 
   //! Returns the list of sharings entities, AT ANY LEVEL, which are
   //! kind of a given type. A sharing entity kind of this type
   //! ends the exploration of its branch
-  Standard_EXPORT Interface_EntityIterator TypedSharings(const Handle(Standard_Transient)& ent,
+  Standard_EXPORT Interface_EntityIterator TypedSharings(const Handle(RefObject)& ent,
                                                          const Handle(Standard_Type)& type) const;
 
   //! Returns the Entities which are not Shared (their Sharing List
@@ -243,7 +243,7 @@ public:
   //! Returns a null handle if no name could be computed or if
   //! the entity is not in the model
   Standard_EXPORT Handle(TCollection_HAsciiString) Name(
-    const Handle(Standard_Transient)& ent) const;
+    const Handle(RefObject)& ent) const;
 
   //! Returns the Table of Sharing lists. Used to Create
   //! another Graph from <me>

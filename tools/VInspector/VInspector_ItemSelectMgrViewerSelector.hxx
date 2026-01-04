@@ -50,7 +50,7 @@ public:
 
   //! Returns data object of the item.
   //! \return object
-  virtual const Handle(Standard_Transient)& Object() const Standard_OVERRIDE
+  virtual const Handle(RefObject)& Object() const Standard_OVERRIDE
   {
     initItem();
     return myViewerSelector;

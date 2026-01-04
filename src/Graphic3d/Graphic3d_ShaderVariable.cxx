@@ -15,7 +15,7 @@
 
 #include <Graphic3d_ShaderVariable.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_ShaderVariable, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_ShaderVariable, RefObject)
 
 // Specific instantiations of struct templates to avoid compilation warnings
 template struct Graphic3d_UniformValue<Standard_Integer>;

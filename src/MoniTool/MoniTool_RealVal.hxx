@@ -24,10 +24,10 @@
 #include <Standard_Transient.hxx>
 
 class MoniTool_RealVal;
-DEFINE_STANDARD_HANDLE(MoniTool_RealVal, Standard_Transient)
+DEFINE_STANDARD_HANDLE(MoniTool_RealVal, RefObject)
 
 //! A Real through a Handle (i.e. managed as TShared)
-class MoniTool_RealVal : public Standard_Transient
+class MoniTool_RealVal : public RefObject
 {
 
 public:
@@ -37,7 +37,7 @@ public:
 
   Standard_EXPORT Standard_Real& CValue();
 
-  DEFINE_STANDARD_RTTIEXT(MoniTool_RealVal, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(MoniTool_RealVal, RefObject)
 
 protected:
 private:

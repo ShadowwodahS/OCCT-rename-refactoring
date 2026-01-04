@@ -86,7 +86,7 @@ public:
   //! sub-level : immediately shared entities)
   Standard_EXPORT virtual void DumpEntity(const Handle(Interface_InterfaceModel)& model,
                                           const Handle(Interface_Protocol)&       protocol,
-                                          const Handle(Standard_Transient)&       entity,
+                                          const Handle(RefObject)&       entity,
                                           Standard_OStream&                       S,
                                           const Standard_Integer level) const Standard_OVERRIDE;
 

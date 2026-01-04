@@ -22,10 +22,10 @@
 class TCollection_HAsciiString;
 class StepBasic_GeneralProperty;
 
-DEFINE_STANDARD_HANDLE(StepBasic_GeneralPropertyRelationship, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_GeneralPropertyRelationship, RefObject)
 
 //! Representation of STEP entity GeneralPropertyRelationship
-class StepBasic_GeneralPropertyRelationship : public Standard_Transient
+class StepBasic_GeneralPropertyRelationship : public RefObject
 {
 
 public:
@@ -68,7 +68,7 @@ public:
   Standard_EXPORT void SetRelatedGeneralProperty(
     const Handle(StepBasic_GeneralProperty)& RelatedGeneralProperty);
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_GeneralPropertyRelationship, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_GeneralPropertyRelationship, RefObject)
 
 protected:
 private:

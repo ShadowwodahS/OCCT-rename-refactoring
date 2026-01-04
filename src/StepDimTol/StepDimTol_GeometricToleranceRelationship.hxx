@@ -24,10 +24,10 @@ class TCollection_HAsciiString;
 class StepDimTol_GeometricTolerance;
 
 class StepDimTol_GeometricToleranceRelationship;
-DEFINE_STANDARD_HANDLE(StepDimTol_GeometricToleranceRelationship, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepDimTol_GeometricToleranceRelationship, RefObject)
 
 //! Representation of STEP entity GeometricToleranceRelationship
-class StepDimTol_GeometricToleranceRelationship : public Standard_Transient
+class StepDimTol_GeometricToleranceRelationship : public RefObject
 {
 
 public:
@@ -67,7 +67,7 @@ public:
   Standard_EXPORT void SetRelatedGeometricTolerance(
     const Handle(StepDimTol_GeometricTolerance)& theRelatedGeometricTolerance);
 
-  DEFINE_STANDARD_RTTIEXT(StepDimTol_GeometricToleranceRelationship, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepDimTol_GeometricToleranceRelationship, RefObject)
 
 protected:
 private:

@@ -32,7 +32,7 @@ class TCollection_AsciiString;
 /**
  *  Abstract VRML Node
  */
-class VrmlData_Node : public Standard_Transient
+class VrmlData_Node : public RefObject
 {
 public:
   // ---------- PUBLIC METHODS ----------
@@ -180,11 +180,11 @@ private:
 
 public:
   // Declaration of CASCADE RTTI
-  DEFINE_STANDARD_RTTIEXT(VrmlData_Node, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(VrmlData_Node, RefObject)
 };
 
 // Definition of HANDLE object using Standard_DefineHandle.hxx
-DEFINE_STANDARD_HANDLE(VrmlData_Node, Standard_Transient)
+DEFINE_STANDARD_HANDLE(VrmlData_Node, RefObject)
 
 Standard_EXPORT Standard_Boolean IsEqual(const Handle(VrmlData_Node)& theOne,
                                          const Handle(VrmlData_Node)& theTwo);

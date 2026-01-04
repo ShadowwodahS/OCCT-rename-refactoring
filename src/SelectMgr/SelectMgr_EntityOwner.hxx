@@ -29,9 +29,9 @@ class V3d_Viewer;
 //! The owner is the link between application and selection data structures.
 //! For the application to make its own objects selectable, it must define owner classes inheriting
 //! this framework.
-class SelectMgr_EntityOwner : public Standard_Transient
+class SelectMgr_EntityOwner : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(SelectMgr_EntityOwner, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(SelectMgr_EntityOwner, RefObject)
 public:
   //! Initializes the selection priority aPriority.
   Standard_EXPORT SelectMgr_EntityOwner(const Standard_Integer aPriority = 0);
@@ -230,7 +230,7 @@ protected:
   // clang-format on
 };
 
-DEFINE_STANDARD_HANDLE(SelectMgr_EntityOwner, Standard_Transient)
+DEFINE_STANDARD_HANDLE(SelectMgr_EntityOwner, RefObject)
 
 Standard_DEPRECATED("Deprecated alias - SelectMgr_EntityOwner should be used instead")
 typedef SelectMgr_EntityOwner SelectBasics_EntityOwner;

@@ -32,7 +32,7 @@ class IGESData_FileRecognizer;
 class Interface_Check;
 class IGESData_IGESReaderData;
 class IGESData_Protocol;
-class Standard_Transient;
+class RefObject;
 class Interface_InterfaceModel;
 class IGESData_IGESEntity;
 class IGESData_DirPart;
@@ -60,7 +60,7 @@ public:
   //! recognizes records by asking Protocol (on data of DirType)
   Standard_EXPORT Standard_Boolean Recognize(const Standard_Integer      num,
                                              Handle(Interface_Check)&    ach,
-                                             Handle(Standard_Transient)& ent) Standard_OVERRIDE;
+                                             Handle(RefObject)& ent) Standard_OVERRIDE;
 
   //! fills model's header, that is, its GlobalSection
   Standard_EXPORT void BeginRead(const Handle(Interface_InterfaceModel)& amodel) Standard_OVERRIDE;
@@ -70,7 +70,7 @@ public:
   //! ReadProps and ReadAssocs, from IGESEntity
   //! Returns True if no fail has been recorded
   Standard_EXPORT Standard_Boolean AnalyseRecord(const Standard_Integer            num,
-                                                 const Handle(Standard_Transient)& anent,
+                                                 const Handle(RefObject)& anent,
                                                  Handle(Interface_Check)& acheck) Standard_OVERRIDE;
 
   //! after reading entities, true line weights can be computed

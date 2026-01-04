@@ -23,7 +23,7 @@
 
 #include <StepAP214_AutoDesignGeneralOrgItem.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepBasic_Document;
 class StepBasic_PhysicallyModeledProductDefinition;
 
@@ -34,7 +34,7 @@ public:
 
   Standard_EXPORT StepAP214_AutoDesignOrganizationItem();
 
-  Standard_EXPORT virtual Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const
+  Standard_EXPORT virtual Standard_Integer CaseNum(const Handle(RefObject)& ent) const
     Standard_OVERRIDE;
 
   Standard_EXPORT Handle(StepBasic_Document) Document() const;

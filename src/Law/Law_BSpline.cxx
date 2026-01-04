@@ -34,7 +34,7 @@
 #include <Standard_RangeError.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Law_BSpline, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Law_BSpline, RefObject)
 
 #define POLES (poles->Array1())
 #define KNOTS (knots->Array1())

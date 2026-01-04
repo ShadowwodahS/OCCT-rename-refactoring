@@ -32,7 +32,7 @@ IMPLEMENT_STANDARD_RTTIEXT(StepData_StepModel, Interface_InterfaceModel)
 // Entete de fichier : liste d entites
 StepData_StepModel::StepData_StepModel() {}
 
-Handle(Standard_Transient) StepData_StepModel::Entity(const Standard_Integer num) const
+Handle(RefObject) StepData_StepModel::Entity(const Standard_Integer num) const
 {
   return Value(num);
 } // nom plus joli
@@ -48,7 +48,7 @@ void StepData_StepModel::GetFromAnother(const Handle(Interface_InterfaceModel)& 
   Interface_CopyTool TC(this, StepData::HeaderProtocol());
   for (; iter.More(); iter.Next())
   {
-    Handle(Standard_Transient) newhead;
+    Handle(RefObject) newhead;
     if (!TC.Copy(iter.Value(), newhead, Standard_False, Standard_False))
       continue;
     if (!newhead.IsNull())
@@ -73,7 +73,7 @@ Standard_Boolean StepData_StepModel::HasHeaderEntity(const Handle(Standard_Type)
   return (theheader.NbTypedEntities(atype) == 1);
 }
 
-Handle(Standard_Transient) StepData_StepModel::HeaderEntity(
+Handle(RefObject) StepData_StepModel::HeaderEntity(
   const Handle(Standard_Type)& atype) const
 {
   return theheader.TypedEntity(atype);
@@ -86,7 +86,7 @@ void StepData_StepModel::ClearHeader()
   theheader.Clear();
 }
 
-void StepData_StepModel::AddHeaderEntity(const Handle(Standard_Transient)& ent)
+void StepData_StepModel::AddHeaderEntity(const Handle(RefObject)& ent)
 {
   theheader.Append(ent);
 }
@@ -101,7 +101,7 @@ void StepData_StepModel::VerifyCheck(Handle(Interface_Check)& ach) const
   Standard_Integer                CN;
   for (Interface_EntityIterator iter = Header(); iter.More(); iter.Next())
   {
-    const Handle(Standard_Transient)& head = iter.Value();
+    const Handle(RefObject)& head = iter.Value();
     if (!lib.Select(head, module, CN))
       continue;
     module->CheckCase(CN, head, sh, ach);
@@ -140,7 +140,7 @@ void StepData_StepModel::ClearLabels()
   theidnums.Nullify();
 }
 
-void StepData_StepModel::SetIdentLabel(const Handle(Standard_Transient)& ent,
+void StepData_StepModel::SetIdentLabel(const Handle(RefObject)& ent,
                                        const Standard_Integer            ident)
 {
   Standard_Integer num = Number(ent);
@@ -165,7 +165,7 @@ void StepData_StepModel::SetIdentLabel(const Handle(Standard_Transient)& ent,
   theidnums->SetValue(num, ident);
 }
 
-Standard_Integer StepData_StepModel::IdentLabel(const Handle(Standard_Transient)& ent) const
+Standard_Integer StepData_StepModel::IdentLabel(const Handle(RefObject)& ent) const
 {
   if (theidnums.IsNull())
     return 0;
@@ -173,7 +173,7 @@ Standard_Integer StepData_StepModel::IdentLabel(const Handle(Standard_Transient)
   return (!num ? 0 : theidnums->Value(num));
 }
 
-void StepData_StepModel::PrintLabel(const Handle(Standard_Transient)& ent,
+void StepData_StepModel::PrintLabel(const Handle(RefObject)& ent,
                                     Standard_OStream&                 S) const
 {
   Standard_Integer num = (theidnums.IsNull() ? 0 : Number(ent));
@@ -187,7 +187,7 @@ void StepData_StepModel::PrintLabel(const Handle(Standard_Transient)& ent,
 }
 
 Handle(TCollection_HAsciiString) StepData_StepModel::StringLabel(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   Handle(TCollection_HAsciiString) label;
   char                             text[20];

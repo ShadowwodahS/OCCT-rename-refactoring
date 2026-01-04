@@ -27,7 +27,7 @@ struct BVH_BuildTool
 };
 
 //! Wrapper for BVH build thread.
-class BVH_BuildThread : public Standard_Transient
+class BVH_BuildThread : public RefObject
 {
   template <class T, int N>
   friend class BVH_QueueBuilder;
@@ -63,9 +63,9 @@ protected:
   OSD_Thread myWorkThread;
 
 public:
-  DEFINE_STANDARD_RTTIEXT(BVH_BuildThread, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(BVH_BuildThread, RefObject)
 };
 
-DEFINE_STANDARD_HANDLE(BVH_BuildThread, Standard_Transient)
+DEFINE_STANDARD_HANDLE(BVH_BuildThread, RefObject)
 
 #endif // _BVH_BuildThread_Header

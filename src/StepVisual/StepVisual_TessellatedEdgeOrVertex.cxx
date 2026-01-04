@@ -25,7 +25,7 @@ StepVisual_TessellatedEdgeOrVertex::StepVisual_TessellatedEdgeOrVertex() {}
 //=================================================================================================
 
 Standard_Integer StepVisual_TessellatedEdgeOrVertex::CaseNum(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

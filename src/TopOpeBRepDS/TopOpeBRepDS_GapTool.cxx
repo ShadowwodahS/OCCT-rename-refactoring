@@ -19,7 +19,7 @@
 #include <TopOpeBRepDS_HDataStructure.hxx>
 #include <TopOpeBRepDS_Interference.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TopOpeBRepDS_GapTool, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(TopOpeBRepDS_GapTool, RefObject)
 
 //=================================================================================================
 

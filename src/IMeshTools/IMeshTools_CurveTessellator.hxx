@@ -22,7 +22,7 @@
 class gp_Pnt;
 
 //! Interface class providing API for edge tessellation tools.
-class IMeshTools_CurveTessellator : public Standard_Transient
+class IMeshTools_CurveTessellator : public RefObject
 {
 public:
   //! Destructor.
@@ -40,7 +40,7 @@ public:
                                                  gp_Pnt&                thePoint,
                                                  Standard_Real&         theParameter) const = 0;
 
-  DEFINE_STANDARD_RTTIEXT(IMeshTools_CurveTessellator, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IMeshTools_CurveTessellator, RefObject)
 
 protected:
   //! Constructor.

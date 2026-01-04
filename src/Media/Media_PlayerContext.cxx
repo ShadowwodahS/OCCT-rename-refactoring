@@ -43,7 +43,7 @@ extern "C"
   #include <Standard_WarningsRestore.hxx>
 #endif
 
-IMPLEMENT_STANDARD_RTTIEXT(Media_PlayerContext, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Media_PlayerContext, RefObject)
 
 //=================================================================================================
 

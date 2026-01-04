@@ -25,10 +25,10 @@
 class TCollection_HAsciiString;
 
 class StepShape_ValueFormatTypeQualifier;
-DEFINE_STANDARD_HANDLE(StepShape_ValueFormatTypeQualifier, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepShape_ValueFormatTypeQualifier, RefObject)
 
 //! Added for Dimensional Tolerances
-class StepShape_ValueFormatTypeQualifier : public Standard_Transient
+class StepShape_ValueFormatTypeQualifier : public RefObject
 {
 
 public:
@@ -46,7 +46,7 @@ public:
     formatType = theFormatType;
   }
 
-  DEFINE_STANDARD_RTTIEXT(StepShape_ValueFormatTypeQualifier, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepShape_ValueFormatTypeQualifier, RefObject)
 
 private:
   Handle(TCollection_HAsciiString) formatType;

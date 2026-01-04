@@ -31,14 +31,14 @@ class Graphic3d_StructureManager;
 class Graphic3d_DataStructureManager;
 class Bnd_Box;
 
-DEFINE_STANDARD_HANDLE(Graphic3d_Structure, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Graphic3d_Structure, RefObject)
 
 //! This class allows the definition a graphic object.
 //! This graphic structure can be displayed, erased, or highlighted.
 //! This graphic structure can be connected with another graphic structure.
-class Graphic3d_Structure : public Standard_Transient
+class Graphic3d_Structure : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_Structure, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Graphic3d_Structure, RefObject)
   friend class Graphic3d_Group;
 
 public:

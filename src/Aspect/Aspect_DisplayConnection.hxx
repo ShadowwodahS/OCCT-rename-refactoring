@@ -28,9 +28,9 @@ struct Aspect_XVisualInfo;
 //! Raises exception if can not connect to X server.
 //! On Windows and Mac OS X (in case when Cocoa used) platforms this class does nothing.
 //! WARNING: Do not close display connection manually!
-class Aspect_DisplayConnection : public Standard_Transient
+class Aspect_DisplayConnection : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Aspect_DisplayConnection, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Aspect_DisplayConnection, RefObject)
 public:
   //! Default constructor. Creates connection with display name taken from "DISPLAY" environment
   //! variable
@@ -127,6 +127,6 @@ private:
   Aspect_DisplayConnection& operator=(const Aspect_DisplayConnection&);
 };
 
-DEFINE_STANDARD_HANDLE(Aspect_DisplayConnection, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Aspect_DisplayConnection, RefObject)
 
 #endif // _Aspect_DisplayConnection_H__

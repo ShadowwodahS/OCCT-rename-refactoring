@@ -25,13 +25,13 @@
 #include <Standard_Transient.hxx>
 
 class MAT2d_Connexion;
-DEFINE_STANDARD_HANDLE(MAT2d_Connexion, Standard_Transient)
+DEFINE_STANDARD_HANDLE(MAT2d_Connexion, RefObject)
 
 //! A Connexion links two lines of items  in a set
 //! of  lines. It s contains two  points and their paramatric
 //! definitions on the lines.
 //! The items can be points or curves.
-class MAT2d_Connexion : public Standard_Transient
+class MAT2d_Connexion : public RefObject
 {
 
 public:
@@ -109,7 +109,7 @@ public:
   Standard_EXPORT void Dump(const Standard_Integer Deep   = 0,
                             const Standard_Integer Offset = 0) const;
 
-  DEFINE_STANDARD_RTTIEXT(MAT2d_Connexion, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(MAT2d_Connexion, RefObject)
 
 protected:
 private:

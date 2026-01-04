@@ -23,7 +23,7 @@
 #include <Interface_Protocol.hxx>
 #include <Standard_Integer.hxx>
 class Interface_InterfaceModel;
-class Standard_Transient;
+class RefObject;
 
 class IGESData_Protocol;
 DEFINE_STANDARD_HANDLE(IGESData_Protocol, Interface_Protocol)
@@ -57,12 +57,12 @@ public:
     IsSuitableModel(const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
 
   //! Creates a new Unknown Entity for IGES (UndefinedEntity)
-  Standard_EXPORT Handle(Standard_Transient) UnknownEntity() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(RefObject) UnknownEntity() const Standard_OVERRIDE;
 
   //! Returns True if <ent> is an Unknown Entity for the Norm, i.e.
   //! Type UndefinedEntity, status Unknown
   Standard_EXPORT Standard_Boolean
-    IsUnknownEntity(const Handle(Standard_Transient)& ent) const Standard_OVERRIDE;
+    IsUnknownEntity(const Handle(RefObject)& ent) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IGESData_Protocol, Interface_Protocol)
 

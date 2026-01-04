@@ -14,7 +14,7 @@
 #include <StepRepr_MaterialDesignation.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepRepr_MaterialDesignation, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepRepr_MaterialDesignation, RefObject)
 
 StepRepr_MaterialDesignation::StepRepr_MaterialDesignation() {}
 

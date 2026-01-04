@@ -37,7 +37,7 @@ class ShapeBuild_ReShape;
 #endif
 
 class ShapeFix_Edge;
-DEFINE_STANDARD_HANDLE(ShapeFix_Edge, Standard_Transient)
+DEFINE_STANDARD_HANDLE(ShapeFix_Edge, RefObject)
 
 //! Fixing invalid edge.
 //! Geometrical and/or topological inconsistency:
@@ -46,7 +46,7 @@ DEFINE_STANDARD_HANDLE(ShapeFix_Edge, Standard_Transient)
 //! - incorrect SameParameter flag (curve deviation is greater than
 //! edge tolerance),
 //! - not adjacent curves (3d or pcurve) to the vertices.
-class ShapeFix_Edge : public Standard_Transient
+class ShapeFix_Edge : public RefObject
 {
 
 public:
@@ -244,7 +244,7 @@ public:
   //! Returns context
   Standard_EXPORT Handle(ShapeBuild_ReShape) Context() const;
 
-  DEFINE_STANDARD_RTTIEXT(ShapeFix_Edge, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(ShapeFix_Edge, RefObject)
 
 protected:
   Handle(ShapeBuild_ReShape)                   myContext;

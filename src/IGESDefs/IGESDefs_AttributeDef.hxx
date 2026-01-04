@@ -27,7 +27,7 @@
 class TCollection_HAsciiString;
 class IGESDefs_HArray1OfHArray1OfTextDisplayTemplate;
 class IGESGraph_TextDisplayTemplate;
-class Standard_Transient;
+class RefObject;
 
 class IGESDefs_AttributeDef;
 DEFINE_STANDARD_HANDLE(IGESDefs_AttributeDef, IGESData_IGESEntity)
@@ -93,7 +93,7 @@ public:
   //! HArray1OfReal for Real, HArray1OfHSaciiString for String,
   //! HArray1OfIGESEntity for Entity (Pointer)
   //! See methods AttributeAs... for an accurate access
-  Standard_EXPORT Handle(Standard_Transient) AttributeList(const Standard_Integer AttrNum) const;
+  Standard_EXPORT Handle(RefObject) AttributeList(const Standard_Integer AttrNum) const;
 
   //! Returns Attribute Value <AttrNum, rank ValueNum> as an Integer
   //! Error if Indices out of Range, or no Value defined, or not an Integer

@@ -29,7 +29,7 @@ static Standard_GUID BinXCAFRetrievalDriver("a78ff497-a779-11d5-aab4-0050044b1af
 
 //=================================================================================================
 
-const Handle(Standard_Transient)& BinXCAFDrivers::Factory(const Standard_GUID& theGUID)
+const Handle(RefObject)& BinXCAFDrivers::Factory(const Standard_GUID& theGUID)
 {
 
   if (theGUID == BinXCAFStorageDriver)
@@ -37,7 +37,7 @@ const Handle(Standard_Transient)& BinXCAFDrivers::Factory(const Standard_GUID& t
 #ifdef OCCT_DEBUG
     std::cout << "BinXCAFDrivers : Storage Plugin" << std::endl;
 #endif
-    static Handle(Standard_Transient) model_sd = new BinXCAFDrivers_DocumentStorageDriver;
+    static Handle(RefObject) model_sd = new BinXCAFDrivers_DocumentStorageDriver;
     return model_sd;
   }
 
@@ -46,7 +46,7 @@ const Handle(Standard_Transient)& BinXCAFDrivers::Factory(const Standard_GUID& t
 #ifdef OCCT_DEBUG
     std::cout << "BinXCAFDrivers : Retrieval Plugin" << std::endl;
 #endif
-    static Handle(Standard_Transient) model_rd = new BinXCAFDrivers_DocumentRetrievalDriver;
+    static Handle(RefObject) model_rd = new BinXCAFDrivers_DocumentRetrievalDriver;
     return model_rd;
   }
 

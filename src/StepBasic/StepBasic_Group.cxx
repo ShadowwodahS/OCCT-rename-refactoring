@@ -18,7 +18,7 @@
 #include <StepBasic_Group.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_Group, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_Group, RefObject)
 
 //=================================================================================================
 

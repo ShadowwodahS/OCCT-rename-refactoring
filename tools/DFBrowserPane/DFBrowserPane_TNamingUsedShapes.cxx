@@ -122,7 +122,7 @@ void DFBrowserPane_TNamingUsedShapes::GetShortAttributeInfo(
 void DFBrowserPane_TNamingUsedShapes::GetAttributeReferences(
   const Handle(TDF_Attribute)&             theAttribute,
   NCollection_List<Handle(TDF_Attribute)>& theRefAttributes,
-  Handle(Standard_Transient)& /*theRefPresentation*/)
+  Handle(RefObject)& /*theRefPresentation*/)
 {
   Handle(TNaming_UsedShapes) anAttribute = Handle(TNaming_UsedShapes)::DownCast(theAttribute);
   if (anAttribute.IsNull())

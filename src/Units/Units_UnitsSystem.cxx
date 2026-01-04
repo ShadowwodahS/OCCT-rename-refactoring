@@ -33,7 +33,7 @@
 #include <Units_UnitsSequence.hxx>
 #include <Units_UnitsSystem.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Units_UnitsSystem, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Units_UnitsSystem, RefObject)
 
 //=================================================================================================
 
@@ -380,7 +380,7 @@ Standard_Real Units_UnitsSystem::ConvertUserSystemValueToSI(const Standard_CStri
 
 void Units_UnitsSystem::Dump() const
 {
-  Handle(Standard_Transient) transient   = This();
+  Handle(RefObject) transient   = This();
   Handle(Units_UnitsSystem)  unitssystem = Handle(Units_UnitsSystem)::DownCast(transient);
   Units_Explorer             explorer(unitssystem);
   std::cout << " UNITSSYSTEM : " << std::endl;

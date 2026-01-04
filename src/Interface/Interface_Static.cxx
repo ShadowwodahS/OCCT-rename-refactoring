@@ -237,7 +237,7 @@ Standard_Boolean Interface_Static::Init(const Standard_CString   family,
 
 Handle(Interface_Static) Interface_Static::Static(const Standard_CString name)
 {
-  Handle(Standard_Transient) result;
+  Handle(RefObject) result;
   MoniTool_TypedValue::Stats().Find(name, result);
   return Handle(Interface_Static)::DownCast(result);
 }
@@ -439,7 +439,7 @@ Handle(TColStd_HSequenceOfHAsciiString) Interface_Static::Items(const Standard_I
 {
   Standard_Integer                        modup = (mode / 100); // 0 any, 1 non-update, 2 update
   Handle(TColStd_HSequenceOfHAsciiString) list  = new TColStd_HSequenceOfHAsciiString();
-  NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)>::Iterator iter(
+  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>::Iterator iter(
     MoniTool_TypedValue::Stats());
   for (; iter.More(); iter.Next())
   {
@@ -483,10 +483,10 @@ void Interface_Static::FillMap(
 {
   theMap.Clear();
 
-  NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)>& aMap =
+  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>& aMap =
     MoniTool_TypedValue::Stats();
 
-  for (NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)>::Iterator anIt(
+  for (NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>::Iterator anIt(
          aMap);
        anIt.More();
        anIt.Next())

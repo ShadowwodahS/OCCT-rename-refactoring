@@ -24,10 +24,10 @@
 class StepBasic_VersionedActionRequest;
 
 class StepBasic_ActionRequestAssignment;
-DEFINE_STANDARD_HANDLE(StepBasic_ActionRequestAssignment, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_ActionRequestAssignment, RefObject)
 
 //! Representation of STEP entity ActionRequestAssignment
-class StepBasic_ActionRequestAssignment : public Standard_Transient
+class StepBasic_ActionRequestAssignment : public RefObject
 {
 
 public:
@@ -44,7 +44,7 @@ public:
   Standard_EXPORT void SetAssignedActionRequest(
     const Handle(StepBasic_VersionedActionRequest)& AssignedActionRequest);
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_ActionRequestAssignment, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_ActionRequestAssignment, RefObject)
 
 protected:
 private:

@@ -68,7 +68,7 @@ void Message_PrinterToReport::SendStringStream(const Standard_SStream& theStream
 
 //=================================================================================================
 
-void Message_PrinterToReport::SendObject(const Handle(Standard_Transient)& theObject,
+void Message_PrinterToReport::SendObject(const Handle(RefObject)& theObject,
                                          const Message_Gravity             theGravity) const
 {
   const Handle(Message_Report)& aReport = Report();

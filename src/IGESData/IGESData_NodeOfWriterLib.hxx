@@ -28,9 +28,9 @@ class IGESData_Protocol;
 class IGESData_WriterLib;
 
 class IGESData_NodeOfWriterLib;
-DEFINE_STANDARD_HANDLE(IGESData_NodeOfWriterLib, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IGESData_NodeOfWriterLib, RefObject)
 
-class IGESData_NodeOfWriterLib : public Standard_Transient
+class IGESData_NodeOfWriterLib : public RefObject
 {
 
 public:
@@ -51,7 +51,7 @@ public:
   //! is a Null Handle
   Standard_EXPORT const Handle(IGESData_NodeOfWriterLib)& Next() const;
 
-  DEFINE_STANDARD_RTTI_INLINE(IGESData_NodeOfWriterLib, Standard_Transient)
+  DEFINE_STANDARD_RTTI_INLINE(IGESData_NodeOfWriterLib, RefObject)
 
 protected:
 private:

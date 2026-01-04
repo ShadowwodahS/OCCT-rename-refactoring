@@ -23,10 +23,10 @@
 #include <Standard_Transient.hxx>
 
 class StepShape_PrecisionQualifier;
-DEFINE_STANDARD_HANDLE(StepShape_PrecisionQualifier, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepShape_PrecisionQualifier, RefObject)
 
 //! Added for Dimensional Tolerances
-class StepShape_PrecisionQualifier : public Standard_Transient
+class StepShape_PrecisionQualifier : public RefObject
 {
 
 public:
@@ -38,7 +38,7 @@ public:
 
   Standard_EXPORT void SetPrecisionValue(const Standard_Integer precision_value);
 
-  DEFINE_STANDARD_RTTIEXT(StepShape_PrecisionQualifier, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepShape_PrecisionQualifier, RefObject)
 
 protected:
 private:

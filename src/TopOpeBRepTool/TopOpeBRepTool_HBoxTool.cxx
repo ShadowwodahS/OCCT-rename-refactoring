@@ -27,7 +27,7 @@
 #include <TopOpeBRepTool_define.hxx>
 #include <TopOpeBRepTool_HBoxTool.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TopOpeBRepTool_HBoxTool, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(TopOpeBRepTool_HBoxTool, RefObject)
 
 #ifdef OCCT_DEBUG
   #define TBOX TopOpeBRepTool_GettraceBOX()

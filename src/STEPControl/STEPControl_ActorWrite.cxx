@@ -323,7 +323,7 @@ Handle(StepShape_NonManifoldSurfaceShapeRepresentation) STEPControl_ActorWrite::
 // purpose  : bind already written shared faces to STEP entity for non-manifold
 //=======================================================================
 void STEPControl_ActorWrite::mergeInfoForNM(const Handle(Transfer_FinderProcess)& theFP,
-                                            const Handle(Standard_Transient)&     theInfo) const
+                                            const Handle(RefObject)&     theInfo) const
 {
   Handle(ShapeProcess_ShapeContext) aContext = Handle(ShapeProcess_ShapeContext)::DownCast(theInfo);
   if (aContext.IsNull())

@@ -15,7 +15,7 @@
 #include <StepVisual_PointStyle.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_PointStyle, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepVisual_PointStyle, RefObject)
 
 StepVisual_PointStyle::StepVisual_PointStyle() {}
 

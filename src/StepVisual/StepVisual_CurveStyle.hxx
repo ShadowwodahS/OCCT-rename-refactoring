@@ -27,9 +27,9 @@ class TCollection_HAsciiString;
 class StepVisual_Colour;
 
 class StepVisual_CurveStyle;
-DEFINE_STANDARD_HANDLE(StepVisual_CurveStyle, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepVisual_CurveStyle, RefObject)
 
-class StepVisual_CurveStyle : public Standard_Transient
+class StepVisual_CurveStyle : public RefObject
 {
 
 public:
@@ -57,7 +57,7 @@ public:
 
   Standard_EXPORT Handle(StepVisual_Colour) CurveColour() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepVisual_CurveStyle, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepVisual_CurveStyle, RefObject)
 
 protected:
 private:

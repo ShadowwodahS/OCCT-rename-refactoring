@@ -21,7 +21,7 @@
 #include <Standard_CStringHasher.hxx>
 #include <Standard_NotImplemented.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Draw_Drawable3D, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Draw_Drawable3D, RefObject)
 
 //! Return the map of factory functions.
 static NCollection_DataMap<Standard_CString,

@@ -31,7 +31,7 @@ static Standard_GUID StdLRetrievalDriver("bd696001-5b34-11d1-b5ba-00a0c9064368")
 // purpose  : Depending from the ID, returns a list of storage
 //           or retrieval attribute drivers. Used for plugin
 //=======================================================================
-Handle(Standard_Transient) StdLDrivers::Factory(const Standard_GUID& aGUID)
+Handle(RefObject) StdLDrivers::Factory(const Standard_GUID& aGUID)
 {
   if (aGUID == StdLRetrievalDriver)
   {

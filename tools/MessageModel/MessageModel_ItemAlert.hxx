@@ -89,7 +89,7 @@ public:
 
   //! Returns presentation of the attribute to be visualized in the view
   //! \thePresentations[out]  container of presentation handles to be visualized
-  virtual void Presentations(NCollection_List<Handle(Standard_Transient)>& thePresentations)
+  virtual void Presentations(NCollection_List<Handle(RefObject)>& thePresentations)
     Standard_OVERRIDE
   {
     TreeModel_ItemBase::Presentations(thePresentations);
@@ -125,7 +125,7 @@ private:
   Handle(Message_Alert) myAlert; //!< current alert item
   NCollection_DataMap<Standard_Integer, Message_ListOfAlert>
                              myChildAlerts;  //!< container of child alerts
-  Handle(Standard_Transient) myPresentation; //!< item presentation
+  Handle(RefObject) myPresentation; //!< item presentation
 };
 
 #endif

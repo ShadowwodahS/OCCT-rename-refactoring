@@ -24,7 +24,7 @@
 #include <Message.hxx>
 #include <Message_Messenger.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(CDM_Application, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(CDM_Application, RefObject)
 
 //=================================================================================================
 

@@ -24,10 +24,10 @@ class TCollection_HAsciiString;
 class StepElement_SurfaceSectionField;
 
 class StepElement_SurfaceElementProperty;
-DEFINE_STANDARD_HANDLE(StepElement_SurfaceElementProperty, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepElement_SurfaceElementProperty, RefObject)
 
 //! Representation of STEP entity SurfaceElementProperty
-class StepElement_SurfaceElementProperty : public Standard_Transient
+class StepElement_SurfaceElementProperty : public RefObject
 {
 
 public:
@@ -57,7 +57,7 @@ public:
   //! Set field Section
   Standard_EXPORT void SetSection(const Handle(StepElement_SurfaceSectionField)& Section);
 
-  DEFINE_STANDARD_RTTIEXT(StepElement_SurfaceElementProperty, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepElement_SurfaceElementProperty, RefObject)
 
 protected:
 private:

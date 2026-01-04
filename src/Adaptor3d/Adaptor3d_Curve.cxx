@@ -28,7 +28,7 @@
 #include <gp_Vec.hxx>
 #include <Standard_NotImplemented.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Adaptor3d_Curve, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Adaptor3d_Curve, RefObject)
 
 //=================================================================================================
 

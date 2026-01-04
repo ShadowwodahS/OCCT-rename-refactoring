@@ -26,7 +26,7 @@ StepVisual_AnnotationFillAreaOccurrence::StepVisual_AnnotationFillAreaOccurrence
 void StepVisual_AnnotationFillAreaOccurrence::Init(
   const Handle(TCollection_HAsciiString)&                        theName,
   const Handle(StepVisual_HArray1OfPresentationStyleAssignment)& theStyles,
-  const Handle(Standard_Transient)&                              theItem,
+  const Handle(RefObject)&                              theItem,
   const Handle(StepGeom_GeometricRepresentationItem)&            theFillStyleTarget)
 {
   StepVisual_AnnotationOccurrence::Init(theName, theStyles, theItem);

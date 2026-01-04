@@ -18,7 +18,7 @@
 
 #include <SelectMgr_EntityOwner.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Select3D_SensitiveEntity, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Select3D_SensitiveEntity, RefObject)
 
 //=================================================================================================
 

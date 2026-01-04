@@ -62,7 +62,7 @@ void IGESData_IGESReaderTool::Prepare(const Handle(IGESData_FileRecognizer)& rec
 
 Standard_Boolean IGESData_IGESReaderTool::Recognize(const Standard_Integer      num,
                                                     Handle(Interface_Check)&    ach,
-                                                    Handle(Standard_Transient)& ent)
+                                                    Handle(RefObject)& ent)
 {
   DeclareAndCast(IGESData_IGESReaderData, igesdat, Data());
   thecnum = num;
@@ -108,7 +108,7 @@ void IGESData_IGESReaderTool::BeginRead(const Handle(Interface_InterfaceModel)& 
 
 // Manquent les procedures de reprise sur erreur en cours de route ...
 Standard_Boolean IGESData_IGESReaderTool::AnalyseRecord(const Standard_Integer            num,
-                                                        const Handle(Standard_Transient)& anent,
+                                                        const Handle(RefObject)& anent,
                                                         Handle(Interface_Check)&          ach)
 {
 

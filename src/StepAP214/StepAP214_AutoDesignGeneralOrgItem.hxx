@@ -23,7 +23,7 @@
 
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepBasic_Product;
 class StepBasic_ProductDefinition;
 class StepBasic_ProductDefinitionFormation;
@@ -51,7 +51,7 @@ public:
   //! 7     ExternallyDefinedRepresentation from StepRepr,
   //! 8     AutoDesignDocumentReference from StepAP214,
   //! 0 else
-  Standard_EXPORT Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! returns Value as a Product (Null if another type)
   Standard_EXPORT Handle(StepBasic_Product) Product() const;

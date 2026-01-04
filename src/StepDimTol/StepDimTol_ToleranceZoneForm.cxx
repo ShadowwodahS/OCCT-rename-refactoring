@@ -15,7 +15,7 @@
 
 #include <StepDimTol_ToleranceZoneForm.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepDimTol_ToleranceZoneForm, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepDimTol_ToleranceZoneForm, RefObject)
 
 //=================================================================================================
 

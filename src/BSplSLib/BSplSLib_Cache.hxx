@@ -23,7 +23,7 @@
 //!
 //! Defines all data, that can be cached on a span of the surface.
 //! The data should be recalculated in going from span to span.
-class BSplSLib_Cache : public Standard_Transient
+class BSplSLib_Cache : public RefObject
 {
 public:
   //! Constructor for caching of the span for the surface
@@ -104,7 +104,7 @@ public:
                           gp_Vec&              theCurvatureV,
                           gp_Vec&              theCurvatureUV) const;
 
-  DEFINE_STANDARD_RTTIEXT(BSplSLib_Cache, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(BSplSLib_Cache, RefObject)
 
 private:
   // copying is prohibited
@@ -124,6 +124,6 @@ private:
   // clang-format on
 };
 
-DEFINE_STANDARD_HANDLE(BSplSLib_Cache, Standard_Transient)
+DEFINE_STANDARD_HANDLE(BSplSLib_Cache, RefObject)
 
 #endif

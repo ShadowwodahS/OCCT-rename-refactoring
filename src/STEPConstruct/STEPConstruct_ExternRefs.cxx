@@ -171,7 +171,7 @@ Standard_Boolean STEPConstruct_ExternRefs::LoadExternRefs()
   TColStd_SequenceOfTransient aSeqOfADR, aSeqOfPDWAD;
   for (Standard_Integer ient = 1; ient <= nb; ient++)
   {
-    Handle(Standard_Transient) enti = model->Value(ient);
+    Handle(RefObject) enti = model->Value(ient);
     if (enti->DynamicType() == tPDWAD)
       aSeqOfPDWAD.Append(enti);
     else if (enti->DynamicType() == tADR)
@@ -229,7 +229,7 @@ Standard_Boolean STEPConstruct_ExternRefs::LoadExternRefs()
       Interface_EntityIterator subs = Graph().Sharings(DocFile);
       for (subs.Start(); subs.More(); subs.Next())
       {
-        const Handle(Standard_Transient)& sub = subs.Value();
+        const Handle(RefObject)& sub = subs.Value();
 
         // FORMAT - ???????
         //
@@ -693,11 +693,11 @@ Standard_Integer STEPConstruct_ExternRefs::AddExternRef(
     //    Standard_Integer numProdDef;
     //    Interface_EntityIterator subs = Graph().Shareds(SDR);
     //    for (subs.Start(); subs.More(); subs.Next()) {
-    //      Handle(Standard_Transient) sub = subs.Value();
+    //      Handle(RefObject) sub = subs.Value();
     Interface_EntityIterator subs = Graph().Sharings(PD);
     for (subs.Start(); subs.More(); subs.Next())
     {
-      const Handle(Standard_Transient)& sub = subs.Value();
+      const Handle(RefObject)& sub = subs.Value();
       if (!sub->IsKind(STANDARD_TYPE(StepRepr_ProductDefinitionShape)))
         continue;
       Handle(StepRepr_ProductDefinitionShape) ProdDefSh =
@@ -712,7 +712,7 @@ Standard_Integer STEPConstruct_ExternRefs::AddExternRef(
     //      Interface_EntityIterator subs1 = Graph().Shareds(ProdDefSh);
     //      for (subs1.Start(); subs1.More(); subs1.Next()) {
 
-    //        Handle(Standard_Transient) sub1 = subs1.Value();
+    //        Handle(RefObject) sub1 = subs1.Value();
     //        if (!sub1->IsKind(STANDARD_TYPE(StepBasic_ProductDefinition))) continue;
     //        Handle(StepBasic_ProductDefinition) ProdDef =
     //          Handle(StepBasic_ProductDefinition)::DownCast ( sub1 );
@@ -723,7 +723,7 @@ Standard_Integer STEPConstruct_ExternRefs::AddExternRef(
     Interface_EntityIterator subs2 = Graph().Sharings(PD);
     for (subs2.Start(); subs2.More(); subs2.Next())
     {
-      const Handle(Standard_Transient)& sub2 = subs2.Value();
+      const Handle(RefObject)& sub2 = subs2.Value();
 
       if (sub2->IsKind(STANDARD_TYPE(StepRepr_NextAssemblyUsageOccurrence)))
       {

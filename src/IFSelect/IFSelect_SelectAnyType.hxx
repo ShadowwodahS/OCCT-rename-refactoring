@@ -23,7 +23,7 @@
 #include <IFSelect_SelectExtract.hxx>
 #include <Standard_Type.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class Interface_InterfaceModel;
 
 class IFSelect_SelectAnyType;
@@ -44,7 +44,7 @@ public:
   //! Criterium is IsKind.
   Standard_EXPORT Standard_Boolean
     Sort(const Standard_Integer                  rank,
-         const Handle(Standard_Transient)&       ent,
+         const Handle(RefObject)&       ent,
          const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IFSelect_SelectAnyType, IFSelect_SelectExtract)

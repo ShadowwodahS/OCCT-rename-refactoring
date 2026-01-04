@@ -19,7 +19,7 @@
 #include <Law_BSpline.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GeomFill_TgtField, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(GeomFill_TgtField, RefObject)
 
 //=================================================================================================
 

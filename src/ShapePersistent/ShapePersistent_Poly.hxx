@@ -25,7 +25,7 @@ class Poly_Triangulation;
 
 class ShapePersistent_Poly : private StdObjMgt_SharedObject
 {
-  class pPolygon2D : public Standard_Transient
+  class pPolygon2D : public RefObject
   {
     friend class ShapePersistent_Poly;
 
@@ -53,7 +53,7 @@ class ShapePersistent_Poly : private StdObjMgt_SharedObject
     Handle(ShapePersistent_HArray1::Pnt2d) myNodes;
   };
 
-  class pPolygon3D : public Standard_Transient
+  class pPolygon3D : public RefObject
   {
     friend class ShapePersistent_Poly;
 
@@ -80,7 +80,7 @@ class ShapePersistent_Poly : private StdObjMgt_SharedObject
     Handle(StdLPersistent_HArray1::Real) myParameters;
   };
 
-  class pPolygonOnTriangulation : public Standard_Transient
+  class pPolygonOnTriangulation : public RefObject
   {
     friend class ShapePersistent_Poly;
 
@@ -112,7 +112,7 @@ class ShapePersistent_Poly : private StdObjMgt_SharedObject
     Handle(StdLPersistent_HArray1::Real)    myParameters;
   };
 
-  class pTriangulation : public Standard_Transient
+  class pTriangulation : public RefObject
   {
     friend class ShapePersistent_Poly;
 

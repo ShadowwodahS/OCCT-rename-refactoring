@@ -25,9 +25,9 @@ class SelectMgr_SelectableObject;
 //! A framework to manage selection from the point of view of viewer selectors.
 //! These can be added and removed, and selection modes can be activated and deactivated.
 //! In addition, objects may be known to all selectors or only to some.
-class SelectMgr_SelectionManager : public Standard_Transient
+class SelectMgr_SelectionManager : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(SelectMgr_SelectionManager, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(SelectMgr_SelectionManager, RefObject)
 public:
   //! Constructs an empty selection manager object.
   Standard_EXPORT SelectMgr_SelectionManager(const Handle(SelectMgr_ViewerSelector)& theSelector);
@@ -132,6 +132,6 @@ private:
   NCollection_Map<Handle(SelectMgr_SelectableObject)> myGlobal;
 };
 
-DEFINE_STANDARD_HANDLE(SelectMgr_SelectionManager, Standard_Transient)
+DEFINE_STANDARD_HANDLE(SelectMgr_SelectionManager, RefObject)
 
 #endif // _SelectMgr_SelectionManager_HeaderFile

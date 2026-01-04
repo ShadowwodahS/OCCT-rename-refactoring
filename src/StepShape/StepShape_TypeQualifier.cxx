@@ -14,7 +14,7 @@
 #include <StepShape_TypeQualifier.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepShape_TypeQualifier, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepShape_TypeQualifier, RefObject)
 
 StepShape_TypeQualifier::StepShape_TypeQualifier() {}
 

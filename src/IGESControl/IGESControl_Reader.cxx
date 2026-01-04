@@ -182,7 +182,7 @@ void IGESControl_Reader::PrintTransferInfo(const IFSelect_PrintFail  failsonly,
     {
       char                           mess[300];
       const Handle(Interface_Check)& aCheck = checkIterator.Value();
-      Handle(Standard_Transient)     ent    = model->Value(checkIterator.Number());
+      Handle(RefObject)     ent    = model->Value(checkIterator.Number());
       DeclareAndCast(IGESData_IGESEntity, igesEnt, ent);
       Standard_Integer type = igesEnt->TypeNumber(), form = igesEnt->FormNumber();
       Standard_Integer nw = aCheck->NbWarnings(), nf = aCheck->NbFails(), i;

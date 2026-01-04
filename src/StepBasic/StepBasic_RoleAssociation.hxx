@@ -24,10 +24,10 @@
 class StepBasic_ObjectRole;
 
 class StepBasic_RoleAssociation;
-DEFINE_STANDARD_HANDLE(StepBasic_RoleAssociation, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_RoleAssociation, RefObject)
 
 //! Representation of STEP entity RoleAssociation
-class StepBasic_RoleAssociation : public Standard_Transient
+class StepBasic_RoleAssociation : public RefObject
 {
 
 public:
@@ -50,7 +50,7 @@ public:
   //! Set field ItemWithRole
   Standard_EXPORT void SetItemWithRole(const StepBasic_RoleSelect& ItemWithRole);
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_RoleAssociation, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_RoleAssociation, RefObject)
 
 protected:
 private:

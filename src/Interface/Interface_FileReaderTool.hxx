@@ -28,7 +28,7 @@ class Interface_FileReaderData;
 class Interface_InterfaceModel;
 class Message_Messenger;
 class Interface_Check;
-class Standard_Transient;
+class RefObject;
 class Interface_GeneralLib;
 class Interface_ReaderLib;
 
@@ -113,7 +113,7 @@ public:
   //! has to be memorized before starting
   Standard_EXPORT virtual Standard_Boolean Recognize(const Standard_Integer      num,
                                                      Handle(Interface_Check)&    ach,
-                                                     Handle(Standard_Transient)& ent) = 0;
+                                                     Handle(RefObject)& ent) = 0;
 
   //! Recognizes a record with the help of Libraries. Can be used
   //! to implement the method Recognize.
@@ -128,14 +128,14 @@ public:
                                                   Interface_GeneralLib&       glib,
                                                   Interface_ReaderLib&        rlib,
                                                   Handle(Interface_Check)&    ach,
-                                                  Handle(Standard_Transient)& ent) const;
+                                                  Handle(RefObject)& ent) const;
 
   //! Provides an unknown entity, specific to the Interface
   //! called by SetEntities when Recognize has failed (Unknown alone)
   //! or by LoadModel when an Entity has caused a Fail on reading
   //! (to keep at least its literal description)
   //! Uses Protocol to do it
-  Standard_EXPORT Handle(Standard_Transient) UnknownEntity() const;
+  Standard_EXPORT Handle(RefObject) UnknownEntity() const;
 
   //! Creates an empty Model of the norm. Uses Protocol to do it
   Standard_EXPORT Handle(Interface_InterfaceModel) NewModel() const;
@@ -155,7 +155,7 @@ public:
   //! FileReaderData. This Method manages also case of Fail or
   //! Warning, by producing a ReportEntyty plus , for a Fail, a
   //! literal Content (as an UnknownEntity). Performs also Trace
-  Standard_EXPORT Handle(Standard_Transient) LoadedEntity(const Standard_Integer num);
+  Standard_EXPORT Handle(RefObject) LoadedEntity(const Standard_Integer num);
 
   //! Fills model's header; each Interface defines for its Model its
   //! own file header; this method fills it from FileReaderTool.+
@@ -175,7 +175,7 @@ public:
   //! Returned Value : True if the entity could be loaded, False
   //! else (in case of syntactic fail)
   Standard_EXPORT virtual Standard_Boolean AnalyseRecord(const Standard_Integer            num,
-                                                         const Handle(Standard_Transient)& anent,
+                                                         const Handle(RefObject)& anent,
                                                          Handle(Interface_Check)& acheck) = 0;
 
   Standard_EXPORT virtual ~Interface_FileReaderTool();

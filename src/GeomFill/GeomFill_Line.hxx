@@ -24,10 +24,10 @@
 #include <Standard_Transient.hxx>
 
 class GeomFill_Line;
-DEFINE_STANDARD_HANDLE(GeomFill_Line, Standard_Transient)
+DEFINE_STANDARD_HANDLE(GeomFill_Line, RefObject)
 
 //! class for instantiation of AppBlend
-class GeomFill_Line : public Standard_Transient
+class GeomFill_Line : public RefObject
 {
 
 public:
@@ -39,7 +39,7 @@ public:
 
   Standard_Integer Point(const Standard_Integer Index) const;
 
-  DEFINE_STANDARD_RTTIEXT(GeomFill_Line, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(GeomFill_Line, RefObject)
 
 protected:
 private:

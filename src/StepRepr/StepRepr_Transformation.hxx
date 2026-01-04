@@ -23,7 +23,7 @@
 
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepRepr_ItemDefinedTransformation;
 class StepRepr_FunctionallyDefinedTransformation;
 
@@ -39,7 +39,7 @@ public:
   //! 1 -> ItemDefinedTransformation
   //! 2 -> FunctionallyDefinedTransformation
   //! 0 else
-  Standard_EXPORT Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! returns Value as a ItemDefinedTransformation (Null if another type)
   Standard_EXPORT Handle(StepRepr_ItemDefinedTransformation) ItemDefinedTransformation() const;

@@ -13,7 +13,7 @@
 
 #include <BinObjMgt_Position.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BinObjMgt_Position, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(BinObjMgt_Position, RefObject)
 
 //=================================================================================================
 

@@ -29,12 +29,12 @@ class gp_Vec;
 class gp_Pnt;
 
 class GeomFill_LocationLaw;
-DEFINE_STANDARD_HANDLE(GeomFill_LocationLaw, Standard_Transient)
+DEFINE_STANDARD_HANDLE(GeomFill_LocationLaw, RefObject)
 
 //! To define location  law in Sweeping location is --
 //! defined   by an  Matrix  M and  an Vector  V,  and
 //! transform an point P in MP+V.
-class GeomFill_LocationLaw : public Standard_Transient
+class GeomFill_LocationLaw : public RefObject
 {
 
 public:
@@ -165,7 +165,7 @@ public:
 
   Standard_EXPORT virtual void Rotation(gp_Pnt& Center) const;
 
-  DEFINE_STANDARD_RTTIEXT(GeomFill_LocationLaw, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(GeomFill_LocationLaw, RefObject)
 
 protected:
 private:

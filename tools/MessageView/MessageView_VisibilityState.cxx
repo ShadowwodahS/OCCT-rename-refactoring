@@ -30,7 +30,7 @@ bool MessageView_VisibilityState::CanBeVisible(const QModelIndex& theIndex) cons
   MessageModel_ItemAlertPtr anAlertItem = getAlertItem(theIndex);
   if (anAlertItem)
   {
-    NCollection_List<Handle(Standard_Transient)> aPresentations;
+    NCollection_List<Handle(RefObject)> aPresentations;
     anAlertItem->Presentations(aPresentations);
     if (!aPresentations.IsEmpty())
       return true;

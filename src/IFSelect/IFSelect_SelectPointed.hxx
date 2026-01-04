@@ -23,7 +23,7 @@
 #include <IFSelect_SelectBase.hxx>
 #include <TColStd_HSequenceOfTransient.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class Interface_CopyControl;
 class IFSelect_Transformer;
 class Interface_EntityIterator;
@@ -56,7 +56,7 @@ public:
 
   //! As SetList but with only one entity
   //! If <ent> is Null, the list is said as being set but is empty
-  Standard_EXPORT void SetEntity(const Handle(Standard_Transient)& item);
+  Standard_EXPORT void SetEntity(const Handle(RefObject)& item);
 
   //! Sets a given list to define the list of selected items
   //! <list> can be empty or null : in this case, the list is said
@@ -70,15 +70,15 @@ public:
 
   //! Adds an item. Returns True if Done, False if <item> is already
   //! in the selected list
-  Standard_EXPORT Standard_Boolean Add(const Handle(Standard_Transient)& item);
+  Standard_EXPORT Standard_Boolean Add(const Handle(RefObject)& item);
 
   //! Removes an item. Returns True if Done, False if <item> was not
   //! in the selected list
-  Standard_EXPORT Standard_Boolean Remove(const Handle(Standard_Transient)& item);
+  Standard_EXPORT Standard_Boolean Remove(const Handle(RefObject)& item);
 
   //! Toggles status of an item : adds it if not pointed or removes
   //! it if already pointed. Returns the new status (Pointed or not)
-  Standard_EXPORT Standard_Boolean Toggle(const Handle(Standard_Transient)& item);
+  Standard_EXPORT Standard_Boolean Toggle(const Handle(RefObject)& item);
 
   //! Adds all the items defined in a list. Returns True if at least
   //! one item has been added, False else
@@ -93,13 +93,13 @@ public:
   Standard_EXPORT Standard_Boolean ToggleList(const Handle(TColStd_HSequenceOfTransient)& list);
 
   //! Returns the rank of an item in the selected list, or 0.
-  Standard_EXPORT Standard_Integer Rank(const Handle(Standard_Transient)& item) const;
+  Standard_EXPORT Standard_Integer Rank(const Handle(RefObject)& item) const;
 
   //! Returns the count of selected items
   Standard_EXPORT Standard_Integer NbItems() const;
 
   //! Returns an item given its rank, or a Null Handle
-  Standard_EXPORT Handle(Standard_Transient) Item(const Standard_Integer num) const;
+  Standard_EXPORT Handle(RefObject) Item(const Standard_Integer num) const;
 
   //! Rebuilds the selected list. Any selected entity which has a
   //! bound result is replaced by this result, else it is removed.

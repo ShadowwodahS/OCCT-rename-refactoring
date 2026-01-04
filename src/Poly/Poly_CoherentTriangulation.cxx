@@ -21,7 +21,7 @@
 #include <Standard_ProgramError.hxx>
 #include <TShort_Array1OfShortReal.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Poly_CoherentTriangulation, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Poly_CoherentTriangulation, RefObject)
 
 //=======================================================================
 // function : Poly_CoherentTriangulation

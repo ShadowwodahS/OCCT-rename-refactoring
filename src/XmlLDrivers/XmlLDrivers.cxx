@@ -35,14 +35,14 @@ static Standard_GUID XmlLRetrievalDriver("13a56822-8269-11d5-aab2-0050044b1af1")
 // function : Factory
 // purpose  : PLUGIN FACTORY
 //=======================================================================
-const Handle(Standard_Transient)& XmlLDrivers::Factory(const Standard_GUID& theGUID)
+const Handle(RefObject)& XmlLDrivers::Factory(const Standard_GUID& theGUID)
 {
   if (theGUID == XmlLStorageDriver)
   {
 #ifdef OCCT_DEBUG
     std::cout << "XmlLDrivers : Storage Plugin" << std::endl;
 #endif
-    static Handle(Standard_Transient) model_sd = new XmlLDrivers_DocumentStorageDriver(
+    static Handle(RefObject) model_sd = new XmlLDrivers_DocumentStorageDriver(
       "Copyright: Open Cascade, 2001-2002"); // default copyright
     return model_sd;
   }
@@ -52,7 +52,7 @@ const Handle(Standard_Transient)& XmlLDrivers::Factory(const Standard_GUID& theG
 #ifdef OCCT_DEBUG
     std::cout << "XmlLDrivers : Retrieval Plugin" << std::endl;
 #endif
-    static Handle(Standard_Transient) model_rd = new XmlLDrivers_DocumentRetrievalDriver();
+    static Handle(RefObject) model_rd = new XmlLDrivers_DocumentRetrievalDriver();
     return model_rd;
   }
 

@@ -267,13 +267,13 @@ const TCollection_AsciiString& IFSelect_SessionPilot::Command(const Standard_Int
   return thecomlist(num);
 }
 
-IFSelect_ReturnStatus IFSelect_SessionPilot::RecordItem(const Handle(Standard_Transient)& item)
+IFSelect_ReturnStatus IFSelect_SessionPilot::RecordItem(const Handle(RefObject)& item)
 {
   theobjrec = item;
   return (item.IsNull() ? IFSelect_RetFail : IFSelect_RetDone);
 }
 
-Handle(Standard_Transient) IFSelect_SessionPilot::RecordedItem() const
+Handle(RefObject) IFSelect_SessionPilot::RecordedItem() const
 {
   return theobjrec;
 }

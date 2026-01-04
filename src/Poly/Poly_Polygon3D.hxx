@@ -21,14 +21,14 @@
 #include <TColgp_Array1OfPnt.hxx>
 #include <TColStd_HArray1OfReal.hxx>
 
-DEFINE_STANDARD_HANDLE(Poly_Polygon3D, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Poly_Polygon3D, RefObject)
 
 //! This class Provides a polygon in 3D space. It is generally an approximate representation of a
 //! curve. A Polygon3D is defined by a table of nodes. Each node is a 3D point. If the polygon is
 //! closed, the point of closure is repeated at the end of the table of nodes. If the polygon is an
 //! approximate representation of a curve, you can associate with each of its nodes the value of the
 //! parameter of the corresponding point on the curve.
-class Poly_Polygon3D : public Standard_Transient
+class Poly_Polygon3D : public RefObject
 {
 public:
   //! Constructs a 3D polygon with specific number of nodes.
@@ -88,7 +88,7 @@ public:
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const;
 
-  DEFINE_STANDARD_RTTIEXT(Poly_Polygon3D, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Poly_Polygon3D, RefObject)
 
 private:
   Standard_Real                 myDeflection;

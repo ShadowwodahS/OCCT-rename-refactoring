@@ -41,10 +41,10 @@ public:
   //! Creates a TransientElem with a Value. This Value can then not be
   //! changed. It is used by the Hasher to compute the HashCode,
   //! which will then be stored for an immediate reading.
-  Standard_EXPORT MoniTool_TransientElem(const Handle(Standard_Transient)& akey);
+  Standard_EXPORT MoniTool_TransientElem(const Handle(RefObject)& akey);
 
   //! Returns the contained value
-  Standard_EXPORT const Handle(Standard_Transient)& Value() const;
+  Standard_EXPORT const Handle(RefObject)& Value() const;
 
   //! Specific testof equality : defined as False if <other> has
   //! not the same true Type, else contents are compared (by
@@ -64,7 +64,7 @@ public:
 
 protected:
 private:
-  Handle(Standard_Transient) theval;
+  Handle(RefObject) theval;
 };
 
 #endif // _MoniTool_TransientElem_HeaderFile

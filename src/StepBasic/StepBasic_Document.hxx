@@ -25,10 +25,10 @@ class TCollection_HAsciiString;
 class StepBasic_DocumentType;
 
 class StepBasic_Document;
-DEFINE_STANDARD_HANDLE(StepBasic_Document, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_Document, RefObject)
 
 //! Representation of STEP entity Document
-class StepBasic_Document : public Standard_Transient
+class StepBasic_Document : public RefObject
 {
 
 public:
@@ -69,7 +69,7 @@ public:
   //! Set field Kind
   Standard_EXPORT void SetKind(const Handle(StepBasic_DocumentType)& Kind);
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_Document, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_Document, RefObject)
 
 protected:
 private:

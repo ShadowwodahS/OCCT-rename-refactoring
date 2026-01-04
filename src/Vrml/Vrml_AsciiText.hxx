@@ -26,7 +26,7 @@
 #include <Standard_OStream.hxx>
 
 class Vrml_AsciiText;
-DEFINE_STANDARD_HANDLE(Vrml_AsciiText, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Vrml_AsciiText, RefObject)
 
 //! defines a AsciiText node of VRML specifying geometry shapes.
 //! This  node  represents  strings  of  text  characters  from  ASCII  coded
@@ -38,7 +38,7 @@ DEFINE_STANDARD_HANDLE(Vrml_AsciiText, Standard_Transient)
 //! bottom in the font set by FontStyle.
 //! The  default  value  for  the  wigth  field  indicates  the  natural  width
 //! should  be  used  for  that  string.
-class Vrml_AsciiText : public Standard_Transient
+class Vrml_AsciiText : public RefObject
 {
 
 public:
@@ -67,7 +67,7 @@ public:
 
   Standard_EXPORT Standard_OStream& Print(Standard_OStream& anOStream) const;
 
-  DEFINE_STANDARD_RTTIEXT(Vrml_AsciiText, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Vrml_AsciiText, RefObject)
 
 protected:
 private:

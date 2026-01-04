@@ -41,7 +41,7 @@ public:
   //! \param theToActivatePlugin a state whether the plugin should be immediately activated
   Standard_EXPORT virtual void SetParameters(
     const TCollection_AsciiString&                      thePluginName,
-    const NCollection_List<Handle(Standard_Transient)>& theParameters,
+    const NCollection_List<Handle(RefObject)>& theParameters,
     const Standard_Boolean& theToActivatePlugin = Standard_False) Standard_OVERRIDE;
 
   //! Sets path to a directory for temporary plugin files. Sets the directory into preferences

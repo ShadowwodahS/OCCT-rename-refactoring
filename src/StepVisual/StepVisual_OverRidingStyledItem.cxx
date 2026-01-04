@@ -22,7 +22,7 @@ StepVisual_OverRidingStyledItem::StepVisual_OverRidingStyledItem() {}
 void StepVisual_OverRidingStyledItem::Init(
   const Handle(TCollection_HAsciiString)&                        aName,
   const Handle(StepVisual_HArray1OfPresentationStyleAssignment)& aStyles,
-  const Handle(Standard_Transient)&                              aItem,
+  const Handle(RefObject)&                              aItem,
   const Handle(StepVisual_StyledItem)&                           aOverRiddenStyle)
 {
   // --- classe own fields ---

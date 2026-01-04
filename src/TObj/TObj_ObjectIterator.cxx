@@ -18,7 +18,7 @@
 #include <TObj_ObjectIterator.hxx>
 #include <TObj_Object.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TObj_ObjectIterator, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(TObj_ObjectIterator, RefObject)
 
 //=================================================================================================
 

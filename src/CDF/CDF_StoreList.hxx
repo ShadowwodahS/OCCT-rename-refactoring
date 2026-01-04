@@ -30,9 +30,9 @@ class CDM_MetaData;
 class TCollection_ExtendedString;
 
 class CDF_StoreList;
-DEFINE_STANDARD_HANDLE(CDF_StoreList, Standard_Transient)
+DEFINE_STANDARD_HANDLE(CDF_StoreList, RefObject)
 
-class CDF_StoreList : public Standard_Transient
+class CDF_StoreList : public RefObject
 {
 
 public:
@@ -55,7 +55,7 @@ public:
 
   Standard_EXPORT Handle(CDM_Document) Value() const;
 
-  DEFINE_STANDARD_RTTIEXT(CDF_StoreList, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(CDF_StoreList, RefObject)
 
 protected:
 private:

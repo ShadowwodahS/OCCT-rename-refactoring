@@ -27,11 +27,11 @@ class Geom2d_Curve;
 class Geom_Surface;
 
 class BRep_PointRepresentation;
-DEFINE_STANDARD_HANDLE(BRep_PointRepresentation, Standard_Transient)
+DEFINE_STANDARD_HANDLE(BRep_PointRepresentation, RefObject)
 
 //! Root  class     for   the points  representations.
 //! Contains a location and a parameter.
-class BRep_PointRepresentation : public Standard_Transient
+class BRep_PointRepresentation : public RefObject
 {
 
 public:
@@ -85,7 +85,7 @@ public:
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const;
 
-  DEFINE_STANDARD_RTTIEXT(BRep_PointRepresentation, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(BRep_PointRepresentation, RefObject)
 
 protected:
   Standard_EXPORT BRep_PointRepresentation(const Standard_Real P, const TopLoc_Location& L);

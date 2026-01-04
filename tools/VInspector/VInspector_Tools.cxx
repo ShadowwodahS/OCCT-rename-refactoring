@@ -85,7 +85,7 @@ int VInspector_Tools::SelectedOwners(const Handle(AIS_InteractiveContext)& theCo
     if (theShapeInfoOnly && BROwnr.IsNull())
       continue;
 
-    Standard_Transient* anOwnerPtr = anOwner.get();
+    RefObject* anOwnerPtr = anOwner.get();
     if (aSelectedIds.contains((size_t)anOwnerPtr))
       continue;
     aSelectedIds.append((size_t)anOwnerPtr);
@@ -144,7 +144,7 @@ NCollection_List<Handle(SelectMgr_EntityOwner)> VInspector_Tools::ContextOwners(
           continue;
         const Handle(Select3D_SensitiveEntity)& aBase      = anEntity->BaseSensitive();
         Handle(SelectMgr_EntityOwner)           anOwner    = aBase->OwnerId();
-        Standard_Transient*                     anOwnerPtr = anOwner.get();
+        RefObject*                     anOwnerPtr = anOwner.get();
         if (aSelectedIds.contains((size_t)anOwnerPtr))
           continue;
         aSelectedIds.append((size_t)anOwnerPtr);
@@ -182,7 +182,7 @@ NCollection_List<Handle(SelectMgr_EntityOwner)> VInspector_Tools::ActiveOwners(
     if (anOwner.IsNull())
       continue;
 
-    Standard_Transient* anOwnerPtr = anOwner.get();
+    RefObject* anOwnerPtr = anOwner.get();
     if (aSelectedIds.contains((size_t)anOwnerPtr))
       continue;
     aSelectedIds.append((size_t)anOwnerPtr);
@@ -281,7 +281,7 @@ QList<QVariant> VInspector_Tools::GetHighlightInfo(const Handle(AIS_InteractiveC
     Handle(SelectMgr_EntityOwner) anOwner = theContext->DetectedOwner();
     if (anOwner.IsNull())
       continue;
-    Standard_Transient* anOwnerPtr = anOwner.get();
+    RefObject* anOwnerPtr = anOwner.get();
     if (aSelectedIds.contains((size_t)anOwnerPtr))
       continue;
     aSelectedIds.append((size_t)anOwnerPtr);
@@ -326,7 +326,7 @@ QList<QVariant> VInspector_Tools::GetSelectedInfo(const Handle(AIS_InteractiveCo
     Handle(SelectMgr_EntityOwner) anOwner = theContext->SelectedOwner();
     if (anOwner.IsNull())
       continue;
-    Standard_Transient* anOwnerPtr = anOwner.get();
+    RefObject* anOwnerPtr = anOwner.get();
     if (aSelectedIds.contains((size_t)anOwnerPtr))
       continue;
     aSelectedIds.append((size_t)anOwnerPtr);

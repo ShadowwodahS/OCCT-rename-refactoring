@@ -30,7 +30,7 @@ class gp_GTrsf;
 class gp_Trsf;
 
 class IGESData_ToolLocation;
-DEFINE_STANDARD_HANDLE(IGESData_ToolLocation, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IGESData_ToolLocation, RefObject)
 
 //! This Tool determines and gives access to effective Locations
 //! of IGES Entities as defined by the IGES Norm. These Locations
@@ -52,7 +52,7 @@ DEFINE_STANDARD_HANDLE(IGESData_ToolLocation, Standard_Transient)
 //!
 //! This is a TShared object, then it is easier to use in an
 //! interactive session
-class IGESData_ToolLocation : public Standard_Transient
+class IGESData_ToolLocation : public RefObject
 {
 
 public:
@@ -152,7 +152,7 @@ public:
                                                           gp_Trsf&            result,
                                                           const Standard_Real uni = 1);
 
-  DEFINE_STANDARD_RTTIEXT(IGESData_ToolLocation, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IGESData_ToolLocation, RefObject)
 
 protected:
 private:

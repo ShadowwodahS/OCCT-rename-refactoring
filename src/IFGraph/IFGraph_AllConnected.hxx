@@ -23,7 +23,7 @@
 
 #include <Interface_Graph.hxx>
 #include <Interface_GraphContent.hxx>
-class Standard_Transient;
+class RefObject;
 
 //! this class gives content of the CONNECTED COMPONENT(S)
 //! which include specific Entity(ies)
@@ -41,14 +41,14 @@ public:
   //! In other terms, this is the content of the CONNECTED COMPONENT
   //! which include a specific Entity
   Standard_EXPORT IFGraph_AllConnected(const Interface_Graph&            agraph,
-                                       const Handle(Standard_Transient)& ent);
+                                       const Handle(RefObject)& ent);
 
   //! adds an entity and its Connected ones to the list (allows to
   //! cumulate all Entities Connected by some ones)
   //! Note that if "ent" is in the already computed list,, no entity
   //! will be added, but if "ent" is not already in the list, a new
   //! Connected Component will be cumulated
-  Standard_EXPORT void GetFromEntity(const Handle(Standard_Transient)& ent);
+  Standard_EXPORT void GetFromEntity(const Handle(RefObject)& ent);
 
   //! Allows to restart on a new data set
   Standard_EXPORT void ResetData();

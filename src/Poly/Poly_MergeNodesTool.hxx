@@ -21,9 +21,9 @@
 //! Auxiliary tool for merging triangulation nodes for visualization purposes.
 //! Tool tries to merge all nodes within input triangulation, but split the ones on sharp corners at
 //! specified angle.
-class Poly_MergeNodesTool : public Standard_Transient
+class Poly_MergeNodesTool : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Poly_MergeNodesTool, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Poly_MergeNodesTool, RefObject)
 public:
   //! Merge nodes of existing mesh and return the new mesh.
   //! @param[in] theTris triangulation to add

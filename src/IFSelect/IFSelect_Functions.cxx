@@ -244,7 +244,7 @@ static IFSelect_ReturnStatus fun6(const Handle(IFSelect_SessionPilot)& pilot)
     Standard_Integer id = pilot->Number(pilot->Arg(ia));
     if (id > 0)
     {
-      Handle(Standard_Transient) item = WS->StartingEntity(id);
+      Handle(RefObject) item = WS->StartingEntity(id);
       if (sp->Add(item))
         sout << "Added:no." << id << std::endl;
       else
@@ -547,7 +547,7 @@ static IFSelect_ReturnStatus fun10(const Handle(IFSelect_SessionPilot)& pilot)
     sout << "Not a suitable entity number : " << arg1 << std::endl;
     return IFSelect_RetError;
   }
-  Handle(Standard_Transient) ent = WS->StartingEntity(num);
+  Handle(RefObject) ent = WS->StartingEntity(num);
   WS->PrintEntityStatus(ent, sout);
   return IFSelect_RetVoid;
 }
@@ -647,7 +647,7 @@ static IFSelect_ReturnStatus fundumpent(const Handle(IFSelect_SessionPilot)& pil
   level = levdef;
   if (argc > 2)
     level = atoi(arg2);
-  Handle(Standard_Transient) ent = WS->StartingEntity(num);
+  Handle(RefObject) ent = WS->StartingEntity(num);
   if (ent.IsNull())
   {
     sout << "No entity with given id " << arg1 << " (" << num << ") is found in the current model"
@@ -686,7 +686,7 @@ static IFSelect_ReturnStatus funsign(const Handle(IFSelect_SessionPilot)& pilot)
     return IFSelect_RetError;
   }
   Standard_Integer           num = pilot->Number(arg2);
-  Handle(Standard_Transient) ent = WS->StartingEntity(num);
+  Handle(RefObject) ent = WS->StartingEntity(num);
   if (num == 0)
     return IFSelect_RetError;
   sout << "Entity n0 " << num << " : " << WS->SignValue(sign, ent) << std::endl;
@@ -850,7 +850,7 @@ static IFSelect_ReturnStatus fun20(const Handle(IFSelect_SessionPilot)& pilot)
   if (mode == 'm')
   {
     const Standard_CString     arg1 = pilot->Arg(1);
-    Handle(Standard_Transient) item = WS->NamedItem(arg1);
+    Handle(RefObject) item = WS->NamedItem(arg1);
     pnt                             = GetCasted(IFSelect_SelectPointed, item);
     if (!pnt.IsNull())
     {
@@ -1528,7 +1528,7 @@ static IFSelect_ReturnStatus fun43(const Handle(IFSelect_SessionPilot)& pilot)
     sout << "Pas un nom de Modifier : " << arg1 << std::endl;
     return IFSelect_RetError;
   }
-  Handle(Standard_Transient) item;
+  Handle(RefObject) item;
   if (arg2[0] != '\0')
   {
     item = WS->NamedItem(arg2);
@@ -2520,7 +2520,7 @@ static IFSelect_ReturnStatus fun91(const Handle(IFSelect_SessionPilot)& pilot)
     sout << " SelectPointed : " << arg1 << " : " << nb << " Items :" << std::endl;
     for (Standard_Integer i = 1; i <= nb; i++)
     {
-      Handle(Standard_Transient) pointed = sp->Item(i);
+      Handle(RefObject) pointed = sp->Item(i);
       Standard_Integer           id      = WS->StartingNumber(pointed);
       if (id == 0)
         sout << " (inconnu)";
@@ -2551,7 +2551,7 @@ static IFSelect_ReturnStatus fun91(const Handle(IFSelect_SessionPilot)& pilot)
     }
     else if (argi.Value(1) == '-')
     {
-      Handle(Standard_Transient) item = WS->StartingEntity(id);
+      Handle(RefObject) item = WS->StartingEntity(id);
       if (sp->Remove(item))
         sout << "Removed:no." << id;
       else
@@ -2561,7 +2561,7 @@ static IFSelect_ReturnStatus fun91(const Handle(IFSelect_SessionPilot)& pilot)
     }
     else if (argi.Value(1) == '/')
     {
-      Handle(Standard_Transient) item = WS->StartingEntity(id);
+      Handle(RefObject) item = WS->StartingEntity(id);
       if (sp->Remove(item))
         sout << "Toggled:n0." << id;
       else
@@ -2571,7 +2571,7 @@ static IFSelect_ReturnStatus fun91(const Handle(IFSelect_SessionPilot)& pilot)
     }
     else if (argi.Value(1) == '+')
     {
-      Handle(Standard_Transient) item = WS->StartingEntity(id);
+      Handle(RefObject) item = WS->StartingEntity(id);
       if (sp->Add(item))
         sout << "Added:no." << id;
       else
@@ -2936,7 +2936,7 @@ static IFSelect_ReturnStatus fun_editapply(const Handle(IFSelect_SessionPilot)& 
     return IFSelect_RetError;
   }
 
-  Handle(Standard_Transient)       ent   = edf->Entity();
+  Handle(RefObject)       ent   = edf->Entity();
   Handle(Interface_InterfaceModel) model = edf->Model();
   if (!model.IsNull())
   {
@@ -3022,10 +3022,10 @@ static IFSelect_ReturnStatus fun_editload(const Handle(IFSelect_SessionPilot)& p
 //  ####    FONCTIONS COMPLEMENTAIRES    ####
 //  #########################################
 
-Handle(Standard_Transient) IFSelect_Functions::GiveEntity(const Handle(IFSelect_WorkSession)& WS,
+Handle(RefObject) IFSelect_Functions::GiveEntity(const Handle(IFSelect_WorkSession)& WS,
                                                           const Standard_CString              name)
 {
-  Handle(Standard_Transient) ent; // demarre a Null
+  Handle(RefObject) ent; // demarre a Null
   Standard_Integer           num = GiveEntityNumber(WS, name);
   if (num > 0)
     ent = WS->StartingEntity(num);

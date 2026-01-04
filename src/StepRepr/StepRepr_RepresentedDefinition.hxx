@@ -22,7 +22,7 @@
 
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepBasic_GeneralProperty;
 class StepRepr_PropertyDefinition;
 class StepRepr_PropertyDefinitionRelationship;
@@ -45,7 +45,7 @@ public:
   //! 4 -> ShapeAspect from StepRepr
   //! 5 -> ShapeAspectRelationship from StepRepr
   //! 0 else
-  Standard_EXPORT Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! Returns Value as GeneralProperty (or Null if another type)
   Standard_EXPORT Handle(StepBasic_GeneralProperty) GeneralProperty() const;

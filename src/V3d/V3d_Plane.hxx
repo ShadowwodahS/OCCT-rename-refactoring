@@ -19,7 +19,7 @@
 #include <V3d_View.hxx>
 
 class V3d_Plane;
-DEFINE_STANDARD_HANDLE(V3d_Plane, Standard_Transient)
+DEFINE_STANDARD_HANDLE(V3d_Plane, RefObject)
 
 //! Obsolete clip plane presentation class.
 //! Ported on new core of Graphic3d_ClipPlane approach.
@@ -39,7 +39,7 @@ DEFINE_STANDARD_HANDLE(V3d_Plane, Standard_Transient)
 //! @endcode
 //! Use interface of this class to modify plane equation synchronously
 //! with clipping equation.
-class V3d_Plane : public Standard_Transient
+class V3d_Plane : public RefObject
 {
 public:
   //! Creates a clipping plane from plane coefficients.
@@ -86,7 +86,7 @@ private:
   Handle(Graphic3d_ClipPlane) myPlane; //!< clip plane implementation.
 
 public:
-  DEFINE_STANDARD_RTTIEXT(V3d_Plane, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(V3d_Plane, RefObject)
 };
 
 #endif

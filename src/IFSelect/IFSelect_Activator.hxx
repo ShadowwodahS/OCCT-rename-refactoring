@@ -26,7 +26,7 @@
 class IFSelect_SessionPilot;
 
 class IFSelect_Activator;
-DEFINE_STANDARD_HANDLE(IFSelect_Activator, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IFSelect_Activator, RefObject)
 
 //! Defines the general frame for working with a SessionPilot.
 //! Each Activator treats a set of Commands. Commands are given as
@@ -50,7 +50,7 @@ DEFINE_STANDARD_HANDLE(IFSelect_Activator, Standard_Transient)
 //!
 //! The result of an Execution must indicate if it is worth to be
 //! recorded or not : see method Do
-class IFSelect_Activator : public Standard_Transient
+class IFSelect_Activator : public RefObject
 {
 
 public:
@@ -115,7 +115,7 @@ public:
   //! Also a file may be attached
   Standard_EXPORT void SetForGroup(const Standard_CString group, const Standard_CString file = "");
 
-  DEFINE_STANDARD_RTTIEXT(IFSelect_Activator, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IFSelect_Activator, RefObject)
 
 protected:
   //! Sets the default values

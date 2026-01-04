@@ -23,16 +23,16 @@
 #include <Standard_Transient.hxx>
 
 class StepVisual_Colour;
-DEFINE_STANDARD_HANDLE(StepVisual_Colour, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepVisual_Colour, RefObject)
 
-class StepVisual_Colour : public Standard_Transient
+class StepVisual_Colour : public RefObject
 {
 
 public:
   //! Returns a Colour
   Standard_EXPORT StepVisual_Colour();
 
-  DEFINE_STANDARD_RTTIEXT(StepVisual_Colour, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepVisual_Colour, RefObject)
 
 protected:
 private:

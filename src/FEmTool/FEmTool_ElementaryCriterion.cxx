@@ -18,7 +18,7 @@
 #include <math_Matrix.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(FEmTool_ElementaryCriterion, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(FEmTool_ElementaryCriterion, RefObject)
 
 FEmTool_ElementaryCriterion::FEmTool_ElementaryCriterion()
     : myFirst(0.0),

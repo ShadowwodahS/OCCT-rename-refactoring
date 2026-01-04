@@ -30,14 +30,14 @@ class IGESData_IGESEntity;
 class ShapeExtend_WireData;
 
 class IGESToBRep_IGESBoundary;
-DEFINE_STANDARD_HANDLE(IGESToBRep_IGESBoundary, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IGESToBRep_IGESBoundary, RefObject)
 
 //! This class is intended to translate IGES boundary entity
 //! (142-CurveOnSurface, 141-Boundary or 508-Loop) into the wire.
 //! Methods Transfer are virtual and are redefined in Advanced
 //! Data Exchange to optimize the translation and take into
 //! account advanced parameters.
-class IGESToBRep_IGESBoundary : public Standard_Transient
+class IGESToBRep_IGESBoundary : public RefObject
 {
 
 public:
@@ -130,7 +130,7 @@ public:
                                      const Standard_Boolean okCurve3d,
                                      const Standard_Boolean okCurve2d);
 
-  DEFINE_STANDARD_RTTIEXT(IGESToBRep_IGESBoundary, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IGESToBRep_IGESBoundary, RefObject)
 
 protected:
   //! Methods called by both Transfer methods.

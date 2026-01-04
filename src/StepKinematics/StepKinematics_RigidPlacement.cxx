@@ -24,7 +24,7 @@ StepKinematics_RigidPlacement::StepKinematics_RigidPlacement() {}
 
 //=================================================================================================
 
-Standard_Integer StepKinematics_RigidPlacement::CaseNum(const Handle(Standard_Transient)& ent) const
+Standard_Integer StepKinematics_RigidPlacement::CaseNum(const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

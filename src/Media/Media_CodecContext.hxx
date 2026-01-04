@@ -23,9 +23,9 @@ struct AVStream;
 class Media_Frame;
 
 //! AVCodecContext wrapper - the coder/decoder holder.
-class Media_CodecContext : public Standard_Transient
+class Media_CodecContext : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Media_CodecContext, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Media_CodecContext, RefObject)
 public:
   //! Constructor.
   Standard_EXPORT Media_CodecContext();

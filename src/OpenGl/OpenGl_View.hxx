@@ -174,29 +174,29 @@ public:
     Standard_OVERRIDE;
 
   //! Returns pointer to an assigned framebuffer object.
-  Standard_EXPORT virtual Handle(Standard_Transient) FBO() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(RefObject) FBO() const Standard_OVERRIDE;
 
   //! Sets framebuffer object for offscreen rendering.
-  Standard_EXPORT virtual void SetFBO(const Handle(Standard_Transient)& theFbo) Standard_OVERRIDE;
+  Standard_EXPORT virtual void SetFBO(const Handle(RefObject)& theFbo) Standard_OVERRIDE;
 
   //! Generate offscreen FBO in the graphic library.
   //! If not supported on hardware returns NULL.
-  Standard_EXPORT virtual Handle(Standard_Transient) FBOCreate(const Standard_Integer theWidth,
+  Standard_EXPORT virtual Handle(RefObject) FBOCreate(const Standard_Integer theWidth,
                                                                const Standard_Integer theHeight)
     Standard_OVERRIDE;
 
   //! Remove offscreen FBO from the graphic library
-  Standard_EXPORT virtual void FBORelease(Handle(Standard_Transient)& theFbo) Standard_OVERRIDE;
+  Standard_EXPORT virtual void FBORelease(Handle(RefObject)& theFbo) Standard_OVERRIDE;
 
   //! Read offscreen FBO configuration.
-  Standard_EXPORT virtual void FBOGetDimensions(const Handle(Standard_Transient)& theFbo,
+  Standard_EXPORT virtual void FBOGetDimensions(const Handle(RefObject)& theFbo,
                                                 Standard_Integer&                 theWidth,
                                                 Standard_Integer&                 theHeight,
                                                 Standard_Integer&                 theWidthMax,
                                                 Standard_Integer& theHeightMax) Standard_OVERRIDE;
 
   //! Change offscreen FBO viewport.
-  Standard_EXPORT virtual void FBOChangeViewport(const Handle(Standard_Transient)& theFbo,
+  Standard_EXPORT virtual void FBOChangeViewport(const Handle(RefObject)& theFbo,
                                                  const Standard_Integer            theWidth,
                                                  const Standard_Integer            theHeight)
     Standard_OVERRIDE;

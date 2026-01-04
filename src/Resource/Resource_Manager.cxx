@@ -33,7 +33,7 @@
 #include <algorithm>
 #include <errno.h>
 
-IMPLEMENT_STANDARD_RTTIEXT(Resource_Manager, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Resource_Manager, RefObject)
 
 //! Auxiliary enumeration for function WhatKindOfLine().
 enum Resource_KindOfLine

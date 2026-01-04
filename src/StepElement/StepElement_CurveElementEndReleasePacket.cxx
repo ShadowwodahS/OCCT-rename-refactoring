@@ -18,7 +18,7 @@
 #include <StepElement_CurveElementEndReleasePacket.hxx>
 #include <StepElement_CurveElementFreedom.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepElement_CurveElementEndReleasePacket, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepElement_CurveElementEndReleasePacket, RefObject)
 
 //=================================================================================================
 

@@ -26,7 +26,7 @@ StepBasic_ProductDefinitionOrReference::StepBasic_ProductDefinitionOrReference()
 //=================================================================================================
 
 Standard_Integer StepBasic_ProductDefinitionOrReference::CaseNum(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

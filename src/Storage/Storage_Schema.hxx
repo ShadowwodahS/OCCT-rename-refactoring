@@ -26,7 +26,7 @@
 class Storage_CallBack;
 
 class Storage_Schema;
-DEFINE_STANDARD_HANDLE(Storage_Schema, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Storage_Schema, RefObject)
 
 //! Root class for basic storage/retrieval algorithms.
 //! A Storage_Schema object processes:
@@ -51,7 +51,7 @@ DEFINE_STANDARD_HANDLE(Storage_Schema, Standard_Transient)
 //! Storage_Schema algorithms are called basic
 //! because they do not support external references
 //! between containers.
-class Storage_Schema : public Standard_Transient
+class Storage_Schema : public RefObject
 {
 
 public:
@@ -163,7 +163,7 @@ public:
 
   Standard_EXPORT Standard_Boolean PersistentToAdd(const Handle(Standard_Persistent)& sp) const;
 
-  DEFINE_STANDARD_RTTIEXT(Storage_Schema, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Storage_Schema, RefObject)
 
 protected:
   Standard_Boolean HasTypeBinding(const TCollection_AsciiString& aTypeName) const

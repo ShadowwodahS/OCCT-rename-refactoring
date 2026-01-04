@@ -219,7 +219,7 @@ void MessageModel_Actions::OnExportToShapeView()
 {
   TCollection_AsciiString aPluginName("TKShapeView");
 
-  NCollection_List<Handle(Standard_Transient)> aPluginParameters;
+  NCollection_List<Handle(RefObject)> aPluginParameters;
   if (myParameters->FindParameters(aPluginName))
     aPluginParameters = myParameters->Parameters(aPluginName);
   NCollection_List<TCollection_AsciiString> anItemNames;

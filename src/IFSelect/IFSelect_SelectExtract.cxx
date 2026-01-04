@@ -43,7 +43,7 @@ Interface_EntityIterator IFSelect_SelectExtract::RootResult(const Interface_Grap
   Standard_Integer         rank    = 0;
   for (inputer.Start(); inputer.More(); inputer.Next())
   {
-    const Handle(Standard_Transient)& ent = inputer.Value();
+    const Handle(RefObject)& ent = inputer.Value();
     rank++;
     if (SortInGraph(rank, ent, G) == thesort)
       iter.GetOneItem(ent);
@@ -52,7 +52,7 @@ Interface_EntityIterator IFSelect_SelectExtract::RootResult(const Interface_Grap
 }
 
 Standard_Boolean IFSelect_SelectExtract::SortInGraph(const Standard_Integer            rank,
-                                                     const Handle(Standard_Transient)& ent,
+                                                     const Handle(RefObject)& ent,
                                                      const Interface_Graph&            G) const
 {
   return Sort(rank, ent, G.Model());

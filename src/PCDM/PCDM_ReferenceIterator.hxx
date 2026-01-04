@@ -29,9 +29,9 @@ class CDM_MetaData;
 class CDM_Application;
 
 class PCDM_ReferenceIterator;
-DEFINE_STANDARD_HANDLE(PCDM_ReferenceIterator, Standard_Transient)
+DEFINE_STANDARD_HANDLE(PCDM_ReferenceIterator, RefObject)
 
-class PCDM_ReferenceIterator : public Standard_Transient
+class PCDM_ReferenceIterator : public RefObject
 {
 
 public:
@@ -45,7 +45,7 @@ public:
 
   Standard_EXPORT virtual void Init(const Handle(CDM_MetaData)& aMetaData);
 
-  DEFINE_STANDARD_RTTIEXT(PCDM_ReferenceIterator, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(PCDM_ReferenceIterator, RefObject)
 
 protected:
 private:

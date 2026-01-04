@@ -50,12 +50,12 @@
 #include <XSControl_SignTransferStatus.hxx>
 #include <XSControl_WorkSession.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XSControl_Controller, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(XSControl_Controller, RefObject)
 
 //  ParamEditor
 //  Transferts
 
-static NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)> listad;
+static NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)> listad;
 
 //=================================================================================================
 
@@ -107,8 +107,8 @@ void XSControl_Controller::Record(const Standard_CString theName) const
 {
   if (listad.IsBound(theName))
   {
-    Handle(Standard_Transient) thisadapt(this);
-    Handle(Standard_Transient) newadapt = listad.ChangeFind(theName);
+    Handle(RefObject) thisadapt(this);
+    Handle(RefObject) newadapt = listad.ChangeFind(theName);
     if (newadapt->IsKind(thisadapt->DynamicType()))
       return;
     if (!(thisadapt->IsKind(newadapt->DynamicType())) && thisadapt != newadapt)
@@ -121,7 +121,7 @@ void XSControl_Controller::Record(const Standard_CString theName) const
 
 Handle(XSControl_Controller) XSControl_Controller::Recorded(const Standard_CString theName)
 {
-  Handle(Standard_Transient) recorded;
+  Handle(RefObject) recorded;
   return (listad.Find(theName, recorded) ? Handle(XSControl_Controller)::DownCast(recorded)
                                          : Handle(XSControl_Controller)());
 }
@@ -226,7 +226,7 @@ Standard_CString XSControl_Controller::ModeWriteHelp(const Standard_Integer mode
 //=================================================================================================
 
 Standard_Boolean XSControl_Controller::RecognizeWriteTransient(
-  const Handle(Standard_Transient)& obj,
+  const Handle(RefObject)& obj,
   const Standard_Integer            modetrans) const
 {
   if (myAdaptorWrite.IsNull())
@@ -264,7 +264,7 @@ static IFSelect_ReturnStatus TransferFinder(const Handle(Transfer_ActorOfFinderP
     bindtr = Handle(Transfer_SimpleBinderOfTransient)::DownCast(binder);
     if (!bindtr.IsNull())
     {
-      Handle(Standard_Transient) ent = bindtr->Result();
+      Handle(RefObject) ent = bindtr->Result();
       if (!ent.IsNull())
       {
         stat = IFSelect_RetDone;
@@ -279,7 +279,7 @@ static IFSelect_ReturnStatus TransferFinder(const Handle(Transfer_ActorOfFinderP
 //=================================================================================================
 
 IFSelect_ReturnStatus XSControl_Controller::TransferWriteTransient(
-  const Handle(Standard_Transient)&       theObj,
+  const Handle(RefObject)&       theObj,
   const Handle(Transfer_FinderProcess)&   theFP,
   const Handle(Interface_InterfaceModel)& theModel,
   const Standard_Integer                  theModeTrans,
@@ -334,7 +334,7 @@ IFSelect_ReturnStatus XSControl_Controller::TransferWriteShape(
 
 //=================================================================================================
 
-void XSControl_Controller::AddSessionItem(const Handle(Standard_Transient)& theItem,
+void XSControl_Controller::AddSessionItem(const Handle(RefObject)& theItem,
                                           const Standard_CString            theName,
                                           const Standard_Boolean            toApply)
 {
@@ -347,9 +347,9 @@ void XSControl_Controller::AddSessionItem(const Handle(Standard_Transient)& theI
 
 //=================================================================================================
 
-Handle(Standard_Transient) XSControl_Controller::SessionItem(const Standard_CString theName) const
+Handle(RefObject) XSControl_Controller::SessionItem(const Standard_CString theName) const
 {
-  Handle(Standard_Transient) item;
+  Handle(RefObject) item;
   if (!myAdaptorSession.IsEmpty())
     item = myAdaptorSession.Find(theName);
   return item;
@@ -364,7 +364,7 @@ void XSControl_Controller::Customise(Handle(XSControl_WorkSession)& WS)
   // General
   if (!myAdaptorSession.IsEmpty())
   {
-    NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)>::Iterator iter(
+    NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>::Iterator iter(
       myAdaptorSession);
     for (; iter.More(); iter.Next())
       WS->AddNamedItem(iter.Key().ToCString(), iter.ChangeValue());
@@ -448,7 +448,7 @@ void XSControl_Controller::Customise(Handle(XSControl_WorkSession)& WS)
   Standard_Integer i, nb = myAdaptorApplied.Length();
   for (i = 1; i <= nb; i++)
   {
-    const Handle(Standard_Transient)& anitem = myAdaptorApplied.Value(i);
+    const Handle(RefObject)& anitem = myAdaptorApplied.Value(i);
     Handle(TCollection_HAsciiString)  name   = WS->Name(anitem);
     WS->SetAppliedModifier(GetCasted(IFSelect_GeneralModifier, anitem), WS->ShareOut());
   }

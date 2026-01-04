@@ -20,7 +20,7 @@
 #include <StepBasic_ProductCategoryRelationship.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_ProductCategoryRelationship, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_ProductCategoryRelationship, RefObject)
 
 //=================================================================================================
 

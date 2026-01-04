@@ -16,7 +16,7 @@
 #include <Graphic3d_CStructure.hxx>
 #include <Graphic3d_CullingTool.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_Layer, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_Layer, RefObject)
 
 //=================================================================================================
 

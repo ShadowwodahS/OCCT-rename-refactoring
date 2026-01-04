@@ -23,7 +23,7 @@
 #include <ShapeExtend_DataMapOfShapeListOfMsg.hxx>
 #include <ShapeExtend_BasicMsgRegistrator.hxx>
 #include <Message_Gravity.hxx>
-class Standard_Transient;
+class RefObject;
 class Message_Msg;
 class TopoDS_Shape;
 
@@ -48,7 +48,7 @@ public:
   //! Sends a message to be attached to the object.
   //! If the object is in the map then the message is added to the
   //! list, otherwise the object is firstly added to the map.
-  Standard_EXPORT virtual void Send(const Handle(Standard_Transient)& object,
+  Standard_EXPORT virtual void Send(const Handle(RefObject)& object,
                                     const Message_Msg&                message,
                                     const Message_Gravity             gravity) Standard_OVERRIDE;
 

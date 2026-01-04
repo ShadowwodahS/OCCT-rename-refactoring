@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 class Interface_FileReaderData;
 class Interface_Check;
-class Standard_Transient;
+class RefObject;
 class IGESData_IGESEntity;
 class IGESData_IGESReaderData;
 class IGESData_ParamReader;
@@ -75,7 +75,7 @@ public:
                             const Handle(Interface_FileReaderData)& data,
                             const Standard_Integer                  num,
                             Handle(Interface_Check)&                ach,
-                            const Handle(Standard_Transient)&       ent) const Standard_OVERRIDE;
+                            const Handle(RefObject)&       ent) const Standard_OVERRIDE;
 
   //! Reads own parameters from file for an Entity; <PR> gives
   //! access to them, <IR> detains parameter types and values

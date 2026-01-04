@@ -25,10 +25,10 @@ class TCollection_HAsciiString;
 class StepBasic_ProductDefinition;
 
 class StepBasic_ProductDefinitionRelationship;
-DEFINE_STANDARD_HANDLE(StepBasic_ProductDefinitionRelationship, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_ProductDefinitionRelationship, RefObject)
 
 //! Representation of STEP entity ProductDefinitionRelationship
-class StepBasic_ProductDefinitionRelationship : public Standard_Transient
+class StepBasic_ProductDefinitionRelationship : public RefObject
 {
 
 public:
@@ -101,7 +101,7 @@ public:
   Standard_EXPORT void SetRelatedProductDefinition(
     const StepBasic_ProductDefinitionOrReference& RelatedProductDefinition);
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_ProductDefinitionRelationship, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_ProductDefinitionRelationship, RefObject)
 
 protected:
 private:

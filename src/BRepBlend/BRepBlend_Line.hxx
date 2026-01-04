@@ -25,9 +25,9 @@
 class Blend_Point;
 
 class BRepBlend_Line;
-DEFINE_STANDARD_HANDLE(BRepBlend_Line, Standard_Transient)
+DEFINE_STANDARD_HANDLE(BRepBlend_Line, RefObject)
 
-class BRepBlend_Line : public Standard_Transient
+class BRepBlend_Line : public RefObject
 {
 
 public:
@@ -104,7 +104,7 @@ public:
   //! on the surface.
   IntSurf_TypeTrans TransitionOnS() const;
 
-  DEFINE_STANDARD_RTTIEXT(BRepBlend_Line, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(BRepBlend_Line, RefObject)
 
 protected:
 private:

@@ -19,13 +19,13 @@
 #include <STEPSelections_AssemblyComponent.hxx>
 #include <STEPSelections_AssemblyLink.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(STEPSelections_AssemblyLink, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(STEPSelections_AssemblyLink, RefObject)
 
 STEPSelections_AssemblyLink::STEPSelections_AssemblyLink() {}
 
 STEPSelections_AssemblyLink::STEPSelections_AssemblyLink(
   const Handle(StepRepr_NextAssemblyUsageOccurrence)& nauo,
-  const Handle(Standard_Transient)&                   item,
+  const Handle(RefObject)&                   item,
   const Handle(STEPSelections_AssemblyComponent)&     part)
 {
   myNAUO      = nauo;

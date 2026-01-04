@@ -15,7 +15,7 @@
 #include <StepBasic_ApplicationProtocolDefinition.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_ApplicationProtocolDefinition, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_ApplicationProtocolDefinition, RefObject)
 
 StepBasic_ApplicationProtocolDefinition::StepBasic_ApplicationProtocolDefinition() {}
 

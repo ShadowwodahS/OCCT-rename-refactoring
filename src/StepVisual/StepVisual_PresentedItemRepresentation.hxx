@@ -25,10 +25,10 @@
 class StepVisual_PresentedItem;
 
 class StepVisual_PresentedItemRepresentation;
-DEFINE_STANDARD_HANDLE(StepVisual_PresentedItemRepresentation, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepVisual_PresentedItemRepresentation, RefObject)
 
 //! Added from StepVisual Rev2 to Rev4
-class StepVisual_PresentedItemRepresentation : public Standard_Transient
+class StepVisual_PresentedItemRepresentation : public RefObject
 {
 
 public:
@@ -46,7 +46,7 @@ public:
 
   Standard_EXPORT Handle(StepVisual_PresentedItem) Item() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepVisual_PresentedItemRepresentation, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepVisual_PresentedItemRepresentation, RefObject)
 
 protected:
 private:

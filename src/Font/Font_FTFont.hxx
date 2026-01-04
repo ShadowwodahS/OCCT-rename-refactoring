@@ -67,14 +67,14 @@ struct Font_FTFontParams
   }
 };
 
-DEFINE_STANDARD_HANDLE(Font_FTFont, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Font_FTFont, RefObject)
 
 //! Wrapper over FreeType font.
 //! Notice that this class uses internal buffers for loaded glyphs
 //! and it is absolutely UNSAFE to load/read glyph from concurrent threads!
-class Font_FTFont : public Standard_Transient
+class Font_FTFont : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Font_FTFont, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Font_FTFont, RefObject)
 public:
   //! Find the font Initialize the font.
   //! @param theFontName    the font name

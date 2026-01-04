@@ -25,10 +25,10 @@
 class TopoDS_Shape;
 
 class BRepAlgo_AsDes;
-DEFINE_STANDARD_HANDLE(BRepAlgo_AsDes, Standard_Transient)
+DEFINE_STANDARD_HANDLE(BRepAlgo_AsDes, RefObject)
 
 //! SD to store descendants and ascendants of Shapes.
-class BRepAlgo_AsDes : public Standard_Transient
+class BRepAlgo_AsDes : public RefObject
 {
 
 public:
@@ -69,7 +69,7 @@ public:
                                                        const TopoDS_Shape&   S2,
                                                        TopTools_ListOfShape& LC) const;
 
-  DEFINE_STANDARD_RTTIEXT(BRepAlgo_AsDes, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(BRepAlgo_AsDes, RefObject)
 
 private:
   //! Replace theOldS by theNewS.

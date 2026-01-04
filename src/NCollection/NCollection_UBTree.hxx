@@ -478,7 +478,7 @@ Standard_Integer NCollection_UBTree<TheObjType, TheBndType>::Select(const TreeNo
  * _HUBTREE      - the desired name of handled class
  * _OBJTYPE      - the name of the object type
  * _BNDTYPE      - the name of the bounding box type
- * _HPARENT      - the name of parent class (usually Standard_Transient)
+ * _HPARENT      - the name of parent class (usually RefObject)
  */
 #define DEFINE_HUBTREE(_HUBTREE, _OBJTYPE, _BNDTYPE, _HPARENT)                                     \
   class _HUBTREE : public _HPARENT                                                                 \

@@ -23,7 +23,7 @@
 #include <TColStd_SequenceOfInteger.hxx>
 #include <IFSelect_Signature.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class Interface_InterfaceModel;
 class TCollection_AsciiString;
 
@@ -54,7 +54,7 @@ public:
   //! Concatenates the values of sub-signatures, with their
   //! tabulations
   Standard_EXPORT Standard_CString
-    Value(const Handle(Standard_Transient)&       ent,
+    Value(const Handle(RefObject)&       ent,
           const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
 
   //! Specialized Match Rule
@@ -62,7 +62,7 @@ public:
   //! matches
   //! If <exact> is True, standard match with Value
   //! (i.e. tabulations must be respected)
-  Standard_EXPORT virtual Standard_Boolean Matches(const Handle(Standard_Transient)&       ent,
+  Standard_EXPORT virtual Standard_Boolean Matches(const Handle(RefObject)&       ent,
                                                    const Handle(Interface_InterfaceModel)& model,
                                                    const TCollection_AsciiString&          text,
                                                    const Standard_Boolean exact) const

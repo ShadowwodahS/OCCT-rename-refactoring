@@ -19,7 +19,7 @@
 #include <Standard_Type.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Interface_UndefinedContent, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Interface_UndefinedContent, RefObject)
 
 #define Content_TypeField 31
 #define Content_LocalField 7
@@ -61,7 +61,7 @@ Standard_Integer Interface_UndefinedContent::NbLiterals() const
 
 Standard_Boolean Interface_UndefinedContent::ParamData(const Standard_Integer            num,
                                                        Interface_ParamType&              ptype,
-                                                       Handle(Standard_Transient)&       ent,
+                                                       Handle(RefObject)&       ent,
                                                        Handle(TCollection_HAsciiString)& val) const
 {
   if (num < 1 || num > thenbparams)
@@ -87,7 +87,7 @@ Standard_Boolean Interface_UndefinedContent::IsParamEntity(const Standard_Intege
   return (((theparams->Value(num) >> Content_LocalShift) & Content_LocalField) == Content_LocalRef);
 }
 
-Handle(Standard_Transient) Interface_UndefinedContent::ParamEntity(const Standard_Integer num) const
+Handle(RefObject) Interface_UndefinedContent::ParamEntity(const Standard_Integer num) const
 {
   Standard_Integer desc = theparams->Value(num);
   if (((desc >> Content_LocalShift) & Content_LocalField) != Content_LocalRef)
@@ -157,7 +157,7 @@ void Interface_UndefinedContent::AddLiteral(const Interface_ParamType           
 }
 
 void Interface_UndefinedContent::AddEntity(const Interface_ParamType         ptype,
-                                           const Handle(Standard_Transient)& ent)
+                                           const Handle(RefObject)& ent)
 {
   Reservate(thenbparams + 1, 0);
   Standard_Integer desc = Standard_Integer(ptype);
@@ -238,7 +238,7 @@ void Interface_UndefinedContent::SetLiteral(const Standard_Integer              
 
 void Interface_UndefinedContent::SetEntity(const Standard_Integer            num,
                                            const Interface_ParamType         ptype,
-                                           const Handle(Standard_Transient)& ent)
+                                           const Handle(RefObject)& ent)
 {
   //  On change un Parametre. Si deja Entity, simple substitution
   //  Si Literal, supprimer sa valeur et renumeroter les parametres Litteraux
@@ -278,7 +278,7 @@ void Interface_UndefinedContent::SetEntity(const Standard_Integer            num
 }
 
 void Interface_UndefinedContent::SetEntity(const Standard_Integer            num,
-                                           const Handle(Standard_Transient)& ent)
+                                           const Handle(RefObject)& ent)
 {
   //  On change l Entite definie par un Parametre, toutes autres choses egales,
   //  A CONDITION que ce soit deja un Parametre de type "Entity"
@@ -306,7 +306,7 @@ void Interface_UndefinedContent::GetFromAnother(const Handle(Interface_Undefined
   theparams.Nullify();
   Reservate(nb, other->NbLiterals());
 
-  Handle(Standard_Transient) ent;
+  Handle(RefObject) ent;
   for (Standard_Integer i = 1; i <= nb; i++)
   {
     Interface_ParamType              ptype;

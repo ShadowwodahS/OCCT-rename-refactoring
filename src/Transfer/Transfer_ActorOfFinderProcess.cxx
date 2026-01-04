@@ -47,7 +47,7 @@ Handle(Transfer_Binder) Transfer_ActorOfFinderProcess::Transfer(
   Handle(Transfer_TransientMapper) tm = Handle(Transfer_TransientMapper)::DownCast(fnd);
   if (tm.IsNull())
     return NullResult();
-  Handle(Standard_Transient) res = TransferTransient(tm->Value(), FP, theProgress);
+  Handle(RefObject) res = TransferTransient(tm->Value(), FP, theProgress);
   if (res.IsNull())
     return NullResult();
   return TransientResult(res);
@@ -65,12 +65,12 @@ Handle(Transfer_Binder) Transfer_ActorOfFinderProcess::Transferring(
 
 //=============================================================================
 
-Handle(Standard_Transient) Transfer_ActorOfFinderProcess::TransferTransient(
-  const Handle(Standard_Transient)& /*ent*/,
+Handle(RefObject) Transfer_ActorOfFinderProcess::TransferTransient(
+  const Handle(RefObject)& /*ent*/,
   const Handle(Transfer_FinderProcess)&,
   const Message_ProgressRange&)
 {
-  Handle(Standard_Transient) nulres;
+  Handle(RefObject) nulres;
   return nulres;
 }
 

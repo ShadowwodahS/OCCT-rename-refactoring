@@ -24,7 +24,7 @@
 StepAP214_AutoDesignPresentedItemSelect::StepAP214_AutoDesignPresentedItemSelect() {}
 
 Standard_Integer StepAP214_AutoDesignPresentedItemSelect::CaseNum(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

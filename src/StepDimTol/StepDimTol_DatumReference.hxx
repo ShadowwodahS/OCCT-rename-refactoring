@@ -24,10 +24,10 @@
 class StepDimTol_Datum;
 
 class StepDimTol_DatumReference;
-DEFINE_STANDARD_HANDLE(StepDimTol_DatumReference, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepDimTol_DatumReference, RefObject)
 
 //! Representation of STEP entity DatumReference
-class StepDimTol_DatumReference : public Standard_Transient
+class StepDimTol_DatumReference : public RefObject
 {
 
 public:
@@ -50,7 +50,7 @@ public:
   //! Set field ReferencedDatum
   Standard_EXPORT void SetReferencedDatum(const Handle(StepDimTol_Datum)& theReferencedDatum);
 
-  DEFINE_STANDARD_RTTIEXT(StepDimTol_DatumReference, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepDimTol_DatumReference, RefObject)
 
 protected:
 private:

@@ -81,7 +81,7 @@ void View_DisplayPreview::SetContext(const Handle(AIS_InteractiveContext)& theCo
 // =======================================================================
 void View_DisplayPreview::UpdatePreview(
   const View_DisplayActionType,
-  const NCollection_List<Handle(Standard_Transient)>& thePresentations)
+  const NCollection_List<Handle(RefObject)>& thePresentations)
 {
   if (myContext.IsNull())
     return;
@@ -112,7 +112,7 @@ void View_DisplayPreview::UpdatePreview(
   BRep_Builder    aBuilder;
   TopoDS_Compound aCompound;
   aBuilder.MakeCompound(aCompound);
-  for (NCollection_List<Handle(Standard_Transient)>::Iterator anIterator(thePresentations);
+  for (NCollection_List<Handle(RefObject)>::Iterator anIterator(thePresentations);
        anIterator.More();
        anIterator.Next())
   {

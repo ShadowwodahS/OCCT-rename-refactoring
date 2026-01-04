@@ -21,7 +21,7 @@
 
 StepShape_GeometricSetSelect::StepShape_GeometricSetSelect() {}
 
-Standard_Integer StepShape_GeometricSetSelect::CaseNum(const Handle(Standard_Transient)& ent) const
+Standard_Integer StepShape_GeometricSetSelect::CaseNum(const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

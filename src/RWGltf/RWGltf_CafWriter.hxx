@@ -45,9 +45,9 @@ class TDataStd_NamedData;
 class TDocStd_Document;
 
 //! glTF writer context from XCAF document.
-class RWGltf_CafWriter : public Standard_Transient
+class RWGltf_CafWriter : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(RWGltf_CafWriter, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(RWGltf_CafWriter, RefObject)
 public:
   //! Mesh
   struct Mesh

@@ -56,7 +56,7 @@
 #include <Standard_Failure.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeAnalysis_Surface, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(ShapeAnalysis_Surface, RefObject)
 
 namespace
 {

@@ -49,7 +49,7 @@ Standard_Boolean IGESControl_ActorWrite::Recognize(const Handle(Transfer_Finder)
   DeclareAndCast(Transfer_TransientMapper, gemap, start);
   if (!gemap.IsNull())
   {
-    Handle(Standard_Transient) geom = gemap->Value();
+    Handle(RefObject) geom = gemap->Value();
     DeclareAndCast(Geom_Curve, Curve, geom);
     DeclareAndCast(Geom_Surface, Surf, geom);
     if (!Curve.IsNull() || !Surf.IsNull())
@@ -71,7 +71,7 @@ Handle(Transfer_Binder) IGESControl_ActorWrite::Transfer(const Handle(Transfer_F
     return NullResult();
   if (themodetrans < 0 || themodetrans > 1)
     return NullResult();
-  Handle(Standard_Transient) ent;
+  Handle(RefObject) ent;
 
   DeclareAndCast(TransferBRep_ShapeMapper, shmap, start);
   if (!shmap.IsNull())
@@ -103,7 +103,7 @@ Handle(Transfer_Binder) IGESControl_ActorWrite::Transfer(const Handle(Transfer_F
   DeclareAndCast(Transfer_TransientMapper, gemap, start);
   if (!gemap.IsNull())
   {
-    Handle(Standard_Transient) geom = gemap->Value();
+    Handle(RefObject) geom = gemap->Value();
     DeclareAndCast(Geom_Curve, Curve, geom);
     DeclareAndCast(Geom_Surface, Surf, geom);
 

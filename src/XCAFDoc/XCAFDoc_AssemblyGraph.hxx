@@ -28,10 +28,10 @@ class TDocStd_Document;
 class XCAFDoc_ShapeTool;
 
 class XCAFDoc_AssemblyGraph;
-DEFINE_STANDARD_HANDLE(XCAFDoc_AssemblyGraph, Standard_Transient)
+DEFINE_STANDARD_HANDLE(XCAFDoc_AssemblyGraph, RefObject)
 
 // Assembly graph.
-class XCAFDoc_AssemblyGraph : public Standard_Transient
+class XCAFDoc_AssemblyGraph : public RefObject
 {
 public:
   //! \brief Type of the graph node.

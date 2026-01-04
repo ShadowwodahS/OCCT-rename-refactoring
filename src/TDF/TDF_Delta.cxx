@@ -27,7 +27,7 @@
 #include <TDF_ListIteratorOfLabelList.hxx>
 #include <TDF_MapIteratorOfLabelMap.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TDF_Delta, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(TDF_Delta, RefObject)
 
 #ifdef OCCT_DEBUG
   #include <Standard_ConstructionError.hxx>

@@ -25,7 +25,7 @@
 #include <Standard_ErrorHandler.hxx>
 #include <TopoDS_Shape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DE_Wrapper, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(DE_Wrapper, RefObject)
 
 namespace
 {

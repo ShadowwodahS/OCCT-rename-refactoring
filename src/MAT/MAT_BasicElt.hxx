@@ -25,11 +25,11 @@
 class MAT_Arc;
 
 class MAT_BasicElt;
-DEFINE_STANDARD_HANDLE(MAT_BasicElt, Standard_Transient)
+DEFINE_STANDARD_HANDLE(MAT_BasicElt, RefObject)
 
 //! A    BasicELt  is  associated   to  each  elementary
 //! constituent of  the figure.
-class MAT_BasicElt : public Standard_Transient
+class MAT_BasicElt : public RefObject
 {
 
 public:
@@ -58,7 +58,7 @@ public:
 
   Standard_EXPORT void SetGeomIndex(const Standard_Integer anInteger);
 
-  DEFINE_STANDARD_RTTIEXT(MAT_BasicElt, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(MAT_BasicElt, RefObject)
 
 protected:
 private:

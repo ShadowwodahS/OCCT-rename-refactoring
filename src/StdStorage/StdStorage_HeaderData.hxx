@@ -25,17 +25,17 @@
 class Storage_BaseDriver;
 
 class StdStorage_HeaderData;
-DEFINE_STANDARD_HANDLE(StdStorage_HeaderData, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StdStorage_HeaderData, RefObject)
 
 //! Storage header data section that contains some
 //! auxiliary information (application name, schema version,
 //! creation date, comments and so on...)
-class StdStorage_HeaderData : public Standard_Transient
+class StdStorage_HeaderData : public RefObject
 {
   friend class StdStorage_Data;
 
 public:
-  DEFINE_STANDARD_RTTIEXT(StdStorage_HeaderData, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StdStorage_HeaderData, RefObject)
 
   //! Reads the header data section from the container defined by theDriver.
   //! Returns Standard_True in case of success. Otherwise, one need to get

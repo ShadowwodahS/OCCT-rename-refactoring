@@ -24,9 +24,9 @@
 class TCollection_HAsciiString;
 
 class StepRepr_FunctionallyDefinedTransformation;
-DEFINE_STANDARD_HANDLE(StepRepr_FunctionallyDefinedTransformation, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepRepr_FunctionallyDefinedTransformation, RefObject)
 
-class StepRepr_FunctionallyDefinedTransformation : public Standard_Transient
+class StepRepr_FunctionallyDefinedTransformation : public RefObject
 {
 
 public:
@@ -44,7 +44,7 @@ public:
 
   Standard_EXPORT Handle(TCollection_HAsciiString) Description() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepRepr_FunctionallyDefinedTransformation, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepRepr_FunctionallyDefinedTransformation, RefObject)
 
 protected:
 private:

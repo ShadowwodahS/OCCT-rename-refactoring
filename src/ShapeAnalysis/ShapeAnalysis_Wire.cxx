@@ -80,7 +80,7 @@
 #include <TopTools_IndexedMapOfShape.hxx>
 #include <TopTools_ListOfShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeAnalysis_Wire, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(ShapeAnalysis_Wire, RefObject)
 
 // szvsh addition
 //=================================================================================================

@@ -29,7 +29,7 @@
 #include <algorithm>
 #include <limits>
 
-IMPLEMENT_STANDARD_RTTIEXT(RWStl_Reader, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(RWStl_Reader, RefObject)
 
 namespace
 {

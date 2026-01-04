@@ -59,9 +59,9 @@ class Select3D_SensitiveEntity;
 //! -   mode 4 : selection of the faces
 //! -   mode 5 : selection of the shells
 //! -   mode 6 :   selection of the constituent solids.
-class SelectMgr_Selection : public Standard_Transient
+class SelectMgr_Selection : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(SelectMgr_Selection, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(SelectMgr_Selection, RefObject)
 public:
   //! Constructs a selection object defined by the selection mode IdMode.
   //! The default setting 0 is the selection mode for a shape in its entirety.
@@ -138,6 +138,6 @@ private:
   Standard_Boolean                                      myIsCustomSens;
 };
 
-DEFINE_STANDARD_HANDLE(SelectMgr_Selection, Standard_Transient)
+DEFINE_STANDARD_HANDLE(SelectMgr_Selection, RefObject)
 
 #endif

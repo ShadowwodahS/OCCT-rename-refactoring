@@ -20,9 +20,9 @@
 #include <Standard_Type.hxx>
 
 //! Auxiliary class defining the animation timer.
-class Media_Timer : public Standard_Transient
+class Media_Timer : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Media_Timer, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Media_Timer, RefObject)
 public:
   //! Empty constructor.
   Media_Timer()
@@ -61,6 +61,6 @@ protected:
   Standard_Real myTimerSpeed;
 };
 
-DEFINE_STANDARD_HANDLE(Media_Timer, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Media_Timer, RefObject)
 
 #endif // _Media_Timer_HeaderFile

@@ -26,9 +26,9 @@
 class Storage_CallBack;
 
 class Storage_TypedCallBack;
-DEFINE_STANDARD_HANDLE(Storage_TypedCallBack, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Storage_TypedCallBack, RefObject)
 
-class Storage_TypedCallBack : public Standard_Transient
+class Storage_TypedCallBack : public RefObject
 {
 
 public:
@@ -49,7 +49,7 @@ public:
 
   Standard_EXPORT Standard_Integer Index() const;
 
-  DEFINE_STANDARD_RTTIEXT(Storage_TypedCallBack, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Storage_TypedCallBack, RefObject)
 
 protected:
 private:

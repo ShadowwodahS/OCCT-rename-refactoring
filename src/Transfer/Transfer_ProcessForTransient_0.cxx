@@ -111,7 +111,7 @@ void Transfer_ProcessForTransient::Clean()
   Transfer_TransferMapOfProcessForTransient newmap(nb * 2);
   for (i = 1; i <= nb; i++)
   {
-    Handle(Standard_Transient) ent = Mapped(i);
+    Handle(RefObject) ent = Mapped(i);
     Handle(Transfer_Binder)    bnd = MapItem(i);
     if (bnd.IsNull())
       continue;
@@ -176,7 +176,7 @@ Handle(Transfer_ActorOfProcessForTransient) Transfer_ProcessForTransient::Actor(
 //=================================================================================================
 
 Handle(Transfer_Binder) Transfer_ProcessForTransient::Find(
-  const Handle(Standard_Transient)& start) const
+  const Handle(RefObject)& start) const
 {
   if (thelastobj == start)
   {
@@ -195,7 +195,7 @@ Handle(Transfer_Binder) Transfer_ProcessForTransient::Find(
 //=================================================================================================
 
 Standard_Boolean Transfer_ProcessForTransient::IsBound(
-  const Handle(Standard_Transient)& start) const
+  const Handle(RefObject)& start) const
 {
   Handle(Transfer_Binder) binder = Find(start);
   if (binder.IsNull())
@@ -206,7 +206,7 @@ Standard_Boolean Transfer_ProcessForTransient::IsBound(
 //=================================================================================================
 
 Standard_Boolean Transfer_ProcessForTransient::IsAlreadyUsed(
-  const Handle(Standard_Transient)& start) const
+  const Handle(RefObject)& start) const
 {
   Handle(Transfer_Binder) binder = Find(start);
   if (binder.IsNull())
@@ -221,7 +221,7 @@ Standard_Boolean Transfer_ProcessForTransient::IsAlreadyUsed(
 //=================================================================================================
 
 Handle(Transfer_Binder) Transfer_ProcessForTransient::FindAndMask(
-  const Handle(Standard_Transient)& start)
+  const Handle(RefObject)& start)
 {
   if (thelastobj == start)
   {
@@ -239,7 +239,7 @@ Handle(Transfer_Binder) Transfer_ProcessForTransient::FindAndMask(
 
 //=================================================================================================
 
-void Transfer_ProcessForTransient::Bind(const Handle(Standard_Transient)& start,
+void Transfer_ProcessForTransient::Bind(const Handle(RefObject)& start,
                                         const Handle(Transfer_Binder)&    binder)
 {
   if (binder.IsNull())
@@ -282,7 +282,7 @@ void Transfer_ProcessForTransient::Bind(const Handle(Standard_Transient)& start,
 
 //=================================================================================================
 
-void Transfer_ProcessForTransient::Rebind(const Handle(Standard_Transient)& start,
+void Transfer_ProcessForTransient::Rebind(const Handle(RefObject)& start,
                                           const Handle(Transfer_Binder)&    binder)
 {
   Bind(start, binder);
@@ -290,7 +290,7 @@ void Transfer_ProcessForTransient::Rebind(const Handle(Standard_Transient)& star
 
 //=================================================================================================
 
-Standard_Boolean Transfer_ProcessForTransient::Unbind(const Handle(Standard_Transient)& start)
+Standard_Boolean Transfer_ProcessForTransient::Unbind(const Handle(RefObject)& start)
 {
   Handle(Transfer_Binder) former = FindAndMask(start);
   if (theindex == 0)
@@ -320,7 +320,7 @@ Standard_Boolean Transfer_ProcessForTransient::Unbind(const Handle(Standard_Tran
 //=================================================================================================
 
 Handle(Transfer_Binder) Transfer_ProcessForTransient::FindElseBind(
-  const Handle(Standard_Transient)& start)
+  const Handle(RefObject)& start)
 {
   Handle(Transfer_Binder) binder = FindAndMask(start);
   if (!binder.IsNull())
@@ -363,7 +363,7 @@ Standard_Integer Transfer_ProcessForTransient::TraceLevel() const
 
 //=================================================================================================
 
-void Transfer_ProcessForTransient::SendFail(const Handle(Standard_Transient)& start,
+void Transfer_ProcessForTransient::SendFail(const Handle(RefObject)& start,
                                             const Message_Msg&                amsg)
 {
   AddFail(start, amsg);
@@ -371,7 +371,7 @@ void Transfer_ProcessForTransient::SendFail(const Handle(Standard_Transient)& st
 
 //=================================================================================================
 
-void Transfer_ProcessForTransient::SendWarning(const Handle(Standard_Transient)& start,
+void Transfer_ProcessForTransient::SendWarning(const Handle(RefObject)& start,
                                                const Message_Msg&                amsg)
 {
   AddWarning(start, amsg);
@@ -379,7 +379,7 @@ void Transfer_ProcessForTransient::SendWarning(const Handle(Standard_Transient)&
 
 //=================================================================================================
 
-void Transfer_ProcessForTransient::SendMsg(const Handle(Standard_Transient)& start,
+void Transfer_ProcessForTransient::SendMsg(const Handle(RefObject)& start,
                                            const Message_Msg&                amsg)
 {
   Handle(Transfer_Binder) binder = FindAndMask(start);
@@ -402,7 +402,7 @@ void Transfer_ProcessForTransient::SendMsg(const Handle(Standard_Transient)& sta
 
 //=================================================================================================
 
-void Transfer_ProcessForTransient::AddFail(const Handle(Standard_Transient)& start,
+void Transfer_ProcessForTransient::AddFail(const Handle(RefObject)& start,
                                            const Standard_CString            mess,
                                            const Standard_CString            orig)
 {
@@ -426,7 +426,7 @@ void Transfer_ProcessForTransient::AddFail(const Handle(Standard_Transient)& sta
 
 //=================================================================================================
 
-void Transfer_ProcessForTransient::AddError(const Handle(Standard_Transient)& start,
+void Transfer_ProcessForTransient::AddError(const Handle(RefObject)& start,
                                             const Standard_CString            mess,
                                             const Standard_CString            orig)
 {
@@ -435,7 +435,7 @@ void Transfer_ProcessForTransient::AddError(const Handle(Standard_Transient)& st
 
 //=================================================================================================
 
-void Transfer_ProcessForTransient::AddFail(const Handle(Standard_Transient)& start,
+void Transfer_ProcessForTransient::AddFail(const Handle(RefObject)& start,
                                            const Message_Msg&                amsg)
 {
   if (amsg.IsEdited())
@@ -448,7 +448,7 @@ void Transfer_ProcessForTransient::AddFail(const Handle(Standard_Transient)& sta
 
 //=================================================================================================
 
-void Transfer_ProcessForTransient::AddWarning(const Handle(Standard_Transient)& start,
+void Transfer_ProcessForTransient::AddWarning(const Handle(RefObject)& start,
                                               const Standard_CString            mess,
                                               const Standard_CString            orig)
 {
@@ -472,7 +472,7 @@ void Transfer_ProcessForTransient::AddWarning(const Handle(Standard_Transient)& 
 
 //=================================================================================================
 
-void Transfer_ProcessForTransient::AddWarning(const Handle(Standard_Transient)& start,
+void Transfer_ProcessForTransient::AddWarning(const Handle(RefObject)& start,
                                               const Message_Msg&                amsg)
 {
   if (amsg.IsEdited())
@@ -485,7 +485,7 @@ void Transfer_ProcessForTransient::AddWarning(const Handle(Standard_Transient)& 
 
 //=================================================================================================
 
-void Transfer_ProcessForTransient::Mend(const Handle(Standard_Transient)& start,
+void Transfer_ProcessForTransient::Mend(const Handle(RefObject)& start,
                                         const Standard_CString            pref)
 {
   Handle(Transfer_Binder) binder = FindAndMask(start);
@@ -498,7 +498,7 @@ void Transfer_ProcessForTransient::Mend(const Handle(Standard_Transient)& start,
 //=================================================================================================
 
 Handle(Interface_Check) Transfer_ProcessForTransient::Check(
-  const Handle(Standard_Transient)& start) const
+  const Handle(RefObject)& start) const
 {
   const Handle(Transfer_Binder)& binder = Find(start);
   if (binder.IsNull())
@@ -511,8 +511,8 @@ Handle(Interface_Check) Transfer_ProcessForTransient::Check(
 
 //=================================================================================================
 
-void Transfer_ProcessForTransient::BindTransient(const Handle(Standard_Transient)& start,
-                                                 const Handle(Standard_Transient)& res)
+void Transfer_ProcessForTransient::BindTransient(const Handle(RefObject)& start,
+                                                 const Handle(RefObject)& res)
 {
   if (res.IsNull())
     return;
@@ -537,10 +537,10 @@ void Transfer_ProcessForTransient::BindTransient(const Handle(Standard_Transient
 
 //=================================================================================================
 
-const Handle(Standard_Transient)& Transfer_ProcessForTransient::FindTransient(
-  const Handle(Standard_Transient)& start) const
+const Handle(RefObject)& Transfer_ProcessForTransient::FindTransient(
+  const Handle(RefObject)& start) const
 {
-  static const Handle(Standard_Transient)  aDummy;
+  static const Handle(RefObject)  aDummy;
   Handle(Transfer_SimpleBinderOfTransient) binder =
     Handle(Transfer_SimpleBinderOfTransient)::DownCast(Find(start));
   if (binder.IsNull())
@@ -552,7 +552,7 @@ const Handle(Standard_Transient)& Transfer_ProcessForTransient::FindTransient(
 
 //=================================================================================================
 
-void Transfer_ProcessForTransient::BindMultiple(const Handle(Standard_Transient)& start)
+void Transfer_ProcessForTransient::BindMultiple(const Handle(RefObject)& start)
 {
   Handle(Transfer_Binder) binder = FindAndMask(start);
   if (!binder.IsNull())
@@ -569,8 +569,8 @@ void Transfer_ProcessForTransient::BindMultiple(const Handle(Standard_Transient)
 
 //=================================================================================================
 
-void Transfer_ProcessForTransient::AddMultiple(const Handle(Standard_Transient)& start,
-                                               const Handle(Standard_Transient)& res)
+void Transfer_ProcessForTransient::AddMultiple(const Handle(RefObject)& start,
+                                               const Handle(RefObject)& res)
 {
   Handle(Transfer_Binder)         binder = FindAndMask(start);
   Handle(Transfer_MultipleBinder) multr  = Handle(Transfer_MultipleBinder)::DownCast(binder);
@@ -588,9 +588,9 @@ void Transfer_ProcessForTransient::AddMultiple(const Handle(Standard_Transient)&
 //=================================================================================================
 
 Standard_Boolean Transfer_ProcessForTransient::FindTypedTransient(
-  const Handle(Standard_Transient)& start,
+  const Handle(RefObject)& start,
   const Handle(Standard_Type)&      atype,
-  Handle(Standard_Transient)&       val) const
+  Handle(RefObject)&       val) const
 {
   return GetTypedTransient(Find(start), atype, val);
 }
@@ -600,7 +600,7 @@ Standard_Boolean Transfer_ProcessForTransient::FindTypedTransient(
 Standard_Boolean Transfer_ProcessForTransient::GetTypedTransient(
   const Handle(Transfer_Binder)& binder,
   const Handle(Standard_Type)&   atype,
-  Handle(Standard_Transient)&    val) const
+  Handle(RefObject)&    val) const
 {
   return Transfer_SimpleBinderOfTransient::GetTypedResult(binder, atype, val);
 }
@@ -614,7 +614,7 @@ Standard_Integer Transfer_ProcessForTransient::NbMapped() const
 
 //=================================================================================================
 
-const Handle(Standard_Transient)& Transfer_ProcessForTransient::Mapped(
+const Handle(RefObject)& Transfer_ProcessForTransient::Mapped(
   const Standard_Integer num) const
 {
   return themap.FindKey(num);
@@ -623,7 +623,7 @@ const Handle(Standard_Transient)& Transfer_ProcessForTransient::Mapped(
 //=================================================================================================
 
 Standard_Integer Transfer_ProcessForTransient::MapIndex(
-  const Handle(Standard_Transient)& start) const
+  const Handle(RefObject)& start) const
 {
   return themap.FindIndex(start);
 }
@@ -638,7 +638,7 @@ Handle(Transfer_Binder) Transfer_ProcessForTransient::MapItem(const Standard_Int
 
 //=================================================================================================
 
-void Transfer_ProcessForTransient::SetRoot(const Handle(Standard_Transient)& start)
+void Transfer_ProcessForTransient::SetRoot(const Handle(RefObject)& start)
 {
   Standard_Integer index = MapIndex(start);
   if (index == 0)
@@ -667,7 +667,7 @@ Standard_Integer Transfer_ProcessForTransient::NbRoots() const
 
 //=================================================================================================
 
-const Handle(Standard_Transient)& Transfer_ProcessForTransient::Root(
+const Handle(RefObject)& Transfer_ProcessForTransient::Root(
   const Standard_Integer num) const
 {
   Standard_Integer ind = 0;
@@ -689,7 +689,7 @@ Handle(Transfer_Binder) Transfer_ProcessForTransient::RootItem(const Standard_In
 //=================================================================================================
 
 Standard_Integer Transfer_ProcessForTransient::RootIndex(
-  const Handle(Standard_Transient)& start) const
+  const Handle(RefObject)& start) const
 {
   Standard_Integer index = MapIndex(start);
   if (index == 0)
@@ -714,7 +714,7 @@ void Transfer_ProcessForTransient::ResetNestingLevel()
 //=================================================================================================
 
 Standard_Boolean Transfer_ProcessForTransient::Recognize(
-  const Handle(Standard_Transient)& start) const
+  const Handle(RefObject)& start) const
 {
   Handle(Transfer_ActorOfProcessForTransient) actor = theactor;
   // We scan the Next until we have a Result
@@ -730,7 +730,7 @@ Standard_Boolean Transfer_ProcessForTransient::Recognize(
 //=================================================================================================
 
 Handle(Transfer_Binder) Transfer_ProcessForTransient::Transferring(
-  const Handle(Standard_Transient)& start,
+  const Handle(RefObject)& start,
   const Message_ProgressRange&      theProgress)
 {
   Handle(Transfer_Binder) former = FindAndMask(start);
@@ -888,7 +888,7 @@ Handle(Transfer_Binder) Transfer_ProcessForTransient::Transferring(
 //=================================================================================================
 
 Handle(Transfer_Binder) Transfer_ProcessForTransient::TransferProduct(
-  const Handle(Standard_Transient)& start,
+  const Handle(RefObject)& start,
   const Message_ProgressRange&      theProgress)
 {
   thelevel++;
@@ -932,7 +932,7 @@ Handle(Transfer_Binder) Transfer_ProcessForTransient::TransferProduct(
 
 //=================================================================================================
 
-Standard_Boolean Transfer_ProcessForTransient::Transfer(const Handle(Standard_Transient)& start,
+Standard_Boolean Transfer_ProcessForTransient::Transfer(const Handle(RefObject)& start,
                                                         const Message_ProgressRange& theProgress)
 {
   Handle(Transfer_Binder) binder = Transferring(start, theProgress);
@@ -956,7 +956,7 @@ Standard_Boolean Transfer_ProcessForTransient::ErrorHandle() const
 //=================================================================================================
 
 void Transfer_ProcessForTransient::StartTrace(const Handle(Transfer_Binder)&    binder,
-                                              const Handle(Standard_Transient)& start,
+                                              const Handle(RefObject)& start,
                                               const Standard_Integer            level,
                                               const Standard_Integer            mode) const
 {
@@ -1012,7 +1012,7 @@ void Transfer_ProcessForTransient::StartTrace(const Handle(Transfer_Binder)&    
 
 //=================================================================================================
 
-void Transfer_ProcessForTransient::PrintTrace(const Handle(Standard_Transient)& start,
+void Transfer_ProcessForTransient::PrintTrace(const Handle(RefObject)& start,
                                               Standard_OStream&                 S) const
 {
   if (!start.IsNull())
@@ -1103,7 +1103,7 @@ Interface_CheckIterator Transfer_ProcessForTransient::CheckList(
       check->AddFail("Transfer in Abnormal Status (!= Initial or Done)");
     if (!check->HasFailed() && (erronly || check->NbWarnings() == 0))
       continue;
-    const Handle(Standard_Transient)& ent = Mapped(i);
+    const Handle(RefObject)& ent = Mapped(i);
     num                                   = CheckNum(ent);
     if (num == 0)
       num = i;
@@ -1116,7 +1116,7 @@ Interface_CheckIterator Transfer_ProcessForTransient::CheckList(
 //=================================================================================================
 
 Transfer_IteratorOfProcessForTransient Transfer_ProcessForTransient::ResultOne(
-  const Handle(Standard_Transient)& start,
+  const Handle(RefObject)& start,
   const Standard_Integer            level,
   const Standard_Boolean            withstart) const
 {
@@ -1148,7 +1148,7 @@ Transfer_IteratorOfProcessForTransient Transfer_ProcessForTransient::ResultOne(
 //=================================================================================================
 
 Interface_CheckIterator Transfer_ProcessForTransient::CheckListOne(
-  const Handle(Standard_Transient)& start,
+  const Handle(RefObject)& start,
   const Standard_Integer            level,
   const Standard_Boolean            erronly) const
 {
@@ -1175,7 +1175,7 @@ Interface_CheckIterator Transfer_ProcessForTransient::CheckListOne(
       check->AddFail("Transfer in Abnormal Status (!= Initial or Done)");
     if (!check->HasFailed() && (erronly || check->NbWarnings() == 0))
       continue;
-    const Handle(Standard_Transient)& ent = Mapped(ind);
+    const Handle(RefObject)& ent = Mapped(ind);
     num                                   = CheckNum(ent);
     if (num == 0)
       num = ind;
@@ -1188,7 +1188,7 @@ Interface_CheckIterator Transfer_ProcessForTransient::CheckListOne(
 //=================================================================================================
 
 Standard_Boolean Transfer_ProcessForTransient::IsCheckListEmpty(
-  const Handle(Standard_Transient)& start,
+  const Handle(RefObject)& start,
   const Standard_Integer            level,
   const Standard_Boolean            erronly) const
 {
@@ -1221,7 +1221,7 @@ Standard_Boolean Transfer_ProcessForTransient::IsCheckListEmpty(
 
 //=================================================================================================
 
-void Transfer_ProcessForTransient::RemoveResult(const Handle(Standard_Transient)& start,
+void Transfer_ProcessForTransient::RemoveResult(const Handle(RefObject)& start,
                                                 const Standard_Integer            level,
                                                 const Standard_Boolean /*compute*/)
 {
@@ -1248,7 +1248,7 @@ void Transfer_ProcessForTransient::RemoveResult(const Handle(Standard_Transient)
 
 //=================================================================================================
 
-Standard_Integer Transfer_ProcessForTransient::CheckNum(const Handle(Standard_Transient)&) const
+Standard_Integer Transfer_ProcessForTransient::CheckNum(const Handle(RefObject)&) const
 {
   return 0;
 }

@@ -23,11 +23,11 @@
 #include <Standard_Transient.hxx>
 
 class ShapeCustom_RestrictionParameters;
-DEFINE_STANDARD_HANDLE(ShapeCustom_RestrictionParameters, Standard_Transient)
+DEFINE_STANDARD_HANDLE(ShapeCustom_RestrictionParameters, RefObject)
 
 //! This class is axuluary tool which contains parameters for
 //! BSplineRestriction class.
-class ShapeCustom_RestrictionParameters : public Standard_Transient
+class ShapeCustom_RestrictionParameters : public RefObject
 {
 
 public:
@@ -95,7 +95,7 @@ public:
   //! converted to BSpline surface.
   Standard_Boolean& ConvertOffsetCurv2d();
 
-  DEFINE_STANDARD_RTTIEXT(ShapeCustom_RestrictionParameters, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(ShapeCustom_RestrictionParameters, RefObject)
 
 protected:
 private:

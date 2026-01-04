@@ -276,7 +276,7 @@ void MessageView_Window::UpdateContent()
   TCollection_AsciiString aName = "TKMessageView";
   if (myParameters->FindParameters(aName))
   {
-    NCollection_List<Handle(Standard_Transient)> aParameters = myParameters->Parameters(aName);
+    NCollection_List<Handle(RefObject)> aParameters = myParameters->Parameters(aName);
     // Init will remove from parameters those, that are processed only one time (TShape)
     Init(aParameters);
     myParameters->SetParameters(aName, aParameters);
@@ -296,18 +296,18 @@ void MessageView_Window::UpdateContent()
 // function : Init
 // purpose :
 // =======================================================================
-void MessageView_Window::Init(NCollection_List<Handle(Standard_Transient)>& theParameters)
+void MessageView_Window::Init(NCollection_List<Handle(RefObject)>& theParameters)
 {
   Handle(AIS_InteractiveContext)               aContext;
-  NCollection_List<Handle(Standard_Transient)> aParameters;
+  NCollection_List<Handle(RefObject)> aParameters;
 
   Handle(Graphic3d_Camera) aViewCamera;
 
-  for (NCollection_List<Handle(Standard_Transient)>::Iterator aParamsIt(theParameters);
+  for (NCollection_List<Handle(RefObject)>::Iterator aParamsIt(theParameters);
        aParamsIt.More();
        aParamsIt.Next())
   {
-    Handle(Standard_Transient) anObject       = aParamsIt.Value();
+    Handle(RefObject) anObject       = aParamsIt.Value();
     Handle(Message_Report)     aMessageReport = Handle(Message_Report)::DownCast(anObject);
     if (!aMessageReport.IsNull())
     {
@@ -574,7 +574,7 @@ void MessageView_Window::onPreviewChildren()
     return;
 
   QModelIndexList aSelectedIndices = myTreeView->selectionModel()->selectedIndexes();
-  NCollection_List<Handle(Standard_Transient)> aPresentations;
+  NCollection_List<Handle(RefObject)> aPresentations;
   TreeModel_ModelBase::SubItemsPresentations(aSelectedIndices, aPresentations);
 
   displayer()->UpdatePreview(View_DisplayActionType_DisplayId, aPresentations);
@@ -718,7 +718,7 @@ void MessageView_Window::updatePreviewPresentation()
   if (aContext.IsNull())
     return;
 
-  NCollection_List<Handle(Standard_Transient)> aPresentations;
+  NCollection_List<Handle(RefObject)> aPresentations;
   QModelIndexList aSelectedIndices = myTreeView->selectionModel()->selectedIndexes();
   for (QModelIndexList::const_iterator aSelIt = aSelectedIndices.begin();
        aSelIt != aSelectedIndices.end();

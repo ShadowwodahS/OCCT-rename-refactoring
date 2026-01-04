@@ -15,7 +15,7 @@
 #include <StepBasic_DocumentReference.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_DocumentReference, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_DocumentReference, RefObject)
 
 void StepBasic_DocumentReference::Init0(const Handle(StepBasic_Document)&       aAssignedDocument,
                                         const Handle(TCollection_HAsciiString)& aSource)

@@ -24,7 +24,7 @@
 class Image_Texture;
 
 //! glTF 2.0 format PBR material definition.
-class RWGltf_MaterialMetallicRoughness : public Standard_Transient
+class RWGltf_MaterialMetallicRoughness : public RefObject
 {
 public:
   Handle(Image_Texture) BaseColorTexture; //!< RGB texture for the base color

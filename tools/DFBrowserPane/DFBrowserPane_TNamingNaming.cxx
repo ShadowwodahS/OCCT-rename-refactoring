@@ -151,10 +151,10 @@ void DFBrowserPane_TNamingNaming::GetValues(const Handle(TDF_Attribute)& theAttr
 // function : GetPresentation
 // purpose :
 // =======================================================================
-Handle(Standard_Transient) DFBrowserPane_TNamingNaming::GetPresentation(
+Handle(RefObject) DFBrowserPane_TNamingNaming::GetPresentation(
   const Handle(TDF_Attribute)& theAttribute)
 {
-  Handle(Standard_Transient) aPresentation;
+  Handle(RefObject) aPresentation;
   Handle(TNaming_Naming)     anAttribute = Handle(TNaming_Naming)::DownCast(theAttribute);
   if (anAttribute.IsNull())
     return aPresentation;
@@ -199,7 +199,7 @@ Handle(Standard_Transient) DFBrowserPane_TNamingNaming::GetPresentation(
 // =======================================================================
 void DFBrowserPane_TNamingNaming::GetReferences(const Handle(TDF_Attribute)& theAttribute,
                                                 NCollection_List<TDF_Label>& theRefLabels,
-                                                Handle(Standard_Transient)&)
+                                                Handle(RefObject)&)
 {
   Handle(TNaming_Naming) anAttribute = Handle(TNaming_Naming)::DownCast(theAttribute);
   if (anAttribute.IsNull())

@@ -24,9 +24,9 @@
 #include <Quantity_ColorRGBA.hxx>
 
 //! Class defines presentation properties.
-class Graphic3d_PresentationAttributes : public Standard_Transient
+class Graphic3d_PresentationAttributes : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_PresentationAttributes, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Graphic3d_PresentationAttributes, RefObject)
 public:
   //! Empty constructor.
   Graphic3d_PresentationAttributes()
@@ -105,6 +105,6 @@ protected:
   Standard_Integer                   myDispMode;            //!< display mode
 };
 
-DEFINE_STANDARD_HANDLE(Graphic3d_PresentationAttributes, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Graphic3d_PresentationAttributes, RefObject)
 
 #endif // _Graphic3d_PresentationAttributes_HeaderFile

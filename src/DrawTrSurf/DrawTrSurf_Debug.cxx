@@ -35,7 +35,7 @@ Standard_EXPORT const char* DrawTrSurf_Set(const char* theNameStr, void* theHand
   }
   try
   {
-    const Handle(Standard_Transient)& aHandle = *(Handle(Standard_Transient)*)theHandlePtr;
+    const Handle(RefObject)& aHandle = *(Handle(RefObject)*)theHandlePtr;
     Handle(Geom_Geometry)             aGeom3d = Handle(Geom_Geometry)::DownCast(aHandle);
     if (!aGeom3d.IsNull())
     {
@@ -110,7 +110,7 @@ Standard_EXPORT const char* DrawTrSurf_SetPnt2d(const char* theNameStr, void* th
 // work with them (DBX could, on SUN Solaris).
 #ifndef _MSC_VER
 
-Standard_EXPORT const char* DrawTrSurf_Set(const char* name, const Handle(Standard_Transient)& G)
+Standard_EXPORT const char* DrawTrSurf_Set(const char* name, const Handle(RefObject)& G)
 {
   return DrawTrSurf_Set(name, (void*)&G);
 }
@@ -129,7 +129,7 @@ Standard_EXPORT const char* DrawTrSurf_Set(const char* theName, const gp_Pnt2d& 
 
 // old function, looks too dangerous to be used
 /*
-void DrawTrSurf_Get(const char* name, Handle(Standard_Transient)& G)
+void DrawTrSurf_Get(const char* name, Handle(RefObject)& G)
 {
   Handle(Geom_Geometry) GG = DrawTrSurf::Get(name);
   std::cout << "Nom : " << name << std::endl;

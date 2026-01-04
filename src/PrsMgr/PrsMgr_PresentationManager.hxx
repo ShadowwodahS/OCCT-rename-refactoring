@@ -30,16 +30,16 @@ class PrsMgr_Presentation;
 class PrsMgr_PresentableObject;
 class V3d_Viewer;
 
-DEFINE_STANDARD_HANDLE(PrsMgr_PresentationManager, Standard_Transient)
+DEFINE_STANDARD_HANDLE(PrsMgr_PresentationManager, RefObject)
 
 //! A framework to manage 3D displays, graphic entities and their updates.
 //! Used in the AIS package (Application Interactive Services), to enable the advanced user to
 //! define the default display mode of a new interactive object which extends the list of signatures
 //! and types. Definition of new display types is handled by calling the presentation algorithms
 //! provided by the StdPrs package.
-class PrsMgr_PresentationManager : public Standard_Transient
+class PrsMgr_PresentationManager : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(PrsMgr_PresentationManager, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(PrsMgr_PresentationManager, RefObject)
 public:
   //! Creates a framework to manage displays and graphic entities with the 3D view
   //! theStructureManager.

@@ -31,7 +31,7 @@ class Interface_InterfaceModel;
 class Interface_GeneralModule;
 
 class Interface_GTool;
-DEFINE_STANDARD_HANDLE(Interface_GTool, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Interface_GTool, RefObject)
 
 //! GTool - General Tool for a Model
 //! Provides the functions performed by Protocol/GeneralModule for
@@ -39,7 +39,7 @@ DEFINE_STANDARD_HANDLE(Interface_GTool, Standard_Transient)
 //! Optimized : once an entity has been queried, the GeneralLib is
 //! not longer queried
 //! Shareable between several users : as a Handle
-class Interface_GTool : public Standard_Transient
+class Interface_GTool : public RefObject
 {
 
 public:
@@ -60,7 +60,7 @@ public:
   //! Returns the Signature for a Transient Object in a Model
   //! It calls SignType to do that
   //! If SignType is not defined, return ClassName of <ent>
-  Standard_EXPORT Standard_CString SignValue(const Handle(Standard_Transient)&       ent,
+  Standard_EXPORT Standard_CString SignValue(const Handle(RefObject)&       ent,
                                              const Handle(Interface_InterfaceModel)& model) const;
 
   //! Returns the Name of the SignType, or "Class Name"
@@ -93,12 +93,12 @@ public:
   //! It is optimised : once done for each entity, the result is
   //! mapped and the GeneralLib is not longer queried
   //! <enforce> True overpasses this optimisation
-  Standard_EXPORT Standard_Boolean Select(const Handle(Standard_Transient)& ent,
+  Standard_EXPORT Standard_Boolean Select(const Handle(RefObject)& ent,
                                           Handle(Interface_GeneralModule)&  gmod,
                                           Standard_Integer&                 CN,
                                           const Standard_Boolean enforce = Standard_False);
 
-  DEFINE_STANDARD_RTTIEXT(Interface_GTool, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Interface_GTool, RefObject)
 
 protected:
 private:

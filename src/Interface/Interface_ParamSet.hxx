@@ -28,11 +28,11 @@ class Interface_ParamList;
 class Interface_FileParameter;
 
 class Interface_ParamSet;
-DEFINE_STANDARD_HANDLE(Interface_ParamSet, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Interface_ParamSet, RefObject)
 
 //! Defines an ordered set of FileParameters, in a way to be
 //! efficient as in memory requirement or in speed
-class Interface_ParamSet : public Standard_Transient
+class Interface_ParamSet : public RefObject
 {
 
 public:
@@ -83,7 +83,7 @@ public:
 
   ~Interface_ParamSet() { Destroy(); }
 
-  DEFINE_STANDARD_RTTIEXT(Interface_ParamSet, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Interface_ParamSet, RefObject)
 
 protected:
 private:

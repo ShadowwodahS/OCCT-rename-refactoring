@@ -23,7 +23,7 @@
 //! The purpose of this class is to provide unified interface for building
 //! selecting frustum depending on current camera projection and orientation
 //! matrices, window size and viewport parameters.
-class SelectMgr_FrustumBuilder : public Standard_Transient
+class SelectMgr_FrustumBuilder : public RefObject
 {
 public:
   //! Creates new frustum builder with empty matrices
@@ -61,7 +61,7 @@ public:
                                                const Standard_Real& theY,
                                                const Standard_Real& theZ) const;
 
-  DEFINE_STANDARD_RTTIEXT(SelectMgr_FrustumBuilder, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(SelectMgr_FrustumBuilder, RefObject)
 
 private:
   Handle(Graphic3d_Camera)        myCamera;
@@ -71,6 +71,6 @@ private:
   Standard_Boolean                myIsViewportSet;
 };
 
-DEFINE_STANDARD_HANDLE(SelectMgr_FrustumBuilder, Standard_Transient)
+DEFINE_STANDARD_HANDLE(SelectMgr_FrustumBuilder, RefObject)
 
 #endif // _SelectMgr_FrustumBuilder_HeaderFile

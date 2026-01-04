@@ -26,11 +26,11 @@
 
 class Draw_Display;
 
-DEFINE_STANDARD_HANDLE(Draw_Drawable3D, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Draw_Drawable3D, RefObject)
 
-class Draw_Drawable3D : public Standard_Transient
+class Draw_Drawable3D : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Draw_Drawable3D, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Draw_Drawable3D, RefObject)
 public:
   //! Function type for restoring drawable from stream.
   typedef Handle(Draw_Drawable3D) (*FactoryFunction_t)(Standard_IStream& theStream);

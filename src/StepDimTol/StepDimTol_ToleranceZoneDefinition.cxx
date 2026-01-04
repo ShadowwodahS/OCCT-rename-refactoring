@@ -17,7 +17,7 @@
 
 #include <StepRepr_HArray1OfShapeAspect.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepDimTol_ToleranceZoneDefinition, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepDimTol_ToleranceZoneDefinition, RefObject)
 
 //=================================================================================================
 

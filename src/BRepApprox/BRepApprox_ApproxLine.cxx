@@ -22,7 +22,7 @@
 #include <IntSurf_PntOn2S.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepApprox_ApproxLine, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(BRepApprox_ApproxLine, RefObject)
 
 //=================================================================================================
 

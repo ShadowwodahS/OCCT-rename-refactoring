@@ -30,7 +30,7 @@
 #include <TopoDS_Edge.hxx>
 #include <TopoDS_Vertex.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ChFiDS_Spine, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(ChFiDS_Spine, RefObject)
 
 //=================================================================================================
 

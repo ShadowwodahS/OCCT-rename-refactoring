@@ -18,7 +18,7 @@
 #include <StepBasic_ObjectRole.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_ObjectRole, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_ObjectRole, RefObject)
 
 //=================================================================================================
 

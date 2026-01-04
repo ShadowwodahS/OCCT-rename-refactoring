@@ -34,7 +34,7 @@ StepData_DefaultGeneral::StepData_DefaultGeneral()
 }
 
 void StepData_DefaultGeneral::FillSharedCase(const Standard_Integer            casenum,
-                                             const Handle(Standard_Transient)& ent,
+                                             const Handle(RefObject)& ent,
                                              Interface_EntityIterator&         iter) const
 {
   if (casenum != 1)
@@ -58,14 +58,14 @@ void StepData_DefaultGeneral::FillSharedCase(const Standard_Integer            c
 }
 
 void StepData_DefaultGeneral::CheckCase(const Standard_Integer,
-                                        const Handle(Standard_Transient)&,
+                                        const Handle(RefObject)&,
                                         const Interface_ShareTool&,
                                         Handle(Interface_Check)&) const
 {
 } //  pas de Check sur une UndefinedEntity
 
 Standard_Boolean StepData_DefaultGeneral::NewVoid(const Standard_Integer      CN,
-                                                  Handle(Standard_Transient)& ent) const
+                                                  Handle(RefObject)& ent) const
 {
   if (CN != 1)
     return Standard_False;
@@ -74,8 +74,8 @@ Standard_Boolean StepData_DefaultGeneral::NewVoid(const Standard_Integer      CN
 }
 
 void StepData_DefaultGeneral::CopyCase(const Standard_Integer            casenum,
-                                       const Handle(Standard_Transient)& entfrom,
-                                       const Handle(Standard_Transient)& entto,
+                                       const Handle(RefObject)& entfrom,
+                                       const Handle(RefObject)& entto,
                                        Interface_CopyTool&               TC) const
 {
   if (casenum != 1)

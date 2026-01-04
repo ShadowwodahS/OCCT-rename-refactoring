@@ -32,7 +32,7 @@ class Interface_Check;
 class Interface_CheckIterator;
 
 class Transfer_ProcessForTransient;
-DEFINE_STANDARD_HANDLE(Transfer_ProcessForTransient, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Transfer_ProcessForTransient, RefObject)
 
 //! Manages Transfer of Transient Objects. Produces also
 //! ActorOfTransientProcess       (deferred class),
@@ -40,7 +40,7 @@ DEFINE_STANDARD_HANDLE(Transfer_ProcessForTransient, Standard_Transient)
 //! TransferMapOfTransientProcess (internally used)
 //! Normally uses as TransientProcess, which adds some specifics
 
-class Transfer_ProcessForTransient : public Standard_Transient
+class Transfer_ProcessForTransient : public RefObject
 {
 
 public:
@@ -84,24 +84,24 @@ public:
   //! pre-binding).
   //! If no Binder is linked with <start>, returns a Null Handle
   //! Considers a category number, by default 0
-  Standard_EXPORT Handle(Transfer_Binder) Find(const Handle(Standard_Transient)& start) const;
+  Standard_EXPORT Handle(Transfer_Binder) Find(const Handle(RefObject)& start) const;
 
   //! Returns True if a Result (whatever its form) is Bound with
   //! a starting Object. I.e., if a Binder with a Result set,
   //! is linked with it
   //! Considers a category number, by default 0
-  Standard_EXPORT Standard_Boolean IsBound(const Handle(Standard_Transient)& start) const;
+  Standard_EXPORT Standard_Boolean IsBound(const Handle(RefObject)& start) const;
 
   //! Returns True if the result of the transfer of an object is
   //! already used in other ones. If it is, Rebind cannot change it.
   //! Considers a category number, by default 0
-  Standard_EXPORT Standard_Boolean IsAlreadyUsed(const Handle(Standard_Transient)& start) const;
+  Standard_EXPORT Standard_Boolean IsAlreadyUsed(const Handle(RefObject)& start) const;
 
   //! Creates a Link a starting Object with a Binder. This Binder
   //! can either bring a Result (effective Binding) or none (it can
   //! be set later : pre-binding).
   //! Considers a category number, by default 0
-  Standard_EXPORT void Bind(const Handle(Standard_Transient)& start,
+  Standard_EXPORT void Bind(const Handle(RefObject)& start,
                             const Handle(Transfer_Binder)&    binder);
 
   //! Changes the Binder linked with a starting Object for its
@@ -109,7 +109,7 @@ public:
   //! of the result is known once the transfer is widely engaged.
   //! This can be done only on first transfer.
   //! Considers a category number, by default 0
-  Standard_EXPORT void Rebind(const Handle(Standard_Transient)& start,
+  Standard_EXPORT void Rebind(const Handle(RefObject)& start,
                               const Handle(Transfer_Binder)&    binder);
 
   //! Removes the Binder linked with a starting object
@@ -117,12 +117,12 @@ public:
   //! a VoidBinder. Also removes from the list of Roots as required.
   //! Returns True if done, False if <start> was not bound
   //! Considers a category number, by default 0
-  Standard_EXPORT Standard_Boolean Unbind(const Handle(Standard_Transient)& start);
+  Standard_EXPORT Standard_Boolean Unbind(const Handle(RefObject)& start);
 
   //! Returns a Binder for a starting entity, as follows :
   //! Tries to Find the already bound one
   //! If none found, creates a VoidBinder and Binds it
-  Standard_EXPORT Handle(Transfer_Binder) FindElseBind(const Handle(Standard_Transient)& start);
+  Standard_EXPORT Handle(Transfer_Binder) FindElseBind(const Handle(RefObject)& start);
 
   //! Sets Messenger used for outputting messages.
   Standard_EXPORT void SetMessenger(const Handle(Message_Messenger)& messenger);
@@ -145,42 +145,42 @@ public:
   Standard_EXPORT Standard_Integer TraceLevel() const;
 
   //! New name for AddFail (Msg)
-  Standard_EXPORT void SendFail(const Handle(Standard_Transient)& start, const Message_Msg& amsg);
+  Standard_EXPORT void SendFail(const Handle(RefObject)& start, const Message_Msg& amsg);
 
   //! New name for AddWarning (Msg)
-  Standard_EXPORT void SendWarning(const Handle(Standard_Transient)& start,
+  Standard_EXPORT void SendWarning(const Handle(RefObject)& start,
                                    const Message_Msg&                amsg);
 
   //! Adds an information message
   //! Trace is filled if trace level is at least 3
-  Standard_EXPORT void SendMsg(const Handle(Standard_Transient)& start, const Message_Msg& amsg);
+  Standard_EXPORT void SendMsg(const Handle(RefObject)& start, const Message_Msg& amsg);
 
   //! Adds an Error message to a starting entity (to the check of
   //! its Binder of category 0, as a Fail)
-  Standard_EXPORT void AddFail(const Handle(Standard_Transient)& start,
+  Standard_EXPORT void AddFail(const Handle(RefObject)& start,
                                const Standard_CString            mess,
                                const Standard_CString            orig = "");
 
   //! (other name of AddFail, maintained for compatibility)
-  Standard_EXPORT void AddError(const Handle(Standard_Transient)& start,
+  Standard_EXPORT void AddError(const Handle(RefObject)& start,
                                 const Standard_CString            mess,
                                 const Standard_CString            orig = "");
 
   //! Adds an Error Message to a starting entity from the definition
   //! of a Msg (Original+Value)
-  Standard_EXPORT void AddFail(const Handle(Standard_Transient)& start, const Message_Msg& amsg);
+  Standard_EXPORT void AddFail(const Handle(RefObject)& start, const Message_Msg& amsg);
 
   //! Adds a Warning message to a starting entity (to the check of
   //! its Binder of category 0)
-  Standard_EXPORT void AddWarning(const Handle(Standard_Transient)& start,
+  Standard_EXPORT void AddWarning(const Handle(RefObject)& start,
                                   const Standard_CString            mess,
                                   const Standard_CString            orig = "");
 
   //! Adds a Warning Message to a starting entity from the definition
   //! of a Msg (Original+Value)
-  Standard_EXPORT void AddWarning(const Handle(Standard_Transient)& start, const Message_Msg& amsg);
+  Standard_EXPORT void AddWarning(const Handle(RefObject)& start, const Message_Msg& amsg);
 
-  Standard_EXPORT void Mend(const Handle(Standard_Transient)& start,
+  Standard_EXPORT void Mend(const Handle(RefObject)& start,
                             const Standard_CString            pref = "");
 
   //! Returns the Check attached to a starting entity. If <start>
@@ -210,34 +210,34 @@ public:
   //! By default, considers all the attribute names
   //! If <rootname> is given, considers only the attribute names
   //! which begin by <rootname>
-  Standard_EXPORT Handle(Interface_Check) Check(const Handle(Standard_Transient)& start) const;
+  Standard_EXPORT Handle(Interface_Check) Check(const Handle(RefObject)& start) const;
 
   //! Binds a starting object with a Transient Result.
   //! Uses a SimpleBinderOfTransient to work. If there is already
   //! one but with no Result set, sets its Result.
   //! Considers a category number, by default 0
-  Standard_EXPORT void BindTransient(const Handle(Standard_Transient)& start,
-                                     const Handle(Standard_Transient)& res);
+  Standard_EXPORT void BindTransient(const Handle(RefObject)& start,
+                                     const Handle(RefObject)& res);
 
   //! Returns the Result of the Transfer of an object <start> as a
   //! Transient Result.
   //! Returns a Null Handle if there is no Transient Result
   //! Considers a category number, by default 0
   //! Warning : Supposes that Binding is done with a SimpleBinderOfTransient
-  Standard_EXPORT const Handle(Standard_Transient)& FindTransient(
-    const Handle(Standard_Transient)& start) const;
+  Standard_EXPORT const Handle(RefObject)& FindTransient(
+    const Handle(RefObject)& start) const;
 
   //! Prepares an object <start> to be bound with several results.
   //! If no Binder is yet attached to <obj>, a MultipleBinder
   //! is created, empty. If a Binder is already set, it must
   //! accept Multiple Binding.
   //! Considers a category number, by default 0
-  Standard_EXPORT void BindMultiple(const Handle(Standard_Transient)& start);
+  Standard_EXPORT void BindMultiple(const Handle(RefObject)& start);
 
   //! Adds an item to a list of results bound to a starting object.
   //! Considers a category number, by default 0, for all results
-  Standard_EXPORT void AddMultiple(const Handle(Standard_Transient)& start,
-                                   const Handle(Standard_Transient)& res);
+  Standard_EXPORT void AddMultiple(const Handle(RefObject)& start,
+                                   const Handle(RefObject)& res);
 
   //! Searches for a transient result attached to a starting object,
   //! according to its type, by criterium IsKind(atype)
@@ -250,9 +250,9 @@ public:
   //! This syntactic form avoids to do DownCast : if a result is
   //! found with the good type, it is loaded in <val> and can be
   //! immediately used, well initialised
-  Standard_EXPORT Standard_Boolean FindTypedTransient(const Handle(Standard_Transient)& start,
+  Standard_EXPORT Standard_Boolean FindTypedTransient(const Handle(RefObject)& start,
                                                       const Handle(Standard_Type)&      atype,
-                                                      Handle(Standard_Transient)&       val) const;
+                                                      Handle(RefObject)&       val) const;
 
   //! Searches for a transient result recorded in a Binder, whatever
   //! this Binder is recorded or not in <me>
@@ -263,17 +263,17 @@ public:
   //! Apart from this, works as FindTypedTransient
   Standard_EXPORT Standard_Boolean GetTypedTransient(const Handle(Transfer_Binder)& binder,
                                                      const Handle(Standard_Type)&   atype,
-                                                     Handle(Standard_Transient)&    val) const;
+                                                     Handle(RefObject)&    val) const;
 
   //! Returns the maximum possible value for Map Index
   //! (no result can be bound with a value greater than it)
   Standard_EXPORT Standard_Integer NbMapped() const;
 
   //! Returns the Starting Object bound to an Index,
-  Standard_EXPORT const Handle(Standard_Transient)& Mapped(const Standard_Integer num) const;
+  Standard_EXPORT const Handle(RefObject)& Mapped(const Standard_Integer num) const;
 
   //! Returns the Index value bound to a Starting Object, 0 if none
-  Standard_EXPORT Standard_Integer MapIndex(const Handle(Standard_Transient)& start) const;
+  Standard_EXPORT Standard_Integer MapIndex(const Handle(RefObject)& start) const;
 
   //! Returns the Binder bound to an Index
   //! Considers a category number, by default 0
@@ -282,7 +282,7 @@ public:
   //! Declares <obj> (and its Result) as Root. This status will be
   //! later exploited by RootResult, see below (Result can be
   //! produced at any time)
-  Standard_EXPORT void SetRoot(const Handle(Standard_Transient)& start);
+  Standard_EXPORT void SetRoot(const Handle(RefObject)& start);
 
   //! Enable (if <stat> True) or Disables (if <stat> False) Root
   //! Management. If it is set, Transfers are considered as stacked
@@ -297,7 +297,7 @@ public:
   Standard_EXPORT Standard_Integer NbRoots() const;
 
   //! Returns a Root Entity given its number in the list (1-NbRoots)
-  Standard_EXPORT const Handle(Standard_Transient)& Root(const Standard_Integer num) const;
+  Standard_EXPORT const Handle(RefObject)& Root(const Standard_Integer num) const;
 
   //! Returns the Binder bound with a Root Entity given its number
   //! Considers a category number, by default 0
@@ -305,7 +305,7 @@ public:
 
   //! Returns the index in the list of roots for a starting item,
   //! or 0 if it is not recorded as a root
-  Standard_EXPORT Standard_Integer RootIndex(const Handle(Standard_Transient)& start) const;
+  Standard_EXPORT Standard_Integer RootIndex(const Handle(RefObject)& start) const;
 
   //! Returns Nesting Level of Transfers (managed by methods
   //! TranscriptWith & Co). Starts to zero. If no automatic Transfer
@@ -318,20 +318,20 @@ public:
 
   //! Tells if <start> has been recognized as good candidate for
   //! Transfer. i.e. queries the Actor and its Nexts
-  Standard_EXPORT Standard_Boolean Recognize(const Handle(Standard_Transient)& start) const;
+  Standard_EXPORT Standard_Boolean Recognize(const Handle(RefObject)& start) const;
 
   //! Performs the Transfer of a Starting Object, by calling
   //! the method TransferProduct (see below).
   //! Mapping and Roots are managed : nothing is done if a Result is
   //! already Bound, an exception is raised in case of error.
   Standard_EXPORT Handle(Transfer_Binder) Transferring(
-    const Handle(Standard_Transient)& start,
+    const Handle(RefObject)& start,
     const Message_ProgressRange&      theProgress = Message_ProgressRange());
 
   //! Same as Transferring but does not return the Binder.
   //! Simply returns True in case of success (for user call)
   Standard_EXPORT Standard_Boolean
-    Transfer(const Handle(Standard_Transient)& start,
+    Transfer(const Handle(RefObject)& start,
              const Message_ProgressRange&      theProgress = Message_ProgressRange());
 
   //! Allows controls if exceptions will be handled
@@ -351,13 +351,13 @@ public:
   //! <mode> controls the way the trace is done :
   //! 0 neutral, 1 for Error, 2 for Warning message, 3 for new Root
   Standard_EXPORT void StartTrace(const Handle(Transfer_Binder)&    binder,
-                                  const Handle(Standard_Transient)& start,
+                                  const Handle(RefObject)& start,
                                   const Standard_Integer            level,
                                   const Standard_Integer            mode) const;
 
   //! Prints a short information on a starting object. By default
   //! prints its Dynamic Type. Can be redefined
-  Standard_EXPORT virtual void PrintTrace(const Handle(Standard_Transient)& start,
+  Standard_EXPORT virtual void PrintTrace(const Handle(RefObject)& start,
                                           Standard_OStream&                 S) const;
 
   //! Returns True if we are surely in a DeadLoop. Evaluation is not
@@ -395,21 +395,21 @@ public:
   //! <level> = 1 : object plus its immediate scoped ones
   //! <level> = 2 : object plus all its scoped ones
   Standard_EXPORT Transfer_IteratorOfProcessForTransient
-    ResultOne(const Handle(Standard_Transient)& start,
+    ResultOne(const Handle(RefObject)& start,
               const Standard_Integer            level,
               const Standard_Boolean            withstart = Standard_False) const;
 
   //! Returns a CheckList for one starting object
   //! <level> interpreted as by ResultOne
   //! If <erronly> is True, checks with Warnings only are ignored
-  Standard_EXPORT Interface_CheckIterator CheckListOne(const Handle(Standard_Transient)& start,
+  Standard_EXPORT Interface_CheckIterator CheckListOne(const Handle(RefObject)& start,
                                                        const Standard_Integer            level,
                                                        const Standard_Boolean erronly) const;
 
   //! Returns True if no check message is attached to a starting
   //! object. <level> interpreted as by ResultOne
   //! If <erronly> is True, checks with Warnings only are ignored
-  Standard_EXPORT Standard_Boolean IsCheckListEmpty(const Handle(Standard_Transient)& start,
+  Standard_EXPORT Standard_Boolean IsCheckListEmpty(const Handle(RefObject)& start,
                                                     const Standard_Integer            level,
                                                     const Standard_Boolean erronly) const;
 
@@ -418,16 +418,16 @@ public:
   //! <level> = 0 : only it
   //! <level> = 1 : it plus its immediately owned sub-results(scope)
   //! <level> = 2 : it plus all its owned sub-results(scope)
-  Standard_EXPORT void RemoveResult(const Handle(Standard_Transient)& start,
+  Standard_EXPORT void RemoveResult(const Handle(RefObject)& start,
                                     const Standard_Integer            level,
                                     const Standard_Boolean            compute = Standard_True);
 
   //! Computes a number to be associated to a starting object in
   //! a check or a check-list
   //! By default, returns 0; can be redefined
-  Standard_EXPORT virtual Standard_Integer CheckNum(const Handle(Standard_Transient)& start) const;
+  Standard_EXPORT virtual Standard_Integer CheckNum(const Handle(RefObject)& start) const;
 
-  DEFINE_STANDARD_RTTI_INLINE(Transfer_ProcessForTransient, Standard_Transient)
+  DEFINE_STANDARD_RTTI_INLINE(Transfer_ProcessForTransient, RefObject)
 
 protected:
 private:
@@ -435,7 +435,7 @@ private:
   //! faster access on next calls (as Bind does too)
   //! Considers a category number, by default 0
   //! C++ : return const &
-  Standard_EXPORT Handle(Transfer_Binder) FindAndMask(const Handle(Standard_Transient)& start);
+  Standard_EXPORT Handle(Transfer_Binder) FindAndMask(const Handle(RefObject)& start);
 
   //! Internal action of Transfer, called by Transferring, with or
   //! without ErrorHandle. It invokes the Actor to work (set by
@@ -444,7 +444,7 @@ private:
   //! But keep in mind that a Null Binder can always be returned
   //! if a Starting Entity has not been recognized at all.
   Standard_EXPORT Handle(Transfer_Binder) TransferProduct(
-    const Handle(Standard_Transient)& start,
+    const Handle(RefObject)& start,
     const Message_ProgressRange&      theProgress = Message_ProgressRange());
 
   Standard_Boolean                            theerrh;
@@ -454,7 +454,7 @@ private:
   Standard_Integer                            therootl;
   Standard_Boolean                            therootm;
   TColStd_IndexedMapOfInteger                 theroots;
-  Handle(Standard_Transient)                  thelastobj;
+  Handle(RefObject)                  thelastobj;
   Handle(Transfer_Binder)                     thelastbnd;
   Standard_Integer                            theindex;
   Handle(Transfer_ActorOfProcessForTransient) theactor;

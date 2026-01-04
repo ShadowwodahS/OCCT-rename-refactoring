@@ -25,10 +25,10 @@
 #include <StepDimTol_ToleranceZone.hxx>
 
 class StepDimTol_ToleranceZoneDefinition;
-DEFINE_STANDARD_HANDLE(StepDimTol_ToleranceZoneDefinition, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepDimTol_ToleranceZoneDefinition, RefObject)
 
 //! Representation of STEP entity ToleranceZoneDefinition
-class StepDimTol_ToleranceZoneDefinition : public Standard_Transient
+class StepDimTol_ToleranceZoneDefinition : public RefObject
 {
 
 public:
@@ -73,7 +73,7 @@ public:
   //! Set field Zone
   inline void SetZone(const Handle(StepDimTol_ToleranceZone)& theZone) { myZone = theZone; }
 
-  DEFINE_STANDARD_RTTIEXT(StepDimTol_ToleranceZoneDefinition, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepDimTol_ToleranceZoneDefinition, RefObject)
 
 private:
   Handle(StepRepr_HArray1OfShapeAspect) myBoundaries;

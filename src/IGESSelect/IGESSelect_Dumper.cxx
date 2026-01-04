@@ -49,7 +49,7 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESSelect_Dumper, IFSelect_SessionDumper)
 IGESSelect_Dumper::IGESSelect_Dumper() {}
 
 Standard_Boolean IGESSelect_Dumper::WriteOwn(IFSelect_SessionFile&             file,
-                                             const Handle(Standard_Transient)& item) const
+                                             const Handle(RefObject)& item) const
 {
   if (item.IsNull())
     return Standard_False;
@@ -166,7 +166,7 @@ Standard_Boolean IGESSelect_Dumper::WriteOwn(IFSelect_SessionFile&             f
 
 Standard_Boolean IGESSelect_Dumper::ReadOwn(IFSelect_SessionFile&          file,
                                             const TCollection_AsciiString& type,
-                                            Handle(Standard_Transient)&    item) const
+                                            Handle(RefObject)&    item) const
 {
   if (type.IsEqual("IGESSelect_DispPerSingleView"))
   {

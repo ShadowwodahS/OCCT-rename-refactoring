@@ -26,13 +26,13 @@ IFGraph_AllConnected::IFGraph_AllConnected(const Interface_Graph& agraph)
 }
 
 IFGraph_AllConnected::IFGraph_AllConnected(const Interface_Graph&            agraph,
-                                           const Handle(Standard_Transient)& ent)
+                                           const Handle(RefObject)& ent)
     : thegraph(agraph)
 {
   GetFromEntity(ent);
 }
 
-void IFGraph_AllConnected::GetFromEntity(const Handle(Standard_Transient)& ent)
+void IFGraph_AllConnected::GetFromEntity(const Handle(RefObject)& ent)
 {
   if (!thegraph.IsPresent(thegraph.EntityNumber(ent)))
     return;

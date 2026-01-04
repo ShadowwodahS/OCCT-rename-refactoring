@@ -14,7 +14,7 @@
 #include <StepVisual_CurveStyle.hxx>
 #include <StepVisual_SurfaceStyleSegmentationCurve.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_SurfaceStyleSegmentationCurve, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepVisual_SurfaceStyleSegmentationCurve, RefObject)
 
 StepVisual_SurfaceStyleSegmentationCurve::StepVisual_SurfaceStyleSegmentationCurve() {}
 

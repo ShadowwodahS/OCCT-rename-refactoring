@@ -26,10 +26,10 @@ class StepBasic_MeasureWithUnit;
 class StepRepr_ShapeAspect;
 
 class StepDimTol_GeometricTolerance;
-DEFINE_STANDARD_HANDLE(StepDimTol_GeometricTolerance, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepDimTol_GeometricTolerance, RefObject)
 
 //! Representation of STEP entity GeometricTolerance
-class StepDimTol_GeometricTolerance : public Standard_Transient
+class StepDimTol_GeometricTolerance : public RefObject
 {
 
 public:
@@ -78,7 +78,7 @@ public:
   Standard_EXPORT void SetTolerancedShapeAspect(
     const StepDimTol_GeometricToleranceTarget& theTolerancedShapeAspect);
 
-  DEFINE_STANDARD_RTTIEXT(StepDimTol_GeometricTolerance, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepDimTol_GeometricTolerance, RefObject)
 
 protected:
 private:

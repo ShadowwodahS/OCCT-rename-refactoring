@@ -28,12 +28,12 @@ class Interface_Protocol;
 class Interface_GTool;
 
 class Interface_HGraph;
-DEFINE_STANDARD_HANDLE(Interface_HGraph, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Interface_HGraph, RefObject)
 
 //! This class allows to store a redefinable Graph, via a Handle
 //! (useful for an Object which can work on several successive
 //! Models, with the same general conditions)
-class Interface_HGraph : public Standard_Transient
+class Interface_HGraph : public RefObject
 {
 
 public:
@@ -72,7 +72,7 @@ public:
   //! Then, The Graph will be modified in the HGraph itself
   Standard_EXPORT Interface_Graph& CGraph();
 
-  DEFINE_STANDARD_RTTIEXT(Interface_HGraph, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Interface_HGraph, RefObject)
 
 protected:
 private:

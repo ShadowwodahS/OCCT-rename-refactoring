@@ -103,7 +103,7 @@ Handle(TCollection_HAsciiString) STEPEdit_EditSDR::StringValue(
 }
 
 Standard_Boolean STEPEdit_EditSDR::Load(const Handle(IFSelect_EditForm)&        form,
-                                        const Handle(Standard_Transient)&       ent,
+                                        const Handle(RefObject)&       ent,
                                         const Handle(Interface_InterfaceModel)& model) const
 {
   Handle(StepShape_ShapeDefinitionRepresentation) sdr =
@@ -135,7 +135,7 @@ Standard_Boolean STEPEdit_EditSDR::Load(const Handle(IFSelect_EditForm)&        
 }
 
 Standard_Boolean STEPEdit_EditSDR::Apply(const Handle(IFSelect_EditForm)&        form,
-                                         const Handle(Standard_Transient)&       ent,
+                                         const Handle(RefObject)&       ent,
                                          const Handle(Interface_InterfaceModel)& model) const
 {
   Handle(StepShape_ShapeDefinitionRepresentation) sdr =

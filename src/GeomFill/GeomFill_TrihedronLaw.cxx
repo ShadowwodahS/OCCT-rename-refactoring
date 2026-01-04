@@ -19,7 +19,7 @@
 #include <Standard_NotImplemented.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GeomFill_TrihedronLaw, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(GeomFill_TrihedronLaw, RefObject)
 
 Standard_Boolean GeomFill_TrihedronLaw::SetCurve(const Handle(Adaptor3d_Curve)& C)
 {

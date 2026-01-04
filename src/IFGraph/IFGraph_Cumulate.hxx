@@ -24,7 +24,7 @@
 #include <Interface_Graph.hxx>
 #include <Interface_GraphContent.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class Interface_EntityIterator;
 
 //! this class evaluates effect of cumulated sub-parts :
@@ -40,7 +40,7 @@ public:
   Standard_EXPORT IFGraph_Cumulate(const Interface_Graph& agraph);
 
   //! adds an entity and its shared ones to the list
-  Standard_EXPORT void GetFromEntity(const Handle(Standard_Transient)& ent);
+  Standard_EXPORT void GetFromEntity(const Handle(RefObject)& ent);
 
   //! adds a list of entities (as an iterator) as such, that is,
   //! without their shared entities (use AllShared to have them)
@@ -64,7 +64,7 @@ public:
 
   //! returns number of times an Entity has been counted
   //! (0 means forgotten, more than 1 means overlap, 1 is normal)
-  Standard_EXPORT Standard_Integer NbTimes(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer NbTimes(const Handle(RefObject)& ent) const;
 
   //! Returns the highest number of times recorded for every Entity
   //! (0 means empty, 1 means no overlap)

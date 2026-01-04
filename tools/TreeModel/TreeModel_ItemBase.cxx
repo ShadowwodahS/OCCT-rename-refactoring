@@ -104,7 +104,7 @@ TreeModel_ItemBasePtr TreeModel_ItemBase::Child(int theRow, int theColumn, const
 // purpose :
 // =======================================================================
 void TreeModel_ItemBase::Presentations(
-  NCollection_List<Handle(Standard_Transient)>& thePresentations)
+  NCollection_List<Handle(RefObject)>& thePresentations)
 {
   if (Column() != 0)
     return;
@@ -160,9 +160,9 @@ void TreeModel_ItemBase::Init()
 // function : Object
 // purpose :
 // =======================================================================
-const Handle(Standard_Transient)& TreeModel_ItemBase::Object() const
+const Handle(RefObject)& TreeModel_ItemBase::Object() const
 {
-  static Handle(Standard_Transient) aNullObject;
+  static Handle(RefObject) aNullObject;
   return aNullObject;
 }
 

@@ -20,7 +20,7 @@
 #include <Precision.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(MAT_Bisector, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(MAT_Bisector, RefObject)
 
 MAT_Bisector::MAT_Bisector()
 {

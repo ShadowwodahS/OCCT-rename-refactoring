@@ -63,7 +63,7 @@ Interface_ShareTool::Interface_ShareTool(const Handle(Interface_HGraph)& ahgraph
   Standard_Integer nb = thegraph.Size();
   Standard_Boolean yena = Standard_False;
   for (Standard_Integer i = 1; i <= nb; i ++) {
-    Handle(Standard_Transient) ent = thegraph.Entity(i);
+    Handle(RefObject) ent = thegraph.Entity(i);
     if (ent.IsNull()) continue;
     Handle(Interface_GeneralModule) module;  Standard_Integer CN;
     if (gtool->Select(ent,module,CN)) {
@@ -94,24 +94,24 @@ Interface_EntityIterator Interface_ShareTool::RootEntities() const
   return theHGraph->Graph().RootEntities();
 }
 
-Standard_Boolean Interface_ShareTool::IsShared(const Handle(Standard_Transient)& ent) const
+Standard_Boolean Interface_ShareTool::IsShared(const Handle(RefObject)& ent) const
 {
   const Interface_Graph&               thegraph = theHGraph->Graph();
   Handle(TColStd_HSequenceOfTransient) list     = thegraph.GetShareds(ent);
   return (!list.IsNull() && list->Length() > 0);
 }
 
-Interface_EntityIterator Interface_ShareTool::Shareds(const Handle(Standard_Transient)& ent) const
+Interface_EntityIterator Interface_ShareTool::Shareds(const Handle(RefObject)& ent) const
 {
   return theHGraph->Graph().Shareds(ent);
 }
 
-Interface_EntityIterator Interface_ShareTool::Sharings(const Handle(Standard_Transient)& ent) const
+Interface_EntityIterator Interface_ShareTool::Sharings(const Handle(RefObject)& ent) const
 {
   return theHGraph->Graph().Sharings(ent);
 }
 
-Standard_Integer Interface_ShareTool::NbTypedSharings(const Handle(Standard_Transient)& ent,
+Standard_Integer Interface_ShareTool::NbTypedSharings(const Handle(RefObject)& ent,
                                                       const Handle(Standard_Type)&      atype) const
 {
   Interface_Graph&                     thegraph = theHGraph->CGraph();
@@ -123,7 +123,7 @@ Standard_Integer Interface_ShareTool::NbTypedSharings(const Handle(Standard_Tran
   Standard_Integer n      = list->Length();
   for (Standard_Integer i = 1; i <= n; i++)
   {
-    Handle(Standard_Transient) entsh = list->Value(i);
+    Handle(RefObject) entsh = list->Value(i);
     if (entsh.IsNull())
       continue;
     if (entsh->IsKind(atype))
@@ -132,20 +132,20 @@ Standard_Integer Interface_ShareTool::NbTypedSharings(const Handle(Standard_Tran
   return result;
 }
 
-Handle(Standard_Transient) Interface_ShareTool::TypedSharing(
-  const Handle(Standard_Transient)& ent,
+Handle(RefObject) Interface_ShareTool::TypedSharing(
+  const Handle(RefObject)& ent,
   const Handle(Standard_Type)&      atype) const
 {
   Interface_Graph&                     thegraph = theHGraph->CGraph();
   Handle(TColStd_HSequenceOfTransient) list     = thegraph.GetSharings(ent);
   if (list.IsNull())
     return 0;
-  Handle(Standard_Transient) entresult;
+  Handle(RefObject) entresult;
   Standard_Integer           result = 0;
   Standard_Integer           n      = list->Length();
   for (Standard_Integer i = 1; i <= n; i++)
   {
-    Handle(Standard_Transient) entsh = list->Value(i);
+    Handle(RefObject) entsh = list->Value(i);
     if (entsh.IsNull())
       continue;
     if (entsh->IsKind(atype))
@@ -161,7 +161,7 @@ Handle(Standard_Transient) Interface_ShareTool::TypedSharing(
   return entresult;
 }
 
-Interface_EntityIterator Interface_ShareTool::All(const Handle(Standard_Transient)& ent,
+Interface_EntityIterator Interface_ShareTool::All(const Handle(RefObject)& ent,
                                                   const Standard_Boolean            rootlast) const
 {
   Handle(Interface_InterfaceModel) model = Model();
@@ -200,7 +200,7 @@ Interface_EntityIterator Interface_ShareTool::All(const Handle(Standard_Transien
     //    processus de type file
     for (i = 1; i <= sq->Length(); i++)
     { // Length croit
-      Handle(Standard_Transient) en  = sq->Value(i);
+      Handle(RefObject) en  = sq->Value(i);
       Standard_Integer           num = model->Number(en);
       if (fl->Value(num) != 0)
         continue; // deja vu
@@ -239,7 +239,7 @@ void Interface_ShareTool::Print(const Interface_EntityIterator& iter, Standard_O
   S << " Nb.Entities : " << iter.NbEntities() << " : ";
   for (iter.Start(); iter.More(); iter.Next())
   {
-    const Handle(Standard_Transient)& ent = iter.Value();
+    const Handle(RefObject)& ent = iter.Value();
     S << " n0/id:";
     Model()->Print(ent, S);
   }

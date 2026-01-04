@@ -1032,7 +1032,7 @@ static Standard_Integer FindEntities(const Handle(Transfer_FinderProcess)& theFP
     const Standard_Integer aNbTransient = aTransientListBinder->NbTransients();
     for (Standard_Integer anInd = 1; anInd <= aNbTransient; anInd++)
     {
-      Handle(Standard_Transient) anEntity = aTransientListBinder->Transient(anInd);
+      Handle(RefObject) anEntity = aTransientListBinder->Transient(anInd);
       anItem                              = Handle(StepRepr_RepresentationItem)::DownCast(anEntity);
       if (anItem.IsNull())
         continue;
@@ -2215,7 +2215,7 @@ Standard_Boolean STEPCAFControl_Writer::writeSHUOs(const Handle(XSControl_WorkSe
 //                     needed ShapeAspect in D&GT structure
 //=======================================================================
 static Standard_Boolean FindPDSforDGT(const Interface_Graph&                   theGraph,
-                                      const Handle(Standard_Transient)&        theEnt,
+                                      const Handle(RefObject)&        theEnt,
                                       Handle(StepRepr_ProductDefinitionShape)& thePDS,
                                       Handle(StepRepr_RepresentationContext)&  theRC,
                                       Handle(StepShape_AdvancedFace)&          theAF,
@@ -2318,7 +2318,7 @@ static Standard_Boolean FindPDSforDGT(const Interface_Graph&                   t
 //=======================================================================
 static Handle(StepRepr_ProductDefinitionShape) FindPDS(
   const Interface_Graph&                  theGraph,
-  const Handle(Standard_Transient)&       theEnt,
+  const Handle(RefObject)&       theEnt,
   Handle(StepRepr_RepresentationContext)& theRC)
 {
   if (theEnt.IsNull())
@@ -2550,7 +2550,7 @@ Handle(StepRepr_ShapeAspect) STEPCAFControl_Writer::writeShapeAspect(
 
   Handle(StepRepr_ProductDefinitionShape) aPDS;
   Handle(StepRepr_RepresentationContext)  aRC;
-  Handle(Standard_Transient)              anEnt = aSeqRI.Value(1);
+  Handle(RefObject)              anEnt = aSeqRI.Value(1);
   aPDS                                          = FindPDS(aGraph, anEnt, aRC);
   if (aPDS.IsNull())
     return NULL;
@@ -2586,7 +2586,7 @@ Handle(StepRepr_ShapeAspect) STEPCAFControl_Writer::writeShapeAspect(
        aSharingIter.More() && aSDR.IsNull();
        aSharingIter.Next())
   {
-    const Handle(Standard_Transient)& anEntity = aSharingIter.Value();
+    const Handle(RefObject)& anEntity = aSharingIter.Value();
     aSDR = Handle(StepShape_ShapeDefinitionRepresentation)::DownCast(anEntity);
   }
   if (aSDR.IsNull())
@@ -2611,7 +2611,7 @@ void STEPCAFControl_Writer::writePresentation(const Handle(XSControl_WorkSession
                                               const Standard_Boolean            theHasPlane,
                                               const gp_Ax2&                     theAnnotationPlane,
                                               const gp_Pnt&                     theTextPosition,
-                                              const Handle(Standard_Transient)& theDimension,
+                                              const Handle(RefObject)& theDimension,
                                               const StepData_Factors&           theLocalFactors)
 {
   if (thePresentation.IsNull())
@@ -2733,7 +2733,7 @@ Handle(StepDimTol_Datum) STEPCAFControl_Writer::writeDatumAP242(
   // Link with datum feature
   for (TDF_LabelSequence::Iterator aLabelIter(theShapeL); aLabelIter.More(); aLabelIter.Next())
   {
-    Handle(Standard_Transient)  anEnt;
+    Handle(RefObject)  anEnt;
     TopLoc_Location             aLoc;
     TColStd_SequenceOfTransient aSeqRI;
 
@@ -3038,7 +3038,7 @@ static void WriteDimValues(const Handle(XSControl_WorkSession)&             theW
   // Get working data
   const Handle(Interface_InterfaceModel)&      aModel     = theWS->Model();
   XCAFDimTolObjects_DimensionModifiersSequence aModifiers = theObject->GetModifiers();
-  const Handle(Standard_Transient)&            aDim       = theDimension.Value();
+  const Handle(RefObject)&            aDim       = theDimension.Value();
   Standard_Boolean isAngle = aDim->IsKind(STANDARD_TYPE(StepShape_AngularLocation))
                              || aDim->IsKind(STANDARD_TYPE(StepShape_AngularSize));
 
@@ -3431,7 +3431,7 @@ static Handle(StepDimTol_HArray1OfDatumSystemOrReference) WriteDatumSystem(
     if (aDatumSeqPos.Length() == 1)
     {
       // Datum entity
-      Handle(Standard_Transient) aFDValue;
+      Handle(RefObject) aFDValue;
       if (theDatumMap.Find(aDatumSeqPos.Value(1)->GetName()->String(), aFDValue)
           && !aFDValue.IsNull())
         aFirstDatum = Handle(StepDimTol_Datum)::DownCast(aFDValue);
@@ -3469,7 +3469,7 @@ static Handle(StepDimTol_HArray1OfDatumSystemOrReference) WriteDatumSystem(
         // Datum entity
         const Handle(XCAFDimTolObjects_DatumObject)& aDatumObj = aDatumIter.Value();
         Handle(StepDimTol_Datum)                     aDatum;
-        Handle(Standard_Transient)                   aDValue;
+        Handle(RefObject)                   aDValue;
         if (theDatumMap.Find(aDatumObj->GetName()->String(), aDValue))
           aDatum = Handle(StepDimTol_Datum)::DownCast(aDValue);
         StepDimTol_DatumOrCommonDatum anElemDatumRef;
@@ -3925,7 +3925,7 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTs(const Handle(XSControl_WorkSes
     }
     Handle(StepRepr_ProductDefinitionShape) aPDS;
     Handle(StepRepr_RepresentationContext)  aRC;
-    Handle(Standard_Transient)              anEnt = aSeqRI.Value(1);
+    Handle(RefObject)              anEnt = aSeqRI.Value(1);
     Handle(StepShape_AdvancedFace)          anAF;
     Handle(StepShape_EdgeCurve)             anEC;
     FindPDSforDGT(aGraph, anEnt, aPDS, aRC, anAF, anEC);
@@ -4028,7 +4028,7 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTs(const Handle(XSControl_WorkSes
     }
     Handle(StepRepr_ProductDefinitionShape) aPDS;
     Handle(StepRepr_RepresentationContext)  aRC;
-    Handle(Standard_Transient)              anEnt = seqRI.Value(1);
+    Handle(RefObject)              anEnt = seqRI.Value(1);
     Handle(StepShape_AdvancedFace)          anAF;
     Handle(StepShape_EdgeCurve)             anEC;
     FindPDSforDGT(aGraph, anEnt, aPDS, aRC, anAF, anEC);
@@ -4297,7 +4297,7 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTsAP242(const Handle(XSControl_Wo
       TCollection_AsciiString(anObject->GetDatumTargetNumber());
     if (!aNameIdMap.Add(aDatumName.Cat(aDatumTargetId)))
       continue;
-    Handle(Standard_Transient) aWrittenDatum;
+    Handle(RefObject) aWrittenDatum;
     Standard_Boolean           isFirstDT = !aDatumMap.Find(aDatumName, aWrittenDatum);
     Handle(StepDimTol_Datum)   aDatum =
       writeDatumAP242(theWS,
@@ -4616,7 +4616,7 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTsAP242(const Handle(XSControl_Wo
 //=================================================================================================
 
 static Standard_Boolean FindPDSforRI(const Interface_Graph&                   theGraph,
-                                     const Handle(Standard_Transient)&        theEnt,
+                                     const Handle(RefObject)&        theEnt,
                                      Handle(StepRepr_ProductDefinitionShape)& thePDS,
                                      Handle(StepRepr_RepresentationContext)&  theRC)
 {
@@ -4695,7 +4695,7 @@ Standard_Boolean STEPCAFControl_Writer::writeMaterials(const Handle(XSControl_Wo
       continue;
     Handle(StepRepr_ProductDefinitionShape) aPDS;
     Handle(StepRepr_RepresentationContext)  aRC;
-    Handle(Standard_Transient)              anEnt = aSeqRI.Value(1);
+    Handle(RefObject)              anEnt = aSeqRI.Value(1);
     FindPDSforRI(aGraph, anEnt, aPDS, aRC);
     if (aPDS.IsNull())
       continue;

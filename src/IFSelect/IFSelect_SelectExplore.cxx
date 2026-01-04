@@ -69,7 +69,7 @@ Interface_EntityIterator IFSelect_SelectExplore::RootResult(const Interface_Grap
         break;
       ilev = entrees.Extent();
     }
-    Handle(Standard_Transient) ent = entrees.FindKey(i);
+    Handle(RefObject) ent = entrees.FindKey(i);
     if (ent.IsNull())
       continue;
     Interface_EntityIterator exp;

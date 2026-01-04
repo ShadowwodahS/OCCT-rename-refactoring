@@ -65,7 +65,7 @@ public:
 
   //! Fills viewer by the context
   //! \param theContext a current context where presentations should be visualized
-  Standard_EXPORT void SetExternalContext(const Handle(Standard_Transient)& theContext);
+  Standard_EXPORT void SetExternalContext(const Handle(RefObject)& theContext);
 
   //! Returns external context or NULL
   const Handle(AIS_InteractiveContext)& GetExternalContext() const { return myExternalContext; }

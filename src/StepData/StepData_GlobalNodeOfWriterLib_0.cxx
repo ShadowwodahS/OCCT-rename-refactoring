@@ -25,8 +25,8 @@
 #include <StepData_WriterLib.hxx>
 #include <StepData_NodeOfWriterLib.hxx>
 
-#define TheObject Handle(Standard_Transient)
-#define TheObject_hxx <Standard_Transient.hxx>
+#define TheObject Handle(RefObject)
+#define TheObject_hxx <RefObject.hxx>
 #define Handle_TheModule Handle(StepData_ReadWriteModule)
 #define TheModule StepData_ReadWriteModule
 #define TheModule_hxx <StepData_ReadWriteModule.hxx>

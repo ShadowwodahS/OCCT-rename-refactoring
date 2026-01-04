@@ -29,13 +29,13 @@ class MAT_Arc;
 class MAT_Node;
 
 class MAT_Zone;
-DEFINE_STANDARD_HANDLE(MAT_Zone, Standard_Transient)
+DEFINE_STANDARD_HANDLE(MAT_Zone, RefObject)
 
 //! Definition of Zone of Proximity of a BasicElt :
 //! ----------------------------------------------
 //! A Zone of proximity is the set of the points which are
 //! more near from the BasicElt than any other.
-class MAT_Zone : public Standard_Transient
+class MAT_Zone : public RefObject
 {
 
 public:
@@ -60,7 +60,7 @@ public:
   //! Return TRUE if <me> is Limited.
   Standard_EXPORT Standard_Boolean Limited() const;
 
-  DEFINE_STANDARD_RTTIEXT(MAT_Zone, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(MAT_Zone, RefObject)
 
 protected:
 private:

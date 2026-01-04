@@ -21,7 +21,7 @@
 #include <HLRAlgo_EdgesBlock.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(HLRAlgo_EdgesBlock, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(HLRAlgo_EdgesBlock, RefObject)
 
 //=================================================================================================
 

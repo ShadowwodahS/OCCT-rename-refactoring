@@ -22,9 +22,9 @@
 #include <TopAbs_Orientation.hxx>
 
 class Adaptor3d_HVertex;
-DEFINE_STANDARD_HANDLE(Adaptor3d_HVertex, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Adaptor3d_HVertex, RefObject)
 
-class Adaptor3d_HVertex : public Standard_Transient
+class Adaptor3d_HVertex : public RefObject
 {
 
 public:
@@ -45,7 +45,7 @@ public:
 
   Standard_EXPORT virtual Standard_Boolean IsSame(const Handle(Adaptor3d_HVertex)& Other);
 
-  DEFINE_STANDARD_RTTIEXT(Adaptor3d_HVertex, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Adaptor3d_HVertex, RefObject)
 
 protected:
 private:

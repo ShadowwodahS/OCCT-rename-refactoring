@@ -389,7 +389,7 @@ public:
   //! @param isShortInfo if true, all '0' symbols in the beginning of the pointer are skipped
   //! @return the string value
   Standard_EXPORT static TCollection_AsciiString GetPointerInfo(
-    const Handle(Standard_Transient)& thePointer,
+    const Handle(RefObject)& thePointer,
     const bool                        isShortInfo = true);
 
   //! Convert pointer to address of the pointer. If the handle is NULL, the result is an empty

@@ -33,7 +33,7 @@ class CDM_Reference;
 class Resource_Manager;
 
 class CDM_Document;
-DEFINE_STANDARD_HANDLE(CDM_Document, Standard_Transient)
+DEFINE_STANDARD_HANDLE(CDM_Document, RefObject)
 
 //! An applicative document is an instance of a class inheriting CDM_Document.
 //! These documents have the following properties:
@@ -66,7 +66,7 @@ DEFINE_STANDARD_HANDLE(CDM_Document, Standard_Transient)
 //! reference counter value is equal to the To Document counter value.
 //! -  retrieval of a document  having references does not imply
 //! the retrieving of the referenced documents.
-class CDM_Document : public Standard_Transient
+class CDM_Document : public RefObject
 {
 
 public:
@@ -346,7 +346,7 @@ public:
   friend class CDM_ReferenceIterator;
   friend class CDM_Application;
 
-  DEFINE_STANDARD_RTTIEXT(CDM_Document, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(CDM_Document, RefObject)
 
 protected:
   Standard_EXPORT CDM_Document();

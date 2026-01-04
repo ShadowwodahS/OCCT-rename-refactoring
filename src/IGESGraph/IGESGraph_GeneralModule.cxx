@@ -415,7 +415,7 @@ void IGESGraph_GeneralModule::OwnCheckCase(const Standard_Integer             CN
 }
 
 Standard_Boolean IGESGraph_GeneralModule::NewVoid(const Standard_Integer      CN,
-                                                  Handle(Standard_Transient)& ent) const
+                                                  Handle(RefObject)& ent) const
 {
   switch (CN)
   {
@@ -578,7 +578,7 @@ void IGESGraph_GeneralModule::OwnCopyCase(const Standard_Integer             CN,
 }
 
 Standard_Integer IGESGraph_GeneralModule::CategoryNumber(const Standard_Integer /*CN*/,
-                                                         const Handle(Standard_Transient)&,
+                                                         const Handle(RefObject)&,
                                                          const Interface_ShareTool&) const
 {
   return Interface_Category::Number("Drawing");

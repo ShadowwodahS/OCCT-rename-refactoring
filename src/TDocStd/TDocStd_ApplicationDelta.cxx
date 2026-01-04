@@ -19,7 +19,7 @@
 #include <TCollection_ExtendedString.hxx>
 #include <TDocStd_Document.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TDocStd_ApplicationDelta, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(TDocStd_ApplicationDelta, RefObject)
 
 //=================================================================================================
 

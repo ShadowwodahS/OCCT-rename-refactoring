@@ -25,9 +25,9 @@
 class StepVisual_InvisibleItem;
 
 class StepVisual_Invisibility;
-DEFINE_STANDARD_HANDLE(StepVisual_Invisibility, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepVisual_Invisibility, RefObject)
 
-class StepVisual_Invisibility : public Standard_Transient
+class StepVisual_Invisibility : public RefObject
 {
 
 public:
@@ -45,7 +45,7 @@ public:
 
   Standard_EXPORT Standard_Integer NbInvisibleItems() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepVisual_Invisibility, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepVisual_Invisibility, RefObject)
 
 protected:
 private:

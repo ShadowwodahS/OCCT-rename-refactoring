@@ -25,7 +25,7 @@ StepDimTol_DatumSystemOrReference::StepDimTol_DatumSystemOrReference() {}
 //=================================================================================================
 
 Standard_Integer StepDimTol_DatumSystemOrReference::CaseNum(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

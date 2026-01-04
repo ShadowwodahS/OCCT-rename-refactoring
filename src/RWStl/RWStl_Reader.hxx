@@ -32,9 +32,9 @@ class Message_ProgressRange;
 //! addNode() and addTriangle() to fill the mesh data structure.
 //!
 //! The nodes with equal coordinates are merged automatically  on the fly.
-class RWStl_Reader : public Standard_Transient
+class RWStl_Reader : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(RWStl_Reader, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(RWStl_Reader, RefObject)
 public:
   //! Default constructor.
   Standard_EXPORT RWStl_Reader();

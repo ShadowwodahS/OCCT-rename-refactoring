@@ -141,8 +141,8 @@ void TransferBRep_Reader::EndTransfer()
   Standard_Integer i, nb = theProc->NbRoots();
   for (i = 1; i <= nb; i++)
   {
-    Handle(Standard_Transient) ent = theProc->Root(i);
-    Handle(Standard_Transient) res = theProc->FindTransient(ent);
+    Handle(RefObject) ent = theProc->Root(i);
+    Handle(RefObject) res = theProc->FindTransient(ent);
     if (!res.IsNull())
       theTransi->Append(res);
   }
@@ -169,7 +169,7 @@ Standard_Boolean TransferBRep_Reader::Transfer(const Standard_Integer       num,
     return Standard_False;
   if (num <= 0 || num > theModel->NbEntities())
     return Standard_False;
-  Handle(Standard_Transient) ent = theModel->Value(num);
+  Handle(RefObject) ent = theModel->Value(num);
   Transfer_TransferOutput    TP(theProc, theModel);
 
   if (theProc->TraceLevel() > 1)
@@ -202,7 +202,7 @@ void TransferBRep_Reader::TransferList(const Handle(TColStd_HSequenceOfTransient
   for (i = 1; i <= nb && aPS.More(); i++)
   {
     Message_ProgressRange      aRange = aPS.Next();
-    Handle(Standard_Transient) ent    = list->Value(i);
+    Handle(RefObject) ent    = list->Value(i);
     if (theModel->Number(ent) == 0)
       continue;
 
@@ -259,7 +259,7 @@ TopoDS_Shape TransferBRep_Reader::OneShape() const
   }
 }
 
-TopoDS_Shape TransferBRep_Reader::ShapeResult(const Handle(Standard_Transient)& ent) const
+TopoDS_Shape TransferBRep_Reader::ShapeResult(const Handle(RefObject)& ent) const
 {
   return TransferBRep::ShapeResult(theProc, ent);
 }
@@ -276,7 +276,7 @@ Handle(TColStd_HSequenceOfTransient) TransferBRep_Reader::Transients() const
   return theTransi;
 }
 
-Handle(Standard_Transient) TransferBRep_Reader::Transient(const Standard_Integer num) const
+Handle(RefObject) TransferBRep_Reader::Transient(const Standard_Integer num) const
 {
   return theTransi->Value(num);
 }

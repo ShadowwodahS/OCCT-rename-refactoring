@@ -36,7 +36,7 @@ struct AIS_AnimationProgress
   }
 };
 
-DEFINE_STANDARD_HANDLE(AIS_Animation, Standard_Transient)
+DEFINE_STANDARD_HANDLE(AIS_Animation, RefObject)
 
 //! Class represents a basic animation class.
 //! AIS_Animation can be used as:
@@ -74,9 +74,9 @@ DEFINE_STANDARD_HANDLE(AIS_Animation, Standard_Transient)
 //! before each redrawing of a Viewer content. Redrawing logic should be also managed at application
 //! level for managing a smooth animation (by defining a multimedia timer provided by used GUI
 //! framework executing updates at desired framerate, or as continuous redraws in loop).
-class AIS_Animation : public Standard_Transient
+class AIS_Animation : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(AIS_Animation, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(AIS_Animation, RefObject)
 public:
   //! Creates empty animation.
   Standard_EXPORT AIS_Animation(const TCollection_AsciiString& theAnimationName);

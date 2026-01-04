@@ -28,7 +28,7 @@ class Interface_InterfaceModel;
 class TCollection_AsciiString;
 
 class IFSelect_Transformer;
-DEFINE_STANDARD_HANDLE(IFSelect_Transformer, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IFSelect_Transformer, RefObject)
 
 //! A Transformer defines the way an InterfaceModel is transformed
 //! (without sending it to a file).
@@ -41,7 +41,7 @@ DEFINE_STANDARD_HANDLE(IFSelect_Transformer, Standard_Transient)
 //! - produce a copied Model, which detains the needed changes
 //!   (typically on the same type, but some or all entities being
 //!   rebuilt or converted; or converted from a protocol to another one)
-class IFSelect_Transformer : public Standard_Transient
+class IFSelect_Transformer : public RefObject
 {
 
 public:
@@ -89,14 +89,14 @@ public:
   //! model) has one and only one known item which corresponds in
   //! the new produced model, this method must return True and
   //! fill the argument <entto>. Else, it returns False.
-  Standard_EXPORT virtual Standard_Boolean Updated(const Handle(Standard_Transient)& entfrom,
-                                                   Handle(Standard_Transient)& entto) const = 0;
+  Standard_EXPORT virtual Standard_Boolean Updated(const Handle(RefObject)& entfrom,
+                                                   Handle(RefObject)& entto) const = 0;
 
   //! Returns a text which defines the way a Transformer works
   //! (to identify the transformation it performs)
   Standard_EXPORT virtual TCollection_AsciiString Label() const = 0;
 
-  DEFINE_STANDARD_RTTIEXT(IFSelect_Transformer, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IFSelect_Transformer, RefObject)
 };
 
 #endif // _IFSelect_Transformer_HeaderFile

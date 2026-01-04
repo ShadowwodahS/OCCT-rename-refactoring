@@ -17,7 +17,7 @@
 #include <StepKinematics_ContextDependentKinematicLinkRepresentation.hxx>
 
 IMPLEMENT_STANDARD_RTTIEXT(StepKinematics_ContextDependentKinematicLinkRepresentation,
-                           Standard_Transient)
+                           RefObject)
 
 //=================================================================================================
 

@@ -52,7 +52,7 @@ void DFBrowserPane_TDataStdReferenceList::GetValues(const Handle(TDF_Attribute)&
 void DFBrowserPane_TDataStdReferenceList::GetReferences(
   const Handle(TDF_Attribute)& theAttribute,
   NCollection_List<TDF_Label>& theRefLabels,
-  Handle(Standard_Transient)& /*theRefPresentation*/)
+  Handle(RefObject)& /*theRefPresentation*/)
 {
   QStringList aSelectedEntries =
     DFBrowserPane_TableView::GetSelectedColumnValues(getTableView()->GetTableView(), 1);

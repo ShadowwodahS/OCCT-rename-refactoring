@@ -23,7 +23,7 @@
 
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepShape_Edge;
 class StepShape_Path;
 class StepShape_Face;
@@ -47,7 +47,7 @@ public:
   //! 5 -> ClosedShell
   //! 6 -> OpenShell
   //! 0 else
-  Standard_EXPORT Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! returns Value as a Edge (Null if another type)
   Standard_EXPORT Handle(StepShape_Edge) Edge() const;

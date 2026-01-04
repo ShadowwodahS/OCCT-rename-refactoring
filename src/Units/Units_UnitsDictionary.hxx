@@ -22,11 +22,11 @@ class TCollection_AsciiString;
 class Units_Dimensions;
 
 class Units_UnitsDictionary;
-DEFINE_STANDARD_HANDLE(Units_UnitsDictionary, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Units_UnitsDictionary, RefObject)
 
 //! This class creates  a dictionary of all  the units
 //! you want to know.
-class Units_UnitsDictionary : public Standard_Transient
+class Units_UnitsDictionary : public RefObject
 {
 
 public:
@@ -55,7 +55,7 @@ public:
   //! <adimensions> all the previously stored units.
   void Dump(const Handle(Units_Dimensions)& adimensions) const;
 
-  DEFINE_STANDARD_RTTIEXT(Units_UnitsDictionary, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Units_UnitsDictionary, RefObject)
 
 protected:
 private:

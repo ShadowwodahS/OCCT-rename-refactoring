@@ -168,7 +168,7 @@ void DFBrowserPane_TDataStdTreeNode::GetShortAttributeInfo(
 // =======================================================================
 void DFBrowserPane_TDataStdTreeNode::GetReferences(const Handle(TDF_Attribute)& theAttribute,
                                                    NCollection_List<TDF_Label>& theRefLabels,
-                                                   Handle(Standard_Transient)&)
+                                                   Handle(RefObject)&)
 {
   Handle(TDataStd_TreeNode) anAttribute = Handle(TDataStd_TreeNode)::DownCast(theAttribute);
   if (anAttribute.IsNull())

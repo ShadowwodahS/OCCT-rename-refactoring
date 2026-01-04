@@ -18,7 +18,7 @@
 
 StepVisual_FillStyleSelect::StepVisual_FillStyleSelect() {}
 
-Standard_Integer StepVisual_FillStyleSelect::CaseNum(const Handle(Standard_Transient)& ent) const
+Standard_Integer StepVisual_FillStyleSelect::CaseNum(const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

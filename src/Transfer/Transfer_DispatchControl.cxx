@@ -41,14 +41,14 @@ void Transfer_DispatchControl::Clear()
   theTP->Clear();
 }
 
-void Transfer_DispatchControl::Bind(const Handle(Standard_Transient)& ent,
-                                    const Handle(Standard_Transient)& res)
+void Transfer_DispatchControl::Bind(const Handle(RefObject)& ent,
+                                    const Handle(RefObject)& res)
 {
   theTP->BindTransient(ent, res);
 }
 
-Standard_Boolean Transfer_DispatchControl::Search(const Handle(Standard_Transient)& ent,
-                                                  Handle(Standard_Transient)&       res) const
+Standard_Boolean Transfer_DispatchControl::Search(const Handle(RefObject)& ent,
+                                                  Handle(RefObject)&       res) const
 {
   res = theTP->FindTransient(ent);
   return !res.IsNull();

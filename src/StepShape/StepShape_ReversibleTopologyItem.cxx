@@ -23,7 +23,7 @@
 StepShape_ReversibleTopologyItem::StepShape_ReversibleTopologyItem() {}
 
 Standard_Integer StepShape_ReversibleTopologyItem::CaseNum(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

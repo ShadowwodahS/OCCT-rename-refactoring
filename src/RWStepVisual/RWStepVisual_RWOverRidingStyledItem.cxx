@@ -64,8 +64,8 @@ void RWStepVisual_RWOverRidingStyledItem::ReadStep(
 
   // --- inherited field : item ---
 
-  Handle(Standard_Transient) aItem;
-  data->ReadEntity(num, 3, "item", ach, STANDARD_TYPE(Standard_Transient), aItem);
+  Handle(RefObject) aItem;
+  data->ReadEntity(num, 3, "item", ach, STANDARD_TYPE(RefObject), aItem);
 
   // --- own field : overRiddenStyle ---
 

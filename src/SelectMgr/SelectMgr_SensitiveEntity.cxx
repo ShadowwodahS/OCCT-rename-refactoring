@@ -15,7 +15,7 @@
 
 #include <SelectMgr_SensitiveEntity.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(SelectMgr_SensitiveEntity, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(SelectMgr_SensitiveEntity, RefObject)
 
 //=======================================================================
 // function : SelectMgr_SensitiveEntity

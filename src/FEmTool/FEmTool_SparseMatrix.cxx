@@ -17,4 +17,4 @@
 #include <FEmTool_SparseMatrix.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(FEmTool_SparseMatrix, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(FEmTool_SparseMatrix, RefObject)

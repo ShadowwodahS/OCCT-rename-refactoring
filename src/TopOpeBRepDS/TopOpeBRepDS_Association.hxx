@@ -26,9 +26,9 @@
 class TopOpeBRepDS_Interference;
 
 class TopOpeBRepDS_Association;
-DEFINE_STANDARD_HANDLE(TopOpeBRepDS_Association, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TopOpeBRepDS_Association, RefObject)
 
-class TopOpeBRepDS_Association : public Standard_Transient
+class TopOpeBRepDS_Association : public RefObject
 {
 
 public:
@@ -48,7 +48,7 @@ public:
   Standard_EXPORT Standard_Boolean AreAssociated(const Handle(TopOpeBRepDS_Interference)& I,
                                                  const Handle(TopOpeBRepDS_Interference)& K) const;
 
-  DEFINE_STANDARD_RTTIEXT(TopOpeBRepDS_Association, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TopOpeBRepDS_Association, RefObject)
 
 protected:
 private:

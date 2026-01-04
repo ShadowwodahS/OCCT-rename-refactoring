@@ -19,9 +19,9 @@
 #include <Standard_Transient.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<Standard_Integer, Handle(Standard_Transient)>
+typedef NCollection_DataMap<Standard_Integer, Handle(RefObject)>
   TColStd_DataMapOfIntegerTransient;
-typedef NCollection_DataMap<Standard_Integer, Handle(Standard_Transient)>::Iterator
+typedef NCollection_DataMap<Standard_Integer, Handle(RefObject)>::Iterator
   TColStd_DataMapIteratorOfDataMapOfIntegerTransient;
 
 #endif

@@ -131,10 +131,10 @@ Handle(IGESGraph_TextDisplayTemplate) IGESDefs_AttributeDef::AttributeTextDispla
   return res;
 }
 
-Handle(Standard_Transient) IGESDefs_AttributeDef::AttributeList(
+Handle(RefObject) IGESDefs_AttributeDef::AttributeList(
   const Standard_Integer AttrNum) const
 {
-  Handle(Standard_Transient) nulres;
+  Handle(RefObject) nulres;
   if (!HasValues())
     return nulres;
   return theAttrValues->Value(AttrNum);

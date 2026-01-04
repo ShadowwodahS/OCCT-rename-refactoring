@@ -23,9 +23,9 @@
 //! A class that provides an API to use standard OCCT hatch styles
 //! defined in Aspect_HatchStyle enum or to create custom styles
 //! from a user-defined bitmap
-class Graphic3d_HatchStyle : public Standard_Transient
+class Graphic3d_HatchStyle : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_HatchStyle, Standard_Transient) // Type definition
+  DEFINE_STANDARD_RTTIEXT(Graphic3d_HatchStyle, RefObject) // Type definition
 
 public:
   //! Creates a new custom hatch style with the given pattern and unique style id
@@ -55,6 +55,6 @@ private:
   Standard_Integer           myHatchType; //!< Index of used style
 };
 
-DEFINE_STANDARD_HANDLE(Graphic3d_HatchStyle, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Graphic3d_HatchStyle, RefObject)
 
 #endif // _Graphic3d_HatchStyle_HeaderFile

@@ -22,7 +22,7 @@
 #include <TopoDS_Edge.hxx>
 #include <TopoDS_Face.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeAnalysis_TransferParameters, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(ShapeAnalysis_TransferParameters, RefObject)
 
 //=================================================================================================
 

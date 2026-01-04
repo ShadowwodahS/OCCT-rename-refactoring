@@ -19,7 +19,7 @@
 #include <Standard_Atomic.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(OSD_ThreadPool, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(OSD_ThreadPool, RefObject)
 
 //=================================================================================================
 

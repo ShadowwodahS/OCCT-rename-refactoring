@@ -26,7 +26,7 @@
 class Standard_Persistent;
 
 class Storage_Root;
-DEFINE_STANDARD_HANDLE(Storage_Root, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Storage_Root, RefObject)
 
 //! A root object extracted from a Storage_Data object.
 //! A Storage_Root encapsulates a persistent
@@ -41,7 +41,7 @@ DEFINE_STANDARD_HANDLE(Storage_Root, Standard_Transient)
 //! You do not create explicit roots: when inserting
 //! data in a Storage_Data object, you just provide
 //! the persistent object and optionally its name to the function AddRoot.
-class Storage_Root : public Standard_Transient
+class Storage_Root : public RefObject
 {
 
 public:
@@ -88,7 +88,7 @@ public:
 
   friend class Storage_Schema;
 
-  DEFINE_STANDARD_RTTIEXT(Storage_Root, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Storage_Root, RefObject)
 
 protected:
 private:

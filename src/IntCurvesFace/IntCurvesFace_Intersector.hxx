@@ -37,11 +37,11 @@ class IntCurveSurface_HInter;
 class gp_Pnt2d;
 class Bnd_Box;
 
-DEFINE_STANDARD_HANDLE(IntCurvesFace_Intersector, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IntCurvesFace_Intersector, RefObject)
 
-class IntCurvesFace_Intersector : public Standard_Transient
+class IntCurvesFace_Intersector : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(IntCurvesFace_Intersector, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IntCurvesFace_Intersector, RefObject)
 
 public:
   DEFINE_STANDARD_ALLOC

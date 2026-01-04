@@ -25,10 +25,10 @@ class StepBasic_ActionMethod;
 class StepBasic_VersionedActionRequest;
 
 class StepBasic_ActionRequestSolution;
-DEFINE_STANDARD_HANDLE(StepBasic_ActionRequestSolution, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_ActionRequestSolution, RefObject)
 
 //! Representation of STEP entity ActionRequestSolution
-class StepBasic_ActionRequestSolution : public Standard_Transient
+class StepBasic_ActionRequestSolution : public RefObject
 {
 
 public:
@@ -51,7 +51,7 @@ public:
   //! Set field Request
   Standard_EXPORT void SetRequest(const Handle(StepBasic_VersionedActionRequest)& Request);
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_ActionRequestSolution, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_ActionRequestSolution, RefObject)
 
 protected:
 private:

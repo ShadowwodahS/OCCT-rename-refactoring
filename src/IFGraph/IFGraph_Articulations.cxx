@@ -27,7 +27,7 @@ IFGraph_Articulations::IFGraph_Articulations(const Interface_Graph& agraph,
     thegraph.GetFromModel();
 }
 
-void IFGraph_Articulations::GetFromEntity(const Handle(Standard_Transient)& ent)
+void IFGraph_Articulations::GetFromEntity(const Handle(RefObject)& ent)
 {
   thegraph.GetFromEntity(ent, Standard_True);
 }
@@ -75,7 +75,7 @@ Standard_Integer IFGraph_Articulations::Visit(const Standard_Integer num)
   for (Interface_EntityIterator iter = thegraph.Shareds(thegraph.Entity(num)); iter.More();
        iter.Next())
   {
-    const Handle(Standard_Transient)& ent    = iter.Value();
+    const Handle(RefObject)& ent    = iter.Value();
     Standard_Integer                  nument = thegraph.EntityNumber(ent);
     if (!thegraph.IsPresent(num))
     {

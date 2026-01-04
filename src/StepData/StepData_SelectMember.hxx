@@ -26,7 +26,7 @@
 #include <StepData_Logical.hxx>
 
 class StepData_SelectMember;
-DEFINE_STANDARD_HANDLE(StepData_SelectMember, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepData_SelectMember, RefObject)
 
 //! The general form for a Select Member. A Select Member can,
 //! either define a value of a basic type (such as an integer)
@@ -44,7 +44,7 @@ DEFINE_STANDARD_HANDLE(StepData_SelectMember, Standard_Transient)
 //!
 //! Remark : this class itself could be deferred, because at least
 //! one of its virtual methods must be redefined to be usable
-class StepData_SelectMember : public Standard_Transient
+class StepData_SelectMember : public RefObject
 {
 
 public:
@@ -110,7 +110,7 @@ public:
 
   Standard_EXPORT virtual void SetEnumText(const Standard_Integer val, const Standard_CString text);
 
-  DEFINE_STANDARD_RTTIEXT(StepData_SelectMember, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepData_SelectMember, RefObject)
 
 protected:
 private:

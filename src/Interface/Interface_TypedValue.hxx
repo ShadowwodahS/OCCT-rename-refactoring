@@ -84,7 +84,7 @@ private:
   NCollection_DataMap<TCollection_AsciiString, Standard_Integer> theeadds;
   TCollection_AsciiString                                        thesatisn;
   Handle(TCollection_HAsciiString)                               thehval;
-  Handle(Standard_Transient)                                     theoval;
+  Handle(RefObject)                                     theoval;
 };
 
 #endif // _Interface_TypedValue_HeaderFile

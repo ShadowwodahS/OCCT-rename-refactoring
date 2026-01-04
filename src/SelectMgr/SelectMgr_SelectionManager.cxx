@@ -22,7 +22,7 @@
 #include <StdSelect_BRepSelectionTool.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(SelectMgr_SelectionManager, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(SelectMgr_SelectionManager, RefObject)
 
 //=================================================================================================
 

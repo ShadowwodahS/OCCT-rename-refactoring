@@ -170,7 +170,7 @@ Handle(StepElement_HSequenceOfElementMaterial) StepAP209_Construct::GetElementMa
   Standard_Integer                 nb    = model->NbEntities();
   for (Standard_Integer i = 1; i <= nb; i++)
   {
-    Handle(Standard_Transient) anEntity = model->Value(i);
+    Handle(RefObject) anEntity = model->Value(i);
     if (anEntity->IsKind(STANDARD_TYPE(StepElement_ElementMaterial)))
     {
       Handle(StepElement_ElementMaterial) anElement =
@@ -192,7 +192,7 @@ Handle(StepFEA_HSequenceOfElementGeometricRelationship) StepAP209_Construct::Get
   Standard_Integer                 nb    = model->NbEntities();
   for (Standard_Integer i = 1; i <= nb; i++)
   {
-    Handle(Standard_Transient) anEntity = model->Value(i);
+    Handle(RefObject) anEntity = model->Value(i);
     if (anEntity->IsKind(STANDARD_TYPE(StepFEA_ElementGeometricRelationship)))
     {
       Handle(StepFEA_ElementGeometricRelationship) EGR =
@@ -584,7 +584,7 @@ Handle(StepFEA_HSequenceOfElementRepresentation) StepAP209_Construct::GetFeaElem
 
   for (; anIter.More(); anIter.Next())
   {
-    const Handle(Standard_Transient)& anEntity = anIter.Value();
+    const Handle(RefObject)& anEntity = anIter.Value();
     if (anEntity->IsKind(theType))
     {
       Handle(StepFEA_ElementRepresentation) anElement =
@@ -970,7 +970,7 @@ Standard_Boolean StepAP209_Construct::ReplaceCcDesingToApplied() const
   Standard_Integer           nb     = smodel->NbEntities();
   for (Standard_Integer i = 1; i <= nb; i++)
   {
-    Handle(Standard_Transient) anEntity = smodel->Value(i);
+    Handle(RefObject) anEntity = smodel->Value(i);
     if (anEntity->IsKind(STANDARD_TYPE(StepAP203_CcDesignApproval)))
     {
       Handle(StepAP203_CcDesignApproval) ent =

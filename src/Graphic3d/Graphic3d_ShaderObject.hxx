@@ -23,7 +23,7 @@
 //! Forward declaration
 
 //! This class is responsible for managing shader objects.
-class Graphic3d_ShaderObject : public Standard_Transient
+class Graphic3d_ShaderObject : public RefObject
 {
 public:
   //! Structure defining shader uniform or in/out variable.
@@ -109,7 +109,7 @@ public:
   const TCollection_AsciiString& GetId() const { return myID; }
 
 public:
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_ShaderObject, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Graphic3d_ShaderObject, RefObject)
 
 protected:
   TCollection_AsciiString myID;     //!< the ID of shader object
@@ -121,6 +121,6 @@ private:
   Graphic3d_TypeOfShaderObject myType;
 };
 
-DEFINE_STANDARD_HANDLE(Graphic3d_ShaderObject, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Graphic3d_ShaderObject, RefObject)
 
 #endif

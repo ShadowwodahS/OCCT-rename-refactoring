@@ -24,10 +24,10 @@ class TCollection_HAsciiString;
 class StepBasic_Group;
 
 class StepBasic_GroupRelationship;
-DEFINE_STANDARD_HANDLE(StepBasic_GroupRelationship, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_GroupRelationship, RefObject)
 
 //! Representation of STEP entity GroupRelationship
-class StepBasic_GroupRelationship : public Standard_Transient
+class StepBasic_GroupRelationship : public RefObject
 {
 
 public:
@@ -68,7 +68,7 @@ public:
   //! Set field RelatedGroup
   Standard_EXPORT void SetRelatedGroup(const Handle(StepBasic_Group)& RelatedGroup);
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_GroupRelationship, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_GroupRelationship, RefObject)
 
 protected:
 private:

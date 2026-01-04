@@ -75,7 +75,7 @@ Standard_Boolean STEPConstruct_ValidationProps::Init(const Handle(XSControl_Work
 //=================================================================================================
 
 static Handle(Transfer_SimpleBinderOfTransient) TransientResult(
-  const Handle(Standard_Transient)& res)
+  const Handle(RefObject)& res)
 {
   Handle(Transfer_SimpleBinderOfTransient) binder;
   if (res.IsNull())
@@ -501,7 +501,7 @@ Standard_Boolean STEPConstruct_ValidationProps::LoadProps(TColStd_SequenceOfTran
   Handle(Standard_Type) tPDR = STANDARD_TYPE(StepRepr_PropertyDefinitionRepresentation);
   for (Standard_Integer i = 1; i <= nb; i++)
   {
-    Handle(Standard_Transient) enti = Model()->Value(i);
+    Handle(RefObject) enti = Model()->Value(i);
     if (!enti->IsKind(tPDR))
       continue;
 

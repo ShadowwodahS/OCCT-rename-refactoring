@@ -19,7 +19,7 @@
 #include <Standard_Type.hxx>
 #include <TopoDS_Face.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DBRep_Face, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(DBRep_Face, RefObject)
 
 //=================================================================================================
 

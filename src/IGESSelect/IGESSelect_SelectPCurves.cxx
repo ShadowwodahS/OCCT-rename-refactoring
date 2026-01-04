@@ -35,7 +35,7 @@ IGESSelect_SelectPCurves::IGESSelect_SelectPCurves(const Standard_Boolean basic)
 }
 
 Standard_Boolean IGESSelect_SelectPCurves::Explore(const Standard_Integer            level,
-                                                   const Handle(Standard_Transient)& ent,
+                                                   const Handle(RefObject)& ent,
                                                    const Interface_Graph& /*G*/,
                                                    Interface_EntityIterator& explored) const
 {

@@ -20,7 +20,7 @@
 #include <Standard_Transient.hxx>
 
 class IVtk_Interface;
-DEFINE_STANDARD_HANDLE(IVtk_Interface, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IVtk_Interface, RefObject)
 
 //! @class IVtk_Interface
 //! @brief Base interface for visualisation component.
@@ -28,12 +28,12 @@ DEFINE_STANDARD_HANDLE(IVtk_Interface, Standard_Transient)
 //! It is a handle class ("smart" pointer). IVtk_Interface is a base class for OCC interfaces
 //! for VTK classes, such as interface for shape objects (IVtk_IShape) and view(IVtk_IView),
 //! shape triangulation (IVtk_IShapeData, IVtk_IShapeMesher) and picking (IVtk_IShapePickerAlgo).
-class IVtk_Interface : public Standard_Transient
+class IVtk_Interface : public RefObject
 {
 
 public:
   typedef Handle(IVtk_Interface) Handle;
-  DEFINE_STANDARD_RTTIEXT(IVtk_Interface, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IVtk_Interface, RefObject)
 
   virtual ~IVtk_Interface() {}
 };

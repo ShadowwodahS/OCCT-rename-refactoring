@@ -20,7 +20,7 @@
 #include <StepBasic_ProductOrFormationOrDefinition.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_DocumentProductAssociation, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_DocumentProductAssociation, RefObject)
 
 //=================================================================================================
 

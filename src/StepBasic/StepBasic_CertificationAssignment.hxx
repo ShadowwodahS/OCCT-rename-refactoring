@@ -24,10 +24,10 @@
 class StepBasic_Certification;
 
 class StepBasic_CertificationAssignment;
-DEFINE_STANDARD_HANDLE(StepBasic_CertificationAssignment, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_CertificationAssignment, RefObject)
 
 //! Representation of STEP entity CertificationAssignment
-class StepBasic_CertificationAssignment : public Standard_Transient
+class StepBasic_CertificationAssignment : public RefObject
 {
 
 public:
@@ -44,7 +44,7 @@ public:
   Standard_EXPORT void SetAssignedCertification(
     const Handle(StepBasic_Certification)& AssignedCertification);
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_CertificationAssignment, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_CertificationAssignment, RefObject)
 
 protected:
 private:

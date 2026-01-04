@@ -16,7 +16,7 @@
 
 #include <SelectMgr_EntityOwner.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(SelectMgr_EntityOwner, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(SelectMgr_EntityOwner, RefObject)
 
 //=================================================================================================
 

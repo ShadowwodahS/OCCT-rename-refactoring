@@ -28,10 +28,10 @@
 class MAT_Arc;
 
 class MAT_Node;
-DEFINE_STANDARD_HANDLE(MAT_Node, Standard_Transient)
+DEFINE_STANDARD_HANDLE(MAT_Node, RefObject)
 
 //! Node of Graph.
-class MAT_Node : public Standard_Transient
+class MAT_Node : public RefObject
 {
 
 public:
@@ -70,7 +70,7 @@ public:
 
   Standard_EXPORT void SetLinkedArc(const Handle(MAT_Arc)& anArc);
 
-  DEFINE_STANDARD_RTTIEXT(MAT_Node, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(MAT_Node, RefObject)
 
 protected:
 private:

@@ -23,7 +23,7 @@
 #include <IFSelect_SelectExtract.hxx>
 #include <Standard_Integer.hxx>
 class TCollection_HAsciiString;
-class Standard_Transient;
+class RefObject;
 class Interface_InterfaceModel;
 class TCollection_AsciiString;
 
@@ -46,7 +46,7 @@ public:
   //! Returns True if Name of Entity complies with Name Filter
   Standard_EXPORT Standard_Boolean
     Sort(const Standard_Integer                  rank,
-         const Handle(Standard_Transient)&       ent,
+         const Handle(RefObject)&       ent,
          const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
 
   //! Sets a Name as a criterium : IGES Entities which have this name

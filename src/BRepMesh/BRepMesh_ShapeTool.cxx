@@ -25,7 +25,7 @@
 #include <Precision.hxx>
 #include <Bnd_Box.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_ShapeTool, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_ShapeTool, RefObject)
 
 namespace
 {

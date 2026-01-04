@@ -24,7 +24,7 @@
 //      Declaration of Sequence class managed by Handle
 
 #define DEFINE_HSEQUENCE(HClassName, _SequenceType_)                                               \
-  class HClassName : public _SequenceType_, public Standard_Transient                              \
+  class HClassName : public _SequenceType_, public RefObject                              \
   {                                                                                                \
   public:                                                                                          \
     DEFINE_STANDARD_ALLOC                                                                          \
@@ -57,9 +57,9 @@
     {                                                                                              \
       _SequenceType_::Append(theOther->ChangeSequence());                                          \
     }                                                                                              \
-    DEFINE_STANDARD_RTTI_INLINE(HClassName, Standard_Transient)                                    \
+    DEFINE_STANDARD_RTTI_INLINE(HClassName, RefObject)                                    \
   };                                                                                               \
-  DEFINE_STANDARD_HANDLE(HClassName, Standard_Transient)
+  DEFINE_STANDARD_HANDLE(HClassName, RefObject)
 
 #define IMPLEMENT_HSEQUENCE(HClassName)
 

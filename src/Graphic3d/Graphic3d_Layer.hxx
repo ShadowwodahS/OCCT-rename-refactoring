@@ -35,9 +35,9 @@ typedef std::array<Graphic3d_IndexedMapOfStructure, Graphic3d_DisplayPriority_NB
 class Graphic3d_CullingTool;
 
 //! Presentations list sorted within priorities.
-class Graphic3d_Layer : public Standard_Transient
+class Graphic3d_Layer : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_Layer, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Graphic3d_Layer, RefObject)
 public:
   //! Initializes associated priority list and layer properties
   Standard_EXPORT Graphic3d_Layer(Graphic3d_ZLayerId           theId,

@@ -21,7 +21,7 @@
 #include <Standard_Dump.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(CDM_Reference, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(CDM_Reference, RefObject)
 
 CDM_Reference::CDM_Reference(const Handle(CDM_Document)& aFromDocument,
                              const Handle(CDM_Document)& aToDocument,

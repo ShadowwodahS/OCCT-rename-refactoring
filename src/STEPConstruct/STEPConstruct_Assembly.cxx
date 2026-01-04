@@ -115,10 +115,10 @@ void STEPConstruct_Assembly::MakeRelationship()
 
 //=================================================================================================
 
-Handle(Standard_Transient) STEPConstruct_Assembly::ItemValue() const
+Handle(RefObject) STEPConstruct_Assembly::ItemValue() const
 {
   if (theval.IsNull())
-    return Handle(Standard_Transient)(thesr);
+    return Handle(RefObject)(thesr);
   return theval;
 }
 
@@ -172,7 +172,7 @@ Standard_Boolean STEPConstruct_Assembly::CheckSRRReversesNAUO(
   Interface_EntityIterator anIter = theGraph.Sharings(rep1);
   for (; anIter.More() && pd1.IsNull(); anIter.Next())
   {
-    const Handle(Standard_Transient)& enti = anIter.Value();
+    const Handle(RefObject)& enti = anIter.Value();
     if (enti->DynamicType() == tSDR)
     {
       Handle(StepShape_ShapeDefinitionRepresentation) SDR =
@@ -185,7 +185,7 @@ Standard_Boolean STEPConstruct_Assembly::CheckSRRReversesNAUO(
   anIter = theGraph.Sharings(rep2);
   for (; anIter.More() && pd2.IsNull(); anIter.Next())
   {
-    const Handle(Standard_Transient)& enti = anIter.Value();
+    const Handle(RefObject)& enti = anIter.Value();
     if (enti->DynamicType() == tSDR)
     {
       Handle(StepShape_ShapeDefinitionRepresentation) SDR =

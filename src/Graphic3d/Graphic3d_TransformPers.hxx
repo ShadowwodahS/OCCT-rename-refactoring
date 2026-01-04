@@ -24,7 +24,7 @@
 #include <Graphic3d_Vec.hxx>
 #include <NCollection_Mat4.hxx>
 
-DEFINE_STANDARD_HANDLE(Graphic3d_TransformPers, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Graphic3d_TransformPers, RefObject)
 
 //! Transformation Persistence definition.
 //!
@@ -47,9 +47,9 @@ DEFINE_STANDARD_HANDLE(Graphic3d_TransformPers, Standard_Transient)
 //! Meant to be used by objects such as Manipulators and trihedrons.
 //! WARNING: Graphic3d_TMF_None is not permitted for defining instance of this class - NULL handle
 //! should be used for this purpose!
-class Graphic3d_TransformPers : public Standard_Transient
+class Graphic3d_TransformPers : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_TransformPers, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Graphic3d_TransformPers, RefObject)
 public:
   //! Return true if specified mode is zoom/rotate transformation persistence.
   static Standard_Boolean IsZoomOrRotate(Graphic3d_TransModeFlags theMode)

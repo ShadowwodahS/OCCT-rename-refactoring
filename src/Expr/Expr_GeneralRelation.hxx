@@ -27,11 +27,11 @@ class Expr_NamedUnknown;
 class TCollection_AsciiString;
 
 class Expr_GeneralRelation;
-DEFINE_STANDARD_HANDLE(Expr_GeneralRelation, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Expr_GeneralRelation, RefObject)
 
 //! Defines the general purposes of any relation between
 //! expressions.
-class Expr_GeneralRelation : public Standard_Transient
+class Expr_GeneralRelation : public RefObject
 {
 
 public:
@@ -77,7 +77,7 @@ public:
   //! returns a string representing <me> in a readable way.
   Standard_EXPORT virtual TCollection_AsciiString String() const = 0;
 
-  DEFINE_STANDARD_RTTIEXT(Expr_GeneralRelation, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Expr_GeneralRelation, RefObject)
 
 protected:
 private:

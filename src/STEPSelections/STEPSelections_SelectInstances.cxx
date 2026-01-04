@@ -48,7 +48,7 @@ STEPSelections_SelectInstances::STEPSelections_SelectInstances()
 {
 }
 
-static void AddAllSharings(const Handle(Standard_Transient)& start,
+static void AddAllSharings(const Handle(RefObject)& start,
                            const Interface_Graph&            graph,
                            Interface_EntityIterator&         explored)
 {
@@ -62,7 +62,7 @@ static void AddAllSharings(const Handle(Standard_Transient)& start,
   }
 }
 
-static void AddInstances(const Handle(Standard_Transient)& start,
+static void AddInstances(const Handle(RefObject)& start,
                          const Interface_Graph&            graph,
                          Interface_EntityIterator&         explored)
 {
@@ -140,7 +140,7 @@ static void AddInstances(const Handle(Standard_Transient)& start,
     DeclareAndCast(StepRepr_ShapeRepresentationRelationship, und, start);
     for (Standard_Integer i = 1; i <= 2; i++)
     {
-      Handle(Standard_Transient) anitem;
+      Handle(RefObject) anitem;
       if (i == 1)
         anitem = und->Rep1();
       if (i == 2)
@@ -182,7 +182,7 @@ Interface_EntityIterator STEPSelections_SelectInstances::RootResult(const Interf
 }
 
 Standard_Boolean STEPSelections_SelectInstances::Explore(const Standard_Integer,
-                                                         const Handle(Standard_Transient)&,
+                                                         const Handle(RefObject)&,
                                                          const Interface_Graph&,
                                                          Interface_EntityIterator&) const
 {

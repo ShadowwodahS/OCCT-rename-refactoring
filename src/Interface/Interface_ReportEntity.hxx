@@ -24,7 +24,7 @@
 class Interface_Check;
 
 class Interface_ReportEntity;
-DEFINE_STANDARD_HANDLE(Interface_ReportEntity, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Interface_ReportEntity, RefObject)
 
 //! A ReportEntity is produced to aknowledge and memorize the
 //! binding between a Check and an Entity. The Check can bring
@@ -49,25 +49,25 @@ DEFINE_STANDARD_HANDLE(Interface_ReportEntity, Standard_Transient)
 //! use the class UndefinedContent to brings parameters : it is
 //! enough for most of information and avoids to redefine them,
 //! only the specific part remains to be defined for each norm.
-class Interface_ReportEntity : public Standard_Transient
+class Interface_ReportEntity : public RefObject
 {
 
 public:
   //! Creates a ReportEntity for an Unknown Entity : Check is empty,
   //! and Concerned equates Content (i.e. the Unknown Entity)
-  Standard_EXPORT Interface_ReportEntity(const Handle(Standard_Transient)& unknown);
+  Standard_EXPORT Interface_ReportEntity(const Handle(RefObject)& unknown);
 
   //! Creates a ReportEntity with its features :
   //! - <acheck> is the Check to be memorised
   //! - <concerned> is the Entity to which the Check is bound
   //! Later, a Content can be set : it is required for an Error
   Standard_EXPORT Interface_ReportEntity(const Handle(Interface_Check)&    acheck,
-                                         const Handle(Standard_Transient)& concerned);
+                                         const Handle(RefObject)& concerned);
 
   //! Sets a Content : it brings non interpreted data which belong
   //! to the Concerned Entity. It can be empty then loaded later.
   //! Remark that for an Unknown Entity, Content is set by Create.
-  Standard_EXPORT void SetContent(const Handle(Standard_Transient)& content);
+  Standard_EXPORT void SetContent(const Handle(RefObject)& content);
 
   //! Returns the stored Check
   Standard_EXPORT const Handle(Interface_Check)& Check() const;
@@ -77,7 +77,7 @@ public:
 
   //! Returns the stored Concerned Entity. It equates the Content
   //! in the case of an Unknown Entity
-  Standard_EXPORT Handle(Standard_Transient) Concerned() const;
+  Standard_EXPORT Handle(RefObject) Concerned() const;
 
   //! Returns True if a Content is stored (it can equate Concerned)
   Standard_EXPORT Standard_Boolean HasContent() const;
@@ -90,7 +90,7 @@ public:
   //! Returns the stored Content, or a Null Handle
   //! Remark that it must be an "Unknown Entity" suitable for
   //! the norm of the containing Model
-  Standard_EXPORT Handle(Standard_Transient) Content() const;
+  Standard_EXPORT Handle(RefObject) Content() const;
 
   //! Returns True for an Error Entity, i.e. if the Check
   //! brings at least one Fail message
@@ -100,13 +100,13 @@ public:
   //! is empty and Concerned equates Content
   Standard_EXPORT Standard_Boolean IsUnknown() const;
 
-  DEFINE_STANDARD_RTTIEXT(Interface_ReportEntity, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Interface_ReportEntity, RefObject)
 
 protected:
 private:
   Handle(Interface_Check)    thecheck;
-  Handle(Standard_Transient) theconcerned;
-  Handle(Standard_Transient) thecontent;
+  Handle(RefObject) theconcerned;
+  Handle(RefObject) thecontent;
 };
 
 #endif // _Interface_ReportEntity_HeaderFile

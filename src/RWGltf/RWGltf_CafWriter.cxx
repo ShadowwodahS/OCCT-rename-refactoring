@@ -51,7 +51,7 @@
   #include <Standard_WarningsRestore.hxx>
 #endif
 
-IMPLEMENT_STANDARD_RTTIEXT(RWGltf_CafWriter, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(RWGltf_CafWriter, RefObject)
 
 namespace
 {

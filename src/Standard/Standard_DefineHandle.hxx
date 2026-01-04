@@ -22,7 +22,7 @@
 
 #include <Standard_Type.hxx>
 
-class Standard_Transient;
+class RefObject;
 class Standard_Persistent;
 class Standard_Type;
 

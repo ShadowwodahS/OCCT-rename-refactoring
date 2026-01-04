@@ -23,7 +23,7 @@
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
 
-class Standard_Transient;
+class RefObject;
 class StepKinematics_KinematicTopologyDirectedStructure;
 class StepKinematics_KinematicTopologyNetworkStructure;
 class StepKinematics_KinematicTopologyStructure;
@@ -43,7 +43,7 @@ public:
   //! -- 2 -> KinematicTopologyNetworkStructure
   //! -- 3 -> KinematicTopologyStructure
   Standard_EXPORT Standard_Integer
-    CaseNum(const Handle(Standard_Transient)& ent) const Standard_OVERRIDE;
+    CaseNum(const Handle(RefObject)& ent) const Standard_OVERRIDE;
 
   //! Returns Value as KinematicTopologyDirectedStructure (or Null if another type)
   Standard_EXPORT Handle(StepKinematics_KinematicTopologyDirectedStructure)

@@ -22,7 +22,7 @@
 
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepShape_DimensionalLocation;
 class StepShape_DimensionalSize;
 
@@ -39,7 +39,7 @@ public:
   //! 1 -> DimensionalLocation from StepShape
   //! 2 -> DimensionalSize from StepShape
   //! 0 else
-  Standard_EXPORT Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! Returns Value as DimensionalLocation (or Null if another type)
   Standard_EXPORT Handle(StepShape_DimensionalLocation) DimensionalLocation() const;

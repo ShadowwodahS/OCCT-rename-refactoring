@@ -23,7 +23,7 @@ IFGraph_AllShared::IFGraph_AllShared(const Interface_Graph& agraph)
 }
 
 IFGraph_AllShared::IFGraph_AllShared(const Interface_Graph&            agraph,
-                                     const Handle(Standard_Transient)& ent)
+                                     const Handle(RefObject)& ent)
     : thegraph(agraph)
 {
   if (!agraph.Model()->Contains(ent))
@@ -31,7 +31,7 @@ IFGraph_AllShared::IFGraph_AllShared(const Interface_Graph&            agraph,
   GetFromEntity(ent);
 }
 
-void IFGraph_AllShared::GetFromEntity(const Handle(Standard_Transient)& ent)
+void IFGraph_AllShared::GetFromEntity(const Handle(RefObject)& ent)
 {
   thegraph.GetFromEntity(ent, Standard_True);
 } // le fait pour nous

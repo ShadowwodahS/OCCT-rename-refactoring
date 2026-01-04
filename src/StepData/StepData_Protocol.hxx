@@ -55,7 +55,7 @@ public:
   //! Returns a unique positive number for any recognized entity
   //! Redefined to work by calling both TypeNumber and, for a
   //! Described Entity (late binding) DescrNumber
-  Standard_EXPORT virtual Standard_Integer CaseNumber(const Handle(Standard_Transient)& obj) const
+  Standard_EXPORT virtual Standard_Integer CaseNumber(const Handle(RefObject)& obj) const
     Standard_OVERRIDE;
 
   //! Returns a Case Number, specific of each recognized Type
@@ -78,12 +78,12 @@ public:
     IsSuitableModel(const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
 
   //! Creates a new Unknown Entity for Step (UndefinedEntity)
-  Standard_EXPORT Handle(Standard_Transient) UnknownEntity() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(RefObject) UnknownEntity() const Standard_OVERRIDE;
 
   //! Returns True if <ent> is an Unknown Entity for the Norm, i.e.
   //! Type UndefinedEntity, status Unknown
   Standard_EXPORT Standard_Boolean
-    IsUnknownEntity(const Handle(Standard_Transient)& ent) const Standard_OVERRIDE;
+    IsUnknownEntity(const Handle(RefObject)& ent) const Standard_OVERRIDE;
 
   //! Returns a unique positive CaseNumber for types described by
   //! an EDescr (late binding)
@@ -147,9 +147,9 @@ public:
 protected:
 private:
   Interface_DataMapOfTransientInteger                                      thedscnum;
-  NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)> thedscnam;
-  NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)> thepdescr;
-  NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)> thedscbas;
+  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)> thedscnam;
+  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)> thepdescr;
+  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)> thedscbas;
 };
 
 #endif // _StepData_Protocol_HeaderFile

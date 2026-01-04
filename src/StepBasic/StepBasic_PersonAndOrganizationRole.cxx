@@ -14,7 +14,7 @@
 #include <StepBasic_PersonAndOrganizationRole.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_PersonAndOrganizationRole, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_PersonAndOrganizationRole, RefObject)
 
 StepBasic_PersonAndOrganizationRole::StepBasic_PersonAndOrganizationRole() {}
 

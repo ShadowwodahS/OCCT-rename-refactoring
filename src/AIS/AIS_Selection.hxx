@@ -27,9 +27,9 @@
 class SelectMgr_Filter;
 
 //! Class holding the list of selected owners.
-class AIS_Selection : public Standard_Transient
+class AIS_Selection : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(AIS_Selection, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(AIS_Selection, RefObject)
 public:
   //! creates a new selection.
   Standard_EXPORT AIS_Selection();
@@ -119,6 +119,6 @@ protected:
   NCollection_DataMap<Handle(SelectMgr_EntityOwner), AIS_NListOfEntityOwner::Iterator> myResultMap;
 };
 
-DEFINE_STANDARD_HANDLE(AIS_Selection, Standard_Transient)
+DEFINE_STANDARD_HANDLE(AIS_Selection, RefObject)
 
 #endif // _AIS_Selection_HeaderFile

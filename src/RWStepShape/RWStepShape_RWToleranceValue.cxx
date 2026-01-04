@@ -34,7 +34,7 @@ void RWStepShape_RWToleranceValue::ReadStep(const Handle(StepData_StepReaderData
 
   // --- own field : lower_bound ---
 
-  Handle(Standard_Transient) LB;
+  Handle(RefObject) LB;
   if (!data->ReadEntity(num, 1, "lower_bound", ach, STANDARD_TYPE(StepBasic_MeasureWithUnit), LB))
   {
     Handle(StepRepr_MeasureRepresentationItem)  aMSR;
@@ -62,7 +62,7 @@ void RWStepShape_RWToleranceValue::ReadStep(const Handle(StepData_StepReaderData
 
   // --- own field : upper_bound ---
 
-  Handle(Standard_Transient) UB;
+  Handle(RefObject) UB;
   if (!data->ReadEntity(num, 2, "upper_bound", ach, STANDARD_TYPE(StepBasic_MeasureWithUnit), UB))
   {
     Handle(StepRepr_MeasureRepresentationItem)  aMSR1;

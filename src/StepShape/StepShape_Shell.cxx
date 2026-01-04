@@ -19,7 +19,7 @@
 
 StepShape_Shell::StepShape_Shell() {}
 
-Standard_Integer StepShape_Shell::CaseNum(const Handle(Standard_Transient)& ent) const
+Standard_Integer StepShape_Shell::CaseNum(const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

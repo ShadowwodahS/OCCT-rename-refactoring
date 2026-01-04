@@ -18,7 +18,7 @@
 #include <Standard_Type.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IFSelect_Selection, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(IFSelect_Selection, RefObject)
 
 Standard_Boolean IFSelect_Selection::HasUniqueResult() const
 {
@@ -46,7 +46,7 @@ Interface_EntityIterator IFSelect_Selection::CompleteResult(const Interface_Grap
   Interface_Graph GG(G);
   for (iter.Start(); iter.More(); iter.Next())
   {
-    const Handle(Standard_Transient)& ent = iter.Value();
+    const Handle(RefObject)& ent = iter.Value();
     GG.GetFromEntity(ent, Standard_True); // et voila
   }
   return Interface_GraphContent(GG); // EntityIterator specialise (meme taille)

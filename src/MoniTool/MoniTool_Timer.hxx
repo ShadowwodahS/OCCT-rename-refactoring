@@ -27,7 +27,7 @@
 #include <MoniTool_DataMapOfTimer.hxx>
 
 class MoniTool_Timer;
-DEFINE_STANDARD_HANDLE(MoniTool_Timer, Standard_Transient)
+DEFINE_STANDARD_HANDLE(MoniTool_Timer, RefObject)
 
 //! Provides convenient service on global timers
 //! accessed by string name, mostly aimed for debugging purposes
@@ -36,7 +36,7 @@ DEFINE_STANDARD_HANDLE(MoniTool_Timer, Standard_Transient)
 //!
 //! As a tool, supports static dictionary of timers
 //! and provides static methods to easily access them
-class MoniTool_Timer : public Standard_Transient
+class MoniTool_Timer : public RefObject
 {
 
 public:
@@ -102,7 +102,7 @@ public:
                                             Standard_Real& External,
                                             Standard_Real& Error10);
 
-  DEFINE_STANDARD_RTTIEXT(MoniTool_Timer, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(MoniTool_Timer, RefObject)
 
 protected:
 private:

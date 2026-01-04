@@ -30,10 +30,10 @@
 class PLib_Base;
 
 class FEmTool_Curve;
-DEFINE_STANDARD_HANDLE(FEmTool_Curve, Standard_Transient)
+DEFINE_STANDARD_HANDLE(FEmTool_Curve, RefObject)
 
 //! Curve defined by Polynomial Elements.
-class FEmTool_Curve : public Standard_Transient
+class FEmTool_Curve : public RefObject
 {
 
 public:
@@ -79,7 +79,7 @@ public:
                                     Standard_Integer&      NewDegree,
                                     Standard_Real&         MaxError);
 
-  DEFINE_STANDARD_RTTIEXT(FEmTool_Curve, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(FEmTool_Curve, RefObject)
 
 protected:
 private:

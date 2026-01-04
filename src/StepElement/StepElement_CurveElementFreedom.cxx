@@ -31,7 +31,7 @@ StepElement_CurveElementFreedom::StepElement_CurveElementFreedom() {}
 //=================================================================================================
 
 Standard_Integer StepElement_CurveElementFreedom::CaseNum(
-  const Handle(Standard_Transient)& /*ent*/) const
+  const Handle(RefObject)& /*ent*/) const
 {
   return 0;
 }

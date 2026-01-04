@@ -20,7 +20,7 @@
 #include <Standard.hxx>
 
 #include <IFSelect_Signature.hxx>
-class Standard_Transient;
+class RefObject;
 class Interface_InterfaceModel;
 
 class IFSelect_SignValidity;
@@ -40,14 +40,14 @@ public:
   //! Returns the Signature for a Transient object, as a validity
   //! deducted from data (reports) stored in the model.
   //! Class method, can be called by any one
-  Standard_EXPORT static Standard_CString CVal(const Handle(Standard_Transient)&       ent,
+  Standard_EXPORT static Standard_CString CVal(const Handle(RefObject)&       ent,
                                                const Handle(Interface_InterfaceModel)& model);
 
   //! Returns the Signature for a Transient object, as a validity
   //! deducted from data (reports) stored in the model
   //! Calls the class method CVal
   Standard_EXPORT Standard_CString
-    Value(const Handle(Standard_Transient)&       ent,
+    Value(const Handle(RefObject)&       ent,
           const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IFSelect_SignValidity, IFSelect_Signature)

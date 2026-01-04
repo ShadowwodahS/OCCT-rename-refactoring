@@ -32,7 +32,7 @@
 class TCollection_HAsciiString;
 
 class MoniTool_TypedValue;
-DEFINE_STANDARD_HANDLE(MoniTool_TypedValue, Standard_Transient)
+DEFINE_STANDARD_HANDLE(MoniTool_TypedValue, RefObject)
 
 //! This class allows to dynamically manage .. typed values, i.e.
 //! values which have an alphanumeric expression, but with
@@ -46,7 +46,7 @@ DEFINE_STANDARD_HANDLE(MoniTool_TypedValue, Standard_Transient)
 //! Its string content, which is a Handle(HAsciiString) can be
 //! shared by other data structures, hence gives a direct on line
 //! access to its value.
-class MoniTool_TypedValue : public Standard_Transient
+class MoniTool_TypedValue : public RefObject
 {
 
 public:
@@ -194,7 +194,7 @@ public:
   Standard_EXPORT void SetObjectType(const Handle(Standard_Type)& typ);
 
   //! Returns the type of which an Object TypedValue must be kind of
-  //! Default is Standard_Transient
+  //! Default is RefObject
   //! Null for a TypedValue not an Object
   Standard_EXPORT Handle(Standard_Type) ObjectType() const;
 
@@ -284,17 +284,17 @@ public:
   //! Returns the value as Transient Object, only for Object/Entity
   //! Remark that the "HString value" is IGNORED here
   //! Null if not set; remains to be casted
-  Standard_EXPORT Handle(Standard_Transient) ObjectValue() const;
+  Standard_EXPORT Handle(RefObject) ObjectValue() const;
 
   //! Same as ObjectValue, but avoids DownCast : the receiving
   //! variable is directly loaded. It is assumed that it complies
   //! with the definition of ObjectType ! Otherwise, big trouble
-  Standard_EXPORT void GetObjectValue(Handle(Standard_Transient)& val) const;
+  Standard_EXPORT void GetObjectValue(Handle(RefObject)& val) const;
 
   //! Changes the value as Transient Object, only for Object/Entity
   //! Returns False if DynamicType does not satisfy ObjectType
   //! Can be redefined to be managed (in a subclass)
-  Standard_EXPORT virtual Standard_Boolean SetObjectValue(const Handle(Standard_Transient)& obj);
+  Standard_EXPORT virtual Standard_Boolean SetObjectValue(const Handle(RefObject)& obj);
 
   //! Returns the type name of the ObjectValue, or an empty string
   //! if not set
@@ -330,11 +330,11 @@ public:
   //! Returns a static value from its name, null if unknown
   Standard_EXPORT static Handle(MoniTool_TypedValue) StaticValue(const Standard_CString name);
 
-  DEFINE_STANDARD_RTTIEXT(MoniTool_TypedValue, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(MoniTool_TypedValue, RefObject)
 
 protected:
   //! Gives the internal library of static values
-  Standard_EXPORT static NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)>&
+  Standard_EXPORT static NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>&
     Stats();
 
 private:
@@ -357,7 +357,7 @@ private:
   TCollection_AsciiString                                        thesatisn;
   Standard_Integer                                               theival;
   Handle(TCollection_HAsciiString)                               thehval;
-  Handle(Standard_Transient)                                     theoval;
+  Handle(RefObject)                                     theoval;
 };
 
 #endif // _MoniTool_TypedValue_HeaderFile

@@ -31,7 +31,7 @@ class Interface_Check;
 #endif
 
 class Transfer_Binder;
-DEFINE_STANDARD_HANDLE(Transfer_Binder, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Transfer_Binder, RefObject)
 
 //! A Binder is an auxiliary object to Map the Result of the
 //! Transfer of a given Object : it records the Result of the
@@ -55,7 +55,7 @@ DEFINE_STANDARD_HANDLE(Transfer_Binder, Standard_Transient)
 //!
 //! In addition to the Result, a Binder can bring a list of
 //! Attributes, which are additional data, each of them has a name
-class Transfer_Binder : public Standard_Transient
+class Transfer_Binder : public RefObject
 {
 
 public:
@@ -131,7 +131,7 @@ public:
   //! Destructor
   Standard_EXPORT ~Transfer_Binder();
 
-  DEFINE_STANDARD_RTTIEXT(Transfer_Binder, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Transfer_Binder, RefObject)
 
 protected:
   //! Sets fields at initial values

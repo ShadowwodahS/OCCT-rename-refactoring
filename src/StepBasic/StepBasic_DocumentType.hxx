@@ -24,9 +24,9 @@
 class TCollection_HAsciiString;
 
 class StepBasic_DocumentType;
-DEFINE_STANDARD_HANDLE(StepBasic_DocumentType, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_DocumentType, RefObject)
 
-class StepBasic_DocumentType : public Standard_Transient
+class StepBasic_DocumentType : public RefObject
 {
 
 public:
@@ -38,7 +38,7 @@ public:
 
   Standard_EXPORT void SetProductDataType(const Handle(TCollection_HAsciiString)& apdt);
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_DocumentType, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_DocumentType, RefObject)
 
 protected:
 private:

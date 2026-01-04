@@ -46,7 +46,7 @@ void Transfer_IteratorOfProcessForTransient::Add(const Handle(Transfer_Binder)& 
 //=================================================================================================
 
 void Transfer_IteratorOfProcessForTransient::Add(const Handle(Transfer_Binder)&    binder,
-                                                 const Handle(Standard_Transient)& start)
+                                                 const Handle(RefObject)& start)
 {
   AddItem(binder);
   if (!thestarts.IsNull())
@@ -91,7 +91,7 @@ Standard_Boolean Transfer_IteratorOfProcessForTransient::HasStarting() const
 
 //=================================================================================================
 
-const Handle(Standard_Transient)& Transfer_IteratorOfProcessForTransient::Starting() const
+const Handle(RefObject)& Transfer_IteratorOfProcessForTransient::Starting() const
 {
   if (thestarts.IsNull())
     throw Standard_NoSuchObject("TransferIterator : No Starting defined at all");

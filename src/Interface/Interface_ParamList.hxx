@@ -24,9 +24,9 @@
 class Interface_FileParameter;
 
 class Interface_ParamList;
-DEFINE_STANDARD_HANDLE(Interface_ParamList, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Interface_ParamList, RefObject)
 
-class Interface_ParamList : public Standard_Transient
+class Interface_ParamList : public RefObject
 {
 
 public:
@@ -64,7 +64,7 @@ public:
 
   Standard_EXPORT void Clear();
 
-  DEFINE_STANDARD_RTTIEXT(Interface_ParamList, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Interface_ParamList, RefObject)
 
 protected:
 private:

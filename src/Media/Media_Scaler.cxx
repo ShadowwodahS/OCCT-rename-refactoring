@@ -30,7 +30,7 @@ extern "C"
   #include <Standard_WarningsRestore.hxx>
 #endif
 
-IMPLEMENT_STANDARD_RTTIEXT(Media_Scaler, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Media_Scaler, RefObject)
 
 //=================================================================================================
 

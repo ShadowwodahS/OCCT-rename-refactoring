@@ -14,7 +14,7 @@
 #include <StepVisual_CurveStyle.hxx>
 #include <StepVisual_SurfaceStyleControlGrid.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_SurfaceStyleControlGrid, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepVisual_SurfaceStyleControlGrid, RefObject)
 
 StepVisual_SurfaceStyleControlGrid::StepVisual_SurfaceStyleControlGrid() {}
 

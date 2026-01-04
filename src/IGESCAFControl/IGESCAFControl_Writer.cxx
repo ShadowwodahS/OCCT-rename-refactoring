@@ -367,7 +367,7 @@ void IGESCAFControl_Writer::MakeColors(const TopoDS_Shape&                      
           nb = TransientListBinder->NbTransients();
           for (i = 1; i <= nb; i++)
           {
-            Handle(Standard_Transient) t = TransientListBinder->Transient(i);
+            Handle(RefObject) t = TransientListBinder->Transient(i);
             ent                          = Handle(IGESData_IGESEntity)::DownCast(t);
             if (!ent.IsNull())
             {

@@ -23,16 +23,16 @@
 #include <Standard_Transient.hxx>
 
 class StepVisual_PresentationSet;
-DEFINE_STANDARD_HANDLE(StepVisual_PresentationSet, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepVisual_PresentationSet, RefObject)
 
-class StepVisual_PresentationSet : public Standard_Transient
+class StepVisual_PresentationSet : public RefObject
 {
 
 public:
   //! Returns a PresentationSet
   Standard_EXPORT StepVisual_PresentationSet();
 
-  DEFINE_STANDARD_RTTIEXT(StepVisual_PresentationSet, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepVisual_PresentationSet, RefObject)
 
 protected:
 private:

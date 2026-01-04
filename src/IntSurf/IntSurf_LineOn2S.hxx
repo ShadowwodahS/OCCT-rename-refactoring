@@ -29,9 +29,9 @@
 class IntSurf_PntOn2S;
 
 class IntSurf_LineOn2S;
-DEFINE_STANDARD_HANDLE(IntSurf_LineOn2S, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IntSurf_LineOn2S, RefObject)
 
-class IntSurf_LineOn2S : public Standard_Transient
+class IntSurf_LineOn2S : public RefObject
 {
 
 public:
@@ -83,7 +83,7 @@ public:
   //! Returns TRUE if theP is out of the box built from 3D-points.
   Standard_EXPORT Standard_Boolean IsOutBox(const gp_Pnt& theP);
 
-  DEFINE_STANDARD_RTTIEXT(IntSurf_LineOn2S, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IntSurf_LineOn2S, RefObject)
 
 protected:
 private:

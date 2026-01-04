@@ -38,9 +38,9 @@ class TopOpeBRepDS_SurfaceIterator;
 class TopOpeBRepDS_Interference;
 
 class TopOpeBRepDS_HDataStructure;
-DEFINE_STANDARD_HANDLE(TopOpeBRepDS_HDataStructure, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TopOpeBRepDS_HDataStructure, RefObject)
 
-class TopOpeBRepDS_HDataStructure : public Standard_Transient
+class TopOpeBRepDS_HDataStructure : public RefObject
 {
 
 public:
@@ -218,7 +218,7 @@ public:
                                                const Standard_Integer                 IS,
                                                const TCollection_AsciiString&         str = "");
 
-  DEFINE_STANDARD_RTTIEXT(TopOpeBRepDS_HDataStructure, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TopOpeBRepDS_HDataStructure, RefObject)
 
 protected:
 private:

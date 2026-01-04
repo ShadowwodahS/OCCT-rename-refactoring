@@ -32,7 +32,7 @@
 StepAP214_AutoDesignReferencingItem::StepAP214_AutoDesignReferencingItem() {}
 
 Standard_Integer StepAP214_AutoDesignReferencingItem::CaseNum(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

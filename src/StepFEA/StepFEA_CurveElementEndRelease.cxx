@@ -17,7 +17,7 @@
 
 #include <StepFEA_CurveElementEndRelease.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepFEA_CurveElementEndRelease, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepFEA_CurveElementEndRelease, RefObject)
 
 //=================================================================================================
 

@@ -25,14 +25,14 @@
 #include <Standard_Type.hxx>
 
 class MoniTool_Element;
-DEFINE_STANDARD_HANDLE(MoniTool_Element, Standard_Transient)
+DEFINE_STANDARD_HANDLE(MoniTool_Element, RefObject)
 
 //! a Element allows to map any kind of object as a Key for a Map.
 //! This works by defining, for a Hash Code, that of the real Key,
 //! not of the Element which acts only as an intermediate.
 //! When a Map asks for the HashCode of a Element, this one returns
 //! the code it has determined at creation time
-class MoniTool_Element : public Standard_Transient
+class MoniTool_Element : public RefObject
 {
 
 public:
@@ -63,7 +63,7 @@ public:
   //! Returns (modifiable) the Attribute List
   Standard_EXPORT MoniTool_AttrList& ChangeAttr();
 
-  DEFINE_STANDARD_RTTIEXT(MoniTool_Element, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(MoniTool_Element, RefObject)
 
 protected:
   //! Stores the HashCode which corresponds to the Value given to

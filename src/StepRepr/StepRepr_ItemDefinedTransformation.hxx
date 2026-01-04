@@ -25,10 +25,10 @@ class TCollection_HAsciiString;
 class StepRepr_RepresentationItem;
 
 class StepRepr_ItemDefinedTransformation;
-DEFINE_STANDARD_HANDLE(StepRepr_ItemDefinedTransformation, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepRepr_ItemDefinedTransformation, RefObject)
 
 //! Added from StepRepr Rev2 to Rev4
-class StepRepr_ItemDefinedTransformation : public Standard_Transient
+class StepRepr_ItemDefinedTransformation : public RefObject
 {
 
 public:
@@ -57,7 +57,7 @@ public:
 
   Standard_EXPORT Handle(StepRepr_RepresentationItem) TransformItem2() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepRepr_ItemDefinedTransformation, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepRepr_ItemDefinedTransformation, RefObject)
 
 protected:
 private:

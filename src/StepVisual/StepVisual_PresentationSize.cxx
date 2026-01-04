@@ -15,7 +15,7 @@
 #include <StepVisual_PresentationSize.hxx>
 #include <StepVisual_PresentationSizeAssignmentSelect.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_PresentationSize, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepVisual_PresentationSize, RefObject)
 
 StepVisual_PresentationSize::StepVisual_PresentationSize() {}
 

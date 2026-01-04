@@ -19,13 +19,13 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(MoniTool_TransientElem, MoniTool_Element)
 
-MoniTool_TransientElem::MoniTool_TransientElem(const Handle(Standard_Transient)& akey)
+MoniTool_TransientElem::MoniTool_TransientElem(const Handle(RefObject)& akey)
     : theval(akey)
 {
-  SetHashCode(std::hash<Handle(Standard_Transient)>{}(akey));
+  SetHashCode(std::hash<Handle(RefObject)>{}(akey));
 }
 
-const Handle(Standard_Transient)& MoniTool_TransientElem::Value() const
+const Handle(RefObject)& MoniTool_TransientElem::Value() const
 {
   return theval;
 }

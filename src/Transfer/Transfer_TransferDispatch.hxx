@@ -26,7 +26,7 @@ class Interface_InterfaceModel;
 class Interface_GeneralLib;
 class Interface_Protocol;
 class Transfer_TransientProcess;
-class Standard_Transient;
+class RefObject;
 
 //! A TransferDispatch is aimed to dispatch Entities between two
 //! Interface Models, by default by copying them, as CopyTool, but
@@ -66,8 +66,8 @@ public:
   //! Copies an Entity by calling the method Transferring from the
   //! TransferProcess. If this called produces a Null Binder, then
   //! the standard, inherited Copy is called
-  Standard_EXPORT virtual Standard_Boolean Copy(const Handle(Standard_Transient)& entfrom,
-                                                Handle(Standard_Transient)&       entto,
+  Standard_EXPORT virtual Standard_Boolean Copy(const Handle(RefObject)& entfrom,
+                                                Handle(RefObject)&       entto,
                                                 const Standard_Boolean            mapped,
                                                 const Standard_Boolean errstat) Standard_OVERRIDE;
 

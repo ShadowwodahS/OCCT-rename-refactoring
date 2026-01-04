@@ -21,7 +21,7 @@
 #include <XmlMDF_ADriver.hxx>
 #include <XmlObjMgt_Persistent.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XmlMDF_ADriver, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(XmlMDF_ADriver, RefObject)
 
 //=================================================================================================
 

@@ -31,9 +31,9 @@ class Message_Messenger;
 class PCDM_ReaderFilter;
 
 class CDM_Application;
-DEFINE_STANDARD_HANDLE(CDM_Application, Standard_Transient)
+DEFINE_STANDARD_HANDLE(CDM_Application, RefObject)
 
-class CDM_Application : public Standard_Transient
+class CDM_Application : public RefObject
 {
 
 public:
@@ -72,7 +72,7 @@ public:
   friend class CDM_Reference;
   friend class CDM_MetaData;
 
-  DEFINE_STANDARD_RTTIEXT(CDM_Application, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(CDM_Application, RefObject)
 
 protected:
   Standard_EXPORT CDM_Application();

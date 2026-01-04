@@ -28,9 +28,9 @@ class IGESData_SpecificLib;
 class IGESData_NodeOfSpecificLib;
 
 class IGESData_GlobalNodeOfSpecificLib;
-DEFINE_STANDARD_HANDLE(IGESData_GlobalNodeOfSpecificLib, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IGESData_GlobalNodeOfSpecificLib, RefObject)
 
-class IGESData_GlobalNodeOfSpecificLib : public Standard_Transient
+class IGESData_GlobalNodeOfSpecificLib : public RefObject
 {
 
 public:
@@ -54,7 +54,7 @@ public:
   //! value is a Null Handle
   Standard_EXPORT const Handle(IGESData_GlobalNodeOfSpecificLib)& Next() const;
 
-  DEFINE_STANDARD_RTTI_INLINE(IGESData_GlobalNodeOfSpecificLib, Standard_Transient)
+  DEFINE_STANDARD_RTTI_INLINE(IGESData_GlobalNodeOfSpecificLib, RefObject)
 
 private:
   Handle(IGESData_SpecificModule)          themod;

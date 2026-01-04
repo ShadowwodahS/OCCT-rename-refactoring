@@ -15,7 +15,7 @@
 
 #include <inspector/TInspectorAPI_PluginParameters.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TInspectorAPI_PluginParameters, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(TInspectorAPI_PluginParameters, RefObject)
 
 // =======================================================================
 // function : SetParameters
@@ -23,7 +23,7 @@ IMPLEMENT_STANDARD_RTTIEXT(TInspectorAPI_PluginParameters, Standard_Transient)
 // =======================================================================
 void TInspectorAPI_PluginParameters::SetParameters(
   const TCollection_AsciiString&                      thePluginName,
-  const NCollection_List<Handle(Standard_Transient)>& theParameters,
+  const NCollection_List<Handle(RefObject)>& theParameters,
   const Standard_Boolean&)
 {
   if (theParameters.Size() > 0)
@@ -80,7 +80,7 @@ void TInspectorAPI_PluginParameters::SetSelectedNames(
 // =======================================================================
 void TInspectorAPI_PluginParameters::SetSelected(
   const TCollection_AsciiString&                      thePluginName,
-  const NCollection_List<Handle(Standard_Transient)>& theObjects)
+  const NCollection_List<Handle(RefObject)>& theObjects)
 {
   if (theObjects.Size() > 0)
     mySelectedObjects.Bind(thePluginName, theObjects);
@@ -101,7 +101,7 @@ bool TInspectorAPI_PluginParameters::FindParameters(const TCollection_AsciiStrin
 // function : Parameters
 // purpose :
 // =======================================================================
-const NCollection_List<Handle(Standard_Transient)>& TInspectorAPI_PluginParameters::Parameters(
+const NCollection_List<Handle(RefObject)>& TInspectorAPI_PluginParameters::Parameters(
   const TCollection_AsciiString& thePluginName)
 {
   return myParameters.Find(thePluginName);
@@ -151,7 +151,7 @@ const NCollection_List<TCollection_AsciiString>& TInspectorAPI_PluginParameters:
 // =======================================================================
 Standard_Boolean TInspectorAPI_PluginParameters::GetSelectedObjects(
   const TCollection_AsciiString&                thePluginName,
-  NCollection_List<Handle(Standard_Transient)>& theObjects)
+  NCollection_List<Handle(RefObject)>& theObjects)
 {
   return mySelectedObjects.Find(thePluginName, theObjects);
 }

@@ -26,7 +26,7 @@
 #include <Standard_OStream.hxx>
 
 class Vrml_LOD;
-DEFINE_STANDARD_HANDLE(Vrml_LOD, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Vrml_LOD, RefObject)
 
 //! defines a LOD (level of detailization) node of VRML specifying properties
 //! of geometry  and its appearance.
@@ -49,7 +49,7 @@ DEFINE_STANDARD_HANDLE(Vrml_LOD, Standard_Transient)
 //! are  specified,  the  extra  children  w ll  be  ignored.
 //! Each  value  in  the  ranges  array  should  be  greater  than  the previous
 //! value,  otherwise  results  are  undefined.
-class Vrml_LOD : public Standard_Transient
+class Vrml_LOD : public RefObject
 {
 
 public:
@@ -67,7 +67,7 @@ public:
 
   Standard_EXPORT Standard_OStream& Print(Standard_OStream& anOStream) const;
 
-  DEFINE_STANDARD_RTTIEXT(Vrml_LOD, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Vrml_LOD, RefObject)
 
 protected:
 private:

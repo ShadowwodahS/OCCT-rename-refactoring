@@ -32,7 +32,7 @@
 #include <XSAlgo_AlgoContainer.hxx>
 #include <XSAlgo_ShapeProcessor.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XSAlgo_AlgoContainer, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(XSAlgo_AlgoContainer, RefObject)
 
 //=================================================================================================
 
@@ -48,7 +48,7 @@ TopoDS_Shape XSAlgo_AlgoContainer::ProcessShape(const TopoDS_Shape&          the
                                                 const Standard_Real          theMaxTol,
                                                 const Standard_CString       thePrscfile,
                                                 const Standard_CString       thePseq,
-                                                Handle(Standard_Transient)&  theInfo,
+                                                Handle(RefObject)&  theInfo,
                                                 const Message_ProgressRange& theProgress,
                                                 const Standard_Boolean       theNonManifold,
                                                 const TopAbs_ShapeEnum theDetailingLevel) const
@@ -143,7 +143,7 @@ Standard_Boolean XSAlgo_AlgoContainer::CheckPCurve(const TopoDS_Edge&     theEdg
 //=================================================================================================
 
 void XSAlgo_AlgoContainer::MergeTransferInfo(const Handle(Transfer_TransientProcess)& TP,
-                                             const Handle(Standard_Transient)&        info,
+                                             const Handle(RefObject)&        info,
                                              const Standard_Integer startTPitem) const
 {
   Handle(ShapeProcess_ShapeContext) context = Handle(ShapeProcess_ShapeContext)::DownCast(info);
@@ -223,7 +223,7 @@ void XSAlgo_AlgoContainer::MergeTransferInfo(const Handle(Transfer_TransientProc
 //=================================================================================================
 
 void XSAlgo_AlgoContainer::MergeTransferInfo(const Handle(Transfer_FinderProcess)& FP,
-                                             const Handle(Standard_Transient)&     info) const
+                                             const Handle(RefObject)&     info) const
 {
   Handle(ShapeProcess_ShapeContext) context = Handle(ShapeProcess_ShapeContext)::DownCast(info);
   if (context.IsNull())
@@ -255,7 +255,7 @@ void XSAlgo_AlgoContainer::MergeTransferInfo(const Handle(Transfer_FinderProcess
           if (subMapper.IsNull())
             continue;
 
-          Handle(Standard_Transient) tr = FP->FindTransient(subMapper);
+          Handle(RefObject) tr = FP->FindTransient(subMapper);
           if (tr.IsNull())
             continue;
           TransientListBinder->AddResult(tr);

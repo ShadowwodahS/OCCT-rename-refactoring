@@ -27,7 +27,7 @@ IFGraph_ExternalSources::IFGraph_ExternalSources(const Interface_Graph& agraph)
 {
 }
 
-void IFGraph_ExternalSources::GetFromEntity(const Handle(Standard_Transient)& ent)
+void IFGraph_ExternalSources::GetFromEntity(const Handle(RefObject)& ent)
 {
   thegraph.GetFromEntity(ent, Standard_True);
 }

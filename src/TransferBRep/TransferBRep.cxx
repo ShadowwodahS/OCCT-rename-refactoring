@@ -86,7 +86,7 @@ TopoDS_Shape TransferBRep::ShapeResult(const Handle(Transfer_Binder)& binder)
 }
 
 TopoDS_Shape TransferBRep::ShapeResult(const Handle(Transfer_TransientProcess)& TP,
-                                       const Handle(Standard_Transient)&        ent)
+                                       const Handle(RefObject)&        ent)
 {
   TopoDS_Shape            shape;
   Handle(Transfer_Binder) binder = TP->Find(ent);
@@ -101,7 +101,7 @@ TopoDS_Shape TransferBRep::ShapeResult(const Handle(Transfer_TransientProcess)& 
 }
 
 void TransferBRep::SetShapeResult(const Handle(Transfer_TransientProcess)& TP,
-                                  const Handle(Standard_Transient)&        ent,
+                                  const Handle(RefObject)&        ent,
                                   const TopoDS_Shape&                      result)
 {
   if (result.IsNull() || ent.IsNull() || TP.IsNull())
@@ -175,11 +175,11 @@ Handle(Transfer_Binder) TransferBRep::ResultFromShape(const Handle(Transfer_Find
   return FP->Find(sm);
 }
 
-Handle(Standard_Transient) TransferBRep::TransientFromShape(
+Handle(RefObject) TransferBRep::TransientFromShape(
   const Handle(Transfer_FinderProcess)& FP,
   const TopoDS_Shape&                   shape)
 {
-  Handle(Standard_Transient) res;
+  Handle(RefObject) res;
   if (FP.IsNull() || shape.IsNull())
     return res;
   Handle(TransferBRep_ShapeMapper) sm = new TransferBRep_ShapeMapper(shape);
@@ -188,7 +188,7 @@ Handle(Standard_Transient) TransferBRep::TransientFromShape(
 
 void TransferBRep::SetTransientFromShape(const Handle(Transfer_FinderProcess)& FP,
                                          const TopoDS_Shape&                   shape,
-                                         const Handle(Standard_Transient)&     result)
+                                         const Handle(RefObject)&     result)
 {
   if (FP.IsNull() || shape.IsNull())
     return;
@@ -263,7 +263,7 @@ void TransferBRep::TransferResultInfo(const Handle(Transfer_TransientProcess)&  
   Standard_Integer NbMapped = TP->NbMapped();
   for (i = 1; i <= NbMapped; i++)
   {
-    Handle(Standard_Transient) Entity = TP->Mapped(i);
+    Handle(RefObject) Entity = TP->Mapped(i);
 
     Handle(Transfer_Binder) Binder = TP->Find(Entity);
     if (Binder.IsNull())
@@ -362,7 +362,7 @@ Interface_CheckIterator TransferBRep::ResultCheckList(const Interface_CheckItera
     if (ach->NbFails() + ach->NbWarnings() == 0)
       continue;
     DeclareAndCast(Transfer_Finder, starting, ach->Entity());
-    Handle(Standard_Transient) ent;
+    Handle(RefObject) ent;
     if (!starting.IsNull())
       ent = FP->FindTransient(starting);
     if (!ent.IsNull())
@@ -384,7 +384,7 @@ Handle(TColStd_HSequenceOfTransient) TransferBRep::Checked(const Interface_Check
     const Handle(Interface_Check)& ach = chl.Value();
     if (ach->NbFails() + ach->NbWarnings() == 0)
       continue;
-    Handle(Standard_Transient) ent = ach->Entity();
+    Handle(RefObject) ent = ach->Entity();
     if (ent.IsNull())
       continue;
     if (!alsoshapes)
@@ -407,7 +407,7 @@ Handle(TopTools_HSequenceOfShape) TransferBRep::CheckedShapes(const Interface_Ch
     const Handle(Interface_Check)& ach = chl.Value();
     if (ach->NbFails() + ach->NbWarnings() == 0)
       continue;
-    Handle(Standard_Transient) ent = ach->Entity();
+    Handle(RefObject) ent = ach->Entity();
     if (ent.IsNull())
       continue;
     DeclareAndCast(TopoDS_HShape, hs, ent);
@@ -424,7 +424,7 @@ Handle(TopTools_HSequenceOfShape) TransferBRep::CheckedShapes(const Interface_Ch
 }
 
 Interface_CheckIterator TransferBRep::CheckObject(const Interface_CheckIterator&    chl,
-                                                  const Handle(Standard_Transient)& obj)
+                                                  const Handle(RefObject)& obj)
 {
   TopoDS_Shape S;
   DeclareAndCast(TopoDS_HShape, hs, obj);
@@ -443,7 +443,7 @@ Interface_CheckIterator TransferBRep::CheckObject(const Interface_CheckIterator&
     const Handle(Interface_Check)& ach = chl.Value();
     if (ach->NbFails() + ach->NbWarnings() == 0)
       continue;
-    Handle(Standard_Transient) ent = ach->Entity();
+    Handle(RefObject) ent = ach->Entity();
     if (ent.IsNull())
       continue;
     if (S.IsNull())

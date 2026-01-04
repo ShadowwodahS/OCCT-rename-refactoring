@@ -299,7 +299,7 @@ void StepData_Field::SetSelectMember(const Handle(StepData_SelectMember)& val)
   theany = val;
 }
 
-void StepData_Field::SetEntity(const Handle(Standard_Transient)& val)
+void StepData_Field::SetEntity(const Handle(RefObject)& val)
 {
   Clear(KindEntity);
   theany = val;
@@ -307,7 +307,7 @@ void StepData_Field::SetEntity(const Handle(Standard_Transient)& val)
 
 void StepData_Field::SetEntity()
 {
-  Handle(Standard_Transient) nulent;
+  Handle(RefObject) nulent;
   SetEntity(nulent);
 }
 
@@ -381,7 +381,7 @@ void StepData_Field::SetList2(const Standard_Integer siz1,
   thekind |= KindList2;
 }
 
-void StepData_Field::Set(const Handle(Standard_Transient)& val)
+void StepData_Field::Set(const Handle(RefObject)& val)
 {
   Standard_Integer kind = thekind;
   Clear();
@@ -574,7 +574,7 @@ void StepData_Field::SetString(const Standard_Integer num, const Standard_CStrin
   ht->SetValue(num, new TCollection_HAsciiString(val));
 }
 
-void StepData_Field::SetEntity(const Standard_Integer num, const Handle(Standard_Transient)& val)
+void StepData_Field::SetEntity(const Standard_Integer num, const Handle(RefObject)& val)
 {
   DeclareAndCast(TColStd_HArray1OfTransient, aHt, theany);
   if (!aHt.IsNull())
@@ -681,7 +681,7 @@ Standard_Integer StepData_Field::ItemKind(const Standard_Integer n1,
   if (kind != KindAny)
     return kind;
   //  Sinon, chercher un Transient
-  Handle(Standard_Transient) item;
+  Handle(RefObject) item;
   if ((thekind & KindArity) == KindList)
   {
     DeclareAndCast(TColStd_HArray1OfTransient, ht, theany);
@@ -925,10 +925,10 @@ Standard_CString StepData_Field::EnumText(const Standard_Integer n1,
   return String(n1, n2);
 }
 
-Handle(Standard_Transient) StepData_Field::Entity(const Standard_Integer n1,
+Handle(RefObject) StepData_Field::Entity(const Standard_Integer n1,
                                                   const Standard_Integer n2) const
 {
-  Handle(Standard_Transient) nulval; // null handle
+  Handle(RefObject) nulval; // null handle
   if ((thekind & KindArity) == 0)
   {
     if (thekind == KindEntity)
@@ -964,7 +964,7 @@ Handle(Standard_Transient) StepData_Field::Entity(const Standard_Integer n1,
   return nulval;
 }
 
-Handle(Standard_Transient) StepData_Field::Transient() const
+Handle(RefObject) StepData_Field::Transient() const
 {
   return theany;
 }

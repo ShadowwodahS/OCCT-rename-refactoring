@@ -21,9 +21,9 @@
 
 //! A non-template class for using as base for BVH_Builder
 //! (just to have a named base class).
-class BVH_BuilderTransient : public Standard_Transient
+class BVH_BuilderTransient : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(BVH_BuilderTransient, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(BVH_BuilderTransient, RefObject)
 public:
   //! Returns the maximum depth of constructed BVH.
   Standard_Integer MaxTreeDepth() const { return myMaxTreeDepth; }

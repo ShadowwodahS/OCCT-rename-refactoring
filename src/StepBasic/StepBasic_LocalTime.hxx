@@ -25,9 +25,9 @@
 class StepBasic_CoordinatedUniversalTimeOffset;
 
 class StepBasic_LocalTime;
-DEFINE_STANDARD_HANDLE(StepBasic_LocalTime, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_LocalTime, RefObject)
 
-class StepBasic_LocalTime : public Standard_Transient
+class StepBasic_LocalTime : public RefObject
 {
 
 public:
@@ -65,7 +65,7 @@ public:
 
   Standard_EXPORT Handle(StepBasic_CoordinatedUniversalTimeOffset) Zone() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_LocalTime, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_LocalTime, RefObject)
 
 protected:
 private:

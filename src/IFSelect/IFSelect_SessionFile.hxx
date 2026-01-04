@@ -29,7 +29,7 @@
 #include <Standard_CString.hxx>
 
 class IFSelect_WorkSession;
-class Standard_Transient;
+class RefObject;
 
 //! A SessionFile is intended to manage access between a
 //! WorkSession and an Ascii Form, to be considered as a Dump.
@@ -147,7 +147,7 @@ public:
   //! Library of SessionDumpers
   //! Returns True if Done, False if <item> could not be treated
   //! (hence it remains written with no Own Parameter)
-  Standard_EXPORT Standard_Boolean WriteOwn(const Handle(Standard_Transient)& item);
+  Standard_EXPORT Standard_Boolean WriteOwn(const Handle(RefObject)& item);
 
   //! Performs a Read Operation from a File to a WorkSession, i.e.
   //! reads the list of line (which must have already been loaded,
@@ -174,7 +174,7 @@ public:
   //! Tries to Read an Item, by calling the Library of Dumpers
   //! Sets the list of parameters of the line to be read from the
   //! first own one
-  Standard_EXPORT Standard_Boolean ReadOwn(Handle(Standard_Transient)& item);
+  Standard_EXPORT Standard_Boolean ReadOwn(Handle(RefObject)& item);
 
   //! Adds an Item to the WorkSession, taken as Name the first
   //! item of the read Line. If this Name is not a Name but a Number
@@ -182,7 +182,7 @@ public:
   //! adds the Item but with no Name. Then the Name is recorded
   //! in order to be used by the method ItemValue
   //! <active> commands to make <item> active or not in the session
-  Standard_EXPORT void AddItem(const Handle(Standard_Transient)& item,
+  Standard_EXPORT void AddItem(const Handle(RefObject)& item,
                                const Standard_Boolean            active = Standard_True);
 
   //! Returns True if the last Read or Write operation has been correctly performed.
@@ -199,7 +199,7 @@ public:
   //! - then, its Dynamic Type (in the sense of cdl : pk_class)
   //! This basic description can be followed by the parameters
   //! which are used in the definition of the item.
-  Standard_EXPORT void NewItem(const Standard_Integer ident, const Handle(Standard_Transient)& par);
+  Standard_EXPORT void NewItem(const Standard_Integer ident, const Handle(RefObject)& par);
 
   //! Sets Parameters to be sent as Own if <mode> is True (their
   //! Name or Number or Void Mark or Text Value is preceded by a
@@ -218,7 +218,7 @@ public:
   //! by ':', else a relative Ident Number is sent preceded by '#'
   //! (relative to the present Write, i.e. starting at one, without
   //! skip, and counted part from Named Items)
-  Standard_EXPORT void SendItem(const Handle(Standard_Transient)& par);
+  Standard_EXPORT void SendItem(const Handle(RefObject)& par);
 
   //! During a Write action, commands to send a Text without
   //! interpretation. It will be sent as well
@@ -257,7 +257,7 @@ public:
 
   //! Returns a Parameter as an Item. Returns a Null Handle if the
   //! Parameter is a Text, or if it is defined as Void
-  Standard_EXPORT Handle(Standard_Transient) ItemValue(const Standard_Integer num) const;
+  Standard_EXPORT Handle(RefObject) ItemValue(const Standard_Integer num) const;
 
   //! Specific Destructor (closes the File if not yet done)
   Standard_EXPORT void Destroy();

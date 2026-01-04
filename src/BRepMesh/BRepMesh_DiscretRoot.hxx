@@ -21,7 +21,7 @@
 
 //! This is a common interface for meshing algorithms
 //! instantiated by Mesh Factory and implemented by plugins.
-class BRepMesh_DiscretRoot : public Standard_Transient
+class BRepMesh_DiscretRoot : public RefObject
 {
 public:
   //! Destructor
@@ -38,7 +38,7 @@ public:
   //! Compute triangulation for set shape.
   virtual void Perform(const Message_ProgressRange& theRange = Message_ProgressRange()) = 0;
 
-  DEFINE_STANDARD_RTTIEXT(BRepMesh_DiscretRoot, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(BRepMesh_DiscretRoot, RefObject)
 
 protected:
   //! Constructor
@@ -56,6 +56,6 @@ protected:
   Standard_Boolean myIsDone;
 };
 
-DEFINE_STANDARD_HANDLE(BRepMesh_DiscretRoot, Standard_Transient)
+DEFINE_STANDARD_HANDLE(BRepMesh_DiscretRoot, RefObject)
 
 #endif

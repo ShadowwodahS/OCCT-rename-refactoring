@@ -73,7 +73,7 @@
 #include <TopTools_SequenceOfShape.hxx>
 
 #include <stdio.h>
-IMPLEMENT_STANDARD_RTTIEXT(BRepFill_PipeShell, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(BRepFill_PipeShell, RefObject)
 
 // Specification Guide
 #ifdef DRAW

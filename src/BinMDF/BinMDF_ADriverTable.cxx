@@ -23,7 +23,7 @@
 #include <TCollection_HAsciiString.hxx>
 #include <TDF_DerivedAttribute.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BinMDF_ADriverTable, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(BinMDF_ADriverTable, RefObject)
 
 //=================================================================================================
 

@@ -27,7 +27,7 @@
 class IFSelect_GeneralModifier;
 
 class IFSelect_AppliedModifiers;
-DEFINE_STANDARD_HANDLE(IFSelect_AppliedModifiers, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IFSelect_AppliedModifiers, RefObject)
 
 //! This class allows to memorize and access to the modifiers
 //! which are to be applied to a file. To each modifier, is bound
@@ -45,7 +45,7 @@ DEFINE_STANDARD_HANDLE(IFSelect_AppliedModifiers, Standard_Transient)
 //!
 //! for (i = 1; i <= entcount; i ++)
 //! nument = ItemNum (i);  -> return an entity number
-class IFSelect_AppliedModifiers : public Standard_Transient
+class IFSelect_AppliedModifiers : public RefObject
 {
 public:
   //! Creates an AppliedModifiers, ready to record up to <nbmax>
@@ -98,7 +98,7 @@ public:
   //! numbers, each one is queried by ItemNum
   Standard_EXPORT Standard_Boolean IsForAll() const;
 
-  DEFINE_STANDARD_RTTIEXT(IFSelect_AppliedModifiers, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IFSelect_AppliedModifiers, RefObject)
 
 private:
   IFSelect_SequenceOfGeneralModifier themodifs;

@@ -29,7 +29,7 @@ IMPLEMENT_STANDARD_RTTIEXT(XSDRAW_Vars, XSControl_Vars)
 
 XSDRAW_Vars::XSDRAW_Vars() {}
 
-void XSDRAW_Vars::Set(const Standard_CString name, const Handle(Standard_Transient)& val)
+void XSDRAW_Vars::Set(const Standard_CString name, const Handle(RefObject)& val)
 {
   // char* nam = name;
   // selon type
@@ -49,9 +49,9 @@ void XSDRAW_Vars::Set(const Standard_CString name, const Handle(Standard_Transie
 }
 
 /*
-Handle(Standard_Transient)  XSDRAW_Vars::Get (const Standard_CString name) const
+Handle(RefObject)  XSDRAW_Vars::Get (const Standard_CString name) const
 {
-  Handle(Standard_Transient) val;
+  Handle(RefObject) val;
   if (!thevars->GetItem (name,val)) val.Nullify();
   return val;
 }

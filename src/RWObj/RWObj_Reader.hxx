@@ -40,9 +40,9 @@
 //! To use it, create descendant class and implement interface methods.
 //!
 //! Call method Read() to read the file.
-class RWObj_Reader : public Standard_Transient
+class RWObj_Reader : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(RWObj_Reader, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(RWObj_Reader, RefObject)
 public:
   //! Empty constructor.
   Standard_EXPORT RWObj_Reader();

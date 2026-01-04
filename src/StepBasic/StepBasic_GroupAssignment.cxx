@@ -19,7 +19,7 @@
 #include <StepBasic_Group.hxx>
 #include <StepBasic_GroupAssignment.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_GroupAssignment, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_GroupAssignment, RefObject)
 
 //=================================================================================================
 

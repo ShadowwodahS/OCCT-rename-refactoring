@@ -18,57 +18,57 @@
 #include <Standard_CString.hxx>
 #include <Standard_ProgramError.hxx>
 
-const Handle(Standard_Type)& Standard_Transient::get_type_descriptor()
+const Handle(Standard_Type)& RefObject::get_type_descriptor()
 {
   static const Handle(Standard_Type) THE_TYPE_INSTANCE =
-    Standard_Type::Register(typeid(Standard_Transient),
+    Standard_Type::Register(typeid(RefObject),
                             get_type_name(),
-                            sizeof(Standard_Transient),
+                            sizeof(RefObject),
                             nullptr);
   return THE_TYPE_INSTANCE;
 }
 
 //
 //
-const Handle(Standard_Type)& Standard_Transient::DynamicType() const
+const Handle(Standard_Type)& RefObject::DynamicType() const
 {
   return get_type_descriptor();
 }
 
 //
 //
-Standard_Boolean Standard_Transient::IsInstance(const Handle(Standard_Type)& AType) const
+Standard_Boolean RefObject::IsInstance(const Handle(Standard_Type)& AType) const
 {
   return (AType == DynamicType());
 }
 
 //
 //
-Standard_Boolean Standard_Transient::IsInstance(const Standard_CString theTypeName) const
+Standard_Boolean RefObject::IsInstance(const Standard_CString theTypeName) const
 {
   return IsEqual(DynamicType()->Name(), theTypeName);
 }
 
 //
 //
-Standard_Boolean Standard_Transient::IsKind(const Handle(Standard_Type)& aType) const
+Standard_Boolean RefObject::IsKind(const Handle(Standard_Type)& aType) const
 {
   return DynamicType()->SubType(aType);
 }
 
 //
 //
-Standard_Boolean Standard_Transient::IsKind(const Standard_CString theTypeName) const
+Standard_Boolean RefObject::IsKind(const Standard_CString theTypeName) const
 {
   return DynamicType()->SubType(theTypeName);
 }
 
 //
 //
-Standard_Transient* Standard_Transient::This() const
+RefObject* RefObject::This() const
 {
   if (GetRefCount() == 0)
     throw Standard_ProgramError(
       "Attempt to create handle to object created in stack, not yet constructed, or destroyed");
-  return const_cast<Standard_Transient*>(this);
+  return const_cast<RefObject*>(this);
 }

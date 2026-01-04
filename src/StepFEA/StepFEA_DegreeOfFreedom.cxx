@@ -27,7 +27,7 @@ StepFEA_DegreeOfFreedom::StepFEA_DegreeOfFreedom() {}
 
 //=================================================================================================
 
-Standard_Integer StepFEA_DegreeOfFreedom::CaseNum(const Handle(Standard_Transient)& /*ent*/) const
+Standard_Integer StepFEA_DegreeOfFreedom::CaseNum(const Handle(RefObject)& /*ent*/) const
 {
   return 0;
 }

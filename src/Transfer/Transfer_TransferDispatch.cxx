@@ -49,8 +49,8 @@ Handle(Transfer_TransientProcess) Transfer_TransferDispatch::TransientProcess() 
   return Handle(Transfer_DispatchControl)::DownCast(Control())->TransientProcess();
 }
 
-Standard_Boolean Transfer_TransferDispatch::Copy(const Handle(Standard_Transient)& entfrom,
-                                                 Handle(Standard_Transient)&       entto,
+Standard_Boolean Transfer_TransferDispatch::Copy(const Handle(RefObject)& entfrom,
+                                                 Handle(RefObject)&       entto,
                                                  const Standard_Boolean            mapped,
                                                  const Standard_Boolean            errstat)
 {

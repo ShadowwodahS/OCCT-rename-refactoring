@@ -160,7 +160,7 @@ Standard_Boolean TopoDSToStep_WireframeBuilder::GetTrimmedCurveFromEdge(
 
   // resulting curve
   Handle(StepGeom_Curve) aSGC;
-  if (const Handle(Standard_Transient)* aTransient = theMap.Seek(anEdge))
+  if (const Handle(RefObject)* aTransient = theMap.Seek(anEdge))
   {
     aSGC = Handle(StepGeom_Curve)::DownCast(*aTransient);
   }

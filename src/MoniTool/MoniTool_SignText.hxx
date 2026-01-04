@@ -24,14 +24,14 @@
 class TCollection_AsciiString;
 
 class MoniTool_SignText;
-DEFINE_STANDARD_HANDLE(MoniTool_SignText, Standard_Transient)
+DEFINE_STANDARD_HANDLE(MoniTool_SignText, RefObject)
 
 //! Provides the basic service to get a text which identifies
 //! an object in a context
 //! It can be used for other classes (general signatures ...)
 //! It can also be used to build a message in which an object
 //! is to be identified
-class MoniTool_SignText : public Standard_Transient
+class MoniTool_SignText : public RefObject
 {
 
 public:
@@ -44,17 +44,17 @@ public:
   //! By default, calls Text with undefined context (Null Handle) and
   //! if empty, then returns DynamicType
   Standard_EXPORT virtual TCollection_AsciiString TextAlone(
-    const Handle(Standard_Transient)& ent) const;
+    const Handle(RefObject)& ent) const;
 
   //! Gives a text as a signature for a transient object in a context
   //! If the context is senseless, it can be given as Null Handle
   //! empty result if nothing to give (at least the DynamicType could
   //! be sent ?)
   Standard_EXPORT virtual TCollection_AsciiString Text(
-    const Handle(Standard_Transient)& ent,
-    const Handle(Standard_Transient)& context) const = 0;
+    const Handle(RefObject)& ent,
+    const Handle(RefObject)& context) const = 0;
 
-  DEFINE_STANDARD_RTTIEXT(MoniTool_SignText, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(MoniTool_SignText, RefObject)
 
 protected:
 private:

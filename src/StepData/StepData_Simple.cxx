@@ -120,7 +120,7 @@ void StepData_Simple::Shared(Interface_EntityIterator& list) const
     {
       for (j2 = 1; j2 <= l2; j2++)
       {
-        Handle(Standard_Transient) ent = fi.Entity(j1, j2);
+        Handle(RefObject) ent = fi.Entity(j1, j2);
         if (!ent.IsNull())
           list.AddItem(ent);
       }

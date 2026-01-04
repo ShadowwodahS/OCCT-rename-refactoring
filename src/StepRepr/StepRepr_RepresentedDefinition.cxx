@@ -30,7 +30,7 @@ StepRepr_RepresentedDefinition::StepRepr_RepresentedDefinition() {}
 //=================================================================================================
 
 Standard_Integer StepRepr_RepresentedDefinition::CaseNum(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

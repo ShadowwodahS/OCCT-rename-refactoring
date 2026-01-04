@@ -32,7 +32,7 @@
 
 #include <Standard_WarningDisableFunctionCast.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(OpenGl_Window, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(OpenGl_Window, RefObject)
 
 #if defined(HAVE_EGL)
   #include <EGL/egl.h>

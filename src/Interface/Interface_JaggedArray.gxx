@@ -15,7 +15,7 @@
 
 Interface_JaggedArray::Interface_JaggedArray
   (const Standard_Integer low, const Standard_Integer up)
-: thelist (low,up)  {  Handle(Standard_Transient) nulo; thelist.Init(nulo);  }
+: thelist (low,up)  {  Handle(RefObject) nulo; thelist.Init(nulo);  }
 
     Standard_Integer  Interface_JaggedArray::Lower () const
       {  return thelist.Lower();  }

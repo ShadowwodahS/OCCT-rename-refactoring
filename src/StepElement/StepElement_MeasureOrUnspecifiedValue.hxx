@@ -23,7 +23,7 @@
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
 #include <StepElement_UnspecifiedValue.hxx>
-class Standard_Transient;
+class RefObject;
 class StepData_SelectMember;
 
 //! Representation of STEP SELECT type MeasureOrUnspecifiedValue
@@ -38,7 +38,7 @@ public:
   //! Recognizes a kind of MeasureOrUnspecifiedValue select type
   //! return 0
   Standard_EXPORT Standard_Integer
-    CaseNum(const Handle(Standard_Transient)& ent) const Standard_OVERRIDE;
+    CaseNum(const Handle(RefObject)& ent) const Standard_OVERRIDE;
 
   //! Recognizes a items of select member MeasureOrUnspecifiedValueMember
   //! 1 -> ContextDependentMeasure

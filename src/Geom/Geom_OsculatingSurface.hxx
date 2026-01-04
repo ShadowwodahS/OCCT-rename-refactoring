@@ -32,9 +32,9 @@ class Geom_Surface;
 class Geom_BSplineSurface;
 
 class Geom_OsculatingSurface;
-DEFINE_STANDARD_HANDLE(Geom_OsculatingSurface, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Geom_OsculatingSurface, RefObject)
 
-class Geom_OsculatingSurface : public Standard_Transient
+class Geom_OsculatingSurface : public RefObject
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -71,7 +71,7 @@ public:
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const;
 
-  DEFINE_STANDARD_RTTIEXT(Geom_OsculatingSurface, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Geom_OsculatingSurface, RefObject)
 
 protected:
 private:

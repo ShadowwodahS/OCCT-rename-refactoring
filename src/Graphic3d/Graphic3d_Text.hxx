@@ -32,9 +32,9 @@
 //!
 //! This class also has parameters of the text height and H/V alignments.
 //! Custom formatting is available using Font_TextFormatter.
-class Graphic3d_Text : public Standard_Transient
+class Graphic3d_Text : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_Text, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Graphic3d_Text, RefObject)
 
 public:
   //! Creates default text parameters.
@@ -130,6 +130,6 @@ protected:
   Standard_Boolean myHasOwnAnchor; //!< flag if text uses position as point of attach
 };
 
-DEFINE_STANDARD_HANDLE(Graphic3d_Text, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Graphic3d_Text, RefObject)
 
 #endif // _Graphic3d_Text_HeaderFile

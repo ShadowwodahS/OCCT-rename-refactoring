@@ -32,10 +32,10 @@
 #include <TCollection_HAsciiString.hxx>
 
 class XCAFDimTolObjects_GeomToleranceObject;
-DEFINE_STANDARD_HANDLE(XCAFDimTolObjects_GeomToleranceObject, Standard_Transient)
+DEFINE_STANDARD_HANDLE(XCAFDimTolObjects_GeomToleranceObject, RefObject)
 
 //! Access object to store dimension and tolerance
-class XCAFDimTolObjects_GeomToleranceObject : public Standard_Transient
+class XCAFDimTolObjects_GeomToleranceObject : public RefObject
 {
 
 public:
@@ -198,7 +198,7 @@ public:
   //! Dumps the content of me into the stream
   Standard_EXPORT void DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth = -1) const;
 
-  DEFINE_STANDARD_RTTIEXT(XCAFDimTolObjects_GeomToleranceObject, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(XCAFDimTolObjects_GeomToleranceObject, RefObject)
 
 private:
   XCAFDimTolObjects_GeomToleranceType              myType;

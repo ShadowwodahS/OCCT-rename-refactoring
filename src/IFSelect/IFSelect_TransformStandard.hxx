@@ -31,7 +31,7 @@ class Interface_Protocol;
 class Interface_CheckIterator;
 class Interface_InterfaceModel;
 class Interface_CopyTool;
-class Standard_Transient;
+class RefObject;
 class TCollection_AsciiString;
 
 class IFSelect_TransformStandard;
@@ -154,8 +154,8 @@ public:
   //! entity after the last Perform. It reads result from the map
   //! which was filled by Perform.
   Standard_EXPORT Standard_Boolean
-    Updated(const Handle(Standard_Transient)& entfrom,
-            Handle(Standard_Transient)&       entto) const Standard_OVERRIDE;
+    Updated(const Handle(RefObject)& entfrom,
+            Handle(RefObject)&       entto) const Standard_OVERRIDE;
 
   //! Returns a text which defines the way a Transformer works :
   //! "On the spot edition" or "Standard Copy" followed by

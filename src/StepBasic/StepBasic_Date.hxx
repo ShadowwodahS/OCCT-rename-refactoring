@@ -24,9 +24,9 @@
 #include <Standard_Transient.hxx>
 
 class StepBasic_Date;
-DEFINE_STANDARD_HANDLE(StepBasic_Date, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_Date, RefObject)
 
-class StepBasic_Date : public Standard_Transient
+class StepBasic_Date : public RefObject
 {
 
 public:
@@ -39,7 +39,7 @@ public:
 
   Standard_EXPORT Standard_Integer YearComponent() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_Date, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_Date, RefObject)
 
 protected:
 private:

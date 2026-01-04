@@ -19,7 +19,7 @@
 #include <StepBasic_DocumentRepresentationType.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_DocumentRepresentationType, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_DocumentRepresentationType, RefObject)
 
 //=================================================================================================
 

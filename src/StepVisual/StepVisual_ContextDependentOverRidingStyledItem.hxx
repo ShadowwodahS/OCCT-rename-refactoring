@@ -40,7 +40,7 @@ public:
 
   Standard_EXPORT void Init(const Handle(TCollection_HAsciiString)&                        aName,
                             const Handle(StepVisual_HArray1OfPresentationStyleAssignment)& aStyles,
-                            const Handle(Standard_Transient)&                              aItem,
+                            const Handle(RefObject)&                              aItem,
                             const Handle(StepVisual_StyledItem)&                  aOverRiddenStyle,
                             const Handle(StepVisual_HArray1OfStyleContextSelect)& aStyleContext);
 

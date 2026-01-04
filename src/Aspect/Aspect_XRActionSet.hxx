@@ -17,9 +17,9 @@
 #include <Aspect_XRAction.hxx>
 
 //! XR action set.
-class Aspect_XRActionSet : public Standard_Transient
+class Aspect_XRActionSet : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Aspect_XRActionSet, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Aspect_XRActionSet, RefObject)
 public:
   //! Return action id.
   const TCollection_AsciiString& Id() const { return myId; }

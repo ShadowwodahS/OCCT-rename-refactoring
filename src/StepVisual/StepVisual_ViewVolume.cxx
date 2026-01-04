@@ -15,7 +15,7 @@
 #include <StepVisual_PlanarBox.hxx>
 #include <StepVisual_ViewVolume.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_ViewVolume, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepVisual_ViewVolume, RefObject)
 
 StepVisual_ViewVolume::StepVisual_ViewVolume() {}
 

@@ -27,7 +27,7 @@ StepShape_ShapeDimensionRepresentationItem::StepShape_ShapeDimensionRepresentati
 //=================================================================================================
 
 Standard_Integer StepShape_ShapeDimensionRepresentationItem::CaseNum(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

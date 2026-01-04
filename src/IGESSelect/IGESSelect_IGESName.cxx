@@ -29,7 +29,7 @@ IGESSelect_IGESName::IGESSelect_IGESName()
 {
 }
 
-Standard_CString IGESSelect_IGESName::Value(const Handle(Standard_Transient)& ent,
+Standard_CString IGESSelect_IGESName::Value(const Handle(RefObject)& ent,
                                             const Handle(Interface_InterfaceModel)& /*model*/) const
 {
   DeclareAndCast(IGESData_IGESEntity, igesent, ent);

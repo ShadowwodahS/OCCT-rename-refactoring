@@ -25,9 +25,9 @@
 class TCollection_HAsciiString;
 
 class StepBasic_ProductCategory;
-DEFINE_STANDARD_HANDLE(StepBasic_ProductCategory, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_ProductCategory, RefObject)
 
-class StepBasic_ProductCategory : public Standard_Transient
+class StepBasic_ProductCategory : public RefObject
 {
 
 public:
@@ -50,7 +50,7 @@ public:
 
   Standard_EXPORT Standard_Boolean HasDescription() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_ProductCategory, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_ProductCategory, RefObject)
 
 protected:
 private:

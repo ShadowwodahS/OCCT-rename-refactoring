@@ -216,8 +216,8 @@ Standard_Boolean IFSelect_TransformStandard::ApplyModifiers(
   return res;
 }
 
-Standard_Boolean IFSelect_TransformStandard::Updated(const Handle(Standard_Transient)& entfrom,
-                                                     Handle(Standard_Transient)&       entto) const
+Standard_Boolean IFSelect_TransformStandard::Updated(const Handle(RefObject)& entfrom,
+                                                     Handle(RefObject)&       entto) const
 {
   if (themap.IsNull())
     return Standard_False;

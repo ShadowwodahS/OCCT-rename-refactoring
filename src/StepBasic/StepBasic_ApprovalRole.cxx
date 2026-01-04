@@ -14,7 +14,7 @@
 #include <StepBasic_ApprovalRole.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_ApprovalRole, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_ApprovalRole, RefObject)
 
 StepBasic_ApprovalRole::StepBasic_ApprovalRole() {}
 

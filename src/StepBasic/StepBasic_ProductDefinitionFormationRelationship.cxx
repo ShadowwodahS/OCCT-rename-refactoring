@@ -19,7 +19,7 @@
 #include <StepBasic_ProductDefinitionFormationRelationship.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_ProductDefinitionFormationRelationship, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_ProductDefinitionFormationRelationship, RefObject)
 
 //=================================================================================================
 

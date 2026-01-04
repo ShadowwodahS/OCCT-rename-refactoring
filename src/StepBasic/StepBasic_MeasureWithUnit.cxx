@@ -16,7 +16,7 @@
 #include <StepBasic_MeasureWithUnit.hxx>
 #include <StepBasic_Unit.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_MeasureWithUnit, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_MeasureWithUnit, RefObject)
 
 //=================================================================================================
 

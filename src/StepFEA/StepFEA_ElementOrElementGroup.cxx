@@ -26,7 +26,7 @@ StepFEA_ElementOrElementGroup::StepFEA_ElementOrElementGroup() {}
 
 //=================================================================================================
 
-Standard_Integer StepFEA_ElementOrElementGroup::CaseNum(const Handle(Standard_Transient)& ent) const
+Standard_Integer StepFEA_ElementOrElementGroup::CaseNum(const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

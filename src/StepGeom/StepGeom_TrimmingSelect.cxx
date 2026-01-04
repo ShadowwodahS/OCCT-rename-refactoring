@@ -20,7 +20,7 @@
 
 StepGeom_TrimmingSelect::StepGeom_TrimmingSelect() {}
 
-Standard_Integer StepGeom_TrimmingSelect::CaseNum(const Handle(Standard_Transient)& ent) const
+Standard_Integer StepGeom_TrimmingSelect::CaseNum(const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

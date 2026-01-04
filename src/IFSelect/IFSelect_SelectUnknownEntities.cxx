@@ -23,7 +23,7 @@ IFSelect_SelectUnknownEntities::IFSelect_SelectUnknownEntities() {}
 
 Standard_Boolean IFSelect_SelectUnknownEntities::Sort(
   const Standard_Integer,
-  const Handle(Standard_Transient)&       ent,
+  const Handle(RefObject)&       ent,
   const Handle(Interface_InterfaceModel)& model) const
 {
   return model->IsUnknownEntity(model->Number(ent));

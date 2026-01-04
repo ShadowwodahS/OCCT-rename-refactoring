@@ -23,7 +23,7 @@
 #include <TColStd_Array1OfTransient.hxx>
 #include <Interface_CopyControl.hxx>
 class Interface_InterfaceModel;
-class Standard_Transient;
+class RefObject;
 
 class Interface_CopyMap;
 DEFINE_STANDARD_HANDLE(Interface_CopyMap, Interface_CopyControl)
@@ -47,15 +47,15 @@ public:
 
   //! Binds a Starting Entity identified by its Number <num> in the
   //! Starting Model, to a Result of Transfer <res>
-  Standard_EXPORT void Bind(const Handle(Standard_Transient)& ent,
-                            const Handle(Standard_Transient)& res) Standard_OVERRIDE;
+  Standard_EXPORT void Bind(const Handle(RefObject)& ent,
+                            const Handle(RefObject)& res) Standard_OVERRIDE;
 
   //! Search for the result of a Starting Object (i.e. an Entity,
   //! identified by its Number <num> in the Starting Model)
   //! Returns True  if a  Result is Bound (and fills <res>)
   //! Returns False if no result is Bound (and nullifies <res>)
-  Standard_EXPORT Standard_Boolean Search(const Handle(Standard_Transient)& ent,
-                                          Handle(Standard_Transient)& res) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Boolean Search(const Handle(RefObject)& ent,
+                                          Handle(RefObject)& res) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(Interface_CopyMap, Interface_CopyControl)
 

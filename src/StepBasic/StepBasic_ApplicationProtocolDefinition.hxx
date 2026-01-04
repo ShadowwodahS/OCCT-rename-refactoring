@@ -31,9 +31,9 @@ class StepBasic_ApplicationContext;
 #endif
 
 class StepBasic_ApplicationProtocolDefinition;
-DEFINE_STANDARD_HANDLE(StepBasic_ApplicationProtocolDefinition, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_ApplicationProtocolDefinition, RefObject)
 
-class StepBasic_ApplicationProtocolDefinition : public Standard_Transient
+class StepBasic_ApplicationProtocolDefinition : public RefObject
 {
 
 public:
@@ -63,7 +63,7 @@ public:
 
   Standard_EXPORT Handle(StepBasic_ApplicationContext) Application() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_ApplicationProtocolDefinition, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_ApplicationProtocolDefinition, RefObject)
 
 protected:
 private:

@@ -16,7 +16,7 @@
 #include <StepBasic_DateAndTime.hxx>
 #include <StepBasic_LocalTime.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_DateAndTime, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_DateAndTime, RefObject)
 
 StepBasic_DateAndTime::StepBasic_DateAndTime() {}
 

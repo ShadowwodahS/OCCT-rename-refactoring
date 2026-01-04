@@ -79,7 +79,7 @@ public:
   //! \theParameters a container of parameters, might be extended depending on the pane state(e.g.
   //! selection) \theItemNames names to be selected for each selection parameter
   virtual void GetSelectionParameters(QItemSelectionModel*                          theModel,
-                                      NCollection_List<Handle(Standard_Transient)>& theParameters,
+                                      NCollection_List<Handle(RefObject)>& theParameters,
                                       NCollection_List<TCollection_AsciiString>&    theItemNames)
   {
     (void)theModel;
@@ -90,10 +90,10 @@ public:
   //! Returns presentation of the attribute to be visualized in the view
   //! \param theAttribute a current attribute
   //! \return handle of presentation if the attribute has, to be visualized
-  virtual Handle(Standard_Transient) GetPresentation(const Handle(TDF_Attribute)& theAttribute)
+  virtual Handle(RefObject) GetPresentation(const Handle(TDF_Attribute)& theAttribute)
   {
     (void)theAttribute;
-    return Handle(Standard_Transient)();
+    return Handle(RefObject)();
   }
 
   //! Returns container of Label references to the attribute
@@ -102,7 +102,7 @@ public:
   //! \param theRefPresentation handle of presentation for the references, to be visualized
   virtual void GetReferences(const Handle(TDF_Attribute)& theAttribute,
                              NCollection_List<TDF_Label>& theRefLabels,
-                             Handle(Standard_Transient)&  theRefPresentation)
+                             Handle(RefObject)&  theRefPresentation)
   {
     (void)theAttribute;
     (void)theRefLabels;
@@ -115,7 +115,7 @@ public:
   //! \param theRefPresentation handle of presentation for the references, to be visualized
   virtual void GetAttributeReferences(const Handle(TDF_Attribute)&             theAttribute,
                                       NCollection_List<Handle(TDF_Attribute)>& theRefAttributes,
-                                      Handle(Standard_Transient)&              theRefPresentation)
+                                      Handle(RefObject)&              theRefPresentation)
   {
     (void)theAttribute;
     (void)theRefAttributes;

@@ -22,7 +22,7 @@
 
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepBasic_CharacterizedObject;
 class StepBasic_ProductDefinition;
 class StepBasic_ProductDefinitionRelationship;
@@ -49,7 +49,7 @@ public:
   //! 6 -> ShapeAspectRelationship from StepRepr
   //! 7 -> DocumentFile from StepBasic
   //! 0 else
-  Standard_EXPORT Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! Returns Value as CharacterizedObject (or Null if another type)
   Standard_EXPORT Handle(StepBasic_CharacterizedObject) CharacterizedObject() const;

@@ -44,12 +44,12 @@ class gp_Trsf;
 class BRepFill_Sweep;
 
 class BRepFill_PipeShell;
-DEFINE_STANDARD_HANDLE(BRepFill_PipeShell, Standard_Transient)
+DEFINE_STANDARD_HANDLE(BRepFill_PipeShell, RefObject)
 
 //! Computes a topological shell using some wires
 //! (spines and profiles) and displacement option
 //! Perform general sweeping construction
-class BRepFill_PipeShell : public Standard_Transient
+class BRepFill_PipeShell : public RefObject
 {
 
 public:
@@ -205,7 +205,7 @@ public:
   //! shape <S>.
   Standard_EXPORT void Generated(const TopoDS_Shape& S, TopTools_ListOfShape& L);
 
-  DEFINE_STANDARD_RTTIEXT(BRepFill_PipeShell, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(BRepFill_PipeShell, RefObject)
 
 protected:
 private:

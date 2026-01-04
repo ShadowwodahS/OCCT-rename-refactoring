@@ -27,7 +27,7 @@
 class Interface_TypedValue;
 class IFSelect_EditForm;
 class TCollection_HAsciiString;
-class Standard_Transient;
+class RefObject;
 class Interface_InterfaceModel;
 
 class IFSelect_ParamEditor;
@@ -73,12 +73,12 @@ public:
 
   Standard_EXPORT Standard_Boolean
     Load(const Handle(IFSelect_EditForm)&        form,
-         const Handle(Standard_Transient)&       ent,
+         const Handle(RefObject)&       ent,
          const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
 
   Standard_EXPORT Standard_Boolean
     Apply(const Handle(IFSelect_EditForm)&        form,
-          const Handle(Standard_Transient)&       ent,
+          const Handle(RefObject)&       ent,
           const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
 
   //! Returns a ParamEditor to work on the Static Parameters of

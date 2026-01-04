@@ -34,7 +34,7 @@ StepAP203_DateTimeItem::StepAP203_DateTimeItem() {}
 
 //=================================================================================================
 
-Standard_Integer StepAP203_DateTimeItem::CaseNum(const Handle(Standard_Transient)& ent) const
+Standard_Integer StepAP203_DateTimeItem::CaseNum(const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

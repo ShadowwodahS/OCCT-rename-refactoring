@@ -27,10 +27,10 @@
 #include <Standard_Real.hxx>
 
 class Law_Function;
-DEFINE_STANDARD_HANDLE(Law_Function, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Law_Function, RefObject)
 
 //! Root class for evolution laws.
-class Law_Function : public Standard_Transient
+class Law_Function : public RefObject
 {
 
 public:
@@ -72,7 +72,7 @@ public:
   //! Returns the parametric bounds of the function.
   Standard_EXPORT virtual void Bounds(Standard_Real& PFirst, Standard_Real& PLast) = 0;
 
-  DEFINE_STANDARD_RTTIEXT(Law_Function, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Law_Function, RefObject)
 
 protected:
 private:

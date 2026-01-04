@@ -26,7 +26,7 @@ class Interface_InterfaceModel;
 class Interface_GeneralLib;
 class Interface_Protocol;
 class Transfer_Binder;
-class Standard_Transient;
+class RefObject;
 class Transfer_TransientProcess;
 
 class Transfer_ActorDispatch;
@@ -72,7 +72,7 @@ public:
   //! i.e. the general service Copy, then returns the Binder
   //! produced by the TransientProcess
   Standard_EXPORT virtual Handle(Transfer_Binder) Transfer(
-    const Handle(Standard_Transient)&        start,
+    const Handle(RefObject)&        start,
     const Handle(Transfer_TransientProcess)& TP,
     const Message_ProgressRange& theProgress = Message_ProgressRange()) Standard_OVERRIDE;
 

@@ -15,7 +15,7 @@
 
 #include <BVH_BuildThread.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BVH_BuildThread, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(BVH_BuildThread, RefObject)
 
 // =======================================================================
 // function : BVH_BuildThread

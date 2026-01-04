@@ -50,7 +50,7 @@ Handle(XSControl_TransferReader) XSControl_SelectForTransfer::Reader() const
 
 Standard_Boolean XSControl_SelectForTransfer::Sort(
   const Standard_Integer /*rank*/,
-  const Handle(Standard_Transient)& ent,
+  const Handle(RefObject)& ent,
   const Handle(Interface_InterfaceModel)& /*model*/) const
 {
   Handle(Transfer_ActorOfTransientProcess) act = theAC;

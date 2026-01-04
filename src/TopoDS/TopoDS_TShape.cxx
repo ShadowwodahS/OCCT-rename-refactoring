@@ -19,7 +19,7 @@
 
 #include <Standard_Dump.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TopoDS_TShape, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(TopoDS_TShape, RefObject)
 
 //=================================================================================================
 

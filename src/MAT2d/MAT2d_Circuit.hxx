@@ -35,12 +35,12 @@ class MAT2d_BiInt;
 class MAT2d_MiniPath;
 
 class MAT2d_Circuit;
-DEFINE_STANDARD_HANDLE(MAT2d_Circuit, Standard_Transient)
+DEFINE_STANDARD_HANDLE(MAT2d_Circuit, RefObject)
 
 //! Constructs a circuit on a set of lines.
 //! EquiCircuit gives a Circuit passing by all the lines
 //! in a set and all the connexions of the minipath associated.
-class MAT2d_Circuit : public Standard_Transient
+class MAT2d_Circuit : public RefObject
 {
 
 public:
@@ -74,7 +74,7 @@ public:
   //! in <me>.
   Standard_EXPORT Standard_Boolean ConnexionOn(const Standard_Integer Index) const;
 
-  DEFINE_STANDARD_RTTIEXT(MAT2d_Circuit, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(MAT2d_Circuit, RefObject)
 
 protected:
 private:

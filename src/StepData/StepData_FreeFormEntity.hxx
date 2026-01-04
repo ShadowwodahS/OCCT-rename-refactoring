@@ -28,14 +28,14 @@
 class StepData_Field;
 
 class StepData_FreeFormEntity;
-DEFINE_STANDARD_HANDLE(StepData_FreeFormEntity, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepData_FreeFormEntity, RefObject)
 
 //! A Free Form Entity allows to record any kind of STEP
 //! parameters, in any way of typing
 //! It is implemented with an array of fields
 //! A Complex entity can be defined, as a chain of FreeFormEntity
 //! (see Next and As)
-class StepData_FreeFormEntity : public Standard_Transient
+class StepData_FreeFormEntity : public RefObject
 {
 
 public:
@@ -91,7 +91,7 @@ public:
   //! Returns a field from its rank, in order to modify it
   Standard_EXPORT StepData_Field& CField(const Standard_Integer num);
 
-  DEFINE_STANDARD_RTTIEXT(StepData_FreeFormEntity, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepData_FreeFormEntity, RefObject)
 
 protected:
 private:

@@ -14,7 +14,7 @@
 #include <StepVisual_PresentationLayerAssignment.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_PresentationLayerAssignment, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepVisual_PresentationLayerAssignment, RefObject)
 
 StepVisual_PresentationLayerAssignment::StepVisual_PresentationLayerAssignment() {}
 

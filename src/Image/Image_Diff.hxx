@@ -56,7 +56,7 @@
 //!     4. http://www.worldscientific.com/worldscibooks/10.1142/2641#t=toc (there is a list of
 //!     articles and books in PDF format)
 
-class Image_Diff : public Standard_Transient
+class Image_Diff : public RefObject
 {
 
 public:
@@ -149,9 +149,9 @@ protected:
   NCollection_List<Handle(TColStd_HPackedMapOfInteger)> myGroupsOfDiffPixels;
 
 public:
-  DEFINE_STANDARD_RTTIEXT(Image_Diff, Standard_Transient) // Type definition
+  DEFINE_STANDARD_RTTIEXT(Image_Diff, RefObject) // Type definition
 };
 
-DEFINE_STANDARD_HANDLE(Image_Diff, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Image_Diff, RefObject)
 
 #endif // _Image_Diff_H__

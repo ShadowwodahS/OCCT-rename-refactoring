@@ -15,7 +15,7 @@
 
 #include <Standard_Dump.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Message_Attribute, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Message_Attribute, RefObject)
 
 //=================================================================================================
 

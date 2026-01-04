@@ -39,7 +39,7 @@ HLRBRep_Algo::HLRBRep_Algo(const Handle(HLRBRep_Algo)& A)
 //=================================================================================================
 
 void HLRBRep_Algo::Add(const TopoDS_Shape&               S,
-                       const Handle(Standard_Transient)& SData,
+                       const Handle(RefObject)& SData,
                        const Standard_Integer            nbIso)
 {
   Load(new HLRTopoBRep_OutLiner(S), SData, nbIso);

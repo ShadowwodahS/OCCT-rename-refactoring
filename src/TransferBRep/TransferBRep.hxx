@@ -31,7 +31,7 @@
 class TopoDS_Shape;
 class Transfer_Binder;
 class Transfer_TransientProcess;
-class Standard_Transient;
+class RefObject;
 class Transfer_FinderProcess;
 class TransferBRep_ShapeMapper;
 class Message_Printer;
@@ -56,13 +56,13 @@ public:
   //! Transfer of an entity. I.E. in the binder bound to that Entity
   //! If no result or result not a single Shape, returns a Null Shape
   Standard_EXPORT static TopoDS_Shape ShapeResult(const Handle(Transfer_TransientProcess)& TP,
-                                                  const Handle(Standard_Transient)&        ent);
+                                                  const Handle(RefObject)&        ent);
 
   //! Sets a Shape as a result for a starting entity <ent>
   //! (reverse of ShapeResult)
   //! It simply creates a ShapeBinder then binds it to the entity
   Standard_EXPORT static void SetShapeResult(const Handle(Transfer_TransientProcess)& TP,
-                                             const Handle(Standard_Transient)&        ent,
+                                             const Handle(RefObject)&        ent,
                                              const TopoDS_Shape&                      result);
 
   //! Gets the Shapes recorded in a TransientProcess as result of a
@@ -95,7 +95,7 @@ public:
 
   //! Returns the result as pure Transient attached to a Shape
   //! first one if multiple result
-  Standard_EXPORT static Handle(Standard_Transient) TransientFromShape(
+  Standard_EXPORT static Handle(RefObject) TransientFromShape(
     const Handle(Transfer_FinderProcess)& FP,
     const TopoDS_Shape&                   shape);
 
@@ -103,7 +103,7 @@ public:
   //! (as first result if multiple : does not add it to existing one)
   Standard_EXPORT static void SetTransientFromShape(const Handle(Transfer_FinderProcess)& FP,
                                                     const TopoDS_Shape&                   shape,
-                                                    const Handle(Standard_Transient)&     result);
+                                                    const Handle(RefObject)&     result);
 
   //! Returns a ShapeMapper for a given Shape (location included)
   //! Either <shape> is already mapped, then its Mapper is returned
@@ -182,7 +182,7 @@ public:
   //! object or entity, or a ShapeMapper, in that case the Shape is
   //! considered
   Standard_EXPORT static Interface_CheckIterator CheckObject(const Interface_CheckIterator&    chl,
-                                                             const Handle(Standard_Transient)& obj);
+                                                             const Handle(RefObject)& obj);
 };
 
 #endif // _TransferBRep_HeaderFile

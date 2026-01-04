@@ -49,7 +49,7 @@ Standard_Integer Transfer_FinderProcess::NextMappedWithAttribute(const Standard_
 }
 
 Handle(Transfer_TransientMapper) Transfer_FinderProcess::TransientMapper(
-  const Handle(Standard_Transient)& obj) const
+  const Handle(RefObject)& obj) const
 {
   Handle(Transfer_TransientMapper) mapper = new Transfer_TransientMapper(obj);
   Standard_Integer                 index  = MapIndex(mapper);

@@ -24,7 +24,7 @@
 #include <Standard_Type.hxx>
 #include <Standard_Transient.hxx>
 
-DEFINE_STANDARD_HANDLE(Geom_Transformation, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Geom_Transformation, RefObject)
 
 //! Describes how to construct the following elementary transformations
 //! - translations,
@@ -60,9 +60,9 @@ DEFINE_STANDARD_HANDLE(Geom_Transformation, Standard_Transient)
 //! Geom_Transformation transformations are used in
 //! a context where they can be shared by several
 //! objects contained inside a common data structure.
-class Geom_Transformation : public Standard_Transient
+class Geom_Transformation : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Geom_Transformation, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Geom_Transformation, RefObject)
 public:
   //! Creates an identity transformation.
   Standard_EXPORT Geom_Transformation();

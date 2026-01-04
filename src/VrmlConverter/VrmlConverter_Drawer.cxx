@@ -19,7 +19,7 @@
 #include <VrmlConverter_PointAspect.hxx>
 #include <VrmlConverter_ShadingAspect.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(VrmlConverter_Drawer, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(VrmlConverter_Drawer, RefObject)
 
 VrmlConverter_Drawer::VrmlConverter_Drawer()
     : myNbPoints(17),

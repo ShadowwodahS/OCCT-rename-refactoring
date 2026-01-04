@@ -103,7 +103,7 @@ void VInspector_ViewModel::FindPointers(const QStringList& thePointers,
     VInspector_ItemBasePtr aVItem = itemDynamicCast<VInspector_ItemBase>(anItemBase);
     if (!aVItem)
       continue;
-    const Handle(Standard_Transient)& anObject = aVItem->Object();
+    const Handle(RefObject)& anObject = aVItem->Object();
     TCollection_AsciiString aPointerInfo = Standard_Dump::GetPointerInfo (anObject);
     if (thePointers.contains (aPointerInfo.ToCString()))
       theFoundIndices.append (anIndex);

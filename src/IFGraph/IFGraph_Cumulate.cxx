@@ -30,7 +30,7 @@ IFGraph_Cumulate::IFGraph_Cumulate(const Interface_Graph& agraph)
 {
 }
 
-void IFGraph_Cumulate::GetFromEntity(const Handle(Standard_Transient)& ent)
+void IFGraph_Cumulate::GetFromEntity(const Handle(RefObject)& ent)
 {
   IFGraph_AllShared iter(thegraph.Model(), ent);
   GetFromIter(iter);
@@ -90,7 +90,7 @@ Interface_EntityIterator IFGraph_Cumulate::PerCount(const Standard_Integer count
   return iter;
 }
 
-Standard_Integer IFGraph_Cumulate::NbTimes(const Handle(Standard_Transient)& ent) const
+Standard_Integer IFGraph_Cumulate::NbTimes(const Handle(RefObject)& ent) const
 {
   Standard_Integer num = thegraph.EntityNumber(ent);
   if (num == 0)

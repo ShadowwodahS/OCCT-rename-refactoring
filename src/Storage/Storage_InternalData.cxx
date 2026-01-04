@@ -15,7 +15,7 @@
 #include <Storage_InternalData.hxx>
 #include <Storage_Schema.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Storage_InternalData, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Storage_InternalData, RefObject)
 
 Storage_InternalData::Storage_InternalData()
     : myObjId(1),

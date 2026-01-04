@@ -23,9 +23,9 @@
 class TCollection_HAsciiString;
 
 class StepAP242_IdAttribute;
-DEFINE_STANDARD_HANDLE(StepAP242_IdAttribute, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepAP242_IdAttribute, RefObject)
 
-class StepAP242_IdAttribute : public Standard_Transient
+class StepAP242_IdAttribute : public RefObject
 {
 
 public:
@@ -54,7 +54,7 @@ public:
   //! Returns IdentifiedItem
   inline StepAP242_IdAttributeSelect IdentifiedItem() const { return identifiedItem; }
 
-  DEFINE_STANDARD_RTTIEXT(StepAP242_IdAttribute, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepAP242_IdAttribute, RefObject)
 
 private:
   Handle(TCollection_HAsciiString) attributeValue;

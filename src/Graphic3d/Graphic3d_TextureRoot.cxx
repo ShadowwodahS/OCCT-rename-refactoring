@@ -27,7 +27,7 @@
 #include <OSD_OpenFile.hxx>
 #include <Standard_Atomic.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_TextureRoot, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_TextureRoot, RefObject)
 
 namespace
 {

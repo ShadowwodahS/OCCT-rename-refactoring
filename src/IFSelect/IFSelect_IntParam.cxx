@@ -15,7 +15,7 @@
 #include <Interface_Static.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IFSelect_IntParam, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(IFSelect_IntParam, RefObject)
 
 IFSelect_IntParam::IFSelect_IntParam()
 {

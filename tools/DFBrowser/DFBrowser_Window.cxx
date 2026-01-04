@@ -338,7 +338,7 @@ void DFBrowser_Window::UpdateContent()
   if (myParameters->FindParameters(aName))
     Init(myParameters->Parameters(aName));
   else
-    Init(NCollection_List<Handle(Standard_Transient)>());
+    Init(NCollection_List<Handle(RefObject)>());
 
   if (myParameters->FindFileNames(aName))
   {
@@ -429,7 +429,7 @@ void DFBrowser_Window::UpdateContent()
 // function : Init
 // purpose :
 // =======================================================================
-void DFBrowser_Window::Init(const NCollection_List<Handle(Standard_Transient)>& theParameters)
+void DFBrowser_Window::Init(const NCollection_List<Handle(RefObject)>& theParameters)
 {
   Handle(TDocStd_Application) anApplication;
   if (myModule)
@@ -444,11 +444,11 @@ void DFBrowser_Window::Init(const NCollection_List<Handle(Standard_Transient)>& 
     aContext = myModule->GetExternalContext();
 
   bool aSameApplication = !anApplication.IsNull(), aSameContext = !aContext.IsNull();
-  for (NCollection_List<Handle(Standard_Transient)>::Iterator aParametersIt(theParameters);
+  for (NCollection_List<Handle(RefObject)>::Iterator aParametersIt(theParameters);
        aParametersIt.More();
        aParametersIt.Next())
   {
-    Handle(Standard_Transient) anObject = aParametersIt.Value();
+    Handle(RefObject) anObject = aParametersIt.Value();
     // check if the object is an application
     Handle(TDocStd_Application) anIApplication = Handle(TDocStd_Application)::DownCast(anObject);
     if (!anIApplication.IsNull())
@@ -856,7 +856,7 @@ void DFBrowser_Window::onPaneSelectionChanged(const QItemSelection&,
         return;
 
       TCollection_AsciiString                      aPluginName("TKShapeView");
-      NCollection_List<Handle(Standard_Transient)> aParameters;
+      NCollection_List<Handle(RefObject)> aParameters;
       if (myParameters->FindParameters(aPluginName))
         aParameters = myParameters->Parameters(aPluginName);
 
@@ -909,7 +909,7 @@ void DFBrowser_Window::onPaneSelectionChanged(const QItemSelection&,
   // highlight and scroll to the referenced item if it exists
   Handle(TDF_Attribute)       anAttribute = myModule->FindAttribute(aSelectedIndex);
   NCollection_List<TDF_Label> aReferences;
-  Handle(Standard_Transient)  aPresentation;
+  Handle(RefObject)  aPresentation;
   anAttributePane->GetReferences(anAttribute, aReferences, aPresentation);
   QModelIndexList      anIndices;
   DFBrowser_TreeModel* aTreeModel = dynamic_cast<DFBrowser_TreeModel*>(myTreeView->model());

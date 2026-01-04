@@ -503,7 +503,7 @@ Handle(Interface_Check) Transfer_ProcessForFinder::Check(const Handle(Transfer_F
 //=================================================================================================
 
 void Transfer_ProcessForFinder::BindTransient(const Handle(Transfer_Finder)&    start,
-                                              const Handle(Standard_Transient)& res)
+                                              const Handle(RefObject)& res)
 {
   if (res.IsNull())
     return;
@@ -530,10 +530,10 @@ void Transfer_ProcessForFinder::BindTransient(const Handle(Transfer_Finder)&    
 
 //=================================================================================================
 
-const Handle(Standard_Transient)& Transfer_ProcessForFinder::FindTransient(
+const Handle(RefObject)& Transfer_ProcessForFinder::FindTransient(
   const Handle(Transfer_Finder)& start) const
 {
-  static const Handle(Standard_Transient)  aDummy;
+  static const Handle(RefObject)  aDummy;
   Handle(Transfer_SimpleBinderOfTransient) binder =
     Handle(Transfer_SimpleBinderOfTransient)::DownCast(Find(start));
   if (binder.IsNull())
@@ -563,7 +563,7 @@ void Transfer_ProcessForFinder::BindMultiple(const Handle(Transfer_Finder)& star
 //=================================================================================================
 
 void Transfer_ProcessForFinder::AddMultiple(const Handle(Transfer_Finder)&    start,
-                                            const Handle(Standard_Transient)& res)
+                                            const Handle(RefObject)& res)
 {
   Handle(Transfer_Binder)         binder = FindAndMask(start);
   Handle(Transfer_MultipleBinder) multr  = Handle(Transfer_MultipleBinder)::DownCast(binder);
@@ -583,7 +583,7 @@ void Transfer_ProcessForFinder::AddMultiple(const Handle(Transfer_Finder)&    st
 Standard_Boolean Transfer_ProcessForFinder::FindTypedTransient(
   const Handle(Transfer_Finder)& start,
   const Handle(Standard_Type)&   atype,
-  Handle(Standard_Transient)&    val) const
+  Handle(RefObject)&    val) const
 {
   return GetTypedTransient(Find(start), atype, val);
 }
@@ -592,7 +592,7 @@ Standard_Boolean Transfer_ProcessForFinder::FindTypedTransient(
 
 Standard_Boolean Transfer_ProcessForFinder::GetTypedTransient(const Handle(Transfer_Binder)& binder,
                                                               const Handle(Standard_Type)&   atype,
-                                                              Handle(Standard_Transient)& val) const
+                                                              Handle(RefObject)& val) const
 {
   return Transfer_SimpleBinderOfTransient::GetTypedResult(binder, atype, val);
 }

@@ -16,7 +16,7 @@
 #include <LDOM_MemManager.hxx>
 #include <LDOMBasicString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(LDOM_MemManager, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(LDOM_MemManager, RefObject)
 
 #define HASH_MASK 255
 #define MINIMAL_ROOM 3

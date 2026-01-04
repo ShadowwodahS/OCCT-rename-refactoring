@@ -23,7 +23,7 @@
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
 
-class Standard_Transient;
+class RefObject;
 class StepDimTol_DatumSystem;
 class StepDimTol_DatumReference;
 
@@ -39,7 +39,7 @@ public:
   //! 1 -> DatumSystem
   //! 2 -> DatumReference
   //! 0 else
-  Standard_EXPORT Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! returns Value as a DatumSystem (Null if another type)
   Standard_EXPORT Handle(StepDimTol_DatumSystem) DatumSystem() const;

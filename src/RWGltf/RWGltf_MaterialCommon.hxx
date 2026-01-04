@@ -19,7 +19,7 @@
 #include <Quantity_ColorRGBA.hxx>
 
 //! glTF 1.0 format common (obsolete) material definition.
-class RWGltf_MaterialCommon : public Standard_Transient
+class RWGltf_MaterialCommon : public RefObject
 {
 public:
   Handle(Image_Texture)   AmbientTexture;  //!< image defining ambient color

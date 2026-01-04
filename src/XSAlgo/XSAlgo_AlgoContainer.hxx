@@ -32,9 +32,9 @@ class Transfer_TransientProcess;
 class Transfer_FinderProcess;
 
 class XSAlgo_AlgoContainer;
-DEFINE_STANDARD_HANDLE(XSAlgo_AlgoContainer, Standard_Transient)
+DEFINE_STANDARD_HANDLE(XSAlgo_AlgoContainer, RefObject)
 
-class XSAlgo_AlgoContainer : public Standard_Transient
+class XSAlgo_AlgoContainer : public RefObject
 {
 public:
   //! Empty constructor
@@ -62,7 +62,7 @@ public:
     const Standard_Real          theMaxTol,
     const Standard_CString       thePrscfile,
     const Standard_CString       thePseq,
-    Handle(Standard_Transient)&  theInfo,
+    Handle(RefObject)&  theInfo,
     const Message_ProgressRange& theProgress       = Message_ProgressRange(),
     const Standard_Boolean       theNonManifold    = Standard_False,
     const TopAbs_ShapeEnum       theDetailingLevel = TopAbs_VERTEX) const;
@@ -75,7 +75,7 @@ public:
                                                        const Standard_Boolean theIsSeam) const;
 
   Standard_EXPORT virtual void MergeTransferInfo(const Handle(Transfer_TransientProcess)& TP,
-                                                 const Handle(Standard_Transient)&        info,
+                                                 const Handle(RefObject)&        info,
                                                  const Standard_Integer startTPitem = 1) const;
 
   //! Updates translation map (TP or FP) with information
@@ -84,9 +84,9 @@ public:
   //! restrict modifications to entities stored in TP starting
   //! from item startTPitem
   Standard_EXPORT virtual void MergeTransferInfo(const Handle(Transfer_FinderProcess)& FP,
-                                                 const Handle(Standard_Transient)&     info) const;
+                                                 const Handle(RefObject)&     info) const;
 
-  DEFINE_STANDARD_RTTIEXT(XSAlgo_AlgoContainer, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(XSAlgo_AlgoContainer, RefObject)
 };
 
 #endif // _XSAlgo_AlgoContainer_HeaderFile

@@ -23,10 +23,10 @@
 #include <Standard_Transient.hxx>
 
 class StepFEA_CurveElementEndOffset;
-DEFINE_STANDARD_HANDLE(StepFEA_CurveElementEndOffset, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepFEA_CurveElementEndOffset, RefObject)
 
 //! Representation of STEP entity CurveElementEndOffset
-class StepFEA_CurveElementEndOffset : public Standard_Transient
+class StepFEA_CurveElementEndOffset : public RefObject
 {
 
 public:
@@ -50,7 +50,7 @@ public:
   //! Set field OffsetVector
   Standard_EXPORT void SetOffsetVector(const Handle(TColStd_HArray1OfReal)& OffsetVector);
 
-  DEFINE_STANDARD_RTTIEXT(StepFEA_CurveElementEndOffset, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepFEA_CurveElementEndOffset, RefObject)
 
 protected:
 private:

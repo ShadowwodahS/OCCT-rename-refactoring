@@ -67,34 +67,34 @@ public:
   //! Sets a Context : according to receiving appli, to be
   //! interpreted by the Actor
   Standard_EXPORT void SetContext(const Standard_CString            name,
-                                  const Handle(Standard_Transient)& ctx);
+                                  const Handle(RefObject)& ctx);
 
   //! Returns the Context attached to a name, if set and if it is
   //! Kind of the type, else a Null Handle
   //! Returns True if OK, False if no Context
   Standard_EXPORT Standard_Boolean GetContext(const Standard_CString       name,
                                               const Handle(Standard_Type)& type,
-                                              Handle(Standard_Transient)&  ctx) const;
+                                              Handle(RefObject)&  ctx) const;
 
   //! Returns (modifiable) the whole definition of Context
   //! Rather for internal use (ex.: preparing and setting in once)
-  Standard_EXPORT NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)>&
+  Standard_EXPORT NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>&
                   Context();
 
   //! Specific printing to trace an entity : prints label and type
   //! (if model is set)
-  Standard_EXPORT virtual void PrintTrace(const Handle(Standard_Transient)& start,
+  Standard_EXPORT virtual void PrintTrace(const Handle(RefObject)& start,
                                           Standard_OStream& S) const Standard_OVERRIDE;
 
   //! Specific number of a starting object for check-list : Number
   //! in model
-  Standard_EXPORT virtual Standard_Integer CheckNum(const Handle(Standard_Transient)& ent) const
+  Standard_EXPORT virtual Standard_Integer CheckNum(const Handle(RefObject)& ent) const
     Standard_OVERRIDE;
 
   //! Returns the list of sharings entities, AT ANY LEVEL, which are
   //! kind of a given type. Calls TypedSharings from Graph
   //! Returns an empty list if the Graph has not been acknowledged
-  Standard_EXPORT Interface_EntityIterator TypedSharings(const Handle(Standard_Transient)& start,
+  Standard_EXPORT Interface_EntityIterator TypedSharings(const Handle(RefObject)& start,
                                                          const Handle(Standard_Type)& type) const;
 
   //! Tells if an entity is well loaded from file (even if its data
@@ -102,13 +102,13 @@ public:
   //! True. Else, there was a syntactic error in the file.
   //! A non-loaded entity MAY NOT BE transferred, unless its Report
   //! (in the model) is interpreted
-  Standard_EXPORT Standard_Boolean IsDataLoaded(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Boolean IsDataLoaded(const Handle(RefObject)& ent) const;
 
   //! Tells if an entity fails on data checking (load time,
   //! syntactic, or semantic check). Normally, should answer False.
   //! It is not prudent to try transferring an entity which fails on
   //! data checking
-  Standard_EXPORT Standard_Boolean IsDataFail(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Boolean IsDataFail(const Handle(RefObject)& ent) const;
 
   //! Prints statistics on a given output, according mode
   Standard_EXPORT void PrintStats(const Standard_Integer mode, Standard_OStream& S) const;
@@ -121,7 +121,7 @@ protected:
 private:
   Handle(Interface_InterfaceModel)                                         themodel;
   Handle(Interface_HGraph)                                                 thegraph;
-  NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)> thectx;
+  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)> thectx;
   Handle(TColStd_HSequenceOfTransient)                                     thetrroots;
 };
 

@@ -25,7 +25,7 @@ class IFSelect_SessionFile;
 class TCollection_AsciiString;
 
 class IFSelect_SessionDumper;
-DEFINE_STANDARD_HANDLE(IFSelect_SessionDumper, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IFSelect_SessionDumper, RefObject)
 
 //! A SessionDumper is called by SessionFile. It takes into
 //! account a set of classes (such as Selections, Dispatches ...).
@@ -52,7 +52,7 @@ DEFINE_STANDARD_HANDLE(IFSelect_SessionDumper, Standard_Transient)
 //!
 //! SessionDumpers are organized in a Library which is used by
 //! SessionFile. They are put at Creation Time in this Library.
-class IFSelect_SessionDumper : public Standard_Transient
+class IFSelect_SessionDumper : public RefObject
 {
 
 public:
@@ -74,7 +74,7 @@ public:
   //! SendItem, SendText, and if necessary, WorkSession.
   Standard_EXPORT virtual Standard_Boolean WriteOwn(
     IFSelect_SessionFile&             file,
-    const Handle(Standard_Transient)& item) const = 0;
+    const Handle(RefObject)& item) const = 0;
 
   //! Recognizes a Type (given as <type>) then Creates an Item of
   //! this Type with the Own Parameter, as required.
@@ -86,9 +86,9 @@ public:
   //! Parameters : NbOwnParams, IsVoid, IsText, TextValue, ItemValue
   Standard_EXPORT virtual Standard_Boolean ReadOwn(IFSelect_SessionFile&          file,
                                                    const TCollection_AsciiString& type,
-                                                   Handle(Standard_Transient)&    item) const = 0;
+                                                   Handle(RefObject)&    item) const = 0;
 
-  DEFINE_STANDARD_RTTIEXT(IFSelect_SessionDumper, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IFSelect_SessionDumper, RefObject)
 
 protected:
   //! The Initialization puts a just created SessionDumper in the

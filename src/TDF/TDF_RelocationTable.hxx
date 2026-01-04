@@ -29,7 +29,7 @@ class TDF_Label;
 class TDF_Attribute;
 
 class TDF_RelocationTable;
-DEFINE_STANDARD_HANDLE(TDF_RelocationTable, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TDF_RelocationTable, RefObject)
 
 //! This is a relocation dictionary between source
 //! and target labels, attributes or any
@@ -43,7 +43,7 @@ DEFINE_STANDARD_HANDLE(TDF_RelocationTable, Standard_Transient)
 //!
 //! Look at SelfRelocate method for more explanation
 //! about self relocation behavior of this class.
-class TDF_RelocationTable : public Standard_Transient
+class TDF_RelocationTable : public RefObject
 {
 
 public:
@@ -113,8 +113,8 @@ public:
 
   //! Sets the relocation value of <aSourceTransient> to
   //! <aTargetTransient>.
-  Standard_EXPORT void SetTransientRelocation(const Handle(Standard_Transient)& aSourceTransient,
-                                              const Handle(Standard_Transient)& aTargetTransient);
+  Standard_EXPORT void SetTransientRelocation(const Handle(RefObject)& aSourceTransient,
+                                              const Handle(RefObject)& aTargetTransient);
 
   //! Finds the relocation value of <aSourceTransient>
   //! and returns it into <aTargetTransient>.
@@ -122,8 +122,8 @@ public:
   //! (See above SelfRelocate method for more
   //! explanation about the method behavior)
   Standard_EXPORT Standard_Boolean
-    HasTransientRelocation(const Handle(Standard_Transient)& aSourceTransient,
-                           Handle(Standard_Transient)&       aTargetTransient) const;
+    HasTransientRelocation(const Handle(RefObject)& aSourceTransient,
+                           Handle(RefObject)&       aTargetTransient) const;
 
   //! Clears the relocation dictionary, but lets the
   //! self relocation flag to its current value.
@@ -153,7 +153,7 @@ public:
                                          const Standard_Boolean dumpTransients,
                                          Standard_OStream&      anOS) const;
 
-  DEFINE_STANDARD_RTTIEXT(TDF_RelocationTable, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TDF_RelocationTable, RefObject)
 
 protected:
 private:

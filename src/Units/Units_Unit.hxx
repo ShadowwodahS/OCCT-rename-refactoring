@@ -29,11 +29,11 @@ class Units_Quantity;
 class Units_Token;
 
 class Units_Unit;
-DEFINE_STANDARD_HANDLE(Units_Unit, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Units_Unit, RefObject)
 
 //! This class defines an elementary word contained in
 //! a physical quantity.
-class Units_Unit : public Standard_Transient
+class Units_Unit : public RefObject
 {
 
 public:
@@ -89,7 +89,7 @@ public:
   Standard_EXPORT virtual void Dump(const Standard_Integer ashift,
                                     const Standard_Integer alevel) const;
 
-  DEFINE_STANDARD_RTTIEXT(Units_Unit, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Units_Unit, RefObject)
 
 protected:
   Handle(TColStd_HSequenceOfHAsciiString) thesymbolssequence;

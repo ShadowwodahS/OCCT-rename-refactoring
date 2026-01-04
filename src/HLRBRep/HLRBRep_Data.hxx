@@ -49,9 +49,9 @@ class IntRes2d_IntersectionPoint;
 class TableauRejection;
 
 class HLRBRep_Data;
-DEFINE_STANDARD_HANDLE(HLRBRep_Data, Standard_Transient)
+DEFINE_STANDARD_HANDLE(HLRBRep_Data, RefObject)
 
-class HLRBRep_Data : public Standard_Transient
+class HLRBRep_Data : public RefObject
 {
 
 public:
@@ -200,7 +200,7 @@ public:
 
   ~HLRBRep_Data() { Destroy(); }
 
-  DEFINE_STANDARD_RTTIEXT(HLRBRep_Data, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(HLRBRep_Data, RefObject)
 
 private:
   //! Orient the   OutLines  ( left  must  be  inside in

@@ -24,10 +24,10 @@ class TCollection_HAsciiString;
 class StepBasic_IdentificationRole;
 
 class StepBasic_IdentificationAssignment;
-DEFINE_STANDARD_HANDLE(StepBasic_IdentificationAssignment, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_IdentificationAssignment, RefObject)
 
 //! Representation of STEP entity IdentificationAssignment
-class StepBasic_IdentificationAssignment : public Standard_Transient
+class StepBasic_IdentificationAssignment : public RefObject
 {
 
 public:
@@ -50,7 +50,7 @@ public:
   //! Set field Role
   Standard_EXPORT void SetRole(const Handle(StepBasic_IdentificationRole)& Role);
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_IdentificationAssignment, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_IdentificationAssignment, RefObject)
 
 protected:
 private:

@@ -24,7 +24,7 @@ class BRepMesh_Edge;
 
 //! Describes a selector and an iterator on a
 //! selector of components of a mesh.
-class BRepMesh_SelectorOfDataStructureOfDelaun : public Standard_Transient
+class BRepMesh_SelectorOfDataStructureOfDelaun : public RefObject
 {
 public:
   //! Default constructor.
@@ -77,7 +77,7 @@ public:
   //! Gives the list of incices of frontier links.
   const IMeshData::MapOfInteger& FrontierLinks() const { return myFrontier; }
 
-  DEFINE_STANDARD_RTTIEXT(BRepMesh_SelectorOfDataStructureOfDelaun, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(BRepMesh_SelectorOfDataStructureOfDelaun, RefObject)
 
 private:
   //! Collects elements connected to link with the given index.

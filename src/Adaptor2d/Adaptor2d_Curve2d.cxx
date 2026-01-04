@@ -26,7 +26,7 @@
 #include <gp_Vec2d.hxx>
 #include <Standard_NotImplemented.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Adaptor2d_Curve2d, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Adaptor2d_Curve2d, RefObject)
 
 //=================================================================================================
 

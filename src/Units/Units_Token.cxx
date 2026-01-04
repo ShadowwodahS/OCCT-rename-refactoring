@@ -28,7 +28,7 @@
 #include <Units_Operators.hxx>
 #include <Units_Token.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Units_Token, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Units_Token, RefObject)
 
 //=================================================================================================
 

@@ -24,10 +24,10 @@
 #include <Standard_OStream.hxx>
 #include <Standard_SStream.hxx>
 
-DEFINE_STANDARD_HANDLE(Standard_Failure, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Standard_Failure, RefObject)
 
 //! Forms the root of the entire exception hierarchy.
-class Standard_Failure : public Standard_Transient
+class Standard_Failure : public RefObject
 {
 public:
   //! Creates a status object of type "Failure".
@@ -111,7 +111,7 @@ public:
   //! converted to C++ exception.
   Standard_EXPORT void Jump();
 
-  DEFINE_STANDARD_RTTIEXT(Standard_Failure, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Standard_Failure, RefObject)
 
 protected:
   //! Used only if standard C++ exceptions are used.

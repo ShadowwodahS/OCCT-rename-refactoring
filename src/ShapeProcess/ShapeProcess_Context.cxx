@@ -25,7 +25,7 @@
 #include <TCollection_HAsciiString.hxx>
 
 #include <sys/stat.h>
-IMPLEMENT_STANDARD_RTTIEXT(ShapeProcess_Context, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(ShapeProcess_Context, RefObject)
 
 static Standard_Mutex THE_SHAPE_PROCESS_MUTEX;
 

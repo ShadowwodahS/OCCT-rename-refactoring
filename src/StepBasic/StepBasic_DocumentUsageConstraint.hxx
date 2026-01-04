@@ -25,9 +25,9 @@ class StepBasic_Document;
 class TCollection_HAsciiString;
 
 class StepBasic_DocumentUsageConstraint;
-DEFINE_STANDARD_HANDLE(StepBasic_DocumentUsageConstraint, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_DocumentUsageConstraint, RefObject)
 
-class StepBasic_DocumentUsageConstraint : public Standard_Transient
+class StepBasic_DocumentUsageConstraint : public RefObject
 {
 
 public:
@@ -49,7 +49,7 @@ public:
 
   Standard_EXPORT void SetSubjectElementValue(const Handle(TCollection_HAsciiString)& asev);
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_DocumentUsageConstraint, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_DocumentUsageConstraint, RefObject)
 
 protected:
 private:

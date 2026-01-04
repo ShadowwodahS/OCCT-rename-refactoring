@@ -24,10 +24,10 @@
 class StepBasic_NamedUnit;
 
 class StepBasic_DerivedUnitElement;
-DEFINE_STANDARD_HANDLE(StepBasic_DerivedUnitElement, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_DerivedUnitElement, RefObject)
 
 //! Added from StepBasic Rev2 to Rev4
-class StepBasic_DerivedUnitElement : public Standard_Transient
+class StepBasic_DerivedUnitElement : public RefObject
 {
 
 public:
@@ -44,7 +44,7 @@ public:
 
   Standard_EXPORT Standard_Real Exponent() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_DerivedUnitElement, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_DerivedUnitElement, RefObject)
 
 protected:
 private:

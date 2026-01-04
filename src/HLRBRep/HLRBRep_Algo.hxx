@@ -22,7 +22,7 @@
 #include <HLRBRep_InternalAlgo.hxx>
 #include <Standard_Integer.hxx>
 class TopoDS_Shape;
-class Standard_Transient;
+class RefObject;
 
 class HLRBRep_Algo;
 DEFINE_STANDARD_HANDLE(HLRBRep_Algo, HLRBRep_InternalAlgo)
@@ -76,7 +76,7 @@ public:
 
   //! add the Shape <S>.
   Standard_EXPORT void Add(const TopoDS_Shape&               S,
-                           const Handle(Standard_Transient)& SData,
+                           const Handle(RefObject)& SData,
                            const Standard_Integer            nbIso = 0);
 
   //! Adds the shape S to this framework, and

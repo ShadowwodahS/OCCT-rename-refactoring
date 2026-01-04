@@ -17,7 +17,7 @@
 
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TDataStd_HDataMapOfStringInteger, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(TDataStd_HDataMapOfStringInteger, RefObject)
 
 //=======================================================================
 // function : TDataStd_HDataMapOfStringInteger

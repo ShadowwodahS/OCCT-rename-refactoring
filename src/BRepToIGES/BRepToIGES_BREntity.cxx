@@ -208,7 +208,7 @@ void BRepToIGES_BREntity::AddWarning(const TopoDS_Shape& start, const Standard_C
 
 //=================================================================================================
 
-void BRepToIGES_BREntity::AddFail(const Handle(Standard_Transient)& start,
+void BRepToIGES_BREntity::AddFail(const Handle(RefObject)& start,
                                   const Standard_CString            amess)
 {
   Handle(Transfer_TransientMapper) Mapper = new Transfer_TransientMapper(start);
@@ -217,7 +217,7 @@ void BRepToIGES_BREntity::AddFail(const Handle(Standard_Transient)& start,
 
 //=================================================================================================
 
-void BRepToIGES_BREntity::AddWarning(const Handle(Standard_Transient)& start,
+void BRepToIGES_BREntity::AddWarning(const Handle(RefObject)& start,
                                      const Standard_CString            amess)
 {
   Handle(Transfer_TransientMapper) Mapper = new Transfer_TransientMapper(start);
@@ -237,9 +237,9 @@ Standard_Boolean BRepToIGES_BREntity::HasShapeResult(const TopoDS_Shape& start) 
 
 //=================================================================================================
 
-Handle(Standard_Transient) BRepToIGES_BREntity::GetShapeResult(const TopoDS_Shape& start) const
+Handle(RefObject) BRepToIGES_BREntity::GetShapeResult(const TopoDS_Shape& start) const
 {
-  Handle(Standard_Transient) res;
+  Handle(RefObject) res;
 
   Handle(TransferBRep_ShapeMapper) Mapper = new TransferBRep_ShapeMapper(start);
   DeclareAndCast(Transfer_SimpleBinderOfTransient, binder, TheMap->Find(Mapper));
@@ -253,7 +253,7 @@ Handle(Standard_Transient) BRepToIGES_BREntity::GetShapeResult(const TopoDS_Shap
 //=================================================================================================
 
 void BRepToIGES_BREntity::SetShapeResult(const TopoDS_Shape&               start,
-                                         const Handle(Standard_Transient)& result)
+                                         const Handle(RefObject)& result)
 {
   Handle(TransferBRep_ShapeMapper)         Mapper = new TransferBRep_ShapeMapper(start);
   Handle(Transfer_SimpleBinderOfTransient) binder = new Transfer_SimpleBinderOfTransient;
@@ -263,7 +263,7 @@ void BRepToIGES_BREntity::SetShapeResult(const TopoDS_Shape&               start
 
 //=================================================================================================
 
-Standard_Boolean BRepToIGES_BREntity::HasShapeResult(const Handle(Standard_Transient)& start) const
+Standard_Boolean BRepToIGES_BREntity::HasShapeResult(const Handle(RefObject)& start) const
 {
   Handle(Transfer_TransientMapper) Mapper = new Transfer_TransientMapper(start);
   DeclareAndCast(Transfer_SimpleBinderOfTransient, binder, TheMap->Find(Mapper));
@@ -274,10 +274,10 @@ Standard_Boolean BRepToIGES_BREntity::HasShapeResult(const Handle(Standard_Trans
 
 //=================================================================================================
 
-Handle(Standard_Transient) BRepToIGES_BREntity::GetShapeResult(
-  const Handle(Standard_Transient)& start) const
+Handle(RefObject) BRepToIGES_BREntity::GetShapeResult(
+  const Handle(RefObject)& start) const
 {
-  Handle(Standard_Transient) res;
+  Handle(RefObject) res;
 
   Handle(Transfer_TransientMapper) Mapper = new Transfer_TransientMapper(start);
   DeclareAndCast(Transfer_SimpleBinderOfTransient, binder, TheMap->Find(Mapper));
@@ -290,8 +290,8 @@ Handle(Standard_Transient) BRepToIGES_BREntity::GetShapeResult(
 
 //=================================================================================================
 
-void BRepToIGES_BREntity::SetShapeResult(const Handle(Standard_Transient)& start,
-                                         const Handle(Standard_Transient)& result)
+void BRepToIGES_BREntity::SetShapeResult(const Handle(RefObject)& start,
+                                         const Handle(RefObject)& result)
 {
   Handle(Transfer_TransientMapper)         Mapper = new Transfer_TransientMapper(start);
   Handle(Transfer_SimpleBinderOfTransient) binder = new Transfer_SimpleBinderOfTransient;

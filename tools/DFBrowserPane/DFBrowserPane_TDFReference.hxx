@@ -43,7 +43,7 @@ public:
   //! \param theRefPresentation handle of presentation for the references, to be visualized
   Standard_EXPORT virtual void GetReferences(const Handle(TDF_Attribute)& theAttribute,
                                              NCollection_List<TDF_Label>& theRefLabels,
-                                             Handle(Standard_Transient)&  theRefPresentation)
+                                             Handle(RefObject)&  theRefPresentation)
     Standard_OVERRIDE;
 };
 

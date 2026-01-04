@@ -36,7 +36,7 @@ StepAP203_ApprovedItem::StepAP203_ApprovedItem() {}
 
 //=================================================================================================
 
-Standard_Integer StepAP203_ApprovedItem::CaseNum(const Handle(Standard_Transient)& ent) const
+Standard_Integer StepAP203_ApprovedItem::CaseNum(const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

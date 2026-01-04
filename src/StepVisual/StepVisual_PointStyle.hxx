@@ -27,9 +27,9 @@ class TCollection_HAsciiString;
 class StepVisual_Colour;
 
 class StepVisual_PointStyle;
-DEFINE_STANDARD_HANDLE(StepVisual_PointStyle, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepVisual_PointStyle, RefObject)
 
-class StepVisual_PointStyle : public Standard_Transient
+class StepVisual_PointStyle : public RefObject
 {
 
 public:
@@ -57,7 +57,7 @@ public:
 
   Standard_EXPORT Handle(StepVisual_Colour) MarkerColour() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepVisual_PointStyle, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepVisual_PointStyle, RefObject)
 
 protected:
 private:

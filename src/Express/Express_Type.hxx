@@ -20,7 +20,7 @@ class TCollection_AsciiString;
 
 //! Provides basis for identification (reference) to some type
 //! in express schema
-class Express_Type : public Standard_Transient
+class Express_Type : public RefObject
 {
 
 public:
@@ -49,7 +49,7 @@ public:
   Standard_EXPORT virtual void Use2(const TCollection_AsciiString& theRefName,
                                     const TCollection_AsciiString& theRefPack) const;
 
-  DEFINE_STANDARD_RTTIEXT(Express_Type, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Express_Type, RefObject)
 
 protected:
   //! Empty constructor

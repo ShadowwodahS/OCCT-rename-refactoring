@@ -24,10 +24,10 @@ class TCollection_HAsciiString;
 class StepRepr_PropertyDefinition;
 
 class StepRepr_PropertyDefinitionRelationship;
-DEFINE_STANDARD_HANDLE(StepRepr_PropertyDefinitionRelationship, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepRepr_PropertyDefinitionRelationship, RefObject)
 
 //! Representation of STEP entity PropertyDefinitionRelationship
-class StepRepr_PropertyDefinitionRelationship : public Standard_Transient
+class StepRepr_PropertyDefinitionRelationship : public RefObject
 {
 
 public:
@@ -66,7 +66,7 @@ public:
   Standard_EXPORT void SetRelatedPropertyDefinition(
     const Handle(StepRepr_PropertyDefinition)& RelatedPropertyDefinition);
 
-  DEFINE_STANDARD_RTTIEXT(StepRepr_PropertyDefinitionRelationship, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepRepr_PropertyDefinitionRelationship, RefObject)
 
 protected:
 private:

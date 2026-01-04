@@ -53,7 +53,7 @@ void IFSelect_SignCounter::SetMap(const Standard_Boolean withmap)
   themapstat = withmap;
 }
 
-Standard_Boolean IFSelect_SignCounter::AddEntity(const Handle(Standard_Transient)&       ent,
+Standard_Boolean IFSelect_SignCounter::AddEntity(const Handle(RefObject)&       ent,
                                                  const Handle(Interface_InterfaceModel)& model)
 {
   if (themapstat && !ent.IsNull())
@@ -66,7 +66,7 @@ Standard_Boolean IFSelect_SignCounter::AddEntity(const Handle(Standard_Transient
   return Standard_True;
 }
 
-void IFSelect_SignCounter::AddSign(const Handle(Standard_Transient)&       ent,
+void IFSelect_SignCounter::AddSign(const Handle(RefObject)&       ent,
                                    const Handle(Interface_InterfaceModel)& model)
 {
   char nulsign[2];
@@ -162,7 +162,7 @@ Standard_Boolean IFSelect_SignCounter::ComputeSelected(const Interface_Graph& G,
 }
 
 Handle(TCollection_HAsciiString) IFSelect_SignCounter::Sign(
-  const Handle(Standard_Transient)&       ent,
+  const Handle(RefObject)&       ent,
   const Handle(Interface_InterfaceModel)& model) const
 {
   Handle(TCollection_HAsciiString) res;
@@ -172,7 +172,7 @@ Handle(TCollection_HAsciiString) IFSelect_SignCounter::Sign(
   return res;
 }
 
-Standard_CString IFSelect_SignCounter::ComputedSign(const Handle(Standard_Transient)& ent,
+Standard_CString IFSelect_SignCounter::ComputedSign(const Handle(RefObject)& ent,
                                                     const Interface_Graph&            G)
 {
   Handle(TColStd_HSequenceOfTransient) list = new TColStd_HSequenceOfTransient();

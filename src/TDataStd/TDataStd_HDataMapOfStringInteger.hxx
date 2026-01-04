@@ -24,9 +24,9 @@
 
 //! Extension of TColStd_DataMapOfStringInteger class
 //! to be manipulated by handle.
-class TDataStd_HDataMapOfStringInteger : public Standard_Transient
+class TDataStd_HDataMapOfStringInteger : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(TDataStd_HDataMapOfStringInteger, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TDataStd_HDataMapOfStringInteger, RefObject)
 public:
   Standard_EXPORT TDataStd_HDataMapOfStringInteger(const Standard_Integer NbBuckets = 1);
 
@@ -40,6 +40,6 @@ private:
   TColStd_DataMapOfStringInteger myMap;
 };
 
-DEFINE_STANDARD_HANDLE(TDataStd_HDataMapOfStringInteger, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TDataStd_HDataMapOfStringInteger, RefObject)
 
 #endif // _TDataStd_HDataMapOfStringInteger_HeaderFile

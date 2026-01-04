@@ -28,7 +28,7 @@ StepElement_CurveElementPurpose::StepElement_CurveElementPurpose() {}
 //=================================================================================================
 
 Standard_Integer StepElement_CurveElementPurpose::CaseNum(
-  const Handle(Standard_Transient)& /*ent*/) const
+  const Handle(RefObject)& /*ent*/) const
 {
   return 0;
 }

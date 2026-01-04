@@ -25,7 +25,7 @@
 #include <Standard_Transient.hxx>
 
 class IFSelect_IntParam;
-DEFINE_STANDARD_HANDLE(IFSelect_IntParam, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IFSelect_IntParam, RefObject)
 
 //! This class simply allows to access an Integer value through a
 //! Handle, as a String can be (by using HString).
@@ -41,7 +41,7 @@ DEFINE_STANDARD_HANDLE(IFSelect_IntParam, Standard_Transient)
 //! For an Integer, an IntParam can designate (by its name) a
 //! Static : each time its value is required or set, the Static
 //! is acknowledged
-class IFSelect_IntParam : public Standard_Transient
+class IFSelect_IntParam : public RefObject
 {
 
 public:
@@ -71,7 +71,7 @@ public:
   //! defined and the Static is set, also sets the value of the static
   Standard_EXPORT void SetValue(const Standard_Integer val);
 
-  DEFINE_STANDARD_RTTIEXT(IFSelect_IntParam, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IFSelect_IntParam, RefObject)
 
 private:
   Standard_Integer        theval;

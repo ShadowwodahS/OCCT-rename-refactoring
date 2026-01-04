@@ -31,14 +31,14 @@
 static Standard_GUID XmlStorageDriver("f78ff4a0-a779-11d5-aab4-0050044b1af1");
 static Standard_GUID XmlRetrievalDriver("f78ff4a1-a779-11d5-aab4-0050044b1af1");
 
-const Handle(Standard_Transient)& XmlTObjDrivers::Factory(const Standard_GUID& aGUID)
+const Handle(RefObject)& XmlTObjDrivers::Factory(const Standard_GUID& aGUID)
 {
   if (aGUID == XmlStorageDriver)
   {
 #ifdef OCCT_DEBUG
     std::cout << "XmlTObjDrivers : Storage Plugin" << std::endl;
 #endif
-    static Handle(Standard_Transient) model_sd =
+    static Handle(RefObject) model_sd =
       new XmlTObjDrivers_DocumentStorageDriver("Copyright: Open CASCADE 2004"); // default copyright
     return model_sd;
   }
@@ -48,7 +48,7 @@ const Handle(Standard_Transient)& XmlTObjDrivers::Factory(const Standard_GUID& a
 #ifdef OCCT_DEBUG
     std::cout << "XmlTObjDrivers : Retrieval Plugin" << std::endl;
 #endif
-    static Handle(Standard_Transient) model_rd = new XmlTObjDrivers_DocumentRetrievalDriver;
+    static Handle(RefObject) model_rd = new XmlTObjDrivers_DocumentRetrievalDriver;
     return model_rd;
   }
 

@@ -21,7 +21,7 @@
 #include <Standard_Type.hxx>
 
 #include <XSControl_Vars.hxx>
-class Standard_Transient;
+class RefObject;
 class Geom_Geometry;
 class Geom2d_Curve;
 class Geom_Curve;
@@ -41,7 +41,7 @@ public:
   Standard_EXPORT XSDRAW_Vars();
 
   Standard_EXPORT virtual void Set(const Standard_CString            name,
-                                   const Handle(Standard_Transient)& val) Standard_OVERRIDE;
+                                   const Handle(RefObject)& val) Standard_OVERRIDE;
 
   Standard_EXPORT virtual Handle(Geom_Geometry) GetGeom(Standard_CString& name) const
     Standard_OVERRIDE;

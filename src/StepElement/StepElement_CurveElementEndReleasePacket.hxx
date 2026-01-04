@@ -23,10 +23,10 @@
 #include <Standard_Transient.hxx>
 
 class StepElement_CurveElementEndReleasePacket;
-DEFINE_STANDARD_HANDLE(StepElement_CurveElementEndReleasePacket, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepElement_CurveElementEndReleasePacket, RefObject)
 
 //! Representation of STEP entity CurveElementEndReleasePacket
-class StepElement_CurveElementEndReleasePacket : public Standard_Transient
+class StepElement_CurveElementEndReleasePacket : public RefObject
 {
 
 public:
@@ -49,7 +49,7 @@ public:
   //! Set field ReleaseStiffness
   Standard_EXPORT void SetReleaseStiffness(const Standard_Real ReleaseStiffness);
 
-  DEFINE_STANDARD_RTTIEXT(StepElement_CurveElementEndReleasePacket, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepElement_CurveElementEndReleasePacket, RefObject)
 
 protected:
 private:

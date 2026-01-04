@@ -62,8 +62,8 @@ void RWStepVisual_RWAnnotationFillAreaOccurrence::ReadStep(
   }
 
   // Inherited field : item
-  Handle(Standard_Transient) aItem;
-  data->ReadEntity(num, 3, "item", ach, STANDARD_TYPE(Standard_Transient), aItem);
+  Handle(RefObject) aItem;
+  data->ReadEntity(num, 3, "item", ach, STANDARD_TYPE(RefObject), aItem);
 
   // Own field : fill_style_target
   Handle(StepGeom_GeometricRepresentationItem) aFillStyleTarget;

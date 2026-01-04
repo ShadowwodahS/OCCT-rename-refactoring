@@ -160,7 +160,7 @@ void IGESControl_Controller::Customise(Handle(XSControl_WorkSession)& WS)
 
   // Should be already set by the above call to Customise
   Handle(IFSelect_SelectModelEntities) xma;
-  Handle(Standard_Transient)           xma1 = WS->NamedItem("xst-model-all");
+  Handle(RefObject)           xma1 = WS->NamedItem("xst-model-all");
   if (xma1.IsNull())
     xma = new IFSelect_SelectModelEntities;
   else
@@ -170,7 +170,7 @@ void IGESControl_Controller::Customise(Handle(XSControl_WorkSession)& WS)
   }
 
   Handle(IFSelect_SelectModelRoots) xmr;
-  Handle(Standard_Transient)        xmr1 = WS->NamedItem("xst-model-roots");
+  Handle(RefObject)        xmr1 = WS->NamedItem("xst-model-roots");
   if (!xmr1.IsNull())
     xmr = Handle(IFSelect_SelectModelRoots)::DownCast(xmr1);
   else
@@ -180,7 +180,7 @@ void IGESControl_Controller::Customise(Handle(XSControl_WorkSession)& WS)
   }
 
   Handle(XSControl_SelectForTransfer) xtr;
-  Handle(Standard_Transient)          xtr1 = WS->NamedItem("xst-transferrable-roots");
+  Handle(RefObject)          xtr1 = WS->NamedItem("xst-transferrable-roots");
   if (!xtr1.IsNull())
     xtr = Handle(XSControl_SelectForTransfer)::DownCast(xtr1);
   else

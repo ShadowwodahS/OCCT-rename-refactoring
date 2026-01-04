@@ -26,10 +26,10 @@
 #include <gp_XY.hxx>
 
 class HLRAlgo_PolyInternalNode;
-DEFINE_STANDARD_HANDLE(HLRAlgo_PolyInternalNode, Standard_Transient)
+DEFINE_STANDARD_HANDLE(HLRAlgo_PolyInternalNode, RefObject)
 
 //! to Update OutLines.
-class HLRAlgo_PolyInternalNode : public Standard_Transient
+class HLRAlgo_PolyInternalNode : public RefObject
 {
 public:
   struct NodeIndices
@@ -63,7 +63,7 @@ public:
 
   NodeData& Data() { return myData; }
 
-  DEFINE_STANDARD_RTTIEXT(HLRAlgo_PolyInternalNode, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(HLRAlgo_PolyInternalNode, RefObject)
 
 private:
   NodeIndices myIndices;

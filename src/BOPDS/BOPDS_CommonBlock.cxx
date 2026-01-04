@@ -16,7 +16,7 @@
 #include <BOPDS_PaveBlock.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BOPDS_CommonBlock, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(BOPDS_CommonBlock, RefObject)
 
 //=================================================================================================
 

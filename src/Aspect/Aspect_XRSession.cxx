@@ -13,9 +13,9 @@
 
 #include <Aspect_XRSession.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Aspect_XRSession, Standard_Transient)
-IMPLEMENT_STANDARD_RTTIEXT(Aspect_XRAction, Standard_Transient)
-IMPLEMENT_STANDARD_RTTIEXT(Aspect_XRActionSet, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Aspect_XRSession, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(Aspect_XRAction, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(Aspect_XRActionSet, RefObject)
 
 //=================================================================================================
 

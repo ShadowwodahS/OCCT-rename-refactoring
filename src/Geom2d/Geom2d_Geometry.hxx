@@ -28,7 +28,7 @@ class gp_Vec2d;
 class gp_Trsf2d;
 
 class Geom2d_Geometry;
-DEFINE_STANDARD_HANDLE(Geom2d_Geometry, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Geom2d_Geometry, RefObject)
 
 //! The general abstract class Geometry in 2D space describes
 //! the common behaviour of all the geometric entities.
@@ -53,7 +53,7 @@ DEFINE_STANDARD_HANDLE(Geom2d_Geometry, Standard_Transient)
 //! abstract method Transform which is defined for each
 //! concrete type of derived object. All other
 //! transformations are implemented using the Transform method.
-class Geom2d_Geometry : public Standard_Transient
+class Geom2d_Geometry : public RefObject
 {
 
 public:
@@ -112,7 +112,7 @@ public:
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const;
 
-  DEFINE_STANDARD_RTTIEXT(Geom2d_Geometry, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Geom2d_Geometry, RefObject)
 
 protected:
 private:

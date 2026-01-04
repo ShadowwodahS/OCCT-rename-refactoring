@@ -27,16 +27,16 @@
 class Storage_BaseDriver;
 
 class StdStorage_TypeData;
-DEFINE_STANDARD_HANDLE(StdStorage_TypeData, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StdStorage_TypeData, RefObject)
 
 //! Storage type data section keeps association between
 //! persistent textual types and their numbers
-class StdStorage_TypeData : public Standard_Transient
+class StdStorage_TypeData : public RefObject
 {
   friend class StdStorage_Data;
 
 public:
-  DEFINE_STANDARD_RTTIEXT(StdStorage_TypeData, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StdStorage_TypeData, RefObject)
 
   //! Reads the type data section from the container defined by theDriver.
   //! Returns Standard_True in case of success. Otherwise, one need to get

@@ -20,7 +20,7 @@
 #include <OSD_Protection.hxx>
 #include <Standard_Atomic.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_ShaderObject, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_ShaderObject, RefObject)
 
 namespace
 {

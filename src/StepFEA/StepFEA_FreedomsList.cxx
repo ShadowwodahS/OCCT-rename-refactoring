@@ -17,7 +17,7 @@
 
 #include <StepFEA_FreedomsList.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepFEA_FreedomsList, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepFEA_FreedomsList, RefObject)
 
 //=================================================================================================
 

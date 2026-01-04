@@ -32,7 +32,7 @@ class gp_Pnt2d;
 class TopoDS_Shape;
 
 class XSControl_Vars;
-DEFINE_STANDARD_HANDLE(XSControl_Vars, Standard_Transient)
+DEFINE_STANDARD_HANDLE(XSControl_Vars, RefObject)
 
 //! Defines a receptacle for externally defined variables, each
 //! one has a name
@@ -44,16 +44,16 @@ DEFINE_STANDARD_HANDLE(XSControl_Vars, Standard_Transient)
 //! This class provides a common form for this. It also provides
 //! a default implementation (locally recorded variables in a
 //! dictionary), but which is aimed to be redefined
-class XSControl_Vars : public Standard_Transient
+class XSControl_Vars : public RefObject
 {
 
 public:
   Standard_EXPORT XSControl_Vars();
 
   Standard_EXPORT virtual void Set(const Standard_CString            name,
-                                   const Handle(Standard_Transient)& val);
+                                   const Handle(RefObject)& val);
 
-  Standard_EXPORT virtual Handle(Standard_Transient) Get(Standard_CString& name) const;
+  Standard_EXPORT virtual Handle(RefObject) Get(Standard_CString& name) const;
 
   Standard_EXPORT virtual Handle(Geom_Geometry) GetGeom(Standard_CString& name) const;
 
@@ -75,11 +75,11 @@ public:
 
   Standard_EXPORT virtual TopoDS_Shape GetShape(Standard_CString& name) const;
 
-  DEFINE_STANDARD_RTTIEXT(XSControl_Vars, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(XSControl_Vars, RefObject)
 
 protected:
 private:
-  NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)> thevars;
+  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)> thevars;
 };
 
 #endif // _XSControl_Vars_HeaderFile

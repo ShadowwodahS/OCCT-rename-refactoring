@@ -19,7 +19,7 @@
 #include <StepRepr_Representation.hxx>
 #include <StepRepr_RepresentedDefinition.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepRepr_PropertyDefinitionRepresentation, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepRepr_PropertyDefinitionRepresentation, RefObject)
 
 //=================================================================================================
 

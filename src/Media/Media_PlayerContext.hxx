@@ -30,9 +30,9 @@ class Media_FormatContext;
 class Media_Scaler;
 
 //! Player context.
-class Media_PlayerContext : public Standard_Transient
+class Media_PlayerContext : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Media_PlayerContext, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Media_PlayerContext, RefObject)
 public:
   //! Dump first video frame.
   //! @param[in] theSrcVideo  path to the video

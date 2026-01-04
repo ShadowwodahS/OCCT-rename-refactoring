@@ -13,7 +13,7 @@
 
 #include <Graphic3d_SequenceOfHClipPlane.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_SequenceOfHClipPlane, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_SequenceOfHClipPlane, RefObject)
 
 //=================================================================================================
 

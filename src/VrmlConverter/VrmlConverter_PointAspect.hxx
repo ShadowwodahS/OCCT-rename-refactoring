@@ -24,11 +24,11 @@
 class Vrml_Material;
 
 class VrmlConverter_PointAspect;
-DEFINE_STANDARD_HANDLE(VrmlConverter_PointAspect, Standard_Transient)
+DEFINE_STANDARD_HANDLE(VrmlConverter_PointAspect, RefObject)
 
 //! qualifies the aspect properties for
 //! the VRML conversation of a Point Set.
-class VrmlConverter_PointAspect : public Standard_Transient
+class VrmlConverter_PointAspect : public RefObject
 {
 
 public:
@@ -51,7 +51,7 @@ public:
   //! returns True if the  materials is  writing into OStream.
   Standard_EXPORT Standard_Boolean HasMaterial() const;
 
-  DEFINE_STANDARD_RTTIEXT(VrmlConverter_PointAspect, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(VrmlConverter_PointAspect, RefObject)
 
 protected:
 private:

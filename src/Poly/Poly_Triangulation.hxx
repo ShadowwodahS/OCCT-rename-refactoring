@@ -30,7 +30,7 @@ class OSD_FileSystem;
 class Poly_Triangulation;
 class Poly_TriangulationParameters;
 
-DEFINE_STANDARD_HANDLE(Poly_Triangulation, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Poly_Triangulation, RefObject)
 
 //! Provides a triangulation for a surface, a set of surfaces, or more generally a shape.
 //!
@@ -56,9 +56,9 @@ DEFINE_STANDARD_HANDLE(Poly_Triangulation, Standard_Transient)
 //! In many cases, algorithms do not need to work with the exact representation of a surface.
 //! A triangular representation induces simpler and more robust adjusting, faster performances, and
 //! the results are as good.
-class Poly_Triangulation : public Standard_Transient
+class Poly_Triangulation : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Poly_Triangulation, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Poly_Triangulation, RefObject)
 public:
   //! Constructs an empty triangulation.
   Standard_EXPORT Poly_Triangulation();

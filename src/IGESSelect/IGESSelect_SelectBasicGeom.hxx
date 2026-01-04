@@ -22,7 +22,7 @@
 
 #include <Standard_Integer.hxx>
 #include <IFSelect_SelectExplore.hxx>
-class Standard_Transient;
+class RefObject;
 class Interface_Graph;
 class Interface_EntityIterator;
 class TCollection_AsciiString;
@@ -62,7 +62,7 @@ public:
   //! Works recursively
   Standard_EXPORT Standard_Boolean
     Explore(const Standard_Integer            level,
-            const Handle(Standard_Transient)& ent,
+            const Handle(RefObject)& ent,
             const Interface_Graph&            G,
             Interface_EntityIterator&         explored) const Standard_OVERRIDE;
 

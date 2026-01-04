@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 #include <TColStd_MapOfTransient.hxx>
 class Interface_Graph;
-class Standard_Transient;
+class RefObject;
 class StepShape_ConnectedFaceSet;
 class StepGeom_CompositeCurve;
 
@@ -35,7 +35,7 @@ public:
 
   Standard_EXPORT STEPSelections_Counter();
 
-  Standard_EXPORT void Count(const Interface_Graph& graph, const Handle(Standard_Transient)& start);
+  Standard_EXPORT void Count(const Interface_Graph& graph, const Handle(RefObject)& start);
 
   Standard_EXPORT void Clear();
 

@@ -34,7 +34,7 @@ class TopOpeBRepDS_HDataStructure;
 class TopOpeBRepBuild_Builder;
 
 class TopOpeBRepBuild_HBuilder;
-DEFINE_STANDARD_HANDLE(TopOpeBRepBuild_HBuilder, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TopOpeBRepBuild_HBuilder, RefObject)
 
 //! The HBuilder  algorithm    constructs   topological
 //! objects  from   an    existing  topology  and  new
@@ -43,7 +43,7 @@ DEFINE_STANDARD_HANDLE(TopOpeBRepBuild_HBuilder, Standard_Transient)
 //! the existing  topologies are the parts involved in
 //! the  topological  operation and the new geometries
 //! are the intersection lines and points.
-class TopOpeBRepBuild_HBuilder : public Standard_Transient
+class TopOpeBRepBuild_HBuilder : public RefObject
 {
 
 public:
@@ -172,7 +172,7 @@ public:
 
   Standard_EXPORT TopOpeBRepBuild_Builder& ChangeBuilder();
 
-  DEFINE_STANDARD_RTTIEXT(TopOpeBRepBuild_HBuilder, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TopOpeBRepBuild_HBuilder, RefObject)
 
 protected:
   TopOpeBRepBuild_Builder1 myBuilder;

@@ -28,7 +28,7 @@ class IGESData_IGESModel;
 class Transfer_FinderProcess;
 class IGESData_IGESEntity;
 class TopoDS_Shape;
-class Standard_Transient;
+class RefObject;
 
 //! provides methods to transfer BRep entity from CASCADE to IGES.
 class BRepToIGES_BREntity
@@ -72,11 +72,11 @@ public:
   Standard_EXPORT void AddWarning(const TopoDS_Shape& start, const Standard_CString amess);
 
   //! Records a new Fail message
-  Standard_EXPORT void AddFail(const Handle(Standard_Transient)& start,
+  Standard_EXPORT void AddFail(const Handle(RefObject)& start,
                                const Standard_CString            amess);
 
   //! Records a new Warning message
-  Standard_EXPORT void AddWarning(const Handle(Standard_Transient)& start,
+  Standard_EXPORT void AddWarning(const Handle(RefObject)& start,
                                   const Standard_CString            amess);
 
   //! Returns True if start was already treated and has a result in "TheMap"
@@ -85,24 +85,24 @@ public:
 
   //! Returns the result of the transfer of the Shape "start" contained
   //! in "TheMap" . (if HasShapeResult is True).
-  Standard_EXPORT Handle(Standard_Transient) GetShapeResult(const TopoDS_Shape& start) const;
+  Standard_EXPORT Handle(RefObject) GetShapeResult(const TopoDS_Shape& start) const;
 
   //! set in "TheMap" the result of the transfer of the Shape "start".
   Standard_EXPORT void SetShapeResult(const TopoDS_Shape&               start,
-                                      const Handle(Standard_Transient)& result);
+                                      const Handle(RefObject)& result);
 
   //! Returns True if start was already treated and has a result in "TheMap"
   //! else returns False.
-  Standard_EXPORT Standard_Boolean HasShapeResult(const Handle(Standard_Transient)& start) const;
+  Standard_EXPORT Standard_Boolean HasShapeResult(const Handle(RefObject)& start) const;
 
   //! Returns the result of the transfer of the Transient "start" contained
   //! in "TheMap" . (if HasShapeResult is True).
-  Standard_EXPORT Handle(Standard_Transient) GetShapeResult(
-    const Handle(Standard_Transient)& start) const;
+  Standard_EXPORT Handle(RefObject) GetShapeResult(
+    const Handle(RefObject)& start) const;
 
   //! set in "TheMap" the result of the transfer of the Transient "start".
-  Standard_EXPORT void SetShapeResult(const Handle(Standard_Transient)& start,
-                                      const Handle(Standard_Transient)& result);
+  Standard_EXPORT void SetShapeResult(const Handle(RefObject)& start,
+                                      const Handle(RefObject)& result);
 
   //! Returns mode for conversion of surfaces
   //! (value of parameter write.convertsurface.mode)

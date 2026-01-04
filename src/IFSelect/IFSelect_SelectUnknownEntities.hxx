@@ -22,7 +22,7 @@
 
 #include <IFSelect_SelectExtract.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class Interface_InterfaceModel;
 class TCollection_AsciiString;
 
@@ -42,7 +42,7 @@ public:
   //! i.e. if <model> known <ent> (through its Number) as Unknown
   Standard_EXPORT Standard_Boolean
     Sort(const Standard_Integer                  rank,
-         const Handle(Standard_Transient)&       ent,
+         const Handle(RefObject)&       ent,
          const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
 
   //! Returns a text defining the criterium : "Recognized Entities"

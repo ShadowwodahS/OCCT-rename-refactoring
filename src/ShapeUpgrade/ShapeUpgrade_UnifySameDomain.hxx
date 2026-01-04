@@ -33,7 +33,7 @@
 class ShapeBuild_ReShape;
 
 class ShapeUpgrade_UnifySameDomain;
-DEFINE_STANDARD_HANDLE(ShapeUpgrade_UnifySameDomain, Standard_Transient)
+DEFINE_STANDARD_HANDLE(ShapeUpgrade_UnifySameDomain, RefObject)
 
 //! This tool tries to unify faces and edges of the shape which lie on the same geometry.
 //! Faces/edges are considering as 'same-domain' if a group of neighbouring faces/edges
@@ -63,7 +63,7 @@ DEFINE_STANDARD_HANDLE(ShapeUpgrade_UnifySameDomain, Standard_Transient)
 //! The algorithm provides a place holder for the history and collects the
 //! history by default.
 //! To avoid collecting of the history the place holder should be set to null handle.
-class ShapeUpgrade_UnifySameDomain : public Standard_Transient
+class ShapeUpgrade_UnifySameDomain : public RefObject
 {
 
 public:
@@ -139,7 +139,7 @@ public:
   //! Returns the history of the processed shapes.
   Handle(BRepTools_History)& History() { return myHistory; }
 
-  DEFINE_STANDARD_RTTIEXT(ShapeUpgrade_UnifySameDomain, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(ShapeUpgrade_UnifySameDomain, RefObject)
 
 protected:
   struct SubSequenceOfEdges;

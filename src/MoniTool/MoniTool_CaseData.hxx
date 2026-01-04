@@ -32,7 +32,7 @@ class gp_XY;
 class Message_Msg;
 
 class MoniTool_CaseData;
-DEFINE_STANDARD_HANDLE(MoniTool_CaseData, Standard_Transient)
+DEFINE_STANDARD_HANDLE(MoniTool_CaseData, RefObject)
 
 //! This class is intended to record data attached to a case to be
 //! exploited.
@@ -66,7 +66,7 @@ DEFINE_STANDARD_HANDLE(MoniTool_CaseData, Standard_Transient)
 //! * else, an interpreted identifier, which gives the type and
 //! the rank in the type (for instance, first integer; etc)
 //! (See NameRank)
-class MoniTool_CaseData : public Standard_Transient
+class MoniTool_CaseData : public RefObject
 {
 
 public:
@@ -117,7 +117,7 @@ public:
   Standard_EXPORT void SetReplace(const Standard_Integer num);
 
   //! Unitary adding a data; rather internal
-  Standard_EXPORT void AddData(const Handle(Standard_Transient)& val,
+  Standard_EXPORT void AddData(const Handle(RefObject)& val,
                                const Standard_Integer            kind,
                                const Standard_CString            name = "");
 
@@ -166,12 +166,12 @@ public:
                                             const Standard_Real curCPU = 0) const;
 
   //! Adds a Geometric as a Transient (Curve, Surface ...)
-  Standard_EXPORT void AddGeom(const Handle(Standard_Transient)& geom,
+  Standard_EXPORT void AddGeom(const Handle(RefObject)& geom,
                                const Standard_CString            name = "");
 
   //! Adds a Transient, as an Entity from an InterfaceModel for
   //! instance : it will then be printed with the help of a DBPE
-  Standard_EXPORT void AddEntity(const Handle(Standard_Transient)& ent,
+  Standard_EXPORT void AddEntity(const Handle(RefObject)& ent,
                                  const Standard_CString            name = "");
 
   //! Adds a Text (as HAsciiString)
@@ -181,7 +181,7 @@ public:
   Standard_EXPORT void AddInteger(const Standard_Integer val, const Standard_CString name = "");
 
   //! Adds a Transient, with no more meaning
-  Standard_EXPORT void AddAny(const Handle(Standard_Transient)& val,
+  Standard_EXPORT void AddAny(const Handle(RefObject)& val,
                               const Standard_CString            name = "");
 
   //! Removes a Data from its rank. Does nothing if out of range
@@ -191,7 +191,7 @@ public:
   Standard_EXPORT Standard_Integer NbData() const;
 
   //! Returns a data item (n0 <nd> in the set <num>)
-  Standard_EXPORT Handle(Standard_Transient) Data(const Standard_Integer nd) const;
+  Standard_EXPORT Handle(RefObject) Data(const Standard_Integer nd) const;
 
   //! Returns a data item, under control of a Type
   //! If the data item is kind of this type, it is returned in <val>
@@ -199,7 +199,7 @@ public:
   //! Else, <val> is unchanged and the returned value is False
   Standard_EXPORT Standard_Boolean GetData(const Standard_Integer       nd,
                                            const Handle(Standard_Type)& type,
-                                           Handle(Standard_Transient)&  val) const;
+                                           Handle(RefObject)&  val) const;
 
   //! Returns the kind of a data :
   //! KIND TYPE      MEANING
@@ -292,7 +292,7 @@ public:
   //! Empty if no message attached
   Standard_EXPORT static Standard_CString DefMsg(const Standard_CString casecode);
 
-  DEFINE_STANDARD_RTTIEXT(MoniTool_CaseData, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(MoniTool_CaseData, RefObject)
 
 protected:
 private:

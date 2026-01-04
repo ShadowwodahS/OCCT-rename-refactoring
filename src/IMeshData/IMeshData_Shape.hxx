@@ -21,7 +21,7 @@
 //! Interface class representing model with associated TopoDS_Shape.
 //! Intended for inheritance by structures and algorithms keeping
 //! reference TopoDS_Shape.
-class IMeshData_Shape : public Standard_Transient
+class IMeshData_Shape : public RefObject
 {
 public:
   //! Destructor.
@@ -33,7 +33,7 @@ public:
   //! Returns shape assigned to discrete shape.
   const TopoDS_Shape& GetShape() const { return myShape; }
 
-  DEFINE_STANDARD_RTTIEXT(IMeshData_Shape, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IMeshData_Shape, RefObject)
 
 protected:
   //! Constructor.

@@ -46,7 +46,7 @@ void StepSelect_StepType::SetProtocol(const Handle(Interface_Protocol)& proto)
   thename.AssignCat(")");
 }
 
-Standard_CString StepSelect_StepType::Value(const Handle(Standard_Transient)&       ent,
+Standard_CString StepSelect_StepType::Value(const Handle(RefObject)&       ent,
                                             const Handle(Interface_InterfaceModel)& model) const
 {
   static Standard_Mutex  aMutex;

@@ -26,10 +26,10 @@
 #include <Standard_Transient.hxx>
 
 class Vrml_SFImage;
-DEFINE_STANDARD_HANDLE(Vrml_SFImage, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Vrml_SFImage, RefObject)
 
 //! defines SFImage type of VRML field types.
-class Vrml_SFImage : public Standard_Transient
+class Vrml_SFImage : public RefObject
 {
 
 public:
@@ -58,7 +58,7 @@ public:
 
   Standard_EXPORT Standard_Boolean ArrayFlag() const;
 
-  DEFINE_STANDARD_RTTIEXT(Vrml_SFImage, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Vrml_SFImage, RefObject)
 
 protected:
 private:

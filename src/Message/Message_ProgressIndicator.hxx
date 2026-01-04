@@ -19,7 +19,7 @@
 #include <Standard_Mutex.hxx>
 #include <Standard_Handle.hxx>
 
-DEFINE_STANDARD_HANDLE(Message_ProgressIndicator, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Message_ProgressIndicator, RefObject)
 
 class Message_ProgressRange;
 class Message_ProgressScope;
@@ -55,9 +55,9 @@ class Message_ProgressScope;
 //!
 //! See details in documentation of methods Show() and UserBreak().
 
-class Message_ProgressIndicator : public Standard_Transient
+class Message_ProgressIndicator : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Message_ProgressIndicator, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Message_ProgressIndicator, RefObject)
 public:
   //!@name Initialization of progress indication
 

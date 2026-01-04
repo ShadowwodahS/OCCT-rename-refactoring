@@ -41,7 +41,7 @@
 #include <TopoDS.hxx>
 #include <TopoDS_Shape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DDataStd_DrawDriver, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(DDataStd_DrawDriver, RefObject)
 
 // attribut affichable
 // drawable object

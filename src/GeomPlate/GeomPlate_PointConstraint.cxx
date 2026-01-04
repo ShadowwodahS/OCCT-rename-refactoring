@@ -23,7 +23,7 @@
 #include <gp_Vec.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GeomPlate_PointConstraint, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(GeomPlate_PointConstraint, RefObject)
 
 //---------------------------------------------------------
 //         Constructeurs avec un point

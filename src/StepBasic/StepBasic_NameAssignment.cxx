@@ -18,7 +18,7 @@
 #include <StepBasic_NameAssignment.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_NameAssignment, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_NameAssignment, RefObject)
 
 //=================================================================================================
 

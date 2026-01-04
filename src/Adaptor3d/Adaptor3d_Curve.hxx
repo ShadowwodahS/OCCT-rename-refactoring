@@ -34,7 +34,7 @@ class Geom_BezierCurve;
 class Geom_BSplineCurve;
 class Geom_OffsetCurve;
 
-DEFINE_STANDARD_HANDLE(Adaptor3d_Curve, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Adaptor3d_Curve, RefObject)
 
 //! Root class for 3D curves on which geometric
 //! algorithms work.
@@ -49,9 +49,9 @@ DEFINE_STANDARD_HANDLE(Adaptor3d_Curve, Standard_Transient)
 //! Polynomial coefficients of BSpline curves used for their evaluation are
 //! cached for better performance. Therefore these evaluations are not
 //! thread-safe and parallel evaluations need to be prevented.
-class Adaptor3d_Curve : public Standard_Transient
+class Adaptor3d_Curve : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Adaptor3d_Curve, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Adaptor3d_Curve, RefObject)
 public:
   //! Shallow copy of adaptor
   Standard_EXPORT virtual Handle(Adaptor3d_Curve) ShallowCopy() const;

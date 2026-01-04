@@ -21,7 +21,7 @@
 #include <Standard_Type.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IFSelect_WorkLibrary, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(IFSelect_WorkLibrary, RefObject)
 
 //  all deferred but Copy (virtual default)
 IFSelect_WorkLibrary::IFSelect_WorkLibrary()
@@ -45,7 +45,7 @@ Standard_Boolean IFSelect_WorkLibrary::CopyModel(
 
 void IFSelect_WorkLibrary::DumpEntity(const Handle(Interface_InterfaceModel)& model,
                                       const Handle(Interface_Protocol)&       protocol,
-                                      const Handle(Standard_Transient)&       entity,
+                                      const Handle(RefObject)&       entity,
                                       Standard_OStream&                       S) const
 {
   if (thelevhlp.IsNull())

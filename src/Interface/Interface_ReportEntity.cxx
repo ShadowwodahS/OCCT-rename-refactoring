@@ -16,11 +16,11 @@
 #include <Standard_Transient.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Interface_ReportEntity, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Interface_ReportEntity, RefObject)
 
 //=================================================================================================
 
-Interface_ReportEntity::Interface_ReportEntity(const Handle(Standard_Transient)& unknown)
+Interface_ReportEntity::Interface_ReportEntity(const Handle(RefObject)& unknown)
 {
   theconcerned = unknown;
   thecontent   = unknown;
@@ -29,7 +29,7 @@ Interface_ReportEntity::Interface_ReportEntity(const Handle(Standard_Transient)&
 //=================================================================================================
 
 Interface_ReportEntity::Interface_ReportEntity(const Handle(Interface_Check)&    acheck,
-                                               const Handle(Standard_Transient)& concerned)
+                                               const Handle(RefObject)& concerned)
     : thecheck(acheck)
 {
   theconcerned = concerned;
@@ -38,7 +38,7 @@ Interface_ReportEntity::Interface_ReportEntity(const Handle(Interface_Check)&   
 
 //=================================================================================================
 
-void Interface_ReportEntity::SetContent(const Handle(Standard_Transient)& content)
+void Interface_ReportEntity::SetContent(const Handle(RefObject)& content)
 {
   thecontent = content;
 }
@@ -61,7 +61,7 @@ Handle(Interface_Check)& Interface_ReportEntity::CCheck()
 
 //=================================================================================================
 
-Handle(Standard_Transient) Interface_ReportEntity::Concerned() const
+Handle(RefObject) Interface_ReportEntity::Concerned() const
 {
   return theconcerned;
 }
@@ -82,7 +82,7 @@ Standard_Boolean Interface_ReportEntity::HasNewContent() const
 
 //=================================================================================================
 
-Handle(Standard_Transient) Interface_ReportEntity::Content() const
+Handle(RefObject) Interface_ReportEntity::Content() const
 {
   return thecontent;
 }

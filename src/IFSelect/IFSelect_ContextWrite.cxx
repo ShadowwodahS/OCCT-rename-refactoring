@@ -162,7 +162,7 @@ void IFSelect_ContextWrite::Next()
 
 //=================================================================================================
 
-Handle(Standard_Transient) IFSelect_ContextWrite::Value() const
+Handle(RefObject) IFSelect_ContextWrite::Value() const
 {
   if (thecurr < 1 || thecurr > thenbent)
     throw Standard_NoSuchObject("IFSelect_ContextWrite:Value");
@@ -176,7 +176,7 @@ void IFSelect_ContextWrite::AddCheck(const Handle(Interface_Check)& check)
 {
   if (check->NbFails() + check->NbWarnings() == 0)
     return;
-  const Handle(Standard_Transient)& ent = check->Entity();
+  const Handle(RefObject)& ent = check->Entity();
   Standard_Integer                  num = themodel->Number(ent);
   if (num == 0 && !ent.IsNull())
     num = -1; // force enregistrement
@@ -185,7 +185,7 @@ void IFSelect_ContextWrite::AddCheck(const Handle(Interface_Check)& check)
 
 //=================================================================================================
 
-void IFSelect_ContextWrite::AddWarning(const Handle(Standard_Transient)& start,
+void IFSelect_ContextWrite::AddWarning(const Handle(RefObject)& start,
                                        const Standard_CString            mess,
                                        const Standard_CString            orig)
 {
@@ -194,7 +194,7 @@ void IFSelect_ContextWrite::AddWarning(const Handle(Standard_Transient)& start,
 
 //=================================================================================================
 
-void IFSelect_ContextWrite::AddFail(const Handle(Standard_Transient)& start,
+void IFSelect_ContextWrite::AddFail(const Handle(RefObject)& start,
                                     const Standard_CString            mess,
                                     const Standard_CString            orig)
 {
@@ -213,7 +213,7 @@ Handle(Interface_Check) IFSelect_ContextWrite::CCheck(const Standard_Integer num
 
 //=================================================================================================
 
-Handle(Interface_Check) IFSelect_ContextWrite::CCheck(const Handle(Standard_Transient)& ent)
+Handle(Interface_Check) IFSelect_ContextWrite::CCheck(const Handle(RefObject)& ent)
 {
   Standard_Integer num = themodel->Number(ent);
   if (num == 0)

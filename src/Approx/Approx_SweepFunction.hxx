@@ -32,11 +32,11 @@
 class gp_Pnt;
 
 class Approx_SweepFunction;
-DEFINE_STANDARD_HANDLE(Approx_SweepFunction, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Approx_SweepFunction, RefObject)
 
 //! defined the function used by SweepApproximation to
 //! perform sweeping application.
-class Approx_SweepFunction : public Standard_Transient
+class Approx_SweepFunction : public RefObject
 {
 
 public:
@@ -150,7 +150,7 @@ public:
   //! Warning: Used only if <me> IsRational
   Standard_EXPORT virtual void GetMinimalWeight(TColStd_Array1OfReal& Weigths) const;
 
-  DEFINE_STANDARD_RTTIEXT(Approx_SweepFunction, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Approx_SweepFunction, RefObject)
 
 protected:
 private:

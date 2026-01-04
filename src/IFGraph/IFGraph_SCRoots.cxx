@@ -45,7 +45,7 @@ void IFGraph_SCRoots::Evaluate()
   G.ResetStatus();
   for (complist.Start(); complist.More(); complist.Next())
   {
-    Handle(Standard_Transient) ent = complist.FirstEntity();
+    Handle(RefObject) ent = complist.FirstEntity();
     Standard_Integer           num = G.EntityNumber(ent);
 #ifdef OCCT_DEBUG
     std::cout << "   Iteration,num=" << num << (G.IsPresent(num) ? " Pris" : " A prendre")

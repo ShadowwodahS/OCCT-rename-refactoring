@@ -20,7 +20,7 @@
 #include <Standard_DefineHandle.hxx>
 
 //! Represents initial set of parameters triangulation is built for.
-class Poly_TriangulationParameters : public Standard_Transient
+class Poly_TriangulationParameters : public RefObject
 {
 public:
   //! Constructor.
@@ -58,7 +58,7 @@ public:
   //! Returns minimum size or -1 if undefined.
   Standard_Real MinSize() const { return myMinSize; }
 
-  DEFINE_STANDARD_RTTIEXT(Poly_TriangulationParameters, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Poly_TriangulationParameters, RefObject)
 
 private:
   Standard_Real myDeflection;
@@ -66,6 +66,6 @@ private:
   Standard_Real myMinSize;
 };
 
-DEFINE_STANDARD_HANDLE(Poly_TriangulationParameters, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Poly_TriangulationParameters, RefObject)
 
 #endif

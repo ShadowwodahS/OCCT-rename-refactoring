@@ -21,7 +21,7 @@
 StepVisual_CurveStyleFontSelect::StepVisual_CurveStyleFontSelect() {}
 
 Standard_Integer StepVisual_CurveStyleFontSelect::CaseNum(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

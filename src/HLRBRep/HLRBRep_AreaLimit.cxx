@@ -18,7 +18,7 @@
 #include <HLRBRep_AreaLimit.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(HLRBRep_AreaLimit, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(HLRBRep_AreaLimit, RefObject)
 
 //=================================================================================================
 

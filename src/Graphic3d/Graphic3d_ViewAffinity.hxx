@@ -21,7 +21,7 @@
 #include <Standard_Type.hxx>
 
 //! Structure display state.
-class Graphic3d_ViewAffinity : public Standard_Transient
+class Graphic3d_ViewAffinity : public RefObject
 {
 public:
   //! Empty constructor.
@@ -61,9 +61,9 @@ private:
   unsigned int myMask; //!< affinity mask
 
 public:
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_ViewAffinity, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Graphic3d_ViewAffinity, RefObject)
 };
 
-DEFINE_STANDARD_HANDLE(Graphic3d_ViewAffinity, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Graphic3d_ViewAffinity, RefObject)
 
 #endif // _Graphic3d_ViewAffinity_HeaderFile

@@ -26,7 +26,7 @@ class gp_Pnt;
 class gp_Vec;
 
 class GeomFill_Boundary;
-DEFINE_STANDARD_HANDLE(GeomFill_Boundary, Standard_Transient)
+DEFINE_STANDARD_HANDLE(GeomFill_Boundary, RefObject)
 
 //! Root class to define a boundary  which will form part of a
 //! contour around a gap requiring filling.
@@ -36,7 +36,7 @@ DEFINE_STANDARD_HANDLE(GeomFill_Boundary, Standard_Transient)
 //! -   GeomFill_BoundWithSurf to define a boundary attached to a surface.
 //! These objects are used to define the boundaries for a
 //! GeomFill_ConstrainedFilling framework.
-class GeomFill_Boundary : public Standard_Transient
+class GeomFill_Boundary : public RefObject
 {
 
 public:
@@ -72,7 +72,7 @@ public:
 
   Standard_EXPORT void Tolang(const Standard_Real Tol);
 
-  DEFINE_STANDARD_RTTIEXT(GeomFill_Boundary, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(GeomFill_Boundary, RefObject)
 
 protected:
   Standard_EXPORT GeomFill_Boundary(const Standard_Real Tol3d, const Standard_Real Tolang);

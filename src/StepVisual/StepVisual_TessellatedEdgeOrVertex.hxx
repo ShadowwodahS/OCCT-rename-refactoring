@@ -23,7 +23,7 @@
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
 
-class Standard_Transient;
+class RefObject;
 class StepVisual_TessellatedEdge;
 class StepVisual_TessellatedVertex;
 
@@ -41,7 +41,7 @@ public:
   //! -- 1 -> TessellatedEdge
   //! -- 2 -> TessellatedVertex
   Standard_EXPORT Standard_Integer
-    CaseNum(const Handle(Standard_Transient)& ent) const Standard_OVERRIDE;
+    CaseNum(const Handle(RefObject)& ent) const Standard_OVERRIDE;
 
   //! Returns Value as TessellatedEdge (or Null if another type)
   Standard_EXPORT Handle(StepVisual_TessellatedEdge) TessellatedEdge() const;

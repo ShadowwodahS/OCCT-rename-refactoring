@@ -27,7 +27,7 @@
 #include <TopAbs_Orientation.hxx>
 
 class HLRAlgo_EdgesBlock;
-DEFINE_STANDARD_HANDLE(HLRAlgo_EdgesBlock, Standard_Transient)
+DEFINE_STANDARD_HANDLE(HLRAlgo_EdgesBlock, RefObject)
 
 //! An EdgesBlock is a set of Edges. It is used by the
 //! DataStructure to structure the Edges.
@@ -41,7 +41,7 @@ DEFINE_STANDARD_HANDLE(HLRAlgo_EdgesBlock, Standard_Transient)
 //! Internal
 //! Double
 //! IsoLine)
-class HLRAlgo_EdgesBlock : public Standard_Transient
+class HLRAlgo_EdgesBlock : public RefObject
 {
 
 public:
@@ -158,7 +158,7 @@ public:
 
   MinMaxIndices& MinMax() { return myMinMax; }
 
-  DEFINE_STANDARD_RTTIEXT(HLRAlgo_EdgesBlock, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(HLRAlgo_EdgesBlock, RefObject)
 
 protected:
   enum EMskFlags

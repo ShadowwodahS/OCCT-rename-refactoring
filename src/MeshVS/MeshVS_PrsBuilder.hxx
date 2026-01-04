@@ -29,11 +29,11 @@ class MeshVS_Mesh;
 class Select3D_SensitiveEntity;
 class SelectMgr_EntityOwner;
 
-DEFINE_STANDARD_HANDLE(MeshVS_PrsBuilder, Standard_Transient)
+DEFINE_STANDARD_HANDLE(MeshVS_PrsBuilder, RefObject)
 
 //! This class is parent for all builders using in MeshVS_Mesh.
 //! It provides base fields and methods all buildes need.
-class MeshVS_PrsBuilder : public Standard_Transient
+class MeshVS_PrsBuilder : public RefObject
 {
 public:
   //! Builds presentation of certain type of data.
@@ -103,7 +103,7 @@ public:
   //! Get presentation manager of builder
   Standard_EXPORT Handle(PrsMgr_PresentationManager) GetPresentationManager() const;
 
-  DEFINE_STANDARD_RTTIEXT(MeshVS_PrsBuilder, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(MeshVS_PrsBuilder, RefObject)
 
 protected:
   //! Constructor

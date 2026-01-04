@@ -27,7 +27,7 @@ class IFSelect_SelectionIterator;
 class TCollection_AsciiString;
 
 class IFSelect_Selection;
-DEFINE_STANDARD_HANDLE(IFSelect_Selection, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IFSelect_Selection, RefObject)
 
 //! A Selection allows to define a set of Interface Entities.
 //! Entities to be put on an output file should be identified in
@@ -38,7 +38,7 @@ DEFINE_STANDARD_HANDLE(IFSelect_Selection, Standard_Transient)
 //! Its input can be, either an Interface Model (the very source),
 //! or another-other Selection(s) or any other output.
 //! All list computations start from an input Graph (from IFGraph)
-class IFSelect_Selection : public Standard_Transient
+class IFSelect_Selection : public RefObject
 {
 
 public:
@@ -68,7 +68,7 @@ public:
   //! Specific to each class
   Standard_EXPORT virtual TCollection_AsciiString Label() const = 0;
 
-  DEFINE_STANDARD_RTTIEXT(IFSelect_Selection, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IFSelect_Selection, RefObject)
 
 protected:
   //! Returns True if RootResult guarantees uniqueness for each

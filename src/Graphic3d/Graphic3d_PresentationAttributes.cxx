@@ -17,7 +17,7 @@
 
 #include <Standard_Dump.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_PresentationAttributes, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_PresentationAttributes, RefObject)
 
 //=================================================================================================
 

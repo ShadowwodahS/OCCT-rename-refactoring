@@ -26,7 +26,7 @@
 #include <Standard_NotImplemented.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Adaptor3d_TopolTool, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Adaptor3d_TopolTool, RefObject)
 
 #define myInfinite Precision::Infinite()
 

@@ -34,7 +34,7 @@
 #include <IVtkTools_ShapeDataSource.hxx>
 #include <IVtkTools_ShapeObject.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IVtkDraw_HighlightAndSelectionPipeline, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(IVtkDraw_HighlightAndSelectionPipeline, RefObject)
 
 //=================================================================================================
 
@@ -42,7 +42,7 @@ IVtkDraw_HighlightAndSelectionPipeline::IVtkDraw_HighlightAndSelectionPipeline(
   const TopoDS_Shape&         theShape,
   const Standard_Integer      theShapeID,
   const Handle(Prs3d_Drawer)& theDrawerLink)
-    : Standard_Transient()
+    : RefObject()
 {
   /* ===========================
    *  Allocate involved filters

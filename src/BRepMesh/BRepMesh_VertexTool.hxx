@@ -23,7 +23,7 @@
 //! Describes data structure intended to keep mesh nodes
 //! defined in UV space and implements functionality
 //! providing their uniqueness regarding their position.
-class BRepMesh_VertexTool : public Standard_Transient
+class BRepMesh_VertexTool : public RefObject
 {
 public:
   //! Constructor.
@@ -134,7 +134,7 @@ public:
   //! Prints statistics.
   Standard_EXPORT void Statistics(Standard_OStream& theStream) const;
 
-  DEFINE_STANDARD_RTTIEXT(BRepMesh_VertexTool, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(BRepMesh_VertexTool, RefObject)
 
 private:
   //! Expands the given point according to specified tolerance.

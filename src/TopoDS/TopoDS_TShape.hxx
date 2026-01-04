@@ -51,7 +51,7 @@
 //! Users have no direct access to the classes derived
 //! from TShape.  They  handle them with   the classes
 //! derived from Shape.
-class TopoDS_TShape : public Standard_Transient
+class TopoDS_TShape : public RefObject
 {
 
 public:
@@ -139,7 +139,7 @@ public:
   friend class TopoDS_Iterator;
   friend class TopoDS_Builder;
 
-  DEFINE_STANDARD_RTTIEXT(TopoDS_TShape, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TopoDS_TShape, RefObject)
 
 protected:
   //! Constructs an empty TShape.
@@ -184,6 +184,6 @@ private:
   Standard_Integer   myFlags;
 };
 
-DEFINE_STANDARD_HANDLE(TopoDS_TShape, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TopoDS_TShape, RefObject)
 
 #endif // _TopoDS_TShape_HeaderFile

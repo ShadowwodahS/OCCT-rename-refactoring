@@ -22,7 +22,7 @@
 
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepDimTol_GeometricTolerance;
 class StepShape_PlusMinusTolerance;
 
@@ -39,7 +39,7 @@ public:
   //! 1 -> GeometricTolerance from StepDimTol
   //! 2 -> PlusMinusTolerance from StepShape
   //! 0 else
-  Standard_EXPORT Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! Returns Value as GeometricTolerance (or Null if another type)
   Standard_EXPORT Handle(StepDimTol_GeometricTolerance) GeometricTolerance() const;

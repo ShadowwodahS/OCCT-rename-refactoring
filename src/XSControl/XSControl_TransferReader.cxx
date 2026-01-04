@@ -49,7 +49,7 @@
 #include <Message.hxx>
 
 #include <stdio.h>
-IMPLEMENT_STANDARD_RTTIEXT(XSControl_TransferReader, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(XSControl_TransferReader, RefObject)
 
 //=================================================================================================
 
@@ -98,7 +98,7 @@ void XSControl_TransferReader::SetGraph(const Handle(Interface_HGraph)& graph)
 //=================================================================================================
 
 void XSControl_TransferReader::SetContext(const Standard_CString            name,
-                                          const Handle(Standard_Transient)& ctx)
+                                          const Handle(RefObject)& ctx)
 {
   myContext.Bind(name, ctx);
 }
@@ -107,7 +107,7 @@ void XSControl_TransferReader::SetContext(const Standard_CString            name
 
 Standard_Boolean XSControl_TransferReader::GetContext(const Standard_CString       name,
                                                       const Handle(Standard_Type)& type,
-                                                      Handle(Standard_Transient)&  ctx) const
+                                                      Handle(RefObject)&  ctx) const
 {
   if (myContext.IsEmpty())
     return Standard_False;
@@ -146,7 +146,7 @@ void XSControl_TransferReader::Clear(const Standard_Integer mode)
 
 //=================================================================================================
 
-Standard_Boolean XSControl_TransferReader::RecordResult(const Handle(Standard_Transient)& ent)
+Standard_Boolean XSControl_TransferReader::RecordResult(const Handle(RefObject)& ent)
 {
   if (myModel.IsNull() || myTP.IsNull())
     return Standard_False;
@@ -176,7 +176,7 @@ Standard_Boolean XSControl_TransferReader::RecordResult(const Handle(Standard_Tr
 
 //=================================================================================================
 
-Standard_Boolean XSControl_TransferReader::IsRecorded(const Handle(Standard_Transient)& ent) const
+Standard_Boolean XSControl_TransferReader::IsRecorded(const Handle(RefObject)& ent) const
 {
   if (myModel.IsNull())
     return Standard_False;
@@ -190,7 +190,7 @@ Standard_Boolean XSControl_TransferReader::IsRecorded(const Handle(Standard_Tran
 
 //=================================================================================================
 
-Standard_Boolean XSControl_TransferReader::HasResult(const Handle(Standard_Transient)& ent) const
+Standard_Boolean XSControl_TransferReader::HasResult(const Handle(RefObject)& ent) const
 {
   if (myModel.IsNull())
     return Standard_False;
@@ -224,7 +224,7 @@ Handle(TColStd_HSequenceOfTransient) XSControl_TransferReader::RecordedList() co
 
 //=================================================================================================
 
-Standard_Boolean XSControl_TransferReader::Skip(const Handle(Standard_Transient)& ent)
+Standard_Boolean XSControl_TransferReader::Skip(const Handle(RefObject)& ent)
 {
   if (myModel.IsNull() || myTP.IsNull())
     return Standard_False;
@@ -237,7 +237,7 @@ Standard_Boolean XSControl_TransferReader::Skip(const Handle(Standard_Transient)
 
 //=================================================================================================
 
-Standard_Boolean XSControl_TransferReader::IsSkipped(const Handle(Standard_Transient)& ent) const
+Standard_Boolean XSControl_TransferReader::IsSkipped(const Handle(RefObject)& ent) const
 {
   if (myModel.IsNull())
     return Standard_False;
@@ -251,7 +251,7 @@ Standard_Boolean XSControl_TransferReader::IsSkipped(const Handle(Standard_Trans
 
 //=================================================================================================
 
-Standard_Boolean XSControl_TransferReader::IsMarked(const Handle(Standard_Transient)& ent) const
+Standard_Boolean XSControl_TransferReader::IsMarked(const Handle(RefObject)& ent) const
 {
   if (myModel.IsNull())
     return Standard_False;
@@ -270,7 +270,7 @@ Standard_Boolean XSControl_TransferReader::IsMarked(const Handle(Standard_Transi
 //=================================================================================================
 
 Handle(Transfer_ResultFromModel) XSControl_TransferReader::FinalResult(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   Handle(Transfer_ResultFromModel) res;
   if (myModel.IsNull())
@@ -287,7 +287,7 @@ Handle(Transfer_ResultFromModel) XSControl_TransferReader::FinalResult(
 //=================================================================================================
 
 Standard_CString XSControl_TransferReader::FinalEntityLabel(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   Handle(Transfer_ResultFromModel) resu = FinalResult(ent);
   if (resu.IsNull())
@@ -298,7 +298,7 @@ Standard_CString XSControl_TransferReader::FinalEntityLabel(
 //=================================================================================================
 
 Standard_Integer XSControl_TransferReader::FinalEntityNumber(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   Handle(Transfer_ResultFromModel) resu = FinalResult(ent);
   if (resu.IsNull())
@@ -322,10 +322,10 @@ Handle(Transfer_ResultFromModel) XSControl_TransferReader::ResultFromNumber(
 
 //=================================================================================================
 
-Handle(Standard_Transient) XSControl_TransferReader::TransientResult(
-  const Handle(Standard_Transient)& ent) const
+Handle(RefObject) XSControl_TransferReader::TransientResult(
+  const Handle(RefObject)& ent) const
 {
-  Handle(Standard_Transient)       tres;
+  Handle(RefObject)       tres;
   Handle(Transfer_ResultFromModel) res = FinalResult(ent);
   if (res.IsNull())
     return tres;
@@ -342,7 +342,7 @@ Handle(Standard_Transient) XSControl_TransferReader::TransientResult(
 
 //=================================================================================================
 
-TopoDS_Shape XSControl_TransferReader::ShapeResult(const Handle(Standard_Transient)& ent) const
+TopoDS_Shape XSControl_TransferReader::ShapeResult(const Handle(RefObject)& ent) const
 {
   TopoDS_Shape                     tres; // DOIT RESTER NULL
   Handle(Transfer_ResultFromModel) res = FinalResult(ent);
@@ -364,7 +364,7 @@ TopoDS_Shape XSControl_TransferReader::ShapeResult(const Handle(Standard_Transie
 
 //=================================================================================================
 
-Standard_Boolean XSControl_TransferReader::ClearResult(const Handle(Standard_Transient)& ent,
+Standard_Boolean XSControl_TransferReader::ClearResult(const Handle(RefObject)& ent,
                                                        const Standard_Integer            mode)
 {
   if (myModel.IsNull())
@@ -392,11 +392,11 @@ Standard_Boolean XSControl_TransferReader::ClearResult(const Handle(Standard_Tra
 
 //=================================================================================================
 
-Handle(Standard_Transient) XSControl_TransferReader::EntityFromResult(
-  const Handle(Standard_Transient)& res,
+Handle(RefObject) XSControl_TransferReader::EntityFromResult(
+  const Handle(RefObject)& res,
   const Standard_Integer            mode) const
 {
-  Handle(Standard_Transient) nulh;
+  Handle(RefObject) nulh;
   //  cas de la shape
   XSControl_Utils xu;
   TopoDS_Shape    sh = xu.BinderShape(res);
@@ -468,11 +468,11 @@ Handle(Standard_Transient) XSControl_TransferReader::EntityFromResult(
 
 //=================================================================================================
 
-Handle(Standard_Transient) XSControl_TransferReader::EntityFromShapeResult(
+Handle(RefObject) XSControl_TransferReader::EntityFromShapeResult(
   const TopoDS_Shape&    res,
   const Standard_Integer mode) const
 {
-  Handle(Standard_Transient) nulh, samesh, partner;
+  Handle(RefObject) nulh, samesh, partner;
   if (res.IsNull())
     return nulh;
   Standard_Integer i, j, nb;
@@ -489,7 +489,7 @@ Handle(Standard_Transient) XSControl_TransferReader::EntityFromShapeResult(
         i = (mode == 0 ? myModel->Number(myTP->Root(j)) : j);
         if (i == 0)
           continue;
-        Handle(Standard_Transient) ent = myTP->Mapped(i);
+        Handle(RefObject) ent = myTP->Mapped(i);
         TopoDS_Shape               sh  = TransferBRep::ShapeResult(myTP, ent);
         if (!sh.IsNull())
         {
@@ -613,7 +613,7 @@ Handle(TColStd_HSequenceOfTransient) XSControl_TransferReader::EntitiesFromShape
 
 //=================================================================================================
 
-Interface_CheckIterator XSControl_TransferReader::CheckList(const Handle(Standard_Transient)& ent,
+Interface_CheckIterator XSControl_TransferReader::CheckList(const Handle(RefObject)& ent,
                                                             const Standard_Integer level) const
 {
   Interface_CheckIterator chl;
@@ -678,7 +678,7 @@ Interface_CheckIterator XSControl_TransferReader::CheckList(const Handle(Standar
 
 //=================================================================================================
 
-Standard_Boolean XSControl_TransferReader::HasChecks(const Handle(Standard_Transient)& ent,
+Standard_Boolean XSControl_TransferReader::HasChecks(const Handle(RefObject)& ent,
                                                      const Standard_Boolean failsonly) const
 {
   Handle(Transfer_ResultFromModel) resu = FinalResult(ent);
@@ -695,7 +695,7 @@ Standard_Boolean XSControl_TransferReader::HasChecks(const Handle(Standard_Trans
 //=================================================================================================
 
 Handle(TColStd_HSequenceOfTransient) XSControl_TransferReader::CheckedList(
-  const Handle(Standard_Transient)& ent,
+  const Handle(RefObject)& ent,
   const Interface_CheckStatus       withcheck,
   const Standard_Boolean            level) const
 {
@@ -755,7 +755,7 @@ Standard_Boolean XSControl_TransferReader::BeginTransfer()
   actor = Actor();
   myTP->SetActor(actor); // Set proprement dit
   myTP->SetErrorHandle(Standard_True);
-  NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)>& aTPContext =
+  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>& aTPContext =
     myTP->Context();
   aTPContext = myContext;
   return Standard_True;
@@ -763,7 +763,7 @@ Standard_Boolean XSControl_TransferReader::BeginTransfer()
 
 //=================================================================================================
 
-Standard_Boolean XSControl_TransferReader::Recognize(const Handle(Standard_Transient)& ent)
+Standard_Boolean XSControl_TransferReader::Recognize(const Handle(RefObject)& ent)
 {
   if (myActor.IsNull())
     return Standard_False;
@@ -772,7 +772,7 @@ Standard_Boolean XSControl_TransferReader::Recognize(const Handle(Standard_Trans
 
 //=================================================================================================
 
-Standard_Integer XSControl_TransferReader::TransferOne(const Handle(Standard_Transient)& ent,
+Standard_Integer XSControl_TransferReader::TransferOne(const Handle(RefObject)& ent,
                                                        const Standard_Boolean            rec,
                                                        const Message_ProgressRange& theProgress)
 {
@@ -814,7 +814,7 @@ Standard_Integer XSControl_TransferReader::TransferOne(const Handle(Standard_Tra
 
   //  seule difference entre TransferRoots et TransferOne
   Standard_Integer                  res = 0;
-  const Handle(Standard_Transient)& obj = ent;
+  const Handle(RefObject)& obj = ent;
   TP.Transfer(obj, theProgress);
   if (theProgress.UserBreak())
     return res;
@@ -880,7 +880,7 @@ Standard_Integer XSControl_TransferReader::TransferList(
   //  seule difference entre TransferRoots et TransferOne
   Standard_Integer res = 0;
   nb                   = list->Length();
-  Handle(Standard_Transient) obj;
+  Handle(RefObject) obj;
   Message_ProgressScope      aPS(theProgress, NULL, nb);
   for (i = 1; i <= nb && aPS.More(); i++)
   {
@@ -947,7 +947,7 @@ Standard_Integer XSControl_TransferReader::TransferRoots(const Interface_Graph& 
   Standard_Integer i, n = myTP->NbMapped();
   for (i = 1; i <= n; i++)
   {
-    Handle(Standard_Transient) ent = myTP->Mapped(i);
+    Handle(RefObject) ent = myTP->Mapped(i);
     Handle(Transfer_Binder)    bnd = myTP->MapItem(i);
     if (bnd.IsNull())
       continue;
@@ -964,7 +964,7 @@ Standard_Integer XSControl_TransferReader::TransferRoots(const Interface_Graph& 
 
 //=================================================================================================
 
-void XSControl_TransferReader::TransferClear(const Handle(Standard_Transient)& ent,
+void XSControl_TransferReader::TransferClear(const Handle(RefObject)& ent,
                                              const Standard_Integer            level)
 {
   if (myTP.IsNull())
@@ -1018,7 +1018,7 @@ void XSControl_TransferReader::PrintStats(Standard_OStream&      sout,
   sout << "****    Nb Recorded : " << nb << " : entities n0s : ";
   for (i = 1; i <= nb; i++)
   {
-    Handle(Standard_Transient) ent = list->Value(i);
+    Handle(RefObject) ent = list->Value(i);
     if (mode == 0)
     {
       sout << "  " << myModel->Number(ent);
@@ -1277,7 +1277,7 @@ void XSControl_TransferReader::PrintStatsOnList(const Handle(Transfer_TransientP
     {
       nbi++;
       const Handle(Transfer_Binder)&    binder = itrp.Value();
-      const Handle(Standard_Transient)& ent    = itrp.Starting();
+      const Handle(RefObject)& ent    = itrp.Starting();
       if (binder.IsNull())
       {
         nbnr++;

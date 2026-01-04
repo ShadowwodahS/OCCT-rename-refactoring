@@ -99,7 +99,7 @@ public:
   Standard_EXPORT void SetSelectMember(const Handle(StepData_SelectMember)& val);
 
   //! Sets an Entity Value
-  Standard_EXPORT void SetEntity(const Handle(Standard_Transient)& val);
+  Standard_EXPORT void SetEntity(const Handle(RefObject)& val);
 
   //! Predeclares a list as of entity
   Standard_EXPORT void SetEntity();
@@ -120,7 +120,7 @@ public:
   //! Sets an undetermined value : can be String, SelectMember,
   //! HArray(1-2) ... else, an Entity
   //! In case of an HArray, determines and records its size(s)
-  Standard_EXPORT void Set(const Handle(Standard_Transient)& val);
+  Standard_EXPORT void Set(const Handle(RefObject)& val);
 
   //! Declares an item of the list as undefined
   //! (ignored if list not defined as String,Entity or Any)
@@ -149,7 +149,7 @@ public:
 
   Standard_EXPORT void SetString(const Standard_Integer num, const Standard_CString val);
 
-  Standard_EXPORT void SetEntity(const Standard_Integer num, const Handle(Standard_Transient)& val);
+  Standard_EXPORT void SetEntity(const Standard_Integer num, const Handle(RefObject)& val);
 
   Standard_EXPORT Standard_Boolean IsSet(const Standard_Integer n1 = 1,
                                          const Standard_Integer n2 = 1) const;
@@ -194,17 +194,17 @@ public:
   Standard_EXPORT Standard_CString EnumText(const Standard_Integer n1 = 1,
                                             const Standard_Integer n2 = 1) const;
 
-  Standard_EXPORT Handle(Standard_Transient) Entity(const Standard_Integer n1 = 1,
+  Standard_EXPORT Handle(RefObject) Entity(const Standard_Integer n1 = 1,
                                                     const Standard_Integer n2 = 1) const;
 
-  Standard_EXPORT Handle(Standard_Transient) Transient() const;
+  Standard_EXPORT Handle(RefObject) Transient() const;
 
 protected:
 private:
   Standard_Integer           thekind;
   Standard_Integer           theint;
   Standard_Real              thereal;
-  Handle(Standard_Transient) theany;
+  Handle(RefObject) theany;
 };
 
 #endif // _StepData_Field_HeaderFile

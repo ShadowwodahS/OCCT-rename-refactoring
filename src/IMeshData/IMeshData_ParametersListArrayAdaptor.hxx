@@ -21,7 +21,7 @@
 //! Auxiliary tool representing adaptor interface for child classes of
 //! IMeshData_ParametersList to be used in tools working on NCollection_Array structure.
 template <class ParametersListPtrType>
-class IMeshData_ParametersListArrayAdaptor : public Standard_Transient
+class IMeshData_ParametersListArrayAdaptor : public RefObject
 {
 public:
   //! Constructor. Initializes tool by the given parameters.

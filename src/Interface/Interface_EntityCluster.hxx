@@ -25,7 +25,7 @@
 class Interface_EntityIterator;
 
 class Interface_EntityCluster;
-DEFINE_STANDARD_HANDLE(Interface_EntityCluster, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Interface_EntityCluster, RefObject)
 
 //! Auxiliary class for EntityList. An EntityList designates an
 //! EntityCluster, which brings itself an fixed maximum count of
@@ -37,7 +37,7 @@ DEFINE_STANDARD_HANDLE(Interface_EntityCluster, Standard_Transient)
 //! little count. It is designed for a light management.
 //! Remark that a new Item may not be Null, because this is the
 //! criterium used for "End of List"
-class Interface_EntityCluster : public Standard_Transient
+class Interface_EntityCluster : public RefObject
 {
 
 public:
@@ -45,7 +45,7 @@ public:
   Standard_EXPORT Interface_EntityCluster();
 
   //! Creates a non-chained EntityCluster, filled with one Entity
-  Standard_EXPORT Interface_EntityCluster(const Handle(Standard_Transient)& ent);
+  Standard_EXPORT Interface_EntityCluster(const Handle(RefObject)& ent);
 
   //! Creates an empty EntityCluster, chained with another one
   //! (that is, put BEFORE this other one in the list)
@@ -53,19 +53,19 @@ public:
 
   //! Creates an EntityCluster, filled with a first Entity, and
   //! chained to another EntityCluster (BEFORE it, as above)
-  Standard_EXPORT Interface_EntityCluster(const Handle(Standard_Transient)&      ant,
+  Standard_EXPORT Interface_EntityCluster(const Handle(RefObject)&      ant,
                                           const Handle(Interface_EntityCluster)& ec);
 
   //! Appends an Entity to the Cluster. If it is not full, adds the
   //! entity directly inside itself. Else, transmits to its Next
   //! and Creates it if it does not yet exist
-  Standard_EXPORT void Append(const Handle(Standard_Transient)& ent);
+  Standard_EXPORT void Append(const Handle(RefObject)& ent);
 
   //! Removes an Entity from the Cluster. If it is not found, calls
   //! its Next one to do so.
   //! Returns True if it becomes itself empty, False else
   //! (thus, a Cluster which becomes empty is deleted from the list)
-  Standard_EXPORT Standard_Boolean Remove(const Handle(Standard_Transient)& ent);
+  Standard_EXPORT Standard_Boolean Remove(const Handle(RefObject)& ent);
 
   //! Removes an Entity from the Cluster, given its rank. If <num>
   //! is greater than NbLocal, calls its Next with (num - NbLocal),
@@ -77,10 +77,10 @@ public:
 
   //! Returns the Entity identified by its rank in the list
   //! (including Next)
-  Standard_EXPORT const Handle(Standard_Transient)& Value(const Standard_Integer num) const;
+  Standard_EXPORT const Handle(RefObject)& Value(const Standard_Integer num) const;
 
   //! Changes an Entity given its rank.
-  Standard_EXPORT void SetValue(const Standard_Integer num, const Handle(Standard_Transient)& ent);
+  Standard_EXPORT void SetValue(const Standard_Integer num, const Handle(RefObject)& ent);
 
   //! Fills an Iterator with designated Entities (includes Next)
   Standard_EXPORT void FillIterator(Interface_EntityIterator& iter) const;
@@ -91,7 +91,7 @@ public:
 
   friend class Interface_EntityList;
 
-  DEFINE_STANDARD_RTTIEXT(Interface_EntityCluster, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Interface_EntityCluster, RefObject)
 
 protected:
 private:
@@ -109,7 +109,7 @@ private:
   //! Returns Next Cluster in the chain
   Standard_EXPORT Handle(Interface_EntityCluster) Next() const;
 
-  Handle(Standard_Transient)      theents[4];
+  Handle(RefObject)      theents[4];
   Handle(Interface_EntityCluster) thenext;
 };
 

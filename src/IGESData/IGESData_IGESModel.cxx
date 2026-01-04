@@ -571,7 +571,7 @@ void IGESData_IGESModel::ClearLabels() {}
 
 //=================================================================================================
 
-void IGESData_IGESModel::PrintLabel(const Handle(Standard_Transient)& ent,
+void IGESData_IGESModel::PrintLabel(const Handle(RefObject)& ent,
                                     Standard_OStream&                 S) const
 {
   DeclareAndCast(IGESData_IGESEntity, igesent, ent);
@@ -589,7 +589,7 @@ void IGESData_IGESModel::PrintLabel(const Handle(Standard_Transient)& ent,
 
 //=================================================================================================
 
-void IGESData_IGESModel::PrintToLog(const Handle(Standard_Transient)& ent,
+void IGESData_IGESModel::PrintToLog(const Handle(RefObject)& ent,
                                     Standard_OStream&                 S) const
 {
   DeclareAndCast(IGESData_IGESEntity, igesent, ent);
@@ -608,7 +608,7 @@ void IGESData_IGESModel::PrintToLog(const Handle(Standard_Transient)& ent,
 
 //=================================================================================================
 
-void IGESData_IGESModel::PrintInfo(const Handle(Standard_Transient)& ent, Standard_OStream& S) const
+void IGESData_IGESModel::PrintInfo(const Handle(RefObject)& ent, Standard_OStream& S) const
 {
   DeclareAndCast(IGESData_IGESEntity, igesent, ent);
   if (igesent.IsNull())
@@ -628,7 +628,7 @@ void IGESData_IGESModel::PrintInfo(const Handle(Standard_Transient)& ent, Standa
 //=================================================================================================
 
 Handle(TCollection_HAsciiString) IGESData_IGESModel::StringLabel(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   Handle(TCollection_HAsciiString) label;
   DeclareAndCast(IGESData_IGESEntity, igesent, ent);

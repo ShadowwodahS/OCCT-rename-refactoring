@@ -26,10 +26,10 @@ class TDF_Data;
 class TDF_Delta;
 
 class DDF_Transaction;
-DEFINE_STANDARD_HANDLE(DDF_Transaction, Standard_Transient)
+DEFINE_STANDARD_HANDLE(DDF_Transaction, RefObject)
 
 //! This class encapsulates TDF_Transaction.
-class DDF_Transaction : public Standard_Transient
+class DDF_Transaction : public RefObject
 {
 
 public:
@@ -69,7 +69,7 @@ public:
   //! Returns true if the transaction is open.
   Standard_EXPORT Standard_Boolean IsOpen() const;
 
-  DEFINE_STANDARD_RTTIEXT(DDF_Transaction, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(DDF_Transaction, RefObject)
 
 protected:
 private:

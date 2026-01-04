@@ -23,9 +23,9 @@
 #include <Standard_Transient.hxx>
 
 class Transfer_MapContainer;
-DEFINE_STANDARD_HANDLE(Transfer_MapContainer, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Transfer_MapContainer, RefObject)
 
-class Transfer_MapContainer : public Standard_Transient
+class Transfer_MapContainer : public RefObject
 {
 
 public:
@@ -37,7 +37,7 @@ public:
   //! Get map already translated geometry objects.
   Standard_EXPORT TColStd_DataMapOfTransientTransient& GetMapObjects();
 
-  DEFINE_STANDARD_RTTIEXT(Transfer_MapContainer, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Transfer_MapContainer, RefObject)
 
 protected:
 private:

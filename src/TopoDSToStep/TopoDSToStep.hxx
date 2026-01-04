@@ -29,7 +29,7 @@
 class TCollection_HAsciiString;
 class Transfer_FinderProcess;
 class TopoDS_Shape;
-class Standard_Transient;
+class RefObject;
 class TopoDSToStep_Tool;
 
 //! This package implements the mapping between CAS.CAD
@@ -71,7 +71,7 @@ public:
   //! shape stored in FinderProcess
   Standard_EXPORT static void AddResult(const Handle(Transfer_FinderProcess)& FP,
                                         const TopoDS_Shape&                   Shape,
-                                        const Handle(Standard_Transient)&     entity);
+                                        const Handle(RefObject)&     entity);
 
   //! Adds all entities recorded in Tool into the map of results
   //! (binders) stored in FinderProcess

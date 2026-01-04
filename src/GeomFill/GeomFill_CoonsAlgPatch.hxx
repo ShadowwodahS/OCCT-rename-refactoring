@@ -28,12 +28,12 @@ class Law_Function;
 class gp_Vec;
 
 class GeomFill_CoonsAlgPatch;
-DEFINE_STANDARD_HANDLE(GeomFill_CoonsAlgPatch, Standard_Transient)
+DEFINE_STANDARD_HANDLE(GeomFill_CoonsAlgPatch, RefObject)
 
 //! Provides  evaluation   methods on an   algorithmic
 //! patch (based on 4 Curves) defined by  its   boundaries and  blending
 //! functions.
-class GeomFill_CoonsAlgPatch : public Standard_Transient
+class GeomFill_CoonsAlgPatch : public RefObject
 {
 
 public:
@@ -75,7 +75,7 @@ public:
 
   Standard_EXPORT const Handle(Law_Function)& Func(const Standard_Integer I) const;
 
-  DEFINE_STANDARD_RTTIEXT(GeomFill_CoonsAlgPatch, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(GeomFill_CoonsAlgPatch, RefObject)
 
 protected:
 private:

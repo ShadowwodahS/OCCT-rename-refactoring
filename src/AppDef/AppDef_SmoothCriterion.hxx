@@ -31,10 +31,10 @@ class FEmTool_Curve;
 class math_Matrix;
 
 class AppDef_SmoothCriterion;
-DEFINE_STANDARD_HANDLE(AppDef_SmoothCriterion, Standard_Transient)
+DEFINE_STANDARD_HANDLE(AppDef_SmoothCriterion, RefObject)
 
 //! defined criterion to smooth  points in  curve
-class AppDef_SmoothCriterion : public Standard_Transient
+class AppDef_SmoothCriterion : public RefObject
 {
 
 public:
@@ -93,7 +93,7 @@ public:
 
   Standard_EXPORT virtual void SetWeight(const TColStd_Array1OfReal& Weight) = 0;
 
-  DEFINE_STANDARD_RTTIEXT(AppDef_SmoothCriterion, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(AppDef_SmoothCriterion, RefObject)
 
 protected:
 private:

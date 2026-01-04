@@ -20,7 +20,7 @@
 
 StepGeom_CurveOnSurface::StepGeom_CurveOnSurface() {}
 
-Standard_Integer StepGeom_CurveOnSurface::CaseNum(const Handle(Standard_Transient)& ent) const
+Standard_Integer StepGeom_CurveOnSurface::CaseNum(const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

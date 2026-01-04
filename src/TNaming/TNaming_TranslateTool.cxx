@@ -41,7 +41,7 @@
 #include <TopoDS.hxx>
 #include <TopoDS_Shape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TNaming_TranslateTool, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(TNaming_TranslateTool, RefObject)
 
 //=================================================================================================
 

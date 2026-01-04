@@ -29,9 +29,9 @@
 class Storage_BaseDriver;
 
 class Storage_TypeData;
-DEFINE_STANDARD_HANDLE(Storage_TypeData, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Storage_TypeData, RefObject)
 
-class Storage_TypeData : public Standard_Transient
+class Storage_TypeData : public RefObject
 {
 
 public:
@@ -65,7 +65,7 @@ public:
 
   friend class Storage_Schema;
 
-  DEFINE_STANDARD_RTTIEXT(Storage_TypeData, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Storage_TypeData, RefObject)
 
 protected:
 private:

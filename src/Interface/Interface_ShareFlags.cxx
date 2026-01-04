@@ -68,7 +68,7 @@ Interface_ShareFlags::Interface_ShareFlags(const Interface_Graph& agraph)
   for (Standard_Integer i = 1; i <= nb; i++)
   {
     //    Resultat obtenu depuis le Graph
-    Handle(Standard_Transient)           ent  = themodel->Value(i);
+    Handle(RefObject)           ent  = themodel->Value(i);
     Handle(TColStd_HSequenceOfTransient) list = agraph.GetSharings(ent);
 
     if (!list.IsNull() && list->Length() > 0)
@@ -92,7 +92,7 @@ void Interface_ShareFlags::Evaluate(const Interface_GeneralLib&    lib,
 
     //    ATTENTION : Si Entite non chargee donc illisible, basculer sur son
     //    "Contenu" equivalent
-    Handle(Standard_Transient) ent = themodel->Value(i);
+    Handle(RefObject) ent = themodel->Value(i);
     if (themodel->IsRedefinedContent(i))
       ent = themodel->ReportEntity(i)->Content();
 
@@ -130,7 +130,7 @@ Handle(Interface_InterfaceModel) Interface_ShareFlags::Model() const
   return themodel;
 }
 
-Standard_Boolean Interface_ShareFlags::IsShared(const Handle(Standard_Transient)& ent) const
+Standard_Boolean Interface_ShareFlags::IsShared(const Handle(RefObject)& ent) const
 {
   Standard_Integer num = themodel->Number(ent);
   if (num == 0 || num > themodel->NbEntities())
@@ -149,7 +149,7 @@ Standard_Integer Interface_ShareFlags::NbRoots() const
   return (theroots.IsNull() ? 0 : theroots->Length());
 }
 
-Handle(Standard_Transient) Interface_ShareFlags::Root(const Standard_Integer num) const
+Handle(RefObject) Interface_ShareFlags::Root(const Standard_Integer num) const
 {
   return theroots->Value(num);
 }

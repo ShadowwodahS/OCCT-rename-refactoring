@@ -20,7 +20,7 @@
 #include <Standard_Type.hxx>
 
 //! Interface class representing list of parameters on curve.
-class IMeshData_ParametersList : public Standard_Transient
+class IMeshData_ParametersList : public RefObject
 {
 public:
   //! Destructor.
@@ -35,7 +35,7 @@ public:
   //! Clears parameters list.
   Standard_EXPORT virtual void Clear(const Standard_Boolean isKeepEndPoints) = 0;
 
-  DEFINE_STANDARD_RTTIEXT(IMeshData_ParametersList, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IMeshData_ParametersList, RefObject)
 
 protected:
   //! Constructor.

@@ -18,7 +18,7 @@
 #include <StepBasic_GeneralProperty.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_GeneralProperty, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_GeneralProperty, RefObject)
 
 //=================================================================================================
 

@@ -508,7 +508,7 @@ Standard_Boolean STEPConstruct_Styles::LoadStyles()
   Handle(Standard_Type) tSR = STANDARD_TYPE(StepShape_ShapeRepresentation);
   for (Standard_Integer i = 1; i <= nb; i++)
   {
-    Handle(Standard_Transient) enti = model->Value(i);
+    Handle(RefObject) enti = model->Value(i);
     if (enti->DynamicType() == tMDGPR || enti->DynamicType() == tDM)
     {
       Handle(StepRepr_Representation) container = Handle(StepRepr_Representation)::DownCast(enti);
@@ -559,7 +559,7 @@ Standard_Boolean STEPConstruct_Styles::LoadInvisStyles(
   // search for invisibility
   for (Standard_Integer i = 1; i <= nb; i++)
   {
-    Handle(Standard_Transient) enti = model->Value(i);
+    Handle(RefObject) enti = model->Value(i);
     if (enti->DynamicType() != tInvisibility)
       continue;
     // search for styled items

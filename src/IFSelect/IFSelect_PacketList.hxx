@@ -28,7 +28,7 @@ class Interface_InterfaceModel;
 class Interface_EntityIterator;
 
 class IFSelect_PacketList;
-DEFINE_STANDARD_HANDLE(IFSelect_PacketList, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IFSelect_PacketList, RefObject)
 
 //! This class gives a simple way to return then consult a
 //! list of packets, determined from the content of a Model,
@@ -38,7 +38,7 @@ DEFINE_STANDARD_HANDLE(IFSelect_PacketList, Standard_Transient)
 //! given model, possibly more than one list knowing every entity,
 //! and to determine the remaining list (entities in no lists) and
 //! the duplications (with their count).
-class IFSelect_PacketList : public Standard_Transient
+class IFSelect_PacketList : public RefObject
 {
 
 public:
@@ -61,7 +61,7 @@ public:
   Standard_EXPORT void AddPacket();
 
   //! Adds an entity from the Model into the current packet for Add
-  Standard_EXPORT void Add(const Handle(Standard_Transient)& ent);
+  Standard_EXPORT void Add(const Handle(RefObject)& ent);
 
   //! Adds an list of entities into the current packet for Add
   Standard_EXPORT void AddList(const Handle(TColStd_HSequenceOfTransient)& list);
@@ -96,7 +96,7 @@ public:
   Standard_EXPORT Interface_EntityIterator Duplicated(const Standard_Integer count,
                                                       const Standard_Boolean andmore) const;
 
-  DEFINE_STANDARD_RTTIEXT(IFSelect_PacketList, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IFSelect_PacketList, RefObject)
 
 protected:
 private:

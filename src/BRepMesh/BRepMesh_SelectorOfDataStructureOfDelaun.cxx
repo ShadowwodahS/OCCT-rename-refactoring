@@ -18,7 +18,7 @@
 #include <BRepMesh_PairOfIndex.hxx>
 #include <BRepMesh_Edge.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_SelectorOfDataStructureOfDelaun, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_SelectorOfDataStructureOfDelaun, RefObject)
 
 //=================================================================================================
 

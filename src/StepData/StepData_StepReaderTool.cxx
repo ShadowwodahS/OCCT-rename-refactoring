@@ -41,9 +41,9 @@ StepData_StepReaderTool::StepData_StepReaderTool(const Handle(StepData_StepReade
 
 Standard_Boolean StepData_StepReaderTool::Recognize(const Standard_Integer      num,
                                                     Handle(Interface_Check)&    ach,
-                                                    Handle(Standard_Transient)& ent)
+                                                    Handle(RefObject)& ent)
 {
-  //  Handle(Standard_Transient) bid;  // pas exploite
+  //  Handle(RefObject) bid;  // pas exploite
   //  return thereco->Evaluate(thetypes.Value(num),bid);
 
   //  Recognizer : C est lui qui assure la Reconnaissance (-> Liste limitative)
@@ -110,7 +110,7 @@ void StepData_StepReaderTool::PrepareHeader(const Handle(StepData_FileRecognizer
   DeclareAndCast(StepData_StepReaderData, stepdat, Data());
   while ((i = stepdat->FindNextHeaderRecord(i)) != 0)
   {
-    Handle(Standard_Transient) ent;
+    Handle(RefObject) ent;
     //  On a donne un Recognizer : il fixe une liste limitative de types reconnus
     if (!reco.IsNull())
     {
@@ -150,7 +150,7 @@ void StepData_StepReaderTool::BeginRead(const Handle(Interface_InterfaceModel)& 
   Standard_Integer i = 0;
   while ((i = stepdat->FindNextHeaderRecord(i)) != 0)
   {
-    Handle(Standard_Transient) ent = stepdat->BoundEntity(i);
+    Handle(RefObject) ent = stepdat->BoundEntity(i);
     Handle(Interface_Check)    ach = new Interface_Check(ent);
     AnalyseRecord(i, ent, ach);
     if (ent->IsKind(STANDARD_TYPE(StepData_UndefinedEntity)))
@@ -196,7 +196,7 @@ void StepData_StepReaderTool::BeginRead(const Handle(Interface_InterfaceModel)& 
 //=================================================================================================
 
 Standard_Boolean StepData_StepReaderTool::AnalyseRecord(const Standard_Integer            num,
-                                                        const Handle(Standard_Transient)& anent,
+                                                        const Handle(RefObject)& anent,
                                                         Handle(Interface_Check)&          acheck)
 {
   DeclareAndCast(StepData_StepReaderData, stepdat, Data());

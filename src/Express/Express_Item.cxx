@@ -19,7 +19,7 @@
 #include <TCollection_AsciiString.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Express_Item, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Express_Item, RefObject)
 
 Standard_Integer Express_Item::myIndex = -1;
 

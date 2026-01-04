@@ -37,7 +37,7 @@
 StepAP214_DocumentReferenceItem::StepAP214_DocumentReferenceItem() {}
 
 Standard_Integer StepAP214_DocumentReferenceItem::CaseNum(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

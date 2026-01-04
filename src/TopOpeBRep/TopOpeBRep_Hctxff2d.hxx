@@ -21,9 +21,9 @@
 #include <GeomAbs_SurfaceType.hxx>
 #include <TopoDS_Face.hxx>
 
-DEFINE_STANDARD_HANDLE(TopOpeBRep_Hctxff2d, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TopOpeBRep_Hctxff2d, RefObject)
 
-class TopOpeBRep_Hctxff2d : public Standard_Transient
+class TopOpeBRep_Hctxff2d : public RefObject
 {
 
 public:
@@ -50,7 +50,7 @@ public:
 
   Standard_EXPORT Standard_Boolean FaceSameOrientedWithRef(const Standard_Integer I) const;
 
-  DEFINE_STANDARD_RTTIEXT(TopOpeBRep_Hctxff2d, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TopOpeBRep_Hctxff2d, RefObject)
 
 protected:
 private:

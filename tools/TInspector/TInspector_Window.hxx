@@ -87,7 +87,7 @@ public:
   //! parameters(e.g. AIS_InteractiveContext, TDocStd_Application) \param theAppend boolean state
   //! whether the parameters should be added to existing
   Standard_EXPORT void Init(const TCollection_AsciiString&                      thePluginName,
-                            const NCollection_List<Handle(Standard_Transient)>& theParameters,
+                            const NCollection_List<Handle(RefObject)>& theParameters,
                             const Standard_Boolean theAppend = Standard_False);
 
   //! Appends to container of parameters the given name, if the given parameter is active, cal
@@ -112,7 +112,7 @@ public:
 
   //! Sets objects to be selected in the plugin
   //! \param theObjects an objects
-  Standard_EXPORT void SetSelected(const NCollection_List<Handle(Standard_Transient)>& theObjects);
+  Standard_EXPORT void SetSelected(const NCollection_List<Handle(RefObject)>& theObjects);
 
   //! Sets open button. Stores into objectName for the button the name of the current plugin to know
   //! where the file should be applied \param theButton a button

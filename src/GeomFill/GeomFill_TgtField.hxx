@@ -26,11 +26,11 @@ class Law_BSpline;
 class gp_Vec;
 
 class GeomFill_TgtField;
-DEFINE_STANDARD_HANDLE(GeomFill_TgtField, Standard_Transient)
+DEFINE_STANDARD_HANDLE(GeomFill_TgtField, RefObject)
 
 //! Root class defining the methods we need to make an
 //! algorithmic tangents field.
-class GeomFill_TgtField : public Standard_Transient
+class GeomFill_TgtField : public RefObject
 {
 
 public:
@@ -50,7 +50,7 @@ public:
   //! tangency at parameter W.
   Standard_EXPORT virtual void D1(const Standard_Real W, gp_Vec& V, gp_Vec& DV) const = 0;
 
-  DEFINE_STANDARD_RTTIEXT(GeomFill_TgtField, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(GeomFill_TgtField, RefObject)
 
 protected:
 private:

@@ -20,7 +20,7 @@ IMPLEMENT_STANDARD_RTTIEXT(IFSelect_SelectType, IFSelect_SelectAnyType)
 
 IFSelect_SelectType::IFSelect_SelectType()
 {
-  thetype = STANDARD_TYPE(Standard_Transient);
+  thetype = STANDARD_TYPE(RefObject);
 }
 
 IFSelect_SelectType::IFSelect_SelectType(const Handle(Standard_Type)& atype)

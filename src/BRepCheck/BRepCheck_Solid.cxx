@@ -36,11 +36,11 @@ IMPLEMENT_STANDARD_RTTIEXT(BRepCheck_Solid, BRepCheck_Result)
 
 //
 class BRepCheck_HSC;
-DEFINE_STANDARD_HANDLE(BRepCheck_HSC, Standard_Transient)
+DEFINE_STANDARD_HANDLE(BRepCheck_HSC, RefObject)
 
 //=================================================================================================
 
-class BRepCheck_HSC : public Standard_Transient
+class BRepCheck_HSC : public RefObject
 {
 public:
   //
@@ -52,7 +52,7 @@ public:
   Standard_EXPORT BRepClass3d_SolidClassifier& SolidClassifier() { return mySC; };
 
   //
-  DEFINE_STANDARD_RTTI_INLINE(BRepCheck_HSC, Standard_Transient);
+  DEFINE_STANDARD_RTTI_INLINE(BRepCheck_HSC, RefObject);
 
 protected:
   BRepClass3d_SolidClassifier mySC;

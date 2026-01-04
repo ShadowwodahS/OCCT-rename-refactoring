@@ -18,7 +18,7 @@
 #include <SelectMgr_FrustumBuilder.hxx>
 #include <SelectMgr_ViewClipRange.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(SelectMgr_TriangularFrustum, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(SelectMgr_TriangularFrustum, RefObject)
 
 namespace
 {

@@ -26,7 +26,7 @@
 #include <Standard_Transient.hxx>
 
 class IntPatch_Line;
-DEFINE_STANDARD_HANDLE(IntPatch_Line, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IntPatch_Line, RefObject)
 
 //! Definition of an intersection line between two
 //! surfaces.
@@ -35,7 +35,7 @@ DEFINE_STANDARD_HANDLE(IntPatch_Line, Standard_Transient)
 //! or analytic, as defined in the class ALine, or defined
 //! by a set of points (coming from a walking algorithm) as
 //! defined in the class WLine.
-class IntPatch_Line : public Standard_Transient
+class IntPatch_Line : public RefObject
 {
 
 public:
@@ -108,7 +108,7 @@ public:
   //! on the second patch.
   Standard_Boolean IsVIsoOnS2() const;
 
-  DEFINE_STANDARD_RTTIEXT(IntPatch_Line, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IntPatch_Line, RefObject)
 
 protected:
   //! To initialize the fields, when the transitions

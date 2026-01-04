@@ -26,7 +26,7 @@
 #include <stack>
 
 //! Auxiliary tool providing API for manipulation with BRepMesh_DataStructureOfDelaun.
-class BRepMesh_MeshTool : public Standard_Transient
+class BRepMesh_MeshTool : public RefObject
 {
 public:
   //! Helper functor intended to separate points to left and right from the constraint.
@@ -157,7 +157,7 @@ public:
   Standard_EXPORT Handle(IMeshData::MapOfInteger) GetEdgesByType(
     const BRepMesh_DegreeOfFreedom theEdgeType) const;
 
-  DEFINE_STANDARD_RTTIEXT(BRepMesh_MeshTool, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(BRepMesh_MeshTool, RefObject)
 
 private:
   //! Returns True if the given point lies within circumcircle of the given triangle.

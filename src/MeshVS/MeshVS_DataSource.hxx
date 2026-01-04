@@ -33,7 +33,7 @@ class TColStd_HPackedMapOfInteger;
 class Bnd_Box2d;
 
 class MeshVS_DataSource;
-DEFINE_STANDARD_HANDLE(MeshVS_DataSource, Standard_Transient)
+DEFINE_STANDARD_HANDLE(MeshVS_DataSource, RefObject)
 
 //! The deferred class using for the following tasks:
 //! 1) Receiving geometry data about single element of node by its number;
@@ -46,7 +46,7 @@ DEFINE_STANDARD_HANDLE(MeshVS_DataSource, Standard_Transient)
 //! - one sensitive entity for the whole mesh and for each selection mode
 //! Receiving of IDs of detected entities (nodes and elements) in a viewer is achieved by
 //! implementation of a group of methods GetDetectedEntities.
-class MeshVS_DataSource : public Standard_Transient
+class MeshVS_DataSource : public RefObject
 {
 
 public:
@@ -221,7 +221,7 @@ public:
     Handle(TColStd_HPackedMapOfInteger)& Nodes,
     Handle(TColStd_HPackedMapOfInteger)& Elements);
 
-  DEFINE_STANDARD_RTTIEXT(MeshVS_DataSource, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(MeshVS_DataSource, RefObject)
 };
 
 #endif // _MeshVS_DataSource_HeaderFile

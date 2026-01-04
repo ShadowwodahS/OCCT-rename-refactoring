@@ -24,10 +24,10 @@
 #include <StepKinematics_ProductDefinitionRelationshipKinematics.hxx>
 
 DEFINE_STANDARD_HANDLE(StepKinematics_ContextDependentKinematicLinkRepresentation,
-                       Standard_Transient)
+                       RefObject)
 
 //! Representation of STEP entity ContextDependentKinematicLinkRepresentation
-class StepKinematics_ContextDependentKinematicLinkRepresentation : public Standard_Transient
+class StepKinematics_ContextDependentKinematicLinkRepresentation : public RefObject
 {
 public:
   //! default constructor
@@ -55,7 +55,7 @@ public:
       theRepresentedProductRelation);
 
   DEFINE_STANDARD_RTTIEXT(StepKinematics_ContextDependentKinematicLinkRepresentation,
-                          Standard_Transient)
+                          RefObject)
 
 private:
   Handle(StepKinematics_KinematicLinkRepresentationAssociation)  myRepresentationRelation;

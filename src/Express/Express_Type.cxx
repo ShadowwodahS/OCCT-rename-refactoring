@@ -15,7 +15,7 @@
 
 #include <Express_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Express_Type, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Express_Type, RefObject)
 
 //=================================================================================================
 

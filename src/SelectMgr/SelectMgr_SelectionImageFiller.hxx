@@ -23,7 +23,7 @@ class SelectMgr_ViewerSelector;
 
 //! Abstract class for filling pixel with color.
 //! This is internal tool for SelectMgr_ViewerSelector::ToPixMap().
-class SelectMgr_SelectionImageFiller : public Standard_Transient
+class SelectMgr_SelectionImageFiller : public RefObject
 {
 public:
   //! Create filler of specified type.

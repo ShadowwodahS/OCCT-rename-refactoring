@@ -35,9 +35,9 @@ class TopoDS_Edge;
 class TopoDS_Vertex;
 
 class LocOpe_WiresOnShape;
-DEFINE_STANDARD_HANDLE(LocOpe_WiresOnShape, Standard_Transient)
+DEFINE_STANDARD_HANDLE(LocOpe_WiresOnShape, RefObject)
 
-class LocOpe_WiresOnShape : public Standard_Transient
+class LocOpe_WiresOnShape : public RefObject
 {
 
 public:
@@ -105,7 +105,7 @@ public:
   //! tells is the face to be split by section or not
   Standard_Boolean IsFaceWithSection(const TopoDS_Shape& aFace) const;
 
-  DEFINE_STANDARD_RTTIEXT(LocOpe_WiresOnShape, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(LocOpe_WiresOnShape, RefObject)
 
 protected:
 private:

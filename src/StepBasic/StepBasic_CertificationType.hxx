@@ -24,10 +24,10 @@
 class TCollection_HAsciiString;
 
 class StepBasic_CertificationType;
-DEFINE_STANDARD_HANDLE(StepBasic_CertificationType, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_CertificationType, RefObject)
 
 //! Representation of STEP entity CertificationType
-class StepBasic_CertificationType : public Standard_Transient
+class StepBasic_CertificationType : public RefObject
 {
 
 public:
@@ -43,7 +43,7 @@ public:
   //! Set field Description
   Standard_EXPORT void SetDescription(const Handle(TCollection_HAsciiString)& Description);
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_CertificationType, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_CertificationType, RefObject)
 
 protected:
 private:

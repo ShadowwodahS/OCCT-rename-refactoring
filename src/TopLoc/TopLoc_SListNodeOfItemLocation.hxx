@@ -24,9 +24,9 @@
 #include <Standard_Transient.hxx>
 
 class TopLoc_SListNodeOfItemLocation;
-DEFINE_STANDARD_HANDLE(TopLoc_SListNodeOfItemLocation, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TopLoc_SListNodeOfItemLocation, RefObject)
 
-class TopLoc_SListNodeOfItemLocation : public Standard_Transient
+class TopLoc_SListNodeOfItemLocation : public RefObject
 {
 
 public:
@@ -37,7 +37,7 @@ public:
 
   TopLoc_ItemLocation& Value() const;
 
-  DEFINE_STANDARD_RTTIEXT(TopLoc_SListNodeOfItemLocation, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TopLoc_SListNodeOfItemLocation, RefObject)
 
 protected:
 private:

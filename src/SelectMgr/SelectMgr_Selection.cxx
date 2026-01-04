@@ -19,7 +19,7 @@
 #include <SelectMgr_EntityOwner.hxx>
 #include <Standard_NullObject.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(SelectMgr_Selection, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(SelectMgr_Selection, RefObject)
 
 //=================================================================================================
 

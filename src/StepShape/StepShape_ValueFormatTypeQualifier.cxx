@@ -15,7 +15,7 @@
 
 #include <StepShape_ValueFormatTypeQualifier.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepShape_ValueFormatTypeQualifier, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepShape_ValueFormatTypeQualifier, RefObject)
 
 //=================================================================================================
 

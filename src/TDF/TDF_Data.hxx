@@ -31,7 +31,7 @@ class TDF_Delta;
 class TDF_Label;
 
 class TDF_Data;
-DEFINE_STANDARD_HANDLE(TDF_Data, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TDF_Data, RefObject)
 
 //! This class is used to manipulate a complete independent,
 //! self sufficient data structure and its services:
@@ -44,7 +44,7 @@ DEFINE_STANDARD_HANDLE(TDF_Data, Standard_Transient)
 //! This class uses a special allocator
 //! (see LabelNodeAllocator() method)
 //! for more efficient allocation of objects in memory.
-class TDF_Data : public Standard_Transient
+class TDF_Data : public RefObject
 {
 
 public:
@@ -152,7 +152,7 @@ public:
   friend class TDF_Transaction;
   friend class TDF_LabelNode;
 
-  DEFINE_STANDARD_RTTIEXT(TDF_Data, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TDF_Data, RefObject)
 
 protected:
 private:

@@ -31,7 +31,7 @@ IGESSelect_SignLevelNumber::IGESSelect_SignLevelNumber(const Standard_Boolean co
 }
 
 Standard_CString IGESSelect_SignLevelNumber::Value(
-  const Handle(Standard_Transient)& ent,
+  const Handle(RefObject)& ent,
   const Handle(Interface_InterfaceModel)& /* model */) const
 {
   char carlev[20];

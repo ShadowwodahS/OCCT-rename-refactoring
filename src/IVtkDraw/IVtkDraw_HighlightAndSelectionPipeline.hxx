@@ -42,12 +42,12 @@ typedef NCollection_DataMap<IVtk_IdType, vtkSmartPointer<IVtkTools_SubPolyDataFi
 class Prs3d_Drawer;
 
 class IVtkDraw_HighlightAndSelectionPipeline;
-DEFINE_STANDARD_HANDLE(IVtkDraw_HighlightAndSelectionPipeline, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IVtkDraw_HighlightAndSelectionPipeline, RefObject)
 
-class IVtkDraw_HighlightAndSelectionPipeline : public Standard_Transient
+class IVtkDraw_HighlightAndSelectionPipeline : public RefObject
 {
 public:
-  DEFINE_STANDARD_RTTIEXT(IVtkDraw_HighlightAndSelectionPipeline, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IVtkDraw_HighlightAndSelectionPipeline, RefObject)
 
 public:
   //! Filters comprising the pipeline.

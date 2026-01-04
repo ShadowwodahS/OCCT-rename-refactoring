@@ -23,7 +23,7 @@
 #include <IFSelect_Signature.hxx>
 class XSControl_TransferReader;
 class Transfer_TransientProcess;
-class Standard_Transient;
+class RefObject;
 class Interface_InterfaceModel;
 
 class XSControl_SignTransferStatus;
@@ -73,7 +73,7 @@ public:
   //! Returns the Signature for a Transient object, as its transfer
   //! status
   Standard_EXPORT Standard_CString
-    Value(const Handle(Standard_Transient)&       ent,
+    Value(const Handle(RefObject)&       ent,
           const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(XSControl_SignTransferStatus, IFSelect_Signature)

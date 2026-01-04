@@ -29,7 +29,7 @@ inline Handle(StepRepr_NextAssemblyUsageOccurrence) STEPSelections_AssemblyLink:
 // purpose  :
 //=======================================================================
 
-inline Handle(Standard_Transient) STEPSelections_AssemblyLink::GetItem() const
+inline Handle(RefObject) STEPSelections_AssemblyLink::GetItem() const
 {
   return myItem;
 }
@@ -60,7 +60,7 @@ inline void STEPSelections_AssemblyLink::SetNAUO(
 // purpose  :
 //=======================================================================
 
-inline void STEPSelections_AssemblyLink::SetItem(const Handle(Standard_Transient)& item)
+inline void STEPSelections_AssemblyLink::SetItem(const Handle(RefObject)& item)
 {
   myItem = item;
 }

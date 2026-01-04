@@ -25,12 +25,12 @@
 class CDM_Document;
 
 class CDF_Directory;
-DEFINE_STANDARD_HANDLE(CDF_Directory, Standard_Transient)
+DEFINE_STANDARD_HANDLE(CDF_Directory, RefObject)
 
 //! A directory is a collection of documents. There is only one instance
 //! of a given document in a directory.
 //! put.
-class CDF_Directory : public Standard_Transient
+class CDF_Directory : public RefObject
 {
 
 public:
@@ -58,7 +58,7 @@ public:
 
   friend class CDF_DirectoryIterator;
 
-  DEFINE_STANDARD_RTTIEXT(CDF_Directory, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(CDF_Directory, RefObject)
 
 protected:
 private:

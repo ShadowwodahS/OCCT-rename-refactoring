@@ -236,7 +236,7 @@ void ShapeView_Window::UpdateContent()
   TCollection_AsciiString aName = "TKShapeView";
   if (myParameters->FindParameters(aName))
   {
-    NCollection_List<Handle(Standard_Transient)> aParameters = myParameters->Parameters(aName);
+    NCollection_List<Handle(RefObject)> aParameters = myParameters->Parameters(aName);
     // Init will remove from parameters those, that are processed only one time (TShape)
     Init(aParameters);
     myParameters->SetParameters(aName, aParameters);
@@ -253,17 +253,17 @@ void ShapeView_Window::UpdateContent()
     myParameters->SetFileNames(aName, aNames);
   }
   // make TopoDS_TShape selected if exist in select parameters
-  NCollection_List<Handle(Standard_Transient)> anObjects;
+  NCollection_List<Handle(RefObject)> anObjects;
   if (myParameters->GetSelectedObjects(aName, anObjects))
   {
     ShapeView_TreeModel* aModel          = dynamic_cast<ShapeView_TreeModel*>(myTreeView->model());
     QItemSelectionModel* aSelectionModel = myTreeView->selectionModel();
     aSelectionModel->clear();
-    for (NCollection_List<Handle(Standard_Transient)>::Iterator aParamsIt(anObjects);
+    for (NCollection_List<Handle(RefObject)>::Iterator aParamsIt(anObjects);
          aParamsIt.More();
          aParamsIt.Next())
     {
-      Handle(Standard_Transient) anObject      = aParamsIt.Value();
+      Handle(RefObject) anObject      = aParamsIt.Value();
       Handle(TopoDS_TShape)      aShapePointer = Handle(TopoDS_TShape)::DownCast(anObject);
       if (aShapePointer.IsNull())
         continue;
@@ -277,7 +277,7 @@ void ShapeView_Window::UpdateContent()
       aSelectionModel->select(aShapeIndex, QItemSelectionModel::Select);
       myTreeView->scrollTo(aShapeIndex);
     }
-    myParameters->SetSelected(aName, NCollection_List<Handle(Standard_Transient)>());
+    myParameters->SetSelected(aName, NCollection_List<Handle(RefObject)>());
   }
 }
 
@@ -285,10 +285,10 @@ void ShapeView_Window::UpdateContent()
 // function : Init
 // purpose :
 // =======================================================================
-void ShapeView_Window::Init(NCollection_List<Handle(Standard_Transient)>& theParameters)
+void ShapeView_Window::Init(NCollection_List<Handle(RefObject)>& theParameters)
 {
   Handle(AIS_InteractiveContext)               aContext;
-  NCollection_List<Handle(Standard_Transient)> aParameters;
+  NCollection_List<Handle(RefObject)> aParameters;
 
   TCollection_AsciiString                   aPluginName("TKShapeView");
   NCollection_List<TCollection_AsciiString> aSelectedParameters;
@@ -296,11 +296,11 @@ void ShapeView_Window::Init(NCollection_List<Handle(Standard_Transient)>& thePar
     aSelectedParameters = myParameters->GetSelectedNames(aPluginName);
 
   NCollection_List<TCollection_AsciiString>::Iterator aParamsIt(aSelectedParameters);
-  for (NCollection_List<Handle(Standard_Transient)>::Iterator anObjectsIt(theParameters);
+  for (NCollection_List<Handle(RefObject)>::Iterator anObjectsIt(theParameters);
        anObjectsIt.More();
        anObjectsIt.Next())
   {
-    Handle(Standard_Transient) anObject      = anObjectsIt.Value();
+    Handle(RefObject) anObject      = anObjectsIt.Value();
     Handle(TopoDS_TShape)      aShapePointer = Handle(TopoDS_TShape)::DownCast(anObject);
     if (!aShapePointer.IsNull())
     {

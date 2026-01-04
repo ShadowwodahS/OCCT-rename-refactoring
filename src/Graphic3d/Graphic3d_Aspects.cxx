@@ -14,7 +14,7 @@
 #include <Graphic3d_Aspects.hxx>
 #include <Standard_Dump.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_Aspects, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_Aspects, RefObject)
 
 //=================================================================================================
 

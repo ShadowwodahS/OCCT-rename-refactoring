@@ -21,7 +21,7 @@
 #include <Standard_Transient.hxx>
 #include <TDF_RelocationTable.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TDF_RelocationTable, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(TDF_RelocationTable, RefObject)
 
 //=================================================================================================
 
@@ -137,8 +137,8 @@ Standard_Boolean TDF_RelocationTable::HasRelocation(const Handle(TDF_Attribute)&
 //           to <aTargetTransient>.
 //=======================================================================
 
-void TDF_RelocationTable::SetTransientRelocation(const Handle(Standard_Transient)& aSourceTransient,
-                                                 const Handle(Standard_Transient)& aTargetTransient)
+void TDF_RelocationTable::SetTransientRelocation(const Handle(RefObject)& aSourceTransient,
+                                                 const Handle(RefObject)& aTargetTransient)
 {
   if (!myTransientTable.Contains(aSourceTransient))
     myTransientTable.Add(aSourceTransient, aTargetTransient);
@@ -151,8 +151,8 @@ void TDF_RelocationTable::SetTransientRelocation(const Handle(Standard_Transient
 //=======================================================================
 
 Standard_Boolean TDF_RelocationTable::HasTransientRelocation(
-  const Handle(Standard_Transient)& aSourceTransient,
-  Handle(Standard_Transient)&       aTargetTransient) const
+  const Handle(RefObject)& aSourceTransient,
+  Handle(RefObject)&       aTargetTransient) const
 {
   aTargetTransient.Nullify();
   if (myTransientTable.Contains(aSourceTransient))

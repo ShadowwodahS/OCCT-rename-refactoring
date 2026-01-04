@@ -20,7 +20,7 @@
 #include <Standard_Dump.hxx>
 #include <TopLoc_Datum3D.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TopLoc_Datum3D, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(TopLoc_Datum3D, RefObject)
 
 //=================================================================================================
 

@@ -19,7 +19,7 @@
 #include <Storage_StreamTypeMismatchError.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StdStorage_RootData, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StdStorage_RootData, RefObject)
 
 StdStorage_RootData::StdStorage_RootData()
     : myErrorStatus(Storage_VSOk)

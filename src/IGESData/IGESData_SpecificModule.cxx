@@ -15,7 +15,7 @@
 #include <IGESData_IGESEntity.hxx>
 #include <IGESData_SpecificModule.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESData_SpecificModule, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(IGESData_SpecificModule, RefObject)
 
 Standard_Boolean IGESData_SpecificModule::OwnCorrect(const Standard_Integer,
                                                      const Handle(IGESData_IGESEntity)&) const

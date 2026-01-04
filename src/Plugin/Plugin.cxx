@@ -30,7 +30,7 @@ static Standard_PCharacter thePluginId = tc;
 
 //=================================================================================================
 
-Handle(Standard_Transient) Plugin::Load(const Standard_GUID&   aGUID,
+Handle(RefObject) Plugin::Load(const Standard_GUID&   aGUID,
                                         const Standard_Boolean theVerbose)
 {
 
@@ -99,8 +99,8 @@ Handle(Standard_Transient) Plugin::Load(const Standard_GUID&   aGUID,
   else
     f = theMapOfFunctions(pid);
 
-  Standard_Transient* (*fp)(const Standard_GUID&) = NULL;
-  fp                                           = (Standard_Transient * (*)(const Standard_GUID&)) f;
-  Handle(Standard_Transient) theServiceFactory = (*fp)(aGUID);
+  RefObject* (*fp)(const Standard_GUID&) = NULL;
+  fp                                           = (RefObject * (*)(const Standard_GUID&)) f;
+  Handle(RefObject) theServiceFactory = (*fp)(aGUID);
   return theServiceFactory;
 }

@@ -41,7 +41,7 @@ public:
   Standard_EXPORT virtual void ImportAttribute();
 
 private:
-  struct dynamic : public Standard_Transient
+  struct dynamic : public RefObject
   {
     Handle(StdLPersistent_TreeNode) First;
     Standard_GUID                   TreeID;

@@ -27,7 +27,7 @@
 #include <Standard_Type.hxx>
 #include <TColStd_SequenceOfReal.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Approx_CurvlinFunc, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Approx_CurvlinFunc, RefObject)
 
 #ifdef OCCT_DEBUG_CHRONO
   #include <OSD_Timer.hxx>

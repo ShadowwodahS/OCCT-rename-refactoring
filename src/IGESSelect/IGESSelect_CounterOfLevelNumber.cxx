@@ -36,7 +36,7 @@ void IGESSelect_CounterOfLevelNumber::Clear()
   thehigh = thenblists = 0;
 }
 
-void IGESSelect_CounterOfLevelNumber::AddSign(const Handle(Standard_Transient)& ent,
+void IGESSelect_CounterOfLevelNumber::AddSign(const Handle(RefObject)& ent,
                                               const Handle(Interface_InterfaceModel)& /*model*/)
 {
   DeclareAndCast(IGESData_IGESEntity, igesent, ent);
@@ -62,7 +62,7 @@ void IGESSelect_CounterOfLevelNumber::AddSign(const Handle(Standard_Transient)& 
   }
 }
 
-void IGESSelect_CounterOfLevelNumber::AddLevel(const Handle(Standard_Transient)& ent,
+void IGESSelect_CounterOfLevelNumber::AddLevel(const Handle(RefObject)& ent,
                                                const Standard_Integer            level)
 {
   if (level < 0)
@@ -123,7 +123,7 @@ Handle(TColStd_HSequenceOfInteger) IGESSelect_CounterOfLevelNumber::Levels() con
 }
 
 Handle(TCollection_HAsciiString) IGESSelect_CounterOfLevelNumber::Sign(
-  const Handle(Standard_Transient)& ent,
+  const Handle(RefObject)& ent,
   const Handle(Interface_InterfaceModel)& /*model*/) const
 {
   Handle(TCollection_HAsciiString) res;

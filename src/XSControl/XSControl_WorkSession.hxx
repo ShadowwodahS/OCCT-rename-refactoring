@@ -36,7 +36,7 @@ class XSControl_WorkSession;
 DEFINE_STANDARD_HANDLE(XSControl_WorkSession, IFSelect_WorkSession)
 
 using XSControl_WorkSessionMap =
-  NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)>;
+  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>;
 
 //! This WorkSession completes the basic one, by adding :
 //! - use of Controller, with norm selection...
@@ -131,7 +131,7 @@ public:
   //! <mode> = 10,11,12 idem but returns the Binder itself
   //! (if it is not, e.g. Shape, returns the Binder)
   //! <mode> = 20, returns the ResultFromModel
-  Standard_EXPORT Handle(Standard_Transient) Result(const Handle(Standard_Transient)& theEnt,
+  Standard_EXPORT Handle(RefObject) Result(const Handle(RefObject)& theEnt,
                                                     const Standard_Integer theMode) const;
 
   //! Commands the transfer of, either one entity, or a list
@@ -143,7 +143,7 @@ public:
   //! - <ents> the Model : in this specific case, all the roots,
   //! with no cumulation of former transfers (TransferReadRoots)
   Standard_EXPORT Standard_Integer
-    TransferReadOne(const Handle(Standard_Transient)& theEnts,
+    TransferReadOne(const Handle(RefObject)& theEnts,
                     const Message_ProgressRange&      theProgress = Message_ProgressRange());
 
   //! Commands the transfer of all the root entities of the model

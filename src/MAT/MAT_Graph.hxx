@@ -31,11 +31,11 @@ class MAT_BasicElt;
 class MAT_Node;
 
 class MAT_Graph;
-DEFINE_STANDARD_HANDLE(MAT_Graph, Standard_Transient)
+DEFINE_STANDARD_HANDLE(MAT_Graph, RefObject)
 
 //! The Class Graph permits the exploration of the
 //! Bisector Locus.
-class MAT_Graph : public Standard_Transient
+class MAT_Graph : public RefObject
 {
 
 public:
@@ -108,7 +108,7 @@ public:
 
   Standard_EXPORT Handle(MAT_BasicElt) ChangeBasicElt(const Standard_Integer Index);
 
-  DEFINE_STANDARD_RTTIEXT(MAT_Graph, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(MAT_Graph, RefObject)
 
 protected:
 private:

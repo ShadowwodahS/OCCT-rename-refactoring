@@ -24,10 +24,10 @@ class StepRepr_ShapeAspect;
 class TCollection_HAsciiString;
 
 class StepShape_DimensionalSize;
-DEFINE_STANDARD_HANDLE(StepShape_DimensionalSize, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepShape_DimensionalSize, RefObject)
 
 //! Representation of STEP entity DimensionalSize
-class StepShape_DimensionalSize : public Standard_Transient
+class StepShape_DimensionalSize : public RefObject
 {
 
 public:
@@ -50,7 +50,7 @@ public:
   //! Set field Name
   Standard_EXPORT void SetName(const Handle(TCollection_HAsciiString)& Name);
 
-  DEFINE_STANDARD_RTTIEXT(StepShape_DimensionalSize, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepShape_DimensionalSize, RefObject)
 
 protected:
 private:

@@ -26,7 +26,7 @@ class Interface_EntityIterator;
 class IGESData_DirChecker;
 class Interface_ShareTool;
 class Interface_Check;
-class Standard_Transient;
+class RefObject;
 class Interface_CopyTool;
 
 class IGESData_DefaultGeneral;
@@ -63,7 +63,7 @@ public:
 
   //! Specific creation of a new void entity (UndefinedEntity only)
   Standard_EXPORT Standard_Boolean
-    NewVoid(const Standard_Integer CN, Handle(Standard_Transient)& entto) const Standard_OVERRIDE;
+    NewVoid(const Standard_Integer CN, Handle(RefObject)& entto) const Standard_OVERRIDE;
 
   //! Copies parameters which are specific of each Type of Entity
   Standard_EXPORT void OwnCopyCase(const Standard_Integer             CN,

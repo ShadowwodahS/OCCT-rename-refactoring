@@ -29,7 +29,7 @@ class XSControl_WorkSession;
 class XSControl_Controller;
 class Interface_Protocol;
 class Interface_InterfaceModel;
-class Standard_Transient;
+class RefObject;
 class Transfer_TransientProcess;
 class Transfer_FinderProcess;
 class XSControl_TransferReader;
@@ -136,16 +136,16 @@ public:
   //! Returns the entity n0 <num> of the Model of the Session
   //! (it is StartingEntity)
   //! Null Handle if <num> is not suitable
-  Standard_EXPORT static Handle(Standard_Transient) Entity(const Standard_Integer num);
+  Standard_EXPORT static Handle(RefObject) Entity(const Standard_Integer num);
 
   //! Returns the number of an entity in the Model (StartingNumber)
   //! 0 if <ent> unknown in the model, or null
-  Standard_EXPORT static Standard_Integer Number(const Handle(Standard_Transient)& ent);
+  Standard_EXPORT static Standard_Integer Number(const Handle(RefObject)& ent);
 
   //! Sets a TransferProcess in order to analyse it (see Activator)
   //! It can be either a FinderProcess or a TransientProcess, in
   //! that case a new TransferReader is created on it
-  Standard_EXPORT static void SetTransferProcess(const Handle(Standard_Transient)& TP);
+  Standard_EXPORT static void SetTransferProcess(const Handle(RefObject)& TP);
 
   //! Returns the TransferProcess : TransientProcess detained by
   //! the TransferReader
@@ -170,7 +170,7 @@ public:
   //! name can be a label or a number (in alphanumeric), it is
   //! searched by NumberFromLabel from WorkSession.
   //! If <name> doesn't match en entity, a Null Handle is returned
-  Standard_EXPORT static Handle(Standard_Transient) GetEntity(const Standard_CString name = "");
+  Standard_EXPORT static Handle(RefObject) GetEntity(const Standard_CString name = "");
 
   //! Same as GetEntity, but returns the number in the model of the
   //! entity. Returns 0 for null handle

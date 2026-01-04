@@ -28,7 +28,7 @@ StepElement_SurfaceElementPurpose::StepElement_SurfaceElementPurpose() {}
 //=================================================================================================
 
 Standard_Integer StepElement_SurfaceElementPurpose::CaseNum(
-  const Handle(Standard_Transient)& /*ent*/) const
+  const Handle(RefObject)& /*ent*/) const
 {
   return 0;
 }

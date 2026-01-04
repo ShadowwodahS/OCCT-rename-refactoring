@@ -29,7 +29,7 @@ class gp_Ax2d;
 class gp_Vec2d;
 
 class Geom2d_Transformation;
-DEFINE_STANDARD_HANDLE(Geom2d_Transformation, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Geom2d_Transformation, RefObject)
 
 //! The class Transformation allows to create Translation,
 //! Rotation, Symmetry, Scaling and complex transformations
@@ -63,7 +63,7 @@ DEFINE_STANDARD_HANDLE(Geom2d_Transformation, Standard_Transient)
 //! - Geom2d_Transformation transformations are
 //! used in a context where they can be shared by
 //! several objects contained inside a common data structure.
-class Geom2d_Transformation : public Standard_Transient
+class Geom2d_Transformation : public RefObject
 {
 
 public:
@@ -193,7 +193,7 @@ public:
   //! Creates a new object, which is a copy of this transformation.
   Standard_EXPORT Handle(Geom2d_Transformation) Copy() const;
 
-  DEFINE_STANDARD_RTTIEXT(Geom2d_Transformation, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Geom2d_Transformation, RefObject)
 
 protected:
 private:

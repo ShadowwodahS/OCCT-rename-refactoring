@@ -14,7 +14,7 @@
 #include <Standard_Type.hxx>
 #include <StepBasic_CoordinatedUniversalTimeOffset.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_CoordinatedUniversalTimeOffset, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_CoordinatedUniversalTimeOffset, RefObject)
 
 StepBasic_CoordinatedUniversalTimeOffset::StepBasic_CoordinatedUniversalTimeOffset() {}
 

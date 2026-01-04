@@ -22,7 +22,7 @@
 #include <Standard_Type.hxx>
 #include <TColStd_HSequenceOfInteger.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IFSelect_PacketList, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(IFSelect_PacketList, RefObject)
 
 IFSelect_PacketList::IFSelect_PacketList(const Handle(Interface_InterfaceModel)& model)
     : thedupls(0, model->NbEntities()),
@@ -69,7 +69,7 @@ void IFSelect_PacketList::AddPacket()
   thebegin = Standard_False;
 }
 
-void IFSelect_PacketList::Add(const Handle(Standard_Transient)& ent)
+void IFSelect_PacketList::Add(const Handle(RefObject)& ent)
 {
   Standard_Integer num = themodel->Number(ent);
   if (num == 0)

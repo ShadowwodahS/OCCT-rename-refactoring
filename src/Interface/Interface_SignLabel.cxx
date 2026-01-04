@@ -27,8 +27,8 @@ Standard_CString Interface_SignLabel::Name() const
   return "Entity Label";
 }
 
-TCollection_AsciiString Interface_SignLabel::Text(const Handle(Standard_Transient)& ent,
-                                                  const Handle(Standard_Transient)& context) const
+TCollection_AsciiString Interface_SignLabel::Text(const Handle(RefObject)& ent,
+                                                  const Handle(RefObject)& context) const
 {
   TCollection_AsciiString          atext;
   Handle(Interface_InterfaceModel) model = Handle(Interface_InterfaceModel)::DownCast(context);

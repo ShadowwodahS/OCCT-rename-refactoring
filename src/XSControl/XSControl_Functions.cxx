@@ -296,7 +296,7 @@ static IFSelect_ReturnStatus XSControl_tpent(const Handle(IFSelect_SessionPilot)
     sout << "Number not in [1 - " << model->NbEntities() << "]" << std::endl;
     return IFSelect_RetError;
   }
-  Handle(Standard_Transient) ent   = model->Value(num);
+  Handle(RefObject) ent   = model->Value(num);
   Standard_Integer           index = TP->MapIndex(ent);
   if (index == 0)
     sout << "Entity " << num << "  not recorded in transfer" << std::endl;
@@ -327,7 +327,7 @@ static IFSelect_ReturnStatus XSControl_tpitem(const Handle(IFSelect_SessionPilot
     modew = Standard_True;
   Handle(Transfer_Binder)    binder;
   Handle(Transfer_Finder)    finder;
-  Handle(Standard_Transient) ent;
+  Handle(RefObject) ent;
   if (!XSControl::Session(pilot)->PrintTransferStatus(num, modew, sout))
   {
     sout << " - Num=" << num << " incorrect" << std::endl;
@@ -349,7 +349,7 @@ static IFSelect_ReturnStatus XSControl_trecord(const Handle(IFSelect_SessionPilo
   Standard_Integer                        num  = -1;
   const Handle(Interface_InterfaceModel)& mdl  = XSControl::Session(pilot)->Model();
   const Handle(XSControl_TransferReader)& TR   = XSControl::Session(pilot)->TransferReader();
-  Handle(Standard_Transient)              ent;
+  Handle(RefObject)              ent;
   Message_Messenger::StreamBuffer         sout = Message::SendInfo();
   if (mdl.IsNull() || TR.IsNull() || TP.IsNull())
   {
@@ -420,7 +420,7 @@ static IFSelect_ReturnStatus XSControl_trstat(const Handle(IFSelect_SessionPilot
       sout << " incorrect number:" << arg1 << std::endl;
       return IFSelect_RetError;
     }
-    Handle(Standard_Transient) ent = mdl->Value(num);
+    Handle(RefObject) ent = mdl->Value(num);
     if (!TR->IsRecorded(ent))
     {
       sout << " Entity " << num << " not recorded" << std::endl;
@@ -500,7 +500,7 @@ static IFSelect_ReturnStatus XSControl_tread(const Handle(IFSelect_SessionPilot)
   if (argc < 2)
   {
     //      DeclareAndCast(IFSelect_Selection,sel,pilot->Session()->NamedItem("xst-model-roots"));
-    Handle(Standard_Transient) sel = pilot->Session()->NamedItem("xst-model-roots");
+    Handle(RefObject) sel = pilot->Session()->NamedItem("xst-model-roots");
     if (sel.IsNull())
     {
       sout << "Select Roots absent" << std::endl;

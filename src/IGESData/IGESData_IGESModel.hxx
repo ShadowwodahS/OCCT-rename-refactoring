@@ -22,7 +22,7 @@
 
 class IGESData_IGESEntity;
 class Interface_Check;
-class Standard_Transient;
+class RefObject;
 class TCollection_HAsciiString;
 
 class IGESData_IGESModel;
@@ -136,23 +136,23 @@ public:
 
   //! Prints label specific to IGES norm for a given entity, i.e.
   //! its directory entry number (2*Number-1)
-  Standard_EXPORT void PrintLabel(const Handle(Standard_Transient)& ent,
+  Standard_EXPORT void PrintLabel(const Handle(RefObject)& ent,
                                   Standard_OStream&                 S) const Standard_OVERRIDE;
 
   //! Prints label specific to IGES norm  for a given -- --
   //! entity,  i.e.  its directory entry number (2*Number-1)
   //! in the log file format.
-  Standard_EXPORT virtual void PrintToLog(const Handle(Standard_Transient)& ent,
+  Standard_EXPORT virtual void PrintToLog(const Handle(RefObject)& ent,
                                           Standard_OStream& S) const Standard_OVERRIDE;
 
   //! Prints label specific to IGES norm for a given entity, i.e.
   //! its directory entry number (2*Number-1)
-  Standard_EXPORT void PrintInfo(const Handle(Standard_Transient)& ent, Standard_OStream& S) const;
+  Standard_EXPORT void PrintInfo(const Handle(RefObject)& ent, Standard_OStream& S) const;
 
   //! Returns a string with the label attached to a given entity,
   //! i.e. a string "Dnn" with nn = directory entry number (2*N-1)
   Standard_EXPORT Handle(TCollection_HAsciiString) StringLabel(
-    const Handle(Standard_Transient)& ent) const Standard_OVERRIDE;
+    const Handle(RefObject)& ent) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IGESData_IGESModel, Interface_InterfaceModel)
 

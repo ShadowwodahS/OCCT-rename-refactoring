@@ -34,7 +34,7 @@ class SelectMgr_ViewClipRange;
 //! selection. It contains signatures of functions for detection of
 //! overlap by sensitive entity and initializes some data for building
 //! the selecting intersector
-class SelectMgr_BaseIntersector : public Standard_Transient
+class SelectMgr_BaseIntersector : public RefObject
 {
 public:
   //! Creates new empty selecting volume
@@ -287,7 +287,7 @@ public:
                                                                  const Standard_Boolean theIsFilled,
                                                                  Standard_Real& theTime) const;
 
-  DEFINE_STANDARD_RTTIEXT(SelectMgr_BaseIntersector, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(SelectMgr_BaseIntersector, RefObject)
 
 protected:
   // clang-format off

@@ -19,8 +19,8 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(Interface_SignType, MoniTool_SignText)
 
-TCollection_AsciiString Interface_SignType::Text(const Handle(Standard_Transient)& ent,
-                                                 const Handle(Standard_Transient)& context) const
+TCollection_AsciiString Interface_SignType::Text(const Handle(RefObject)& ent,
+                                                 const Handle(RefObject)& context) const
 {
   TCollection_AsciiString          atext;
   Handle(Interface_InterfaceModel) model = Handle(Interface_InterfaceModel)::DownCast(context);

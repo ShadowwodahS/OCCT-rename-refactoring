@@ -26,10 +26,10 @@
 #include <Standard_Type.hxx>
 
 class HLRAlgo_PolyInternalData;
-DEFINE_STANDARD_HANDLE(HLRAlgo_PolyInternalData, Standard_Transient)
+DEFINE_STANDARD_HANDLE(HLRAlgo_PolyInternalData, RefObject)
 
 //! to Update OutLines.
-class HLRAlgo_PolyInternalData : public Standard_Transient
+class HLRAlgo_PolyInternalData : public RefObject
 {
 
 public:
@@ -94,7 +94,7 @@ public:
 
   HLRAlgo_Array1OfPINod& PINod() const;
 
-  DEFINE_STANDARD_RTTIEXT(HLRAlgo_PolyInternalData, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(HLRAlgo_PolyInternalData, RefObject)
 
 private:
   Standard_Integer               myNbTData;

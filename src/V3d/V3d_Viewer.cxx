@@ -31,7 +31,7 @@
 #include <V3d_RectangularGrid.hxx>
 #include <V3d_View.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(V3d_Viewer, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(V3d_Viewer, RefObject)
 
 //=================================================================================================
 

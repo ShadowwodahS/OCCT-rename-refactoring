@@ -585,7 +585,7 @@ Standard_Boolean STEPCAFControl_Reader::Transfer(STEPControl_Reader&            
 
   for (i = 1; i <= nb; i++)
   {
-    Handle(Standard_Transient) enti = aModel->Value(i);
+    Handle(RefObject) enti = aModel->Value(i);
     if (enti->IsKind(STANDARD_TYPE(StepRepr_ProductDefinitionShape)))
     {
       // sequence for acceleration ReadMaterials
@@ -1050,7 +1050,7 @@ static void SetAssemblyComponentStyle(
   Interface_EntityIterator                         aSubs = theTP->Graph().Sharings(aRepr);
   for (aSubs.Start(); aSubs.More(); aSubs.Next())
   {
-    const Handle(Standard_Transient)& aSubsVal = aSubs.Value();
+    const Handle(RefObject)& aSubsVal = aSubs.Value();
     if (aSubsVal->IsKind(STANDARD_TYPE(StepRepr_ShapeRepresentationRelationship)))
     {
       // NB: C cast is used instead of DownCast() to improve performance on some cases.
@@ -1353,7 +1353,7 @@ static Standard_Boolean IsOverriden(const Interface_Graph&               theGrap
         return Standard_True;
       }
       // for root style returns true only if it is overridden by other root style
-      const Handle(Standard_Transient) anItem = anOverRidingStyle->ItemAP242().Value();
+      const Handle(RefObject) anItem = anOverRidingStyle->ItemAP242().Value();
       if (!anItem.IsNull() && anItem->IsKind(STANDARD_TYPE(StepShape_ShapeRepresentation)))
       {
         return Standard_True;
@@ -1525,7 +1525,7 @@ Standard_Boolean STEPCAFControl_Reader::ReadNames(
   TDF_Label                        L;
   for (Standard_Integer i = 1; i <= nb; i++)
   {
-    Handle(Standard_Transient) enti = Model->Value(i);
+    Handle(RefObject) enti = Model->Value(i);
 
     // get description of NAUO
     if (enti->DynamicType() == tNAUO)
@@ -1809,7 +1809,7 @@ Standard_Boolean STEPCAFControl_Reader::ReadLayers(const Handle(XSControl_WorkSe
 
   for (Standard_Integer i = 1; i <= nb; i++)
   {
-    Handle(Standard_Transient) enti = Model->Value(i);
+    Handle(RefObject) enti = Model->Value(i);
     if (!enti->IsKind(tSVPLA))
       continue;
     Handle(StepVisual_PresentationLayerAssignment) SVPLA =
@@ -2255,7 +2255,7 @@ Handle(Poly_Triangulation) createMesh(
 // purpose  : read polyline or tessellated presentation for
 // (Annotation_Curve_Occurrence or Draughting_Callout)
 //=======================================================================
-Standard_Boolean readPMIPresentation(const Handle(Standard_Transient)&       thePresentEntity,
+Standard_Boolean readPMIPresentation(const Handle(RefObject)&       thePresentEntity,
                                      const Handle(XSControl_TransferReader)& theTR,
                                      const Standard_Real                     theFact,
                                      TopoDS_Shape&                           thePresentation,
@@ -2482,8 +2482,8 @@ Standard_Boolean readAnnotationPlane(const Handle(StepVisual_AnnotationPlane)& t
 // (Dimension, Geometric_Tolerance, Datum_Feature or Placed_Datum_Target_Feature)
 //=======================================================================
 void readAnnotation(const Handle(XSControl_TransferReader)& theTR,
-                    const Handle(Standard_Transient)&       theGDT,
-                    const Handle(Standard_Transient)&       theDimObject,
+                    const Handle(RefObject)&       theGDT,
+                    const Handle(RefObject)&       theDimObject,
                     const StepData_Factors&                 theLocalFactors)
 {
   if (theGDT.IsNull() || theDimObject.IsNull())
@@ -2611,7 +2611,7 @@ void readAnnotation(const Handle(XSControl_TransferReader)& theTR,
 // purpose  : read connection points for given dimension
 //=======================================================================
 void readConnectionPoints(const Handle(XSControl_TransferReader)&          theTR,
-                          const Handle(Standard_Transient)&                theGDT,
+                          const Handle(RefObject)&                theGDT,
                           const Handle(XCAFDimTolObjects_DimensionObject)& theDimObject,
                           const StepData_Factors&                          theLocalFactors)
 {
@@ -2626,7 +2626,7 @@ void readConnectionPoints(const Handle(XSControl_TransferReader)&          theTR
   for (Interface_EntityIterator anIt = aGraph.Sharings(theGDT); aSDR.IsNull() && anIt.More();
        anIt.Next())
   {
-    const Handle(Standard_Transient)&                         anEnt = anIt.Value();
+    const Handle(RefObject)&                         anEnt = anIt.Value();
     Handle(StepShape_DimensionalCharacteristicRepresentation) aDCR =
       Handle(StepShape_DimensionalCharacteristicRepresentation)::DownCast(anEnt);
     if (!aDCR.IsNull())
@@ -2861,7 +2861,7 @@ static Standard_Boolean ReadDatums(
 // function : FindShapeIndexForDGT
 // purpose  : auxiliary find shape index in map og imported shapes
 //=======================================================================
-static Standard_Integer FindShapeIndexForDGT(const Handle(Standard_Transient)&    theEnt,
+static Standard_Integer FindShapeIndexForDGT(const Handle(RefObject)&    theEnt,
                                              const Handle(XSControl_WorkSession)& theWS)
 {
   const Handle(Transfer_TransientProcess)& aTP = theWS->TransferReader()->TransientProcess();
@@ -3251,7 +3251,7 @@ Standard_Boolean STEPCAFControl_Reader::setDatumToXCAF(
 
 //=================================================================================================
 
-Standard_Boolean STEPCAFControl_Reader::readDatumsAP242(const Handle(Standard_Transient)& theEnt,
+Standard_Boolean STEPCAFControl_Reader::readDatumsAP242(const Handle(RefObject)& theEnt,
                                                         const TDF_Label                   theGDTL,
                                                         const Handle(TDocStd_Document)&   theDoc,
                                                         const Handle(XSControl_WorkSession)& theWS,
@@ -3264,7 +3264,7 @@ Standard_Boolean STEPCAFControl_Reader::readDatumsAP242(const Handle(Standard_Tr
   Interface_EntityIterator anIter = aGraph.Shareds(theEnt);
   for (anIter.Start(); anIter.More(); anIter.Next())
   {
-    const Handle(Standard_Transient)& anAtr = anIter.Value();
+    const Handle(RefObject)& anAtr = anIter.Value();
     if (anAtr->IsKind(STANDARD_TYPE(StepDimTol_DatumSystem)))
     {
       Standard_Integer               aPositionCounter = 0; // position on frame
@@ -3272,7 +3272,7 @@ Standard_Boolean STEPCAFControl_Reader::readDatumsAP242(const Handle(Standard_Tr
       Interface_EntityIterator       anIterDS = aGraph.Sharings(aDS);
       for (anIterDS.Start(); anIterDS.More(); anIterDS.Next())
       {
-        const Handle(Standard_Transient)& anAtrDS = anIterDS.Value();
+        const Handle(RefObject)& anAtrDS = anIterDS.Value();
         if (anAtrDS->IsKind(STANDARD_TYPE(StepAP242_GeometricItemSpecificUsage)))
         {
           // get axis
@@ -3443,7 +3443,7 @@ Standard_Boolean STEPCAFControl_Reader::readDatumsAP242(const Handle(Standard_Tr
 
 //=================================================================================================
 
-TDF_Label STEPCAFControl_Reader::createGDTObjectInXCAF(const Handle(Standard_Transient)&    theEnt,
+TDF_Label STEPCAFControl_Reader::createGDTObjectInXCAF(const Handle(RefObject)&    theEnt,
                                                        const Handle(TDocStd_Document)&      theDoc,
                                                        const Handle(XSControl_WorkSession)& theWS,
                                                        const StepData_Factors& theLocalFactors)
@@ -3492,13 +3492,13 @@ TDF_Label STEPCAFControl_Reader::createGDTObjectInXCAF(const Handle(Standard_Tra
   Standard_Boolean                         isAllOver   = Standard_False;
 
   // find RepresentationItem for current Ent
-  NCollection_Sequence<Handle(Standard_Transient)> aSeqRI1, aSeqRI2;
+  NCollection_Sequence<Handle(RefObject)> aSeqRI1, aSeqRI2;
 
   // Collect all Shape_Aspect entities
   Interface_EntityIterator anIter = aGraph.Shareds(theEnt);
   for (anIter.Start(); anIter.More(); anIter.Next())
   {
-    const Handle(Standard_Transient)&                  anAtr = anIter.Value();
+    const Handle(RefObject)&                  anAtr = anIter.Value();
     NCollection_Sequence<Handle(StepRepr_ShapeAspect)> aSAs;
     if (anAtr->IsKind(STANDARD_TYPE(StepRepr_ProductDefinitionShape)))
     {
@@ -3506,14 +3506,14 @@ TDF_Label STEPCAFControl_Reader::createGDTObjectInXCAF(const Handle(Standard_Tra
       Interface_EntityIterator anIterSDR = aGraph.Sharings(anAtr);
       for (anIterSDR.Start(); anIterSDR.More(); anIterSDR.Next())
       {
-        const Handle(Standard_Transient)& anAtrSDR = anIterSDR.Value();
+        const Handle(RefObject)& anAtrSDR = anIterSDR.Value();
         if (anAtrSDR->IsKind(STANDARD_TYPE(StepShape_ShapeDefinitionRepresentation)))
         {
           isAllOver                           = Standard_True;
           Interface_EntityIterator anIterABSR = aGraph.Shareds(anAtrSDR);
           for (anIterABSR.Start(); anIterABSR.More(); anIterABSR.Next())
           {
-            const Handle(Standard_Transient)& anAtrABSR = anIterABSR.Value();
+            const Handle(RefObject)& anAtrABSR = anIterABSR.Value();
             if (anAtrABSR->IsKind(STANDARD_TYPE(StepShape_AdvancedBrepShapeRepresentation)))
             {
               aSeqRI1.Append(anAtrABSR);
@@ -3556,7 +3556,7 @@ TDF_Label STEPCAFControl_Reader::createGDTObjectInXCAF(const Handle(Standard_Tra
     if (!aSAs.IsEmpty())
     {
       // get representation items
-      NCollection_Sequence<Handle(Standard_Transient)> aSeqRI;
+      NCollection_Sequence<Handle(RefObject)> aSeqRI;
       for (Standard_Integer i = aSAs.Lower(); i <= aSAs.Upper(); i++)
       {
         Interface_EntityIterator                     anIterSA = aGraph.Sharings(aSAs.Value(i));
@@ -3984,7 +3984,7 @@ void convertAngleValue(const STEPConstruct_UnitContext& anUnitCtx, Standard_Real
 
 //=================================================================================================
 
-static void setDimObjectToXCAF(const Handle(Standard_Transient)&    theEnt,
+static void setDimObjectToXCAF(const Handle(RefObject)&    theEnt,
                                const TDF_Label&                     aDimL,
                                const Handle(TDocStd_Document)&      theDoc,
                                const Handle(XSControl_WorkSession)& theWS,
@@ -4155,7 +4155,7 @@ static void setDimObjectToXCAF(const Handle(Standard_Transient)&    theEnt,
         if (aTV.IsNull())
           continue;
 
-        Handle(Standard_Transient) aUpperBound = aTV->UpperBound();
+        Handle(RefObject) aUpperBound = aTV->UpperBound();
         if (aUpperBound.IsNull())
           continue;
         Handle(StepBasic_MeasureWithUnit) aMWU;
@@ -4191,7 +4191,7 @@ static void setDimObjectToXCAF(const Handle(Standard_Transient)&    theEnt,
         }
         aDim3 = aVal;
 
-        Handle(Standard_Transient) aLowerBound = aTV->LowerBound();
+        Handle(RefObject) aLowerBound = aTV->LowerBound();
         if (aLowerBound.IsNull())
           continue;
 
@@ -4444,7 +4444,7 @@ static void setDimObjectToXCAF(const Handle(Standard_Transient)&    theEnt,
 
 //=================================================================================================
 
-static Standard_Boolean getTolType(const Handle(Standard_Transient)&    theEnt,
+static Standard_Boolean getTolType(const Handle(RefObject)&    theEnt,
                                    XCAFDimTolObjects_GeomToleranceType& theType)
 {
   if (theEnt.IsNull() || !theEnt->IsKind(STANDARD_TYPE(StepDimTol_GeometricTolerance)))
@@ -4553,7 +4553,7 @@ static Standard_Boolean getTolType(const Handle(Standard_Transient)&    theEnt,
 
 //=================================================================================================
 
-static void setGeomTolObjectToXCAF(const Handle(Standard_Transient)&    theEnt,
+static void setGeomTolObjectToXCAF(const Handle(RefObject)&    theEnt,
                                    const TDF_Label&                     theTolL,
                                    const Handle(TDocStd_Document)&      theDoc,
                                    const Handle(XSControl_WorkSession)& theWS,
@@ -4747,7 +4747,7 @@ Standard_Boolean STEPCAFControl_Reader::ReadGDTs(const Handle(XSControl_WorkSess
   Standard_Integer nb = aModel->NbEntities();
   for (Standard_Integer i = 1; i <= nb; i++)
   {
-    Handle(Standard_Transient) anEnt = aModel->Value(i);
+    Handle(RefObject) anEnt = aModel->Value(i);
     if (anEnt->IsKind(STANDARD_TYPE(StepShape_DimensionalSize))
         || anEnt->IsKind(STANDARD_TYPE(StepShape_DimensionalLocation))
         || anEnt->IsKind(STANDARD_TYPE(StepDimTol_GeometricTolerance)))
@@ -5261,7 +5261,7 @@ Standard_Boolean STEPCAFControl_Reader::ReadViews(const Handle(XSControl_WorkSes
   Standard_Integer nb = aModel->NbEntities();
   for (Standard_Integer i = 1; i <= nb; i++)
   {
-    Handle(Standard_Transient) anEnt = aModel->Value(i);
+    Handle(RefObject) anEnt = aModel->Value(i);
     if (!anEnt->IsKind(STANDARD_TYPE(StepVisual_CameraModelD3)))
       continue;
     Handle(XCAFView_Object) anObj = new XCAFView_Object();
@@ -5495,7 +5495,7 @@ void STEPCAFControl_Reader::ExpandSubShapes(const Handle(XCAFDoc_ShapeTool)&    
       Graph.TypedSharings(aPDef, STANDARD_TYPE(StepShape_ShapeDefinitionRepresentation));
     for (entIt.Start(); entIt.More(); entIt.Next())
     {
-      const Handle(Standard_Transient)& aReferer = entIt.Value();
+      const Handle(RefObject)& aReferer = entIt.Value();
       aSDR = Handle(StepShape_ShapeDefinitionRepresentation)::DownCast(aReferer);
       if (!aSDR.IsNull())
         break;
@@ -5897,7 +5897,7 @@ Handle(StepBasic_Product) STEPCAFControl_Reader::getProductFromProductDefinition
 
 std::vector<Handle(StepRepr_PropertyDefinition)> STEPCAFControl_Reader::collectPropertyDefinitions(
   const Handle(XSControl_WorkSession)& theWorkSession,
-  const Handle(Standard_Transient)&    theGeneralProperty) const
+  const Handle(RefObject)&    theGeneralProperty) const
 {
   std::vector<Handle(StepRepr_PropertyDefinition)> aResult;
 

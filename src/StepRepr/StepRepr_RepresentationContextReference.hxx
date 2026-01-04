@@ -22,10 +22,10 @@
 
 #include <TCollection_HAsciiString.hxx>
 
-DEFINE_STANDARD_HANDLE(StepRepr_RepresentationContextReference, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepRepr_RepresentationContextReference, RefObject)
 
 //! Representation of STEP entity RepresentationContextReference
-class StepRepr_RepresentationContextReference : public Standard_Transient
+class StepRepr_RepresentationContextReference : public RefObject
 {
 public:
   //! default constructor
@@ -40,7 +40,7 @@ public:
   Standard_EXPORT void SetContextIdentifier(
     const Handle(TCollection_HAsciiString)& theContextIdentifier);
 
-  DEFINE_STANDARD_RTTIEXT(StepRepr_RepresentationContextReference, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepRepr_RepresentationContextReference, RefObject)
 
 private:
   Handle(TCollection_HAsciiString) myContextIdentifier;

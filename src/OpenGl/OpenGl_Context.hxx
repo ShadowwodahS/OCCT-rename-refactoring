@@ -101,7 +101,7 @@ enum OpenGl_FeatureFlag
   OpenGl_FeatureInCore       = 2  //!< Feature is supported as part of core profile.
 };
 
-DEFINE_STANDARD_HANDLE(OpenGl_Context, Standard_Transient)
+DEFINE_STANDARD_HANDLE(OpenGl_Context, RefObject)
 
 //! This class generalize access to the GL context and available extensions.
 //!
@@ -154,9 +154,9 @@ DEFINE_STANDARD_HANDLE(OpenGl_Context, Standard_Transient)
 //! access to current matrix of ModelWorldState, WorldViewState and ProjectionState After, these
 //! matrices should be applied using ApplyModelWorldMatrix, ApplyWorldViewMatrix,
 //! ApplyModelViewMatrix or ApplyProjectionMatrix.
-class OpenGl_Context : public Standard_Transient
+class OpenGl_Context : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(OpenGl_Context, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(OpenGl_Context, RefObject)
   friend class OpenGl_Window;
   friend struct OpenGl_GlFunctions;
 

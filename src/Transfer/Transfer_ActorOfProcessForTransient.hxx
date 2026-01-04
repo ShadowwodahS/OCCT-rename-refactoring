@@ -25,16 +25,16 @@
 #include <Message_ProgressRange.hxx>
 
 class Standard_DomainError;
-class Standard_Transient;
+class RefObject;
 class Transfer_ProcessForTransient;
 class Transfer_IteratorOfProcessForTransient;
 class Transfer_Binder;
 class Transfer_SimpleBinderOfTransient;
 
 class Transfer_ActorOfProcessForTransient;
-DEFINE_STANDARD_HANDLE(Transfer_ActorOfProcessForTransient, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Transfer_ActorOfProcessForTransient, RefObject)
 
-class Transfer_ActorOfProcessForTransient : public Standard_Transient
+class Transfer_ActorOfProcessForTransient : public RefObject
 {
 
 public:
@@ -51,7 +51,7 @@ public:
   //! (afterwards rejection), the next actor is then invoked
   //!
   //! The provided default returns True, can be redefined
-  Standard_EXPORT virtual Standard_Boolean Recognize(const Handle(Standard_Transient)& start);
+  Standard_EXPORT virtual Standard_Boolean Recognize(const Handle(RefObject)& start);
 
   //! Specific action of Transfer. The Result is stored in
   //! the returned Binder, or a Null Handle for "No result"
@@ -59,14 +59,14 @@ public:
   //! "mutable" allows the Actor to record intermediate
   //! information, in addition to those of TransferProcess
   Standard_EXPORT virtual Handle(Transfer_Binder) Transferring(
-    const Handle(Standard_Transient)&           start,
+    const Handle(RefObject)&           start,
     const Handle(Transfer_ProcessForTransient)& TP,
     const Message_ProgressRange&                theProgress = Message_ProgressRange());
 
   //! Prepares and Returns a Binder for a Transient Result
   //! Returns a Null Handle if <res> is itself Null
   Standard_EXPORT Handle(Transfer_SimpleBinderOfTransient) TransientResult(
-    const Handle(Standard_Transient)& res) const;
+    const Handle(RefObject)& res) const;
 
   //! Returns a Binder for No Result, i.e. a Null Handle
   Standard_EXPORT Handle(Transfer_Binder) NullResult() const;
@@ -91,7 +91,7 @@ public:
   //! Returns the Actor defined as Next, or a Null Handle
   Standard_EXPORT Handle(Transfer_ActorOfProcessForTransient) Next() const;
 
-  DEFINE_STANDARD_RTTI_INLINE(Transfer_ActorOfProcessForTransient, Standard_Transient)
+  DEFINE_STANDARD_RTTI_INLINE(Transfer_ActorOfProcessForTransient, RefObject)
 
 protected:
 private:

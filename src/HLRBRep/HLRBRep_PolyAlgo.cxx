@@ -47,7 +47,7 @@
 #include <TopTools_Array1OfShape.hxx>
 #include <TopTools_IndexedDataMapOfShapeListOfShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(HLRBRep_PolyAlgo, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(HLRBRep_PolyAlgo, RefObject)
 
 enum
 {

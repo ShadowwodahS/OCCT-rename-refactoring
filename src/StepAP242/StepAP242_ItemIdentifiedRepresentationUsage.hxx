@@ -28,9 +28,9 @@ class StepRepr_Representation;
 class StepRepr_RepresentationItem;
 
 class StepAP242_ItemIdentifiedRepresentationUsage;
-DEFINE_STANDARD_HANDLE(StepAP242_ItemIdentifiedRepresentationUsage, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepAP242_ItemIdentifiedRepresentationUsage, RefObject)
 
-class StepAP242_ItemIdentifiedRepresentationUsage : public Standard_Transient
+class StepAP242_ItemIdentifiedRepresentationUsage : public RefObject
 {
 
 public:
@@ -114,7 +114,7 @@ public:
     identifiedItem->SetValue(num, theItem);
   }
 
-  DEFINE_STANDARD_RTTIEXT(StepAP242_ItemIdentifiedRepresentationUsage, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepAP242_ItemIdentifiedRepresentationUsage, RefObject)
 
 private:
   Handle(TCollection_HAsciiString)                      name;

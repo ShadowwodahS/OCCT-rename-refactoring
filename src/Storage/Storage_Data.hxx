@@ -35,7 +35,7 @@ class Standard_Persistent;
 class Storage_Root;
 
 class Storage_Data;
-DEFINE_STANDARD_HANDLE(Storage_Data, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Storage_Data, RefObject)
 
 //! A picture memorizing the data stored in a
 //! container (for example, in a file).
@@ -67,7 +67,7 @@ DEFINE_STANDARD_HANDLE(Storage_Data, Standard_Transient)
 //! are not maintained by the storage/retrieval
 //! mechanism: external references are not
 //! supported by Storage_Schema algorithm
-class Storage_Data : public Standard_Transient
+class Storage_Data : public RefObject
 {
 
 public:
@@ -216,7 +216,7 @@ public:
 
   friend class Storage_Schema;
 
-  DEFINE_STANDARD_RTTIEXT(Storage_Data, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Storage_Data, RefObject)
 
   Standard_EXPORT Handle(Storage_HeaderData) HeaderData() const;
 

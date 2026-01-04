@@ -31,9 +31,9 @@ class Graphic3d_TextureParams;
 
 //! This is the texture root class enable the dialog with the GraphicDriver allows the loading of
 //! texture.
-class Graphic3d_TextureRoot : public Standard_Transient
+class Graphic3d_TextureRoot : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_TextureRoot, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Graphic3d_TextureRoot, RefObject)
 public:
   //! The path to textures determined from CSF_MDTVTexturesDirectory or CASROOT environment
   //! variables.
@@ -168,6 +168,6 @@ protected:
   // clang-format on
 };
 
-DEFINE_STANDARD_HANDLE(Graphic3d_TextureRoot, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Graphic3d_TextureRoot, RefObject)
 
 #endif // _Graphic3d_TextureRoot_HeaderFile

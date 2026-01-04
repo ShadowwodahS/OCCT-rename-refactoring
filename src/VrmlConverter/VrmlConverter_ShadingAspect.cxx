@@ -15,7 +15,7 @@
 #include <Vrml_Material.hxx>
 #include <VrmlConverter_ShadingAspect.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(VrmlConverter_ShadingAspect, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(VrmlConverter_ShadingAspect, RefObject)
 
 VrmlConverter_ShadingAspect::VrmlConverter_ShadingAspect()
 {

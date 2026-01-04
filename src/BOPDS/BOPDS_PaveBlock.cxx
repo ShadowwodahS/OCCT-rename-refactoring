@@ -20,7 +20,7 @@
 #include <Standard_Type.hxx>
 
 #include <algorithm>
-IMPLEMENT_STANDARD_RTTIEXT(BOPDS_PaveBlock, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(BOPDS_PaveBlock, RefObject)
 
 //=================================================================================================
 

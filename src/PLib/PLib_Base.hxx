@@ -26,10 +26,10 @@
 #include <Standard_Real.hxx>
 
 class PLib_Base;
-DEFINE_STANDARD_HANDLE(PLib_Base, Standard_Transient)
+DEFINE_STANDARD_HANDLE(PLib_Base, RefObject)
 
 //! To work with different polynomial's Bases
-class PLib_Base : public Standard_Transient
+class PLib_Base : public RefObject
 {
 
 public:
@@ -78,7 +78,7 @@ public:
                                             Standard_Integer&      NewDegree,
                                             Standard_Real&         MaxError) const = 0;
 
-  DEFINE_STANDARD_RTTIEXT(PLib_Base, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(PLib_Base, RefObject)
 
 protected:
 private:

@@ -24,9 +24,9 @@
 class StepVisual_CurveStyle;
 
 class StepVisual_SurfaceStyleSegmentationCurve;
-DEFINE_STANDARD_HANDLE(StepVisual_SurfaceStyleSegmentationCurve, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepVisual_SurfaceStyleSegmentationCurve, RefObject)
 
-class StepVisual_SurfaceStyleSegmentationCurve : public Standard_Transient
+class StepVisual_SurfaceStyleSegmentationCurve : public RefObject
 {
 
 public:
@@ -40,7 +40,7 @@ public:
 
   Standard_EXPORT Handle(StepVisual_CurveStyle) StyleOfSegmentationCurve() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepVisual_SurfaceStyleSegmentationCurve, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepVisual_SurfaceStyleSegmentationCurve, RefObject)
 
 protected:
 private:

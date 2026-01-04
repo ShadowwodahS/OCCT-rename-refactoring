@@ -34,7 +34,7 @@ void IGESData_ReadWriteModule::Read(const Standard_Integer,
                                     const Handle(Interface_FileReaderData)&,
                                     const Standard_Integer,
                                     Handle(Interface_Check)&,
-                                    const Handle(Standard_Transient)&) const
+                                    const Handle(RefObject)&) const
 {
 #ifdef OCCT_DEBUG
   std::cout << "IGESData_ReadWriteModule, Read called" << std::endl;

@@ -41,7 +41,7 @@ class TopoDS_Vertex;
 #endif
 
 class ChFiDS_Spine;
-DEFINE_STANDARD_HANDLE(ChFiDS_Spine, Standard_Transient)
+DEFINE_STANDARD_HANDLE(ChFiDS_Spine, RefObject)
 
 //! Contains information necessary for construction of
 //! a 3D fillet or chamfer:
@@ -66,7 +66,7 @@ DEFINE_STANDARD_HANDLE(ChFiDS_Spine, Standard_Transient)
 //! the approach and double the Spine of line C2 with
 //! the known consequences for management of
 //! interactions between KPart Blend in Fil3d.
-class ChFiDS_Spine : public Standard_Transient
+class ChFiDS_Spine : public RefObject
 {
 
 public:
@@ -251,7 +251,7 @@ public:
   //! Return tolesp parameter
   Standard_EXPORT Standard_Real GetTolesp() const;
 
-  DEFINE_STANDARD_RTTIEXT(ChFiDS_Spine, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(ChFiDS_Spine, RefObject)
 
 protected:
   Standard_Boolean      splitdone;

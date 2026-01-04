@@ -14,7 +14,7 @@
 #include <Vrml_Material.hxx>
 #include <VrmlConverter_PointAspect.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(VrmlConverter_PointAspect, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(VrmlConverter_PointAspect, RefObject)
 
 VrmlConverter_PointAspect::VrmlConverter_PointAspect()
 {

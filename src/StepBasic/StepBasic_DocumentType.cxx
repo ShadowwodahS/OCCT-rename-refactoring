@@ -14,7 +14,7 @@
 #include <StepBasic_DocumentType.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_DocumentType, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_DocumentType, RefObject)
 
 StepBasic_DocumentType::StepBasic_DocumentType() {}
 

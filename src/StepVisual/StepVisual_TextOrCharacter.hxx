@@ -23,7 +23,7 @@
 
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepVisual_AnnotationText;
 class StepVisual_CompositeText;
 class StepVisual_TextLiteral;
@@ -41,7 +41,7 @@ public:
   //! 2 -> CompositeText
   //! 3 -> TextLiteral
   //! 0 else
-  Standard_EXPORT Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! returns Value as a AnnotationText (Null if another type)
   Standard_EXPORT Handle(StepVisual_AnnotationText) AnnotationText() const;

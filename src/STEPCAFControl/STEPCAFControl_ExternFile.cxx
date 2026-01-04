@@ -17,7 +17,7 @@
 #include <TDF_Label.hxx>
 #include <XSControl_WorkSession.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(STEPCAFControl_ExternFile, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(STEPCAFControl_ExternFile, RefObject)
 
 //=================================================================================================
 

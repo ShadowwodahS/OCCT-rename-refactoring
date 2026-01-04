@@ -23,15 +23,15 @@
 
 //=================================================================================================
 
-Transfer_TransientMapper::Transfer_TransientMapper(const Handle(Standard_Transient)& akey)
+Transfer_TransientMapper::Transfer_TransientMapper(const Handle(RefObject)& akey)
     : theval(akey)
 {
-  SetHashCode(std::hash<Handle(Standard_Transient)>{}(akey));
+  SetHashCode(std::hash<Handle(RefObject)>{}(akey));
 }
 
 //=================================================================================================
 
-const Handle(Standard_Transient)& Transfer_TransientMapper::Value() const
+const Handle(RefObject)& Transfer_TransientMapper::Value() const
 {
   return theval;
 }

@@ -26,9 +26,9 @@ class TCollection_HAsciiString;
 class StepRepr_ProductDefinitionShape;
 
 class StepRepr_ShapeAspect;
-DEFINE_STANDARD_HANDLE(StepRepr_ShapeAspect, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepRepr_ShapeAspect, RefObject)
 
-class StepRepr_ShapeAspect : public Standard_Transient
+class StepRepr_ShapeAspect : public RefObject
 {
 
 public:
@@ -56,7 +56,7 @@ public:
 
   Standard_EXPORT StepData_Logical ProductDefinitional() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepRepr_ShapeAspect, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepRepr_ShapeAspect, RefObject)
 
 protected:
 private:

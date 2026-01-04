@@ -39,7 +39,7 @@ public:
   Standard_EXPORT Transfer_SimpleBinderOfTransient();
 
   //! Returns the Effective (Dynamic) Type of the Result
-  //! (Standard_Transient if no Result is defined)
+  //! (RefObject if no Result is defined)
   Standard_EXPORT Handle(Standard_Type) ResultType() const Standard_OVERRIDE;
 
   //! Returns the Effective Name of (Dynamic) Type of the Result
@@ -47,10 +47,10 @@ public:
   Standard_EXPORT Standard_CString ResultTypeName() const Standard_OVERRIDE;
 
   //! Defines the Result
-  Standard_EXPORT void SetResult(const Handle(Standard_Transient)& res);
+  Standard_EXPORT void SetResult(const Handle(RefObject)& res);
 
   //! Returns the defined Result, if there is one
-  Standard_EXPORT const Handle(Standard_Transient)& Result() const;
+  Standard_EXPORT const Handle(RefObject)& Result() const;
 
   //! Returns a transient result according to its type (IsKind)
   //! i.e. the result itself if IsKind(atype), else searches in
@@ -62,13 +62,13 @@ public:
   //! immediately used, well initialised
   Standard_EXPORT static Standard_Boolean GetTypedResult(const Handle(Transfer_Binder)& bnd,
                                                          const Handle(Standard_Type)&   atype,
-                                                         Handle(Standard_Transient)&    res);
+                                                         Handle(RefObject)&    res);
 
   DEFINE_STANDARD_RTTIEXT(Transfer_SimpleBinderOfTransient, Transfer_Binder)
 
 protected:
 private:
-  Handle(Standard_Transient) theres;
+  Handle(RefObject) theres;
 };
 
 #endif // _Transfer_SimpleBinderOfTransient_HeaderFile

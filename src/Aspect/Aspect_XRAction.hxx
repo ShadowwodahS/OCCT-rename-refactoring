@@ -21,9 +21,9 @@
 #include <TCollection_AsciiString.hxx>
 
 //! XR action definition.
-class Aspect_XRAction : public Standard_Transient
+class Aspect_XRAction : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Aspect_XRAction, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Aspect_XRAction, RefObject)
 public:
   //! Return action id.
   const TCollection_AsciiString& Id() const { return myId; }

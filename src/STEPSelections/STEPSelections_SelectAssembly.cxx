@@ -36,7 +36,7 @@ STEPSelections_SelectAssembly::STEPSelections_SelectAssembly()
 }
 
 Standard_Boolean STEPSelections_SelectAssembly::Explore(const Standard_Integer /*level*/,
-                                                        const Handle(Standard_Transient)& start,
+                                                        const Handle(RefObject)& start,
                                                         const Interface_Graph&            G,
                                                         Interface_EntityIterator& explored) const
 {
@@ -49,7 +49,7 @@ Standard_Boolean STEPSelections_SelectAssembly::Explore(const Standard_Integer /
     Handle(StepRepr_ProductDefinitionShape) pds = sdsr->RepresentedProductRelation();
     if (pds.IsNull())
       return Standard_False;
-    Handle(Standard_Transient) ent = pds->Definition().ProductDefinitionRelationship();
+    Handle(RefObject) ent = pds->Definition().ProductDefinitionRelationship();
     if (ent.IsNull())
       return Standard_False;
     return (ent->IsKind(STANDARD_TYPE(StepRepr_NextAssemblyUsageOccurrence)));
@@ -78,7 +78,7 @@ Standard_Boolean STEPSelections_SelectAssembly::Explore(const Standard_Integer /
       shdefrep->Definition().PropertyDefinition());
     if (pds.IsNull())
       return Standard_False;
-    Handle(Standard_Transient) ent = pds->Definition().ProductDefinitionRelationship();
+    Handle(RefObject) ent = pds->Definition().ProductDefinitionRelationship();
     if (ent.IsNull())
       return Standard_False;
     return (ent->IsKind(STANDARD_TYPE(StepRepr_NextAssemblyUsageOccurrence)));

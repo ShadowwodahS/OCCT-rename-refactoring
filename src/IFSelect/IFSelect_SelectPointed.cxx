@@ -39,7 +39,7 @@ Standard_Boolean IFSelect_SelectPointed::IsSet() const
   return theset;
 }
 
-void IFSelect_SelectPointed::SetEntity(const Handle(Standard_Transient)& ent)
+void IFSelect_SelectPointed::SetEntity(const Handle(RefObject)& ent)
 {
   theitems.Clear();
   theset = Standard_True;
@@ -61,7 +61,7 @@ void IFSelect_SelectPointed::SetList(const Handle(TColStd_HSequenceOfTransient)&
 
 //  ....    Editions
 
-Standard_Boolean IFSelect_SelectPointed::Add(const Handle(Standard_Transient)& item)
+Standard_Boolean IFSelect_SelectPointed::Add(const Handle(RefObject)& item)
 {
   if (item.IsNull())
     return Standard_False;
@@ -73,7 +73,7 @@ Standard_Boolean IFSelect_SelectPointed::Add(const Handle(Standard_Transient)& i
   return Standard_True;
 }
 
-Standard_Boolean IFSelect_SelectPointed::Remove(const Handle(Standard_Transient)& item)
+Standard_Boolean IFSelect_SelectPointed::Remove(const Handle(RefObject)& item)
 {
   if (item.IsNull())
     return Standard_False;
@@ -86,7 +86,7 @@ Standard_Boolean IFSelect_SelectPointed::Remove(const Handle(Standard_Transient)
   return Standard_True;
 }
 
-Standard_Boolean IFSelect_SelectPointed::Toggle(const Handle(Standard_Transient)& item)
+Standard_Boolean IFSelect_SelectPointed::Toggle(const Handle(RefObject)& item)
 {
   if (item.IsNull())
     return Standard_False;
@@ -147,7 +147,7 @@ Standard_Boolean IFSelect_SelectPointed::ToggleList(
 
 //  ....   Consultations
 
-Standard_Integer IFSelect_SelectPointed::Rank(const Handle(Standard_Transient)& item) const
+Standard_Integer IFSelect_SelectPointed::Rank(const Handle(RefObject)& item) const
 {
   if (item.IsNull())
     return 0;
@@ -162,9 +162,9 @@ Standard_Integer IFSelect_SelectPointed::NbItems() const
   return theitems.Length();
 }
 
-Handle(Standard_Transient) IFSelect_SelectPointed::Item(const Standard_Integer num) const
+Handle(RefObject) IFSelect_SelectPointed::Item(const Standard_Integer num) const
 {
-  Handle(Standard_Transient) item;
+  Handle(RefObject) item;
   if (num <= 0 || num > theitems.Length())
     return item;
   return theitems.Value(num);
@@ -175,7 +175,7 @@ void IFSelect_SelectPointed::Update(const Handle(Interface_CopyControl)& control
   Standard_Integer nb = theitems.Length();
   for (Standard_Integer i = nb; i > 0; i--)
   {
-    Handle(Standard_Transient) enfr, ento;
+    Handle(RefObject) enfr, ento;
     enfr = theitems.Value(i);
     if (!control->Search(enfr, ento))
       theitems.Remove(i);
@@ -189,7 +189,7 @@ void IFSelect_SelectPointed::Update(const Handle(IFSelect_Transformer)& trf)
   Standard_Integer nb = theitems.Length();
   for (Standard_Integer i = nb; i > 0; i--)
   {
-    Handle(Standard_Transient) enfr, ento;
+    Handle(RefObject) enfr, ento;
     enfr = theitems.Value(i);
     if (!trf->Updated(enfr, ento))
       theitems.Remove(i);
@@ -206,7 +206,7 @@ Interface_EntityIterator IFSelect_SelectPointed::RootResult(const Interface_Grap
   Standard_Integer         nb = theitems.Length();
   for (Standard_Integer i = 1; i <= nb; i++)
   {
-    Handle(Standard_Transient) item = theitems.Value(i);
+    Handle(RefObject) item = theitems.Value(i);
     if (G.EntityNumber(item) > 0)
       result.GetOneItem(item);
   }

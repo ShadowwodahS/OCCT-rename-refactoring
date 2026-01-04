@@ -19,7 +19,7 @@
 #include <HLRAlgo_BiPoint.hxx>
 #include <HLRAlgo_ListIteratorOfListOfBPoint.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(HLRAlgo_PolyShellData, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(HLRAlgo_PolyShellData, RefObject)
 
 //=================================================================================================
 

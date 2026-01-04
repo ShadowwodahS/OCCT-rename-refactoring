@@ -25,9 +25,9 @@
 class StepVisual_PlanarBox;
 
 class StepVisual_PresentationSize;
-DEFINE_STANDARD_HANDLE(StepVisual_PresentationSize, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepVisual_PresentationSize, RefObject)
 
-class StepVisual_PresentationSize : public Standard_Transient
+class StepVisual_PresentationSize : public RefObject
 {
 
 public:
@@ -45,7 +45,7 @@ public:
 
   Standard_EXPORT Handle(StepVisual_PlanarBox) Size() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepVisual_PresentationSize, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepVisual_PresentationSize, RefObject)
 
 protected:
 private:

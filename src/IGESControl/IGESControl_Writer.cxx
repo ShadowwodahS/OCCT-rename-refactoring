@@ -178,7 +178,7 @@ Standard_Boolean IGESControl_Writer::AddShape(const TopoDS_Shape&          theSh
   return aent;
 }
 
-Standard_Boolean IGESControl_Writer::AddGeom(const Handle(Standard_Transient)& geom)
+Standard_Boolean IGESControl_Writer::AddGeom(const Handle(RefObject)& geom)
 {
   if (geom.IsNull() || !geom->IsKind(STANDARD_TYPE(Geom_Geometry)))
     return Standard_False;

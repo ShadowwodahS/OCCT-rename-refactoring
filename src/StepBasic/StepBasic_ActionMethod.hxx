@@ -25,10 +25,10 @@
 class TCollection_HAsciiString;
 
 class StepBasic_ActionMethod;
-DEFINE_STANDARD_HANDLE(StepBasic_ActionMethod, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_ActionMethod, RefObject)
 
 //! Representation of STEP entity ActionMethod
-class StepBasic_ActionMethod : public Standard_Transient
+class StepBasic_ActionMethod : public RefObject
 {
 
 public:
@@ -69,7 +69,7 @@ public:
   //! Set field Purpose
   Standard_EXPORT void SetPurpose(const Handle(TCollection_HAsciiString)& Purpose);
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_ActionMethod, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_ActionMethod, RefObject)
 
 protected:
 private:

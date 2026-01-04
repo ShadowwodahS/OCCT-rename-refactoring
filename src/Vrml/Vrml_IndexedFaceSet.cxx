@@ -14,7 +14,7 @@
 #include <Standard_Type.hxx>
 #include <Vrml_IndexedFaceSet.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Vrml_IndexedFaceSet, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Vrml_IndexedFaceSet, RefObject)
 
 Vrml_IndexedFaceSet::Vrml_IndexedFaceSet(const Handle(TColStd_HArray1OfInteger)& aCoordIndex,
                                          const Handle(TColStd_HArray1OfInteger)& aMaterialIndex,

@@ -20,7 +20,7 @@
 #include <CSLib_Class2d.hxx>
 #include <TColgp_Array1OfPnt2d.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_Classifier, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_Classifier, RefObject)
 
 //=================================================================================================
 

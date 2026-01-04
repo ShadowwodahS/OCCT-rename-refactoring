@@ -38,10 +38,10 @@ STEPSelections_AssemblyExplorer::STEPSelections_AssemblyExplorer(const Interface
   Init(G);
 }
 
-Handle(Standard_Transient) STEPSelections_AssemblyExplorer::FindItemWithNAUO(
+Handle(RefObject) STEPSelections_AssemblyExplorer::FindItemWithNAUO(
   const Handle(StepRepr_NextAssemblyUsageOccurrence)& nauo) const
 {
-  Handle(Standard_Transient)              item;
+  Handle(RefObject)              item;
   Handle(StepRepr_ProductDefinitionShape) pds;
   Interface_EntityIterator                subs = myGraph.Sharings(nauo);
   for (subs.Start(); subs.More() && pds.IsNull(); subs.Next())
@@ -53,7 +53,7 @@ Handle(Standard_Transient) STEPSelections_AssemblyExplorer::FindItemWithNAUO(
   subs = myGraph.Sharings(pds);
   Handle(StepShape_ContextDependentShapeRepresentation) cdsr;
   Handle(StepShape_ShapeDefinitionRepresentation)       shdefrep;
-  Handle(Standard_Transient)                            itmp;
+  Handle(RefObject)                            itmp;
   for (subs.Start(); subs.More() && shdefrep.IsNull(); subs.Next())
   {
     itmp = subs.Value();

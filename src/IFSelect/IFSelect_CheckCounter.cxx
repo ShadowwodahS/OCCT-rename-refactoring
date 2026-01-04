@@ -57,7 +57,7 @@ void IFSelect_CheckCounter::Analyse(const Interface_CheckIterator&          list
   for (list.Start(); list.More(); list.Next())
   {
     num = list.Number();
-    Handle(Standard_Transient)     ent;
+    Handle(RefObject)     ent;
     const Handle(Interface_Check)& check = list.Value();
     ent                                  = check->Entity();
     if (ent.IsNull() && num > 0 && num <= nbe)

@@ -22,7 +22,7 @@
 
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepFEA_FeaAxis2Placement3d;
 class StepFEA_AlignedCurve3dElementCoordinateSystem;
 class StepFEA_ParametricCurve3dElementCoordinateSystem;
@@ -41,7 +41,7 @@ public:
   //! 2 -> AlignedCurve3dElementCoordinateSystem from StepFEA
   //! 3 -> ParametricCurve3dElementCoordinateSystem from StepFEA
   //! 0 else
-  Standard_EXPORT Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! Returns Value as FeaAxis2Placement3d (or Null if another type)
   Standard_EXPORT Handle(StepFEA_FeaAxis2Placement3d) FeaAxis2Placement3d() const;

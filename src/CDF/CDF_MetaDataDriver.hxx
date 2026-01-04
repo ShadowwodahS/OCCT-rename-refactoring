@@ -26,11 +26,11 @@ class PCDM_ReferenceIterator;
 class Message_Messenger;
 
 class CDF_MetaDataDriver;
-DEFINE_STANDARD_HANDLE(CDF_MetaDataDriver, Standard_Transient)
+DEFINE_STANDARD_HANDLE(CDF_MetaDataDriver, RefObject)
 
 //! this class list the method that must be available for
 //! a specific DBMS
-class CDF_MetaDataDriver : public Standard_Transient
+class CDF_MetaDataDriver : public RefObject
 {
 
 public:
@@ -123,7 +123,7 @@ public:
   Standard_EXPORT Handle(CDM_MetaData) MetaData(const TCollection_ExtendedString& aFolder,
                                                 const TCollection_ExtendedString& aName);
 
-  DEFINE_STANDARD_RTTIEXT(CDF_MetaDataDriver, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(CDF_MetaDataDriver, RefObject)
 
 protected:
   Standard_EXPORT CDF_MetaDataDriver();

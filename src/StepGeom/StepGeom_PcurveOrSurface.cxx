@@ -19,7 +19,7 @@
 
 StepGeom_PcurveOrSurface::StepGeom_PcurveOrSurface() {}
 
-Standard_Integer StepGeom_PcurveOrSurface::CaseNum(const Handle(Standard_Transient)& ent) const
+Standard_Integer StepGeom_PcurveOrSurface::CaseNum(const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

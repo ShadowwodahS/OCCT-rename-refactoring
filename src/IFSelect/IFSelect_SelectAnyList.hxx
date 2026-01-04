@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 class IFSelect_IntParam;
 class Interface_EntityIterator;
-class Standard_Transient;
+class RefObject;
 class Interface_Graph;
 class TCollection_AsciiString;
 
@@ -69,7 +69,7 @@ public:
 
   //! Returns count of Items in the list in the Entity <ent>
   //! If <ent> has not required type, returned value must be Zero
-  Standard_EXPORT virtual Standard_Integer NbItems(const Handle(Standard_Transient)& ent) const = 0;
+  Standard_EXPORT virtual Standard_Integer NbItems(const Handle(RefObject)& ent) const = 0;
 
   //! Sets a Range for numbers, with a lower and a upper limits
   Standard_EXPORT void SetRange(const Handle(IFSelect_IntParam)& rankfrom,
@@ -114,7 +114,7 @@ public:
   //! Called by RootResult
   Standard_EXPORT virtual void FillResult(const Standard_Integer            n1,
                                           const Standard_Integer            n2,
-                                          const Handle(Standard_Transient)& ent,
+                                          const Handle(RefObject)& ent,
                                           Interface_EntityIterator&         res) const = 0;
 
   //! Returns a text defining the criterium : "Components of List "

@@ -19,7 +19,7 @@
 #include <StepShape_DimensionalSize.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepShape_DimensionalSize, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepShape_DimensionalSize, RefObject)
 
 //=================================================================================================
 

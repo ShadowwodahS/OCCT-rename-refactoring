@@ -28,7 +28,7 @@
 #include <TopoDS_Shape.hxx>
 #include <TopTools_SequenceOfShape.hxx>
 
-DEFINE_STANDARD_HANDLE(StdPrs_BRepFont, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StdPrs_BRepFont, RefObject)
 
 //! This tool provides basic services for rendering of vectorized text glyphs as BRep shapes.
 //! Single instance initialize single font for sequential glyphs rendering with implicit caching of
@@ -37,9 +37,9 @@ DEFINE_STANDARD_HANDLE(StdPrs_BRepFont, Standard_Transient)
 //! Please notice that this implementation uses mutex for thread-safety access,
 //! thus may lead to performance penalties in case of concurrent access.
 //! Although caching should eliminate this issue after rendering of sufficient number of glyphs.
-class StdPrs_BRepFont : public Standard_Transient
+class StdPrs_BRepFont : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(StdPrs_BRepFont, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StdPrs_BRepFont, RefObject)
 public:
   //! Find the font Initialize the font.
   //! @param theFontName    the font name

@@ -23,9 +23,9 @@ class BVH_Builder;
 
 //! A non-template class for using as base for BVH_TreeBase
 //! (just to have a named base class).
-class BVH_TreeBaseTransient : public Standard_Transient
+class BVH_TreeBaseTransient : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(BVH_TreeBaseTransient, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(BVH_TreeBaseTransient, RefObject)
 protected:
   BVH_TreeBaseTransient() {}
 

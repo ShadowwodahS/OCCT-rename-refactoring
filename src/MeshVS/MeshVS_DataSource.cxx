@@ -24,7 +24,7 @@
 #include <TColStd_HPackedMapOfInteger.hxx>
 #include <TColStd_MapIteratorOfPackedMapOfInteger.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(MeshVS_DataSource, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(MeshVS_DataSource, RefObject)
 
 //=================================================================================================
 

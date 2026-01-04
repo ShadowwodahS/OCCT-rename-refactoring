@@ -102,7 +102,7 @@ static IFSelect_ReturnStatus XSControl_tpdraw(const Handle(IFSelect_SessionPilot
 
   Standard_Integer           nbvar = 0;
   Handle(Transfer_Binder)    binder;
-  Handle(Standard_Transient) ent;
+  Handle(RefObject) ent;
   TopoDS_Shape               sh;
   char                       nomvar[40];
   //  Standard_Boolean moderoot =  (pilot->Word(0).Value(3) == 'r');
@@ -271,7 +271,7 @@ static IFSelect_ReturnStatus XSControl_tpdraw(const Handle(IFSelect_SessionPilot
     DeclareAndCast(Transfer_SimpleBinderOfTransient, trb, binder);
     if (!trb.IsNull())
     {
-      Handle(Standard_Transient) resu = trb->Result();
+      Handle(RefObject) resu = trb->Result();
       if (resu.IsNull())
       {
         sout << "Entite n0 " << num << " : pas de resultat" << std::endl;
@@ -535,7 +535,7 @@ static IFSelect_ReturnStatus XSControl_fromshape(const Handle(IFSelect_SessionPi
     if (!silent)
       sout << "Shape " << arg1 << " : ";
     Standard_Integer           modrec = 1;
-    Handle(Standard_Transient) ent    = TR->EntityFromShapeResult(Shape, modrec);
+    Handle(RefObject) ent    = TR->EntityFromShapeResult(Shape, modrec);
     if (ent.IsNull())
     {
       modrec = -1;
@@ -602,7 +602,7 @@ static IFSelect_ReturnStatus XSControl_fromshape(const Handle(IFSelect_SessionPi
         {
           const TopoDS_Shape&        subsh     = Iter.Value();
           Standard_Integer           submodrec = 1;
-          Handle(Standard_Transient) subent    = TR->EntityFromShapeResult(subsh, submodrec);
+          Handle(RefObject) subent    = TR->EntityFromShapeResult(subsh, submodrec);
           if (subent.IsNull())
           {
             submodrec = -1;
@@ -636,7 +636,7 @@ static IFSelect_ReturnStatus XSControl_fromshape(const Handle(IFSelect_SessionPi
   {
     yena                           = Standard_True;
     Handle(Transfer_Finder)    fnd = TransferBRep::ShapeMapper(FP, Shape);
-    Handle(Standard_Transient) ent;
+    Handle(RefObject) ent;
     if (!fnd.IsNull())
       ent = FP->FindTransient(fnd);
     if (!ent.IsNull())
@@ -682,7 +682,7 @@ static IFSelect_ReturnStatus XSControl_fromshape(const Handle(IFSelect_SessionPi
                 for ( TopoDS_Iterator it(comp); it.More(); it.Next() ) {
                   Handle(Transfer_Finder) cfnd = TransferBRep::ShapeMapper (FP,it.Value());
                   if ( cfnd.IsNull() ) continue;
-                  Handle(Standard_Transient) cent = FP->FindTransient (cfnd);
+                  Handle(RefObject) cent = FP->FindTransient (cfnd);
                   if ( cent.IsNull() ) continue;
                   if ( start )
                 sout<<"Shape "<<arg1<<" : exported to entities ";
@@ -853,7 +853,7 @@ static IFSelect_ReturnStatus XSControl_trimport(const Handle(IFSelect_SessionPil
   }
   for (Standard_Integer il = 1; il <= nbl; il++)
   {
-    Handle(Standard_Transient) ent = list->Value(il);
+    Handle(RefObject) ent = list->Value(il);
     sh                             = TR->ShapeResult(ent);
     if (sh.IsNull())
       continue;

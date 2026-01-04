@@ -18,7 +18,7 @@
 #include <TCollection_HAsciiString.hxx>
 #include <Transfer_Finder.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Transfer_Finder, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Transfer_Finder, RefObject)
 
 void Transfer_Finder::SetHashCode(const size_t code)
 {
@@ -45,7 +45,7 @@ Standard_CString Transfer_Finder::ValueTypeName() const
 // Integer -> IntVal, Real -> Geom2d_CartesianPoint, CString -> HAsciiString
 
 void Transfer_Finder::SetAttribute(const Standard_CString            name,
-                                   const Handle(Standard_Transient)& val)
+                                   const Handle(RefObject)& val)
 {
   theattrib.Bind(name, val);
 }
@@ -59,7 +59,7 @@ Standard_Boolean Transfer_Finder::RemoveAttribute(const Standard_CString name)
 
 Standard_Boolean Transfer_Finder::GetAttribute(const Standard_CString       name,
                                                const Handle(Standard_Type)& type,
-                                               Handle(Standard_Transient)&  val) const
+                                               Handle(RefObject)&  val) const
 {
   if (theattrib.IsEmpty())
   {
@@ -79,9 +79,9 @@ Standard_Boolean Transfer_Finder::GetAttribute(const Standard_CString       name
   return Standard_True;
 }
 
-Handle(Standard_Transient) Transfer_Finder::Attribute(const Standard_CString name) const
+Handle(RefObject) Transfer_Finder::Attribute(const Standard_CString name) const
 {
-  Handle(Standard_Transient) atr;
+  Handle(RefObject) atr;
   if (theattrib.IsEmpty())
     return atr;
   if (!theattrib.Find(name, atr))
@@ -91,7 +91,7 @@ Handle(Standard_Transient) Transfer_Finder::Attribute(const Standard_CString nam
 
 Interface_ParamType Transfer_Finder::AttributeType(const Standard_CString name) const
 {
-  Handle(Standard_Transient) atr = Attribute(name);
+  Handle(RefObject) atr = Attribute(name);
   if (atr.IsNull())
     return Interface_ParamVoid;
   if (atr->DynamicType() == STANDARD_TYPE(Interface_IntVal))
@@ -187,7 +187,7 @@ Standard_CString Transfer_Finder::StringAttribute(const Standard_CString name) c
   return hval->ToCString();
 }
 
-NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)>& Transfer_Finder::
+NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>& Transfer_Finder::
   AttrList()
 {
   return theattrib;
@@ -205,19 +205,19 @@ void Transfer_Finder::GetAttributes(const Handle(Transfer_Finder)& other,
 {
   if (other.IsNull())
     return;
-  NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)>& list =
+  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>& list =
     other->AttrList();
   if (list.IsEmpty())
     return;
 
-  NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)>::Iterator iter(list);
+  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>::Iterator iter(list);
   for (; iter.More(); iter.Next())
   {
     const TCollection_AsciiString& name = iter.Key();
     if (!name.StartsWith(fromname))
       continue;
-    const Handle(Standard_Transient)& atr    = iter.Value();
-    Handle(Standard_Transient)        newatr = atr;
+    const Handle(RefObject)& atr    = iter.Value();
+    Handle(RefObject)        newatr = atr;
 
     //    Copy ? according type
     if (copied)

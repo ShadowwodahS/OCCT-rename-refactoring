@@ -32,7 +32,7 @@ struct DE_ShapeFixParameters;
 class Transfer_FinderProcess;
 class IGESData_IGESModel;
 class TopoDS_Shape;
-class Standard_Transient;
+class RefObject;
 class IGESData_IGESEntity;
 
 //! This class creates and writes
@@ -94,7 +94,7 @@ public:
   //! adds them to the model
   //! Returns True if done, False if geom is neither a Surface or
   //! a Curve suitable for IGES or is null
-  Standard_EXPORT Standard_Boolean AddGeom(const Handle(Standard_Transient)& geom);
+  Standard_EXPORT Standard_Boolean AddGeom(const Handle(RefObject)& geom);
 
   //! Adds an IGES entity (and the ones it references) to the model
   Standard_EXPORT Standard_Boolean AddEntity(const Handle(IGESData_IGESEntity)& ent);

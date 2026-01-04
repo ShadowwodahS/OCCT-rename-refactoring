@@ -31,7 +31,7 @@
 class Interface_InterfaceModel;
 class Interface_IntVal;
 class Interface_Check;
-class Standard_Transient;
+class RefObject;
 
 // resolve name collisions with X11 headers
 #ifdef Status
@@ -89,7 +89,7 @@ public:
   //! If no Check was recorded for this Entity, returns an empty
   //! Check.
   //! Remark : Works apart from the iteration methods (no interference)
-  Standard_EXPORT const Handle(Interface_Check)& Check(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT const Handle(Interface_Check)& Check(const Handle(RefObject)& ent) const;
 
   //! Returns the Check bound to an Entity Number (0 : Global)
   //! in order to be consulted or completed on the spot
@@ -101,7 +101,7 @@ public:
   //! or completed on the spot
   //! I.e. returns the Check if is already exists, or adds it then
   //! returns the new empty Check
-  Standard_EXPORT Handle(Interface_Check)& CCheck(const Handle(Standard_Transient)& ent);
+  Standard_EXPORT Handle(Interface_Check)& CCheck(const Handle(RefObject)& ent);
 
   //! Returns True if : no Fail has been recorded if <failsonly> is
   //! True, no Check at all if <failsonly> is False

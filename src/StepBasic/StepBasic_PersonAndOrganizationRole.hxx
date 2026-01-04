@@ -24,9 +24,9 @@
 class TCollection_HAsciiString;
 
 class StepBasic_PersonAndOrganizationRole;
-DEFINE_STANDARD_HANDLE(StepBasic_PersonAndOrganizationRole, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_PersonAndOrganizationRole, RefObject)
 
-class StepBasic_PersonAndOrganizationRole : public Standard_Transient
+class StepBasic_PersonAndOrganizationRole : public RefObject
 {
 
 public:
@@ -39,7 +39,7 @@ public:
 
   Standard_EXPORT Handle(TCollection_HAsciiString) Name() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_PersonAndOrganizationRole, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_PersonAndOrganizationRole, RefObject)
 
 protected:
 private:

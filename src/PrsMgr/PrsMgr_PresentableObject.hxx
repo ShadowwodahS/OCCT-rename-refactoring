@@ -48,9 +48,9 @@ typedef PrsMgr_PresentationManager PrsMgr_PresentationManager3d;
 //! override these methods to modify Prs3d_Drawer or class properties providing a convenient
 //! short-cut depending on application needs. For more sophisticated configuring, Prs3d_Drawer
 //! should be modified directly, while short-cuts might be left unimplemented.
-class PrsMgr_PresentableObject : public Standard_Transient
+class PrsMgr_PresentableObject : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(PrsMgr_PresentableObject, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(PrsMgr_PresentableObject, RefObject)
   friend class PrsMgr_Presentation;
   friend class PrsMgr_PresentationManager;
 
@@ -627,6 +627,6 @@ protected:
   // clang-format on
 };
 
-DEFINE_STANDARD_HANDLE(PrsMgr_PresentableObject, Standard_Transient)
+DEFINE_STANDARD_HANDLE(PrsMgr_PresentableObject, RefObject)
 
 #endif // _PrsMgr_PresentableObject_HeaderFile

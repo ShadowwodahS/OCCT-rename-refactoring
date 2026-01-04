@@ -24,7 +24,7 @@
 #include <Standard_CString.hxx>
 #include <Standard_Integer.hxx>
 #include <TColStd_HSequenceOfTransient.hxx>
-class Standard_Transient;
+class RefObject;
 class IFSelect_WorkSession;
 class IFSelect_Dispatch;
 
@@ -43,7 +43,7 @@ public:
   //! name can be a label or a number (in alphanumeric),
   //! it is searched by NumberFromLabel from WorkSession.
   //! If <name> doesn't match en entity, a Null Handle is returned
-  Standard_EXPORT static Handle(Standard_Transient) GiveEntity(
+  Standard_EXPORT static Handle(RefObject) GiveEntity(
     const Handle(IFSelect_WorkSession)& WS,
     const Standard_CString              name = "");
 

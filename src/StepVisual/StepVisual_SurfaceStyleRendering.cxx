@@ -16,7 +16,7 @@
 
 #include <StepVisual_SurfaceStyleRendering.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_SurfaceStyleRendering, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepVisual_SurfaceStyleRendering, RefObject)
 
 //=================================================================================================
 

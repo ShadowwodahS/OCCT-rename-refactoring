@@ -27,7 +27,7 @@ class Message_Messenger;
 class TCollection_AsciiString;
 
 class ShapeProcess_Context;
-DEFINE_STANDARD_HANDLE(ShapeProcess_Context, Standard_Transient)
+DEFINE_STANDARD_HANDLE(ShapeProcess_Context, RefObject)
 
 //! Provides convenient interface to resource file
 //! Allows to load resource file and get values of
@@ -35,7 +35,7 @@ DEFINE_STANDARD_HANDLE(ShapeProcess_Context, Standard_Transient)
 //! if scope is defined as "ToV4" and requested parameter
 //! is "exec.op", value of "ToV4.exec.op" parameter from
 //! the resource file will be returned
-class ShapeProcess_Context : public Standard_Transient
+class ShapeProcess_Context : public RefObject
 {
 
 public:
@@ -116,7 +116,7 @@ public:
   //! Returns trace level used for outputting messages.
   Standard_EXPORT Standard_Integer TraceLevel() const;
 
-  DEFINE_STANDARD_RTTIEXT(ShapeProcess_Context, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(ShapeProcess_Context, RefObject)
 
 protected:
 private:

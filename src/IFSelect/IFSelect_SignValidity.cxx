@@ -37,7 +37,7 @@ IFSelect_SignValidity::IFSelect_SignValidity()
 
 //=================================================================================================
 
-Standard_CString IFSelect_SignValidity::CVal(const Handle(Standard_Transient)&       ent,
+Standard_CString IFSelect_SignValidity::CVal(const Handle(RefObject)&       ent,
                                              const Handle(Interface_InterfaceModel)& model)
 {
   if (ent.IsNull() || model.IsNull())
@@ -68,7 +68,7 @@ Standard_CString IFSelect_SignValidity::CVal(const Handle(Standard_Transient)&  
 
 //=================================================================================================
 
-Standard_CString IFSelect_SignValidity::Value(const Handle(Standard_Transient)&       ent,
+Standard_CString IFSelect_SignValidity::Value(const Handle(RefObject)&       ent,
                                               const Handle(Interface_InterfaceModel)& model) const
 {
   return IFSelect_SignValidity::CVal(ent, model);

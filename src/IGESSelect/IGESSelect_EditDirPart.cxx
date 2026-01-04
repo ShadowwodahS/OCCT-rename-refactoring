@@ -194,7 +194,7 @@ Handle(TCollection_HAsciiString) DefListName(const IGESData_DefList& deflist)
 }
 
 Standard_Boolean IGESSelect_EditDirPart::Load(const Handle(IFSelect_EditForm)&        form,
-                                              const Handle(Standard_Transient)&       ent,
+                                              const Handle(RefObject)&       ent,
                                               const Handle(Interface_InterfaceModel)& model) const
 {
   Handle(IGESData_IGESModel) modl = Handle(IGESData_IGESModel)::DownCast(model);
@@ -316,7 +316,7 @@ Standard_Boolean IGESSelect_EditDirPart::Update(const Handle(IFSelect_EditForm)&
 }
 
 Standard_Boolean IGESSelect_EditDirPart::Apply(const Handle(IFSelect_EditForm)&        form,
-                                               const Handle(Standard_Transient)&       ent,
+                                               const Handle(RefObject)&       ent,
                                                const Handle(Interface_InterfaceModel)& model) const
 {
   Handle(IGESData_IGESModel) modl = Handle(IGESData_IGESModel)::DownCast(model);

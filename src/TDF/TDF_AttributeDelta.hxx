@@ -25,7 +25,7 @@ class TDF_Attribute;
 class Standard_GUID;
 
 class TDF_AttributeDelta;
-DEFINE_STANDARD_HANDLE(TDF_AttributeDelta, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TDF_AttributeDelta, RefObject)
 
 //! This class describes the services we need to
 //! implement Delta and Undo/Redo services.
@@ -39,7 +39,7 @@ DEFINE_STANDARD_HANDLE(TDF_AttributeDelta, Standard_Transient)
 //! dead lock if found on the list, the
 //! AttributeDeltas are forced to be applied in an
 //! unpredictable order.
-class TDF_AttributeDelta : public Standard_Transient
+class TDF_AttributeDelta : public RefObject
 {
 
 public:
@@ -64,7 +64,7 @@ public:
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const;
 
-  DEFINE_STANDARD_RTTIEXT(TDF_AttributeDelta, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TDF_AttributeDelta, RefObject)
 
 protected:
   Standard_EXPORT TDF_AttributeDelta(const Handle(TDF_Attribute)& anAttribute);

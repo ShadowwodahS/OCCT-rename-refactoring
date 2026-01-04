@@ -33,9 +33,9 @@ class Message_Messenger;
 class Storage_BaseDriver;
 
 class PCDM_ReadWriter;
-DEFINE_STANDARD_HANDLE(PCDM_ReadWriter, Standard_Transient)
+DEFINE_STANDARD_HANDLE(PCDM_ReadWriter, RefObject)
 
-class PCDM_ReadWriter : public Standard_Transient
+class PCDM_ReadWriter : public RefObject
 {
 
 public:
@@ -100,7 +100,7 @@ public:
   Standard_EXPORT static TCollection_ExtendedString FileFormat(Standard_IStream&     theIStream,
                                                                Handle(Storage_Data)& theData);
 
-  DEFINE_STANDARD_RTTIEXT(PCDM_ReadWriter, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(PCDM_ReadWriter, RefObject)
 
 protected:
 private:

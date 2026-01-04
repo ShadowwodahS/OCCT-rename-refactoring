@@ -26,7 +26,7 @@ StepAP203_StartRequestItem::StepAP203_StartRequestItem() {}
 
 //=================================================================================================
 
-Standard_Integer StepAP203_StartRequestItem::CaseNum(const Handle(Standard_Transient)& ent) const
+Standard_Integer StepAP203_StartRequestItem::CaseNum(const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

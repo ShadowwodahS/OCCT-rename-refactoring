@@ -59,7 +59,7 @@ public:
     const Standard_SStream&                       theSStream,
     const Standard_Integer                        theStartPos,
     const Standard_Integer                        theLastPos,
-    NCollection_List<Handle(Standard_Transient)>& thePresentations);
+    NCollection_List<Handle(RefObject)>& thePresentations);
 
   //! Converts stream to color if possible. It processes Quantity_Color, Quantity_ColorRGBA
   //! \param theStream source of presentation
@@ -93,21 +93,21 @@ public:
   //! \param thePresentations container to collect new presentations
   Standard_EXPORT static void CreatePresentation(
     const Handle(Geom_Line)&                      theLine,
-    NCollection_List<Handle(Standard_Transient)>& thePresentations);
+    NCollection_List<Handle(RefObject)>& thePresentations);
 
   //! Creates presentation AIS_Plane
   //! \param thePlane source plane
   //! \param thePresentations container to collect new presentations
   Standard_EXPORT static void CreatePresentation(
     const Handle(Geom_Plane)&                     thePlane,
-    NCollection_List<Handle(Standard_Transient)>& thePresentations);
+    NCollection_List<Handle(RefObject)>& thePresentations);
 
   //! Creates two presentations base on gp_Trsf: box in initial place and transformed box
   //! \param thePlane source plane
   //! \param thePresentations container to collect new presentations
   Standard_EXPORT static void CreatePresentation(
     const gp_Trsf&                                theTrsf,
-    NCollection_List<Handle(Standard_Transient)>& thePresentations);
+    NCollection_List<Handle(RefObject)>& thePresentations);
 };
 
 #endif

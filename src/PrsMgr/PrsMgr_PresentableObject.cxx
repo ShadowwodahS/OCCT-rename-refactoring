@@ -27,7 +27,7 @@
 #include <Standard_NotImplemented.hxx>
 #include <TColStd_MapOfInteger.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(PrsMgr_PresentableObject, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(PrsMgr_PresentableObject, RefObject)
 
 //=================================================================================================
 

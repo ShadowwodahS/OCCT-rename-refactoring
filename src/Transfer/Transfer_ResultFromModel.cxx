@@ -23,7 +23,7 @@
 #include <Transfer_ResultFromTransient.hxx>
 #include <Transfer_TransientProcess.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Transfer_ResultFromModel, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Transfer_ResultFromModel, RefObject)
 
 Transfer_ResultFromModel::Transfer_ResultFromModel()
 {
@@ -53,7 +53,7 @@ Standard_CString Transfer_ResultFromModel::FileName() const
 }
 
 Standard_Boolean Transfer_ResultFromModel::Fill(const Handle(Transfer_TransientProcess)& TP,
-                                                const Handle(Standard_Transient)&        ent)
+                                                const Handle(RefObject)&        ent)
 {
   if (TP.IsNull() || ent.IsNull())
     return Standard_False;
@@ -87,7 +87,7 @@ void Transfer_ResultFromModel::Strip(const Standard_Integer mode)
     themchk = ComputeCheckStatus(Standard_False);
     themodel.Nullify();
     themain->ClearSubs();
-    Handle(Standard_Transient) nulh;
+    Handle(RefObject) nulh;
     themain->SetStart(nulh);
     if (mode > 10)
       themain.Nullify();
@@ -136,7 +136,7 @@ Standard_Integer Transfer_ResultFromModel::MainNumber() const
 //  ############  INFORMATIONS  GLOBALES  ###########
 
 Handle(Transfer_ResultFromTransient) Transfer_ResultFromModel::ResultFromKey(
-  const Handle(Standard_Transient)& start) const
+  const Handle(RefObject)& start) const
 {
   return themain->ResultFromKey(start);
 }

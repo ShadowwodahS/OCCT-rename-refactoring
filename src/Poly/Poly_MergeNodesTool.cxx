@@ -29,7 +29,7 @@ static int initialNbBuckets(int theNbFacets)
 }
 } // namespace
 
-IMPLEMENT_STANDARD_RTTIEXT(Poly_MergeNodesTool, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Poly_MergeNodesTool, RefObject)
 
 //! Map node.
 class Poly_MergeNodesTool::MergedNodesMap::DataMapNode : public NCollection_TListNode<int>

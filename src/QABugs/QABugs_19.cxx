@@ -1742,13 +1742,13 @@ static Standard_Integer OCC24533(Draw_Interpretor& di, Standard_Integer n, const
   if (n != 1)
     return 1;
 
-  DoIsNull<Standard_Transient, Handle(Standard_Transient)>(di);
+  DoIsNull<RefObject, Handle(RefObject)>(di);
 
   return 0;
 }
 
 // Dummy class to test interface for compilation issues
-class QABugs_HandleClass : public Standard_Transient
+class QABugs_HandleClass : public RefObject
 {
 public:
   Standard_Integer HandleProc(Draw_Interpretor&, Standard_Integer, const char** theArgVec)
@@ -1756,9 +1756,9 @@ public:
     std::cerr << "QABugs_HandleClass[" << this << "] " << theArgVec[0] << "\n";
     return 0;
   }
-  DEFINE_STANDARD_RTTI_INLINE(QABugs_HandleClass, Standard_Transient) // Type definition
+  DEFINE_STANDARD_RTTI_INLINE(QABugs_HandleClass, RefObject) // Type definition
 };
-DEFINE_STANDARD_HANDLE(QABugs_HandleClass, Standard_Transient)
+DEFINE_STANDARD_HANDLE(QABugs_HandleClass, RefObject)
 
 // Dummy class to test interface for compilation issues
 struct QABugs_NHandleClass

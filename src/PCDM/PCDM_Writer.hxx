@@ -28,9 +28,9 @@ class CDM_Document;
 class TCollection_ExtendedString;
 
 class PCDM_Writer;
-DEFINE_STANDARD_HANDLE(PCDM_Writer, Standard_Transient)
+DEFINE_STANDARD_HANDLE(PCDM_Writer, RefObject)
 
-class PCDM_Writer : public Standard_Transient
+class PCDM_Writer : public RefObject
 {
 public:
   Standard_EXPORT virtual void Write(
@@ -44,7 +44,7 @@ public:
     Standard_OStream&            theOStream,
     const Message_ProgressRange& theRange = Message_ProgressRange()) = 0;
 
-  DEFINE_STANDARD_RTTIEXT(PCDM_Writer, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(PCDM_Writer, RefObject)
 };
 
 #endif // _PCDM_Writer_HeaderFile

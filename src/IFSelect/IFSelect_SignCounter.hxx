@@ -26,7 +26,7 @@
 #include <TColStd_HSequenceOfTransient.hxx>
 class IFSelect_Signature;
 class IFSelect_Selection;
-class Standard_Transient;
+class RefObject;
 class Interface_InterfaceModel;
 class Interface_Graph;
 class TCollection_HAsciiString;
@@ -83,7 +83,7 @@ public:
   //! call to method AddSign
   //! Returns True if added, False if already in the map (and
   //! map control status set)
-  Standard_EXPORT virtual Standard_Boolean AddEntity(const Handle(Standard_Transient)&       ent,
+  Standard_EXPORT virtual Standard_Boolean AddEntity(const Handle(RefObject)&       ent,
                                                      const Handle(Interface_InterfaceModel)& model);
 
   //! Adds an entity (already filtered by Map) with its signature.
@@ -92,7 +92,7 @@ public:
   //! if no Signature is defined, it does nothing.
   //!
   //! Can be redefined (in this case, see also Sign)
-  Standard_EXPORT virtual void AddSign(const Handle(Standard_Transient)&       ent,
+  Standard_EXPORT virtual void AddSign(const Handle(RefObject)&       ent,
                                        const Handle(Interface_InterfaceModel)& model);
 
   //! Adds a list of entities by adding each of the items
@@ -150,14 +150,14 @@ public:
   //!
   //! Can be redefined, accorded with AddSign
   Standard_EXPORT virtual Handle(TCollection_HAsciiString) Sign(
-    const Handle(Standard_Transient)&       ent,
+    const Handle(RefObject)&       ent,
     const Handle(Interface_InterfaceModel)& model) const;
 
   //! Applies AddWithGraph on one entity, and returns the Signature
   //! Value which has been recorded
   //! To do this, Add is called with SignOnly Mode True during the
   //! call, the returned value is LastValue
-  Standard_EXPORT Standard_CString ComputedSign(const Handle(Standard_Transient)& ent,
+  Standard_EXPORT Standard_CString ComputedSign(const Handle(RefObject)& ent,
                                                 const Interface_Graph&            G);
 
   DEFINE_STANDARD_RTTIEXT(IFSelect_SignCounter, IFSelect_SignatureList)

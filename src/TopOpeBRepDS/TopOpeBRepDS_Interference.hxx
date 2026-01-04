@@ -27,7 +27,7 @@
 #include <Standard_OStream.hxx>
 
 class TopOpeBRepDS_Interference;
-DEFINE_STANDARD_HANDLE(TopOpeBRepDS_Interference, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TopOpeBRepDS_Interference, RefObject)
 
 //! An interference    is   the   description  of  the
 //! attachment of  a new  geometry on a  geometry. For
@@ -50,7 +50,7 @@ DEFINE_STANDARD_HANDLE(TopOpeBRepDS_Interference, Standard_Transient)
 //!
 //! - Geometry : Index  in the data structure  of the
 //! geometry.
-class TopOpeBRepDS_Interference : public Standard_Transient
+class TopOpeBRepDS_Interference : public RefObject
 {
 
 public:
@@ -100,7 +100,7 @@ public:
   Standard_EXPORT Standard_Boolean
     HasSameGeometry(const Handle(TopOpeBRepDS_Interference)& Other) const;
 
-  DEFINE_STANDARD_RTTIEXT(TopOpeBRepDS_Interference, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TopOpeBRepDS_Interference, RefObject)
 
 protected:
 private:

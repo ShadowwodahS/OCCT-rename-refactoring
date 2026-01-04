@@ -40,7 +40,7 @@ IFSelect_ContextModif::IFSelect_ContextModif(const Interface_Graph&    graph,
   thesel  = Standard_False;
   thecurr = thecurt             = 0;
   Standard_Integer           nb = thelist.Length();
-  Handle(Standard_Transient) newent;
+  Handle(RefObject) newent;
   for (Standard_Integer i = 1; i <= nb; i++)
   {
     if (themap->Search(graph.Entity(i), newent))
@@ -59,7 +59,7 @@ IFSelect_ContextModif::IFSelect_ContextModif(const Interface_Graph& graph,
   thesel  = Standard_False;
   thecurr = thecurt             = 0;
   Standard_Integer           nb = thelist.Length();
-  Handle(Standard_Transient) newent;
+  Handle(RefObject) newent;
   for (Standard_Integer i = 1; i <= nb; i++)
     thelist.SetValue(i, '1');
 }
@@ -74,7 +74,7 @@ void IFSelect_ContextModif::Select(Interface_EntityIterator& list)
     thelist.SetValue(i, ' ');
   for (list.Start(); list.More(); list.Next())
   {
-    Handle(Standard_Transient) start, newent;
+    Handle(RefObject) start, newent;
     start                = list.Value();
     Standard_Integer num = thegraf.EntityNumber(start);
     if (num > nb || num < 0)
@@ -162,17 +162,17 @@ Standard_Boolean IFSelect_ContextModif::IsForAll() const
 
 //=================================================================================================
 
-Standard_Boolean IFSelect_ContextModif::IsTransferred(const Handle(Standard_Transient)& ent) const
+Standard_Boolean IFSelect_ContextModif::IsTransferred(const Handle(RefObject)& ent) const
 {
   if (themap.IsNull())
     return Standard_True;
-  Handle(Standard_Transient) newent;
+  Handle(RefObject) newent;
   return themap->Search(ent, newent);
 }
 
 //=================================================================================================
 
-Standard_Boolean IFSelect_ContextModif::IsSelected(const Handle(Standard_Transient)& ent) const
+Standard_Boolean IFSelect_ContextModif::IsSelected(const Handle(RefObject)& ent) const
 {
   //  Select a deja verifie "IsTransferred"
   Standard_Integer num = thegraf.EntityNumber(ent);
@@ -203,7 +203,7 @@ Interface_EntityIterator IFSelect_ContextModif::SelectedResult() const
   Standard_Integer         nb = thelist.Length();
   for (Standard_Integer i = 1; i <= nb; i++)
   {
-    Handle(Standard_Transient) newent;
+    Handle(RefObject) newent;
     if (themap.IsNull())
       newent = thegraf.Entity(i);
     else if (thelist.Value(i) != ' ')
@@ -264,7 +264,7 @@ void IFSelect_ContextModif::Next()
 
 //=================================================================================================
 
-Handle(Standard_Transient) IFSelect_ContextModif::ValueOriginal() const
+Handle(RefObject) IFSelect_ContextModif::ValueOriginal() const
 {
   if (thecurr <= 0)
     throw Standard_NoSuchObject("IFSelect_ContextModif");
@@ -273,11 +273,11 @@ Handle(Standard_Transient) IFSelect_ContextModif::ValueOriginal() const
 
 //=================================================================================================
 
-Handle(Standard_Transient) IFSelect_ContextModif::ValueResult() const
+Handle(RefObject) IFSelect_ContextModif::ValueResult() const
 {
   if (thecurr <= 0)
     throw Standard_NoSuchObject("IFSelect_ContextModif");
-  Handle(Standard_Transient) ent, newent;
+  Handle(RefObject) ent, newent;
   ent = thegraf.Entity(thecurr);
   if (themap.IsNull())
     newent = ent;
@@ -337,7 +337,7 @@ void IFSelect_ContextModif::AddCheck(const Handle(Interface_Check)& check)
 {
   if (check->NbFails() + check->NbWarnings() == 0)
     return;
-  const Handle(Standard_Transient)& ent = check->Entity();
+  const Handle(RefObject)& ent = check->Entity();
   Standard_Integer                  num = thegraf.EntityNumber(ent);
   if (num == 0 && !ent.IsNull())
     num = -1; // force enregistrement
@@ -346,7 +346,7 @@ void IFSelect_ContextModif::AddCheck(const Handle(Interface_Check)& check)
 
 //=================================================================================================
 
-void IFSelect_ContextModif::AddWarning(const Handle(Standard_Transient)& start,
+void IFSelect_ContextModif::AddWarning(const Handle(RefObject)& start,
                                        const Standard_CString            mess,
                                        const Standard_CString            orig)
 {
@@ -355,7 +355,7 @@ void IFSelect_ContextModif::AddWarning(const Handle(Standard_Transient)& start,
 
 //=================================================================================================
 
-void IFSelect_ContextModif::AddFail(const Handle(Standard_Transient)& start,
+void IFSelect_ContextModif::AddFail(const Handle(RefObject)& start,
                                     const Standard_CString            mess,
                                     const Standard_CString            orig)
 {
@@ -374,7 +374,7 @@ Handle(Interface_Check) IFSelect_ContextModif::CCheck(const Standard_Integer num
 
 //=================================================================================================
 
-Handle(Interface_Check) IFSelect_ContextModif::CCheck(const Handle(Standard_Transient)& ent)
+Handle(Interface_Check) IFSelect_ContextModif::CCheck(const Handle(RefObject)& ent)
 {
   Standard_Integer num = thegraf.EntityNumber(ent);
   if (num == 0)

@@ -17,7 +17,7 @@
 
 #include <StepFEA_FreedomAndCoefficient.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepFEA_FreedomAndCoefficient, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepFEA_FreedomAndCoefficient, RefObject)
 
 //=================================================================================================
 

@@ -29,7 +29,7 @@
 #include <Quantity_Color.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Aspect_Window, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Aspect_Window, RefObject)
 
 //-Aliases
 //-Global data definitions

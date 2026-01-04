@@ -23,7 +23,7 @@
 struct IMeshTools_Parameters;
 
 //! Interface class providing API for algorithms intended to create mesh for discrete face.
-class IMeshTools_MeshAlgo : public Standard_Transient
+class IMeshTools_MeshAlgo : public RefObject
 {
 public:
   //! Destructor.
@@ -34,7 +34,7 @@ public:
                                        const IMeshTools_Parameters&  theParameters,
                                        const Message_ProgressRange&  theRange) = 0;
 
-  DEFINE_STANDARD_RTTIEXT(IMeshTools_MeshAlgo, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IMeshTools_MeshAlgo, RefObject)
 
 protected:
   //! Constructor.

@@ -302,7 +302,7 @@ QList<TreeModel_ItemBasePtr> TreeModel_ModelBase::SelectedItems(const QModelInde
 // =======================================================================
 void TreeModel_ModelBase::SubItemsPresentations(
   const QModelIndexList&                        theIndices,
-  NCollection_List<Handle(Standard_Transient)>& thePresentations)
+  NCollection_List<Handle(RefObject)>& thePresentations)
 {
   QList<TreeModel_ItemBasePtr> anItems;
 
@@ -323,7 +323,7 @@ void TreeModel_ModelBase::SubItemsPresentations(
 // =======================================================================
 void TreeModel_ModelBase::subItemsPresentations(
   const TreeModel_ItemBasePtr&                  theItem,
-  NCollection_List<Handle(Standard_Transient)>& thePresentations)
+  NCollection_List<Handle(RefObject)>& thePresentations)
 {
   theItem->Presentations(thePresentations);
 

@@ -24,7 +24,7 @@
 #include <StepData_Factors.hxx>
 #include <DESTEP_Parameters.hxx>
 
-class Standard_Transient;
+class RefObject;
 class Interface_EntityIterator;
 class Interface_Check;
 class TCollection_HAsciiString;
@@ -44,7 +44,7 @@ public:
 
   //! returns entity given its rank.
   //! Same as InterfaceEntity, but with a shorter name
-  Standard_EXPORT Handle(Standard_Transient) Entity(const Standard_Integer num) const;
+  Standard_EXPORT Handle(RefObject) Entity(const Standard_Integer num) const;
 
   //! gets header from another Model (uses Header Protocol)
   Standard_EXPORT void GetFromAnother(const Handle(Interface_InterfaceModel)& other)
@@ -60,13 +60,13 @@ public:
   Standard_EXPORT Standard_Boolean HasHeaderEntity(const Handle(Standard_Type)& atype) const;
 
   //! Returns Header entity with specified type, if there is
-  Standard_EXPORT Handle(Standard_Transient) HeaderEntity(const Handle(Standard_Type)& atype) const;
+  Standard_EXPORT Handle(RefObject) HeaderEntity(const Handle(Standard_Type)& atype) const;
 
   //! Clears the Header
   Standard_EXPORT void ClearHeader() Standard_OVERRIDE;
 
   //! Adds an Entity to the Header
-  Standard_EXPORT void AddHeaderEntity(const Handle(Standard_Transient)& ent);
+  Standard_EXPORT void AddHeaderEntity(const Handle(RefObject)& ent);
 
   //! Specific Check, checks Header Items with HeaderProtocol
   Standard_EXPORT virtual void VerifyCheck(Handle(Interface_Check)& ach) const Standard_OVERRIDE;
@@ -84,22 +84,22 @@ public:
 
   //! Attaches an ident to an entity to produce a label
   //! (does nothing if <ent> is not in <me>)
-  Standard_EXPORT void SetIdentLabel(const Handle(Standard_Transient)& ent,
+  Standard_EXPORT void SetIdentLabel(const Handle(RefObject)& ent,
                                      const Standard_Integer            ident);
 
   //! returns the label ident attached to an entity, 0 if not in me
-  Standard_EXPORT Standard_Integer IdentLabel(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer IdentLabel(const Handle(RefObject)& ent) const;
 
   //! Prints label specific to STEP norm for a given entity, i.e.
   //! if a LabelIdent has been recorded, its value with '#', else
   //! the number in the model with '#' and between ()
-  Standard_EXPORT void PrintLabel(const Handle(Standard_Transient)& ent,
+  Standard_EXPORT void PrintLabel(const Handle(RefObject)& ent,
                                   Standard_OStream&                 S) const Standard_OVERRIDE;
 
   //! Returns a string with the label attached to a given entity,
   //! same form as for PrintLabel
   Standard_EXPORT Handle(TCollection_HAsciiString) StringLabel(
-    const Handle(Standard_Transient)& ent) const Standard_OVERRIDE;
+    const Handle(RefObject)& ent) const Standard_OVERRIDE;
 
   //! Return the encoding of STEP file for converting names into UNICODE.
   //! Initialized from "read.step.codepage" variable by constructor, which is Resource_UTF8 by

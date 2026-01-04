@@ -45,10 +45,10 @@ class V3d_View;
 //! The methods of this class allow editing and
 //! interrogation of the parameters linked to the viewer
 //! its friend classes (View,light,plane).
-class V3d_Viewer : public Standard_Transient
+class V3d_Viewer : public RefObject
 {
   friend class V3d_View;
-  DEFINE_STANDARD_RTTIEXT(V3d_Viewer, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(V3d_Viewer, RefObject)
 public:
   //! Create a Viewer with the given graphic driver and with default parameters:
   //! - View orientation: V3d_XposYnegZpos
@@ -599,6 +599,6 @@ private:
   Graphic3d_Vertex                 myGridEchoLastVert;
 };
 
-DEFINE_STANDARD_HANDLE(V3d_Viewer, Standard_Transient)
+DEFINE_STANDARD_HANDLE(V3d_Viewer, RefObject)
 
 #endif // _V3d_Viewer_HeaderFile

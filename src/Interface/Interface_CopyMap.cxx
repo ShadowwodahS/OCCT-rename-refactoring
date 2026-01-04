@@ -29,7 +29,7 @@ Interface_CopyMap::Interface_CopyMap(const Handle(Interface_InterfaceModel)& amo
 void Interface_CopyMap::Clear()
 {
   Standard_Integer           nb = theres.Upper();
-  Handle(Standard_Transient) bid; // Null
+  Handle(RefObject) bid; // Null
   for (Standard_Integer i = 1; i <= nb; i++)
     theres.SetValue(i, bid);
 }
@@ -39,8 +39,8 @@ Handle(Interface_InterfaceModel) Interface_CopyMap::Model() const
   return themod;
 }
 
-void Interface_CopyMap::Bind(const Handle(Standard_Transient)& ent,
-                             const Handle(Standard_Transient)& res)
+void Interface_CopyMap::Bind(const Handle(RefObject)& ent,
+                             const Handle(RefObject)& res)
 {
   Standard_Integer num = themod->Number(ent);
   if (num == 0 || num > theres.Upper())
@@ -51,8 +51,8 @@ void Interface_CopyMap::Bind(const Handle(Standard_Transient)& ent,
   theres.SetValue(num, res);
 }
 
-Standard_Boolean Interface_CopyMap::Search(const Handle(Standard_Transient)& ent,
-                                           Handle(Standard_Transient)&       res) const
+Standard_Boolean Interface_CopyMap::Search(const Handle(RefObject)& ent,
+                                           Handle(RefObject)&       res) const
 {
   Standard_Integer num = themod->Number(ent);
   if (num == 0)

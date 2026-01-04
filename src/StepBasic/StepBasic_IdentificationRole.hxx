@@ -24,10 +24,10 @@
 class TCollection_HAsciiString;
 
 class StepBasic_IdentificationRole;
-DEFINE_STANDARD_HANDLE(StepBasic_IdentificationRole, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_IdentificationRole, RefObject)
 
 //! Representation of STEP entity IdentificationRole
-class StepBasic_IdentificationRole : public Standard_Transient
+class StepBasic_IdentificationRole : public RefObject
 {
 
 public:
@@ -54,7 +54,7 @@ public:
   //! Returns True if optional field Description is defined
   Standard_EXPORT Standard_Boolean HasDescription() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_IdentificationRole, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_IdentificationRole, RefObject)
 
 protected:
 private:

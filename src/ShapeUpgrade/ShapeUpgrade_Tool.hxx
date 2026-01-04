@@ -24,13 +24,13 @@
 class ShapeBuild_ReShape;
 
 class ShapeUpgrade_Tool;
-DEFINE_STANDARD_HANDLE(ShapeUpgrade_Tool, Standard_Transient)
+DEFINE_STANDARD_HANDLE(ShapeUpgrade_Tool, RefObject)
 
 //! Tool is a root class for splitting classes
 //! Provides context for recording changes, basic
 //! precision value and limit (minimal and maximal)
 //! values for tolerances
-class ShapeUpgrade_Tool : public Standard_Transient
+class ShapeUpgrade_Tool : public RefObject
 {
 
 public:
@@ -67,7 +67,7 @@ public:
   //! Returns tolerance limited by [myMinTol,myMaxTol]
   Standard_Real LimitTolerance(const Standard_Real toler) const;
 
-  DEFINE_STANDARD_RTTIEXT(ShapeUpgrade_Tool, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(ShapeUpgrade_Tool, RefObject)
 
 protected:
 private:

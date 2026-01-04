@@ -131,9 +131,9 @@ Handle(IGESData_IGESEntity) IGESBasic_Group::Entity(const Standard_Integer Index
   return theEntities->Value(Index);
 }
 
-Handle(Standard_Transient) IGESBasic_Group::Value(const Standard_Integer Index) const
+Handle(RefObject) IGESBasic_Group::Value(const Standard_Integer Index) const
 {
-  return Handle(Standard_Transient)(theEntities->Value(Index));
+  return Handle(RefObject)(theEntities->Value(Index));
 }
 
 void IGESBasic_Group::SetValue(const Standard_Integer Index, const Handle(IGESData_IGESEntity)& ent)

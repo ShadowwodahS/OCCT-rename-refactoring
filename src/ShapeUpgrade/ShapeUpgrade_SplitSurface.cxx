@@ -40,7 +40,7 @@
 #include <GProp_GProps.hxx>
 #include <BRepGProp.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeUpgrade_SplitSurface, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(ShapeUpgrade_SplitSurface, RefObject)
 
 //=================================================================================================
 

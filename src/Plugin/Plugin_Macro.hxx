@@ -23,9 +23,9 @@
   //! Macro implementing C-style interface function to get factory object from the dynamically
   //! loaded library
   #define PLUGIN(name)                                                                             \
-    extern "C" Standard_EXPORT Standard_Transient* PLUGINFACTORY(const Standard_GUID& aGUID)       \
+    extern "C" Standard_EXPORT RefObject* PLUGINFACTORY(const Standard_GUID& aGUID)       \
     {                                                                                              \
-      return const_cast<Standard_Transient*>(name::Factory(aGUID).get());                          \
+      return const_cast<RefObject*>(name::Factory(aGUID).get());                          \
     }
 #endif
 

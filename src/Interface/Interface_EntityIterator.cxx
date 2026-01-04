@@ -46,7 +46,7 @@ void Interface_EntityIterator::AddList(const Handle(TColStd_HSequenceOfTransient
   thelist->Append(list);
 }
 
-void Interface_EntityIterator::AddItem(const Handle(Standard_Transient)& anentity)
+void Interface_EntityIterator::AddItem(const Handle(RefObject)& anentity)
 {
   if (anentity.IsNull())
     return;
@@ -58,7 +58,7 @@ void Interface_EntityIterator::AddItem(const Handle(Standard_Transient)& anentit
   thelist->Append(anentity);
 }
 
-void Interface_EntityIterator::GetOneItem(const Handle(Standard_Transient)& anentity)
+void Interface_EntityIterator::GetOneItem(const Handle(RefObject)& anentity)
 {
   AddItem(anentity);
 }
@@ -152,7 +152,7 @@ void Interface_EntityIterator::Next() const
   thecurr->CValue()++;
 } // Next ne verifie rien : soin laisse a Value
 
-const Handle(Standard_Transient)& Interface_EntityIterator::Value() const
+const Handle(RefObject)& Interface_EntityIterator::Value() const
 {
   //  NbEntity pas const (on ne sait pas comment il est implemente apres tout)
   if (thelist.IsNull())

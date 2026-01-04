@@ -24,9 +24,9 @@
 class StepBasic_SecurityClassification;
 
 class StepBasic_SecurityClassificationAssignment;
-DEFINE_STANDARD_HANDLE(StepBasic_SecurityClassificationAssignment, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_SecurityClassificationAssignment, RefObject)
 
-class StepBasic_SecurityClassificationAssignment : public Standard_Transient
+class StepBasic_SecurityClassificationAssignment : public RefObject
 {
 
 public:
@@ -38,7 +38,7 @@ public:
 
   Standard_EXPORT Handle(StepBasic_SecurityClassification) AssignedSecurityClassification() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_SecurityClassificationAssignment, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_SecurityClassificationAssignment, RefObject)
 
 protected:
 private:

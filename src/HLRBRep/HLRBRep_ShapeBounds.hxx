@@ -36,7 +36,7 @@ public:
   HLRBRep_ShapeBounds();
 
   Standard_EXPORT HLRBRep_ShapeBounds(const Handle(HLRTopoBRep_OutLiner)& S,
-                                      const Handle(Standard_Transient)&   SData,
+                                      const Handle(RefObject)&   SData,
                                       const Standard_Integer              nbIso,
                                       const Standard_Integer              V1,
                                       const Standard_Integer              V2,
@@ -62,9 +62,9 @@ public:
 
   const Handle(HLRTopoBRep_OutLiner)& Shape() const;
 
-  void ShapeData(const Handle(Standard_Transient)& SD);
+  void ShapeData(const Handle(RefObject)& SD);
 
-  const Handle(Standard_Transient)& ShapeData() const;
+  const Handle(RefObject)& ShapeData() const;
 
   void NbOfIso(const Standard_Integer nbIso);
 
@@ -91,7 +91,7 @@ public:
 protected:
 private:
   Handle(HLRTopoBRep_OutLiner)      myShape;
-  Handle(Standard_Transient)        myShapeData;
+  Handle(RefObject)        myShapeData;
   Standard_Integer                  myNbIso;
   Standard_Integer                  myVertStart;
   Standard_Integer                  myVertEnd;

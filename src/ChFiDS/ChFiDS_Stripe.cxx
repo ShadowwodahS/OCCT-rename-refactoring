@@ -19,7 +19,7 @@
 #include <Geom2d_Curve.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ChFiDS_Stripe, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(ChFiDS_Stripe, RefObject)
 
 ChFiDS_Stripe::ChFiDS_Stripe()
     : pardeb1(0.0),

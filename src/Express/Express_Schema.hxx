@@ -27,7 +27,7 @@ class Express_Type;
 //! Represents a schema as a list of items and provides general
 //! tools for generating HXX/CXX files (including dictionary of
 //! item names)
-class Express_Schema : public Standard_Transient
+class Express_Schema : public RefObject
 {
 
 public:
@@ -64,7 +64,7 @@ public:
   //! Returns item by name
   Standard_EXPORT Handle(Express_Item) Item(const Handle(TCollection_HAsciiString)& theName) const;
 
-  DEFINE_STANDARD_RTTIEXT(Express_Schema, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Express_Schema, RefObject)
 
 protected:
 private:

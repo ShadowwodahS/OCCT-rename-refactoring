@@ -28,7 +28,7 @@ class Interface_InterfaceModel;
 class TCollection_HAsciiString;
 
 class IFSelect_ListEditor;
-DEFINE_STANDARD_HANDLE(IFSelect_ListEditor, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IFSelect_ListEditor, RefObject)
 
 //! A ListEditor is an auxiliary operator for Editor/EditForm
 //! I.E. it works on parameter values expressed as strings
@@ -50,7 +50,7 @@ DEFINE_STANDARD_HANDLE(IFSelect_ListEditor, Standard_Transient)
 //! An EditList is produced by the Editor, with a basic definition
 //! This definition (brought by this class) can be redefined
 //! Hence the Editor may produce a specific ListEditor as needed
-class IFSelect_ListEditor : public Standard_Transient
+class IFSelect_ListEditor : public RefObject
 {
 
 public:
@@ -141,7 +141,7 @@ public:
   //! been recorded
   Standard_EXPORT Standard_Boolean IsTouched() const;
 
-  DEFINE_STANDARD_RTTIEXT(IFSelect_ListEditor, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IFSelect_ListEditor, RefObject)
 
 private:
   Standard_Integer                        themax;

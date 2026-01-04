@@ -27,9 +27,9 @@
 //! The container of parameters for all possible plugins. It stores list of parameters for each
 //! plugin, even it was not be loaded yet. There is a map of plugin name into plugin parameters. The
 //! parameters may be:
-//! - child of Standard_Transient
+//! - child of RefObject
 //! - file name to be opened by the plugin
-class TInspectorAPI_PluginParameters : public Standard_Transient
+class TInspectorAPI_PluginParameters : public RefObject
 {
 public:
   //! Constructs the container.
@@ -45,7 +45,7 @@ public:
   //! used in a heir
   Standard_EXPORT virtual void SetParameters(
     const TCollection_AsciiString&                      thePluginName,
-    const NCollection_List<Handle(Standard_Transient)>& theParameters,
+    const NCollection_List<Handle(RefObject)>& theParameters,
     const Standard_Boolean&                             theToActivatePlugin = Standard_False);
 
   //! Adds a file name for the plugin
@@ -71,7 +71,7 @@ public:
   //! \param thePluginName a plugin name
   //! \param theObjects an objects
   Standard_EXPORT void SetSelected(const TCollection_AsciiString& thePluginName,
-                                   const NCollection_List<Handle(Standard_Transient)>& theObjects);
+                                   const NCollection_List<Handle(RefObject)>& theObjects);
 
   //! Returns true if there are parameters set for the given plugin
   //! \param thePluginName a plugin name
@@ -81,7 +81,7 @@ public:
   //! Returns parameters set for the given plugin
   //! \param thePluginName a plugin name
   //! \return container of objects
-  Standard_EXPORT const NCollection_List<Handle(Standard_Transient)>& Parameters(
+  Standard_EXPORT const NCollection_List<Handle(RefObject)>& Parameters(
     const TCollection_AsciiString& thePluginName);
 
   //! Returns true if there are file names set for the given plugin
@@ -111,7 +111,7 @@ public:
   //! \return container of objects
   Standard_EXPORT Standard_Boolean
     GetSelectedObjects(const TCollection_AsciiString&                thePluginName,
-                       NCollection_List<Handle(Standard_Transient)>& theObjects);
+                       NCollection_List<Handle(RefObject)>& theObjects);
 
   //! Sets path to a directory for temporary plugin files
   //! \param thePath a path
@@ -149,10 +149,10 @@ public:
   Standard_EXPORT static void ParametersToShape(const TCollection_AsciiString& theValue,
                                                 TopoDS_Shape&                  theShape);
 
-  DEFINE_STANDARD_RTTIEXT(TInspectorAPI_PluginParameters, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TInspectorAPI_PluginParameters, RefObject)
 private:
   //! container of parameters
-  NCollection_DataMap<TCollection_AsciiString, NCollection_List<Handle(Standard_Transient)>>
+  NCollection_DataMap<TCollection_AsciiString, NCollection_List<Handle(RefObject)>>
     myParameters;
   //! container of names
   NCollection_DataMap<TCollection_AsciiString, NCollection_List<TCollection_AsciiString>>
@@ -161,7 +161,7 @@ private:
   NCollection_DataMap<TCollection_AsciiString, NCollection_List<TCollection_AsciiString>>
     mySelectedItemNames;
   //! container of select objects
-  NCollection_DataMap<TCollection_AsciiString, NCollection_List<Handle(Standard_Transient)>>
+  NCollection_DataMap<TCollection_AsciiString, NCollection_List<Handle(RefObject)>>
     mySelectedObjects;
   //! temporary directory for saving plugin preferences
   TCollection_AsciiString myTemporaryDirectory;

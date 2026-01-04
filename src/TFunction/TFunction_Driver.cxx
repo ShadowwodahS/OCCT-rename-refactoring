@@ -17,7 +17,7 @@
 #include <TFunction_Driver.hxx>
 #include <TFunction_Logbook.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TFunction_Driver, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(TFunction_Driver, RefObject)
 
 //=================================================================================================
 

@@ -21,7 +21,7 @@
 #include <Message_Messenger.hxx>
 #include <OSD_FileSystem.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Image_Texture, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Image_Texture, RefObject)
 
 //=================================================================================================
 

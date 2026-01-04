@@ -28,7 +28,7 @@ IFSelect_SignAncestor::IFSelect_SignAncestor(const Standard_Boolean nopk)
 {
 }
 
-Standard_Boolean IFSelect_SignAncestor::Matches(const Handle(Standard_Transient)& ent,
+Standard_Boolean IFSelect_SignAncestor::Matches(const Handle(RefObject)& ent,
                                                 const Handle(Interface_InterfaceModel)& /*model*/,
                                                 const TCollection_AsciiString& text,
                                                 const Standard_Boolean /*exact*/) const

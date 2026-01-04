@@ -23,7 +23,7 @@
 
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepGeom_BoundaryCurve;
 class StepGeom_DegeneratePcurve;
 
@@ -40,7 +40,7 @@ public:
   //! 1 -> BoundaryCurve from StepGeom
   //! 2 -> DegeneratePcurve from StepGeom
   //! 0 else
-  Standard_EXPORT Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! Returns Value as BoundaryCurve (or Null if another type)
   Standard_EXPORT Handle(StepGeom_BoundaryCurve) BoundaryCurve() const;

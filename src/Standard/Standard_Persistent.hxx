@@ -19,7 +19,7 @@
 
 //! Root of "persistent" classes, a legacy support of
 //! object oriented databases, now outdated.
-class Standard_Persistent : public Standard_Transient
+class Standard_Persistent : public RefObject
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -30,7 +30,7 @@ public:
   {
   }
 
-  DEFINE_STANDARD_RTTIEXT(Standard_Persistent, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Standard_Persistent, RefObject)
 
   Standard_Integer& TypeNum() { return _typenum; }
 

@@ -23,7 +23,7 @@
 //! Class to define graphic driver capabilities.
 //! Notice that these options will be ignored if particular functionality does not provided by GL
 //! driver
-class OpenGl_Caps : public Standard_Transient
+class OpenGl_Caps : public RefObject
 {
 
 public
@@ -199,9 +199,9 @@ private:
   OpenGl_Caps(const OpenGl_Caps&);
 
 public:
-  DEFINE_STANDARD_RTTIEXT(OpenGl_Caps, Standard_Transient) // Type definition
+  DEFINE_STANDARD_RTTIEXT(OpenGl_Caps, RefObject) // Type definition
 };
 
-DEFINE_STANDARD_HANDLE(OpenGl_Caps, Standard_Transient)
+DEFINE_STANDARD_HANDLE(OpenGl_Caps, RefObject)
 
 #endif // _OpenGl_Caps_H__

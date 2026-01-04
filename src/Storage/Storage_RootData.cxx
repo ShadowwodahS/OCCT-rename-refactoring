@@ -21,7 +21,7 @@
 #include <Storage_DataMapIteratorOfMapOfPers.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Storage_RootData, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Storage_RootData, RefObject)
 
 Storage_RootData::Storage_RootData()
     : myErrorStatus(Storage_VSOk)

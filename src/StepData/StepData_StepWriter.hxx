@@ -41,7 +41,7 @@ class StepData_PDescr;
 class StepData_SelectMember;
 class StepData_FieldList;
 class StepData_ESDescr;
-class Standard_Transient;
+class RefObject;
 
 //! manages atomic file writing, under control of StepModel (for
 //! general organisation of file) and each class of Transient
@@ -211,7 +211,7 @@ public:
   //! REMARK 1 : a Null <val> is interpreted as "Undefined"
   //! REMARK 2 : for an HAsciiString which is not recorded in the
   //! Model, it is send as its String Content, between quotes
-  Standard_EXPORT void Send(const Handle(Standard_Transient)& val);
+  Standard_EXPORT void Send(const Handle(RefObject)& val);
 
   //! sends a Boolean as .T. for True or .F. for False
   //! (it is an useful case of Enum, which is built-in)

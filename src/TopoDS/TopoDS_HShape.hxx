@@ -23,10 +23,10 @@
 #include <Standard_Transient.hxx>
 
 class TopoDS_HShape;
-DEFINE_STANDARD_HANDLE(TopoDS_HShape, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TopoDS_HShape, RefObject)
 
 //! Class to manipulate a Shape with  handle.
-class TopoDS_HShape : public Standard_Transient
+class TopoDS_HShape : public RefObject
 {
 
 public:
@@ -50,7 +50,7 @@ public:
   //! this shape. The TopoDS_Shape can be modified.
   TopoDS_Shape& ChangeShape();
 
-  DEFINE_STANDARD_RTTIEXT(TopoDS_HShape, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TopoDS_HShape, RefObject)
 
 protected:
 private:

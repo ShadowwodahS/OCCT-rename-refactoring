@@ -26,7 +26,7 @@ class Interface_Graph;
 class Interface_Protocol;
 class Interface_CheckIterator;
 class Interface_InterfaceModel;
-class Standard_Transient;
+class RefObject;
 class TCollection_AsciiString;
 
 class IGESSelect_SplineToBSpline;
@@ -72,8 +72,8 @@ public:
   //! it is the result of general service Copy (rebuilt as necessary
   //! by BSPlines replacing Splines).
   Standard_EXPORT Standard_Boolean
-    Updated(const Handle(Standard_Transient)& entfrom,
-            Handle(Standard_Transient)&       entto) const Standard_OVERRIDE;
+    Updated(const Handle(RefObject)& entfrom,
+            Handle(RefObject)&       entto) const Standard_OVERRIDE;
 
   //! Returns a text which defines the way a Transformer works :
   //! "Conversion Spline to BSpline" and as opted,

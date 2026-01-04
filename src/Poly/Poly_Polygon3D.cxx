@@ -16,7 +16,7 @@
 
 #include <Poly_Polygon3D.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Poly_Polygon3D, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Poly_Polygon3D, RefObject)
 
 //=================================================================================================
 

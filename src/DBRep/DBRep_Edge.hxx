@@ -24,10 +24,10 @@
 #include <Standard_Transient.hxx>
 
 class DBRep_Edge;
-DEFINE_STANDARD_HANDLE(DBRep_Edge, Standard_Transient)
+DEFINE_STANDARD_HANDLE(DBRep_Edge, RefObject)
 
 //! Display of an edge. Edge + color.
-class DBRep_Edge : public Standard_Transient
+class DBRep_Edge : public RefObject
 {
 
 public:
@@ -41,7 +41,7 @@ public:
 
   void Color(const Draw_Color& C);
 
-  DEFINE_STANDARD_RTTIEXT(DBRep_Edge, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(DBRep_Edge, RefObject)
 
 protected:
 private:

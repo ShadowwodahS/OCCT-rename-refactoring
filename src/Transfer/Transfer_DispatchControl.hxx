@@ -23,7 +23,7 @@
 #include <Interface_CopyControl.hxx>
 class Transfer_TransientProcess;
 class Interface_InterfaceModel;
-class Standard_Transient;
+class RefObject;
 
 class Transfer_DispatchControl;
 DEFINE_STANDARD_HANDLE(Transfer_DispatchControl, Interface_CopyControl)
@@ -51,14 +51,14 @@ public:
   Standard_EXPORT void Clear() Standard_OVERRIDE;
 
   //! Binds a (Transient) Result to a (Transient) Starting Entity
-  Standard_EXPORT void Bind(const Handle(Standard_Transient)& ent,
-                            const Handle(Standard_Transient)& res) Standard_OVERRIDE;
+  Standard_EXPORT void Bind(const Handle(RefObject)& ent,
+                            const Handle(RefObject)& res) Standard_OVERRIDE;
 
   //! Searches for the Result bound to a Starting Entity
   //! If Found, returns True and fills <res>
   //! Else, returns False and nullifies <res>
-  Standard_EXPORT Standard_Boolean Search(const Handle(Standard_Transient)& ent,
-                                          Handle(Standard_Transient)& res) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Boolean Search(const Handle(RefObject)& ent,
+                                          Handle(RefObject)& res) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(Transfer_DispatchControl, Interface_CopyControl)
 

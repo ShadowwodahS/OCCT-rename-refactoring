@@ -15,7 +15,7 @@
 #include <OSD_FileSystemSelector.hxx>
 #include <OSD_LocalFileSystem.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(OSD_FileSystem, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(OSD_FileSystem, RefObject)
 
 //=================================================================================================
 

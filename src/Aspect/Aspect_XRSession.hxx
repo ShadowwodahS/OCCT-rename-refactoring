@@ -32,9 +32,9 @@ class Graphic3d_ArrayOfTriangles;
 class Image_Texture;
 
 //! Extended Reality (XR) Session interface.
-class Aspect_XRSession : public Standard_Transient
+class Aspect_XRSession : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Aspect_XRSession, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Aspect_XRSession, RefObject)
 public:
   //! Identifies which style of tracking origin the application wants to use for the poses it is
   //! requesting.

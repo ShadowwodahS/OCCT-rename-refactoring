@@ -67,7 +67,7 @@
 #include <TCollection_HAsciiString.hxx>
 #include <TColStd_MapOfInteger.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IFSelect_WorkSession, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(IFSelect_WorkSession, RefObject)
 
 #define Flag_Incorrect 2
 //  (Bit Map n0 2)
@@ -242,9 +242,9 @@ Standard_Integer IFSelect_WorkSession::NbStartingEntities() const
 
 //=================================================================================================
 
-Handle(Standard_Transient) IFSelect_WorkSession::StartingEntity(const Standard_Integer num) const
+Handle(RefObject) IFSelect_WorkSession::StartingEntity(const Standard_Integer num) const
 {
-  Handle(Standard_Transient) res; // Null par defaut
+  Handle(RefObject) res; // Null par defaut
   if (myModel.IsNull())
     return res;
   if (num < 1 || num > myModel->NbEntities())
@@ -254,7 +254,7 @@ Handle(Standard_Transient) IFSelect_WorkSession::StartingEntity(const Standard_I
 
 //=================================================================================================
 
-Standard_Integer IFSelect_WorkSession::StartingNumber(const Handle(Standard_Transient)& ent) const
+Standard_Integer IFSelect_WorkSession::StartingNumber(const Handle(RefObject)& ent) const
 {
   return (myModel.IsNull() ? 0 : myModel->Number(ent));
 }
@@ -292,7 +292,7 @@ Standard_Integer IFSelect_WorkSession::NumberFromLabel(const Standard_CString va
 //=================================================================================================
 
 Handle(TCollection_HAsciiString) IFSelect_WorkSession::EntityLabel(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   if (myModel.IsNull() || ent.IsNull())
     return 0;
@@ -304,7 +304,7 @@ Handle(TCollection_HAsciiString) IFSelect_WorkSession::EntityLabel(
 //=================================================================================================
 
 Handle(TCollection_HAsciiString) IFSelect_WorkSession::EntityName(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   if (myModel.IsNull() || ent.IsNull())
     return 0;
@@ -319,21 +319,21 @@ Handle(TCollection_HAsciiString) IFSelect_WorkSession::EntityName(
 
 //=================================================================================================
 
-Standard_Integer IFSelect_WorkSession::CategoryNumber(const Handle(Standard_Transient)& ent) const
+Standard_Integer IFSelect_WorkSession::CategoryNumber(const Handle(RefObject)& ent) const
 {
   return (myModel.IsNull() ? -1 : myModel->CategoryNumber(StartingNumber(ent)));
 }
 
 //=================================================================================================
 
-Standard_CString IFSelect_WorkSession::CategoryName(const Handle(Standard_Transient)& ent) const
+Standard_CString IFSelect_WorkSession::CategoryName(const Handle(RefObject)& ent) const
 {
   return Interface_Category::Name(CategoryNumber(ent));
 }
 
 //=================================================================================================
 
-Standard_CString IFSelect_WorkSession::ValidityName(const Handle(Standard_Transient)& ent) const
+Standard_CString IFSelect_WorkSession::ValidityName(const Handle(RefObject)& ent) const
 {
   return ((StartingNumber(ent) == 0) ? "" : IFSelect_SignValidity::CVal(ent, myModel));
 }
@@ -392,7 +392,7 @@ void IFSelect_WorkSession::ClearData(const Standard_Integer mode)
       }
       list = ItemIdents(STANDARD_TYPE(IFSelect_EditForm));
       nb   = list->Length();
-      Handle(Standard_Transient) nulent;
+      Handle(RefObject) nulent;
       for (i = 1; i <= nb; i++)
       {
         DeclareAndCast(IFSelect_EditForm, edf, Item(list->Value(i)));
@@ -472,7 +472,7 @@ const Interface_Graph& IFSelect_WorkSession::Graph()
 //=================================================================================================
 
 Handle(TColStd_HSequenceOfTransient) IFSelect_WorkSession::Shareds(
-  const Handle(Standard_Transient)& ent)
+  const Handle(RefObject)& ent)
 {
   Handle(TColStd_HSequenceOfTransient) list;
   if (!ComputeGraph())
@@ -485,7 +485,7 @@ Handle(TColStd_HSequenceOfTransient) IFSelect_WorkSession::Shareds(
 //=================================================================================================
 
 Handle(TColStd_HSequenceOfTransient) IFSelect_WorkSession::Sharings(
-  const Handle(Standard_Transient)& ent)
+  const Handle(RefObject)& ent)
 {
   Handle(TColStd_HSequenceOfTransient) list;
   if (!ComputeGraph())
@@ -567,7 +567,7 @@ Interface_CheckIterator IFSelect_WorkSession::ModelCheckList(const Standard_Bool
 
 //=================================================================================================
 
-Interface_CheckIterator IFSelect_WorkSession::CheckOne(const Handle(Standard_Transient)& ent,
+Interface_CheckIterator IFSelect_WorkSession::CheckOne(const Handle(RefObject)& ent,
                                                        const Standard_Boolean            complete)
 {
   Interface_CheckIterator checks;
@@ -605,9 +605,9 @@ Standard_Integer IFSelect_WorkSession::MaxIdent() const
 
 //=================================================================================================
 
-Handle(Standard_Transient) IFSelect_WorkSession::Item(const Standard_Integer id) const
+Handle(RefObject) IFSelect_WorkSession::Item(const Standard_Integer id) const
 {
-  Handle(Standard_Transient) res;
+  Handle(RefObject) res;
   if (id <= 0 || id > MaxIdent())
     return res;
   if (theitems.FindFromIndex(id).IsNull())
@@ -617,7 +617,7 @@ Handle(Standard_Transient) IFSelect_WorkSession::Item(const Standard_Integer id)
 
 //=================================================================================================
 
-Standard_Integer IFSelect_WorkSession::ItemIdent(const Handle(Standard_Transient)& item) const
+Standard_Integer IFSelect_WorkSession::ItemIdent(const Handle(RefObject)& item) const
 {
   if (item.IsNull())
     return 0;
@@ -631,9 +631,9 @@ Standard_Integer IFSelect_WorkSession::ItemIdent(const Handle(Standard_Transient
 
 //=================================================================================================
 
-Handle(Standard_Transient) IFSelect_WorkSession::NamedItem(const Standard_CString name) const
+Handle(RefObject) IFSelect_WorkSession::NamedItem(const Standard_CString name) const
 {
-  Handle(Standard_Transient) res;
+  Handle(RefObject) res;
   if (name[0] == '\0')
     return res;
   if (name[0] == '#')
@@ -648,10 +648,10 @@ Handle(Standard_Transient) IFSelect_WorkSession::NamedItem(const Standard_CStrin
 
 //=================================================================================================
 
-Handle(Standard_Transient) IFSelect_WorkSession::NamedItem(
+Handle(RefObject) IFSelect_WorkSession::NamedItem(
   const Handle(TCollection_HAsciiString)& name) const
 {
-  Handle(Standard_Transient) res;
+  Handle(RefObject) res;
   if (!name.IsNull())
     res = NamedItem(name->ToCString());
   return res;
@@ -661,7 +661,7 @@ Handle(Standard_Transient) IFSelect_WorkSession::NamedItem(
 
 Standard_Integer IFSelect_WorkSession::NameIdent(const Standard_CString name) const
 {
-  Handle(Standard_Transient) res;
+  Handle(RefObject) res;
   if (name[0] == '\0')
     return 0;
   if (name[0] == '#')
@@ -676,14 +676,14 @@ Standard_Integer IFSelect_WorkSession::NameIdent(const Standard_CString name) co
 
 //=================================================================================================
 
-Standard_Boolean IFSelect_WorkSession::HasName(const Handle(Standard_Transient)& item) const
+Standard_Boolean IFSelect_WorkSession::HasName(const Handle(RefObject)& item) const
 {
   if (item.IsNull())
     return Standard_False;
   Standard_Integer id = theitems.FindIndex(item);
   if (id == 0)
     return Standard_False;
-  Handle(Standard_Transient) att = theitems.FindFromIndex(id);
+  Handle(RefObject) att = theitems.FindFromIndex(id);
   if (att.IsNull())
     return Standard_False;
   return att->IsKind(STANDARD_TYPE(TCollection_HAsciiString));
@@ -692,7 +692,7 @@ Standard_Boolean IFSelect_WorkSession::HasName(const Handle(Standard_Transient)&
 //=================================================================================================
 
 Handle(TCollection_HAsciiString) IFSelect_WorkSession::Name(
-  const Handle(Standard_Transient)& item) const
+  const Handle(RefObject)& item) const
 {
   Handle(TCollection_HAsciiString) res;
   if (item.IsNull())
@@ -700,13 +700,13 @@ Handle(TCollection_HAsciiString) IFSelect_WorkSession::Name(
   Standard_Integer id = theitems.FindIndex(item);
   if (id == 0)
     return res; // Null
-  Handle(Standard_Transient) att = theitems.FindFromIndex(id);
+  Handle(RefObject) att = theitems.FindFromIndex(id);
   return GetCasted(TCollection_HAsciiString, att);
 }
 
 //=================================================================================================
 
-Standard_Integer IFSelect_WorkSession::AddItem(const Handle(Standard_Transient)& item,
+Standard_Integer IFSelect_WorkSession::AddItem(const Handle(RefObject)& item,
                                                const Standard_Boolean            active)
 {
   if (item.IsNull())
@@ -714,7 +714,7 @@ Standard_Integer IFSelect_WorkSession::AddItem(const Handle(Standard_Transient)&
   Standard_Integer id = theitems.FindIndex(item);
   if (id > 0)
   {
-    Handle(Standard_Transient)& att = theitems.ChangeFromIndex(id);
+    Handle(RefObject)& att = theitems.ChangeFromIndex(id);
     if (att.IsNull())
       att = item;
   }
@@ -730,7 +730,7 @@ Standard_Integer IFSelect_WorkSession::AddItem(const Handle(Standard_Transient)&
 //=================================================================================================
 
 Standard_Integer IFSelect_WorkSession::AddNamedItem(const Standard_CString            name,
-                                                    const Handle(Standard_Transient)& item,
+                                                    const Handle(RefObject)& item,
                                                     const Standard_Boolean            active)
 {
   if (item.IsNull())
@@ -745,7 +745,7 @@ Standard_Integer IFSelect_WorkSession::AddNamedItem(const Standard_CString      
   Standard_Integer id = theitems.FindIndex(item);
   if (id > 0)
   {
-    Handle(Standard_Transient)& att = theitems.ChangeFromIndex(id);
+    Handle(RefObject)& att = theitems.ChangeFromIndex(id);
     if (att.IsNull())
       att = item;
     if (name[0] != '\0')
@@ -767,7 +767,7 @@ Standard_Integer IFSelect_WorkSession::AddNamedItem(const Standard_CString      
 
 //=================================================================================================
 
-Standard_Boolean IFSelect_WorkSession::SetActive(const Handle(Standard_Transient)& item,
+Standard_Boolean IFSelect_WorkSession::SetActive(const Handle(RefObject)& item,
                                                  const Standard_Boolean            mode)
 {
   if (item->IsKind(STANDARD_TYPE(IFSelect_Dispatch)))
@@ -800,7 +800,7 @@ Standard_Boolean IFSelect_WorkSession::SetActive(const Handle(Standard_Transient
 
 Standard_Boolean IFSelect_WorkSession::RemoveNamedItem(const Standard_CString name)
 {
-  Handle(Standard_Transient) item = NamedItem(name);
+  Handle(RefObject) item = NamedItem(name);
   if (item.IsNull())
     return Standard_False;
   if (!RemoveItem(item))
@@ -812,7 +812,7 @@ Standard_Boolean IFSelect_WorkSession::RemoveNamedItem(const Standard_CString na
 
 Standard_Boolean IFSelect_WorkSession::RemoveName(const Standard_CString name)
 {
-  Handle(Standard_Transient) item = NamedItem(name);
+  Handle(RefObject) item = NamedItem(name);
   if (item.IsNull())
     return Standard_False;
   theitems.Add(item, item); // reste mais sans nom
@@ -821,14 +821,14 @@ Standard_Boolean IFSelect_WorkSession::RemoveName(const Standard_CString name)
 
 //=================================================================================================
 
-Standard_Boolean IFSelect_WorkSession::RemoveItem(const Handle(Standard_Transient)& item)
+Standard_Boolean IFSelect_WorkSession::RemoveItem(const Handle(RefObject)& item)
 {
   if (item.IsNull())
     return Standard_False;
   Standard_Integer id = theitems.FindIndex(item);
   if (id == 0)
     return Standard_False;
-  Handle(Standard_Transient)& att = theitems.ChangeFromIndex(id);
+  Handle(RefObject)& att = theitems.ChangeFromIndex(id);
   if (att.IsNull())
     return Standard_False; // deja annulle
 
@@ -860,7 +860,7 @@ void IFSelect_WorkSession::ClearItems()
 Handle(TCollection_HAsciiString) IFSelect_WorkSession::ItemLabel(const Standard_Integer id) const
 {
   Handle(TCollection_HAsciiString) res;
-  Handle(Standard_Transient)       var = Item(id);
+  Handle(RefObject)       var = Item(id);
   if (var.IsNull())
     return res;
   DeclareAndCast(TCollection_HAsciiString, text, var);
@@ -962,7 +962,7 @@ Handle(TColStd_HSequenceOfHAsciiString) IFSelect_WorkSession::ItemNames(
   const Handle(Standard_Type)& type) const
 {
   Handle(TColStd_HSequenceOfHAsciiString) list = new TColStd_HSequenceOfHAsciiString();
-  NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)>::Iterator IT(thenames);
+  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>::Iterator IT(thenames);
   for (; IT.More(); IT.Next())
   {
     if (IT.Value()->IsKind(type))
@@ -983,7 +983,7 @@ Handle(TColStd_HSequenceOfHAsciiString) IFSelect_WorkSession::ItemNamesForLabel(
   for (i = 1; i <= nb; i++)
   {
     Handle(TCollection_HAsciiString) lab  = ItemLabel(i);
-    Handle(Standard_Transient)       item = Item(i);
+    Handle(RefObject)       item = Item(i);
     if (lab.IsNull())
       continue;
     if (label[0] != '\0' && lab->Search(label) <= 0)
@@ -1040,10 +1040,10 @@ Standard_Integer IFSelect_WorkSession::NextIdentForLabel(const Standard_CString 
 
 //=================================================================================================
 
-Handle(Standard_Transient) IFSelect_WorkSession::NewParamFromStatic(const Standard_CString statname,
+Handle(RefObject) IFSelect_WorkSession::NewParamFromStatic(const Standard_CString statname,
                                                                     const Standard_CString name)
 {
-  Handle(Standard_Transient) param;
+  Handle(RefObject) param;
   Handle(Interface_Static)   stat = Interface_Static::Static(statname);
   if (stat.IsNull())
     return param;
@@ -1151,7 +1151,7 @@ Handle(IFSelect_Signature) IFSelect_WorkSession::Signature(const Standard_Intege
 }
 
 Standard_CString IFSelect_WorkSession::SignValue(const Handle(IFSelect_Signature)& sign,
-                                                 const Handle(Standard_Transient)& ent) const
+                                                 const Handle(RefObject)& ent) const
 {
   if (sign.IsNull() || myModel.IsNull())
     return "";
@@ -1288,7 +1288,7 @@ Handle(TColStd_HSequenceOfTransient) IFSelect_WorkSession::SelectionResultFromLi
 
 //=================================================================================================
 
-Standard_Boolean IFSelect_WorkSession::SetItemSelection(const Handle(Standard_Transient)& item,
+Standard_Boolean IFSelect_WorkSession::SetItemSelection(const Handle(RefObject)& item,
                                                         const Handle(IFSelect_Selection)& sel)
 {
   DeclareAndCast(IFSelect_Dispatch, disp, item);
@@ -1318,7 +1318,7 @@ Standard_Boolean IFSelect_WorkSession::SetItemSelection(const Handle(Standard_Tr
 
 //=================================================================================================
 
-Standard_Boolean IFSelect_WorkSession::ResetItemSelection(const Handle(Standard_Transient)& item)
+Standard_Boolean IFSelect_WorkSession::ResetItemSelection(const Handle(RefObject)& item)
 {
   Handle(IFSelect_Selection) nulsel;
   return SetItemSelection(item, nulsel);
@@ -1327,7 +1327,7 @@ Standard_Boolean IFSelect_WorkSession::ResetItemSelection(const Handle(Standard_
 //=================================================================================================
 
 Handle(IFSelect_Selection) IFSelect_WorkSession::ItemSelection(
-  const Handle(Standard_Transient)& item) const
+  const Handle(RefObject)& item) const
 {
   Handle(IFSelect_Selection) sel;
   DeclareAndCast(IFSelect_Dispatch, disp, item);
@@ -1502,7 +1502,7 @@ void IFSelect_WorkSession::ClearFinalModifiers()
 
 Standard_Boolean IFSelect_WorkSession::SetAppliedModifier(
   const Handle(IFSelect_GeneralModifier)& modif,
-  const Handle(Standard_Transient)&       item)
+  const Handle(RefObject)&       item)
 {
   if (ItemIdent(modif) == 0)
     return Standard_False;
@@ -1547,10 +1547,10 @@ Standard_Boolean IFSelect_WorkSession::ResetAppliedModifier(
 
 //=================================================================================================
 
-Handle(Standard_Transient) IFSelect_WorkSession::UsesAppliedModifier(
+Handle(RefObject) IFSelect_WorkSession::UsesAppliedModifier(
   const Handle(IFSelect_GeneralModifier)& modif) const
 {
-  Handle(Standard_Transient) res;
+  Handle(RefObject) res;
   if (ItemIdent(modif) == 0)
     return res;
   if (theshareout->ModifierRank(modif) == 0)
@@ -2606,7 +2606,7 @@ void IFSelect_WorkSession::QueryCheckList(const Interface_CheckIterator& chl)
 
 //=================================================================================================
 
-Standard_Integer IFSelect_WorkSession::QueryCheckStatus(const Handle(Standard_Transient)& ent) const
+Standard_Integer IFSelect_WorkSession::QueryCheckStatus(const Handle(RefObject)& ent) const
 {
   if (!IsLoaded())
     return -1;
@@ -2643,8 +2643,8 @@ Standard_Integer IFSelect_WorkSession::QueryCheckStatus(const Handle(Standard_Tr
 
 //=================================================================================================
 
-Standard_Integer IFSelect_WorkSession::QueryParent(const Handle(Standard_Transient)& entdad,
-                                                   const Handle(Standard_Transient)& entson) const
+Standard_Integer IFSelect_WorkSession::QueryParent(const Handle(RefObject)& entdad,
+                                                   const Handle(RefObject)& entson) const
 {
   Standard_Integer ndad = StartingNumber(entdad);
   Standard_Integer nson = StartingNumber(entson);
@@ -2677,7 +2677,7 @@ Standard_Integer IFSelect_WorkSession::QueryParent(const Handle(Standard_Transie
 
 //=================================================================================================
 
-void IFSelect_WorkSession::SetParams(const NCollection_Vector<Handle(Standard_Transient)>& params,
+void IFSelect_WorkSession::SetParams(const NCollection_Vector<Handle(RefObject)>& params,
                                      const NCollection_Vector<Standard_Integer>&           uselist)
 {
   Standard_Integer             i, nbp = params.Length(), nbu = uselist.Length();
@@ -2927,7 +2927,7 @@ void IFSelect_WorkSession::ListItems(const Standard_CString lab) const
     str = new TCollection_HAsciiString(lab);
   for (Standard_Integer i = 1; i <= nb; i++)
   {
-    const Handle(Standard_Transient)& var   = theitems.FindKey(i);
+    const Handle(RefObject)& var   = theitems.FindKey(i);
     Handle(TCollection_HAsciiString)  label = ItemLabel(i);
     if (label.IsNull())
       continue; //  -> item supprime
@@ -3038,7 +3038,7 @@ Handle(IFSelect_Selection) IFSelect_WorkSession::GiveSelection(const Standard_CS
   {
     nomsel[nf] = '\0';
   }
-  Handle(Standard_Transient) item = NamedItem(nomsel);
+  Handle(RefObject) item = NamedItem(nomsel);
 
   //  Parentheses ? essayer Signature (plus tard : Selection parametree)
   //  NB : on compte les niveaux de parentheses (imbrications repercutees)
@@ -3072,7 +3072,7 @@ Handle(IFSelect_Selection) IFSelect_WorkSession::GiveSelection(const Standard_CS
 //=================================================================================================
 
 Handle(TColStd_HSequenceOfTransient) IFSelect_WorkSession::GiveList(
-  const Handle(Standard_Transient)& obj) const
+  const Handle(RefObject)& obj) const
 {
   //   Deja une liste
   DeclareAndCast(TColStd_HSequenceOfTransient, list, obj);
@@ -3143,7 +3143,7 @@ Handle(TColStd_HSequenceOfTransient) IFSelect_WorkSession::GiveList(
 
 Handle(TColStd_HSequenceOfTransient) IFSelect_WorkSession::GiveListFromList(
   const Standard_CString            selname,
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   Handle(TColStd_HSequenceOfTransient) list;
   Standard_Integer                     num;
@@ -3169,7 +3169,7 @@ Handle(TColStd_HSequenceOfTransient) IFSelect_WorkSession::GiveListFromList(
         num = NumberFromLabel(entid);
         if (num <= 0 || !numap.Add(num))
           continue;
-        Handle(Standard_Transient) anent = StartingEntity(num);
+        Handle(RefObject) anent = StartingEntity(num);
         if (!anent.IsNull())
           list->Append(anent);
         if (selname[i] == ')')
@@ -3246,7 +3246,7 @@ Handle(TColStd_HSequenceOfTransient) IFSelect_WorkSession::GiveListCombined(
   Standard_Integer       i, n = l2->Length();
   for (i = n; i > 0; i--)
   {
-    Handle(Standard_Transient) ent = l2->Value(i);
+    Handle(RefObject) ent = l2->Value(i);
     if (ent.IsNull())
       continue;
     numap.Add(ent);
@@ -3258,7 +3258,7 @@ Handle(TColStd_HSequenceOfTransient) IFSelect_WorkSession::GiveListCombined(
   n = l1->Length();
   for (i = n; i > 0; i--)
   {
-    Handle(Standard_Transient) ent = l1->Value(i);
+    Handle(RefObject) ent = l1->Value(i);
     if (ent.IsNull())
       continue;
 
@@ -3409,7 +3409,7 @@ void IFSelect_WorkSession::TraceDumpModel(const Standard_Integer mode)
 
 //=================================================================================================
 
-void IFSelect_WorkSession::DumpEntity(const Handle(Standard_Transient)& ent,
+void IFSelect_WorkSession::DumpEntity(const Handle(RefObject)& ent,
                                       const Standard_Integer            level,
                                       Standard_OStream&                 S) const
 {
@@ -3438,7 +3438,7 @@ void IFSelect_WorkSession::DumpEntity(const Handle(Standard_Transient)& ent,
 
 //=================================================================================================
 
-void IFSelect_WorkSession::TraceDumpEntity(const Handle(Standard_Transient)& ent,
+void IFSelect_WorkSession::TraceDumpEntity(const Handle(RefObject)& ent,
                                            const Standard_Integer            level) const
 {
   // clang-format off
@@ -3451,7 +3451,7 @@ void IFSelect_WorkSession::TraceDumpEntity(const Handle(Standard_Transient)& ent
 
 //=================================================================================================
 
-void IFSelect_WorkSession::PrintEntityStatus(const Handle(Standard_Transient)& ent,
+void IFSelect_WorkSession::PrintEntityStatus(const Handle(RefObject)& ent,
                                              Standard_OStream&                 S)
 {
   Standard_Integer i, nb;
@@ -3808,7 +3808,7 @@ void IFSelect_WorkSession::ListEntities(const Interface_EntityIterator& iter,
       if (!titre && mode == 2)
         sout << "(";
       titre                                 = 1;
-      const Handle(Standard_Transient)& ent = iter.Value();
+      const Handle(RefObject)& ent = iter.Value();
       Standard_Integer                  num = myModel->Number(ent);
       if (mode == 1)
       {

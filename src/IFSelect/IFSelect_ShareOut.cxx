@@ -20,7 +20,7 @@
 #include <TCollection_HAsciiString.hxx>
 
 #include <stdio.h>
-IMPLEMENT_STANDARD_RTTIEXT(IFSelect_ShareOut, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(IFSelect_ShareOut, RefObject)
 
 IFSelect_ShareOut::IFSelect_ShareOut()
 {
@@ -38,7 +38,7 @@ void IFSelect_ShareOut::Clear(const Standard_Boolean onlydisp)
   thefilemodifiers.Clear();
 }
 
-Standard_Boolean IFSelect_ShareOut::RemoveItem(const Handle(Standard_Transient)& item)
+Standard_Boolean IFSelect_ShareOut::RemoveItem(const Handle(RefObject)& item)
 {
   DeclareAndCast(IFSelect_GeneralModifier, modifier, item);
   if (!modifier.IsNull())

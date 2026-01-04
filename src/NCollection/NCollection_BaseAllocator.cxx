@@ -13,7 +13,7 @@
 
 #include <NCollection_BaseAllocator.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(NCollection_BaseAllocator, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(NCollection_BaseAllocator, RefObject)
 
 //=======================================================================
 // function : Allocate

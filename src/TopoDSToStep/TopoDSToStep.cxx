@@ -140,7 +140,7 @@ Handle(TCollection_HAsciiString) TopoDSToStep::DecodeVertexError(
 
 void TopoDSToStep::AddResult(const Handle(Transfer_FinderProcess)& FP,
                              const TopoDS_Shape&                   Shape,
-                             const Handle(Standard_Transient)&     ent)
+                             const Handle(RefObject)&     ent)
 {
   Handle(Transfer_SimpleBinderOfTransient) result = new Transfer_SimpleBinderOfTransient;
   result->SetResult(ent);

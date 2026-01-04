@@ -27,7 +27,7 @@
 #include <Standard_Transient.hxx>
 
 class HLRAlgo_WiresBlock;
-DEFINE_STANDARD_HANDLE(HLRAlgo_WiresBlock, Standard_Transient)
+DEFINE_STANDARD_HANDLE(HLRAlgo_WiresBlock, RefObject)
 
 //! A WiresBlock is a set of Blocks. It is used by the
 //! DataStructure to structure the Edges.
@@ -35,7 +35,7 @@ DEFINE_STANDARD_HANDLE(HLRAlgo_WiresBlock, Standard_Transient)
 //! A WiresBlock contains :
 //!
 //! * An Array  of Blocks.
-class HLRAlgo_WiresBlock : public Standard_Transient
+class HLRAlgo_WiresBlock : public RefObject
 {
 public:
   //! Create a Block of Blocks.
@@ -60,7 +60,7 @@ public:
 
   HLRAlgo_EdgesBlock::MinMaxIndices& MinMax() { return myMinMax; }
 
-  DEFINE_STANDARD_RTTIEXT(HLRAlgo_WiresBlock, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(HLRAlgo_WiresBlock, RefObject)
 
 private:
   TColStd_Array1OfTransient         myWires;

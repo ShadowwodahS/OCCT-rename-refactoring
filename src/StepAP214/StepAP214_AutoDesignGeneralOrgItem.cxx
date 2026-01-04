@@ -25,7 +25,7 @@
 StepAP214_AutoDesignGeneralOrgItem::StepAP214_AutoDesignGeneralOrgItem() {}
 
 Standard_Integer StepAP214_AutoDesignGeneralOrgItem::CaseNum(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

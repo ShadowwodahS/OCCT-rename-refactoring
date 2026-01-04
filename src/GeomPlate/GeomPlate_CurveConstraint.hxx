@@ -26,10 +26,10 @@ class gp_Pnt;
 class gp_Vec;
 
 class GeomPlate_CurveConstraint;
-DEFINE_STANDARD_HANDLE(GeomPlate_CurveConstraint, Standard_Transient)
+DEFINE_STANDARD_HANDLE(GeomPlate_CurveConstraint, RefObject)
 
 //! Defines curves as constraints to be used to deform a surface.
-class GeomPlate_CurveConstraint : public Standard_Transient
+class GeomPlate_CurveConstraint : public RefObject
 {
 
 public:
@@ -143,7 +143,7 @@ public:
   //! curve on the initial surface
   Standard_EXPORT Handle(Adaptor2d_Curve2d) ProjectedCurve() const;
 
-  DEFINE_STANDARD_RTTIEXT(GeomPlate_CurveConstraint, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(GeomPlate_CurveConstraint, RefObject)
 
 protected:
   Handle(Adaptor3d_CurveOnSurface) myFrontiere;

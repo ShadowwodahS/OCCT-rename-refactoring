@@ -21,7 +21,7 @@
 //=================================================================================================
 
 HLRBRep_ShapeBounds::HLRBRep_ShapeBounds(const Handle(HLRTopoBRep_OutLiner)& S,
-                                         const Handle(Standard_Transient)&   SData,
+                                         const Handle(RefObject)&   SData,
                                          const Standard_Integer              nbIso,
                                          const Standard_Integer              V1,
                                          const Standard_Integer              V2,

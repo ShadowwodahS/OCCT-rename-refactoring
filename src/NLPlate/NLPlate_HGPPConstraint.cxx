@@ -20,7 +20,7 @@
 #include <Plate_D3.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(NLPlate_HGPPConstraint, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(NLPlate_HGPPConstraint, RefObject)
 
 void NLPlate_HGPPConstraint::SetUVFreeSliding(const Standard_Boolean) {}
 

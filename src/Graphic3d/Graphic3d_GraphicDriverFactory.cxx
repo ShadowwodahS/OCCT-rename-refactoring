@@ -15,7 +15,7 @@
 
 #include <Graphic3d_GraphicDriver.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_GraphicDriverFactory, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_GraphicDriverFactory, RefObject)
 
 namespace
 {

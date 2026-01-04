@@ -23,7 +23,7 @@ class gp_Vec2d;
 
 //! Interface for calculation of values and derivatives for different kinds of curves in 2D.
 //! Works both with adaptors and curves.
-class Geom2dEvaluator_Curve : public Standard_Transient
+class Geom2dEvaluator_Curve : public RefObject
 {
 public:
   Geom2dEvaluator_Curve() {}
@@ -48,9 +48,9 @@ public:
 
   virtual Handle(Geom2dEvaluator_Curve) ShallowCopy() const = 0;
 
-  DEFINE_STANDARD_RTTI_INLINE(Geom2dEvaluator_Curve, Standard_Transient)
+  DEFINE_STANDARD_RTTI_INLINE(Geom2dEvaluator_Curve, RefObject)
 };
 
-DEFINE_STANDARD_HANDLE(Geom2dEvaluator_Curve, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Geom2dEvaluator_Curve, RefObject)
 
 #endif // _Geom2dEvaluator_Curve_HeaderFile

@@ -18,7 +18,7 @@
 #include <StepRepr_PropertyDefinition.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepRepr_PropertyDefinition, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepRepr_PropertyDefinition, RefObject)
 
 //=================================================================================================
 

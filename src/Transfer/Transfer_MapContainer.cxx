@@ -14,7 +14,7 @@
 #include <Standard_Type.hxx>
 #include <Transfer_MapContainer.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Transfer_MapContainer, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Transfer_MapContainer, RefObject)
 
 Transfer_MapContainer::Transfer_MapContainer() {}
 

@@ -29,7 +29,7 @@
 #include <TColStd_Array1OfReal.hxx>
 
 #include <stdio.h>
-IMPLEMENT_STANDARD_RTTIEXT(HLRBRep_InternalAlgo, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(HLRBRep_InternalAlgo, RefObject)
 
 extern Standard_Integer nbPtIntersection;   // total P.I.
 extern Standard_Integer nbSegIntersection;  // total S.I
@@ -180,7 +180,7 @@ void HLRBRep_InternalAlgo::Update()
 //=================================================================================================
 
 void HLRBRep_InternalAlgo::Load(const Handle(HLRTopoBRep_OutLiner)& S,
-                                const Handle(Standard_Transient)&   SData,
+                                const Handle(RefObject)&   SData,
                                 const Standard_Integer              nbIso)
 {
   myShapes.Append(HLRBRep_ShapeBounds(S, SData, nbIso, 0, 0, 0, 0, 0, 0));
@@ -223,7 +223,7 @@ void HLRBRep_InternalAlgo::Remove(const Standard_Integer I)
 //=================================================================================================
 
 void HLRBRep_InternalAlgo::ShapeData(const Standard_Integer            I,
-                                     const Handle(Standard_Transient)& SData)
+                                     const Handle(RefObject)& SData)
 {
   Standard_OutOfRange_Raise_if(I == 0 || I > myShapes.Length(),
                                "HLRBRep_InternalAlgo::ShapeData : unknown Shape");

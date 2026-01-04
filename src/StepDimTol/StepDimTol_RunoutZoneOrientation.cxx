@@ -15,7 +15,7 @@
 
 #include <StepDimTol_RunoutZoneOrientation.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepDimTol_RunoutZoneOrientation, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepDimTol_RunoutZoneOrientation, RefObject)
 
 //=================================================================================================
 

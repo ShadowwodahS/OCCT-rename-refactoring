@@ -19,7 +19,7 @@
 #include <Standard_Type.hxx>
 #include <TopoDS_Edge.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DBRep_Edge, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(DBRep_Edge, RefObject)
 
 //=================================================================================================
 

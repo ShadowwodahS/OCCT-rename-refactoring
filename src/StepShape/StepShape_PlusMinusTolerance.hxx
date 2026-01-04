@@ -23,10 +23,10 @@
 #include <Standard_Transient.hxx>
 
 class StepShape_PlusMinusTolerance;
-DEFINE_STANDARD_HANDLE(StepShape_PlusMinusTolerance, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepShape_PlusMinusTolerance, RefObject)
 
 //! Added for Dimensional Tolerances
-class StepShape_PlusMinusTolerance : public Standard_Transient
+class StepShape_PlusMinusTolerance : public RefObject
 {
 
 public:
@@ -44,7 +44,7 @@ public:
   Standard_EXPORT void SetTolerancedDimension(
     const StepShape_DimensionalCharacteristic& toleranced_dimension);
 
-  DEFINE_STANDARD_RTTIEXT(StepShape_PlusMinusTolerance, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepShape_PlusMinusTolerance, RefObject)
 
 protected:
 private:

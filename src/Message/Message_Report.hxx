@@ -28,7 +28,7 @@ class Message_Messenger;
 
 class Message_Report;
 
-DEFINE_STANDARD_HANDLE(Message_Report, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Message_Report, RefObject)
 
 //! Container for alert messages, sorted according to their gravity.
 //!
@@ -53,7 +53,7 @@ DEFINE_STANDARD_HANDLE(Message_Report, Standard_Transient)
 //! - Report can be cleared by methods Clear() (usually after reporting)
 //!
 //! Message_PrinterToReport is a printer in Messenger to convert data sent to messenger into report
-class Message_Report : public Standard_Transient
+class Message_Report : public RefObject
 {
 public:
   //! Empty constructor
@@ -155,7 +155,7 @@ public:
   Standard_EXPORT void DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth = -1) const;
 
   // OCCT RTTI
-  DEFINE_STANDARD_RTTIEXT(Message_Report, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Message_Report, RefObject)
 
 protected:
   //! Returns class provided hierarchy of alerts if created or create if the parameter is true

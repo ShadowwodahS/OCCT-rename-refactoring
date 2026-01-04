@@ -17,7 +17,7 @@
 #include <Standard_NotImplemented.hxx>
 #include <Standard_OutOfRange.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_CLight, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_CLight, RefObject)
 
 namespace
 {

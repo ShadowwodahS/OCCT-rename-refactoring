@@ -32,10 +32,10 @@ class gp_Pnt;
 class Geom_Curve;
 
 class GeomFill_SectionLaw;
-DEFINE_STANDARD_HANDLE(GeomFill_SectionLaw, Standard_Transient)
+DEFINE_STANDARD_HANDLE(GeomFill_SectionLaw, RefObject)
 
 //! To define section law in  sweeping
-class GeomFill_SectionLaw : public Standard_Transient
+class GeomFill_SectionLaw : public RefObject
 {
 
 public:
@@ -166,7 +166,7 @@ public:
   //! <me> a  IsConicalLaw
   Standard_EXPORT virtual Handle(Geom_Curve) CirclSection(const Standard_Real Param) const;
 
-  DEFINE_STANDARD_RTTIEXT(GeomFill_SectionLaw, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(GeomFill_SectionLaw, RefObject)
 
 protected:
 private:

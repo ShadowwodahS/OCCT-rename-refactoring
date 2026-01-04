@@ -25,12 +25,12 @@
 #include <Standard_Transient.hxx>
 
 class TopOpeBRepBuild_Loop;
-DEFINE_STANDARD_HANDLE(TopOpeBRepBuild_Loop, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TopOpeBRepBuild_Loop, RefObject)
 
 //! a Loop is an existing shape (Shell,Wire) or a set
 //! of shapes (Faces,Edges) which are connex.
 //! a set of connex shape is represented by a BlockIterator
-class TopOpeBRepBuild_Loop : public Standard_Transient
+class TopOpeBRepBuild_Loop : public RefObject
 {
 
 public:
@@ -46,7 +46,7 @@ public:
 
   Standard_EXPORT virtual void Dump() const;
 
-  DEFINE_STANDARD_RTTIEXT(TopOpeBRepBuild_Loop, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TopOpeBRepBuild_Loop, RefObject)
 
 protected:
   Standard_Boolean              myIsShape;

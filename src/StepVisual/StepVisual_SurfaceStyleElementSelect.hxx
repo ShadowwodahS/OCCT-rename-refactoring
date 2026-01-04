@@ -23,7 +23,7 @@
 
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepVisual_SurfaceStyleFillArea;
 class StepVisual_SurfaceStyleBoundary;
 class StepVisual_SurfaceStyleParameterLine;
@@ -46,7 +46,7 @@ public:
   //! 6 -> SurfaceStyleControlGrid
   //! 7 -> SurfaceStyleRendering
   //! 0 else
-  Standard_EXPORT Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! returns Value as a SurfaceStyleFillArea (Null if another type)
   Standard_EXPORT Handle(StepVisual_SurfaceStyleFillArea) SurfaceStyleFillArea() const;

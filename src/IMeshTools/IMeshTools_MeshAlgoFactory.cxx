@@ -15,4 +15,4 @@
 
 #include <IMeshTools_MeshAlgoFactory.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IMeshTools_MeshAlgoFactory, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(IMeshTools_MeshAlgoFactory, RefObject)

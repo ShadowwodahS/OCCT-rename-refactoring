@@ -23,7 +23,7 @@
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
 
-class Standard_Transient;
+class RefObject;
 class StepRepr_CompoundRepresentationItem;
 class StepRepr_DescriptiveRepresentationItem;
 class StepRepr_MeasureRepresentationItem;
@@ -43,7 +43,7 @@ public:
   //! 3 -> MeasureRepresentationItem
   //! 4 -> Placement
   //! 0 else
-  Standard_EXPORT Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! returns Value as a CompoundRepresentationItem (Null if another type)
   Standard_EXPORT Handle(StepRepr_CompoundRepresentationItem) CompoundRepresentationItem() const;

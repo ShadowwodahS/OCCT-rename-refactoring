@@ -23,10 +23,10 @@
 class TCollection_HAsciiString;
 
 class StepBasic_NameAssignment;
-DEFINE_STANDARD_HANDLE(StepBasic_NameAssignment, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_NameAssignment, RefObject)
 
 //! Representation of STEP entity NameAssignment
-class StepBasic_NameAssignment : public Standard_Transient
+class StepBasic_NameAssignment : public RefObject
 {
 
 public:
@@ -42,7 +42,7 @@ public:
   //! Set field AssignedName
   Standard_EXPORT void SetAssignedName(const Handle(TCollection_HAsciiString)& AssignedName);
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_NameAssignment, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_NameAssignment, RefObject)
 
 protected:
 private:

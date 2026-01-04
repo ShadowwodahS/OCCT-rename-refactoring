@@ -15,4 +15,4 @@
 
 #include <IMeshData_Shape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IMeshData_Shape, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(IMeshData_Shape, RefObject)

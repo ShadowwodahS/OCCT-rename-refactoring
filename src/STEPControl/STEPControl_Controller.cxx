@@ -494,7 +494,7 @@ void STEPControl_Controller::Customise(Handle(XSControl_WorkSession)& WS)
   XSControl_Controller::Customise(WS);
 
   Handle(IFSelect_SelectModelRoots) slr;
-  Handle(Standard_Transient)        slr1 = WS->NamedItem("xst-model-roots");
+  Handle(RefObject)        slr1 = WS->NamedItem("xst-model-roots");
   if (!slr1.IsNull())
     slr = Handle(IFSelect_SelectModelRoots)::DownCast(slr1);
   else

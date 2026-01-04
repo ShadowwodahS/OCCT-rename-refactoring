@@ -28,7 +28,7 @@ class TDataXtd_Constraint;
 class TopoDS_Shape;
 
 class DDataStd_DrawDriver;
-DEFINE_STANDARD_HANDLE(DDataStd_DrawDriver, Standard_Transient)
+DEFINE_STANDARD_HANDLE(DDataStd_DrawDriver, RefObject)
 
 //! Root class of drivers to build draw variables from TDF_Label.
 //! Priority rule to display standard attributes is :
@@ -37,7 +37,7 @@ DEFINE_STANDARD_HANDLE(DDataStd_DrawDriver, Standard_Transient)
 //! * 3 Datum      (Point,Axis,Plane)
 //! * 4 Geometry
 //! * 5 NamedShape
-class DDataStd_DrawDriver : public Standard_Transient
+class DDataStd_DrawDriver : public RefObject
 {
 
 public:
@@ -67,7 +67,7 @@ public:
   Standard_EXPORT static Handle(Draw_Drawable3D) DrawableShape(const TopoDS_Shape&  s,
                                                                const Draw_ColorKind color);
 
-  DEFINE_STANDARD_RTTIEXT(DDataStd_DrawDriver, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(DDataStd_DrawDriver, RefObject)
 
 protected:
 private:

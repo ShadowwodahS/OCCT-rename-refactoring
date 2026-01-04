@@ -31,7 +31,7 @@ class TCollection_HExtendedString;
 
 //! Root class for a temporary persistent object that reads data from a file
 //! and then creates transient object using the data.
-class StdObjMgt_Persistent : public Standard_Transient
+class StdObjMgt_Persistent : public RefObject
 {
 public:
   Standard_EXPORT StdObjMgt_Persistent();

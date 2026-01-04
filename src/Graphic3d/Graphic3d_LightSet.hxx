@@ -17,9 +17,9 @@
 #include <Graphic3d_CLight.hxx>
 
 //! Class defining the set of light sources.
-class Graphic3d_LightSet : public Standard_Transient
+class Graphic3d_LightSet : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_LightSet, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Graphic3d_LightSet, RefObject)
 public:
   //! Iteration filter flags.
   enum IterationFilter
@@ -211,6 +211,6 @@ protected:
   Standard_Size myCacheRevision; //!< revision of cached state
 };
 
-DEFINE_STANDARD_HANDLE(Graphic3d_LightSet, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Graphic3d_LightSet, RefObject)
 
 #endif // _Graphic3d_LightSet_HeaderFile

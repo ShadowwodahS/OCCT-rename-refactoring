@@ -25,7 +25,7 @@
 class SelectMgr_EntityOwner;
 
 class SelectMgr_Filter;
-DEFINE_STANDARD_HANDLE(SelectMgr_Filter, Standard_Transient)
+DEFINE_STANDARD_HANDLE(SelectMgr_Filter, RefObject)
 
 //! The root class to define filter objects for selection.
 //! Advance handling of objects requires the services of
@@ -36,7 +36,7 @@ DEFINE_STANDARD_HANDLE(SelectMgr_Filter, Standard_Transient)
 //! You can create your own filters by defining new filter
 //! classes inheriting this framework. You use these
 //! filters by loading them into an AIS interactive context.
-class SelectMgr_Filter : public Standard_Transient
+class SelectMgr_Filter : public RefObject
 {
 
 public:
@@ -63,7 +63,7 @@ public:
   //! This function completes IsOk in an AIS local context.
   Standard_EXPORT virtual Standard_Boolean ActsOn(const TopAbs_ShapeEnum aStandardMode) const;
 
-  DEFINE_STANDARD_RTTIEXT(SelectMgr_Filter, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(SelectMgr_Filter, RefObject)
 
 protected:
 private:

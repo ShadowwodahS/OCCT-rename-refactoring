@@ -37,7 +37,7 @@ const char* GeomTools_Dump(void* theHandlePtr)
   try
   {
     OCC_CATCH_SIGNALS
-    const Handle(Standard_Transient)& aHandle = *(Handle(Standard_Transient)*)theHandlePtr;
+    const Handle(RefObject)& aHandle = *(Handle(RefObject)*)theHandlePtr;
 
     Handle(Geom_Surface) GS = Handle(Geom_Surface)::DownCast(aHandle);
     if (!GS.IsNull())
@@ -80,7 +80,7 @@ const char* GeomTools_Dump(void* theHandlePtr)
 // work with them (DBX could, on SUN Solaris).
 #ifndef _MSC_VER
 
-const char* GeomTools_Dump(const Handle(Standard_Transient)& theGeom)
+const char* GeomTools_Dump(const Handle(RefObject)& theGeom)
 {
   return GeomTools_Dump((void*)&theGeom);
 }

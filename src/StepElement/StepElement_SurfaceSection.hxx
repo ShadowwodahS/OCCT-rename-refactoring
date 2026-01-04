@@ -22,10 +22,10 @@
 #include <Standard_Transient.hxx>
 
 class StepElement_SurfaceSection;
-DEFINE_STANDARD_HANDLE(StepElement_SurfaceSection, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepElement_SurfaceSection, RefObject)
 
 //! Representation of STEP entity SurfaceSection
-class StepElement_SurfaceSection : public Standard_Transient
+class StepElement_SurfaceSection : public RefObject
 {
 
 public:
@@ -57,7 +57,7 @@ public:
   Standard_EXPORT void SetNonStructuralMassOffset(
     const StepElement_MeasureOrUnspecifiedValue& NonStructuralMassOffset);
 
-  DEFINE_STANDARD_RTTIEXT(StepElement_SurfaceSection, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepElement_SurfaceSection, RefObject)
 
 protected:
 private:

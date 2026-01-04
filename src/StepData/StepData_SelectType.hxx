@@ -25,7 +25,7 @@
 #include <Standard_Type.hxx>
 #include <Standard_CString.hxx>
 #include <StepData_Logical.hxx>
-class Standard_Transient;
+class RefObject;
 class StepData_PDescr;
 class StepData_SelectMember;
 
@@ -55,25 +55,25 @@ public:
   //! Recognizes the Type of an Entity. Returns a positive Number
   //! which identifies the Type in the definition List of the
   //! SelectType. Returns Zero if its Type in not in this List.
-  Standard_EXPORT virtual Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const = 0;
+  Standard_EXPORT virtual Standard_Integer CaseNum(const Handle(RefObject)& ent) const = 0;
 
   //! Returns True if the Type of an Entity complies with the
   //! definition list of the SelectType.
   //! Also checks for a SelectMember
   //! Default Implementation looks for CaseNum  or CaseMem positive
-  Standard_EXPORT Standard_Boolean Matches(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Boolean Matches(const Handle(RefObject)& ent) const;
 
   //! Stores an Entity. This allows to define a specific SelectType
   //! class with one read method per member Type, which returns the
   //! Value casted with the good Type.
-  Standard_EXPORT void SetValue(const Handle(Standard_Transient)& ent);
+  Standard_EXPORT void SetValue(const Handle(RefObject)& ent);
 
   //! Nullifies the Stored Entity
   Standard_EXPORT void Nullify();
 
   //! Returns the Stored Entity. Can be used to define specific
   //! read methods (see above)
-  Standard_EXPORT const Handle(Standard_Transient)& Value() const;
+  Standard_EXPORT const Handle(RefObject)& Value() const;
 
   //! Returns True if there is no Stored Entity (i.e. it is Null)
   Standard_EXPORT Standard_Boolean IsNull() const;
@@ -153,7 +153,7 @@ public:
   Standard_EXPORT virtual ~StepData_SelectType();
 
 private:
-  Handle(Standard_Transient) thevalue;
+  Handle(RefObject) thevalue;
 };
 
 #endif // _StepData_SelectType_HeaderFile

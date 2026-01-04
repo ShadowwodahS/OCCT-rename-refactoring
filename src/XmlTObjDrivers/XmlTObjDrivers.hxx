@@ -30,7 +30,7 @@ class XmlTObjDrivers
 {
 public:
   //! Returns a driver corresponding to <aGUID>. Used for plugin.
-  Standard_EXPORT static const Handle(Standard_Transient)& Factory(const Standard_GUID& aGUID);
+  Standard_EXPORT static const Handle(RefObject)& Factory(const Standard_GUID& aGUID);
 
   //! Defines format "TObjXml" and registers its read and write drivers
   //! in the specified application

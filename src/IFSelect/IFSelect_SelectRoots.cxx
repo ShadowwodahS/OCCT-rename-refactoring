@@ -36,13 +36,13 @@ Interface_EntityIterator IFSelect_SelectRoots::RootResult(const Interface_Graph&
   //  niveaux). Les Roots initiales comptees une seule fois sont bonnes
   for (input.Start(); input.More(); input.Next())
   {
-    const Handle(Standard_Transient)& ent = input.Value();
+    const Handle(RefObject)& ent = input.Value();
     GC.GetFromEntity(ent);
   }
   //  A present, on retient, parmi les inputs, celles comptees une seule fois
   for (input.Start(); input.More(); input.Next())
   {
-    const Handle(Standard_Transient)& ent = input.Value();
+    const Handle(RefObject)& ent = input.Value();
     if ((GC.NbTimes(ent) <= 1) == IsDirect())
       iter.GetOneItem(ent);
   }
@@ -55,7 +55,7 @@ Standard_Boolean IFSelect_SelectRoots::HasUniqueResult() const
 }
 
 Standard_Boolean IFSelect_SelectRoots::Sort(const Standard_Integer,
-                                            const Handle(Standard_Transient)&,
+                                            const Handle(RefObject)&,
                                             const Handle(Interface_InterfaceModel)&) const
 {
   return Standard_True;

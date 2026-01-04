@@ -40,7 +40,7 @@ StepAP214_ExternalIdentificationItem::StepAP214_ExternalIdentificationItem() {}
 //=================================================================================================
 
 Standard_Integer StepAP214_ExternalIdentificationItem::CaseNum(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

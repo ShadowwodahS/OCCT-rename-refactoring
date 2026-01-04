@@ -26,9 +26,9 @@ class Storage_Schema;
 class Storage_BaseDriver;
 
 class Storage_CallBack;
-DEFINE_STANDARD_HANDLE(Storage_CallBack, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Storage_CallBack, RefObject)
 
-class Storage_CallBack : public Standard_Transient
+class Storage_CallBack : public RefObject
 {
 public:
   Standard_EXPORT virtual Handle(Standard_Persistent) New() const = 0;
@@ -44,7 +44,7 @@ public:
                                     const Handle(Storage_BaseDriver)&  aDriver,
                                     const Handle(Storage_Schema)&      aSchema) const = 0;
 
-  DEFINE_STANDARD_RTTIEXT(Storage_CallBack, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Storage_CallBack, RefObject)
 };
 
 #endif // _Storage_CallBack_HeaderFile

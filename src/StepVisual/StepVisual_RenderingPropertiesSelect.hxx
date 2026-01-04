@@ -23,7 +23,7 @@
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
 
-class Standard_Transient;
+class RefObject;
 class StepVisual_SurfaceStyleReflectanceAmbient;
 class StepVisual_SurfaceStyleTransparent;
 
@@ -41,7 +41,7 @@ public:
   //! -- 1 -> SurfaceStyleReflectanceAmbient
   //! -- 2 -> SurfaceStyleTransparent
   Standard_EXPORT Standard_Integer
-    CaseNum(const Handle(Standard_Transient)& ent) const Standard_OVERRIDE;
+    CaseNum(const Handle(RefObject)& ent) const Standard_OVERRIDE;
 
   //! Returns Value as SurfaceStyleReflectanceAmbient (or Null if another type)
   Standard_EXPORT Handle(StepVisual_SurfaceStyleReflectanceAmbient) SurfaceStyleReflectanceAmbient()

@@ -33,7 +33,7 @@ StepAP242_IdAttributeSelect::StepAP242_IdAttributeSelect() {}
 
 //=================================================================================================
 
-Standard_Integer StepAP242_IdAttributeSelect::CaseNum(const Handle(Standard_Transient)& ent) const
+Standard_Integer StepAP242_IdAttributeSelect::CaseNum(const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

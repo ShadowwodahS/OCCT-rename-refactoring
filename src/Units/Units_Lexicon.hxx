@@ -28,13 +28,13 @@
 #include <Standard_Real.hxx>
 
 class Units_Lexicon;
-DEFINE_STANDARD_HANDLE(Units_Lexicon, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Units_Lexicon, RefObject)
 
 //! This class defines a lexicon useful to analyse and
 //! recognize the  different key words  included  in a
 //! sentence.  The lexicon is stored  in a sequence of
 //! tokens.
-class Units_Lexicon : public Standard_Transient
+class Units_Lexicon : public RefObject
 {
 
 public:
@@ -59,7 +59,7 @@ public:
   //! Useful for debugging.
   virtual void Dump() const;
 
-  DEFINE_STANDARD_RTTIEXT(Units_Lexicon, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Units_Lexicon, RefObject)
 
 protected:
 private:

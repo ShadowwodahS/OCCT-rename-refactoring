@@ -31,14 +31,14 @@ class Interface_CopyTool;
 class Interface_EntityIterator;
 
 class StepData_UndefinedEntity;
-DEFINE_STANDARD_HANDLE(StepData_UndefinedEntity, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepData_UndefinedEntity, RefObject)
 
 //! Undefined entity specific to Step Interface, in which StepType
 //! is defined at each instance, or is a SubList of another one
 //! Uses an UndefinedContent, that from Interface is suitable.
 //! Also an Entity defined by STEP can be "Complex Type" (see
 //! ANDOR clause in Express).
-class StepData_UndefinedEntity : public Standard_Transient
+class StepData_UndefinedEntity : public RefObject
 {
 
 public:
@@ -88,7 +88,7 @@ public:
   //! Fills the list of shared entities
   Standard_EXPORT void FillShared(Interface_EntityIterator& list) const;
 
-  DEFINE_STANDARD_RTTIEXT(StepData_UndefinedEntity, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepData_UndefinedEntity, RefObject)
 
 protected:
 private:

@@ -45,7 +45,7 @@ Standard_Boolean IGESData_FreeFormatEntity::ParamData(const Standard_Integer    
                                                       Handle(IGESData_IGESEntity)&      ent,
                                                       Handle(TCollection_HAsciiString)& val) const
 {
-  Handle(Standard_Transient) anEnt = ent;
+  Handle(RefObject) anEnt = ent;
   return UndefinedContent()->ParamData(num, ptype, anEnt, val)
          && !(ent = Handle(IGESData_IGESEntity)::DownCast(anEnt)).IsNull();
 }

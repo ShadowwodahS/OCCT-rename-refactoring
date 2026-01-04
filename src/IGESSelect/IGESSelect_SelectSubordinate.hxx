@@ -22,7 +22,7 @@
 
 #include <Standard_Integer.hxx>
 #include <IFSelect_SelectExtract.hxx>
-class Standard_Transient;
+class RefObject;
 class Interface_InterfaceModel;
 class TCollection_AsciiString;
 
@@ -59,7 +59,7 @@ public:
   //! Status matching the criterium
   Standard_EXPORT Standard_Boolean
     Sort(const Standard_Integer                  rank,
-         const Handle(Standard_Transient)&       ent,
+         const Handle(RefObject)&       ent,
          const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
 
   //! Returns the Selection criterium : "IGES Entity, Independent"

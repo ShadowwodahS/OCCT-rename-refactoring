@@ -38,7 +38,7 @@
 #include <StdSelect_BRepOwner.hxx>
 #include <TopoDS_Shape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_InteractiveContext, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(AIS_InteractiveContext, RefObject)
 
 namespace
 {

@@ -25,7 +25,7 @@ class TDF_Label;
 class AIS_InteractiveObject;
 
 class TPrsStd_Driver;
-DEFINE_STANDARD_HANDLE(TPrsStd_Driver, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TPrsStd_Driver, RefObject)
 
 //! Driver for AIS
 //! ==============
@@ -42,7 +42,7 @@ DEFINE_STANDARD_HANDLE(TPrsStd_Driver, Standard_Transient)
 //! values (if Null) or Update (if !Null) an AIS_InteractiveObject
 //! .   Resources are found  in  attributes associated to  a given
 //! label.
-class TPrsStd_Driver : public Standard_Transient
+class TPrsStd_Driver : public RefObject
 {
 
 public:
@@ -51,7 +51,7 @@ public:
   Standard_EXPORT virtual Standard_Boolean Update(const TDF_Label&               L,
                                                   Handle(AIS_InteractiveObject)& ais) = 0;
 
-  DEFINE_STANDARD_RTTIEXT(TPrsStd_Driver, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TPrsStd_Driver, RefObject)
 
 protected:
   Standard_EXPORT TPrsStd_Driver();

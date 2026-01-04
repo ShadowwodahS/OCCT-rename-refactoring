@@ -36,7 +36,7 @@
 #include <TCollection_HAsciiString.hxx>
 
 #include <stdio.h>
-IMPLEMENT_STANDARD_RTTIEXT(IFSelect_ModelCopier, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(IFSelect_ModelCopier, RefObject)
 
 // #define MISOPOINT
 IFSelect_ModelCopier::IFSelect_ModelCopier() {}
@@ -378,7 +378,7 @@ Interface_CheckIterator IFSelect_ModelCopier::SendSelected(
               applied,
               checks);
   //  Alimenter Remaining : les entites copiees sont a noter
-  Handle(Standard_Transient) ent1, ent2;
+  Handle(RefObject) ent1, ent2;
   for (Standard_Integer ic = TC.LastCopiedAfter(0, ent1, ent2); ic > 0;
        ic                  = TC.LastCopiedAfter(ic, ent1, ent2))
   {
@@ -428,7 +428,7 @@ void IFSelect_ModelCopier::CopiedModel(const Interface_Graph&              G,
     TC.Clear();
     WL->CopyModel(original, newmod, tocopy, TC);
 
-    Handle(Standard_Transient) ent1, ent2;
+    Handle(RefObject) ent1, ent2;
     //  Alimenter Remaining : les entites copiees sont a noter
     for (Standard_Integer ic = TC.LastCopiedAfter(0, ent1, ent2); ic > 0;
          ic                  = TC.LastCopiedAfter(ic, ent1, ent2))
@@ -497,7 +497,7 @@ void IFSelect_ModelCopier::CopiedModel(const Interface_Graph&              G,
     else
     {
       Interface_EntityIterator   list = sel->UniqueResult(G);
-      Handle(Standard_Transient) newent;
+      Handle(RefObject) newent;
 
       //    Entites designees par la Selection et Copiees ?
       //    -> s ilyena au moins une, le Modifier s applique, sinon il est rejete
@@ -538,7 +538,7 @@ void IFSelect_ModelCopier::CopiedRemaining(const Interface_Graph&              G
   else
   {
     //  CE QUI SUIT NE DOIT PAS ETRE SUPPRIME ! cf theremain
-    Handle(Standard_Transient) ent1, ent2;
+    Handle(RefObject) ent1, ent2;
     for (Standard_Integer ic = TC.LastCopiedAfter(0, ent1, ent2); ic > 0;
          ic                  = TC.LastCopiedAfter(ic, ent1, ent2))
     {

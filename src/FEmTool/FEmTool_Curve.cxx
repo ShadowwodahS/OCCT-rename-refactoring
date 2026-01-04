@@ -23,7 +23,7 @@
 #include <PLib_JacobiPolynomial.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(FEmTool_Curve, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(FEmTool_Curve, RefObject)
 
 //=================================================================================================
 

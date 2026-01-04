@@ -24,7 +24,7 @@
 #include <IFSelect_SelectDeduct.hxx>
 class Interface_EntityIterator;
 class Interface_Graph;
-class Standard_Transient;
+class RefObject;
 class TCollection_AsciiString;
 
 class IFSelect_SelectExplore;
@@ -74,7 +74,7 @@ public:
   //! If maximum level is attained, it is taken for result
   //! Else (or no max), each of its entity will be itself explored
   Standard_EXPORT virtual Standard_Boolean Explore(const Standard_Integer            level,
-                                                   const Handle(Standard_Transient)& ent,
+                                                   const Handle(RefObject)& ent,
                                                    const Interface_Graph&            G,
                                                    Interface_EntityIterator& explored) const = 0;
 

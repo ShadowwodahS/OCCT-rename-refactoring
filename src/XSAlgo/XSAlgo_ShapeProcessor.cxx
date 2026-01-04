@@ -257,7 +257,7 @@ void XSAlgo_ShapeProcessor::MergeShapeTransferInfo(
             continue;
           }
 
-          Handle(Standard_Transient) aTransientResult =
+          Handle(RefObject) aTransientResult =
             theFinderProcess->FindTransient(aSubShapeMapper);
           if (aTransientResult.IsNull())
           {

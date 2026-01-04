@@ -21,7 +21,7 @@ class StdObjMgt_SharedObject
 {
 public:
   template <class Transient>
-  class AbstractPersistentBase : public Standard_Transient
+  class AbstractPersistentBase : public RefObject
   {
   public:
     virtual Handle(Transient) Import() const = 0;

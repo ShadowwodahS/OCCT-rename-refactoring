@@ -31,7 +31,7 @@ class IFSelect_Modifier;
 class TCollection_AsciiString;
 
 class IFSelect_ShareOut;
-DEFINE_STANDARD_HANDLE(IFSelect_ShareOut, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IFSelect_ShareOut, RefObject)
 
 //! This class gathers the information required to produce one or
 //! several file(s) from the content of an InterfaceModel (passing
@@ -56,7 +56,7 @@ DEFINE_STANDARD_HANDLE(IFSelect_ShareOut, Standard_Transient)
 //! entities per file; "forgotten" entities; duplicated entities),
 //! exploitation (generation of derivated Models, each of them
 //! generating an output file)
-class IFSelect_ShareOut : public Standard_Transient
+class IFSelect_ShareOut : public RefObject
 {
 
 public:
@@ -83,7 +83,7 @@ public:
   //! according to its type).
   //! Returns True if done, False if has not been found or if it is
   //! neither a Dispatch, nor a Modifier.
-  Standard_EXPORT Standard_Boolean RemoveItem(const Handle(Standard_Transient)& item);
+  Standard_EXPORT Standard_Boolean RemoveItem(const Handle(RefObject)& item);
 
   //! Returns the rank of last run item (ClearResult resets it to 0)
   Standard_EXPORT Standard_Integer LastRun() const;
@@ -234,7 +234,7 @@ public:
                                                    const Standard_Integer pnum,
                                                    const Standard_Integer nbpack = 0);
 
-  DEFINE_STANDARD_RTTIEXT(IFSelect_ShareOut, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IFSelect_ShareOut, RefObject)
 
 private:
   IFSelect_TSeqOfDispatch            thedisps;

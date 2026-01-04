@@ -13,7 +13,7 @@
 
 #include <Graphic3d_TransformPers.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_TransformPers, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_TransformPers, RefObject)
 
 //=================================================================================================
 

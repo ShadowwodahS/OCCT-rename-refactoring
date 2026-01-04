@@ -68,8 +68,8 @@ Standard_Boolean IGESSelect_SplineToBSpline::Perform(const Interface_Graph& G,
   return Standard_False;
 }
 
-Standard_Boolean IGESSelect_SplineToBSpline::Updated(const Handle(Standard_Transient)& entfrom,
-                                                     Handle(Standard_Transient)&       entto) const
+Standard_Boolean IGESSelect_SplineToBSpline::Updated(const Handle(RefObject)& entfrom,
+                                                     Handle(RefObject)&       entto) const
 {
   if (!thefound)
   {

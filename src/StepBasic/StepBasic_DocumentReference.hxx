@@ -25,9 +25,9 @@ class StepBasic_Document;
 class TCollection_HAsciiString;
 
 class StepBasic_DocumentReference;
-DEFINE_STANDARD_HANDLE(StepBasic_DocumentReference, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_DocumentReference, RefObject)
 
-class StepBasic_DocumentReference : public Standard_Transient
+class StepBasic_DocumentReference : public RefObject
 {
 
 public:
@@ -42,7 +42,7 @@ public:
 
   Standard_EXPORT void SetSource(const Handle(TCollection_HAsciiString)& aSource);
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_DocumentReference, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_DocumentReference, RefObject)
 
 protected:
 private:

@@ -24,7 +24,7 @@
 //      Declaration of Array2 class managed by Handle
 
 #define DEFINE_HARRAY2(HClassName, _Array2Type_)                                                   \
-  class HClassName : public _Array2Type_, public Standard_Transient                                \
+  class HClassName : public _Array2Type_, public RefObject                                \
   {                                                                                                \
   public:                                                                                          \
     DEFINE_STANDARD_ALLOC                                                                          \
@@ -57,9 +57,9 @@
     {                                                                                              \
       return *this;                                                                                \
     }                                                                                              \
-    DEFINE_STANDARD_RTTI_INLINE(HClassName, Standard_Transient)                                    \
+    DEFINE_STANDARD_RTTI_INLINE(HClassName, RefObject)                                    \
   };                                                                                               \
-  DEFINE_STANDARD_HANDLE(HClassName, Standard_Transient)
+  DEFINE_STANDARD_HANDLE(HClassName, RefObject)
 
 #define IMPLEMENT_HARRAY2(HClassName)
 

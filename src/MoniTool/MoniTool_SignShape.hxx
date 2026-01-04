@@ -22,7 +22,7 @@
 
 #include <MoniTool_SignText.hxx>
 class TCollection_AsciiString;
-class Standard_Transient;
+class RefObject;
 
 class MoniTool_SignShape;
 DEFINE_STANDARD_HANDLE(MoniTool_SignShape, MoniTool_SignText)
@@ -41,8 +41,8 @@ public:
   //! Returns for a HShape, the string of its ShapeEnum
   //! The Model is absolutely useless (may be null)
   Standard_EXPORT TCollection_AsciiString
-    Text(const Handle(Standard_Transient)& ent,
-         const Handle(Standard_Transient)& context) const Standard_OVERRIDE;
+    Text(const Handle(RefObject)& ent,
+         const Handle(RefObject)& context) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(MoniTool_SignShape, MoniTool_SignText)
 

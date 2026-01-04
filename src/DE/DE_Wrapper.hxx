@@ -51,9 +51,9 @@ typedef NCollection_DataMap<TCollection_AsciiString, DE_ConfigurationVendorMap>
 //!   3.2) Configuration can change the priority of Vendors
 //! 4) Initiate the transfer process by calling "::Write" or "::Read" methods
 //! 5) Validate the transfer process output
-class DE_Wrapper : public Standard_Transient
+class DE_Wrapper : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(DE_Wrapper, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(DE_Wrapper, RefObject)
 
 public:
   //! Initializes all field by default

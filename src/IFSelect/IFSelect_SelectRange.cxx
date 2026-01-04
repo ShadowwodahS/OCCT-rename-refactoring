@@ -82,7 +82,7 @@ Standard_Integer IFSelect_SelectRange::UpperValue() const
 }
 
 Standard_Boolean IFSelect_SelectRange::Sort(const Standard_Integer rank,
-                                            const Handle(Standard_Transient)&,
+                                            const Handle(RefObject)&,
                                             const Handle(Interface_InterfaceModel)&) const
 {
   Standard_Integer rankfrom = 0;

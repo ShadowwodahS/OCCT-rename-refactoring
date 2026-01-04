@@ -31,9 +31,9 @@ class TopOpeBRepDS_Curve;
 class TopoDS_Shape;
 
 class TopOpeBRepDS_GapTool;
-DEFINE_STANDARD_HANDLE(TopOpeBRepDS_GapTool, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TopOpeBRepDS_GapTool, RefObject)
 
-class TopOpeBRepDS_GapTool : public Standard_Transient
+class TopOpeBRepDS_GapTool : public RefObject
 {
 
 public:
@@ -75,7 +75,7 @@ public:
                                           const TopoDS_Shape&                      E,
                                           const Standard_Real                      U);
 
-  DEFINE_STANDARD_RTTIEXT(TopOpeBRepDS_GapTool, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TopOpeBRepDS_GapTool, RefObject)
 
 protected:
 private:

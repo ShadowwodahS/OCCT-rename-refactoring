@@ -35,7 +35,7 @@ StepBasic_RoleSelect::StepBasic_RoleSelect() {}
 
 //=================================================================================================
 
-Standard_Integer StepBasic_RoleSelect::CaseNum(const Handle(Standard_Transient)& ent) const
+Standard_Integer StepBasic_RoleSelect::CaseNum(const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

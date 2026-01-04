@@ -31,7 +31,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_ArrayOfPrimitives, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_ArrayOfPrimitives, RefObject)
 
 IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_ArrayOfPoints, Graphic3d_ArrayOfPrimitives)
 IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_ArrayOfSegments, Graphic3d_ArrayOfPrimitives)

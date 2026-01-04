@@ -46,7 +46,7 @@ Interface_EntityIterator IFSelect_SelectRootComps::RootResult(const Interface_Gr
   //  Pour Entite : une par Componant (peu importe)
   for (comps.Start(); comps.More(); comps.Next())
   {
-    Handle(Standard_Transient) ent = comps.FirstEntity();
+    Handle(RefObject) ent = comps.FirstEntity();
     GC.GetFromEntity(ent);
     inp1.GetOneItem(ent);
   }
@@ -54,7 +54,7 @@ Interface_EntityIterator IFSelect_SelectRootComps::RootResult(const Interface_Gr
   //  (N.B.: on prend inp1, qui donne UNE entite par composant, simple ou cycle)
   for (inp1.Start(); inp1.More(); inp1.Next())
   {
-    const Handle(Standard_Transient)& ent = inp1.Value();
+    const Handle(RefObject)& ent = inp1.Value();
     if ((GC.NbTimes(ent) <= 1) == IsDirect())
       iter.GetOneItem(ent);
   }
@@ -67,7 +67,7 @@ Standard_Boolean IFSelect_SelectRootComps::HasUniqueResult() const
 }
 
 Standard_Boolean IFSelect_SelectRootComps::Sort(const Standard_Integer,
-                                                const Handle(Standard_Transient)&,
+                                                const Handle(RefObject)&,
                                                 const Handle(Interface_InterfaceModel)&) const
 {
   return Standard_True;

@@ -23,7 +23,7 @@
 
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepBasic_ApprovalPersonOrganization;
 class StepAP214_AutoDesignDateAndPersonAssignment;
 class StepBasic_ProductDefinitionEffectivity;
@@ -40,7 +40,7 @@ public:
   //! 1 -> ApprovalPersonOrganization
   //! 2 -> AutoDesignDateAndPersonAssignment
   //! 0 else
-  Standard_EXPORT Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! returns Value as a ApprovalPersonOrganization (Null if another type)
   Standard_EXPORT Handle(StepBasic_ApprovalPersonOrganization) ApprovalPersonOrganization() const;

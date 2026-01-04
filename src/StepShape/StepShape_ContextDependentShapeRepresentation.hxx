@@ -25,9 +25,9 @@ class StepRepr_ShapeRepresentationRelationship;
 class StepRepr_ProductDefinitionShape;
 
 class StepShape_ContextDependentShapeRepresentation;
-DEFINE_STANDARD_HANDLE(StepShape_ContextDependentShapeRepresentation, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepShape_ContextDependentShapeRepresentation, RefObject)
 
-class StepShape_ContextDependentShapeRepresentation : public Standard_Transient
+class StepShape_ContextDependentShapeRepresentation : public RefObject
 {
 
 public:
@@ -46,7 +46,7 @@ public:
   Standard_EXPORT void SetRepresentedProductRelation(
     const Handle(StepRepr_ProductDefinitionShape)& aProRel);
 
-  DEFINE_STANDARD_RTTIEXT(StepShape_ContextDependentShapeRepresentation, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepShape_ContextDependentShapeRepresentation, RefObject)
 
 protected:
 private:

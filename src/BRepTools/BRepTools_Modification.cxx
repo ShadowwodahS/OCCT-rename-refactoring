@@ -19,7 +19,7 @@
 #include <Poly_Triangulation.hxx>
 #include <TopoDS_Face.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepTools_Modification, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(BRepTools_Modification, RefObject)
 
 Standard_Boolean BRepTools_Modification::NewTriangulation(const TopoDS_Face&,
                                                           Handle(Poly_Triangulation)&)

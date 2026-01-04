@@ -25,8 +25,8 @@
 #include <Interface_ReaderLib.hxx>
 #include <Interface_NodeOfReaderLib.hxx>
 
-#define TheObject Handle(Standard_Transient)
-#define TheObject_hxx <Standard_Transient.hxx>
+#define TheObject Handle(RefObject)
+#define TheObject_hxx <RefObject.hxx>
 #define Handle_TheModule Handle(Interface_ReaderModule)
 #define TheModule Interface_ReaderModule
 #define TheModule_hxx <Interface_ReaderModule.hxx>

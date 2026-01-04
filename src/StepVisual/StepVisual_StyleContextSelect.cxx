@@ -20,7 +20,7 @@
 
 StepVisual_StyleContextSelect::StepVisual_StyleContextSelect() {}
 
-Standard_Integer StepVisual_StyleContextSelect::CaseNum(const Handle(Standard_Transient)& ent) const
+Standard_Integer StepVisual_StyleContextSelect::CaseNum(const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

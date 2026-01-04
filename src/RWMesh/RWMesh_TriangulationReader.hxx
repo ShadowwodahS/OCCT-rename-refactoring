@@ -22,9 +22,9 @@ class OSD_FileSystem;
 class RWMesh_TriangulationSource;
 
 //! Interface for reading primitive array from the buffer.
-class RWMesh_TriangulationReader : public Standard_Transient
+class RWMesh_TriangulationReader : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(RWMesh_TriangulationReader, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(RWMesh_TriangulationReader, RefObject)
 public:
   struct LoadingStatistic
   {

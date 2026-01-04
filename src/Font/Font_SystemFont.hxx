@@ -24,9 +24,9 @@
 
 //! This class stores information about the font, which is merely a file path and cached metadata
 //! about the font.
-class Font_SystemFont : public Standard_Transient
+class Font_SystemFont : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Font_SystemFont, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Font_SystemFont, RefObject)
 public:
   //! Creates a new font object.
   Standard_EXPORT Font_SystemFont(const TCollection_AsciiString& theFontName);
@@ -153,6 +153,6 @@ struct hash<Handle(Font_SystemFont)>
 };
 }; // namespace std
 
-DEFINE_STANDARD_HANDLE(Font_SystemFont, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Font_SystemFont, RefObject)
 
 #endif // _Font_SystemFont_HeaderFile

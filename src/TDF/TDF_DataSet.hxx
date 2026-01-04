@@ -28,10 +28,10 @@ class TDF_Label;
 class TDF_Attribute;
 
 class TDF_DataSet;
-DEFINE_STANDARD_HANDLE(TDF_DataSet, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TDF_DataSet, RefObject)
 
 //! This class is a set of TDF information like labels and attributes.
-class TDF_DataSet : public Standard_Transient
+class TDF_DataSet : public RefObject
 {
 
 public:
@@ -77,7 +77,7 @@ public:
 
   Standard_OStream& operator<<(Standard_OStream& anOS) const { return Dump(anOS); }
 
-  DEFINE_STANDARD_RTTIEXT(TDF_DataSet, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TDF_DataSet, RefObject)
 
 protected:
 private:

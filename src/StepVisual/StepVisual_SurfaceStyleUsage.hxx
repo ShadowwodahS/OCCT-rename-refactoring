@@ -25,9 +25,9 @@
 class StepVisual_SurfaceSideStyle;
 
 class StepVisual_SurfaceStyleUsage;
-DEFINE_STANDARD_HANDLE(StepVisual_SurfaceStyleUsage, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepVisual_SurfaceStyleUsage, RefObject)
 
-class StepVisual_SurfaceStyleUsage : public Standard_Transient
+class StepVisual_SurfaceStyleUsage : public RefObject
 {
 
 public:
@@ -45,7 +45,7 @@ public:
 
   Standard_EXPORT Handle(StepVisual_SurfaceSideStyle) Style() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepVisual_SurfaceStyleUsage, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepVisual_SurfaceStyleUsage, RefObject)
 
 protected:
 private:

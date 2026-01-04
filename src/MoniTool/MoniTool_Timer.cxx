@@ -19,7 +19,7 @@
 #include <Standard_Type.hxx>
 
 #include <stdio.h>
-IMPLEMENT_STANDARD_RTTIEXT(MoniTool_Timer, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(MoniTool_Timer, RefObject)
 
 //=================================================================================================
 

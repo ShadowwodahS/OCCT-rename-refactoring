@@ -97,7 +97,7 @@ Interface_CheckTool::Interface_CheckTool(const Handle(Interface_HGraph)& hgraph)
 
 //=================================================================================================
 
-void Interface_CheckTool::FillCheck(const Handle(Standard_Transient)& ent,
+void Interface_CheckTool::FillCheck(const Handle(RefObject)& ent,
                                     const Interface_ShareTool&        sh,
                                     Handle(Interface_Check)&          ach)
 {
@@ -171,7 +171,7 @@ void Interface_CheckTool::Print(const Interface_CheckIterator& list, Standard_OS
 Handle(Interface_Check) Interface_CheckTool::Check(const Standard_Integer num)
 {
   Handle(Interface_InterfaceModel) model = theshare.Model();
-  Handle(Standard_Transient)       ent   = model->Value(num);
+  Handle(RefObject)       ent   = model->Value(num);
   Handle(Interface_Check) ach = new Interface_Check(ent); // non filtre par "Warning" : tel quel
   errh                        = 1;
   FillCheck(ent, theshare, ach);
@@ -207,7 +207,7 @@ void Interface_CheckTool::CheckSuccess(const Standard_Boolean reset)
   {
     if (model->IsErrorEntity(i))
       throw Interface_CheckFailure("Interface Model : an Entity is recorded as Erroneous");
-    Handle(Standard_Transient) ent = model->Value(i);
+    Handle(RefObject) ent = model->Value(i);
     if (thestat & 1)
     {
       if (!model->IsErrorEntity(i))
@@ -251,7 +251,7 @@ Interface_CheckIterator Interface_CheckTool::CompleteCheckList()
   while (n0 <= nb)
   {
     Handle(Interface_Check)    ach = new Interface_Check;
-    Handle(Standard_Transient) ent;
+    Handle(RefObject) ent;
     try
     {
       OCC_CATCH_SIGNALS
@@ -321,7 +321,7 @@ Interface_CheckIterator Interface_CheckTool::CheckList()
   while (n0 <= nb)
   {
     Handle(Interface_Check)    ach = new Interface_Check;
-    Handle(Standard_Transient) ent;
+    Handle(RefObject) ent;
     try
     {
       OCC_CATCH_SIGNALS
@@ -424,7 +424,7 @@ Interface_CheckIterator Interface_CheckTool::VerifyCheckList()
   errh = 0;
   while (n0 <= nb)
   {
-    Handle(Standard_Transient) ent;
+    Handle(RefObject) ent;
     Handle(Interface_Check)    ach = new Interface_Check;
     try
     {
@@ -475,7 +475,7 @@ Interface_CheckIterator Interface_CheckTool::WarningCheckList()
   while (n0 <= nb)
   {
     Handle(Interface_Check)    ach = new Interface_Check;
-    Handle(Standard_Transient) ent;
+    Handle(RefObject) ent;
     try
     {
       OCC_CATCH_SIGNALS

@@ -23,7 +23,7 @@
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
 
-class Standard_Transient;
+class RefObject;
 class StepKinematics_RotationAboutDirection;
 class TColStd_HArray1OfReal;
 
@@ -41,7 +41,7 @@ public:
   //! -- 1 -> RotationAboutDirection
   //! -- 2 -> YprRotation
   Standard_EXPORT Standard_Integer
-    CaseNum(const Handle(Standard_Transient)& ent) const Standard_OVERRIDE;
+    CaseNum(const Handle(RefObject)& ent) const Standard_OVERRIDE;
 
   //! Returns Value as RotationAboutDirection (or Null if another type)
   Standard_EXPORT Handle(StepKinematics_RotationAboutDirection) RotationAboutDirection() const;

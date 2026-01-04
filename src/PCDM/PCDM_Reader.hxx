@@ -32,9 +32,9 @@ class CDM_Application;
 class PCDM_ReaderFilter;
 
 class PCDM_Reader;
-DEFINE_STANDARD_HANDLE(PCDM_Reader, Standard_Transient)
+DEFINE_STANDARD_HANDLE(PCDM_Reader, RefObject)
 
-class PCDM_Reader : public Standard_Transient
+class PCDM_Reader : public RefObject
 {
 
 public:
@@ -56,7 +56,7 @@ public:
 
   PCDM_ReaderStatus GetStatus() const;
 
-  DEFINE_STANDARD_RTTIEXT(PCDM_Reader, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(PCDM_Reader, RefObject)
 
 protected:
   PCDM_ReaderStatus myReaderStatus;

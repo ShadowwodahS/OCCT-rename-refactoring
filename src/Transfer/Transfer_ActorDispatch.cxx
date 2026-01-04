@@ -58,7 +58,7 @@ Transfer_TransferDispatch& Transfer_ActorDispatch::TransferDispatch()
 }
 
 Handle(Transfer_Binder) Transfer_ActorDispatch::Transfer(
-  const Handle(Standard_Transient)& start,
+  const Handle(RefObject)& start,
   const Handle(Transfer_TransientProcess)& /*TP*/,
   const Message_ProgressRange&)
 {

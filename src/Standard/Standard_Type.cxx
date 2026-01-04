@@ -19,7 +19,7 @@
 #include <Standard_Assert.hxx>
 #include <Standard_Mutex.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Standard_Type, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Standard_Type, RefObject)
 
 Standard_Type::Standard_Type(const char*                  theSystemName,
                              const char*                  theName,
@@ -105,7 +105,7 @@ registry_type& GetRegistry()
 }
 
 // To initialize theRegistry map as soon as possible to be destroyed the latest
-Handle(Standard_Type) theType = STANDARD_TYPE(Standard_Transient);
+Handle(Standard_Type) theType = STANDARD_TYPE(RefObject);
 } // namespace
 
 Standard_Type* Standard_Type::Register(const std::type_info&        theInfo,

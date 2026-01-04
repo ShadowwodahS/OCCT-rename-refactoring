@@ -36,7 +36,7 @@ void IFSelect_SignMultiple::Add(const Handle(IFSelect_Signature)& subsign,
   thetabs.Append(maxi ? -tabul : tabul);
 }
 
-Standard_CString IFSelect_SignMultiple::Value(const Handle(Standard_Transient)&       ent,
+Standard_CString IFSelect_SignMultiple::Value(const Handle(RefObject)&       ent,
                                               const Handle(Interface_InterfaceModel)& model) const
 {
   theval.Clear();
@@ -63,7 +63,7 @@ Standard_CString IFSelect_SignMultiple::Value(const Handle(Standard_Transient)& 
   return theval.ToCString();
 }
 
-Standard_Boolean IFSelect_SignMultiple::Matches(const Handle(Standard_Transient)&       ent,
+Standard_Boolean IFSelect_SignMultiple::Matches(const Handle(RefObject)&       ent,
                                                 const Handle(Interface_InterfaceModel)& model,
                                                 const TCollection_AsciiString&          text,
                                                 const Standard_Boolean                  exact) const

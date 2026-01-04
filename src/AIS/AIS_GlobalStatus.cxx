@@ -16,7 +16,7 @@
 
 #include <AIS_GlobalStatus.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_GlobalStatus, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(AIS_GlobalStatus, RefObject)
 
 //=================================================================================================
 

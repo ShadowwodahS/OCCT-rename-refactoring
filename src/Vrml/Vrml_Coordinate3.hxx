@@ -25,7 +25,7 @@
 #include <Standard_OStream.hxx>
 
 class Vrml_Coordinate3;
-DEFINE_STANDARD_HANDLE(Vrml_Coordinate3, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Vrml_Coordinate3, RefObject)
 
 //! defines a Coordinate3 node of VRML specifying
 //! properties of geometry and its appearance.
@@ -33,7 +33,7 @@ DEFINE_STANDARD_HANDLE(Vrml_Coordinate3, Standard_Transient)
 //! IndexedLineSet, or PointSet node. This node does not produce a visible result
 //! during rendering; it simply replaces the current coordinates in the rendering
 //! state for subsequent nodes to use.
-class Vrml_Coordinate3 : public Standard_Transient
+class Vrml_Coordinate3 : public RefObject
 {
 
 public:
@@ -47,7 +47,7 @@ public:
 
   Standard_EXPORT Standard_OStream& Print(Standard_OStream& anOStream) const;
 
-  DEFINE_STANDARD_RTTIEXT(Vrml_Coordinate3, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Vrml_Coordinate3, RefObject)
 
 protected:
 private:

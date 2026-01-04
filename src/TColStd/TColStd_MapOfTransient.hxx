@@ -18,7 +18,7 @@
 #include <Standard_Transient.hxx>
 #include <NCollection_Map.hxx>
 
-typedef NCollection_Map<Handle(Standard_Transient)>           TColStd_MapOfTransient;
-typedef NCollection_Map<Handle(Standard_Transient)>::Iterator TColStd_MapIteratorOfMapOfTransient;
+typedef NCollection_Map<Handle(RefObject)>           TColStd_MapOfTransient;
+typedef NCollection_Map<Handle(RefObject)>::Iterator TColStd_MapIteratorOfMapOfTransient;
 
 #endif

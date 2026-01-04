@@ -26,9 +26,9 @@ class MAT_TListNodeOfListOfEdge;
 class MAT_Edge;
 
 class MAT_ListOfEdge;
-DEFINE_STANDARD_HANDLE(MAT_ListOfEdge, Standard_Transient)
+DEFINE_STANDARD_HANDLE(MAT_ListOfEdge, RefObject)
 
-class MAT_ListOfEdge : public Standard_Transient
+class MAT_ListOfEdge : public RefObject
 {
 
 public:
@@ -86,7 +86,7 @@ public:
 
   Standard_EXPORT void Dump(const Standard_Integer ashift, const Standard_Integer alevel);
 
-  DEFINE_STANDARD_RTTI_INLINE(MAT_ListOfEdge, Standard_Transient)
+  DEFINE_STANDARD_RTTI_INLINE(MAT_ListOfEdge, RefObject)
 
 protected:
 private:

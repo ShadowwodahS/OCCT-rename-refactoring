@@ -32,9 +32,9 @@ class RWObj_ObjWriterContext;
 class RWObj_ObjMaterialMap;
 
 //! OBJ writer context from XCAF document.
-class RWObj_CafWriter : public Standard_Transient
+class RWObj_CafWriter : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(RWObj_CafWriter, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(RWObj_CafWriter, RefObject)
 public:
   //! Main constructor.
   //! @param[in] theFile  path to output OBJ file

@@ -19,7 +19,7 @@
 #include <Precision.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Adaptor3d_HVertex, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Adaptor3d_HVertex, RefObject)
 
 Adaptor3d_HVertex::Adaptor3d_HVertex()
     : myTol(0.0)

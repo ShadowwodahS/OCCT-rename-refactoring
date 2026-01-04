@@ -26,7 +26,7 @@ IFGraph_Compare::IFGraph_Compare(const Interface_Graph& agraph)
 {
 }
 
-void IFGraph_Compare::GetFromEntity(const Handle(Standard_Transient)& ent,
+void IFGraph_Compare::GetFromEntity(const Handle(RefObject)& ent,
                                     const Standard_Boolean            first)
 {
   IFGraph_AllShared iter(thegraph.Model(), ent);

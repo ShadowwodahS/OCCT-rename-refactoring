@@ -27,7 +27,7 @@ IFSelect_SignType::IFSelect_SignType(const Standard_Boolean nopk)
 {
 }
 
-Standard_CString IFSelect_SignType::Value(const Handle(Standard_Transient)& ent,
+Standard_CString IFSelect_SignType::Value(const Handle(RefObject)& ent,
                                           const Handle(Interface_InterfaceModel)& /*model*/) const
 {
   if (ent.IsNull())

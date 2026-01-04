@@ -27,7 +27,7 @@
 #include <XCAFDoc_ShapeTool.hxx>
 #include <XCAFPrs_DocumentExplorer.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(RWObj_CafWriter, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(RWObj_CafWriter, RefObject)
 
 namespace
 {

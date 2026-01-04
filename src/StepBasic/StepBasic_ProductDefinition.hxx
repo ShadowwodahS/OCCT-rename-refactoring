@@ -26,9 +26,9 @@ class StepBasic_ProductDefinitionFormation;
 class StepBasic_ProductDefinitionContext;
 
 class StepBasic_ProductDefinition;
-DEFINE_STANDARD_HANDLE(StepBasic_ProductDefinition, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_ProductDefinition, RefObject)
 
-class StepBasic_ProductDefinition : public Standard_Transient
+class StepBasic_ProductDefinition : public RefObject
 {
 
 public:
@@ -57,7 +57,7 @@ public:
 
   Standard_EXPORT Handle(StepBasic_ProductDefinitionContext) FrameOfReference() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_ProductDefinition, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_ProductDefinition, RefObject)
 
 protected:
 private:

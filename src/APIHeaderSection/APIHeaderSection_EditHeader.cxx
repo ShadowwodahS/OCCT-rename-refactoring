@@ -172,7 +172,7 @@ Handle(TCollection_HAsciiString) APIHeaderSection_EditHeader::StringValue(
 
 Standard_Boolean APIHeaderSection_EditHeader::Load(
   const Handle(IFSelect_EditForm)& form,
-  const Handle(Standard_Transient)& /*ent*/,
+  const Handle(RefObject)& /*ent*/,
   const Handle(Interface_InterfaceModel)& model) const
 {
   Handle(StepData_StepModel) modl = Handle(StepData_StepModel)::DownCast(model);
@@ -199,7 +199,7 @@ Standard_Boolean APIHeaderSection_EditHeader::Load(
 
 Standard_Boolean APIHeaderSection_EditHeader::Apply(
   const Handle(IFSelect_EditForm)& form,
-  const Handle(Standard_Transient)& /*ent*/,
+  const Handle(RefObject)& /*ent*/,
   const Handle(Interface_InterfaceModel)& model) const
 {
   Handle(StepData_StepModel) modl = Handle(StepData_StepModel)::DownCast(model);

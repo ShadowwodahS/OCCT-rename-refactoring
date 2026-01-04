@@ -25,10 +25,10 @@
 #include <StepDimTol_DatumReferenceModifierType.hxx>
 
 class StepDimTol_DatumReferenceModifierWithValue;
-DEFINE_STANDARD_HANDLE(StepDimTol_DatumReferenceModifierWithValue, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepDimTol_DatumReferenceModifierWithValue, RefObject)
 
 //! Representation of STEP entity DatumReferenceModifierWithValue
-class StepDimTol_DatumReferenceModifierWithValue : public Standard_Transient
+class StepDimTol_DatumReferenceModifierWithValue : public RefObject
 {
 
 public:
@@ -57,7 +57,7 @@ public:
     myModifierValue = theModifierValue;
   }
 
-  DEFINE_STANDARD_RTTIEXT(StepDimTol_DatumReferenceModifierWithValue, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepDimTol_DatumReferenceModifierWithValue, RefObject)
 
 private:
   StepDimTol_DatumReferenceModifierType   myModifierType;

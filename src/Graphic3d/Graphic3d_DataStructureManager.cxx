@@ -26,7 +26,7 @@
 #include <Standard_Dump.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_DataStructureManager, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_DataStructureManager, RefObject)
 
 //-Aliases
 //-Global data definitions

@@ -95,7 +95,7 @@ TCollection_AsciiString IFSelect_Signature::Label() const
   return label;
 }
 
-Standard_Boolean IFSelect_Signature::Matches(const Handle(Standard_Transient)&       ent,
+Standard_Boolean IFSelect_Signature::Matches(const Handle(RefObject)&       ent,
                                              const Handle(Interface_InterfaceModel)& model,
                                              const TCollection_AsciiString&          text,
                                              const Standard_Boolean                  exact) const

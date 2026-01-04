@@ -30,7 +30,7 @@
 #include <Interface_InterfaceModel.hxx>
 
 class StepRepr_Representation;
-class Standard_Transient;
+class RefObject;
 class Transfer_Binder;
 class Transfer_TransientProcess;
 class StepGeom_Axis2Placement3d;
@@ -65,18 +65,18 @@ class STEPControl_ActorRead : public Transfer_ActorOfTransientProcess
 public:
   Standard_EXPORT STEPControl_ActorRead(const Handle(Interface_InterfaceModel)& theModel);
 
-  Standard_EXPORT virtual Standard_Boolean Recognize(const Handle(Standard_Transient)& start)
+  Standard_EXPORT virtual Standard_Boolean Recognize(const Handle(RefObject)& start)
     Standard_OVERRIDE;
 
   Standard_EXPORT virtual Handle(Transfer_Binder) Transfer(
-    const Handle(Standard_Transient)&        start,
+    const Handle(RefObject)&        start,
     const Handle(Transfer_TransientProcess)& TP,
     const Message_ProgressRange& theProgress = Message_ProgressRange()) Standard_OVERRIDE;
 
   //! theUseTrsf - special flag for using Axis2Placement from ShapeRepresentation for transform root
   //! shape
   Standard_EXPORT Handle(Transfer_Binder) TransferShape(
-    const Handle(Standard_Transient)&        start,
+    const Handle(RefObject)&        start,
     const Handle(Transfer_TransientProcess)& TP,
     const StepData_Factors&                  theLocalFactors = StepData_Factors(),
     const Standard_Boolean                   isManifold      = Standard_True,
@@ -203,7 +203,7 @@ protected:
   //! Translates file by old way when CDSR are roots . Acts only if "read.step.product_mode" is
   //! equal Off.
   Standard_EXPORT Handle(TransferBRep_ShapeBinder) OldWay(
-    const Handle(Standard_Transient)&        start,
+    const Handle(RefObject)&        start,
     const Handle(Transfer_TransientProcess)& TP,
     const Message_ProgressRange&             theProgress);
 

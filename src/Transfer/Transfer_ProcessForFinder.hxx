@@ -32,13 +32,13 @@ class Transfer_FindHasher;
 class Transfer_IteratorOfProcessForFinder;
 class Message_Msg;
 class Interface_Check;
-class Standard_Transient;
+class RefObject;
 class Interface_CheckIterator;
 
 class Transfer_ProcessForFinder;
-DEFINE_STANDARD_HANDLE(Transfer_ProcessForFinder, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Transfer_ProcessForFinder, RefObject)
 
-class Transfer_ProcessForFinder : public Standard_Transient
+class Transfer_ProcessForFinder : public RefObject
 {
 
 public:
@@ -213,14 +213,14 @@ public:
   //! one but with no Result set, sets its Result.
   //! Considers a category number, by default 0
   Standard_EXPORT void BindTransient(const Handle(Transfer_Finder)&    start,
-                                     const Handle(Standard_Transient)& res);
+                                     const Handle(RefObject)& res);
 
   //! Returns the Result of the Transfer of an object <start> as a
   //! Transient Result.
   //! Returns a Null Handle if there is no Transient Result
   //! Considers a category number, by default 0
   //! Warning : Supposes that Binding is done with a SimpleBinderOfTransient
-  Standard_EXPORT const Handle(Standard_Transient)& FindTransient(
+  Standard_EXPORT const Handle(RefObject)& FindTransient(
     const Handle(Transfer_Finder)& start) const;
 
   //! Prepares an object <start> to be bound with several results.
@@ -233,7 +233,7 @@ public:
   //! Adds an item to a list of results bound to a starting object.
   //! Considers a category number, by default 0, for all results
   Standard_EXPORT void AddMultiple(const Handle(Transfer_Finder)&    start,
-                                   const Handle(Standard_Transient)& res);
+                                   const Handle(RefObject)& res);
 
   //! Searches for a transient result attached to a starting object,
   //! according to its type, by criterium IsKind(atype)
@@ -248,7 +248,7 @@ public:
   //! immediately used, well initialised
   Standard_EXPORT Standard_Boolean FindTypedTransient(const Handle(Transfer_Finder)& start,
                                                       const Handle(Standard_Type)&   atype,
-                                                      Handle(Standard_Transient)&    val) const;
+                                                      Handle(RefObject)&    val) const;
 
   //! Safe variant for arbitrary type of argument
   template <class T>
@@ -256,7 +256,7 @@ public:
                                       const Handle(Standard_Type)&   atype,
                                       Handle(T)&                     val) const
   {
-    Handle(Standard_Transient) aVal = val;
+    Handle(RefObject) aVal = val;
     return FindTypedTransient(start, atype, aVal) && !(val = Handle(T)::DownCast(aVal)).IsNull();
   }
 
@@ -269,7 +269,7 @@ public:
   //! Apart from this, works as FindTypedTransient
   Standard_EXPORT Standard_Boolean GetTypedTransient(const Handle(Transfer_Binder)& binder,
                                                      const Handle(Standard_Type)&   atype,
-                                                     Handle(Standard_Transient)&    val) const;
+                                                     Handle(RefObject)&    val) const;
 
   //! Safe variant for arbitrary type of argument
   template <class T>
@@ -277,7 +277,7 @@ public:
                                      const Handle(Standard_Type)&   atype,
                                      Handle(T)&                     val) const
   {
-    Handle(Standard_Transient) aVal = val;
+    Handle(RefObject) aVal = val;
     return GetTypedTransient(start, atype, aVal) && !(val = Handle(T)::DownCast(aVal)).IsNull();
   }
 
@@ -443,7 +443,7 @@ public:
   //! By default, returns 0; can be redefined
   Standard_EXPORT virtual Standard_Integer CheckNum(const Handle(Transfer_Finder)& start) const;
 
-  DEFINE_STANDARD_RTTI_INLINE(Transfer_ProcessForFinder, Standard_Transient)
+  DEFINE_STANDARD_RTTI_INLINE(Transfer_ProcessForFinder, RefObject)
 
 protected:
 private:

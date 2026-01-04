@@ -24,10 +24,10 @@
 class TCollection_HAsciiString;
 
 class StepElement_ElementDescriptor;
-DEFINE_STANDARD_HANDLE(StepElement_ElementDescriptor, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepElement_ElementDescriptor, RefObject)
 
 //! Representation of STEP entity ElementDescriptor
-class StepElement_ElementDescriptor : public Standard_Transient
+class StepElement_ElementDescriptor : public RefObject
 {
 
 public:
@@ -50,7 +50,7 @@ public:
   //! Set field Description
   Standard_EXPORT void SetDescription(const Handle(TCollection_HAsciiString)& Description);
 
-  DEFINE_STANDARD_RTTIEXT(StepElement_ElementDescriptor, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepElement_ElementDescriptor, RefObject)
 
 protected:
 private:

@@ -22,7 +22,7 @@
 #include <Standard_NotImplemented.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GeomFill_SectionLaw, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(GeomFill_SectionLaw, RefObject)
 
 Standard_Boolean GeomFill_SectionLaw::D1(const Standard_Real,
                                          TColgp_Array1OfPnt&,

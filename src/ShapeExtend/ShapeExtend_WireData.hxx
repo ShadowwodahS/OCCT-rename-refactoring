@@ -30,7 +30,7 @@ class TopoDS_Shape;
 class TopoDS_Face;
 
 class ShapeExtend_WireData;
-DEFINE_STANDARD_HANDLE(ShapeExtend_WireData, Standard_Transient)
+DEFINE_STANDARD_HANDLE(ShapeExtend_WireData, RefObject)
 
 //! This class provides a data structure necessary for work with the wire as with
 //! ordered list of edges, what is required for many algorithms. The advantage of
@@ -56,7 +56,7 @@ DEFINE_STANDARD_HANDLE(ShapeExtend_WireData, Standard_Transient)
 //! Moreover, this class is stored as a field in other classes which are
 //! they returned as results of functions, storing only a handle to
 //! ShapeExtend_WireData saves time and memory.
-class ShapeExtend_WireData : public Standard_Transient
+class ShapeExtend_WireData : public RefObject
 {
 
 public:
@@ -218,7 +218,7 @@ public:
   //! null shape is returned.
   Standard_EXPORT TopoDS_Wire WireAPIMake() const;
 
-  DEFINE_STANDARD_RTTIEXT(ShapeExtend_WireData, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(ShapeExtend_WireData, RefObject)
 
 protected:
 private:

@@ -19,9 +19,9 @@
 
 //! Class holding array of textures to be mapped as a set.
 //! Textures should be defined in ascending order of texture units within the set.
-class Graphic3d_TextureSet : public Standard_Transient
+class Graphic3d_TextureSet : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_TextureSet, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Graphic3d_TextureSet, RefObject)
 public:
   //! Class for iterating texture set.
   class Iterator : public NCollection_Array1<Handle(Graphic3d_TextureMap)>::Iterator

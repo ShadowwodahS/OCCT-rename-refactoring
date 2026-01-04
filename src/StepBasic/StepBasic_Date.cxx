@@ -14,7 +14,7 @@
 #include <Standard_Type.hxx>
 #include <StepBasic_Date.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_Date, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_Date, RefObject)
 
 StepBasic_Date::StepBasic_Date() {}
 

@@ -18,7 +18,7 @@
 #include <Message.hxx>
 #include <OSD_FileSystem.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Image_CompressedPixMap, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Image_CompressedPixMap, RefObject)
 
 //! DDS Pixel Format structure.
 struct Image_DDSParser::DDSPixelFormat

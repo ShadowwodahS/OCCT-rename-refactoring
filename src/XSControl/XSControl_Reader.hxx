@@ -34,7 +34,7 @@
 
 class XSControl_WorkSession;
 class Interface_InterfaceModel;
-class Standard_Transient;
+class RefObject;
 class Transfer_ActorOfTransientProcess;
 class TopoDS_Shape;
 
@@ -150,7 +150,7 @@ public:
   //! if <first> is erroneous, a null handle is returned
   Standard_EXPORT Handle(TColStd_HSequenceOfTransient) GiveList(
     const Standard_CString            first,
-    const Handle(Standard_Transient)& ent);
+    const Handle(RefObject)& ent);
 
   //! Determines the list of root entities which are candidate for
   //! a transfer to a Shape, and returns the number
@@ -160,7 +160,7 @@ public:
   //! Returns an IGES or STEP root
   //! entity for translation. The entity is identified by its
   //! rank in a list.
-  Standard_EXPORT Handle(Standard_Transient) RootForTransfer(const Standard_Integer num = 1);
+  Standard_EXPORT Handle(RefObject) RootForTransfer(const Standard_Integer num = 1);
 
   //! Translates a root identified by the rank num in the model.
   //! false is returned if no shape is produced.
@@ -179,7 +179,7 @@ public:
   //! entity in the model. true is returned if a shape is
   //! produced; otherwise, false is returned.
   Standard_EXPORT Standard_Boolean
-    TransferEntity(const Handle(Standard_Transient)& start,
+    TransferEntity(const Handle(RefObject)& start,
                    const Message_ProgressRange&      theProgress = Message_ProgressRange());
 
   //! Translates a list of entities.

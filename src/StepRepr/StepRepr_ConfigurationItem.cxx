@@ -20,7 +20,7 @@
 #include <StepRepr_ProductConcept.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepRepr_ConfigurationItem, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepRepr_ConfigurationItem, RefObject)
 
 //=================================================================================================
 

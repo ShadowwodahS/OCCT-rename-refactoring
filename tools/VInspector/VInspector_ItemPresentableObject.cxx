@@ -229,7 +229,7 @@ QString VInspector_ItemPresentableObject::PointerInfo() const
 // purpose :
 // =======================================================================
 void VInspector_ItemPresentableObject::Presentations(
-  NCollection_List<Handle(Standard_Transient)>& thePresentations)
+  NCollection_List<Handle(RefObject)>& thePresentations)
 {
   TreeModel_ItemBase::Presentations(thePresentations);
 

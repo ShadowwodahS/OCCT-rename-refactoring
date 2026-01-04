@@ -22,7 +22,7 @@
 #include <TCollection_ExtendedString.hxx>
 #include <OSD_Thread.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(CDF_MetaDataDriver, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(CDF_MetaDataDriver, RefObject)
 
 //=================================================================================================
 

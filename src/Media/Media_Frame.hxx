@@ -23,9 +23,9 @@
 struct AVFrame;
 
 //! AVFrame wrapper - the frame (decoded image/audio sample data) holder.
-class Media_Frame : public Standard_Transient
+class Media_Frame : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Media_Frame, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Media_Frame, RefObject)
 public:
   //! Convert pixel format from FFmpeg (AVPixelFormat) to OCCT.
   Standard_EXPORT static Image_Format FormatFFmpeg2Occt(int theFormat);

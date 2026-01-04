@@ -32,7 +32,7 @@
 #include <TColStd_Array1OfInteger.hxx>
 #include <TColStd_SequenceOfInteger.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(MAT2d_Circuit, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(MAT2d_Circuit, RefObject)
 
 #ifdef OCCT_DEBUG
   #include <GCE2d_MakeSegment.hxx>

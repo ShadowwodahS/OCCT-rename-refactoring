@@ -42,7 +42,7 @@
 //! - compute -> Perform
 //! - retrieve the error status if any
 //! - retrieve the resulted shape
-class BRepBuilderAPI_FastSewing : public Standard_Transient
+class BRepBuilderAPI_FastSewing : public RefObject
 {
 public:
   typedef unsigned int FS_VARStatuses;
@@ -87,7 +87,7 @@ public:
   //! Returns list of statuses. Print message if theOS != 0
   Standard_EXPORT FS_VARStatuses GetStatuses(Standard_OStream* const theOS = 0);
 
-  DEFINE_STANDARD_RTTIEXT(BRepBuilderAPI_FastSewing, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(BRepBuilderAPI_FastSewing, RefObject)
 
 protected:
   class NodeInspector;
@@ -290,6 +290,6 @@ private:
   FS_VARStatuses myStatusList;
 };
 
-DEFINE_STANDARD_HANDLE(BRepBuilderAPI_FastSewing, Standard_Transient)
+DEFINE_STANDARD_HANDLE(BRepBuilderAPI_FastSewing, RefObject)
 
 #endif // _BRepBuilderAPI_FastSewing_HeaderFile

@@ -26,9 +26,9 @@
 #include <Standard_Integer.hxx>
 
 class IGESDefs_HArray1OfHArray1OfTextDisplayTemplate;
-DEFINE_STANDARD_HANDLE(IGESDefs_HArray1OfHArray1OfTextDisplayTemplate, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IGESDefs_HArray1OfHArray1OfTextDisplayTemplate, RefObject)
 
-class IGESDefs_HArray1OfHArray1OfTextDisplayTemplate : public Standard_Transient
+class IGESDefs_HArray1OfHArray1OfTextDisplayTemplate : public RefObject
 {
 
 public:
@@ -47,7 +47,7 @@ public:
   Standard_EXPORT Handle(IGESGraph_HArray1OfTextDisplayTemplate) Value(
     const Standard_Integer num) const;
 
-  DEFINE_STANDARD_RTTI_INLINE(IGESDefs_HArray1OfHArray1OfTextDisplayTemplate, Standard_Transient)
+  DEFINE_STANDARD_RTTI_INLINE(IGESDefs_HArray1OfHArray1OfTextDisplayTemplate, RefObject)
 
 protected:
 private:

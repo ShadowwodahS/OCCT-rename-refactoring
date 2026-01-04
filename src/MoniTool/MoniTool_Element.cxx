@@ -14,7 +14,7 @@
 #include <MoniTool_Element.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(MoniTool_Element, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(MoniTool_Element, RefObject)
 
 MoniTool_Element::MoniTool_Element()
     : thecode(0)

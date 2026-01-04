@@ -21,7 +21,7 @@
 #include <gp_Vec2d.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom2d_Geometry, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Geom2d_Geometry, RefObject)
 
 typedef Geom2d_Geometry Geometry;
 typedef gp_Ax2d         Ax2d;

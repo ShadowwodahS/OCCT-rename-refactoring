@@ -28,7 +28,7 @@ class IGESData_IGESEntity;
 class IGESData_SpecificModule;
 class IGESData_Protocol;
 class IGESData_GlobalNodeOfSpecificLib;
-class Standard_Transient;
+class RefObject;
 
 class IGESData_SpecificLib
 {
@@ -53,7 +53,7 @@ public:
   //! Adds a couple (Module-Protocol) to the Library, given the
   //! class of a Protocol. Takes Resources into account.
   //! (if <aprotocol> is not of type TheProtocol, it is not added)
-  Standard_EXPORT void AddProtocol(const Handle(Standard_Transient)& aprotocol);
+  Standard_EXPORT void AddProtocol(const Handle(RefObject)& aprotocol);
 
   //! Clears the list of Modules of a library (can be used to
   //! redefine the order of Modules before action : Clear then

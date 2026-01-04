@@ -22,9 +22,9 @@ struct AVBufferPool;
 struct AVBufferRef;
 
 //! AVBufferPool wrapper.
-class Media_BufferPool : public Standard_Transient
+class Media_BufferPool : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Media_BufferPool, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Media_BufferPool, RefObject)
 public:
   //! Empty constructor
   Standard_EXPORT Media_BufferPool();

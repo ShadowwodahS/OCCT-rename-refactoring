@@ -63,7 +63,7 @@ void STEPConstruct_ContextTool::SetModel(const Handle(StepData_StepModel)& aStep
   Standard_Integer i, nb = aStepModel->NbEntities();
   for (i = 1; i <= nb && theAPD.IsNull(); i++)
   {
-    Handle(Standard_Transient) ent = aStepModel->Value(i);
+    Handle(RefObject) ent = aStepModel->Value(i);
     if (ent->IsKind(STANDARD_TYPE(StepBasic_ApplicationProtocolDefinition)))
     {
       if (theAPD.IsNull())

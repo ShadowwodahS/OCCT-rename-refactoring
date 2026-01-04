@@ -25,9 +25,9 @@ class Image_PixMap;
 
 //! This class is used to store bitmaps and images for markers rendering.
 //! It can convert bitmap texture stored in TColStd_HArray1OfByte to Image_PixMap and vice versa.
-class Graphic3d_MarkerImage : public Standard_Transient
+class Graphic3d_MarkerImage : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_MarkerImage, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Graphic3d_MarkerImage, RefObject)
 public:
   //! Returns a marker image for the marker of the specified type, scale and color.
   Standard_EXPORT static Handle(Graphic3d_MarkerImage) StandardMarker(
@@ -109,6 +109,6 @@ private:
   Standard_Integer myHeight;              //!< marker height
 };
 
-DEFINE_STANDARD_HANDLE(Graphic3d_MarkerImage, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Graphic3d_MarkerImage, RefObject)
 
 #endif // _Graphic3d_MarkerImage_H__

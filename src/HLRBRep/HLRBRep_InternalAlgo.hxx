@@ -30,9 +30,9 @@ class HLRTopoBRep_OutLiner;
 class HLRBRep_ShapeBounds;
 
 class HLRBRep_InternalAlgo;
-DEFINE_STANDARD_HANDLE(HLRBRep_InternalAlgo, Standard_Transient)
+DEFINE_STANDARD_HANDLE(HLRBRep_InternalAlgo, RefObject)
 
-class HLRBRep_InternalAlgo : public Standard_Transient
+class HLRBRep_InternalAlgo : public RefObject
 {
 
 public:
@@ -51,7 +51,7 @@ public:
 
   //! add the shape <S>.
   Standard_EXPORT void Load(const Handle(HLRTopoBRep_OutLiner)& S,
-                            const Handle(Standard_Transient)&   SData,
+                            const Handle(RefObject)&   SData,
                             const Standard_Integer              nbIso = 0);
 
   //! add the shape <S>.
@@ -66,7 +66,7 @@ public:
   Standard_EXPORT void Remove(const Standard_Integer I);
 
   //! Change the Shape Data of the Shape of index <I>.
-  Standard_EXPORT void ShapeData(const Standard_Integer I, const Handle(Standard_Transient)& SData);
+  Standard_EXPORT void ShapeData(const Standard_Integer I, const Handle(RefObject)& SData);
 
   Standard_EXPORT HLRBRep_SeqOfShapeBounds& SeqOfShapeBounds();
 
@@ -121,7 +121,7 @@ public:
 
   Standard_EXPORT Handle(HLRBRep_Data) DataStructure() const;
 
-  DEFINE_STANDARD_RTTIEXT(HLRBRep_InternalAlgo, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(HLRBRep_InternalAlgo, RefObject)
 
 protected:
 private:

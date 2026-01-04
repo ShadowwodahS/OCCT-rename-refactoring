@@ -81,7 +81,7 @@ Standard_Integer IGESDefs_AttributeTable::ValueCount(const Standard_Integer Atnu
   return Definition()->AttributeValueCount(Atnum);
 }
 
-Handle(Standard_Transient) IGESDefs_AttributeTable::AttributeList(
+Handle(RefObject) IGESDefs_AttributeTable::AttributeList(
   const Standard_Integer Atnum,
   const Standard_Integer Rownum) const
 {

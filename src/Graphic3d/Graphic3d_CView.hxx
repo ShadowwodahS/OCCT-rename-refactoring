@@ -349,28 +349,28 @@ public:
   Standard_EXPORT Standard_Real ConsiderZoomPersistenceObjects();
 
   //! Returns pointer to an assigned framebuffer object.
-  virtual Handle(Standard_Transient) FBO() const = 0;
+  virtual Handle(RefObject) FBO() const = 0;
 
   //! Sets framebuffer object for offscreen rendering.
-  virtual void SetFBO(const Handle(Standard_Transient)& theFbo) = 0;
+  virtual void SetFBO(const Handle(RefObject)& theFbo) = 0;
 
   //! Generate offscreen FBO in the graphic library.
   //! If not supported on hardware returns NULL.
-  virtual Handle(Standard_Transient) FBOCreate(const Standard_Integer theWidth,
+  virtual Handle(RefObject) FBOCreate(const Standard_Integer theWidth,
                                                const Standard_Integer theHeight) = 0;
 
   //! Remove offscreen FBO from the graphic library
-  virtual void FBORelease(Handle(Standard_Transient)& theFbo) = 0;
+  virtual void FBORelease(Handle(RefObject)& theFbo) = 0;
 
   //! Read offscreen FBO configuration.
-  virtual void FBOGetDimensions(const Handle(Standard_Transient)& theFbo,
+  virtual void FBOGetDimensions(const Handle(RefObject)& theFbo,
                                 Standard_Integer&                 theWidth,
                                 Standard_Integer&                 theHeight,
                                 Standard_Integer&                 theWidthMax,
                                 Standard_Integer&                 theHeightMax) = 0;
 
   //! Change offscreen FBO viewport.
-  virtual void FBOChangeViewport(const Handle(Standard_Transient)& theFbo,
+  virtual void FBOChangeViewport(const Handle(RefObject)& theFbo,
                                  const Standard_Integer            theWidth,
                                  const Standard_Integer            theHeight) = 0;
 

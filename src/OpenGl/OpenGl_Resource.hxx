@@ -28,7 +28,7 @@ class OpenGl_Context;
 //! Destruction of object with unreleased GPU resources will cause leaks
 //! which will be ignored in release mode and will immediately stop program execution in debug mode
 //! using assert.
-class OpenGl_Resource : public Standard_Transient
+class OpenGl_Resource : public RefObject
 {
 
 public:
@@ -61,9 +61,9 @@ private:
   OpenGl_Resource& operator=(const OpenGl_Resource&);
 
 public:
-  DEFINE_STANDARD_RTTIEXT(OpenGl_Resource, Standard_Transient) // Type definition
+  DEFINE_STANDARD_RTTIEXT(OpenGl_Resource, RefObject) // Type definition
 };
 
-DEFINE_STANDARD_HANDLE(OpenGl_Resource, Standard_Transient)
+DEFINE_STANDARD_HANDLE(OpenGl_Resource, RefObject)
 
 #endif // _OpenGl_Resource_H__

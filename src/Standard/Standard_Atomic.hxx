@@ -19,7 +19,7 @@
 //! multithread process) on various platforms
 //!
 //! By the moment, only operations necessary for reference counter
-//! in Standard_Transient objects are implemented.
+//! in RefObject objects are implemented.
 //!
 //! This is preferred to use fixed size types "int32_t" / "int64_t" for
 //! correct function declarations however we leave "int" assuming it is 32bits for now.

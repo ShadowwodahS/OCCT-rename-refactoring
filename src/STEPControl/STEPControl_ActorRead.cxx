@@ -222,7 +222,7 @@ STEPControl_ActorRead::STEPControl_ActorRead(const Handle(Interface_InterfaceMod
 // Purpose : tells if an entity is valid for transfer by this Actor
 // ============================================================================
 
-Standard_Boolean STEPControl_ActorRead::Recognize(const Handle(Standard_Transient)& start)
+Standard_Boolean STEPControl_ActorRead::Recognize(const Handle(RefObject)& start)
 {
   if (start.IsNull())
     return Standard_False;
@@ -319,7 +319,7 @@ Standard_Boolean STEPControl_ActorRead::Recognize(const Handle(Standard_Transien
 //           mapping
 // ============================================================================
 
-Handle(Transfer_Binder) STEPControl_ActorRead::Transfer(const Handle(Standard_Transient)& start,
+Handle(Transfer_Binder) STEPControl_ActorRead::Transfer(const Handle(RefObject)& start,
                                                         const Handle(Transfer_TransientProcess)& TP,
                                                         const Message_ProgressRange& theProgress)
 {
@@ -374,7 +374,7 @@ static void ApplyTransformation(TopoDS_Shape& shape, const gp_Trsf& Trsf)
 // ============================================================================
 // auxiliary function : FindContext
 // ============================================================================
-static Handle(StepRepr_Representation) FindContext(const Handle(Standard_Transient)&        start,
+static Handle(StepRepr_Representation) FindContext(const Handle(RefObject)&        start,
                                                    const Handle(Transfer_TransientProcess)& TP,
                                                    const Standard_Integer level = 10)
 {
@@ -396,7 +396,7 @@ static Handle(StepRepr_Representation) FindContext(const Handle(Standard_Transie
 //           as defined in read.step.shape.repr_level parameter
 //=======================================================================
 
-static Standard_Integer FindShapeReprType(const Handle(Standard_Transient)& start)
+static Standard_Integer FindShapeReprType(const Handle(RefObject)& start)
 {
   if (start->IsKind(STANDARD_TYPE(StepShape_AdvancedBrepShapeRepresentation)))
     return 2;
@@ -780,7 +780,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
       Interface_EntityIterator subs3 = TP->Graph().Sharings(rep);
       for (subs3.Start(); subs3.More(); subs3.Next())
       {
-        const Handle(Standard_Transient)& aSubs3Val = subs3.Value();
+        const Handle(RefObject)& aSubs3Val = subs3.Value();
         if (Handle(StepShape_ShapeDefinitionRepresentation) SDR =
               Handle(StepShape_ShapeDefinitionRepresentation)::DownCast(aSubs3Val))
         {
@@ -1422,7 +1422,7 @@ static Standard_Boolean IsNeedRepresentation(const Handle(StepRepr_ShapeAspect)&
 //=================================================================================================
 
 Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::OldWay(
-  const Handle(Standard_Transient)&        start,
+  const Handle(RefObject)&        start,
   const Handle(Transfer_TransientProcess)& TP,
   const Message_ProgressRange&             theProgress)
 {
@@ -1500,7 +1500,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::OldWay(
   for (subs.Start(); subs.More() && PS.More(); subs.Next())
   {
     Message_ProgressRange             aRange = PS.Next();
-    const Handle(Standard_Transient)& anitem = subs.Value();
+    const Handle(RefObject)& anitem = subs.Value();
     if (anitem->DynamicType() != tCDSR && anitem->DynamicType() != tSRR)
       continue;
 //      DeclareAndCast(StepShape_ContextDependentShapeRepresentation,anitem,subs.Value());
@@ -1914,7 +1914,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
 //=================================================================================================
 
 Handle(Transfer_Binder) STEPControl_ActorRead::TransferShape(
-  const Handle(Standard_Transient)&        start,
+  const Handle(RefObject)&        start,
   const Handle(Transfer_TransientProcess)& TP,
   const StepData_Factors&                  theLocalFactors,
   const Standard_Boolean                   isManifold,
@@ -2374,7 +2374,7 @@ TopoDS_Shape STEPControl_ActorRead::TransferRelatedSRR(
   for (Interface_EntityIterator aSubsIt(aGraph.Sharings(theRep)); aSubsIt.More() && thePS.More();
        aSubsIt.Next())
   {
-    Handle(Standard_Transient) anItem = aSubsIt.Value();
+    Handle(RefObject) anItem = aSubsIt.Value();
     if (!anItem->IsKind(STANDARD_TYPE(StepRepr_RepresentationRelationship)))
       continue;
     Handle(Transfer_Binder) aBinder;

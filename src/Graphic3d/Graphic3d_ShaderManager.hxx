@@ -41,9 +41,9 @@ enum
 };
 
 //! This class is responsible for generation of shader programs.
-class Graphic3d_ShaderManager : public Standard_Transient
+class Graphic3d_ShaderManager : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_ShaderManager, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Graphic3d_ShaderManager, RefObject)
 public:
   //! Creates new empty shader manager.
   Standard_EXPORT Graphic3d_ShaderManager(Aspect_GraphicsLibrary theGapi);

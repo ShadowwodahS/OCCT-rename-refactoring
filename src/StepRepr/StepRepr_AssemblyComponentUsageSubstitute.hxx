@@ -25,9 +25,9 @@ class TCollection_HAsciiString;
 class StepRepr_AssemblyComponentUsage;
 
 class StepRepr_AssemblyComponentUsageSubstitute;
-DEFINE_STANDARD_HANDLE(StepRepr_AssemblyComponentUsageSubstitute, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepRepr_AssemblyComponentUsageSubstitute, RefObject)
 
-class StepRepr_AssemblyComponentUsageSubstitute : public Standard_Transient
+class StepRepr_AssemblyComponentUsageSubstitute : public RefObject
 {
 
 public:
@@ -54,7 +54,7 @@ public:
 
   Standard_EXPORT void SetSubstitute(const Handle(StepRepr_AssemblyComponentUsage)& aSubstitute);
 
-  DEFINE_STANDARD_RTTIEXT(StepRepr_AssemblyComponentUsageSubstitute, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepRepr_AssemblyComponentUsageSubstitute, RefObject)
 
 protected:
 private:

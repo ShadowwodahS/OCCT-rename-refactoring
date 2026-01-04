@@ -26,11 +26,11 @@
 class Units_Dimensions;
 
 class Units_Token;
-DEFINE_STANDARD_HANDLE(Units_Token, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Units_Token, RefObject)
 
 //! This class defines an elementary word contained in
 //! a Sentence object.
-class Units_Token : public Standard_Transient
+class Units_Token : public RefObject
 {
 
 public:
@@ -188,7 +188,7 @@ public:
   Standard_EXPORT virtual void Dump(const Standard_Integer ashift,
                                     const Standard_Integer alevel) const;
 
-  DEFINE_STANDARD_RTTIEXT(Units_Token, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Units_Token, RefObject)
 
 protected:
 private:

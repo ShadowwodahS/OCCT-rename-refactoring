@@ -24,10 +24,10 @@
 class TCollection_HAsciiString;
 
 class StepElement_CurveElementSectionDefinition;
-DEFINE_STANDARD_HANDLE(StepElement_CurveElementSectionDefinition, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepElement_CurveElementSectionDefinition, RefObject)
 
 //! Representation of STEP entity CurveElementSectionDefinition
-class StepElement_CurveElementSectionDefinition : public Standard_Transient
+class StepElement_CurveElementSectionDefinition : public RefObject
 {
 
 public:
@@ -50,7 +50,7 @@ public:
   //! Set field SectionAngle
   Standard_EXPORT void SetSectionAngle(const Standard_Real SectionAngle);
 
-  DEFINE_STANDARD_RTTIEXT(StepElement_CurveElementSectionDefinition, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepElement_CurveElementSectionDefinition, RefObject)
 
 protected:
 private:

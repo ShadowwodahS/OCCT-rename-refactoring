@@ -25,7 +25,7 @@
 #include <Standard_OStream.hxx>
 
 class Vrml_IndexedLineSet;
-DEFINE_STANDARD_HANDLE(Vrml_IndexedLineSet, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Vrml_IndexedLineSet, RefObject)
 
 //! defines a IndexedLineSet node of VRML specifying geometry shapes.
 //! This node represents a 3D shape formed by constructing polylines from vertices
@@ -40,7 +40,7 @@ DEFINE_STANDARD_HANDLE(Vrml_IndexedLineSet, Standard_Transient)
 //! to OVERALL. The DEFAULT normal binding is equal to  PER_VERTEX_INDEXED;
 //! if insufficient normals exist in the state, the lines will be drawn unlit. The same
 //! rules for texture coordinate generation as IndexedFaceSet are used.
-class Vrml_IndexedLineSet : public Standard_Transient
+class Vrml_IndexedLineSet : public RefObject
 {
 
 public:
@@ -70,7 +70,7 @@ public:
 
   Standard_EXPORT Standard_OStream& Print(Standard_OStream& anOStream) const;
 
-  DEFINE_STANDARD_RTTIEXT(Vrml_IndexedLineSet, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Vrml_IndexedLineSet, RefObject)
 
 protected:
 private:

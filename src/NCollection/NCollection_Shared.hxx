@@ -19,7 +19,7 @@
 #include <NCollection_DefineAlloc.hxx>
 
 //! Template defining a class derived from the specified base class and
-//! Standard_Transient, and supporting OCCT RTTI.
+//! RefObject, and supporting OCCT RTTI.
 //!
 //! This provides possibility to use Handes for types not initially intended
 //! to be dynamically allocated.
@@ -34,8 +34,8 @@
 
 template <class T,
           typename = typename opencascade::std::enable_if<
-            !opencascade::std::is_base_of<Standard_Transient, T>::value>::type>
-class NCollection_Shared : public Standard_Transient, public T
+            !opencascade::std::is_base_of<RefObject, T>::value>::type>
+class NCollection_Shared : public RefObject, public T
 {
 public:
   DEFINE_STANDARD_ALLOC

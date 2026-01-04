@@ -26,7 +26,7 @@
 
 #include <Interface_GTool.hxx>
 class Interface_Protocol;
-class Standard_Transient;
+class RefObject;
 class Interface_ShareTool;
 class Interface_InterfaceModel;
 
@@ -85,7 +85,7 @@ public:
 
   //! Determines the Category Number for an entity in its context,
   //! by using general service CategoryNumber
-  Standard_EXPORT Standard_Integer CatNum(const Handle(Standard_Transient)& theEnt,
+  Standard_EXPORT Standard_Integer CatNum(const Handle(RefObject)& theEnt,
                                           const Interface_ShareTool&        theShares);
 
   //! Clears the recorded list of category numbers for a Model

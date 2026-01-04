@@ -50,7 +50,7 @@ class Geom2d_Curve;
 class Geom_Curve;
 
 class BRepBuilderAPI_Sewing;
-DEFINE_STANDARD_HANDLE(BRepBuilderAPI_Sewing, Standard_Transient)
+DEFINE_STANDARD_HANDLE(BRepBuilderAPI_Sewing, RefObject)
 
 //! Provides methods to
 //!
@@ -74,7 +74,7 @@ DEFINE_STANDARD_HANDLE(BRepBuilderAPI_Sewing, Standard_Transient)
 //! - output free edges if necessary
 //! - output multiple edges if necessary
 //! - output the problems if any
-class BRepBuilderAPI_Sewing : public Standard_Transient
+class BRepBuilderAPI_Sewing : public RefObject
 {
 
 public:
@@ -240,7 +240,7 @@ public:
   //! INTERNAL FUNCTIONS ---
   Standard_Boolean NonManifoldMode() const;
 
-  DEFINE_STANDARD_RTTIEXT(BRepBuilderAPI_Sewing, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(BRepBuilderAPI_Sewing, RefObject)
 
 protected:
   //! Performs cutting of sections

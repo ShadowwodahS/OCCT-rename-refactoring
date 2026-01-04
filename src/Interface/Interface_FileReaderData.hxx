@@ -31,7 +31,7 @@ class Interface_FileParameter;
 class Interface_ParamList;
 
 class Interface_FileReaderData;
-DEFINE_STANDARD_HANDLE(Interface_FileReaderData, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Interface_FileReaderData, RefObject)
 
 //! This class defines services which permit to access Data issued
 //! from a File, in a form which does not depend of physical
@@ -48,7 +48,7 @@ DEFINE_STANDARD_HANDLE(Interface_FileReaderData, Standard_Transient)
 //! FileReaderData inherits TShared to be accessed by Handle :
 //! this allows FileReaderTool to define more easily the specific
 //! methods, and improves memory management.
-class Interface_FileReaderData : public Standard_Transient
+class Interface_FileReaderData : public RefObject
 {
 
 public:
@@ -143,7 +143,7 @@ public:
 
   //! Returns the StepEntity referenced by a parameter
   //! Error if none
-  Standard_EXPORT const Handle(Standard_Transient)& ParamEntity(const Standard_Integer num,
+  Standard_EXPORT const Handle(RefObject)& ParamEntity(const Standard_Integer num,
                                                                 const Standard_Integer nump) const;
 
   //! Returns the absolute rank of the beginning of a record
@@ -151,11 +151,11 @@ public:
   Standard_EXPORT Standard_Integer ParamFirstRank(const Standard_Integer num) const;
 
   //! Returns the entity bound to a record, set by SetEntities
-  Standard_EXPORT const Handle(Standard_Transient)& BoundEntity(const Standard_Integer num) const;
+  Standard_EXPORT const Handle(RefObject)& BoundEntity(const Standard_Integer num) const;
 
   //! Binds an entity to a record
   Standard_EXPORT void BindEntity(const Standard_Integer            num,
-                                  const Handle(Standard_Transient)& ent);
+                                  const Handle(RefObject)& ent);
 
   //! Sets the status "Error Load" on, to overside check fails
   //! <val> True  : declares unloaded
@@ -184,7 +184,7 @@ public:
   //! Same spec.s as standard <atof> but 5 times faster
   Standard_EXPORT static Standard_Real Fastof(const Standard_CString str);
 
-  DEFINE_STANDARD_RTTIEXT(Interface_FileReaderData, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Interface_FileReaderData, RefObject)
 
 protected:
   //! Initializes arrays of Entities and of ParamLists attached

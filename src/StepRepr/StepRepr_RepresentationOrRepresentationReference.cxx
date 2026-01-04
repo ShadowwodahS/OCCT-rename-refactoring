@@ -27,7 +27,7 @@ StepRepr_RepresentationOrRepresentationReference::StepRepr_RepresentationOrRepre
 //=================================================================================================
 
 Standard_Integer StepRepr_RepresentationOrRepresentationReference::CaseNum(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

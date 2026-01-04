@@ -25,7 +25,7 @@ StepDimTol_DatumOrCommonDatum::StepDimTol_DatumOrCommonDatum() {}
 
 //=================================================================================================
 
-Standard_Integer StepDimTol_DatumOrCommonDatum::CaseNum(const Handle(Standard_Transient)& ent) const
+Standard_Integer StepDimTol_DatumOrCommonDatum::CaseNum(const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

@@ -24,7 +24,7 @@
 
 #if defined(_WIN32) && !defined(OCCT_UWP)
 
-IMPLEMENT_STANDARD_RTTIEXT(WNT_WClass, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(WNT_WClass, RefObject)
 
 //=================================================================================================
 

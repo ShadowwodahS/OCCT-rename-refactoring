@@ -18,7 +18,7 @@
 
 #include <Standard_Dump.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom_Transformation, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Geom_Transformation, RefObject)
 
 Geom_Transformation::Geom_Transformation() {}
 

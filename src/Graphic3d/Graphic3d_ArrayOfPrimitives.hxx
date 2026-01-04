@@ -27,7 +27,7 @@
 #include <Quantity_Color.hxx>
 
 class Graphic3d_ArrayOfPrimitives;
-DEFINE_STANDARD_HANDLE(Graphic3d_ArrayOfPrimitives, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Graphic3d_ArrayOfPrimitives, RefObject)
 
 //! This class furnish services to defined and fill an array of primitives
 //! which can be passed directly to graphics rendering API.
@@ -65,9 +65,9 @@ DEFINE_STANDARD_HANDLE(Graphic3d_ArrayOfPrimitives, Standard_Transient)
 //!    Primitive Strips. WARNING! Bounds within Primitive Array break rendering batches into parts
 //!    (additional for loops),
 //!             affecting rendering performance negatively (increasing CPU load).
-class Graphic3d_ArrayOfPrimitives : public Standard_Transient
+class Graphic3d_ArrayOfPrimitives : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_ArrayOfPrimitives, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Graphic3d_ArrayOfPrimitives, RefObject)
 public:
   //! Create an array of specified type.
   static Handle(Graphic3d_ArrayOfPrimitives) CreateArray(Graphic3d_TypeOfPrimitiveArray theType,

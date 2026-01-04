@@ -26,9 +26,9 @@ class MAT_TListNodeOfListOfBisector;
 class MAT_Bisector;
 
 class MAT_ListOfBisector;
-DEFINE_STANDARD_HANDLE(MAT_ListOfBisector, Standard_Transient)
+DEFINE_STANDARD_HANDLE(MAT_ListOfBisector, RefObject)
 
-class MAT_ListOfBisector : public Standard_Transient
+class MAT_ListOfBisector : public RefObject
 {
 
 public:
@@ -86,7 +86,7 @@ public:
 
   Standard_EXPORT void Dump(const Standard_Integer ashift, const Standard_Integer alevel);
 
-  DEFINE_STANDARD_RTTI_INLINE(MAT_ListOfBisector, Standard_Transient)
+  DEFINE_STANDARD_RTTI_INLINE(MAT_ListOfBisector, RefObject)
 
 protected:
 private:

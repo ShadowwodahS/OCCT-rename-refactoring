@@ -50,7 +50,7 @@ public:
   //! The object is converted to string in format: <object kind> : <object pointer>.
   //! The parameter theToPutEol specified whether end-of-line should be added to the end of the
   //! message. Default implementation calls first method Send().
-  Standard_EXPORT virtual void SendObject(const Handle(Standard_Transient)& theObject,
+  Standard_EXPORT virtual void SendObject(const Handle(RefObject)& theObject,
                                           const Message_Gravity theGravity) const Standard_OVERRIDE;
 
 protected:

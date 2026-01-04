@@ -18,7 +18,7 @@
 #include <Graphic3d_GraphicDriver.hxx>
 #include <Standard_Dump.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_CStructure, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_CStructure, RefObject)
 
 //=================================================================================================
 

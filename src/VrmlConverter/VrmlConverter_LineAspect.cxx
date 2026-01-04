@@ -14,7 +14,7 @@
 #include <Vrml_Material.hxx>
 #include <VrmlConverter_LineAspect.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(VrmlConverter_LineAspect, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(VrmlConverter_LineAspect, RefObject)
 
 VrmlConverter_LineAspect::VrmlConverter_LineAspect()
 {

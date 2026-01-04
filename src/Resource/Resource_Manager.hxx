@@ -30,12 +30,12 @@
 #include <Standard_Real.hxx>
 
 class Resource_Manager;
-DEFINE_STANDARD_HANDLE(Resource_Manager, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Resource_Manager, RefObject)
 
 //! Defines a resource structure and its management methods.
-class Resource_Manager : public Standard_Transient
+class Resource_Manager : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Resource_Manager, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Resource_Manager, RefObject)
 public:
   //! Create a Resource manager.
   //! Attempts to find the two following files:

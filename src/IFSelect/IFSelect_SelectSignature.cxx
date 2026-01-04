@@ -131,7 +131,7 @@ Handle(IFSelect_SignCounter) IFSelect_SelectSignature::Counter() const
 }
 
 Standard_Boolean IFSelect_SelectSignature::SortInGraph(const Standard_Integer,
-                                                       const Handle(Standard_Transient)& ent,
+                                                       const Handle(RefObject)& ent,
                                                        const Interface_Graph&            G) const
 {
   Standard_Boolean                        res;
@@ -209,7 +209,7 @@ Standard_Boolean IFSelect_SelectSignature::SortInGraph(const Standard_Integer,
 
 Standard_Boolean IFSelect_SelectSignature::Sort(
   const Standard_Integer,
-  const Handle(Standard_Transient)& /*ent*/,
+  const Handle(RefObject)& /*ent*/,
   const Handle(Interface_InterfaceModel)& /*model*/) const
 {
   return Standard_True;

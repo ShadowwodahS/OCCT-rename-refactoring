@@ -15,7 +15,7 @@
 #include <StepBasic_DocumentRelationship.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_DocumentRelationship, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_DocumentRelationship, RefObject)
 
 StepBasic_DocumentRelationship::StepBasic_DocumentRelationship() {}
 

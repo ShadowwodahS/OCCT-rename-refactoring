@@ -19,7 +19,7 @@
 #include <gp_Pln.hxx>
 #include <Standard_Atomic.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_ClipPlane, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_ClipPlane, RefObject)
 
 namespace
 {
@@ -79,7 +79,7 @@ Graphic3d_ClipPlane::Graphic3d_ClipPlane(const Graphic3d_Vec4d& theEquation)
 //=================================================================================================
 
 Graphic3d_ClipPlane::Graphic3d_ClipPlane(const Graphic3d_ClipPlane& theOther)
-    : Standard_Transient(theOther),
+    : RefObject(theOther),
       myAspect(defaultAspect()),
       myPrevInChain(NULL),
       myPlane(theOther.myPlane),

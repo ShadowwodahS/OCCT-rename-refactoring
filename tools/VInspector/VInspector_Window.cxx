@@ -309,17 +309,17 @@ void VInspector_Window::UpdateContent()
     UpdateTreeModel();
 
   // make AIS_InteractiveObject selected selected if exist in select parameters
-  NCollection_List<Handle(Standard_Transient)> anObjects;
+  NCollection_List<Handle(RefObject)> anObjects;
   VInspector_ViewModel* aViewModel = dynamic_cast<VInspector_ViewModel*>(myTreeView->model());
   if (aViewModel && myParameters->GetSelectedObjects(aName, anObjects))
   {
     QItemSelectionModel* aSelectionModel = myTreeView->selectionModel();
     aSelectionModel->clear();
-    for (NCollection_List<Handle(Standard_Transient)>::Iterator aParamsIt(anObjects);
+    for (NCollection_List<Handle(RefObject)>::Iterator aParamsIt(anObjects);
          aParamsIt.More();
          aParamsIt.Next())
     {
-      Handle(Standard_Transient)    anObject = aParamsIt.Value();
+      Handle(RefObject)    anObject = aParamsIt.Value();
       Handle(AIS_InteractiveObject) aPresentation =
         Handle(AIS_InteractiveObject)::DownCast(anObject);
       if (aPresentation.IsNull())
@@ -347,7 +347,7 @@ NCollection_List<Handle(AIS_InteractiveObject)> VInspector_Window::SelectedPrese
     TreeModel_ModelBase::SelectedItems(theModel->selectedIndexes());
 
   QList<size_t> aSelectedIds; // Remember of selected address in order to avoid duplicates
-  NCollection_List<Handle(Standard_Transient)> anItemPresentations;
+  NCollection_List<Handle(RefObject)> anItemPresentations;
   for (QList<TreeModel_ItemBasePtr>::const_iterator anItemIt = anItems.begin();
        anItemIt != anItems.end();
        ++anItemIt)
@@ -360,7 +360,7 @@ NCollection_List<Handle(AIS_InteractiveObject)> VInspector_Window::SelectedPrese
     anItemPresentations.Clear();
     aVItem->Presentations(anItemPresentations);
 
-    for (NCollection_List<Handle(Standard_Transient)>::Iterator anIt(anItemPresentations);
+    for (NCollection_List<Handle(RefObject)>::Iterator anIt(anItemPresentations);
          anIt.More();
          anIt.Next())
     {
@@ -381,7 +381,7 @@ NCollection_List<Handle(AIS_InteractiveObject)> VInspector_Window::SelectedPrese
 // purpose :
 // =======================================================================
 void VInspector_Window::SelectedShapes(
-  NCollection_List<Handle(Standard_Transient)>& theSelPresentations)
+  NCollection_List<Handle(RefObject)>& theSelPresentations)
 {
   QModelIndexList theIndices = myTreeView->selectionModel()->selectedIndexes();
 
@@ -410,7 +410,7 @@ void VInspector_Window::SelectedShapes(
 // function : Init
 // purpose :
 // =======================================================================
-bool VInspector_Window::Init(const NCollection_List<Handle(Standard_Transient)>& theParameters)
+bool VInspector_Window::Init(const NCollection_List<Handle(RefObject)>& theParameters)
 {
   VInspector_ViewModel* aViewModel = dynamic_cast<VInspector_ViewModel*>(myTreeView->model());
   if (!aViewModel)
@@ -419,11 +419,11 @@ bool VInspector_Window::Init(const NCollection_List<Handle(Standard_Transient)>&
   Handle(AIS_InteractiveContext) aContext;
   Standard_Boolean               isModelUpdated = Standard_False;
 
-  for (NCollection_List<Handle(Standard_Transient)>::Iterator aParamsIt(theParameters);
+  for (NCollection_List<Handle(RefObject)>::Iterator aParamsIt(theParameters);
        aParamsIt.More();
        aParamsIt.Next())
   {
-    Handle(Standard_Transient) anObject = aParamsIt.Value();
+    Handle(RefObject) anObject = aParamsIt.Value();
     if (aContext.IsNull())
       aContext = Handle(AIS_InteractiveContext)::DownCast(anObject);
   }
@@ -617,7 +617,7 @@ void VInspector_Window::onTreeViewSelectionChanged(const QItemSelection&, const 
   if (myPropertyPanelWidget->toggleViewAction()->isChecked())
     myPropertyView->Init(ViewControl_Tools::CreateTableModelValues(myTreeView->selectionModel()));
 
-  NCollection_List<Handle(Standard_Transient)> aSelPresentations;
+  NCollection_List<Handle(RefObject)> aSelPresentations;
 
   QModelIndexList aSelectedIndices = myTreeView->selectionModel()->selectedIndexes();
   for (QModelIndexList::const_iterator aSelIt = aSelectedIndices.begin();
@@ -645,17 +645,17 @@ void VInspector_Window::onTreeViewSelectionChanged(const QItemSelection&, const 
 // =======================================================================
 void VInspector_Window::onExportToShapeView()
 {
-  NCollection_List<Handle(Standard_Transient)> aSelectedShapes;
+  NCollection_List<Handle(RefObject)> aSelectedShapes;
   SelectedShapes(aSelectedShapes);
 
   TCollection_AsciiString                      aPluginName("TKShapeView");
-  NCollection_List<Handle(Standard_Transient)> aParameters;
+  NCollection_List<Handle(RefObject)> aParameters;
   NCollection_List<TCollection_AsciiString>    anItemNames;
 
   QStringList anExportedPointers;
   if (aSelectedShapes.Extent() > 0)
   {
-    for (NCollection_List<Handle(Standard_Transient)>::Iterator aShapeIt(aSelectedShapes);
+    for (NCollection_List<Handle(RefObject)>::Iterator aShapeIt(aSelectedShapes);
          aShapeIt.More();
          aShapeIt.Next())
     {

@@ -21,7 +21,7 @@
 
 #include "Graphic3d_MarkerImage.pxx"
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_MarkerImage, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_MarkerImage, RefObject)
 
 namespace
 {

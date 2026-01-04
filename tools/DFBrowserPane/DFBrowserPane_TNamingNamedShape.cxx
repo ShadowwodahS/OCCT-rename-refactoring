@@ -388,7 +388,7 @@ int DFBrowserPane_TNamingNamedShape::GetSelectionKind(QItemSelectionModel* theMo
 // =======================================================================
 void DFBrowserPane_TNamingNamedShape::GetSelectionParameters(
   QItemSelectionModel*                          theModel,
-  NCollection_List<Handle(Standard_Transient)>& theParameters,
+  NCollection_List<Handle(RefObject)>& theParameters,
   NCollection_List<TCollection_AsciiString>&    theItemNames)
 {
   QTableView* aTableView = myTableView->GetTableView();
@@ -416,7 +416,7 @@ void DFBrowserPane_TNamingNamedShape::GetSelectionParameters(
 // =======================================================================
 void DFBrowserPane_TNamingNamedShape::GetReferences(const Handle(TDF_Attribute)& theAttribute,
                                                     NCollection_List<TDF_Label>& theRefLabels,
-                                                    Handle(Standard_Transient)&  theRefPresentation)
+                                                    Handle(RefObject)&  theRefPresentation)
 {
   if (!myEvolutionTableView)
     return;
@@ -454,10 +454,10 @@ void DFBrowserPane_TNamingNamedShape::GetReferences(const Handle(TDF_Attribute)&
 // function : GetPresentation
 // purpose :
 // =======================================================================
-Handle(Standard_Transient) DFBrowserPane_TNamingNamedShape::GetPresentation(
+Handle(RefObject) DFBrowserPane_TNamingNamedShape::GetPresentation(
   const Handle(TDF_Attribute)& theAttribute)
 {
-  Handle(Standard_Transient) aPresentation;
+  Handle(RefObject) aPresentation;
   Handle(TNaming_NamedShape) aShapeAttr = Handle(TNaming_NamedShape)::DownCast(theAttribute);
   if (aShapeAttr.IsNull())
     return aPresentation;

@@ -87,7 +87,7 @@ private:
 };
 
 //! Array of shadow maps.
-class OpenGl_ShadowMapArray : public Standard_Transient,
+class OpenGl_ShadowMapArray : public RefObject,
                               public NCollection_Array1<Handle(OpenGl_ShadowMap)>
 {
 public:

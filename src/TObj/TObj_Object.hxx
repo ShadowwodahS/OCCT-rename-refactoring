@@ -36,11 +36,11 @@ class TCollection_HAsciiString;
 #include <TColStd_HArray1OfExtendedString.hxx>
 
 class TObj_Object;
-DEFINE_STANDARD_HANDLE(TObj_Object, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TObj_Object, RefObject)
 
 //! Basis class for transient objects in OCAF-based models
 
-class TObj_Object : public Standard_Transient
+class TObj_Object : public RefObject
 {
 public:
   enum TypeFlags //!< Flags that define type-specific behaviour of objects
@@ -605,7 +605,7 @@ private:
 
 public:
   //! CASCADE RTTI
-  DEFINE_STANDARD_RTTIEXT(TObj_Object, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TObj_Object, RefObject)
 };
 
 //! Define handle in separate file

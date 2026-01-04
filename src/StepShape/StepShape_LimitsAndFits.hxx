@@ -23,10 +23,10 @@
 class TCollection_HAsciiString;
 
 class StepShape_LimitsAndFits;
-DEFINE_STANDARD_HANDLE(StepShape_LimitsAndFits, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepShape_LimitsAndFits, RefObject)
 
 //! Added for Dimensional Tolerances
-class StepShape_LimitsAndFits : public Standard_Transient
+class StepShape_LimitsAndFits : public RefObject
 {
 
 public:
@@ -53,7 +53,7 @@ public:
 
   Standard_EXPORT void SetSource(const Handle(TCollection_HAsciiString)& source);
 
-  DEFINE_STANDARD_RTTIEXT(StepShape_LimitsAndFits, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepShape_LimitsAndFits, RefObject)
 
 protected:
 private:

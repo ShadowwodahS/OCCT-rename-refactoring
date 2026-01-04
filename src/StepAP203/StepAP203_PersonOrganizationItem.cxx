@@ -36,7 +36,7 @@ StepAP203_PersonOrganizationItem::StepAP203_PersonOrganizationItem() {}
 //=================================================================================================
 
 Standard_Integer StepAP203_PersonOrganizationItem::CaseNum(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

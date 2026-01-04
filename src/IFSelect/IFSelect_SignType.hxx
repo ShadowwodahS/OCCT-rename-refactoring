@@ -20,7 +20,7 @@
 #include <Standard.hxx>
 
 #include <IFSelect_Signature.hxx>
-class Standard_Transient;
+class RefObject;
 class Interface_InterfaceModel;
 
 class IFSelect_SignType;
@@ -42,7 +42,7 @@ public:
   //! Returns the Signature for a Transient object, as its Dynamic
   //! Type, with or without package name, according starting option
   Standard_EXPORT Standard_CString
-    Value(const Handle(Standard_Transient)&       ent,
+    Value(const Handle(RefObject)&       ent,
           const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IFSelect_SignType, IFSelect_Signature)

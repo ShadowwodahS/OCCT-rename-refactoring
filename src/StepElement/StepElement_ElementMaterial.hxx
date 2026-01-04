@@ -23,10 +23,10 @@
 class TCollection_HAsciiString;
 
 class StepElement_ElementMaterial;
-DEFINE_STANDARD_HANDLE(StepElement_ElementMaterial, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepElement_ElementMaterial, RefObject)
 
 //! Representation of STEP entity ElementMaterial
-class StepElement_ElementMaterial : public Standard_Transient
+class StepElement_ElementMaterial : public RefObject
 {
 
 public:
@@ -58,7 +58,7 @@ public:
   Standard_EXPORT void SetProperties(
     const Handle(StepRepr_HArray1OfMaterialPropertyRepresentation)& Properties);
 
-  DEFINE_STANDARD_RTTIEXT(StepElement_ElementMaterial, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepElement_ElementMaterial, RefObject)
 
 protected:
 private:

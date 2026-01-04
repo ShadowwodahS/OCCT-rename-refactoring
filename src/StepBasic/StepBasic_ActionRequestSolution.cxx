@@ -21,7 +21,7 @@
 #include <StepBasic_ActionRequestSolution.hxx>
 #include <StepBasic_VersionedActionRequest.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_ActionRequestSolution, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_ActionRequestSolution, RefObject)
 
 //=================================================================================================
 

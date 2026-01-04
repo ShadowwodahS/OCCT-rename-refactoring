@@ -29,9 +29,9 @@ class Graphic3d_GraphicDriver;
 class Graphic3d_StructureManager;
 
 //! Low-level graphic structure interface
-class Graphic3d_CStructure : public Standard_Transient
+class Graphic3d_CStructure : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_CStructure, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Graphic3d_CStructure, RefObject)
 protected:
   //! Auxiliary wrapper to iterate through structure list.
   template <class Struct_t>
@@ -266,6 +266,6 @@ public:
   unsigned Is2dText : 1;
 };
 
-DEFINE_STANDARD_HANDLE(Graphic3d_CStructure, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Graphic3d_CStructure, RefObject)
 
 #endif // _Graphic3d_CStructure_HeaderFile

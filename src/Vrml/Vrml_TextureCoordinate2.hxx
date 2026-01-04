@@ -25,7 +25,7 @@
 #include <Standard_OStream.hxx>
 
 class Vrml_TextureCoordinate2;
-DEFINE_STANDARD_HANDLE(Vrml_TextureCoordinate2, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Vrml_TextureCoordinate2, RefObject)
 
 //! defines a TextureCoordinate2 node of VRML specifying properties of geometry
 //! and its appearance.
@@ -38,7 +38,7 @@ DEFINE_STANDARD_HANDLE(Vrml_TextureCoordinate2, Standard_Transient)
 //! by  vertical  coordinate,  T.
 //! By  default  :
 //! myPoint (0 0)
-class Vrml_TextureCoordinate2 : public Standard_Transient
+class Vrml_TextureCoordinate2 : public RefObject
 {
 
 public:
@@ -52,7 +52,7 @@ public:
 
   Standard_EXPORT Standard_OStream& Print(Standard_OStream& anOStream) const;
 
-  DEFINE_STANDARD_RTTIEXT(Vrml_TextureCoordinate2, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Vrml_TextureCoordinate2, RefObject)
 
 protected:
 private:

@@ -26,7 +26,7 @@ class Interface_FileReaderData;
 class Interface_Check;
 
 class Interface_ReaderModule;
-DEFINE_STANDARD_HANDLE(Interface_ReaderModule, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Interface_ReaderModule, RefObject)
 
 //! Defines unitary operations required to read an Entity from a
 //! File (see FileReaderData, FileReaderTool), under control of
@@ -37,7 +37,7 @@ DEFINE_STANDARD_HANDLE(Interface_ReaderModule, Standard_Transient)
 //! To work, a GeneralModule has formerly recognized the Type read
 //! from FileReaderData as a positive Case Number, then the
 //! ReaderModule reads it according to this Case Number
-class Interface_ReaderModule : public Standard_Transient
+class Interface_ReaderModule : public RefObject
 {
 
 public:
@@ -54,7 +54,7 @@ public:
                                     const Handle(Interface_FileReaderData)& data,
                                     const Standard_Integer                  num,
                                     Handle(Interface_Check)&                ach,
-                                    const Handle(Standard_Transient)&       ent) const = 0;
+                                    const Handle(RefObject)&       ent) const = 0;
 
   //! Specific operator (create+read) defaulted to do nothing.
   //! It can be redefined when it is not possible to work in two
@@ -70,9 +70,9 @@ public:
                                                    const Handle(Interface_FileReaderData)& data,
                                                    const Standard_Integer                  num,
                                                    Handle(Interface_Check)&                ach,
-                                                   Handle(Standard_Transient)& ent) const;
+                                                   Handle(RefObject)& ent) const;
 
-  DEFINE_STANDARD_RTTIEXT(Interface_ReaderModule, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Interface_ReaderModule, RefObject)
 
 protected:
 private:

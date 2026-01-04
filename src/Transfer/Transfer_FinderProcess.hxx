@@ -65,7 +65,7 @@ public:
   //! Or it is not, then a new one is created then returned, BUT
   //! it is not mapped here (use Bind or FindElseBind to do this)
   Standard_EXPORT Handle(Transfer_TransientMapper) TransientMapper(
-    const Handle(Standard_Transient)& obj) const;
+    const Handle(RefObject)& obj) const;
 
   //! Specific printing to trace a Finder (by its method ValueType)
   Standard_EXPORT virtual void PrintTrace(const Handle(Transfer_Finder)& start,

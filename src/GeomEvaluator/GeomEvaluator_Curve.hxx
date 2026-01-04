@@ -23,7 +23,7 @@ class gp_Vec;
 
 //! Interface for calculation of values and derivatives for different kinds of curves in 3D.
 //! Works both with adaptors and curves.
-class GeomEvaluator_Curve : public Standard_Transient
+class GeomEvaluator_Curve : public RefObject
 {
 public:
   GeomEvaluator_Curve() {}
@@ -48,9 +48,9 @@ public:
 
   virtual Handle(GeomEvaluator_Curve) ShallowCopy() const = 0;
 
-  DEFINE_STANDARD_RTTI_INLINE(GeomEvaluator_Curve, Standard_Transient)
+  DEFINE_STANDARD_RTTI_INLINE(GeomEvaluator_Curve, RefObject)
 };
 
-DEFINE_STANDARD_HANDLE(GeomEvaluator_Curve, Standard_Transient)
+DEFINE_STANDARD_HANDLE(GeomEvaluator_Curve, RefObject)
 
 #endif // _GeomEvaluator_Curve_HeaderFile

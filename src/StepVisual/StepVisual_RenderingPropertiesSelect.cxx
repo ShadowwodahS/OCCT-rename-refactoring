@@ -25,7 +25,7 @@ StepVisual_RenderingPropertiesSelect::StepVisual_RenderingPropertiesSelect() {}
 //=================================================================================================
 
 Standard_Integer StepVisual_RenderingPropertiesSelect::CaseNum(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

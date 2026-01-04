@@ -25,10 +25,10 @@ class StepVisual_PresentationLayerAssignment;
 class StepVisual_PresentationRepresentation;
 
 class StepVisual_PresentationLayerUsage;
-DEFINE_STANDARD_HANDLE(StepVisual_PresentationLayerUsage, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepVisual_PresentationLayerUsage, RefObject)
 
 //! Added from StepVisual Rev2 to Rev4
-class StepVisual_PresentationLayerUsage : public Standard_Transient
+class StepVisual_PresentationLayerUsage : public RefObject
 {
 
 public:
@@ -47,7 +47,7 @@ public:
 
   Standard_EXPORT Handle(StepVisual_PresentationRepresentation) Presentation() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepVisual_PresentationLayerUsage, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepVisual_PresentationLayerUsage, RefObject)
 
 protected:
 private:

@@ -27,7 +27,7 @@ class TCollection_HAsciiString;
 //! package name and flag used to mark items for generation.
 //! Provides interface for writing generated class definitions to HXX
 //! and CXX files.
-class Express_Item : public Standard_Transient
+class Express_Item : public RefObject
 {
 
 public:
@@ -121,7 +121,7 @@ public:
   //! Get current entity index
   Standard_EXPORT static Standard_Integer Index();
 
-  DEFINE_STANDARD_RTTIEXT(Express_Item, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Express_Item, RefObject)
 
 protected:
   //! Creates object and initializes fields PackageName and

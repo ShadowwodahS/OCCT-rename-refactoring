@@ -37,9 +37,9 @@ enum Graphic3d_ClipState
 //! Container for properties describing either a Clipping halfspace (single Clipping Plane),
 //! or a chain of Clipping Planes defining logical AND (conjunction) operation.
 //! The plane equation is specified in "world" coordinate system.
-class Graphic3d_ClipPlane : public Standard_Transient
+class Graphic3d_ClipPlane : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_ClipPlane, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Graphic3d_ClipPlane, RefObject)
 public:
   //! Type defining XYZW (ABCD) plane equation - left for compatibility with old code using
   //! Graphic3d_ClipPlane::Equation type.
@@ -444,6 +444,6 @@ private:
   Standard_Boolean myIsCapping;                //!< state of graphic driver capping
 };
 
-DEFINE_STANDARD_HANDLE(Graphic3d_ClipPlane, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Graphic3d_ClipPlane, RefObject)
 
 #endif

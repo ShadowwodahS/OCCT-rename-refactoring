@@ -94,13 +94,13 @@ public:
   //! edges, wires, and faces.
   //! -   Users, presentable objects connecting to sensitive
   //! primitives, or a shape which has been decomposed.
-  const Handle(Standard_Transient)& GetOwner() const { return myOwner; }
+  const Handle(RefObject)& GetOwner() const { return myOwner; }
 
   //! Allows you to attribute the owner theApplicativeEntity to
   //! an Interactive Object. This can be a shape for a set of
   //! sub-shapes or a sub-shape for sub-shapes which it
   //! is composed of. The owner takes the form of a transient.
-  void SetOwner(const Handle(Standard_Transient)& theApplicativeEntity)
+  void SetOwner(const Handle(RefObject)& theApplicativeEntity)
   {
     myOwner = theApplicativeEntity;
   }
@@ -156,7 +156,7 @@ protected:
   // clang-format off
   AIS_InteractiveContext*    myCTXPtr; //!< pointer to Interactive Context, where object is currently displayed; @sa SetContext()
   // clang-format on
-  Handle(Standard_Transient) myOwner; //!< application-specific owner object
+  Handle(RefObject) myOwner; //!< application-specific owner object
 };
 
 DEFINE_STANDARD_HANDLE(AIS_InteractiveObject, SelectMgr_SelectableObject)

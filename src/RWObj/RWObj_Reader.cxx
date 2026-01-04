@@ -40,7 +40,7 @@
   #define fseek64(a, b, c) fseeko(a, b, c)
 #endif
 
-IMPLEMENT_STANDARD_RTTIEXT(RWObj_Reader, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(RWObj_Reader, RefObject)
 
 namespace
 {

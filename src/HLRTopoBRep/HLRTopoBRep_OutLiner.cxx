@@ -35,7 +35,7 @@
 #include <TopoDS_Wire.hxx>
 #include <TopTools_IndexedDataMapOfShapeListOfShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(HLRTopoBRep_OutLiner, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(HLRTopoBRep_OutLiner, RefObject)
 
 //=================================================================================================
 

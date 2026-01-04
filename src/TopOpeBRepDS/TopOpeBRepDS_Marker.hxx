@@ -25,9 +25,9 @@
 #include <Standard_Transient.hxx>
 
 class TopOpeBRepDS_Marker;
-DEFINE_STANDARD_HANDLE(TopOpeBRepDS_Marker, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TopOpeBRepDS_Marker, RefObject)
 
-class TopOpeBRepDS_Marker : public Standard_Transient
+class TopOpeBRepDS_Marker : public RefObject
 {
 
 public:
@@ -45,7 +45,7 @@ public:
 
   Standard_EXPORT void Allocate(const Standard_Integer n);
 
-  DEFINE_STANDARD_RTTIEXT(TopOpeBRepDS_Marker, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TopOpeBRepDS_Marker, RefObject)
 
 protected:
 private:

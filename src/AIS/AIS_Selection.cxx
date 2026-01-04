@@ -18,7 +18,7 @@
 #include <AIS_SelectionScheme.hxx>
 #include <SelectMgr_Filter.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_Selection, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(AIS_Selection, RefObject)
 
 namespace
 {

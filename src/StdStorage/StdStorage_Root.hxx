@@ -22,15 +22,15 @@
 #include <Standard_Transient.hxx>
 class StdObjMgt_Persistent;
 
-DEFINE_STANDARD_HANDLE(StdStorage_Root, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StdStorage_Root, RefObject)
 
 //! Describes a named persistent root
-class StdStorage_Root : public Standard_Transient
+class StdStorage_Root : public RefObject
 {
   friend class StdStorage_RootData;
 
 public:
-  DEFINE_STANDARD_RTTIEXT(StdStorage_Root, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StdStorage_Root, RefObject)
 
   //! Creates an empty root
   Standard_EXPORT StdStorage_Root();

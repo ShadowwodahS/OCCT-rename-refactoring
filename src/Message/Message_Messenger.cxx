@@ -19,7 +19,7 @@
 #include <Message_PrinterOStream.hxx>
 #include <Standard_Dump.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Message_Messenger, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Message_Messenger, RefObject)
 
 //=================================================================================================
 
@@ -160,7 +160,7 @@ void Message_Messenger::Send(const TCollection_ExtendedString& theString,
 
 //=================================================================================================
 
-void Message_Messenger::Send(const Handle(Standard_Transient)& theObject,
+void Message_Messenger::Send(const Handle(RefObject)& theObject,
                              const Message_Gravity             theGravity) const
 {
   for (Message_SequenceOfPrinters::Iterator aPrinterIter(myPrinters); aPrinterIter.More();

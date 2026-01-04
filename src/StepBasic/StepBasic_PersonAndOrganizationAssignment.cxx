@@ -16,7 +16,7 @@
 #include <StepBasic_PersonAndOrganizationAssignment.hxx>
 #include <StepBasic_PersonAndOrganizationRole.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_PersonAndOrganizationAssignment, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_PersonAndOrganizationAssignment, RefObject)
 
 void StepBasic_PersonAndOrganizationAssignment::Init(
   const Handle(StepBasic_PersonAndOrganization)&     aAssignedPersonAndOrganization,

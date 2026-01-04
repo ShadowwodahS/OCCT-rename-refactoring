@@ -23,7 +23,7 @@
 #include <TCollection_AsciiString.hxx>
 #include <TCollection_ExtendedString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Storage_Data, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Storage_Data, RefObject)
 
 Storage_Data::Storage_Data()
 {

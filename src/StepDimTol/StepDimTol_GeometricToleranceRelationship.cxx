@@ -19,7 +19,7 @@
 #include <StepDimTol_GeometricToleranceRelationship.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepDimTol_GeometricToleranceRelationship, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepDimTol_GeometricToleranceRelationship, RefObject)
 
 //=================================================================================================
 

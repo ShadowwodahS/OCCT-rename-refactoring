@@ -24,7 +24,7 @@
 #include <BRepTools.hxx>
 #include <gp_Pln.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_MeshTool, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_MeshTool, RefObject)
 
 namespace
 {

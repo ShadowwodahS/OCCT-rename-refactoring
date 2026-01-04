@@ -33,10 +33,10 @@
 class TopOpeBRepDS_HDataStructure;
 
 class TopOpeBRepDS_Check;
-DEFINE_STANDARD_HANDLE(TopOpeBRepDS_Check, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TopOpeBRepDS_Check, RefObject)
 
 //! a tool verifying integrity and structure of DS
-class TopOpeBRepDS_Check : public Standard_Transient
+class TopOpeBRepDS_Check : public RefObject
 {
 
 public:
@@ -85,7 +85,7 @@ public:
   //! Prints the name  of CheckStatus  <stat>  as  a String
   Standard_EXPORT Standard_OStream& PrintShape(const Standard_Integer index, Standard_OStream& S);
 
-  DEFINE_STANDARD_RTTIEXT(TopOpeBRepDS_Check, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TopOpeBRepDS_Check, RefObject)
 
 protected:
 private:

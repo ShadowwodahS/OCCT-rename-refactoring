@@ -42,7 +42,7 @@
 
 //! \class TreeModel_ItemProperties
 //! Class to manipulate properties of tree item. The properties are organized in table structure
-class TreeModel_ItemProperties : public Standard_Transient
+class TreeModel_ItemProperties : public RefObject
 {
   //! enum defined the dimension type
   enum TreeModel_DimType
@@ -124,7 +124,7 @@ public:
   //! Returns presentation of the attribute to be visualized in the view
   //! \thePresentations[out]  container of presentation handles to be visualized
   Standard_EXPORT void Presentations(
-    NCollection_List<Handle(Standard_Transient)>& thePresentations);
+    NCollection_List<Handle(RefObject)>& thePresentations);
 
   //! Returns flags for the item: ItemIsEnabled | Qt::ItemIsSelectable.
   //! Additional flag for the column 1 is Qt::ItemIsEditable.
@@ -164,7 +164,7 @@ public:
     return myChildren;
   }
 
-  DEFINE_STANDARD_RTTIEXT(TreeModel_ItemProperties, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TreeModel_ItemProperties, RefObject)
 
 protected:
   //! Initializes the current item. It creates a backup of the specific item information

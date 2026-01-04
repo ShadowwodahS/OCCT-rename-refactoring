@@ -20,7 +20,7 @@
 #include <Standard.hxx>
 
 #include <IFSelect_SignType.hxx>
-class Standard_Transient;
+class RefObject;
 class Interface_InterfaceModel;
 class TCollection_AsciiString;
 
@@ -33,7 +33,7 @@ class IFSelect_SignAncestor : public IFSelect_SignType
 public:
   Standard_EXPORT IFSelect_SignAncestor(const Standard_Boolean nopk = Standard_False);
 
-  Standard_EXPORT virtual Standard_Boolean Matches(const Handle(Standard_Transient)&       ent,
+  Standard_EXPORT virtual Standard_Boolean Matches(const Handle(RefObject)&       ent,
                                                    const Handle(Interface_InterfaceModel)& model,
                                                    const TCollection_AsciiString&          text,
                                                    const Standard_Boolean exact) const

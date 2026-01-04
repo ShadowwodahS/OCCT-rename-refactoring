@@ -23,7 +23,7 @@
 
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepVisual_PreDefinedTextFont;
 class StepVisual_ExternallyDefinedTextFont;
 
@@ -39,7 +39,7 @@ public:
   //! 1 -> PreDefinedTextFont
   //! 2 -> ExternallyDefinedTextFont
   //! 0 else
-  Standard_EXPORT Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! returns Value as a PreDefinedTextFont (Null if another type)
   Standard_EXPORT Handle(StepVisual_PreDefinedTextFont) PreDefinedTextFont() const;

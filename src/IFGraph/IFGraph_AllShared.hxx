@@ -23,7 +23,7 @@
 
 #include <Interface_Graph.hxx>
 #include <Interface_GraphContent.hxx>
-class Standard_Transient;
+class RefObject;
 class Interface_EntityIterator;
 
 //! this class determines all Entities shared by some specific
@@ -40,11 +40,11 @@ public:
   //! creates an AllShared which memrizes Entities shared by a given
   //! one, at any level, including itself
   Standard_EXPORT IFGraph_AllShared(const Interface_Graph&            agraph,
-                                    const Handle(Standard_Transient)& ent);
+                                    const Handle(RefObject)& ent);
 
   //! adds an entity and its shared ones to the list (allows to
   //! cumulate all Entities shared by some ones)
-  Standard_EXPORT void GetFromEntity(const Handle(Standard_Transient)& ent);
+  Standard_EXPORT void GetFromEntity(const Handle(RefObject)& ent);
 
   //! Adds Entities from an EntityIterator and all their shared
   //! ones at any level

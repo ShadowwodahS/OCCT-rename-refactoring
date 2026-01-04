@@ -20,7 +20,7 @@
 
 StepAP214_AutoDesignDatedItem::StepAP214_AutoDesignDatedItem() {}
 
-Standard_Integer StepAP214_AutoDesignDatedItem::CaseNum(const Handle(Standard_Transient)& ent) const
+Standard_Integer StepAP214_AutoDesignDatedItem::CaseNum(const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

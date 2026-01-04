@@ -26,7 +26,7 @@
 //! Explodes wires of discrete face on sets of segments using tessellation
 //! data stored in model. Each segment is then checked for intersection with
 //! other ones. All collisions are registered and returned as result of check.
-class BRepMesh_FaceChecker : public Standard_Transient
+class BRepMesh_FaceChecker : public RefObject
 {
 public: //! @name mesher API
   //! Identifies segment inside face.
@@ -77,7 +77,7 @@ public: //! @name mesher API
   //! Checks wire with the given index for intersection with others.
   void operator()(const Standard_Integer theWireIndex) const { perform(theWireIndex); }
 
-  DEFINE_STANDARD_RTTIEXT(BRepMesh_FaceChecker, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(BRepMesh_FaceChecker, RefObject)
 
 private:
   //! Returns True in case if check can be performed in parallel mode.

@@ -55,7 +55,7 @@ inline const Handle(HLRTopoBRep_OutLiner)& HLRBRep_ShapeBounds::Shape() const
 // purpose  :
 //=======================================================================
 
-inline void HLRBRep_ShapeBounds::ShapeData(const Handle(Standard_Transient)& SD)
+inline void HLRBRep_ShapeBounds::ShapeData(const Handle(RefObject)& SD)
 {
   myShapeData = SD;
 }
@@ -65,7 +65,7 @@ inline void HLRBRep_ShapeBounds::ShapeData(const Handle(Standard_Transient)& SD)
 // purpose  :
 //=======================================================================
 
-inline const Handle(Standard_Transient)& HLRBRep_ShapeBounds::ShapeData() const
+inline const Handle(RefObject)& HLRBRep_ShapeBounds::ShapeData() const
 {
   return myShapeData;
 }

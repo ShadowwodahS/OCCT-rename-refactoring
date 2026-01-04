@@ -26,7 +26,7 @@ StepVisual_StyledItemTarget::StepVisual_StyledItemTarget() {}
 
 //=================================================================================================
 
-Standard_Integer StepVisual_StyledItemTarget::CaseNum(const Handle(Standard_Transient)& ent) const
+Standard_Integer StepVisual_StyledItemTarget::CaseNum(const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

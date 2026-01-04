@@ -97,7 +97,7 @@ public:
   //! - Fine AIS_InteractiveObject and fills View if it if it differs from the current context
   //! - If it is the first call, it creates module, fills selection models
   //! \param theParameters a parameters container
-  Standard_EXPORT void Init(const NCollection_List<Handle(Standard_Transient)>& theParameters);
+  Standard_EXPORT void Init(const NCollection_List<Handle(RefObject)>& theParameters);
 
   //! Opens application by the name, it may be either OCAF document or STEP file.
   //! Before opening it cleans tree view history, current selections,

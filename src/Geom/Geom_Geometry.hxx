@@ -29,7 +29,7 @@ class gp_Vec;
 class gp_Trsf;
 
 class Geom_Geometry;
-DEFINE_STANDARD_HANDLE(Geom_Geometry, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Geom_Geometry, RefObject)
 
 //! The abstract class Geometry for 3D space is the root
 //! class of all geometric objects from the Geom
@@ -48,7 +48,7 @@ DEFINE_STANDARD_HANDLE(Geom_Geometry, Standard_Transient)
 //! abstract method Transform which is defined for each
 //! concrete type of derived object. All other
 //! transformations are implemented using the Transform method.
-class Geom_Geometry : public Standard_Transient
+class Geom_Geometry : public RefObject
 {
 
 public:
@@ -113,7 +113,7 @@ public:
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const;
 
-  DEFINE_STANDARD_RTTIEXT(Geom_Geometry, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Geom_Geometry, RefObject)
 
 protected:
 private:

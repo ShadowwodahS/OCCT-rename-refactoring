@@ -30,7 +30,7 @@
 #include <TColStd_Array1OfInteger.hxx>
 
 class Law_BSpline;
-DEFINE_STANDARD_HANDLE(Law_BSpline, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Law_BSpline, RefObject)
 
 //! Definition of the 1D B_spline curve.
 //!
@@ -84,7 +84,7 @@ DEFINE_STANDARD_HANDLE(Law_BSpline, Standard_Transient)
 //! . Modelisation des surfaces en CAO, Henri GIAUME Peugeot SA
 //! . Curves and Surfaces for Computer Aided Geometric Design,
 //! a practical guide Gerald Farin
-class Law_BSpline : public Standard_Transient
+class Law_BSpline : public RefObject
 {
 
 public:
@@ -558,7 +558,7 @@ public:
 
   Standard_EXPORT Handle(Law_BSpline) Copy() const;
 
-  DEFINE_STANDARD_RTTIEXT(Law_BSpline, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Law_BSpline, RefObject)
 
 protected:
 private:

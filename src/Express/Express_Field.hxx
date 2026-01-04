@@ -21,7 +21,7 @@ class TCollection_HAsciiString;
 class TCollection_AsciiString;
 
 //! Represents field of the ENTITY item in the EXPRESS schema
-class Express_Field : public Standard_Transient
+class Express_Field : public RefObject
 {
 
 public:
@@ -47,7 +47,7 @@ public:
   //! Returns True if field is optional
   Standard_EXPORT Standard_Boolean IsOptional() const;
 
-  DEFINE_STANDARD_RTTIEXT(Express_Field, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Express_Field, RefObject)
 
 protected:
 private:

@@ -18,7 +18,7 @@
 #include <Standard_Atomic.hxx>
 #include <Standard_ProgramError.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_HatchStyle, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_HatchStyle, RefObject)
 
 static const unsigned int myPredefinedPatterns[Aspect_HS_NB][32] = {
   // Aspect_HS_SOLID

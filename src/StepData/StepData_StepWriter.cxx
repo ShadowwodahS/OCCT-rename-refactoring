@@ -162,7 +162,7 @@ void StepData_StepWriter::SendModel(const Handle(StepData_Protocol)& protocol,
   thenum                          = 0;
   for (header.Start(); header.More(); header.Next())
   {
-    const Handle(Standard_Transient)& anent = header.Value();
+    const Handle(RefObject)& anent = header.Value();
 
     //   Write Entity via Lib  (similaire a SendEntity)
     Handle(StepData_ReadWriteModule) module;
@@ -288,7 +288,7 @@ void StepData_StepWriter::EndFile()
 void StepData_StepWriter::SendEntity(const Standard_Integer num, const StepData_WriterLib& lib)
 {
   char                       lident[20];
-  Handle(Standard_Transient) anent = themodel->Entity(num);
+  Handle(RefObject) anent = themodel->Entity(num);
   Standard_Integer           idnum = num, idtrue = 0;
 
   //   themodel->Number(anent) et-ou IdentLabel(anent)
@@ -948,7 +948,7 @@ void StepData_StepWriter::Send(const TCollection_AsciiString& val)
 
 //=================================================================================================
 
-void StepData_StepWriter::Send(const Handle(Standard_Transient)& val)
+void StepData_StepWriter::Send(const Handle(RefObject)& val)
 {
   char lident[20];
   //  Undefined ?

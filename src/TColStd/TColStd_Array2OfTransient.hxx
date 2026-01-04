@@ -18,6 +18,6 @@
 #include <Standard_Transient.hxx>
 #include <NCollection_Array2.hxx>
 
-typedef NCollection_Array2<Handle(Standard_Transient)> TColStd_Array2OfTransient;
+typedef NCollection_Array2<Handle(RefObject)> TColStd_Array2OfTransient;
 
 #endif

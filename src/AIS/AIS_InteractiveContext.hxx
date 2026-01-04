@@ -64,9 +64,9 @@ class SelectMgr_Filter;
 //! responsible for selection of object as a whole (global selection mode).
 //! Interactive context itself supports decomposed object selection with selection filters support.
 //! By default, global selection mode is equal to 0, but it might be redefined if needed.
-class AIS_InteractiveContext : public Standard_Transient
+class AIS_InteractiveContext : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(AIS_InteractiveContext, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(AIS_InteractiveContext, RefObject)
 public: //! @name object display management
   //! Constructs the interactive context object defined by the principal viewer MainViewer.
   Standard_EXPORT AIS_InteractiveContext(const Handle(V3d_Viewer)& MainViewer);
@@ -730,7 +730,7 @@ public: //! @name Selection management
 
   //! Returns SelectedInteractive()->GetOwner().
   //! @sa SelectedOwner().
-  Handle(Standard_Transient) Applicative() const { return SelectedInteractive()->GetOwner(); }
+  Handle(RefObject) Applicative() const { return SelectedInteractive()->GetOwner(); }
 
 public: //! @name immediate mode rendering
   //! initializes the list of presentations to be displayed
@@ -1681,6 +1681,6 @@ protected: //! @name internal fields
   Standard_Boolean          myIsAutoActivateSelMode;
 };
 
-DEFINE_STANDARD_HANDLE(AIS_InteractiveContext, Standard_Transient)
+DEFINE_STANDARD_HANDLE(AIS_InteractiveContext, RefObject)
 
 #endif // _AIS_InteractiveContext_HeaderFile

@@ -22,7 +22,7 @@
 
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepShape_ToleranceValue;
 class StepShape_LimitsAndFits;
 
@@ -37,7 +37,7 @@ public:
   //! Recognizes a kind of ValueQualifier Select Type :
   //! 1 -> ToleranceValue from StepShape
   //! 2 -> LimitsAndFits from StepShape
-  Standard_EXPORT Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! Returns Value as ToleranceValue
   Standard_EXPORT Handle(StepShape_ToleranceValue) ToleranceValue() const;

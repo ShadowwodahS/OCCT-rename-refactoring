@@ -27,11 +27,11 @@ class Expr_NamedExpression;
 class TCollection_AsciiString;
 
 class ExprIntrp_Generator;
-DEFINE_STANDARD_HANDLE(ExprIntrp_Generator, Standard_Transient)
+DEFINE_STANDARD_HANDLE(ExprIntrp_Generator, RefObject)
 
 //! Implements general services for interpretation of
 //! expressions.
-class ExprIntrp_Generator : public Standard_Transient
+class ExprIntrp_Generator : public RefObject
 {
 
 public:
@@ -53,7 +53,7 @@ public:
   //! not.
   Standard_EXPORT Handle(Expr_NamedFunction) GetFunction(const TCollection_AsciiString& name) const;
 
-  DEFINE_STANDARD_RTTIEXT(ExprIntrp_Generator, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(ExprIntrp_Generator, RefObject)
 
 protected:
   Standard_EXPORT ExprIntrp_Generator();

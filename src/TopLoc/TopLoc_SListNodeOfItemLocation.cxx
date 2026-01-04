@@ -15,4 +15,4 @@
 #include <TopLoc_SListNodeOfItemLocation.hxx>
 #include <TopLoc_SListOfItemLocation.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TopLoc_SListNodeOfItemLocation, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(TopLoc_SListNodeOfItemLocation, RefObject)

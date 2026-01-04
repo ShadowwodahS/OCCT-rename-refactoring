@@ -59,7 +59,7 @@ Handle(Transfer_TransientProcess) Transfer_TransferOutput::TransientProcess() co
   return theproc;
 }
 
-void Transfer_TransferOutput::Transfer(const Handle(Standard_Transient)& obj,
+void Transfer_TransferOutput::Transfer(const Handle(RefObject)& obj,
                                        const Message_ProgressRange&      theProgress)
 {
   if (themodel->Number(obj) == 0)
@@ -102,7 +102,7 @@ void Transfer_TransferOutput::TransferRoots(const Handle(Interface_Protocol)& pr
   Message_ProgressScope    aPS(theProgress, NULL, list.NbEntities());
   for (list.Start(); list.More() && aPS.More(); list.Next())
   {
-    const Handle(Standard_Transient)& ent = list.Value();
+    const Handle(RefObject)& ent = list.Value();
     //    Standard_Integer scope = 0;
     //    if (thescope) scope = theproc->NewScope (ent);
     if (theproc->Transfer(ent, aPS.Next()))
@@ -121,7 +121,7 @@ void Transfer_TransferOutput::TransferRoots(const Interface_Graph&       G,
   Message_ProgressScope    aPS(theProgress, NULL, list.NbEntities());
   for (list.Start(); list.More() && aPS.More(); list.Next())
   {
-    const Handle(Standard_Transient)& ent = list.Value();
+    const Handle(RefObject)& ent = list.Value();
     //    Standard_Integer scope = 0;
     //    if (thescope) scope = theproc->NewScope (ent);
     if (theproc->Transfer(ent, aPS.Next()))

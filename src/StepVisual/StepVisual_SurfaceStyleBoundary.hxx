@@ -24,9 +24,9 @@
 class StepVisual_CurveStyle;
 
 class StepVisual_SurfaceStyleBoundary;
-DEFINE_STANDARD_HANDLE(StepVisual_SurfaceStyleBoundary, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepVisual_SurfaceStyleBoundary, RefObject)
 
-class StepVisual_SurfaceStyleBoundary : public Standard_Transient
+class StepVisual_SurfaceStyleBoundary : public RefObject
 {
 
 public:
@@ -39,7 +39,7 @@ public:
 
   Standard_EXPORT Handle(StepVisual_CurveStyle) StyleOfBoundary() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepVisual_SurfaceStyleBoundary, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepVisual_SurfaceStyleBoundary, RefObject)
 
 protected:
 private:

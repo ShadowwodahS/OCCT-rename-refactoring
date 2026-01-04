@@ -20,9 +20,9 @@
 #include <Standard_Transient.hxx>
 
 //! Class providing container of alerts
-class Message_CompositeAlerts : public Standard_Transient
+class Message_CompositeAlerts : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Message_CompositeAlerts, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Message_CompositeAlerts, RefObject)
 public:
   //! Empty constructor
   Message_CompositeAlerts() {}
@@ -78,6 +78,6 @@ protected:
   // clang-format on
 };
 
-DEFINE_STANDARD_HANDLE(Message_CompositeAlerts, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Message_CompositeAlerts, RefObject)
 
 #endif // _Message_CompositeAlerts_HeaderFile

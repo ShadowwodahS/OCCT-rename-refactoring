@@ -111,7 +111,7 @@ private:
 
   //! bind already written shared faces to STEP entity for non-manifold
   Standard_EXPORT void mergeInfoForNM(const Handle(Transfer_FinderProcess)& theFP,
-                                      const Handle(Standard_Transient)&     theInfo) const;
+                                      const Handle(RefObject)&     theInfo) const;
 
   //! Gets sequence of vertices of all compounds level by recursive
   //! @param[in] theShape shape to iterate, checked for compound type and sub shapes vertex type

@@ -35,7 +35,7 @@
 
 typedef NCollection_Array1<Handle(TDF_AttributeDelta)> TDF_Array1OfAttributeIDelta;
 
-IMPLEMENT_STANDARD_RTTIEXT(TDF_Data, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(TDF_Data, RefObject)
 
 #undef DEB_DELTA_CREATION
 #define TDF_DATA_COMMIT_OPTIMIZED

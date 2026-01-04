@@ -24,10 +24,10 @@
 class StepRepr_ConfigurationItem;
 
 class StepRepr_ConfigurationDesign;
-DEFINE_STANDARD_HANDLE(StepRepr_ConfigurationDesign, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepRepr_ConfigurationDesign, RefObject)
 
 //! Representation of STEP entity ConfigurationDesign
-class StepRepr_ConfigurationDesign : public Standard_Transient
+class StepRepr_ConfigurationDesign : public RefObject
 {
 
 public:
@@ -50,7 +50,7 @@ public:
   //! Set field Design
   Standard_EXPORT void SetDesign(const StepRepr_ConfigurationDesignItem& Design);
 
-  DEFINE_STANDARD_RTTIEXT(StepRepr_ConfigurationDesign, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepRepr_ConfigurationDesign, RefObject)
 
 protected:
 private:

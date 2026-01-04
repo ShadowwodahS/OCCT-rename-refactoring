@@ -13,7 +13,7 @@
 
 #include <XCAFNoteObjects_NoteObject.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XCAFNoteObjects_NoteObject, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(XCAFNoteObjects_NoteObject, RefObject)
 
 //=================================================================================================
 

@@ -23,10 +23,10 @@
 class StepShape_ShapeDimensionRepresentation;
 
 class StepShape_DimensionalCharacteristicRepresentation;
-DEFINE_STANDARD_HANDLE(StepShape_DimensionalCharacteristicRepresentation, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepShape_DimensionalCharacteristicRepresentation, RefObject)
 
 //! Representation of STEP entity DimensionalCharacteristicRepresentation
-class StepShape_DimensionalCharacteristicRepresentation : public Standard_Transient
+class StepShape_DimensionalCharacteristicRepresentation : public RefObject
 {
 
 public:
@@ -50,7 +50,7 @@ public:
   Standard_EXPORT void SetRepresentation(
     const Handle(StepShape_ShapeDimensionRepresentation)& Representation);
 
-  DEFINE_STANDARD_RTTIEXT(StepShape_DimensionalCharacteristicRepresentation, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepShape_DimensionalCharacteristicRepresentation, RefObject)
 
 protected:
 private:

@@ -34,7 +34,7 @@
 class Geom_BezierSurface;
 class Geom_BSplineSurface;
 
-DEFINE_STANDARD_HANDLE(Adaptor3d_Surface, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Adaptor3d_Surface, RefObject)
 
 //! Root class for surfaces on which geometric algorithms work.
 //! An adapted surface is an interface between the
@@ -55,9 +55,9 @@ DEFINE_STANDARD_HANDLE(Adaptor3d_Surface, Standard_Transient)
 //! Polynomial coefficients of BSpline surfaces used for their evaluation are cached for better
 //! performance. Therefore these evaluations are not thread-safe and parallel evaluations need to be
 //! prevented.
-class Adaptor3d_Surface : public Standard_Transient
+class Adaptor3d_Surface : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Adaptor3d_Surface, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Adaptor3d_Surface, RefObject)
 public:
   //! Shallow copy of adaptor
   Standard_EXPORT virtual Handle(Adaptor3d_Surface) ShallowCopy() const;

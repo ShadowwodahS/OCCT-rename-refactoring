@@ -40,7 +40,7 @@ class Interface_Graph;
 class Interface_EntityIterator;
 
 class IFSelect_ModelCopier;
-DEFINE_STANDARD_HANDLE(IFSelect_ModelCopier, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IFSelect_ModelCopier, RefObject)
 
 //! This class performs the Copy operations involved by the
 //! description of a ShareOut (evaluated by a ShareOutResult)
@@ -78,7 +78,7 @@ DEFINE_STANDARD_HANDLE(IFSelect_ModelCopier, Standard_Transient)
 //! also in package IFAdapt : a sub-class of ModelCopier allows
 //! to work with EntityModifier, in addition to Modifier itself
 //! which still applies to a whole copied Model.
-class IFSelect_ModelCopier : public Standard_Transient
+class IFSelect_ModelCopier : public RefObject
 {
 
 public:
@@ -220,7 +220,7 @@ public:
   //! BeginSentFiles has stopped recording.
   Standard_EXPORT Handle(TColStd_HSequenceOfHAsciiString) SentFiles() const;
 
-  DEFINE_STANDARD_RTTIEXT(IFSelect_ModelCopier, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IFSelect_ModelCopier, RefObject)
 
 protected:
   //! Internal routine which does the effective Copy. It allows to

@@ -24,9 +24,9 @@
 #include <BRepCheck_DataMapOfShapeListOfStatus.hxx>
 #include <BRepCheck_ListOfStatus.hxx>
 
-DEFINE_STANDARD_HANDLE(BRepCheck_Result, Standard_Transient)
+DEFINE_STANDARD_HANDLE(BRepCheck_Result, RefObject)
 
-class BRepCheck_Result : public Standard_Transient
+class BRepCheck_Result : public RefObject
 {
 
 public:
@@ -70,7 +70,7 @@ public:
 
   friend class BRepCheck_ParallelAnalyzer;
 
-  DEFINE_STANDARD_RTTIEXT(BRepCheck_Result, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(BRepCheck_Result, RefObject)
 
 protected:
   Standard_EXPORT BRepCheck_Result();

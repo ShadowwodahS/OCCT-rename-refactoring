@@ -29,10 +29,10 @@
 #include <Standard_Real.hxx>
 
 class DBRep_Face;
-DEFINE_STANDARD_HANDLE(DBRep_Face, Standard_Transient)
+DEFINE_STANDARD_HANDLE(DBRep_Face, RefObject)
 
 //! Display of a face. Face + Array of iso + color.
-class DBRep_Face : public Standard_Transient
+class DBRep_Face : public RefObject
 {
 
 public:
@@ -61,7 +61,7 @@ public:
 
   void Color(const Draw_Color& C);
 
-  DEFINE_STANDARD_RTTIEXT(DBRep_Face, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(DBRep_Face, RefObject)
 
 protected:
 private:

@@ -25,10 +25,10 @@ class StepRepr_RepresentationItem;
 class StepRepr_Representation;
 
 class StepElement_AnalysisItemWithinRepresentation;
-DEFINE_STANDARD_HANDLE(StepElement_AnalysisItemWithinRepresentation, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepElement_AnalysisItemWithinRepresentation, RefObject)
 
 //! Representation of STEP entity AnalysisItemWithinRepresentation
-class StepElement_AnalysisItemWithinRepresentation : public Standard_Transient
+class StepElement_AnalysisItemWithinRepresentation : public RefObject
 {
 
 public:
@@ -65,7 +65,7 @@ public:
   //! Set field Rep
   Standard_EXPORT void SetRep(const Handle(StepRepr_Representation)& Rep);
 
-  DEFINE_STANDARD_RTTIEXT(StepElement_AnalysisItemWithinRepresentation, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepElement_AnalysisItemWithinRepresentation, RefObject)
 
 protected:
 private:

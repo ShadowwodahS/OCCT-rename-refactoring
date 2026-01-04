@@ -25,9 +25,9 @@ class TCollection_HAsciiString;
 class StepVisual_Colour;
 
 class StepVisual_FillAreaStyleColour;
-DEFINE_STANDARD_HANDLE(StepVisual_FillAreaStyleColour, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepVisual_FillAreaStyleColour, RefObject)
 
-class StepVisual_FillAreaStyleColour : public Standard_Transient
+class StepVisual_FillAreaStyleColour : public RefObject
 {
 
 public:
@@ -45,7 +45,7 @@ public:
 
   Standard_EXPORT Handle(StepVisual_Colour) FillColour() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepVisual_FillAreaStyleColour, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepVisual_FillAreaStyleColour, RefObject)
 
 protected:
 private:

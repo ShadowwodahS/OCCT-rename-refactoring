@@ -28,7 +28,7 @@ class Interface_InterfaceModel;
 class Interface_Protocol;
 class Interface_Graph;
 class Interface_HGraph;
-class Standard_Transient;
+class RefObject;
 class Interface_Check;
 class Interface_CheckIterator;
 class Interface_EntityIterator;
@@ -62,7 +62,7 @@ public:
   //! For an Erroneous or Corrected Entity : Check build at Analyse
   //! time; else, Check computed for Entity (Verify integrity), can
   //! use a Graph as required to control context
-  Standard_EXPORT void FillCheck(const Handle(Standard_Transient)& ent,
+  Standard_EXPORT void FillCheck(const Handle(RefObject)& ent,
                                  const Interface_ShareTool&        sh,
                                  Handle(Interface_Check)&          ach);
 

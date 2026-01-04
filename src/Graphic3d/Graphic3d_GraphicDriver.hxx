@@ -31,13 +31,13 @@ class Graphic3d_Layer;
 class Graphic3d_StructureManager;
 class TCollection_AsciiString;
 
-DEFINE_STANDARD_HANDLE(Graphic3d_GraphicDriver, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Graphic3d_GraphicDriver, RefObject)
 
 //! This class allows the definition of a graphic driver
 //! for 3d interface (currently only OpenGl driver is used).
-class Graphic3d_GraphicDriver : public Standard_Transient
+class Graphic3d_GraphicDriver : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_GraphicDriver, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Graphic3d_GraphicDriver, RefObject)
 public:
   //! Request limit of graphic resource of specific type.
   virtual Standard_Integer InquireLimit(const Graphic3d_TypeOfLimit theType) const = 0;

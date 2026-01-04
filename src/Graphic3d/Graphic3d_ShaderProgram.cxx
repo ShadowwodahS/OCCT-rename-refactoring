@@ -24,7 +24,7 @@
 #include <OSD_Path.hxx>
 #include <Standard_Atomic.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_ShaderProgram, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_ShaderProgram, RefObject)
 
 namespace
 {

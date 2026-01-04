@@ -26,7 +26,7 @@
 #include <TColStd_HSequenceOfReal.hxx>
 
 class ShapeAnalysis_TransferParameters;
-DEFINE_STANDARD_HANDLE(ShapeAnalysis_TransferParameters, Standard_Transient)
+DEFINE_STANDARD_HANDLE(ShapeAnalysis_TransferParameters, RefObject)
 
 //! This tool is used for transferring parameters
 //! from 3d curve of the edge to pcurve and vice versa.
@@ -43,7 +43,7 @@ DEFINE_STANDARD_HANDLE(ShapeAnalysis_TransferParameters, Standard_Transient)
 //!
 //! This behaviour can be redefined in derived classes, for example,
 //! using projection.
-class ShapeAnalysis_TransferParameters : public Standard_Transient
+class ShapeAnalysis_TransferParameters : public RefObject
 {
 
 public:
@@ -82,7 +82,7 @@ public:
   //! (in default implementation, if myScale == 1 and myShift == 0)
   Standard_EXPORT virtual Standard_Boolean IsSameRange() const;
 
-  DEFINE_STANDARD_RTTIEXT(ShapeAnalysis_TransferParameters, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(ShapeAnalysis_TransferParameters, RefObject)
 
 protected:
   Standard_Real myFirst;

@@ -18,6 +18,6 @@
 #include <Standard_Transient.hxx>
 #include <NCollection_IndexedMap.hxx>
 
-typedef NCollection_IndexedMap<Handle(Standard_Transient)> TColStd_IndexedMapOfTransient;
+typedef NCollection_IndexedMap<Handle(RefObject)> TColStd_IndexedMapOfTransient;
 
 #endif

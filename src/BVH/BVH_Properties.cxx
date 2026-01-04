@@ -15,7 +15,7 @@
 
 #include <BVH_Properties.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BVH_Properties, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(BVH_Properties, RefObject)
 
 //=================================================================================================
 

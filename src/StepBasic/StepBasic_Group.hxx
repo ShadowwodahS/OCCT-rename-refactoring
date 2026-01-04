@@ -24,10 +24,10 @@
 class TCollection_HAsciiString;
 
 class StepBasic_Group;
-DEFINE_STANDARD_HANDLE(StepBasic_Group, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_Group, RefObject)
 
 //! Representation of STEP entity Group
-class StepBasic_Group : public Standard_Transient
+class StepBasic_Group : public RefObject
 {
 
 public:
@@ -54,7 +54,7 @@ public:
   //! Returns True if optional field Description is defined
   Standard_EXPORT Standard_Boolean HasDescription() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_Group, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_Group, RefObject)
 
 protected:
 private:

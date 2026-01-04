@@ -147,7 +147,7 @@ Standard_Boolean StepSelect_WorkLibrary::CopyModel(const Handle(Interface_Interf
 
 void StepSelect_WorkLibrary::DumpEntity(const Handle(Interface_InterfaceModel)& model,
                                         const Handle(Interface_Protocol)&       protocol,
-                                        const Handle(Standard_Transient)&       entity,
+                                        const Handle(RefObject)&       entity,
                                         Standard_OStream&                       S,
                                         const Standard_Integer                  level) const
 {
@@ -155,7 +155,7 @@ void StepSelect_WorkLibrary::DumpEntity(const Handle(Interface_InterfaceModel)& 
   if (nument <= 0 || nument > model->NbEntities())
     return;
   Standard_Boolean           iserr = model->IsRedefinedContent(nument);
-  Handle(Standard_Transient) ent, con;
+  Handle(RefObject) ent, con;
   ent = entity;
   S << " --- (STEP) Entity ";
   model->Print(entity, S);

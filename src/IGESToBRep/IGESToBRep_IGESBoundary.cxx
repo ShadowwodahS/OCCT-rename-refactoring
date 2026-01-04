@@ -32,7 +32,7 @@
 #include <TopoDS_Face.hxx>
 #include <TopoDS_Wire.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESToBRep_IGESBoundary, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(IGESToBRep_IGESBoundary, RefObject)
 
 //=================================================================================================
 

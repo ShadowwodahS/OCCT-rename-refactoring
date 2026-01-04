@@ -24,11 +24,11 @@
 class Vrml_Material;
 
 class VrmlConverter_LineAspect;
-DEFINE_STANDARD_HANDLE(VrmlConverter_LineAspect, Standard_Transient)
+DEFINE_STANDARD_HANDLE(VrmlConverter_LineAspect, RefObject)
 
 //! qualifies the aspect properties for
 //! the VRML conversation of a Curve and  a  DeflectionCurve .
-class VrmlConverter_LineAspect : public Standard_Transient
+class VrmlConverter_LineAspect : public RefObject
 {
 
 public:
@@ -51,7 +51,7 @@ public:
   //! returns True if the  materials is  writing into OStream.
   Standard_EXPORT Standard_Boolean HasMaterial() const;
 
-  DEFINE_STANDARD_RTTIEXT(VrmlConverter_LineAspect, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(VrmlConverter_LineAspect, RefObject)
 
 protected:
 private:

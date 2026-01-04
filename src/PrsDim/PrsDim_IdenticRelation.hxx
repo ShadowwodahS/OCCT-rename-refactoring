@@ -53,7 +53,7 @@ public:
 
   const TColStd_ListOfTransient& Users() const { return myUsers; }
 
-  void AddUser(const Handle(Standard_Transient)& theUser) { myUsers.Append(theUser); }
+  void AddUser(const Handle(RefObject)& theUser) { myUsers.Append(theUser); }
 
   void ClearUsers() { myUsers.Clear(); }
 

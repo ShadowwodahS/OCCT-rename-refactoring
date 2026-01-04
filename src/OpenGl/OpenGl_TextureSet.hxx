@@ -21,9 +21,9 @@ class OpenGl_Texture;
 
 //! Class holding array of textures to be mapped as a set.
 //! Textures should be defined in ascending order of texture units within the set.
-class OpenGl_TextureSet : public Standard_Transient
+class OpenGl_TextureSet : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(OpenGl_TextureSet, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(OpenGl_TextureSet, RefObject)
 public:
   //! Texture slot - combination of Texture and binding Unit.
   struct TextureSlot

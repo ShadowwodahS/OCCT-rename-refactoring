@@ -54,7 +54,7 @@ public:
   //! Returns presentation of the attribute to be visualized in the view
   //! \param theAttribute a current attribute
   //! \return handle of presentation if the attribute has, to be visualized
-  Standard_EXPORT virtual Handle(Standard_Transient) GetPresentation(
+  Standard_EXPORT virtual Handle(RefObject) GetPresentation(
     const Handle(TDF_Attribute)& theAttribute) Standard_OVERRIDE;
 
   //! Returns container of Label references to the attribute
@@ -63,7 +63,7 @@ public:
   //! \param theRefPresentation handle of presentation for the references, to be visualized
   Standard_EXPORT virtual void GetReferences(const Handle(TDF_Attribute)& theAttribute,
                                              NCollection_List<TDF_Label>& theRefLabels,
-                                             Handle(Standard_Transient)&  theRefPresentation)
+                                             Handle(RefObject)&  theRefPresentation)
     Standard_OVERRIDE;
 
 private:

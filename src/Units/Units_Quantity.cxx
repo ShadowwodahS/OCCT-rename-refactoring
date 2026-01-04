@@ -18,7 +18,7 @@
 #include <Units_Quantity.hxx>
 #include <Units_Unit.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Units_Quantity, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Units_Quantity, RefObject)
 
 //=================================================================================================
 

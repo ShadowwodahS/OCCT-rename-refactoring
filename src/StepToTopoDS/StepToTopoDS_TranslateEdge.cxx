@@ -68,7 +68,7 @@
 // Purpose :
 // ============================================================================
 static void DecodeMakeEdgeError(const BRepLib_MakeEdge&           ME,
-                                const Handle(Standard_Transient)& orig,
+                                const Handle(RefObject)& orig,
                                 const Handle(Geom_Curve)&         myCurve,
                                 const TopoDS_Vertex&              V1,
                                 const TopoDS_Vertex&              V2,

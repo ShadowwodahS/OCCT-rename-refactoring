@@ -24,10 +24,10 @@
 class StepBasic_Contract;
 
 class StepBasic_ContractAssignment;
-DEFINE_STANDARD_HANDLE(StepBasic_ContractAssignment, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_ContractAssignment, RefObject)
 
 //! Representation of STEP entity ContractAssignment
-class StepBasic_ContractAssignment : public Standard_Transient
+class StepBasic_ContractAssignment : public RefObject
 {
 
 public:
@@ -43,7 +43,7 @@ public:
   //! Set field AssignedContract
   Standard_EXPORT void SetAssignedContract(const Handle(StepBasic_Contract)& AssignedContract);
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_ContractAssignment, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_ContractAssignment, RefObject)
 
 protected:
 private:

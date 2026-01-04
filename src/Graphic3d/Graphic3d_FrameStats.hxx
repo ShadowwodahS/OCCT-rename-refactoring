@@ -23,9 +23,9 @@
 class Graphic3d_CView;
 
 //! Class storing the frame statistics.
-class Graphic3d_FrameStats : public Standard_Transient
+class Graphic3d_FrameStats : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_FrameStats, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Graphic3d_FrameStats, RefObject)
 public:
   //! Default constructor.
   Standard_EXPORT Graphic3d_FrameStats();

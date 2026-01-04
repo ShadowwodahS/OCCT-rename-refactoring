@@ -29,9 +29,9 @@ class Geom2d_Curve;
 class Geom_Surface;
 
 class GeomTools_UndefinedTypeHandler;
-DEFINE_STANDARD_HANDLE(GeomTools_UndefinedTypeHandler, Standard_Transient)
+DEFINE_STANDARD_HANDLE(GeomTools_UndefinedTypeHandler, RefObject)
 
-class GeomTools_UndefinedTypeHandler : public Standard_Transient
+class GeomTools_UndefinedTypeHandler : public RefObject
 {
 
 public:
@@ -61,7 +61,7 @@ public:
                                                         Standard_IStream&      IS,
                                                         Handle(Geom_Surface)&  S) const;
 
-  DEFINE_STANDARD_RTTIEXT(GeomTools_UndefinedTypeHandler, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(GeomTools_UndefinedTypeHandler, RefObject)
 
 protected:
 private:

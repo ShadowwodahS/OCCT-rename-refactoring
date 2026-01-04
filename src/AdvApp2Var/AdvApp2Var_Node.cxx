@@ -16,7 +16,7 @@
 
 #include <AdvApp2Var_Node.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AdvApp2Var_Node, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(AdvApp2Var_Node, RefObject)
 
 //=================================================================================================
 

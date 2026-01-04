@@ -27,14 +27,14 @@
 #include <TCollection_AsciiString.hxx>
 
 class Transfer_Finder;
-DEFINE_STANDARD_HANDLE(Transfer_Finder, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Transfer_Finder, RefObject)
 
 //! a Finder allows to map any kind of object as a Key for a Map.
 //! This works by defining, for a Hash Code, that of the real Key,
 //! not of the Finder which acts only as an intermediate.
 //! When a Map asks for the HashCode of a Finder, this one returns
 //! the code it has determined at creation time
-class Transfer_Finder : public Standard_Transient
+class Transfer_Finder : public RefObject
 {
 
 public:
@@ -59,7 +59,7 @@ public:
   //! Adds an attribute with a given name (replaces the former one
   //! with the same name if already exists)
   Standard_EXPORT void SetAttribute(const Standard_CString            name,
-                                    const Handle(Standard_Transient)& val);
+                                    const Handle(RefObject)& val);
 
   //! Removes an attribute
   //! Returns True when done, False if this attribute did not exist
@@ -71,11 +71,11 @@ public:
   //! Else, it is True
   Standard_EXPORT Standard_Boolean GetAttribute(const Standard_CString       name,
                                                 const Handle(Standard_Type)& type,
-                                                Handle(Standard_Transient)&  val) const;
+                                                Handle(RefObject)&  val) const;
 
   //! Returns an attribute from its name. Null Handle if not recorded
   //! (whatever Transient, Integer, Real ...)
-  Standard_EXPORT Handle(Standard_Transient) Attribute(const Standard_CString name) const;
+  Standard_EXPORT Handle(RefObject) Attribute(const Standard_CString name) const;
 
   //! Returns the type of an attribute :
   //! ParamInt , ParamReal , ParamText (String) , ParamIdent (any)
@@ -122,7 +122,7 @@ public:
   Standard_EXPORT Standard_CString StringAttribute(const Standard_CString name) const;
 
   //! Returns the exhaustive list of attributes
-  Standard_EXPORT NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)>&
+  Standard_EXPORT NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>&
                   AttrList();
 
   //! Gets the list of attributes from <other>, as such, i.e.
@@ -146,7 +146,7 @@ public:
                                      const Standard_CString         fromname = "",
                                      const Standard_Boolean         copied   = Standard_True);
 
-  DEFINE_STANDARD_RTTIEXT(Transfer_Finder, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Transfer_Finder, RefObject)
 
 protected:
   //! Stores the HashCode which corresponds to the Value given to
@@ -155,7 +155,7 @@ protected:
 
 private:
   size_t                                                                   thecode;
-  NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)> theattrib;
+  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)> theattrib;
 };
 
 #endif // _Transfer_Finder_HeaderFile

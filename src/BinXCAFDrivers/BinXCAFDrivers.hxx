@@ -18,7 +18,7 @@
 
 #include <Standard_Handle.hxx>
 
-class Standard_Transient;
+class RefObject;
 class Standard_GUID;
 class BinMDF_ADriverTable;
 class Message_Messenger;
@@ -27,7 +27,7 @@ class TDocStd_Application;
 class BinXCAFDrivers
 {
 public:
-  Standard_EXPORT static const Handle(Standard_Transient)& Factory(const Standard_GUID& theGUID);
+  Standard_EXPORT static const Handle(RefObject)& Factory(const Standard_GUID& theGUID);
 
   //! Defines format "BinXCAF" and registers its read and write drivers
   //! in the specified application

@@ -18,7 +18,7 @@
 #include <Standard_Transient.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Interface_Protocol, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Interface_Protocol, RefObject)
 
 //  Gestion du Protocol actif : tres simple, une variable statique
 static Handle(Interface_Protocol)& theactive()
@@ -52,7 +52,7 @@ void Interface_Protocol::ClearActive()
 
 //=================================================================================================
 
-Standard_Integer Interface_Protocol::CaseNumber(const Handle(Standard_Transient)& obj) const
+Standard_Integer Interface_Protocol::CaseNumber(const Handle(RefObject)& obj) const
 {
   if (obj.IsNull())
     return 0;
@@ -61,25 +61,25 @@ Standard_Integer Interface_Protocol::CaseNumber(const Handle(Standard_Transient)
 
 //=================================================================================================
 
-Standard_Boolean Interface_Protocol::IsDynamicType(const Handle(Standard_Transient)& /*obj*/) const
+Standard_Boolean Interface_Protocol::IsDynamicType(const Handle(RefObject)& /*obj*/) const
 {
   return Standard_True;
 }
 
 //=================================================================================================
 
-Standard_Integer Interface_Protocol::NbTypes(const Handle(Standard_Transient)& /*obj*/) const
+Standard_Integer Interface_Protocol::NbTypes(const Handle(RefObject)& /*obj*/) const
 {
   return 1;
 }
 
 //=================================================================================================
 
-Handle(Standard_Type) Interface_Protocol::Type(const Handle(Standard_Transient)& obj,
+Handle(Standard_Type) Interface_Protocol::Type(const Handle(RefObject)& obj,
                                                const Standard_Integer /*nt*/) const
 {
   if (obj.IsNull())
-    return STANDARD_TYPE(Standard_Transient);
+    return STANDARD_TYPE(RefObject);
   return obj->DynamicType();
 }
 

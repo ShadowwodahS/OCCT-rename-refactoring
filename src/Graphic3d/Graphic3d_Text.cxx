@@ -13,7 +13,7 @@
 
 #include <Graphic3d_Text.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_Text, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_Text, RefObject)
 
 //=================================================================================================
 

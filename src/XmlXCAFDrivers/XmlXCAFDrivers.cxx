@@ -25,14 +25,14 @@
 static Standard_GUID XSStorageDriver("f78ff496-a779-11d5-aab4-0050044b1af1");
 static Standard_GUID XSRetrievalDriver("f78ff497-a779-11d5-aab4-0050044b1af1");
 
-const Handle(Standard_Transient)& XmlXCAFDrivers::Factory(const Standard_GUID& aGUID)
+const Handle(RefObject)& XmlXCAFDrivers::Factory(const Standard_GUID& aGUID)
 {
   if (aGUID == XSStorageDriver)
   {
 #ifdef OCCT_DEBUG
     std::cout << "XmlXCAFDrivers : Storage Plugin" << std::endl;
 #endif
-    static Handle(Standard_Transient) model_sd = new XmlXCAFDrivers_DocumentStorageDriver(
+    static Handle(RefObject) model_sd = new XmlXCAFDrivers_DocumentStorageDriver(
       "Copyright: Open Cascade, 2001-2002"); // default copyright
     return model_sd;
   }
@@ -41,7 +41,7 @@ const Handle(Standard_Transient)& XmlXCAFDrivers::Factory(const Standard_GUID& a
 #ifdef OCCT_DEBUG
     std::cout << "XmlXCAFDrivers : Retrieval Plugin" << std::endl;
 #endif
-    static Handle(Standard_Transient) model_rd = new XmlXCAFDrivers_DocumentRetrievalDriver;
+    static Handle(RefObject) model_rd = new XmlXCAFDrivers_DocumentRetrievalDriver;
     return model_rd;
   }
 

@@ -123,7 +123,7 @@ static int tinspector(Draw_Interpretor& di, Standard_Integer theArgsNb, const ch
 
   // parse command arguments
   NCollection_List<TCollection_AsciiString> aPlugins;
-  NCollection_DataMap<TCollection_AsciiString, NCollection_List<Handle(Standard_Transient)>>
+  NCollection_DataMap<TCollection_AsciiString, NCollection_List<Handle(RefObject)>>
                                                                         aParameters;
   NCollection_DataMap<TCollection_AsciiString, TCollection_AsciiString> anOpenFileParameters;
   TCollection_AsciiString                                               aPluginNameToActivate;
@@ -132,10 +132,10 @@ static int tinspector(Draw_Interpretor& di, Standard_Integer theArgsNb, const ch
                    aNeedDirectory = Standard_False;
   TCollection_AsciiString aTemporaryDirectory;
 
-  NCollection_List<Handle(Standard_Transient)> aDefaultParameters;
+  NCollection_List<Handle(RefObject)> aDefaultParameters;
   TCollection_AsciiString                      aDefaultOpenFileParameter;
 
-  NCollection_List<Handle(Standard_Transient)> anObjectsToSelect;
+  NCollection_List<Handle(RefObject)> anObjectsToSelect;
   NCollection_List<TCollection_AsciiString>    anItemNamesToSelect;
 
   for (Standard_Integer anIt = 1; anIt < theArgsNb; ++anIt)
@@ -189,7 +189,7 @@ static int tinspector(Draw_Interpretor& di, Standard_Integer theArgsNb, const ch
              anArgIt.More();
              anArgIt.Next())
         {
-          NCollection_List<Handle(Standard_Transient)> aPluginParameters;
+          NCollection_List<Handle(RefObject)> aPluginParameters;
           aParameters.Find(anArgIt.Value(), aPluginParameters);
           aPluginParameters.Append(aShape.TShape());
           anItemNamesToSelect.Append(TInspectorAPI_PluginParameters::ParametersToString(aShape));
@@ -218,7 +218,7 @@ static int tinspector(Draw_Interpretor& di, Standard_Integer theArgsNb, const ch
              anArgIt.More();
              anArgIt.Next())
         {
-          NCollection_List<Handle(Standard_Transient)> aPluginParameters;
+          NCollection_List<Handle(RefObject)> aPluginParameters;
           aParameters.Find(anArgIt.Value(), aPluginParameters);
           anOpenFileParameters.Bind(anArgIt.Value(), aFileName);
         }
@@ -311,7 +311,7 @@ static int tinspector(Draw_Interpretor& di, Standard_Integer theArgsNb, const ch
   // be available even if this DRAW plugin is not loaded by pload command
   if (!anApplication.IsNull())
   {
-    NCollection_List<Handle(Standard_Transient)> aDFBrowserParameters;
+    NCollection_List<Handle(RefObject)> aDFBrowserParameters;
     aParameters.Find("TKDFBrowser", aDFBrowserParameters);
     aDFBrowserParameters.Append(anApplication);
     aParameters.Bind("TKDFBrowser", aDFBrowserParameters);
@@ -345,10 +345,10 @@ static int tinspector(Draw_Interpretor& di, Standard_Integer theArgsNb, const ch
        anIterator.Next())
   {
     TCollection_AsciiString                      aPluginName = anIterator.Value();
-    NCollection_List<Handle(Standard_Transient)> aParameterValues;
+    NCollection_List<Handle(RefObject)> aParameterValues;
     aParameters.Find(aPluginName, aParameterValues);
 
-    for (NCollection_List<Handle(Standard_Transient)>::Iterator aDefIt(aDefaultParameters);
+    for (NCollection_List<Handle(RefObject)>::Iterator aDefIt(aDefaultParameters);
          aDefIt.More();
          aDefIt.Next())
       aParameterValues.Append(aDefIt.Value());

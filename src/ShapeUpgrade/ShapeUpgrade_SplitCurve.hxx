@@ -31,10 +31,10 @@
 #endif
 
 class ShapeUpgrade_SplitCurve;
-DEFINE_STANDARD_HANDLE(ShapeUpgrade_SplitCurve, Standard_Transient)
+DEFINE_STANDARD_HANDLE(ShapeUpgrade_SplitCurve, RefObject)
 
 //! Splits a  curve with a  criterion.
-class ShapeUpgrade_SplitCurve : public Standard_Transient
+class ShapeUpgrade_SplitCurve : public RefObject
 {
 
 public:
@@ -72,7 +72,7 @@ public:
   //! DONE3 - geometric form of the curve or parametrisation is modified
   Standard_EXPORT Standard_Boolean Status(const ShapeExtend_Status status) const;
 
-  DEFINE_STANDARD_RTTIEXT(ShapeUpgrade_SplitCurve, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(ShapeUpgrade_SplitCurve, RefObject)
 
 protected:
   Handle(TColStd_HSequenceOfReal) mySplitValues;

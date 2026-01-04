@@ -29,11 +29,11 @@ class OpenGl_Window;
 class Image_PixMap;
 
 class OpenGl_Workspace;
-DEFINE_STANDARD_HANDLE(OpenGl_Workspace, Standard_Transient)
+DEFINE_STANDARD_HANDLE(OpenGl_Workspace, RefObject)
 
 //! Rendering workspace.
 //! Provides methods to render primitives and maintain GL state.
-class OpenGl_Workspace : public Standard_Transient
+class OpenGl_Workspace : public RefObject
 {
 public:
   //! Constructor of rendering workspace.
@@ -233,7 +233,7 @@ protected:                        //! @name fields related to status
   Handle(OpenGl_TextureSet) myEnvironmentTexture;
 
 public: //! @name type definition
-  DEFINE_STANDARD_RTTIEXT(OpenGl_Workspace, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(OpenGl_Workspace, RefObject)
   DEFINE_STANDARD_ALLOC
 };
 

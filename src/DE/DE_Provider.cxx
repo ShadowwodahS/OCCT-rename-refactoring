@@ -16,7 +16,7 @@
 #include <DE_ConfigurationNode.hxx>
 #include <Message.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DE_Provider, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(DE_Provider, RefObject)
 
 //=================================================================================================
 

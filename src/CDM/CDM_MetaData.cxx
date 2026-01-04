@@ -25,7 +25,7 @@
 #include <TCollection_ExtendedString.hxx>
 #include <OSD_Thread.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(CDM_MetaData, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(CDM_MetaData, RefObject)
 
 CDM_MetaData::CDM_MetaData(const TCollection_ExtendedString& aFolder,
                            const TCollection_ExtendedString& aName,

@@ -29,7 +29,7 @@
 #include <TColStd_HSequenceOfHExtendedString.hxx>
 #include <TColStd_MapIteratorOfPackedMapOfInteger.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Message_Algorithm, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Message_Algorithm, RefObject)
 
 //=================================================================================================
 
@@ -71,7 +71,7 @@ void Message_Algorithm::SetStatus(const Message_Status& theStat, const Standard_
   if (myReportIntegers.IsNull())
     myReportIntegers = new TColStd_HArray1OfTransient(Message_ExecStatus::FirstStatus,
                                                       Message_ExecStatus::LastStatus);
-  Handle(Standard_Transient)& aData = myReportIntegers->ChangeValue(aFlagIndex);
+  Handle(RefObject)& aData = myReportIntegers->ChangeValue(aFlagIndex);
   if (aData.IsNull())
     aData = new TColStd_HPackedMapOfInteger;
 
@@ -99,7 +99,7 @@ void Message_Algorithm::SetStatus(const Message_Status&                      the
   if (myReportStrings.IsNull())
     myReportStrings = new TColStd_HArray1OfTransient(Message_ExecStatus::FirstStatus,
                                                      Message_ExecStatus::LastStatus);
-  Handle(Standard_Transient)& aData = myReportStrings->ChangeValue(aFlagIndex);
+  Handle(RefObject)& aData = myReportStrings->ChangeValue(aFlagIndex);
   if (aData.IsNull())
     aData = new TColStd_HSequenceOfHExtendedString;
 
@@ -290,7 +290,7 @@ void Message_Algorithm::AddStatus(const Message_ExecStatus&        theAllowedSta
       if (myReportIntegers.IsNull())
         myReportIntegers = new TColStd_HArray1OfTransient(Message_ExecStatus::FirstStatus,
                                                           Message_ExecStatus::LastStatus);
-      Handle(Standard_Transient)& aData = myReportIntegers->ChangeValue(i);
+      Handle(RefObject)& aData = myReportIntegers->ChangeValue(i);
       if (aData.IsNull())
         aData = new TColStd_HPackedMapOfInteger;
 

@@ -25,9 +25,9 @@
 #include <Standard_Transient.hxx>
 
 class StepBasic_CoordinatedUniversalTimeOffset;
-DEFINE_STANDARD_HANDLE(StepBasic_CoordinatedUniversalTimeOffset, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_CoordinatedUniversalTimeOffset, RefObject)
 
-class StepBasic_CoordinatedUniversalTimeOffset : public Standard_Transient
+class StepBasic_CoordinatedUniversalTimeOffset : public RefObject
 {
 
 public:
@@ -55,7 +55,7 @@ public:
 
   Standard_EXPORT StepBasic_AheadOrBehind Sense() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_CoordinatedUniversalTimeOffset, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_CoordinatedUniversalTimeOffset, RefObject)
 
 protected:
 private:

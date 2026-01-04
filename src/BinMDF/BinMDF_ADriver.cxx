@@ -15,7 +15,7 @@
 
 #include <BinMDF_ADriver.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BinMDF_ADriver, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(BinMDF_ADriver, RefObject)
 
 //=================================================================================================
 

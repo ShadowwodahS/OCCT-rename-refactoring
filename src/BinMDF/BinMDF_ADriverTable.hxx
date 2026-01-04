@@ -28,14 +28,14 @@
 class BinMDF_ADriver;
 
 class BinMDF_ADriverTable;
-DEFINE_STANDARD_HANDLE(BinMDF_ADriverTable, Standard_Transient)
+DEFINE_STANDARD_HANDLE(BinMDF_ADriverTable, RefObject)
 
 //! A driver table is an object building links between
 //! object types and object drivers. In the
 //! translation process, a driver table is asked to
 //! give a translation driver for each current object
 //! to be translated.
-class BinMDF_ADriverTable : public Standard_Transient
+class BinMDF_ADriverTable : public RefObject
 {
 
 public:
@@ -72,7 +72,7 @@ public:
   //! Returns null handle if a driver is not found
   Handle(BinMDF_ADriver) GetDriver(const Standard_Integer theTypeId);
 
-  DEFINE_STANDARD_RTTIEXT(BinMDF_ADriverTable, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(BinMDF_ADriverTable, RefObject)
 
 protected:
 private:

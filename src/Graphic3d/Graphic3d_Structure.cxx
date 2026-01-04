@@ -28,7 +28,7 @@
 
 #include <stdio.h>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_Structure, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_Structure, RefObject)
 
 //=================================================================================================
 

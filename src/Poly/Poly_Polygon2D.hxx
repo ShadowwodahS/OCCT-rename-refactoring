@@ -20,7 +20,7 @@
 #include <TColgp_Array1OfPnt2d.hxx>
 #include <Standard_Transient.hxx>
 
-DEFINE_STANDARD_HANDLE(Poly_Polygon2D, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Poly_Polygon2D, RefObject)
 
 //! Provides a polygon in 2D space (for example, in the
 //! parametric space of a surface). It is generally an
@@ -28,7 +28,7 @@ DEFINE_STANDARD_HANDLE(Poly_Polygon2D, Standard_Transient)
 //! A Polygon2D is defined by a table of nodes. Each node is
 //! a 2D point. If the polygon is closed, the point of closure is
 //! repeated at the end of the table of nodes.
-class Poly_Polygon2D : public Standard_Transient
+class Poly_Polygon2D : public RefObject
 {
 public:
   //! Constructs a 2D polygon with specified number of nodes.
@@ -77,7 +77,7 @@ public:
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const;
 
-  DEFINE_STANDARD_RTTIEXT(Poly_Polygon2D, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Poly_Polygon2D, RefObject)
 
 private:
   Standard_Real        myDeflection;

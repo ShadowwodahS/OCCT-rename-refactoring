@@ -732,7 +732,7 @@ Standard_Integer StepData_StepReaderData::ReadSub(const Standard_Integer        
                                                   const Standard_CString         mess,
                                                   Handle(Interface_Check)&       ach,
                                                   const Handle(StepData_PDescr)& descr,
-                                                  Handle(Standard_Transient)&    val) const
+                                                  Handle(RefObject)&    val) const
 {
   Standard_Integer nbp = NbParams(numsub);
   if (nbp == 0)
@@ -745,7 +745,7 @@ Standard_Integer StepData_StepReaderData::ReadSub(const Standard_Integer        
     Handle(StepData_SelectNamed) sn = new StepData_SelectNamed;
     val                             = sn;
     sn->SetName(rectyp.ToCString());
-    Handle(Standard_Transient) aSN = sn;
+    Handle(RefObject) aSN = sn;
     if (ReadAny(numsub, 1, mess, ach, descr, aSN))
       return sn->Kind();
     else
@@ -886,7 +886,7 @@ Standard_Integer StepData_StepReaderData::ReadSub(const Standard_Integer        
         break;
       }
       case 7: {
-        Handle(Standard_Transient) ent = BoundEntity(FP.EntityNumber());
+        Handle(RefObject) ent = BoundEntity(FP.EntityNumber());
         htr->SetValue(ip, ent);
         break;
       }
@@ -1000,7 +1000,7 @@ Standard_Integer StepData_StepReaderData::ReadSub(const Standard_Integer        
         break;
       }
       case Interface_ParamSub: {
-        Handle(Standard_Transient) sub;
+        Handle(RefObject) sub;
         Standard_Integer           nent = FP.EntityNumber();
         Standard_Integer           kind = ReadSub(nent, mess, ach, descr, sub);
         if (kind < 0)
@@ -1028,7 +1028,7 @@ Standard_Boolean StepData_StepReaderData::ReadMember(const Standard_Integer     
                                                      Handle(Interface_Check)&       ach,
                                                      Handle(StepData_SelectMember)& val) const
 {
-  Handle(Standard_Transient) v = val;
+  Handle(RefObject) v = val;
   Handle(StepData_PDescr)    nuldescr;
   if (v.IsNull())
   {
@@ -1059,7 +1059,7 @@ Standard_Boolean StepData_StepReaderData::ReadField(const Standard_Integer      
   Standard_Boolean                 OK  = Standard_True;
   Standard_Integer                 nent, kind;
   Handle(TCollection_HAsciiString) txt;
-  Handle(Standard_Transient)       sub;
+  Handle(RefObject)       sub;
   Interface_ParamType              FT = FP.ParamType();
   switch (FT)
   {
@@ -1151,7 +1151,7 @@ Standard_Boolean StepData_StepReaderData::ReadAny(const Standard_Integer        
                                                   const Standard_CString         mess,
                                                   Handle(Interface_Check)&       ach,
                                                   const Handle(StepData_PDescr)& descr,
-                                                  Handle(Standard_Transient)&    val) const
+                                                  Handle(RefObject)&    val) const
 {
   const Interface_FileParameter& FP  = Param(num, nump);
   Standard_CString               str = FP.CValue();
@@ -1290,7 +1290,7 @@ Standard_Boolean StepData_StepReaderData::ReadAny(const Standard_Integer        
               {
                 if (Param(numsub2, i).ParamType() != Interface_ParamReal)
                   continue;
-                Handle(Standard_Transient) asr = new StepData_SelectReal;
+                Handle(RefObject) asr = new StepData_SelectReal;
                 if (!ReadAny(numsub2, i, mess, ach, descr, asr))
                   continue;
                 Handle(StepData_SelectReal) sm1 = Handle(StepData_SelectReal)::DownCast(asr);
@@ -1449,7 +1449,7 @@ Standard_Boolean StepData_StepReaderData::ReadEntity(const Standard_Integer     
                                                      const Standard_CString       mess,
                                                      Handle(Interface_Check)&     ach,
                                                      const Handle(Standard_Type)& atype,
-                                                     Handle(Standard_Transient)&  ent) const
+                                                     Handle(RefObject)&  ent) const
 {
   Handle(String)   errmess; // Null si pas d erreur
   Standard_Boolean warn = Standard_False;
@@ -1462,7 +1462,7 @@ Standard_Boolean StepData_StepReaderData::ReadEntity(const Standard_Integer     
       warn = (acceptvoid > 0);
       if (nent > 0)
       {
-        Handle(Standard_Transient) entent = BoundEntity(nent);
+        Handle(RefObject) entent = BoundEntity(nent);
         if (entent.IsNull() || !entent->IsKind(atype))
         {
           errmess = new String("Parameter n0.%d (%s) : Entity has illegal type");
@@ -1517,7 +1517,7 @@ Standard_Boolean StepData_StepReaderData::ReadEntity(const Standard_Integer   nu
       warn = (acceptvoid > 0);
       if (nent > 0)
       {
-        Handle(Standard_Transient) entent = BoundEntity(nent);
+        Handle(RefObject) entent = BoundEntity(nent);
         if (!sel.Matches(entent))
         {
           errmess = new String("Parameter n0.%d (%s) : Entity has illegal type");
@@ -1540,7 +1540,7 @@ Standard_Boolean StepData_StepReaderData::ReadEntity(const Standard_Integer   nu
     else
     {
       // Cas restant : on s interesse en fait au SelectMember ...
-      Handle(Standard_Transient) sm = sel.NewMember();
+      Handle(RefObject) sm = sel.NewMember();
       // SelectMember qui assure ce role. Peut etre specialise
       if (!ReadAny(num, nump, mess, ach, sel.Description(), sm))
         errmess = new String("Parameter n0.%d (%s) : could not be read");

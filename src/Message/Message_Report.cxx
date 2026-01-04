@@ -27,7 +27,7 @@
 #include <Precision.hxx>
 #include <Standard_Dump.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Message_Report, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Message_Report, RefObject)
 
 //=================================================================================================
 

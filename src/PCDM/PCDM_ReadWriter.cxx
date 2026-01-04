@@ -30,7 +30,7 @@
 #include <TColStd_HSequenceOfAsciiString.hxx>
 #include <UTL.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(PCDM_ReadWriter, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(PCDM_ReadWriter, RefObject)
 
 #define FILE_FORMAT "FILE_FORMAT: "
 

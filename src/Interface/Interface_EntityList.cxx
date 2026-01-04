@@ -33,7 +33,7 @@ void Interface_EntityList::Clear()
 
 //  ....                EDITIONS (ajout-suppression)                ....
 
-void Interface_EntityList::Append(const Handle(Standard_Transient)& ent)
+void Interface_EntityList::Append(const Handle(RefObject)& ent)
 {
   if (ent.IsNull())
     throw Standard_NullObject("Interface_EntityList Append");
@@ -58,7 +58,7 @@ void Interface_EntityList::Append(const Handle(Standard_Transient)& ent)
 // Ici, EntityList garde le controle, le temps de traitement reste le meme
 // Moyennant quoi, l ordre n est pas garanti
 
-void Interface_EntityList::Add(const Handle(Standard_Transient)& ent)
+void Interface_EntityList::Add(const Handle(RefObject)& ent)
 {
   if (ent.IsNull())
     throw Standard_NullObject("Interface_EntityList Add");
@@ -87,7 +87,7 @@ void Interface_EntityList::Add(const Handle(Standard_Transient)& ent)
 //  Identification : Item supprime ou qu il soit
 //  N.B.: La liste peut devenir vide ... cf retour Remove de Cluster
 
-void Interface_EntityList::Remove(const Handle(Standard_Transient)& ent)
+void Interface_EntityList::Remove(const Handle(RefObject)& ent)
 {
   if (ent.IsNull())
     throw Standard_NullObject("Interface_EntityList Remove");
@@ -142,7 +142,7 @@ Standard_Integer Interface_EntityList::NbEntities() const
   return ec->NbEntities();
 }
 
-const Handle(Standard_Transient)& Interface_EntityList::Value(const Standard_Integer num) const
+const Handle(RefObject)& Interface_EntityList::Value(const Standard_Integer num) const
 {
   if (theval.IsNull())
     throw Standard_OutOfRange("Interface EntityList : Value");
@@ -155,7 +155,7 @@ const Handle(Standard_Transient)& Interface_EntityList::Value(const Standard_Int
 }
 
 void Interface_EntityList::SetValue(const Standard_Integer            num,
-                                    const Handle(Standard_Transient)& ent)
+                                    const Handle(RefObject)& ent)
 {
   if (ent.IsNull())
     throw Standard_NullObject("Interface_EntityList SetValue");
@@ -211,11 +211,11 @@ Standard_Integer Interface_EntityList::NbTypedEntities(const Handle(Standard_Typ
   return res;
 }
 
-Handle(Standard_Transient) Interface_EntityList::TypedEntity(const Handle(Standard_Type)& atype,
+Handle(RefObject) Interface_EntityList::TypedEntity(const Handle(Standard_Type)& atype,
                                                              const Standard_Integer       num) const
 {
   Standard_Integer           res = 0;
-  Handle(Standard_Transient) entres;
+  Handle(RefObject) entres;
   if (theval.IsNull())
     throw Interface_InterfaceError("Interface EntityList : TypedEntity , none found");
   Handle(Interface_EntityCluster) ec = Handle(Interface_EntityCluster)::DownCast(theval);

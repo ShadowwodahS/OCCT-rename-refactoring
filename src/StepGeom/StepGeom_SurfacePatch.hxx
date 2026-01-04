@@ -25,9 +25,9 @@
 class StepGeom_BoundedSurface;
 
 class StepGeom_SurfacePatch;
-DEFINE_STANDARD_HANDLE(StepGeom_SurfacePatch, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepGeom_SurfacePatch, RefObject)
 
-class StepGeom_SurfacePatch : public Standard_Transient
+class StepGeom_SurfacePatch : public RefObject
 {
 
 public:
@@ -60,7 +60,7 @@ public:
 
   Standard_EXPORT Standard_Boolean VSense() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepGeom_SurfacePatch, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepGeom_SurfacePatch, RefObject)
 
 protected:
 private:

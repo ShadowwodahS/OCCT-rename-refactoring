@@ -78,9 +78,9 @@ struct Image_VideoParams
 };
 
 //! Video recording tool based on FFmpeg framework.
-class Image_VideoRecorder : public Standard_Transient
+class Image_VideoRecorder : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Image_VideoRecorder, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Image_VideoRecorder, RefObject)
 public:
   //! Empty constructor.
   Standard_EXPORT Image_VideoRecorder();
@@ -143,6 +143,6 @@ protected:
   int64_t       myFrameCount; //!< current frame index
 };
 
-DEFINE_STANDARD_HANDLE(Image_VideoRecorder, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Image_VideoRecorder, RefObject)
 
 #endif // Image_VideoRecorder_HeaderFile_

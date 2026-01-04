@@ -21,7 +21,7 @@
 #include <NCollection_List.hxx>
 
 class PCDM_ReaderFilter;
-DEFINE_STANDARD_HANDLE(PCDM_ReaderFilter, Standard_Transient)
+DEFINE_STANDARD_HANDLE(PCDM_ReaderFilter, RefObject)
 
 //! Class represents a document reading filter.
 //!
@@ -29,7 +29,7 @@ DEFINE_STANDARD_HANDLE(PCDM_ReaderFilter, Standard_Transient)
 //! or attributes that must be retrieved only.
 //! In addition it is possible to define one or several subtrees (by entry) which must be
 //! retrieved during the reading. Other labels are created, but no one attribute on them.
-class PCDM_ReaderFilter : public Standard_Transient
+class PCDM_ReaderFilter : public RefObject
 {
 public:
   //! Supported modes of appending the file content into existing document
@@ -125,7 +125,7 @@ public:
   //! Returns true if some sub-label of the currently iterated label is passed.
   Standard_EXPORT virtual Standard_Boolean IsSubPassed() const;
 
-  DEFINE_STANDARD_RTTIEXT(PCDM_ReaderFilter, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(PCDM_ReaderFilter, RefObject)
 
 private:
   //! Clears the iteration tree

@@ -37,7 +37,7 @@ class TDF_DataSet;
 class TDF_IDFilter;
 
 class TDF_Attribute;
-DEFINE_STANDARD_HANDLE(TDF_Attribute, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TDF_Attribute, RefObject)
 
 //! A class each application has to implement. It is
 //! used to contain the application data.
@@ -126,7 +126,7 @@ DEFINE_STANDARD_HANDLE(TDF_Attribute, Standard_Transient)
 //! attribute values states.  These methods must be
 //! implemented by end use inheriting classes, to
 //! profit from the delta services.
-class TDF_Attribute : public Standard_Transient
+class TDF_Attribute : public RefObject
 {
 
 public:
@@ -383,7 +383,7 @@ public:
   friend class TDF_AttributeIterator;
   friend class TDF_DeltaOnForget;
 
-  DEFINE_STANDARD_RTTIEXT(TDF_Attribute, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TDF_Attribute, RefObject)
 
 protected:
   //! Initializes fields.

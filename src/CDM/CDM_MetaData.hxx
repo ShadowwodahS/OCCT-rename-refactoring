@@ -30,9 +30,9 @@
 #include <CDM_MetaDataLookUpTable.hxx>
 
 class CDM_MetaData;
-DEFINE_STANDARD_HANDLE(CDM_MetaData, Standard_Transient)
+DEFINE_STANDARD_HANDLE(CDM_MetaData, RefObject)
 
-class CDM_MetaData : public Standard_Transient
+class CDM_MetaData : public RefObject
 {
 
 public:
@@ -100,7 +100,7 @@ public:
     const Handle(CDM_Document)& aDocument,
     const Handle(CDM_MetaData)& aMetaData) const;
 
-  DEFINE_STANDARD_RTTIEXT(CDM_MetaData, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(CDM_MetaData, RefObject)
 
 private:
   CDM_MetaData(const TCollection_ExtendedString& aFolder,

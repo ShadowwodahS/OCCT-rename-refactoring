@@ -24,7 +24,7 @@
 #include <Interface_Graph.hxx>
 #include <Interface_GraphContent.hxx>
 #include <Standard_Boolean.hxx>
-class Standard_Transient;
+class RefObject;
 class Interface_EntityIterator;
 
 //! this class gives entities which are Source of entities of
@@ -38,7 +38,7 @@ public:
   Standard_EXPORT IFGraph_ExternalSources(const Interface_Graph& agraph);
 
   //! adds an entity and its shared ones to the list
-  Standard_EXPORT void GetFromEntity(const Handle(Standard_Transient)& ent);
+  Standard_EXPORT void GetFromEntity(const Handle(RefObject)& ent);
 
   //! adds a list of entities (as an iterator) with shared ones
   Standard_EXPORT void GetFromIter(const Interface_EntityIterator& iter);

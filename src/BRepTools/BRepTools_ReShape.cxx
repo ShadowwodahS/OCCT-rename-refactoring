@@ -30,7 +30,7 @@
 #include <TopoDS_Iterator.hxx>
 #include <TopoDS_Shape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepTools_ReShape, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(BRepTools_ReShape, RefObject)
 
 namespace
 {

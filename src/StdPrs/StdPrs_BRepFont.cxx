@@ -48,7 +48,7 @@
   #include FT_FREETYPE_H
 #endif
 
-IMPLEMENT_STANDARD_RTTIEXT(StdPrs_BRepFont, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StdPrs_BRepFont, RefObject)
 
 namespace
 {

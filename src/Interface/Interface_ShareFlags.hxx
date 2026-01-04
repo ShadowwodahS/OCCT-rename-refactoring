@@ -29,7 +29,7 @@ class Interface_GeneralLib;
 class Interface_GTool;
 class Interface_Protocol;
 class Interface_Graph;
-class Standard_Transient;
+class RefObject;
 class Interface_EntityIterator;
 
 //! This class only says for each Entity of a Model, if it is
@@ -66,7 +66,7 @@ public:
 
   //! Returns True if <ent> is Shared by one or more other
   //! Entity(ies) of the Model
-  Standard_EXPORT Standard_Boolean IsShared(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Boolean IsShared(const Handle(RefObject)& ent) const;
 
   //! Returns the Entities which are not Shared (see their flags)
   Standard_EXPORT Interface_EntityIterator RootEntities() const;
@@ -76,7 +76,7 @@ public:
 
   //! Returns a root entity according its rank in the list of roots
   //! By default, it returns the first one
-  Standard_EXPORT Handle(Standard_Transient) Root(const Standard_Integer num = 1) const;
+  Standard_EXPORT Handle(RefObject) Root(const Standard_Integer num = 1) const;
 
 protected:
 private:

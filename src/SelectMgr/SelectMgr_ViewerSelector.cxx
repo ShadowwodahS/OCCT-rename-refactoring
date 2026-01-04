@@ -37,7 +37,7 @@
 
 #include <algorithm>
 
-IMPLEMENT_STANDARD_RTTIEXT(SelectMgr_ViewerSelector, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(SelectMgr_ViewerSelector, RefObject)
 
 namespace
 {

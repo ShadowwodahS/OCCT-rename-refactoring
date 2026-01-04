@@ -13,4 +13,4 @@
 
 #include <StdPrs_HLRShapeI.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StdPrs_HLRShapeI, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StdPrs_HLRShapeI, RefObject)

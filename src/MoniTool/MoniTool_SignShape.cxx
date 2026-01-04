@@ -27,8 +27,8 @@ Standard_CString MoniTool_SignShape::Name() const
 }
 
 TCollection_AsciiString MoniTool_SignShape::Text(
-  const Handle(Standard_Transient)& ent,
-  const Handle(Standard_Transient)& /*context*/) const
+  const Handle(RefObject)& ent,
+  const Handle(RefObject)& /*context*/) const
 {
   if (ent.IsNull())
     return "";

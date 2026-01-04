@@ -28,10 +28,10 @@
 #include <TopoDS_Shape.hxx>
 #include <NCollection_DataMap.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(MoniTool_CaseData, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(MoniTool_CaseData, RefObject)
 
 static NCollection_DataMap<TCollection_AsciiString, Standard_Integer>           defch;
-static NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)> defms;
+static NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)> defms;
 static Standard_Boolean stachr = Standard_False;
 
 // static OSD_Timer chrono;
@@ -117,7 +117,7 @@ void MoniTool_CaseData::SetReplace(const Standard_Integer num)
   thesubst = num;
 }
 
-void MoniTool_CaseData::AddData(const Handle(Standard_Transient)& val,
+void MoniTool_CaseData::AddData(const Handle(RefObject)& val,
                                 const Standard_Integer            kind,
                                 const Standard_CString            name)
 {
@@ -224,12 +224,12 @@ Standard_Boolean MoniTool_CaseData::LargeCPU(const Standard_Real maxCPU,
   return (cpu >= maxCPU);
 }
 
-void MoniTool_CaseData::AddGeom(const Handle(Standard_Transient)& val, const Standard_CString name)
+void MoniTool_CaseData::AddGeom(const Handle(RefObject)& val, const Standard_CString name)
 {
   AddData(val, 3, name);
 }
 
-void MoniTool_CaseData::AddEntity(const Handle(Standard_Transient)& val,
+void MoniTool_CaseData::AddEntity(const Handle(RefObject)& val,
                                   const Standard_CString            name)
 {
   AddData(val, 2, name);
@@ -246,7 +246,7 @@ void MoniTool_CaseData::AddInteger(const Standard_Integer val, const Standard_CS
   AddData(new Geom2d_CartesianPoint(rval, 0.), 11, name);
 }
 
-void MoniTool_CaseData::AddAny(const Handle(Standard_Transient)& val, const Standard_CString name)
+void MoniTool_CaseData::AddAny(const Handle(RefObject)& val, const Standard_CString name)
 {
   AddData(val, 0, name);
 }
@@ -267,9 +267,9 @@ Standard_Integer MoniTool_CaseData::NbData() const
   return thedata.Length();
 }
 
-Handle(Standard_Transient) MoniTool_CaseData::Data(const Standard_Integer nd) const
+Handle(RefObject) MoniTool_CaseData::Data(const Standard_Integer nd) const
 {
-  Handle(Standard_Transient) val;
+  Handle(RefObject) val;
   if (nd < 1 || nd > thedata.Length())
     return val;
   return thedata(nd);
@@ -277,13 +277,13 @@ Handle(Standard_Transient) MoniTool_CaseData::Data(const Standard_Integer nd) co
 
 Standard_Boolean MoniTool_CaseData::GetData(const Standard_Integer       nd,
                                             const Handle(Standard_Type)& type,
-                                            Handle(Standard_Transient)&  val) const
+                                            Handle(RefObject)&  val) const
 {
   if (type.IsNull())
     return Standard_False;
   if (nd < 1 || nd > thedata.Length())
     return Standard_False;
-  Handle(Standard_Transient) v = thedata(nd);
+  Handle(RefObject) v = thedata(nd);
   if (v.IsNull())
     return Standard_False;
   if (!v->IsKind(type))
@@ -502,7 +502,7 @@ void MoniTool_CaseData::SetDefMsg(const Standard_CString casecode, const Standar
 
 Standard_CString MoniTool_CaseData::DefMsg(const Standard_CString casecode)
 {
-  Handle(Standard_Transient) aTStr;
+  Handle(RefObject) aTStr;
   if (!defms.Find(casecode, aTStr))
     return "";
   Handle(TCollection_HAsciiString) str = Handle(TCollection_HAsciiString)::DownCast(aTStr);

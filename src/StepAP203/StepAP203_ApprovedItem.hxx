@@ -23,7 +23,7 @@
 
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepBasic_ProductDefinitionFormation;
 class StepBasic_ProductDefinition;
 class StepRepr_ConfigurationEffectivity;
@@ -58,7 +58,7 @@ public:
   //! 10 -> Certification from StepBasic
   //! 11 -> Contract from StepBasic
   //! 0 else
-  Standard_EXPORT Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! Returns Value as ProductDefinitionFormation (or Null if another type)
   Standard_EXPORT Handle(StepBasic_ProductDefinitionFormation) ProductDefinitionFormation() const;

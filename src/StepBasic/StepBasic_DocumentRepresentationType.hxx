@@ -24,10 +24,10 @@ class TCollection_HAsciiString;
 class StepBasic_Document;
 
 class StepBasic_DocumentRepresentationType;
-DEFINE_STANDARD_HANDLE(StepBasic_DocumentRepresentationType, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_DocumentRepresentationType, RefObject)
 
 //! Representation of STEP entity DocumentRepresentationType
-class StepBasic_DocumentRepresentationType : public Standard_Transient
+class StepBasic_DocumentRepresentationType : public RefObject
 {
 
 public:
@@ -51,7 +51,7 @@ public:
   Standard_EXPORT void SetRepresentedDocument(
     const Handle(StepBasic_Document)& RepresentedDocument);
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_DocumentRepresentationType, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_DocumentRepresentationType, RefObject)
 
 protected:
 private:

@@ -24,9 +24,9 @@
 class StepVisual_FillAreaStyle;
 
 class StepVisual_SurfaceStyleFillArea;
-DEFINE_STANDARD_HANDLE(StepVisual_SurfaceStyleFillArea, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepVisual_SurfaceStyleFillArea, RefObject)
 
-class StepVisual_SurfaceStyleFillArea : public Standard_Transient
+class StepVisual_SurfaceStyleFillArea : public RefObject
 {
 
 public:
@@ -39,7 +39,7 @@ public:
 
   Standard_EXPORT Handle(StepVisual_FillAreaStyle) FillArea() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepVisual_SurfaceStyleFillArea, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepVisual_SurfaceStyleFillArea, RefObject)
 
 protected:
 private:

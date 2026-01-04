@@ -33,7 +33,7 @@ Transfer_ActorOfProcessForTransient::Transfer_ActorOfProcessForTransient() {}
 //=================================================================================================
 
 Standard_Boolean Transfer_ActorOfProcessForTransient::Recognize(
-  const Handle(Standard_Transient)& /*start*/)
+  const Handle(RefObject)& /*start*/)
 {
   return Standard_True;
 }
@@ -41,7 +41,7 @@ Standard_Boolean Transfer_ActorOfProcessForTransient::Recognize(
 //=================================================================================================
 
 Handle(Transfer_Binder) Transfer_ActorOfProcessForTransient::Transferring(
-  const Handle(Standard_Transient)& /*start*/,
+  const Handle(RefObject)& /*start*/,
   const Handle(Transfer_ProcessForTransient)& /*TP*/,
   const Message_ProgressRange& /*theProgress*/)
 {
@@ -51,7 +51,7 @@ Handle(Transfer_Binder) Transfer_ActorOfProcessForTransient::Transferring(
 //=================================================================================================
 
 Handle(Transfer_SimpleBinderOfTransient) Transfer_ActorOfProcessForTransient::TransientResult(
-  const Handle(Standard_Transient)& res) const
+  const Handle(RefObject)& res) const
 {
   Handle(Transfer_SimpleBinderOfTransient) binder;
   if (res.IsNull())

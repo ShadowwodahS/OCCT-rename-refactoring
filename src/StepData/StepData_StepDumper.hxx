@@ -74,7 +74,7 @@ public:
   //! For levels 1,2,3, the numbers displayed (form #nnn) are the
   //! numbers of the corresponding entities in the Model
   Standard_EXPORT Standard_Boolean Dump(Standard_OStream&                 S,
-                                        const Handle(Standard_Transient)& ent,
+                                        const Handle(RefObject)& ent,
                                         const Standard_Integer            level);
 
   //! Works as Dump with a Transient, but directly takes the

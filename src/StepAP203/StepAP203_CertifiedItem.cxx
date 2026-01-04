@@ -26,7 +26,7 @@ StepAP203_CertifiedItem::StepAP203_CertifiedItem() {}
 
 //=================================================================================================
 
-Standard_Integer StepAP203_CertifiedItem::CaseNum(const Handle(Standard_Transient)& ent) const
+Standard_Integer StepAP203_CertifiedItem::CaseNum(const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

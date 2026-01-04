@@ -29,7 +29,7 @@ class TopoDS_Shape;
 class Interface_CheckIterator;
 
 class XSControl_TransferWriter;
-DEFINE_STANDARD_HANDLE(XSControl_TransferWriter, Standard_Transient)
+DEFINE_STANDARD_HANDLE(XSControl_TransferWriter, RefObject)
 
 //! TransferWriter gives help to control transfer to write a file
 //! after having converted data from Cascade/Imagine
@@ -37,7 +37,7 @@ DEFINE_STANDARD_HANDLE(XSControl_TransferWriter, Standard_Transient)
 //! It works with a Controller (which itself can work with an
 //! Actor to Write) and a FinderProcess. It records results and
 //! checks
-class XSControl_TransferWriter : public Standard_Transient
+class XSControl_TransferWriter : public RefObject
 {
 public:
   //! Creates a TransferWriter, empty, ready to run
@@ -87,7 +87,7 @@ public:
   //! candidate for a transfer to a model
   //! Asks the Controller (RecognizeWriteTransient)
   //! If <obj> is a HShape, calls RecognizeShape
-  Standard_EXPORT Standard_Boolean RecognizeTransient(const Handle(Standard_Transient)& theObj);
+  Standard_EXPORT Standard_Boolean RecognizeTransient(const Handle(RefObject)& theObj);
 
   //! Transfers a Transient object (from an application) to a model
   //! of current norm, according to the last call to SetTransferMode
@@ -96,7 +96,7 @@ public:
   //! transfer badly initialised
   Standard_EXPORT IFSelect_ReturnStatus
     TransferWriteTransient(const Handle(Interface_InterfaceModel)& theModel,
-                           const Handle(Standard_Transient)&       theObj,
+                           const Handle(RefObject)&       theObj,
                            const Message_ProgressRange& theProgress = Message_ProgressRange());
 
   //! Tells if a Shape is valid for a transfer to a model
@@ -123,7 +123,7 @@ public:
   Standard_EXPORT Interface_CheckIterator
     ResultCheckList(const Handle(Interface_InterfaceModel)& theModel) const;
 
-  DEFINE_STANDARD_RTTIEXT(XSControl_TransferWriter, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(XSControl_TransferWriter, RefObject)
 
 private:
   Handle(XSControl_Controller)   myController;

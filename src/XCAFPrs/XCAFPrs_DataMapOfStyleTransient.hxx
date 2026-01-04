@@ -20,9 +20,9 @@
 #include <Standard_Transient.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<XCAFPrs_Style, Handle(Standard_Transient)>
+typedef NCollection_DataMap<XCAFPrs_Style, Handle(RefObject)>
   XCAFPrs_DataMapOfStyleTransient;
-typedef NCollection_DataMap<XCAFPrs_Style, Handle(Standard_Transient)>::Iterator
+typedef NCollection_DataMap<XCAFPrs_Style, Handle(RefObject)>::Iterator
   XCAFPrs_DataMapIteratorOfDataMapOfStyleTransient;
 
 #endif

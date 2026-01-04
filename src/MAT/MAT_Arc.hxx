@@ -27,10 +27,10 @@ class MAT_BasicElt;
 class MAT_Node;
 
 class MAT_Arc;
-DEFINE_STANDARD_HANDLE(MAT_Arc, Standard_Transient)
+DEFINE_STANDARD_HANDLE(MAT_Arc, RefObject)
 
 //! An Arc is associated to each Bisecting of the mat.
-class MAT_Arc : public Standard_Transient
+class MAT_Arc : public RefObject
 {
 
 public:
@@ -96,7 +96,7 @@ public:
                                     const Handle(MAT_Node)& aNode,
                                     const Handle(MAT_Arc)&  anArc);
 
-  DEFINE_STANDARD_RTTIEXT(MAT_Arc, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(MAT_Arc, RefObject)
 
 protected:
 private:

@@ -14,7 +14,7 @@
 #include <Interface_IntVal.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Interface_IntVal, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Interface_IntVal, RefObject)
 
 Interface_IntVal::Interface_IntVal()
 {

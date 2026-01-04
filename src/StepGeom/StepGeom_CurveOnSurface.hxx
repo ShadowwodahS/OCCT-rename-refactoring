@@ -23,7 +23,7 @@
 
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepGeom_Pcurve;
 class StepGeom_SurfaceCurve;
 class StepGeom_CompositeCurveOnSurface;
@@ -41,7 +41,7 @@ public:
   //! 2 -> SurfaceCurve
   //! 3 -> CompositeCurveOnSurface
   //! 0 else
-  Standard_EXPORT Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! returns Value as a Pcurve (Null if another type)
   Standard_EXPORT Handle(StepGeom_Pcurve) Pcurve() const;

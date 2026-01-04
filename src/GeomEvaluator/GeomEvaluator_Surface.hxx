@@ -23,7 +23,7 @@ class gp_Vec;
 
 //! Interface for calculation of values and derivatives for different kinds of surfaces.
 //! Works both with adaptors and surfaces.
-class GeomEvaluator_Surface : public Standard_Transient
+class GeomEvaluator_Surface : public RefObject
 {
 public:
   GeomEvaluator_Surface() {}
@@ -68,9 +68,9 @@ public:
 
   virtual Handle(GeomEvaluator_Surface) ShallowCopy() const = 0;
 
-  DEFINE_STANDARD_RTTI_INLINE(GeomEvaluator_Surface, Standard_Transient)
+  DEFINE_STANDARD_RTTI_INLINE(GeomEvaluator_Surface, RefObject)
 };
 
-DEFINE_STANDARD_HANDLE(GeomEvaluator_Surface, Standard_Transient)
+DEFINE_STANDARD_HANDLE(GeomEvaluator_Surface, RefObject)
 
 #endif // _GeomEvaluator_Surface_HeaderFile

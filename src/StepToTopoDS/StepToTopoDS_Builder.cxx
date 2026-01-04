@@ -687,7 +687,7 @@ void StepToTopoDS_Builder::Init(const Handle(StepShape_GeometricSet)&           
   {
     Message_ProgressRange             aRange = aPS.Next();
     StepShape_GeometricSetSelect      aGSS   = GCS->ElementsValue(i);
-    const Handle(Standard_Transient)& ent    = aGSS.Value();
+    const Handle(RefObject)& ent    = aGSS.Value();
 
     TopoDS_Shape res = TransferBRep::ShapeResult(TP, ent);
     if (!res.IsNull())

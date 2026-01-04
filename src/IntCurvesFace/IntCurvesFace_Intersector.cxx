@@ -39,7 +39,7 @@
 #include <TopoDS.hxx>
 #include <GeomAPI_ProjectPointOnCurve.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IntCurvesFace_Intersector, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(IntCurvesFace_Intersector, RefObject)
 
 //
 static void ComputeSamplePars(const Handle(Adaptor3d_Surface)& Hsurface,

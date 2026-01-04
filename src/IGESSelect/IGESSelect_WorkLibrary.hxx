@@ -26,7 +26,7 @@ class Interface_InterfaceModel;
 class Interface_Protocol;
 class IFSelect_ContextWrite;
 class IGESData_Protocol;
-class Standard_Transient;
+class RefObject;
 
 class IGESSelect_WorkLibrary;
 DEFINE_STANDARD_HANDLE(IGESSelect_WorkLibrary, IFSelect_WorkLibrary)
@@ -60,7 +60,7 @@ public:
   //! used by IGESDumper.
   Standard_EXPORT virtual void DumpEntity(const Handle(Interface_InterfaceModel)& model,
                                           const Handle(Interface_Protocol)&       protocol,
-                                          const Handle(Standard_Transient)&       entity,
+                                          const Handle(RefObject)&       entity,
                                           Standard_OStream&                       S,
                                           const Standard_Integer level) const Standard_OVERRIDE;
 

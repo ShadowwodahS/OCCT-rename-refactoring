@@ -31,9 +31,9 @@ class Message_LazyProgressScope;
 class RWPly_PlyWriterContext;
 
 //! PLY writer context from XCAF document.
-class RWPly_CafWriter : public Standard_Transient
+class RWPly_CafWriter : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(RWPly_CafWriter, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(RWPly_CafWriter, RefObject)
 public:
   //! Main constructor.
   //! @param[in] theFile path to output PLY file

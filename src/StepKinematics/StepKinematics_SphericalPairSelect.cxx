@@ -25,7 +25,7 @@ StepKinematics_SphericalPairSelect::StepKinematics_SphericalPairSelect() {}
 //=================================================================================================
 
 Standard_Integer StepKinematics_SphericalPairSelect::CaseNum(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

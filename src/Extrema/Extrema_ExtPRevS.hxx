@@ -22,12 +22,12 @@
 #include <Extrema_GenExtPS.hxx>
 #include <Extrema_POnSurf.hxx>
 
-DEFINE_STANDARD_HANDLE(Extrema_ExtPRevS, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Extrema_ExtPRevS, RefObject)
 
 //! It calculates all the extremum (minimum and
 //! maximum) distances between a point and a surface
 //! of revolution.
-class Extrema_ExtPRevS : public Standard_Transient
+class Extrema_ExtPRevS : public RefObject
 {
 
 public:
@@ -73,7 +73,7 @@ public:
   //! Returns the point of the Nth resulting distance.
   Standard_EXPORT const Extrema_POnSurf& Point(const Standard_Integer N) const;
 
-  DEFINE_STANDARD_RTTIEXT(Extrema_ExtPRevS, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Extrema_ExtPRevS, RefObject)
 
 protected:
 private:

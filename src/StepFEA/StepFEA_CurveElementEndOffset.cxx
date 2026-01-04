@@ -17,7 +17,7 @@
 
 #include <StepFEA_CurveElementEndOffset.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepFEA_CurveElementEndOffset, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepFEA_CurveElementEndOffset, RefObject)
 
 //=================================================================================================
 

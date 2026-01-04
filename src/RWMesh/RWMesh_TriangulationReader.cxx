@@ -16,7 +16,7 @@
 #include <Message.hxx>
 #include <RWMesh_TriangulationSource.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(RWMesh_TriangulationReader, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(RWMesh_TriangulationReader, RefObject)
 
 namespace
 {

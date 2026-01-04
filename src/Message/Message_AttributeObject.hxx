@@ -24,23 +24,23 @@ class Message_AttributeObject : public Message_Attribute
 public:
   //! Constructor with string argument
   Standard_EXPORT Message_AttributeObject(
-    const Handle(Standard_Transient)& theObject,
+    const Handle(RefObject)& theObject,
     const TCollection_AsciiString&    theName = TCollection_AsciiString());
 
   //! Returns object
   //! @return the object instance
-  const Handle(Standard_Transient)& Object() const { return myObject; }
+  const Handle(RefObject)& Object() const { return myObject; }
 
   //! Sets the object
   //! @param theObject an instance
-  void SetObject(const Handle(Standard_Transient)& theObject) { myObject = theObject; }
+  void SetObject(const Handle(RefObject)& theObject) { myObject = theObject; }
 
   //! Dumps the content of me into the stream
   virtual Standard_EXPORT void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const Standard_OVERRIDE;
 
 private:
-  Handle(Standard_Transient) myObject; //!< alert object
+  Handle(RefObject) myObject; //!< alert object
 };
 
 #endif // _Message_AttributeObject_HeaderFile

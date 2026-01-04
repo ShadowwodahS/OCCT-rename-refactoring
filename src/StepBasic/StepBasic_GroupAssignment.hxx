@@ -23,10 +23,10 @@
 class StepBasic_Group;
 
 class StepBasic_GroupAssignment;
-DEFINE_STANDARD_HANDLE(StepBasic_GroupAssignment, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_GroupAssignment, RefObject)
 
 //! Representation of STEP entity GroupAssignment
-class StepBasic_GroupAssignment : public Standard_Transient
+class StepBasic_GroupAssignment : public RefObject
 {
 
 public:
@@ -42,7 +42,7 @@ public:
   //! Set field AssignedGroup
   Standard_EXPORT void SetAssignedGroup(const Handle(StepBasic_Group)& AssignedGroup);
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_GroupAssignment, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_GroupAssignment, RefObject)
 
 protected:
 private:

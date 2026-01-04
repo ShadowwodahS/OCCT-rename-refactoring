@@ -455,7 +455,7 @@ void IGESDefs_ToolAttributeDef::OwnCheck(const Handle(IGESDefs_AttributeDef)& en
     }
     if (ent->AttributeValueCount(i) <= 0)
       continue;
-    Handle(Standard_Transient) list = ent->AttributeList(i);
+    Handle(RefObject) list = ent->AttributeList(i);
     if (fn > 0 && ent.IsNull())
     {
       if (aty == 0 || aty == 5)

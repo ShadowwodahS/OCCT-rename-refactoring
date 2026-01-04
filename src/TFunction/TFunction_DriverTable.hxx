@@ -29,12 +29,12 @@ class Standard_GUID;
 class TFunction_Driver;
 
 class TFunction_DriverTable;
-DEFINE_STANDARD_HANDLE(TFunction_DriverTable, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TFunction_DriverTable, RefObject)
 
 //! A container for instances of drivers.
 //! You create a new instance of TFunction_Driver
 //! and use the method AddDriver to load it into the driver table.
-class TFunction_DriverTable : public Standard_Transient
+class TFunction_DriverTable : public RefObject
 {
 
 public:
@@ -70,7 +70,7 @@ public:
   //! Removes all drivers. Returns true if the driver has been removed successfully.
   Standard_EXPORT void Clear();
 
-  DEFINE_STANDARD_RTTIEXT(TFunction_DriverTable, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TFunction_DriverTable, RefObject)
 
 protected:
 private:

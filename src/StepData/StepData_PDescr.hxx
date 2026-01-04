@@ -30,14 +30,14 @@ class StepData_Field;
 class Interface_Check;
 
 class StepData_PDescr;
-DEFINE_STANDARD_HANDLE(StepData_PDescr, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepData_PDescr, RefObject)
 
 //! This class is intended to describe the authorized form for a
 //! parameter, as a type or a value for a field
 //!
 //! A PDescr firstly describes a type, which can be SELECT, i.e.
 //! have several members
-class StepData_PDescr : public Standard_Transient
+class StepData_PDescr : public RefObject
 {
 
 public:
@@ -206,7 +206,7 @@ public:
   Standard_EXPORT virtual void Check(const StepData_Field&    afild,
                                      Handle(Interface_Check)& ach) const;
 
-  DEFINE_STANDARD_RTTIEXT(StepData_PDescr, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepData_PDescr, RefObject)
 
 protected:
 private:

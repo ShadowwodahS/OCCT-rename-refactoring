@@ -17,7 +17,7 @@
 #include <Interface_Protocol.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Interface_HGraph, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Interface_HGraph, RefObject)
 
 Interface_HGraph::Interface_HGraph(const Interface_Graph& agraph)
     : thegraph(agraph)

@@ -15,7 +15,7 @@
 
 #include <XCAFView_Object.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XCAFView_Object, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(XCAFView_Object, RefObject)
 
 //=================================================================================================
 

@@ -25,7 +25,7 @@
 
 class Font_FTFont;
 
-DEFINE_STANDARD_HANDLE(Font_TextFormatter, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Font_TextFormatter, RefObject)
 
 //! This class is intended to prepare formatted text by using:<br>
 //! - font to string combination,<br>
@@ -51,7 +51,7 @@ DEFINE_STANDARD_HANDLE(Font_TextFormatter, Standard_Transient)
 //!   // setting of additional properties such as wrapping or alignment
 //!   aFormatter->Format();
 //! @endcode
-class Font_TextFormatter : public Standard_Transient
+class Font_TextFormatter : public RefObject
 {
 public:
   //! Iteration filter flags. Command symbols are skipped with any filter.
@@ -296,7 +296,7 @@ public:
            || theSymbol == '\x09'; // tab
   }
 
-  DEFINE_STANDARD_RTTIEXT(Font_TextFormatter, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Font_TextFormatter, RefObject)
 
 protected: //! @name class auxiliary methods
   //! Move glyphs on the current line to correct position.

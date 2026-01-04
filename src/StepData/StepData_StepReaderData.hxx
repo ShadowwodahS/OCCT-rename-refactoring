@@ -32,7 +32,7 @@
 class Interface_Check;
 class TCollection_AsciiString;
 class StepData_PDescr;
-class Standard_Transient;
+class RefObject;
 class StepData_SelectMember;
 class StepData_Field;
 class StepData_ESDescr;
@@ -189,7 +189,7 @@ public:
                                            const Standard_CString         mess,
                                            Handle(Interface_Check)&       ach,
                                            const Handle(StepData_PDescr)& descr,
-                                           Handle(Standard_Transient)&    val) const;
+                                           Handle(RefObject)&    val) const;
 
   //! Reads parameter <nump> of record <num> into a SelectMember,
   //! self-sufficient (no Description needed)
@@ -260,7 +260,7 @@ public:
                                            const Standard_CString         mess,
                                            Handle(Interface_Check)&       ach,
                                            const Handle(StepData_PDescr)& descr,
-                                           Handle(Standard_Transient)&    val) const;
+                                           Handle(RefObject)&    val) const;
 
   //! reads parameter <nump> of record <num> as a sub-list of
   //! two Reals X,Y. Returns True if OK. Else, returns false and
@@ -305,7 +305,7 @@ public:
                                               const Standard_CString       mess,
                                               Handle(Interface_Check)&     ach,
                                               const Handle(Standard_Type)& atype,
-                                              Handle(Standard_Transient)&  ent) const;
+                                              Handle(RefObject)&  ent) const;
 
   //! Safe variant for arbitrary type of argument
   template <class T>
@@ -316,7 +316,7 @@ public:
                               const Handle(Standard_Type)& atype,
                               Handle(T)&                   ent) const
   {
-    Handle(Standard_Transient) anEnt = ent;
+    Handle(RefObject) anEnt = ent;
     return ReadEntity(num, nump, mess, ach, atype, anEnt)
            && !(ent = Handle(T)::DownCast(anEnt)).IsNull();
   }

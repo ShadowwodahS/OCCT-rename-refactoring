@@ -23,7 +23,7 @@
 #include <HLRAlgo_PolyMask.hxx>
 #include <Precision.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(HLRAlgo_PolyAlgo, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(HLRAlgo_PolyAlgo, RefObject)
 
 //=================================================================================================
 

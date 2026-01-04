@@ -24,12 +24,12 @@
 #include <gp_Ax2.hxx>
 #include <gp_Vec.hxx>
 
-DEFINE_STANDARD_HANDLE(Extrema_ExtPExtS, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Extrema_ExtPExtS, RefObject)
 
 //! It calculates all the extremum (minimum and
 //! maximum) distances between a point and a linear
 //! extrusion surface.
-class Extrema_ExtPExtS : public Standard_Transient
+class Extrema_ExtPExtS : public RefObject
 {
 
 public:
@@ -76,7 +76,7 @@ public:
   //! Returns the point of the Nth resulting distance.
   Standard_EXPORT const Extrema_POnSurf& Point(const Standard_Integer N) const;
 
-  DEFINE_STANDARD_RTTIEXT(Extrema_ExtPExtS, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Extrema_ExtPExtS, RefObject)
 
 protected:
 private:

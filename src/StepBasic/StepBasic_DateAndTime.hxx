@@ -25,9 +25,9 @@ class StepBasic_Date;
 class StepBasic_LocalTime;
 
 class StepBasic_DateAndTime;
-DEFINE_STANDARD_HANDLE(StepBasic_DateAndTime, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_DateAndTime, RefObject)
 
-class StepBasic_DateAndTime : public Standard_Transient
+class StepBasic_DateAndTime : public RefObject
 {
 
 public:
@@ -45,7 +45,7 @@ public:
 
   Standard_EXPORT Handle(StepBasic_LocalTime) TimeComponent() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_DateAndTime, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_DateAndTime, RefObject)
 
 protected:
 private:

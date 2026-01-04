@@ -21,7 +21,7 @@
   #include <X11/Xutil.h>
 #endif
 
-IMPLEMENT_STANDARD_RTTIEXT(Aspect_DisplayConnection, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Aspect_DisplayConnection, RefObject)
 
 //=================================================================================================
 

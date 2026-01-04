@@ -50,9 +50,9 @@
 //! - OSD_ThreadPool::Launcher locks thread one-by-one from thread pool in a thread-safe way.
 //! - Each working thread catches exceptions occurred during job execution, and Launcher will
 //!   throw Standard_Failure in a caller thread on completed execution.
-class OSD_ThreadPool : public Standard_Transient
+class OSD_ThreadPool : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(OSD_ThreadPool, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(OSD_ThreadPool, RefObject)
 public:
   //! Return (or create) a default thread pool.
   //! Number of threads argument will be considered only when called first time.

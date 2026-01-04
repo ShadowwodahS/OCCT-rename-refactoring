@@ -53,7 +53,7 @@ Interface_EntityIterator IFSelect_SelectFlag::RootResult(const Interface_Graph& 
 }
 
 Standard_Boolean IFSelect_SelectFlag::Sort(const Standard_Integer,
-                                           const Handle(Standard_Transient)&,
+                                           const Handle(RefObject)&,
                                            const Handle(Interface_InterfaceModel)&) const
 {
   return Standard_False;

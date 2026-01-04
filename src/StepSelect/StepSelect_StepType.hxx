@@ -25,7 +25,7 @@
 #include <Standard_CString.hxx>
 class StepData_Protocol;
 class Interface_Protocol;
-class Standard_Transient;
+class RefObject;
 class Interface_InterfaceModel;
 
 class StepSelect_StepType;
@@ -56,7 +56,7 @@ public:
   //! Returns the Step Type defined from the Protocol (see above).
   //! If <ent> is not recognised, produces "..NOT FROM SCHEMA <name>.."
   Standard_EXPORT Standard_CString
-    Value(const Handle(Standard_Transient)&       ent,
+    Value(const Handle(RefObject)&       ent,
           const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(StepSelect_StepType, IFSelect_Signature)

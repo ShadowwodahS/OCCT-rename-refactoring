@@ -33,7 +33,7 @@
 
 StepAP214_DateAndTimeItem::StepAP214_DateAndTimeItem() {}
 
-Standard_Integer StepAP214_DateAndTimeItem::CaseNum(const Handle(Standard_Transient)& ent) const
+Standard_Integer StepAP214_DateAndTimeItem::CaseNum(const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

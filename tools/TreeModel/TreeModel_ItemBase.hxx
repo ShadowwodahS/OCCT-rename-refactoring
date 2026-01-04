@@ -90,7 +90,7 @@ public:
 
   //! Returns data object of the item.
   //! \return object
-  Standard_EXPORT virtual const Handle(Standard_Transient)& Object() const;
+  Standard_EXPORT virtual const Handle(RefObject)& Object() const;
 
   //! Resets the item and the child items content. Sets the initialized state to false.
   //! If the item has internal values, they should be reset here.
@@ -173,7 +173,7 @@ public:
   //! Returns presentation of the item to be visualized in the view
   //! \thePresentations[out]  container of presentation handles
   Standard_EXPORT virtual void Presentations(
-    NCollection_List<Handle(Standard_Transient)>& thePresentations);
+    NCollection_List<Handle(RefObject)>& thePresentations);
 
 protected:
   //! \param theParent the parent item

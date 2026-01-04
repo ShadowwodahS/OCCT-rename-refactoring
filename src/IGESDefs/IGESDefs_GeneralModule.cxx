@@ -239,7 +239,7 @@ void IGESDefs_GeneralModule::OwnCheckCase(const Standard_Integer             CN,
 }
 
 Standard_Boolean IGESDefs_GeneralModule::NewVoid(const Standard_Integer      CN,
-                                                 Handle(Standard_Transient)& ent) const
+                                                 Handle(RefObject)& ent) const
 {
   switch (CN)
   {
@@ -332,7 +332,7 @@ void IGESDefs_GeneralModule::OwnCopyCase(const Standard_Integer             CN,
 }
 
 Standard_Integer IGESDefs_GeneralModule::CategoryNumber(const Standard_Integer /*CN*/,
-                                                        const Handle(Standard_Transient)& /*ent*/,
+                                                        const Handle(RefObject)& /*ent*/,
                                                         const Interface_ShareTool&) const
 {
   return Interface_Category::Number("Auxiliary");

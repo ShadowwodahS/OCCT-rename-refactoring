@@ -27,13 +27,13 @@
 
 class Adaptor3d_HVertex;
 
-DEFINE_STANDARD_HANDLE(Adaptor3d_TopolTool, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Adaptor3d_TopolTool, RefObject)
 
 //! This class provides a default topological tool,
 //! based on the Umin,Vmin,Umax,Vmax of an HSurface from Adaptor3d.
 //! All methods and fields may be redefined when inheriting from this class.
 //! This class is used to instantiate algorithms as Intersection, outlines,...
-class Adaptor3d_TopolTool : public Standard_Transient
+class Adaptor3d_TopolTool : public RefObject
 {
 
 public:
@@ -162,7 +162,7 @@ public:
                                                Standard_Real& theU,
                                                Standard_Real& theV);
 
-  DEFINE_STANDARD_RTTIEXT(Adaptor3d_TopolTool, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Adaptor3d_TopolTool, RefObject)
 
 protected:
   Handle(Adaptor3d_Surface)     myS;

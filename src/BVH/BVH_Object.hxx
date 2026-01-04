@@ -21,9 +21,9 @@
 
 //! A non-template class for using as base for BVH_Object
 //! (just to have a named base class).
-class BVH_ObjectTransient : public Standard_Transient
+class BVH_ObjectTransient : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(BVH_ObjectTransient, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(BVH_ObjectTransient, RefObject)
 public:
   //! Returns properties of the geometric object.
   virtual const Handle(BVH_Properties)& Properties() const { return myProperties; }

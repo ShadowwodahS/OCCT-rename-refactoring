@@ -144,7 +144,7 @@ Handle(TColStd_HSequenceOfTransient) XSControl_Reader::GiveList(const Standard_C
 
 Handle(TColStd_HSequenceOfTransient) XSControl_Reader::GiveList(
   const Standard_CString            first,
-  const Handle(Standard_Transient)& list)
+  const Handle(RefObject)& list)
 {
   return thesession->GiveListFromList(first, list);
 }
@@ -161,7 +161,7 @@ Standard_Integer XSControl_Reader::NbRootsForTransfer()
   for (i = 1; i <= nbr; i++)
   {
     //    on filtre les racines qu on sait transferer
-    Handle(Standard_Transient) start = sf.Root(i);
+    Handle(RefObject) start = sf.Root(i);
     if (thesession->TransferReader()->Recognize(start))
       theroots.Append(start);
   }
@@ -170,9 +170,9 @@ Standard_Integer XSControl_Reader::NbRootsForTransfer()
 
 //=================================================================================================
 
-Handle(Standard_Transient) XSControl_Reader::RootForTransfer(const Standard_Integer num)
+Handle(RefObject) XSControl_Reader::RootForTransfer(const Standard_Integer num)
 {
-  Handle(Standard_Transient) voidroot;
+  Handle(RefObject) voidroot;
   Standard_Integer           nbr = NbRootsForTransfer();
   if (num < 1 || num > nbr)
     return voidroot;
@@ -199,7 +199,7 @@ Standard_Boolean XSControl_Reader::TransferOne(const Standard_Integer       num,
 
 //=================================================================================================
 
-Standard_Boolean XSControl_Reader::TransferEntity(const Handle(Standard_Transient)& start,
+Standard_Boolean XSControl_Reader::TransferEntity(const Handle(RefObject)& start,
                                                   const Message_ProgressRange&      theProgress)
 {
   if (start.IsNull())
@@ -234,7 +234,7 @@ Standard_Integer XSControl_Reader::TransferList(const Handle(TColStd_HSequenceOf
   Message_ProgressScope PS(theProgress, NULL, nb);
   for (i = 1; i <= nb && PS.More(); i++)
   {
-    Handle(Standard_Transient) start = list->Value(i);
+    Handle(RefObject) start = list->Value(i);
     if (TR->TransferOne(start, Standard_True, PS.Next()) == 0)
       continue;
     TopoDS_Shape sh = TR->ShapeResult(start);
@@ -262,7 +262,7 @@ Standard_Integer XSControl_Reader::TransferRoots(const Message_ProgressRange& th
   Message_ProgressScope PS(theProgress, "Root", nb);
   for (i = 1; i <= nb && PS.More(); i++)
   {
-    Handle(Standard_Transient) start = theroots.Value(i);
+    Handle(RefObject) start = theroots.Value(i);
     if (TR->TransferOne(start, Standard_True, PS.Next()) == 0)
       continue;
     TopoDS_Shape sh = TR->ShapeResult(start);

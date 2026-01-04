@@ -29,7 +29,7 @@ class TObj_CheckModel;
 class TObj_Application;
 
 class TObj_Model;
-DEFINE_STANDARD_HANDLE(TObj_Model, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TObj_Model, RefObject)
 
 /**
  * Base class for OCAF based models.
@@ -39,7 +39,7 @@ DEFINE_STANDARD_HANDLE(TObj_Model, Standard_Transient)
  * Provides default implementation for many methods.
  */
 
-class TObj_Model : public Standard_Transient
+class TObj_Model : public RefObject
 {
 protected:
   //! Model may store some data on the data labels of its main partition
@@ -350,7 +350,7 @@ private:
 
 public:
   //! CASCADE RTTI
-  DEFINE_STANDARD_RTTIEXT(TObj_Model, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TObj_Model, RefObject)
 };
 
 //! The Model Handle is defined in a separate header file

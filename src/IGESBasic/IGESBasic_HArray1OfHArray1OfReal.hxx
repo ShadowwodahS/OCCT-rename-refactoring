@@ -26,9 +26,9 @@
 #include <Standard_Integer.hxx>
 
 class IGESBasic_HArray1OfHArray1OfReal;
-DEFINE_STANDARD_HANDLE(IGESBasic_HArray1OfHArray1OfReal, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IGESBasic_HArray1OfHArray1OfReal, RefObject)
 
-class IGESBasic_HArray1OfHArray1OfReal : public Standard_Transient
+class IGESBasic_HArray1OfHArray1OfReal : public RefObject
 {
 
 public:
@@ -46,7 +46,7 @@ public:
 
   Standard_EXPORT Handle(TColStd_HArray1OfReal) Value(const Standard_Integer num) const;
 
-  DEFINE_STANDARD_RTTI_INLINE(IGESBasic_HArray1OfHArray1OfReal, Standard_Transient)
+  DEFINE_STANDARD_RTTI_INLINE(IGESBasic_HArray1OfHArray1OfReal, RefObject)
 
 protected:
 private:

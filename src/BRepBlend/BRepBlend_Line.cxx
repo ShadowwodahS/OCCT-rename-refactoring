@@ -15,7 +15,7 @@
 #include <BRepBlend_Line.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepBlend_Line, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(BRepBlend_Line, RefObject)
 
 BRepBlend_Line::BRepBlend_Line()
     : tras1(IntSurf_Undecided),

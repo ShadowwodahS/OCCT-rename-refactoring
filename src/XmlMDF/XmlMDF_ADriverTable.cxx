@@ -20,7 +20,7 @@
 #include <XmlMDF_ADriver.hxx>
 #include <XmlMDF_DerivedDriver.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XmlMDF_ADriverTable, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(XmlMDF_ADriverTable, RefObject)
 
 //=================================================================================================
 

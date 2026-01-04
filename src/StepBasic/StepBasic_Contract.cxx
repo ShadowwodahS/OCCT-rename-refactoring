@@ -20,7 +20,7 @@
 #include <StepBasic_ContractType.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_Contract, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_Contract, RefObject)
 
 //=================================================================================================
 

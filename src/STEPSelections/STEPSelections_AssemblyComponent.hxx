@@ -25,9 +25,9 @@
 class StepShape_ShapeDefinitionRepresentation;
 
 class STEPSelections_AssemblyComponent;
-DEFINE_STANDARD_HANDLE(STEPSelections_AssemblyComponent, Standard_Transient)
+DEFINE_STANDARD_HANDLE(STEPSelections_AssemblyComponent, RefObject)
 
-class STEPSelections_AssemblyComponent : public Standard_Transient
+class STEPSelections_AssemblyComponent : public RefObject
 {
 
 public:
@@ -45,7 +45,7 @@ public:
 
   void SetList(const Handle(STEPSelections_HSequenceOfAssemblyLink)& list);
 
-  DEFINE_STANDARD_RTTIEXT(STEPSelections_AssemblyComponent, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(STEPSelections_AssemblyComponent, RefObject)
 
 protected:
 private:

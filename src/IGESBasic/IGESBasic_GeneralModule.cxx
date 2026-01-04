@@ -465,7 +465,7 @@ void IGESBasic_GeneralModule::OwnCheckCase(const Standard_Integer             CN
 }
 
 Standard_Boolean IGESBasic_GeneralModule::NewVoid(const Standard_Integer      CN,
-                                                  Handle(Standard_Transient)& ent) const
+                                                  Handle(RefObject)& ent) const
 {
   switch (CN)
   {
@@ -648,7 +648,7 @@ void IGESBasic_GeneralModule::OwnCopyCase(const Standard_Integer             CN,
 }
 
 Standard_Integer IGESBasic_GeneralModule::CategoryNumber(const Standard_Integer CN,
-                                                         const Handle(Standard_Transient)&,
+                                                         const Handle(RefObject)&,
                                                          const Interface_ShareTool&) const
 {
   if (CN == 10 || CN == 11)

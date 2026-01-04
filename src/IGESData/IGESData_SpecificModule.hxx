@@ -26,11 +26,11 @@ class IGESData_IGESEntity;
 class IGESData_IGESDumper;
 
 class IGESData_SpecificModule;
-DEFINE_STANDARD_HANDLE(IGESData_SpecificModule, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IGESData_SpecificModule, RefObject)
 
 //! This class defines some Services which are specifically
 //! attached to IGES Entities : Dump
-class IGESData_SpecificModule : public Standard_Transient
+class IGESData_SpecificModule : public RefObject
 {
 
 public:
@@ -65,7 +65,7 @@ public:
   Standard_EXPORT virtual Standard_Boolean OwnCorrect(const Standard_Integer             CN,
                                                       const Handle(IGESData_IGESEntity)& ent) const;
 
-  DEFINE_STANDARD_RTTIEXT(IGESData_SpecificModule, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IGESData_SpecificModule, RefObject)
 
 protected:
 private:

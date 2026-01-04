@@ -20,7 +20,7 @@
 
 StepRepr_Transformation::StepRepr_Transformation() {}
 
-Standard_Integer StepRepr_Transformation::CaseNum(const Handle(Standard_Transient)& ent) const
+Standard_Integer StepRepr_Transformation::CaseNum(const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

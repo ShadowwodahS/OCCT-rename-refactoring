@@ -24,9 +24,9 @@
 class StepBasic_DimensionalExponents;
 
 class StepBasic_NamedUnit;
-DEFINE_STANDARD_HANDLE(StepBasic_NamedUnit, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_NamedUnit, RefObject)
 
-class StepBasic_NamedUnit : public Standard_Transient
+class StepBasic_NamedUnit : public RefObject
 {
 
 public:
@@ -40,7 +40,7 @@ public:
 
   Standard_EXPORT virtual Handle(StepBasic_DimensionalExponents) Dimensions() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_NamedUnit, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_NamedUnit, RefObject)
 
 protected:
 private:

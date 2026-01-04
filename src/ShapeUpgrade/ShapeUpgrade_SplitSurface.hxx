@@ -33,10 +33,10 @@ class ShapeExtend_CompositeSurface;
 #endif
 
 class ShapeUpgrade_SplitSurface;
-DEFINE_STANDARD_HANDLE(ShapeUpgrade_SplitSurface, Standard_Transient)
+DEFINE_STANDARD_HANDLE(ShapeUpgrade_SplitSurface, RefObject)
 
 //! Splits a Surface with a criterion.
-class ShapeUpgrade_SplitSurface : public Standard_Transient
+class ShapeUpgrade_SplitSurface : public RefObject
 {
 
 public:
@@ -97,7 +97,7 @@ public:
   //! Returns obtained surfaces after splitting as CompositeSurface
   Standard_EXPORT const Handle(ShapeExtend_CompositeSurface)& ResSurfaces() const;
 
-  DEFINE_STANDARD_RTTIEXT(ShapeUpgrade_SplitSurface, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(ShapeUpgrade_SplitSurface, RefObject)
 
 protected:
   Handle(TColStd_HSequenceOfReal)      myUSplitValues;

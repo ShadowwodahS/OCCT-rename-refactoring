@@ -33,7 +33,7 @@
 #include <TopTools_ListOfShape.hxx>
 #include <TopTools_MapOfShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TopOpeBRepBuild_HBuilder, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(TopOpeBRepBuild_HBuilder, RefObject)
 
 //=================================================================================================
 

@@ -95,13 +95,13 @@ public:
 
   //! Returns selected shapes
   //! \param[out]  container of shapes
-  void SelectedShapes(NCollection_List<Handle(Standard_Transient)>& theSelPresentations);
+  void SelectedShapes(NCollection_List<Handle(RefObject)>& theSelPresentations);
 
 private:
   //! Fills controls of the plugin by parameters:
   //! - Fine AIS_InteractiveObject and fills View if it if it differs from the current context
   //! \param theParameters a parameters container
-  bool Init(const NCollection_List<Handle(Standard_Transient)>& theParameters);
+  bool Init(const NCollection_List<Handle(RefObject)>& theParameters);
 
   //! Read BREP file, creates AIS presentation for the shape and visualize it in the current context
   //! \param theFileName a name of BREP file

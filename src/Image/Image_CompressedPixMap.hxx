@@ -22,9 +22,9 @@
 
 //! Compressed pixmap data definition.
 //! It is defined independently from Image_PixMap, which defines only uncompressed formats.
-class Image_CompressedPixMap : public Standard_Transient
+class Image_CompressedPixMap : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Image_CompressedPixMap, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Image_CompressedPixMap, RefObject)
 public:
   //! Return base (uncompressed) pixel format.
   Image_Format BaseFormat() const { return myBaseFormat; }

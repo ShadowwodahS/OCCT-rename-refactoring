@@ -26,9 +26,9 @@ class TCollection_HAsciiString;
 class StepVisual_SurfaceStyleElementSelect;
 
 class StepVisual_SurfaceSideStyle;
-DEFINE_STANDARD_HANDLE(StepVisual_SurfaceSideStyle, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepVisual_SurfaceSideStyle, RefObject)
 
-class StepVisual_SurfaceSideStyle : public Standard_Transient
+class StepVisual_SurfaceSideStyle : public RefObject
 {
 
 public:
@@ -52,7 +52,7 @@ public:
 
   Standard_EXPORT Standard_Integer NbStyles() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepVisual_SurfaceSideStyle, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepVisual_SurfaceSideStyle, RefObject)
 
 protected:
 private:

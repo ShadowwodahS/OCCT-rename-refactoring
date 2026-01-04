@@ -24,10 +24,10 @@
 class TCollection_HAsciiString;
 
 class StepBasic_GeneralProperty;
-DEFINE_STANDARD_HANDLE(StepBasic_GeneralProperty, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_GeneralProperty, RefObject)
 
 //! Representation of STEP entity GeneralProperty
-class StepBasic_GeneralProperty : public Standard_Transient
+class StepBasic_GeneralProperty : public RefObject
 {
 
 public:
@@ -61,7 +61,7 @@ public:
   //! Returns True if optional field Description is defined
   Standard_EXPORT Standard_Boolean HasDescription() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_GeneralProperty, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_GeneralProperty, RefObject)
 
 protected:
 private:

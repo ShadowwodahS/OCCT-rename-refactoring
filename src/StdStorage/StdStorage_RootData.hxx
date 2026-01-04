@@ -27,15 +27,15 @@ class Storage_BaseDriver;
 class StdStorage_Root;
 
 class StdStorage_RootData;
-DEFINE_STANDARD_HANDLE(StdStorage_RootData, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StdStorage_RootData, RefObject)
 
 //! Storage root data section contains root persistent objects
-class StdStorage_RootData : public Standard_Transient
+class StdStorage_RootData : public RefObject
 {
   friend class StdStorage_Data;
 
 public:
-  DEFINE_STANDARD_RTTIEXT(StdStorage_RootData, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StdStorage_RootData, RefObject)
 
   //! Reads the root data section from the container defined by theDriver.
   //! Returns Standard_True in case of success. Otherwise, one need to get

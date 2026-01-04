@@ -24,9 +24,9 @@
 class StepGeom_CartesianPoint;
 
 class StepShape_BoxDomain;
-DEFINE_STANDARD_HANDLE(StepShape_BoxDomain, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepShape_BoxDomain, RefObject)
 
-class StepShape_BoxDomain : public Standard_Transient
+class StepShape_BoxDomain : public RefObject
 {
 
 public:
@@ -54,7 +54,7 @@ public:
 
   Standard_EXPORT Standard_Real Zlength() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepShape_BoxDomain, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepShape_BoxDomain, RefObject)
 
 protected:
 private:

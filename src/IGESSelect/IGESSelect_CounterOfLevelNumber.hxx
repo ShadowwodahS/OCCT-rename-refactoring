@@ -52,13 +52,13 @@ public:
   //! positive level) displays level number on 7 digits (C : %7d)
   //! Remark : an entity attached to a Level List is added for
   //! " LEVEL LIST", and for each of its constituent levels
-  Standard_EXPORT virtual void AddSign(const Handle(Standard_Transient)&       ent,
+  Standard_EXPORT virtual void AddSign(const Handle(RefObject)&       ent,
                                        const Handle(Interface_InterfaceModel)& model)
     Standard_OVERRIDE;
 
   //! The internal action to record a new level number, positive,
   //! null (no level) or negative (level list)
-  Standard_EXPORT void AddLevel(const Handle(Standard_Transient)& ent,
+  Standard_EXPORT void AddLevel(const Handle(RefObject)& ent,
                                 const Standard_Integer            level);
 
   //! Returns the highest value found for a level number
@@ -77,7 +77,7 @@ public:
   //! entity as an HAsciiString. Redefined, gives the same result
   //! as AddSign, see this method ("LEVEL LIST" or "nnnnnnn")
   Standard_EXPORT virtual Handle(TCollection_HAsciiString) Sign(
-    const Handle(Standard_Transient)&       ent,
+    const Handle(RefObject)&       ent,
     const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
 
   //! Prints the counts of items (not the list) then the Highest

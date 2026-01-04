@@ -30,7 +30,7 @@ ShapeExtend_MsgRegistrator::ShapeExtend_MsgRegistrator()
 
 //=================================================================================================
 
-void ShapeExtend_MsgRegistrator::Send(const Handle(Standard_Transient)& object,
+void ShapeExtend_MsgRegistrator::Send(const Handle(RefObject)& object,
                                       const Message_Msg&                message,
                                       const Message_Gravity)
 {

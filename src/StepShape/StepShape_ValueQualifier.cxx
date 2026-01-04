@@ -19,7 +19,7 @@
 
 StepShape_ValueQualifier::StepShape_ValueQualifier() {}
 
-Standard_Integer StepShape_ValueQualifier::CaseNum(const Handle(Standard_Transient)& ent) const
+Standard_Integer StepShape_ValueQualifier::CaseNum(const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

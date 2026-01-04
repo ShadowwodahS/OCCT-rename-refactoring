@@ -14,7 +14,7 @@
 #include <Standard_Type.hxx>
 #include <StepVisual_CurveStyleFontPattern.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_CurveStyleFontPattern, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepVisual_CurveStyleFontPattern, RefObject)
 
 StepVisual_CurveStyleFontPattern::StepVisual_CurveStyleFontPattern() {}
 

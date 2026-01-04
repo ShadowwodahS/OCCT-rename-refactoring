@@ -30,7 +30,7 @@
 #include <TopTools_HSequenceOfShape.hxx>
 #include <TopAbs_ShapeEnum.hxx>
 #include <TColStd_HSequenceOfInteger.hxx>
-class Standard_Transient;
+class RefObject;
 class TCollection_HAsciiString;
 class TCollection_AsciiString;
 class TCollection_HExtendedString;
@@ -65,9 +65,9 @@ public:
   //! File. <lines> can be a HAscii/ExtendedString (produces a print
   //! without ending line) or a HSequence or HArray1 Of ..
   //! (one new line per item)
-  Standard_EXPORT void TraceLines(const Handle(Standard_Transient)& lines) const;
+  Standard_EXPORT void TraceLines(const Handle(RefObject)& lines) const;
 
-  Standard_EXPORT Standard_Boolean IsKind(const Handle(Standard_Transient)& item,
+  Standard_EXPORT Standard_Boolean IsKind(const Handle(RefObject)& item,
                                           const Handle(Standard_Type)&      what) const;
 
   //! Returns the name of the dynamic type of an object, i.e. :
@@ -76,16 +76,16 @@ public:
   //! If it is Null, an empty string
   //! If <nopk> is False (D), gives complete name
   //! If <nopk> is True, returns class name without package
-  Standard_EXPORT Standard_CString TypeName(const Handle(Standard_Transient)& item,
+  Standard_EXPORT Standard_CString TypeName(const Handle(RefObject)& item,
                                             const Standard_Boolean nopk = Standard_False) const;
 
-  Standard_EXPORT Handle(Standard_Transient) TraValue(const Handle(Standard_Transient)& list,
+  Standard_EXPORT Handle(RefObject) TraValue(const Handle(RefObject)& list,
                                                       const Standard_Integer            num) const;
 
   Standard_EXPORT Handle(TColStd_HSequenceOfTransient) NewSeqTra() const;
 
   Standard_EXPORT void AppendTra(const Handle(TColStd_HSequenceOfTransient)& seqval,
-                                 const Handle(Standard_Transient)&           traval) const;
+                                 const Handle(RefObject)&           traval) const;
 
   Standard_EXPORT Standard_CString DateString(const Standard_Integer yy,
                                               const Standard_Integer mm,
@@ -126,10 +126,10 @@ public:
 
   Standard_EXPORT Standard_CString ExtendedToAscii(const Standard_ExtString str) const;
 
-  Standard_EXPORT Standard_CString CStrValue(const Handle(Standard_Transient)& list,
+  Standard_EXPORT Standard_CString CStrValue(const Handle(RefObject)& list,
                                              const Standard_Integer            num) const;
 
-  Standard_EXPORT Standard_ExtString EStrValue(const Handle(Standard_Transient)& list,
+  Standard_EXPORT Standard_ExtString EStrValue(const Handle(RefObject)& list,
                                                const Standard_Integer            num) const;
 
   Standard_EXPORT Handle(TColStd_HSequenceOfHAsciiString) NewSeqCStr() const;
@@ -180,20 +180,20 @@ public:
   //! (used by functions which require a Transient but can process
   //! a Shape, such as viewing functions) or a HShape (according to hs)
   //! Default is a HShape
-  Standard_EXPORT Handle(Standard_Transient) ShapeBinder(
+  Standard_EXPORT Handle(RefObject) ShapeBinder(
     const TopoDS_Shape&    shape,
     const Standard_Boolean hs = Standard_True) const;
 
   //! From a Transient, returns a Shape.
   //! In fact, recognizes ShapeBinder ShapeMapper and HShape
-  Standard_EXPORT TopoDS_Shape BinderShape(const Handle(Standard_Transient)& tr) const;
+  Standard_EXPORT TopoDS_Shape BinderShape(const Handle(RefObject)& tr) const;
 
-  Standard_EXPORT Standard_Integer SeqLength(const Handle(Standard_Transient)& list) const;
+  Standard_EXPORT Standard_Integer SeqLength(const Handle(RefObject)& list) const;
 
-  Standard_EXPORT Handle(Standard_Transient) SeqToArr(const Handle(Standard_Transient)& seq,
+  Standard_EXPORT Handle(RefObject) SeqToArr(const Handle(RefObject)& seq,
                                                       const Standard_Integer first = 1) const;
 
-  Standard_EXPORT Handle(Standard_Transient) ArrToSeq(const Handle(Standard_Transient)& arr) const;
+  Standard_EXPORT Handle(RefObject) ArrToSeq(const Handle(RefObject)& arr) const;
 
   Standard_EXPORT Standard_Integer SeqIntValue(const Handle(TColStd_HSequenceOfInteger)& list,
                                                const Standard_Integer                    num) const;

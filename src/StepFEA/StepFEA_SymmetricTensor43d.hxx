@@ -23,7 +23,7 @@
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
 #include <TColStd_HArray1OfReal.hxx>
-class Standard_Transient;
+class RefObject;
 class StepData_SelectMember;
 
 //! Representation of STEP SELECT type SymmetricTensor43d
@@ -37,7 +37,7 @@ public:
 
   //! return 0
   Standard_EXPORT Standard_Integer
-    CaseNum(const Handle(Standard_Transient)& ent) const Standard_OVERRIDE;
+    CaseNum(const Handle(RefObject)& ent) const Standard_OVERRIDE;
 
   //! Recognizes a items of select member CurveElementFreedomMember
   //! 1 -> AnisotropicSymmetricTensor43d

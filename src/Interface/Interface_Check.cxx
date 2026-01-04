@@ -20,7 +20,7 @@
 #include <Standard_Type.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Interface_Check, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Interface_Check, RefObject)
 
 // Un Check est cree au depart sans liste de message : celle ci est creee
 // seulement si au moins une erreur doit y etre enregitree (Fail-Warning)
@@ -30,7 +30,7 @@ Interface_Check::Interface_Check() {} // construit a vide
 
 //=================================================================================================
 
-Interface_Check::Interface_Check(const Handle(Standard_Transient)& anentity)
+Interface_Check::Interface_Check(const Handle(RefObject)& anentity)
 {
   theent = anentity;
 }
@@ -392,7 +392,7 @@ Standard_Boolean Interface_Check::HasEntity() const
 
 //=================================================================================================
 
-const Handle(Standard_Transient)& Interface_Check::Entity() const
+const Handle(RefObject)& Interface_Check::Entity() const
 {
   return theent;
 }
@@ -565,14 +565,14 @@ Standard_Boolean Interface_Check::Mend(const Standard_CString pref, const Standa
 
 //=================================================================================================
 
-void Interface_Check::SetEntity(const Handle(Standard_Transient)& anentity)
+void Interface_Check::SetEntity(const Handle(RefObject)& anentity)
 {
   theent = anentity;
 }
 
 //=================================================================================================
 
-void Interface_Check::GetEntity(const Handle(Standard_Transient)& anentity)
+void Interface_Check::GetEntity(const Handle(RefObject)& anentity)
 {
   if (theent.IsNull())
     SetEntity(anentity);

@@ -24,7 +24,7 @@ struct IMeshTools_Parameters;
 
 //! Base interface for factories producing instances of triangulation
 //! algorithms taking into account type of surface of target face.
-class IMeshTools_MeshAlgoFactory : public Standard_Transient
+class IMeshTools_MeshAlgoFactory : public RefObject
 {
 public:
   //! Destructor.
@@ -35,7 +35,7 @@ public:
     const GeomAbs_SurfaceType    theSurfaceType,
     const IMeshTools_Parameters& theParameters) const = 0;
 
-  DEFINE_STANDARD_RTTIEXT(IMeshTools_MeshAlgoFactory, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IMeshTools_MeshAlgoFactory, RefObject)
 
 protected:
   //! Constructor.

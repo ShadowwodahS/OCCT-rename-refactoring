@@ -47,7 +47,7 @@ void DFBrowserPane_TDFReference::GetValues(const Handle(TDF_Attribute)& theAttri
 // =======================================================================
 void DFBrowserPane_TDFReference::GetReferences(const Handle(TDF_Attribute)& theAttribute,
                                                NCollection_List<TDF_Label>& theRefLabels,
-                                               Handle(Standard_Transient)& /*theRefPresentation*/)
+                                               Handle(RefObject)& /*theRefPresentation*/)
 {
   Handle(TDF_Reference) anAttribute = Handle(TDF_Reference)::DownCast(theAttribute);
   if (anAttribute.IsNull())

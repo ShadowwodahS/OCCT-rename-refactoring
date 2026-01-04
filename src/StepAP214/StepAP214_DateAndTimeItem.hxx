@@ -23,7 +23,7 @@
 
 #include <StepAP214_ApprovalItem.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepBasic_ApprovalPersonOrganization;
 class StepAP214_AppliedPersonAndOrganizationAssignment;
 class StepAP214_AppliedOrganizationAssignment;
@@ -54,7 +54,7 @@ public:
   //! 15 -> ShapeRepresentation
   //! 16 -> SecurityClassification
   //! 0 else
-  Standard_EXPORT virtual Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const
+  Standard_EXPORT virtual Standard_Integer CaseNum(const Handle(RefObject)& ent) const
     Standard_OVERRIDE;
 
   //! returns Value as a ApprovalPersonOrganization (Null if another type)

@@ -150,7 +150,7 @@ void Interface_Graph::Evaluate()
   {
     //    ATTENTION : Si Entite non chargee donc illisible, basculer sur son
     //    "Contenu" equivalent
-    Handle(Standard_Transient) ent = themodel->Value(i);
+    Handle(RefObject) ent = themodel->Value(i);
 
     //    Resultat obtenu via GeneralLib
     Interface_EntityIterator iter = GetShareds(ent);
@@ -159,7 +159,7 @@ void Interface_Graph::Evaluate()
     for (iter.Start(); iter.More(); iter.Next())
     {
       //    num = 0 -> on sort du Model de depart, le noter "Error" et passer
-      const Handle(Standard_Transient)& entshare = iter.Value();
+      const Handle(RefObject)& entshare = iter.Value();
       if (entshare == ent)
         continue;
 
@@ -205,7 +205,7 @@ Standard_Integer Interface_Graph::Size() const
   return themodel->NbEntities();
 } // thestats.Upper();  }
 
-Standard_Integer Interface_Graph::EntityNumber(const Handle(Standard_Transient)& ent) const
+Standard_Integer Interface_Graph::EntityNumber(const Handle(RefObject)& ent) const
 {
   return themodel->Number(ent);
 }
@@ -217,12 +217,12 @@ Standard_Boolean Interface_Graph::IsPresent(const Standard_Integer num) const
   return (!thestats.IsNull() ? theflags.Value(num, Graph_Present) : Standard_False);
 }
 
-Standard_Boolean Interface_Graph::IsPresent(const Handle(Standard_Transient)& ent) const
+Standard_Boolean Interface_Graph::IsPresent(const Handle(RefObject)& ent) const
 {
   return IsPresent(EntityNumber(ent));
 }
 
-const Handle(Standard_Transient)& Interface_Graph::Entity(const Standard_Integer num) const
+const Handle(RefObject)& Interface_Graph::Entity(const Standard_Integer num) const
 {
   return themodel->Value(num);
 }
@@ -298,7 +298,7 @@ void Interface_Graph::GetFromModel()
   thestats->Init(0);
 }
 
-void Interface_Graph::GetFromEntity(const Handle(Standard_Transient)& ent,
+void Interface_Graph::GetFromEntity(const Handle(RefObject)& ent,
                                     const Standard_Boolean            shared,
                                     const Standard_Integer            newstat)
 {
@@ -319,7 +319,7 @@ void Interface_Graph::GetFromEntity(const Handle(Standard_Transient)& ent,
     GetFromEntity(aIter.Value(), Standard_True, newstat);
 }
 
-void Interface_Graph::GetFromEntity(const Handle(Standard_Transient)& ent,
+void Interface_Graph::GetFromEntity(const Handle(RefObject)& ent,
                                     const Standard_Boolean            shared,
                                     const Standard_Integer            newstat,
                                     const Standard_Integer            overlapstat,
@@ -367,7 +367,7 @@ void Interface_Graph::GetFromIter(const Interface_EntityIterator& iter,
     return;
   for (iter.Start(); iter.More(); iter.Next())
   {
-    const Handle(Standard_Transient)& ent = iter.Value();
+    const Handle(RefObject)& ent = iter.Value();
     Standard_Integer                  num = EntityNumber(ent);
     if (!num)
       continue;
@@ -386,7 +386,7 @@ void Interface_Graph::GetFromIter(const Interface_EntityIterator& iter,
     return;
   for (iter.Start(); iter.More(); iter.Next())
   {
-    const Handle(Standard_Transient)& ent = iter.Value();
+    const Handle(RefObject)& ent = iter.Value();
     Standard_Integer                  num = EntityNumber(ent);
     if (!num)
       continue;
@@ -424,7 +424,7 @@ void Interface_Graph::GetFromGraph(const Interface_Graph& agraph, const Standard
 
 //  ....                Listage des Entites Partagees                ....
 
-Standard_Boolean Interface_Graph::HasShareErrors(const Handle(Standard_Transient)& ent) const
+Standard_Boolean Interface_Graph::HasShareErrors(const Handle(RefObject)& ent) const
 {
   if (thestats.IsNull())
     return Standard_False;
@@ -434,14 +434,14 @@ Standard_Boolean Interface_Graph::HasShareErrors(const Handle(Standard_Transient
   return theflags.Value(num, Graph_ShareError);
 }
 
-Interface_EntityIterator Interface_Graph::Shareds(const Handle(Standard_Transient)& ent) const
+Interface_EntityIterator Interface_Graph::Shareds(const Handle(RefObject)& ent) const
 {
   Interface_EntityIterator iter;
   Standard_Integer         num = EntityNumber(ent);
   if (!num)
     return iter;
 
-  Handle(Standard_Transient) aCurEnt = ent;
+  Handle(RefObject) aCurEnt = ent;
   if (themodel->IsRedefinedContent(num))
     aCurEnt = themodel->ReportEntity(num)->Content();
 
@@ -454,7 +454,7 @@ Interface_EntityIterator Interface_Graph::Shareds(const Handle(Standard_Transien
 }
 
 Handle(TColStd_HSequenceOfTransient) Interface_Graph::GetShareds(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   Handle(TColStd_HSequenceOfTransient) aseq = new TColStd_HSequenceOfTransient;
   Interface_EntityIterator             iter = Shareds(ent);
@@ -464,7 +464,7 @@ Handle(TColStd_HSequenceOfTransient) Interface_Graph::GetShareds(
 }
 
 Handle(TColStd_HSequenceOfTransient) Interface_Graph::GetSharings(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   Standard_Integer num = EntityNumber(ent);
   if (!num)
@@ -478,14 +478,14 @@ Handle(TColStd_HSequenceOfTransient) Interface_Graph::GetSharings(
   return aSharings;
 }
 
-Interface_EntityIterator Interface_Graph::Sharings(const Handle(Standard_Transient)& ent) const
+Interface_EntityIterator Interface_Graph::Sharings(const Handle(RefObject)& ent) const
 {
   Interface_EntityIterator iter;
   iter.AddList(GetSharings(ent));
   return iter;
 }
 
-static void AddTypedSharings(const Handle(Standard_Transient)& ent,
+static void AddTypedSharings(const Handle(RefObject)& ent,
                              const Handle(Standard_Type)&      type,
                              Interface_EntityIterator&         iter,
                              const Standard_Integer            n,
@@ -510,7 +510,7 @@ static void AddTypedSharings(const Handle(Standard_Transient)& ent,
     AddTypedSharings(list->Value(i), type, iter, nb, G);
 }
 
-Interface_EntityIterator Interface_Graph::TypedSharings(const Handle(Standard_Transient)& ent,
+Interface_EntityIterator Interface_Graph::TypedSharings(const Handle(RefObject)& ent,
                                                         const Handle(Standard_Type)& type) const
 {
   Interface_EntityIterator iter;
@@ -532,7 +532,7 @@ Interface_EntityIterator Interface_Graph::RootEntities() const
   return iter;
 }
 
-Handle(TCollection_HAsciiString) Interface_Graph::Name(const Handle(Standard_Transient)& ent) const
+Handle(TCollection_HAsciiString) Interface_Graph::Name(const Handle(RefObject)& ent) const
 {
   Handle(TCollection_HAsciiString) str;
   if (themodel.IsNull())

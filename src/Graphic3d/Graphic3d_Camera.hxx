@@ -38,7 +38,7 @@
 
 //! Camera class provides object-oriented approach to setting up projection
 //! and orientation properties of 3D view.
-class Graphic3d_Camera : public Standard_Transient
+class Graphic3d_Camera : public RefObject
 {
 private:
   //! Template container for cached matrices or Real/ShortReal types.
@@ -822,10 +822,10 @@ private:
   mutable Graphic3d_WorldViewProjState myWorldViewProjState;
 
 public:
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_Camera, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Graphic3d_Camera, RefObject)
 };
 
-DEFINE_STANDARD_HANDLE(Graphic3d_Camera, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Graphic3d_Camera, RefObject)
 
 //! Linear interpolation tool for camera orientation and position.
 //! This tool interpolates camera parameters scale, eye, center, rotation (up and direction vectors)

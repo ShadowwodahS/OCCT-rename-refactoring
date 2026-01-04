@@ -16,7 +16,7 @@
 
 #include <StepVisual_SurfaceStyleTransparent.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_SurfaceStyleTransparent, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepVisual_SurfaceStyleTransparent, RefObject)
 
 //=================================================================================================
 

@@ -26,7 +26,7 @@
 #include <TColStd_HArray1OfReal.hxx>
 #include <TColStd_HArray2OfInteger.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom_OsculatingSurface, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Geom_OsculatingSurface, RefObject)
 
 //=================================================================================================
 

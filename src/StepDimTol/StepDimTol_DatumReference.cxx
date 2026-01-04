@@ -19,7 +19,7 @@
 #include <StepDimTol_Datum.hxx>
 #include <StepDimTol_DatumReference.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepDimTol_DatumReference, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepDimTol_DatumReference, RefObject)
 
 //=================================================================================================
 

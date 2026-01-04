@@ -28,9 +28,9 @@ class CDM_Application;
 class CDM_MetaData;
 
 class CDM_Reference;
-DEFINE_STANDARD_HANDLE(CDM_Reference, Standard_Transient)
+DEFINE_STANDARD_HANDLE(CDM_Reference, RefObject)
 
-class CDM_Reference : public Standard_Transient
+class CDM_Reference : public RefObject
 {
 
 public:
@@ -49,7 +49,7 @@ public:
 
   friend class CDM_Document;
 
-  DEFINE_STANDARD_RTTIEXT(CDM_Reference, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(CDM_Reference, RefObject)
 
 protected:
 private:

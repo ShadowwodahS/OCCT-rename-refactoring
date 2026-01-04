@@ -24,10 +24,10 @@ class StepFEA_CurveElementLocation;
 class StepBasic_EulerAngles;
 
 class StepFEA_CurveElementInterval;
-DEFINE_STANDARD_HANDLE(StepFEA_CurveElementInterval, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepFEA_CurveElementInterval, RefObject)
 
 //! Representation of STEP entity CurveElementInterval
-class StepFEA_CurveElementInterval : public Standard_Transient
+class StepFEA_CurveElementInterval : public RefObject
 {
 
 public:
@@ -51,7 +51,7 @@ public:
   //! Set field EuAngles
   Standard_EXPORT void SetEuAngles(const Handle(StepBasic_EulerAngles)& EuAngles);
 
-  DEFINE_STANDARD_RTTIEXT(StepFEA_CurveElementInterval, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepFEA_CurveElementInterval, RefObject)
 
 protected:
 private:

@@ -1922,7 +1922,7 @@ void IntPatch_Intersection__MAJ_R(Handle(Adaptor2d_Curve2d)* R1,
   if (VTX.IsOnDomS1())
   {
 
-    //-- long unsigned ptr= *((long unsigned *)(((Handle(Standard_Transient)
+    //-- long unsigned ptr= *((long unsigned *)(((Handle(RefObject)
     //*)(&(VTX.ArcOnS1())))));
     for (Standard_Integer i = 0; i < nbR1; i++)
     {

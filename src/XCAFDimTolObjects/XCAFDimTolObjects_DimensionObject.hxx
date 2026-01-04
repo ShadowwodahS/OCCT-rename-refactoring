@@ -40,10 +40,10 @@
 #include <XCAFDimTolObjects_AngularQualifier.hxx>
 
 class XCAFDimTolObjects_DimensionObject;
-DEFINE_STANDARD_HANDLE(XCAFDimTolObjects_DimensionObject, Standard_Transient)
+DEFINE_STANDARD_HANDLE(XCAFDimTolObjects_DimensionObject, RefObject)
 
 //! Access object to store dimension data
-class XCAFDimTolObjects_DimensionObject : public Standard_Transient
+class XCAFDimTolObjects_DimensionObject : public RefObject
 {
 
 public:
@@ -295,7 +295,7 @@ public:
   //! Dumps the content of me into the stream
   Standard_EXPORT void DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth = -1) const;
 
-  DEFINE_STANDARD_RTTIEXT(XCAFDimTolObjects_DimensionObject, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(XCAFDimTolObjects_DimensionObject, RefObject)
 
 private:
   XCAFDimTolObjects_DimensionType                      myType;

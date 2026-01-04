@@ -22,7 +22,7 @@
 
 #include <Interface_GeneralModule.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class Interface_EntityIterator;
 class Interface_ShareTool;
 class Interface_Check;
@@ -39,13 +39,13 @@ public:
   //! Specific filling of the list of Entities shared by an Entity
   //! <ent>. Can use the internal utility method Share, below
   Standard_EXPORT virtual void FillSharedCase(const Standard_Integer            casenum,
-                                              const Handle(Standard_Transient)& ent,
+                                              const Handle(RefObject)& ent,
                                               Interface_EntityIterator&         iter) const
     Standard_OVERRIDE = 0;
 
   //! Specific Checking of an Entity <ent>
   Standard_EXPORT virtual void CheckCase(const Standard_Integer            casenum,
-                                         const Handle(Standard_Transient)& ent,
+                                         const Handle(RefObject)& ent,
                                          const Interface_ShareTool&        shares,
                                          Handle(Interface_Check)& ach) const Standard_OVERRIDE = 0;
 
@@ -57,8 +57,8 @@ public:
   //! Already copied references (by CopyFrom) must remain unchanged
   //! Use method Search from TransferControl to work
   Standard_EXPORT virtual void CopyCase(const Standard_Integer            casenum,
-                                        const Handle(Standard_Transient)& entfrom,
-                                        const Handle(Standard_Transient)& entto,
+                                        const Handle(RefObject)& entfrom,
+                                        const Handle(RefObject)& entto,
                                         Interface_CopyTool& TC) const Standard_OVERRIDE = 0;
 
   DEFINE_STANDARD_RTTIEXT(StepData_GeneralModule, Interface_GeneralModule)

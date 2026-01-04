@@ -22,7 +22,7 @@
 
 #include <IFSelect_SelectAnyList.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class Interface_EntityIterator;
 
 class IFSelect_SelectInList;
@@ -43,9 +43,9 @@ class IFSelect_SelectInList : public IFSelect_SelectAnyList
 
 public:
   //! Returns an Entity, given its rank in the list
-  Standard_EXPORT virtual Handle(Standard_Transient) ListedEntity(
+  Standard_EXPORT virtual Handle(RefObject) ListedEntity(
     const Standard_Integer            num,
-    const Handle(Standard_Transient)& ent) const = 0;
+    const Handle(RefObject)& ent) const = 0;
 
   //! Puts into the result, the sub-entities of the list, from n1 to
   //! n2 included. Remark that adequation with Entity's type and
@@ -53,7 +53,7 @@ public:
   //! Called by RootResult; calls ListedEntity (see below)
   Standard_EXPORT void FillResult(const Standard_Integer            n1,
                                   const Standard_Integer            n2,
-                                  const Handle(Standard_Transient)& ent,
+                                  const Handle(RefObject)& ent,
                                   Interface_EntityIterator&         result) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IFSelect_SelectInList, IFSelect_SelectAnyList)

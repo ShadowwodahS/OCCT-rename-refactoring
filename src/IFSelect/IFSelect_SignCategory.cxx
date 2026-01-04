@@ -30,7 +30,7 @@ IFSelect_SignCategory::IFSelect_SignCategory()
     AddCase(Interface_Category::Name(i));
 }
 
-Standard_CString IFSelect_SignCategory::Value(const Handle(Standard_Transient)&       ent,
+Standard_CString IFSelect_SignCategory::Value(const Handle(RefObject)&       ent,
                                               const Handle(Interface_InterfaceModel)& model) const
 {
   if (ent.IsNull() || model.IsNull())

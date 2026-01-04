@@ -96,7 +96,7 @@ void DFBrowserPane_TDataStdReferenceArray::GetShortAttributeInfo(
 void DFBrowserPane_TDataStdReferenceArray::GetReferences(
   const Handle(TDF_Attribute)& theAttribute,
   NCollection_List<TDF_Label>& theRefLabels,
-  Handle(Standard_Transient)& /*theRefPresentation*/)
+  Handle(RefObject)& /*theRefPresentation*/)
 {
   if (!getTableView())
     return;

@@ -32,12 +32,12 @@
 
 class Aspect_DisplayConnection;
 
-DEFINE_STANDARD_HANDLE(Aspect_Window, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Aspect_Window, RefObject)
 
 //! Defines a window.
-class Aspect_Window : public Standard_Transient
+class Aspect_Window : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Aspect_Window, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Aspect_Window, RefObject)
 public:
   //! Returns True if the window <me> is virtual
   Standard_EXPORT Standard_Boolean IsVirtual() const;

@@ -33,7 +33,7 @@
   #include <ft2build.h>
   #include FT_FREETYPE_H
 #endif
-IMPLEMENT_STANDARD_RTTIEXT(Font_FontMgr, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Font_FontMgr, RefObject)
 
 #if defined(_WIN32)
 

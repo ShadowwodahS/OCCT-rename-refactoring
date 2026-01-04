@@ -42,7 +42,7 @@
  *              CommonBaseAllocator.
  *              Note that this object is managed by Handle.
  */
-class NCollection_BaseAllocator : public Standard_Transient
+class NCollection_BaseAllocator : public RefObject
 {
 public:
   // ---------- PUBLIC METHODS ------------
@@ -66,8 +66,8 @@ private:
 
 public:
   // ---------- CasCade RunTime Type Information
-  DEFINE_STANDARD_RTTIEXT(NCollection_BaseAllocator, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(NCollection_BaseAllocator, RefObject)
 };
-DEFINE_STANDARD_HANDLE(NCollection_BaseAllocator, Standard_Transient)
+DEFINE_STANDARD_HANDLE(NCollection_BaseAllocator, RefObject)
 
 #endif

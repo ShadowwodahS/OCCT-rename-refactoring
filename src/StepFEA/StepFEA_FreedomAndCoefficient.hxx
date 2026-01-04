@@ -23,10 +23,10 @@
 #include <Standard_Transient.hxx>
 
 class StepFEA_FreedomAndCoefficient;
-DEFINE_STANDARD_HANDLE(StepFEA_FreedomAndCoefficient, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepFEA_FreedomAndCoefficient, RefObject)
 
 //! Representation of STEP entity FreedomAndCoefficient
-class StepFEA_FreedomAndCoefficient : public Standard_Transient
+class StepFEA_FreedomAndCoefficient : public RefObject
 {
 
 public:
@@ -49,7 +49,7 @@ public:
   //! Set field A
   Standard_EXPORT void SetA(const StepElement_MeasureOrUnspecifiedValue& A);
 
-  DEFINE_STANDARD_RTTIEXT(StepFEA_FreedomAndCoefficient, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepFEA_FreedomAndCoefficient, RefObject)
 
 protected:
 private:

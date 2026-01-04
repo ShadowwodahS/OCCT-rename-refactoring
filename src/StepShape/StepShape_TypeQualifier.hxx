@@ -23,10 +23,10 @@
 class TCollection_HAsciiString;
 
 class StepShape_TypeQualifier;
-DEFINE_STANDARD_HANDLE(StepShape_TypeQualifier, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepShape_TypeQualifier, RefObject)
 
 //! Added for Dimensional Tolerances
-class StepShape_TypeQualifier : public Standard_Transient
+class StepShape_TypeQualifier : public RefObject
 {
 
 public:
@@ -38,7 +38,7 @@ public:
 
   Standard_EXPORT void SetName(const Handle(TCollection_HAsciiString)& name);
 
-  DEFINE_STANDARD_RTTIEXT(StepShape_TypeQualifier, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepShape_TypeQualifier, RefObject)
 
 protected:
 private:

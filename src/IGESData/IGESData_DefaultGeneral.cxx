@@ -68,7 +68,7 @@ void IGESData_DefaultGeneral::OwnCheckCase(const Standard_Integer,
 } // aucun critere specifique
 
 Standard_Boolean IGESData_DefaultGeneral::NewVoid(const Standard_Integer      CN,
-                                                  Handle(Standard_Transient)& entto) const
+                                                  Handle(RefObject)& entto) const
 {
   entto.Nullify();
   if (CN == 0)

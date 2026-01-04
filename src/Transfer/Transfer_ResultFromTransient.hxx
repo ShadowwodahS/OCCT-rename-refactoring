@@ -30,7 +30,7 @@ class Interface_Check;
 class Transfer_TransientProcess;
 
 class Transfer_ResultFromTransient;
-DEFINE_STANDARD_HANDLE(Transfer_ResultFromTransient, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Transfer_ResultFromTransient, RefObject)
 
 //! This class, in conjunction with ResultFromModel, allows to
 //! record the result of a transfer initially stored in a
@@ -40,7 +40,7 @@ DEFINE_STANDARD_HANDLE(Transfer_ResultFromTransient, Standard_Transient)
 //! the result and checks) plus a list of "sub-results", which
 //! have been recorded in the TrabsientProcess, under scope
 //! attached to the starting transient.
-class Transfer_ResultFromTransient : public Standard_Transient
+class Transfer_ResultFromTransient : public RefObject
 {
 
 public:
@@ -48,13 +48,13 @@ public:
   Standard_EXPORT Transfer_ResultFromTransient();
 
   //! Sets starting entity
-  Standard_EXPORT void SetStart(const Handle(Standard_Transient)& start);
+  Standard_EXPORT void SetStart(const Handle(RefObject)& start);
 
   //! Sets Binder (for result plus individual check)
   Standard_EXPORT void SetBinder(const Handle(Transfer_Binder)& binder);
 
   //! Returns the starting entity
-  Standard_EXPORT Handle(Standard_Transient) Start() const;
+  Standard_EXPORT Handle(RefObject) Start() const;
 
   //! Returns the binder
   Standard_EXPORT Handle(Transfer_Binder) Binder() const;
@@ -83,7 +83,7 @@ public:
   //! Returns the ResultFromTransient attached to a given starting
   //! entity (the key). Returns a null handle if not found
   Standard_EXPORT Handle(Transfer_ResultFromTransient) ResultFromKey(
-    const Handle(Standard_Transient)& key) const;
+    const Handle(RefObject)& key) const;
 
   //! This method is used by ResultFromModel to collate the list of
   //! ResultFromTransient, avoiding duplications with a map
@@ -106,11 +106,11 @@ public:
   //! scopes
   Standard_EXPORT void FillBack(const Handle(Transfer_TransientProcess)& TP) const;
 
-  DEFINE_STANDARD_RTTIEXT(Transfer_ResultFromTransient, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Transfer_ResultFromTransient, RefObject)
 
 protected:
 private:
-  Handle(Standard_Transient)           thestart;
+  Handle(RefObject)           thestart;
   Handle(Transfer_Binder)              thebinder;
   Handle(TColStd_HSequenceOfTransient) thesubs;
 };

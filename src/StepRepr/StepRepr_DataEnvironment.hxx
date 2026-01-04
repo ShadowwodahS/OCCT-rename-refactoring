@@ -23,10 +23,10 @@
 class TCollection_HAsciiString;
 
 class StepRepr_DataEnvironment;
-DEFINE_STANDARD_HANDLE(StepRepr_DataEnvironment, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepRepr_DataEnvironment, RefObject)
 
 //! Representation of STEP entity DataEnvironment
-class StepRepr_DataEnvironment : public Standard_Transient
+class StepRepr_DataEnvironment : public RefObject
 {
 
 public:
@@ -58,7 +58,7 @@ public:
   Standard_EXPORT void SetElements(
     const Handle(StepRepr_HArray1OfPropertyDefinitionRepresentation)& Elements);
 
-  DEFINE_STANDARD_RTTIEXT(StepRepr_DataEnvironment, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepRepr_DataEnvironment, RefObject)
 
 protected:
 private:

@@ -19,7 +19,7 @@
 
 StepGeom_Axis2Placement::StepGeom_Axis2Placement() {}
 
-Standard_Integer StepGeom_Axis2Placement::CaseNum(const Handle(Standard_Transient)& ent) const
+Standard_Integer StepGeom_Axis2Placement::CaseNum(const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

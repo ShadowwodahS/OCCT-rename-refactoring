@@ -23,9 +23,9 @@
 #include <Standard_Transient.hxx>
 
 class StepBasic_DimensionalExponents;
-DEFINE_STANDARD_HANDLE(StepBasic_DimensionalExponents, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_DimensionalExponents, RefObject)
 
-class StepBasic_DimensionalExponents : public Standard_Transient
+class StepBasic_DimensionalExponents : public RefObject
 {
 
 public:
@@ -69,7 +69,7 @@ public:
 
   Standard_EXPORT Standard_Real LuminousIntensityExponent() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_DimensionalExponents, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_DimensionalExponents, RefObject)
 
 protected:
 private:

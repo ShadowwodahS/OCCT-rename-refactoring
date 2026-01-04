@@ -22,7 +22,7 @@
 
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepBasic_ActionAssignment;
 class StepBasic_ActionRequestAssignment;
 class StepBasic_ApprovalAssignment;
@@ -57,7 +57,7 @@ public:
   //! 10 -> NameAssignment from StepBasic
   //! 11 -> SecurityClassificationAssignment from StepBasic
   //! 0 else
-  Standard_EXPORT Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! Returns Value as ActionAssignment (or Null if another type)
   Standard_EXPORT Handle(StepBasic_ActionAssignment) ActionAssignment() const;

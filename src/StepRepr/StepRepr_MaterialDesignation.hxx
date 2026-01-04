@@ -24,9 +24,9 @@
 class TCollection_HAsciiString;
 
 class StepRepr_MaterialDesignation;
-DEFINE_STANDARD_HANDLE(StepRepr_MaterialDesignation, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepRepr_MaterialDesignation, RefObject)
 
-class StepRepr_MaterialDesignation : public Standard_Transient
+class StepRepr_MaterialDesignation : public RefObject
 {
 
 public:
@@ -43,7 +43,7 @@ public:
 
   Standard_EXPORT StepRepr_CharacterizedDefinition OfDefinition() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepRepr_MaterialDesignation, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepRepr_MaterialDesignation, RefObject)
 
 protected:
 private:

@@ -28,9 +28,9 @@ class IntSurf_LineOn2S;
 class IntSurf_PntOn2S;
 
 class BRepApprox_ApproxLine;
-DEFINE_STANDARD_HANDLE(BRepApprox_ApproxLine, Standard_Transient)
+DEFINE_STANDARD_HANDLE(BRepApprox_ApproxLine, RefObject)
 
-class BRepApprox_ApproxLine : public Standard_Transient
+class BRepApprox_ApproxLine : public RefObject
 {
 
 public:
@@ -47,7 +47,7 @@ public:
 
   Standard_EXPORT IntSurf_PntOn2S Point(const Standard_Integer Index);
 
-  DEFINE_STANDARD_RTTIEXT(BRepApprox_ApproxLine, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(BRepApprox_ApproxLine, RefObject)
 
 protected:
 private:

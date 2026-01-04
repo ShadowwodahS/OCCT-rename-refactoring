@@ -28,7 +28,7 @@
 class TCollection_HAsciiString;
 
 class TCollection_HExtendedString;
-DEFINE_STANDARD_HANDLE(TCollection_HExtendedString, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TCollection_HExtendedString, RefObject)
 
 //! A variable-length sequence of "extended"
 //! (UNICODE) characters (16-bit character
@@ -41,7 +41,7 @@ DEFINE_STANDARD_HANDLE(TCollection_HExtendedString, Standard_Transient)
 //! - You may use an ExtendedString object to get the actual string.
 //! Note: HExtendedString objects use an
 //! ExtendedString string as a field.
-class TCollection_HExtendedString : public Standard_Transient
+class TCollection_HExtendedString : public RefObject
 {
 
 public:
@@ -207,7 +207,7 @@ public:
   Standard_EXPORT Standard_Boolean
     IsSameState(const Handle(TCollection_HExtendedString)& other) const;
 
-  DEFINE_STANDARD_RTTIEXT(TCollection_HExtendedString, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TCollection_HExtendedString, RefObject)
 
 protected:
 private:

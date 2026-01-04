@@ -25,18 +25,18 @@
 #include <TopoDS_Shape.hxx>
 #include <XSControl_Vars.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XSControl_Vars, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(XSControl_Vars, RefObject)
 
 XSControl_Vars::XSControl_Vars() {}
 
-void XSControl_Vars::Set(const Standard_CString name, const Handle(Standard_Transient)& val)
+void XSControl_Vars::Set(const Standard_CString name, const Handle(RefObject)& val)
 {
   thevars.Bind(name, val);
 }
 
-Handle(Standard_Transient) XSControl_Vars::Get(Standard_CString& name) const
+Handle(RefObject) XSControl_Vars::Get(Standard_CString& name) const
 {
-  Handle(Standard_Transient) val;
+  Handle(RefObject) val;
   if (!thevars.Find(name, val))
     val.Nullify();
   return val;

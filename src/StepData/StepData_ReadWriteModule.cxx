@@ -67,7 +67,7 @@ void StepData_ReadWriteModule::Read(const Standard_Integer                  CN,
                                     const Handle(Interface_FileReaderData)& data,
                                     const Standard_Integer                  num,
                                     Handle(Interface_Check)&                ach,
-                                    const Handle(Standard_Transient)&       ent) const
+                                    const Handle(RefObject)&       ent) const
 {
   DeclareAndCast(StepData_StepReaderData, stepdat, data);
   if (stepdat.IsNull())

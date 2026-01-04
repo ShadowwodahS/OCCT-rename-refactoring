@@ -17,7 +17,7 @@
 #include <Poly_PolygonOnTriangulation.hxx>
 #include <Standard_Dump.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Poly_PolygonOnTriangulation, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Poly_PolygonOnTriangulation, RefObject)
 
 //=================================================================================================
 

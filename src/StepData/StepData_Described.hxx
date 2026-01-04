@@ -28,11 +28,11 @@ class Interface_Check;
 class Interface_EntityIterator;
 
 class StepData_Described;
-DEFINE_STANDARD_HANDLE(StepData_Described, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepData_Described, RefObject)
 
 //! General frame to describe entities with Description (Simple or
 //! Complex)
-class StepData_Described : public Standard_Transient
+class StepData_Described : public RefObject
 {
 
 public:
@@ -67,7 +67,7 @@ public:
   //! Fills an EntityIterator with entities shared by <me>
   Standard_EXPORT virtual void Shared(Interface_EntityIterator& list) const = 0;
 
-  DEFINE_STANDARD_RTTIEXT(StepData_Described, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepData_Described, RefObject)
 
 protected:
   //! Initializes a Described Entity from a Description

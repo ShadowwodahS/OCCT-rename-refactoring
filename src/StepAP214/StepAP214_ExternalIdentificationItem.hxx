@@ -22,7 +22,7 @@
 
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepBasic_DocumentFile;
 class StepAP214_AppliedOrganizationAssignment;
 class StepAP214_AppliedPersonAndOrganizationAssignment;
@@ -65,7 +65,7 @@ public:
   //! 14 -> DateAndTimeAssignment from StepBasic
   //! 15 -> DateAssignment from StepBasic
   //! 0 else
-  Standard_EXPORT Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! Returns Value as DocumentFile (or Null if another type)
   Standard_EXPORT Handle(StepBasic_DocumentFile) DocumentFile() const;

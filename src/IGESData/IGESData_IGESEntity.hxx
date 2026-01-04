@@ -39,11 +39,11 @@ class gp_GTrsf;
 class Interface_EntityIterator;
 
 class IGESData_IGESEntity;
-DEFINE_STANDARD_HANDLE(IGESData_IGESEntity, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IGESData_IGESEntity, RefObject)
 
 //! defines root of IGES Entity definition, including Directory
 //! Part, lists of (optional) Properties and Associativities
-class IGESData_IGESEntity : public Standard_Transient
+class IGESData_IGESEntity : public RefObject
 {
 
 public:
@@ -330,7 +330,7 @@ public:
   friend class IGESData_IGESReaderTool;
   friend class IGESData_DirChecker;
 
-  DEFINE_STANDARD_RTTIEXT(IGESData_IGESEntity, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IGESData_IGESEntity, RefObject)
 
 protected:
   //! prepares lists of optional data, set values to defaults

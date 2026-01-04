@@ -13,7 +13,7 @@
 
 #include <XCAFDimTolObjects_DatumObject.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XCAFDimTolObjects_DatumObject, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(XCAFDimTolObjects_DatumObject, RefObject)
 
 //=================================================================================================
 

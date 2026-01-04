@@ -23,7 +23,7 @@
 
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepRepr_AssemblyComponentUsageSubstitute;
 class StepBasic_DocumentFile;
 class StepRepr_MaterialDesignation;
@@ -77,7 +77,7 @@ public:
   //! 20 -> Representation
   //! 21 -> ShapeAspectRelationship
   //! 0 else
-  Standard_EXPORT virtual Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT virtual Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! returns Value as a AssemblyComponentUsageSubstitute (Null if another type)
   Standard_EXPORT virtual Handle(StepRepr_AssemblyComponentUsageSubstitute)

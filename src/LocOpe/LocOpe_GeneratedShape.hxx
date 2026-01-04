@@ -26,9 +26,9 @@ class TopoDS_Vertex;
 class TopoDS_Face;
 
 class LocOpe_GeneratedShape;
-DEFINE_STANDARD_HANDLE(LocOpe_GeneratedShape, Standard_Transient)
+DEFINE_STANDARD_HANDLE(LocOpe_GeneratedShape, RefObject)
 
-class LocOpe_GeneratedShape : public Standard_Transient
+class LocOpe_GeneratedShape : public RefObject
 {
 
 public:
@@ -46,7 +46,7 @@ public:
   //! faces.
   Standard_EXPORT virtual const TopTools_ListOfShape& OrientedFaces() = 0;
 
-  DEFINE_STANDARD_RTTIEXT(LocOpe_GeneratedShape, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(LocOpe_GeneratedShape, RefObject)
 
 protected:
   TopTools_ListOfShape myGEdges;

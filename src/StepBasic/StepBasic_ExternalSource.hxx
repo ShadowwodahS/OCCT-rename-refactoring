@@ -22,10 +22,10 @@
 #include <Standard_Transient.hxx>
 
 class StepBasic_ExternalSource;
-DEFINE_STANDARD_HANDLE(StepBasic_ExternalSource, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_ExternalSource, RefObject)
 
 //! Representation of STEP entity ExternalSource
-class StepBasic_ExternalSource : public Standard_Transient
+class StepBasic_ExternalSource : public RefObject
 {
 
 public:
@@ -41,7 +41,7 @@ public:
   //! Set field SourceId
   Standard_EXPORT void SetSourceId(const StepBasic_SourceItem& SourceId);
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_ExternalSource, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_ExternalSource, RefObject)
 
 protected:
 private:

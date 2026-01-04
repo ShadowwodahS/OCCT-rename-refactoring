@@ -53,7 +53,7 @@ void Convert_Tools::ConvertStreamToPresentations(
   const Standard_SStream& theSStream,
   const Standard_Integer  theStartPos,
   const Standard_Integer /*theLastPos*/,
-  NCollection_List<Handle(Standard_Transient)>& thePresentations)
+  NCollection_List<Handle(RefObject)>& thePresentations)
 {
   int aStartPos = theStartPos;
 
@@ -232,7 +232,7 @@ Standard_Boolean Convert_Tools::CreateBoxShape(const gp_Pnt& thePntMin,
 //=======================================================================
 void Convert_Tools::CreatePresentation(
   const Handle(Geom_Line)&                      theLine,
-  NCollection_List<Handle(Standard_Transient)>& thePresentations)
+  NCollection_List<Handle(RefObject)>& thePresentations)
 {
   Handle(AIS_Line) aLinePrs = new AIS_Line(theLine);
   aLinePrs->SetColor(Quantity_NOC_TOMATO);
@@ -245,7 +245,7 @@ void Convert_Tools::CreatePresentation(
 //=======================================================================
 void Convert_Tools::CreatePresentation(
   const Handle(Geom_Plane)&                     thePlane,
-  NCollection_List<Handle(Standard_Transient)>& thePresentations)
+  NCollection_List<Handle(RefObject)>& thePresentations)
 {
   Handle(AIS_Plane) aPlanePrs = new AIS_Plane(thePlane);
 
@@ -271,7 +271,7 @@ void Convert_Tools::CreatePresentation(
 //=======================================================================
 void Convert_Tools::CreatePresentation(
   const gp_Trsf&                                theTrsf,
-  NCollection_List<Handle(Standard_Transient)>& thePresentations)
+  NCollection_List<Handle(RefObject)>& thePresentations)
 {
   Bnd_Box aBox(gp_Pnt(), gp_Pnt(10., 10., 10));
 

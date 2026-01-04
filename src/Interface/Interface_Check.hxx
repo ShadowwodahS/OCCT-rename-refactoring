@@ -32,7 +32,7 @@ class TCollection_HAsciiString;
 #endif
 
 class Interface_Check;
-DEFINE_STANDARD_HANDLE(Interface_Check, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Interface_Check, RefObject)
 
 //! Defines a Check, as a list of Fail or Warning Messages under
 //! a literal form, which can be empty. A Check can also bring an
@@ -45,7 +45,7 @@ DEFINE_STANDARD_HANDLE(Interface_Check, Standard_Transient)
 //! inserted (integers, reals, strings)
 //! The original form can be more suitable for some operations
 //! such as counting messages
-class Interface_Check : public Standard_Transient
+class Interface_Check : public RefObject
 {
 
 public:
@@ -54,7 +54,7 @@ public:
   Standard_EXPORT Interface_Check();
 
   //! Defines a Check on an Entity
-  Standard_EXPORT Interface_Check(const Handle(Standard_Transient)& anentity);
+  Standard_EXPORT Interface_Check(const Handle(RefObject)& anentity);
 
   //! New name for AddFail (Msg)
   Standard_EXPORT void SendFail(const Message_Msg& amsg);
@@ -184,7 +184,7 @@ public:
   Standard_EXPORT Standard_Boolean HasEntity() const;
 
   //! Returns the entity on which the Check has been defined
-  Standard_EXPORT const Handle(Standard_Transient)& Entity() const;
+  Standard_EXPORT const Handle(RefObject)& Entity() const;
 
   //! Clears a check, in order to receive information from transfer
   //! (Messages and Entity)
@@ -226,11 +226,11 @@ public:
                                         const Standard_Integer num = 0);
 
   //! Receives an entity result of a Transfer
-  Standard_EXPORT void SetEntity(const Handle(Standard_Transient)& anentity);
+  Standard_EXPORT void SetEntity(const Handle(RefObject)& anentity);
 
   //! same as SetEntity (old form kept for compatibility)
   //! Warning : Does nothing if Entity field is not yet clear
-  Standard_EXPORT void GetEntity(const Handle(Standard_Transient)& anentity);
+  Standard_EXPORT void GetEntity(const Handle(RefObject)& anentity);
 
   //! Copies messages stored in another Check, cumulating
   //! Does not regard other's Entity. Used to cumulate messages
@@ -260,7 +260,7 @@ public:
   Standard_EXPORT void Trace(const Standard_Integer level = -1,
                              const Standard_Integer final = 1) const;
 
-  DEFINE_STANDARD_RTTIEXT(Interface_Check, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Interface_Check, RefObject)
 
 protected:
 private:
@@ -270,7 +270,7 @@ private:
   Handle(TColStd_HSequenceOfHAsciiString) thewarno;
   Handle(TColStd_HSequenceOfHAsciiString) theinfos;
   Handle(TColStd_HSequenceOfHAsciiString) theinfoo;
-  Handle(Standard_Transient)              theent;
+  Handle(RefObject)              theent;
 };
 
 #endif // _Interface_Check_HeaderFile

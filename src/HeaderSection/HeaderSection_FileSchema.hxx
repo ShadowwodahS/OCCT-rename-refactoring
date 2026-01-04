@@ -25,9 +25,9 @@
 class TCollection_HAsciiString;
 
 class HeaderSection_FileSchema;
-DEFINE_STANDARD_HANDLE(HeaderSection_FileSchema, Standard_Transient)
+DEFINE_STANDARD_HANDLE(HeaderSection_FileSchema, RefObject)
 
-class HeaderSection_FileSchema : public Standard_Transient
+class HeaderSection_FileSchema : public RefObject
 {
 
 public:
@@ -46,7 +46,7 @@ public:
 
   Standard_EXPORT Standard_Integer NbSchemaIdentifiers() const;
 
-  DEFINE_STANDARD_RTTIEXT(HeaderSection_FileSchema, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(HeaderSection_FileSchema, RefObject)
 
 protected:
 private:

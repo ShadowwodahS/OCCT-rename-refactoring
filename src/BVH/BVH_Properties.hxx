@@ -21,9 +21,9 @@
 #include <Standard_Macro.hxx>
 
 //! Abstract properties of geometric object.
-class BVH_Properties : public Standard_Transient
+class BVH_Properties : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(BVH_Properties, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(BVH_Properties, RefObject)
 public:
   //! Releases resources of object properties.
   Standard_EXPORT virtual ~BVH_Properties() = 0;

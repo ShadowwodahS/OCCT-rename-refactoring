@@ -46,7 +46,7 @@ void IGESSelect_IGESTypeForm::SetForm(const Standard_Boolean withform)
 //         thename.AssignCat (withform ? "IGES Type & Form Numbers" : "IGES Type Number") ;
 
 Standard_CString IGESSelect_IGESTypeForm::Value(
-  const Handle(Standard_Transient)& ent,
+  const Handle(RefObject)& ent,
   const Handle(Interface_InterfaceModel)& /*model*/) const
 {
   DeclareAndCast(IGESData_IGESEntity, igesent, ent);

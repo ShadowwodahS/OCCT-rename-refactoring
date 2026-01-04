@@ -38,7 +38,7 @@ IMPLEMENT_STANDARD_RTTIEXT(WNT_Window, Aspect_Window)
 
 //! Auxiliary tool for handling WM_TOUCH events.
 //! Dynamically loads functions from User32 available since Win7 and later.
-class WNT_Window::TouchInputHelper : public Standard_Transient
+class WNT_Window::TouchInputHelper : public RefObject
 {
 public:
   typedef BOOL(WINAPI* RegisterTouchWindow_t)(HWND hwnd, ULONG ulFlags);

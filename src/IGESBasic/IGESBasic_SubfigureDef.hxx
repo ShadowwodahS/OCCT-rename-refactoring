@@ -23,7 +23,7 @@
 #include <IGESData_HArray1OfIGESEntity.hxx>
 #include <IGESData_IGESEntity.hxx>
 class TCollection_HAsciiString;
-class Standard_Transient;
+class RefObject;
 
 class IGESBasic_SubfigureDef;
 DEFINE_STANDARD_HANDLE(IGESBasic_SubfigureDef, IGESData_IGESEntity)
@@ -64,7 +64,7 @@ public:
 
   //! returns the specific entity as indicated by Index
   //! raises exception if Index <= 0 or Index > NbEntities()
-  Standard_EXPORT Handle(Standard_Transient) Value(const Standard_Integer Index) const;
+  Standard_EXPORT Handle(RefObject) Value(const Standard_Integer Index) const;
 
   DEFINE_STANDARD_RTTIEXT(IGESBasic_SubfigureDef, IGESData_IGESEntity)
 

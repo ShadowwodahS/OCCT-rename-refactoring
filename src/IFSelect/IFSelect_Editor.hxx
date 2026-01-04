@@ -36,7 +36,7 @@ class IFSelect_ListEditor;
 class Interface_InterfaceModel;
 
 class IFSelect_Editor;
-DEFINE_STANDARD_HANDLE(IFSelect_Editor, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IFSelect_Editor, RefObject)
 
 //! An Editor defines a set of values and a way to edit them, on
 //! an entity or on the model (e.g. on its header)
@@ -44,7 +44,7 @@ DEFINE_STANDARD_HANDLE(IFSelect_Editor, Standard_Transient)
 //! Each Value is controlled by a TypedValue, with a number (it is
 //! an Integer) and a name under two forms (complete and short)
 //! and an edit mode
-class IFSelect_Editor : public Standard_Transient
+class IFSelect_Editor : public RefObject
 {
 
 public:
@@ -138,7 +138,7 @@ public:
   //! editor
   Standard_EXPORT virtual Standard_Boolean Load(
     const Handle(IFSelect_EditForm)&        form,
-    const Handle(Standard_Transient)&       ent,
+    const Handle(RefObject)&       ent,
     const Handle(Interface_InterfaceModel)& model) const = 0;
 
   //! Updates the EditForm when a parameter is modified
@@ -169,10 +169,10 @@ public:
   //! editor
   Standard_EXPORT virtual Standard_Boolean Apply(
     const Handle(IFSelect_EditForm)&        form,
-    const Handle(Standard_Transient)&       ent,
+    const Handle(RefObject)&       ent,
     const Handle(Interface_InterfaceModel)& model) const = 0;
 
-  DEFINE_STANDARD_RTTIEXT(IFSelect_Editor, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IFSelect_Editor, RefObject)
 
 protected:
   //! Prepares the list of Typed Values (gives its count)

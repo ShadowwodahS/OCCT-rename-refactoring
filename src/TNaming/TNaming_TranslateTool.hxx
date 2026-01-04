@@ -25,13 +25,13 @@
 class TopoDS_Shape;
 
 class TNaming_TranslateTool;
-DEFINE_STANDARD_HANDLE(TNaming_TranslateTool, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TNaming_TranslateTool, RefObject)
 
 //! tool to copy underlying TShape of a Shape.
 //! The TranslateTool class is provided to support the
 //! translation of topological data structures  Transient
 //! to  Transient.
-class TNaming_TranslateTool : public Standard_Transient
+class TNaming_TranslateTool : public RefObject
 {
 
 public:
@@ -67,7 +67,7 @@ public:
 
   Standard_EXPORT void UpdateShape(const TopoDS_Shape& S1, TopoDS_Shape& S2) const;
 
-  DEFINE_STANDARD_RTTIEXT(TNaming_TranslateTool, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TNaming_TranslateTool, RefObject)
 
 protected:
 private:

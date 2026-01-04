@@ -28,14 +28,14 @@
 class TDF_AttributeDelta;
 
 class TDF_Delta;
-DEFINE_STANDARD_HANDLE(TDF_Delta, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TDF_Delta, RefObject)
 
 //! A set of AttributeDelta for a given transaction
 //! number and reference time number.
 //! A delta set is available at <aSourceTime>. If
 //! applied, it restores the TDF_Data in the state it
 //! was at <aTargetTime>.
-class TDF_Delta : public Standard_Transient
+class TDF_Delta : public RefObject
 {
 
 public:
@@ -75,7 +75,7 @@ public:
 
   friend class TDF_Data;
 
-  DEFINE_STANDARD_RTTIEXT(TDF_Delta, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TDF_Delta, RefObject)
 
 protected:
   //! Validates <me> at <aBeginTime>. If applied, it

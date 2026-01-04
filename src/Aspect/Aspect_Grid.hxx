@@ -23,9 +23,9 @@
 #include <Aspect_GridDrawMode.hxx>
 #include <Standard_Transient.hxx>
 
-class Aspect_Grid : public Standard_Transient
+class Aspect_Grid : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Aspect_Grid, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Aspect_Grid, RefObject)
 public:
   //! defines the x Origin of the grid.
   Standard_EXPORT void SetXOrigin(const Standard_Real anOrigin);
@@ -126,6 +126,6 @@ protected:
   Aspect_GridDrawMode myDrawMode;
 };
 
-DEFINE_STANDARD_HANDLE(Aspect_Grid, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Aspect_Grid, RefObject)
 
 #endif // _Aspect_Grid_HeaderFile

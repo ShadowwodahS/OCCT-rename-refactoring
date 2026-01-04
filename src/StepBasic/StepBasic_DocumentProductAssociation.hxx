@@ -25,10 +25,10 @@ class TCollection_HAsciiString;
 class StepBasic_Document;
 
 class StepBasic_DocumentProductAssociation;
-DEFINE_STANDARD_HANDLE(StepBasic_DocumentProductAssociation, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_DocumentProductAssociation, RefObject)
 
 //! Representation of STEP entity DocumentProductAssociation
-class StepBasic_DocumentProductAssociation : public Standard_Transient
+class StepBasic_DocumentProductAssociation : public RefObject
 {
 
 public:
@@ -70,7 +70,7 @@ public:
   Standard_EXPORT void SetRelatedProduct(
     const StepBasic_ProductOrFormationOrDefinition& RelatedProduct);
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_DocumentProductAssociation, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_DocumentProductAssociation, RefObject)
 
 protected:
 private:

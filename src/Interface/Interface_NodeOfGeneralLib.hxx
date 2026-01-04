@@ -22,15 +22,15 @@
 
 #include <Standard_Transient.hxx>
 class Interface_GlobalNodeOfGeneralLib;
-class Standard_Transient;
+class RefObject;
 class Interface_GeneralModule;
 class Interface_Protocol;
 class Interface_GeneralLib;
 
 class Interface_NodeOfGeneralLib;
-DEFINE_STANDARD_HANDLE(Interface_NodeOfGeneralLib, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Interface_NodeOfGeneralLib, RefObject)
 
-class Interface_NodeOfGeneralLib : public Standard_Transient
+class Interface_NodeOfGeneralLib : public RefObject
 {
 
 public:
@@ -51,7 +51,7 @@ public:
   //! is a Null Handle
   Standard_EXPORT const Handle(Interface_NodeOfGeneralLib)& Next() const;
 
-  DEFINE_STANDARD_RTTI_INLINE(Interface_NodeOfGeneralLib, Standard_Transient)
+  DEFINE_STANDARD_RTTI_INLINE(Interface_NodeOfGeneralLib, RefObject)
 
 protected:
 private:

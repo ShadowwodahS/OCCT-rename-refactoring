@@ -135,7 +135,7 @@ typedef Graphic3d_UniformValue<Graphic3d_Vec3> Graphic3d_UniformVec3;
 typedef Graphic3d_UniformValue<Graphic3d_Vec4> Graphic3d_UniformVec4;
 
 //! Describes custom uniform shader variable.
-class Graphic3d_ShaderVariable : public Standard_Transient
+class Graphic3d_ShaderVariable : public RefObject
 {
 public:
   //! Releases resources of shader variable.
@@ -156,7 +156,7 @@ public:
                                           const T&                       theValue);
 
 public:
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_ShaderVariable, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Graphic3d_ShaderVariable, RefObject)
 
 protected:
   //! Creates new uninitialized shader variable.
@@ -170,7 +170,7 @@ protected:
   Graphic3d_ValueInterface* myValue;
 };
 
-DEFINE_STANDARD_HANDLE(Graphic3d_ShaderVariable, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Graphic3d_ShaderVariable, RefObject)
 
 #include <Graphic3d_ShaderVariable.lxx>
 

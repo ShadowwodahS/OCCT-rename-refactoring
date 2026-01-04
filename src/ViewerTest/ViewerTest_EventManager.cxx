@@ -59,7 +59,7 @@ void ViewerTest_EventManager::onWasmRedrawView(void*)
 
 Standard_IMPORT Standard_Boolean Draw_Interprete(const char* theCommand);
 
-IMPLEMENT_STANDARD_RTTIEXT(ViewerTest_EventManager, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(ViewerTest_EventManager, RefObject)
 
 //=================================================================================================
 

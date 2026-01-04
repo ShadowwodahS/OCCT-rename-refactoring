@@ -21,7 +21,7 @@
 #include <OSD_Path.hxx>
 #include <OSD_Protection.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(DE_ConfigurationNode, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(DE_ConfigurationNode, RefObject)
 
 //=================================================================================================
 

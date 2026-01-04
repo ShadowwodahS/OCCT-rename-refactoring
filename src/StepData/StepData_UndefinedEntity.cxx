@@ -23,7 +23,7 @@
 #include <TCollection_AsciiString.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepData_UndefinedEntity, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepData_UndefinedEntity, RefObject)
 
 StepData_UndefinedEntity::StepData_UndefinedEntity()
 {
@@ -74,7 +74,7 @@ void StepData_UndefinedEntity::ReadRecord(const Handle(StepData_StepReaderData)&
   thecont->Reservate(nb, 4);
   for (Standard_Integer i = 1; i <= nb; i++)
   {
-    Handle(Standard_Transient)       anent;
+    Handle(RefObject)       anent;
     Handle(TCollection_HAsciiString) hval;
     Standard_CString                 val    = SR->ParamCValue(num, i);
     Interface_ParamType              partyp = SR->ParamType(num, i);
@@ -142,7 +142,7 @@ void StepData_UndefinedEntity::WriteParams(StepData_StepWriter& SW) const
   if (!IsSub())
     SW.StartEntity(TCollection_AsciiString(StepType()));
   Standard_Integer           nb = thecont->NbParams();
-  Handle(Standard_Transient) anent;
+  Handle(RefObject) anent;
   for (Standard_Integer i = 1; i <= nb; i++)
   {
     Interface_ParamType partyp = thecont->ParamType(i);

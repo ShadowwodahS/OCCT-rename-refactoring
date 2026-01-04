@@ -27,7 +27,7 @@ class Transfer_Binder;
 class Transfer_Finder;
 class Transfer_ProcessForFinder;
 class Transfer_FinderProcess;
-class Standard_Transient;
+class RefObject;
 
 class Transfer_ActorOfFinderProcess;
 DEFINE_STANDARD_HANDLE(Transfer_ActorOfFinderProcess, Transfer_ActorOfProcessForFinder)
@@ -54,8 +54,8 @@ public:
     const Handle(Transfer_FinderProcess)& TP,
     const Message_ProgressRange&          theProgress = Message_ProgressRange());
 
-  Standard_EXPORT virtual Handle(Standard_Transient) TransferTransient(
-    const Handle(Standard_Transient)&     start,
+  Standard_EXPORT virtual Handle(RefObject) TransferTransient(
+    const Handle(RefObject)&     start,
     const Handle(Transfer_FinderProcess)& TP,
     const Message_ProgressRange&          theProgress = Message_ProgressRange());
 

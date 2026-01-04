@@ -20,7 +20,7 @@
 #include <StepFEA_CurveElementInterval.hxx>
 #include <StepFEA_CurveElementLocation.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepFEA_CurveElementInterval, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepFEA_CurveElementInterval, RefObject)
 
 //=================================================================================================
 

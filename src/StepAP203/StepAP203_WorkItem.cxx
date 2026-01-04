@@ -26,7 +26,7 @@ StepAP203_WorkItem::StepAP203_WorkItem() {}
 
 //=================================================================================================
 
-Standard_Integer StepAP203_WorkItem::CaseNum(const Handle(Standard_Transient)& ent) const
+Standard_Integer StepAP203_WorkItem::CaseNum(const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

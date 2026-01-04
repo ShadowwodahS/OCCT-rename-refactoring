@@ -22,7 +22,7 @@
 
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepVisual_AnnotationCurveOccurrence;
 class StepVisual_AnnotationFillAreaOccurrence;
 class StepVisual_AnnotationTextOccurrence;
@@ -42,7 +42,7 @@ public:
   //! 3 -> TessellatedAnnotationOccurrence
   //! 4 -> AnnotationFillAreaOccurrence
   //! 0 else
-  Standard_EXPORT Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! returns Value as a AnnotationCurveOccurrence (Null if another type)
   Standard_EXPORT Handle(StepVisual_AnnotationCurveOccurrence) AnnotationCurveOccurrence() const;

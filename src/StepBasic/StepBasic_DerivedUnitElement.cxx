@@ -15,7 +15,7 @@
 #include <StepBasic_DerivedUnitElement.hxx>
 #include <StepBasic_NamedUnit.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_DerivedUnitElement, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_DerivedUnitElement, RefObject)
 
 StepBasic_DerivedUnitElement::StepBasic_DerivedUnitElement() {}
 

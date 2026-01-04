@@ -22,7 +22,7 @@
 
 #include <MoniTool_SignText.hxx>
 class TCollection_AsciiString;
-class Standard_Transient;
+class RefObject;
 class Interface_InterfaceModel;
 
 class Interface_SignType;
@@ -39,15 +39,15 @@ public:
   //! initialization time
   //! Specialised to consider context as an InterfaceModel
   Standard_EXPORT TCollection_AsciiString
-    Text(const Handle(Standard_Transient)& ent,
-         const Handle(Standard_Transient)& context) const Standard_OVERRIDE;
+    Text(const Handle(RefObject)& ent,
+         const Handle(RefObject)& context) const Standard_OVERRIDE;
 
   //! Returns the Signature for a Transient object. It is specific
   //! of each sub-class of Signature. For a Null Handle, it should
   //! provide ""
   //! It can work with the model which contains the entity
   Standard_EXPORT virtual Standard_CString Value(
-    const Handle(Standard_Transient)&       ent,
+    const Handle(RefObject)&       ent,
     const Handle(Interface_InterfaceModel)& model) const = 0;
 
   //! From a CDL Type Name, returns the Class part (package dropped)

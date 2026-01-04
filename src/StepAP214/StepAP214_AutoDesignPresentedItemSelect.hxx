@@ -23,7 +23,7 @@
 
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepBasic_ProductDefinitionRelationship;
 class StepBasic_ProductDefinition;
 class StepRepr_ProductDefinitionShape;
@@ -47,7 +47,7 @@ public:
   //! 5 -> ShapeAspect
   //! 6 -> DocumentRelationship,
   //! 0 else
-  Standard_EXPORT Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! returns Value as a ProductDefinitionRelationship (Null if another type)
   Standard_EXPORT Handle(StepBasic_ProductDefinitionRelationship) ProductDefinitionRelationship()

@@ -31,7 +31,7 @@ class BinTObjDrivers
 public:
   // ---------- PUBLIC METHODS ----------
 
-  Standard_EXPORT static const Handle(Standard_Transient)& Factory(const Standard_GUID& aGUID);
+  Standard_EXPORT static const Handle(RefObject)& Factory(const Standard_GUID& aGUID);
   // Returns a driver corresponding to <aGUID>. Used for plugin.
 
   //! Defines format "TObjBin" and registers its read and write drivers

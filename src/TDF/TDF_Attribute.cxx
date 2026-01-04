@@ -40,7 +40,7 @@
 #include <TDF_LabelNode.hxx>
 #include <TDF_Tool.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TDF_Attribute, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(TDF_Attribute, RefObject)
 
 #define TDF_DATA_COMMIT_OPTIMIZED
 

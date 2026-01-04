@@ -30,7 +30,7 @@ class IFSelect_AppliedModifiers;
 class Interface_HGraph;
 class IFSelect_GeneralModifier;
 class Interface_Graph;
-class Standard_Transient;
+class RefObject;
 class Interface_Check;
 
 //! This class gathers various information used by File Modifiers
@@ -116,7 +116,7 @@ public:
   Standard_EXPORT void Next();
 
   //! Returns the current selected entity in the model
-  Standard_EXPORT Handle(Standard_Transient) Value() const;
+  Standard_EXPORT Handle(RefObject) Value() const;
 
   //! Adds a Check to the CheckList. If it is empty, nothing is done
   //! If it concerns an Entity from the Model (by SetEntity)
@@ -127,14 +127,14 @@ public:
   //! Adds a Warning Message for an Entity from the Model
   //! If <start> is not an Entity from the model (e.g. the
   //! model itself) this message is added to Global Check.
-  Standard_EXPORT void AddWarning(const Handle(Standard_Transient)& start,
+  Standard_EXPORT void AddWarning(const Handle(RefObject)& start,
                                   const Standard_CString            mess,
                                   const Standard_CString            orig = "");
 
   //! Adds a Fail Message for an Entity from the Model
   //! If <start> is not an Entity from the model (e.g. the
   //! model itself) this message is added to Global Check.
-  Standard_EXPORT void AddFail(const Handle(Standard_Transient)& start,
+  Standard_EXPORT void AddFail(const Handle(RefObject)& start,
                                const Standard_CString            mess,
                                const Standard_CString            orig = "");
 
@@ -147,7 +147,7 @@ public:
   //! Returns a Check attached to an Entity from the Model
   //! It can then be acknowledged on the spot, in condition that the
   //! caller works by reference ("Interface_Check& check = ...")
-  Standard_EXPORT Handle(Interface_Check) CCheck(const Handle(Standard_Transient)& start);
+  Standard_EXPORT Handle(Interface_Check) CCheck(const Handle(RefObject)& start);
 
   //! Returns the complete CheckList
   Standard_EXPORT Interface_CheckIterator CheckList() const;

@@ -28,13 +28,13 @@ class TCollection_HAsciiString;
 class Units_Dimensions;
 
 class Units_Quantity;
-DEFINE_STANDARD_HANDLE(Units_Quantity, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Units_Quantity, RefObject)
 
 //! This  class stores  in its  field all the possible
 //! units of all the unit systems for a given physical
 //! quantity. Each unit's  value  is  expressed in the
 //! S.I. unit system.
-class Units_Quantity : public Standard_Transient
+class Units_Quantity : public RefObject
 {
 
 public:
@@ -63,7 +63,7 @@ public:
   //! Useful for debugging.
   Standard_EXPORT void Dump(const Standard_Integer ashift, const Standard_Integer alevel) const;
 
-  DEFINE_STANDARD_RTTIEXT(Units_Quantity, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Units_Quantity, RefObject)
 
 protected:
 private:

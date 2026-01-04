@@ -19,16 +19,16 @@
 #include <Standard_Transient.hxx>
 #include <Standard_Macro.hxx>
 
-class Standard_Transient;
+class RefObject;
 
 //! Namespace opencascade is intended for low-level template classes and functions
 namespace opencascade
 {
 
-//! Intrusive smart pointer for use with Standard_Transient class and its descendants.
+//! Intrusive smart pointer for use with RefObject class and its descendants.
 //!
 //! This class is similar to boost::intrusive_ptr<>. The reference counter
-//! is part of the base class (Standard_Transient), thus creation of a handle
+//! is part of the base class (RefObject), thus creation of a handle
 //! does not require allocation of additional memory for the counter.
 //! All handles to the same object share the common counter; object is deleted
 //! when the last handle pointing on it is destroyed. It is safe to create a new
@@ -219,7 +219,7 @@ public:
          GCC below 4.5) */
 
   //! Conversion to bool-compatible type for use in conditional expressions
-  operator Standard_Transient* handle::*() const { return entity ? &handle::entity : 0; }
+  operator RefObject* handle::*() const { return entity ? &handle::entity : 0; }
 
 #endif
 
@@ -366,7 +366,7 @@ public:
 
 private:
   //! Assignment
-  void Assign(Standard_Transient* thePtr)
+  void Assign(RefObject* thePtr)
   {
     if (thePtr == entity)
       return;
@@ -394,7 +394,7 @@ private:
   friend class handle;
 
 private:
-  Standard_Transient* entity;
+  RefObject* entity;
 };
 
 } // namespace opencascade
@@ -450,7 +450,7 @@ struct hash<Handle(TheTransientType)>
     typedef Handle(C1) Handle_##C1;
 #endif
 
-#define DEFINE_STANDARD_HANDLE(C1, C2) DEFINE_STANDARD_HANDLECLASS(C1, C2, Standard_Transient)
+#define DEFINE_STANDARD_HANDLE(C1, C2) DEFINE_STANDARD_HANDLECLASS(C1, C2, RefObject)
 #define DEFINE_STANDARD_PHANDLE(C1, C2) DEFINE_STANDARD_HANDLECLASS(C1, C2, Standard_Persistent)
 
 #endif

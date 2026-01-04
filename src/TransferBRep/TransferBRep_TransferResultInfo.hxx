@@ -24,7 +24,7 @@
 #include <Standard_Transient.hxx>
 
 class TransferBRep_TransferResultInfo;
-DEFINE_STANDARD_HANDLE(TransferBRep_TransferResultInfo, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TransferBRep_TransferResultInfo, RefObject)
 
 //! Data structure for storing information on transfer result.
 //! At the moment it dispatches information for the following types:
@@ -36,7 +36,7 @@ DEFINE_STANDARD_HANDLE(TransferBRep_TransferResultInfo, Standard_Transient)
 //! - no result + warning(s),
 //! - no result + fail(s),
 //! - no result + warning(s) + fail(s),
-class TransferBRep_TransferResultInfo : public Standard_Transient
+class TransferBRep_TransferResultInfo : public RefObject
 {
 
 public:
@@ -62,7 +62,7 @@ public:
 
   Standard_Integer& NoResultWarningFail();
 
-  DEFINE_STANDARD_RTTIEXT(TransferBRep_TransferResultInfo, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TransferBRep_TransferResultInfo, RefObject)
 
 protected:
 private:

@@ -108,7 +108,7 @@ Standard_Boolean StepData_ESDescr::IsSub(const Handle(StepData_ESDescr)& other) 
     oth = other;
   if (!thebase.IsNull())
     return thebase->IsSub(oth);
-  Handle(Standard_Transient) t1 = this;
+  Handle(RefObject) t1 = this;
   if (oth == t1)
     return Standard_True;
   if (oth == thesuper)

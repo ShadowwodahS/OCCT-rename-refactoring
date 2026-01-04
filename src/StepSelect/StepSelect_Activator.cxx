@@ -68,7 +68,7 @@ IFSelect_ReturnStatus StepSelect_Activator::Do(const Standard_Integer           
         std::cout << "Not an entity : " << arg2 << std::endl;
         return IFSelect_RetError;
       }
-      Handle(Standard_Transient) ent = pilot->Session()->StartingEntity(num);
+      Handle(RefObject) ent = pilot->Session()->StartingEntity(num);
       DeclareAndCast(StepData_UndefinedEntity, und, ent);
       if (!und.IsNull())
       {

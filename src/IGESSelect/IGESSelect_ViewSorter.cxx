@@ -22,7 +22,7 @@
 #include <Standard_Transient.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IGESSelect_ViewSorter, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(IGESSelect_ViewSorter, RefObject)
 
 #define PourDrawing 404
 
@@ -48,7 +48,7 @@ void IGESSelect_ViewSorter::Clear()
   theindfin.Clear(); // seq//
 }
 
-Standard_Boolean IGESSelect_ViewSorter::Add(const Handle(Standard_Transient)& ent)
+Standard_Boolean IGESSelect_ViewSorter::Add(const Handle(RefObject)& ent)
 {
   DeclareAndCast(IGESData_IGESEntity, igesent, ent);
   if (!igesent.IsNull())
@@ -184,7 +184,7 @@ void IGESSelect_ViewSorter::SortDrawings(const Interface_Graph& G)
       if (item.IsNull())
         continue;
       //  Si cest un Drawing, il definit le Set. Sinon, chercher Drawing contenant
-      Handle(Standard_Transient) drawing;
+      Handle(RefObject) drawing;
       if (item->TypeNumber() == PourDrawing)
         drawing = item;
       else

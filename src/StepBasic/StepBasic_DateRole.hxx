@@ -24,9 +24,9 @@
 class TCollection_HAsciiString;
 
 class StepBasic_DateRole;
-DEFINE_STANDARD_HANDLE(StepBasic_DateRole, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_DateRole, RefObject)
 
-class StepBasic_DateRole : public Standard_Transient
+class StepBasic_DateRole : public RefObject
 {
 
 public:
@@ -39,7 +39,7 @@ public:
 
   Standard_EXPORT Handle(TCollection_HAsciiString) Name() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_DateRole, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_DateRole, RefObject)
 
 protected:
 private:

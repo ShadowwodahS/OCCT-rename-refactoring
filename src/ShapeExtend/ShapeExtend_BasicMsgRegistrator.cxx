@@ -19,7 +19,7 @@
 #include <Standard_Type.hxx>
 #include <TopoDS_Shape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeExtend_BasicMsgRegistrator, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(ShapeExtend_BasicMsgRegistrator, RefObject)
 
 //=================================================================================================
 
@@ -27,7 +27,7 @@ ShapeExtend_BasicMsgRegistrator::ShapeExtend_BasicMsgRegistrator() {}
 
 //=================================================================================================
 
-void ShapeExtend_BasicMsgRegistrator::Send(const Handle(Standard_Transient)& /*object*/,
+void ShapeExtend_BasicMsgRegistrator::Send(const Handle(RefObject)& /*object*/,
                                            const Message_Msg& /*message*/,
                                            const Message_Gravity /*gravity*/)
 {
@@ -46,6 +46,6 @@ void ShapeExtend_BasicMsgRegistrator::Send(const TopoDS_Shape& /*shape*/,
 void ShapeExtend_BasicMsgRegistrator::Send(const Message_Msg&    message,
                                            const Message_Gravity gravity)
 {
-  Handle(Standard_Transient) dummy;
+  Handle(RefObject) dummy;
   Send(dummy, message, gravity);
 }

@@ -13,7 +13,7 @@
 
 #include <Aspect_Grid.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Aspect_Grid, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Aspect_Grid, RefObject)
 
 Aspect_Grid::Aspect_Grid(const Standard_Real   theXOrigin,
                          const Standard_Real   theYOrigin,

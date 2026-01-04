@@ -14,7 +14,7 @@
 #include <Standard_Type.hxx>
 #include <StepShape_PrecisionQualifier.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepShape_PrecisionQualifier, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepShape_PrecisionQualifier, RefObject)
 
 StepShape_PrecisionQualifier::StepShape_PrecisionQualifier() {}
 

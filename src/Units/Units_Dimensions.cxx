@@ -20,7 +20,7 @@
 #include <Units_Operators.hxx>
 #include <Units_UnitsDictionary.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Units_Dimensions, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Units_Dimensions, RefObject)
 
 //=================================================================================================
 

@@ -22,7 +22,7 @@
 #include <Standard_Type.hxx>
 #include <UTL.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(PCDM_ReferenceIterator, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(PCDM_ReferenceIterator, RefObject)
 
 #ifdef _MSC_VER
   #include <tchar.h>

@@ -19,7 +19,7 @@
 #include <StepRepr_PropertyDefinitionRelationship.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepRepr_PropertyDefinitionRelationship, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepRepr_PropertyDefinitionRelationship, RefObject)
 
 //=================================================================================================
 

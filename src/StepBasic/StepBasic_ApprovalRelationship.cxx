@@ -15,7 +15,7 @@
 #include <StepBasic_ApprovalRelationship.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_ApprovalRelationship, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_ApprovalRelationship, RefObject)
 
 StepBasic_ApprovalRelationship::StepBasic_ApprovalRelationship() {}
 

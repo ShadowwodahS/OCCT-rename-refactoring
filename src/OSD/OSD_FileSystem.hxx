@@ -20,9 +20,9 @@
 
 //! Base interface for a file stream provider.
 //! It is intended to be implemented for specific file protocol.
-class OSD_FileSystem : public Standard_Transient
+class OSD_FileSystem : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(OSD_FileSystem, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(OSD_FileSystem, RefObject)
 public:
   //! Returns a global file system, which a selector between registered file systems
   //! (OSD_FileSystemSelector).

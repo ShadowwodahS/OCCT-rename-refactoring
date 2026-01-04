@@ -23,9 +23,9 @@
 
 //! Class defining a thread pool for building BVH for the list of Select3D_SensitiveEntity within
 //! background thread(s).
-class SelectMgr_BVHThreadPool : public Standard_Transient
+class SelectMgr_BVHThreadPool : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(SelectMgr_BVHThreadPool, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(SelectMgr_BVHThreadPool, RefObject)
 public:
   //! Main constructor
   Standard_EXPORT SelectMgr_BVHThreadPool(Standard_Integer theNbThreads);

@@ -34,14 +34,14 @@
 #include <Standard_OStream.hxx>
 
 class VrmlConverter_Projector;
-DEFINE_STANDARD_HANDLE(VrmlConverter_Projector, Standard_Transient)
+DEFINE_STANDARD_HANDLE(VrmlConverter_Projector, RefObject)
 
 //! defines projector  and calculates properties of cameras and lights from Vrml
 //! ( OrthograpicCamera, PerspectiveCamera, DirectionalLight, PointLight, SpotLight
 //! and  MatrixTransform  )  to display all scene  shapes  with  arbitrary locations
 //! for requested the Projection Vector,  High Point Direction and the Focus
 //! and adds them ( method Add ) to anOSream.
-class VrmlConverter_Projector : public Standard_Transient
+class VrmlConverter_Projector : public RefObject
 {
 
 public:
@@ -76,7 +76,7 @@ public:
 
   Standard_EXPORT HLRAlgo_Projector Projector() const;
 
-  DEFINE_STANDARD_RTTIEXT(VrmlConverter_Projector, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(VrmlConverter_Projector, RefObject)
 
 private:
   HLRAlgo_Projector          myProjector;

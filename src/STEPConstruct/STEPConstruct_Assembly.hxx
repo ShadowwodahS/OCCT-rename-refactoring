@@ -58,7 +58,7 @@ public:
 
   //! Returns the Value
   //! If no Make... has been called, returns the starting SR
-  Standard_EXPORT Handle(Standard_Transient) ItemValue() const;
+  Standard_EXPORT Handle(RefObject) ItemValue() const;
 
   //! Returns the location of the item, computed from starting aLoc
   Standard_EXPORT Handle(StepGeom_Axis2Placement3d) ItemLocation() const;
@@ -78,7 +78,7 @@ private:
   Handle(StepShape_ShapeDefinitionRepresentation) thesdr0;
   Handle(StepShape_ShapeRepresentation)           thesr;
   Handle(StepShape_ShapeRepresentation)           thesr0;
-  Handle(Standard_Transient)                      theval;
+  Handle(RefObject)                      theval;
   Handle(StepGeom_Axis2Placement3d)               theloc;
   Handle(StepGeom_Axis2Placement3d)               theax0;
 };

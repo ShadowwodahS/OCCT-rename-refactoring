@@ -72,7 +72,7 @@ void DFBrowser_Module::SetApplication(const Handle(TDocStd_Application)& theAppl
 // function : SetExternalContext
 // purpose :
 // =======================================================================
-void DFBrowser_Module::SetExternalContext(const Handle(Standard_Transient)& theContext)
+void DFBrowser_Module::SetExternalContext(const Handle(RefObject)& theContext)
 {
   myExternalContext = Handle(AIS_InteractiveContext)::DownCast(theContext);
 }

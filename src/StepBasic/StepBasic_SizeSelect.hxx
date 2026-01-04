@@ -23,7 +23,7 @@
 
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepData_SelectMember;
 
 class StepBasic_SizeSelect : public StepData_SelectType
@@ -38,7 +38,7 @@ public:
   //! 1 -> SizeMember
   //! 0 else (i.e. Real)
   Standard_EXPORT Standard_Integer
-    CaseNum(const Handle(Standard_Transient)& ent) const Standard_OVERRIDE;
+    CaseNum(const Handle(RefObject)& ent) const Standard_OVERRIDE;
 
   //! Returns a SizeMember (POSITIVE_LENGTH_MEASURE) as preferred
   Standard_EXPORT virtual Handle(StepData_SelectMember) NewMember() const Standard_OVERRIDE;

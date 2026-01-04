@@ -23,7 +23,7 @@
 #include <TFunction_Driver.hxx>
 #include <TFunction_DriverTable.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TFunction_DriverTable, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(TFunction_DriverTable, RefObject)
 
 static Handle(TFunction_DriverTable) DT;
 

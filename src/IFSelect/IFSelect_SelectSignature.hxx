@@ -25,7 +25,7 @@
 #include <IFSelect_SelectExtract.hxx>
 class IFSelect_Signature;
 class IFSelect_SignCounter;
-class Standard_Transient;
+class RefObject;
 class Interface_Graph;
 class Interface_InterfaceModel;
 
@@ -84,14 +84,14 @@ public:
   //! signature matches the text given as creation time
   //! May also work with a Counter from the Graph
   Standard_EXPORT virtual Standard_Boolean SortInGraph(const Standard_Integer            rank,
-                                                       const Handle(Standard_Transient)& ent,
+                                                       const Handle(RefObject)& ent,
                                                        const Interface_Graph&            G) const
     Standard_OVERRIDE;
 
   //! Not called, defined only to remove a deferred method here
   Standard_EXPORT Standard_Boolean
     Sort(const Standard_Integer                  rank,
-         const Handle(Standard_Transient)&       ent,
+         const Handle(RefObject)&       ent,
          const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
 
   //! Returns Text used to Sort Entity on its Signature or SignCounter

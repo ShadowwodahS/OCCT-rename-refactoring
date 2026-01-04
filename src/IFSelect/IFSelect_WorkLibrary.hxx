@@ -30,7 +30,7 @@ class Interface_EntityIterator;
 class Interface_CopyTool;
 
 class IFSelect_WorkLibrary;
-DEFINE_STANDARD_HANDLE(IFSelect_WorkLibrary, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IFSelect_WorkLibrary, RefObject)
 
 //! This class defines the (empty) frame which can be used to
 //! enrich a XSTEP set with new capabilities
@@ -43,7 +43,7 @@ DEFINE_STANDARD_HANDLE(IFSelect_WorkLibrary, Standard_Transient)
 //! Also a Dump service is provided, it can produce, according the
 //! norm, either a parcel of a file for an entity, or any other
 //! kind of information relevant for the norm,
-class IFSelect_WorkLibrary : public Standard_Transient
+class IFSelect_WorkLibrary : public RefObject
 {
 
 public:
@@ -112,14 +112,14 @@ public:
   //! formats which can be very different)
   Standard_EXPORT virtual void DumpEntity(const Handle(Interface_InterfaceModel)& model,
                                           const Handle(Interface_Protocol)&       protocol,
-                                          const Handle(Standard_Transient)&       entity,
+                                          const Handle(RefObject)&       entity,
                                           Standard_OStream&                       S,
                                           const Standard_Integer                  level) const = 0;
 
   //! Calls deferred DumpEntity with the recorded default level
   Standard_EXPORT void DumpEntity(const Handle(Interface_InterfaceModel)& model,
                                   const Handle(Interface_Protocol)&       protocol,
-                                  const Handle(Standard_Transient)&       entity,
+                                  const Handle(RefObject)&       entity,
                                   Standard_OStream&                       S) const;
 
   //! Records a default level and a maximum value for level
@@ -137,7 +137,7 @@ public:
   //! Returns the help line recorded for <level>, or an empty string
   Standard_EXPORT Standard_CString DumpHelp(const Standard_Integer level) const;
 
-  DEFINE_STANDARD_RTTIEXT(IFSelect_WorkLibrary, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IFSelect_WorkLibrary, RefObject)
 
 protected:
   //! Required to initialise fields

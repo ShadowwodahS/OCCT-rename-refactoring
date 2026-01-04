@@ -31,7 +31,7 @@ class Transfer_TransientProcess;
 class Interface_CheckIterator;
 
 class Transfer_ResultFromModel;
-DEFINE_STANDARD_HANDLE(Transfer_ResultFromModel, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Transfer_ResultFromModel, RefObject)
 
 //! ResultFromModel is used to store a final result stored in a
 //! TransientProcess, respectfully to its structuration in scopes
@@ -48,7 +48,7 @@ DEFINE_STANDARD_HANDLE(Transfer_ResultFromModel, Standard_Transient)
 //! by designating a starting entity
 //! - Fill back the TransientProcess from a ResultFromModel, as it
 //! were filled by the operation which filled it the first time
-class Transfer_ResultFromModel : public Standard_Transient
+class Transfer_ResultFromModel : public RefObject
 {
 
 public:
@@ -74,7 +74,7 @@ public:
   //! If <ent> has no recorded result, it remains empty
   //! Returns True if a result is recorded, False else
   Standard_EXPORT Standard_Boolean Fill(const Handle(Transfer_TransientProcess)& TP,
-                                        const Handle(Standard_Transient)&        ent);
+                                        const Handle(RefObject)&        ent);
 
   //! Clears some data attached to binders used by TransientProcess,
   //! which become useless once the transfer has been done,
@@ -109,7 +109,7 @@ public:
   //! Searches for a key (starting entity) and returns its result
   //! Returns a null handle if not found
   Standard_EXPORT Handle(Transfer_ResultFromTransient) ResultFromKey(
-    const Handle(Standard_Transient)& start) const;
+    const Handle(RefObject)& start) const;
 
   //! Internal method which returns the list of ResultFromTransient,
   //! according level (2:complete; 1:sub-level 1; 0:main only)
@@ -155,7 +155,7 @@ public:
   //! Does not computes it if already done and <enforce> False
   Standard_EXPORT Interface_CheckStatus ComputeCheckStatus(const Standard_Boolean enforce);
 
-  DEFINE_STANDARD_RTTIEXT(Transfer_ResultFromModel, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Transfer_ResultFromModel, RefObject)
 
 protected:
 private:

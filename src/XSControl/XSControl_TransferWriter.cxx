@@ -26,7 +26,7 @@
 #include <XSControl_TransferWriter.hxx>
 #include <XSControl_Utils.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XSControl_TransferWriter, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(XSControl_TransferWriter, RefObject)
 
 //=================================================================================================
 
@@ -58,7 +58,7 @@ void XSControl_TransferWriter::PrintStats(const Standard_Integer, const Standard
 
 //=================================================================================================
 
-Standard_Boolean XSControl_TransferWriter::RecognizeTransient(const Handle(Standard_Transient)& obj)
+Standard_Boolean XSControl_TransferWriter::RecognizeTransient(const Handle(RefObject)& obj)
 {
   if (myController.IsNull())
     return Standard_False;
@@ -73,7 +73,7 @@ Standard_Boolean XSControl_TransferWriter::RecognizeTransient(const Handle(Stand
 
 IFSelect_ReturnStatus XSControl_TransferWriter::TransferWriteTransient(
   const Handle(Interface_InterfaceModel)& model,
-  const Handle(Standard_Transient)&       obj,
+  const Handle(RefObject)&       obj,
   const Message_ProgressRange&            theProgress)
 {
   IFSelect_ReturnStatus status = IFSelect_RetVoid;
@@ -86,7 +86,7 @@ IFSelect_ReturnStatus XSControl_TransferWriter::TransferWriteTransient(
     myTransferWriter = new Transfer_FinderProcess;
   Handle(Transfer_ActorOfFinderProcess) nulact;
   myTransferWriter->SetActor(nulact);
-  Handle(Standard_Transient)      resultat;
+  Handle(RefObject)      resultat;
   Message_Messenger::StreamBuffer sout = myTransferWriter->Messenger()->SendInfo();
   try
   {
@@ -141,7 +141,7 @@ IFSelect_ReturnStatus XSControl_TransferWriter::TransferWriteShape(
   //  effacer l actor : Controller s en charge
   Handle(Transfer_ActorOfFinderProcess) nulact;
   myTransferWriter->SetActor(nulact);
-  Handle(Standard_Transient)      resultat;
+  Handle(RefObject)      resultat;
   Message_Messenger::StreamBuffer sout = myTransferWriter->Messenger()->SendInfo();
   try
   {
@@ -208,7 +208,7 @@ Interface_CheckIterator XSControl_TransferWriter::ResultCheckList(
     const Handle(Interface_Check) ach = tb->Check();
     if (ach->NbFails() == 0 || ach->NbWarnings() == 0)
       continue;
-    Handle(Standard_Transient) ent = tb->Result();
+    Handle(RefObject) ent = tb->Result();
     if (!ent.IsNull() && !model.IsNull())
       chl.Add(ach, model->Number(ent));
     else

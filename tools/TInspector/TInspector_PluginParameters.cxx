@@ -33,7 +33,7 @@ TInspector_PluginParameters::TInspector_PluginParameters(TInspector_Window* theW
 // =======================================================================
 void TInspector_PluginParameters::SetParameters(
   const TCollection_AsciiString&                      thePluginName,
-  const NCollection_List<Handle(Standard_Transient)>& theParameters,
+  const NCollection_List<Handle(RefObject)>& theParameters,
   const Standard_Boolean&                             theToActivatePlugin)
 {
   TInspectorAPI_PluginParameters::SetParameters(thePluginName, theParameters, Standard_False);

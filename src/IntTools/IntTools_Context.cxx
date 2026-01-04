@@ -44,7 +44,7 @@
 #include <TopoDS_Solid.hxx>
 #include <TopoDS_Vertex.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IntTools_Context, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(IntTools_Context, RefObject)
 
 //
 //=================================================================================================

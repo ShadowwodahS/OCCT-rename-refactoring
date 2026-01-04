@@ -17,7 +17,7 @@
 #include <Standard_Assert.hxx>
 #include <Standard_Dump.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Message_CompositeAlerts, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Message_CompositeAlerts, RefObject)
 
 //=================================================================================================
 

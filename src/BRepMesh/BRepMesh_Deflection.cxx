@@ -23,7 +23,7 @@
 #include <TopExp.hxx>
 #include <TopoDS_Vertex.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_Deflection, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_Deflection, RefObject)
 
 //=================================================================================================
 

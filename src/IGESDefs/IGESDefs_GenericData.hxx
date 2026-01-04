@@ -25,7 +25,7 @@
 #include <IGESData_IGESEntity.hxx>
 #include <Standard_Real.hxx>
 class TCollection_HAsciiString;
-class Standard_Transient;
+class RefObject;
 
 class IGESDefs_GenericData;
 DEFINE_STANDARD_HANDLE(IGESDefs_GenericData, IGESData_IGESEntity)
@@ -72,7 +72,7 @@ public:
   //! Integer, Real, Boolean (= Integer 0/1),
   //! HAsciiString for String (the value itself),
   //! IGESEntity for Entity (the value itself)
-  Standard_EXPORT Handle(Standard_Transient) Value(const Standard_Integer Index) const;
+  Standard_EXPORT Handle(RefObject) Value(const Standard_Integer Index) const;
 
   //! Returns Attribute Value <AttrNum, rank ValueNum> as an Integer
   //! Error if Index out of Range, or not an Integer

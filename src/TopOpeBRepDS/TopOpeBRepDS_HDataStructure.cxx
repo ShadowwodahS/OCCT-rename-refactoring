@@ -36,7 +36,7 @@
 #include <TopOpeBRepTool_ShapeExplorer.hxx>
 #include <TopTools_ListOfShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TopOpeBRepDS_HDataStructure, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(TopOpeBRepDS_HDataStructure, RefObject)
 
 static void FUN_HDS_data(const Handle(TopOpeBRepDS_Interference)& I,
                          TopOpeBRepDS_Kind&                       GT1,

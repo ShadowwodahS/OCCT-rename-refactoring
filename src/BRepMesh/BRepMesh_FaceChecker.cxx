@@ -19,7 +19,7 @@
 #include <OSD_Parallel.hxx>
 #include <BRepMesh_GeomTool.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_FaceChecker, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_FaceChecker, RefObject)
 
 namespace
 {

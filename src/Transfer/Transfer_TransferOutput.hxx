@@ -25,7 +25,7 @@
 class Transfer_TransientProcess;
 class Interface_InterfaceModel;
 class Transfer_ActorOfTransientProcess;
-class Standard_Transient;
+class RefObject;
 class Interface_Protocol;
 class Interface_Graph;
 class Interface_EntityIterator;
@@ -64,7 +64,7 @@ public:
 
   //! Transfer checks that all taken Entities come from the same
   //! Model, then calls Transfer from TransientProcess
-  Standard_EXPORT void Transfer(const Handle(Standard_Transient)& obj,
+  Standard_EXPORT void Transfer(const Handle(RefObject)& obj,
                                 const Message_ProgressRange& theProgress = Message_ProgressRange());
 
   //! Runs transfer on the roots of the Interface Model

@@ -23,7 +23,7 @@
 
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepShape_AdvancedBrepShapeRepresentation;
 class StepShape_CsgShapeRepresentation;
 class StepShape_FacetedBrepShapeRepresentation;
@@ -57,7 +57,7 @@ public:
   //! 10 -> ShapeRepresentation
   //! 11 -> TemplateInstance
   //! 0 else
-  Standard_EXPORT Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! returns Value as a AdvancedBrepShapeRepresentation (Null if another type)
   Standard_EXPORT Handle(StepShape_AdvancedBrepShapeRepresentation)

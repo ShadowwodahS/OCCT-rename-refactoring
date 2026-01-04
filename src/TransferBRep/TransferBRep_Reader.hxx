@@ -32,7 +32,7 @@ class Interface_InterfaceModel;
 class Transfer_TransientProcess;
 class Interface_CheckIterator;
 class TopoDS_Shape;
-class Standard_Transient;
+class RefObject;
 
 //! This class offers a simple, easy to call, way of transferring
 //! data from interface files to Shapes from CasCade
@@ -152,7 +152,7 @@ public:
   //! individually transferred or if an intermediate result is
   //! known). If no Shape is bound with <ent>, returns a Null Shape
   //! Warning : Runs on the last call to Transfer,TransferRoots,TransferList
-  Standard_EXPORT TopoDS_Shape ShapeResult(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT TopoDS_Shape ShapeResult(const Handle(RefObject)& ent) const;
 
   //! Returns a unique Shape for the result :
   //! - a void Shape (type = SHAPE) if result is empty
@@ -168,7 +168,7 @@ public:
 
   //! Returns a Transient Root Result, given its rank (by default
   //! the first one)
-  Standard_EXPORT Handle(Standard_Transient) Transient(const Standard_Integer num = 1) const;
+  Standard_EXPORT Handle(RefObject) Transient(const Standard_Integer num = 1) const;
 
   //! Checks the Result of last Transfer (individual or roots, no
   //! cumulation on several transfers). Returns True if NO fail

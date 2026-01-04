@@ -20,7 +20,7 @@
 #include <TColStd_SequenceOfTransient.hxx>
 #include <NCollection_DataMap.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(IFSelect_Activator, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(IFSelect_Activator, RefObject)
 
 static NCollection_DataMap<TCollection_AsciiString, Standard_Integer> thedico;
 static TColStd_SequenceOfInteger                                      thenums, themodes;

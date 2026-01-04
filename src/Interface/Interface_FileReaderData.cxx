@@ -26,7 +26,7 @@
 #include <Standard_Type.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Interface_FileReaderData, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Interface_FileReaderData, RefObject)
 
 //  Stoque les Donnees issues d un Fichier (Conservees sous forme Litterale)
 //  Chaque norme peut s en servir comme base (listes de parametres litteraux,
@@ -171,7 +171,7 @@ Standard_Integer Interface_FileReaderData::ParamNumber(const Standard_Integer nu
   return Param(num, nump).EntityNumber();
 }
 
-const Handle(Standard_Transient)& Interface_FileReaderData::ParamEntity(
+const Handle(RefObject)& Interface_FileReaderData::ParamEntity(
   const Standard_Integer num,
   const Standard_Integer nump) const
 {
@@ -230,7 +230,7 @@ Standard_Boolean Interface_FileReaderData::ResetErrorLoad()
 
 //  ....        Gestion des Entites Associees aux Donnees du Fichier       ....
 
-const Handle(Standard_Transient)& Interface_FileReaderData::BoundEntity(
+const Handle(RefObject)& Interface_FileReaderData::BoundEntity(
   const Standard_Integer num) const
 //      {  return theents(num);  }
 {
@@ -240,16 +240,16 @@ const Handle(Standard_Transient)& Interface_FileReaderData::BoundEntity(
   }
   else
   {
-    static Handle(Standard_Transient) dummy;
+    static Handle(RefObject) dummy;
     return dummy;
   }
 }
-/*  //static Handle(Standard_Transient) dummy;
+/*  //static Handle(RefObject) dummy;
   {
   //smh#10 Protection. If iges entity does not exist, return null pointer.
     try {
       OCC_CATCH_SIGNALS
-      Handle(Standard_Transient) temp = theents.Value(num);
+      Handle(RefObject) temp = theents.Value(num);
     }
   ////sln 21.01.2002 OCC133: Exception handling
  // catch (Standard_OutOfRange) {
@@ -260,8 +260,8 @@ const Handle(Standard_Transient)& Interface_FileReaderData::BoundEntity(
     catch (Standard_Failure) {
 
     // some work-around, the best would be to modify CDL to
-    // return "Handle(Standard_Transient)" not "const Handle(Standard_Transient)&"
-      static Handle(Standard_Transient) dummy;
+    // return "Handle(RefObject)" not "const Handle(RefObject)&"
+      static Handle(RefObject) dummy;
      // std::cout<<" Catch of smh"<<std::endl;
     return dummy;
     }
@@ -273,7 +273,7 @@ const Handle(Standard_Transient)& Interface_FileReaderData::BoundEntity(
 */
 
 void Interface_FileReaderData::BindEntity(const Standard_Integer            num,
-                                          const Handle(Standard_Transient)& ent)
+                                          const Handle(RefObject)& ent)
 //      {  theents.SetValue(num,ent);  }
 {
   //  #ifdef OCCT_DEBUG

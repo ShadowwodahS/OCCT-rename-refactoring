@@ -22,14 +22,14 @@
 #include <TCollection_HAsciiString.hxx>
 
 #include <stdio.h>
-IMPLEMENT_STANDARD_RTTIEXT(MoniTool_TypedValue, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(MoniTool_TypedValue, RefObject)
 
 // Not Used :
 // static  char defmess[30];
-static NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)> thelibtv;
-static NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)> astats;
+static NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)> thelibtv;
+static NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)> astats;
 
-static NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)>& libtv()
+static NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>& libtv()
 {
   if (thelibtv.IsEmpty())
   {
@@ -645,7 +645,7 @@ Handle(Standard_Type) MoniTool_TypedValue::ObjectType() const
 {
   if (!theotyp.IsNull())
     return theotyp;
-  return STANDARD_TYPE(Standard_Transient);
+  return STANDARD_TYPE(RefObject);
 }
 
 //  ******   Specific Interpret/Satisfy   ******
@@ -890,17 +890,17 @@ Standard_Boolean MoniTool_TypedValue::SetRealValue(const Standard_Real rval)
   return Standard_True;
 }
 
-Handle(Standard_Transient) MoniTool_TypedValue::ObjectValue() const
+Handle(RefObject) MoniTool_TypedValue::ObjectValue() const
 {
   return theoval;
 }
 
-void MoniTool_TypedValue::GetObjectValue(Handle(Standard_Transient)& val) const
+void MoniTool_TypedValue::GetObjectValue(Handle(RefObject)& val) const
 {
   val = theoval;
 }
 
-Standard_Boolean MoniTool_TypedValue::SetObjectValue(const Handle(Standard_Transient)& obj)
+Standard_Boolean MoniTool_TypedValue::SetObjectValue(const Handle(RefObject)& obj)
 {
   if (thetype != MoniTool_ValueIdent)
     return Standard_False;
@@ -943,7 +943,7 @@ Standard_Boolean MoniTool_TypedValue::AddLib(const Handle(MoniTool_TypedValue)& 
 Handle(MoniTool_TypedValue) MoniTool_TypedValue::Lib(const Standard_CString defin)
 {
   Handle(MoniTool_TypedValue) val;
-  Handle(Standard_Transient)  aTVal;
+  Handle(RefObject)  aTVal;
   if (libtv().Find(defin, aTVal))
     val = Handle(MoniTool_TypedValue)::DownCast(aTVal);
   else
@@ -964,7 +964,7 @@ Handle(TColStd_HSequenceOfAsciiString) MoniTool_TypedValue::LibList()
   Handle(TColStd_HSequenceOfAsciiString) list = new TColStd_HSequenceOfAsciiString();
   if (libtv().IsEmpty())
     return list;
-  NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)>::Iterator it(libtv());
+  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>::Iterator it(libtv());
   for (; it.More(); it.Next())
   {
     list->Append(it.Key());
@@ -972,7 +972,7 @@ Handle(TColStd_HSequenceOfAsciiString) MoniTool_TypedValue::LibList()
   return list;
 }
 
-NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)>& MoniTool_TypedValue::
+NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>& MoniTool_TypedValue::
   Stats()
 {
   return astats;
@@ -981,7 +981,7 @@ NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)>& MoniTo
 Handle(MoniTool_TypedValue) MoniTool_TypedValue::StaticValue(const Standard_CString name)
 {
   Handle(MoniTool_TypedValue) result;
-  Handle(Standard_Transient)  aTResult;
+  Handle(RefObject)  aTResult;
   if (Stats().Find(name, aTResult))
     result = Handle(MoniTool_TypedValue)::DownCast(aTResult);
   else

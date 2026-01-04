@@ -22,9 +22,9 @@
 #include <TopoDS_Shape.hxx>
 
 //! object to store note auxiliary data
-class XCAFNoteObjects_NoteObject : public Standard_Transient
+class XCAFNoteObjects_NoteObject : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(XCAFNoteObjects_NoteObject, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(XCAFNoteObjects_NoteObject, RefObject)
 public:
   //! Empty object
   Standard_EXPORT XCAFNoteObjects_NoteObject();
@@ -78,6 +78,6 @@ private:
   Standard_Boolean myHasPntTxt;
 };
 
-DEFINE_STANDARD_HANDLE(XCAFNoteObjects_NoteObject, Standard_Transient)
+DEFINE_STANDARD_HANDLE(XCAFNoteObjects_NoteObject, RefObject)
 
 #endif // _XCAFNoteObjects_NoteObject_HeaderFile

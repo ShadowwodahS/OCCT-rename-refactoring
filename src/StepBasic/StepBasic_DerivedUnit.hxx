@@ -26,10 +26,10 @@
 class StepBasic_DerivedUnitElement;
 
 class StepBasic_DerivedUnit;
-DEFINE_STANDARD_HANDLE(StepBasic_DerivedUnit, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_DerivedUnit, RefObject)
 
 //! Added from StepBasic Rev2 to Rev4
-class StepBasic_DerivedUnit : public Standard_Transient
+class StepBasic_DerivedUnit : public RefObject
 {
 
 public:
@@ -46,7 +46,7 @@ public:
   Standard_EXPORT Handle(StepBasic_DerivedUnitElement) ElementsValue(
     const Standard_Integer num) const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_DerivedUnit, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_DerivedUnit, RefObject)
 
 protected:
 private:

@@ -31,7 +31,7 @@ class Interface_CopyControl;
 class Interface_CopyTool;
 class Interface_EntityIterator;
 class Interface_InterfaceModel;
-class Standard_Transient;
+class RefObject;
 class IFSelect_GeneralModifier;
 class Interface_Check;
 
@@ -120,16 +120,16 @@ public:
   Standard_EXPORT Standard_Boolean IsForAll() const;
 
   //! Returns True if a starting item has been transferred
-  Standard_EXPORT Standard_Boolean IsTransferred(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Boolean IsTransferred(const Handle(RefObject)& ent) const;
 
   //! Returns True if a starting item has been transferred and selected
-  Standard_EXPORT Standard_Boolean IsSelected(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Boolean IsSelected(const Handle(RefObject)& ent) const;
 
   //! Returns True if a starting entity has been transferred, and
   //! the result is in <res>. Returns False else
   //! (direct call to the map)
-  Standard_EXPORT Standard_Boolean Search(const Handle(Standard_Transient)& ent,
-                                          Handle(Standard_Transient)&       res) const;
+  Standard_EXPORT Standard_Boolean Search(const Handle(RefObject)& ent,
+                                          Handle(RefObject)&       res) const;
 
   //! Returns the list of original selected items.
   //! See also the iteration
@@ -153,11 +153,11 @@ public:
   Standard_EXPORT void Next();
 
   //! Returns the current selected item in the original model
-  Standard_EXPORT Handle(Standard_Transient) ValueOriginal() const;
+  Standard_EXPORT Handle(RefObject) ValueOriginal() const;
 
   //! Returns the result counterpart of current selected item
   //! (in the target model)
-  Standard_EXPORT Handle(Standard_Transient) ValueResult() const;
+  Standard_EXPORT Handle(RefObject) ValueResult() const;
 
   //! Traces the application of a Modifier. Works with default trace
   //! File and Level. Fills the trace if default trace level is at
@@ -182,14 +182,14 @@ public:
   //! Adds a Warning Message for an Entity from the original Model
   //! If <start> is not an Entity from the original model (e.g. the
   //! model itself) this message is added to Global Check.
-  Standard_EXPORT void AddWarning(const Handle(Standard_Transient)& start,
+  Standard_EXPORT void AddWarning(const Handle(RefObject)& start,
                                   const Standard_CString            mess,
                                   const Standard_CString            orig = "");
 
   //! Adds a Fail Message for an Entity from the original Model
   //! If <start> is not an Entity from the original model (e.g. the
   //! model itself) this message is added to Global Check.
-  Standard_EXPORT void AddFail(const Handle(Standard_Transient)& start,
+  Standard_EXPORT void AddFail(const Handle(RefObject)& start,
                                const Standard_CString            mess,
                                const Standard_CString            orig = "");
 
@@ -202,7 +202,7 @@ public:
   //! Returns a Check attached to an Entity from the original Model
   //! It can then be acknowledged on the spot, in condition that the
   //! caller works by reference ("Interface_Check& check = ...")
-  Standard_EXPORT Handle(Interface_Check) CCheck(const Handle(Standard_Transient)& start);
+  Standard_EXPORT Handle(Interface_Check) CCheck(const Handle(RefObject)& start);
 
   //! Returns the complete CheckList
   Standard_EXPORT Interface_CheckIterator CheckList() const;

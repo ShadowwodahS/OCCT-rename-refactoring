@@ -27,7 +27,7 @@ StepDimTol_GeometricToleranceTarget::StepDimTol_GeometricToleranceTarget() {}
 //=================================================================================================
 
 Standard_Integer StepDimTol_GeometricToleranceTarget::CaseNum(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

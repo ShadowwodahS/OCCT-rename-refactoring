@@ -24,9 +24,9 @@
 #include <Standard_OStream.hxx>
 
 class TDocStd_ApplicationDelta;
-DEFINE_STANDARD_HANDLE(TDocStd_ApplicationDelta, Standard_Transient)
+DEFINE_STANDARD_HANDLE(TDocStd_ApplicationDelta, RefObject)
 
-class TDocStd_ApplicationDelta : public Standard_Transient
+class TDocStd_ApplicationDelta : public RefObject
 {
 
 public:
@@ -40,7 +40,7 @@ public:
 
   Standard_EXPORT void Dump(Standard_OStream& anOS) const;
 
-  DEFINE_STANDARD_RTTIEXT(TDocStd_ApplicationDelta, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(TDocStd_ApplicationDelta, RefObject)
 
 protected:
 private:

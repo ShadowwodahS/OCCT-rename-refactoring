@@ -23,7 +23,7 @@
 #include <TColStd_HSequenceOfTransient.hxx>
 #include <Transfer_Binder.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 
 class Transfer_MultipleBinder;
 DEFINE_STANDARD_HANDLE(Transfer_MultipleBinder, Transfer_Binder)
@@ -65,13 +65,13 @@ public:
   Standard_EXPORT Standard_CString ResultTypeName() const Standard_OVERRIDE;
 
   //! Adds a new Item to the Multiple Result
-  Standard_EXPORT void AddResult(const Handle(Standard_Transient)& res);
+  Standard_EXPORT void AddResult(const Handle(RefObject)& res);
 
   //! Returns the actual count of recorded (Transient) results
   Standard_EXPORT Standard_Integer NbResults() const;
 
   //! Returns the value of the recorded result n0 <num>
-  Standard_EXPORT Handle(Standard_Transient) ResultValue(const Standard_Integer num) const;
+  Standard_EXPORT Handle(RefObject) ResultValue(const Standard_Integer num) const;
 
   //! Returns the Multiple Result, if it is defined (at least one
   //! Item). Else, returns a Null Handle

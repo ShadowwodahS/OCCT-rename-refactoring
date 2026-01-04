@@ -25,7 +25,7 @@
 #include <Standard_Atomic.hxx>
 #include <Standard_Assert.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_Camera, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_Camera, RefObject)
 
 namespace
 {

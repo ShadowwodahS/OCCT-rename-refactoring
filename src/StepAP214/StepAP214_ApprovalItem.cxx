@@ -36,7 +36,7 @@
 
 StepAP214_ApprovalItem::StepAP214_ApprovalItem() {}
 
-Standard_Integer StepAP214_ApprovalItem::CaseNum(const Handle(Standard_Transient)& ent) const
+Standard_Integer StepAP214_ApprovalItem::CaseNum(const Handle(RefObject)& ent) const
 {
 
   if (ent.IsNull())

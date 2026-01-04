@@ -415,14 +415,14 @@ private:
                                   const StepData_Factors& theLocalFactors = StepData_Factors());
 
   //! Internal method. Read Datums, connected to GeomTolerance theGDTL.
-  Standard_Boolean readDatumsAP242(const Handle(Standard_Transient)&    theEnt,
+  Standard_Boolean readDatumsAP242(const Handle(RefObject)&    theEnt,
                                    const TDF_Label                      theGDTL,
                                    const Handle(TDocStd_Document)&      theDoc,
                                    const Handle(XSControl_WorkSession)& theWS,
                                    const StepData_Factors& theLocalFactors = StepData_Factors());
 
   //! Internal method. Read Dimension or GeomTolerance.
-  TDF_Label createGDTObjectInXCAF(const Handle(Standard_Transient)&    theEnt,
+  TDF_Label createGDTObjectInXCAF(const Handle(RefObject)&    theEnt,
                                   const Handle(TDocStd_Document)&      theDoc,
                                   const Handle(XSControl_WorkSession)& theWS,
                                   const StepData_Factors& theLocalFactors = StepData_Factors());
@@ -464,7 +464,7 @@ private:
   //! @return A vector of collected property definitions.
   std::vector<Handle(StepRepr_PropertyDefinition)> collectPropertyDefinitions(
     const Handle(XSControl_WorkSession)& theWorkSession,
-    const Handle(Standard_Transient)&    theGeneralProperty) const;
+    const Handle(RefObject)&    theGeneralProperty) const;
 
   //! Collects shape labels from the given property definition.
   //! @param theWorkSession The work session to use for collecting shape labels.
@@ -514,7 +514,7 @@ private:
   Standard_Boolean                                                                myGDTMode;
   Standard_Boolean                                                                myMatMode;
   Standard_Boolean                                                                myViewMode;
-  NCollection_DataMap<Handle(Standard_Transient), TDF_Label>                      myGDTMap;
+  NCollection_DataMap<Handle(RefObject), TDF_Label>                      myGDTMap;
 };
 
 #endif // _STEPCAFControl_Reader_HeaderFile

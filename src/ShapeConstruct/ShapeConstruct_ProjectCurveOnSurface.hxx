@@ -43,7 +43,7 @@ class Geom2d_Curve;
 #endif
 
 class ShapeConstruct_ProjectCurveOnSurface;
-DEFINE_STANDARD_HANDLE(ShapeConstruct_ProjectCurveOnSurface, Standard_Transient)
+DEFINE_STANDARD_HANDLE(ShapeConstruct_ProjectCurveOnSurface, RefObject)
 
 //! This tool provides a method for computing pcurve by projecting
 //! 3d curve onto a surface.
@@ -55,7 +55,7 @@ DEFINE_STANDARD_HANDLE(ShapeConstruct_ProjectCurveOnSurface, Standard_Transient)
 //! until the condition is fulfilled).
 //! Isoparametric cases (if curve corresponds to U=const or V=const on
 //! the surface) are recognized with the given precision.
-class ShapeConstruct_ProjectCurveOnSurface : public Standard_Transient
+class ShapeConstruct_ProjectCurveOnSurface : public RefObject
 {
 
 public:
@@ -133,7 +133,7 @@ public:
                                                     const Standard_Integer maxdeg     = 12,
                                                     const Standard_Integer nbinterval = -1);
 
-  DEFINE_STANDARD_RTTIEXT(ShapeConstruct_ProjectCurveOnSurface, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(ShapeConstruct_ProjectCurveOnSurface, RefObject)
 
 protected:
   //! Try to approximate 3D curve by Geom2d_Line

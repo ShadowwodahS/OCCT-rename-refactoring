@@ -36,7 +36,7 @@
 #define STANDARD_TYPE(theType) theType::get_type_descriptor()
 
 //! Helper macro to be included in definition of the classes inheriting
-//! Standard_Transient to enable use of OCCT RTTI.
+//! RefObject to enable use of OCCT RTTI.
 //!
 //! Inline version, does not require IMPLEMENT_STANDARD_RTTIEXT, but when used
 //! for big hierarchies of classes may cause considerable increase of size of binaries.
@@ -63,7 +63,7 @@ public:                                                                         
   }
 
 //! Helper macro to be included in definition of the classes inheriting
-//! Standard_Transient to enable use of OCCT RTTI.
+//! RefObject to enable use of OCCT RTTI.
 //!
 //! Out-of-line version, requires IMPLEMENT_STANDARD_RTTIEXT.
 #define DEFINE_STANDARD_RTTIEXT(Class, Base)                                                       \
@@ -95,7 +95,7 @@ public:                                                                         
   }
 
 //! This class provides legacy interface (type descriptor) to run-time type
-//! information (RTTI) for OCCT classes inheriting from Standard_Transient.
+//! information (RTTI) for OCCT classes inheriting from RefObject.
 //!
 //! In addition to features provided by standard C++ RTTI (type_info),
 //! Standard_Type allows passing descriptor as an object and using it for
@@ -115,9 +115,9 @@ public:                                                                         
 //! Note that user-defined name is used since typeid.name() is usually mangled in
 //! compiler-dependent way.
 //!
-//! Only single chain of inheritance is supported, with a root base class Standard_Transient.
+//! Only single chain of inheritance is supported, with a root base class RefObject.
 
-class Standard_Type : public Standard_Transient
+class Standard_Type : public RefObject
 {
 public:
   //! Returns the system type name of the class (typeinfo.name)
@@ -171,7 +171,7 @@ public:
   Standard_EXPORT ~Standard_Type();
 
   // Define own RTTI
-  DEFINE_STANDARD_RTTIEXT(Standard_Type, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Standard_Type, RefObject)
 
 private:
   //! Constructor is private
@@ -196,6 +196,6 @@ inline Standard_OStream& operator<<(Standard_OStream&            theStream,
 }
 
 //! Definition of Handle_Standard_Type as typedef for compatibility
-DEFINE_STANDARD_HANDLE(Standard_Type, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Standard_Type, RefObject)
 
 #endif // _Standard_Type_HeaderFile

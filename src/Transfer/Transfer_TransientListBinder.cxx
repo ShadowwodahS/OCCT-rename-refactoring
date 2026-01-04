@@ -52,12 +52,12 @@ Handle(Standard_Type) Transfer_TransientListBinder::ResultType() const
 
 Standard_CString Transfer_TransientListBinder::ResultTypeName() const
 {
-  return "list(Standard_Transient)";
+  return "list(RefObject)";
 }
 
 //=================================================================================================
 
-void Transfer_TransientListBinder::AddResult(const Handle(Standard_Transient)& Transient)
+void Transfer_TransientListBinder::AddResult(const Handle(RefObject)& Transient)
 {
   theres->Append(Transient);
 }
@@ -72,7 +72,7 @@ Handle(TColStd_HSequenceOfTransient) Transfer_TransientListBinder::Result() cons
 //=================================================================================================
 
 void Transfer_TransientListBinder::SetResult(const Standard_Integer            num,
-                                             const Handle(Standard_Transient)& Transient)
+                                             const Handle(RefObject)& Transient)
 {
   theres->SetValue(num, Transient);
 }
@@ -86,7 +86,7 @@ Standard_Integer Transfer_TransientListBinder::NbTransients() const
 
 //=================================================================================================
 
-const Handle(Standard_Transient)& Transfer_TransientListBinder::Transient(
+const Handle(RefObject)& Transfer_TransientListBinder::Transient(
   const Standard_Integer num) const
 {
   return theres->Value(num);

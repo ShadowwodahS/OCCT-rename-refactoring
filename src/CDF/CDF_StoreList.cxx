@@ -23,7 +23,7 @@
 #include <PCDM_StorageDriver.hxx>
 #include <TCollection_ExtendedString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(CDF_StoreList, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(CDF_StoreList, RefObject)
 
 static void CAUGHT(const Standard_Failure&           theException,
                    TCollection_ExtendedString&       status,

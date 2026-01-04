@@ -22,9 +22,9 @@
 #include <Standard_Transient.hxx>
 
 //! Structure defining key state.
-class Aspect_VKeySet : public Standard_Transient
+class Aspect_VKeySet : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Aspect_VKeySet, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Aspect_VKeySet, RefObject)
 public:
   //! Main constructor.
   Standard_EXPORT Aspect_VKeySet();

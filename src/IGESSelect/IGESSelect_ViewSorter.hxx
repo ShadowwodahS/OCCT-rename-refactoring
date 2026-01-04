@@ -32,7 +32,7 @@ class Interface_Graph;
 class IFSelect_PacketList;
 
 class IGESSelect_ViewSorter;
-DEFINE_STANDARD_HANDLE(IGESSelect_ViewSorter, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IGESSelect_ViewSorter, RefObject)
 
 //! Sorts IGES Entities on the views and drawings.
 //! In a first step, it splits a set of entities according the
@@ -42,7 +42,7 @@ DEFINE_STANDARD_HANDLE(IGESSelect_ViewSorter, Standard_Transient)
 //!
 //! It is a TShared, hence it can be a workomg field of a non-
 //! mutable object (a Dispatch for instance)
-class IGESSelect_ViewSorter : public Standard_Transient
+class IGESSelect_ViewSorter : public RefObject
 {
 
 public:
@@ -56,7 +56,7 @@ public:
   Standard_EXPORT void Clear();
 
   //! Adds an item according its type : AddEntity,AddList,AddModel
-  Standard_EXPORT Standard_Boolean Add(const Handle(Standard_Transient)& ent);
+  Standard_EXPORT Standard_Boolean Add(const Handle(RefObject)& ent);
 
   //! Adds an IGES entity. Records the view it is attached to.
   //! Records directly <ent> if it is a ViewKindEntity or a Drawing
@@ -114,7 +114,7 @@ public:
   //! For <final> and definition of sets, see method NbSets.
   Standard_EXPORT Handle(IFSelect_PacketList) Sets(const Standard_Boolean final) const;
 
-  DEFINE_STANDARD_RTTIEXT(IGESSelect_ViewSorter, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IGESSelect_ViewSorter, RefObject)
 
 protected:
 private:

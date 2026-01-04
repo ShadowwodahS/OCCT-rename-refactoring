@@ -33,7 +33,7 @@ class TopoDS_Vertex;
 #endif
 
 class BRepTools_ReShape;
-DEFINE_STANDARD_HANDLE(BRepTools_ReShape, Standard_Transient)
+DEFINE_STANDARD_HANDLE(BRepTools_ReShape, RefObject)
 
 //! Rebuilds a Shape by making pre-defined substitutions on some
 //! of its components
@@ -49,7 +49,7 @@ DEFINE_STANDARD_HANDLE(BRepTools_ReShape, Standard_Transient)
 //! contain one or more of these individual shapes
 //!
 //! Supports the 'BRepTools_History' history by method 'History'.
-class BRepTools_ReShape : public Standard_Transient
+class BRepTools_ReShape : public RefObject
 {
 public:
   //! Returns an empty Reshape
@@ -150,7 +150,7 @@ public:
   //! Returns the history of the substituted shapes.
   Standard_EXPORT Handle(BRepTools_History) History() const;
 
-  DEFINE_STANDARD_RTTIEXT(BRepTools_ReShape, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(BRepTools_ReShape, RefObject)
 
 protected:
   //! The kinds of the replacements.

@@ -26,7 +26,7 @@
 #include <Transfer_TransferMapOfProcessForTransient.hxx>
 
 class Standard_NoSuchObject;
-class Standard_Transient;
+class RefObject;
 class Transfer_ProcessForTransient;
 class Transfer_ActorOfProcessForTransient;
 class Transfer_Binder;
@@ -51,7 +51,7 @@ public:
   //! Starting Object is ignored if not required at
   //! Creation time
   Standard_EXPORT void Add(const Handle(Transfer_Binder)&    binder,
-                           const Handle(Standard_Transient)& start);
+                           const Handle(RefObject)& start);
 
   //! After having added all items, keeps or rejects items
   //! which are attached to starting data given by <only>
@@ -65,7 +65,7 @@ public:
   Standard_EXPORT Standard_Boolean HasStarting() const;
 
   //! Returns corresponding Starting Object
-  Standard_EXPORT const Handle(Standard_Transient)& Starting() const;
+  Standard_EXPORT const Handle(RefObject)& Starting() const;
 
 protected:
 private:

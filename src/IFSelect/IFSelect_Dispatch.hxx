@@ -31,7 +31,7 @@ class Interface_Graph;
 class IFGraph_SubPartsIterator;
 
 class IFSelect_Dispatch;
-DEFINE_STANDARD_HANDLE(IFSelect_Dispatch, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IFSelect_Dispatch, RefObject)
 
 //! This class allows to describe how a set of Entities has to be
 //! dispatched into resulting Packets : a Packet is a sub-set of
@@ -48,7 +48,7 @@ DEFINE_STANDARD_HANDLE(IFSelect_Dispatch, Standard_Transient)
 //! The input set is read from a specified Selection, attached to
 //! the Dispatch : the Final Selection of the Dispatch. The input
 //! is the Unique Root Entities list of the Final Selection
-class IFSelect_Dispatch : public Standard_Transient
+class IFSelect_Dispatch : public RefObject
 {
 
 public:
@@ -122,7 +122,7 @@ public:
   //! CanHaveRemainder is redefined to return True).
   Standard_EXPORT virtual Interface_EntityIterator Remainder(const Interface_Graph& G) const;
 
-  DEFINE_STANDARD_RTTIEXT(IFSelect_Dispatch, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IFSelect_Dispatch, RefObject)
 
 protected:
 private:

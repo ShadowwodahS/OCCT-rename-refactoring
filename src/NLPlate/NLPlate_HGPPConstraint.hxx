@@ -29,10 +29,10 @@ class Plate_D2;
 class Plate_D3;
 
 class NLPlate_HGPPConstraint;
-DEFINE_STANDARD_HANDLE(NLPlate_HGPPConstraint, Standard_Transient)
+DEFINE_STANDARD_HANDLE(NLPlate_HGPPConstraint, RefObject)
 
 //! define a PinPoint geometric Constraint used to load a Non Linear Plate
-class NLPlate_HGPPConstraint : public Standard_Transient
+class NLPlate_HGPPConstraint : public RefObject
 {
 
 public:
@@ -87,7 +87,7 @@ public:
 
   Standard_EXPORT virtual Standard_Real G3Criterion() const;
 
-  DEFINE_STANDARD_RTTIEXT(NLPlate_HGPPConstraint, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(NLPlate_HGPPConstraint, RefObject)
 
 protected:
   gp_XY            myUV;

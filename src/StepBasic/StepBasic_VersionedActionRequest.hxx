@@ -25,10 +25,10 @@
 class TCollection_HAsciiString;
 
 class StepBasic_VersionedActionRequest;
-DEFINE_STANDARD_HANDLE(StepBasic_VersionedActionRequest, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_VersionedActionRequest, RefObject)
 
 //! Representation of STEP entity VersionedActionRequest
-class StepBasic_VersionedActionRequest : public Standard_Transient
+class StepBasic_VersionedActionRequest : public RefObject
 {
 
 public:
@@ -69,7 +69,7 @@ public:
   //! Returns True if optional field Description is defined
   Standard_EXPORT Standard_Boolean HasDescription() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_VersionedActionRequest, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_VersionedActionRequest, RefObject)
 
 protected:
 private:

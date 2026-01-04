@@ -41,7 +41,7 @@ class HLRAlgo_EdgeStatus;
 struct HLRAlgo_TriangleData;
 
 class HLRBRep_PolyAlgo;
-DEFINE_STANDARD_HANDLE(HLRBRep_PolyAlgo, Standard_Transient)
+DEFINE_STANDARD_HANDLE(HLRBRep_PolyAlgo, RefObject)
 
 //! to remove Hidden lines on Shapes with Triangulations.
 //! A framework to compute the shape as seen in
@@ -89,7 +89,7 @@ DEFINE_STANDARD_HANDLE(HLRBRep_PolyAlgo, Standard_Transient)
 //! the visible and hidden parts of each face in a
 //! shape to be visualized by comparing each
 //! face in the shape with every other face in the same shape.
-class HLRBRep_PolyAlgo : public Standard_Transient
+class HLRBRep_PolyAlgo : public RefObject
 {
 
 public:
@@ -181,7 +181,7 @@ public:
 
   void Debug(const Standard_Boolean theDebug) { myDebug = theDebug; }
 
-  DEFINE_STANDARD_RTTIEXT(HLRBRep_PolyAlgo, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(HLRBRep_PolyAlgo, RefObject)
 
 private:
   Standard_EXPORT TopoDS_Shape MakeShape() const;

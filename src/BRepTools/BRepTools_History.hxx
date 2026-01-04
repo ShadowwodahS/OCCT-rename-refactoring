@@ -22,7 +22,7 @@
 #include <TopTools_MapOfShape.hxx>
 
 class BRepTools_History;
-DEFINE_STANDARD_HANDLE(BRepTools_History, Standard_Transient)
+DEFINE_STANDARD_HANDLE(BRepTools_History, RefObject)
 
 //! The history keeps the following relations between the input shapes
 //! (S1, ..., Sm) and output shapes (T1, ..., Tn):
@@ -86,7 +86,7 @@ DEFINE_STANDARD_HANDLE(BRepTools_History, Standard_Transient)
 //!   Tj then shape Qk is considered as a shape modified from shape Si among
 //!   shapes Q1, ..., Ql:
 //!   Tj <= M12(Si), Qk <= M23(Tj) ==> Qk <= M13(Si);
-class BRepTools_History : public Standard_Transient
+class BRepTools_History : public RefObject
 {
 public: //! @name Constructors for History creation
   //! Empty constructor
@@ -226,7 +226,7 @@ public: //! A method to dump a history
 
 public:
   //! Define the OCCT RTTI for the type.
-  DEFINE_STANDARD_RTTIEXT(BRepTools_History, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(BRepTools_History, RefObject)
 
 private:
   //! Prepares the shapes generated from the first shape to set the second one

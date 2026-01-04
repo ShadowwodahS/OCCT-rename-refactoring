@@ -22,10 +22,10 @@
 #include <Standard_Transient.hxx>
 
 class StepFEA_FreedomsList;
-DEFINE_STANDARD_HANDLE(StepFEA_FreedomsList, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepFEA_FreedomsList, RefObject)
 
 //! Representation of STEP entity FreedomsList
-class StepFEA_FreedomsList : public Standard_Transient
+class StepFEA_FreedomsList : public RefObject
 {
 
 public:
@@ -41,7 +41,7 @@ public:
   //! Set field Freedoms
   Standard_EXPORT void SetFreedoms(const Handle(StepFEA_HArray1OfDegreeOfFreedom)& Freedoms);
 
-  DEFINE_STANDARD_RTTIEXT(StepFEA_FreedomsList, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepFEA_FreedomsList, RefObject)
 
 protected:
 private:

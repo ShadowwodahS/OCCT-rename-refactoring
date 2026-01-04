@@ -26,11 +26,11 @@
 class Geom2d_Curve;
 
 class ShapeFix_EdgeProjAux;
-DEFINE_STANDARD_HANDLE(ShapeFix_EdgeProjAux, Standard_Transient)
+DEFINE_STANDARD_HANDLE(ShapeFix_EdgeProjAux, RefObject)
 
 //! Project 3D point (vertex) on pcurves to find Vertex Parameter
 //! on parametric representation of an edge
-class ShapeFix_EdgeProjAux : public Standard_Transient
+class ShapeFix_EdgeProjAux : public RefObject
 {
 
 public:
@@ -52,7 +52,7 @@ public:
 
   Standard_EXPORT Standard_Boolean IsIso(const Handle(Geom2d_Curve)& C);
 
-  DEFINE_STANDARD_RTTIEXT(ShapeFix_EdgeProjAux, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(ShapeFix_EdgeProjAux, RefObject)
 
 protected:
   Standard_EXPORT void Init2d(const Standard_Real preci);

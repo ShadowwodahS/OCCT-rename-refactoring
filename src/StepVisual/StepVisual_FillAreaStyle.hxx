@@ -26,9 +26,9 @@ class TCollection_HAsciiString;
 class StepVisual_FillStyleSelect;
 
 class StepVisual_FillAreaStyle;
-DEFINE_STANDARD_HANDLE(StepVisual_FillAreaStyle, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepVisual_FillAreaStyle, RefObject)
 
-class StepVisual_FillAreaStyle : public Standard_Transient
+class StepVisual_FillAreaStyle : public RefObject
 {
 
 public:
@@ -51,7 +51,7 @@ public:
 
   Standard_EXPORT Standard_Integer NbFillStyles() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepVisual_FillAreaStyle, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepVisual_FillAreaStyle, RefObject)
 
 protected:
 private:

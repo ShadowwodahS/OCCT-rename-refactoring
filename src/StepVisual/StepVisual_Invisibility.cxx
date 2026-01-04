@@ -14,7 +14,7 @@
 #include <StepVisual_Invisibility.hxx>
 #include <StepVisual_InvisibleItem.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepVisual_Invisibility, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepVisual_Invisibility, RefObject)
 
 StepVisual_Invisibility::StepVisual_Invisibility() {}
 

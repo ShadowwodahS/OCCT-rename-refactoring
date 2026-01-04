@@ -38,10 +38,10 @@ class TDocStd_Document;
 //!   3.1) Call the required Read method (if Read methods are implemented)
 //!   3.2) Call the required Write method (if Write methods are implemented)
 //! 4) Validate the output values
-class DE_Provider : public Standard_Transient
+class DE_Provider : public RefObject
 {
 public:
-  DEFINE_STANDARD_RTTIEXT(DE_Provider, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(DE_Provider, RefObject)
 
 public:
   //! Default constructor

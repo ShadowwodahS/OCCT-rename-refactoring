@@ -31,7 +31,7 @@
 
 StepAP214_GroupItem::StepAP214_GroupItem() {}
 
-Standard_Integer StepAP214_GroupItem::CaseNum(const Handle(Standard_Transient)& ent) const
+Standard_Integer StepAP214_GroupItem::CaseNum(const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

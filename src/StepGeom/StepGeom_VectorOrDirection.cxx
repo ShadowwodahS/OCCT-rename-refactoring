@@ -19,7 +19,7 @@
 
 StepGeom_VectorOrDirection::StepGeom_VectorOrDirection() {}
 
-Standard_Integer StepGeom_VectorOrDirection::CaseNum(const Handle(Standard_Transient)& ent) const
+Standard_Integer StepGeom_VectorOrDirection::CaseNum(const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

@@ -25,9 +25,9 @@
 //! This class defines arbitrary light source - see Graphic3d_TypeOfLightSource enumeration.
 //! Some parameters are applicable only to particular light type;
 //! calling methods unrelated to current type will throw an exception.
-class Graphic3d_CLight : public Standard_Transient
+class Graphic3d_CLight : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_CLight, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Graphic3d_CLight, RefObject)
 public:
   //! Empty constructor, which should be followed by light source properties configuration.
   Standard_EXPORT Graphic3d_CLight(Graphic3d_TypeOfLightSource theType);
@@ -287,6 +287,6 @@ protected:
   Standard_Boolean                  myToCastShadows; //!< casting shadows is requested
 };
 
-DEFINE_STANDARD_HANDLE(Graphic3d_CLight, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Graphic3d_CLight, RefObject)
 
 #endif // Graphic3d_CLight_HeaderFile

@@ -20,7 +20,7 @@
 #include <StepElement_CurveElementSectionDefinition.hxx>
 #include <StepFEA_FeaCurveSectionGeometricRelationship.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepFEA_FeaCurveSectionGeometricRelationship, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepFEA_FeaCurveSectionGeometricRelationship, RefObject)
 
 //=================================================================================================
 

@@ -24,9 +24,9 @@
 class StepVisual_CurveStyle;
 
 class StepVisual_SurfaceStyleControlGrid;
-DEFINE_STANDARD_HANDLE(StepVisual_SurfaceStyleControlGrid, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepVisual_SurfaceStyleControlGrid, RefObject)
 
-class StepVisual_SurfaceStyleControlGrid : public Standard_Transient
+class StepVisual_SurfaceStyleControlGrid : public RefObject
 {
 
 public:
@@ -40,7 +40,7 @@ public:
 
   Standard_EXPORT Handle(StepVisual_CurveStyle) StyleOfControlGrid() const;
 
-  DEFINE_STANDARD_RTTIEXT(StepVisual_SurfaceStyleControlGrid, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepVisual_SurfaceStyleControlGrid, RefObject)
 
 protected:
 private:

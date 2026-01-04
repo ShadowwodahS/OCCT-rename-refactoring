@@ -23,11 +23,11 @@
 class StdPersistent_TopoDS : protected StdObjMgt_SharedObject
 {
 protected:
-  class pTShape : public Standard_Transient
+  class pTShape : public RefObject
   {
     friend class ShapePersistent_TopoDS;
 
-    DEFINE_STANDARD_RTTI_INLINE(pTShape, Standard_Transient)
+    DEFINE_STANDARD_RTTI_INLINE(pTShape, RefObject)
 
   public:
     pTShape()

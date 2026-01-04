@@ -25,11 +25,11 @@
 class Vrml_Material;
 
 class VrmlConverter_ShadingAspect;
-DEFINE_STANDARD_HANDLE(VrmlConverter_ShadingAspect, Standard_Transient)
+DEFINE_STANDARD_HANDLE(VrmlConverter_ShadingAspect, RefObject)
 
 //! qualifies the aspect properties for
 //! the VRML conversation of ShadedShape .
-class VrmlConverter_ShadingAspect : public Standard_Transient
+class VrmlConverter_ShadingAspect : public RefObject
 {
 
 public:
@@ -64,7 +64,7 @@ public:
   //! returns True if the  materials is  writing into OStream.
   Standard_EXPORT Standard_Boolean HasMaterial() const;
 
-  DEFINE_STANDARD_RTTIEXT(VrmlConverter_ShadingAspect, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(VrmlConverter_ShadingAspect, RefObject)
 
 protected:
 private:

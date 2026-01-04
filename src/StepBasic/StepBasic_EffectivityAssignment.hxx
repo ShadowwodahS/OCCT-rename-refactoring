@@ -23,10 +23,10 @@
 class StepBasic_Effectivity;
 
 class StepBasic_EffectivityAssignment;
-DEFINE_STANDARD_HANDLE(StepBasic_EffectivityAssignment, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_EffectivityAssignment, RefObject)
 
 //! Representation of STEP entity EffectivityAssignment
-class StepBasic_EffectivityAssignment : public Standard_Transient
+class StepBasic_EffectivityAssignment : public RefObject
 {
 
 public:
@@ -43,7 +43,7 @@ public:
   Standard_EXPORT void SetAssignedEffectivity(
     const Handle(StepBasic_Effectivity)& AssignedEffectivity);
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_EffectivityAssignment, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_EffectivityAssignment, RefObject)
 
 protected:
 private:

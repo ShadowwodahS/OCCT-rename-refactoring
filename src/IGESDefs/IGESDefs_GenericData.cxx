@@ -70,7 +70,7 @@ Standard_Integer IGESDefs_GenericData::Type(const Standard_Integer Index) const
   return theTypes->Value(Index);
 }
 
-Handle(Standard_Transient) IGESDefs_GenericData::Value(const Standard_Integer Index) const
+Handle(RefObject) IGESDefs_GenericData::Value(const Standard_Integer Index) const
 {
   return theValues->Value(Index);
 }

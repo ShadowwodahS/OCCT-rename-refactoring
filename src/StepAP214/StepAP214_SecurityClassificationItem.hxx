@@ -66,7 +66,7 @@ public:
   //! 21 -> ShapeRepresentation
   //! 22 -> VersionedActionRequest
   //! 0 else
-  Standard_EXPORT virtual Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT virtual Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! returns Value as a Action (Null if another type)
   Standard_EXPORT virtual Handle(StepBasic_Action) Action() const;

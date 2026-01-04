@@ -35,10 +35,10 @@ class TopoDS_Vertex;
 class TopoDS_Shape;
 
 class BRepFill_LocationLaw;
-DEFINE_STANDARD_HANDLE(BRepFill_LocationLaw, Standard_Transient)
+DEFINE_STANDARD_HANDLE(BRepFill_LocationLaw, RefObject)
 
 //! Location Law on a  Wire.
-class BRepFill_LocationLaw : public Standard_Transient
+class BRepFill_LocationLaw : public RefObject
 {
 
 public:
@@ -121,7 +121,7 @@ public:
   //! parameter on the edge.
   Standard_EXPORT Standard_Real Abscissa(const Standard_Integer Index, const Standard_Real Param);
 
-  DEFINE_STANDARD_RTTIEXT(BRepFill_LocationLaw, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(BRepFill_LocationLaw, RefObject)
 
 protected:
   //! Initialize all the fields, this methode has to

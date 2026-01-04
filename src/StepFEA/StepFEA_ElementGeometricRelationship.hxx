@@ -25,10 +25,10 @@
 class StepElement_AnalysisItemWithinRepresentation;
 
 class StepFEA_ElementGeometricRelationship;
-DEFINE_STANDARD_HANDLE(StepFEA_ElementGeometricRelationship, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepFEA_ElementGeometricRelationship, RefObject)
 
 //! Representation of STEP entity ElementGeometricRelationship
-class StepFEA_ElementGeometricRelationship : public Standard_Transient
+class StepFEA_ElementGeometricRelationship : public RefObject
 {
 
 public:
@@ -58,7 +58,7 @@ public:
   //! Set field Aspect
   Standard_EXPORT void SetAspect(const StepElement_ElementAspect& Aspect);
 
-  DEFINE_STANDARD_RTTIEXT(StepFEA_ElementGeometricRelationship, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepFEA_ElementGeometricRelationship, RefObject)
 
 protected:
 private:

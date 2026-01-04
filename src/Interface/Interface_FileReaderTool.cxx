@@ -159,7 +159,7 @@ void Interface_FileReaderTool::SetEntities()
 
   for (num = thereader->FindNextRecord(0); num > 0; num = thereader->FindNextRecord(num))
   {
-    Handle(Standard_Transient) newent;
+    Handle(RefObject) newent;
     Handle(Interface_Check)    ach = new Interface_Check;
     if (!Recognize(num, ach, newent))
     {
@@ -188,7 +188,7 @@ Standard_Boolean Interface_FileReaderTool::RecognizeByLib(const Standard_Integer
                                                           Interface_GeneralLib&       glib,
                                                           Interface_ReaderLib&        rlib,
                                                           Handle(Interface_Check)&    ach,
-                                                          Handle(Standard_Transient)& ent) const
+                                                          Handle(RefObject)& ent) const
 {
   Handle(Interface_GeneralModule) gmod;
   Handle(Interface_ReaderModule)  rmod;
@@ -230,7 +230,7 @@ Standard_Boolean Interface_FileReaderTool::RecognizeByLib(const Standard_Integer
 
 //=================================================================================================
 
-Handle(Standard_Transient) Interface_FileReaderTool::UnknownEntity() const
+Handle(RefObject) Interface_FileReaderTool::UnknownEntity() const
 {
   return theproto->UnknownEntity();
 }
@@ -297,7 +297,7 @@ void Interface_FileReaderTool::LoadModel(const Handle(Interface_InterfaceModel)&
   while (num > 0)
   {
     Standard_Integer           ierr = 0; // erreur sur analyse d une entite
-    Handle(Standard_Transient) anent;
+    Handle(RefObject) anent;
     try
     {
       OCC_CATCH_SIGNALS
@@ -402,7 +402,7 @@ void Interface_FileReaderTool::LoadModel(const Handle(Interface_InterfaceModel)&
         //  Finalement, on charge une Entite Inconnue
         thenbreps++;
         Handle(Interface_ReportEntity) rep   = new Interface_ReportEntity(ach, anent);
-        Handle(Standard_Transient)     undef = UnknownEntity();
+        Handle(RefObject)     undef = UnknownEntity();
         AnalyseRecord(num, undef, ach);
         rep->SetContent(undef);
 
@@ -451,7 +451,7 @@ void Interface_FileReaderTool::LoadModel(const Handle(Interface_InterfaceModel)&
     {
       if (thereports->Value(nr).IsNull())
         continue;
-      Handle(Standard_Transient)     anent = thereader->BoundEntity(nr);
+      Handle(RefObject)     anent = thereader->BoundEntity(nr);
       Handle(Interface_ReportEntity) rep =
         Handle(Interface_ReportEntity)::DownCast(thereports->Value(nr));
       amodel->SetReportEntity(-amodel->Number(anent), rep);
@@ -482,9 +482,9 @@ void Interface_FileReaderTool::LoadModel(const Handle(Interface_InterfaceModel)&
 
 //=================================================================================================
 
-Handle(Standard_Transient) Interface_FileReaderTool::LoadedEntity(const Standard_Integer num)
+Handle(RefObject) Interface_FileReaderTool::LoadedEntity(const Standard_Integer num)
 {
-  Handle(Standard_Transient)     anent = thereader->BoundEntity(num);
+  Handle(RefObject)     anent = thereader->BoundEntity(num);
   Handle(Interface_Check)        ach   = new Interface_Check(anent);
   Handle(Interface_ReportEntity) rep; // entite Report, s il y a lieu
   Standard_Integer               irep = 0;
@@ -552,7 +552,7 @@ Handle(Standard_Transient) Interface_FileReaderTool::LoadedEntity(const Standard
     nbf = (thereader->ResetErrorLoad() ? 1 : 0);
   if (nbf > 0)
   {
-    Handle(Standard_Transient) undef = UnknownEntity();
+    Handle(RefObject) undef = UnknownEntity();
     AnalyseRecord(num, undef, ach);
     rep->SetContent(undef);
   }

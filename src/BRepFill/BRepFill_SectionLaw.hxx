@@ -33,10 +33,10 @@ class TopoDS_Wire;
 class TopoDS_Edge;
 
 class BRepFill_SectionLaw;
-DEFINE_STANDARD_HANDLE(BRepFill_SectionLaw, Standard_Transient)
+DEFINE_STANDARD_HANDLE(BRepFill_SectionLaw, RefObject)
 
 //! Build Section Law, with an Vertex, or an Wire
-class BRepFill_SectionLaw : public Standard_Transient
+class BRepFill_SectionLaw : public RefObject
 {
 
 public:
@@ -74,7 +74,7 @@ public:
 
   Standard_EXPORT TopoDS_Edge CurrentEdge();
 
-  DEFINE_STANDARD_RTTIEXT(BRepFill_SectionLaw, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(BRepFill_SectionLaw, RefObject)
 
 protected:
   Handle(GeomFill_HArray1OfSectionLaw) myLaws;

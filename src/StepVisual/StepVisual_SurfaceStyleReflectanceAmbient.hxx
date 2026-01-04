@@ -22,10 +22,10 @@
 #include <Standard_Transient.hxx>
 
 class StepVisual_SurfaceStyleReflectanceAmbient;
-DEFINE_STANDARD_HANDLE(StepVisual_SurfaceStyleReflectanceAmbient, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepVisual_SurfaceStyleReflectanceAmbient, RefObject)
 
 //! Representation of STEP entity SurfaceStyleReflectanceAmbient
-class StepVisual_SurfaceStyleReflectanceAmbient : public Standard_Transient
+class StepVisual_SurfaceStyleReflectanceAmbient : public RefObject
 {
 public:
   //! default constructor
@@ -39,7 +39,7 @@ public:
   //! Sets field AmbientReflectance
   Standard_EXPORT void SetAmbientReflectance(const Standard_Real theAmbientReflectance);
 
-  DEFINE_STANDARD_RTTIEXT(StepVisual_SurfaceStyleReflectanceAmbient, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepVisual_SurfaceStyleReflectanceAmbient, RefObject)
 
 private:
   Standard_Real myAmbientReflectance;

@@ -199,7 +199,7 @@ public:
   //! \thePresentations[out]  container of presentations
   Standard_EXPORT static void SubItemsPresentations(
     const QModelIndexList&                        theIndices,
-    NCollection_List<Handle(Standard_Transient)>& thePresentations);
+    NCollection_List<Handle(RefObject)>& thePresentations);
 
 protected:
   //! Creates root item
@@ -221,7 +221,7 @@ protected:
   //! \param theItem an item to get own presentations and presentations of children
   //! \thePresentations[out]  container of presentations found
   static void subItemsPresentations(const TreeModel_ItemBasePtr&                  theItem,
-                                    NCollection_List<Handle(Standard_Transient)>& thePresentations);
+                                    NCollection_List<Handle(RefObject)>& thePresentations);
 
 private:
   //! Creates root item

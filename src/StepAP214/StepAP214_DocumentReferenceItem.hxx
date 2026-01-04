@@ -23,7 +23,7 @@
 
 #include <StepData_SelectType.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class StepBasic_Approval;
 class StepRepr_DescriptiveRepresentationItem;
 class StepRepr_MaterialDesignation;
@@ -54,7 +54,7 @@ public:
   Standard_EXPORT StepAP214_DocumentReferenceItem();
 
   //! Recognizes a DocumentReferenceItem Kind Entity that is :
-  Standard_EXPORT Standard_Integer CaseNum(const Handle(Standard_Transient)& ent) const;
+  Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 
   //! returns Value as a Approval (Null if another type)
   Standard_EXPORT Handle(StepBasic_Approval) Approval() const;

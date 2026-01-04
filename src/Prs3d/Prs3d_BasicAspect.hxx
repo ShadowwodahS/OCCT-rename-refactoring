@@ -23,14 +23,14 @@
 
 //! All basic Prs3d_xxxAspect must inherits from this class
 //! The aspect classes qualifies how to represent a given kind of object.
-class Prs3d_BasicAspect : public Standard_Transient
+class Prs3d_BasicAspect : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Prs3d_BasicAspect, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Prs3d_BasicAspect, RefObject)
 
   //! Dumps the content of me into the stream
   virtual void DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth = -1) const = 0;
 };
 
-DEFINE_STANDARD_HANDLE(Prs3d_BasicAspect, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Prs3d_BasicAspect, RefObject)
 
 #endif // _Prs3d_BasicAspect_HeaderFile

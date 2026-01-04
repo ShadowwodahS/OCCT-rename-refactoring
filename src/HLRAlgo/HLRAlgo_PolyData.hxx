@@ -31,10 +31,10 @@
 class HLRAlgo_EdgeStatus;
 
 class HLRAlgo_PolyData;
-DEFINE_STANDARD_HANDLE(HLRAlgo_PolyData, Standard_Transient)
+DEFINE_STANDARD_HANDLE(HLRAlgo_PolyData, RefObject)
 
 //! Data structure of a set of Triangles.
-class HLRAlgo_PolyData : public Standard_Transient
+class HLRAlgo_PolyData : public RefObject
 {
 
 public:
@@ -120,7 +120,7 @@ public:
 
   FaceIndices& Indices() { return myFaceIndices; }
 
-  DEFINE_STANDARD_RTTIEXT(HLRAlgo_PolyData, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(HLRAlgo_PolyData, RefObject)
 
 private:
   //! evident.

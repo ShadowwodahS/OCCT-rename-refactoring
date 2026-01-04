@@ -78,7 +78,7 @@ const Interface_Graph& Transfer_TransientProcess::Graph() const
 //=================================================================================================
 
 void Transfer_TransientProcess::SetContext(const Standard_CString            name,
-                                           const Handle(Standard_Transient)& ctx)
+                                           const Handle(RefObject)& ctx)
 {
   thectx.Bind(name, ctx);
 }
@@ -87,7 +87,7 @@ void Transfer_TransientProcess::SetContext(const Standard_CString            nam
 
 Standard_Boolean Transfer_TransientProcess::GetContext(const Standard_CString       name,
                                                        const Handle(Standard_Type)& type,
-                                                       Handle(Standard_Transient)&  ctx) const
+                                                       Handle(RefObject)&  ctx) const
 {
   if (thectx.IsEmpty())
     return Standard_False;
@@ -105,7 +105,7 @@ Standard_Boolean Transfer_TransientProcess::GetContext(const Standard_CString   
 
 //=================================================================================================
 
-NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)>&
+NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>&
   Transfer_TransientProcess::Context()
 {
   return thectx;
@@ -113,7 +113,7 @@ NCollection_DataMap<TCollection_AsciiString, Handle(Standard_Transient)>&
 
 //=================================================================================================
 
-void Transfer_TransientProcess::PrintTrace(const Handle(Standard_Transient)& start,
+void Transfer_TransientProcess::PrintTrace(const Handle(RefObject)& start,
                                            Standard_OStream&                 S) const
 {
   if (!start.IsNull())
@@ -133,7 +133,7 @@ void Transfer_TransientProcess::PrintTrace(const Handle(Standard_Transient)& sta
 
 //=================================================================================================
 
-Standard_Integer Transfer_TransientProcess::CheckNum(const Handle(Standard_Transient)& start) const
+Standard_Integer Transfer_TransientProcess::CheckNum(const Handle(RefObject)& start) const
 {
   return (themodel.IsNull() ? 0 : themodel->Number(start));
 }
@@ -141,7 +141,7 @@ Standard_Integer Transfer_TransientProcess::CheckNum(const Handle(Standard_Trans
 //=================================================================================================
 
 Interface_EntityIterator Transfer_TransientProcess::TypedSharings(
-  const Handle(Standard_Transient)& start,
+  const Handle(RefObject)& start,
   const Handle(Standard_Type)&      type) const
 {
   Interface_EntityIterator iter;
@@ -153,7 +153,7 @@ Interface_EntityIterator Transfer_TransientProcess::TypedSharings(
 //=================================================================================================
 
 Standard_Boolean Transfer_TransientProcess::IsDataLoaded(
-  const Handle(Standard_Transient)& start) const
+  const Handle(RefObject)& start) const
 {
   if (themodel.IsNull())
     return Standard_True;
@@ -168,7 +168,7 @@ Standard_Boolean Transfer_TransientProcess::IsDataLoaded(
 //=================================================================================================
 
 Standard_Boolean Transfer_TransientProcess::IsDataFail(
-  const Handle(Standard_Transient)& start) const
+  const Handle(RefObject)& start) const
 {
   if (themodel.IsNull())
     return Standard_False;

@@ -24,9 +24,9 @@
 #include <TColStd_Array2OfReal.hxx>
 
 //! used to store constraints on a (Ui,Vj) point
-class AdvApp2Var_Node : public Standard_Transient
+class AdvApp2Var_Node : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(AdvApp2Var_Node, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(AdvApp2Var_Node, RefObject)
 public:
   Standard_EXPORT AdvApp2Var_Node();
 

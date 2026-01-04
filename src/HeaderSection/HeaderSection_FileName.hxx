@@ -25,9 +25,9 @@
 class TCollection_HAsciiString;
 
 class HeaderSection_FileName;
-DEFINE_STANDARD_HANDLE(HeaderSection_FileName, Standard_Transient)
+DEFINE_STANDARD_HANDLE(HeaderSection_FileName, RefObject)
 
-class HeaderSection_FileName : public Standard_Transient
+class HeaderSection_FileName : public RefObject
 {
 
 public:
@@ -82,7 +82,7 @@ public:
 
   Standard_EXPORT Handle(TCollection_HAsciiString) Authorisation() const;
 
-  DEFINE_STANDARD_RTTIEXT(HeaderSection_FileName, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(HeaderSection_FileName, RefObject)
 
 protected:
 private:

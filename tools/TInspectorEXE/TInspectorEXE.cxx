@@ -112,7 +112,7 @@ int main(int argc, char** argv)
     if (!strcmp(argv[anArgId], "messageview"))
       aPlugins.insert("TKMessageView");
   }
-  NCollection_List<Handle(Standard_Transient)> aParameters;
+  NCollection_List<Handle(RefObject)> aParameters;
 
   // Create tool communicator
   TInspector_Communicator* aCommunicator = TInspector_OpenFileDialog::Communicator();

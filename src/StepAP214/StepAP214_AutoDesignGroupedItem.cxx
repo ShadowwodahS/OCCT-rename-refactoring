@@ -28,7 +28,7 @@
 StepAP214_AutoDesignGroupedItem::StepAP214_AutoDesignGroupedItem() {}
 
 Standard_Integer StepAP214_AutoDesignGroupedItem::CaseNum(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
   if (ent.IsNull())
     return 0;

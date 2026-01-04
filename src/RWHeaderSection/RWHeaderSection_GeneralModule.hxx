@@ -22,7 +22,7 @@
 
 #include <StepData_GeneralModule.hxx>
 #include <Standard_Integer.hxx>
-class Standard_Transient;
+class RefObject;
 class Interface_EntityIterator;
 class Interface_ShareTool;
 class Interface_Check;
@@ -45,12 +45,12 @@ public:
   //! <ent>, according to a Case Number <CN> (provided by HeaderSection
   //! Protocol).
   Standard_EXPORT void FillSharedCase(const Standard_Integer            CN,
-                                      const Handle(Standard_Transient)& ent,
+                                      const Handle(RefObject)& ent,
                                       Interface_EntityIterator& iter) const Standard_OVERRIDE;
 
   //! Specific Checking of an Entity <ent>
   Standard_EXPORT void CheckCase(const Standard_Integer            CN,
-                                 const Handle(Standard_Transient)& ent,
+                                 const Handle(RefObject)& ent,
                                  const Interface_ShareTool&        shares,
                                  Handle(Interface_Check)&          ach) const Standard_OVERRIDE;
 
@@ -58,12 +58,12 @@ public:
   //! by using a CopyTool which provides its working Map.
   //! Use method Transferred from CopyTool to work
   Standard_EXPORT void CopyCase(const Standard_Integer            CN,
-                                const Handle(Standard_Transient)& entfrom,
-                                const Handle(Standard_Transient)& entto,
+                                const Handle(RefObject)& entfrom,
+                                const Handle(RefObject)& entto,
                                 Interface_CopyTool&               TC) const Standard_OVERRIDE;
 
   Standard_EXPORT Standard_Boolean NewVoid(const Standard_Integer      CN,
-                                           Handle(Standard_Transient)& ent) const Standard_OVERRIDE;
+                                           Handle(RefObject)& ent) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(RWHeaderSection_GeneralModule, StepData_GeneralModule)
 

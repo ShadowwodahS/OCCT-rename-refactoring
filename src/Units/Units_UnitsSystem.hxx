@@ -26,11 +26,11 @@
 class TCollection_AsciiString;
 
 class Units_UnitsSystem;
-DEFINE_STANDARD_HANDLE(Units_UnitsSystem, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Units_UnitsSystem, RefObject)
 
 //! This class  allows  the  user  to  define his  own
 //! system of units.
-class Units_UnitsSystem : public Standard_Transient
+class Units_UnitsSystem : public RefObject
 {
 
 public:
@@ -98,7 +98,7 @@ public:
   //! Returns TRUE if no units has been defined in the system.
   Standard_EXPORT Standard_Boolean IsEmpty() const;
 
-  DEFINE_STANDARD_RTTIEXT(Units_UnitsSystem, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Units_UnitsSystem, RefObject)
 
 protected:
 private:

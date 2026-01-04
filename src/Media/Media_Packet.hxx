@@ -21,9 +21,9 @@
 struct AVPacket;
 
 //! AVPacket wrapper - the packet (data chunk for decoding/encoding) holder.
-class Media_Packet : public Standard_Transient
+class Media_Packet : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Media_Packet, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Media_Packet, RefObject)
 public:
   //! Empty constructor
   Standard_EXPORT Media_Packet();

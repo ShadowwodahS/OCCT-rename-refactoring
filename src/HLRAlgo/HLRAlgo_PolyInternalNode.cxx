@@ -17,4 +17,4 @@
 #include <HLRAlgo_PolyInternalNode.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(HLRAlgo_PolyInternalNode, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(HLRAlgo_PolyInternalNode, RefObject)

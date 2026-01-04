@@ -34,7 +34,7 @@
 #include <TCollection_ExtendedString.hxx>
 #include <UTL.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(CDM_Document, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(CDM_Document, RefObject)
 
 //=================================================================================================
 

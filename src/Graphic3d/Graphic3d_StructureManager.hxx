@@ -43,10 +43,10 @@ class Graphic3d_DataStructureManager;
 //! It defines the global attributes.
 //! Keywords: Structure, Structure Manager, Update Mode,
 //! Destroy, Highlight, Visible
-class Graphic3d_StructureManager : public Standard_Transient
+class Graphic3d_StructureManager : public RefObject
 {
   friend class Graphic3d_Structure;
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_StructureManager, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Graphic3d_StructureManager, RefObject)
 public:
   //! Initializes the ViewManager.
   //! Currently creating of more than 100 viewer instances
@@ -160,13 +160,13 @@ public:
   Standard_EXPORT void RecomputeStructures(
     const NCollection_Map<Graphic3d_Structure*>& theStructures);
 
-  Standard_EXPORT void RegisterObject(const Handle(Standard_Transient)&     theObject,
+  Standard_EXPORT void RegisterObject(const Handle(RefObject)&     theObject,
                                       const Handle(Graphic3d_ViewAffinity)& theAffinity);
 
-  Standard_EXPORT void UnregisterObject(const Handle(Standard_Transient)& theObject);
+  Standard_EXPORT void UnregisterObject(const Handle(RefObject)& theObject);
 
   Standard_EXPORT const Handle(Graphic3d_ViewAffinity)& ObjectAffinity(
-    const Handle(Standard_Transient)& theObject) const;
+    const Handle(RefObject)& theObject) const;
 
   //! Returns TRUE if Device Lost flag has been set and presentation data should be reuploaded onto
   //! graphics driver.
@@ -194,6 +194,6 @@ protected:
   Standard_Boolean                myDeviceLostFlag;
 };
 
-DEFINE_STANDARD_HANDLE(Graphic3d_StructureManager, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Graphic3d_StructureManager, RefObject)
 
 #endif // _Graphic3d_StructureManager_HeaderFile

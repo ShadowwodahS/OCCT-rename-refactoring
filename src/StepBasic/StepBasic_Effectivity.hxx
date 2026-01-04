@@ -24,9 +24,9 @@
 class TCollection_HAsciiString;
 
 class StepBasic_Effectivity;
-DEFINE_STANDARD_HANDLE(StepBasic_Effectivity, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_Effectivity, RefObject)
 
-class StepBasic_Effectivity : public Standard_Transient
+class StepBasic_Effectivity : public RefObject
 {
 
 public:
@@ -38,7 +38,7 @@ public:
 
   Standard_EXPORT void SetId(const Handle(TCollection_HAsciiString)& aid);
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_Effectivity, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_Effectivity, RefObject)
 
 protected:
 private:

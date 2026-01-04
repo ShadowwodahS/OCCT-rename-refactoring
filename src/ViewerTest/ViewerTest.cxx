@@ -1527,7 +1527,7 @@ public:
 
   const Handle(AIS_InteractiveObject)& Current() const { return myCurrent; }
 
-  const Handle(Standard_Transient)& CurrentTrs() const { return myCurrentTrs; }
+  const Handle(RefObject)& CurrentTrs() const { return myCurrentTrs; }
 
   //! @return true if iterator points to valid object within collection
   Standard_Boolean More() const
@@ -1624,7 +1624,7 @@ private:
   NCollection_Sequence<TCollection_AsciiString>::Iterator mySeqIter;
 
   TCollection_AsciiString       myCurrentName; //!< current item name
-  Handle(Standard_Transient)    myCurrentTrs;  //!< current item (as transient object)
+  Handle(RefObject)    myCurrentTrs;  //!< current item (as transient object)
   Handle(AIS_InteractiveObject) myCurrent;     //!< current item
 
   IterSource mySource; //!< iterated collection
@@ -3450,7 +3450,7 @@ static int VDonly2(Draw_Interpretor&, Standard_Integer theArgNb, const char** th
     }
   }
 
-  NCollection_Map<Handle(Standard_Transient)> aDispSet;
+  NCollection_Map<Handle(RefObject)> aDispSet;
   if (anArgIter >= theArgNb)
   {
     // display only selected objects

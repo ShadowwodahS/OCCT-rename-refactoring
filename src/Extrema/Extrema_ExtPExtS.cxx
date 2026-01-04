@@ -32,7 +32,7 @@
 #include <math_Vector.hxx>
 #include <GeomAdaptor_SurfaceOfLinearExtrusion.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Extrema_ExtPExtS, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Extrema_ExtPExtS, RefObject)
 
 static gp_Ax2 GetPosition(const Handle(Adaptor3d_Curve)& C);
 

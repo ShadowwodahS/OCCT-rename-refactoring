@@ -30,10 +30,10 @@
 #include <gp_Ax2.hxx>
 
 class XCAFDimTolObjects_DatumObject;
-DEFINE_STANDARD_HANDLE(XCAFDimTolObjects_DatumObject, Standard_Transient)
+DEFINE_STANDARD_HANDLE(XCAFDimTolObjects_DatumObject, RefObject)
 
 //! Access object to store datum
-class XCAFDimTolObjects_DatumObject : public Standard_Transient
+class XCAFDimTolObjects_DatumObject : public RefObject
 {
 
 public:
@@ -184,7 +184,7 @@ public:
   //! Dumps the content of me into the stream
   Standard_EXPORT void DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth = -1) const;
 
-  DEFINE_STANDARD_RTTIEXT(XCAFDimTolObjects_DatumObject, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(XCAFDimTolObjects_DatumObject, RefObject)
 
 private:
   Handle(TCollection_HAsciiString)         myName;

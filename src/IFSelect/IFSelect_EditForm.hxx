@@ -31,7 +31,7 @@ class IFSelect_ListEditor;
 class TCollection_HAsciiString;
 
 class IFSelect_EditForm;
-DEFINE_STANDARD_HANDLE(IFSelect_EditForm, Standard_Transient)
+DEFINE_STANDARD_HANDLE(IFSelect_EditForm, RefObject)
 
 //! An EditForm is the way to apply an Editor on an Entity or on
 //! the Model
@@ -45,7 +45,7 @@ DEFINE_STANDARD_HANDLE(IFSelect_EditForm, Standard_Transient)
 //! may differ if it is not Complete
 //! Two methods give the correspondence between this Number and
 //! the Rank in the EditForm : RankFromNumber and NumberFromRank
-class IFSelect_EditForm : public Standard_Transient
+class IFSelect_EditForm : public RefObject
 {
 public:
   //! Creates a complete EditForm from an Editor
@@ -80,14 +80,14 @@ public:
 
   Standard_EXPORT void ClearData();
 
-  Standard_EXPORT void SetData(const Handle(Standard_Transient)&       ent,
+  Standard_EXPORT void SetData(const Handle(RefObject)&       ent,
                                const Handle(Interface_InterfaceModel)& model);
 
-  Standard_EXPORT void SetEntity(const Handle(Standard_Transient)& ent);
+  Standard_EXPORT void SetEntity(const Handle(RefObject)& ent);
 
   Standard_EXPORT void SetModel(const Handle(Interface_InterfaceModel)& model);
 
-  Standard_EXPORT Handle(Standard_Transient) Entity() const;
+  Standard_EXPORT Handle(RefObject) Entity() const;
 
   Standard_EXPORT Handle(Interface_InterfaceModel) Model() const;
 
@@ -139,11 +139,11 @@ public:
   //! Remark that <ent> and/or <model> may be null, according to the
   //! kind of Editor. Shortcuts are available for these cases, but
   //! they finally call LoadData (hence, just ignore non-used args)
-  Standard_EXPORT virtual Standard_Boolean LoadData(const Handle(Standard_Transient)&       ent,
+  Standard_EXPORT virtual Standard_Boolean LoadData(const Handle(RefObject)&       ent,
                                                     const Handle(Interface_InterfaceModel)& model);
 
   //! Shortcut for LoadData when <model> is not used
-  Standard_EXPORT Standard_Boolean LoadEntity(const Handle(Standard_Transient)& ent);
+  Standard_EXPORT Standard_Boolean LoadEntity(const Handle(RefObject)& ent);
 
   //! Shortcut for LoadData when only the model is concerned
   Standard_EXPORT Standard_Boolean LoadModel(const Handle(Interface_InterfaceModel)& model);
@@ -289,7 +289,7 @@ public:
 
   //! Applies modifications to data
   //! Default uses Editor. Can be redefined
-  Standard_EXPORT virtual Standard_Boolean ApplyData(const Handle(Standard_Transient)&       ent,
+  Standard_EXPORT virtual Standard_Boolean ApplyData(const Handle(RefObject)&       ent,
                                                      const Handle(Interface_InterfaceModel)& model);
 
   //! For an undoable EditForm, Applies ... origibal values !
@@ -297,7 +297,7 @@ public:
   //! Can be run only once
   Standard_EXPORT Standard_Boolean Undo();
 
-  DEFINE_STANDARD_RTTIEXT(IFSelect_EditForm, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(IFSelect_EditForm, RefObject)
 
 private:
   Standard_Boolean                 thecomplete;
@@ -309,7 +309,7 @@ private:
   TColStd_Array1OfTransient        themodifs;
   TColStd_Array1OfInteger          thestatus;
   Handle(IFSelect_Editor)          theeditor;
-  Handle(Standard_Transient)       theent;
+  Handle(RefObject)       theent;
   Handle(Interface_InterfaceModel) themodel;
   Standard_Integer                 thetouched;
 };

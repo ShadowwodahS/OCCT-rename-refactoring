@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 class StepData_NodeOfWriterLib;
 class Standard_NoSuchObject;
-class Standard_Transient;
+class RefObject;
 class StepData_ReadWriteModule;
 class StepData_Protocol;
 class StepData_GlobalNodeOfWriterLib;
@@ -52,7 +52,7 @@ public:
   //! Adds a couple (Module-Protocol) to the Library, given the
   //! class of a Protocol. Takes Resources into account.
   //! (if <aprotocol> is not of type TheProtocol, it is not added)
-  Standard_EXPORT void AddProtocol(const Handle(Standard_Transient)& aprotocol);
+  Standard_EXPORT void AddProtocol(const Handle(RefObject)& aprotocol);
 
   //! Clears the list of Modules of a library (can be used to
   //! redefine the order of Modules before action : Clear then
@@ -69,7 +69,7 @@ public:
   //! Number determined by the associated Protocol.
   //! If Select has failed, <module> is Null Handle and CN is zero.
   //! (Select can work on any criterium, such as Object DynamicType)
-  Standard_EXPORT Standard_Boolean Select(const Handle(Standard_Transient)& obj,
+  Standard_EXPORT Standard_Boolean Select(const Handle(RefObject)& obj,
                                           Handle(StepData_ReadWriteModule)& module,
                                           Standard_Integer&                 CN) const;
 

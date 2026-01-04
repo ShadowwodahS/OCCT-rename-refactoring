@@ -37,7 +37,7 @@
 StepAP214_SecurityClassificationItem::StepAP214_SecurityClassificationItem() {}
 
 Standard_Integer StepAP214_SecurityClassificationItem::CaseNum(
-  const Handle(Standard_Transient)& ent) const
+  const Handle(RefObject)& ent) const
 {
 
   if (ent.IsNull())

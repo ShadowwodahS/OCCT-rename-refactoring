@@ -25,7 +25,7 @@
 #include <Standard_OStream.hxx>
 
 class Vrml_Normal;
-DEFINE_STANDARD_HANDLE(Vrml_Normal, Standard_Transient)
+DEFINE_STANDARD_HANDLE(Vrml_Normal, RefObject)
 
 //! defines a Normal node of VRML specifying properties of geometry
 //! and its appearance.
@@ -34,7 +34,7 @@ DEFINE_STANDARD_HANDLE(Vrml_Normal, Standard_Transient)
 //! node does not produce a visible result during rendering; it simply replaces the current
 //! normals in the rendering state for subsequent nodes to use. This node contains one
 //! multiple-valued field that contains the normal vectors.
-class Vrml_Normal : public Standard_Transient
+class Vrml_Normal : public RefObject
 {
 
 public:
@@ -48,7 +48,7 @@ public:
 
   Standard_EXPORT Standard_OStream& Print(Standard_OStream& anOStream) const;
 
-  DEFINE_STANDARD_RTTIEXT(Vrml_Normal, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(Vrml_Normal, RefObject)
 
 protected:
 private:

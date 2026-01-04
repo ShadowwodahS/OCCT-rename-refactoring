@@ -23,10 +23,10 @@
 #include <Standard_Transient.hxx>
 
 class StepBasic_EulerAngles;
-DEFINE_STANDARD_HANDLE(StepBasic_EulerAngles, Standard_Transient)
+DEFINE_STANDARD_HANDLE(StepBasic_EulerAngles, RefObject)
 
 //! Representation of STEP entity EulerAngles
-class StepBasic_EulerAngles : public Standard_Transient
+class StepBasic_EulerAngles : public RefObject
 {
 
 public:
@@ -42,7 +42,7 @@ public:
   //! Set field Angles
   Standard_EXPORT void SetAngles(const Handle(TColStd_HArray1OfReal)& Angles);
 
-  DEFINE_STANDARD_RTTIEXT(StepBasic_EulerAngles, Standard_Transient)
+  DEFINE_STANDARD_RTTIEXT(StepBasic_EulerAngles, RefObject)
 
 protected:
 private:

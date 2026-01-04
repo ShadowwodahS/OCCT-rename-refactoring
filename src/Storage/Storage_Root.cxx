@@ -17,7 +17,7 @@
 #include <Storage_Schema.hxx>
 #include <TCollection_AsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Storage_Root, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Storage_Root, RefObject)
 
 Storage_Root::Storage_Root()
     : myRef(0)

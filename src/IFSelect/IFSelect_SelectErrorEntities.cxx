@@ -23,7 +23,7 @@ IFSelect_SelectErrorEntities::IFSelect_SelectErrorEntities() {}
 
 Standard_Boolean IFSelect_SelectErrorEntities::Sort(
   const Standard_Integer,
-  const Handle(Standard_Transient)&       ent,
+  const Handle(RefObject)&       ent,
   const Handle(Interface_InterfaceModel)& model) const
 //.. ne peut pas marcher, il faut aussi le modele ! ex. via le graphe ...
 {

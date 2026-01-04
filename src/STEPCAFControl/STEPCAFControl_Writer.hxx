@@ -344,7 +344,7 @@ protected:
                          const Standard_Boolean                  theHasPlane,
                          const gp_Ax2&                           theAnnotationPlane,
                          const gp_Pnt&                           theTextPosition,
-                         const Handle(Standard_Transient)&       theDimension,
+                         const Handle(RefObject)&       theDimension,
                          const StepData_Factors& theLocalFactors = StepData_Factors());
 
   Handle(StepDimTol_Datum) writeDatumAP242(

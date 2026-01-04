@@ -24,7 +24,7 @@
 #include <Interface_EntityIterator.hxx>
 #include <Standard_Integer.hxx>
 class Interface_Graph;
-class Standard_Transient;
+class RefObject;
 
 //! Defines general form for classes of graph algorithms on
 //! Interfaces, this form is that of EntityIterator
@@ -49,7 +49,7 @@ public:
   //! Creates an Iterator with Shared entities of an entity
   //! (equivalente to EntityIterator but with a Graph)
   Standard_EXPORT Interface_GraphContent(const Interface_Graph&            agraph,
-                                         const Handle(Standard_Transient)& ent);
+                                         const Handle(RefObject)& ent);
 
   //! Gets all Entities designated by a Graph (once created), adds
   //! them to those already recorded

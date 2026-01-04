@@ -27,7 +27,7 @@
 #include <Message.hxx>
 #include <TColStd_HSequenceOfHAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Express_Schema, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(Express_Schema, RefObject)
 
 //=================================================================================================
 

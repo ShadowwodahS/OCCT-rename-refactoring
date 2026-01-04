@@ -14,7 +14,7 @@
 #include <StepBasic_ApplicationContext.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_ApplicationContext, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_ApplicationContext, RefObject)
 
 StepBasic_ApplicationContext::StepBasic_ApplicationContext() {}
 

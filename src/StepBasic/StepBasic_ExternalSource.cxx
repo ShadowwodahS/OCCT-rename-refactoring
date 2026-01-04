@@ -18,7 +18,7 @@
 #include <StepBasic_ExternalSource.hxx>
 #include <StepBasic_SourceItem.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(StepBasic_ExternalSource, Standard_Transient)
+IMPLEMENT_STANDARD_RTTIEXT(StepBasic_ExternalSource, RefObject)
 
 //=================================================================================================
 
