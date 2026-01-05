@@ -9,7 +9,6 @@ gp,gp_Dir,Dir3d,Math,3D方向(单位向量)
 gp,gp_Ax1,Axis3d,Math,3D轴(点+方向)
 gp,gp_Ax2,Frame3d,Math,3D坐标系(右手定则)
 gp,gp_Trsf,Transform3d,Math,3D变换矩阵
-gp,gp_Pnt2d,Point2d,Math,2D点
 gp,gp_XY,Coords2d,Math,2D坐标对
 TCollection,TCollection_AsciiString,AsciiString,Kernel,ASCII字符串
 TCollection,TCollection_ExtendedString,UtfString,Kernel,Unicode字符串
@@ -848,7 +847,6 @@ gp,gp_Parab,Parabola,,
 gp,gp_Parab2d,Parabola2d,,
 gp,gp_Pln,Plane,,
 gp,gp_Pnt,Point3d,,
-gp,gp_Pnt2d,Point2d,,
 gp,gp_Quaternion,Quaternion,,
 gp,gp_QuaternionNLerp,QuaternionNLerp,,
 gp,gp_QuaternionSLerp,QuaternionSLerp,,
