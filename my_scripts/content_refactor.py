@@ -35,7 +35,7 @@ def process_file(filepath, old_word, new_word, dry_run):
     处理单个文件：
     1. 逐行读取
     2. 跳过 #include 行
-    3. 对普通行进行全字匹配替换
+    3. 对普通行进行全字匹配替换，但排除文件名后缀 (.hxx, .cxx)
     """
     try:
         with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
@@ -45,8 +45,13 @@ def process_file(filepath, old_word, new_word, dry_run):
         return False
 
     # 1. 编译正则表达式
-    # \b 确保全字匹配 (Whole Word Only)
-    word_regex = re.compile(r'\b' + re.escape(old_word) + r'\b')
+    # \b : 单词边界
+    # re.escape(old_word) : 确保旧词中的特殊符号被转义
+    # (?!\.(?:hxx|cxx))   : 负向先行断言。
+    #                       意思是：匹配到 old_word 后，向后看，如果紧跟着 ".hxx" 或 ".cxx"，则本次匹配作废。
+    #                       (?:...) 是非捕获组，仅用于分组逻辑。
+    pattern = r'\b' + re.escape(old_word) + r'\b(?!\.(?:hxx|cxx))'
+    word_regex = re.compile(pattern)
     
     # 检测 #include 的正则 (允许 # 前后有空格)
     include_regex = re.compile(r'^\s*#\s*include')
@@ -57,6 +62,9 @@ def process_file(filepath, old_word, new_word, dry_run):
 
     for line in lines:
         # 2. 核心逻辑：如果是 include 行，原样保留，不进行替换
+        # 注意：这里只过滤显式的 #include。
+        # 对于 #define A <OldName.hxx> 这种行，不会被这里过滤，
+        # 但会被上面的 word_regex 正则逻辑保护，从而不被替换。
         if include_regex.match(line):
             new_lines.append(line)
             continue
@@ -79,14 +87,14 @@ def process_file(filepath, old_word, new_word, dry_run):
             except Exception as e:
                 print(f"  [写入错误] {filepath}: {e}")
         else:
-            print(f"  [预演] {os.path.basename(filepath)} (发现 {replace_count} 处匹配 - 非include)")
+            print(f"  [预演] {os.path.basename(filepath)} (发现 {replace_count} 处匹配 - 已排除文件名引用)")
             
     return file_changed
 
 def main(root_dir, old_word, new_word, dry_run=True):
     print(f"[*] 扫描目录: {root_dir}")
     print(f"[*] 替换规则: '{old_word}' -> '{new_word}'")
-    print(f"[*] 限制条件: 全字匹配 | 忽略 #include 行 | 不改文件名")
+    print(f"[*] 限制条件: 全字匹配 | 忽略 #include | 忽略 .hxx/.cxx 后缀前")
     
     if dry_run:
         print("[!] 模式: 预演 (Dry Run)")
