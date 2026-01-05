@@ -31,7 +31,7 @@ GC_MakeCylindricalSurface::GC_MakeCylindricalSurface(const gp_Cylinder& C)
   TheCylinder = new Geom_CylindricalSurface(C);
 }
 
-GC_MakeCylindricalSurface::GC_MakeCylindricalSurface(const gp_Ax2& A2, const Standard_Real Radius)
+GC_MakeCylindricalSurface::GC_MakeCylindricalSurface(const Frame3d& A2, const Standard_Real Radius)
 {
   if (Radius < 0.0)
   {
@@ -48,7 +48,7 @@ GC_MakeCylindricalSurface::GC_MakeCylindricalSurface(const gp_Ax2& A2, const Sta
 //   Construction of a cylinder by axis <A1> et radius <Radius>.           +
 //=========================================================================
 
-GC_MakeCylindricalSurface::GC_MakeCylindricalSurface(const gp_Ax1& A1, const Standard_Real Radius)
+GC_MakeCylindricalSurface::GC_MakeCylindricalSurface(const Axis3d& A1, const Standard_Real Radius)
 {
   gce_MakeCylinder Cyl = gce_MakeCylinder(A1, Radius);
   TheError             = Cyl.Status();

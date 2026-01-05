@@ -47,7 +47,7 @@ Standard_Boolean ApproxInt_PrmPrmSvSurfaces::Compute( Standard_Real& u1
 						     ,Standard_Real& u2
 						     ,Standard_Real& v2
 						     ,Point3d& P
-						     ,gp_Vec& Tg
+						     ,Vector3d& Tg
 						     ,gp_Vec2d& Tguv1
 						     ,gp_Vec2d& Tguv2) { 
   
@@ -76,7 +76,7 @@ Standard_Boolean ApproxInt_PrmPrmSvSurfaces::Compute( Standard_Real& u1
     if(  (MyParOnS1bis.X()==u1)&&(MyParOnS1bis.Y()==v1)
        &&(MyParOnS2bis.X()==u2)&&(MyParOnS2bis.Y()==v2)) {
 
-      gp_Vec            TV(MyTg);
+      Vector3d            TV(MyTg);
       gp_Vec2d          TV1(MyTguv1);
       gp_Vec2d          TV2(MyTguv2);
       Point3d            TP(MyPnt);
@@ -163,7 +163,7 @@ Standard_Boolean ApproxInt_PrmPrmSvSurfaces::Compute( Standard_Real& u1
   Tg.Normalize();    MyTg = Tg; 
 
   Standard_Real DeltaU,DeltaV;
-  gp_Vec TU,TV;
+  Vector3d TU,TV;
   Point3d Pbid;
   Standard_Real TUTV,TgTU,TgTV,TUTU,TVTV,DIS;
   //------------------------------------------------------------
@@ -219,7 +219,7 @@ void ApproxInt_PrmPrmSvSurfaces::Pnt(const Standard_Real u1,
 				     const Standard_Real v2,
 				     Point3d& P) { 
   Point3d aP;
-  gp_Vec aT;
+  Vector3d aT;
   gp_Vec2d aTS1,aTS2;
   Standard_Real tu1=u1;
   Standard_Real tu2=u2;
@@ -241,7 +241,7 @@ Standard_Boolean ApproxInt_PrmPrmSvSurfaces::SeekPoint(const Standard_Real u1,
                                                        IntSurf_PntOn2S& Point)
 {
   Point3d aP;
-  gp_Vec aT;
+  Vector3d aT;
   gp_Vec2d aTS1,aTS2;
   Standard_Real tu1=u1;
   Standard_Real tu2=u2;
@@ -258,9 +258,9 @@ Standard_Boolean ApproxInt_PrmPrmSvSurfaces::Tangency(const Standard_Real u1,
 						      const Standard_Real v1,
 						      const Standard_Real u2,
 						      const Standard_Real v2,
-						      gp_Vec& T) { 
+						      Vector3d& T) { 
   Point3d aP;
-  gp_Vec aT;
+  Vector3d aT;
   gp_Vec2d aTS1,aTS2;
   Standard_Real tu1=u1;
   Standard_Real tu2=u2;
@@ -277,7 +277,7 @@ Standard_Boolean ApproxInt_PrmPrmSvSurfaces::TangencyOnSurf1(const Standard_Real
 							     const Standard_Real v2,
 							     gp_Vec2d& T) { 
   Point3d aP;
-  gp_Vec aT;
+  Vector3d aT;
   gp_Vec2d aTS1,aTS2;
   Standard_Real tu1=u1;
   Standard_Real tu2=u2;
@@ -294,7 +294,7 @@ Standard_Boolean ApproxInt_PrmPrmSvSurfaces::TangencyOnSurf2(const Standard_Real
 							     const Standard_Real v2,
 							     gp_Vec2d& T) { 
   Point3d aP;
-  gp_Vec aT;
+  Vector3d aT;
   gp_Vec2d aTS1,aTS2;
   Standard_Real tu1=u1;
   Standard_Real tu2=u2;

@@ -71,7 +71,7 @@ void HLRBRep_EdgeIList::ProcessComplex(HLRAlgo_InterferenceList&           IL,
                                        const HLRBRep_EdgeInterferenceTool& T)
 {
   TopCnx_EdgeFaceTransition              transTool;
-  gp_Dir                                 TgtE, NormE, TgtI, NormI;
+  Dir3d                                 TgtE, NormE, TgtI, NormI;
   const Standard_Real                    TolAng = 0.0001;
   Standard_Real                          CurvE, CurvI;
   HLRAlgo_ListIteratorOfInterferenceList It1(IL);

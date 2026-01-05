@@ -67,7 +67,7 @@ struct Graphic3d_ZLayerSettings
     myOriginTrsf.Nullify();
     if (!theOrigin.IsEqual(gp_XYZ(0.0, 0.0, 0.0), gp::Resolution()))
     {
-      gp_Trsf aTrsf;
+      Transform3d aTrsf;
       aTrsf.SetTranslation(theOrigin);
       myOriginTrsf = new TopLoc_Datum3D(aTrsf);
     }

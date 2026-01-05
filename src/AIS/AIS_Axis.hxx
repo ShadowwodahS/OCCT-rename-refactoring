@@ -52,7 +52,7 @@ public:
   //! Initializes the ray as axis with start point and direction
   //! @param[in] theAxis Start point and direction of the ray
   //! @param[in] theLength Optional length of the ray (ray is infinite by default).
-  Standard_EXPORT AIS_Axis(const gp_Ax1& theAxis, const Standard_Real theLength = -1);
+  Standard_EXPORT AIS_Axis(const Axis3d& theAxis, const Standard_Real theLength = -1);
 
   //! Returns the axis entity aComponent and identifies it
   //! as a component of a shape.
@@ -126,7 +126,7 @@ private:
   Point3d                      myPlast;
   AIS_TypeOfAxis              myTypeOfAxis;
   Standard_Boolean            myIsXYZAxis;
-  gp_Dir                      myDir;
+  Dir3d                      myDir;
   Standard_Real               myVal;
   Standard_CString            myText;
   Handle(Prs3d_LineAspect)    myLineAspect;

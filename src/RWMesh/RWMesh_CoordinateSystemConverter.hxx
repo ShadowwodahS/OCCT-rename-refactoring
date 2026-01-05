@@ -141,7 +141,7 @@ public:
 
 public:
   //! Transform transformation.
-  void TransformTransformation(gp_Trsf& theTrsf) const
+  void TransformTransformation(Transform3d& theTrsf) const
   {
     if (myHasScale)
     {
@@ -187,8 +187,8 @@ private:
   Standard_Boolean myHasInputAx3;      //!< flag indicating if source coordinate system is defined or not
   Standard_Boolean myHasOutputAx3;     //!< flag indicating if destination coordinate system is defined or not
 
-  gp_Trsf          myTrsf;             //!< transformation from input Ax3 to output Ax3
-  gp_Trsf          myTrsfInv;          //!< inversed transformation from input Ax3 to output Ax3
+  Transform3d          myTrsf;             //!< transformation from input Ax3 to output Ax3
+  Transform3d          myTrsfInv;          //!< inversed transformation from input Ax3 to output Ax3
   Graphic3d_Mat4   myNormTrsf;         //!< transformation 4x4 matrix from input Ax3 to output Ax3
   Standard_Real    myUnitFactor;       //!< unit scale factor
   Standard_Boolean myHasScale;         //!< flag indicating that length unit transformation should be performed

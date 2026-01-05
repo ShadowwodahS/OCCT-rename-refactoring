@@ -53,7 +53,7 @@ static void InitTriangulation(const Handle(Poly_Triangulation)&       theMesh,
   }
   for (Standard_Integer aNodeIndex = 1; aNodeIndex <= theMesh->NbNodes(); ++aNodeIndex)
   {
-    gp_Dir aNorm = theMesh->Normal(aNodeIndex);
+    Dir3d aNorm = theMesh->Normal(aNodeIndex);
     theNormals->SetValue(aNodeIndex, 1, aNorm.X());
     theNormals->SetValue(aNodeIndex, 2, aNorm.Y());
     theNormals->SetValue(aNodeIndex, 3, aNorm.Z());

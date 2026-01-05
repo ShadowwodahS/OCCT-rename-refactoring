@@ -33,7 +33,7 @@ class Geom_Curve;
 class Geom_Surface;
 class Point3d;
 class math_Matrix;
-class gp_Vec;
+class Vector3d;
 
 class GeomFill_FunctionGuide : public math_FunctionSetWithDerivatives
 {
@@ -103,7 +103,7 @@ private:
                             const Standard_Real V,
                             const gp_XYZ&       DCentre,
                             const gp_XYZ&       DDir,
-                            gp_Vec&             DSDT) const;
+                            Vector3d&             DSDT) const;
 
   Handle(Adaptor3d_Curve)     TheGuide;
   Handle(GeomFill_SectionLaw) TheLaw;

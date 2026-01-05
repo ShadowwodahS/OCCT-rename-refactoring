@@ -660,7 +660,7 @@ Point3d ChFiDS_Spine::Value(const Standard_Real AbsC)
   if (Index == -1)
   {
     Point3d Pp = firstori;
-    gp_Vec Vp = firsttgt;
+    Vector3d Vp = firsttgt;
     Vp.Multiply(L);
     Pp.Translate(Vp);
     return Pp;
@@ -668,7 +668,7 @@ Point3d ChFiDS_Spine::Value(const Standard_Real AbsC)
   else if (Index == (abscissa->Length() + 1))
   {
     Point3d Pp = lastori;
-    gp_Vec Vp = lasttgt;
+    Vector3d Vp = lasttgt;
     Vp.Multiply(L);
     Pp.Translate(Vp);
     return Pp;
@@ -696,7 +696,7 @@ void ChFiDS_Spine::D0(const Standard_Real AbsC, Point3d& P)
 
 //=================================================================================================
 
-void ChFiDS_Spine::D1(const Standard_Real AbsC, Point3d& P, gp_Vec& V1)
+void ChFiDS_Spine::D1(const Standard_Real AbsC, Point3d& P, Vector3d& V1)
 {
   Standard_Integer Index;
   Standard_Real    L = AbsC;
@@ -707,7 +707,7 @@ void ChFiDS_Spine::D1(const Standard_Real AbsC, Point3d& P, gp_Vec& V1)
   {
     P         = firstori;
     V1        = firsttgt;
-    gp_Vec Vp = firsttgt;
+    Vector3d Vp = firsttgt;
     Vp.Multiply(L);
     P.Translate(Vp);
   }
@@ -715,7 +715,7 @@ void ChFiDS_Spine::D1(const Standard_Real AbsC, Point3d& P, gp_Vec& V1)
   {
     P         = lastori;
     V1        = lasttgt;
-    gp_Vec Vp = lasttgt;
+    Vector3d Vp = lasttgt;
     Vp.Multiply(L);
     P.Translate(Vp);
   }
@@ -742,7 +742,7 @@ void ChFiDS_Spine::D1(const Standard_Real AbsC, Point3d& P, gp_Vec& V1)
 
 //=================================================================================================
 
-void ChFiDS_Spine::D2(const Standard_Real AbsC, Point3d& P, gp_Vec& V1, gp_Vec& V2)
+void ChFiDS_Spine::D2(const Standard_Real AbsC, Point3d& P, Vector3d& V1, Vector3d& V2)
 {
 
   Standard_Integer Index;
@@ -755,7 +755,7 @@ void ChFiDS_Spine::D2(const Standard_Real AbsC, Point3d& P, gp_Vec& V1, gp_Vec& 
     P  = firstori;
     V1 = firsttgt;
     V2.SetCoord(0., 0., 0.);
-    gp_Vec Vp = firsttgt;
+    Vector3d Vp = firsttgt;
     Vp.Multiply(L);
     P.Translate(Vp);
   }
@@ -764,7 +764,7 @@ void ChFiDS_Spine::D2(const Standard_Real AbsC, Point3d& P, gp_Vec& V1, gp_Vec& 
     P  = lastori;
     V1 = lasttgt;
     V2.SetCoord(0., 0., 0.);
-    gp_Vec Vp = lasttgt;
+    Vector3d Vp = lasttgt;
     Vp.Multiply(L);
     P.Translate(Vp);
   }
@@ -786,7 +786,7 @@ void ChFiDS_Spine::D2(const Standard_Real AbsC, Point3d& P, gp_Vec& V1, gp_Vec& 
     Standard_Real D2 = -(V1.Dot(V2)) * (1. / N1) * (1. / N1);
     V2.Multiply(1. / N1);
     N1        = Sqrt(N1);
-    gp_Vec Va = V1.Multiplied(D2);
+    Vector3d Va = V1.Multiplied(D2);
     V2.Add(Va);
     Standard_Real D1 = 1. / N1;
     if (spine.Value(Index).Orientation() == TopAbs_REVERSED)
@@ -846,16 +846,16 @@ gp_Lin ChFiDS_Spine::Line() const
 
 gp_Circ ChFiDS_Spine::Circle() const
 {
-  gp_Ax2 Ac = myCurve.Circle().Position();
-  gp_Dir Dc(gp_Vec(Ac.Location(), myCurve.Value(myCurve.FirstParameter())));
-  gp_Dir ZZ(Ac.Direction());
+  Frame3d Ac = myCurve.Circle().Position();
+  Dir3d Dc(Vector3d(Ac.Location(), myCurve.Value(myCurve.FirstParameter())));
+  Dir3d ZZ(Ac.Direction());
 
   if (spine.Value(indexofcurve).Orientation() == TopAbs_REVERSED)
   {
-    Dc = gp_Dir(gp_Vec(Ac.Location(), myCurve.Value(myCurve.LastParameter())));
+    Dc = Dir3d(Vector3d(Ac.Location(), myCurve.Value(myCurve.LastParameter())));
     ZZ.Reverse();
   }
-  gp_Ax2 A(Ac.Location(), ZZ, Dc);
+  Frame3d A(Ac.Location(), ZZ, Dc);
   return gp_Circ(A, myCurve.Circle().Radius());
 }
 

@@ -20,7 +20,7 @@
 #include <gp_Vec.hxx>
 
 GeomFill_PlanFunc::GeomFill_PlanFunc(const Point3d&                  theP,
-                                     const gp_Vec&                  theV,
+                                     const Vector3d&                  theV,
                                      const Handle(Adaptor3d_Curve)& theC)
     : myCurve(theC)
 {
@@ -38,7 +38,7 @@ Standard_Boolean GeomFill_PlanFunc::Value(const Standard_Real X, Standard_Real& 
 
 Standard_Boolean GeomFill_PlanFunc::Derivative(const Standard_Real X, Standard_Real& D)
 {
-  gp_Vec dg;
+  Vector3d dg;
   myCurve->D1(X, G, dg);
   D = myVec.Dot(dg.XYZ());
 
@@ -49,7 +49,7 @@ Standard_Boolean GeomFill_PlanFunc::Values(const Standard_Real X,
                                            Standard_Real&      F,
                                            Standard_Real&      D)
 {
-  gp_Vec dg;
+  Vector3d dg;
   myCurve->D1(X, G, dg);
   V.SetLinearForm(-1, myPnt, G.XYZ());
   F = myVec.Dot(V);
@@ -65,8 +65,8 @@ Standard_Boolean GeomFill_PlanFunc::Values(const Standard_Real X,
 void GeomFill_PlanFunc::D2(const Standard_Real, Standard_Real&, Standard_Real&, Standard_Real&) {}
 
 void GeomFill_PlanFunc::DEDT(const Standard_Real X,
-                             const gp_Vec&       DPnt,
-                             const gp_Vec&       DVec,
+                             const Vector3d&       DPnt,
+                             const Vector3d&       DVec,
                              Standard_Real&      DFDT)
 {
   myCurve->D0(X, G);
@@ -75,19 +75,19 @@ void GeomFill_PlanFunc::DEDT(const Standard_Real X,
 }
 
 void GeomFill_PlanFunc::D2E(const Standard_Real X,
-                            const gp_Vec&       DP,
-                            //			     const gp_Vec& D2P,
-                            const gp_Vec&,
-                            const gp_Vec& DV,
-                            //			     const gp_Vec& D2V,
-                            const gp_Vec&,
+                            const Vector3d&       DP,
+                            //			     const Vector3d& D2P,
+                            const Vector3d&,
+                            const Vector3d& DV,
+                            //			     const Vector3d& D2V,
+                            const Vector3d&,
                             Standard_Real& DFDT,
                             //			     Standard_Real& ,
                             Standard_Real& /*D2FDT2*/,
                             //			     Standard_Real& D2FDTDX)
                             Standard_Real&)
 {
-  gp_Vec dg;
+  Vector3d dg;
   myCurve->D1(X, G, dg);
   gp_XYZ DVDT;
   V.SetLinearForm(-1, myPnt, G.XYZ());

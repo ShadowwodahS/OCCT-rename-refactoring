@@ -54,10 +54,10 @@ static TopAbs_State FUN_staPinF3d(const Point3d& P, const TopoDS_Face& F)
     return TopAbs_IN; // TopAbs_ON;
   Point3d pF;
   FUN_tool_value(UV, F, pF);
-  gp_Dir ntF = FUN_tool_nggeomF(UV, F);
+  Dir3d ntF = FUN_tool_nggeomF(UV, F);
   if (F.Orientation() == TopAbs_REVERSED)
     ntF.Reverse();
-  gp_Dir        PpF(gp_Vec(P, pF));
+  Dir3d        PpF(Vector3d(P, pF));
   Standard_Real dot = ntF.Dot(PpF);
   st                = (dot > 0) ? TopAbs_IN : TopAbs_OUT;
   return st;
@@ -84,7 +84,7 @@ Standard_EXPORT void FUN_UNKFstasta(const TopoDS_Face&              FF,
   Standard_Real ttE  = 0.41237118973;
   Standard_Real parE = (1 - ttE) * fE + ttE * lE;
   Point3d        PE;
-  gp_Vec        VE;
+  Vector3d        VE;
   CEE->D1(parE, PE, VE);
 
   GeomAPI_ProjectPointOnSurf PonS(PE, SFF);
@@ -95,10 +95,10 @@ Standard_EXPORT void FUN_UNKFstasta(const TopoDS_Face&              FF,
 
   Standard_Real u, v;
   PonS.Parameters(1, u, v);
-  gp_Vec d1u, d1v;
+  Vector3d d1u, d1v;
   Point3d puv;
   SFF->D1(u, v, puv, d1u, d1v);
-  gp_Vec        N = d1u.Crossed(d1v);
+  Vector3d        N = d1u.Crossed(d1v);
   Standard_Real FUMin, FUMax, FVMin, FVMax;
 
   // les bornes de FF
@@ -205,7 +205,7 @@ Standard_EXPORT void FUN_UNKFstasta(const TopoDS_Face&              FF,
 
   Standard_Boolean permute = Standard_False;
   Standard_Real    dot;
-  gp_Vec           VEcroN = VE.Crossed(N);
+  Vector3d           VEcroN = VE.Crossed(N);
   if (EisoV)
   {
     dot = VEcroN.Dot(d1u);

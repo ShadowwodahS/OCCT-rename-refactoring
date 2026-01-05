@@ -40,7 +40,7 @@ BRepPrimAPI_MakeCone::BRepPrimAPI_MakeCone(const Standard_Real R1,
 
 //=================================================================================================
 
-BRepPrimAPI_MakeCone::BRepPrimAPI_MakeCone(const gp_Ax2&       Axes,
+BRepPrimAPI_MakeCone::BRepPrimAPI_MakeCone(const Frame3d&       Axes,
                                            const Standard_Real R1,
                                            const Standard_Real R2,
                                            const Standard_Real H)
@@ -50,7 +50,7 @@ BRepPrimAPI_MakeCone::BRepPrimAPI_MakeCone(const gp_Ax2&       Axes,
 
 //=================================================================================================
 
-BRepPrimAPI_MakeCone::BRepPrimAPI_MakeCone(const gp_Ax2&       Axes,
+BRepPrimAPI_MakeCone::BRepPrimAPI_MakeCone(const Frame3d&       Axes,
                                            const Standard_Real R1,
                                            const Standard_Real R2,
                                            const Standard_Real H,

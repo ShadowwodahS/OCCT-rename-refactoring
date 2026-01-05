@@ -46,12 +46,12 @@ void BRepFill_DraftLaw::CleanLaw(const Standard_Real TolAngular)
   Standard_Real    First, Last; //, Angle;
   Standard_Integer ipath;
   gp_Mat           Trsf, M1, M2;
-  gp_Vec           V, T1, T2, N1, N2;
-  //  gp_Dir D;
+  Vector3d           V, T1, T2, N1, N2;
+  //  Dir3d D;
 
   myLaws->Value(1)->GetDomain(First, Last);
   // D = Handle(GeomFill_LocationDraft)::DownCast(myLaws->Value(1))->Direction();
-  //  gp_Vec Vd(D);
+  //  Vector3d Vd(D);
 
   for (ipath = 2; ipath <= myLaws->Length(); ipath++)
   {

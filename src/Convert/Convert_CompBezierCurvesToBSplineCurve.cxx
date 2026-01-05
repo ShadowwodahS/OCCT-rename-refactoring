@@ -166,7 +166,7 @@ void Convert_CompBezierCurvesToBSplineCurve::Perform()
     {
       P2 = Points(1);
       P3 = Points(2);
-      gp_Vec V1(P1, P2), V2(P2, P3);
+      Vector3d V1(P1, P2), V2(P2, P3);
 
       // Processing of the tangency between Bezier and the previous.
       // This allows to guarantee at least a C1 continuity if the tangents are

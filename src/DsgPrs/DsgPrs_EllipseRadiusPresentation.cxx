@@ -63,7 +63,7 @@ void DsgPrs_EllipseRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPr
   Prs3d_Text::Draw(aPresentation->CurrentGroup(), LA->TextAspect(), Text, aPosition);
 
   // arrows
-  gp_Dir arrdir(gp_Vec(aCenter, anEndOfArrow));
+  Dir3d arrdir(Vector3d(aCenter, anEndOfArrow));
   if (!inside)
     arrdir.Reverse();
 
@@ -94,9 +94,9 @@ void DsgPrs_EllipseRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPr
     // clang-format off
     const Standard_Real Alpha = DsgPrs::DistanceFromApex(anEllipse, anEndOfArrow, uFirst);//length of ellipse arc
     // clang-format on
-    gp_Vec        Vapex(aCenter, ElCLib::Value(uLast, anEllipse));
-    gp_Vec        Vpnt(aCenter, ElCLib::Value(uFirst, anEllipse));
-    gp_Dir        dir(Vpnt ^ Vapex);
+    Vector3d        Vapex(aCenter, ElCLib::Value(uLast, anEllipse));
+    Vector3d        Vpnt(aCenter, ElCLib::Value(uFirst, anEllipse));
+    Dir3d        dir(Vpnt ^ Vapex);
     Standard_Real parFirst =
       anEllipse.Position().Direction().IsOpposite(dir, Precision::Angular()) ? uLast : uFirst;
     const Standard_Integer NodeNumber = Max(4, Standard_Integer(50. * Alpha / M_PI));
@@ -153,9 +153,9 @@ void DsgPrs_EllipseRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPr
     // clang-format on
     Point3d p1;
     aCurve->D0(uFirst, p1);
-    gp_Vec        Vapex(aCenter, anEndOfArrow);
-    gp_Vec        Vpnt(aCenter, p1);
-    gp_Dir        dir(Vpnt ^ Vapex);
+    Vector3d        Vapex(aCenter, anEndOfArrow);
+    Vector3d        Vpnt(aCenter, p1);
+    Dir3d        dir(Vpnt ^ Vapex);
     Standard_Real parFirst =
       aCurve->Direction().IsOpposite(dir, Precision::Angular()) ? uLast : uFirst;
     const Standard_Integer NodeNumber = Max(4, Standard_Integer(50. * Alpha / M_PI));

@@ -20,6 +20,6 @@
 #include <gp_Ax2.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<gp_Ax2> GeomFill_SequenceOfAx2;
+typedef NCollection_Sequence<Frame3d> GeomFill_SequenceOfAx2;
 
 #endif

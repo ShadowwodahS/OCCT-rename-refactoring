@@ -41,13 +41,13 @@ public:
 
   //! Constructs a Datum3D form a Trsf from gp. An error is
   //! raised if the Trsf is not a rigid transformation.
-  Standard_EXPORT TopLoc_Datum3D(const gp_Trsf& T);
+  Standard_EXPORT TopLoc_Datum3D(const Transform3d& T);
 
-  //! Returns a gp_Trsf which, when applied to this datum, produces the default datum.
-  const gp_Trsf& Transformation() const { return myTrsf; }
+  //! Returns a Transform3d which, when applied to this datum, produces the default datum.
+  const Transform3d& Transformation() const { return myTrsf; }
 
-  //! Returns a gp_Trsf which, when applied to this datum, produces the default datum.
-  const gp_Trsf& Trsf() const { return myTrsf; }
+  //! Returns a Transform3d which, when applied to this datum, produces the default datum.
+  const Transform3d& Trsf() const { return myTrsf; }
 
   //! Return transformation form.
   gp_TrsfForm Form() const { return myTrsf.Form(); }
@@ -61,7 +61,7 @@ public:
   DEFINE_STANDARD_RTTIEXT(TopLoc_Datum3D, RefObject)
 
 private:
-  gp_Trsf myTrsf;
+  Transform3d myTrsf;
 };
 
 inline void ShallowDump(const Handle(TopLoc_Datum3D)& me, Standard_OStream& S)

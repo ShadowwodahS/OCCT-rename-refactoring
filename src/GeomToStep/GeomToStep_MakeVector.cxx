@@ -30,10 +30,10 @@
 //=============================================================================
 // Creation d' un vector de prostep a partir d' un Vec de gp
 //=============================================================================
-GeomToStep_MakeVector::GeomToStep_MakeVector(const gp_Vec&           V,
+GeomToStep_MakeVector::GeomToStep_MakeVector(const Vector3d&           V,
                                              const StepData_Factors& theLocalFactors)
 {
-  gp_Dir        D       = gp_Dir(V);
+  Dir3d        D       = Dir3d(V);
   Standard_Real lFactor = theLocalFactors.LengthFactor();
 #include "GeomToStep_MakeVector_gen.pxx"
 }
@@ -58,9 +58,9 @@ GeomToStep_MakeVector::GeomToStep_MakeVector(const gp_Vec2d&         V,
 GeomToStep_MakeVector::GeomToStep_MakeVector(const Handle(Geom_Vector)& GVector,
                                              const StepData_Factors&    theLocalFactors)
 {
-  gp_Vec V;
+  Vector3d V;
   V                     = GVector->Vec();
-  gp_Dir        D       = gp_Dir(V);
+  Dir3d        D       = Dir3d(V);
   Standard_Real lFactor = theLocalFactors.LengthFactor();
 #include "GeomToStep_MakeVector_gen.pxx"
 }

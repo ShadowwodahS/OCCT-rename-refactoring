@@ -50,7 +50,7 @@ public:
 
   //! Sets a transformation aTrsf for presentation and
   //! selection to a relative position.
-  void SetRelativePos(const gp_Trsf& aTrsf) { myRelativePos = aTrsf; }
+  void SetRelativePos(const Transform3d& aTrsf) { myRelativePos = aTrsf; }
 
 private:
   Standard_EXPORT virtual void Compute(const Handle(PrsMgr_PresentationManager)& thePrsMgr,
@@ -61,20 +61,20 @@ private:
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
   Standard_EXPORT void ComputeTwoFacesOffset(const Handle(Prs3d_Presentation)& aPresentation,
-                                             const gp_Trsf&                    aTrsf);
+                                             const Transform3d&                    aTrsf);
 
   Standard_EXPORT void ComputeTwoAxesOffset(const Handle(Prs3d_Presentation)& aPresentation,
-                                            const gp_Trsf&                    aTrsf);
+                                            const Transform3d&                    aTrsf);
 
   Standard_EXPORT void ComputeAxeFaceOffset(const Handle(Prs3d_Presentation)& aPresentation,
-                                            const gp_Trsf&                    aTrsf);
+                                            const Transform3d&                    aTrsf);
 
 private:
   Point3d  myFAttach;
   Point3d  mySAttach;
-  gp_Dir  myDirAttach;
-  gp_Dir  myDirAttach2;
-  gp_Trsf myRelativePos;
+  Dir3d  myDirAttach;
+  Dir3d  myDirAttach2;
+  Transform3d myRelativePos;
 };
 
 #endif // _PrsDim_OffsetDimension_HeaderFile

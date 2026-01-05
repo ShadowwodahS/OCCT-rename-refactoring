@@ -158,7 +158,7 @@ static Standard_Boolean CoincideOnArc(const Point3d&                      Ptsomm
 static void VerifyTgline(const Handle(IntPatch_WLine)& wlin,
                          const Standard_Integer        param,
                          const Standard_Real           Tol,
-                         gp_Vec&                       Tgl)
+                         Vector3d&                       Tgl)
 {
 
   if (Abs(Tgl.X()) < Tol && Abs(Tgl.Y()) < Tol && Abs(Tgl.Z()) < Tol)
@@ -173,7 +173,7 @@ static void VerifyTgline(const Handle(IntPatch_WLine)& wlin,
       {
         for (i = param + 1; i <= nbpt; i++)
         {
-          gp_Vec T(wlin->Point(param).Value(), wlin->Point(i).Value());
+          Vector3d T(wlin->Point(param).Value(), wlin->Point(i).Value());
           if (Abs(T.X()) >= Tol || Abs(T.Y()) >= Tol || Abs(T.Z()) >= Tol)
           {
             Tgl = T;
@@ -185,7 +185,7 @@ static void VerifyTgline(const Handle(IntPatch_WLine)& wlin,
       {
         for (i = param - 1; i >= 1; i--)
         {
-          gp_Vec T(wlin->Point(i).Value(), wlin->Point(param).Value());
+          Vector3d T(wlin->Point(i).Value(), wlin->Point(param).Value());
           if (Abs(T.X()) >= Tol || Abs(T.Y()) >= Tol || Abs(T.Z()) >= Tol)
           {
             Tgl = T;
@@ -256,7 +256,7 @@ static Standard_Boolean FindParameter(const Handle(IntPatch_Line)&     L,
                                       const Point3d&                    Ptsom,
                                       const gp_Pnt2d&                  Ptsom2d,
                                       Standard_Real&                   Param,
-                                      gp_Vec&                          Tgl,
+                                      Vector3d&                          Tgl,
                                       const Standard_Integer           ParamApproche,
                                       const Standard_Boolean           OnFirst)
 
@@ -276,7 +276,7 @@ static Standard_Boolean FindParameter(const Handle(IntPatch_Line)&     L,
   // clang-format on
   Handle(IntPatch_WLine) wlin(Handle(IntPatch_WLine)::DownCast(L)); //-- faite au cast.
   Point3d                 ptbid;
-  gp_Vec                 d1u, d1v;
+  Vector3d                 d1u, d1v;
   gp_Pnt2d               p2d;
   gp_Vec2d               d2d;
   Standard_Real          Tol2 = Tol * Tol;
@@ -348,10 +348,10 @@ static Standard_Boolean FindParameter(const Handle(IntPatch_Line)&     L,
     Standard_Boolean found = Standard_False;
     for (is = 0; is < 3 && !found; is++)
     {
-      gp_Vec v1, v2;
+      Vector3d v1, v2;
       Point3d p1, p2;
       p1                       = wlin->Point(inf[is]).Value();
-      v1                       = gp_Vec(Ptsom, p1);
+      v1                       = Vector3d(Ptsom, p1);
       norm1                    = v1.SquareMagnitude();
       Standard_Real    normmin = Tol2;
       Standard_Integer ibest   = 0;
@@ -363,12 +363,12 @@ static Standard_Boolean FindParameter(const Handle(IntPatch_Line)&     L,
       for (i = inf[is] + 1; i <= sup[is] && !found; i++)
       {
         p2    = wlin->Point(i).Value();
-        v2    = gp_Vec(Ptsom, p2);
+        v2    = Vector3d(Ptsom, p2);
         norm2 = v2.SquareMagnitude();
         if (v1.Dot(v2) < 0.)
         {
           Param = (Standard_Real)(i - 1) + 1. / (1. + Sqrt(norm2 / norm1));
-          Tgl   = gp_Vec(p1, p2);
+          Tgl   = Vector3d(p1, p2);
           found = Standard_True;
         }
         else if (norm2 < normmin)
@@ -440,7 +440,7 @@ void IntPatch_RstInt::PutVertexOnLine(const Handle(IntPatch_Line)&       L,
   Standard_Real    PFirst, PLast;
   Standard_Integer NbEchant;
   Point3d           ptsommet, ptbid;
-  gp_Vec           tgline, tgrst, d1u, d1v, normsurf;
+  Vector3d           tgline, tgrst, d1u, d1v, normsurf;
 
   gp_Pnt2d p2d;
   gp_Vec2d d2d;

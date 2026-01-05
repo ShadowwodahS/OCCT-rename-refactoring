@@ -30,7 +30,7 @@ void LocalAnalysis_CurveContinuity::CurvC0(GeomLProp_CLProps& Curv1, GeomLProp_C
 /****************************************************************************/
 void LocalAnalysis_CurveContinuity::CurvC1(GeomLProp_CLProps& Curv1, GeomLProp_CLProps& Curv2)
 {
-  gp_Vec        V1, V2;
+  Vector3d        V1, V2;
   Standard_Real ang;
   V1 = Curv1.D1();
   V2 = Curv2.D1();
@@ -65,8 +65,8 @@ void LocalAnalysis_CurveContinuity::CurvC1(GeomLProp_CLProps& Curv1, GeomLProp_C
 
 void LocalAnalysis_CurveContinuity::CurvC2(GeomLProp_CLProps& Curv1, GeomLProp_CLProps& Curv2)
 {
-  gp_Vec V1, V2, V12, V22;
-  //  gp_Dir D1, D2;
+  Vector3d V1, V2, V12, V22;
+  //  Dir3d D1, D2;
   Standard_Real norm1, norm2, norm12, norm22, ang;
   V1     = Curv1.D1();
   V2     = Curv2.D1();
@@ -117,7 +117,7 @@ void LocalAnalysis_CurveContinuity::CurvC2(GeomLProp_CLProps& Curv1, GeomLProp_C
 
 void LocalAnalysis_CurveContinuity::CurvG1(GeomLProp_CLProps& Curv1, GeomLProp_CLProps& Curv2)
 {
-  gp_Dir        Tang1, Tang2;
+  Dir3d        Tang1, Tang2;
   Standard_Real ang;
   if (Curv1.IsTangentDefined() && Curv2.IsTangentDefined())
   {
@@ -140,8 +140,8 @@ void LocalAnalysis_CurveContinuity::CurvG1(GeomLProp_CLProps& Curv1, GeomLProp_C
 
 void LocalAnalysis_CurveContinuity::CurvG2(GeomLProp_CLProps& Curv1, GeomLProp_CLProps& Curv2)
 {
-  gp_Vec        V1, V2;
-  gp_Dir        D1, D2;
+  Vector3d        V1, V2;
+  Dir3d        D1, D2;
   Standard_Real ang;
   Standard_Real epscrb = 8 * myepsC0 / (myMaxLon * myMaxLon);
 

@@ -150,7 +150,7 @@ void BRepGProp_MeshCinert::PreparePolygon(const TopoDS_Edge&           theE,
     }
     else
     {
-      const gp_Trsf& aTr = aLoc.Transformation();
+      const Transform3d& aTr = aLoc.Transformation();
       for (i = 1; i <= aNodes.Length(); ++i)
       {
         thePolyg->SetValue(i, aNodes.Value(i).Transformed(aTr));
@@ -178,7 +178,7 @@ void BRepGProp_MeshCinert::PreparePolygon(const TopoDS_Edge&           theE,
     }
     else
     {
-      const gp_Trsf& aTr = aLoc.Transformation();
+      const Transform3d& aTr = aLoc.Transformation();
       for (i = 1; i <= aNbNodes; ++i)
       {
         thePolyg->SetValue(i, aTri->Node(aNodeInds(i)).Transformed(aTr));
@@ -208,7 +208,7 @@ void BRepGProp_MeshCinert::PreparePolygon(const TopoDS_Edge&           theE,
     }
     else
     {
-      const gp_Trsf& aTr = aLoc.Transformation();
+      const Transform3d& aTr = aLoc.Transformation();
       for (i = 1; i <= aNbNodes; ++i)
       {
         const gp_Pnt2d& aP2d = aNodes2D(i);

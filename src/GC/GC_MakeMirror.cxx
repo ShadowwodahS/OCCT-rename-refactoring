@@ -34,7 +34,7 @@ GC_MakeMirror::GC_MakeMirror(const Point3d& Point)
 //   Creation d une symetrie de Geom par rapport a une droite.            +
 //=========================================================================
 
-GC_MakeMirror::GC_MakeMirror(const gp_Ax1& Axis)
+GC_MakeMirror::GC_MakeMirror(const Axis3d& Axis)
 {
   TheMirror = new Geom_Transformation();
   TheMirror->SetMirror(Axis);
@@ -47,7 +47,7 @@ GC_MakeMirror::GC_MakeMirror(const gp_Ax1& Axis)
 GC_MakeMirror::GC_MakeMirror(const gp_Lin& Line)
 {
   TheMirror = new Geom_Transformation();
-  TheMirror->SetMirror(gp_Ax1(Line.Location(), Line.Direction()));
+  TheMirror->SetMirror(Axis3d(Line.Location(), Line.Direction()));
 }
 
 //=========================================================================
@@ -55,10 +55,10 @@ GC_MakeMirror::GC_MakeMirror(const gp_Lin& Line)
 //   par un point et une direction.                                       +
 //=========================================================================
 
-GC_MakeMirror::GC_MakeMirror(const Point3d& Point, const gp_Dir& Direc)
+GC_MakeMirror::GC_MakeMirror(const Point3d& Point, const Dir3d& Direc)
 {
   TheMirror = new Geom_Transformation();
-  TheMirror->SetMirror(gp_Ax1(Point, Direc));
+  TheMirror->SetMirror(Axis3d(Point, Direc));
 }
 
 //=========================================================================
@@ -66,7 +66,7 @@ GC_MakeMirror::GC_MakeMirror(const Point3d& Point, const gp_Dir& Direc)
 //   un Ax2 (Normale au plan et axe x du plan).                           +
 //=========================================================================
 
-GC_MakeMirror::GC_MakeMirror(const gp_Ax2& Plane)
+GC_MakeMirror::GC_MakeMirror(const Frame3d& Plane)
 {
   TheMirror = new Geom_Transformation();
   TheMirror->SetMirror(Plane);

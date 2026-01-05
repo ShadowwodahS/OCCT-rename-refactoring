@@ -124,7 +124,7 @@ private:
   TopoDS_Wire                           mySpine;
   TopoDS_Shape                          myProfile;
   TopoDS_Shape                          myShape;
-  gp_Trsf                               myTrsf;
+  Transform3d                               myTrsf;
   Handle(BRepFill_LocationLaw)          myLoc;
   Handle(TopTools_HArray2OfShape)       mySections;
   Handle(TopTools_HArray2OfShape)       myFaces;

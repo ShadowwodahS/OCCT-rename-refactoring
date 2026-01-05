@@ -378,7 +378,7 @@ Standard_Boolean ShapeExtend_CompositeSurface::GlobalToLocalTransformation(const
 
 //=================================================================================================
 
-void ShapeExtend_CompositeSurface::Transform(const gp_Trsf& T)
+void ShapeExtend_CompositeSurface::Transform(const Transform3d& T)
 {
   if (myPatches.IsNull())
     return;
@@ -519,8 +519,8 @@ void ShapeExtend_CompositeSurface::D0(const Standard_Real U, const Standard_Real
 void ShapeExtend_CompositeSurface::D1(const Standard_Real U,
                                       const Standard_Real V,
                                       Point3d&             P,
-                                      gp_Vec&             D1U,
-                                      gp_Vec&             D1V) const
+                                      Vector3d&             D1U,
+                                      Vector3d&             D1V) const
 {
   Standard_Integer i  = LocateUParameter(U);
   Standard_Integer j  = LocateVParameter(V);
@@ -533,11 +533,11 @@ void ShapeExtend_CompositeSurface::D1(const Standard_Real U,
 void ShapeExtend_CompositeSurface::D2(const Standard_Real U,
                                       const Standard_Real V,
                                       Point3d&             P,
-                                      gp_Vec&             D1U,
-                                      gp_Vec&             D1V,
-                                      gp_Vec&             D2U,
-                                      gp_Vec&             D2V,
-                                      gp_Vec&             D2UV) const
+                                      Vector3d&             D1U,
+                                      Vector3d&             D1V,
+                                      Vector3d&             D2U,
+                                      Vector3d&             D2V,
+                                      Vector3d&             D2UV) const
 {
   Standard_Integer i  = LocateUParameter(U);
   Standard_Integer j  = LocateVParameter(V);
@@ -550,15 +550,15 @@ void ShapeExtend_CompositeSurface::D2(const Standard_Real U,
 void ShapeExtend_CompositeSurface::D3(const Standard_Real U,
                                       const Standard_Real V,
                                       Point3d&             P,
-                                      gp_Vec&             D1U,
-                                      gp_Vec&             D1V,
-                                      gp_Vec&             D2U,
-                                      gp_Vec&             D2V,
-                                      gp_Vec&             D2UV,
-                                      gp_Vec&             D3U,
-                                      gp_Vec&             D3V,
-                                      gp_Vec&             D3UUV,
-                                      gp_Vec&             D3UVV) const
+                                      Vector3d&             D1U,
+                                      Vector3d&             D1V,
+                                      Vector3d&             D2U,
+                                      Vector3d&             D2V,
+                                      Vector3d&             D2UV,
+                                      Vector3d&             D3U,
+                                      Vector3d&             D3V,
+                                      Vector3d&             D3UUV,
+                                      Vector3d&             D3UVV) const
 {
   Standard_Integer i  = LocateUParameter(U);
   Standard_Integer j  = LocateVParameter(V);
@@ -568,7 +568,7 @@ void ShapeExtend_CompositeSurface::D3(const Standard_Real U,
 
 //=================================================================================================
 
-gp_Vec ShapeExtend_CompositeSurface::DN(const Standard_Real    U,
+Vector3d ShapeExtend_CompositeSurface::DN(const Standard_Real    U,
                                         const Standard_Real    V,
                                         const Standard_Integer Nu,
                                         const Standard_Integer Nv) const

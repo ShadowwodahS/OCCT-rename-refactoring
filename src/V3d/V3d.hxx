@@ -36,7 +36,7 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Determines the orientation vector corresponding to the predefined orientation type.
-  static gp_Dir GetProjAxis(const V3d_TypeOfOrientation theOrientation)
+  static Dir3d GetProjAxis(const V3d_TypeOfOrientation theOrientation)
   {
     switch (theOrientation)
     {
@@ -53,47 +53,47 @@ public:
       case V3d_Zneg:
         return -gp::DZ();
       case V3d_XposYposZpos:
-        return gp_Dir(1, 1, 1);
+        return Dir3d(1, 1, 1);
       case V3d_XposYposZneg:
-        return gp_Dir(1, 1, -1);
+        return Dir3d(1, 1, -1);
       case V3d_XposYnegZpos:
-        return gp_Dir(1, -1, 1);
+        return Dir3d(1, -1, 1);
       case V3d_XposYnegZneg:
-        return gp_Dir(1, -1, -1);
+        return Dir3d(1, -1, -1);
       case V3d_XnegYposZpos:
-        return gp_Dir(-1, 1, 1);
+        return Dir3d(-1, 1, 1);
       case V3d_XnegYposZneg:
-        return gp_Dir(-1, 1, -1);
+        return Dir3d(-1, 1, -1);
       case V3d_XnegYnegZpos:
-        return gp_Dir(-1, -1, 1);
+        return Dir3d(-1, -1, 1);
       case V3d_XnegYnegZneg:
-        return gp_Dir(-1, -1, -1);
+        return Dir3d(-1, -1, -1);
       case V3d_XposYpos:
-        return gp_Dir(1, 1, 0);
+        return Dir3d(1, 1, 0);
       case V3d_XposYneg:
-        return gp_Dir(1, -1, 0);
+        return Dir3d(1, -1, 0);
       case V3d_XnegYpos:
-        return gp_Dir(-1, 1, 0);
+        return Dir3d(-1, 1, 0);
       case V3d_XnegYneg:
-        return gp_Dir(-1, -1, 0);
+        return Dir3d(-1, -1, 0);
       case V3d_XposZpos:
-        return gp_Dir(1, 0, 1);
+        return Dir3d(1, 0, 1);
       case V3d_XposZneg:
-        return gp_Dir(1, 0, -1);
+        return Dir3d(1, 0, -1);
       case V3d_XnegZpos:
-        return gp_Dir(-1, 0, 1);
+        return Dir3d(-1, 0, 1);
       case V3d_XnegZneg:
-        return gp_Dir(-1, 0, -1);
+        return Dir3d(-1, 0, -1);
       case V3d_YposZpos:
-        return gp_Dir(0, 1, 1);
+        return Dir3d(0, 1, 1);
       case V3d_YposZneg:
-        return gp_Dir(0, 1, -1);
+        return Dir3d(0, 1, -1);
       case V3d_YnegZpos:
-        return gp_Dir(0, -1, 1);
+        return Dir3d(0, -1, 1);
       case V3d_YnegZneg:
-        return gp_Dir(0, -1, -1);
+        return Dir3d(0, -1, -1);
     }
-    return gp_Dir(0, 0, 0);
+    return Dir3d(0, 0, 0);
   }
 
   //! Compute the graphic structure of arrow.

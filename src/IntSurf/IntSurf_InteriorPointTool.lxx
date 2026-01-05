@@ -30,7 +30,7 @@ inline void IntSurf_InteriorPointTool::Value2d(const IntSurf_InteriorPoint& PSta
   PStart.Parameters(U, V);
 }
 
-inline gp_Vec IntSurf_InteriorPointTool::Direction3d(const IntSurf_InteriorPoint& PStart)
+inline Vector3d IntSurf_InteriorPointTool::Direction3d(const IntSurf_InteriorPoint& PStart)
 {
 
   return PStart.Direction();

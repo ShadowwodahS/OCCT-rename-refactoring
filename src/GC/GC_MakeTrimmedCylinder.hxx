@@ -26,7 +26,7 @@
 
 class Point3d;
 class gp_Circ;
-class gp_Ax1;
+class Axis3d;
 
 //! Implements construction algorithms for a trimmed
 //! cylinder limited by two planes orthogonal to its axis.
@@ -62,7 +62,7 @@ public:
   //! In the first case the V parametric direction of the
   //! result has the same orientation as <A1>.
   //! In the other case it has the opposite orientation.
-  Standard_EXPORT GC_MakeTrimmedCylinder(const gp_Ax1&       A1,
+  Standard_EXPORT GC_MakeTrimmedCylinder(const Axis3d&       A1,
                                          const Standard_Real Radius,
                                          const Standard_Real Height);
 

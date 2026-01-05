@@ -114,12 +114,12 @@ Standard_Boolean Extrema_FuncExtSS::Value(const math_Vector& UV, math_Vector& F)
   myV1 = UV(2);
   myU2 = UV(3);
   myV2 = UV(4);
-  gp_Vec Du1s1, Dv1s1;
-  gp_Vec Du2s2, Dv2s2;
+  Vector3d Du1s1, Dv1s1;
+  Vector3d Du2s2, Dv2s2;
   myS1->D1(myU1, myV1, myP1, Du1s1, Dv1s1);
   myS2->D1(myU2, myV2, myP2, Du2s2, Dv2s2);
 
-  gp_Vec P1P2(myP2, myP1);
+  Vector3d P1P2(myP2, myP1);
 
   F(1) = P1P2.Dot(Du1s1);
   F(2) = P1P2.Dot(Dv1s1);
@@ -147,12 +147,12 @@ Standard_Boolean Extrema_FuncExtSS::Values(const math_Vector& UV, math_Vector& F
   myV1 = UV(2);
   myU2 = UV(3);
   myV2 = UV(4);
-  gp_Vec Du1s1, Dv1s1, Du1u1s1, Dv1v1s1, Du1v1s1;
-  gp_Vec Du2s2, Dv2s2, Du2u2s2, Dv2v2s2, Du2v2s2;
+  Vector3d Du1s1, Dv1s1, Du1u1s1, Dv1v1s1, Du1v1s1;
+  Vector3d Du2s2, Dv2s2, Du2u2s2, Dv2v2s2, Du2v2s2;
   myS1->D2(myU1, myV1, myP1, Du1s1, Dv1s1, Du1u1s1, Dv1v1s1, Du1v1s1);
   myS2->D2(myU2, myV2, myP2, Du2s2, Dv2s2, Du2u2s2, Dv2v2s2, Du2v2s2);
 
-  gp_Vec P1P2(myP2, myP1);
+  Vector3d P1P2(myP2, myP1);
 
   F(1) = P1P2.Dot(Du1s1);
   F(2) = P1P2.Dot(Dv1s1);

@@ -52,7 +52,7 @@ static Standard_Boolean isCW(const BRepAdaptor_Curve& AC)
   circle->D0(0.5 * (f + l), m);
 
   // Compare angles between vectors to middle point and to the end point.
-  gp_Vec startv(center, start), endv(center, end), middlev(center, m);
+  Vector3d startv(center, start), endv(center, end), middlev(center, m);
   double middlea = startv.AngleWithRef(middlev, plane.Direction());
   while (middlea < 0.0)
     middlea += 2.0 * M_PI;
@@ -361,8 +361,8 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::Perform(const Standard_Real radius)
   // Construct a fillet.
   // Make circle.
   Point3d        center = ElSLib::Value(xc, yc, plane);
-  const gp_Dir& normal = plane.Position().Direction();
-  gp_Circ       circ(gp_Ax2(center, cw ? -normal : normal), radius);
+  const Dir3d& normal = plane.Position().Direction();
+  gp_Circ       circ(Frame3d(center, cw ? -normal : normal), radius);
 
   // Fillet may only shrink a neighbour edge, it can't prolongate it.
   const Standard_Real delta1 = AC1.LastParameter() - AC1.FirstParameter();

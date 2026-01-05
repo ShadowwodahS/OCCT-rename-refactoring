@@ -43,7 +43,7 @@ public:
   //! Constructor. Initialized tool by the given parameters.
   Standard_EXPORT BRepMesh_Triangulator(const NCollection_Vector<gp_XYZ>&                  theXYZs,
                                         const NCollection_List<TColStd_SequenceOfInteger>& theWires,
-                                        const gp_Dir&                                      theNorm);
+                                        const Dir3d&                                      theNorm);
 
   //! Performs triangulation of source wires and stores triangles the output list.
   Standard_EXPORT Standard_Boolean Perform(NCollection_List<Poly_Triangle>& thePolyTriangles);

@@ -791,7 +791,7 @@ static void DistributeSplitPoints(const Handle(ShapeExtend_WireData)& sbwd,
 static Standard_Integer CheckByCurve3d(const Point3d&             pos,
                                        const Handle(Geom_Curve)& c3d,
                                        const Standard_Real       param,
-                                       const gp_Trsf&            T,
+                                       const Transform3d&            T,
                                        const Standard_Real       tol)
 {
   if (c3d.IsNull())
@@ -859,7 +859,7 @@ ShapeFix_WireSegment ShapeFix_ComposeShell::SplitWire(ShapeFix_WireSegment&     
   ShapeAnalysis_Edge            sae;
   Standard_Integer              start        = 1;
   TopAbs_Orientation            anWireOrient = wire.Orientation();
-  gp_Trsf                       T;
+  Transform3d                       T;
   if (!myLoc.IsIdentity())
     T = myLoc.Inverted().Transformation();
 

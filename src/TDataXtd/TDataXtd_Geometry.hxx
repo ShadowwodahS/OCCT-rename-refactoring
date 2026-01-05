@@ -25,7 +25,7 @@
 class TDF_Label;
 class TNaming_NamedShape;
 class Point3d;
-class gp_Ax1;
+class Axis3d;
 class gp_Lin;
 class gp_Circ;
 class gp_Elips;
@@ -72,10 +72,10 @@ public:
   Standard_EXPORT static Standard_Boolean Point(const Handle(TNaming_NamedShape)& S, Point3d& G);
 
   //! Returns the axis attribute defined by the label L and the axis G.
-  Standard_EXPORT static Standard_Boolean Axis(const TDF_Label& L, gp_Ax1& G);
+  Standard_EXPORT static Standard_Boolean Axis(const TDF_Label& L, Axis3d& G);
 
   //! Returns the axis attribute defined by the topological attribute S and the axis G.
-  Standard_EXPORT static Standard_Boolean Axis(const Handle(TNaming_NamedShape)& S, gp_Ax1& G);
+  Standard_EXPORT static Standard_Boolean Axis(const Handle(TNaming_NamedShape)& S, Axis3d& G);
 
   //! Returns the line attribute defined by the label L and the line G.
   Standard_EXPORT static Standard_Boolean Line(const TDF_Label& L, gp_Lin& G);

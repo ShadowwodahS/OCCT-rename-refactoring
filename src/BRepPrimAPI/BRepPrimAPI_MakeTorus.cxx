@@ -62,7 +62,7 @@ BRepPrimAPI_MakeTorus::BRepPrimAPI_MakeTorus(const Standard_Real R1,
 
 //=================================================================================================
 
-BRepPrimAPI_MakeTorus::BRepPrimAPI_MakeTorus(const gp_Ax2&       Axes,
+BRepPrimAPI_MakeTorus::BRepPrimAPI_MakeTorus(const Frame3d&       Axes,
                                              const Standard_Real R1,
                                              const Standard_Real R2)
     : myTorus(Axes, R1, R2)
@@ -71,7 +71,7 @@ BRepPrimAPI_MakeTorus::BRepPrimAPI_MakeTorus(const gp_Ax2&       Axes,
 
 //=================================================================================================
 
-BRepPrimAPI_MakeTorus::BRepPrimAPI_MakeTorus(const gp_Ax2&       Axes,
+BRepPrimAPI_MakeTorus::BRepPrimAPI_MakeTorus(const Frame3d&       Axes,
                                              const Standard_Real R1,
                                              const Standard_Real R2,
                                              const Standard_Real angle)
@@ -82,7 +82,7 @@ BRepPrimAPI_MakeTorus::BRepPrimAPI_MakeTorus(const gp_Ax2&       Axes,
 
 //=================================================================================================
 
-BRepPrimAPI_MakeTorus::BRepPrimAPI_MakeTorus(const gp_Ax2&       Axes,
+BRepPrimAPI_MakeTorus::BRepPrimAPI_MakeTorus(const Frame3d&       Axes,
                                              const Standard_Real R1,
                                              const Standard_Real R2,
                                              const Standard_Real angle1,
@@ -95,7 +95,7 @@ BRepPrimAPI_MakeTorus::BRepPrimAPI_MakeTorus(const gp_Ax2&       Axes,
 
 //=================================================================================================
 
-BRepPrimAPI_MakeTorus::BRepPrimAPI_MakeTorus(const gp_Ax2&       Axes,
+BRepPrimAPI_MakeTorus::BRepPrimAPI_MakeTorus(const Frame3d&       Axes,
                                              const Standard_Real R1,
                                              const Standard_Real R2,
                                              const Standard_Real angle1,

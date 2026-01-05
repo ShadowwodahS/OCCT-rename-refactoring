@@ -128,12 +128,12 @@ Standard_Boolean BlendFunc_ConstThroatInv::Value(const math_Vector& X, math_Vect
   F(2) = nplan.XYZ().Dot(pts2.XYZ()) + theD;
 
   const Point3d ptmid((pts1.XYZ() + pts2.XYZ()) / 2);
-  const gp_Vec vmid(ptgui, ptmid);
+  const Vector3d vmid(ptgui, ptmid);
 
   F(3) = vmid.SquareMagnitude() - Throat * Throat;
 
-  const gp_Vec vref1(ptgui, pts1);
-  const gp_Vec vref2(ptgui, pts2);
+  const Vector3d vref1(ptgui, pts1);
+  const Vector3d vref2(ptgui, pts2);
 
   F(4) = vref1.SquareMagnitude() - vref2.SquareMagnitude();
 
@@ -148,7 +148,7 @@ Standard_Boolean BlendFunc_ConstThroatInv::Derivatives(const math_Vector& X, mat
   gp_Pnt2d p2d;
   gp_Vec2d v2d; //, df1, df2;
   // Point3d pts, ptgui;
-  gp_Vec      dnplan, temp, temp1, temp2, tempmid; //, d1u, d1v, nplan;
+  Vector3d      dnplan, temp, temp1, temp2, tempmid; //, d1u, d1v, nplan;
   math_Vector XX(1, 4);                            // x1(1,2), x2(1,2);
   // math_Matrix d1(1,2,1,2), d2(1,2,1,2);
 
@@ -196,17 +196,17 @@ Standard_Boolean BlendFunc_ConstThroatInv::Derivatives(const math_Vector& X, mat
 
     D(1, 1) = nplan.Dot(temp);
     D(2, 1) = 0.;
-    D(3, 1) = gp_Vec(ptgui, pts1).Dot(temp);
-    D(4, 1) = 2 * (gp_Vec(ptgui, pts1).Dot(temp));
+    D(3, 1) = Vector3d(ptgui, pts1).Dot(temp);
+    D(4, 1) = 2 * (Vector3d(ptgui, pts1).Dot(temp));
 
     D(1, 3) = 0.;
     D(1, 4) = 0.;
     D(2, 3) = nplan.Dot(d1u2);
     D(2, 4) = nplan.Dot(d1v2);
-    D(3, 3) = gp_Vec((pts1.XYZ() + pts2.XYZ()) / 2 - ptgui.XYZ()).Dot(d1u2);
-    D(3, 4) = gp_Vec((pts1.XYZ() + pts2.XYZ()) / 2 - ptgui.XYZ()).Dot(d1v2);
-    D(4, 3) = -2. * gp_Vec(ptgui, pts2).Dot(d1u2);
-    D(4, 4) = -2. * gp_Vec(ptgui, pts2).Dot(d1v2);
+    D(3, 3) = Vector3d((pts1.XYZ() + pts2.XYZ()) / 2 - ptgui.XYZ()).Dot(d1u2);
+    D(3, 4) = Vector3d((pts1.XYZ() + pts2.XYZ()) / 2 - ptgui.XYZ()).Dot(d1v2);
+    D(4, 3) = -2. * Vector3d(ptgui, pts2).Dot(d1u2);
+    D(4, 4) = -2. * Vector3d(ptgui, pts2).Dot(d1v2);
 
     // surf1->D1(x1(1),x1(2),pts,d1u,d1v);
   }
@@ -219,17 +219,17 @@ Standard_Boolean BlendFunc_ConstThroatInv::Derivatives(const math_Vector& X, mat
 
     D(1, 1) = 0.;
     D(2, 1) = nplan.Dot(temp);
-    D(3, 1) = gp_Vec(ptgui, pts2).Dot(temp);
-    D(4, 1) = -2 * (gp_Vec(ptgui, pts2).Dot(temp));
+    D(3, 1) = Vector3d(ptgui, pts2).Dot(temp);
+    D(4, 1) = -2 * (Vector3d(ptgui, pts2).Dot(temp));
 
     D(1, 3) = nplan.Dot(d1u1);
     D(1, 4) = nplan.Dot(d1v1);
     D(2, 3) = 0.;
     D(2, 4) = 0.;
-    D(3, 3) = gp_Vec((pts1.XYZ() + pts2.XYZ()) / 2 - ptgui.XYZ()).Dot(d1u1);
-    D(3, 4) = gp_Vec((pts1.XYZ() + pts2.XYZ()) / 2 - ptgui.XYZ()).Dot(d1v1);
-    D(4, 3) = 2. * gp_Vec(ptgui, pts1).Dot(d1u1);
-    D(4, 4) = 2. * gp_Vec(ptgui, pts1).Dot(d1v1);
+    D(3, 3) = Vector3d((pts1.XYZ() + pts2.XYZ()) / 2 - ptgui.XYZ()).Dot(d1u1);
+    D(3, 4) = Vector3d((pts1.XYZ() + pts2.XYZ()) / 2 - ptgui.XYZ()).Dot(d1v1);
+    D(4, 3) = 2. * Vector3d(ptgui, pts1).Dot(d1u1);
+    D(4, 4) = 2. * Vector3d(ptgui, pts1).Dot(d1v1);
 
     // surf2->D1(x1(1),x1(2),pts,d1u,d1v);
   }

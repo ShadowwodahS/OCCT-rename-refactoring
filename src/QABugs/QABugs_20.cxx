@@ -93,12 +93,12 @@ static Standard_Integer SurfaceGenOCC26675_1(Draw_Interpretor& theDI,
   const Point3d aCircCenter(-112.93397037070100000000,
                            +177.52792379072199000000,
                            +10.63374076104853900000);
-  const gp_Dir aCircN(+0.00000000000000000000, +1.00000000000000000000, +0.00000000000000000000);
-  const gp_Dir aCircX(+0.00000000000000000000, -0.00000000000000000000, +1.00000000000000000000);
-  const gp_Dir anExtrDir(-500.00000000000000000000,
+  const Dir3d aCircN(+0.00000000000000000000, +1.00000000000000000000, +0.00000000000000000000);
+  const Dir3d aCircX(+0.00000000000000000000, -0.00000000000000000000, +1.00000000000000000000);
+  const Dir3d anExtrDir(-500.00000000000000000000,
                          -866.02540378443609000000,
                          +0.00000000000000000000);
-  const gp_Ax2 aCircAxes(aCircCenter, aCircN, aCircX);
+  const Frame3d aCircAxes(aCircCenter, aCircN, aCircX);
   const Handle(Geom_Curve) aCurv = new Geom_Circle(aCircAxes, +50.00000000000000000000);
 
   const Handle(Geom_Surface) aS2 = new Geom_SurfaceOfLinearExtrusion(aCurv, anExtrDir);
@@ -2848,14 +2848,14 @@ static Standard_Integer OCC28389(Draw_Interpretor& di, Standard_Integer argc, co
     return 1;
   }
 
-  gp_Dir aVD(Draw::Atof(argv[11]), Draw::Atof(argv[12]), Draw::Atof(argv[13]));
+  Dir3d aVD(Draw::Atof(argv[11]), Draw::Atof(argv[12]), Draw::Atof(argv[13]));
   if (!aVD.IsEqual(anObj->ViewDirection(), Precision::Angular()))
   {
     di << "Error: Wrong view direction";
     return 1;
   }
 
-  gp_Dir aUD(Draw::Atof(argv[14]), Draw::Atof(argv[15]), Draw::Atof(argv[16]));
+  Dir3d aUD(Draw::Atof(argv[14]), Draw::Atof(argv[15]), Draw::Atof(argv[16]));
   if (!aUD.IsEqual(anObj->UpDirection(), Precision::Angular()))
   {
     di << "Error: Wrong up direction";
@@ -2942,7 +2942,7 @@ static Standard_Integer OCC28784(Draw_Interpretor&, Standard_Integer argc, const
   if (aShape.IsNull())
     return 1;
 
-  gp_Ax2            aPlane(gp::Origin(), gp::DX(), -gp::DZ());
+  Frame3d            aPlane(gp::Origin(), gp::DX(), -gp::DZ());
   HLRAlgo_Projector aProjector(aPlane);
 
   Handle(HLRBRep_PolyAlgo) aHLR = new HLRBRep_PolyAlgo(aShape);
@@ -3106,7 +3106,7 @@ static Standard_Integer OCC28131(Draw_Interpretor&,
 
     Handle(Geom2d_BSplineCurve) c = anInterpolation.Curve();
 
-    gp_Pln pln(gp_Ax3(Point3d(), gp_Dir(1, 0, 0), gp_Dir(0, -1, 0)));
+    gp_Pln pln(gp_Ax3(Point3d(), Dir3d(1, 0, 0), Dir3d(0, -1, 0)));
 
     Handle(Geom_BSplineCurve) c3d = Handle(Geom_BSplineCurve)::DownCast(GeomAPI::To3d(c, pln));
     curve1                        = c3d;
@@ -3123,7 +3123,7 @@ static Standard_Integer OCC28131(Draw_Interpretor&,
     anInterpolation.Perform();
 
     Handle(Geom2d_BSplineCurve) c = anInterpolation.Curve();
-    gp_Pln                      pln(gp_Ax3(Point3d(), gp_Dir(0, -1, 0), gp_Dir(-1, 0, 0)));
+    gp_Pln                      pln(gp_Ax3(Point3d(), Dir3d(0, -1, 0), Dir3d(-1, 0, 0)));
     Handle(Geom_BSplineCurve)   c3d = Handle(Geom_BSplineCurve)::DownCast(GeomAPI::To3d(c, pln));
     curve2                          = c3d;
   }
@@ -3487,7 +3487,7 @@ static Standard_Integer OCC29430(Draw_Interpretor& theDI,
   const Standard_Real r45 = M_PI / 4.0, r225 = 3.0 * M_PI / 4.0;
 
   GC_MakeArcOfCircle arcMaker(
-    gp_Circ(gp_Ax2(Point3d(0.0, 0.0, 0.0), gp_Dir(0.0, 0.0, 1.0), gp_Dir(1.0, 0.0, 0.0)), 1.0),
+    gp_Circ(Frame3d(Point3d(0.0, 0.0, 0.0), Dir3d(0.0, 0.0, 1.0), Dir3d(1.0, 0.0, 0.0)), 1.0),
     r45,
     r225,
     Standard_True);
@@ -4055,7 +4055,7 @@ public:
 
   Standard_Boolean D1(const Standard_Real theT,
                       NCollection_Array1<gp_Vec2d>& /*theVec2d*/,
-                      NCollection_Array1<gp_Vec>& theVec) const
+                      NCollection_Array1<Vector3d>& theVec) const
   {
     Point3d aDummyPnt;
     myCurve->D1(theT, aDummyPnt, theVec(1));
@@ -4261,7 +4261,7 @@ static Standard_Integer OCC30869(Draw_Interpretor& theDI,
   Standard_Real aLast  = aBACC.LastParameter();
 
   Point3d aPFirst, aPLast;
-  gp_Vec aVFirst, aVLast;
+  Vector3d aVFirst, aVLast;
 
   aBACC.D1(aFirst, aPFirst, aVFirst);
   aBACC.D1(aLast, aPLast, aVLast);
@@ -4506,7 +4506,7 @@ static Standard_Integer OCC31294(Draw_Interpretor& di, Standard_Integer, const c
 {
   BRepBuilderAPI_MakeVertex mkVert(Point3d(0., 0., 0.));
   BRepBuilderAPI_MakeVertex mkDummy(Point3d(0., 0., 0.));
-  BRepPrimAPI_MakePrism     mkPrism(mkVert.Shape(), gp_Vec(0., 0., 1.));
+  BRepPrimAPI_MakePrism     mkPrism(mkVert.Shape(), Vector3d(0., 0., 1.));
 
   Standard_Integer nbgen   = mkPrism.Generated(mkVert.Shape()).Extent();
   Standard_Integer nbdummy = mkPrism.Generated(mkDummy.Shape()).Extent();
@@ -4726,7 +4726,7 @@ static Standard_Integer QANullifyShape(Draw_Interpretor& di, Standard_Integer n,
   return 0;
 }
 
-static void CheckAx3Dir(gp_Ax3& theAxis, const gp_Dir& theDir)
+static void CheckAx3Dir(gp_Ax3& theAxis, const Dir3d& theDir)
 {
   Standard_Boolean bDirect = theAxis.Direct();
   theAxis.SetDirection(theDir);
@@ -4740,7 +4740,7 @@ static void CheckAx3Dir(gp_Ax3& theAxis, const gp_Dir& theDir)
   }
 }
 
-static void CheckAx3DirX(gp_Ax3& theAxis, const gp_Dir& theDir)
+static void CheckAx3DirX(gp_Ax3& theAxis, const Dir3d& theDir)
 {
   Standard_Boolean bDirect = theAxis.Direct();
   theAxis.SetXDirection(theDir);
@@ -4748,7 +4748,7 @@ static void CheckAx3DirX(gp_Ax3& theAxis, const gp_Dir& theDir)
   {
     std::cout << "Error: coordinate system is reversed\n";
   }
-  gp_Dir aGoodY = theAxis.Direction().Crossed(theDir);
+  Dir3d aGoodY = theAxis.Direction().Crossed(theDir);
   if (theAxis.Direct())
   {
     if (!aGoodY.IsEqual(theAxis.YDirection(), Precision::Angular()))
@@ -4765,7 +4765,7 @@ static void CheckAx3DirX(gp_Ax3& theAxis, const gp_Dir& theDir)
   }
 }
 
-static void CheckAx3DirY(gp_Ax3& theAxis, const gp_Dir& theDir)
+static void CheckAx3DirY(gp_Ax3& theAxis, const Dir3d& theDir)
 {
   Standard_Boolean bDirect = theAxis.Direct();
   theAxis.SetYDirection(theDir);
@@ -4773,7 +4773,7 @@ static void CheckAx3DirY(gp_Ax3& theAxis, const gp_Dir& theDir)
   {
     std::cout << "Error: coordinate system is reversed\n";
   }
-  gp_Dir aGoodX = theAxis.Direction().Crossed(theDir);
+  Dir3d aGoodX = theAxis.Direction().Crossed(theDir);
   if (theAxis.Direct())
   {
     if (!aGoodX.IsOpposite(theAxis.XDirection(), Precision::Angular()))
@@ -4790,7 +4790,7 @@ static void CheckAx3DirY(gp_Ax3& theAxis, const gp_Dir& theDir)
   }
 }
 
-static void CheckAx3Ax1(gp_Ax3& theAx, const gp_Ax1& theAx0)
+static void CheckAx3Ax1(gp_Ax3& theAx, const Axis3d& theAx0)
 {
   Standard_Boolean bDirect = theAx.Direct();
   theAx.SetAxis(theAx0);
@@ -4817,8 +4817,8 @@ static Standard_Integer OCC29406(Draw_Interpretor&, Standard_Integer, const char
     CheckAx3Dir(anAx3, gp::DX());
     CheckAx3Dir(anAx4, -gp::DX());
     // gp_Ax3::SetAxis() test
-    gp_Ax1 anAx0_1(gp::Origin(), gp::DX());
-    gp_Ax1 anAx0_2(gp::Origin(), -gp::DX());
+    Axis3d anAx0_1(gp::Origin(), gp::DX());
+    Axis3d anAx0_2(gp::Origin(), -gp::DX());
     CheckAx3Ax1(anAx5, anAx0_1);
     CheckAx3Ax1(anAx6, anAx0_2);
   }
@@ -5126,14 +5126,14 @@ static Standard_Integer QACheckBends(Draw_Interpretor& theDI,
 
   Standard_Real delta = (U2 - U1) / aNbPoints;
   Point3d        aP;
-  gp_Vec        aDC1, aDC2;
+  Vector3d        aDC1, aDC2;
   aCurve->D1(U1, aP, aDC1);
-  gp_Dir        aD1(aDC1);
+  Dir3d        aD1(aDC1);
   Standard_Real p;
   for (p = U1; p <= U2; p += delta)
   {
     aCurve->D1(p, aP, aDC2);
-    gp_Dir        aD2(aDC2);
+    Dir3d        aD2(aDC2);
     Standard_Real aCos = aD1 * aD2;
 
     if (aCos < aCosMaxAngle)

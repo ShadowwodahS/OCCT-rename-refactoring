@@ -327,7 +327,7 @@ void Graphic3d_Group::Text(const TCollection_ExtendedString& theText,
 //=================================================================================================
 
 void Graphic3d_Group::Text(const TCollection_ExtendedString& theText,
-                           const gp_Ax2&                     theOrientation,
+                           const Frame3d&                     theOrientation,
                            const Standard_Real               theHeight,
                            const Standard_Real /*theAngle*/,
                            const Graphic3d_TextPath /*theTP*/,
@@ -348,7 +348,7 @@ void Graphic3d_Group::Text(const TCollection_ExtendedString& theText,
 //=================================================================================================
 
 void Graphic3d_Group::Text(const Standard_CString theText,
-                           const gp_Ax2&          theOrientation,
+                           const Frame3d&          theOrientation,
                            const Standard_Real    theHeight,
                            const Standard_Real /*theAngle*/,
                            const Graphic3d_TextPath /*theTp*/,

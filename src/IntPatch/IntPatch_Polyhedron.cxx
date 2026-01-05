@@ -210,7 +210,7 @@ Standard_Real IntPatch_Polyhedron::DeflectionOnTriangle(const Handle(Adaptor3d_S
   gp_XYZ        XYZ1 = P2.XYZ() - P1.XYZ();
   gp_XYZ        XYZ2 = P3.XYZ() - P2.XYZ();
   gp_XYZ        XYZ3 = P1.XYZ() - P3.XYZ();
-  gp_Vec        NormalVector((XYZ1 ^ XYZ2) + (XYZ2 ^ XYZ3) + (XYZ3 ^ XYZ1));
+  Vector3d        NormalVector((XYZ1 ^ XYZ2) + (XYZ2 ^ XYZ3) + (XYZ3 ^ XYZ1));
   Standard_Real aNormLen = NormalVector.Magnitude();
   if (aNormLen < gp::Resolution())
   {
@@ -221,7 +221,7 @@ Standard_Real IntPatch_Polyhedron::DeflectionOnTriangle(const Handle(Adaptor3d_S
   //-- Calcul du point u,v  au centre du triangle
   Standard_Real u = (u1 + u2 + u3) / 3.0;
   Standard_Real v = (v1 + v2 + v3) / 3.0;
-  gp_Vec        P1P(P1, Surface->Value(u, v));
+  Vector3d        P1P(P1, Surface->Value(u, v));
   return (Abs(P1P.Dot(NormalVector)));
 }
 

@@ -562,13 +562,13 @@ Standard_Integer Poly_MakeLoops3D::chooseLeftWay(
   const NCollection_List<Standard_Integer>& theLstIndS) const
 {
   Standard_Real aAngleMin = M_PI * 2;
-  gp_Dir        aNormal;
+  Dir3d        aNormal;
   const Helper* aHelper = getHelper();
   if (!aHelper->GetNormal(theNode, aNormal))
     return theLstIndS.First();
 
   Link   aLink = getLink(theSegIndex);
-  gp_Dir aTgtRef;
+  Dir3d aTgtRef;
   if (!aHelper->GetLastTangent(aLink, aTgtRef))
     return theLstIndS.First();
 
@@ -589,7 +589,7 @@ Standard_Integer Poly_MakeLoops3D::chooseLeftWay(
     Standard_Integer aIndS = aItI.Value();
 
     aLink = getLink(aIndS);
-    gp_Dir aTgt;
+    Dir3d aTgt;
     if (!aHelper->GetFirstTangent(aLink, aTgt))
       continue;
 

@@ -392,7 +392,7 @@ Point3d IntAna_Curve::Value(const Standard_Real theta)
 
 //=================================================================================================
 
-Standard_Boolean IntAna_Curve::D1u(const Standard_Real theta, Point3d& Pt, gp_Vec& Vec)
+Standard_Boolean IntAna_Curve::D1u(const Standard_Real theta, Point3d& Pt, Vector3d& Vec)
 {
   //-- Pour detecter le cas ou le calcul est impossible
   Standard_Real A, B, C, U, V, sint, cost, SigneSqrtDis;

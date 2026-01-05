@@ -103,16 +103,16 @@ static TopAbs_Orientation Orientation(const TopoDS_Shape&, const TopoDS_Face&);
 
 static Standard_Boolean FindRotation(const gp_Pln&,
                                      const TopAbs_Orientation,
-                                     const gp_Dir&,
+                                     const Dir3d&,
                                      const Standard_Real,
                                      const gp_Pln&,
-                                     gp_Ax1&,
+                                     Axis3d&,
                                      Standard_Real&);
 
 //=================================================================================================
 
 Standard_Boolean Draft_Modification::InternalAdd(const TopoDS_Face&     F,
-                                                 const gp_Dir&          Direction,
+                                                 const Dir3d&          Direction,
                                                  const Standard_Real    Angle,
                                                  const gp_Pln&          NeutralPlane,
                                                  const Standard_Boolean Flag)
@@ -125,7 +125,7 @@ Standard_Boolean Draft_Modification::InternalAdd(const TopoDS_Face&     F,
 
   TopAbs_Orientation oris = Orientation(myShape, F);
   TopLoc_Location    Lo;
-  // gp_Dir NewDirection = Direction;
+  // Dir3d NewDirection = Direction;
   // Standard_Real NewAngle = Angle;
   Handle(Geom_Surface) S = BRep_Tool::Surface(F, Lo);
   S                      = Handle(Geom_Surface)::DownCast(S->Transformed(Lo.Transformation()));
@@ -147,15 +147,15 @@ Standard_Boolean Draft_Modification::InternalAdd(const TopoDS_Face&     F,
       if (typS == STANDARD_TYPE(Geom_CylindricalSurface))
       {
         gp_Cylinder cyl   = Handle(Geom_CylindricalSurface)::DownCast(S)->Cylinder();
-        gp_Ax1      axcyl = cyl.Axis();
+        Axis3d      axcyl = cyl.Axis();
         Cir               = ElSLib::CylinderVIso(cyl.Position(), cyl.Radius(), 0.);
-        gp_Vec VV(cyl.Location(), NeutralPlane.Location());
+        Vector3d VV(cyl.Location(), NeutralPlane.Location());
         Cir.Translate(VV.Dot(axcyl.Direction()) * axcyl.Direction());
       }
       else
       {
         Handle(Geom_Curve) Cbas = Handle(Geom_SurfaceOfLinearExtrusion)::DownCast(S)->BasisCurve();
-        gp_Dir theDirextr       = Handle(Geom_SurfaceOfLinearExtrusion)::DownCast(S)->Direction();
+        Dir3d theDirextr       = Handle(Geom_SurfaceOfLinearExtrusion)::DownCast(S)->Direction();
 
         if (Cbas->IsKind(STANDARD_TYPE(Geom_TrimmedCurve)))
         {
@@ -164,7 +164,7 @@ Standard_Boolean Draft_Modification::InternalAdd(const TopoDS_Face&     F,
         if (Cbas->IsKind(STANDARD_TYPE(Geom_Circle)))
         {
           Cir           = Handle(Geom_Circle)::DownCast(Cbas)->Circ();
-          gp_Dir dircir = Cir.Axis().Direction();
+          Dir3d dircir = Cir.Axis().Direction();
           if (!Direction.IsParallel(dircir, Precision::Angular()))
           {
             badShape = F;
@@ -180,9 +180,9 @@ Standard_Boolean Draft_Modification::InternalAdd(const TopoDS_Face&     F,
         }
 
         gp_Ax3        Axis = NeutralPlane.Position();
-        Standard_Real L    = gp_Vec(Cir.Location(), Axis.Location()).Dot(Axis.Direction());
+        Standard_Real L    = Vector3d(Cir.Location(), Axis.Location()).Dot(Axis.Direction());
         Standard_Real Cos  = theDirextr.Dot(Axis.Direction());
-        gp_Vec        VV   = (L / Cos) * theDirextr;
+        Vector3d        VV   = (L / Cos) * theDirextr;
         Cir.Translate(VV);
       }
 
@@ -572,7 +572,7 @@ Standard_Boolean Draft_Modification::Propagate()
         }
         else if (C->DynamicType() == STANDARD_TYPE(Geom_Line))
         {
-          gp_Ax1 axis;
+          Axis3d axis;
           if (S1->DynamicType() == STANDARD_TYPE(Geom_RectangularTrimmedSurface))
           {
             axis = Handle(Geom_ElementarySurface)::DownCast(
@@ -583,8 +583,8 @@ Standard_Boolean Draft_Modification::Propagate()
           {
             axis = Handle(Geom_ElementarySurface)::DownCast(S1)->Axis();
           }
-          gp_Vec they(axis.Location(), C->Value(0.));
-          gp_Dir axz(axis.Direction().Crossed(they));
+          Vector3d they(axis.Location(), C->Value(0.));
+          Dir3d axz(axis.Direction().Crossed(they));
           S2 = new Geom_Plane(gp_Ax3(axis.Location(), axz, axis.Direction()));
         }
         else
@@ -625,7 +625,7 @@ Standard_Boolean Draft_Modification::Propagate()
             {
               Handle(Geom_Curve)        C2 = BRep_Tool::Curve(Vinf.Edge(), Loc, f, l);
               Handle(GeomAdaptor_Curve) HCur;
-              gp_Vec                    Direc;
+              Vector3d                    Direc;
               C2 = Handle(Geom_Curve)::DownCast(C2->Transformed(Loc.Transformation()));
               if (C2->DynamicType() == STANDARD_TYPE(Geom_TrimmedCurve))
               {
@@ -762,7 +762,7 @@ void Draft_Modification::Perform()
           return;
         }
 
-        gp_Dir extrdir = i2p.Line(1).Direction();
+        Dir3d extrdir = i2p.Line(1).Direction();
 
         // Preserve the same direction as the base face
         Handle(Geom_Surface) RefSurf = BRep_Tool::Surface(FK);
@@ -770,7 +770,7 @@ void Draft_Modification::Perform()
         {
           RefSurf = Handle(Geom_RectangularTrimmedSurface)::DownCast(RefSurf)->BasisSurface();
         }
-        gp_Dir DirRef;
+        Dir3d DirRef;
 
         if (RefSurf->DynamicType() == STANDARD_TYPE(Geom_CylindricalSurface))
         {
@@ -846,7 +846,7 @@ void Draft_Modification::Perform()
           Standard_Real prmfv = BRep_Tool::Parameter(FV, theEdge);
           Standard_Real prmlv = BRep_Tool::Parameter(LV, theEdge);
           Point3d        pfv, plv;
-          gp_Vec        d1fv, d1lv, newd1;
+          Vector3d        d1fv, d1lv, newd1;
           C->D1(prmfv, pfv, d1fv);
           C->D1(prmlv, plv, d1lv);
 
@@ -877,7 +877,7 @@ void Draft_Modification::Perform()
             }
           }
 
-          gp_Dir             TheDirExtr;
+          Dir3d             TheDirExtr;
           gp_Ax3             Axis;
           Handle(Geom_Curve) TheNewCurve;
           Standard_Boolean   KPart = Standard_False;
@@ -917,7 +917,7 @@ void Draft_Modification::Perform()
               KPart = Standard_False;
             else
             {
-              gp_Dir AxofCirc = aCirc->Position().Direction();
+              Dir3d AxofCirc = aCirc->Position().Direction();
               if (AxofCirc.IsParallel(Axis.Direction(), Precision::Angular()))
                 KPart = Standard_True;
               else
@@ -931,9 +931,9 @@ void Draft_Modification::Perform()
           {
             // direct calculation of NewC
             Standard_Real aLocalReal =
-              gp_Vec(aCirc->Circ().Location(), Axis.Location()).Dot(Axis.Direction());
+              Vector3d(aCirc->Circ().Location(), Axis.Location()).Dot(Axis.Direction());
             Standard_Real Cos = TheDirExtr.Dot(Axis.Direction());
-            gp_Vec        VV  = (aLocalReal / Cos) * TheDirExtr;
+            Vector3d        VV  = (aLocalReal / Cos) * TheDirExtr;
             newC              = Handle(Geom_Curve)::DownCast(TheNewCurve->Translated(VV));
             // it is possible to calculate PCurve
             Handle(Geom2d_Line) L2d = new Geom2d_Line(gp_Pnt2d(0., aLocalReal / Cos), gp::DX2d());
@@ -1314,7 +1314,7 @@ void Draft_Modification::Perform()
             aLocalS2 = Handle(Geom_RectangularTrimmedSurface)::DownCast(aLocalS2)->BasisSurface();
           }
 
-          gp_Dir dirextr;
+          Dir3d dirextr;
           // Standard_Boolean dirfound = Standard_False;
           if (aLocalS1->DynamicType() == STANDARD_TYPE(Geom_CylindricalSurface))
           {
@@ -1368,7 +1368,7 @@ void Draft_Modification::Perform()
           newC = new Geom_Line(ptfixe, dirextr);
 
           Point3d pfv;
-          gp_Vec d1fv, newd1;
+          Vector3d d1fv, newd1;
           C->D1(0., pfv, d1fv);
           newC->D1(0., pfv, newd1);
           Standard_Boolean YaRev = d1fv.Dot(newd1) < 0.;
@@ -1623,7 +1623,7 @@ void Draft_Modification::Perform()
         const Handle(Geom_Curve) aSCurve   = BRep_Tool::Curve(edg, aF, aL);
         Handle(Geom_Curve)       anIntCurv = aEinf.Geometry();
         Point3d                   aPf, aPl;
-        gp_Vec                   aDirNF, aDirNL, aDirOF, aDirOL;
+        Vector3d                   aDirNF, aDirNL, aDirOF, aDirOL;
         aSCurve->D1(BRep_Tool::Parameter(Vf, edg), aPf, aDirOF);
         aSCurve->D1(BRep_Tool::Parameter(Vl, edg), aPl, aDirOL);
         anIntCurv->D1(aParF, aPf, aDirNF);
@@ -1718,7 +1718,7 @@ void Draft_Modification::Perform()
 
 Handle(Geom_Surface) Draft_Modification::NewSurface(const Handle(Geom_Surface)& S,
                                                     const TopAbs_Orientation    Oris,
-                                                    const gp_Dir&               Direction,
+                                                    const Dir3d&               Direction,
                                                     const Standard_Real         Angle,
                                                     const gp_Pln&               NeutralPlane)
 {
@@ -1729,7 +1729,7 @@ Handle(Geom_Surface) Draft_Modification::NewSurface(const Handle(Geom_Surface)& 
   if (TypeS == STANDARD_TYPE(Geom_Plane))
   {
     gp_Pln        Pl = Handle(Geom_Plane)::DownCast(S)->Pln();
-    gp_Ax1        Axe;
+    Axis3d        Axe;
     Standard_Real Theta;
     if (FindRotation(Pl, Oris, Direction, Angle, NeutralPlane, Axe, Theta))
     {
@@ -1902,7 +1902,7 @@ Handle(Geom_Surface) Draft_Modification::NewSurface(const Handle(Geom_Surface)& 
 Handle(Geom_Curve) Draft_Modification::NewCurve(const Handle(Geom_Curve)&   C,
                                                 const Handle(Geom_Surface)& S,
                                                 const TopAbs_Orientation    Oris,
-                                                const gp_Dir&               Direction,
+                                                const Dir3d&               Direction,
                                                 const Standard_Real         Angle,
                                                 const gp_Pln&               NeutralPlane,
                                                 const Standard_Boolean)
@@ -1915,7 +1915,7 @@ Handle(Geom_Curve) Draft_Modification::NewCurve(const Handle(Geom_Curve)&   C,
   if (TypeS == STANDARD_TYPE(Geom_Plane))
   {
     gp_Pln        Pl = Handle(Geom_Plane)::DownCast(S)->Pln();
-    gp_Ax1        Axe;
+    Axis3d        Axe;
     Standard_Real Theta;
     if (FindRotation(Pl, Oris, Direction, Angle, NeutralPlane, Axe, Theta))
     {
@@ -1941,11 +1941,11 @@ Handle(Geom_Curve) Draft_Modification::NewCurve(const Handle(Geom_Curve)&   C,
   //  if (Abs(testdir) <= 1.-Precision::Angular()) {
   //    return NewC;
   //  }
-  gp_Dir Norm;
+  Dir3d Norm;
   if (TypeS == STANDARD_TYPE(Geom_CylindricalSurface))
   {
     Standard_Real U, V;
-    gp_Vec        d1u, d1v;
+    Vector3d        d1u, d1v;
     Point3d        pbid;
     gp_Cylinder   Cy = Handle(Geom_CylindricalSurface)::DownCast(S)->Cylinder();
     ElSLib::Parameters(Cy, lin.Location(), U, V);
@@ -1955,7 +1955,7 @@ Handle(Geom_Curve) Draft_Modification::NewCurve(const Handle(Geom_Curve)&   C,
   else if (TypeS == STANDARD_TYPE(Geom_ConicalSurface))
   {
     Standard_Real U, V;
-    gp_Vec        d1u, d1v;
+    Vector3d        d1u, d1v;
     Point3d        pbid;
     gp_Cone       Co = Handle(Geom_ConicalSurface)::DownCast(S)->Cone();
     ElSLib::Parameters(Co, lin.Location(), U, V);
@@ -1970,8 +1970,8 @@ Handle(Geom_Curve) Draft_Modification::NewCurve(const Handle(Geom_Curve)&   C,
     {
       Norm.Reverse();
     }
-    gp_Ax1 axrot(ilipl.Point(1), Norm.Crossed(Direction));
-    gp_Lin lires = gp_Lin(gp_Ax1(ilipl.Point(1), Direction)).Rotated(axrot, Angle);
+    Axis3d axrot(ilipl.Point(1), Norm.Crossed(Direction));
+    gp_Lin lires = gp_Lin(Axis3d(ilipl.Point(1), Direction)).Rotated(axrot, Angle);
     if (lires.Direction().Dot(lin.Direction()) < 0.)
     {
       lires.Reverse();
@@ -1990,7 +1990,7 @@ static Standard_Boolean Choose(const Draft_IndexedDataMapOfFaceFaceInfo& theFMap
                                GeomAdaptor_Curve&                        AC,
                                GeomAdaptor_Surface&                      AS)
 {
-  gp_Vec tgref;
+  Vector3d tgref;
   Vinf.InitEdgeIterator();
 
   // Find a regular edge with null SecondFace
@@ -2067,7 +2067,7 @@ static Standard_Boolean Choose(const Draft_IndexedDataMapOfFaceFaceInfo& theFMap
         }
         else
           prm = anewparam;
-        gp_Vec tg;
+        Vector3d tg;
         C->D1(prm, ptbid, tg);
         if (tg.CrossMagnitude(tgref) > Precision::Confusion())
         {
@@ -2326,10 +2326,10 @@ static TopAbs_Orientation Orientation(const TopoDS_Shape& S, const TopoDS_Face& 
 
 static Standard_Boolean FindRotation(const gp_Pln&            Pl,
                                      const TopAbs_Orientation Oris,
-                                     const gp_Dir&            Direction,
+                                     const Dir3d&            Direction,
                                      const Standard_Real      Angle,
                                      const gp_Pln&            NeutralPlane,
-                                     gp_Ax1&                  Axe,
+                                     Axis3d&                  Axe,
                                      Standard_Real&           theta)
 {
   IntAna_QuadQuadGeo i2pl(Pl, NeutralPlane, Precision::Angular(), Precision::Confusion());
@@ -2338,8 +2338,8 @@ static Standard_Boolean FindRotation(const gp_Pln&            Pl,
   {
     gp_Lin li = i2pl.Line(1);
     // Try to turn around this line
-    gp_Dir        nx = li.Direction();
-    gp_Dir        ny = Pl.Axis().Direction().Crossed(nx);
+    Dir3d        nx = li.Direction();
+    Dir3d        ny = Pl.Axis().Direction().Crossed(nx);
     Standard_Real a  = Direction.Dot(nx);
     if (Abs(a) <= 1 - Precision::Angular())
     {

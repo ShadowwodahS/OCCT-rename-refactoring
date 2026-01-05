@@ -684,7 +684,7 @@ static Standard_Integer XDumpLocation(Draw_Interpretor& di,
   }
 
   TopLoc_Location aTopLoc = aLoc->Get();
-  gp_Trsf         aTrsf   = aTopLoc.Transformation();
+  Transform3d         aTrsf   = aTopLoc.Transformation();
 
   di << "Transformation (3 rows * 4 columns matrix):";
   for (int i = 1; i <= 3; i++) // row number
@@ -1362,10 +1362,10 @@ static Standard_Integer setLocation(Draw_Interpretor&,
     return 1;
   }
   // get the transformation
-  gp_Trsf aTransformation;
+  Transform3d aTransformation;
   for (Standard_Integer anArgIter = 3; anArgIter < theArgNb; ++anArgIter)
   {
-    gp_Trsf                 aCurTransformation;
+    Transform3d                 aCurTransformation;
     gp_XYZ                  aMoveXYZ, aRotPnt, aRotAxis, aScalePnt;
     Standard_Real           aRotAngle, aScale;
     TCollection_AsciiString anArg = theArgVec[anArgIter];
@@ -1377,7 +1377,7 @@ static Standard_Integer setLocation(Draw_Interpretor&,
         && Draw::ParseReal(theArgVec[anArgIter + 7], aRotAngle))
     {
       anArgIter += 7;
-      aCurTransformation.SetRotation(gp_Ax1(Point3d(aRotPnt), gp_Dir(aRotAxis)),
+      aCurTransformation.SetRotation(Axis3d(Point3d(aRotPnt), Dir3d(aRotAxis)),
                                      aRotAngle * (M_PI / 180.0));
     }
     else if (anArg == "-move" && anArgIter + 3 < theArgNb

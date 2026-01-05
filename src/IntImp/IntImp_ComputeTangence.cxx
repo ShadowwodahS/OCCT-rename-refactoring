@@ -31,7 +31,7 @@ IntImp_ConstIsoparametric ChoixRef(Standard_Integer theIndex)
 
 //=================================================================================================
 
-Standard_Boolean IntImp_ComputeTangence(const gp_Vec              DPuv[],
+Standard_Boolean IntImp_ComputeTangence(const Vector3d              DPuv[],
                                         const Standard_Real       EpsUV[],
                                         Standard_Real             Tgduv[],
                                         IntImp_ConstIsoparametric TabIso[])
@@ -80,7 +80,7 @@ Standard_Boolean IntImp_ComputeTangence(const gp_Vec              DPuv[],
   }
   //
   //-------------------------------------------------
-  gp_Vec N1 = DPuv[0];
+  Vector3d N1 = DPuv[0];
   N1.Cross(DPuv[1]);
   //
   // modified by NIZNHY-PKV Tue Nov 01 08:37:32 2011f
@@ -92,7 +92,7 @@ Standard_Boolean IntImp_ComputeTangence(const gp_Vec              DPuv[],
   // modified by NIZNHY-PKV Tue Nov 01 08:37:34 2011t
   N1.Normalize();
   //-------------------------------------------------
-  gp_Vec N2 = DPuv[2];
+  Vector3d N2 = DPuv[2];
   N2.Cross(DPuv[3]);
   // modified by NIZNHY-PKV Tue Nov 01 08:37:32 2011f
   aM2 = N2.SquareMagnitude();

@@ -57,7 +57,7 @@ static void initCircle(Select3D_PointData&    thePolygon,
   Standard_Integer    aPntIdx = 0;
   Standard_Real       aCurU   = theU1;
   Point3d              aP1;
-  gp_Vec              aV1;
+  Vector3d              aV1;
 
   const Standard_Boolean isSector = Abs(theU2 - theU1 - 2.0 * M_PI) > gp::Resolution();
 

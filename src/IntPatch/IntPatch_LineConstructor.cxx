@@ -378,8 +378,8 @@ static Standard_Real LocalLastParameter(const Handle(IntPatch_Line)& L)
 //=================================================================================================
 
 static Standard_Real ComputeParametricTolerance(const Standard_Real theTol3d,
-                                                const gp_Vec&       theD1u,
-                                                const gp_Vec&       theD1v)
+                                                const Vector3d&       theD1u,
+                                                const Vector3d&       theD1v)
 {
   Standard_Real nad1u = theD1u.Magnitude();
   Standard_Real nad1v = theD1v.Magnitude();
@@ -953,7 +953,7 @@ static Standard_Boolean TestIfWLineIsRestriction(const IntPatch_SequenceOfLine& 
     Pmid.Parameters(u1, v1, u2, v2);
     //-- Estimation d un majorant de Toluv a partir de Tol
     Point3d        ap;
-    gp_Vec        ad1u, ad1v;
+    Vector3d        ad1u, ad1v;
     Standard_Real tol;
     //------------------------------------------
     S1->D1(u1, v1, ap, ad1u, ad1v);
@@ -1001,7 +1001,7 @@ static Standard_Boolean ProjectOnArc(const Standard_Real              u,
                                      Standard_Real&                   dist)
 {
   Point3d aPbid;
-  gp_Vec ad1u, ad1v;
+  Vector3d ad1u, ad1v;
   surf->D1(u, v, aPbid, ad1u, ad1v);
   Standard_Real            tol2d = ComputeParametricTolerance(TolArc, ad1u, ad1v);
   const Adaptor2d_Curve2d& C2d   = *arc;
@@ -1417,7 +1417,7 @@ void IntPatch_LineConstructor::Perform(const IntPatch_SequenceOfLine&     slinre
         // modified by NIZHNY-MKK  Tue Apr  3 15:03:40 2001.BEGIN
         //------------------------------------------
         Point3d ap;
-        gp_Vec ad1u, ad1v;
+        Vector3d ad1u, ad1v;
         mySurf1->D1(u1, v1, ap, ad1u, ad1v);
         Standard_Real aTolerance = ComputeParametricTolerance(TolArc, ad1u, ad1v);
         //------------------------------------------
@@ -1604,7 +1604,7 @@ void IntPatch_LineConstructor::Perform(const IntPatch_SequenceOfLine&     slinre
         Parameters(mySurf1, mySurf2, Pmid, u1, v1, u2, v2);
         Recadre(mySurf1, mySurf2, u1, v1, u2, v2);
 
-        gp_Vec Du, Dv;
+        Vector3d Du, Dv;
         Point3d P;
         myDom1->Init();
         if (myDom2->More())
@@ -1762,12 +1762,12 @@ void IntPatch_LineConstructor::Perform(const IntPatch_SequenceOfLine&     slinre
           Point3d   P0   = Vtx1.Value();
           gp_Pnt2d Px2d = RLine->ArcOnS1()->Value(u);
           Point3d   Px   = mySurf1->Value(Px2d.X(), Px2d.Y());
-          gp_Vec   P0Px = gp_Vec(P0, Px);
+          Vector3d   P0Px = Vector3d(P0, Px);
 
           Standard_Real U1, V1, U2, V2;
           Vtx1.PntOn2S().Parameters(U1, V1, U2, V2);
 
-          gp_Vec D1u, D1v;
+          Vector3d D1u, D1v;
           Point3d P;
           mySurf2->D1(U2, V2, P, D1u, D1v);
           myDom2->Init();
@@ -1852,12 +1852,12 @@ void IntPatch_LineConstructor::Perform(const IntPatch_SequenceOfLine&     slinre
           Point3d   P0   = Vtx1.Value();
           gp_Pnt2d Px2d = RLine->ArcOnS2()->Value(u);
           Point3d   Px   = mySurf2->Value(Px2d.X(), Px2d.Y());
-          gp_Vec   P0Px = gp_Vec(P0, Px);
+          Vector3d   P0Px = Vector3d(P0, Px);
 
           Standard_Real U1, V1, U2, V2;
           Vtx1.PntOn2S().Parameters(U1, V1, U2, V2);
 
-          gp_Vec D1u, D1v;
+          Vector3d D1u, D1v;
           Point3d P;
           mySurf1->D1(U1, V1, P, D1u, D1v);
           myDom1->Init();

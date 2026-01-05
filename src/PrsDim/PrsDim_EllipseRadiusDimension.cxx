@@ -118,7 +118,7 @@ void PrsDim_EllipseRadiusDimension::ComputeCylFaceGeometry(const PrsDim_KindOfSu
   vLast              = surf1.LastVParameter();
   Standard_Real vMid = (vFirst + vLast) * 0.5;
   gp_Pln        aPlane;
-  gp_Ax1        Axis;
+  Axis3d        Axis;
   //  Standard_Real Param;
   if (aSurfType == PrsDim_KOS_Extrusion)
   {

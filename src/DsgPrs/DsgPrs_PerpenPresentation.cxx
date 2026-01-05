@@ -49,8 +49,8 @@ void DsgPrs_PerpenPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
   aPrims->AddVertex(pAx2);
 
   // Symbol
-  gp_Vec vec1(gce_MakeDir(OffsetPoint, pAx1));
-  gp_Vec vec2(gce_MakeDir(OffsetPoint, pAx2));
+  Vector3d vec1(gce_MakeDir(OffsetPoint, pAx1));
+  Vector3d vec2(gce_MakeDir(OffsetPoint, pAx2));
   vec1 *= .2 * OffsetPoint.Distance(pAx1);
   vec2 *= .2 * OffsetPoint.Distance(pAx2);
 

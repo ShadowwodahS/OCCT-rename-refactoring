@@ -26,14 +26,14 @@ IMPLEMENT_STANDARD_RTTIEXT(Geom_VectorWithMagnitude, Geom_Vector)
 
 typedef Geom_VectorWithMagnitude VectorWithMagnitude;
 typedef Geom_Vector              Vector;
-typedef gp_Ax1                   Ax1;
-typedef gp_Ax2                   Ax2;
+typedef Axis3d                   Ax1;
+typedef Frame3d                   Ax2;
 typedef Point3d                   Pnt;
-typedef gp_Trsf                  Trsf;
+typedef Transform3d                  Trsf;
 
 //=================================================================================================
 
-Geom_VectorWithMagnitude::Geom_VectorWithMagnitude(const gp_Vec& V)
+Geom_VectorWithMagnitude::Geom_VectorWithMagnitude(const Vector3d& V)
 {
   gpVec = V;
 }
@@ -44,14 +44,14 @@ Geom_VectorWithMagnitude::Geom_VectorWithMagnitude(const Standard_Real X,
                                                    const Standard_Real Y,
                                                    const Standard_Real Z)
 {
-  gpVec = gp_Vec(X, Y, Z);
+  gpVec = Vector3d(X, Y, Z);
 }
 
 //=================================================================================================
 
 Geom_VectorWithMagnitude::Geom_VectorWithMagnitude(const Pnt& P1, const Pnt& P2)
 {
-  gpVec = gp_Vec(P1, P2);
+  gpVec = Vector3d(P1, P2);
 }
 
 //=================================================================================================
@@ -70,12 +70,12 @@ void Geom_VectorWithMagnitude::SetCoord(const Standard_Real X,
                                         const Standard_Real Y,
                                         const Standard_Real Z)
 {
-  gpVec = gp_Vec(X, Y, Z);
+  gpVec = Vector3d(X, Y, Z);
 }
 
 //=================================================================================================
 
-void Geom_VectorWithMagnitude::SetVec(const gp_Vec& V)
+void Geom_VectorWithMagnitude::SetVec(const Vector3d& V)
 {
   gpVec = V;
 }
@@ -130,7 +130,7 @@ Handle(Geom_VectorWithMagnitude) Geom_VectorWithMagnitude::Added(
   const Handle(Geom_Vector)& Other) const
 {
 
-  gp_Vec V1 = gpVec;
+  Vector3d V1 = gpVec;
   V1.Add(Other->Vec());
   return new VectorWithMagnitude(V1);
 }
@@ -148,7 +148,7 @@ void Geom_VectorWithMagnitude::Cross(const Handle(Geom_Vector)& Other)
 Handle(Geom_Vector) Geom_VectorWithMagnitude::Crossed(const Handle(Geom_Vector)& Other) const
 {
 
-  gp_Vec V(gpVec);
+  Vector3d V(gpVec);
   V.Cross(Other->Vec());
   return new VectorWithMagnitude(V);
 }
@@ -168,7 +168,7 @@ Handle(Geom_Vector) Geom_VectorWithMagnitude::CrossCrossed(const Handle(Geom_Vec
                                                            const Handle(Geom_Vector)& V2) const
 {
 
-  gp_Vec V(gpVec);
+  Vector3d V(gpVec);
   V.CrossCross(V1->Vec(), V2->Vec());
   return new VectorWithMagnitude(V);
 }
@@ -186,7 +186,7 @@ void Geom_VectorWithMagnitude::Divide(const Standard_Real Scalar)
 Handle(Geom_VectorWithMagnitude) Geom_VectorWithMagnitude::Divided(const Standard_Real Scalar) const
 {
 
-  gp_Vec V(gpVec);
+  Vector3d V(gpVec);
   V.Divide(Scalar);
   return new VectorWithMagnitude(V);
 }
@@ -197,7 +197,7 @@ Handle(Geom_VectorWithMagnitude) Geom_VectorWithMagnitude::Multiplied(
   const Standard_Real Scalar) const
 {
 
-  gp_Vec V(gpVec);
+  Vector3d V(gpVec);
   V.Multiply(Scalar);
   return new VectorWithMagnitude(V);
 }
@@ -222,7 +222,7 @@ void Geom_VectorWithMagnitude::Normalize()
 Handle(Geom_VectorWithMagnitude) Geom_VectorWithMagnitude::Normalized() const
 {
 
-  gp_Vec V(gpVec);
+  Vector3d V(gpVec);
   V.Normalize();
   return new VectorWithMagnitude(V);
 }
@@ -241,7 +241,7 @@ Handle(Geom_VectorWithMagnitude) Geom_VectorWithMagnitude::Subtracted(
   const Handle(Geom_Vector)& Other) const
 {
 
-  gp_Vec V(gpVec);
+  Vector3d V(gpVec);
   V.Subtract(Other->Vec());
   return new VectorWithMagnitude(V);
 }

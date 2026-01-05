@@ -23,7 +23,7 @@
 
 #include <gp_Dir.hxx>
 #include <gce_Root.hxx>
-class gp_Vec;
+class Vector3d;
 class gp_XYZ;
 class Point3d;
 
@@ -41,7 +41,7 @@ public:
 
   //! Normalizes the vector V and creates a direction.
   //! Status is "NullVector" if V.Magnitude() <= Resolution.
-  Standard_EXPORT gce_MakeDir(const gp_Vec& V);
+  Standard_EXPORT gce_MakeDir(const Vector3d& V);
 
   //! Creates a direction from a triplet of coordinates.
   //! Status is "NullVector" if Coord.Modulus() <=
@@ -71,14 +71,14 @@ public:
 
   //! Returns the constructed unit vector.
   //! Exceptions StdFail_NotDone if no unit vector is constructed.
-  Standard_EXPORT const gp_Dir& Value() const;
+  Standard_EXPORT const Dir3d& Value() const;
 
-  Standard_EXPORT const gp_Dir& Operator() const;
-  Standard_EXPORT               operator gp_Dir() const;
+  Standard_EXPORT const Dir3d& Operator() const;
+  Standard_EXPORT               operator Dir3d() const;
 
 protected:
 private:
-  gp_Dir TheDir;
+  Dir3d TheDir;
 };
 
 #endif // _gce_MakeDir_HeaderFile

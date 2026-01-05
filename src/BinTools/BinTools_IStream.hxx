@@ -118,7 +118,7 @@ public:
 
   Standard_EXPORT BinTools_IStream& operator>>(Standard_ShortReal& theValue);
   //! Reads transformation value from the stream.
-  Standard_EXPORT BinTools_IStream& operator>>(gp_Trsf& theValue);
+  Standard_EXPORT BinTools_IStream& operator>>(Transform3d& theValue);
   //! Reads 3 boolean values from one byte
   Standard_EXPORT void ReadBools(Standard_Boolean& theBool1,
                                  Standard_Boolean& theBool2,

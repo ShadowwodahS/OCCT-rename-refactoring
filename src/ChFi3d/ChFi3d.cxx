@@ -61,7 +61,7 @@ ChFiDS_TypeOfConcavity ChFi3d::DefineConnectType(const TopoDS_Edge&     E,
   l = C.LastParameter();
   //
   Standard_Real ParOnC = 0.5 * (f + l);
-  gp_Vec        T1     = C.DN(ParOnC, 1);
+  Vector3d        T1     = C.DN(ParOnC, 1);
   if (T1.SquareMagnitude() <= gp::Resolution())
   {
     ParOnC = IntTools_Tools::IntermediatePoint(f, l);
@@ -81,13 +81,13 @@ ChFiDS_TypeOfConcavity ChFi3d::DefineConnectType(const TopoDS_Edge&     E,
 
   gp_Pnt2d P = C1->Value(ParOnC);
   Point3d   P3;
-  gp_Vec   D1U, D1V;
+  Vector3d   D1U, D1V;
 
   if (CorrectPoint)
     Correct2dPoint(F1, P);
   //
   S1->D1(P.X(), P.Y(), P3, D1U, D1V);
-  gp_Vec DN1(D1U ^ D1V);
+  Vector3d DN1(D1U ^ D1V);
   if (F1.Orientation() == TopAbs_REVERSED)
     DN1.Reverse();
 
@@ -95,14 +95,14 @@ ChFiDS_TypeOfConcavity ChFi3d::DefineConnectType(const TopoDS_Edge&     E,
   if (CorrectPoint)
     Correct2dPoint(F2, P);
   S2->D1(P.X(), P.Y(), P3, D1U, D1V);
-  gp_Vec DN2(D1U ^ D1V);
+  Vector3d DN2(D1U ^ D1V);
   if (F2.Orientation() == TopAbs_REVERSED)
     DN2.Reverse();
 
   DN1.Normalize();
   DN2.Normalize();
 
-  gp_Vec        ProVec     = DN1 ^ DN2;
+  Vector3d        ProVec     = DN1 ^ DN2;
   Standard_Real NormProVec = ProVec.Magnitude();
   if (NormProVec < SinTol)
   {
@@ -251,7 +251,7 @@ Standard_Boolean ChFi3d::IsTangentFaces(const TopoDS_Edge&  theEdge,
   Standard_Real MidPar = (aFirst + aLast) / 2.;
   gp_Pnt2d      uv1    = aC2d1->Value(MidPar);
   gp_Pnt2d      uv2    = aC2d2->Value(MidPar);
-  gp_Dir        normal1, normal2;
+  Dir3d        normal1, normal2;
   TopOpeBRepTool_TOOL::Nt(uv1, theFace1, normal1);
   TopOpeBRepTool_TOOL::Nt(uv2, theFace2, normal2);
   Standard_Real dot = normal1.Dot(normal2);
@@ -280,7 +280,7 @@ Standard_Integer ChFi3d::ConcaveSide(const BRepAdaptor_Surface& S1,
   Standard_Real     par   = 0.691254 * first + 0.308746 * last;
 
   Point3d             pt, pt1, pt2;
-  gp_Vec             tgE, tgE1, tgE2, ns1, ns2, dint1, dint2;
+  Vector3d             tgE, tgE1, tgE2, ns1, ns2, dint1, dint2;
   const TopoDS_Face& F1 = S1.Face();
   const TopoDS_Face& F2 = S2.Face();
   // F1.Orientation(TopAbs_FORWARD);
@@ -336,7 +336,7 @@ Standard_Integer ChFi3d::ConcaveSide(const BRepAdaptor_Surface& S1,
   BRepAdaptor_Curve2d pc1(E1, F1);
   BRepAdaptor_Curve2d pc2(E2, F2);
   gp_Pnt2d            p2d1, p2d2;
-  gp_Vec              DU1, DV1, DU2, DV2;
+  Vector3d              DU1, DV1, DU2, DV2;
   p2d1 = pc1.Value(par);
   p2d2 = pc2.Value(par);
   S1.D1(p2d1.X(), p2d1.Y(), pt1, DU1, DV1);
@@ -374,7 +374,7 @@ Standard_Integer ChFi3d::ConcaveSide(const BRepAdaptor_Surface& S1,
     if (dint1.Dot(dint2) < 0.)
     {
       // This is a forgotten regularity
-      gp_Vec DDU, DDV, DDUV;
+      Vector3d DDU, DDV, DDUV;
       S1.D2(p2d1.X(), p2d1.Y(), pt1, DU1, DV1, DDU, DDV, DDUV);
       DU1 += (DU1 * dint1 < 0) ? -DDU : DDU;
       DV1 += (DV1 * dint1 < 0) ? -DDV : DDV;
@@ -439,7 +439,7 @@ Standard_Integer ChFi3d::ConcaveSide(const BRepAdaptor_Surface& S1,
       ns2 = DU2.Crossed(DV2);
       if (F2.Orientation() == TopAbs_REVERSED)
         ns2.Reverse();
-      gp_Vec vref(pt1, pt2);
+      Vector3d vref(pt1, pt2);
       if (ns1.Dot(vref) < 0.)
       {
         Or1 = TopAbs_REVERSED;

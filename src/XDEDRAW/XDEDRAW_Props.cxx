@@ -61,19 +61,19 @@
 static double TetraVol(Point3d RefPoint, Point3d Som1, Point3d Som2, Point3d Som3)
 {
   double curVolume = 0;
-  gp_Dir Line12;
+  Dir3d Line12;
   gp_Pln Plane123;
-  gp_Vec N;
+  Vector3d N;
 
   {
     try
     {
       OCC_CATCH_SIGNALS
-      Line12 = gp_Dir(gp_Vec(Som1, Som2));
-      gp_Vec v1(Som1, Som2);
-      gp_Vec v2(Som2, Som3);
+      Line12 = Dir3d(Vector3d(Som1, Som2));
+      Vector3d v1(Som1, Som2);
+      Vector3d v2(Som2, Som3);
       N        = v1 ^ v2;
-      Plane123 = gp_Pln(Som1, gp_Dir(N));
+      Plane123 = gp_Pln(Som1, Dir3d(N));
     }
     catch (ExceptionBase const&)
     {
@@ -87,7 +87,7 @@ static double TetraVol(Point3d RefPoint, Point3d Som1, Point3d Som2, Point3d Som
 
   curVolume = ((L1 * L2) / 2) * (L3 / 3);
 
-  gp_Vec Rad(RefPoint, Som1);
+  Vector3d Rad(RefPoint, Som1);
 
   if ((Rad * N) > 0)
     return (curVolume);

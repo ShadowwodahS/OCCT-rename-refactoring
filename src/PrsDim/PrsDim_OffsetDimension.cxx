@@ -82,7 +82,7 @@ void PrsDim_OffsetDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
                                      const Handle(Prs3d_Presentation)& aprs,
                                      const Standard_Integer)
 {
-  gp_Trsf aInvertTrsf = myRelativePos;
+  Transform3d aInvertTrsf = myRelativePos;
   // myArrowSize = fabs (myVal/5.);
   myArrowSize = fabs(myVal / 10.0);
   if (myArrowSize > 30.)
@@ -121,12 +121,12 @@ void PrsDim_OffsetDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
     Point3d bPnt = ElSLib::Value(uPnt, vPnt, bPln);
     if (aPnt.IsEqual(bPnt, Precision::Confusion()))
     {
-      gp_Ax1 aAx1 = aPln.Axis();
+      Axis3d aAx1 = aPln.Axis();
       myDirAttach = aAx1.Direction();
     }
     else
     {
-      gp_Vec aVec(aPnt, bPnt);
+      Vector3d aVec(aPnt, bPnt);
       myDirAttach.SetCoord(aVec.X(), aVec.Y(), aVec.Z());
     }
     ComputeTwoFacesOffset(aprs, aInvertTrsf);
@@ -148,8 +148,8 @@ void PrsDim_OffsetDimension::ComputeSelection(const Handle(SelectMgr_Selection)&
   // myArrowSize"<<std::endl;
   Point3d myTFAttach    = myFAttach.Transformed(myRelativePos);
   Point3d myTSAttach    = mySAttach.Transformed(myRelativePos);
-  gp_Dir myTDirAttach  = myDirAttach.Transformed(myRelativePos);
-  gp_Dir myTDirAttach2 = myDirAttach2.Transformed(myRelativePos);
+  Dir3d myTDirAttach  = myDirAttach.Transformed(myRelativePos);
+  Dir3d myTDirAttach2 = myDirAttach2.Transformed(myRelativePos);
   Point3d Tcurpos       = myPosition.Transformed(myRelativePos);
 
   gp_Lin L1(myTFAttach, myTDirAttach);
@@ -168,8 +168,8 @@ void PrsDim_OffsetDimension::ComputeSelection(const Handle(SelectMgr_Selection)&
   { // cas ou la dimension est nulle
     if (!Proj1.IsEqual(Tcurpos, Precision::Confusion()))
     {
-      gp_Vec v3(Proj1, Tcurpos);
-      gp_Dir d3(v3);
+      Vector3d v3(Proj1, Tcurpos);
+      Dir3d d3(v3);
       L3 = gce_MakeLin(Proj1, d3);
     }
     else
@@ -226,12 +226,12 @@ void PrsDim_OffsetDimension::ComputeSelection(const Handle(SelectMgr_Selection)&
 //=================================================================================================
 
 void PrsDim_OffsetDimension::ComputeTwoAxesOffset(const Handle(Prs3d_Presentation)& aprs,
-                                                  const gp_Trsf&                    aTrsf)
+                                                  const Transform3d&                    aTrsf)
 {
   BRepAdaptor_Surface surf1(TopoDS::Face(myFShape));
   BRepAdaptor_Surface surf2(TopoDS::Face(mySShape));
 
-  gp_Ax1 Ax1Surf1, Ax1Surf2;
+  Axis3d Ax1Surf1, Ax1Surf2;
 
   if (surf1.GetType() == GeomAbs_Cylinder)
   {
@@ -323,8 +323,8 @@ void PrsDim_OffsetDimension::ComputeTwoAxesOffset(const Handle(Prs3d_Presentatio
 
   Point3d myTFAttach    = myFAttach.Transformed(aTrsf);
   Point3d myTSAttach    = mySAttach.Transformed(aTrsf);
-  gp_Dir myTDirAttach  = myDirAttach.Transformed(aTrsf);
-  gp_Dir myTDirAttach2 = myTDirAttach;
+  Dir3d myTDirAttach  = myDirAttach.Transformed(aTrsf);
+  Dir3d myTDirAttach2 = myTDirAttach;
   Point3d Tcurpos       = curpos.Transformed(aTrsf);
 
   if (myIsSetBndBox)
@@ -351,11 +351,11 @@ void PrsDim_OffsetDimension::ComputeTwoAxesOffset(const Handle(Prs3d_Presentatio
 //=================================================================================================
 
 void PrsDim_OffsetDimension::ComputeTwoFacesOffset(const Handle(Prs3d_Presentation)& aprs,
-                                                   const gp_Trsf&                    aTrsf)
+                                                   const Transform3d&                    aTrsf)
 {
-  gp_Dir norm1 = myDirAttach;
+  Dir3d norm1 = myDirAttach;
   Point3d curpos;
-  gp_Ax2 myax2;
+  Frame3d myax2;
   if (myAutomaticPosition && !myIsSetBndBox)
   {
     TopExp_Explorer explo(myFShape, TopAbs_VERTEX);
@@ -363,13 +363,13 @@ void PrsDim_OffsetDimension::ComputeTwoFacesOffset(const Handle(Prs3d_Presentati
     {
       TopoDS_Vertex vertref = TopoDS::Vertex(explo.Current());
       myFAttach             = BRep_Tool::Pnt(vertref);
-      gp_Vec trans          = norm1.XYZ() * fabs(myVal / 2);
-      gp_Ax2 ax2(myFAttach, norm1);
+      Vector3d trans          = norm1.XYZ() * fabs(myVal / 2);
+      Frame3d ax2(myFAttach, norm1);
       myDirAttach = ax2.XDirection();
       curpos      = myFAttach.Translated(trans);
       if (myVal <= Precision::Confusion())
       {
-        gp_Vec vecnorm1 = norm1.XYZ() * .001;
+        Vector3d vecnorm1 = norm1.XYZ() * .001;
         curpos.Translate(vecnorm1);
       }
       myPosition = curpos;
@@ -389,21 +389,21 @@ void PrsDim_OffsetDimension::ComputeTwoFacesOffset(const Handle(Prs3d_Presentati
     myFAttach = PrsDim::Nearest(myFShape, curpos);
     if (myFAttach.Distance(curpos) <= Precision::Confusion())
     {
-      gp_Ax2 ax2(myFAttach, norm1);
+      Frame3d ax2(myFAttach, norm1);
       myDirAttach = ax2.XDirection();
       myax2       = ax2;
     }
     else
     {
-      gp_Dir orient(myFAttach.XYZ() - curpos.XYZ());
-      gp_Ax2 ax2(myFAttach, norm1);
+      Dir3d orient(myFAttach.XYZ() - curpos.XYZ());
+      Frame3d ax2(myFAttach, norm1);
       if (orient.Angle(norm1) <= Precision::Angular())
       {
         myDirAttach = ax2.XDirection();
       }
       else
       {
-        gp_Dir adir = norm1 ^ orient;
+        Dir3d adir = norm1 ^ orient;
         myDirAttach = adir ^ norm1;
       }
       myax2 = ax2;
@@ -425,7 +425,7 @@ void PrsDim_OffsetDimension::ComputeTwoFacesOffset(const Handle(Prs3d_Presentati
   }
   else
   {
-    gp_Vec avec(ElSLib::Value(uatt, vatt, apln), ElSLib::Value(u2, v2, apln));
+    Vector3d avec(ElSLib::Value(uatt, vatt, apln), ElSLib::Value(u2, v2, apln));
     myDirAttach2.SetCoord(avec.X(), avec.Y(), avec.Z());
   }
 
@@ -439,8 +439,8 @@ void PrsDim_OffsetDimension::ComputeTwoFacesOffset(const Handle(Prs3d_Presentati
 
   Point3d myTFAttach    = myFAttach.Transformed(aTrsf);
   Point3d myTSAttach    = mySAttach.Transformed(aTrsf);
-  gp_Dir myTDirAttach  = myDirAttach.Transformed(aTrsf);
-  gp_Dir myTDirAttach2 = myDirAttach2.Transformed(aTrsf);
+  Dir3d myTDirAttach  = myDirAttach.Transformed(aTrsf);
+  Dir3d myTDirAttach2 = myDirAttach2.Transformed(aTrsf);
   Point3d Tcurpos       = curpos.Transformed(aTrsf);
 
   /*
@@ -472,7 +472,7 @@ void PrsDim_OffsetDimension::ComputeTwoFacesOffset(const Handle(Prs3d_Presentati
 //=================================================================================================
 
 void PrsDim_OffsetDimension::ComputeAxeFaceOffset(const Handle(Prs3d_Presentation)& aprs,
-                                                  const gp_Trsf&                    aTrsf)
+                                                  const Transform3d&                    aTrsf)
 {
   BRepBuilderAPI_Transform transform1(myFShape, aTrsf, Standard_True);
   TopoDS_Shape             myTFShape = transform1.Shape();

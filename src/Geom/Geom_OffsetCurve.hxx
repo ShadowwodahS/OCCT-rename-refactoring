@@ -27,8 +27,8 @@
 #include <GeomEvaluator_OffsetCurve.hxx>
 
 class Point3d;
-class gp_Vec;
-class gp_Trsf;
+class Vector3d;
+class Transform3d;
 class Geom_Geometry;
 
 class Geom_OffsetCurve;
@@ -98,7 +98,7 @@ public:
   //! No check is done to know if ||V^T|| != 0.0 at any point.
   Standard_EXPORT Geom_OffsetCurve(const Handle(Geom_Curve)& C,
                                    const Standard_Real       Offset,
-                                   const gp_Dir&             V,
+                                   const Dir3d&             V,
                                    const Standard_Boolean    isNotCheckC0 = Standard_False);
 
   //! Changes the orientation of this offset curve.
@@ -126,7 +126,7 @@ public:
 
   //! Changes this offset curve by assigning V as the
   //! reference vector used to compute the offset direction.
-  Standard_EXPORT void SetDirection(const gp_Dir& V);
+  Standard_EXPORT void SetDirection(const Dir3d& V);
 
   //! Changes this offset curve by assigning D as the offset value.
   Standard_EXPORT void SetOffsetValue(const Standard_Real D);
@@ -164,7 +164,7 @@ public:
   //! must be satisfied to evaluate the offset curve.
   //! No check is done at the creation time and we suppose
   //! in this package that the offset curve is well defined.
-  Standard_EXPORT const gp_Dir& Direction() const;
+  Standard_EXPORT const Dir3d& Direction() const;
 
   //! Warning! this should not be called
   //! if the basis curve is not at least C1. Nevertheless
@@ -175,7 +175,7 @@ public:
   //! if the continuity of the basis curve is not C2.
   //! Nevertheless, it's OK to use it  on portion
   //! where the curve is C2
-  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, gp_Vec& V1) const Standard_OVERRIDE;
+  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, Vector3d& V1) const Standard_OVERRIDE;
 
   //! Warning! this should not be called
   //! if the continuity of the basis curve is not C3.
@@ -183,14 +183,14 @@ public:
   //! where the curve is C3
   Standard_EXPORT void D2(const Standard_Real U,
                           Point3d&             P,
-                          gp_Vec&             V1,
-                          gp_Vec&             V2) const Standard_OVERRIDE;
+                          Vector3d&             V1,
+                          Vector3d&             V2) const Standard_OVERRIDE;
 
   Standard_EXPORT void D3(const Standard_Real U,
                           Point3d&             P,
-                          gp_Vec&             V1,
-                          gp_Vec&             V2,
-                          gp_Vec&             V3) const Standard_OVERRIDE;
+                          Vector3d&             V1,
+                          Vector3d&             V2,
+                          Vector3d&             V3) const Standard_OVERRIDE;
 
   //! The returned vector gives the value of the derivative
   //! for the order of derivation N.
@@ -206,7 +206,7 @@ public:
   //! raised if it is not possible to compute a unique offset
   //! direction.
   //! Raised if N < 1.
-  Standard_EXPORT gp_Vec DN(const Standard_Real    U,
+  Standard_EXPORT Vector3d DN(const Standard_Real    U,
                             const Standard_Integer N) const Standard_OVERRIDE;
 
   //! Returns the value of the first parameter of this
@@ -252,7 +252,7 @@ public:
 
   //! Applies the transformation T to this offset curve.
   //! Note: the basis curve is also modified.
-  Standard_EXPORT void Transform(const gp_Trsf& T) Standard_OVERRIDE;
+  Standard_EXPORT void Transform(const Transform3d& T) Standard_OVERRIDE;
 
   //! Returns the  parameter on the  transformed  curve for
   //! the transform of the point of parameter U on <me>.
@@ -261,7 +261,7 @@ public:
   //! me->Value(U).Transformed(T)
   //! This methods calls the basis curve method.
   Standard_EXPORT virtual Standard_Real TransformedParameter(const Standard_Real U,
-                                                             const gp_Trsf&      T) const
+                                                             const Transform3d&      T) const
     Standard_OVERRIDE;
 
   //! Returns a  coefficient to compute the parameter on
@@ -272,7 +272,7 @@ public:
   //! is the same point as
   //! Value(U).Transformed(T)
   //! This methods calls the basis curve method.
-  Standard_EXPORT virtual Standard_Real ParametricTransformation(const gp_Trsf& T) const
+  Standard_EXPORT virtual Standard_Real ParametricTransformation(const Transform3d& T) const
     Standard_OVERRIDE;
 
   //! Creates a new object which is a copy of this offset curve.
@@ -290,7 +290,7 @@ public:
 protected:
 private:
   Handle(Geom_Curve)                basisCurve;
-  gp_Dir                            direction;
+  Dir3d                            direction;
   Standard_Real                     offsetValue;
   GeomAbs_Shape                     myBasisCurveContinuity;
   Handle(GeomEvaluator_OffsetCurve) myEvaluator;

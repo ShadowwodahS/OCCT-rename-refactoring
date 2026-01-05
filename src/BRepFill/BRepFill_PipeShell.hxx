@@ -37,10 +37,10 @@
 class Law_Function;
 class BRepFill_LocationLaw;
 class BRepFill_SectionLaw;
-class gp_Ax2;
-class gp_Dir;
+class Frame3d;
+class Dir3d;
 class TopoDS_Vertex;
-class gp_Trsf;
+class Transform3d;
 class BRepFill_Sweep;
 
 class BRepFill_PipeShell;
@@ -67,11 +67,11 @@ public:
 
   //! Set  an  fixed  trihedron  to  perform  the  sweeping
   //! all sections will be parallel.
-  Standard_EXPORT void Set(const gp_Ax2& Axe);
+  Standard_EXPORT void Set(const Frame3d& Axe);
 
   //! Set an fixed  BiNormal  direction to  perform
   //! the sweeping
-  Standard_EXPORT void Set(const gp_Dir& BiNormal);
+  Standard_EXPORT void Set(const Dir3d& BiNormal);
 
   //! Set support to the spine to define the BiNormal
   //! at   the spine, like    the  normal the surfaces.
@@ -213,7 +213,7 @@ private:
 
   Standard_EXPORT void Place(const BRepFill_Section& Sec,
                              TopoDS_Wire&            W,
-                             gp_Trsf&                Trsf,
+                             Transform3d&                Trsf,
                              Standard_Real&          param);
 
   Standard_EXPORT void ResetLoc();

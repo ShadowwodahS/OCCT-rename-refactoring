@@ -313,7 +313,7 @@ Standard_Boolean BOPTools_AlgoTools3D::DoSplitSEAMOnFace(const TopoDS_Edge& theE
 
 void BOPTools_AlgoTools3D::GetNormalToFaceOnEdge(const TopoDS_Edge&              aE,
                                                  const TopoDS_Face&              aF,
-                                                 gp_Dir&                         aDNF,
+                                                 Dir3d&                         aDNF,
                                                  const Handle(IntTools_Context)& theContext)
 {
   Standard_Real aT, aT1, aT2;
@@ -334,13 +334,13 @@ void BOPTools_AlgoTools3D::GetNormalToFaceOnEdge(const TopoDS_Edge&             
 void BOPTools_AlgoTools3D::GetNormalToFaceOnEdge(const TopoDS_Edge&              aE,
                                                  const TopoDS_Face&              aF1,
                                                  const Standard_Real             aT,
-                                                 gp_Dir&                         aDNF1,
+                                                 Dir3d&                         aDNF1,
                                                  const Handle(IntTools_Context)& theContext)
 {
   Standard_Real U, V, aTolPC;
   gp_Pnt2d      aP2D;
   Point3d        aP;
-  gp_Vec        aD1U, aD1V;
+  Vector3d        aD1U, aD1V;
 
   Handle(Geom_Surface) aS1 = BRep_Tool::Surface(aF1);
 
@@ -352,15 +352,15 @@ void BOPTools_AlgoTools3D::GetNormalToFaceOnEdge(const TopoDS_Edge&             
   V = aP2D.Y();
 
   aS1->D1(U, V, aP, aD1U, aD1V);
-  gp_Dir aDD1U(aD1U);
-  gp_Dir aDD1V(aD1V);
+  Dir3d aDD1U(aD1U);
+  Dir3d aDD1V(aD1V);
 
   aDNF1 = aDD1U ^ aDD1V;
 }
 
 //=================================================================================================
 
-Standard_Integer BOPTools_AlgoTools3D::SenseFlag(const gp_Dir& aDNF1, const gp_Dir& aDNF2)
+Standard_Integer BOPTools_AlgoTools3D::SenseFlag(const Dir3d& aDNF1, const Dir3d& aDNF2)
 {
   Standard_Boolean bIsDirsCoinside;
   //
@@ -389,10 +389,10 @@ Standard_Integer BOPTools_AlgoTools3D::SenseFlag(const gp_Dir& aDNF1, const gp_D
 Standard_Boolean BOPTools_AlgoTools3D::GetNormalToSurface(const Handle(Geom_Surface)& aS,
                                                           const Standard_Real         U,
                                                           const Standard_Real         V,
-                                                          gp_Dir&                     aDNS)
+                                                          Dir3d&                     aDNS)
 {
   Point3d aP;
-  gp_Vec aD1U, aD1V;
+  Vector3d aD1U, aD1V;
 
   aS->D1(U, V, aP, aD1U, aD1V);
 
@@ -404,8 +404,8 @@ Standard_Boolean BOPTools_AlgoTools3D::GetNormalToSurface(const Handle(Geom_Surf
   if (aLenV < gp::Resolution())
     return Standard_False;
 
-  gp_Dir aDD1U(aD1U);
-  gp_Dir aDD1V(aD1V);
+  Dir3d aDD1U(aD1U);
+  Dir3d aDD1V(aD1V);
 
   Standard_Boolean bFlag = IntTools_Tools::IsDirsCoinside(aDD1U, aDD1U);
   if (!bFlag)
@@ -421,7 +421,7 @@ Standard_Boolean BOPTools_AlgoTools3D::GetApproxNormalToFaceOnEdge(const TopoDS_
                                                                    const TopoDS_Face&  aF,
                                                                    const Standard_Real aT,
                                                                    Point3d&             aPNear,
-                                                                   gp_Dir&             aDNF,
+                                                                   Dir3d&             aDNF,
                                                                    Standard_Real       aDt2D)
 {
   gp_Pnt2d         aPx2DNear;
@@ -448,7 +448,7 @@ Standard_Boolean BOPTools_AlgoTools3D::GetApproxNormalToFaceOnEdge(
   const TopoDS_Face&              aF,
   const Standard_Real             aT,
   Point3d&                         aPNear,
-  gp_Dir&                         aDNF,
+  Dir3d&                         aDNF,
   const Handle(IntTools_Context)& theContext)
 {
   gp_Pnt2d         aPx2DNear;
@@ -477,7 +477,7 @@ Standard_Boolean BOPTools_AlgoTools3D::GetApproxNormalToFaceOnEdge(
   const Standard_Real             aT,
   const Standard_Real             theStep,
   Point3d&                         aPNear,
-  gp_Dir&                         aDNF,
+  Dir3d&                         aDNF,
   const Handle(IntTools_Context)& theContext)
 {
   gp_Pnt2d         aPx2DNear;

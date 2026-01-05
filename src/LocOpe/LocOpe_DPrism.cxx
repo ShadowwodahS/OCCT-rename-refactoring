@@ -624,7 +624,7 @@ void LocOpe_DPrism::Curves(TColGeom_SequenceOfCurve& Scurves) const
   }
 
   gp_Pln P = PP->Pln();
-  gp_Dir Normale(P.Axis().Direction());
+  Dir3d Normale(P.Axis().Direction());
   if (!P.Direct())
   {
     Normale.Reverse();
@@ -655,15 +655,15 @@ void LocOpe_DPrism::Curves(TColGeom_SequenceOfCurve& Scurves) const
       {
         prm = ((NECHANT - i) * f + i * l) / NECHANT;
         Point3d pt;
-        gp_Vec d1;
+        Vector3d d1;
         C->D1(prm, pt, d1);
         if (exp.Current().Orientation() == TopAbs_REVERSED)
         {
           d1.Reverse();
         }
         d1.Normalize();
-        gp_Dir                    locy = Normale.Crossed(d1);
-        gp_Vec                    ldir = dy * locy.XYZ() + dz * Normale.XYZ();
+        Dir3d                    locy = Normale.Crossed(d1);
+        Vector3d                    ldir = dy * locy.XYZ() + dz * Normale.XYZ();
         gp_Lin                    lin(pt, ldir);
         Handle(Geom_Line)         Lin   = new Geom_Line(lin);
         Handle(Geom_TrimmedCurve) trlin = new Geom_TrimmedCurve(Lin, u1, u2, Standard_True);
@@ -696,7 +696,7 @@ Handle(Geom_Curve) LocOpe_DPrism::BarycCurve() const
   }
 
   gp_Pln P = PP->Pln();
-  gp_Dir Normale(P.Axis().Direction());
+  Dir3d Normale(P.Axis().Direction());
   if (!P.Direct())
   {
     Normale.Reverse();
@@ -713,7 +713,7 @@ Handle(Geom_Curve) LocOpe_DPrism::BarycCurve() const
 #endif
     //    Normale.Reverse();  //cts20871
   }
-  gp_Vec Vec = dz * Normale.XYZ();
+  Vector3d Vec = dz * Normale.XYZ();
 
   Point3d               bar(0., 0., 0.);
   TColgp_SequenceOfPnt spt;
@@ -731,7 +731,7 @@ Handle(Geom_Curve) LocOpe_DPrism::BarycCurve() const
     bar.ChangeCoord() += pvt.XYZ();
   }
   bar.ChangeCoord().Divide(spt.Length());
-  gp_Ax1            newAx(bar, Vec);
+  Axis3d            newAx(bar, Vec);
   Handle(Geom_Line) theLin = new Geom_Line(newAx);
   return theLin;
 }

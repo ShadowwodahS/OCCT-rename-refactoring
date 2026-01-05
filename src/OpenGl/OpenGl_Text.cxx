@@ -420,10 +420,10 @@ void OpenGl_Text::setupMatrix(const Handle(OpenGl_Context)& theCtx,
 
     if (myText->HasPlane())
     {
-      const gp_Ax2& anOrientation = myText->Orientation();
-      const gp_Dir& aVectorDir    = anOrientation.XDirection();
-      const gp_Dir& aVectorUp     = anOrientation.Direction();
-      const gp_Dir& aVectorRight  = anOrientation.YDirection();
+      const Frame3d& anOrientation = myText->Orientation();
+      const Dir3d& aVectorDir    = anOrientation.XDirection();
+      const Dir3d& aVectorUp     = anOrientation.Direction();
+      const Dir3d& aVectorRight  = anOrientation.YDirection();
 
       aModViewMat.SetColumn(2, OpenGl_Vec3d(aVectorUp.X(), aVectorUp.Y(), aVectorUp.Z()));
       aModViewMat.SetColumn(1, OpenGl_Vec3d(aVectorRight.X(), aVectorRight.Y(), aVectorRight.Z()));

@@ -26,7 +26,7 @@
 #include <BRepPrimAPI_MakeSweep.hxx>
 #include <BRepTools_History.hxx>
 class TopoDS_Shape;
-class gp_Ax1;
+class Axis3d;
 
 //! Class to make revolved sweep topologies.
 //!
@@ -67,14 +67,14 @@ public:
   //! Builds the Revol of base S, axis  A and angle  D. If C
   //! is true, S is copied.
   Standard_EXPORT BRepPrimAPI_MakeRevol(const TopoDS_Shape&    S,
-                                        const gp_Ax1&          A,
+                                        const Axis3d&          A,
                                         const Standard_Real    D,
                                         const Standard_Boolean Copy = Standard_False);
 
   //! Builds the Revol of base S, axis  A and angle 2*Pi. If
   //! C is true, S is copied.
   Standard_EXPORT BRepPrimAPI_MakeRevol(const TopoDS_Shape&    S,
-                                        const gp_Ax1&          A,
+                                        const Axis3d&          A,
                                         const Standard_Boolean Copy = Standard_False);
 
   //! Returns the internal sweeping algorithm.
@@ -117,7 +117,7 @@ public:
 protected:
   //! Checks possibilities of producing self-intersection surface
   //! returns true if all surfaces are valid
-  Standard_EXPORT Standard_Boolean CheckValidity(const TopoDS_Shape& theShape, const gp_Ax1& theA);
+  Standard_EXPORT Standard_Boolean CheckValidity(const TopoDS_Shape& theShape, const Axis3d& theA);
 
 private:
   BRepSweep_Revol           myRevol;

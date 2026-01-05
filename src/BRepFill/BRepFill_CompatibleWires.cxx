@@ -235,7 +235,7 @@ static Standard_Boolean PlaneOfWire(const TopoDS_Wire& W, gp_Pln& P)
   {
     // wire not plane !
     GProp_PrincipalProps Pp = GP.PrincipalProperties();
-    gp_Vec               Vec;
+    Vector3d               Vec;
     Standard_Real        R1, R2, R3, Tol = Precision::Confusion();
     Pp.RadiusOfGyration(R1, R2, R3);
     Standard_Real RMax = Max(Max(R1, R2), R3);
@@ -257,7 +257,7 @@ static Standard_Boolean PlaneOfWire(const TopoDS_Wire& W, gp_Pln& P)
       {
         Vec = Pp.ThirdAxisOfInertia();
       }
-      gp_Dir NDir(Vec);
+      Dir3d NDir(Vec);
       if (R3 <= R2 && R3 <= R1)
       {
         Vec = Pp.ThirdAxisOfInertia();
@@ -270,7 +270,7 @@ static Standard_Boolean PlaneOfWire(const TopoDS_Wire& W, gp_Pln& P)
       {
         Vec = Pp.FirstAxisOfInertia();
       }
-      gp_Dir     XDir(Vec);
+      Dir3d     XDir(Vec);
       gp_Ax3     repere(Bary, NDir, XDir);
       Geom_Plane GPlan(repere);
       P = GPlan.Pln();
@@ -503,7 +503,7 @@ static Standard_Boolean EdgeIntersectOnWire(const Point3d&                      
 
   // construction of the edge of intersection
   Standard_Boolean NewVertex = Standard_False;
-  gp_Lin           droite(P1, gp_Dir(gp_Vec(P1, P2)));
+  gp_Lin           droite(P1, Dir3d(Vector3d(P1, P2)));
   // ATTENTION : it is required to construct a half-straight
   //             but there is a bug in BRepExtrema_DistShapeShape
   //             it is enough to take 100 * distance between P1 and P2
@@ -642,17 +642,17 @@ static Standard_Boolean EdgeIntersectOnWire(const Point3d&                      
 static void Transform(const Standard_Boolean WithRotation,
                       const Point3d&          P,
                       const Point3d&          Pos1,
-                      const gp_Vec&          Ax1,
+                      const Vector3d&          Ax1,
                       const Point3d&          Pos2,
-                      const gp_Vec&          Ax2,
+                      const Vector3d&          Ax2,
                       Point3d&                Pnew)
 {
 
   Pnew        = P.Translated(Pos1, Pos2);
-  gp_Vec axe1 = Ax1, axe2 = Ax2;
+  Vector3d axe1 = Ax1, axe2 = Ax2;
   if (!axe1.IsParallel(axe2, 1.e-4))
   {
-    gp_Vec        Vtrans(Pos1, Pos2), Vsign;
+    Vector3d        Vtrans(Pos1, Pos2), Vsign;
     Standard_Real alpha, beta, sign = 1;
     alpha = Vtrans.Dot(axe1);
     beta  = Vtrans.Dot(axe2);
@@ -662,14 +662,14 @@ static void Transform(const Standard_Boolean WithRotation,
       axe2 *= -1;
     alpha        = Vtrans.Dot(axe1);
     beta         = Vtrans.Dot(axe2);
-    gp_Vec norm2 = axe1 ^ axe2;
+    Vector3d norm2 = axe1 ^ axe2;
     Vsign.SetLinearForm(Vtrans.Dot(axe1), axe2, -Vtrans.Dot(axe2), axe1);
     alpha                   = Vsign.Dot(axe1);
     beta                    = Vsign.Dot(axe2);
     Standard_Boolean pasnul = (Abs(alpha) > 1.e-4 && Abs(beta) > 1.e-4);
     if (alpha * beta > 0.0 && pasnul)
       sign = -1;
-    gp_Ax1        Norm(Pos2, norm2);
+    Axis3d        Norm(Pos2, norm2);
     Standard_Real ang = axe1.AngleWithRef(axe2, norm2);
     if (!WithRotation)
     {
@@ -1010,7 +1010,7 @@ void BRepFill_CompatibleWires::SameNumberByPolarMethod(const Standard_Boolean Wi
     if (PlaneOfWire(TopoDS::Wire(myWork(i)), P))
     {
       Pos->SetValue(i, P.Location());
-      Axe->SetValue(i, gp_Vec(P.Axis().Direction()));
+      Axe->SetValue(i, Vector3d(P.Axis().Direction()));
     }
   }
   TopTools_SequenceOfShape SeqV;
@@ -1265,11 +1265,11 @@ void BRepFill_CompatibleWires::SameNumberByPolarMethod(const Standard_Boolean Wi
                     Axe->Value(rang - 1),
                     PP2);
         }
-        gp_Vec Ns(Pos->Value(ideb), PPs);
+        Vector3d Ns(Pos->Value(ideb), PPs);
         Ns = Ns.Normalized();
-        gp_Vec N1(Pos->Value(ideb), PP1);
+        Vector3d N1(Pos->Value(ideb), PP1);
         N1 = N1.Normalized();
-        gp_Vec N2(Pos->Value(ideb), PP2);
+        Vector3d N2(Pos->Value(ideb), PP2);
         N2    = N2.Normalized();
         scal1 = N1.Dot(Ns);
         if (scal1 > scalmax)
@@ -1335,11 +1335,11 @@ void BRepFill_CompatibleWires::SameNumberByPolarMethod(const Standard_Boolean Wi
                   Axe->Value(rang - 1),
                   PP2);
       }
-      gp_Vec Ns(Pos->Value(ideb), PPs);
+      Vector3d Ns(Pos->Value(ideb), PPs);
       Ns = Ns.Normalized();
-      gp_Vec N1(Pos->Value(ideb), PP1);
+      Vector3d N1(Pos->Value(ideb), PP1);
       N1 = N1.Normalized();
-      gp_Vec N2(Pos->Value(ideb), PP2);
+      Vector3d N2(Pos->Value(ideb), PP2);
       N2    = N2.Normalized();
       scal1 = N1.Dot(Ns);
       scal2 = N2.Dot(Ns);
@@ -1706,7 +1706,7 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
     for (i=ideb;i<=ifin;i++) {
       if (PlaneOfWire(TopoDS::Wire(myWork(i)),P)) {
         Pos->SetValue(i,P.Location());
-        Axe->SetValue(i,gp_Vec(P.Axis().Direction()));
+        Axe->SetValue(i,Vector3d(P.Axis().Direction()));
       }
     }
     TopTools_SequenceOfShape SeqV;
@@ -1740,7 +1740,7 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
   gp_Pln FirstPlane;
   PlaneOfWire(TopoDS::Wire(myWork(ideb)), FirstPlane);
   Point3d PrevBary           = FirstPlane.Location();
-  gp_Vec NormalOfFirstPlane = FirstPlane.Axis().Direction();
+  Vector3d NormalOfFirstPlane = FirstPlane.Axis().Direction();
   for (i = ideb + 1; i <= ifin; i++)
   {
     const TopoDS_Wire& aWire = TopoDS::Wire(myWork(i));
@@ -1750,10 +1750,10 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
     gp_Pln CurPlane;
     PlaneOfWire(aWire, CurPlane);
     Point3d CurBary = CurPlane.Location();
-    gp_Vec aVec(PrevBary, CurBary);
-    gp_Vec anOffsetProj = (aVec * NormalOfFirstPlane) * NormalOfFirstPlane;
+    Vector3d aVec(PrevBary, CurBary);
+    Vector3d anOffsetProj = (aVec * NormalOfFirstPlane) * NormalOfFirstPlane;
     CurBary.Translate(-anOffsetProj); // projected current bary center
-    gp_Vec Offset(CurBary, PrevBary);
+    Vector3d Offset(CurBary, PrevBary);
 
     TopoDS_Wire  newwire;
     BRep_Builder BB;
@@ -2092,7 +2092,7 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
         TopoDS_Vertex Vopti;
         angmin   = M_PI / 2;
         distmini = Precision::Infinite();
-        gp_Dir dir0(gp_Vec(Pnew, P.Location()));
+        Dir3d dir0(Vector3d(Pnew, P.Location()));
         for (Standard_Integer ii = 1; ii <= SeqV.Length(); ii++)
         {
           P1   = BRep_Tool::Pnt(TopoDS::Vertex(SeqV.Value(ii)));
@@ -2103,7 +2103,7 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
           }
           else
           {
-            gp_Dir dir1(gp_Vec(Pnew, P1));
+            Dir3d dir1(Vector3d(Pnew, P1));
             angV = dir1.Angle(dir0);
           }
           if (angV > M_PI / 2)
@@ -2388,13 +2388,13 @@ void BRepFill_CompatibleWires::SearchOrigin()
       Point3d P1 = BRep_Tool::Pnt(Vdeb), P1o = Pdeb, P2 = BRep_Tool::Pnt(Vfin), P2o = Pfin;
       /*    // return Pdeb in the current plane
             Point3d Pnew = Pdeb.Translated (P0.Location(),P.Location());
-            gp_Ax1 A0 = P0.Axis();
-            gp_Ax1 A1 = P.Axis();
+            Axis3d A0 = P0.Axis();
+            Axis3d A1 = P.Axis();
 
             if (!A0.IsParallel(A1,1.e-4)) {
-          gp_Vec vec1(A0.Direction()), vec2(A1.Direction()),
+          Vector3d vec1(A0.Direction()), vec2(A1.Direction()),
           norm = vec1 ^ vec2;
-          gp_Ax1 Norm(P.Location(),norm);
+          Axis3d Norm(P.Location(),norm);
           Standard_Real ang = vec1.AngleWithRef(vec2,norm);
           if (ang > M_PI/2.0)
             ang = M_PI - ang;
@@ -2402,7 +2402,7 @@ void BRepFill_CompatibleWires::SearchOrigin()
             ang = -M_PI - ang;
           if (Abs(ang-M_PI/2.0)<Precision::Angular()) {
             // cas d'ambiguite
-            gp_Vec Vtrans(P0.Location(),P.Location()),Vsign;
+            Vector3d Vtrans(P0.Location(),P.Location()),Vsign;
             Standard_Real alpha,beta,sign=1;
             Vsign.SetLinearForm(Vtrans.Dot(vec1),vec2,-Vtrans.Dot(vec2),vec1);
             alpha = Vsign.Dot(vec1);
@@ -2423,7 +2423,7 @@ void BRepFill_CompatibleWires::SearchOrigin()
         Curve0.D0(Curve0.FirstParameter() + Precision::Confusion(), P2o);
         Curve.D0(Curve.FirstParameter() + Precision::Confusion(), P2);
       };
-      gp_Vec        VDebFin0(P1o, P2o), VDebFin(P1, P2);
+      Vector3d        VDebFin0(P1o, P2o), VDebFin(P1, P2);
       Standard_Real AStraight = VDebFin0.Angle(VDebFin);
       parcours                = (AStraight < M_PI / 2.0 ? Standard_True : Standard_False);
     }

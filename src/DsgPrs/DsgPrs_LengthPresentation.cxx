@@ -37,7 +37,7 @@ void DsgPrs_LengthPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
                                     const TCollection_ExtendedString& aText,
                                     const Point3d&                     AttachmentPoint1,
                                     const Point3d&                     AttachmentPoint2,
-                                    const gp_Dir&                     aDirection,
+                                    const Dir3d&                     aDirection,
                                     const Point3d&                     OffsetPoint)
 {
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
@@ -84,7 +84,7 @@ void DsgPrs_LengthPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
   if (dist < (LA->ArrowAspect()->Length() + LA->ArrowAspect()->Length()))
     outside = Standard_True;
 
-  gp_Dir arrdir = L3.Direction().Reversed();
+  Dir3d arrdir = L3.Direction().Reversed();
   if (outside)
     arrdir.Reverse();
 
@@ -134,7 +134,7 @@ void DsgPrs_LengthPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
                                     const Point3d&                     AttachmentPoint1,
                                     const Point3d&                     AttachmentPoint2,
                                     const gp_Pln&                     PlaneOfFaces,
-                                    const gp_Dir&                     aDirection,
+                                    const Dir3d&                     aDirection,
                                     const Point3d&                     OffsetPoint,
                                     const DsgPrs_ArrowSide            ArrowPrs)
 {
@@ -142,7 +142,7 @@ void DsgPrs_LengthPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
 
   Point3d EndOfArrow1, EndOfArrow2;
-  gp_Dir DirOfArrow1;
+  Dir3d DirOfArrow1;
 
   DsgPrs::ComputePlanarFacesLengthPresentation(LA->ArrowAspect()->Length(),
                                                LA->ArrowAspect()->Length(),
@@ -210,7 +210,7 @@ void DsgPrs_LengthPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
                                     const TCollection_ExtendedString& aText,
                                     const Point3d&                     AttachmentPoint1,
                                     const Point3d&                     AttachmentPoint2,
-                                    const gp_Dir&                     aDirection,
+                                    const Dir3d&                     aDirection,
                                     const Point3d&                     OffsetPoint,
                                     const DsgPrs_ArrowSide            ArrowPrs)
 {
@@ -259,7 +259,7 @@ void DsgPrs_LengthPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
   if (dist < (LA->ArrowAspect()->Length() + LA->ArrowAspect()->Length()))
     outside = Standard_True;
 
-  gp_Dir arrdir = L3.Direction().Reversed();
+  Dir3d arrdir = L3.Direction().Reversed();
   if (outside)
     arrdir.Reverse();
 
@@ -291,7 +291,7 @@ void DsgPrs_LengthPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
                                     const Handle(Geom_Surface)&       SecondSurf,
                                     const Point3d&                     AttachmentPoint1,
                                     const Point3d&                     AttachmentPoint2,
-                                    const gp_Dir&                     aDirection,
+                                    const Dir3d&                     aDirection,
                                     const Point3d&                     OffsetPoint,
                                     const DsgPrs_ArrowSide            ArrowPrs)
 {
@@ -299,7 +299,7 @@ void DsgPrs_LengthPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
 
   Point3d             EndOfArrow2;
-  gp_Dir             DirOfArrow1;
+  Dir3d             DirOfArrow1;
   Handle(Geom_Curve) VCurve, UCurve;
   Standard_Real      FirstU, deltaU = 0.0e0, FirstV, deltaV = 0.0e0;
 
@@ -393,33 +393,33 @@ void DsgPrs_LengthPresentation::Add(const Handle(Prs3d_Presentation)& aPrs,
   aPrims->AddVertex(Pt2);
   aPrs->CurrentGroup()->AddPrimitiveArray(aPrims);
 
-  gp_Vec V;
+  Vector3d V;
   switch (ArrowPrs)
   {
     case DsgPrs_AS_LASTAR:
       Prs3d_Arrow::Draw(aPrs->CurrentGroup(),
                         Pt2,
-                        gp_Dir(gp_Vec(Pt1, Pt2)),
+                        Dir3d(Vector3d(Pt1, Pt2)),
                         aDrawer->DimensionAspect()->ArrowAspect()->Angle(),
                         aDrawer->DimensionAspect()->ArrowAspect()->Length());
       break;
     case DsgPrs_AS_FIRSTAR:
       Prs3d_Arrow::Draw(aPrs->CurrentGroup(),
                         Pt1,
-                        gp_Dir(gp_Vec(Pt2, Pt1)),
+                        Dir3d(Vector3d(Pt2, Pt1)),
                         aDrawer->DimensionAspect()->ArrowAspect()->Angle(),
                         aDrawer->DimensionAspect()->ArrowAspect()->Length());
       break;
     case DsgPrs_AS_BOTHAR:
-      V = gp_Vec(Pt1, Pt2);
+      V = Vector3d(Pt1, Pt2);
       Prs3d_Arrow::Draw(aPrs->CurrentGroup(),
                         Pt2,
-                        gp_Dir(V),
+                        Dir3d(V),
                         aDrawer->DimensionAspect()->ArrowAspect()->Angle(),
                         aDrawer->DimensionAspect()->ArrowAspect()->Length());
       Prs3d_Arrow::Draw(aPrs->CurrentGroup(),
                         Pt1,
-                        gp_Dir(V.Reversed()),
+                        Dir3d(V.Reversed()),
                         aDrawer->DimensionAspect()->ArrowAspect()->Angle(),
                         aDrawer->DimensionAspect()->ArrowAspect()->Length());
       break;

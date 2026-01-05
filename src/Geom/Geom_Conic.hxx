@@ -29,7 +29,7 @@ DEFINE_STANDARD_HANDLE(Geom_Conic, Geom_Curve)
 //! package provides four concrete classes of conics:
 //! Geom_Circle, Geom_Ellipse, Geom_Hyperbola and Geom_Parabola.
 //! A conic is positioned in space with a right-handed
-//! coordinate system (gp_Ax2 object), where:
+//! coordinate system (Frame3d object), where:
 //! - the origin is the center of the conic (or the apex in
 //! the case of a parabola),
 //! - the origin, "X Direction" and "Y Direction" define the
@@ -53,17 +53,17 @@ public:
   //! axis to the plane is A1. The XAxis and the YAxis are recomputed.
   //!
   //! raised if the A1 is parallel to the XAxis of the conic.
-  void SetAxis(const gp_Ax1& theA1) { pos.SetAxis(theA1); }
+  void SetAxis(const Axis3d& theA1) { pos.SetAxis(theA1); }
 
   //! changes the location point of the conic.
   void SetLocation(const Point3d& theP) { pos.SetLocation(theP); }
 
   //! changes the local coordinate system of the conic.
-  void SetPosition(const gp_Ax2& theA2) { pos = theA2; }
+  void SetPosition(const Frame3d& theA2) { pos = theA2; }
 
   //! Returns the "main Axis" of this conic. This axis is
   //! normal to the plane of the conic.
-  const gp_Ax1& Axis() const { return pos.Axis(); }
+  const Axis3d& Axis() const { return pos.Axis(); }
 
   //! Returns the location point of the conic.
   //! For the circle, the ellipse and the hyperbola it is the center of
@@ -75,7 +75,7 @@ public:
   //! plane of the conic. The X direction of the Axis2placement
   //! is in the plane of the conic and corresponds to the origin
   //! for the conic's parametric value u.
-  const gp_Ax2& Position() const { return pos; }
+  const Frame3d& Position() const { return pos; }
 
   //! Returns the eccentricity value of the conic e.
   //! e = 0 for a circle
@@ -91,12 +91,12 @@ public:
   //! This axis defines the origin of parametrization of the conic.
   //! This axis is perpendicular to the Axis of the conic.
   //! This axis and the Yaxis define the plane of the conic.
-  Standard_EXPORT gp_Ax1 XAxis() const;
+  Standard_EXPORT Axis3d XAxis() const;
 
   //! Returns the YAxis of the conic.
   //! The YAxis is perpendicular to the Xaxis.
   //! This axis and the Xaxis define the plane of the conic.
-  Standard_EXPORT gp_Ax1 YAxis() const;
+  Standard_EXPORT Axis3d YAxis() const;
 
   //! Reverses the direction of parameterization of <me>.
   //! The local coordinate system of the conic is modified.
@@ -121,7 +121,7 @@ public:
   DEFINE_STANDARD_RTTIEXT(Geom_Conic, Geom_Curve)
 
 protected:
-  gp_Ax2 pos;
+  Frame3d pos;
 };
 
 #endif // _Geom_Conic_HeaderFile

@@ -209,10 +209,10 @@ void PrsDim_ParallelRelation::ComputeTwoEdgesParallel(
   {
     Handle(Geom_Ellipse) geom_el1(Handle(Geom_Ellipse)::DownCast(geom1));
     // construct lines through focuses
-    gp_Ax1 elAx            = geom_el1->XAxis();
+    Axis3d elAx            = geom_el1->XAxis();
     l1                     = gp_Lin(elAx);
     Standard_Real focex    = geom_el1->MajorRadius() - geom_el1->Focal() / 2.0;
-    gp_Vec        transvec = gp_Vec(elAx.Direction()) * focex;
+    Vector3d        transvec = Vector3d(elAx.Direction()) * focex;
     ptat11                 = geom_el1->Focus1().Translated(transvec);
     ptat12                 = geom_el1->Focus2().Translated(-transvec);
     isEl1                  = Standard_True;
@@ -229,10 +229,10 @@ void PrsDim_ParallelRelation::ComputeTwoEdgesParallel(
   {
     Handle(Geom_Ellipse) geom_el2(Handle(Geom_Ellipse)::DownCast(geom2));
     // construct lines through focuses
-    gp_Ax1 elAx            = geom_el2->XAxis();
+    Axis3d elAx            = geom_el2->XAxis();
     l2                     = gp_Lin(elAx);
     Standard_Real focex    = geom_el2->MajorRadius() - geom_el2->Focal() / 2.0;
-    gp_Vec        transvec = gp_Vec(elAx.Direction()) * focex;
+    Vector3d        transvec = Vector3d(elAx.Direction()) * focex;
     ptat21                 = geom_el2->Focus1().Translated(transvec);
     ptat22                 = geom_el2->Focus2().Translated(-transvec);
     isEl2                  = Standard_True;
@@ -279,7 +279,7 @@ void PrsDim_ParallelRelation::ComputeTwoEdgesParallel(
       curpos.SetXYZ((l1.Location().XYZ() + l2.Location().XYZ()) / 2.);
     }
     // offset pour eviter confusion Edge et Dimension
-    gp_Vec offset(myDirAttach);
+    Vector3d offset(myDirAttach);
     offset = offset * myArrowSize * (-10.);
     curpos.Translate(offset);
     myPosition = curpos;

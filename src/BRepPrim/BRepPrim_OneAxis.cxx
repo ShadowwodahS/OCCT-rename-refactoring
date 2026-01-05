@@ -92,7 +92,7 @@ static void BRepPrim_OneAxis_Check(const Standard_Boolean V[],
 //=================================================================================================
 
 BRepPrim_OneAxis::BRepPrim_OneAxis(const BRepPrim_Builder& B,
-                                   const gp_Ax2&           A,
+                                   const Frame3d&           A,
                                    const Standard_Real     VMin,
                                    const Standard_Real     VMax)
     : myBuilder(B),
@@ -132,12 +132,12 @@ void BRepPrim_OneAxis::SetMeridianOffset(const Standard_Real O)
 // purpose  :
 //=======================================================================
 
-const gp_Ax2& BRepPrim_OneAxis::Axes() const
+const Frame3d& BRepPrim_OneAxis::Axes() const
 {
   return myAxes;
 }
 
-void BRepPrim_OneAxis::Axes(const gp_Ax2& A)
+void BRepPrim_OneAxis::Axes(const Frame3d& A)
 {
   BRepPrim_OneAxis_Check(VerticesBuilt, EdgesBuilt, WiresBuilt, FacesBuilt);
   myAxes = A;
@@ -363,7 +363,7 @@ const TopoDS_Face& BRepPrim_OneAxis::TopFace()
 
     // make the empty face by translating the axes
     Standard_Real z = MeridianValue(myVMax).Y();
-    gp_Vec        V = myAxes.Direction();
+    Vector3d        V = myAxes.Direction();
     V.Multiply(z);
     myBuilder.MakeFace(myFaces[FTOP], gp_Pln(myAxes.Translated(V)));
 
@@ -403,9 +403,9 @@ const TopoDS_Face& BRepPrim_OneAxis::BottomFace()
 
     // make the empty face by translating the axes
     Standard_Real z = MeridianValue(myVMin).Y();
-    gp_Vec        V = myAxes.Direction();
+    Vector3d        V = myAxes.Direction();
     V.Multiply(z);
-    gp_Ax2 axes = myAxes.Translated(V);
+    Frame3d axes = myAxes.Translated(V);
     myBuilder.MakeFace(myFaces[FBOTTOM], gp_Pln(axes));
     myBuilder.ReverseFace(myFaces[FBOTTOM]);
     myBuilder.AddFaceWire(myFaces[FBOTTOM], BottomWire());
@@ -443,7 +443,7 @@ const TopoDS_Face& BRepPrim_OneAxis::StartFace()
     Standard_DomainError_Raise_if(!HasSides(), "BRepPrim_OneAxes::StartFace:No side faces");
 
     // build the empty face, perpendicular to myTool.Axes()
-    gp_Ax2 axes(myAxes.Location(), myAxes.YDirection().Reversed(), myAxes.XDirection());
+    Frame3d axes(myAxes.Location(), myAxes.YDirection().Reversed(), myAxes.XDirection());
     myBuilder.MakeFace(myFaces[FSTART], gp_Pln(axes));
 
     if (VMaxInfinite() && VMinInfinite())
@@ -484,7 +484,7 @@ const TopoDS_Face& BRepPrim_OneAxis::EndFace()
     Standard_DomainError_Raise_if(!HasSides(), "BRepPrim_OneAxes::EndFace:No side faces");
 
     // build the empty face, perpendicular to myTool.Axes()
-    gp_Ax2 axes(myAxes.Location(), myAxes.YDirection().Reversed(), myAxes.XDirection());
+    Frame3d axes(myAxes.Location(), myAxes.YDirection().Reversed(), myAxes.XDirection());
     axes.Rotate(myAxes.Axis(), myAngle);
     myBuilder.MakeFace(myFaces[FEND], gp_Pln(axes));
     myBuilder.ReverseFace(myFaces[FEND]);
@@ -892,7 +892,7 @@ const TopoDS_Edge& BRepPrim_OneAxis::StartTopEdge()
                                   "BRepPrim_OneAxis::StartTopEdge:no sides or no top");
 
     // build the empty Edge
-    gp_Vec V = myAxes.Direction();
+    Vector3d V = myAxes.Direction();
     V.Multiply(MeridianValue(myVMax).Y());
     Point3d P = myAxes.Location().Translated(V);
     myBuilder.MakeEdge(myEdges[ETOPSTART], gp_Lin(P, myAxes.XDirection()));
@@ -922,7 +922,7 @@ const TopoDS_Edge& BRepPrim_OneAxis::StartBottomEdge()
                                   "BRepPrim_OneAxis::StartBottomEdge:no sides or no top");
 
     // build the empty Edge
-    gp_Vec V = myAxes.Direction();
+    Vector3d V = myAxes.Direction();
     V.Multiply(MeridianValue(myVMin).Y());
     Point3d P = myAxes.Location().Translated(V);
     myBuilder.MakeEdge(myEdges[EBOTSTART], gp_Lin(P, myAxes.XDirection()));
@@ -952,7 +952,7 @@ const TopoDS_Edge& BRepPrim_OneAxis::EndTopEdge()
                                   "BRepPrim_OneAxis::EndTopEdge:no sides or no top");
 
     // build the empty Edge
-    gp_Vec V = myAxes.Direction();
+    Vector3d V = myAxes.Direction();
     V.Multiply(MeridianValue(myVMax).Y());
     Point3d P = myAxes.Location().Translated(V);
     gp_Lin L(P, myAxes.XDirection());
@@ -984,7 +984,7 @@ const TopoDS_Edge& BRepPrim_OneAxis::EndBottomEdge()
                                   "BRepPrim_OneAxis::EndBottomEdge:no sides or no bottom");
 
     // build the empty Edge
-    gp_Vec V = myAxes.Direction();
+    Vector3d V = myAxes.Direction();
     V.Multiply(MeridianValue(myVMin).Y());
     Point3d P = myAxes.Location().Translated(V);
     gp_Lin L(P, myAxes.XDirection());
@@ -1025,10 +1025,10 @@ const TopoDS_Edge& BRepPrim_OneAxis::TopEdge()
       if (!MeridianOnAxis(myVMax))
       {
         gp_Pnt2d mp = MeridianValue(myVMax);
-        gp_Vec   V  = myAxes.Direction();
+        Vector3d   V  = myAxes.Direction();
         V.Multiply(mp.Y());
         Point3d  P = myAxes.Location().Translated(V);
-        gp_Circ C(gp_Ax2(P, myAxes.Direction(), myAxes.XDirection()), mp.X());
+        gp_Circ C(Frame3d(P, myAxes.Direction(), myAxes.XDirection()), mp.X());
         myBuilder.MakeEdge(myEdges[ETOP], C);
       }
       else
@@ -1075,10 +1075,10 @@ const TopoDS_Edge& BRepPrim_OneAxis::BottomEdge()
       if (!MeridianOnAxis(myVMin))
       {
         gp_Pnt2d mp = MeridianValue(myVMin);
-        gp_Vec   V  = myAxes.Direction();
+        Vector3d   V  = myAxes.Direction();
         V.Multiply(mp.Y());
         Point3d  P = myAxes.Location().Translated(V);
-        gp_Circ C(gp_Ax2(P, myAxes.Direction(), myAxes.XDirection()), mp.X());
+        gp_Circ C(Frame3d(P, myAxes.Direction(), myAxes.XDirection()), mp.X());
         myBuilder.MakeEdge(myEdges[EBOTTOM], C);
       }
       else
@@ -1123,7 +1123,7 @@ const TopoDS_Vertex& BRepPrim_OneAxis::AxisTopVertex()
       Standard_DomainError_Raise_if(MeridianClosed(), "BRepPrim_OneAxis::AxisTopVertex");
       Standard_DomainError_Raise_if(VMaxInfinite(), "BRepPrim_OneAxis::AxisTopVertex");
 
-      gp_Vec V = myAxes.Direction();
+      Vector3d V = myAxes.Direction();
       V.Multiply(MeridianValue(myVMax).Y());
       Point3d P = myAxes.Location().Translated(V);
       myBuilder.MakeVertex(myVertices[VAXISTOP], P);
@@ -1155,7 +1155,7 @@ const TopoDS_Vertex& BRepPrim_OneAxis::AxisBottomVertex()
       Standard_DomainError_Raise_if(MeridianClosed(), "BRepPrim_OneAxis::AxisBottomVertex");
       Standard_DomainError_Raise_if(VMinInfinite(), "BRepPrim_OneAxis::AxisBottomVertex");
 
-      gp_Vec V = myAxes.Direction();
+      Vector3d V = myAxes.Direction();
       V.Multiply(MeridianValue(myVMin).Y());
       Point3d P = myAxes.Location().Translated(V);
       myBuilder.MakeVertex(myVertices[VAXISBOT], P);
@@ -1188,7 +1188,7 @@ const TopoDS_Vertex& BRepPrim_OneAxis::TopStartVertex()
     else
     {
       gp_Pnt2d mp = MeridianValue(myVMax);
-      gp_Vec   V  = myAxes.Direction();
+      Vector3d   V  = myAxes.Direction();
       V.Multiply(mp.Y());
       Point3d P = myAxes.Location().Translated(V);
       V        = myAxes.XDirection();
@@ -1224,7 +1224,7 @@ const TopoDS_Vertex& BRepPrim_OneAxis::TopEndVertex()
     else
     {
       gp_Pnt2d mp = MeridianValue(myVMax);
-      gp_Vec   V  = myAxes.Direction();
+      Vector3d   V  = myAxes.Direction();
       V.Multiply(mp.Y());
       Point3d P = myAxes.Location().Translated(V);
       V        = myAxes.XDirection();
@@ -1261,7 +1261,7 @@ const TopoDS_Vertex& BRepPrim_OneAxis::BottomStartVertex()
     else
     {
       gp_Pnt2d mp = MeridianValue(myVMin);
-      gp_Vec   V  = myAxes.Direction();
+      Vector3d   V  = myAxes.Direction();
       V.Multiply(mp.Y());
       Point3d P = myAxes.Location().Translated(V);
       V        = myAxes.XDirection();
@@ -1297,7 +1297,7 @@ const TopoDS_Vertex& BRepPrim_OneAxis::BottomEndVertex()
     else
     {
       gp_Pnt2d mp = MeridianValue(myVMin);
-      gp_Vec   V  = myAxes.Direction();
+      Vector3d   V  = myAxes.Direction();
       V.Multiply(mp.Y());
       Point3d P = myAxes.Location().Translated(V);
       V        = myAxes.XDirection();

@@ -36,7 +36,7 @@
 #define TheExtPElC_hxx <Extrema_ExtPElC.hxx>
 #define ThePoint Point3d
 #define ThePoint_hxx <gp_Pnt.hxx>
-#define TheVector gp_Vec
+#define TheVector Vector3d
 #define TheVector_hxx <gp_Vec.hxx>
 #define ThePOnC Extrema_POnCurv
 #define ThePOnC_hxx <Extrema_POnCurv.hxx>

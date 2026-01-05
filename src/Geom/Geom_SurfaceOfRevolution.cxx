@@ -51,13 +51,13 @@ IMPLEMENT_STANDARD_RTTIEXT(Geom_SurfaceOfRevolution, Geom_SweptSurface)
 
 typedef Geom_SurfaceOfRevolution SurfaceOfRevolution;
 typedef Geom_Curve               Curve;
-typedef gp_Ax1                   Ax1;
-typedef gp_Ax2                   Ax2;
-typedef gp_Dir                   Dir;
+typedef Axis3d                   Ax1;
+typedef Frame3d                   Ax2;
+typedef Dir3d                   Dir;
 typedef gp_Lin                   Lin;
 typedef Point3d                   Pnt;
-typedef gp_Trsf                  Trsf;
-typedef gp_Vec                   Vec;
+typedef Transform3d                  Trsf;
+typedef Vector3d                   Vec;
 typedef gp_XYZ                   XYZ;
 
 //=================================================================================================
@@ -325,14 +325,14 @@ Handle(Geom_Curve) Geom_SurfaceOfRevolution::VIso(const Standard_Real V) const
     P = P - C;
     if (P.Modulus() > gp::Resolution())
     {
-      gp_Dir D = P.Normalized();
-      Rep      = gp_Ax2(C, direction, D);
+      Dir3d D = P.Normalized();
+      Rep      = Frame3d(C, direction, D);
     }
     else
-      Rep = gp_Ax2(C, direction);
+      Rep = Frame3d(C, direction);
   }
   else
-    Rep = gp_Ax2(Pc, direction);
+    Rep = Frame3d(Pc, direction);
 
   Circ = new Geom_Circle(Rep, Rad);
   return Circ;
@@ -356,14 +356,14 @@ void Geom_SurfaceOfRevolution::Transform(const Trsf& T)
 
 void Geom_SurfaceOfRevolution::TransformParameters(Standard_Real&,
                                                    Standard_Real& V,
-                                                   const gp_Trsf& T) const
+                                                   const Transform3d& T) const
 {
   V = basisCurve->TransformedParameter(V, T);
 }
 
 //=================================================================================================
 
-gp_GTrsf2d Geom_SurfaceOfRevolution::ParametricTransformation(const gp_Trsf& T) const
+gp_GTrsf2d Geom_SurfaceOfRevolution::ParametricTransformation(const Transform3d& T) const
 {
   gp_GTrsf2d T2;
   gp_Ax2d    Axis(gp::Origin2d(), gp::DX2d());

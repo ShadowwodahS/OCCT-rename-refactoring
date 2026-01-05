@@ -33,7 +33,7 @@
 class math_Matrix;
 class Point3d;
 class gp_Pnt2d;
-class gp_Vec;
+class Vector3d;
 class gp_Vec2d;
 class Blend_Point;
 
@@ -136,14 +136,14 @@ public:
   Standard_EXPORT virtual Standard_Boolean IsTangencyPoint() const = 0;
 
   //! Returns the tangent vector at PointOnS, in 3d space.
-  Standard_EXPORT virtual const gp_Vec& TangentOnS() const = 0;
+  Standard_EXPORT virtual const Vector3d& TangentOnS() const = 0;
 
   //! Returns the tangent vector at PointOnS, in the
   //! parametric space of the first surface.
   Standard_EXPORT virtual const gp_Vec2d& Tangent2d() const = 0;
 
   //! Returns the tangent vector at PointOnC, in 3d space.
-  Standard_EXPORT virtual const gp_Vec& TangentOnC() const = 0;
+  Standard_EXPORT virtual const Vector3d& TangentOnC() const = 0;
 
   //! Returns the tangent vector at the section,
   //! at the beginning and the end of the section, and
@@ -151,8 +151,8 @@ public:
   //! these points.
   Standard_EXPORT virtual void Tangent(const Standard_Real U,
                                        const Standard_Real V,
-                                       gp_Vec&             TgS,
-                                       gp_Vec&             NormS) const = 0;
+                                       Vector3d&             TgS,
+                                       Vector3d&             NormS) const = 0;
 
   Standard_EXPORT virtual void GetShape(Standard_Integer& NbPoles,
                                         Standard_Integer& NbKnots,

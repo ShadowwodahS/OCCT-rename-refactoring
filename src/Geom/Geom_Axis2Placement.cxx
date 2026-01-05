@@ -25,11 +25,11 @@
 IMPLEMENT_STANDARD_RTTIEXT(Geom_Axis2Placement, Geom_AxisPlacement)
 
 typedef Geom_Axis2Placement Axis2Placement;
-typedef gp_Ax1              Ax1;
-typedef gp_Dir              Dir;
+typedef Axis3d              Ax1;
+typedef Dir3d              Dir;
 typedef Point3d              Pnt;
-typedef gp_Trsf             Trsf;
-typedef gp_Vec              Vec;
+typedef Transform3d             Trsf;
+typedef Vector3d              Vec;
 
 //=================================================================================================
 
@@ -43,7 +43,7 @@ Handle(Geom_Geometry) Geom_Axis2Placement::Copy() const
 
 //=================================================================================================
 
-Geom_Axis2Placement::Geom_Axis2Placement(const gp_Ax2& A2)
+Geom_Axis2Placement::Geom_Axis2Placement(const Frame3d& A2)
 {
 
   vxdir = A2.XDirection();
@@ -56,11 +56,11 @@ Geom_Axis2Placement::Geom_Axis2Placement(const gp_Ax2& A2)
 Geom_Axis2Placement::Geom_Axis2Placement(
 
   const Point3d& P,
-  const gp_Dir& N,
-  const gp_Dir& Vx)
+  const Dir3d& N,
+  const Dir3d& Vx)
 {
 
-  axis  = gp_Ax1(P, N);
+  axis  = Axis3d(P, N);
   vxdir = N.CrossCrossed(Vx, N);
   vydir = N.Crossed(vxdir);
 }
@@ -70,9 +70,9 @@ Geom_Axis2Placement::Geom_Axis2Placement(
 Geom_Axis2Placement::Geom_Axis2Placement(
 
   const Point3d& P,
-  const gp_Dir& Vz,
-  const gp_Dir& Vx,
-  const gp_Dir& Vy
+  const Dir3d& Vz,
+  const Dir3d& Vx,
+  const Dir3d& Vy
 
   )
     : vxdir(Vx),
@@ -85,21 +85,21 @@ Geom_Axis2Placement::Geom_Axis2Placement(
 
 //=================================================================================================
 
-const gp_Dir& Geom_Axis2Placement::XDirection() const
+const Dir3d& Geom_Axis2Placement::XDirection() const
 {
   return vxdir;
 }
 
 //=================================================================================================
 
-const gp_Dir& Geom_Axis2Placement::YDirection() const
+const Dir3d& Geom_Axis2Placement::YDirection() const
 {
   return vydir;
 }
 
 //=================================================================================================
 
-void Geom_Axis2Placement::SetAx2(const gp_Ax2& A2)
+void Geom_Axis2Placement::SetAx2(const Frame3d& A2)
 {
 
   vxdir = A2.XDirection();
@@ -109,7 +109,7 @@ void Geom_Axis2Placement::SetAx2(const gp_Ax2& A2)
 
 //=================================================================================================
 
-void Geom_Axis2Placement::SetDirection(const gp_Dir& V)
+void Geom_Axis2Placement::SetDirection(const Dir3d& V)
 {
 
   axis.SetDirection(V);
@@ -119,7 +119,7 @@ void Geom_Axis2Placement::SetDirection(const gp_Dir& V)
 
 //=================================================================================================
 
-void Geom_Axis2Placement::SetXDirection(const gp_Dir& Vx)
+void Geom_Axis2Placement::SetXDirection(const Dir3d& Vx)
 {
 
   vxdir = axis.Direction().CrossCrossed(Vx, axis.Direction());
@@ -128,7 +128,7 @@ void Geom_Axis2Placement::SetXDirection(const gp_Dir& Vx)
 
 //=================================================================================================
 
-void Geom_Axis2Placement::SetYDirection(const gp_Dir& Vy)
+void Geom_Axis2Placement::SetYDirection(const Dir3d& Vy)
 {
 
   vxdir = Vy.Crossed(axis.Direction());
@@ -137,15 +137,15 @@ void Geom_Axis2Placement::SetYDirection(const gp_Dir& Vy)
 
 //=================================================================================================
 
-gp_Ax2 Geom_Axis2Placement::Ax2() const
+Frame3d Geom_Axis2Placement::Ax2() const
 {
 
-  return gp_Ax2(axis.Location(), axis.Direction(), vxdir);
+  return Frame3d(axis.Location(), axis.Direction(), vxdir);
 }
 
 //=================================================================================================
 
-void Geom_Axis2Placement::Transform(const gp_Trsf& T)
+void Geom_Axis2Placement::Transform(const Transform3d& T)
 {
 
   // axis.Location().Transform (T);

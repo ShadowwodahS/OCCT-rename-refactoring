@@ -24,7 +24,7 @@
 #include <BRepSweep_Rotation.hxx>
 #include <Standard_Boolean.hxx>
 class TopoDS_Shape;
-class gp_Ax1;
+class Axis3d;
 class Sweep_NumShape;
 class TopLoc_Location;
 
@@ -38,14 +38,14 @@ public:
   //! Builds the Revol of meridian S axis A  and angle D. If
   //! C is true S is copied.
   Standard_EXPORT BRepSweep_Revol(const TopoDS_Shape&    S,
-                                  const gp_Ax1&          A,
+                                  const Axis3d&          A,
                                   const Standard_Real    D,
                                   const Standard_Boolean C = Standard_False);
 
   //! Builds the Revol of meridian S  axis A and angle 2*Pi.
   //! If C is true S is copied.
   Standard_EXPORT BRepSweep_Revol(const TopoDS_Shape&    S,
-                                  const gp_Ax1&          A,
+                                  const Axis3d&          A,
                                   const Standard_Boolean C = Standard_False);
 
   //! Returns the TopoDS Shape attached to the Revol.
@@ -72,7 +72,7 @@ public:
   Standard_EXPORT TopoDS_Shape LastShape(const TopoDS_Shape& aGenS);
 
   //! returns the axis
-  Standard_EXPORT gp_Ax1 Axe() const;
+  Standard_EXPORT Axis3d Axe() const;
 
   //! returns the angle.
   Standard_EXPORT Standard_Real Angle() const;
@@ -85,10 +85,10 @@ private:
   Standard_EXPORT Sweep_NumShape NumShape(const Standard_Real D) const;
 
   //! Builds the Location
-  Standard_EXPORT TopLoc_Location Location(const gp_Ax1& Ax, const Standard_Real D) const;
+  Standard_EXPORT TopLoc_Location Location(const Axis3d& Ax, const Standard_Real D) const;
 
   //! Builds the axis
-  Standard_EXPORT gp_Ax1 Axe(const gp_Ax1& Ax, const Standard_Real D) const;
+  Standard_EXPORT Axis3d Axe(const Axis3d& Ax, const Standard_Real D) const;
 
   //! computes the angle.
   Standard_EXPORT Standard_Real Angle(const Standard_Real D) const;

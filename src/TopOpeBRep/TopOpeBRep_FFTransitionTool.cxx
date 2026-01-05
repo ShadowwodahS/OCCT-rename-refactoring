@@ -335,7 +335,7 @@ static Standard_Boolean FUN_GeomTrans(const Handle(Geom_Surface)& S1,
 
   // P1 : D0(C1(T1), D1_C1 : D1(C1(T1))
   Point3d P1;
-  gp_Vec D1_C1;
+  Vector3d D1_C1;
   C1->D1(T1, P1, D1_C1);
 
   // D1_C2 : D1(C2(P1))
@@ -346,11 +346,11 @@ static Standard_Boolean FUN_GeomTrans(const Handle(Geom_Surface)& S1,
     return Standard_False;
   }
   Point3d P2;
-  gp_Vec D1_C2;
+  Vector3d D1_C2;
   C2->D1(T2, P2, D1_C2);
 
   // N1 : D1(S1(U1,V1))
-  gp_Vec N1, D1U, D1V;
+  Vector3d N1, D1U, D1V;
   Point3d PS;
   S1->D1(U1, V1, PS, D1U, D1V);
   D1U.Normalize();
@@ -358,7 +358,7 @@ static Standard_Boolean FUN_GeomTrans(const Handle(Geom_Surface)& S1,
   N1 = D1U.Crossed(D1V);
   N1.Normalize();
 
-  gp_Vec        N1D1_C1 = N1.Crossed(D1_C1);
+  Vector3d        N1D1_C1 = N1.Crossed(D1_C1);
   Standard_Real dot     = N1D1_C1.Dot(D1_C2);
   if (dot > 0)
   {

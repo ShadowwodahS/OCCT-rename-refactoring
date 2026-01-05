@@ -21,7 +21,7 @@ AIS_AnimationAxisRotation::AIS_AnimationAxisRotation(
   const TCollection_AsciiString&        theAnimationName,
   const Handle(AIS_InteractiveContext)& theContext,
   const Handle(AIS_InteractiveObject)&  theObject,
-  const gp_Ax1&                         theAxis,
+  const Axis3d&                         theAxis,
   const Standard_Real                   theAngleStart,
   const Standard_Real                   theAngleEnd)
     : AIS_BaseAnimationObject(theAnimationName, theContext, theObject),
@@ -41,7 +41,7 @@ void AIS_AnimationAxisRotation::update(const AIS_AnimationProgress& theProgress)
     return;
   }
 
-  gp_Trsf       aTrsf;
+  Transform3d       aTrsf;
   Standard_Real aCurrentAngle =
     (1.0 - theProgress.LocalNormalized) * myAngleStart + theProgress.LocalNormalized * myAngleEnd;
   aTrsf.SetRotation(myRotAxis, aCurrentAngle);

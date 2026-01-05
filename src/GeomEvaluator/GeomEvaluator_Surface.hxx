@@ -19,7 +19,7 @@
 #include <Standard_Type.hxx>
 
 class Point3d;
-class gp_Vec;
+class Vector3d;
 
 //! Interface for calculation of values and derivatives for different kinds of surfaces.
 //! Works both with adaptors and surfaces.
@@ -34,34 +34,34 @@ public:
   virtual void D1(const Standard_Real theU,
                   const Standard_Real theV,
                   Point3d&             theValue,
-                  gp_Vec&             theD1U,
-                  gp_Vec&             theD1V) const = 0;
+                  Vector3d&             theD1U,
+                  Vector3d&             theD1V) const = 0;
   //! Value, first and second derivatives of surface
   virtual void D2(const Standard_Real theU,
                   const Standard_Real theV,
                   Point3d&             theValue,
-                  gp_Vec&             theD1U,
-                  gp_Vec&             theD1V,
-                  gp_Vec&             theD2U,
-                  gp_Vec&             theD2V,
-                  gp_Vec&             theD2UV) const = 0;
+                  Vector3d&             theD1U,
+                  Vector3d&             theD1V,
+                  Vector3d&             theD2U,
+                  Vector3d&             theD2V,
+                  Vector3d&             theD2UV) const = 0;
   //! Value, first, second and third derivatives of surface
   virtual void D3(const Standard_Real theU,
                   const Standard_Real theV,
                   Point3d&             theValue,
-                  gp_Vec&             theD1U,
-                  gp_Vec&             theD1V,
-                  gp_Vec&             theD2U,
-                  gp_Vec&             theD2V,
-                  gp_Vec&             theD2UV,
-                  gp_Vec&             theD3U,
-                  gp_Vec&             theD3V,
-                  gp_Vec&             theD3UUV,
-                  gp_Vec&             theD3UVV) const = 0;
+                  Vector3d&             theD1U,
+                  Vector3d&             theD1V,
+                  Vector3d&             theD2U,
+                  Vector3d&             theD2V,
+                  Vector3d&             theD2UV,
+                  Vector3d&             theD3U,
+                  Vector3d&             theD3V,
+                  Vector3d&             theD3UUV,
+                  Vector3d&             theD3UVV) const = 0;
   //! Calculates N-th derivatives of surface, where N = theDerU + theDerV.
   //!
   //! Raises if N < 1 or theDerU < 0 or theDerV < 0
-  virtual gp_Vec DN(const Standard_Real    theU,
+  virtual Vector3d DN(const Standard_Real    theU,
                     const Standard_Real    theV,
                     const Standard_Integer theDerU,
                     const Standard_Integer theDerV) const = 0;

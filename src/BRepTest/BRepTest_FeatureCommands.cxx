@@ -249,11 +249,11 @@ static Standard_Integer HOLE1(Draw_Interpretor& theCommands, Standard_Integer na
   TopoDS_Shape S = DBRep::Get(a[2]);
 
   Point3d Or(Draw::Atof(a[3]), Draw::Atof(a[4]), Draw::Atof(a[5]));
-  gp_Dir Di(Draw::Atof(a[6]), Draw::Atof(a[7]), Draw::Atof(a[8]));
+  Dir3d Di(Draw::Atof(a[6]), Draw::Atof(a[7]), Draw::Atof(a[8]));
 
   Standard_Real Radius = Draw::Atof(a[9]);
 
-  getHole().Init(S, gp_Ax1(Or, Di));
+  getHole().Init(S, Axis3d(Or, Di));
 
   if (narg <= 10)
   {
@@ -286,11 +286,11 @@ static Standard_Integer HOLE2(Draw_Interpretor& theCommands, Standard_Integer na
   TopoDS_Shape S = DBRep::Get(a[2]);
 
   Point3d Or(Draw::Atof(a[3]), Draw::Atof(a[4]), Draw::Atof(a[5]));
-  gp_Dir Di(Draw::Atof(a[6]), Draw::Atof(a[7]), Draw::Atof(a[8]));
+  Dir3d Di(Draw::Atof(a[6]), Draw::Atof(a[7]), Draw::Atof(a[8]));
 
   Standard_Real Radius = Draw::Atof(a[9]);
 
-  getHole().Init(S, gp_Ax1(Or, Di));
+  getHole().Init(S, Axis3d(Or, Di));
   getHole().PerformThruNext(Radius, WithControl);
 
   getHole().Build();
@@ -313,11 +313,11 @@ static Standard_Integer HOLE3(Draw_Interpretor& theCommands, Standard_Integer na
   TopoDS_Shape S = DBRep::Get(a[2]);
 
   Point3d Or(Draw::Atof(a[3]), Draw::Atof(a[4]), Draw::Atof(a[5]));
-  gp_Dir Di(Draw::Atof(a[6]), Draw::Atof(a[7]), Draw::Atof(a[8]));
+  Dir3d Di(Draw::Atof(a[6]), Draw::Atof(a[7]), Draw::Atof(a[8]));
 
   Standard_Real Radius = Draw::Atof(a[9]);
 
-  getHole().Init(S, gp_Ax1(Or, Di));
+  getHole().Init(S, Axis3d(Or, Di));
   getHole().PerformUntilEnd(Radius, WithControl);
   getHole().Build();
   if (!getHole().HasErrors())
@@ -339,12 +339,12 @@ static Standard_Integer HOLE4(Draw_Interpretor& theCommands, Standard_Integer na
   TopoDS_Shape S = DBRep::Get(a[2]);
 
   Point3d Or(Draw::Atof(a[3]), Draw::Atof(a[4]), Draw::Atof(a[5]));
-  gp_Dir Di(Draw::Atof(a[6]), Draw::Atof(a[7]), Draw::Atof(a[8]));
+  Dir3d Di(Draw::Atof(a[6]), Draw::Atof(a[7]), Draw::Atof(a[8]));
 
   Standard_Real Radius = Draw::Atof(a[9]);
   Standard_Real Length = Draw::Atof(a[10]);
 
-  getHole().Init(S, gp_Ax1(Or, Di));
+  getHole().Init(S, Axis3d(Or, Di));
   getHole().PerformBlind(Radius, Length, WithControl);
   getHole().Build();
   if (!getHole().HasErrors())
@@ -438,7 +438,7 @@ static Standard_Integer PRW(Draw_Interpretor& theCommands, Standard_Integer narg
     return 1;
   TopoDS_Shape       S = DBRep::Get(a[3]);
   BRepFeat_MakePrism thePFace;
-  gp_Vec             V;
+  Vector3d             V;
   TopoDS_Shape       FFrom, FUntil;
   Standard_Integer   borne;
   Standard_Boolean   fuse;
@@ -642,7 +642,7 @@ static Standard_Integer PRF(Draw_Interpretor& theCommands, Standard_Integer narg
   TopoDS_Shape       S = DBRep::Get(a[3]);
   BRepFeat_MakePrism thePFace;
   Standard_Integer   borne;
-  gp_Vec             V;
+  Vector3d             V;
   TopoDS_Shape       FFrom, FUntil;
   Standard_Boolean   fuse;
   if (a[1][0] == 'f' || a[1][0] == 'F')
@@ -1371,7 +1371,7 @@ static Standard_Integer ROW(Draw_Interpretor& theCommands, Standard_Integer narg
     return 1;
   TopoDS_Shape       S = DBRep::Get(a[3]);
   BRepFeat_MakeRevol theRFace;
-  gp_Dir             D;
+  Dir3d             D;
   Point3d             Or;
   Standard_Real      Angle = 0;
   TopoDS_Shape       FFrom, FUntil;
@@ -1420,7 +1420,7 @@ static Standard_Integer ROW(Draw_Interpretor& theCommands, Standard_Integer narg
 
   Or.SetCoord(Draw::Atof(a[i]), Draw::Atof(a[i + 1]), Draw::Atof(a[i + 2]));
   D.SetCoord(Draw::Atof(a[i + 3]), Draw::Atof(a[i + 4]), Draw::Atof(a[i + 5]));
-  gp_Ax1 theAxis(Or, D);
+  Axis3d theAxis(Or, D);
 
   TopoDS_Shape aLocalShape(DBRep::Get(a[borne], TopAbs_FACE));
   TopoDS_Face  F = TopoDS::Face(aLocalShape);
@@ -1555,7 +1555,7 @@ static Standard_Integer ROF(Draw_Interpretor& theCommands, Standard_Integer narg
     return 1;
   TopoDS_Shape       S = DBRep::Get(a[3]);
   BRepFeat_MakeRevol theRFace;
-  gp_Dir             D;
+  Dir3d             D;
   Point3d             Or;
   Standard_Real      Angle = 0;
   TopoDS_Shape       FFrom, FUntil;
@@ -1604,7 +1604,7 @@ static Standard_Integer ROF(Draw_Interpretor& theCommands, Standard_Integer narg
   borne = i + 6;
   Or.SetCoord(Draw::Atof(a[i]), Draw::Atof(a[i + 1]), Draw::Atof(a[i + 2]));
   D.SetCoord(Draw::Atof(a[i + 3]), Draw::Atof(a[i + 4]), Draw::Atof(a[i + 5]));
-  gp_Ax1 theAxis(Or, D);
+  Axis3d theAxis(Or, D);
 
   TopoDS_Shape ToRotate;
   if (narg == borne + 1)
@@ -1888,7 +1888,7 @@ static Standard_Integer DEFIN(Draw_Interpretor& theCommands, Standard_Integer na
       theSbase  = Sbase;
       thePbase  = Pbase;
       theSkface = Skface;
-      getPrism().Init(Sbase, Pbase, Skface, gp_Dir(X, Y, Z), Fuse, Modify);
+      getPrism().Init(Sbase, Pbase, Skface, Dir3d(X, Y, Z), Fuse, Modify);
     }
     else if (narg == 14)
     {
@@ -1899,7 +1899,7 @@ static Standard_Integer DEFIN(Draw_Interpretor& theCommands, Standard_Integer na
       Z                = Draw::Atof(a[9]);
       Standard_Real H1 = Draw::Atof(a[10]);
       Standard_Real H2 = Draw::Atof(a[11]);
-      gp_Ax1        ax1(Or, gp_Dir(X, Y, Z));
+      Axis3d        ax1(Or, Dir3d(X, Y, Z));
       getRevolutionForm().Init(Sbase, W, P, ax1, H1, H2, Fuse, Modify);
       if (!getRevolutionForm().IsDone())
       {
@@ -1921,16 +1921,16 @@ static Standard_Integer DEFIN(Draw_Interpretor& theCommands, Standard_Integer na
       theSbase  = Sbase;
       thePbase  = Pbase;
       theSkface = Skface;
-      getRevol().Init(Sbase, Pbase, Skface, gp_Ax1(Or, gp_Dir(X, Y, Z)), Fuse, Modify);
+      getRevol().Init(Sbase, Pbase, Skface, Axis3d(Or, Dir3d(X, Y, Z)), Fuse, Modify);
     }
     else
     {
       lfdef = Standard_True;
-      gp_Vec Direct(X, Y, Z);
+      Vector3d Direct(X, Y, Z);
       X = Draw::Atof(a[7]);
       Y = Draw::Atof(a[8]);
       Z = Draw::Atof(a[9]);
-      getLienarForm().Init(Sbase, W, P, Direct, gp_Vec(X, Y, Z), Fuse, Modify);
+      getLienarForm().Init(Sbase, W, P, Direct, Vector3d(X, Y, Z), Fuse, Modify);
       if (!getLienarForm().IsDone())
       {
         se = getLienarForm().CurrentStatusError();

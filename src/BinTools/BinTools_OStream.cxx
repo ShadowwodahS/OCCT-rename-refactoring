@@ -185,7 +185,7 @@ BinTools_OStream& BinTools_OStream::operator<<(const Point3d& theValue)
 // function : operator <<
 // purpose  :
 //=======================================================================
-BinTools_OStream& BinTools_OStream::operator<<(const gp_Dir& theValue)
+BinTools_OStream& BinTools_OStream::operator<<(const Dir3d& theValue)
 {
 #if DO_INVERSE
   myRealBuf[0] = FSD_BinaryFile::InverseReal(theValue.X());
@@ -241,7 +241,7 @@ BinTools_OStream& BinTools_OStream::operator<<(const gp_Dir2d& theValue)
 // function : operator <<
 // purpose  :
 //=======================================================================
-BinTools_OStream& BinTools_OStream::operator<<(const gp_Trsf& theValue)
+BinTools_OStream& BinTools_OStream::operator<<(const Transform3d& theValue)
 {
   gp_XYZ aTr  = theValue.TranslationPart();
   gp_Mat aMat = theValue.VectorialPart();

@@ -233,7 +233,7 @@ Handle(Graphic3d_AspectText3d) MeshVS_Tool::CreateAspectText3d(const Handle(Mesh
 
 //=================================================================================================
 
-Standard_Boolean MeshVS_Tool::GetNormal(const TColStd_Array1OfReal& Nodes, gp_Vec& Norm)
+Standard_Boolean MeshVS_Tool::GetNormal(const TColStd_Array1OfReal& Nodes, Vector3d& Norm)
 {
   Standard_Integer first = Nodes.Lower(), last = Nodes.Upper(), count = (last - first + 1) / 3, i,
                    j;
@@ -298,7 +298,7 @@ Standard_Boolean MeshVS_Tool::GetNormal(const TColStd_Array1OfReal& Nodes, gp_Ve
 
 //=================================================================================================
 
-Standard_Boolean MeshVS_Tool::GetAverageNormal(const TColStd_Array1OfReal& Nodes, gp_Vec& Norm)
+Standard_Boolean MeshVS_Tool::GetAverageNormal(const TColStd_Array1OfReal& Nodes, Vector3d& Norm)
 {
   Standard_Integer first = Nodes.Lower(), last = Nodes.Upper(), count = (last - first + 1) / 3, i,
                    j;

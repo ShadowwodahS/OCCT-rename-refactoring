@@ -571,8 +571,8 @@ Standard_Boolean TopOpeBRepTool_CurveTool::MakeCurves(const Standard_Real       
       Standard_Integer ic = 1;
       for (ip = 2; ip <= npol - 1; ip += npol - 3)
       {
-        gp_Vec v1(Polc3d(ip - 1), Polc3d(ip));
-        gp_Vec v2(Polc3d(ip), Polc3d(ip + 1));
+        Vector3d v1(Polc3d(ip - 1), Polc3d(ip));
+        Vector3d v2(Polc3d(ip), Polc3d(ip + 1));
         if (!v1.IsParallel(v2, 1.e-4))
         {
           gce_MakeCirc mc(Polc3d(ip - 1), Polc3d(ip), Polc3d(ip + 1));
@@ -589,8 +589,8 @@ Standard_Boolean TopOpeBRepTool_CurveTool::MakeCurves(const Standard_Real       
     else if (npol == 3)
     {
       ip = 2;
-      gp_Vec v1(Polc3d(ip - 1), Polc3d(ip));
-      gp_Vec v2(Polc3d(ip), Polc3d(ip + 1));
+      Vector3d v1(Polc3d(ip - 1), Polc3d(ip));
+      Vector3d v2(Polc3d(ip), Polc3d(ip + 1));
       if (!v1.IsParallel(v2, 1.e-4))
       {
         gce_MakeCirc mc(Polc3d(ip - 1), Polc3d(ip), Polc3d(ip + 1));

@@ -144,7 +144,7 @@ void PrsDim_MidPointRelation::ComputeSelection(const Handle(SelectMgr_Selection)
   }
 
   // center of the symmetry - circle around the MidPoint
-  gp_Ax2 ax = myPlane->Pln().Position().Ax2();
+  Frame3d ax = myPlane->Pln().Position().Ax2();
   ax.SetLocation(myMidPoint);
   Standard_Real                   rad = myFAttach.Distance(myMidPoint) / 20.0;
   gp_Circ                         aCircleM(ax, rad);
@@ -255,7 +255,7 @@ void PrsDim_MidPointRelation::ComputeEdgeFromPnt(const Handle(Prs3d_Presentation
   if (!PrsDim::ComputeGeometry(E, geom, ptat1, ptat2, extCurv, isInfinite, isOnPlane, myPlane))
     return;
 
-  gp_Ax2 ax = myPlane->Pln().Position().Ax2();
+  Frame3d ax = myPlane->Pln().Position().Ax2();
 
   if (geom->IsInstance(STANDARD_TYPE(Geom_Line)))
   {
@@ -352,7 +352,7 @@ void PrsDim_MidPointRelation::ComputeEdgeFromPnt(const Handle(Prs3d_Presentation
 void PrsDim_MidPointRelation::ComputeVertexFromPnt(const Handle(Prs3d_Presentation)& aprs,
                                                    const Standard_Boolean            first)
 {
-  gp_Ax2 ax = myPlane->Pln().Position().Ax2();
+  Frame3d ax = myPlane->Pln().Position().Ax2();
   if (first)
   {
     Standard_Boolean isOnPlane;
@@ -410,8 +410,8 @@ void PrsDim_MidPointRelation::ComputePointsOnLine(const Point3d&          pnt1,
                                                   const Point3d&          pnt2,
                                                   const Standard_Boolean first)
 {
-  gp_Vec aVec(pnt1, pnt2);
-  gp_Lin aLin(pnt1, gp_Dir(aVec));
+  Vector3d aVec(pnt1, pnt2);
+  gp_Lin aLin(pnt1, Dir3d(aVec));
 
   Standard_Real fpar = ElCLib::Parameter(aLin, pnt1);
   Standard_Real spar = ElCLib::Parameter(aLin, pnt2);
@@ -426,18 +426,18 @@ void PrsDim_MidPointRelation::ComputePointsOnLine(const Point3d&          pnt1,
 
   Point3d anAttach, aPnt1, aPnt2;
   anAttach = aProjPnt;
-  gp_Vec aVecTr;
+  Vector3d aVecTr;
   if (ppar <= fpar)
   {
     aPnt2  = pnt1;
-    aVecTr = gp_Vec(pnt2, pnt1);
+    aVecTr = Vector3d(pnt2, pnt1);
     aVecTr.Normalize();
     aPnt1 = aProjPnt.Translated(aVecTr * segm);
   }
   else if (ppar >= spar)
   {
     aPnt1  = pnt2;
-    aVecTr = gp_Vec(pnt1, pnt2);
+    aVecTr = Vector3d(pnt1, pnt2);
     aVecTr.Normalize();
     aPnt2 = aProjPnt.Translated(aVecTr * segm);
   }
@@ -447,12 +447,12 @@ void PrsDim_MidPointRelation::ComputePointsOnLine(const Point3d&          pnt1,
     Standard_Real dp2 = aProjPnt.Distance(pnt2);
 
     segm   = Min(dist, dp1) * 0.75;
-    aVecTr = gp_Vec(aProjPnt, pnt1);
+    aVecTr = Vector3d(aProjPnt, pnt1);
     aVecTr.Normalize();
     aPnt1 = aProjPnt.Translated(aVecTr * segm);
 
     segm   = Min(dist, dp2) * 0.75;
-    aVecTr = gp_Vec(aProjPnt, pnt2);
+    aVecTr = Vector3d(aProjPnt, pnt2);
     aVecTr.Normalize();
     aPnt2 = aProjPnt.Translated(aVecTr * segm);
   }
@@ -486,7 +486,7 @@ void PrsDim_MidPointRelation::ComputePointsOnCirc(const gp_Circ&         aCirc,
   Point3d                  aCenter = aCirc.Location();
   if (aCenter.Distance(curpos) <= confusion)
   {
-    gp_Vec vprec(aCenter, pnt1);
+    Vector3d vprec(aCenter, pnt1);
     vprec.Normalize();
     curpos.Translate(vprec * 1e-5);
   }
@@ -612,7 +612,7 @@ void PrsDim_MidPointRelation::ComputePointsOnElips(const gp_Elips&        anEll,
   Point3d                  aCenter = anEll.Location();
   if (aCenter.Distance(curpos) <= confusion)
   {
-    gp_Vec vprec(aCenter, pnt1);
+    Vector3d vprec(aCenter, pnt1);
     vprec.Normalize();
     curpos.Translate(vprec * 1e-5);
   }

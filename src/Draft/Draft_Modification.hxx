@@ -31,7 +31,7 @@
 #include <BRepTools_Modification.hxx>
 #include <GeomAbs_Shape.hxx>
 #include <TopAbs_Orientation.hxx>
-class gp_Dir;
+class Dir3d;
 class gp_Pln;
 class Geom_Surface;
 class TopLoc_Location;
@@ -61,7 +61,7 @@ public:
   //! tangent. If an error occurs, will return False and
   //! ProblematicShape  will  return the "bad" face.
   Standard_EXPORT Standard_Boolean Add(const TopoDS_Face&     F,
-                                       const gp_Dir&          Direction,
+                                       const Dir3d&          Direction,
                                        const Standard_Real    Angle,
                                        const gp_Pln&          NeutralPlane,
                                        const Standard_Boolean Flag = Standard_True);
@@ -184,7 +184,7 @@ public:
 protected:
 private:
   Standard_EXPORT Standard_Boolean InternalAdd(const TopoDS_Face&     F,
-                                               const gp_Dir&          Direction,
+                                               const Dir3d&          Direction,
                                                const Standard_Real    Angle,
                                                const gp_Pln&          NeutralPlane,
                                                const Standard_Boolean Flag = Standard_True);
@@ -194,14 +194,14 @@ private:
   Standard_EXPORT Handle(Geom_Curve) NewCurve(const Handle(Geom_Curve)&   C,
                                               const Handle(Geom_Surface)& S,
                                               const TopAbs_Orientation    OriS,
-                                              const gp_Dir&               Direction,
+                                              const Dir3d&               Direction,
                                               const Standard_Real         Angle,
                                               const gp_Pln&               NeutralPlane,
                                               const Standard_Boolean      Flag = Standard_True);
 
   Standard_EXPORT Handle(Geom_Surface) NewSurface(const Handle(Geom_Surface)& S,
                                                   const TopAbs_Orientation    OriS,
-                                                  const gp_Dir&               Direction,
+                                                  const Dir3d&               Direction,
                                                   const Standard_Real         Angle,
                                                   const gp_Pln&               NeutralPlane);
 

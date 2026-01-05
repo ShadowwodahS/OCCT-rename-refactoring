@@ -45,11 +45,11 @@ void HLRAppli_ReflectLines::SetAxes(const Standard_Real Nx,
   // ZUp);
 
   Point3d  At(XAt, YAt, ZAt);
-  gp_Dir  Zpers(Nx, Ny, Nz);
-  gp_Dir  Ypers(XUp, YUp, ZUp);
-  gp_Dir  Xpers = Ypers.Crossed(Zpers);
+  Dir3d  Zpers(Nx, Ny, Nz);
+  Dir3d  Ypers(XUp, YUp, ZUp);
+  Dir3d  Xpers = Ypers.Crossed(Zpers);
   gp_Ax3  Axe(At, Zpers, Xpers);
-  gp_Trsf T;
+  Transform3d T;
   T.SetTransformation(Axe);
 
   // myProjector = aPrs3dProjector.Projector();

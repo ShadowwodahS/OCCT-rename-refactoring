@@ -112,7 +112,7 @@ void Approx_CurveOnSurface_Eval::Evaluate(Standard_Integer* Dimension,
       break;
     }
     case 1: {
-      gp_Vec   v1;
+      Vector3d   v1;
       gp_Vec2d v21;
       fonct2d->D1(par, pnt2d, v21);
       fonct->D1(par, pnt, v1);
@@ -124,7 +124,7 @@ void Approx_CurveOnSurface_Eval::Evaluate(Standard_Integer* Dimension,
       break;
     }
     case 2: {
-      gp_Vec   v1, v2;
+      Vector3d   v1, v2;
       gp_Vec2d v21, v22;
       fonct2d->D2(par, pnt2d, v21, v22);
       fonct->D2(par, pnt, v1, v2);
@@ -203,7 +203,7 @@ void Approx_CurveOnSurface_Eval3d::Evaluate(Standard_Integer* Dimension,
       Result[2] = pnt.Z();
       break;
     case 1: {
-      gp_Vec v1;
+      Vector3d v1;
       fonct->D1(par, pnt, v1);
       Result[0] = v1.X();
       Result[1] = v1.Y();
@@ -211,7 +211,7 @@ void Approx_CurveOnSurface_Eval3d::Evaluate(Standard_Integer* Dimension,
       break;
     }
     case 2: {
-      gp_Vec v1, v2;
+      Vector3d v1, v2;
       fonct->D2(par, pnt, v1, v2);
       Result[0] = v2.X();
       Result[1] = v2.Y();

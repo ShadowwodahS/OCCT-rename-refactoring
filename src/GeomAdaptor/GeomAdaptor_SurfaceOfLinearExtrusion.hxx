@@ -26,7 +26,7 @@ class gp_Sphere;
 class gp_Torus;
 class Geom_BezierSurface;
 class Geom_BSplineSurface;
-class gp_Ax1;
+class Axis3d;
 
 DEFINE_STANDARD_HANDLE(GeomAdaptor_SurfaceOfLinearExtrusion, GeomAdaptor_Surface)
 
@@ -48,7 +48,7 @@ public:
 
   //! Thew Curve and the Direction are loaded.
   Standard_EXPORT GeomAdaptor_SurfaceOfLinearExtrusion(const Handle(Adaptor3d_Curve)& C,
-                                                       const gp_Dir&                  V);
+                                                       const Dir3d&                  V);
 
   //! Shallow copy of adaptor
   Standard_EXPORT virtual Handle(Adaptor3d_Surface) ShallowCopy() const Standard_OVERRIDE;
@@ -57,7 +57,7 @@ public:
   Standard_EXPORT void Load(const Handle(Adaptor3d_Curve)& C);
 
   //! Changes the Direction
-  Standard_EXPORT void Load(const gp_Dir& V);
+  Standard_EXPORT void Load(const Dir3d& V);
 
   Standard_EXPORT Standard_Real FirstUParameter() const Standard_OVERRIDE;
 
@@ -155,15 +155,15 @@ public:
 
   Standard_EXPORT Handle(Geom_BSplineSurface) BSpline() const Standard_OVERRIDE;
 
-  Standard_EXPORT gp_Ax1 AxeOfRevolution() const Standard_OVERRIDE;
+  Standard_EXPORT Axis3d AxeOfRevolution() const Standard_OVERRIDE;
 
-  Standard_EXPORT gp_Dir Direction() const Standard_OVERRIDE;
+  Standard_EXPORT Dir3d Direction() const Standard_OVERRIDE;
 
   Standard_EXPORT Handle(Adaptor3d_Curve) BasisCurve() const Standard_OVERRIDE;
 
 private:
   Handle(Adaptor3d_Curve) myBasisCurve; ///< extruded curve
-  gp_Dir                  myDirection;  ///< direction of extrusion
+  Dir3d                  myDirection;  ///< direction of extrusion
   Standard_Boolean        myHaveDir;    ///< whether the direction of extrusion is initialized
 };
 

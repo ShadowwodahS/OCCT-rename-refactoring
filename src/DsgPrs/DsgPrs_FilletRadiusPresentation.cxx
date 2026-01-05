@@ -40,7 +40,7 @@ void DsgPrs_FilletRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPre
                                           const Standard_Real               theval,
                                           const TCollection_ExtendedString& aText,
                                           const Point3d&                     aPosition,
-                                          const gp_Dir&                     aNormalDir,
+                                          const Dir3d&                     aNormalDir,
                                           const Point3d&                     aBasePnt,
                                           const Point3d&                     aFirstPoint,
                                           const Point3d&                     aSecondPoint,
@@ -57,7 +57,7 @@ void DsgPrs_FilletRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPre
 
   Standard_Real    FirstParCirc, LastParCirc;
   Standard_Boolean SpecCase;
-  gp_Dir           DirOfArrow;
+  Dir3d           DirOfArrow;
   gp_Circ          FilletCirc;
   //  Point3d NewPosition, EndOfArrow;
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();

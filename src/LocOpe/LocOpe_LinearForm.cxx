@@ -35,7 +35,7 @@
 //=================================================================================================
 
 void LocOpe_LinearForm::Perform(const TopoDS_Shape& Base,
-                                const gp_Vec&       V,
+                                const Vector3d&       V,
                                 const Point3d&       Pnt1,
                                 const Point3d&       Pnt2)
 
@@ -60,8 +60,8 @@ void LocOpe_LinearForm::Perform(const TopoDS_Shape& Base,
 //=================================================================================================
 
 void LocOpe_LinearForm::Perform(const TopoDS_Shape& Base,
-                                const gp_Vec&       V,
-                                const gp_Vec&       Vectra,
+                                const Vector3d&       V,
+                                const Vector3d&       Vectra,
                                 const Point3d&       Pnt1,
                                 const Point3d&       Pnt2)
 
@@ -93,7 +93,7 @@ void LocOpe_LinearForm::IntPerf()
 
   if (myIsTrans)
   {
-    gp_Trsf T;
+    Transform3d T;
     T.SetTranslation(myTra);
     Handle(BRepTools_TrsfModification) modbase = new BRepTools_TrsfModification(T);
     Modif.Init(theBase);

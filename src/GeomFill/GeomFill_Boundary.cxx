@@ -38,14 +38,14 @@ Standard_Boolean GeomFill_Boundary::HasNormals() const
 
 //=================================================================================================
 
-gp_Vec GeomFill_Boundary::Norm(const Standard_Real) const
+Vector3d GeomFill_Boundary::Norm(const Standard_Real) const
 {
   throw ExceptionBase("GeomFill_Boundary::Norm : Undefined normals");
 }
 
 //=================================================================================================
 
-void GeomFill_Boundary::D1Norm(const Standard_Real, gp_Vec&, gp_Vec&) const
+void GeomFill_Boundary::D1Norm(const Standard_Real, Vector3d&, Vector3d&) const
 {
   throw ExceptionBase("GeomFill_Boundary::Norm : Undefined normals");
 }

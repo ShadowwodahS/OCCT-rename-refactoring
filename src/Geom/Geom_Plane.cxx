@@ -34,15 +34,15 @@
 IMPLEMENT_STANDARD_RTTIEXT(Geom_Plane, Geom_ElementarySurface)
 
 typedef Geom_Plane Plane;
-typedef gp_Ax1     Ax1;
-typedef gp_Ax2     Ax2;
+typedef Axis3d     Ax1;
+typedef Frame3d     Ax2;
 typedef gp_Ax3     Ax3;
-typedef gp_Dir     Dir;
+typedef Dir3d     Dir;
 typedef gp_Lin     Lin;
 typedef gp_Pln     Pln;
 typedef Point3d     Pnt;
-typedef gp_Trsf    Trsf;
-typedef gp_Vec     Vec;
+typedef Transform3d    Trsf;
+typedef Vector3d     Vec;
 typedef gp_XYZ     XYZ;
 
 //=================================================================================================
@@ -299,7 +299,7 @@ Handle(Geom_Curve) Geom_Plane::VIso(const Standard_Real V) const
 
 //=================================================================================================
 
-void Geom_Plane::TransformParameters(Standard_Real& U, Standard_Real& V, const gp_Trsf& T) const
+void Geom_Plane::TransformParameters(Standard_Real& U, Standard_Real& V, const Transform3d& T) const
 {
   if (!Precision::IsInfinite(U))
     U *= Abs(T.ScaleFactor());
@@ -309,7 +309,7 @@ void Geom_Plane::TransformParameters(Standard_Real& U, Standard_Real& V, const g
 
 //=================================================================================================
 
-gp_GTrsf2d Geom_Plane::ParametricTransformation(const gp_Trsf& T) const
+gp_GTrsf2d Geom_Plane::ParametricTransformation(const Transform3d& T) const
 {
   gp_Trsf2d T2;
   T2.SetScale(gp::Origin2d(), Abs(T.ScaleFactor()));

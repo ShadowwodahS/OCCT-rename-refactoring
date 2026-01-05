@@ -62,14 +62,14 @@ private:
   TopoDS_Edge                 mydgE;
   TopoDS_Face                 myF;
   TopoDS_Edge                 myclE;
-  gp_Dir                      mydirINcle;
+  Dir3d                      mydirINcle;
   TopoDS_Face                 myFi;
   gp_Pnt2d                    myuvi;
   Standard_Boolean            isT2d;
   TopTools_DataMapOfShapeReal myEpari;
   Standard_Boolean            hasRest;
-  gp_Dir                      myngf;
-  gp_Dir                      myngfi;
+  Dir3d                      myngf;
+  Dir3d                      myngfi;
 };
 
 #endif // _TopOpeBRepTool_mkTondgE_HeaderFile

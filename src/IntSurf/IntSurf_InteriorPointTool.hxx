@@ -43,7 +43,7 @@ public:
 
   //! returns the tangent at the intersection in 3d space
   //! associated to <P>
-  static gp_Vec Direction3d(const IntSurf_InteriorPoint& PStart);
+  static Vector3d Direction3d(const IntSurf_InteriorPoint& PStart);
 
   //! returns the tangent at the intersection in the
   //! parametric space of the parametrized surface.This tangent

@@ -62,7 +62,7 @@ class ShapePersistent_Geom_Surface : private ShapePersistent_Geom
 
   protected:
     Handle(Curve) myBasisCurve;
-    gp_Dir        myDirection;
+    Dir3d        myDirection;
   };
 
   struct pSwept : pBase, pSweptData

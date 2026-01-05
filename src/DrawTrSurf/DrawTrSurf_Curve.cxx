@@ -125,7 +125,7 @@ void DrawTrSurf_Curve::DrawOn(Draw_Display& dis) const
   {
     Draw_Bounds = Standard_False;
     Point3d P;
-    gp_Vec V;
+    Vector3d V;
     C.D1(Last, P, V);
     gp_Pnt2d p1, p2;
     dis.Project(P, p1);
@@ -175,7 +175,7 @@ void DrawTrSurf_Curve::DrawOn(Draw_Display& dis) const
             ratio = ((LRad > radiusmax) ? radiusmax / LRad : 1);
             ratio *= radiusratio;
             LProp.CentreOfCurvature(P2);
-            gp_Vec V(P1, P2);
+            Vector3d V(P1, P2);
             dis.DrawTo(P1.Translated(ratio * V));
           }
         }

@@ -42,7 +42,7 @@ void Graphic3d_CullingTool::SetViewVolume(const Handle(Graphic3d_Camera)& theCam
   }
 
   myIsProjectionParallel = theCamera->IsOrthographic();
-  const gp_Dir aCamDir   = theCamera->Direction();
+  const Dir3d aCamDir   = theCamera->Direction();
 
   myCamera             = theCamera;
   myProjectionMat      = theCamera->ProjectionMatrix();

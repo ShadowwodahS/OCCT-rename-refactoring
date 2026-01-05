@@ -17,7 +17,7 @@
 #include <OpenGl_Element.hxx>
 #include <OpenGl_Vec.hxx>
 
-class gp_Ax2;
+class Frame3d;
 
 //! Being rendered, the elements modifies current model-view matrix such that the axes of
 //! the specified reference system (in model space) become oriented in the following way:
@@ -31,7 +31,7 @@ public:
   //! Construct rendering element to flip model-view matrix
   //! along the reference system to ensure up-Y, right-X orientation.
   //! @param[in] theReferenceSystem  the reference coordinate system.
-  Standard_EXPORT OpenGl_Flipper(const gp_Ax2& theReferenceSystem);
+  Standard_EXPORT OpenGl_Flipper(const Frame3d& theReferenceSystem);
 
   //! Set options for the element.
   //! @param[in] theIsEnabled  flag indicates whether the flipper

@@ -159,20 +159,20 @@ Point3d IGESGeom_CopiousData::TransformedPoint(const Standard_Integer anIndex) c
   return Point3d(xyz);
 }
 
-gp_Vec IGESGeom_CopiousData::Vector(const Standard_Integer anIndex) const
+Vector3d IGESGeom_CopiousData::Vector(const Standard_Integer anIndex) const
 {
   Standard_Integer lower = theData->Lower();
   Standard_Integer Real_Index;
   if (theDataType != 3)
-    return gp_Vec(0.0, 0.0, 0.0);
+    return Vector3d(0.0, 0.0, 0.0);
   Real_Index      = lower + 6 * (anIndex - 1) + 3;
   Standard_Real I = theData->Value(Real_Index);
   Standard_Real J = theData->Value(Real_Index + 1);
   Standard_Real K = theData->Value(Real_Index + 2);
-  return gp_Vec(I, J, K);
+  return Vector3d(I, J, K);
 }
 
-gp_Vec IGESGeom_CopiousData::TransformedVector(const Standard_Integer anIndex) const
+Vector3d IGESGeom_CopiousData::TransformedVector(const Standard_Integer anIndex) const
 {
   if (!HasTransf())
     return Vector(anIndex);
@@ -180,5 +180,5 @@ gp_Vec IGESGeom_CopiousData::TransformedVector(const Standard_Integer anIndex) c
   gp_GTrsf loc = Location();
   loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
   loc.Transforms(xyz);
-  return gp_Vec(xyz);
+  return Vector3d(xyz);
 }

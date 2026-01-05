@@ -22,7 +22,7 @@
 #include <Standard_Handle.hxx>
 
 #include <BRepPrim_Revolution.hxx>
-class gp_Ax2;
+class Frame3d;
 class Point3d;
 class TopoDS_Face;
 
@@ -40,7 +40,7 @@ public:
   //!
   //! Errors : Height < Resolution
   //! Radius < Resolution
-  Standard_EXPORT BRepPrim_Cylinder(const gp_Ax2&       Position,
+  Standard_EXPORT BRepPrim_Cylinder(const Frame3d&       Position,
                                     const Standard_Real Radius,
                                     const Standard_Real Height);
 
@@ -51,7 +51,7 @@ public:
   Standard_EXPORT BRepPrim_Cylinder(const Point3d& Center, const Standard_Real Radius);
 
   //! infinite Cylinder at Axes on Z negative
-  Standard_EXPORT BRepPrim_Cylinder(const gp_Ax2& Axes, const Standard_Real Radius);
+  Standard_EXPORT BRepPrim_Cylinder(const Frame3d& Axes, const Standard_Real Radius);
 
   //! create a Cylinder  at origin on Z  axis, of
   //! height H and radius R

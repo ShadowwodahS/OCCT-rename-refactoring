@@ -308,7 +308,7 @@ Standard_Boolean SelectMgr_Frustum<N>::hasSegmentOverlap(const Point3d& theStart
 // =======================================================================
 template <int N>
 Standard_Boolean SelectMgr_Frustum<N>::hasPolygonOverlap(const TColgp_Array1OfPnt& theArrayOfPnts,
-                                                         gp_Vec&                   theNormal) const
+                                                         Vector3d&                   theNormal) const
 {
   Standard_Integer aStartIdx = theArrayOfPnts.Lower();
   Standard_Integer anEndIdx  = theArrayOfPnts.Upper();
@@ -406,7 +406,7 @@ template <int N>
 Standard_Boolean SelectMgr_Frustum<N>::hasTriangleOverlap(const Point3d& thePnt1,
                                                           const Point3d& thePnt2,
                                                           const Point3d& thePnt3,
-                                                          gp_Vec&       theNormal) const
+                                                          Vector3d&       theNormal) const
 {
   const gp_XYZ aTrEdges[3] = {thePnt2.XYZ() - thePnt1.XYZ(),
                               thePnt3.XYZ() - thePnt2.XYZ(),
@@ -492,13 +492,13 @@ Standard_Boolean SelectMgr_Frustum<N>::hasSphereOverlap(const Point3d&       the
   {
     return Standard_True;
   }
-  const gp_Vec aVecPlane1(myVertices[0], myVertices[2]);
-  const gp_Vec aVecPlane2(myVertices[0], myVertices[2 * N - 2]);
+  const Vector3d aVecPlane1(myVertices[0], myVertices[2]);
+  const Vector3d aVecPlane2(myVertices[0], myVertices[2 * N - 2]);
   if (aVecPlane1.IsParallel(aVecPlane2, Precision::Angular()))
   {
     return Standard_False;
   }
-  const gp_Dir               aNorm(aVecPlane1.Crossed(aVecPlane2));
+  const Dir3d               aNorm(aVecPlane1.Crossed(aVecPlane2));
   Point3d                     aBoundariesCArr[5];
   NCollection_Array1<Point3d> aBoundaries(aBoundariesCArr[0], 0, N);
   for (Standard_Integer anIdx = 0; anIdx < N * 2; anIdx += 2)
@@ -526,8 +526,8 @@ Standard_Boolean SelectMgr_Frustum<N>::isDotInside(const Point3d&             th
     const Point3d aVert1 = theVertices[aVertIdx];
     const Point3d aVert2 =
       (aVertIdx == (theVertices.Size() - 1) ? theVertices[0] : theVertices[aVertIdx + 1]);
-    const gp_Vec aVec1(thePnt, aVert1);
-    const gp_Vec aVec2(thePnt, aVert2);
+    const Vector3d aVec1(thePnt, aVert1);
+    const Vector3d aVec2(thePnt, aVert2);
     anAngle += aVec1.Angle(aVec2);
   }
   if (Abs(anAngle - 2.0 * M_PI) < Precision::Angular())
@@ -607,11 +607,11 @@ template <int N>
 Standard_Boolean SelectMgr_Frustum<N>::isIntersectCircle(
   const Standard_Real       theRadius,
   const Point3d&             theCenter,
-  const gp_Trsf&            theTrsf,
+  const Transform3d&            theTrsf,
   const TColgp_Array1OfPnt& theVertices) const
 {
-  const gp_Trsf aTrsfInv = theTrsf.Inverted();
-  const gp_Dir  aRayDir  = gp_Dir(myEdgeDirs[N == 4 ? 4 : 0]).Transformed(aTrsfInv);
+  const Transform3d aTrsfInv = theTrsf.Inverted();
+  const Dir3d  aRayDir  = Dir3d(myEdgeDirs[N == 4 ? 4 : 0]).Transformed(aTrsfInv);
   if (aRayDir.Z() == 0.0)
   {
     return false;
@@ -661,11 +661,11 @@ Standard_Boolean SelectMgr_Frustum<N>::isInsideCylinderEndFace(
   const Standard_Real       theBottomRad,
   const Standard_Real       theTopRad,
   const Standard_Real       theHeight,
-  const gp_Trsf&            theTrsf,
+  const Transform3d&            theTrsf,
   const TColgp_Array1OfPnt& theVertices) const
 {
-  const gp_Trsf aTrsfInv = theTrsf.Inverted();
-  const gp_Dir  aRayDir  = gp_Dir(myEdgeDirs[N == 4 ? 4 : 0]).Transformed(aTrsfInv);
+  const Transform3d aTrsfInv = theTrsf.Inverted();
+  const Dir3d  aRayDir  = Dir3d(myEdgeDirs[N == 4 ? 4 : 0]).Transformed(aTrsfInv);
   if (aRayDir.Z() == 0.0)
   {
     return false;
@@ -702,7 +702,7 @@ template <int N>
 Standard_Boolean SelectMgr_Frustum<N>::hasCylinderOverlap(const Standard_Real    theBottomRad,
                                                           const Standard_Real    theTopRad,
                                                           const Standard_Real    theHeight,
-                                                          const gp_Trsf&         theTrsf,
+                                                          const Transform3d&         theTrsf,
                                                           const Standard_Boolean theIsHollow,
                                                           Standard_Boolean*      theInside) const
 {
@@ -735,11 +735,11 @@ Standard_Boolean SelectMgr_Frustum<N>::hasCylinderOverlap(const Standard_Real   
     return false;
   }
 
-  const gp_Dir aCylNorm(gp::DZ().Transformed(theTrsf));
+  const Dir3d aCylNorm(gp::DZ().Transformed(theTrsf));
   const Point3d aBottomCenter(gp::Origin().Transformed(theTrsf));
   const Point3d aTopCenter = aBottomCenter.XYZ() + aCylNorm.XYZ() * theHeight;
 
-  const gp_Dir  aViewRayDir = gp_Dir(myEdgeDirs[N == 4 ? 4 : 0]);
+  const Dir3d  aViewRayDir = Dir3d(myEdgeDirs[N == 4 ? 4 : 0]);
   const gp_Pln  aPln(myVertices[0], aViewRayDir);
   Standard_Real aCoefA, aCoefB, aCoefC, aCoefD;
   aPln.Coefficients(aCoefA, aCoefB, aCoefC, aCoefD);
@@ -752,15 +752,15 @@ Standard_Boolean SelectMgr_Frustum<N>::hasCylinderOverlap(const Standard_Real   
   const Point3d        aTopCenterProject(aCoefA * aTTop + aTopCenter.X(),
                                  aCoefB * aTTop + aTopCenter.Y(),
                                  aCoefC * aTTop + aTopCenter.Z());
-  gp_Vec              aCylNormProject(0, 0, 0);
+  Vector3d              aCylNormProject(0, 0, 0);
   if (aTopCenterProject.Distance(aBottomCenterProject) > 0.0)
   {
-    aCylNormProject = gp_Vec((aTopCenterProject.XYZ() - aBottomCenterProject.XYZ())
+    aCylNormProject = Vector3d((aTopCenterProject.XYZ() - aBottomCenterProject.XYZ())
                              / aTopCenterProject.Distance(aBottomCenterProject));
   }
 
   Point3d       aPoints[6];
-  const gp_Dir aDirEndFaces = (aCylNorm.IsParallel(aViewRayDir, Precision::Angular()))
+  const Dir3d aDirEndFaces = (aCylNorm.IsParallel(aViewRayDir, Precision::Angular()))
                                 ? gp::DY().Transformed(theTrsf)
                                 : aCylNorm.Crossed(aViewRayDir);
 
@@ -834,7 +834,7 @@ Standard_Boolean SelectMgr_Frustum<N>::hasCylinderOverlap(const Standard_Real   
 // =======================================================================
 template <int N>
 Standard_Boolean SelectMgr_Frustum<N>::hasCircleOverlap(const Standard_Real    theRadius,
-                                                        const gp_Trsf&         theTrsf,
+                                                        const Transform3d&         theTrsf,
                                                         const Standard_Boolean theIsFilled,
                                                         Standard_Boolean*      theInside) const
 {
@@ -867,7 +867,7 @@ Standard_Boolean SelectMgr_Frustum<N>::hasCircleOverlap(const Standard_Real    t
   }
 
   Point3d        aCircCenter = gp::Origin(); //.Transformed (theTrsf);
-  const gp_Dir  aViewRayDir = gp_Dir(myEdgeDirs[N == 4 ? 4 : 0]);
+  const Dir3d  aViewRayDir = Dir3d(myEdgeDirs[N == 4 ? 4 : 0]);
   const gp_Pln  aPln(myVertices[0], aViewRayDir);
   Standard_Real aCoefA, aCoefB, aCoefC, aCoefD;
   aPln.Coefficients(aCoefA, aCoefB, aCoefC, aCoefD);
@@ -907,7 +907,7 @@ void SelectMgr_Frustum<N>::DumpJson(Standard_OStream& theOStream, Standard_Integ
   const Standard_Integer anIncFactor = (Camera()->IsOrthographic() && N == 4) ? 2 : 1;
   for (Standard_Integer aPlaneIdx = 0; aPlaneIdx < N + 1; aPlaneIdx += anIncFactor)
   {
-    const gp_Vec& aPlane = myPlanes[aPlaneIdx];
+    const Vector3d& aPlane = myPlanes[aPlaneIdx];
     OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, &aPlane)
 
     OCCT_DUMP_FIELD_VALUE_NUMERICAL(theOStream, myMaxVertsProjections[aPlaneIdx])
@@ -935,7 +935,7 @@ void SelectMgr_Frustum<N>::DumpJson(Standard_OStream& theOStream, Standard_Integ
 
   for (Standard_Integer anIndex = 0; anIndex < 6; anIndex++)
   {
-    const gp_Vec& anEdgeDir = myEdgeDirs[anIndex];
+    const Vector3d& anEdgeDir = myEdgeDirs[anIndex];
     OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, &anEdgeDir)
   }
 }

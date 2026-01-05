@@ -88,7 +88,7 @@ public:
   //! evaluate the derivative.
   //! In both cases, P is the point at parameter U on the
   //! intersection.
-  Standard_Boolean D1(const Standard_Real U, Point3d& P, gp_Vec& Du);
+  Standard_Boolean D1(const Standard_Real U, Point3d& P, Vector3d& Du);
 
   //! Tries to find the parameters of the point P on the curve.
   //! If the method returns False, the "projection" is

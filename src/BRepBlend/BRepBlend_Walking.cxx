@@ -786,8 +786,8 @@ Blend_Status BRepBlend_Walking::TestArret(Blend_Function&        Function,
 
 {
   Point3d            pt1, pt2;
-  gp_Vec            V1, V2;
-  gp_Vec            Tgp1, Tgp2, Nor1, Nor2;
+  Vector3d            V1, V2;
+  Vector3d            Tgp1, Tgp2, Nor1, Nor2;
   gp_Vec2d          V12d, V22d;
   Blend_Status      State1, State2;
   IntSurf_TypeTrans tras1, tras2;
@@ -960,13 +960,13 @@ Blend_Status BRepBlend_Walking::CheckDeflection(const Standard_Boolean OnFirst,
   Standard_Real tolu, tolv;
 
   Point3d           Psurf;
-  gp_Vec           Tgsurf;
+  Vector3d           Tgsurf;
   gp_Vec2d         Tgonsurf;
   Standard_Real    curparamu, curparamv;
   Standard_Boolean curpointistangent = CurPoint.IsTangencyPoint();
 
   Point3d           prevP;
-  gp_Vec           prevTg;
+  Vector3d           prevTg;
   gp_Vec2d         previousd2d;
   Standard_Real    prevparamu, prevparamv;
   Standard_Boolean prevpointistangent = previousP.IsTangencyPoint();
@@ -1002,7 +1002,7 @@ Blend_Status BRepBlend_Walking::CheckDeflection(const Standard_Boolean OnFirst,
     tolv = Adaptor3d_HSurfaceTool::VResolution(surf2, tolpoint3d);
   }
 
-  gp_Vec Corde(prevP, Psurf);
+  Vector3d Corde(prevP, Psurf);
   Norme = Corde.SquareMagnitude();
   //  if(!curpointistangent) curNorme = Tgsurf.SquareMagnitude();
   if (!prevpointistangent)
@@ -1542,7 +1542,7 @@ void BRepBlend_Walking::Transition(const Standard_Boolean           OnFirst,
                                    IntSurf_Transition&              TArc)
 {
   Standard_Boolean computetranstionaveclacorde = 0;
-  gp_Vec           tgline;
+  Vector3d           tgline;
   Blend_Point      prevprev;
 
   if (previousP.IsTangencyPoint())
@@ -1563,8 +1563,8 @@ void BRepBlend_Walking::Transition(const Standard_Boolean           OnFirst,
   gp_Vec2d dp2d;
 
   Point3d             pbid;
-  gp_Vec             d1u, d1v, normale, tgrst;
-  gp_Dir             thenormal;
+  Vector3d             d1u, d1v, normale, tgrst;
+  Dir3d             thenormal;
   CSLib_NormalStatus stat;
 
   BRepBlend_HCurve2dTool::D1(A, Param, p2d, dp2d);
@@ -1574,7 +1574,7 @@ void BRepBlend_Walking::Transition(const Standard_Boolean           OnFirst,
     if (!computetranstionaveclacorde)
       tgline = previousP.TangentOnS1();
     else
-      tgline = gp_Vec(prevprev.PointOnS1(), previousP.PointOnS1());
+      tgline = Vector3d(prevprev.PointOnS1(), previousP.PointOnS1());
   }
   else
   {
@@ -1582,7 +1582,7 @@ void BRepBlend_Walking::Transition(const Standard_Boolean           OnFirst,
     if (!computetranstionaveclacorde)
       tgline = previousP.TangentOnS2();
     else
-      tgline = gp_Vec(prevprev.PointOnS2(), previousP.PointOnS2());
+      tgline = Vector3d(prevprev.PointOnS2(), previousP.PointOnS2());
   }
 
   tgrst.SetLinearForm(dp2d.X(), d1u, dp2d.Y(), d1v);
@@ -1819,7 +1819,7 @@ void BRepBlend_Walking::InternalPerform(Blend_Function&     Func,
     stepw = Max(stepw, 100. * tolgui);
   }
   Standard_Real parprec = param;
-  gp_Vec        TgOnGuide, PrevTgOnGuide;
+  Vector3d        TgOnGuide, PrevTgOnGuide;
   Point3d        PtOnGuide;
   hguide->D1(parprec, PtOnGuide, TgOnGuide);
   PrevTgOnGuide = TgOnGuide;
@@ -2076,7 +2076,7 @@ void BRepBlend_Walking::InternalPerform(Blend_Function&     Func,
               // point on guide curve and points on restrictions of adjacent
               // surfaces.
               Point3d Pnt0;
-              gp_Vec Dir0;
+              Vector3d Dir0;
               hguide->D1(SavedParams[ind], Pnt0, Dir0);
               Standard_Real Length = Dir0.Magnitude();
               if (Length <= gp::Resolution())
@@ -2086,8 +2086,8 @@ void BRepBlend_Walking::InternalPerform(Blend_Function&     Func,
               if (!PlaneBuilder.IsDone())
                 continue;
               gp_Pln        thePlane = PlaneBuilder.Value();
-              gp_Dir        DirPlane = thePlane.Axis().Direction();
-              gp_Vec        theProd  = Dir0 ^ DirPlane;
+              Dir3d        DirPlane = thePlane.Axis().Direction();
+              Vector3d        theProd  = Dir0 ^ DirPlane;
               Standard_Real ProdMod  = theProd.Magnitude();
               if (ProdMod <= TolProd)
                 SameDirs[ind] = Standard_True;
@@ -2573,10 +2573,10 @@ Standard_Boolean BRepBlend_Walking::CorrectExtremityOnOneRst(const Standard_Inte
 
   // Second we find right point and tangent on guide
   GlobalMinSqDist = Precision::Infinite();
-  gp_Ax1 theAx1;
+  Axis3d theAx1;
   for (Standard_Integer ind = 1; ind <= theElSpine.NbVertices(); ind++)
   {
-    const gp_Ax1& anAx1   = theElSpine.VertexWithTangent(ind);
+    const Axis3d& anAx1   = theElSpine.VertexWithTangent(ind);
     Point3d        aPnt    = anAx1.Location();
     Standard_Real aSqDist = PointOnGuide.SquareDistance(aPnt);
     if (aSqDist < GlobalMinSqDist)
@@ -2586,7 +2586,7 @@ Standard_Boolean BRepBlend_Walking::CorrectExtremityOnOneRst(const Standard_Inte
     }
   }
   const Point3d& Pnt0 = theAx1.Location();
-  const gp_Dir& Dir0 = theAx1.Direction();
+  const Dir3d& Dir0 = theAx1.Direction();
   // Check new point: is it real solution?
   Point3d      OldPonGuide = hguide->Value(theParam);
   Point3d      PntOnSurf2  = Adaptor3d_HSurfaceTool::Value(AnotherSurf, theU, theV); // old point
@@ -2594,7 +2594,7 @@ Standard_Boolean BRepBlend_Walking::CorrectExtremityOnOneRst(const Standard_Inte
   if (!PlaneBuilder.IsDone())
     return Standard_False;
   gp_Pln        OldPlane = PlaneBuilder.Value();
-  gp_Dir        OldDir   = OldPlane.Axis().Direction();
+  Dir3d        OldDir   = OldPlane.Axis().Direction();
   Standard_Real Angle    = OldDir.Angle(Dir0);
   if (Angle > M_PI / 2)
     Angle = M_PI - Angle;
@@ -2602,8 +2602,8 @@ Standard_Boolean BRepBlend_Walking::CorrectExtremityOnOneRst(const Standard_Inte
     return Standard_False;
   ///////////////////////////////////////
   // Project the point(theU,theV) on the plane(Pnt0,Dir0)
-  gp_Vec aVec(Pnt0, PntOnSurf2);
-  gp_Vec aTranslation((aVec.XYZ() * Dir0.XYZ()) * Dir0.XYZ());
+  Vector3d aVec(Pnt0, PntOnSurf2);
+  Vector3d aTranslation((aVec.XYZ() * Dir0.XYZ()) * Dir0.XYZ());
   Point3d PntOnPlane = PntOnSurf2.Translated(-aTranslation);
 
   // Check new point again: does point on restriction belong to the plane?
@@ -2611,7 +2611,7 @@ Standard_Boolean BRepBlend_Walking::CorrectExtremityOnOneRst(const Standard_Inte
   if (!PlaneBuilder.IsDone())
     return Standard_False;
   gp_Pln        NewPlane      = PlaneBuilder.Value();
-  const gp_Dir& DirOfNewPlane = NewPlane.Axis().Direction();
+  const Dir3d& DirOfNewPlane = NewPlane.Axis().Direction();
   Angle                       = Dir0.Angle(DirOfNewPlane);
   if (Angle > M_PI / 2)
     Angle = M_PI - Angle;

@@ -68,14 +68,14 @@ static Standard_Real HeightMax(const TopoDS_Shape& theSbase,
 
 static Standard_Integer SensOfPrism(const Handle(Geom_Curve)& C, const TopoDS_Shape& Until);
 
-static Handle(Geom_Curve) TestCurve(const TopoDS_Shape&, const gp_Vec&);
+static Handle(Geom_Curve) TestCurve(const TopoDS_Shape&, const Vector3d&);
 
 //=================================================================================================
 
 void BRepFeat_MakePrism::Init(const TopoDS_Shape&    Sbase,
                               const TopoDS_Shape&    Pbase,
                               const TopoDS_Face&     Skface,
-                              const gp_Dir&          Direc,
+                              const Dir3d&          Direc,
                               const Standard_Integer Mode,
                               const Standard_Boolean Modify)
 {
@@ -220,7 +220,7 @@ void BRepFeat_MakePrism::Perform(const Standard_Real Length)
   myGluedF.Clear();
   myPerfSelection = BRepFeat_NoSelection;
   PerfSelectionValid();
-  gp_Vec V(Length * myDir);
+  Vector3d V(Length * myDir);
 
   // construction of prism of height Length
 
@@ -345,7 +345,7 @@ void BRepFeat_MakePrism::Perform(const TopoDS_Shape& Until)
   Handle(Geom_Curve) C      = TestCurve(myPbase, myDir);
   Standard_Integer   sens   = SensOfPrism(C, mySUntil);
   Standard_Real      Height = HeightMax(mySbase, mySkface, mySFrom, mySUntil);
-  gp_Vec             V(2 * sens * Height * myDir);
+  Vector3d             V(2 * sens * Height * myDir);
 
   // construction of long prism
   LocOpe_Prism        thePrism(myPbase, V);
@@ -503,7 +503,7 @@ void BRepFeat_MakePrism::Perform(const TopoDS_Shape& From, const TopoDS_Shape& U
   LocOpe_Prism thePrism;
   if (tran < 0)
   {
-    gp_Vec Vtra(-3 * Height * sens / 2. * myDir);
+    Vector3d Vtra(-3 * Height * sens / 2. * myDir);
     thePrism.Perform(myPbase, 3 * sens * Height * myDir, Vtra);
   }
   else
@@ -653,7 +653,7 @@ void BRepFeat_MakePrism::PerformUntilEnd()
   mySFrom.Nullify();
   ShapeFromValid();
   Standard_Real Height = HeightMax(mySbase, mySkface, mySFrom, mySUntil);
-  gp_Vec        V(2 * Height * myDir);
+  Vector3d        V(2 * Height * myDir);
 
   LocOpe_Prism        thePrism(myPbase, V);
   const TopoDS_Shape& VraiPrism = thePrism.Shape();
@@ -717,8 +717,8 @@ void BRepFeat_MakePrism::PerformFromEnd(const TopoDS_Shape& Until)
   Handle(Geom_Curve)  C      = TestCurve(myPbase, myDir);
   Standard_Integer    sens   = SensOfPrism(C, mySUntil);
   Standard_Real       Height = HeightMax(mySbase, mySkface, mySFrom, mySUntil);
-  gp_Vec              Vtra(-3 * Height * sens / 2. * myDir);
-  gp_Vec              Vect(3 * sens * Height * myDir);
+  Vector3d              Vtra(-3 * Height * sens / 2. * myDir);
+  Vector3d              Vect(3 * sens * Height * myDir);
   LocOpe_Prism        thePrism(myPbase, Vect, Vtra);
   const TopoDS_Shape& VraiPrism = thePrism.Shape();
 
@@ -852,8 +852,8 @@ void BRepFeat_MakePrism::PerformThruAll()
   GluedFacesValid();
 
   Standard_Real       Height = HeightMax(mySbase, mySkface, mySFrom, mySUntil);
-  gp_Vec              V(3 * Height * myDir);
-  gp_Vec              Vtra(-3 * Height / 2. * myDir);
+  Vector3d              V(3 * Height * myDir);
+  Vector3d              Vtra(-3 * Height / 2. * myDir);
   LocOpe_Prism        thePrism(myPbase, V, Vtra);
   const TopoDS_Shape& VraiPrism = thePrism.Shape();
   MajMap(myPbase, thePrism, myMap, myFShape, myLShape);
@@ -911,7 +911,7 @@ void BRepFeat_MakePrism::PerformUntilHeight(const TopoDS_Shape& Until, const Sta
   ShapeUntilValid();
   Handle(Geom_Curve)  C    = TestCurve(myPbase, myDir);
   Standard_Integer    sens = SensOfPrism(C, mySUntil);
-  gp_Vec              V(sens * Length * myDir);
+  Vector3d              V(sens * Length * myDir);
   LocOpe_Prism        thePrism(myPbase, V);
   const TopoDS_Shape& VraiPrism = thePrism.Shape();
 
@@ -1151,7 +1151,7 @@ static void MajMap(const TopoDS_Shape&                 theB,
 // purpose  : management of descendants
 //=======================================================================
 
-static Handle(Geom_Curve) TestCurve(const TopoDS_Shape& Base, const gp_Vec& V)
+static Handle(Geom_Curve) TestCurve(const TopoDS_Shape& Base, const Vector3d& V)
 {
   Point3d               bar(0., 0., 0.);
   TColgp_SequenceOfPnt spt;
@@ -1162,7 +1162,7 @@ static Handle(Geom_Curve) TestCurve(const TopoDS_Shape& Base, const gp_Vec& V)
     bar.ChangeCoord() += pvt.XYZ();
   }
   bar.ChangeCoord().Divide(spt.Length());
-  gp_Ax1            newAx(bar, V);
+  Axis3d            newAx(bar, V);
   Handle(Geom_Line) theLin = new Geom_Line(newAx);
   return theLin;
 }

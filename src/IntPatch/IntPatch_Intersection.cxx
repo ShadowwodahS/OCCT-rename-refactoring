@@ -180,7 +180,7 @@ void IntPatch_Intersection::Perform(const Handle(Adaptor3d_Surface)&   S1,
     case GeomAbs_Torus:
       break;
     case GeomAbs_SurfaceOfExtrusion: {
-      gp_Dir                  aDirection = S1->Direction();
+      Dir3d                  aDirection = S1->Direction();
       gp_Ax3                  anAxis(gp::Origin(), aDirection);
       Handle(Adaptor3d_Curve) aBasisCurve = S1->BasisCurve();
       ProjLib_ProjectOnPlane  Projector(anAxis);
@@ -574,11 +574,11 @@ static void FUN_PL_Intersection(const Handle(Adaptor3d_Surface)& S1,
                                 const GeomAbs_SurfaceType&       T2,
                                 Standard_Boolean&                IsOk,
                                 TColgp_SequenceOfPnt&            SP,
-                                gp_Vec&                          DV)
+                                Vector3d&                          DV)
 {
   IsOk = Standard_False;
   // 1. Check: both surfaces have U(V)isos - lines.
-  DV                                        = gp_Vec(0., 0., 1.);
+  DV                                        = Vector3d(0., 0., 1.);
   Standard_Boolean           isoS1isLine[2] = {0, 0};
   Standard_Boolean           isoS2isLine[2] = {0, 0};
   Handle(Geom_Curve)         C1, C2;
@@ -659,7 +659,7 @@ static void FUN_PL_Intersection(const Handle(Adaptor3d_Surface)& S1,
   }
   // 2. Check: Uiso lines of both surfaces are collinear.
   Point3d puvS1, puvS2;
-  gp_Vec derS1[2], derS2[2];
+  Vector3d derS1[2], derS2[2];
   S1->D1(MS1[0], MS1[1], puvS1, derS1[0], derS1[1]);
   S2->D1(MS2[0], MS2[1], puvS2, derS2[0], derS2[1]);
   C1.Nullify();
@@ -755,9 +755,9 @@ static void FUN_PL_Intersection(const Handle(Adaptor3d_Surface)& S1,
   if (C1.IsNull() || C2.IsNull())
     return;
   DV                       = derS1[iso];
-  Handle(Geom_Plane) GPln  = new Geom_Plane(gp_Pln(puvS1, gp_Dir(DV)));
-  Handle(Geom_Curve) C1Prj = GeomProjLib::ProjectOnPlane(C1, GPln, gp_Dir(DV), Standard_True);
-  Handle(Geom_Curve) C2Prj = GeomProjLib::ProjectOnPlane(C2, GPln, gp_Dir(DV), Standard_True);
+  Handle(Geom_Plane) GPln  = new Geom_Plane(gp_Pln(puvS1, Dir3d(DV)));
+  Handle(Geom_Curve) C1Prj = GeomProjLib::ProjectOnPlane(C1, GPln, Dir3d(DV), Standard_True);
+  Handle(Geom_Curve) C2Prj = GeomProjLib::ProjectOnPlane(C2, GPln, Dir3d(DV), Standard_True);
   if (C1Prj.IsNull() || C2Prj.IsNull())
     return;
   Handle(Geom2d_Curve)      C1Prj2d = GeomProjLib::Curve2d(C1Prj, GPln);
@@ -768,7 +768,7 @@ static void FUN_PL_Intersection(const Handle(Adaptor3d_Surface)& S1,
     for (Standard_Integer ip = 1; ip <= ICC.NbPoints(); ip++)
     {
       gp_Pnt2d P   = ICC.Point(ip);
-      Point3d   P3d = ElCLib::To3d(gp_Ax2(puvS1, gp_Dir(DV)), P);
+      Point3d   P3d = ElCLib::To3d(Frame3d(puvS1, Dir3d(DV)), P);
       SP.Append(P3d);
     }
   }
@@ -973,7 +973,7 @@ void IntPatch_Intersection::Perform(const Handle(Adaptor3d_Surface)&   theS1,
   if (typs1 == GeomAbs_Cone || typs2 == GeomAbs_Cone || typs1 == GeomAbs_Torus
       || typs2 == GeomAbs_Torus)
   {
-    gp_Ax1              aCTAx, aGeomAx;
+    Axis3d              aCTAx, aGeomAx;
     GeomAbs_SurfaceType aCTType;
     Standard_Boolean    bToCheck;
     //
@@ -999,7 +999,7 @@ void IntPatch_Intersection::Perform(const Handle(Adaptor3d_Surface)&   theS1,
         //
         if (a1 > 1.55 && a2 > 1.55)
         { // quasi-planes: if same domain, treat as canonic
-          const gp_Ax1 A1 = aCon1.Axis(), A2 = aCon2.Axis();
+          const Axis3d A1 = aCon1.Axis(), A2 = aCon2.Axis();
           if (A1.IsParallel(A2, Precision::Angular()))
           {
             const Point3d Apex1 = aCon1.Apex(), Apex2 = aCon2.Apex();
@@ -1266,7 +1266,7 @@ void IntPatch_Intersection::Perform(const Handle(Adaptor3d_Surface)&   theS1,
   if (typs1 == GeomAbs_Cone || typs2 == GeomAbs_Cone || typs1 == GeomAbs_Torus
       || typs2 == GeomAbs_Torus)
   {
-    gp_Ax1              aCTAx, aGeomAx;
+    Axis3d              aCTAx, aGeomAx;
     GeomAbs_SurfaceType aCTType;
     Standard_Boolean    bToCheck;
     //
@@ -1292,7 +1292,7 @@ void IntPatch_Intersection::Perform(const Handle(Adaptor3d_Surface)&   theS1,
         //
         if (a1 > 1.55 && a2 > 1.55)
         { // quasi-planes: if same domain, treat as canonic
-          const gp_Ax1 A1 = aCon1.Axis(), A2 = aCon2.Axis();
+          const Axis3d A1 = aCon1.Axis(), A2 = aCon2.Axis();
           if (A1.IsParallel(A2, Precision::Angular()))
           {
             const Point3d Apex1 = aCon1.Apex(), Apex2 = aCon2.Apex();
@@ -1559,7 +1559,7 @@ void IntPatch_Intersection::ParamParamPerfom(const Handle(Adaptor3d_Surface)&   
 
     Standard_Boolean     IsPLInt = Standard_False;
     TColgp_SequenceOfPnt sop;
-    gp_Vec               v;
+    Vector3d               v;
     FUN_PL_Intersection(theS1, typs1, theS2, typs2, IsPLInt, sop, v);
 
     if (IsPLInt)
@@ -1568,7 +1568,7 @@ void IntPatch_Intersection::ParamParamPerfom(const Handle(Adaptor3d_Surface)&   
       {
         for (Standard_Integer ip = 1; ip <= sop.Length(); ip++)
         {
-          gp_Lin                lin(sop.Value(ip), gp_Dir(v));
+          gp_Lin                lin(sop.Value(ip), Dir3d(v));
           Handle(IntPatch_Line) gl = new IntPatch_GLine(lin, Standard_False);
           slin.Append(gl);
         }
@@ -1761,7 +1761,7 @@ void IntPatch_Intersection::GeomParamPerfom(const Handle(Adaptor3d_Surface)&   t
   {
     Standard_Boolean     IsPLInt = Standard_False;
     TColgp_SequenceOfPnt sop;
-    gp_Vec               v;
+    Vector3d               v;
     FUN_PL_Intersection(theS1, typs1, theS2, typs2, IsPLInt, sop, v);
 
     if (IsPLInt)
@@ -1770,7 +1770,7 @@ void IntPatch_Intersection::GeomParamPerfom(const Handle(Adaptor3d_Surface)&   t
       {
         for (Standard_Integer ip = 1; ip <= sop.Length(); ip++)
         {
-          gp_Lin                lin(sop.Value(ip), gp_Dir(v));
+          gp_Lin                lin(sop.Value(ip), Dir3d(v));
           Handle(IntPatch_Line) gl = new IntPatch_GLine(lin, Standard_False);
           slin.Append(gl);
         }
@@ -2129,7 +2129,7 @@ Standard_Boolean IntPatch_Intersection::CheckSingularPoints(
     else
       isU = Standard_False;
     Point3d           aPP1;
-    gp_Vec           aDU, aDV;
+    Vector3d           aDU, aDV;
     Standard_Real    aD1NormMax = 0.;
     gp_XYZ           aPmid(0., 0., 0.);
     Standard_Integer aNb = 0;

@@ -41,26 +41,26 @@ GeomLib_CheckBSplineCurve::GeomLib_CheckBSplineCurve(const Handle(Geom_BSplineCu
   if ((!myCurve->IsPeriodic()) && num_poles >= 4)
   {
 
-    gp_Vec tangent, tangent_normalized, a_vector, avector_normalized;
+    Vector3d tangent, tangent_normalized, a_vector, avector_normalized;
 
     const Standard_Real CrossProdSqTol = myAngularTolerance * myAngularTolerance;
 
     // Near first
-    tangent           = gp_Vec(myCurve->Pole(1), myCurve->Pole(2));
+    tangent           = Vector3d(myCurve->Pole(1), myCurve->Pole(2));
     tangent_magnitude = tangent.Magnitude();
     if (tangent_magnitude > myTolerance)
       tangent_normalized = tangent / tangent_magnitude;
 
     for (ii = 3; ii <= num_poles; ii++)
     {
-      a_vector         = gp_Vec(myCurve->Pole(1), myCurve->Pole(ii));
+      a_vector         = Vector3d(myCurve->Pole(1), myCurve->Pole(ii));
       vector_magnitude = a_vector.Magnitude();
 
       if (tangent_magnitude > myTolerance && vector_magnitude > myTolerance)
       {
         avector_normalized = a_vector / vector_magnitude;
 
-        gp_Vec        CrossProd         = tangent_normalized ^ avector_normalized;
+        Vector3d        CrossProd         = tangent_normalized ^ avector_normalized;
         Standard_Real CrossProdSqLength = CrossProd.SquareMagnitude();
         if (CrossProdSqLength > CrossProdSqTol)
           break;
@@ -76,21 +76,21 @@ GeomLib_CheckBSplineCurve::GeomLib_CheckBSplineCurve(const Handle(Geom_BSplineCu
     }
 
     // Near last
-    tangent           = gp_Vec(myCurve->Pole(num_poles), myCurve->Pole(num_poles - 1));
+    tangent           = Vector3d(myCurve->Pole(num_poles), myCurve->Pole(num_poles - 1));
     tangent_magnitude = tangent.Magnitude();
     if (tangent_magnitude > myTolerance)
       tangent_normalized = tangent / tangent_magnitude;
 
     for (ii = num_poles - 2; ii >= 1; ii--)
     {
-      a_vector         = gp_Vec(myCurve->Pole(num_poles), myCurve->Pole(ii));
+      a_vector         = Vector3d(myCurve->Pole(num_poles), myCurve->Pole(ii));
       vector_magnitude = a_vector.Magnitude();
 
       if (tangent_magnitude > myTolerance && vector_magnitude > myTolerance)
       {
         avector_normalized = a_vector / vector_magnitude;
 
-        gp_Vec        CrossProd         = tangent_normalized ^ avector_normalized;
+        Vector3d        CrossProd         = tangent_normalized ^ avector_normalized;
         Standard_Real CrossProdSqLength = CrossProd.SquareMagnitude();
         if (CrossProdSqLength > CrossProdSqTol)
           break;

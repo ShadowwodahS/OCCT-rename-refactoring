@@ -21,10 +21,10 @@
 IMPLEMENT_STANDARD_RTTIEXT(Geom_Vector, Geom_Geometry)
 
 typedef Geom_Vector Vector;
-typedef gp_Ax1      Ax1;
-typedef gp_Ax2      Ax2;
+typedef Axis3d      Ax1;
+typedef Frame3d      Ax2;
 typedef Point3d      Pnt;
-typedef gp_Trsf     Trsf;
+typedef Transform3d     Trsf;
 
 void Geom_Vector::Reverse()
 {
@@ -46,7 +46,7 @@ Standard_Real Geom_Vector::Z() const
   return gpVec.Z();
 }
 
-const gp_Vec& Geom_Vector::Vec() const
+const Vector3d& Geom_Vector::Vec() const
 {
   return gpVec;
 }

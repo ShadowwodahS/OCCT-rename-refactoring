@@ -72,13 +72,13 @@ public:
   void SetPosition(const Point3d& thePoint) { myOrientation.SetLocation(thePoint); }
 
   //! Returns text orientation in 3D space.
-  const gp_Ax2& Orientation() const { return myOrientation; }
+  const Frame3d& Orientation() const { return myOrientation; }
 
   //! Returns true if the text is filled by a point
   Standard_Boolean HasPlane() const { return myHasPlane; }
 
   //! Sets text orientation in 3D space.
-  Standard_EXPORT void SetOrientation(const gp_Ax2& theOrientation);
+  Standard_EXPORT void SetOrientation(const Frame3d& theOrientation);
 
   //! Reset text orientation in 3D space.
   Standard_EXPORT void ResetOrientation();
@@ -120,7 +120,7 @@ protected:
   Handle(Font_TextFormatter) myFormatter; //!< text formatter
 
   NCollection_String myText;        //!< text value
-  gp_Ax2             myOrientation; //!< Text orientation in 3D space.
+  Frame3d             myOrientation; //!< Text orientation in 3D space.
 
   Standard_ShortReal                myHeight; //!< height of text
   Graphic3d_HorizontalTextAlignment myHAlign; //!< horizontal alignment

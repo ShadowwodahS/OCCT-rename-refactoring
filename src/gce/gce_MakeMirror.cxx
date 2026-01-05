@@ -32,7 +32,7 @@ gce_MakeMirror::gce_MakeMirror(const Point3d& Point)
 //   Creation d une symetrie  de gp par rapport a une droite.           +
 //=========================================================================
 
-gce_MakeMirror::gce_MakeMirror(const gp_Ax1& Axis)
+gce_MakeMirror::gce_MakeMirror(const Axis3d& Axis)
 {
   TheMirror.SetMirror(Axis);
 }
@@ -43,7 +43,7 @@ gce_MakeMirror::gce_MakeMirror(const gp_Ax1& Axis)
 
 gce_MakeMirror::gce_MakeMirror(const gp_Lin& Line)
 {
-  TheMirror.SetMirror(gp_Ax1(Line.Location(), Line.Direction()));
+  TheMirror.SetMirror(Axis3d(Line.Location(), Line.Direction()));
 }
 
 //=========================================================================
@@ -51,9 +51,9 @@ gce_MakeMirror::gce_MakeMirror(const gp_Lin& Line)
 //   par un point et une direction.                                       +
 //=========================================================================
 
-gce_MakeMirror::gce_MakeMirror(const Point3d& Point, const gp_Dir& Direc)
+gce_MakeMirror::gce_MakeMirror(const Point3d& Point, const Dir3d& Direc)
 {
-  TheMirror.SetMirror(gp_Ax1(Point, Direc));
+  TheMirror.SetMirror(Axis3d(Point, Direc));
 }
 
 //=========================================================================
@@ -61,7 +61,7 @@ gce_MakeMirror::gce_MakeMirror(const Point3d& Point, const gp_Dir& Direc)
 //   un Ax2 (Normale au plan et axe x du plan).                           +
 //=========================================================================
 
-gce_MakeMirror::gce_MakeMirror(const gp_Ax2& Plane)
+gce_MakeMirror::gce_MakeMirror(const Frame3d& Plane)
 {
   TheMirror.SetMirror(Plane);
 }
@@ -75,17 +75,17 @@ gce_MakeMirror::gce_MakeMirror(const gp_Pln& Plane)
   TheMirror.SetMirror(Plane.Position().Ax2());
 }
 
-const gp_Trsf& gce_MakeMirror::Value() const
+const Transform3d& gce_MakeMirror::Value() const
 {
   return TheMirror;
 }
 
-const gp_Trsf& gce_MakeMirror::Operator() const
+const Transform3d& gce_MakeMirror::Operator() const
 {
   return TheMirror;
 }
 
-gce_MakeMirror::operator gp_Trsf() const
+gce_MakeMirror::operator Transform3d() const
 {
   return TheMirror;
 }

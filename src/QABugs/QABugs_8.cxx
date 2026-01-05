@@ -145,7 +145,7 @@ static Standard_Integer OCC1651(Draw_Interpretor& di, Standard_Integer argc, con
     return 0;
 
   Point3d                    aP1(Draw::Atof(argv[2]), Draw::Atof(argv[3]), Draw::Atof(argv[4]));
-  gp_Dir                    aD1(Draw::Atof(argv[5]), Draw::Atof(argv[6]), Draw::Atof(argv[7]));
+  Dir3d                    aD1(Draw::Atof(argv[5]), Draw::Atof(argv[6]), Draw::Atof(argv[7]));
   gp_Lin                    aL1(aP1, aD1);
   BRepClass3d_Intersector3d aI1;
   aI1.Perform(aL1, -250, 1e-7, TopoDS::Face(aShape));

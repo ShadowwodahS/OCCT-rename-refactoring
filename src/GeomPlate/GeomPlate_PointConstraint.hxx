@@ -121,9 +121,9 @@ public:
 
   Standard_EXPORT void D0(Point3d& P) const;
 
-  Standard_EXPORT void D1(Point3d& P, gp_Vec& V1, gp_Vec& V2) const;
+  Standard_EXPORT void D1(Point3d& P, Vector3d& V1, Vector3d& V2) const;
 
-  Standard_EXPORT void D2(Point3d& P, gp_Vec& V1, gp_Vec& V2, gp_Vec& V3, gp_Vec& V4, gp_Vec& V5)
+  Standard_EXPORT void D2(Point3d& P, Vector3d& V1, Vector3d& V2, Vector3d& V3, Vector3d& V4, Vector3d& V5)
     const;
 
   Standard_EXPORT Standard_Boolean HasPnt2dOnSurf() const;
@@ -144,11 +144,11 @@ private:
   Point3d               myPoint;
   gp_Pnt2d             myPt2d;
   Handle(Geom_Surface) mySurf;
-  gp_Vec               myD11;
-  gp_Vec               myD12;
-  gp_Vec               myD21;
-  gp_Vec               myD22;
-  gp_Vec               myD23;
+  Vector3d               myD11;
+  Vector3d               myD12;
+  Vector3d               myD21;
+  Vector3d               myD22;
+  Vector3d               myD23;
   Standard_Real        myU;
   Standard_Real        myV;
   Standard_Real        myTolDist;

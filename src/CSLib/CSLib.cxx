@@ -28,18 +28,18 @@
 
 void CSLib::Normal(
 
-  const gp_Vec&           D1U,
-  const gp_Vec&           D1V,
+  const Vector3d&           D1U,
+  const Vector3d&           D1V,
   const Standard_Real     SinTol,
   CSLib_DerivativeStatus& theStatus,
-  gp_Dir&                 Normal)
+  Dir3d&                 Normal)
 {
 
   // Function: Calculation of the normal from tangents by u and by v.
 
   Standard_Real D1UMag  = D1U.SquareMagnitude();
   Standard_Real D1VMag  = D1V.SquareMagnitude();
-  gp_Vec        D1UvD1V = D1U.Crossed(D1V);
+  Vector3d        D1UvD1V = D1U.Crossed(D1V);
 
   if (D1UMag <= gp::Resolution() && D1VMag <= gp::Resolution())
   {
@@ -61,7 +61,7 @@ void CSLib::Normal(
     }
     else
     {
-      Normal    = gp_Dir(D1UvD1V);
+      Normal    = Dir3d(D1UvD1V);
       theStatus = CSLib_Done;
     }
   }
@@ -69,15 +69,15 @@ void CSLib::Normal(
 
 void CSLib::Normal(
 
-  const gp_Vec&       D1U,
-  const gp_Vec&       D1V,
-  const gp_Vec&       D2U,
-  const gp_Vec&       D2V,
-  const gp_Vec&       DUV,
+  const Vector3d&       D1U,
+  const Vector3d&       D1V,
+  const Vector3d&       D2U,
+  const Vector3d&       D2V,
+  const Vector3d&       DUV,
   const Standard_Real SinTol,
   Standard_Boolean&   Done,
   CSLib_NormalStatus& theStatus,
-  gp_Dir&             Normal)
+  Dir3d&             Normal)
 {
 
   //  Calculation of an approximate normale in case of a null normal.
@@ -85,10 +85,10 @@ void CSLib::Normal(
   //     N(u0+du,v0+dv) = N0 + dN/du(u0,v0) * du + dN/dv(u0,v0) * dv + epsilon
   //  -> N ~ dN/du + dN/dv.
 
-  gp_Vec D1Nu = D2U.Crossed(D1V);
+  Vector3d D1Nu = D2U.Crossed(D1V);
   D1Nu.Add(D1U.Crossed(DUV));
 
-  gp_Vec D1Nv = DUV.Crossed(D1V);
+  Vector3d D1Nv = DUV.Crossed(D1V);
   D1Nv.Add(D1U.Crossed(D2V));
 
   Standard_Real LD1Nu = D1Nu.SquareMagnitude();
@@ -103,13 +103,13 @@ void CSLib::Normal(
   {
     theStatus = CSLib_D1NuIsNull;
     Done      = Standard_True;
-    Normal    = gp_Dir(D1Nv);
+    Normal    = Dir3d(D1Nv);
   }
   else if (LD1Nv < RealEpsilon())
   {
     theStatus = CSLib_D1NvIsNull;
     Done      = Standard_True;
-    Normal    = gp_Dir(D1Nu);
+    Normal    = Dir3d(D1Nu);
   }
   else if ((LD1Nv / LD1Nu) <= RealEpsilon())
   {
@@ -123,14 +123,14 @@ void CSLib::Normal(
   }
   else
   {
-    gp_Vec        D1NCross = D1Nu.Crossed(D1Nv);
+    Vector3d        D1NCross = D1Nu.Crossed(D1Nv);
     Standard_Real Sin2     = D1NCross.SquareMagnitude() / (LD1Nu * LD1Nv);
 
     if (Sin2 < (SinTol * SinTol))
     {
       theStatus = CSLib_D1NuIsParallelD1Nv;
       Done      = Standard_True;
-      Normal    = gp_Dir(D1Nu);
+      Normal    = Dir3d(D1Nu);
     }
     else
     {
@@ -142,17 +142,17 @@ void CSLib::Normal(
 
 void CSLib::Normal(
 
-  const gp_Vec&       D1U,
-  const gp_Vec&       D1V,
+  const Vector3d&       D1U,
+  const Vector3d&       D1V,
   const Standard_Real MagTol,
   CSLib_NormalStatus& theStatus,
-  gp_Dir&             Normal)
+  Dir3d&             Normal)
 {
   // Function: Calculate the normal from tangents by u and by v.
 
   Standard_Real D1UMag  = D1U.Magnitude();
   Standard_Real D1VMag  = D1V.Magnitude();
-  gp_Vec        D1UvD1V = D1U.Crossed(D1V);
+  Vector3d        D1UvD1V = D1U.Crossed(D1V);
   Standard_Real NMag    = D1UvD1V.Magnitude();
 
   if (NMag <= MagTol || D1UMag <= MagTol || D1VMag <= MagTol)
@@ -164,9 +164,9 @@ void CSLib::Normal(
   else
   {
     // Firstly normalize tangent vectors D1U and D1V (this method is more stable)
-    gp_Dir aD1U(D1U);
-    gp_Dir aD1V(D1V);
-    Normal    = gp_Dir(aD1U.Crossed(aD1V));
+    Dir3d aD1U(D1U);
+    Dir3d aD1V(D1V);
+    Normal    = Dir3d(aD1U.Crossed(aD1V));
     theStatus = CSLib_Defined;
   }
 }
@@ -183,7 +183,7 @@ void CSLib::Normal(const Standard_Integer    MaxOrder,
                    const Standard_Real       Vmin,
                    const Standard_Real       Vmax,
                    CSLib_NormalStatus&       theStatus,
-                   gp_Dir&                   Normal,
+                   Dir3d&                   Normal,
                    Standard_Integer&         OrderU,
                    Standard_Integer&         OrderV)
 {
@@ -192,7 +192,7 @@ void CSLib::Normal(const Standard_Integer    MaxOrder,
   Standard_Boolean Trouve = Standard_False;
   //  theStatus = Singular;
   Standard_Real Norme;
-  gp_Vec        D;
+  Vector3d        D;
   // Find k0 such that all derivatives N=dS/du ^ dS/dv are null
   // till order k0-1
   while (!Trouve && Order < MaxOrder)
@@ -220,7 +220,7 @@ void CSLib::Normal(const Standard_Integer    MaxOrder,
     }
     else
     {
-      gp_Vec Vk0;
+      Vector3d Vk0;
       Vk0 = DerNUV(OrderU, OrderV);
       TColStd_Array1OfReal Ratio(0, Order);
       // Calculate lambda i
@@ -388,12 +388,12 @@ void CSLib::Normal(const Standard_Integer    MaxOrder,
 //
 // Calculate the derivative of the non-normed normal vector
 //
-gp_Vec CSLib::DNNUV(const Standard_Integer    Nu,
+Vector3d CSLib::DNNUV(const Standard_Integer    Nu,
                     const Standard_Integer    Nv,
                     const TColgp_Array2OfVec& DerSurf)
 {
   Standard_Integer i, j;
-  gp_Vec           D(0, 0, 0), VG, VD, PV;
+  Vector3d           D(0, 0, 0), VG, VD, PV;
   for (i = 0; i <= Nu; i++)
     for (j = 0; j <= Nv; j++)
     {
@@ -407,13 +407,13 @@ gp_Vec CSLib::DNNUV(const Standard_Integer    Nu,
 
 //=================================================================================================
 
-gp_Vec CSLib::DNNUV(const Standard_Integer    Nu,
+Vector3d CSLib::DNNUV(const Standard_Integer    Nu,
                     const Standard_Integer    Nv,
                     const TColgp_Array2OfVec& DerSurf1,
                     const TColgp_Array2OfVec& DerSurf2)
 {
   Standard_Integer i, j;
-  gp_Vec           D(0, 0, 0), VG, VD, PV;
+  Vector3d           D(0, 0, 0), VG, VD, PV;
   for (i = 0; i <= Nu; i++)
     for (j = 0; j <= Nv; j++)
     {
@@ -429,7 +429,7 @@ gp_Vec CSLib::DNNUV(const Standard_Integer    Nu,
 // Calculate the derivatives of the normed normal vector depending on the  derivatives
 // of the non-normed normal vector
 //
-gp_Vec CSLib::DNNormal(const Standard_Integer    Nu,
+Vector3d CSLib::DNNormal(const Standard_Integer    Nu,
                        const Standard_Integer    Nv,
                        const TColgp_Array2OfVec& DerNUV,
                        const Standard_Integer    Iduref,
@@ -439,7 +439,7 @@ gp_Vec CSLib::DNNormal(const Standard_Integer    Nu,
   TColgp_Array2OfVec     DerVecNor(0, Kderiv, 0, Kderiv);
   TColStd_Array2OfReal   TabScal(0, Kderiv, 0, Kderiv);
   TColStd_Array2OfReal   TabNorm(0, Kderiv, 0, Kderiv);
-  gp_Vec                 DerNor = (DerNUV.Value(Iduref, Idvref)).Normalized();
+  Vector3d                 DerNor = (DerNUV.Value(Iduref, Idvref)).Normalized();
   DerVecNor.SetValue(0, 0, DerNor);
   Standard_Real Dnorm = DerNUV.Value(Iduref, Idvref) * DerVecNor.Value(0, 0);
   TabNorm.SetValue(0, 0, Dnorm);

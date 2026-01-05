@@ -317,8 +317,8 @@ void Geom_OffsetSurface::D0(const Standard_Real U, const Standard_Real V, Point3
 void Geom_OffsetSurface::D1(const Standard_Real U,
                             const Standard_Real V,
                             Point3d&             P,
-                            gp_Vec&             D1U,
-                            gp_Vec&             D1V) const
+                            Vector3d&             D1U,
+                            Vector3d&             D1V) const
 {
 #ifdef CHECK
   if (myBasisSurfContinuity == GeomAbs_C0 || myBasisSurfContinuity == GeomAbs_C1)
@@ -335,11 +335,11 @@ void Geom_OffsetSurface::D1(const Standard_Real U,
 void Geom_OffsetSurface::D2(const Standard_Real U,
                             const Standard_Real V,
                             Point3d&             P,
-                            gp_Vec&             D1U,
-                            gp_Vec&             D1V,
-                            gp_Vec&             D2U,
-                            gp_Vec&             D2V,
-                            gp_Vec&             D2UV) const
+                            Vector3d&             D1U,
+                            Vector3d&             D1V,
+                            Vector3d&             D2U,
+                            Vector3d&             D2V,
+                            Vector3d&             D2UV) const
 {
 #ifdef CHECK
   if (myBasisSurfContinuity == GeomAbs_C0 || myBasisSurfContinuity == GeomAbs_C1
@@ -357,15 +357,15 @@ void Geom_OffsetSurface::D2(const Standard_Real U,
 void Geom_OffsetSurface::D3(const Standard_Real U,
                             const Standard_Real V,
                             Point3d&             P,
-                            gp_Vec&             D1U,
-                            gp_Vec&             D1V,
-                            gp_Vec&             D2U,
-                            gp_Vec&             D2V,
-                            gp_Vec&             D2UV,
-                            gp_Vec&             D3U,
-                            gp_Vec&             D3V,
-                            gp_Vec&             D3UUV,
-                            gp_Vec&             D3UVV) const
+                            Vector3d&             D1U,
+                            Vector3d&             D1V,
+                            Vector3d&             D2U,
+                            Vector3d&             D2V,
+                            Vector3d&             D2UV,
+                            Vector3d&             D3U,
+                            Vector3d&             D3V,
+                            Vector3d&             D3UUV,
+                            Vector3d&             D3UVV) const
 {
 #ifdef CHECK
   if (!(basisSurf->IsCNu(4) && basisSurf->IsCNv(4)))
@@ -381,7 +381,7 @@ void Geom_OffsetSurface::D3(const Standard_Real U,
 
 //=================================================================================================
 
-gp_Vec Geom_OffsetSurface::DN(const Standard_Real    U,
+Vector3d Geom_OffsetSurface::DN(const Standard_Real    U,
                               const Standard_Real    V,
                               const Standard_Integer Nu,
                               const Standard_Integer Nv) const
@@ -393,7 +393,7 @@ gp_Vec Geom_OffsetSurface::DN(const Standard_Real    U,
     throw Geom_UndefinedDerivative();
   }
 #endif
-  gp_Vec D(0, 0, 0);
+  Vector3d D(0, 0, 0);
 
   if (equivSurf.IsNull())
     D = myEvaluator->DN(U, V, Nu, Nv);
@@ -446,7 +446,7 @@ void Geom_OffsetSurface_UIsoEvaluator::Evaluate(Standard_Integer*, /*Dimension*/
   }
   else
   {
-    gp_Vec DU, DV;
+    Vector3d DU, DV;
     CurrentSurface.D1(IsoPar, *Parameter, P, DU, DV);
     Result[0] = DV.X();
     Result[1] = DV.Y();
@@ -493,7 +493,7 @@ void Geom_OffsetSurface_VIsoEvaluator::Evaluate(Standard_Integer*, /*Dimension*/
   }
   else
   {
-    gp_Vec DU, DV;
+    Vector3d DU, DV;
     CurrentSurface->D1(*Parameter, IsoPar, P, DU, DV);
     Result[0] = DU.X();
     Result[1] = DU.Y();
@@ -520,7 +520,7 @@ Handle(Geom_Curve) Geom_OffsetSurface::UIso(const Standard_Real UU) const
       Handle(Geom_Curve) aL = basisSurf->UIso(UU);
       GeomLProp_SLProps  aSurfProps(basisSurf, UU, 0., 2, Precision::Confusion());
 
-      gp_Vec aDir;
+      Vector3d aDir;
       aDir = aSurfProps.Normal();
       aDir *= offsetValue;
 
@@ -744,7 +744,7 @@ Standard_Boolean Geom_OffsetSurface::IsVClosed() const
 
 //=================================================================================================
 
-void Geom_OffsetSurface::Transform(const gp_Trsf& T)
+void Geom_OffsetSurface::Transform(const Transform3d& T)
 {
   basisSurf->Transform(T);
   offsetValue *= T.ScaleFactor();
@@ -759,7 +759,7 @@ void Geom_OffsetSurface::Transform(const gp_Trsf& T)
 
 void Geom_OffsetSurface::TransformParameters(Standard_Real& U,
                                              Standard_Real& V,
-                                             const gp_Trsf& T) const
+                                             const Transform3d& T) const
 {
   basisSurf->TransformParameters(U, V, T);
   if (!equivSurf.IsNull())
@@ -768,7 +768,7 @@ void Geom_OffsetSurface::TransformParameters(Standard_Real& U,
 
 //=================================================================================================
 
-gp_GTrsf2d Geom_OffsetSurface::ParametricTransformation(const gp_Trsf& T) const
+gp_GTrsf2d Geom_OffsetSurface::ParametricTransformation(const Transform3d& T) const
 {
   return basisSurf->ParametricTransformation(T);
 }
@@ -811,7 +811,7 @@ Handle(Geom_Surface) Geom_OffsetSurface::Surface() const
   if (TheType == STANDARD_TYPE(Geom_Plane))
   {
     Handle(Geom_Plane) P = Handle(Geom_Plane)::DownCast(Base);
-    gp_Vec             T = P->Position().XDirection() ^ P->Position().YDirection();
+    Vector3d             T = P->Position().XDirection() ^ P->Position().YDirection();
     T *= offsetValue;
     Result = Handle(Geom_Plane)::DownCast(P->Translated(T));
   }
@@ -830,7 +830,7 @@ Handle(Geom_Surface) Geom_OffsetSurface::Surface() const
     }
     else if (Radius <= -Tol)
     {
-      Axis.Rotate(gp_Ax1(Axis.Location(), Axis.Direction()), M_PI);
+      Axis.Rotate(Axis3d(Axis.Location(), Axis.Direction()), M_PI);
       Result = new Geom_CylindricalSurface(Axis, Abs(Radius));
       Result->UReverse();
     }
@@ -856,7 +856,7 @@ Handle(Geom_Surface) Geom_OffsetSurface::Surface() const
     }
     if (aRadius >= 0.)
     {
-      gp_Vec aZ(anAxis.Direction());
+      Vector3d aZ(anAxis.Direction());
       if (isDirect)
       {
         aZ *= -offsetValue * Sin(anAlpha);
@@ -888,7 +888,7 @@ Handle(Geom_Surface) Geom_OffsetSurface::Surface() const
     }
     else if (Radius <= -Tol)
     {
-      Axis.Rotate(gp_Ax1(Axis.Location(), Axis.Direction()), M_PI);
+      Axis.Rotate(Axis3d(Axis.Location(), Axis.Direction()), M_PI);
       Axis.ZReverse();
       Result = new Geom_SphericalSurface(Axis, -Radius);
       Result->UReverse();

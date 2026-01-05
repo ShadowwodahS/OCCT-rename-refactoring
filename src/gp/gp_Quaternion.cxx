@@ -34,35 +34,35 @@ Standard_Boolean gp_Quaternion::IsEqual(const gp_Quaternion& theOther) const
 
 //=================================================================================================
 
-void gp_Quaternion::SetRotation(const gp_Vec& theVecFrom, const gp_Vec& theVecTo)
+void gp_Quaternion::SetRotation(const Vector3d& theVecFrom, const Vector3d& theVecTo)
 {
-  gp_Vec aVecCross(theVecFrom.Crossed(theVecTo));
+  Vector3d aVecCross(theVecFrom.Crossed(theVecTo));
   Set(aVecCross.X(), aVecCross.Y(), aVecCross.Z(), theVecFrom.Dot(theVecTo));
   Normalize();               // if "from" or "to" not unit, normalize quat
   w += 1.0;                  // reducing angle to halfangle
   if (w <= gp::Resolution()) // angle close to PI
   {
     if ((theVecFrom.Z() * theVecFrom.Z()) > (theVecFrom.X() * theVecFrom.X()))
-      Set(0.0, theVecFrom.Z(), -theVecFrom.Y(), w); // theVecFrom * gp_Vec(1,0,0)
+      Set(0.0, theVecFrom.Z(), -theVecFrom.Y(), w); // theVecFrom * Vector3d(1,0,0)
     else
-      Set(theVecFrom.Y(), -theVecFrom.X(), 0.0, w); // theVecFrom * gp_Vec(0,0,1)
+      Set(theVecFrom.Y(), -theVecFrom.X(), 0.0, w); // theVecFrom * Vector3d(0,0,1)
   }
   Normalize();
 }
 
 //=================================================================================================
 
-void gp_Quaternion::SetRotation(const gp_Vec& theVecFrom,
-                                const gp_Vec& theVecTo,
-                                const gp_Vec& theHelpCrossVec)
+void gp_Quaternion::SetRotation(const Vector3d& theVecFrom,
+                                const Vector3d& theVecTo,
+                                const Vector3d& theHelpCrossVec)
 {
-  gp_Vec aVecCross(theVecFrom.Crossed(theVecTo));
+  Vector3d aVecCross(theVecFrom.Crossed(theVecTo));
   Set(aVecCross.X(), aVecCross.Y(), aVecCross.Z(), theVecFrom.Dot(theVecTo));
   Normalize();               // if "from" or "to" not unit, normalize quat
   w += 1.0;                  // reducing angle to halfangle
   if (w <= gp::Resolution()) // angle close to PI
   {
-    gp_Vec theAxis = theVecFrom.Crossed(theHelpCrossVec);
+    Vector3d theAxis = theVecFrom.Crossed(theHelpCrossVec);
     Set(theAxis.X(), theAxis.Y(), theAxis.Z(), w);
   }
   Normalize();
@@ -70,9 +70,9 @@ void gp_Quaternion::SetRotation(const gp_Vec& theVecFrom,
 
 //=================================================================================================
 
-void gp_Quaternion::SetVectorAndAngle(const gp_Vec& theAxis, const Standard_Real theAngle)
+void gp_Quaternion::SetVectorAndAngle(const Vector3d& theAxis, const Standard_Real theAngle)
 {
-  gp_Vec        anAxis      = theAxis.Normalized();
+  Vector3d        anAxis      = theAxis.Normalized();
   Standard_Real anAngleHalf = 0.5 * theAngle;
   Standard_Real sin_a       = Sin(anAngleHalf);
   Set(anAxis.X() * sin_a, anAxis.Y() * sin_a, anAxis.Z() * sin_a, Cos(anAngleHalf));
@@ -80,7 +80,7 @@ void gp_Quaternion::SetVectorAndAngle(const gp_Vec& theAxis, const Standard_Real
 
 //=================================================================================================
 
-void gp_Quaternion::GetVectorAndAngle(gp_Vec& theAxis, Standard_Real& theAngle) const
+void gp_Quaternion::GetVectorAndAngle(Vector3d& theAxis, Standard_Real& theAngle) const
 {
   Standard_Real vl = Sqrt(x * x + y * y + z * z);
   if (vl > gp::Resolution())
@@ -449,13 +449,13 @@ Standard_Real gp_Quaternion::GetRotationAngle() const
 
 //=================================================================================================
 
-gp_Vec gp_Quaternion::Multiply(const gp_Vec& theVec) const
+Vector3d gp_Quaternion::Multiply(const Vector3d& theVec) const
 {
   gp_Quaternion theQ(theVec.X() * w + theVec.Z() * y - theVec.Y() * z,
                      theVec.Y() * w + theVec.X() * z - theVec.Z() * x,
                      theVec.Z() * w + theVec.Y() * x - theVec.X() * y,
                      theVec.X() * x + theVec.Y() * y + theVec.Z() * z);
-  return gp_Vec(w * theQ.x + x * theQ.w + y * theQ.z - z * theQ.y,
+  return Vector3d(w * theQ.x + x * theQ.w + y * theQ.z - z * theQ.y,
                 w * theQ.y + y * theQ.w + z * theQ.x - x * theQ.z,
                 w * theQ.z + z * theQ.w + x * theQ.y - y * theQ.x)
          * (1.0 / SquareNorm());

@@ -28,8 +28,8 @@ class gp_XY;
 class gp_XYZ;
 class IGESGeom_CopiousData;
 class gp_Ax3;
-class gp_Ax2;
-class gp_Ax1;
+class Frame3d;
+class Axis3d;
 class IGESGeom_TransformationMatrix;
 
 //! This class provides some useful basic tools to build IGESGeom
@@ -79,21 +79,21 @@ public:
   //! Returns the Position in which the method EvalXYZ will
   //! evaluate a XYZ. It can be regarded as defining a local system.
   //! It is initially set to Identity
-  Standard_EXPORT gp_Trsf Position() const;
+  Standard_EXPORT Transform3d Position() const;
 
   //! Sets final position from an already defined Trsf
-  Standard_EXPORT void SetPosition(const gp_Trsf& pos);
+  Standard_EXPORT void SetPosition(const Transform3d& pos);
 
   //! Sets final position from an Ax3
   Standard_EXPORT void SetPosition(const gp_Ax3& pos);
 
   //! Sets final position from an Ax2
-  Standard_EXPORT void SetPosition(const gp_Ax2& pos);
+  Standard_EXPORT void SetPosition(const Frame3d& pos);
 
   //! Sets final position from an Ax1
   //! (this means that origin point and Z-axis are defined, the
   //! other axes are defined arbitrarily)
-  Standard_EXPORT void SetPosition(const gp_Ax1& pos);
+  Standard_EXPORT void SetPosition(const Axis3d& pos);
 
   //! Returns True if the Position is Identity
   Standard_EXPORT Standard_Boolean IsIdentity() const;
@@ -128,7 +128,7 @@ protected:
 private:
   Handle(TColgp_HSequenceOfXYZ) theXYZ;
   Handle(TColgp_HSequenceOfXYZ) theVec;
-  gp_Trsf                       thepos;
+  Transform3d                       thepos;
 };
 
 #endif // _IGESConvGeom_GeomBuilder_HeaderFile

@@ -59,7 +59,7 @@ static void showProjSolution(Draw_Interpretor&      di,
   char* temp = name; // portage WNT
   if (P.Distance(P1) > Precision::Confusion())
   {
-    Handle(Geom_Line)         L  = new Geom_Line(P, gp_Vec(P, P1));
+    Handle(Geom_Line)         L  = new Geom_Line(P, Vector3d(P, P1));
     Handle(Geom_TrimmedCurve) CT = new Geom_TrimmedCurve(L, 0., P.Distance(P1));
     DrawTrSurf::Set(temp, CT);
   }
@@ -641,7 +641,7 @@ static Standard_Integer extrema(Draw_Interpretor& di, Standard_Integer n, const 
       continue;
     }
 
-    Handle(Geom_Line)         aL  = new Geom_Line(aP1, gp_Vec(aP1, aP2));
+    Handle(Geom_Line)         aL  = new Geom_Line(aP1, Vector3d(aP1, aP2));
     Handle(Geom_TrimmedCurve) aCT = new Geom_TrimmedCurve(aL, 0., aP1.Distance(aP2));
     Sprintf(aName, "%s%d", "ext_", aJ);
     DrawTrSurf::Set(aName2, aCT);
@@ -723,7 +723,7 @@ static Standard_Integer totalextcc(Draw_Interpretor& di, Standard_Integer n, con
     else
     {
       di << "Extrema is segment of line\n";
-      Handle(Geom_Line)         L  = new Geom_Line(P1, gp_Vec(P1, P2));
+      Handle(Geom_Line)         L  = new Geom_Line(P1, Vector3d(P1, P2));
       Handle(Geom_TrimmedCurve) CT = new Geom_TrimmedCurve(L, 0., P1.Distance(P2));
       Sprintf(name, "%s%d", "ext_", 1);
       char* temp = name; // portage WNT

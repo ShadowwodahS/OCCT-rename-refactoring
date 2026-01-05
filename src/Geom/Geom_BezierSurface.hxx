@@ -32,9 +32,9 @@
 #include <BSplSLib.hxx>
 
 class Point3d;
-class gp_Vec;
+class Vector3d;
 class Geom_Curve;
-class gp_Trsf;
+class Transform3d;
 class Geom_Geometry;
 
 class Geom_BezierSurface;
@@ -450,17 +450,17 @@ public:
   Standard_EXPORT void D1(const Standard_Real U,
                           const Standard_Real V,
                           Point3d&             P,
-                          gp_Vec&             D1U,
-                          gp_Vec&             D1V) const Standard_OVERRIDE;
+                          Vector3d&             D1U,
+                          Vector3d&             D1V) const Standard_OVERRIDE;
 
   Standard_EXPORT void D2(const Standard_Real U,
                           const Standard_Real V,
                           Point3d&             P,
-                          gp_Vec&             D1U,
-                          gp_Vec&             D1V,
-                          gp_Vec&             D2U,
-                          gp_Vec&             D2V,
-                          gp_Vec&             D2UV) const Standard_OVERRIDE;
+                          Vector3d&             D1U,
+                          Vector3d&             D1V,
+                          Vector3d&             D2U,
+                          Vector3d&             D2V,
+                          Vector3d&             D2UV) const Standard_OVERRIDE;
 
   //! Computes P, the point of parameters (U, V) of this Bezier surface, and
   //! - one or more of the following sets of vectors:
@@ -473,15 +473,15 @@ public:
   Standard_EXPORT void D3(const Standard_Real U,
                           const Standard_Real V,
                           Point3d&             P,
-                          gp_Vec&             D1U,
-                          gp_Vec&             D1V,
-                          gp_Vec&             D2U,
-                          gp_Vec&             D2V,
-                          gp_Vec&             D2UV,
-                          gp_Vec&             D3U,
-                          gp_Vec&             D3V,
-                          gp_Vec&             D3UUV,
-                          gp_Vec&             D3UVV) const Standard_OVERRIDE;
+                          Vector3d&             D1U,
+                          Vector3d&             D1V,
+                          Vector3d&             D2U,
+                          Vector3d&             D2V,
+                          Vector3d&             D2UV,
+                          Vector3d&             D3U,
+                          Vector3d&             D3V,
+                          Vector3d&             D3UUV,
+                          Vector3d&             D3UVV) const Standard_OVERRIDE;
 
   //! Computes the derivative of order Nu in the u
   //! parametric direction, and Nv in the v parametric
@@ -490,7 +490,7 @@ public:
   //! Exceptions
   //! Standard_RangeError if:
   //! - Nu + Nv is less than 1, or Nu or Nv is negative.
-  Standard_EXPORT gp_Vec DN(const Standard_Real    U,
+  Standard_EXPORT Vector3d DN(const Standard_Real    U,
                             const Standard_Real    V,
                             const Standard_Integer Nu,
                             const Standard_Integer Nv) const Standard_OVERRIDE;
@@ -592,7 +592,7 @@ public:
   Standard_EXPORT Standard_Boolean IsVRational() const;
 
   //! Applies the transformation T to this Bezier surface.
-  Standard_EXPORT void Transform(const gp_Trsf& T) Standard_OVERRIDE;
+  Standard_EXPORT void Transform(const Transform3d& T) Standard_OVERRIDE;
 
   //! Returns the value of the maximum polynomial degree of a
   //! Bezier surface. This value is 25.

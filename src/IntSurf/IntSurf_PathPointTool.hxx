@@ -56,7 +56,7 @@ public:
   //! returns the tangent at the intersection in 3d space
   //! associated to <P>
   //! an exception is raised if IsTangent is true.
-  static gp_Vec Direction3d(const IntSurf_PathPoint& PStart);
+  static Vector3d Direction3d(const IntSurf_PathPoint& PStart);
 
   //! returns the tangent at the intersection in the
   //! parametric space of the parametrized surface.This tangent

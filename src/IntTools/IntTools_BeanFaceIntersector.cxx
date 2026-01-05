@@ -710,7 +710,7 @@ Standard_Boolean IntTools_BeanFaceIntersector::FastComputeAnalytic()
   {
     gp_Pln surfPlane = mySurface.Plane();
 
-    gp_Dir aDir;
+    Dir3d aDir;
     Point3d aPLoc;
     switch (aCT)
     {
@@ -752,8 +752,8 @@ Standard_Boolean IntTools_BeanFaceIntersector::FastComputeAnalytic()
   else if (aST == GeomAbs_Cylinder)
   {
     gp_Cylinder   aCylinder  = mySurface.Cylinder();
-    const gp_Ax1& aCylAxis   = aCylinder.Axis();
-    const gp_Dir& aCylDir    = aCylAxis.Direction();
+    const Axis3d& aCylAxis   = aCylinder.Axis();
+    const Dir3d& aCylDir    = aCylAxis.Direction();
     Standard_Real aCylRadius = aCylinder.Radius();
 
     if (aCT == GeomAbs_Line)
@@ -887,7 +887,7 @@ void IntTools_BeanFaceIntersector::ComputeLinePlane()
   //
   // compute correct range on the edge
   Standard_Real anAngle, aDt;
-  gp_Dir        aDL, aDP;
+  Dir3d        aDL, aDP;
   //
   aDL     = L.Position().Direction();
   aDP     = P.Position().Direction();
@@ -2367,7 +2367,7 @@ void ComputeGridPoints(const Handle(Geom_BSplineSurface)& theSurf,
   Point3d           aPnt;
   Standard_Real    aParU;
   Standard_Real    aParV;
-  gp_Vec           aDU, aDV;
+  Vector3d           aDU, aDV;
   Standard_Real    du = 0, dv = 0;
   Standard_Boolean isCalcDefl = aNbGridPnts[0] < 30 && aNbGridPnts[1] < 30;
 
@@ -2403,7 +2403,7 @@ void ComputeGridPoints(const Handle(Geom_BSplineSurface)& theSurf,
         if (i < aNbGridPnts[0] && j < aNbGridPnts[1])
         {
           dv            = 0.5 * (theSurfaceData.GetVParam(j + 1) - aParV);
-          gp_Vec aShift = du * aDU + dv * aDV;
+          Vector3d aShift = du * aDU + dv * aDV;
           aPnt.Translate(aShift);
           anExtBox.Add(aPnt);
         }

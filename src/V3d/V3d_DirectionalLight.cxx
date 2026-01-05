@@ -31,7 +31,7 @@ V3d_DirectionalLight::V3d_DirectionalLight(const V3d_TypeOfOrientation theDirect
 
 //=================================================================================================
 
-V3d_DirectionalLight::V3d_DirectionalLight(const gp_Dir&          theDirection,
+V3d_DirectionalLight::V3d_DirectionalLight(const Dir3d&          theDirection,
                                            const Quantity_Color&  theColor,
                                            const Standard_Boolean theIsHeadlight)
     : V3d_PositionLight(Graphic3d_TypeOfLightSource_Directional)

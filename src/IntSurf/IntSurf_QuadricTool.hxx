@@ -23,7 +23,7 @@
 
 #include <Standard_Real.hxx>
 class IntSurf_Quadric;
-class gp_Vec;
+class Vector3d;
 
 //! This class provides a tool on a quadric that can be
 //! used to instantiates the Walking algorithms (see
@@ -45,7 +45,7 @@ public:
                        const Standard_Real    X,
                        const Standard_Real    Y,
                        const Standard_Real    Z,
-                       gp_Vec&                V);
+                       Vector3d&                V);
 
   //! Returns the value and the gradient.
   static void ValueAndGradient(const IntSurf_Quadric& Quad,
@@ -53,7 +53,7 @@ public:
                                const Standard_Real    Y,
                                const Standard_Real    Z,
                                Standard_Real&         Val,
-                               gp_Vec&                Grad);
+                               Vector3d&                Grad);
 
   //! returns the tolerance of the zero of the implicit function
   Standard_EXPORT static Standard_Real Tolerance(const IntSurf_Quadric& Quad);

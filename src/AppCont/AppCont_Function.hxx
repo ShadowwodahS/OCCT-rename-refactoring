@@ -63,7 +63,7 @@ public:
   //! Returns the derivative at parameter <theU>.
   virtual Standard_Boolean D1(const Standard_Real           theU,
                               NCollection_Array1<gp_Vec2d>& theVec2d,
-                              NCollection_Array1<gp_Vec>&   theVec) const = 0;
+                              NCollection_Array1<Vector3d>&   theVec) const = 0;
 
   //! Return information about peridicity in output paramateters space.
   //! @param theDimIdx Defines index in output parameters space. 1 <= theDimIdx <= 3 * myNbPnt + 2 *

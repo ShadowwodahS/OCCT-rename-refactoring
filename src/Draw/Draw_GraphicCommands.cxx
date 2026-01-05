@@ -140,7 +140,7 @@ static Standard_Integer wzoom(Draw_Interpretor& di, Standard_Integer argc, const
     di << "Pick first corner\n";
     dout.Select(id, X1, Y1, b);
 
-    gp_Trsf T;
+    Transform3d T;
     Point3d  P0(0, 0, 0);
     dout.GetTrsf(id, T);
     T.Invert();
@@ -616,12 +616,12 @@ static Standard_Integer ptv(Draw_Interpretor&, Standard_Integer n, const char** 
 
   for (Standard_Integer id = start; id <= end; id++)
   {
-    gp_Trsf T;
+    Transform3d T;
     dout.GetTrsf(id, T);
-    T.SetTranslationPart(gp_Vec(0, 0, 0));
-    gp_Trsf T1;
-    T1.SetTranslationPart(gp_Vec(-X, -Y, -Z));
-    gp_Trsf aLocalTrsf(T * T1);
+    T.SetTranslationPart(Vector3d(0, 0, 0));
+    Transform3d T1;
+    T1.SetTranslationPart(Vector3d(-X, -Y, -Z));
+    Transform3d aLocalTrsf(T * T1);
     dout.SetTrsf(id, aLocalTrsf);
     //    dout.SetTrsf(id,T*T1);
     dout.RepaintView(id);
@@ -657,11 +657,11 @@ static Standard_Integer dptv(Draw_Interpretor&, Standard_Integer n, const char**
 
   for (Standard_Integer id = start; id <= end; id++)
   {
-    gp_Trsf T;
+    Transform3d T;
     dout.GetTrsf(id, T);
-    gp_Trsf T1;
-    T1.SetTranslationPart(gp_Vec(-DX, -DY, -DZ));
-    gp_Trsf M = T * T1;
+    Transform3d T1;
+    T1.SetTranslationPart(Vector3d(-DX, -DY, -DZ));
+    Transform3d M = T * T1;
     dout.SetTrsf(id, M);
     dout.RepaintView(id);
   }
@@ -973,7 +973,7 @@ static Standard_Integer dtext(Draw_Interpretor& di, Standard_Integer n, const ch
       return 0;
     Standard_Real z = dout.Zoom(id);
     P.SetCoord((Standard_Real)X / z, (Standard_Real)Y / z, 0);
-    gp_Trsf T;
+    Transform3d T;
     dout.GetTrsf(id, T);
     T.Invert();
     P.Transform(T);

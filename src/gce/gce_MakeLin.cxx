@@ -25,7 +25,7 @@
 //=========================================================================
 //   Creation d une ligne 3d de gp a partir d un Ax1 de gp.               +
 //=========================================================================
-gce_MakeLin::gce_MakeLin(const gp_Ax1& A1)
+gce_MakeLin::gce_MakeLin(const Axis3d& A1)
 {
   TheLin   = gp_Lin(A1);
   TheError = gce_Done;
@@ -36,7 +36,7 @@ gce_MakeLin::gce_MakeLin(const gp_Ax1& A1)
 //   et d une direction V (Dir de gp).                                    +
 //=========================================================================
 
-gce_MakeLin::gce_MakeLin(const Point3d& P, const gp_Dir& V)
+gce_MakeLin::gce_MakeLin(const Point3d& P, const Dir3d& V)
 {
   TheLin   = gp_Lin(P, V);
   TheError = gce_Done;
@@ -51,7 +51,7 @@ gce_MakeLin::gce_MakeLin(const Point3d& P1, const Point3d& P2)
 {
   if (P1.Distance(P2) >= gp::Resolution())
   {
-    TheLin   = gp_Lin(P1, gp_Dir(P2.XYZ() - P1.XYZ()));
+    TheLin   = gp_Lin(P1, Dir3d(P2.XYZ() - P1.XYZ()));
     TheError = gce_Done;
   }
   else

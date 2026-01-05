@@ -603,10 +603,10 @@ void IntPatch_PrmPrmIntersection::Perform(const Handle(Adaptor3d_Surface)&   Sur
                     // Calculation transition
                     IntSurf_TypeTrans trans1, trans2;
                     Standard_Real     locu, locv;
-                    gp_Vec            norm1, norm2, d1u, d1v;
+                    Vector3d            norm1, norm2, d1u, d1v;
                     Point3d            ptbid;
                     Standard_Integer  indextg;
-                    gp_Vec            tgline(PW.TangentAtLine(indextg));
+                    Vector3d            tgline(PW.TangentAtLine(indextg));
                     PW.Line()->Value(indextg).ParametersOnS1(locu, locv);
                     Surf1->D1(locu, locv, ptbid, d1u, d1v);
                     norm1 = d1u.Crossed(d1v);
@@ -799,10 +799,10 @@ void IntPatch_PrmPrmIntersection::Perform(const Handle(Adaptor3d_Surface)&   Sur
               {
                 IntSurf_TypeTrans trans1, trans2;
                 Standard_Real     locu, locv;
-                gp_Vec            norm1, norm2, d1u, d1v;
+                Vector3d            norm1, norm2, d1u, d1v;
                 Point3d            ptbid;
                 Standard_Integer  indextg;
-                gp_Vec            tgline(PW.TangentAtLine(indextg));
+                Vector3d            tgline(PW.TangentAtLine(indextg));
                 PW.Line()->Value(indextg).ParametersOnS1(locu, locv);
                 Surf1->D1(locu, locv, ptbid, d1u, d1v);
                 norm1 = d1u.Crossed(d1v);
@@ -1056,10 +1056,10 @@ void IntPatch_PrmPrmIntersection::Perform(const Handle(Adaptor3d_Surface)&   Sur
                   {
                     IntSurf_TypeTrans trans1, trans2;
                     Standard_Real     locu, locv;
-                    gp_Vec            norm1, norm2, d1u, d1v;
+                    Vector3d            norm1, norm2, d1u, d1v;
                     Point3d            ptbid;
                     Standard_Integer  indextg;
-                    gp_Vec            tgline(PW.TangentAtLine(indextg));
+                    Vector3d            tgline(PW.TangentAtLine(indextg));
                     PW.Line()->Value(indextg).ParametersOnS1(locu, locv);
                     Surf1->D1(locu, locv, ptbid, d1u, d1v);
                     norm1 = d1u.Crossed(d1v);
@@ -1263,10 +1263,10 @@ void IntPatch_PrmPrmIntersection::Perform(const Handle(Adaptor3d_Surface)&   Sur
                 {
                   IntSurf_TypeTrans trans1, trans2;
                   Standard_Real     locu, locv;
-                  gp_Vec            norm1, norm2, d1u, d1v;
+                  Vector3d            norm1, norm2, d1u, d1v;
                   Point3d            ptbid;
                   Standard_Integer  indextg;
-                  gp_Vec            tgline(PW.TangentAtLine(indextg));
+                  Vector3d            tgline(PW.TangentAtLine(indextg));
                   PW.Line()->Value(indextg).ParametersOnS1(locu, locv);
                   Surf1->D1(locu, locv, ptbid, d1u, d1v);
                   norm1 = d1u.Crossed(d1v);
@@ -1526,10 +1526,10 @@ void SectionPointToParameters(const Intf_SectionPoint&   Sp,
       Poly1.Parameters(Pt1, ua, va);
       Poly1.Parameters(Pt2, ub, vb);
       Poly1.Parameters(Pt3, uc, vc);
-      gp_Vec Normale(gp_Vec(PA, PB).Crossed(gp_Vec(PA, PC)));
-      cc   = (gp_Vec(PA, PB).Crossed(gp_Vec(PA, P))).Dot(Normale);
-      ca   = (gp_Vec(PB, PC).Crossed(gp_Vec(PB, P))).Dot(Normale);
-      cb   = (gp_Vec(PC, PA).Crossed(gp_Vec(PC, P))).Dot(Normale);
+      Vector3d Normale(Vector3d(PA, PB).Crossed(Vector3d(PA, PC)));
+      cc   = (Vector3d(PA, PB).Crossed(Vector3d(PA, P))).Dot(Normale);
+      ca   = (Vector3d(PB, PC).Crossed(Vector3d(PB, P))).Dot(Normale);
+      cb   = (Vector3d(PC, PA).Crossed(Vector3d(PC, P))).Dot(Normale);
       cabc = ca + cb + cc;
 
       ca /= cabc;
@@ -1570,10 +1570,10 @@ void SectionPointToParameters(const Intf_SectionPoint&   Sp,
       Poly2.Parameters(Pt1, ua, va);
       Poly2.Parameters(Pt2, ub, vb);
       Poly2.Parameters(Pt3, uc, vc);
-      gp_Vec Normale(gp_Vec(PA, PB).Crossed(gp_Vec(PA, PC)));
-      cc   = (gp_Vec(PA, PB).Crossed(gp_Vec(PA, P))).Dot(Normale);
-      ca   = (gp_Vec(PB, PC).Crossed(gp_Vec(PB, P))).Dot(Normale);
-      cb   = (gp_Vec(PC, PA).Crossed(gp_Vec(PC, P))).Dot(Normale);
+      Vector3d Normale(Vector3d(PA, PB).Crossed(Vector3d(PA, PC)));
+      cc   = (Vector3d(PA, PB).Crossed(Vector3d(PA, P))).Dot(Normale);
+      ca   = (Vector3d(PB, PC).Crossed(Vector3d(PB, P))).Dot(Normale);
+      cb   = (Vector3d(PC, PA).Crossed(Vector3d(PC, P))).Dot(Normale);
       cabc = ca + cb + cc;
 
       ca /= cabc;
@@ -1957,10 +1957,10 @@ void IntPatch_PrmPrmIntersection::Perform(const Handle(Adaptor3d_Surface)&   Sur
             {
               IntSurf_TypeTrans trans1, trans2;
               Standard_Real     locu, locv;
-              gp_Vec            norm1, norm2, d1u, d1v;
+              Vector3d            norm1, norm2, d1u, d1v;
               Point3d            ptbid;
               Standard_Integer  indextg;
-              gp_Vec            tgline(PW.TangentAtLine(indextg));
+              Vector3d            tgline(PW.TangentAtLine(indextg));
               PW.Line()->Value(indextg).ParametersOnS1(locu, locv);
               Surf1->D1(locu, locv, ptbid, d1u, d1v);
               norm1 = d1u.Crossed(d1v);
@@ -2121,10 +2121,10 @@ void IntPatch_PrmPrmIntersection::Perform(const Handle(Adaptor3d_Surface)&   Sur
 
         IntSurf_TypeTrans trans1, trans2;
         Standard_Real     locu, locv;
-        gp_Vec            norm1, norm2, d1u, d1v;
+        Vector3d            norm1, norm2, d1u, d1v;
         Point3d            ptbid;
         Standard_Integer  indextg;
-        gp_Vec            tgline(PW.TangentAtLine(indextg));
+        Vector3d            tgline(PW.TangentAtLine(indextg));
         PW.Line()->Value(indextg).ParametersOnS1(locu, locv);
         Surf1->D1(locu, locv, ptbid, d1u, d1v);
         norm1 = d1u.Crossed(d1v);
@@ -2658,14 +2658,14 @@ void IntPatch_PrmPrmIntersection::Perform(const Handle(Adaptor3d_Surface)&   Sur
                         {
                           const Point3d& aP1 = PW.Value(m).Value();
                           const Point3d& aP2 = PW.Value(m + 1).Value();
-                          gp_Vec        aVec12(aP1, aP2);
+                          Vector3d        aVec12(aP1, aP2);
                           if (aVec12.SquareMagnitude() < 1.e-20)
                           {
                             continue;
                           }
 
                           //
-                          gp_Dir aDir12(aVec12);
+                          Dir3d aDir12(aVec12);
                           gp_Lin aLin12(aP1, aDir12);
                           aDx = aLin12.Distance(aPx);
 
@@ -2693,10 +2693,10 @@ void IntPatch_PrmPrmIntersection::Perform(const Handle(Adaptor3d_Surface)&   Sur
                     {
                       IntSurf_TypeTrans trans1, trans2;
                       Standard_Real     locu, locv;
-                      gp_Vec            norm1, norm2, d1u, d1v;
+                      Vector3d            norm1, norm2, d1u, d1v;
                       Point3d            ptbid;
                       Standard_Integer  indextg;
-                      gp_Vec            tgline(PW.TangentAtLine(indextg));
+                      Vector3d            tgline(PW.TangentAtLine(indextg));
                       PW.Line()->Value(indextg).ParametersOnS1(locu, locv);
                       Surf1->D1(locu, locv, ptbid, d1u, d1v);
                       norm1 = d1u.Crossed(d1v);
@@ -2944,10 +2944,10 @@ void IntPatch_PrmPrmIntersection::Perform(const Handle(Adaptor3d_Surface)&   Sur
               {
                 IntSurf_TypeTrans trans1, trans2;
                 Standard_Real     locu, locv;
-                gp_Vec            norm1, norm2, d1u, d1v;
+                Vector3d            norm1, norm2, d1u, d1v;
                 Point3d            ptbid;
                 Standard_Integer  indextg;
-                gp_Vec            tgline(PW.TangentAtLine(indextg));
+                Vector3d            tgline(PW.TangentAtLine(indextg));
                 PW.Line()->Value(indextg).ParametersOnS1(locu, locv);
                 Surf1->D1(locu, locv, ptbid, d1u, d1v);
                 norm1 = d1u.Crossed(d1v);
@@ -3148,10 +3148,10 @@ void IntPatch_PrmPrmIntersection::Perform(const Handle(Adaptor3d_Surface)&   Sur
             {
               IntSurf_TypeTrans trans1, trans2;
               Standard_Real     locu, locv;
-              gp_Vec            norm1, norm2, d1u, d1v;
+              Vector3d            norm1, norm2, d1u, d1v;
               Point3d            ptbid;
               Standard_Integer  indextg;
-              gp_Vec            tgline(PW.TangentAtLine(indextg));
+              Vector3d            tgline(PW.TangentAtLine(indextg));
               PW.Line()->Value(indextg).ParametersOnS1(locu, locv);
               Surf1->D1(locu, locv, ptbid, d1u, d1v);
               norm1 = d1u.Crossed(d1v);
@@ -3835,16 +3835,16 @@ Standard_Boolean IsPointOnLine(const IntSurf_PntOn2S&        thePOn2S,
       const Point3d&       Pa     = theWLine->Point(ll).Value();
       const Point3d&       Pb     = theWLine->Point(ll + 1).Value();
       const Point3d&       PStart = thePOn2S.Value();
-      const gp_Vec        AM(Pa, PStart);
-      const gp_Vec        MB(PStart, Pb);
+      const Vector3d        AM(Pa, PStart);
+      const Vector3d        MB(PStart, Pb);
       const Standard_Real AMMB = AM.Dot(MB);
 
       if (AMMB > 0.0)
       {
-        gp_Dir        ABN(Pb.X() - Pa.X(), Pb.Y() - Pa.Y(), Pb.Z() - Pa.Z());
+        Dir3d        ABN(Pb.X() - Pa.X(), Pb.Y() - Pa.Y(), Pb.Z() - Pa.Z());
         Standard_Real lan = ABN.X() * AM.X() + ABN.Y() * AM.Y() + ABN.Z() * AM.Z();
-        gp_Vec        AH(lan * ABN.X(), lan * ABN.Y(), lan * ABN.Z());
-        gp_Vec        HM(AM.X() - AH.X(), AM.Y() - AH.Y(), AM.Z() - AH.Z());
+        Vector3d        AH(lan * ABN.X(), lan * ABN.Y(), lan * ABN.Z());
+        Vector3d        HM(AM.X() - AH.X(), AM.Y() - AH.Y(), AM.Z() - AH.Z());
         Standard_Real d = 0.0;
 
         if (HM.X() < Deflection)

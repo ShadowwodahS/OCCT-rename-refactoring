@@ -27,7 +27,7 @@
 #include <TColStd_Array2OfReal.hxx>
 
 class Point3d;
-class gp_Vec;
+class Vector3d;
 
 //! BSplSLib   B-spline surface Library
 //! This  package provides   an  implementation  of  geometric
@@ -214,8 +214,8 @@ public:
                                  const Standard_Boolean         UPer,
                                  const Standard_Boolean         VPer,
                                  Point3d&                        P,
-                                 gp_Vec&                        Vu,
-                                 gp_Vec&                        Vv);
+                                 Vector3d&                        Vu,
+                                 Vector3d&                        Vv);
 
   Standard_EXPORT static void D2(const Standard_Real            U,
                                  const Standard_Real            V,
@@ -234,11 +234,11 @@ public:
                                  const Standard_Boolean         UPer,
                                  const Standard_Boolean         VPer,
                                  Point3d&                        P,
-                                 gp_Vec&                        Vu,
-                                 gp_Vec&                        Vv,
-                                 gp_Vec&                        Vuu,
-                                 gp_Vec&                        Vvv,
-                                 gp_Vec&                        Vuv);
+                                 Vector3d&                        Vu,
+                                 Vector3d&                        Vv,
+                                 Vector3d&                        Vuu,
+                                 Vector3d&                        Vvv,
+                                 Vector3d&                        Vuv);
 
   Standard_EXPORT static void D3(const Standard_Real            U,
                                  const Standard_Real            V,
@@ -257,15 +257,15 @@ public:
                                  const Standard_Boolean         UPer,
                                  const Standard_Boolean         VPer,
                                  Point3d&                        P,
-                                 gp_Vec&                        Vu,
-                                 gp_Vec&                        Vv,
-                                 gp_Vec&                        Vuu,
-                                 gp_Vec&                        Vvv,
-                                 gp_Vec&                        Vuv,
-                                 gp_Vec&                        Vuuu,
-                                 gp_Vec&                        Vvvv,
-                                 gp_Vec&                        Vuuv,
-                                 gp_Vec&                        Vuvv);
+                                 Vector3d&                        Vu,
+                                 Vector3d&                        Vv,
+                                 Vector3d&                        Vuu,
+                                 Vector3d&                        Vvv,
+                                 Vector3d&                        Vuv,
+                                 Vector3d&                        Vuuu,
+                                 Vector3d&                        Vvvv,
+                                 Vector3d&                        Vuuv,
+                                 Vector3d&                        Vuvv);
 
   Standard_EXPORT static void DN(const Standard_Real            U,
                                  const Standard_Real            V,
@@ -285,7 +285,7 @@ public:
                                  const Standard_Boolean         VRat,
                                  const Standard_Boolean         UPer,
                                  const Standard_Boolean         VPer,
-                                 gp_Vec&                        Vn);
+                                 Vector3d&                        Vn);
 
   //! Computes the  poles and weights of an isoparametric
   //! curve at parameter  <Param> (UIso if <IsU> is True,
@@ -358,8 +358,8 @@ public:
                                             const Standard_Boolean         UPer,
                                             const Standard_Boolean         VPer,
                                             Point3d&                        N,
-                                            gp_Vec&                        Nu,
-                                            gp_Vec&                        Nv,
+                                            Vector3d&                        Nu,
+                                            Vector3d&                        Nv,
                                             Standard_Real&                 D,
                                             Standard_Real&                 Du,
                                             Standard_Real&                 Dv);
@@ -417,7 +417,7 @@ public:
   //! VFirstIndex, VLastIndex = 0
   Standard_EXPORT static void MovePoint(const Standard_Real         U,
                                         const Standard_Real         V,
-                                        const gp_Vec&               Displ,
+                                        const Vector3d&               Displ,
                                         const Standard_Integer      UIndex1,
                                         const Standard_Integer      UIndex2,
                                         const Standard_Integer      VIndex1,
@@ -587,8 +587,8 @@ public:
                                       const TColgp_Array2OfPnt&   Poles,
                                       const TColStd_Array2OfReal* Weights,
                                       Point3d&                     Point,
-                                      gp_Vec&                     VecU,
-                                      gp_Vec&                     VecV);
+                                      Vector3d&                     VecU,
+                                      Vector3d&                     VecV);
 
   //! Calls CacheD0 for Bezier Surfaces Arrays computed with
   //! the method PolesCoefficients.
@@ -598,8 +598,8 @@ public:
                       const TColgp_Array2OfPnt&   Poles,
                       const TColStd_Array2OfReal* Weights,
                       Point3d&                     Point,
-                      gp_Vec&                     VecU,
-                      gp_Vec&                     VecV);
+                      Vector3d&                     VecU,
+                      Vector3d&                     VecV);
 
   //! Perform the evaluation of the of the cache
   //! the parameter must be normalized between
@@ -623,11 +623,11 @@ public:
                                       const TColgp_Array2OfPnt&   Poles,
                                       const TColStd_Array2OfReal* Weights,
                                       Point3d&                     Point,
-                                      gp_Vec&                     VecU,
-                                      gp_Vec&                     VecV,
-                                      gp_Vec&                     VecUU,
-                                      gp_Vec&                     VecUV,
-                                      gp_Vec&                     VecVV);
+                                      Vector3d&                     VecU,
+                                      Vector3d&                     VecV,
+                                      Vector3d&                     VecUU,
+                                      Vector3d&                     VecUV,
+                                      Vector3d&                     VecVV);
 
   //! Calls CacheD0 for Bezier Surfaces Arrays computed with
   //! the method PolesCoefficients.
@@ -637,11 +637,11 @@ public:
                       const TColgp_Array2OfPnt&   Poles,
                       const TColStd_Array2OfReal* Weights,
                       Point3d&                     Point,
-                      gp_Vec&                     VecU,
-                      gp_Vec&                     VecV,
-                      gp_Vec&                     VecUU,
-                      gp_Vec&                     VecUV,
-                      gp_Vec&                     VecVV);
+                      Vector3d&                     VecU,
+                      Vector3d&                     VecV,
+                      Vector3d&                     VecUU,
+                      Vector3d&                     VecUV,
+                      Vector3d&                     VecVV);
 
   //! Warning! To be used for BezierSurfaces ONLY!!!
   static void PolesCoefficients(const TColgp_Array2OfPnt& Poles, TColgp_Array2OfPnt& CachePoles);

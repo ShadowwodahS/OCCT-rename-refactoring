@@ -120,7 +120,7 @@ public:
 
   Standard_Boolean D1(const Standard_Real theT,
                       NCollection_Array1<gp_Vec2d>& /*theVec2d*/,
-                      NCollection_Array1<gp_Vec>& theVec) const
+                      NCollection_Array1<Vector3d>& theVec) const
   {
     Point3d aDummyPnt;
     myCurve->D1(theT, aDummyPnt, theVec(1));
@@ -145,7 +145,7 @@ static Standard_Integer anacurve(Draw_Interpretor&, Standard_Integer n, const ch
                                  gp_Dir2d(Draw::Atof(a[4]), Draw::Atof(a[5])));
     else if (n == 8)
       result = new Geom_Line(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
-                             gp_Dir(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7])));
+                             Dir3d(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7])));
     else
       return 1;
   }
@@ -158,21 +158,21 @@ static Standard_Integer anacurve(Draw_Interpretor&, Standard_Integer n, const ch
                           Draw::Atof(a[4]));
     else if (n == 6)
       result = new Geom_Circle(
-        gp_Ax2(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])), gp_Dir(0, 0, 1)),
+        Frame3d(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])), Dir3d(0, 0, 1)),
         Draw::Atof(a[5]));
     else if (n == 7)
       result2d = new Geom2d_Circle(gp_Ax22d(gp_Pnt2d(Draw::Atof(a[2]), Draw::Atof(a[3])),
                                             gp_Dir2d(Draw::Atof(a[4]), Draw::Atof(a[5]))),
                                    Draw::Atof(a[6]));
     else if (n == 9)
-      result = new Geom_Circle(gp_Ax2(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
-                                      gp_Dir(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7]))),
+      result = new Geom_Circle(Frame3d(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
+                                      Dir3d(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7]))),
                                Draw::Atof(a[8]));
     else if (n == 12)
       result =
-        new Geom_Circle(gp_Ax2(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
-                               gp_Dir(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7])),
-                               gp_Dir(Draw::Atof(a[8]), Draw::Atof(a[9]), Draw::Atof(a[10]))),
+        new Geom_Circle(Frame3d(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
+                               Dir3d(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7])),
+                               Dir3d(Draw::Atof(a[8]), Draw::Atof(a[9]), Draw::Atof(a[10]))),
                         Draw::Atof(a[11]));
     else
       return 1;
@@ -186,7 +186,7 @@ static Standard_Integer anacurve(Draw_Interpretor&, Standard_Integer n, const ch
                             Draw::Atof(a[4]));
     else if (n == 6)
       result = new Geom_Parabola(
-        gp_Ax2(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])), gp_Dir(0, 0, 1)),
+        Frame3d(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])), Dir3d(0, 0, 1)),
         Draw::Atof(a[5]));
     else if (n == 7)
       result2d = new Geom2d_Parabola(gp_Ax22d(gp_Pnt2d(Draw::Atof(a[2]), Draw::Atof(a[3])),
@@ -194,14 +194,14 @@ static Standard_Integer anacurve(Draw_Interpretor&, Standard_Integer n, const ch
                                      Draw::Atof(a[6]));
     else if (n == 9)
       result =
-        new Geom_Parabola(gp_Ax2(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
-                                 gp_Dir(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7]))),
+        new Geom_Parabola(Frame3d(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
+                                 Dir3d(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7]))),
                           Draw::Atof(a[8]));
     else if (n == 12)
       result =
-        new Geom_Parabola(gp_Ax2(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
-                                 gp_Dir(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7])),
-                                 gp_Dir(Draw::Atof(a[8]), Draw::Atof(a[9]), Draw::Atof(a[10]))),
+        new Geom_Parabola(Frame3d(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
+                                 Dir3d(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7])),
+                                 Dir3d(Draw::Atof(a[8]), Draw::Atof(a[9]), Draw::Atof(a[10]))),
                           Draw::Atof(a[11]));
     else
       return 1;
@@ -216,7 +216,7 @@ static Standard_Integer anacurve(Draw_Interpretor&, Standard_Integer n, const ch
                            Draw::Atof(a[5]));
     else if (n == 7)
       result = new Geom_Ellipse(
-        gp_Ax2(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])), gp_Dir(0, 0, 1)),
+        Frame3d(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])), Dir3d(0, 0, 1)),
         Draw::Atof(a[5]),
         Draw::Atof(a[6]));
     else if (n == 8)
@@ -226,15 +226,15 @@ static Standard_Integer anacurve(Draw_Interpretor&, Standard_Integer n, const ch
                                     Draw::Atof(a[7]));
     else if (n == 10)
       result =
-        new Geom_Ellipse(gp_Ax2(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
-                                gp_Dir(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7]))),
+        new Geom_Ellipse(Frame3d(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
+                                Dir3d(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7]))),
                          Draw::Atof(a[8]),
                          Draw::Atof(a[9]));
     else if (n == 13)
       result =
-        new Geom_Ellipse(gp_Ax2(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
-                                gp_Dir(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7])),
-                                gp_Dir(Draw::Atof(a[8]), Draw::Atof(a[9]), Draw::Atof(a[10]))),
+        new Geom_Ellipse(Frame3d(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
+                                Dir3d(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7])),
+                                Dir3d(Draw::Atof(a[8]), Draw::Atof(a[9]), Draw::Atof(a[10]))),
                          Draw::Atof(a[11]),
                          Draw::Atof(a[12]));
     else
@@ -250,7 +250,7 @@ static Standard_Integer anacurve(Draw_Interpretor&, Standard_Integer n, const ch
                              Draw::Atof(a[5]));
     else if (n == 7)
       result = new Geom_Hyperbola(
-        gp_Ax2(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])), gp_Dir(0, 0, 1)),
+        Frame3d(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])), Dir3d(0, 0, 1)),
         Draw::Atof(a[5]),
         Draw::Atof(a[6]));
     else if (n == 8)
@@ -260,15 +260,15 @@ static Standard_Integer anacurve(Draw_Interpretor&, Standard_Integer n, const ch
                                       Draw::Atof(a[7]));
     else if (n == 10)
       result =
-        new Geom_Hyperbola(gp_Ax2(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
-                                  gp_Dir(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7]))),
+        new Geom_Hyperbola(Frame3d(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
+                                  Dir3d(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7]))),
                            Draw::Atof(a[8]),
                            Draw::Atof(a[9]));
     else if (n == 13)
       result =
-        new Geom_Hyperbola(gp_Ax2(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
-                                  gp_Dir(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7])),
-                                  gp_Dir(Draw::Atof(a[8]), Draw::Atof(a[9]), Draw::Atof(a[10]))),
+        new Geom_Hyperbola(Frame3d(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
+                                  Dir3d(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7])),
+                                  Dir3d(Draw::Atof(a[8]), Draw::Atof(a[9]), Draw::Atof(a[10]))),
                            Draw::Atof(a[11]),
                            Draw::Atof(a[12]));
     else
@@ -591,7 +591,7 @@ static Standard_Integer cmovetangent(Draw_Interpretor& di, Standard_Integer n, c
         condition = Min(condition, G2->Degree() - 1);
       }
       Point3d p;
-      gp_Vec tangent;
+      Vector3d tangent;
       p.SetCoord(x, y, z);
       tangent.SetCoord(tx, ty, tz);
 
@@ -1018,12 +1018,12 @@ static Standard_Integer value(Draw_Interpretor&, Standard_Integer n, const char*
   {
     if (n < 9)
       return 1;
-    gp_Vec D1;
+    Vector3d D1;
     if (n > 9)
     {
       if (n < 12)
         return 1;
-      gp_Vec D2;
+      Vector3d D2;
       GC->D2(U, P, D1, D2);
       Draw::Set(a[9], D2.X());
       Draw::Set(a[10], D2.Y());
@@ -1395,12 +1395,12 @@ static Standard_Integer localprop(Draw_Interpretor& di, Standard_Integer argc, c
         Standard_Real R = 1 / Abs(K);
         Point3d        Center;
         Prop.CentreOfCurvature(Center);
-        gp_Dir Tang;
-        gp_Dir Nor;
+        Dir3d Tang;
+        Dir3d Nor;
         Prop.Tangent(Tang);
         Prop.Normal(Nor);
-        gp_Dir                   AxC = Nor ^ Tang;
-        gp_Ax2                   Axe(Center, AxC, Nor);
+        Dir3d                   AxC = Nor ^ Tang;
+        Frame3d                   Axe(Center, AxC, Nor);
         Handle(Geom_Circle)      Cir3d = new Geom_Circle(Axe, R);
         Handle(DrawTrSurf_Curve) dr;
         dr = new DrawTrSurf_Curve(Cir3d);

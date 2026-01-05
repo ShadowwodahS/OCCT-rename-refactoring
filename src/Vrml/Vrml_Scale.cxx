@@ -15,21 +15,21 @@
 
 Vrml_Scale::Vrml_Scale()
 {
-  gp_Vec tmpV(1, 1, 1);
+  Vector3d tmpV(1, 1, 1);
   myScaleFactor = tmpV;
 }
 
-Vrml_Scale::Vrml_Scale(const gp_Vec& aScaleFactor)
+Vrml_Scale::Vrml_Scale(const Vector3d& aScaleFactor)
 {
   myScaleFactor = aScaleFactor;
 }
 
-void Vrml_Scale::SetScaleFactor(const gp_Vec& aScaleFactor)
+void Vrml_Scale::SetScaleFactor(const Vector3d& aScaleFactor)
 {
   myScaleFactor = aScaleFactor;
 }
 
-gp_Vec Vrml_Scale::ScaleFactor() const
+Vector3d Vrml_Scale::ScaleFactor() const
 {
   return myScaleFactor;
 }

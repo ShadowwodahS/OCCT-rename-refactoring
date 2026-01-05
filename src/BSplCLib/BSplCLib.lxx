@@ -83,7 +83,7 @@ inline void BSplCLib::CoefsD1(const Standard_Real         U,
                               const TColgp_Array1OfPnt&   Poles,
                               const TColStd_Array1OfReal* Weights,
                               Point3d&                     P,
-                              gp_Vec&                     Vec)
+                              Vector3d&                     Vec)
 {
   BSplCLib::CacheD1(U, Poles.Length() - 1, 0., 1., Poles, Weights, P, Vec);
 }
@@ -111,8 +111,8 @@ inline void BSplCLib::CoefsD2(const Standard_Real         U,
                               const TColgp_Array1OfPnt&   Poles,
                               const TColStd_Array1OfReal* Weights,
                               Point3d&                     P,
-                              gp_Vec&                     Vec1,
-                              gp_Vec&                     Vec2)
+                              Vector3d&                     Vec1,
+                              Vector3d&                     Vec2)
 {
   BSplCLib::CacheD2(U, Poles.Length() - 1, 0., 1., Poles, Weights, P, Vec1, Vec2);
 }
@@ -141,9 +141,9 @@ inline void BSplCLib::CoefsD3(const Standard_Real         U,
                               const TColgp_Array1OfPnt&   Poles,
                               const TColStd_Array1OfReal* Weights,
                               Point3d&                     P,
-                              gp_Vec&                     Vec1,
-                              gp_Vec&                     Vec2,
-                              gp_Vec&                     Vec3)
+                              Vector3d&                     Vec1,
+                              Vector3d&                     Vec2,
+                              Vector3d&                     Vec3)
 {
   BSplCLib::CacheD3(U, Poles.Length() - 1, 0., 1., Poles, Weights, P, Vec1, Vec2, Vec3);
 }

@@ -117,7 +117,7 @@ Standard_Boolean BlendFunc_RuledInv::IsSolution(const math_Vector& Sol, const St
 Standard_Boolean BlendFunc_RuledInv::Value(const math_Vector& X, math_Vector& F)
 {
   Point3d ptcur;
-  gp_Vec d1cur;
+  Vector3d d1cur;
   curv->D1(X(2), ptcur, d1cur);
 
   const gp_XYZ        nplan = d1cur.Normalized().XYZ();
@@ -125,7 +125,7 @@ Standard_Boolean BlendFunc_RuledInv::Value(const math_Vector& X, math_Vector& F)
   const gp_Pnt2d      pt2d(csurf->Value(X(1)));
 
   Point3d pts1, pts2;
-  gp_Vec d1u1, d1v1, d1u2, d1v2;
+  Vector3d d1u1, d1v1, d1u2, d1v2;
   if (first)
   {
     surf1->D1(pt2d.X(), pt2d.Y(), pts1, d1u1, d1v1);
@@ -158,13 +158,13 @@ Standard_Boolean BlendFunc_RuledInv::Value(const math_Vector& X, math_Vector& F)
 Standard_Boolean BlendFunc_RuledInv::Derivatives(const math_Vector& X, math_Matrix& D)
 {
   Point3d ptcur;
-  gp_Vec d1cur, d2cur;
+  Vector3d d1cur, d2cur;
   curv->D2(X(2), ptcur, d1cur, d2cur);
 
   const Standard_Real normtgcur = d1cur.Magnitude();
-  const gp_Vec        nplan     = d1cur.Normalized();
+  const Vector3d        nplan     = d1cur.Normalized();
 
-  gp_Vec dnplan;
+  Vector3d dnplan;
   dnplan.SetLinearForm(-nplan.Dot(d2cur), nplan, d2cur);
   dnplan /= normtgcur;
 
@@ -173,15 +173,15 @@ Standard_Boolean BlendFunc_RuledInv::Derivatives(const math_Vector& X, math_Matr
   csurf->D1(X(1), p2d, v2d);
 
   Point3d pts1, pts2;
-  gp_Vec d1u1, d1v1, d1u2, d1v2;
-  gp_Vec d2u1, d2v1, d2u2, d2v2, d2uv1, d2uv2;
-  gp_Vec dpdt, p1p2;
+  Vector3d d1u1, d1v1, d1u2, d1v2;
+  Vector3d d2u1, d2v1, d2u2, d2v2, d2uv1, d2uv2;
+  Vector3d dpdt, p1p2;
   if (first)
   {
     surf1->D2(p2d.X(), p2d.Y(), pts1, d1u1, d1v1, d2u1, d2v1, d2uv1);
     surf2->D2(X(3), X(4), pts2, d1u2, d1v2, d2u2, d2v2, d2uv2);
     dpdt.SetLinearForm(v2d.X(), d1u1, v2d.Y(), d1v1);
-    p1p2    = gp_Vec(pts1, pts2);
+    p1p2    = Vector3d(pts1, pts2);
     D(1, 1) = dpdt.Dot(nplan);
     D(1, 2) = dnplan.XYZ().Dot(pts1.XYZ() - ptcur.XYZ()) - normtgcur;
     D(1, 3) = 0.;
@@ -197,7 +197,7 @@ Standard_Boolean BlendFunc_RuledInv::Derivatives(const math_Vector& X, math_Matr
     surf1->D2(X(3), X(4), pts1, d1u1, d1v1, d2u1, d2v1, d2uv1);
     surf2->D2(p2d.X(), p2d.Y(), pts2, d1u2, d1v2, d2u2, d2v2, d2uv2);
     dpdt.SetLinearForm(v2d.X(), d1u2, v2d.Y(), d1v2);
-    p1p2    = gp_Vec(pts1, pts2);
+    p1p2    = Vector3d(pts1, pts2);
     D(1, 1) = 0.;
     D(1, 2) = dnplan.XYZ().Dot(pts1.XYZ() - ptcur.XYZ()) - normtgcur;
     D(1, 3) = d1u1.Dot(nplan);
@@ -209,17 +209,17 @@ Standard_Boolean BlendFunc_RuledInv::Derivatives(const math_Vector& X, math_Matr
     D(2, 4) = 0.;
   }
 
-  const gp_Vec        ns1       = d1u1.Crossed(d1v1);
-  const gp_Vec        ns2       = d1u2.Crossed(d1v2);
-  const gp_Vec        ncrossns1 = nplan.Crossed(ns1);
-  const gp_Vec        ncrossns2 = nplan.Crossed(ns2);
+  const Vector3d        ns1       = d1u1.Crossed(d1v1);
+  const Vector3d        ns2       = d1u2.Crossed(d1v2);
+  const Vector3d        ncrossns1 = nplan.Crossed(ns1);
+  const Vector3d        ncrossns2 = nplan.Crossed(ns2);
   const Standard_Real norm1     = ncrossns1.Magnitude();
   const Standard_Real norm2     = ncrossns2.Magnitude();
 
   const Standard_Real ndotns1 = nplan.Dot(ns1);
   const Standard_Real ndotns2 = nplan.Dot(ns2);
 
-  gp_Vec nor1, nor2;
+  Vector3d nor1, nor2;
   nor1.SetLinearForm(ndotns1 / norm1, nplan, -1. / norm1, ns1);
   nor2.SetLinearForm(ndotns2 / norm2, nplan, -1. / norm2, ns2);
 
@@ -238,7 +238,7 @@ Standard_Boolean BlendFunc_RuledInv::Derivatives(const math_Vector& X, math_Matr
     D(4, 4) = -(d1v1.Dot(nor2));
   }
 
-  gp_Vec        resul1, resul2, temp;
+  Vector3d        resul1, resul2, temp;
   Standard_Real grosterme;
 
   // Derivee de nor1 par rapport a u1
@@ -332,14 +332,14 @@ Standard_Boolean BlendFunc_RuledInv::Derivatives(const math_Vector& X, math_Matr
 Standard_Boolean BlendFunc_RuledInv::Values(const math_Vector& X, math_Vector& F, math_Matrix& D)
 {
   Point3d ptcur;
-  gp_Vec d1cur, d2cur;
+  Vector3d d1cur, d2cur;
   curv->D2(X(2), ptcur, d1cur, d2cur);
 
   const Standard_Real normtgcur = d1cur.Magnitude();
-  const gp_Vec        nplan     = d1cur.Normalized();
+  const Vector3d        nplan     = d1cur.Normalized();
   const Standard_Real theD      = -(nplan.XYZ().Dot(ptcur.XYZ()));
 
-  gp_Vec dnplan;
+  Vector3d dnplan;
   dnplan.SetLinearForm(-nplan.Dot(d2cur), nplan, d2cur);
   dnplan /= normtgcur;
 
@@ -348,15 +348,15 @@ Standard_Boolean BlendFunc_RuledInv::Values(const math_Vector& X, math_Vector& F
   csurf->D1(X(1), p2d, v2d);
 
   Point3d pts1, pts2;
-  gp_Vec d1u1, d1v1, d1u2, d1v2;
-  gp_Vec d2u1, d2v1, d2u2, d2v2, d2uv1, d2uv2;
-  gp_Vec dpdt, p1p2;
+  Vector3d d1u1, d1v1, d1u2, d1v2;
+  Vector3d d2u1, d2v1, d2u2, d2v2, d2uv1, d2uv2;
+  Vector3d dpdt, p1p2;
   if (first)
   {
     surf1->D2(p2d.X(), p2d.Y(), pts1, d1u1, d1v1, d2u1, d2v1, d2uv1);
     surf2->D2(X(3), X(4), pts2, d1u2, d1v2, d2u2, d2v2, d2uv2);
     dpdt.SetLinearForm(v2d.X(), d1u1, v2d.Y(), d1v1);
-    p1p2    = gp_Vec(pts1, pts2);
+    p1p2    = Vector3d(pts1, pts2);
     D(1, 1) = dpdt.Dot(nplan);
     D(1, 2) = dnplan.XYZ().Dot(pts1.XYZ() - ptcur.XYZ()) - normtgcur;
     D(1, 3) = 0.;
@@ -372,7 +372,7 @@ Standard_Boolean BlendFunc_RuledInv::Values(const math_Vector& X, math_Vector& F
     surf1->D2(X(3), X(4), pts1, d1u1, d1v1, d2u1, d2v1, d2uv1);
     surf2->D2(p2d.X(), p2d.Y(), pts2, d1u2, d1v2, d2u2, d2v2, d2uv2);
     dpdt.SetLinearForm(v2d.X(), d1u2, v2d.Y(), d1v2);
-    p1p2    = gp_Vec(pts1, pts2);
+    p1p2    = Vector3d(pts1, pts2);
     D(1, 1) = 0.;
     D(1, 2) = dnplan.XYZ().Dot(pts1.XYZ() - ptcur.XYZ()) - normtgcur;
     D(1, 3) = d1u1.Dot(nplan);
@@ -384,17 +384,17 @@ Standard_Boolean BlendFunc_RuledInv::Values(const math_Vector& X, math_Vector& F
     D(2, 4) = 0.;
   }
 
-  const gp_Vec        ns1       = d1u1.Crossed(d1v1);
-  const gp_Vec        ns2       = d1u2.Crossed(d1v2);
-  const gp_Vec        ncrossns1 = nplan.Crossed(ns1);
-  const gp_Vec        ncrossns2 = nplan.Crossed(ns2);
+  const Vector3d        ns1       = d1u1.Crossed(d1v1);
+  const Vector3d        ns2       = d1u2.Crossed(d1v2);
+  const Vector3d        ncrossns1 = nplan.Crossed(ns1);
+  const Vector3d        ncrossns2 = nplan.Crossed(ns2);
   const Standard_Real norm1     = ncrossns1.Magnitude();
   const Standard_Real norm2     = ncrossns2.Magnitude();
 
   const Standard_Real ndotns1 = nplan.Dot(ns1);
   const Standard_Real ndotns2 = nplan.Dot(ns2);
 
-  gp_Vec nor1, nor2;
+  Vector3d nor1, nor2;
   nor1.SetLinearForm(ndotns1 / norm1, nplan, -1. / norm1, ns1);
   nor2.SetLinearForm(ndotns2 / norm2, nplan, -1. / norm2, ns2);
 
@@ -419,7 +419,7 @@ Standard_Boolean BlendFunc_RuledInv::Values(const math_Vector& X, math_Vector& F
     D(4, 4) = -(d1v1.Dot(nor2));
   }
 
-  gp_Vec        resul1, resul2, temp;
+  Vector3d        resul1, resul2, temp;
   Standard_Real grosterme;
 
   // Derivee de nor1 par rapport a u1

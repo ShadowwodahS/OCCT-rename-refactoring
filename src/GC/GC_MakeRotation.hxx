@@ -24,9 +24,9 @@
 #include <Standard_Real.hxx>
 class Geom_Transformation;
 class gp_Lin;
-class gp_Ax1;
+class Axis3d;
 class Point3d;
-class gp_Dir;
+class Dir3d;
 
 //! This class implements elementary construction algorithms for a
 //! rotation in 3D space. The result is a
@@ -44,12 +44,12 @@ public:
   Standard_EXPORT GC_MakeRotation(const gp_Lin& Line, const Standard_Real Angle);
 
   //! Constructs a rotation through angle Angle about the axis defined by the axis Axis.
-  Standard_EXPORT GC_MakeRotation(const gp_Ax1& Axis, const Standard_Real Angle);
+  Standard_EXPORT GC_MakeRotation(const Axis3d& Axis, const Standard_Real Angle);
 
   //! Constructs a rotation through angle Angle about the axis
   //! defined by the point Point and the unit vector Direc.
   Standard_EXPORT GC_MakeRotation(const Point3d&       Point,
-                                  const gp_Dir&       Direc,
+                                  const Dir3d&       Direc,
                                   const Standard_Real Angle);
 
   //! Returns the constructed transformation.

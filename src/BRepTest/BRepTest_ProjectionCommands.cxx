@@ -45,7 +45,7 @@ static Standard_Integer prj(Draw_Interpretor& di, Standard_Integer n, const char
   Standard_Boolean bCylProj = !strcmp(a[0], "prj");
   //
   BRepProj_Projection aPrj = bCylProj
-                               ? BRepProj_Projection(anInputWire, anInputShape, gp_Dir(X, Y, Z))
+                               ? BRepProj_Projection(anInputWire, anInputShape, Dir3d(X, Y, Z))
                                : BRepProj_Projection(anInputWire, anInputShape, Point3d(X, Y, Z));
   //
   if (!aPrj.IsDone())

@@ -23,9 +23,9 @@
 
 #include <gp_Cylinder.hxx>
 #include <gce_Root.hxx>
-class gp_Ax2;
+class Frame3d;
 class Point3d;
-class gp_Ax1;
+class Axis3d;
 class gp_Circ;
 
 //! This class implements the following algorithms used
@@ -44,7 +44,7 @@ public:
 
   //! <A2> is the local cartesian coordinate system of <me>.
   //! The status is "NegativeRadius" if R < 0.0
-  Standard_EXPORT gce_MakeCylinder(const gp_Ax2& A2, const Standard_Real Radius);
+  Standard_EXPORT gce_MakeCylinder(const Frame3d& A2, const Standard_Real Radius);
 
   //! Makes a Cylinder from gp <TheCylinder> coaxial to another
   //! Cylinder <Cylinder> and passing through a Pnt <Point>.
@@ -64,7 +64,7 @@ public:
   Standard_EXPORT gce_MakeCylinder(const Point3d& P1, const Point3d& P2, const Point3d& P3);
 
   //! Makes a Cylinder by its axis <Axis> and radius <Radius>.
-  Standard_EXPORT gce_MakeCylinder(const gp_Ax1& Axis, const Standard_Real Radius);
+  Standard_EXPORT gce_MakeCylinder(const Axis3d& Axis, const Standard_Real Radius);
 
   //! Makes a Cylinder by its circular base.
   //! Warning

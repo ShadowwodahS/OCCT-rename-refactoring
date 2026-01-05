@@ -256,7 +256,7 @@ Standard_Integer BRepGProp_Gauss::FillIntervalBounds(
 //=================================================================================================
 
 void BRepGProp_Gauss::computeVInertiaOfElementaryPart(const Point3d&             thePoint,
-                                                      const gp_Vec&             theNormal,
+                                                      const Vector3d&             theNormal,
                                                       const Point3d&             theLocation,
                                                       const Standard_Real       theWeight,
                                                       const Standard_Real       theCoeff[],
@@ -340,7 +340,7 @@ void BRepGProp_Gauss::computeVInertiaOfElementaryPart(const Point3d&            
 //=================================================================================================
 
 void BRepGProp_Gauss::computeSInertiaOfElementaryPart(const Point3d&             thePoint,
-                                                      const gp_Vec&             theNormal,
+                                                      const Vector3d&             theNormal,
                                                       const Point3d&             theLocation,
                                                       const Standard_Real       theWeight,
                                                       BRepGProp_Gauss::Inertia& theOutInertia)
@@ -762,7 +762,7 @@ Standard_Real BRepGProp_Gauss::Compute(BRepGProp_Face&        theSurface,
                   else
                   {
                     Point3d aPoint;
-                    gp_Vec aNormal;
+                    Vector3d aNormal;
 
                     for (kU = 0; kU < kUEnd; ++kU)
                     {
@@ -1125,7 +1125,7 @@ void BRepGProp_Gauss::Compute(BRepGProp_Face&   theSurface,
         const Standard_Real aWeight = Dul * GaussSWV(j);
 
         Point3d aPoint;
-        gp_Vec aNormal;
+        Vector3d aNormal;
         theSurface.Normal(u, v, aPoint, aNormal);
 
         computeSInertiaOfElementaryPart(aPoint, aNormal, theLocation, aWeight, aLocalInertia);
@@ -1209,7 +1209,7 @@ void BRepGProp_Gauss::Compute(BRepGProp_Face&        theSurface,
         const Standard_Real aWeight = Dul * GaussW(j);
 
         Point3d aPoint;
-        gp_Vec aNormal;
+        Vector3d aNormal;
 
         theSurface.Normal(u, v, aPoint, aNormal);
 
@@ -1267,7 +1267,7 @@ void BRepGProp_Gauss::Compute(const BRepGProp_Face&  theSurface,
   Standard_Real       vr = 0.5 * add(UpperV, -LowerV);
 
   Point3d aPoint;
-  gp_Vec aNormal;
+  Vector3d aNormal;
 
   BRepGProp_Gauss::Inertia anInertia;
   for (Standard_Integer j = 1; j <= VOrder; ++j)

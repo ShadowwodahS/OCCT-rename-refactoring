@@ -101,7 +101,7 @@ Handle(Geom_Surface) ShapeCustom_Surface::ConvertToAnalytical(const Standard_Rea
   TColgp_Array1OfPnt   p1(1, 3), p2(1, 3), p3(1, 3);
   TColStd_Array1OfReal R(1, 3);
   Point3d               origPnt, resPnt;
-  gp_Vec               origD1U, resD1U, resD1V;
+  Vector3d               origD1U, resD1U, resD1V;
 
   Standard_Boolean aCySpCo = Standard_False;
   Standard_Boolean aToroid = Standard_False;
@@ -148,12 +148,12 @@ Handle(Geom_Surface) ShapeCustom_Surface::ConvertToAnalytical(const Standard_Rea
     //    On prend la normale : les deux normales doivent etre dans le meme sens
     //    Sinon, inverser la normale (pas le Pln entier !) et refaire la Plane
     newSurf = new Geom_Plane(aPln);
-    gp_Vec uold(Pnts(1), Pnts(2));
-    gp_Vec vold(Pnts(1), Pnts(3));
-    gp_Vec nold = uold.Crossed(vold);
-    gp_Vec unew(newSurf->Value(U1, V1), newSurf->Value(U2, V1));
-    gp_Vec vnew(newSurf->Value(U1, V1), newSurf->Value(U1, V2));
-    gp_Vec nnew = unew.Crossed(vnew);
+    Vector3d uold(Pnts(1), Pnts(2));
+    Vector3d vold(Pnts(1), Pnts(3));
+    Vector3d nold = uold.Crossed(vold);
+    Vector3d unew(newSurf->Value(U1, V1), newSurf->Value(U2, V1));
+    Vector3d vnew(newSurf->Value(U1, V1), newSurf->Value(U1, V2));
+    Vector3d nnew = unew.Crossed(vnew);
     if (nold.Dot(nnew) < 0.0)
     {
       gp_Ax3 ax3 = aPln.Position();
@@ -211,13 +211,13 @@ Handle(Geom_Surface) ShapeCustom_Surface::ConvertToAnalytical(const Standard_Rea
     }
 
     iso->D1(0., origPnt, origD1U);
-    gp_Vec xVec(p3(3), p1(3));
-    gp_Vec aVec(p3(1), p3(2));
-    //      gp_Dir xDir(xVec);  ne sert pas. Null si R3 = 0
-    gp_Dir aDir(aVec);
+    Vector3d xVec(p3(3), p1(3));
+    Vector3d aVec(p3(1), p3(2));
+    //      Dir3d xDir(xVec);  ne sert pas. Null si R3 = 0
+    Dir3d aDir(aVec);
     gp_Ax3 aAx3(p3(1), aDir, xVec);
     //  CKY  3-FEV-1997 : verification du sens de description
-    // gp_Dir AXY = aAx3.YDirection(); // AXY not used (skl)
+    // Dir3d AXY = aAx3.YDirection(); // AXY not used (skl)
     if (aAx3.YDirection().Dot(origD1U) < 0)
     {
 #ifdef OCCT_DEBUG
@@ -253,7 +253,7 @@ Handle(Geom_Surface) ShapeCustom_Surface::ConvertToAnalytical(const Standard_Rea
       }
       else
       {
-        gp_Vec        aVec2(p1(1), p1(2));
+        Vector3d        aVec2(p1(1), p1(2));
         Standard_Real angle = aVec.Angle(aVec2);
         if (R(1) < R(2))
         {
@@ -265,8 +265,8 @@ Handle(Geom_Surface) ShapeCustom_Surface::ConvertToAnalytical(const Standard_Rea
         else
         {
           aDir.Reverse();
-          gp_Vec                      anotherXVec(p3(2), p1(2));
-          gp_Dir                      anotherXDir(anotherXVec);
+          Vector3d                      anotherXVec(p3(2), p1(2));
+          Dir3d                      anotherXDir(anotherXVec);
           gp_Ax3                      anotherAx3(p3(2), aDir, anotherXDir);
           Handle(Geom_ConicalSurface) anObject = new Geom_ConicalSurface(anotherAx3, angle, R(2));
           // if (!uClosed) anObject->UReverse();
@@ -314,15 +314,15 @@ Handle(Geom_Surface) ShapeCustom_Surface::ConvertToAnalytical(const Standard_Rea
         Point3d        p10(0.5 * (p3(1).X() + p3(2).X()),
                    0.5 * (p3(1).Y() + p3(2).Y()),
                    0.5 * (p3(1).Z() + p3(2).Z()));
-        gp_Vec        aVec(p10, p3(1));
-        gp_Vec        aVec2(p10, p3(3));
+        Vector3d        aVec(p10, p3(1));
+        Vector3d        aVec2(p10, p3(3));
         Standard_Real RR1 = R(1), RR2 = R(2), RR3;
         aVec ^= aVec2;
 
         if (aVec.Magnitude() <= gp::Resolution())
           aVec.SetCoord(0., 0., 1.);
 
-        gp_Dir aDir(aVec);
+        Dir3d aDir(aVec);
 
         gp_Ax3 aAx3(p10, aDir);
         RR1 = p10.Distance(p3(1));

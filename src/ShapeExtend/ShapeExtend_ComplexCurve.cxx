@@ -33,7 +33,7 @@ ShapeExtend_ComplexCurve::ShapeExtend_ComplexCurve()
 
 //=================================================================================================
 
-void ShapeExtend_ComplexCurve::Transform(const gp_Trsf& T)
+void ShapeExtend_ComplexCurve::Transform(const Transform3d& T)
 {
   for (Standard_Integer i = 1; i <= NbCurves(); i++)
     Curve(i)->Transform(T);
@@ -50,7 +50,7 @@ void ShapeExtend_ComplexCurve::D0(const Standard_Real U, Point3d& P) const
 
 //=================================================================================================
 
-void ShapeExtend_ComplexCurve::D1(const Standard_Real U, Point3d& P, gp_Vec& V1) const
+void ShapeExtend_ComplexCurve::D1(const Standard_Real U, Point3d& P, Vector3d& V1) const
 {
   Standard_Real    UOut;
   Standard_Integer ind = LocateParameter(U, UOut);
@@ -60,7 +60,7 @@ void ShapeExtend_ComplexCurve::D1(const Standard_Real U, Point3d& P, gp_Vec& V1)
 
 //=================================================================================================
 
-void ShapeExtend_ComplexCurve::D2(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2) const
+void ShapeExtend_ComplexCurve::D2(const Standard_Real U, Point3d& P, Vector3d& V1, Vector3d& V2) const
 {
   Standard_Real    UOut;
   Standard_Integer ind = LocateParameter(U, UOut);
@@ -73,9 +73,9 @@ void ShapeExtend_ComplexCurve::D2(const Standard_Real U, Point3d& P, gp_Vec& V1,
 
 void ShapeExtend_ComplexCurve::D3(const Standard_Real U,
                                   Point3d&             P,
-                                  gp_Vec&             V1,
-                                  gp_Vec&             V2,
-                                  gp_Vec&             V3) const
+                                  Vector3d&             V1,
+                                  Vector3d&             V2,
+                                  Vector3d&             V3) const
 {
   Standard_Real    UOut;
   Standard_Integer ind = LocateParameter(U, UOut);
@@ -87,11 +87,11 @@ void ShapeExtend_ComplexCurve::D3(const Standard_Real U,
 
 //=================================================================================================
 
-gp_Vec ShapeExtend_ComplexCurve::DN(const Standard_Real U, const Standard_Integer N) const
+Vector3d ShapeExtend_ComplexCurve::DN(const Standard_Real U, const Standard_Integer N) const
 {
   Standard_Real    UOut;
   Standard_Integer ind = LocateParameter(U, UOut);
-  gp_Vec           res = Curve(ind)->DN(UOut, N);
+  Vector3d           res = Curve(ind)->DN(UOut, N);
   if (N)
     TransformDN(res, ind, N);
   return res;
@@ -120,7 +120,7 @@ Standard_Boolean ShapeExtend_ComplexCurve::CheckConnectivity(const Standard_Real
 
 //=================================================================================================
 
-void ShapeExtend_ComplexCurve::TransformDN(gp_Vec&                V,
+void ShapeExtend_ComplexCurve::TransformDN(Vector3d&                V,
                                            const Standard_Integer ind,
                                            const Standard_Integer N) const
 {

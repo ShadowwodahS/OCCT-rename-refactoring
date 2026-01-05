@@ -2012,7 +2012,7 @@ static Standard_Boolean RemoveLoop(TopoDS_Edge&                      E,
 
   // direct construction causes error on osf system.
   Point3d p(0, 0, 0);
-  gp_Dir d(0, 0, 1);
+  Dir3d d(0, 0, 1);
   gp_Ax3 ax(p, d);
   gp_Pln Pln(ax);
 
@@ -2539,7 +2539,7 @@ static Standard_Real ComputeLocalDeviation(const TopoDS_Edge& edge,
   if (!sae.Curve3d(edge, c3d, a, b, Standard_False))
     return RealLast();
 
-  gp_Lin line(pint, gp_Vec(pint, pnt));
+  gp_Lin line(pint, Vector3d(pint, pnt));
 
   Handle(Geom2d_Curve) Crv;
   Standard_Real        fp, lp;
@@ -2944,7 +2944,7 @@ Standard_Boolean ShapeFix_Wire::FixIntersectingEdges(const Standard_Integer num1
     Standard_Real aMaxEdgeTol1 = 0.0, aMaxEdgeTol2 = 0.0;
     if (aMinDist < RealLast() && !aCurve1.IsNull() && !aCurve2.IsNull())
     {
-      gp_Lin           aLig(aNearestVertex, gp_Vec(aNearestVertex, pint));
+      gp_Lin           aLig(aNearestVertex, Vector3d(aNearestVertex, pint));
       Standard_Integer aPointsC;
       Standard_Real    du1   = 0.05 * (param1 - aVtx1Param);
       Standard_Real    du2   = 0.05 * (param2 - aVtx2Param);

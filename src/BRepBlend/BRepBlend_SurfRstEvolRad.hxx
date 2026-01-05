@@ -120,19 +120,19 @@ public:
 
   Standard_EXPORT Standard_Boolean IsTangencyPoint() const Standard_OVERRIDE;
 
-  Standard_EXPORT const gp_Vec& TangentOnS() const Standard_OVERRIDE;
+  Standard_EXPORT const Vector3d& TangentOnS() const Standard_OVERRIDE;
 
   Standard_EXPORT const gp_Vec2d& Tangent2dOnS() const Standard_OVERRIDE;
 
-  Standard_EXPORT const gp_Vec& TangentOnRst() const Standard_OVERRIDE;
+  Standard_EXPORT const Vector3d& TangentOnRst() const Standard_OVERRIDE;
 
   Standard_EXPORT const gp_Vec2d& Tangent2dOnRst() const Standard_OVERRIDE;
 
   //! Permet  d ' implementer   un   critere  de  decrochage
   //! specifique a la fonction.
   Standard_EXPORT Standard_Boolean Decroch(const math_Vector& Sol,
-                                           gp_Vec&            NS,
-                                           gp_Vec&            TgS) const Standard_OVERRIDE;
+                                           Vector3d&            NS,
+                                           Vector3d&            TgS) const Standard_OVERRIDE;
 
   Standard_EXPORT void Set(const Standard_Integer Choix);
 
@@ -236,17 +236,17 @@ private:
   gp_Pnt2d                     pt2drst;
   Standard_Real                prmrst;
   Standard_Boolean             istangent;
-  gp_Vec                       tgs;
+  Vector3d                       tgs;
   gp_Vec2d                     tg2ds;
-  gp_Vec                       tgrst;
+  Vector3d                       tgrst;
   gp_Vec2d                     tg2drst;
   Standard_Real                ray;
   Standard_Real                dray;
   Standard_Integer             choix;
   Point3d                       ptgui;
-  gp_Vec                       d1gui;
-  gp_Vec                       d2gui;
-  gp_Vec                       nplan;
+  Vector3d                       d1gui;
+  Vector3d                       d2gui;
+  Vector3d                       nplan;
   Standard_Real                normtg;
   Standard_Real                theD;
   Handle(Adaptor3d_Surface)    surfref;

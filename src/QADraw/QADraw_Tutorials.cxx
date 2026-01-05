@@ -107,10 +107,10 @@ void MyAisObject::Compute(const Handle(PrsMgr_PresentationManager)& thePrsMgr,
       new Graphic3d_ArrayOfTriangles(aCyl.VerticesNb() + 2 * aDisk.VerticesNb(),
                                      3 * (aCyl.TrianglesNb() + 2 * aDisk.TrianglesNb()),
                                      Graphic3d_ArrayFlags_VertexNormal);
-    aCyl.FillArray(aTris, gp_Trsf());
-    aDisk.FillArray(aTris, gp_Trsf());
+    aCyl.FillArray(aTris, Transform3d());
+    aDisk.FillArray(aTris, Transform3d());
 
-    gp_Trsf aDisk2Trsf;
+    Transform3d aDisk2Trsf;
     aDisk2Trsf.SetTransformation(gp_Ax3(Point3d(0.0, 0.0, aHeight), -gp::DZ(), gp::DX()), gp::XOY());
     aDisk.FillArray(aTris, aDisk2Trsf);
 
@@ -226,10 +226,10 @@ void MyAisOwner::HilightWithColor(const Handle(PrsMgr_PresentationManager)& theP
     Handle(Graphic3d_Group) aGroupPnt = aPrs->NewGroup();
     aGroupPnt->SetGroupPrimitivesAspect(theStyle->ArrowAspect()->Aspect());
 
-    gp_Trsf aTrsfInv(mySelectable->InversedTransformation().Trsf());
-    gp_Dir  aNorm(aPickPnt.Normal.x(), aPickPnt.Normal.y(), aPickPnt.Normal.z());
+    Transform3d aTrsfInv(mySelectable->InversedTransformation().Trsf());
+    Dir3d  aNorm(aPickPnt.Normal.x(), aPickPnt.Normal.y(), aPickPnt.Normal.z());
     Handle(Graphic3d_ArrayOfTriangles) aTris =
-      Prs3d_Arrow::DrawShaded(gp_Ax1(aPickPnt.Point, aNorm).Transformed(aTrsfInv),
+      Prs3d_Arrow::DrawShaded(Axis3d(aPickPnt.Point, aNorm).Transformed(aTrsfInv),
                               1.0,
                               15.0,
                               3.0,
@@ -288,9 +288,9 @@ bool MyAisOwner::HandleMouseClick(const Graphic3d_Vec2i& thePoint,
     isFirst             = !isFirst;
     MyAisObject* anObj  = dynamic_cast<MyAisObject*>(mySelectable);
 
-    gp_Trsf aTrsfTo;
-    aTrsfTo.SetRotation(gp_Ax1(gp::Origin(), gp::DX()), isFirst ? M_PI * 0.5 : -M_PI * 0.5);
-    gp_Trsf                     aTrsfFrom = anObj->LocalTransformation();
+    Transform3d aTrsfTo;
+    aTrsfTo.SetRotation(Axis3d(gp::Origin(), gp::DX()), isFirst ? M_PI * 0.5 : -M_PI * 0.5);
+    Transform3d                     aTrsfFrom = anObj->LocalTransformation();
     Handle(AIS_AnimationObject) anAnim =
       new AIS_AnimationObject("MyAnim", anObj->InteractiveContext(), anObj, aTrsfFrom, aTrsfTo);
     anAnim->SetOwnDuration(2.0);
@@ -319,7 +319,7 @@ void MyAisObject::ComputeSelection(const Handle(SelectMgr_Selection)& theSel,
   anOwner->SetAnimation(myAnim);
 
   Handle(Graphic3d_ArrayOfTriangles) aTris =
-    Prs3d_ToolCylinder::Create(aRadius, aRadius, aHeight, 25, 25, gp_Trsf());
+    Prs3d_ToolCylinder::Create(aRadius, aRadius, aHeight, 25, 25, Transform3d());
   Handle(Select3D_SensitivePrimitiveArray) aSensTri = new Select3D_SensitivePrimitiveArray(anOwner);
   aSensTri->InitTriangulation(aTris->Attributes(), aTris->Indices(), TopLoc_Location());
   theSel->Add(aSensTri);

@@ -68,7 +68,7 @@ static Standard_Boolean ToFuse(const TopoDS_Face&, const TopoDS_Face&);
 void BRepFeat_MakeRevol::Init(const TopoDS_Shape&    Sbase,
                               const TopoDS_Shape&    Pbase,
                               const TopoDS_Face&     Skface,
-                              const gp_Ax1&          Axis,
+                              const Axis3d&          Axis,
                               const Standard_Integer Mode,
                               const Standard_Boolean Modify)
 {

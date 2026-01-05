@@ -479,7 +479,7 @@ static Standard_Integer FUN_findeSD(const TopOpeBRepDS_DataStructure& BDS,
 
 static Standard_Boolean ComputeFaceCrvtInSec(const TopoDS_Face& aFace,
                                              const gp_Pnt2d&    aP2d,
-                                             const gp_Dir&      aSecDir,
+                                             const Dir3d&      aSecDir,
                                              Standard_Real&     aCrvt)
 {
   BRepAdaptor_Surface aSurf(aFace);
@@ -498,7 +498,7 @@ static Standard_Boolean ComputeFaceCrvtInSec(const TopoDS_Face& aFace,
 
   Standard_Real maxCrv = aProp.MaxCurvature();
   Standard_Real minCrv = aProp.MinCurvature();
-  gp_Dir        maxDir, minDir;
+  Dir3d        maxDir, minDir;
   aProp.CurvatureDirections(maxDir, minDir);
   Standard_Real cosMax = aSecDir * maxDir;
   Standard_Real cosMin = aSecDir * minDir;
@@ -835,25 +835,25 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
     // ngFS, ngFOR, xxFOR :
     Standard_Real tolON = Max(tolFS, tolEG);
     tolON *= 1.e2; //*****CAREFUL***** : xpu040998, cto 904 A3
-    gp_Vec ngFS;
+    Vector3d ngFS;
     ok = FUN_tool_nggeomF(parEG, EG, FS, ngFS, tolON);
     if (!ok)
       return;
     tolON = Max(tolFOR, tolEG);
     tolON *= 1.e2; //*****CAREFUL***** : xpu040998, cto 904 A3
-    gp_Vec ngFOR;
+    Vector3d ngFOR;
     ok = FUN_tool_nggeomF(parEG, EG, FOR, ngFOR, tolON);
     if (!ok)
       return;
-    gp_Dir xxFOR;
+    Dir3d xxFOR;
     ok = FUN_tool_getxx(FOR, EG, parEG, ngFOR, xxFOR);
     if (!ok)
       return;
     // ntFS, ntFOR, ntdot :
-    gp_Dir ntFS(ngFS);
+    Dir3d ntFS(ngFS);
     if (M_REVERSED(oFS))
       ntFS.Reverse();
-    gp_Dir ntFOR(ngFOR);
+    Dir3d ntFOR(ngFOR);
     if (M_REVERSED(oFOR))
       ntFOR.Reverse();
     Standard_Real ntdot = ntFOR.Dot(ntFS);
@@ -926,7 +926,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
         return;
       FUN_tool_value(UVfs, FS, Pfs);
       // Dforfs :
-      gp_Dir Dforfs(gp_Vec(Pfor, Pfs));
+      Dir3d Dforfs(Vector3d(Pfor, Pfs));
 
       Standard_Boolean keep = Standard_True;
       Standard_Real    dot  = Dforfs.Dot(ntFOR); // xpu250698
@@ -1289,8 +1289,8 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
       ok = FUN_tool_paronEF(EG, parEG, FS, uvFS, tolFS); // !EGBoundFOR
       if (!ok)
         return; // nyiRAISE
-      gp_Vec ngFS = FUN_tool_nggeomF(uvFS, FS);
-      gp_Dir ntFS(ngFS);
+      Vector3d ngFS = FUN_tool_nggeomF(uvFS, FS);
+      Dir3d ntFS(ngFS);
       if (M_REVERSED(oFS))
         ntFS.Reverse();
       // ntFOR :
@@ -1298,8 +1298,8 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
       ok = FUN_tool_parF(EG, parEG, FOR, uvFOR, tolFOR);
       if (!ok)
         return; // nyiRAISE
-      gp_Vec ngFOR = FUN_tool_nggeomF(uvFOR, FOR);
-      gp_Dir ntFOR(ngFOR);
+      Vector3d ngFOR = FUN_tool_nggeomF(uvFOR, FOR);
+      Dir3d ntFOR(ngFOR);
       if (M_REVERSED(oFOR))
         ntFOR.Reverse();
 
@@ -1308,7 +1308,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
       if (nulldot)
       {
         // xxFS :
-        gp_Dir xxFS;
+        Dir3d xxFS;
         ok = FUN_tool_getxx(FS, EG, parEG, ngFS, xxFS);
         if (!ok)
           return; // nyiRAISE
@@ -1875,7 +1875,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
       b2d = Standard_True;
     } // xpu200598
 
-    gp_Vec        ngFS, ngFOR;
+    Vector3d        ngFS, ngFOR;
     Standard_Real parEG = 0.;
     // bcl1;bcl2; tsp(f9),tspON(e7)
     Standard_Boolean sdm    = FUN_ds_sdm(BDS, BDS.Shape(iFOR), BDS.Shape(iFS));
@@ -1892,7 +1892,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
       if (!ok)
         return; // nyiRAISE
       ngFS = FUN_tool_nggeomF(uvFS, FS);
-      gp_Dir xxFS;
+      Dir3d xxFS;
       ok = FUN_tool_getxx(FS, EG, parEG, ngFS, xxFS);
       if (!ok)
         return; // nyiRAISE
@@ -1902,7 +1902,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
       if (!ok)
         return; // nyiRAISE
       ngFOR = FUN_tool_nggeomF(uvFOR, FOR);
-      gp_Dir ntFOR(ngFOR);
+      Dir3d ntFOR(ngFOR);
       if (M_REVERSED(oFOR))
         ntFOR.Reverse();
 
@@ -1917,7 +1917,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
         if (!ok)
           return;
         newuvFS        = uvFS.Translated(dxx * 0.25);
-        gp_Dir newngFS = FUN_tool_nggeomF(newuvFS, FS);
+        Dir3d newngFS = FUN_tool_nggeomF(newuvFS, FS);
         ok             = FUN_tool_getxx(FS, EG, parEG, newngFS, xxFS);
         if (!ok)
           return;
@@ -2042,12 +2042,12 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
       {
         // SDDO et oT anti// => oG //
         // xxFCX :
-        gp_Dir xxFCX;
+        Dir3d xxFCX;
         ok = FUN_tool_getxx(FCX, EG, parEG, xxFCX);
         if (!ok)
           return; // nyiRAISE
         // ntFS :
-        gp_Dir ntFS(ngFS);
+        Dir3d ntFS(ngFS);
         if (M_REVERSED(oFS))
           ntFS.Reverse();
 
@@ -2197,9 +2197,9 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
           // xpu231198 :PRO15946 (FOR11,EG24,FCX20)
           Standard_Real parEG; Standard_Boolean ok = FUN_tool_parE(eON,parON,EG,parEG,tolEG);
           if (!ok) return;
-          gp_Dir xxFCX; ok = FUN_tool_getxx(FCX,EG,parEG,xxFCX);
+          Dir3d xxFCX; ok = FUN_tool_getxx(FCX,EG,parEG,xxFCX);
           if (!ok) return;// nyiRAISE
-          gp_Vec ntFS; ok = FUN_tool_nggeomF(parEG,EG,FS,ntFS,tolFS);
+          Vector3d ntFS; ok = FUN_tool_nggeomF(parEG,EG,FS,ntFS,tolFS);
           if (!ok) return;// nyiRAISE
           if (M_REVERSED(oFS)) ntFS.Reverse();
 
@@ -2266,7 +2266,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
             gp_Pnt2d           uv;
             Standard_Real      dummy = 0;
             ok             = FUN_tool_paronEF(Esd, parEsd, OOFOR, uv, dummy); // rkEsd=rkOOFOR
-            gp_Vec ntOOFOR = FUN_tool_nggeomF(uv, OOFOR);
+            Vector3d ntOOFOR = FUN_tool_nggeomF(uv, OOFOR);
             if (OOFOR.Orientation() == TopAbs_REVERSED)
               ntOOFOR.Reverse();
               // xxFCX :
@@ -2277,7 +2277,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
             ok = FUN_tool_parE(Esd, parEsd, EG, parEG);
             if (!ok)
               return;
-            gp_Dir xxFCX;
+            Dir3d xxFCX;
             ok = FUN_tool_getxx(FCX, EG, parEG, xxFCX);
             if (!ok)
               return;

@@ -29,7 +29,7 @@
 
 void Prs3d_Arrow::Draw(const Handle(Graphic3d_Group)& theGroup,
                        const Point3d&                  theLocation,
-                       const gp_Dir&                  theDirection,
+                       const Dir3d&                  theDirection,
                        const Standard_Real            theAngle,
                        const Standard_Real            theLength)
 {
@@ -41,7 +41,7 @@ void Prs3d_Arrow::Draw(const Handle(Graphic3d_Group)& theGroup,
 //=================================================================================================
 
 Handle(Graphic3d_ArrayOfSegments) Prs3d_Arrow::DrawSegments(const Point3d&          theLocation,
-                                                            const gp_Dir&          theDir,
+                                                            const Dir3d&          theDir,
                                                             const Standard_Real    theAngle,
                                                             const Standard_Real    theLength,
                                                             const Standard_Integer theNbSegments)
@@ -53,7 +53,7 @@ Handle(Graphic3d_ArrayOfSegments) Prs3d_Arrow::DrawSegments(const Point3d&      
   const gp_XYZ aC = theLocation.XYZ() + theDir.XYZ() * (-theLength);
 
   // construction of i,j mark for the circle
-  gp_Dir aN;
+  Dir3d aN;
   if (Abs(theDir.X()) <= Abs(theDir.Y()) && Abs(theDir.X()) <= Abs(theDir.Z()))
   {
     aN = gp::DX();
@@ -67,7 +67,7 @@ Handle(Graphic3d_ArrayOfSegments) Prs3d_Arrow::DrawSegments(const Point3d&      
     aN = gp::DZ();
   }
 
-  const gp_Dir anXYZi = theDir.Crossed(aN.XYZ());
+  const Dir3d anXYZi = theDir.Crossed(aN.XYZ());
   const gp_XYZ anXYZj = theDir.XYZ().Crossed(anXYZi.XYZ());
   aSegments->AddVertex(theLocation);
 
@@ -104,7 +104,7 @@ Handle(Graphic3d_ArrayOfSegments) Prs3d_Arrow::DrawSegments(const Point3d&      
 
 //=================================================================================================
 
-Handle(Graphic3d_ArrayOfTriangles) Prs3d_Arrow::DrawShaded(const gp_Ax1&          theAxis,
+Handle(Graphic3d_ArrayOfTriangles) Prs3d_Arrow::DrawShaded(const Axis3d&          theAxis,
                                                            const Standard_Real    theTubeRadius,
                                                            const Standard_Real    theAxisLength,
                                                            const Standard_Real    theConeRadius,
@@ -143,7 +143,7 @@ Handle(Graphic3d_ArrayOfTriangles) Prs3d_Arrow::DrawShaded(const gp_Ax1&        
   if (aNbTrisTube != 0)
   {
     gp_Ax3  aSystem(theAxis.Location(), theAxis.Direction());
-    gp_Trsf aTrsf;
+    Transform3d aTrsf;
     aTrsf.SetTransformation(aSystem, gp_Ax3());
 
     Prs3d_ToolCylinder aTool(theTubeRadius, theTubeRadius, aTubeLength, theNbFacettes, 1);
@@ -153,11 +153,11 @@ Handle(Graphic3d_ArrayOfTriangles) Prs3d_Arrow::DrawShaded(const gp_Ax1&        
   if (aNbTrisCone != 0)
   {
     Point3d aConeOrigin =
-      theAxis.Location().Translated(gp_Vec(theAxis.Direction().X() * aTubeLength,
+      theAxis.Location().Translated(Vector3d(theAxis.Direction().X() * aTubeLength,
                                            theAxis.Direction().Y() * aTubeLength,
                                            theAxis.Direction().Z() * aTubeLength));
     gp_Ax3  aSystem(aConeOrigin, theAxis.Direction());
-    gp_Trsf aTrsf;
+    Transform3d aTrsf;
     aTrsf.SetTransformation(aSystem, gp_Ax3());
     {
       Prs3d_ToolDisk aTool(0.0, theConeRadius, theNbFacettes, 1);

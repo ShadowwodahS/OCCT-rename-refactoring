@@ -26,8 +26,8 @@
 
 class gp_Pln;
 class Point3d;
-class gp_Dir;
-class gp_Ax1;
+class Dir3d;
+class Axis3d;
 
 //! This class implements the following algorithms used
 //! to create a Plane from gp.
@@ -50,7 +50,7 @@ public:
 
   //! P is the "Location" point or origin of the plane.
   //! V is the direction normal to the plane.
-  Standard_EXPORT GC_MakePlane(const Point3d& P, const gp_Dir& V);
+  Standard_EXPORT GC_MakePlane(const Point3d& P, const Dir3d& V);
 
   //! Creates a plane from its cartesian equation :
   //! Ax + By + Cz + D = 0.0
@@ -81,7 +81,7 @@ public:
 
   //! Make a Plane  passing through the location of <Axis>and
   //! normal to the Direction of <Axis>.
-  Standard_EXPORT GC_MakePlane(const gp_Ax1& Axis);
+  Standard_EXPORT GC_MakePlane(const Axis3d& Axis);
 
   //! Returns the constructed plane.
   //! Exceptions StdFail_NotDone if no plane is constructed.

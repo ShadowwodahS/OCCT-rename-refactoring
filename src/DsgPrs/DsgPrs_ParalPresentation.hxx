@@ -23,7 +23,7 @@
 
 class TCollection_ExtendedString;
 class Point3d;
-class gp_Dir;
+class Dir3d;
 
 //! A framework to define display of relations of parallelism between shapes.
 class DsgPrs_ParalPresentation
@@ -44,7 +44,7 @@ public:
                                   const TCollection_ExtendedString& aText,
                                   const Point3d&                     AttachmentPoint1,
                                   const Point3d&                     AttachmentPoint2,
-                                  const gp_Dir&                     aDirection,
+                                  const Dir3d&                     aDirection,
                                   const Point3d&                     OffsetPoint);
 
   //! Defines the display of elements showing relations of
@@ -61,7 +61,7 @@ public:
                                   const TCollection_ExtendedString& aText,
                                   const Point3d&                     AttachmentPoint1,
                                   const Point3d&                     AttachmentPoint2,
-                                  const gp_Dir&                     aDirection,
+                                  const Dir3d&                     aDirection,
                                   const Point3d&                     OffsetPoint,
                                   const DsgPrs_ArrowSide            ArrowSide);
 

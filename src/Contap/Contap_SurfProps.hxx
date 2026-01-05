@@ -20,7 +20,7 @@
 #include <Adaptor3d_Surface.hxx>
 
 class Point3d;
-class gp_Vec;
+class Vector3d;
 
 //! Internal tool used  to compute the  normal and its
 //! derivatives.
@@ -35,7 +35,7 @@ public:
                                       const Standard_Real              U,
                                       const Standard_Real              V,
                                       Point3d&                          P,
-                                      gp_Vec&                          N);
+                                      Vector3d&                          N);
 
   //! Computes  the point <P>, and  normal vector <N> on
   //! <S> at parameters U,V.
@@ -43,9 +43,9 @@ public:
                                            const Standard_Real              U,
                                            const Standard_Real              V,
                                            Point3d&                          P,
-                                           gp_Vec&                          d1u,
-                                           gp_Vec&                          d1v,
-                                           gp_Vec&                          N);
+                                           Vector3d&                          d1u,
+                                           Vector3d&                          d1v,
+                                           Vector3d&                          N);
 
   //! Computes the point <P>, normal vector <N>, and its
   //! derivatives <Dnu> and <Dnv> on <S> at parameters U,V.
@@ -53,9 +53,9 @@ public:
                                         const Standard_Real              U,
                                         const Standard_Real              V,
                                         Point3d&                          P,
-                                        gp_Vec&                          N,
-                                        gp_Vec&                          Dnu,
-                                        gp_Vec&                          Dnv);
+                                        Vector3d&                          N,
+                                        Vector3d&                          Dnu,
+                                        Vector3d&                          Dnv);
 
 protected:
 private:

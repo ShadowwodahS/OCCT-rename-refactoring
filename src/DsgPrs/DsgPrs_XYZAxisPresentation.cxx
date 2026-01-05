@@ -29,7 +29,7 @@
 
 void DsgPrs_XYZAxisPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                      const Handle(Prs3d_LineAspect)&   aLineAspect,
-                                     const gp_Dir&                     aDir,
+                                     const Dir3d&                     aDir,
                                      const Standard_Real               aVal,
                                      const Standard_CString            theText,
                                      const Point3d&                     aPfirst,
@@ -58,7 +58,7 @@ void DsgPrs_XYZAxisPresentation::Add(const Handle(Prs3d_Presentation)& aPresenta
                                      const Handle(Prs3d_LineAspect)&   aLineAspect,
                                      const Handle(Prs3d_ArrowAspect)&  anArrowAspect,
                                      const Handle(Prs3d_TextAspect)&   aTextAspect,
-                                     const gp_Dir&                     aDir,
+                                     const Dir3d&                     aDir,
                                      const Standard_Real               aVal,
                                      const Standard_CString            theText,
                                      const Point3d&                     aPfirst,

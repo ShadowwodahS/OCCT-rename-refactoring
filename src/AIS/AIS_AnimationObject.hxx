@@ -35,8 +35,8 @@ public:
   Standard_EXPORT AIS_AnimationObject(const TCollection_AsciiString&        theAnimationName,
                                       const Handle(AIS_InteractiveContext)& theContext,
                                       const Handle(AIS_InteractiveObject)&  theObject,
-                                      const gp_Trsf&                        theTrsfStart,
-                                      const gp_Trsf&                        theTrsfEnd);
+                                      const Transform3d&                        theTrsfStart,
+                                      const Transform3d&                        theTrsfEnd);
 
 protected:
   //! Update the progress.

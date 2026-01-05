@@ -26,7 +26,7 @@
 class TopLoc_Location;
 
 //! Operator for writing transformation into the stream
-Standard_OStream& operator<<(Standard_OStream& OS, const gp_Trsf& T);
+Standard_OStream& operator<<(Standard_OStream& OS, const Transform3d& T);
 
 //! The class LocationSet stores a set of location in
 //! a relocatable state.

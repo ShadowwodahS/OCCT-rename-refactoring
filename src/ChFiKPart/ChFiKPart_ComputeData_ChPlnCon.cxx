@@ -89,7 +89,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
   Standard_Boolean IsResol;
 
   gp_Ax3 PosPl = Pln.Position();
-  gp_Dir Dpl   = PosPl.XDirection().Crossed(PosPl.YDirection());
+  Dir3d Dpl   = PosPl.XDirection().Crossed(PosPl.YDirection());
   if (Or1 == TopAbs_REVERSED)
     Dpl.Reverse();
 
@@ -103,17 +103,17 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
   ElSLib::PlaneD0(u, v, PosPl, Or);
 
   Point3d PtSp;
-  gp_Vec DSp;
+  Vector3d DSp;
   ElCLib::D1(First, Spine, PtSp, DSp);
 #ifdef OCCT_DEBUG
-  gp_Dir Dx(gp_Vec(Or, PtSp));
+  Dir3d Dx(Vector3d(Or, PtSp));
 #endif
   // compute the normal to the cone in PtSp
-  gp_Vec deru, derv;
+  Vector3d deru, derv;
   Point3d PtCon;
   ElSLib::Parameters(Con, PtSp, u, v);
   ElSLib::D1(u, v, Con, PtCon, deru, derv);
-  gp_Dir Dcon(deru.Crossed(derv));
+  Dir3d Dcon(deru.Crossed(derv));
   if (Or2 == TopAbs_REVERSED)
     Dcon.Reverse();
 
@@ -160,8 +160,8 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
 /*
  // Compute the chamfer surface(cone)
   gp_Ax3 PosPl = Pln.Position();
-  gp_Dir Dpl = PosPl.XDirection().Crossed(PosPl.YDirection());
-  gp_Dir norf = Dpl;
+  Dir3d Dpl = PosPl.XDirection().Crossed(PosPl.YDirection());
+  Dir3d norf = Dpl;
   if (Ofpl == TopAbs_REVERSED ) norf.Reverse();
   if ( Or1 == TopAbs_REVERSED ) Dpl.Reverse();
 
@@ -174,16 +174,16 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
   Point3d PtPl = Or;
 
   Point3d PtSp;
-  gp_Vec DSp;
+  Vector3d DSp;
   ElCLib::D1(First,Spine,PtSp,DSp);
-  gp_Dir Dx(gp_Vec(PtPl,PtSp));
+  Dir3d Dx(Vector3d(PtPl,PtSp));
 
     //compute the normal to the cone in PtSp
-  gp_Vec deru,derv;
+  Vector3d deru,derv;
   Point3d PtCon;
   ElSLib::Parameters(Con,PtSp,u,v);
   ElSLib::D1(u,v,Con,PtCon ,deru,derv);
-  gp_Dir Dcon( deru.Crossed(derv) );
+  Dir3d Dcon( deru.Crossed(derv) );
   if ( Or2 == TopAbs_REVERSED ) Dcon.Reverse();
 
   Standard_Boolean dedans = ( Dx.Dot(Dcon) <= 0.);
@@ -196,7 +196,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
            Or.Y()+ move*Dpl.Y(),
            Or.Z()+ move*Dpl.Z());
 
-  gp_Dir Vec1(Or.X()-PtPl.X(), Or.Y()-PtPl.Y(), Or.Z()-PtPl.Z());
+  Dir3d Vec1(Or.X()-PtPl.X(), Or.Y()-PtPl.Y(), Or.Z()-PtPl.Z());
   Standard_Real Dis;
   if (ouvert)
     Dis = Dis1 + Dis2*Abs(Sin(angle));
@@ -206,7 +206,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
   Point3d Pt(Or.X()+Dis*PosPl.XDirection().X(),
         Or.Y()+Dis*PosPl.XDirection().Y(),
         Or.Z()+Dis*PosPl.XDirection().Z());
-  gp_Dir Vec2( Pt.X()-PtPl.X(), Pt.Y()-PtPl.Y(), Pt.Z()-PtPl.Z());
+  Dir3d Vec2( Pt.X()-PtPl.X(), Pt.Y()-PtPl.Y(), Pt.Z()-PtPl.Z());
 
     // compute the parameters of the conical chamfer
   Standard_Real ChamfRad,SemiAngl;
@@ -224,7 +224,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
   }
   else {
     ChamfRad = Spine.Radius() + Dis1;
-    gp_Dir Dplr = Dpl.Reversed();
+    Dir3d Dplr = Dpl.Reversed();
     Dpl = Dplr;
   }
 
@@ -263,7 +263,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
   else
     v = - sqrt(Dis*Dis + move*move);
   ElSLib::ConeD1(u,v,ChamfAx3,ChamfRad,SemiAngl,P,deru,derv);
-  gp_Dir norchamf(deru.Crossed(derv));
+  Dir3d norchamf(deru.Crossed(derv));
 
   Standard_Boolean toreverse = (norf.Dot(norchamf)<= 0.);
 
@@ -283,7 +283,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
     // intersection plane-chamfer
   Handle(Geom_Circle) GCirPln;
   Handle(Geom2d_Circle) GCir2dPln;
-  gp_Ax2 CirAx2 = ChamfAx3.Ax2();
+  Frame3d CirAx2 = ChamfAx3.Ax2();
   CirAx2.SetLocation(PtPl);
 
   if (!pointu) {
@@ -311,7 +311,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
 
       //orientation
   TopAbs_Orientation trans;
-  gp_Dir norpl = PosPl.XDirection().Crossed(PosPl.YDirection());
+  Dir3d norpl = PosPl.XDirection().Crossed(PosPl.YDirection());
   if (!pointu)
     norchamf.SetXYZ (deru.Crossed(derv).XYZ());
   toreverse = ( norchamf.Dot(norpl) <= 0. );
@@ -380,7 +380,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
   Handle(Geom2d_Line) GLin2dCon = new Geom2d_Line(lin2dCon);
 
       //orientation
-  gp_Dir norcon = deru.Crossed(derv);
+  Dir3d norcon = deru.Crossed(derv);
   toreverse = ( norchamf.Dot(norcon) <= 0. );
   if ((toreverse && plandab) || (!toreverse && !plandab) ) {
     trans = TopAbs_REVERSED;

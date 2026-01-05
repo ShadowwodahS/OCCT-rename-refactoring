@@ -135,8 +135,8 @@ void GeomPlate_MakeApprox_Eval::Evaluate(Standard_Integer* Dimension,
 
   Standard_Integer Order = *UOrder + *VOrder;
   Point3d           pnt;
-  // gp_Vec vect, v1, v2, v3, v4, v5, v6, v7, v8, v9;
-  gp_Vec v1, v2, v3, v4, v5;
+  // Vector3d vect, v1, v2, v3, v4, v5, v6, v7, v8, v9;
+  Vector3d v1, v2, v3, v4, v5;
 
   if (*FavorIso == 1)
   {
@@ -360,7 +360,7 @@ GeomPlate_MakeApprox::GeomPlate_MakeApprox(const Handle(GeomPlate_Surface)& Surf
     {
       gp_XY  P2d = Seq2d.Value(i);
       Point3d PP;
-      gp_Vec v1h, v2h, v3h;
+      Vector3d v1h, v2h, v3h;
       if (CritOrder == 0)
       {
         //    a l'ordre 0

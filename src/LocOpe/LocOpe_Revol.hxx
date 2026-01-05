@@ -38,21 +38,21 @@ public:
   Standard_EXPORT LocOpe_Revol();
 
   Standard_EXPORT LocOpe_Revol(const TopoDS_Shape& Base,
-                               const gp_Ax1&       Axis,
+                               const Axis3d&       Axis,
                                const Standard_Real Angle,
                                const Standard_Real angledec);
 
   Standard_EXPORT LocOpe_Revol(const TopoDS_Shape& Base,
-                               const gp_Ax1&       Axis,
+                               const Axis3d&       Axis,
                                const Standard_Real Angle);
 
   Standard_EXPORT void Perform(const TopoDS_Shape& Base,
-                               const gp_Ax1&       Axis,
+                               const Axis3d&       Axis,
                                const Standard_Real Angle,
                                const Standard_Real angledec);
 
   Standard_EXPORT void Perform(const TopoDS_Shape& Base,
-                               const gp_Ax1&       Axis,
+                               const Axis3d&       Axis,
                                const Standard_Real Angle);
 
   Standard_EXPORT const TopoDS_Shape& FirstShape() const;
@@ -72,7 +72,7 @@ private:
   Standard_EXPORT void IntPerf();
 
   TopoDS_Shape                       myBase;
-  gp_Ax1                             myAxis;
+  Axis3d                             myAxis;
   Standard_Real                      myAngle;
   Standard_Real                      myAngTra;
   Standard_Boolean                   myIsTrans;

@@ -199,59 +199,59 @@ void Adaptor3d_Surface::D0(const Standard_Real, const Standard_Real, Point3d&) c
 
 //=================================================================================================
 
-// void Adaptor3d_Surface::D1(const Standard_Real U, const Standard_Real V, Point3d& P, gp_Vec& D1U,
-// gp_Vec& D1V) const
+// void Adaptor3d_Surface::D1(const Standard_Real U, const Standard_Real V, Point3d& P, Vector3d& D1U,
+// Vector3d& D1V) const
 void Adaptor3d_Surface::D1(const Standard_Real,
                            const Standard_Real,
                            Point3d&,
-                           gp_Vec&,
-                           gp_Vec&) const
+                           Vector3d&,
+                           Vector3d&) const
 {
   throw Standard_NotImplemented("Adaptor3d_Surface::D1");
 }
 
 //=================================================================================================
 
-// void Adaptor3d_Surface::D2(const Standard_Real U, const Standard_Real V, Point3d& P, gp_Vec& D1U,
-// gp_Vec& D1V, gp_Vec& D2U, gp_Vec& D2V, gp_Vec& D2UV) const
+// void Adaptor3d_Surface::D2(const Standard_Real U, const Standard_Real V, Point3d& P, Vector3d& D1U,
+// Vector3d& D1V, Vector3d& D2U, Vector3d& D2V, Vector3d& D2UV) const
 void Adaptor3d_Surface::D2(const Standard_Real,
                            const Standard_Real,
                            Point3d&,
-                           gp_Vec&,
-                           gp_Vec&,
-                           gp_Vec&,
-                           gp_Vec&,
-                           gp_Vec&) const
+                           Vector3d&,
+                           Vector3d&,
+                           Vector3d&,
+                           Vector3d&,
+                           Vector3d&) const
 {
   throw Standard_NotImplemented("Adaptor3d_Surface::D2");
 }
 
 //=================================================================================================
 
-// void Adaptor3d_Surface::D3(const Standard_Real U, const Standard_Real V, Point3d& P, gp_Vec& D1U,
-// gp_Vec& D1V, gp_Vec& D2U, gp_Vec& D2V, gp_Vec& D2UV, gp_Vec& D3U, gp_Vec& D3V, gp_Vec& D3UUV,
-// gp_Vec& D3UVV) const
+// void Adaptor3d_Surface::D3(const Standard_Real U, const Standard_Real V, Point3d& P, Vector3d& D1U,
+// Vector3d& D1V, Vector3d& D2U, Vector3d& D2V, Vector3d& D2UV, Vector3d& D3U, Vector3d& D3V, Vector3d& D3UUV,
+// Vector3d& D3UVV) const
 void Adaptor3d_Surface::D3(const Standard_Real,
                            const Standard_Real,
                            Point3d&,
-                           gp_Vec&,
-                           gp_Vec&,
-                           gp_Vec&,
-                           gp_Vec&,
-                           gp_Vec&,
-                           gp_Vec&,
-                           gp_Vec&,
-                           gp_Vec&,
-                           gp_Vec&) const
+                           Vector3d&,
+                           Vector3d&,
+                           Vector3d&,
+                           Vector3d&,
+                           Vector3d&,
+                           Vector3d&,
+                           Vector3d&,
+                           Vector3d&,
+                           Vector3d&) const
 {
   throw Standard_NotImplemented("Adaptor3d_Surface::D3");
 }
 
 //=================================================================================================
 
-// gp_Vec Adaptor3d_Surface::DN(const Standard_Real U, const Standard_Real V, const Standard_Integer
+// Vector3d Adaptor3d_Surface::DN(const Standard_Real U, const Standard_Real V, const Standard_Integer
 // Nu, const Standard_Integer Nv) const
-gp_Vec Adaptor3d_Surface::DN(const Standard_Real,
+Vector3d Adaptor3d_Surface::DN(const Standard_Real,
                              const Standard_Real,
                              const Standard_Integer,
                              const Standard_Integer) const
@@ -389,14 +389,14 @@ Handle(Geom_BSplineSurface) Adaptor3d_Surface::BSpline() const
 
 //=================================================================================================
 
-gp_Ax1 Adaptor3d_Surface::AxeOfRevolution() const
+Axis3d Adaptor3d_Surface::AxeOfRevolution() const
 {
   throw Standard_NotImplemented("Adaptor3d_Surface::AxeOfRevolution");
 }
 
 //=================================================================================================
 
-gp_Dir Adaptor3d_Surface::Direction() const
+Dir3d Adaptor3d_Surface::Direction() const
 {
   throw Standard_NotImplemented("Adaptor3d_Surface::Direction");
 }

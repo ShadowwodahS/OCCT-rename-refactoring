@@ -23,7 +23,7 @@
 #include <gp_XYZ.hxx>
 #include <IGESData_IGESEntity.hxx>
 class Point3d;
-class gp_Dir;
+class Dir3d;
 
 class IGESSolid_Cylinder;
 DEFINE_STANDARD_HANDLE(IGESSolid_Cylinder, IGESData_IGESEntity)
@@ -61,11 +61,11 @@ public:
   Standard_EXPORT Point3d TransformedFaceCenter() const;
 
   //! returns the vector in axis direction
-  Standard_EXPORT gp_Dir Axis() const;
+  Standard_EXPORT Dir3d Axis() const;
 
   //! returns the vector in axis direction after applying
   //! TransformationMatrix
-  Standard_EXPORT gp_Dir TransformedAxis() const;
+  Standard_EXPORT Dir3d TransformedAxis() const;
 
   DEFINE_STANDARD_RTTIEXT(IGESSolid_Cylinder, IGESData_IGESEntity)
 

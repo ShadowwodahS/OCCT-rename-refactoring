@@ -90,13 +90,13 @@ public:
   //! if the system has a point of symmetry there is an infinity of
   //! solutions. It is not possible to defines the three axis of
   //! inertia.
-  Standard_EXPORT const gp_Vec& FirstAxisOfInertia() const;
+  Standard_EXPORT const Vector3d& FirstAxisOfInertia() const;
 
   //! returns the second axis of inertia.
   //!
   //! if the system has a point of symmetry or an axis of symmetry the
   //! second and the third axis of symmetry are undefined.
-  Standard_EXPORT const gp_Vec& SecondAxisOfInertia() const;
+  Standard_EXPORT const Vector3d& SecondAxisOfInertia() const;
 
   //! returns the third axis of inertia.
   //! This and the above functions return the first, second or third eigen vector of the
@@ -123,7 +123,7 @@ public:
   //!
   //! if the system has a point of symmetry or an axis of symmetry the
   //! second and the third axis of symmetry are undefined.
-  Standard_EXPORT const gp_Vec& ThirdAxisOfInertia() const;
+  Standard_EXPORT const Vector3d& ThirdAxisOfInertia() const;
 
   //! Returns the principal radii of gyration  Rxx, Ryy
   //! and Rzz are the radii of gyration of the current
@@ -162,9 +162,9 @@ private:
                                        const Standard_Real Rxx,
                                        const Standard_Real Ryy,
                                        const Standard_Real Rzz,
-                                       const gp_Vec&       Vxx,
-                                       const gp_Vec&       Vyy,
-                                       const gp_Vec&       Vzz,
+                                       const Vector3d&       Vxx,
+                                       const Vector3d&       Vyy,
+                                       const Vector3d&       Vzz,
                                        const Point3d&       G);
 
   Standard_Real i1;
@@ -173,9 +173,9 @@ private:
   Standard_Real r1;
   Standard_Real r2;
   Standard_Real r3;
-  gp_Vec        v1;
-  gp_Vec        v2;
-  gp_Vec        v3;
+  Vector3d        v1;
+  Vector3d        v2;
+  Vector3d        v3;
   Point3d        g;
 };
 

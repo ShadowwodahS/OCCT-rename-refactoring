@@ -28,8 +28,8 @@
 class TCollection_ExtendedString;
 class gp_Circ;
 class Point3d;
-class gp_Dir;
-class gp_Ax1;
+class Dir3d;
+class Axis3d;
 
 //! A framework for displaying angles.
 class DsgPrs_AnglePresentation
@@ -62,8 +62,8 @@ public:
                                   const Point3d&                     CenterPoint,
                                   const Point3d&                     AttachmentPoint1,
                                   const Point3d&                     AttachmentPoint2,
-                                  const gp_Dir&                     dir1,
-                                  const gp_Dir&                     dir2,
+                                  const Dir3d&                     dir1,
+                                  const Dir3d&                     dir2,
                                   const Point3d&                     OffsetPoint);
 
   //! Same  as above, but <thevalstring> contains conversion
@@ -75,8 +75,8 @@ public:
                                   const Point3d&                     CenterPoint,
                                   const Point3d&                     AttachmentPoint1,
                                   const Point3d&                     AttachmentPoint2,
-                                  const gp_Dir&                     dir1,
-                                  const gp_Dir&                     dir2,
+                                  const Dir3d&                     dir1,
+                                  const Dir3d&                     dir2,
                                   const Point3d&                     OffsetPoint);
 
   //! Same  as above, may add one  or
@@ -88,8 +88,8 @@ public:
                                   const Point3d&                     CenterPoint,
                                   const Point3d&                     AttachmentPoint1,
                                   const Point3d&                     AttachmentPoint2,
-                                  const gp_Dir&                     dir1,
-                                  const gp_Dir&                     dir2,
+                                  const Dir3d&                     dir1,
+                                  const Dir3d&                     dir2,
                                   const Point3d&                     OffsetPoint,
                                   const DsgPrs_ArrowSide            ArrowSide);
 
@@ -102,9 +102,9 @@ public:
                                   const Point3d&                     CenterPoint,
                                   const Point3d&                     AttachmentPoint1,
                                   const Point3d&                     AttachmentPoint2,
-                                  const gp_Dir&                     dir1,
-                                  const gp_Dir&                     dir2,
-                                  const gp_Dir&                     axisdir,
+                                  const Dir3d&                     dir1,
+                                  const Dir3d&                     dir2,
+                                  const Dir3d&                     axisdir,
                                   const Point3d&                     OffsetPoint);
 
   //! Same  as above,may add one  or
@@ -116,11 +116,11 @@ public:
                                   const Point3d&                     CenterPoint,
                                   const Point3d&                     AttachmentPoint1,
                                   const Point3d&                     AttachmentPoint2,
-                                  const gp_Dir&                     dir1,
-                                  const gp_Dir&                     dir2,
-                                  const gp_Dir&                     axisdir,
+                                  const Dir3d&                     dir1,
+                                  const Dir3d&                     dir2,
+                                  const Dir3d&                     axisdir,
                                   const Standard_Boolean            isPlane,
-                                  const gp_Ax1&                     AxisOfSurf,
+                                  const Axis3d&                     AxisOfSurf,
                                   const Point3d&                     OffsetPoint,
                                   const DsgPrs_ArrowSide            ArrowSide);
 
@@ -134,7 +134,7 @@ public:
                                   const Standard_Real               theval,
                                   const Point3d&                     theCenter,
                                   const Point3d&                     AttachmentPoint1,
-                                  const gp_Ax1&                     theAxe,
+                                  const Axis3d&                     theAxe,
                                   const DsgPrs_ArrowSide            ArrowSide);
 
 protected:

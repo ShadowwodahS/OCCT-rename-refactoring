@@ -149,7 +149,7 @@ protected:
   //! @param theTrsf transformation
   //! @param toEnable flag to switch ON/OFF transformation
   Standard_EXPORT void applyTransformation(const Handle(OpenGl_Context)& theContext,
-                                           const gp_Trsf&                theTrsf,
+                                           const Transform3d&                theTrsf,
                                            const Standard_Boolean        toEnable) const;
 
   //! Apply transform persistence into context.

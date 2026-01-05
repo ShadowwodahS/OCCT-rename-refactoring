@@ -174,7 +174,7 @@ void IGESSolid_ToolCylinder::OwnDump(const Handle(IGESSolid_Cylinder)& ent,
 
   //  Standard_Boolean locprint = (ent->HasTransf() && level >=6);
   //  Point3d TCenter = ent->TransformedFaceCenter();
-  //  gp_Dir TAxis   = ent->TransformedAxis();
+  //  Dir3d TAxis   = ent->TransformedAxis();
 
   S << "IGESSolid_Cylinder\n"
     << "Height : " << ent->Height() << "  "

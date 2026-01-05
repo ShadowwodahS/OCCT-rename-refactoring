@@ -40,13 +40,13 @@ public:
   Standard_EXPORT IntSurf_InteriorPoint(const Point3d&       P,
                                         const Standard_Real U,
                                         const Standard_Real V,
-                                        const gp_Vec&       Direc,
+                                        const Vector3d&       Direc,
                                         const gp_Vec2d&     Direc2d);
 
   Standard_EXPORT void SetValue(const Point3d&       P,
                                 const Standard_Real U,
                                 const Standard_Real V,
-                                const gp_Vec&       Direc,
+                                const Vector3d&       Direc,
                                 const gp_Vec2d&     Direc2d);
 
   //! Returns the 3d coordinates of the interior point.
@@ -66,7 +66,7 @@ public:
 
   //! Returns the tangent at the intersection in 3d space
   //! associated to the interior point.
-  const gp_Vec& Direction() const;
+  const Vector3d& Direction() const;
 
   //! Returns the tangent at the intersection in the parametric
   //! space of the parametric surface.
@@ -77,7 +77,7 @@ private:
   Point3d        point;
   Standard_Real paramu;
   Standard_Real paramv;
-  gp_Vec        direc;
+  Vector3d        direc;
   gp_Vec2d      direc2d;
 };
 

@@ -54,13 +54,13 @@ public:
   //! Writes a 3D point to the stream.
   Standard_EXPORT BinTools_OStream& operator<<(const Point3d& theValue);
   //! Writes a 3D direction to the stream.
-  Standard_EXPORT BinTools_OStream& operator<<(const gp_Dir& theValue);
+  Standard_EXPORT BinTools_OStream& operator<<(const Dir3d& theValue);
   //! Writes a 2D point to the stream.
   Standard_EXPORT BinTools_OStream& operator<<(const gp_Pnt2d& theValue);
   //! Writes a 2D direction to the stream.
   Standard_EXPORT BinTools_OStream& operator<<(const gp_Dir2d& theValue);
   //! Writes a transformation matrix to the stream.
-  Standard_EXPORT BinTools_OStream& operator<<(const gp_Trsf& theValue);
+  Standard_EXPORT BinTools_OStream& operator<<(const Transform3d& theValue);
   //! Writes triangle nodes indices to the stream.
   Standard_EXPORT BinTools_OStream& operator<<(const Poly_Triangle& theValue);
   //! Writes a vector to the stream.

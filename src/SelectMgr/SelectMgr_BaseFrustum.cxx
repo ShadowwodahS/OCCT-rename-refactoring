@@ -93,7 +93,7 @@ void SelectMgr_BaseFrustum::SetBuilder(const Handle(SelectMgr_FrustumBuilder)& t
 Standard_Boolean SelectMgr_BaseFrustum::IsBoundaryIntersectSphere(
   const Point3d&             theCenter,
   const Standard_Real       theRadius,
-  const gp_Dir&             thePlaneNormal,
+  const Dir3d&             thePlaneNormal,
   const TColgp_Array1OfPnt& theBoundaries,
   Standard_Boolean&         theBoundaryInside) const
 {
@@ -120,7 +120,7 @@ Standard_Boolean SelectMgr_BaseFrustum::IsBoundaryIntersectSphere(
       return Standard_True;
     }
 
-    gp_Dir        aRayDir(gp_Vec(aPntProj1, aPntProj2));
+    Dir3d        aRayDir(Vector3d(aPntProj1, aPntProj2));
     Standard_Real aTimeEnter = 0.0, aTimeLeave = 0.0;
     if (RaySphereIntersection(theCenter, theRadius, aPntProj1, aRayDir, aTimeEnter, aTimeLeave))
     {

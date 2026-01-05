@@ -30,7 +30,7 @@
 #include <TColStd_HArray1OfReal.hxx>
 class TopoDS_Face;
 class Point3d;
-class gp_Vec;
+class Vector3d;
 class TopoDS_Edge;
 class gp_Pnt2d;
 class gp_Vec2d;
@@ -98,7 +98,7 @@ public:
   Standard_EXPORT void Normal(const Standard_Real U,
                               const Standard_Real V,
                               Point3d&             P,
-                              gp_Vec&             VNor) const;
+                              Vector3d&             VNor) const;
 
   //! Loading the boundary arc.
   //! Returns FALSE if edge has no P-Curve.

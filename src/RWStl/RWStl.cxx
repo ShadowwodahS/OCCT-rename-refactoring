@@ -319,9 +319,9 @@ Standard_Boolean RWStl::writeASCII(const Handle(Poly_Triangulation)& theMesh,
     const Point3d aP2 = theMesh->Node(anElem[1]);
     const Point3d aP3 = theMesh->Node(anElem[2]);
 
-    const gp_Vec aVec1(aP1, aP2);
-    const gp_Vec aVec2(aP1, aP3);
-    gp_Vec       aVNorm = aVec1.Crossed(aVec2);
+    const Vector3d aVec1(aP1, aP2);
+    const Vector3d aVec2(aP1, aP3);
+    Vector3d       aVNorm = aVec1.Crossed(aVec2);
     if (aVNorm.SquareMagnitude() > gp::Resolution())
     {
       aVNorm.Normalize();
@@ -412,9 +412,9 @@ Standard_Boolean RWStl::writeBinary(const Handle(Poly_Triangulation)& theMesh,
     const Point3d aP2 = theMesh->Node(id[1]);
     const Point3d aP3 = theMesh->Node(id[2]);
 
-    gp_Vec aVec1(aP1, aP2);
-    gp_Vec aVec2(aP1, aP3);
-    gp_Vec aVNorm = aVec1.Crossed(aVec2);
+    Vector3d aVec1(aP1, aP2);
+    Vector3d aVec2(aP1, aP3);
+    Vector3d aVNorm = aVec1.Crossed(aVec2);
     if (aVNorm.SquareMagnitude() > gp::Resolution())
     {
       aVNorm.Normalize();

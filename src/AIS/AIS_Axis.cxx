@@ -50,7 +50,7 @@ AIS_Axis::AIS_Axis(const Handle(Geom_Line)& aComponent)
   myDrawer->SetLineAspect(new Prs3d_LineAspect(Quantity_NOC_RED, Aspect_TOL_DOTDASH, 1.));
   SetInfiniteState();
 
-  gp_Dir        thedir  = myComponent->Position().Direction();
+  Dir3d        thedir  = myComponent->Position().Direction();
   Point3d        loc     = myComponent->Position().Location();
   Standard_Real aLength = UnitsAPI::AnyToLS(250000., "mm");
   myPfirst              = loc.XYZ() + aLength * thedir.XYZ();
@@ -96,7 +96,7 @@ AIS_Axis::AIS_Axis(const Handle(Geom_Axis1Placement)& anAxis)
   myDrawer->SetLineAspect(new Prs3d_LineAspect(Quantity_NOC_RED, Aspect_TOL_DOTDASH, 1.));
   SetInfiniteState();
 
-  gp_Dir        thedir  = myComponent->Position().Direction();
+  Dir3d        thedir  = myComponent->Position().Direction();
   Point3d        loc     = myComponent->Position().Location();
   Standard_Real aLength = UnitsAPI::AnyToLS(250000., "mm");
   myPfirst              = loc.XYZ() + aLength * thedir.XYZ();
@@ -105,7 +105,7 @@ AIS_Axis::AIS_Axis(const Handle(Geom_Axis1Placement)& anAxis)
 
 //=================================================================================================
 
-AIS_Axis::AIS_Axis(const gp_Ax1& theAxis, const Standard_Real theLength)
+AIS_Axis::AIS_Axis(const Axis3d& theAxis, const Standard_Real theLength)
     : myComponent(new Geom_Line(theAxis)),
       myTypeOfAxis(AIS_TOAX_ZAxis),
       myIsXYZAxis(Standard_True)
@@ -137,7 +137,7 @@ void AIS_Axis::SetComponent(const Handle(Geom_Line)& aComponent)
   myIsXYZAxis  = Standard_False;
   SetInfiniteState();
 
-  gp_Dir        thedir  = myComponent->Position().Direction();
+  Dir3d        thedir  = myComponent->Position().Direction();
   Point3d        loc     = myComponent->Position().Location();
   Standard_Real aLength = UnitsAPI::AnyToLS(250000., "mm");
   myPfirst              = loc.XYZ() + aLength * thedir.XYZ();
@@ -246,11 +246,11 @@ void AIS_Axis::ComputeFields()
   {
     // calcul de myPFirst,myPlast
     Handle(Prs3d_DatumAspect) DA     = myDrawer->DatumAspect();
-    gp_Ax2                    anAxis = myAx2->Ax2();
+    Frame3d                    anAxis = myAx2->Ax2();
     const Point3d&             Orig   = anAxis.Location();
-    const gp_Dir&             oX     = anAxis.XDirection();
-    const gp_Dir&             oY     = anAxis.YDirection();
-    const gp_Dir&             oZ     = anAxis.Direction();
+    const Dir3d&             oX     = anAxis.XDirection();
+    const Dir3d&             oY     = anAxis.YDirection();
+    const Dir3d&             oZ     = anAxis.Direction();
     Standard_Real             xo, yo, zo, x = 0., y = 0., z = 0.;
     Orig.Coord(xo, yo, zo);
     myPfirst.SetCoord(xo, yo, zo);

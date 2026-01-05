@@ -149,10 +149,10 @@ static void d1(const Standard_Real              t,
                const Handle(Adaptor3d_Surface)& Surface)
 {
   Point3d S, C;
-  gp_Vec DS1_u, DS1_v, DS2_u, DS2_uv, DS2_v, DC1_t;
+  Vector3d DS1_u, DS1_v, DS2_u, DS2_uv, DS2_v, DC1_t;
   Surface->D2(u, v, S, DS1_u, DS1_v, DS2_u, DS2_v, DS2_uv);
   Curve->D1(t, C, DC1_t);
-  gp_Vec Ort(C, S); // Ort = S - C
+  Vector3d Ort(C, S); // Ort = S - C
 
   gp_Vec2d dE_dt(-DC1_t * DS1_u, -DC1_t * DS1_v);
   gp_XY    dE_du(DS1_u * DS1_u + Ort * DS2_u, DS1_u * DS1_v + Ort * DS2_uv);
@@ -181,10 +181,10 @@ static void d2(const Standard_Real              t,
                const Handle(Adaptor3d_Surface)& Surface)
 {
   Point3d S, C;
-  gp_Vec DS1_u, DS1_v, DS2_u, DS2_uv, DS2_v, DS3_u, DS3_v, DS3_uuv, DS3_uvv, DC1_t, DC2_t;
+  Vector3d DS1_u, DS1_v, DS2_u, DS2_uv, DS2_v, DS3_u, DS3_v, DS3_uuv, DS3_uvv, DC1_t, DC2_t;
   Surface->D3(u, v, S, DS1_u, DS1_v, DS2_u, DS2_v, DS2_uv, DS3_u, DS3_v, DS3_uuv, DS3_uvv);
   Curve->D2(t, C, DC1_t, DC2_t);
-  gp_Vec Ort(C, S);
+  Vector3d Ort(C, S);
 
   gp_Vec2d dE_dt(-DC1_t * DS1_u, -DC1_t * DS1_v);
   gp_XY    dE_du(DS1_u * DS1_u + Ort * DS2_u, DS1_u * DS1_v + Ort * DS2_uv);
@@ -242,16 +242,16 @@ static void d2(const Standard_Real              t,
 static void d1CurvOnSurf(const Standard_Real t,
   const Standard_Real u,
   const Standard_Real v,
-  gp_Vec& V, 
+  Vector3d& V, 
   const Handle(Adaptor3d_Curve)& Curve, 
   const Handle(Adaptor3d_Surface)& Surface)
 {
   Point3d S, C;
   gp_Vec2d V2d;
-  gp_Vec DS1_u, DS1_v, DS2_u, DS2_uv, DS2_v, DC1_t;
+  Vector3d DS1_u, DS1_v, DS2_u, DS2_uv, DS2_v, DC1_t;
   Surface->D2(u, v, S, DS1_u, DS1_v, DS2_u, DS2_v, DS2_uv);
   Curve->D1(t, C, DC1_t);
-  gp_Vec Ort(C, S);// Ort = S - C
+  Vector3d Ort(C, S);// Ort = S - C
 
   gp_Vec2d dE_dt(-DC1_t*DS1_u, -DC1_t*DS1_v);
   gp_XY dE_du(DS1_u*DS1_u + Ort*DS2_u, 
@@ -280,17 +280,17 @@ static void d1CurvOnSurf(const Standard_Real t,
 static void d2CurvOnSurf(const Standard_Real              t,
                          const Standard_Real              u,
                          const Standard_Real              v,
-                         gp_Vec&                          V1,
-                         gp_Vec&                          V2,
+                         Vector3d&                          V1,
+                         Vector3d&                          V2,
                          const Handle(Adaptor3d_Curve)&   Curve,
                          const Handle(Adaptor3d_Surface)& Surface)
 {
   Point3d   S, C;
   gp_Vec2d V12d, V22d;
-  gp_Vec   DS1_u, DS1_v, DS2_u, DS2_uv, DS2_v, DS3_u, DS3_v, DS3_uuv, DS3_uvv, DC1_t, DC2_t;
+  Vector3d   DS1_u, DS1_v, DS2_u, DS2_uv, DS2_v, DS3_u, DS3_v, DS3_uuv, DS3_uvv, DC1_t, DC2_t;
   Surface->D3(u, v, S, DS1_u, DS1_v, DS2_u, DS2_v, DS2_uv, DS3_u, DS3_v, DS3_uuv, DS3_uvv);
   Curve->D2(t, C, DC1_t, DC2_t);
-  gp_Vec Ort(C, S);
+  Vector3d Ort(C, S);
 
   gp_Vec2d dE_dt(-DC1_t * DS1_u, -DC1_t * DS1_v);
   gp_XY    dE_du(DS1_u * DS1_u + Ort * DS2_u, DS1_u * DS1_v + Ort * DS2_uv);
@@ -907,7 +907,7 @@ void ProjLib_CompProjectedCurve::Init()
       break; // return;
 
     // Computation of WalkStep
-    gp_Vec        D1, D2;
+    Vector3d        D1, D2;
     Standard_Real MagnD1, MagnD2;
     d2CurvOnSurf(Triple.X(), Triple.Y(), Triple.Z(), D1, D2, myCurve, mySurface);
     MagnD1 = D1.Magnitude();

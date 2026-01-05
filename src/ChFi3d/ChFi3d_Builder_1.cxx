@@ -275,7 +275,7 @@ static TopoDS_Edge MakeOffsetEdge(const TopoDS_Edge&         theEdge,
                                                                            // closed curve
   {
     Point3d aPnt, anOffsetPnt;
-    gp_Vec Tangent, OffsetTangent;
+    Vector3d Tangent, OffsetTangent;
     aBAcurve.D1(aBAcurve.FirstParameter(), aPnt, Tangent);
     IntCurve->D1(Params[0], anOffsetPnt, OffsetTangent);
     if (Tangent * OffsetTangent < 0)
@@ -609,7 +609,7 @@ static Standard_Boolean TangentExtremity(const TopoDS_Vertex&               V,
   Standard_Real        p1 = BRep_Tool::Parameter(V, e1, f1);
   Standard_Real        p2 = BRep_Tool::Parameter(V, e2, f2);
   Standard_Real        u, v, f, l, Eps = 1.e-9;
-  gp_Vec               n1, n2; //   Point3d pt1,pt2;
+  Vector3d               n1, n2; //   Point3d pt1,pt2;
   Handle(Geom2d_Curve) pc1 = BRep_Tool::CurveOnSurface(e1, f1, f, l);
   pc1->Value(p1).Coord(u, v);
   BRepLProp_SLProps theProp1(*hs1, u, v, 1, Eps);
@@ -834,7 +834,7 @@ Standard_Boolean ChFi3d_Builder::PerformElement(const Handle(ChFiDS_Spine)& Spin
   Standard_Real                      Wl, Wf;
   Standard_Boolean                   degeneOnEc;
   Point3d                             P2;
-  gp_Vec                             V1, V2;
+  Vector3d                             V1, V2;
   TopoDS_Vertex                      Ve1, VStart, FVEc, LVEc, FVEv, LVEv;
   TopoDS_Edge                        Ev, Ec(Spine->Edges(1));
   if (BRep_Tool::Degenerated(Ec))

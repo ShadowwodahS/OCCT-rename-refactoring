@@ -218,8 +218,8 @@ void BRepBuilderAPI_MakeShapeOnMesh::Build(const Message_ProgressRange& theRange
     // within BRepBuilderAPI_MakeFace.
     BRepAdaptor_Curve aC1(aTEdge1);
     BRepAdaptor_Curve aC2(aTEdge2);
-    const gp_Dir      aD1 = aC1.Line().Direction();
-    const gp_Dir      aD2 = aC2.Line().Direction();
+    const Dir3d      aD1 = aC1.Line().Direction();
+    const Dir3d      aD2 = aC2.Line().Direction();
     gp_XYZ            aN  = aD1.XYZ().Crossed(aD2.XYZ());
     if (aN.SquareModulus() < Precision::SquareConfusion())
       continue;
@@ -227,7 +227,7 @@ void BRepBuilderAPI_MakeShapeOnMesh::Build(const Message_ProgressRange& theRange
       aN.Reverse();
     if (aTEdge2.Orientation() == TopAbs_REVERSED)
       aN.Reverse();
-    const gp_Dir aNorm(aN);
+    const Dir3d aNorm(aN);
     gp_Pln       aPln(myMesh->Node(anIdx[0]), aNorm);
 
     BRepBuilderAPI_MakeFace aFaceMaker(aPln, aWire);

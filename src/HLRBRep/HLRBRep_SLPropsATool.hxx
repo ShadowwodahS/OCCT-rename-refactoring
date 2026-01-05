@@ -23,7 +23,7 @@
 
 #include <Standard_Real.hxx>
 class Point3d;
-class gp_Vec;
+class Vector3d;
 
 class HLRBRep_SLPropsATool
 {
@@ -43,8 +43,8 @@ public:
                  const Standard_Real    U,
                  const Standard_Real    V,
                  Point3d&                P,
-                 gp_Vec&                D1U,
-                 gp_Vec&                D1V);
+                 Vector3d&                D1U,
+                 Vector3d&                D1V);
 
   //! Computes the point <P>, the first derivative <D1*>
   //! and second  derivative <D2*> of parameter  <U> and
@@ -53,13 +53,13 @@ public:
                  const Standard_Real    U,
                  const Standard_Real    V,
                  Point3d&                P,
-                 gp_Vec&                D1U,
-                 gp_Vec&                D1V,
-                 gp_Vec&                D2U,
-                 gp_Vec&                D2V,
-                 gp_Vec&                DUV);
+                 Vector3d&                D1U,
+                 Vector3d&                D1V,
+                 Vector3d&                D2U,
+                 Vector3d&                D2V,
+                 Vector3d&                DUV);
 
-  static gp_Vec DN(const Standard_Address A,
+  static Vector3d DN(const Standard_Address A,
                    const Standard_Real    U,
                    const Standard_Real    V,
                    const Standard_Integer Nu,

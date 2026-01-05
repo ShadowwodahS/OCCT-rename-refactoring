@@ -23,7 +23,7 @@
 #include <gp_XYZ.hxx>
 #include <IGESData_IGESEntity.hxx>
 class Point3d;
-class gp_Dir;
+class Dir3d;
 
 class IGESSolid_Ellipsoid;
 DEFINE_STANDARD_HANDLE(IGESSolid_Ellipsoid, IGESData_IGESEntity)
@@ -74,27 +74,27 @@ public:
   Standard_EXPORT Point3d TransformedCenter() const;
 
   //! returns the vector corresponding to the local X-direction
-  Standard_EXPORT gp_Dir XAxis() const;
+  Standard_EXPORT Dir3d XAxis() const;
 
   //! returns the vector corresponding to the local X-direction
   //! after applying TransformationMatrix
-  Standard_EXPORT gp_Dir TransformedXAxis() const;
+  Standard_EXPORT Dir3d TransformedXAxis() const;
 
   //! returns the vector corresponding to the local Y-direction
   //! which is got by taking cross product of ZAxis and XAxis
-  Standard_EXPORT gp_Dir YAxis() const;
+  Standard_EXPORT Dir3d YAxis() const;
 
   //! returns the vector corresponding to the local Y-direction
   //! (which is got by taking cross product of ZAxis and XAxis)
   //! after applying TransformationMatrix
-  Standard_EXPORT gp_Dir TransformedYAxis() const;
+  Standard_EXPORT Dir3d TransformedYAxis() const;
 
   //! returns the vector corresponding to the local Z-direction
-  Standard_EXPORT gp_Dir ZAxis() const;
+  Standard_EXPORT Dir3d ZAxis() const;
 
   //! returns the vector corresponding to the local Z-direction
   //! after applying TransformationMatrix
-  Standard_EXPORT gp_Dir TransformedZAxis() const;
+  Standard_EXPORT Dir3d TransformedZAxis() const;
 
   DEFINE_STANDARD_RTTIEXT(IGESSolid_Ellipsoid, IGESData_IGESEntity)
 

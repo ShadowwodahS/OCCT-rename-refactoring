@@ -654,7 +654,7 @@ static Standard_Boolean TestWLineAlongRestriction(const Handle(IntPatch_WLine)& 
       Pmid.ParametersOnS2(u, v);
     //------------------------------------------
     Point3d ap;
-    gp_Vec ad1u, ad1v;
+    Vector3d ad1u, ad1v;
     // Standard_Real nad1u, nad1v, tolu, tolv;
 
     theSurface->D1(u, v, ap, ad1u, ad1v);
@@ -912,7 +912,7 @@ static Handle(IntPatch_RLine) BuildRLine(const IntPatch_SequenceOfLine&     theS
             Geom2dInt_TheProjPCurOfGInter::FindParameter(*theDomain->Value(), aPOnLine, 1e-7);
           aPOnArc = theDomain->Value()->Value(par);
           Point3d        ap;
-          gp_Vec        ad1u, ad1v;
+          Vector3d        ad1u, ad1v;
           Standard_Real nad1u, nad1v, tolu, tolv;
 
           theSurface->D1(u, v, ap, ad1u, ad1v);

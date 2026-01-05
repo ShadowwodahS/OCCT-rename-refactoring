@@ -48,8 +48,8 @@ void HLRBRep_EdgeInterferenceTool::LoadEdge()
 //=================================================================================================
 
 void HLRBRep_EdgeInterferenceTool::EdgeGeometry(const Standard_Real Param,
-                                                gp_Dir&             Tgt,
-                                                gp_Dir&             Nrm,
+                                                Dir3d&             Tgt,
+                                                Dir3d&             Nrm,
                                                 Standard_Real&      CrLE) const
 {
   gp_Dir2d TgLE, NmLE;
@@ -84,8 +84,8 @@ Standard_Boolean HLRBRep_EdgeInterferenceTool::SameVertexAndInterference(
 //=================================================================================================
 
 void HLRBRep_EdgeInterferenceTool::InterferenceBoundaryGeometry(const HLRAlgo_Interference& I,
-                                                                gp_Dir&                     Tang,
-                                                                gp_Dir&                     Norm,
+                                                                Dir3d&                     Tang,
+                                                                Dir3d&                     Norm,
                                                                 Standard_Real& CrFE) const
 {
   Standard_Integer FE;

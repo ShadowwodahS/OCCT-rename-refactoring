@@ -21,7 +21,7 @@ IMPLEMENT_STANDARD_RTTIEXT(GeomEvaluator_OffsetCurve, GeomEvaluator_Curve)
 
 GeomEvaluator_OffsetCurve::GeomEvaluator_OffsetCurve(const Handle(Geom_Curve)& theBase,
                                                      const Standard_Real       theOffset,
-                                                     const gp_Dir&             theDirection)
+                                                     const Dir3d&             theDirection)
     : GeomEvaluator_Curve(),
       myBaseCurve(theBase),
       myOffset(theOffset),
@@ -31,7 +31,7 @@ GeomEvaluator_OffsetCurve::GeomEvaluator_OffsetCurve(const Handle(Geom_Curve)& t
 
 GeomEvaluator_OffsetCurve::GeomEvaluator_OffsetCurve(const Handle(GeomAdaptor_Curve)& theBase,
                                                      const Standard_Real              theOffset,
-                                                     const gp_Dir&                    theDirection)
+                                                     const Dir3d&                    theDirection)
     : GeomEvaluator_Curve(),
       myBaseAdaptor(theBase),
       myOffset(theOffset),
@@ -41,30 +41,30 @@ GeomEvaluator_OffsetCurve::GeomEvaluator_OffsetCurve(const Handle(GeomAdaptor_Cu
 
 void GeomEvaluator_OffsetCurve::D0(const Standard_Real theU, Point3d& theValue) const
 {
-  gp_Vec aD1;
+  Vector3d aD1;
   BaseD1(theU, theValue, aD1);
   CalculateD0(theValue, aD1);
 }
 
-void GeomEvaluator_OffsetCurve::D1(const Standard_Real theU, Point3d& theValue, gp_Vec& theD1) const
+void GeomEvaluator_OffsetCurve::D1(const Standard_Real theU, Point3d& theValue, Vector3d& theD1) const
 {
-  gp_Vec aD2;
+  Vector3d aD2;
   BaseD2(theU, theValue, theD1, aD2);
   CalculateD1(theValue, theD1, aD2);
 }
 
 void GeomEvaluator_OffsetCurve::D2(const Standard_Real theU,
                                    Point3d&             theValue,
-                                   gp_Vec&             theD1,
-                                   gp_Vec&             theD2) const
+                                   Vector3d&             theD1,
+                                   Vector3d&             theD2) const
 {
-  gp_Vec aD3;
+  Vector3d aD3;
   BaseD3(theU, theValue, theD1, theD2, aD3);
 
   Standard_Boolean isDirectionChange = Standard_False;
   if (theD1.SquareMagnitude() <= gp::Resolution())
   {
-    gp_Vec aDummyD4;
+    Vector3d aDummyD4;
     isDirectionChange = AdjustDerivative(3, theU, theD1, theD2, aD3, aDummyD4);
   }
 
@@ -73,11 +73,11 @@ void GeomEvaluator_OffsetCurve::D2(const Standard_Real theU,
 
 void GeomEvaluator_OffsetCurve::D3(const Standard_Real theU,
                                    Point3d&             theValue,
-                                   gp_Vec&             theD1,
-                                   gp_Vec&             theD2,
-                                   gp_Vec&             theD3) const
+                                   Vector3d&             theD1,
+                                   Vector3d&             theD2,
+                                   Vector3d&             theD3) const
 {
-  gp_Vec aD4;
+  Vector3d aD4;
   BaseD4(theU, theValue, theD1, theD2, theD3, aD4);
 
   Standard_Boolean isDirectionChange = Standard_False;
@@ -87,13 +87,13 @@ void GeomEvaluator_OffsetCurve::D3(const Standard_Real theU,
   CalculateD3(theValue, theD1, theD2, theD3, aD4, isDirectionChange);
 }
 
-gp_Vec GeomEvaluator_OffsetCurve::DN(const Standard_Real    theU,
+Vector3d GeomEvaluator_OffsetCurve::DN(const Standard_Real    theU,
                                      const Standard_Integer theDeriv) const
 {
   Standard_RangeError_Raise_if(theDeriv < 1, "GeomEvaluator_OffsetCurve::DN(): theDeriv < 1");
 
   Point3d aPnt;
-  gp_Vec aDummy, aDN;
+  Vector3d aDummy, aDN;
   switch (theDeriv)
   {
     case 1:
@@ -138,7 +138,7 @@ void GeomEvaluator_OffsetCurve::BaseD0(const Standard_Real theU, Point3d& theVal
 
 void GeomEvaluator_OffsetCurve::BaseD1(const Standard_Real theU,
                                        Point3d&             theValue,
-                                       gp_Vec&             theD1) const
+                                       Vector3d&             theD1) const
 {
   if (!myBaseAdaptor.IsNull())
     myBaseAdaptor->D1(theU, theValue, theD1);
@@ -148,8 +148,8 @@ void GeomEvaluator_OffsetCurve::BaseD1(const Standard_Real theU,
 
 void GeomEvaluator_OffsetCurve::BaseD2(const Standard_Real theU,
                                        Point3d&             theValue,
-                                       gp_Vec&             theD1,
-                                       gp_Vec&             theD2) const
+                                       Vector3d&             theD1,
+                                       Vector3d&             theD2) const
 {
   if (!myBaseAdaptor.IsNull())
     myBaseAdaptor->D2(theU, theValue, theD1, theD2);
@@ -159,9 +159,9 @@ void GeomEvaluator_OffsetCurve::BaseD2(const Standard_Real theU,
 
 void GeomEvaluator_OffsetCurve::BaseD3(const Standard_Real theU,
                                        Point3d&             theValue,
-                                       gp_Vec&             theD1,
-                                       gp_Vec&             theD2,
-                                       gp_Vec&             theD3) const
+                                       Vector3d&             theD1,
+                                       Vector3d&             theD2,
+                                       Vector3d&             theD3) const
 {
   if (!myBaseAdaptor.IsNull())
     myBaseAdaptor->D3(theU, theValue, theD1, theD2, theD3);
@@ -171,10 +171,10 @@ void GeomEvaluator_OffsetCurve::BaseD3(const Standard_Real theU,
 
 void GeomEvaluator_OffsetCurve::BaseD4(const Standard_Real theU,
                                        Point3d&             theValue,
-                                       gp_Vec&             theD1,
-                                       gp_Vec&             theD2,
-                                       gp_Vec&             theD3,
-                                       gp_Vec&             theD4) const
+                                       Vector3d&             theD1,
+                                       Vector3d&             theD2,
+                                       Vector3d&             theD3,
+                                       Vector3d&             theD4) const
 {
   if (!myBaseAdaptor.IsNull())
   {
@@ -188,7 +188,7 @@ void GeomEvaluator_OffsetCurve::BaseD4(const Standard_Real theU,
   }
 }
 
-gp_Vec GeomEvaluator_OffsetCurve::BaseDN(const Standard_Real    theU,
+Vector3d GeomEvaluator_OffsetCurve::BaseDN(const Standard_Real    theU,
                                          const Standard_Integer theDeriv) const
 {
   if (!myBaseAdaptor.IsNull())
@@ -196,7 +196,7 @@ gp_Vec GeomEvaluator_OffsetCurve::BaseDN(const Standard_Real    theU,
   return myBaseCurve->DN(theU, theDeriv);
 }
 
-void GeomEvaluator_OffsetCurve::CalculateD0(Point3d& theValue, const gp_Vec& theD1) const
+void GeomEvaluator_OffsetCurve::CalculateD0(Point3d& theValue, const Vector3d& theD1) const
 {
   gp_XYZ        Ndir = (theD1.XYZ()).Crossed(myOffsetDir.XYZ());
   Standard_Real R    = Ndir.Modulus();
@@ -209,8 +209,8 @@ void GeomEvaluator_OffsetCurve::CalculateD0(Point3d& theValue, const gp_Vec& the
 }
 
 void GeomEvaluator_OffsetCurve::CalculateD1(Point3d&       theValue,
-                                            gp_Vec&       theD1,
-                                            const gp_Vec& theD2) const
+                                            Vector3d&       theD1,
+                                            const Vector3d& theD2) const
 {
   // P(u) = p(u) + Offset * Ndir / R
   // with R = || p' ^ V|| and Ndir = P' ^ direction (local normal direction)
@@ -243,13 +243,13 @@ void GeomEvaluator_OffsetCurve::CalculateD1(Point3d&       theValue,
   // P(u)
   theValue.ChangeCoord().Add(Ndir);
   // P'(u)
-  theD1.Add(gp_Vec(DNdir));
+  theD1.Add(Vector3d(DNdir));
 }
 
 void GeomEvaluator_OffsetCurve::CalculateD2(Point3d&                theValue,
-                                            gp_Vec&                theD1,
-                                            gp_Vec&                theD2,
-                                            const gp_Vec&          theD3,
+                                            Vector3d&                theD1,
+                                            Vector3d&                theD2,
+                                            const Vector3d&          theD3,
                                             const Standard_Boolean theIsDirChange) const
 {
   // P(u) = p(u) + Offset * Ndir / R
@@ -305,18 +305,18 @@ void GeomEvaluator_OffsetCurve::CalculateD2(Point3d&                theValue,
   // P(u)
   theValue.ChangeCoord().Add(Ndir);
   // P'(u) :
-  theD1.Add(gp_Vec(DNdir));
+  theD1.Add(Vector3d(DNdir));
   // P"(u) :
   if (theIsDirChange)
     theD2.Reverse();
-  theD2.Add(gp_Vec(D2Ndir));
+  theD2.Add(Vector3d(D2Ndir));
 }
 
 void GeomEvaluator_OffsetCurve::CalculateD3(Point3d&                theValue,
-                                            gp_Vec&                theD1,
-                                            gp_Vec&                theD2,
-                                            gp_Vec&                theD3,
-                                            const gp_Vec&          theD4,
+                                            Vector3d&                theD1,
+                                            Vector3d&                theD2,
+                                            Vector3d&                theD3,
+                                            const Vector3d&          theD4,
                                             const Standard_Boolean theIsDirChange) const
 {
   // P(u) = p(u) + Offset * Ndir / R
@@ -389,22 +389,22 @@ void GeomEvaluator_OffsetCurve::CalculateD3(Point3d&                theValue,
   // P(u)
   theValue.ChangeCoord().Add(Ndir);
   // P'(u) :
-  theD1.Add(gp_Vec(DNdir));
+  theD1.Add(Vector3d(DNdir));
   // P"(u)
-  theD2.Add(gp_Vec(D2Ndir));
+  theD2.Add(Vector3d(D2Ndir));
   // P"'(u)
   if (theIsDirChange)
     theD3.Reverse();
-  theD3.Add(gp_Vec(D2Ndir));
+  theD3.Add(Vector3d(D2Ndir));
 }
 
 Standard_Boolean GeomEvaluator_OffsetCurve::AdjustDerivative(
   const Standard_Integer theMaxDerivative,
   const Standard_Real    theU,
-  gp_Vec&                theD1,
-  gp_Vec&                theD2,
-  gp_Vec&                theD3,
-  gp_Vec&                theD4) const
+  Vector3d&                theD1,
+  Vector3d&                theD2,
+  Vector3d&                theD3,
+  Vector3d&                theD4) const
 {
   static const Standard_Real    aTol           = gp::Resolution();
   static const Standard_Real    aMinStep       = 1e-7;
@@ -435,7 +435,7 @@ Standard_Boolean GeomEvaluator_OffsetCurve::AdjustDerivative(
 
   // Derivative is approximated by Taylor-series
   Standard_Integer anIndex = 1; // Derivative order
-  gp_Vec           V;
+  Vector3d           V;
 
   do
   {
@@ -453,12 +453,12 @@ Standard_Boolean GeomEvaluator_OffsetCurve::AdjustDerivative(
   BaseD0(Min(theU, u), P1);
   BaseD0(Max(theU, u), P2);
 
-  gp_Vec V1(P1, P2);
+  Vector3d V1(P1, P2);
   isDirectionChange   = V.Dot(V1) < 0.0;
   Standard_Real aSign = isDirectionChange ? -1.0 : 1.0;
 
   theD1             = V * aSign;
-  gp_Vec* aDeriv[3] = {&theD2, &theD3, &theD4};
+  Vector3d* aDeriv[3] = {&theD2, &theD3, &theD4};
   for (Standard_Integer i = 1; i < theMaxDerivative; i++)
     *(aDeriv[i - 1]) = BaseDN(theU, anIndex + i) * aSign;
 

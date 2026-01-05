@@ -31,11 +31,11 @@
 IMPLEMENT_STANDARD_RTTIEXT(Geom_Parabola, Geom_Conic)
 
 typedef Geom_Parabola Parabola;
-typedef gp_Ax1        Ax1;
-typedef gp_Ax2        Ax2;
+typedef Axis3d        Ax1;
+typedef Frame3d        Ax2;
 typedef Point3d        Pnt;
-typedef gp_Trsf       Trsf;
-typedef gp_Vec        Vec;
+typedef Transform3d       Trsf;
+typedef Vector3d        Vec;
 typedef gp_XYZ        XYZ;
 
 //=================================================================================================
@@ -233,7 +233,7 @@ void Geom_Parabola::Transform(const Trsf& T)
 
 //=================================================================================================
 
-Standard_Real Geom_Parabola::TransformedParameter(const Standard_Real U, const gp_Trsf& T) const
+Standard_Real Geom_Parabola::TransformedParameter(const Standard_Real U, const Transform3d& T) const
 {
   if (Precision::IsInfinite(U))
     return U;
@@ -242,7 +242,7 @@ Standard_Real Geom_Parabola::TransformedParameter(const Standard_Real U, const g
 
 //=================================================================================================
 
-Standard_Real Geom_Parabola::ParametricTransformation(const gp_Trsf& T) const
+Standard_Real Geom_Parabola::ParametricTransformation(const Transform3d& T) const
 {
   return Abs(T.ScaleFactor());
 }

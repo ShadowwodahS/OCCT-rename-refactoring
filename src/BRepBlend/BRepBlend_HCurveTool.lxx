@@ -98,7 +98,7 @@ inline void BRepBlend_HCurveTool::D0(const Handle(Adaptor3d_Curve)& C,
 inline void BRepBlend_HCurveTool::D1(const Handle(Adaptor3d_Curve)& C,
                                      const Standard_Real            U,
                                      Point3d&                        P,
-                                     gp_Vec&                        T)
+                                     Vector3d&                        T)
 {
   C->D1(U, P, T);
 }
@@ -107,8 +107,8 @@ inline void BRepBlend_HCurveTool::D1(const Handle(Adaptor3d_Curve)& C,
 inline void BRepBlend_HCurveTool::D2(const Handle(Adaptor3d_Curve)& C,
                                      const Standard_Real            U,
                                      Point3d&                        P,
-                                     gp_Vec&                        T,
-                                     gp_Vec&                        N)
+                                     Vector3d&                        T,
+                                     Vector3d&                        N)
 {
 
   C->D2(U, P, T, N);
@@ -118,16 +118,16 @@ inline void BRepBlend_HCurveTool::D2(const Handle(Adaptor3d_Curve)& C,
 inline void BRepBlend_HCurveTool::D3(const Handle(Adaptor3d_Curve)& C,
                                      const Standard_Real            U,
                                      Point3d&                        P,
-                                     gp_Vec&                        V1,
-                                     gp_Vec&                        V2,
-                                     gp_Vec&                        V3)
+                                     Vector3d&                        V1,
+                                     Vector3d&                        V2,
+                                     Vector3d&                        V3)
 {
 
   C->D3(U, P, V1, V2, V3);
 }
 
 //============================================================
-inline gp_Vec BRepBlend_HCurveTool::DN(const Handle(Adaptor3d_Curve)& C,
+inline Vector3d BRepBlend_HCurveTool::DN(const Handle(Adaptor3d_Curve)& C,
                                        const Standard_Real            U,
                                        const Standard_Integer         N)
 {

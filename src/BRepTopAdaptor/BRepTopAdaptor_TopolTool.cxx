@@ -238,7 +238,7 @@ void Analyse(const TColgp_Array2OfPnt& array2,
              Standard_Integer&         myNbSamplesU,
              Standard_Integer&         myNbSamplesV)
 {
-  gp_Vec           Vi, Vip1;
+  Vector3d           Vi, Vip1;
   Standard_Integer sh, nbch, i, j;
 
   sh   = 1;

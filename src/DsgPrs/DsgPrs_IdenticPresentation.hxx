@@ -25,7 +25,7 @@
 
 class TCollection_ExtendedString;
 class Point3d;
-class gp_Ax2;
+class Frame3d;
 class gp_Elips;
 
 class DsgPrs_IdenticPresentation
@@ -62,7 +62,7 @@ public:
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Handle(Prs3d_Drawer)&       aDrawer,
                                   const TCollection_ExtendedString& aText,
-                                  const gp_Ax2&                     aAx2,
+                                  const Frame3d&                     aAx2,
                                   const Point3d&                     aCenter,
                                   const Point3d&                     aFAttach,
                                   const Point3d&                     aSAttach,
@@ -76,7 +76,7 @@ public:
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Handle(Prs3d_Drawer)&       aDrawer,
                                   const TCollection_ExtendedString& aText,
-                                  const gp_Ax2&                     aAx2,
+                                  const Frame3d&                     aAx2,
                                   const Point3d&                     aCenter,
                                   const Point3d&                     aFAttach,
                                   const Point3d&                     aSAttach,

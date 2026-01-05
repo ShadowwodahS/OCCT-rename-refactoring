@@ -435,10 +435,10 @@ Standard_EXPORT Standard_Boolean FUN_tool_EboundF(const TopoDS_Edge& E, const To
 }
 
 // ----------------------------------------------------------------------
-Standard_EXPORT gp_Vec FUN_tool_nggeomF(const gp_Pnt2d& p2d, const TopoDS_Face& F)
+Standard_EXPORT Vector3d FUN_tool_nggeomF(const gp_Pnt2d& p2d, const TopoDS_Face& F)
 {
   Handle(Geom_Surface) S = BRep_Tool::Surface(F);
-  gp_Vec               ngF(FUN_tool_ngS(p2d, S));
+  Vector3d               ngF(FUN_tool_ngS(p2d, S));
   return ngF;
 }
 
@@ -446,7 +446,7 @@ Standard_EXPORT gp_Vec FUN_tool_nggeomF(const gp_Pnt2d& p2d, const TopoDS_Face& 
 Standard_EXPORT Standard_Boolean FUN_tool_nggeomF(const Standard_Real& paronE,
                                                   const TopoDS_Edge&   E,
                                                   const TopoDS_Face&   F,
-                                                  gp_Vec&              nggeomF,
+                                                  Vector3d&              nggeomF,
                                                   const Standard_Real  tol)
 {
   // <p2d> :
@@ -499,7 +499,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_nggeomF(const Standard_Real& paronE,
 Standard_EXPORT Standard_Boolean FUN_tool_nggeomF(const Standard_Real& paronE,
                                                   const TopoDS_Edge&   E,
                                                   const TopoDS_Face&   F,
-                                                  gp_Vec&              nggeomF)
+                                                  Vector3d&              nggeomF)
 {
   Standard_Real tol3d = BRep_Tool::Tolerance(F);
   tol3d *= 1.e2;
@@ -514,12 +514,12 @@ Standard_EXPORT Standard_Boolean FUN_tool_EtgF(const Standard_Real& paronE,
                                                const TopoDS_Face&   F,
                                                const Standard_Real  tola)
 {
-  gp_Vec           tgE;
+  Vector3d           tgE;
   Standard_Boolean ok = TopOpeBRepTool_TOOL::TggeomE(paronE, E, tgE);
   if (!ok)
     return Standard_False; // NYIRAISE
 
-  gp_Vec           ngF  = FUN_tool_nggeomF(p2d, F);
+  Vector3d           ngF  = FUN_tool_nggeomF(p2d, F);
   Standard_Real    prod = tgE.Dot(ngF);
   Standard_Boolean tgt  = Abs(prod) < tola;
   return tgt;
@@ -532,11 +532,11 @@ Standard_EXPORT Standard_Boolean FUN_tool_EtgOOE(const Standard_Real& paronE,
                                                  const TopoDS_Edge&   OOE,
                                                  const Standard_Real  tola)
 {
-  gp_Vec           tgOOE;
+  Vector3d           tgOOE;
   Standard_Boolean ok = TopOpeBRepTool_TOOL::TggeomE(paronOOE, OOE, tgOOE);
   if (!ok)
     return Standard_False; // NYIRAISE
-  gp_Vec tgE;
+  Vector3d tgE;
   ok = TopOpeBRepTool_TOOL::TggeomE(paronE, E, tgE);
   if (!ok)
     return Standard_False; // NYIRAISE
@@ -592,13 +592,13 @@ Standard_EXPORT Standard_Boolean FUN_nearestISO(const TopoDS_Face&     F,
 }
 
 // ----------------------------------------------------------------------
-Standard_EXPORT Standard_Boolean FUN_tool_EitangenttoFe(const gp_Dir&       ngFe,
+Standard_EXPORT Standard_Boolean FUN_tool_EitangenttoFe(const Dir3d&       ngFe,
                                                         const TopoDS_Edge&  Ei,
                                                         const Standard_Real parOnEi)
 {
   // returns true if <Ei> is tangent to Fe at point
   // p3d of param <parOnEi>,<ngFe> is normal to Fe at p3d.
-  gp_Vec           tgEi;
+  Vector3d           tgEi;
   Standard_Boolean ok = TopOpeBRepTool_TOOL::TggeomE(parOnEi, Ei, tgEi);
   if (!ok)
     return Standard_False; // NYIRAISE
@@ -964,22 +964,22 @@ Standard_EXPORT Standard_Boolean FUN_tool_paronEF(const TopoDS_Edge&   E,
 }
 
 // ----------------------------------------------------------------------
-Standard_EXPORT gp_Dir FUN_tool_dirC(const Standard_Real par, const BRepAdaptor_Curve& BAC)
+Standard_EXPORT Dir3d FUN_tool_dirC(const Standard_Real par, const BRepAdaptor_Curve& BAC)
 {
   Point3d p;
-  gp_Vec tgE;
+  Vector3d tgE;
   BAC.D1(par, p, tgE);
-  gp_Dir dirC(tgE);
+  Dir3d dirC(tgE);
   return dirC;
 }
 
 // ----------------------------------------------------------------------
-Standard_EXPORT gp_Vec FUN_tool_tggeomE(const Standard_Real paronE, const TopoDS_Edge& E)
+Standard_EXPORT Vector3d FUN_tool_tggeomE(const Standard_Real paronE, const TopoDS_Edge& E)
 {
   Standard_Boolean isdgE = BRep_Tool::Degenerated(E);
   if (isdgE)
-    return gp_Vec(0, 0, 0);
-  gp_Vec dirE(FUN_tool_dirC(paronE, E));
+    return Vector3d(0, 0, 0);
+  Vector3d dirE(FUN_tool_dirC(paronE, E));
   return dirE;
 }
 
@@ -1195,11 +1195,11 @@ Standard_EXPORT Standard_Boolean FUN_tool_SameOri(const TopoDS_Edge& E1, const T
   Standard_Real mid = x * f + (1 - x) * l;
   Point3d        Pmid;
   FUN_tool_value(mid, E2, Pmid);
-  gp_Vec           tmp;
+  Vector3d           tmp;
   Standard_Boolean ok = TopOpeBRepTool_TOOL::TggeomE(mid, E2, tmp);
   if (!ok)
     return Standard_False;
-  gp_Dir             tgE2(tmp);
+  Dir3d             tgE2(tmp);
   TopAbs_Orientation oriE2 = E2.Orientation();
   if (M_REVERSED(oriE2))
     tgE2.Reverse();
@@ -1216,7 +1216,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_SameOri(const TopoDS_Edge& E1, const T
   ok = TopOpeBRepTool_TOOL::TggeomE(pE1, E1, tmp);
   if (!ok)
     return Standard_False;
-  gp_Dir             tgE1(tmp);
+  Dir3d             tgE1(tmp);
   TopAbs_Orientation oriE1 = E1.Orientation();
   if (M_REVERSED(oriE1))
     tgE1.Reverse();
@@ -1332,11 +1332,11 @@ Standard_EXPORT Standard_Boolean FUN_tool_curvesSO(const TopoDS_Edge&  E1,
 {
   BRepAdaptor_Curve BAC1(E1);
   BRepAdaptor_Curve BAC2(E2);
-  gp_Vec            tg1;
+  Vector3d            tg1;
   Standard_Boolean  ok = TopOpeBRepTool_TOOL::TggeomE(p1, E1, tg1);
   if (!ok)
     return Standard_False; // NYIRAISE
-  gp_Vec tg2;
+  Vector3d tg2;
   ok = TopOpeBRepTool_TOOL::TggeomE(p2, E2, tg2);
   if (!ok)
     return Standard_False; // NYIRAISE

@@ -354,7 +354,7 @@ Handle(Geom_Curve) GeomFill_EvolvedSection::ConstantSection() const
   Standard_Real Err, scale;
   if (!IsConstant(Err))
     throw StdFail_NotDone("The Law is not Constant!");
-  gp_Trsf T;
+  Transform3d T;
   Point3d  P(0, 0, 0);
   scale = myLaw->Value(First) + myLaw->Value((First + Last) / 2) + myLaw->Value(Last);
   T.SetScale(P, scale / 3);

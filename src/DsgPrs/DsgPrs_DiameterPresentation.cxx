@@ -50,7 +50,7 @@ void DsgPrs_DiameterPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
 
   // sideline
   Point3d center = aCircle.Location();
-  gp_Vec vecrap(ptoncirc, center);
+  Vector3d vecrap(ptoncirc, center);
 
   Standard_Real    dist    = center.Distance(AttachmentPoint);
   Standard_Real    aRadius = aCircle.Radius();
@@ -78,13 +78,13 @@ void DsgPrs_DiameterPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
   Prs3d_Text::Draw(aPresentation->CurrentGroup(), LA->TextAspect(), Text, AttachmentPoint);
 
   // arrows
-  gp_Dir arrdir(vecrap);
+  Dir3d arrdir(vecrap);
   if (inside)
     arrdir.Reverse();
 
-  gp_Vec vecrap2   = vecrap;
+  Vector3d vecrap2   = vecrap;
   Point3d ptoncirc2 = ptoncirc;
-  gp_Dir arrdir2   = arrdir;
+  Dir3d arrdir2   = arrdir;
   vecrap2.Normalize();
   vecrap2 *= (aCircle.Radius() * 2.);
   ptoncirc2.Translate(vecrap2);
@@ -167,8 +167,8 @@ void DsgPrs_DiameterPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
     }
     else
     {
-      gp_Dir dir1(gp_Vec(Center, FirstPoint));
-      gp_Dir dir2(gp_Vec(Center, SecondPoint));
+      Dir3d dir1(Vector3d(Center, FirstPoint));
+      Dir3d dir2(Vector3d(Center, SecondPoint));
       gp_Lin L1(Center, dir1);
       gp_Lin L2(Center, dir2);
       if (L1.Distance(AttachmentPoint) < L2.Distance(AttachmentPoint))
@@ -201,7 +201,7 @@ void DsgPrs_DiameterPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
   Prs3d_Text::Draw(aPresentation->CurrentGroup(), LA->TextAspect(), Text, DrawPosition);
 
   // Add presentation of arrow
-  gp_Dir DirOfArrow(gp_Vec(DrawPosition, EndOfArrow).XYZ());
+  Dir3d DirOfArrow(Vector3d(DrawPosition, EndOfArrow).XYZ());
   DsgPrs::ComputeSymbol(aPresentation,
                         LA,
                         EndOfArrow,

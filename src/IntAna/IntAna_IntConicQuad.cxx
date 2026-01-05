@@ -542,9 +542,9 @@ void IntAna_IntConicQuad::Perform(const gp_Circ&      C,
     parallel  = Standard_False;
     gp_Lin Ligsol(IntP.Line(1));
 
-    gp_Vec V0(Plconic.Location(), Ligsol.Location());
-    gp_Vec Axex(Plconic.Position().XDirection());
-    gp_Vec Axey(Plconic.Position().YDirection());
+    Vector3d V0(Plconic.Location(), Ligsol.Location());
+    Vector3d Axex(Plconic.Position().XDirection());
+    Vector3d Axey(Plconic.Position().YDirection());
 
     gp_Pnt2d Orig(Axex.Dot(V0), Axey.Dot(V0));
     gp_Vec2d Dire(Axex.Dot(Ligsol.Direction()), Axey.Dot(Ligsol.Direction()));

@@ -323,7 +323,7 @@ void BRepCheck_Edge::InContext(const TopoDS_Shape& S)
         const Handle(Geom_Surface)& Su          = TF->Surface();
         TopLoc_Location             L           = (Floc * TFloc).Predivided(myShape.Location());
         TopLoc_Location             LE          = myShape.Location() * myCref->Location();
-        const gp_Trsf&              Etrsf       = LE.Transformation();
+        const Transform3d&              Etrsf       = LE.Transformation();
         Standard_Boolean            pcurvefound = Standard_False;
 
         BRep_ListIteratorOfListOfCurveRepresentation itcr(TE->Curves());
@@ -713,7 +713,7 @@ BRepCheck_Status BRepCheck_Edge::CheckPolygonOnTriangulation(const TopoDS_Edge& 
     Handle(BRep_PolygonOnTriangulation)    aPT(Handle(BRep_PolygonOnTriangulation)::DownCast(aCR));
 
     const TopLoc_Location aLL   = theEdge.Location() * aPT->Location();
-    const gp_Trsf         aTrsf = aLL;
+    const Transform3d         aTrsf = aLL;
 
     const Handle(Poly_Triangulation)          aTriang   = aCR->Triangulation();
     const Handle(Poly_PolygonOnTriangulation) aPOnTriag = aCR->IsPolygonOnClosedTriangulation()

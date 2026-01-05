@@ -24,17 +24,17 @@
 //=================================================================================================
 
 void DsgPrs_DatumPrs::Add(const Handle(Prs3d_Presentation)& thePresentation,
-                          const gp_Ax2&                     theDatum,
+                          const Frame3d&                     theDatum,
                           const Handle(Prs3d_Drawer)&       theDrawer)
 {
   Handle(Prs3d_DatumAspect) aDatumAspect = theDrawer->DatumAspect();
   Handle(Graphic3d_Group)   aGroup       = thePresentation->CurrentGroup();
 
-  gp_Ax2 anAxis(theDatum);
+  Frame3d anAxis(theDatum);
   Point3d anOrigin = anAxis.Location();
-  gp_Dir aXDir    = anAxis.XDirection();
-  gp_Dir aYDir    = anAxis.YDirection();
-  gp_Dir aZDir    = anAxis.Direction();
+  Dir3d aXDir    = anAxis.XDirection();
+  Dir3d aYDir    = anAxis.YDirection();
+  Dir3d aZDir    = anAxis.Direction();
 
   Standard_Real          anAxisLength;
   const Standard_Boolean toDrawLabels = theDrawer->DatumAspect()->ToDrawLabels();

@@ -81,7 +81,7 @@ void GeomPlate_PointConstraint::D0(Point3d& P) const
 //---------------------------------------------------------
 // Fonction : D1
 //---------------------------------------------------------
-void GeomPlate_PointConstraint::D1(Point3d& P, gp_Vec& V1, gp_Vec& V2) const
+void GeomPlate_PointConstraint::D1(Point3d& P, Vector3d& V1, Vector3d& V2) const
 {
   P  = myPoint;
   V1 = myD11;
@@ -92,11 +92,11 @@ void GeomPlate_PointConstraint::D1(Point3d& P, gp_Vec& V1, gp_Vec& V2) const
 // Fonction : D2
 //---------------------------------------------------------
 void GeomPlate_PointConstraint::D2(Point3d& P,
-                                   gp_Vec& V1,
-                                   gp_Vec& V2,
-                                   gp_Vec& V3,
-                                   gp_Vec& V4,
-                                   gp_Vec& V5) const
+                                   Vector3d& V1,
+                                   Vector3d& V2,
+                                   Vector3d& V3,
+                                   Vector3d& V4,
+                                   Vector3d& V5) const
 {
   P  = myPoint;
   V1 = myD11;

@@ -584,7 +584,7 @@ static Standard_Boolean prepareAssembly(const TopoDS_Shape& theShape, TopoDS_Sha
       if (aLoc.IsIdentity())
       {
         // create an "empty" location
-        gp_Trsf aTrsf;
+        Transform3d aTrsf;
         aTrsf.SetScale(Point3d(0, 0, 0), 1);
         aLoc = TopLoc_Location(aTrsf);
         aNewScomp.Location(aLoc, Standard_False);

@@ -203,39 +203,39 @@ public:
 public:
   //! Get camera look direction.
   //! @return camera look direction.
-  const gp_Dir& Direction() const { return myDirection; }
+  const Dir3d& Direction() const { return myDirection; }
 
   //! Sets camera look direction preserving the current Eye() position.
   //! WARNING! This method does NOT verify that the current Up() vector is orthogonal to the new
   //! Direction.
   //! @param[in] theDir  the direction.
-  Standard_EXPORT void SetDirectionFromEye(const gp_Dir& theDir);
+  Standard_EXPORT void SetDirectionFromEye(const Dir3d& theDir);
 
   //! Sets camera look direction and computes the new Eye position relative to current Center.
   //! WARNING! This method does NOT verify that the current Up() vector is orthogonal to the new
   //! Direction.
   //! @param[in] theDir  the direction.
-  Standard_EXPORT void SetDirection(const gp_Dir& theDir);
+  Standard_EXPORT void SetDirection(const Dir3d& theDir);
 
   //! Get camera Up direction vector.
   //! @return Camera's Up direction vector.
-  const gp_Dir& Up() const { return myUp; }
+  const Dir3d& Up() const { return myUp; }
 
   //! Sets camera Up direction vector, orthogonal to camera direction.
   //! WARNING! This method does NOT verify that the new Up vector is orthogonal to the current
   //! Direction().
   //! @param[in] theUp  the Up direction vector.
   //! @sa OrthogonalizeUp().
-  Standard_EXPORT void SetUp(const gp_Dir& theUp);
+  Standard_EXPORT void SetUp(const Dir3d& theUp);
 
   //! Orthogonalize up direction vector.
   Standard_EXPORT void OrthogonalizeUp();
 
   //! Return a copy of orthogonalized up direction vector.
-  Standard_EXPORT gp_Dir OrthogonalizedUp() const;
+  Standard_EXPORT Dir3d OrthogonalizedUp() const;
 
   //! Right side direction.
-  gp_Dir SideRight() const { return -(gp_Vec(Direction()) ^ gp_Vec(OrthogonalizedUp())); }
+  Dir3d SideRight() const { return -(Vector3d(Direction()) ^ Vector3d(OrthogonalizedUp())); }
 
   //! Get camera Eye position.
   //! @return camera eye location.
@@ -465,7 +465,7 @@ public:
   //! Transform orientation components of the camera:
   //! Eye, Up and Center points.
   //! @param[in] theTrsf  the transformation to apply.
-  Standard_EXPORT void Transform(const gp_Trsf& theTrsf);
+  Standard_EXPORT void Transform(const Transform3d& theTrsf);
 
   //! Calculate view plane size at center (target) point
   //! and distance between ZFar and ZNear planes.
@@ -777,8 +777,8 @@ public:
     const Graphic3d_Mat4d&               theModelWorld = Graphic3d_Mat4d()) const;
 
 private:
-  gp_Dir        myUp;        //!< Camera up direction vector
-  gp_Dir        myDirection; //!< Camera view direction (from eye)
+  Dir3d        myUp;        //!< Camera up direction vector
+  Dir3d        myDirection; //!< Camera view direction (from eye)
   Point3d        myEye;       //!< Camera eye position
   Standard_Real myDistance;  //!< distance from Eye to Center
 

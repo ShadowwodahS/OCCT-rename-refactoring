@@ -104,21 +104,21 @@ public:
   //! Returns the maximal upper tolerance.
   Standard_EXPORT Standard_Real GetMaxValueModifier() const;
 
-  Standard_EXPORT void SetAxis(const gp_Ax2& theAxis);
+  Standard_EXPORT void SetAxis(const Frame3d& theAxis);
 
-  Standard_EXPORT gp_Ax2 GetAxis() const;
+  Standard_EXPORT Frame3d GetAxis() const;
 
   Standard_EXPORT Standard_Boolean HasAxis() const;
 
   //! Sets annotation plane.
-  void SetPlane(const gp_Ax2& thePlane)
+  void SetPlane(const Frame3d& thePlane)
   {
     myPlane    = thePlane;
     myHasPlane = Standard_True;
   }
 
   //! Returns annotation plane.
-  const gp_Ax2& GetPlane() const { return myPlane; }
+  const Frame3d& GetPlane() const { return myPlane; }
 
   //! Sets reference point.
   void SetPoint(const Point3d& thePnt)
@@ -209,9 +209,9 @@ private:
   Standard_Real                                    myValueOfZoneModif;
   XCAFDimTolObjects_GeomToleranceModifiersSequence myModifiers;
   Standard_Real                                    myMaxValueModif;
-  gp_Ax2                                           myAxis;
+  Frame3d                                           myAxis;
   Standard_Boolean                                 myHasAxis;
-  gp_Ax2                                           myPlane;
+  Frame3d                                           myPlane;
   Point3d                                           myPnt;
   Point3d                                           myPntText;
   Standard_Boolean                                 myHasPlane;

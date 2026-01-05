@@ -198,8 +198,8 @@ Standard_Boolean BlendFunc_EvolRad::ComputeValues(const math_Vector&     X,
 {
   // static declaration to avoid systematic realloc
 
-  static gp_Vec        d3u1, d3v1, d3uuv1, d3uvv1, d3u2, d3v2, d3uuv2, d3uvv2;
-  static gp_Vec        d1gui, d2gui, d3gui;
+  static Vector3d        d3u1, d3v1, d3uuv1, d3uvv1, d3u2, d3v2, d3uuv2, d3uvv2;
+  static Vector3d        d1gui, d2gui, d3gui;
   static Point3d        ptgui;
   static Standard_Real invnormtg, dinvnormtg;
   Standard_Real        T = Param, aux;
@@ -315,7 +315,7 @@ Standard_Boolean BlendFunc_EvolRad::ComputeValues(const math_Vector&     X,
     // Case of degenerated surfaces
     if (nsurf1.Magnitude() < Eps)
     {
-      //     gp_Vec normal;
+      //     Vector3d normal;
       gp_Pnt2d P(X(1), X(2));
       if (Order == 0)
         BlendFunc::ComputeNormal(surf1, P, nsurf1);
@@ -324,7 +324,7 @@ Standard_Boolean BlendFunc_EvolRad::ComputeValues(const math_Vector&     X,
     }
     if (nsurf2.Magnitude() < Eps)
     {
-      //     gp_Vec normal;
+      //     Vector3d normal;
       gp_Pnt2d P(X(3), X(4));
       if (Order == 0)
         BlendFunc::ComputeNormal(surf2, P, nsurf2);
@@ -337,7 +337,7 @@ Standard_Boolean BlendFunc_EvolRad::ComputeValues(const math_Vector&     X,
   Standard_Real invnorm1, invnorm2, ndotns1, ndotns2, theD;
   Standard_Real ray1 = sg1 * ray;
   Standard_Real ray2 = sg2 * ray;
-  gp_Vec        ncrossns1, ncrossns2, resul, temp, n1, n2;
+  Vector3d        ncrossns1, ncrossns2, resul, temp, n1, n2;
 
   theD = -(nplan.XYZ().Dot(ptgui.XYZ()));
 
@@ -378,7 +378,7 @@ Standard_Boolean BlendFunc_EvolRad::ComputeValues(const math_Vector&     X,
   n2.SetLinearForm(ndotns2, nplan, -1., nsurf2);
   n2.Multiply(invnorm2);
 
-  resul.SetLinearForm(ray1, n1, -ray2, n2, gp_Vec(pts2, pts1));
+  resul.SetLinearForm(ray1, n1, -ray2, n2, Vector3d(pts2, pts1));
 
   E(2) = resul.X();
   E(3) = resul.Y();
@@ -483,8 +483,8 @@ Standard_Boolean BlendFunc_EvolRad::ComputeValues(const math_Vector&     X,
     // ------   Positioning of order 2  -----------------------------
     if (Order == 2)
     {
-      //     gp_Vec d2ndu1,  d2ndu2, d2ndv1, d2ndv2, d2nduv1, d2nduv2;
-      gp_Vec        d2ns1u1, d2ns1u2, d2ns1v1, d2ns1v2, d2ns1uv1, d2ns1uv2;
+      //     Vector3d d2ndu1,  d2ndu2, d2ndv1, d2ndv2, d2nduv1, d2nduv2;
+      Vector3d        d2ns1u1, d2ns1u2, d2ns1v1, d2ns1v2, d2ns1uv1, d2ns1uv2;
       Standard_Real uterm, vterm, smallterm, p1, p2, p12;
       Standard_Real DPrim, DSecn;
       D2EDX2.Init(0);
@@ -897,7 +897,7 @@ Standard_Boolean BlendFunc_EvolRad::IsSolution(const math_Vector& Sol, const Sta
   {
 
     // ns1, ns2, np are copied locally to avoid crushing the fields !
-    gp_Vec ns1, ns2, np;
+    Vector3d ns1, ns2, np;
     ns1 = nsurf1;
     ns2 = nsurf2;
     np  = nplan;
@@ -1043,18 +1043,18 @@ void BlendFunc_EvolRad::Tangent(const Standard_Real U1,
                                 const Standard_Real V1,
                                 const Standard_Real U2,
                                 const Standard_Real V2,
-                                gp_Vec&             TgF,
-                                gp_Vec&             TgL,
-                                gp_Vec&             NmF,
-                                gp_Vec&             NmL) const
+                                Vector3d&             TgF,
+                                Vector3d&             TgL,
+                                Vector3d&             NmF,
+                                Vector3d&             NmL) const
 {
   Point3d        Center;
-  gp_Vec        ns1;
+  Vector3d        ns1;
   Standard_Real invnorm1;
 
   if ((U1 != xval(1)) || (V1 != xval(2)) || (U2 != xval(3)) || (V2 != xval(4)))
   {
-    gp_Vec d1u, d1v;
+    Vector3d d1u, d1v;
     Point3d bid;
 #ifdef OCCT_DEBUG
     std::cout << " erreur de tengent !!!!!!!!!!!!!!!!!!!!" << std::endl;
@@ -1079,8 +1079,8 @@ void BlendFunc_EvolRad::Tangent(const Standard_Real U1,
 
   Center.SetXYZ(pts1.XYZ() + sg1 * ray * ns1.XYZ());
 
-  TgF = nplan.Crossed(gp_Vec(Center, pts1));
-  TgL = nplan.Crossed(gp_Vec(Center, pts2));
+  TgF = nplan.Crossed(Vector3d(Center, pts1));
+  TgL = nplan.Crossed(Vector3d(Center, pts2));
   if (choix % 2 == 1)
   {
     TgF.Reverse();
@@ -1122,7 +1122,7 @@ void BlendFunc_EvolRad::Section(const Standard_Real Param,
                                 gp_Circ&            C)
 {
   Point3d Center;
-  gp_Vec ns1, np;
+  Vector3d ns1, np;
 
   math_Vector X(1, 4);
   X(1)              = U1;
@@ -1156,14 +1156,14 @@ void BlendFunc_EvolRad::Section(const Standard_Real Param,
     np.Reverse();
   }
   C.SetRadius(Abs(ray));
-  C.SetPosition(gp_Ax2(Center, np, ns1));
+  C.SetPosition(Frame3d(Center, np, ns1));
   Pdeb = 0.;
   Pfin = ElCLib::Parameter(C, pts2);
   // Test of negative and almost null angles : Single Case
   if (Pfin > 1.5 * M_PI)
   {
     np.Reverse();
-    C.SetPosition(gp_Ax2(Center, np, ns1));
+    C.SetPosition(Frame3d(Center, np, ns1));
     Pfin = ElCLib::Parameter(C, pts2);
   }
   if (Pfin < Precision::PConfusion())
@@ -1193,7 +1193,7 @@ Standard_Boolean BlendFunc_EvolRad::IsTangencyPoint() const
 
 //=================================================================================================
 
-const gp_Vec& BlendFunc_EvolRad::TangentOnS1() const
+const Vector3d& BlendFunc_EvolRad::TangentOnS1() const
 {
   if (istangent)
   {
@@ -1204,7 +1204,7 @@ const gp_Vec& BlendFunc_EvolRad::TangentOnS1() const
 
 //=================================================================================================
 
-const gp_Vec& BlendFunc_EvolRad::TangentOnS2() const
+const Vector3d& BlendFunc_EvolRad::TangentOnS2() const
 {
   if (istangent)
   {
@@ -1360,7 +1360,7 @@ void BlendFunc_EvolRad::Section(const Blend_Point&    P,
                                 TColStd_Array1OfReal& Weights)
 {
   Point3d Center;
-  gp_Vec ns1, ns2, np;
+  Vector3d ns1, ns2, np;
 
   math_Vector   X(1, 4);
   Standard_Real prm = P.Parameter();
@@ -1444,7 +1444,7 @@ Standard_Boolean BlendFunc_EvolRad::Section(const Blend_Point&    P,
                                             TColStd_Array1OfReal& Weights,
                                             TColStd_Array1OfReal& DWeights)
 {
-  gp_Vec        ns1, ns2, np, dnp, dnorm1w, dnorm2w, tgc;
+  Vector3d        ns1, ns2, np, dnp, dnorm1w, dnorm2w, tgc;
   Standard_Real norm1, norm2, rayprim;
 
   Point3d      Center;
@@ -1627,8 +1627,8 @@ Standard_Boolean BlendFunc_EvolRad::Section(const Blend_Point&    P,
                                             TColStd_Array1OfReal& DWeights,
                                             TColStd_Array1OfReal& D2Weights)
 {
-  gp_Vec        ns1, ns2, np, dnp, d2np, dnorm1w, dnorm2w, d2norm1w, d2norm2w;
-  gp_Vec        tgc, dtgc, dtg1, dtg2, temp, tempbis;
+  Vector3d        ns1, ns2, np, dnp, d2np, dnorm1w, dnorm2w, d2norm1w, d2norm2w;
+  Vector3d        tgc, dtgc, dtg1, dtg2, temp, tempbis;
   Standard_Real norm1, norm2, rayprim, raysecn;
 
   Point3d      Center;
@@ -1649,7 +1649,7 @@ Standard_Boolean BlendFunc_EvolRad::Section(const Blend_Point&    P,
     if (prm==tcurv->LastParameter()){deltat *= -1;} //Pour les discont
     Standard_Real deltaX = 1.e-9;
     Standard_Integer ii, jj;
-    gp_Vec d_plan, d1, d2, pdiff;
+    Vector3d d_plan, d1, d2, pdiff;
     math_Matrix M(1,4,1,4), MDiff(1,4,1,4);
     math_Matrix Mu1(1,4,1,4), Mv1(1,4,1,4);
     math_Matrix Mu2(1,4,1,4), Mv2(1,4,1,4);

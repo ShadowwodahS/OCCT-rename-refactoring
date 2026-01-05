@@ -51,7 +51,7 @@ void gp_GTrsf::Invert()
   }
   else
   {
-    gp_Trsf T = Trsf();
+    Transform3d T = Trsf();
     T.Invert();
     SetTrsf(T);
   }
@@ -67,8 +67,8 @@ void gp_GTrsf::Multiply(const gp_GTrsf& T)
   }
   else
   {
-    gp_Trsf T1 = Trsf();
-    gp_Trsf T2 = T.Trsf();
+    Transform3d T1 = Trsf();
+    Transform3d T2 = T.Trsf();
     T1.Multiply(T2);
     matrix = T1.matrix;
     loc    = T1.loc;
@@ -122,7 +122,7 @@ void gp_GTrsf::Power(const Standard_Integer N)
     }
     else
     {
-      gp_Trsf T = Trsf();
+      Transform3d T = Trsf();
       T.Power(N);
       SetTrsf(T);
     }
@@ -140,8 +140,8 @@ void gp_GTrsf::PreMultiply(const gp_GTrsf& T)
   }
   else
   {
-    gp_Trsf T1 = Trsf();
-    gp_Trsf T2 = T.Trsf();
+    Transform3d T1 = Trsf();
+    Transform3d T2 = T.Trsf();
     T1.PreMultiply(T2);
     matrix = T1.matrix;
     loc    = T1.loc;

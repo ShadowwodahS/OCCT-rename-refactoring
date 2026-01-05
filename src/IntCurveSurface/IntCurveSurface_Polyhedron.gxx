@@ -305,7 +305,7 @@ Standard_Real IntCurveSurface_Polyhedron::DeflectionOnTriangle (const ThePSurfac
   gp_XYZ XYZ1=P2.XYZ()-P1.XYZ();
   gp_XYZ XYZ2=P3.XYZ()-P2.XYZ();
   gp_XYZ XYZ3=P1.XYZ()-P3.XYZ();
-  gp_Vec NormalVector((XYZ1^XYZ2)+(XYZ2^XYZ3)+(XYZ3^XYZ1));
+  Vector3d NormalVector((XYZ1^XYZ2)+(XYZ2^XYZ3)+(XYZ3^XYZ1));
   Standard_Real aNormLen = NormalVector.Magnitude();
   if (aNormLen < gp::Resolution()) {
     return 0.;
@@ -317,7 +317,7 @@ Standard_Real IntCurveSurface_Polyhedron::DeflectionOnTriangle (const ThePSurfac
   Standard_Real u = (u1+u2+u3)/3.0;
   Standard_Real v = (v1+v2+v3)/3.0;
   Point3d P =  ThePSurfaceTool::Value(Surface,u,v);
-  gp_Vec P1P(P1,P);
+  Vector3d P1P(P1,P);
   return(Abs(P1P.Dot(NormalVector)));
 }
 //=======================================================================

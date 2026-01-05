@@ -79,7 +79,7 @@ public:
   Standard_EXPORT void SetFont(Standard_CString theFont);
 
   //! Setup label orientation in the model 3D space.
-  Standard_EXPORT void SetOrientation3D(const gp_Ax2& theOrientation);
+  Standard_EXPORT void SetOrientation3D(const Frame3d& theOrientation);
 
   //! Reset label orientation in the model 3D space.
   Standard_EXPORT void UnsetOrientation3D();
@@ -97,7 +97,7 @@ public:
   Standard_EXPORT Font_FontAspect FontAspect() const;
 
   //! Returns label orientation in the model 3D space.
-  Standard_EXPORT const gp_Ax2& Orientation3D() const;
+  Standard_EXPORT const Frame3d& Orientation3D() const;
 
   //! Returns true if the current text placement mode uses text orientation in the model 3D space.
   Standard_EXPORT Standard_Boolean HasOrientation3D() const;
@@ -155,14 +155,14 @@ protected:
                                                         Standard_Real& theHeight) const;
 
   //! Calculate label transformation
-  Standard_EXPORT gp_Trsf calculateLabelTrsf(const Point3d& thePosition,
+  Standard_EXPORT Transform3d calculateLabelTrsf(const Point3d& thePosition,
                                              Point3d&       theCenterOfLabel) const;
 
 protected:
   Handle(Font_TextFormatter) myFormatter;
 
   TCollection_ExtendedString myText;
-  gp_Ax2                     myOrientation3D;
+  Frame3d                     myOrientation3D;
   Standard_Boolean           myHasOrientation3D;
   Standard_Boolean           myHasOwnAnchorPoint;
   Standard_Boolean           myHasFlipping;

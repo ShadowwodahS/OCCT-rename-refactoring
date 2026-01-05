@@ -71,7 +71,7 @@ void Convert_Tools::ConvertStreamToPresentations(
     return;
   }
 
-  gp_Dir aDir;
+  Dir3d aDir;
   if (aDir.InitFromJson(theSStream, aStartPos))
   {
     gp_Lin            aLin(gp::Origin(), aDir);
@@ -80,7 +80,7 @@ void Convert_Tools::ConvertStreamToPresentations(
     return;
   }
 
-  gp_Ax2 anAx2;
+  Frame3d anAx2;
   if (anAx2.InitFromJson(theSStream, aStartPos))
   {
     Handle(Geom_Plane) aGeomPlane = new Geom_Plane(gp_Ax3(anAx2));
@@ -88,7 +88,7 @@ void Convert_Tools::ConvertStreamToPresentations(
     return;
   }
 
-  gp_Ax3 anAx3; // should be after gp_Ax2
+  gp_Ax3 anAx3; // should be after Frame3d
   if (anAx3.InitFromJson(theSStream, aStartPos))
   {
     Handle(Geom_Plane) aGeomPlane = new Geom_Plane(anAx3);
@@ -97,7 +97,7 @@ void Convert_Tools::ConvertStreamToPresentations(
   }
 
   // should be after gp_Ax3
-  gp_Ax1 anAxis;
+  Axis3d anAxis;
   if (anAxis.InitFromJson(theSStream, aStartPos))
   {
     thePresentations.Append(new Convert_TransientShape(
@@ -106,7 +106,7 @@ void Convert_Tools::ConvertStreamToPresentations(
     return;
   }
 
-  gp_Trsf aTrsf;
+  Transform3d aTrsf;
   if (aTrsf.InitFromJson(theSStream, aStartPos))
   {
     CreatePresentation(aTrsf, thePresentations);
@@ -270,7 +270,7 @@ void Convert_Tools::CreatePresentation(
 // purpose  :
 //=======================================================================
 void Convert_Tools::CreatePresentation(
-  const gp_Trsf&                                theTrsf,
+  const Transform3d&                                theTrsf,
   NCollection_List<Handle(RefObject)>& thePresentations)
 {
   Bnd_Box aBox(Point3d(), Point3d(10., 10., 10));

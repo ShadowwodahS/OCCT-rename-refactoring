@@ -24,8 +24,8 @@
 #include <BRepSweep_Translation.hxx>
 #include <Standard_Boolean.hxx>
 class TopoDS_Shape;
-class gp_Vec;
-class gp_Dir;
+class Vector3d;
+class Dir3d;
 class Sweep_NumShape;
 class TopLoc_Location;
 
@@ -40,7 +40,7 @@ public:
   //! S is copied. If Canonize is true then generated surfaces
   //! are attempted to be canonized in simple types
   Standard_EXPORT BRepSweep_Prism(const TopoDS_Shape&    S,
-                                  const gp_Vec&          V,
+                                  const Vector3d&          V,
                                   const Standard_Boolean Copy     = Standard_False,
                                   const Standard_Boolean Canonize = Standard_True);
 
@@ -50,7 +50,7 @@ public:
   //! the direction D. If Canonize is true then generated surfaces
   //! are attempted to be canonized in simple types
   Standard_EXPORT BRepSweep_Prism(const TopoDS_Shape&    S,
-                                  const gp_Dir&          D,
+                                  const Dir3d&          D,
                                   const Standard_Boolean Inf      = Standard_True,
                                   const Standard_Boolean Copy     = Standard_False,
                                   const Standard_Boolean Canonize = Standard_True);
@@ -80,7 +80,7 @@ public:
 
   //! Returns the Vector of the Prism,  if it is an infinite
   //! prism the Vec is unitar.
-  Standard_EXPORT gp_Vec Vec() const;
+  Standard_EXPORT Vector3d Vec() const;
 
   //! Returns true if the
   //! aGenS is used in resulting shape
@@ -99,7 +99,7 @@ private:
   Standard_EXPORT Sweep_NumShape NumShape(const Standard_Boolean Inf) const;
 
   //! used to build the Location.
-  Standard_EXPORT TopLoc_Location Location(const gp_Vec& V) const;
+  Standard_EXPORT TopLoc_Location Location(const Vector3d& V) const;
 
   BRepSweep_Translation myTranslation;
 };

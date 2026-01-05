@@ -27,7 +27,7 @@
 #include <TColgp_HArray1OfVec.hxx>
 #include <TColgp_HArray1OfVec2d.hxx>
 
-class gp_Vec;
+class Vector3d;
 class gp_Vec2d;
 
 //! Describes a MultiPointConstraint used in a
@@ -129,12 +129,12 @@ public:
   //! of 3d points.
   //! An exception is raised if Tang has an incorrect number of
   //! dimensions.
-  Standard_EXPORT void SetTang(const Standard_Integer Index, const gp_Vec& Tang);
+  Standard_EXPORT void SetTang(const Standard_Integer Index, const Vector3d& Tang);
 
   //! returns the tangency value of the point of range Index.
   //! An exception is raised if Index < 0 or if Index > number
   //! of 3d points.
-  Standard_EXPORT gp_Vec Tang(const Standard_Integer Index) const;
+  Standard_EXPORT Vector3d Tang(const Standard_Integer Index) const;
 
   //! sets the value of the tangency of the point of range
   //! Index.
@@ -156,12 +156,12 @@ public:
   //! of 3d points.
   //! An exception is raised if Curv has an incorrect number of
   //! dimensions.
-  Standard_EXPORT void SetCurv(const Standard_Integer Index, const gp_Vec& Curv);
+  Standard_EXPORT void SetCurv(const Standard_Integer Index, const Vector3d& Curv);
 
   //! returns the normal vector at the point of range Index.
   //! An exception is raised if Index < 0 or if Index > number
   //! of 3d points.
-  Standard_EXPORT gp_Vec Curv(const Standard_Integer Index) const;
+  Standard_EXPORT Vector3d Curv(const Standard_Integer Index) const;
 
   //! Vec sets the value of the normal vector at the
   //! point of index Index. The norm of the normal

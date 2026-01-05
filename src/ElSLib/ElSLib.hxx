@@ -29,7 +29,7 @@ class gp_Cone;
 class gp_Cylinder;
 class gp_Sphere;
 class gp_Torus;
-class gp_Vec;
+class Vector3d;
 class gp_Ax3;
 class gp_Lin;
 class gp_Circ;
@@ -75,31 +75,31 @@ public:
   //! derivative vector of order Nu and Nv in the u and v
   //! parametric directions respectively, at the point of
   //! parameters (U, V).
-  static gp_Vec DN(const Standard_Real    U,
+  static Vector3d DN(const Standard_Real    U,
                    const Standard_Real    V,
                    const gp_Pln&          Pl,
                    const Standard_Integer Nu,
                    const Standard_Integer Nv);
 
-  static gp_Vec DN(const Standard_Real    U,
+  static Vector3d DN(const Standard_Real    U,
                    const Standard_Real    V,
                    const gp_Cone&         C,
                    const Standard_Integer Nu,
                    const Standard_Integer Nv);
 
-  static gp_Vec DN(const Standard_Real    U,
+  static Vector3d DN(const Standard_Real    U,
                    const Standard_Real    V,
                    const gp_Cylinder&     C,
                    const Standard_Integer Nu,
                    const Standard_Integer Nv);
 
-  static gp_Vec DN(const Standard_Real    U,
+  static Vector3d DN(const Standard_Real    U,
                    const Standard_Real    V,
                    const gp_Sphere&       S,
                    const Standard_Integer Nu,
                    const Standard_Integer Nv);
 
-  static gp_Vec DN(const Standard_Real    U,
+  static Vector3d DN(const Standard_Real    U,
                    const Standard_Real    V,
                    const gp_Torus&        T,
                    const Standard_Integer Nu,
@@ -127,36 +127,36 @@ public:
                  const Standard_Real V,
                  const gp_Pln&       Pl,
                  Point3d&             P,
-                 gp_Vec&             Vu,
-                 gp_Vec&             Vv);
+                 Vector3d&             Vu,
+                 Vector3d&             Vv);
 
   static void D1(const Standard_Real U,
                  const Standard_Real V,
                  const gp_Cone&      C,
                  Point3d&             P,
-                 gp_Vec&             Vu,
-                 gp_Vec&             Vv);
+                 Vector3d&             Vu,
+                 Vector3d&             Vv);
 
   static void D1(const Standard_Real U,
                  const Standard_Real V,
                  const gp_Cylinder&  C,
                  Point3d&             P,
-                 gp_Vec&             Vu,
-                 gp_Vec&             Vv);
+                 Vector3d&             Vu,
+                 Vector3d&             Vv);
 
   static void D1(const Standard_Real U,
                  const Standard_Real V,
                  const gp_Sphere&    S,
                  Point3d&             P,
-                 gp_Vec&             Vu,
-                 gp_Vec&             Vv);
+                 Vector3d&             Vu,
+                 Vector3d&             Vv);
 
   static void D1(const Standard_Real U,
                  const Standard_Real V,
                  const gp_Torus&     T,
                  Point3d&             P,
-                 gp_Vec&             Vu,
-                 gp_Vec&             Vv);
+                 Vector3d&             Vu,
+                 Vector3d&             Vv);
 
   //! For elementary surfaces from the gp package (cones,
   //! cylinders, spheres and tori), computes:
@@ -168,41 +168,41 @@ public:
                  const Standard_Real V,
                  const gp_Cone&      C,
                  Point3d&             P,
-                 gp_Vec&             Vu,
-                 gp_Vec&             Vv,
-                 gp_Vec&             Vuu,
-                 gp_Vec&             Vvv,
-                 gp_Vec&             Vuv);
+                 Vector3d&             Vu,
+                 Vector3d&             Vv,
+                 Vector3d&             Vuu,
+                 Vector3d&             Vvv,
+                 Vector3d&             Vuv);
 
   static void D2(const Standard_Real U,
                  const Standard_Real V,
                  const gp_Cylinder&  C,
                  Point3d&             P,
-                 gp_Vec&             Vu,
-                 gp_Vec&             Vv,
-                 gp_Vec&             Vuu,
-                 gp_Vec&             Vvv,
-                 gp_Vec&             Vuv);
+                 Vector3d&             Vu,
+                 Vector3d&             Vv,
+                 Vector3d&             Vuu,
+                 Vector3d&             Vvv,
+                 Vector3d&             Vuv);
 
   static void D2(const Standard_Real U,
                  const Standard_Real V,
                  const gp_Sphere&    S,
                  Point3d&             P,
-                 gp_Vec&             Vu,
-                 gp_Vec&             Vv,
-                 gp_Vec&             Vuu,
-                 gp_Vec&             Vvv,
-                 gp_Vec&             Vuv);
+                 Vector3d&             Vu,
+                 Vector3d&             Vv,
+                 Vector3d&             Vuu,
+                 Vector3d&             Vvv,
+                 Vector3d&             Vuv);
 
   static void D2(const Standard_Real U,
                  const Standard_Real V,
                  const gp_Torus&     T,
                  Point3d&             P,
-                 gp_Vec&             Vu,
-                 gp_Vec&             Vv,
-                 gp_Vec&             Vuu,
-                 gp_Vec&             Vvv,
-                 gp_Vec&             Vuv);
+                 Vector3d&             Vu,
+                 Vector3d&             Vv,
+                 Vector3d&             Vuu,
+                 Vector3d&             Vvv,
+                 Vector3d&             Vuv);
 
   //! For elementary surfaces from the gp package (cones,
   //! cylinders, spheres and tori), computes:
@@ -217,43 +217,43 @@ public:
                  const Standard_Real V,
                  const gp_Cone&      C,
                  Point3d&             P,
-                 gp_Vec&             Vu,
-                 gp_Vec&             Vv,
-                 gp_Vec&             Vuu,
-                 gp_Vec&             Vvv,
-                 gp_Vec&             Vuv,
-                 gp_Vec&             Vuuu,
-                 gp_Vec&             Vvvv,
-                 gp_Vec&             Vuuv,
-                 gp_Vec&             Vuvv);
+                 Vector3d&             Vu,
+                 Vector3d&             Vv,
+                 Vector3d&             Vuu,
+                 Vector3d&             Vvv,
+                 Vector3d&             Vuv,
+                 Vector3d&             Vuuu,
+                 Vector3d&             Vvvv,
+                 Vector3d&             Vuuv,
+                 Vector3d&             Vuvv);
 
   static void D3(const Standard_Real U,
                  const Standard_Real V,
                  const gp_Cylinder&  C,
                  Point3d&             P,
-                 gp_Vec&             Vu,
-                 gp_Vec&             Vv,
-                 gp_Vec&             Vuu,
-                 gp_Vec&             Vvv,
-                 gp_Vec&             Vuv,
-                 gp_Vec&             Vuuu,
-                 gp_Vec&             Vvvv,
-                 gp_Vec&             Vuuv,
-                 gp_Vec&             Vuvv);
+                 Vector3d&             Vu,
+                 Vector3d&             Vv,
+                 Vector3d&             Vuu,
+                 Vector3d&             Vvv,
+                 Vector3d&             Vuv,
+                 Vector3d&             Vuuu,
+                 Vector3d&             Vvvv,
+                 Vector3d&             Vuuv,
+                 Vector3d&             Vuvv);
 
   static void D3(const Standard_Real U,
                  const Standard_Real V,
                  const gp_Sphere&    S,
                  Point3d&             P,
-                 gp_Vec&             Vu,
-                 gp_Vec&             Vv,
-                 gp_Vec&             Vuu,
-                 gp_Vec&             Vvv,
-                 gp_Vec&             Vuv,
-                 gp_Vec&             Vuuu,
-                 gp_Vec&             Vvvv,
-                 gp_Vec&             Vuuv,
-                 gp_Vec&             Vuvv);
+                 Vector3d&             Vu,
+                 Vector3d&             Vv,
+                 Vector3d&             Vuu,
+                 Vector3d&             Vvv,
+                 Vector3d&             Vuv,
+                 Vector3d&             Vuuu,
+                 Vector3d&             Vvvv,
+                 Vector3d&             Vuuv,
+                 Vector3d&             Vuvv);
 
   //! Surface evaluation
   //! The following functions compute the point and the
@@ -267,15 +267,15 @@ public:
                  const Standard_Real V,
                  const gp_Torus&     T,
                  Point3d&             P,
-                 gp_Vec&             Vu,
-                 gp_Vec&             Vv,
-                 gp_Vec&             Vuu,
-                 gp_Vec&             Vvv,
-                 gp_Vec&             Vuv,
-                 gp_Vec&             Vuuu,
-                 gp_Vec&             Vvvv,
-                 gp_Vec&             Vuuv,
-                 gp_Vec&             Vuvv);
+                 Vector3d&             Vu,
+                 Vector3d&             Vv,
+                 Vector3d&             Vuu,
+                 Vector3d&             Vvv,
+                 Vector3d&             Vuv,
+                 Vector3d&             Vuuu,
+                 Vector3d&             Vvvv,
+                 Vector3d&             Vuuv,
+                 Vector3d&             Vuvv);
 
   Standard_EXPORT static Point3d PlaneValue(const Standard_Real U,
                                            const Standard_Real V,
@@ -303,20 +303,20 @@ public:
                                            const Standard_Real MajorRadius,
                                            const Standard_Real MinorRadius);
 
-  Standard_EXPORT static gp_Vec PlaneDN(const Standard_Real    U,
+  Standard_EXPORT static Vector3d PlaneDN(const Standard_Real    U,
                                         const Standard_Real    V,
                                         const gp_Ax3&          Pos,
                                         const Standard_Integer Nu,
                                         const Standard_Integer Nv);
 
-  Standard_EXPORT static gp_Vec CylinderDN(const Standard_Real    U,
+  Standard_EXPORT static Vector3d CylinderDN(const Standard_Real    U,
                                            const Standard_Real    V,
                                            const gp_Ax3&          Pos,
                                            const Standard_Real    Radius,
                                            const Standard_Integer Nu,
                                            const Standard_Integer Nv);
 
-  Standard_EXPORT static gp_Vec ConeDN(const Standard_Real    U,
+  Standard_EXPORT static Vector3d ConeDN(const Standard_Real    U,
                                        const Standard_Real    V,
                                        const gp_Ax3&          Pos,
                                        const Standard_Real    Radius,
@@ -324,14 +324,14 @@ public:
                                        const Standard_Integer Nu,
                                        const Standard_Integer Nv);
 
-  Standard_EXPORT static gp_Vec SphereDN(const Standard_Real    U,
+  Standard_EXPORT static Vector3d SphereDN(const Standard_Real    U,
                                          const Standard_Real    V,
                                          const gp_Ax3&          Pos,
                                          const Standard_Real    Radius,
                                          const Standard_Integer Nu,
                                          const Standard_Integer Nv);
 
-  Standard_EXPORT static gp_Vec TorusDN(const Standard_Real    U,
+  Standard_EXPORT static Vector3d TorusDN(const Standard_Real    U,
                                         const Standard_Real    V,
                                         const gp_Ax3&          Pos,
                                         const Standard_Real    MajorRadius,
@@ -374,8 +374,8 @@ public:
                                       const Standard_Real V,
                                       const gp_Ax3&       Pos,
                                       Point3d&             P,
-                                      gp_Vec&             Vu,
-                                      gp_Vec&             Vv);
+                                      Vector3d&             Vu,
+                                      Vector3d&             Vv);
 
   Standard_EXPORT static void ConeD1(const Standard_Real U,
                                      const Standard_Real V,
@@ -383,24 +383,24 @@ public:
                                      const Standard_Real Radius,
                                      const Standard_Real SAngle,
                                      Point3d&             P,
-                                     gp_Vec&             Vu,
-                                     gp_Vec&             Vv);
+                                     Vector3d&             Vu,
+                                     Vector3d&             Vv);
 
   Standard_EXPORT static void CylinderD1(const Standard_Real U,
                                          const Standard_Real V,
                                          const gp_Ax3&       Pos,
                                          const Standard_Real Radius,
                                          Point3d&             P,
-                                         gp_Vec&             Vu,
-                                         gp_Vec&             Vv);
+                                         Vector3d&             Vu,
+                                         Vector3d&             Vv);
 
   Standard_EXPORT static void SphereD1(const Standard_Real U,
                                        const Standard_Real V,
                                        const gp_Ax3&       Pos,
                                        const Standard_Real Radius,
                                        Point3d&             P,
-                                       gp_Vec&             Vu,
-                                       gp_Vec&             Vv);
+                                       Vector3d&             Vu,
+                                       Vector3d&             Vv);
 
   Standard_EXPORT static void TorusD1(const Standard_Real U,
                                       const Standard_Real V,
@@ -408,8 +408,8 @@ public:
                                       const Standard_Real MajorRadius,
                                       const Standard_Real MinorRadius,
                                       Point3d&             P,
-                                      gp_Vec&             Vu,
-                                      gp_Vec&             Vv);
+                                      Vector3d&             Vu,
+                                      Vector3d&             Vv);
 
   Standard_EXPORT static void ConeD2(const Standard_Real U,
                                      const Standard_Real V,
@@ -417,33 +417,33 @@ public:
                                      const Standard_Real Radius,
                                      const Standard_Real SAngle,
                                      Point3d&             P,
-                                     gp_Vec&             Vu,
-                                     gp_Vec&             Vv,
-                                     gp_Vec&             Vuu,
-                                     gp_Vec&             Vvv,
-                                     gp_Vec&             Vuv);
+                                     Vector3d&             Vu,
+                                     Vector3d&             Vv,
+                                     Vector3d&             Vuu,
+                                     Vector3d&             Vvv,
+                                     Vector3d&             Vuv);
 
   Standard_EXPORT static void CylinderD2(const Standard_Real U,
                                          const Standard_Real V,
                                          const gp_Ax3&       Pos,
                                          const Standard_Real Radius,
                                          Point3d&             P,
-                                         gp_Vec&             Vu,
-                                         gp_Vec&             Vv,
-                                         gp_Vec&             Vuu,
-                                         gp_Vec&             Vvv,
-                                         gp_Vec&             Vuv);
+                                         Vector3d&             Vu,
+                                         Vector3d&             Vv,
+                                         Vector3d&             Vuu,
+                                         Vector3d&             Vvv,
+                                         Vector3d&             Vuv);
 
   Standard_EXPORT static void SphereD2(const Standard_Real U,
                                        const Standard_Real V,
                                        const gp_Ax3&       Pos,
                                        const Standard_Real Radius,
                                        Point3d&             P,
-                                       gp_Vec&             Vu,
-                                       gp_Vec&             Vv,
-                                       gp_Vec&             Vuu,
-                                       gp_Vec&             Vvv,
-                                       gp_Vec&             Vuv);
+                                       Vector3d&             Vu,
+                                       Vector3d&             Vv,
+                                       Vector3d&             Vuu,
+                                       Vector3d&             Vvv,
+                                       Vector3d&             Vuv);
 
   Standard_EXPORT static void TorusD2(const Standard_Real U,
                                       const Standard_Real V,
@@ -451,11 +451,11 @@ public:
                                       const Standard_Real MajorRadius,
                                       const Standard_Real MinorRadius,
                                       Point3d&             P,
-                                      gp_Vec&             Vu,
-                                      gp_Vec&             Vv,
-                                      gp_Vec&             Vuu,
-                                      gp_Vec&             Vvv,
-                                      gp_Vec&             Vuv);
+                                      Vector3d&             Vu,
+                                      Vector3d&             Vv,
+                                      Vector3d&             Vuu,
+                                      Vector3d&             Vvv,
+                                      Vector3d&             Vuv);
 
   Standard_EXPORT static void ConeD3(const Standard_Real U,
                                      const Standard_Real V,
@@ -463,45 +463,45 @@ public:
                                      const Standard_Real Radius,
                                      const Standard_Real SAngle,
                                      Point3d&             P,
-                                     gp_Vec&             Vu,
-                                     gp_Vec&             Vv,
-                                     gp_Vec&             Vuu,
-                                     gp_Vec&             Vvv,
-                                     gp_Vec&             Vuv,
-                                     gp_Vec&             Vuuu,
-                                     gp_Vec&             Vvvv,
-                                     gp_Vec&             Vuuv,
-                                     gp_Vec&             Vuvv);
+                                     Vector3d&             Vu,
+                                     Vector3d&             Vv,
+                                     Vector3d&             Vuu,
+                                     Vector3d&             Vvv,
+                                     Vector3d&             Vuv,
+                                     Vector3d&             Vuuu,
+                                     Vector3d&             Vvvv,
+                                     Vector3d&             Vuuv,
+                                     Vector3d&             Vuvv);
 
   Standard_EXPORT static void CylinderD3(const Standard_Real U,
                                          const Standard_Real V,
                                          const gp_Ax3&       Pos,
                                          const Standard_Real Radius,
                                          Point3d&             P,
-                                         gp_Vec&             Vu,
-                                         gp_Vec&             Vv,
-                                         gp_Vec&             Vuu,
-                                         gp_Vec&             Vvv,
-                                         gp_Vec&             Vuv,
-                                         gp_Vec&             Vuuu,
-                                         gp_Vec&             Vvvv,
-                                         gp_Vec&             Vuuv,
-                                         gp_Vec&             Vuvv);
+                                         Vector3d&             Vu,
+                                         Vector3d&             Vv,
+                                         Vector3d&             Vuu,
+                                         Vector3d&             Vvv,
+                                         Vector3d&             Vuv,
+                                         Vector3d&             Vuuu,
+                                         Vector3d&             Vvvv,
+                                         Vector3d&             Vuuv,
+                                         Vector3d&             Vuvv);
 
   Standard_EXPORT static void SphereD3(const Standard_Real U,
                                        const Standard_Real V,
                                        const gp_Ax3&       Pos,
                                        const Standard_Real Radius,
                                        Point3d&             P,
-                                       gp_Vec&             Vu,
-                                       gp_Vec&             Vv,
-                                       gp_Vec&             Vuu,
-                                       gp_Vec&             Vvv,
-                                       gp_Vec&             Vuv,
-                                       gp_Vec&             Vuuu,
-                                       gp_Vec&             Vvvv,
-                                       gp_Vec&             Vuuv,
-                                       gp_Vec&             Vuvv);
+                                       Vector3d&             Vu,
+                                       Vector3d&             Vv,
+                                       Vector3d&             Vuu,
+                                       Vector3d&             Vvv,
+                                       Vector3d&             Vuv,
+                                       Vector3d&             Vuuu,
+                                       Vector3d&             Vvvv,
+                                       Vector3d&             Vuuv,
+                                       Vector3d&             Vuvv);
 
   //! The following functions compute the parametric values
   //! corresponding to a given point on a elementary surface.
@@ -512,15 +512,15 @@ public:
                                       const Standard_Real MajorRadius,
                                       const Standard_Real MinorRadius,
                                       Point3d&             P,
-                                      gp_Vec&             Vu,
-                                      gp_Vec&             Vv,
-                                      gp_Vec&             Vuu,
-                                      gp_Vec&             Vvv,
-                                      gp_Vec&             Vuv,
-                                      gp_Vec&             Vuuu,
-                                      gp_Vec&             Vvvv,
-                                      gp_Vec&             Vuuv,
-                                      gp_Vec&             Vuvv);
+                                      Vector3d&             Vu,
+                                      Vector3d&             Vv,
+                                      Vector3d&             Vuu,
+                                      Vector3d&             Vvv,
+                                      Vector3d&             Vuv,
+                                      Vector3d&             Vuuu,
+                                      Vector3d&             Vvvv,
+                                      Vector3d&             Vuuv,
+                                      Vector3d&             Vuvv);
 
   //! parametrization
   //! P (U, V) =

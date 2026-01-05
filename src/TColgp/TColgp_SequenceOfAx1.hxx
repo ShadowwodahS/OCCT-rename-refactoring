@@ -20,6 +20,6 @@
 #include <gp_Ax1.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<gp_Ax1> TColgp_SequenceOfAx1;
+typedef NCollection_Sequence<Axis3d> TColgp_SequenceOfAx1;
 
 #endif

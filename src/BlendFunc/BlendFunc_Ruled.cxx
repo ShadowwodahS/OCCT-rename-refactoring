@@ -97,7 +97,7 @@ Standard_Boolean BlendFunc_Ruled::IsSolution(const math_Vector& Sol, const Stand
   math_Vector valsol(1, 4), secmember(1, 4);
   math_Matrix gradsol(1, 4, 1, 4);
 
-  gp_Vec        dnplan, d1u1, d1v1, d1u2, d1v2, temp, ns, ncrossns;
+  Vector3d        dnplan, d1u1, d1v1, d1u2, d1v2, temp, ns, ncrossns;
   Standard_Real norm, ndotns, grosterme;
 
   Values(Sol, valsol, gradsol);
@@ -111,8 +111,8 @@ Standard_Boolean BlendFunc_Ruled::IsSolution(const math_Vector& Sol, const Stand
     surf2->D1(Sol(3), Sol(4), pts2, d1u2, d1v2);
     dnplan.SetLinearForm(1. / normtg, d2gui, -1. / normtg * (nplan.Dot(d2gui)), nplan);
 
-    secmember(1) = normtg - dnplan.Dot(gp_Vec(ptgui, pts1));
-    secmember(2) = normtg - dnplan.Dot(gp_Vec(ptgui, pts2));
+    secmember(1) = normtg - dnplan.Dot(Vector3d(ptgui, pts1));
+    secmember(2) = normtg - dnplan.Dot(Vector3d(ptgui, pts2));
 
     ns       = d1u1.Crossed(d1v1);
     ncrossns = nplan.Crossed(ns);
@@ -128,7 +128,7 @@ Standard_Boolean BlendFunc_Ruled::IsSolution(const math_Vector& Sol, const Stand
                        grosterme / norm,
                        ns);
 
-    secmember(3) = -(temp.Dot(gp_Vec(pts1, pts2)));
+    secmember(3) = -(temp.Dot(Vector3d(pts1, pts2)));
 
     ns       = d1u2.Crossed(d1v2);
     ncrossns = nplan.Crossed(ns);
@@ -144,7 +144,7 @@ Standard_Boolean BlendFunc_Ruled::IsSolution(const math_Vector& Sol, const Stand
                        grosterme / norm,
                        ns);
 
-    secmember(4) = -(temp.Dot(gp_Vec(pts1, pts2)));
+    secmember(4) = -(temp.Dot(Vector3d(pts1, pts2)));
 
     math_Gauss Resol(gradsol);
     if (Resol.IsDone())
@@ -177,14 +177,14 @@ Standard_Real BlendFunc_Ruled::GetMinimalDistance() const
 
 Standard_Boolean BlendFunc_Ruled::Value(const math_Vector& X, math_Vector& F)
 {
-  gp_Vec d1u1, d1v1, d1u2, d1v2;
+  Vector3d d1u1, d1v1, d1u2, d1v2;
   surf1->D1(X(1), X(2), pts1, d1u1, d1v1);
   surf2->D1(X(3), X(4), pts2, d1u2, d1v2);
 
-  const gp_Vec temp(pts1, pts2);
+  const Vector3d temp(pts1, pts2);
 
-  gp_Vec ns1 = d1u1.Crossed(d1v1);
-  gp_Vec ns2 = d1u2.Crossed(d1v2);
+  Vector3d ns1 = d1u1.Crossed(d1v1);
+  Vector3d ns2 = d1u2.Crossed(d1v2);
 
   const Standard_Real norm1 = nplan.Crossed(ns1).Magnitude();
   const Standard_Real norm2 = nplan.Crossed(ns2).Magnitude();
@@ -202,10 +202,10 @@ Standard_Boolean BlendFunc_Ruled::Value(const math_Vector& X, math_Vector& F)
 
 Standard_Boolean BlendFunc_Ruled::Derivatives(const math_Vector& X, math_Matrix& D)
 {
-  gp_Vec d1u1, d1v1, d1u2, d1v2;
-  gp_Vec d2u1, d2v1, d2uv1, d2u2, d2v2, d2uv2;
-  gp_Vec nor1, nor2, p1p2;
-  gp_Vec ns1, ns2, ncrossns1, ncrossns2, resul, temp;
+  Vector3d d1u1, d1v1, d1u2, d1v2;
+  Vector3d d2u1, d2v1, d2uv1, d2u2, d2v2, d2uv2;
+  Vector3d nor1, nor2, p1p2;
+  Vector3d ns1, ns2, ncrossns1, ncrossns2, resul, temp;
 
   Standard_Real norm1, norm2, ndotns1, ndotns2, grosterme;
 
@@ -235,7 +235,7 @@ Standard_Boolean BlendFunc_Ruled::Derivatives(const math_Vector& X, math_Matrix&
   nor1.SetLinearForm(ndotns1 / norm1, nplan, -1. / norm1, ns1);
   nor2.SetLinearForm(ndotns2 / norm2, nplan, -1. / norm2, ns2);
 
-  p1p2 = gp_Vec(pts1, pts2);
+  p1p2 = Vector3d(pts1, pts2);
 
   // Derivee de nor1 par rapport a u1
   temp      = d2u1.Crossed(d1v1).Added(d1u1.Crossed(d2uv1));
@@ -296,17 +296,17 @@ Standard_Boolean BlendFunc_Ruled::Derivatives(const math_Vector& X, math_Matrix&
 
 Standard_Boolean BlendFunc_Ruled::Values(const math_Vector& X, math_Vector& F, math_Matrix& D)
 {
-  gp_Vec d1u1, d1v1, d1u2, d1v2;
-  gp_Vec d2u1, d2v1, d2uv1, d2u2, d2v2, d2uv2;
-  gp_Vec nor1, nor2, p1p2;
-  gp_Vec ns1, ns2, ncrossns1, ncrossns2, resul, temp;
+  Vector3d d1u1, d1v1, d1u2, d1v2;
+  Vector3d d2u1, d2v1, d2uv1, d2u2, d2v2, d2uv2;
+  Vector3d nor1, nor2, p1p2;
+  Vector3d ns1, ns2, ncrossns1, ncrossns2, resul, temp;
 
   Standard_Real norm1, norm2, ndotns1, ndotns2, grosterme;
 
   surf1->D2(X(1), X(2), pts1, d1u1, d1v1, d2u1, d2v1, d2uv1);
   surf2->D2(X(3), X(4), pts2, d1u2, d1v2, d2u2, d2v2, d2uv2);
 
-  p1p2 = gp_Vec(pts1, pts2);
+  p1p2 = Vector3d(pts1, pts2);
 
   ns1       = d1u1.Crossed(d1v1);
   ns2       = d1u2.Crossed(d1v2);
@@ -397,14 +397,14 @@ void BlendFunc_Ruled::Tangent(const Standard_Real U1,
                               const Standard_Real V1,
                               const Standard_Real U2,
                               const Standard_Real V2,
-                              gp_Vec&             TgF,
-                              gp_Vec&             TgL,
-                              gp_Vec&             NmF,
-                              gp_Vec&             NmL) const
+                              Vector3d&             TgF,
+                              Vector3d&             TgL,
+                              Vector3d&             NmF,
+                              Vector3d&             NmL) const
 {
   Point3d bid;
-  gp_Vec d1u, d1v;
-  gp_Vec ns1;
+  Vector3d d1u, d1v;
+  Vector3d ns1;
 
   surf2->D1(U2, V2, bid, d1u, d1v);
   NmL = d1u.Crossed(d1v);
@@ -412,7 +412,7 @@ void BlendFunc_Ruled::Tangent(const Standard_Real U1,
   surf1->D1(U1, V1, bid, d1u, d1v);
   NmF = ns1 = d1u.Crossed(d1v);
 
-  TgF = TgL = gp_Vec(pts1, pts2);
+  TgF = TgL = Vector3d(pts1, pts2);
 }
 
 const Point3d& BlendFunc_Ruled::PointOnS1() const
@@ -430,14 +430,14 @@ Standard_Boolean BlendFunc_Ruled::IsTangencyPoint() const
   return istangent;
 }
 
-const gp_Vec& BlendFunc_Ruled::TangentOnS1() const
+const Vector3d& BlendFunc_Ruled::TangentOnS1() const
 {
   if (istangent)
     throw Standard_DomainError("BlendFunc_Ruled::TangentOnS1");
   return tg1;
 }
 
-const gp_Vec& BlendFunc_Ruled::TangentOnS2() const
+const Vector3d& BlendFunc_Ruled::TangentOnS2() const
 {
   if (istangent)
     throw Standard_DomainError("BlendFunc_Ruled::TangentOnS2");
@@ -475,7 +475,7 @@ Standard_Boolean BlendFunc_Ruled::GetSection(const Standard_Real Param,
 
   Standard_Integer i, lowp = tabP.Lower(), lowv = tabV.Lower();
 
-  gp_Vec        dnplan, d1u1, d1v1, d1u2, d1v2, temp, ns, ncrossns;
+  Vector3d        dnplan, d1u1, d1v1, d1u2, d1v2, temp, ns, ncrossns;
   Standard_Real norm, ndotns, grosterme, lambda;
 
   math_Vector sol(1, 4), valsol(1, 4), secmember(1, 4);
@@ -497,8 +497,8 @@ Standard_Boolean BlendFunc_Ruled::GetSection(const Standard_Real Param,
   surf2->D1(sol(3), sol(4), pts2, d1u2, d1v2);
   dnplan.SetLinearForm(1. / normtg, d2gui, -1. / normtg * (nplan.Dot(d2gui)), nplan);
 
-  secmember(1) = normtg - dnplan.Dot(gp_Vec(ptgui, pts1));
-  secmember(2) = normtg - dnplan.Dot(gp_Vec(ptgui, pts2));
+  secmember(1) = normtg - dnplan.Dot(Vector3d(ptgui, pts1));
+  secmember(2) = normtg - dnplan.Dot(Vector3d(ptgui, pts2));
 
   ns       = d1u1.Crossed(d1v1);
   ncrossns = nplan.Crossed(ns);
@@ -514,7 +514,7 @@ Standard_Boolean BlendFunc_Ruled::GetSection(const Standard_Real Param,
                      grosterme / norm,
                      ns);
 
-  secmember(3) = -(temp.Dot(gp_Vec(pts1, pts2)));
+  secmember(3) = -(temp.Dot(Vector3d(pts1, pts2)));
 
   ns       = d1u2.Crossed(d1v2);
   ncrossns = nplan.Crossed(ns);
@@ -530,7 +530,7 @@ Standard_Boolean BlendFunc_Ruled::GetSection(const Standard_Real Param,
                      grosterme / norm,
                      ns);
 
-  secmember(4) = -(temp.Dot(gp_Vec(pts1, pts2)));
+  secmember(4) = -(temp.Dot(Vector3d(pts1, pts2)));
 
   math_Gauss Resol(gradsol);
   if (Resol.IsDone())
@@ -705,10 +705,10 @@ void BlendFunc_Ruled::Section(const Blend_Point&    P,
   Weights(lowp + 1) = 1.;
 }
 
-gp_Ax1 BlendFunc_Ruled::AxeRot(const Standard_Real Prm)
+Axis3d BlendFunc_Ruled::AxeRot(const Standard_Real Prm)
 {
-  gp_Ax1 axrot;
-  gp_Vec dirax, dnplan;
+  Axis3d axrot;
+  Vector3d dirax, dnplan;
   Point3d oriax;
 
   curv->D2(Prm, ptgui, d1gui, d2gui);

@@ -98,10 +98,10 @@ public:
   //! Returns datum target axis.
   //! The Z axis of the datum placement denotes the normal of the surface
   //! pointing away from the material.
-  Standard_EXPORT gp_Ax2 GetDatumTargetAxis() const;
+  Standard_EXPORT Frame3d GetDatumTargetAxis() const;
 
   //! Sets datum target axis.
-  Standard_EXPORT void SetDatumTargetAxis(const gp_Ax2& theAxis);
+  Standard_EXPORT void SetDatumTargetAxis(const Frame3d& theAxis);
 
   //! Returns datum target length for line and rectangle types.
   //! The length along the X axis of the datum placement.
@@ -125,14 +125,14 @@ public:
   Standard_EXPORT void SetDatumTargetNumber(const Standard_Integer theNumber);
 
   //! Sets annotation plane.
-  void SetPlane(const gp_Ax2& thePlane)
+  void SetPlane(const Frame3d& thePlane)
   {
     myPlane    = thePlane;
     myHasPlane = Standard_True;
   }
 
   //! Returns annotation plane.
-  const gp_Ax2& GetPlane() const { return myPlane; }
+  const Frame3d& GetPlane() const { return myPlane; }
 
   //! Sets a point on the datum target shape.
   void SetPoint(const Point3d& thePnt)
@@ -199,8 +199,8 @@ private:
   Standard_Real                            myLength;
   Standard_Real                            myWidth;
   Standard_Integer                         myDatumTargetNumber;
-  gp_Ax2                                   myAxis;
-  gp_Ax2                                   myPlane;
+  Frame3d                                   myAxis;
+  Frame3d                                   myPlane;
   Point3d                                   myPnt;
   Point3d                                   myPntText;
   Standard_Boolean                         myHasPlane;

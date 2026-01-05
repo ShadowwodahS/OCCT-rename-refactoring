@@ -49,7 +49,7 @@ Handle(Graphic3d_ArrayOfTriangles) Prs3d_ToolDisk::Create(const Standard_Real   
                                                           const Standard_Real    theOuterRadius,
                                                           const Standard_Integer theNbSlices,
                                                           const Standard_Integer theNbStacks,
-                                                          const gp_Trsf&         theTrsf)
+                                                          const Transform3d&         theTrsf)
 {
   Handle(Graphic3d_ArrayOfTriangles) anArray;
   Prs3d_ToolDisk aTool(theInnerRadius, theOuterRadius, theNbSlices, theNbStacks);

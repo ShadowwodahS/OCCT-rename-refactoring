@@ -364,7 +364,7 @@ void PrsDim_EqualDistanceRelation::ComputeTwoEdgesLength(
   Point3d&                           SecondExtreme,
   DsgPrs_ArrowSide&                 SymbolPrs)
 {
-  gp_Dir            DirAttach;
+  Dir3d            DirAttach;
   BRepAdaptor_Curve cu1(FirstEdge);
   BRepAdaptor_Curve cu2(SecondEdge);
 
@@ -446,7 +446,7 @@ void PrsDim_EqualDistanceRelation::ComputeTwoEdgesLength(
         curpos.SetXYZ((l1.Location().XYZ() + l2.Location().XYZ()) * 0.5);
 
       // compute  offset
-      gp_Vec offset(DirAttach);
+      Vector3d offset(DirAttach);
       offset = offset * ArrowSize * (-10.);
       curpos.Translate(offset);
       Position = curpos;
@@ -536,12 +536,12 @@ void PrsDim_EqualDistanceRelation::ComputeTwoEdgesLength(
       // Project circles center on constraint plane
       Point3d PrCenter = PrsDim::ProjectPointOnPlane(aCirc1.Location(), aPln);
 
-      gp_Dir XDir = aPln.XAxis().Direction();
-      gp_Dir YDir = aPln.YAxis().Direction();
+      Dir3d XDir = aPln.XAxis().Direction();
+      Dir3d YDir = aPln.YAxis().Direction();
 
       if (PrPnt12.Distance(PrCenter) > Precision::Confusion())
       {
-        gp_Dir        aDir1(PrPnt12.XYZ() - PrCenter.XYZ());
+        Dir3d        aDir1(PrPnt12.XYZ() - PrCenter.XYZ());
         Standard_Real anAngle = aDir1.Angle(XDir); // Get the angle in range [0, M_PI]
         if (aDir1.Dot(YDir) < 0)
           anAngle = 2 * M_PI - anAngle;
@@ -550,7 +550,7 @@ void PrsDim_EqualDistanceRelation::ComputeTwoEdgesLength(
 
       if (PrPnt22.Distance(PrCenter) > Precision::Confusion())
       {
-        gp_Dir        aDir2(PrPnt22.XYZ() - PrCenter.XYZ());
+        Dir3d        aDir2(PrPnt22.XYZ() - PrCenter.XYZ());
         Standard_Real anAngle = aDir2.Angle(XDir); // Get the angle in range [0, M_PI]
         if (aDir2.Dot(YDir) < 0)
           anAngle = 2 * M_PI - anAngle;
@@ -632,7 +632,7 @@ void PrsDim_EqualDistanceRelation::ComputeTwoVerticesLength(
   DsgPrs_ArrowSide&                 SymbolPrs)
 {
   Standard_Boolean isOnPlane1, isOnPlane2;
-  gp_Dir           DirAttach;
+  Dir3d           DirAttach;
   PrsDim::ComputeGeometry(FirstVertex, FirstAttach, Plane, isOnPlane1);
   PrsDim::ComputeGeometry(SecondVertex, SecondAttach, Plane, isOnPlane2);
 
@@ -659,15 +659,15 @@ void PrsDim_EqualDistanceRelation::ComputeTwoVerticesLength(
     {
       Point3d curpos((FirstAttach.XYZ() + SecondAttach.XYZ()) * 0.5);
       // make offset of curpos
-      gp_Vec offset(DirAttach);
+      Vector3d offset(DirAttach);
       offset = offset * ArrowSize * (-10.);
       curpos.Translate(offset);
       Position = curpos;
     }
     else
     {
-      gp_Dir aDir = Plane->Pln().Axis().Direction();
-      gp_Vec aVec(aDir.XYZ() * 10 * ArrowSize);
+      Dir3d aDir = Plane->Pln().Axis().Direction();
+      Vector3d aVec(aDir.XYZ() * 10 * ArrowSize);
       // Position = Point3d(FirstAttach.XYZ()+gp_XYZ(1.,1.,1.)); // not correct
       Position = FirstAttach.Translated(aVec);
       Position = PrsDim::ProjectPointOnPlane(Position, Plane->Pln()); // not needed really
@@ -767,7 +767,7 @@ void PrsDim_EqualDistanceRelation::ComputeOneEdgeOneVertexLength(
     // computation of Val
     Val = l.Distance(FirstAttach);
 
-    gp_Dir DirAttach = l.Direction();
+    Dir3d DirAttach = l.Direction();
     // size
     Standard_Real arrsize = ArrowSize;
     if (Abs(Val) <= Precision::Confusion())
@@ -780,7 +780,7 @@ void PrsDim_EqualDistanceRelation::ComputeOneEdgeOneVertexLength(
       Point3d p = ElCLib::Value(ElCLib::Parameter(l, FirstAttach), l);
       Point3d curpos((FirstAttach.XYZ() + p.XYZ()) * 0.5);
       // make offset
-      gp_Vec offset(DirAttach);
+      Vector3d offset(DirAttach);
       offset = offset * ArrowSize * (-10.);
       curpos.Translate(offset);
       Position = curpos;

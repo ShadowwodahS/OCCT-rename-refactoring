@@ -41,7 +41,7 @@ static Standard_Boolean IsoIsDeg(const Adaptor3d_Surface& S,
   U2                     = S.LastUParameter();
   V1                     = S.FirstVParameter();
   V2                     = S.LastVParameter();
-  gp_Vec        D1U, D1V;
+  Vector3d        D1U, D1V;
   Point3d        P;
   Standard_Real Step, D1NormMax;
   if (IT == GeomAbs_IsoV)

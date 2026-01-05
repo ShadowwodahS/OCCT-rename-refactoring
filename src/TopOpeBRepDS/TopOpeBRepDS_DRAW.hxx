@@ -32,12 +32,12 @@ Standard_EXPORT void FUN_draw(const TopoDS_Shape& s);
 Standard_EXPORT void FUN_draw(const Point3d& p);
 Standard_EXPORT void FUN_draw(const gp_Pnt2d& p);
 Standard_EXPORT void FUN_draw(const Handle(Geom2d_Curve) c, const Standard_Real dpar);
-Standard_EXPORT void FUN_draw(const Point3d& p, const gp_Dir& v);
-Standard_EXPORT void FUN_draw(const Point3d& p, const gp_Vec& v);
+Standard_EXPORT void FUN_draw(const Point3d& p, const Dir3d& v);
+Standard_EXPORT void FUN_draw(const Point3d& p, const Vector3d& v);
 Standard_EXPORT void FUN_brep_draw(const TCollection_AsciiString& aa, const Point3d& p);
 Standard_EXPORT void FUN_brep_draw(const TCollection_AsciiString& aa,
                                    const Point3d&                  p,
-                                   const gp_Dir&                  d);
+                                   const Dir3d&                  d);
 Standard_EXPORT void FUN_brep_draw(const TCollection_AsciiString& aa, const TopoDS_Shape& s);
 Standard_EXPORT void FUN_brep_draw(const TCollection_AsciiString& aa,
                                    const Handle(Geom_Curve)&      C,

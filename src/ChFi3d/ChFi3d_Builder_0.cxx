@@ -506,8 +506,8 @@ Standard_Boolean ChFi3d_KParticular(const Handle(ChFiDS_Spine)& Spine,
   }
   else if (aST2 == GeomAbs_Cylinder)
   {
-    const gp_Dir aD1 = aS1.Plane().Axis().Direction();
-    const gp_Dir aD2 = aS2.Cylinder().Axis().Direction();
+    const Dir3d aD1 = aS1.Plane().Axis().Direction();
+    const Dir3d aD2 = aS2.Cylinder().Axis().Direction();
     //
     if (aCT == GeomAbs_Line && aD1.IsNormal(aD2, aPA))
     {
@@ -520,8 +520,8 @@ Standard_Boolean ChFi3d_KParticular(const Handle(ChFiDS_Spine)& Spine,
   }
   else if (aST2 == GeomAbs_Cone)
   {
-    const gp_Dir aD1 = aS1.Plane().Axis().Direction();
-    const gp_Dir aD2 = aS2.Cone().Axis().Direction();
+    const Dir3d aD1 = aS1.Plane().Axis().Direction();
+    const Dir3d aD2 = aS2.Cone().Axis().Direction();
     if (aCT == GeomAbs_Circle && aD1.IsParallel(aD2, aPA))
     {
       return bRet;
@@ -676,7 +676,7 @@ void ChFi3d_ExtrSpineCarac(const TopOpeBRepDS_DataStructure& DStr,
                            const Standard_Integer            jf,
                            const Standard_Integer            sens,
                            Point3d&                           P,
-                           gp_Vec&                           V,
+                           Vector3d&                           V,
                            Standard_Real& R) // check if it is necessary to add D1,D2 and DR
 {
   // Attention for approximated surfaces it is assumed that e
@@ -687,7 +687,7 @@ void ChFi3d_ExtrSpineCarac(const TopOpeBRepDS_DataStructure& DStr,
   GeomAdaptor_Surface gs(fffil);
   P = fffil->Value(pp.X(), pp.Y());
   Point3d Pbid;
-  gp_Vec Vbid;
+  Vector3d Vbid;
   switch (gs.GetType())
   {
     case GeomAbs_Cylinder: {
@@ -738,13 +738,13 @@ void ChFi3d_ExtrSpineCarac(const TopOpeBRepDS_DataStructure& DStr,
 Handle(Geom_Circle) ChFi3d_CircularSpine(Standard_Real&      WFirst,
                                          Standard_Real&      WLast,
                                          const Point3d&       Pdeb,
-                                         const gp_Vec&       Vdeb,
+                                         const Vector3d&       Vdeb,
                                          const Point3d&       Pfin,
-                                         const gp_Vec&       Vfin,
+                                         const Vector3d&       Vfin,
                                          const Standard_Real rad)
 {
   gp_Circ            ccc;
-  gp_Pln             Pl1(Pdeb, gp_Dir(Vdeb)), Pl2(Pfin, gp_Dir(Vfin));
+  gp_Pln             Pl1(Pdeb, Dir3d(Vdeb)), Pl2(Pfin, Dir3d(Vfin));
   IntAna_QuadQuadGeo LInt(Pl1, Pl2, Precision::Angular(), Precision::Confusion());
   gp_Lin             li;
   if (LInt.IsDone())
@@ -752,15 +752,15 @@ Handle(Geom_Circle) ChFi3d_CircularSpine(Standard_Real&      WFirst,
     li            = LInt.Line(1);
     Point3d cendeb = ElCLib::Value(ElCLib::Parameter(li, Pdeb), li);
     Point3d cenfin = ElCLib::Value(ElCLib::Parameter(li, Pfin), li);
-    gp_Vec vvdeb(cendeb, Pdeb);
-    gp_Vec vvfin(cenfin, Pfin);
-    gp_Dir dddeb(vvdeb);
-    gp_Dir ddfin(vvfin);
+    Vector3d vvdeb(cendeb, Pdeb);
+    Vector3d vvfin(cenfin, Pfin);
+    Dir3d dddeb(vvdeb);
+    Dir3d ddfin(vvfin);
     if (Vdeb.Crossed(vvdeb).Dot(Vfin.Crossed(vvfin)) > 0.)
     {
       return Handle(Geom_Circle)();
     }
-    gp_Ax2 circax2(cendeb, dddeb ^ ddfin, dddeb);
+    Frame3d circax2(cendeb, dddeb ^ ddfin, dddeb);
     ccc.SetPosition(circax2);
     ccc.SetRadius(rad);
     WFirst = 0.;
@@ -778,9 +778,9 @@ Handle(Geom_Circle) ChFi3d_CircularSpine(Standard_Real&      WFirst,
 //           guidelines of start and end fillets.
 //=======================================================================
 Handle(Geom_BezierCurve) ChFi3d_Spine(const Point3d&       pd,
-                                      gp_Vec&             vd,
+                                      Vector3d&             vd,
                                       const Point3d&       pf,
-                                      gp_Vec&             vf,
+                                      Vector3d&             vf,
                                       const Standard_Real R)
 {
   TColgp_Array1OfPnt  pol(1, 4);
@@ -1288,9 +1288,9 @@ Standard_Boolean ChFi3d_IntTraces(const Handle(ChFiDS_SurfData)& fd1,
 
 //=================================================================================================
 
-void ChFi3d_Coefficient(const gp_Vec&  V3d,
-                        const gp_Vec&  D1u,
-                        const gp_Vec&  D1v,
+void ChFi3d_Coefficient(const Vector3d&  V3d,
+                        const Vector3d&  D1u,
+                        const Vector3d&  D1v,
                         Standard_Real& DU,
                         Standard_Real& DV)
 {
@@ -1606,10 +1606,10 @@ Handle(GeomFill_Boundary) ChFi3d_mkbound(const Handle(Adaptor3d_Surface)& Surf,
                                          Handle(Geom2d_Curve)&            curv,
                                          const Standard_Integer           sens1,
                                          const gp_Pnt2d&                  p1,
-                                         gp_Vec&                          v1,
+                                         Vector3d&                          v1,
                                          const Standard_Integer           sens2,
                                          const gp_Pnt2d&                  p2,
-                                         gp_Vec&                          v2,
+                                         Vector3d&                          v2,
                                          const Standard_Real              t3d,
                                          const Standard_Real              ta)
 {
@@ -1757,12 +1757,12 @@ Handle(Geom2d_Curve) ChFi3d_BuildPCurve(const Handle(Adaptor3d_Surface)& Surf,
 
 Handle(Geom2d_Curve) ChFi3d_BuildPCurve(const Handle(Adaptor3d_Surface)& Surf,
                                         const gp_Pnt2d&                  p1,
-                                        const gp_Vec&                    v1,
+                                        const Vector3d&                    v1,
                                         const gp_Pnt2d&                  p2,
-                                        const gp_Vec&                    v2,
+                                        const Vector3d&                    v2,
                                         const Standard_Boolean           redresse)
 {
-  gp_Vec        D1u, D1v;
+  Vector3d        D1u, D1v;
   Point3d        PP1, PP2;
   Standard_Real DU, DV;
   Surf->D1(p1.X(), p1.Y(), PP1, D1u, D1v);
@@ -1771,7 +1771,7 @@ Handle(Geom2d_Curve) ChFi3d_BuildPCurve(const Handle(Adaptor3d_Surface)& Surf,
   Surf->D1(p2.X(), p2.Y(), PP2, D1u, D1v);
   ChFi3d_Coefficient(v2, D1u, D1v, DU, DV);
   gp_Vec2d vv2(DU, DV);
-  gp_Vec   Vref(PP1, PP2);
+  Vector3d   Vref(PP1, PP2);
   if (redresse)
   {
     if (Vref.Dot(v1) < 0.)
@@ -1931,10 +1931,10 @@ void ChFi3d_ComputeArete(const ChFiDS_CommonPoint&   P1,
     {
       BRepAdaptor_Curve C1(P1.Arc());
       Point3d            Pp;
-      gp_Vec            Vv1;
+      Vector3d            Vv1;
       C1.D1(P1.ParameterOnArc(), Pp, Vv1);
       C1.Initialize(P2.Arc());
-      gp_Vec Vv2;
+      Vector3d Vv2;
       C1.D1(P2.ParameterOnArc(), Pp, Vv2);
       hs->Load(Surf);
       Pcurv = ChFi3d_BuildPCurve(hs, UV1, Vv1, UV2, Vv2, Standard_True);
@@ -3358,7 +3358,7 @@ Handle(Geom_Surface) trsfsurf(const Handle(Adaptor3d_Surface)& HS,
   if (!hbs.IsNull())
   {
     res          = hbs->Surface().Surface();
-    gp_Trsf trsf = hbs->Trsf();
+    Transform3d trsf = hbs->Trsf();
     res          = Handle(Geom_Surface)::DownCast(res->Transformed(trsf));
   }
   else if (!hgs.IsNull())
@@ -3471,7 +3471,7 @@ Standard_Boolean ChFi3d_ComputeCurves(const Handle(Adaptor3d_Surface)& S1,
   // To reorientate the result of the analythic intersection,
   // it is stated that the beginning of the tangent should be
   // in the direction of the start/end line.
-  gp_Vec        Vint, Vref(pdeb, pfin);
+  Vector3d        Vint, Vref(pdeb, pfin);
   Point3d        Pbid;
   Standard_Real Udeb = 0., Ufin = 0.;
   Standard_Real tolr1, tolr2;
@@ -3715,7 +3715,7 @@ Standard_Boolean ChFi3d_ComputeCurves(const Handle(Adaptor3d_Surface)& S1,
                 // assure the same order of ends, otherwise TrimmedCurve will take
                 // the other part of C3d
                 Point3d Ptmp;
-                gp_Vec DirOld, DirNew(ptestdeb, ptestfin);
+                Vector3d DirOld, DirNew(ptestdeb, ptestfin);
                 C3d->D1(Uf, Ptmp, DirOld);
                 if (DirOld * DirNew < 0)
                 {
@@ -3884,9 +3884,9 @@ Standard_Boolean ChFi3d_ComputeCurves(const Handle(Adaptor3d_Surface)& S1,
         IntSurf_PntOn2S p1 = L2S->Value(1);
         IntSurf_PntOn2S p2 = L2S->Value(2);
 
-        gp_Vec v1(pntd, p1.Value());
-        gp_Vec v2(p1.Value(), p2.Value());
-        gp_Vec v3(pntd, p2.Value());
+        Vector3d v1(pntd, p1.Value());
+        Vector3d v2(p1.Value(), p2.Value());
+        Vector3d v3(pntd, p2.Value());
         p1.SetValue(pntd, Pardeb(1), Pardeb(2), Pardeb(3), Pardeb(4));
         if (v1.Dot(v3) < 0)
         {
@@ -3912,9 +3912,9 @@ Standard_Boolean ChFi3d_ComputeCurves(const Handle(Adaptor3d_Surface)& S1,
       {
         IntSurf_PntOn2S p1 = L2S->Value(nbp);
         IntSurf_PntOn2S p2 = L2S->Value(nbp - 1);
-        gp_Vec          v1(pntf, p1.Value());
-        gp_Vec          v2(p1.Value(), p2.Value());
-        gp_Vec          v3(pntf, p2.Value());
+        Vector3d          v1(pntf, p1.Value());
+        Vector3d          v2(p1.Value(), p2.Value());
+        Vector3d          v3(pntf, p2.Value());
         p1.SetValue(pntf, Parfin(1), Parfin(2), Parfin(3), Parfin(4));
         if (v1.Dot(v3) < 0)
         {
@@ -4444,7 +4444,7 @@ void ChFi3d_TrimCurve(const Handle(Geom_Curve)&  gc,
 //=================================================================================================
 
 static Standard_Boolean GoodExt(const Handle(Geom_Curve)& C,
-                                const gp_Vec&             V,
+                                const Vector3d&             V,
                                 const Standard_Real       f,
                                 const Standard_Real       l,
                                 const Standard_Real       a)
@@ -4452,7 +4452,7 @@ static Standard_Boolean GoodExt(const Handle(Geom_Curve)& C,
   for (Standard_Integer i = 0; i < 6; i++)
   {
     Point3d              d0;
-    gp_Vec              d1;
+    Vector3d              d1;
     const Standard_Real t = i * 0.2;
     C->D1(((1 - t) * f + t * l), d0, d1);
     const Standard_Real ang    = d1.Angle(V);
@@ -4478,7 +4478,7 @@ Standard_EXPORT void ChFi3d_PerformElSpine(Handle(ChFiDS_ElSpine)& HES,
   Standard_Real             First, Last, epsV, urefdeb, tolrac;
   GeomAbs_Shape             aContinuity;
   Point3d                    PDeb, PFin, Bout;
-  gp_Vec                    VrefDeb, VrefFin;
+  Vector3d                    VrefDeb, VrefFin;
   Handle(Geom_Curve)        Cv;
   Handle(Geom_BoundedCurve) TC;
   Handle(Geom_BSplineCurve) BS, BSpline;
@@ -4534,9 +4534,9 @@ Standard_EXPORT void ChFi3d_PerformElSpine(Handle(ChFiDS_ElSpine)& HES,
   {
     Standard_Real ParForElSpine = (E.Orientation() == TopAbs_FORWARD) ? First : Last;
     Point3d        PntForElSpine;
-    gp_Vec        DirForElSpine;
+    Vector3d        DirForElSpine;
     Cv->D1(ParForElSpine, PntForElSpine, DirForElSpine);
-    ES.AddVertexWithTangent(gp_Ax1(PntForElSpine, DirForElSpine));
+    ES.AddVertexWithTangent(Axis3d(PntForElSpine, DirForElSpine));
   }
   /////////////////////////
   urefdeb  = Spine->FirstParameter(IF);
@@ -4623,11 +4623,11 @@ Standard_EXPORT void ChFi3d_PerformElSpine(Handle(ChFiDS_ElSpine)& HES,
   {
     Handle(Geom_Line) L;
     Point3d            ptemp;
-    gp_Vec            vtemp;
+    Vector3d            vtemp;
     if (WL < Spine->FirstParameter(1) + tol)
     {
       ES.LastPointAndTgt(ptemp, vtemp);
-      gp_Dir d(vtemp);
+      Dir3d d(vtemp);
       Point3d olin;
       olin.ChangeCoord().SetLinearForm(-WL, d.XYZ(), PFin.XYZ());
       L = new Geom_Line(olin, d);
@@ -4636,7 +4636,7 @@ Standard_EXPORT void ChFi3d_PerformElSpine(Handle(ChFiDS_ElSpine)& HES,
     else if (WF > Spine->LastParameter(nbed) - tol)
     {
       ES.FirstPointAndTgt(ptemp, vtemp);
-      gp_Dir d(vtemp);
+      Dir3d d(vtemp);
       Point3d olin;
       olin.ChangeCoord().SetLinearForm(-WF, d.XYZ(), PDeb.XYZ());
       L = new Geom_Line(olin, d);
@@ -4695,9 +4695,9 @@ Standard_EXPORT void ChFi3d_PerformElSpine(Handle(ChFiDS_ElSpine)& HES,
     // Add vertex with tangent
     Standard_Real ParForElSpine = (E.Orientation() == TopAbs_FORWARD) ? First : Last;
     Point3d        PntForElSpine;
-    gp_Vec        DirForElSpine;
+    Vector3d        DirForElSpine;
     Cv->D1(ParForElSpine, PntForElSpine, DirForElSpine);
-    ES.AddVertexWithTangent(gp_Ax1(PntForElSpine, DirForElSpine));
+    ES.AddVertexWithTangent(Axis3d(PntForElSpine, DirForElSpine));
     /////////////////////////
     if (IEdge == IL)
     {
@@ -4958,7 +4958,7 @@ Standard_EXPORT void ChFi3d_PerformElSpine(Handle(ChFiDS_ElSpine)& HES,
     // them to new tangents ?
     Standard_Boolean adjust = Standard_False;
     Point3d           P1, P2;
-    gp_Vec           V1, V2;
+    Vector3d           V1, V2;
     BSpline->D1(WF, P1, V1);
     V1.Normalize();
     ES.FirstPointAndTgt(PDeb, VrefDeb);
@@ -4992,7 +4992,7 @@ Standard_EXPORT void ChFi3d_PerformElSpine(Handle(ChFiDS_ElSpine)& HES,
 
   // Temporary
   // Point3d ptgui;
-  // gp_Vec d1gui;
+  // Vector3d d1gui;
   //( HES->Curve() ).D1(HES->FirstParameter(),ptgui,d1gui);
 }
 
@@ -5190,7 +5190,7 @@ Standard_Real ChFi3d_AngleEdge(const TopoDS_Vertex& Vtx,
   BRepAdaptor_Curve BCurv1(E1);
   BRepAdaptor_Curve BCurv2(E2);
   Standard_Real     parE1, parE2;
-  gp_Vec            dir1, dir2;
+  Vector3d            dir1, dir2;
   Point3d            P1, P2;
   parE1 = BRep_Tool::Parameter(Vtx, E1);
   parE2 = BRep_Tool::Parameter(Vtx, E2);
@@ -5501,7 +5501,7 @@ Standard_Boolean ChFi3d_IsSmooth(const Handle(Geom_Curve)& C)
   Point3d            P1, P2;
   Standard_Integer  Discretisation = 30;
 
-  gp_Vec           PrevVec;
+  Vector3d           PrevVec;
   Standard_Boolean prevVecFound = Standard_False;
   Standard_Integer intrvFound   = 0;
   for (intrv = 1; intrv <= nbintv; intrv++)
@@ -5518,7 +5518,7 @@ Standard_Boolean ChFi3d_IsSmooth(const Handle(Geom_Curve)& C)
       {
         C->D0(t, P1);
         LProp.CentreOfCurvature(P2);
-        PrevVec      = gp_Vec(P1, P2);
+        PrevVec      = Vector3d(P1, P2);
         prevVecFound = Standard_True;
         break;
       }
@@ -5549,7 +5549,7 @@ Standard_Boolean ChFi3d_IsSmooth(const Handle(Geom_Curve)& C)
       {
         C->D0(t, P1);
         LProp.CentreOfCurvature(P2);
-        gp_Vec        Vec(P1, P2);
+        Vector3d        Vec(P1, P2);
         Standard_Real Angle = PrevVec.Angle(Vec);
         if (Angle > M_PI / 3.)
           return Standard_False;

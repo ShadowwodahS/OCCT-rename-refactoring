@@ -27,10 +27,10 @@ IMPLEMENT_STANDARD_RTTIEXT(Geom_Direction, Geom_Vector)
 
 typedef Geom_Direction Direction;
 typedef Geom_Vector    Vector;
-typedef gp_Ax1         Ax1;
-typedef gp_Ax2         Ax2;
+typedef Axis3d         Ax1;
+typedef Frame3d         Ax2;
 typedef Point3d         Pnt;
-typedef gp_Trsf        Trsf;
+typedef Transform3d        Trsf;
 
 //=================================================================================================
 
@@ -50,20 +50,20 @@ Geom_Direction::Geom_Direction(const Standard_Real X, const Standard_Real Y, con
   Standard_Real D = sqrt(X * X + Y * Y + Z * Z);
   Standard_ConstructionError_Raise_if(D <= gp::Resolution(),
                                       "Geom_Direction() - input vector has zero length");
-  gpVec = gp_Vec(X / D, Y / D, Z / D);
+  gpVec = Vector3d(X / D, Y / D, Z / D);
 }
 
-Geom_Direction::Geom_Direction(const gp_Dir& V)
+Geom_Direction::Geom_Direction(const Dir3d& V)
 {
   gpVec = V;
 }
 
-void Geom_Direction::SetDir(const gp_Dir& V)
+void Geom_Direction::SetDir(const Dir3d& V)
 {
   gpVec = V;
 }
 
-gp_Dir Geom_Direction::Dir() const
+Dir3d Geom_Direction::Dir() const
 {
   return gpVec;
 }
@@ -84,7 +84,7 @@ void Geom_Direction::SetCoord(const Standard_Real X, const Standard_Real Y, cons
   Standard_Real D = Sqrt(X * X + Y * Y + Z * Z);
   Standard_ConstructionError_Raise_if(D <= gp::Resolution(),
                                       "Geom_Direction::SetCoord() - input vector has zero length");
-  gpVec = gp_Vec(X / D, Y / D, Z / D);
+  gpVec = Vector3d(X / D, Y / D, Z / D);
 }
 
 void Geom_Direction::SetX(const Standard_Real X)
@@ -93,7 +93,7 @@ void Geom_Direction::SetX(const Standard_Real X)
   Standard_Real D = Sqrt(X * X + gpVec.Y() * gpVec.Y() + gpVec.Z() * gpVec.Z());
   Standard_ConstructionError_Raise_if(D <= gp::Resolution(),
                                       "Geom_Direction::SetX() - input vector has zero length");
-  gpVec = gp_Vec(X / D, gpVec.Y() / D, gpVec.Z() / D);
+  gpVec = Vector3d(X / D, gpVec.Y() / D, gpVec.Z() / D);
 }
 
 void Geom_Direction::SetY(const Standard_Real Y)
@@ -102,7 +102,7 @@ void Geom_Direction::SetY(const Standard_Real Y)
   Standard_Real D = Sqrt(gpVec.X() * gpVec.X() + Y * Y + gpVec.Z() * gpVec.Z());
   Standard_ConstructionError_Raise_if(D <= gp::Resolution(),
                                       "Geom_Direction::SetY() - input vector has zero length");
-  gpVec = gp_Vec(gpVec.X() / D, Y / D, gpVec.Z() / D);
+  gpVec = Vector3d(gpVec.X() / D, Y / D, gpVec.Z() / D);
 }
 
 void Geom_Direction::SetZ(const Standard_Real Z)
@@ -111,27 +111,27 @@ void Geom_Direction::SetZ(const Standard_Real Z)
   Standard_Real D = Sqrt(gpVec.X() * gpVec.X() + gpVec.Y() * gpVec.Y() + Z * Z);
   Standard_ConstructionError_Raise_if(D <= gp::Resolution(),
                                       "Geom_Direction::SetZ() - input vector has zero length");
-  gpVec = gp_Vec(gpVec.X() / D, gpVec.Y() / D, Z / D);
+  gpVec = Vector3d(gpVec.X() / D, gpVec.Y() / D, Z / D);
 }
 
 void Geom_Direction::Cross(const Handle(Geom_Vector)& Other)
 {
 
-  gp_Dir V(gpVec.Crossed(Other->Vec()));
+  Dir3d V(gpVec.Crossed(Other->Vec()));
   gpVec = V;
 }
 
 void Geom_Direction::CrossCross(const Handle(Geom_Vector)& V1, const Handle(Geom_Vector)& V2)
 {
 
-  gp_Dir V(gpVec.CrossCrossed(V1->Vec(), V2->Vec()));
+  Dir3d V(gpVec.CrossCrossed(V1->Vec(), V2->Vec()));
   gpVec = V;
 }
 
 Handle(Geom_Vector) Geom_Direction::Crossed(const Handle(Geom_Vector)& Other) const
 {
 
-  gp_Dir V(gpVec.Crossed(Other->Vec()));
+  Dir3d V(gpVec.Crossed(Other->Vec()));
   return new Direction(V);
 }
 
@@ -139,14 +139,14 @@ Handle(Geom_Vector) Geom_Direction::CrossCrossed(const Handle(Geom_Vector)& V1,
                                                  const Handle(Geom_Vector)& V2) const
 {
 
-  gp_Dir V(gpVec.CrossCrossed(V1->Vec(), V2->Vec()));
+  Dir3d V(gpVec.CrossCrossed(V1->Vec(), V2->Vec()));
   return new Direction(V);
 }
 
-void Geom_Direction::Transform(const gp_Trsf& T)
+void Geom_Direction::Transform(const Transform3d& T)
 {
 
-  gp_Dir V(gpVec);
+  Dir3d V(gpVec);
   V.Transform(T);
   gpVec = V;
 }

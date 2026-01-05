@@ -20,6 +20,6 @@
 #include <gp_Vec.hxx>
 #include <NCollection_Array2.hxx>
 
-typedef NCollection_Array2<gp_Vec> TColgp_Array2OfVec;
+typedef NCollection_Array2<Vector3d> TColgp_Array2OfVec;
 
 #endif

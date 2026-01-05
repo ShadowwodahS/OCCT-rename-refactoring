@@ -78,7 +78,7 @@ static Standard_Integer hprj(Draw_Interpretor&, Standard_Integer n, const char**
   if (n < 2)
     return 1;
   //
-  gp_Ax2 anAx2 = gp::XOY();
+  Frame3d anAx2 = gp::XOY();
   if (n == 11)
   {
     Standard_Real x = Draw::Atof(a[2]);
@@ -94,9 +94,9 @@ static Standard_Integer hprj(Draw_Interpretor&, Standard_Integer n, const char**
     Standard_Real dz1 = Draw::Atof(a[10]);
 
     Point3d anOrigin(x, y, z);
-    gp_Dir aNormal(dx, dy, dz);
-    gp_Dir aDX(dx1, dy1, dz1);
-    anAx2 = gp_Ax2(anOrigin, aNormal, aDX);
+    Dir3d aNormal(dx, dy, dz);
+    Dir3d aDX(dx1, dy1, dz1);
+    anAx2 = Frame3d(anOrigin, aNormal, aDX);
   }
 
   HLRAlgo_Projector P(anAx2);
@@ -395,9 +395,9 @@ static Standard_Integer reflectlines(Draw_Interpretor&, Standard_Integer n, cons
   Standard_Real anAISViewProjZ = atof(a[5]);
 
   Point3d anOrigin(0., 0., 0.);
-  gp_Dir aNormal(anAISViewProjX, anAISViewProjY, anAISViewProjZ);
-  gp_Ax2 theAxes(anOrigin, aNormal);
-  gp_Dir aDX = theAxes.XDirection();
+  Dir3d aNormal(anAISViewProjX, anAISViewProjY, anAISViewProjZ);
+  Frame3d theAxes(anOrigin, aNormal);
+  Dir3d aDX = theAxes.XDirection();
 
   HLRAppli_ReflectLines Reflector(aShape);
 
@@ -435,9 +435,9 @@ static Standard_Integer hlrin3d(Draw_Interpretor&, Standard_Integer n, const cha
   Standard_Real anAISViewProjZ = atof(a[5]);
 
   Point3d anOrigin(0., 0., 0.);
-  gp_Dir aNormal(anAISViewProjX, anAISViewProjY, anAISViewProjZ);
-  gp_Ax2 theAxes(anOrigin, aNormal);
-  gp_Dir aDX = theAxes.XDirection();
+  Dir3d aNormal(anAISViewProjX, anAISViewProjY, anAISViewProjZ);
+  Frame3d theAxes(anOrigin, aNormal);
+  Dir3d aDX = theAxes.XDirection();
 
   HLRAppli_ReflectLines Reflector(aShape);
 
@@ -495,8 +495,8 @@ static Standard_Integer hlrin2d(Draw_Interpretor&, Standard_Integer n, const cha
   Standard_Real Eye_Z = atof(a[8]);
 
   Point3d anOrigin(0., 0., 0.);
-  gp_Dir aNormal(anAISViewProjX, anAISViewProjY, anAISViewProjZ);
-  gp_Dir aDX(Eye_X, Eye_Y, Eye_Z);
+  Dir3d aNormal(anAISViewProjX, anAISViewProjY, anAISViewProjZ);
+  Dir3d aDX(Eye_X, Eye_Y, Eye_Z);
 
   HLRAppli_ReflectLines Reflector(aShape);
 

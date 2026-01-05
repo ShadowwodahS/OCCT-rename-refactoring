@@ -48,11 +48,11 @@ Handle(Geom_Surface) Geom_Surface::VReversed() const
 
 //=================================================================================================
 
-void Geom_Surface::TransformParameters(Standard_Real&, Standard_Real&, const gp_Trsf&) const {}
+void Geom_Surface::TransformParameters(Standard_Real&, Standard_Real&, const Transform3d&) const {}
 
 //=================================================================================================
 
-gp_GTrsf2d Geom_Surface::ParametricTransformation(const gp_Trsf&) const
+gp_GTrsf2d Geom_Surface::ParametricTransformation(const Transform3d&) const
 {
   gp_GTrsf2d dummy;
   return dummy;

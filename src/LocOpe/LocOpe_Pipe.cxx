@@ -153,7 +153,7 @@ LocOpe_Pipe::LocOpe_Pipe(const TopoDS_Wire& Spine, const TopoDS_Shape& Profile)
             P = Handle(Geom_RectangularTrimmedSurface)::DownCast(P)->BasisSurface();
           }
           Plref = Handle(Geom_Plane)::DownCast(P)->Pln();
-          gp_Dir Dirref(Plref.Axis().Direction());
+          Dir3d Dirref(Plref.Axis().Direction());
           if ((Plref.Direct() && orref == TopAbs_REVERSED)
               || (!Plref.Direct() && orref == TopAbs_FORWARD))
           {
@@ -200,7 +200,7 @@ LocOpe_Pipe::LocOpe_Pipe(const TopoDS_Wire& Spine, const TopoDS_Shape& Profile)
                 OtherP = Handle(Geom_RectangularTrimmedSurface)::DownCast(OtherP)->BasisSurface();
               }
               gp_Pln Pl = Handle(Geom_Plane)::DownCast(OtherP)->Pln();
-              gp_Dir Dirpl(Pl.Axis().Direction());
+              Dir3d Dirpl(Pl.Axis().Direction());
               if ((Pl.Direct() && orrelat == TopAbs_REVERSED)
                   || (!Plref.Direct() && orrelat == TopAbs_FORWARD))
               {

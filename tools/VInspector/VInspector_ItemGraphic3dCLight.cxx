@@ -152,7 +152,7 @@ void VInspector_ItemGraphic3dCLight::StoreItemProperties(const int       theRow,
     }
 
     // "Direction"
-    gp_Dir aDir;
+    Dir3d aDir;
     if (aDir.InitFromJson(aStream, aStartPos))
     {
       myLight->SetDirection(aDir);

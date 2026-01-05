@@ -98,7 +98,7 @@ public:
     {
       OCC_CATCH_SIGNALS
 
-      gp_Trsf aTrsf;
+      Transform3d aTrsf;
       if (BOPAlgo_Tools::TrsfToPoint(myBox1, myBox2, aTrsf))
       {
         // Shapes are located far from origin, move the shapes to the origin,
@@ -1082,7 +1082,7 @@ void BOPAlgo_PaveFiller::ForceInterfEE(const Message_ProgressRange& theRange)
       aPB1->Range(aT11, aT12);
       BRepAdaptor_Curve aBAC1(aE1);
       Point3d            aPm;
-      gp_Vec            aVTgt1;
+      Vector3d            aVTgt1;
       aBAC1.D1((aT11 + aT12) * 0.5, aPm, aVTgt1);
       if (aVTgt1.SquareMagnitude() < gp::Resolution())
         continue;
@@ -1132,7 +1132,7 @@ void BOPAlgo_PaveFiller::ForceInterfEE(const Message_ProgressRange& theRange)
               continue;
 
             Point3d aPm2;
-            gp_Vec aVTgt2;
+            Vector3d aVTgt2;
             aBAC2.D1(aProjPC.LowerDistanceParameter(), aPm2, aVTgt2);
             if (aVTgt2.SquareMagnitude() < gp::Resolution())
               continue;

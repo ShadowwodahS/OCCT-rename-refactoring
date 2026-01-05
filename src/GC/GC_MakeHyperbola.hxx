@@ -25,7 +25,7 @@
 #include <Geom_Hyperbola.hxx>
 
 class gp_Hypr;
-class gp_Ax2;
+class Frame3d;
 class Point3d;
 
 //! This class implements construction algorithms for a hyperbola in
@@ -70,7 +70,7 @@ public:
   //! A2, with major and minor radii MajorRadius and MinorRadius, where:
   //! the plane of the hyperbola is defined by the "X Axis" and "Y Axis" of A2,
   //! -   its major axis is the "X Axis" of A2.
-  Standard_EXPORT GC_MakeHyperbola(const gp_Ax2&       A2,
+  Standard_EXPORT GC_MakeHyperbola(const Frame3d&       A2,
                                    const Standard_Real MajorRadius,
                                    const Standard_Real MinorRadius);
 

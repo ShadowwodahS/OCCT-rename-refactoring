@@ -35,10 +35,10 @@
 #include <Standard_Dump.hxx>
 
 //=======================================================================
-// function : gp_Trsf
+// function : Transform3d
 // purpose  : Constructor from 2d
 //=======================================================================
-gp_Trsf::gp_Trsf(const gp_Trsf2d& T)
+Transform3d::Transform3d(const gp_Trsf2d& T)
     : scale(T.ScaleFactor()),
       shape(T.Form()),
       loc(T.TranslationPart().X(), T.TranslationPart().Y(), 0.0)
@@ -58,7 +58,7 @@ gp_Trsf::gp_Trsf(const gp_Trsf2d& T)
 
 //=================================================================================================
 
-void gp_Trsf::SetMirror(const gp_Ax1& A1)
+void Transform3d::SetMirror(const Axis3d& A1)
 {
   shape = gp_Ax1Mirror;
   scale = 1;
@@ -74,7 +74,7 @@ void gp_Trsf::SetMirror(const gp_Ax1& A1)
 
 //=================================================================================================
 
-void gp_Trsf::SetMirror(const gp_Ax2& A2)
+void Transform3d::SetMirror(const Frame3d& A2)
 {
   shape = gp_Ax2Mirror;
   scale = -1;
@@ -89,7 +89,7 @@ void gp_Trsf::SetMirror(const gp_Ax2& A2)
 
 //=================================================================================================
 
-void gp_Trsf::SetRotation(const gp_Ax1& A1, const Standard_Real Ang)
+void Transform3d::SetRotation(const Axis3d& A1, const Standard_Real Ang)
 {
   shape = gp_Rotation;
   scale = 1.;
@@ -102,7 +102,7 @@ void gp_Trsf::SetRotation(const gp_Ax1& A1, const Standard_Real Ang)
 
 //=================================================================================================
 
-void gp_Trsf::SetRotation(const gp_Quaternion& R)
+void Transform3d::SetRotation(const gp_Quaternion& R)
 {
   shape = gp_Rotation;
   scale = 1.;
@@ -112,7 +112,7 @@ void gp_Trsf::SetRotation(const gp_Quaternion& R)
 
 //=================================================================================================
 
-void gp_Trsf::SetRotationPart(const gp_Quaternion& theR)
+void Transform3d::SetRotationPart(const gp_Quaternion& theR)
 {
   const bool hasRotation = !theR.IsEqual(gp_Quaternion());
   if (hasRotation)
@@ -158,7 +158,7 @@ void gp_Trsf::SetRotationPart(const gp_Quaternion& theR)
 
 //=================================================================================================
 
-void gp_Trsf::SetScale(const Point3d& P, const Standard_Real S)
+void Transform3d::SetScale(const Point3d& P, const Standard_Real S)
 {
   shape            = gp_Scale;
   scale            = S;
@@ -166,14 +166,14 @@ void gp_Trsf::SetScale(const Point3d& P, const Standard_Real S)
   Standard_Real As = scale;
   if (As < 0)
     As = -As;
-  Standard_ConstructionError_Raise_if(As <= gp::Resolution(), "gp_Trsf::SetScaleFactor");
+  Standard_ConstructionError_Raise_if(As <= gp::Resolution(), "Transform3d::SetScaleFactor");
   matrix.SetIdentity();
   loc.Multiply(1 - S);
 }
 
 //=================================================================================================
 
-void gp_Trsf::SetTransformation(const gp_Ax3& FromA1, const gp_Ax3& ToA2)
+void Transform3d::SetTransformation(const gp_Ax3& FromA1, const gp_Ax3& ToA2)
 {
   shape = gp_CompoundTrsf;
   scale = 1.0;
@@ -197,7 +197,7 @@ void gp_Trsf::SetTransformation(const gp_Ax3& FromA1, const gp_Ax3& ToA2)
   matrix.Multiply(MA1);
 }
 
-void gp_Trsf::SetTransformation(const gp_Ax3& A3)
+void Transform3d::SetTransformation(const gp_Ax3& A3)
 {
   shape = gp_CompoundTrsf;
   scale = 1.0;
@@ -209,7 +209,7 @@ void gp_Trsf::SetTransformation(const gp_Ax3& A3)
 
 //=================================================================================================
 
-void gp_Trsf::SetTransformation(const gp_Quaternion& R, const gp_Vec& T)
+void Transform3d::SetTransformation(const gp_Quaternion& R, const Vector3d& T)
 {
   shape  = gp_CompoundTrsf;
   scale  = 1.;
@@ -219,7 +219,7 @@ void gp_Trsf::SetTransformation(const gp_Quaternion& R, const gp_Vec& T)
 
 //=================================================================================================
 
-void gp_Trsf::SetDisplacement(const gp_Ax3& FromA1, const gp_Ax3& ToA2)
+void Transform3d::SetDisplacement(const gp_Ax3& FromA1, const gp_Ax3& ToA2)
 {
   shape = gp_CompoundTrsf;
   scale = 1.0;
@@ -245,7 +245,7 @@ void gp_Trsf::SetDisplacement(const gp_Ax3& FromA1, const gp_Ax3& ToA2)
 
 //=================================================================================================
 
-void gp_Trsf::SetTranslationPart(const gp_Vec& V)
+void Transform3d::SetTranslationPart(const Vector3d& V)
 {
 
   loc                            = V.XYZ();
@@ -281,12 +281,12 @@ void gp_Trsf::SetTranslationPart(const gp_Vec& V)
 
 //=================================================================================================
 
-void gp_Trsf::SetScaleFactor(const Standard_Real S)
+void Transform3d::SetScaleFactor(const Standard_Real S)
 {
   Standard_Real As = S;
   if (As < 0)
     As = -As;
-  Standard_ConstructionError_Raise_if(As <= gp::Resolution(), "gp_Trsf::SetScaleFactor");
+  Standard_ConstructionError_Raise_if(As <= gp::Resolution(), "Transform3d::SetScaleFactor");
   scale = S;
   As    = scale - 1.;
   if (As < 0)
@@ -338,7 +338,7 @@ void gp_Trsf::SetScaleFactor(const Standard_Real S)
 //  sont nuls : c'est toujours mieux que gp::Resolution !
 //=======================================================================
 
-void gp_Trsf::SetValues(const Standard_Real a11,
+void Transform3d::SetValues(const Standard_Real a11,
                         const Standard_Real a12,
                         const Standard_Real a13,
                         const Standard_Real a14,
@@ -362,7 +362,7 @@ void gp_Trsf::SetValues(const Standard_Real a11,
   if (As < 0)
     As = -As;
   Standard_ConstructionError_Raise_if(As < gp::Resolution(),
-                                      "gp_Trsf::SetValues, null determinant");
+                                      "Transform3d::SetValues, null determinant");
   if (s > 0)
     s = Pow(s, 1. / 3.);
   else
@@ -380,14 +380,14 @@ void gp_Trsf::SetValues(const Standard_Real a11,
 
 //=================================================================================================
 
-gp_Quaternion gp_Trsf::GetRotation() const
+gp_Quaternion Transform3d::GetRotation() const
 {
   return gp_Quaternion(matrix);
 }
 
 //=================================================================================================
 
-gp_Mat gp_Trsf::VectorialPart() const
+gp_Mat Transform3d::VectorialPart() const
 {
   if (scale == 1.0)
     return matrix;
@@ -401,12 +401,12 @@ gp_Mat gp_Trsf::VectorialPart() const
 
 //=================================================================================================
 
-void gp_Trsf::Invert()
+void Transform3d::Invert()
 {
   //                                    -1
   //  X' = scale * R * X + T  =>  X = (R  / scale)  * ( X' - T)
   //
-  // Pour les gp_Trsf puisque le scale est extrait de la gp_Matrice R
+  // Pour les Transform3d puisque le scale est extrait de la gp_Matrice R
   // on a toujours determinant (R) = 1 et R-1 = R transposee.
   if (shape == gp_Identity)
   {
@@ -416,14 +416,14 @@ void gp_Trsf::Invert()
   else if (shape == gp_Scale)
   {
     Standard_ConstructionError_Raise_if(Abs(scale) <= gp::Resolution(),
-                                        "gp_Trsf::Invert() - transformation has zero scale");
+                                        "Transform3d::Invert() - transformation has zero scale");
     scale = 1.0 / scale;
     loc.Multiply(-scale);
   }
   else
   {
     Standard_ConstructionError_Raise_if(Abs(scale) <= gp::Resolution(),
-                                        "gp_Trsf::Invert() - transformation has zero scale");
+                                        "Transform3d::Invert() - transformation has zero scale");
     scale = 1.0 / scale;
     matrix.Transpose();
     loc.Multiply(matrix);
@@ -433,7 +433,7 @@ void gp_Trsf::Invert()
 
 //=================================================================================================
 
-void gp_Trsf::Multiply(const gp_Trsf& T)
+void Transform3d::Multiply(const Transform3d& T)
 {
   if (T.shape == gp_Identity)
   {
@@ -567,7 +567,7 @@ void gp_Trsf::Multiply(const gp_Trsf& T)
 
 //=================================================================================================
 
-void gp_Trsf::Power(const Standard_Integer N)
+void Transform3d::Power(const Standard_Integer N)
 {
   if (shape == gp_Identity)
   {
@@ -714,7 +714,7 @@ void gp_Trsf::Power(const Standard_Integer N)
 
 //=================================================================================================
 
-void gp_Trsf::PreMultiply(const gp_Trsf& T)
+void Transform3d::PreMultiply(const Transform3d& T)
 {
   if (T.shape == gp_Identity)
   {
@@ -842,10 +842,10 @@ void gp_Trsf::PreMultiply(const gp_Trsf& T)
 //           scientists and Engineers" McGraw-Hill, 1961, ch.14.10-2.
 //=======================================================================
 
-Standard_Boolean gp_Trsf::GetRotation(gp_XYZ& theAxis, Standard_Real& theAngle) const
+Standard_Boolean Transform3d::GetRotation(gp_XYZ& theAxis, Standard_Real& theAngle) const
 {
   gp_Quaternion Q = GetRotation();
-  gp_Vec        aVec;
+  Vector3d        aVec;
   Q.GetVectorAndAngle(aVec, theAngle);
   theAxis = aVec.XYZ();
   return Standard_True;
@@ -860,13 +860,13 @@ Standard_Boolean gp_Trsf::GetRotation(gp_XYZ& theAxis, Standard_Real& theAngle) 
 //        lead to different results for one shape. Consequently, source matrix must
 //        be close to orthogonalized matrix for reducing these differences.
 //=======================================================================
-void gp_Trsf::Orthogonalize()
+void Transform3d::Orthogonalize()
 {
   // Matrix M is called orthogonal if and only if
   //     M*Transpose(M) == E
   // where E is identity matrix.
 
-  // Set of all rows (as of all columns) of matrix M (for gp_Trsf class) is
+  // Set of all rows (as of all columns) of matrix M (for Transform3d class) is
   // orthonormal basis. If this condition is not satisfied then the basis can be
   // orthonormalized in accordance with below described algorithm.
 
@@ -940,7 +940,7 @@ void gp_Trsf::Orthogonalize()
 
 //=================================================================================================
 
-void gp_Trsf::DumpJson(Standard_OStream& theOStream, Standard_Integer) const {
+void Transform3d::DumpJson(Standard_OStream& theOStream, Standard_Integer) const {
   OCCT_DUMP_VECTOR_CLASS(theOStream, "Location", 3, loc.X(), loc.Y(), loc.Z())
     OCCT_DUMP_VECTOR_CLASS(theOStream,
                            "Matrix",
@@ -958,7 +958,7 @@ void gp_Trsf::DumpJson(Standard_OStream& theOStream, Standard_Integer) const {
 
 //=================================================================================================
 
-Standard_Boolean gp_Trsf::InitFromJson(const Standard_SStream& theSStream,
+Standard_Boolean Transform3d::InitFromJson(const Standard_SStream& theSStream,
                                        Standard_Integer&       theStreamPos)
 {
   Standard_Integer        aPos       = theStreamPos;

@@ -91,8 +91,8 @@ void BiTgte_CurveOnEdge::Init(const TopoDS_Edge& EonF, const TopoDS_Edge& Edge)
   myType = GeomAbs_OtherCurve;
   if (Curv.GetType() == GeomAbs_Line && ConF.GetType() == GeomAbs_Circle)
   {
-    gp_Ax1 a1 = Curv.Line().Position();
-    gp_Ax1 a2 = ConF.Circle().Axis();
+    Axis3d a1 = Curv.Line().Position();
+    Axis3d a2 = ConF.Circle().Axis();
     if (a1.IsCoaxial(a2, Precision::Angular(), Precision::Confusion()))
     {
       myType = GeomAbs_Circle;
@@ -187,28 +187,28 @@ void BiTgte_CurveOnEdge::D0(const Standard_Real U, Point3d& P) const
 
 //=================================================================================================
 
-void BiTgte_CurveOnEdge::D1(const Standard_Real, Point3d&, gp_Vec&) const
+void BiTgte_CurveOnEdge::D1(const Standard_Real, Point3d&, Vector3d&) const
 {
   throw Standard_NotImplemented("BiTgte_CurveOnEdge");
 }
 
 //=================================================================================================
 
-void BiTgte_CurveOnEdge::D2(const Standard_Real, Point3d&, gp_Vec&, gp_Vec&) const
+void BiTgte_CurveOnEdge::D2(const Standard_Real, Point3d&, Vector3d&, Vector3d&) const
 {
   throw Standard_NotImplemented("BiTgte_CurveOnEdge");
 }
 
 //=================================================================================================
 
-void BiTgte_CurveOnEdge::D3(const Standard_Real, Point3d&, gp_Vec&, gp_Vec&, gp_Vec&) const
+void BiTgte_CurveOnEdge::D3(const Standard_Real, Point3d&, Vector3d&, Vector3d&, Vector3d&) const
 {
   throw Standard_NotImplemented("BiTgte_CurveOnEdge");
 }
 
 //=================================================================================================
 
-gp_Vec BiTgte_CurveOnEdge::DN(const Standard_Real, const Standard_Integer) const
+Vector3d BiTgte_CurveOnEdge::DN(const Standard_Real, const Standard_Integer) const
 {
   throw Standard_NotImplemented("BiTgte_CurveOnEdge");
 }

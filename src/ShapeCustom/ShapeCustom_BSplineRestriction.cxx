@@ -438,9 +438,9 @@ Standard_Boolean ShapeCustom_BSplineRestriction::NewSurface(const TopoDS_Face&  
 
 //=================================================================================================
 
-static void ConvertExtrusion(const Handle(Geom_Curve)& C, /*const gp_Dir& direction,*/
-                             gp_Trsf&                  shiftF,
-                             gp_Trsf&                  shiftL,
+static void ConvertExtrusion(const Handle(Geom_Curve)& C, /*const Dir3d& direction,*/
+                             Transform3d&                  shiftF,
+                             Transform3d&                  shiftL,
                              const Standard_Real       VF,
                              const Standard_Real       VL,
                              Handle(Geom_Surface)&     bspline)
@@ -595,7 +595,7 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertSurface(
                    Min(UL, BasCurve->LastParameter()),
                    TolS,
                    IsOf);
-      gp_Trsf shiftF, shiftL;
+      Transform3d shiftF, shiftL;
       shiftF.SetTranslation(Surface->Value(UF, 0), Surface->Value(UF, VF));
       shiftL.SetTranslation(Surface->Value(UF, 0), Surface->Value(UF, VL));
       ConvertExtrusion(ResCurve, /*Surface->Direction(),*/ shiftF, shiftL, VF, VL, S);

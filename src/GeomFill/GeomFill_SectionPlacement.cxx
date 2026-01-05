@@ -53,7 +53,7 @@
 static void Tangente(const Adaptor3d_Curve& Path,
                      const Standard_Real    Param,
                      Point3d&                P,
-                     gp_Vec&                Tang)
+                     Vector3d&                Tang)
 {
   Path.D1(Param, P, Tang);
   Standard_Real Norm = Tang.Magnitude();
@@ -91,7 +91,7 @@ static Standard_Real Penalite(const Standard_Real angle, const Standard_Real dis
   return penal;
 }
 
-static Standard_Real EvalAngle(const gp_Vec& V1, const gp_Vec& V2)
+static Standard_Real EvalAngle(const Vector3d& V1, const Vector3d& V2)
 {
   Standard_Real angle;
   angle = V1.Angle(V2);
@@ -193,7 +193,7 @@ GeomFill_SectionPlacement::GeomFill_SectionPlacement(const Handle(GeomFill_Locat
   if (!myIsPoint)
   {
     Point3d P;
-    gp_Vec V;
+    Vector3d V;
     Tangente(myAdpSection,
              (myAdpSection.FirstParameter() + myAdpSection.LastParameter()) / 2,
              P,
@@ -330,7 +330,7 @@ GeomFill_SectionPlacement::GeomFill_SectionPlacement(const Handle(GeomFill_Locat
       }
 
       Standard_Boolean issing;
-      gp_Ax2           axe;
+      Frame3d           axe;
       GeomLib::AxeOfInertia(Pnts->Array1(), axe, issing, Precision::Confusion());
       if (!issing)
       {
@@ -388,7 +388,7 @@ void GeomFill_SectionPlacement::Perform(const Handle(Adaptor3d_Curve)& Path,
 
     Standard_Real distaux, taux = 0.0, alpha;
     Point3d        PonPath, PonSec, P;
-    gp_Vec        VRef, dp1;
+    Vector3d        VRef, dp1;
     VRef.SetXYZ(TheAxe.Direction().XYZ());
 
     Tangente(*Path, PathParam, PonPath, dp1);
@@ -414,7 +414,7 @@ void GeomFill_SectionPlacement::Perform(const Handle(Adaptor3d_Curve)& Path,
     {
       // (1.1) Distances Point-Plan
       Standard_Real DistPlan;
-      gp_Vec        V1(PonPath, TheAxe.Location());
+      Vector3d        V1(PonPath, TheAxe.Location());
       DistPlan = Abs(V1.Dot(VRef));
       if (DistPlan <= IntTol)
         DistCenter = V1.Magnitude();
@@ -495,7 +495,7 @@ void GeomFill_SectionPlacement::Perform(const Handle(Adaptor3d_Curve)& Path,
       /*
          // (1.1) Distances Point-Plan
          Standard_Real DistPlan;
-         gp_Vec V1 (PonPath, TheAxe.Location());
+         Vector3d V1 (PonPath, TheAxe.Location());
          DistPlan = Abs(V1.Dot(VRef));
 
          // On examine l'autre extremite
@@ -530,7 +530,7 @@ void GeomFill_SectionPlacement::Perform(const Handle(Adaptor3d_Curve)& Path,
          Intersector.Perform(Path, adplan);
          if (Intersector.IsDone()) {
          Standard_Real w;
-         gp_Vec V;
+         Vector3d V;
          for (ii=1; ii<=Intersector.NbPoints(); ii++) {
          w = Intersector.Point(ii).W();
          //(1.3) test d'angle
@@ -697,7 +697,7 @@ void GeomFill_SectionPlacement::Perform(const Standard_Real Param, const Standar
     //  Standard_Real distaux, taux, alpha;
     //  Point3d PonPath, PonSec, P;
     Point3d PonPath, PonSec;
-    gp_Vec VRef, dp1;
+    Vector3d VRef, dp1;
     VRef.SetXYZ(TheAxe.Direction().XYZ());
 
     Tangente(*Path, PathParam, PonPath, dp1);
@@ -757,12 +757,12 @@ Standard_Real GeomFill_SectionPlacement::Angle() const
 
 //=================================================================================================
 
-gp_Trsf GeomFill_SectionPlacement::Transformation(const Standard_Boolean WithTranslation,
+Transform3d GeomFill_SectionPlacement::Transformation(const Standard_Boolean WithTranslation,
                                                   const Standard_Boolean WithCorrection) const
 {
-  gp_Vec V;
+  Vector3d V;
   gp_Mat M;
-  gp_Dir DT, DN, D;
+  Dir3d DT, DN, D;
   // modified by NIZHNY-MKK  Fri Oct 17 15:27:07 2003
   Point3d P(0., 0., 0.), PSection(0., 0., 0.);
 
@@ -782,7 +782,7 @@ gp_Trsf GeomFill_SectionPlacement::Transformation(const Standard_Boolean WithTra
       PSection = mySection->Value(SecParam);
   }
   // modified by NIZHNY-MKK  Wed Oct  8 15:03:19 2003.BEGIN
-  gp_Trsf Rot;
+  Transform3d Rot;
 
   if (WithCorrection && !myIsPoint)
   {
@@ -791,14 +791,14 @@ gp_Trsf GeomFill_SectionPlacement::Transformation(const Standard_Boolean WithTra
     if (!isplan)
       throw ExceptionBase("Illegal usage: can't rotate non-planar profile");
 
-    gp_Dir ProfileNormal = TheAxe.Direction();
-    gp_Dir SpineStartDir = Paxe.Direction();
+    Dir3d ProfileNormal = TheAxe.Direction();
+    Dir3d SpineStartDir = Paxe.Direction();
 
     if (!ProfileNormal.IsParallel(SpineStartDir, Precision::Angular()))
     {
-      gp_Dir DirAxeOfRotation = ProfileNormal ^ SpineStartDir;
+      Dir3d DirAxeOfRotation = ProfileNormal ^ SpineStartDir;
       angle                   = ProfileNormal.AngleWithRef(SpineStartDir, DirAxeOfRotation);
-      gp_Ax1 AxeOfRotation(TheAxe.Location(), DirAxeOfRotation);
+      Axis3d AxeOfRotation(TheAxe.Location(), DirAxeOfRotation);
       Rot.SetRotation(AxeOfRotation, angle);
     }
     PSection.Transform(Rot);
@@ -817,25 +817,25 @@ gp_Trsf GeomFill_SectionPlacement::Transformation(const Standard_Boolean WithTra
   gp_Ax3 Saxe(P, gp::DZ(), gp::DX());
 
   // Transfo
-  gp_Trsf Tf;
+  Transform3d Tf;
   Tf.SetTransformation(Saxe, Paxe);
 
   if (WithCorrection)
   {
     // modified by NIZHNY-MKK  Fri Oct 17 15:26:36 2003.BEGIN
     //     Standard_Real angle;
-    //     gp_Trsf Rot;
+    //     Transform3d Rot;
 
     //     if (!isplan)
     //       throw ExceptionBase("Illegal usage: can't rotate non-planar profile");
 
-    //     gp_Dir ProfileNormal = TheAxe.Direction();
-    //     gp_Dir SpineStartDir = Paxe.Direction();
+    //     Dir3d ProfileNormal = TheAxe.Direction();
+    //     Dir3d SpineStartDir = Paxe.Direction();
     //     if (! ProfileNormal.IsParallel( SpineStartDir, Precision::Angular() ))
     //       {
-    // 	gp_Dir DirAxeOfRotation = ProfileNormal ^ SpineStartDir;
+    // 	Dir3d DirAxeOfRotation = ProfileNormal ^ SpineStartDir;
     // 	angle = ProfileNormal.AngleWithRef( SpineStartDir, DirAxeOfRotation );
-    // 	gp_Ax1 AxeOfRotation( TheAxe.Location(), DirAxeOfRotation );
+    // 	Axis3d AxeOfRotation( TheAxe.Location(), DirAxeOfRotation );
     // 	Rot.SetRotation( AxeOfRotation, angle );
     //       }
     // modified by NIZHNY-MKK  Fri Oct 17 15:26:42 2003.END
@@ -867,11 +867,11 @@ Handle(Geom_Curve) GeomFill_SectionPlacement::ModifiedSection(
 
 //=================================================================================================
 
-void GeomFill_SectionPlacement::SectionAxis(const gp_Mat& M, gp_Vec& T, gp_Vec& N, gp_Vec& BN) const
+void GeomFill_SectionPlacement::SectionAxis(const gp_Mat& M, Vector3d& T, Vector3d& N, Vector3d& BN) const
 {
   Standard_Real     Eps = 1.e-10;
-  gp_Dir            D;
-  gp_Vec            PathNormal;
+  Dir3d            D;
+  Vector3d            PathNormal;
   GeomLProp_CLProps CP(mySection, SecParam, 2, Eps);
   if (CP.IsTangentDefined())
   {

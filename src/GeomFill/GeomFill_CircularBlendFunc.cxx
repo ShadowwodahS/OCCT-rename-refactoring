@@ -151,7 +151,7 @@ void GeomFill_CircularBlendFunc::Discret()
   Standard_Real           L1, L2, L;
   Handle(Adaptor3d_Curve) C;
   Point3d                  P1, P2, P3, Center;
-  gp_Vec                  DCenter;
+  Vector3d                  DCenter;
 
   P1 = myCurve1->Value(TFirst);
   P2 = myCurve1->Value((TFirst + TLast) / 2.);
@@ -179,7 +179,7 @@ void GeomFill_CircularBlendFunc::Discret()
   GCPnts_QuasiUniformDeflection Samp;
   Samp.Initialize(*C, Fleche);
   myBary.SetCoord(0., 0., 0.);
-  gp_Vec ns1, ns2;
+  Vector3d ns1, ns2;
 
   if (Samp.IsDone())
   {
@@ -264,7 +264,7 @@ Standard_Boolean GeomFill_CircularBlendFunc::D0(const Standard_Real Param,
                                                 TColStd_Array1OfReal& Weigths)
 {
   Point3d P1, P2, Center;
-  gp_Vec ns1, ns2, nplan;
+  Vector3d ns1, ns2, nplan;
   gp_XYZ temp;
 
   // Positionnement
@@ -319,10 +319,10 @@ Standard_Boolean GeomFill_CircularBlendFunc::D1(
 {
   Point3d        P1, P2, Center;
   Standard_Real invnorm1, invnorm2, invnormp;
-  //  gp_Vec DCenter, D2Center, nplan, dnplan, DP1, DP2;
-  gp_Vec DCenter, nplan, dnplan, DP1, DP2;
-  //  gp_Vec ns1, ns2, Dns1, Dns2, vtmp;
-  gp_Vec ns1, ns2, Dns1, Dns2;
+  //  Vector3d DCenter, D2Center, nplan, dnplan, DP1, DP2;
+  Vector3d DCenter, nplan, dnplan, DP1, DP2;
+  //  Vector3d ns1, ns2, Dns1, Dns2, vtmp;
+  Vector3d ns1, ns2, Dns1, Dns2;
   gp_XYZ temp;
 
   // Positionemment
@@ -415,9 +415,9 @@ Standard_Boolean GeomFill_CircularBlendFunc::D2(
 {
   Point3d        P1, P2, Center;
   Standard_Real invnorm1, invnorm2, invnormp, sc;
-  gp_Vec        DCenter, D2Center, DP1, DP2, D2P1, D2P2;
-  gp_Vec        nplan, dnplan, d2nplan;
-  gp_Vec        ns1, ns2, Dns1, Dns2, D2ns1, D2ns2;
+  Vector3d        DCenter, D2Center, DP1, DP2, D2P1, D2P2;
+  Vector3d        nplan, dnplan, d2nplan;
+  Vector3d        ns1, ns2, Dns1, Dns2, D2ns1, D2ns2;
   gp_XYZ        temp;
 
   // Positionement

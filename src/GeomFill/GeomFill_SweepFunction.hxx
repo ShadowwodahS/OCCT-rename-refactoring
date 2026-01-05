@@ -176,9 +176,9 @@ private:
   gp_Mat                       M;
   gp_Mat                       DM;
   gp_Mat                       D2M;
-  gp_Vec                       V;
-  gp_Vec                       DV;
-  gp_Vec                       D2V;
+  Vector3d                       V;
+  Vector3d                       DV;
+  Vector3d                       D2V;
 };
 
 #endif // _GeomFill_SweepFunction_HeaderFile

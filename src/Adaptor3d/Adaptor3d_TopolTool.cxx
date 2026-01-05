@@ -647,7 +647,7 @@ static void Analyse(const TColgp_Array2OfPnt& array2,
                     Standard_Integer&         myNbSamplesU,
                     Standard_Integer&         myNbSamplesV)
 {
-  gp_Vec           Vi, Vip1;
+  Vector3d           Vi, Vip1;
   Standard_Integer sh, nbch, i, j;
 
   sh   = 1;
@@ -1351,7 +1351,7 @@ void Adaptor3d_TopolTool::BSplSamplePnts(const Standard_Real    theDefl,
         if (p1.SquareDistance(p2) <= tol)
           continue;
 
-        gp_Lin           lin(p1, gp_Dir(gp_Vec(p1, p2)));
+        gp_Lin           lin(p1, Dir3d(Vector3d(p1, p2)));
         Standard_Boolean ok = Standard_True;
         for (l = j + 1; l < k; ++l)
         {
@@ -1449,7 +1449,7 @@ void Adaptor3d_TopolTool::BSplSamplePnts(const Standard_Real    theDefl,
           continue;
         // gce_MakeLin MkLin(p1, p2);
         // const gp_Lin& lin = MkLin.Value();
-        gp_Lin           lin(p1, gp_Dir(gp_Vec(p1, p2)));
+        gp_Lin           lin(p1, Dir3d(Vector3d(p1, p2)));
         Standard_Boolean ok = Standard_True;
         for (l = j + 1; l < k; ++l)
         {
@@ -1621,7 +1621,7 @@ void Adaptor3d_TopolTool::GetConeApexParam(const gp_Cone& theC,
   Standard_Real SAngle = theC.SemiAngle();
   const Point3d& P      = theC.Apex();
 
-  gp_Trsf T;
+  Transform3d T;
   T.SetTransformation(Pos);
   Point3d Ploc = P.Transformed(T);
 

@@ -70,7 +70,7 @@ static Standard_Boolean verifD1(const TColgp_Array1OfPnt&   P1,
   Standard_Boolean ok = Standard_True;
   Standard_Integer ii, L = P1.Length();
   Standard_Real    dw;
-  gp_Vec           dP;
+  Vector3d           dP;
   for (ii = 1; ii <= L; ii++)
   {
     dw = (W2(ii) - W1(ii)) / pas;
@@ -85,7 +85,7 @@ static Standard_Boolean verifD1(const TColgp_Array1OfPnt&   P1,
       ok = Standard_False;
     }
     dP.SetXYZ((P2(ii).XYZ() - P1(ii).XYZ()) / pas);
-    gp_Vec diff = dP - DPoles(ii);
+    Vector3d diff = dP - DPoles(ii);
     if (diff.Magnitude() > pTol)
     {
       if (Affich)
@@ -115,7 +115,7 @@ static Standard_Boolean verifD2(const TColgp_Array1OfVec&   DP1,
   Standard_Boolean ok = Standard_True;
   Standard_Integer ii, L = DP1.Length();
   Standard_Real    d2w;
-  gp_Vec           d2P;
+  Vector3d           d2P;
   for (ii = 1; ii <= L; ii++)
   {
     Standard_Real dw1 = DW1(ii), dw2 = DW2(ii);
@@ -131,7 +131,7 @@ static Standard_Boolean verifD2(const TColgp_Array1OfVec&   DP1,
       ok = Standard_False;
     }
     d2P.SetXYZ((DP2(ii).XYZ() - DP1(ii).XYZ()) / pas);
-    gp_Vec diff = d2P - D2Poles(ii);
+    Vector3d diff = d2P - D2Poles(ii);
     if (diff.Magnitude() > pTol)
     {
       if (Affich)
@@ -509,7 +509,7 @@ Standard_Boolean GeomFill_NSections::D2(const Standard_Real   V,
     TColgp_Array1OfPnt   P1(1, L), P2(1, L);
     TColgp_Array1OfVec   DP1(1, L), DP2(1, L);
     Point3d               nul(0., 0., 0.);
-    gp_Vec               Vnul(0., 0., 0.);
+    Vector3d               Vnul(0., 0., 0.);
     W1.Init(0.);
     W2.Init(0.);
     DW1.Init(0.);
@@ -935,7 +935,7 @@ Standard_Boolean GeomFill_NSections::IsConstant(Standard_Real& Error) const
         samepos = (C1.Location().Distance(C2.Location()) < Tol);
         if (!samepos)
         {
-          gp_Ax1 D(C1.Location(), gp_Vec(C1.Location(), C2.Location()));
+          Axis3d D(C1.Location(), Vector3d(C1.Location(), C2.Location()));
           samepos = (C1.Axis().IsParallel(D, 1.e-4));
         }
         isconst = samedir && samerad && samepos;
@@ -1016,7 +1016,7 @@ Standard_Boolean GeomFill_NSections::IsConicalLaw(Standard_Real& Error) const
         /*
         sameaxis = (C1.Location().Distance(C2.Location())<Tol);
         if (!sameaxis) {
-        gp_Ax1 D(C1.Location(),gp_Vec(C1.Location(),C2.Location()));
+        Axis3d D(C1.Location(),Vector3d(C1.Location(),C2.Location()));
         sameaxis = (C1.Axis().IsParallel(D,1.e-4));
         }
         isconic = samedir && linearrad && sameaxis;

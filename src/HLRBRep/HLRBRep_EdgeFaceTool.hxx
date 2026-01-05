@@ -20,7 +20,7 @@
 #include <Standard.hxx>
 #include <Standard_DefineAlloc.hxx>
 
-class gp_Dir;
+class Dir3d;
 
 //! The EdgeFaceTool computes the  UV coordinates at a
 //! given parameter on a Curve and a Surface.  It also
@@ -34,7 +34,7 @@ public:
   Standard_EXPORT static Standard_Real CurvatureValue(const Standard_Address F,
                                                       const Standard_Real    U,
                                                       const Standard_Real    V,
-                                                      const gp_Dir&          Tg);
+                                                      const Dir3d&          Tg);
 
   //! return True if U and V are found.
   Standard_EXPORT static Standard_Boolean UVPoint(const Standard_Real    Par,

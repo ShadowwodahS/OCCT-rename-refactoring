@@ -26,9 +26,9 @@
 #include <Standard_Integer.hxx>
 class gp_Lin;
 class Point3d;
-class gp_Dir;
-class gp_Vec;
-class gp_Trsf;
+class Dir3d;
+class Vector3d;
+class Transform3d;
 class Geom_Geometry;
 
 class Geom_Line;
@@ -36,7 +36,7 @@ DEFINE_STANDARD_HANDLE(Geom_Line, Geom_Curve)
 
 //! Describes an infinite line.
 //! A line is defined and positioned in space with an axis
-//! (gp_Ax1 object) which gives it an origin and a unit vector.
+//! (Axis3d object) which gives it an origin and a unit vector.
 //! The Geom_Line line is parameterized:
 //! P (U) = O + U*Dir, where:
 //! - P is the point of parameter U,
@@ -50,7 +50,7 @@ class Geom_Line : public Geom_Curve
 public:
   //! Creates a line located in 3D space with the axis placement A1.
   //! The Location of A1 is the origin of the line.
-  Standard_EXPORT Geom_Line(const gp_Ax1& A1);
+  Standard_EXPORT Geom_Line(const Axis3d& A1);
 
   //! Creates a line from a non transient line from package gp.
   Standard_EXPORT Geom_Line(const gp_Lin& L);
@@ -58,26 +58,26 @@ public:
   //! Constructs a line passing through point P and parallel to vector V
   //! (P and V are, respectively, the origin and the unit
   //! vector of the positioning axis of the line).
-  Standard_EXPORT Geom_Line(const Point3d& P, const gp_Dir& V);
+  Standard_EXPORT Geom_Line(const Point3d& P, const Dir3d& V);
 
   //! Set <me> so that <me> has the same geometric properties as L.
   Standard_EXPORT void SetLin(const gp_Lin& L);
 
   //! changes the direction of the line.
-  Standard_EXPORT void SetDirection(const gp_Dir& V);
+  Standard_EXPORT void SetDirection(const Dir3d& V);
 
   //! changes the "Location" point (origin) of the line.
   Standard_EXPORT void SetLocation(const Point3d& P);
 
   //! changes the "Location" and a the "Direction" of <me>.
-  Standard_EXPORT void SetPosition(const gp_Ax1& A1);
+  Standard_EXPORT void SetPosition(const Axis3d& A1);
 
   //! Returns non transient line from gp with the same geometric
   //! properties as <me>
   Standard_EXPORT gp_Lin Lin() const;
 
   //! Returns the positioning axis of this line; this is also its local coordinate system.
-  Standard_EXPORT const gp_Ax1& Position() const;
+  Standard_EXPORT const Axis3d& Position() const;
 
   //! Changes the orientation of this line. As a result, the
   //! unit vector of the positioning axis of this line is reversed.
@@ -115,31 +115,31 @@ public:
   Standard_EXPORT void D0(const Standard_Real U, Point3d& P) const Standard_OVERRIDE;
 
   //! Returns the point P of parameter u and the first derivative V1.
-  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, gp_Vec& V1) const Standard_OVERRIDE;
+  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, Vector3d& V1) const Standard_OVERRIDE;
 
   //! Returns the point P of parameter U, the first and second
   //! derivatives V1 and V2. V2 is a vector with null magnitude
   //! for a line.
   Standard_EXPORT void D2(const Standard_Real U,
                           Point3d&             P,
-                          gp_Vec&             V1,
-                          gp_Vec&             V2) const Standard_OVERRIDE;
+                          Vector3d&             V1,
+                          Vector3d&             V2) const Standard_OVERRIDE;
 
   //! V2 and V3 are vectors with null magnitude for a line.
   Standard_EXPORT void D3(const Standard_Real U,
                           Point3d&             P,
-                          gp_Vec&             V1,
-                          gp_Vec&             V2,
-                          gp_Vec&             V3) const Standard_OVERRIDE;
+                          Vector3d&             V1,
+                          Vector3d&             V2,
+                          Vector3d&             V3) const Standard_OVERRIDE;
 
   //! The returned vector gives the value of the derivative for the
   //! order of derivation N.
   //! Raised if N < 1.
-  Standard_EXPORT gp_Vec DN(const Standard_Real    U,
+  Standard_EXPORT Vector3d DN(const Standard_Real    U,
                             const Standard_Integer N) const Standard_OVERRIDE;
 
   //! Applies the transformation T to this line.
-  Standard_EXPORT void Transform(const gp_Trsf& T) Standard_OVERRIDE;
+  Standard_EXPORT void Transform(const Transform3d& T) Standard_OVERRIDE;
 
   //! Returns the  parameter on the  transformed  curve for
   //! the transform of the point of parameter U on <me>.
@@ -152,7 +152,7 @@ public:
   //!
   //! This methods returns <U> * T.ScaleFactor()
   Standard_EXPORT virtual Standard_Real TransformedParameter(const Standard_Real U,
-                                                             const gp_Trsf&      T) const
+                                                             const Transform3d&      T) const
     Standard_OVERRIDE;
 
   //! Returns a  coefficient to compute the parameter on
@@ -166,7 +166,7 @@ public:
   //! Value(U).Transformed(T)
   //!
   //! This methods returns T.ScaleFactor()
-  Standard_EXPORT virtual Standard_Real ParametricTransformation(const gp_Trsf& T) const
+  Standard_EXPORT virtual Standard_Real ParametricTransformation(const Transform3d& T) const
     Standard_OVERRIDE;
 
   //! Creates a new object which is a copy of this line.
@@ -180,7 +180,7 @@ public:
 
 protected:
 private:
-  gp_Ax1 pos;
+  Axis3d pos;
 };
 
 #endif // _Geom_Line_HeaderFile

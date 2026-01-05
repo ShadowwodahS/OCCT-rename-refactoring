@@ -31,7 +31,7 @@
 class TopoDS_Face;
 class Adaptor3d_CurveOnSurface;
 class Point3d;
-class gp_Vec;
+class Vector3d;
 class gp_Lin;
 class gp_Circ;
 class gp_Elips;
@@ -91,7 +91,7 @@ public:
   Standard_EXPORT void Initialize(const TopoDS_Edge& E, const TopoDS_Face& F);
 
   //! Returns the coordinate system of the curve.
-  Standard_EXPORT const gp_Trsf& Trsf() const;
+  Standard_EXPORT const Transform3d& Trsf() const;
 
   //! Returns True if the edge geometry is computed from
   //! a 3D curve.
@@ -155,7 +155,7 @@ public:
   //! with its first derivative.
   //! Raised if the continuity of the current interval
   //! is not C1.
-  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, gp_Vec& V) const Standard_OVERRIDE;
+  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, Vector3d& V) const Standard_OVERRIDE;
 
   //! Returns the point P of parameter U, the first and second
   //! derivatives V1 and V2.
@@ -163,8 +163,8 @@ public:
   //! is not C2.
   Standard_EXPORT void D2(const Standard_Real U,
                           Point3d&             P,
-                          gp_Vec&             V1,
-                          gp_Vec&             V2) const Standard_OVERRIDE;
+                          Vector3d&             V1,
+                          Vector3d&             V2) const Standard_OVERRIDE;
 
   //! Returns the point P of parameter U, the first, the second
   //! and the third derivative.
@@ -172,16 +172,16 @@ public:
   //! is not C3.
   Standard_EXPORT void D3(const Standard_Real U,
                           Point3d&             P,
-                          gp_Vec&             V1,
-                          gp_Vec&             V2,
-                          gp_Vec&             V3) const Standard_OVERRIDE;
+                          Vector3d&             V1,
+                          Vector3d&             V2,
+                          Vector3d&             V3) const Standard_OVERRIDE;
 
   //! The returned vector gives the value of the derivative for the
   //! order of derivation N.
   //! Raised if the continuity of the current interval
   //! is not CN.
   //! Raised if N < 1.
-  Standard_EXPORT gp_Vec DN(const Standard_Real    U,
+  Standard_EXPORT Vector3d DN(const Standard_Real    U,
                             const Standard_Integer N) const Standard_OVERRIDE;
 
   //! returns the parametric resolution
@@ -220,7 +220,7 @@ public:
   Standard_EXPORT Handle(Geom_OffsetCurve) OffsetCurve() const Standard_OVERRIDE;
 
 private:
-  gp_Trsf                          myTrsf;
+  Transform3d                          myTrsf;
   GeomAdaptor_Curve                myCurve;
   Handle(Adaptor3d_CurveOnSurface) myConSurf;
   TopoDS_Edge                      myEdge;

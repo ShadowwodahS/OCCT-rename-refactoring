@@ -20,9 +20,9 @@
 #include <Standard.hxx>
 
 #include <Geom_AxisPlacement.hxx>
-class gp_Ax2;
+class Frame3d;
 class Point3d;
-class gp_Trsf;
+class Transform3d;
 class Geom_Geometry;
 
 class Geom_Axis2Placement;
@@ -45,9 +45,9 @@ DEFINE_STANDARD_HANDLE(Geom_Axis2Placement, Geom_AxisPlacement)
 //! retained. The "main Direction" is also the "Z Direction".
 //! Note: Geom_Axis2Placement coordinate systems
 //! provide the same kind of "geometric" services as
-//! gp_Ax2 coordinate systems but have more complex
+//! Frame3d coordinate systems but have more complex
 //! data structures. The geometric objects provided by
-//! the Geom package use gp_Ax2 objects to include
+//! the Geom package use Frame3d objects to include
 //! coordinate systems in their data structures, or to
 //! define the geometric transformations, which are applied to them.
 //! Geom_Axis2Placement coordinate systems are
@@ -58,7 +58,7 @@ class Geom_Axis2Placement : public Geom_AxisPlacement
 
 public:
   //! Returns a transient copy of A2.
-  Standard_EXPORT Geom_Axis2Placement(const gp_Ax2& A2);
+  Standard_EXPORT Geom_Axis2Placement(const Frame3d& A2);
 
   //! P is the origin of the axis placement, N is the main
   //! direction of the axis placement and Vx is the "XDirection".
@@ -66,11 +66,11 @@ public:
   //! "XDirection" is computed as follow :
   //! XDirection = N ^ (Vx ^ N).
   //! Raised if N and Vx are parallel.
-  Standard_EXPORT Geom_Axis2Placement(const Point3d& P, const gp_Dir& N, const gp_Dir& Vx);
+  Standard_EXPORT Geom_Axis2Placement(const Point3d& P, const Dir3d& N, const Dir3d& Vx);
 
   //! Assigns the origin and the three unit vectors of A2 to
   //! this coordinate system.
-  Standard_EXPORT void SetAx2(const gp_Ax2& A2);
+  Standard_EXPORT void SetAx2(const Frame3d& A2);
 
   //! Changes the main direction of the axis placement.
   //! The "Xdirection" is modified :
@@ -79,7 +79,7 @@ public:
   //! Raised if V and the previous "XDirection" are parallel
   //! because it is impossible to calculate the new "XDirection"
   //! and the new "YDirection".
-  Standard_EXPORT void SetDirection(const gp_Dir& V) Standard_OVERRIDE;
+  Standard_EXPORT void SetDirection(const Dir3d& V) Standard_OVERRIDE;
 
   //! Changes the "XDirection" of the axis placement, Vx is the
   //! new "XDirection". If Vx is not normal to the main direction
@@ -87,7 +87,7 @@ public:
   //! XDirection = Direction ^ ( Vx ^ Direction).
   //! The main direction is not modified.
   //! Raised if Vx and "Direction"  are parallel.
-  Standard_EXPORT void SetXDirection(const gp_Dir& Vx);
+  Standard_EXPORT void SetXDirection(const Dir3d& Vx);
 
   //! Changes the "YDirection" of the axis placement, Vy is the
   //! new "YDirection". If Vy is not normal to the main direction
@@ -96,23 +96,23 @@ public:
   //! The main direction is not modified. The "XDirection" is
   //! modified.
   //! Raised if Vy and the main direction are parallel.
-  Standard_EXPORT void SetYDirection(const gp_Dir& Vy);
+  Standard_EXPORT void SetYDirection(const Dir3d& Vy);
 
   //! Returns a non transient copy of <me>.
-  Standard_EXPORT gp_Ax2 Ax2() const;
+  Standard_EXPORT Frame3d Ax2() const;
 
   //! Returns the "XDirection". This is a unit vector.
-  Standard_EXPORT const gp_Dir& XDirection() const;
+  Standard_EXPORT const Dir3d& XDirection() const;
 
   //! Returns the "YDirection". This is a unit vector.
-  Standard_EXPORT const gp_Dir& YDirection() const;
+  Standard_EXPORT const Dir3d& YDirection() const;
 
   //! Transforms an axis placement with a Trsf.
   //! The "Location" point, the "XDirection" and the
   //! "YDirection" are transformed with T.  The resulting
   //! main "Direction" of <me> is the cross product between
   //! the "XDirection" and the "YDirection" after transformation.
-  Standard_EXPORT void Transform(const gp_Trsf& T) Standard_OVERRIDE;
+  Standard_EXPORT void Transform(const Transform3d& T) Standard_OVERRIDE;
 
   //! Creates a new object which is a copy of this coordinate system.
   Standard_EXPORT Handle(Geom_Geometry) Copy() const Standard_OVERRIDE;
@@ -122,12 +122,12 @@ public:
 protected:
 private:
   Standard_EXPORT Geom_Axis2Placement(const Point3d& P,
-                                      const gp_Dir& Vz,
-                                      const gp_Dir& Vx,
-                                      const gp_Dir& Vy);
+                                      const Dir3d& Vz,
+                                      const Dir3d& Vx,
+                                      const Dir3d& Vy);
 
-  gp_Dir vxdir;
-  gp_Dir vydir;
+  Dir3d vxdir;
+  Dir3d vydir;
 };
 
 #endif // _Geom_Axis2Placement_HeaderFile

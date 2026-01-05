@@ -31,7 +31,7 @@
 class AppParCurves_MultiPoint;
 class Point3d;
 class gp_Pnt2d;
-class gp_Vec;
+class Vector3d;
 class gp_Vec2d;
 
 //! This class describes a MultiCurve approximating a Multiline.
@@ -168,7 +168,7 @@ public:
   Standard_EXPORT virtual void D1(const Standard_Integer CuIndex,
                                   const Standard_Real    U,
                                   Point3d&                Pt,
-                                  gp_Vec&                V1) const;
+                                  Vector3d&                V1) const;
 
   //! returns the value of the point with a parameter U
   //! on the Bezier curve number CuIndex.
@@ -186,8 +186,8 @@ public:
   Standard_EXPORT virtual void D2(const Standard_Integer CuIndex,
                                   const Standard_Real    U,
                                   Point3d&                Pt,
-                                  gp_Vec&                V1,
-                                  gp_Vec&                V2) const;
+                                  Vector3d&                V1,
+                                  Vector3d&                V2) const;
 
   //! returns the value of the point with a parameter U
   //! on the Bezier curve number CuIndex.

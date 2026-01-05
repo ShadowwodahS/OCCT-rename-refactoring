@@ -338,7 +338,7 @@ const TopLoc_Location* BinTools_ShapeReader::ReadLocation(BinTools_IStream& theS
   TopLoc_Location aLoc;
   if (aType == BinTools_ObjectType_SimpleLocation)
   {
-    gp_Trsf aTrsf;
+    Transform3d aTrsf;
     theStream >> aTrsf;
     aLoc = aTrsf;
   }

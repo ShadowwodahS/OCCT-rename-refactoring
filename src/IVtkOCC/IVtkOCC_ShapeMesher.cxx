@@ -241,7 +241,7 @@ void IVtkOCC_ShapeMesher::addEdge(const TopoDS_Edge&  theEdge,
   if (!aPolyOnTriangulation.IsNull() && aPolyOnTriangulation->NbNodes() >= 2)
   {
     // prefer polygon on triangulation when defined
-    const gp_Trsf aTrsf        = aLoc.Transformation();
+    const Transform3d aTrsf        = aLoc.Transformation();
     const bool    hasTransform = !aLoc.IsIdentity();
 
     IVtk_PointIdList       aPolyPointIds;
@@ -250,7 +250,7 @@ void IVtkOCC_ShapeMesher::addEdge(const TopoDS_Edge&  theEdge,
     {
       const Standard_Integer aPntId = aPolyOnTriangulation->Node(aJ + 1);
       Point3d                 aPoint = aTriangulation->Node(aPntId);
-      gp_Dir aNorm = aTriangulation->HasNormals() ? aTriangulation->Normal(aPntId) : gp::DZ();
+      Dir3d aNorm = aTriangulation->HasNormals() ? aTriangulation->Normal(aPntId) : gp::DZ();
       if (hasTransform)
       {
         aPoint.Transform(aTrsf);
@@ -273,7 +273,7 @@ void IVtkOCC_ShapeMesher::addEdge(const TopoDS_Edge&  theEdge,
     return;
   }
 
-  const gp_Trsf    anEdgeTransf = aLoc.Transformation();
+  const Transform3d    anEdgeTransf = aLoc.Transformation();
   const bool       noTransform  = aLoc.IsIdentity();
   IVtk_PointIdList aPolyPointIds;
   for (Standard_Integer aNodeIter = 1; aNodeIter <= aPoly3d->NbNodes(); ++aNodeIter)
@@ -359,7 +359,7 @@ void IVtkOCC_ShapeMesher::addShadedFace(const TopoDS_Face& theFace, const IVtk_I
   }
 
   // Determinant of transform matrix less then 0 means that mirror transform applied
-  const gp_Trsf aTrsf        = aLoc.Transformation();
+  const Transform3d aTrsf        = aLoc.Transformation();
   const bool    hasTransform = !aLoc.IsIdentity();
   const bool    isMirrored   = aTrsf.VectorialPart().Determinant() < 0;
 
@@ -372,7 +372,7 @@ void IVtkOCC_ShapeMesher::addShadedFace(const TopoDS_Face& theFace, const IVtk_I
   for (Standard_Integer anI = 1; anI <= aNbPoints; anI++)
   {
     Point3d aPoint = anOcctTriangulation->Node(anI);
-    gp_Dir aNorm  = anOcctTriangulation->HasNormals() ? anOcctTriangulation->Normal(anI) : gp::DZ();
+    Dir3d aNorm  = anOcctTriangulation->HasNormals() ? anOcctTriangulation->Normal(anI) : gp::DZ();
     if ((theFace.Orientation() == TopAbs_REVERSED) ^ isMirrored)
     {
       aNorm.Reverse();

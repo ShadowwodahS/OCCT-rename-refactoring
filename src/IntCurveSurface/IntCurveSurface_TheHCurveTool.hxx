@@ -34,7 +34,7 @@ class Standard_OutOfRange;
 class Standard_NoSuchObject;
 class Standard_DomainError;
 class Point3d;
-class gp_Vec;
+class Vector3d;
 class Geom_BezierCurve;
 class Geom_BSplineCurve;
 
@@ -96,7 +96,7 @@ public:
   //! first derivative.
   //! Raised if the continuity of the current interval
   //! is not C1.
-  static void D1(const Handle(Adaptor3d_Curve)& C, const Standard_Real U, Point3d& P, gp_Vec& V)
+  static void D1(const Handle(Adaptor3d_Curve)& C, const Standard_Real U, Point3d& P, Vector3d& V)
   {
     C->D1(U, P, V);
   }
@@ -108,8 +108,8 @@ public:
   static void D2(const Handle(Adaptor3d_Curve)& C,
                  const Standard_Real            U,
                  Point3d&                        P,
-                 gp_Vec&                        V1,
-                 gp_Vec&                        V2)
+                 Vector3d&                        V1,
+                 Vector3d&                        V2)
   {
     C->D2(U, P, V1, V2);
   }
@@ -121,9 +121,9 @@ public:
   static void D3(const Handle(Adaptor3d_Curve)& C,
                  const Standard_Real            U,
                  Point3d&                        P,
-                 gp_Vec&                        V1,
-                 gp_Vec&                        V2,
-                 gp_Vec&                        V3)
+                 Vector3d&                        V1,
+                 Vector3d&                        V2,
+                 Vector3d&                        V3)
   {
     C->D3(U, P, V1, V2, V3);
   }
@@ -133,7 +133,7 @@ public:
   //! Raised if the continuity of the current interval
   //! is not CN.
   //! Raised if N < 1.
-  static gp_Vec DN(const Handle(Adaptor3d_Curve)& C,
+  static Vector3d DN(const Handle(Adaptor3d_Curve)& C,
                    const Standard_Real            U,
                    const Standard_Integer         N)
   {

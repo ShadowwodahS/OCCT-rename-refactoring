@@ -131,7 +131,7 @@ Handle(Poly_Triangulation) Poly_CoherentTriangulation::GetTriangulation() const
     if (aNormal.SquareModulus() > Precision::Confusion())
     {
       aResult->AddNormals();
-      aResult->SetNormal(aCount, gp_Dir(aNormal));
+      aResult->SetNormal(aCount, Dir3d(aNormal));
     }
 
     aResult->SetNode(aCount, aNode);

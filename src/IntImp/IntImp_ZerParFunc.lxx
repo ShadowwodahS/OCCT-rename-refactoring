@@ -29,11 +29,11 @@ inline Point3d IntImp_ZerParFunc::Point() const
   return Point3d((pntsol1.XYZ() + pntsol2.XYZ()) / 2.);
 }
 
-inline gp_Dir IntImp_ZerParFunc::Direction() const
+inline Dir3d IntImp_ZerParFunc::Direction() const
 {
   if (tangent)
     throw StdFail_UndefinedDerivative();
-  return gp_Dir(tgduv[0] * dpuv[0].XYZ() + tgduv[1] * dpuv[1].XYZ());
+  return Dir3d(tgduv[0] * dpuv[0].XYZ() + tgduv[1] * dpuv[1].XYZ());
 }
 
 inline gp_Dir2d IntImp_ZerParFunc::DirectionOnS1() const

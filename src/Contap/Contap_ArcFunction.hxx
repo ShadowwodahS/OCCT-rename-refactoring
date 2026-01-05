@@ -35,9 +35,9 @@ public:
 
   Standard_EXPORT void Set(const Handle(Adaptor3d_Surface)& S);
 
-  void Set(const gp_Dir& Direction);
+  void Set(const Dir3d& Direction);
 
-  void Set(const gp_Dir& Direction, const Standard_Real Angle);
+  void Set(const Dir3d& Direction, const Standard_Real Angle);
 
   void Set(const Point3d& Eye);
 
@@ -75,7 +75,7 @@ private:
   Handle(Adaptor3d_Surface) mySurf;
   Standard_Real             myMean;
   Contap_TFunction          myType;
-  gp_Dir                    myDir;
+  Dir3d                    myDir;
   Standard_Real             myCosAng;
   Point3d                    myEye;
   Point3d                    solpt;

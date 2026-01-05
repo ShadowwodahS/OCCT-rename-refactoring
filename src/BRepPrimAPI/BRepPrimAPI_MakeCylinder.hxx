@@ -23,7 +23,7 @@
 
 #include <BRepPrim_Cylinder.hxx>
 #include <BRepPrimAPI_MakeOneAxis.hxx>
-class gp_Ax2;
+class Frame3d;
 
 //! Describes functions to build cylinders or portions of  cylinders.
 //! A MakeCylinder object provides a framework for:
@@ -52,7 +52,7 @@ public:
   //! @param[in] Axes  coordinate system for the construction of the cylinder
   //! @param[in] R     cylinder radius
   //! @param[in] H     cylinder height
-  Standard_EXPORT BRepPrimAPI_MakeCylinder(const gp_Ax2&       Axes,
+  Standard_EXPORT BRepPrimAPI_MakeCylinder(const Frame3d&       Axes,
                                            const Standard_Real R,
                                            const Standard_Real H);
 
@@ -82,7 +82,7 @@ public:
   //! Exceptions Standard_DomainError if:
   //! -   R is less than or equal to Precision::Confusion(), or
   //! -   H is less than or equal to Precision::Confusion().
-  Standard_EXPORT BRepPrimAPI_MakeCylinder(const gp_Ax2&       Axes,
+  Standard_EXPORT BRepPrimAPI_MakeCylinder(const Frame3d&       Axes,
                                            const Standard_Real R,
                                            const Standard_Real H,
                                            const Standard_Real Angle);

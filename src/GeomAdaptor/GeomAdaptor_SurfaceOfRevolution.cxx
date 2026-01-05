@@ -42,7 +42,7 @@ GeomAdaptor_SurfaceOfRevolution::GeomAdaptor_SurfaceOfRevolution(const Handle(Ad
 //=================================================================================================
 
 GeomAdaptor_SurfaceOfRevolution::GeomAdaptor_SurfaceOfRevolution(const Handle(Adaptor3d_Curve)& C,
-                                                                 const gp_Ax1&                  V)
+                                                                 const Axis3d&                  V)
     : myHaveAxis(Standard_False)
 {
   Load(C);
@@ -92,7 +92,7 @@ void GeomAdaptor_SurfaceOfRevolution::Load(const Handle(Adaptor3d_Curve)& C)
 
 //=================================================================================================
 
-void GeomAdaptor_SurfaceOfRevolution::Load(const gp_Ax1& V)
+void GeomAdaptor_SurfaceOfRevolution::Load(const Axis3d& V)
 {
   myHaveAxis = Standard_True;
   myAxis     = V;
@@ -104,8 +104,8 @@ void GeomAdaptor_SurfaceOfRevolution::Load(const gp_Ax1& V)
   // Eval myAxeRev : axe of revolution ( Determination de Ox).
   Point3d           P, Q;
   Point3d           O = myAxis.Location();
-  gp_Dir           Ox;
-  gp_Dir           Oz   = myAxis.Direction();
+  Dir3d           Ox;
+  Dir3d           Oz   = myAxis.Direction();
   Standard_Boolean yrev = Standard_False;
   if (myBasisCurve->GetType() == GeomAbs_Line)
   {
@@ -137,11 +137,11 @@ void GeomAdaptor_SurfaceOfRevolution::Load(const gp_Ax1& V)
       Q = Value(0., First);
   }
 
-  gp_Dir DZ = myAxis.Direction();
-  O.SetXYZ(O.XYZ() + (gp_Vec(O, P) * DZ) * DZ.XYZ());
+  Dir3d DZ = myAxis.Direction();
+  O.SetXYZ(O.XYZ() + (Vector3d(O, P) * DZ) * DZ.XYZ());
   if (gp_Lin(myAxis).Distance(Q) > Precision::Confusion())
   {
-    Ox = gp_Dir(Q.XYZ() - O.XYZ());
+    Ox = Dir3d(Q.XYZ() - O.XYZ());
   }
   else
   {
@@ -162,7 +162,7 @@ void GeomAdaptor_SurfaceOfRevolution::Load(const gp_Ax1& V)
       throw Standard_ConstructionError(
         "Adaptor3d_SurfaceOfRevolution : Axe and meridian are confused");
     }
-    Ox = ((Oz ^ gp_Vec(PP.XYZ() - O.XYZ())) ^ Oz);
+    Ox = ((Oz ^ Vector3d(PP.XYZ() - O.XYZ())) ^ Oz);
   }
 
   myAxeRev = gp_Ax3(O, Oz, Ox);
@@ -173,7 +173,7 @@ void GeomAdaptor_SurfaceOfRevolution::Load(const gp_Ax1& V)
   }
   else if (myBasisCurve->GetType() == GeomAbs_Circle)
   {
-    gp_Dir DC = (myBasisCurve->Circle()).Axis().Direction();
+    Dir3d DC = (myBasisCurve->Circle()).Axis().Direction();
     if ((Ox.Crossed(Oz)).Dot(DC) < 0.)
       myAxeRev.ZReverse();
   }
@@ -181,7 +181,7 @@ void GeomAdaptor_SurfaceOfRevolution::Load(const gp_Ax1& V)
 
 //=================================================================================================
 
-gp_Ax1 GeomAdaptor_SurfaceOfRevolution::AxeOfRevolution() const
+Axis3d GeomAdaptor_SurfaceOfRevolution::AxeOfRevolution() const
 {
   return myAxis;
 }
@@ -356,12 +356,12 @@ GeomAbs_SurfaceType GeomAdaptor_SurfaceOfRevolution::GetType() const
   switch (myBasisCurve->GetType())
   {
     case GeomAbs_Line: {
-      gp_Ax1 Axe = myBasisCurve->Line().Position();
+      Axis3d Axe = myBasisCurve->Line().Position();
 
       if (myAxis.IsParallel(Axe, TolAng))
       {
         Point3d        P = Value(0., 0.);
-        Standard_Real R = gp_Vec(myAxeRev.Location(), P) * myAxeRev.XDirection();
+        Standard_Real R = Vector3d(myAxeRev.Location(), P) * myAxeRev.XDirection();
         if (R > TolConf)
         {
           return GeomAbs_Cylinder;
@@ -380,13 +380,13 @@ GeomAbs_SurfaceType GeomAdaptor_SurfaceOfRevolution::GetType() const
           Point3d        pl  = myBasisCurve->Value(ul);
           Standard_Real len = pf.Distance(pl);
           // on calcule la distance projetee sur l axe.
-          gp_Vec        vlin(pf, pl);
-          gp_Vec        vaxe(myAxis.Direction());
+          Vector3d        vlin(pf, pl);
+          Vector3d        vaxe(myAxis.Direction());
           Standard_Real projlen = Abs(vaxe.Dot(vlin));
           if ((len - projlen) <= TolConf)
           {
             Point3d        P = Value(0., 0.);
-            Standard_Real R = gp_Vec(myAxeRev.Location(), P) * myAxeRev.XDirection();
+            Standard_Real R = Vector3d(myAxeRev.Location(), P) * myAxeRev.XDirection();
             if (R > TolConf)
             {
               return GeomAbs_Cylinder;
@@ -395,9 +395,9 @@ GeomAbs_SurfaceType GeomAdaptor_SurfaceOfRevolution::GetType() const
           else if (projlen <= TolConf)
             return GeomAbs_Plane;
         }
-        gp_Vec        V(myAxis.Location(), myBasisCurve->Line().Location());
-        gp_Vec        W(Axe.Direction());
-        gp_Vec        AxisDir(myAxis.Direction());
+        Vector3d        V(myAxis.Location(), myBasisCurve->Line().Location());
+        Vector3d        W(Axe.Direction());
+        Vector3d        AxisDir(myAxis.Direction());
         Standard_Real proj = Abs(W.Dot(AxisDir));
         if (Abs(V.DotCross(AxisDir, W)) <= TolConf
             && (proj >= TolConeSemiAng && proj <= 1. - TolConeSemiAng))
@@ -466,7 +466,7 @@ gp_Cylinder GeomAdaptor_SurfaceOfRevolution::Cylinder() const
                                  "GeomAdaptor_SurfaceOfRevolution::Cylinder");
 
   Point3d        P = Value(0., 0.);
-  Standard_Real R = gp_Vec(myAxeRev.Location(), P) * myAxeRev.XDirection();
+  Standard_Real R = Vector3d(myAxeRev.Location(), P) * myAxeRev.XDirection();
   return gp_Cylinder(myAxeRev, R);
 }
 
@@ -477,17 +477,17 @@ gp_Cone GeomAdaptor_SurfaceOfRevolution::Cone() const
   Standard_NoSuchObject_Raise_if(GetType() != GeomAbs_Cone, "GeomAdaptor_SurfaceOfRevolution:Cone");
 
   gp_Ax3        Axe   = myAxeRev;
-  gp_Dir        ldir  = (myBasisCurve->Line()).Direction();
+  Dir3d        ldir  = (myBasisCurve->Line()).Direction();
   Standard_Real Angle = (Axe.Direction()).Angle(ldir);
   Point3d        P0    = Value(0., 0.);
   Standard_Real R     = (Axe.Location()).Distance(P0);
   if (R >= Precision::Confusion())
   {
     Point3d        O = Axe.Location();
-    gp_Vec        OP0(O, P0);
+    Vector3d        OP0(O, P0);
     Standard_Real t = OP0.Dot(Axe.XDirection());
     t /= ldir.Dot(Axe.XDirection());
-    OP0.Add(-t * gp_Vec(ldir));
+    OP0.Add(-t * Vector3d(ldir));
     if (OP0.Dot(Axe.Direction()) > 0.)
       Angle = -Angle;
   }

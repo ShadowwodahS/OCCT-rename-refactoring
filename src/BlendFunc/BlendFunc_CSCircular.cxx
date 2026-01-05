@@ -153,7 +153,7 @@ Standard_Boolean BlendFunc_CSCircular::IsSolution(const math_Vector& Sol, const 
   math_Vector valsol(1, 2), secmember(1, 2);
   math_Matrix gradsol(1, 2, 1, 2);
 
-  gp_Vec        dnplan, d1u1, d1v1, d1c, d2c, temp, ns, ncrossns, resul, nc;
+  Vector3d        dnplan, d1u1, d1v1, d1c, d2c, temp, ns, ncrossns, resul, nc;
   Standard_Real norm, ndotns, grosterme;
   Standard_Real Cosa, Sina, Angle;
 
@@ -193,7 +193,7 @@ Standard_Boolean BlendFunc_CSCircular::IsSolution(const math_Vector& Sol, const 
     temp -= dprmc * d1c;
 
     ns.SetLinearForm(ndotns / norm, nplan, -1. / norm, ns);
-    resul.SetLinearForm(ray, ns, gp_Vec(ptc, pts));
+    resul.SetLinearForm(ray, ns, Vector3d(ptc, pts));
 
     secmember(2) = -2. * (resul.Dot(temp));
 
@@ -250,14 +250,14 @@ Standard_Boolean BlendFunc_CSCircular::IsSolution(const math_Vector& Sol, const 
 
 Standard_Boolean BlendFunc_CSCircular::Value(const math_Vector& X, math_Vector& F)
 {
-  gp_Vec d1u1, d1v1, d1c;
+  Vector3d d1u1, d1v1, d1c;
 
   surf->D1(X(1), X(2), pts, d1u1, d1v1);
   curv->D1(prmc, ptc, d1c);
 
   F(1) = nplan.XYZ().Dot(pts.XYZ() - ptc.XYZ());
 
-  gp_Vec        ns   = d1u1.Crossed(d1v1);
+  Vector3d        ns   = d1u1.Crossed(d1v1);
   Standard_Real norm = nplan.Crossed(ns).Magnitude();
   if (norm < Eps)
   {
@@ -265,8 +265,8 @@ Standard_Boolean BlendFunc_CSCircular::Value(const math_Vector& X, math_Vector& 
   }
 
   ns.SetLinearForm(nplan.Dot(ns) / norm, nplan, -1. / norm, ns);
-  gp_Vec vref;
-  vref.SetLinearForm(ray, ns, gp_Vec(ptc, pts));
+  Vector3d vref;
+  vref.SetLinearForm(ray, ns, Vector3d(ptc, pts));
 
   F(2) = vref.SquareMagnitude() - ray * ray;
 
@@ -278,8 +278,8 @@ Standard_Boolean BlendFunc_CSCircular::Value(const math_Vector& X, math_Vector& 
 
 Standard_Boolean BlendFunc_CSCircular::Derivatives(const math_Vector& X, math_Matrix& D)
 {
-  gp_Vec d1u1, d1v1, d2u1, d2v1, d2uv1, d1c;
-  gp_Vec ns, ncrossns, resul, temp, nsov, vref;
+  Vector3d d1u1, d1v1, d2u1, d2v1, d2uv1, d1c;
+  Vector3d ns, ncrossns, resul, temp, nsov, vref;
 
   Standard_Real norm, ndotns, grosterme;
 
@@ -300,7 +300,7 @@ Standard_Boolean BlendFunc_CSCircular::Derivatives(const math_Vector& X, math_Ma
   ndotns = nplan.Dot(ns);
 
   nsov.SetLinearForm(nplan.Dot(ns) / norm, nplan, -1. / norm, ns);
-  vref.SetLinearForm(ray, nsov, gp_Vec(ptc, pts));
+  vref.SetLinearForm(ray, nsov, Vector3d(ptc, pts));
 
   // Derivee par rapport a u de Ps + ray*ns
   temp      = d2u1.Crossed(d1v1).Added(d1u1.Crossed(d2uv1));
@@ -336,9 +336,9 @@ Standard_Boolean BlendFunc_CSCircular::Derivatives(const math_Vector& X, math_Ma
 
 Standard_Boolean BlendFunc_CSCircular::Values(const math_Vector& X, math_Vector& F, math_Matrix& D)
 {
-  gp_Vec d1u1, d1v1, d1c;
-  gp_Vec d2u1, d2v1, d2uv1;
-  gp_Vec ns, ncrossns, resul, temp, vref, nsov;
+  Vector3d d1u1, d1v1, d1c;
+  Vector3d d2u1, d2v1, d2uv1;
+  Vector3d ns, ncrossns, resul, temp, vref, nsov;
 
   Standard_Real norm, ndotns, grosterme;
 
@@ -355,7 +355,7 @@ Standard_Boolean BlendFunc_CSCircular::Values(const math_Vector& X, math_Vector&
 
   ndotns = nplan.Dot(ns);
   nsov.SetLinearForm(ndotns / norm, nplan, -1. / norm, ns);
-  vref.SetLinearForm(ray, nsov, gp_Vec(ptc, pts));
+  vref.SetLinearForm(ray, nsov, Vector3d(ptc, pts));
 
   F(1) = nplan.XYZ().Dot(pts.XYZ() - ptc.XYZ());
   F(2) = vref.SquareMagnitude() - ray * ray;
@@ -430,7 +430,7 @@ Standard_Boolean BlendFunc_CSCircular::IsTangencyPoint() const
 
 //=================================================================================================
 
-const gp_Vec& BlendFunc_CSCircular::TangentOnS() const
+const Vector3d& BlendFunc_CSCircular::TangentOnS() const
 {
   if (istangent)
     throw Standard_DomainError("BlendFunc_CSCircular::TangentOnS");
@@ -439,7 +439,7 @@ const gp_Vec& BlendFunc_CSCircular::TangentOnS() const
 
 //=================================================================================================
 
-const gp_Vec& BlendFunc_CSCircular::TangentOnC() const
+const Vector3d& BlendFunc_CSCircular::TangentOnC() const
 {
   if (istangent)
     throw Standard_DomainError("BlendFunc_CSCircular::TangentOnC");
@@ -459,11 +459,11 @@ const gp_Vec2d& BlendFunc_CSCircular::Tangent2d() const
 
 void BlendFunc_CSCircular::Tangent(const Standard_Real U,
                                    const Standard_Real V,
-                                   gp_Vec&             TgS,
-                                   gp_Vec&             NmS) const
+                                   Vector3d&             TgS,
+                                   Vector3d&             NmS) const
 {
   Point3d bid;
-  gp_Vec d1u, d1v, ns;
+  Vector3d d1u, d1v, ns;
   surf->D1(U, V, bid, d1u, d1v);
   NmS = ns = d1u.Crossed(d1v);
 
@@ -486,8 +486,8 @@ void BlendFunc_CSCircular::Section(const Standard_Real Param,
                                    Standard_Real&      Pfin,
                                    gp_Circ&            C)
 {
-  gp_Vec        d1u1, d1v1;
-  gp_Vec        ns; //,temp;
+  Vector3d        d1u1, d1v1;
+  Vector3d        ns; //,temp;
   Standard_Real norm;
   Point3d        Center;
   Point3d        ptgui;
@@ -510,11 +510,11 @@ void BlendFunc_CSCircular::Section(const Standard_Real Param,
 
   if (choix % 2 == 0)
   {
-    C.SetPosition(gp_Ax2(Center, nplan, ns));
+    C.SetPosition(Frame3d(Center, nplan, ns));
   }
   else
   {
-    C.SetPosition(gp_Ax2(Center, nplan.Reversed(), ns));
+    C.SetPosition(Frame3d(Center, nplan.Reversed(), ns));
   }
   Pdeb = 0.;
   Pfin = ElCLib::Parameter(C, ptc);
@@ -560,10 +560,10 @@ Standard_Boolean BlendFunc_CSCircular::GetSection(const Standard_Real Param,
 
   Standard_Integer i, lowp = tabP.Lower(), lowv = tabV.Lower();
 
-  gp_Vec d1u1, d1v1, d2u1, d2v1, d2uv1, d1c, d2c; //,d1u2,d1v2;
-  gp_Vec ns, dnplan, dnw, dn2w, ncrn, dncrn, ns2;
-  gp_Vec ncrossns, resul;
-  gp_Vec resulu, resulv, temp;
+  Vector3d d1u1, d1v1, d2u1, d2v1, d2uv1, d1c, d2c; //,d1u2,d1v2;
+  Vector3d ns, dnplan, dnw, dn2w, ncrn, dncrn, ns2;
+  Vector3d ncrossns, resul;
+  Vector3d resulu, resulv, temp;
 
   Standard_Real norm, ndotns, grosterme;
   Standard_Real lambda, Cosa, Sina;
@@ -598,7 +598,7 @@ Standard_Boolean BlendFunc_CSCircular::GetSection(const Standard_Real Param,
                     ns);
 
   temp.SetLinearForm(ray, dnw, -dprmc, d1c);
-  resul.SetLinearForm(ray, ns2, gp_Vec(ptc, pts));
+  resul.SetLinearForm(ray, ns2, Vector3d(ptc, pts));
 
   secmember(2) = -2. * (resul.Dot(temp));
 
@@ -782,8 +782,8 @@ void BlendFunc_CSCircular::Section(const Blend_Point&    P,
                                    TColgp_Array1OfPnt2d& Poles2d,
                                    TColStd_Array1OfReal& Weights)
 {
-  gp_Vec d1u1, d1v1; //,d1;
-  gp_Vec ns, ns2;    //,temp,np2;
+  Vector3d d1u1, d1v1; //,d1;
+  Vector3d ns, ns2;    //,temp,np2;
   Point3d Center;
 
   Standard_Real norm, u1, v1;
@@ -817,7 +817,7 @@ void BlendFunc_CSCircular::Section(const Blend_Point&    P,
 
   Center.SetXYZ(pts.XYZ() + ray * ns.XYZ());
 
-  ns2 = gp_Vec(Center, ptc).Normalized();
+  ns2 = Vector3d(Center, ptc).Normalized();
   if (ray > 0.)
     ns.Reverse();
 
@@ -839,10 +839,10 @@ Standard_Boolean BlendFunc_CSCircular::Section(const Blend_Point&    P,
                                                TColStd_Array1OfReal& Weights,
                                                TColStd_Array1OfReal& DWeights)
 {
-  gp_Vec d1u1, d1v1, d2u1, d2v1, d2uv1, d1, d2;
-  gp_Vec ns, ns2, dnplan, dnw, dn2w; //,np2,dnp2;
-  gp_Vec ncrossns;
-  gp_Vec resulu, resulv, temp, tgct, resul;
+  Vector3d d1u1, d1v1, d2u1, d2v1, d2uv1, d1, d2;
+  Vector3d ns, ns2, dnplan, dnw, dn2w; //,np2,dnp2;
+  Vector3d ncrossns;
+  Vector3d resulu, resulv, temp, tgct, resul;
 
   Point3d Center;
 
@@ -884,7 +884,7 @@ Standard_Boolean BlendFunc_CSCircular::Section(const Blend_Point&    P,
                     ns);
 
   temp.SetLinearForm(ray, dnw, -dprmc, d1);
-  resul.SetLinearForm(ray, ns2, gp_Vec(ptc, pts));
+  resul.SetLinearForm(ray, ns2, Vector3d(ptc, pts));
 
   secmember(2) = -2. * (resul.Dot(temp));
 

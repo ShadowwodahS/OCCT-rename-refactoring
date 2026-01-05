@@ -59,11 +59,11 @@ public:
 
   Standard_EXPORT Standard_Boolean IsTangencyPoint() const Standard_OVERRIDE;
 
-  Standard_EXPORT const gp_Vec& TangentOnS1() const Standard_OVERRIDE;
+  Standard_EXPORT const Vector3d& TangentOnS1() const Standard_OVERRIDE;
 
   Standard_EXPORT const gp_Vec2d& Tangent2dOnS1() const Standard_OVERRIDE;
 
-  Standard_EXPORT const gp_Vec& TangentOnS2() const Standard_OVERRIDE;
+  Standard_EXPORT const Vector3d& TangentOnS2() const Standard_OVERRIDE;
 
   Standard_EXPORT const gp_Vec2d& Tangent2dOnS2() const Standard_OVERRIDE;
 
@@ -75,10 +75,10 @@ public:
                                const Standard_Real V1,
                                const Standard_Real U2,
                                const Standard_Real V2,
-                               gp_Vec&             TgFirst,
-                               gp_Vec&             TgLast,
-                               gp_Vec&             NormFirst,
-                               gp_Vec&             NormLast) const Standard_OVERRIDE;
+                               Vector3d&             TgFirst,
+                               Vector3d&             TgLast,
+                               Vector3d&             NormFirst,
+                               Vector3d&             NormLast) const Standard_OVERRIDE;
 
   //! Sets the throat and the "quadrant".
   Standard_EXPORT void Set(const Standard_Real aThroat,
@@ -91,24 +91,24 @@ public:
 protected:
   Point3d           pts1;
   Point3d           pts2;
-  gp_Vec           d1u1;
-  gp_Vec           d1v1;
-  gp_Vec           d1u2;
-  gp_Vec           d1v2;
+  Vector3d           d1u1;
+  Vector3d           d1v1;
+  Vector3d           d1u2;
+  Vector3d           d1v2;
   Standard_Boolean istangent;
-  gp_Vec           tg1;
+  Vector3d           tg1;
   gp_Vec2d         tg12d;
-  gp_Vec           tg2;
+  Vector3d           tg2;
   gp_Vec2d         tg22d;
   Standard_Real    param;
   Standard_Real    Throat;
 
   Point3d        ptgui;
-  gp_Vec        nplan;
+  Vector3d        nplan;
   Standard_Real normtg;
   Standard_Real theD;
-  gp_Vec        d1gui;
-  gp_Vec        d2gui;
+  Vector3d        d1gui;
+  Vector3d        d2gui;
 
 private:
 };

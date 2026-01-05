@@ -70,10 +70,10 @@ Standard_EXPORT Standard_Boolean FUN_Parameters(const Point3d&       Pnt,
 }
 
 //------------------------------------------------------
-Standard_EXPORT void FUN_ComputeGeomData(const TopoDS_Shape& F, const gp_Pnt2d& uv, gp_Dir& Norm)
+Standard_EXPORT void FUN_ComputeGeomData(const TopoDS_Shape& F, const gp_Pnt2d& uv, Dir3d& Norm)
 {
-  gp_Vec ngF = FUN_tool_nggeomF(uv, TopoDS::Face(F));
-  Norm       = gp_Dir(ngF);
+  Vector3d ngF = FUN_tool_nggeomF(uv, TopoDS::Face(F));
+  Norm       = Dir3d(ngF);
 }
 
 //------------------------------------------------------
@@ -87,9 +87,9 @@ static Standard_Boolean FUN_sphere(const TopoDS_Shape& F)
 //------------------------------------------------------
 Standard_EXPORT void FUN_ComputeGeomData(const TopoDS_Shape& F,
                                          const gp_Pnt2d&     uv,
-                                         gp_Dir&             Norm,
-                                         gp_Dir&             D1,
-                                         gp_Dir&             D2,
+                                         Dir3d&             Norm,
+                                         Dir3d&             D1,
+                                         Dir3d&             D2,
                                          Standard_Real&      Cur1,
                                          Standard_Real&      Cur2)
 {
@@ -120,7 +120,7 @@ Standard_EXPORT void FUN_ComputeGeomData(const TopoDS_Shape& F,
     {
       Point3d center = surf.Sphere().Location();
       Point3d value  = surf.Value(uu, vv);
-      Norm = gp_Dir(gp_Vec(center, value)); // recall : input data for TopTrans_SurfaceTransition
+      Norm = Dir3d(Vector3d(center, value)); // recall : input data for TopTrans_SurfaceTransition
                                             //          describes "direct" geometry
     }
     else
@@ -130,13 +130,13 @@ Standard_EXPORT void FUN_ComputeGeomData(const TopoDS_Shape& F,
     Standard_Real    x = D1.X(), y = D1.Y(), z = D1.Z(), tol = Precision::Confusion();
     Standard_Boolean nullx = (Abs(x) < tol), nully = (Abs(y) < tol), nullz = (Abs(z) < tol);
     if (nullx && nully)
-      D2 = gp_Dir(1, 0, 0);
+      D2 = Dir3d(1, 0, 0);
     else if (nullx && nullz)
-      D2 = gp_Dir(1, 0, 0);
+      D2 = Dir3d(1, 0, 0);
     else if (nully && nullz)
-      D2 = gp_Dir(0, 1, 0);
+      D2 = Dir3d(0, 1, 0);
     else
-      D2 = gp_Dir(y * z, x * z, -2. * x * y);
+      D2 = Dir3d(y * z, x * z, -2. * x * y);
   }
   else
   {
@@ -227,15 +227,15 @@ void TopOpeBRepDS_FaceInterferenceTool::Init(const TopoDS_Shape&                
     return;
   }
 
-  gp_Vec tmp;
+  Vector3d tmp;
   ok = TopOpeBRepTool_TOOL::TggeomE(myParOnEd, E, tmp);
   if (!ok)
   {
     FUN_RaiseError();
     return;
   }
-  gp_Dir Tgt(tmp);
-  gp_Dir Norm;
+  Dir3d Tgt(tmp);
+  Dir3d Norm;
   if (isLine)
   {
     FUN_ComputeGeomData(FI, uv, Norm);
@@ -243,7 +243,7 @@ void TopOpeBRepDS_FaceInterferenceTool::Init(const TopoDS_Shape&                
   }
   else
   {
-    gp_Dir        D1, D2;
+    Dir3d        D1, D2;
     Standard_Real Cur1, Cur2;
     FUN_ComputeGeomData(FI, uv, Norm, D1, D2, Cur1, Cur2);
     myTool.Reset(Tgt, Norm, D1, D2, Cur1, Cur2);
@@ -333,7 +333,7 @@ void TopOpeBRepDS_FaceInterferenceTool::Add(const TopoDS_Shape&                 
     return;
   }
 
-  gp_Dir Norm;
+  Dir3d Norm;
   if (isLine)
   {
     FUN_ComputeGeomData(FT, uv, Norm);
@@ -342,7 +342,7 @@ void TopOpeBRepDS_FaceInterferenceTool::Add(const TopoDS_Shape&                 
   }
   else
   {
-    gp_Dir        D1, D2;
+    Dir3d        D1, D2;
     Standard_Real Cur1, Cur2;
     FUN_ComputeGeomData(FT, uv, Norm, D1, D2, Cur1, Cur2);
     //    if (Fori == TopAbs_REVERSED) Norm.Reverse();

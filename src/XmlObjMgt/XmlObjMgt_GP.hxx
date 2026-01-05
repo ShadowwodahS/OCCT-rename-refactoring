@@ -18,7 +18,7 @@
 #include <Standard_DefineAlloc.hxx>
 
 #include <XmlObjMgt_DOMString.hxx>
-class gp_Trsf;
+class Transform3d;
 class gp_Mat;
 class gp_XYZ;
 
@@ -28,13 +28,13 @@ class XmlObjMgt_GP
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT static XmlObjMgt_DOMString Translate(const gp_Trsf& aTrsf);
+  Standard_EXPORT static XmlObjMgt_DOMString Translate(const Transform3d& aTrsf);
 
   Standard_EXPORT static XmlObjMgt_DOMString Translate(const gp_Mat& aMat);
 
   Standard_EXPORT static XmlObjMgt_DOMString Translate(const gp_XYZ& anXYZ);
 
-  Standard_EXPORT static Standard_Boolean Translate(const XmlObjMgt_DOMString& aStr, gp_Trsf& T);
+  Standard_EXPORT static Standard_Boolean Translate(const XmlObjMgt_DOMString& aStr, Transform3d& T);
 
   Standard_EXPORT static Standard_Boolean Translate(const XmlObjMgt_DOMString& aStr, gp_Mat& T);
 

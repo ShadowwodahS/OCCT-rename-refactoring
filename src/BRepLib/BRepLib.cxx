@@ -349,7 +349,7 @@ Standard_Boolean BRepLib::BuildCurve3d(const TopoDS_Edge&     AnEdge,
   if (!P.IsNull())
   {
     // compute the 3d curve
-    gp_Ax2             axes = P->Position().Ax2();
+    Frame3d             axes = P->Position().Ax2();
     Handle(Geom_Curve) C3d  = GeomLib::To3d(axes, PC);
     if (C3d.IsNull())
       return Standard_False;
@@ -1962,7 +1962,7 @@ class SurfaceProperties
 {
 public:
   SurfaceProperties(const Handle(Geom_Surface)& theSurface,
-                    const gp_Trsf&              theSurfaceTrsf,
+                    const Transform3d&              theSurfaceTrsf,
                     const Handle(Geom2d_Curve)& theCurve2D,
                     const Standard_Boolean      theReversed)
       : mySurfaceProps(theSurface, 2, Precision::Confusion()),
@@ -1984,9 +1984,9 @@ public:
   Point3d Value() { return mySurfaceProps.Value().Transformed(mySurfaceTrsf); }
 
   // Calculate a derivative orthogonal to curve's tangent vector
-  gp_Vec Derivative()
+  Vector3d Derivative()
   {
-    gp_Vec aDeriv;
+    Vector3d aDeriv;
     // direction orthogonal to tangent vector of the curve
     gp_Vec2d      anOrtho(-myCurveTangent.Y(), myCurveTangent.X());
     Standard_Real aLen = anOrtho.Magnitude();
@@ -2000,17 +2000,17 @@ public:
     return aDeriv.Transformed(mySurfaceTrsf);
   }
 
-  gp_Dir Normal()
+  Dir3d Normal()
   {
-    gp_Dir aNormal = mySurfaceProps.Normal();
+    Dir3d aNormal = mySurfaceProps.Normal();
     return aNormal.Transformed(mySurfaceTrsf);
   }
 
   // Calculate principal curvatures, which consist of minimal and maximal normal curvatures and
   // the directions on the tangent plane (principal direction) where the extremums are reached
-  void Curvature(gp_Dir&        thePrincipalDir1,
+  void Curvature(Dir3d&        thePrincipalDir1,
                  Standard_Real& theCurvature1,
-                 gp_Dir&        thePrincipalDir2,
+                 Dir3d&        thePrincipalDir2,
                  Standard_Real& theCurvature2)
   {
     mySurfaceProps.CurvatureDirections(thePrincipalDir1, thePrincipalDir2);
@@ -2033,7 +2033,7 @@ public:
 
 private:
   GeomLProp_SLProps    mySurfaceProps; // properties calculator
-  gp_Trsf              mySurfaceTrsf;
+  Transform3d              mySurfaceTrsf;
   Handle(Geom2d_Curve) myCurve2d;
   Standard_Boolean     myIsReversed; // the face based on the surface is reversed
 
@@ -2100,9 +2100,9 @@ GeomAbs_Shape BRepLib::ContinuityOfFaces(const TopoDS_Edge&  theEdge,
 
   TopLoc_Location      aLoc1, aLoc2;
   Handle(Geom_Surface) aSurface1  = BRep_Tool::Surface(theFace1, aLoc1);
-  const gp_Trsf&       aSurf1Trsf = aLoc1.Transformation();
+  const Transform3d&       aSurf1Trsf = aLoc1.Transformation();
   Handle(Geom_Surface) aSurface2  = BRep_Tool::Surface(theFace2, aLoc2);
-  const gp_Trsf&       aSurf2Trsf = aLoc2.Transformation();
+  const Transform3d&       aSurf2Trsf = aLoc2.Transformation();
 
   if (aSurface1->IsKind(STANDARD_TYPE(Geom_RectangularTrimmedSurface)))
     aSurface1 = Handle(Geom_RectangularTrimmedSurface)::DownCast(aSurface1)->BasisSurface();
@@ -2131,9 +2131,9 @@ GeomAbs_Shape BRepLib::ContinuityOfFaces(const TopoDS_Edge&  theEdge,
 
   const Standard_Real anAngleTol2 = theAngleTol * theAngleTol;
 
-  gp_Vec        aDer1, aDer2;
+  Vector3d        aDer1, aDer2;
   Standard_Real aSqLen1, aSqLen2;
-  gp_Dir        aCrvDir1[2], aCrvDir2[2];
+  Dir3d        aCrvDir1[2], aCrvDir2[2];
   Standard_Real aCrvLen1[2], aCrvLen2[2];
 
   GeomAbs_Shape aCont = (isElementary ? GeomAbs_CN : GeomAbs_C2);
@@ -2162,10 +2162,10 @@ GeomAbs_Shape BRepLib::ContinuityOfFaces(const TopoDS_Edge&  theEdge,
       (aDer1.CrossSquareMagnitude(aDer2) <= anAngleTol2 * aSqLen1 * aSqLen2);
     if (isSmoothSuspect)
     {
-      gp_Dir aNormal1 = aSP1.Normal();
+      Dir3d aNormal1 = aSP1.Normal();
       if (theFace1.Orientation() == TopAbs_REVERSED)
         aNormal1.Reverse();
-      gp_Dir aNormal2 = aSP2.Normal();
+      Dir3d aNormal2 = aSP2.Normal();
       if (theFace2.Orientation() == TopAbs_REVERSED)
         aNormal2.Reverse();
 
@@ -2446,7 +2446,7 @@ Standard_Boolean BRepLib::EnsureNormalConsistency(const TopoDS_Shape&    theShap
       }
       else
       {
-        gp_Dir aNorm = aSLP.Normal();
+        Dir3d aNorm = aSLP.Normal();
         if (aFace.Orientation() == TopAbs_REVERSED)
         {
           aNorm.Reverse();
@@ -2636,7 +2636,7 @@ void BRepLib::UpdateDeflection(const TopoDS_Shape& theShape)
     EvalDeflection        aTool(aFace);
     NCollection_Map<Link> aLinks;
     Standard_Real         aSqDeflection = 0.;
-    const gp_Trsf&        aTrsf         = aLoc.Transformation();
+    const Transform3d&        aTrsf         = aLoc.Transformation();
     for (Standard_Integer aTriIt = 1; aTriIt <= aPT->NbTriangles(); ++aTriIt)
     {
       const Poly_Triangle& aTriangle = aPT->Triangle(aTriIt);
@@ -2841,7 +2841,7 @@ void BRepLib::BoundingVertex(const NCollection_List<TopoDS_Shape>& theLV,
     }
     //
     dR = aR[m] - aR[n]; // dR >= 0.
-    gp_Vec aVD(aP[m], aP[n]);
+    Vector3d aVD(aP[m], aP[n]);
     aD = aVD.Magnitude();
     //
     if (aD <= dR || aD < aEps)

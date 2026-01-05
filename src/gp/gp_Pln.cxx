@@ -30,7 +30,7 @@
 #include <Standard_ConstructionError.hxx>
 #include <Standard_Dump.hxx>
 
-gp_Pln::gp_Pln(const Point3d& P, const gp_Dir& V)
+gp_Pln::gp_Pln(const Point3d& P, const Dir3d& V)
 {
   Standard_Real A    = V.X();
   Standard_Real B    = V.Y();
@@ -53,23 +53,23 @@ gp_Pln::gp_Pln(const Point3d& P, const gp_Dir& V)
   if (Babs <= Aabs && Babs <= Cabs)
   {
     if (Aabs > Cabs)
-      pos = gp_Ax3(P, V, gp_Dir(-C, 0., A));
+      pos = gp_Ax3(P, V, Dir3d(-C, 0., A));
     else
-      pos = gp_Ax3(P, V, gp_Dir(C, 0., -A));
+      pos = gp_Ax3(P, V, Dir3d(C, 0., -A));
   }
   else if (Aabs <= Babs && Aabs <= Cabs)
   {
     if (Babs > Cabs)
-      pos = gp_Ax3(P, V, gp_Dir(0., -C, B));
+      pos = gp_Ax3(P, V, Dir3d(0., -C, B));
     else
-      pos = gp_Ax3(P, V, gp_Dir(0., C, -B));
+      pos = gp_Ax3(P, V, Dir3d(0., C, -B));
   }
   else
   {
     if (Aabs > Babs)
-      pos = gp_Ax3(P, V, gp_Dir(-B, A, 0.));
+      pos = gp_Ax3(P, V, Dir3d(-B, A, 0.));
     else
-      pos = gp_Ax3(P, V, gp_Dir(B, -A, 0.));
+      pos = gp_Ax3(P, V, Dir3d(B, -A, 0.));
   }
 }
 
@@ -90,23 +90,23 @@ gp_Pln::gp_Pln(const Standard_Real A,
   if (Babs <= Aabs && Babs <= Cabs)
   {
     if (Aabs > Cabs)
-      pos = gp_Ax3(Point3d(-D / A, 0., 0.), gp_Dir(A, B, C), gp_Dir(-C, 0., A));
+      pos = gp_Ax3(Point3d(-D / A, 0., 0.), Dir3d(A, B, C), Dir3d(-C, 0., A));
     else
-      pos = gp_Ax3(Point3d(0., 0., -D / C), gp_Dir(A, B, C), gp_Dir(C, 0., -A));
+      pos = gp_Ax3(Point3d(0., 0., -D / C), Dir3d(A, B, C), Dir3d(C, 0., -A));
   }
   else if (Aabs <= Babs && Aabs <= Cabs)
   {
     if (Babs > Cabs)
-      pos = gp_Ax3(Point3d(0., -D / B, 0.), gp_Dir(A, B, C), gp_Dir(0., -C, B));
+      pos = gp_Ax3(Point3d(0., -D / B, 0.), Dir3d(A, B, C), Dir3d(0., -C, B));
     else
-      pos = gp_Ax3(Point3d(0., 0., -D / C), gp_Dir(A, B, C), gp_Dir(0., C, -B));
+      pos = gp_Ax3(Point3d(0., 0., -D / C), Dir3d(A, B, C), Dir3d(0., C, -B));
   }
   else
   {
     if (Aabs > Babs)
-      pos = gp_Ax3(Point3d(-D / A, 0., 0.), gp_Dir(A, B, C), gp_Dir(-B, A, 0.));
+      pos = gp_Ax3(Point3d(-D / A, 0., 0.), Dir3d(A, B, C), Dir3d(-B, A, 0.));
     else
-      pos = gp_Ax3(Point3d(0., -D / B, 0.), gp_Dir(A, B, C), gp_Dir(B, -A, 0.));
+      pos = gp_Ax3(Point3d(0., -D / B, 0.), Dir3d(A, B, C), Dir3d(B, -A, 0.));
   }
 }
 
@@ -122,24 +122,24 @@ gp_Pln gp_Pln::Mirrored(const Point3d& P) const
   return Pl;
 }
 
-void gp_Pln::Mirror(const gp_Ax1& A1)
+void gp_Pln::Mirror(const Axis3d& A1)
 {
   pos.Mirror(A1);
 }
 
-gp_Pln gp_Pln::Mirrored(const gp_Ax1& A1) const
+gp_Pln gp_Pln::Mirrored(const Axis3d& A1) const
 {
   gp_Pln Pl = *this;
   Pl.pos.Mirror(A1);
   return Pl;
 }
 
-void gp_Pln::Mirror(const gp_Ax2& A2)
+void gp_Pln::Mirror(const Frame3d& A2)
 {
   pos.Mirror(A2);
 }
 
-gp_Pln gp_Pln::Mirrored(const gp_Ax2& A2) const
+gp_Pln gp_Pln::Mirrored(const Frame3d& A2) const
 {
   gp_Pln Pl = *this;
   Pl.pos.Mirror(A2);

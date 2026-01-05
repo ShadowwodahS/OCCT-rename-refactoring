@@ -94,34 +94,34 @@ public:
                  const Standard_Real        u,
                  const Standard_Real        v,
                  Point3d&                    P,
-                 gp_Vec&                    D1u,
-                 gp_Vec&                    D1v);
+                 Vector3d&                    D1u,
+                 Vector3d&                    D1v);
 
   static void D2(const BRepAdaptor_Surface& S,
                  const Standard_Real        u,
                  const Standard_Real        v,
                  Point3d&                    P,
-                 gp_Vec&                    D1U,
-                 gp_Vec&                    D1V,
-                 gp_Vec&                    D2U,
-                 gp_Vec&                    D2V,
-                 gp_Vec&                    D2UV);
+                 Vector3d&                    D1U,
+                 Vector3d&                    D1V,
+                 Vector3d&                    D2U,
+                 Vector3d&                    D2V,
+                 Vector3d&                    D2UV);
 
   static void D3(const BRepAdaptor_Surface& S,
                  const Standard_Real        u,
                  const Standard_Real        v,
                  Point3d&                    P,
-                 gp_Vec&                    D1U,
-                 gp_Vec&                    D1V,
-                 gp_Vec&                    D2U,
-                 gp_Vec&                    D2V,
-                 gp_Vec&                    D2UV,
-                 gp_Vec&                    D3U,
-                 gp_Vec&                    D3V,
-                 gp_Vec&                    D3UUV,
-                 gp_Vec&                    D3UVV);
+                 Vector3d&                    D1U,
+                 Vector3d&                    D1V,
+                 Vector3d&                    D2U,
+                 Vector3d&                    D2V,
+                 Vector3d&                    D2UV,
+                 Vector3d&                    D3U,
+                 Vector3d&                    D3V,
+                 Vector3d&                    D3UUV,
+                 Vector3d&                    D3UVV);
 
-  static gp_Vec DN(const BRepAdaptor_Surface& S,
+  static Vector3d DN(const BRepAdaptor_Surface& S,
                    const Standard_Real        u,
                    const Standard_Real        v,
                    const Standard_Integer     Nu,
@@ -147,9 +147,9 @@ public:
 
   static Handle(Geom_BSplineSurface) BSpline(const BRepAdaptor_Surface& S);
 
-  static gp_Ax1 AxeOfRevolution(const BRepAdaptor_Surface& S);
+  static Axis3d AxeOfRevolution(const BRepAdaptor_Surface& S);
 
-  static gp_Dir Direction(const BRepAdaptor_Surface& S);
+  static Dir3d Direction(const BRepAdaptor_Surface& S);
 
   static Handle(Adaptor3d_Curve) BasisCurve(const BRepAdaptor_Surface& S);
 

@@ -22,7 +22,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Geom_Conic, Geom_Curve)
 
 void Geom_Conic::Reverse()
 {
-  gp_Dir Vz = pos.Direction();
+  Dir3d Vz = pos.Direction();
   Vz.Reverse();
   pos.SetDirection(Vz);
 }
@@ -36,16 +36,16 @@ GeomAbs_Shape Geom_Conic::Continuity() const
 
 //=================================================================================================
 
-gp_Ax1 Geom_Conic::XAxis() const
+Axis3d Geom_Conic::XAxis() const
 {
-  return gp_Ax1(pos.Location(), pos.XDirection());
+  return Axis3d(pos.Location(), pos.XDirection());
 }
 
 //=================================================================================================
 
-gp_Ax1 Geom_Conic::YAxis() const
+Axis3d Geom_Conic::YAxis() const
 {
-  return gp_Ax1(pos.Location(), pos.YDirection());
+  return Axis3d(pos.Location(), pos.YDirection());
 }
 
 //=================================================================================================

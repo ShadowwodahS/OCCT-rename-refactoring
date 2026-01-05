@@ -492,8 +492,8 @@ TopoDS_Edge ChFi2d_Builder::BuildChamferEdge(const TopoDS_Vertex& V,
   // chamfer edge construction
   TopLoc_Location            loc;
   const Handle(Geom_Surface) refSurf = BRep_Tool::Surface(refFace, loc);
-  gp_Vec                     myVec(p1, p2);
-  gp_Dir                     myDir(myVec);
+  Vector3d                     myVec(p1, p2);
+  Dir3d                     myDir(myVec);
   Handle(Geom_Line)          newLine = new Geom_Line(p1, myDir);
   Standard_Real              param   = ElCLib::Parameter(newLine->Lin(), p2);
   B.MakeEdge(chamfer, newLine, tol);
@@ -545,7 +545,7 @@ TopoDS_Edge ChFi2d_Builder::BuildChamferEdge(const TopoDS_Vertex& V,
   Standard_Real param1, param2;
   Point3d        p1 = ComputePoint(V, AdjEdge1, D, param1);
   Point3d        p  = BRep_Tool::Pnt(V);
-  gp_Vec        myVec(p1, p);
+  Vector3d        myVec(p1, p);
 
   // compute the tangent vector on AdjEdge2 at the vertex V.
   BRepAdaptor_Curve c(AdjEdge2, refFace);
@@ -554,7 +554,7 @@ TopoDS_Edge ChFi2d_Builder::BuildChamferEdge(const TopoDS_Vertex& V,
   last  = c.LastParameter();
 
   Point3d aPoint;
-  gp_Vec tan;
+  Vector3d tan;
   c.D1(first, aPoint, tan);
   if (aPoint.Distance(p) > Precision::Confusion())
   {
@@ -572,9 +572,9 @@ TopoDS_Edge ChFi2d_Builder::BuildChamferEdge(const TopoDS_Vertex& V,
     tan *= -1;
 
   // compute the chamfer geometric support
-  gp_Ax1            RotAxe(p1, tan ^ myVec);
-  gp_Vec            vecLin = myVec.Rotated(RotAxe, -Ang);
-  gp_Dir            myDir(vecLin);
+  Axis3d            RotAxe(p1, tan ^ myVec);
+  Vector3d            vecLin = myVec.Rotated(RotAxe, -Ang);
+  Dir3d            myDir(vecLin);
   Handle(Geom_Line) newLine = new Geom_Line(p1, myDir);
   BRep_Builder      B1;
   B1.MakeEdge(chamfer, newLine, Precision::Confusion());
@@ -639,7 +639,7 @@ Point3d ComputePoint(const TopoDS_Vertex& V,
     TopExp::Vertices(E, v1, v2);
     p1 = BRep_Tool::Pnt(v1);
     p2 = BRep_Tool::Pnt(v2);
-    gp_Vec myVec(p1, p2);
+    Vector3d myVec(p1, p2);
     myVec.Normalize();
     myVec *= D;
     if (v2.IsSame(V))

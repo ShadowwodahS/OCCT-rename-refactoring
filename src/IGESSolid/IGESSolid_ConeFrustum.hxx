@@ -23,7 +23,7 @@
 #include <gp_XYZ.hxx>
 #include <IGESData_IGESEntity.hxx>
 class Point3d;
-class gp_Dir;
+class Dir3d;
 
 class IGESSolid_ConeFrustum;
 DEFINE_STANDARD_HANDLE(IGESSolid_ConeFrustum, IGESData_IGESEntity)
@@ -71,11 +71,11 @@ public:
   Standard_EXPORT Point3d TransformedFaceCenter() const;
 
   //! returns the direction of the axis of the cone frustum
-  Standard_EXPORT gp_Dir Axis() const;
+  Standard_EXPORT Dir3d Axis() const;
 
   //! returns the direction of the axis of the cone frustum
   //! after applying TransformationMatrix
-  Standard_EXPORT gp_Dir TransformedAxis() const;
+  Standard_EXPORT Dir3d TransformedAxis() const;
 
   DEFINE_STANDARD_RTTIEXT(IGESSolid_ConeFrustum, IGESData_IGESEntity)
 

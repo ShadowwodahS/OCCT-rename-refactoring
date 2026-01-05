@@ -185,7 +185,7 @@ void TopOpeBRep_FFDumper::DumpLine(const TopOpeBRep_LineInter& LI)
 
   if (LI.TypeLineCurve() == TopOpeBRep_LINE)
   {
-    gp_Dir D = LI.LineG()->Line().Direction();
+    Dir3d D = LI.LineG()->Line().Direction();
     TopOpeBRep::Print(LI.TypeLineCurve(), std::cout);
     Standard_Real x, y, z;
     D.Coord(x, y, z);

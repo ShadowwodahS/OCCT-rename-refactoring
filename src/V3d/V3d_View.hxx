@@ -1169,11 +1169,11 @@ private:
 
   //! Determines the screen axes in the reference
   //! framework of the view.
-  Standard_EXPORT static Standard_Boolean screenAxis(const gp_Dir& theVpn,
-                                                     const gp_Dir& theVup,
-                                                     gp_Vec&       theXaxe,
-                                                     gp_Vec&       theYaxe,
-                                                     gp_Vec&       theZaxe);
+  Standard_EXPORT static Standard_Boolean screenAxis(const Dir3d& theVpn,
+                                                     const Dir3d& theVup,
+                                                     Vector3d&       theXaxe,
+                                                     Vector3d&       theYaxe,
+                                                     Vector3d&       theZaxe);
 
   //! Transforms the Vertex V according to the matrice Matrix .
   Standard_EXPORT static gp_XYZ TrsPoint(const Graphic3d_Vertex&     V,
@@ -1203,8 +1203,8 @@ private:
 protected:
   Standard_Real            myOldMouseX;
   Standard_Real            myOldMouseY;
-  gp_Dir                   myCamStartOpUp;
-  gp_Dir                   myCamStartOpDir;
+  Dir3d                   myCamStartOpUp;
+  Dir3d                   myCamStartOpDir;
   Point3d                   myCamStartOpEye;
   Point3d                   myCamStartOpCenter;
   Handle(Graphic3d_Camera) myDefaultCamera;
@@ -1219,7 +1219,7 @@ private:
   V3d_View*                              myParentView;
 
   V3d_ListOfLight             myActiveLights;
-  gp_Dir                      myDefaultViewAxis;
+  Dir3d                      myDefaultViewAxis;
   Point3d                      myDefaultViewPoint;
   Handle(Aspect_Window)       MyWindow;
   V3d_ListOfLight::Iterator   myActiveLightsIterator;
@@ -1239,10 +1239,10 @@ private:
   TColStd_Array2OfReal        MyTrsf;
   Handle(Graphic3d_Structure) MyGridEchoStructure;
   Handle(Graphic3d_Group)     MyGridEchoGroup;
-  gp_Vec                      myXscreenAxis;
-  gp_Vec                      myYscreenAxis;
-  gp_Vec                      myZscreenAxis;
-  gp_Dir                      myViewAxis;
+  Vector3d                      myXscreenAxis;
+  Vector3d                      myYscreenAxis;
+  Vector3d                      myZscreenAxis;
+  Dir3d                      myViewAxis;
   Graphic3d_Vertex            myGravityReferencePoint;
   Standard_Boolean            myAutoZFitIsOn;
   Standard_Real               myAutoZFitScaleFactor;

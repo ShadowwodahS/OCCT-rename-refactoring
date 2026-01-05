@@ -67,7 +67,7 @@ Standard_EXPORT void FUN_draw(const Handle(Geom2d_Curve) c, const Standard_Real 
   DrawTrSurf::Set(nnn, tC);
 }
 
-Standard_EXPORT void FUN_draw(const Point3d& p, const gp_Dir& d)
+Standard_EXPORT void FUN_draw(const Point3d& p, const Dir3d& d)
 {
   TCollection_AsciiString aa("dir");
   FUN_tool_draw(aa, p, d);
@@ -80,7 +80,7 @@ Standard_EXPORT void FUN_brep_draw(const TCollection_AsciiString& aa, const Poin
 
 Standard_EXPORT void FUN_brep_draw(const TCollection_AsciiString& aa,
                                    const Point3d&                  p,
-                                   const gp_Dir&                  d)
+                                   const Dir3d&                  d)
 {
   FUN_tool_draw(aa, p, d);
 }

@@ -71,7 +71,7 @@ void Draw_Grid::DrawOn(Draw_Display& Out) const
   Standard_Integer MinIndexX, MaxIndexX, MinIndexY, MaxIndexY;
   Standard_Real    Offset;
   Standard_Real    zoom, Xmin, Xmax, Ymin, Ymax;
-  gp_Trsf          T;
+  Transform3d          T;
   Point3d           Pnt1, Pnt2;
 
   Standard_Integer IdtView;

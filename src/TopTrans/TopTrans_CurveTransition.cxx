@@ -40,8 +40,8 @@ TopTrans_CurveTransition::TopTrans_CurveTransition()
 //           of the intersecting curve.
 //=======================================================================
 
-void TopTrans_CurveTransition::Reset(const gp_Dir&       Tgt,
-                                     const gp_Dir&       Norm,
+void TopTrans_CurveTransition::Reset(const Dir3d&       Tgt,
+                                     const Dir3d&       Norm,
                                      const Standard_Real Curv)
 {
   myTgt  = Tgt;
@@ -56,7 +56,7 @@ void TopTrans_CurveTransition::Reset(const gp_Dir&       Tgt,
 //           of the intersecting straight line.
 //=======================================================================
 
-void TopTrans_CurveTransition::Reset(const gp_Dir& Tgt)
+void TopTrans_CurveTransition::Reset(const Dir3d& Tgt)
 {
   myTgt  = Tgt;
   myCurv = 0.;
@@ -70,8 +70,8 @@ void TopTrans_CurveTransition::Reset(const gp_Dir& Tgt)
 //=======================================================================
 
 void TopTrans_CurveTransition::Compare(const Standard_Real      Tole,
-                                       const gp_Dir&            T,
-                                       const gp_Dir&            N,
+                                       const Dir3d&            T,
+                                       const Dir3d&            N,
                                        const Standard_Real      C,
                                        const TopAbs_Orientation St,
                                        const TopAbs_Orientation Or)
@@ -305,9 +305,9 @@ TopAbs_State TopTrans_CurveTransition::StateAfter() const
 
 Standard_Boolean TopTrans_CurveTransition::IsBefore(const Standard_Real Tole,
                                                     const Standard_Real CosAngl,
-                                                    const gp_Dir&       N1,
+                                                    const Dir3d&       N1,
                                                     const Standard_Real C1,
-                                                    const gp_Dir&       N2,
+                                                    const Dir3d&       N2,
                                                     const Standard_Real C2) const
 {
   Standard_Real    TN1       = myTgt * N1;

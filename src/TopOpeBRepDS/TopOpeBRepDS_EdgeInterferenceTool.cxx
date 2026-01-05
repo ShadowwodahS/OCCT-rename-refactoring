@@ -64,7 +64,7 @@ void TopOpeBRepDS_EdgeInterferenceTool::Init(const TopoDS_Shape&                
 
   // par = parametre sur l'arete croisee
   Standard_Real par = ::Parameter(I);
-  gp_Dir        T, N;
+  Dir3d        T, N;
   Standard_Real C;
   TopOpeBRepTool_ShapeTool::EdgeData(E, par, T, N, C);
   myTool.Reset(T, N, C);
@@ -111,7 +111,7 @@ void TopOpeBRepDS_EdgeInterferenceTool::Add(const TopoDS_Shape&                 
   const TopoDS_Edge&   EE  = TopoDS::Edge(E);
   Standard_Real        par = BRep_Tool::Parameter(VV, EE);
 
-  gp_Dir             T, N;
+  Dir3d             T, N;
   Standard_Real      C;
   Standard_Real      tol    = TopOpeBRepTool_ShapeTool::EdgeData(E, par, T, N, C);
   TopAbs_Orientation oriloc = I->Transition().Orientation(TopAbs_IN);
@@ -141,7 +141,7 @@ void TopOpeBRepDS_EdgeInterferenceTool::Add(const TopoDS_Shape& E,
 
   Standard_Real par = ::Parameter(I);
 
-  gp_Dir             T, N;
+  Dir3d             T, N;
   Standard_Real      C;
   Standard_Real      tol    = TopOpeBRepTool_ShapeTool::EdgeData(E, par, T, N, C);
   TopAbs_Orientation oriloc = I->Transition().Orientation(TopAbs_IN);

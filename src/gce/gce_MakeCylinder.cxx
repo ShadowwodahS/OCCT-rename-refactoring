@@ -28,7 +28,7 @@
 //  Constructions d un cylindre de gp par son Ax2 A2 et son rayon         +
 //  Radius.                                                               +
 //=========================================================================
-gce_MakeCylinder::gce_MakeCylinder(const gp_Ax2& A2, const Standard_Real Radius)
+gce_MakeCylinder::gce_MakeCylinder(const Frame3d& A2, const Standard_Real Radius)
 {
   if (Radius < 0.0)
   {
@@ -46,7 +46,7 @@ gce_MakeCylinder::gce_MakeCylinder(const gp_Ax2& A2, const Standard_Real Radius)
 //  Radius.                                                               +
 //=========================================================================
 
-gce_MakeCylinder::gce_MakeCylinder(const gp_Ax1& Axis, const Standard_Real Radius)
+gce_MakeCylinder::gce_MakeCylinder(const Axis3d& Axis, const Standard_Real Radius)
 {
   if (Radius < 0.0)
   {
@@ -54,24 +54,24 @@ gce_MakeCylinder::gce_MakeCylinder(const gp_Ax1& Axis, const Standard_Real Radiu
   }
   else
   {
-    gp_Dir        D(Axis.Direction());
-    gp_Dir        Direc;
+    Dir3d        D(Axis.Direction());
+    Dir3d        Direc;
     Standard_Real x = D.X();
     Standard_Real y = D.Y();
     Standard_Real z = D.Z();
     if (Abs(x) > gp::Resolution())
     {
-      Direc = gp_Dir(-y, x, 0.0);
+      Direc = Dir3d(-y, x, 0.0);
     }
     else if (Abs(y) > gp::Resolution())
     {
-      Direc = gp_Dir(-y, x, 0.0);
+      Direc = Dir3d(-y, x, 0.0);
     }
     else if (Abs(z) > gp::Resolution())
     {
-      Direc = gp_Dir(0.0, -z, y);
+      Direc = Dir3d(0.0, -z, y);
     }
-    TheCylinder = gp_Cylinder(gp_Ax2(Axis.Location(), D, Direc), Radius);
+    TheCylinder = gp_Cylinder(Frame3d(Axis.Location(), D, Direc), Radius);
     TheError    = gce_Done;
   }
 }
@@ -100,24 +100,24 @@ gce_MakeCylinder::gce_MakeCylinder(const Point3d& P1, const Point3d& P2, const P
   }
   else
   {
-    gp_Dir        D1(P2.XYZ() - P1.XYZ());
-    gp_Dir        D2;
+    Dir3d        D1(P2.XYZ() - P1.XYZ());
+    Dir3d        D2;
     Standard_Real x = D1.X();
     Standard_Real y = D1.Y();
     Standard_Real z = D1.Z();
     if (Abs(x) > gp::Resolution())
     {
-      D2 = gp_Dir(-y, x, 0.0);
+      D2 = Dir3d(-y, x, 0.0);
     }
     else if (Abs(y) > gp::Resolution())
     {
-      D2 = gp_Dir(-y, x, 0.0);
+      D2 = Dir3d(-y, x, 0.0);
     }
     else if (Abs(z) > gp::Resolution())
     {
-      D2 = gp_Dir(0.0, -z, y);
+      D2 = Dir3d(0.0, -z, y);
     }
-    TheCylinder = gp_Cylinder(gp_Ax2(P1, D1, D2), gp_Lin(P1, D1).Distance(P3));
+    TheCylinder = gp_Cylinder(Frame3d(P1, D1, D2), gp_Lin(P1, D1).Distance(P3));
     TheError    = gce_Done;
   }
 }

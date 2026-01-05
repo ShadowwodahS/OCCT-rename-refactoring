@@ -34,7 +34,7 @@ static const TopoDS_Shape& check(const TopoDS_Shape& S)
 //=================================================================================================
 
 BRepPrimAPI_MakePrism::BRepPrimAPI_MakePrism(const TopoDS_Shape&    S,
-                                             const gp_Vec&          V,
+                                             const Vector3d&          V,
                                              const Standard_Boolean Copy,
                                              const Standard_Boolean Canonize)
     : myPrism(check(S), V, Copy, Canonize)
@@ -45,7 +45,7 @@ BRepPrimAPI_MakePrism::BRepPrimAPI_MakePrism(const TopoDS_Shape&    S,
 //=================================================================================================
 
 BRepPrimAPI_MakePrism::BRepPrimAPI_MakePrism(const TopoDS_Shape&    S,
-                                             const gp_Dir&          D,
+                                             const Dir3d&          D,
                                              const Standard_Boolean Inf,
                                              const Standard_Boolean Copy,
                                              const Standard_Boolean Canonize)

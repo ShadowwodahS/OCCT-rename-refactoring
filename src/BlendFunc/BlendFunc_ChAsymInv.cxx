@@ -138,8 +138,8 @@ Standard_Boolean BlendFunc_ChAsymInv::IsSolution(const math_Vector& Sol, const S
 {
   math_Vector valsol(1, 4);
   Point3d      pts1, pts2, ptgui;
-  gp_Vec      nplan, d1gui, Nsurf1, tsurf1;
-  gp_Vec      d1u1, d1v1;
+  Vector3d      nplan, d1gui, Nsurf1, tsurf1;
+  Vector3d      d1u1, d1v1;
 
   curv->D1(Sol(2), ptgui, d1gui);
   nplan = d1gui.Normalized();
@@ -160,7 +160,7 @@ Standard_Boolean BlendFunc_ChAsymInv::IsSolution(const math_Vector& Sol, const S
   Nsurf1 = d1u1.Crossed(d1v1);
   tsurf1 = Nsurf1.Crossed(nplan);
 
-  gp_Vec        s1s2(pts1, pts2);
+  Vector3d        s1s2(pts1, pts2);
   Standard_Real PScaInv = 1. / tsurf1.Dot(s1s2), temp; // ,F4;
   Standard_Real Nordu1 = d1u1.Magnitude(), Nordv1 = d1v1.Magnitude();
 
@@ -187,8 +187,8 @@ Standard_Boolean BlendFunc_ChAsymInv::ComputeValues(const math_Vector&     X,
   if (DegF > DegL)
     return Standard_False;
 
-  gp_Vec        nplan, dnplan, d1gui, d2gui, d1u1, d1v1, d2u1, d2v1, d2uv1, d1u2, d1v2;
-  gp_Vec        Nsurf1, tsurf1;
+  Vector3d        nplan, dnplan, d1gui, d2gui, d1u1, d1v1, d2u1, d2v1, d2uv1, d1u2, d1v2;
+  Vector3d        Nsurf1, tsurf1;
   Point3d        pts1, pts2, ptgui;
   Standard_Real PScaInv, F4;
   Standard_Real Normg = 0.;
@@ -243,7 +243,7 @@ Standard_Boolean BlendFunc_ChAsymInv::ComputeValues(const math_Vector&     X,
     }
   }
 
-  gp_Vec nps1(ptgui, pts1), s1s2(pts1, pts2);
+  Vector3d nps1(ptgui, pts1), s1s2(pts1, pts2);
   Nsurf1  = d1u1.Crossed(d1v1);
   tsurf1  = Nsurf1.Crossed(nplan);
   PScaInv = 1. / s1s2.Dot(tsurf1);
@@ -261,13 +261,13 @@ Standard_Boolean BlendFunc_ChAsymInv::ComputeValues(const math_Vector&     X,
 
   if (DegL == 1)
   {
-    gp_Vec        dwtsurf1, tempVec;
+    Vector3d        dwtsurf1, tempVec;
     Standard_Real temp;
-    gp_Vec        nps2(ptgui, pts2);
+    Vector3d        nps2(ptgui, pts2);
 
     if (first)
     {
-      gp_Vec dw1du1, dw1dv1, dw1csurf, dw1pts1;
+      Vector3d dw1du1, dw1dv1, dw1csurf, dw1pts1;
       dw1pts1  = v2d.X() * d1u1 + v2d.Y() * d1v1;
       dw1du1   = v2d.X() * d2u1 + v2d.Y() * d2uv1;
       dw1dv1   = v2d.X() * d2uv1 + v2d.Y() * d2v1;
@@ -305,7 +305,7 @@ Standard_Boolean BlendFunc_ChAsymInv::ComputeValues(const math_Vector&     X,
     }
     else
     {
-      gp_Vec d1utsurf1, d1vtsurf1, dw2pts2;
+      Vector3d d1utsurf1, d1vtsurf1, dw2pts2;
       d1utsurf1 = (d2u1.Crossed(d1v1) + d1u1.Crossed(d2uv1)).Crossed(nplan);
       d1vtsurf1 = (d2uv1.Crossed(d1v1) + d1u1.Crossed(d2v1)).Crossed(nplan);
       dw2pts2   = v2d.X() * d1u2 + v2d.Y() * d1v2;

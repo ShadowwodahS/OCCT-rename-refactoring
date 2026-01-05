@@ -145,7 +145,7 @@ void BRepFill_LocationLaw::TransformInCompatibleLaw(const Standard_Real TolAngul
   Standard_Real    First, Last, Angle;
   Standard_Integer ipath;
   gp_Mat           Trsf, M1, M2;
-  gp_Vec           V, T1, T2, N1, N2;
+  Vector3d           V, T1, T2, N1, N2;
   gp_XYZ           OZ(0, 0, 1);
 
   myLaws->Value(1)->GetDomain(First, Last);
@@ -166,10 +166,10 @@ void BRepFill_LocationLaw::TransformInCompatibleLaw(const Standard_Real TolAngul
     else
     {
       Standard_Real alpha;
-      gp_Vec        cross(T1);
+      Vector3d        cross(T1);
       cross.Cross(T2);
       alpha = T2.AngleWithRef(T1, cross);
-      gp_Ax1 axe(gp::Origin(), cross.XYZ());
+      Axis3d axe(gp::Origin(), cross.XYZ());
       N2.Rotate(axe, alpha);
 
 #ifdef OCCT_DEBUG
@@ -177,7 +177,7 @@ void BRepFill_LocationLaw::TransformInCompatibleLaw(const Standard_Real TolAngul
       {
         std::cout << "Inprecision in TransformInCompatibleLaw" << std::endl;
         std::cout << "--- T1.R(N2) = " << N2.Dot(T1) << std::endl;
-        gp_Vec tt;
+        Vector3d tt;
         tt = T1;
         tt.Rotate(axe, alpha);
         std::cout << "--- T1.R(T2) = " << tt.Dot(T1) << std::endl;
@@ -201,7 +201,7 @@ void BRepFill_LocationLaw::TransformInG0Law()
   Standard_Real    First, Last;
   Standard_Integer ipath;
   gp_Mat           M1, M2, aux; //,Trsf
-  gp_Vec           V;
+  Vector3d           V;
   myLaws->Value(1)->GetDomain(First, Last);
   for (ipath = 2; ipath <= myLaws->Length(); ipath++)
   {
@@ -345,7 +345,7 @@ void BRepFill_LocationLaw::PerformVertex(const Standard_Integer Index,
   Standard_Boolean IsBary = (ILoc == 0);
   Standard_Real    First, Last;
   Point3d           P;
-  gp_Vec           V1, V2; //, V;
+  Vector3d           V1, V2; //, V;
   gp_Mat           M1, M2;
 
   if (Index > 0 && Index < myLaws->Length())
@@ -469,7 +469,7 @@ Standard_Integer BRepFill_LocationLaw::IsG1(const Standard_Integer Index,
                                             const Standard_Real    SpatialTolerance,
                                             const Standard_Real    AngularTolerance) const
 {
-  gp_Vec               V1, DV1, V2, DV2;
+  Vector3d               V1, DV1, V2, DV2;
   gp_Mat               M1, M2, DM1, DM2;
   Standard_Real        First, Last, EpsNul = 1.e-12;
   Standard_Real        TolEps = SpatialTolerance;
@@ -626,14 +626,14 @@ void BRepFill_LocationLaw::D0(const Standard_Real Abcissa, TopoDS_Shape& W)
   Standard_Real    u;
   Standard_Integer ind;
   gp_Mat           M;
-  gp_Vec           V;
+  Vector3d           V;
 
   Parameter(Abcissa, ind, u);
   if (ind != 0)
   {
     // Positionement
     myLaws->Value(ind)->D0(u, M, V);
-    gp_Trsf fila;
+    Transform3d fila;
     fila.SetValues(M(1, 1),
                    M(1, 2),
                    M(1, 3),

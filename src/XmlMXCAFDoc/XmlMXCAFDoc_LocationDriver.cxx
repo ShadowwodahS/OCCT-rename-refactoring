@@ -170,7 +170,7 @@ Standard_Boolean XmlMXCAFDoc_LocationDriver::Translate(const XmlObjMgt_Element& 
     }
     else
     {
-      gp_Trsf aTrsf;
+      Transform3d aTrsf;
       XmlObjMgt_GP::Translate(aPD.Element().getAttribute(::TrsfString()), aTrsf);
       aDatum = new TopLoc_Datum3D(aTrsf);
       theMap.Bind(aPD.Id(), aDatum);

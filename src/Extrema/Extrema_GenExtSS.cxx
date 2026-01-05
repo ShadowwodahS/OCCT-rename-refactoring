@@ -47,12 +47,12 @@ public:
   Standard_EXPORT Standard_Boolean Gradient(const math_Vector& X, math_Vector& G)
   {
     Point3d P1, P2;
-    gp_Vec Du1s1, Dv1s1;
-    gp_Vec Du2s2, Dv2s2;
+    Vector3d Du1s1, Dv1s1;
+    Vector3d Du2s2, Dv2s2;
     myS1->D1(X(1), X(2), P1, Du1s1, Dv1s1);
     myS2->D1(X(3), X(4), P2, Du2s2, Dv2s2);
 
-    gp_Vec P1P2(P2, P1);
+    Vector3d P1P2(P2, P1);
 
     G(1) = P1P2.Dot(Du1s1);
     G(2) = P1P2.Dot(Dv1s1);
@@ -69,12 +69,12 @@ public:
     F = myS1->Value(X(1), X(2)).SquareDistance(myS2->Value(X(3), X(4)));
 
     Point3d P1, P2;
-    gp_Vec Du1s1, Dv1s1;
-    gp_Vec Du2s2, Dv2s2;
+    Vector3d Du1s1, Dv1s1;
+    Vector3d Du2s2, Dv2s2;
     myS1->D1(X(1), X(2), P1, Du1s1, Dv1s1);
     myS2->D1(X(3), X(4), P2, Du2s2, Dv2s2);
 
-    gp_Vec P1P2(P2, P1);
+    Vector3d P1P2(P2, P1);
 
     G(1) = P1P2.Dot(Du1s1);
     G(2) = P1P2.Dot(Dv1s1);

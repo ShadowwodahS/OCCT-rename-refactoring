@@ -650,7 +650,7 @@ protected:
     Standard_Integer&                         theNbTris,
     const gp_XY&                              theSize,
     Standard_Real                             theRadius,
-    const gp_Trsf&                            theTrsf);
+    const Transform3d&                            theTrsf);
 
 protected:
   NCollection_DataMap<V3d_TypeOfOrientation, TCollection_AsciiString>

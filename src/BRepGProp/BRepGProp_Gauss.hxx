@@ -201,7 +201,7 @@ private: //! @name private methods
   BRepGProp_Gauss& operator=(BRepGProp_Gauss const&);
 
   void computeVInertiaOfElementaryPart(const Point3d&             thePoint,
-                                       const gp_Vec&             theNormal,
+                                       const Vector3d&             theNormal,
                                        const Point3d&             theLocation,
                                        const Standard_Real       theWeight,
                                        const Standard_Real       theCoeff[],
@@ -209,7 +209,7 @@ private: //! @name private methods
                                        BRepGProp_Gauss::Inertia& theOutInertia);
 
   void computeSInertiaOfElementaryPart(const Point3d&             thePoint,
-                                       const gp_Vec&             theNormal,
+                                       const Vector3d&             theNormal,
                                        const Point3d&             theLocation,
                                        const Standard_Real       theWeight,
                                        BRepGProp_Gauss::Inertia& theOutInertia);

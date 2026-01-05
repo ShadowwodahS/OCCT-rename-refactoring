@@ -75,7 +75,7 @@ AppParCurves_ResolConstraint::
   Standard_Integer myindex, Def = SCurv.NbPoles()-1;    
   Standard_Integer nb3d, nb2d, Npol= Def+1, Npol2 = 2*Npol;
   Standard_Real T1 = 0., T2 = 0., T3, Tmax, Daij;
-  gp_Vec V;
+  Vector3d V;
   gp_Vec2d V2d;
   Point3d Poi;
   gp_Pnt2d Poi2d;
@@ -556,7 +556,7 @@ const math_Matrix& AppParCurves_ResolConstraint::
   TColStd_Array2OfInteger Ibont(1, NbCu, 1, IncTan);
   math_Matrix DeCInit(1, IncPass, 1, Npol);
   math_Vector DDA(1, Npol);
-  gp_Vec V;
+  Vector3d V;
   gp_Vec2d V2d;
   Standard_Real T1, T2, T3, Tmax, DDaij;
 //  Standard_Integer FirstP = IPas(1);

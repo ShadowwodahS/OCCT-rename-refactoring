@@ -443,7 +443,7 @@ Point3d BRepFeat_RibSlot::CheckPoint(const TopoDS_Edge& e,
   Standard_Real      f, l;
   Handle(Geom_Curve) cc = BRep_Tool::Curve(e, f, l);
 
-  gp_Vec        tgt;
+  Vector3d        tgt;
   Point3d        pp;
   Standard_Real par = (f + l) / 2.;
 
@@ -452,7 +452,7 @@ Point3d BRepFeat_RibSlot::CheckPoint(const TopoDS_Edge& e,
   if (e.Orientation() == TopAbs_REVERSED)
     tgt.Reverse();
 
-  gp_Vec D = -tgt.Crossed(Pln->Pln().Position().Direction()) / 10.;
+  Vector3d D = -tgt.Crossed(Pln->Pln().Position().Direction()) / 10.;
   pp.Translate(D);
 
   return pp;
@@ -463,7 +463,7 @@ Point3d BRepFeat_RibSlot::CheckPoint(const TopoDS_Edge& e,
 // purpose  : calculate the normal to a face in a point
 //=======================================================================
 
-gp_Dir BRepFeat_RibSlot::Normal(const TopoDS_Face& F, const Point3d& P)
+Dir3d BRepFeat_RibSlot::Normal(const TopoDS_Face& F, const Point3d& P)
 
 {
 #ifdef OCCT_DEBUG
@@ -496,14 +496,14 @@ gp_Dir BRepFeat_RibSlot::Normal(const TopoDS_Face& F, const Point3d& P)
       break;
 
     default: {
-      return gp_Dir(1., 0., 0.);
+      return Dir3d(1., 0., 0.);
     }
   }
 
-  gp_Vec D1U, D1V;
+  Vector3d D1U, D1V;
 
   AS.D1(U, V, pt, D1U, D1V);
-  gp_Dir                 N;
+  Dir3d                 N;
   CSLib_DerivativeStatus St;
   CSLib::Normal(D1U, D1V, Precision::Confusion(), St, N);
   if (F.Orientation() == TopAbs_FORWARD)
@@ -597,7 +597,7 @@ void BRepFeat_RibSlot::EdgeExtention(TopoDS_Edge&           e,
     Handle(Geom_Line) ln;
     Point3d            Pt;
     Point3d            pnt;
-    gp_Vec            vct;
+    Vector3d            vct;
     if (FirstLast)
     {
       C->D1(f, pnt, vct);
@@ -640,7 +640,7 @@ TopoDS_Face BRepFeat_RibSlot::ChoiceOfFaces(TopTools_ListOfShape&     faces,
   TopoDS_Face FFF;
 
   Point3d pp;
-  gp_Vec tgt;
+  Vector3d tgt;
 
   cc->D1(par, pp, tgt);
 
@@ -649,7 +649,7 @@ TopoDS_Face BRepFeat_RibSlot::ChoiceOfFaces(TopTools_ListOfShape&     faces,
   TColGeom_SequenceOfCurve scur;
   Standard_Integer         Counter = 0;
 
-  gp_Ax1 Axe(pp, Pln->Position().Direction());
+  Axis3d Axe(pp, Pln->Position().Direction());
   for (Standard_Integer i = 1; i <= 8; i++)
   {
     Handle(Geom_Curve) L = Handle(Geom_Curve)::DownCast(l1->Rotated(Axe, i * M_PI / 9.));
@@ -1406,7 +1406,7 @@ Standard_Boolean BRepFeat_RibSlot::SlidingProfile(TopoDS_Face&              Prof
   // --> 1 part bounding box + 1 part wire
   //   attention to the compatibility of orientations
 
-  gp_Dir           FN, LN;
+  Dir3d           FN, LN;
   BRepLib_MakeWire WW;
 
   FN = Normal(FirstFace, myFirstPnt);
@@ -1435,7 +1435,7 @@ Standard_Boolean BRepFeat_RibSlot::SlidingProfile(TopoDS_Face&              Prof
   Standard_Boolean TestOK = Standard_True;
   if (RevolRib)
   {
-    gp_Dir d1, d2;
+    Dir3d d1, d2;
     d1 = ln1->Position().Direction();
     d2 = ln2->Position().Direction();
     if (d1.IsOpposite(d2, myTol))
@@ -1768,7 +1768,7 @@ Standard_Boolean BRepFeat_RibSlot::NoSlidingProfile(TopoDS_Face&              Pr
   TopoDS_Edge theLastEdge;
   theLastEdge.Nullify();
   Point3d       firstpoint, lastpoint; //, pp1, pp2;
-  gp_Vec       firstvect, lastvect;
+  Vector3d       firstvect, lastvect;
   TopoDS_Wire  w;
   BRep_Builder BB;
   BB.MakeWire(w);
@@ -1794,7 +1794,7 @@ Standard_Boolean BRepFeat_RibSlot::NoSlidingProfile(TopoDS_Face&              Pr
   Standard_Boolean TestOK = Standard_True;
   if (RevolRib)
   {
-    gp_Dir d1, d2;
+    Dir3d d1, d2;
     d1 = firstln->Position().Direction();
     d2 = lastln->Position().Direction();
     if (d1.IsOpposite(d2, myTol))

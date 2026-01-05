@@ -22,10 +22,10 @@
 #include <Standard_Real.hxx>
 #include <Standard_Boolean.hxx>
 
-class gp_Ax1;
-class gp_Ax2;
-class gp_Trsf;
-class gp_Vec;
+class Axis3d;
+class Frame3d;
+class Transform3d;
+class Vector3d;
 
 //! Defines a 3D cartesian point.
 class Point3d
@@ -141,22 +141,22 @@ public:
   //! of the symmetry.
   Standard_NODISCARD Standard_EXPORT Point3d Mirrored(const Point3d& theP) const;
 
-  Standard_EXPORT void Mirror(const gp_Ax1& theA1);
+  Standard_EXPORT void Mirror(const Axis3d& theA1);
 
   //! Performs the symmetrical transformation of a point
   //! with respect to a plane. The axis placement theA2 locates
   //! the plane of the symmetry : (Location, XDirection, YDirection).
-  Standard_NODISCARD Standard_EXPORT Point3d Mirrored(const gp_Ax1& theA1) const;
+  Standard_NODISCARD Standard_EXPORT Point3d Mirrored(const Axis3d& theA1) const;
 
-  Standard_EXPORT void Mirror(const gp_Ax2& theA2);
+  Standard_EXPORT void Mirror(const Frame3d& theA2);
 
   //! Rotates a point. theA1 is the axis of the rotation.
   //! theAng is the angular value of the rotation in radians.
-  Standard_NODISCARD Standard_EXPORT Point3d Mirrored(const gp_Ax2& theA2) const;
+  Standard_NODISCARD Standard_EXPORT Point3d Mirrored(const Frame3d& theA2) const;
 
-  void Rotate(const gp_Ax1& theA1, const Standard_Real theAng);
+  void Rotate(const Axis3d& theA1, const Standard_Real theAng);
 
-  Standard_NODISCARD Point3d Rotated(const gp_Ax1& theA1, const Standard_Real theAng) const
+  Standard_NODISCARD Point3d Rotated(const Axis3d& theA1, const Standard_Real theAng) const
   {
     Point3d aP = *this;
     aP.Rotate(theA1, theAng);
@@ -174,9 +174,9 @@ public:
   }
 
   //! Transforms a point with the transformation T.
-  Standard_EXPORT void Transform(const gp_Trsf& theT);
+  Standard_EXPORT void Transform(const Transform3d& theT);
 
-  Standard_NODISCARD Point3d Transformed(const gp_Trsf& theT) const
+  Standard_NODISCARD Point3d Transformed(const Transform3d& theT) const
   {
     Point3d aP = *this;
     aP.Transform(theT);
@@ -185,9 +185,9 @@ public:
 
   //! Translates a point in the direction of the vector theV.
   //! The magnitude of the translation is the vector's magnitude.
-  void Translate(const gp_Vec& theV);
+  void Translate(const Vector3d& theV);
 
-  Standard_NODISCARD Point3d Translated(const gp_Vec& theV) const;
+  Standard_NODISCARD Point3d Translated(const Vector3d& theV) const;
 
   //! Translates a point from the point theP1 to the point theP2.
   void Translate(const Point3d& theP1, const Point3d& theP2)
@@ -303,9 +303,9 @@ inline Standard_Real Point3d::SquareDistance(const Point3d& theOther) const
 // function : Rotate
 // purpose :
 //=======================================================================
-inline void Point3d::Rotate(const gp_Ax1& theA1, const Standard_Real theAng)
+inline void Point3d::Rotate(const Axis3d& theA1, const Standard_Real theAng)
 {
-  gp_Trsf aT;
+  Transform3d aT;
   aT.SetRotation(theA1, theAng);
   aT.Transforms(coord);
 }
@@ -326,7 +326,7 @@ inline void Point3d::Scale(const Point3d& theP, const Standard_Real theS)
 // function : Translate
 // purpose :
 //=======================================================================
-inline void Point3d::Translate(const gp_Vec& theV)
+inline void Point3d::Translate(const Vector3d& theV)
 {
   coord.Add(theV.XYZ());
 }
@@ -335,7 +335,7 @@ inline void Point3d::Translate(const gp_Vec& theV)
 // function : Translated
 // purpose :
 //=======================================================================
-inline Point3d Point3d::Translated(const gp_Vec& theV) const
+inline Point3d Point3d::Translated(const Vector3d& theV) const
 {
   Point3d aP = *this;
   aP.coord.Add(theV.XYZ());

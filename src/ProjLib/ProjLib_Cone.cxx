@@ -81,11 +81,11 @@ void ProjLib_Cone::Project(const gp_Lin& L)
   ElSLib::ConeParameters(myCone.Position(), myCone.RefRadius(), myCone.SemiAngle(), aPnt, U, V);
   //
   Point3d P;
-  gp_Vec Vu, Vv;
+  Vector3d Vu, Vv;
 
   ElSLib::ConeD1(U, V, myCone.Position(), myCone.RefRadius(), myCone.SemiAngle(), P, Vu, Vv);
 
-  gp_Dir Dv(Vv);
+  Dir3d Dv(Vv);
   if (Dv.IsParallel(L.Direction(), Precision::Angular()))
   {
     // L is parallel to U-isoline of the cone.
@@ -116,13 +116,13 @@ void ProjLib_Cone::Project(const gp_Circ& C)
     return;
   }
   //
-  gp_Dir ZCone = ConePos.XDirection().Crossed(ConePos.YDirection());
-  gp_Dir ZCir  = CircPos.XDirection().Crossed(CircPos.YDirection());
+  Dir3d ZCone = ConePos.XDirection().Crossed(ConePos.YDirection());
+  Dir3d ZCir  = CircPos.XDirection().Crossed(CircPos.YDirection());
 
   Standard_Real U, V;
   Standard_Real x = ConePos.XDirection().Dot(CircPos.XDirection());
   Standard_Real y = ConePos.YDirection().Dot(CircPos.XDirection());
-  Standard_Real z = gp_Vec(myCone.Location(), C.Location()).Dot(ConePos.Direction());
+  Standard_Real z = Vector3d(myCone.Location(), C.Location()).Dot(ConePos.Direction());
 
   // pour trouver le point U V, on reprend le code de ElSLib
   // sans appliquer la Trsf au point ( aller retour inutile).

@@ -19,7 +19,7 @@
 class Graphic3d_Structure;
 class Graphic3d_TransformPers;
 class SelectMgr_Selection;
-class gp_Trsf;
+class Transform3d;
 
 //! Auxiliary tools for SelectMgr package.
 class SelectMgr
@@ -29,7 +29,7 @@ public:
   Standard_EXPORT static void ComputeSensitivePrs(
     const Handle(Graphic3d_Structure)&     theStructure,
     const Handle(SelectMgr_Selection)&     theSel,
-    const gp_Trsf&                         theLoc,
+    const Transform3d&                         theLoc,
     const Handle(Graphic3d_TransformPers)& theTrsfPers);
 };
 

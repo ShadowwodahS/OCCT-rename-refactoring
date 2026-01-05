@@ -24,7 +24,7 @@
 #include <Standard_Real.hxx>
 class Law_Function;
 class Point3d;
-class gp_Vec;
+class Vector3d;
 
 class GeomFill_BoundWithSurf;
 DEFINE_STANDARD_HANDLE(GeomFill_BoundWithSurf, GeomFill_Boundary)
@@ -78,15 +78,15 @@ public:
 
   Standard_EXPORT Point3d Value(const Standard_Real U) const Standard_OVERRIDE;
 
-  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, gp_Vec& V) const Standard_OVERRIDE;
+  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, Vector3d& V) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual Standard_Boolean HasNormals() const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual gp_Vec Norm(const Standard_Real U) const Standard_OVERRIDE;
+  Standard_EXPORT virtual Vector3d Norm(const Standard_Real U) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual void D1Norm(const Standard_Real U,
-                                      gp_Vec&             N,
-                                      gp_Vec&             DN) const Standard_OVERRIDE;
+                                      Vector3d&             N,
+                                      Vector3d&             DN) const Standard_OVERRIDE;
 
   Standard_EXPORT void Reparametrize(const Standard_Real    First,
                                      const Standard_Real    Last,

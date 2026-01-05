@@ -24,7 +24,7 @@
 #include <Prs3d_Presentation.hxx>
 
 class Point3d;
-class gp_Dir;
+class Dir3d;
 
 //! class which draws the presentation of Fixed objects
 class DsgPrs_FixPresentation
@@ -41,7 +41,7 @@ public:
                                   const Handle(Prs3d_Drawer)&       aDrawer,
                                   const Point3d&                     aPntAttach,
                                   const Point3d&                     aPntEnd,
-                                  const gp_Dir&                     aNormPln,
+                                  const Dir3d&                     aNormPln,
                                   const Standard_Real               aSymbSize);
 
 protected:

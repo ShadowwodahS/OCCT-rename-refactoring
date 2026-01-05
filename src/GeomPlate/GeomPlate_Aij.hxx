@@ -33,7 +33,7 @@ public:
 
   Standard_EXPORT GeomPlate_Aij(const Standard_Integer anInd1,
                                 const Standard_Integer anInd2,
-                                const gp_Vec&          aVec);
+                                const Vector3d&          aVec);
 
   friend class GeomPlate_BuildAveragePlane;
 
@@ -41,7 +41,7 @@ protected:
 private:
   Standard_Integer Ind1;
   Standard_Integer Ind2;
-  gp_Vec           Vec;
+  Vector3d           Vec;
 };
 
 #endif // _GeomPlate_Aij_HeaderFile

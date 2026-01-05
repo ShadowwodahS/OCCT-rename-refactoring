@@ -109,7 +109,7 @@ void BlendFunc::GetMinimalWeights(const BlendFunc_SectionShape       SShape,
     break;
     case BlendFunc_Rational:
     case BlendFunc_QuasiAngular: {
-      gp_Ax2                    popAx2(Point3d(0, 0, 0), gp_Dir(0, 0, 1));
+      Frame3d                    popAx2(Point3d(0, 0, 0), Dir3d(0, 0, 1));
       gp_Circ                   C(popAx2, 1);
       Handle(Geom_TrimmedCurve) Sect1   = new Geom_TrimmedCurve(new Geom_Circle(C), 0., MaxAng);
       Handle(Geom_BSplineCurve) CtoBspl = GeomConvert::CurveToBSplineCurve(Sect1, TConv);
@@ -156,7 +156,7 @@ GeomAbs_Shape BlendFunc::NextShape(const GeomAbs_Shape S)
 
 Standard_Boolean BlendFunc::ComputeNormal(const Handle(Adaptor3d_Surface)& Surf,
                                           const gp_Pnt2d&                  p2d,
-                                          gp_Vec&                          Normal)
+                                          Vector3d&                          Normal)
 {
   const Standard_Integer MaxOrder = 3;
   const Standard_Real    U        = p2d.X();
@@ -176,7 +176,7 @@ Standard_Boolean BlendFunc::ComputeNormal(const Handle(Adaptor3d_Surface)& Surf,
     for (j = 0; j <= MaxOrder; j++)
       DerNUV.SetValue(i, j, CSLib::DNNUV(i, j, DerSurf));
 
-  gp_Dir              thenormal;
+  Dir3d              thenormal;
   CSLib_NormalStatus  stat;
   Standard_Integer    OrderU, OrderV;
   const Standard_Real Umin = Surf->FirstUParameter();
@@ -208,9 +208,9 @@ Standard_Boolean BlendFunc::ComputeNormal(const Handle(Adaptor3d_Surface)& Surf,
 
 Standard_Boolean BlendFunc::ComputeDNormal(const Handle(Adaptor3d_Surface)& Surf,
                                            const gp_Pnt2d&                  p2d,
-                                           gp_Vec&                          Normal,
-                                           gp_Vec&                          DNu,
-                                           gp_Vec&                          DNv)
+                                           Vector3d&                          Normal,
+                                           Vector3d&                          DNu,
+                                           Vector3d&                          DNv)
 {
   const Standard_Integer MaxOrder = 3;
   const Standard_Real    U        = p2d.X();
@@ -230,7 +230,7 @@ Standard_Boolean BlendFunc::ComputeDNormal(const Handle(Adaptor3d_Surface)& Surf
     for (j = 0; j <= MaxOrder; j++)
       DerNUV.SetValue(i, j, CSLib::DNNUV(i, j, DerSurf));
 
-  gp_Dir              thenormal;
+  Dir3d              thenormal;
   CSLib_NormalStatus  stat;
   Standard_Integer    OrderU, OrderV;
   const Standard_Real Umin = Surf->FirstUParameter();

@@ -24,7 +24,7 @@
 #include <Standard_Boolean.hxx>
 #include <Standard_Real.hxx>
 class Point3d;
-class gp_Vec;
+class Vector3d;
 class gp_Vec2d;
 class IntSurf_PntOn2S;
 
@@ -54,7 +54,7 @@ public:
                                                    Standard_Real& u2,
                                                    Standard_Real& v2,
                                                    Point3d&        Pt,
-                                                   gp_Vec&        Tg,
+                                                   Vector3d&        Tg,
                                                    gp_Vec2d&      Tguv1,
                                                    gp_Vec2d&      Tguv2) = 0;
 
@@ -75,7 +75,7 @@ public:
                                                     const Standard_Real v1,
                                                     const Standard_Real u2,
                                                     const Standard_Real v2,
-                                                    gp_Vec&             Tg) = 0;
+                                                    Vector3d&             Tg) = 0;
 
   Standard_EXPORT virtual Standard_Boolean TangencyOnSurf1(const Standard_Real u1,
                                                            const Standard_Real v1,

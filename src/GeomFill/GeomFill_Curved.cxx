@@ -192,7 +192,7 @@ void GeomFill_Curved::Init(const TColgp_Array1OfPnt& P1, const TColgp_Array1OfPn
 
   for (j = 1; j <= NPolV; j++)
   {
-    gp_Vec Tra(P2(1), P2(j));
+    Vector3d Tra(P2(1), P2(j));
     for (i = 1; i <= NPolU; i++)
     {
       myPoles->SetValue(i, j, P1(i).Translated(Tra));

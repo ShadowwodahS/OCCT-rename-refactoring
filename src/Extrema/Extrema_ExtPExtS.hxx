@@ -83,7 +83,7 @@ private:
   Standard_EXPORT void MakePreciser(Standard_Real&         U,
                                     const Point3d&          P,
                                     const Standard_Boolean isMin,
-                                    const gp_Ax2&          OrtogSection) const;
+                                    const Frame3d&          OrtogSection) const;
 
   Standard_Real                                myuinf;
   Standard_Real                                myusup;
@@ -94,8 +94,8 @@ private:
   Extrema_FuncPSNorm                           myF;
   Handle(Adaptor3d_Curve)                      myC;
   Handle(GeomAdaptor_SurfaceOfLinearExtrusion) myS;
-  gp_Vec                                       myDirection;
-  gp_Ax2                                       myPosition;
+  Vector3d                                       myDirection;
+  Frame3d                                       myPosition;
   Extrema_GenExtPS                             myExtPS;
   Standard_Boolean                             myIsAnalyticallyComputable;
   Standard_Boolean                             myDone;

@@ -20,8 +20,8 @@
 #include <Adaptor3d_Surface.hxx>
 
 class IntSurf_Transition;
-class gp_Dir;
-class gp_Vec;
+class Dir3d;
+class Vector3d;
 
 //! This package provides resources for
 //! all the packages concerning the intersection
@@ -39,9 +39,9 @@ public:
   //! product TgFirst^TgSecond.
   //! TFirst is the transition of the point on the first line.
   //! TSecond is the transition of the point on the second line.
-  Standard_EXPORT static void MakeTransition(const gp_Vec&       TgFirst,
-                                             const gp_Vec&       TgSecond,
-                                             const gp_Dir&       Normal,
+  Standard_EXPORT static void MakeTransition(const Vector3d&       TgFirst,
+                                             const Vector3d&       TgSecond,
+                                             const Dir3d&       Normal,
                                              IntSurf_Transition& TFirst,
                                              IntSurf_Transition& TSecond);
 

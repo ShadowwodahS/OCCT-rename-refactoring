@@ -81,14 +81,14 @@ Handle(Geom_Curve) ShapePersistent_Geom_Curve::pOffset::Import() const
 // Line
 //=======================================================================
 template <>
-Standard_CString ShapePersistent_Geom::instance<ShapePersistent_Geom::Curve, Geom_Line, gp_Ax1>::
+Standard_CString ShapePersistent_Geom::instance<ShapePersistent_Geom::Curve, Geom_Line, Axis3d>::
   PName() const
 {
   return "PGeom_Line";
 }
 
 template <>
-void ShapePersistent_Geom::instance<ShapePersistent_Geom::Curve, Geom_Line, gp_Ax1>::Write(
+void ShapePersistent_Geom::instance<ShapePersistent_Geom::Curve, Geom_Line, Axis3d>::Write(
   StdObjMgt_WriteData& theWriteData) const
 {
   Handle(Geom_Line) aMyGeom = Handle(Geom_Line)::DownCast(myTransient);
@@ -118,7 +118,7 @@ Handle(ShapePersistent_Geom::Curve) ShapePersistent_Geom_Curve::Translate(
 // Conic
 //=======================================================================
 template <>
-Standard_CString ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Curve, gp_Ax2>::PName()
+Standard_CString ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Curve, Frame3d>::PName()
   const
 {
   return "PGeom_Conic";

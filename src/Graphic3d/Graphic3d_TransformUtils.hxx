@@ -59,9 +59,9 @@ struct VectorType<Standard_ShortReal>
   typedef Graphic3d_Vec4 Vec4;
 };
 
-//! Converts gp_Trsf to Graphic3d_Mat4.
+//! Converts Transform3d to Graphic3d_Mat4.
 template <class T>
-static void Convert(const gp_Trsf& theTransformation, typename MatrixType<T>::Mat4& theOut);
+static void Convert(const Transform3d& theTransformation, typename MatrixType<T>::Mat4& theOut);
 
 //! Constructs a 3D orthographic projection matrix.
 template <class T>
@@ -136,7 +136,7 @@ static Standard_Real ScaleFactor(const NCollection_Mat4<T>& theMatrix)
 // purpose  :
 // =======================================================================
 template <class T>
-void Graphic3d_TransformUtils::Convert(const gp_Trsf&                theTransformation,
+void Graphic3d_TransformUtils::Convert(const Transform3d&                theTransformation,
                                        typename MatrixType<T>::Mat4& theOut)
 {
   theOut.InitIdentity();

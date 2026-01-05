@@ -33,13 +33,13 @@
 
 //=================================================================================================
 
-static gp_Dir getNormalOnFace(const TopoDS_Face&  theFace,
+static Dir3d getNormalOnFace(const TopoDS_Face&  theFace,
                               const Standard_Real theU,
                               const Standard_Real theV)
 {
   Standard_Real     aPrec = gp::Resolution();
   BRepLProp_SLProps aProps(BRepAdaptor_Surface(theFace), theU, theV, 2, aPrec);
-  gp_Dir            aNormal = aProps.Normal();
+  Dir3d            aNormal = aProps.Normal();
   if (theFace.Orientation() == TopAbs_REVERSED)
     aNormal.Reverse();
   return aNormal;
@@ -53,7 +53,7 @@ static gp_Dir getNormalOnFace(const TopoDS_Face&  theFace,
 static Standard_Boolean getNormalFromEdge(const TopoDS_Shape& theShape,
                                           const TopoDS_Edge&  theEdge,
                                           const Standard_Real thePar,
-                                          gp_Dir&             theNormal)
+                                          Dir3d&             theNormal)
 {
   gp_XYZ          aSum;
   TopExp_Explorer ex(theShape, TopAbs_FACE);
@@ -68,7 +68,7 @@ static Standard_Boolean getNormalFromEdge(const TopoDS_Shape& theShape,
         Standard_Real        f, l;
         Handle(Geom2d_Curve) aC2d  = BRep_Tool::CurveOnSurface(theEdge, aF, f, l);
         gp_Pnt2d             aP2d  = aC2d->Value(thePar);
-        gp_Dir               aNorm = getNormalOnFace(aF, aP2d.X(), aP2d.Y());
+        Dir3d               aNorm = getNormalOnFace(aF, aP2d.X(), aP2d.Y());
         aSum += aNorm.XYZ();
       }
     }
@@ -88,7 +88,7 @@ static Standard_Boolean getNormalFromEdge(const TopoDS_Shape& theShape,
 
 static Standard_Boolean getNormalFromVertex(const TopoDS_Shape&  theShape,
                                             const TopoDS_Vertex& theVer,
-                                            gp_Dir&              theNormal)
+                                            Dir3d&              theNormal)
 {
   gp_XYZ          aSum;
   TopExp_Explorer ex(theShape, TopAbs_FACE);
@@ -101,7 +101,7 @@ static Standard_Boolean getNormalFromVertex(const TopoDS_Shape&  theShape,
       if (ex1.Current().IsSame(theVer))
       {
         gp_Pnt2d aP2d  = BRep_Tool::Parameters(theVer, aF);
-        gp_Dir   aNorm = getNormalOnFace(aF, aP2d.X(), aP2d.Y());
+        Dir3d   aNorm = getNormalOnFace(aF, aP2d.X(), aP2d.Y());
         aSum += aNorm.XYZ();
       }
     }
@@ -126,7 +126,7 @@ static Standard_Boolean getNormalFromVertex(const TopoDS_Shape&  theShape,
 static Standard_Boolean FindExtrema(const Point3d&       thePnt,
                                     const TopoDS_Shape& theShape,
                                     Point3d&             theMinPnt,
-                                    gp_Dir&             theNormal)
+                                    Dir3d&             theNormal)
 {
   TopoDS_Vertex aRefVertex = BRepBuilderAPI_MakeVertex(thePnt);
 
@@ -178,9 +178,9 @@ static Standard_Boolean FindExtrema(const Point3d&       thePnt,
 
 static Standard_Boolean isOutside(const Point3d& thePnt,
                                   const Point3d& thePonF,
-                                  const gp_Dir& theNormal)
+                                  const Dir3d& theNormal)
 {
-  gp_Dir        anOppRef(thePnt.XYZ() - thePonF.XYZ());
+  Dir3d        anOppRef(thePnt.XYZ() - thePonF.XYZ());
   Standard_Real aSca = theNormal * anOppRef;
   // outside if same directions
   return aSca > 0.;
@@ -197,7 +197,7 @@ BRepPrimAPI_MakeHalfSpace::BRepPrimAPI_MakeHalfSpace(const TopoDS_Face& theFace,
   TopoDS_Shell aShell;
 
   Point3d aMinPnt;
-  gp_Dir aNormal;
+  Dir3d aNormal;
   if (FindExtrema(theRefPnt, theFace, aMinPnt, aNormal))
   {
     Standard_Boolean toReverse = isOutside(theRefPnt, aMinPnt, aNormal);
@@ -226,7 +226,7 @@ BRepPrimAPI_MakeHalfSpace::BRepPrimAPI_MakeHalfSpace(const TopoDS_Shell& theShel
 
   // Find the point of the skin closest to the reference point.
   Point3d aMinPnt;
-  gp_Dir aNormal;
+  Dir3d aNormal;
   if (FindExtrema(theRefPnt, theShell, aMinPnt, aNormal))
   {
     Standard_Boolean toReverse = isOutside(theRefPnt, aMinPnt, aNormal);

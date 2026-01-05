@@ -305,7 +305,7 @@ TopoDS_Shape IGESToBRep_TopoSurface::TransferTopoBasicSurface(const Handle(IGESD
 
   if (st->HasTransf())
   {
-    gp_Trsf trsf;
+    Transform3d trsf;
     SetEpsilon(1.E-04);
     if (IGESData_ToolLocation::ConvertLocation(GetEpsilon(),
                                                st->CompoundLocation(),
@@ -655,7 +655,7 @@ TopoDS_Shape IGESToBRep_TopoSurface::TransferRuledSurface(const Handle(IGESGeom_
 
   if (st->HasTransf())
   {
-    gp_Trsf trsf;
+    Transform3d trsf;
     SetEpsilon(1.E-04);
     if (IGESData_ToolLocation::ConvertLocation(GetEpsilon(),
                                                st->CompoundLocation(),
@@ -734,7 +734,7 @@ TopoDS_Shape IGESToBRep_TopoSurface::TransferSurfaceOfRevolution(
     return res;
   }
 
-  gp_Trsf startLoc;
+  Transform3d startLoc;
   Point3d  pt1 = igesAxis->TransformedStartPoint(); // smh#11
   Point3d  pt2 = igesAxis->TransformedEndPoint();   // smh#11
   pt1.Scale(Point3d(0, 0, 0), GetUnitFactor());
@@ -742,10 +742,10 @@ TopoDS_Shape IGESToBRep_TopoSurface::TransferSurfaceOfRevolution(
   // #30 rln 19.10.98 To keep IGES surface normal CAS.CADE axis = reversed IGES axis
   // CAS.CADE SA = 2*PI - IGES TA
   // CAS.CADE TA = 2*PI - IGES SA
-  // gp_Ax1 revolAxis(pt1, gp_Dir(gp_Vec(pt1, pt2)));
+  // Axis3d revolAxis(pt1, Dir3d(Vector3d(pt1, pt2)));
   // Standard_Real startAngle = st->StartAngle();
   // Standard_Real endAngle = st->EndAngle();
-  gp_Ax1           revolAxis(pt1, gp_Dir(gp_Vec(pt2, pt1)));
+  Axis3d           revolAxis(pt1, Dir3d(Vector3d(pt2, pt1)));
   Standard_Real    startAngle  = 2 * M_PI - st->EndAngle();
   Standard_Real    endAngle    = 2 * M_PI - st->StartAngle();
   Standard_Real    deltaAngle  = endAngle - startAngle;
@@ -834,7 +834,7 @@ TopoDS_Shape IGESToBRep_TopoSurface::TransferSurfaceOfRevolution(
 
   if (st->HasTransf())
   {
-    gp_Trsf trsf;
+    Transform3d trsf;
     SetEpsilon(1.E-04);
     if (IGESData_ToolLocation::ConvertLocation(GetEpsilon(),
                                                st->CompoundLocation(),
@@ -924,7 +924,7 @@ TopoDS_Shape IGESToBRep_TopoSurface::TransferTabulatedCylinder(
       OCC_CATCH_SIGNALS
       if (extractCurve3d(directrix, aBasisCurve))
       {
-        gp_Vec               dir(pt1, pt2);
+        Vector3d               dir(pt1, pt2);
         Handle(Geom_Surface) aResultSurf = new Geom_SurfaceOfLinearExtrusion(aBasisCurve, dir);
         if (!aResultSurf.IsNull())
         {
@@ -959,7 +959,7 @@ TopoDS_Shape IGESToBRep_TopoSurface::TransferTabulatedCylinder(
   if (res.IsNull())
   {
     // do as usual.
-    BRepPrimAPI_MakePrism prism(directrix, gp_Vec(pt1, pt2));
+    BRepPrimAPI_MakePrism prism(directrix, Vector3d(pt1, pt2));
     // mjm: si debug IsDone() est fait
     //   if (!prism.IsDone()) {
     //     AddFail(st, "Prism Construction Error.");
@@ -990,7 +990,7 @@ TopoDS_Shape IGESToBRep_TopoSurface::TransferTabulatedCylinder(
 
   if (st->HasTransf())
   {
-    gp_Trsf trsf;
+    Transform3d trsf;
     SetEpsilon(1.E-04);
     if (IGESData_ToolLocation::ConvertLocation(GetEpsilon(),
                                                st->CompoundLocation(),
@@ -1164,7 +1164,7 @@ TopoDS_Shape IGESToBRep_TopoSurface::TransferOffsetSurface(const Handle(IGESGeom
 
   if (st->HasTransf())
   {
-    gp_Trsf trsf;
+    Transform3d trsf;
     SetEpsilon(1.E-04);
     if (IGESData_ToolLocation::ConvertLocation(GetEpsilon(),
                                                st->CompoundLocation(),
@@ -1323,7 +1323,7 @@ TopoDS_Shape IGESToBRep_TopoSurface::TransferTrimmedSurface(
       if ((tmpVal + aTrans.Modulus()) > Precision::Confusion())
       {
         // not Identity
-        gp_Trsf aT;
+        Transform3d aT;
         aT.SetValues(aMat.Value(1, 1),
                      aMat.Value(1, 2),
                      aMat.Value(1, 3),
@@ -1473,7 +1473,7 @@ TopoDS_Shape IGESToBRep_TopoSurface::TransferPlane(const Handle(IGESGeom_Plane)&
   }
 
   gp_Pln  pln;
-  gp_Trsf trsf;
+  Transform3d trsf;
   res = TransferPlaneParts(st, pln, trsf, Standard_True);
   //   res contient (en principe ...) une Face avec eventuellement un Wire
   //   il reste a la mettre en position
@@ -1507,7 +1507,7 @@ TopoDS_Shape IGESToBRep_TopoSurface::TransferPerforate(const Handle(IGESBasic_Si
 
   // char mess[100];
   gp_Pln  pln;
-  gp_Trsf trsf;
+  Transform3d trsf;
   DeclareAndCast(IGESGeom_Plane, p0, st->SingleParent());
   BRep_Builder B;
   if (p0.IsNull())
@@ -1532,7 +1532,7 @@ TopoDS_Shape IGESToBRep_TopoSurface::TransferPerforate(const Handle(IGESBasic_Si
       continue;
     }
     gp_Pln       pli;
-    gp_Trsf      trsi;
+    Transform3d      trsi;
     TopoDS_Shape wire = TransferPlaneParts(pi, pli, trsi, Standard_False);
     //    si ce n est pas un Wire, sauter
     if (wire.ShapeType() != TopAbs_WIRE)
@@ -1575,7 +1575,7 @@ TopoDS_Shape IGESToBRep_TopoSurface::TransferPerforate(const Handle(IGESBasic_Si
 
 TopoDS_Shape IGESToBRep_TopoSurface::TransferPlaneParts(const Handle(IGESGeom_Plane)& st,
                                                         gp_Pln&                       pln,
-                                                        gp_Trsf&                      trsf,
+                                                        Transform3d&                      trsf,
                                                         const Standard_Boolean        first)
 { // Declaration of messages//
   // DCE 22/12/98
@@ -1642,7 +1642,7 @@ TopoDS_Shape IGESToBRep_TopoSurface::TransferPlaneParts(const Handle(IGESGeom_Pl
 
       if (IGESToBRep::IsTopoCurve(crv))
       {
-        gp_Trsf trans;
+        Transform3d trans;
         if (crv->IsKind(STANDARD_TYPE(IGESGeom_CurveOnSurface)))
         {
           DeclareAndCast(IGESGeom_CurveOnSurface, crv142, crv);

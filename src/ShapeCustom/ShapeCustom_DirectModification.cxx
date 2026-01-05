@@ -59,7 +59,7 @@ static Standard_Integer IsIndirectSurface(Handle(Geom_Surface)& S, TopLoc_Locati
   if (!ES.IsNull())
   {
     // is the surface indirect ?
-    gp_Trsf          t   = L.Transformation();
+    Transform3d          t   = L.Transformation();
     Standard_Boolean neg = t.IsNegative();
     Standard_Boolean det = (t.VectorialPart().Determinant() < 0.0);
     Standard_Boolean dir = ES->Position().Direct();

@@ -71,7 +71,7 @@ inline void HLRBRep_Curve::D0(const Standard_Real U, Point3d& P) const
 // purpose  :
 //=======================================================================
 
-inline void HLRBRep_Curve::D1(const Standard_Real U, Point3d& P, gp_Vec& V) const
+inline void HLRBRep_Curve::D1(const Standard_Real U, Point3d& P, Vector3d& V) const
 {
   HLRBRep_BCurveTool::D1(myCurve, U, P, V);
 }

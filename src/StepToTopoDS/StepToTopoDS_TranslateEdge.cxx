@@ -508,8 +508,8 @@ void StepToTopoDS_TranslateEdge::MakeFromCurve3D(const Handle(StepGeom_Curve)&  
           TP->AddFail(EC, "This edge has null arc length");
           Point3d P1 = BRep_Tool::Pnt(V1);
           Point3d P2 = BRep_Tool::Pnt(V2);
-          gp_Vec avec(P1, P2);
-          gp_Dir adir(avec);
+          Vector3d avec(P1, P2);
+          Dir3d adir(avec);
           gp_Lin alin(P1, adir);
           C1 = new Geom_Line(alin);
           U1 = 0.;

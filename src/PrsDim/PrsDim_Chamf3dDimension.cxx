@@ -91,7 +91,7 @@ void PrsDim_Chamf3dDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
   Standard_Real uMoy = (uFirst + uLast) / 2;
   Standard_Real vMoy = (vFirst + vLast) / 2;
   Point3d        apos;
-  gp_Vec        d1u, d1v;
+  Vector3d        d1u, d1v;
   surfAlgo.D1(uMoy, vMoy, apos, d1u, d1v);
   myPntAttach = apos;
 
@@ -104,7 +104,7 @@ void PrsDim_Chamf3dDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
   Point3d curpos;
   if (myAutomaticPosition)
   {
-    gp_Vec transVec(myDir);
+    Vector3d transVec(myDir);
     transVec *= myVal;
     curpos = myPntAttach.Translated(transVec);
 
@@ -122,7 +122,7 @@ void PrsDim_Chamf3dDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
 
     if (curpos.Distance(myPntAttach) < 5.)
     {
-      gp_Vec transVec(myDir);
+      Vector3d transVec(myDir);
       transVec *= 5.;
       curpos = myPntAttach.Translated(transVec);
     }

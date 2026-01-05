@@ -24,7 +24,7 @@
 #include <BRepPrim_Revolution.hxx>
 #include <BRepPrimAPI_MakeOneAxis.hxx>
 class Geom_Curve;
-class gp_Ax2;
+class Frame3d;
 
 //! Describes functions to build revolved shapes.
 //! A MakeRevolution object provides a framework for:
@@ -55,16 +55,16 @@ public:
                                              const Standard_Real       angle);
 
   //! Make a revolution body by rotating a curve around Z.
-  Standard_EXPORT BRepPrimAPI_MakeRevolution(const gp_Ax2&             Axes,
+  Standard_EXPORT BRepPrimAPI_MakeRevolution(const Frame3d&             Axes,
                                              const Handle(Geom_Curve)& Meridian);
 
   //! Make a revolution body by rotating a curve around Z.
-  Standard_EXPORT BRepPrimAPI_MakeRevolution(const gp_Ax2&             Axes,
+  Standard_EXPORT BRepPrimAPI_MakeRevolution(const Frame3d&             Axes,
                                              const Handle(Geom_Curve)& Meridian,
                                              const Standard_Real       angle);
 
   //! Make a revolution body by rotating a curve around Z.
-  Standard_EXPORT BRepPrimAPI_MakeRevolution(const gp_Ax2&             Axes,
+  Standard_EXPORT BRepPrimAPI_MakeRevolution(const Frame3d&             Axes,
                                              const Handle(Geom_Curve)& Meridian,
                                              const Standard_Real       VMin,
                                              const Standard_Real       VMax);
@@ -78,7 +78,7 @@ public:
   //! axis (in case of a complete revolved shape, these faces are circles),
   //! -   and in the case of a portion of a revolved shape, two
   //! planar faces to close the shape (in the planes u = 0 and u = angle).
-  Standard_EXPORT BRepPrimAPI_MakeRevolution(const gp_Ax2&             Axes,
+  Standard_EXPORT BRepPrimAPI_MakeRevolution(const Frame3d&             Axes,
                                              const Handle(Geom_Curve)& Meridian,
                                              const Standard_Real       VMin,
                                              const Standard_Real       VMax,

@@ -151,7 +151,7 @@ Standard_Integer DNaming_PrismDriver::Execute(Handle(TFunction_Logbook)& theLog)
   }
 
   // Direction
-  gp_Ax1 anAxis;
+  Axis3d anAxis;
   DNaming::ComputeSweepDir(aBasis, anAxis);
 
   // Reverse
@@ -160,7 +160,7 @@ Standard_Integer DNaming_PrismDriver::Execute(Handle(TFunction_Logbook)& theLog)
     anAxis.Reverse();
 
   // Calculate Vec - direction of extrusion
-  gp_Vec aVEC(anAxis.Direction());
+  Vector3d aVEC(anAxis.Direction());
   aVEC = aVEC * aHeight;
 
   BRepPrimAPI_MakePrism aMakePrism(aBASIS, aVEC, Standard_True);

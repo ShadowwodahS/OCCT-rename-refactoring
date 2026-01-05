@@ -95,15 +95,15 @@ Standard_EXPORT Standard_Boolean FUN_tool_EboundF(const TopoDS_Edge& E, const To
 // ----------------------------------------------------------------------
 //  derivatives :
 // ----------------------------------------------------------------------
-Standard_EXPORT gp_Vec           FUN_tool_nggeomF(const gp_Pnt2d& p2d, const TopoDS_Face& F);
+Standard_EXPORT Vector3d           FUN_tool_nggeomF(const gp_Pnt2d& p2d, const TopoDS_Face& F);
 Standard_EXPORT Standard_Boolean FUN_tool_nggeomF(const Standard_Real& paronE,
                                                   const TopoDS_Edge&   E,
                                                   const TopoDS_Face&   F,
-                                                  gp_Vec&              nggeomF);
+                                                  Vector3d&              nggeomF);
 Standard_EXPORT Standard_Boolean FUN_tool_nggeomF(const Standard_Real& paronE,
                                                   const TopoDS_Edge&   E,
                                                   const TopoDS_Face&   F,
-                                                  gp_Vec&              nggeomF,
+                                                  Vector3d&              nggeomF,
                                                   const Standard_Real  tol);
 Standard_EXPORT Standard_Boolean FUN_tool_EtgF(const Standard_Real& paronE,
                                                const TopoDS_Edge&   E,
@@ -119,11 +119,11 @@ Standard_EXPORT Standard_Boolean FUN_tool_EtgOOE(const Standard_Real& paronE,
 // ----------------------------------------------------------------------
 // oriented vectors :
 // ----------------------------------------------------------------------
-Standard_EXPORT gp_Vec           FUN_tool_getgeomxx(const TopoDS_Face&  Fi,
+Standard_EXPORT Vector3d           FUN_tool_getgeomxx(const TopoDS_Face&  Fi,
                                                     const TopoDS_Edge&  Ei,
                                                     const Standard_Real parOnEi,
-                                                    const gp_Dir&       ngFi);
-Standard_EXPORT gp_Vec           FUN_tool_getgeomxx(const TopoDS_Face&  Fi,
+                                                    const Dir3d&       ngFi);
+Standard_EXPORT Vector3d           FUN_tool_getgeomxx(const TopoDS_Face&  Fi,
                                                     const TopoDS_Edge&  Ei,
                                                     const Standard_Real parOnEi);
 Standard_EXPORT Standard_Boolean FUN_nearestISO(const TopoDS_Face&     F,
@@ -134,17 +134,17 @@ Standard_EXPORT Standard_Boolean FUN_nearestISO(const TopoDS_Face&     F,
 Standard_EXPORT Standard_Boolean FUN_tool_getxx(const TopoDS_Face&  Fi,
                                                 const TopoDS_Edge&  Ei,
                                                 const Standard_Real parOnEi,
-                                                const gp_Dir&       ngFi,
-                                                gp_Dir&             XX);
+                                                const Dir3d&       ngFi,
+                                                Dir3d&             XX);
 Standard_EXPORT Standard_Boolean FUN_tool_getxx(const TopoDS_Face&  Fi,
                                                 const TopoDS_Edge&  Ei,
                                                 const Standard_Real parOnEi,
-                                                gp_Dir&             XX);
+                                                Dir3d&             XX);
 Standard_EXPORT Standard_Boolean FUN_tool_getdxx(const TopoDS_Face&  F,
                                                  const TopoDS_Edge&  E,
                                                  const Standard_Real parE,
                                                  gp_Vec2d&           XX);
-Standard_EXPORT Standard_Boolean FUN_tool_EitangenttoFe(const gp_Dir&       ngFe,
+Standard_EXPORT Standard_Boolean FUN_tool_EitangenttoFe(const Dir3d&       ngFe,
                                                         const TopoDS_Edge&  Ei,
                                                         const Standard_Real parOnEi);
 
@@ -219,8 +219,8 @@ Standard_EXPORT Standard_Boolean FUN_tool_parF(const TopoDS_Edge&   E,
                                                const Standard_Real& par,
                                                const TopoDS_Face&   F,
                                                gp_Pnt2d&            UV);
-Standard_EXPORT gp_Dir FUN_tool_dirC(const Standard_Real par, const BRepAdaptor_Curve& BAC);
-Standard_EXPORT gp_Vec FUN_tool_tggeomE(const Standard_Real paronE, const TopoDS_Edge& E);
+Standard_EXPORT Dir3d FUN_tool_dirC(const Standard_Real par, const BRepAdaptor_Curve& BAC);
+Standard_EXPORT Vector3d FUN_tool_tggeomE(const Standard_Real paronE, const TopoDS_Edge& E);
 Standard_EXPORT Standard_Boolean FUN_tool_line(const BRepAdaptor_Curve& BAC);
 Standard_EXPORT Standard_Boolean FUN_tool_quad(const TopoDS_Edge& E);
 Standard_EXPORT Standard_Boolean FUN_tool_quad(const BRepAdaptor_Curve& BAC);

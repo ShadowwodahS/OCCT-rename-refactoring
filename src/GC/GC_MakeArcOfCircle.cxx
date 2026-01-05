@@ -61,7 +61,7 @@ GC_MakeArcOfCircle::GC_MakeArcOfCircle(const Point3d& P1, const Point3d& P2, con
 
 //=================================================================================================
 
-GC_MakeArcOfCircle::GC_MakeArcOfCircle(const Point3d& P1, const gp_Vec& V, const Point3d& P2)
+GC_MakeArcOfCircle::GC_MakeArcOfCircle(const Point3d& P1, const Vector3d& V, const Point3d& P2)
 {
   gp_Circ     cir;
   gce_MakeLin Corde(P1, P2);
@@ -69,13 +69,13 @@ GC_MakeArcOfCircle::GC_MakeArcOfCircle(const Point3d& P1, const gp_Vec& V, const
   if (TheError == gce_Done)
   {
     gp_Lin corde(Corde.Value());
-    gp_Dir dir(corde.Direction());
-    gp_Dir dbid(V);
-    gp_Dir Daxe(dbid ^ dir);
-    gp_Dir Dir1(Daxe ^ dir);
+    Dir3d dir(corde.Direction());
+    Dir3d dbid(V);
+    Dir3d Daxe(dbid ^ dir);
+    Dir3d Dir1(Daxe ^ dir);
     gp_Lin bis(Point3d((P1.X() + P2.X()) / 2., (P1.Y() + P2.Y()) / 2., (P1.Z() + P2.Z()) / 2.),
                Dir1);
-    gp_Dir d(dbid ^ Daxe);
+    Dir3d d(dbid ^ Daxe);
     gp_Lin norm(P1, d);
     Standard_Real  Tol = 0.000000001;
     Extrema_ExtElC distmin(bis, norm, Tol);
@@ -109,7 +109,7 @@ GC_MakeArcOfCircle::GC_MakeArcOfCircle(const Point3d& P1, const gp_Vec& V, const
           i++;
         }
         Standard_Real Rad          = (pInt.Distance(P1) + pInt.Distance(P2)) / 2.;
-        cir                        = gp_Circ(gp_Ax2(pInt, Daxe, d), Rad);
+        cir                        = gp_Circ(Frame3d(pInt, Daxe, d), Rad);
         Standard_Real       Alpha1 = ElCLib::Parameter(cir, P1);
         Standard_Real       Alpha3 = ElCLib::Parameter(cir, P2);
         Handle(Geom_Circle) Circ   = new Geom_Circle(cir);

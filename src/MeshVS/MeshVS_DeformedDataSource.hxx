@@ -26,7 +26,7 @@
 #include <MeshVS_EntityType.hxx>
 #include <MeshVS_HArray1OfSequenceOfInteger.hxx>
 #include <TColStd_Array1OfInteger.hxx>
-class gp_Vec;
+class Vector3d;
 
 class MeshVS_DeformedDataSource;
 DEFINE_STANDARD_HANDLE(MeshVS_DeformedDataSource, MeshVS_DataSource)
@@ -83,10 +83,10 @@ public:
   Standard_EXPORT void SetVectors(const MeshVS_DataMapOfIntegerVector& Map);
 
   //! This method returns vector ( Vect ) assigned to node number ID.
-  Standard_EXPORT Standard_Boolean GetVector(const Standard_Integer ID, gp_Vec& Vect) const;
+  Standard_EXPORT Standard_Boolean GetVector(const Standard_Integer ID, Vector3d& Vect) const;
 
   //! This method sets vector ( Vect ) assigned to node number ID.
-  Standard_EXPORT void SetVector(const Standard_Integer ID, const gp_Vec& Vect);
+  Standard_EXPORT void SetVector(const Standard_Integer ID, const Vector3d& Vect);
 
   Standard_EXPORT void SetNonDeformedDataSource(const Handle(MeshVS_DataSource)& theDS);
 

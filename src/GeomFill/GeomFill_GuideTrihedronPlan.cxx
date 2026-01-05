@@ -101,7 +101,7 @@ void GeomFill_GuideTrihedronPlan::Init()
   Point3d P;
   //  Bnd_Box2d Box;
   //  Box.Update(-0.1, -0.1, 0.1, 0.1); // Taille minimal
-  gp_Vec           Tangent, Normal, BiNormal;
+  Vector3d           Tangent, Normal, BiNormal;
   Standard_Integer ii;
   Standard_Real    t, DeltaG, w = 0.;
   Standard_Real    f = myCurve->FirstParameter();
@@ -223,12 +223,12 @@ Handle(Adaptor3d_Curve) GeomFill_GuideTrihedronPlan::Guide() const
 // purpose  : calculation of trihedron
 //=======================================================================
 Standard_Boolean GeomFill_GuideTrihedronPlan::D0(const Standard_Real Param,
-                                                 gp_Vec&             Tangent,
-                                                 gp_Vec&             Normal,
-                                                 gp_Vec&             BiNormal)
+                                                 Vector3d&             Tangent,
+                                                 Vector3d&             Normal,
+                                                 Vector3d&             BiNormal)
 {
   Point3d P, Pprime;
-  //  gp_Vec To;
+  //  Vector3d To;
 
   myCurve->D0(Param, P);
 
@@ -251,7 +251,7 @@ Standard_Boolean GeomFill_GuideTrihedronPlan::D0(const Standard_Real Param,
     //      R = Result.Root();    // solution
 
     Pprime = myTrimG->Value(Res); // pt sur courbe guide
-    gp_Vec n(P, Pprime);          // vecteur definissant la normale du triedre
+    Vector3d n(P, Pprime);          // vecteur definissant la normale du triedre
 
     Normal   = n.Normalized();
     BiNormal = Tangent.Crossed(Normal);
@@ -277,16 +277,16 @@ Standard_Boolean GeomFill_GuideTrihedronPlan::D0(const Standard_Real Param,
 // purpose  : calculation of trihedron and first derivative
 //=======================================================================
 Standard_Boolean GeomFill_GuideTrihedronPlan::D1(const Standard_Real Param,
-                                                 gp_Vec&             Tangent,
-                                                 gp_Vec&             DTangent,
-                                                 gp_Vec&             Normal,
-                                                 gp_Vec&             DNormal,
-                                                 gp_Vec&             BiNormal,
-                                                 gp_Vec&             DBiNormal)
+                                                 Vector3d&             Tangent,
+                                                 Vector3d&             DTangent,
+                                                 Vector3d&             Normal,
+                                                 Vector3d&             DNormal,
+                                                 Vector3d&             BiNormal,
+                                                 Vector3d&             DBiNormal)
 {
   //  return Standard_False;
   Point3d P, PG;
-  gp_Vec To, TG;
+  Vector3d To, TG;
 
   // triedre de frenet sur la trajectoire
   myCurve->D1(Param, P, To);
@@ -307,7 +307,7 @@ Standard_Boolean GeomFill_GuideTrihedronPlan::D1(const Standard_Real Param,
     Standard_Real Res = Result.Root();
     //      R = Result.Root();    // solution
     myTrimG->D1(Res, PG, TG);
-    gp_Vec        n(P, PG), dn; // vecteur definissant la normale du triedre
+    Vector3d        n(P, PG), dn; // vecteur definissant la normale du triedre
     Standard_Real Norm = n.Magnitude();
     if (Norm < 1.e-12)
     {
@@ -331,7 +331,7 @@ Standard_Boolean GeomFill_GuideTrihedronPlan::D1(const Standard_Real Param,
         std::cout << "err :" <<  (etg-e)/h - dedx << std::endl;
           }
           Point3d pdbg;
-          gp_Vec td, nb, bnb;
+          Vector3d td, nb, bnb;
           myCurve->D0(Param+h, pdbg);
           frenet->D0(Param+h,td, nb, bnb);
 
@@ -367,20 +367,20 @@ Standard_Boolean GeomFill_GuideTrihedronPlan::D1(const Standard_Real Param,
 // purpose  : calculation of trihedron and derivatives
 //=======================================================================
 Standard_Boolean GeomFill_GuideTrihedronPlan::D2(const Standard_Real Param,
-                                                 gp_Vec&             Tangent,
-                                                 gp_Vec&             DTangent,
-                                                 gp_Vec&             D2Tangent,
-                                                 gp_Vec&             Normal,
-                                                 gp_Vec&             DNormal,
-                                                 gp_Vec&             D2Normal,
-                                                 gp_Vec&             BiNormal,
-                                                 gp_Vec&             DBiNormal,
-                                                 gp_Vec&             D2BiNormal)
+                                                 Vector3d&             Tangent,
+                                                 Vector3d&             DTangent,
+                                                 Vector3d&             D2Tangent,
+                                                 Vector3d&             Normal,
+                                                 Vector3d&             DNormal,
+                                                 Vector3d&             D2Normal,
+                                                 Vector3d&             BiNormal,
+                                                 Vector3d&             DBiNormal,
+                                                 Vector3d&             D2BiNormal)
 {
   //  Point3d P, PG;
   Point3d P;
-  //  gp_Vec To,DTo,TG,DTG;
-  gp_Vec To, DTo;
+  //  Vector3d To,DTo,TG,DTG;
+  Vector3d To, DTo;
 
   myCurve->D2(Param, P, To, DTo);
 
@@ -416,7 +416,7 @@ Standard_Boolean GeomFill_GuideTrihedronPlan::D2(const Standard_Real Param,
         R = Result.Root();    // solution
         myTrimG->D2(R(1), PG, TG, DTG);
 
-        gp_Vec n (P, PG); // vecteur definissant la normale du triedre
+        Vector3d n (P, PG); // vecteur definissant la normale du triedre
         Standard_Real Norm = n.Magnitude();
         n /= Norm;
         Normal = n.Normalized();
@@ -427,7 +427,7 @@ Standard_Boolean GeomFill_GuideTrihedronPlan::D2(const Standard_Real Param,
      // derivee premiere du triedre
         Standard_Real dtp_dt;
         dtp_dt = (To*Tangent - Norm*(n*DTangent))/(Tangent*TG);
-        gp_Vec dn, d2n;
+        Vector3d dn, d2n;
         dn.SetLinearForm(dtp_dt, TG, -1,  To);
 
         DNormal.SetLinearForm(-(n*dn), n, dn);
@@ -540,9 +540,9 @@ void GeomFill_GuideTrihedronPlan::SetInterval(const Standard_Real First, const S
 
 //=================================================================================================
 
-void GeomFill_GuideTrihedronPlan::GetAverageLaw(gp_Vec& ATangent,
-                                                gp_Vec& ANormal,
-                                                gp_Vec& ABiNormal)
+void GeomFill_GuideTrihedronPlan::GetAverageLaw(Vector3d& ATangent,
+                                                Vector3d& ANormal,
+                                                Vector3d& ABiNormal)
 {
   Standard_Integer ii;
   Standard_Real    t, Delta = (myCurve->LastParameter() - myCurve->FirstParameter()) / 20.001;
@@ -550,7 +550,7 @@ void GeomFill_GuideTrihedronPlan::GetAverageLaw(gp_Vec& ATangent,
   ATangent.SetCoord(0., 0., 0.);
   ANormal.SetCoord(0., 0., 0.);
   ABiNormal.SetCoord(0., 0., 0.);
-  gp_Vec T, N, B;
+  Vector3d T, N, B;
 
   for (ii = 1; ii <= 20; ii++)
   {

@@ -37,7 +37,7 @@
 #include <TopoDS_Shape.hxx>
 #include <TopTools_IndexedDataMapOfShapeListOfShape.hxx>
 
-static Standard_Boolean FindCircle(const gp_Ax1&, const Point3d&, gp_Circ&);
+static Standard_Boolean FindCircle(const Axis3d&, const Point3d&, gp_Circ&);
 
 //=================================================================================================
 
@@ -51,7 +51,7 @@ LocOpe_Revol::LocOpe_Revol()
 
 //=================================================================================================
 
-void LocOpe_Revol::Perform(const TopoDS_Shape& Base, const gp_Ax1& Axis, const Standard_Real Angle)
+void LocOpe_Revol::Perform(const TopoDS_Shape& Base, const Axis3d& Axis, const Standard_Real Angle)
 {
   myMap.Clear();
   myFirstShape.Nullify();
@@ -69,7 +69,7 @@ void LocOpe_Revol::Perform(const TopoDS_Shape& Base, const gp_Ax1& Axis, const S
 //=================================================================================================
 
 void LocOpe_Revol::Perform(const TopoDS_Shape& Base,
-                           const gp_Ax1&       Axis,
+                           const Axis3d&       Axis,
                            const Standard_Real Angle,
                            const Standard_Real angledec)
 {
@@ -94,7 +94,7 @@ void LocOpe_Revol::IntPerf()
   BRepTools_Modifier Modif;
   if (myIsTrans)
   {
-    gp_Trsf T;
+    Transform3d T;
     T.SetRotation(myAxis, myAngTra);
     Handle(BRepTools_TrsfModification) modbase = new BRepTools_TrsfModification(T);
     Modif.Init(theBase);
@@ -251,7 +251,7 @@ void LocOpe_Revol::Curves(TColGeom_SequenceOfCurve& Scurves) const
     gp_Circ       CAX;
     if (FindCircle(myAxis, pvt, CAX))
     {
-      gp_Ax2              A2 = CAX.Position();
+      Frame3d              A2 = CAX.Position();
       Standard_Real       r  = CAX.Radius();
       Handle(Geom_Circle) Ci = new Geom_Circle(A2, r);
       Scurves.Append(Ci);
@@ -276,7 +276,7 @@ Handle(Geom_Curve) LocOpe_Revol::BarycCurve() const
   Handle(Geom_Circle) theCi;
   if (FindCircle(myAxis, bar, CAX))
   {
-    gp_Ax2        A2 = CAX.Position();
+    Frame3d        A2 = CAX.Position();
     Standard_Real r  = CAX.Radius();
     theCi            = new Geom_Circle(A2, r);
   }
@@ -285,22 +285,22 @@ Handle(Geom_Curve) LocOpe_Revol::BarycCurve() const
 
 //=================================================================================================
 
-static Standard_Boolean FindCircle(const gp_Ax1& Ax, const Point3d& Pt, gp_Circ& Ci)
+static Standard_Boolean FindCircle(const Axis3d& Ax, const Point3d& Pt, gp_Circ& Ci)
 {
 
-  const gp_Dir& Dax = Ax.Direction();
-  gp_Vec        OP(Ax.Location(), Pt);
+  const Dir3d& Dax = Ax.Direction();
+  Vector3d        OP(Ax.Location(), Pt);
 
   Standard_Real prm = OP.Dot(Dax);
 
   Point3d        prj(Ax.Location().XYZ().Added(prm * Dax.XYZ()));
-  gp_Vec        axx(prj, Pt);
+  Vector3d        axx(prj, Pt);
   Standard_Real Radius = axx.Magnitude();
   if (Radius < Precision::Confusion())
   {
     return Standard_False;
   }
   Ci.SetRadius(Radius);
-  Ci.SetPosition(gp_Ax2(prj, Dax, axx));
+  Ci.SetPosition(Frame3d(prj, Dax, axx));
   return Standard_True;
 }

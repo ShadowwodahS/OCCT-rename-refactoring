@@ -35,7 +35,7 @@ class IntSurf_QuadricTool;
 class BRepApprox_ApproxLine;
 class BRepApprox_TheZerImpFuncOfTheImpPrmSvSurfacesOfApprox;
 class Point3d;
-class gp_Vec;
+class Vector3d;
 class gp_Vec2d;
 
 class BRepApprox_TheImpPrmSvSurfacesOfApprox : public ApproxInt_SvSurfaces
@@ -55,7 +55,7 @@ public:
                                            Standard_Real& u2,
                                            Standard_Real& v2,
                                            Point3d&        Pt,
-                                           gp_Vec&        Tg,
+                                           Vector3d&        Tg,
                                            gp_Vec2d&      Tguv1,
                                            gp_Vec2d&      Tguv2);
 
@@ -75,7 +75,7 @@ public:
                                             const Standard_Real v1,
                                             const Standard_Real u2,
                                             const Standard_Real v2,
-                                            gp_Vec&             Tg);
+                                            Vector3d&             Tg);
 
   Standard_EXPORT Standard_Boolean TangencyOnSurf1(const Standard_Real u1,
                                                    const Standard_Real v1,
@@ -108,7 +108,7 @@ private:
   Point3d                                                MyPnt;
   gp_Vec2d                                              MyTguv1;
   gp_Vec2d                                              MyTguv2;
-  gp_Vec                                                MyTg;
+  Vector3d                                                MyTg;
   Standard_Boolean                                      MyIsTangent;
   Standard_Boolean                                      MyHasBeenComputed;
   gp_Pnt2d                                              MyParOnS1bis;
@@ -116,7 +116,7 @@ private:
   Point3d                                                MyPntbis;
   gp_Vec2d                                              MyTguv1bis;
   gp_Vec2d                                              MyTguv2bis;
-  gp_Vec                                                MyTgbis;
+  Vector3d                                                MyTgbis;
   Standard_Boolean                                      MyIsTangentbis;
   Standard_Boolean                                      MyHasBeenComputedbis;
   Standard_Boolean                                      MyImplicitFirst;

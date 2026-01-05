@@ -20,10 +20,10 @@
 #include <TopLoc_Location.hxx>
 
 //=======================================================================
-// function : operator >> (gp_Trsf& T)
+// function : operator >> (Transform3d& T)
 // purpose  :
 //=======================================================================
-static Standard_IStream& operator>>(Standard_IStream& IS, gp_Trsf& T)
+static Standard_IStream& operator>>(Standard_IStream& IS, Transform3d& T)
 {
   Standard_Real V1[3], V2[3], V3[3];
   Standard_Real V[3];
@@ -48,10 +48,10 @@ static Standard_IStream& operator>>(Standard_IStream& IS, gp_Trsf& T)
 }
 
 //=======================================================================
-// function : operator << (gp_Trsf& T)
+// function : operator << (Transform3d& T)
 // purpose  :
 //=======================================================================
-Standard_OStream& operator<<(Standard_OStream& OS, const gp_Trsf& T)
+Standard_OStream& operator<<(Standard_OStream& OS, const Transform3d& T)
 {
   gp_XYZ V = T.TranslationPart();
   gp_Mat M = T.VectorialPart();
@@ -204,7 +204,7 @@ void BinTools_LocationSet::Read(Standard_IStream& IS)
   IS >> nbLoc;
   IS.get(); // remove lf
   TopLoc_Location L;
-  gp_Trsf         T;
+  Transform3d         T;
 
   try
   {

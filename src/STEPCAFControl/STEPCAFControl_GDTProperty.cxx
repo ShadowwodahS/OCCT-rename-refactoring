@@ -48,7 +48,7 @@ namespace
 //=======================================================================
 Handle(StepVisual_CoordinatesList) GenerateCoordinateList(
   const Handle(Poly_Triangulation)& theTriangulation,
-  const gp_Trsf&                    theTransformation)
+  const Transform3d&                    theTransformation)
 {
   Handle(TColgp_HArray1OfXYZ) thePoints = new TColgp_HArray1OfXYZ(1, theTriangulation->NbNodes());
   for (Standard_Integer aNodeIndex = 1; aNodeIndex <= theTriangulation->NbNodes(); ++aNodeIndex)
@@ -90,10 +90,10 @@ Standard_Integer CountNormals(const Handle(Poly_Triangulation)& theTriangulation
     return std::abs(theVal1 - theVal2) < Precision::Confusion();
   };
   // Checking if all normals are equal.
-  const gp_Dir aReferenceNormal = theTriangulation->Normal(1);
+  const Dir3d aReferenceNormal = theTriangulation->Normal(1);
   for (Standard_Integer aNodeIndex = 1; aNodeIndex <= theTriangulation->NbNodes(); ++aNodeIndex)
   {
-    const gp_Dir aCurrentNormal = theTriangulation->Normal(aNodeIndex);
+    const Dir3d aCurrentNormal = theTriangulation->Normal(aNodeIndex);
     if (!isEqual(aReferenceNormal.X(), aCurrentNormal.X())
         || !isEqual(aReferenceNormal.Y(), aCurrentNormal.Y())
         || !isEqual(aReferenceNormal.Z(), aCurrentNormal.Z()))
@@ -115,7 +115,7 @@ Standard_Integer CountNormals(const Handle(Poly_Triangulation)& theTriangulation
 //=======================================================================
 Handle(TColStd_HArray2OfReal) GenerateNormalsArray(
   const Handle(Poly_Triangulation)& theTriangulation,
-  const gp_Trsf&                    theTransformation)
+  const Transform3d&                    theTransformation)
 {
   const Standard_Integer aNormalCount = CountNormals(theTriangulation);
   if (aNormalCount == 0)
@@ -125,7 +125,7 @@ Handle(TColStd_HArray2OfReal) GenerateNormalsArray(
   else if (aNormalCount == 1)
   {
     Handle(TColStd_HArray2OfReal) aNormals = new TColStd_HArray2OfReal(1, 1, 1, 3);
-    const gp_Dir aNormal = theTriangulation->Normal(1).Transformed(theTransformation);
+    const Dir3d aNormal = theTriangulation->Normal(1).Transformed(theTransformation);
     aNormals->SetValue(1, 1, aNormal.X());
     aNormals->SetValue(1, 2, aNormal.Y());
     aNormals->SetValue(1, 3, aNormal.Z());
@@ -138,7 +138,7 @@ Handle(TColStd_HArray2OfReal) GenerateNormalsArray(
 
     for (Standard_Integer aNodeIndex = 1; aNodeIndex <= theTriangulation->NbNodes(); ++aNodeIndex)
     {
-      const gp_Dir aCurrentNormal =
+      const Dir3d aCurrentNormal =
         theTriangulation->Normal(aNodeIndex).Transformed(theTransformation);
       aNormals->SetValue(aNodeIndex, 1, aCurrentNormal.X());
       aNormals->SetValue(aNodeIndex, 2, aCurrentNormal.Y());
@@ -189,7 +189,7 @@ Handle(StepVisual_ComplexTriangulatedSurfaceSet) GenerateComplexTriangulatedSurf
   {
     return nullptr;
   }
-  const gp_Trsf aFaceTransform = aFaceLoc.Transformation();
+  const Transform3d aFaceTransform = aFaceLoc.Transformation();
 
   // coordinates
   Handle(StepVisual_CoordinatesList) aCoordinatesList =

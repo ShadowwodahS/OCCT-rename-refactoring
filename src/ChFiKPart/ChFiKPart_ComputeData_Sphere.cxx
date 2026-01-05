@@ -64,11 +64,11 @@ Standard_Boolean ChFiKPart_Sphere(TopOpeBRepDS_DataStructure&      DStr,
 
   Standard_Real ptol = Precision::Confusion();
   Point3d        p1, p2, p3;
-  gp_Vec        v1, v2;
+  Vector3d        v1, v2;
   S1->D1(PS1.X(), PS1.Y(), p1, v1, v2);
-  gp_Dir ds1(v1.Crossed(v2));
-  gp_Dir df1   = ds1;
-  gp_Dir dnat1 = ds1;
+  Dir3d ds1(v1.Crossed(v2));
+  Dir3d df1   = ds1;
+  Dir3d dnat1 = ds1;
   if (Or1 == TopAbs_REVERSED)
     ds1.Reverse();
   if (OrFace1 == TopAbs_REVERSED)
@@ -76,16 +76,16 @@ Standard_Boolean ChFiKPart_Sphere(TopOpeBRepDS_DataStructure&      DStr,
   S2->D0(P1S2.X(), P1S2.Y(), p2);
   S2->D0(P2S2.X(), P2S2.Y(), p3);
   gp_Circ       ci    = gce_MakeCirc(p1, p2, p3);
-  gp_Dir        di    = ci.Axis().Direction();
+  Dir3d        di    = ci.Axis().Direction();
   Point3d        pp    = ci.Location();
   Standard_Real rr    = ci.Radius();
   Standard_Real delta = sqrt(Rad * Rad - rr * rr);
   Point3d        cen(pp.X() + delta * di.X(), pp.Y() + delta * di.Y(), pp.Z() + delta * di.Z());
-  gp_Dir        dz(gp_Vec(p1, cen));
+  Dir3d        dz(Vector3d(p1, cen));
   if (Abs(ds1.Dot(dz) - 1.) > ptol)
   {
     cen.SetCoord(pp.X() - delta * di.X(), pp.Y() - delta * di.Y(), pp.Z() - delta * di.Z());
-    dz = gp_Dir(gp_Vec(p1, cen));
+    dz = Dir3d(Vector3d(p1, cen));
     if (Abs(ds1.Dot(dz) - 1.) > ptol)
     {
 #ifdef OCCT_DEBUG
@@ -94,11 +94,11 @@ Standard_Boolean ChFiKPart_Sphere(TopOpeBRepDS_DataStructure&      DStr,
       return Standard_False;
     }
   }
-  gp_Dir ddx(gp_Vec(cen, p2));
-  gp_Dir dddx = ddx;
-  gp_Dir ddy(gp_Vec(cen, p3));
-  gp_Dir dx  = dz.Crossed(ddx.Crossed(dz));
-  gp_Dir ddz = dz.Reversed();
+  Dir3d ddx(Vector3d(cen, p2));
+  Dir3d dddx = ddx;
+  Dir3d ddy(Vector3d(cen, p3));
+  Dir3d dx  = dz.Crossed(ddx.Crossed(dz));
+  Dir3d ddz = dz.Reversed();
   gp_Ax3 FilAx3(cen, dz, dx);
   if (FilAx3.YDirection().Dot(ddy) <= 0.)
   {
@@ -149,8 +149,8 @@ Standard_Boolean ChFiKPart_Sphere(TopOpeBRepDS_DataStructure&      DStr,
   // The other side.
 
   Standard_Real ang = ddx.Angle(ddy);
-  gp_Dir        dci = ddx.Crossed(ddy);
-  gp_Ax2        axci(cen, dci, ddx);
+  Dir3d        dci = ddx.Crossed(ddy);
+  Frame3d        axci(cen, dci, ddx);
   gp_Circ       ci2(axci, Rad);
   C = new Geom_Circle(ci2);
   GeomAdaptor_Surface AS(gsph);
@@ -174,7 +174,7 @@ Standard_Boolean ChFiKPart_Sphere(TopOpeBRepDS_DataStructure&      DStr,
     C2d = ChFiKPart_PCurve(P1S2, P2S2, 0., ang);
   Point3d pp1;
   S2->D1(P1S2.X(), P1S2.Y(), pp1, v1, v2);
-  gp_Dir ds2(v1.Crossed(v2));
+  Dir3d ds2(v1.Crossed(v2));
   toreverse = (ds2.Dot(dddx) <= 0.);
   trans     = TopAbs_REVERSED;
   if (!toreverse)

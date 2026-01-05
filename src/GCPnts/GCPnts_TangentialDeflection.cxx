@@ -41,8 +41,8 @@ inline static void D0(const Adaptor3d_Curve& C, const Standard_Real U, Point3d& 
 inline static void D2(const Adaptor3d_Curve& C,
                       const Standard_Real    U,
                       Point3d&                P,
-                      gp_Vec&                V1,
-                      gp_Vec&                V2)
+                      Vector3d&                V1,
+                      Vector3d&                V2)
 {
   C.D2(U, P, V1, V2);
 }
@@ -59,8 +59,8 @@ static void D0(const Adaptor2d_Curve2d& C, const Standard_Real U, Point3d& PP)
 static void D2(const Adaptor2d_Curve2d& C,
                const Standard_Real      U,
                Point3d&                  PP,
-               gp_Vec&                  VV1,
-               gp_Vec&                  VV2)
+               Vector3d&                  VV1,
+               Vector3d&                  VV2)
 {
   Standard_Real X, Y;
   gp_Pnt2d      P;
@@ -76,7 +76,7 @@ static void D2(const Adaptor2d_Curve2d& C,
 
 static Standard_Real EstimAngl(const Point3d& P1, const Point3d& Pm, const Point3d& P2)
 {
-  gp_Vec        V1(P1, Pm), V2(Pm, P2);
+  Vector3d        V1(P1, Pm), V2(Pm, P2);
   Standard_Real L = V1.Magnitude() * V2.Magnitude();
   if (L > gp::Resolution())
   {
@@ -313,7 +313,7 @@ void GCPnts_TangentialDeflection::EvaluateDu(const TheCurve&     theC,
                                              Standard_Real&      theDu,
                                              Standard_Boolean&   theNotDone) const
 {
-  gp_Vec T, N;
+  Vector3d T, N;
   D2(theC, theU, theP, T, N);
   Standard_Real           Lt   = T.Magnitude();
   constexpr Standard_Real LTol = Precision::Confusion();

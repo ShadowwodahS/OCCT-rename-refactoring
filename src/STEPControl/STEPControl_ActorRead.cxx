@@ -363,7 +363,7 @@ Handle(Transfer_Binder) STEPControl_ActorRead::Transfer(const Handle(RefObject)&
 // ============================================================================
 // auxiliary function : ApplyTransformation
 // ============================================================================
-static void ApplyTransformation(TopoDS_Shape& shape, const gp_Trsf& Trsf)
+static void ApplyTransformation(TopoDS_Shape& shape, const Transform3d& Trsf)
 {
   if (Trsf.Form() == gp_Identity)
     return;
@@ -750,7 +750,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
   Handle(TransferBRep_ShapeBinder)    shbinder;
   Handle(StepBasic_ProductDefinition) PD;
   const Interface_Graph&              graph = TP->Graph();
-  gp_Trsf                             Trsf;
+  Transform3d                             Trsf;
   Standard_Boolean iatrsf = Standard_False, SRRReversed = Standard_False, IsDepend = Standard_False;
   Handle(StepRepr_ShapeRepresentationRelationship) SRR;
   Interface_EntityIterator                         subs1 = graph.Sharings(NAUO);
@@ -917,7 +917,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
   myNMTool.SetActive(!isManifold && isNMMode);
   // [END] Proceed with non-manifold topology (ssv; 12.11.2010)
 
-  gp_Trsf                    aTrsf;
+  Transform3d                    aTrsf;
   Message_ProgressScope      aPSRoot(theProgress, "Sub-assembly", isManifold ? 1 : 2);
   Message_ProgressScope      aPS(aPSRoot.Next(), "Transfer", nb);
   TopTools_IndexedMapOfShape aCompoundedShapes;
@@ -954,7 +954,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
           Handle(Geom_Axis2Placement) aTargAP = StepToGeom::MakeAxis2Placement(aCS, aLocalFactors);
           if (!aTargAP.IsNull())
           {
-            const gp_Ax3 ax3Orig(Point3d(0., 0., 0), gp_Vec(0., 0., 1.), gp_Vec(1., 0., 0.));
+            const gp_Ax3 ax3Orig(Point3d(0., 0., 0), Vector3d(0., 0., 1.), Vector3d(1., 0., 0.));
             const gp_Ax3 ax3Targ(aTargAP->Ax2());
             if (ax3Targ.Location().SquareDistance(ax3Orig.Location()) < Precision::SquareConfusion()
                 && ax3Targ.Direction().IsEqual(ax3Orig.Direction(), Precision::Angular())
@@ -1139,7 +1139,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
 
   TopoDS_Shape theResult;
 
-  gp_Trsf          Trsf;
+  Transform3d          Trsf;
   Standard_Boolean iatrsf = ComputeSRRWT(SRR, TP, Trsf, theLocalFactors);
 
   Handle(Transfer_Binder) binder;
@@ -1192,7 +1192,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
   B.MakeCompound(Cund);
   Standard_Integer nsh = 0;
 
-  gp_Trsf          Trsf;
+  Transform3d          Trsf;
   Standard_Boolean iatrsf = ComputeSRRWT(und, TP, Trsf, theLocalFactors);
 
   //    Transfert : que faut-il prendre au juste ?
@@ -1758,7 +1758,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
       //  1/ Ax2 dans Source et comme Target  : passage de Source a Target
       //  2/ CartesianOperator3d comme Target : on applique
 
-      gp_Trsf          Trsf;
+      Transform3d          Trsf;
       Standard_Boolean ok = Standard_False;
 
       Handle(StepGeom_CartesianTransformationOperator3d) CartOp =
@@ -2132,10 +2132,10 @@ Standard_Boolean STEPControl_ActorRead::ComputeTransformation(
   const Handle(StepRepr_Representation)&   OrigContext,
   const Handle(StepRepr_Representation)&   TargContext,
   const Handle(Transfer_TransientProcess)& TP,
-  gp_Trsf&                                 Trsf,
+  Transform3d&                                 Trsf,
   const StepData_Factors&                  theLocalFactors)
 {
-  Trsf = gp_Trsf(); // reinit
+  Trsf = Transform3d(); // reinit
   if (Origin.IsNull() || Target.IsNull())
     return Standard_False;
 
@@ -2200,10 +2200,10 @@ Standard_Boolean STEPControl_ActorRead::ComputeTransformation(
 Standard_Boolean STEPControl_ActorRead::ComputeSRRWT(
   const Handle(StepRepr_RepresentationRelationship)& SRR,
   const Handle(Transfer_TransientProcess)&           TP,
-  gp_Trsf&                                           Trsf,
+  Transform3d&                                           Trsf,
   const StepData_Factors&                            theLocalFactors)
 {
-  Trsf = gp_Trsf(); // init
+  Trsf = Transform3d(); // init
 
   DeclareAndCast(StepRepr_ShapeRepresentationRelationshipWithTransformation, srwt, SRR);
   if (srwt.IsNull())

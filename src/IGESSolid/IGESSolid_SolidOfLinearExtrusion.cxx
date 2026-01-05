@@ -45,21 +45,21 @@ Standard_Real IGESSolid_SolidOfLinearExtrusion::ExtrusionLength() const
   return theLength;
 }
 
-gp_Dir IGESSolid_SolidOfLinearExtrusion::ExtrusionDirection() const
+Dir3d IGESSolid_SolidOfLinearExtrusion::ExtrusionDirection() const
 {
-  return gp_Dir(theDirection);
+  return Dir3d(theDirection);
 }
 
-gp_Dir IGESSolid_SolidOfLinearExtrusion::TransformedExtrusionDirection() const
+Dir3d IGESSolid_SolidOfLinearExtrusion::TransformedExtrusionDirection() const
 {
   if (!HasTransf())
-    return gp_Dir(theDirection);
+    return Dir3d(theDirection);
   else
   {
     gp_XYZ   tmp = theDirection;
     gp_GTrsf loc = Location();
     loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
     loc.Transforms(tmp);
-    return gp_Dir(tmp);
+    return Dir3d(tmp);
   }
 }

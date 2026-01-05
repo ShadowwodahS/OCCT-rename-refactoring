@@ -115,8 +115,8 @@ void MeshTest_CheckTopology::Perform(Draw_Interpretor& di)
       Standard_Integer iF2    = aMapF.FindIndex(aFace2);
       Standard_Integer i1     = aNodes1.Lower();
       Standard_Integer i2     = aNodes2.Lower();
-      const gp_Trsf&   aTrsf1 = aFace1.Location().Transformation();
-      const gp_Trsf&   aTrsf2 = aFace2.Location().Transformation();
+      const Transform3d&   aTrsf1 = aFace1.Location().Transformation();
+      const Transform3d&   aTrsf2 = aFace2.Location().Transformation();
       for (; i1 <= aNodes1.Upper(); i1++, i2++)
       {
         const Point3d        aP1     = aT1->Node(aNodes1[i1]).Transformed(aTrsf1);
@@ -147,7 +147,7 @@ void MeshTest_CheckTopology::Perform(Draw_Interpretor& di)
       continue;
     }
 
-    const gp_Trsf& aTrsf = aLoc.Transformation();
+    const Transform3d& aTrsf = aLoc.Transformation();
 
     // remember boundary nodes
     TColStd_PackedMapOfInteger aMapBndNodes;

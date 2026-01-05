@@ -167,10 +167,10 @@ void IntPolyh_Tools::FillArrayOfPointNormal(const Handle(Adaptor3d_Surface)& the
       Standard_Real aV = theVPars(j);
       // Compute the point
       Point3d aP;
-      gp_Vec aDU, aDV;
+      Vector3d aDU, aDV;
       theSurf->D1(aU, aV, aP, aDU, aDV);
       // Compute normal
-      gp_Vec        aVNorm  = aDU.Crossed(aDV);
+      Vector3d        aVNorm  = aDU.Crossed(aDV);
       Standard_Real aLength = aVNorm.Magnitude();
       if (aLength > gp::Resolution())
       {

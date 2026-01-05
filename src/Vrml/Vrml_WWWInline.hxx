@@ -45,28 +45,28 @@ public:
   Standard_EXPORT Vrml_WWWInline();
 
   Standard_EXPORT Vrml_WWWInline(const TCollection_AsciiString& aName,
-                                 const gp_Vec&                  aBboxSize,
-                                 const gp_Vec&                  aBboxCenter);
+                                 const Vector3d&                  aBboxSize,
+                                 const Vector3d&                  aBboxCenter);
 
   Standard_EXPORT void SetName(const TCollection_AsciiString& aName);
 
   Standard_EXPORT TCollection_AsciiString Name() const;
 
-  Standard_EXPORT void SetBboxSize(const gp_Vec& aBboxSize);
+  Standard_EXPORT void SetBboxSize(const Vector3d& aBboxSize);
 
-  Standard_EXPORT gp_Vec BboxSize() const;
+  Standard_EXPORT Vector3d BboxSize() const;
 
-  Standard_EXPORT void SetBboxCenter(const gp_Vec& aBboxCenter);
+  Standard_EXPORT void SetBboxCenter(const Vector3d& aBboxCenter);
 
-  Standard_EXPORT gp_Vec BboxCenter() const;
+  Standard_EXPORT Vector3d BboxCenter() const;
 
   Standard_EXPORT Standard_OStream& Print(Standard_OStream& anOStream) const;
 
 protected:
 private:
   TCollection_AsciiString myName;
-  gp_Vec                  myBboxSize;
-  gp_Vec                  myBboxCenter;
+  Vector3d                  myBboxSize;
+  Vector3d                  myBboxCenter;
 };
 
 #endif // _Vrml_WWWInline_HeaderFile

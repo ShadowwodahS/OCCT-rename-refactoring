@@ -78,7 +78,7 @@ Standard_Boolean StlAPI_Writer::Write(const TopoDS_Shape&          theShape,
     }
 
     // copy nodes
-    gp_Trsf aTrsf = aLoc.Transformation();
+    Transform3d aTrsf = aLoc.Transformation();
     for (Standard_Integer aNodeIter = 1; aNodeIter <= aTriangulation->NbNodes(); ++aNodeIter)
     {
       Point3d aPnt = aTriangulation->Node(aNodeIter);

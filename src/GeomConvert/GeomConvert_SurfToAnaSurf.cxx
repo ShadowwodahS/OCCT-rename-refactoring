@@ -68,7 +68,7 @@ void GeomConvert_SurfToAnaSurf::CheckVTrimForRevSurf(
   Handle(Geom_Line)         aLine = Handle(Geom_Line)::DownCast(aBC);
   if (aLine.IsNull())
     return;
-  const gp_Ax1& anAxis = aRevSurf->Axis();
+  const Axis3d& anAxis = aRevSurf->Axis();
 
   gp_Lin         anALin(anAxis);
   Extrema_ExtElC anExtLL(aLine->Lin(), anALin, Precision::Angular());
@@ -126,7 +126,7 @@ Handle(Geom_Surface) GeomConvert_SurfToAnaSurf::TryCylinerCone(const Handle(Geom
   Standard_Real        param1, param2, cf1, cf2, cl1, cl2, aGap1, aGap2;
   Handle(Geom_Curve)   firstiso, lastiso;
   Handle(Geom_Circle)  firstisocirc, lastisocirc, midisocirc;
-  gp_Dir               isoline;
+  Dir3d               isoline;
   if (theVCase)
   {
     param1     = theU1;
@@ -194,7 +194,7 @@ Handle(Geom_Surface) GeomConvert_SurfToAnaSurf::TryCylinerCone(const Handle(Geom
     // cylinder
     if (((Abs(R2 - R1)) < theToler) && ((Abs(R3 - R1)) < theToler) && ((Abs(R3 - R2)) < theToler))
     {
-      gp_Ax3 Axes(P1, gp_Dir(gp_Vec(P1, P3)));
+      gp_Ax3 Axes(P1, Dir3d(Vector3d(P1, P3)));
       aNewSurf = new Geom_CylindricalSurface(Axes, R1);
     }
     // cone
@@ -203,18 +203,18 @@ Handle(Geom_Surface) GeomConvert_SurfToAnaSurf::TryCylinerCone(const Handle(Geom
     {
       Standard_Real radius;
       gp_Ax3        Axes;
-      Standard_Real semiangle = gp_Vec(isoline).Angle(gp_Vec(P3, P1));
+      Standard_Real semiangle = Vector3d(isoline).Angle(Vector3d(P3, P1));
       if (semiangle > M_PI / 2)
         semiangle = M_PI - semiangle;
       if (R1 > R3)
       {
         radius = R3;
-        Axes   = gp_Ax3(P3, gp_Dir(gp_Vec(P3, P1)));
+        Axes   = gp_Ax3(P3, Dir3d(Vector3d(P3, P1)));
       }
       else
       {
         radius = R1;
-        Axes   = gp_Ax3(P1, gp_Dir(gp_Vec(P1, P3)));
+        Axes   = gp_Ax3(P1, Dir3d(Vector3d(P1, P3)));
       }
       aNewSurf = new Geom_ConicalSurface(Axes, semiangle, radius);
     }
@@ -235,10 +235,10 @@ static void GetLSGap(const Handle(TColgp_HArray1OfXYZ)& thePoints,
   theGap = 0.;
   Standard_Integer i;
   gp_XYZ           aLoc = thePos.Location().XYZ();
-  gp_Dir           aDir = thePos.Direction();
+  Dir3d           aDir = thePos.Direction();
   for (i = thePoints->Lower(); i <= thePoints->Upper(); ++i)
   {
-    gp_Vec aD(thePoints->Value(i) - aLoc);
+    Vector3d aD(thePoints->Value(i) - aLoc);
     aD.Cross(aDir);
     theGap = Max(theGap, Abs((aD.Magnitude() - theR)));
   }
@@ -316,15 +316,15 @@ Standard_Boolean GeomConvert_SurfToAnaSurf::GetCylByLS(const Handle(TColgp_HArra
 
   // Set search direction for location to be perpendicular to axis to avoid
   // searching along axis
-  const gp_Dir aDir = thePos.Direction();
+  const Dir3d aDir = thePos.Direction();
   gp_Pln       aPln(thePos.Location(), aDir);
-  gp_Dir       aUDir = aPln.Position().XDirection();
-  gp_Dir       aVDir = aPln.Position().YDirection();
+  Dir3d       aUDir = aPln.Position().XDirection();
+  Dir3d       aVDir = aPln.Position().YDirection();
   for (i = 1; i <= 3; ++i)
   {
     aDirMatrix(i, 1) = aUDir.Coord(i);
     aDirMatrix(i, 2) = aVDir.Coord(i);
-    gp_Dir aUVDir(aUDir.XYZ() + aVDir.XYZ());
+    Dir3d aUVDir(aUDir.XYZ() + aVDir.XYZ());
     aDirMatrix(i, 3) = aUVDir.Coord(i);
   }
 
@@ -386,7 +386,7 @@ Handle(Geom_Surface) GeomConvert_SurfToAnaSurf::TryCylinderByGaussField(
   GeomLProp_SLProps aProps(theSurf, 2, Precision::Confusion());
   Standard_Real     anAvMaxCurv = 0., anAvMinCurv = 0., anAvR = 0, aSign = 1.;
   gp_XYZ            anAvDir;
-  gp_Dir            aMinD, aMaxD;
+  Dir3d            aMinD, aMaxD;
   Standard_Integer  i, j, n = 0;
   Standard_Real     anU, aV;
   for (i = 1, anU = theU1 + du / 2.; i <= theNbU; ++i, anU += du)
@@ -420,7 +420,7 @@ Handle(Geom_Surface) GeomConvert_SurfToAnaSurf::TryCylinderByGaussField(
         // aMinCurv < 0;
         aSign = -1.;
         std::swap(aMinCurv, aMaxCurv);
-        gp_Dir aDummy = aMaxD;
+        Dir3d aDummy = aMaxD;
         aMaxD         = aMinD;
         aMinD         = aDummy;
       }
@@ -476,12 +476,12 @@ Handle(Geom_Surface) GeomConvert_SurfToAnaSurf::TryCylinderByGaussField(
   {
     return aNewSurf;
   }
-  gp_Dir aNorm = aProps.Normal();
+  Dir3d aNorm = aProps.Normal();
   Point3d aLoc  = aProps.Value();
-  gp_Dir anAxD(anAvDir);
-  gp_Vec aT(aSign * anAvR * aNorm.XYZ());
+  Dir3d anAxD(anAvDir);
+  Vector3d aT(aSign * anAvR * aNorm.XYZ());
   aLoc.Translate(aT);
-  gp_Ax1      anAx1(aLoc, anAxD);
+  Axis3d      anAx1(aLoc, anAxD);
   gp_Cylinder aCyl;
   aCyl.SetAxis(anAx1);
   aCyl.SetRadius(anAvR);
@@ -587,7 +587,7 @@ Handle(Geom_Surface) GeomConvert_SurfToAnaSurf::TryTorusSphere(
   if (d0 < toler || d1 < toler)
   {
     // compute sphere
-    gp_Dir                        MainDir = otherCircle->Circ().Axis().Direction();
+    Dir3d                        MainDir = otherCircle->Circ().Axis().Direction();
     gp_Ax3                        Axes(circle->Circ().Location(), MainDir);
     Handle(Geom_SphericalSurface) anObject = new Geom_SphericalSurface(Axes, R);
     if (!anObject.IsNull())
@@ -601,7 +601,7 @@ Handle(Geom_Surface) GeomConvert_SurfToAnaSurf::TryTorusSphere(
 
   Standard_Real aMajorR = circ.Radius();
   Point3d        aCenter = circ.Location();
-  gp_Dir        aDir((aPnt1.XYZ() - aCenter.XYZ()) ^ (aPnt3.XYZ() - aCenter.XYZ()));
+  Dir3d        aDir((aPnt1.XYZ() - aCenter.XYZ()) ^ (aPnt3.XYZ() - aCenter.XYZ()));
   gp_Ax3        anAx3(aCenter, aDir);
   newSurface = new Geom_ToroidalSurface(anAx3, aMajorR, R);
   return newSurface;

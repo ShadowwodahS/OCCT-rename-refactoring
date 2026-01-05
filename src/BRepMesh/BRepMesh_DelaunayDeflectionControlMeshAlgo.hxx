@@ -140,7 +140,7 @@ private:
   class NormalDeviation
   {
   public:
-    NormalDeviation(const Point3d& theRefPnt, const gp_Vec& theNormal)
+    NormalDeviation(const Point3d& theRefPnt, const Vector3d& theNormal)
         : myRefPnt(theRefPnt),
           myNormal(theNormal)
     {
@@ -148,7 +148,7 @@ private:
 
     Standard_Real SquareDeviation(const Point3d& thePoint) const
     {
-      const Standard_Real aDeflection = Abs(myNormal.Dot(gp_Vec(myRefPnt, thePoint)));
+      const Standard_Real aDeflection = Abs(myNormal.Dot(Vector3d(myRefPnt, thePoint)));
       return aDeflection * aDeflection;
     }
 
@@ -159,7 +159,7 @@ private:
 
   private:
     const Point3d& myRefPnt;
-    const gp_Vec& myNormal;
+    const Vector3d& myNormal;
   };
 
   //! Functor computing deflection of a point on triangle link from surface.
@@ -215,8 +215,8 @@ private:
       TriangleNodeInfo aNodesInfo[3];
       getTriangleInfo(theTriangle, aNodexIndices, aNodesInfo);
 
-      gp_Vec aNormal;
-      gp_Vec aLinkVec[3];
+      Vector3d aNormal;
+      Vector3d aLinkVec[3];
       if (computeTriangleGeometry(aNodesInfo, aLinkVec, aNormal))
       {
         myIsAllDegenerated = Standard_False;
@@ -233,8 +233,8 @@ private:
   //! Updates array of links vectors.
   //! @return False on degenerative triangle.
   Standard_Boolean computeTriangleGeometry(const TriangleNodeInfo (&theNodesInfo)[3],
-                                           gp_Vec (&theLinks)[3],
-                                           gp_Vec& theNormal)
+                                           Vector3d (&theLinks)[3],
+                                           Vector3d& theNormal)
   {
     if (checkTriangleForDegenerativityAndGetLinks(theNodesInfo, theLinks))
     {
@@ -254,7 +254,7 @@ private:
   //! @return False on degenerative triangle.
   Standard_Boolean checkTriangleForDegenerativityAndGetLinks(
     const TriangleNodeInfo (&theNodesInfo)[3],
-    gp_Vec (&theLinks)[3])
+    Vector3d (&theLinks)[3])
   {
     const Standard_Real MinimalSqLength3d = 1.e-12;
     for (Standard_Integer i = 0; i < 3; ++i)
@@ -282,9 +282,9 @@ private:
 
   //! Computes normal using two link vectors.
   //! @return True on success, False in case of normal of null magnitude.
-  Standard_Boolean computeNormal(const gp_Vec& theLink1, const gp_Vec& theLink2, gp_Vec& theNormal)
+  Standard_Boolean computeNormal(const Vector3d& theLink1, const Vector3d& theLink2, Vector3d& theNormal)
   {
-    const gp_Vec aNormal(theLink1 ^ theLink2);
+    const Vector3d aNormal(theLink1 ^ theLink2);
     if (aNormal.SquareMagnitude() > gp::Resolution())
     {
       theNormal = aNormal.Normalized();
@@ -356,7 +356,7 @@ private:
                                                     const TriangleNodeInfo& theNodeInfo2,
                                                     const gp_XY& /*theMidPoint*/)
   {
-    gp_Dir                      aNorm1, aNorm2;
+    Dir3d                      aNorm1, aNorm2;
     const Handle(Geom_Surface)& aSurf = this->getDFace()->GetSurface()->Surface().Surface();
 
     if ((GeomLib::NormEstim(aSurf, theNodeInfo1.Point2d, Precision::Confusion(), aNorm1) == 0)

@@ -41,7 +41,7 @@ Handle(Geom_Geometry) Geom_Line::Copy() const
 
 //=================================================================================================
 
-Geom_Line::Geom_Line(const gp_Ax1& A)
+Geom_Line::Geom_Line(const Axis3d& A)
     : pos(A)
 {
 }
@@ -55,7 +55,7 @@ Geom_Line::Geom_Line(const gp_Lin& L)
 
 //=================================================================================================
 
-Geom_Line::Geom_Line(const Point3d& P, const gp_Dir& V)
+Geom_Line::Geom_Line(const Point3d& P, const Dir3d& V)
     : pos(P, V)
 {
 }
@@ -76,7 +76,7 @@ Standard_Real Geom_Line::ReversedParameter(const Standard_Real U) const
 
 //=================================================================================================
 
-void Geom_Line::SetDirection(const gp_Dir& V)
+void Geom_Line::SetDirection(const Dir3d& V)
 {
   pos.SetDirection(V);
 }
@@ -97,14 +97,14 @@ void Geom_Line::SetLocation(const Point3d& P)
 
 //=================================================================================================
 
-void Geom_Line::SetPosition(const gp_Ax1& A1)
+void Geom_Line::SetPosition(const Axis3d& A1)
 {
   pos = A1;
 }
 
 //=================================================================================================
 
-const gp_Ax1& Geom_Line::Position() const
+const Axis3d& Geom_Line::Position() const
 {
   return pos;
 }
@@ -160,7 +160,7 @@ Standard_Boolean Geom_Line::IsCN(const Standard_Integer) const
 
 //=================================================================================================
 
-void Geom_Line::Transform(const gp_Trsf& T)
+void Geom_Line::Transform(const Transform3d& T)
 {
   pos.Transform(T);
 }
@@ -174,7 +174,7 @@ void Geom_Line::D0(const Standard_Real U, Point3d& P) const
 
 //=================================================================================================
 
-void Geom_Line::D1(const Standard_Real U, Point3d& P, gp_Vec& V1) const
+void Geom_Line::D1(const Standard_Real U, Point3d& P, Vector3d& V1) const
 {
 
   ElCLib::LineD1(U, pos, P, V1);
@@ -182,7 +182,7 @@ void Geom_Line::D1(const Standard_Real U, Point3d& P, gp_Vec& V1) const
 
 //=================================================================================================
 
-void Geom_Line::D2(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2) const
+void Geom_Line::D2(const Standard_Real U, Point3d& P, Vector3d& V1, Vector3d& V2) const
 {
 
   ElCLib::LineD1(U, pos, P, V1);
@@ -191,7 +191,7 @@ void Geom_Line::D2(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2) co
 
 //=================================================================================================
 
-void Geom_Line::D3(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2, gp_Vec& V3) const
+void Geom_Line::D3(const Standard_Real U, Point3d& P, Vector3d& V1, Vector3d& V2, Vector3d& V3) const
 {
 
   ElCLib::LineD1(U, pos, P, V1);
@@ -201,19 +201,19 @@ void Geom_Line::D3(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2, gp
 
 //=================================================================================================
 
-gp_Vec Geom_Line::DN(const Standard_Real, const Standard_Integer N) const
+Vector3d Geom_Line::DN(const Standard_Real, const Standard_Integer N) const
 {
 
   Standard_RangeError_Raise_if(N <= 0, " ");
   if (N == 1)
-    return gp_Vec(pos.Direction());
+    return Vector3d(pos.Direction());
   else
-    return gp_Vec(0.0, 0.0, 0.0);
+    return Vector3d(0.0, 0.0, 0.0);
 }
 
 //=================================================================================================
 
-Standard_Real Geom_Line::TransformedParameter(const Standard_Real U, const gp_Trsf& T) const
+Standard_Real Geom_Line::TransformedParameter(const Standard_Real U, const Transform3d& T) const
 {
   if (Precision::IsInfinite(U))
     return U;
@@ -222,7 +222,7 @@ Standard_Real Geom_Line::TransformedParameter(const Standard_Real U, const gp_Tr
 
 //=================================================================================================
 
-Standard_Real Geom_Line::ParametricTransformation(const gp_Trsf& T) const
+Standard_Real Geom_Line::ParametricTransformation(const Transform3d& T) const
 {
   return Abs(T.ScaleFactor());
 }

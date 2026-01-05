@@ -26,7 +26,7 @@
 //   Creation d une Ellipse 3d de gp a partir de son Ax2 et de son        +
 //   grand rayon <MajorRadius> et son petit rayon <MinorRadius>.          +
 //=========================================================================
-gce_MakeElips::gce_MakeElips(const gp_Ax2&       A2,
+gce_MakeElips::gce_MakeElips(const Frame3d&       A2,
                              const Standard_Real MajorRadius,
                              const Standard_Real MinorRadius)
 {
@@ -60,7 +60,7 @@ gce_MakeElips::gce_MakeElips(const Point3d& S1, const Point3d& S2, const Point3d
   }
   else
   {
-    gp_Dir        XAxis(gp_XYZ(S1.XYZ() - Center.XYZ()));
+    Dir3d        XAxis(gp_XYZ(S1.XYZ() - Center.XYZ()));
     Standard_Real D2 = gp_Lin(Center, XAxis).Distance(S2);
     if (D1 < D2 || D2 < gp::Resolution())
     {
@@ -68,8 +68,8 @@ gce_MakeElips::gce_MakeElips(const Point3d& S1, const Point3d& S2, const Point3d
     }
     else
     {
-      gp_Dir Norm(XAxis.Crossed(gp_Dir(gp_XYZ(S2.XYZ() - Center.XYZ()))));
-      TheElips = gp_Elips(gp_Ax2(Center, Norm, XAxis), D1, D2);
+      Dir3d Norm(XAxis.Crossed(Dir3d(gp_XYZ(S2.XYZ() - Center.XYZ()))));
+      TheElips = gp_Elips(Frame3d(Center, Norm, XAxis), D1, D2);
       TheError = gce_Done;
     }
   }

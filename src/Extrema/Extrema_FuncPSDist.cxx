@@ -55,10 +55,10 @@ Standard_Boolean Extrema_FuncPSDist::Gradient(const math_Vector& X, math_Vector&
     return Standard_False;
 
   Point3d aP;
-  gp_Vec Du1s, Dv1s;
+  Vector3d Du1s, Dv1s;
   mySurf.D1(X(1), X(2), aP, Du1s, Dv1s);
 
-  gp_Vec P1P2(aP, myP);
+  Vector3d P1P2(aP, myP);
 
   G(1) = P1P2.Dot(Du1s);
   G(2) = P1P2.Dot(Dv1s);
@@ -74,10 +74,10 @@ Standard_Boolean Extrema_FuncPSDist::Values(const math_Vector& X, Standard_Real&
     return Standard_False;
 
   Point3d aP;
-  gp_Vec Du1s, Dv1s;
+  Vector3d Du1s, Dv1s;
   mySurf.D1(X(1), X(2), aP, Du1s, Dv1s);
 
-  gp_Vec P1P2(aP, myP);
+  Vector3d P1P2(aP, myP);
 
   G(1) = P1P2.Dot(Du1s);
   G(2) = P1P2.Dot(Dv1s);

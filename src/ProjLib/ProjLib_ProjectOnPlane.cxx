@@ -54,7 +54,7 @@ const Standard_Real aHyperbolaLimit = 10.;
 static Point3d OnPlane_Value(const Standard_Real            U,
                             const Handle(Adaptor3d_Curve)& aCurvePtr,
                             const gp_Ax3&                  Pl,
-                            const gp_Dir&                  D)
+                            const Dir3d&                  D)
 {
   //                   PO . Z                /  Z = Pl.Direction()
   // Proj(u) = P(u) + -------  * D     avec  \  O = Pl.Location()
@@ -62,9 +62,9 @@ static Point3d OnPlane_Value(const Standard_Real            U,
 
   Point3d Point = aCurvePtr->Value(U);
 
-  gp_Vec PO(Point, Pl.Location());
+  Vector3d PO(Point, Pl.Location());
 
-  Standard_Real Alpha = PO * gp_Vec(Pl.Direction());
+  Standard_Real Alpha = PO * Vector3d(Pl.Direction());
   Alpha /= D * Pl.Direction();
   Point.SetXYZ(Point.XYZ() + Alpha * D.XYZ());
 
@@ -76,21 +76,21 @@ static Point3d OnPlane_Value(const Standard_Real            U,
 // purpose  : Evaluate current point of the projected curve
 //=======================================================================
 
-static gp_Vec OnPlane_DN(const Standard_Real            U,
+static Vector3d OnPlane_DN(const Standard_Real            U,
                          const Standard_Integer         DerivativeRequest,
                          const Handle(Adaptor3d_Curve)& aCurvePtr,
                          const gp_Ax3&                  Pl,
-                         const gp_Dir&                  D)
+                         const Dir3d&                  D)
 {
   //                   PO . Z                /  Z = Pl.Direction()
   // Proj(u) = P(u) + -------  * D     avec  \  O = Pl.Location()
   //                   D  . Z
 
-  gp_Vec Vector = aCurvePtr->DN(U, DerivativeRequest);
+  Vector3d Vector = aCurvePtr->DN(U, DerivativeRequest);
 
-  gp_Dir Z = Pl.Direction();
+  Dir3d Z = Pl.Direction();
 
-  Standard_Real Alpha = Vector * gp_Vec(Z);
+  Standard_Real Alpha = Vector * Vector3d(Z);
   Alpha /= D * Z;
 
   Vector.SetXYZ(Vector.XYZ() - Alpha * D.XYZ());
@@ -101,22 +101,22 @@ static gp_Vec OnPlane_DN(const Standard_Real            U,
 
 static Standard_Boolean OnPlane_D1(const Standard_Real            U,
                                    Point3d&                        P,
-                                   gp_Vec&                        V,
+                                   Vector3d&                        V,
                                    const Handle(Adaptor3d_Curve)& aCurvePtr,
                                    const gp_Ax3&                  Pl,
-                                   const gp_Dir&                  D)
+                                   const Dir3d&                  D)
 {
   Standard_Real Alpha;
   Point3d        Point;
-  gp_Vec        Vector;
+  Vector3d        Vector;
 
-  gp_Dir Z = Pl.Direction();
+  Dir3d Z = Pl.Direction();
 
   aCurvePtr->D1(U, Point, Vector);
 
   // evaluate the point as in `OnPlane_Value`
-  gp_Vec PO(Point, Pl.Location());
-  Alpha = PO * gp_Vec(Z);
+  Vector3d PO(Point, Pl.Location());
+  Alpha = PO * Vector3d(Z);
   Alpha /= D * Z;
   P.SetXYZ(Point.XYZ() + Alpha * D.XYZ());
 
@@ -127,7 +127,7 @@ static Standard_Boolean OnPlane_D1(const Standard_Real            U,
   //     dU     dU     ( D . Z)     dU
   //
 
-  Alpha = Vector * gp_Vec(Z);
+  Alpha = Vector * Vector3d(Z);
   Alpha /= D * Z;
 
   V.SetXYZ(Vector.XYZ() - Alpha * D.XYZ());
@@ -139,23 +139,23 @@ static Standard_Boolean OnPlane_D1(const Standard_Real            U,
 
 static Standard_Boolean OnPlane_D2(const Standard_Real            U,
                                    Point3d&                        P,
-                                   gp_Vec&                        V1,
-                                   gp_Vec&                        V2,
+                                   Vector3d&                        V1,
+                                   Vector3d&                        V2,
                                    const Handle(Adaptor3d_Curve)& aCurvePtr,
                                    const gp_Ax3&                  Pl,
-                                   const gp_Dir&                  D)
+                                   const Dir3d&                  D)
 {
   Standard_Real Alpha;
   Point3d        Point;
-  gp_Vec        Vector1, Vector2;
+  Vector3d        Vector1, Vector2;
 
-  gp_Dir Z = Pl.Direction();
+  Dir3d Z = Pl.Direction();
 
   aCurvePtr->D2(U, Point, Vector1, Vector2);
 
   // evaluate the point as in `OnPlane_Value`
-  gp_Vec PO(Point, Pl.Location());
-  Alpha = PO * gp_Vec(Z);
+  Vector3d PO(Point, Pl.Location());
+  Alpha = PO * Vector3d(Z);
   Alpha /= D * Z;
   P.SetXYZ(Point.XYZ() + Alpha * D.XYZ());
 
@@ -166,12 +166,12 @@ static Standard_Boolean OnPlane_D2(const Standard_Real            U,
   //     dU     dU     ( D . Z)     dU
   //
 
-  Alpha = Vector1 * gp_Vec(Z);
+  Alpha = Vector1 * Vector3d(Z);
   Alpha /= D * Z;
 
   V1.SetXYZ(Vector1.XYZ() - Alpha * D.XYZ());
 
-  Alpha = Vector2 * gp_Vec(Z);
+  Alpha = Vector2 * Vector3d(Z);
   Alpha /= D * Z;
 
   V2.SetXYZ(Vector2.XYZ() - Alpha * D.XYZ());
@@ -182,24 +182,24 @@ static Standard_Boolean OnPlane_D2(const Standard_Real            U,
 
 static Standard_Boolean OnPlane_D3(const Standard_Real            U,
                                    Point3d&                        P,
-                                   gp_Vec&                        V1,
-                                   gp_Vec&                        V2,
-                                   gp_Vec&                        V3,
+                                   Vector3d&                        V1,
+                                   Vector3d&                        V2,
+                                   Vector3d&                        V3,
                                    const Handle(Adaptor3d_Curve)& aCurvePtr,
                                    const gp_Ax3&                  Pl,
-                                   const gp_Dir&                  D)
+                                   const Dir3d&                  D)
 {
   Standard_Real Alpha;
   Point3d        Point;
-  gp_Vec        Vector1, Vector2, Vector3;
+  Vector3d        Vector1, Vector2, Vector3;
 
-  gp_Dir Z = Pl.Direction();
+  Dir3d Z = Pl.Direction();
 
   aCurvePtr->D3(U, Point, Vector1, Vector2, Vector3);
 
   // evaluate the point as in `OnPlane_Value`
-  gp_Vec PO(Point, Pl.Location());
-  Alpha = PO * gp_Vec(Z);
+  Vector3d PO(Point, Pl.Location());
+  Alpha = PO * Vector3d(Z);
   Alpha /= D * Z;
   P.SetXYZ(Point.XYZ() + Alpha * D.XYZ());
 
@@ -210,16 +210,16 @@ static Standard_Boolean OnPlane_D3(const Standard_Real            U,
   //     dU     dU     ( D . Z)     dU
   //
 
-  Alpha = Vector1 * gp_Vec(Z);
+  Alpha = Vector1 * Vector3d(Z);
   Alpha /= D * Z;
 
   V1.SetXYZ(Vector1.XYZ() - Alpha * D.XYZ());
 
-  Alpha = Vector2 * gp_Vec(Z);
+  Alpha = Vector2 * Vector3d(Z);
   Alpha /= D * Z;
 
   V2.SetXYZ(Vector2.XYZ() - Alpha * D.XYZ());
-  Alpha = Vector3 * gp_Vec(Z);
+  Alpha = Vector3 * Vector3d(Z);
   Alpha /= D * Z;
 
   V3.SetXYZ(Vector3.XYZ() - Alpha * D.XYZ());
@@ -236,10 +236,10 @@ class ProjLib_OnPlane : public AppCont_Function
 {
   Handle(Adaptor3d_Curve) myCurve;
   gp_Ax3                  myPlane;
-  gp_Dir                  myDirection;
+  Dir3d                  myDirection;
 
 public:
-  ProjLib_OnPlane(const Handle(Adaptor3d_Curve)& C, const gp_Ax3& Pl, const gp_Dir& D)
+  ProjLib_OnPlane(const Handle(Adaptor3d_Curve)& C, const gp_Ax3& Pl, const Dir3d& D)
       : myCurve(C),
         myPlane(Pl),
         myDirection(D)
@@ -262,7 +262,7 @@ public:
 
   Standard_Boolean D1(const Standard_Real theT,
                       NCollection_Array1<gp_Vec2d>& /*theVec2d*/,
-                      NCollection_Array1<gp_Vec>& theVec) const
+                      NCollection_Array1<Vector3d>& theVec) const
   {
     Point3d aDummyPnt;
     return OnPlane_D1(theT, aDummyPnt, theVec(1), myCurve, myPlane, myDirection);
@@ -308,7 +308,7 @@ private:
 
 static void PerformApprox(const Handle(Adaptor3d_Curve)& C,
                           const gp_Ax3&                  Pl,
-                          const gp_Dir&                  D,
+                          const Dir3d&                  D,
                           Handle(Geom_BSplineCurve)&     BSplineCurvePtr)
 
 {
@@ -451,7 +451,7 @@ ProjLib_ProjectOnPlane::ProjLib_ProjectOnPlane(const gp_Ax3& Pl)
 
 //=================================================================================================
 
-ProjLib_ProjectOnPlane::ProjLib_ProjectOnPlane(const gp_Ax3& Pl, const gp_Dir& D)
+ProjLib_ProjectOnPlane::ProjLib_ProjectOnPlane(const gp_Ax3& Pl, const Dir3d& D)
     : myPlane(Pl),
       myDirection(D),
       myKeepParam(Standard_False),
@@ -499,11 +499,11 @@ Handle(Adaptor3d_Curve) ProjLib_ProjectOnPlane::ShallowCopy() const
 //           <ThePlane>  along a direction <TheDir>.
 //=======================================================================
 
-static Point3d ProjectPnt(const gp_Ax3& ThePlane, const gp_Dir& TheDir, const Point3d& Point)
+static Point3d ProjectPnt(const gp_Ax3& ThePlane, const Dir3d& TheDir, const Point3d& Point)
 {
-  gp_Vec PO(Point, ThePlane.Location());
+  Vector3d PO(Point, ThePlane.Location());
 
-  Standard_Real Alpha = PO * gp_Vec(ThePlane.Direction());
+  Standard_Real Alpha = PO * Vector3d(ThePlane.Direction());
   Alpha /= TheDir * ThePlane.Direction();
 
   Point3d P;
@@ -518,10 +518,10 @@ static Point3d ProjectPnt(const gp_Ax3& ThePlane, const gp_Dir& TheDir, const Po
 //           <ThePlane> along a direction <TheDir>.
 //=======================================================================
 
-static gp_Vec ProjectVec(const gp_Ax3& ThePlane, const gp_Dir& TheDir, const gp_Vec& Vec)
+static Vector3d ProjectVec(const gp_Ax3& ThePlane, const Dir3d& TheDir, const Vector3d& Vec)
 {
-  gp_Vec D = Vec;
-  gp_Vec Z = ThePlane.Direction();
+  Vector3d D = Vec;
+  Vector3d Z = ThePlane.Direction();
 
   D -= ((Vec * Z) / (TheDir * Z)) * TheDir;
 
@@ -556,7 +556,7 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
   Standard_Integer  num_knots;
   GeomAbs_CurveType Type = C->GetType();
 
-  gp_Ax2        Axis;
+  Frame3d        Axis;
   Standard_Real R1 = 0., R2 = 0.;
 
   myKeepParam = KeepParametrization;
@@ -569,7 +569,7 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
       //          = f(O) + u * f(Xc)
 
       gp_Lin L  = myCurve->Line();
-      gp_Vec Xc = ProjectVec(myPlane, myDirection, gp_Vec(L.Direction()));
+      Vector3d Xc = ProjectVec(myPlane, myDirection, Vector3d(L.Direction()));
 
       if (Xc.Magnitude() < Precision::Confusion())
       { // line orthog au plan
@@ -595,7 +595,7 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
         Point3d P    = ProjectPnt(myPlane, myDirection, L.Location());
         myFirstPar  = myCurve->FirstParameter();
         myLastPar   = myCurve->LastParameter();
-        aLine       = gp_Lin(P, gp_Dir(Xc));
+        aLine       = gp_Lin(P, Dir3d(Xc));
         GeomLinePtr = new Geom_Line(aLine);
 
         //  Modified by Sergey KHROMOV - Tue Jan 29 16:57:29 2002 Begin
@@ -609,7 +609,7 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
       {
         myType   = GeomAbs_Line;
         Point3d P = ProjectPnt(myPlane, myDirection, L.Location());
-        aLine    = gp_Lin(P, gp_Dir(Xc));
+        aLine    = gp_Lin(P, Dir3d(Xc));
         Standard_Real Udeb, Ufin;
 
         // eval the first and last parameters of the projected curve
@@ -617,8 +617,8 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
         Ufin        = myCurve->LastParameter();
         Point3d P1   = ProjectPnt(myPlane, myDirection, myCurve->Value(Udeb));
         Point3d P2   = ProjectPnt(myPlane, myDirection, myCurve->Value(Ufin));
-        myFirstPar  = gp_Vec(aLine.Direction()).Dot(gp_Vec(P, P1));
-        myLastPar   = gp_Vec(aLine.Direction()).Dot(gp_Vec(P, P2));
+        myFirstPar  = Vector3d(aLine.Direction()).Dot(Vector3d(P, P1));
+        myLastPar   = Vector3d(aLine.Direction()).Dot(Vector3d(P, P2));
         GeomLinePtr = new Geom_Line(aLine);
         if (!myKeepParam)
         {
@@ -677,11 +677,11 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
       }
 
       // Common Code  for CIRCLE & ELLIPSE begin here
-      gp_Dir X   = Axis.XDirection();
-      gp_Dir Y   = Axis.YDirection();
-      gp_Vec VDx = ProjectVec(myPlane, myDirection, X);
-      gp_Vec VDy = ProjectVec(myPlane, myDirection, Y);
-      gp_Dir Dx, Dy;
+      Dir3d X   = Axis.XDirection();
+      Dir3d Y   = Axis.YDirection();
+      Vector3d VDx = ProjectVec(myPlane, myDirection, X);
+      Vector3d VDy = ProjectVec(myPlane, myDirection, Y);
+      Dir3d Dx, Dy;
 
       Standard_Real Tol2 = myTolerance * myTolerance;
       if (VDx.SquareMagnitude() < Tol2 || VDy.SquareMagnitude() < Tol2
@@ -692,18 +692,18 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
 
       if (!myIsApprox)
       {
-        Dx                  = gp_Dir(VDx);
-        Dy                  = gp_Dir(VDy);
+        Dx                  = Dir3d(VDx);
+        Dy                  = Dir3d(VDy);
         Point3d        O     = Axis.Location();
         Point3d        P     = ProjectPnt(myPlane, myDirection, O);
-        Point3d        Px    = ProjectPnt(myPlane, myDirection, O.Translated(R1 * gp_Vec(X)));
-        Point3d        Py    = ProjectPnt(myPlane, myDirection, O.Translated(R2 * gp_Vec(Y)));
+        Point3d        Px    = ProjectPnt(myPlane, myDirection, O.Translated(R1 * Vector3d(X)));
+        Point3d        Py    = ProjectPnt(myPlane, myDirection, O.Translated(R2 * Vector3d(Y)));
         Standard_Real Major = P.Distance(Px);
         Standard_Real Minor = P.Distance(Py);
 
         if (myKeepParam)
         {
-          myIsApprox = !gp_Dir(VDx).IsNormal(gp_Dir(VDy), Precision::Angular());
+          myIsApprox = !Dir3d(VDx).IsNormal(Dir3d(VDy), Precision::Angular());
         }
         else
         {
@@ -748,8 +748,8 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
                                    anEigenVec(2, 2),
                                    anEigenVec(2, 1),
                                    0.0);
-            gp_Trsf aRot;
-            aRot.SetRotation(gp_Ax1(P, myPlane.Direction()), aTrsfInPlane.RotationPart());
+            Transform3d aRot;
+            aRot.SetRotation(Axis3d(P, myPlane.Direction()), aTrsfInPlane.RotationPart());
 
             Dx = myPlane.XDirection().Transformed(aRot);
             Dy = myPlane.YDirection().Transformed(aRot);
@@ -762,7 +762,7 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
 
         if (!myIsApprox)
         {
-          gp_Ax2 Axe(P, Dx ^ Dy, Dx);
+          Frame3d Axe(P, Dx ^ Dy, Dx);
 
           if (Abs(Major - Minor) < Precision::Confusion())
           {
@@ -825,9 +825,9 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
       //          = f(O) + (u*u)/(4*f) * f(Xc) + u * f(Yc)
 
       gp_Parab Parab  = myCurve->Parabola();
-      gp_Ax2   AxeRef = Parab.Position();
-      gp_Vec   Xc     = ProjectVec(myPlane, myDirection, gp_Vec(AxeRef.XDirection()));
-      gp_Vec   Yc     = ProjectVec(myPlane, myDirection, gp_Vec(AxeRef.YDirection()));
+      Frame3d   AxeRef = Parab.Position();
+      Vector3d   Xc     = ProjectVec(myPlane, myDirection, Vector3d(AxeRef.XDirection()));
+      Vector3d   Yc     = ProjectVec(myPlane, myDirection, Vector3d(AxeRef.YDirection()));
       Point3d   P      = ProjectPnt(myPlane, myDirection, AxeRef.Location());
 
       myIsApprox = Standard_False;
@@ -836,14 +836,14 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
           && (Xc.Magnitude() < Precision::Confusion()))
       {
         myType      = GeomAbs_Line;
-        aLine       = gp_Lin(P, gp_Dir(Yc));
+        aLine       = gp_Lin(P, Dir3d(Yc));
         GeomLinePtr = new Geom_Line(aLine);
       }
       else if (Xc.IsNormal(Yc, Precision::Angular()))
       {
         myType                   = GeomAbs_Parabola;
         Standard_Real F          = Parab.Focal() / Xc.Magnitude();
-        gp_Parab      aProjParab = gp_Parab(gp_Ax2(P, Xc ^ Yc, Xc), F);
+        gp_Parab      aProjParab = gp_Parab(Frame3d(P, Xc ^ Yc, Xc), F);
         GeomParabolaPtr          = new Geom_Parabola(aProjParab);
       }
       else if (Yc.Magnitude() < Precision::Confusion() || Yc.IsParallel(Xc, Precision::Angular()))
@@ -876,32 +876,32 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
       //          = f(O) + R1 * Cosh(u) * f(Xc) + R2 * Sinh(u) * f(Yc)
 
       gp_Hypr       Hypr   = myCurve->Hyperbola();
-      gp_Ax2        AxeRef = Hypr.Position();
-      gp_Vec        Xc     = ProjectVec(myPlane, myDirection, gp_Vec(AxeRef.XDirection()));
-      gp_Vec        Yc     = ProjectVec(myPlane, myDirection, gp_Vec(AxeRef.YDirection()));
+      Frame3d        AxeRef = Hypr.Position();
+      Vector3d        Xc     = ProjectVec(myPlane, myDirection, Vector3d(AxeRef.XDirection()));
+      Vector3d        Yc     = ProjectVec(myPlane, myDirection, Vector3d(AxeRef.YDirection()));
       Point3d        P      = ProjectPnt(myPlane, myDirection, AxeRef.Location());
       Standard_Real aR1    = Hypr.MajorRadius();
       Standard_Real aR2    = Hypr.MinorRadius();
-      gp_Dir        Z      = myPlane.Direction();
+      Dir3d        Z      = myPlane.Direction();
       myIsApprox           = Standard_False;
 
       if (Xc.Magnitude() < Precision::Confusion())
       {
         myType           = GeomAbs_Hyperbola;
-        gp_Dir X         = gp_Dir(Yc) ^ Z;
-        Hypr             = gp_Hypr(gp_Ax2(P, Z, X), 0., aR2 * Yc.Magnitude());
+        Dir3d X         = Dir3d(Yc) ^ Z;
+        Hypr             = gp_Hypr(Frame3d(P, Z, X), 0., aR2 * Yc.Magnitude());
         GeomHyperbolaPtr = new Geom_Hyperbola(Hypr);
       }
       else if (Yc.Magnitude() < Precision::Confusion())
       {
         myType           = GeomAbs_Hyperbola;
-        Hypr             = gp_Hypr(gp_Ax2(P, Z, gp_Dir(Xc)), aR1 * Xc.Magnitude(), 0.);
+        Hypr             = gp_Hypr(Frame3d(P, Z, Dir3d(Xc)), aR1 * Xc.Magnitude(), 0.);
         GeomHyperbolaPtr = new Geom_Hyperbola(Hypr);
       }
       else if (Xc.IsNormal(Yc, Precision::Angular()))
       {
         myType           = GeomAbs_Hyperbola;
-        Hypr             = gp_Hypr(gp_Ax2(P, gp_Dir(Xc ^ Yc), gp_Dir(Xc)),
+        Hypr             = gp_Hypr(Frame3d(P, Dir3d(Xc ^ Yc), Dir3d(Xc)),
                        aR1 * Xc.Magnitude(),
                        aR2 * Yc.Magnitude());
         GeomHyperbolaPtr = new Geom_Hyperbola(Hypr);
@@ -993,7 +993,7 @@ const gp_Ax3& ProjLib_ProjectOnPlane::GetPlane() const
 
 //=================================================================================================
 
-const gp_Dir& ProjLib_ProjectOnPlane::GetDirection() const
+const Dir3d& ProjLib_ProjectOnPlane::GetDirection() const
 {
   return myDirection;
 }
@@ -1131,7 +1131,7 @@ void ProjLib_ProjectOnPlane::D0(const Standard_Real U, Point3d& P) const
 
 //=================================================================================================
 
-void ProjLib_ProjectOnPlane::D1(const Standard_Real U, Point3d& P, gp_Vec& V) const
+void ProjLib_ProjectOnPlane::D1(const Standard_Real U, Point3d& P, Vector3d& V) const
 {
   if (myType != GeomAbs_OtherCurve)
   {
@@ -1145,7 +1145,7 @@ void ProjLib_ProjectOnPlane::D1(const Standard_Real U, Point3d& P, gp_Vec& V) co
 
 //=================================================================================================
 
-void ProjLib_ProjectOnPlane::D2(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2) const
+void ProjLib_ProjectOnPlane::D2(const Standard_Real U, Point3d& P, Vector3d& V1, Vector3d& V2) const
 {
   if (myType != GeomAbs_OtherCurve)
   {
@@ -1161,9 +1161,9 @@ void ProjLib_ProjectOnPlane::D2(const Standard_Real U, Point3d& P, gp_Vec& V1, g
 
 void ProjLib_ProjectOnPlane::D3(const Standard_Real U,
                                 Point3d&             P,
-                                gp_Vec&             V1,
-                                gp_Vec&             V2,
-                                gp_Vec&             V3) const
+                                Vector3d&             V1,
+                                Vector3d&             V2,
+                                Vector3d&             V3) const
 {
   if (myType != GeomAbs_OtherCurve)
   {
@@ -1177,7 +1177,7 @@ void ProjLib_ProjectOnPlane::D3(const Standard_Real U,
 
 //=================================================================================================
 
-gp_Vec ProjLib_ProjectOnPlane::DN(const Standard_Real    U,
+Vector3d ProjLib_ProjectOnPlane::DN(const Standard_Real    U,
                                   const Standard_Integer DerivativeRequest) const
 {
   if (myType != GeomAbs_OtherCurve)
@@ -1426,9 +1426,9 @@ Standard_Boolean ProjLib_ProjectOnPlane::BuildParabolaByApex(Handle(Geom_Curve)&
   aT = aSolver.Location();
   aProps.SetParameter(aT);
   Point3d        aP0 = aProps.Value();
-  gp_Vec        aDY = aProps.D1();
-  gp_Dir        anYDir(aDY);
-  gp_Dir        anXDir;
+  Vector3d        aDY = aProps.D1();
+  Dir3d        anYDir(aDY);
+  Dir3d        anXDir;
   Standard_Real aCurv = aProps.Curvature();
   if (Precision::IsInfinite(aCurv) || aCurv < Precision::Confusion())
   {
@@ -1442,8 +1442,8 @@ Standard_Boolean ProjLib_ProjectOnPlane::BuildParabolaByApex(Handle(Geom_Curve)&
   Standard_Real anX   = ElCLib::LineParameter(anXLine.Position(), aP1);
   Standard_Real anY   = anXLine.Distance(aP1);
   Standard_Real aNewF = anY * anY / 4. / anX;
-  gp_Dir        anN   = anXDir ^ anYDir;
-  gp_Ax2        anA2(aP0, anN, anXDir);
+  Dir3d        anN   = anXDir ^ anYDir;
+  Frame3d        anA2(aP0, anN, anXDir);
   gce_MakeParab aMkParab(anA2, aNewF);
   if (!aMkParab.IsDone())
   {
@@ -1489,20 +1489,20 @@ Standard_Boolean ProjLib_ProjectOnPlane::BuildHyperbolaByApex(
     else
     {
       gp_Hypr Hypr   = myCurve->Hyperbola();
-      gp_Ax2  AxeRef = Hypr.Position();
+      Frame3d  AxeRef = Hypr.Position();
       Point3d  P      = ProjectPnt(myPlane, myDirection, AxeRef.Location());
-      gp_Dir  Z      = myPlane.Direction();
+      Dir3d  Z      = myPlane.Direction();
       Point3d  aP0    = aProps.Value();
-      gp_Dir  anXDir = gce_MakeDir(P, aP0);
-      gp_Dir  anYDir = gce_MakeDir(aProps.D1());
+      Dir3d  anXDir = gce_MakeDir(P, aP0);
+      Dir3d  anYDir = gce_MakeDir(aProps.D1());
       //
       Standard_Real aMajRad = P.Distance(aP0);
       Point3d        aP1     = Value(aT + 1.);
-      gp_Vec        aV(P, aP1);
+      Vector3d        aV(P, aP1);
       Standard_Real anX     = aV * anXDir;
       Standard_Real anY     = aV * anYDir;
       Standard_Real aMinRad = anY / Sqrt(anX * anX / aMajRad / aMajRad - 1.);
-      gp_Ax2        anA2(P, Z, anXDir);
+      Frame3d        anA2(P, Z, anXDir);
       gp_Hypr       anHypr(anA2, aMajRad, aMinRad);
       theGeomHyperbolaPtr = new Geom_Hyperbola(anHypr);
       myType              = GeomAbs_Hyperbola;

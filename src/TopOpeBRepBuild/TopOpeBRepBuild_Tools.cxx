@@ -419,7 +419,7 @@ void TopOpeBRepBuild_Tools::PropagateStateForWires(
 
 void TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(const TopoDS_Face& aFObj,
                                                   const TopoDS_Edge& anEdgeObj,
-                                                  gp_Vec&            aNormal)
+                                                  Vector3d&            aNormal)
 {
   const TopoDS_Edge&   aEd = anEdgeObj;
   const TopoDS_Face&   aFS = aFObj;
@@ -435,7 +435,7 @@ void TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(const TopoDS_Face& aFObj,
   C2D->D0(par, aUV1);
 
   Point3d              aP;
-  gp_Vec              aTg1, aTg2;
+  Vector3d              aTg1, aTg2;
   BRepAdaptor_Surface aSA1(aFS);
   aSA1.D1(aUV1.X(), aUV1.Y(), aP, aTg1, aTg2);
   aNormal = aTg1 ^ aTg2;
@@ -445,7 +445,7 @@ void TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(const TopoDS_Face& aFObj,
 
 void TopOpeBRepBuild_Tools::GetNormalInNearestPoint(const TopoDS_Face& F,
                                                     const TopoDS_Edge& E,
-                                                    gp_Vec&            aNormal)
+                                                    Vector3d&            aNormal)
 {
   Standard_Real f2 = 0., l2 = 0., tolpc = 0., par = 0.;
 
@@ -470,7 +470,7 @@ void TopOpeBRepBuild_Tools::GetNormalInNearestPoint(const TopoDS_Face& F,
 
   Standard_Real newU = aNorm2d.X();
   Standard_Real newV = aNorm2d.Y();
-  gp_Vec        aTg1, aTg2;
+  Vector3d        aTg1, aTg2;
   Point3d        aP1;
 
   BRepAdaptor_Surface BS(F);
@@ -505,7 +505,7 @@ void TopOpeBRepBuild_Tools::GetNormalInNearestPoint(const TopoDS_Face& F,
 Standard_Boolean TopOpeBRepBuild_Tools::GetTangentToEdgeEdge(const TopoDS_Face&, // aFObj,
                                                              const TopoDS_Edge& anEdgeObj,
                                                              const TopoDS_Edge& aOriEObj,
-                                                             gp_Vec&            aTangent)
+                                                             Vector3d&            aTangent)
 {
 
   if (BRep_Tool::Degenerated(aOriEObj) || BRep_Tool::Degenerated(anEdgeObj))
@@ -526,18 +526,18 @@ Standard_Boolean TopOpeBRepBuild_Tools::GetTangentToEdgeEdge(const TopoDS_Face&,
   par = f * PAR_T + (1 - PAR_T) * l;
 
   Point3d aP;
-  gp_Vec aTgPiece;
+  Vector3d aTgPiece;
   aCA.D1(par, aP, aTgPiece);
   aTangent = aTgPiece;
 
   Point3d aPOri;
-  gp_Vec aTgOri;
+  Vector3d aTgOri;
   /////
   Handle(Geom_Curve) GCOri      = aCAOri.Curve().Curve();
   Handle(Geom_Curve) aCopyCurve = Handle(Geom_Curve)::DownCast(GCOri->Copy());
 
   const TopLoc_Location& aLoc  = aEOri.Location();
-  gp_Trsf                aTrsf = aLoc.Transformation();
+  Transform3d                aTrsf = aLoc.Transformation();
   aCopyCurve->Transform(aTrsf);
 
   GeomAPI_ProjectPointOnCurve aPP(aP,
@@ -566,7 +566,7 @@ Standard_Boolean TopOpeBRepBuild_Tools::GetTangentToEdgeEdge(const TopoDS_Face&,
 //=================================================================================================
 
 Standard_Boolean TopOpeBRepBuild_Tools::GetTangentToEdge(const TopoDS_Edge& anEdgeObj,
-                                                         gp_Vec&            aTangent)
+                                                         Vector3d&            aTangent)
 {
   const TopoDS_Edge& aEd = anEdgeObj;
 
@@ -690,7 +690,7 @@ void TopOpeBRepBuild_Tools::UpdateEdgeOnPeriodicalFace(const TopoDS_Edge& aEdgeT
     return;
   }
 
-  gp_Vec aN1, aN2;
+  Vector3d aN1, aN2;
   TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(TopoDS::Face(fromFace),
                                                TopoDS::Edge(aEdgeToUpdate),
                                                aN1);

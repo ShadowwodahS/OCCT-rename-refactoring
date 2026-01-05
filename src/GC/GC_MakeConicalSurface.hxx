@@ -24,7 +24,7 @@
 #include <GC_Root.hxx>
 #include <Geom_ConicalSurface.hxx>
 
-class gp_Ax2;
+class Frame3d;
 class gp_Cone;
 class Point3d;
 
@@ -74,7 +74,7 @@ public:
   //! the "outside region" of the surface.
   //! Status is "NegativeRadius" if Radius < 0.0 or "BadAngle" if
   //! Ang < Resolution from gp or Ang >= PI/ - Resolution
-  Standard_EXPORT GC_MakeConicalSurface(const gp_Ax2&       A2,
+  Standard_EXPORT GC_MakeConicalSurface(const Frame3d&       A2,
                                         const Standard_Real Ang,
                                         const Standard_Real Radius);
 

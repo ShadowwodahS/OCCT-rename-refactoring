@@ -157,7 +157,7 @@ void BRepProj_Projection::BuildSection(const TopoDS_Shape& theShape, const TopoD
 
 BRepProj_Projection::BRepProj_Projection(const TopoDS_Shape& Wire,
                                          const TopoDS_Shape& Shape,
-                                         const gp_Dir&       D)
+                                         const Dir3d&       D)
     : myIsDone(Standard_False),
       myItr(0)
 {
@@ -168,11 +168,11 @@ BRepProj_Projection::BRepProj_Projection(const TopoDS_Shape& Wire,
 
   // compute the "length" of the cylindrical surface to build
   Standard_Real mdis = DistanceIn(Wire, Shape);
-  gp_Vec        Vsup(D.XYZ() * 2 * mdis);
-  gp_Vec        Vinf(D.XYZ() * -mdis);
+  Vector3d        Vsup(D.XYZ() * 2 * mdis);
+  Vector3d        Vinf(D.XYZ() * -mdis);
 
   // move the base of the cylindrical surface by translating it by -mdis
-  gp_Trsf T;
+  Transform3d T;
   T.SetTranslation(Vinf);
   // Note: it is necessary to create copy of wire to avoid adding new pcurves into it
   Handle(BRepTools_TrsfModification) Trsf = new BRepTools_TrsfModification(T);
@@ -230,7 +230,7 @@ BRepProj_Projection::BRepProj_Projection(const TopoDS_Shape& Wire,
   Scale = 1. + mdis / Scale;
 
   // move the base of the conical surface by scaling it with ratio Scale
-  gp_Trsf T;
+  Transform3d T;
   T.SetScale(P, Scale);
   Handle(BRepTools_TrsfModification) Tsca = new BRepTools_TrsfModification(T);
   BRepTools_Modifier                 ModifScale(aWire, Tsca);

@@ -99,7 +99,7 @@ public:
   virtual Standard_Boolean OverlapsCylinder(const Standard_Real      theBottomRad,
                                             const Standard_Real      theTopRad,
                                             const Standard_Real      theHeight,
-                                            const gp_Trsf&           theTrsf,
+                                            const Transform3d&           theTrsf,
                                             const Standard_Boolean   theIsHollow,
                                             SelectBasics_PickResult& thePickResult) const = 0;
 
@@ -109,7 +109,7 @@ public:
   virtual Standard_Boolean OverlapsCylinder(const Standard_Real    theBottomRad,
                                             const Standard_Real    theTopRad,
                                             const Standard_Real    theHeight,
-                                            const gp_Trsf&         theTrsf,
+                                            const Transform3d&         theTrsf,
                                             const Standard_Boolean theIsHollow,
                                             Standard_Boolean*      theInside = NULL) const = 0;
 
@@ -118,7 +118,7 @@ public:
   //! The position and orientation of the circle are specified
   //! via theTrsf transformation for gp::XOY() with center in gp::Origin().
   virtual Standard_Boolean OverlapsCircle(const Standard_Real      theRadius,
-                                          const gp_Trsf&           theTrsf,
+                                          const Transform3d&           theTrsf,
                                           const Standard_Boolean   theIsFilled,
                                           SelectBasics_PickResult& thePickResult) const = 0;
 
@@ -127,7 +127,7 @@ public:
   //! The position and orientation of the circle are specified
   //! via theTrsf transformation for gp::XOY() with center in gp::Origin().
   virtual Standard_Boolean OverlapsCircle(const Standard_Real    theRadius,
-                                          const gp_Trsf&         theTrsf,
+                                          const Transform3d&         theTrsf,
                                           const Standard_Boolean theIsFilled,
                                           Standard_Boolean*      theInside = NULL) const = 0;
 
@@ -156,7 +156,7 @@ public:
 
   //! Valid only for point and rectangular selection.
   //! Returns view ray direction
-  virtual gp_Dir GetViewRayDirection() const = 0;
+  virtual Dir3d GetViewRayDirection() const = 0;
 
   //! Checks if it is possible to scale current active selecting volume
   virtual Standard_Boolean IsScalableActiveVolume() const = 0;

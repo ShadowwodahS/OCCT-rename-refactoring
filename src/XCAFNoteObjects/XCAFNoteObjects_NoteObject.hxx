@@ -36,10 +36,10 @@ public:
   Standard_Boolean HasPlane() const { return myHasPlane; }
 
   //! Returns a right-handed coordinate system of the plane
-  const gp_Ax2& GetPlane() const { return myPlane; }
+  const Frame3d& GetPlane() const { return myPlane; }
 
   //! Sets a right-handed coordinate system of the plane
-  Standard_EXPORT void SetPlane(const gp_Ax2& thePlane);
+  Standard_EXPORT void SetPlane(const Frame3d& thePlane);
 
   //! Returns True if the attachment point on the annotated object is specified
   Standard_Boolean HasPoint() const { return myHasPnt; }
@@ -69,7 +69,7 @@ public:
   Standard_EXPORT void Reset();
 
 private:
-  gp_Ax2           myPlane;
+  Frame3d           myPlane;
   Point3d           myPnt;
   Point3d           myPntTxt;
   TopoDS_Shape     myPresentation;

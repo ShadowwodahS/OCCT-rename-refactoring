@@ -26,13 +26,13 @@
 //=========================================================================
 //   Constructions of 3d geometrical elements from Geom.
 //=========================================================================
-GC_MakeLine::GC_MakeLine(const Point3d& P, const gp_Dir& V)
+GC_MakeLine::GC_MakeLine(const Point3d& P, const Dir3d& V)
 {
   TheError = gce_Done;
   TheLine  = new Geom_Line(P, V);
 }
 
-GC_MakeLine::GC_MakeLine(const gp_Ax1& A1)
+GC_MakeLine::GC_MakeLine(const Axis3d& A1)
 {
   TheError = gce_Done;
   TheLine  = new Geom_Line(A1);

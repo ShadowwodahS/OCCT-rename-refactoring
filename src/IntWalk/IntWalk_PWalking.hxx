@@ -133,7 +133,7 @@ public:
   //! An exception is raised if IsDone returns False.
   Standard_Boolean IsClosed() const;
 
-  const gp_Dir& TangentAtLine(Standard_Integer& Index) const;
+  const Dir3d& TangentAtLine(Standard_Integer& Index) const;
 
   Standard_EXPORT IntWalk_StatusDeflection TestDeflection(const IntImp_ConstIsoparametric ChoixIso,
                                                           const IntWalk_StatusDeflection theStatus);
@@ -255,7 +255,7 @@ private:
   Standard_Integer myTangentIdx;
 
   //! Tangent to WLine in the point with index myTangentIdx
-  gp_Dir tgdir;
+  Dir3d tgdir;
 
   Standard_Real             fleche;
   Standard_Real             pasMax;
@@ -281,7 +281,7 @@ private:
   IntImp_ConstIsoparametric choixIsoSav;
   IntSurf_PntOn2S           previousPoint;
   Standard_Boolean          previoustg;
-  gp_Dir                    previousd;
+  Dir3d                    previousd;
   gp_Dir2d                  previousd1;
   gp_Dir2d                  previousd2;
   gp_Dir2d                  firstd1;

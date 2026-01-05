@@ -47,11 +47,11 @@ Point3d Prs3d_ToolTorus::Vertex(const Standard_Real theU, const Standard_Real th
 
 //=================================================================================================
 
-gp_Dir Prs3d_ToolTorus::Normal(const Standard_Real theU, const Standard_Real theV) const
+Dir3d Prs3d_ToolTorus::Normal(const Standard_Real theU, const Standard_Real theV) const
 {
   const Standard_Real aU = theU * myAngle;
   const Standard_Real aV = myVMin + theV * (myVMax - myVMin);
-  return gp_Dir(Cos(aU) * Cos(aV), Sin(aU) * Cos(aV), Sin(aV));
+  return Dir3d(Cos(aU) * Cos(aV), Sin(aU) * Cos(aV), Sin(aV));
 }
 
 //=================================================================================================
@@ -63,7 +63,7 @@ Handle(Graphic3d_ArrayOfTriangles) Prs3d_ToolTorus::Create(const Standard_Real  
                                                            const Standard_Real    theAngle,
                                                            const Standard_Integer theNbSlices,
                                                            const Standard_Integer theNbStacks,
-                                                           const gp_Trsf&         theTrsf)
+                                                           const Transform3d&         theTrsf)
 {
   Handle(Graphic3d_ArrayOfTriangles) anArray;
   Prs3d_ToolTorus

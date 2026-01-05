@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 class TopoDS_Edge;
 class TopoDS_Face;
-class gp_Vec;
+class Vector3d;
 class Geom2d_Curve;
 class Geom_Curve;
 class BRepAdaptor_Surface;
@@ -49,7 +49,7 @@ public:
   //! Compute tangent for the edge  <aE> [in 3D]  at parameter <aT>
   Standard_EXPORT static Standard_Boolean EdgeTangent(const TopoDS_Edge&  anE,
                                                       const Standard_Real aT,
-                                                      gp_Vec&             Tau);
+                                                      Vector3d&             Tau);
 
   //! Compute surface parameters <U,V> of the face <aF>
   //! for  the point from the edge <aE> at parameter <aT>.<br>

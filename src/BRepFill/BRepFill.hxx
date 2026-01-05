@@ -30,7 +30,7 @@ class TopoDS_Wire;
 class TopoDS_Shape;
 class gp_Ax3;
 class Point3d;
-class gp_Vec;
+class Vector3d;
 
 class BRepFill
 {
@@ -68,7 +68,7 @@ private:
   //! Computes origins and orientation on a closed wire
   Standard_EXPORT static void SearchOrigin(TopoDS_Wire&        W,
                                            const Point3d&       P,
-                                           const gp_Vec&       V,
+                                           const Vector3d&       V,
                                            const Standard_Real Tol);
 
 private:

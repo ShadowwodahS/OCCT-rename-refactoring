@@ -24,9 +24,9 @@
 #include <Standard_Real.hxx>
 #include <GeomAbs_Shape.hxx>
 #include <Standard_Integer.hxx>
-class gp_Trsf;
+class Transform3d;
 class Point3d;
-class gp_Vec;
+class Vector3d;
 
 class Geom_Curve;
 DEFINE_STANDARD_HANDLE(Geom_Curve, Geom_Geometry)
@@ -91,7 +91,7 @@ public:
   //!
   //! It can be redefined. For example on the Line.
   Standard_EXPORT virtual Standard_Real TransformedParameter(const Standard_Real U,
-                                                             const gp_Trsf&      T) const;
+                                                             const Transform3d&      T) const;
 
   //! Returns a  coefficient to compute the parameter on
   //! the transformed  curve  for  the transform  of the
@@ -106,7 +106,7 @@ public:
   //! This methods returns 1.
   //!
   //! It can be redefined. For example on the Line.
-  Standard_EXPORT virtual Standard_Real ParametricTransformation(const gp_Trsf& T) const;
+  Standard_EXPORT virtual Standard_Real ParametricTransformation(const Transform3d& T) const;
 
   //! Returns a copy of <me> reversed.
   Standard_NODISCARD Standard_EXPORT Handle(Geom_Curve) Reversed() const;
@@ -181,24 +181,24 @@ public:
 
   //! Returns the point P of parameter U and the first derivative V1.
   //! Raised if the continuity of the curve is not C1.
-  Standard_EXPORT virtual void D1(const Standard_Real U, Point3d& P, gp_Vec& V1) const = 0;
+  Standard_EXPORT virtual void D1(const Standard_Real U, Point3d& P, Vector3d& V1) const = 0;
 
   //! Returns the point P of parameter U, the first and second
   //! derivatives V1 and V2.
   //! Raised if the continuity of the curve is not C2.
   Standard_EXPORT virtual void D2(const Standard_Real U,
                                   Point3d&             P,
-                                  gp_Vec&             V1,
-                                  gp_Vec&             V2) const = 0;
+                                  Vector3d&             V1,
+                                  Vector3d&             V2) const = 0;
 
   //! Returns the point P of parameter U, the first, the second
   //! and the third derivative.
   //! Raised if the continuity of the curve is not C3.
   Standard_EXPORT virtual void D3(const Standard_Real U,
                                   Point3d&             P,
-                                  gp_Vec&             V1,
-                                  gp_Vec&             V2,
-                                  gp_Vec&             V3) const = 0;
+                                  Vector3d&             V1,
+                                  Vector3d&             V2,
+                                  Vector3d&             V3) const = 0;
 
   //! The returned vector gives the value of the derivative for the
   //! order of derivation N.
@@ -207,7 +207,7 @@ public:
   //! Raised if the   derivative  cannot  be  computed
   //! easily. e.g. rational bspline and n > 3.
   //! Raised if N < 1.
-  Standard_EXPORT virtual gp_Vec DN(const Standard_Real U, const Standard_Integer N) const = 0;
+  Standard_EXPORT virtual Vector3d DN(const Standard_Real U, const Standard_Integer N) const = 0;
 
   //! Computes the point of parameter U on <me>.
   //! If the curve is periodic  then the returned point is P(U) with

@@ -27,7 +27,7 @@
 //  Construction d un cone par son axe , le rayon de sa base et le demi   +
 //  angle d ouverture.                                                    +
 //=========================================================================
-gce_MakeCone::gce_MakeCone(const gp_Ax2& A2, const Standard_Real Ang, const Standard_Real Radius)
+gce_MakeCone::gce_MakeCone(const Frame3d& A2, const Standard_Real Ang, const Standard_Real Radius)
 {
   if (Radius < 0.0)
   {
@@ -62,11 +62,11 @@ gce_MakeCone::gce_MakeCone(const Point3d& P1, const Point3d& P2, const Point3d& 
     return;
   }
 
-  gp_Dir        D1(P2.XYZ() - P1.XYZ());
-  Standard_Real cos  = D1.Dot(gp_Dir(P4.XYZ() - P1.XYZ()));
+  Dir3d        D1(P2.XYZ() - P1.XYZ());
+  Standard_Real cos  = D1.Dot(Dir3d(P4.XYZ() - P1.XYZ()));
   Standard_Real dist = P1.Distance(P4);
   Point3d        PP4(P1.XYZ() + cos * dist * D1.XYZ());
-  cos  = D1.Dot(gp_Dir(P3.XYZ() - P1.XYZ()));
+  cos  = D1.Dot(Dir3d(P3.XYZ() - P1.XYZ()));
   dist = P1.Distance(P3);
   Point3d PP3(P1.XYZ() + cos * dist * D1.XYZ());
 
@@ -94,28 +94,28 @@ gce_MakeCone::gce_MakeCone(const Point3d& P1, const Point3d& P2, const Point3d& 
     TheError = gce_NegativeRadius;
     return;
   }
-  gp_Dir        DD1(PP4.XYZ() - PP3.XYZ());
-  gp_Dir        D2;
+  Dir3d        DD1(PP4.XYZ() - PP3.XYZ());
+  Dir3d        D2;
   Standard_Real x = DD1.X();
   Standard_Real y = DD1.Y();
   Standard_Real z = DD1.Z();
   if (Abs(x) > gp::Resolution())
   {
-    D2 = gp_Dir(-y, x, 0.0);
+    D2 = Dir3d(-y, x, 0.0);
   }
   else if (Abs(y) > gp::Resolution())
   {
-    D2 = gp_Dir(-y, x, 0.0);
+    D2 = Dir3d(-y, x, 0.0);
   }
   else if (Abs(z) > gp::Resolution())
   {
-    D2 = gp_Dir(0.0, -z, y);
+    D2 = Dir3d(0.0, -z, y);
   }
   if (R1 > R2)
   {
     angle *= -1;
   }
-  TheCone  = gp_Cone(gp_Ax2(PP3, DD1, D2), angle, R1);
+  TheCone  = gp_Cone(Frame3d(PP3, DD1, D2), angle, R1);
   TheError = gce_Done;
 }
 
@@ -126,7 +126,7 @@ gce_MakeCone::gce_MakeCone(const Point3d& P1, const Point3d& P2, const Point3d& 
 //  par P2.                                                               +
 //=========================================================================
 
-gce_MakeCone::gce_MakeCone(const gp_Ax1& Axis, const Point3d& P1, const Point3d& P2)
+gce_MakeCone::gce_MakeCone(const Axis3d& Axis, const Point3d& P1, const Point3d& P2)
 {
   Point3d       P3(Axis.Location());
   Point3d       P4(P3.XYZ() + Axis.Direction().XYZ());
@@ -219,28 +219,28 @@ gce_MakeCone::gce_MakeCone(const Point3d&       P1,
       }
       else
       {
-        gp_Dir        D1(P2.XYZ() - P1.XYZ());
-        gp_Dir        D2;
+        Dir3d        D1(P2.XYZ() - P1.XYZ());
+        Dir3d        D2;
         Standard_Real x = D1.X();
         Standard_Real y = D1.Y();
         Standard_Real z = D1.Z();
         if (Abs(x) > gp::Resolution())
         {
-          D2 = gp_Dir(-y, x, 0.0);
+          D2 = Dir3d(-y, x, 0.0);
         }
         else if (Abs(y) > gp::Resolution())
         {
-          D2 = gp_Dir(-y, x, 0.0);
+          D2 = Dir3d(-y, x, 0.0);
         }
         else if (Abs(z) > gp::Resolution())
         {
-          D2 = gp_Dir(0.0, -z, y);
+          D2 = Dir3d(0.0, -z, y);
         }
         if (R1 > R2)
         {
           Angle *= -1;
         }
-        TheCone  = gp_Cone(gp_Ax2(P1, D1, D2), Angle, R1);
+        TheCone  = gp_Cone(Frame3d(P1, D1, D2), Angle, R1);
         TheError = gce_Done;
       }
     }

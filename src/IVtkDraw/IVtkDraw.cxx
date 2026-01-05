@@ -1333,7 +1333,7 @@ static Standard_Integer VtkViewProj(Draw_Interpretor&,
 
   if (hasProjDir)
   {
-    const gp_Dir    aBck = V3d::GetProjAxis(aProj);
+    const Dir3d    aBck = V3d::GetProjAxis(aProj);
     Graphic3d_Vec3d anUp(0.0, 0.0, 1.0);
     if (aProj == V3d_Zpos)
     {

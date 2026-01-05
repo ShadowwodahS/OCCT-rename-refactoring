@@ -85,9 +85,9 @@ static Standard_Integer OCC332bug(Draw_Interpretor& di, Standard_Integer argc, c
 
   // SUPPORT:
   // 1. There is no need to normalize the direction - it's done automatically
-  // gp_Ax2 origin(Point3d(5000.0,-300.0, 1000.0),
-  // gp_Dir(0.0, -1.0/sqrt(2.0), -1.0/sqrt(2.0)));
-  gp_Ax2 origin(Point3d(5000.0, -300.0, 1000.0), gp_Dir(0.0, -1.0, -1.0));
+  // Frame3d origin(Point3d(5000.0,-300.0, 1000.0),
+  // Dir3d(0.0, -1.0/sqrt(2.0), -1.0/sqrt(2.0)));
+  Frame3d origin(Point3d(5000.0, -300.0, 1000.0), Dir3d(0.0, -1.0, -1.0));
 
   TopoDS_Face  myFace;
   TopoDS_Shape myShape, gasSolid;
@@ -115,7 +115,7 @@ static Standard_Integer OCC332bug(Draw_Interpretor& di, Standard_Integer argc, c
   // gp_Pln circ2Plane = gce_MakePln(circ_center, endPoint,
   //				  endPoint.Translated(major_radius*origin.YDirection())
   //				  ).Value();
-  gp_Ax1 circ_axis(circ_center, origin.YDirection());
+  Axis3d circ_axis(circ_center, origin.YDirection());
   gp_Pln circ2Plane = circ1Plane.Rotated(circ_axis, bend_angle);
 
   // The circle used for the spine.
@@ -123,13 +123,13 @@ static Standard_Integer OCC332bug(Draw_Interpretor& di, Standard_Integer argc, c
   // - Use direction (-X) instead of (X) to obtain correct right-handed system.
   //   It is very important to maintain correct orientation between spine
   //   and circles axes.
-  // gp_Ax2 spineAxis(circ_center, origin.YDirection(), origin.XDirection());
-  gp_Ax2  spineAxis(circ_center, origin.YDirection(), -origin.XDirection());
+  // Frame3d spineAxis(circ_center, origin.YDirection(), origin.XDirection());
+  Frame3d  spineAxis(circ_center, origin.YDirection(), -origin.XDirection());
   gp_Circ circle(spineAxis, major_radius);
 
   // SUPPORT:
   // - There is no need to create 2nd circles - they will be created by MakePipeShell.
-  // gp_Ax2 circ2axis(endPoint, circ2Plane.Axis().Direction(), origin.YDirection());
+  // Frame3d circ2axis(endPoint, circ2Plane.Axis().Direction(), origin.YDirection());
   // gp_Circ faceCircle2(circ2axis,radius_r);
   // gp_Circ outFaceCircle2(circ2axis,radius_r+wall_thickness);
 
@@ -441,7 +441,7 @@ static Standard_Integer OCC544(Draw_Interpretor& di, Standard_Integer argc, cons
   }
   di << "creating the shape for a bent tube\n";
 
-  gp_Ax2 origin(Point3d(500.0, -300.0, 100.0), gp_Dir(0.0, -1.0 / sqrt(2.0), -1.0 / sqrt(2.0)));
+  Frame3d origin(Point3d(500.0, -300.0, 100.0), Dir3d(0.0, -1.0 / sqrt(2.0), -1.0 / sqrt(2.0)));
 
   TopoDS_Face  firstFace, lastFace;
   TopoDS_Solid wallSolid, myShape;
@@ -465,10 +465,10 @@ static Standard_Integer OCC544(Draw_Interpretor& di, Standard_Integer argc, cons
       .Value();
 
   // The circle used for the spine.
-  gp_Ax2  spineAxis(circ_center, origin.YDirection(), origin.XDirection());
+  Frame3d  spineAxis(circ_center, origin.YDirection(), origin.XDirection());
   gp_Circ circle(spineAxis, major_rad);
 
-  gp_Ax2  circ2axis(endPoint, circ2Plane.Axis().Direction(), origin.YDirection());
+  Frame3d  circ2axis(endPoint, circ2Plane.Axis().Direction(), origin.YDirection());
   gp_Circ faceCircle2(circ2axis, radius_r);
   gp_Circ outFaceCircle2(circ2axis, radius_r + wall_thickness);
 

@@ -123,7 +123,7 @@ protected:
 
   TopExp_Explorer    myIter;      //!< shape explorer
   TopLoc_Location    myLocation;  //!< current shape location
-  gp_Trsf            myTrsf;      //!< current shape transformation
+  Transform3d            myTrsf;      //!< current shape transformation
   XCAFPrs_Style      myStyle;     //!< current shape style
   Quantity_ColorRGBA myColor;     //!< current shape color
   TopAbs_ShapeEnum   myShapeType; //!< type of shape

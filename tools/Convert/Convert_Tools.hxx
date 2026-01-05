@@ -102,11 +102,11 @@ public:
     const Handle(Geom_Plane)&                     thePlane,
     NCollection_List<Handle(RefObject)>& thePresentations);
 
-  //! Creates two presentations base on gp_Trsf: box in initial place and transformed box
+  //! Creates two presentations base on Transform3d: box in initial place and transformed box
   //! \param thePlane source plane
   //! \param thePresentations container to collect new presentations
   Standard_EXPORT static void CreatePresentation(
-    const gp_Trsf&                                theTrsf,
+    const Transform3d&                                theTrsf,
     NCollection_List<Handle(RefObject)>& thePresentations);
 };
 

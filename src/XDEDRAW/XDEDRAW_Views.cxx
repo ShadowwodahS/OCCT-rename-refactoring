@@ -558,7 +558,7 @@ static Standard_Integer setViewDir(Draw_Interpretor& di, Standard_Integer argc, 
   if (aLabel.FindAttribute(XCAFDoc_View::GetID(), aView))
   {
     Handle(XCAFView_Object) anObj = aView->GetObject();
-    anObj->SetViewDirection(gp_Dir(Draw::Atof(argv[3]), Draw::Atof(argv[4]), Draw::Atof(argv[5])));
+    anObj->SetViewDirection(Dir3d(Draw::Atof(argv[3]), Draw::Atof(argv[4]), Draw::Atof(argv[5])));
     aView->SetObject(anObj);
   }
   return 0;
@@ -592,7 +592,7 @@ static Standard_Integer getViewDir(Draw_Interpretor& di, Standard_Integer argc, 
   Handle(XCAFDoc_View) aView;
   if (aLabel.FindAttribute(XCAFDoc_View::GetID(), aView))
   {
-    gp_Dir aDir = aView->GetObject()->ViewDirection();
+    Dir3d aDir = aView->GetObject()->ViewDirection();
     di << aDir.X() << " " << aDir.Y() << " " << aDir.Z();
   }
   return 0;
@@ -627,7 +627,7 @@ static Standard_Integer setUpDir(Draw_Interpretor& di, Standard_Integer argc, co
   if (aLabel.FindAttribute(XCAFDoc_View::GetID(), aView))
   {
     Handle(XCAFView_Object) anObj = aView->GetObject();
-    anObj->SetUpDirection(gp_Dir(Draw::Atof(argv[3]), Draw::Atof(argv[4]), Draw::Atof(argv[5])));
+    anObj->SetUpDirection(Dir3d(Draw::Atof(argv[3]), Draw::Atof(argv[4]), Draw::Atof(argv[5])));
     aView->SetObject(anObj);
   }
   return 0;
@@ -661,7 +661,7 @@ static Standard_Integer getUpDir(Draw_Interpretor& di, Standard_Integer argc, co
   Handle(XCAFDoc_View) aView;
   if (aLabel.FindAttribute(XCAFDoc_View::GetID(), aView))
   {
-    gp_Dir aDir = aView->GetObject()->UpDirection();
+    Dir3d aDir = aView->GetObject()->UpDirection();
     di << aDir.X() << " " << aDir.Y() << " " << aDir.Z();
   }
   return 0;
@@ -1188,7 +1188,7 @@ static Standard_Integer dump(Draw_Interpretor& di, Standard_Integer argc, const 
   Point3d aPnt = aView->GetObject()->ProjectionPoint();
   di << "Projection point: " << aPnt.X() << " " << aPnt.Y() << " " << aPnt.Z() << "\n";
 
-  gp_Dir aDir = aView->GetObject()->ViewDirection();
+  Dir3d aDir = aView->GetObject()->ViewDirection();
   di << "View Direction: " << aDir.X() << " " << aDir.Y() << " " << aDir.Z() << "\n";
 
   aDir = aView->GetObject()->UpDirection();

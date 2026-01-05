@@ -31,7 +31,7 @@ Aspect_SkydomeBackground::Aspect_SkydomeBackground()
 
 //=================================================================================================
 
-Aspect_SkydomeBackground::Aspect_SkydomeBackground(const gp_Dir&      theSunDirection,
+Aspect_SkydomeBackground::Aspect_SkydomeBackground(const Dir3d&      theSunDirection,
                                                    Standard_ShortReal theCloudiness,
                                                    Standard_ShortReal theTime,
                                                    Standard_ShortReal theFogginess,

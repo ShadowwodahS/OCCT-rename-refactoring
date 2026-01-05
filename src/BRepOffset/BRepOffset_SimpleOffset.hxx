@@ -64,7 +64,7 @@ public:
   //! Standard_True if  the orientation  of the modified
   //! face changes in the  shells which contain  it.  --
   //! Here, <RevFace>  will  return Standard_True if the
-  //! -- gp_Trsf is negative.
+  //! -- Transform3d is negative.
   Standard_EXPORT Standard_Boolean NewSurface(const TopoDS_Face&    F,
                                               Handle(Geom_Surface)& S,
                                               TopLoc_Location&      L,

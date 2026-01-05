@@ -666,7 +666,7 @@ static void BuildFace(const Handle(Geom_Surface)&   S,
 
     // BRepLib_MakeFace MkF(IsP.Plan(), WW);
     Point3d        aPnt;
-    gp_Vec        DU, DV, NS, NP;
+    Vector3d        DU, DV, NS, NP;
     Standard_Real Ufirst, Ulast, Vfirst, Vlast;
     S->Bounds(Ufirst, Ulast, Vfirst, Vlast);
     S->D1((Ufirst + Ulast) / 2., (Vfirst + Vlast) / 2., aPnt, DU, DV);
@@ -840,8 +840,8 @@ static Standard_Boolean Filling(const TopoDS_Shape&           EF,
                                 const TopoDS_Shape&           F2,
                                 TopTools_DataMapOfShapeShape& EEmap,
                                 const Standard_Real           Tol,
-                                const gp_Ax2&                 Axe,
-                                const gp_Vec&                 TangentOnPart1,
+                                const Frame3d&                 Axe,
+                                const Vector3d&                 TangentOnPart1,
                                 TopoDS_Edge&                  Aux1,
                                 TopoDS_Edge&                  Aux2,
                                 TopoDS_Face&                  Result)
@@ -920,7 +920,7 @@ static Standard_Boolean Filling(const TopoDS_Shape&           EF,
   Point3d           P1, P2, P;
 
   // Choose the angle of opening
-  gp_Trsf aTf;
+  Transform3d aTf;
   aTf.SetTransformation(Axe);
 
   // Choose the furthest point from the "center of revolution"
@@ -953,7 +953,7 @@ static Standard_Boolean Filling(const TopoDS_Shape&           EF,
 
   Angle = aV1.Angle(aV2);
 
-  gp_Ax1 axe(Axe.Location(), Axe.YDirection());
+  Axis3d axe(Axe.Location(), Axe.YDirection());
 
   if (Angle < 0)
   {
@@ -967,7 +967,7 @@ static Standard_Boolean Filling(const TopoDS_Shape&           EF,
 
   // Control the direction of the rotation
   Standard_Boolean ToReverseResult = Standard_False;
-  gp_Vec           d1u;
+  Vector3d           d1u;
   d1u = Surf->DN(0, aPrm[aMaxIdx], 1, 0);
   if (d1u.Angle(TangentOnPart1) > M_PI / 2)
   { // Invert everything
@@ -1271,7 +1271,7 @@ static Standard_Boolean Filling(const TopoDS_Shape&           EF,
   Angle = RealFirst();
   for (Standard_Integer i = 0; i < 3; i++)
   {
-    gp_Vec D1U, D1V, N1, N2;
+    Vector3d D1U, D1V, N1, N2;
     C1->D0(aPrm[i], P2d);
     Surf->D1(P2d.X(), P2d.Y(), P, D1U, D1V);
     N1 = D1U ^ D1V;
@@ -1706,7 +1706,7 @@ static void UpdateEdge(TopoDS_Edge&                E,
   {
     // Test angle between "First Tangente"
     gp_Vec2d          V2d;
-    gp_Vec            V3d, du, dv, dC3d;
+    Vector3d            V3d, du, dv, dC3d;
     BRepAdaptor_Curve C3d(E);
 
     C3d.D1(First, POnS, dC3d);
@@ -3399,7 +3399,7 @@ Standard_Boolean BRepFill_Sweep::PerformCorner(const Standard_Integer           
   Standard_Real            F, L;
   Standard_Integer         I1, I2, ii; //, jj;
   Point3d                   P1, P2;
-  gp_Vec                   T1, T2, Tang, Sortant;
+  Vector3d                   T1, T2, Tang, Sortant;
   //  gp_Mat M;
   // Handle(TopTools_HArray1OfShape) TheShape =
   // new TopTools_HArray1OfShape( 1, mySec->NbLaw() );
@@ -3428,7 +3428,7 @@ Standard_Boolean BRepFill_Sweep::PerformCorner(const Standard_Integer           
   if (T1.Angle(T2) < myAngMin)
   {
     isTangent = Standard_True;
-    gp_Vec t1, t2, V;
+    Vector3d t1, t2, V;
     gp_Mat M;
     myLoc->Law(I1)->GetDomain(F, L);
     myLoc->Law(I1)->D0(L, M, V);
@@ -3457,8 +3457,8 @@ Standard_Boolean BRepFill_Sweep::PerformCorner(const Standard_Integer           
   }
 
   Tang                                  = T1 + T2; // Average direction
-  gp_Dir NormalOfBisPlane               = Tang;
-  gp_Vec anIntersectPointCrossDirection = T1.Crossed(T2);
+  Dir3d NormalOfBisPlane               = Tang;
+  Vector3d anIntersectPointCrossDirection = T1.Crossed(T2);
   if (isTangent)
   {
     Sortant -= Tang.Dot(Tang) * Tang;
@@ -3471,11 +3471,11 @@ Standard_Boolean BRepFill_Sweep::PerformCorner(const Standard_Integer           
   }
 
   P1.BaryCenter(0.5, P2, 0.5);
-  gp_Dir N(Sortant);
-  gp_Dir Dx(Tang);
+  Dir3d N(Sortant);
+  Dir3d Dx(Tang);
 
-  gp_Ax2 Axe(P1, N, Dx);
-  gp_Ax2 AxeOfBisPlane(P1, NormalOfBisPlane);
+  Frame3d Axe(P1, N, Dx);
+  Frame3d AxeOfBisPlane(P1, NormalOfBisPlane);
 
   // Construct 2 intersecting Shells
   Handle(TopTools_HArray2OfShape) UEdges =
@@ -3493,12 +3493,12 @@ Standard_Boolean BRepFill_Sweep::PerformCorner(const Standard_Integer           
   Translate(myUEdges, I1, aUEdges, 1);
   Translate(myUEdges, I2, aUEdges, 2);
 
-  gp_Vec      aNormal = T2 + T1;
+  Vector3d      aNormal = T2 + T1;
   TopoDS_Face aPlaneF;
 
   if (aNormal.Magnitude() > gp::Resolution())
   {
-    gp_Pln           pl(P1, gp_Dir(aNormal));
+    gp_Pln           pl(P1, Dir3d(aNormal));
     BRepLib_MakeFace aFMaker(pl);
 
     if (aFMaker.Error() == BRepLib_FaceDone)
@@ -3707,7 +3707,7 @@ Standard_Real BRepFill_Sweep::EvalExtrapol(const Standard_Integer         Index,
       I2 = Index;
     }
 
-    gp_Vec        V1, V2, T1, T2;
+    Vector3d        V1, V2, T1, T2;
     gp_Mat        M1, M2;
     Standard_Real Xmin, Ymin, Zmin, Xmax, Ymax, Zmax, R, f, l;
 
@@ -3857,7 +3857,7 @@ void BRepFill_Sweep::RebuildTopOrBottomEdge(const TopoDS_Edge&   aNewEdge,
     {
       Standard_Real      OldFirst, OldLast;
       Handle(Geom_Curve) OldCurve = BRep_Tool::Curve(anEdge, OldFirst, OldLast);
-      gp_Vec             OldD1, NewD1;
+      Vector3d             OldD1, NewD1;
       Point3d             MidPnt;
       OldCurve->D1(0.5 * (OldFirst + OldLast), MidPnt, OldD1);
       aNewCurve->D1(0.5 * (fpar + lpar), MidPnt, NewD1);

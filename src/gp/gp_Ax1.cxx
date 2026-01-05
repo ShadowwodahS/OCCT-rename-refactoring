@@ -27,7 +27,7 @@
 #include <gp_Vec.hxx>
 #include <Standard_Dump.hxx>
 
-Standard_Boolean gp_Ax1::IsCoaxial(const gp_Ax1&       Other,
+Standard_Boolean Axis3d::IsCoaxial(const Axis3d&       Other,
                                    const Standard_Real AngularTolerance,
                                    const Standard_Real LinearTolerance) const
 {
@@ -43,50 +43,50 @@ Standard_Boolean gp_Ax1::IsCoaxial(const gp_Ax1&       Other,
           && D2 <= LinearTolerance);
 }
 
-void gp_Ax1::Mirror(const Point3d& P)
+void Axis3d::Mirror(const Point3d& P)
 {
   loc.Mirror(P);
   vdir.Reverse();
 }
 
-gp_Ax1 gp_Ax1::Mirrored(const Point3d& P) const
+Axis3d Axis3d::Mirrored(const Point3d& P) const
 {
-  gp_Ax1 A1 = *this;
+  Axis3d A1 = *this;
   A1.Mirror(P);
   return A1;
 }
 
-void gp_Ax1::Mirror(const gp_Ax1& A1)
+void Axis3d::Mirror(const Axis3d& A1)
 {
   loc.Mirror(A1);
   vdir.Mirror(A1.vdir);
 }
 
-gp_Ax1 gp_Ax1::Mirrored(const gp_Ax1& A1) const
+Axis3d Axis3d::Mirrored(const Axis3d& A1) const
 {
-  gp_Ax1 A = *this;
+  Axis3d A = *this;
   A.Mirror(A1);
   return A;
 }
 
-void gp_Ax1::Mirror(const gp_Ax2& A2)
+void Axis3d::Mirror(const Frame3d& A2)
 {
   loc.Mirror(A2);
   vdir.Mirror(A2);
 }
 
-gp_Ax1 gp_Ax1::Mirrored(const gp_Ax2& A2) const
+Axis3d Axis3d::Mirrored(const Frame3d& A2) const
 {
-  gp_Ax1 A1 = *this;
+  Axis3d A1 = *this;
   A1.Mirror(A2);
   return A1;
 }
 
-void gp_Ax1::DumpJson(Standard_OStream& theOStream, Standard_Integer) const {
+void Axis3d::DumpJson(Standard_OStream& theOStream, Standard_Integer) const {
   OCCT_DUMP_VECTOR_CLASS(theOStream, "Location", 3, loc.X(), loc.Y(), loc.Z())
     OCCT_DUMP_VECTOR_CLASS(theOStream, "Direction", 3, vdir.X(), vdir.Y(), vdir.Z())}
 
-Standard_Boolean gp_Ax1::InitFromJson(const Standard_SStream& theSStream,
+Standard_Boolean Axis3d::InitFromJson(const Standard_SStream& theSStream,
                                       Standard_Integer&       theStreamPos)
 {
   Standard_Integer        aPos       = theStreamPos;

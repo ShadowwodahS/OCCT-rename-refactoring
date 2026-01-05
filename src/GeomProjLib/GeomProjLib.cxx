@@ -312,7 +312,7 @@ Handle(Geom_Curve) GeomProjLib::Project(const Handle(Geom_Curve)& C, const Handl
 
 Handle(Geom_Curve) GeomProjLib::ProjectOnPlane(const Handle(Geom_Curve)& Curve,
                                                const Handle(Geom_Plane)& Plane,
-                                               const gp_Dir&             Dir,
+                                               const Dir3d&             Dir,
                                                const Standard_Boolean    KeepParametrization)
 {
   GeomAdaptor_Curve         AC(Curve);

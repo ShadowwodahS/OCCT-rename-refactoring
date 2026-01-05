@@ -23,7 +23,7 @@
 class Geom2d_Curve;
 class Law_Function;
 class Point3d;
-class gp_Vec;
+class Vector3d;
 
 class GeomPlate_CurveConstraint;
 DEFINE_STANDARD_HANDLE(GeomPlate_CurveConstraint, RefObject)
@@ -115,15 +115,15 @@ public:
 
   Standard_EXPORT void D0(const Standard_Real U, Point3d& P) const;
 
-  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2) const;
+  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, Vector3d& V1, Vector3d& V2) const;
 
   Standard_EXPORT void D2(const Standard_Real U,
                           Point3d&             P,
-                          gp_Vec&             V1,
-                          gp_Vec&             V2,
-                          gp_Vec&             V3,
-                          gp_Vec&             V4,
-                          gp_Vec&             V5) const;
+                          Vector3d&             V1,
+                          Vector3d&             V2,
+                          Vector3d&             V3,
+                          Vector3d&             V4,
+                          Vector3d&             V5) const;
 
   Standard_EXPORT Handle(Adaptor3d_Curve) Curve3d() const;
 

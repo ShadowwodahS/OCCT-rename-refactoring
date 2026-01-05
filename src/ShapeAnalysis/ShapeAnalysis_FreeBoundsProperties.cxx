@@ -331,7 +331,7 @@ Standard_Boolean ShapeAnalysis_FreeBoundsProperties::CheckNotches(const TopoDS_W
     return Standard_False;
 
   Point3d pnt;
-  gp_Vec vec1, vec2;
+  Vector3d vec1, vec2;
   c3d1->D1(Last1, pnt, vec1);
   c3d2->D1(First2, pnt, vec2);
   if (E1.Orientation() == TopAbs_REVERSED)

@@ -23,7 +23,7 @@
 
 #include <BRepPrim_Wedge.hxx>
 #include <BRepBuilderAPI_MakeShape.hxx>
-class gp_Ax2;
+class Frame3d;
 class TopoDS_Shell;
 class TopoDS_Solid;
 
@@ -44,7 +44,7 @@ public:
                                         const Standard_Real ltx);
 
   //! Make a STEP right angular wedge. (ltx >= 0)
-  Standard_EXPORT BRepPrimAPI_MakeWedge(const gp_Ax2&       Axes,
+  Standard_EXPORT BRepPrimAPI_MakeWedge(const Frame3d&       Axes,
                                         const Standard_Real dx,
                                         const Standard_Real dy,
                                         const Standard_Real dz,
@@ -60,7 +60,7 @@ public:
                                         const Standard_Real zmax);
 
   //! Make a wedge. The face at dy is xmin,zmin xmax,zmax
-  Standard_EXPORT BRepPrimAPI_MakeWedge(const gp_Ax2&       Axes,
+  Standard_EXPORT BRepPrimAPI_MakeWedge(const Frame3d&       Axes,
                                         const Standard_Real dx,
                                         const Standard_Real dy,
                                         const Standard_Real dz,

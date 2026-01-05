@@ -30,13 +30,13 @@ void DsgPrs_ConcentricPresentation::Add(const Handle(Prs3d_Presentation)& aPrese
                                         const Handle(Prs3d_Drawer)&       aDrawer,
                                         const Point3d&                     aCenter,
                                         const Standard_Real               aRadius,
-                                        const gp_Dir&                     aNorm,
+                                        const Dir3d&                     aNorm,
                                         const Point3d&                     aPoint)
 {
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
 
   // Creation et discretisation du plus gros cercle
-  gp_Circ                Circ(gp_Ax2(aCenter, aNorm), aRadius);
+  gp_Circ                Circ(Frame3d(aCenter, aNorm), aRadius);
   const Standard_Integer nbp   = 50;
   const Standard_Real    dteta = (2. * M_PI) / nbp;
 
@@ -65,8 +65,8 @@ void DsgPrs_ConcentricPresentation::Add(const Handle(Prs3d_Presentation)& aPrese
 
   // Creation de la croix
   // 1er segment
-  gp_Dir vecnorm(aPoint.XYZ() - aCenter.XYZ());
-  gp_Vec vec(vecnorm);
+  Dir3d vecnorm(aPoint.XYZ() - aCenter.XYZ());
+  Vector3d vec(vecnorm);
   vec.Multiply(aRadius);
   Point3d p1 = aCenter.Translated(vec);
   Point3d p2 = aCenter.Translated(-vec);

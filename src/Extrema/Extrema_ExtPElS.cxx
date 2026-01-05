@@ -72,18 +72,18 @@ void Extrema_ExtPElS::Perform(const Point3d& P, const gp_Cylinder& S, const Stan
   // Projection of point P in plane XOY of the cylinder ...
   gp_Ax3        Pos = S.Position();
   Point3d        O   = Pos.Location();
-  gp_Vec        OZ(Pos.Direction());
-  Standard_Real V  = gp_Vec(O, P).Dot(OZ);
+  Vector3d        OZ(Pos.Direction());
+  Standard_Real V  = Vector3d(O, P).Dot(OZ);
   Point3d        Pp = P.Translated(OZ.Multiplied(-V));
 
   // Calculation of extrema
-  gp_Vec OPp(O, Pp);
+  Vector3d OPp(O, Pp);
   if (OPp.Magnitude() < Tol)
   {
     return;
   }
-  gp_Vec        myZ = Pos.XDirection() ^ Pos.YDirection();
-  Standard_Real U1  = gp_Vec(Pos.XDirection()).AngleWithRef(OPp, myZ); //-M_PI<U1<M_PI
+  Vector3d        myZ = Pos.XDirection() ^ Pos.YDirection();
+  Standard_Real U1  = Vector3d(Pos.XDirection()).AngleWithRef(OPp, myZ); //-M_PI<U1<M_PI
   if (U1 > -ExtPElS_MyEps && U1 < ExtPElS_MyEps)
   {
     U1 = 0.;
@@ -152,9 +152,9 @@ void Extrema_ExtPElS::Perform(const Point3d& P, const gp_Cone& S, const Standard
   gp_Ax3        Pos = S.Position();
   Point3d        O   = Pos.Location();
   Standard_Real A   = S.SemiAngle();
-  gp_Vec        OZ(Pos.Direction());
-  gp_Vec        myZ = Pos.XDirection() ^ Pos.YDirection();
-  gp_Vec        MP(M, P);
+  Vector3d        OZ(Pos.Direction());
+  Vector3d        myZ = Pos.XDirection() ^ Pos.YDirection();
+  Vector3d        MP(M, P);
 
   Standard_Real L2 = MP.SquareMagnitude();
   Standard_Real Vm = -(S.RefRadius() / Sin(A));
@@ -168,24 +168,24 @@ void Extrema_ExtPElS::Perform(const Point3d& P, const gp_Cone& S, const Standard
     myDone      = Standard_True;
     return;
   }
-  gp_Vec DirZ;
+  Vector3d DirZ;
   if (M.SquareDistance(O) < Tol * Tol)
   {
     DirZ = (A < 0 ? -OZ : OZ);
   }
   else
-    DirZ = gp_Vec(M, O);
+    DirZ = Vector3d(M, O);
 
   // Projection of P in the reference plane of the cone ...
-  Standard_Real Zp = gp_Vec(O, P).Dot(OZ);
+  Standard_Real Zp = Vector3d(O, P).Dot(OZ);
 
   Point3d Pp = P.Translated(OZ.Multiplied(-Zp));
-  gp_Vec OPp(O, Pp);
+  Vector3d OPp(O, Pp);
   if (OPp.SquareMagnitude() < Tol * Tol)
     return;
   Standard_Real    U1, V1, U2, V2;
   Standard_Boolean Same = DirZ.Dot(MP) >= 0.0;
-  U1                    = gp_Vec(Pos.XDirection()).AngleWithRef(OPp, myZ); //-M_PI<U1<M_PI
+  U1                    = Vector3d(Pos.XDirection()).AngleWithRef(OPp, myZ); //-M_PI<U1<M_PI
   if (U1 > -ExtPElS_MyEps && U1 < ExtPElS_MyEps)
   {
     U1 = 0.;
@@ -217,7 +217,7 @@ void Extrema_ExtPElS::Perform(const Point3d& P, const gp_Cone& S, const Standard
     V1 = L * cos(B - A);
     V2 = L * cos(B + A);
   }
-  Standard_Real Sense = OZ.Dot(gp_Dir(DirZ));
+  Standard_Real Sense = OZ.Dot(Dir3d(DirZ));
   V1 *= Sense;
   V2 *= Sense;
   V1 += Vm;
@@ -270,7 +270,7 @@ void Extrema_ExtPElS::Perform(const Point3d& P, const gp_Sphere& S, const Standa
   myNbExt = 0;
 
   gp_Ax3 Pos = S.Position();
-  gp_Vec OP(Pos.Location(), P);
+  Vector3d OP(Pos.Location(), P);
 
   // Case when P is mixed with O ...
   if (OP.SquareMagnitude() < Tol * Tol)
@@ -280,12 +280,12 @@ void Extrema_ExtPElS::Perform(const Point3d& P, const gp_Sphere& S, const Standa
 
   // Projection if P in plane XOY of the sphere ...
   Point3d        O = Pos.Location();
-  gp_Vec        OZ(Pos.Direction());
+  Vector3d        OZ(Pos.Direction());
   Standard_Real Zp = OP.Dot(OZ);
   Point3d        Pp = P.Translated(OZ.Multiplied(-Zp));
 
   // Calculation of extrema ...
-  gp_Vec        OPp(O, Pp);
+  Vector3d        OPp(O, Pp);
   Standard_Real U1, U2, V;
   if (OPp.SquareMagnitude() < Tol * Tol)
   {
@@ -302,8 +302,8 @@ void Extrema_ExtPElS::Perform(const Point3d& P, const gp_Sphere& S, const Standa
   }
   else
   {
-    gp_Vec myZ = Pos.XDirection() ^ Pos.YDirection();
-    U1         = gp_Vec(Pos.XDirection()).AngleWithRef(OPp, myZ);
+    Vector3d myZ = Pos.XDirection() ^ Pos.YDirection();
+    U1         = Vector3d(Pos.XDirection()).AngleWithRef(OPp, myZ);
     if (U1 > -ExtPElS_MyEps && U1 < ExtPElS_MyEps)
     {
       U1 = 0.;
@@ -367,19 +367,19 @@ void Extrema_ExtPElS::Perform(const Point3d& P, const gp_Torus& S, const Standar
   // Projection of P in plane XOY ...
   gp_Ax3 Pos = S.Position();
   Point3d O   = Pos.Location();
-  gp_Vec OZ(Pos.Direction());
-  Point3d Pp = P.Translated(OZ.Multiplied(-(gp_Vec(O, P).Dot(Pos.Direction()))));
+  Vector3d OZ(Pos.Direction());
+  Point3d Pp = P.Translated(OZ.Multiplied(-(Vector3d(O, P).Dot(Pos.Direction()))));
 
   // Calculation of extrema ...
-  gp_Vec        OPp(O, Pp);
+  Vector3d        OPp(O, Pp);
   Standard_Real R2 = OPp.SquareMagnitude();
   if (R2 < tol2)
   {
     return;
   }
 
-  gp_Vec        myZ = Pos.XDirection() ^ Pos.YDirection();
-  Standard_Real U1  = gp_Vec(Pos.XDirection()).AngleWithRef(OPp, myZ);
+  Vector3d        myZ = Pos.XDirection() ^ Pos.YDirection();
+  Standard_Real U1  = Vector3d(Pos.XDirection()).AngleWithRef(OPp, myZ);
   if (U1 > -ExtPElS_MyEps && U1 < ExtPElS_MyEps)
   {
     U1 = 0.;
@@ -390,8 +390,8 @@ void Extrema_ExtPElS::Perform(const Point3d& P, const gp_Torus& S, const Standar
     U1 += 2. * M_PI;
   }
   Standard_Real R   = sqrt(R2);
-  gp_Vec        OO1 = OPp.Divided(R).Multiplied(S.MajorRadius());
-  gp_Vec        OO2 = OO1.Multiplied(-1.);
+  Vector3d        OO1 = OPp.Divided(R).Multiplied(S.MajorRadius());
+  Vector3d        OO2 = OO1.Multiplied(-1.);
   Point3d        O1  = O.Translated(OO1);
   Point3d        O2  = O.Translated(OO2);
 
@@ -404,13 +404,13 @@ void Extrema_ExtPElS::Perform(const Point3d& P, const gp_Torus& S, const Standar
     return;
   }
 
-  Standard_Real V1 = OPp.AngleWithRef(gp_Vec(O1, P), OPp.Crossed(OZ));
+  Standard_Real V1 = OPp.AngleWithRef(Vector3d(O1, P), OPp.Crossed(OZ));
   if (V1 > -ExtPElS_MyEps && V1 < ExtPElS_MyEps)
   {
     V1 = 0.;
   }
   OPp.Reverse();
-  Standard_Real V2 = OPp.AngleWithRef(gp_Vec(P, O2), OPp.Crossed(OZ));
+  Standard_Real V2 = OPp.AngleWithRef(Vector3d(P, O2), OPp.Crossed(OZ));
   if (V2 > -ExtPElS_MyEps && V2 < ExtPElS_MyEps)
   {
     V2 = 0.;
@@ -461,8 +461,8 @@ void Extrema_ExtPElS::Perform(const Point3d& P,
 
   // Projection of point P in plane XOY of the cylinder ...
   Point3d        O = S.Location();
-  gp_Vec        OZ(S.Axis().Direction());
-  Standard_Real U, V = gp_Vec(O, P).Dot(OZ);
+  Vector3d        OZ(S.Axis().Direction());
+  Standard_Real U, V = Vector3d(O, P).Dot(OZ);
   Point3d        Pp = P.Translated(OZ.Multiplied(-V));
 
   ElSLib::Parameters(S, P, U, V);

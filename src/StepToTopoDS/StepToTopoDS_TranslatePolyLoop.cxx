@@ -91,7 +91,7 @@ void StepToTopoDS_TranslatePolyLoop::Init(const Handle(StepShape_PolyLoop)& PL,
     TopoDS_Wire                     W;
     Handle(Geom_Line)               L;
     Handle(Geom2d_Line)             L2d;
-    gp_Vec                          V;
+    Vector3d                          V;
     gp_Vec2d                        V2d;
     Standard_Real                   Magn;
     Handle(Geom_Plane)              SP = Handle(Geom_Plane)::DownCast(GeomSurf);
@@ -138,8 +138,8 @@ void StepToTopoDS_TranslatePolyLoop::Init(const Handle(StepShape_PolyLoop)& PL,
           B.MakeVertex(V2, GP2->Pnt(), Precision::Confusion()); //: S4136: preci
           aTool.BindVertex(P2, V2);
         }
-        V = gp_Vec(GP1->Pnt(), GP2->Pnt());
-        L = new Geom_Line(GP1->Pnt(), gp_Dir(V));
+        V = Vector3d(GP1->Pnt(), GP2->Pnt());
+        L = new Geom_Line(GP1->Pnt(), Dir3d(V));
         B.MakeEdge(E, L, Precision::Confusion()); //: S4136: preci
         V1.Orientation(TopAbs_FORWARD);
         V2.Orientation(TopAbs_REVERSED);

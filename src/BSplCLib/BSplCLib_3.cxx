@@ -28,7 +28,7 @@
 
 #define Array1OfPoints TColgp_Array1OfPnt
 #define Point Point3d
-#define Vector gp_Vec
+#define Vector Vector3d
 
 #define PointToCoords(carr, pnt, op)                                                               \
   (carr)[0] = (pnt).X() op, (carr)[1] = (pnt).Y() op, (carr)[2] = (pnt).Z() op

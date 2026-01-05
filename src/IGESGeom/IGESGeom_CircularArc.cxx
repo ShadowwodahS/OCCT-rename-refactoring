@@ -120,21 +120,21 @@ Standard_Real IGESGeom_CircularArc::Angle() const
   return t + (t > 0 ? 0 : 2 * M_PI);
 }
 
-gp_Dir IGESGeom_CircularArc::Axis() const
+Dir3d IGESGeom_CircularArc::Axis() const
 {
-  gp_Dir axis(0.0, 0.0, 1.0);
+  Dir3d axis(0.0, 0.0, 1.0);
   return axis;
 }
 
-gp_Dir IGESGeom_CircularArc::TransformedAxis() const
+Dir3d IGESGeom_CircularArc::TransformedAxis() const
 {
   gp_XYZ axis(0.0, 0.0, 1.0);
   if (!HasTransf())
-    return gp_Dir(axis);
+    return Dir3d(axis);
   gp_GTrsf loc = Location();
   loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
   loc.Transforms(axis);
-  return gp_Dir(axis);
+  return Dir3d(axis);
 }
 
 Standard_Boolean IGESGeom_CircularArc::IsClosed() const

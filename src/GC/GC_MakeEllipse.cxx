@@ -28,7 +28,7 @@ GC_MakeEllipse::GC_MakeEllipse(const gp_Elips& E)
   TheEllipse = new Geom_Ellipse(E);
 }
 
-GC_MakeEllipse::GC_MakeEllipse(const gp_Ax2&       A2,
+GC_MakeEllipse::GC_MakeEllipse(const Frame3d&       A2,
                                const Standard_Real MajorRadius,
                                const Standard_Real MinorRadius)
 {

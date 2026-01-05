@@ -126,7 +126,7 @@ Convert_ConeToBSplineSurface::Convert_ConeToBSplineSurface(const gp_Cone&      C
   // Replace the bspline in the mark of the sphere.
   // and calculate the weight of the bspline.
   Standard_Real W1;
-  gp_Trsf       Trsf;
+  Transform3d       Trsf;
   Trsf.SetTransformation(C.Position(), gp::XOY());
 
   for (i = 1; i <= nbUPoles; i++)
@@ -188,7 +188,7 @@ Convert_ConeToBSplineSurface::Convert_ConeToBSplineSurface(const gp_Cone&      C
   // replace bspline in the mark of the cone.
   // and calculate the weight of bspline.
   Standard_Real W;
-  gp_Trsf       Trsf;
+  Transform3d       Trsf;
   Trsf.SetTransformation(C.Position(), gp::XOY());
 
   for (i = 1; i <= nbUPoles; i++)

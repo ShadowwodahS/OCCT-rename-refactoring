@@ -45,8 +45,8 @@ void DsgPrs::ComputeSymbol(const Handle(Prs3d_Presentation)&    aPresentation,
                            const Handle(Prs3d_DimensionAspect)& LA,
                            const Point3d&                        pt1,
                            const Point3d&                        pt2,
-                           const gp_Dir&                        dir1,
-                           const gp_Dir&                        dir2,
+                           const Dir3d&                        dir1,
+                           const Dir3d&                        dir2,
                            const DsgPrs_ArrowSide               ArrowSide,
                            const Standard_Boolean               drawFromCenter)
 {
@@ -143,12 +143,12 @@ void DsgPrs::ComputePlanarFacesLengthPresentation(const Standard_Real FirstArrow
                                                   const Standard_Real SecondArrowLength,
                                                   const Point3d&       AttachmentPoint1,
                                                   const Point3d&       AttachmentPoint2,
-                                                  const gp_Dir&       DirAttach,
+                                                  const Dir3d&       DirAttach,
                                                   const Point3d&       OffsetPoint,
                                                   const gp_Pln&       PlaneOfFaces,
                                                   Point3d&             EndOfArrow1,
                                                   Point3d&             EndOfArrow2,
-                                                  gp_Dir&             DirOfArrow1)
+                                                  Dir3d&             DirOfArrow1)
 {
   gp_Lin FirstLin(AttachmentPoint1, DirAttach);
   gp_Lin SecondLin(AttachmentPoint2, DirAttach);
@@ -158,7 +158,7 @@ void DsgPrs::ComputePlanarFacesLengthPresentation(const Standard_Real FirstArrow
 
   if (EndOfArrow1.SquareDistance(EndOfArrow2) > Precision::SquareConfusion()) // not null length
   {
-    gp_Dir LengthDir(gp_Vec(EndOfArrow1, EndOfArrow2));
+    Dir3d LengthDir(Vector3d(EndOfArrow1, EndOfArrow2));
     if ((FirstArrowLength + SecondArrowLength) * (FirstArrowLength + SecondArrowLength)
         < EndOfArrow1.SquareDistance(EndOfArrow2))
       DirOfArrow1 = -LengthDir;
@@ -176,9 +176,9 @@ void DsgPrs::ComputeCurvilinearFacesLengthPresentation(const Standard_Real First
                                                        const Handle(Geom_Surface)& SecondSurf,
                                                        const Point3d&               AttachmentPoint1,
                                                        const Point3d&               AttachmentPoint2,
-                                                       const gp_Dir&               DirAttach,
+                                                       const Dir3d&               DirAttach,
                                                        Point3d&                     EndOfArrow2,
-                                                       gp_Dir&                     DirOfArrow1,
+                                                       Dir3d&                     DirOfArrow1,
                                                        Handle(Geom_Curve)&         VCurve,
                                                        Handle(Geom_Curve)&         UCurve,
                                                        Standard_Real&              FirstU,
@@ -196,17 +196,17 @@ void DsgPrs::ComputeCurvilinearFacesLengthPresentation(const Standard_Real First
   Standard_Integer Index(1);
   Standard_Real    MinDist = RealLast();
   Standard_Real    LocalU, LocalV;
-  gp_Vec           D1U, D1V;
-  gp_Dir           LocalDir;
+  Vector3d           D1U, D1V;
+  Dir3d           LocalDir;
   for (Standard_Integer i = 1; i <= ProjectorOnSurface.NbPoints(); i++)
   {
     ProjectorOnSurface.Parameters(i, LocalU, LocalV);
 
     SecondSurf->D1(LocalU, LocalV, EndOfArrow2, D1U, D1V);
     if (D1U.SquareMagnitude() <= SquareTolerance || D1V.SquareMagnitude() <= SquareTolerance)
-      LocalDir = gp_Dir(gp_Vec(AttachmentPoint1, ProjectorOnSurface.Point(i)));
+      LocalDir = Dir3d(Vector3d(AttachmentPoint1, ProjectorOnSurface.Point(i)));
     else
-      LocalDir = gp_Dir(D1U ^ D1V);
+      LocalDir = Dir3d(D1U ^ D1V);
     if (DirAttach.IsParallel(LocalDir, Precision::Angular())
         && ProjectorOnSurface.Distance(i) < MinDist)
     {
@@ -267,19 +267,19 @@ void DsgPrs::ComputeFacesAnglePresentation(const Standard_Real    ArrowLength,
                                            const Point3d&          CenterPoint,
                                            const Point3d&          AttachmentPoint1,
                                            const Point3d&          AttachmentPoint2,
-                                           const gp_Dir&          dir1,
-                                           const gp_Dir&          dir2,
-                                           const gp_Dir&          axisdir,
+                                           const Dir3d&          dir1,
+                                           const Dir3d&          dir2,
+                                           const Dir3d&          axisdir,
                                            const Standard_Boolean isPlane,
-                                           const gp_Ax1&          AxisOfSurf,
+                                           const Axis3d&          AxisOfSurf,
                                            const Point3d&          OffsetPoint,
                                            gp_Circ&               AngleCirc,
                                            Standard_Real&         FirstParAngleCirc,
                                            Standard_Real&         LastParAngleCirc,
                                            Point3d&                EndOfArrow1,
                                            Point3d&                EndOfArrow2,
-                                           gp_Dir&                DirOfArrow1,
-                                           gp_Dir&                DirOfArrow2,
+                                           Dir3d&                DirOfArrow1,
+                                           Dir3d&                DirOfArrow2,
                                            Point3d&                ProjAttachPoint2,
                                            gp_Circ&               AttachCirc,
                                            Standard_Real&         FirstParAttachCirc,
@@ -288,13 +288,13 @@ void DsgPrs::ComputeFacesAnglePresentation(const Standard_Real    ArrowLength,
   if (Value > Precision::Angular() && Abs(M_PI - Value) > Precision::Angular())
   {
     // Computing presentation of angle's arc
-    gp_Ax2 ax(CenterPoint, axisdir, dir1);
+    Frame3d ax(CenterPoint, axisdir, dir1);
     AngleCirc.SetPosition(ax);
     AngleCirc.SetRadius(CenterPoint.Distance(OffsetPoint));
-    gp_Vec vec1(dir1);
+    Vector3d vec1(dir1);
     vec1 *= AngleCirc.Radius();
     Point3d p1 = CenterPoint.Translated(vec1);
-    gp_Vec vec2(dir2);
+    Vector3d vec2(dir2);
     vec2 *= AngleCirc.Radius();
     Point3d p2 = CenterPoint.Translated(vec2);
 
@@ -302,11 +302,11 @@ void DsgPrs::ComputeFacesAnglePresentation(const Standard_Real    ArrowLength,
     Standard_Real Par2 = ElCLib::Parameter(AngleCirc, p2);
     Standard_Real Par0 = ElCLib::Parameter(AngleCirc, OffsetPoint);
 
-    gp_Vec PosVec(CenterPoint, OffsetPoint);
-    gp_Vec NormalOfPlane = vec1 ^ vec2;
+    Vector3d PosVec(CenterPoint, OffsetPoint);
+    Vector3d NormalOfPlane = vec1 ^ vec2;
 
-    gp_Vec           Normal1 = NormalOfPlane ^ vec1;
-    gp_Vec           Normal2 = NormalOfPlane ^ vec2;
+    Vector3d           Normal1 = NormalOfPlane ^ vec1;
+    Vector3d           Normal2 = NormalOfPlane ^ vec2;
     Standard_Integer Sign1   = (PosVec * Normal1 >= 0) ? 1 : -1;
     Standard_Integer Sign2   = (PosVec * Normal2 >= 0) ? 1 : -1;
     if (Sign1 == 1 && Sign2 == -1)
@@ -328,7 +328,7 @@ void DsgPrs::ComputeFacesAnglePresentation(const Standard_Real    ArrowLength,
     }
     else // Sign1 == -1 && Sign2 == -1
     {
-      AngleCirc.SetPosition(gp_Ax2(CenterPoint, axisdir, gp_Dir(PosVec)));
+      AngleCirc.SetPosition(Frame3d(CenterPoint, axisdir, Dir3d(PosVec)));
       Par0              = 0.;
       Par1              = ElCLib::Parameter(AngleCirc, p1);
       Par2              = ElCLib::Parameter(AngleCirc, p2);
@@ -344,8 +344,8 @@ void DsgPrs::ComputeFacesAnglePresentation(const Standard_Real    ArrowLength,
       beta = ArrowLength / AngleCirc.Radius();
     Point3d OriginOfArrow1 = ElCLib::Value(Par1 + beta, AngleCirc);
     Point3d OriginOfArrow2 = ElCLib::Value(Par2 - beta, AngleCirc);
-    DirOfArrow1           = gp_Dir(gp_Vec(OriginOfArrow1, EndOfArrow1));
-    DirOfArrow2           = gp_Dir(gp_Vec(OriginOfArrow2, EndOfArrow2));
+    DirOfArrow1           = Dir3d(Vector3d(OriginOfArrow1, EndOfArrow1));
+    DirOfArrow2           = Dir3d(Vector3d(OriginOfArrow2, EndOfArrow2));
     if (EndOfArrow1.SquareDistance(EndOfArrow2)
         <= (ArrowLength + ArrowLength) * (ArrowLength + ArrowLength))
     {
@@ -355,7 +355,7 @@ void DsgPrs::ComputeFacesAnglePresentation(const Standard_Real    ArrowLength,
   }
   else // dir1 and dir2 are parallel
   {
-    gp_Dir ArrowDir = axisdir ^ dir1;
+    Dir3d ArrowDir = axisdir ^ dir1;
     DirOfArrow1     = ArrowDir;
     DirOfArrow2     = -ArrowDir;
     gp_Lin DirLine(AttachmentPoint1, dir1);
@@ -377,9 +377,9 @@ void DsgPrs::ComputeFacesAnglePresentation(const Standard_Real    ArrowLength,
       Point3d CenterOfArc =
         ElCLib::Value(ElCLib::Parameter(LineOfAxis, AttachmentPoint2), LineOfAxis);
 
-      gp_Ax2 Ax2(CenterOfArc,
+      Frame3d Ax2(CenterOfArc,
                  AxisOfSurf.Direction(),
-                 gp_Dir(gp_Vec(CenterOfArc, AttachmentPoint2)));
+                 Dir3d(Vector3d(CenterOfArc, AttachmentPoint2)));
       AttachCirc.SetPosition(Ax2);
       AttachCirc.SetRadius(CenterOfArc.Distance(AttachmentPoint2));
 
@@ -404,7 +404,7 @@ void DsgPrs::ComputeFacesAnglePresentation(const Standard_Real    ArrowLength,
 void DsgPrs::ComputeFilletRadiusPresentation(const Standard_Real /*ArrowLength*/,
                                              const Standard_Real    Value,
                                              const Point3d&          Position,
-                                             const gp_Dir&          NormalDir,
+                                             const Dir3d&          NormalDir,
                                              const Point3d&          FirstPoint,
                                              const Point3d&          SecondPoint,
                                              const Point3d&          Center,
@@ -415,11 +415,11 @@ void DsgPrs::ComputeFilletRadiusPresentation(const Standard_Real /*ArrowLength*/
                                              Standard_Real&         FirstParCirc,
                                              Standard_Real&         LastParCirc,
                                              Point3d&                EndOfArrow,
-                                             gp_Dir&                DirOfArrow,
+                                             Dir3d&                DirOfArrow,
                                              Point3d&                DrawPosition)
 {
-  gp_Dir        dir1(gp_Vec(Center, FirstPoint));
-  gp_Dir        dir2(gp_Vec(Center, SecondPoint));
+  Dir3d        dir1(Vector3d(Center, FirstPoint));
+  Dir3d        dir2(Vector3d(Center, SecondPoint));
   Standard_Real Angle = dir1.Angle(dir2);
   if (Angle <= Precision::Angular() || (M_PI - Angle) <= Precision::Angular()
       || Value <= Precision::Confusion())
@@ -429,21 +429,21 @@ void DsgPrs::ComputeFilletRadiusPresentation(const Standard_Real /*ArrowLength*/
   if (!SpecCase)
   {
     // Computing presentation of fillet's arc
-    gp_Ax2 ax(Center, NormalDir, dir1);
+    Frame3d ax(Center, NormalDir, dir1);
     FilletCirc.SetPosition(ax);
     FilletCirc.SetRadius(Center.Distance(FirstPoint)); //***
-    gp_Vec vec1(dir1);
+    Vector3d vec1(dir1);
     vec1 *= FilletCirc.Radius();
-    gp_Vec vec2(dir2);
+    Vector3d vec2(dir2);
     vec2 *= FilletCirc.Radius();
-    gp_Vec PosVec;
+    Vector3d PosVec;
     if (!Center.IsEqual(Position, Precision::Confusion()))
-      PosVec.SetXYZ(gp_Vec(Center, Position).XYZ());
+      PosVec.SetXYZ(Vector3d(Center, Position).XYZ());
     else
       PosVec.SetXYZ((vec1.Added(vec2)).XYZ());
-    gp_Vec           NormalOfPlane = vec1 ^ vec2;
-    gp_Vec           Normal1       = NormalOfPlane ^ vec1;
-    gp_Vec           Normal2       = NormalOfPlane ^ vec2;
+    Vector3d           NormalOfPlane = vec1 ^ vec2;
+    Vector3d           Normal1       = NormalOfPlane ^ vec1;
+    Vector3d           Normal2       = NormalOfPlane ^ vec2;
     Standard_Integer Sign1         = (PosVec * Normal1 >= 0) ? 1 : -1;
     Standard_Integer Sign2         = (PosVec * Normal2 >= 0) ? 1 : -1;
     gp_Lin           L1(Center, dir1);
@@ -451,7 +451,7 @@ void DsgPrs::ComputeFilletRadiusPresentation(const Standard_Real /*ArrowLength*/
     if (Sign1 != Sign2)
     {
       DrawPosition = Position; //***
-      gp_Dir        direction(PosVec);
+      Dir3d        direction(PosVec);
       Standard_Real angle = dir1.Angle(direction);
       if ((dir1 ^ direction) * NormalDir < 0.0e0)
         angle = -angle;
@@ -474,8 +474,8 @@ void DsgPrs::ComputeFilletRadiusPresentation(const Standard_Real /*ArrowLength*/
     }
     if ((dir1 ^ dir2).IsOpposite(NormalDir, Precision::Angular()))
     {
-      gp_Dir newdir = NormalDir.Reversed();
-      gp_Ax2 axnew(Center, newdir, dir1);
+      Dir3d newdir = NormalDir.Reversed();
+      Frame3d axnew(Center, newdir, dir1);
       FilletCirc.SetPosition(axnew);
     }
     FirstParCirc = ElCLib::Parameter(FilletCirc, FirstPoint);
@@ -489,10 +489,10 @@ void DsgPrs::ComputeFilletRadiusPresentation(const Standard_Real /*ArrowLength*/
 
   if (drawRevers)
   {
-    gp_Vec Vd(DrawPosition, EndOfArrow);
+    Vector3d Vd(DrawPosition, EndOfArrow);
     DrawPosition.Translate(Vd * 2);
   }
-  DirOfArrow.SetXYZ(gp_Dir(gp_Vec(DrawPosition, EndOfArrow)).XYZ());
+  DirOfArrow.SetXYZ(Dir3d(Vector3d(DrawPosition, EndOfArrow)).XYZ());
 }
 
 //=================================================================================================

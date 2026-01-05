@@ -122,8 +122,8 @@ void PrsDim_PerpendicularRelation::ComputeSelection(const Handle(SelectMgr_Selec
 
   if (ok1 && ok2)
   {
-    gp_Vec        vec1(gce_MakeDir(pos, myFAttach));
-    gp_Vec        vec2(gce_MakeDir(pos, mySAttach));
+    Vector3d        vec1(gce_MakeDir(pos, myFAttach));
+    Vector3d        vec2(gce_MakeDir(pos, mySAttach));
     Standard_Real dist1(pos.Distance(myFAttach));
     Standard_Real dist2(pos.Distance(mySAttach));
     vec1 *= dist1;
@@ -181,11 +181,11 @@ void PrsDim_PerpendicularRelation::ComputeTwoEdgesPerpendicular(
   {
     Handle(Geom_Ellipse) geom_el(Handle(Geom_Ellipse)::DownCast(geom1));
     // construct lines through focuses
-    gp_Ax1 elAx = geom_el->XAxis();
+    Axis3d elAx = geom_el->XAxis();
     gp_Lin ll(elAx);
     geom_lin1              = new Geom_Line(ll);
     Standard_Real focex    = geom_el->MajorRadius() - geom_el->Focal() / 2.0;
-    gp_Vec        transvec = gp_Vec(elAx.Direction()) * focex;
+    Vector3d        transvec = Vector3d(elAx.Direction()) * focex;
     ptat11                 = geom_el->Focus1().Translated(transvec);
     ptat12                 = geom_el->Focus2().Translated(-transvec);
     interOut1              = Standard_True;
@@ -201,11 +201,11 @@ void PrsDim_PerpendicularRelation::ComputeTwoEdgesPerpendicular(
   {
     Handle(Geom_Ellipse) geom_el(Handle(Geom_Ellipse)::DownCast(geom2));
     // construct lines through focuses
-    gp_Ax1 elAx = geom_el->XAxis();
+    Axis3d elAx = geom_el->XAxis();
     gp_Lin ll(elAx);
     geom_lin2              = new Geom_Line(ll);
     Standard_Real focex    = geom_el->MajorRadius() - geom_el->Focal() / 2.0;
-    gp_Vec        transvec = gp_Vec(elAx.Direction()) * focex;
+    Vector3d        transvec = Vector3d(elAx.Direction()) * focex;
     ptat21                 = geom_el->Focus1().Translated(transvec);
     ptat22                 = geom_el->Focus2().Translated(-transvec);
     interOut2              = Standard_True;
@@ -273,7 +273,7 @@ void PrsDim_PerpendicularRelation::ComputeTwoEdgesPerpendicular(
       else
         length = 2. * ptat11.Distance(ptat12) / 5.;
       lengthComputed = Standard_True;
-      gp_Vec vec1(gce_MakeDir(myPosition, p1));
+      Vector3d vec1(gce_MakeDir(myPosition, p1));
       vec1.Multiply(length);
       pAx1      = myPosition.Translated(vec1);
       myFAttach = pAx1;
@@ -294,7 +294,7 @@ void PrsDim_PerpendicularRelation::ComputeTwoEdgesPerpendicular(
       {
         interOut2 = Standard_True;
       }
-      gp_Vec vec2(gce_MakeDir(myPosition, p2));
+      Vector3d vec2(gce_MakeDir(myPosition, p2));
       if (!lengthComputed)
       {
         if (!isInfinite1)
@@ -309,14 +309,14 @@ void PrsDim_PerpendicularRelation::ComputeTwoEdgesPerpendicular(
     if (isInfinite1)
     {
       p1 = myPosition;
-      gp_Vec vec1(geom_lin1->Lin().Direction());
+      Vector3d vec1(geom_lin1->Lin().Direction());
       vec1.Multiply(length);
       myFAttach = myPosition.Translated(vec1);
     }
     if (isInfinite2)
     {
       p2 = myPosition;
-      gp_Vec vec2(geom_lin2->Lin().Direction());
+      Vector3d vec2(geom_lin2->Lin().Direction());
       vec2.Multiply(length);
       mySAttach = myPosition.Translated(vec2);
     }

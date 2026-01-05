@@ -316,7 +316,7 @@ void HLRBRep_PolyAlgo::StoreShell(const TopoDS_Shape&                           
   TopExp_Explorer  aFaceExp, anEdgeExp;
   Standard_Integer aNbFaceShell = 0;
   Standard_Boolean isClosed     = Standard_False;
-  const gp_Trsf&   aProjTrsf    = myProj.Transformation();
+  const Transform3d&   aProjTrsf    = myProj.Transformation();
   {
     const gp_XYZ& aTrsfVec = aProjTrsf.TranslationPart();
     TLoc[0]                = aTrsfVec.X();
@@ -335,7 +335,7 @@ void HLRBRep_PolyAlgo::StoreShell(const TopoDS_Shape&                           
     TMat[2][2]             = aTrsfMat.Value(3, 3);
   }
   {
-    const gp_Trsf& aTrsfInv    = myProj.InvertedTransformation();
+    const Transform3d& aTrsfInv    = myProj.InvertedTransformation();
     const gp_XYZ&  aTrsfInvVec = aTrsfInv.TranslationPart();
     TILo[0]                    = aTrsfInvVec.X();
     TILo[1]                    = aTrsfInvVec.Y();
@@ -438,7 +438,7 @@ void HLRBRep_PolyAlgo::StoreShell(const TopoDS_Shape&                           
           iFace++;
           const Standard_Integer aFaceIndex = myFMap.FindIndex(aFace);
           const bool             isReversed = aFace.Orientation() == TopAbs_REVERSED;
-          gp_Trsf                aTT        = aLoc.Transformation();
+          Transform3d                aTT        = aLoc.Transformation();
           aTT.PreMultiply(aProjTrsf);
           {
             const gp_XYZ& aTTrsfVec = aTT.TranslationPart();
@@ -649,15 +649,15 @@ Standard_Boolean HLRBRep_PolyAlgo::Normal(const Standard_Integer                
 {
   if (theNod1RValues.Normal.SquareModulus() < Precision::Confusion())
   {
-    gp_Vec                 aD1U, aD1V;
+    Vector3d                 aD1U, aD1V;
     Point3d                 aPnt;
     CSLib_DerivativeStatus aStatus = CSLib_D1IsNull;
     myBSurf.D1(theNod1RValues.UV.X(), theNod1RValues.UV.Y(), aPnt, aD1U, aD1V);
-    gp_Dir aNorm;
+    Dir3d aNorm;
     CSLib::Normal(aD1U, aD1V, Precision::Angular(), aStatus, aNorm);
     if (aStatus != CSLib_Done)
     {
-      gp_Vec             aD2U, aD2V, aD2UV;
+      Vector3d             aD2U, aD2V, aD2UV;
       bool               isOK = false;
       CSLib_NormalStatus aNromStatus;
       myBSurf.D2(theNod1RValues.UV.X(), theNod1RValues.UV.Y(), aPnt, aD1U, aD1V, aD2U, aD2V, aD2UV);
@@ -1324,8 +1324,8 @@ void HLRBRep_PolyAlgo::InitBiPointsWithConnexity(
     if (!aPolyg.IsNull())
     {
       const TColgp_Array1OfPnt& aPol      = aPolyg->Nodes();
-      gp_Trsf                   aTT       = aLoc.Transformation();
-      const gp_Trsf&            aProjTrsf = myProj.Transformation();
+      Transform3d                   aTT       = aLoc.Transformation();
+      const Transform3d&            aProjTrsf = myProj.Transformation();
       aTT.PreMultiply(aProjTrsf);
       {
         const gp_XYZ& aTTrsfVec = aTT.TranslationPart();
@@ -2996,7 +2996,7 @@ void HLRBRep_PolyAlgo::InsertOnOutLine(NCollection_Array1<Handle(HLRAlgo_PolyInt
   Standard_Boolean mP3P1 = false;
   Standard_Real    aU3, aV3, aCoef3, X3 = 0., Y3 = 0., Z3 = 0.;
 
-  const gp_Trsf& aProjTrsf = myProj.Transformation();
+  const Transform3d& aProjTrsf = myProj.Transformation();
 
   const Standard_Integer aNbFaces = myFMap.Extent();
   for (Standard_Integer aFaceIter = 1; aFaceIter <= aNbFaces; ++aFaceIter)
@@ -3016,7 +3016,7 @@ void HLRBRep_PolyAlgo::InsertOnOutLine(NCollection_Array1<Handle(HLRAlgo_PolyInt
     myBSurf.Initialize(aFace, Standard_False);
     myGSurf = BRep_Tool::Surface(aFace, aLoc);
     {
-      gp_Trsf aTT = aLoc.Transformation();
+      Transform3d aTT = aLoc.Transformation();
       aTT.PreMultiply(aProjTrsf);
       const gp_XYZ& aTTrsfVec = aTT.TranslationPart();
       TTLo[0]                 = aTTrsfVec.X();

@@ -28,7 +28,7 @@ Graphic3d_Text::Graphic3d_Text(const Standard_ShortReal theHeight)
 
 //=================================================================================================
 
-void Graphic3d_Text::SetOrientation(const gp_Ax2& theOrientation)
+void Graphic3d_Text::SetOrientation(const Frame3d& theOrientation)
 {
   myOrientation = theOrientation;
   myHasPlane    = Standard_True;
@@ -38,6 +38,6 @@ void Graphic3d_Text::SetOrientation(const gp_Ax2& theOrientation)
 
 void Graphic3d_Text::ResetOrientation()
 {
-  myOrientation = gp_Ax2();
+  myOrientation = Frame3d();
   myHasPlane    = Standard_False;
 }

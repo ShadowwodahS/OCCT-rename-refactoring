@@ -990,18 +990,18 @@ static Standard_Integer meshvectors(Draw_Interpretor& theDI,
                                                       aNbNodes,
                                                       aEntType);
 
-      gp_Vec aNorm;
+      Vector3d aNorm;
       if (IsValidData)
       {
-        aNorm = gp_Vec(aCoords.Value(1), aCoords.Value(2), aCoords.Value(3));
+        aNorm = Vector3d(aCoords.Value(1), aCoords.Value(2), aCoords.Value(3));
         if (aNorm.Magnitude() < gp::Resolution())
         {
-          aNorm = gp_Vec(0, 0, 1); // method GetGeom(...) returns coordinates of nodes
+          aNorm = Vector3d(0, 0, 1); // method GetGeom(...) returns coordinates of nodes
         }
       }
       else
       {
-        aNorm = gp_Vec(0, 0, 1);
+        aNorm = Vector3d(0, 0, 1);
       }
       aBuilder->SetVector(anIsElement, anIter.Key(), aNorm.Normalized());
     }
@@ -1129,9 +1129,9 @@ static Standard_Integer meshdeform(Draw_Interpretor& theDI,
     TColStd_Array1OfReal aCoords(1, 3);
     aMesh->GetDataSource()->GetGeom(anIter.Key(), Standard_False, aCoords, aNbNodes, aEntType);
 
-    gp_Vec aNorm = gp_Vec(aCoords.Value(1), aCoords.Value(2), aCoords.Value(3));
+    Vector3d aNorm = Vector3d(aCoords.Value(1), aCoords.Value(2), aCoords.Value(3));
     if (!aNorm.Magnitude())
-      aNorm = gp_Vec(0, 0, 1);
+      aNorm = Vector3d(0, 0, 1);
     aDefDS->SetVector(anIter.Key(), aNorm.Normalized());
   }
 

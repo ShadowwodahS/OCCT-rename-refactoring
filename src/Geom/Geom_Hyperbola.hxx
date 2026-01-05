@@ -23,11 +23,11 @@
 #include <Geom_Conic.hxx>
 #include <Standard_Integer.hxx>
 class gp_Hypr;
-class gp_Ax2;
-class gp_Ax1;
+class Frame3d;
+class Axis3d;
 class Point3d;
-class gp_Vec;
-class gp_Trsf;
+class Vector3d;
+class Transform3d;
 class Geom_Geometry;
 
 class Geom_Hyperbola;
@@ -36,7 +36,7 @@ DEFINE_STANDARD_HANDLE(Geom_Hyperbola, Geom_Conic)
 //! Describes a branch of a hyperbola in 3D space.
 //! A hyperbola is defined by its major and minor radii
 //! and, as with any conic curve, is positioned in space
-//! with a right-handed coordinate system (gp_Ax2 object) where:
+//! with a right-handed coordinate system (Frame3d object) where:
 //! - the origin is the center of the hyperbola,
 //! - the "X Direction" defines the major axis, and
 //! - the "Y Direction" defines the minor axis.
@@ -105,7 +105,7 @@ public:
   //! Standard_ConstructionError if:
   //! - MajorRadius is less than 0.0,
   //! - MinorRadius is less than 0.0.
-  Standard_EXPORT Geom_Hyperbola(const gp_Ax2&       A2,
+  Standard_EXPORT Geom_Hyperbola(const Frame3d&       A2,
                                  const Standard_Real MajorRadius,
                                  const Standard_Real MinorRadius);
 
@@ -151,13 +151,13 @@ public:
   //! the hyperbola is (X*X)/(A*A) - (Y*Y)/(B*B) = 1.0 and the
   //! equation of the first asymptote is Y = (B/A)*X.
   //! Raises ConstructionError if MajorRadius = 0.0
-  Standard_EXPORT gp_Ax1 Asymptote1() const;
+  Standard_EXPORT Axis3d Asymptote1() const;
 
   //! In the local coordinate system of the hyperbola the equation of
   //! the hyperbola is (X*X)/(A*A) - (Y*Y)/(B*B) = 1.0 and the
   //! equation of the first asymptote is Y = -(B/A)*X.
   //! Raises ConstructionError if MajorRadius = 0.0
-  Standard_EXPORT gp_Ax1 Asymptote2() const;
+  Standard_EXPORT Axis3d Asymptote2() const;
 
   //! This branch of hyperbola is on the positive side of the
   //! YAxis of <me>.
@@ -177,11 +177,11 @@ public:
   //! This line is parallel to the YAxis. The intersection point between
   //! directrix1 and the XAxis is the location point of the directrix1.
   //! This point is on the positive side of the XAxis.
-  Standard_EXPORT gp_Ax1 Directrix1() const;
+  Standard_EXPORT Axis3d Directrix1() const;
 
   //! This line is obtained by the symmetrical transformation
   //! of "directrix1" with respect to the YAxis of the hyperbola.
-  Standard_EXPORT gp_Ax1 Directrix2() const;
+  Standard_EXPORT Axis3d Directrix2() const;
 
   //! Returns the eccentricity of the hyperbola (e > 1).
   //! If f is the distance between the location of the hyperbola
@@ -233,31 +233,31 @@ public:
   Standard_EXPORT void D0(const Standard_Real U, Point3d& P) const Standard_OVERRIDE;
 
   //! Returns the point P of parameter U and the first derivative V1.
-  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, gp_Vec& V1) const Standard_OVERRIDE;
+  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, Vector3d& V1) const Standard_OVERRIDE;
 
   //! Returns the point P of parameter U, the first and second
   //! derivatives V1 and V2.
   Standard_EXPORT void D2(const Standard_Real U,
                           Point3d&             P,
-                          gp_Vec&             V1,
-                          gp_Vec&             V2) const Standard_OVERRIDE;
+                          Vector3d&             V1,
+                          Vector3d&             V2) const Standard_OVERRIDE;
 
   //! Returns the point P of parameter U, the first second and
   //! third derivatives V1 V2 and V3.
   Standard_EXPORT void D3(const Standard_Real U,
                           Point3d&             P,
-                          gp_Vec&             V1,
-                          gp_Vec&             V2,
-                          gp_Vec&             V3) const Standard_OVERRIDE;
+                          Vector3d&             V1,
+                          Vector3d&             V2,
+                          Vector3d&             V3) const Standard_OVERRIDE;
 
   //! The returned vector gives the value of the derivative for the
   //! order of derivation N.
   //! Raised if N < 1.
-  Standard_EXPORT gp_Vec DN(const Standard_Real    U,
+  Standard_EXPORT Vector3d DN(const Standard_Real    U,
                             const Standard_Integer N) const Standard_OVERRIDE;
 
   //! Applies the transformation T to this hyperbola.
-  Standard_EXPORT void Transform(const gp_Trsf& T) Standard_OVERRIDE;
+  Standard_EXPORT void Transform(const Transform3d& T) Standard_OVERRIDE;
 
   //! Creates a new object which is a copy of this hyperbola.
   Standard_EXPORT Handle(Geom_Geometry) Copy() const Standard_OVERRIDE;

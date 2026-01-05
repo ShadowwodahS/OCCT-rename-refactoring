@@ -31,7 +31,7 @@
 
 //! Defines a non-persistent transformation in 3D space.
 //! This transformation is a general transformation.
-//! It can be a gp_Trsf, an affinity, or you can define
+//! It can be a Transform3d, an affinity, or you can define
 //! your own transformation giving the matrix of transformation.
 //!
 //! With a gp_GTrsf you can transform only a triplet of coordinates gp_XYZ.
@@ -52,7 +52,7 @@
 //! Be careful if you apply such a transformation to all points of a geometric object,
 //! as this can change the nature of the object and thus render it incoherent!
 //! Typically, a circle is transformed into an ellipse by an affinity transformation.
-//! To avoid modifying the nature of an object, use a gp_Trsf transformation instead,
+//! To avoid modifying the nature of an object, use a Transform3d transformation instead,
 //! as objects of this class respect the nature of geometric objects.
 class gp_GTrsf
 {
@@ -68,10 +68,10 @@ public:
     scale = 1.0;
   }
 
-  //! Converts the gp_Trsf transformation theT into a
+  //! Converts the Transform3d transformation theT into a
   //! general transformation, i.e. Returns a GTrsf with
   //! the same matrix of coefficients as the Trsf theT.
-  gp_GTrsf(const gp_Trsf& theT)
+  gp_GTrsf(const Transform3d& theT)
   {
     shape  = theT.Form();
     matrix = theT.matrix;
@@ -97,7 +97,7 @@ public:
   //! the orthogonal projection of P on the axis theA1 or the
   //! plane A2, the vectors HP and HP' satisfy:
   //! HP' = theRatio * HP.
-  void SetAffinity(const gp_Ax1& theA1, const Standard_Real theRatio);
+  void SetAffinity(const Axis3d& theA1, const Standard_Real theRatio);
 
   //! Changes this transformation into an affinity of ratio theRatio
   //! with respect to  the plane defined by the origin, the "X Direction" and
@@ -107,7 +107,7 @@ public:
   //! the orthogonal projection of P on the axis A1 or the
   //! plane theA2, the vectors HP and HP' satisfy:
   //! HP' = theRatio * HP.
-  void SetAffinity(const gp_Ax2& theA2, const Standard_Real theRatio);
+  void SetAffinity(const Frame3d& theA2, const Standard_Real theRatio);
 
   //! Replaces  the coefficient (theRow, theCol) of the matrix representing
   //! this transformation by theValue.  Raises OutOfRange
@@ -129,7 +129,7 @@ public:
   Standard_EXPORT void SetTranslationPart(const gp_XYZ& theCoord);
 
   //! Assigns the vectorial and translation parts of theT to this transformation.
-  void SetTrsf(const gp_Trsf& theT)
+  void SetTrsf(const Transform3d& theT)
   {
     shape  = theT.shape;
     matrix = theT.matrix;
@@ -258,7 +258,7 @@ public:
   //! Transforms a triplet XYZ with a GTrsf.
   void Transforms(Standard_Real& theX, Standard_Real& theY, Standard_Real& theZ) const;
 
-  gp_Trsf Trsf() const;
+  Transform3d Trsf() const;
 
   //! Convert transformation to 4x4 matrix.
   template <class T>
@@ -320,7 +320,7 @@ private:
 // function : SetAffinity
 // purpose :
 //=======================================================================
-inline void gp_GTrsf::SetAffinity(const gp_Ax1& theA1, const Standard_Real theRatio)
+inline void gp_GTrsf::SetAffinity(const Axis3d& theA1, const Standard_Real theRatio)
 {
   shape = gp_Other;
   scale = 0.0;
@@ -339,7 +339,7 @@ inline void gp_GTrsf::SetAffinity(const gp_Ax1& theA1, const Standard_Real theRa
 // function : SetAffinity
 // purpose :
 //=======================================================================
-inline void gp_GTrsf::SetAffinity(const gp_Ax2& theA2, const Standard_Real theRatio)
+inline void gp_GTrsf::SetAffinity(const Frame3d& theA2, const Standard_Real theRatio)
 {
   shape = gp_Other;
   scale = 0.0;
@@ -437,13 +437,13 @@ inline void gp_GTrsf::Transforms(Standard_Real& theX,
 // function : Trsf
 // purpose :
 //=======================================================================
-inline gp_Trsf gp_GTrsf::Trsf() const
+inline Transform3d gp_GTrsf::Trsf() const
 {
   if (Form() == gp_Other)
   {
     throw Standard_ConstructionError("gp_GTrsf::Trsf() - non-orthogonal GTrsf");
   }
-  gp_Trsf aT;
+  Transform3d aT;
   aT.shape  = shape;
   aT.scale  = scale;
   aT.matrix = matrix;

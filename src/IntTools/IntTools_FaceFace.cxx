@@ -2314,9 +2314,9 @@ Standard_Boolean ApproxWithPCurves(const gp_Cylinder& theCyl, const gp_Sphere& t
     //
     const gp_Ax3& aAx3Sph = theSph.Position();
     const Point3d& aLocSph = aAx3Sph.Location();
-    const gp_Dir& aDirSph = aAx3Sph.Direction();
+    const Dir3d& aDirSph = aAx3Sph.Direction();
     //
-    const gp_Ax1& aAx1Cyl = theCyl.Axis();
+    const Axis3d& aAx1Cyl = theCyl.Axis();
     gp_Lin        aLinCyl(aAx1Cyl);
     //
     aApexSph.SetXYZ(aLocSph.XYZ() + R2 * aDirSph.XYZ());
@@ -2349,7 +2349,7 @@ Standard_Boolean ApproxWithPCurves(const gp_Cylinder& theCyl, const gp_Sphere& t
 
   Standard_Real par = ElCLib::Parameter(anCylAx, theSph.Location());
   Point3d        aP  = ElCLib::Value(par, anCylAx);
-  gp_Vec        aV(aP, theSph.Location());
+  Vector3d        aV(aP, theSph.Location());
 
   Standard_Real dd = aV.Dot(theSph.Position().XDirection());
 
@@ -2473,7 +2473,7 @@ void PerformPlanes(const Handle(GeomAdaptor_Surface)& theS1,
   //
   // Computation of the tangential tolerance
   Standard_Real anAngle, aDt;
-  gp_Dir        aD1, aD2;
+  Dir3d        aD1, aD2;
   //
   aD1     = aPln1.Position().Direction();
   aD2     = aPln2.Position().Direction();

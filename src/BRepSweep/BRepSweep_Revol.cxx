@@ -27,7 +27,7 @@
 //=================================================================================================
 
 BRepSweep_Revol::BRepSweep_Revol(const TopoDS_Shape&    S,
-                                 const gp_Ax1&          Ax,
+                                 const Axis3d&          Ax,
                                  const Standard_Real    D,
                                  const Standard_Boolean C)
     : myRotation(S.Oriented(TopAbs_FORWARD), NumShape(D), Location(Ax, D), Axe(Ax, D), Angle(D), C)
@@ -38,7 +38,7 @@ BRepSweep_Revol::BRepSweep_Revol(const TopoDS_Shape&    S,
 
 //=================================================================================================
 
-BRepSweep_Revol::BRepSweep_Revol(const TopoDS_Shape& S, const gp_Ax1& Ax, const Standard_Boolean C)
+BRepSweep_Revol::BRepSweep_Revol(const TopoDS_Shape& S, const Axis3d& Ax, const Standard_Boolean C)
     : myRotation(S.Oriented(TopAbs_FORWARD),
                  NumShape(2 * M_PI),
                  Location(Ax, 2 * M_PI),
@@ -109,9 +109,9 @@ Sweep_NumShape BRepSweep_Revol::NumShape(const Standard_Real D) const
 
 //=================================================================================================
 
-TopLoc_Location BRepSweep_Revol::Location(const gp_Ax1& Ax, const Standard_Real D) const
+TopLoc_Location BRepSweep_Revol::Location(const Axis3d& Ax, const Standard_Real D) const
 {
-  gp_Trsf gpt;
+  Transform3d gpt;
   gpt.SetRotation(Axe(Ax, D), Angle(D));
   TopLoc_Location L(gpt);
   return L;
@@ -119,9 +119,9 @@ TopLoc_Location BRepSweep_Revol::Location(const gp_Ax1& Ax, const Standard_Real 
 
 //=================================================================================================
 
-gp_Ax1 BRepSweep_Revol::Axe(const gp_Ax1& Ax, const Standard_Real D) const
+Axis3d BRepSweep_Revol::Axe(const Axis3d& Ax, const Standard_Real D) const
 {
-  gp_Ax1 A = Ax;
+  Axis3d A = Ax;
   if (D < 0.)
     A.Reverse();
   return A;
@@ -148,7 +148,7 @@ Standard_Real BRepSweep_Revol::Angle() const
 
 //=================================================================================================
 
-gp_Ax1 BRepSweep_Revol::Axe() const
+Axis3d BRepSweep_Revol::Axe() const
 {
   return myRotation.Axe();
 }

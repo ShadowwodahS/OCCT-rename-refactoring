@@ -130,10 +130,10 @@ static NCollection_Mat4<double> mat44vr2Occ(const vr::HmdMatrix44_t& theMat4)
   return aMat4;
 }
 
-//! Convert OpenVR mat3x4 into OCCT gp_Trsf.
-static gp_Trsf mat34vr2OccTrsf(const vr::HmdMatrix34_t& theMat4)
+//! Convert OpenVR mat3x4 into OCCT Transform3d.
+static Transform3d mat34vr2OccTrsf(const vr::HmdMatrix34_t& theMat4)
 {
-  gp_Trsf aTrsf;
+  Transform3d aTrsf;
   aTrsf.SetValues(theMat4.m[0][0],
                   theMat4.m[0][1],
                   theMat4.m[0][2],
@@ -806,7 +806,7 @@ NCollection_Mat4<double> Aspect_OpenVRSession::EyeToHeadTransform(Aspect_Eye the
   {
     const vr::HmdMatrix34_t aMatVr = myContext->System->GetEyeToHeadTransform(
       theEye == Aspect_Eye_Right ? vr::Eye_Right : vr::Eye_Left);
-    gp_Trsf aTrsf = mat34vr2OccTrsf(aMatVr);
+    Transform3d aTrsf = mat34vr2OccTrsf(aMatVr);
     if (myUnitFactor != 1.0)
     {
       aTrsf.SetTranslationPart(aTrsf.TranslationPart() * myUnitFactor);

@@ -225,7 +225,7 @@ void SelectMgr_SelectingVolumeManager::InitPolylineSelectingVolume(
 
 //=================================================================================================
 
-void SelectMgr_SelectingVolumeManager::InitAxisSelectingVolume(const gp_Ax1& theAxis)
+void SelectMgr_SelectingVolumeManager::InitAxisSelectingVolume(const Axis3d& theAxis)
 {
   Handle(SelectMgr_AxisIntersector) anAxisVolume =
     Handle(SelectMgr_AxisIntersector)::DownCast(myActiveSelectingVolume);
@@ -447,7 +447,7 @@ Standard_Boolean SelectMgr_SelectingVolumeManager::OverlapsCylinder(
   const Standard_Real      theBottomRad,
   const Standard_Real      theTopRad,
   const Standard_Real      theHeight,
-  const gp_Trsf&           theTrsf,
+  const Transform3d&           theTrsf,
   const Standard_Boolean   theIsHollow,
   SelectBasics_PickResult& thePickResult) const
 {
@@ -470,7 +470,7 @@ Standard_Boolean SelectMgr_SelectingVolumeManager::OverlapsCylinder(
   const Standard_Real    theBottomRad,
   const Standard_Real    theTopRad,
   const Standard_Real    theHeight,
-  const gp_Trsf&         theTrsf,
+  const Transform3d&         theTrsf,
   const Standard_Boolean theIsHollow,
   Standard_Boolean*      theInside) const
 {
@@ -486,7 +486,7 @@ Standard_Boolean SelectMgr_SelectingVolumeManager::OverlapsCylinder(
 
 Standard_Boolean SelectMgr_SelectingVolumeManager::OverlapsCircle(
   const Standard_Real      theRadius,
-  const gp_Trsf&           theTrsf,
+  const Transform3d&           theTrsf,
   const Standard_Boolean   theIsFilled,
   SelectBasics_PickResult& thePickResult) const
 {
@@ -505,7 +505,7 @@ Standard_Boolean SelectMgr_SelectingVolumeManager::OverlapsCircle(
 
 Standard_Boolean SelectMgr_SelectingVolumeManager::OverlapsCircle(
   const Standard_Real    theRadius,
-  const gp_Trsf&         theTrsf,
+  const Transform3d&         theTrsf,
   const Standard_Boolean theIsFilled,
   Standard_Boolean*      theInside) const
 {
@@ -603,11 +603,11 @@ Point3d SelectMgr_SelectingVolumeManager::GetFarPickedPnt() const
 
 //=================================================================================================
 
-gp_Dir SelectMgr_SelectingVolumeManager::GetViewRayDirection() const
+Dir3d SelectMgr_SelectingVolumeManager::GetViewRayDirection() const
 {
   if (myActiveSelectingVolume.IsNull())
   {
-    return gp_Dir();
+    return Dir3d();
   }
   return myActiveSelectingVolume->GetViewRayDirection();
 }
@@ -668,14 +668,14 @@ void SelectMgr_SelectingVolumeManager::SetViewClipping(
   {
     myViewClipRange.AddClippingPlanes(
       *theViewPlanes,
-      gp_Ax1(aWorldSelMgr->myActiveSelectingVolume->GetNearPnt(),
+      Axis3d(aWorldSelMgr->myActiveSelectingVolume->GetNearPnt(),
              aWorldSelMgr->myActiveSelectingVolume->GetViewRayDirection()));
   }
   if (!theObjPlanes.IsNull() && !theObjPlanes->IsEmpty())
   {
     myViewClipRange.AddClippingPlanes(
       *theObjPlanes,
-      gp_Ax1(aWorldSelMgr->myActiveSelectingVolume->GetNearPnt(),
+      Axis3d(aWorldSelMgr->myActiveSelectingVolume->GetNearPnt(),
              aWorldSelMgr->myActiveSelectingVolume->GetViewRayDirection()));
   }
 }

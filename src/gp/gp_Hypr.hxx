@@ -24,7 +24,7 @@
 
 //! Describes a branch of a hyperbola in 3D space.
 //! A hyperbola is defined by its major and minor radii and
-//! positioned in space with a coordinate system (a gp_Ax2
+//! positioned in space with a coordinate system (a Frame3d
 //! object) of which:
 //! -   the origin is the center of the hyperbola,
 //! -   the "X Direction" defines the major axis of the
@@ -98,7 +98,7 @@ public:
   //! Standard_ConstructionError if theMajorAxis or theMinorAxis is negative.
   //! Raises ConstructionError if theMajorRadius < 0.0 or theMinorRadius < 0.0
   //! Raised if theMajorRadius < 0.0 or theMinorRadius < 0.0
-  gp_Hypr(const gp_Ax2&       theA2,
+  gp_Hypr(const Frame3d&       theA2,
           const Standard_Real theMajorRadius,
           const Standard_Real theMinorRadius)
       : pos(theA2),
@@ -113,14 +113,14 @@ public:
   //! system so that:
   //! -   its origin and "main Direction" become those of the
   //! axis theA1 (the "X Direction" and "Y Direction" are then
-  //! recomputed in the same way as for any gp_Ax2).
+  //! recomputed in the same way as for any Frame3d).
   //! Raises ConstructionError if the direction of theA1 is parallel to the direction of
   //! the "XAxis" of the hyperbola.
-  void SetAxis(const gp_Ax1& theA1) { pos.SetAxis(theA1); }
+  void SetAxis(const Axis3d& theA1) { pos.SetAxis(theA1); }
 
   //! Modifies this hyperbola, by redefining its local coordinate
   //! system so that its origin becomes theP.
-  void SetLocation(const Point3d& theP) { pos = gp_Ax2(theP, pos.Direction(), pos.XDirection()); }
+  void SetLocation(const Point3d& theP) { pos = Frame3d(theP, pos.Direction(), pos.XDirection()); }
 
   //! Modifies the major  radius of this hyperbola.
   //! Exceptions
@@ -146,31 +146,31 @@ public:
 
   //! Modifies this hyperbola, by redefining its local coordinate
   //! system so that it becomes A2.
-  void SetPosition(const gp_Ax2& theA2) { pos = theA2; }
+  void SetPosition(const Frame3d& theA2) { pos = theA2; }
 
   //! In the local coordinate system of the hyperbola the equation of
   //! the hyperbola is (X*X)/(A*A) - (Y*Y)/(B*B) = 1.0 and the
   //! equation of the first asymptote is Y = (B/A)*X
   //! where A is the major radius and B is the minor radius. Raises ConstructionError if MajorRadius
   //! = 0.0
-  gp_Ax1 Asymptote1() const;
+  Axis3d Asymptote1() const;
 
   //! In the local coordinate system of the hyperbola the equation of
   //! the hyperbola is (X*X)/(A*A) - (Y*Y)/(B*B) = 1.0 and the
   //! equation of the first asymptote is Y = -(B/A)*X.
   //! where A is the major radius and B is the minor radius. Raises ConstructionError if MajorRadius
   //! = 0.0
-  gp_Ax1 Asymptote2() const;
+  Axis3d Asymptote2() const;
 
   //! Returns the axis passing through the center,
   //! and normal to the plane of this hyperbola.
-  const gp_Ax1& Axis() const { return pos.Axis(); }
+  const Axis3d& Axis() const { return pos.Axis(); }
 
   //! Computes the branch of hyperbola which is on the positive side of the
   //! "YAxis" of <me>.
   gp_Hypr ConjugateBranch1() const
   {
-    return gp_Hypr(gp_Ax2(pos.Location(), pos.Direction(), pos.YDirection()),
+    return gp_Hypr(Frame3d(pos.Location(), pos.Direction(), pos.YDirection()),
                    minorRadius,
                    majorRadius);
   }
@@ -179,9 +179,9 @@ public:
   //! "YAxis" of <me>.
   gp_Hypr ConjugateBranch2() const
   {
-    gp_Dir aD = pos.YDirection();
+    Dir3d aD = pos.YDirection();
     aD.Reverse();
-    return gp_Hypr(gp_Ax2(pos.Location(), pos.Direction(), aD), minorRadius, majorRadius);
+    return gp_Hypr(Frame3d(pos.Location(), pos.Direction(), aD), minorRadius, majorRadius);
   }
 
   //! This directrix is the line normal to the XAxis of the hyperbola
@@ -192,11 +192,11 @@ public:
   //! between the directrix1 and the "XAxis" is the "Location" point
   //! of the directrix1. This point is on the positive side of the
   //! "XAxis".
-  gp_Ax1 Directrix1() const;
+  Axis3d Directrix1() const;
 
   //! This line is obtained by the symmetrical transformation
   //! of "Directrix1" with respect to the "YAxis" of the hyperbola.
-  gp_Ax1 Directrix2() const;
+  Axis3d Directrix2() const;
 
   //! Returns the eccentricity of the hyperbola (e > 1).
   //! If f is the distance between the location of the hyperbola
@@ -241,9 +241,9 @@ public:
   //! "YAxis"  of <me>.
   gp_Hypr OtherBranch() const
   {
-    gp_Dir aD = pos.XDirection();
+    Dir3d aD = pos.XDirection();
     aD.Reverse();
-    return gp_Hypr(gp_Ax2(pos.Location(), pos.Direction(), aD), majorRadius, minorRadius);
+    return gp_Hypr(Frame3d(pos.Location(), pos.Direction(), aD), majorRadius, minorRadius);
   }
 
   //! Returns p = (e * e - 1) * MajorRadius where e is the
@@ -257,7 +257,7 @@ public:
   }
 
   //! Returns the coordinate system of the hyperbola.
-  const gp_Ax2& Position() const { return pos; }
+  const Frame3d& Position() const { return pos; }
 
   //! Computes an axis, whose
   //! -   the origin is the center of this hyperbola, and
@@ -265,14 +265,14 @@ public:
   //! of the local coordinate system of this hyperbola.
   //! These axes are, the major axis (the "X
   //! Axis") and  of this hyperboReturns the "XAxis" of the hyperbola.
-  gp_Ax1 XAxis() const { return gp_Ax1(pos.Location(), pos.XDirection()); }
+  Axis3d XAxis() const { return Axis3d(pos.Location(), pos.XDirection()); }
 
   //! Computes an axis, whose
   //! -   the origin is the center of this hyperbola, and
   //! -   the unit vector is the "Y Direction"
   //! of the local coordinate system of this hyperbola.
   //! These axes are the minor axis (the "Y Axis") of this hyperbola
-  gp_Ax1 YAxis() const { return gp_Ax1(pos.Location(), pos.YDirection()); }
+  Axis3d YAxis() const { return Axis3d(pos.Location(), pos.YDirection()); }
 
   Standard_EXPORT void Mirror(const Point3d& theP);
 
@@ -280,24 +280,24 @@ public:
   //! respect  to the point theP which is the center of the symmetry.
   Standard_NODISCARD Standard_EXPORT gp_Hypr Mirrored(const Point3d& theP) const;
 
-  Standard_EXPORT void Mirror(const gp_Ax1& theA1);
+  Standard_EXPORT void Mirror(const Axis3d& theA1);
 
   //! Performs the symmetrical transformation of an hyperbola with
   //! respect to an axis placement which is the axis of the symmetry.
-  Standard_NODISCARD Standard_EXPORT gp_Hypr Mirrored(const gp_Ax1& theA1) const;
+  Standard_NODISCARD Standard_EXPORT gp_Hypr Mirrored(const Axis3d& theA1) const;
 
-  Standard_EXPORT void Mirror(const gp_Ax2& theA2);
+  Standard_EXPORT void Mirror(const Frame3d& theA2);
 
   //! Performs the symmetrical transformation of an hyperbola with
   //! respect to a plane. The axis placement theA2 locates the plane
   //! of the symmetry (Location, XDirection, YDirection).
-  Standard_NODISCARD Standard_EXPORT gp_Hypr Mirrored(const gp_Ax2& theA2) const;
+  Standard_NODISCARD Standard_EXPORT gp_Hypr Mirrored(const Frame3d& theA2) const;
 
-  void Rotate(const gp_Ax1& theA1, const Standard_Real theAng) { pos.Rotate(theA1, theAng); }
+  void Rotate(const Axis3d& theA1, const Standard_Real theAng) { pos.Rotate(theA1, theAng); }
 
   //! Rotates an hyperbola. theA1 is the axis of the rotation.
   //! theAng is the angular value of the rotation in radians.
-  Standard_NODISCARD gp_Hypr Rotated(const gp_Ax1& theA1, const Standard_Real theAng) const
+  Standard_NODISCARD gp_Hypr Rotated(const Axis3d& theA1, const Standard_Real theAng) const
   {
     gp_Hypr aH = *this;
     aH.pos.Rotate(theA1, theAng);
@@ -309,17 +309,17 @@ public:
   //! Scales an hyperbola. theS is the scaling value.
   Standard_NODISCARD gp_Hypr Scaled(const Point3d& theP, const Standard_Real theS) const;
 
-  void Transform(const gp_Trsf& theT);
+  void Transform(const Transform3d& theT);
 
   //! Transforms an hyperbola with the transformation theT from
   //! class Trsf.
-  Standard_NODISCARD gp_Hypr Transformed(const gp_Trsf& theT) const;
+  Standard_NODISCARD gp_Hypr Transformed(const Transform3d& theT) const;
 
-  void Translate(const gp_Vec& theV) { pos.Translate(theV); }
+  void Translate(const Vector3d& theV) { pos.Translate(theV); }
 
   //! Translates an hyperbola in the direction of the vector theV.
   //! The magnitude of the translation is the vector's magnitude.
-  Standard_NODISCARD gp_Hypr Translated(const gp_Vec& theV) const
+  Standard_NODISCARD gp_Hypr Translated(const Vector3d& theV) const
   {
     gp_Hypr aH = *this;
     aH.pos.Translate(theV);
@@ -337,7 +337,7 @@ public:
   }
 
 private:
-  gp_Ax2        pos;
+  Frame3d        pos;
   Standard_Real majorRadius;
   Standard_Real minorRadius;
 };
@@ -346,30 +346,30 @@ private:
 // function : Asymptote1
 // purpose :
 //=======================================================================
-inline gp_Ax1 gp_Hypr::Asymptote1() const
+inline Axis3d gp_Hypr::Asymptote1() const
 {
   Standard_ConstructionError_Raise_if(majorRadius <= gp::Resolution(),
                                       "gp_Hypr::Asymptote1() - major radius is zero");
-  gp_Vec aV1 = gp_Vec(pos.YDirection());
+  Vector3d aV1 = Vector3d(pos.YDirection());
   aV1.Multiply(minorRadius / majorRadius);
-  gp_Vec aV = gp_Vec(pos.XDirection());
+  Vector3d aV = Vector3d(pos.XDirection());
   aV.Add(aV1);
-  return gp_Ax1(pos.Location(), gp_Dir(aV));
+  return Axis3d(pos.Location(), Dir3d(aV));
 }
 
 //=======================================================================
 // function : Asymptote2
 // purpose :
 //=======================================================================
-inline gp_Ax1 gp_Hypr::Asymptote2() const
+inline Axis3d gp_Hypr::Asymptote2() const
 {
   Standard_ConstructionError_Raise_if(majorRadius <= gp::Resolution(),
                                       "gp_Hypr::Asymptote1() - major radius is zero");
-  gp_Vec aV1 = gp_Vec(pos.YDirection());
+  Vector3d aV1 = Vector3d(pos.YDirection());
   aV1.Multiply(-minorRadius / majorRadius);
-  gp_Vec aV = gp_Vec(pos.XDirection());
+  Vector3d aV = Vector3d(pos.XDirection());
   aV.Add(aV1);
-  return gp_Ax1(pos.Location(), gp_Dir(aV));
+  return Axis3d(pos.Location(), Dir3d(aV));
 }
 
 //=======================================================================
@@ -380,7 +380,7 @@ inline Point3d gp_Hypr::Focus1() const
 {
   Standard_Real aC  = sqrt(majorRadius * majorRadius + minorRadius * minorRadius);
   const Point3d& aPP = pos.Location();
-  const gp_Dir& aDD = pos.XDirection();
+  const Dir3d& aDD = pos.XDirection();
   return Point3d(aPP.X() + aC * aDD.X(), aPP.Y() + aC * aDD.Y(), aPP.Z() + aC * aDD.Z());
 }
 
@@ -392,7 +392,7 @@ inline Point3d gp_Hypr::Focus2() const
 {
   Standard_Real aC  = sqrt(majorRadius * majorRadius + minorRadius * minorRadius);
   const Point3d& aPP = pos.Location();
-  const gp_Dir& aDD = pos.XDirection();
+  const Dir3d& aDD = pos.XDirection();
   return Point3d(aPP.X() - aC * aDD.X(), aPP.Y() - aC * aDD.Y(), aPP.Z() - aC * aDD.Z());
 }
 
@@ -440,7 +440,7 @@ inline gp_Hypr gp_Hypr::Scaled(const Point3d& theP, const Standard_Real theS) co
 // function : Transform
 // purpose :
 //=======================================================================
-inline void gp_Hypr::Transform(const gp_Trsf& theT)
+inline void gp_Hypr::Transform(const Transform3d& theT)
 {
   majorRadius *= theT.ScaleFactor();
   if (majorRadius < 0)
@@ -459,7 +459,7 @@ inline void gp_Hypr::Transform(const gp_Trsf& theT)
 // function : Transformed
 // purpose :
 //=======================================================================
-inline gp_Hypr gp_Hypr::Transformed(const gp_Trsf& theT) const
+inline gp_Hypr gp_Hypr::Transformed(const Transform3d& theT) const
 {
   gp_Hypr aH = *this;
   aH.majorRadius *= theT.ScaleFactor();
@@ -480,26 +480,26 @@ inline gp_Hypr gp_Hypr::Transformed(const gp_Trsf& theT) const
 // function : Directrix1
 // purpose :
 //=======================================================================
-inline gp_Ax1 gp_Hypr::Directrix1() const
+inline Axis3d gp_Hypr::Directrix1() const
 {
   Standard_Real anE    = Eccentricity();
   gp_XYZ        anOrig = pos.XDirection().XYZ();
   anOrig.Multiply(majorRadius / anE);
   anOrig.Add(pos.Location().XYZ());
-  return gp_Ax1(Point3d(anOrig), pos.YDirection());
+  return Axis3d(Point3d(anOrig), pos.YDirection());
 }
 
 //=======================================================================
 // function : Directrix2
 // purpose :
 //=======================================================================
-inline gp_Ax1 gp_Hypr::Directrix2() const
+inline Axis3d gp_Hypr::Directrix2() const
 {
   Standard_Real anE    = Eccentricity();
   gp_XYZ        anOrig = pos.XDirection().XYZ();
   anOrig.Multiply(-majorRadius / anE);
   anOrig.Add(pos.Location().XYZ());
-  return gp_Ax1(Point3d(anOrig), pos.YDirection());
+  return Axis3d(Point3d(anOrig), pos.YDirection());
 }
 
 #endif // _gp_Hypr_HeaderFile

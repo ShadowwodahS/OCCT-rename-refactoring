@@ -34,7 +34,7 @@ void DsgPrs_ParalPresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
                                    const TCollection_ExtendedString& aText,
                                    const Point3d&                     AttachmentPoint1,
                                    const Point3d&                     AttachmentPoint2,
-                                   const gp_Dir&                     aDirection,
+                                   const Dir3d&                     aDirection,
                                    const Point3d&                     OffsetPoint)
 {
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
@@ -81,7 +81,7 @@ void DsgPrs_ParalPresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
 
   if (dist < (LA->ArrowAspect()->Length() + LA->ArrowAspect()->Length()))
     outside = Standard_True;
-  gp_Dir arrdir = L3.Direction().Reversed();
+  Dir3d arrdir = L3.Direction().Reversed();
   if (outside)
     arrdir.Reverse();
 
@@ -129,7 +129,7 @@ void DsgPrs_ParalPresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
                                    const TCollection_ExtendedString& aText,
                                    const Point3d&                     AttachmentPoint1,
                                    const Point3d&                     AttachmentPoint2,
-                                   const gp_Dir&                     aDirection,
+                                   const Dir3d&                     aDirection,
                                    const Point3d&                     OffsetPoint,
                                    const DsgPrs_ArrowSide            ArrowPrs)
 {
@@ -175,7 +175,7 @@ void DsgPrs_ParalPresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
 
   if (dist < (LA->ArrowAspect()->Length() + LA->ArrowAspect()->Length()))
     outside = Standard_True;
-  gp_Dir arrdir = L3.Direction().Reversed();
+  Dir3d arrdir = L3.Direction().Reversed();
   if (outside)
     arrdir.Reverse();
 

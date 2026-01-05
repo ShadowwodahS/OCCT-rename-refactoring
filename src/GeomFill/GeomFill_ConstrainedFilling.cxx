@@ -172,7 +172,7 @@ static void sortbounds(const Standard_Integer     nb,
   // flaguer les angles entre tangentes au coins et entre les normales au
   // coins pour les bords contraints.
   Point3d        pbid;
-  gp_Vec        tgi, nori, tgn, norn;
+  Vector3d        tgi, nori, tgn, norn;
   Standard_Real fi, fn, li, ln;
   for (i = 0; i < nb; i++)
   {
@@ -234,7 +234,7 @@ static void coonscnd(const Standard_Integer     nb,
       {
         Standard_Real fact = 0.5 * 27. / 4;
         tolang *= (Min(mintg[ip], mintg[i]) * fact * fact_normalization);
-        gp_Vec        tgp, dnorp, tgi, dnori, vbid;
+        Vector3d        tgp, dnorp, tgi, dnori, vbid;
         Point3d        pbid;
         Standard_Real fp, lp, fi, li;
         if (!rev[ip])
@@ -1334,10 +1334,10 @@ Standard_Boolean GeomFill_ConstrainedFilling::CheckTgte(const Standard_Integer I
   {
     Standard_Real uu = iu * ll;
     Point3d        pbid;
-    gp_Vec        tgte;
+    Vector3d        tgte;
     bou->D1(uu, pbid, tgte);
-    gp_Vec norm   = bou->Norm(uu);
-    gp_Vec vfield = tgalg[I]->Value(uu);
+    Vector3d norm   = bou->Norm(uu);
+    Vector3d vfield = tgalg[I]->Value(uu);
     if (iu == 0)
       pmix = vfield.Dot(tgte.Crossed(norm));
     else
@@ -1361,7 +1361,7 @@ void GeomFill_ConstrainedFilling::MinTgte(const Standard_Integer I)
   for (Standard_Integer iu = 0; iu <= 30; iu++)
   {
     Standard_Real uu   = 0.2 + iu * ll;
-    gp_Vec        vv   = tgalg[I]->Value(uu);
+    Vector3d        vv   = tgalg[I]->Value(uu);
     Standard_Real temp = vv.SquareMagnitude();
     if (temp < minmag)
       minmag = temp;
@@ -1399,7 +1399,7 @@ Standard_Integer GeomFill_ConstrainedFilling::Eval(const Standard_Real    W,
       break;
     case 1:
       Point3d pt;
-      gp_Vec vt;
+      Vector3d vt;
       if (ctr[0])
       {
         ptch->Bound(ibound[0])->D1(W, pt, vt);
@@ -1461,7 +1461,7 @@ void GeomFill_ConstrainedFilling::CheckCoonsAlgPatch(const Standard_Integer I)
       break;
   }
   Point3d                    pbound;
-  gp_Vec                    vptch;
+  Vector3d                    vptch;
   Handle(GeomFill_Boundary) bou = ptch->Bound(I);
   for (Standard_Integer k = 0; k <= nbp; k++)
   {
@@ -1494,7 +1494,7 @@ void GeomFill_ConstrainedFilling::CheckTgteField(const Standard_Integer I)
 #else
   Point3d p1;
 #endif
-  gp_Vec                    d1;
+  Vector3d                    d1;
   Standard_Boolean          caplisse = 0;
   Standard_Real             maxang = 0., pmix = 0, pmixcur;
   Handle(GeomFill_Boundary) bou = ptch->Bound(I);
@@ -1502,9 +1502,9 @@ void GeomFill_ConstrainedFilling::CheckTgteField(const Standard_Integer I)
   {
     Standard_Real uu = iu / 30.;
     bou->D1(uu, p1, d1);
-    gp_Vec vtg   = tgalg[I]->Value(uu);
-    gp_Vec vnor  = bou->Norm(uu);
-    gp_Vec vcros = d1.Crossed(vnor);
+    Vector3d vtg   = tgalg[I]->Value(uu);
+    Vector3d vnor  = bou->Norm(uu);
+    Vector3d vcros = d1.Crossed(vnor);
     vcros.Normalize();
     if (iu == 0)
       pmix = vtg.Dot(vcros);
@@ -1546,7 +1546,7 @@ void GeomFill_ConstrainedFilling::CheckApprox(const Standard_Integer I)
   Standard_Integer          nbp    = 30;
   Standard_Real             maxang = 0., maxdist = 0.;
   Point3d                    pbound, papp, pbid;
-  gp_Vec                    vbound, vapp;
+  Vector3d                    vbound, vapp;
   Handle(GeomFill_Boundary) bou = ptch->Bound(I);
   for (Standard_Integer iu = 0; iu <= nbp; iu++)
   {
@@ -1640,7 +1640,7 @@ void GeomFill_ConstrainedFilling::CheckResult(const Standard_Integer I)
       break;
   }
   Point3d pbound[31], pres[31];
-  gp_Vec vbound[31], vres[31];
+  Vector3d vbound[31], vres[31];
 #ifdef DRAW
   Standard_Real    ang[31];
   Standard_Boolean hasang[31];
@@ -1655,7 +1655,7 @@ void GeomFill_ConstrainedFilling::CheckResult(const Standard_Integer I)
     else
     {
       vbound[k] = bou->Norm(ww);
-      gp_Vec V1, V2;
+      Vector3d V1, V2;
       surf->D1(uu, vv, pres[k], V1, V2);
       vres[k] = V1.Crossed(V2);
       if (vres[k].Magnitude() > 1.e-15 && vbound[k].Magnitude() > 1.e-15)

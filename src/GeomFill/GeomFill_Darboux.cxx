@@ -35,10 +35,10 @@ IMPLEMENT_STANDARD_RTTIEXT(GeomFill_Darboux, GeomFill_TrihedronLaw)
 // function : FDeriv
 // purpose  : computes (F/|F|)'
 //=======================================================================
-static gp_Vec FDeriv(const gp_Vec& F, const gp_Vec& DF)
+static Vector3d FDeriv(const Vector3d& F, const Vector3d& DF)
 {
   Standard_Real Norma  = F.Magnitude();
-  gp_Vec        Result = (DF - F * (F * DF) / (Norma * Norma)) / Norma;
+  Vector3d        Result = (DF - F * (F * DF) / (Norma * Norma)) / Norma;
   return Result;
 }
 
@@ -46,10 +46,10 @@ static gp_Vec FDeriv(const gp_Vec& F, const gp_Vec& DF)
 // function : DDeriv
 // purpose  : computes (F/|F|)''
 //=======================================================================
-static gp_Vec DDeriv(const gp_Vec& F, const gp_Vec& DF, const gp_Vec& D2F)
+static Vector3d DDeriv(const Vector3d& F, const Vector3d& DF, const Vector3d& D2F)
 {
   Standard_Real Norma = F.Magnitude();
-  gp_Vec        Result =
+  Vector3d        Result =
     (D2F - 2 * DF * (F * DF) / (Norma * Norma)) / Norma
     - F
         * ((DF.SquareMagnitude() + F * D2F - 3 * (F * DF) * (F * DF) / (Norma * Norma))
@@ -64,12 +64,12 @@ static gp_Vec DDeriv(const gp_Vec& F, const gp_Vec& DF, const gp_Vec& D2F)
 static void NormalD0(const Standard_Real              U,
                      const Standard_Real              V,
                      const Handle(Adaptor3d_Surface)& Surf,
-                     gp_Dir&                          Normal,
+                     Dir3d&                          Normal,
                      Standard_Integer&                OrderU,
                      Standard_Integer&                OrderV)
 {
-  //  gp_Vec D1U,D1V,D2U,D2V,DUV;
-  gp_Vec        D1U, D1V;
+  //  Vector3d D1U,D1V,D2U,D2V,DUV;
+  Vector3d        D1U, D1V;
   GeomAbs_Shape Cont =
     (Surf->UContinuity() < Surf->VContinuity()) ? (Surf->UContinuity()) : (Surf->VContinuity());
   OrderU = OrderV = 0;
@@ -152,9 +152,9 @@ static void NormalD0(const Standard_Real              U,
 static void NormalD1(const Standard_Real              U,
                      const Standard_Real              V,
                      const Handle(Adaptor3d_Surface)& Surf,
-                     gp_Dir&                          Normal,
-                     gp_Vec&                          D1UNormal,
-                     gp_Vec&                          D1VNormal)
+                     Dir3d&                          Normal,
+                     Vector3d&                          D1UNormal,
+                     Vector3d&                          D1VNormal)
 {
 #ifdef CHECK
   GeomAbs_Shape Cont = (Surf->Surface().UContinuity() < Surf->Surface().VContinuity())
@@ -165,7 +165,7 @@ static void NormalD1(const Standard_Real              U,
     throw Geom_UndefinedDerivative();
   }
 #endif
-  gp_Vec d2u, d2v, d2uv;
+  Vector3d d2u, d2v, d2uv;
   Point3d P;
   Surf->D2(U, V, P, D1UNormal, D1VNormal, d2u, d2v, d2uv);
   Standard_Real      MagTol = 0.000000001;
@@ -233,12 +233,12 @@ static void NormalD1(const Standard_Real              U,
 static void NormalD2(const Standard_Real              U,
                      const Standard_Real              V,
                      const Handle(Adaptor3d_Surface)& Surf,
-                     gp_Dir&                          Normal,
-                     gp_Vec&                          D1UNormal,
-                     gp_Vec&                          D1VNormal,
-                     gp_Vec&                          D2UNormal,
-                     gp_Vec&                          D2VNormal,
-                     gp_Vec&                          D2UVNormal)
+                     Dir3d&                          Normal,
+                     Vector3d&                          D1UNormal,
+                     Vector3d&                          D1VNormal,
+                     Vector3d&                          D2UNormal,
+                     Vector3d&                          D2VNormal,
+                     Vector3d&                          D2UVNormal)
 {
 #ifdef CHECK
   GeomAbs_Shape Cont = (Surf->Surface().UContinuity() < Surf->Surface().VContinuity())
@@ -249,7 +249,7 @@ static void NormalD2(const Standard_Real              U,
     throw Geom_UndefinedDerivative();
   }
 #endif
-  gp_Vec d3u, d3uuv, d3uvv, d3v;
+  Vector3d d3u, d3uuv, d3uvv, d3v;
   Point3d P;
   Surf->D3(U, V, P, D1UNormal, D1VNormal, D2UNormal, D2VNormal, D2UVNormal, d3u, d3v, d3uuv, d3uvv);
   Standard_Real      MagTol = 0.000000001;
@@ -329,14 +329,14 @@ Handle(GeomFill_TrihedronLaw) GeomFill_Darboux::Copy() const
 }
 
 Standard_Boolean GeomFill_Darboux::D0(const Standard_Real Param,
-                                      gp_Vec&             Tangent,
-                                      gp_Vec&             Normal,
-                                      gp_Vec&             BiNormal)
+                                      Vector3d&             Tangent,
+                                      Vector3d&             Normal,
+                                      Vector3d&             BiNormal)
 {
   gp_Pnt2d                  C2d;
   gp_Vec2d                  D2d;
   Point3d                    S;
-  gp_Vec                    dS_du, dS_dv;
+  Vector3d                    dS_du, dS_dv;
   Handle(Adaptor2d_Curve2d) myCurve2d =
     static_cast<Adaptor3d_CurveOnSurface*>(myTrimmed.get())->GetCurve();
   Handle(Adaptor3d_Surface) mySupport =
@@ -345,7 +345,7 @@ Standard_Boolean GeomFill_Darboux::D0(const Standard_Real Param,
   myCurve2d->D1(Param, C2d, D2d);
 
   //  Normal = dS_du.Crossed(dS_dv).Normalized();
-  gp_Dir NormalDir;
+  Dir3d NormalDir;
   NormalD0(C2d.X(), C2d.Y(), mySupport, NormalDir, OrderU, OrderV);
   BiNormal.SetXYZ(NormalDir.XYZ());
 
@@ -363,17 +363,17 @@ Standard_Boolean GeomFill_Darboux::D0(const Standard_Real Param,
 }
 
 Standard_Boolean GeomFill_Darboux::D1(const Standard_Real Param,
-                                      gp_Vec&             Tangent,
-                                      gp_Vec&             DTangent,
-                                      gp_Vec&             Normal,
-                                      gp_Vec&             DNormal,
-                                      gp_Vec&             BiNormal,
-                                      gp_Vec&             DBiNormal)
+                                      Vector3d&             Tangent,
+                                      Vector3d&             DTangent,
+                                      Vector3d&             Normal,
+                                      Vector3d&             DNormal,
+                                      Vector3d&             BiNormal,
+                                      Vector3d&             DBiNormal)
 {
   gp_Pnt2d                  C2d;
   gp_Vec2d                  D2d, D2_2d;
   Point3d                    S;
-  gp_Vec                    dS_du, dS_dv, d2S_du, d2S_dv, d2S_duv, F, DF;
+  Vector3d                    dS_du, dS_dv, d2S_du, d2S_dv, d2S_duv, F, DF;
   Handle(Adaptor2d_Curve2d) myCurve2d =
     static_cast<Adaptor3d_CurveOnSurface*>(myTrimmed.get())->GetCurve();
   Handle(Adaptor3d_Surface) mySupport =
@@ -391,8 +391,8 @@ Standard_Boolean GeomFill_Darboux::D1(const Standard_Real Param,
 
   DTangent = FDeriv(F, DF);
 
-  gp_Dir NormalDir;
-  gp_Vec D1UNormal, D1VNormal;
+  Dir3d NormalDir;
+  Vector3d D1UNormal, D1VNormal;
   NormalD1(C2d.X(), C2d.Y(), mySupport, NormalDir, D1UNormal, D1VNormal);
   BiNormal.SetXYZ(NormalDir.XYZ());
   DBiNormal = D1UNormal * D2d.X() + D1VNormal * D2d.Y();
@@ -405,20 +405,20 @@ Standard_Boolean GeomFill_Darboux::D1(const Standard_Real Param,
 }
 
 Standard_Boolean GeomFill_Darboux::D2(const Standard_Real Param,
-                                      gp_Vec&             Tangent,
-                                      gp_Vec&             DTangent,
-                                      gp_Vec&             D2Tangent,
-                                      gp_Vec&             Normal,
-                                      gp_Vec&             DNormal,
-                                      gp_Vec&             D2Normal,
-                                      gp_Vec&             BiNormal,
-                                      gp_Vec&             DBiNormal,
-                                      gp_Vec&             D2BiNormal)
+                                      Vector3d&             Tangent,
+                                      Vector3d&             DTangent,
+                                      Vector3d&             D2Tangent,
+                                      Vector3d&             Normal,
+                                      Vector3d&             DNormal,
+                                      Vector3d&             D2Normal,
+                                      Vector3d&             BiNormal,
+                                      Vector3d&             DBiNormal,
+                                      Vector3d&             D2BiNormal)
 {
   gp_Pnt2d C2d;
   gp_Vec2d D2d, D2_2d, D3_2d;
   Point3d   S;
-  gp_Vec   dS_du, dS_dv, d2S_du, d2S_dv, d2S_duv, d3S_du, d3S_dv, d3S_duuv, d3S_duvv, F, DF, D2F;
+  Vector3d   dS_du, dS_dv, d2S_du, d2S_dv, d2S_duv, d3S_du, d3S_dv, d3S_duuv, d3S_duvv, F, DF, D2F;
   Handle(Adaptor2d_Curve2d) myCurve2d =
     static_cast<Adaptor3d_CurveOnSurface*>(myTrimmed.get())->GetCurve();
   Handle(Adaptor3d_Surface) mySupport =
@@ -457,8 +457,8 @@ Standard_Boolean GeomFill_Darboux::D2(const Standard_Real Param,
   DTangent  = FDeriv(F, DF);
   D2Tangent = DDeriv(F, DF, D2F);
 
-  gp_Dir NormalDir;
-  gp_Vec D1UNormal, D1VNormal, D2UNormal, D2VNormal, D2UVNormal;
+  Dir3d NormalDir;
+  Vector3d D1UNormal, D1VNormal, D2UNormal, D2VNormal, D2UVNormal;
   NormalD2(C2d.X(),
            C2d.Y(),
            mySupport,
@@ -492,13 +492,13 @@ void GeomFill_Darboux::Intervals(TColStd_Array1OfReal& T, const GeomAbs_Shape S)
   myCurve->Intervals(T, S);
 }
 
-void GeomFill_Darboux::GetAverageLaw(gp_Vec& ATangent, gp_Vec& ANormal, gp_Vec& ABiNormal)
+void GeomFill_Darboux::GetAverageLaw(Vector3d& ATangent, Vector3d& ANormal, Vector3d& ABiNormal)
 {
   Standard_Integer Num = 20; // order of digitalization
-  gp_Vec           T, N, BN;
-  ATangent           = gp_Vec(0, 0, 0);
-  ANormal            = gp_Vec(0, 0, 0);
-  ABiNormal          = gp_Vec(0, 0, 0);
+  Vector3d           T, N, BN;
+  ATangent           = Vector3d(0, 0, 0);
+  ANormal            = Vector3d(0, 0, 0);
+  ABiNormal          = Vector3d(0, 0, 0);
   Standard_Real Step = (myTrimmed->LastParameter() - myTrimmed->FirstParameter()) / Num;
   Standard_Real Param;
   for (Standard_Integer i = 0; i <= Num; i++)

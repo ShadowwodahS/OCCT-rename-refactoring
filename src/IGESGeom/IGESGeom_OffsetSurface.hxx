@@ -22,7 +22,7 @@
 
 #include <gp_XYZ.hxx>
 #include <IGESData_IGESEntity.hxx>
-class gp_Vec;
+class Vector3d;
 
 class IGESGeom_OffsetSurface;
 DEFINE_STANDARD_HANDLE(IGESGeom_OffsetSurface, IGESData_IGESEntity)
@@ -53,10 +53,10 @@ public:
                             const Handle(IGESData_IGESEntity)& aSurface);
 
   //! returns the offset indicator
-  Standard_EXPORT gp_Vec OffsetIndicator() const;
+  Standard_EXPORT Vector3d OffsetIndicator() const;
 
   //! returns the offset indicator after applying Transf. Matrix
-  Standard_EXPORT gp_Vec TransformedOffsetIndicator() const;
+  Standard_EXPORT Vector3d TransformedOffsetIndicator() const;
 
   //! returns the distance by which surface is offset
   Standard_EXPORT Standard_Real Distance() const;

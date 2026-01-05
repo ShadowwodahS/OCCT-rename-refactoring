@@ -90,12 +90,12 @@ Handle(Geom_Surface) GeomFill::Surface(const Handle(Geom_Curve)& Curve1,
 
     gp_Lin L1 = (Handle(Geom_Line)::DownCast(TheCurve1))->Lin();
     gp_Lin L2 = (Handle(Geom_Line)::DownCast(TheCurve2))->Lin();
-    gp_Dir D1 = L1.Direction();
-    gp_Dir D2 = L2.Direction();
+    Dir3d D1 = L1.Direction();
+    Dir3d D2 = L2.Direction();
 
     if (D1.IsParallel(D2, Precision::Angular()))
     {
-      gp_Vec        P1P2(L1.Location(), L2.Location());
+      Vector3d        P1P2(L1.Location(), L2.Location());
       Standard_Real proj = P1P2.Dot(D1);
 
       if (D1.IsEqual(D2, Precision::Angular()))
@@ -103,7 +103,7 @@ Handle(Geom_Surface) GeomFill::Surface(const Handle(Geom_Curve)& Curve1,
         if (Abs(a1 - proj - a2) <= Precision::Confusion()
             && Abs(b1 - proj - b2) <= Precision::Confusion())
         {
-          gp_Ax3             Ax(L1.Location(), gp_Dir(D1.Crossed(P1P2)), D1);
+          gp_Ax3             Ax(L1.Location(), Dir3d(D1.Crossed(P1P2)), D1);
           Handle(Geom_Plane) P = new Geom_Plane(Ax);
           Standard_Real      V = P1P2.Dot(Ax.YDirection());
           Surf   = new Geom_RectangularTrimmedSurface(P, a1, b1, Min(0., V), Max(0., V));
@@ -115,7 +115,7 @@ Handle(Geom_Surface) GeomFill::Surface(const Handle(Geom_Curve)& Curve1,
         if (Abs(a1 - proj + b2) <= Precision::Confusion()
             && Abs(b1 - proj + a2) <= Precision::Confusion())
         {
-          gp_Ax3             Ax(L1.Location(), gp_Dir(D1.Crossed(P1P2)), D1);
+          gp_Ax3             Ax(L1.Location(), Dir3d(D1.Crossed(P1P2)), D1);
           Handle(Geom_Plane) P = new Geom_Plane(Ax);
           Standard_Real      V = P1P2.Dot(Ax.YDirection());
           Surf   = new Geom_RectangularTrimmedSurface(P, a1, b1, Min(0., V), Max(0., V));
@@ -139,7 +139,7 @@ Handle(Geom_Surface) GeomFill::Surface(const Handle(Geom_Curve)& Curve1,
     // first, A1 & A2 must be coaxials
     if (A1.Axis().IsCoaxial(A2.Axis(), Precision::Angular(), Precision::Confusion()))
     {
-      Standard_Real V = gp_Vec(A1.Location(), A2.Location()).Dot(gp_Vec(A1.Direction()));
+      Standard_Real V = Vector3d(A1.Location(), A2.Location()).Dot(Vector3d(A1.Direction()));
       if (!Trim1 && !Trim2)
       {
         if (Abs(C1.Radius() - C2.Radius()) < Precision::Confusion())
@@ -240,7 +240,7 @@ void GeomFill::GetMinimalWeights(const Convert_ParameterisationType TConv,
     Weights.Init(1);
   else
   {
-    gp_Ax2                    popAx2(Point3d(0, 0, 0), gp_Dir(0, 0, 1));
+    Frame3d                    popAx2(Point3d(0, 0, 0), Dir3d(0, 0, 1));
     gp_Circ                   C(popAx2, 1);
     Handle(Geom_TrimmedCurve) Sect1   = new Geom_TrimmedCurve(new Geom_Circle(C), 0., MaxAng);
     Handle(Geom_BSplineCurve) CtoBspl = GeomConvert::CurveToBSplineCurve(Sect1, TConv);
@@ -326,7 +326,7 @@ Standard_Real GeomFill::GetTolerance(const Convert_ParameterisationType TConv,
                                      const Standard_Real                AngularTol,
                                      const Standard_Real                SpatialTol)
 {
-  gp_Ax2                    popAx2(Point3d(0, 0, 0), gp_Dir(0, 0, 1));
+  Frame3d                    popAx2(Point3d(0, 0, 0), Dir3d(0, 0, 1));
   gp_Circ                   C(popAx2, Radius);
   Handle(Geom_Circle)       popCircle = new Geom_Circle(C);
   Handle(Geom_TrimmedCurve) Sect      = new Geom_TrimmedCurve(popCircle, 0., Max(AngleMin, 0.02));
@@ -347,9 +347,9 @@ Standard_Real GeomFill::GetTolerance(const Convert_ParameterisationType TConv,
 //  2) Assurer la coherance entre cette methode est celle qui donne la derive
 //============================================================================
 void GeomFill::GetCircle(const Convert_ParameterisationType TConv,
-                         const gp_Vec&         ns1,   // Normal rentrente au premier point
-                         const gp_Vec&         ns2,   // Normal rentrente au second point
-                         const gp_Vec&         nplan, // Normal au plan
+                         const Vector3d&         ns1,   // Normal rentrente au premier point
+                         const Vector3d&         ns2,   // Normal rentrente au second point
+                         const Vector3d&         nplan, // Normal au plan
                          const Point3d&         pts1,
                          const Point3d&         pts2,
                          const Standard_Real   Rayon, // Rayon (doit etre positif)
@@ -361,7 +361,7 @@ void GeomFill::GetCircle(const Convert_ParameterisationType TConv,
 
   Standard_Integer i, jj;
   Standard_Real    Cosa, Sina, Angle, Alpha, Cosas2, lambda;
-  gp_Vec           temp, np2;
+  Vector3d           temp, np2;
   Standard_Integer low = Poles.Lower();
   Standard_Integer upp = Poles.Upper();
 
@@ -440,27 +440,27 @@ void GeomFill::GetCircle(const Convert_ParameterisationType TConv,
 }
 
 Standard_Boolean GeomFill::GetCircle(const Convert_ParameterisationType TConv,
-                                     const gp_Vec&                      ns1,
-                                     const gp_Vec&                      ns2,
-                                     const gp_Vec&                      dn1w,
-                                     const gp_Vec&                      dn2w,
-                                     const gp_Vec&                      nplan,
-                                     const gp_Vec&                      dnplan,
+                                     const Vector3d&                      ns1,
+                                     const Vector3d&                      ns2,
+                                     const Vector3d&                      dn1w,
+                                     const Vector3d&                      dn2w,
+                                     const Vector3d&                      nplan,
+                                     const Vector3d&                      dnplan,
                                      const Point3d&                      pts1,
                                      const Point3d&                      pts2,
-                                     const gp_Vec&                      tang1,
-                                     const gp_Vec&                      tang2,
+                                     const Vector3d&                      tang1,
+                                     const Vector3d&                      tang2,
                                      const Standard_Real                Rayon,
                                      const Standard_Real                DRayon,
                                      const Point3d&                      Center,
-                                     const gp_Vec&                      DCenter,
+                                     const Vector3d&                      DCenter,
                                      TColgp_Array1OfPnt&                Poles,
                                      TColgp_Array1OfVec&                DPoles,
                                      TColStd_Array1OfReal&              Weights,
                                      TColStd_Array1OfReal&              DWeights)
 {
   Standard_Real    Cosa, Sina, Cosas2, Sinas2, Angle, DAngle, Alpha, lambda, Dlambda;
-  gp_Vec           temp, np2, dnp2;
+  Vector3d           temp, np2, dnp2;
   Standard_Integer i, jj;
   Standard_Integer NbSpan = (Poles.Length() - 1) / 2;
   Standard_Integer low    = Poles.Lower();
@@ -594,27 +594,27 @@ Standard_Boolean GeomFill::GetCircle(const Convert_ParameterisationType TConv,
 }
 
 Standard_Boolean GeomFill::GetCircle(const Convert_ParameterisationType TConv,
-                                     const gp_Vec&                      ns1,
-                                     const gp_Vec&                      ns2,
-                                     const gp_Vec&                      dn1w,
-                                     const gp_Vec&                      dn2w,
-                                     const gp_Vec&                      d2n1w,
-                                     const gp_Vec&                      d2n2w,
-                                     const gp_Vec&                      nplan,
-                                     const gp_Vec&                      dnplan,
-                                     const gp_Vec&                      d2nplan,
+                                     const Vector3d&                      ns1,
+                                     const Vector3d&                      ns2,
+                                     const Vector3d&                      dn1w,
+                                     const Vector3d&                      dn2w,
+                                     const Vector3d&                      d2n1w,
+                                     const Vector3d&                      d2n2w,
+                                     const Vector3d&                      nplan,
+                                     const Vector3d&                      dnplan,
+                                     const Vector3d&                      d2nplan,
                                      const Point3d&                      pts1,
                                      const Point3d&                      pts2,
-                                     const gp_Vec&                      tang1,
-                                     const gp_Vec&                      tang2,
-                                     const gp_Vec&                      Dtang1,
-                                     const gp_Vec&                      Dtang2,
+                                     const Vector3d&                      tang1,
+                                     const Vector3d&                      tang2,
+                                     const Vector3d&                      Dtang1,
+                                     const Vector3d&                      Dtang2,
                                      const Standard_Real                Rayon,
                                      const Standard_Real                DRayon,
                                      const Standard_Real                D2Rayon,
                                      const Point3d&                      Center,
-                                     const gp_Vec&                      DCenter,
-                                     const gp_Vec&                      D2Center,
+                                     const Vector3d&                      DCenter,
+                                     const Vector3d&                      D2Center,
                                      TColgp_Array1OfPnt&                Poles,
                                      TColgp_Array1OfVec&                DPoles,
                                      TColgp_Array1OfVec&                D2Poles,
@@ -625,7 +625,7 @@ Standard_Boolean GeomFill::GetCircle(const Convert_ParameterisationType TConv,
   Standard_Real    Cosa, Sina, Cosas2, Sinas2;
   Standard_Real    Angle, DAngle, D2Angle, Alpha;
   Standard_Real    lambda, Dlambda, D2lambda, aux;
-  gp_Vec           temp, dtemp, np2, dnp2, d2np2;
+  Vector3d           temp, dtemp, np2, dnp2, d2np2;
   Standard_Integer i, jj;
   Standard_Integer NbSpan = (Poles.Length() - 1) / 2;
   Standard_Integer low    = Poles.Lower();

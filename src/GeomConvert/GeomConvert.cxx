@@ -90,7 +90,7 @@ static Handle(Geom_BSplineCurve) BSplineCurveBuilder(const Handle(Geom_Conic)&  
   }
   TheCurve =
     new Geom_BSplineCurve(Poles, Weights, Knots, Mults, Convert.Degree(), Convert.IsPeriodic());
-  gp_Trsf T;
+  Transform3d T;
   T.SetTransformation(TheConic->Position(), gp::XOY());
   Handle(Geom_BSplineCurve) Cres;
   Cres = Handle(Geom_BSplineCurve)::DownCast(TheCurve->Transformed(T));
@@ -644,7 +644,7 @@ static Standard_Boolean Need2DegRepara(const TColGeom_Array1OfBSplineCurve& tab)
 
 {
   Standard_Integer i;
-  gp_Vec           Vec1, Vec2;
+  Vector3d           Vec1, Vec2;
   Point3d           Pint;
   Standard_Real    Rapport = 1.0e0;
 
@@ -782,7 +782,7 @@ void GeomConvert::ConcatG1(TColGeom_Array1OfBSplineCurve&          ArrayOfCurves
     First;
   Standard_Real             PreLast = 0.;
   GeomAbs_Shape             Cont;
-  gp_Vec                    Vec1, Vec2; // consecutive tangential vectors
+  Vector3d                    Vec1, Vec2; // consecutive tangential vectors
   Point3d                    Pint;
   Handle(Geom_BSplineCurve) Curve1, Curve2;
   // clang-format off
@@ -1019,7 +1019,7 @@ void GeomConvert::ConcatC1(TColGeom_Array1OfBSplineCurve&          ArrayOfCurves
   Standard_Real PreLast = 0.;
 
   GeomAbs_Shape             Cont;
-  gp_Vec                    Vec1, Vec2; // consecutive tangential vectors
+  Vector3d                    Vec1, Vec2; // consecutive tangential vectors
   Point3d                    Pint;
   Handle(Geom_BSplineCurve) Curve1, Curve2;
   // clang-format off
@@ -1301,7 +1301,7 @@ void GeomConvert::C0BSplineToArrayOfC1BSplineCurve(const Handle(Geom_BSplineCurv
   Standard_Real           U1, U2;
   Standard_Boolean        closed_flag = Standard_False;
   Point3d                  point;
-  gp_Vec                  V1, V2;
+  Vector3d                  V1, V2;
   // Standard_Boolean                 fusion;
 
   BS->Knots(BSKnots);

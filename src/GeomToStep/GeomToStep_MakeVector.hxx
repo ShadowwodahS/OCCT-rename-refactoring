@@ -24,7 +24,7 @@
 #include <GeomToStep_Root.hxx>
 
 class StepGeom_Vector;
-class gp_Vec;
+class Vector3d;
 class gp_Vec2d;
 class Geom_Vector;
 class Geom2d_Vector;
@@ -39,7 +39,7 @@ public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT GeomToStep_MakeVector(
-    const gp_Vec&           V,
+    const Vector3d&           V,
     const StepData_Factors& theLocalFactors = StepData_Factors());
 
   Standard_EXPORT GeomToStep_MakeVector(

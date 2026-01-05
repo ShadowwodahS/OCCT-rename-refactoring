@@ -25,7 +25,7 @@
 #include <TColStd_Array1OfReal.hxx>
 
 class gp_Mat;
-class gp_Vec;
+class Vector3d;
 class Point3d;
 
 class GeomFill_LocationLaw;
@@ -50,12 +50,12 @@ public:
   Standard_EXPORT virtual Handle(GeomFill_LocationLaw) Copy() const = 0;
 
   //! compute Location
-  Standard_EXPORT virtual Standard_Boolean D0(const Standard_Real Param, gp_Mat& M, gp_Vec& V) = 0;
+  Standard_EXPORT virtual Standard_Boolean D0(const Standard_Real Param, gp_Mat& M, Vector3d& V) = 0;
 
   //! compute Location and 2d points
   Standard_EXPORT virtual Standard_Boolean D0(const Standard_Real   Param,
                                               gp_Mat&               M,
-                                              gp_Vec&               V,
+                                              Vector3d&               V,
                                               TColgp_Array1OfPnt2d& Poles2d) = 0;
 
   //! compute location 2d  points and  associated
@@ -63,9 +63,9 @@ public:
   //! Warning : It used only for C1 or C2 approximation
   Standard_EXPORT virtual Standard_Boolean D1(const Standard_Real   Param,
                                               gp_Mat&               M,
-                                              gp_Vec&               V,
+                                              Vector3d&               V,
                                               gp_Mat&               DM,
-                                              gp_Vec&               DV,
+                                              Vector3d&               DV,
                                               TColgp_Array1OfPnt2d& Poles2d,
                                               TColgp_Array1OfVec2d& DPoles2d);
 
@@ -74,11 +74,11 @@ public:
   //! Warning : It used only for C2 approximation
   Standard_EXPORT virtual Standard_Boolean D2(const Standard_Real   Param,
                                               gp_Mat&               M,
-                                              gp_Vec&               V,
+                                              Vector3d&               V,
                                               gp_Mat&               DM,
-                                              gp_Vec&               DV,
+                                              Vector3d&               DV,
                                               gp_Mat&               D2M,
-                                              gp_Vec&               D2V,
+                                              Vector3d&               D2V,
                                               TColgp_Array1OfPnt2d& Poles2d,
                                               TColgp_Array1OfVec2d& DPoles2d,
                                               TColgp_Array1OfVec2d& D2Poles2d);
@@ -153,7 +153,7 @@ public:
 
   //! Get average value of M(t) and V(t) it is usfull to
   //! make fast approximation of rational surfaces.
-  Standard_EXPORT virtual void GetAverageLaw(gp_Mat& AM, gp_Vec& AV) = 0;
+  Standard_EXPORT virtual void GetAverageLaw(gp_Mat& AM, Vector3d& AV) = 0;
 
   //! Say if the Location  Law, is an translation of  Location
   //! The default implementation is " returns False ".

@@ -84,7 +84,7 @@ void GeomFill_CurveAndTrihedron::SetTrsf(const gp_Mat& Transfo)
 
 //=================================================================================================
 
-Standard_Boolean GeomFill_CurveAndTrihedron::D0(const Standard_Real Param, gp_Mat& M, gp_Vec& V)
+Standard_Boolean GeomFill_CurveAndTrihedron::D0(const Standard_Real Param, gp_Mat& M, Vector3d& V)
 {
   Standard_Boolean Ok;
   myTrimmed->D0(Param, Point);
@@ -104,7 +104,7 @@ Standard_Boolean GeomFill_CurveAndTrihedron::D0(const Standard_Real Param, gp_Ma
 
 Standard_Boolean GeomFill_CurveAndTrihedron::D0(const Standard_Real Param,
                                                 gp_Mat&             M,
-                                                gp_Vec&             V,
+                                                Vector3d&             V,
                                                 TColgp_Array1OfPnt2d&)
 {
   Standard_Boolean Ok;
@@ -125,9 +125,9 @@ Standard_Boolean GeomFill_CurveAndTrihedron::D0(const Standard_Real Param,
 
 Standard_Boolean GeomFill_CurveAndTrihedron::D1(const Standard_Real Param,
                                                 gp_Mat&             M,
-                                                gp_Vec&             V,
+                                                Vector3d&             V,
                                                 gp_Mat&             DM,
-                                                gp_Vec&             DV,
+                                                Vector3d&             DV,
                                                 TColgp_Array1OfPnt2d&,
                                                 TColgp_Array1OfVec2d&)
 {
@@ -135,7 +135,7 @@ Standard_Boolean GeomFill_CurveAndTrihedron::D1(const Standard_Real Param,
   myTrimmed->D1(Param, Point, DV);
   V.SetXYZ(Point.XYZ());
 
-  gp_Vec DV1, DV2, DV3;
+  Vector3d DV1, DV2, DV3;
   Ok = myLaw->D1(Param, V1, DV1, V2, DV2, V3, DV3);
   M.SetCols(V2.XYZ(), V3.XYZ(), V1.XYZ());
   DM.SetCols(DV2.XYZ(), DV3.XYZ(), DV1.XYZ());
@@ -153,11 +153,11 @@ Standard_Boolean GeomFill_CurveAndTrihedron::D1(const Standard_Real Param,
 
 Standard_Boolean GeomFill_CurveAndTrihedron::D2(const Standard_Real Param,
                                                 gp_Mat&             M,
-                                                gp_Vec&             V,
+                                                Vector3d&             V,
                                                 gp_Mat&             DM,
-                                                gp_Vec&             DV,
+                                                Vector3d&             DV,
                                                 gp_Mat&             D2M,
-                                                gp_Vec&             D2V,
+                                                Vector3d&             D2V,
                                                 TColgp_Array1OfPnt2d&,
                                                 TColgp_Array1OfVec2d&,
                                                 TColgp_Array1OfVec2d&)
@@ -166,8 +166,8 @@ Standard_Boolean GeomFill_CurveAndTrihedron::D2(const Standard_Real Param,
   myTrimmed->D2(Param, Point, DV, D2V);
   V.SetXYZ(Point.XYZ());
 
-  gp_Vec DV1, DV2, DV3;
-  gp_Vec D2V1, D2V2, D2V3;
+  Vector3d DV1, DV2, DV3;
+  Vector3d D2V1, D2V2, D2V3;
   Ok = myLaw->D2(Param, V1, DV1, D2V1, V2, DV2, D2V2, V3, DV3, D2V3);
 
   M.SetCols(V2.XYZ(), V3.XYZ(), V1.XYZ());
@@ -277,11 +277,11 @@ Standard_Real GeomFill_CurveAndTrihedron::GetMaximalNorm()
 
 //=================================================================================================
 
-void GeomFill_CurveAndTrihedron::GetAverageLaw(gp_Mat& AM, gp_Vec& AV)
+void GeomFill_CurveAndTrihedron::GetAverageLaw(gp_Mat& AM, Vector3d& AV)
 {
   Standard_Integer ii;
   Standard_Real    U, delta;
-  gp_Vec           V;
+  Vector3d           V;
 
   myLaw->GetAverageLaw(V1, V2, V3);
   AM.SetCols(V1.XYZ(), V2.XYZ(), V3.XYZ());

@@ -94,7 +94,7 @@ public:
   void SetSurfaceNormal(const NCollection_Vec3<float>& theNormal) { myNormal = theNormal; }
 
   //! Set surface normal at picked point.
-  void SetSurfaceNormal(const gp_Vec& theNormal)
+  void SetSurfaceNormal(const Vector3d& theNormal)
   {
     myNormal.SetValues((float)theNormal.X(), (float)theNormal.Y(), (float)theNormal.Z());
   }

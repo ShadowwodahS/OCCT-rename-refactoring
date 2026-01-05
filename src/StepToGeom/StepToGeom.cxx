@@ -147,7 +147,7 @@ Handle(Geom_Axis1Placement) StepToGeom::MakeAxis1Placement(
   {
     // sln 22.10.2001. CTS23496: If problems with creation of axis direction occur default direction
     // is used
-    gp_Dir D(0., 0., 1.);
+    Dir3d D(0., 0., 1.);
     if (SA->HasAxis())
     {
       Handle(Geom_Direction) D1 = MakeDirection(SA->Axis());
@@ -174,7 +174,7 @@ Handle(Geom_Axis2Placement) StepToGeom::MakeAxis2Placement(
 
     // sln 22.10.2001. CTS23496: If problems with creation of direction occur default direction is
     // used (MakeLine(...) function)
-    gp_Dir Ngp(0., 0., 1.);
+    Dir3d Ngp(0., 0., 1.);
     if (SA->HasAxis())
     {
       Handle(Geom_Direction) D = MakeDirection(SA->Axis());
@@ -182,23 +182,23 @@ Handle(Geom_Axis2Placement) StepToGeom::MakeAxis2Placement(
         Ngp = D->Dir();
     }
 
-    gp_Ax2           gpAx2;
+    Frame3d           gpAx2;
     Standard_Boolean isDefaultDirectionUsed = Standard_True;
     if (SA->HasRefDirection())
     {
       Handle(Geom_Direction) D = MakeDirection(SA->RefDirection());
       if (!D.IsNull())
       {
-        const gp_Dir Vxgp = D->Dir();
+        const Dir3d Vxgp = D->Dir();
         if (!Ngp.IsParallel(Vxgp, Precision::Angular()))
         {
-          gpAx2                  = gp_Ax2(Pgp, Ngp, Vxgp);
+          gpAx2                  = Frame3d(Pgp, Ngp, Vxgp);
           isDefaultDirectionUsed = Standard_False;
         }
       }
     }
     if (isDefaultDirectionUsed)
-      gpAx2 = gp_Ax2(Pgp, Ngp);
+      gpAx2 = Frame3d(Pgp, Ngp);
 
     return new Geom_Axis2Placement(gpAx2);
   }
@@ -226,9 +226,9 @@ Handle(Geom_Axis2Placement) StepToGeom::MakeAxis2Placement(
                         + cos(theSP->Gamma()) * cos(theSP->Alpha()) * sin(theSP->Beta());
   Standard_Real aDirZ = sin(theSP->Alpha()) * sin(theSP->Beta());
   const Point3d  Pgp(aLocX, aLocY, aLocZ);
-  const gp_Dir  Ngp(anAsisX, anAxisY, anAxisZ);
-  const gp_Dir  Vxgp(aDirX, aDirY, aDirZ);
-  gp_Ax2        gpAx2 = gp_Ax2(Pgp, Ngp, Vxgp);
+  const Dir3d  Ngp(anAsisX, anAxisY, anAxisZ);
+  const Dir3d  Vxgp(aDirX, aDirY, aDirZ);
+  Frame3d        gpAx2 = Frame3d(Pgp, Ngp, Vxgp);
   return new Geom_Axis2Placement(gpAx2);
 }
 
@@ -1317,7 +1317,7 @@ Handle(Geom_Curve) StepToGeom::MakeCurve(const Handle(StepGeom_Curve)& SC,
       Handle(Geom_Curve) C1 = MakeCurve(PC, theLocalFactors);
       if (!C1.IsNull())
       {
-        gp_Trsf T1;
+        Transform3d T1;
         if (MakeTransformation3d(T, T1, theLocalFactors))
         {
           C1->Transform(T1);
@@ -1503,7 +1503,7 @@ Handle(Geom_Ellipse) StepToGeom::MakeEllipse(const Handle(StepGeom_Ellipse)& SC,
                          theLocalFactors);
     if (!A1.IsNull())
     {
-      gp_Ax2              A(A1->Ax2());
+      Frame3d              A(A1->Ax2());
       const Standard_Real LF     = theLocalFactors.LengthFactor();
       const Standard_Real majorR = SC->SemiAxis1() * LF;
       const Standard_Real minorR = SC->SemiAxis2() * LF;
@@ -1570,7 +1570,7 @@ Handle(Geom_Hyperbola) StepToGeom::MakeHyperbola(const Handle(StepGeom_Hyperbola
                          theLocalFactors);
     if (!A1.IsNull())
     {
-      const gp_Ax2        A(A1->Ax2());
+      const Frame3d        A(A1->Ax2());
       const Standard_Real LF = theLocalFactors.LengthFactor();
       return new Geom_Hyperbola(A, SC->SemiAxis() * LF, SC->SemiImagAxis() * LF);
     }
@@ -1616,7 +1616,7 @@ Handle(Geom_Line) StepToGeom::MakeLine(const Handle(StepGeom_Line)& SC,
     {
       if (D->Vec().SquareMagnitude() < Precision::Confusion() * Precision::Confusion())
         return 0;
-      const gp_Dir V(D->Vec());
+      const Dir3d V(D->Vec());
       return new Geom_Line(P->Pnt(), V);
     }
   }
@@ -1915,7 +1915,7 @@ Handle(Geom_Surface) StepToGeom::MakeSurface(const Handle(StepGeom_Surface)& SS,
         Handle(Geom_Surface) S1 = MakeSurface(PS, theLocalFactors);
         if (!S1.IsNull())
         {
-          gp_Trsf T1;
+          Transform3d T1;
           if (MakeTransformation3d(T, T1, theLocalFactors))
           {
             S1->Transform(T1);
@@ -1957,7 +1957,7 @@ Handle(Geom_SurfaceOfLinearExtrusion) StepToGeom::MakeSurfaceOfLinearExtrusion(
       MakeVectorWithMagnitude(SS->ExtrusionAxis(), theLocalFactors);
     if (!V.IsNull())
     {
-      const gp_Dir      D(V->Vec());
+      const Dir3d      D(V->Vec());
       Handle(Geom_Line) aLine = Handle(Geom_Line)::DownCast(C);
       if (!aLine.IsNull() && aLine->Lin().Direction().IsParallel(D, Precision::Angular()))
         return Handle(Geom_SurfaceOfLinearExtrusion)();
@@ -1982,7 +1982,7 @@ Handle(Geom_SurfaceOfRevolution) StepToGeom::MakeSurfaceOfRevolution(
     Handle(Geom_Axis1Placement) A1 = MakeAxis1Placement(SS->AxisPosition(), theLocalFactors);
     if (!A1.IsNull())
     {
-      const gp_Ax1 A(A1->Ax1());
+      const Axis3d A(A1->Ax1());
       // skl for OCC952 (one bad case revolution of circle)
       if (C->IsKind(STANDARD_TYPE(Geom_Circle)) || C->IsKind(STANDARD_TYPE(Geom_Ellipse)))
       {
@@ -1991,16 +1991,16 @@ Handle(Geom_SurfaceOfRevolution) StepToGeom::MakeSurfaceOfRevolution(
         const gp_Lin             rl(A);
         if (rl.Distance(pc) < Precision::Confusion())
         { // pc lies on A2
-          const gp_Dir dirline = A.Direction();
-          const gp_Dir norm    = conic->Axis().Direction();
-          const gp_Dir xAxis   = conic->XAxis().Direction();
+          const Dir3d dirline = A.Direction();
+          const Dir3d norm    = conic->Axis().Direction();
+          const Dir3d xAxis   = conic->XAxis().Direction();
           // checking A2 lies on plane of circle
           if (dirline.IsNormal(norm, Precision::Angular())
               && (dirline.IsParallel(xAxis, Precision::Angular())
                   || C->IsKind(STANDARD_TYPE(Geom_Circle))))
           {
             // change parametrization for trimming
-            gp_Ax2 axnew(pc, norm, dirline.Reversed());
+            Frame3d axnew(pc, norm, dirline.Reversed());
             conic->SetPosition(axnew);
             C = new Geom_TrimmedCurve(conic, 0., M_PI);
           }
@@ -2086,7 +2086,7 @@ Standard_Boolean StepToGeom::MakeTransformation2d(
 
 Standard_Boolean StepToGeom::MakeTransformation3d(
   const Handle(StepGeom_CartesianTransformationOperator3d)& SCTO,
-  gp_Trsf&                                                  CT,
+  Transform3d&                                                  CT,
   const StepData_Factors&                                   theLocalFactors)
 {
   Handle(Geom_CartesianPoint) CP = MakeCartesianPoint(SCTO->LocalOrigin(), theLocalFactors);
@@ -2096,7 +2096,7 @@ Standard_Boolean StepToGeom::MakeTransformation3d(
 
     // sln 23.10.2001. CTS23496: If problems with creation of direction occur default direction is
     // used
-    gp_Dir                           D1(1., 0., 0.);
+    Dir3d                           D1(1., 0., 0.);
     const Handle(StepGeom_Direction) A1 = SCTO->Axis1();
     if (!A1.IsNull())
     {
@@ -2105,7 +2105,7 @@ Standard_Boolean StepToGeom::MakeTransformation3d(
         D1 = D->Dir();
     }
 
-    gp_Dir                           D2(0., 1., 0.);
+    Dir3d                           D2(0., 1., 0.);
     const Handle(StepGeom_Direction) A2 = SCTO->Axis2();
     if (!A2.IsNull())
     {
@@ -2115,7 +2115,7 @@ Standard_Boolean StepToGeom::MakeTransformation3d(
     }
 
     Standard_Boolean                 isDefaultDirectionUsed = Standard_True;
-    gp_Dir                           D3;
+    Dir3d                           D3;
     const Handle(StepGeom_Direction) A3 = SCTO->Axis3();
     if (!A3.IsNull())
     {
@@ -2470,7 +2470,7 @@ Handle(Geom_VectorWithMagnitude) StepToGeom::MakeVectorWithMagnitude(
   Handle(Geom_Direction) D = MakeDirection(SV->Orientation());
   if (!D.IsNull())
   {
-    const gp_Vec V(D->Dir().XYZ() * SV->Magnitude() * theLocalFactors.LengthFactor());
+    const Vector3d V(D->Dir().XYZ() * SV->Magnitude() * theLocalFactors.LengthFactor());
     return new Geom_VectorWithMagnitude(V);
   }
   return 0;

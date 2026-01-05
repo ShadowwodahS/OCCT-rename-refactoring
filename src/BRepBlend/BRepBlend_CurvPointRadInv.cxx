@@ -49,7 +49,7 @@ Standard_Boolean BRepBlend_CurvPointRadInv::Value(const math_Vector& X, math_Vec
 {
   Standard_Real theD;
   Point3d        ptcur1, ptcur2;
-  gp_Vec        d1cur1, d1cur2;
+  Vector3d        d1cur1, d1cur2;
   gp_XYZ        nplan; //, ref;
   curv1->D1(X(1), ptcur1, d1cur1);
   nplan = d1cur1.Normalized().XYZ();
@@ -65,7 +65,7 @@ Standard_Boolean BRepBlend_CurvPointRadInv::Value(const math_Vector& X, math_Vec
 Standard_Boolean BRepBlend_CurvPointRadInv::Derivatives(const math_Vector& X, math_Matrix& D)
 {
   Point3d        ptcur1, ptcur2;
-  gp_Vec        d1cur1, d2cur1, d1cur2, nplan, dnplan;
+  Vector3d        d1cur1, d2cur1, d1cur2, nplan, dnplan;
   Standard_Real dtheD, normd1cur1, unsurnormd1cur1;
 
   curv1->D2(X(1), ptcur1, d1cur1, d2cur1);

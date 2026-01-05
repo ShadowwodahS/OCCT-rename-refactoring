@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 
 class Point3d;
-class gp_Vec;
+class Vector3d;
 
 class LProp3d_CurveTool
 {
@@ -41,15 +41,15 @@ public:
   Standard_EXPORT static void D1(const Handle(Adaptor3d_Curve)& C,
                                  const Standard_Real            U,
                                  Point3d&                        P,
-                                 gp_Vec&                        V1);
+                                 Vector3d&                        V1);
 
   //! Computes the point <P>, the first derivative <V1> and second
   //! derivative <V2> of parameter <U> on the HCurve <C>.
   Standard_EXPORT static void D2(const Handle(Adaptor3d_Curve)& C,
                                  const Standard_Real            U,
                                  Point3d&                        P,
-                                 gp_Vec&                        V1,
-                                 gp_Vec&                        V2);
+                                 Vector3d&                        V1,
+                                 Vector3d&                        V2);
 
   //! Computes the point <P>, the first derivative <V1>, the
   //! second derivative <V2> and third derivative <V3> of
@@ -57,9 +57,9 @@ public:
   Standard_EXPORT static void D3(const Handle(Adaptor3d_Curve)& C,
                                  const Standard_Real            U,
                                  Point3d&                        P,
-                                 gp_Vec&                        V1,
-                                 gp_Vec&                        V2,
-                                 gp_Vec&                        V3);
+                                 Vector3d&                        V1,
+                                 Vector3d&                        V2,
+                                 Vector3d&                        V3);
 
   //! returns the order of continuity of the HCurve <C>.
   //! returns 1 : first derivative only is computable

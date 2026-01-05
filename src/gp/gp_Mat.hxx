@@ -298,7 +298,7 @@ public:
   Standard_EXPORT void DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth = -1) const;
 
   friend class gp_XYZ;
-  friend class gp_Trsf;
+  friend class Transform3d;
   friend class gp_GTrsf;
 
 private:

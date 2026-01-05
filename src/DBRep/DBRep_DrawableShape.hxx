@@ -30,7 +30,7 @@
 
 class Draw_Display;
 class Poly_Triangulation;
-class gp_Trsf;
+class Transform3d;
 
 //! Drawable structure to display a  shape. Contains a
 //! list of edges and a list of faces.
@@ -164,7 +164,7 @@ public:
     const Standard_Integer                                                           theNbAlongV);
 
 private:
-  void display(const Handle(Poly_Triangulation)& T, const gp_Trsf& tr, Draw_Display& dis) const;
+  void display(const Handle(Poly_Triangulation)& T, const Transform3d& tr, Draw_Display& dis) const;
 
   //! Updates internal data necessary for display
   void updateDisplayData() const;

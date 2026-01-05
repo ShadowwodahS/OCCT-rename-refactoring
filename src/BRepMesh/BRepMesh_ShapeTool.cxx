@@ -190,7 +190,7 @@ void BRepMesh_ShapeTool::AddInFace(const TopoDS_Face&          theFace,
   const TopLoc_Location& aLoc = theFace.Location();
   if (!aLoc.IsIdentity())
   {
-    gp_Trsf aTrsf = aLoc.Transformation();
+    Transform3d aTrsf = aLoc.Transformation();
     aTrsf.Invert();
     for (Standard_Integer aNodeIter = 1; aNodeIter <= theTriangulation->NbNodes(); ++aNodeIter)
     {

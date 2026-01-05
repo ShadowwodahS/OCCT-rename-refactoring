@@ -44,7 +44,7 @@ LocOpe_RevolutionForm::LocOpe_RevolutionForm()
 //=================================================================================================
 
 void LocOpe_RevolutionForm::Perform(const TopoDS_Shape& Base,
-                                    const gp_Ax1&       Axis,
+                                    const Axis3d&       Axis,
                                     const Standard_Real Angle)
 {
   myMap.Clear();
@@ -68,7 +68,7 @@ void LocOpe_RevolutionForm::IntPerf()
   BRepTools_Modifier Modif;
   if (myIsTrans)
   {
-    gp_Trsf T;
+    Transform3d T;
     T.SetRotation(myAxis, myAngTra);
     Handle(BRepTools_TrsfModification) modbase = new BRepTools_TrsfModification(T);
     Modif.Init(theBase);

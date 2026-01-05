@@ -75,7 +75,7 @@ public:
   BRepFeat_MakePrism(const TopoDS_Shape&    Sbase,
                      const TopoDS_Shape&    Pbase,
                      const TopoDS_Face&     Skface,
-                     const gp_Dir&          Direction,
+                     const Dir3d&          Direction,
                      const Standard_Integer Fuse,
                      const Standard_Boolean Modify);
 
@@ -92,7 +92,7 @@ public:
   Standard_EXPORT void Init(const TopoDS_Shape&    Sbase,
                             const TopoDS_Shape&    Pbase,
                             const TopoDS_Face&     Skface,
-                            const gp_Dir&          Direction,
+                            const Dir3d&          Direction,
                             const Standard_Integer Fuse,
                             const Standard_Boolean Modify);
 
@@ -136,7 +136,7 @@ protected:
 private:
   TopoDS_Shape                       myPbase;
   TopTools_DataMapOfShapeListOfShape mySlface;
-  gp_Dir                             myDir;
+  Dir3d                             myDir;
   TColGeom_SequenceOfCurve           myCurves;
   Handle(Geom_Curve)                 myBCurve;
   BRepFeat_StatusError               myStatusError;

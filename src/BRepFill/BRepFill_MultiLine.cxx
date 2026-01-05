@@ -116,7 +116,7 @@ BRepFill_MultiLine::BRepFill_MultiLine(const TopoDS_Face&          Face1,
   TopExp_Explorer Exp;
   Standard_Real   Umin = 0., Vmin = 0., Umax = 0., Vmax = 0., U, V;
   gp_Pnt2d        P1, P2;
-  gp_Vec          DZ;
+  Vector3d          DZ;
   Point3d          P;
 
   // Result on Face1
@@ -493,7 +493,7 @@ void BRepFill_MultiLine::Curves(Handle(Geom_Curve)&   Curve,
     // eval the 3d curve corresponding to the bissectrice.
     gp_Pnt2d          P    = myBis.Line().Location();
     gp_Dir2d          D    = myBis.Line().Direction();
-    Handle(Geom_Line) Line = new Geom_Line(Point3d(P.X(), P.Y(), 0.), gp_Dir(D.X(), D.Y(), 0.));
+    Handle(Geom_Line) Line = new Geom_Line(Point3d(P.X(), P.Y(), 0.), Dir3d(D.X(), D.Y(), 0.));
     Handle(Geom_TrimmedCurve) TLine =
       new Geom_TrimmedCurve(Line, myBis.FirstParameter(), myBis.LastParameter());
     Curve = GeomProjLib::ProjectOnPlane(TLine, Plane, gp::DZ(), Standard_False);
@@ -767,7 +767,7 @@ Standard_Boolean BRepFill_MultiLine::Value(const Standard_Real           theT,
 
 Standard_Boolean BRepFill_MultiLine::D1(const Standard_Real /*theT*/,
                                         NCollection_Array1<gp_Vec2d>& /*theVec2d*/,
-                                        NCollection_Array1<gp_Vec>& /*theVec*/) const
+                                        NCollection_Array1<Vector3d>& /*theVec*/) const
 {
   return Standard_False;
 }

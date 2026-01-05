@@ -55,7 +55,7 @@
 
 #include <algorithm>
 
-typedef NCollection_IndexedDataMap<TopoDS_Shape, gp_Dir, TopTools_ShapeMapHasher>
+typedef NCollection_IndexedDataMap<TopoDS_Shape, Dir3d, TopTools_ShapeMapHasher>
   BOPAlgo_IndexedDataMapOfShapeDir;
 typedef NCollection_IndexedDataMap<TopoDS_Shape, gp_Pln, TopTools_ShapeMapHasher>
   BOPAlgo_IndexedDataMapOfShapePln;
@@ -75,9 +75,9 @@ static Standard_Boolean FindPlane(const TopoDS_Shape&               theWire,
 
 static Standard_Boolean FindEdgeTangent(const TopoDS_Edge&                theEdge,
                                         BOPAlgo_IndexedDataMapOfShapeDir& theDMEdgeTgt,
-                                        gp_Dir&                           theTgt);
+                                        Dir3d&                           theTgt);
 
-static Standard_Boolean FindEdgeTangent(const BRepAdaptor_Curve& theCurve, gp_Vec& theTangent);
+static Standard_Boolean FindEdgeTangent(const BRepAdaptor_Curve& theCurve, Vector3d& theTangent);
 
 //=================================================================================================
 
@@ -433,17 +433,17 @@ Standard_Integer BOPAlgo_Tools::EdgesToWires(const TopoDS_Shape&    theEdges,
     }
     else
     {
-      gp_Vec aVT;
+      Vector3d aVT;
       if (FindEdgeTangent(aBAC, aVT))
       {
-        aDMEdgeTgt.Add(aE, gp_Dir(aVT));
+        aDMEdgeTgt.Add(aE, Dir3d(aVT));
         aBB.Add(aLEdges, aE);
         aMEdgesNoUniquePlane.Add(aE);
       }
     }
   }
   //
-  typedef NCollection_List<gp_Dir> BOPAlgo_ListOfDir;
+  typedef NCollection_List<Dir3d> BOPAlgo_ListOfDir;
   //
   // to avoid processing of the same edges in the same plane store
   // the processed planes into a list and use it as a fence map
@@ -463,7 +463,7 @@ Standard_Integer BOPAlgo_Tools::EdgesToWires(const TopoDS_Shape&    theEdges,
     }
     //
     const gp_Pln& aPlnI = aDMEdgePln(i);
-    const gp_Dir& aDI   = aPlnI.Position().Direction();
+    const Dir3d& aDI   = aPlnI.Position().Direction();
     //
     aLPFence.Append(aDI);
     //
@@ -476,7 +476,7 @@ Standard_Integer BOPAlgo_Tools::EdgesToWires(const TopoDS_Shape&    theEdges,
     // look for other edges with the plane parallel to current one
     for (j = i + 1; j <= aNbPlanes; ++j)
     {
-      const gp_Dir& aDJ = aDMEdgePln(j).Position().Direction();
+      const Dir3d& aDJ = aDMEdgePln(j).Position().Direction();
       if (aDI.IsParallel(aDJ, theAngTol))
       {
         const TopoDS_Shape& aEJ = aDMEdgePln.FindKey(j);
@@ -492,7 +492,7 @@ Standard_Integer BOPAlgo_Tools::EdgesToWires(const TopoDS_Shape&    theEdges,
     //
     for (j = 1; j <= aNbEdges; ++j)
     {
-      const gp_Dir& aDJ = aDMEdgeTgt(j);
+      const Dir3d& aDJ = aDMEdgeTgt(j);
       if (aDI.IsNormal(aDJ, theAngTol))
       {
         aBB.Add(aCEPln, aDMEdgeTgt.FindKey(j));
@@ -559,7 +559,7 @@ Standard_Integer BOPAlgo_Tools::EdgesToWires(const TopoDS_Shape&    theEdges,
     for (; aItLEI1.More(); aItLEI1.Next())
     {
       const TopoDS_Shape& aEI1 = aItLEI1.Value();
-      const gp_Dir&       aDI1 = aDMEdgeTgt.FindFromKey(aEI1);
+      const Dir3d&       aDI1 = aDMEdgeTgt.FindFromKey(aEI1);
       //
       TopTools_ListIteratorOfListOfShape aItLEI2(aLEI);
       for (; aItLEI2.More(); aItLEI2.Next())
@@ -570,14 +570,14 @@ Standard_Integer BOPAlgo_Tools::EdgesToWires(const TopoDS_Shape&    theEdges,
           continue;
         }
         //
-        const gp_Dir& aDI2 = aDMEdgeTgt.FindFromKey(aEI2);
+        const Dir3d& aDI2 = aDMEdgeTgt.FindFromKey(aEI2);
         //
         if (aDI1.IsParallel(aDI2, theAngTol))
         {
           continue;
         }
         //
-        gp_Dir aDNI = aDI1 ^ aDI2;
+        Dir3d aDNI = aDI1 ^ aDI2;
         //
         // check if this normal direction has not been checked yet
         BOPAlgo_ListOfDir::Iterator aItLPln(aLPFence);
@@ -603,7 +603,7 @@ Standard_Integer BOPAlgo_Tools::EdgesToWires(const TopoDS_Shape&    theEdges,
         // iterate on all other edges to find all edges lying in the plane parallel to current one
         for (j = 1; j <= aNbEdges; ++j)
         {
-          const gp_Dir& aDJ = aDMEdgeTgt(j);
+          const Dir3d& aDJ = aDMEdgeTgt(j);
           if (aDNI.IsNormal(aDJ, theAngTol))
           {
             aMEPln.Add(aDMEdgeTgt.FindKey(j));
@@ -826,18 +826,18 @@ void MakeWires(const TopTools_IndexedMapOfShape& theEdges,
 //=======================================================================
 Standard_Boolean FindEdgeTangent(const TopoDS_Edge&                theEdge,
                                  BOPAlgo_IndexedDataMapOfShapeDir& theDMEdgeTgt,
-                                 gp_Dir&                           theTgt)
+                                 Dir3d&                           theTgt)
 {
-  gp_Dir* pDTE = theDMEdgeTgt.ChangeSeek(theEdge);
+  Dir3d* pDTE = theDMEdgeTgt.ChangeSeek(theEdge);
   if (!pDTE)
   {
-    gp_Vec            aVTE;
+    Vector3d            aVTE;
     BRepAdaptor_Curve aBAC(theEdge);
     if (!FindEdgeTangent(aBAC, aVTE))
     {
       return Standard_False;
     }
-    pDTE = &theDMEdgeTgt(theDMEdgeTgt.Add(theEdge, gp_Dir(aVTE)));
+    pDTE = &theDMEdgeTgt(theDMEdgeTgt.Add(theEdge, Dir3d(aVTE)));
   }
   theTgt = *pDTE;
   return Standard_True;
@@ -847,7 +847,7 @@ Standard_Boolean FindEdgeTangent(const TopoDS_Edge&                theEdge,
 // function : FindEdgeTangent
 // purpose  : Finds the tangent for the edge
 //=======================================================================
-Standard_Boolean FindEdgeTangent(const BRepAdaptor_Curve& theCurve, gp_Vec& theTangent)
+Standard_Boolean FindEdgeTangent(const BRepAdaptor_Curve& theCurve, Vector3d& theTangent)
 {
   if (!theCurve.Is3DCurve())
   {
@@ -890,7 +890,7 @@ Standard_Boolean FindPlane(const BRepAdaptor_Curve& theCurve, gp_Pln& thePlane)
   }
   //
   Standard_Boolean bFound = Standard_True;
-  gp_Vec           aVN;
+  Vector3d           aVN;
   switch (theCurve.GetType())
   {
     case GeomAbs_Line:
@@ -917,13 +917,13 @@ Standard_Boolean FindPlane(const BRepAdaptor_Curve& theCurve, gp_Pln& thePlane)
       //
       aT = aT1;
       Point3d aP1;
-      gp_Vec aV1;
+      Vector3d aV1;
       theCurve.D1(aT, aP1, aV1);
       //
       for (aT = aT1 + aDt; aT <= aT2; aT += aDt)
       {
         Point3d aP2;
-        gp_Vec aV2;
+        Vector3d aV2;
         theCurve.D1(aT, aP2, aV2);
         //
         aVN = aV1 ^ aV2;
@@ -939,7 +939,7 @@ Standard_Boolean FindPlane(const BRepAdaptor_Curve& theCurve, gp_Pln& thePlane)
   //
   if (bFound)
   {
-    thePlane = gp_Pln(theCurve.Value(theCurve.FirstParameter()), gp_Dir(aVN));
+    thePlane = gp_Pln(theCurve.Value(theCurve.FirstParameter()), Dir3d(aVN));
   }
   return bFound;
 }
@@ -966,7 +966,7 @@ Standard_Boolean FindPlane(const TopoDS_Shape&               theWire,
     const TopoDS_Edge& aE1 = TopoDS::Edge(aExpE1.Current());
     //
     // find tangent for the first edge
-    gp_Dir aDTE1;
+    Dir3d aDTE1;
     if (!FindEdgeTangent(aE1, theDMEdgeTgt, aDTE1))
     {
       continue;
@@ -983,7 +983,7 @@ Standard_Boolean FindPlane(const TopoDS_Shape&               theWire,
       }
       //
       // find tangent for the second edge
-      gp_Dir aDTE2;
+      Dir3d aDTE2;
       if (!FindEdgeTangent(aE2, theDMEdgeTgt, aDTE2))
       {
         continue;
@@ -994,7 +994,7 @@ Standard_Boolean FindPlane(const TopoDS_Shape&               theWire,
         continue;
       }
       //
-      gp_Dir aDN = aDTE1 ^ aDTE2;
+      Dir3d aDN = aDTE1 ^ aDTE2;
       //
       TopoDS_Iterator aItV(aE1);
       thePlane = gp_Pln(BRep_Tool::Pnt(TopoDS::Vertex(aItV.Value())), aDN);
@@ -1790,7 +1790,7 @@ void BOPAlgo_Tools::FillInternals(const TopTools_ListOfShape&               theS
 
 Standard_Boolean BOPAlgo_Tools::TrsfToPoint(const Bnd_Box&      theBox1,
                                             const Bnd_Box&      theBox2,
-                                            gp_Trsf&            theTrsf,
+                                            Transform3d&            theTrsf,
                                             const Point3d&       thePoint,
                                             const Standard_Real theCriteria)
 {
@@ -1807,6 +1807,6 @@ Standard_Boolean BOPAlgo_Tools::TrsfToPoint(const Bnd_Box&      theBox1,
   if ((aBSize / aPBDist) > (1. / theCriteria))
     return Standard_False;
 
-  theTrsf.SetTranslation(gp_Vec(aBox.CornerMin(), thePoint));
+  theTrsf.SetTranslation(Vector3d(aBox.CornerMin(), thePoint));
   return Standard_True;
 }

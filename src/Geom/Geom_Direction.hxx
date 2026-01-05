@@ -21,8 +21,8 @@
 
 #include <Geom_Vector.hxx>
 #include <Standard_Real.hxx>
-class gp_Dir;
-class gp_Trsf;
+class Dir3d;
+class Transform3d;
 class Geom_Geometry;
 
 class Geom_Direction;
@@ -42,7 +42,7 @@ public:
                                  const Standard_Real Z);
 
   //! Creates a transient copy of <me>.
-  Standard_EXPORT Geom_Direction(const gp_Dir& V);
+  Standard_EXPORT Geom_Direction(const Dir3d& V);
 
   //! Sets <me> to X,Y,Z coordinates.
   //!
@@ -51,8 +51,8 @@ public:
                                 const Standard_Real Y,
                                 const Standard_Real Z);
 
-  //! Converts the gp_Dir unit vector V into this unit vector.
-  Standard_EXPORT void SetDir(const gp_Dir& V);
+  //! Converts the Dir3d unit vector V into this unit vector.
+  Standard_EXPORT void SetDir(const Dir3d& V);
 
   //! Changes the X coordinate of <me>.
   //!
@@ -71,7 +71,7 @@ public:
 
   //! Returns the non transient direction with the same
   //! coordinates as <me>.
-  Standard_EXPORT gp_Dir Dir() const;
+  Standard_EXPORT Dir3d Dir() const;
 
   //! returns 1.0 which is the magnitude of any unit vector.
   Standard_EXPORT Standard_Real Magnitude() const Standard_OVERRIDE;
@@ -109,7 +109,7 @@ public:
     Standard_OVERRIDE;
 
   //! Applies the transformation T to this unit vector, then normalizes it.
-  Standard_EXPORT void Transform(const gp_Trsf& T) Standard_OVERRIDE;
+  Standard_EXPORT void Transform(const Transform3d& T) Standard_OVERRIDE;
 
   //! Creates a new object which is a copy of this unit vector.
   Standard_EXPORT Handle(Geom_Geometry) Copy() const Standard_OVERRIDE;

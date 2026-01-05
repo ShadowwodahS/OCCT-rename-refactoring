@@ -28,10 +28,10 @@ ChFi3d_SearchSing::ChFi3d_SearchSing(const Handle(Geom_Curve)& C1, const Handle(
 Standard_Boolean ChFi3d_SearchSing::Value(const Standard_Real X, Standard_Real& F)
 {
   Point3d P1, P2;
-  gp_Vec V1, V2;
+  Vector3d V1, V2;
   myC1->D1(X, P1, V1);
   myC2->D1(X, P2, V2);
-  gp_Vec V(P1, P2);
+  Vector3d V(P1, P2);
   F = V * (V2 - V1);
   return Standard_True;
 }
@@ -39,10 +39,10 @@ Standard_Boolean ChFi3d_SearchSing::Value(const Standard_Real X, Standard_Real& 
 Standard_Boolean ChFi3d_SearchSing::Derivative(const Standard_Real X, Standard_Real& D)
 {
   Point3d P1, P2;
-  gp_Vec V1, V2, W1, W2;
+  Vector3d V1, V2, W1, W2;
   myC1->D2(X, P1, V1, W1);
   myC2->D2(X, P2, V2, W2);
-  gp_Vec V(P1, P2), VPrim;
+  Vector3d V(P1, P2), VPrim;
   VPrim = V2 - V1;
   D     = VPrim.SquareMagnitude() + (V * (W2 - W1));
   return Standard_True;
@@ -53,10 +53,10 @@ Standard_Boolean ChFi3d_SearchSing::Values(const Standard_Real X,
                                            Standard_Real&      D)
 {
   Point3d P1, P2;
-  gp_Vec V1, V2, W1, W2;
+  Vector3d V1, V2, W1, W2;
   myC1->D2(X, P1, V1, W1);
   myC2->D2(X, P2, V2, W2);
-  gp_Vec V(P1, P2), VPrim;
+  Vector3d V(P1, P2), VPrim;
   VPrim = V2 - V1;
   F     = V * VPrim;
   D     = VPrim.SquareMagnitude() + (V * (W2 - W1));

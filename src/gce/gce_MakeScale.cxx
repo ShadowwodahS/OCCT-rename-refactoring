@@ -26,17 +26,17 @@ gce_MakeScale::gce_MakeScale(const Point3d& Point, const Standard_Real Scale)
   TheScale.SetScale(Point, Scale);
 }
 
-const gp_Trsf& gce_MakeScale::Value() const
+const Transform3d& gce_MakeScale::Value() const
 {
   return TheScale;
 }
 
-const gp_Trsf& gce_MakeScale::Operator() const
+const Transform3d& gce_MakeScale::Operator() const
 {
   return TheScale;
 }
 
-gce_MakeScale::operator gp_Trsf() const
+gce_MakeScale::operator Transform3d() const
 {
   return TheScale;
 }

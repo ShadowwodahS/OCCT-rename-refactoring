@@ -724,7 +724,7 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
                 {
                   // Compare angles between edges
                   // Standard_Real Ang1, Ang2;
-                  gp_Vec Vec1, Vec2;
+                  Vector3d Vec1, Vec2;
                   Point3d P;
                   C1->D1(last1, P, Vec1);
                   C2->D1(first2, P, Vec2);
@@ -1208,7 +1208,7 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
           {
             // Compare angles between edges
             // Standard_Real Ang1, Ang2;
-            gp_Vec Vec1, Vec2;
+            Vector3d Vec1, Vec2;
             Point3d P;
             C1->D1(last1, P, Vec1);
             C2->D1(first2, P, Vec2);

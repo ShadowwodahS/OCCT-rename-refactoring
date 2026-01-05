@@ -49,9 +49,9 @@ public:
 
   //! Constructor taking all defining parameters
   Bnd_OBB(const Point3d&       theCenter,
-          const gp_Dir&       theXDirection,
-          const gp_Dir&       theYDirection,
-          const gp_Dir&       theZDirection,
+          const Dir3d&       theXDirection,
+          const Dir3d&       theYDirection,
+          const Dir3d&       theZDirection,
           const Standard_Real theHXSize,
           const Standard_Real theHYSize,
           const Standard_Real theHZSize)
@@ -112,7 +112,7 @@ public:
   void SetCenter(const Point3d& theCenter) { myCenter = theCenter.XYZ(); }
 
   //! Sets the X component of OBB - direction and size
-  void SetXComponent(const gp_Dir& theXDirection, const Standard_Real theHXSize)
+  void SetXComponent(const Dir3d& theXDirection, const Standard_Real theHXSize)
   {
     Standard_ASSERT_VOID(theHXSize >= 0.0, "Negative value of X-size");
 
@@ -121,7 +121,7 @@ public:
   }
 
   //! Sets the Y component of OBB - direction and size
-  void SetYComponent(const gp_Dir& theYDirection, const Standard_Real theHYSize)
+  void SetYComponent(const Dir3d& theYDirection, const Standard_Real theHYSize)
   {
     Standard_ASSERT_VOID(theHYSize >= 0.0, "Negative value of Y-size");
 
@@ -130,7 +130,7 @@ public:
   }
 
   //! Sets the Z component of OBB - direction and size
-  void SetZComponent(const gp_Dir& theZDirection, const Standard_Real theHZSize)
+  void SetZComponent(const Dir3d& theZDirection, const Standard_Real theHZSize)
   {
     Standard_ASSERT_VOID(theHZSize >= 0.0, "Negative value of Z-size");
 
@@ -142,7 +142,7 @@ public:
   //! So that applying it to axis-aligned box ((-XHSize, -YHSize, -ZHSize), (XHSize, YHSize,
   //! ZHSize)) will produce this oriented box.
   //! @code
-  //!   gp_Trsf aLoc;
+  //!   Transform3d aLoc;
   //!   aLoc.SetTransformation (theOBB.Position(), gp::XOY());
   //! @endcode
   gp_Ax3 Position() const { return gp_Ax3(myCenter, ZDirection(), XDirection()); }

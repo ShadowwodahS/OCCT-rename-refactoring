@@ -155,8 +155,8 @@ public:
                  const Standard_Real              theU,
                  const Standard_Real              theV,
                  Point3d&                          thePnt,
-                 gp_Vec&                          theD1U,
-                 gp_Vec&                          theD1V)
+                 Vector3d&                          theD1U,
+                 Vector3d&                          theD1V)
   {
     theSurf->D1(theU, theV, thePnt, theD1U, theD1V);
   }
@@ -165,11 +165,11 @@ public:
                  const Standard_Real              theU,
                  const Standard_Real              theV,
                  Point3d&                          thePnt,
-                 gp_Vec&                          theD1U,
-                 gp_Vec&                          theD1V,
-                 gp_Vec&                          theD2U,
-                 gp_Vec&                          theD2V,
-                 gp_Vec&                          theD2UV)
+                 Vector3d&                          theD1U,
+                 Vector3d&                          theD1V,
+                 Vector3d&                          theD2U,
+                 Vector3d&                          theD2V,
+                 Vector3d&                          theD2UV)
   {
     theSurf->D2(theU, theV, thePnt, theD1U, theD1V, theD2U, theD2V, theD2UV);
   }
@@ -178,15 +178,15 @@ public:
                  const Standard_Real              theU,
                  const Standard_Real              theV,
                  Point3d&                          thePnt,
-                 gp_Vec&                          theD1U,
-                 gp_Vec&                          theD1V,
-                 gp_Vec&                          theD2U,
-                 gp_Vec&                          theD2V,
-                 gp_Vec&                          theD2UV,
-                 gp_Vec&                          theD3U,
-                 gp_Vec&                          theD3V,
-                 gp_Vec&                          theD3UUV,
-                 gp_Vec&                          theD3UVV)
+                 Vector3d&                          theD1U,
+                 Vector3d&                          theD1V,
+                 Vector3d&                          theD2U,
+                 Vector3d&                          theD2V,
+                 Vector3d&                          theD2UV,
+                 Vector3d&                          theD3U,
+                 Vector3d&                          theD3V,
+                 Vector3d&                          theD3UUV,
+                 Vector3d&                          theD3UVV)
   {
     theSurf->D3(theU,
                 theV,
@@ -202,7 +202,7 @@ public:
                 theD3UVV);
   }
 
-  static gp_Vec DN(const Handle(Adaptor3d_Surface)& theSurf,
+  static Vector3d DN(const Handle(Adaptor3d_Surface)& theSurf,
                    const Standard_Real              theU,
                    const Standard_Real              theV,
                    const Standard_Integer           theNU,
@@ -251,12 +251,12 @@ public:
     return theSurf->BSpline();
   }
 
-  static gp_Ax1 AxeOfRevolution(const Handle(Adaptor3d_Surface)& theSurf)
+  static Axis3d AxeOfRevolution(const Handle(Adaptor3d_Surface)& theSurf)
   {
     return theSurf->AxeOfRevolution();
   }
 
-  static gp_Dir Direction(const Handle(Adaptor3d_Surface)& theSurf) { return theSurf->Direction(); }
+  static Dir3d Direction(const Handle(Adaptor3d_Surface)& theSurf) { return theSurf->Direction(); }
 
   static Handle(Adaptor3d_Curve) BasisCurve(const Handle(Adaptor3d_Surface)& theSurf)
   {

@@ -69,7 +69,7 @@ private:
 
 private:
   Point3d           myAttach;
-  gp_Dir           myDir;
+  Dir3d           myDir;
   Standard_Real    myLength;
   Standard_Integer myExternRef;
 };

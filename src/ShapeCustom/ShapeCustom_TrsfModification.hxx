@@ -21,7 +21,7 @@
 #include <Standard_Type.hxx>
 
 #include <BRepTools_TrsfModification.hxx>
-class gp_Trsf;
+class Transform3d;
 class TopoDS_Face;
 class Geom_Surface;
 class TopLoc_Location;
@@ -44,7 +44,7 @@ class ShapeCustom_TrsfModification : public BRepTools_TrsfModification
 
 public:
   //! Empty constructor
-  Standard_EXPORT ShapeCustom_TrsfModification(const gp_Trsf& T);
+  Standard_EXPORT ShapeCustom_TrsfModification(const Transform3d& T);
 
   //! Calls inherited method.
   //! Sets <Tol> as actual tolerance of <F> multiplied with scale

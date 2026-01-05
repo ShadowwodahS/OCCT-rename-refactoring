@@ -155,7 +155,7 @@ BRepPrim_GWedge::BRepPrim_GWedge()
 //=================================================================================================
 
 BRepPrim_GWedge::BRepPrim_GWedge(const BRepPrim_Builder& B,
-                                 const gp_Ax2&           Axes,
+                                 const Frame3d&           Axes,
                                  const Standard_Real     dx,
                                  const Standard_Real     dy,
                                  const Standard_Real     dz)
@@ -186,7 +186,7 @@ BRepPrim_GWedge::BRepPrim_GWedge(const BRepPrim_Builder& B,
 //=======================================================================
 
 BRepPrim_GWedge::BRepPrim_GWedge(const BRepPrim_Builder& B,
-                                 const gp_Ax2&           Axes,
+                                 const Frame3d&           Axes,
                                  const Standard_Real     dx,
                                  const Standard_Real     dy,
                                  const Standard_Real     dz,
@@ -218,7 +218,7 @@ BRepPrim_GWedge::BRepPrim_GWedge(const BRepPrim_Builder& B,
 //=======================================================================
 
 BRepPrim_GWedge::BRepPrim_GWedge(const BRepPrim_Builder& B,
-                                 const gp_Ax2&           Axes,
+                                 const Frame3d&           Axes,
                                  const Standard_Real     xmin,
                                  const Standard_Real     ymin,
                                  const Standard_Real     zmin,
@@ -257,7 +257,7 @@ BRepPrim_GWedge::BRepPrim_GWedge(const BRepPrim_Builder& B,
 // purpose  : trivial
 //=======================================================================
 
-gp_Ax2 BRepPrim_GWedge::Axes() const
+Frame3d BRepPrim_GWedge::Axes() const
 {
   return myAxes;
 }
@@ -389,10 +389,10 @@ gp_Pln BRepPrim_GWedge::Plane(const BRepPrim_Direction d1)
 
   Standard_Integer i = BRepPrim_Wedge_NumDir1(d1);
 
-  gp_Dir D;
-  gp_Vec VX = myAxes.XDirection();
-  gp_Vec VY = myAxes.YDirection();
-  gp_Vec VZ = myAxes.Direction();
+  Dir3d D;
+  Vector3d VX = myAxes.XDirection();
+  Vector3d VY = myAxes.YDirection();
+  Vector3d VZ = myAxes.Direction();
 
   switch (i / 2)
   {
@@ -420,7 +420,7 @@ gp_Pln BRepPrim_GWedge::Plane(const BRepPrim_Direction d1)
       Y = YMin;
       Z = ZMin;
       if (X2Min != XMin)
-        D = gp_Dir((YMax - YMin) * VX + (XMin - X2Min) * VY);
+        D = Dir3d((YMax - YMin) * VX + (XMin - X2Min) * VY);
       break;
 
     case 1:
@@ -429,7 +429,7 @@ gp_Pln BRepPrim_GWedge::Plane(const BRepPrim_Direction d1)
       Y = YMin;
       Z = ZMin;
       if (X2Max != XMax)
-        D = gp_Dir((YMax - YMin) * VX + (XMax - X2Max) * VY);
+        D = Dir3d((YMax - YMin) * VX + (XMax - X2Max) * VY);
       break;
 
     case 2:
@@ -452,7 +452,7 @@ gp_Pln BRepPrim_GWedge::Plane(const BRepPrim_Direction d1)
       Y = YMin;
       Z = ZMin;
       if (Z2Min != ZMin)
-        D = gp_Dir((YMax - YMin) * VZ + (ZMin - Z2Min) * VY);
+        D = Dir3d((YMax - YMin) * VZ + (ZMin - Z2Min) * VY);
       break;
 
     case 5:
@@ -461,14 +461,14 @@ gp_Pln BRepPrim_GWedge::Plane(const BRepPrim_Direction d1)
       Y = YMin;
       Z = ZMax;
       if (Z2Max != ZMax)
-        D = gp_Dir((YMax - YMin) * VZ + (ZMax - Z2Max) * VY);
+        D = Dir3d((YMax - YMin) * VZ + (ZMax - Z2Max) * VY);
       break;
   };
 
   Point3d P = myAxes.Location();
-  P.Translate(X * gp_Vec(myAxes.XDirection()));
-  P.Translate(Y * gp_Vec(myAxes.YDirection()));
-  P.Translate(Z * gp_Vec(myAxes.Direction()));
+  P.Translate(X * Vector3d(myAxes.XDirection()));
+  P.Translate(Y * Vector3d(myAxes.YDirection()));
+  P.Translate(Z * Vector3d(myAxes.Direction()));
   gp_Pln plane(P, D);
   return plane;
 }
@@ -526,8 +526,8 @@ const TopoDS_Face& BRepPrim_GWedge::Face(const BRepPrim_Direction d1)
     };
 
     gp_Lin        L;
-    gp_Dir        DX = P.XAxis().Direction();
-    gp_Dir        DY = P.YAxis().Direction();
+    Dir3d        DX = P.XAxis().Direction();
+    Dir3d        DY = P.YAxis().Direction();
     Standard_Real U, V, DU, DV;
     if (HasEdge(d1, dd4))
     {
@@ -711,10 +711,10 @@ gp_Lin BRepPrim_GWedge::Line(const BRepPrim_Direction d1, const BRepPrim_Directi
 
   Standard_Real X = 0., Y = 0., Z = 0.;
 
-  gp_Dir D;
-  gp_Vec VX = myAxes.XDirection();
-  gp_Vec VY = myAxes.YDirection();
-  gp_Vec VZ = myAxes.Direction();
+  Dir3d D;
+  Vector3d VX = myAxes.XDirection();
+  Vector3d VY = myAxes.YDirection();
+  Vector3d VZ = myAxes.Direction();
 
   switch (i / 4)
   {
@@ -798,7 +798,7 @@ gp_Lin BRepPrim_GWedge::Line(const BRepPrim_Direction d1, const BRepPrim_Directi
       Z = ZMin;
       if ((XMin != X2Min) || (ZMin != Z2Min))
       {
-        D = gp_Vec((X2Min - XMin) * VX + (YMax - YMin) * VY + (Z2Min - ZMin) * VZ);
+        D = Vector3d((X2Min - XMin) * VX + (YMax - YMin) * VY + (Z2Min - ZMin) * VZ);
       }
       break;
 
@@ -809,7 +809,7 @@ gp_Lin BRepPrim_GWedge::Line(const BRepPrim_Direction d1, const BRepPrim_Directi
       Z = ZMax;
       if ((XMin != X2Min) || (ZMax != Z2Max))
       {
-        D = gp_Vec((X2Min - XMin) * VX + (YMax - YMin) * VY + (Z2Max - ZMax) * VZ);
+        D = Vector3d((X2Min - XMin) * VX + (YMax - YMin) * VY + (Z2Max - ZMax) * VZ);
       }
       break;
 
@@ -820,7 +820,7 @@ gp_Lin BRepPrim_GWedge::Line(const BRepPrim_Direction d1, const BRepPrim_Directi
       Z = ZMin;
       if ((XMax != X2Max) || (ZMin != Z2Min))
       {
-        D = gp_Vec((X2Max - XMax) * VX + (YMax - YMin) * VY + (Z2Min - ZMin) * VZ);
+        D = Vector3d((X2Max - XMax) * VX + (YMax - YMin) * VY + (Z2Min - ZMin) * VZ);
       }
       break;
 
@@ -831,16 +831,16 @@ gp_Lin BRepPrim_GWedge::Line(const BRepPrim_Direction d1, const BRepPrim_Directi
       Z = ZMax;
       if ((XMax != X2Max) || (ZMax != Z2Max))
       {
-        D = gp_Vec((X2Max - XMax) * VX + (YMax - YMin) * VY + (Z2Max - ZMax) * VZ);
+        D = Vector3d((X2Max - XMax) * VX + (YMax - YMin) * VY + (Z2Max - ZMax) * VZ);
       }
       break;
   }
 
   Point3d P = myAxes.Location();
-  P.Translate(X * gp_Vec(myAxes.XDirection()));
-  P.Translate(Y * gp_Vec(myAxes.YDirection()));
-  P.Translate(Z * gp_Vec(myAxes.Direction()));
-  return gp_Lin(gp_Ax1(P, D));
+  P.Translate(X * Vector3d(myAxes.XDirection()));
+  P.Translate(Y * Vector3d(myAxes.YDirection()));
+  P.Translate(Z * Vector3d(myAxes.Direction()));
+  return gp_Lin(Axis3d(P, D));
 }
 
 //=================================================================================================
@@ -1007,9 +1007,9 @@ Point3d BRepPrim_GWedge::Point(const BRepPrim_Direction d1,
   };
 
   Point3d P = myAxes.Location();
-  P.Translate(X * gp_Vec(myAxes.XDirection()));
-  P.Translate(Y * gp_Vec(myAxes.YDirection()));
-  P.Translate(Z * gp_Vec(myAxes.Direction()));
+  P.Translate(X * Vector3d(myAxes.XDirection()));
+  P.Translate(Y * Vector3d(myAxes.YDirection()));
+  P.Translate(Z * Vector3d(myAxes.Direction()));
   return P;
 }
 

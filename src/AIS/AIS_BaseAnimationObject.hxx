@@ -31,7 +31,7 @@ protected:
                                           const Handle(AIS_InteractiveObject)&  theObject);
 
   //! Update the transformation.
-  Standard_EXPORT void updateTrsf(const gp_Trsf& theTrsf);
+  Standard_EXPORT void updateTrsf(const Transform3d& theTrsf);
 
 private:
   //! Invalidate the viewer for proper update.

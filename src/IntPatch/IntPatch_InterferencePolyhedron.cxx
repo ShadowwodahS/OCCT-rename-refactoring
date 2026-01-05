@@ -1056,7 +1056,7 @@ Standard_Boolean IntPatch_InterferencePolyhedron::TangentZoneValue(
             parO[nbpInt] = dpOeT[nob][nou] / (dpOeT[nob][nou] - dpOeT[nob2][nou]);
             parT[nbpInt] = deOpT[nob][nou] / (deOpT[nob][nou] - deOpT[nob][nou2]);
             Point3d lepi  = IntPatch_PolyhedronTool::Point(SeconPol, TI[nou])
-                            .Translated(gp_Vec(vtt[nou] * parT[nbpInt]));
+                            .Translated(Vector3d(vtt[nou] * parT[nbpInt]));
             if (OI[nob] > OI[nob2])
               parO[nbpInt] = 1. - parO[nbpInt];
             if (TI[nou] > TI[nou2])

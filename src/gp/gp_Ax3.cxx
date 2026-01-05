@@ -26,7 +26,7 @@
 
 //=================================================================================================
 
-gp_Ax3::gp_Ax3(const Point3d& P, const gp_Dir& V)
+gp_Ax3::gp_Ax3(const Point3d& P, const Dir3d& V)
     : axis(P, V)
 {
   Standard_Real A    = V.X();
@@ -41,7 +41,7 @@ gp_Ax3::gp_Ax3(const Point3d& P, const gp_Dir& V)
   Standard_Real Cabs = C;
   if (Cabs < 0)
     Cabs = -Cabs;
-  gp_Dir D;
+  Dir3d D;
 
   //  pour determiner l axe X :
   //  on dit que le produit scalaire Vx.V = 0.
@@ -87,28 +87,28 @@ gp_Ax3 gp_Ax3::Mirrored(const Point3d& P) const
   return Temp;
 }
 
-void gp_Ax3::Mirror(const gp_Ax1& A1)
+void gp_Ax3::Mirror(const Axis3d& A1)
 {
   vydir.Mirror(A1);
   vxdir.Mirror(A1);
   axis.Mirror(A1);
 }
 
-gp_Ax3 gp_Ax3::Mirrored(const gp_Ax1& A1) const
+gp_Ax3 gp_Ax3::Mirrored(const Axis3d& A1) const
 {
   gp_Ax3 Temp = *this;
   Temp.Mirror(A1);
   return Temp;
 }
 
-void gp_Ax3::Mirror(const gp_Ax2& A2)
+void gp_Ax3::Mirror(const Frame3d& A2)
 {
   vydir.Mirror(A2);
   vxdir.Mirror(A2);
   axis.Mirror(A2);
 }
 
-gp_Ax3 gp_Ax3::Mirrored(const gp_Ax2& A2) const
+gp_Ax3 gp_Ax3::Mirrored(const Frame3d& A2) const
 {
   gp_Ax3 Temp = *this;
   Temp.Mirror(A2);
@@ -177,9 +177,9 @@ Standard_Boolean gp_Ax3::InitFromJson(const Standard_SStream& theSStream,
                          &anYDir.ChangeCoord(2),
                          &anYDir.ChangeCoord(3))
 
-  axis.SetDirection(gp_Dir(aDir));
-  vxdir = gp_Dir(aXDir);
-  vydir = gp_Dir(anYDir);
+  axis.SetDirection(Dir3d(aDir));
+  vxdir = Dir3d(aXDir);
+  vydir = Dir3d(anYDir);
 
   if (!Direction().IsEqual(aDir, Precision::Angular()))
     return Standard_False;

@@ -28,9 +28,9 @@
 class GeomFill_LocationLaw;
 class Geom_Curve;
 class Geom_Geometry;
-class gp_Trsf;
+class Transform3d;
 class gp_Mat;
-class gp_Vec;
+class Vector3d;
 
 //! To place section in sweep Function
 class GeomFill_SectionPlacement
@@ -60,7 +60,7 @@ public:
 
   Standard_EXPORT Standard_Real Angle() const;
 
-  Standard_EXPORT gp_Trsf
+  Standard_EXPORT Transform3d
     Transformation(const Standard_Boolean WithTranslation,
                    const Standard_Boolean WithCorrection = Standard_False) const;
 
@@ -79,13 +79,13 @@ public:
 
 protected:
 private:
-  Standard_EXPORT void SectionAxis(const gp_Mat& M, gp_Vec& T, gp_Vec& N, gp_Vec& BN) const;
+  Standard_EXPORT void SectionAxis(const gp_Mat& M, Vector3d& T, Vector3d& N, Vector3d& BN) const;
 
   Standard_EXPORT Standard_Boolean Choix(const Standard_Real Dist, const Standard_Real Angle) const;
 
   Standard_Boolean             done;
   Standard_Boolean             isplan;
-  gp_Ax1                       TheAxe;
+  Axis3d                       TheAxe;
   Standard_Real                Gabarit;
   Handle(GeomFill_LocationLaw) myLaw;
   GeomAdaptor_Curve            myAdpSection;

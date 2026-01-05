@@ -34,7 +34,7 @@ MeshVS_DeformedDataSource::MeshVS_DeformedDataSource(
 // Purpose  : auxiliary: shift coordinate of the node on a given vector
 //================================================================
 
-static inline void shiftCoord(TColStd_Array1OfReal& Coords, Standard_Integer i, const gp_Vec& aVec)
+static inline void shiftCoord(TColStd_Array1OfReal& Coords, Standard_Integer i, const Vector3d& aVec)
 {
   Coords(3 * i - 2) = Coords(3 * i - 2) + aVec.X();
   Coords(3 * i - 1) = Coords(3 * i - 1) + aVec.Y();
@@ -55,7 +55,7 @@ Standard_Boolean MeshVS_DeformedDataSource::GetGeom(const Standard_Integer ID,
 
   if (Type == MeshVS_ET_Node)
   {
-    gp_Vec Vect;
+    Vector3d Vect;
     if (!GetVector(ID, Vect))
       return Standard_False;
     shiftCoord(Coords, 1, myMagnify * Vect);
@@ -68,7 +68,7 @@ Standard_Boolean MeshVS_DeformedDataSource::GetGeom(const Standard_Integer ID,
       return Standard_False;
     for (int i = 1; i <= NbNodes; i++)
     {
-      gp_Vec Vect;
+      Vector3d Vect;
       if (!GetVector(aNodes(i), Vect))
         return Standard_False;
       shiftCoord(Coords, i, myMagnify * Vect);
@@ -161,7 +161,7 @@ void MeshVS_DeformedDataSource::SetVectors(const MeshVS_DataMapOfIntegerVector& 
 
 //=================================================================================================
 
-Standard_Boolean MeshVS_DeformedDataSource::GetVector(const Standard_Integer ID, gp_Vec& Vect) const
+Standard_Boolean MeshVS_DeformedDataSource::GetVector(const Standard_Integer ID, Vector3d& Vect) const
 {
   Standard_Boolean aRes = myVectors.IsBound(ID);
   if (aRes)
@@ -171,7 +171,7 @@ Standard_Boolean MeshVS_DeformedDataSource::GetVector(const Standard_Integer ID,
 
 //=================================================================================================
 
-void MeshVS_DeformedDataSource::SetVector(const Standard_Integer ID, const gp_Vec& Vect)
+void MeshVS_DeformedDataSource::SetVector(const Standard_Integer ID, const Vector3d& Vect)
 {
   Standard_Boolean aRes = myVectors.IsBound(ID);
   if (aRes)

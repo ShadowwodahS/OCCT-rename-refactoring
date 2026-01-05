@@ -92,8 +92,8 @@ private:
   Handle(Adaptor2d_Curve2d)          thearc;
   Contap_IType                       typL;
   Point3d                             pt;
-  gp_Dir                             dir1;
-  gp_Dir                             dir2;
+  Dir3d                             dir1;
+  Dir3d                             dir2;
   Standard_Real                      rad;
 };
 

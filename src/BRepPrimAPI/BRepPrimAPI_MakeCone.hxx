@@ -23,7 +23,7 @@
 
 #include <BRepPrim_Cone.hxx>
 #include <BRepPrimAPI_MakeOneAxis.hxx>
-class gp_Ax2;
+class Frame3d;
 
 //! Describes functions to build cones or portions of cones.
 //! A MakeCone object provides a framework for:
@@ -58,7 +58,7 @@ public:
   //! @param[in] R1    cone bottom radius, may be null (z = 0)
   //! @param[in] R2    cone top radius, may be null (z = H)
   //! @param[in] H     cone height
-  Standard_EXPORT BRepPrimAPI_MakeCone(const gp_Ax2&       Axes,
+  Standard_EXPORT BRepPrimAPI_MakeCone(const Frame3d&       Axes,
                                        const Standard_Real R1,
                                        const Standard_Real R2,
                                        const Standard_Real H);
@@ -94,7 +94,7 @@ public:
   //! -   the half-angle at the apex of the cone, defined by
   //! R1, R2 and H, is less than Precision::Confusion()/H, or greater than
   //! (Pi/2)-Precision::Confusion()/H.f
-  Standard_EXPORT BRepPrimAPI_MakeCone(const gp_Ax2&       Axes,
+  Standard_EXPORT BRepPrimAPI_MakeCone(const Frame3d&       Axes,
                                        const Standard_Real R1,
                                        const Standard_Real R2,
                                        const Standard_Real H,

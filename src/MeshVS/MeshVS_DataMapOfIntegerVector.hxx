@@ -20,8 +20,8 @@
 #include <gp_Vec.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<Standard_Integer, gp_Vec> MeshVS_DataMapOfIntegerVector;
-typedef NCollection_DataMap<Standard_Integer, gp_Vec>::Iterator
+typedef NCollection_DataMap<Standard_Integer, Vector3d> MeshVS_DataMapOfIntegerVector;
+typedef NCollection_DataMap<Standard_Integer, Vector3d>::Iterator
   MeshVS_DataMapIteratorOfDataMapOfIntegerVector;
 
 #endif

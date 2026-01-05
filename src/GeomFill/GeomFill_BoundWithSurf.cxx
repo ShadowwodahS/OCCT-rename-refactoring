@@ -52,7 +52,7 @@ Point3d GeomFill_BoundWithSurf::Value(const Standard_Real U) const
 
 //=================================================================================================
 
-void GeomFill_BoundWithSurf::D1(const Standard_Real U, Point3d& P, gp_Vec& V) const
+void GeomFill_BoundWithSurf::D1(const Standard_Real U, Point3d& P, Vector3d& V) const
 {
   Standard_Real x = U, dx = 1.;
   if (!myPar.IsNull())
@@ -70,7 +70,7 @@ Standard_Boolean GeomFill_BoundWithSurf::HasNormals() const
 
 //=================================================================================================
 
-gp_Vec GeomFill_BoundWithSurf::Norm(const Standard_Real U) const
+Vector3d GeomFill_BoundWithSurf::Norm(const Standard_Real U) const
 {
   // voir s il ne faudrait pas utiliser LProp ou autre.
   if (!HasNormals())
@@ -84,7 +84,7 @@ gp_Vec GeomFill_BoundWithSurf::Norm(const Standard_Real U) const
     w = myPar->Value(U);
   myConS.GetCurve()->Value(w).Coord(x, y);
   Point3d P;
-  gp_Vec Su, Sv;
+  Vector3d Su, Sv;
   myConS.GetSurface()->D1(x, y, P, Su, Sv);
   Su.Cross(Sv);
   Su.Normalize();
@@ -93,7 +93,7 @@ gp_Vec GeomFill_BoundWithSurf::Norm(const Standard_Real U) const
 
 //=================================================================================================
 
-void GeomFill_BoundWithSurf::D1Norm(const Standard_Real U, gp_Vec& N, gp_Vec& DN) const
+void GeomFill_BoundWithSurf::D1Norm(const Standard_Real U, Vector3d& N, Vector3d& DN) const
 {
   if (!HasNormals())
     throw ExceptionBase("BoundWithSurf Norm : pas de contrainte");
@@ -110,7 +110,7 @@ void GeomFill_BoundWithSurf::D1Norm(const Standard_Real U, gp_Vec& N, gp_Vec& DN
   V2d.Multiply(dw);
   V2d.Coord(dx, dy);
   Point3d P;
-  gp_Vec Su, Sv, Suu, Suv, Svv;
+  Vector3d Su, Sv, Suu, Suv, Svv;
   myConS.GetSurface()->D2(x, y, P, Su, Sv, Suu, Svv, Suv);
   N = Su.Crossed(Sv);
   N.Normalize();
@@ -120,7 +120,7 @@ void GeomFill_BoundWithSurf::D1Norm(const Standard_Real U, gp_Vec& N, gp_Vec& DN
   if (Abs(deno) < 1.e-16)
   {
     // on embraye sur un calcul approche, c est mieux que rien!?!
-    gp_Vec temp = Norm(U + 1.e-12);
+    Vector3d temp = Norm(U + 1.e-12);
     DN          = N.Multiplied(-1.);
     DN.Add(temp);
     DN.Multiply(1.e-12);
@@ -132,11 +132,11 @@ void GeomFill_BoundWithSurf::D1Norm(const Standard_Real U, gp_Vec& N, gp_Vec& DN
     Standard_Real c = (-nsuv * svsv + nsvv * susv) / deno;
     Standard_Real d = (nsuv * susv - nsvv * susu) / deno;
 
-    gp_Vec temp1 = Su.Multiplied(a);
-    gp_Vec temp2 = Sv.Multiplied(b);
+    Vector3d temp1 = Su.Multiplied(a);
+    Vector3d temp2 = Sv.Multiplied(b);
     temp1.Add(temp2);
     temp2        = Su.Multiplied(c);
-    gp_Vec temp3 = Sv.Multiplied(d);
+    Vector3d temp3 = Sv.Multiplied(d);
     temp2.Add(temp3);
     temp1.Multiply(dx);
     temp2.Multiply(dy);

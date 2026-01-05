@@ -39,7 +39,7 @@ static Point3d Value(const Adaptor2d_Curve2d& theC, const Standard_Real theParam
 static void D1(const Adaptor3d_Curve& theC,
                const Standard_Real    theParameter,
                Point3d&                theP,
-               gp_Vec&                theV)
+               Vector3d&                theV)
 {
   theC.D1(theParameter, theP, theV);
 }
@@ -47,7 +47,7 @@ static void D1(const Adaptor3d_Curve& theC,
 static void D1(const Adaptor2d_Curve2d& theC,
                const Standard_Real      theParameter,
                Point3d&                  theP,
-               gp_Vec&                  theV)
+               Vector3d&                  theV)
 {
   gp_Pnt2d a2dPoint;
   gp_Vec2d a2dVec;
@@ -63,10 +63,10 @@ static void QuasiFleche(const TheCurve&         theC,
                         const Standard_Real     theDeflection2,
                         const Standard_Real     theUdeb,
                         const Point3d&           thePdeb,
-                        const gp_Vec&           theVdeb,
+                        const Vector3d&           theVdeb,
                         const Standard_Real     theUfin,
                         const Point3d&           thePfin,
-                        const gp_Vec&           theVfin,
+                        const Vector3d&           theVfin,
                         const Standard_Integer  theNbmin,
                         const Standard_Real     theEps,
                         TColStd_SequenceOfReal& theParameters,
@@ -87,7 +87,7 @@ static void QuasiFleche(const TheCurve&         theC,
 
   Standard_Real aUdelta = theUfin - theUdeb;
   Point3d        aPdelta;
-  gp_Vec        aVdelta;
+  Vector3d        aVdelta;
   if (theNbmin > 2)
   {
     aUdelta /= (theNbmin - 1);
@@ -100,7 +100,7 @@ static void QuasiFleche(const TheCurve&         theC,
   }
 
   // square length of chord
-  const Standard_Real aNorme     = gp_Vec(thePdeb, aPdelta).SquareMagnitude();
+  const Standard_Real aNorme     = Vector3d(thePdeb, aPdelta).SquareMagnitude();
   Standard_Real       aFleche    = 0.0;
   Standard_Boolean    isFlecheOk = Standard_False;
   if (aNorme > theEps && aNorme > 16. * theDeflection2)
@@ -391,7 +391,7 @@ static Standard_Boolean PerformCurve(TColStd_SequenceOfReal& theParameters,
   else
   {
     Point3d aPfin;
-    gp_Vec aDdeb, aDfin;
+    Vector3d aDdeb, aDfin;
     D1(theC, theU1, aPdeb, aDdeb);
     theParameters.Append(theU1);
     thePoints.Append(aPdeb);

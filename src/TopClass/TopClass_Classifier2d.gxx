@@ -213,10 +213,10 @@ void TopClass_Classifier2d::Compare(const TheEdge& E,
     Standard_Real Curv;
     myIntersector.LocalGeometry
       (E,PClosest->ParamOnSecond(),Tang2d,Norm2d,Curv);
-    gp_Dir Tang(Tang2d.X(),Tang2d.Y(),0.);
-    gp_Dir Norm(Norm2d.X(),Norm2d.Y(),0.);
+    Dir3d Tang(Tang2d.X(),Tang2d.Y(),0.);
+    Dir3d Norm(Norm2d.X(),Norm2d.Y(),0.);
     if (myFirstTrans) {
-      gp_Dir D(myLin.Direction().X(),myLin.Direction().Y(),0.);
+      Dir3d D(myLin.Direction().X(),myLin.Direction().Y(),0.);
       myTrans.Reset(D);
       myFirstTrans = Standard_False;
     }

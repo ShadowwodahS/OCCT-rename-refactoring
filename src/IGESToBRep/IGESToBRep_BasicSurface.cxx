@@ -275,7 +275,7 @@ Handle(Geom_Plane) IGESToBRep_BasicSurface::TransferPlaneSurface(
   }
 
   Point3d Pt      = Point->Value();
-  gp_Dir Normale = gp_Dir(Dir->Value());
+  Dir3d Normale = Dir3d(Dir->Value());
   if (!Param)
   {
     pln = gp_Pln(Pt, Normale);
@@ -283,7 +283,7 @@ Handle(Geom_Plane) IGESToBRep_BasicSurface::TransferPlaneSurface(
   else
   {
     Handle(IGESGeom_Direction) refdir = start->ReferenceDir();
-    gp_Dir                     Dirgp  = gp_Dir(refdir->Value());
+    Dir3d                     Dirgp  = Dir3d(refdir->Value());
     pln                               = gp_Pln(gp_Ax3(Pt, Normale, Dirgp));
   }
 
@@ -328,15 +328,15 @@ Handle(Geom_CylindricalSurface) IGESToBRep_BasicSurface::TransferRigthCylindrica
   }
 
   Point3d Pt = Point->Value();
-  gp_Dir ax = gp_Dir(Axis->Value());
+  Dir3d ax = Dir3d(Axis->Value());
   gp_Ax3 ax3;
   if (!Param)
     ax3 = gp_Ax3(Pt, ax);
   else
   {
     Handle(IGESGeom_Direction) refdir = start->ReferenceDir();
-    gp_Dir                     Dir    = gp_Dir(refdir->Value());
-    gp_Dir                     vc     = Dir ^ ax;
+    Dir3d                     Dir    = Dir3d(refdir->Value());
+    Dir3d                     vc     = Dir ^ ax;
     if (vc.XYZ().Modulus() < Precision::Confusion())
     {
 
@@ -393,15 +393,15 @@ Handle(Geom_ConicalSurface) IGESToBRep_BasicSurface::TransferRigthConicalSurface
     radius = 0.;
 
   Point3d Pt = Point->Value();
-  gp_Dir ax = gp_Dir(Axis->Value());
+  Dir3d ax = Dir3d(Axis->Value());
   gp_Ax3 ax3;
   if (!Param)
     ax3 = gp_Ax3(Pt, ax);
   else
   {
     Handle(IGESGeom_Direction) refdir = start->ReferenceDir();
-    gp_Dir                     Dir    = gp_Dir(refdir->Value());
-    gp_Dir                     vc     = Dir ^ ax;
+    Dir3d                     Dir    = Dir3d(refdir->Value());
+    Dir3d                     vc     = Dir ^ ax;
     if (vc.XYZ().Modulus() < Precision::Confusion())
     {
 
@@ -451,15 +451,15 @@ Handle(Geom_SphericalSurface) IGESToBRep_BasicSurface::TransferSphericalSurface(
   }
 
   Point3d Pt = Point->Value();
-  gp_Dir ax = gp_Dir(Axis->Value());
+  Dir3d ax = Dir3d(Axis->Value());
   gp_Ax3 ax3;
   if (!Param)
     ax3 = gp_Ax3(Pt, ax);
   else
   {
     Handle(IGESGeom_Direction) refdir = start->ReferenceDir();
-    gp_Dir                     Dir    = gp_Dir(refdir->Value());
-    gp_Dir                     vc     = Dir ^ ax;
+    Dir3d                     Dir    = Dir3d(refdir->Value());
+    Dir3d                     vc     = Dir ^ ax;
     if (vc.XYZ().Modulus() < Precision::Confusion())
     {
 
@@ -510,15 +510,15 @@ Handle(Geom_ToroidalSurface) IGESToBRep_BasicSurface::TransferToroidalSurface(
   }
 
   Point3d Pt = Point->Value();
-  gp_Dir ax = gp_Dir(Axis->Value());
+  Dir3d ax = Dir3d(Axis->Value());
   gp_Ax3 ax3;
   if (!Param)
     ax3 = gp_Ax3(Pt, ax);
   else
   {
     Handle(IGESGeom_Direction) refdir = start->ReferenceDir();
-    gp_Dir                     Dir    = gp_Dir(refdir->Value());
-    gp_Dir                     vc     = Dir ^ ax;
+    Dir3d                     Dir    = Dir3d(refdir->Value());
+    Dir3d                     vc     = Dir ^ ax;
     if (vc.XYZ().Modulus() < Precision::Confusion())
     {
 
@@ -859,7 +859,7 @@ Handle(Geom_BSplineSurface) IGESToBRep_BasicSurface::TransferBSplineSurface(
   if (!GetModeTransfer() && start->HasTransf())
   {
     gp_GTrsf GBSplTrsf(start->CompoundLocation());
-    gp_Trsf  BSplTrsf;
+    Transform3d  BSplTrsf;
     if (IGESData_ToolLocation::ConvertLocation(GetEpsilon(), GBSplTrsf, BSplTrsf))
       for (i = Poles.LowerRow(); i <= Poles.UpperRow(); i++)
         for (j = Poles.LowerCol(); j <= Poles.UpperCol(); j++)

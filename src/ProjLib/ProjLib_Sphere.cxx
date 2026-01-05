@@ -72,11 +72,11 @@ void ProjLib_Sphere::Init(const gp_Sphere& Sp)
 //                \ Z = sinV             V = ASin( Z)
 //=======================================================================
 
-static gp_Pnt2d EvalPnt2d(const gp_Vec& P, const gp_Sphere& Sp)
+static gp_Pnt2d EvalPnt2d(const Vector3d& P, const gp_Sphere& Sp)
 {
-  Standard_Real X = P.Dot(gp_Vec(Sp.Position().XDirection()));
-  Standard_Real Y = P.Dot(gp_Vec(Sp.Position().YDirection()));
-  Standard_Real Z = P.Dot(gp_Vec(Sp.Position().Direction()));
+  Standard_Real X = P.Dot(Vector3d(Sp.Position().XDirection()));
+  Standard_Real Y = P.Dot(Vector3d(Sp.Position().YDirection()));
+  Standard_Real Z = P.Dot(Vector3d(Sp.Position().Direction()));
   Standard_Real U, V;
 
   if (Abs(X) > Precision::PConfusion() || Abs(Y) > Precision::PConfusion())
@@ -103,8 +103,8 @@ static gp_Pnt2d EvalPnt2d(const gp_Vec& P, const gp_Sphere& Sp)
 void ProjLib_Sphere::Project(const gp_Circ& C)
 {
   Point3d O;          // O Location of Sp;
-  gp_Dir Xc, Yc, Zc; // X Y Z Direction of C;
-  gp_Dir Xs, Ys, Zs; // X Y Z Direction of Sp;
+  Dir3d Xc, Yc, Zc; // X Y Z Direction of C;
+  Dir3d Xs, Ys, Zs; // X Y Z Direction of Sp;
 
   // Check the validity :
   //                      Xc & Yc must be perpendicular to Zs ->IsoV;
@@ -131,8 +131,8 @@ void ProjLib_Sphere::Project(const gp_Circ& C)
   {
     myType = GeomAbs_Line;
 
-    P2d1 = EvalPnt2d(gp_Vec(Xc), mySphere);
-    P2d2 = EvalPnt2d(gp_Vec(Yc), mySphere);
+    P2d1 = EvalPnt2d(Vector3d(Xc), mySphere);
+    P2d2 = EvalPnt2d(Vector3d(Yc), mySphere);
 
     if (isIsoU
         && (Abs(P2d1.Y() - M_PI / 2.) < Precision::PConfusion()
@@ -169,7 +169,7 @@ void ProjLib_Sphere::Project(const gp_Circ& C)
     Standard_Real U = Xs.AngleWithRef(Xc, Xs ^ Ys);
     if (U < 0)
       U += 2 * M_PI;
-    Standard_Real Z = gp_Vec(O, C.Location()).Dot(Zs);
+    Standard_Real Z = Vector3d(O, C.Location()).Dot(Zs);
     Standard_Real V = ASin(Z / mySphere.Radius());
     P2d1            = gp_Pnt2d(U, V);
     D2d             = gp_Dir2d((Xc ^ Yc).Dot(Xs ^ Ys), 0.);

@@ -342,7 +342,7 @@ protected:
                          const Handle(TCollection_HAsciiString)& thePrsName,
                          const Standard_Boolean                  theHasSemantic,
                          const Standard_Boolean                  theHasPlane,
-                         const gp_Ax2&                           theAnnotationPlane,
+                         const Frame3d&                           theAnnotationPlane,
                          const Point3d&                           theTextPosition,
                          const Handle(RefObject)&       theDimension,
                          const StepData_Factors& theLocalFactors = StepData_Factors());

@@ -24,7 +24,7 @@
 #include <Standard_Dump.hxx>
 #include <Standard_OutOfRange.hxx>
 
-Standard_Real gp_Dir::Angle(const gp_Dir& Other) const
+Standard_Real Dir3d::Angle(const Dir3d& Other) const
 {
   //    Commentaires :
   //    Au dessus de 45 degres l'arccos donne la meilleur precision pour le
@@ -46,7 +46,7 @@ Standard_Real gp_Dir::Angle(const gp_Dir& Other) const
   }
 }
 
-Standard_Real gp_Dir::AngleWithRef(const gp_Dir& Other, const gp_Dir& Vref) const
+Standard_Real Dir3d::AngleWithRef(const Dir3d& Other, const Dir3d& Vref) const
 {
   Standard_Real Ang;
   gp_XYZ        XYZ     = coord.Crossed(Other.coord);
@@ -67,7 +67,7 @@ Standard_Real gp_Dir::AngleWithRef(const gp_Dir& Other, const gp_Dir& Vref) cons
     return -Ang;
 }
 
-void gp_Dir::Mirror(const gp_Dir& V)
+void Dir3d::Mirror(const Dir3d& V)
 {
   const gp_XYZ& XYZ = V.coord;
   Standard_Real A   = XYZ.X();
@@ -85,7 +85,7 @@ void gp_Dir::Mirror(const gp_Dir& V)
   coord.SetCoord(XX, YY, ZZ);
 }
 
-void gp_Dir::Mirror(const gp_Ax1& A1)
+void Dir3d::Mirror(const Axis3d& A1)
 {
   const gp_XYZ& XYZ = A1.Direction().coord;
   Standard_Real A   = XYZ.X();
@@ -103,14 +103,14 @@ void gp_Dir::Mirror(const gp_Ax1& A1)
   coord.SetCoord(XX, YY, ZZ);
 }
 
-void gp_Dir::Mirror(const gp_Ax2& A2)
+void Dir3d::Mirror(const Frame3d& A2)
 {
-  const gp_Dir& Vz = A2.Direction();
+  const Dir3d& Vz = A2.Direction();
   Mirror(Vz);
   Reverse();
 }
 
-void gp_Dir::Transform(const gp_Trsf& T)
+void Dir3d::Transform(const Transform3d& T)
 {
   if (T.Form() == gp_Identity || T.Form() == gp_Translation)
   {
@@ -138,37 +138,37 @@ void gp_Dir::Transform(const gp_Trsf& T)
   }
 }
 
-gp_Dir gp_Dir::Mirrored(const gp_Dir& V) const
+Dir3d Dir3d::Mirrored(const Dir3d& V) const
 {
-  gp_Dir Vres = *this;
+  Dir3d Vres = *this;
   Vres.Mirror(V);
   return Vres;
 }
 
-gp_Dir gp_Dir::Mirrored(const gp_Ax1& A1) const
+Dir3d Dir3d::Mirrored(const Axis3d& A1) const
 {
-  gp_Dir V = *this;
+  Dir3d V = *this;
   V.Mirror(A1);
   return V;
 }
 
-gp_Dir gp_Dir::Mirrored(const gp_Ax2& A2) const
+Dir3d Dir3d::Mirrored(const Frame3d& A2) const
 {
-  gp_Dir V = *this;
+  Dir3d V = *this;
   V.Mirror(A2);
   return V;
 }
 
-void gp_Dir::DumpJson(Standard_OStream& theOStream, Standard_Integer) const {
-  OCCT_DUMP_VECTOR_CLASS(theOStream, "gp_Dir", 3, coord.X(), coord.Y(), coord.Z())}
+void Dir3d::DumpJson(Standard_OStream& theOStream, Standard_Integer) const {
+  OCCT_DUMP_VECTOR_CLASS(theOStream, "Dir3d", 3, coord.X(), coord.Y(), coord.Z())}
 
-Standard_Boolean gp_Dir::InitFromJson(const Standard_SStream& theSStream,
+Standard_Boolean Dir3d::InitFromJson(const Standard_SStream& theSStream,
                                       Standard_Integer&       theStreamPos)
 {
   Standard_Integer aPos = theStreamPos;
 
   OCCT_INIT_VECTOR_CLASS(Standard_Dump::Text(theSStream),
-                         "gp_Dir",
+                         "Dir3d",
                          aPos,
                          3,
                          &coord.ChangeCoord(1),

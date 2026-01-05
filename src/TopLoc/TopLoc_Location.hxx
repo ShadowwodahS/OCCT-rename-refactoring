@@ -25,7 +25,7 @@
 #include <Standard_Integer.hxx>
 #include <Standard_OStream.hxx>
 
-class gp_Trsf;
+class Transform3d;
 class TopLoc_Datum3D;
 
 //! A Location is a composite transition. It comprises a
@@ -43,7 +43,7 @@ public:
 
   //! Constructs the local coordinate system object defined
   //! by the transformation T. T invokes in turn, a TopLoc_Datum3D object.
-  Standard_EXPORT TopLoc_Location(const gp_Trsf& T);
+  Standard_EXPORT TopLoc_Location(const Transform3d& T);
 
   //! Constructs the local coordinate system object defined by the 3D datum D.
   //! Exceptions
@@ -80,8 +80,8 @@ public:
 
   //! Returns  the transformation    associated  to  the
   //! coordinate system.
-  Standard_EXPORT const gp_Trsf& Transformation() const;
-  Standard_EXPORT                operator gp_Trsf() const;
+  Standard_EXPORT const Transform3d& Transformation() const;
+  Standard_EXPORT                operator Transform3d() const;
 
   //! Returns the inverse of <me>.
   //!

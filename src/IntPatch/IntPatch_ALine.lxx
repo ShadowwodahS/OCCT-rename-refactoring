@@ -56,7 +56,7 @@ inline Point3d IntPatch_ALine::Value(const Standard_Real U)
   return curv.Value(U); // Value leve l exception DomainError
 }
 
-inline Standard_Boolean IntPatch_ALine::D1(const Standard_Real U, Point3d& P, gp_Vec& Du)
+inline Standard_Boolean IntPatch_ALine::D1(const Standard_Real U, Point3d& P, Vector3d& Du)
 {
   return curv.D1u(U, P, Du); // D1u leve l exception DomainError
 }

@@ -20,6 +20,6 @@
 #include <gp_Vec.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<gp_Vec> TColgp_SequenceOfVec;
+typedef NCollection_Sequence<Vector3d> TColgp_SequenceOfVec;
 
 #endif

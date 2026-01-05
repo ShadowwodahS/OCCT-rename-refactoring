@@ -25,7 +25,7 @@
 #include <TColStd_Array1OfReal.hxx>
 class BRepAdaptor_Curve;
 class Point3d;
-class gp_Vec;
+class Vector3d;
 
 //! Provides  the required  methods    to instantiate
 //! CGProps from GProp with a Curve from BRepAdaptor.
@@ -59,7 +59,7 @@ public:
   Standard_EXPORT static void D1(const BRepAdaptor_Curve& C,
                                  const Standard_Real      U,
                                  Point3d&                  P,
-                                 gp_Vec&                  V1);
+                                 Vector3d&                  V1);
 
   //! Returns  the number  of  intervals for  continuity
   //! <S>. May be one if Continuity(me) >= <S>

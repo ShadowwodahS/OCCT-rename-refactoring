@@ -44,7 +44,7 @@ inline const Point3d& IntImp_ZerImpFunc::Point() const
   return pntsol;
 }
 
-inline const gp_Vec& IntImp_ZerImpFunc::Direction3d()
+inline const Vector3d& IntImp_ZerImpFunc::Direction3d()
 {
   if (IsTangent())
     throw StdFail_UndefinedDerivative();

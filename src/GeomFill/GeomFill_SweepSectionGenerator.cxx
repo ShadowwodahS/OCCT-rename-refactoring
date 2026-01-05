@@ -282,9 +282,9 @@ void GeomFill_SweepSectionGenerator::Perform(const Standard_Boolean Polynomial)
   }
   Parameters(myNbSections) = U2 - U1;
 
-  gp_Vec  D1Ref, D1;
+  Vector3d  D1Ref, D1;
   Point3d  PRef, P;
-  gp_Trsf TR, cumulTR, Trans;
+  Transform3d TR, cumulTR, Trans;
 
   myPath->D1(U1, PRef, D1Ref);
 
@@ -295,7 +295,7 @@ void GeomFill_SweepSectionGenerator::Perform(const Standard_Boolean Polynomial)
     // point <PRef> ). This circle is, after transform to BSpline curve,
     // put in <myFirstSect>.
 
-    gp_Ax2 CircleAxis(PRef, D1Ref);
+    Frame3d CircleAxis(PRef, D1Ref);
     /*
         Handle(Geom_Circle) Circ = new Geom_Circle( CircleAxis, myRadius);
 
@@ -325,11 +325,11 @@ void GeomFill_SweepSectionGenerator::Perform(const Standard_Boolean Polynomial)
       // Eval the translation between the (i-1) section and the i-th.
       Trans.SetTranslation(PRef, P);
 
-      gp_Trsf Rot;
+      Transform3d Rot;
       if (!D1Ref.IsParallel(D1, Precision::Angular()))
       {
         // Eval the Rotation between (i-1) section and the i-th.
-        Rot.SetRotation(gp_Ax1(P, gp_Dir(D1Ref ^ D1)), D1Ref.AngleWithRef(D1, D1Ref ^ D1));
+        Rot.SetRotation(Axis3d(P, Dir3d(D1Ref ^ D1)), D1Ref.AngleWithRef(D1, D1Ref ^ D1));
       }
       else if (D1Ref.IsOpposite(D1, Precision::Angular()))
 #ifdef OCCT_DEBUG
@@ -470,7 +470,7 @@ Standard_Boolean GeomFill_SweepSectionGenerator::Section(const Standard_Integer 
   else
     return Standard_False;
 
-  gp_Vec D1, D2;
+  Vector3d D1, D2;
   Point3d Pt;
 
   myPath->D2(U, Pt, D1, D2);
@@ -479,9 +479,9 @@ Standard_Boolean GeomFill_SweepSectionGenerator::Section(const Standard_Integer 
   if (l < Epsilon(1.))
     return Standard_False;
 
-  gp_Dir        T = D1;
+  Dir3d        T = D1;
   Standard_Real m = D2.Dot(T);
-  gp_Vec        D = D2 - m * T;
+  Vector3d        D = D2 - m * T;
   Standard_Real c = D.Magnitude() / (l * l);
 
   if (c < Epsilon(1.))
@@ -494,16 +494,16 @@ Standard_Boolean GeomFill_SweepSectionGenerator::Section(const Standard_Integer 
   }
   else
   {
-    gp_Dir        N = D;
-    Point3d        Q = Pt.Translated((1. / c) * gp_Vec(N));
+    Dir3d        N = D;
+    Point3d        Q = Pt.Translated((1. / c) * Vector3d(N));
     Standard_Real x, y;
-    gp_Vec        V;
+    Vector3d        V;
     for (Standard_Integer i = 1; i <= myFirstSect->NbPoles(); i++)
     {
-      V         = gp_Vec(Q, Poles(i));
-      x         = V * gp_Vec(T);
-      y         = V * gp_Vec(N);
-      DPoles(i) = x * gp_Vec(N) - y * gp_Vec(T);
+      V         = Vector3d(Q, Poles(i));
+      x         = V * Vector3d(T);
+      y         = V * Vector3d(N);
+      DPoles(i) = x * Vector3d(N) - y * Vector3d(T);
       if (DPoles(i).Magnitude() > Epsilon(1.))
       {
         DPoles(i).Normalize();
@@ -531,7 +531,7 @@ void GeomFill_SweepSectionGenerator::Section(const Standard_Integer P,
   {
     myFirstSect->Poles(Poles);
     myFirstSect->Weights(Weigths);
-    gp_Trsf cumulTR;
+    Transform3d cumulTR;
     if (P > 1)
     {
       cumulTR = myTrsfs(P - 1);
@@ -603,7 +603,7 @@ void GeomFill_SweepSectionGenerator::Section(const Standard_Integer P,
     }
     Point3d P2 = myAdpLastSect->Value(U2);
 
-    gp_Ax2        Axis;
+    Frame3d        Axis;
     Standard_Real Angle;
     if (P1.Distance(P2) < Precision::Confusion())
     {
@@ -611,14 +611,14 @@ void GeomFill_SweepSectionGenerator::Section(const Standard_Integer P,
     }
     else
     {
-      Axis  = gp_Ax2(PPath, gp_Vec(PPath, P1) ^ gp_Vec(PPath, P2), gp_Vec(PPath, P1));
+      Axis  = Frame3d(PPath, Vector3d(PPath, P1) ^ Vector3d(PPath, P2), Vector3d(PPath, P1));
       Angle = ElCLib::CircleParameter(Axis, P2);
     }
 #ifdef OCCT_DEBUG
 /*
     if (Standard_False) {
-      gp_Vec dummyD1 = myAdpPath->DN(U,1);
-      gp_Vec dummyTg = Axis.Direction();
+      Vector3d dummyD1 = myAdpPath->DN(U,1);
+      Vector3d dummyTg = Axis.Direction();
       Standard_Real Cos = dummyD1.Dot(dummyTg);
       if ( Cos > 0.) std::cout << "+" ;
       else           std::cout << "-" ;
@@ -660,7 +660,7 @@ void GeomFill_SweepSectionGenerator::Section(const Standard_Integer P,
 
 //=================================================================================================
 
-const gp_Trsf& GeomFill_SweepSectionGenerator::Transformation(const Standard_Integer Index) const
+const Transform3d& GeomFill_SweepSectionGenerator::Transformation(const Standard_Integer Index) const
 {
   if (Index > myTrsfs.Length())
     throw Standard_RangeError("GeomFill_SweepSectionGenerator::Transformation");

@@ -32,7 +32,7 @@ class Adaptor3d_Curve;
 class Extrema_CurveTool;
 class Extrema_POnCurv;
 class Point3d;
-class gp_Vec;
+class Vector3d;
 
 class Extrema_PCLocFOfLocEPCOfLocateExtPC : public math_FunctionWithDerivative
 {

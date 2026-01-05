@@ -24,7 +24,7 @@
 class TFunction_Logbook;
 class TDF_Label;
 class TNaming_NamedShape;
-class gp_Trsf;
+class Transform3d;
 
 class DNaming_TransformationDriver;
 DEFINE_STANDARD_HANDLE(DNaming_TransformationDriver, TFunction_Driver)
@@ -64,7 +64,7 @@ protected:
 private:
   Standard_EXPORT void LoadNamingDS(const TDF_Label&                  theResultLabel,
                                     const Handle(TNaming_NamedShape)& theSourceNS,
-                                    const gp_Trsf&                    theTrsf) const;
+                                    const Transform3d&                    theTrsf) const;
 };
 
 #endif // _DNaming_TransformationDriver_HeaderFile

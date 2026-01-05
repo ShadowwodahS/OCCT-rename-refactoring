@@ -41,9 +41,9 @@
 
 static void t3dto2d(Standard_Real& a,
                     Standard_Real& b,
-                    const gp_Vec&  A,
-                    const gp_Vec&  B,
-                    const gp_Vec&  C)
+                    const Vector3d&  A,
+                    const Vector3d&  B,
+                    const Vector3d&  C)
 {
   Standard_Real AB   = A.Dot(B);
   Standard_Real AC   = A.Dot(C);
@@ -173,7 +173,7 @@ Standard_Boolean BRepBlend_RstRstEvolRad::Value(const math_Vector& X, math_Vecto
 
 Standard_Boolean BRepBlend_RstRstEvolRad::Derivatives(const math_Vector& X, math_Matrix& D)
 {
-  gp_Vec d11, d21;
+  Vector3d d11, d21;
 
   cons1.D1(X(1), ptrst1, d11);
   cons2.D1(X(2), ptrst2, d21);
@@ -216,8 +216,8 @@ void BRepBlend_RstRstEvolRad::Set(const Handle(Adaptor3d_Surface)& SurfRef1,
 
 void BRepBlend_RstRstEvolRad::Set(const Standard_Real Param)
 {
-  d1gui = gp_Vec(0., 0., 0.);
-  nplan = gp_Vec(0., 0., 0.);
+  d1gui = Vector3d(0., 0., 0.);
+  nplan = Vector3d(0., 0., 0.);
   tguide->D2(Param, ptgui, d1gui, d2gui);
   normtg = d1gui.Magnitude();
   nplan.SetXYZ(d1gui.Normalized().XYZ());
@@ -264,7 +264,7 @@ Standard_Boolean BRepBlend_RstRstEvolRad::IsSolution(const math_Vector&  Sol,
   math_Vector valsol(1, 2), secmember(1, 2);
   math_Matrix gradsol(1, 2, 1, 2);
 
-  gp_Vec dnplan, d1urst1, d1vrst1, d1urst2, d1vrst2, d11, d21, temp;
+  Vector3d dnplan, d1urst1, d1vrst1, d1urst2, d1vrst2, d11, d21, temp;
   Point3d bid;
 
   Standard_Real Cosa, Sina, Angle;
@@ -327,7 +327,7 @@ Standard_Boolean BRepBlend_RstRstEvolRad::IsSolution(const math_Vector&  Sol,
     }
 
     Point3d           Center;
-    gp_Vec           NotUsed;
+    Vector3d           NotUsed;
     Standard_Boolean IsCenter;
 
     IsCenter = CenterCircleRst1Rst2(ptrst1, ptrst2, nplan, Center, NotUsed);
@@ -335,7 +335,7 @@ Standard_Boolean BRepBlend_RstRstEvolRad::IsSolution(const math_Vector&  Sol,
     if (!IsCenter)
       return Standard_False;
 
-    gp_Vec n1(Center, ptrst1), n2(Center, ptrst2);
+    Vector3d n1(Center, ptrst1), n2(Center, ptrst2);
 
     n1.Normalize();
     n2.Normalize();
@@ -428,7 +428,7 @@ Standard_Boolean BRepBlend_RstRstEvolRad::IsTangencyPoint() const
 
 //=================================================================================================
 
-const gp_Vec& BRepBlend_RstRstEvolRad::TangentOnRst1() const
+const Vector3d& BRepBlend_RstRstEvolRad::TangentOnRst1() const
 {
   if (istangent)
   {
@@ -450,7 +450,7 @@ const gp_Vec2d& BRepBlend_RstRstEvolRad::Tangent2dOnRst1() const
 
 //=================================================================================================
 
-const gp_Vec& BRepBlend_RstRstEvolRad::TangentOnRst2() const
+const Vector3d& BRepBlend_RstRstEvolRad::TangentOnRst2() const
 {
   if (istangent)
   {
@@ -473,14 +473,14 @@ const gp_Vec2d& BRepBlend_RstRstEvolRad::Tangent2dOnRst2() const
 //=================================================================================================
 
 Blend_DecrochStatus BRepBlend_RstRstEvolRad::Decroch(const math_Vector& Sol,
-                                                     gp_Vec&            NRst1,
-                                                     gp_Vec&            TgRst1,
-                                                     gp_Vec&            NRst2,
-                                                     gp_Vec&            TgRst2) const
+                                                     Vector3d&            NRst1,
+                                                     Vector3d&            TgRst1,
+                                                     Vector3d&            NRst2,
+                                                     Vector3d&            TgRst2) const
 {
-  gp_Vec        NRst1InPlane, NRst2InPlane;
+  Vector3d        NRst1InPlane, NRst2InPlane;
   Point3d        PtTmp1, PtTmp2, Center;
-  gp_Vec        d1u, d1v, centptrst, NotUsed;
+  Vector3d        d1u, d1v, centptrst, NotUsed;
   Standard_Real norm, unsurnorm;
   Standard_Real u, v;
 
@@ -568,13 +568,13 @@ void BRepBlend_RstRstEvolRad::Set(const BlendFunc_SectionShape TypeSection)
 //=======================================================================
 Standard_Boolean BRepBlend_RstRstEvolRad::CenterCircleRst1Rst2(const Point3d& PtRst1,
                                                                const Point3d& PtRst2,
-                                                               const gp_Vec& np,
+                                                               const Vector3d& np,
                                                                Point3d&       Center,
-                                                               gp_Vec&       VdMed) const
+                                                               Vector3d&       VdMed) const
 {
 
-  gp_Vec        rst1rst2(PtRst1, PtRst2);
-  gp_Vec        vdmedNor; //,NRst1;  vdmedNor  vector director of the perpendicular bisector
+  Vector3d        rst1rst2(PtRst1, PtRst2);
+  Vector3d        vdmedNor; //,NRst1;  vdmedNor  vector director of the perpendicular bisector
   Standard_Real norm2;
   Standard_Real Dist; // distance between the middle of PtRst1,PtRst2 and Center
 
@@ -614,7 +614,7 @@ void BRepBlend_RstRstEvolRad::Section(const Standard_Real Param,
                                       Standard_Real&      Pfin,
                                       gp_Circ&            C)
 {
-  gp_Vec ns, np, NotUsed;
+  Vector3d ns, np, NotUsed;
   Point3d Center;
 
   tguide->D1(Param, ptgui, d1gui);
@@ -626,14 +626,14 @@ void BRepBlend_RstRstEvolRad::Section(const Standard_Real Param,
   CenterCircleRst1Rst2(ptrst1, ptrst2, np, Center, NotUsed);
 
   C.SetRadius(Abs(ray));
-  ns = gp_Vec(Center, ptrst1).Normalized();
+  ns = Vector3d(Center, ptrst1).Normalized();
 
   if (choix % 2 != 0)
   {
     np.Reverse();
   }
 
-  C.SetPosition(gp_Ax2(Center, np, ns));
+  C.SetPosition(Frame3d(Center, np, ns));
   Pdeb = 0; // ElCLib::Parameter(C, pts);
   Pfin = ElCLib::Parameter(C, ptrst2);
 
@@ -641,7 +641,7 @@ void BRepBlend_RstRstEvolRad::Section(const Standard_Real Param,
   if (Pfin > 1.5 * M_PI)
   {
     np.Reverse();
-    C.SetPosition(gp_Ax2(Center, np, ns));
+    C.SetPosition(Frame3d(Center, np, ns));
     Pfin = ElCLib::Parameter(C, ptrst2);
   }
   if (Pfin < Precision::PConfusion())
@@ -773,7 +773,7 @@ void BRepBlend_RstRstEvolRad::Section(const Blend_Point&    P,
                                       TColgp_Array1OfPnt2d& Poles2d,
                                       TColStd_Array1OfReal& Weights)
 {
-  gp_Vec        n1, n2, NotUsed;
+  Vector3d        n1, n2, NotUsed;
   Point3d        Center;
   Standard_Real u, v;
 
@@ -812,8 +812,8 @@ void BRepBlend_RstRstEvolRad::Section(const Blend_Point&    P,
   CenterCircleRst1Rst2(ptrst1, ptrst2, nplan, Center, NotUsed);
 
   // normals to the section with points
-  n1 = gp_Vec(Center, ptrst1).Normalized();
-  n2 = gp_Vec(Center, ptrst2).Normalized();
+  n1 = Vector3d(Center, ptrst1).Normalized();
+  n2 = Vector3d(Center, ptrst2).Normalized();
 
   if (choix % 2 != 0)
   {
@@ -834,10 +834,10 @@ Standard_Boolean BRepBlend_RstRstEvolRad::Section(const Blend_Point&    P,
                                                   TColStd_Array1OfReal& DWeights)
 {
 
-  gp_Vec d11, d21;
-  gp_Vec dnplan, d1n1, d1n2; //,np2, dnp2;
-  gp_Vec temp, tgct;
-  gp_Vec d1urst, d1vrst;
+  Vector3d d11, d21;
+  Vector3d dnplan, d1n1, d1n2; //,np2, dnp2;
+  Vector3d temp, tgct;
+  Vector3d d1urst, d1vrst;
   Point3d Center, NotUsed;
 
   Standard_Real norm2, normmed, Dist;
@@ -893,8 +893,8 @@ Standard_Boolean BRepBlend_RstRstEvolRad::Section(const Blend_Point&    P,
       istgt = Standard_True;
   }
 
-  gp_Vec           med;
-  gp_Vec           rst1rst2(ptrst1, ptrst2);
+  Vector3d           med;
+  Vector3d           rst1rst2(ptrst1, ptrst2);
   Standard_Boolean IsCenter;
 
   IsCenter = CenterCircleRst1Rst2(ptrst1, ptrst2, nplan, Center, med);
@@ -903,7 +903,7 @@ Standard_Boolean BRepBlend_RstRstEvolRad::Section(const Blend_Point&    P,
 
   normmed = med.Magnitude();
   med.Normalize();
-  gp_Vec n1(Center, ptrst1), n2(Center, ptrst2);
+  Vector3d n1(Center, ptrst1), n2(Center, ptrst2);
 
   if (!istgt)
   {
@@ -912,7 +912,7 @@ Standard_Boolean BRepBlend_RstRstEvolRad::Section(const Blend_Point&    P,
     tgrst1 = secmember(1) * d11;
     tgrst2 = secmember(2) * d21;
 
-    gp_Vec d1rst1rst2;
+    Vector3d d1rst1rst2;
 
     norm2                 = rst1rst2.SquareMagnitude();
     d1rst1rst2            = tgrst2 - tgrst1;
@@ -921,7 +921,7 @@ Standard_Boolean BRepBlend_RstRstEvolRad::Section(const Blend_Point&    P,
 
     if (Dist > 1.E-07)
     {
-      gp_Vec d1P1P2CrosNp, dmed;
+      Vector3d d1P1P2CrosNp, dmed;
       d1P1P2CrosNp = d1rst1rst2.Crossed(nplan) + rst1rst2.Crossed(dnplan);
       // derivative of the bisector
       dmed = d1P1P2CrosNp - med.Dot(d1P1P2CrosNp) * med;

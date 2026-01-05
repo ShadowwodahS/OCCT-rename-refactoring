@@ -638,11 +638,11 @@ static Standard_Boolean IsTangentExtCheck(const Handle(Adaptor3d_Surface)& theSu
 {
   {
     Point3d aPt;
-    gp_Vec aDu1, aDv1, aDu2, aDv2;
+    Vector3d aDu1, aDv1, aDu2, aDv2;
     theSurf1->D1(theU10, theV10, aPt, aDu1, aDv1);
     theSurf2->D1(theU20, theV20, aPt, aDu2, aDv2);
 
-    const gp_Vec        aN1(aDu1.Crossed(aDv1)), aN2(aDu2.Crossed(aDv2));
+    const Vector3d        aN1(aDu1.Crossed(aDv1)), aN2(aDu2.Crossed(aDv2));
     const Standard_Real aDP = aN1.Dot(aN2), aSQ1 = aN1.SquareMagnitude(),
                         aSQ2 = aN2.SquareMagnitude();
 
@@ -1459,7 +1459,7 @@ void IntWalk_PWalking::Perform(const TColStd_Array1OfReal& ParDep,
 
                     IntSurf_PntOn2S  previousPointSave = previousPoint;
                     Standard_Boolean previoustgSave    = previoustg;
-                    gp_Dir           previousdSave     = previousd;
+                    Dir3d           previousdSave     = previousd;
                     gp_Dir2d         previousd1Save    = previousd1;
                     gp_Dir2d         previousd2Save    = previousd2;
 
@@ -1627,7 +1627,7 @@ void IntWalk_PWalking::Perform(const TColStd_Array1OfReal& ParDep,
                               aDirS2(prevPntOnS2, curPntOnS2);
 
                             Point3d aPtemp;
-                            gp_Vec aDuS1, aDvS1, aDuS2, aDvS2;
+                            Vector3d aDuS1, aDvS1, aDuS2, aDvS2;
 
                             myIntersectionOn2S.Function().AuxillarSurface1()->D1(curPntOnS1.X(),
                                                                                  curPntOnS1.Y(),
@@ -2294,14 +2294,14 @@ Standard_Boolean IntWalk_PWalking::DistanceMinimizeByGradient(
   Standard_Boolean aStatus = Standard_False;
 
   Point3d aP1, aP2;
-  gp_Vec aD1u, aD1v, aD2U, aD2V;
+  Vector3d aD1u, aD1v, aD2U, aD2V;
 
   theASurf1->D1(theInit(1), theInit(2), aP1, aD1u, aD1v);
   theASurf2->D1(theInit(3), theInit(4), aP2, aD2U, aD2V);
 
   Standard_Real aSQDistPrev = aP1.SquareDistance(aP2);
 
-  gp_Vec aP12(aP1, aP2);
+  Vector3d aP12(aP1, aP2);
 
   Standard_Real aGradFu(-aP12.Dot(aD1u));
   Standard_Real aGradFv(-aP12.Dot(aD1v));
@@ -2367,7 +2367,7 @@ Standard_Boolean IntWalk_PWalking::DistanceMinimizeByGradient(
         theASurf1->D1(theInit(1), theInit(2), aPt1, aD1u, aD1v);
         theASurf2->D1(theInit(3), theInit(4), aPt2, aD2U, aD2V);
 
-        gp_Vec aPt12(aPt1, aPt2);
+        Vector3d aPt12(aPt1, aPt2);
         aGradFu = -aPt12.Dot(aD1u);
         aGradFv = -aPt12.Dot(aD1v);
         aGradFU = aPt12.Dot(aD2U);
@@ -2408,7 +2408,7 @@ Standard_Boolean IntWalk_PWalking::DistanceMinimizeByExtrema(
 {
   const Standard_Real aTol = 1.0e-14;
   Point3d              aPS;
-  gp_Vec              aD1Su, aD1Sv, aD2Su, aD2Sv, aD2SuvTemp;
+  Vector3d              aD1Su, aD1Sv, aD2Su, aD2Sv, aD2SuvTemp;
   Standard_Real       aSQDistPrev = RealLast();
   Standard_Real       aU = theU0, aV = theV0;
 
@@ -2419,7 +2419,7 @@ Standard_Boolean IntWalk_PWalking::DistanceMinimizeByExtrema(
   {
     theASurf->D2(aU, aV, aPS, aD1Su, aD1Sv, aD2Su, aD2Sv, aD2SuvTemp);
 
-    gp_Vec aVec(theP0, aPS);
+    Vector3d aVec(theP0, aPS);
 
     Standard_Real aSQDist = aVec.SquareMagnitude();
 
@@ -2495,7 +2495,7 @@ Standard_Boolean IntWalk_PWalking::HandleSingleSingularPoint(
       // Local resolutions
       Standard_Real    aTol2 = the3DTol * the3DTol;
       Point3d           aP;
-      gp_Vec           aDU, aDV;
+      Vector3d           aDU, aDV;
       Point3d           aPInt;
       Standard_Integer k;
       for (k = 0; k < 2; ++k)
@@ -3276,7 +3276,7 @@ IntWalk_StatusDeflection IntWalk_PWalking::TestDeflection(const IntImp_ConstIsop
     return IntWalk_ArretSurPoint;
   }
 
-  const gp_Dir& TgCourante = myIntersectionOn2S.Direction();
+  const Dir3d& TgCourante = myIntersectionOn2S.Direction();
 
   const Standard_Real aCosBetweenTangent = TgCourante.Dot(previousd);
 

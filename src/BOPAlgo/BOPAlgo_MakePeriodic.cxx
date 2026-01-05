@@ -39,7 +39,7 @@
 #include <TopTools_IndexedDataMapOfShapeListOfShape.hxx>
 
 // Periodic/Trim/Repeat directions
-static const gp_Dir MY_DIRECTIONS[3] = {gp::DX(), gp::DY(), gp::DZ()};
+static const Dir3d MY_DIRECTIONS[3] = {gp::DX(), gp::DY(), gp::DZ()};
 
 //=======================================================================
 // function : Perform
@@ -221,7 +221,7 @@ void BOPAlgo_MakePeriodic::SplitNegative()
       continue;
 
     // Translate the shape to the negative side
-    gp_Trsf aNegTrsf;
+    Transform3d aNegTrsf;
     aNegTrsf.SetTranslationPart(Period(i) * MY_DIRECTIONS[i].Reversed());
     BRepBuilderAPI_Transform aNegT(myShape, aNegTrsf, Standard_False);
 
@@ -286,7 +286,7 @@ void BOPAlgo_MakePeriodic::SplitPositive()
       continue;
 
     // Translate the shape to the positive side
-    gp_Trsf aPosTrsf;
+    Transform3d aPosTrsf;
     aPosTrsf.SetTranslationPart(Period(i) * MY_DIRECTIONS[i]);
     BRepBuilderAPI_Transform aTranslator(myShape, aPosTrsf, Standard_False);
     aTools.Append(aTranslator.Shape());
@@ -473,7 +473,7 @@ const TopoDS_Shape& BOPAlgo_MakePeriodic::RepeatShape(const Standard_Integer the
   // Create translated copies of the shape
   for (Standard_Integer i = 1; i <= Abs(theTimes); ++i)
   {
-    gp_Trsf aTrsf;
+    Transform3d aTrsf;
     aTrsf.SetTranslationPart(iDir * i * aPeriod * MY_DIRECTIONS[id]);
     BRepBuilderAPI_Transform aTranslator(myRepeatedShape, aTrsf, Standard_False);
     aShapes.Append(aTranslator.Shape());

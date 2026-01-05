@@ -32,7 +32,7 @@ public:
   Standard_EXPORT AIS_AnimationAxisRotation(const TCollection_AsciiString&        theAnimationName,
                                             const Handle(AIS_InteractiveContext)& theContext,
                                             const Handle(AIS_InteractiveObject)&  theObject,
-                                            const gp_Ax1&                         theAxis,
+                                            const Axis3d&                         theAxis,
                                             const Standard_Real                   theAngleStart,
                                             const Standard_Real                   theAngleEnd);
 
@@ -41,7 +41,7 @@ protected:
   Standard_EXPORT virtual void update(const AIS_AnimationProgress& theProgress) Standard_OVERRIDE;
 
 private:
-  gp_Ax1        myRotAxis;    //!< rotation axis
+  Axis3d        myRotAxis;    //!< rotation axis
   Standard_Real myAngleStart; //!< start angle for rotation
   Standard_Real myAngleEnd;   //!< end angle for rotation
 };

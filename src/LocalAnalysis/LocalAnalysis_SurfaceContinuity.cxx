@@ -36,7 +36,7 @@ void LocalAnalysis_SurfaceContinuity::SurfC0(const GeomLProp_SLProps& Surf1,
 
 void LocalAnalysis_SurfaceContinuity::SurfC1(GeomLProp_SLProps& Surf1, GeomLProp_SLProps& Surf2)
 {
-  gp_Vec        V1u, V2u, V1v, V2v;
+  Vector3d        V1u, V2u, V1v, V2v;
   Standard_Real norm1u, norm2u, norm1v, norm2v, angu, angv;
 
   V1u = Surf1.D1U();
@@ -83,7 +83,7 @@ void LocalAnalysis_SurfaceContinuity::SurfC1(GeomLProp_SLProps& Surf1, GeomLProp
 void LocalAnalysis_SurfaceContinuity::SurfC2(GeomLProp_SLProps& Surf1, GeomLProp_SLProps& Surf2)
 
 {
-  gp_Vec        V11u, V12u, V21u, V22u, V11v, V12v, V21v, V22v;
+  Vector3d        V11u, V12u, V21u, V22u, V11v, V12v, V21v, V22v;
   Standard_Real norm11u, norm12u, norm21u, norm22u, norm11v, norm12v, norm21v, norm22v;
   Standard_Real ang;
   V11u    = Surf1.D1U();
@@ -175,8 +175,8 @@ void LocalAnalysis_SurfaceContinuity::SurfG1(GeomLProp_SLProps& Surf1, GeomLProp
 {
   if (Surf1.IsNormalDefined() && Surf2.IsNormalDefined())
   {
-    gp_Dir        D1  = Surf1.Normal();
-    gp_Dir        D2  = Surf2.Normal();
+    Dir3d        D1  = Surf1.Normal();
+    Dir3d        D2  = Surf2.Normal();
     Standard_Real ang = D1.Angle(D2);
     if (ang > M_PI / 2)
       myContG1 = M_PI - ang;
@@ -194,7 +194,7 @@ void LocalAnalysis_SurfaceContinuity::SurfG1(GeomLProp_SLProps& Surf1, GeomLProp
 
 void LocalAnalysis_SurfaceContinuity::SurfG2(GeomLProp_SLProps& Surf1, GeomLProp_SLProps& Surf2)
 {
-  gp_Dir        DMIN1, DMIN2, DMAX1, DMAX2;
+  Dir3d        DMIN1, DMIN2, DMAX1, DMAX2;
   Standard_Real RMIN1, RMIN2, RMAX1, RMAX2;
   Standard_Real x1, x2, y1, y2, z1, z2;
 
@@ -204,10 +204,10 @@ void LocalAnalysis_SurfaceContinuity::SurfG2(GeomLProp_SLProps& Surf1, GeomLProp
     Surf2.CurvatureDirections(DMIN2, DMAX2);
     DMIN1.Coord(x1, y1, z1);
     DMAX1.Coord(x2, y2, z2);
-    gp_Dir MCD1((Abs(x1) + Abs(x2)) / 2, (Abs(y1) + Abs(y2)) / 2, (Abs(z1) + Abs(z2)) / 2);
+    Dir3d MCD1((Abs(x1) + Abs(x2)) / 2, (Abs(y1) + Abs(y2)) / 2, (Abs(z1) + Abs(z2)) / 2);
     DMIN2.Coord(x1, y1, z1);
     DMAX2.Coord(x2, y2, z2);
-    gp_Dir MCD2((Abs(x1) + Abs(x2)) / 2, (Abs(y1) + Abs(y2)) / 2, (Abs(z1) + Abs(z2)) / 2);
+    Dir3d MCD2((Abs(x1) + Abs(x2)) / 2, (Abs(y1) + Abs(y2)) / 2, (Abs(z1) + Abs(z2)) / 2);
 
     myAlpha = MCD1.Angle(MCD2);
     RMIN1   = Surf1.MinCurvature();

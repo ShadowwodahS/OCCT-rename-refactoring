@@ -33,7 +33,7 @@ class Adaptor3d_Curve;
 class Extrema_CurveTool;
 class Extrema_POnCurv;
 class Point3d;
-class gp_Vec;
+class Vector3d;
 class math_Matrix;
 
 class Extrema_CCLocFOfLocECC : public math_FunctionSetWithDerivatives
@@ -107,8 +107,8 @@ private:
   Standard_Real             myV;
   Point3d                    myP1;
   Point3d                    myP2;
-  gp_Vec                    myDu;
-  gp_Vec                    myDv;
+  Vector3d                    myDu;
+  Vector3d                    myDv;
   TColStd_SequenceOfReal    mySqDist;
   Extrema_SequenceOfPOnCurv myPoints;
   Standard_Real             myTolC1;
@@ -133,7 +133,7 @@ private:
 #define POnC_hxx <Extrema_POnCurv.hxx>
 #define Pnt Point3d
 #define Pnt_hxx <gp_Pnt.hxx>
-#define Vec gp_Vec
+#define Vec Vector3d
 #define Vec_hxx <gp_Vec.hxx>
 #define Extrema_SeqPOnC Extrema_SequenceOfPOnCurv
 #define Extrema_SeqPOnC_hxx <Extrema_SequenceOfPOnCurv.hxx>

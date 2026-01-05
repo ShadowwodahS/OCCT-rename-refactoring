@@ -68,7 +68,7 @@ public:
 
   //! The transformation for gp::XOY() with center in gp::Origin(),
   //! it specifies the position and orientation of the circle.
-  const gp_Trsf& Transformation() const { return myTrsf; }
+  const Transform3d& Transformation() const { return myTrsf; }
 
   //! Returns circle
   gp_Circ Circle() const { return gp_Circ(gp::XOY().Transformed(myTrsf), myRadius); }
@@ -78,7 +78,7 @@ public:
 
 private:
   Select3D_TypeOfSensitivity mySensType; //!< Type of sensitivity: boundary or interior
-  gp_Trsf                    myTrsf;     //!< Circle transformation to apply
+  Transform3d                    myTrsf;     //!< Circle transformation to apply
   Standard_Real              myRadius;   //!< Circle radius
 };
 

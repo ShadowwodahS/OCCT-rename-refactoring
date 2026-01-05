@@ -103,7 +103,7 @@ public:
   //! Returns the derivative at parameter <theU>.
   Standard_EXPORT virtual Standard_Boolean D1(const Standard_Real           theU,
                                               NCollection_Array1<gp_Vec2d>& theVec2d,
-                                              NCollection_Array1<gp_Vec>&   theVec) const;
+                                              NCollection_Array1<Vector3d>&   theVec) const;
 
 private:
   TopoDS_Face         myFace1;

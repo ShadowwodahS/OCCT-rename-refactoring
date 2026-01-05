@@ -19,7 +19,7 @@
 
 //=================================================================================================
 
-BRepPrim_Wedge::BRepPrim_Wedge(const gp_Ax2&       Axes,
+BRepPrim_Wedge::BRepPrim_Wedge(const Frame3d&       Axes,
                                const Standard_Real dx,
                                const Standard_Real dy,
                                const Standard_Real dz)
@@ -29,7 +29,7 @@ BRepPrim_Wedge::BRepPrim_Wedge(const gp_Ax2&       Axes,
 
 //=================================================================================================
 
-BRepPrim_Wedge::BRepPrim_Wedge(const gp_Ax2&       Axes,
+BRepPrim_Wedge::BRepPrim_Wedge(const Frame3d&       Axes,
                                const Standard_Real dx,
                                const Standard_Real dy,
                                const Standard_Real dz,
@@ -40,7 +40,7 @@ BRepPrim_Wedge::BRepPrim_Wedge(const gp_Ax2&       Axes,
 
 //=================================================================================================
 
-BRepPrim_Wedge::BRepPrim_Wedge(const gp_Ax2&       Axes,
+BRepPrim_Wedge::BRepPrim_Wedge(const Frame3d&       Axes,
                                const Standard_Real xmin,
                                const Standard_Real ymin,
                                const Standard_Real zmin,

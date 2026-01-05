@@ -42,7 +42,7 @@ void gp_Torus::Coefficients(TColStd_Array1OfReal& theCoef) const
   Standard_DimensionError_Raise_if(theCoef.Length() < 35,
                                    "gp_Torus::theCoefficients(): Dimension mismatch");
 
-  gp_Trsf aTr;
+  Transform3d aTr;
   aTr.SetTransformation(pos);
   const Standard_Real aT11 = aTr.Value(1, 1);
   const Standard_Real aT12 = aTr.Value(1, 2);
@@ -163,24 +163,24 @@ gp_Torus gp_Torus::Mirrored(const Point3d& P) const
   return C;
 }
 
-void gp_Torus::Mirror(const gp_Ax1& A1)
+void gp_Torus::Mirror(const Axis3d& A1)
 {
   pos.Mirror(A1);
 }
 
-gp_Torus gp_Torus::Mirrored(const gp_Ax1& A1) const
+gp_Torus gp_Torus::Mirrored(const Axis3d& A1) const
 {
   gp_Torus C = *this;
   C.pos.Mirror(A1);
   return C;
 }
 
-void gp_Torus::Mirror(const gp_Ax2& A2)
+void gp_Torus::Mirror(const Frame3d& A2)
 {
   pos.Mirror(A2);
 }
 
-gp_Torus gp_Torus::Mirrored(const gp_Ax2& A2) const
+gp_Torus gp_Torus::Mirrored(const Frame3d& A2) const
 {
   gp_Torus C = *this;
   C.pos.Mirror(A2);

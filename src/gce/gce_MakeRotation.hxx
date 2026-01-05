@@ -23,12 +23,12 @@
 
 #include <gp_Trsf.hxx>
 class gp_Lin;
-class gp_Ax1;
+class Axis3d;
 class Point3d;
-class gp_Dir;
+class Dir3d;
 
 //! This class implements elementary construction algorithms for a
-//! rotation in 3D space. The result is a gp_Trsf transformation.
+//! rotation in 3D space. The result is a Transform3d transformation.
 //! A MakeRotation object provides a framework for:
 //! -   defining the construction of the transformation,
 //! -   implementing the construction algorithm, and
@@ -42,23 +42,23 @@ public:
   Standard_EXPORT gce_MakeRotation(const gp_Lin& Line, const Standard_Real Angle);
 
   //! Constructs a rotation through angle Angle about the axis defined by the axis Axis.
-  Standard_EXPORT gce_MakeRotation(const gp_Ax1& Axis, const Standard_Real Angle);
+  Standard_EXPORT gce_MakeRotation(const Axis3d& Axis, const Standard_Real Angle);
 
   //! Constructs a rotation through angle Angle about the axis defined by:
   //! the point Point and the unit vector Direc.
   Standard_EXPORT gce_MakeRotation(const Point3d&       Point,
-                                   const gp_Dir&       Direc,
+                                   const Dir3d&       Direc,
                                    const Standard_Real Angle);
 
   //! Returns the constructed transformation.
-  Standard_EXPORT const gp_Trsf& Value() const;
+  Standard_EXPORT const Transform3d& Value() const;
 
-  Standard_EXPORT const gp_Trsf& Operator() const;
-  Standard_EXPORT                operator gp_Trsf() const;
+  Standard_EXPORT const Transform3d& Operator() const;
+  Standard_EXPORT                operator Transform3d() const;
 
 protected:
 private:
-  gp_Trsf TheRotation;
+  Transform3d TheRotation;
 };
 
 #endif // _gce_MakeRotation_HeaderFile

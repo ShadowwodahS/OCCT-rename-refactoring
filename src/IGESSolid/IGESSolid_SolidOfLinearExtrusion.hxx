@@ -22,7 +22,7 @@
 
 #include <gp_XYZ.hxx>
 #include <IGESData_IGESEntity.hxx>
-class gp_Dir;
+class Dir3d;
 
 class IGESSolid_SolidOfLinearExtrusion;
 DEFINE_STANDARD_HANDLE(IGESSolid_SolidOfLinearExtrusion, IGESData_IGESEntity)
@@ -54,10 +54,10 @@ public:
   Standard_EXPORT Standard_Real ExtrusionLength() const;
 
   //! returns the Extrusion direction
-  Standard_EXPORT gp_Dir ExtrusionDirection() const;
+  Standard_EXPORT Dir3d ExtrusionDirection() const;
 
   //! returns ExtrusionDirection after applying TransformationMatrix
-  Standard_EXPORT gp_Dir TransformedExtrusionDirection() const;
+  Standard_EXPORT Dir3d TransformedExtrusionDirection() const;
 
   DEFINE_STANDARD_RTTIEXT(IGESSolid_SolidOfLinearExtrusion, IGESData_IGESEntity)
 

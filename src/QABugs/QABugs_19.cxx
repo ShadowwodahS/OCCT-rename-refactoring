@@ -110,11 +110,11 @@ static Standard_Integer OCC23361(Draw_Interpretor& di,
 {
   Point3d p(0, 0, 2);
 
-  gp_Trsf t1, t2;
-  t1.SetRotation(gp_Ax1(p, gp_Dir(0, 1, 0)), -0.49328285294022267);
-  t2.SetRotation(gp_Ax1(p, gp_Dir(0, 0, 1)), 0.87538474718473880);
+  Transform3d t1, t2;
+  t1.SetRotation(Axis3d(p, Dir3d(0, 1, 0)), -0.49328285294022267);
+  t2.SetRotation(Axis3d(p, Dir3d(0, 0, 1)), 0.87538474718473880);
 
-  gp_Trsf tComp = t2 * t1;
+  Transform3d tComp = t2 * t1;
 
   Point3d p1(10, 3, 4);
   Point3d p2 = p1.Transformed(tComp);
@@ -630,7 +630,7 @@ static int test_offset(Draw_Interpretor& di, Standard_Integer argc, const char**
     return 1; // TCL_ERROR
   }
 
-  gp_Ax1               RotoAx(gp::Origin(), gp::DZ());
+  Axis3d               RotoAx(gp::Origin(), gp::DZ());
   gp_Ax22d             Ax2(gp::Origin2d(), gp::DY2d(), gp::DX2d());
   Handle(Geom_Surface) Plane = new Geom_Plane(gp::YOZ());
 
@@ -737,10 +737,10 @@ static Standard_Integer OCC23945(Draw_Interpretor& /*di*/, Standard_Integer n, c
   Point3d P;
   if (n >= 13)
   {
-    gp_Vec DU, DV;
+    Vector3d DU, DV;
     if (n >= 22)
     {
-      gp_Vec D2U, D2V, D2UV;
+      Vector3d D2U, D2V, D2UV;
       GS.D2(U, V, P, DU, DV, D2U, D2V, D2UV);
       Draw::Set(a[13], D2U.X());
       Draw::Set(a[14], D2U.Y());
@@ -1269,12 +1269,12 @@ static Standard_Integer OCC24005(Draw_Interpretor& theDI,
 
   Handle(Geom_Plane)              plane(new Geom_Plane(
     gp_Ax3(Point3d(-72.948737453424499, 754.30437716359393, 259.52151854671678),
-           gp_Dir(6.2471473085930200e-007, -0.99999999999980493, 0.00000000000000000),
-           gp_Dir(0.99999999999980493, 6.2471473085930200e-007, 0.00000000000000000))));
+           Dir3d(6.2471473085930200e-007, -0.99999999999980493, 0.00000000000000000),
+           Dir3d(0.99999999999980493, 6.2471473085930200e-007, 0.00000000000000000))));
   Handle(Geom_CylindricalSurface) cylinder(new Geom_CylindricalSurface(
     gp_Ax3(Point3d(-6.4812490053250649, 753.39408794522092, 279.16400974257465),
-           gp_Dir(1.0000000000000000, 0.0, 0.00000000000000000),
-           gp_Dir(0.0, 1.0000000000000000, 0.00000000000000000)),
+           Dir3d(1.0000000000000000, 0.0, 0.00000000000000000),
+           Dir3d(0.0, 1.0000000000000000, 0.00000000000000000)),
     19.712534607908712));
 
   DrawTrSurf::Set("pln", plane);
@@ -1403,7 +1403,7 @@ static Standard_Integer OCC24945(Draw_Interpretor& di, Standard_Integer argc, co
   }
 
   Point3d              aP3D(-1725.97, 843.257, -4.22741e-013);
-  gp_Ax2              aAxis(Point3d(0, 843.257, 0), gp_Dir(0, -1, 0), gp::DX());
+  Frame3d              aAxis(Point3d(0, 843.257, 0), Dir3d(0, -1, 0), gp::DX());
   Handle(Geom_Circle) aCircle = new Geom_Circle(aAxis, 1725.9708621929999);
   GeomAdaptor_Curve   aC3D(aCircle);
 
@@ -1414,7 +1414,7 @@ static Standard_Integer OCC24945(Draw_Interpretor& di, Standard_Integer argc, co
      << "\n";
 
   // Result of deviation
-  gp_Ax2      aCylAxis(Point3d(0, 2103.87, 0), -gp::DY(), -gp::DX());
+  Frame3d      aCylAxis(Point3d(0, 2103.87, 0), -gp::DY(), -gp::DX());
   gp_Cylinder aCylinder(aCylAxis, 1890.);
 
   Standard_Real aU = 0., aV = 0.;
@@ -1598,8 +1598,8 @@ static Standard_Integer OCC24271(Draw_Interpretor& di,
 namespace
 {
 static Handle(Geom_ConicalSurface) CreateCone(const Point3d&       theLoc,
-                                              const gp_Dir&       theDir,
-                                              const gp_Dir&       theXDir,
+                                              const Dir3d&       theDir,
+                                              const Dir3d&       theXDir,
                                               const Standard_Real theRad,
                                               const Standard_Real theSin,
                                               const Standard_Real theCos)
@@ -1622,15 +1622,15 @@ static Standard_Integer OCC23972(Draw_Interpretor& /*theDI*/,
   // due to rounding the original error in math_FunctionRoots gets hidden
   const Handle(Geom_Surface) aS1 =
     CreateCone(Point3d(123.694345356663, 789.9, 68.15),
-               gp_Dir(-1, 3.48029791472957e-016, -8.41302743359754e-017),
-               gp_Dir(-3.48029791472957e-016, -1, -3.17572289932207e-016),
+               Dir3d(-1, 3.48029791472957e-016, -8.41302743359754e-017),
+               Dir3d(-3.48029791472957e-016, -1, -3.17572289932207e-016),
                3.28206830417112,
                0.780868809443031,
                0.624695047554424);
   const Handle(Geom_Surface) aS2 =
     CreateCone(Point3d(123.694345356663, 784.9, 68.15),
-               gp_Dir(-1, -2.5209507537117e-016, -1.49772808948866e-016),
-               gp_Dir(1.49772808948866e-016, 3.17572289932207e-016, -1),
+               Dir3d(-1, -2.5209507537117e-016, -1.49772808948866e-016),
+               Dir3d(1.49772808948866e-016, 3.17572289932207e-016, -1),
                3.28206830417112,
                0.780868809443031,
                0.624695047554424);
@@ -1823,7 +1823,7 @@ static Standard_Integer OCC23950(Draw_Interpretor& di, Standard_Integer argc, co
 
   Handle(TDocStd_Document) aDoc = new TDocStd_Document("dummy");
   TopoDS_Shape             s6   = BRepBuilderAPI_MakeVertex(Point3d(75, 0, 0));
-  gp_Trsf                  t0;
+  Transform3d                  t0;
   TopLoc_Location          location0(t0);
 
   TDF_Label lab1 = XCAFDoc_DocumentTool::ShapeTool(aDoc->Main())->NewShape();
@@ -3010,7 +3010,7 @@ static Standard_Integer OCC25413(Draw_Interpretor& di, Standard_Integer narg, co
   Bnd_Box aBndBox;
   BRepBndLib::Add(aShape, aBndBox);
 
-  gp_Dir        aDir(0., 1., 0.);
+  Dir3d        aDir(0., 1., 0.);
   const int     N     = 250;
   Standard_Real xMin  = aBndBox.CornerMin().X();
   Standard_Real zMin  = aBndBox.CornerMin().Z();
@@ -3204,8 +3204,8 @@ static Standard_Integer OCC25545(Draw_Interpretor& di, Standard_Integer, const c
   aShapeVec[0]                        = aShape;
   for (Standard_Integer i = 1; i < n; ++i)
   {
-    gp_Trsf aT;
-    aT.SetTranslation(gp_Vec(1, 0, 0));
+    Transform3d aT;
+    aT.SetTranslation(Vector3d(1, 0, 0));
     aLocVec[i]   = aLocVec[i - 1] * aT;
     aShapeVec[i] = aShape.Moved(aLocVec[i]);
   }
@@ -3237,7 +3237,7 @@ static Standard_Integer OCC25547(Draw_Interpretor& theDI,
 
   // However, start checking the main functionality at first.
   const Standard_Real       aFirstP = 0., aLastP = M_PI;
-  Handle(Geom_Circle)       aCircle = new Geom_Circle(gp_Ax2(gp::Origin(), gp::DZ()), 10);
+  Handle(Geom_Circle)       aCircle = new Geom_Circle(Frame3d(gp::Origin(), gp::DZ()), 10);
   Handle(Geom_TrimmedCurve) aHalf   = new Geom_TrimmedCurve(aCircle, aFirstP, aLastP);
   TopoDS_Edge               aEdge   = BRepBuilderAPI_MakeEdge(aHalf);
   BRepAdaptor_Curve         aAdaptor(aEdge);
@@ -3255,7 +3255,7 @@ static Standard_Integer OCC25547(Draw_Interpretor& theDI,
   Handle(BRepAdaptor_Surface) aHSurf = new BRepAdaptor_Surface(aSurf);
 
   Point3d aPnt;
-  gp_Dir aNormal;
+  Dir3d aNormal;
   if (!BRepMesh_GeomTool::Normal(aHSurf, 10., 10., aPnt, aNormal))
   {
     theDI << "Error. BRepMesh_GeomTool failed to take a normal of surface.\n";
@@ -3353,9 +3353,9 @@ static Standard_Integer OCC26139(Draw_Interpretor& theDI, Standard_Integer argc,
           aBuilder.Add(aComp, aBox.Shape());
         }
       }
-      gp_Trsf aTrsf;
+      Transform3d aTrsf;
       aTrsf.SetTranslation(
-        gp_Vec(aBoxGridSize * aBoxSize * aCompGridX, aBoxGridSize * aBoxSize * aCompGridY, 0.0));
+        Vector3d(aBoxGridSize * aBoxSize * aCompGridX, aBoxGridSize * aBoxSize * aCompGridY, 0.0));
       TopLoc_Location aLoc(aTrsf);
       aComp.Located(aLoc);
       aCompounds.Append(new AIS_Shape(aComp));
@@ -3816,7 +3816,7 @@ static Standard_Integer OCC25574(Draw_Interpretor& theDI,
       v.SetCoord(anAxis + 1, 1.);
 
       // Apply rotation to point
-      gp_Trsf aT;
+      Transform3d aT;
       aT.SetRotation(q2);
       gp_XYZ v2 = v;
       aT.Transforms(v2);
@@ -3891,7 +3891,7 @@ static Standard_Integer OCC25574(Draw_Interpretor& theDI,
   // similar checkfor YawPitchRoll sequence as defined in description of #25574
   {
     // Start with world coordinate system
-    gp_Ax2 world;
+    Frame3d world;
 
     // Perform three rotations using the yaw-pitch-roll convention.
     // This means: rotate around the original z axis with angle alpha,
@@ -3902,21 +3902,21 @@ static Standard_Integer OCC25574(Draw_Interpretor& theDI,
     gamma = 90.0 / 180.0 * M_PI;
 
     const gp_Quaternion rotationZ(world.Direction(), alpha);
-    const gp_Vec        rotY = rotationZ.Multiply(world.YDirection());
-    const gp_Vec        rotX = rotationZ.Multiply(world.XDirection());
+    const Vector3d        rotY = rotationZ.Multiply(world.YDirection());
+    const Vector3d        rotX = rotationZ.Multiply(world.XDirection());
 
     const gp_Quaternion rotationY(rotY, beta);
-    const gp_Vec        rotZ    = rotationY.Multiply(world.Direction());
-    const gp_Vec        rotRotX = rotationY.Multiply(rotX);
+    const Vector3d        rotZ    = rotationY.Multiply(world.Direction());
+    const Vector3d        rotRotX = rotationY.Multiply(rotX);
 
     const gp_Quaternion rotationX(rotRotX, gamma);
-    const gp_Vec        rotRotZ = rotationX.Multiply(rotZ);
+    const Vector3d        rotRotZ = rotationX.Multiply(rotZ);
 
-    gp_Ax2 result(Point3d(0.0, 0.0, 0.0), rotRotZ, rotRotX);
+    Frame3d result(Point3d(0.0, 0.0, 0.0), rotRotZ, rotRotX);
 
     // Now compute the Euler angles
-    gp_Trsf transformation;
-    transformation.SetDisplacement(gp_Ax2(), result);
+    Transform3d transformation;
+    transformation.SetDisplacement(Frame3d(), result);
 
     Standard_Real computedAlpha;
     Standard_Real computedBeta;
@@ -4085,7 +4085,7 @@ static Standard_Integer OCC26407(Draw_Interpretor& theDI,
   Point3d v1 = BRep_Tool::Pnt(wire_vertices[1]);
   Point3d v2 = BRep_Tool::Pnt(wire_vertices[wire_vertices.size() - 1]);
 
-  gp_Vec face_normal = gp_Vec(v0, v1).Crossed(gp_Vec(v0, v2));
+  Vector3d face_normal = Vector3d(v0, v1).Crossed(Vector3d(v0, v2));
 
   TopoDS_Face              face = BRepBuilderAPI_MakeFace(gp_Pln(v0, face_normal), wire_builder);
   BRepMesh_IncrementalMesh m(face, 1e-7);
@@ -4151,7 +4151,7 @@ static Standard_Integer OCC26485(Draw_Interpretor& theDI,
     for (int i = 0; i < aVertexNb; i++)
     {
       Point3d       aPoint  = aT->Node(i + 1);
-      const gp_Dir aNormal = aT->Normal(i + 1);
+      const Dir3d aNormal = aT->Normal(i + 1);
 
       if (aNormal.X() == 0 && aNormal.Y() == 0 && aNormal.Z() == 1)
       {
@@ -4400,7 +4400,7 @@ static Standard_Integer OCC26313(Draw_Interpretor& di, Standard_Integer n, const
   if (n <= 1)
     return 1;
 
-  gp_Trsf  T;
+  Transform3d  T;
   gp_GTrsf GT(T);
 
   gp_Mat rot(1.0, 0.0, 0.0, 0.0, 2.0, 0.0, 0.0, 0.0, 3.0);
@@ -4767,7 +4767,7 @@ static TopoDS_Shape taper(const TopoDS_Shape& shape,
                           Standard_Real       angle)
 {
   // Use maximum face-to-taper z-offset.
-  const gp_Pln neutral_plane(gp_Ax3(Point3d(0.0, 0.0, 140.0), gp_Dir(0.0, 0.0, 1.0)));
+  const gp_Pln neutral_plane(gp_Ax3(Point3d(0.0, 0.0, 140.0), Dir3d(0.0, 0.0, 1.0)));
 
   // Draft angle needs to be in radians, and flipped to adhere to our own (arbitrary) draft
   // angle definition.
@@ -4776,8 +4776,8 @@ static TopoDS_Shape taper(const TopoDS_Shape& shape,
   // Add face to draft. The first argument indicates that all material added/removed during
   // drafting is located below the neutral plane
   BRepOffsetAPI_DraftAngle drafter(shape);
-  drafter.Add(face_a, gp_Dir(0.0, 0.0, -1.0), draft_angle, neutral_plane);
-  drafter.Add(face_b, gp_Dir(0.0, 0.0, -1.0), draft_angle, neutral_plane);
+  drafter.Add(face_a, Dir3d(0.0, 0.0, -1.0), draft_angle, neutral_plane);
+  drafter.Add(face_b, Dir3d(0.0, 0.0, -1.0), draft_angle, neutral_plane);
   drafter.Build();
 
   return drafter.Shape();
@@ -5155,7 +5155,7 @@ public:
     // create separate group for text elements
     Handle(Graphic3d_Group)    aTextGroup = thePresentation->NewGroup();
     TCollection_ExtendedString aString("YOU SHOULD SEE THIS TEXT", Standard_True);
-    Prs3d_Text::Draw(aTextGroup, myDrawer->TextAspect(), aString, gp_Ax2(gp::Origin(), gp::DZ()));
+    Prs3d_Text::Draw(aTextGroup, myDrawer->TextAspect(), aString, Frame3d(gp::Origin(), gp::DZ()));
   }
 
   virtual void ComputeSelection(const Handle(SelectMgr_Selection)& /*theSelection*/,
@@ -5196,8 +5196,8 @@ static Standard_Integer OCC27757(Draw_Interpretor& /*theDI*/,
 
   TopoDS_Shape aBox    = BRepPrimAPI_MakeBox(20.0, 20.0, 20.0).Shape();
   TopoDS_Shape aSphere = BRepPrimAPI_MakeSphere(10.0).Shape();
-  gp_Trsf      aTrsf;
-  aTrsf.SetTranslationPart(gp_Vec(20.0, 20.0, 0.0));
+  Transform3d      aTrsf;
+  aTrsf.SetTranslationPart(Vector3d(20.0, 20.0, 0.0));
   aSphere.Located(TopLoc_Location(aTrsf));
 
   Handle(AIS_Shape) aBoxObj    = new AIS_Shape(aBox);
@@ -5229,8 +5229,8 @@ static Standard_Integer OCC27818(Draw_Interpretor& /*theDI*/,
   {
     TopoDS_Shape aBox = BRepPrimAPI_MakeBox(20.0, 20.0, 20.0).Shape();
     aBoxObjs[aBoxIdx] = new AIS_Shape(aBox);
-    gp_Trsf aTrsf;
-    aTrsf.SetTranslationPart(gp_Vec(30.0 * aBoxIdx, 30.0 * aBoxIdx, 0.0));
+    Transform3d aTrsf;
+    aTrsf.SetTranslationPart(Vector3d(30.0 * aBoxIdx, 30.0 * aBoxIdx, 0.0));
     aBoxObjs[aBoxIdx]->SetLocalTransformation(aTrsf);
     aBoxObjs[aBoxIdx]->SetHilightMode(AIS_Shaded);
   }
@@ -5340,9 +5340,9 @@ static Standard_Integer OCC29412(Draw_Interpretor& /*theDI*/,
   for (int m_loopIndex = 0; m_loopIndex < aNbIters; m_loopIndex++)
   {
     Point3d pos;
-    gp_Vec dir(0, 0, 1);
+    Vector3d dir(0, 0, 1);
 
-    gp_Ax2            center(pos, dir);
+    Frame3d            center(pos, dir);
     gp_Circ           circle(center, 1);
     Handle(AIS_Shape) feature;
 

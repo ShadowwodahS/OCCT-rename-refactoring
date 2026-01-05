@@ -28,7 +28,7 @@ GC_MakeHyperbola::GC_MakeHyperbola(const gp_Hypr& H)
   TheHyperbola = new Geom_Hyperbola(H);
 }
 
-GC_MakeHyperbola::GC_MakeHyperbola(const gp_Ax2&       A2,
+GC_MakeHyperbola::GC_MakeHyperbola(const Frame3d&       A2,
                                    const Standard_Real MajorRadius,
                                    const Standard_Real MinorRadius)
 {

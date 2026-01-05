@@ -42,10 +42,10 @@ static const Standard_Integer maxDerivOrder = 3;
 // function : FDeriv
 // purpose  : computes (F/|F|)'
 //=======================================================================
-static gp_Vec FDeriv(const gp_Vec& F, const gp_Vec& DF)
+static Vector3d FDeriv(const Vector3d& F, const Vector3d& DF)
 {
   Standard_Real Norma  = F.Magnitude();
-  gp_Vec        Result = (DF - F * (F * DF) / (Norma * Norma)) / Norma;
+  Vector3d        Result = (DF - F * (F * DF) / (Norma * Norma)) / Norma;
   return Result;
 }
 
@@ -53,10 +53,10 @@ static gp_Vec FDeriv(const gp_Vec& F, const gp_Vec& DF)
 // function : DDeriv
 // purpose  : computes (F/|F|)''
 //=======================================================================
-static gp_Vec DDeriv(const gp_Vec& F, const gp_Vec& DF, const gp_Vec& D2F)
+static Vector3d DDeriv(const Vector3d& F, const Vector3d& DF, const Vector3d& D2F)
 {
   Standard_Real Norma = F.Magnitude();
-  gp_Vec        Result =
+  Vector3d        Result =
     (D2F - 2 * DF * (F * DF) / (Norma * Norma)) / Norma
     - F
         * ((DF.SquareMagnitude() + F * D2F - 3 * (F * DF) * (F * DF) / (Norma * Norma))
@@ -68,7 +68,7 @@ static gp_Vec DDeriv(const gp_Vec& F, const gp_Vec& DF, const gp_Vec& D2F)
 // function : CosAngle
 // purpose  : Return a cosine between vectors theV1 and theV2.
 //=======================================================================
-static Standard_Real CosAngle(const gp_Vec& theV1, const gp_Vec& theV2)
+static Standard_Real CosAngle(const Vector3d& theV1, const Vector3d& theV2)
 {
   const Standard_Real aTol = gp::Resolution();
 
@@ -288,7 +288,7 @@ void GeomFill_Frenet::Init()
 
     // computation of length of singular interval
     mySnglLen = new TColStd_HArray1OfReal(1, mySngl->Length());
-    gp_Vec        SnglDer, SnglDer2;
+    Vector3d        SnglDer, SnglDer2;
     Standard_Real norm;
     for (i = 1; i <= mySngl->Length(); i++)
     {
@@ -354,15 +354,15 @@ void GeomFill_Frenet::Init()
 //            given "Tangent", "Normal" and "BiNormal" vectors)
 //            to coincide "Tangent" and "NewTangent" axes.
 //=======================================================================
-Standard_Boolean GeomFill_Frenet::RotateTrihedron(gp_Vec&       Tangent,
-                                                  gp_Vec&       Normal,
-                                                  gp_Vec&       BiNormal,
-                                                  const gp_Vec& NewTangent) const
+Standard_Boolean GeomFill_Frenet::RotateTrihedron(Vector3d&       Tangent,
+                                                  Vector3d&       Normal,
+                                                  Vector3d&       BiNormal,
+                                                  const Vector3d& NewTangent) const
 {
   const Standard_Real anInfCOS = cos(Precision::Angular()); // 0.99999995
   const Standard_Real aTol     = gp::Resolution();
 
-  gp_Vec              anAxis = Tangent.Crossed(NewTangent);
+  Vector3d              anAxis = Tangent.Crossed(NewTangent);
   const Standard_Real NT     = anAxis.Magnitude();
   if (NT <= aTol)
     // No rotation required
@@ -382,39 +382,39 @@ Standard_Boolean GeomFill_Frenet::RotateTrihedron(gp_Vec&       Tangent,
   // effectively, to rotate "Tangent" vector in both direction. After that
   // we can choose necessary rotation direction in depend of results.
 
-  const gp_Vec aV11(anAddCAng * aPx * aPx + aCAng,
+  const Vector3d aV11(anAddCAng * aPx * aPx + aCAng,
                     anAddCAng * aPx * aPy - aPz * aSAng,
                     anAddCAng * aPx * aPz + aPy * aSAng);
-  const gp_Vec aV12(anAddCAng * aPx * aPx + aCAng,
+  const Vector3d aV12(anAddCAng * aPx * aPx + aCAng,
                     anAddCAng * aPx * aPy + aPz * aSAng,
                     anAddCAng * aPx * aPz - aPy * aSAng);
-  const gp_Vec aV21(anAddCAng * aPx * aPy + aPz * aSAng,
+  const Vector3d aV21(anAddCAng * aPx * aPy + aPz * aSAng,
                     anAddCAng * aPy * aPy + aCAng,
                     anAddCAng * aPy * aPz - aPx * aSAng);
-  const gp_Vec aV22(anAddCAng * aPx * aPy - aPz * aSAng,
+  const Vector3d aV22(anAddCAng * aPx * aPy - aPz * aSAng,
                     anAddCAng * aPy * aPy + aCAng,
                     anAddCAng * aPy * aPz + aPx * aSAng);
-  const gp_Vec aV31(anAddCAng * aPx * aPz - aPy * aSAng,
+  const Vector3d aV31(anAddCAng * aPx * aPz - aPy * aSAng,
                     anAddCAng * aPy * aPz + aPx * aSAng,
                     anAddCAng * aPz * aPz + aCAng);
-  const gp_Vec aV32(anAddCAng * aPx * aPz + aPy * aSAng,
+  const Vector3d aV32(anAddCAng * aPx * aPz + aPy * aSAng,
                     anAddCAng * aPy * aPz - aPx * aSAng,
                     anAddCAng * aPz * aPz + aCAng);
 
-  gp_Vec aT1(Tangent.Dot(aV11), Tangent.Dot(aV21), Tangent.Dot(aV31));
-  gp_Vec aT2(Tangent.Dot(aV12), Tangent.Dot(aV22), Tangent.Dot(aV32));
+  Vector3d aT1(Tangent.Dot(aV11), Tangent.Dot(aV21), Tangent.Dot(aV31));
+  Vector3d aT2(Tangent.Dot(aV12), Tangent.Dot(aV22), Tangent.Dot(aV32));
 
   if (CosAngle(aT1, NewTangent) >= CosAngle(aT2, NewTangent))
   {
     Tangent  = aT1;
-    Normal   = gp_Vec(Normal.Dot(aV11), Normal.Dot(aV21), Normal.Dot(aV31));
-    BiNormal = gp_Vec(BiNormal.Dot(aV11), BiNormal.Dot(aV21), BiNormal.Dot(aV31));
+    Normal   = Vector3d(Normal.Dot(aV11), Normal.Dot(aV21), Normal.Dot(aV31));
+    BiNormal = Vector3d(BiNormal.Dot(aV11), BiNormal.Dot(aV21), BiNormal.Dot(aV31));
   }
   else
   {
     Tangent  = aT2;
-    Normal   = gp_Vec(Normal.Dot(aV12), Normal.Dot(aV22), Normal.Dot(aV32));
-    BiNormal = gp_Vec(BiNormal.Dot(aV12), BiNormal.Dot(aV22), BiNormal.Dot(aV32));
+    Normal   = Vector3d(Normal.Dot(aV12), Normal.Dot(aV22), Normal.Dot(aV32));
+    BiNormal = Vector3d(BiNormal.Dot(aV12), BiNormal.Dot(aV22), BiNormal.Dot(aV32));
   }
 
   return CosAngle(Tangent, NewTangent) >= anInfCOS;
@@ -423,9 +423,9 @@ Standard_Boolean GeomFill_Frenet::RotateTrihedron(gp_Vec&       Tangent,
 //=================================================================================================
 
 Standard_Boolean GeomFill_Frenet::D0(const Standard_Real theParam,
-                                     gp_Vec&             Tangent,
-                                     gp_Vec&             Normal,
-                                     gp_Vec&             BiNormal)
+                                     Vector3d&             Tangent,
+                                     Vector3d&             Normal,
+                                     Vector3d&             BiNormal)
 {
   const Standard_Real aTol = gp::Resolution();
 
@@ -448,7 +448,7 @@ Standard_Boolean GeomFill_Frenet::D0(const Standard_Real theParam,
   //////////////////////////////////////////////////////////////////////////////////////////////////////
   if (Ndu <= aTol)
   {
-    gp_Vec aTn;
+    Vector3d aTn;
     // Derivative is approximated by Taylor-series
 
     Standard_Integer anIndex       = 1; // Derivative order
@@ -474,7 +474,7 @@ Standard_Boolean GeomFill_Frenet::D0(const Standard_Real theParam,
       myTrimmed->D0(Min(theParam, u), P1);
       myTrimmed->D0(Max(theParam, u), P2);
 
-      gp_Vec        V1(P1, P2);
+      Vector3d        V1(P1, P2);
       Standard_Real aDirFactor = aTn.Dot(V1);
 
       if (aDirFactor < 0.0)
@@ -503,7 +503,7 @@ Standard_Boolean GeomFill_Frenet::D0(const Standard_Real theParam,
         IsParameterGrown = Standard_False;
       }
 
-      gp_Vec V1(Ptemp, P1), V2(Ptemp, P2), V3(Ptemp, P3);
+      Vector3d V1(Ptemp, P1), V2(Ptemp, P2), V3(Ptemp, P3);
 
       if (IsParameterGrown)
         aTn = -3 * V1 + 4 * V2 - V3;
@@ -544,7 +544,7 @@ Standard_Boolean GeomFill_Frenet::D0(const Standard_Real theParam,
     norm     = BiNormal.Magnitude();
     if (norm <= gp::Resolution())
     {
-      gp_Ax2 Axe(Point3d(0, 0, 0), Tangent);
+      Frame3d Axe(Point3d(0, 0, 0), Tangent);
       BiNormal.SetXYZ(Axe.YDirection().XYZ());
     }
     else
@@ -560,12 +560,12 @@ Standard_Boolean GeomFill_Frenet::D0(const Standard_Real theParam,
 //=================================================================================================
 
 Standard_Boolean GeomFill_Frenet::D1(const Standard_Real Param,
-                                     gp_Vec&             Tangent,
-                                     gp_Vec&             DTangent,
-                                     gp_Vec&             Normal,
-                                     gp_Vec&             DNormal,
-                                     gp_Vec&             BiNormal,
-                                     gp_Vec&             DBiNormal)
+                                     Vector3d&             Tangent,
+                                     Vector3d&             DTangent,
+                                     Vector3d&             Normal,
+                                     Vector3d&             DNormal,
+                                     Vector3d&             BiNormal,
+                                     Vector3d&             DBiNormal)
 {
   Standard_Integer Index;
   Standard_Real    Delta = 0.;
@@ -575,14 +575,14 @@ Standard_Boolean GeomFill_Frenet::D1(const Standard_Real Param,
 
   //  Standard_Real Norma;
   Standard_Real theParam = Param + Delta;
-  gp_Vec        DC1, DC2, DC3;
+  Vector3d        DC1, DC2, DC3;
   myTrimmed->D3(theParam, P, DC1, DC2, DC3);
   Tangent = DC1.Normalized();
 
   // if (DC2.Magnitude() <= NullTol || Tangent.Crossed(DC2).Magnitude() <= NullTol) {
   if (Tangent.Crossed(DC2).Magnitude() <= gp::Resolution())
   {
-    gp_Ax2 Axe(Point3d(0, 0, 0), Tangent);
+    Frame3d Axe(Point3d(0, 0, 0), Tangent);
     Normal.SetXYZ(Axe.XDirection().XYZ());
     BiNormal.SetXYZ(Axe.YDirection().XYZ());
     DTangent.SetCoord(0, 0, 0);
@@ -597,7 +597,7 @@ Standard_Boolean GeomFill_Frenet::D1(const Standard_Real Param,
 
   DTangent = FDeriv(DC1, DC2);
 
-  gp_Vec instead_DC1, instead_DC2;
+  Vector3d instead_DC1, instead_DC2;
   instead_DC1 = Tangent.Crossed(DC2);
   instead_DC2 = DTangent.Crossed(DC2) + Tangent.Crossed(DC3);
   DBiNormal   = FDeriv(instead_DC1, instead_DC2);
@@ -609,15 +609,15 @@ Standard_Boolean GeomFill_Frenet::D1(const Standard_Real Param,
 //=================================================================================================
 
 Standard_Boolean GeomFill_Frenet::D2(const Standard_Real Param,
-                                     gp_Vec&             Tangent,
-                                     gp_Vec&             DTangent,
-                                     gp_Vec&             D2Tangent,
-                                     gp_Vec&             Normal,
-                                     gp_Vec&             DNormal,
-                                     gp_Vec&             D2Normal,
-                                     gp_Vec&             BiNormal,
-                                     gp_Vec&             DBiNormal,
-                                     gp_Vec&             D2BiNormal)
+                                     Vector3d&             Tangent,
+                                     Vector3d&             DTangent,
+                                     Vector3d&             D2Tangent,
+                                     Vector3d&             Normal,
+                                     Vector3d&             DNormal,
+                                     Vector3d&             D2Normal,
+                                     Vector3d&             BiNormal,
+                                     Vector3d&             DBiNormal,
+                                     Vector3d&             D2BiNormal)
 {
   Standard_Integer Index;
   Standard_Real    Delta = 0.;
@@ -638,7 +638,7 @@ Standard_Boolean GeomFill_Frenet::D2(const Standard_Real Param,
 
   //  Standard_Real Norma;
   Standard_Real theParam = Param + Delta;
-  gp_Vec        DC1, DC2, DC3, DC4;
+  Vector3d        DC1, DC2, DC3, DC4;
   myTrimmed->D3(theParam, P, DC1, DC2, DC3);
   DC4 = myTrimmed->DN(theParam, 4);
 
@@ -647,7 +647,7 @@ Standard_Boolean GeomFill_Frenet::D2(const Standard_Real Param,
   // if (DC2.Magnitude() <= NullTol || Tangent.Crossed(DC2).Magnitude() <= NullTol) {
   if (Tangent.Crossed(DC2).Magnitude() <= gp::Resolution())
   {
-    gp_Ax2 Axe(Point3d(0, 0, 0), Tangent);
+    Frame3d Axe(Point3d(0, 0, 0), Tangent);
     Normal.SetXYZ(Axe.XDirection().XYZ());
     BiNormal.SetXYZ(Axe.YDirection().XYZ());
     DTangent.SetCoord(0, 0, 0);
@@ -666,7 +666,7 @@ Standard_Boolean GeomFill_Frenet::D2(const Standard_Real Param,
   DTangent  = FDeriv(DC1, DC2);
   D2Tangent = DDeriv(DC1, DC2, DC3);
 
-  gp_Vec instead_DC1, instead_DC2, instead_DC3;
+  Vector3d instead_DC1, instead_DC2, instead_DC3;
   instead_DC1 = Tangent.Crossed(DC2);
   instead_DC2 = DTangent.Crossed(DC2) + Tangent.Crossed(DC3);
   instead_DC3 = D2Tangent.Crossed(DC2) + 2 * DTangent.Crossed(DC3) + Tangent.Crossed(DC4);
@@ -758,13 +758,13 @@ void GeomFill_Frenet::Intervals(TColStd_Array1OfReal& T, const GeomAbs_Shape S) 
     T.ChangeValue(i) = Fusion.Value(i);
 }
 
-void GeomFill_Frenet::GetAverageLaw(gp_Vec& ATangent, gp_Vec& ANormal, gp_Vec& ABiNormal)
+void GeomFill_Frenet::GetAverageLaw(Vector3d& ATangent, Vector3d& ANormal, Vector3d& ABiNormal)
 {
   Standard_Integer Num = 20; // order of digitalization
-  gp_Vec           T, N, BN;
-  ATangent           = gp_Vec(0, 0, 0);
-  ANormal            = gp_Vec(0, 0, 0);
-  ABiNormal          = gp_Vec(0, 0, 0);
+  Vector3d           T, N, BN;
+  ATangent           = Vector3d(0, 0, 0);
+  ANormal            = Vector3d(0, 0, 0);
+  ABiNormal          = Vector3d(0, 0, 0);
   Standard_Real Step = (myTrimmed->LastParameter() - myTrimmed->FirstParameter()) / Num;
   Standard_Real Param;
   for (Standard_Integer i = 0; i <= Num; i++)
@@ -821,8 +821,8 @@ Standard_Boolean GeomFill_Frenet::IsSingular(const Standard_Real U, Standard_Int
 
 Standard_Boolean GeomFill_Frenet::DoSingular(const Standard_Real    U,
                                              const Standard_Integer Index,
-                                             gp_Vec&                Tangent,
-                                             gp_Vec&                BiNormal,
+                                             Vector3d&                Tangent,
+                                             Vector3d&                BiNormal,
                                              Standard_Integer&      n,
                                              Standard_Integer&      k,
                                              Standard_Integer&      TFlag,
@@ -835,7 +835,7 @@ Standard_Boolean GeomFill_Frenet::DoSingular(const Standard_Real    U,
   h = 2 * mySnglLen->Value(Index);
 
   Standard_Real A, B;
-  gp_Vec        T, N, BN;
+  Vector3d        T, N, BN;
   TFlag  = 1;
   BNFlag = 1;
   GetInterval(A, B);
@@ -860,7 +860,7 @@ Standard_Boolean GeomFill_Frenet::DoSingular(const Standard_Real    U,
     if (magn > Precision::Confusion())
     {
       // modified by jgv, 12.08.03 for OCC605 ////
-      gp_Vec NextBiNormal = Tangent.Crossed(myTrimmed->DN(U, i + 1));
+      Vector3d NextBiNormal = Tangent.Crossed(myTrimmed->DN(U, i + 1));
       if (NextBiNormal.Magnitude() > magn)
       {
         i++;
@@ -891,9 +891,9 @@ Standard_Boolean GeomFill_Frenet::DoSingular(const Standard_Real    U,
 
 Standard_Boolean GeomFill_Frenet::SingularD0(const Standard_Real    Param,
                                              const Standard_Integer Index,
-                                             gp_Vec&                Tangent,
-                                             gp_Vec&                Normal,
-                                             gp_Vec&                BiNormal,
+                                             Vector3d&                Tangent,
+                                             Vector3d&                Normal,
+                                             Vector3d&                BiNormal,
                                              Standard_Real&         Delta)
 {
   Standard_Integer n, k, TFlag, BNFlag;
@@ -910,19 +910,19 @@ Standard_Boolean GeomFill_Frenet::SingularD0(const Standard_Real    Param,
 
 Standard_Boolean GeomFill_Frenet::SingularD1(const Standard_Real    Param,
                                              const Standard_Integer Index,
-                                             gp_Vec&                Tangent,
-                                             gp_Vec&                DTangent,
-                                             gp_Vec&                Normal,
-                                             gp_Vec&                DNormal,
-                                             gp_Vec&                BiNormal,
-                                             gp_Vec&                DBiNormal,
+                                             Vector3d&                Tangent,
+                                             Vector3d&                DTangent,
+                                             Vector3d&                Normal,
+                                             Vector3d&                DNormal,
+                                             Vector3d&                BiNormal,
+                                             Vector3d&                DBiNormal,
                                              Standard_Real&         Delta)
 {
   Standard_Integer n, k, TFlag, BNFlag;
   if (!DoSingular(Param, Index, Tangent, BiNormal, n, k, TFlag, BNFlag, Delta))
     return Standard_False;
 
-  gp_Vec F, DF, Dtmp;
+  Vector3d F, DF, Dtmp;
   F        = myTrimmed->DN(Param, n);
   DF       = myTrimmed->DN(Param, n + 1);
   DTangent = FDeriv(F, DF);
@@ -952,22 +952,22 @@ Standard_Boolean GeomFill_Frenet::SingularD1(const Standard_Real    Param,
 
 Standard_Boolean GeomFill_Frenet::SingularD2(const Standard_Real    Param,
                                              const Standard_Integer Index,
-                                             gp_Vec&                Tangent,
-                                             gp_Vec&                DTangent,
-                                             gp_Vec&                D2Tangent,
-                                             gp_Vec&                Normal,
-                                             gp_Vec&                DNormal,
-                                             gp_Vec&                D2Normal,
-                                             gp_Vec&                BiNormal,
-                                             gp_Vec&                DBiNormal,
-                                             gp_Vec&                D2BiNormal,
+                                             Vector3d&                Tangent,
+                                             Vector3d&                DTangent,
+                                             Vector3d&                D2Tangent,
+                                             Vector3d&                Normal,
+                                             Vector3d&                DNormal,
+                                             Vector3d&                D2Normal,
+                                             Vector3d&                BiNormal,
+                                             Vector3d&                DBiNormal,
+                                             Vector3d&                D2BiNormal,
                                              Standard_Real&         Delta)
 {
   Standard_Integer n, k, TFlag, BNFlag;
   if (!DoSingular(Param, Index, Tangent, BiNormal, n, k, TFlag, BNFlag, Delta))
     return Standard_False;
 
-  gp_Vec F, DF, D2F, Dtmp1, Dtmp2;
+  Vector3d F, DF, D2F, Dtmp1, Dtmp2;
   F         = myTrimmed->DN(Param, n);
   DF        = myTrimmed->DN(Param, n + 1);
   D2F       = myTrimmed->DN(Param, n + 2);

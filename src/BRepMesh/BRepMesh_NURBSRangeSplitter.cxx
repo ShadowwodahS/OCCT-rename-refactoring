@@ -148,7 +148,7 @@ private:
   Standard_Boolean checkParameterForDeflectionAndUpdateCache(const Standard_Real theParam)
   {
     Point3d aTmpPnt;
-    gp_Vec aTmpVec;
+    Vector3d aTmpVec;
     myIso->D1(theParam, aTmpPnt, aTmpVec);
 
     const Standard_Real aTmpMidParam = 0.5 * (myPrevControlParam + theParam);
@@ -205,11 +205,11 @@ private:
 
   Standard_Real myCurrControlParam;
   Point3d        myCurrControlPnt;
-  gp_Vec        myCurrControlVec;
+  Vector3d        myCurrControlVec;
 
   Standard_Real myPrevControlParam;
   Point3d        myPrevControlPnt;
-  gp_Vec        myPrevControlVec;
+  Vector3d        myPrevControlVec;
 };
 
 //! Adds param to map if it fits specified range.
@@ -271,7 +271,7 @@ Standard_Boolean toSplitIntervals(const Handle(Geom_Surface)& theSurf,
     Standard_Integer aIntervalV = theIntervals[1].Lower();
     for (; aIntervalV <= theIntervals[1].Upper(); ++aIntervalV)
     {
-      gp_Dir              aNorm;
+      Dir3d              aNorm;
       const Standard_Real aParamV = theIntervals[1].Value(aIntervalV);
       if (Precision::IsInfinite(aParamV))
         continue;

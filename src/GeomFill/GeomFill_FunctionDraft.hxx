@@ -22,7 +22,7 @@
 #include <math_Vector.hxx>
 
 class math_Matrix;
-class gp_Vec;
+class Vector3d;
 class GeomFill_Tensor;
 
 class GeomFill_FunctionDraft : public math_FunctionSetWithDerivatives
@@ -66,7 +66,7 @@ public:
   Standard_EXPORT Standard_Boolean DerivT(const Handle(Adaptor3d_Curve)& C,
                                           const Standard_Real            Param,
                                           const Standard_Real            W,
-                                          const gp_Vec&                  dN,
+                                          const Vector3d&                  dN,
                                           const Standard_Real            teta,
                                           math_Vector&                   F);
 
@@ -75,13 +75,13 @@ public:
   Standard_EXPORT Standard_Boolean Deriv2T(const Handle(Adaptor3d_Curve)& C,
                                            const Standard_Real            Param,
                                            const Standard_Real            W,
-                                           const gp_Vec&                  d2N,
+                                           const Vector3d&                  d2N,
                                            const Standard_Real            teta,
                                            math_Vector&                   F);
 
   //! returns the values <D> of  the TX derivatives for
   //! the parameter Param .
-  Standard_EXPORT Standard_Boolean DerivTX(const gp_Vec&       dN,
+  Standard_EXPORT Standard_Boolean DerivTX(const Vector3d&       dN,
                                            const Standard_Real teta,
                                            math_Matrix&        D);
 

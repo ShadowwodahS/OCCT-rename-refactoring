@@ -23,9 +23,9 @@
 
 #include <gp_Lin.hxx>
 #include <gce_Root.hxx>
-class gp_Ax1;
+class Axis3d;
 class Point3d;
-class gp_Dir;
+class Dir3d;
 
 //! This class implements the following algorithms used
 //! to create a Lin from gp.
@@ -40,11 +40,11 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates a line located along the axis A1.
-  Standard_EXPORT gce_MakeLin(const gp_Ax1& A1);
+  Standard_EXPORT gce_MakeLin(const Axis3d& A1);
 
   //! <P> is the location point (origin) of the line and
   //! <V> is the direction of the line.
-  Standard_EXPORT gce_MakeLin(const Point3d& P, const gp_Dir& V);
+  Standard_EXPORT gce_MakeLin(const Point3d& P, const Dir3d& V);
 
   //! Make a Lin from gp <TheLin> parallel to another
   //! Lin <Lin> and passing through a Pnt <Point>.

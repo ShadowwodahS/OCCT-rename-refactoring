@@ -55,7 +55,7 @@ protected:
 private:
   Handle(TopLoc_Datum3D) myDatum;
   Standard_Integer       myPower;
-  gp_Trsf                myTrsf;
+  Transform3d                myTrsf;
 };
 
 #endif // _TopLoc_ItemLocation_HeaderFile

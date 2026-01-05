@@ -39,7 +39,7 @@ public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT BRepFill_Draft(const TopoDS_Shape& Shape,
-                                 const gp_Dir&       Dir,
+                                 const Dir3d&       Dir,
                                  const Standard_Real Angle);
 
   Standard_EXPORT void SetOptions(const BRepFill_TransitionStyle Style    = BRepFill_Right,
@@ -82,7 +82,7 @@ private:
 
   Standard_EXPORT Standard_Boolean Sewing();
 
-  gp_Dir                          myDir;
+  Dir3d                          myDir;
   Standard_Real                   myAngle;
   Standard_Real                   angmin;
   Standard_Real                   angmax;

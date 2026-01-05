@@ -90,7 +90,7 @@ inline void HLRBRep_LineTool::D0(const gp_Lin& C, const Standard_Real U, Point3d
   P = ElCLib::Value(U, C);
 }
 
-inline void HLRBRep_LineTool::D1(const gp_Lin& C, const Standard_Real U, Point3d& P, gp_Vec& V)
+inline void HLRBRep_LineTool::D1(const gp_Lin& C, const Standard_Real U, Point3d& P, Vector3d& V)
 {
   ElCLib::D1(U, C, P, V);
 }
@@ -98,25 +98,25 @@ inline void HLRBRep_LineTool::D1(const gp_Lin& C, const Standard_Real U, Point3d
 inline void HLRBRep_LineTool::D2(const gp_Lin&       C,
                                  const Standard_Real U,
                                  Point3d&             P,
-                                 gp_Vec&             V1,
-                                 gp_Vec&             V2)
+                                 Vector3d&             V1,
+                                 Vector3d&             V2)
 {
   ElCLib::D1(U, C, P, V1);
-  V2 = gp_Vec(0, 0, 0);
+  V2 = Vector3d(0, 0, 0);
 }
 
 inline void HLRBRep_LineTool::D3(const gp_Lin&       C,
                                  const Standard_Real U,
                                  Point3d&             P,
-                                 gp_Vec&             V1,
-                                 gp_Vec&             V2,
-                                 gp_Vec&             V3)
+                                 Vector3d&             V1,
+                                 Vector3d&             V2,
+                                 Vector3d&             V3)
 {
   ElCLib::D1(U, C, P, V1);
-  V2 = V3 = gp_Vec(0, 0, 0);
+  V2 = V3 = Vector3d(0, 0, 0);
 }
 
-inline gp_Vec HLRBRep_LineTool::DN(const gp_Lin& C, const Standard_Real U, const Standard_Integer N)
+inline Vector3d HLRBRep_LineTool::DN(const gp_Lin& C, const Standard_Real U, const Standard_Integer N)
 {
   return ElCLib::DN(U, C, N);
 }

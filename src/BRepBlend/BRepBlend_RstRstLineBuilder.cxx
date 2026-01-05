@@ -1472,7 +1472,7 @@ void BRepBlend_RstRstLineBuilder::Transition(const Standard_Boolean           On
                                              IntSurf_Transition&              TArc)
 {
   Standard_Boolean computetranstionaveclacorde = 0;
-  gp_Vec           tgline;
+  Vector3d           tgline;
   Blend_Point      prevprev;
 
   if (previousP.IsTangencyPoint())
@@ -1493,7 +1493,7 @@ void BRepBlend_RstRstLineBuilder::Transition(const Standard_Boolean           On
   gp_Vec2d dp2d;
 
   Point3d pbid;
-  gp_Vec d1u, d1v, normale, tgrst;
+  Vector3d d1u, d1v, normale, tgrst;
 
   Arc->D1(Param, p2d, dp2d);
   if (OnFirst)
@@ -1502,7 +1502,7 @@ void BRepBlend_RstRstLineBuilder::Transition(const Standard_Boolean           On
     if (!computetranstionaveclacorde)
       tgline = previousP.TangentOnC1();
     else
-      tgline = gp_Vec(prevprev.PointOnC1(), previousP.PointOnC1());
+      tgline = Vector3d(prevprev.PointOnC1(), previousP.PointOnC1());
   }
   else
   {
@@ -1510,7 +1510,7 @@ void BRepBlend_RstRstLineBuilder::Transition(const Standard_Boolean           On
     if (!computetranstionaveclacorde)
       tgline = previousP.TangentOnC2();
     else
-      tgline = gp_Vec(prevprev.PointOnC2(), previousP.PointOnC2());
+      tgline = Vector3d(prevprev.PointOnC2(), previousP.PointOnC2());
   }
 
   tgrst.SetLinearForm(dp2d.X(), d1u, dp2d.Y(), d1v);
@@ -1599,20 +1599,20 @@ Blend_Status BRepBlend_RstRstLineBuilder::CheckDeflectionOnRst1(const Blend_Poin
   Standard_Boolean    prevpointistangent = previousP.IsTangencyPoint();
 
   Point3d Psurf = CurPoint.PointOnC1();
-  gp_Vec Tgsurf;
+  Vector3d Tgsurf;
   if (!curpointistangent)
   {
     Tgsurf = CurPoint.TangentOnC1();
   }
   Point3d prevP = previousP.PointOnC1();
-  gp_Vec prevTg;
+  Vector3d prevTg;
   if (!prevpointistangent)
   {
     prevTg = previousP.TangentOnC1();
   }
   Standard_Real Norme;
   Standard_Real prevNorme = 0.;
-  gp_Vec        Corde(prevP, Psurf);
+  Vector3d        Corde(prevP, Psurf);
   Norme = Corde.SquareMagnitude();
   if (!prevpointistangent)
     prevNorme = prevTg.SquareMagnitude();
@@ -1685,21 +1685,21 @@ Blend_Status BRepBlend_RstRstLineBuilder::CheckDeflectionOnRst2(const Blend_Poin
   Standard_Boolean    prevpointistangent = previousP.IsTangencyPoint();
 
   Point3d Psurf = CurPoint.PointOnC2();
-  gp_Vec Tgsurf;
+  Vector3d Tgsurf;
 
   if (!curpointistangent)
   {
     Tgsurf = CurPoint.TangentOnC2();
   }
   Point3d prevP = previousP.PointOnC2();
-  gp_Vec prevTg;
+  Vector3d prevTg;
   if (!prevpointistangent)
   {
     prevTg = previousP.TangentOnC2();
   }
   Standard_Real Norme;
   Standard_Real prevNorme = 0.;
-  gp_Vec        Corde(prevP, Psurf);
+  Vector3d        Corde(prevP, Psurf);
   Norme = Corde.SquareMagnitude();
   if (!prevpointistangent)
     prevNorme = prevTg.SquareMagnitude();
@@ -1774,7 +1774,7 @@ Blend_Status BRepBlend_RstRstLineBuilder::TestArret(Blend_RstRstFunction&  Func,
 {
   Point3d            ptrst1, ptrst2;
   gp_Pnt2d          pt2drst1, pt2drst2;
-  gp_Vec            tgrst1, tgrst2;
+  Vector3d            tgrst1, tgrst2;
   gp_Vec2d          tg2drst1, tg2drst2;
   Blend_Status      StateRst1, StateRst2;
   IntSurf_TypeTrans trarst1 = IntSurf_Undecided, trarst2 = IntSurf_Undecided;
@@ -1949,7 +1949,7 @@ Standard_Boolean BRepBlend_RstRstLineBuilder::CheckInside(Blend_RstRstFunction& 
     SituOnC2 = TopAbs_ON;
 
   // lost contact
-  gp_Vec tgrst1, norst1, tgrst2, norst2;
+  Vector3d tgrst1, norst1, tgrst2, norst2;
   Decroch = Func.Decroch(sol, tgrst1, norst1, tgrst2, norst2);
 
   return (SituOnC1 == TopAbs_IN && SituOnC2 == TopAbs_IN && Decroch == Blend_NoDecroch);

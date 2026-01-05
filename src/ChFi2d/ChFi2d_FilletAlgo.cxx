@@ -589,7 +589,7 @@ TopoDS_Edge ChFi2d_FilletAlgo::Result(const Point3d& thePoint,
                                       aNearest->getCenter().Y(),
                                       myPlane->Pln().Position());
   Handle(Geom_Circle) aCircle =
-    new Geom_Circle(gp_Ax2(aCenter, myPlane->Pln().Axis().Direction()), myRadius);
+    new Geom_Circle(Frame3d(aCenter, myPlane->Pln().Axis().Direction()), myRadius);
   gp_Pnt2d aPoint2d1, aPoint2d2;
   myCurve1->D0(aNearest->getParam(), aPoint2d1);
   myCurve2->D0(aNearest->getParam2(), aPoint2d2);
@@ -625,10 +625,10 @@ TopoDS_Edge ChFi2d_FilletAlgo::Result(const Point3d& thePoint,
   // divide edges
   Standard_Real      aStart, anEnd;
   Handle(Geom_Curve) aCurve = BRep_Tool::Curve(myEdge1, aStart, anEnd);
-  gp_Vec             aDir;
+  Vector3d             aDir;
   aCurve->D1(aNearest->getParam(), aPoint1, aDir);
 
-  gp_Vec aCircleDir;
+  Vector3d aCircleDir;
   aCircle->D1(aParam1, aPoint1, aCircleDir);
 
   if ((aCircleDir.Angle(aDir) > M_PI / 2.0) ? !aIsOut : aIsOut)

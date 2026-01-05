@@ -50,7 +50,7 @@ Standard_Real GeomLib_DenominatorMultiplier::Value(const Standard_Real UParamete
   Standard_Real Dumaxv, Duminv, dDduumaxv, dDduuminv, Dv, Buv = 0.0;
   // Point3d         HermPnt;
   Point3d                  N;
-  gp_Vec                  Nu, Nv;
+  Vector3d                  Nu, Nv;
   TColgp_Array2OfPnt      surface_poles(1, mySurface->NbUPoles(), 1, mySurface->NbVPoles());
   TColStd_Array2OfReal    surface_weights(1, mySurface->NbUPoles(), 1, mySurface->NbVPoles());
   TColStd_Array1OfReal    surface_u_knots(1, mySurface->NbUKnots());

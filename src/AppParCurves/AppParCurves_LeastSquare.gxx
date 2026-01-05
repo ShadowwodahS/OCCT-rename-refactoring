@@ -86,8 +86,8 @@ static void CheckTangents(const TColgp_Array1OfPnt& theArrPt1,
 
   for(Standard_Integer i = theArrPt1.Lower(); i <= theArrPt1.Upper(); i++)
   {
-    const gp_Vec aV1(theArrPt1(i), theArrPt2(i));
-    const gp_Vec& aV2 = theArrTg3d(i);
+    const Vector3d aV1(theArrPt1(i), theArrPt2(i));
+    const Vector3d& aV2 = theArrTg3d(i);
 
     if(aV1.Dot(aV2) < 0.0)
     {
@@ -319,7 +319,7 @@ void AppParCurves_LeastSquare::Init(const MultiLine& SSP,
   nbP   = ToolLine::NbP3d(SSP);
   Point3d Poi;
   gp_Pnt2d Poi2d;
-//  gp_Vec V3d;
+//  Vector3d V3d;
 //  gp_Vec2d V2d;
   Standard_Integer mynbP2d = nbP2d, mynbP = nbP;
   if (nbP2d == 0) mynbP2d = 1;

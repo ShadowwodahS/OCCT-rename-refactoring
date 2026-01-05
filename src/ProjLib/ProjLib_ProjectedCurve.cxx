@@ -91,7 +91,7 @@ static Standard_Boolean IsoIsDeg(const Adaptor3d_Surface& S,
   U2                     = S.LastUParameter();
   V1                     = S.FirstVParameter();
   V2                     = S.LastVParameter();
-  gp_Vec        D1U, D1V;
+  Vector3d        D1U, D1V;
   Point3d        P;
   Standard_Real Step, D1NormMax;
   if (IT == GeomAbs_IsoV)
@@ -546,7 +546,7 @@ void ProjLib_ProjectedCurve::Perform(const Handle(Adaptor3d_Curve)& C)
         // Check possible singularity
 
         Point3d P = mySurface->AxeOfRevolution().Location();
-        gp_Dir N = mySurface->AxeOfRevolution().Direction();
+        Dir3d N = mySurface->AxeOfRevolution().Direction();
 
         gp_Lin L(P, N);
 

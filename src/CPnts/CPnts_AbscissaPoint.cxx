@@ -41,7 +41,7 @@
 static Standard_Real f3d(const Standard_Real X, const Standard_Address C)
 {
   Point3d P;
-  gp_Vec V;
+  Vector3d V;
   ((Adaptor3d_Curve*)C)->D1(X, P, V);
   return V.Magnitude();
 }

@@ -39,15 +39,15 @@ IMPLEMENT_STANDARD_RTTIEXT(Geom_CylindricalSurface, Geom_ElementarySurface)
 
 typedef Geom_CylindricalSurface CylindricalSurface;
 
-typedef gp_Ax1  Ax1;
-typedef gp_Ax2  Ax2;
+typedef Axis3d  Ax1;
+typedef Frame3d  Ax2;
 typedef gp_Ax3  Ax3;
 typedef gp_Circ Circ;
-typedef gp_Dir  Dir;
+typedef Dir3d  Dir;
 typedef gp_Lin  Lin;
 typedef Point3d  Pnt;
-typedef gp_Trsf Trsf;
-typedef gp_Vec  Vec;
+typedef Transform3d Trsf;
+typedef Vector3d  Vec;
 typedef gp_XYZ  XYZ;
 
 //=================================================================================================
@@ -308,7 +308,7 @@ void Geom_CylindricalSurface::Transform(const Trsf& T)
 
 void Geom_CylindricalSurface::TransformParameters(Standard_Real&,
                                                   Standard_Real& V,
-                                                  const gp_Trsf& T) const
+                                                  const Transform3d& T) const
 {
   if (!Precision::IsInfinite(V))
     V *= Abs(T.ScaleFactor());
@@ -316,7 +316,7 @@ void Geom_CylindricalSurface::TransformParameters(Standard_Real&,
 
 //=================================================================================================
 
-gp_GTrsf2d Geom_CylindricalSurface::ParametricTransformation(const gp_Trsf& T) const
+gp_GTrsf2d Geom_CylindricalSurface::ParametricTransformation(const Transform3d& T) const
 {
   gp_GTrsf2d T2;
   gp_Ax2d    Axis(gp::Origin2d(), gp::DX2d());

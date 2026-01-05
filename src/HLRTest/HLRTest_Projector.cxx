@@ -74,7 +74,7 @@ void HLRTest_Projector::Save(Standard_OStream& theStream) const
     theStream << myProjector.Focus() << "\n";
   }
 
-  const gp_Trsf aTransformation    = myProjector.Transformation();
+  const Transform3d aTransformation    = myProjector.Transformation();
   const gp_XYZ  aTranslationVector = aTransformation.TranslationPart();
   const gp_Mat  aMatrix            = aTransformation.VectorialPart();
 
@@ -112,19 +112,19 @@ Handle(Draw_Drawable3D) HLRTest_Projector::Restore(Standard_IStream& theStream)
   theStream >> aDirVect2[0] >> aDirVect2[1] >> aDirVect2[2] >> aTranslationVector[1];
   theStream >> aDirVect3[0] >> aDirVect3[1] >> aDirVect3[2] >> aTranslationVector[2];
 
-  gp_Dir aDir1(aDirVect1[0], aDirVect1[1], aDirVect1[2]);
-  gp_Dir aDir2(aDirVect2[0], aDirVect2[1], aDirVect2[2]);
-  gp_Dir aDir3(aDirVect3[0], aDirVect3[1], aDirVect3[2]);
+  Dir3d aDir1(aDirVect1[0], aDirVect1[1], aDirVect1[2]);
+  Dir3d aDir2(aDirVect2[0], aDirVect2[1], aDirVect2[2]);
+  Dir3d aDir3(aDirVect3[0], aDirVect3[1], aDirVect3[2]);
   gp_Ax3 anAxis(Point3d(0, 0, 0), aDir3, aDir1);
   aDir3.Cross(aDir1);
   if (aDir3.Dot(aDir2) < 0.0)
   {
     anAxis.YReverse();
   }
-  gp_Trsf aTransformation;
+  Transform3d aTransformation;
   aTransformation.SetTransformation(anAxis);
   aTransformation.SetTranslationPart(
-    gp_Vec(aTranslationVector[0], aTranslationVector[1], aTranslationVector[2]));
+    Vector3d(aTranslationVector[0], aTranslationVector[1], aTranslationVector[2]));
 
   HLRAlgo_Projector         anAlgoProtector(aTransformation, aPerspective, aFocus);
   Handle(HLRTest_Projector) aTestProjector = new HLRTest_Projector(anAlgoProtector);

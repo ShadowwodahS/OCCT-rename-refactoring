@@ -1145,7 +1145,7 @@ void TopOpeBRep_FacesFiller::ProcessVPonR(const TopOpeBRep_VPointInter&  VP,
   {
     Standard_Real tolang = Precision::Angular() * 1.e5; //=1.e-7 NYITOLXPU
 
-    gp_Vec           tgE = FUN_tool_tggeomE(paredge, edge);
+    Vector3d           tgE = FUN_tool_tggeomE(paredge, edge);
     gp_Pnt2d         OOuv;
     Standard_Boolean ok = Standard_False;
     if (VPonedge)
@@ -1157,7 +1157,7 @@ void TopOpeBRep_FacesFiller::ProcessVPonR(const TopOpeBRep_VPointInter&  VP,
     {
       ok = FUN_tool_paronEF(OOedge, OOparedge, OOFace, OOuv);
     }
-    gp_Vec ntOOF;
+    Vector3d ntOOF;
     if (ok)
       ntOOF = FUN_tool_nggeomF(OOuv, OOFace);
     if (OOFace.Orientation() == TopAbs_REVERSED)
@@ -1168,7 +1168,7 @@ void TopOpeBRep_FacesFiller::ProcessVPonR(const TopOpeBRep_VPointInter&  VP,
       ok = (tgE.Magnitude() > tol) && (ntOOF.Magnitude() > tol);
     Standard_Real dot = 1.e7;
     if (ok)
-      dot = gp_Dir(tgE).Dot(gp_Dir(ntOOF));
+      dot = Dir3d(tgE).Dot(Dir3d(ntOOF));
 
     Handle(Geom_Surface)    su   = BRep_Tool::Surface(OOFace);
     Standard_Boolean        apex = FUN_tool_onapex(OOuv, su);

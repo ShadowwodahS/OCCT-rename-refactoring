@@ -76,7 +76,7 @@ Standard_Integer DetectKPart(const TopoDS_Edge& Edge1, const TopoDS_Edge& Edge2)
   Point3d        pos1, pos;
   Standard_Real dist;
   Standard_Real dist1 = 0.;
-  gp_Ax1        axe1, axe;
+  Axis3d        axe1, axe;
 
   if (degen1)
   {
@@ -115,9 +115,9 @@ Standard_Integer DetectKPart(const TopoDS_Edge& Edge1, const TopoDS_Edge& Edge2)
       IType = 4;
       pos1  = AdC1.Line().Location();
       dist1 = AdC1.Value(first1).Distance(AdC1.Value(last1));
-      gp_Vec vec(AdC1.Value(first1), AdC1.Value(last1));
-      gp_Dir dir(vec);
-      axe1 = gp_Ax1(AdC1.Value(first1), dir);
+      Vector3d vec(AdC1.Value(first1), AdC1.Value(last1));
+      Dir3d dir(vec);
+      axe1 = Axis3d(AdC1.Value(first1), dir);
     }
     else
     {
@@ -144,9 +144,9 @@ Standard_Integer DetectKPart(const TopoDS_Edge& Edge1, const TopoDS_Edge& Edge2)
         }
         else
         {
-          gp_Vec vec(pos1, pos);
-          gp_Dir dir(vec);
-          axe = gp_Ax1(pos1, dir);
+          Vector3d vec(pos1, pos);
+          Dir3d dir(vec);
+          axe = Axis3d(pos1, dir);
           if (axe.IsParallel(axe1, Precision::Angular()))
           {
             // the top is on the axis of the circle
@@ -203,10 +203,10 @@ Standard_Integer DetectKPart(const TopoDS_Edge& Edge1, const TopoDS_Edge& Edge2)
                 SameParametricLength = (Abs(h1 - h2) < Precision::PConfusion());
               Standard_Real m1 = (first1 + last1) / 2., m2 = (first2 + last2) / 2.;
               Point3d        P1, P2;
-              gp_Vec        DU;
+              Vector3d        DU;
               AdC1.D1(m1, P1, DU);
               AdC.D0(m2, P2);
-              Same = SameParametricLength && (gp_Vec(P1, P2).IsNormal(DU, Precision::Angular()));
+              Same = SameParametricLength && (Vector3d(P1, P2).IsNormal(DU, Precision::Angular()));
               if (Same)
               {
                 // cylinder or piece of cylinder
@@ -226,10 +226,10 @@ Standard_Integer DetectKPart(const TopoDS_Edge& Edge1, const TopoDS_Edge& Edge2)
                 SameParametricLength = (Abs(h1 - h2) < Precision::PConfusion());
               Standard_Real m1 = (first1 + last1) / 2., m2 = (first2 + last2) / 2.;
               Point3d        P1, P2;
-              gp_Vec        DU;
+              Vector3d        DU;
               AdC1.D1(m1, P1, DU);
               AdC.D0(m2, P2);
-              Same = SameParametricLength && (gp_Vec(P1, P2).IsNormal(DU, Precision::Angular()));
+              Same = SameParametricLength && (Vector3d(P1, P2).IsNormal(DU, Precision::Angular()));
               if (Same)
               {
                 // truncation of cone
@@ -274,16 +274,16 @@ Standard_Integer DetectKPart(const TopoDS_Edge& Edge1, const TopoDS_Edge& Edge2)
         {
           pos  = AdC.Line().Location();
           dist = AdC.Value(first2).Distance(AdC.Value(last2));
-          gp_Vec vec(AdC.Value(first2), AdC.Value(last2));
-          gp_Dir aDir(vec);
-          axe = gp_Ax1(AdC.Value(first2), aDir);
+          Vector3d vec(AdC.Value(first2), AdC.Value(last2));
+          Dir3d aDir(vec);
+          axe = Axis3d(AdC.Value(first2), aDir);
           if (axe.IsParallel(axe1, Precision::Angular()))
           {
             // parallel straight line
             if (Abs(dist - dist1) < Precision::Confusion())
             {
-              gp_Dir dir(gp_Vec(AdC1.Value(first1), AdC.Value(first2)));
-              if (dir.IsNormal(gp_Dir(vec), Precision::Angular()))
+              Dir3d dir(Vector3d(AdC1.Value(first1), AdC.Value(first2)));
+              if (dir.IsNormal(Dir3d(vec), Precision::Angular()))
               {
                 // plane
                 IType = 4;
@@ -323,9 +323,9 @@ Standard_Integer DetectKPart(const TopoDS_Edge& Edge1, const TopoDS_Edge& Edge2)
           }
           else
           {
-            gp_Vec vec(pos1, pos);
-            gp_Dir dir(vec);
-            axe1 = gp_Ax1(pos1, dir);
+            Vector3d vec(pos1, pos);
+            Dir3d dir(vec);
+            axe1 = Axis3d(pos1, dir);
             if (axe.IsParallel(axe1, Precision::Angular()))
             {
               // the top is on the axis of the circle
@@ -462,7 +462,7 @@ Standard_Boolean CreateKPart(const TopoDS_Edge&     Edge1,
     gp_Circ c1  = aC1Adaptor.Circle();
     gp_Circ c2  = aC2Adaptor.Circle();
     gp_Ax3  Ac1 = c1.Position();
-    V           = gp_Vec(c1.Location(), c2.Location()).Dot(gp_Vec(Ac1.Direction()));
+    V           = Vector3d(c1.Location(), c2.Location()).Dot(Vector3d(Ac1.Direction()));
     if (V < 0.)
     {
       Ac1.ZReverse();
@@ -478,13 +478,13 @@ Standard_Boolean CreateKPart(const TopoDS_Edge&     Edge1,
     gp_Ax3  Ak1 = k1.Position();
     if (degen2)
     {
-      V   = gp_Vec(k1.Location(), BRep_Tool::Pnt(v2f)).Dot(gp_Vec(Ak1.Direction()));
+      V   = Vector3d(k1.Location(), BRep_Tool::Pnt(v2f)).Dot(Vector3d(Ak1.Direction()));
       Rad = -k1.Radius();
     }
     else
     {
       gp_Circ k2 = aC2Adaptor.Circle();
-      V          = gp_Vec(k1.Location(), k2.Location()).Dot(gp_Vec(Ak1.Direction()));
+      V          = Vector3d(k1.Location(), k2.Location()).Dot(Vector3d(Ak1.Direction()));
       Rad        = k2.Radius() - k1.Radius();
     }
 
@@ -504,7 +504,7 @@ Standard_Boolean CreateKPart(const TopoDS_Edge&     Edge1,
     gp_Circ k2  = aC2Adaptor.Circle();
     gp_Ax3  Ak2 = k2.Position();
     Ak2.SetLocation(BRep_Tool::Pnt(v1f));
-    V   = gp_Vec(BRep_Tool::Pnt(v1f), k2.Location()).Dot(gp_Vec(Ak2.Direction()));
+    V   = Vector3d(BRep_Tool::Pnt(v1f), k2.Location()).Dot(Vector3d(Ak2.Direction()));
     Rad = k2.Radius(); // - k2.Radius();
     if (V < 0.)
     {
@@ -538,9 +538,9 @@ Standard_Boolean CreateKPart(const TopoDS_Edge&     Edge1,
     Point3d P1 = (degen1) ? BRep_Tool::Pnt(v1f) : L1.Location();
     Point3d P2 = (degen2) ? BRep_Tool::Pnt(v2f) : L2.Location();
 
-    gp_Vec             P1P2(P1, P2);
-    gp_Dir             D1 = aLine.Direction();
-    gp_Ax3             Ax(aLine.Location(), gp_Dir(D1.Crossed(P1P2)), D1);
+    Vector3d             P1P2(P1, P2);
+    Dir3d             D1 = aLine.Direction();
+    gp_Ax3             Ax(aLine.Location(), Dir3d(D1.Crossed(P1P2)), D1);
     Handle(Geom_Plane) Plan = new Geom_Plane(Ax);
     V                       = P1P2.Dot(Ax.YDirection());
     surface                 = Plan;

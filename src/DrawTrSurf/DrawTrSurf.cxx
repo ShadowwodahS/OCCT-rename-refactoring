@@ -461,7 +461,7 @@ static Standard_Integer transform(Draw_Interpretor& di, Standard_Integer n, cons
 {
   if (n < 5)
     return 1;
-  gp_Trsf          T;
+  Transform3d          T;
   Standard_Integer i, last = n - 1;
   if (!strcmp(a[0], "pscale"))
   {
@@ -488,10 +488,10 @@ static Standard_Integer transform(Draw_Interpretor& di, Standard_Integer n, cons
         return 1;
       Point3d O(Draw::Atof(a[last - 2]), Draw::Atof(a[last - 1]), Draw::Atof(a[last]));
       last -= 3;
-      gp_Dir D(P.X(), P.Y(), P.Z());
+      Dir3d D(P.X(), P.Y(), P.Z());
       if (*a[0] == 'l')
       {
-        T.SetMirror(gp_Ax1(O, D));
+        T.SetMirror(Axis3d(O, D));
       }
       else if (*a[0] == 's')
       {
@@ -505,7 +505,7 @@ static Standard_Integer transform(Draw_Interpretor& di, Standard_Integer n, cons
   {
     if (last < 4)
       return 1;
-    gp_Vec V(Draw::Atof(a[last - 2]), Draw::Atof(a[last - 1]), Draw::Atof(a[last]));
+    Vector3d V(Draw::Atof(a[last - 2]), Draw::Atof(a[last - 1]), Draw::Atof(a[last]));
     last -= 3;
     T.SetTranslation(V);
   }
@@ -516,11 +516,11 @@ static Standard_Integer transform(Draw_Interpretor& di, Standard_Integer n, cons
       return 1;
     Standard_Real ang = Draw::Atof(a[last]) * (M_PI / 180.0);
     last--;
-    gp_Dir D(Draw::Atof(a[last - 2]), Draw::Atof(a[last - 1]), Draw::Atof(a[last]));
+    Dir3d D(Draw::Atof(a[last - 2]), Draw::Atof(a[last - 1]), Draw::Atof(a[last]));
     last -= 3;
     Point3d P(Draw::Atof(a[last - 2]), Draw::Atof(a[last - 1]), Draw::Atof(a[last]));
     last -= 3;
-    T.SetRotation(gp_Ax1(P, D), ang);
+    T.SetRotation(Axis3d(P, D), ang);
   }
 
   for (i = 1; i <= last; i++)

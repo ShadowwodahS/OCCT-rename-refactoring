@@ -493,14 +493,14 @@ void Geom_BezierCurve::D0(const Standard_Real U, Point3d& P) const
 
 //=================================================================================================
 
-void Geom_BezierCurve::D1(const Standard_Real U, Point3d& P, gp_Vec& V1) const
+void Geom_BezierCurve::D1(const Standard_Real U, Point3d& P, Vector3d& V1) const
 {
   BSplCLib::D1(U, Poles(), Weights(), P, V1);
 }
 
 //=================================================================================================
 
-void Geom_BezierCurve::D2(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2) const
+void Geom_BezierCurve::D2(const Standard_Real U, Point3d& P, Vector3d& V1, Vector3d& V2) const
 {
   BSplCLib::D2(U, Poles(), Weights(), P, V1, V2);
 }
@@ -509,20 +509,20 @@ void Geom_BezierCurve::D2(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec&
 
 void Geom_BezierCurve::D3(const Standard_Real U,
                           Point3d&             P,
-                          gp_Vec&             V1,
-                          gp_Vec&             V2,
-                          gp_Vec&             V3) const
+                          Vector3d&             V1,
+                          Vector3d&             V2,
+                          Vector3d&             V3) const
 {
   BSplCLib::D3(U, Poles(), Weights(), P, V1, V2, V3);
 }
 
 //=================================================================================================
 
-gp_Vec Geom_BezierCurve::DN(const Standard_Real U, const Standard_Integer N) const
+Vector3d Geom_BezierCurve::DN(const Standard_Real U, const Standard_Integer N) const
 {
   if (N < 1)
     throw Standard_RangeError("Geom_BezierCurve::DN");
-  gp_Vec V;
+  Vector3d V;
 
   TColStd_Array1OfReal bidknots(1, 2);
   bidknots(1) = 0.;
@@ -649,7 +649,7 @@ void Geom_BezierCurve::Weights(TColStd_Array1OfReal& W) const
 
 //=================================================================================================
 
-void Geom_BezierCurve::Transform(const gp_Trsf& T)
+void Geom_BezierCurve::Transform(const Transform3d& T)
 {
   Standard_Integer    nbpoles = NbPoles();
   TColgp_Array1OfPnt& cpoles  = poles->ChangeArray1();

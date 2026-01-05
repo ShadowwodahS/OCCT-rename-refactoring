@@ -22,7 +22,7 @@
 //=======================================================================
 void StdPersistent_TopLoc::Datum3D::Read(StdObjMgt_ReadData& theReadData)
 {
-  gp_Trsf aTrsf;
+  Transform3d aTrsf;
   theReadData >> aTrsf;
   myTransient = new TopLoc_Datum3D(aTrsf);
 }

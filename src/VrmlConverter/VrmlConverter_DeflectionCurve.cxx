@@ -128,7 +128,7 @@ static void DrawCurve(Adaptor3d_Curve&                    aCurve,
   switch (aCurve.GetType())
   {
     case GeomAbs_Line: {
-      gp_Vec V;
+      Vector3d V;
       key  = Standard_True;
       HAV1 = new TColgp_HArray1OfVec(1, 2);
       HAI1 = new TColStd_HArray1OfInteger(1, 3);
@@ -162,7 +162,7 @@ static void DrawCurve(Adaptor3d_Curve&                    aCurve,
         if (N > 0)
         {
 
-          gp_Vec V;
+          Vector3d V;
           key  = Standard_True;
           HAV1 = new TColgp_HArray1OfVec(1, N + 1);
           HAI1 = new TColStd_HArray1OfInteger(1, N + 2);
@@ -204,7 +204,7 @@ static void DrawCurve(Adaptor3d_Curve&                    aCurve,
         if (NumberOfPoints > 0)
         {
 
-          gp_Vec V;
+          Vector3d V;
           key  = Standard_True;
           HAV1 = new TColgp_HArray1OfVec(1, NumberOfPoints);
           HAI1 = new TColStd_HArray1OfInteger(1, NumberOfPoints + 1);
@@ -378,7 +378,7 @@ void VrmlConverter_DeflectionCurve::Add(Standard_OStream&                    anO
 
   Standard_Integer i;
   Point3d           aPoint;
-  gp_Vec           aVec;
+  Vector3d           aVec;
   for (i = 1; i <= aNbNodes; i++)
   {
     Standard_Real aParam = aParams->Value(aParams->Lower() + i - 1);

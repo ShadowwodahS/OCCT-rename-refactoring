@@ -163,7 +163,7 @@ Standard_Boolean TInspectorAPI_PluginParameters::GetSelectedObjects(
 TCollection_AsciiString toString(const TopLoc_Location& theLocation)
 {
   TCollection_AsciiString anInfo;
-  gp_Trsf                 aTrsf = theLocation.Transformation();
+  Transform3d                 aTrsf = theLocation.Transformation();
   for (int aRowId = 1; aRowId <= 3; aRowId++)
   {
     if (!anInfo.IsEmpty())
@@ -253,7 +253,7 @@ TopLoc_Location fromString(const TCollection_AsciiString& theValue)
   // if (aValues.Rows() != 3 || aValues.Cols() != 4)
   //   return TopLoc_Location();
 
-  gp_Trsf aTrsf;
+  Transform3d aTrsf;
   aTrsf.SetValues(aValues.GetValue(0, 0),
                   aValues.GetValue(0, 1),
                   aValues.GetValue(0, 2),

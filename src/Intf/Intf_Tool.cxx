@@ -855,7 +855,7 @@ void Intf_Tool::HyprBox(const gp_Hypr& theHypr, const Bnd_Box& domain, Bnd_Box& 
     boxHypr.Update(Xmin, Ymin, Zmin, Xmax, Ymax, Zmax);
     //
     Point3d           Pn;
-    gp_Vec           Tan;
+    Vector3d           Tan;
     Standard_Real    sinan = 0;
     Standard_Boolean out   = Standard_True;
 
@@ -1372,7 +1372,7 @@ void Intf_Tool::ParabBox(const gp_Parab& theParab, const Bnd_Box& domain, Bnd_Bo
     boxParab.Update(Xmin, Ymin, Zmin, Xmax, Ymax, Zmax);
 
     Point3d           Pn;
-    gp_Vec           Tan;
+    Vector3d           Tan;
     Standard_Real    sinan = 0;
     Standard_Boolean out   = Standard_True;
 

@@ -88,7 +88,7 @@ inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const 
   return theWriteData;
 }
 
-inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, gp_Trsf& theTrsf)
+inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, Transform3d& theTrsf)
 {
   StdObjMgt_ReadData::ObjectSentry aSentry(theReadData);
 
@@ -115,7 +115,7 @@ inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, gp_Trsf& 
   return theReadData;
 }
 
-inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const gp_Trsf& theTrsf)
+inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const Transform3d& theTrsf)
 {
   StdObjMgt_WriteData::ObjectSentry aSentry(theWriteData);
 

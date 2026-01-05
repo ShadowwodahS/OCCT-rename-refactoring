@@ -129,13 +129,13 @@ public:
 
   //! sets the flipping to theIsEnabled state.
   Standard_EXPORT virtual void SetFlippingOptions(const Standard_Boolean theIsEnabled,
-                                                  const gp_Ax2&          theRefPlane) = 0;
+                                                  const Frame3d&          theRefPlane) = 0;
 
   //! Return transformation.
-  const gp_Trsf& Transformation() const { return myTrsf; }
+  const Transform3d& Transformation() const { return myTrsf; }
 
   //! Assign transformation.
-  virtual void SetTransformation(const gp_Trsf& theTrsf) { myTrsf = theTrsf; }
+  virtual void SetTransformation(const Transform3d& theTrsf) { myTrsf = theTrsf; }
 
   //! Return transformation persistence.
   const Handle(Graphic3d_TransformPers)& TransformPersistence() const { return myTrsfPers; }
@@ -278,7 +278,7 @@ public:
   Standard_DEPRECATED(
     "Deprecated method Text() with obsolete arguments, use AddText() instead of it")
   Standard_EXPORT virtual void Text(const Standard_CString                  theTextUtf,
-                                    const gp_Ax2&                           theOrientation,
+                                    const Frame3d&                           theOrientation,
                                     const Standard_Real                     theHeight,
                                     const Standard_Real                     theAngle,
                                     const Graphic3d_TextPath                theTp,
@@ -291,7 +291,7 @@ public:
   Standard_DEPRECATED(
     "Deprecated method Text() with obsolete arguments, use AddText() instead of it")
   Standard_EXPORT virtual void Text(const TCollection_ExtendedString&       theText,
-                                    const gp_Ax2&                           theOrientation,
+                                    const Frame3d&                           theOrientation,
                                     const Standard_Real                     theHeight,
                                     const Standard_Real                     theAngle,
                                     const Graphic3d_TextPath                theTp,
@@ -316,7 +316,7 @@ protected:
   Handle(Graphic3d_TransformPers) myTrsfPers;  //!< current transform persistence
   Graphic3d_Structure*            myStructure; //!< pointer to the parent structure
   Graphic3d_BndBox4f              myBounds;    //!< bounding box
-  gp_Trsf                         myTrsf;      //!< group transformation
+  Transform3d                         myTrsf;      //!< group transformation
   bool                            myIsClosed;  //!< flag indicating closed volume
 };
 

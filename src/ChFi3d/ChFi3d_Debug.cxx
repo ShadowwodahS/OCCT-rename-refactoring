@@ -338,12 +338,12 @@ void ChFi3d_CheckSurfData(const TopOpeBRepDS_DataStructure& DStr,
     ppp = surf->Value(pp1.X(), pp1.Y());
     pw1 = surf->Value(0.9 * pp1.X() + 0.1 * pp2.X(), 0.9 * pp1.Y() + 0.1 * pp2.Y());
     pw2 = surf->Value(0.9 * pp1.X() + 0.1 * pp4.X(), 0.9 * pp1.Y() + 0.1 * pp4.Y());
-    gp_Vec vv1(ppp, pw1);
-    gp_Vec vv2(ppp, pw2);
-    gp_Vec Vwire = vv1 ^ vv2;
+    Vector3d vv1(ppp, pw1);
+    Vector3d vv2(ppp, pw2);
+    Vector3d Vwire = vv1 ^ vv2;
 
     surf->D1(pp1.X(), pp1.Y(), pw1, vv1, vv2);
-    gp_Vec           Vsurf = vv1 ^ vv2;
+    Vector3d           Vsurf = vv1 ^ vv2;
     Standard_Boolean rev   = Vsurf.Dot(Vwire) <= 0.;
 
     E1.Orientation(TopAbs_FORWARD);

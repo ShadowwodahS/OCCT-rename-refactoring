@@ -46,10 +46,10 @@ Point3d Prs3d_ToolCylinder::Vertex(const Standard_Real theU, const Standard_Real
 
 //=================================================================================================
 
-gp_Dir Prs3d_ToolCylinder::Normal(const Standard_Real theU, const Standard_Real) const
+Dir3d Prs3d_ToolCylinder::Normal(const Standard_Real theU, const Standard_Real) const
 {
   const Standard_Real aU = theU * M_PI * 2.0;
-  return gp_Dir(Cos(aU) * myHeight, Sin(aU) * myHeight, myBottomRadius - myTopRadius);
+  return Dir3d(Cos(aU) * myHeight, Sin(aU) * myHeight, myBottomRadius - myTopRadius);
 }
 
 //=================================================================================================
@@ -59,7 +59,7 @@ Handle(Graphic3d_ArrayOfTriangles) Prs3d_ToolCylinder::Create(const Standard_Rea
                                                               const Standard_Real    theHeight,
                                                               const Standard_Integer theNbSlices,
                                                               const Standard_Integer theNbStacks,
-                                                              const gp_Trsf&         theTrsf)
+                                                              const Transform3d&         theTrsf)
 {
   Handle(Graphic3d_ArrayOfTriangles) anArray;
   Prs3d_ToolCylinder aTool(theBottomRad, theTopRad, theHeight, theNbSlices, theNbStacks);

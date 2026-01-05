@@ -30,7 +30,7 @@ GeomAbs_Shape Geom_SweptSurface::Continuity() const
 
 //=================================================================================================
 
-const gp_Dir& Geom_SweptSurface::Direction() const
+const Dir3d& Geom_SweptSurface::Direction() const
 {
   return direction;
 }

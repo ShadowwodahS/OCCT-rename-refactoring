@@ -182,10 +182,10 @@ public:
   //! Returns normal at the given index.
   //! @param[in] theIndex node index within [1, NbNodes()] range
   //! @return normalized 3D vector defining a surface normal
-  gp_Dir Normal(Standard_Integer theIndex) const
+  Dir3d Normal(Standard_Integer theIndex) const
   {
     const gp_Vec3f& aNorm = myNormals.Value(theIndex - 1);
-    return gp_Dir(aNorm.x(), aNorm.y(), aNorm.z());
+    return Dir3d(aNorm.x(), aNorm.y(), aNorm.z());
   }
 
   //! Returns normal at the given index.
@@ -207,7 +207,7 @@ public:
   //! Changes normal at the given index.
   //! @param[in] theIndex  node index within [1, NbNodes()] range
   //! @param[in] theNormal normalized 3D vector defining a surface normal
-  void SetNormal(const Standard_Integer theIndex, const gp_Dir& theNormal)
+  void SetNormal(const Standard_Integer theIndex, const Dir3d& theNormal)
   {
     SetNormal(theIndex, gp_Vec3f(float(theNormal.X()), float(theNormal.Y()), float(theNormal.Z())));
   }
@@ -235,7 +235,7 @@ public:
   void UpdateCachedMinMax()
   {
     Bnd_Box aBox;
-    MinMax(aBox, gp_Trsf(), true);
+    MinMax(aBox, Transform3d(), true);
     SetCachedMinMax(aBox);
   }
 
@@ -252,7 +252,7 @@ public:
   //! @return FALSE if there is no any data to extend the passed box (no both triangulation and
   //! cached min - max range).
   Standard_EXPORT Standard_Boolean MinMax(Bnd_Box&       theBox,
-                                          const gp_Trsf& theTrsf,
+                                          const Transform3d& theTrsf,
                                           const bool     theIsAccurate = false) const;
 
   //! Dumps the content of me into the stream
@@ -396,7 +396,7 @@ protected:
 
   //! Calculates bounding box of nodal data.
   //! @param[in] theTrsf  optional transformation.
-  Standard_EXPORT virtual Bnd_Box computeBoundingBox(const gp_Trsf& theTrsf) const;
+  Standard_EXPORT virtual Bnd_Box computeBoundingBox(const Transform3d& theTrsf) const;
 
 protected:
   Bnd_Box*                     myCachedMinMax;

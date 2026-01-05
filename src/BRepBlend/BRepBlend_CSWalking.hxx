@@ -37,7 +37,7 @@ class Blend_CSFunction;
 class IntSurf_Transition;
 class Point3d;
 class gp_Pnt2d;
-class gp_Vec;
+class Vector3d;
 class gp_Vec2d;
 
 class BRepBlend_CSWalking
@@ -83,12 +83,12 @@ private:
 
   Standard_EXPORT Blend_Status CheckDeflectionOnSurf(const Point3d&   Psurf,
                                                      const gp_Pnt2d& Ponsurf,
-                                                     const gp_Vec&   Tgsurf,
+                                                     const Vector3d&   Tgsurf,
                                                      const gp_Vec2d& Tgonsurf);
 
   Standard_EXPORT Blend_Status CheckDeflectionOnCurv(const Point3d&       Pcurv,
                                                      const Standard_Real Poncurv,
-                                                     const gp_Vec&       Tgcurv);
+                                                     const Vector3d&       Tgcurv);
 
   Standard_EXPORT Blend_Status TestArret(Blend_CSFunction&      F,
                                          const math_Vector&     Sol,

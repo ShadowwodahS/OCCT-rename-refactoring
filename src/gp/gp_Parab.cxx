@@ -32,24 +32,24 @@ gp_Parab gp_Parab::Mirrored(const Point3d& P) const
   return Prb;
 }
 
-void gp_Parab::Mirror(const gp_Ax1& A1)
+void gp_Parab::Mirror(const Axis3d& A1)
 {
   pos.Mirror(A1);
 }
 
-gp_Parab gp_Parab::Mirrored(const gp_Ax1& A1) const
+gp_Parab gp_Parab::Mirrored(const Axis3d& A1) const
 {
   gp_Parab Prb = *this;
   Prb.pos.Mirror(A1);
   return Prb;
 }
 
-void gp_Parab::Mirror(const gp_Ax2& A2)
+void gp_Parab::Mirror(const Frame3d& A2)
 {
   pos.Mirror(A2);
 }
 
-gp_Parab gp_Parab::Mirrored(const gp_Ax2& A2) const
+gp_Parab gp_Parab::Mirrored(const Frame3d& A2) const
 {
   gp_Parab Prb = *this;
   Prb.pos.Mirror(A2);

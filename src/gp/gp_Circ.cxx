@@ -30,24 +30,24 @@ gp_Circ gp_Circ::Mirrored(const Point3d& P) const
   return C;
 }
 
-void gp_Circ::Mirror(const gp_Ax1& A1)
+void gp_Circ::Mirror(const Axis3d& A1)
 {
   pos.Mirror(A1);
 }
 
-gp_Circ gp_Circ::Mirrored(const gp_Ax1& A1) const
+gp_Circ gp_Circ::Mirrored(const Axis3d& A1) const
 {
   gp_Circ C = *this;
   C.pos.Mirror(A1);
   return C;
 }
 
-void gp_Circ::Mirror(const gp_Ax2& A2)
+void gp_Circ::Mirror(const Frame3d& A2)
 {
   pos.Mirror(A2);
 }
 
-gp_Circ gp_Circ::Mirrored(const gp_Ax2& A2) const
+gp_Circ gp_Circ::Mirrored(const Frame3d& A2) const
 {
   gp_Circ C = *this;
   C.pos.Mirror(A2);

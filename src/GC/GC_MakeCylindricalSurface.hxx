@@ -24,10 +24,10 @@
 #include <GC_Root.hxx>
 #include <Geom_CylindricalSurface.hxx>
 
-class gp_Ax2;
+class Frame3d;
 class gp_Cylinder;
 class Point3d;
-class gp_Ax1;
+class Axis3d;
 class gp_Circ;
 
 //! This class implements the following algorithms used
@@ -69,7 +69,7 @@ public:
   //! It is not forbidden to create a cylindrical surface with
   //! Radius = 0.0
   //! Status is "NegativeRadius" if Radius < 0.0
-  Standard_EXPORT GC_MakeCylindricalSurface(const gp_Ax2& A2, const Standard_Real Radius);
+  Standard_EXPORT GC_MakeCylindricalSurface(const Frame3d& A2, const Standard_Real Radius);
 
   //! Creates a CylindricalSurface from a non persistent Cylinder
   //! from package gp.
@@ -97,7 +97,7 @@ public:
 
   //! Make a CylindricalSurface by its axis <Axis> and radius
   //! <Radius>.
-  Standard_EXPORT GC_MakeCylindricalSurface(const gp_Ax1& Axis, const Standard_Real Radius);
+  Standard_EXPORT GC_MakeCylindricalSurface(const Axis3d& Axis, const Standard_Real Radius);
 
   //! Make a CylindricalSurface by its circular base.
   Standard_EXPORT GC_MakeCylindricalSurface(const gp_Circ& Circ);

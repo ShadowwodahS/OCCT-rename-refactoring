@@ -21,7 +21,7 @@
 //=================================================================================================
 
 void Prs3d_ToolQuadric::FillArray(Handle(Graphic3d_ArrayOfTriangles)& theArray,
-                                  const gp_Trsf&                      theTrsf) const
+                                  const Transform3d&                      theTrsf) const
 {
   if (theArray.IsNull())
   {
@@ -42,7 +42,7 @@ void Prs3d_ToolQuadric::FillArray(Handle(Graphic3d_ArrayOfTriangles)& theArray,
       {
         const Standard_Real aParamV = aV * aStepV;
         const Point3d        aVertex = Vertex(aParamU, aParamV).Transformed(theTrsf);
-        const gp_Dir        aNormal = Normal(aParamU, aParamV).Transformed(theTrsf);
+        const Dir3d        aNormal = Normal(aParamU, aParamV).Transformed(theTrsf);
         theArray->AddVertex(aVertex, aNormal);
 
         if (aU != 0 && aV != 0)
@@ -83,7 +83,7 @@ void Prs3d_ToolQuadric::FillArray(Handle(Graphic3d_ArrayOfTriangles)& theArray,
 //=================================================================================================
 
 Handle(Graphic3d_ArrayOfTriangles) Prs3d_ToolQuadric::CreateTriangulation(
-  const gp_Trsf& theTrsf) const
+  const Transform3d& theTrsf) const
 {
   Handle(Graphic3d_ArrayOfTriangles) aTriangulation;
   FillArray(aTriangulation, theTrsf);
@@ -92,7 +92,7 @@ Handle(Graphic3d_ArrayOfTriangles) Prs3d_ToolQuadric::CreateTriangulation(
 
 //=================================================================================================
 
-Handle(Poly_Triangulation) Prs3d_ToolQuadric::CreatePolyTriangulation(const gp_Trsf& theTrsf) const
+Handle(Poly_Triangulation) Prs3d_ToolQuadric::CreatePolyTriangulation(const Transform3d& theTrsf) const
 {
   Handle(Poly_Triangulation) aTriangulation =
     new Poly_Triangulation(VerticesNb(), TrianglesNb(), Standard_False);
@@ -127,7 +127,7 @@ Handle(Poly_Triangulation) Prs3d_ToolQuadric::CreatePolyTriangulation(const gp_T
 
 void Prs3d_ToolQuadric::FillArray(Handle(Graphic3d_ArrayOfTriangles)& theArray,
                                   Handle(Poly_Triangulation)&         theTriangulation,
-                                  const gp_Trsf&                      theTrsf) const
+                                  const Transform3d&                      theTrsf) const
 {
   theArray         = CreateTriangulation(theTrsf);
   theTriangulation = CreatePolyTriangulation(theTrsf);

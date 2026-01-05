@@ -68,7 +68,7 @@ public:
 
   Standard_EXPORT Standard_Boolean IsTangent();
 
-  const gp_Vec& Direction3d();
+  const Vector3d& Direction3d();
 
   const gp_Dir2d& Direction2d();
 
@@ -89,11 +89,11 @@ private:
   Standard_Boolean tangent;
   Standard_Real    tgdu;
   Standard_Real    tgdv;
-  gp_Vec           gradient;
+  Vector3d           gradient;
   Standard_Boolean derived;
-  gp_Vec           d1u;
-  gp_Vec           d1v;
-  gp_Vec           d3d;
+  Vector3d           d1u;
+  Vector3d           d1v;
+  Vector3d           d3d;
   gp_Dir2d         d2d;
 };
 

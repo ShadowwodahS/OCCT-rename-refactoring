@@ -35,7 +35,7 @@ void DsgPrs_FixPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation
                                  const Handle(Prs3d_Drawer)&       aDrawer,
                                  const Point3d&                     aPntAttach,
                                  const Point3d&                     aPntEnd,
-                                 const gp_Dir&                     aNormPln,
+                                 const Dir3d&                     aNormPln,
                                  const Standard_Real               symbsize)
 {
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
@@ -48,10 +48,10 @@ void DsgPrs_FixPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation
   aPrims->AddVertex(aPntEnd);
 
   // trace du symbole 'Fix'
-  gp_Vec dirac(aPntAttach, aPntEnd); // vecteur directeur du seg. de raccord
+  Vector3d dirac(aPntAttach, aPntEnd); // vecteur directeur du seg. de raccord
   dirac.Normalize();
-  gp_Vec norac = dirac.Crossed(gp_Vec(aNormPln));
-  gp_Ax1 ax(aPntEnd, aNormPln);
+  Vector3d norac = dirac.Crossed(Vector3d(aNormPln));
+  Axis3d ax(aPntEnd, aNormPln);
   norac.Rotate(ax, M_PI / 8); // vecteur normal au seg. de raccord
   norac *= (symbsize / 2);
   Point3d P1 = aPntEnd.Translated(norac);

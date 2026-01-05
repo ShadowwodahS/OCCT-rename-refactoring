@@ -910,8 +910,8 @@ void IntTools_EdgeEdge::ComputeLineLine()
   gp_Lin aL1 = myCurve1.Line();
   gp_Lin aL2 = myCurve2.Line();
 
-  gp_Dir aD1 = aL1.Direction();
-  gp_Dir aD2 = aL2.Direction();
+  Dir3d aD1 = aL1.Direction();
+  Dir3d aD2 = aL2.Direction();
 
   Standard_Real    anAngle    = aD1.Angle(aD2);
   Standard_Boolean IsCoincide = anAngle < Precision::Angular();
@@ -934,8 +934,8 @@ void IntTools_EdgeEdge::ComputeLineLine()
     if (!Precision::IsInfinite(aT21) && !Precision::IsInfinite(aT22))
       O2 = ElCLib::Value((aT21 + aT22) / 2., aL2);
 
-    gp_Vec aVec1 = gp_Vec(O2, aP11).Crossed(aD2);
-    gp_Vec aVec2 = gp_Vec(O2, aP12).Crossed(aD2);
+    Vector3d aVec1 = Vector3d(O2, aP11).Crossed(aD2);
+    Vector3d aVec2 = Vector3d(O2, aP12).Crossed(aD2);
 
     Standard_Real aSqDist1 = aVec1.SquareMagnitude();
     Standard_Real aSqDist2 = aVec2.SquareMagnitude();
@@ -987,9 +987,9 @@ void IntTools_EdgeEdge::ComputeLineLine()
     return;
   }
 
-  gp_Vec        O1O2(aL1.Location(), aL2.Location());
+  Vector3d        O1O2(aL1.Location(), aL2.Location());
   gp_XYZ        aCross  = aD1.XYZ().Crossed(aD2.XYZ());
-  Standard_Real aDistLL = O1O2.Dot(gp_Vec(aCross.Normalized()));
+  Standard_Real aDistLL = O1O2.Dot(Vector3d(aCross.Normalized()));
   if (Abs(aDistLL) > myTol)
     return;
 
@@ -1014,7 +1014,7 @@ void IntTools_EdgeEdge::ComputeLineLine()
     return;
 
   Point3d        aP2 = ElCLib::Value(aT2, aL2);
-  Standard_Real aT1 = gp_Vec(aL1.Location(), aP2).Dot(aD1);
+  Standard_Real aT1 = Vector3d(aL1.Location(), aP2).Dot(aD1);
 
   if (aT1 < aT11 || aT1 > aT12)
     // out of range
@@ -1048,7 +1048,7 @@ Standard_Boolean IntTools_EdgeEdge::IsIntersection(const Standard_Real aT11,
 {
   Standard_Boolean bRet;
   Point3d           aP11, aP12, aP21, aP22;
-  gp_Vec           aV11, aV12, aV21, aV22;
+  Vector3d           aV11, aV12, aV21, aV22;
   Standard_Real    aD11_21, aD11_22, aD12_21, aD12_22, aCriteria, aCoef;
   Standard_Boolean bSmall_11_21, bSmall_11_22, bSmall_12_21, bSmall_12_22;
   //
@@ -1597,7 +1597,7 @@ Standard_Real CurveDeflection(const BRepAdaptor_Curve& theBAC, const IntTools_Ra
 {
   Standard_Real    aDt, aT, aT1, aT2, aDefl;
   Standard_Integer i, aNbP;
-  gp_Vec           aV1, aV2;
+  Vector3d           aV1, aV2;
   Point3d           aP;
   //
   aDefl = 0;
@@ -1613,7 +1613,7 @@ Standard_Real CurveDeflection(const BRepAdaptor_Curve& theBAC, const IntTools_Ra
     theBAC.D1(aT, aP, aV2);
     if (aV1.Magnitude() > gp::Resolution() && aV2.Magnitude() > gp::Resolution())
     {
-      gp_Dir aD1(aV1), aD2(aV2);
+      Dir3d aD1(aV1), aD2(aV2);
       aDefl += aD1.Angle(aD2);
     }
     aV1 = aV2;

@@ -565,7 +565,7 @@ void Extrema_ExtCC::PrepareParallelResult(const Standard_Real theUt11,
 
     const gp_Circ       aWorkCirc = myC[1]->Circle();
     const Standard_Real aPeriod   = M_PI + M_PI;
-    gp_Vec              aVTg1;
+    Vector3d              aVTg1;
     Point3d              aP11;
     const Point3d        aP12 = Extrema_CurveTool::Value(*myC[0], theUt12);
     Extrema_CurveTool::D1(*myC[0], theUt11, aP11, aVTg1);
@@ -582,7 +582,7 @@ void Extrema_ExtCC::PrepareParallelResult(const Standard_Real theUt11,
 
     Standard_Real aPar1 =
       ElCLib::InPeriod(ElCLib::Parameter(aWorkCirc, aP11), theUt21, theUt21 + aPeriod);
-    const gp_Vec aVTg2 = Extrema_CurveTool::DN(*myC[1], aPar1, 1);
+    const Vector3d aVTg2 = Extrema_CurveTool::DN(*myC[1], aPar1, 1);
 
     // Check if circles have same/opposite directions
     const Standard_Boolean isOpposite(aVTg1.Dot(aVTg2) < 0.0);

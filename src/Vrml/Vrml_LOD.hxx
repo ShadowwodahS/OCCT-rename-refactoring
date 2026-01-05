@@ -55,15 +55,15 @@ class Vrml_LOD : public RefObject
 public:
   Standard_EXPORT Vrml_LOD();
 
-  Standard_EXPORT Vrml_LOD(const Handle(TColStd_HArray1OfReal)& aRange, const gp_Vec& aCenter);
+  Standard_EXPORT Vrml_LOD(const Handle(TColStd_HArray1OfReal)& aRange, const Vector3d& aCenter);
 
   Standard_EXPORT void SetRange(const Handle(TColStd_HArray1OfReal)& aRange);
 
   Standard_EXPORT Handle(TColStd_HArray1OfReal) Range() const;
 
-  Standard_EXPORT void SetCenter(const gp_Vec& aCenter);
+  Standard_EXPORT void SetCenter(const Vector3d& aCenter);
 
-  Standard_EXPORT gp_Vec Center() const;
+  Standard_EXPORT Vector3d Center() const;
 
   Standard_EXPORT Standard_OStream& Print(Standard_OStream& anOStream) const;
 
@@ -72,7 +72,7 @@ public:
 protected:
 private:
   Handle(TColStd_HArray1OfReal) myRange;
-  gp_Vec                        myCenter;
+  Vector3d                        myCenter;
   Standard_Boolean              myRangeFlag;
 };
 

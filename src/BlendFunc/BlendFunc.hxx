@@ -25,7 +25,7 @@
 #include <GeomAbs_Shape.hxx>
 
 class gp_Pnt2d;
-class gp_Vec;
+class Vector3d;
 
 //! This package provides a set of generic functions, that can
 //! instantiated to compute blendings between two surfaces
@@ -59,13 +59,13 @@ public:
 
   Standard_EXPORT static Standard_Boolean ComputeNormal(const Handle(Adaptor3d_Surface)& Surf,
                                                         const gp_Pnt2d&                  p2d,
-                                                        gp_Vec&                          Normal);
+                                                        Vector3d&                          Normal);
 
   Standard_EXPORT static Standard_Boolean ComputeDNormal(const Handle(Adaptor3d_Surface)& Surf,
                                                          const gp_Pnt2d&                  p2d,
-                                                         gp_Vec&                          Normal,
-                                                         gp_Vec&                          DNu,
-                                                         gp_Vec&                          DNv);
+                                                         Vector3d&                          Normal,
+                                                         Vector3d&                          DNu,
+                                                         Vector3d&                          DNv);
 };
 
 #endif // _BlendFunc_HeaderFile

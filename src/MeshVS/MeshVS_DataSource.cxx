@@ -165,7 +165,7 @@ Standard_Boolean MeshVS_DataSource::GetNormalsByElement(
 
       // Compute normals for each of volum`s faces - not for each node!
       case MeshVS_ET_Volume: {
-        gp_Vec           norm;
+        Vector3d           norm;
         Standard_Integer low = Coords.Lower();
         for (Standard_Integer k = aTopo->Lower(), last = aTopo->Upper(), i = 1; k <= last; k++, i++)
         {

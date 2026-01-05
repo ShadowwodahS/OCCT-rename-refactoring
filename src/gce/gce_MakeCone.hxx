@@ -23,9 +23,9 @@
 
 #include <gp_Cone.hxx>
 #include <gce_Root.hxx>
-class gp_Ax2;
+class Frame3d;
 class Point3d;
-class gp_Ax1;
+class Axis3d;
 class gp_Lin;
 
 //! This class implements the following algorithms used
@@ -51,7 +51,7 @@ public:
   //! the cone.
   //! If Radius is lower than 0.0 the status is "
   //! If Ang < Resolution from gp  or Ang >= (PI/2) - Resolution.
-  Standard_EXPORT gce_MakeCone(const gp_Ax2&       A2,
+  Standard_EXPORT gce_MakeCone(const Frame3d&       A2,
                                const Standard_Real Ang,
                                const Standard_Real Radius);
 
@@ -94,7 +94,7 @@ public:
   //! "NullAngle"
   //! If <P1> and <P2> are confused we have the status
   //! "ConfusedPoints"
-  Standard_EXPORT gce_MakeCone(const gp_Ax1& Axis, const Point3d& P1, const Point3d& P2);
+  Standard_EXPORT gce_MakeCone(const Axis3d& Axis, const Point3d& P1, const Point3d& P2);
 
   //! Makes a Cone by its axis <Axis> and two points.
   //! The distance between <P1> and the axis is the radius

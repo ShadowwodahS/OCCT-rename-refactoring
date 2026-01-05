@@ -78,7 +78,7 @@ Standard_Real BRepGProp_UFunction::VolumeValue(const Standard_Real X,
                                                Standard_Real&      theD1)
 {
   Point3d aPnt;
-  gp_Vec aNorm;
+  Vector3d aNorm;
 
   mySurface.Normal(X, myVParam, aPnt, aNorm);
 

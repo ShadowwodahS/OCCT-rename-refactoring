@@ -37,11 +37,11 @@ public:
   Standard_EXPORT LocOpe_RevolutionForm();
 
   Standard_EXPORT LocOpe_RevolutionForm(const TopoDS_Shape& Base,
-                                        const gp_Ax1&       Axe,
+                                        const Axis3d&       Axe,
                                         const Standard_Real Angle);
 
   Standard_EXPORT void Perform(const TopoDS_Shape& Base,
-                               const gp_Ax1&       Axe,
+                               const Axis3d&       Axe,
                                const Standard_Real Angle);
 
   Standard_EXPORT const TopoDS_Shape& FirstShape() const;
@@ -57,10 +57,10 @@ private:
   Standard_EXPORT void IntPerf();
 
   TopoDS_Shape                       myBase;
-  gp_Vec                             myVec;
-  gp_Vec                             myTra;
+  Vector3d                             myVec;
+  Vector3d                             myTra;
   Standard_Real                      myAngle;
-  gp_Ax1                             myAxis;
+  Axis3d                             myAxis;
   Standard_Real                      myAngTra;
   Standard_Boolean                   myDone;
   Standard_Boolean                   myIsTrans;

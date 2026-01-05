@@ -36,17 +36,17 @@ public:
 
   Standard_EXPORT Vrml_Translation();
 
-  Standard_EXPORT Vrml_Translation(const gp_Vec& aTranslation);
+  Standard_EXPORT Vrml_Translation(const Vector3d& aTranslation);
 
-  Standard_EXPORT void SetTranslation(const gp_Vec& aTranslation);
+  Standard_EXPORT void SetTranslation(const Vector3d& aTranslation);
 
-  Standard_EXPORT gp_Vec Translation() const;
+  Standard_EXPORT Vector3d Translation() const;
 
   Standard_EXPORT Standard_OStream& Print(Standard_OStream& anOStream) const;
 
 protected:
 private:
-  gp_Vec myTranslation;
+  Vector3d myTranslation;
 };
 
 #endif // _Vrml_Translation_HeaderFile

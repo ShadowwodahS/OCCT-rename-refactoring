@@ -73,9 +73,9 @@ public:
   Standard_EXPORT void SetMeridianOffset(const Standard_Real MeridianOffset = 0);
 
   //! Returns the Ax2 from <me>.
-  Standard_EXPORT const gp_Ax2& Axes() const;
+  Standard_EXPORT const Frame3d& Axes() const;
 
-  Standard_EXPORT void Axes(const gp_Ax2& A);
+  Standard_EXPORT void Axes(const Frame3d& A);
 
   Standard_EXPORT Standard_Real Angle() const;
 
@@ -262,14 +262,14 @@ protected:
   //! Creates a OneAxis algorithm.  <B> is used to build
   //! the Topology. The angle defaults to 2*PI.
   Standard_EXPORT BRepPrim_OneAxis(const BRepPrim_Builder& B,
-                                   const gp_Ax2&           A,
+                                   const Frame3d&           A,
                                    const Standard_Real     VMin,
                                    const Standard_Real     VMax);
 
   BRepPrim_Builder myBuilder;
 
 private:
-  gp_Ax2           myAxes;
+  Frame3d           myAxes;
   Standard_Real    myAngle;
   Standard_Real    myVMin;
   Standard_Real    myVMax;

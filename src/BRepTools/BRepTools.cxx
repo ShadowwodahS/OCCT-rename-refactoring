@@ -1438,7 +1438,7 @@ void BRepTools::CheckLocations(const TopoDS_Shape& theS, TopTools_ListOfShape& t
   {
     const TopoDS_Shape&    anS   = aMapS(i);
     const TopLoc_Location& aLoc  = anS.Location();
-    const gp_Trsf&         aTrsf = aLoc.Transformation();
+    const Transform3d&         aTrsf = aLoc.Transformation();
     Standard_Boolean       isBadTrsf =
       aTrsf.IsNegative() || (Abs(Abs(aTrsf.ScaleFactor()) - 1.) > TopLoc_Location::ScalePrec());
 

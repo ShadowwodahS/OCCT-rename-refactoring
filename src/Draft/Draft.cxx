@@ -31,7 +31,7 @@
 
 //=================================================================================================
 
-Standard_Real Draft::Angle(const TopoDS_Face& F, const gp_Dir& D)
+Standard_Real Draft::Angle(const TopoDS_Face& F, const Dir3d& D)
 {
 
   TopLoc_Location       Lo;
@@ -54,7 +54,7 @@ Standard_Real Draft::Angle(const TopoDS_Face& F, const gp_Dir& D)
   if (TypeS == STANDARD_TYPE(Geom_Plane))
   {
     gp_Ax3 ax3(Handle(Geom_Plane)::DownCast(S)->Pln().Position());
-    gp_Vec normale(ax3.Direction());
+    Vector3d normale(ax3.Direction());
     if (!ax3.Direct())
     {
       normale.Reverse();
@@ -86,7 +86,7 @@ Standard_Real Draft::Angle(const TopoDS_Face& F, const gp_Dir& D)
     Standard_Real umin, umax, vmin, vmax;
     BRepTools::UVBounds(F, umin, umax, vmin, vmax);
     Point3d ptbid;
-    gp_Vec d1u, d1v;
+    Vector3d d1u, d1v;
     ElSLib::D1(umin + umax / 2., vmin + vmax / 2., Co, ptbid, d1u, d1v);
     d1u.Cross(d1v);
     d1u.Normalize();

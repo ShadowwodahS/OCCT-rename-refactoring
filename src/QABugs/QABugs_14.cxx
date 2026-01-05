@@ -134,7 +134,7 @@ static Standard_Integer BUC60889(Draw_Interpretor& di, Standard_Integer argc, co
       return 1;
     }
     BRepAdaptor_Curve curve(ed);
-    gp_Dir            d = curve.Line().Direction();
+    Dir3d            d = curve.Line().Direction();
     Bnd_Box           bnd_box;
     bnd_box.Update(Draw::Atof(argv[4]),
                    Draw::Atof(argv[5]),
@@ -404,7 +404,7 @@ static Standard_Integer BUC60902(Draw_Interpretor& di,
     return 1;
   }
   Handle(Geom_BSplineCurve) aCur = anInterpolater.Curve();
-  gp_Vec                    aFirstTang, aLastTang;
+  Vector3d                    aFirstTang, aLastTang;
   aCur->D1(aCur->FirstParameter(), aP, aFirstTang);
   aCur->D1(aCur->LastParameter(), aP, aLastTang);
   di << " Used Tang1 = " << aFirstTang.X() << " " << aFirstTang.Y() << " " << aFirstTang.Z()
@@ -419,7 +419,7 @@ static Standard_Integer BUC60902(Draw_Interpretor& di,
     return 1;
   }
   aCur = anInterpolater1.Curve();
-  gp_Vec aFirstTang1, aLastTang1;
+  Vector3d aFirstTang1, aLastTang1;
   aCur->D1(aCur->FirstParameter(), aP, aFirstTang1);
   aCur->D1(aCur->LastParameter(), aP, aLastTang1);
   di << " Tang1 after compute = " << aFirstTang1.X() << " " << aFirstTang1.Y() << " "

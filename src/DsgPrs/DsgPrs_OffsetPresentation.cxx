@@ -38,8 +38,8 @@ void DsgPrs_OffsetPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
                                     const TCollection_ExtendedString& aText,
                                     const Point3d&                     AttachmentPoint1,
                                     const Point3d&                     AttachmentPoint2,
-                                    const gp_Dir&                     aDirection,
-                                    const gp_Dir&                     aDirection2,
+                                    const Dir3d&                     aDirection,
+                                    const Dir3d&                     aDirection2,
                                     const Point3d&                     OffsetPoint)
 {
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
@@ -60,8 +60,8 @@ void DsgPrs_OffsetPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
     // std::cout<<"DsgPrs_OffsetPresentation Cote nulle"<<std::endl;
     DimNulle = Standard_True;
     L3       = gp_Lin(Proj1, aDirection);
-    gp_Vec v4(Proj1, OffsetPoint);
-    gp_Dir d4(v4);
+    Vector3d v4(Proj1, OffsetPoint);
+    Dir3d d4(v4);
     L4 = gp_Lin(Proj1, d4); // normale
   }
   Standard_Real parmin, parmax, parcur;
@@ -116,7 +116,7 @@ void DsgPrs_OffsetPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
   {
     if (dist < (LA->ArrowAspect()->Length() + LA->ArrowAspect()->Length()))
       outside = Standard_True;
-    gp_Dir arrdir = L3.Direction().Reversed();
+    Dir3d arrdir = L3.Direction().Reversed();
     if (outside)
       arrdir.Reverse();
 
@@ -164,8 +164,8 @@ void DsgPrs_OffsetPresentation::AddAxes(const Handle(Prs3d_Presentation)& aPrese
                                         const TCollection_ExtendedString& /*aText*/,
                                         const Point3d& AttachmentPoint1,
                                         const Point3d& AttachmentPoint2,
-                                        const gp_Dir& aDirection,
-                                        const gp_Dir& /*aDirection2*/,
+                                        const Dir3d& aDirection,
+                                        const Dir3d& /*aDirection2*/,
                                         const Point3d& OffsetPoint)
 {
   gp_Lin L1(AttachmentPoint1, aDirection);

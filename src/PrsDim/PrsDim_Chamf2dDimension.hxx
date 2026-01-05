@@ -73,7 +73,7 @@ private:
 
 private:
   Point3d myPntAttach;
-  gp_Dir myDir;
+  Dir3d myDir;
 };
 
 #endif // _PrsDim_Chamf2dDimension_HeaderFile

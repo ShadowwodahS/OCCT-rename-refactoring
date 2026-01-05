@@ -93,13 +93,13 @@ void DsgPrs_RadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
         parat     = (otherpar < fpara) ? fpara : lpara;
       }
       Point3d              ptdir = ElCLib::Value(parat, aCircle);
-      gp_Lin              lsup(aCircle.Location(), gp_Dir(ptdir.XYZ() - aCircle.Location().XYZ()));
+      gp_Lin              lsup(aCircle.Location(), Dir3d(ptdir.XYZ() - aCircle.Location().XYZ()));
       const Standard_Real parpos = ElCLib::Parameter(lsup, AttachmentPoint);
       attpoint                   = ElCLib::Value(parpos, lsup);
     }
   }
   Point3d ptoncirc = ElCLib::Value(parat, aCircle);
-  gp_Lin L(aCircle.Location(), gp_Dir(attpoint.XYZ() - aCircle.Location().XYZ()));
+  gp_Lin L(aCircle.Location(), Dir3d(attpoint.XYZ() - aCircle.Location().XYZ()));
   Point3d firstpoint  = attpoint;
   Point3d drawtopoint = ptoncirc;
   if (drawFromCenter && !otherside)
@@ -117,7 +117,7 @@ void DsgPrs_RadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
   aPrims->AddVertex(drawtopoint);
   aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
 
-  gp_Dir arrdir = L.Direction();
+  Dir3d arrdir = L.Direction();
   if (reverseArrow)
     arrdir.Reverse();
 
@@ -167,7 +167,7 @@ void DsgPrs_RadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
   // text
   Prs3d_Text::Draw(aPresentation->CurrentGroup(), LA->TextAspect(), aText, AttachmentPoint);
 
-  gp_Dir ArrowDir = gce_MakeDir(LineOrigin, LineEnd);
+  Dir3d ArrowDir = gce_MakeDir(LineOrigin, LineEnd);
   if (reverseArrow)
     ArrowDir.Reverse();
   DsgPrs::ComputeSymbol(aPresentation,

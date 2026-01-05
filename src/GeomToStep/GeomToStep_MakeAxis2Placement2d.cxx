@@ -30,7 +30,7 @@
 // Creation d' un axis2_placement_2d de prostep a partir d' un Ax2 de gp
 //=============================================================================
 GeomToStep_MakeAxis2Placement2d::GeomToStep_MakeAxis2Placement2d(
-  const gp_Ax2&           A,
+  const Frame3d&           A,
   const StepData_Factors& theLocalFactors)
 {
   Handle(StepGeom_Axis2Placement2d) Axe;
@@ -90,7 +90,7 @@ GeomToStep_MakeAxis2Placement2d::GeomToStep_MakeAxis2Placement2d(
 //   Handle(StepGeom_Axis2Placement2d) Axe;
 //   Handle(StepGeom_CartesianPoint) P;
 //   Handle(StepGeom_Direction) D1, D2;
-//   gp_Ax2 A;
+//   Frame3d A;
 
 //  A = Axis2->Ax2();
 //  P = GeomToStep_MakeCartesianPoint(A.Location());

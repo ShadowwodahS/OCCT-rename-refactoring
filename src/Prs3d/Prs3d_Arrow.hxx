@@ -21,9 +21,9 @@
 #include <Graphic3d_ArrayOfSegments.hxx>
 #include <Prs3d_Presentation.hxx>
 
-class gp_Ax1;
+class Axis3d;
 class Point3d;
-class gp_Dir;
+class Dir3d;
 
 //! Provides class methods to draw an arrow at a given location, along a given direction and using a
 //! given angle.
@@ -40,7 +40,7 @@ public:
   //! @param theConeLength cone length (arrow tip)
   //! @param theNbFacettes tessellation quality for each part
   Standard_EXPORT static Handle(Graphic3d_ArrayOfTriangles) DrawShaded(
-    const gp_Ax1&          theAxis,
+    const Axis3d&          theAxis,
     const Standard_Real    theTubeRadius,
     const Standard_Real    theAxisLength,
     const Standard_Real    theConeRadius,
@@ -55,7 +55,7 @@ public:
   //! @param theNbSegments count of points on polyline where location is connected
   Standard_EXPORT static Handle(Graphic3d_ArrayOfSegments) DrawSegments(
     const Point3d&          theLocation,
-    const gp_Dir&          theDir,
+    const Dir3d&          theDir,
     const Standard_Real    theAngle,
     const Standard_Real    theLength,
     const Standard_Integer theNbSegments);
@@ -69,7 +69,7 @@ public:
   //! @param theLength    length of the arrow (from the tip)
   Standard_EXPORT static void Draw(const Handle(Graphic3d_Group)& theGroup,
                                    const Point3d&                  theLocation,
-                                   const gp_Dir&                  theDirection,
+                                   const Dir3d&                  theDirection,
                                    const Standard_Real            theAngle,
                                    const Standard_Real            theLength);
 };

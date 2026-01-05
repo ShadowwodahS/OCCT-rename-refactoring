@@ -761,8 +761,8 @@ void BSplSLib::D1(const Standard_Real            U,
                   const Standard_Boolean         UPer,
                   const Standard_Boolean         VPer,
                   Point3d&                        P,
-                  gp_Vec&                        Vu,
-                  gp_Vec&                        Vv)
+                  Vector3d&                        Vu,
+                  Vector3d&                        Vv)
 {
   Standard_Boolean rational;
   //  Standard_Integer k,dim,dim2;
@@ -879,8 +879,8 @@ void BSplSLib::HomogeneousD1(const Standard_Real            U,
                              const Standard_Boolean         UPer,
                              const Standard_Boolean         VPer,
                              Point3d&                        N,
-                             gp_Vec&                        Nu,
-                             gp_Vec&                        Nv,
+                             Vector3d&                        Nu,
+                             Vector3d&                        Nv,
                              Standard_Real&                 D,
                              Standard_Real&                 Du,
                              Standard_Real&                 Dv)
@@ -967,11 +967,11 @@ void BSplSLib::D2(const Standard_Real            U,
                   const Standard_Boolean         UPer,
                   const Standard_Boolean         VPer,
                   Point3d&                        P,
-                  gp_Vec&                        Vu,
-                  gp_Vec&                        Vv,
-                  gp_Vec&                        Vuu,
-                  gp_Vec&                        Vvv,
-                  gp_Vec&                        Vuv)
+                  Vector3d&                        Vu,
+                  Vector3d&                        Vv,
+                  Vector3d&                        Vuu,
+                  Vector3d&                        Vvv,
+                  Vector3d&                        Vuv)
 {
   Standard_Boolean rational;
   //  Standard_Integer k,dim,dim2;
@@ -1129,15 +1129,15 @@ void BSplSLib::D3(const Standard_Real            U,
                   const Standard_Boolean         UPer,
                   const Standard_Boolean         VPer,
                   Point3d&                        P,
-                  gp_Vec&                        Vu,
-                  gp_Vec&                        Vv,
-                  gp_Vec&                        Vuu,
-                  gp_Vec&                        Vvv,
-                  gp_Vec&                        Vuv,
-                  gp_Vec&                        Vuuu,
-                  gp_Vec&                        Vvvv,
-                  gp_Vec&                        Vuuv,
-                  gp_Vec&                        Vuvv)
+                  Vector3d&                        Vu,
+                  Vector3d&                        Vv,
+                  Vector3d&                        Vuu,
+                  Vector3d&                        Vvv,
+                  Vector3d&                        Vuv,
+                  Vector3d&                        Vuuu,
+                  Vector3d&                        Vvvv,
+                  Vector3d&                        Vuuv,
+                  Vector3d&                        Vuvv)
 {
   Standard_Boolean rational;
   //  Standard_Integer k,dim,dim2;
@@ -1365,7 +1365,7 @@ void BSplSLib::DN(const Standard_Real            U,
                   const Standard_Boolean         VRat,
                   const Standard_Boolean         UPer,
                   const Standard_Boolean         VPer,
-                  gp_Vec&                        Vn)
+                  Vector3d&                        Vn)
 {
   Standard_Boolean rational;
   Standard_Integer k, dim;
@@ -2530,8 +2530,8 @@ void BSplSLib::CacheD1(const Standard_Real         UParameter,
                        const TColgp_Array2OfPnt&   PolesArray,
                        const TColStd_Array2OfReal* WeightsArray,
                        Point3d&                     aPoint,
-                       gp_Vec&                     aVecU,
-                       gp_Vec&                     aVecV)
+                       Vector3d&                     aVecU,
+                       Vector3d&                     aVecV)
 {
   //
   // the CacheParameter is where the cache polynomial was evaluated in homogeneous
@@ -2716,11 +2716,11 @@ void BSplSLib::CacheD2(const Standard_Real         UParameter,
                        const TColgp_Array2OfPnt&   PolesArray,
                        const TColStd_Array2OfReal* WeightsArray,
                        Point3d&                     aPoint,
-                       gp_Vec&                     aVecU,
-                       gp_Vec&                     aVecV,
-                       gp_Vec&                     aVecUU,
-                       gp_Vec&                     aVecUV,
-                       gp_Vec&                     aVecVV)
+                       Vector3d&                     aVecU,
+                       Vector3d&                     aVecV,
+                       Vector3d&                     aVecUU,
+                       Vector3d&                     aVecUV,
+                       Vector3d&                     aVecVV)
 {
   //
   // the CacheParameter is where the cache polynomial was evaluated in homogeneous
@@ -3015,7 +3015,7 @@ void BSplSLib::CacheD2(const Standard_Real         UParameter,
 
 void BSplSLib::MovePoint(const Standard_Real         U,
                          const Standard_Real         V,
-                         const gp_Vec&               Displ,
+                         const Vector3d&               Displ,
                          const Standard_Integer      UIndex1,
                          const Standard_Integer      UIndex2,
                          const Standard_Integer      VIndex1,

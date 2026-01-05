@@ -34,8 +34,8 @@ void LProp3d_SurfaceTool::D1(const Handle(Adaptor3d_Surface)& S,
                              const Standard_Real              U,
                              const Standard_Real              V,
                              Point3d&                          P,
-                             gp_Vec&                          D1U,
-                             gp_Vec&                          D1V)
+                             Vector3d&                          D1U,
+                             Vector3d&                          D1V)
 {
   S->D1(U, V, P, D1U, D1V);
 }
@@ -46,18 +46,18 @@ void LProp3d_SurfaceTool::D2(const Handle(Adaptor3d_Surface)& S,
                              const Standard_Real              U,
                              const Standard_Real              V,
                              Point3d&                          P,
-                             gp_Vec&                          D1U,
-                             gp_Vec&                          D1V,
-                             gp_Vec&                          D2U,
-                             gp_Vec&                          D2V,
-                             gp_Vec&                          DUV)
+                             Vector3d&                          D1U,
+                             Vector3d&                          D1V,
+                             Vector3d&                          D2U,
+                             Vector3d&                          D2V,
+                             Vector3d&                          DUV)
 {
   S->D2(U, V, P, D1U, D1V, D2U, D2V, DUV);
 }
 
 //=================================================================================================
 
-gp_Vec LProp3d_SurfaceTool::DN(const Handle(Adaptor3d_Surface)& S,
+Vector3d LProp3d_SurfaceTool::DN(const Handle(Adaptor3d_Surface)& S,
                                const Standard_Real              U,
                                const Standard_Real              V,
                                const Standard_Integer           IU,

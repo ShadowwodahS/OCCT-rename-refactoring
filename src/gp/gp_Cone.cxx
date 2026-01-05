@@ -36,7 +36,7 @@ void gp_Cone::Coefficients(Standard_Real& A1,
 {
   // Dans le repere du cone :
   // X**2 + Y**2 - (radius + Z * Tan(semiAngle))**2 = 0.0
-  gp_Trsf T;
+  Transform3d T;
   T.SetTransformation(pos);
   Standard_Real KAng = Tan(semiAngle);
   Standard_Real T11  = T.Value(1, 1);
@@ -75,24 +75,24 @@ gp_Cone gp_Cone::Mirrored(const Point3d& P) const
   return C;
 }
 
-void gp_Cone::Mirror(const gp_Ax1& A1)
+void gp_Cone::Mirror(const Axis3d& A1)
 {
   pos.Mirror(A1);
 }
 
-gp_Cone gp_Cone::Mirrored(const gp_Ax1& A1) const
+gp_Cone gp_Cone::Mirrored(const Axis3d& A1) const
 {
   gp_Cone C = *this;
   C.pos.Mirror(A1);
   return C;
 }
 
-void gp_Cone::Mirror(const gp_Ax2& A2)
+void gp_Cone::Mirror(const Frame3d& A2)
 {
   pos.Mirror(A2);
 }
 
-gp_Cone gp_Cone::Mirrored(const gp_Ax2& A2) const
+gp_Cone gp_Cone::Mirrored(const Frame3d& A2) const
 {
   gp_Cone C = *this;
   C.pos.Mirror(A2);

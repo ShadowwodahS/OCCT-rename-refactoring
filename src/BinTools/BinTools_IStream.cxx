@@ -201,7 +201,7 @@ BinTools_IStream& BinTools_IStream::operator>>(Standard_ShortReal& theValue)
 // function : operator <<
 // purpose  :
 //=======================================================================
-BinTools_IStream& BinTools_IStream::operator>>(gp_Trsf& theValue)
+BinTools_IStream& BinTools_IStream::operator>>(Transform3d& theValue)
 {
   Standard_Real aV1[3], aV2[3], aV3[3], aV[3];
   *this >> aV1[0] >> aV1[1] >> aV1[2] >> aV[0];

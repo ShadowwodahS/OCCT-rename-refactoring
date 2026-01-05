@@ -147,7 +147,7 @@ void BSplCLib::D1(const Standard_Real         U,
                   const TColgp_Array1OfPnt&   Poles,
                   const TColStd_Array1OfReal* Weights,
                   Point3d&                     P,
-                  gp_Vec&                     V)
+                  Vector3d&                     V)
 {
   Standard_Integer      deg = Poles.Length() - 1;
   BSplCLib_BezierArrays bzarr(deg);
@@ -173,8 +173,8 @@ void BSplCLib::D2(const Standard_Real         U,
                   const TColgp_Array1OfPnt&   Poles,
                   const TColStd_Array1OfReal* Weights,
                   Point3d&                     P,
-                  gp_Vec&                     V1,
-                  gp_Vec&                     V2)
+                  Vector3d&                     V1,
+                  Vector3d&                     V2)
 {
   Standard_Integer      deg = Poles.Length() - 1;
   BSplCLib_BezierArrays bzarr(deg);
@@ -201,9 +201,9 @@ void BSplCLib::D3(const Standard_Real         U,
                   const TColgp_Array1OfPnt&   Poles,
                   const TColStd_Array1OfReal* Weights,
                   Point3d&                     P,
-                  gp_Vec&                     V1,
-                  gp_Vec&                     V2,
-                  gp_Vec&                     V3)
+                  Vector3d&                     V1,
+                  Vector3d&                     V2,
+                  Vector3d&                     V3)
 {
   Standard_Integer      deg = Poles.Length() - 1;
   BSplCLib_BezierArrays bzarr(deg);

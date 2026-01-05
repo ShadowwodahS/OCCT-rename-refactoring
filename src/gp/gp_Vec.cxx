@@ -29,7 +29,7 @@
 #include <Standard_Dump.hxx>
 #include <Standard_OutOfRange.hxx>
 
-Standard_Boolean gp_Vec::IsEqual(const gp_Vec&       Other,
+Standard_Boolean Vector3d::IsEqual(const Vector3d&       Other,
                                  const Standard_Real LinearTolerance,
                                  const Standard_Real AngularTolerance) const
 {
@@ -49,7 +49,7 @@ Standard_Boolean gp_Vec::IsEqual(const gp_Vec&       Other,
   }
 }
 
-void gp_Vec::Mirror(const gp_Vec& V)
+void Vector3d::Mirror(const Vector3d& V)
 {
   Standard_Real D = V.coord.Modulus();
   if (D > gp::Resolution())
@@ -70,7 +70,7 @@ void gp_Vec::Mirror(const gp_Vec& V)
   }
 }
 
-void gp_Vec::Mirror(const gp_Ax1& A1)
+void Vector3d::Mirror(const Axis3d& A1)
 {
   const gp_XYZ& V  = A1.Direction().XYZ();
   Standard_Real A  = V.X();
@@ -87,7 +87,7 @@ void gp_Vec::Mirror(const gp_Ax1& A1)
   coord.SetZ(M2 * X + M3 * Y + ((2.0 * C * C) - 1.0) * Z);
 }
 
-void gp_Vec::Mirror(const gp_Ax2& A2)
+void Vector3d::Mirror(const Frame3d& A2)
 {
   gp_XYZ Z      = A2.Direction().XYZ();
   gp_XYZ MirXYZ = Z.Crossed(coord);
@@ -102,7 +102,7 @@ void gp_Vec::Mirror(const gp_Ax2& A2)
   }
 }
 
-void gp_Vec::Transform(const gp_Trsf& T)
+void Vector3d::Transform(const Transform3d& T)
 {
   if (T.Form() == gp_Identity || T.Form() == gp_Translation)
   {
@@ -121,30 +121,30 @@ void gp_Vec::Transform(const gp_Trsf& T)
   }
 }
 
-gp_Vec gp_Vec::Mirrored(const gp_Vec& V) const
+Vector3d Vector3d::Mirrored(const Vector3d& V) const
 {
-  gp_Vec Vres = *this;
+  Vector3d Vres = *this;
   Vres.Mirror(V);
   return Vres;
 }
 
-gp_Vec gp_Vec::Mirrored(const gp_Ax1& A1) const
+Vector3d Vector3d::Mirrored(const Axis3d& A1) const
 {
-  gp_Vec Vres = *this;
+  Vector3d Vres = *this;
   Vres.Mirror(A1);
   return Vres;
 }
 
-gp_Vec gp_Vec::Mirrored(const gp_Ax2& A2) const
+Vector3d Vector3d::Mirrored(const Frame3d& A2) const
 {
-  gp_Vec Vres = *this;
+  Vector3d Vres = *this;
   Vres.Mirror(A2);
   return Vres;
 }
 
 //=================================================================================================
 
-void gp_Vec::DumpJson(Standard_OStream& theOStream, Standard_Integer) const
+void Vector3d::DumpJson(Standard_OStream& theOStream, Standard_Integer) const
 {
-  OCCT_DUMP_VECTOR_CLASS(theOStream, "gp_Vec", 3, coord.X(), coord.Y(), coord.Z())
+  OCCT_DUMP_VECTOR_CLASS(theOStream, "Vector3d", 3, coord.X(), coord.Y(), coord.Z())
 }

@@ -37,14 +37,14 @@ static Standard_Boolean Controle(const TColgp_Array1OfPnt&   Poles,
   Standard_Boolean        IsPlan = Standard_False;
   Standard_Real           gx, gy, gz;
   Point3d                  Bary;
-  gp_Dir                  DX, DY;
+  Dir3d                  DX, DY;
   constexpr Standard_Real aTolSingular = Precision::Confusion();
 
   GeomLib::Inertia(Poles, Bary, DX, DY, gx, gy, gz);
   if (gz < Tol && gy > aTolSingular)
   {
     Point3d        P;
-    gp_Vec        DU, DV;
+    Vector3d        DU, DV;
     Standard_Real umin, umax, vmin, vmax;
     S->Bounds(umin, umax, vmin, vmax);
     S->D1((umin + umax) / 2, (vmin + vmax) / 2, P, DU, DV);
@@ -52,7 +52,7 @@ static Standard_Boolean Controle(const TColgp_Array1OfPnt&   Poles,
     if (DU.SquareMagnitude() > gp::Resolution() && DV.SquareMagnitude() > gp::Resolution())
     {
       // On prend DX le plus proche possible de DU
-      gp_Dir        du(DU);
+      Dir3d        du(DU);
       Standard_Real Angle1 = du.Angle(DX);
       Standard_Real Angle2 = du.Angle(DY);
       if (Angle1 > M_PI / 2)
@@ -160,8 +160,8 @@ GeomLib_IsPlanarSurface::GeomLib_IsPlanarSurface(const Handle(Geom_Surface)& S,
     case GeomAbs_SurfaceOfRevolution: {
       Standard_Boolean Essai = Standard_True;
       Point3d           P;
-      gp_Vec           DU, DV, Dn;
-      gp_Dir           Dir = AS.AxeOfRevolution().Direction();
+      Vector3d           DU, DV, Dn;
+      Dir3d           Dir = AS.AxeOfRevolution().Direction();
       Standard_Real    Umin, Umax, Vmin, Vmax;
       S->Bounds(Umin, Umax, Vmin, Vmax);
       S->D1((Umin + Umax) / 2, (Vmin + Vmax) / 2, P, DU, DV);
@@ -202,7 +202,7 @@ GeomLib_IsPlanarSurface::GeomLib_IsPlanarSurface(const Handle(Geom_Surface)& S,
       Standard_Boolean Essai = Standard_False;
       Standard_Real    Umin, Umax, Vmin, Vmax;
       Standard_Real    norm;
-      gp_Vec           Du, Dv, Dn;
+      Vector3d           Du, Dv, Dn;
       Point3d           P;
 
       S->Bounds(Umin, Umax, Vmin, Vmax);
@@ -219,7 +219,7 @@ GeomLib_IsPlanarSurface::GeomLib_IsPlanarSurface(const Handle(Geom_Surface)& S,
       {
         Dn /= norm;
         Standard_Real angmax = Tol / (Vmax - Vmin);
-        gp_Dir        D(Dn);
+        Dir3d        D(Dn);
         Essai = (D.IsNormal(AS.Direction(), angmax));
       }
       if (Essai)

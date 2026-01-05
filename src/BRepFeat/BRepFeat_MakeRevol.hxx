@@ -52,14 +52,14 @@ public:
   BRepFeat_MakeRevol(const TopoDS_Shape&    Sbase,
                      const TopoDS_Shape&    Pbase,
                      const TopoDS_Face&     Skface,
-                     const gp_Ax1&          Axis,
+                     const Axis3d&          Axis,
                      const Standard_Integer Fuse,
                      const Standard_Boolean Modify);
 
   Standard_EXPORT void Init(const TopoDS_Shape&    Sbase,
                             const TopoDS_Shape&    Pbase,
                             const TopoDS_Face&     Skface,
-                            const gp_Ax1&          Axis,
+                            const Axis3d&          Axis,
                             const Standard_Integer Fuse,
                             const Standard_Boolean Modify);
 
@@ -92,7 +92,7 @@ protected:
 private:
   TopoDS_Shape                       myPbase;
   TopTools_DataMapOfShapeListOfShape mySlface;
-  gp_Ax1                             myAxis;
+  Axis3d                             myAxis;
   TColGeom_SequenceOfCurve           myCurves;
   Handle(Geom_Curve)                 myBCurve;
   BRepFeat_StatusError               myStatusError;

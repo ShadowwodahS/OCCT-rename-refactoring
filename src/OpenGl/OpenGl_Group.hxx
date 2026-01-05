@@ -83,7 +83,7 @@ public:
                                        const Standard_Boolean theToEvalMinMax) Standard_OVERRIDE;
   //! Add flipping element
   Standard_EXPORT virtual void SetFlippingOptions(const Standard_Boolean theIsEnabled,
-                                                  const gp_Ax2& theRefPlane) Standard_OVERRIDE;
+                                                  const Frame3d& theRefPlane) Standard_OVERRIDE;
 
   //! Add stencil test element
   Standard_EXPORT virtual void SetStencilTestOptions(const Standard_Boolean theIsEnabled)

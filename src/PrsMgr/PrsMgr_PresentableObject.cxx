@@ -31,9 +31,9 @@ IMPLEMENT_STANDARD_RTTIEXT(PrsMgr_PresentableObject, RefObject)
 
 //=================================================================================================
 
-const gp_Trsf& PrsMgr_PresentableObject::getIdentityTrsf()
+const Transform3d& PrsMgr_PresentableObject::getIdentityTrsf()
 {
-  static const gp_Trsf THE_IDENTITY_TRSF;
+  static const Transform3d THE_IDENTITY_TRSF;
   return THE_IDENTITY_TRSF;
 }
 
@@ -248,12 +248,12 @@ void PrsMgr_PresentableObject::SetCombinedParentTransform(const Handle(TopLoc_Da
 void PrsMgr_PresentableObject::UpdateTransformation()
 {
   myTransformation.Nullify();
-  myInvTransformation = gp_Trsf();
+  myInvTransformation = Transform3d();
   if (!myCombinedParentTransform.IsNull() && myCombinedParentTransform->Form() != gp_Identity)
   {
     if (!myLocalTransformation.IsNull() && myLocalTransformation->Form() != gp_Identity)
     {
-      const gp_Trsf aTrsf = myCombinedParentTransform->Trsf() * myLocalTransformation->Trsf();
+      const Transform3d aTrsf = myCombinedParentTransform->Trsf() * myLocalTransformation->Trsf();
       myTransformation    = new TopLoc_Datum3D(aTrsf);
       myInvTransformation = aTrsf.Inverted();
     }
@@ -326,7 +326,7 @@ void PrsMgr_PresentableObject::AddChild(const Handle(PrsMgr_PresentableObject)& 
 void PrsMgr_PresentableObject::AddChildWithCurrentTransformation(
   const Handle(PrsMgr_PresentableObject)& theObject)
 {
-  gp_Trsf aTrsf = Transformation().Inverted() * theObject->Transformation();
+  Transform3d aTrsf = Transformation().Inverted() * theObject->Transformation();
   theObject->SetLocalTransformation(aTrsf);
   AddChild(theObject);
 }
@@ -353,7 +353,7 @@ void PrsMgr_PresentableObject::RemoveChild(const Handle(PrsMgr_PresentableObject
 void PrsMgr_PresentableObject::RemoveChildWithRestoreTransformation(
   const Handle(PrsMgr_PresentableObject)& theObject)
 {
-  gp_Trsf aTrsf = theObject->Transformation();
+  Transform3d aTrsf = theObject->Transformation();
   RemoveChild(theObject);
   theObject->SetLocalTransformation(aTrsf);
 }

@@ -60,22 +60,22 @@ static Point3d to3d(const gp_Pln& Pl, const gp_Pnt2d& P)
   return ElSLib::Value(P.X(), P.Y(), Pl);
 }
 
-static gp_Vec to3d(const gp_Pln& Pl, const gp_Vec2d& V)
+static Vector3d to3d(const gp_Pln& Pl, const gp_Vec2d& V)
 {
-  gp_Vec Vx = Pl.XAxis().Direction();
-  gp_Vec Vy = Pl.YAxis().Direction();
+  Vector3d Vx = Pl.XAxis().Direction();
+  Vector3d Vy = Pl.YAxis().Direction();
   Vx.Multiply(V.X());
   Vy.Multiply(V.Y());
   Vx.Add(Vy);
   return Vx;
 }
 
-static gp_Ax2 to3d(const gp_Pln& Pl, const gp_Ax22d& A)
+static Frame3d to3d(const gp_Pln& Pl, const gp_Ax22d& A)
 {
   Point3d P  = to3d(Pl, A.Location());
-  gp_Vec VX = to3d(Pl, A.XAxis().Direction());
-  gp_Vec VY = to3d(Pl, A.YAxis().Direction());
-  return gp_Ax2(P, VX.Crossed(VY), VX);
+  Vector3d VX = to3d(Pl, A.XAxis().Direction());
+  Vector3d VY = to3d(Pl, A.YAxis().Direction());
+  return Frame3d(P, VX.Crossed(VY), VX);
 }
 
 static gp_Circ to3d(const gp_Pln& Pl, const gp_Circ2d& C)
@@ -98,20 +98,20 @@ static gp_Parab to3d(const gp_Pln& Pl, const gp_Parab2d& P)
   return gp_Parab(to3d(Pl, P.Axis()), P.Focal());
 }
 
-static gp_Vec SetLinearForm(const gp_Vec2d& DW,
+static Vector3d SetLinearForm(const gp_Vec2d& DW,
                             const gp_Vec2d& D2W,
                             const gp_Vec2d& D3W,
-                            const gp_Vec&   D1U,
-                            const gp_Vec&   D1V,
-                            const gp_Vec&   D2U,
-                            const gp_Vec&   D2V,
-                            const gp_Vec&   D2UV,
-                            const gp_Vec&   D3U,
-                            const gp_Vec&   D3V,
-                            const gp_Vec&   D3UUV,
-                            const gp_Vec&   D3UVV)
+                            const Vector3d&   D1U,
+                            const Vector3d&   D1V,
+                            const Vector3d&   D2U,
+                            const Vector3d&   D2V,
+                            const Vector3d&   D2UV,
+                            const Vector3d&   D3U,
+                            const Vector3d&   D3V,
+                            const Vector3d&   D3UUV,
+                            const Vector3d&   D3UVV)
 {
-  gp_Vec V31, V32, V33, V34, V3;
+  Vector3d V31, V32, V33, V34, V3;
   V31.SetLinearForm(DW.X(), D1U, D2W.X() * DW.X(), D2U, D2W.X() * DW.Y(), D2UV);
   V31.SetLinearForm(D3W.Y(), D1V, D2W.Y() * DW.X(), D2UV, D2W.Y() * DW.Y(), D2V, V31);
   V32.SetLinearForm(DW.X() * DW.X() * DW.Y(), D3UUV, DW.X() * DW.Y() * DW.Y(), D3UVV);
@@ -1189,11 +1189,11 @@ void Adaptor3d_CurveOnSurface::D0(const Standard_Real U, Point3d& P) const
 
 //=================================================================================================
 
-void Adaptor3d_CurveOnSurface::D1(const Standard_Real U, Point3d& P, gp_Vec& V) const
+void Adaptor3d_CurveOnSurface::D1(const Standard_Real U, Point3d& P, Vector3d& V) const
 {
   gp_Pnt2d Puv;
   gp_Vec2d Duv;
-  gp_Vec   D1U, D1V;
+  Vector3d   D1U, D1V;
 
   Standard_Real FP = myCurve->FirstParameter();
   Standard_Real LP = myCurve->LastParameter();
@@ -1225,11 +1225,11 @@ void Adaptor3d_CurveOnSurface::D1(const Standard_Real U, Point3d& P, gp_Vec& V) 
 
 //=================================================================================================
 
-void Adaptor3d_CurveOnSurface::D2(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2) const
+void Adaptor3d_CurveOnSurface::D2(const Standard_Real U, Point3d& P, Vector3d& V1, Vector3d& V2) const
 {
   gp_Pnt2d UV;
   gp_Vec2d DW, D2W;
-  gp_Vec   D1U, D1V, D2U, D2V, D2UV;
+  Vector3d   D1U, D1V, D2U, D2V, D2UV;
 
   Standard_Real FP = myCurve->FirstParameter();
   Standard_Real LP = myCurve->LastParameter();
@@ -1275,15 +1275,15 @@ void Adaptor3d_CurveOnSurface::D2(const Standard_Real U, Point3d& P, gp_Vec& V1,
 
 void Adaptor3d_CurveOnSurface::D3(const Standard_Real U,
                                   Point3d&             P,
-                                  gp_Vec&             V1,
-                                  gp_Vec&             V2,
-                                  gp_Vec&             V3) const
+                                  Vector3d&             V1,
+                                  Vector3d&             V2,
+                                  Vector3d&             V3) const
 {
 
   constexpr Standard_Real Tol = Precision::PConfusion() / 10;
   gp_Pnt2d                UV;
   gp_Vec2d                DW, D2W, D3W;
-  gp_Vec                  D1U, D1V, D2U, D2V, D2UV, D3U, D3V, D3UUV, D3UVV;
+  Vector3d                  D1U, D1V, D2U, D2V, D2UV, D3U, D3V, D3UUV, D3UVV;
 
   Standard_Real FP = myCurve->FirstParameter();
   Standard_Real LP = myCurve->LastParameter();
@@ -1331,10 +1331,10 @@ void Adaptor3d_CurveOnSurface::D3(const Standard_Real U,
 
 //=================================================================================================
 
-gp_Vec Adaptor3d_CurveOnSurface::DN(const Standard_Real U, const Standard_Integer N) const
+Vector3d Adaptor3d_CurveOnSurface::DN(const Standard_Real U, const Standard_Integer N) const
 {
   Point3d P;
-  gp_Vec V1, V2, V;
+  Vector3d V1, V2, V;
   switch (N)
   {
     case 1:
@@ -1559,11 +1559,11 @@ void Adaptor3d_CurveOnSurface::EvalKPart()
     else if (myType == GeomAbs_Line)
     {
       Point3d   P;
-      gp_Vec   V;
+      Vector3d   V;
       gp_Pnt2d Puv;
       gp_Vec2d Duv;
       myCurve->D1(0., Puv, Duv);
-      gp_Vec D1U, D1V;
+      Vector3d D1U, D1V;
       mySurface->D1(Puv.X(), Puv.Y(), P, D1U, D1V);
       V.SetLinearForm(Duv.X(), D1U, Duv.Y(), D1V);
       myLin = gp_Lin(P, V);
@@ -1585,12 +1585,12 @@ void Adaptor3d_CurveOnSurface::EvalKPart()
             gp_Sphere Sph  = mySurface->Sphere();
             gp_Ax3    Axis = Sph.Position();
             myCirc         = ElSLib::SphereVIso(Axis, Sph.Radius(), P.Y());
-            gp_Dir DRev    = Axis.XDirection().Crossed(Axis.YDirection());
-            gp_Ax1 AxeRev(Axis.Location(), DRev);
+            Dir3d DRev    = Axis.XDirection().Crossed(Axis.YDirection());
+            Axis3d AxeRev(Axis.Location(), DRev);
             myCirc.Rotate(AxeRev, P.X());
             if (D.IsOpposite(gp::DX2d(), Precision::Angular()))
             {
-              gp_Ax2 Ax = myCirc.Position();
+              Frame3d Ax = myCirc.Position();
               Ax.SetDirection(Ax.Direction().Reversed());
               myCirc.SetPosition(Ax);
             }
@@ -1603,12 +1603,12 @@ void Adaptor3d_CurveOnSurface::EvalKPart()
           gp_Pnt2d    P    = myCurve->Line().Location();
           gp_Ax3      Axis = Cyl.Position();
           myCirc           = ElSLib::CylinderVIso(Axis, Cyl.Radius(), P.Y());
-          gp_Dir DRev      = Axis.XDirection().Crossed(Axis.YDirection());
-          gp_Ax1 AxeRev(Axis.Location(), DRev);
+          Dir3d DRev      = Axis.XDirection().Crossed(Axis.YDirection());
+          Axis3d AxeRev(Axis.Location(), DRev);
           myCirc.Rotate(AxeRev, P.X());
           if (D.IsOpposite(gp::DX2d(), Precision::Angular()))
           {
-            gp_Ax2 Ax = myCirc.Position();
+            Frame3d Ax = myCirc.Position();
             Ax.SetDirection(Ax.Direction().Reversed());
             myCirc.SetPosition(Ax);
           }
@@ -1620,12 +1620,12 @@ void Adaptor3d_CurveOnSurface::EvalKPart()
           gp_Pnt2d P    = myCurve->Line().Location();
           gp_Ax3   Axis = Cone.Position();
           myCirc        = ElSLib::ConeVIso(Axis, Cone.RefRadius(), Cone.SemiAngle(), P.Y());
-          gp_Dir DRev   = Axis.XDirection().Crossed(Axis.YDirection());
-          gp_Ax1 AxeRev(Axis.Location(), DRev);
+          Dir3d DRev   = Axis.XDirection().Crossed(Axis.YDirection());
+          Axis3d AxeRev(Axis.Location(), DRev);
           myCirc.Rotate(AxeRev, P.X());
           if (D.IsOpposite(gp::DX2d(), Precision::Angular()))
           {
-            gp_Ax2 Ax = myCirc.Position();
+            Frame3d Ax = myCirc.Position();
             Ax.SetDirection(Ax.Direction().Reversed());
             myCirc.SetPosition(Ax);
           }
@@ -1637,12 +1637,12 @@ void Adaptor3d_CurveOnSurface::EvalKPart()
           gp_Pnt2d P    = myCurve->Line().Location();
           gp_Ax3   Axis = Tore.Position();
           myCirc        = ElSLib::TorusVIso(Axis, Tore.MajorRadius(), Tore.MinorRadius(), P.Y());
-          gp_Dir DRev   = Axis.XDirection().Crossed(Axis.YDirection());
-          gp_Ax1 AxeRev(Axis.Location(), DRev);
+          Dir3d DRev   = Axis.XDirection().Crossed(Axis.YDirection());
+          Axis3d AxeRev(Axis.Location(), DRev);
           myCirc.Rotate(AxeRev, P.X());
           if (D.IsOpposite(gp::DX2d(), Precision::Angular()))
           {
-            gp_Ax2 Ax = myCirc.Position();
+            Frame3d Ax = myCirc.Position();
             Ax.SetDirection(Ax.Direction().Reversed());
             myCirc.SetPosition(Ax);
           }
@@ -1660,18 +1660,18 @@ void Adaptor3d_CurveOnSurface::EvalKPart()
           myCirc = ElSLib::SphereUIso(Axis, Sph.Radius(), 0.);
 
           // mise a sameparameter (rotation du cercle - decalage du Y)
-          gp_Dir DRev = Axis.XDirection().Crossed(Axis.Direction());
-          gp_Ax1 AxeRev(Axis.Location(), DRev);
+          Dir3d DRev = Axis.XDirection().Crossed(Axis.Direction());
+          Axis3d AxeRev(Axis.Location(), DRev);
           myCirc.Rotate(AxeRev, P.Y());
 
           // transformation en iso U ( = P.X())
           DRev   = Axis.XDirection().Crossed(Axis.YDirection());
-          AxeRev = gp_Ax1(Axis.Location(), DRev);
+          AxeRev = Axis3d(Axis.Location(), DRev);
           myCirc.Rotate(AxeRev, P.X());
 
           if (D.IsOpposite(gp::DY2d(), Precision::Angular()))
           {
-            gp_Ax2 Ax = myCirc.Position();
+            Frame3d Ax = myCirc.Position();
             Ax.SetDirection(Ax.Direction().Reversed());
             myCirc.SetPosition(Ax);
           }
@@ -1682,7 +1682,7 @@ void Adaptor3d_CurveOnSurface::EvalKPart()
           gp_Cylinder Cyl = mySurface->Cylinder();
           gp_Pnt2d    P   = myCurve->Line().Location();
           myLin           = ElSLib::CylinderUIso(Cyl.Position(), Cyl.Radius(), P.X());
-          gp_Vec Tr(myLin.Direction());
+          Vector3d Tr(myLin.Direction());
           Tr.Multiply(P.Y());
           myLin.Translate(Tr);
           if (D.IsOpposite(gp::DY2d(), Precision::Angular()))
@@ -1694,7 +1694,7 @@ void Adaptor3d_CurveOnSurface::EvalKPart()
           gp_Cone  Cone = mySurface->Cone();
           gp_Pnt2d P    = myCurve->Line().Location();
           myLin = ElSLib::ConeUIso(Cone.Position(), Cone.RefRadius(), Cone.SemiAngle(), P.X());
-          gp_Vec Tr(myLin.Direction());
+          Vector3d Tr(myLin.Direction());
           Tr.Multiply(P.Y());
           myLin.Translate(Tr);
           if (D.IsOpposite(gp::DY2d(), Precision::Angular()))
@@ -1711,7 +1711,7 @@ void Adaptor3d_CurveOnSurface::EvalKPart()
 
           if (D.IsOpposite(gp::DY2d(), Precision::Angular()))
           {
-            gp_Ax2 Ax = myCirc.Position();
+            Frame3d Ax = myCirc.Position();
             Ax.SetDirection(Ax.Direction().Reversed());
             myCirc.SetPosition(Ax);
           }

@@ -50,7 +50,7 @@ public:
   Standard_EXPORT void InitPolylineSelectingVolume(const TColgp_Array1OfPnt2d& thePoints);
 
   //! Creates and activates axis selector for point selection
-  Standard_EXPORT void InitAxisSelectingVolume(const gp_Ax1& theAxis);
+  Standard_EXPORT void InitAxisSelectingVolume(const Axis3d& theAxis);
 
   //! Sets as active the custom selecting volume
   Standard_EXPORT void InitSelectingVolume(const Handle(SelectMgr_BaseIntersector)& theVolume);
@@ -181,7 +181,7 @@ public:
     const Standard_Real      theBottomRad,
     const Standard_Real      theTopRad,
     const Standard_Real      theHeight,
-    const gp_Trsf&           theTrsf,
+    const Transform3d&           theTrsf,
     const Standard_Boolean   theIsHollow,
     SelectBasics_PickResult& thePickResult) const Standard_OVERRIDE;
 
@@ -191,7 +191,7 @@ public:
     const Standard_Real    theBottomRad,
     const Standard_Real    theTopRad,
     const Standard_Real    theHeight,
-    const gp_Trsf&         theTrsf,
+    const Transform3d&         theTrsf,
     const Standard_Boolean theIsHollow,
     Standard_Boolean*      theInside = NULL) const Standard_OVERRIDE;
 
@@ -201,7 +201,7 @@ public:
   //! via theTrsf transformation for gp::XOY() with center in gp::Origin().
   Standard_EXPORT virtual Standard_Boolean OverlapsCircle(
     const Standard_Real      theBottomRad,
-    const gp_Trsf&           theTrsf,
+    const Transform3d&           theTrsf,
     const Standard_Boolean   theIsFilled,
     SelectBasics_PickResult& thePickResult) const Standard_OVERRIDE;
 
@@ -210,7 +210,7 @@ public:
   //! The position and orientation of the circle are specified
   //! via theTrsf transformation for gp::XOY() with center in gp::Origin().
   Standard_EXPORT virtual Standard_Boolean OverlapsCircle(const Standard_Real    theBottomRad,
-                                                          const gp_Trsf&         theTrsf,
+                                                          const Transform3d&         theTrsf,
                                                           const Standard_Boolean theIsFilled,
                                                           Standard_Boolean* theInside = NULL) const
     Standard_OVERRIDE;
@@ -275,7 +275,7 @@ public:
 
   //! Valid only for point and rectangular selection.
   //! Returns view ray direction
-  Standard_EXPORT virtual gp_Dir GetViewRayDirection() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Dir3d GetViewRayDirection() const Standard_OVERRIDE;
 
   //! Checks if it is possible to scale current active selecting volume
   Standard_EXPORT virtual Standard_Boolean IsScalableActiveVolume() const Standard_OVERRIDE;

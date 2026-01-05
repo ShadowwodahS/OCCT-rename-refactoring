@@ -45,7 +45,7 @@ Standard_Boolean StepToTopoDS_MakeTransformed::Compute(
   const Handle(StepGeom_Axis2Placement3d)& Target,
   const StepData_Factors&                  theLocalFactors)
 {
-  theTrsf = gp_Trsf(); // reinit
+  theTrsf = Transform3d(); // reinit
   if (Origin.IsNull() || Target.IsNull())
     return Standard_False;
 
@@ -76,7 +76,7 @@ Standard_Boolean StepToTopoDS_MakeTransformed::Compute(
 
 //=================================================================================================
 
-const gp_Trsf& StepToTopoDS_MakeTransformed::Transformation() const
+const Transform3d& StepToTopoDS_MakeTransformed::Transformation() const
 {
   return theTrsf;
 }

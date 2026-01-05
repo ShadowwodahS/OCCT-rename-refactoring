@@ -22,7 +22,7 @@
 
 #include <gp_XYZ.hxx>
 #include <IGESData_IGESEntity.hxx>
-class gp_Vec;
+class Vector3d;
 
 class IGESGeom_Direction;
 DEFINE_STANDARD_HANDLE(IGESGeom_Direction, IGESData_IGESEntity)
@@ -44,10 +44,10 @@ public:
   //! - aDirection : Direction ratios, Z is 0 by default
   Standard_EXPORT void Init(const gp_XYZ& aDirection);
 
-  Standard_EXPORT gp_Vec Value() const;
+  Standard_EXPORT Vector3d Value() const;
 
   //! returns the Direction value after applying Transformation matrix
-  Standard_EXPORT gp_Vec TransformedValue() const;
+  Standard_EXPORT Vector3d TransformedValue() const;
 
   DEFINE_STANDARD_RTTIEXT(IGESGeom_Direction, IGESData_IGESEntity)
 

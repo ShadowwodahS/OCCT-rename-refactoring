@@ -133,7 +133,7 @@ Standard_Boolean BinMXCAFDoc_LocationDriver::Translate(const BinObjMgt_Persisten
     else
     {
       // read the datum's transformation
-      gp_Trsf aTrsf;
+      Transform3d aTrsf;
 
       Standard_Real aScaleFactor;
       theSource >> aScaleFactor;

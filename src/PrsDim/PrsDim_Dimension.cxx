@@ -327,7 +327,7 @@ TCollection_ExtendedString PrsDim_Dimension::GetValueString(Standard_Real& theWi
 
 void PrsDim_Dimension::DrawArrow(const Handle(Prs3d_Presentation)& thePresentation,
                                  const Point3d&                     theLocation,
-                                 const gp_Dir&                     theDirection)
+                                 const Dir3d&                     theDirection)
 {
   Handle(Graphic3d_Group) aGroup = thePresentation->NewGroup();
 
@@ -345,7 +345,7 @@ void PrsDim_Dimension::DrawArrow(const Handle(Prs3d_Presentation)& thePresentati
     Point3d        aLocation = isZoomable ? theLocation : gp::Origin();
     Point3d        aLeftPoint(gp::Origin());
     Point3d        aRightPoint(gp::Origin());
-    const gp_Dir& aPlane = GetPlane().Axis().Direction();
+    const Dir3d& aPlane = GetPlane().Axis().Direction();
 
     PointsForArrow(aLocation, theDirection, aPlane, aLength, anAngle, aLeftPoint, aRightPoint);
 
@@ -384,7 +384,7 @@ void PrsDim_Dimension::DrawArrow(const Handle(Prs3d_Presentation)& thePresentati
 
 void PrsDim_Dimension::drawText(const Handle(Prs3d_Presentation)& thePresentation,
                                 const Point3d&                     theTextPos,
-                                const gp_Dir&                     theTextDir,
+                                const Dir3d&                     theTextDir,
                                 const TCollection_ExtendedString& theText,
                                 const Standard_Integer            theLabelPosition)
 {
@@ -419,7 +419,7 @@ void PrsDim_Dimension::drawText(const Handle(Prs3d_Presentation)& thePresentatio
     Standard_Integer aHLabelPos = theLabelPosition & LabelPosition_HMask;
     Standard_Integer aVLabelPos = theLabelPosition & LabelPosition_VMask;
 
-    gp_Dir aTextDir(aHLabelPos == LabelPosition_Left ? -theTextDir : theTextDir);
+    Dir3d aTextDir(aHLabelPos == LabelPosition_Left ? -theTextDir : theTextDir);
 
     // compute label offsets
     Standard_Real aMarginSize    = aFontHeight * THE_3D_TEXT_MARGIN;
@@ -466,18 +466,18 @@ void PrsDim_Dimension::drawText(const Handle(Prs3d_Presentation)& thePresentatio
     aShapeHOffset += aXalign;
     aShapeVOffset += aYalign;
 
-    gp_Trsf anOffsetTrsf;
+    Transform3d anOffsetTrsf;
     anOffsetTrsf.SetTranslation(gp::Origin(), Point3d(aShapeHOffset, aShapeVOffset, 0.0));
     aTextShape.Move(anOffsetTrsf);
 
     // transform text to myWorkingPlane coordinate system
     gp_Ax3  aTextCoordSystem(theTextPos, GetPlane().Axis().Direction(), aTextDir);
-    gp_Trsf aTextPlaneTrsf;
+    Transform3d aTextPlaneTrsf;
     aTextPlaneTrsf.SetTransformation(aTextCoordSystem, gp_Ax3(gp::XOY()));
     aTextShape.Move(aTextPlaneTrsf);
 
     // set text flipping anchors
-    gp_Trsf aCenterOffsetTrsf;
+    Transform3d aCenterOffsetTrsf;
     Point3d  aCenterOffset(aCenterHOffset, aCenterVOffset, 0.0);
     aCenterOffsetTrsf.SetTranslation(gp::Origin(), aCenterOffset);
 
@@ -485,7 +485,7 @@ void PrsDim_Dimension::drawText(const Handle(Prs3d_Presentation)& thePresentatio
     aCenterOfLabel.Transform(aCenterOffsetTrsf);
     aCenterOfLabel.Transform(aTextPlaneTrsf);
 
-    gp_Ax2 aFlippingAxes(aCenterOfLabel, GetPlane().Axis().Direction(), aTextDir);
+    Frame3d aFlippingAxes(aCenterOfLabel, GetPlane().Axis().Direction(), aTextDir);
     aGroup->SetFlippingOptions(Standard_True, aFlippingAxes);
 
     // draw text
@@ -525,7 +525,7 @@ void PrsDim_Dimension::drawText(const Handle(Prs3d_Presentation)& thePresentatio
         aGroup->AddPrimitiveArray(anEdges);
       }
     }
-    thePresentation->CurrentGroup()->SetFlippingOptions(Standard_False, gp_Ax2());
+    thePresentation->CurrentGroup()->SetFlippingOptions(Standard_False, Frame3d());
 
     mySelectionGeom.TextPos    = aCenterOfLabel;
     mySelectionGeom.TextDir    = aTextDir;
@@ -551,7 +551,7 @@ void PrsDim_Dimension::drawText(const Handle(Prs3d_Presentation)& thePresentatio
 void PrsDim_Dimension::DrawExtension(const Handle(Prs3d_Presentation)& thePresentation,
                                      const Standard_Real               theExtensionSize,
                                      const Point3d&                     theExtensionStart,
-                                     const gp_Dir&                     theExtensionDir,
+                                     const Dir3d&                     theExtensionDir,
                                      const TCollection_ExtendedString& theLabelString,
                                      const Standard_Real               theLabelWidth,
                                      const Standard_Integer            theMode,
@@ -565,7 +565,7 @@ void PrsDim_Dimension::DrawExtension(const Handle(Prs3d_Presentation)& thePresen
   {
     // compute text primitives; get its model width
     Point3d aTextPos = ElCLib::Value(theExtensionSize, anExtensionLine);
-    gp_Dir aTextDir = theExtensionDir;
+    Dir3d aTextDir = theExtensionDir;
 
     Handle(Graphic3d_Group) aGroup = thePresentation->NewGroup();
     drawText(thePresentation, aTextPos, aTextDir, theLabelString, theLabelPosition);
@@ -673,10 +673,10 @@ void PrsDim_Dimension::DrawLinearDimension(const Handle(Prs3d_Presentation)& the
   gp_Lin aDimensionLine = gce_MakeLin(aLineBegPoint, aLineEndPoint);
 
   // compute arrows positions and directions
-  gp_Dir aFirstArrowDir      = aDimensionLine.Direction().Reversed();
-  gp_Dir aSecondArrowDir     = aDimensionLine.Direction();
-  gp_Dir aFirstExtensionDir  = aDimensionLine.Direction().Reversed();
-  gp_Dir aSecondExtensionDir = aDimensionLine.Direction();
+  Dir3d aFirstArrowDir      = aDimensionLine.Direction().Reversed();
+  Dir3d aSecondArrowDir     = aDimensionLine.Direction();
+  Dir3d aFirstExtensionDir  = aDimensionLine.Direction().Reversed();
+  Dir3d aSecondExtensionDir = aDimensionLine.Direction();
 
   Point3d aFirstArrowBegin(0.0, 0.0, 0.0);
   Point3d aFirstArrowEnd(0.0, 0.0, 0.0);
@@ -696,8 +696,8 @@ void PrsDim_Dimension::DrawLinearDimension(const Handle(Prs3d_Presentation)& the
 
   if (aDimensionAspect->ArrowAspect()->IsZoomable())
   {
-    aFirstArrowEnd.Translate(-gp_Vec(aFirstArrowDir).Scaled(anArrowLength));
-    aSecondArrowEnd.Translate(-gp_Vec(aSecondArrowDir).Scaled(anArrowLength));
+    aFirstArrowEnd.Translate(-Vector3d(aFirstArrowDir).Scaled(anArrowLength));
+    aSecondArrowEnd.Translate(-Vector3d(aSecondArrowDir).Scaled(anArrowLength));
   }
 
   Point3d aCenterLineBegin = isArrowsExternal ? aLineBegPoint : aFirstArrowEnd;
@@ -714,7 +714,7 @@ void PrsDim_Dimension::DrawLinearDimension(const Handle(Prs3d_Presentation)& the
       Point3d aTextPos = IsTextPositionCustom()
                           ? myFixedTextPosition
                           : (aCenterLineBegin.XYZ() + aCenterLineEnd.XYZ()) * 0.5;
-      gp_Dir aTextDir = aDimensionLine.Direction();
+      Dir3d aTextDir = aDimensionLine.Direction();
 
       // add text primitives
       if (theMode == ComputeMode_All || theMode == ComputeMode_Text)
@@ -996,10 +996,10 @@ void PrsDim_Dimension::ComputeFlyoutLinePoints(const Point3d& theFirstPoint,
                                                Point3d&       theLineEndPoint)
 {
   // compute dimension line points
-  gp_Ax1 aPlaneNormal = GetPlane().Axis();
+  Axis3d aPlaneNormal = GetPlane().Axis();
   // compute flyout direction vector
-  gp_Dir aTargetPointsVector = gce_MakeDir(theFirstPoint, theSecondPoint);
-  gp_Dir aFlyoutVector       = aPlaneNormal.Direction() ^ aTargetPointsVector;
+  Dir3d aTargetPointsVector = gce_MakeDir(theFirstPoint, theSecondPoint);
+  Dir3d aFlyoutVector       = aPlaneNormal.Direction() ^ aTargetPointsVector;
   // create lines for layouts
   gp_Lin aLine1(theFirstPoint, aFlyoutVector);
   gp_Lin aLine2(theSecondPoint, aFlyoutVector);
@@ -1017,11 +1017,11 @@ void PrsDim_Dimension::ComputeLinearFlyouts(const Handle(SelectMgr_Selection)&  
                                             const Point3d&                        theSecondPoint)
 {
   // count flyout direction
-  gp_Ax1 aPlaneNormal        = GetPlane().Axis();
-  gp_Dir aTargetPointsVector = gce_MakeDir(theFirstPoint, theSecondPoint);
+  Axis3d aPlaneNormal        = GetPlane().Axis();
+  Dir3d aTargetPointsVector = gce_MakeDir(theFirstPoint, theSecondPoint);
 
   // count a flyout direction vector.
-  gp_Dir aFlyoutVector = aPlaneNormal.Direction() ^ aTargetPointsVector;
+  Dir3d aFlyoutVector = aPlaneNormal.Direction() ^ aTargetPointsVector;
 
   // create lines for layouts
   gp_Lin aLine1(theFirstPoint, aFlyoutVector);
@@ -1244,8 +1244,8 @@ Standard_Boolean PrsDim_Dimension::InitCircularDimension(const TopoDS_Shape& the
 
   if (theIsClosed) // Circle
   {
-    gp_Dir anXDir     = theCircle.XAxis().Direction();
-    theMiddleArcPoint = aCenter.Translated(gp_Vec(anXDir) * theCircle.Radius());
+    Dir3d anXDir     = theCircle.XAxis().Direction();
+    theMiddleArcPoint = aCenter.Translated(Vector3d(anXDir) * theCircle.Radius());
   }
   else // Arc
   {
@@ -1257,8 +1257,8 @@ Standard_Boolean PrsDim_Dimension::InitCircularDimension(const TopoDS_Shape& the
     }
 
     Standard_Real aParCurPos = (aFirstParam + aLastParam) * 0.5;
-    gp_Vec        aVec =
-      gp_Vec(aCenter, ElCLib::Value(aParCurPos, theCircle)).Normalized() * theCircle.Radius();
+    Vector3d        aVec =
+      Vector3d(aCenter, ElCLib::Value(aParCurPos, theCircle)).Normalized() * theCircle.Radius();
     theMiddleArcPoint = aCenter.Translated(aVec);
   }
 
@@ -1326,9 +1326,9 @@ void PrsDim_Dimension::ComputeSelection(const Handle(SelectMgr_Selection)& theSe
 
       Point3d        aSidePnt1(gp::Origin());
       Point3d        aSidePnt2(gp::Origin());
-      const gp_Dir& aPlane = GetPlane().Axis().Direction();
+      const Dir3d& aPlane = GetPlane().Axis().Direction();
       const Point3d& aPeak  = anArrow->Position;
-      const gp_Dir& aDir   = anArrow->Direction;
+      const Dir3d& aDir   = anArrow->Direction;
 
       // compute points for arrow in plane
       PointsForArrow(aPeak, aDir, aPlane, anArrowLength, anArrowAngle, aSidePnt1, aSidePnt2);
@@ -1342,7 +1342,7 @@ void PrsDim_Dimension::ComputeSelection(const Handle(SelectMgr_Selection)& theSe
       }
 
       // compute points for orthogonal sensitive plane
-      gp_Dir anOrthoPlane = anArrow->Direction.Crossed(aPlane);
+      Dir3d anOrthoPlane = anArrow->Direction.Crossed(aPlane);
 
       PointsForArrow(aPeak, aDir, anOrthoPlane, anArrowLength, anArrowAngle, aSidePnt1, aSidePnt2);
 
@@ -1359,7 +1359,7 @@ void PrsDim_Dimension::ComputeSelection(const Handle(SelectMgr_Selection)& theSe
   {
     Handle(Select3D_SensitiveEntity) aTextSensitive;
 
-    gp_Ax2 aTextAxes(mySelectionGeom.TextPos,
+    Frame3d aTextAxes(mySelectionGeom.TextPos,
                      GetPlane().Axis().Direction(),
                      mySelectionGeom.TextDir);
 
@@ -1369,7 +1369,7 @@ void PrsDim_Dimension::ComputeSelection(const Handle(SelectMgr_Selection)& theSe
       Standard_Real aDx = mySelectionGeom.TextWidth * 0.5;
       Standard_Real aDy = mySelectionGeom.TextHeight * 0.5;
 
-      gp_Trsf aLabelPlane;
+      Transform3d aLabelPlane;
       aLabelPlane.SetTransformation(aTextAxes, gp::XOY());
 
       TColgp_Array1OfPnt aRectanglePoints(1, 4);
@@ -1409,8 +1409,8 @@ void PrsDim_Dimension::ComputeSelection(const Handle(SelectMgr_Selection)& theSe
 //=================================================================================================
 
 void PrsDim_Dimension::PointsForArrow(const Point3d&       thePeakPnt,
-                                      const gp_Dir&       theDirection,
-                                      const gp_Dir&       thePlane,
+                                      const Dir3d&       theDirection,
+                                      const Dir3d&       thePlane,
                                       const Standard_Real theArrowLength,
                                       const Standard_Real theArrowAngle,
                                       Point3d&             theSidePnt1,
@@ -1452,11 +1452,11 @@ Point3d PrsDim_Dimension::GetTextPositionForLinear(const Point3d&          theFi
                             isArrowsExternal);
 
   // Compute dimension line points.
-  gp_Dir aPlaneNormal = GetPlane().Axis().Direction();
-  gp_Vec aTargetPointsVec(theFirstPoint, theSecondPoint);
+  Dir3d aPlaneNormal = GetPlane().Axis().Direction();
+  Vector3d aTargetPointsVec(theFirstPoint, theSecondPoint);
 
   // Compute flyout direction vector
-  gp_Dir aFlyoutVector = aPlaneNormal ^ gp_Dir(aTargetPointsVec);
+  Dir3d aFlyoutVector = aPlaneNormal ^ Dir3d(aTargetPointsVec);
 
   // create lines for layouts
   gp_Lin aLine1(theFirstPoint, aFlyoutVector);
@@ -1471,24 +1471,24 @@ Point3d PrsDim_Dimension::GetTextPositionForLinear(const Point3d&          theFi
   switch (aLabelPosition & LabelPosition_HMask)
   {
     case LabelPosition_Left: {
-      gp_Dir        aTargetPointsDir = gce_MakeDir(theFirstPoint, theSecondPoint);
+      Dir3d        aTargetPointsDir = gce_MakeDir(theFirstPoint, theSecondPoint);
       Standard_Real anExtensionSize  = aDimensionAspect->ExtensionSize();
 
       Standard_Real anOffset       = isArrowsExternal
                                        ? anExtensionSize + aDimensionAspect->ArrowAspect()->Length()
                                        : anExtensionSize;
-      gp_Vec        anExtensionVec = gp_Vec(aTargetPointsDir) * -anOffset;
+      Vector3d        anExtensionVec = Vector3d(aTargetPointsDir) * -anOffset;
       aTextPosition                = aLineEndPoint.Translated(anExtensionVec);
     }
     break;
     case LabelPosition_Right: {
-      gp_Dir        aTargetPointsDir = gce_MakeDir(theFirstPoint, theSecondPoint);
+      Dir3d        aTargetPointsDir = gce_MakeDir(theFirstPoint, theSecondPoint);
       Standard_Real anExtensionSize  = aDimensionAspect->ExtensionSize();
 
       Standard_Real anOffset       = isArrowsExternal
                                        ? anExtensionSize + aDimensionAspect->ArrowAspect()->Length()
                                        : anExtensionSize;
-      gp_Vec        anExtensionVec = gp_Vec(aTargetPointsDir) * anOffset;
+      Vector3d        anExtensionVec = Vector3d(aTargetPointsDir) * anOffset;
       aTextPosition                = aLineBegPoint.Translated(anExtensionVec);
     }
     break;
@@ -1516,8 +1516,8 @@ Standard_Boolean PrsDim_Dimension::AdjustParametersForLinear(
   Handle(Prs3d_DimensionAspect) aDimensionAspect = myDrawer->DimensionAspect();
   Standard_Real                 anArrowLength    = aDimensionAspect->ArrowAspect()->Length();
 
-  gp_Dir aTargetPointsDir = gce_MakeDir(theFirstPoint, theSecondPoint);
-  gp_Vec aTargetPointsVec(theFirstPoint, theSecondPoint);
+  Dir3d aTargetPointsDir = gce_MakeDir(theFirstPoint, theSecondPoint);
+  Vector3d aTargetPointsVec(theFirstPoint, theSecondPoint);
 
   // Don't set new plane if the text position lies on the attachment points line.
   gp_Lin aTargetPointsLin(theFirstPoint, aTargetPointsDir);
@@ -1529,8 +1529,8 @@ Standard_Boolean PrsDim_Dimension::AdjustParametersForLinear(
   }
 
   // Compute flyout direction vector.
-  gp_Dir aPlaneNormal    = GetPlane().Axis().Direction();
-  gp_Dir aPositiveFlyout = aPlaneNormal ^ aTargetPointsDir;
+  Dir3d aPlaneNormal    = GetPlane().Axis().Direction();
+  Dir3d aPositiveFlyout = aPlaneNormal ^ aTargetPointsDir;
 
   // Additional check of collinearity of the plane normal and attachment points vector.
   if (aPlaneNormal.IsParallel(aTargetPointsDir, Precision::Angular()))
@@ -1539,20 +1539,20 @@ Standard_Boolean PrsDim_Dimension::AdjustParametersForLinear(
   }
 
   // Set flyout.
-  gp_Vec aFirstToTextVec(theFirstPoint, theTextPos);
+  Vector3d aFirstToTextVec(theFirstPoint, theTextPos);
 
-  Standard_Real aCos = aFirstToTextVec.Normalized() * gp_Vec(aTargetPointsDir);
+  Standard_Real aCos = aFirstToTextVec.Normalized() * Vector3d(aTargetPointsDir);
 
   Point3d aTextPosProj =
-    theFirstPoint.Translated(gp_Vec(aTargetPointsDir) * aFirstToTextVec.Magnitude() * aCos);
+    theFirstPoint.Translated(Vector3d(aTargetPointsDir) * aFirstToTextVec.Magnitude() * aCos);
 
   // Compute flyout value and direction.
-  gp_Vec aFlyoutVector = gp_Vec(aTextPosProj, theTextPos);
+  Vector3d aFlyoutVector = Vector3d(aTextPosProj, theTextPos);
 
   theFlyout = 0.0;
   if (aFlyoutVector.Magnitude() > Precision::Confusion())
   {
-    theFlyout = gp_Dir(aFlyoutVector).IsOpposite(aPositiveFlyout, Precision::Angular())
+    theFlyout = Dir3d(aFlyoutVector).IsOpposite(aPositiveFlyout, Precision::Angular())
                   ? -aFlyoutVector.Magnitude()
                   : aFlyoutVector.Magnitude();
   }
@@ -1597,11 +1597,11 @@ void PrsDim_Dimension::FitTextAlignmentForLinear(
   theIsArrowsExternal = Standard_False;
 
   // Compute dimension line points
-  gp_Ax1 aPlaneNormal        = GetPlane().Axis();
-  gp_Dir aTargetPointsVector = gce_MakeDir(theFirstPoint, theSecondPoint);
+  Axis3d aPlaneNormal        = GetPlane().Axis();
+  Dir3d aTargetPointsVector = gce_MakeDir(theFirstPoint, theSecondPoint);
 
   // compute flyout direction vector
-  gp_Dir aFlyoutVector = aPlaneNormal.Direction() ^ aTargetPointsVector;
+  Dir3d aFlyoutVector = aPlaneNormal.Direction() ^ aTargetPointsVector;
 
   // create lines for layouts
   gp_Lin aLine1(theFirstPoint, aFlyoutVector);

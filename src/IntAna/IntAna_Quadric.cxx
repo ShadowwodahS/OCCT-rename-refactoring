@@ -165,7 +165,7 @@ void IntAna_Quadric::NewCoefficients(Standard_Real& _CXX,
 
   Standard_Real Cxx, Cyy, Czz, Cxy, Cxz, Cyz, Cx, Cy, Cz, Ccte;
 
-  gp_Trsf Trans;
+  Transform3d Trans;
   Trans.SetTransformation(Axis);
   Trans.Invert();
   t11 = Trans.Value(1, 1);

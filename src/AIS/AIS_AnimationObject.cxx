@@ -21,8 +21,8 @@ IMPLEMENT_STANDARD_RTTIEXT(AIS_AnimationObject, AIS_BaseAnimationObject)
 AIS_AnimationObject::AIS_AnimationObject(const TCollection_AsciiString&        theAnimationName,
                                          const Handle(AIS_InteractiveContext)& theContext,
                                          const Handle(AIS_InteractiveObject)&  theObject,
-                                         const gp_Trsf&                        theTrsfStart,
-                                         const gp_Trsf&                        theTrsfEnd)
+                                         const Transform3d&                        theTrsfStart,
+                                         const Transform3d&                        theTrsfEnd)
     : AIS_BaseAnimationObject(theAnimationName, theContext, theObject),
       myTrsfLerp(theTrsfStart, theTrsfEnd)
 {
@@ -38,7 +38,7 @@ void AIS_AnimationObject::update(const AIS_AnimationProgress& theProgress)
     return;
   }
 
-  gp_Trsf aTrsf;
+  Transform3d aTrsf;
   myTrsfLerp.Interpolate(theProgress.LocalNormalized, aTrsf);
   updateTrsf(aTrsf);
 }

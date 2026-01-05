@@ -105,7 +105,7 @@ static Standard_Boolean FUN_paronOOE(const TopoDS_Edge&     OOE,
   return ok;
 }
 
-static Standard_Boolean FUN_keepIonF(const gp_Vec&        tgref,
+static Standard_Boolean FUN_keepIonF(const Vector3d&        tgref,
                                      const Standard_Real& parE,
                                      const TopoDS_Edge&   E,
                                      const TopoDS_Face&   F,
@@ -114,17 +114,17 @@ static Standard_Boolean FUN_keepIonF(const gp_Vec&        tgref,
 // is to add to the Edge3dInterferenceTool resolving 3d complex transitions
 // on edge E
 {
-  gp_Vec           tmp;
+  Vector3d           tmp;
   Standard_Boolean ok = TopOpeBRepTool_TOOL::TggeomE(parE, E, tmp);
   if (!ok)
     return Standard_False;
-  gp_Dir        tgE  = gp_Dir(tmp);
+  Dir3d        tgE  = Dir3d(tmp);
   Standard_Real prod = Abs(tgref.Dot(tgE));
   if (Abs(1 - prod) < tola)
     return Standard_False; // <Eref> & <E> are tangent edges
-  gp_Vec dd;
+  Vector3d dd;
   ok = FUN_tool_nggeomF(parE, E, F, dd);
-  gp_Dir ngF(dd);
+  Dir3d ngF(dd);
   if (!ok)
     return Standard_False;
   prod = Abs((tgref ^ tgE).Dot(ngF));
@@ -193,14 +193,14 @@ void TopOpeBRepDS_Edge3dInterferenceTool::Init(const TopoDS_Shape&              
     BRepAdaptor_Curve BC(EEref);
     myP3d = BC.Value(pref);
   }
-  gp_Vec tmp;
+  Vector3d tmp;
   ok = TopOpeBRepTool_TOOL::TggeomE(pref, EEref, tmp);
   if (!ok)
   {
     FUN_Raise();
     return;
   }
-  gp_Dir tgref(tmp);
+  Dir3d tgref(tmp);
 
   Standard_Real pOO;
   ok = ::FUN_paronOOE(EE, myIsVertex, myVonOO, myP3d, pOO);
@@ -215,7 +215,7 @@ void TopOpeBRepDS_Edge3dInterferenceTool::Init(const TopoDS_Shape&              
     FUN_Raise();
     return;
   }
-  gp_Dir tgOO(tmp);
+  Dir3d tgOO(tmp);
 
   Standard_Real dot     = tgref.Dot(tgOO);
   dot                   = 1 - Abs(dot);
@@ -245,7 +245,7 @@ void TopOpeBRepDS_Edge3dInterferenceTool::Init(const TopoDS_Shape&              
   // <myTgtref>
   myTgtref = tgref;
 
-  gp_Dir Norm = tgOO ^ tgref;
+  Dir3d Norm = tgOO ^ tgref;
   myTool.Reset(tgOO, Norm);
 }
 
@@ -294,7 +294,7 @@ void TopOpeBRepDS_Edge3dInterferenceTool::Add(const TopoDS_Shape&               
   if (!ok)
     return;
 
-  gp_Dir Norm(FUN_tool_nggeomF(uv, FF));
+  Dir3d Norm(FUN_tool_nggeomF(uv, FF));
   myTool.Compare(myTole, Norm, oriloc, oritan);
 }
 

@@ -22,7 +22,7 @@
 #include <Standard_Handle.hxx>
 
 #include <BRepPrim_GWedge.hxx>
-class gp_Ax2;
+class Frame3d;
 
 //! Provides constructors without Builders.
 class BRepPrim_Wedge : public BRepPrim_GWedge
@@ -44,7 +44,7 @@ public:
   //! X2Max = XMax
   //! The result is a box
   //! dx,dy,dz should be positive
-  Standard_EXPORT BRepPrim_Wedge(const gp_Ax2&       Axes,
+  Standard_EXPORT BRepPrim_Wedge(const Frame3d&       Axes,
                                  const Standard_Real dx,
                                  const Standard_Real dy,
                                  const Standard_Real dz);
@@ -61,7 +61,7 @@ public:
   //! The result is a STEP right angular wedge
   //! dx,dy,dz should be positive
   //! ltx should not be negative
-  Standard_EXPORT BRepPrim_Wedge(const gp_Ax2&       Axes,
+  Standard_EXPORT BRepPrim_Wedge(const Frame3d&       Axes,
                                  const Standard_Real dx,
                                  const Standard_Real dy,
                                  const Standard_Real dz,
@@ -73,7 +73,7 @@ public:
   //! all the fields are set to the corresponding value
   //! XYZMax - XYZMin should be positive
   //! ZX2Max - ZX2Min should not be negative
-  Standard_EXPORT BRepPrim_Wedge(const gp_Ax2&       Axes,
+  Standard_EXPORT BRepPrim_Wedge(const Frame3d&       Axes,
                                  const Standard_Real xmin,
                                  const Standard_Real ymin,
                                  const Standard_Real zmin,

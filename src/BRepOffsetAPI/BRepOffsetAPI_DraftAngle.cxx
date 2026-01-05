@@ -91,7 +91,7 @@ void BRepOffsetAPI_DraftAngle::Init(const TopoDS_Shape& S)
 //=================================================================================================
 
 void BRepOffsetAPI_DraftAngle::Add(const TopoDS_Face&     F,
-                                   const gp_Dir&          D,
+                                   const Dir3d&          D,
                                    const Standard_Real    Angle,
                                    const gp_Pln&          Plane,
                                    const Standard_Boolean Flag)

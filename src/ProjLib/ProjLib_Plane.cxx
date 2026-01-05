@@ -90,12 +90,12 @@ void ProjLib_Plane::Init(const gp_Pln& Pl)
 
 static gp_Pnt2d EvalPnt2d(const Point3d& P, const gp_Pln& Pl)
 {
-  gp_Vec OP(Pl.Location(), P);
-  return gp_Pnt2d(OP.Dot(gp_Vec(Pl.Position().XDirection())),
-                  OP.Dot(gp_Vec(Pl.Position().YDirection())));
+  Vector3d OP(Pl.Location(), P);
+  return gp_Pnt2d(OP.Dot(Vector3d(Pl.Position().XDirection())),
+                  OP.Dot(Vector3d(Pl.Position().YDirection())));
 }
 
-static gp_Dir2d EvalDir2d(const gp_Dir& D, const gp_Pln& Pl)
+static gp_Dir2d EvalDir2d(const Dir3d& D, const gp_Pln& Pl)
 {
   return gp_Dir2d(D.Dot(Pl.Position().XDirection()), D.Dot(Pl.Position().YDirection()));
 }

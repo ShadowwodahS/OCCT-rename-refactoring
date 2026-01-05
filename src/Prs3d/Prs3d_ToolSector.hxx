@@ -32,7 +32,7 @@ public:
     const Standard_Real    theRadius,
     const Standard_Integer theNbSlices,
     const Standard_Integer theNbStacks,
-    const gp_Trsf&         theTrsf);
+    const Transform3d&         theTrsf);
 
 public:
   //! Initializes the algorithm creating a sector (quadrant).
@@ -49,9 +49,9 @@ protected:
                                         const Standard_Real theV) const Standard_OVERRIDE;
 
   //! Computes normal at given parameter location of the surface.
-  virtual gp_Dir Normal(const Standard_Real, const Standard_Real) const Standard_OVERRIDE
+  virtual Dir3d Normal(const Standard_Real, const Standard_Real) const Standard_OVERRIDE
   {
-    return gp_Dir(0.0, 0.0, -1.0);
+    return Dir3d(0.0, 0.0, -1.0);
   }
 
 protected:

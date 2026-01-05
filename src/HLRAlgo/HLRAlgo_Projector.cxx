@@ -45,7 +45,7 @@ HLRAlgo_Projector::HLRAlgo_Projector()
 
 //=================================================================================================
 
-HLRAlgo_Projector::HLRAlgo_Projector(const gp_Ax2& CS)
+HLRAlgo_Projector::HLRAlgo_Projector(const Frame3d& CS)
     : myPersp(Standard_False),
       myFocus(0)
 {
@@ -56,7 +56,7 @@ HLRAlgo_Projector::HLRAlgo_Projector(const gp_Ax2& CS)
 
 //=================================================================================================
 
-HLRAlgo_Projector::HLRAlgo_Projector(const gp_Ax2& CS, const Standard_Real Focus)
+HLRAlgo_Projector::HLRAlgo_Projector(const Frame3d& CS, const Standard_Real Focus)
     : myPersp(Standard_True),
       myFocus(Focus)
 {
@@ -67,7 +67,7 @@ HLRAlgo_Projector::HLRAlgo_Projector(const gp_Ax2& CS, const Standard_Real Focus
 
 //=================================================================================================
 
-HLRAlgo_Projector::HLRAlgo_Projector(const gp_Trsf&         T,
+HLRAlgo_Projector::HLRAlgo_Projector(const Transform3d&         T,
                                      const Standard_Boolean Persp,
                                      const Standard_Real    Focus)
     : myPersp(Persp),
@@ -80,7 +80,7 @@ HLRAlgo_Projector::HLRAlgo_Projector(const gp_Trsf&         T,
 
 //=================================================================================================
 
-HLRAlgo_Projector::HLRAlgo_Projector(const gp_Trsf&         T,
+HLRAlgo_Projector::HLRAlgo_Projector(const Transform3d&         T,
                                      const Standard_Boolean Persp,
                                      const Standard_Real    Focus,
                                      const gp_Vec2d&        v1,
@@ -98,7 +98,7 @@ HLRAlgo_Projector::HLRAlgo_Projector(const gp_Trsf&         T,
 
 //=================================================================================================
 
-void HLRAlgo_Projector::Set(const gp_Trsf&         T,
+void HLRAlgo_Projector::Set(const Transform3d&         T,
                             const Standard_Boolean Persp,
                             const Standard_Real    Focus)
 {
@@ -113,7 +113,7 @@ void HLRAlgo_Projector::Set(const gp_Trsf&         T,
 
 #include <gp_Mat.hxx>
 
-static Standard_Integer TrsfType(const gp_Trsf& Trsf)
+static Standard_Integer TrsfType(const Transform3d& Trsf)
 {
   const gp_Mat& Mat = Trsf.VectorialPart();
   if ((Abs(Mat.Value(1, 1) - 1.0) < 1e-15) && (Abs(Mat.Value(2, 2) - 1.0) < 1e-15)
@@ -160,7 +160,7 @@ void HLRAlgo_Projector::Scaled(const Standard_Boolean On)
     myTrsf.SetScaleFactor(1.);
     if (!myPersp)
     {
-      myTrsf.SetTranslationPart(gp_Vec(0., 0., 0.));
+      myTrsf.SetTranslationPart(Vector3d(0., 0., 0.));
       myType = TrsfType(myTrsf);
     }
   }
@@ -320,13 +320,13 @@ void HLRAlgo_Projector::Project(const Point3d&  P,
 //=================================================================================================
 
 void HLRAlgo_Projector::Project(const Point3d& P,
-                                const gp_Vec& D1,
+                                const Vector3d& D1,
                                 gp_Pnt2d&     Pout,
                                 gp_Vec2d&     D1out) const
 {
   Point3d PP = P;
   PP.Transform(myTrsf);
-  gp_Vec DD1 = D1;
+  Vector3d DD1 = D1;
   DD1.Transform(myTrsf);
   if (myPersp)
   {
@@ -349,11 +349,11 @@ gp_Lin HLRAlgo_Projector::Shoot(const Standard_Real X, const Standard_Real Y) co
   gp_Lin L;
   if (myPersp)
   {
-    L = gp_Lin(Point3d(0, 0, myFocus), gp_Dir(X, Y, -myFocus));
+    L = gp_Lin(Point3d(0, 0, myFocus), Dir3d(X, Y, -myFocus));
   }
   else
   {
-    L = gp_Lin(Point3d(X, Y, 0), gp_Dir(0, 0, -1));
+    L = gp_Lin(Point3d(X, Y, 0), Dir3d(0, 0, -1));
   }
   L.Transform(myInvTrsf);
   return L;
@@ -363,19 +363,19 @@ gp_Lin HLRAlgo_Projector::Shoot(const Standard_Real X, const Standard_Real Y) co
 
 void HLRAlgo_Projector::SetDirection()
 {
-  gp_Vec V1(1, 0, 0);
+  Vector3d V1(1, 0, 0);
   V1.Transform(myTrsf);
   if ((Abs(V1.X()) + Abs(V1.Y())) < Precision::Angular())
     V1.SetCoord(1, 1, 0);
   gp_Vec2d D1(V1.X(), V1.Y());
   myD1.SetCoord(-D1.Y(), D1.X());
-  gp_Vec V2(0, 1, 0);
+  Vector3d V2(0, 1, 0);
   V2.Transform(myTrsf);
   if ((Abs(V2.X()) + Abs(V2.Y())) < Precision::Angular())
     V2.SetCoord(1, 1, 0);
   gp_Vec2d D2(V2.X(), V2.Y());
   myD2.SetCoord(-D2.Y(), D2.X());
-  gp_Vec V3(0, 0, 1);
+  Vector3d V3(0, 0, 1);
   V3.Transform(myTrsf);
   if ((Abs(V3.X()) + Abs(V3.Y())) < Precision::Angular())
     V3.SetCoord(1, 1, 0);
@@ -385,7 +385,7 @@ void HLRAlgo_Projector::SetDirection()
 
 //=================================================================================================
 
-const gp_Trsf& HLRAlgo_Projector::Transformation() const
+const Transform3d& HLRAlgo_Projector::Transformation() const
 {
   return myTrsf;
 }

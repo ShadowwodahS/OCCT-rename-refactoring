@@ -126,7 +126,7 @@ Point3d GeomFill_CoonsAlgPatch::Value(const Standard_Real, const Standard_Real V
 
 //=================================================================================================
 
-gp_Vec GeomFill_CoonsAlgPatch::D1U(const Standard_Real U, const Standard_Real V) const
+Vector3d GeomFill_CoonsAlgPatch::D1U(const Standard_Real U, const Standard_Real V) const
 {
   Standard_Real a0, a1, a2, a3, bid;
   a0 = a[0]->Value(V);
@@ -135,7 +135,7 @@ gp_Vec GeomFill_CoonsAlgPatch::D1U(const Standard_Real U, const Standard_Real V)
   a3 = -a1;
   gp_XYZ cor, cortemp;
   Point3d pbid;
-  gp_Vec vbid;
+  Vector3d vbid;
 
   bound[0]->D1(U, pbid, vbid);
   cor = vbid.XYZ();
@@ -176,7 +176,7 @@ gp_Vec GeomFill_CoonsAlgPatch::D1U(const Standard_Real U, const Standard_Real V)
 
 //=================================================================================================
 
-gp_Vec GeomFill_CoonsAlgPatch::D1V(const Standard_Real U, const Standard_Real V) const
+Vector3d GeomFill_CoonsAlgPatch::D1V(const Standard_Real U, const Standard_Real V) const
 {
   Standard_Real a0, a1, a2, a3, bid;
   a[0]->D1(V, bid, a0);
@@ -185,7 +185,7 @@ gp_Vec GeomFill_CoonsAlgPatch::D1V(const Standard_Real U, const Standard_Real V)
   a3 = 1. - a1;
   gp_XYZ cor, cortemp;
   Point3d pbid;
-  gp_Vec vbid;
+  Vector3d vbid;
 
   cor = bound[0]->Value(U).XYZ();
   cor.Multiply(a0);
@@ -226,7 +226,7 @@ gp_Vec GeomFill_CoonsAlgPatch::D1V(const Standard_Real U, const Standard_Real V)
 
 //=================================================================================================
 
-gp_Vec GeomFill_CoonsAlgPatch::DUV(const Standard_Real U, const Standard_Real V) const
+Vector3d GeomFill_CoonsAlgPatch::DUV(const Standard_Real U, const Standard_Real V) const
 {
   Standard_Real a0, a1, a2, a3, bid;
   a[0]->D1(V, bid, a0);
@@ -236,7 +236,7 @@ gp_Vec GeomFill_CoonsAlgPatch::DUV(const Standard_Real U, const Standard_Real V)
 
   gp_XYZ cor, cortemp;
   Point3d pbid;
-  gp_Vec vbid;
+  Vector3d vbid;
 
   bound[0]->D1(U, pbid, vbid);
   cor = vbid.XYZ();

@@ -23,7 +23,7 @@
 
 //! Describes an ellipse in 3D space.
 //! An ellipse is defined by its major and minor radii and
-//! positioned in space with a coordinate system (a gp_Ax2 object) as follows:
+//! positioned in space with a coordinate system (a Frame3d object) as follows:
 //! -   the origin of the coordinate system is the center of the ellipse,
 //! -   its "X Direction" defines the major axis of the ellipse, and
 //! - its "Y Direction" defines the minor axis of the ellipse.
@@ -66,7 +66,7 @@ public:
   //! It is not forbidden to create an ellipse with theMajorRadius =
   //! theMinorRadius.
   //! Raises ConstructionError if theMajorRadius < theMinorRadius or theMinorRadius < 0.
-  gp_Elips(const gp_Ax2&       theA2,
+  gp_Elips(const Frame3d&       theA2,
            const Standard_Real theMajorRadius,
            const Standard_Real theMinorRadius)
       : pos(theA2),
@@ -83,10 +83,10 @@ public:
   //! The local coordinate system is redefined so that:
   //! -   its origin and "main Direction" become those of the
   //! axis theA1 (the "X Direction" and "Y Direction" are then
-  //! recomputed in the same way as for any gp_Ax2), or
+  //! recomputed in the same way as for any Frame3d), or
   //! Raises ConstructionError if the direction of theA1
   //! is parallel to the direction of the "XAxis" of the ellipse.
-  void SetAxis(const gp_Ax1& theA1) { pos.SetAxis(theA1); }
+  void SetAxis(const Axis3d& theA1) { pos.SetAxis(theA1); }
 
   //! Modifies this ellipse, by redefining its local coordinate
   //! so that its origin becomes theP.
@@ -116,13 +116,13 @@ public:
 
   //! Modifies this ellipse, by redefining its local coordinate
   //! so that it becomes theA2.
-  void SetPosition(const gp_Ax2& theA2) { pos = theA2; }
+  void SetPosition(const Frame3d& theA2) { pos = theA2; }
 
   //! Computes the area of the Ellipse.
   Standard_Real Area() const { return M_PI * majorRadius * minorRadius; }
 
   //! Computes the axis normal to the plane of the ellipse.
-  const gp_Ax1& Axis() const { return pos.Axis(); }
+  const Axis3d& Axis() const { return pos.Axis(); }
 
   //! Computes the first or second directrix of this ellipse.
   //! These are the lines, in the plane of the ellipse, normal to
@@ -132,20 +132,20 @@ public:
   //! The first directrix (Directrix1) is on the positive side of
   //! the major axis. The second directrix (Directrix2) is on
   //! the negative side.
-  //! The directrix is returned as an axis (gp_Ax1 object), the
+  //! The directrix is returned as an axis (Axis3d object), the
   //! origin of which is situated on the "X Axis" of the local
   //! coordinate system of this ellipse.
   //! Exceptions
   //! Standard_ConstructionError if the eccentricity is null
   //! (the ellipse has degenerated into a circle).
-  gp_Ax1 Directrix1() const;
+  Axis3d Directrix1() const;
 
   //! This line is obtained by the symmetrical transformation
   //! of "Directrix1" with respect to the "YAxis" of the ellipse.
   //! Exceptions
   //! Standard_ConstructionError if the eccentricity is null
   //! (the ellipse has degenerated into a circle).
-  gp_Ax1 Directrix2() const;
+  Axis3d Directrix2() const;
 
   //! Returns the eccentricity of the ellipse  between 0.0 and 1.0
   //! If f is the distance between the center of the ellipse and
@@ -184,17 +184,17 @@ public:
   Standard_Real Parameter() const;
 
   //! Returns the coordinate system of the ellipse.
-  const gp_Ax2& Position() const { return pos; }
+  const Frame3d& Position() const { return pos; }
 
   //! Returns the "XAxis" of the ellipse whose origin
   //! is the center of this ellipse. It is the major axis of the
   //! ellipse.
-  gp_Ax1 XAxis() const { return gp_Ax1(pos.Location(), pos.XDirection()); }
+  Axis3d XAxis() const { return Axis3d(pos.Location(), pos.XDirection()); }
 
   //! Returns the "YAxis" of the ellipse whose unit vector is the "X Direction" or the "Y Direction"
   //! of the local coordinate system of this ellipse.
   //! This is the minor axis of the ellipse.
-  gp_Ax1 YAxis() const { return gp_Ax1(pos.Location(), pos.YDirection()); }
+  Axis3d YAxis() const { return Axis3d(pos.Location(), pos.YDirection()); }
 
   Standard_EXPORT void Mirror(const Point3d& theP);
 
@@ -202,24 +202,24 @@ public:
   //! respect to the point theP which is the center of the symmetry.
   Standard_NODISCARD Standard_EXPORT gp_Elips Mirrored(const Point3d& theP) const;
 
-  Standard_EXPORT void Mirror(const gp_Ax1& theA1);
+  Standard_EXPORT void Mirror(const Axis3d& theA1);
 
   //! Performs the symmetrical transformation of an ellipse with
   //! respect to an axis placement which is the axis of the symmetry.
-  Standard_NODISCARD Standard_EXPORT gp_Elips Mirrored(const gp_Ax1& theA1) const;
+  Standard_NODISCARD Standard_EXPORT gp_Elips Mirrored(const Axis3d& theA1) const;
 
-  Standard_EXPORT void Mirror(const gp_Ax2& theA2);
+  Standard_EXPORT void Mirror(const Frame3d& theA2);
 
   //! Performs the symmetrical transformation of an ellipse with
   //! respect to a plane. The axis placement theA2 locates the plane
   //! of the symmetry (Location, XDirection, YDirection).
-  Standard_NODISCARD Standard_EXPORT gp_Elips Mirrored(const gp_Ax2& theA2) const;
+  Standard_NODISCARD Standard_EXPORT gp_Elips Mirrored(const Frame3d& theA2) const;
 
-  void Rotate(const gp_Ax1& theA1, const Standard_Real theAng) { pos.Rotate(theA1, theAng); }
+  void Rotate(const Axis3d& theA1, const Standard_Real theAng) { pos.Rotate(theA1, theAng); }
 
   //! Rotates an ellipse. theA1 is the axis of the rotation.
   //! theAng is the angular value of the rotation in radians.
-  Standard_NODISCARD gp_Elips Rotated(const gp_Ax1& theA1, const Standard_Real theAng) const
+  Standard_NODISCARD gp_Elips Rotated(const Axis3d& theA1, const Standard_Real theAng) const
   {
     gp_Elips anE = *this;
     anE.pos.Rotate(theA1, theAng);
@@ -231,16 +231,16 @@ public:
   //! Scales an ellipse. theS is the scaling value.
   Standard_NODISCARD gp_Elips Scaled(const Point3d& theP, const Standard_Real theS) const;
 
-  void Transform(const gp_Trsf& theT);
+  void Transform(const Transform3d& theT);
 
   //! Transforms an ellipse with the transformation theT from class Trsf.
-  Standard_NODISCARD gp_Elips Transformed(const gp_Trsf& theT) const;
+  Standard_NODISCARD gp_Elips Transformed(const Transform3d& theT) const;
 
-  void Translate(const gp_Vec& theV) { pos.Translate(theV); }
+  void Translate(const Vector3d& theV) { pos.Translate(theV); }
 
   //! Translates an ellipse in the direction of the vector theV.
   //! The magnitude of the translation is the vector's magnitude.
-  Standard_NODISCARD gp_Elips Translated(const gp_Vec& theV) const
+  Standard_NODISCARD gp_Elips Translated(const Vector3d& theV) const
   {
     gp_Elips anE = *this;
     anE.pos.Translate(theV);
@@ -258,7 +258,7 @@ public:
   }
 
 private:
-  gp_Ax2        pos;
+  Frame3d        pos;
   Standard_Real majorRadius;
   Standard_Real minorRadius;
 };
@@ -267,7 +267,7 @@ private:
 // function : Directrix1
 // purpose  :
 // =======================================================================
-inline gp_Ax1 gp_Elips::Directrix1() const
+inline Axis3d gp_Elips::Directrix1() const
 {
   Standard_Real anE = Eccentricity();
   Standard_ConstructionError_Raise_if(anE <= gp::Resolution(),
@@ -275,14 +275,14 @@ inline gp_Ax1 gp_Elips::Directrix1() const
   gp_XYZ anOrig = pos.XDirection().XYZ();
   anOrig.Multiply(majorRadius / anE);
   anOrig.Add(pos.Location().XYZ());
-  return gp_Ax1(Point3d(anOrig), pos.YDirection());
+  return Axis3d(Point3d(anOrig), pos.YDirection());
 }
 
 // =======================================================================
 // function : Directrix2
 // purpose  :
 // =======================================================================
-inline gp_Ax1 gp_Elips::Directrix2() const
+inline Axis3d gp_Elips::Directrix2() const
 {
   Standard_Real anE = Eccentricity();
   Standard_ConstructionError_Raise_if(anE <= gp::Resolution(),
@@ -290,7 +290,7 @@ inline gp_Ax1 gp_Elips::Directrix2() const
   gp_XYZ anOrig = pos.XDirection().XYZ();
   anOrig.Multiply(-majorRadius / anE);
   anOrig.Add(pos.Location().XYZ());
-  return gp_Ax1(Point3d(anOrig), pos.YDirection());
+  return Axis3d(Point3d(anOrig), pos.YDirection());
 }
 
 // =======================================================================
@@ -317,7 +317,7 @@ inline Point3d gp_Elips::Focus1() const
 {
   Standard_Real aC  = sqrt(majorRadius * majorRadius - minorRadius * minorRadius);
   const Point3d& aPP = pos.Location();
-  const gp_Dir& aDD = pos.XDirection();
+  const Dir3d& aDD = pos.XDirection();
   return Point3d(aPP.X() + aC * aDD.X(), aPP.Y() + aC * aDD.Y(), aPP.Z() + aC * aDD.Z());
 }
 
@@ -329,7 +329,7 @@ inline Point3d gp_Elips::Focus2() const
 {
   Standard_Real aC  = sqrt(majorRadius * majorRadius - minorRadius * minorRadius);
   const Point3d& aPP = pos.Location();
-  const gp_Dir& aDD = pos.XDirection();
+  const Dir3d& aDD = pos.XDirection();
   return Point3d(aPP.X() - aC * aDD.X(), aPP.Y() - aC * aDD.Y(), aPP.Z() - aC * aDD.Z());
 }
 
@@ -397,7 +397,7 @@ inline gp_Elips gp_Elips::Scaled(const Point3d& theP, const Standard_Real theS) 
 // function : Transform
 // purpose  :
 // =======================================================================
-inline void gp_Elips::Transform(const gp_Trsf& theT)
+inline void gp_Elips::Transform(const Transform3d& theT)
 {
   majorRadius *= theT.ScaleFactor();
   if (majorRadius < 0)
@@ -416,7 +416,7 @@ inline void gp_Elips::Transform(const gp_Trsf& theT)
 // function : Transformed
 // purpose  :
 // =======================================================================
-inline gp_Elips gp_Elips::Transformed(const gp_Trsf& theT) const
+inline gp_Elips gp_Elips::Transformed(const Transform3d& theT) const
 {
   gp_Elips anE = *this;
   anE.majorRadius *= theT.ScaleFactor();

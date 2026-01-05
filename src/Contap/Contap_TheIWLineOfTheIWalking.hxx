@@ -32,7 +32,7 @@ class Standard_OutOfRange;
 class Standard_DomainError;
 class IntSurf_PathPoint;
 class IntSurf_PntOn2S;
-class gp_Vec;
+class Vector3d;
 
 class Contap_TheIWLineOfTheIWalking;
 DEFINE_STANDARD_HANDLE(Contap_TheIWLineOfTheIWalking, RefObject)
@@ -73,7 +73,7 @@ public:
   //! passant dans l'iterateur de depart
   void AddIndexPassing(const Standard_Integer Index);
 
-  void SetTangentVector(const gp_Vec& V, const Standard_Integer Index);
+  void SetTangentVector(const Vector3d& V, const Standard_Integer Index);
 
   void SetTangencyAtBegining(const Standard_Boolean IsTangent);
 
@@ -139,7 +139,7 @@ public:
                     Standard_Integer&      IndexLine,
                     Standard_Integer&      IndexPnts) const;
 
-  const gp_Vec& TangentVector(Standard_Integer& Index) const;
+  const Vector3d& TangentVector(Standard_Integer& Index) const;
 
   Standard_Boolean IsTangentAtBegining() const;
 
@@ -159,7 +159,7 @@ private:
   IntSurf_PathPoint        theFirstPoint;
   IntSurf_PathPoint        theLastPoint;
   Standard_Integer         indextg;
-  gp_Vec                   vcttg;
+  Vector3d                   vcttg;
   Standard_Boolean         istgtbeg;
   Standard_Boolean         istgtend;
 };

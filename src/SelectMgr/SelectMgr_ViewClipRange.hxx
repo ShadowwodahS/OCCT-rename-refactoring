@@ -23,7 +23,7 @@
 
 #include <vector>
 
-class gp_Ax1;
+class Axis3d;
 class Graphic3d_SequenceOfHClipPlane;
 
 //! Class for handling depth clipping range.
@@ -107,7 +107,7 @@ public:
 
   //! Add clipping planes. Planes and picking ray should be defined in the same coordinate system.
   Standard_EXPORT void AddClippingPlanes(const Graphic3d_SequenceOfHClipPlane& thePlanes,
-                                         const gp_Ax1&                         thePickRay);
+                                         const Axis3d&                         thePickRay);
 
   //! Returns the main unclipped range; [-inf, inf] by default.
   Bnd_Range& ChangeUnclipRange() { return myUnclipRange; }

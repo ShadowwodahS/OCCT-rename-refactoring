@@ -29,7 +29,7 @@
 //=================================================================================================
 
 BRepPrim_Cone::BRepPrim_Cone(const Standard_Real Angle,
-                             const gp_Ax2&       Position,
+                             const Frame3d&       Position,
                              const Standard_Real Height,
                              const Standard_Real Radius)
     : BRepPrim_Revolution(Position, 0, 0),
@@ -65,7 +65,7 @@ BRepPrim_Cone::BRepPrim_Cone(const Standard_Real Angle)
 //=================================================================================================
 
 BRepPrim_Cone::BRepPrim_Cone(const Standard_Real Angle, const Point3d& Apex)
-    : BRepPrim_Revolution(gp_Ax2(Apex, gp_Dir(0, 0, 1), gp_Dir(1, 0, 0)), 0, RealLast()),
+    : BRepPrim_Revolution(Frame3d(Apex, Dir3d(0, 0, 1), Dir3d(1, 0, 0)), 0, RealLast()),
       myHalfAngle(Angle),
       myRadius(0.)
 {
@@ -77,7 +77,7 @@ BRepPrim_Cone::BRepPrim_Cone(const Standard_Real Angle, const Point3d& Apex)
 
 //=================================================================================================
 
-BRepPrim_Cone::BRepPrim_Cone(const Standard_Real Angle, const gp_Ax2& Axes)
+BRepPrim_Cone::BRepPrim_Cone(const Standard_Real Angle, const Frame3d& Axes)
     : BRepPrim_Revolution(Axes, 0, RealLast()),
       myHalfAngle(Angle)
 {
@@ -102,7 +102,7 @@ BRepPrim_Cone::BRepPrim_Cone(const Point3d&       Center,
                              const Standard_Real R1,
                              const Standard_Real R2,
                              const Standard_Real H)
-    : BRepPrim_Revolution(gp_Ax2(Center, gp_Dir(0, 0, 1), gp_Dir(1, 0, 0)), 0, 0)
+    : BRepPrim_Revolution(Frame3d(Center, Dir3d(0, 0, 1), Dir3d(1, 0, 0)), 0, 0)
 {
   SetParameters(R1, R2, H);
   SetMeridian();
@@ -110,7 +110,7 @@ BRepPrim_Cone::BRepPrim_Cone(const Point3d&       Center,
 
 //=================================================================================================
 
-BRepPrim_Cone::BRepPrim_Cone(const gp_Ax2&       Axes,
+BRepPrim_Cone::BRepPrim_Cone(const Frame3d&       Axes,
                              const Standard_Real R1,
                              const Standard_Real R2,
                              const Standard_Real H)
@@ -134,9 +134,9 @@ TopoDS_Face BRepPrim_Cone::MakeEmptyLateralFace() const
 
 void BRepPrim_Cone::SetMeridian()
 {
-  gp_Ax1 A = Axes().Axis();
-  A.Rotate(gp_Ax1(Axes().Location(), Axes().YDirection()), myHalfAngle);
-  gp_Vec V(Axes().XDirection());
+  Axis3d A = Axes().Axis();
+  A.Rotate(Axis3d(Axes().Location(), Axes().YDirection()), myHalfAngle);
+  Vector3d V(Axes().XDirection());
   V *= myRadius;
   A.Translate(V);
   Handle(Geom_Line)   L = new Geom_Line(A);

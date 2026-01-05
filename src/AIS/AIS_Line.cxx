@@ -217,7 +217,7 @@ void AIS_Line::ComputeSegmentLine(const Handle(Prs3d_Presentation)& aPresentatio
   Point3d P1 = myStartPoint->Pnt();
   Point3d P2 = myEndPoint->Pnt();
 
-  myComponent = new Geom_Line(P1, gp_Dir(P2.XYZ() - P1.XYZ()));
+  myComponent = new Geom_Line(P1, Dir3d(P2.XYZ() - P1.XYZ()));
 
   Standard_Real     dist = P1.Distance(P2);
   GeomAdaptor_Curve curv(myComponent, 0., dist);
@@ -234,7 +234,7 @@ void AIS_Line::ComputeInfiniteLineSelection(const Handle(SelectMgr_Selection)& a
     Point3d P1,P2;
     FindLimits(curv,myDrawer->MaximalParameterValue(),P1,P2);
   */
-  const gp_Dir& thedir  = myComponent->Position().Direction();
+  const Dir3d& thedir  = myComponent->Position().Direction();
   const Point3d& loc     = myComponent->Position().Location();
   const gp_XYZ& dir_xyz = thedir.XYZ();
   const gp_XYZ& loc_xyz = loc.XYZ();

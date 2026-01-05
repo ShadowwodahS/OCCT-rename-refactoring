@@ -79,8 +79,8 @@ static void SetGluedFaces(const TopTools_DataMapOfShapeListOfShape& theSlmap,
 void BRepFeat_MakeLinearForm::Init(const TopoDS_Shape&       Sbase,
                                    const TopoDS_Wire&        W,
                                    const Handle(Geom_Plane)& Plane,
-                                   const gp_Vec&             Direc,
-                                   const gp_Vec&             Direc1,
+                                   const Vector3d&             Direc,
+                                   const Vector3d&             Direc1,
                                    const Standard_Integer    Mode,
                                    const Standard_Boolean    Modify)
 {
@@ -154,7 +154,7 @@ void BRepFeat_MakeLinearForm::Init(const TopoDS_Shape&       Sbase,
 
   // ---Control of directions
   //    the wire should be in the rib
-  gp_Vec nulldir(0, 0, 0);
+  Vector3d nulldir(0, 0, 0);
   if (!myDir1.IsEqual(nulldir, myTol, myTol))
   {
     Standard_Real ang = myDir1.Angle(myDir);
@@ -177,8 +177,8 @@ void BRepFeat_MakeLinearForm::Init(const TopoDS_Shape&       Sbase,
     if (trc)
       std::cout << " Rib is centre" << std::endl;
 #endif
-    const gp_Vec& DirTranslation = (Direc + Direc1) * 0.5;
-    gp_Trsf       T;
+    const Vector3d& DirTranslation = (Direc + Direc1) * 0.5;
+    Transform3d       T;
     T.SetTranslation(DirTranslation);
     BRepBuilderAPI_Transform trf(T);
     trf.Perform(myWire);
@@ -915,7 +915,7 @@ void BRepFeat_MakeLinearForm::Perform()
     return;
   }
 
-  gp_Vec nulldir(0, 0, 0);
+  Vector3d nulldir(0, 0, 0);
 
   Standard_Real Length = myDir.Magnitude() + myDir1.Magnitude();
 
@@ -926,8 +926,8 @@ void BRepFeat_MakeLinearForm::Perform()
   else
     myPerfSelection = BRepFeat_NoSelection;
 
-  gp_Dir dir(myDir);
-  gp_Vec V = Length * dir;
+  Dir3d dir(myDir);
+  Vector3d V = Length * dir;
 
   LocOpe_LinearForm theForm;
 

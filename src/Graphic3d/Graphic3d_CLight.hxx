@@ -133,10 +133,10 @@ public:
   //! @name directional/spot light additional properties
 public:
   //! Returns direction of directional/spot light.
-  gp_Dir Direction() const { return gp_Dir(myDirection.x(), myDirection.y(), myDirection.z()); }
+  Dir3d Direction() const { return Dir3d(myDirection.x(), myDirection.y(), myDirection.z()); }
 
   //! Sets direction of directional/spot light.
-  Standard_EXPORT void SetDirection(const gp_Dir& theDir);
+  Standard_EXPORT void SetDirection(const Dir3d& theDir);
 
   //! Returns the theVx, theVy, theVz direction of the light source.
   void Direction(Standard_Real& theVx, Standard_Real& theVy, Standard_Real& theVz) const
@@ -149,7 +149,7 @@ public:
   //! Sets direction of directional/spot light.
   void SetDirection(Standard_Real theVx, Standard_Real theVy, Standard_Real theVz)
   {
-    SetDirection(gp_Dir(theVx, theVy, theVz));
+    SetDirection(Dir3d(theVx, theVy, theVz));
   }
 
   //! Returns location of positional/spot/directional light, which is the same as returned by

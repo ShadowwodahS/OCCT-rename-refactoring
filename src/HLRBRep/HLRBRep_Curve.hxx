@@ -31,7 +31,7 @@
 
 class TopoDS_Edge;
 class Point3d;
-class gp_Vec;
+class Vector3d;
 class gp_Pnt2d;
 class gp_Dir2d;
 class gp_Vec2d;
@@ -93,7 +93,7 @@ public:
 
   //! Computes the point of parameter  U on the curve
   //! with its first derivative.
-  void D1(const Standard_Real U, Point3d& P, gp_Vec& V) const;
+  void D1(const Standard_Real U, Point3d& P, Vector3d& V) const;
 
   //! Depending on <AtStart> computes the 2D point and
   //! tangent on the curve  at sart (or at  end).  If the  first

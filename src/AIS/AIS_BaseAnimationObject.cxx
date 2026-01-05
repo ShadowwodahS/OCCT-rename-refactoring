@@ -31,7 +31,7 @@ AIS_BaseAnimationObject::AIS_BaseAnimationObject(const TCollection_AsciiString& 
 
 //=================================================================================================
 
-void AIS_BaseAnimationObject::updateTrsf(const gp_Trsf& theTrsf)
+void AIS_BaseAnimationObject::updateTrsf(const Transform3d& theTrsf)
 {
   if (!myContext.IsNull())
   {

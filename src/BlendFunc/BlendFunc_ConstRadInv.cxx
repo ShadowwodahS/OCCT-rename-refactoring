@@ -159,16 +159,16 @@ Standard_Boolean BlendFunc_ConstRadInv::IsSolution(const math_Vector& Sol, const
 Standard_Boolean BlendFunc_ConstRadInv::Value(const math_Vector& X, math_Vector& F)
 {
   Point3d ptcur;
-  gp_Vec d1cur;
+  Vector3d d1cur;
   curv->D1(X(2), ptcur, d1cur);
 
-  const gp_Vec        nplan = d1cur.Normalized();
+  const Vector3d        nplan = d1cur.Normalized();
   const Standard_Real theD  = -(nplan.XYZ().Dot(ptcur.XYZ()));
 
   const gp_Pnt2d pt2d(csurf->Value(X(1)));
 
   Point3d pts1, pts2;
-  gp_Vec d1u1, d1v1, d1u2, d1v2;
+  Vector3d d1u1, d1v1, d1u2, d1v2;
   if (first)
   {
     surf1->D1(pt2d.X(), pt2d.Y(), pts1, d1u1, d1v1);
@@ -185,7 +185,7 @@ Standard_Boolean BlendFunc_ConstRadInv::Value(const math_Vector& X, math_Vector&
            / 2.
          + theD;
 
-  gp_Vec ns1 = d1u1.Crossed(d1v1);
+  Vector3d ns1 = d1u1.Crossed(d1v1);
   if (ns1.Magnitude() < Eps)
   {
     if (first)
@@ -197,7 +197,7 @@ Standard_Boolean BlendFunc_ConstRadInv::Value(const math_Vector& X, math_Vector&
     }
   }
 
-  gp_Vec ns2 = d1u2.Crossed(d1v2);
+  Vector3d ns2 = d1u2.Crossed(d1v2);
   if (ns2.Magnitude() < Eps)
   {
     if (!first)
@@ -220,7 +220,7 @@ Standard_Boolean BlendFunc_ConstRadInv::Value(const math_Vector& X, math_Vector&
     norm2 = 1; // Unsatisfactory, but it is not necessary to stop
   }
 
-  gp_Vec resul;
+  Vector3d resul;
   ns1.SetLinearForm(nplan.Dot(ns1) / norm1, nplan, -1. / norm1, ns1);
   ns2.SetLinearForm(nplan.Dot(ns2) / norm2, nplan, -1. / norm2, ns2);
   resul.SetLinearForm(ray1, ns1, -1., pts2.XYZ(), -ray2, ns2, pts1.XYZ());
@@ -233,10 +233,10 @@ Standard_Boolean BlendFunc_ConstRadInv::Value(const math_Vector& X, math_Vector&
 
 Standard_Boolean BlendFunc_ConstRadInv::Derivatives(const math_Vector& X, math_Matrix& D)
 {
-  gp_Vec        d1u1, d1v1, d1u2, d1v2;
-  gp_Vec        d2u1, d2v1, d2uv1, d2u2, d2v2, d2uv2;
-  gp_Vec        d1cur, d2cur;
-  gp_Vec        ns1, ns2, nplan, dnplan, ncrossns1, ncrossns2, resul1, resul2, temp;
+  Vector3d        d1u1, d1v1, d1u2, d1v2;
+  Vector3d        d2u1, d2v1, d2uv1, d2u2, d2v2, d2uv2;
+  Vector3d        d1cur, d2cur;
+  Vector3d        ns1, ns2, nplan, dnplan, ncrossns1, ncrossns2, resul1, resul2, temp;
   Point3d        pts1, pts2, ptcur;
   gp_Pnt2d      p2d;
   gp_Vec2d      v2d;
@@ -429,9 +429,9 @@ Standard_Boolean BlendFunc_ConstRadInv::Derivatives(const math_Vector& X, math_M
 
 Standard_Boolean BlendFunc_ConstRadInv::Values(const math_Vector& X, math_Vector& F, math_Matrix& D)
 {
-  gp_Vec        d1u1, d1v1, d1u2, d1v2, d1cur;
-  gp_Vec        d2u1, d2v1, d2uv1, d2u2, d2v2, d2uv2, d2cur;
-  gp_Vec        ns1, ns2, nplan, dnplan, ncrossns1, ncrossns2, resul1, resul2, temp;
+  Vector3d        d1u1, d1v1, d1u2, d1v2, d1cur;
+  Vector3d        d2u1, d2v1, d2uv1, d2u2, d2v2, d2uv2, d2cur;
+  Vector3d        ns1, ns2, nplan, dnplan, ncrossns1, ncrossns2, resul1, resul2, temp;
   Point3d        ptcur, pts1, pts2;
   gp_Pnt2d      p2d;
   gp_Vec2d      v2d;
@@ -524,7 +524,7 @@ Standard_Boolean BlendFunc_ConstRadInv::Values(const math_Vector& X, math_Vector
   ndotns2 = nplan.Dot(ns2);
 
   temp.SetLinearForm(ndotns1 / norm1, nplan, -1. / norm1, ns1);
-  resul1.SetLinearForm(ray1, temp, gp_Vec(pts2, pts1));
+  resul1.SetLinearForm(ray1, temp, Vector3d(pts2, pts1));
   temp.SetLinearForm(ndotns2 / norm2, nplan, -1. / norm2, ns2);
   resul1.Subtract(ray2 * temp);
 

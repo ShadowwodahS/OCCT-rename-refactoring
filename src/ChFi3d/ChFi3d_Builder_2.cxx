@@ -117,14 +117,14 @@ static void ChFi3d_CoupeParPlan(const ChFiDS_CommonPoint&    compoint1,
     Standard_Real     parE1, parE2;
     parE1 = compoint1.ParameterOnArc();
     parE2 = compoint2.ParameterOnArc();
-    gp_Vec t1, t2;
+    Vector3d t1, t2;
     BCurv1.D1(parE1, P1, t1);
     BCurv2.D1(parE2, P2, t2);
-    gp_Dir             tgt1(t1);
-    gp_Dir             tgt2(t2);
-    gp_Vec             v12(P2.X() - P1.X(), P2.Y() - P1.Y(), P2.Z() - P1.Z());
-    gp_Dir             d12(v12);
-    gp_Dir             nor  = tgt1.Crossed(d12);
+    Dir3d             tgt1(t1);
+    Dir3d             tgt2(t2);
+    Vector3d             v12(P2.X() - P1.X(), P2.Y() - P1.Y(), P2.Z() - P1.Z());
+    Dir3d             d12(v12);
+    Dir3d             nor  = tgt1.Crossed(d12);
     Handle(Geom_Plane) Plan = new Geom_Plane(P1, nor);
     Standard_Real      scal;
     scal = Abs(nor.Dot(tgt2));
@@ -182,7 +182,7 @@ static Standard_Boolean SortieTangente(const ChFiDS_CommonPoint& CP,
   if (!CP.HasVector())
     return Standard_False;
   Point3d             P;
-  gp_Vec             Darc, Dsurf;
+  Vector3d             Darc, Dsurf;
   Handle(Geom_Curve) C;
   Standard_Real      Uf, Ul;
   C = BRep_Tool::Curve(CP.Arc(), Uf, Ul);
@@ -266,13 +266,13 @@ static Standard_Boolean BonVoisin(const Point3d&                Point,
               if (issame)
               {
                 Point3d spt;
-                gp_Vec sdu, sdv, nors;
+                Vector3d sdu, sdv, nors;
                 HS->D1(XDep, YDep, spt, sdu, sdv);
                 nors = sdu.Crossed(sdv);
                 Point3d cpt;
-                gp_Vec cd;
+                Vector3d cd;
                 hc->D1(winter, cpt, cd);
-                gp_Vec      vref(Point, cpt);
+                Vector3d      vref(Point, cpt);
                 TopoDS_Face fff = ff;
                 fff.Orientation(TopAbs_FORWARD);
                 if (vref.Dot(nors.Crossed(cd)) < 0.)
@@ -353,7 +353,7 @@ static void TgtKP(const Handle(ChFiDS_SurfData)& CD,
                   const Standard_Integer         iedge,
                   const Standard_Boolean         isfirst,
                   Point3d&                        ped,
-                  gp_Vec&                        ded)
+                  Vector3d&                        ded)
 {
   Standard_Real            wtg = CD->InterferenceOnS1().Parameter(isfirst);
   const BRepAdaptor_Curve& bc  = Spine->CurrentElementarySpine(iedge);
@@ -372,7 +372,7 @@ static void TgtKP(const Handle(ChFiDS_SurfData)& CD,
 // purpose  : Checks if a vector belongs to a Face
 //=======================================================================
 
-Standard_Boolean IsInput(const gp_Vec& Vec, const TopoDS_Vertex& Ve, const TopoDS_Face& Fa)
+Standard_Boolean IsInput(const Vector3d& Vec, const TopoDS_Vertex& Ve, const TopoDS_Face& Fa)
 {
   TopExp_Explorer        FaceExp(Fa, TopAbs_WIRE);
   BRepTools_WireExplorer WireExp;
@@ -380,7 +380,7 @@ Standard_Boolean IsInput(const gp_Vec& Vec, const TopoDS_Vertex& Ve, const TopoD
   TopoDS_Wire            W;
   TopoDS_Edge            E;
   TopoDS_Vertex          Vf, Vl;
-  gp_Vec                 Vec3d[2];
+  Vector3d                 Vec3d[2];
   Point3d                 Point;
 
   // Find edges and compute 3D vectors
@@ -409,7 +409,7 @@ Standard_Boolean IsInput(const gp_Vec& Vec, const TopoDS_Vertex& Ve, const TopoD
   if (Trouve < 2)
     return Standard_False;
   // Calculate the normal and the angles in the associated vector plane
-  gp_Vec Normal;
+  Vector3d Normal;
   Normal = Vec3d[0] ^ Vec3d[1];
   if (Normal.SquareMagnitude() < Precision::Confusion())
   { // Colinear case
@@ -428,14 +428,14 @@ Standard_Boolean IsInput(const gp_Vec& Vec, const TopoDS_Vertex& Ve, const TopoD
 
   // Projection of the vector
   gp_Ax3  Axe(Point, Normal, Vec3d[0]);
-  gp_Trsf Transf;
+  Transform3d Transf;
   Transf.SetTransformation(Axe);
   gp_XYZ coord = Vec.XYZ();
   Transf.Transforms(coord);
   coord.SetZ(0);
   Transf.Invert();
   Transf.Transforms(coord);
-  gp_Vec theProj(coord);
+  Vector3d theProj(coord);
 
   // and finally...
   Standard_Real Angle = theProj.AngleWithRef(Vec3d[0], Normal);
@@ -584,7 +584,7 @@ static void ChangeTransition(const ChFiDS_CommonPoint&                  Precedan
   if (PCurve1 != PCurve2)
   {
     // This is a cutting edge, it is necessary to make a small Geometric test
-    gp_Vec            tgarc;
+    Vector3d            tgarc;
     Point3d            P;
     BRepAdaptor_Curve AC(Arc);
     AC.D1(Precedant.ParameterOnArc(), P, tgarc);
@@ -1039,7 +1039,7 @@ void ChFi3d_Builder::StartSol(const Handle(ChFiDS_Stripe)&      Stripe,
     {
       PerformFirstSection(Spine, HGuide, Choix, HS1, HS2, I1, I2, w, SolDep, Pos1, Pos2);
       Point3d P;
-      gp_Vec V;
+      Vector3d V;
       HGuide->D1(w, P, V);
       Handle(Geom_Plane)          pl    = new Geom_Plane(P, V);
       Handle(GeomAdaptor_Surface) plane = new GeomAdaptor_Surface(pl);
@@ -1101,7 +1101,7 @@ static void ChFi3d_BuildPlane(TopOpeBRepDS_DataStructure&    DStr,
   TopoDS_Face          F = TopoDS::Face(DStr.Shape(SD->Index(ons)));
   Standard_Real        u, v;
   Point3d               P;
-  // gp_Vec V1,V2;
+  // Vector3d V1,V2;
 
   if (SD->Vertex(isfirst, ons).IsOnArc())
   {
@@ -1396,7 +1396,7 @@ Standard_Boolean ChFi3d_Builder::StartSol(
             break;
           }
         }
-        // gp_Vec Varc, VSurf;
+        // Vector3d Varc, VSurf;
         //  In cas of Tangent output, the current face becomes the support face
         if (SortieTangente(CP, F, SD, ons, 0.1))
         {
@@ -1518,7 +1518,7 @@ Standard_Boolean ChFi3d_Builder::SearchFace(const Handle(ChFiDS_Spine)& Spine,
     { // Processing using the spine
       Standard_Boolean FindFace = Standard_False;
       Point3d           Point;
-      gp_Vec           VecSpine;
+      Vector3d           VecSpine;
       Spine->D1(Pc.Parameter(), Point, VecSpine);
 
       // It is checked if one leaves from the current face.
@@ -2137,7 +2137,7 @@ void ChFi3d_Builder::PerformSetOfSurfOnElSpine(const Handle(ChFiDS_ElSpine)&    
 
   // Temporary
   // Point3d ptgui;
-  // gp_Vec d1gui;
+  // Vector3d d1gui;
   //( HGuide->Curve() ).D1(HGuide->FirstParameter(),ptgui,d1gui);
 
   ChFiDS_ElSpine& Guide = *HGuide;
@@ -2931,7 +2931,7 @@ void ChFi3d_Builder::PerformSetOfKPart(Handle(ChFiDS_Stripe)& Stripe, const Stan
   Handle(BRepTopAdaptor_TopolTool) It2 = new BRepTopAdaptor_TopolTool();
 
   Standard_Real    WFirst, WLast = 0.;
-  gp_Vec           TFirst, TLast, TEndPeriodic;
+  Vector3d           TFirst, TLast, TEndPeriodic;
   Point3d           PFirst, PLast, PEndPeriodic;
   Standard_Boolean intf = Standard_False, intl = Standard_False;
 
@@ -3371,7 +3371,7 @@ void ChFi3d_Builder::PerformSetOfKGen(Handle(ChFiDS_Stripe)& Stripe, const Stand
           const Handle(Geom_Curve)& c3dprev1 = DStr.Curve(previntf1.LineIndex()).Curve();
           const Handle(Geom_Curve)& c3dnext1 = DStr.Curve(nextintf1.LineIndex()).Curve();
           Point3d                    Pdeb1, Pfin1;
-          gp_Vec                    Vdeb1, Vfin1;
+          Vector3d                    Vdeb1, Vfin1;
           c3dprev1->D1(prevpar1, Pdeb1, Vdeb1);
           c3dnext1->D1(nextpar1, Pfin1, Vfin1);
           gp_Pnt2d      pdeb1, pfin1;
@@ -3442,7 +3442,7 @@ void ChFi3d_Builder::PerformSetOfKGen(Handle(ChFiDS_Stripe)& Stripe, const Stand
           const Handle(Geom_Curve)& c3dprev2 = DStr.Curve(previntf2.LineIndex()).Curve();
           const Handle(Geom_Curve)& c3dnext2 = DStr.Curve(nextintf2.LineIndex()).Curve();
           Point3d                    Pdeb2, Pfin2;
-          gp_Vec                    Vdeb2, Vfin2;
+          Vector3d                    Vdeb2, Vfin2;
           c3dprev2->D1(prevpar2, Pdeb2, Vdeb2);
           c3dnext2->D1(nextpar2, Pfin2, Vfin2);
           gp_Pnt2d      pdeb2, pfin2;

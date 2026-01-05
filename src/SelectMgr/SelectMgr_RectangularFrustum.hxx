@@ -75,7 +75,7 @@ public:
   //! Returns True if Frustum (theVertices) intersects the circle.
   Standard_EXPORT Standard_Boolean isIntersectCircle(const Standard_Real       theRadius,
                                                      const Point3d&             theCenter,
-                                                     const gp_Trsf&            theTrsf,
+                                                     const Transform3d&            theTrsf,
                                                      const TColgp_Array1OfPnt& theVertices) const;
 
   //! Returns True if Seg1 (thePnt1Seg1, thePnt2Seg1) and Seg2 (thePnt1Seg2, thePnt2Seg2) intersect.
@@ -187,7 +187,7 @@ public:
     const Standard_Real            theBottomRad,
     const Standard_Real            theTopRad,
     const Standard_Real            theHeight,
-    const gp_Trsf&                 theTrsf,
+    const Transform3d&                 theTrsf,
     const Standard_Boolean         theIsHollow,
     const SelectMgr_ViewClipRange& theClipRange,
     SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
@@ -198,7 +198,7 @@ public:
     const Standard_Real    theBottomRad,
     const Standard_Real    theTopRad,
     const Standard_Real    theHeight,
-    const gp_Trsf&         theTrsf,
+    const Transform3d&         theTrsf,
     const Standard_Boolean theIsHollow,
     Standard_Boolean*      theInside = NULL) const Standard_OVERRIDE;
 
@@ -208,7 +208,7 @@ public:
   //! via theTrsf transformation for gp::XOY() with center in gp::Origin().
   Standard_EXPORT virtual Standard_Boolean OverlapsCircle(
     const Standard_Real            theBottomRad,
-    const gp_Trsf&                 theTrsf,
+    const Transform3d&                 theTrsf,
     const Standard_Boolean         theIsFilled,
     const SelectMgr_ViewClipRange& theClipRange,
     SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
@@ -218,7 +218,7 @@ public:
   //! The position and orientation of the circle are specified
   //! via theTrsf transformation for gp::XOY() with center in gp::Origin().
   Standard_EXPORT virtual Standard_Boolean OverlapsCircle(const Standard_Real    theBottomRad,
-                                                          const gp_Trsf&         theTrsf,
+                                                          const Transform3d&         theTrsf,
                                                           const Standard_Boolean theIsFilled,
                                                           Standard_Boolean* theInside = NULL) const
     Standard_OVERRIDE;
@@ -248,7 +248,7 @@ public:
   virtual const Point3d& GetFarPnt() const Standard_OVERRIDE { return myFarPickedPnt; }
 
   //! Returns view ray direction.
-  virtual const gp_Dir& GetViewRayDirection() const Standard_OVERRIDE { return myViewRayDir; }
+  virtual const Dir3d& GetViewRayDirection() const Standard_OVERRIDE { return myViewRayDir; }
 
   //! Returns current mouse coordinates.
   Standard_EXPORT virtual const gp_Pnt2d& GetMousePosition() const Standard_OVERRIDE;
@@ -267,7 +267,7 @@ protected:
                                               const Point3d&            theSegPnt2,
                                               SelectBasics_PickResult& thePickResult) const;
 
-  Standard_EXPORT bool segmentPlaneIntersection(const gp_Vec&            thePlane,
+  Standard_EXPORT bool segmentPlaneIntersection(const Vector3d&            thePlane,
                                                 const Point3d&            thePntOnPlane,
                                                 SelectBasics_PickResult& thePickResult) const;
 
@@ -292,7 +292,7 @@ private:
   SelectionRectangle      mySelRectangle;              //!< parameters for selection by point or box (it is used to build frustum)
   Point3d                  myNearPickedPnt;             //!< 3d projection of user-picked selection point onto near view plane
   Point3d                  myFarPickedPnt;              //!< 3d projection of user-picked selection point onto far view plane
-  gp_Dir                  myViewRayDir;                //!< view ray direction
+  Dir3d                  myViewRayDir;                //!< view ray direction
   Standard_Real           myScale;                     //!< Scale factor of applied transformation, if there was any
   // clang-format on
 };

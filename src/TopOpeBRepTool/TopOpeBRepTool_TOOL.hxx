@@ -32,11 +32,11 @@ class TopoDS_Vertex;
 class TopoDS_Face;
 class gp_Pnt2d;
 class TopOpeBRepTool_C2DF;
-class gp_Vec;
+class Vector3d;
 class gp_Dir2d;
 class BRepAdaptor_Curve;
 class gp_Vec2d;
-class gp_Dir;
+class Dir3d;
 class Geom2d_Curve;
 class Point3d;
 
@@ -86,7 +86,7 @@ public:
 
   Standard_EXPORT static Standard_Boolean Getduv(const TopoDS_Face&  f,
                                                  const gp_Pnt2d&     uv,
-                                                 const gp_Vec&       dir,
+                                                 const Vector3d&       dir,
                                                  const Standard_Real factor,
                                                  gp_Dir2d&           duv);
 
@@ -111,15 +111,15 @@ public:
 
   Standard_EXPORT static Standard_Boolean TggeomE(const Standard_Real      par,
                                                   const BRepAdaptor_Curve& BC,
-                                                  gp_Vec&                  Tg);
+                                                  Vector3d&                  Tg);
 
   Standard_EXPORT static Standard_Boolean TggeomE(const Standard_Real par,
                                                   const TopoDS_Edge&  E,
-                                                  gp_Vec&             Tg);
+                                                  Vector3d&             Tg);
 
   Standard_EXPORT static Standard_Boolean TgINSIDE(const TopoDS_Vertex& v,
                                                    const TopoDS_Edge&   E,
-                                                   gp_Vec&              Tg,
+                                                   Vector3d&              Tg,
                                                    Standard_Integer&    OvinE);
 
   Standard_EXPORT static gp_Vec2d Tg2d(const Standard_Integer     iv,
@@ -140,27 +140,27 @@ public:
                                              const TopoDS_Face&  f,
                                              const Standard_Real par,
                                              const TopoDS_Edge&  e,
-                                             gp_Dir&             xx);
+                                             Dir3d&             xx);
 
   Standard_EXPORT static Standard_Boolean Nt(const gp_Pnt2d&    uv,
                                              const TopoDS_Face& f,
-                                             gp_Dir&            normt);
+                                             Dir3d&            normt);
 
   Standard_EXPORT static Standard_Boolean NggeomF(const gp_Pnt2d&    uv,
                                                   const TopoDS_Face& F,
-                                                  gp_Vec&            ng);
+                                                  Vector3d&            ng);
 
   Standard_EXPORT static Standard_Boolean NgApp(const Standard_Real par,
                                                 const TopoDS_Edge&  E,
                                                 const TopoDS_Face&  F,
                                                 const Standard_Real tola,
-                                                gp_Dir&             ngApp);
+                                                Dir3d&             ngApp);
 
   Standard_EXPORT static Standard_Boolean tryNgApp(const Standard_Real par,
                                                    const TopoDS_Edge&  E,
                                                    const TopoDS_Face&  F,
                                                    const Standard_Real tola,
-                                                   gp_Dir&             ng);
+                                                   Dir3d&             ng);
 
   Standard_EXPORT static Standard_Integer tryOriEinF(const Standard_Real par,
                                                      const TopoDS_Edge&  E,
@@ -172,12 +172,12 @@ public:
 
   Standard_EXPORT static Standard_Boolean CurvE(const TopoDS_Edge&  E,
                                                 const Standard_Real par,
-                                                const gp_Dir&       tg0,
+                                                const Dir3d&       tg0,
                                                 Standard_Real&      Curv);
 
   Standard_EXPORT static Standard_Boolean CurvF(const TopoDS_Face& F,
                                                 const gp_Pnt2d&    uv,
-                                                const gp_Dir&      tg0,
+                                                const Dir3d&      tg0,
                                                 Standard_Real&     Curv,
                                                 Standard_Boolean&  direct);
 
@@ -218,16 +218,16 @@ public:
                                                        const TopoDS_Face& F,
                                                        TopoDS_Edge&       E);
 
-  Standard_EXPORT static Standard_Real Matter(const gp_Vec& d1,
-                                              const gp_Vec& d2,
-                                              const gp_Vec& ref);
+  Standard_EXPORT static Standard_Real Matter(const Vector3d& d1,
+                                              const Vector3d& d2,
+                                              const Vector3d& ref);
 
   Standard_EXPORT static Standard_Real Matter(const gp_Vec2d& d1, const gp_Vec2d& d2);
 
-  Standard_EXPORT static Standard_Boolean Matter(const gp_Dir&       xx1,
-                                                 const gp_Dir&       nt1,
-                                                 const gp_Dir&       xx2,
-                                                 const gp_Dir&       nt2,
+  Standard_EXPORT static Standard_Boolean Matter(const Dir3d&       xx1,
+                                                 const Dir3d&       nt1,
+                                                 const Dir3d&       xx2,
+                                                 const Dir3d&       nt2,
                                                  const Standard_Real tola,
                                                  Standard_Real&      Ang);
 

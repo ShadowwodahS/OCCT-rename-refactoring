@@ -139,7 +139,7 @@ void AIS_TextLabel::SetFont(Standard_CString theFont)
 
 //=================================================================================================
 
-void AIS_TextLabel::SetOrientation3D(const gp_Ax2& theOrientation)
+void AIS_TextLabel::SetOrientation3D(const Frame3d& theOrientation)
 {
   myHasOrientation3D = Standard_True;
   myOrientation3D    = theOrientation;
@@ -175,7 +175,7 @@ Font_FontAspect AIS_TextLabel::FontAspect() const
 
 //=================================================================================================
 
-const gp_Ax2& AIS_TextLabel::Orientation3D() const
+const Frame3d& AIS_TextLabel::Orientation3D() const
 {
   return myOrientation3D;
 }
@@ -252,12 +252,12 @@ void AIS_TextLabel::Compute(const Handle(PrsMgr_PresentationManager)&,
       {
         if (myHasFlipping)
         {
-          gp_Ax2 aFlippingAxes(aCenterOfLabel,
+          Frame3d aFlippingAxes(aCenterOfLabel,
                                myOrientation3D.Direction(),
                                myOrientation3D.XDirection());
           thePrs->CurrentGroup()->SetFlippingOptions(Standard_True, aFlippingAxes);
         }
-        gp_Ax2 anOrientation = myOrientation3D;
+        Frame3d anOrientation = myOrientation3D;
         anOrientation.SetLocation(aPosition);
         Standard_Boolean aHasOwnAnchor = HasOwnAnchorPoint();
         if (myHasFlipping)
@@ -269,7 +269,7 @@ void AIS_TextLabel::Compute(const Handle(PrsMgr_PresentationManager)&,
         aText->SetTextFormatter(myFormatter);
         if (myHasFlipping && isInit)
         {
-          thePrs->CurrentGroup()->SetFlippingOptions(Standard_False, gp_Ax2());
+          thePrs->CurrentGroup()->SetFlippingOptions(Standard_False, Frame3d());
         }
       }
       else
@@ -283,7 +283,7 @@ void AIS_TextLabel::Compute(const Handle(PrsMgr_PresentationManager)&,
       {
         const Standard_Real aDx         = aWidth * 0.5;
         const Standard_Real aDy         = aHeight * 0.5;
-        gp_Trsf             aLabelPlane = calculateLabelTrsf(aPosition, aCenterOfLabel);
+        Transform3d             aLabelPlane = calculateLabelTrsf(aPosition, aCenterOfLabel);
 
         Point3d aMinPnt = Point3d(-aDx, -aDy, 0.0).Transformed(aLabelPlane);
         Point3d aMaxPnt = Point3d(aDx, aDy, 0.0).Transformed(aLabelPlane);
@@ -327,7 +327,7 @@ void AIS_TextLabel::ComputeSelection(const Handle(SelectMgr_Selection)& theSelec
 
       const Standard_Real aDx         = aWidth * 0.5;
       const Standard_Real aDy         = aHeight * 0.5;
-      gp_Trsf             aLabelPlane = calculateLabelTrsf(aPosition, aCenterOfLabel);
+      Transform3d             aLabelPlane = calculateLabelTrsf(aPosition, aCenterOfLabel);
 
       // sensitive planar rectangle for text
       TColgp_Array1OfPnt aRectanglePoints(1, 5);
@@ -399,16 +399,16 @@ Standard_Boolean AIS_TextLabel::calculateLabelParams(const Point3d&  thePosition
 
 //=================================================================================================
 
-gp_Trsf AIS_TextLabel::calculateLabelTrsf(const Point3d& thePosition, Point3d& theCenterOfLabel) const
+Transform3d AIS_TextLabel::calculateLabelTrsf(const Point3d& thePosition, Point3d& theCenterOfLabel) const
 {
   const Standard_Real anAngle = myDrawer->TextAspect()->Aspect()->TextAngle() * M_PI / 180.0;
-  const gp_Ax1        aRotAxis(thePosition, gp_Dir(0.0, 0.0, 1.0));
+  const Axis3d        aRotAxis(thePosition, Dir3d(0.0, 0.0, 1.0));
 
-  gp_Ax2 anOrientation = myOrientation3D;
+  Frame3d anOrientation = myOrientation3D;
   anOrientation.Rotate(aRotAxis, anAngle);
   theCenterOfLabel.Rotate(aRotAxis, anAngle);
 
-  gp_Trsf aLabelPlane;
+  Transform3d aLabelPlane;
   aLabelPlane.SetTransformation(anOrientation, gp::XOY());
   aLabelPlane.SetTranslationPart(theCenterOfLabel.XYZ());
 

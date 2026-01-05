@@ -317,7 +317,7 @@ void V3d_Trihedron::compute()
     }
     else
     {
-      gp_Trsf aSphereTransform;
+      Transform3d aSphereTransform;
       aSphereGroup->SetGroupPrimitivesAspect(mySphereShadingAspect->Aspect());
       aSphereGroup->AddPrimitiveArray(
         Prs3d_ToolSphere::Create(aSphereRadius, myNbFacettes, myNbFacettes, aSphereTransform));
@@ -326,7 +326,7 @@ void V3d_Trihedron::compute()
 
   // Display axes.
   {
-    const gp_Ax1 anAxes[3] = {gp::OX(), gp::OY(), gp::OZ()};
+    const Axis3d anAxes[3] = {gp::OX(), gp::OY(), gp::OZ()};
     for (Standard_Integer anIter = 0; anIter < 3; ++anIter)
     {
       Handle(Graphic3d_Group) anAxisGroup = addGroup(myStructure, aGroupIter);

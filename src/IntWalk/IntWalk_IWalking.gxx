@@ -1271,8 +1271,8 @@ void IntWalk_IWalking::TestArretCadre(const TColStd_SequenceOfReal&    Umult,
           {
             if (j > 3 && j <= NBP + 1)
             {
-              gp_Vec        Dir3d  = sp.Direction3d();
-              gp_Vec        Dir3d1 = gp_Vec(Line->Value(j - 2).Value(), Line->Value(j - 1).Value());
+              Vector3d        Dir3d  = sp.Direction3d();
+              Vector3d        Dir3d1 = Vector3d(Line->Value(j - 2).Value(), Line->Value(j - 1).Value());
               Standard_Real dot    = Dir3d.Dot(Dir3d1);
               if (dot < 0.0)
               { // Normally this Function should not be used often !!!
@@ -2625,7 +2625,7 @@ IntWalk_StatusDeflection IntWalk_IWalking::TestDeflection(TheIWFunction&        
   const Standard_Real Dv  = UV(2) - Paramv;
   const Standard_Real Duv = Du * Du + Dv * Dv;
 
-  gp_Vec Corde(previousPoint.Value(), sp.Point());
+  Vector3d Corde(previousPoint.Value(), sp.Point());
 
   const Standard_Real Norme = Corde.SquareMagnitude();
 

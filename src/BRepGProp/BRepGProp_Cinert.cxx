@@ -37,7 +37,7 @@ void BRepGProp_Cinert::Perform(const BRepAdaptor_Curve& C)
   Standard_Integer Order = Min(BRepGProp_EdgeTool::IntegrationOrder(C), math::GaussPointsMax());
 
   Point3d        P;  // value on the curve
-  gp_Vec        V1; // first derivative on the curve
+  Vector3d        V1; // first derivative on the curve
   Standard_Real ds; // curvilign abscissae
   Standard_Real ur, um, u;
   Standard_Real x, y, z;

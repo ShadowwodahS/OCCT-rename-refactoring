@@ -64,8 +64,8 @@ Standard_Boolean ShapeConstruct_Curve::AdjustCurve(const Handle(Geom_Curve)& C3D
   {
     Handle(Geom_Line) L3D = Handle(Geom_Line)::DownCast(C3D);
     //   ATTENTION, P1 et P2 sont supposes tous deux pertinents ...
-    gp_Vec        avec(P1, P2);
-    gp_Dir        adir(avec);
+    Vector3d        avec(P1, P2);
+    Dir3d        adir(avec);
     gp_Lin        alin(P1, adir);
     Standard_Real theParam = ElCLib::Parameter(alin, L3D->Lin().Location());
     alin.SetLocation(ElCLib::Value(theParam, alin));
@@ -104,8 +104,8 @@ Standard_Boolean ShapeConstruct_Curve::AdjustCurveSegment(const Handle(Geom_Curv
     Handle(Geom_Line) L3D = Handle(Geom_Line)::DownCast(C3D);
     //   ATTENTION, P1 et P2 sont supposes tous deux pertinents ...
     //   NB : on ne s aide pas de U1 et U2
-    gp_Vec        avec(P1, P2);
-    gp_Dir        adir(avec);
+    Vector3d        avec(P1, P2);
+    Dir3d        adir(avec);
     gp_Lin        alin(P1, adir);
     Standard_Real theParam = ElCLib::Parameter(alin, L3D->Lin().Location());
     alin.SetLocation(ElCLib::Value(theParam, alin));

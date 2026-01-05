@@ -275,11 +275,11 @@ Standard_Boolean TopoDSToStep_WireframeBuilder::GetTrimmedCurveFromEdge(
     if (aIPlan)
     {
       Point3d        aPnt1 = aCA.Value(aCA.FirstParameter()), aPnt2 = aCA.Value(aCA.LastParameter());
-      gp_Vec        aV(aPnt1, aPnt2);
+      Vector3d        aV(aPnt1, aPnt2);
       Standard_Real aLength = aV.Magnitude();
       if (aLength >= Precision::Confusion())
       {
-        Handle(Geom_Line)   aL = new Geom_Line(aPnt1, gp_Dir(aV));
+        Handle(Geom_Line)   aL = new Geom_Line(aPnt1, Dir3d(aV));
         GeomToStep_MakeLine aGTSML(aL, theLocalFactors);
         aSGC = aGTSML.Value();
         aSGC = MakeTrimmedCurve(aGTSML.Value(), aSGCP1, aSGCP2, 0, aLength, Standard_True);

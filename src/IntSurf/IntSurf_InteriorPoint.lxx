@@ -36,7 +36,7 @@ inline Standard_Real IntSurf_InteriorPoint::VParameter() const
   return paramv;
 }
 
-inline const gp_Vec& IntSurf_InteriorPoint::Direction() const
+inline const Vector3d& IntSurf_InteriorPoint::Direction() const
 {
 
   return direc;

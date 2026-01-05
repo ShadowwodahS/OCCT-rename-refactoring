@@ -25,11 +25,11 @@
 IMPLEMENT_STANDARD_RTTIEXT(Geom_Axis1Placement, Geom_AxisPlacement)
 
 typedef Geom_Axis1Placement Axis1Placement;
-typedef gp_Ax2              Ax2;
-typedef gp_Dir              Dir;
+typedef Frame3d              Ax2;
+typedef Dir3d              Dir;
 typedef Point3d              Pnt;
-typedef gp_Trsf             Trsf;
-typedef gp_Vec              Vec;
+typedef Transform3d             Trsf;
+typedef Vector3d              Vec;
 
 //=================================================================================================
 
@@ -43,7 +43,7 @@ Handle(Geom_Geometry) Geom_Axis1Placement::Copy() const
 
 //=================================================================================================
 
-Geom_Axis1Placement::Geom_Axis1Placement(const gp_Ax1& A1)
+Geom_Axis1Placement::Geom_Axis1Placement(const Axis3d& A1)
 {
   axis = A1;
 }
@@ -51,7 +51,7 @@ Geom_Axis1Placement::Geom_Axis1Placement(const gp_Ax1& A1)
 Geom_Axis1Placement::Geom_Axis1Placement(const Pnt& P, const Dir& V)
 {
 
-  axis = gp_Ax1(P, V);
+  axis = Axis3d(P, V);
 }
 
 void Geom_Axis1Placement::SetDirection(const Dir& V)
@@ -59,7 +59,7 @@ void Geom_Axis1Placement::SetDirection(const Dir& V)
   axis.SetDirection(V);
 }
 
-const gp_Ax1& Geom_Axis1Placement::Ax1() const
+const Axis3d& Geom_Axis1Placement::Ax1() const
 {
   return Axis();
 }
@@ -77,7 +77,7 @@ void Geom_Axis1Placement::Transform(const Trsf& T)
 Handle(Geom_Axis1Placement) Geom_Axis1Placement::Reversed() const
 {
 
-  gp_Ax1 A1 = axis;
+  Axis3d A1 = axis;
   A1.Reverse();
   Handle(Axis1Placement) Temp = new Axis1Placement(A1);
   return Temp;

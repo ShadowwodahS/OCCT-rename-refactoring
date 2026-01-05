@@ -687,7 +687,7 @@ void gp_Trsf2d::SetValues(const Standard_Real a11,
 //=======================================================================
 void gp_Trsf2d::Orthogonalize()
 {
-  // See correspond comment in gp_Trsf::Orthogonalize() method in order to make this
+  // See correspond comment in Transform3d::Orthogonalize() method in order to make this
   // algorithm clear.
 
   gp_Mat2d aTM(matrix);

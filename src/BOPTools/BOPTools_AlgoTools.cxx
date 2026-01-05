@@ -66,7 +66,7 @@
 #include <algorithm>
 
 //
-static Standard_Real AngleWithRef(const gp_Dir& theD1, const gp_Dir& theD2, const gp_Dir& theDRef);
+static Standard_Real AngleWithRef(const Dir3d& theD1, const Dir3d& theD2, const Dir3d& theDRef);
 
 static Standard_Boolean   FindFacePairs(const TopoDS_Edge&              theE,
                                         const TopTools_ListOfShape&     thLF,
@@ -78,16 +78,16 @@ static Standard_Boolean GetFaceDir(const TopoDS_Edge&              aE,
                                    const TopoDS_Face&              aF,
                                    const Point3d&                   aP,
                                    const Standard_Real             aT,
-                                   const gp_Dir&                   aDTgt,
+                                   const Dir3d&                   aDTgt,
                                    const Standard_Boolean          theSmallFaces,
-                                   gp_Dir&                         aDN,
-                                   gp_Dir&                         aDB,
+                                   Dir3d&                         aDN,
+                                   Dir3d&                         aDB,
                                    const Handle(IntTools_Context)& theContext,
                                    GeomAPI_ProjectPointOnSurf&     aProjPL,
                                    const Standard_Real             aDt);
 static Standard_Boolean FindPointInFace(const TopoDS_Face&              aF,
                                         const Point3d&                   aP,
-                                        gp_Dir&                         aDB,
+                                        Dir3d&                         aDB,
                                         Point3d&                         aPOut,
                                         const Handle(IntTools_Context)& theContext,
                                         GeomAPI_ProjectPointOnSurf&     aProjPL,
@@ -969,8 +969,8 @@ Standard_Boolean BOPTools_AlgoTools::GetFaceOff(const TopoDS_Edge&              
   Standard_Real                              aT, aT1, aT2, aAngle, aTwoPI, aAngleMin, aDt3D;
   Standard_Real                              aUmin, aUsup, aVmin, aVsup;
   Point3d                                     aPn1, aPn2, aPx;
-  gp_Dir                                     aDN1, aDN2, aDBF, aDBF2, aDTF;
-  gp_Vec                                     aVTgt;
+  Dir3d                                     aDN1, aDN2, aDBF, aDBF2, aDTF;
+  Vector3d                                     aVTgt;
   TopAbs_Orientation                         aOr;
   Handle(Geom_Curve)                         aC3D;
   Handle(Geom_Plane)                         aPL;
@@ -984,7 +984,7 @@ Standard_Boolean BOPTools_AlgoTools::GetFaceOff(const TopoDS_Edge&              
   aC3D->D0(aT, aPx);
   //
   BOPTools_AlgoTools2D::EdgeTangent(theE1, aT, aVTgt);
-  gp_Dir aDTgt(aVTgt), aDTgt2;
+  Dir3d aDTgt(aVTgt), aDTgt2;
   aOr = theE1.Orientation();
   //
   aPL = new Geom_Plane(aPx, aDTgt);
@@ -1165,7 +1165,7 @@ Standard_Integer BOPTools_AlgoTools::Sense(const TopoDS_Face&              theF1
                                            const Handle(IntTools_Context)& theContext)
 {
   Standard_Integer iSense = 0;
-  gp_Dir           aDNF1, aDNF2;
+  Dir3d           aDNF1, aDNF2;
   TopoDS_Edge      aE1, aE2;
   TopExp_Explorer  aExp;
   //
@@ -1330,7 +1330,7 @@ Standard_Boolean BOPTools_AlgoTools::IsSplitToReverse(const TopoDS_Face&        
   }
   //
   // Compute normal direction of the split face
-  gp_Dir aDNFSp;
+  Dir3d aDNFSp;
   bDone = BOPTools_AlgoTools3D::GetNormalToSurface(aSFSp, aP2DFSp.X(), aP2DFSp.Y(), aDNFSp);
   if (!bDone)
   {
@@ -1360,7 +1360,7 @@ Standard_Boolean BOPTools_AlgoTools::IsSplitToReverse(const TopoDS_Face&        
   aProjector.LowerDistanceParameters(aU, aV);
   //
   // Compute normal direction for the original face in this point
-  gp_Dir aDNFOr;
+  Dir3d aDNFOr;
   bDone = BOPTools_AlgoTools3D::GetNormalToSurface(aSFOr, aU, aV, aDNFOr);
   if (!bDone)
   {
@@ -1424,7 +1424,7 @@ Standard_Boolean BOPTools_AlgoTools::IsSplitToReverse(const TopoDS_Edge&        
   {
     const Standard_Real aTm = f + i * aDT;
     // Compute tangent vector on split edge
-    gp_Vec aVSpTgt;
+    Vector3d aVSpTgt;
     if (!BOPTools_AlgoTools2D::EdgeTangent(theESp, aTm, aVSpTgt))
     {
       // Unable to compute the tangent vector on the split edge
@@ -1444,7 +1444,7 @@ Standard_Boolean BOPTools_AlgoTools::IsSplitToReverse(const TopoDS_Edge&        
     }
 
     // Compute tangent vector on original edge
-    gp_Vec aVOrTgt;
+    Vector3d aVOrTgt;
     if (!BOPTools_AlgoTools2D::EdgeTangent(theEOr, aTmOr, aVOrTgt))
     {
       // Unable to compute the tangent vector on the original edge
@@ -1877,7 +1877,7 @@ Standard_Boolean FindFacePairs(const TopoDS_Edge&              theE,
 
 //=================================================================================================
 
-Standard_Real AngleWithRef(const gp_Dir& theD1, const gp_Dir& theD2, const gp_Dir& theDRef)
+Standard_Real AngleWithRef(const Dir3d& theD1, const Dir3d& theD2, const Dir3d& theDRef)
 {
   Standard_Real aCosinus, aSinus, aBeta, aHalfPI, aScPr;
   gp_XYZ        aXYZ;
@@ -2053,10 +2053,10 @@ Standard_Boolean GetFaceDir(const TopoDS_Edge&              aE,
                             const TopoDS_Face&              aF,
                             const Point3d&                   aP,
                             const Standard_Real             aT,
-                            const gp_Dir&                   aDTgt,
+                            const Dir3d&                   aDTgt,
                             const Standard_Boolean          theSmallFaces,
-                            gp_Dir&                         aDN,
-                            gp_Dir&                         aDB,
+                            Dir3d&                         aDN,
+                            Dir3d&                         aDB,
                             const Handle(IntTools_Context)& theContext,
                             GeomAPI_ProjectPointOnSurf&     aProjPL,
                             const Standard_Real             aDt)
@@ -2088,7 +2088,7 @@ Standard_Boolean GetFaceDir(const TopoDS_Edge&              aE,
                            "GetFaceDir: Project point on plane is failed",
                            Standard_False);
     aPx = aProjPL.NearestPoint();
-    gp_Vec aVec(aP, aPx);
+    Vector3d aVec(aP, aPx);
     aDB.SetXYZ(aVec.XYZ());
   }
   //
@@ -2103,7 +2103,7 @@ Standard_Boolean GetFaceDir(const TopoDS_Edge&              aE,
 //=======================================================================
 Standard_Boolean FindPointInFace(const TopoDS_Face&              aF,
                                  const Point3d&                   aP,
-                                 gp_Dir&                         aDB,
+                                 Dir3d&                         aDB,
                                  Point3d&                         aPOut,
                                  const Handle(IntTools_Context)& theContext,
                                  GeomAPI_ProjectPointOnSurf&     aProjPL,
@@ -2162,7 +2162,7 @@ Standard_Boolean FindPointInFace(const TopoDS_Face&              aF,
     aProjPL.Perform(aPOut);
     aPOut = aProjPL.NearestPoint();
     //
-    gp_Vec aV(aPS, aPOut);
+    Vector3d aV(aPS, aPOut);
     if (aV.SquareMagnitude() < anEps)
     {
       return bRet;

@@ -67,19 +67,19 @@ static Standard_Integer BUC60842(Draw_Interpretor& di,
 
   Standard_CString st = abuf;
 
-  Handle(Geom_Circle)  cir = new Geom_Circle(gp_Ax2(Point3d(823.687192, 502.366825, 478.960440),
-                                                   gp_Dir(0.173648, 0.984808, 0.000000),
-                                                   gp_Dir(-0.932169, 0.164367, -0.322560)),
+  Handle(Geom_Circle)  cir = new Geom_Circle(Frame3d(Point3d(823.687192, 502.366825, 478.960440),
+                                                   Dir3d(0.173648, 0.984808, 0.000000),
+                                                   Dir3d(-0.932169, 0.164367, -0.322560)),
                                             50);
-  Handle(Geom_Ellipse) ell = new Geom_Ellipse(gp_Ax2(Point3d(1262.224429, 425.040878, 363.609716),
-                                                     gp_Dir(0.173648, 0.984808, 0.000000),
-                                                     gp_Dir(-0.932169, 0.164367, -0.322560)),
+  Handle(Geom_Ellipse) ell = new Geom_Ellipse(Frame3d(Point3d(1262.224429, 425.040878, 363.609716),
+                                                     Dir3d(0.173648, 0.984808, 0.000000),
+                                                     Dir3d(-0.932169, 0.164367, -0.322560)),
                                               150,
                                               100);
   Handle(Geom_Plane)   plne =
-    new Geom_Plane(gp_Ax3(gp_Ax2(Point3d(1262.224429, 425.040878, 363.609716),
-                                 gp_Dir(0.173648, 0.984808, 0.000000),
-                                 gp_Dir(-0.932169, 0.164367, -0.322560))));
+    new Geom_Plane(gp_Ax3(Frame3d(Point3d(1262.224429, 425.040878, 363.609716),
+                                 Dir3d(0.173648, 0.984808, 0.000000),
+                                 Dir3d(-0.932169, 0.164367, -0.322560))));
 
   Handle(AIS_InteractiveContext) aContext = ViewerTest::GetAISContext();
 
@@ -234,11 +234,11 @@ static Standard_Integer BUC60970(Draw_Interpretor& di, Standard_Integer argc, co
   Standard_Real      first, last;
   Handle(Geom_Curve) curl_ = BRep_Tool::Curve(TopoDS::Edge(spineWireExp.Current()), first, last);
   Point3d             firstPnt;
-  gp_Vec             tanVec;
+  Vector3d             tanVec;
   curl_->D1(first, firstPnt, tanVec);
   tanVec.Normalize();
-  gp_Dir                  tanDir(tanVec.X(), tanVec.Y(), tanVec.Z());
-  gp_Ax2                  gpAx2(firstPnt, tanDir);
+  Dir3d                  tanDir(tanVec.X(), tanVec.Y(), tanVec.Z());
+  Frame3d                  gpAx2(firstPnt, tanDir);
   gp_Circ                 gpCirc(gpAx2, 2.5);
   BRepBuilderAPI_MakeWire aMWire(BRepBuilderAPI_MakeEdge(new Geom_Circle(gpCirc)).Edge());
   TopoDS_Wire             topoWire(aMWire);
@@ -294,7 +294,7 @@ static Standard_Integer BUC60915_1(Draw_Interpretor& di, Standard_Integer argc, 
   TopoDS_Vertex                 V7 = BRepBuilderAPI_MakeVertex(p7);
   TopoDS_Vertex                 V8 = BRepBuilderAPI_MakeVertex(p8);
   Point3d                        plnpt(0, 0, 0);
-  gp_Dir                        plndir(0, 0, 1);
+  Dir3d                        plndir(0, 0, 1);
   Handle(Geom_Plane)            pln      = new Geom_Plane(plnpt, plndir);
   Handle(Prs3d_DimensionAspect) anAspect = new Prs3d_DimensionAspect();
   anAspect->MakeArrows3d(Standard_True);
@@ -323,7 +323,7 @@ static Standard_Integer BUC60915_1(Draw_Interpretor& di, Standard_Integer argc, 
   /***************************************/
   // dimension "R 88.58"
   /***************************************/
-  gp_Circ     cir = gp_Circ(gp_Ax2(Point3d(191.09, -88.58, 0), gp_Dir(0, 0, 1)), 88.58);
+  gp_Circ     cir = gp_Circ(Frame3d(Point3d(191.09, -88.58, 0), Dir3d(0, 0, 1)), 88.58);
   TopoDS_Edge E1 = BRepBuilderAPI_MakeEdge(cir, Point3d(191.09, 0, 0.), Point3d(191.09, -177.16, 0.));
   Handle(PrsDim_RadiusDimension) dim1 = new PrsDim_RadiusDimension(E1);
   dim1->SetDimensionAspect(anAspect);
@@ -331,7 +331,7 @@ static Standard_Integer BUC60915_1(Draw_Interpretor& di, Standard_Integer argc, 
   /***************************************/
   // dimension "R 43.80"
   /***************************************/
-  gp_Circ     cir1   = gp_Circ(gp_Ax2(Point3d(191.09, -88.58, 0), gp_Dir(0, 0, 1)), 43.80);
+  gp_Circ     cir1   = gp_Circ(Frame3d(Point3d(191.09, -88.58, 0), Dir3d(0, 0, 1)), 43.80);
   TopoDS_Edge E_cir1 = BRepBuilderAPI_MakeEdge(cir1);
   dim1               = new PrsDim_RadiusDimension(E_cir1);
   anAspect->ArrowAspect()->SetLength(60.0);
@@ -340,7 +340,7 @@ static Standard_Integer BUC60915_1(Draw_Interpretor& di, Standard_Integer argc, 
   /***************************************/
   // dimension "R 17.86"
   /***************************************/
-  gp_Circ     cir2   = gp_Circ(gp_Ax2(Point3d(566.11, -88.58, 0), gp_Dir(0, 0, -1)), 17.86);
+  gp_Circ     cir2   = gp_Circ(Frame3d(Point3d(566.11, -88.58, 0), Dir3d(0, 0, -1)), 17.86);
   TopoDS_Edge E_cir2 = BRepBuilderAPI_MakeEdge(cir2);
   dim1               = new PrsDim_RadiusDimension(E_cir2);
   anAspect->ArrowAspect()->SetLength(40.0);
@@ -416,13 +416,13 @@ static int geom_get_2Dpt_from_3Dpt(const Point3d& pnt3d, const gp_Pln& pln, gp_P
 
 static Standard_Integer OCC353(Draw_Interpretor& di, Standard_Integer, const char**)
 {
-  gp_Ax2              ax21(Point3d(100, 0, 0), gp_Dir(0, 0, 1));
+  Frame3d              ax21(Point3d(100, 0, 0), Dir3d(0, 0, 1));
   Handle(Geom_Circle) h_cir1 = new Geom_Circle(ax21, 25);
 
-  gp_Ax2              ax22(Point3d(-100, 0, 0), gp_Dir(0, 0, 1));
+  Frame3d              ax22(Point3d(-100, 0, 0), Dir3d(0, 0, 1));
   Handle(Geom_Circle) h_cir2 = new Geom_Circle(ax22, 25);
 
-  gp_Pln               refpln(Point3d(0, 0, 0), gp_Dir(0, 0, 1));
+  gp_Pln               refpln(Point3d(0, 0, 0), Dir3d(0, 0, 1));
   Handle(Geom2d_Curve) cir2d1 = GeomAPI::To2d(h_cir1, refpln);
   Handle(Geom2d_Curve) cir2d2 = GeomAPI::To2d(h_cir2, refpln);
 
@@ -811,15 +811,15 @@ static Standard_Integer OCC813(Draw_Interpretor& di, Standard_Integer argc, cons
 
   // Between ellipse and point:
 
-  Handle(Geom_Ellipse) ell = new Geom_Ellipse(gp_Ax2(Point3d(1262.224429, 425.040878, 363.609716),
-                                                     gp_Dir(0.173648, 0.984808, 0.000000),
-                                                     gp_Dir(-0.932169, 0.164367, -0.322560)),
+  Handle(Geom_Ellipse) ell = new Geom_Ellipse(Frame3d(Point3d(1262.224429, 425.040878, 363.609716),
+                                                     Dir3d(0.173648, 0.984808, 0.000000),
+                                                     Dir3d(-0.932169, 0.164367, -0.322560)),
                                               150,
                                               100);
   Handle(Geom_Plane)   plne =
-    new Geom_Plane(gp_Ax3(gp_Ax2(Point3d(1262.224429, 425.040878, 363.609716),
-                                 gp_Dir(0.173648, 0.984808, 0.000000),
-                                 gp_Dir(-0.932169, 0.164367, -0.322560))));
+    new Geom_Plane(gp_Ax3(Frame3d(Point3d(1262.224429, 425.040878, 363.609716),
+                                 Dir3d(0.173648, 0.984808, 0.000000),
+                                 Dir3d(-0.932169, 0.164367, -0.322560))));
 
   Handle(AIS_InteractiveContext) aContext = ViewerTest::GetAISContext();
 
@@ -885,19 +885,19 @@ static Standard_Integer OCC814(Draw_Interpretor& di, Standard_Integer argc, cons
 
   // Between Ellipse and Circle:
 
-  Handle(Geom_Circle)  cir = new Geom_Circle(gp_Ax2(Point3d(823.687192, 502.366825, 478.960440),
-                                                   gp_Dir(0.173648, 0.984808, 0.000000),
-                                                   gp_Dir(-0.932169, 0.164367, -0.322560)),
+  Handle(Geom_Circle)  cir = new Geom_Circle(Frame3d(Point3d(823.687192, 502.366825, 478.960440),
+                                                   Dir3d(0.173648, 0.984808, 0.000000),
+                                                   Dir3d(-0.932169, 0.164367, -0.322560)),
                                             50);
-  Handle(Geom_Ellipse) ell = new Geom_Ellipse(gp_Ax2(Point3d(1262.224429, 425.040878, 363.609716),
-                                                     gp_Dir(0.173648, 0.984808, 0.000000),
-                                                     gp_Dir(-0.932169, 0.164367, -0.322560)),
+  Handle(Geom_Ellipse) ell = new Geom_Ellipse(Frame3d(Point3d(1262.224429, 425.040878, 363.609716),
+                                                     Dir3d(0.173648, 0.984808, 0.000000),
+                                                     Dir3d(-0.932169, 0.164367, -0.322560)),
                                               150,
                                               100);
   Handle(Geom_Plane)   plne =
-    new Geom_Plane(gp_Ax3(gp_Ax2(Point3d(1262.224429, 425.040878, 363.609716),
-                                 gp_Dir(0.173648, 0.984808, 0.000000),
-                                 gp_Dir(-0.932169, 0.164367, -0.322560))));
+    new Geom_Plane(gp_Ax3(Frame3d(Point3d(1262.224429, 425.040878, 363.609716),
+                                 Dir3d(0.173648, 0.984808, 0.000000),
+                                 Dir3d(-0.932169, 0.164367, -0.322560))));
 
   Handle(AIS_InteractiveContext) aContext = ViewerTest::GetAISContext();
 

@@ -41,7 +41,7 @@ void DsgPrs_Chamf2dPresentation::Add(const Handle(Prs3d_Presentation)& aPresenta
   aPrims->AddVertex(aPntEnd);
   aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
 
-  gp_Dir ArrowDir(aPntAttach.XYZ() - aPntEnd.XYZ());
+  Dir3d ArrowDir(aPntAttach.XYZ() - aPntEnd.XYZ());
   Prs3d_Arrow::Draw(aPresentation->CurrentGroup(),
                     aPntAttach,
                     ArrowDir,
@@ -74,8 +74,8 @@ void DsgPrs_Chamf2dPresentation::Add(const Handle(Prs3d_Presentation)& aPresenta
 
   Prs3d_Text::Draw(aPresentation->CurrentGroup(), LA->TextAspect(), aText, aPntEnd);
 
-  gp_Dir ArrowDir(aPntAttach.XYZ() - aPntEnd.XYZ());
-  gp_Dir ArrowDir1 = ArrowDir;
+  Dir3d ArrowDir(aPntAttach.XYZ() - aPntEnd.XYZ());
+  Dir3d ArrowDir1 = ArrowDir;
   ArrowDir1.Reverse();
 
   DsgPrs::ComputeSymbol(aPresentation, LA, aPntEnd, aPntAttach, ArrowDir1, ArrowDir, ArrowPrs);

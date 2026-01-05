@@ -1335,9 +1335,9 @@ static Standard_Integer wavefront(Draw_Interpretor&, Standard_Integer nbarg, con
 
   Standard_Integer       i, nbface = 0;
   Standard_Boolean       OK = Standard_True;
-  gp_Vec                 D1U, D1V;
-  gp_Vec                 D2U, D2V, D2UV;
-  gp_Dir                 Nor;
+  Vector3d                 D1U, D1V;
+  Vector3d                 D2U, D2V, D2UV;
+  Dir3d                 Nor;
   Point3d                 P;
   Standard_Real          U, V;
   CSLib_DerivativeStatus aStatus;

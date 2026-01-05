@@ -23,7 +23,7 @@ Vrml_Coordinate3::Vrml_Coordinate3(const Handle(TColgp_HArray1OfVec)& aPoint)
 
 Vrml_Coordinate3::Vrml_Coordinate3()
 {
-  gp_Vec Tmp_Vec;
+  Vector3d Tmp_Vec;
 
   myPoint = new TColgp_HArray1OfVec(1, 1);
   Tmp_Vec.SetX(0);

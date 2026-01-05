@@ -90,7 +90,7 @@ Standard_Boolean Geom_BSplineCurve::IsG1(const Standard_Real theTf,
       continue;
 
     Point3d aP1, aP2;
-    gp_Vec aV1, aV2;
+    Vector3d aV1, aV2;
     LocalD1(aTpar, aNKnot - 1, aNKnot, aP1, aV1);
     LocalD1(aTpar, aNKnot, aNKnot + 1, aP2, aV2);
 
@@ -120,7 +120,7 @@ Standard_Boolean Geom_BSplineCurve::IsG1(const Standard_Real theTf,
   // check if curve is smooth in its first and last point.
 
   Point3d aP;
-  gp_Vec aV1, aV2;
+  Vector3d aV1, aV2;
   D1(Knot(FirstUKnotIndex()), aP, aV1);
   D1(Knot(LastUKnotIndex()), aP, aV2);
 
@@ -188,7 +188,7 @@ void Geom_BSplineCurve::D0(const Standard_Real U, Point3d& P) const
 
 //=================================================================================================
 
-void Geom_BSplineCurve::D1(const Standard_Real U, Point3d& P, gp_Vec& V1) const
+void Geom_BSplineCurve::D1(const Standard_Real U, Point3d& P, Vector3d& V1) const
 {
   Standard_Integer aSpanIndex = 0;
   Standard_Real    aNewU(U);
@@ -211,7 +211,7 @@ void Geom_BSplineCurve::D1(const Standard_Real U, Point3d& P, gp_Vec& V1) const
 
 //=================================================================================================
 
-void Geom_BSplineCurve::D2(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2) const
+void Geom_BSplineCurve::D2(const Standard_Real U, Point3d& P, Vector3d& V1, Vector3d& V2) const
 {
   Standard_Integer aSpanIndex = 0;
   Standard_Real    aNewU(U);
@@ -237,9 +237,9 @@ void Geom_BSplineCurve::D2(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec
 
 void Geom_BSplineCurve::D3(const Standard_Real U,
                            Point3d&             P,
-                           gp_Vec&             V1,
-                           gp_Vec&             V2,
-                           gp_Vec&             V3) const
+                           Vector3d&             V1,
+                           Vector3d&             V2,
+                           Vector3d&             V3) const
 {
   Standard_Integer aSpanIndex = 0;
   Standard_Real    aNewU(U);
@@ -264,9 +264,9 @@ void Geom_BSplineCurve::D3(const Standard_Real U,
 
 //=================================================================================================
 
-gp_Vec Geom_BSplineCurve::DN(const Standard_Real U, const Standard_Integer N) const
+Vector3d Geom_BSplineCurve::DN(const Standard_Real U, const Standard_Integer N) const
 {
-  gp_Vec V;
+  Vector3d V;
   BSplCLib::DN(U,
                N,
                0,
@@ -410,7 +410,7 @@ void Geom_BSplineCurve::LocalD1(const Standard_Real    U,
                                 const Standard_Integer FromK1,
                                 const Standard_Integer ToK2,
                                 Point3d&                P,
-                                gp_Vec&                V1) const
+                                Vector3d&                V1) const
 {
   Standard_DomainError_Raise_if(FromK1 == ToK2, "Geom_BSplineCurve::LocalD1");
 
@@ -436,8 +436,8 @@ void Geom_BSplineCurve::LocalD2(const Standard_Real    U,
                                 const Standard_Integer FromK1,
                                 const Standard_Integer ToK2,
                                 Point3d&                P,
-                                gp_Vec&                V1,
-                                gp_Vec&                V2) const
+                                Vector3d&                V1,
+                                Vector3d&                V2) const
 {
   Standard_DomainError_Raise_if(FromK1 == ToK2, "Geom_BSplineCurve::LocalD2");
 
@@ -464,9 +464,9 @@ void Geom_BSplineCurve::LocalD3(const Standard_Real    U,
                                 const Standard_Integer FromK1,
                                 const Standard_Integer ToK2,
                                 Point3d&                P,
-                                gp_Vec&                V1,
-                                gp_Vec&                V2,
-                                gp_Vec&                V3) const
+                                Vector3d&                V1,
+                                Vector3d&                V2,
+                                Vector3d&                V3) const
 {
   Standard_DomainError_Raise_if(FromK1 == ToK2, "Geom_BSplineCurve::LocalD3");
 
@@ -490,7 +490,7 @@ void Geom_BSplineCurve::LocalD3(const Standard_Real    U,
 
 //=================================================================================================
 
-gp_Vec Geom_BSplineCurve::LocalDN(const Standard_Real    U,
+Vector3d Geom_BSplineCurve::LocalDN(const Standard_Real    U,
                                   const Standard_Integer FromK1,
                                   const Standard_Integer ToK2,
                                   const Standard_Integer N) const
@@ -502,7 +502,7 @@ gp_Vec Geom_BSplineCurve::LocalDN(const Standard_Real    U,
   BSplCLib::LocateParameter(deg, FKNOTS, U, periodic, FromK1, ToK2, index, u);
   index = BSplCLib::FlatIndex(deg, index, mults->Array1(), periodic);
 
-  gp_Vec V;
+  Vector3d V;
   BSplCLib::DN(u,
                N,
                index,
@@ -627,7 +627,7 @@ Standard_Boolean Geom_BSplineCurve::IsRational() const
 
 //=================================================================================================
 
-void Geom_BSplineCurve::Transform(const gp_Trsf& T)
+void Geom_BSplineCurve::Transform(const Transform3d& T)
 {
   TColgp_Array1OfPnt& CPoles = poles->ChangeArray1();
   for (Standard_Integer I = 1; I <= CPoles.Length(); I++)

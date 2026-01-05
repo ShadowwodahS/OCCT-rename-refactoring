@@ -41,7 +41,7 @@ public:
   Standard_EXPORT Vrml_DirectionalLight(const Standard_Boolean aOnOff,
                                         const Standard_Real    aIntensity,
                                         const Quantity_Color&  aColor,
-                                        const gp_Vec&          aDirection);
+                                        const Vector3d&          aDirection);
 
   Standard_EXPORT void SetOnOff(const Standard_Boolean aOnOff);
 
@@ -55,9 +55,9 @@ public:
 
   Standard_EXPORT Quantity_Color Color() const;
 
-  Standard_EXPORT void SetDirection(const gp_Vec& aDirection);
+  Standard_EXPORT void SetDirection(const Vector3d& aDirection);
 
-  Standard_EXPORT gp_Vec Direction() const;
+  Standard_EXPORT Vector3d Direction() const;
 
   Standard_EXPORT Standard_OStream& Print(Standard_OStream& anOStream) const;
 
@@ -66,7 +66,7 @@ private:
   Standard_Boolean myOnOff;
   Standard_Real    myIntensity;
   Quantity_Color   myColor;
-  gp_Vec           myDirection;
+  Vector3d           myDirection;
 };
 
 #endif // _Vrml_DirectionalLight_HeaderFile

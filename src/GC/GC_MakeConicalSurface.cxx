@@ -25,7 +25,7 @@
 #include <Standard_NotImplemented.hxx>
 #include <StdFail_NotDone.hxx>
 
-GC_MakeConicalSurface::GC_MakeConicalSurface(const gp_Ax2&       A2,
+GC_MakeConicalSurface::GC_MakeConicalSurface(const Frame3d&       A2,
                                              const Standard_Real Ang,
                                              const Standard_Real Radius)
 {

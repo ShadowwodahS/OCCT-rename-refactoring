@@ -289,7 +289,7 @@ static void CurveHermite(const TopOpeBRepDS_DataStructure& DStr,
                          Standard_Real&                    error)
 {
   Point3d             p01, p02;
-  gp_Vec             d11, d12;
+  Vector3d             d11, d12;
   Standard_Integer   ii, jj;
   Standard_Real      up1, up2;
   Standard_Integer   ilin, jfp;
@@ -977,7 +977,7 @@ static void ParametrePlate(const Standard_Integer             n3d,
 static void SummarizeNormal(const TopoDS_Vertex& V1,
                             const TopoDS_Face&   Fcur,
                             const TopoDS_Edge&   Ecur,
-                            gp_Vec&              SumFaceNormalAtV1)
+                            Vector3d&              SumFaceNormalAtV1)
 {
   gp_Pnt2d uv1, uv2;
   BRep_Tool::UVPoints(Ecur, Fcur, uv1, uv2);
@@ -985,9 +985,9 @@ static void SummarizeNormal(const TopoDS_Vertex& V1,
     uv1 = uv2;
 
   Point3d P;
-  gp_Vec d1U, d1V;
+  Vector3d d1U, d1V;
   BRep_Tool::Surface(Fcur)->D1(uv1.X(), uv1.Y(), P, d1U, d1V);
-  gp_Vec N = d1U.Crossed(d1V);
+  Vector3d N = d1U.Crossed(d1V);
   if (Fcur.Orientation() == TopAbs_REVERSED)
     N.Reverse();
 
@@ -1037,9 +1037,9 @@ static Standard_Integer SurfIndex(const ChFiDS_StripeArray1& StripeArray1,
 
 static TopAbs_Orientation PlateOrientation(const Handle(Geom_Surface)&              thePlateSurf,
                                            const Handle(TColGeom2d_HArray1OfCurve)& thePCArr,
-                                           const gp_Vec&                            theRefDir)
+                                           const Vector3d&                            theRefDir)
 {
-  gp_Vec        du, dv;
+  Vector3d        du, dv;
   Point3d        pp1, pp2, pp3;
   gp_Pnt2d      uv;
   Standard_Real fpar, lpar;
@@ -1061,14 +1061,14 @@ static TopAbs_Orientation PlateOrientation(const Handle(Geom_Surface)&          
     lpar = aPC->LastParameter();
     aPC->D0(fpar, uv);
     thePlateSurf->D1(uv.X(), uv.Y(), pp2, du, dv);
-    gp_Vec n1 = du ^ dv;
+    Vector3d n1 = du ^ dv;
     n1.Normalize();
 
     aPC->D0((fpar + lpar) / 2., uv);
     thePlateSurf->D0(uv.X(), uv.Y(), pp3);
 
-    gp_Vec vv1(pp2, pp1), vv2(pp2, pp3);
-    gp_Vec n2 = vv2 ^ vv1;
+    Vector3d vv1(pp2, pp1), vv2(pp2, pp3);
+    Vector3d n2 = vv2 ^ vv1;
     n2.Normalize();
 
     SumScal1 += n1 * n2;
@@ -1175,7 +1175,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
 //  Standard_Integer nface=ChFi3d_nbface(myVFMap(V1));
 #endif
   TopoDS_Face F1, F2;
-  gp_Vec      SumFaceNormalAtV1(0, 0, 0); // is used to define Plate orientation
+  Vector3d      SumFaceNormalAtV1(0, 0, 0); // is used to define Plate orientation
 
   // it is determined if there is a sewing edge
   Standard_Boolean couture = Standard_False;
@@ -3151,7 +3151,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
 #ifdef OCCT_DEBUG
 //    Standard_Real ang1=PSurf.G1Error();
 #endif
-    //     gp_Vec n1,n2,du,dv,du1,dv1;
+    //     Vector3d n1,n2,du,dv,du1,dv1;
     //     Point3d pp,pp1;
     //     Standard_Real tpar;
     //     gp_Pnt2d uv;

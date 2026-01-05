@@ -46,12 +46,12 @@ public:
   //! @param[in] theTrsf  optional transformation to apply
   //! @return generated triangulation
   Standard_EXPORT Handle(Graphic3d_ArrayOfTriangles) CreateTriangulation(
-    const gp_Trsf& theTrsf) const;
+    const Transform3d& theTrsf) const;
 
   //! Generate primitives for 3D quadric surface presentation.
   //! @param[in] theTrsf  optional transformation to apply
   //! @return generated triangulation
-  Standard_EXPORT Handle(Poly_Triangulation) CreatePolyTriangulation(const gp_Trsf& theTrsf) const;
+  Standard_EXPORT Handle(Poly_Triangulation) CreatePolyTriangulation(const Transform3d& theTrsf) const;
 
   //! Generate primitives for 3D quadric surface and fill the given array.
   //! @param[in][out] theArray  the array of vertices;
@@ -60,7 +60,7 @@ public:
   //!                           (will raise an exception if reserved array size is not large enough)
   //! @param[in] theTrsf  optional transformation to apply
   Standard_EXPORT void FillArray(Handle(Graphic3d_ArrayOfTriangles)& theArray,
-                                 const gp_Trsf&                      theTrsf) const;
+                                 const Transform3d&                      theTrsf) const;
 
   //! Return number of triangles in generated presentation.
   Standard_Integer TrianglesNb() const { return mySlicesNb * myStacksNb * 2; }
@@ -80,14 +80,14 @@ public:
     "Deprecated method, CreateTriangulation() and CreatePolyTriangulation() should be used instead")
   Standard_EXPORT void FillArray(Handle(Graphic3d_ArrayOfTriangles)& theArray,
                                  Handle(Poly_Triangulation)&         theTriangulation,
-                                 const gp_Trsf&                      theTrsf) const;
+                                 const Transform3d&                      theTrsf) const;
 
 protected:
   //! Redefine this method to generate vertex at given parameters.
   virtual Point3d Vertex(const Standard_Real theU, const Standard_Real theV) const = 0;
 
   //! Redefine this method to generate normal at given parameters.
-  virtual gp_Dir Normal(const Standard_Real theU, const Standard_Real theV) const = 0;
+  virtual Dir3d Normal(const Standard_Real theU, const Standard_Real theV) const = 0;
 
 protected:
   Standard_Integer mySlicesNb; //!< number of slices within U parameter

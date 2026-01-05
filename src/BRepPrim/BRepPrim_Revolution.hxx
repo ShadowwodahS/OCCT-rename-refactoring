@@ -25,7 +25,7 @@
 #include <Standard_Real.hxx>
 class Geom_Curve;
 class Geom2d_Curve;
-class gp_Ax2;
+class Frame3d;
 class TopoDS_Face;
 class TopoDS_Edge;
 class gp_Pnt2d;
@@ -40,7 +40,7 @@ public:
   //! Create a  revolution body <M>  is the  meridian nd
   //! must   be in the XZ  plane   of <A>. <PM>  is  the
   //! meridian in the XZ plane.
-  Standard_EXPORT BRepPrim_Revolution(const gp_Ax2&               A,
+  Standard_EXPORT BRepPrim_Revolution(const Frame3d&               A,
                                       const Standard_Real         VMin,
                                       const Standard_Real         VMax,
                                       const Handle(Geom_Curve)&   M,
@@ -67,7 +67,7 @@ public:
 protected:
   //! Create a  revolution   body.  The meridian  is set
   //! later. Reserved for derivated classes.
-  Standard_EXPORT BRepPrim_Revolution(const gp_Ax2&       A,
+  Standard_EXPORT BRepPrim_Revolution(const Frame3d&       A,
                                       const Standard_Real VMin,
                                       const Standard_Real VMax);
 

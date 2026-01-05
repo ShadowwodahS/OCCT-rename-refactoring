@@ -2609,7 +2609,7 @@ void STEPCAFControl_Writer::writePresentation(const Handle(XSControl_WorkSession
                                               const Handle(TCollection_HAsciiString)& thePrsName,
                                               const Standard_Boolean            theHasSemantic,
                                               const Standard_Boolean            theHasPlane,
-                                              const gp_Ax2&                     theAnnotationPlane,
+                                              const Frame3d&                     theAnnotationPlane,
                                               const Point3d&                     theTextPosition,
                                               const Handle(RefObject)& theDimension,
                                               const StepData_Factors&           theLocalFactors)
@@ -2891,7 +2891,7 @@ Handle(StepDimTol_Datum) STEPCAFControl_Writer::writeDatumAP242(
           new StepShape_ShapeRepresentationWithParameters();
         // Common for all datum targets
         StepBasic_Unit                    aUnit   = GetUnit(aRC);
-        gp_Ax2                            aDTAxis = anObject->GetDatumTargetAxis();
+        Frame3d                            aDTAxis = anObject->GetDatumTargetAxis();
         GeomToStep_MakeAxis2Placement3d   anAxisMaker(aDTAxis, theLocalFactors);
         Handle(StepGeom_Axis2Placement3d) anA2P3D = anAxisMaker.Value();
         anA2P3D->SetName(new TCollection_HAsciiString("orientation"));
@@ -3176,7 +3176,7 @@ static void WriteDimValues(const Handle(XSControl_WorkSession)&             theW
   if (theObject->GetType() == XCAFDimTolObjects_DimensionType_Location_Oriented)
   {
     Handle(StepGeom_Axis2Placement3d) anOrientation = new StepGeom_Axis2Placement3d();
-    gp_Dir                            aDir;
+    Dir3d                            aDir;
     theObject->GetDirection(aDir);
     GeomToStep_MakeCartesianPoint          MkPoint(Point3d(0, 0, 0), theLocalFactors.LengthFactor());
     const Handle(StepGeom_CartesianPoint)& aLoc    = MkPoint.Value();

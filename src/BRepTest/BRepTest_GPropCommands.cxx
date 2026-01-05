@@ -183,7 +183,7 @@ Standard_Integer props(Draw_Interpretor& di, Standard_Integer n, const char** a)
   }
 
   // if (n == 2) {
-  gp_Ax2 axes(P, Pr.ThirdAxisOfInertia(), Pr.FirstAxisOfInertia());
+  Frame3d axes(P, Pr.ThirdAxisOfInertia(), Pr.FirstAxisOfInertia());
 
   Handle(Draw_Axis3D) Dax = new Draw_Axis3D(axes, Draw_orange, 30);
   dout << Dax;
@@ -331,7 +331,7 @@ Standard_Integer vpropsgk(Draw_Interpretor& di, Standard_Integer n, const char**
     aSStream2 << std::ends;
     di << aSStream2;
 
-    gp_Ax2 axes(P, Pr.ThirdAxisOfInertia(), Pr.FirstAxisOfInertia());
+    Frame3d axes(P, Pr.ThirdAxisOfInertia(), Pr.FirstAxisOfInertia());
 
     Handle(Draw_Axis3D) Dax = new Draw_Axis3D(axes, Draw_orange, 30);
     dout << Dax;

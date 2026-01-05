@@ -53,7 +53,7 @@ GeomPlate_BuildAveragePlane::GeomPlate_BuildAveragePlane(const Handle(TColgp_HAr
       myTol(Tol),
       myNbBoundPoints(NbBoundPoints)
 {
-  gp_Vec OZ = DefPlan(NOption);
+  Vector3d OZ = DefPlan(NOption);
 
   if (OZ.SquareMagnitude() > 0)
   {
@@ -67,8 +67,8 @@ GeomPlate_BuildAveragePlane::GeomPlate_BuildAveragePlane(const Handle(TColgp_HAr
     else
     {
       BasePlan(OZ);
-      gp_Dir NDir(myOX ^ myOY);
-      gp_Dir UDir(myOX);
+      Dir3d NDir(myOX ^ myOY);
+      Dir3d UDir(myOX);
       gp_Ax3 triedre(myG, NDir, UDir);
       myPlane = new Geom_Plane(triedre);
     }
@@ -104,7 +104,7 @@ GeomPlate_BuildAveragePlane::GeomPlate_BuildAveragePlane(const TColgp_SequenceOf
 {
   Standard_Integer i, j, k, n, m;
 
-  gp_Vec           BestVec;
+  Vector3d           BestVec;
   Standard_Integer NN = Normals.Length();
 
   if (NN == 1)
@@ -143,8 +143,8 @@ GeomPlate_BuildAveragePlane::GeomPlate_BuildAveragePlane(const TColgp_SequenceOf
 
     TColgp_Array1OfVec   OptVec(1, NN * (NN - 1) / 2);
     TColStd_Array1OfReal OptScal(1, NN * (NN - 1) / 2);
-    gp_Vec               Vec, Vec1;
-    gp_Dir               Cross1, Cross2;
+    Vector3d               Vec, Vec1;
+    Dir3d               Cross1, Cross2;
 
     k = 1;
     for (i = 1; i <= NN - 1; i++)
@@ -166,7 +166,7 @@ GeomPlate_BuildAveragePlane::GeomPlate_BuildAveragePlane(const TColgp_SequenceOf
 
         Cross1 = Normals(i) ^ Normals(j);
         Cross2 = Vec ^ Cross1;
-        gp_Ax1 Axe(Point3d(0, 0, 0), Cross2);
+        Axis3d Axe(Point3d(0, 0, 0), Cross2);
 
         Vec1 = Vec.Rotated(Axe, -MaxAngle);
         // Vec2 = Vec.Rotated( Axe, MaxAngle );
@@ -202,14 +202,14 @@ GeomPlate_BuildAveragePlane::GeomPlate_BuildAveragePlane(const TColgp_SequenceOf
   }
 
   // Making the plane myPlane
-  gp_Ax2             Axe;
+  Frame3d             Axe;
   Standard_Boolean   IsSingular;
   TColgp_Array1OfPnt PtsArray(1, myPts->Length());
   for (i = 1; i <= myPts->Length(); i++)
     PtsArray(i) = myPts->Value(i);
   GeomLib::AxeOfInertia(PtsArray, Axe, IsSingular);
-  gp_Dir BestDir(BestVec);
-  gp_Dir XDir = BestDir ^ Axe.XDirection();
+  Dir3d BestDir(BestVec);
+  Dir3d XDir = BestDir ^ Axe.XDirection();
   XDir ^= BestDir;
 
   gp_Ax3 Axe3(Axe.Location(), BestDir, XDir);
@@ -223,8 +223,8 @@ GeomPlate_BuildAveragePlane::GeomPlate_BuildAveragePlane(const TColgp_SequenceOf
   Standard_Real U, V;
   for (i = 1; i <= myPts->Length(); i++)
   {
-    gp_Vec aVec(Pln.Location(), myPts->Value(i));
-    gp_Vec NormVec = Pln.Axis().Direction();
+    Vector3d aVec(Pln.Location(), myPts->Value(i));
+    Vector3d NormVec = Pln.Axis().Direction();
     NormVec        = (aVec * NormVec) * NormVec;
 
     // clang-format off
@@ -269,12 +269,12 @@ void GeomPlate_BuildAveragePlane::MinMaxBox(Standard_Real& Umin,
 
 //=================================================================================================
 
-gp_Vec GeomPlate_BuildAveragePlane::DefPlan(const Standard_Integer NOption)
+Vector3d GeomPlate_BuildAveragePlane::DefPlan(const Standard_Integer NOption)
 {
 
   Point3d           GB;
-  gp_Vec           A, B, C, D;
-  gp_Vec           OZ;
+  Vector3d           A, B, C, D;
+  Vector3d           OZ;
   Standard_Integer i, nb = myPts->Length();
   GB.SetCoord(0., 0., 0.);
   for (i = 1; i <= nb; i++)
@@ -289,7 +289,7 @@ gp_Vec GeomPlate_BuildAveragePlane::DefPlan(const Standard_Integer NOption)
 
   if (NOption == 1)
   {
-    gp_Ax2           Axe;
+    Frame3d           Axe;
     Standard_Boolean IsSingular;
     GeomLib::AxeOfInertia(myPts->Array1(), Axe, IsSingular, myTol);
 
@@ -314,7 +314,7 @@ gp_Vec GeomPlate_BuildAveragePlane::DefPlan(const Standard_Integer NOption)
         A.SetCoord(2, A.Coord(2) + D.Coord(2));
         A.SetCoord(3, A.Coord(3) + D.Coord(3));
       }
-      gp_Vec        OZ1      = A;
+      Vector3d        OZ1      = A;
       Standard_Real theAngle = OZ.Angle(OZ1);
       if (theAngle > M_PI / 2)
         theAngle = M_PI - theAngle;
@@ -346,11 +346,11 @@ gp_Vec GeomPlate_BuildAveragePlane::DefPlan(const Standard_Integer NOption)
 
 //=================================================================================================
 
-void GeomPlate_BuildAveragePlane::BasePlan(const gp_Vec& OZ)
+void GeomPlate_BuildAveragePlane::BasePlan(const Vector3d& OZ)
 {
   math_Matrix M(1, 3, 1, 3);
   M.Init(0.);
-  gp_Vec           Proj;
+  Vector3d           Proj;
   Standard_Integer i, nb = myPts->Length();
   Standard_Real    scal;
 
@@ -462,7 +462,7 @@ Handle(Geom_Line) GeomPlate_BuildAveragePlane::Line() const
 
 Standard_Boolean GeomPlate_BuildAveragePlane::IsPlane() const
 {
-  gp_Vec OZ = myOX ^ myOY;
+  Vector3d OZ = myOX ^ myOY;
   if (OZ.SquareMagnitude() == 0)
     return Standard_False;
   else
@@ -473,7 +473,7 @@ Standard_Boolean GeomPlate_BuildAveragePlane::IsPlane() const
 
 Standard_Boolean GeomPlate_BuildAveragePlane::IsLine() const
 {
-  gp_Vec OZ = myOX ^ myOY;
+  Vector3d OZ = myOX ^ myOY;
   if (OZ.SquareMagnitude() == 0)
     return Standard_True;
   else
@@ -494,7 +494,7 @@ Standard_Boolean GeomPlate_BuildAveragePlane::HalfSpace(const TColgp_SequenceOfV
   SaveNormals = Normals;
   SaveBset    = Bset;
 
-  gp_Vec                  Cross, NullVec(0, 0, 0);
+  Vector3d                  Cross, NullVec(0, 0, 0);
   GeomPlate_SequenceOfAij B1set, B2set;
   Standard_Integer        i, j, k;
 
@@ -546,7 +546,7 @@ Standard_Boolean GeomPlate_BuildAveragePlane::HalfSpace(const TColgp_SequenceOfV
         if (B2set(k).Vec.IsOpposite(-Cross,
                                     AngTol)) // if (B2set(k).Vec.IsEqual( Cross, LinTol, AngTol ))
         {
-          gp_Vec           Cross1, Cross2;
+          Vector3d           Cross1, Cross2;
           Standard_Integer ind1 = B2set(k).Ind1, ind2 = B2set(k).Ind2;
           if (ind1 == ii || ind2 == ii)
           {
@@ -593,7 +593,7 @@ Standard_Boolean GeomPlate_BuildAveragePlane::HalfSpace(const TColgp_SequenceOfV
         if (B2set(k).Vec.IsOpposite(-Cross,
                                     AngTol)) // if (B2set(k).Vec.IsEqual( Cross, LinTol, AngTol ))
         {
-          gp_Vec           Cross1, Cross2;
+          Vector3d           Cross1, Cross2;
           Standard_Integer ind1 = B2set(k).Ind1, ind2 = B2set(k).Ind2;
           if (ind1 == ii || ind2 == ii)
           {

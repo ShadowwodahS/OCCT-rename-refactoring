@@ -106,8 +106,8 @@ void GeomFill_DiscreteTrihedron::Init()
   myKnots->Append(Knots(NbIntervals + 1));
 
   Point3d        Origin(0., 0., 0.), Pnt, SubPnt;
-  gp_Vec        Tangent;
-  gp_Dir        TangDir;
+  Vector3d        Tangent;
+  Dir3d        TangDir;
   Standard_Real norm;
   for (i = 1; i <= myKnots->Length(); i++)
   {
@@ -127,14 +127,14 @@ void GeomFill_DiscreteTrihedron::Init()
     Tangent = TangDir;
     if (i == 1) // first point
     {
-      gp_Ax2 FirstAxis(Origin, TangDir);
+      Frame3d FirstAxis(Origin, TangDir);
       myTrihedrons->Append(FirstAxis);
     }
     else
     {
-      gp_Ax2 LastAxis       = myTrihedrons->Value(myTrihedrons->Length());
-      gp_Vec LastTangent    = LastAxis.Direction();
-      gp_Vec AxisOfRotation = LastTangent ^ Tangent;
+      Frame3d LastAxis       = myTrihedrons->Value(myTrihedrons->Length());
+      Vector3d LastTangent    = LastAxis.Direction();
+      Vector3d AxisOfRotation = LastTangent ^ Tangent;
       if (AxisOfRotation.Magnitude() <= gp::Resolution()) // tangents are equal or opposite
       {
         Standard_Real ScalarProduct = LastTangent * Tangent;
@@ -153,8 +153,8 @@ void GeomFill_DiscreteTrihedron::Init()
       else // good value of angle
       {
         Standard_Real theAngle = LastTangent.AngleWithRef(Tangent, AxisOfRotation);
-        gp_Ax1        theAxisOfRotation(Origin, AxisOfRotation);
-        gp_Ax2        NewAxis = LastAxis.Rotated(theAxisOfRotation, theAngle);
+        Axis3d        theAxisOfRotation(Origin, AxisOfRotation);
+        Frame3d        NewAxis = LastAxis.Rotated(theAxisOfRotation, theAngle);
         NewAxis.SetDirection(TangDir); // to prevent accumulation of floating computations error
         myTrihedrons->Append(NewAxis);
       }
@@ -165,9 +165,9 @@ void GeomFill_DiscreteTrihedron::Init()
 //=================================================================================================
 
 Standard_Boolean GeomFill_DiscreteTrihedron::D0(const Standard_Real Param,
-                                                gp_Vec&             Tangent,
-                                                gp_Vec&             Normal,
-                                                gp_Vec&             BiNormal)
+                                                Vector3d&             Tangent,
+                                                Vector3d&             Normal,
+                                                Vector3d&             BiNormal)
 {
   if (myUseFrenet)
   {
@@ -183,7 +183,7 @@ Standard_Boolean GeomFill_DiscreteTrihedron::D0(const Standard_Real Param,
     Point3d           Origin(0., 0., 0.);
 
     Standard_Integer i;
-    // gp_Ax2 PrevAxis;
+    // Frame3d PrevAxis;
     // Standard_Real PrevParam;
 
     Standard_Integer I1, I2;
@@ -204,8 +204,8 @@ Standard_Boolean GeomFill_DiscreteTrihedron::D0(const Standard_Real Param,
       Index = I2;
 
     Standard_Real PrevParam = myKnots->Value(Index);
-    gp_Ax2        PrevAxis  = myTrihedrons->Value(Index);
-    gp_Ax2        theAxis;
+    Frame3d        PrevAxis  = myTrihedrons->Value(Index);
+    Frame3d        theAxis;
     if (Abs(Param - PrevParam) < TolPar)
       theAxis = PrevAxis;
     else //<Param> is between knots
@@ -221,10 +221,10 @@ Standard_Boolean GeomFill_DiscreteTrihedron::D0(const Standard_Real Param,
         Tangent.SetXYZ(SubPnt.XYZ() - myPoint.XYZ());
       }
       // Tangent.Normalize();
-      gp_Dir TangDir(Tangent); // normalize;
+      Dir3d TangDir(Tangent); // normalize;
       Tangent               = TangDir;
-      gp_Vec PrevTangent    = PrevAxis.Direction();
-      gp_Vec AxisOfRotation = PrevTangent ^ Tangent;
+      Vector3d PrevTangent    = PrevAxis.Direction();
+      Vector3d AxisOfRotation = PrevTangent ^ Tangent;
       if (AxisOfRotation.Magnitude() <= gp::Resolution()) // tangents are equal
       {
         // we assume that tangents can not be opposite
@@ -233,7 +233,7 @@ Standard_Boolean GeomFill_DiscreteTrihedron::D0(const Standard_Real Param,
       else // good value of angle
       {
         Standard_Real theAngle = PrevTangent.AngleWithRef(Tangent, AxisOfRotation);
-        gp_Ax1        theAxisOfRotation(Origin, AxisOfRotation);
+        Axis3d        theAxisOfRotation(Origin, AxisOfRotation);
         theAxis = PrevAxis.Rotated(theAxisOfRotation, theAngle);
       }
       theAxis.SetDirection(TangDir); // to prevent accumulation of floating computations error
@@ -249,12 +249,12 @@ Standard_Boolean GeomFill_DiscreteTrihedron::D0(const Standard_Real Param,
 //=================================================================================================
 
 Standard_Boolean GeomFill_DiscreteTrihedron::D1(const Standard_Real Param,
-                                                gp_Vec&             Tangent,
-                                                gp_Vec&             DTangent,
-                                                gp_Vec&             Normal,
-                                                gp_Vec&             DNormal,
-                                                gp_Vec&             BiNormal,
-                                                gp_Vec&             DBiNormal)
+                                                Vector3d&             Tangent,
+                                                Vector3d&             DTangent,
+                                                Vector3d&             Normal,
+                                                Vector3d&             DNormal,
+                                                Vector3d&             BiNormal,
+                                                Vector3d&             DBiNormal)
 {
   if (myUseFrenet)
   {
@@ -274,15 +274,15 @@ Standard_Boolean GeomFill_DiscreteTrihedron::D1(const Standard_Real Param,
 //=================================================================================================
 
 Standard_Boolean GeomFill_DiscreteTrihedron::D2(const Standard_Real Param,
-                                                gp_Vec&             Tangent,
-                                                gp_Vec&             DTangent,
-                                                gp_Vec&             D2Tangent,
-                                                gp_Vec&             Normal,
-                                                gp_Vec&             DNormal,
-                                                gp_Vec&             D2Normal,
-                                                gp_Vec&             BiNormal,
-                                                gp_Vec&             DBiNormal,
-                                                gp_Vec&             D2BiNormal)
+                                                Vector3d&             Tangent,
+                                                Vector3d&             DTangent,
+                                                Vector3d&             D2Tangent,
+                                                Vector3d&             Normal,
+                                                Vector3d&             DNormal,
+                                                Vector3d&             D2Normal,
+                                                Vector3d&             BiNormal,
+                                                Vector3d&             DBiNormal,
+                                                Vector3d&             D2BiNormal)
 {
   if (myUseFrenet)
   {
@@ -325,13 +325,13 @@ void GeomFill_DiscreteTrihedron::Intervals(TColStd_Array1OfReal& T, const GeomAb
   myTrimmed->Intervals(T, GeomAbs_CN);
 }
 
-void GeomFill_DiscreteTrihedron::GetAverageLaw(gp_Vec& ATangent, gp_Vec& ANormal, gp_Vec& ABiNormal)
+void GeomFill_DiscreteTrihedron::GetAverageLaw(Vector3d& ATangent, Vector3d& ANormal, Vector3d& ABiNormal)
 {
   Standard_Integer Num = 20; // order of digitalization
-  gp_Vec           T, N, BN;
-  ATangent           = gp_Vec(0, 0, 0);
-  ANormal            = gp_Vec(0, 0, 0);
-  ABiNormal          = gp_Vec(0, 0, 0);
+  Vector3d           T, N, BN;
+  ATangent           = Vector3d(0, 0, 0);
+  ANormal            = Vector3d(0, 0, 0);
+  ABiNormal          = Vector3d(0, 0, 0);
   Standard_Real Step = (myTrimmed->LastParameter() - myTrimmed->FirstParameter()) / Num;
   Standard_Real Param;
   for (Standard_Integer i = 0; i <= Num; i++)

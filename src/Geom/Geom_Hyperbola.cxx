@@ -32,11 +32,11 @@
 IMPLEMENT_STANDARD_RTTIEXT(Geom_Hyperbola, Geom_Conic)
 
 typedef Geom_Hyperbola Hyperbola;
-typedef gp_Ax1         Ax1;
-typedef gp_Ax2         Ax2;
+typedef Axis3d         Ax1;
+typedef Frame3d         Ax2;
 typedef Point3d         Pnt;
-typedef gp_Vec         Vec;
-typedef gp_Trsf        Trsf;
+typedef Vector3d         Vec;
+typedef Transform3d        Trsf;
 typedef gp_XYZ         XYZ;
 
 //=================================================================================================

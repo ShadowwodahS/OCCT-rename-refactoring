@@ -37,13 +37,13 @@ public:
 
   Standard_EXPORT LocOpe_Prism();
 
-  Standard_EXPORT LocOpe_Prism(const TopoDS_Shape& Base, const gp_Vec& V);
+  Standard_EXPORT LocOpe_Prism(const TopoDS_Shape& Base, const Vector3d& V);
 
-  Standard_EXPORT LocOpe_Prism(const TopoDS_Shape& Base, const gp_Vec& V, const gp_Vec& Vectra);
+  Standard_EXPORT LocOpe_Prism(const TopoDS_Shape& Base, const Vector3d& V, const Vector3d& Vectra);
 
-  Standard_EXPORT void Perform(const TopoDS_Shape& Base, const gp_Vec& V);
+  Standard_EXPORT void Perform(const TopoDS_Shape& Base, const Vector3d& V);
 
-  Standard_EXPORT void Perform(const TopoDS_Shape& Base, const gp_Vec& V, const gp_Vec& Vtra);
+  Standard_EXPORT void Perform(const TopoDS_Shape& Base, const Vector3d& V, const Vector3d& Vtra);
 
   Standard_EXPORT const TopoDS_Shape& FirstShape() const;
 
@@ -62,8 +62,8 @@ private:
   Standard_EXPORT void IntPerf();
 
   TopoDS_Shape                       myBase;
-  gp_Vec                             myVec;
-  gp_Vec                             myTra;
+  Vector3d                             myVec;
+  Vector3d                             myTra;
   Standard_Boolean                   myIsTrans;
   Standard_Boolean                   myDone;
   TopoDS_Shape                       myRes;

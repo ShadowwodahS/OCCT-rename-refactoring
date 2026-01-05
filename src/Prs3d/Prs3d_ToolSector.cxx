@@ -44,7 +44,7 @@ Point3d Prs3d_ToolSector::Vertex(const Standard_Real theU, const Standard_Real t
 Handle(Graphic3d_ArrayOfTriangles) Prs3d_ToolSector::Create(const Standard_Real    theRadius,
                                                             const Standard_Integer theNbSlices,
                                                             const Standard_Integer theNbStacks,
-                                                            const gp_Trsf&         theTrsf)
+                                                            const Transform3d&         theTrsf)
 {
   Handle(Graphic3d_ArrayOfTriangles) anArray;
   Prs3d_ToolSector                   aTool(theRadius, theNbSlices, theNbStacks);

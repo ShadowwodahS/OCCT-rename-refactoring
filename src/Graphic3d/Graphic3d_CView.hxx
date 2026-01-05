@@ -528,12 +528,12 @@ public:
   //! @param[in] thePoseXR  transformation defined in VR local coordinate system,
   //!                       oriented as Y-up, X-right and -Z-forward
   //! @return transformation defining orientation of XR pose in world space
-  gp_Trsf PoseXRToWorld(const gp_Trsf& thePoseXR) const
+  Transform3d PoseXRToWorld(const Transform3d& thePoseXR) const
   {
     const Handle(Graphic3d_Camera)& anOrigin = myBaseXRCamera;
     const gp_Ax3                    anAxVr(gp::Origin(), gp::DZ(), gp::DX());
     const gp_Ax3 aCameraCS(anOrigin->Eye().XYZ(), -anOrigin->Direction(), -anOrigin->SideRight());
-    gp_Trsf      aTrsfCS;
+    Transform3d      aTrsfCS;
     aTrsfCS.SetTransformation(aCameraCS, anAxVr);
     return aTrsfCS * thePoseXR;
   }
@@ -541,9 +541,9 @@ public:
   //! Returns view direction in the world space based on XR pose.
   //! @param[in] thePoseXR  transformation defined in VR local coordinate system,
   //!                       oriented as Y-up, X-right and -Z-forward
-  gp_Ax1 ViewAxisInWorld(const gp_Trsf& thePoseXR) const
+  Axis3d ViewAxisInWorld(const Transform3d& thePoseXR) const
   {
-    return gp_Ax1(gp::Origin(), -gp::DZ()).Transformed(PoseXRToWorld(thePoseXR));
+    return Axis3d(gp::Origin(), -gp::DZ()).Transformed(PoseXRToWorld(thePoseXR));
   }
 
   //! Recomputes PosedXRCamera() based on BaseXRCamera() and head orientation.
@@ -555,14 +555,14 @@ public:
 
   //! Compute camera position based on XR pose.
   Standard_EXPORT void ComputeXRPosedCameraFromBase(Graphic3d_Camera& theCam,
-                                                    const gp_Trsf&    theXRTrsf) const;
+                                                    const Transform3d&    theXRTrsf) const;
 
   //! Update based camera from posed camera by applying reversed transformation.
   Standard_EXPORT void ComputeXRBaseCameraFromPosed(const Graphic3d_Camera& theCamPosed,
-                                                    const gp_Trsf&          thePoseTrsf);
+                                                    const Transform3d&          thePoseTrsf);
 
   //! Turn XR camera direction using current (head) eye position as anchor.
-  Standard_EXPORT void TurnViewXRCamera(const gp_Trsf& theTrsfTurn);
+  Standard_EXPORT void TurnViewXRCamera(const Transform3d& theTrsfTurn);
 
 public: //! @name obsolete Graduated Trihedron functionality
   //! Returns data of a graduated trihedron

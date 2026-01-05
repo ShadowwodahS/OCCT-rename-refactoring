@@ -35,7 +35,7 @@
 
 class Point3d;
 class gp_Pnt2d;
-class gp_Vec;
+class Vector3d;
 class gp_Vec2d;
 class math_Matrix;
 
@@ -1002,7 +1002,7 @@ public:
                                  const TColStd_Array1OfReal&    Knots,
                                  const TColStd_Array1OfInteger* Mults,
                                  Point3d&                        P,
-                                 gp_Vec&                        V);
+                                 Vector3d&                        V);
 
   Standard_EXPORT static void D1(const Standard_Real            U,
                                  const Standard_Integer         UIndex,
@@ -1019,7 +1019,7 @@ public:
                                  const TColgp_Array1OfPnt&   Poles,
                                  const TColStd_Array1OfReal* Weights,
                                  Point3d&                     P,
-                                 gp_Vec&                     V);
+                                 Vector3d&                     V);
 
   Standard_EXPORT static void D1(const Standard_Real         U,
                                  const TColgp_Array1OfPnt2d& Poles,
@@ -1048,8 +1048,8 @@ public:
                                  const TColStd_Array1OfReal&    Knots,
                                  const TColStd_Array1OfInteger* Mults,
                                  Point3d&                        P,
-                                 gp_Vec&                        V1,
-                                 gp_Vec&                        V2);
+                                 Vector3d&                        V1,
+                                 Vector3d&                        V2);
 
   Standard_EXPORT static void D2(const Standard_Real            U,
                                  const Standard_Integer         UIndex,
@@ -1067,8 +1067,8 @@ public:
                                  const TColgp_Array1OfPnt&   Poles,
                                  const TColStd_Array1OfReal* Weights,
                                  Point3d&                     P,
-                                 gp_Vec&                     V1,
-                                 gp_Vec&                     V2);
+                                 Vector3d&                     V1,
+                                 Vector3d&                     V2);
 
   Standard_EXPORT static void D2(const Standard_Real         U,
                                  const TColgp_Array1OfPnt2d& Poles,
@@ -1099,9 +1099,9 @@ public:
                                  const TColStd_Array1OfReal&    Knots,
                                  const TColStd_Array1OfInteger* Mults,
                                  Point3d&                        P,
-                                 gp_Vec&                        V1,
-                                 gp_Vec&                        V2,
-                                 gp_Vec&                        V3);
+                                 Vector3d&                        V1,
+                                 Vector3d&                        V2,
+                                 Vector3d&                        V3);
 
   Standard_EXPORT static void D3(const Standard_Real            U,
                                  const Standard_Integer         UIndex,
@@ -1120,9 +1120,9 @@ public:
                                  const TColgp_Array1OfPnt&   Poles,
                                  const TColStd_Array1OfReal* Weights,
                                  Point3d&                     P,
-                                 gp_Vec&                     V1,
-                                 gp_Vec&                     V2,
-                                 gp_Vec&                     V3);
+                                 Vector3d&                     V1,
+                                 Vector3d&                     V2,
+                                 Vector3d&                     V3);
 
   Standard_EXPORT static void D3(const Standard_Real         U,
                                  const TColgp_Array1OfPnt2d& Poles,
@@ -1152,7 +1152,7 @@ public:
                                  const TColStd_Array1OfReal*    Weights,
                                  const TColStd_Array1OfReal&    Knots,
                                  const TColStd_Array1OfInteger* Mults,
-                                 gp_Vec&                        VN);
+                                 Vector3d&                        VN);
 
   Standard_EXPORT static void DN(const Standard_Real            U,
                                  const Standard_Integer         N,
@@ -1170,7 +1170,7 @@ public:
                                  const TColgp_Array1OfPnt&   Poles,
                                  const TColStd_Array1OfReal& Weights,
                                  Point3d&                     P,
-                                 gp_Vec&                     VN);
+                                 Vector3d&                     VN);
 
   //! The  above  functions  compute   values and
   //! derivatives in the following situations :
@@ -1775,7 +1775,7 @@ public:
                                       const TColgp_Array1OfPnt&   Poles,
                                       const TColStd_Array1OfReal* Weights,
                                       Point3d&                     Point,
-                                      gp_Vec&                     Vec);
+                                      Vector3d&                     Vec);
 
   //! Perform the evaluation of the Bspline Basis
   //! and then multiplies by the weights
@@ -1805,7 +1805,7 @@ public:
                       const TColgp_Array1OfPnt&   Poles,
                       const TColStd_Array1OfReal* Weights,
                       Point3d&                     Point,
-                      gp_Vec&                     Vec);
+                      Vector3d&                     Vec);
 
   //! Calls CacheD1 for Bezier  Curves Arrays computed with
   //! the method PolesCoefficients.
@@ -1834,8 +1834,8 @@ public:
                                       const TColgp_Array1OfPnt&   Poles,
                                       const TColStd_Array1OfReal* Weights,
                                       Point3d&                     Point,
-                                      gp_Vec&                     Vec1,
-                                      gp_Vec&                     Vec2);
+                                      Vector3d&                     Vec1,
+                                      Vector3d&                     Vec2);
 
   //! Perform the evaluation of the Bspline Basis
   //! and then multiplies by the weights
@@ -1866,8 +1866,8 @@ public:
                       const TColgp_Array1OfPnt&   Poles,
                       const TColStd_Array1OfReal* Weights,
                       Point3d&                     Point,
-                      gp_Vec&                     Vec1,
-                      gp_Vec&                     Vec2);
+                      Vector3d&                     Vec1,
+                      Vector3d&                     Vec2);
 
   //! Calls CacheD1 for Bezier  Curves Arrays computed with
   //! the method PolesCoefficients.
@@ -1897,9 +1897,9 @@ public:
                                       const TColgp_Array1OfPnt&   Poles,
                                       const TColStd_Array1OfReal* Weights,
                                       Point3d&                     Point,
-                                      gp_Vec&                     Vec1,
-                                      gp_Vec&                     Vec2,
-                                      gp_Vec&                     Vec3);
+                                      Vector3d&                     Vec1,
+                                      Vector3d&                     Vec2,
+                                      Vector3d&                     Vec3);
 
   //! Perform the evaluation of the Bspline Basis
   //! and then multiplies by the weights
@@ -1931,9 +1931,9 @@ public:
                       const TColgp_Array1OfPnt&   Poles,
                       const TColStd_Array1OfReal* Weights,
                       Point3d&                     Point,
-                      gp_Vec&                     Vec1,
-                      gp_Vec&                     Vec2,
-                      gp_Vec&                     Vec3);
+                      Vector3d&                     Vec1,
+                      Vector3d&                     Vec2,
+                      Vector3d&                     Vec3);
 
   //! Calls CacheD1 for Bezier  Curves Arrays computed with
   //! the method PolesCoefficients.
@@ -2208,7 +2208,7 @@ public:
   //! if Problem in BSplineBasis calculation, no change for the curve
   //! and FirstIndex, LastIndex = 0
   Standard_EXPORT static void MovePoint(const Standard_Real         U,
-                                        const gp_Vec&               Displ,
+                                        const Vector3d&               Displ,
                                         const Standard_Integer      Index1,
                                         const Standard_Integer      Index2,
                                         const Standard_Integer      Degree,
@@ -2284,8 +2284,8 @@ public:
   //! 4 + 2 = 6 poles so for example to have a C1 cubic you will need
   //! have at least 2 internal knots.
   Standard_EXPORT static void MovePointAndTangent(const Standard_Real         U,
-                                                  const gp_Vec&               Delta,
-                                                  const gp_Vec&               DeltaDerivative,
+                                                  const Vector3d&               Delta,
+                                                  const Vector3d&               DeltaDerivative,
                                                   const Standard_Real         Tolerance,
                                                   const Standard_Integer      Degree,
                                                   const Standard_Integer      StartingCondition,

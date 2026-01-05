@@ -31,7 +31,7 @@
 #include <TColStd_Array1OfReal.hxx>
 #include <GeomAbs_CurveType.hxx>
 class ChFiDS_SurfData;
-class gp_Ax1;
+class Axis3d;
 class Geom_Curve;
 class gp_Lin;
 class gp_Circ;
@@ -92,18 +92,18 @@ public:
 
   Standard_EXPORT virtual void D1(const Standard_Real AbsC,
                                   Point3d&             P,
-                                  gp_Vec&             V1) const Standard_OVERRIDE;
+                                  Vector3d&             V1) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual void D2(const Standard_Real AbsC,
                                   Point3d&             P,
-                                  gp_Vec&             V1,
-                                  gp_Vec&             V2) const Standard_OVERRIDE;
+                                  Vector3d&             V1,
+                                  Vector3d&             V2) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual void D3(const Standard_Real AbsC,
                                   Point3d&             P,
-                                  gp_Vec&             V1,
-                                  gp_Vec&             V2,
-                                  gp_Vec&             V3) const Standard_OVERRIDE;
+                                  Vector3d&             V1,
+                                  Vector3d&             V2,
+                                  Vector3d&             V3) const Standard_OVERRIDE;
 
   Standard_EXPORT void FirstParameter(const Standard_Real P);
 
@@ -115,19 +115,19 @@ public:
 
   Standard_EXPORT void SetOrigin(const Standard_Real O);
 
-  Standard_EXPORT void FirstPointAndTgt(Point3d& P, gp_Vec& T) const;
+  Standard_EXPORT void FirstPointAndTgt(Point3d& P, Vector3d& T) const;
 
-  Standard_EXPORT void LastPointAndTgt(Point3d& P, gp_Vec& T) const;
+  Standard_EXPORT void LastPointAndTgt(Point3d& P, Vector3d& T) const;
 
   Standard_EXPORT Standard_Integer NbVertices() const;
 
-  Standard_EXPORT const gp_Ax1& VertexWithTangent(const Standard_Integer Index) const;
+  Standard_EXPORT const Axis3d& VertexWithTangent(const Standard_Integer Index) const;
 
-  Standard_EXPORT void SetFirstPointAndTgt(const Point3d& P, const gp_Vec& T);
+  Standard_EXPORT void SetFirstPointAndTgt(const Point3d& P, const Vector3d& T);
 
-  Standard_EXPORT void SetLastPointAndTgt(const Point3d& P, const gp_Vec& T);
+  Standard_EXPORT void SetLastPointAndTgt(const Point3d& P, const Vector3d& T);
 
-  Standard_EXPORT void AddVertexWithTangent(const gp_Ax1& anAx1);
+  Standard_EXPORT void AddVertexWithTangent(const Axis3d& anAx1);
 
   Standard_EXPORT void SetCurve(const Handle(Geom_Curve)& C);
 
@@ -157,8 +157,8 @@ private:
   GeomAdaptor_Curve       curve;
   Point3d                  ptfirst;
   Point3d                  ptlast;
-  gp_Vec                  tgfirst;
-  gp_Vec                  tglast;
+  Vector3d                  tgfirst;
+  Vector3d                  tglast;
   TColgp_SequenceOfAx1    VerticesWithTangents;
   Handle(ChFiDS_SurfData) previous;
   Handle(ChFiDS_SurfData) next;

@@ -121,7 +121,7 @@ void GProp_GProps::StaticMoments(Standard_Real& Ix, Standard_Real& Iy, Standard_
   Iz       = G.Z() * dim;
 }
 
-Standard_Real GProp_GProps::MomentOfInertia(const gp_Ax1& A) const
+Standard_Real GProp_GProps::MomentOfInertia(const Axis3d& A) const
 {
   // Moment of inertia / axis A
   // 1] computes the math_Matrix of inertia / A.location()
@@ -143,7 +143,7 @@ Standard_Real GProp_GProps::MomentOfInertia(const gp_Ax1& A) const
   }
 }
 
-Standard_Real GProp_GProps::RadiusOfGyration(const gp_Ax1& A) const
+Standard_Real GProp_GProps::RadiusOfGyration(const Axis3d& A) const
 {
 
   return Sqrt(MomentOfInertia(A) / dim);
@@ -167,9 +167,9 @@ GProp_PrincipalProps GProp_GProps::PrincipalProperties() const
   Standard_Real Iyy = J.Value(2);
   Standard_Real Izz = J.Value(3);
   DiagMat           = J.Vectors();
-  gp_Vec Vxx(DiagMat(1, 1), DiagMat(2, 1), DiagMat(3, 1));
-  gp_Vec Vyy(DiagMat(1, 2), DiagMat(2, 2), DiagMat(3, 2));
-  gp_Vec Vzz(DiagMat(1, 3), DiagMat(2, 3), DiagMat(3, 3));
+  Vector3d Vxx(DiagMat(1, 1), DiagMat(2, 1), DiagMat(3, 1));
+  Vector3d Vyy(DiagMat(1, 2), DiagMat(2, 2), DiagMat(3, 2));
+  Vector3d Vzz(DiagMat(1, 3), DiagMat(2, 3), DiagMat(3, 3));
   //
   // protection contre dim == 0.0e0 au cas ou on aurait rentre qu'un point
   //

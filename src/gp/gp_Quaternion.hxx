@@ -55,7 +55,7 @@ public:
 
   //! Creates quaternion representing shortest-arc rotation
   //! operator producing vector theVecTo from vector theVecFrom.
-  gp_Quaternion(const gp_Vec& theVecFrom, const gp_Vec& theVecTo)
+  gp_Quaternion(const Vector3d& theVecFrom, const Vector3d& theVecTo)
   {
     SetRotation(theVecFrom, theVecTo);
   }
@@ -65,14 +65,14 @@ public:
   //! Additional vector theHelpCrossVec defines preferred direction for
   //! rotation and is used when theVecTo and theVecFrom are directed
   //! oppositely.
-  gp_Quaternion(const gp_Vec& theVecFrom, const gp_Vec& theVecTo, const gp_Vec& theHelpCrossVec)
+  gp_Quaternion(const Vector3d& theVecFrom, const Vector3d& theVecTo, const Vector3d& theHelpCrossVec)
   {
     SetRotation(theVecFrom, theVecTo, theHelpCrossVec);
   }
 
   //! Creates quaternion representing rotation on angle
   //! theAngle around vector theAxis
-  gp_Quaternion(const gp_Vec& theAxis, const Standard_Real theAngle)
+  gp_Quaternion(const Vector3d& theAxis, const Standard_Real theAngle)
   {
     SetVectorAndAngle(theAxis, theAngle);
   }
@@ -88,22 +88,22 @@ public:
   //! vector theVecTo from vector theVecFrom.
   //! If vectors theVecFrom and theVecTo are opposite then rotation
   //! axis is computed as theVecFrom ^ (1,0,0) or theVecFrom ^ (0,0,1).
-  Standard_EXPORT void SetRotation(const gp_Vec& theVecFrom, const gp_Vec& theVecTo);
+  Standard_EXPORT void SetRotation(const Vector3d& theVecFrom, const Vector3d& theVecTo);
 
   //! Sets quaternion to shortest-arc rotation producing
   //! vector theVecTo from vector theVecFrom.
   //! If vectors theVecFrom and theVecTo are opposite then rotation
   //! axis is computed as theVecFrom ^ theHelpCrossVec.
-  Standard_EXPORT void SetRotation(const gp_Vec& theVecFrom,
-                                   const gp_Vec& theVecTo,
-                                   const gp_Vec& theHelpCrossVec);
+  Standard_EXPORT void SetRotation(const Vector3d& theVecFrom,
+                                   const Vector3d& theVecTo,
+                                   const Vector3d& theHelpCrossVec);
 
   //! Create a unit quaternion from Axis+Angle representation
-  Standard_EXPORT void SetVectorAndAngle(const gp_Vec& theAxis, const Standard_Real theAngle);
+  Standard_EXPORT void SetVectorAndAngle(const Vector3d& theAxis, const Standard_Real theAngle);
 
   //! Convert a quaternion to Axis+Angle representation,
   //! preserve the axis direction and angle from -PI to +PI
-  Standard_EXPORT void GetVectorAndAngle(gp_Vec& theAxis, Standard_Real& theAngle) const;
+  Standard_EXPORT void GetVectorAndAngle(Vector3d& theAxis, Standard_Real& theAngle) const;
 
   //! Create a unit quaternion by rotation matrix
   //! matrix must contain only rotation (not scale or shear)
@@ -290,9 +290,9 @@ public:
   Standard_EXPORT Standard_Real GetRotationAngle() const;
 
   //! Rotates vector by quaternion as rotation operator
-  Standard_EXPORT gp_Vec Multiply(const gp_Vec& theVec) const;
+  Standard_EXPORT Vector3d Multiply(const Vector3d& theVec) const;
 
-  gp_Vec operator*(const gp_Vec& theVec) const { return Multiply(theVec); }
+  Vector3d operator*(const Vector3d& theVec) const { return Multiply(theVec); }
 
 private:
   Standard_Real x;

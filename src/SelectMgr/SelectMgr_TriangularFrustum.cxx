@@ -22,7 +22,7 @@ IMPLEMENT_STANDARD_RTTIEXT(SelectMgr_TriangularFrustum, RefObject)
 
 namespace
 {
-void computeFrustumNormals(const gp_Vec* theEdges, gp_Vec* theNormals)
+void computeFrustumNormals(const Vector3d* theEdges, Vector3d* theNormals)
 {
   // V0V1
   theNormals[0] = theEdges[0].Crossed(theEdges[3]);
@@ -272,7 +272,7 @@ Standard_Boolean SelectMgr_TriangularFrustum::OverlapsPolygon(
   }
   else if (theSensType == Select3D_TOS_INTERIOR)
   {
-    gp_Vec aNorm(gp_XYZ(RealLast(), RealLast(), RealLast()));
+    Vector3d aNorm(gp_XYZ(RealLast(), RealLast(), RealLast()));
     return hasPolygonOverlap(theArrayOfPnts, aNorm);
   }
 
@@ -315,7 +315,7 @@ Standard_Boolean SelectMgr_TriangularFrustum::OverlapsTriangle(
   }
   else if (theSensType == Select3D_TOS_INTERIOR)
   {
-    gp_Vec aNorm(gp_XYZ(RealLast(), RealLast(), RealLast()));
+    Vector3d aNorm(gp_XYZ(RealLast(), RealLast(), RealLast()));
     return hasTriangleOverlap(thePnt1, thePnt2, thePnt3, aNorm);
   }
 
@@ -354,7 +354,7 @@ Standard_Boolean SelectMgr_TriangularFrustum::OverlapsCylinder(
   const Standard_Real            theBottomRad,
   const Standard_Real            theTopRad,
   const Standard_Real            theHeight,
-  const gp_Trsf&                 theTrsf,
+  const Transform3d&                 theTrsf,
   const Standard_Boolean         theIsHollow,
   const SelectMgr_ViewClipRange& theClipRange,
   SelectBasics_PickResult&       thePickResult) const
@@ -369,7 +369,7 @@ Standard_Boolean SelectMgr_TriangularFrustum::OverlapsCylinder(
 Standard_Boolean SelectMgr_TriangularFrustum::OverlapsCylinder(const Standard_Real    theBottomRad,
                                                                const Standard_Real    theTopRad,
                                                                const Standard_Real    theHeight,
-                                                               const gp_Trsf&         theTrsf,
+                                                               const Transform3d&         theTrsf,
                                                                const Standard_Boolean theIsHollow,
                                                                Standard_Boolean* theInside) const
 {
@@ -381,7 +381,7 @@ Standard_Boolean SelectMgr_TriangularFrustum::OverlapsCylinder(const Standard_Re
 
 Standard_Boolean SelectMgr_TriangularFrustum::OverlapsCircle(
   const Standard_Real            theRadius,
-  const gp_Trsf&                 theTrsf,
+  const Transform3d&                 theTrsf,
   const Standard_Boolean         theIsFilled,
   const SelectMgr_ViewClipRange& theClipRange,
   SelectBasics_PickResult&       thePickResult) const
@@ -394,7 +394,7 @@ Standard_Boolean SelectMgr_TriangularFrustum::OverlapsCircle(
 //=================================================================================================
 
 Standard_Boolean SelectMgr_TriangularFrustum::OverlapsCircle(const Standard_Real    theRadius,
-                                                             const gp_Trsf&         theTrsf,
+                                                             const Transform3d&         theTrsf,
                                                              const Standard_Boolean theIsFilled,
                                                              Standard_Boolean*      theInside) const
 {
@@ -420,7 +420,7 @@ void SelectMgr_TriangularFrustum::GetPlanes(
   SelectMgr_Vec4 aPlaneEquation;
   for (Standard_Integer aPlaneIdx = 0; aPlaneIdx < 5; ++aPlaneIdx)
   {
-    const gp_Vec& aNorm = myPlanes[aPlaneIdx];
+    const Vector3d& aNorm = myPlanes[aPlaneIdx];
     aPlaneEquation.x()  = aNorm.X();
     aPlaneEquation.y()  = aNorm.Y();
     aPlaneEquation.z()  = aNorm.Z();

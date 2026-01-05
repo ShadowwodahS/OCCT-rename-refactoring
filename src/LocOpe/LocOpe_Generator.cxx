@@ -782,7 +782,7 @@ void LocOpe_Generator::Perform(const Handle(LocOpe_GeneratedShape)& G)
             if (AddPart)
             {
               itl2.Initialize(theEEMap(edg));
-              gp_Vec dir1, dir2;
+              Vector3d dir1, dir2;
               for (; itl2.More(); itl2.Next())
               {
                 if (EdgAdded.Contains(itl2.Value()))
@@ -827,7 +827,7 @@ void LocOpe_Generator::Perform(const Handle(LocOpe_GeneratedShape)& G)
                 }
                 else
                 {
-                  dir1 = dir2 = gp_Vec(1, 0, 0);
+                  dir1 = dir2 = Vector3d(1, 0, 0);
                 }
                 EdgAdded.Add(edgbis);
                 if (dir1.Dot(dir2) < 0.)

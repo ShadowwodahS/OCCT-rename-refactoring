@@ -412,7 +412,7 @@ void Analyse(const TColgp_Array2OfPnt& array2,
              Standard_Integer&         theNbSamplesU,
              Standard_Integer&         theNbSamplesV)
 {
-  gp_Vec                 Vi, Vip1;
+  Vector3d                 Vi, Vip1;
   Standard_Integer       sh, nbch, i, j;
   const Standard_Integer nbup = array2.UpperRow() - array2.LowerRow() + 1;
   const Standard_Integer nbvp = array2.UpperCol() - array2.LowerCol() + 1;

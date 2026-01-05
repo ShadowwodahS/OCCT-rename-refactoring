@@ -1037,7 +1037,7 @@ static Standard_Integer offsetcurve(Draw_Interpretor& di, Standard_Integer argc,
     return 1;
   Point3d point;
   DrawTrSurf::GetPoint(argv[4], point);
-  gp_Dir                   dir(point.XYZ());
+  Dir3d                   dir(point.XYZ());
   Handle(Geom_OffsetCurve) offcrv = new Geom_OffsetCurve(GC, Offset, dir);
   DrawTrSurf::Set(argv[1], offcrv);
   return 0;
@@ -1584,8 +1584,8 @@ static Standard_Integer copytranslate(Draw_Interpretor& di,
   Standard_Real aDx = Draw::Atof(argv[3]);
   Standard_Real aDy = Draw::Atof(argv[4]);
   Standard_Real aDz = Draw::Atof(argv[5]);
-  gp_Trsf       aTrsf;
-  aTrsf.SetTranslation(gp_Vec(aDx, aDy, aDz));
+  Transform3d       aTrsf;
+  aTrsf.SetTranslation(Vector3d(aDx, aDy, aDz));
   BRepBuilderAPI_Transform builderTransform(aTrsf);
   builderTransform.Perform(aShape, true);
   TopoDS_Shape aNewShape = builderTransform.Shape();

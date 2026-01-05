@@ -137,7 +137,7 @@ void OpenGl_Structure::SetTransformation(const Handle(TopLoc_Datum3D)& theTrsf)
   if (!myTrsf.IsNull())
   {
     // Determinant of transform matrix less then 0 means that mirror transform applied.
-    const gp_Trsf&      aTrsf = myTrsf->Transformation();
+    const Transform3d&      aTrsf = myTrsf->Transformation();
     const Standard_Real aDet =
       aTrsf.Value(1, 1)
         * (aTrsf.Value(2, 2) * aTrsf.Value(3, 3) - aTrsf.Value(3, 2) * aTrsf.Value(2, 3))
@@ -171,7 +171,7 @@ void OpenGl_Structure::SetTransformPersistence(const Handle(Graphic3d_TransformP
 
 void OpenGl_Structure::updateLayerTransformation()
 {
-  gp_Trsf aRenderTrsf;
+  Transform3d aRenderTrsf;
   if (!myTrsf.IsNull())
   {
     aRenderTrsf = myTrsf->Trsf();
@@ -368,7 +368,7 @@ void OpenGl_Structure::renderGeometry(const Handle(OpenGl_Workspace)& theWorkspa
   {
     const OpenGl_Group* aGroup = aGroupIter.Value();
 
-    const gp_Trsf& aTrsf = aGroup->Transformation();
+    const Transform3d& aTrsf = aGroup->Transformation();
     if (aTrsf.Form() != gp_Identity)
     {
       applyTransformation(aCtx, aTrsf, Standard_True);
@@ -400,7 +400,7 @@ void OpenGl_Structure::renderGeometry(const Handle(OpenGl_Workspace)& theWorkspa
 //=================================================================================================
 
 void OpenGl_Structure::applyTransformation(const Handle(OpenGl_Context)& theContext,
-                                           const gp_Trsf&                theTrsf,
+                                           const Transform3d&                theTrsf,
                                            const Standard_Boolean        toEnable) const
 {
   if (toEnable)

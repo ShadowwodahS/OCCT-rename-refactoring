@@ -21,7 +21,7 @@
 
 GeomConvert_FuncCylinderLSDist::GeomConvert_FuncCylinderLSDist(
   const Handle(TColgp_HArray1OfXYZ)& thePoints,
-  const gp_Dir&                      theDir)
+  const Dir3d&                      theDir)
     : myPoints(thePoints),
       myDir(theDir)
 {
@@ -45,7 +45,7 @@ Standard_Boolean GeomConvert_FuncCylinderLSDist::Value(const math_Vector& X, Sta
   Standard_Integer i;
   for (i = myPoints->Lower(); i <= myPoints->Upper(); ++i)
   {
-    gp_Vec        aV(myPoints->Value(i) - aLoc);
+    Vector3d        aV(myPoints->Value(i) - aLoc);
     Standard_Real aD2 = aV.CrossSquareMagnitude(myDir);
     Standard_Real d   = aD2 - anR2;
     F += d * d;
@@ -67,7 +67,7 @@ Standard_Boolean GeomConvert_FuncCylinderLSDist::Gradient(const math_Vector& X, 
   Standard_Integer i;
   for (i = myPoints->Lower(); i <= myPoints->Upper(); ++i)
   {
-    gp_Vec        aV(myPoints->Value(i) - aLoc);
+    Vector3d        aV(myPoints->Value(i) - aLoc);
     Standard_Real aD2 = aV.CrossSquareMagnitude(myDir);
     Standard_Real d   = aD2 - anR2;
     Standard_Real Dx0 = 2. * (aV.Z() * x - aV.X() * z) * z - 2. * (aV.X() * y - aV.Y() * x) * y;
@@ -102,7 +102,7 @@ Standard_Boolean GeomConvert_FuncCylinderLSDist::Values(const math_Vector& X,
   Standard_Integer i;
   for (i = myPoints->Lower(); i <= myPoints->Upper(); ++i)
   {
-    gp_Vec        aV(myPoints->Value(i) - aLoc);
+    Vector3d        aV(myPoints->Value(i) - aLoc);
     Standard_Real aD2 = aV.CrossSquareMagnitude(myDir);
     Standard_Real d   = aD2 - anR2;
     Standard_Real Dx0 = 2. * (aV.Z() * x - aV.X() * z) * z - 2. * (aV.X() * y - aV.Y() * x) * y;

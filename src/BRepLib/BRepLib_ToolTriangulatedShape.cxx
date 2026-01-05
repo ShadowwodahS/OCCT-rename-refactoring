@@ -45,7 +45,7 @@ void BRepLib_ToolTriangulatedShape::ComputeNormals(const TopoDS_Face&           
 
   constexpr Standard_Real aTol = Precision::Confusion();
   Standard_Integer        aTri[3];
-  gp_Dir                  aNorm;
+  Dir3d                  aNorm;
   theTris->AddNormals();
   for (Standard_Integer aNodeIter = 1; aNodeIter <= theTris->NbNodes(); ++aNodeIter)
   {
@@ -72,7 +72,7 @@ void BRepLib_ToolTriangulatedShape::ComputeNormals(const TopoDS_Face&           
         }
       }
       const Standard_Real aModMax = eqPlan.Modulus();
-      aNorm                       = (aModMax > aTol) ? gp_Dir(eqPlan) : gp::DZ();
+      aNorm                       = (aModMax > aTol) ? Dir3d(eqPlan) : gp::DZ();
     }
 
     theTris->SetNormal(aNodeIter, aNorm);

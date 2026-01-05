@@ -32,7 +32,7 @@ Standard_Boolean IntPatch_ArcFunction::Derivative(const Standard_Real X, Standar
 {
   gp_Pnt2d p2d;
   gp_Vec2d d2d;
-  gp_Vec   v, d1u, d1v;
+  Vector3d   v, d1u, d1v;
   myArc->D1(X, p2d, d2d);
   mySurf->D1(p2d.X(), p2d.Y(), ptsol, d1u, d1v);
   v.SetLinearForm(d2d.X(), d1u, d2d.Y(), d1v);
@@ -46,9 +46,9 @@ Standard_Boolean IntPatch_ArcFunction::Values(const Standard_Real X,
 {
   gp_Pnt2d p2d;
   gp_Vec2d d2d;
-  gp_Vec   d1u, d1v;
+  Vector3d   d1u, d1v;
 
-  gp_Vec v1, v2;
+  Vector3d v1, v2;
   myArc->D1(X, p2d, d2d);
   mySurf->D1(p2d.X(), p2d.Y(), ptsol, d1u, d1v);
   v1.SetLinearForm(d2d.X(), d1u, d2d.Y(), d1v);

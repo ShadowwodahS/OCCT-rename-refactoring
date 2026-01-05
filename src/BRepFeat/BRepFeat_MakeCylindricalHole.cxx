@@ -36,17 +36,17 @@
 
 static void Baryc(const TopoDS_Shape&, Point3d&);
 
-static void BoxParameters(const TopoDS_Shape&, const gp_Ax1&, Standard_Real&, Standard_Real&);
+static void BoxParameters(const TopoDS_Shape&, const Axis3d&, Standard_Real&, Standard_Real&);
 
 static Standard_Boolean GetOffset(const LocOpe_PntFace& PntInfo,
                                   const Standard_Real   Radius,
-                                  const gp_Ax1&         Axis,
+                                  const Axis3d&         Axis,
                                   Standard_Real&        outOff);
 
 static void CreateCyl(const LocOpe_PntFace& PntInfoFirst,
                       const LocOpe_PntFace& PntInfoLast,
                       const Standard_Real   Radius,
-                      const gp_Ax1&         Axis,
+                      const Axis3d&         Axis,
                       TopoDS_Shell&         Cyl,
                       TopoDS_Face&          CylTopF,
                       TopoDS_Face&          CylBottF);
@@ -78,7 +78,7 @@ void BRepFeat_MakeCylindricalHole::Perform(const Standard_Real Radius)
   gp_XYZ        theOrig = myAxis.Location().XYZ();
   theOrig += ((3. * PMin - PMax) / 2.) * myAxis.Direction().XYZ();
   Point3d            p1_ao1(theOrig);
-  gp_Ax2            a1_ao1(p1_ao1, myAxis.Direction());
+  Frame3d            a1_ao1(p1_ao1, myAxis.Direction());
   BRepPrim_Cylinder theCylinder(a1_ao1, Radius, Heigth);
 
   // Probably it is better to make cut directly
@@ -552,7 +552,7 @@ void BRepFeat_MakeCylindricalHole::PerformBlind(const Standard_Real    Radius,
   gp_XYZ        theOrig = myAxis.Location().XYZ();
   theOrig += ((3. * PMin - Length) / 2.) * myAxis.Direction().XYZ();
   Point3d            p5_ao1(theOrig);
-  gp_Ax2            a5_ao1(p5_ao1, myAxis.Direction());
+  Frame3d            a5_ao1(p5_ao1, myAxis.Direction());
   BRepPrim_Cylinder theCylinder(a5_ao1, Radius, Heigth);
 
   BRep_Builder B;
@@ -719,7 +719,7 @@ void Baryc(const TopoDS_Shape& S, Point3d& B)
 }
 
 void BoxParameters(const TopoDS_Shape& S,
-                   const gp_Ax1&       Axis,
+                   const Axis3d&       Axis,
                    Standard_Real&      parmin,
                    Standard_Real&      parmax)
 {
@@ -753,7 +753,7 @@ void BoxParameters(const TopoDS_Shape& S,
 
 Standard_Boolean GetOffset(const LocOpe_PntFace& PntInfo,
                            const Standard_Real   Radius,
-                           const gp_Ax1&         Axis,
+                           const Axis3d&         Axis,
                            Standard_Real&        outOff)
 {
   const TopoDS_Face&  FF = PntInfo.Face();
@@ -762,9 +762,9 @@ Standard_Boolean GetOffset(const LocOpe_PntFace& PntInfo,
   Standard_Real Up = PntInfo.UParameter();
   Standard_Real Vp = PntInfo.VParameter();
   Point3d        PP;
-  gp_Vec        D1U, D1V;
+  Vector3d        D1U, D1V;
   FFA.D1(Up, Vp, PP, D1U, D1V);
-  gp_Dir             NormF;
+  Dir3d             NormF;
   CSLib_NormalStatus stat;
   CSLib::Normal(D1U, D1V, Precision::Angular(), stat, NormF);
   if (stat != CSLib_Defined)
@@ -779,7 +779,7 @@ Standard_Boolean GetOffset(const LocOpe_PntFace& PntInfo,
 void CreateCyl(const LocOpe_PntFace& PntInfoFirst,
                const LocOpe_PntFace& PntInfoLast,
                const Standard_Real   Radius,
-               const gp_Ax1&         Axis,
+               const Axis3d&         Axis,
                TopoDS_Shell&         Cyl,
                TopoDS_Face&          CylTopF,
                TopoDS_Face&          CylBottF)
@@ -799,7 +799,7 @@ void CreateCyl(const LocOpe_PntFace& PntInfoFirst,
   // from 'First - offF' to 'Last + offL' params
   gp_XYZ            theOrig = PntInfoFirst.Pnt().XYZ() - offF * Axis.Direction().XYZ();
   Point3d            p2_ao1(theOrig);
-  gp_Ax2            a2_ao1(p2_ao1, Axis.Direction());
+  Frame3d            a2_ao1(p2_ao1, Axis.Direction());
   BRepPrim_Cylinder theCylinder(a2_ao1, Radius, Heigth + offF + offL);
   Cyl      = theCylinder.Shell();
   CylTopF  = theCylinder.TopFace();

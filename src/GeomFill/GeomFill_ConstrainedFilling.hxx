@@ -173,7 +173,7 @@ private:
   Handle(GeomFill_TgtField)        tgalg[4];
   Standard_Real                    mig[4];
   GeomFill_CornerState             stcor[4];
-  gp_Vec                           v[4];
+  Vector3d                           v[4];
   Standard_Boolean                 appdone;
   Standard_Integer                 degree[2];
   Handle(TColgp_HArray1OfPnt)      curvpol[4];

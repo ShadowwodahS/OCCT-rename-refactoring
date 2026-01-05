@@ -215,7 +215,7 @@ void BSplCLib_Cache::D1(const Standard_Real& theParameter,
 
 void BSplCLib_Cache::D1(const Standard_Real& theParameter,
                         Point3d&              thePoint,
-                        gp_Vec&              theTangent) const
+                        Vector3d&              theTangent) const
 {
   Standard_Integer aDimension = myPolesWeights->RowLength(); // number of columns
   Standard_Real    aPntDeriv[8]; // result storage (point and derivative coordinates)
@@ -247,8 +247,8 @@ void BSplCLib_Cache::D2(const Standard_Real& theParameter,
 
 void BSplCLib_Cache::D2(const Standard_Real& theParameter,
                         Point3d&              thePoint,
-                        gp_Vec&              theTangent,
-                        gp_Vec&              theCurvature) const
+                        Vector3d&              theTangent,
+                        Vector3d&              theCurvature) const
 {
   Standard_Integer aDimension = myPolesWeights->RowLength(); // number of columns
   Standard_Real    aPntDeriv[12]; // result storage (point and derivatives coordinates)
@@ -287,9 +287,9 @@ void BSplCLib_Cache::D3(const Standard_Real& theParameter,
 
 void BSplCLib_Cache::D3(const Standard_Real& theParameter,
                         Point3d&              thePoint,
-                        gp_Vec&              theTangent,
-                        gp_Vec&              theCurvature,
-                        gp_Vec&              theTorsion) const
+                        Vector3d&              theTangent,
+                        Vector3d&              theCurvature,
+                        Vector3d&              theTorsion) const
 {
   Standard_Integer aDimension = myPolesWeights->RowLength(); // number of columns
   Standard_Real    aPntDeriv[16]; // result storage (point and derivatives coordinates)

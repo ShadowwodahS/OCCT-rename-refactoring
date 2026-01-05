@@ -371,16 +371,16 @@ static Standard_Boolean FUN_shareNOG(const Handle(TopOpeBRepDS_HDataStructure)& 
 #endif
           return Standard_False;
         }
-        gp_Vec        tge1 = FUN_tool_tggeomE(par1, e1);
-        gp_Vec        tge2 = FUN_tool_tggeomE(par2, e2);
-        Standard_Real dot  = gp_Dir(tge1).Dot(gp_Dir(tge2));
+        Vector3d        tge1 = FUN_tool_tggeomE(par1, e1);
+        Vector3d        tge2 = FUN_tool_tggeomE(par2, e2);
+        Standard_Real dot  = Dir3d(tge1).Dot(Dir3d(tge2));
         Standard_Real x    = Abs(1 - Abs(dot));
         if (x > tola)
           return Standard_False; // e1,e2 not tangent
 
-        gp_Vec xxF1 = FUN_tool_getgeomxx(F1, e1, par1);
-        gp_Vec xxF2 = FUN_tool_getgeomxx(F2, e2, par2);
-        dot         = gp_Dir(xxF1).Dot(gp_Dir(xxF2));
+        Vector3d xxF1 = FUN_tool_getgeomxx(F1, e1, par1);
+        Vector3d xxF2 = FUN_tool_getgeomxx(F2, e2, par2);
+        dot         = Dir3d(xxF1).Dot(Dir3d(xxF2));
         if (dot > 0)
           return Standard_False; // F1,F2 share geometric domain near G1
       }

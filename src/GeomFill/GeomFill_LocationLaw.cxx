@@ -27,9 +27,9 @@ IMPLEMENT_STANDARD_RTTIEXT(GeomFill_LocationLaw, RefObject)
 
 Standard_Boolean GeomFill_LocationLaw::D1(const Standard_Real,
                                           gp_Mat&,
-                                          gp_Vec&,
+                                          Vector3d&,
                                           gp_Mat&,
-                                          gp_Vec&,
+                                          Vector3d&,
                                           TColgp_Array1OfPnt2d&,
                                           TColgp_Array1OfVec2d&)
 {
@@ -38,11 +38,11 @@ Standard_Boolean GeomFill_LocationLaw::D1(const Standard_Real,
 
 Standard_Boolean GeomFill_LocationLaw::D2(const Standard_Real,
                                           gp_Mat&,
-                                          gp_Vec&,
+                                          Vector3d&,
                                           gp_Mat&,
-                                          gp_Vec&,
+                                          Vector3d&,
                                           gp_Mat&,
-                                          gp_Vec&,
+                                          Vector3d&,
                                           TColgp_Array1OfPnt2d&,
                                           TColgp_Array1OfVec2d&,
                                           TColgp_Array1OfVec2d&)

@@ -122,15 +122,15 @@ public:
   //! Exceptions
   //! Standard_NoSuchObject if, according to the given precision,
   //! the points analyzed by this framework are considered to be coincident, collinear or coplanar.
-  Standard_EXPORT void Box(Point3d& P, gp_Vec& V1, gp_Vec& V2, gp_Vec& V3) const;
+  Standard_EXPORT void Box(Point3d& P, Vector3d& V1, Vector3d& V2, Vector3d& V3) const;
 
 protected:
 private:
   GProp_EquaType type;
   Point3d         g;
-  gp_Vec         v1;
-  gp_Vec         v2;
-  gp_Vec         v3;
+  Vector3d         v1;
+  Vector3d         v2;
+  Vector3d         v3;
 };
 
 #endif // _GProp_PEquation_HeaderFile

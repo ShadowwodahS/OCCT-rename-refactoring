@@ -31,8 +31,8 @@ class Standard_OutOfRange;
 class LProp_NotDefined;
 class HLRBRep_SLPropsATool;
 class Point3d;
-class gp_Vec;
-class gp_Dir;
+class Vector3d;
+class Dir3d;
 
 class HLRBRep_SLProps
 {
@@ -79,23 +79,23 @@ public:
 
   //! Returns the first U derivative.
   //! The derivative is computed if it has not been yet.
-  Standard_EXPORT const gp_Vec& D1U();
+  Standard_EXPORT const Vector3d& D1U();
 
   //! Returns the first V derivative.
   //! The derivative is computed if it has not been yet.
-  Standard_EXPORT const gp_Vec& D1V();
+  Standard_EXPORT const Vector3d& D1V();
 
   //! Returns the second U derivatives
   //! The derivative is computed if it has not been yet.
-  Standard_EXPORT const gp_Vec& D2U();
+  Standard_EXPORT const Vector3d& D2U();
 
   //! Returns the second V derivative.
   //! The derivative is computed if it has not been yet.
-  Standard_EXPORT const gp_Vec& D2V();
+  Standard_EXPORT const Vector3d& D2V();
 
   //! Returns the second UV cross-derivative.
   //! The derivative is computed if it has not been yet.
-  Standard_EXPORT const gp_Vec& DUV();
+  Standard_EXPORT const Vector3d& DUV();
 
   //! returns True if the U tangent is defined.
   //! For example, the tangent is not defined if the
@@ -103,7 +103,7 @@ public:
   Standard_EXPORT Standard_Boolean IsTangentUDefined();
 
   //! Returns the tangent direction <D> on the iso-V.
-  Standard_EXPORT void TangentU(gp_Dir& D);
+  Standard_EXPORT void TangentU(Dir3d& D);
 
   //! returns if the V tangent is defined.
   //! For example, the tangent is not defined if the
@@ -111,13 +111,13 @@ public:
   Standard_EXPORT Standard_Boolean IsTangentVDefined();
 
   //! Returns the tangent direction <D> on the iso-V.
-  Standard_EXPORT void TangentV(gp_Dir& D);
+  Standard_EXPORT void TangentV(Dir3d& D);
 
   //! Tells if the normal is defined.
   Standard_EXPORT Standard_Boolean IsNormalDefined();
 
   //! Returns the normal direction.
-  Standard_EXPORT const gp_Dir& Normal();
+  Standard_EXPORT const Dir3d& Normal();
 
   //! returns True if the curvature is defined.
   Standard_EXPORT Standard_Boolean IsCurvatureDefined();
@@ -134,7 +134,7 @@ public:
 
   //! Returns the direction of the maximum and minimum curvature
   //! <MaxD> and <MinD>
-  Standard_EXPORT void CurvatureDirections(gp_Dir& MaxD, gp_Dir& MinD);
+  Standard_EXPORT void CurvatureDirections(Dir3d& MaxD, Dir3d& MinD);
 
   //! Returns the mean curvature.
   Standard_EXPORT Standard_Real MeanCurvature();
@@ -151,16 +151,16 @@ private:
   Standard_Integer myCN;
   Standard_Real    myLinTol;
   Point3d           myPnt;
-  gp_Vec           myD1u;
-  gp_Vec           myD1v;
-  gp_Vec           myD2u;
-  gp_Vec           myD2v;
-  gp_Vec           myDuv;
-  gp_Dir           myNormal;
+  Vector3d           myD1u;
+  Vector3d           myD1v;
+  Vector3d           myD2u;
+  Vector3d           myD2v;
+  Vector3d           myDuv;
+  Dir3d           myNormal;
   Standard_Real    myMinCurv;
   Standard_Real    myMaxCurv;
-  gp_Dir           myDirMinCurv;
-  gp_Dir           myDirMaxCurv;
+  Dir3d           myDirMinCurv;
+  Dir3d           myDirMaxCurv;
   Standard_Real    myMeanCurv;
   Standard_Real    myGausCurv;
   Standard_Integer mySignificantFirstDerivativeOrderU;

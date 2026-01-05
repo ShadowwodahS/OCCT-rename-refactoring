@@ -408,7 +408,7 @@ void XCAFDimTolObjects_DimensionObject::SetPath(const TopoDS_Edge& thePath)
 
 //=================================================================================================
 
-Standard_Boolean XCAFDimTolObjects_DimensionObject::GetDirection(gp_Dir& theDir) const
+Standard_Boolean XCAFDimTolObjects_DimensionObject::GetDirection(Dir3d& theDir) const
 {
   theDir = myDir;
   return Standard_True;
@@ -416,7 +416,7 @@ Standard_Boolean XCAFDimTolObjects_DimensionObject::GetDirection(gp_Dir& theDir)
 
 //=================================================================================================
 
-Standard_Boolean XCAFDimTolObjects_DimensionObject::SetDirection(const gp_Dir& theDir)
+Standard_Boolean XCAFDimTolObjects_DimensionObject::SetDirection(const Dir3d& theDir)
 {
   myDir = theDir;
   return Standard_True;

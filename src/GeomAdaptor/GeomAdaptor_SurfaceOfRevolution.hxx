@@ -56,7 +56,7 @@ public:
 
   //! The Curve and the Direction are loaded.
   Standard_EXPORT GeomAdaptor_SurfaceOfRevolution(const Handle(Adaptor3d_Curve)& C,
-                                                  const gp_Ax1&                  V);
+                                                  const Axis3d&                  V);
 
   //! Shallow copy of adaptor
   Standard_EXPORT virtual Handle(Adaptor3d_Surface) ShallowCopy() const Standard_OVERRIDE;
@@ -65,9 +65,9 @@ public:
   Standard_EXPORT void Load(const Handle(Adaptor3d_Curve)& C);
 
   //! Changes the Direction
-  Standard_EXPORT void Load(const gp_Ax1& V);
+  Standard_EXPORT void Load(const Axis3d& V);
 
-  Standard_EXPORT gp_Ax1 AxeOfRevolution() const Standard_OVERRIDE;
+  Standard_EXPORT Axis3d AxeOfRevolution() const Standard_OVERRIDE;
 
   Standard_EXPORT Standard_Real FirstUParameter() const Standard_OVERRIDE;
 
@@ -175,7 +175,7 @@ public:
 
 private:
   Handle(Adaptor3d_Curve) myBasisCurve; ///< revolved curve
-  gp_Ax1                  myAxis;       ///< axis of revolution
+  Axis3d                  myAxis;       ///< axis of revolution
   Standard_Boolean        myHaveAxis;   ///< whether axis of revolution is initialized
   gp_Ax3                  myAxeRev;     ///< auxiliary trihedron according to the curve position
 };

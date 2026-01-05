@@ -20,7 +20,7 @@
 
 Standard_EXPORT IntImp_ConstIsoparametric ChoixRef(Standard_Integer theIndex);
 
-Standard_EXPORT Standard_Boolean IntImp_ComputeTangence(const gp_Vec              DPuv[],
+Standard_EXPORT Standard_Boolean IntImp_ComputeTangence(const Vector3d              DPuv[],
                                                         const Standard_Real       EpsUV[],
                                                         Standard_Real             Tgduv[],
                                                         IntImp_ConstIsoparametric TabIso[]);

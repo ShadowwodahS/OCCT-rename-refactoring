@@ -27,7 +27,7 @@ class IGESData_IGESModel;
 class IGESData_Protocol;
 class IGESData_IGESEntity;
 class gp_GTrsf;
-class gp_Trsf;
+class Transform3d;
 
 class IGESData_ToolLocation;
 DEFINE_STANDARD_HANDLE(IGESData_ToolLocation, RefObject)
@@ -137,7 +137,7 @@ public:
   //! described by an Isometry or a Similarity)
   //! Works with the Precision given by default or by SetPrecision
   //! Calls ConvertLocation (see below)
-  Standard_EXPORT Standard_Boolean AnalyseLocation(const gp_GTrsf& loc, gp_Trsf& result) const;
+  Standard_EXPORT Standard_Boolean AnalyseLocation(const gp_GTrsf& loc, Transform3d& result) const;
 
   //! Conversion of a Location, from GTrsf form to Trsf form
   //! Works with a precision given as argument.
@@ -149,7 +149,7 @@ public:
   //! As a class method, it can be called separately
   Standard_EXPORT static Standard_Boolean ConvertLocation(const Standard_Real prec,
                                                           const gp_GTrsf&     loc,
-                                                          gp_Trsf&            result,
+                                                          Transform3d&            result,
                                                           const Standard_Real uni = 1);
 
   DEFINE_STANDARD_RTTIEXT(IGESData_ToolLocation, RefObject)

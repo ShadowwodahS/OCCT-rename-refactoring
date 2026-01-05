@@ -197,15 +197,15 @@ TopoDS_Shape TopOpeBRepBuild_WireEdgeClassifier::LoopToShape(const Handle(TopOpe
   return myShape;
 }
 
-static gp_Vec FUN_tgINE(const TopoDS_Vertex& v, const TopoDS_Vertex& vl, const TopoDS_Edge& e)
+static Vector3d FUN_tgINE(const TopoDS_Vertex& v, const TopoDS_Vertex& vl, const TopoDS_Edge& e)
 // tg oriented INSIDE 1d(e)
 // vl : last vertex of e
 {
   Standard_Real    par = BRep_Tool::Parameter(v, e);
-  gp_Vec           tg;
+  Vector3d           tg;
   Standard_Boolean ok = TopOpeBRepTool_TOOL::TggeomE(par, e, tg);
   if (!ok)
-    return gp_Vec(0., 0., 0.); // NYIRAISE
+    return Vector3d(0., 0., 0.); // NYIRAISE
   if (v.IsSame(vl))
     tg.Reverse();
   return tg;
@@ -268,8 +268,8 @@ TopAbs_State TopOpeBRepBuild_WireEdgeClassifier::CompareShapes(const TopoDS_Shap
           vshared = vf;
         if (hasl)
           vshared = vl;
-        gp_Vec           tg1       = FUN_tgINE(vshared, vl1, e1);
-        gp_Vec           tg        = FUN_tgINE(vshared, vl, E);
+        Vector3d           tg1       = FUN_tgINE(vshared, vl1, e1);
+        Vector3d           tg        = FUN_tgINE(vshared, vl, E);
         Standard_Real    dot       = tg1.Dot(tg);
         Standard_Real    tol       = Precision::Angular() * 1.e4; // nyixpu
         Standard_Boolean undecided = (Abs(1 + dot) < tol);

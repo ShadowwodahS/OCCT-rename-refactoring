@@ -139,7 +139,7 @@ Standard_Boolean Bnd_B3x::Limit (const Bnd_B3x& theBox)
 //purpose  : 
 //=======================================================================
 
-Bnd_B3x Bnd_B3x::Transformed (const gp_Trsf& theTrsf) const
+Bnd_B3x Bnd_B3x::Transformed (const Transform3d& theTrsf) const
 {
   Bnd_B3x aResult;
   const gp_TrsfForm aForm = theTrsf.Form();
@@ -245,7 +245,7 @@ Standard_Boolean Bnd_B3x::IsOut (const gp_XYZ&          theCenter,
 //=======================================================================
 
 Standard_Boolean Bnd_B3x::IsOut (const Bnd_B3x& theBox,
-                                 const gp_Trsf& theTrsf) const
+                                 const Transform3d& theTrsf) const
 {
   Standard_Boolean aResult (Standard_False);
   const gp_TrsfForm aForm = theTrsf.Form();
@@ -348,7 +348,7 @@ Standard_Boolean Bnd_B3x::IsOut (const gp_Ax3& thePlane) const
 //purpose  : 
 //=======================================================================
 
-Standard_Boolean Bnd_B3x::IsOut (const gp_Ax1&          theLine,
+Standard_Boolean Bnd_B3x::IsOut (const Axis3d&          theLine,
                                  const Standard_Boolean isRay,
                                  const Standard_Real    theOverthickness) const
 {
@@ -422,7 +422,7 @@ Standard_Boolean Bnd_B3x::IsOut (const gp_Ax1&          theLine,
 //=======================================================================
 
 Standard_Boolean Bnd_B3x::IsIn (const Bnd_B3x& theBox,
-                                const gp_Trsf& theTrsf) const
+                                const Transform3d& theTrsf) const
 {
   Standard_Boolean aResult (Standard_False);
   const gp_TrsfForm aForm = theTrsf.Form();

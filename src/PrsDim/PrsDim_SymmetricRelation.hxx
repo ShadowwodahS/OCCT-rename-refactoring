@@ -74,8 +74,8 @@ private:
   TopoDS_Shape myTool;
   Point3d       myFAttach;
   Point3d       mySAttach;
-  gp_Dir       myFDirAttach;
-  gp_Dir       myAxisDirAttach;
+  Dir3d       myFDirAttach;
+  Dir3d       myAxisDirAttach;
 };
 
 #endif // _PrsDim_SymmetricRelation_HeaderFile

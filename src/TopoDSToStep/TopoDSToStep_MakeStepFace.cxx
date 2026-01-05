@@ -215,12 +215,12 @@ void TopoDSToStep_MakeStepFace::Init(const TopoDS_Face&                    aFace
         {
           gp_Ax3 Ax3 = TS->Position();
           Point3d pos = Ax3.Location();
-          gp_Dir dir = Ax3.Direction();
-          gp_Dir X   = Ax3.XDirection();
+          Dir3d dir = Ax3.Direction();
+          Dir3d X   = Ax3.XDirection();
           // create basis curve
           Standard_Real UF, VF, UL, VL;
           ShapeAlgo::AlgoContainer()->GetFaceUVBounds(aFace, UF, UL, VF, VL);
-          gp_Ax2             Ax2(pos.XYZ() + X.XYZ() * TS->MajorRadius(), X ^ dir, X);
+          Frame3d             Ax2(pos.XYZ() + X.XYZ() * TS->MajorRadius(), X ^ dir, X);
           Handle(Geom_Curve) BasisCurve = new Geom_Circle(Ax2, TS->MinorRadius());
           // convert basis curve to bspline in order to avoid self-intersecting
           // surface of revolution (necessary e.g. for CATIA)
@@ -235,7 +235,7 @@ void TopoDSToStep_MakeStepFace::Init(const TopoDS_Face&                    aFace
                                                                 9);
 
           // create surface of revolution
-          gp_Ax1 Axis = Ax3.Axis();
+          Axis3d Axis = Ax3.Axis();
           if (!Ax3.Direct())
             Axis.Reverse();
           Handle(Geom_SurfaceOfRevolution) Rev = new Geom_SurfaceOfRevolution(BasisCurve, Axis);

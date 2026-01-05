@@ -23,7 +23,7 @@
 #include <gp_XYZ.hxx>
 #include <IGESData_IGESEntity.hxx>
 class Point3d;
-class gp_Dir;
+class Dir3d;
 
 class IGESSolid_RightAngularWedge;
 DEFINE_STANDARD_HANDLE(IGESSolid_RightAngularWedge, IGESData_IGESEntity)
@@ -76,26 +76,26 @@ public:
   Standard_EXPORT Point3d TransformedCorner() const;
 
   //! returns the direction defining the local X-axis
-  Standard_EXPORT gp_Dir XAxis() const;
+  Standard_EXPORT Dir3d XAxis() const;
 
   //! returns the direction defining the local X-axis
   //! after applying the TransformationMatrix
-  Standard_EXPORT gp_Dir TransformedXAxis() const;
+  Standard_EXPORT Dir3d TransformedXAxis() const;
 
   //! returns the direction defining the local Y-axis
   //! it is got by taking the cross product of ZAxis and XAxis
-  Standard_EXPORT gp_Dir YAxis() const;
+  Standard_EXPORT Dir3d YAxis() const;
 
   //! returns the direction defining the local Y-axis
   //! after applying the TransformationMatrix
-  Standard_EXPORT gp_Dir TransformedYAxis() const;
+  Standard_EXPORT Dir3d TransformedYAxis() const;
 
   //! returns the direction defining the local Z-axis
-  Standard_EXPORT gp_Dir ZAxis() const;
+  Standard_EXPORT Dir3d ZAxis() const;
 
   //! returns the direction defining the local Z-axis
   //! after applying the TransformationMatrix
-  Standard_EXPORT gp_Dir TransformedZAxis() const;
+  Standard_EXPORT Dir3d TransformedZAxis() const;
 
   DEFINE_STANDARD_RTTIEXT(IGESSolid_RightAngularWedge, IGESData_IGESEntity)
 

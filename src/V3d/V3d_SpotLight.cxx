@@ -32,7 +32,7 @@ V3d_SpotLight::V3d_SpotLight(const Point3d&               thePos,
 //=================================================================================================
 
 V3d_SpotLight::V3d_SpotLight(const Point3d&         thePos,
-                             const gp_Dir&         theDirection,
+                             const Dir3d&         theDirection,
                              const Quantity_Color& theColor)
     : V3d_PositionLight(Graphic3d_TypeOfLightSource_Spot)
 {

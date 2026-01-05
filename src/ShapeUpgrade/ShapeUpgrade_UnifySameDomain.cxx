@@ -118,7 +118,7 @@ static Standard_Boolean IsUiso(const TopoDS_Edge& theEdge, const TopoDS_Face& th
   return (Abs(aVec.Y()) > Abs(aVec.X()));
 }
 
-static Standard_Boolean IsLinear(const BRepAdaptor_Curve& theBAcurve, gp_Dir& theDir)
+static Standard_Boolean IsLinear(const BRepAdaptor_Curve& theBAcurve, Dir3d& theDir)
 {
   GeomAbs_CurveType aType = theBAcurve.GetType();
 
@@ -132,7 +132,7 @@ static Standard_Boolean IsLinear(const BRepAdaptor_Curve& theBAcurve, gp_Dir& th
   {
     Point3d aFirstPnt = theBAcurve.Value(theBAcurve.FirstParameter());
     Point3d aLastPnt  = theBAcurve.Value(theBAcurve.LastParameter());
-    theDir           = gp_Vec(aFirstPnt, aLastPnt);
+    theDir           = Vector3d(aFirstPnt, aLastPnt);
     return Standard_True;
   }
 
@@ -996,13 +996,13 @@ static void TransformPCurves(const TopoDS_Face&   theRefFace,
     if (Abs(aParam) > Precision::PConfusion())
       aTranslation = -aParam;
 
-    gp_Dir VdirSurfFace = AxisOfSurfFace.Direction();
-    gp_Dir VdirRefSurf  = AxisOfRefSurf.Direction();
-    gp_Dir XdirSurfFace = AxisOfSurfFace.XDirection();
-    gp_Dir XdirRefSurf  = AxisOfRefSurf.XDirection();
+    Dir3d VdirSurfFace = AxisOfSurfFace.Direction();
+    Dir3d VdirRefSurf  = AxisOfRefSurf.Direction();
+    Dir3d XdirSurfFace = AxisOfSurfFace.XDirection();
+    Dir3d XdirRefSurf  = AxisOfRefSurf.XDirection();
 
-    gp_Dir CrossProd1 = AxisOfRefSurf.XDirection() ^ AxisOfRefSurf.YDirection();
-    gp_Dir CrossProd2 = AxisOfSurfFace.XDirection() ^ AxisOfSurfFace.YDirection();
+    Dir3d CrossProd1 = AxisOfRefSurf.XDirection() ^ AxisOfRefSurf.YDirection();
+    Dir3d CrossProd2 = AxisOfSurfFace.XDirection() ^ AxisOfSurfFace.YDirection();
     if (CrossProd1 * CrossProd2 < 0.)
       X_Reverse = Standard_True;
 
@@ -1012,7 +1012,7 @@ static void TransformPCurves(const TopoDS_Face&   theRefFace,
 
     if (!X_Reverse && !Y_Reverse)
     {
-      gp_Dir DirRef = VdirRefSurf;
+      Dir3d DirRef = VdirRefSurf;
       if (!AxisOfRefSurf.Direct())
         DirRef.Reverse();
       anAngle = XdirRefSurf.AngleWithRef(XdirSurfFace, DirRef);
@@ -1243,8 +1243,8 @@ static Standard_Boolean getCylinder(Handle(Geom_Surface)& theInSurface, gp_Cylin
     if (aBasis->IsKind(STANDARD_TYPE(Geom_Line)))
     {
       Handle(Geom_Line) aBasisLine = Handle(Geom_Line)::DownCast(aBasis);
-      gp_Dir            aDir       = aRS->Direction();
-      gp_Dir            aBasisDir  = aBasisLine->Position().Direction();
+      Dir3d            aDir       = aRS->Direction();
+      Dir3d            aBasisDir  = aBasisLine->Position().Direction();
       if (aBasisDir.IsParallel(aDir, Precision::Angular()))
       {
         // basis line is parallel to the revolution axis: it is a cylinder
@@ -1272,8 +1272,8 @@ static Standard_Boolean getCylinder(Handle(Geom_Surface)& theInSurface, gp_Cylin
     if (aBasis->IsKind(STANDARD_TYPE(Geom_Circle)))
     {
       Handle(Geom_Circle) aBasisCircle = Handle(Geom_Circle)::DownCast(aBasis);
-      gp_Dir              aDir         = aLES->Direction();
-      gp_Dir              aBasisDir    = aBasisCircle->Position().Direction();
+      Dir3d              aDir         = aLES->Direction();
+      Dir3d              aBasisDir    = aBasisCircle->Position().Direction();
       if (aBasisDir.IsParallel(aDir, Precision::Angular()))
       {
         // basis circle is normal to the extrusion axis: it is a cylinder
@@ -1314,7 +1314,7 @@ static Handle(Geom_Surface) ClearRts(const Handle(Geom_Surface)& aSurface)
 static Standard_Boolean GetNormalToSurface(const TopoDS_Face&  theFace,
                                            const TopoDS_Edge&  theEdge,
                                            const Standard_Real theP,
-                                           gp_Dir&             theNormal)
+                                           Dir3d&             theNormal)
 {
   Standard_Real f, l;
   // get 2d curve to get point in 2d
@@ -1353,14 +1353,14 @@ static Standard_Boolean GetNormalToSurface(const TopoDS_Face&  theFace,
   aC2d->D0(theP, aP2d);
   //
   // get D1
-  gp_Vec                      aDU, aDV;
+  Vector3d                      aDU, aDV;
   Point3d                      aP3d;
   TopLoc_Location             aLoc;
   const Handle(Geom_Surface)& aS = BRep_Tool::Surface(theFace, aLoc);
   aS->D1(aP2d.X(), aP2d.Y(), aP3d, aDU, aDV);
   //
   // compute normal
-  gp_Vec aVNormal = aDU.Crossed(aDV);
+  Vector3d aVNormal = aDU.Crossed(aDV);
   if (aVNormal.Magnitude() < Precision::Confusion())
   {
     return Standard_False;
@@ -1372,7 +1372,7 @@ static Standard_Boolean GetNormalToSurface(const TopoDS_Face&  theFace,
   }
   //
   aVNormal.Transform(aLoc.Transformation());
-  theNormal = gp_Dir(aVNormal);
+  theNormal = Dir3d(aVNormal);
   return Standard_True;
 }
 
@@ -1475,13 +1475,13 @@ static Standard_Boolean IsSameDomain(
     {
       if (fabs(aCyl1.Radius() - aCyl2.Radius()) < theLinTol)
       {
-        gp_Dir aDir1 = aCyl1.Position().Direction();
-        gp_Dir aDir2 = aCyl2.Position().Direction();
+        Dir3d aDir1 = aCyl1.Position().Direction();
+        Dir3d aDir2 = aCyl2.Position().Direction();
         if (aDir1.IsParallel(aDir2, Precision::Angular()))
         {
           Point3d aLoc1 = aCyl1.Location();
           Point3d aLoc2 = aCyl2.Location();
-          gp_Vec aVec12(aLoc1, aLoc2);
+          Vector3d aVec12(aLoc1, aLoc2);
           if (aVec12.SquareMagnitude() < theLinTol * theLinTol
               || aVec12.IsParallel(aDir1, Precision::Angular()))
           {
@@ -2131,7 +2131,7 @@ Standard_Boolean ShapeUpgrade_UnifySameDomain::MergeSubSeq(
 
     BRepAdaptor_Curve aBAcurve1(edge1);
     BRepAdaptor_Curve aBAcurve2(edge2);
-    gp_Dir            aDir1, aDir2;
+    Dir3d            aDir1, aDir2;
 
     if (c3d1.IsNull() || c3d2.IsNull())
       return Standard_False;
@@ -2178,7 +2178,7 @@ Standard_Boolean ShapeUpgrade_UnifySameDomain::MergeSubSeq(
     Point3d PV1 = BRep_Tool::Pnt(V[0]);
     V[1]       = sae.LastVertex(TopoDS::Edge(theChain.Last()));
     Point3d PV2 = BRep_Tool::Pnt(V[1]);
-    gp_Vec Vec(PV1, PV2);
+    Vector3d Vec(PV1, PV2);
     if (mySafeInputMode)
     {
       for (int k = 0; k < 2; k++)
@@ -2193,7 +2193,7 @@ Standard_Boolean ShapeUpgrade_UnifySameDomain::MergeSubSeq(
           V[k] = TopoDS::Vertex(myContext->Apply(V[k]));
       }
     }
-    Handle(Geom_Line)         L    = new Geom_Line(gp_Ax1(PV1, Vec));
+    Handle(Geom_Line)         L    = new Geom_Line(Axis3d(PV1, Vec));
     Standard_Real             dist = PV1.Distance(PV2);
     Handle(Geom_TrimmedCurve) tc   = new Geom_TrimmedCurve(L, 0.0, dist);
     TopoDS_Edge               E;
@@ -2301,13 +2301,13 @@ Standard_Boolean ShapeUpgrade_UnifySameDomain::MergeSubSeq(
       BRepAdaptor_Curve   BAcurveFE(FE);
       Point3d              PointLast = BAcurveFE.Value(ParamLast);
       Point3d              Origin    = Cir->Circ().Location();
-      gp_Dir              Dir1      = gp_Vec(Origin, PointFirst);
-      gp_Dir              Dir2      = gp_Vec(Origin, PointLast);
-      gp_Dir              Vdir      = Dir1 ^ Dir2;
-      gp_Ax2              anAx2(Origin, Vdir, Dir1);
+      Dir3d              Dir1      = Vector3d(Origin, PointFirst);
+      Dir3d              Dir2      = Vector3d(Origin, PointLast);
+      Dir3d              Vdir      = Dir1 ^ Dir2;
+      Frame3d              anAx2(Origin, Vdir, Dir1);
       Handle(Geom_Circle) aNewCircle       = new Geom_Circle(anAx2, Cir->Radius());
       Point3d              PointLastInChain = BRep_Tool::Pnt(V[1]);
-      gp_Dir              DirLastInChain   = gp_Vec(Origin, PointLastInChain);
+      Dir3d              DirLastInChain   = Vector3d(Origin, PointLastInChain);
       Standard_Real       lpar             = Dir1.AngleWithRef(DirLastInChain, Vdir);
       if (lpar < 0.)
         lpar += 2 * M_PI;
@@ -2382,7 +2382,7 @@ static Standard_Boolean IsMergingPossible(const TopoDS_Edge&         edge1,
                                           const TopTools_MapOfShape& AvoidEdgeVrt,
                                           const bool                 theLineDirectionOk,
                                           const Point3d&              theFirstPoint,
-                                          const gp_Vec&              theDirectionVec,
+                                          const Vector3d&              theDirectionVec,
                                           const TopTools_IndexedDataMapOfShapeListOfShape& theVFmap)
 {
   Standard_Boolean IsDegE1 = BRep_Tool::Degenerated(edge1);
@@ -2433,14 +2433,14 @@ static Standard_Boolean IsMergingPossible(const TopoDS_Edge&         edge1,
       return Standard_False;
   }
 
-  gp_Dir aDir1, aDir2;
+  Dir3d aDir1, aDir2;
   if (!(IsLinear(ade1, aDir1) && IsLinear(ade2, aDir2))
       && ((t1 != GeomAbs_BezierCurve && t1 != GeomAbs_BSplineCurve)
           || (t2 != GeomAbs_BezierCurve && t2 != GeomAbs_BSplineCurve))
       && t1 != t2)
     return Standard_False;
 
-  gp_Vec Diff1, Diff2;
+  Vector3d Diff1, Diff2;
   Point3d P1, P2;
   if (edge1.Orientation() == TopAbs_FORWARD)
     ade1.D1(ade1.LastParameter(), P1, Diff1);
@@ -2466,7 +2466,7 @@ static Standard_Boolean IsMergingPossible(const TopoDS_Edge&         edge1,
     // Check that the accumulated deflection does not exceed the linear tolerance
     Standard_Real aLast =
       (edge2.Orientation() == TopAbs_FORWARD) ? ade2.LastParameter() : ade2.FirstParameter();
-    gp_Vec        aCurV(theFirstPoint, ade2.Value(aLast));
+    Vector3d        aCurV(theFirstPoint, ade2.Value(aLast));
     Standard_Real aDD = theDirectionVec.CrossSquareMagnitude(aCurV);
     if (aDD > theLinTol * theLinTol)
       return Standard_False;
@@ -2486,7 +2486,7 @@ static Standard_Boolean IsMergingPossible(const TopoDS_Edge&         edge1,
 
 static Standard_Boolean GetLineEdgePoints(const TopoDS_Edge& theInpEdge,
                                           Point3d&            theFirstPoint,
-                                          gp_Vec&            theDirectionVec)
+                                          Vector3d&            theDirectionVec)
 {
   double             f, l;
   Handle(Geom_Curve) aCur = BRep_Tool::Curve(theInpEdge, f, l);
@@ -2539,7 +2539,7 @@ void ShapeUpgrade_UnifySameDomain::generateSubSeq(
   SeqOfSubSeqOfEdges.Append(SubSeq);
 
   Point3d           aFirstPoint;
-  gp_Vec           aDirectionVec;
+  Vector3d           aDirectionVec;
   Standard_Boolean isLineDirectionOk = GetLineEdgePoints(RefEdge, aFirstPoint, aDirectionVec);
 
   for (int i = 1; i < anInpEdgeSeq.Length(); i++)
@@ -3049,7 +3049,7 @@ void ShapeUpgrade_UnifySameDomain::IntUnifyFaces(
         BRepLib::BuildPCurveForEdgeOnPlane(edge, aFace);
 
       // get normal of the face to compare it with normals of other faces
-      gp_Dir aDN1;
+      Dir3d aDN1;
       //
       // take intermediate point on edge to compute the normal
       Standard_Real f, l;
@@ -3082,7 +3082,7 @@ void ShapeUpgrade_UnifySameDomain::IntUnifyFaces(
         if (bCheckNormals)
         {
           // get normal of checked face using the same parameter on edge
-          gp_Dir aDN2;
+          Dir3d aDN2;
           if (GetNormalToSurface(aCheckedFace, edge, aTMid, aDN2))
           {
             // and check if the adjacent faces are having approximately same normals

@@ -105,9 +105,9 @@ static Standard_Boolean ToricRotule(const BRepAdaptor_Surface&   fac,
   if ((fac.GetType() != GeomAbs_Plane) || (s1.GetType() != GeomAbs_Plane)
       || (s2.GetType() != GeomAbs_Plane))
     return Standard_False;
-  gp_Dir df  = fac.Plane().Position().Direction();
-  gp_Dir ds1 = s1.Plane().Position().Direction();
-  gp_Dir ds2 = s2.Plane().Position().Direction();
+  Dir3d df  = fac.Plane().Position().Direction();
+  Dir3d ds1 = s1.Plane().Position().Direction();
+  Dir3d ds2 = s2.Plane().Position().Direction();
   if (Abs(df.Dot(ds1)) >= tolesp || Abs(df.Dot(ds2)) >= tolesp)
     return Standard_False;
   Standard_Real r1 = sp1->Radius();
@@ -200,7 +200,7 @@ void ChFi3d_FilBuilder::PerformTwoCorner(const Standard_Integer Index)
   parE2 = BRep_Tool::Parameter(Vtx, E2);
   BRepLProp_CLProps CL1(BCurv1, parE1, 1, 1.e-4);
   BRepLProp_CLProps CL2(BCurv2, parE2, 1, 1.e-4);
-  gp_Dir            dir1, dir2;
+  Dir3d            dir1, dir2;
   CL1.Tangent(dir1);
   CL2.Tangent(dir2);
   if (Sens1 == -1)
@@ -574,7 +574,7 @@ void ChFi3d_FilBuilder::PerformTwoCorner(const Standard_Integer Index)
           Bpiv = new GeomFill_SimpleBound(HPivTrim, tolapp3d, 2.e-4);
           fil.Init(Bfac, B2, Bpiv, B1, 1);
           BRepAdaptor_Curve2d pcpivot;
-          gp_Vec              dArc, dcf;
+          Vector3d              dArc, dcf;
           Point3d              bidon;
           Hpivot->D1(parCP1, bidon, dArc);
           Standard_Real fb1, lb1;
@@ -901,7 +901,7 @@ void ChFi3d_FilBuilder::PerformTwoCorner(const Standard_Integer Index)
       Bdif = ChFi3d_mkbound(Hsurfdif, pcsurfdif, ppcodif, ppopdif, tolapp3d, 2.e-4);
       gp_Pnt2d ppfacsam, ppfacdif;
       Point3d   PPfacsam, PPfacdif;
-      gp_Vec   VVfacsam, VVfacdif;
+      Vector3d   VVfacsam, VVfacdif;
       sdsam->Interference(ifaopsam).PCurveOnFace()->D0(uintpcsam, ppfacsam);
       const Handle(Geom_Curve)& curvopsam =
         DStr.Curve(sdsam->Interference(ifaopsam).LineIndex()).Curve();

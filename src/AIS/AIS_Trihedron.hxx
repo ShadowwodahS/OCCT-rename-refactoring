@@ -234,9 +234,9 @@ protected:
   Standard_EXPORT void updatePrimitives(const Handle(Prs3d_DatumAspect)& theAspect,
                                         Prs3d_DatumMode                  theMode,
                                         const Point3d&                    theOrigin,
-                                        const gp_Dir&                    theXDir,
-                                        const gp_Dir&                    theYDir,
-                                        const gp_Dir&                    theZDir);
+                                        const Dir3d&                    theXDir,
+                                        const Dir3d&                    theYDir,
+                                        const Dir3d&                    theZDir);
 
 protected:
   Handle(Geom_Axis2Placement) myComponent;

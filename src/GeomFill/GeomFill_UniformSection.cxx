@@ -92,7 +92,7 @@ Standard_Boolean GeomFill_UniformSection::D1(const Standard_Real,
 {
   myCurve->Poles(Poles);
   myCurve->Weights(Weights);
-  gp_Vec V0(0, 0, 0);
+  Vector3d V0(0, 0, 0);
   DPoles.Init(V0);
   DWeights.Init(0);
 
@@ -112,7 +112,7 @@ Standard_Boolean GeomFill_UniformSection::D2(const Standard_Real,
 {
   myCurve->Poles(Poles);
   myCurve->Weights(Weights);
-  gp_Vec V0(0, 0, 0);
+  Vector3d V0(0, 0, 0);
   DPoles.Init(V0);
   DWeights.Init(0);
   D2Poles.Init(V0);

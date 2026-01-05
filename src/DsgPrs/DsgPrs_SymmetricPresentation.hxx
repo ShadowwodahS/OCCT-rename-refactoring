@@ -24,7 +24,7 @@
 #include <Prs3d_Presentation.hxx>
 
 class Point3d;
-class gp_Dir;
+class Dir3d;
 class gp_Lin;
 class gp_Circ;
 
@@ -44,7 +44,7 @@ public:
                                   const Handle(Prs3d_Drawer)&       aDrawer,
                                   const Point3d&                     AttachmentPoint1,
                                   const Point3d&                     AttachmentPoint2,
-                                  const gp_Dir&                     aDirection1,
+                                  const Dir3d&                     aDirection1,
                                   const gp_Lin&                     aAxis,
                                   const Point3d&                     OffsetPoint);
 

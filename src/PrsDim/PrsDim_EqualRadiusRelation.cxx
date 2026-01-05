@@ -220,15 +220,15 @@ void PrsDim_EqualRadiusRelation::ComputeRadiusPosition()
   if (aDist1 < aDist2)
   {
     Standard_Real Rad1 = myFirstPoint.Distance(myFirstCenter);
-    const gp_Dir  aNewDir1(aPosition.XYZ() - myFirstCenter.XYZ());
-    const gp_Vec  aTVec(aNewDir1.XYZ() * Rad1);
+    const Dir3d  aNewDir1(aPosition.XYZ() - myFirstCenter.XYZ());
+    const Vector3d  aTVec(aNewDir1.XYZ() * Rad1);
     myFirstPoint = myFirstCenter.Translated(aTVec);
   }
   else
   {
     Standard_Real Rad2 = mySecondPoint.Distance(mySecondCenter);
-    const gp_Dir  aNewDir2(aPosition.XYZ() - mySecondCenter.XYZ());
-    gp_Vec        aTVec(aNewDir2.XYZ() * Rad2);
+    const Dir3d  aNewDir2(aPosition.XYZ() - mySecondCenter.XYZ());
+    Vector3d        aTVec(aNewDir2.XYZ() * Rad2);
     mySecondPoint = mySecondCenter.Translated(aTVec);
   }
 }

@@ -234,8 +234,8 @@ inline void HLRBRep_BSurfaceTool::D1(const BRepAdaptor_Surface& S,
                                      const Standard_Real        U,
                                      const Standard_Real        V,
                                      Point3d&                    P,
-                                     gp_Vec&                    D1U,
-                                     gp_Vec&                    D1V)
+                                     Vector3d&                    D1U,
+                                     Vector3d&                    D1V)
 {
   S.D1(U, V, P, D1U, D1V);
 }
@@ -249,11 +249,11 @@ inline void HLRBRep_BSurfaceTool::D2(const BRepAdaptor_Surface& S,
                                      const Standard_Real        U,
                                      const Standard_Real        V,
                                      Point3d&                    P,
-                                     gp_Vec&                    D1U,
-                                     gp_Vec&                    D1V,
-                                     gp_Vec&                    D2U,
-                                     gp_Vec&                    D2V,
-                                     gp_Vec&                    D2UV)
+                                     Vector3d&                    D1U,
+                                     Vector3d&                    D1V,
+                                     Vector3d&                    D2U,
+                                     Vector3d&                    D2V,
+                                     Vector3d&                    D2UV)
 {
   S.D2(U, V, P, D1U, D1V, D2U, D2V, D2UV);
 }
@@ -267,15 +267,15 @@ inline void HLRBRep_BSurfaceTool::D3(const BRepAdaptor_Surface& S,
                                      const Standard_Real        U,
                                      const Standard_Real        V,
                                      Point3d&                    P,
-                                     gp_Vec&                    D1U,
-                                     gp_Vec&                    D1V,
-                                     gp_Vec&                    D2U,
-                                     gp_Vec&                    D2V,
-                                     gp_Vec&                    D2UV,
-                                     gp_Vec&                    D3U,
-                                     gp_Vec&                    D3V,
-                                     gp_Vec&                    D3UUV,
-                                     gp_Vec&                    D3UVV)
+                                     Vector3d&                    D1U,
+                                     Vector3d&                    D1V,
+                                     Vector3d&                    D2U,
+                                     Vector3d&                    D2V,
+                                     Vector3d&                    D2UV,
+                                     Vector3d&                    D3U,
+                                     Vector3d&                    D3V,
+                                     Vector3d&                    D3UUV,
+                                     Vector3d&                    D3UVV)
 {
   S.D3(U, V, P, D1U, D1V, D2U, D2V, D2UV, D3U, D3V, D3UUV, D3UVV);
 }
@@ -285,7 +285,7 @@ inline void HLRBRep_BSurfaceTool::D3(const BRepAdaptor_Surface& S,
 // purpose  :
 //=======================================================================
 
-inline gp_Vec HLRBRep_BSurfaceTool::DN(const BRepAdaptor_Surface& S,
+inline Vector3d HLRBRep_BSurfaceTool::DN(const BRepAdaptor_Surface& S,
                                        const Standard_Real        U,
                                        const Standard_Real        V,
                                        const Standard_Integer     Nu,
@@ -401,7 +401,7 @@ inline Handle(Geom_BSplineSurface) HLRBRep_BSurfaceTool::BSpline(const BRepAdapt
 // purpose  :
 //=======================================================================
 
-inline gp_Ax1 HLRBRep_BSurfaceTool::AxeOfRevolution(const BRepAdaptor_Surface& S)
+inline Axis3d HLRBRep_BSurfaceTool::AxeOfRevolution(const BRepAdaptor_Surface& S)
 {
   return (S.AxeOfRevolution());
 }
@@ -411,7 +411,7 @@ inline gp_Ax1 HLRBRep_BSurfaceTool::AxeOfRevolution(const BRepAdaptor_Surface& S
 // purpose  :
 //=======================================================================
 
-inline gp_Dir HLRBRep_BSurfaceTool::Direction(const BRepAdaptor_Surface& S)
+inline Dir3d HLRBRep_BSurfaceTool::Direction(const BRepAdaptor_Surface& S)
 {
   return (S.Direction());
 }

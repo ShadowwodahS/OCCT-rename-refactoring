@@ -85,8 +85,8 @@ void SelectMgr_RectangularFrustum::segmentSegmentDistance(
   const Point3d aClosestPnt = myNearPickedPnt.XYZ() + aV * aTc;
   thePickResult.SetDepth(myNearPickedPnt.Distance(aClosestPnt) * myScale);
 
-  const gp_Vec        aPickedVec    = aClosestPnt.XYZ() - theSegPnt1.XYZ();
-  const gp_Vec        aFigureVec    = theSegPnt2.XYZ() - theSegPnt1.XYZ();
+  const Vector3d        aPickedVec    = aClosestPnt.XYZ() - theSegPnt1.XYZ();
+  const Vector3d        aFigureVec    = theSegPnt2.XYZ() - theSegPnt1.XYZ();
   const Standard_Real aPickedVecMod = aPickedVec.Magnitude();
   const Standard_Real aFigureVecMod = aFigureVec.Magnitude();
   if (aPickedVecMod <= gp::Resolution() || aFigureVecMod <= gp::Resolution())
@@ -104,7 +104,7 @@ void SelectMgr_RectangularFrustum::segmentSegmentDistance(
 //=================================================================================================
 
 bool SelectMgr_RectangularFrustum::segmentPlaneIntersection(
-  const gp_Vec&            thePlane,
+  const Vector3d&            thePlane,
   const Point3d&            thePntOnPlane,
   SelectBasics_PickResult& thePickResult) const
 {
@@ -152,7 +152,7 @@ void computeFrustum(const gp_Pnt2d                          theMinPnt,
                     const gp_Pnt2d&                         theMaxPnt,
                     const Handle(SelectMgr_FrustumBuilder)& theBuilder,
                     Point3d*                                 theVertices,
-                    gp_Vec*                                 theEdges)
+                    Vector3d*                                 theEdges)
 {
   // LeftTopNear
   theVertices[0] = theBuilder->ProjectPntOnViewPlane(theMinPnt.X(), theMaxPnt.Y(), 0.0);
@@ -189,7 +189,7 @@ void computeFrustum(const gp_Pnt2d                          theMinPnt,
 // function : computeNormals
 // purpose  : Computes normals to frustum faces
 // =======================================================================
-void computeNormals(const gp_Vec* theEdges, gp_Vec* theNormals)
+void computeNormals(const Vector3d* theEdges, Vector3d* theNormals)
 {
   // Top
   theNormals[0] = theEdges[0].Crossed(theEdges[4]);
@@ -650,7 +650,7 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsPolygon(
   }
   else if (theSensType == Select3D_TOS_INTERIOR)
   {
-    gp_Vec aPolyNorm(gp_XYZ(RealLast(), RealLast(), RealLast()));
+    Vector3d aPolyNorm(gp_XYZ(RealLast(), RealLast(), RealLast()));
     if (!hasPolygonOverlap(theArrayOfPnts, aPolyNorm))
     {
       return Standard_False;
@@ -698,7 +698,7 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsTriangle(
   }
   else if (theSensType == Select3D_TOS_INTERIOR)
   {
-    gp_Vec aTriangleNormal(gp_XYZ(RealLast(), RealLast(), RealLast()));
+    Vector3d aTriangleNormal(gp_XYZ(RealLast(), RealLast(), RealLast()));
     if (!hasTriangleOverlap(thePnt1, thePnt2, thePnt3, aTriangleNormal))
     {
       return Standard_False;
@@ -770,7 +770,7 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsTriangle(
       }
     }
     Standard_Integer aNearestEdgeIdx2 = (aNearestEdgeIdx1 + 1) % 3;
-    const gp_Vec     aVec12(aPnts[aNearestEdgeIdx1], aPnts[aNearestEdgeIdx2]);
+    const Vector3d     aVec12(aPnts[aNearestEdgeIdx1], aPnts[aNearestEdgeIdx2]);
     if (aVec12.SquareMagnitude() > gp::Resolution()
         && myViewRayDir.IsParallel(aVec12, Precision::Angular()))
     {
@@ -789,7 +789,7 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsCylinder(
   const Standard_Real            theBottomRad,
   const Standard_Real            theTopRad,
   const Standard_Real            theHeight,
-  const gp_Trsf&                 theTrsf,
+  const Transform3d&                 theTrsf,
   const Standard_Boolean         theIsHollow,
   const SelectMgr_ViewClipRange& theClipRange,
   SelectBasics_PickResult&       thePickResult) const
@@ -799,9 +799,9 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsCylinder(
                         "Error! SelectMgr_RectangularFrustum::Overlaps() should be called after "
                         "selection frustum initialization");
   Standard_Real aTimes[2] = {0.0, 0.0};
-  const gp_Trsf aTrsfInv  = theTrsf.Inverted();
+  const Transform3d aTrsfInv  = theTrsf.Inverted();
   const Point3d  aLoc      = myNearPickedPnt.Transformed(aTrsfInv);
-  const gp_Dir  aRayDir   = myViewRayDir.Transformed(aTrsfInv);
+  const Dir3d  aRayDir   = myViewRayDir.Transformed(aTrsfInv);
   if (!RayCylinderIntersection(theBottomRad,
                                theTopRad,
                                theHeight,
@@ -834,7 +834,7 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsCylinder(
   else
   {
     thePickResult.SetSurfaceNormal(
-      gp_Vec(aPntOnCylinder.X(), aPntOnCylinder.Y(), 0.0).Transformed(theTrsf));
+      Vector3d(aPntOnCylinder.X(), aPntOnCylinder.Y(), 0.0).Transformed(theTrsf));
   }
   thePickResult.SetPickedPoint(aPntOnCylinder.Transformed(theTrsf));
   return !theClipRange.IsClipped(thePickResult.Depth());
@@ -844,7 +844,7 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsCylinder(
 
 Standard_Boolean SelectMgr_RectangularFrustum::OverlapsCircle(
   const Standard_Real            theRadius,
-  const gp_Trsf&                 theTrsf,
+  const Transform3d&                 theTrsf,
   const Standard_Boolean         theIsFilled,
   const SelectMgr_ViewClipRange& theClipRange,
   SelectBasics_PickResult&       thePickResult) const
@@ -854,9 +854,9 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsCircle(
                         "Error! SelectMgr_RectangularFrustum::Overlaps() should be called after "
                         "selection frustum initialization");
   Standard_Real aTime    = 0.0;
-  const gp_Trsf aTrsfInv = theTrsf.Inverted();
+  const Transform3d aTrsfInv = theTrsf.Inverted();
   const Point3d  aLoc     = myNearPickedPnt.Transformed(aTrsfInv);
-  const gp_Dir  aRayDir  = myViewRayDir.Transformed(aTrsfInv);
+  const Dir3d  aRayDir  = myViewRayDir.Transformed(aTrsfInv);
   if (!theIsFilled)
   {
     if (!hasCircleOverlap(theRadius, theTrsf, theIsFilled, NULL))
@@ -887,7 +887,7 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsCircle(
   else
   {
     thePickResult.SetSurfaceNormal(
-      gp_Vec(aPntOnCircle.X(), aPntOnCircle.Y(), 0.0).Transformed(theTrsf));
+      Vector3d(aPntOnCircle.X(), aPntOnCircle.Y(), 0.0).Transformed(theTrsf));
   }
   thePickResult.SetPickedPoint(aPntOnCircle.Transformed(theTrsf));
   return !theClipRange.IsClipped(thePickResult.Depth());
@@ -898,11 +898,11 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsCircle(
 Standard_Boolean SelectMgr_RectangularFrustum::isIntersectCircle(
   const Standard_Real       theRadius,
   const Point3d&             theCenter,
-  const gp_Trsf&            theTrsf,
+  const Transform3d&            theTrsf,
   const TColgp_Array1OfPnt& theVertices) const
 {
-  const gp_Trsf aTrsfInv = theTrsf.Inverted();
-  const gp_Dir  aRayDir  = gp_Dir(myEdgeDirs[4 == 4 ? 4 : 0]).Transformed(aTrsfInv);
+  const Transform3d aTrsfInv = theTrsf.Inverted();
+  const Dir3d  aRayDir  = Dir3d(myEdgeDirs[4 == 4 ? 4 : 0]).Transformed(aTrsfInv);
   if (aRayDir.Z() == 0.0)
   {
     return false;
@@ -1007,7 +1007,7 @@ Standard_Boolean SelectMgr_RectangularFrustum::isSegmentsIntersect(const Point3d
 Standard_Boolean SelectMgr_RectangularFrustum::OverlapsCylinder(const Standard_Real    theBottomRad,
                                                                 const Standard_Real    theTopRad,
                                                                 const Standard_Real    theHeight,
-                                                                const gp_Trsf&         theTrsf,
+                                                                const Transform3d&         theTrsf,
                                                                 const Standard_Boolean theIsHollow,
                                                                 Standard_Boolean* theInside) const
 {
@@ -1022,7 +1022,7 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsCylinder(const Standard_R
 //=================================================================================================
 
 Standard_Boolean SelectMgr_RectangularFrustum::OverlapsCircle(const Standard_Real    theRadius,
-                                                              const gp_Trsf&         theTrsf,
+                                                              const Transform3d&         theTrsf,
                                                               const Standard_Boolean theIsFilled,
                                                               Standard_Boolean* theInside) const
 {
@@ -1074,7 +1074,7 @@ Standard_Boolean SelectMgr_RectangularFrustum::OverlapsSphere(
     thePickResult.SetDepth(aTimeLeave * myScale);
   }
   Point3d aPntOnSphere(myNearPickedPnt.XYZ() + myViewRayDir.XYZ() * thePickResult.Depth() / myScale);
-  gp_Vec aNormal(aPntOnSphere.XYZ() - theCenter.XYZ());
+  Vector3d aNormal(aPntOnSphere.XYZ() - theCenter.XYZ());
   thePickResult.SetPickedPoint(aPntOnSphere);
   thePickResult.SetSurfaceNormal(aNormal);
   return !theClipRange.IsClipped(thePickResult.Depth());
@@ -1131,7 +1131,7 @@ void SelectMgr_RectangularFrustum::GetPlanes(
   SelectMgr_Vec4 anEquation;
   for (Standard_Integer aPlaneIdx = 0; aPlaneIdx < 6; ++aPlaneIdx)
   {
-    const gp_Vec& aPlaneNorm = Camera()->IsOrthographic() && aPlaneIdx % 2 == 1
+    const Vector3d& aPlaneNorm = Camera()->IsOrthographic() && aPlaneIdx % 2 == 1
                                  ? myPlanes[aPlaneIdx - 1].Reversed()
                                  : myPlanes[aPlaneIdx];
     anEquation.x()           = aPlaneNorm.X();

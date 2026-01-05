@@ -5,7 +5,7 @@ Standard,Standard_Type,TypeInfo,Kernel,运行时类型识别(RTTI)
 Standard,Standard_Failure,ExceptionBase,Kernel,异常基类
 gp,gp_Pnt,Point3d,Math,3D点(值类型)
 gp,gp_Vec,Vector3d,Math,3D向量
-gp,gp_Dir,Direction3d,Math,3D方向(单位向量)
+gp,gp_Dir,Dir3d,Math,3D方向(单位向量)
 gp,gp_Ax1,Axis3d,Math,3D轴(点+方向)
 gp,gp_Ax2,Frame3d,Math,3D坐标系(右手定则)
 gp,gp_Trsf,Transform3d,Math,3D变换矩阵
@@ -833,7 +833,6 @@ gp,gp_Circ,Circle3d,,
 gp,gp_Circ2d,Circle2d,,
 gp,gp_Cone,Cone1,,
 gp,gp_Cylinder,Cylinder1,,
-gp,gp_Dir,Direction3d,,
 gp,gp_Dir2d,Direction2d,,
 gp,gp_Elips,Ellipse,,
 gp,gp_Elips2d,Ellipse2d,,

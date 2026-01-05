@@ -321,7 +321,7 @@ Handle(Geom_Curve) IGESToBRep_BasicCurve::TransferConicArc(const Handle(IGESGeom
   ZT = st->ZPlane();
 
   Point3d        center, startPoint, endPoint;
-  gp_Dir        mainAxis, normAxis;
+  Dir3d        mainAxis, normAxis;
   Standard_Real minorRadius, majorRadius;
 
   if (!GetModeTransfer() && st->HasTransf())
@@ -341,7 +341,7 @@ Handle(Geom_Curve) IGESToBRep_BasicCurve::TransferConicArc(const Handle(IGESGeom
     startPoint.SetCoord(st->StartPoint().X(), st->StartPoint().Y(), ZT);
     endPoint.SetCoord(st->EndPoint().X(), st->EndPoint().Y(), ZT);
   }
-  gp_Ax2        frame(center, normAxis, mainAxis);
+  Frame3d        frame(center, normAxis, mainAxis);
   Standard_Real t1 = 0.0, t2 = 0.0;
   if (st->IsFromEllipse())
   {
@@ -495,7 +495,7 @@ Handle(Geom2d_Curve) IGESToBRep_BasicCurve::Transfer2dConicArc(const Handle(IGES
   st->Equation(a, b, c, d, e, f);
 
   Point3d        center3d;
-  gp_Dir        mainAxis3d;
+  Dir3d        mainAxis3d;
   gp_Pnt2d      startPoint, endPoint;
   Standard_Real minorRadius, majorRadius;
 
@@ -677,8 +677,8 @@ Handle(Geom_Curve) IGESToBRep_BasicCurve::TransferCircularArc(
     return res;
   }
 
-  gp_Dir tNormAxis, tMainAxis;
-  gp_Ax2 frame;
+  Dir3d tNormAxis, tMainAxis;
+  Frame3d frame;
   Point3d startPoint, endPoint;
 
   if (!GetModeTransfer() && st->HasTransf())
@@ -690,12 +690,12 @@ Handle(Geom_Curve) IGESToBRep_BasicCurve::TransferCircularArc(
     loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
     gp_XYZ mainAxis(1., 0., 0.);
     loc.Transforms(mainAxis);
-    tMainAxis = gp_Dir(mainAxis);
+    tMainAxis = Dir3d(mainAxis);
 
     startPoint = st->TransformedStartPoint();
     endPoint   = st->TransformedEndPoint();
 
-    frame = gp_Ax2(st->TransformedCenter(), tNormAxis, tMainAxis);
+    frame = Frame3d(st->TransformedCenter(), tNormAxis, tMainAxis);
   }
   else
   {
@@ -707,7 +707,7 @@ Handle(Geom_Curve) IGESToBRep_BasicCurve::TransferCircularArc(
     endPoint.SetCoord(st->EndPoint().X(), st->EndPoint().Y(), ZT);
     Point3d centerPoint(st->Center().X(), st->Center().Y(), ZT);
 
-    frame = gp_Ax2(centerPoint, tNormAxis, tMainAxis);
+    frame = Frame3d(centerPoint, tNormAxis, tMainAxis);
   }
 
   res = new Geom_Circle(frame, st->Radius());
@@ -1321,7 +1321,7 @@ Handle(Geom_Curve) IGESToBRep_BasicCurve::TransferLine(const Handle(IGESGeom_Lin
   // beaucoup de points confondus a GetEpsGeom()*GetUnitFactor()
   if (!Ps.IsEqual(Pe, Precision::Confusion()))
   { //: l3 abv 11 Jan 99: GetEpsGeom()*GetUnitFactor()/10.)) {
-    gp_Lin            line(Ps, gp_Dir(gp_Vec(Ps, Pe)));
+    gp_Lin            line(Ps, Dir3d(Vector3d(Ps, Pe)));
     Standard_Real     t1    = ElCLib::Parameter(line, Ps);
     Standard_Real     t2    = ElCLib::Parameter(line, Pe);
     Handle(Geom_Line) Gline = new Geom_Line(line);
@@ -1401,7 +1401,7 @@ Handle(Geom_Transformation) IGESToBRep_BasicCurve::TransferTransformation(
     SendFail(start, msg1005);
     return res;
   }
-  gp_Trsf resultat;
+  Transform3d resultat;
   SetEpsilon(1.E-05);
   if (IGESData_ToolLocation::ConvertLocation(GetEpsilon(), start->Value(), resultat))
     res = new Geom_Transformation(resultat);

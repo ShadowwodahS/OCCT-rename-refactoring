@@ -111,8 +111,8 @@ static Standard_Integer OCC128(Draw_Interpretor& di, Standard_Integer /*argc*/, 
 
   Handle(Geom_Axis2Placement) aTrihedronAxis = new Geom_Axis2Placement(gp::XOY());
 
-  gp_Trsf trsf1;
-  trsf1.SetTranslation(gp_Vec(100, 100, 0));
+  Transform3d trsf1;
+  trsf1.SetTranslation(Vector3d(100, 100, 0));
   aTrihedronAxis->Transform(trsf1);
   Handle(AIS_Trihedron) myTrihedron = new AIS_Trihedron(aTrihedronAxis);
   myTrihedron->SetColor(Quantity_NOC_LIGHTSTEELBLUE4);
@@ -128,8 +128,8 @@ static Standard_Integer OCC128(Draw_Interpretor& di, Standard_Integer /*argc*/, 
   AS->SetColor(Quantity_NOC_RED);
   myAISContext->Display(AS, Standard_False);
 
-  gp_Trsf TouchTrsf;
-  TouchTrsf.SetTranslation(gp_Vec(20, 20, 0));
+  Transform3d TouchTrsf;
+  TouchTrsf.SetTranslation(Vector3d(20, 20, 0));
 
   myAISContext->ResetLocation(AS);
   myAISContext->SetLocation(AS, TouchTrsf);
@@ -155,11 +155,11 @@ static Standard_Integer OCC136(Draw_Interpretor& di, Standard_Integer argc, cons
   // sphere
   TopoDS_Solid aSphere = BRepPrimAPI_MakeSphere(Size * 0.5);
   // cone
-  gp_Ax2       anAx2(P1, gp_Dir(1, 1, 1));
+  Frame3d       anAx2(P1, Dir3d(1, 1, 1));
   TopoDS_Solid aCone = BRepPrimAPI_MakeCone(anAx2, Size * 0.7, Size * 0.3, Size);
   // cylinder
   anAx2.SetLocation(Point3d(Size, 0, 0));
-  anAx2.SetDirection(gp_Dir(-1, -1, 1));
+  anAx2.SetDirection(Dir3d(-1, -1, 1));
   TopoDS_Solid aCyl = BRepPrimAPI_MakeCylinder(anAx2, Size * 0.5, Size);
 
   Handle(AIS_InteractiveContext) anAISCtx = ViewerTest::GetAISContext();
@@ -604,7 +604,7 @@ static Standard_Integer OCC297(Draw_Interpretor& di, Standard_Integer /*argc*/, 
 
   DBRep::Set("Face", sol1_);
 
-  gp_Ax1 ax1_(Point3d(0., 0., -100.), gp_Dir(0., 0., 1.));
+  Axis3d ax1_(Point3d(0., 0., -100.), Dir3d(0., 0., 1.));
 
   Standard_Real x = 0., y = 0., z = -80.;
 
@@ -1424,9 +1424,9 @@ static Standard_Integer OCC578(Draw_Interpretor& di, Standard_Integer argc, cons
   //				      0.1,  0.1  , 0.4, 0.4 );
   TopoDS_Shape wedge1 = BRepPrimAPI_MakeWedge(0.5, 0.05, 0.5, 0.1, 0.1, 0.4, 0.4).Shape();
 
-  gp_Trsf rotate = gce_MakeRotation(Point3d(0.0, 0.0, 0.0), gp_Dir(1.0, 0.0, 0.0), 1.570795);
+  Transform3d rotate = gce_MakeRotation(Point3d(0.0, 0.0, 0.0), Dir3d(1.0, 0.0, 0.0), 1.570795);
 
-  gp_Trsf translate = gce_MakeTranslation(Point3d(0.0, -0.5, 0.0), Point3d(0.25, 0.25, 0.5));
+  Transform3d translate = gce_MakeTranslation(Point3d(0.0, -0.5, 0.0), Point3d(0.25, 0.25, 0.5));
 
   rotate.PreMultiply(translate);
 
@@ -1446,9 +1446,9 @@ static Standard_Integer OCC578(Draw_Interpretor& di, Standard_Integer argc, cons
   //				      0.1,  0.1  , 0.4, 0.4 );
   TopoDS_Shape wedge2 = BRepPrimAPI_MakeWedge(0.5, 0.3, 0.5, 0.1, 0.1, 0.4, 0.4).Shape();
 
-  gp_Trsf rotate2 = gce_MakeRotation(Point3d(0.0, 0.0, 0.0), gp_Dir(1.0, 0.0, 0.0), 1.570795 * 3.0);
+  Transform3d rotate2 = gce_MakeRotation(Point3d(0.0, 0.0, 0.0), Dir3d(1.0, 0.0, 0.0), 1.570795 * 3.0);
 
-  gp_Trsf translate2 = gce_MakeTranslation(Point3d(0.0, 0.0, 0.0), Point3d(0.25, 0.25, 0.5));
+  Transform3d translate2 = gce_MakeTranslation(Point3d(0.0, 0.0, 0.0), Point3d(0.25, 0.25, 0.5));
 
   rotate2.PreMultiply(translate2);
 
@@ -1974,10 +1974,10 @@ static Standard_Integer OCC1487(Draw_Interpretor& di, Standard_Integer argc, con
 
   Standard_Integer CaseNumber = Draw::Atoi(argv[1]);
 
-  // BRepPrimAPI_MakeCylinder o_mc1 (gp_Ax2 (Point3d(0,-50,140), gp_Dir(1,0,0)), 50,1000);
-  gp_Dir                   myDir(1, 0, 0);
+  // BRepPrimAPI_MakeCylinder o_mc1 (Frame3d (Point3d(0,-50,140), Dir3d(1,0,0)), 50,1000);
+  Dir3d                   myDir(1, 0, 0);
   Point3d                   myPnt(0, -50, 140);
-  gp_Ax2                   myAx2(myPnt, myDir);
+  Frame3d                   myAx2(myPnt, myDir);
   BRepPrimAPI_MakeCylinder o_mc1(myAx2, 50, 1000);
 
   TopoDS_Shape cyl1 = o_mc1.Shape();
@@ -1986,11 +1986,11 @@ static Standard_Integer OCC1487(Draw_Interpretor& di, Standard_Integer argc, con
   TopoDS_Shape o_cut_shape;
   if (CaseNumber == 1)
   {
-    // BRepPrimAPI_MakeCylinder o_mc2 (gp_Ax2 (Point3d(21.65064, -50.0, 127.5),gp_Dir(-sin(M_PI/3),
+    // BRepPrimAPI_MakeCylinder o_mc2 (Frame3d (Point3d(21.65064, -50.0, 127.5),Dir3d(-sin(M_PI/3),
     // 0.0, 0.5)), 5, 150);
-    gp_Dir                   myDir_mc2(-sin(M_PI / 3), 0.0, 0.5);
+    Dir3d                   myDir_mc2(-sin(M_PI / 3), 0.0, 0.5);
     Point3d                   myPnt_mc2(21.65064, -50.0, 127.5);
-    gp_Ax2                   myAx2_mc2(myPnt_mc2, myDir_mc2);
+    Frame3d                   myAx2_mc2(myPnt_mc2, myDir_mc2);
     BRepPrimAPI_MakeCylinder o_mc2(myAx2_mc2, 5, 150);
 
     cyl2 = o_mc2.Shape();
@@ -1999,11 +1999,11 @@ static Standard_Integer OCC1487(Draw_Interpretor& di, Standard_Integer argc, con
   }
   else
   {
-    // BRepPrimAPI_MakeCylinder o_mc2 (gp_Ax2 (Point3d(978.34936, -50.0, 127.5),gp_Dir(sin(M_PI/3),
+    // BRepPrimAPI_MakeCylinder o_mc2 (Frame3d (Point3d(978.34936, -50.0, 127.5),Dir3d(sin(M_PI/3),
     // 0.0, 0.5)), 5, 150);
-    gp_Dir                   myDir_mc2(sin(M_PI / 3), 0.0, 0.5);
+    Dir3d                   myDir_mc2(sin(M_PI / 3), 0.0, 0.5);
     Point3d                   myPnt_mc2(978.34936, -50.0, 127.5);
-    gp_Ax2                   myAx2_mc2(myPnt_mc2, myDir_mc2);
+    Frame3d                   myAx2_mc2(myPnt_mc2, myDir_mc2);
     BRepPrimAPI_MakeCylinder o_mc2(myAx2_mc2, 5, 150);
 
     cyl2 = o_mc2.Shape();
@@ -2093,11 +2093,11 @@ TopoDS_Shape OCC1077_Bug()
 
   TopoDS_Shape theCommon = BRepAlgoAPI_Common(theBox, theSphere);
   TopoDS_Shape theCylinder1 =
-    BRepPrimAPI_MakeCylinder(gp_Ax2(Point3d(0, 0, -10), gp_Dir(0, 0, 1)), 3, 20).Shape();
+    BRepPrimAPI_MakeCylinder(Frame3d(Point3d(0, 0, -10), Dir3d(0, 0, 1)), 3, 20).Shape();
   TopoDS_Shape theCylinder2 =
-    BRepPrimAPI_MakeCylinder(gp_Ax2(Point3d(-10, 0, 0), gp_Dir(1, 0, 0)), 3, 20).Shape();
+    BRepPrimAPI_MakeCylinder(Frame3d(Point3d(-10, 0, 0), Dir3d(1, 0, 0)), 3, 20).Shape();
   TopoDS_Shape theCylinder3 =
-    BRepPrimAPI_MakeCylinder(gp_Ax2(Point3d(0, -10, 0), gp_Dir(0, 1, 0)), 3, 20).Shape();
+    BRepPrimAPI_MakeCylinder(Frame3d(Point3d(0, -10, 0), Dir3d(0, 1, 0)), 3, 20).Shape();
   TopoDS_Shape           theTmp1 = OCC1077_cut_blend(theCommon, theCylinder1, 0.7);
   Handle(ShapeFix_Shape) fixer   = new ShapeFix_Shape(theTmp1);
   fixer->Perform();
@@ -2743,8 +2743,8 @@ static TopoDS_Compound AddTestStructure(int nCount_)
   {
     for (int j = 0; j < nCount; j++)
     {
-      gp_Trsf trsf;
-      trsf.SetTranslationPart(gp_Vec(5.0 * i, 05.0 * j, 0.0));
+      Transform3d trsf;
+      trsf.SetTranslationPart(Vector3d(5.0 * i, 05.0 * j, 0.0));
       TopLoc_Location topLoc(trsf);
       TopoDS_Shape    tempShape = mkBox.Shape().Located(topLoc);
       B.Add(C, tempShape);
@@ -3310,7 +3310,7 @@ static Standard_Integer OCC13963(Draw_Interpretor& di, Standard_Integer argc, co
     di << "Usage : " << argv[0] << " ratio origin_x origin_y origin_z\n";
     return 1;
   }
-  gp_Ax2   aPln(Point3d(0., 0., 0.), gp_Dir(1., -1., 0.));
+  Frame3d   aPln(Point3d(0., 0., 0.), Dir3d(1., -1., 0.));
   gp_GTrsf aTrf;
   aTrf.SetAffinity(aPln, Draw::Atof(argv[4]));
   gp_XYZ aOrigin(Draw::Atof(argv[1]), Draw::Atof(argv[2]), Draw::Atof(argv[3]));
@@ -4812,7 +4812,7 @@ Standard_Integer OCC17424(Draw_Interpretor& di, Standard_Integer argc, const cha
   intersector.Load(shape, Precision::Intersection());
 
   Point3d origin(X_Pnt, Y_Pnt, Z_Pnt);
-  gp_Dir dir(X_Dir, Y_Dir, Z_Dir);
+  Dir3d dir(X_Dir, Y_Dir, Z_Dir);
   gp_Lin ray(origin, dir);
 
   constexpr Standard_Real PSup = RealLast();
@@ -4909,10 +4909,10 @@ Standard_Integer OCC22558(Draw_Interpretor& di, Standard_Integer argc, const cha
   Standard_Real Y_pnt = Draw::Atof(argv[8]);
   Standard_Real Z_pnt = Draw::Atof(argv[9]);
 
-  gp_Dir toSym(X_vec, Y_vec, Z_vec);
-  gp_Dir dir(X_dir, Y_dir, Z_dir);
+  Dir3d toSym(X_vec, Y_vec, Z_vec);
+  Dir3d dir(X_dir, Y_dir, Z_dir);
   Point3d loc(X_pnt, Y_pnt, Z_pnt);
-  gp_Ax2 symObj(loc, dir);
+  Frame3d symObj(loc, dir);
   toSym.Mirror(symObj);
 
   di << "The result " << toSym.X() << " " << toSym.Y() << " " << toSym.Z() << "\n";

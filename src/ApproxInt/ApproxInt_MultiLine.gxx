@@ -331,7 +331,7 @@ ApproxInt_MultiLine
   if(NbPnts<NbPntsmin) NbPnts=NbPntsmin;
 
 
-  gp_Vec T;
+  Vector3d T;
   gp_Vec2d TS1,TS2;
   Point3d P;
   

@@ -29,7 +29,7 @@
 #include <TColgp_Array1OfPnt2d.hxx>
 #include <TColgp_Array1OfVec2d.hxx>
 class Point3d;
-class gp_Vec;
+class Vector3d;
 class gp_Vec2d;
 class Blend_Point;
 
@@ -68,14 +68,14 @@ public:
   Standard_EXPORT virtual Standard_Boolean IsTangencyPoint() const = 0;
 
   //! Returns the tangent vector at PointOnS1, in 3d space.
-  Standard_EXPORT virtual const gp_Vec& TangentOnS1() const = 0;
+  Standard_EXPORT virtual const Vector3d& TangentOnS1() const = 0;
 
   //! Returns the tangent vector at PointOnS1, in the
   //! parametric space of the first surface.
   Standard_EXPORT virtual const gp_Vec2d& Tangent2dOnS1() const = 0;
 
   //! Returns the tangent vector at PointOnS2, in 3d space.
-  Standard_EXPORT virtual const gp_Vec& TangentOnS2() const = 0;
+  Standard_EXPORT virtual const Vector3d& TangentOnS2() const = 0;
 
   //! Returns the tangent vector at PointOnS2, in the
   //! parametric space of the second surface.
@@ -89,10 +89,10 @@ public:
                                        const Standard_Real V1,
                                        const Standard_Real U2,
                                        const Standard_Real V2,
-                                       gp_Vec&             TgFirst,
-                                       gp_Vec&             TgLast,
-                                       gp_Vec&             NormFirst,
-                                       gp_Vec&             NormLast) const = 0;
+                                       Vector3d&             TgFirst,
+                                       Vector3d&             TgLast,
+                                       Vector3d&             NormFirst,
+                                       Vector3d&             NormLast) const = 0;
 
   Standard_EXPORT virtual Standard_Boolean TwistOnS1() const;
 

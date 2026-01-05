@@ -74,7 +74,7 @@ void BOPTools_AlgoTools2D::BuildPCurveForEdgeOnFace(const TopoDS_Edge&          
 
 Standard_Boolean BOPTools_AlgoTools2D::EdgeTangent(const TopoDS_Edge&  anEdge,
                                                    const Standard_Real aT,
-                                                   gp_Vec&             aTau)
+                                                   Vector3d&             aTau)
 {
   Standard_Boolean isdgE;
   Standard_Real    first, last;

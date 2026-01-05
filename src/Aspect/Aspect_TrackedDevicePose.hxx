@@ -20,9 +20,9 @@
 //! Describes a single pose for a tracked object (for XR).
 struct Aspect_TrackedDevicePose
 {
-  gp_Trsf Orientation;       //!< device to absolute transformation
-  gp_Vec  Velocity;          //!< velocity in tracker space in m/s
-  gp_Vec  AngularVelocity;   //!< angular velocity in radians/s
+  Transform3d Orientation;       //!< device to absolute transformation
+  Vector3d  Velocity;          //!< velocity in tracker space in m/s
+  Vector3d  AngularVelocity;   //!< angular velocity in radians/s
   bool    IsValidPose;       //!< indicates valid pose
   bool    IsConnectedDevice; //!< indicates connected state
 

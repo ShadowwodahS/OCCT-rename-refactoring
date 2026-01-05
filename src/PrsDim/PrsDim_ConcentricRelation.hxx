@@ -60,7 +60,7 @@ private:
 private:
   Point3d        myCenter;
   Standard_Real myRad;
-  gp_Dir        myDir;
+  Dir3d        myDir;
   Point3d        myPnt;
 };
 

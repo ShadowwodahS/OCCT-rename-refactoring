@@ -182,10 +182,10 @@ public:
   Standard_EXPORT void SetPath(const TopoDS_Edge& thePath);
 
   //! Returns the orientation of the dimension in annotation plane.
-  Standard_EXPORT Standard_Boolean GetDirection(gp_Dir& theDir) const;
+  Standard_EXPORT Standard_Boolean GetDirection(Dir3d& theDir) const;
 
   //! Sets an orientation of the dimension in annotation plane.
-  Standard_EXPORT Standard_Boolean SetDirection(const gp_Dir& theDir);
+  Standard_EXPORT Standard_Boolean SetDirection(const Dir3d& theDir);
 
   //! Sets position of the dimension text.
   void SetPointTextAttach(const Point3d& thePntText)
@@ -201,14 +201,14 @@ public:
   Standard_Boolean HasTextPoint() const { return myHasPntText; }
 
   //! Sets annotation plane.
-  void SetPlane(const gp_Ax2& thePlane)
+  void SetPlane(const Frame3d& thePlane)
   {
     myPlane    = thePlane;
     myHasPlane = Standard_True;
   }
 
   //! Returns annotation plane.
-  const gp_Ax2& GetPlane() const { return myPlane; }
+  const Frame3d& GetPlane() const { return myPlane; }
 
   //! Returns True if the object has annotation plane.
   Standard_Boolean HasPlane() const { return myHasPlane; }
@@ -309,10 +309,10 @@ private:
   Standard_Integer                                     myR;
   XCAFDimTolObjects_DimensionModifiersSequence         myModifiers;
   TopoDS_Edge                                          myPath;
-  gp_Dir                                               myDir;
+  Dir3d                                               myDir;
   Point3d                                               myPnt1, myPnt2;
   Standard_Boolean                                     myHasPoint1, myHasPoint2;
-  gp_Ax2                                               myPlane;
+  Frame3d                                               myPlane;
   Standard_Boolean                                     myHasPlane;
   Standard_Boolean                                     myHasPntText;
   Point3d                                               myPntText;

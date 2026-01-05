@@ -23,7 +23,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(GeomFill_Fixed, GeomFill_TrihedronLaw)
 
-GeomFill_Fixed::GeomFill_Fixed(const gp_Vec& Tangent, const gp_Vec& Normal)
+GeomFill_Fixed::GeomFill_Fixed(const Vector3d& Tangent, const Vector3d& Normal)
 {
   if (Tangent.IsParallel(Normal, 0.01))
     throw Standard_ConstructionError("GeomFill_Fixed : Two parallel vectors !");
@@ -43,9 +43,9 @@ Handle(GeomFill_TrihedronLaw) GeomFill_Fixed::Copy() const
 }
 
 Standard_Boolean GeomFill_Fixed::D0(const Standard_Real,
-                                    gp_Vec& Tangent,
-                                    gp_Vec& Normal,
-                                    gp_Vec& BiNormal)
+                                    Vector3d& Tangent,
+                                    Vector3d& Normal,
+                                    Vector3d& BiNormal)
 {
   Tangent  = T;
   Normal   = N;
@@ -55,39 +55,39 @@ Standard_Boolean GeomFill_Fixed::D0(const Standard_Real,
 }
 
 Standard_Boolean GeomFill_Fixed::D1(const Standard_Real,
-                                    gp_Vec& Tangent,
-                                    gp_Vec& DTangent,
-                                    gp_Vec& Normal,
-                                    gp_Vec& DNormal,
-                                    gp_Vec& BiNormal,
-                                    gp_Vec& DBiNormal)
+                                    Vector3d& Tangent,
+                                    Vector3d& DTangent,
+                                    Vector3d& Normal,
+                                    Vector3d& DNormal,
+                                    Vector3d& BiNormal,
+                                    Vector3d& DBiNormal)
 {
   Tangent  = T;
   Normal   = N;
   BiNormal = B;
 
-  gp_Vec V0(0, 0, 0);
+  Vector3d V0(0, 0, 0);
   DTangent = DNormal = DBiNormal = V0;
 
   return Standard_True;
 }
 
 Standard_Boolean GeomFill_Fixed::D2(const Standard_Real,
-                                    gp_Vec& Tangent,
-                                    gp_Vec& DTangent,
-                                    gp_Vec& D2Tangent,
-                                    gp_Vec& Normal,
-                                    gp_Vec& DNormal,
-                                    gp_Vec& D2Normal,
-                                    gp_Vec& BiNormal,
-                                    gp_Vec& DBiNormal,
-                                    gp_Vec& D2BiNormal)
+                                    Vector3d& Tangent,
+                                    Vector3d& DTangent,
+                                    Vector3d& D2Tangent,
+                                    Vector3d& Normal,
+                                    Vector3d& DNormal,
+                                    Vector3d& D2Normal,
+                                    Vector3d& BiNormal,
+                                    Vector3d& DBiNormal,
+                                    Vector3d& D2BiNormal)
 {
   Tangent  = T;
   Normal   = N;
   BiNormal = B;
 
-  gp_Vec V0(0, 0, 0);
+  Vector3d V0(0, 0, 0);
   DTangent = D2Tangent = V0;
   DNormal = D2Normal = V0;
   DBiNormal = D2BiNormal = V0;
@@ -106,7 +106,7 @@ void GeomFill_Fixed::Intervals(TColStd_Array1OfReal& theT, const GeomAbs_Shape) 
   theT(theT.Upper()) = Precision::Infinite();
 }
 
-void GeomFill_Fixed::GetAverageLaw(gp_Vec& ATangent, gp_Vec& ANormal, gp_Vec& ABiNormal)
+void GeomFill_Fixed::GetAverageLaw(Vector3d& ATangent, Vector3d& ANormal, Vector3d& ABiNormal)
 {
   ATangent  = T;
   ANormal   = N;

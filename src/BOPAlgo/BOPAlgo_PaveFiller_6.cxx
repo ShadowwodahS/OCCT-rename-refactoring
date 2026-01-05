@@ -145,7 +145,7 @@ public:
   void SetFuzzyValue(const Standard_Real theFuzz) { IntTools_FaceFace::SetFuzzyValue(theFuzz); }
 
   //
-  const gp_Trsf& Trsf() const { return myTrsf; }
+  const Transform3d& Trsf() const { return myTrsf; }
 
   //
   virtual void Perform()
@@ -159,7 +159,7 @@ public:
     {
       OCC_CATCH_SIGNALS
 
-      gp_Trsf     aTrsf;
+      Transform3d     aTrsf;
       TopoDS_Face aF1 = myF1, aF2 = myF2;
       if (BOPAlgo_Tools::TrsfToPoint(myBox1, myBox2, aTrsf))
       {
@@ -222,7 +222,7 @@ protected:
   TopoDS_Face      myF2;
   Bnd_Box          myBox1;
   Bnd_Box          myBox2;
-  gp_Trsf          myTrsf;
+  Transform3d          myTrsf;
 };
 
 //
@@ -401,8 +401,8 @@ void BOPAlgo_PaveFiller::PerformFF(const Message_ProgressRange& theRange)
               if (aShiftDist > BRep_Tool::Tolerance(aVN))
               {
                 // Move one of the faces to the point of exact intersection of edges
-                gp_Trsf aTrsf;
-                aTrsf.SetTranslation(bIsClosed1 ? gp_Vec(aP1, aP2) : gp_Vec(aP2, aP1));
+                Transform3d aTrsf;
+                aTrsf.SetTranslation(bIsClosed1 ? Vector3d(aP1, aP2) : Vector3d(aP2, aP1));
                 TopLoc_Location aLoc(aTrsf);
                 (bIsClosed1 ? &aFShifted1 : &aFShifted2)->Move(aLoc);
                 aShiftValue = aShiftDist;
@@ -1921,7 +1921,7 @@ Standard_Boolean BOPAlgo_PaveFiller::IsExistingPaveBlock(
   Bnd_Box                   aBoxPm;
   Standard_Real             aTm = IntTools_Tools::IntermediatePoint(aT1, aT2);
   Point3d                    aPm;
-  gp_Vec                    aVTgt1;
+  Vector3d                    aVTgt1;
   const Handle(Geom_Curve)& aC3d = aIC.Curve();
   aC3d->D1(aTm, aPm, aVTgt1);
   aBoxPm.Add(aPm);
@@ -2010,7 +2010,7 @@ Standard_Boolean BOPAlgo_PaveFiller::IsExistingPaveBlock(
             if (aPEStatus == 0)
             {
               Point3d aPm2;
-              gp_Vec aVTgt2;
+              Vector3d aVTgt2;
               aBAC2.D1(aTldp, aPm2, aVTgt2);
               if (aVTgt2.SquareMagnitude() > gp::Resolution())
               {
@@ -2281,9 +2281,9 @@ void BOPAlgo_PaveFiller::FilterPavesOnCurves(const BOPDS_VectorOfCurve&    theVN
       Point3d        aPV  = BRep_Tool::Pnt(aV);
       Standard_Real aPar = aPave.Parameter();
       Point3d        aPonC;
-      gp_Vec        aD1;
+      Vector3d        aD1;
       aGAC.D1(aPar, aPonC, aD1);
-      gp_Vec        aProjVec(aPV, aPonC);
+      Vector3d        aProjVec(aPV, aPonC);
       Standard_Real aSqDist  = aProjVec.SquareMagnitude();
       Standard_Real aSqD1Mod = aD1.SquareMagnitude();
       Standard_Real aSin     = aProjVec.CrossSquareMagnitude(aD1);
@@ -2600,7 +2600,7 @@ void BOPAlgo_PaveFiller::PutStickPavesOnCurve(const TopoDS_Face&                
     Standard_Integer                  nV, m, n;
     Standard_Real                     aTC[2], aD, aD2, u, v, aDT2, aScPr, aDScPr;
     Point3d                            aPC[2], aPV;
-    gp_Dir                            aDN[2];
+    Dir3d                            aDN[2];
     gp_Pnt2d                          aP2D;
     TColStd_MapIteratorOfMapOfInteger aItMI, aItMI1;
     //

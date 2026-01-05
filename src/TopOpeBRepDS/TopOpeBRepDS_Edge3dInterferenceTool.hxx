@@ -61,7 +61,7 @@ private:
   Standard_Integer           myIsVertex;
   TopoDS_Shape               myVonOO;
   Point3d                     myP3d;
-  gp_Dir                     myTgtref;
+  Dir3d                     myTgtref;
 };
 
 #endif // _TopOpeBRepDS_Edge3dInterferenceTool_HeaderFile

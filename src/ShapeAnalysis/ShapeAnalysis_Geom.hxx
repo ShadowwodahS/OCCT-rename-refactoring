@@ -24,7 +24,7 @@
 #include <TColgp_Array1OfPnt.hxx>
 #include <TColStd_HArray2OfReal.hxx>
 class gp_Pln;
-class gp_Trsf;
+class Transform3d;
 
 //! Analyzing tool aimed to work on primitive geometrical objects
 class ShapeAnalysis_Geom
@@ -43,7 +43,7 @@ public:
   //! Matrix must be 3 x 4.
   //! Unit is used as multiplier.
   Standard_EXPORT static Standard_Boolean PositionTrsf(const Handle(TColStd_HArray2OfReal)& coefs,
-                                                       gp_Trsf&                             trsf,
+                                                       Transform3d&                             trsf,
                                                        const Standard_Real                  unit,
                                                        const Standard_Real                  prec);
 

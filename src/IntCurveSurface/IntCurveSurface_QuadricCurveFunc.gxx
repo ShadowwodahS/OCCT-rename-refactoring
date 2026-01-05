@@ -33,7 +33,7 @@ Standard_Boolean IntCurveSurface_QuadricCurveFunc::Value(const Standard_Real Par
 Standard_Boolean IntCurveSurface_QuadricCurveFunc::Derivative(const Standard_Real Param,
 							      Standard_Real& D) { 
   Point3d P;
-  gp_Vec T;
+  Vector3d T;
   TheCurveTool::D1(myCurve,Param,P,T);  
   D = T.Dot(myQuadric.Gradient(P));
   return(Standard_True);
@@ -43,7 +43,7 @@ Standard_Boolean IntCurveSurface_QuadricCurveFunc::Values(const Standard_Real Pa
 							  Standard_Real& F,
 							  Standard_Real& D) { 
   Point3d P;
-  gp_Vec T,Grad;
+  Vector3d T,Grad;
   TheCurveTool::D1(myCurve,Param,P,T);  
   myQuadric.ValAndGrad(P,F,Grad);
   D = T.Dot(Grad);

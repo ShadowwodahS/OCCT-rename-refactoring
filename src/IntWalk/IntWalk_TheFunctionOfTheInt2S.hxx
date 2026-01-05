@@ -64,7 +64,7 @@ public:
                                              TColStd_Array1OfReal&      Param,
                                              IntImp_ConstIsoparametric& BestChoix);
 
-  gp_Dir Direction() const;
+  Dir3d Direction() const;
 
   gp_Dir2d DirectionOnS1() const;
 
@@ -84,7 +84,7 @@ private:
   Standard_Boolean          compute;
   Standard_Boolean          tangent;
   Standard_Real             tgduv[4];
-  gp_Vec                    dpuv[4];
+  Vector3d                    dpuv[4];
   IntImp_ConstIsoparametric chxIso;
   Standard_Real             paramConst;
   Standard_Real             ua0;

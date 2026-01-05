@@ -62,8 +62,8 @@ static void D02d(const Standard_Address C, const Standard_Real U, Point3d& PP)
 static inline void D23d(const Standard_Address C,
                         const Standard_Real    U,
                         Point3d&                P,
-                        gp_Vec&                V1,
-                        gp_Vec&                V2)
+                        Vector3d&                V1,
+                        Vector3d&                V2)
 {
   ((Adaptor3d_Curve*)C)->D2(U, P, V1, V2);
 }
@@ -71,8 +71,8 @@ static inline void D23d(const Standard_Address C,
 static void D22d(const Standard_Address C,
                  const Standard_Real    U,
                  Point3d&                PP,
-                 gp_Vec&                VV1,
-                 gp_Vec&                VV2)
+                 Vector3d&                VV1,
+                 Vector3d&                VV2)
 {
   gp_Pnt2d P;
   gp_Vec2d V1, V2;
@@ -87,7 +87,7 @@ static void D22d(const Standard_Address C,
 void CPnts_UniformDeflection::Perform()
 {
   Point3d        P, P1, P2;
-  gp_Vec        V1, V2, VV;
+  Vector3d        V1, V2, VV;
   Standard_Real Un1;
   Standard_Real NormD1, NormD2;
 
@@ -145,11 +145,11 @@ void CPnts_UniformDeflection::Perform()
         D02d(myCurve, myFirstParam + myDu, P);
         D02d(myCurve, myFirstParam + (myDu / 2.0), P1);
       }
-      V1     = gp_Vec(myPoints[myNbPoints], P);
+      V1     = Vector3d(myPoints[myNbPoints], P);
       NormD1 = V1.Magnitude();
       if (NormD1 >= myDeflection)
       {
-        V2     = gp_Vec(myPoints[myNbPoints], P1);
+        V2     = Vector3d(myPoints[myNbPoints], P1);
         NormD2 = V2.CrossMagnitude(V1) / NormD1;
 
         // passing of arrow starting from which the redivision is done is arbitrary
@@ -201,7 +201,7 @@ void CPnts_UniformDeflection::Perform()
           D22d(myCurve, myLastParam, P1, V1, V2);
         }
         P      = myPoints[0];
-        VV     = gp_Vec(P1, P);
+        VV     = Vector3d(P1, P);
         NormD1 = VV.Magnitude();
         if (NormD1 < myDeflection)
         {
@@ -219,7 +219,7 @@ void CPnts_UniformDeflection::Perform()
           {
             D02d(myCurve, myFirstParam, P2);
           }
-          if ((VV.CrossMagnitude(gp_Vec(P2, P)) / NormD1 < myDeflection)
+          if ((VV.CrossMagnitude(Vector3d(P2, P)) / NormD1 < myDeflection)
               && (Un1 >= myLastParam - myDwmax))
           {
             // point n is removed

@@ -35,18 +35,18 @@ class Geom2d_Curve;
 class BRepTools_TrsfModification;
 DEFINE_STANDARD_HANDLE(BRepTools_TrsfModification, BRepTools_Modification)
 
-//! Describes a modification that uses a gp_Trsf to
+//! Describes a modification that uses a Transform3d to
 //! change the geometry of a shape. All functions return
 //! true and transform the geometry of the shape.
 class BRepTools_TrsfModification : public BRepTools_Modification
 {
 
 public:
-  Standard_EXPORT BRepTools_TrsfModification(const gp_Trsf& T);
+  Standard_EXPORT BRepTools_TrsfModification(const Transform3d& T);
 
-  //! Provides access to the gp_Trsf associated with this
+  //! Provides access to the Transform3d associated with this
   //! modification. The transformation can be changed.
-  Standard_EXPORT gp_Trsf& Trsf();
+  Standard_EXPORT Transform3d& Trsf();
 
   //! Sets a flag to indicate the need to copy mesh.
   Standard_EXPORT Standard_Boolean& IsCopyMesh();
@@ -60,7 +60,7 @@ public:
   //! reverses the normal of the surface (the wires have to be reversed).
   //! RevFace is set to true if the orientation of the
   //! modified face changes in the shells which contain it.
-  //! For this class, RevFace returns true if the gp_Trsf
+  //! For this class, RevFace returns true if the Transform3d
   //! associated with this modification is negative.
   Standard_EXPORT Standard_Boolean NewSurface(const TopoDS_Face&    F,
                                               Handle(Geom_Surface)& S,
@@ -150,7 +150,7 @@ public:
 
 protected:
 private:
-  gp_Trsf          myTrsf;
+  Transform3d          myTrsf;
   Standard_Boolean myCopyMesh;
 };
 

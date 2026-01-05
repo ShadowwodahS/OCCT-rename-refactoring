@@ -482,11 +482,11 @@ Standard_Integer projonplane(Draw_Interpretor& di, Standard_Integer n, const cha
   if ((n == 5 && Draw::Atoi(a[4]) == 0) || (n == 8 && Draw::Atoi(a[7]) == 0))
     Param = Standard_False;
 
-  gp_Dir D;
+  Dir3d D;
 
   if (n == 8)
   {
-    D = gp_Dir(Draw::Atof(a[4]), Draw::Atof(a[5]), Draw::Atof(a[6]));
+    D = Dir3d(Draw::Atof(a[4]), Draw::Atof(a[5]), Draw::Atof(a[6]));
   }
   else
   {
@@ -1158,10 +1158,10 @@ static Standard_Integer EllipsUniformAbscissa(Draw_Interpretor& di,
   {
     Point3d location;
     location = Point3d(0.0, 0.0, 0.0);
-    gp_Dir main_direction(0.0, 0.0, 1.0);
+    Dir3d main_direction(0.0, 0.0, 1.0);
 
-    gp_Dir x_direction(1.0, 0.0, 0.0);
-    gp_Ax2 mainaxis(location, main_direction);
+    Dir3d x_direction(1.0, 0.0, 0.0);
+    Frame3d mainaxis(location, main_direction);
 
     mainaxis.SetXDirection(x_direction);
     ellip = new Geom_Ellipse(mainaxis, R1, R2);

@@ -24,7 +24,7 @@
 #include <IntPatch_SpecPntType.hxx>
 
 class gp_Cone;
-class gp_Vec;
+class Vector3d;
 class gp_XYZ;
 class IntPatch_Point;
 class IntSurf_PntOn2S;
@@ -131,8 +131,8 @@ protected:
   //! Therefore it must be adjusted to valid range by
   //! the high-level algorithm
   static Standard_EXPORT Standard_Boolean ProcessSphere(const IntSurf_PntOn2S& thePtIso,
-                                                        const gp_Vec&          theDUofPSurf,
-                                                        const gp_Vec&          theDVofPSurf,
+                                                        const Vector3d&          theDUofPSurf,
+                                                        const Vector3d&          theDVofPSurf,
                                                         const Standard_Boolean theIsReversed,
                                                         const Standard_Real    theVquad,
                                                         Standard_Real&         theUquad,
@@ -143,8 +143,8 @@ protected:
   //! Therefore it must be adjusted to valid range by
   //! the high-level algorithm.
   static Standard_EXPORT Standard_Boolean ProcessCone(const IntSurf_PntOn2S& thePtIso,
-                                                      const gp_Vec&          theDUofPSurf,
-                                                      const gp_Vec&          theDVofPSurf,
+                                                      const Vector3d&          theDUofPSurf,
+                                                      const Vector3d&          theDVofPSurf,
                                                       const gp_Cone&         theCone,
                                                       const Standard_Boolean theIsReversed,
                                                       Standard_Real&         theUquad,

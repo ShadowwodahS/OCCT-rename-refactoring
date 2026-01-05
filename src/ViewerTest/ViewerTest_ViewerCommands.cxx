@@ -2092,7 +2092,7 @@ static int VViewProj(Draw_Interpretor&, Standard_Integer theNbArgs, const char**
       {
         TCollection_AsciiString aFrameDef(theArgVec[++anArgIter]);
         aFrameDef.LowerCase();
-        gp_Dir aRight, anUp;
+        Dir3d aRight, anUp;
         if (aFrameDef.Value(2) == aFrameDef.Value(4))
         {
           Message::SendFail() << "Syntax error at '" << theArgVec[anArgIter] << "'";
@@ -2137,7 +2137,7 @@ static int VViewProj(Draw_Interpretor&, Standard_Integer theNbArgs, const char**
 
         const Handle(Graphic3d_Camera)& aCamera     = aView->Camera();
         const Point3d                    anOriginVCS = aCamera->ConvertWorld2View(gp::Origin());
-        const gp_Dir                    aDir        = anUp.Crossed(aRight);
+        const Dir3d                    aDir        = anUp.Crossed(aRight);
         aCamera->SetCenter(Point3d(0, 0, 0));
         aCamera->SetDirection(aDir);
         aCamera->SetUp(anUp);
@@ -2811,7 +2811,7 @@ static int VBackground(Draw_Interpretor& theDI, Standard_Integer theNbArgs, cons
       float aX = (float)Draw::Atof(theArgVec[++anArgIter]);
       float aY = (float)Draw::Atof(theArgVec[++anArgIter]);
       float aZ = (float)Draw::Atof(theArgVec[++anArgIter]);
-      aSkydomeAspect.SetSunDirection(gp_Dir(aX, aY, aZ));
+      aSkydomeAspect.SetSunDirection(Dir3d(aX, aY, aZ));
     }
     else if (anArgIter + 1 < theNbArgs && isSkydomeBg && anArg == "-cloud")
     {
@@ -5257,8 +5257,8 @@ static int VPriviledgedPlane(Draw_Interpretor& theDI,
   {
     gp_Ax3        aPriviledgedPlane = aViewer->PrivilegedPlane();
     const Point3d& anOrig            = aPriviledgedPlane.Location();
-    const gp_Dir& aNorm             = aPriviledgedPlane.Direction();
-    const gp_Dir& aXDir             = aPriviledgedPlane.XDirection();
+    const Dir3d& aNorm             = aPriviledgedPlane.Direction();
+    const Dir3d& aXDir             = aPriviledgedPlane.XDirection();
     theDI << "Origin: " << anOrig.X() << " " << anOrig.Y() << " " << anOrig.Z() << " "
           << "Normal: " << aNorm.X() << " " << aNorm.Y() << " " << aNorm.Z() << " "
           << "X-dir: " << aXDir.X() << " " << aXDir.Y() << " " << aXDir.Z() << "\n";
@@ -5275,13 +5275,13 @@ static int VPriviledgedPlane(Draw_Interpretor& theDI,
 
   gp_Ax3 aPriviledgedPlane;
   Point3d anOrig(anOrigX, anOrigY, anOrigZ);
-  gp_Dir aNorm(aNormX, aNormY, aNormZ);
+  Dir3d aNorm(aNormX, aNormY, aNormZ);
   if (theArgNb > 7)
   {
     Standard_Real aXDirX = Draw::Atof(theArgVec[anArgIdx++]);
     Standard_Real aXDirY = Draw::Atof(theArgVec[anArgIdx++]);
     Standard_Real aXDirZ = Draw::Atof(theArgVec[anArgIdx++]);
-    gp_Dir        aXDir(aXDirX, aXDirY, aXDirZ);
+    Dir3d        aXDir(aXDirX, aXDirY, aXDirZ);
     aPriviledgedPlane = gp_Ax3(anOrig, aNorm, aXDir);
   }
   else
@@ -5800,7 +5800,7 @@ public:
       myDrawer->SetTextAspect(aTextAspect);
     }
     {
-      const gp_Dir aNorm(0.0, 0.0, 1.0);
+      const Dir3d aNorm(0.0, 0.0, 1.0);
       myTris = new Graphic3d_ArrayOfTriangles(4, 6, true, false, true);
       myTris->AddVertex(Point3d(-myWidth * 0.5, -myHeight * 0.5, 0.0), aNorm, gp_Pnt2d(0.0, 0.0));
       myTris->AddVertex(Point3d(myWidth * 0.5, -myHeight * 0.5, 0.0), aNorm, gp_Pnt2d(1.0, 0.0));
@@ -6069,8 +6069,8 @@ static int VDiffImage(Draw_Interpretor& theDI, Standard_Integer theArgNb, const 
 
     Handle(ViewerTest_ImagePrs) anImgRefPrs =
       new ViewerTest_ImagePrs(anImgRef, aSizeX, aSizeY, aLabelRef);
-    gp_Trsf aTrsfRef;
-    aTrsfRef.SetTranslationPart(gp_Vec(-aSizeX * 0.5, 0.0, 0.0));
+    Transform3d aTrsfRef;
+    aTrsfRef.SetTranslationPart(Vector3d(-aSizeX * 0.5, 0.0, 0.0));
     anImgRefPrs->SetLocalTransformation(aTrsfRef);
     ViewerTest::Display(aPrsNameRef, anImgRefPrs, false, true);
   }
@@ -6086,8 +6086,8 @@ static int VDiffImage(Draw_Interpretor& theDI, Standard_Integer theArgNb, const 
 
     Handle(ViewerTest_ImagePrs) anImgNewPrs =
       new ViewerTest_ImagePrs(anImgNew, aSizeX, aSizeY, aLabelNew);
-    gp_Trsf aTrsfRef;
-    aTrsfRef.SetTranslationPart(gp_Vec(aSizeX * 0.5, 0.0, 0.0));
+    Transform3d aTrsfRef;
+    aTrsfRef.SetTranslationPart(Vector3d(aSizeX * 0.5, 0.0, 0.0));
     anImgNewPrs->SetLocalTransformation(aTrsfRef);
     ViewerTest::Display(aPrsNameNew, anImgNewPrs, false, true);
   }
@@ -6099,8 +6099,8 @@ static int VDiffImage(Draw_Interpretor& theDI, Standard_Integer theArgNb, const 
                                            aSizeY,
                                            TCollection_AsciiString()
                                              + "Difference: " + aDiffColorsNb + " pixels");
-    gp_Trsf aTrsfDiff;
-    aTrsfDiff.SetTranslationPart(gp_Vec(0.0, -aSizeY, 0.0));
+    Transform3d aTrsfDiff;
+    aTrsfDiff.SetTranslationPart(Vector3d(0.0, -aSizeY, 0.0));
     anImgDiffPrs->SetLocalTransformation(aTrsfDiff);
   }
   if (!aPrsNameDiff.IsEmpty())
@@ -6465,7 +6465,7 @@ static Standard_Integer VSelectByAxis(Draw_Interpretor& theDI,
     return 1;
   }
 
-  gp_Ax1 anAxis(anAxisLocation, anAxisDirection);
+  Axis3d anAxis(anAxisLocation, anAxisDirection);
   Point3d aTopPnt;
   if (!ViewerTest::CurrentEventManager()->PickAxis(aTopPnt, aContext, aView, anAxis))
   {
@@ -6496,8 +6496,8 @@ static Standard_Integer VSelectByAxis(Draw_Interpretor& theDI,
     // Display axis
     Quantity_Color              anAxisColor = Quantity_NOC_GREEN;
     Handle(Geom_Axis2Placement) anAx2Axis =
-      new Geom_Axis2Placement(gp_Ax2(anAxisLocation, anAxisDirection));
-    Handle(AIS_Axis) anAISAxis = new AIS_Axis(gp_Ax1(anAxisLocation, anAxisDirection));
+      new Geom_Axis2Placement(Frame3d(anAxisLocation, anAxisDirection));
+    Handle(AIS_Axis) anAISAxis = new AIS_Axis(Axis3d(anAxisLocation, anAxisDirection));
     anAISAxis->SetColor(anAxisColor);
     ViewerTest::Display(TCollection_AsciiString(aName) + "_axis", anAISAxis, false);
 
@@ -6520,10 +6520,10 @@ static Standard_Integer VSelectByAxis(Draw_Interpretor& theDI,
         Standard_Real         aNormalLength = aNormalLengths.Value(anIndex + 1);
         if (aNormal.SquareModulus() > ShortRealEpsilon())
         {
-          gp_Dir           aNormalDir((Standard_Real)aNormal.x(),
+          Dir3d           aNormalDir((Standard_Real)aNormal.x(),
                             (Standard_Real)aNormal.y(),
                             (Standard_Real)aNormal.z());
-          Handle(AIS_Axis) anAISNormal = new AIS_Axis(gp_Ax1(aPoint, aNormalDir), aNormalLength);
+          Handle(AIS_Axis) anAISNormal = new AIS_Axis(Axis3d(aPoint, aNormalDir), aNormalLength);
           anAISNormal->SetColor(Quantity_NOC_BLUE);
           anAISNormal->SetInfiniteState(false);
           ViewerTest::Display(TCollection_AsciiString(aName) + "_normal_" + anIndex,
@@ -7498,13 +7498,13 @@ static Standard_Integer VAnimation(Draw_Interpretor& theDI,
         return 1;
       }
 
-      gp_Trsf       aTrsfs[2] = {anObject->LocalTransformation(), anObject->LocalTransformation()};
+      Transform3d       aTrsfs[2] = {anObject->LocalTransformation(), anObject->LocalTransformation()};
       gp_Quaternion aRotQuats[2] = {aTrsfs[0].GetRotation(), aTrsfs[1].GetRotation()};
       gp_XYZ        aLocPnts[2]  = {aTrsfs[0].TranslationPart(), aTrsfs[1].TranslationPart()};
       Standard_Real aScales[2]   = {aTrsfs[0].ScaleFactor(), aTrsfs[1].ScaleFactor()};
       Standard_Boolean isTrsfSet = Standard_False;
 
-      gp_Ax1           anAxis;
+      Axis3d           anAxis;
       Standard_Real    anAngles[2]       = {0.0, 0.0};
       Standard_Boolean isAxisRotationSet = Standard_False;
 
@@ -9968,7 +9968,7 @@ static int VLight(Draw_Interpretor& theDi, Standard_Integer theArgsNb, const cha
       }
 
       anArgIt += 3;
-      aLightNew->SetDirection(gp_Dir(aDirXYZ));
+      aLightNew->SetDirection(Dir3d(aDirXYZ));
     }
     else if (!aLightNew.IsNull()
              && (anArgCase == "-smoothangle" || anArgCase == "-smoothradius" || anArgCase == "-sm"
@@ -12047,8 +12047,8 @@ static Standard_Integer VXRotate(Draw_Interpretor& di, Standard_Integer argc, co
     return 1;
   }
 
-  gp_Trsf aTransform;
-  aTransform.SetRotation(gp_Ax1(Point3d(0.0, 0.0, 0.0), gp_Vec(1.0, 0.0, 0.0)), anAngle);
+  Transform3d aTransform;
+  aTransform.SetRotation(Axis3d(Point3d(0.0, 0.0, 0.0), Vector3d(1.0, 0.0, 0.0)), anAngle);
   aTransform.SetTranslationPart(anIObj->LocalTransformation().TranslationPart());
 
   aContext->SetLocation(anIObj, aTransform);
@@ -12117,7 +12117,7 @@ static int VManipulator(Draw_Interpretor& theDi, Standard_Integer theArgsNb, con
   Graphic3d_Vec2i  aMousePosTo(IntegerLast(), IntegerLast());
   Standard_Integer toStopMouseTransform = -1;
   // explicit transformation
-  gp_Trsf       aTrsf;
+  Transform3d       aTrsf;
   gp_XYZ        aTmpXYZ;
   Standard_Real aTmpReal = 0.0;
   gp_XYZ        aRotPnt, aRotAxis;
@@ -12298,7 +12298,7 @@ static int VManipulator(Draw_Interpretor& theDi, Standard_Integer theArgsNb, con
              && Draw::ParseReal(theArgVec[anArgIter + 7], aTmpReal))
     {
       anArgIter += 7;
-      aTrsf.SetRotation(gp_Ax1(Point3d(aRotPnt), gp_Dir(aRotAxis)), aTmpReal);
+      aTrsf.SetRotation(Axis3d(Point3d(aRotPnt), Dir3d(aRotAxis)), aTmpReal);
     }
     //
     else if (anArg == "-addobject")
@@ -12496,8 +12496,8 @@ static int VManipulator(Draw_Interpretor& theDi, Standard_Integer theArgsNb, con
   if (anAttachPos != ManipAjustPosition_Off && aManipulator->IsAttached()
       && (anAttachObject.IsNull() || anAttachPos != ManipAjustPosition_Center))
   {
-    gp_Ax2        aPosition = gp::XOY();
-    const gp_Trsf aBaseTrsf = aManipulator->Object()->LocalTransformation();
+    Frame3d        aPosition = gp::XOY();
+    const Transform3d aBaseTrsf = aManipulator->Object()->LocalTransformation();
     switch (anAttachPos)
     {
       case ManipAjustPosition_Off: {
@@ -12550,7 +12550,7 @@ static int VManipulator(Draw_Interpretor& theDi, Standard_Integer theArgsNb, con
     {
       anXDir = aManipulator->Position().XDirection().XYZ();
     }
-    aManipulator->SetPosition(gp_Ax2(Point3d(aLocation), gp_Dir(aVDir), gp_Dir(anXDir)));
+    aManipulator->SetPosition(Frame3d(Point3d(aLocation), Dir3d(aVDir), Dir3d(anXDir)));
   }
 
   // --------------------------------------

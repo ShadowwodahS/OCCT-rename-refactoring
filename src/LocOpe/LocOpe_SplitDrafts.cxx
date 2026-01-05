@@ -62,11 +62,11 @@
 #include <TopTools_IndexedDataMapOfShapeListOfShape.hxx>
 
 static Standard_Boolean NewPlane(const TopoDS_Face&,
-                                 const gp_Dir&,
+                                 const Dir3d&,
                                  const gp_Pln&,
                                  const Standard_Real,
                                  gp_Pln&,
-                                 gp_Ax1&,
+                                 Axis3d&,
                                  const Standard_Boolean);
 
 static void MakeFace(TopoDS_Face&, TopTools_ListOfShape&);
@@ -92,7 +92,7 @@ void LocOpe_SplitDrafts::Init(const TopoDS_Shape& S)
 
 void LocOpe_SplitDrafts::Perform(const TopoDS_Face&  F,
                                  const TopoDS_Wire&  W,
-                                 const gp_Dir&       Extr,
+                                 const Dir3d&       Extr,
                                  const gp_Pln&       NPl,
                                  const Standard_Real Angle)
 {
@@ -103,10 +103,10 @@ void LocOpe_SplitDrafts::Perform(const TopoDS_Face&  F,
 
 void LocOpe_SplitDrafts::Perform(const TopoDS_Face&     F,
                                  const TopoDS_Wire&     W,
-                                 const gp_Dir&          Extrg,
+                                 const Dir3d&          Extrg,
                                  const gp_Pln&          NPlg,
                                  const Standard_Real    Angleg,
-                                 const gp_Dir&          Extrd,
+                                 const Dir3d&          Extrd,
                                  const gp_Pln&          NPld,
                                  const Standard_Real    Angled,
                                  const Standard_Boolean ModLeft,
@@ -150,7 +150,7 @@ void LocOpe_SplitDrafts::Perform(const TopoDS_Face&     F,
   }
 
   gp_Pln       NewPlg, NewPld;
-  gp_Ax1       NormalFg, NormalFd;
+  Axis3d       NormalFg, NormalFd;
   TopoDS_Shape aLocalFace = F.Oriented(OriF);
 
   if (!NewPlane(TopoDS::Face(aLocalFace), Extrg, NPlg, Angleg, NewPlg, NormalFg, ModLeft)
@@ -1448,11 +1448,11 @@ const TopTools_ListOfShape& LocOpe_SplitDrafts::ShapesFromShape(const TopoDS_Sha
 //=================================================================================================
 
 static Standard_Boolean NewPlane(const TopoDS_Face&     F,
-                                 const gp_Dir&          Extr,
+                                 const Dir3d&          Extr,
                                  const gp_Pln&          Neutr,
                                  const Standard_Real    Ang,
                                  gp_Pln&                Newpl,
-                                 gp_Ax1&                NormalF,
+                                 Axis3d&                NormalF,
                                  const Standard_Boolean Modify)
 {
 
@@ -1481,7 +1481,7 @@ static Standard_Boolean NewPlane(const TopoDS_Face&     F,
     return Standard_True;
   }
 
-  gp_Ax1        Axe;
+  Axis3d        Axe;
   Standard_Real Theta;
 
   IntAna_QuadQuadGeo i2pl(Plorig, Neutr, Precision::Angular(), Precision::Confusion());
@@ -1489,9 +1489,9 @@ static Standard_Boolean NewPlane(const TopoDS_Face&     F,
   if (i2pl.IsDone() && i2pl.TypeInter() == IntAna_Line)
   {
     gp_Lin LinInters = i2pl.Line(1);
-    gp_Dir nx        = LinInters.Direction();
+    Dir3d nx        = LinInters.Direction();
     NormalF          = Plorig.Axis();
-    gp_Dir        ny = NormalF.Direction().Crossed(nx);
+    Dir3d        ny = NormalF.Direction().Crossed(nx);
     Standard_Real a  = Extr.Dot(nx);
     if (Abs(a) <= 1 - Precision::Angular())
     {

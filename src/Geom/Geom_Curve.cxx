@@ -55,14 +55,14 @@ Point3d Geom_Curve::Value(const Standard_Real U) const
 
 //=================================================================================================
 
-Standard_Real Geom_Curve::TransformedParameter(const Standard_Real U, const gp_Trsf&) const
+Standard_Real Geom_Curve::TransformedParameter(const Standard_Real U, const Transform3d&) const
 {
   return U;
 }
 
 //=================================================================================================
 
-Standard_Real Geom_Curve::ParametricTransformation(const gp_Trsf&) const
+Standard_Real Geom_Curve::ParametricTransformation(const Transform3d&) const
 {
   return 1.;
 }

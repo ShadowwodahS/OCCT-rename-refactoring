@@ -163,8 +163,8 @@ static Standard_Boolean Function_D1(const Standard_Real              U,
     case GeomAbs_Cylinder:
     case GeomAbs_Sphere:
     case GeomAbs_Torus: {
-      gp_Vec D1U, D1V;
-      gp_Vec T;
+      Vector3d D1U, D1V;
+      Vector3d T;
       myCurve->D1(U, P3d, T);
       mySurface->D1(P.X(), P.Y(), P3d, D1U, D1V);
 
@@ -290,7 +290,7 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
           Standard_Real U1, V1, U, V, Delta = 0., d = 0., pmin = W1, pmax = W1, dmax = 0., Uf, Ul;
           ElSLib::Parameters(Cone, P1, U1, V1);
           ElSLib::Parameters(Cone, P2, Ul, V1);
-          const gp_Ax1& anAx1 = Cone.Axis();
+          const Axis3d& anAx1 = Cone.Axis();
           gp_Lin        aLin(anAx1);
           Standard_Real R = (aLin.Distance(P1) + aLin.Distance(P2) + aLin.Distance(P)) / 3.;
           Standard_Real Step;
@@ -432,8 +432,8 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
         }
         else
         {
-          gp_Vec D1U, D1V;
-          gp_Vec T;
+          Vector3d D1U, D1V;
+          Vector3d T;
           Point3d P3d;
           myCurve->D1(W1, P3d, T);
           mySurface->D1(U1, U2, P3d, D1U, D1V);
@@ -542,7 +542,7 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
         Standard_Integer NbSolutions = 0;
         Standard_Real    A, B, C, D, R, Tol = 1.e-10;
         Standard_Real    U1, U2, V1, V2;
-        gp_Trsf          Trsf;
+        Transform3d          Trsf;
         //
         gp_Circ Circle = myCurve->Circle();
         Trsf.SetTransformation(SP.Position());
@@ -1012,7 +1012,7 @@ public:
 
   Standard_Boolean D1(const Standard_Real           theT,
                       NCollection_Array1<gp_Vec2d>& theVec2d,
-                      NCollection_Array1<gp_Vec>& /*theVec*/) const
+                      NCollection_Array1<Vector3d>& /*theVec*/) const
   {
     gp_Pnt2d         aPnt2d;
     gp_Vec2d         aVec2d;

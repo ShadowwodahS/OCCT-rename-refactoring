@@ -15,21 +15,21 @@
 
 Vrml_Translation::Vrml_Translation()
 {
-  gp_Vec tmpV(0, 0, 0);
+  Vector3d tmpV(0, 0, 0);
   myTranslation = tmpV;
 }
 
-Vrml_Translation::Vrml_Translation(const gp_Vec& aTranslation)
+Vrml_Translation::Vrml_Translation(const Vector3d& aTranslation)
 {
   myTranslation = aTranslation;
 }
 
-void Vrml_Translation::SetTranslation(const gp_Vec& aTranslation)
+void Vrml_Translation::SetTranslation(const Vector3d& aTranslation)
 {
   myTranslation = aTranslation;
 }
 
-gp_Vec Vrml_Translation::Translation() const
+Vector3d Vrml_Translation::Translation() const
 {
   return myTranslation;
 }

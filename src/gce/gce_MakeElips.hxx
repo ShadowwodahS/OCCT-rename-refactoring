@@ -23,7 +23,7 @@
 
 #include <gp_Elips.hxx>
 #include <gce_Root.hxx>
-class gp_Ax2;
+class Frame3d;
 class Point3d;
 
 //! This class implements the following algorithms used to
@@ -44,7 +44,7 @@ public:
   //! Warnings :
   //! It is not forbidden to create an ellipse with
   //! MajorRadius = MinorRadius.
-  Standard_EXPORT gce_MakeElips(const gp_Ax2&       A2,
+  Standard_EXPORT gce_MakeElips(const Frame3d&       A2,
                                 const Standard_Real MajorRadius,
                                 const Standard_Real MinorRadius);
 

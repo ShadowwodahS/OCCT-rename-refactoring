@@ -52,7 +52,7 @@ public:
     const Handle(Graphic3d_Group)&    theGroup,
     const Handle(Prs3d_TextAspect)&   theAspect,
     const TCollection_ExtendedString& theText,
-    const gp_Ax2&                     theOrientation,
+    const Frame3d&                     theOrientation,
     const Standard_Boolean            theHasOwnAnchor = Standard_True);
 };
 

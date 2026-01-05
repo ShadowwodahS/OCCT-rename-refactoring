@@ -23,7 +23,7 @@
 #include <LocOpe_SequenceOfPntFace.hxx>
 #include <Standard_Integer.hxx>
 #include <TopAbs_Orientation.hxx>
-class gp_Ax1;
+class Axis3d;
 class TopoDS_Shape;
 class gp_Circ;
 class LocOpe_PntFace;
@@ -42,14 +42,14 @@ public:
 
   //! Creates  and performs the intersection     between
   //! <Ax1> and <S>.
-  LocOpe_CurveShapeIntersector(const gp_Ax1& Axis, const TopoDS_Shape& S);
+  LocOpe_CurveShapeIntersector(const Axis3d& Axis, const TopoDS_Shape& S);
 
   //! Creates  and performs yte intersection     between
   //! <C> and <S>.
   LocOpe_CurveShapeIntersector(const gp_Circ& C, const TopoDS_Shape& S);
 
   //! Performs the intersection between <Ax1 and <S>.
-  Standard_EXPORT void Init(const gp_Ax1& Axis, const TopoDS_Shape& S);
+  Standard_EXPORT void Init(const Axis3d& Axis, const TopoDS_Shape& S);
 
   //! Performs the intersection between <Ax1 and <S>.
   Standard_EXPORT void Init(const gp_Circ& C, const TopoDS_Shape& S);

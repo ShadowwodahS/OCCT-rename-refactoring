@@ -192,10 +192,10 @@ void PrsDim_DiameterDimension::ComputeAnchorPoint()
   // Choose one of two intersection points that stands with
   // positive direction of flyout.
   // An anchor point is supposed to be the left attachment point.
-  gp_Dir aFirstDir = gce_MakeDir(aFirstPoint, myCircle.Location());
-  gp_Dir aDir      = myPlane.Axis().Direction() ^ aFirstDir;
+  Dir3d aFirstDir = gce_MakeDir(aFirstPoint, myCircle.Location());
+  Dir3d aDir      = myPlane.Axis().Direction() ^ aFirstDir;
   myAnchorPoint =
-    (gp_Vec(aDir) * gp_Vec(myCircle.Position().Direction()) > 0.0) ? aFirstPoint : aSecondPoint;
+    (Vector3d(aDir) * Vector3d(myCircle.Position().Direction()) > 0.0) ? aFirstPoint : aSecondPoint;
 }
 
 //=================================================================================================
@@ -284,7 +284,7 @@ void PrsDim_DiameterDimension::ComputeSidePoints(const gp_Circ& theCircle,
 {
   theFirstPnt = AnchorPoint();
 
-  gp_Vec aRadiusVector(theCircle.Location(), theFirstPnt);
+  Vector3d aRadiusVector(theCircle.Location(), theFirstPnt);
   theSecondPnt = theCircle.Location().Translated(-aRadiusVector);
 }
 

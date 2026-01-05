@@ -163,14 +163,14 @@ void V3d_CircularGrid::UpdateDisplay()
     const Standard_Real CosAlpha = Cos(RotationAngle());
     const Standard_Real SinAlpha = Sin(RotationAngle());
 
-    gp_Trsf aTrsf;
+    Transform3d aTrsf;
     // Translation
     // Transformation of change of marker
     aTrsf.SetValues(xdx, ydx, dx, xl, xdy, ydy, dy, yl, xdz, ydz, dz, zl);
 
     // Translation of the origin
     // Rotation Alpha around axis -Z
-    gp_Trsf aTrsf2;
+    Transform3d aTrsf2;
     aTrsf2.SetValues(CosAlpha,
                      SinAlpha,
                      0.0,

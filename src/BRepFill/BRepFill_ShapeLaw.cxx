@@ -63,7 +63,7 @@ BRepFill_ShapeLaw::BRepFill_ShapeLaw(const TopoDS_Vertex& V, const Standard_Bool
   {
     myLaws = new (GeomFill_HArray1OfSectionLaw)(1, 1);
     //    Point3d Origine;
-    gp_Dir                    D(1, 0, 0); // Following the normal
+    Dir3d                    D(1, 0, 0); // Following the normal
     Handle(Geom_Line)         L    = new (Geom_Line)(BRep_Tool::Pnt(V), D);
     Standard_Real             Last = 2 * BRep_Tool::Tolerance(V) + Precision::PConfusion();
     Handle(Geom_TrimmedCurve) TC   = new (Geom_TrimmedCurve)(L, 0, Last);
@@ -268,7 +268,7 @@ TopoDS_Vertex BRepFill_ShapeLaw::Vertex(const Standard_Integer Index,
 
   if (!TheLaw.IsNull())
   {
-    gp_Trsf T;
+    Transform3d T;
     T.SetScale(Point3d(0, 0, 0), TheLaw->Value(Param));
     // TopLoc_Location L(T);
     // V.Move(L);
@@ -465,7 +465,7 @@ void BRepFill_ShapeLaw::D0(const Standard_Real U, TopoDS_Shape& S)
   S = myShape;
   if (!TheLaw.IsNull())
   {
-    gp_Trsf T;
+    Transform3d T;
     T.SetScale(Point3d(0, 0, 0), TheLaw->Value(U));
     // TopLoc_Location L(T);
     // S.Move(L);

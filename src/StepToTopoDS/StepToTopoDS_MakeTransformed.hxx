@@ -54,7 +54,7 @@ public:
 
   //! Returns the computed transformation (Identity if not yet or
   //! if failed)
-  Standard_EXPORT const gp_Trsf& Transformation() const;
+  Standard_EXPORT const Transform3d& Transformation() const;
 
   //! Applies the computed transformation to a shape
   //! Returns False if the transformation is Identity
@@ -78,7 +78,7 @@ public:
 
 protected:
 private:
-  gp_Trsf theTrsf;
+  Transform3d theTrsf;
 };
 
 #endif // _StepToTopoDS_MakeTransformed_HeaderFile

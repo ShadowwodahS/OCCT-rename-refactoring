@@ -39,8 +39,8 @@ static Standard_Integer box(Draw_Interpretor&, Standard_Integer n, const char** 
 {
   Point3d           anOrigin;
   gp_XYZ           aParams;
-  gp_Dir           aDir;
-  gp_Dir           aXDir;
+  Dir3d           aDir;
+  Dir3d           aXDir;
   Standard_Boolean isMinMax  = Standard_False;
   Standard_Boolean isPreview = Standard_False;
   Standard_Boolean isAxis    = Standard_False;
@@ -147,7 +147,7 @@ static Standard_Integer box(Draw_Interpretor&, Standard_Integer n, const char** 
     }
     else if (isAxis)
     {
-      gp_Ax2 anAxis(anOrigin, aDir, aXDir);
+      Frame3d anAxis(anOrigin, aDir, aXDir);
       aPreview.Init(anAxis, aParams.X(), aParams.Y(), aParams.Z());
     }
     else
@@ -171,7 +171,7 @@ static Standard_Integer box(Draw_Interpretor&, Standard_Integer n, const char** 
     }
     else if (isAxis)
     {
-      gp_Ax2 anAxis(anOrigin, aDir, aXDir);
+      Frame3d anAxis(anOrigin, aDir, aXDir);
       S = BRepPrimAPI_MakeBox(anAxis, aParams.X(), aParams.Y(), aParams.Z());
     }
     else
@@ -195,12 +195,12 @@ static Standard_Integer wedge(Draw_Interpretor&, Standard_Integer n, const char*
   if (n == 15 || n == 18)
   {
     Point3d LocalP(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4]));
-    gp_Dir LocalN(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7]));
-    gp_Dir LocalVx(Draw::Atof(a[8]), Draw::Atof(a[9]), Draw::Atof(a[10]));
-    gp_Ax2 Axis(LocalP, LocalN, LocalVx);
-    //    gp_Ax2 Axis(Point3d(Draw::Atof(a[2]),Draw::Atof(a[3]),Draw::Atof(a[4])),
-    //		gp_Dir(Draw::Atof(a[5]),Draw::Atof(a[6]),Draw::Atof(a[7])),
-    //		gp_Dir(Draw::Atof(a[8]),Draw::Atof(a[9]),Draw::Atof(a[10])));
+    Dir3d LocalN(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7]));
+    Dir3d LocalVx(Draw::Atof(a[8]), Draw::Atof(a[9]), Draw::Atof(a[10]));
+    Frame3d Axis(LocalP, LocalN, LocalVx);
+    //    Frame3d Axis(Point3d(Draw::Atof(a[2]),Draw::Atof(a[3]),Draw::Atof(a[4])),
+    //		Dir3d(Draw::Atof(a[5]),Draw::Atof(a[6]),Draw::Atof(a[7])),
+    //		Dir3d(Draw::Atof(a[8]),Draw::Atof(a[9]),Draw::Atof(a[10])));
     if (n == 15)
     {
       S = BRepPrimAPI_MakeWedge(Axis,

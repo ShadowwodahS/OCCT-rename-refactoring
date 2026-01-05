@@ -82,8 +82,8 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
 
   // compute the normals to the plane surface & to the plane face
   gp_Ax3 PosPl = Pln.Position();
-  gp_Dir Dpl   = PosPl.XDirection().Crossed(PosPl.YDirection());
-  gp_Dir norf  = Dpl;
+  Dir3d Dpl   = PosPl.XDirection().Crossed(PosPl.YDirection());
+  Dir3d norf  = Dpl;
   if (Ofpl == TopAbs_REVERSED)
     norf.Reverse();
   if (Or1 == TopAbs_REVERSED)
@@ -99,15 +99,15 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
                     // on the plane
 
   Point3d PtSp; // start 3d point on the Spine
-  gp_Vec DSp;  // tangent vector to the spine on PtSp
+  Vector3d DSp;  // tangent vector to the spine on PtSp
   ElCLib::D1(First, Spine, PtSp, DSp);
-  gp_Dir Dx(gp_Vec(Or, PtSp));
-  gp_Dir Dy(DSp);
+  Dir3d Dx(Vector3d(Or, PtSp));
+  Dir3d Dy(DSp);
   ElSLib::Parameters(Cyl, PtSp, u, v);
   Point3d PtCyl; // point on the cylinder and on the Spine
-  gp_Vec Vu, Vv;
+  Vector3d Vu, Vv;
   ElSLib::D1(u, v, Cyl, PtCyl, Vu, Vv);
-  gp_Dir Dcyl(Vu.Crossed(Vv)); // normal to the cylinder in PtSp
+  Dir3d Dcyl(Vu.Crossed(Vv)); // normal to the cylinder in PtSp
   if (Or2 == TopAbs_REVERSED)
     Dcyl.Reverse();
   Standard_Boolean dedans = (Dcyl.Dot(Dx) <= 0.);
@@ -136,11 +136,11 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   Or.SetCoord(Or.X() + dis2 * Dpl.X(), Or.Y() + dis2 * Dpl.Y(), Or.Z() + dis2 * Dpl.Z());
 
   // variables used to compute the semiangle of the cone
-  gp_Dir Vec1(Or.X() - PtPl.X(), Or.Y() - PtPl.Y(), Or.Z() - PtPl.Z());
+  Dir3d Vec1(Or.X() - PtPl.X(), Or.Y() - PtPl.Y(), Or.Z() - PtPl.Z());
   Point3d Pt(Or.X() + dis1 * PosPl.XDirection().X(),
             Or.Y() + dis1 * PosPl.XDirection().Y(),
             Or.Z() + dis1 * PosPl.XDirection().Z());
-  gp_Dir Vec2(Pt.X() - PtPl.X(), Pt.Y() - PtPl.Y(), Pt.Z() - PtPl.Z());
+  Dir3d Vec2(Pt.X() - PtPl.X(), Pt.Y() - PtPl.Y(), Pt.Z() - PtPl.Z());
 
   // compute the parameters of the conical surface
   if (dedans)
@@ -159,7 +159,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   else
   {
     Rad         = Cyl.Radius() + dis1;
-    gp_Dir Dplr = Dpl.Reversed();
+    Dir3d Dplr = Dpl.Reversed();
     Dpl         = Dplr;
   }
   ConRad   = Cyl.Radius();
@@ -191,10 +191,10 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   // of the faces
 
   // search the normal to the cone
-  gp_Vec deru, derv;
+  Vector3d deru, derv;
   ElSLib::ConeD1(0., 0., ConAx3, ConRad, SemiAngl, Pt, deru, derv);
 
-  gp_Dir norCon(deru.Crossed(derv));
+  Dir3d norCon(deru.Crossed(derv));
 
   Standard_Boolean toreverse = (norCon.Dot(norf) <= 0.);
   if (toreverse)
@@ -214,7 +214,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   // and no intersection plane-chamfer are needed
   Handle(Geom2d_Circle) GCir2dPln;
   Handle(Geom_Circle)   GCirPln;
-  gp_Ax2                CirAx2 = ConAx3.Ax2();
+  Frame3d                CirAx2 = ConAx3.Ax2();
   CirAx2.SetLocation(PtPl);
 
   if (!pointu)
@@ -245,7 +245,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
 
   // orientation
   TopAbs_Orientation trans;
-  gp_Dir             norpl = PosPl.XDirection().Crossed(PosPl.YDirection());
+  Dir3d             norpl = PosPl.XDirection().Crossed(PosPl.YDirection());
   toreverse                = (norCon.Dot(norpl) <= 0.);
   if ((toreverse && plandab) || (!toreverse && !plandab))
   {
@@ -301,7 +301,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
     u = ChFiKPart_InPeriod(u, fu, fu + 2 * M_PI, tol);
 
   ElSLib::D1(u, v, Cyl, Pt, deru, derv);
-  gp_Dir   norcyl = deru.Crossed(derv);
+  Dir3d   norcyl = deru.Crossed(derv);
   gp_Dir2d d2dCyl = gp::DX2d();
   if (deru.Dot(Dy) < 0.)
   {
@@ -374,10 +374,10 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   Point3d OrSpine = ElCLib::Value(First, Spine);
   Point3d POnCyl, POnPln, OrCyl;
 
-  gp_Dir XDir   = Spine.Direction();
+  Dir3d XDir   = Spine.Direction();
   gp_Ax3 AxPln  = Pln.Position();
-  gp_Dir NorPln = AxPln.XDirection().Crossed(AxPln.YDirection());
-  gp_Dir NorF(NorPln);
+  Dir3d NorPln = AxPln.XDirection().Crossed(AxPln.YDirection());
+  Dir3d NorF(NorPln);
   if (Or1 == TopAbs_REVERSED)
   {
     NorF.Reverse();
@@ -387,31 +387,31 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   // OrCyl is the point on axis of cylinder in the plane normal to the
   // axis containing OrSpine
   Point3d Loc = AxCyl.Location();
-  gp_Vec LocSp(Loc, OrSpine);
+  Vector3d LocSp(Loc, OrSpine);
   gp_XYZ temp = AxCyl.Direction().XYZ();
   temp        = temp.Multiplied(LocSp.XYZ().Multiplied(temp));
   OrCyl.SetXYZ((Loc.XYZ()).Added(temp));
 
   // construction of POnPln
-  gp_Vec VecTranslPln, tmp;
+  Vector3d VecTranslPln, tmp;
 
-  tmp = gp_Vec(OrSpine, OrCyl);
+  tmp = Vector3d(OrSpine, OrCyl);
   if ((Or2 == TopAbs_FORWARD && Cyl.Direct()) || (Or2 == TopAbs_REVERSED && !Cyl.Direct()))
   {
     tmp.Reverse();
   }
 
-  VecTranslPln = gp_Vec(XDir.Crossed(NorPln));
+  VecTranslPln = Vector3d(XDir.Crossed(NorPln));
   if (VecTranslPln.Dot(tmp) <= 0.)
   {
     VecTranslPln.Reverse();
   }
 
-  gp_Vec VecTranslCyl;
-  VecTranslCyl = gp_Vec(OrSpine, OrCyl);
+  Vector3d VecTranslCyl;
+  VecTranslCyl = Vector3d(OrSpine, OrCyl);
 
   // Calculation of distances dis1 and dis2, depending on Dis and Angle
-  gp_Vec           DirSOrC = VecTranslCyl.Normalized();
+  Vector3d           DirSOrC = VecTranslCyl.Normalized();
   Standard_Real    cosA1   = DirSOrC.Dot(VecTranslPln.Normalized());
   Standard_Real    sinA1   = Sqrt(1. - cosA1 * cosA1);
   Standard_Real    dis1    = 0.;
@@ -454,28 +454,28 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
 
   // construction of POnCyl
   Standard_Real alpha   = (2 * ASin(dis2 * 0.5 / ray));
-  gp_Vec        VecTemp = VecTranslCyl.Reversed();
+  Vector3d        VecTemp = VecTranslCyl.Reversed();
 
-  if ((XDir.Crossed(gp_Dir(VecTranslCyl))).Dot(NorF) < 0.)
+  if ((XDir.Crossed(Dir3d(VecTranslCyl))).Dot(NorF) < 0.)
   {
-    VecTemp.Rotate(gp_Ax1(OrCyl, XDir), alpha);
+    VecTemp.Rotate(Axis3d(OrCyl, XDir), alpha);
   }
   else
   {
-    VecTemp.Rotate(gp_Ax1(OrCyl, XDir.Reversed()), alpha);
+    VecTemp.Rotate(Axis3d(OrCyl, XDir.Reversed()), alpha);
   }
 
   POnCyl.SetXYZ(OrCyl.XYZ().Added(VecTemp.XYZ()));
   Standard_Real UOnCyl, VOnCyl, UOnPln, VOnPln;
-  gp_Vec        DUOnCyl, DVOnCyl;
+  Vector3d        DUOnCyl, DVOnCyl;
   ElSLib::Parameters(Cyl, POnCyl, UOnCyl, VOnCyl);
   ElSLib::CylinderD1(UOnCyl, VOnCyl, AxCyl, Cyl.Radius(), POnCyl, DUOnCyl, DVOnCyl);
 
   // Construction of the point on the plane
   if (!IsDisOnP)
   {
-    gp_Vec Corde(POnCyl, OrSpine);
-    gp_Vec TCyl = DUOnCyl.Crossed(DVOnCyl);
+    Vector3d Corde(POnCyl, OrSpine);
+    Vector3d TCyl = DUOnCyl.Crossed(DVOnCyl);
 
     TCyl = XDir.Crossed(TCyl);
     TCyl.Normalize();
@@ -505,7 +505,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   POnPln = ElSLib::PlaneValue(UOnPln, VOnPln, AxPln);
 
   // construction of YDir to go from face1 to face2.
-  gp_Vec YDir(POnPln, POnCyl);
+  Vector3d YDir(POnPln, POnCyl);
   if (!plandab)
   {
     YDir.Reverse();
@@ -532,10 +532,10 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   Handle(Geom2d_Line) LFac = new Geom2d_Line(Lin2dPln);
   Handle(Geom2d_Line) LFil = new Geom2d_Line(LOnChamfer);
 
-  gp_Dir           NorFil    = AxCh.Direction();
+  Dir3d           NorFil    = AxCh.Direction();
   Standard_Boolean toreverse = (NorFil.Dot(NorPln) <= 0.);
-  gp_Dir           DirPlnCyl(gp_Vec(POnPln, POnCyl));
-  gp_Dir           DirSPln(gp_Vec(OrSpine, POnPln));
+  Dir3d           DirPlnCyl(Vector3d(POnPln, POnCyl));
+  Dir3d           DirSPln(Vector3d(OrSpine, POnPln));
   Standard_Boolean PosChamfPln = DirPlnCyl.Dot(DirSPln) > 0;
 
   if (!IsDisOnP && PosChamfPln)
@@ -591,10 +591,10 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   LFac = new Geom2d_Line(Lin2dCyl);
   LFil = new Geom2d_Line(LOnChamfer);
 
-  gp_Vec deru, derv;
+  Vector3d deru, derv;
   ElSLib::CylinderD1(UOnCyl, VOnCyl, AxCyl, Cyl.Radius(), POnCyl, deru, derv);
-  gp_Dir           NorCyl(deru.Crossed(derv));
-  gp_Dir           DirSCyl(gp_Vec(OrSpine, POnCyl));
+  Dir3d           NorCyl(deru.Crossed(derv));
+  Dir3d           DirSCyl(Vector3d(OrSpine, POnCyl));
   Standard_Boolean PosChamfCyl = DirPlnCyl.Dot(DirSCyl) < 0;
   toreverse                    = (NorFil.Dot(NorCyl) <= 0.);
 

@@ -25,9 +25,9 @@
 class MeshVS_Mesh;
 class Quantity_Color;
 class MeshVS_DataSource;
-class gp_Trsf;
+class Transform3d;
 class Graphic3d_ArrayOfPrimitives;
-class gp_Vec;
+class Vector3d;
 
 DEFINE_STANDARD_HANDLE(MeshVS_VectorPrsBuilder, MeshVS_PrsBuilder)
 
@@ -56,7 +56,7 @@ public:
                                      const Standard_Integer theDisplayMode) const Standard_OVERRIDE;
 
   //! Adds to array of polygons and polylines some primitive representing single vector
-  Standard_EXPORT void DrawVector(const gp_Trsf&                             theTrsf,
+  Standard_EXPORT void DrawVector(const Transform3d&                             theTrsf,
                                   const Standard_Real                        Length,
                                   const Standard_Real                        MaxLength,
                                   const TColgp_Array1OfPnt&                  ArrowPoints,
@@ -83,12 +83,12 @@ public:
   //! Returns vector assigned with certain node or element
   Standard_EXPORT Standard_Boolean GetVector(const Standard_Boolean IsElement,
                                              const Standard_Integer ID,
-                                             gp_Vec&                Vect) const;
+                                             Vector3d&                Vect) const;
 
   //! Sets vector assigned with certain node or element
   Standard_EXPORT void SetVector(const Standard_Boolean IsElement,
                                  const Standard_Integer ID,
-                                 const gp_Vec&          Vect);
+                                 const Vector3d&          Vect);
 
   //! Calculates minimal and maximal length of vectors in map
   //! ( nodal, if IsElement = False or elemental, if IsElement = True )

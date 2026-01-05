@@ -66,10 +66,10 @@ void ProjLib_Torus::Init(const gp_Torus& To)
 //                \ Z = sinV                 V = ASin( Z)
 //=======================================================================
 
-static gp_Pnt2d EvalPnt2d(const gp_Vec& Ve, const gp_Torus& To)
+static gp_Pnt2d EvalPnt2d(const Vector3d& Ve, const gp_Torus& To)
 {
-  Standard_Real X = Ve.Dot(gp_Vec(To.Position().XDirection()));
-  Standard_Real Y = Ve.Dot(gp_Vec(To.Position().YDirection()));
+  Standard_Real X = Ve.Dot(Vector3d(To.Position().XDirection()));
+  Standard_Real Y = Ve.Dot(Vector3d(To.Position().YDirection()));
   Standard_Real U, V;
 
   if (Abs(X) > Precision::PConfusion() || Abs(Y) > Precision::PConfusion())
@@ -92,12 +92,12 @@ void ProjLib_Torus::Project(const gp_Circ& C)
 {
   myType = GeomAbs_Line;
 
-  gp_Vec Xc(C.Position().XDirection());
-  gp_Vec Yc(C.Position().YDirection());
-  gp_Vec Xt(myTorus.Position().XDirection());
-  gp_Vec Yt(myTorus.Position().YDirection());
-  gp_Vec Zt(myTorus.Position().Direction());
-  gp_Vec OC(myTorus.Location(), C.Location());
+  Vector3d Xc(C.Position().XDirection());
+  Vector3d Yc(C.Position().YDirection());
+  Vector3d Xt(myTorus.Position().XDirection());
+  Vector3d Yt(myTorus.Position().YDirection());
+  Vector3d Zt(myTorus.Position().Direction());
+  Vector3d OC(myTorus.Location(), C.Location());
 
   //  if (OC.Magnitude() < Precision::Confusion()      ||
   //      OC.IsParallel(myTorus.Position().Direction(),

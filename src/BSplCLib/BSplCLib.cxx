@@ -38,7 +38,7 @@
 #include <math_Vector.hxx>
 
 typedef Point3d                  Pnt;
-typedef gp_Vec                  Vec;
+typedef Vector3d                  Vec;
 typedef TColgp_Array1OfPnt      Array1OfPnt;
 typedef TColStd_Array1OfReal    Array1OfReal;
 typedef TColStd_Array1OfInteger Array1OfInteger;

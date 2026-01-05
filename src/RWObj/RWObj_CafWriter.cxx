@@ -366,7 +366,7 @@ bool RWObj_CafWriter::writeNormals(RWObj_ObjWriterContext&    theWriter,
        aNodeIter <= aNodeUpper && thePSentry.More();
        ++aNodeIter, thePSentry.Next())
   {
-    const gp_Dir   aNormal   = theFace.NormalTransformed(aNodeIter);
+    const Dir3d   aNormal   = theFace.NormalTransformed(aNodeIter);
     Graphic3d_Vec3 aNormVec3 = objXyzToVec(aNormal.XYZ());
     myCSTrsf.TransformNormal(aNormVec3);
     if (!theWriter.WriteNormal(aNormVec3))

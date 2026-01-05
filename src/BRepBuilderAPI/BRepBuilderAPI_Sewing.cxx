@@ -537,7 +537,7 @@ static void ComputeToleranceVertex(TopoDS_Vertex theV1, TopoDS_Vertex theV2, Top
   }
   //
   dR = aR[m] - aR[n]; // dR >= 0.
-  gp_Vec aVD(aP[m], aP[n]);
+  Vector3d aVD(aP[m], aP[n]);
   aD = aVD.Magnitude();
   //
   if (aD <= dR || aD < aEps)
@@ -1122,10 +1122,10 @@ void BRepBuilderAPI_Sewing::EvaluateAngulars(TopTools_SequenceOfShape& sequenceS
     {
       gp_Pnt2d P;
       c2d->D0(uniAbs.Parameter((secForward(i) || i == indRef) ? j : npt - j + 1), P);
-      gp_Vec w1, w2;
+      Vector3d w1, w2;
       Point3d unused;
       surf->D1(P.X(), P.Y(), unused, w1, w2);
-      gp_Vec n = w1 ^ w2; // Compute the normal vector
+      Vector3d n = w1 ^ w2; // Compute the normal vector
       if (i == indRef)
         normRef(j) = n;
       else if ((n.Magnitude() > gp::Resolution()) && (normRef(j).Magnitude() > gp::Resolution()))
@@ -1242,9 +1242,9 @@ void BRepBuilderAPI_Sewing::EvaluateDistances(TopTools_SequenceOfShape& sequence
         // Check that point lays between vertices of reference curve
         const Point3d& p11 = ptsRef(1);
         const Point3d& p12 = ptsRef(npt);
-        const gp_Vec  aVec1(pt, p11);
-        const gp_Vec  aVec2(pt, p12);
-        const gp_Vec  aVecRef(p11, p12);
+        const Vector3d  aVec1(pt, p11);
+        const Vector3d  aVec2(pt, p12);
+        const Vector3d  aVecRef(p11, p12);
         if ((aVecRef * aVec1) * (aVecRef * aVec2) < 0.)
           nbFound++;
       }

@@ -837,7 +837,7 @@ Standard_Boolean Geom2dHatch_Hatcher::GlobalTransition(HatchGen_PointOnHatching&
   Standard_Boolean SegmentEnd   = Standard_False;
 
   gp_Dir2d      Tangente2d, Normale2d;
-  gp_Dir        Tangente, Normale;
+  Dir3d        Tangente, Normale;
   Standard_Real Courbure;
 
   const Geom2dAdaptor_Curve& CurveH = HatchingCurve(Point.Index());

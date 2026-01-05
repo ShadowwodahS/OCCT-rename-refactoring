@@ -26,7 +26,7 @@
 
 class TopoDS_Face;
 class TopoDS_Wire;
-class gp_Dir;
+class Dir3d;
 class gp_Pln;
 
 //! This  class  provides  a    tool to   realize  the
@@ -68,10 +68,10 @@ public:
   //! the right part of the wire.
   Standard_EXPORT void Perform(const TopoDS_Face&     F,
                                const TopoDS_Wire&     W,
-                               const gp_Dir&          Extractg,
+                               const Dir3d&          Extractg,
                                const gp_Pln&          NPlg,
                                const Standard_Real    Angleg,
-                               const gp_Dir&          Extractd,
+                               const Dir3d&          Extractd,
                                const gp_Pln&          NPld,
                                const Standard_Real    Angled,
                                const Standard_Boolean ModifyLeft  = Standard_True,
@@ -87,7 +87,7 @@ public:
   //! angle.
   Standard_EXPORT void Perform(const TopoDS_Face&  F,
                                const TopoDS_Wire&  W,
-                               const gp_Dir&       Extract,
+                               const Dir3d&       Extract,
                                const gp_Pln&       NPl,
                                const Standard_Real Angle);
 

@@ -114,7 +114,7 @@ private:
 
   Standard_Boolean IsConic(const GeomAbs_CurveType theTarget,
                            const Standard_Real     theTol,
-                           gp_Ax2&                 thePos,
+                           Frame3d&                 thePos,
                            TColStd_Array1OfReal&   theParams);
 
   static Handle(Geom_Surface) GetSurface(const TopoDS_Face&         theFace,

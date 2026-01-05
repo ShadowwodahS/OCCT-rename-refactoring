@@ -23,8 +23,8 @@
 #include <Standard_Integer.hxx>
 #include <gp_Trsf.hxx>
 #include <gp_Vec2d.hxx>
-class gp_Ax2;
-class gp_Vec;
+class Frame3d;
+class Vector3d;
 class Point3d;
 class gp_Pnt2d;
 class gp_Lin;
@@ -50,26 +50,26 @@ public:
 
   //! Creates   an axonometric  projector.   <CS> is the
   //! viewing coordinate system.
-  Standard_EXPORT HLRAlgo_Projector(const gp_Ax2& CS);
+  Standard_EXPORT HLRAlgo_Projector(const Frame3d& CS);
 
   //! Creates  a  perspective  projector.   <CS>  is the
   //! viewing coordinate system.
-  Standard_EXPORT HLRAlgo_Projector(const gp_Ax2& CS, const Standard_Real Focus);
+  Standard_EXPORT HLRAlgo_Projector(const Frame3d& CS, const Standard_Real Focus);
 
   //! build a Projector with automatic minmax directions.
-  Standard_EXPORT HLRAlgo_Projector(const gp_Trsf&         T,
+  Standard_EXPORT HLRAlgo_Projector(const Transform3d&         T,
                                     const Standard_Boolean Persp,
                                     const Standard_Real    Focus);
 
   //! build a Projector with given minmax directions.
-  Standard_EXPORT HLRAlgo_Projector(const gp_Trsf&         T,
+  Standard_EXPORT HLRAlgo_Projector(const Transform3d&         T,
                                     const Standard_Boolean Persp,
                                     const Standard_Real    Focus,
                                     const gp_Vec2d&        v1,
                                     const gp_Vec2d&        v2,
                                     const gp_Vec2d&        v3);
 
-  Standard_EXPORT void Set(const gp_Trsf&         T,
+  Standard_EXPORT void Set(const Transform3d&         T,
                            const Standard_Boolean Persp,
                            const Standard_Real    Focus);
 
@@ -82,18 +82,18 @@ public:
   Standard_Boolean Perspective() const;
 
   //! Returns the active transformation.
-  Standard_EXPORT const gp_Trsf& Transformation() const;
+  Standard_EXPORT const Transform3d& Transformation() const;
 
   //! Returns the active inverted transformation.
-  const gp_Trsf& InvertedTransformation() const;
+  const Transform3d& InvertedTransformation() const;
 
   //! Returns the original transformation.
-  const gp_Trsf& FullTransformation() const;
+  const Transform3d& FullTransformation() const;
 
   //! Returns the focal length.
   Standard_Real Focus() const;
 
-  void Transform(gp_Vec& D) const;
+  void Transform(Vector3d& D) const;
 
   void Transform(Point3d& Pnt) const;
 
@@ -108,7 +108,7 @@ public:
 
   //! Transform and apply perspective if needed.
   Standard_EXPORT void Project(const Point3d& P,
-                               const gp_Vec& D1,
+                               const Vector3d& D1,
                                gp_Pnt2d&     Pout,
                                gp_Vec2d&     D1out) const;
 
@@ -123,9 +123,9 @@ private:
   Standard_Integer myType;
   Standard_Boolean myPersp;
   Standard_Real    myFocus;
-  gp_Trsf          myScaledTrsf;
-  gp_Trsf          myTrsf;
-  gp_Trsf          myInvTrsf;
+  Transform3d          myScaledTrsf;
+  Transform3d          myTrsf;
+  Transform3d          myInvTrsf;
   gp_Vec2d         myD1;
   gp_Vec2d         myD2;
   gp_Vec2d         myD3;

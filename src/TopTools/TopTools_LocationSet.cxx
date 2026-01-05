@@ -70,7 +70,7 @@ Standard_Integer TopTools_LocationSet::Index(const TopLoc_Location& L) const
 
 //=================================================================================================
 
-static void WriteTrsf(const gp_Trsf& T, Standard_OStream& OS, const Standard_Boolean compact)
+static void WriteTrsf(const Transform3d& T, Standard_OStream& OS, const Standard_Boolean compact)
 {
   gp_XYZ V = T.TranslationPart();
   gp_Mat M = T.VectorialPart();
@@ -195,7 +195,7 @@ void TopTools_LocationSet::Write(Standard_OStream&            OS,
 
 //=================================================================================================
 
-static void ReadTrsf(gp_Trsf& T, Standard_IStream& IS)
+static void ReadTrsf(Transform3d& T, Standard_IStream& IS)
 {
   Standard_Real V1[3], V2[3], V3[3];
   Standard_Real V[3];
@@ -239,7 +239,7 @@ void TopTools_LocationSet::Read(Standard_IStream& IS, const Message_ProgressRang
   IS >> nbLoc;
 
   TopLoc_Location L;
-  gp_Trsf         T;
+  Transform3d         T;
 
   // OCC19559
   Message_ProgressScope PS(theProgress, "Locations", nbLoc);

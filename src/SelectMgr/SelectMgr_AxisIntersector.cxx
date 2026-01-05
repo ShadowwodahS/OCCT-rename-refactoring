@@ -34,7 +34,7 @@ SelectMgr_AxisIntersector::~SelectMgr_AxisIntersector()
 
 //=================================================================================================
 
-void SelectMgr_AxisIntersector::Init(const gp_Ax1& theAxis)
+void SelectMgr_AxisIntersector::Init(const Axis3d& theAxis)
 {
   mySelectionType = SelectMgr_SelectionType_Point;
   myAxis          = theAxis;
@@ -74,7 +74,7 @@ Handle(SelectMgr_BaseIntersector) SelectMgr_AxisIntersector::ScaleAndTransform(
   aTrsf.Transforms(aTransformedDir);
 
   Handle(SelectMgr_AxisIntersector) aRes = new SelectMgr_AxisIntersector();
-  aRes->myAxis                           = gp_Ax1(aTransformedLoc, gp_Dir(aTransformedDir));
+  aRes->myAxis                           = Axis3d(aTransformedLoc, Dir3d(aTransformedDir));
   aRes->mySelectionType                  = mySelectionType;
   return aRes;
 }
@@ -107,7 +107,7 @@ Standard_Boolean SelectMgr_AxisIntersector::hasIntersection(const SelectMgr_Vec3
                                                             Standard_Real& theTimeLeave) const
 {
   const Point3d&             anAxisLoc = myAxis.Location();
-  const gp_Dir&             anAxisDir = myAxis.Direction();
+  const Dir3d&             anAxisDir = myAxis.Direction();
   BVH_Ray<Standard_Real, 3> aRay(SelectMgr_Vec3(anAxisLoc.X(), anAxisLoc.Y(), anAxisLoc.Z()),
                                  SelectMgr_Vec3(anAxisDir.X(), anAxisDir.Y(), anAxisDir.Z()));
   if (!BVH_Tools<Standard_Real, 3>::RayBoxIntersection(aRay,
@@ -127,10 +127,10 @@ Standard_Boolean SelectMgr_AxisIntersector::hasIntersection(const Point3d&  theP
                                                             Standard_Real& theDepth) const
 {
   const Point3d& anAxisLoc = myAxis.Location();
-  const gp_Dir& anAxisDir = myAxis.Direction();
+  const Dir3d& anAxisDir = myAxis.Direction();
 
   // Check that vectors are co-directed (thePnt lies on this axis)
-  gp_Dir aDirToPnt(thePnt.XYZ() - anAxisLoc.XYZ());
+  Dir3d aDirToPnt(thePnt.XYZ() - anAxisLoc.XYZ());
   if (!anAxisDir.IsEqual(aDirToPnt, Precision::Angular()))
   {
     return Standard_False;
@@ -192,7 +192,7 @@ Standard_Boolean SelectMgr_AxisIntersector::raySegmentDistance(
 
 //=================================================================================================
 
-bool SelectMgr_AxisIntersector::rayPlaneIntersection(const gp_Vec&            thePlane,
+bool SelectMgr_AxisIntersector::rayPlaneIntersection(const Vector3d&            thePlane,
                                                      const Point3d&            thePntOnPlane,
                                                      SelectBasics_PickResult& thePickResult) const
 {
@@ -373,7 +373,7 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsPolygon(
     const gp_XYZ&    aPnt3     = theArrayOfPnts.Value(aStartIdx + 2).XYZ();
     const gp_XYZ     aVec1     = aPnt1 - aPnt2;
     const gp_XYZ     aVec2     = aPnt3 - aPnt2;
-    gp_Vec           aPolyNorm = aVec2.Crossed(aVec1);
+    Vector3d           aPolyNorm = aVec2.Crossed(aVec1);
     if (aPolyNorm.Magnitude() <= Precision::Confusion())
     {
       // treat degenerated polygon as point
@@ -410,7 +410,7 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsTriangle(
   }
   else if (theSensType == Select3D_TOS_INTERIOR)
   {
-    gp_Vec       aTriangleNormal(gp_XYZ(RealLast(), RealLast(), RealLast()));
+    Vector3d       aTriangleNormal(gp_XYZ(RealLast(), RealLast(), RealLast()));
     const gp_XYZ aTrEdges[3] = {thePnt2.XYZ() - thePnt1.XYZ(),
                                 thePnt3.XYZ() - thePnt2.XYZ(),
                                 thePnt1.XYZ() - thePnt3.XYZ()};
@@ -480,7 +480,7 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsTriangle(
       }
     }
     Standard_Integer aNearestEdgeIdx2 = (aNearestEdgeIdx1 + 1) % 3;
-    const gp_Vec     aVec12(aPnts[aNearestEdgeIdx1], aPnts[aNearestEdgeIdx2]);
+    const Vector3d     aVec12(aPnts[aNearestEdgeIdx1], aPnts[aNearestEdgeIdx2]);
     if (aVec12.SquareMagnitude() > gp::Resolution()
         && myAxis.Direction().IsParallel(aVec12, Precision::Angular()))
     {
@@ -553,7 +553,7 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsSphere(
   }
 
   const Point3d aPntOnSphere(myAxis.Location().XYZ() + myAxis.Direction().XYZ() * aDepth);
-  const gp_Vec aNormal(aPntOnSphere.XYZ() - theCenter.XYZ());
+  const Vector3d aNormal(aPntOnSphere.XYZ() - theCenter.XYZ());
   thePickResult.SetDepth(aDepth);
   thePickResult.SetPickedPoint(aPntOnSphere);
   thePickResult.SetSurfaceNormal(aNormal);
@@ -566,7 +566,7 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsCylinder(
   const Standard_Real            theBottomRad,
   const Standard_Real            theTopRad,
   const Standard_Real            theHeight,
-  const gp_Trsf&                 theTrsf,
+  const Transform3d&                 theTrsf,
   const Standard_Boolean         theIsHollow,
   const SelectMgr_ViewClipRange& theClipRange,
   SelectBasics_PickResult&       thePickResult) const
@@ -575,9 +575,9 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsCylinder(
                         "Error! SelectMgr_AxisIntersector::OverlapsCylinder() should be called "
                         "after selection axis initialization");
   Standard_Real aTimeEnter = 0.0, aTimeLeave = 0.0;
-  gp_Trsf       aTrsfInv = theTrsf.Inverted();
+  Transform3d       aTrsfInv = theTrsf.Inverted();
   Point3d        aLoc     = myAxis.Location().Transformed(aTrsfInv);
-  gp_Dir        aRayDir  = myAxis.Direction().Transformed(aTrsfInv);
+  Dir3d        aRayDir  = myAxis.Direction().Transformed(aTrsfInv);
   if (!RayCylinderIntersection(theBottomRad,
                                theTopRad,
                                theHeight,
@@ -612,7 +612,7 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsCylinder(
   else
   {
     thePickResult.SetSurfaceNormal(
-      gp_Vec(aPntOnCylinder.X(), aPntOnCylinder.Y(), 0.0).Transformed(theTrsf));
+      Vector3d(aPntOnCylinder.X(), aPntOnCylinder.Y(), 0.0).Transformed(theTrsf));
   }
   return true;
 }
@@ -622,7 +622,7 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsCylinder(
 Standard_Boolean SelectMgr_AxisIntersector::OverlapsCylinder(const Standard_Real    theBottomRad,
                                                              const Standard_Real    theTopRad,
                                                              const Standard_Real    theHeight,
-                                                             const gp_Trsf&         theTrsf,
+                                                             const Transform3d&         theTrsf,
                                                              const Standard_Boolean theIsHollow,
                                                              Standard_Boolean*      theInside) const
 {
@@ -630,9 +630,9 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsCylinder(const Standard_Real
                         "Error! SelectMgr_AxisIntersector::OverlapsCylinder() should be called "
                         "after selection axis initialization");
   Standard_Real aTimeEnter = 0.0, aTimeLeave = 0.0;
-  gp_Trsf       aTrsfInv = theTrsf.Inverted();
+  Transform3d       aTrsfInv = theTrsf.Inverted();
   Point3d        aLoc     = myAxis.Location().Transformed(aTrsfInv);
-  gp_Dir        aRayDir  = myAxis.Direction().Transformed(aTrsfInv);
+  Dir3d        aRayDir  = myAxis.Direction().Transformed(aTrsfInv);
   if (!RayCylinderIntersection(theBottomRad,
                                theTopRad,
                                theHeight,
@@ -655,7 +655,7 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsCylinder(const Standard_Real
 
 Standard_Boolean SelectMgr_AxisIntersector::OverlapsCircle(
   const Standard_Real            theRadius,
-  const gp_Trsf&                 theTrsf,
+  const Transform3d&                 theTrsf,
   const Standard_Boolean         theIsFilled,
   const SelectMgr_ViewClipRange& theClipRange,
   SelectBasics_PickResult&       thePickResult) const
@@ -664,9 +664,9 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsCircle(
                         "Error! SelectMgr_AxisIntersector::OverlapsCircle() should be called after "
                         "selection axis initialization");
   Standard_Real aTime    = 0.0;
-  gp_Trsf       aTrsfInv = theTrsf.Inverted();
+  Transform3d       aTrsfInv = theTrsf.Inverted();
   Point3d        aLoc     = myAxis.Location().Transformed(aTrsfInv);
-  gp_Dir        aRayDir  = myAxis.Direction().Transformed(aTrsfInv);
+  Dir3d        aRayDir  = myAxis.Direction().Transformed(aTrsfInv);
   if (!RayCircleIntersection(theRadius, aLoc, aRayDir, theIsFilled, aTime))
   {
     return false;
@@ -688,7 +688,7 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsCircle(
   else
   {
     thePickResult.SetSurfaceNormal(
-      gp_Vec(aPntOnCylinder.X(), aPntOnCylinder.Y(), 0.0).Transformed(theTrsf));
+      Vector3d(aPntOnCylinder.X(), aPntOnCylinder.Y(), 0.0).Transformed(theTrsf));
   }
 
   return true;
@@ -697,7 +697,7 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsCircle(
 //=================================================================================================
 
 Standard_Boolean SelectMgr_AxisIntersector::OverlapsCircle(const Standard_Real    theRadius,
-                                                           const gp_Trsf&         theTrsf,
+                                                           const Transform3d&         theTrsf,
                                                            const Standard_Boolean theIsFilled,
                                                            Standard_Boolean*      theInside) const
 {
@@ -705,9 +705,9 @@ Standard_Boolean SelectMgr_AxisIntersector::OverlapsCircle(const Standard_Real  
                         "Error! SelectMgr_AxisIntersector::OverlapsCircle() should be called after "
                         "selection axis initialization");
   Standard_Real aTime    = 0.0;
-  gp_Trsf       aTrsfInv = theTrsf.Inverted();
+  Transform3d       aTrsfInv = theTrsf.Inverted();
   Point3d        aLoc     = myAxis.Location().Transformed(aTrsfInv);
-  gp_Dir        aRayDir  = myAxis.Direction().Transformed(aTrsfInv);
+  Dir3d        aRayDir  = myAxis.Direction().Transformed(aTrsfInv);
   if (!RayCircleIntersection(theRadius, aLoc, aRayDir, theIsFilled, aTime))
   {
     return false;
@@ -744,7 +744,7 @@ const Point3d& SelectMgr_AxisIntersector::GetFarPnt() const
 
 //=================================================================================================
 
-const gp_Dir& SelectMgr_AxisIntersector::GetViewRayDirection() const
+const Dir3d& SelectMgr_AxisIntersector::GetViewRayDirection() const
 {
   Standard_ASSERT_RAISE(mySelectionType == SelectMgr_SelectionType_Point,
                         "Error! SelectMgr_AxisIntersector::GetViewRayDirection() should be called "

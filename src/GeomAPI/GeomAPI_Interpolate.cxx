@@ -121,7 +121,7 @@ static void BuildPeriodicTangent(const TColgp_Array1OfPnt&   PointsArray,
   Standard_Integer ii, degree;
   Standard_Real *  point_array, *parameter_array, eval_result[2][3];
 
-  gp_Vec a_vector;
+  Vector3d a_vector;
 
   if (PointsArray.Length() < 3)
   {
@@ -164,7 +164,7 @@ static void BuildTangents(const TColgp_Array1OfPnt&   PointsArray,
   Standard_Real *  point_array, *parameter_array,
 
     eval_result[2][3];
-  gp_Vec a_vector;
+  Vector3d a_vector;
 
   degree = 3;
 
@@ -229,7 +229,7 @@ static void ScaleTangents(const TColgp_Array1OfPnt&      PointsArray,
 
   Standard_Real *point_array, *parameter_array, value[2], ratio, eval_result[2][3];
 
-  gp_Vec a_vector;
+  Vector3d a_vector;
 
   num_points = PointsArray.Length();
   if (num_points == 2)
@@ -391,8 +391,8 @@ void GeomAPI_Interpolate::Load(const TColgp_Array1OfVec&               Tangents,
 
 //=================================================================================================
 
-void GeomAPI_Interpolate::Load(const gp_Vec&          InitialTangent,
-                               const gp_Vec&          FinalTangent,
+void GeomAPI_Interpolate::Load(const Vector3d&          InitialTangent,
+                               const Vector3d&          FinalTangent,
                                const Standard_Boolean Scale)
 {
   Standard_Boolean result;

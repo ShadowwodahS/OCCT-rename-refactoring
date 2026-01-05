@@ -65,7 +65,7 @@ public:
   BRepFeat_MakeRevolutionForm(const TopoDS_Shape&       Sbase,
                               const TopoDS_Wire&        W,
                               const Handle(Geom_Plane)& Plane,
-                              const gp_Ax1&             Axis,
+                              const Axis3d&             Axis,
                               const Standard_Real       Height1,
                               const Standard_Real       Height2,
                               const Standard_Integer    Fuse,
@@ -82,7 +82,7 @@ public:
   Standard_EXPORT void Init(const TopoDS_Shape&       Sbase,
                             const TopoDS_Wire&        W,
                             const Handle(Geom_Plane)& Plane,
-                            const gp_Ax1&             Axis,
+                            const Axis3d&             Axis,
                             const Standard_Real       Height1,
                             const Standard_Real       Height2,
                             const Standard_Integer    Fuse,
@@ -105,7 +105,7 @@ public:
 
 protected:
 private:
-  gp_Ax1                             myAxe;
+  Axis3d                             myAxe;
   Standard_Real                      myHeight1;
   Standard_Real                      myHeight2;
   Standard_Boolean                   mySliding;

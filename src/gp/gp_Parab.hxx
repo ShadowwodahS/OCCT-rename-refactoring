@@ -23,7 +23,7 @@
 //! Describes a parabola in 3D space.
 //! A parabola is defined by its focal length (that is, the
 //! distance between its focus and apex) and positioned in
-//! space with a coordinate system (a gp_Ax2 object)
+//! space with a coordinate system (a Frame3d object)
 //! where:
 //! -   the origin of the coordinate system is on the apex of
 //! the parabola,
@@ -66,7 +66,7 @@ public:
   //! the parabola
   //! Raises ConstructionError if theFocal < 0.0
   //! Raised if theFocal < 0.0
-  gp_Parab(const gp_Ax2& theA2, const Standard_Real theFocal)
+  gp_Parab(const Frame3d& theA2, const Standard_Real theFocal)
       : pos(theA2),
         focalLength(theFocal)
   {
@@ -81,15 +81,15 @@ public:
   //! point is the vertex of the parabola. The normal to the plane
   //! of the parabola is the cross product between the XAxis and the
   //! YAxis.
-  gp_Parab(const gp_Ax1& theD, const Point3d& theF);
+  gp_Parab(const Axis3d& theD, const Point3d& theF);
 
   //! Modifies this parabola by redefining its local coordinate system so that
   //! -   its origin and "main Direction" become those of the
   //! axis theA1 (the "X Direction" and "Y Direction" are then
-  //! recomputed in the same way as for any gp_Ax2)
+  //! recomputed in the same way as for any Frame3d)
   //! Raises ConstructionError if the direction of theA1 is parallel to the previous
   //! XAxis of the parabola.
-  void SetAxis(const gp_Ax1& theA1) { pos.SetAxis(theA1); }
+  void SetAxis(const Axis3d& theA1) { pos.SetAxis(theA1); }
 
   //! Changes the focal distance of the parabola.
   //! Raises ConstructionError if theFocal < 0.0
@@ -105,12 +105,12 @@ public:
   void SetLocation(const Point3d& theP) { pos.SetLocation(theP); }
 
   //! Changes the local coordinate system of the parabola.
-  void SetPosition(const gp_Ax2& theA2) { pos = theA2; }
+  void SetPosition(const Frame3d& theA2) { pos = theA2; }
 
   //! Returns the main axis of the parabola.
   //! It is the axis normal to the plane of the parabola passing
   //! through the vertex of the parabola.
-  const gp_Ax1& Axis() const { return pos.Axis(); }
+  const Axis3d& Axis() const { return pos.Axis(); }
 
   //! Computes the directrix of this parabola.
   //! The directrix is:
@@ -119,9 +119,9 @@ public:
   //! -   located on the negative side of the axis of symmetry,
   //! at a distance from the apex which is equal to the focal
   //! length of this parabola.
-  //! The directrix is returned as an axis (a gp_Ax1 object),
+  //! The directrix is returned as an axis (a Axis3d object),
   //! the origin of which is situated on the "X Axis" of this parabola.
-  gp_Ax1 Directrix() const;
+  Axis3d Directrix() const;
 
   //! Returns the distance between the vertex and the focus
   //! of the parabola.
@@ -140,15 +140,15 @@ public:
   Standard_Real Parameter() const { return 2.0 * focalLength; }
 
   //! Returns the local coordinate system of the parabola.
-  const gp_Ax2& Position() const { return pos; }
+  const Frame3d& Position() const { return pos; }
 
   //! Returns the symmetry axis of the parabola. The location point
   //! of the axis is the vertex of the parabola.
-  gp_Ax1 XAxis() const { return gp_Ax1(pos.Location(), pos.XDirection()); }
+  Axis3d XAxis() const { return Axis3d(pos.Location(), pos.XDirection()); }
 
   //! It is an axis parallel to the directrix of the parabola.
   //! The location point of this axis is the vertex of the parabola.
-  gp_Ax1 YAxis() const { return gp_Ax1(pos.Location(), pos.YDirection()); }
+  Axis3d YAxis() const { return Axis3d(pos.Location(), pos.YDirection()); }
 
   Standard_EXPORT void Mirror(const Point3d& theP);
 
@@ -157,25 +157,25 @@ public:
   //! symmetry.
   Standard_NODISCARD Standard_EXPORT gp_Parab Mirrored(const Point3d& theP) const;
 
-  Standard_EXPORT void Mirror(const gp_Ax1& theA1);
+  Standard_EXPORT void Mirror(const Axis3d& theA1);
 
   //! Performs the symmetrical transformation of a parabola
   //! with respect to an axis placement which is the axis of
   //! the symmetry.
-  Standard_NODISCARD Standard_EXPORT gp_Parab Mirrored(const gp_Ax1& theA1) const;
+  Standard_NODISCARD Standard_EXPORT gp_Parab Mirrored(const Axis3d& theA1) const;
 
-  Standard_EXPORT void Mirror(const gp_Ax2& theA2);
+  Standard_EXPORT void Mirror(const Frame3d& theA2);
 
   //! Performs the symmetrical transformation of a parabola
   //! with respect to a plane. The axis placement theA2 locates
   //! the plane of the symmetry (Location, XDirection, YDirection).
-  Standard_NODISCARD Standard_EXPORT gp_Parab Mirrored(const gp_Ax2& theA2) const;
+  Standard_NODISCARD Standard_EXPORT gp_Parab Mirrored(const Frame3d& theA2) const;
 
-  void Rotate(const gp_Ax1& theA1, const Standard_Real theAng) { pos.Rotate(theA1, theAng); }
+  void Rotate(const Axis3d& theA1, const Standard_Real theAng) { pos.Rotate(theA1, theAng); }
 
   //! Rotates a parabola. theA1 is the axis of the rotation.
   //! Ang is the angular value of the rotation in radians.
-  Standard_NODISCARD gp_Parab Rotated(const gp_Ax1& theA1, const Standard_Real theAng) const
+  Standard_NODISCARD gp_Parab Rotated(const Axis3d& theA1, const Standard_Real theAng) const
   {
     gp_Parab aPrb = *this;
     aPrb.pos.Rotate(theA1, theAng);
@@ -189,16 +189,16 @@ public:
   //! XAxis is reversed and the direction of the YAxis too.
   Standard_NODISCARD gp_Parab Scaled(const Point3d& theP, const Standard_Real theS) const;
 
-  void Transform(const gp_Trsf& theT);
+  void Transform(const Transform3d& theT);
 
   //! Transforms a parabola with the transformation theT from class Trsf.
-  Standard_NODISCARD gp_Parab Transformed(const gp_Trsf& theT) const;
+  Standard_NODISCARD gp_Parab Transformed(const Transform3d& theT) const;
 
-  void Translate(const gp_Vec& theV) { pos.Translate(theV); }
+  void Translate(const Vector3d& theV) { pos.Translate(theV); }
 
   //! Translates a parabola in the direction of the vector theV.
   //! The magnitude of the translation is the vector's magnitude.
-  Standard_NODISCARD gp_Parab Translated(const gp_Vec& theV) const
+  Standard_NODISCARD gp_Parab Translated(const Vector3d& theV) const
   {
     gp_Parab aPrb = *this;
     aPrb.pos.Translate(theV);
@@ -216,7 +216,7 @@ public:
   }
 
 private:
-  gp_Ax2        pos;
+  Frame3d        pos;
   Standard_Real focalLength;
 };
 
@@ -224,14 +224,14 @@ private:
 // function : gp_Parab
 // purpose :
 //=======================================================================
-inline gp_Parab::gp_Parab(const gp_Ax1& theD, const Point3d& theF)
+inline gp_Parab::gp_Parab(const Axis3d& theD, const Point3d& theF)
 {
   gp_Lin aDroite(theD);
   focalLength        = aDroite.Distance(theF) / 2.;
-  gp_Ax1        anAx = aDroite.Normal(theF).Position();
-  gp_Ax1        anAy = aDroite.Position();
-  const gp_Dir& aDD  = anAx.Direction();
-  pos                = gp_Ax2(Point3d(theF.X() - focalLength * aDD.X(),
+  Axis3d        anAx = aDroite.Normal(theF).Position();
+  Axis3d        anAy = aDroite.Position();
+  const Dir3d& aDD  = anAx.Direction();
+  pos                = Frame3d(Point3d(theF.X() - focalLength * aDD.X(),
                       theF.Y() - focalLength * aDD.Y(),
                       theF.Z() - focalLength * aDD.Z()),
                anAx.Direction().Crossed(anAy.Direction()),
@@ -242,14 +242,14 @@ inline gp_Parab::gp_Parab(const gp_Ax1& theD, const Point3d& theF)
 // function : Directrix
 // purpose :
 //=======================================================================
-inline gp_Ax1 gp_Parab::Directrix() const
+inline Axis3d gp_Parab::Directrix() const
 {
   const Point3d& aPP = pos.Location();
-  const gp_Dir& aDD = pos.XDirection();
+  const Dir3d& aDD = pos.XDirection();
   Point3d        aP(aPP.X() - focalLength * aDD.X(),
             aPP.Y() - focalLength * aDD.Y(),
             aPP.Z() - focalLength * aDD.Z());
-  return gp_Ax1(aP, pos.YDirection());
+  return Axis3d(aP, pos.YDirection());
 }
 
 //=======================================================================
@@ -259,7 +259,7 @@ inline gp_Ax1 gp_Parab::Directrix() const
 inline Point3d gp_Parab::Focus() const
 {
   const Point3d& aPP = pos.Location();
-  const gp_Dir& aDD = pos.XDirection();
+  const Dir3d& aDD = pos.XDirection();
   return Point3d(aPP.X() + focalLength * aDD.X(),
                 aPP.Y() + focalLength * aDD.Y(),
                 aPP.Z() + focalLength * aDD.Z());
@@ -299,7 +299,7 @@ inline gp_Parab gp_Parab::Scaled(const Point3d& theP, const Standard_Real theS) 
 // function : Transform
 // purpose :
 //=======================================================================
-inline void gp_Parab::Transform(const gp_Trsf& theT)
+inline void gp_Parab::Transform(const Transform3d& theT)
 {
   focalLength *= theT.ScaleFactor();
   if (focalLength < 0)
@@ -313,7 +313,7 @@ inline void gp_Parab::Transform(const gp_Trsf& theT)
 // function : Transformed
 // purpose :
 //=======================================================================
-inline gp_Parab gp_Parab::Transformed(const gp_Trsf& theT) const
+inline gp_Parab gp_Parab::Transformed(const Transform3d& theT) const
 {
   gp_Parab aPrb = *this;
   aPrb.focalLength *= theT.ScaleFactor();

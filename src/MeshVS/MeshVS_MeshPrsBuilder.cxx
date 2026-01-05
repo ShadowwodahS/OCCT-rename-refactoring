@@ -89,7 +89,7 @@ static void ProcessFace(const TColStd_SequenceOfInteger&    theFaceNodes,
     aPolyNodes.SetValue(3 * aNodeIdx + 3, aZ);
   }
 
-  gp_Vec aNorm;
+  Vector3d aNorm;
 
   if (theIsShaded)
   {

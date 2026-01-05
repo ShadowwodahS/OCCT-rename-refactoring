@@ -59,9 +59,9 @@ gce_MakeCirc::gce_MakeCirc(const Point3d& P1, const Point3d& P2, const Point3d& 
   //
   if ((dist1 < aResolution) && (dist2 < aResolution) && (dist3 < aResolution))
   {
-    gp_Dir Dirx(1., 0., 0.);
-    gp_Dir Dirz(0., 0., 1.);
-    TheCirc = gp_Circ(gp_Ax2(P1, Dirx, Dirz), 0.);
+    Dir3d Dirx(1., 0., 0.);
+    Dir3d Dirz(0., 0., 1.);
+    TheCirc = gp_Circ(Frame3d(P1, Dirx, Dirz), 0.);
     return;
   }
   if (!(dist1 >= aResolution && dist2 >= aResolution))
@@ -75,10 +75,10 @@ gce_MakeCirc::gce_MakeCirc(const Point3d& P1, const Point3d& P2, const Point3d& 
   P1.Coord(x1, y1, z1);
   P2.Coord(x2, y2, z2);
   P3.Coord(x3, y3, z3);
-  gp_Dir Dir1(x2 - x1, y2 - y1, z2 - z1);
-  gp_Vec VDir2(x3 - x2, y3 - y2, z3 - z2);
+  Dir3d Dir1(x2 - x1, y2 - y1, z2 - z1);
+  Vector3d VDir2(x3 - x2, y3 - y2, z3 - z2);
   //
-  gp_Ax1 anAx1(P1, Dir1);
+  Axis3d anAx1(P1, Dir1);
   gp_Lin aL12(anAx1);
   if (aL12.Distance(P3) < aResolution)
   {
@@ -86,16 +86,16 @@ gce_MakeCirc::gce_MakeCirc(const Point3d& P1, const Point3d& P2, const Point3d& 
     return;
   }
   //
-  gp_Vec VDir1(Dir1);
-  gp_Vec VDir3 = VDir1.Crossed(VDir2);
+  Vector3d VDir1(Dir1);
+  Vector3d VDir3 = VDir1.Crossed(VDir2);
   if (VDir3.SquareMagnitude() < aResolution)
   {
     TheError = gce_ColinearPoints;
     return;
   }
   //
-  gp_Dir Dir3(VDir3);
-  gp_Dir dir = Dir1.Crossed(Dir3);
+  Dir3d Dir3(VDir3);
+  Dir3d dir = Dir1.Crossed(Dir3);
   gp_Lin L1(Point3d((P1.XYZ() + P2.XYZ()) / 2.), dir);
   dir = VDir2.Crossed(Dir3);
   gp_Lin L2(Point3d((P3.XYZ() + P2.XYZ()) / 2.), dir);
@@ -151,17 +151,17 @@ gce_MakeCirc::gce_MakeCirc(const Point3d& P1, const Point3d& P2, const Point3d& 
       pInt.Coord(x3, y3, z3);
       if (dist1 < aResolution)
       {
-        gp_Dir Dirx(1., 0., 0.);
-        gp_Dir Dirz(0., 0., 1.);
-        TheCirc = gp_Circ(gp_Ax2(pInt, Dirx, Dirz), 0.);
+        Dir3d Dirx(1., 0., 0.);
+        Dir3d Dirz(0., 0., 1.);
+        TheCirc = gp_Circ(Frame3d(pInt, Dirx, Dirz), 0.);
         return;
       }
-      Dir1 = gp_Dir(x1 - x3, y1 - y3, z1 - z3);
+      Dir1 = Dir3d(x1 - x3, y1 - y3, z1 - z3);
       // modified by NIZNHY-PKV Thu Mar  3 11:31:11 2005f
-      // Dir2 = gp_Dir(x2-x3,y2-y3,z2-z3);
+      // Dir2 = Dir3d(x2-x3,y2-y3,z2-z3);
       // modified by NIZNHY-PKV Thu Mar  3 11:31:13 2005t
       //
-      TheCirc  = gp_Circ(gp_Ax2(pInt, gp_Dir(VDir3), Dir1), (dist1 + dist2 + dist3) / 3.);
+      TheCirc  = gp_Circ(Frame3d(pInt, Dir3d(VDir3), Dir1), (dist1 + dist2 + dist3) / 3.);
       TheError = gce_Done;
     }
   }
@@ -169,7 +169,7 @@ gce_MakeCirc::gce_MakeCirc(const Point3d& P1, const Point3d& P2, const Point3d& 
 
 //=================================================================================================
 
-gce_MakeCirc::gce_MakeCirc(const gp_Ax2& A2, const Standard_Real Radius)
+gce_MakeCirc::gce_MakeCirc(const Frame3d& A2, const Standard_Real Radius)
 {
   if (Radius < 0.)
   {
@@ -198,7 +198,7 @@ gce_MakeCirc::gce_MakeCirc(const Point3d& Center, const gp_Pln& Plane, const Sta
 // purpose  : Creation d un gp_Circ par son centre <Center>,
 // sa normale <Norm> et son rayon <Radius>.
 //=======================================================================
-gce_MakeCirc::gce_MakeCirc(const Point3d& Center, const gp_Dir& Norm, const Standard_Real Radius)
+gce_MakeCirc::gce_MakeCirc(const Point3d& Center, const Dir3d& Norm, const Standard_Real Radius)
 {
   if (Radius < 0.)
   {
@@ -212,7 +212,7 @@ gce_MakeCirc::gce_MakeCirc(const Point3d& Center, const gp_Dir& Norm, const Stan
     Standard_Real Aabs = Abs(A);
     Standard_Real Babs = Abs(B);
     Standard_Real Cabs = Abs(C);
-    gp_Ax2        Pos;
+    Frame3d        Pos;
 
     //=========================================================================
     //  pour determiner l'axe X :                                             +
@@ -225,33 +225,33 @@ gce_MakeCirc::gce_MakeCirc(const Point3d& Center, const gp_Dir& Norm, const Stan
     {
       if (Aabs > Cabs)
       {
-        Pos = gp_Ax2(Center, Norm, gp_Dir(-C, 0., A));
+        Pos = Frame3d(Center, Norm, Dir3d(-C, 0., A));
       }
       else
       {
-        Pos = gp_Ax2(Center, Norm, gp_Dir(C, 0., -A));
+        Pos = Frame3d(Center, Norm, Dir3d(C, 0., -A));
       }
     }
     else if (Aabs <= Babs && Aabs <= Cabs)
     {
       if (Babs > Cabs)
       {
-        Pos = gp_Ax2(Center, Norm, gp_Dir(0., -C, B));
+        Pos = Frame3d(Center, Norm, Dir3d(0., -C, B));
       }
       else
       {
-        Pos = gp_Ax2(Center, Norm, gp_Dir(0., C, -B));
+        Pos = Frame3d(Center, Norm, Dir3d(0., C, -B));
       }
     }
     else
     {
       if (Aabs > Babs)
       {
-        Pos = gp_Ax2(Center, Norm, gp_Dir(-B, A, 0.));
+        Pos = Frame3d(Center, Norm, Dir3d(-B, A, 0.));
       }
       else
       {
-        Pos = gp_Ax2(Center, Norm, gp_Dir(B, -A, 0.));
+        Pos = Frame3d(Center, Norm, Dir3d(B, -A, 0.));
       }
     }
     TheCirc  = gp_Circ(Pos, Radius);
@@ -284,7 +284,7 @@ gce_MakeCirc::gce_MakeCirc(const Point3d& Center, const Point3d& Ptaxis, const S
       Standard_Real Aabs = Abs(A);
       Standard_Real Babs = Abs(B);
       Standard_Real Cabs = Abs(C);
-      gp_Ax2        Pos;
+      Frame3d        Pos;
 
       //=========================================================================
       //  pour determiner l'axe X :                                             +
@@ -293,38 +293,38 @@ gce_MakeCirc::gce_MakeCirc(const Point3d& Center, const Point3d& Ptaxis, const S
       //  l'une des coordonnees du vecteur est nulle.                           +
       //=========================================================================
 
-      gp_Dir Norm = gce_MakeDir(Center, Ptaxis);
+      Dir3d Norm = gce_MakeDir(Center, Ptaxis);
       if (Babs <= Aabs && Babs <= Cabs)
       {
         if (Aabs > Cabs)
         {
-          Pos = gp_Ax2(Center, Norm, gp_Dir(-C, 0., A));
+          Pos = Frame3d(Center, Norm, Dir3d(-C, 0., A));
         }
         else
         {
-          Pos = gp_Ax2(Center, Norm, gp_Dir(C, 0., -A));
+          Pos = Frame3d(Center, Norm, Dir3d(C, 0., -A));
         }
       }
       else if (Aabs <= Babs && Aabs <= Cabs)
       {
         if (Babs > Cabs)
         {
-          Pos = gp_Ax2(Center, Norm, gp_Dir(0., -C, B));
+          Pos = Frame3d(Center, Norm, Dir3d(0., -C, B));
         }
         else
         {
-          Pos = gp_Ax2(Center, Norm, gp_Dir(0., C, -B));
+          Pos = Frame3d(Center, Norm, Dir3d(0., C, -B));
         }
       }
       else
       {
         if (Aabs > Babs)
         {
-          Pos = gp_Ax2(Center, Norm, gp_Dir(-B, A, 0.));
+          Pos = Frame3d(Center, Norm, Dir3d(-B, A, 0.));
         }
         else
         {
-          Pos = gp_Ax2(Center, Norm, gp_Dir(B, -A, 0.));
+          Pos = Frame3d(Center, Norm, Dir3d(B, -A, 0.));
         }
       }
       TheCirc  = gp_Circ(Pos, Radius);
@@ -337,7 +337,7 @@ gce_MakeCirc::gce_MakeCirc(const Point3d& Center, const Point3d& Ptaxis, const S
 // function : gce_MakeCirc
 // purpose  : Creation d un gp_Circ par son axe <Axis> et son rayon <Radius>.
 //=======================================================================
-gce_MakeCirc::gce_MakeCirc(const gp_Ax1& Axis, const Standard_Real Radius)
+gce_MakeCirc::gce_MakeCirc(const Axis3d& Axis, const Standard_Real Radius)
 {
   if (Radius < 0.)
   {
@@ -345,7 +345,7 @@ gce_MakeCirc::gce_MakeCirc(const gp_Ax1& Axis, const Standard_Real Radius)
   }
   else
   {
-    gp_Dir        Norm(Axis.Direction());
+    Dir3d        Norm(Axis.Direction());
     Point3d        Center(Axis.Location());
     Standard_Real A    = Norm.X();
     Standard_Real B    = Norm.Y();
@@ -353,7 +353,7 @@ gce_MakeCirc::gce_MakeCirc(const gp_Ax1& Axis, const Standard_Real Radius)
     Standard_Real Aabs = Abs(A);
     Standard_Real Babs = Abs(B);
     Standard_Real Cabs = Abs(C);
-    gp_Ax2        Pos;
+    Frame3d        Pos;
 
     //=========================================================================
     //  pour determiner l'axe X :                                             +
@@ -366,33 +366,33 @@ gce_MakeCirc::gce_MakeCirc(const gp_Ax1& Axis, const Standard_Real Radius)
     {
       if (Aabs > Cabs)
       {
-        Pos = gp_Ax2(Center, Norm, gp_Dir(-C, 0., A));
+        Pos = Frame3d(Center, Norm, Dir3d(-C, 0., A));
       }
       else
       {
-        Pos = gp_Ax2(Center, Norm, gp_Dir(C, 0., -A));
+        Pos = Frame3d(Center, Norm, Dir3d(C, 0., -A));
       }
     }
     else if (Aabs <= Babs && Aabs <= Cabs)
     {
       if (Babs > Cabs)
       {
-        Pos = gp_Ax2(Center, Norm, gp_Dir(0., -C, B));
+        Pos = Frame3d(Center, Norm, Dir3d(0., -C, B));
       }
       else
       {
-        Pos = gp_Ax2(Center, Norm, gp_Dir(0., C, -B));
+        Pos = Frame3d(Center, Norm, Dir3d(0., C, -B));
       }
     }
     else
     {
       if (Aabs > Babs)
       {
-        Pos = gp_Ax2(Center, Norm, gp_Dir(-B, A, 0.));
+        Pos = Frame3d(Center, Norm, Dir3d(-B, A, 0.));
       }
       else
       {
-        Pos = gp_Ax2(Center, Norm, gp_Dir(B, -A, 0.));
+        Pos = Frame3d(Center, Norm, Dir3d(B, -A, 0.));
       }
     }
     TheCirc  = gp_Circ(Pos, Radius);

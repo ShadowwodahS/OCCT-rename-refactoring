@@ -77,16 +77,16 @@ Standard_Real GeomPlate_Surface::VReversedParameter(const Standard_Real V) const
 
 //=================================================================================================
 
-// void GeomPlate_Surface::TransformParameters(Standard_Real& U, Standard_Real& V, const gp_Trsf& T)
+// void GeomPlate_Surface::TransformParameters(Standard_Real& U, Standard_Real& V, const Transform3d& T)
 // const
-void GeomPlate_Surface::TransformParameters(Standard_Real&, Standard_Real&, const gp_Trsf&) const
+void GeomPlate_Surface::TransformParameters(Standard_Real&, Standard_Real&, const Transform3d&) const
 { // throw ExceptionBase("TransformParameters");
 }
 
 //=================================================================================================
 
-// gp_GTrsf2d GeomPlate_Surface::ParametricTransformation(const gp_Trsf& T) const
-gp_GTrsf2d GeomPlate_Surface::ParametricTransformation(const gp_Trsf&) const
+// gp_GTrsf2d GeomPlate_Surface::ParametricTransformation(const Transform3d& T) const
+gp_GTrsf2d GeomPlate_Surface::ParametricTransformation(const Transform3d&) const
 { // throw ExceptionBase("ParametricTransformation");
   return gp_GTrsf2d();
 }
@@ -212,13 +212,13 @@ void GeomPlate_Surface::D0(const Standard_Real U, const Standard_Real V, Point3d
 void GeomPlate_Surface::D1(const Standard_Real U,
                            const Standard_Real V,
                            Point3d&             P,
-                           gp_Vec&             D1U,
-                           gp_Vec&             D1V) const
+                           Vector3d&             D1U,
+                           Vector3d&             D1V) const
 {
   gp_XY  P1(U, V);
   Point3d P2;
   D0(U, V, P);
-  gp_Vec V1U, V1V;
+  Vector3d V1U, V1V;
   mySurfinit->D1(U, V, P2, V1U, V1V);
   gp_XYZ V2U = mySurfinter.EvaluateDerivative(P1, 1, 0);
   gp_XYZ V2V = mySurfinter.EvaluateDerivative(P1, 0, 1);
@@ -234,16 +234,16 @@ void GeomPlate_Surface::D1(const Standard_Real U,
 void GeomPlate_Surface::D2(const Standard_Real U,
                            const Standard_Real V,
                            Point3d&             P,
-                           gp_Vec&             D1U,
-                           gp_Vec&             D1V,
-                           gp_Vec&             D2U,
-                           gp_Vec&             D2V,
-                           gp_Vec&             D2UV) const
+                           Vector3d&             D1U,
+                           Vector3d&             D1V,
+                           Vector3d&             D2U,
+                           Vector3d&             D2V,
+                           Vector3d&             D2UV) const
 {
   gp_XY  P1(U, V);
   Point3d P2;
 
-  gp_Vec V1U, V1V, V1UV, vv, v;
+  Vector3d V1U, V1V, V1UV, vv, v;
   D1(U, V, P, D1U, D1V);
   mySurfinit->D2(U, V, P2, vv, v, V1U, V1V, V1UV);
   gp_XYZ V2U  = mySurfinter.EvaluateDerivative(P1, 2, 0);
@@ -259,30 +259,30 @@ void GeomPlate_Surface::D2(const Standard_Real U,
 
 //=================================================================================================
 
-// void GeomPlate_Surface::D3(const Standard_Real U, const Standard_Real V, Point3d& P, gp_Vec& D1U,
-// gp_Vec& D1V, gp_Vec& D2U, gp_Vec& D2V, gp_Vec& D2UV, gp_Vec& D3U, gp_Vec& D3V, gp_Vec& D3UUV,
-// gp_Vec& D3UVV) const
+// void GeomPlate_Surface::D3(const Standard_Real U, const Standard_Real V, Point3d& P, Vector3d& D1U,
+// Vector3d& D1V, Vector3d& D2U, Vector3d& D2V, Vector3d& D2UV, Vector3d& D3U, Vector3d& D3V, Vector3d& D3UUV,
+// Vector3d& D3UVV) const
 void GeomPlate_Surface::D3(const Standard_Real,
                            const Standard_Real,
                            Point3d&,
-                           gp_Vec&,
-                           gp_Vec&,
-                           gp_Vec&,
-                           gp_Vec&,
-                           gp_Vec&,
-                           gp_Vec&,
-                           gp_Vec&,
-                           gp_Vec&,
-                           gp_Vec&) const
+                           Vector3d&,
+                           Vector3d&,
+                           Vector3d&,
+                           Vector3d&,
+                           Vector3d&,
+                           Vector3d&,
+                           Vector3d&,
+                           Vector3d&,
+                           Vector3d&) const
 {
   throw ExceptionBase("D3");
 }
 
 //=================================================================================================
 
-// gp_Vec GeomPlate_Surface::DN(const Standard_Real U, const Standard_Real V, const Standard_Integer
+// Vector3d GeomPlate_Surface::DN(const Standard_Real U, const Standard_Real V, const Standard_Integer
 // Nu, const Standard_Integer Nv) const
-gp_Vec GeomPlate_Surface::DN(const Standard_Real,
+Vector3d GeomPlate_Surface::DN(const Standard_Real,
                              const Standard_Real,
                              const Standard_Integer,
                              const Standard_Integer) const
@@ -300,8 +300,8 @@ Handle(Geom_Geometry) GeomPlate_Surface::Copy() const
 
 //=================================================================================================
 
-// void GeomPlate_Surface::Transform(const gp_Trsf& T)
-void GeomPlate_Surface::Transform(const gp_Trsf&)
+// void GeomPlate_Surface::Transform(const Transform3d& T)
+void GeomPlate_Surface::Transform(const Transform3d&)
 { // throw ExceptionBase("Transform");
 }
 

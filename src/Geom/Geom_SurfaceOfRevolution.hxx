@@ -25,12 +25,12 @@
 #include <GeomEvaluator_SurfaceOfRevolution.hxx>
 #include <Standard_Integer.hxx>
 class Geom_Curve;
-class gp_Ax1;
-class gp_Dir;
-class gp_Ax2;
-class gp_Trsf;
+class Axis3d;
+class Dir3d;
+class Frame3d;
+class Transform3d;
 class gp_GTrsf2d;
-class gp_Vec;
+class Vector3d;
 class Geom_Geometry;
 
 class Geom_SurfaceOfRevolution;
@@ -95,19 +95,19 @@ public:
   //! surface axis is in the plane of the curve.
   //! It is not checked that the revolved curve C doesn't
   //! self-intersects.
-  Standard_EXPORT Geom_SurfaceOfRevolution(const Handle(Geom_Curve)& C, const gp_Ax1& A1);
+  Standard_EXPORT Geom_SurfaceOfRevolution(const Handle(Geom_Curve)& C, const Axis3d& A1);
 
   //! Changes the axis of revolution.
   //! Warnings :
   //! It is not checked that the axis is in the plane of the
   //! revolved curve.
-  Standard_EXPORT void SetAxis(const gp_Ax1& A1);
+  Standard_EXPORT void SetAxis(const Axis3d& A1);
 
   //! Changes the direction of the revolution axis.
   //! Warnings :
   //! It is not checked that the axis is in the plane of the
   //! revolved curve.
-  Standard_EXPORT void SetDirection(const gp_Dir& V);
+  Standard_EXPORT void SetDirection(const Dir3d& V);
 
   //! Changes the revolved curve of the surface.
   //! Warnings :
@@ -124,7 +124,7 @@ public:
   Standard_EXPORT void SetLocation(const Point3d& P);
 
   //! Returns the revolution axis of the surface.
-  Standard_EXPORT gp_Ax1 Axis() const;
+  Standard_EXPORT Axis3d Axis() const;
 
   //! Returns the location point of the axis of revolution.
   Standard_EXPORT const Point3d& Location() const;
@@ -140,7 +140,7 @@ public:
   //! curve and the symmetry axis are not in the same plane or if
   //! the maximum of distance between the axis and the revolved
   //! curve is lower or equal to Resolution from gp.
-  Standard_EXPORT gp_Ax2 ReferencePlane() const;
+  Standard_EXPORT Frame3d ReferencePlane() const;
 
   //! Changes the orientation of this surface of revolution
   //! in the u  parametric direction. The bounds of the
@@ -193,7 +193,7 @@ public:
   //! This method multiplies V by BasisCurve()->ParametricTransformation(T)
   Standard_EXPORT virtual void TransformParameters(Standard_Real& U,
                                                    Standard_Real& V,
-                                                   const gp_Trsf& T) const Standard_OVERRIDE;
+                                                   const Transform3d& T) const Standard_OVERRIDE;
 
   //! Returns a 2d transformation  used to find the  new
   //! parameters of a point on the transformed surface.
@@ -211,7 +211,7 @@ public:
   //! @endcode
   //! This  method  returns  a scale  centered  on  the
   //! U axis with BasisCurve()->ParametricTransformation(T)
-  Standard_EXPORT virtual gp_GTrsf2d ParametricTransformation(const gp_Trsf& T) const
+  Standard_EXPORT virtual gp_GTrsf2d ParametricTransformation(const Transform3d& T) const
     Standard_OVERRIDE;
 
   //! Returns the parametric bounds U1, U2 , V1 and V2 of this surface.
@@ -267,8 +267,8 @@ public:
   Standard_EXPORT void D1(const Standard_Real U,
                           const Standard_Real V,
                           Point3d&             P,
-                          gp_Vec&             D1U,
-                          gp_Vec&             D1V) const Standard_OVERRIDE;
+                          Vector3d&             D1U,
+                          Vector3d&             D1V) const Standard_OVERRIDE;
 
   //! Computes the current point, the first and the second derivatives
   //! in the directions U and V.
@@ -276,11 +276,11 @@ public:
   Standard_EXPORT void D2(const Standard_Real U,
                           const Standard_Real V,
                           Point3d&             P,
-                          gp_Vec&             D1U,
-                          gp_Vec&             D1V,
-                          gp_Vec&             D2U,
-                          gp_Vec&             D2V,
-                          gp_Vec&             D2UV) const Standard_OVERRIDE;
+                          Vector3d&             D1U,
+                          Vector3d&             D1V,
+                          Vector3d&             D2U,
+                          Vector3d&             D2V,
+                          Vector3d&             D2UV) const Standard_OVERRIDE;
 
   //! Computes the current point, the first,the second and the third
   //! derivatives in the directions U and V.
@@ -288,15 +288,15 @@ public:
   Standard_EXPORT void D3(const Standard_Real U,
                           const Standard_Real V,
                           Point3d&             P,
-                          gp_Vec&             D1U,
-                          gp_Vec&             D1V,
-                          gp_Vec&             D2U,
-                          gp_Vec&             D2V,
-                          gp_Vec&             D2UV,
-                          gp_Vec&             D3U,
-                          gp_Vec&             D3V,
-                          gp_Vec&             D3UUV,
-                          gp_Vec&             D3UVV) const Standard_OVERRIDE;
+                          Vector3d&             D1U,
+                          Vector3d&             D1V,
+                          Vector3d&             D2U,
+                          Vector3d&             D2V,
+                          Vector3d&             D2UV,
+                          Vector3d&             D3U,
+                          Vector3d&             D3V,
+                          Vector3d&             D3UUV,
+                          Vector3d&             D3UVV) const Standard_OVERRIDE;
 
   //! Computes the derivative of order Nu in the direction u and
   //! Nv in the direction v.
@@ -312,13 +312,13 @@ public:
   //! else  P  is betveen discontinuities
   //! can be evaluated using methods  of
   //! global evaluations    P  =  S( U ,V )
-  Standard_EXPORT gp_Vec DN(const Standard_Real    U,
+  Standard_EXPORT Vector3d DN(const Standard_Real    U,
                             const Standard_Real    V,
                             const Standard_Integer Nu,
                             const Standard_Integer Nv) const Standard_OVERRIDE;
 
   //! Applies the transformation T to this surface of revolution.
-  Standard_EXPORT void Transform(const gp_Trsf& T) Standard_OVERRIDE;
+  Standard_EXPORT void Transform(const Transform3d& T) Standard_OVERRIDE;
 
   //! Creates a new object which is a copy of this surface of revolution.
   Standard_EXPORT Handle(Geom_Geometry) Copy() const Standard_OVERRIDE;

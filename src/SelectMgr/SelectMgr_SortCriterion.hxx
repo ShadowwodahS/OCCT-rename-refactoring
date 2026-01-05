@@ -74,8 +74,8 @@ public:
     Standard_Real aCos = 1.0;
     if (Normal.Modulus() > 0 && theOther.Normal.Modulus() > 0)
     {
-      gp_Dir aNormal(Normal.x(), Normal.y(), Normal.z());
-      gp_Dir anOtherNormal(theOther.Normal.x(), theOther.Normal.y(), theOther.Normal.z());
+      Dir3d aNormal(Normal.x(), Normal.y(), Normal.z());
+      Dir3d anOtherNormal(theOther.Normal.x(), theOther.Normal.y(), theOther.Normal.z());
       aCos = Abs(Cos(aNormal.Angle(anOtherNormal)));
     }
 

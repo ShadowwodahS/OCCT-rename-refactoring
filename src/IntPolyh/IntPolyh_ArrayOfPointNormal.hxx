@@ -24,7 +24,7 @@
 struct IntPolyh_PointNormal
 {
   Point3d Point;
-  gp_Vec Normal;
+  Vector3d Normal;
 };
 
 typedef IntPolyh_Array<IntPolyh_PointNormal> IntPolyh_ArrayOfPointNormal;

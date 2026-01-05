@@ -147,7 +147,7 @@ static void PrepareConvert(const Standard_Integer         NumCurves,
   Standard_Real *  Coef1, *Coef2;
   Standard_Integer RealDegree = Max(MaxDegree + 1, 2 * ContinuityOrder + 2);
 
-  gp_Vec   V1, V2;
+  Vector3d   V1, V2;
   gp_Vec2d v1, v2;
 
   TColStd_Array1OfReal Result(1, 2 * (ContinuityOrder + 1) * Dimension);

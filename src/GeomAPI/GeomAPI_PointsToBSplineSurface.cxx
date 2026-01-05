@@ -128,7 +128,7 @@ static void BuildPeriodicTangent(const AppDef_MultiLine&     theLine,
   Standard_Integer j, nbP3d = theLine.NbPoints();
 
   Point3d aP;
-  gp_Vec aV;
+  Vector3d aV;
   j = 1;
   for (i = 1; i <= nbP3d; i++)
   {
@@ -406,7 +406,7 @@ void GeomAPI_PointsToBSplineSurface::Init(const TColgp_Array2OfPnt&        Point
       {
         MP1.SetPoint(j, Poles(j));
         Standard_Integer k = 3 * (j - 1);
-        gp_Vec           aT(aTang(k + 1), aTang(k + 2), aTang(k + 3));
+        Vector3d           aT(aTang(k + 1), aTang(k + 2), aTang(k + 3));
         MP1.SetTang(j, aT);
       }
       Line2.SetValue(ind, MP1);
@@ -418,7 +418,7 @@ void GeomAPI_PointsToBSplineSurface::Init(const TColgp_Array2OfPnt&        Point
       {
         MP2.SetPoint(j, Poles(j));
         Standard_Integer k = 3 * (j - 1);
-        gp_Vec           aT(aTang(k + 1), aTang(k + 2), aTang(k + 3));
+        Vector3d           aT(aTang(k + 1), aTang(k + 2), aTang(k + 3));
         MP2.SetTang(j, aT);
       }
       Line2.SetValue(ind, MP2);

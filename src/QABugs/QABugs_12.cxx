@@ -56,10 +56,10 @@ static Standard_Integer OCC895(Draw_Interpretor& di, Standard_Integer argc, cons
   // I don't know why, but if we don't rotate it,
   // the final shell is not twisted.
   Point3d center1(0, 10, 0);
-  gp_Ax2 axis1 =
-    reverse ? gp_Ax2(center1, gp::DY(), gp::DZ()) : gp_Ax2(center1, -gp::DY(), gp::DX());
+  Frame3d axis1 =
+    reverse ? Frame3d(center1, gp::DY(), gp::DZ()) : Frame3d(center1, -gp::DY(), gp::DX());
   if (Abs(angle) > gp::Resolution())
-    axis1.Rotate(gp_Ax1(center1, gp::DZ()), angle * M_PI / 180.0);
+    axis1.Rotate(Axis3d(center1, gp::DZ()), angle * M_PI / 180.0);
 
   gce_MakeCirc makeCirc1(axis1, rad);
   if (!makeCirc1.IsDone())
@@ -83,7 +83,7 @@ static Standard_Integer OCC895(Draw_Interpretor& di, Standard_Integer argc, cons
 
   // Make a wire from the second arc for ThruSections.
   Point3d center2(10, 0, 0);
-  gp_Ax2 axis2(center2, -gp::DX(), gp::DZ());
+  Frame3d axis2(center2, -gp::DX(), gp::DZ());
 
   gce_MakeCirc makeCirc2(axis2, rad);
   if (!makeCirc2.IsDone())

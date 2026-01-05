@@ -26,7 +26,7 @@
 
 class TCollection_ExtendedString;
 class Point3d;
-class gp_Dir;
+class Dir3d;
 class Geom_TrimmedCurve;
 
 //! A framework for displaying radii of fillets.
@@ -44,7 +44,7 @@ public:
                                   const Standard_Real               thevalue,
                                   const TCollection_ExtendedString& aText,
                                   const Point3d&                     aPosition,
-                                  const gp_Dir&                     aNormalDir,
+                                  const Dir3d&                     aNormalDir,
                                   const Point3d&                     aBasePnt,
                                   const Point3d&                     aFirstPoint,
                                   const Point3d&                     aSecondPoint,

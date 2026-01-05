@@ -67,7 +67,7 @@ Standard_Boolean IsRightContour(const TColgp_SequenceOfPnt& pts, const Standard_
         center += thePts(i).XYZ();
       center /= len;
       Point3d             pc(center);
-      gp_Dir             pd(Norm);
+      Dir3d             pd(Norm);
       gp_Pln             pl(pc, pd);
       Handle(Geom_Plane) thePlane = new Geom_Plane(pl);
 
@@ -86,11 +86,11 @@ Standard_Boolean IsRightContour(const TColgp_SequenceOfPnt& pts, const Standard_
 
 //=================================================================================================
 
-gp_Vec MeanNormal(const TColgp_Array1OfPnt& pts)
+Vector3d MeanNormal(const TColgp_Array1OfPnt& pts)
 {
   Standard_Integer len = pts.Length();
   if (len < 3)
-    return gp_Vec(0, 0, 0);
+    return Vector3d(0, 0, 0);
 
   Standard_Integer i;
   gp_XYZ           theCenter(0, 0, 0);
@@ -101,12 +101,12 @@ gp_Vec MeanNormal(const TColgp_Array1OfPnt& pts)
   gp_XYZ theNorm(0, 0, 0);
   for (i = 1; i <= len; i++)
   {
-    gp_Vec v1(pts(i).XYZ() - theCenter);
-    gp_Vec v2(pts((i == len) ? 1 : i + 1).XYZ() - theCenter);
+    Vector3d v1(pts(i).XYZ() - theCenter);
+    Vector3d v2(pts((i == len) ? 1 : i + 1).XYZ() - theCenter);
     theNorm += (v1 ^ v2).XYZ();
   }
 
-  return gp_Vec(theNorm).Normalized();
+  return Vector3d(theNorm).Normalized();
 }
 
 //=================================================================================================
@@ -286,7 +286,7 @@ void ShapeConstruct_MakeTriangulation::Triangulate(const TopoDS_Wire& wire)
       cindex = theSegments.Length();
       if (cindex % 4 == 0)
       {
-        gp_Vec theBaseNorm = MeanNormal(theAPnt->Array1());
+        Vector3d theBaseNorm = MeanNormal(theAPnt->Array1());
         // Identify sequence of matching facets
         Standard_Integer len = cindex / 2, lindex, rindex, seqlen, j;
         Standard_Real    theC, theC1 = 0.0, theC2 = 0.0;
@@ -442,7 +442,7 @@ void ShapeConstruct_MakeTriangulation::AddFacet(const TopoDS_Wire& wire)
       Normal = gp_XYZ(1, 0, 0);
   }
 
-  gp_Pln             Pln(pts(1), gp_Dir(Normal));
+  gp_Pln             Pln(pts(1), Dir3d(Normal));
   Handle(Geom_Plane) thePlane = new Geom_Plane(Pln);
 
   // Mean plane created - build face

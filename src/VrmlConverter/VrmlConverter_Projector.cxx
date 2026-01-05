@@ -85,14 +85,14 @@ VrmlConverter_Projector::VrmlConverter_Projector(const TopTools_Array1OfShape&  
   //  std::cout << " X: " << Xtarget << " Y: " << Ytarget  << " Z: " << Ztarget  <<  std::endl;
 
   //  Point3d Target(Xtarget, Ytarget, Ztarget);
-  //  gp_Vec VTarget(Target.X(),Target.Y(),Target.Z());
+  //  Vector3d VTarget(Target.X(),Target.Y(),Target.Z());
 
-  gp_Dir Zpers(DX, DY, DZ);
-  gp_Vec V(Zpers);
+  Dir3d Zpers(DX, DY, DZ);
+  Vector3d V(Zpers);
 
   diagonal = Sqrt(xx * xx + yy * yy + zz * zz);
 
-  gp_Vec aVec = V.Multiplied(0.5 * diagonal + TolMin + Focus);
+  Vector3d aVec = V.Multiplied(0.5 * diagonal + TolMin + Focus);
 
   Point3d Source;
   Source.SetX(Xtarget + aVec.X());
@@ -103,19 +103,19 @@ VrmlConverter_Projector::VrmlConverter_Projector(const TopTools_Array1OfShape&  
   //  std::cout << " X: " << Source.X() << " Y: " << Source.Y() << " Z: " << Source.Z()  <<
   //  std::endl;
 
-  gp_Vec VSource(Source.X(), Source.Y(), Source.Z());
+  Vector3d VSource(Source.X(), Source.Y(), Source.Z());
 
-  //  gp_Vec Proj(Source,Target);
+  //  Vector3d Proj(Source,Target);
   //  std::cout << " Vec(source-target): " << std::endl;
   //  std::cout << " X: " << Proj.X() << " Y: " << Proj.Y() << " Z: " << Proj.Z()  <<  std::endl;
 
-  gp_Dir Ypers(XUp, YUp, ZUp);
+  Dir3d Ypers(XUp, YUp, ZUp);
 
   if (Ypers.IsParallel(Zpers, Precision::Angular()))
   {
     throw ExceptionBase("Projection Vector is Parallel to High Point Direction");
   }
-  gp_Dir Xpers = Ypers.Crossed(Zpers);
+  Dir3d Xpers = Ypers.Crossed(Zpers);
 
   //  std::cout << " Dir(Zpers): " << std::endl;
   //  std::cout << " X: " << Zpers.X() << " Y: " << Zpers.Y() << " Z: " << Zpers.Z()  <<  std::endl;
@@ -124,7 +124,7 @@ VrmlConverter_Projector::VrmlConverter_Projector(const TopTools_Array1OfShape&  
 
   gp_Ax3 Axe(Source, Zpers, Xpers);
 
-  gp_Trsf T;
+  Transform3d T;
 
   //  Makes the transformation allowing passage from the basic
   //  coordinate system
@@ -141,15 +141,15 @@ VrmlConverter_Projector::VrmlConverter_Projector(const TopTools_Array1OfShape&  
   // build a Projector with automatic minmax directions
   myProjector = HLRAlgo_Projector(T, Pers, Focus);
 
-  gp_Trsf T3;
+  Transform3d T3;
   T3 = T.Inverted();
-  //  T3.SetTranslationPart(gp_Vec (0,0,0));
+  //  T3.SetTranslationPart(Vector3d (0,0,0));
 
   myMatrixTransform.SetMatrix(T3);
 
   // For VRweb1.3
-  //  gp_Trsf T1 = T;
-  //  T1.SetTranslationPart(gp_Vec (0,0,0));
+  //  Transform3d T1 = T;
+  //  T1.SetTranslationPart(Vector3d (0,0,0));
   //  myMatrixTransform.SetMatrix(T1);
 
   //
@@ -170,11 +170,11 @@ VrmlConverter_Projector::VrmlConverter_Projector(const TopTools_Array1OfShape&  
   {
 
     /*
-  gp_Dir Zmain (0,0,1);
-  gp_Dir Xmain (1,0,0);
+  Dir3d Zmain (0,0,1);
+  Dir3d Xmain (1,0,0);
 
 
-  gp_Dir Dturn;
+  Dir3d Dturn;
   Standard_Real AngleTurn;
 
   if( Zmain.IsParallel(Zpers,Precision::Angular()) )
@@ -216,7 +216,7 @@ VrmlConverter_Projector::VrmlConverter_Projector(const TopTools_Array1OfShape&  
     ArrP.SetValue(8, CurP);
 
     //
-    gp_Vec V1, V2;
+    Vector3d V1, V2;
     Point3d P1, P2;
 
     MaxHeight = TolMin;

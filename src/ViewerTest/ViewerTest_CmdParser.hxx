@@ -23,7 +23,7 @@
 #include <set>
 #include <string>
 
-class gp_Vec;
+class Vector3d;
 class Point3d;
 
 //! A key for a command line option used for a ViewerTest_CmdParser work
@@ -159,7 +159,7 @@ public:
 
   // Interprets arguments of option 'theOptionName' as gp vector starting with index
   // 'theArgumentIndex'.
-  gp_Vec ArgVec(const std::string&     theOptionName,
+  Vector3d ArgVec(const std::string&     theOptionName,
                 const Standard_Integer theArgumentIndex = 0) const;
 
   // Interprets arguments of option 'theOptionName' as gp vector starting with index

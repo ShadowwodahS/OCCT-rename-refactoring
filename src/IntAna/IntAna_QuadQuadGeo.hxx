@@ -284,10 +284,10 @@ protected:
   Point3d            pt2;
   Point3d            pt3;
   Point3d            pt4;
-  gp_Dir            dir1;
-  gp_Dir            dir2;
-  gp_Dir            dir3;
-  gp_Dir            dir4;
+  Dir3d            dir1;
+  Dir3d            dir2;
+  Dir3d            dir3;
+  Dir3d            dir4;
   Standard_Real     param1;
   Standard_Real     param2;
   Standard_Real     param3;

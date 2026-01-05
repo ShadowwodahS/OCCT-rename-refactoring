@@ -43,18 +43,18 @@ IntAna_IntLinTorus::IntAna_IntLinTorus(const gp_Lin& L, const gp_Torus& T)
 void IntAna_IntLinTorus::Perform(const gp_Lin& L, const gp_Torus& T)
 {
   Point3d PL = L.Location();
-  gp_Dir DL = L.Direction();
+  Dir3d DL = L.Direction();
 
   // Reparametrize the line:
   // set its location as nearest to the location of torus
   Point3d        TorLoc       = T.Location();
-  Standard_Real ParamOfNewPL = gp_Vec(PL, TorLoc).Dot(gp_Vec(DL));
+  Standard_Real ParamOfNewPL = Vector3d(PL, TorLoc).Dot(Vector3d(DL));
   Point3d        NewPL(PL.XYZ() + ParamOfNewPL * DL.XYZ());
 
   //--------------------------------------------------------------
   //-- Coefficients de la ligne dans le repere du cone
   //--
-  gp_Trsf trsf;
+  Transform3d trsf;
   trsf.SetTransformation(T.Position());
   NewPL.Transform(trsf);
   DL.Transform(trsf);
@@ -193,7 +193,7 @@ void IntAna_IntLinTorus::Perform (const gp_Lin& L, const gp_Torus& T) {
   TColStd_Array1OfReal C(1,31);
   T.Coefficients(C);
   const Point3d& PL=L.Location();
-  const gp_Dir& DL=L.Direction();
+  const Dir3d& DL=L.Direction();
 
   //----------------------------------------------------------------
   //-- X   = ax1 l  + ax0   

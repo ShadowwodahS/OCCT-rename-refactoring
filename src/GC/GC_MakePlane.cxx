@@ -32,7 +32,7 @@ GC_MakePlane::GC_MakePlane(const gp_Pln& Pl)
   ThePlane = new Geom_Plane(Pl);
 }
 
-GC_MakePlane::GC_MakePlane(const Point3d& P, const gp_Dir& V)
+GC_MakePlane::GC_MakePlane(const Point3d& P, const Dir3d& V)
 {
   TheError = gce_Done;
   ThePlane = new Geom_Plane(P, V);
@@ -95,7 +95,7 @@ GC_MakePlane::GC_MakePlane(const gp_Pln& Pl, const Point3d& Point)
 //  Creation d un Geom_Plane a partir d un Ax1 (Point + Normale).         +
 //=========================================================================
 
-GC_MakePlane::GC_MakePlane(const gp_Ax1& Axis)
+GC_MakePlane::GC_MakePlane(const Axis3d& Axis)
 {
   gp_Pln Pln = gce_MakePln(Axis);
   TheError   = gce_Done;

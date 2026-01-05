@@ -373,7 +373,7 @@ protected:
   //! @param[in] theDirection  the direction from the tip to the bottom of the arrow.
   Standard_EXPORT void DrawArrow(const Handle(Prs3d_Presentation)& thePresentation,
                                  const Point3d&                     theLocation,
-                                 const gp_Dir&                     theDirection);
+                                 const Dir3d&                     theDirection);
 
   //! Performs drawing of 2d or 3d text on the working plane
   //! @param[in] theTextPos  the position of the text label.
@@ -385,7 +385,7 @@ protected:
   //! zero.
   Standard_EXPORT void drawText(const Handle(Prs3d_Presentation)& thePresentation,
                                 const Point3d&                     theTextPos,
-                                const gp_Dir&                     theTextDir,
+                                const Dir3d&                     theTextDir,
                                 const TCollection_ExtendedString& theText,
                                 const Standard_Integer            theLabelPosition);
 
@@ -401,7 +401,7 @@ protected:
   Standard_EXPORT void DrawExtension(const Handle(Prs3d_Presentation)& thePresentation,
                                      const Standard_Real               theExtensionSize,
                                      const Point3d&                     theExtensionStart,
-                                     const gp_Dir&                     theExtensionDir,
+                                     const Dir3d&                     theExtensionDir,
                                      const TCollection_ExtendedString& theLabelString,
                                      const Standard_Real               theLabelWidth,
                                      const Standard_Integer            theMode,
@@ -463,8 +463,8 @@ protected:
   //! @param[out] theSidePnt1  the first side point.
   //! @param[out] theSidePnt2  the second side point.
   Standard_EXPORT void PointsForArrow(const Point3d&       thePeakPnt,
-                                      const gp_Dir&       theDirection,
-                                      const gp_Dir&       thePlane,
+                                      const Dir3d&       theDirection,
+                                      const Dir3d&       thePlane,
                                       const Standard_Real theArrowLength,
                                       const Standard_Real theArrowAngle,
                                       Point3d&             theSidePnt1,
@@ -576,7 +576,7 @@ protected: //! @name Selection geometry
     struct Arrow
     {
       Point3d Position;
-      gp_Dir Direction;
+      Dir3d Direction;
     };
 
     typedef NCollection_Sequence<Point3d> Curve;
@@ -586,7 +586,7 @@ protected: //! @name Selection geometry
     typedef NCollection_Sequence<HArrow> SeqOfArrows;
 
     Point3d        TextPos;       //!< Center of text label.
-    gp_Dir        TextDir;       //!< Direction of text label.
+    Dir3d        TextDir;       //!< Direction of text label.
     Standard_Real TextWidth;     //!< Width of text label.
     Standard_Real TextHeight;    //!< Height of text label.
                                  // clang-format off

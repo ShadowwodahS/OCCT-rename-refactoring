@@ -133,7 +133,7 @@ Standard_Integer DNaming_RevolutionDriver::Execute(Handle(TFunction_Logbook)& th
   // Axis
   Handle(TDataStd_UAttribute) anAxObject = DNaming::GetObjectArg(aFunction, REVOL_AXIS);
   Handle(TNaming_NamedShape)  anAxNS     = DNaming::GetObjectValue(anAxObject);
-  gp_Ax1                      anAXIS;
+  Axis3d                      anAXIS;
   TopoDS_Shape                aTopoDSAxis;
   if (anAxNS.IsNull() || anAxNS->IsEmpty())
   {

@@ -147,7 +147,7 @@ void PrsDim_FixRelation::Compute(const Handle(PrsMgr_PresentationManager)&,
   else if (myFShape.ShapeType() == TopAbs_EDGE)
     ComputeEdge(TopoDS::Edge(myFShape), curpos);
 
-  const gp_Dir& nor = myPlane->Axis().Direction();
+  const Dir3d& nor = myPlane->Axis().Direction();
 
   // calculate presentation
   // definition of the symbol size
@@ -172,12 +172,12 @@ void PrsDim_FixRelation::ComputeSelection(const Handle(SelectMgr_Selection)& aSe
   aSelection->Add(seg);
 
   // Creation of the sensible zone of symbol 'Fix'
-  gp_Dir norm = myPlane->Axis().Direction();
+  Dir3d norm = myPlane->Axis().Direction();
 
-  gp_Vec dirac(myPntAttach, myPosition);
+  Vector3d dirac(myPntAttach, myPosition);
   dirac.Normalize();
-  gp_Vec norac = dirac.Crossed(gp_Vec(norm));
-  gp_Ax1 ax(myPosition, norm);
+  Vector3d norac = dirac.Crossed(Vector3d(norm));
+  Axis3d ax(myPosition, norm);
   norac.Rotate(ax, M_PI / 8);
 
   norac *= (myArrowSize / 2);
@@ -221,8 +221,8 @@ void PrsDim_FixRelation::ComputeVertex(const TopoDS_Vertex& /*FixVertex*/, Point
   if (myAutomaticPosition)
   {
     gp_Pln pln(myPlane->Pln());
-    gp_Dir dir(pln.XAxis().Direction());
-    gp_Vec transvec     = gp_Vec(dir) * myArrowSize;
+    Dir3d dir(pln.XAxis().Direction());
+    Vector3d transvec     = Vector3d(dir) * myArrowSize;
     curpos              = myPntAttach.Translated(transvec);
     myPosition          = curpos;
     myAutomaticPosition = Standard_True;
@@ -249,33 +249,33 @@ Point3d PrsDim_FixRelation::ComputePosition(const Handle(Geom_Curve)& curv1,
     Handle(Geom_Circle) gcirc = Handle(Geom_Circle)::DownCast(curv1);
     if (gcirc.IsNull())
       gcirc = Handle(Geom_Circle)::DownCast(curv2);
-    gp_Dir dir(gcirc->Location().XYZ() + myPntAttach.XYZ());
-    gp_Vec transvec = gp_Vec(dir) * myArrowSize;
+    Dir3d dir(gcirc->Location().XYZ() + myPntAttach.XYZ());
+    Vector3d transvec = Vector3d(dir) * myArrowSize;
     curpos          = myPntAttach.Translated(transvec);
   }
 
   else
   {
-    gp_Vec vec1(firstp1, lastp1);
-    gp_Vec vec2(firstp2, lastp2);
+    Vector3d vec1(firstp1, lastp1);
+    Vector3d vec2(firstp2, lastp2);
 
     if (!vec1.IsParallel(vec2, Precision::Angular()))
     {
-      gp_Dir                  dir;
+      Dir3d                  dir;
       constexpr Standard_Real conf = Precision::Confusion();
       if (lastp1.IsEqual(firstp2, conf) || firstp1.IsEqual(lastp2, conf))
         dir.SetXYZ(vec1.XYZ() - vec2.XYZ());
       else
         dir.SetXYZ(vec1.XYZ() + vec2.XYZ());
-      gp_Vec transvec = gp_Vec(dir) * myArrowSize;
+      Vector3d transvec = Vector3d(dir) * myArrowSize;
       curpos          = myPntAttach.Translated(transvec);
     }
     else
     {
-      gp_Vec crossvec = vec1.Crossed(vec2);
+      Vector3d crossvec = vec1.Crossed(vec2);
       vec1.Cross(crossvec);
-      gp_Dir dir(vec1);
-      curpos = myPntAttach.Translated(gp_Vec(dir) * myArrowSize);
+      Dir3d dir(vec1);
+      curpos = myPntAttach.Translated(Vector3d(dir) * myArrowSize);
     }
   }
 
@@ -303,8 +303,8 @@ Point3d PrsDim_FixRelation::ComputePosition(const Handle(Geom_Curve)& curv,
   {
 
     Handle(Geom_Circle) gcirc = Handle(Geom_Circle)::DownCast(curv);
-    gp_Dir              dir(gcirc->Location().XYZ() + myPntAttach.XYZ());
-    gp_Vec              transvec = gp_Vec(dir) * myArrowSize;
+    Dir3d              dir(gcirc->Location().XYZ() + myPntAttach.XYZ());
+    Vector3d              transvec = Vector3d(dir) * myArrowSize;
     curpos                       = myPntAttach.Translated(transvec);
 
   } // if (curv->IsKind(STANDARD_TYPE(Geom_Circle))
@@ -313,13 +313,13 @@ Point3d PrsDim_FixRelation::ComputePosition(const Handle(Geom_Curve)& curv,
   {
     //    gp_Pln pln(Component()->WorkingPlane()->Plane()->GetValue()->Pln());
     gp_Pln pln(myPlane->Pln());
-    gp_Dir NormPln = pln.Axis().Direction();
-    gp_Vec vec(firstp, lastp);
-    vec.Cross(gp_Vec(NormPln));
+    Dir3d NormPln = pln.Axis().Direction();
+    Vector3d vec(firstp, lastp);
+    vec.Cross(Vector3d(NormPln));
     vec.Normalize();
-    gp_Vec transvec = vec * myArrowSize;
+    Vector3d transvec = vec * myArrowSize;
     curpos          = myPntAttach.Translated(transvec);
-    gp_Ax1 RotAx(myPntAttach, NormPln);
+    Axis3d RotAx(myPntAttach, NormPln);
     curpos.Rotate(RotAx, M_PI / 10);
   }
 
@@ -383,10 +383,10 @@ void PrsDim_FixRelation::ComputeLinePosition(const gp_Lin&  glin,
     // point of attach is chosen as middle of the segment
     myPntAttach = ElCLib::Value((pfirst + plast) / 2, glin);
 
-    gp_Dir norm = myPlane->Axis().Direction();
+    Dir3d norm = myPlane->Axis().Direction();
 
     norm.Cross(glin.Position().Direction());
-    pos                 = myPntAttach.Translated(gp_Vec(norm) * myArrowSize);
+    pos                 = myPntAttach.Translated(Vector3d(norm) * myArrowSize);
     myAutomaticPosition = Standard_True;
   } // if (myAutomaticPosition)
 
@@ -411,7 +411,7 @@ void PrsDim_FixRelation::ComputeLinePosition(const gp_Lin&  glin,
       else
         pOnLin = pfirst;
       myPntAttach = ElCLib::Value(pOnLin, glin);
-      gp_Dir norm = myPlane->Axis().Direction();
+      Dir3d norm = myPlane->Axis().Direction();
 
       norm.Cross(glin.Position().Direction());
       gp_Lin        lsup(myPntAttach, norm);
@@ -459,9 +459,9 @@ void PrsDim_FixRelation::ComputeCirclePosition(const gp_Circ& gcirc,
 
     myPntAttach = ElCLib::Value(circparam, gcirc);
 
-    gp_Vec dir(gcirc.Location().XYZ(), myPntAttach.XYZ());
+    Vector3d dir(gcirc.Location().XYZ(), myPntAttach.XYZ());
     dir.Normalize();
-    gp_Vec transvec     = dir * myArrowSize;
+    Vector3d transvec     = dir * myArrowSize;
     pos                 = myPntAttach.Translated(transvec);
     myPosition          = pos;
     myAutomaticPosition = Standard_True;

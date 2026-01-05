@@ -73,7 +73,7 @@ inline void Extrema_CurveTool::D0(const Adaptor3d_Curve& C, const Standard_Real 
 inline void Extrema_CurveTool::D1(const Adaptor3d_Curve& C,
                                   const Standard_Real    U,
                                   Point3d&                P,
-                                  gp_Vec&                V)
+                                  Vector3d&                V)
 {
   C.D1(U, P, V);
 }
@@ -86,8 +86,8 @@ inline void Extrema_CurveTool::D1(const Adaptor3d_Curve& C,
 inline void Extrema_CurveTool::D2(const Adaptor3d_Curve& C,
                                   const Standard_Real    U,
                                   Point3d&                P,
-                                  gp_Vec&                V1,
-                                  gp_Vec&                V2)
+                                  Vector3d&                V1,
+                                  Vector3d&                V2)
 {
   C.D2(U, P, V1, V2);
 }
@@ -100,9 +100,9 @@ inline void Extrema_CurveTool::D2(const Adaptor3d_Curve& C,
 inline void Extrema_CurveTool::D3(const Adaptor3d_Curve& C,
                                   const Standard_Real    U,
                                   Point3d&                P,
-                                  gp_Vec&                V1,
-                                  gp_Vec&                V2,
-                                  gp_Vec&                V3)
+                                  Vector3d&                V1,
+                                  Vector3d&                V2,
+                                  Vector3d&                V3)
 {
   C.D3(U, P, V1, V2, V3);
 }
@@ -111,7 +111,7 @@ inline void Extrema_CurveTool::D3(const Adaptor3d_Curve& C,
 // function : DN
 // purpose  :
 //=======================================================================
-inline gp_Vec Extrema_CurveTool::DN(const Adaptor3d_Curve& C,
+inline Vector3d Extrema_CurveTool::DN(const Adaptor3d_Curve& C,
                                     const Standard_Real    U,
                                     const Standard_Integer N)
 {

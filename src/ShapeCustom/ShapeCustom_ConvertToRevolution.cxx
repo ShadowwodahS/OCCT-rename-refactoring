@@ -90,7 +90,7 @@ Standard_Boolean ShapeCustom_ConvertToRevolution::NewSurface(const TopoDS_Face& 
 
   // remove location if it contains inversion
   /*
-    gp_Trsf t = L.Transformation();
+    Transform3d t = L.Transformation();
     gp_Mat m = t.VectorialPart();
     Standard_Boolean neg = t.IsNegative();
     Standard_Boolean det = ( m.Determinant() <0 ? Standard_True : Standard_False );
@@ -102,45 +102,45 @@ Standard_Boolean ShapeCustom_ConvertToRevolution::NewSurface(const TopoDS_Face& 
 
   gp_Ax3 Ax3 = ES->Position();
   Point3d pos = Ax3.Location();
-  gp_Dir dir = Ax3.Direction();
-  gp_Dir X   = Ax3.XDirection();
+  Dir3d dir = Ax3.Direction();
+  Dir3d X   = Ax3.XDirection();
 
   // create basis line to rotate
   Handle(Geom_Curve) BasisCurve;
   if (ES->IsKind(STANDARD_TYPE(Geom_SphericalSurface)))
   {
     Handle(Geom_SphericalSurface) SS = Handle(Geom_SphericalSurface)::DownCast(ES);
-    gp_Ax2                        Ax2(pos, X ^ dir, X);
+    Frame3d                        Ax2(pos, X ^ dir, X);
     Handle(Geom_Circle)           Circ = new Geom_Circle(Ax2, SS->Radius());
     BasisCurve                         = new Geom_TrimmedCurve(Circ, -M_PI / 2., M_PI / 2.);
   }
   else if (ES->IsKind(STANDARD_TYPE(Geom_ToroidalSurface)))
   {
     Handle(Geom_ToroidalSurface) TS = Handle(Geom_ToroidalSurface)::DownCast(ES);
-    gp_Ax2                       Ax2(pos.XYZ() + X.XYZ() * TS->MajorRadius(), X ^ dir, X);
+    Frame3d                       Ax2(pos.XYZ() + X.XYZ() * TS->MajorRadius(), X ^ dir, X);
     BasisCurve = new Geom_Circle(Ax2, TS->MinorRadius());
   }
   else if (ES->IsKind(STANDARD_TYPE(Geom_CylindricalSurface)))
   {
     Handle(Geom_CylindricalSurface) CS = Handle(Geom_CylindricalSurface)::DownCast(ES);
-    gp_Ax1                          Ax1(pos.XYZ() + X.XYZ() * CS->Radius(), dir);
+    Axis3d                          Ax1(pos.XYZ() + X.XYZ() * CS->Radius(), dir);
     BasisCurve = new Geom_Line(Ax1);
   }
   else if (ES->IsKind(STANDARD_TYPE(Geom_ConicalSurface)))
   {
     Handle(Geom_ConicalSurface) CS = Handle(Geom_ConicalSurface)::DownCast(ES);
-    gp_Dir                      N  = dir.XYZ() + X.XYZ() * Tan(CS->SemiAngle());
-    gp_Ax1                      Ax1(pos.XYZ() + X.XYZ() * CS->RefRadius(), N);
+    Dir3d                      N  = dir.XYZ() + X.XYZ() * Tan(CS->SemiAngle());
+    Axis3d                      Ax1(pos.XYZ() + X.XYZ() * CS->RefRadius(), N);
     BasisCurve = new Geom_Line(Ax1);
   }
 
   // create revolution with proper U parametrization
-  gp_Ax1 Axis = Ax3.Axis();
+  Axis3d Axis = Ax3.Axis();
 
   // if the surface is indirect (taking into account locations), reverse dir
 
   /*
-    gp_Trsf t = L.Transformation();
+    Transform3d t = L.Transformation();
     gp_Mat m = t.VectorialPart();
     Standard_Boolean neg = t.IsNegative();
     Standard_Boolean det = ( m.Determinant() <0 ? Standard_True : Standard_False );

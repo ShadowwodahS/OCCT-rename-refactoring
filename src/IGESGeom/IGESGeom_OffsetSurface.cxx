@@ -36,20 +36,20 @@ void IGESGeom_OffsetSurface::Init(const gp_XYZ&                      anIndicator
   InitTypeAndForm(140, 0);
 }
 
-gp_Vec IGESGeom_OffsetSurface::OffsetIndicator() const
+Vector3d IGESGeom_OffsetSurface::OffsetIndicator() const
 {
-  return gp_Vec(theIndicator);
+  return Vector3d(theIndicator);
 }
 
-gp_Vec IGESGeom_OffsetSurface::TransformedOffsetIndicator() const
+Vector3d IGESGeom_OffsetSurface::TransformedOffsetIndicator() const
 {
   if (!HasTransf())
-    return gp_Vec(theIndicator);
+    return Vector3d(theIndicator);
   gp_XYZ   temp(theIndicator);
   gp_GTrsf loc = Location();
   loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
   loc.Transforms(temp);
-  return gp_Vec(temp);
+  return Vector3d(temp);
 }
 
 Standard_Real IGESGeom_OffsetSurface::Distance() const

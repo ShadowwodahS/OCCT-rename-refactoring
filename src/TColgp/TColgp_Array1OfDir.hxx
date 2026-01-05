@@ -20,6 +20,6 @@
 #include <gp_Dir.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<gp_Dir> TColgp_Array1OfDir;
+typedef NCollection_Array1<Dir3d> TColgp_Array1OfDir;
 
 #endif

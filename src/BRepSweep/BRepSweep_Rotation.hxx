@@ -41,7 +41,7 @@ public:
   Standard_EXPORT BRepSweep_Rotation(const TopoDS_Shape&    S,
                                      const Sweep_NumShape&  N,
                                      const TopLoc_Location& L,
-                                     const gp_Ax1&          A,
+                                     const Axis3d&          A,
                                      const Standard_Real    D,
                                      const Standard_Boolean C);
 
@@ -185,14 +185,14 @@ public:
   Standard_EXPORT Standard_Boolean IsInvariant(const TopoDS_Shape& aGenS) const Standard_OVERRIDE;
 
   //! returns the axis
-  Standard_EXPORT gp_Ax1 Axe() const;
+  Standard_EXPORT Axis3d Axe() const;
 
   //! returns the angle.
   Standard_EXPORT Standard_Real Angle() const;
 
 private:
   Standard_Real myAng;
-  gp_Ax1        myAxe;
+  Axis3d        myAxe;
 };
 
 #endif // _BRepSweep_Rotation_HeaderFile

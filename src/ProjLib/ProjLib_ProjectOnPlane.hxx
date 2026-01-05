@@ -27,7 +27,7 @@
 #include <TColStd_Array1OfReal.hxx>
 
 class Point3d;
-class gp_Vec;
+class Vector3d;
 class gp_Lin;
 class gp_Circ;
 class gp_Elips;
@@ -60,7 +60,7 @@ public:
   //! the plane defined by the Ax3 <Pl>.
   //! raises  if the direction  <D>  is parallel  to the
   //! plane <Pl>.
-  Standard_EXPORT ProjLib_ProjectOnPlane(const gp_Ax3& Pl, const gp_Dir& D);
+  Standard_EXPORT ProjLib_ProjectOnPlane(const gp_Ax3& Pl, const Dir3d& D);
 
   //! Shallow copy of adaptor
   Standard_EXPORT virtual Handle(Adaptor3d_Curve) ShallowCopy() const Standard_OVERRIDE;
@@ -77,7 +77,7 @@ public:
 
   Standard_EXPORT const gp_Ax3& GetPlane() const;
 
-  Standard_EXPORT const gp_Dir& GetDirection() const;
+  Standard_EXPORT const Dir3d& GetDirection() const;
 
   Standard_EXPORT const Handle(Adaptor3d_Curve)& GetCurve() const;
 
@@ -125,7 +125,7 @@ public:
   //! first derivative.
   //! Raised if the continuity of the current interval
   //! is not C1.
-  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, gp_Vec& V) const Standard_OVERRIDE;
+  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, Vector3d& V) const Standard_OVERRIDE;
 
   //! Returns the point P of parameter U, the first and second
   //! derivatives V1 and V2.
@@ -133,8 +133,8 @@ public:
   //! is not C2.
   Standard_EXPORT void D2(const Standard_Real U,
                           Point3d&             P,
-                          gp_Vec&             V1,
-                          gp_Vec&             V2) const Standard_OVERRIDE;
+                          Vector3d&             V1,
+                          Vector3d&             V2) const Standard_OVERRIDE;
 
   //! Returns the point P of parameter U, the first, the second
   //! and the third derivative.
@@ -142,16 +142,16 @@ public:
   //! is not C3.
   Standard_EXPORT void D3(const Standard_Real U,
                           Point3d&             P,
-                          gp_Vec&             V1,
-                          gp_Vec&             V2,
-                          gp_Vec&             V3) const Standard_OVERRIDE;
+                          Vector3d&             V1,
+                          Vector3d&             V2,
+                          Vector3d&             V3) const Standard_OVERRIDE;
 
   //! The returned vector gives the value of the derivative for the
   //! order of derivation N.
   //! Raised if the continuity of the current interval
   //! is not CN.
   //! Raised if N < 1.
-  Standard_EXPORT gp_Vec DN(const Standard_Real    U,
+  Standard_EXPORT Vector3d DN(const Standard_Real    U,
                             const Standard_Integer N) const Standard_OVERRIDE;
 
   //! Returns the parametric  resolution corresponding
@@ -206,7 +206,7 @@ protected:
 private:
   Handle(Adaptor3d_Curve)   myCurve;
   gp_Ax3                    myPlane;
-  gp_Dir                    myDirection;
+  Dir3d                    myDirection;
   Standard_Boolean          myKeepParam;
   Standard_Real             myFirstPar;
   Standard_Real             myLastPar;

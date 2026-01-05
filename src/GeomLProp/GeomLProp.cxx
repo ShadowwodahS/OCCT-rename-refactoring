@@ -70,8 +70,8 @@ GeomAbs_Shape GeomLProp::Continuity(const Handle(Geom_Curve)& C1,
   Standard_Integer index1, index2;
   Standard_Real    tolerance;
   Standard_Boolean fini = Standard_False;
-  gp_Vec           d1, d2;
-  gp_Dir           dir1, dir2;
+  Vector3d           d1, d2;
+  Dir3d           dir1, dir2;
   Standard_Integer cont1, cont2;
   GeomAbs_Shape    gcont1 = C1->Continuity(), gcont2 = C2->Continuity();
   cont1 = GeomAbsToInteger(gcont1);

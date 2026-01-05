@@ -35,7 +35,7 @@
 #include <Standard_OutOfRange.hxx>
 #include <StdFail_NotDone.hxx>
 
-static void RefineDir(gp_Dir& aDir);
+static void RefineDir(Dir3d& aDir);
 
 //=======================================================================
 // class    : ExtremaExtElC_TrigonometricRoots
@@ -321,7 +321,7 @@ Extrema_ExtElC::Extrema_ExtElC(const gp_Lin& theC1, const gp_Lin& theC2, const S
     mySqDist[anIdx] = RealLast();
   }
 
-  const gp_Dir &      aD1 = theC1.Position().Direction(), &aD2 = theC2.Position().Direction();
+  const Dir3d &      aD1 = theC1.Position().Direction(), &aD2 = theC2.Position().Direction();
   const Standard_Real aCosA   = aD1.Dot(aD2);
   const Standard_Real aSqSinA = 1.0 - aCosA * aCosA;
   Standard_Real       aU1 = 0.0, aU2 = 0.0;
@@ -362,7 +362,7 @@ Extrema_ExtElC::Extrema_ExtElC(const gp_Lin& theC1, const gp_Lin& theC2, const S
 Standard_Boolean Extrema_ExtElC::PlanarLineCircleExtrema(const gp_Lin&  theLin,
                                                          const gp_Circ& theCirc)
 {
-  const gp_Dir &aDirC = theCirc.Axis().Direction(), &aDirL = theLin.Direction();
+  const Dir3d &aDirC = theCirc.Axis().Direction(), &aDirL = theLin.Direction();
 
   if (Abs(aDirC.Dot(aDirL)) > Precision::Angular())
     return Standard_False;
@@ -472,7 +472,7 @@ Extrema_ExtElC::Extrema_ExtElC(const gp_Lin& C1, const gp_Circ& C2, const Standa
 {
   Standard_Real Dx, Dy, Dz, aRO2O1, aTolRO2O1;
   Standard_Real R, A1, A2, A3, A4, A5, aTol;
-  gp_Dir        x2, y2, z2, D, D1;
+  Dir3d        x2, y2, z2, D, D1;
   //
   myIsPar = Standard_False;
   myDone  = Standard_False;
@@ -504,13 +504,13 @@ Extrema_ExtElC::Extrema_ExtElC(const gp_Lin& C1, const gp_Circ& C2, const Standa
   // Calcul de V dans le repere du cercle:
   Point3d O1 = C1.Location();
   Point3d O2 = C2.Location();
-  gp_Vec O2O1(O2, O1);
+  Vector3d O2O1(O2, O1);
   //
   aTolRO2O1 = gp::Resolution();
   aRO2O1    = O2O1.Magnitude();
   if (aRO2O1 > aTolRO2O1)
   {
-    gp_Dir aDO2O1;
+    Dir3d aDO2O1;
     //
     O2O1.Multiply(1. / aRO2O1);
     aDO2O1.SetCoord(O2O1.Dot(x2), O2O1.Dot(y2), O2O1.Dot(z2));
@@ -608,7 +608,7 @@ Extrema_ExtElC::Extrema_ExtElC(const gp_Lin& C1, const gp_Circ& C2, const Standa
   {
     U2                = Sol.Value(NoSol);
     P2                = ElCLib::Value(U2, C2);
-    U1                = (gp_Vec(O1, P2)).Dot(D1);
+    U1                = (Vector3d(O1, P2)).Dot(D1);
     P1                = ElCLib::Value(U1, C1);
     mySqDist[myNbExt] = P1.SquareDistance(P2);
     // modified by NIZNHY-PKV Wed Mar 21 08:11:33 2012f
@@ -666,9 +666,9 @@ Extrema_ExtElC::Extrema_ExtElC(const gp_Lin& C1, const gp_Elips& C2)
   }
 
   // Calculate T1 the reference of the ellipse ...
-  gp_Dir D  = C1.Direction();
-  gp_Dir D1 = D;
-  gp_Dir x2, y2, z2;
+  Dir3d D  = C1.Direction();
+  Dir3d D1 = D;
+  Dir3d x2, y2, z2;
   x2               = C2.XAxis().Direction();
   y2               = C2.YAxis().Direction();
   z2               = C2.Axis().Direction();
@@ -680,7 +680,7 @@ Extrema_ExtElC::Extrema_ExtElC(const gp_Lin& C1, const gp_Elips& C2)
   // Calculate V ...
   Point3d O1 = C1.Location();
   Point3d O2 = C2.Location();
-  gp_Vec O2O1(O2, O1);
+  Vector3d O2O1(O2, O1);
   O2O1.SetCoord(O2O1.Dot(x2), O2O1.Dot(y2), O2O1.Dot(z2));
   gp_XYZ Vxyz = (D.XYZ() * (O2O1.Dot(D))) - O2O1.XYZ();
 
@@ -732,7 +732,7 @@ Extrema_ExtElC::Extrema_ExtElC(const gp_Lin& C1, const gp_Elips& C2)
   {
     U2                  = Sol.Value(NoSol);
     P2                  = ElCLib::Value(U2, C2);
-    U1                  = (gp_Vec(O1, P2)).Dot(D1);
+    U1                  = (Vector3d(O1, P2)).Dot(D1);
     P1                  = ElCLib::Value(U1, C1);
     mySqDist[myNbExt]   = P1.SquareDistance(P2);
     myPoint[myNbExt][0] = Extrema_POnCurv(U1, P1);
@@ -790,9 +790,9 @@ Extrema_ExtElC::Extrema_ExtElC(const gp_Lin& C1, const gp_Hypr& C2)
   }
 
   // Calculate T1 in the reference of the hyperbola...
-  gp_Dir D  = C1.Direction();
-  gp_Dir D1 = D;
-  gp_Dir x2, y2, z2;
+  Dir3d D  = C1.Direction();
+  Dir3d D1 = D;
+  Dir3d x2, y2, z2;
   x2               = C2.XAxis().Direction();
   y2               = C2.YAxis().Direction();
   z2               = C2.Axis().Direction();
@@ -804,7 +804,7 @@ Extrema_ExtElC::Extrema_ExtElC(const gp_Lin& C1, const gp_Hypr& C2)
   // Calculate V ...
   Point3d O1 = C1.Location();
   Point3d O2 = C2.Location();
-  gp_Vec O2O1(O2, O1);
+  Vector3d O2O1(O2, O1);
   O2O1.SetCoord(O2O1.Dot(x2), O2O1.Dot(y2), O2O1.Dot(z2));
   gp_XYZ        Vxyz = (D.XYZ() * (O2O1.Dot(D))) - O2O1.XYZ();
   Standard_Real Vx   = Vxyz.X();
@@ -837,7 +837,7 @@ Extrema_ExtElC::Extrema_ExtElC(const gp_Lin& C1, const gp_Hypr& C2)
     {
       U2                  = Log(v);
       P2                  = ElCLib::Value(U2, C2);
-      U1                  = (gp_Vec(O1, P2)).Dot(D1);
+      U1                  = (Vector3d(O1, P2)).Dot(D1);
       P1                  = ElCLib::Value(U1, C1);
       mySqDist[myNbExt]   = P1.SquareDistance(P2);
       myPoint[myNbExt][0] = Extrema_POnCurv(U1, P1);
@@ -892,9 +892,9 @@ Extrema_ExtElC::Extrema_ExtElC(const gp_Lin& C1, const gp_Parab& C2)
   }
 
   // Calculate T1 in the reference of the parabola...
-  gp_Dir D  = C1.Direction();
-  gp_Dir D1 = D;
-  gp_Dir x2, y2, z2;
+  Dir3d D  = C1.Direction();
+  Dir3d D1 = D;
+  Dir3d x2, y2, z2;
   x2               = C2.XAxis().Direction();
   y2               = C2.YAxis().Direction();
   z2               = C2.Axis().Direction();
@@ -906,7 +906,7 @@ Extrema_ExtElC::Extrema_ExtElC(const gp_Lin& C1, const gp_Parab& C2)
   // Calculate V ...
   Point3d O1 = C1.Location();
   Point3d O2 = C2.Location();
-  gp_Vec O2O1(O2, O1);
+  Vector3d O2O1(O2, O1);
   O2O1.SetCoord(O2O1.Dot(x2), O2O1.Dot(y2), O2O1.Dot(z2));
   gp_XYZ Vxyz = (D.XYZ() * (O2O1.Dot(D))) - O2O1.XYZ();
 
@@ -931,7 +931,7 @@ Extrema_ExtElC::Extrema_ExtElC(const gp_Lin& C1, const gp_Parab& C2)
   {
     U2                  = Sol.Value(NoSol);
     P2                  = ElCLib::Value(U2, C2);
-    U1                  = (gp_Vec(O1, P2)).Dot(D1);
+    U1                  = (Vector3d(O1, P2)).Dot(D1);
     P1                  = ElCLib::Value(U1, C1);
     mySqDist[myNbExt]   = P1.SquareDistance(P2);
     myPoint[myNbExt][0] = Extrema_POnCurv(U1, P1);
@@ -948,7 +948,7 @@ Extrema_ExtElC::Extrema_ExtElC(const gp_Circ& C1, const gp_Circ& C2)
   Standard_Boolean bIsSamePlane, bIsSameAxe;
   Standard_Real    aTolD, aTolD2, aTolA, aD2, aDC2;
   Point3d           aPc1, aPc2;
-  gp_Dir           aDc1, aDc2;
+  Dir3d           aDc1, aDc2;
   //
   myIsPar = Standard_False;
   myDone  = Standard_False;
@@ -1022,8 +1022,8 @@ Extrema_ExtElC::Extrema_ExtElC(const gp_Circ& C1, const gp_Circ& C2)
   aPc2 = aC2.Location();
   //
   aD12 = aPc1.Distance(aPc2);
-  gp_Vec aVec12(aPc1, aPc2);
-  gp_Dir aDir12(aVec12);
+  Vector3d aVec12(aPc1, aPc2);
+  Dir3d aDir12(aVec12);
   //
   // 1. Four common solutions
   myNbExt = 4;
@@ -1065,7 +1065,7 @@ Extrema_ExtElC::Extrema_ExtElC(const gp_Circ& C1, const gp_Circ& C2)
     Standard_Boolean bNbExt6;
     Standard_Real    aAlpha, aBeta, aT[2], aVal, aDist2;
     Point3d           aPt, aPL1, aPL2;
-    gp_Dir           aDLt;
+    Dir3d           aDLt;
     //
     aAlpha = 0.5 * (aR1 * aR1 - aR2 * aR2 + aD12 * aD12) / aD12;
     aVal   = aR1 * aR1 - aAlpha * aAlpha;
@@ -1163,7 +1163,7 @@ void Extrema_ExtElC::Points(const Standard_Integer N,
 
 //=================================================================================================
 
-void RefineDir(gp_Dir& aDir)
+void RefineDir(Dir3d& aDir)
 {
   Standard_Integer i, j, k, iK;
   Standard_Real    aCx[3], aEps, aX1, aX2, aOne;

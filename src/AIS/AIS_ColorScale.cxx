@@ -872,7 +872,7 @@ void AIS_ColorScale::drawText(const Handle(Graphic3d_Group)&        theGroup,
 
   Handle(Graphic3d_Text) aText = new Graphic3d_Text((Standard_ShortReal)anAspect->Height());
   aText->SetText(theText.ToExtString());
-  aText->SetOrientation(gp_Ax2(Point3d(theX, theY, 0.0), gp::DZ()));
+  aText->SetOrientation(Frame3d(Point3d(theX, theY, 0.0), gp::DZ()));
   aText->SetOwnAnchorPoint(Standard_False);
   aText->SetVerticalAlignment(theVertAlignment);
 

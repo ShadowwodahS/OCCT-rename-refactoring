@@ -103,7 +103,7 @@ GeomAdaptor_Surface& BRepAdaptor_Surface::ChangeSurface()
 
 //=================================================================================================
 
-const gp_Trsf& BRepAdaptor_Surface::Trsf() const
+const Transform3d& BRepAdaptor_Surface::Trsf() const
 {
   return myTrsf;
 }
@@ -178,8 +178,8 @@ void BRepAdaptor_Surface::D0(const Standard_Real U, const Standard_Real V, Point
 void BRepAdaptor_Surface::D1(const Standard_Real U,
                              const Standard_Real V,
                              Point3d&             P,
-                             gp_Vec&             D1U,
-                             gp_Vec&             D1V) const
+                             Vector3d&             D1U,
+                             Vector3d&             D1V) const
 {
   mySurf.D1(U, V, P, D1U, D1V);
   P.Transform(myTrsf);
@@ -192,11 +192,11 @@ void BRepAdaptor_Surface::D1(const Standard_Real U,
 void BRepAdaptor_Surface::D2(const Standard_Real U,
                              const Standard_Real V,
                              Point3d&             P,
-                             gp_Vec&             D1U,
-                             gp_Vec&             D1V,
-                             gp_Vec&             D2U,
-                             gp_Vec&             D2V,
-                             gp_Vec&             D2UV) const
+                             Vector3d&             D1U,
+                             Vector3d&             D1V,
+                             Vector3d&             D2U,
+                             Vector3d&             D2V,
+                             Vector3d&             D2UV) const
 {
   mySurf.D2(U, V, P, D1U, D1V, D2U, D2V, D2UV);
   P.Transform(myTrsf);
@@ -212,15 +212,15 @@ void BRepAdaptor_Surface::D2(const Standard_Real U,
 void BRepAdaptor_Surface::D3(const Standard_Real U,
                              const Standard_Real V,
                              Point3d&             P,
-                             gp_Vec&             D1U,
-                             gp_Vec&             D1V,
-                             gp_Vec&             D2U,
-                             gp_Vec&             D2V,
-                             gp_Vec&             D2UV,
-                             gp_Vec&             D3U,
-                             gp_Vec&             D3V,
-                             gp_Vec&             D3UUV,
-                             gp_Vec&             D3UVV) const
+                             Vector3d&             D1U,
+                             Vector3d&             D1V,
+                             Vector3d&             D2U,
+                             Vector3d&             D2V,
+                             Vector3d&             D2UV,
+                             Vector3d&             D3U,
+                             Vector3d&             D3V,
+                             Vector3d&             D3UUV,
+                             Vector3d&             D3UVV) const
 {
   mySurf.D3(U, V, P, D1U, D1V, D2U, D2V, D2UV, D3U, D3V, D3UUV, D3UVV);
   P.Transform(myTrsf);
@@ -237,7 +237,7 @@ void BRepAdaptor_Surface::D3(const Standard_Real U,
 
 //=================================================================================================
 
-gp_Vec BRepAdaptor_Surface::DN(const Standard_Real    U,
+Vector3d BRepAdaptor_Surface::DN(const Standard_Real    U,
                                const Standard_Real    V,
                                const Standard_Integer Nu,
                                const Standard_Integer Nv) const
@@ -296,14 +296,14 @@ Handle(Geom_BSplineSurface) BRepAdaptor_Surface::BSpline() const
 
 //=================================================================================================
 
-gp_Ax1 BRepAdaptor_Surface::AxeOfRevolution() const
+Axis3d BRepAdaptor_Surface::AxeOfRevolution() const
 {
   return mySurf.AxeOfRevolution().Transformed(myTrsf);
 }
 
 //=================================================================================================
 
-gp_Dir BRepAdaptor_Surface::Direction() const
+Dir3d BRepAdaptor_Surface::Direction() const
 {
   return mySurf.Direction().Transformed(myTrsf);
 }

@@ -59,7 +59,7 @@ public:
   Standard_EXPORT Standard_Boolean
     IsBoundaryIntersectSphere(const Point3d&             theCenter,
                               const Standard_Real       theRadius,
-                              const gp_Dir&             thePlaneNormal,
+                              const Dir3d&             thePlaneNormal,
                               const TColgp_Array1OfPnt& theBoundaries,
                               Standard_Boolean&         theBoundaryInside) const;
 

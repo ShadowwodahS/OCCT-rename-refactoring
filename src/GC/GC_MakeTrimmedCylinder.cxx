@@ -68,7 +68,7 @@ GC_MakeTrimmedCylinder::GC_MakeTrimmedCylinder(const gp_Circ& Circ, const Standa
 //=========================================================================
 //=========================================================================
 
-GC_MakeTrimmedCylinder::GC_MakeTrimmedCylinder(const gp_Ax1&       A1,
+GC_MakeTrimmedCylinder::GC_MakeTrimmedCylinder(const Axis3d&       A1,
                                                const Standard_Real Radius,
                                                const Standard_Real Height)
 {

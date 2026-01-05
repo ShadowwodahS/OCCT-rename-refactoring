@@ -183,10 +183,10 @@ Standard_Real IntSurf_Quadric::Distance(const Point3d& P) const
       Point3d O, Pp, PT;
       //
       O = ax3.Location();
-      gp_Vec OZ(ax3.Direction());
-      Pp = P.Translated(OZ.Multiplied(-(gp_Vec(O, P).Dot(ax3.Direction()))));
+      Vector3d OZ(ax3.Direction());
+      Pp = P.Translated(OZ.Multiplied(-(Vector3d(O, P).Dot(ax3.Direction()))));
       //
-      gp_Dir DOPp = (O.SquareDistance(Pp) < 1e-14) ? ax3.XDirection() : gp_Dir(gp_Vec(O, Pp));
+      Dir3d DOPp = (O.SquareDistance(Pp) < 1e-14) ? ax3.XDirection() : Dir3d(Vector3d(O, Pp));
       PT.SetXYZ(O.XYZ() + DOPp.XYZ() * prm1);
       //
       Standard_Real dist = P.Distance(PT) - prm2;
@@ -200,9 +200,9 @@ Standard_Real IntSurf_Quadric::Distance(const Point3d& P) const
 }
 
 // ============================================================
-gp_Vec IntSurf_Quadric::Gradient(const Point3d& P) const
+Vector3d IntSurf_Quadric::Gradient(const Point3d& P) const
 {
-  gp_Vec grad;
+  Vector3d grad;
   switch (typ)
   {
     case GeomAbs_Plane: // plan
@@ -244,7 +244,7 @@ gp_Vec IntSurf_Quadric::Gradient(const Point3d& P) const
       Standard_Real U, V;
       ElSLib::ConeParameters(ax3, prm1, prm2, P, U, V);
       Point3d Pp = ElSLib::ConeValue(U, V, ax3, prm1, prm2);
-      gp_Vec D1u, D1v;
+      Vector3d D1u, D1v;
       ElSLib::ConeD1(U, V, ax3, prm1, prm2, Pp, D1u, D1v);
       grad = D1u.Crossed(D1v);
       if (ax3direc == Standard_False)
@@ -259,10 +259,10 @@ gp_Vec IntSurf_Quadric::Gradient(const Point3d& P) const
       Point3d O, Pp, PT;
       //
       O = ax3.Location();
-      gp_Vec OZ(ax3.Direction());
-      Pp = P.Translated(OZ.Multiplied(-(gp_Vec(O, P).Dot(ax3.Direction()))));
+      Vector3d OZ(ax3.Direction());
+      Pp = P.Translated(OZ.Multiplied(-(Vector3d(O, P).Dot(ax3.Direction()))));
       //
-      gp_Dir DOPp = (O.SquareDistance(Pp) < 1e-14) ? ax3.XDirection() : gp_Dir(gp_Vec(O, Pp));
+      Dir3d DOPp = (O.SquareDistance(Pp) < 1e-14) ? ax3.XDirection() : Dir3d(Vector3d(O, Pp));
       PT.SetXYZ(O.XYZ() + DOPp.XYZ() * prm1);
       //
       grad.SetXYZ(P.XYZ() - PT.XYZ());
@@ -285,7 +285,7 @@ gp_Vec IntSurf_Quadric::Gradient(const Point3d& P) const
 }
 
 // ============================================================
-void IntSurf_Quadric::ValAndGrad(const Point3d& P, Standard_Real& Dist, gp_Vec& Grad) const
+void IntSurf_Quadric::ValAndGrad(const Point3d& P, Standard_Real& Dist, Vector3d& Grad) const
 {
 
   switch (typ)
@@ -329,7 +329,7 @@ void IntSurf_Quadric::ValAndGrad(const Point3d& P, Standard_Real& Dist, gp_Vec& 
     case GeomAbs_Cone: {
       Standard_Real dist = lin.Distance(P);
       Standard_Real U, V;
-      gp_Vec        D1u, D1v;
+      Vector3d        D1u, D1v;
       Point3d        Pp;
       ElSLib::ConeParameters(ax3, prm1, prm2, P, U, V);
       ElSLib::ConeD1(U, V, ax3, prm1, prm2, Pp, D1u, D1v);
@@ -355,10 +355,10 @@ void IntSurf_Quadric::ValAndGrad(const Point3d& P, Standard_Real& Dist, gp_Vec& 
       Point3d O, Pp, PT;
       //
       O = ax3.Location();
-      gp_Vec OZ(ax3.Direction());
-      Pp = P.Translated(OZ.Multiplied(-(gp_Vec(O, P).Dot(ax3.Direction()))));
+      Vector3d OZ(ax3.Direction());
+      Pp = P.Translated(OZ.Multiplied(-(Vector3d(O, P).Dot(ax3.Direction()))));
       //
-      gp_Dir DOPp = (O.SquareDistance(Pp) < 1e-14) ? ax3.XDirection() : gp_Dir(gp_Vec(O, Pp));
+      Dir3d DOPp = (O.SquareDistance(Pp) < 1e-14) ? ax3.XDirection() : Dir3d(Vector3d(O, Pp));
       PT.SetXYZ(O.XYZ() + DOPp.XYZ() * prm1);
       //
       Dist = P.Distance(PT) - prm2;
@@ -411,8 +411,8 @@ Point3d IntSurf_Quadric::Value(const Standard_Real U, const Standard_Real V) con
 void IntSurf_Quadric::D1(const Standard_Real U,
                          const Standard_Real V,
                          Point3d&             P,
-                         gp_Vec&             D1U,
-                         gp_Vec&             D1V) const
+                         Vector3d&             D1U,
+                         Vector3d&             D1V) const
 {
   switch (typ)
   {
@@ -438,7 +438,7 @@ void IntSurf_Quadric::D1(const Standard_Real U,
 }
 
 // ============================================================
-gp_Vec IntSurf_Quadric::DN(const Standard_Real    U,
+Vector3d IntSurf_Quadric::DN(const Standard_Real    U,
                            const Standard_Real    V,
                            const Standard_Integer Nu,
                            const Standard_Integer Nv) const
@@ -456,17 +456,17 @@ gp_Vec IntSurf_Quadric::DN(const Standard_Real    U,
     case GeomAbs_Torus:
       return ElSLib::TorusDN(U, V, ax3, prm1, prm2, Nu, Nv);
     default: {
-      gp_Vec v(0, 0, 0);
+      Vector3d v(0, 0, 0);
       return (v);
     }
       // break;
   }
   // pop : pour NT
-  //  return gp_Vec(0,0,0);
+  //  return Vector3d(0,0,0);
 }
 
 // ============================================================
-gp_Vec IntSurf_Quadric::Normale(const Standard_Real U, const Standard_Real V) const
+Vector3d IntSurf_Quadric::Normale(const Standard_Real U, const Standard_Real V) const
 {
   switch (typ)
   {
@@ -481,11 +481,11 @@ gp_Vec IntSurf_Quadric::Normale(const Standard_Real U, const Standard_Real V) co
       return Normale(Value(U, V));
     case GeomAbs_Cone: {
       Point3d P;
-      gp_Vec D1u, D1v;
+      Vector3d D1u, D1v;
       ElSLib::ConeD1(U, V, ax3, prm1, prm2, P, D1u, D1v);
       if (D1u.Magnitude() < 0.0000001)
       {
-        gp_Vec Vn(0.0, 0.0, 0.0);
+        Vector3d Vn(0.0, 0.0, 0.0);
         return (Vn);
       }
       return (D1u.Crossed(D1v));
@@ -493,17 +493,17 @@ gp_Vec IntSurf_Quadric::Normale(const Standard_Real U, const Standard_Real V) co
     case GeomAbs_Torus:
       return Normale(Value(U, V));
     default: {
-      gp_Vec v(0, 0, 0);
+      Vector3d v(0, 0, 0);
       return (v);
     }
       //  break;
   }
   // pop : pour NT
-  //  return gp_Vec(0,0,0);
+  //  return Vector3d(0,0,0);
 }
 
 // ============================================================
-gp_Vec IntSurf_Quadric::Normale(const Point3d& P) const
+Vector3d IntSurf_Quadric::Normale(const Point3d& P) const
 {
   switch (typ)
   {
@@ -519,7 +519,7 @@ gp_Vec IntSurf_Quadric::Normale(const Point3d& P) const
       }
       else
       {
-        gp_Dir D(lin.Normal(P).Direction());
+        Dir3d D(lin.Normal(P).Direction());
         D.Reverse();
         return (D);
       }
@@ -527,13 +527,13 @@ gp_Vec IntSurf_Quadric::Normale(const Point3d& P) const
     case GeomAbs_Sphere: {
       if (ax3direc)
       {
-        gp_Vec ax3P(ax3.Location(), P);
-        return gp_Dir(ax3P);
+        Vector3d ax3P(ax3.Location(), P);
+        return Dir3d(ax3P);
       }
       else
       {
-        gp_Vec Pax3(P, ax3.Location());
-        return gp_Dir(Pax3);
+        Vector3d Pax3(P, ax3.Location());
+        return Dir3d(Pax3);
       }
     }
     case GeomAbs_Cone: {
@@ -545,20 +545,20 @@ gp_Vec IntSurf_Quadric::Normale(const Point3d& P) const
       Point3d O, Pp, PT;
       //
       O = ax3.Location();
-      gp_Vec OZ(ax3.Direction());
-      Pp = P.Translated(OZ.Multiplied(-(gp_Vec(O, P).Dot(ax3.Direction()))));
+      Vector3d OZ(ax3.Direction());
+      Pp = P.Translated(OZ.Multiplied(-(Vector3d(O, P).Dot(ax3.Direction()))));
       //
-      gp_Dir DOPp = (O.SquareDistance(Pp) < 1e-14) ? ax3.XDirection() : gp_Dir(gp_Vec(O, Pp));
+      Dir3d DOPp = (O.SquareDistance(Pp) < 1e-14) ? ax3.XDirection() : Dir3d(Vector3d(O, Pp));
       PT.SetXYZ(O.XYZ() + DOPp.XYZ() * prm1);
       if (PT.SquareDistance(P) < 1e-14)
       {
-        return gp_Dir(OZ);
+        return Dir3d(OZ);
       }
-      gp_Dir aD(ax3direc ? gp_Vec(PT, P) : gp_Vec(P, PT));
+      Dir3d aD(ax3direc ? Vector3d(PT, P) : Vector3d(P, PT));
       return aD;
     }
     default: {
-      gp_Vec v(0, 0, 0);
+      Vector3d v(0, 0, 0);
       return (v);
     } //    break;
   }

@@ -49,13 +49,13 @@ public:
 
   Point3d ProjectionPoint() { return myProjectionPoint; }
 
-  void SetViewDirection(const gp_Dir& theDirection) { myViewDirection = theDirection; }
+  void SetViewDirection(const Dir3d& theDirection) { myViewDirection = theDirection; }
 
-  gp_Dir ViewDirection() { return myViewDirection; }
+  Dir3d ViewDirection() { return myViewDirection; }
 
-  void SetUpDirection(const gp_Dir& theDirection) { myUpDirection = theDirection; }
+  void SetUpDirection(const Dir3d& theDirection) { myUpDirection = theDirection; }
 
-  gp_Dir UpDirection() { return myUpDirection; }
+  Dir3d UpDirection() { return myUpDirection; }
 
   void SetZoomFactor(Standard_Real theZoomFactor) { myZoomFactor = theZoomFactor; }
 
@@ -146,8 +146,8 @@ private:
   Handle(TCollection_HAsciiString) myName;
   XCAFView_ProjectionType          myType;
   Point3d                           myProjectionPoint;
-  gp_Dir                           myViewDirection;
-  gp_Dir                           myUpDirection;
+  Dir3d                           myViewDirection;
+  Dir3d                           myUpDirection;
   Standard_Real                    myZoomFactor;
   Standard_Real                    myWindowHorizontalSize;
   Standard_Real                    myWindowVerticalSize;

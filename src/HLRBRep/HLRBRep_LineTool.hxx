@@ -39,7 +39,7 @@ class Standard_OutOfRange;
 class Standard_NoSuchObject;
 class Standard_DomainError;
 class Point3d;
-class gp_Vec;
+class Vector3d;
 class Geom_BezierCurve;
 class Geom_BSplineCurve;
 
@@ -90,13 +90,13 @@ public:
   //! first derivative.
   //! Raised if the continuity of the current interval
   //! is not C1.
-  static void D1(const gp_Lin& C, const Standard_Real U, Point3d& P, gp_Vec& V);
+  static void D1(const gp_Lin& C, const Standard_Real U, Point3d& P, Vector3d& V);
 
   //! Returns the point P of parameter U, the first and second
   //! derivatives V1 and V2.
   //! Raised if the continuity of the current interval
   //! is not C2.
-  static void D2(const gp_Lin& C, const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2);
+  static void D2(const gp_Lin& C, const Standard_Real U, Point3d& P, Vector3d& V1, Vector3d& V2);
 
   //! Returns the point P of parameter U, the first, the second
   //! and the third derivative.
@@ -105,16 +105,16 @@ public:
   static void D3(const gp_Lin&       C,
                  const Standard_Real U,
                  Point3d&             P,
-                 gp_Vec&             V1,
-                 gp_Vec&             V2,
-                 gp_Vec&             V3);
+                 Vector3d&             V1,
+                 Vector3d&             V2,
+                 Vector3d&             V3);
 
   //! The returned vector gives the value of the derivative for the
   //! order of derivation N.
   //! Raised if the continuity of the current interval
   //! is not CN.
   //! Raised if N < 1.
-  static gp_Vec DN(const gp_Lin& C, const Standard_Real U, const Standard_Integer N);
+  static Vector3d DN(const gp_Lin& C, const Standard_Real U, const Standard_Integer N);
 
   //! Returns the parametric  resolution corresponding
   //! to the real space resolution <R3d>.

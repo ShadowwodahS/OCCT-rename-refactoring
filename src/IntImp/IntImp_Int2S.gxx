@@ -122,7 +122,7 @@ IntImp_ConstIsoparametric IntImp_Int2S:: Perform(const TColStd_Array1OfReal& Par
 IntImp_ConstIsoparametric IntImp_Int2S:: Perform(const TColStd_Array1OfReal& Param,
                                                  math_FunctionSetRoot& Rsnld)
 {
-  gp_Vec DPUV[4];
+  Vector3d DPUV[4];
   Point3d P1,P2;
   Standard_Real Epsuv[4];
   Standard_Real DuvBuf[4];

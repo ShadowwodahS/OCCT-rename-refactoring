@@ -25,8 +25,8 @@
 #include <Standard_Real.hxx>
 #include <Standard_Boolean.hxx>
 class Point3d;
-class gp_Dir;
-class gp_Trsf;
+class Dir3d;
+class Transform3d;
 class gp_Lin;
 class gp_Pln;
 
@@ -97,7 +97,7 @@ public:
   //! points M defined by M=P+u*D, where u is greater than
   //! or equal to 0, are inside the bounding volume. This
   //! involves first setting this box to be void and then adding   the half-line.
-  Standard_EXPORT void Set(const Point3d& P, const gp_Dir& D);
+  Standard_EXPORT void Set(const Point3d& P, const Dir3d& D);
 
   //! Enlarges this bounding box, if required, so that it
   //! contains at least:
@@ -224,7 +224,7 @@ public:
   //! Applying a geometric transformation (for example, a
   //! rotation) to a bounding box generally increases its
   //! dimensions. This is not optimal for algorithms which use it.
-  Standard_NODISCARD Standard_EXPORT Bnd_Box Transformed(const gp_Trsf& T) const;
+  Standard_NODISCARD Standard_EXPORT Bnd_Box Transformed(const Transform3d& T) const;
 
   //! Adds the box <Other> to <me>.
   Standard_EXPORT void Add(const Bnd_Box& Other);
@@ -233,12 +233,12 @@ public:
   Standard_EXPORT void Add(const Point3d& P);
 
   //! Extends  <me> from the Pnt <P> in the direction <D>.
-  Standard_EXPORT void Add(const Point3d& P, const gp_Dir& D);
+  Standard_EXPORT void Add(const Point3d& P, const Dir3d& D);
 
   //! Extends the Box  in the given Direction, i.e. adds
   //! an  half-line. The   box  may become   infinite in
   //! 1,2 or 3 directions.
-  Standard_EXPORT void Add(const gp_Dir& D);
+  Standard_EXPORT void Add(const Dir3d& D);
 
   //! Returns True if the Pnt is out the box.
   Standard_EXPORT Standard_Boolean IsOut(const Point3d& P) const;
@@ -254,18 +254,18 @@ public:
 
   //! Returns False if  the transformed <Box> intersects
   //! or  is inside <me>.
-  Standard_EXPORT Standard_Boolean IsOut(const Bnd_Box& Other, const gp_Trsf& T) const;
+  Standard_EXPORT Standard_Boolean IsOut(const Bnd_Box& Other, const Transform3d& T) const;
 
   //! Returns False  if the transformed <Box> intersects
   //! or  is inside the transformed box <me>.
-  Standard_EXPORT Standard_Boolean IsOut(const gp_Trsf& T1,
+  Standard_EXPORT Standard_Boolean IsOut(const Transform3d& T1,
                                          const Bnd_Box& Other,
-                                         const gp_Trsf& T2) const;
+                                         const Transform3d& T2) const;
 
   //! Returns False  if the flat band lying between two parallel
   //! lines represented by their reference points <P1>, <P2> and
   //! direction <D> intersects the box.
-  Standard_EXPORT Standard_Boolean IsOut(const Point3d& P1, const Point3d& P2, const gp_Dir& D) const;
+  Standard_EXPORT Standard_Boolean IsOut(const Point3d& P1, const Point3d& P2, const Dir3d& D) const;
 
   //! Computes the minimum distance between two boxes.
   Standard_EXPORT Standard_Real Distance(const Bnd_Box& Other) const;

@@ -1727,7 +1727,7 @@ Handle(Transfer_Binder) STEPControl_ActorWrite::TransferSubShape(
   //   A part, un item decrivant une occurence en position est cree
   //   SINON, la shape est prise et transferee telle quelle
   TopoDS_Shape     sh0 = shape;
-  gp_Trsf          aLoc;
+  Transform3d          aLoc;
   Standard_Boolean isShapeLocated = Standard_False;
   if (GroupMode() > 0)
   {

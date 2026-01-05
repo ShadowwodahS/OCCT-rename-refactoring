@@ -33,8 +33,8 @@ Standard_Real gp_Lin::Distance(const gp_Lin& Other) const
   }
   else
   {
-    gp_Dir        dir(pos.Direction().Crossed(Other.pos.Direction()));
-    Standard_Real D = gp_Vec(pos.Location(), Other.pos.Location()).Dot(gp_Vec(dir));
+    Dir3d        dir(pos.Direction().Crossed(Other.pos.Direction()));
+    Standard_Real D = Vector3d(pos.Location(), Other.pos.Location()).Dot(Vector3d(dir));
     if (D < 0)
       D = -D;
     return D;
@@ -53,24 +53,24 @@ gp_Lin gp_Lin::Mirrored(const Point3d& P) const
   return L;
 }
 
-void gp_Lin::Mirror(const gp_Ax1& A1)
+void gp_Lin::Mirror(const Axis3d& A1)
 {
   pos.Mirror(A1);
 }
 
-gp_Lin gp_Lin::Mirrored(const gp_Ax1& A1) const
+gp_Lin gp_Lin::Mirrored(const Axis3d& A1) const
 {
   gp_Lin L = *this;
   L.pos.Mirror(A1);
   return L;
 }
 
-void gp_Lin::Mirror(const gp_Ax2& A2)
+void gp_Lin::Mirror(const Frame3d& A2)
 {
   pos.Mirror(A2);
 }
 
-gp_Lin gp_Lin::Mirrored(const gp_Ax2& A2) const
+gp_Lin gp_Lin::Mirrored(const Frame3d& A2) const
 {
   gp_Lin L = *this;
   L.pos.Mirror(A2);

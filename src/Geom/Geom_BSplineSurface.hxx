@@ -35,9 +35,9 @@
 #include <TColStd_Array2OfReal.hxx>
 #include <TColgp_Array1OfPnt.hxx>
 class Point3d;
-class gp_Vec;
+class Vector3d;
 class Geom_Curve;
-class gp_Trsf;
+class Transform3d;
 class Geom_Geometry;
 
 class Geom_BSplineSurface;
@@ -1110,32 +1110,32 @@ public:
   Standard_EXPORT void D1(const Standard_Real U,
                           const Standard_Real V,
                           Point3d&             P,
-                          gp_Vec&             D1U,
-                          gp_Vec&             D1V) const Standard_OVERRIDE;
+                          Vector3d&             D1U,
+                          Vector3d&             D1V) const Standard_OVERRIDE;
 
   //! Raised if the continuity of the surface is not C2.
   Standard_EXPORT void D2(const Standard_Real U,
                           const Standard_Real V,
                           Point3d&             P,
-                          gp_Vec&             D1U,
-                          gp_Vec&             D1V,
-                          gp_Vec&             D2U,
-                          gp_Vec&             D2V,
-                          gp_Vec&             D2UV) const Standard_OVERRIDE;
+                          Vector3d&             D1U,
+                          Vector3d&             D1V,
+                          Vector3d&             D2U,
+                          Vector3d&             D2V,
+                          Vector3d&             D2UV) const Standard_OVERRIDE;
 
   //! Raised if the continuity of the surface is not C3.
   Standard_EXPORT void D3(const Standard_Real U,
                           const Standard_Real V,
                           Point3d&             P,
-                          gp_Vec&             D1U,
-                          gp_Vec&             D1V,
-                          gp_Vec&             D2U,
-                          gp_Vec&             D2V,
-                          gp_Vec&             D2UV,
-                          gp_Vec&             D3U,
-                          gp_Vec&             D3V,
-                          gp_Vec&             D3UUV,
-                          gp_Vec&             D3UVV) const Standard_OVERRIDE;
+                          Vector3d&             D1U,
+                          Vector3d&             D1V,
+                          Vector3d&             D2U,
+                          Vector3d&             D2V,
+                          Vector3d&             D2UV,
+                          Vector3d&             D3U,
+                          Vector3d&             D3V,
+                          Vector3d&             D3UUV,
+                          Vector3d&             D3UVV) const Standard_OVERRIDE;
 
   //! Nu is the order of derivation in the U parametric direction and
   //! Nv is the order of derivation in the V parametric direction.
@@ -1158,7 +1158,7 @@ public:
   //! the evaluations are the same as if we consider the whole
   //! definition of the surface. Of course the evaluations are
   //! different outside this parametric domain.
-  Standard_EXPORT gp_Vec DN(const Standard_Real    U,
+  Standard_EXPORT Vector3d DN(const Standard_Real    U,
                             const Standard_Real    V,
                             const Standard_Integer Nu,
                             const Standard_Integer Nv) const Standard_OVERRIDE;
@@ -1182,8 +1182,8 @@ public:
                                const Standard_Integer FromVK1,
                                const Standard_Integer ToVK2,
                                Point3d&                P,
-                               gp_Vec&                D1U,
-                               gp_Vec&                D1V) const;
+                               Vector3d&                D1U,
+                               Vector3d&                D1V) const;
 
   //! Raised if the local continuity of the surface is not C2
   //! between the knots FromUK1, ToUK2 and FromVK1, ToVK2.
@@ -1195,11 +1195,11 @@ public:
                                const Standard_Integer FromVK1,
                                const Standard_Integer ToVK2,
                                Point3d&                P,
-                               gp_Vec&                D1U,
-                               gp_Vec&                D1V,
-                               gp_Vec&                D2U,
-                               gp_Vec&                D2V,
-                               gp_Vec&                D2UV) const;
+                               Vector3d&                D1U,
+                               Vector3d&                D1V,
+                               Vector3d&                D2U,
+                               Vector3d&                D2V,
+                               Vector3d&                D2UV) const;
 
   //! Raised if the local continuity of the surface is not C3
   //! between the knots FromUK1, ToUK2 and FromVK1, ToVK2.
@@ -1211,21 +1211,21 @@ public:
                                const Standard_Integer FromVK1,
                                const Standard_Integer ToVK2,
                                Point3d&                P,
-                               gp_Vec&                D1U,
-                               gp_Vec&                D1V,
-                               gp_Vec&                D2U,
-                               gp_Vec&                D2V,
-                               gp_Vec&                D2UV,
-                               gp_Vec&                D3U,
-                               gp_Vec&                D3V,
-                               gp_Vec&                D3UUV,
-                               gp_Vec&                D3UVV) const;
+                               Vector3d&                D1U,
+                               Vector3d&                D1V,
+                               Vector3d&                D2U,
+                               Vector3d&                D2V,
+                               Vector3d&                D2UV,
+                               Vector3d&                D3U,
+                               Vector3d&                D3V,
+                               Vector3d&                D3UUV,
+                               Vector3d&                D3UVV) const;
 
   //! Raised if the local continuity of the surface is not CNu
   //! between the knots FromUK1, ToUK2 and CNv between the knots
   //! FromVK1, ToVK2.
   //! Raised if FromUK1 = ToUK2 or FromVK1 = ToVK2.
-  Standard_EXPORT gp_Vec LocalDN(const Standard_Real    U,
+  Standard_EXPORT Vector3d LocalDN(const Standard_Real    U,
                                  const Standard_Real    V,
                                  const Standard_Integer FromUK1,
                                  const Standard_Integer ToUK2,
@@ -1269,7 +1269,7 @@ public:
                                           const Standard_Boolean CheckRational) const;
 
   //! Applies the transformation T to this BSpline surface.
-  Standard_EXPORT void Transform(const gp_Trsf& T) Standard_OVERRIDE;
+  Standard_EXPORT void Transform(const Transform3d& T) Standard_OVERRIDE;
 
   //! Returns the value of the maximum degree of the normalized
   //! B-spline basis functions in the u and v directions.

@@ -85,7 +85,7 @@ void PrsDim_MinRadiusDimension::Compute(const Handle(PrsMgr_PresentationManager)
   //{ //ota : recompute ellipse always
   ComputeGeometry();
   myEllipse.SetMinorRadius(myVal);
-  gp_Vec v1(myEllipse.YAxis().Direction());
+  Vector3d v1(myEllipse.YAxis().Direction());
   v1 *= myVal;
   myApexP = myEllipse.Location().Translated(v1);
   myApexN = myEllipse.Location().Translated(-v1);
@@ -122,7 +122,7 @@ void PrsDim_MinRadiusDimension::ComputeEllipse(const Handle(Prs3d_Presentation)&
 
     if (myIsSetBndBox)
       myPosition =
-        PrsDim::TranslatePointToBound(myPosition, gp_Dir(gp_Vec(Center, myPosition)), myBndBox);
+        PrsDim::TranslatePointToBound(myPosition, Dir3d(Vector3d(Center, myPosition)), myBndBox);
     curPos = myPosition;
   }
   else //! AutomaticPosition
@@ -177,7 +177,7 @@ void PrsDim_MinRadiusDimension::ComputeArcOfEllipse(const Handle(Prs3d_Presentat
     myAutomaticPosition = Standard_True;
     if (myIsSetBndBox)
       myPosition =
-        PrsDim::TranslatePointToBound(myPosition, gp_Dir(gp_Vec(Center, myPosition)), myBndBox);
+        PrsDim::TranslatePointToBound(myPosition, Dir3d(Vector3d(Center, myPosition)), myBndBox);
     curPos = myPosition;
   }
   else //! AutomaticPosition
@@ -277,9 +277,9 @@ void PrsDim_MinRadiusDimension::ComputeSelection(const Handle(SelectMgr_Selectio
         par = myFirstPar;
       else
         par = myLastPar;
-      gp_Vec Vapex(center, ElCLib::Value(parEnd, myEllipse));
-      gp_Vec Vpnt(center, ElCLib::Value(par, myEllipse));
-      gp_Dir dir(Vpnt ^ Vapex);
+      Vector3d Vapex(center, ElCLib::Value(parEnd, myEllipse));
+      Vector3d Vpnt(center, ElCLib::Value(par, myEllipse));
+      Dir3d dir(Vpnt ^ Vapex);
       if (myEllipse.Position().Direction().IsOpposite(dir, Precision::Angular()))
       {
         parStart = parEnd;

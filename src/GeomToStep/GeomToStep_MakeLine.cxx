@@ -35,7 +35,7 @@
 //=============================================================================
 GeomToStep_MakeLine::GeomToStep_MakeLine(const gp_Lin& L, const StepData_Factors& theLocalFactors)
 {
-#define Vec_gen gp_Vec
+#define Vec_gen Vector3d
 #include "GeomToStep_MakeLine_gen.pxx"
 #undef Vec_gen
 }
@@ -60,7 +60,7 @@ GeomToStep_MakeLine::GeomToStep_MakeLine(const Handle(Geom_Line)& Gline,
 {
   gp_Lin L;
   L = Gline->Lin();
-#define Vec_gen gp_Vec
+#define Vec_gen Vector3d
 #include "GeomToStep_MakeLine_gen.pxx"
 #undef Vec_gen
 }

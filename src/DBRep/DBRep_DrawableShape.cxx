@@ -779,7 +779,7 @@ void DBRep_DrawableShape::DrawOn(Draw_Display& dis) const
       {
         // display an arrow at the end
         Point3d aPnt;
-        gp_Vec V;
+        Vector3d V;
         C.D1(l, aPnt, V);
         gp_Pnt2d p1, p2;
         dis.Project(aPnt, p1);
@@ -798,7 +798,7 @@ void DBRep_DrawableShape::DrawOn(Draw_Display& dis) const
           dis.DrawTo(p2);
         }
 
-        //	gp_Vec tang;
+        //	Vector3d tang;
         //	C.D1(l,P,tang);
       }
     }
@@ -885,7 +885,7 @@ void DBRep_DrawableShape::DisplayHiddenLines(Draw_Display& dis)
   Standard_Integer id = dis.ViewId();
 
   // get the projection
-  gp_Trsf T;
+  Transform3d T;
   dout.GetTrsf(id, T);
   Standard_Real focal = -1;
   if (!strcmp(dout.GetType(id), "PERS"))
@@ -1123,7 +1123,7 @@ void DBRep_DrawableShape::LastPick(TopoDS_Shape& s, Standard_Real& u, Standard_R
 //=================================================================================================
 
 void DBRep_DrawableShape::display(const Handle(Poly_Triangulation)& T,
-                                  const gp_Trsf&                    tr,
+                                  const Transform3d&                    tr,
                                   Draw_Display&                     dis) const
 {
   // Build the connect tool
@@ -1218,7 +1218,7 @@ Standard_Boolean DBRep_DrawableShape::addMeshNormals(
       aP1.Transform(aLoc.Transformation());
     }
 
-    gp_Vec aNormal;
+    Vector3d aNormal;
     if (hasNormals)
     {
       aNormal = aTriangulation->Normal(aNodeIter);
@@ -1227,7 +1227,7 @@ Standard_Boolean DBRep_DrawableShape::addMeshNormals(
     {
       const gp_Pnt2d& aUVNode = aTriangulation->UVNode(aNodeIter);
       Point3d          aDummyPnt;
-      gp_Vec          aV1, aV2;
+      Vector3d          aV1, aV2;
       aSurface.D1(aUVNode.X(), aUVNode.Y(), aDummyPnt, aV1, aV2);
       aNormal = aV1.Crossed(aV2);
     }
@@ -1305,10 +1305,10 @@ Standard_Boolean DBRep_DrawableShape::addSurfaceNormals(
       const Standard_Real aV = aVmin + (isUseMidV ? 1 : aVIter) * aDV;
 
       Point3d aP1;
-      gp_Vec aV1, aV2;
+      Vector3d aV1, aV2;
       aSurface.D1(aU, aV, aP1, aV1, aV2);
 
-      gp_Vec        aVec       = aV1.Crossed(aV2);
+      Vector3d        aVec       = aV1.Crossed(aV2);
       Standard_Real aNormalLen = aVec.Magnitude();
       if (aNormalLen > 1.e-10)
       {

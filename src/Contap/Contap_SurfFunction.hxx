@@ -43,9 +43,9 @@ public:
 
   void Set(const Point3d& Eye);
 
-  void Set(const gp_Dir& Dir);
+  void Set(const Dir3d& Dir);
 
-  void Set(const gp_Dir& Dir, const Standard_Real Angle);
+  void Set(const Dir3d& Dir, const Standard_Real Angle);
 
   void Set(const Point3d& Eye, const Standard_Real Angle);
 
@@ -78,7 +78,7 @@ public:
 
   Standard_EXPORT Standard_Boolean IsTangent();
 
-  const gp_Vec& Direction3d();
+  const Vector3d& Direction3d();
 
   const gp_Dir2d& Direction2d();
 
@@ -86,7 +86,7 @@ public:
 
   const Point3d& Eye() const;
 
-  const gp_Dir& Direction() const;
+  const Dir3d& Direction() const;
 
   Standard_Real Angle() const;
 
@@ -100,7 +100,7 @@ private:
   Handle(Adaptor3d_Surface) mySurf;
   Standard_Real             myMean;
   Contap_TFunction          myType;
-  gp_Dir                    myDir;
+  Dir3d                    myDir;
   Point3d                    myEye;
   Standard_Real             myAng;
   Standard_Real             myCosAng;
@@ -112,7 +112,7 @@ private:
   Standard_Real             Fpu;
   Standard_Real             Fpv;
   gp_Dir2d                  d2d;
-  gp_Vec                    d3d;
+  Vector3d                    d3d;
   Standard_Boolean          tangent;
   Standard_Boolean          computed;
   Standard_Boolean          derived;

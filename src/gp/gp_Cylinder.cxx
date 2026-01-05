@@ -37,7 +37,7 @@ void gp_Cylinder::Coefficients(Standard_Real& A1,
 {
   // Dans le repere local du cylindre :
   // X**2 + Y**2 - radius = 0.0
-  gp_Trsf T;
+  Transform3d T;
   T.SetTransformation(pos);
   Standard_Real T11 = T.Value(1, 1);
   Standard_Real T12 = T.Value(1, 2);
@@ -72,24 +72,24 @@ gp_Cylinder gp_Cylinder::Mirrored(const Point3d& P) const
   return C;
 }
 
-void gp_Cylinder::Mirror(const gp_Ax1& A1)
+void gp_Cylinder::Mirror(const Axis3d& A1)
 {
   pos.Mirror(A1);
 }
 
-gp_Cylinder gp_Cylinder::Mirrored(const gp_Ax1& A1) const
+gp_Cylinder gp_Cylinder::Mirrored(const Axis3d& A1) const
 {
   gp_Cylinder C = *this;
   C.pos.Mirror(A1);
   return C;
 }
 
-void gp_Cylinder::Mirror(const gp_Ax2& A2)
+void gp_Cylinder::Mirror(const Frame3d& A2)
 {
   pos.Mirror(A2);
 }
 
-gp_Cylinder gp_Cylinder::Mirrored(const gp_Ax2& A2) const
+gp_Cylinder gp_Cylinder::Mirrored(const Frame3d& A2) const
 {
   gp_Cylinder C = *this;
   C.pos.Mirror(A2);

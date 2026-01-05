@@ -106,7 +106,7 @@ void IntCurveSurface_Polygon::Init(const TheCurve&        C) {
       Point3d Pm=TheCurveTool::Value(C,u);
       Point3d P1=ThePnts.Value(i);
       Point3d P2=ThePnts.Value(i+1);
-      gp_Lin L(P1,gp_Dir(gp_Vec(P1,P2)));
+      gp_Lin L(P1,Dir3d(Vector3d(P1,P2)));
       Standard_Real t=L.Distance(Pm);
       
       if(t>TheDeflection) {
@@ -169,7 +169,7 @@ void IntCurveSurface_Polygon::Init(const TheCurve&        C,
       //ddout << "P1 : " << P1.X() << " " << P1.Y() << " " << P1.Z() << endl;
       Point3d P2=ThePnts.Value(i+1);
       //ddout << "P2 : " << P2.X() << " " << P2.Y() << " " << P2.Z() << endl;
-      gp_Lin L(P1,gp_Dir(gp_Vec(P1,P2)));
+      gp_Lin L(P1,Dir3d(Vector3d(P1,P2)));
       Standard_Real t=L.Distance(Pm);
       //ddout << "Distance " << t << endl;
       if(t>TheDeflection) {

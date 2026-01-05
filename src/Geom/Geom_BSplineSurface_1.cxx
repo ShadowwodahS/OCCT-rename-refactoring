@@ -144,8 +144,8 @@ void Geom_BSplineSurface::D0(const Standard_Real U, const Standard_Real V, Point
 void Geom_BSplineSurface::D1(const Standard_Real U,
                              const Standard_Real V,
                              Point3d&             P,
-                             gp_Vec&             D1U,
-                             gp_Vec&             D1V) const
+                             Vector3d&             D1U,
+                             Vector3d&             D1V) const
 {
   Standard_Real aNewU = U;
   Standard_Real aNewV = V;
@@ -185,11 +185,11 @@ void Geom_BSplineSurface::D1(const Standard_Real U,
 void Geom_BSplineSurface::D2(const Standard_Real U,
                              const Standard_Real V,
                              Point3d&             P,
-                             gp_Vec&             D1U,
-                             gp_Vec&             D1V,
-                             gp_Vec&             D2U,
-                             gp_Vec&             D2V,
-                             gp_Vec&             D2UV) const
+                             Vector3d&             D1U,
+                             Vector3d&             D1V,
+                             Vector3d&             D2U,
+                             Vector3d&             D2V,
+                             Vector3d&             D2UV) const
 {
   Standard_Real aNewU = U;
   Standard_Real aNewV = V;
@@ -232,15 +232,15 @@ void Geom_BSplineSurface::D2(const Standard_Real U,
 void Geom_BSplineSurface::D3(const Standard_Real U,
                              const Standard_Real V,
                              Point3d&             P,
-                             gp_Vec&             D1U,
-                             gp_Vec&             D1V,
-                             gp_Vec&             D2U,
-                             gp_Vec&             D2V,
-                             gp_Vec&             D2UV,
-                             gp_Vec&             D3U,
-                             gp_Vec&             D3V,
-                             gp_Vec&             D3UUV,
-                             gp_Vec&             D3UVV) const
+                             Vector3d&             D1U,
+                             Vector3d&             D1V,
+                             Vector3d&             D2U,
+                             Vector3d&             D2V,
+                             Vector3d&             D2UV,
+                             Vector3d&             D3U,
+                             Vector3d&             D3V,
+                             Vector3d&             D3UUV,
+                             Vector3d&             D3UVV) const
 {
   BSplSLib::D3(U,
                V,
@@ -272,12 +272,12 @@ void Geom_BSplineSurface::D3(const Standard_Real U,
 
 //=================================================================================================
 
-gp_Vec Geom_BSplineSurface::DN(const Standard_Real    U,
+Vector3d Geom_BSplineSurface::DN(const Standard_Real    U,
                                const Standard_Real    V,
                                const Standard_Integer Nu,
                                const Standard_Integer Nv) const
 {
-  gp_Vec Vn;
+  Vector3d Vn;
   BSplSLib::DN(U,
                V,
                Nu,
@@ -365,8 +365,8 @@ void Geom_BSplineSurface::LocalD1(const Standard_Real    U,
                                   const Standard_Integer FromVK1,
                                   const Standard_Integer ToVK2,
                                   Point3d&                P,
-                                  gp_Vec&                D1U,
-                                  gp_Vec&                D1V) const
+                                  Vector3d&                D1U,
+                                  Vector3d&                D1V) const
 {
   Standard_DomainError_Raise_if(FromUK1 == ToUK2 || FromVK1 == ToVK2,
                                 "Geom_BSplineSurface::LocalD1");
@@ -410,11 +410,11 @@ void Geom_BSplineSurface::LocalD2(const Standard_Real    U,
                                   const Standard_Integer FromVK1,
                                   const Standard_Integer ToVK2,
                                   Point3d&                P,
-                                  gp_Vec&                D1U,
-                                  gp_Vec&                D1V,
-                                  gp_Vec&                D2U,
-                                  gp_Vec&                D2V,
-                                  gp_Vec&                D2UV) const
+                                  Vector3d&                D1U,
+                                  Vector3d&                D1V,
+                                  Vector3d&                D2U,
+                                  Vector3d&                D2V,
+                                  Vector3d&                D2UV) const
 {
   Standard_DomainError_Raise_if(FromUK1 == ToUK2 || FromVK1 == ToVK2,
                                 "Geom_BSplineSurface::LocalD2");
@@ -461,15 +461,15 @@ void Geom_BSplineSurface::LocalD3(const Standard_Real    U,
                                   const Standard_Integer FromVK1,
                                   const Standard_Integer ToVK2,
                                   Point3d&                P,
-                                  gp_Vec&                D1U,
-                                  gp_Vec&                D1V,
-                                  gp_Vec&                D2U,
-                                  gp_Vec&                D2V,
-                                  gp_Vec&                D2UV,
-                                  gp_Vec&                D3U,
-                                  gp_Vec&                D3V,
-                                  gp_Vec&                D3UUV,
-                                  gp_Vec&                D3UVV) const
+                                  Vector3d&                D1U,
+                                  Vector3d&                D1V,
+                                  Vector3d&                D2U,
+                                  Vector3d&                D2V,
+                                  Vector3d&                D2UV,
+                                  Vector3d&                D3U,
+                                  Vector3d&                D3V,
+                                  Vector3d&                D3UUV,
+                                  Vector3d&                D3UVV) const
 {
   Standard_DomainError_Raise_if(FromUK1 == ToUK2 || FromVK1 == ToVK2,
                                 "Geom_BSplineSurface::LocalD3");
@@ -513,7 +513,7 @@ void Geom_BSplineSurface::LocalD3(const Standard_Real    U,
 
 //=================================================================================================
 
-gp_Vec Geom_BSplineSurface::LocalDN(const Standard_Real    U,
+Vector3d Geom_BSplineSurface::LocalDN(const Standard_Real    U,
                                     const Standard_Real    V,
                                     const Standard_Integer FromUK1,
                                     const Standard_Integer ToUK2,
@@ -534,7 +534,7 @@ gp_Vec Geom_BSplineSurface::LocalDN(const Standard_Real    U,
   BSplCLib::LocateParameter(vdeg, VFKNOTS, V, vperiodic, FromVK1, ToVK2, vindex, v);
   vindex = BSplCLib::FlatIndex(vdeg, vindex, vmults->Array1(), vperiodic);
 
-  gp_Vec Vn;
+  Vector3d Vn;
   BSplSLib::DN(u,
                v,
                Nu,
@@ -909,7 +909,7 @@ const TColStd_Array2OfReal* Geom_BSplineSurface::Weights() const
 
 //=================================================================================================
 
-void Geom_BSplineSurface::Transform(const gp_Trsf& T)
+void Geom_BSplineSurface::Transform(const Transform3d& T)
 {
   TColgp_Array2OfPnt& VPoles = poles->ChangeArray2();
   for (Standard_Integer j = VPoles.LowerCol(); j <= VPoles.UpperCol(); j++)
@@ -1729,7 +1729,7 @@ void Geom_BSplineSurface::MovePoint(const Standard_Real    U,
   TColgp_Array2OfPnt npoles(1, poles->UpperRow(), 1, poles->UpperCol());
   Point3d             P0;
   D0(U, V, P0);
-  gp_Vec           Displ(P0, P);
+  Vector3d           Displ(P0, P);
   Standard_Boolean rational = (urational || vrational);
   BSplSLib::MovePoint(U,
                       V,

@@ -114,7 +114,7 @@ public:
 
   //! Returns direction ray of intersector.
   //! This method returns zero direction for the base class.
-  Standard_EXPORT virtual const gp_Dir& GetViewRayDirection() const;
+  Standard_EXPORT virtual const Dir3d& GetViewRayDirection() const;
 
   //! Returns current mouse coordinates.
   //! This method returns infinite point for the base class.
@@ -196,7 +196,7 @@ public:
   virtual Standard_Boolean OverlapsCylinder(const Standard_Real            theBottomRad,
                                             const Standard_Real            theTopRad,
                                             const Standard_Real            theHeight,
-                                            const gp_Trsf&                 theTrsf,
+                                            const Transform3d&                 theTrsf,
                                             const Standard_Boolean         theIsHollow,
                                             const SelectMgr_ViewClipRange& theClipRange,
                                             SelectBasics_PickResult&       thePickResult) const = 0;
@@ -206,7 +206,7 @@ public:
   virtual Standard_Boolean OverlapsCylinder(const Standard_Real    theBottomRad,
                                             const Standard_Real    theTopRad,
                                             const Standard_Real    theHeight,
-                                            const gp_Trsf&         theTrsf,
+                                            const Transform3d&         theTrsf,
                                             const Standard_Boolean theIsHollow,
                                             Standard_Boolean*      theInside = NULL) const = 0;
 
@@ -215,7 +215,7 @@ public:
   //! The position and orientation of the circle are specified
   //! via theTrsf transformation for gp::XOY() with center in gp::Origin().
   virtual Standard_Boolean OverlapsCircle(const Standard_Real            theBottomRad,
-                                          const gp_Trsf&                 theTrsf,
+                                          const Transform3d&                 theTrsf,
                                           const Standard_Boolean         theIsFilled,
                                           const SelectMgr_ViewClipRange& theClipRange,
                                           SelectBasics_PickResult&       thePickResult) const = 0;
@@ -225,7 +225,7 @@ public:
   //! The position and orientation of the circle are specified
   //! via theTrsf transformation for gp::XOY() with center in gp::Origin().
   virtual Standard_Boolean OverlapsCircle(const Standard_Real    theBottomRad,
-                                          const gp_Trsf&         theTrsf,
+                                          const Transform3d&         theTrsf,
                                           const Standard_Boolean theIsFilled,
                                           Standard_Boolean*      theInside = NULL) const = 0;
 
@@ -250,7 +250,7 @@ public:
   Standard_EXPORT virtual Standard_Boolean RaySphereIntersection(const Point3d&       theCenter,
                                                                  const Standard_Real theRadius,
                                                                  const Point3d&       theLoc,
-                                                                 const gp_Dir&       theRayDir,
+                                                                 const Dir3d&       theRayDir,
                                                                  Standard_Real&      theTimeEnter,
                                                                  Standard_Real& theTimeLeave) const;
 
@@ -269,7 +269,7 @@ public:
     const Standard_Real    theTopRadius,
     const Standard_Real    theHeight,
     const Point3d&          theLoc,
-    const gp_Dir&          theRayDir,
+    const Dir3d&          theRayDir,
     const Standard_Boolean theIsHollow,
     Standard_Real&         theTimeEnter,
     Standard_Real&         theTimeLeave) const;
@@ -283,7 +283,7 @@ public:
   //! @param[out] theTime     the intersection
   Standard_EXPORT virtual Standard_Boolean RayCircleIntersection(const Standard_Real    theRadius,
                                                                  const Point3d&          theLoc,
-                                                                 const gp_Dir&          theRayDir,
+                                                                 const Dir3d&          theRayDir,
                                                                  const Standard_Boolean theIsFilled,
                                                                  Standard_Real& theTime) const;
 

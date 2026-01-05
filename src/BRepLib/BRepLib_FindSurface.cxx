@@ -506,9 +506,9 @@ void BRepLib_FindSurface::Init(const TopoDS_Shape&    S,
         math_Vector aVec1(1, 3, 0.), aVec2(1, 3, 0.);
         anEignval.Vector(ind[0], aVec1);
         anEignval.Vector(ind[1], aVec2);
-        gp_Vec aV1(aVec1(1), aVec1(2), aVec1(3));
-        gp_Vec aV2(aVec2(1), aVec2(2), aVec2(3));
-        gp_Vec aN = aV1 ^ aV2;
+        Vector3d aV1(aVec1(1), aVec1(2), aVec1(3));
+        Vector3d aV2(aVec2(1), aVec2(2), aVec2(3));
+        Vector3d aN = aV1 ^ aV2;
         aVec(1)   = aN.X();
         aVec(2)   = aN.Y();
         aVec(3)   = aN.Z();
@@ -530,7 +530,7 @@ void BRepLib_FindSurface::Init(const TopoDS_Shape&    S,
     if (Abs(aVec(i)) <= eps)
       aVec(i) = 0.;
   }
-  gp_Vec             aN(aVec(1), aVec(2), aVec(3));
+  Vector3d             aN(aVec(1), aVec(2), aVec(3));
   Handle(Geom_Plane) aPlane     = new Geom_Plane(aBaryCenter, aN);
   myTolReached                  = Controle(aPoints, aPlane);
   const Standard_Real aWeakness = 5.0;
@@ -547,7 +547,7 @@ void BRepLib_FindSurface::Init(const TopoDS_Shape&    S,
       BRepTopAdaptor_FClass2d FClass(aTmpFace, 0.);
       if (FClass.PerformInfinitePoint() == TopAbs_IN)
       {
-        gp_Dir aNorm = aPlane->Position().Direction();
+        Dir3d aNorm = aPlane->Position().Direction();
         aNorm.Reverse();
         mySurface = new Geom_Plane(aPlane->Position().Location(), aNorm);
       }

@@ -75,59 +75,59 @@ Point3d IGESSolid_Ellipsoid::TransformedCenter() const
   }
 }
 
-gp_Dir IGESSolid_Ellipsoid::XAxis() const
+Dir3d IGESSolid_Ellipsoid::XAxis() const
 {
-  return gp_Dir(theXAxis);
+  return Dir3d(theXAxis);
 }
 
-gp_Dir IGESSolid_Ellipsoid::TransformedXAxis() const
+Dir3d IGESSolid_Ellipsoid::TransformedXAxis() const
 {
   if (!HasTransf())
-    return gp_Dir(theXAxis);
+    return Dir3d(theXAxis);
   else
   {
     gp_XYZ   tmp = theXAxis;
     gp_GTrsf loc = Location();
     loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
     loc.Transforms(tmp);
-    return gp_Dir(tmp);
+    return Dir3d(tmp);
   }
 }
 
-gp_Dir IGESSolid_Ellipsoid::YAxis() const
+Dir3d IGESSolid_Ellipsoid::YAxis() const
 {
-  return gp_Dir(theXAxis ^ theZAxis); // ^ overloaded
+  return Dir3d(theXAxis ^ theZAxis); // ^ overloaded
 }
 
-gp_Dir IGESSolid_Ellipsoid::TransformedYAxis() const
+Dir3d IGESSolid_Ellipsoid::TransformedYAxis() const
 {
   if (!HasTransf())
-    return gp_Dir(theXAxis ^ theZAxis);
+    return Dir3d(theXAxis ^ theZAxis);
   else
   {
     gp_XYZ   tmp = theXAxis ^ theZAxis;
     gp_GTrsf loc = Location();
     loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
     loc.Transforms(tmp);
-    return gp_Dir(tmp);
+    return Dir3d(tmp);
   }
 }
 
-gp_Dir IGESSolid_Ellipsoid::ZAxis() const
+Dir3d IGESSolid_Ellipsoid::ZAxis() const
 {
-  return gp_Dir(theZAxis);
+  return Dir3d(theZAxis);
 }
 
-gp_Dir IGESSolid_Ellipsoid::TransformedZAxis() const
+Dir3d IGESSolid_Ellipsoid::TransformedZAxis() const
 {
   if (!HasTransf())
-    return gp_Dir(theZAxis);
+    return Dir3d(theZAxis);
   else
   {
     gp_XYZ   tmp = theZAxis;
     gp_GTrsf loc = Location();
     loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
     loc.Transforms(tmp);
-    return gp_Dir(tmp);
+    return Dir3d(tmp);
   }
 }

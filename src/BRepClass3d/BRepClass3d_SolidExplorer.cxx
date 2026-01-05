@@ -75,7 +75,7 @@ Standard_Boolean BRepClass3d_SolidExplorer::FindAPointInTheFace(const TopoDS_Fac
                                                                 Standard_Real&     v_,
                                                                 Standard_Real&     param_)
 {
-  gp_Vec aVecD1U, aVecD1V;
+  Vector3d aVecD1U, aVecD1V;
   return FindAPointInTheFace(_face, APoint_, u_, v_, param_, aVecD1U, aVecD1V);
 }
 
@@ -86,8 +86,8 @@ Standard_Boolean BRepClass3d_SolidExplorer::FindAPointInTheFace(const TopoDS_Fac
                                                                 Standard_Real&     u_,
                                                                 Standard_Real&     v_,
                                                                 Standard_Real&     param_,
-                                                                gp_Vec&            theVecD1U,
-                                                                gp_Vec&            theVecD1V)
+                                                                Vector3d&            theVecD1U,
+                                                                Vector3d&            theVecD1V)
 {
   TopoDS_Face face = _face;
   face.Orientation(TopAbs_FORWARD);
@@ -201,7 +201,7 @@ Standard_Boolean BRepClass3d_SolidExplorer::PointInTheFace(const TopoDS_Face& Fa
                                                            const Standard_Real                U2,
                                                            const Standard_Real V2) const
 {
-  gp_Vec aVecD1U, aVecD1V;
+  Vector3d aVecD1U, aVecD1V;
   return PointInTheFace(Face,
                         APoint_,
                         u_,
@@ -250,8 +250,8 @@ Standard_Boolean BRepClass3d_SolidExplorer::PointInTheFace(const TopoDS_Face& Fa
                                                            const Standard_Real                V1,
                                                            const Standard_Real                U2,
                                                            const Standard_Real                V2,
-                                                           gp_Vec& theVecD1U,
-                                                           gp_Vec& theVecD1V) const
+                                                           Vector3d& theVecD1U,
+                                                           Vector3d& theVecD1V) const
 {
   Standard_Real u, du = (U2 - U1) / 6.0;
   Standard_Real v, dv = (V2 - V1) / 6.0;
@@ -485,7 +485,7 @@ Standard_Integer BRepClass3d_SolidExplorer::OtherSegment(const Point3d&  P,
   TopoDS_Face      face;
   TopExp_Explorer  faceexplorer;
   Point3d           APoint;
-  gp_Vec           aVecD1U, aVecD1V;
+  Vector3d           aVecD1U, aVecD1V;
   Standard_Real    maxscal = 0;
   Standard_Boolean ptfound = Standard_False;
   Standard_Real    Par;
@@ -621,7 +621,7 @@ Standard_Integer BRepClass3d_SolidExplorer::OtherSegment(const Point3d&  P,
         if (anInfFlag)
         {
           APoint = (Ext.Point(iNear)).Value();
-          gp_Vec V(P, APoint);
+          Vector3d V(P, APoint);
           _Par    = V.Magnitude();
           L       = gp_Lin(P, V);
           ptfound = Standard_True;
@@ -652,12 +652,12 @@ Standard_Integer BRepClass3d_SolidExplorer::OtherSegment(const Point3d&  P,
                            aVecD1V))
         {
           ++NbPointsOK;
-          gp_Vec V(P, APoint);
+          Vector3d V(P, APoint);
           Par = V.Magnitude();
           if (Par > gp::Resolution() && aVecD1U.Magnitude() > gp::Resolution()
               && aVecD1V.Magnitude() > gp::Resolution())
           {
-            gp_Vec        Norm = aVecD1U.Crossed(aVecD1V);
+            Vector3d        Norm = aVecD1U.Crossed(aVecD1V);
             Standard_Real tt   = Norm.Magnitude();
             if (tt > gp::Resolution())
             {
@@ -699,7 +699,7 @@ Standard_Integer BRepClass3d_SolidExplorer::OtherSegment(const Point3d&  P,
           //-- This case takes place when the point is on the solid
           //-- and this solid is reduced to a face
           Point3d PBidon(P.X() + 1.0, P.Y(), P.Z());
-          gp_Vec V(P, PBidon);
+          Vector3d V(P, PBidon);
           Par  = 1.0;
           _Par = Par;
           L    = gp_Lin(P, V);
@@ -746,7 +746,7 @@ Standard_Integer BRepClass3d_SolidExplorer::OtherSegment(const Point3d&  P,
       if (myParamOnEdge < 0.0001)
       {
         Point3d PBidon(P.X() + 1.0, P.Y(), P.Z());
-        gp_Vec V(P, PBidon);
+        Vector3d V(P, PBidon);
         Par  = 1.0;
         _Par = Par;
         L    = gp_Lin(P, V);

@@ -142,7 +142,7 @@ static Standard_Boolean ComputeEdgeParameter(const Handle(ChFiDS_Spine)& Spine,
 {
   Handle(ChFiDS_ElSpine) Guide = Spine->ElSpine(ind);
   Point3d                 P;
-  gp_Vec                 V;
+  Vector3d                 V;
   Guide->D1(pelsp, P, V);
   gp_Pln                    pln(P, V);
   Handle(BRepAdaptor_Curve) ed = new BRepAdaptor_Curve(Spine->CurrentElementarySpine(ind));
@@ -278,7 +278,7 @@ Standard_Integer FilletSurf_InternalBuilder::Add(const TopTools_ListOfShape& E,
 
   // ElSpine is immediately constructed
   Handle(ChFiDS_ElSpine) hels = new ChFiDS_ElSpine();
-  gp_Vec                 TFirst, TLast;
+  Vector3d                 TFirst, TLast;
   Point3d                 PFirst, PLast;
   sp->D1(sp->FirstParameter(), PFirst, TFirst);
   sp->D1(sp->LastParameter(), PLast, TLast);

@@ -28,13 +28,13 @@ GProp_PEquation::GProp_PEquation(const TColgp_Array1OfPnt& Pnts, const Standard_
   Standard_Real Xg, Yg, Zg;
   g.Coord(Xg, Yg, Zg);
   GProp_PrincipalProps Pp = Pmat.PrincipalProperties();
-  gp_Vec               V1 = Pp.FirstAxisOfInertia();
+  Vector3d               V1 = Pp.FirstAxisOfInertia();
   Standard_Real        Xv1, Yv1, Zv1;
   V1.Coord(Xv1, Yv1, Zv1);
-  gp_Vec        V2 = Pp.SecondAxisOfInertia();
+  Vector3d        V2 = Pp.SecondAxisOfInertia();
   Standard_Real Xv2, Yv2, Zv2;
   V2.Coord(Xv2, Yv2, Zv2);
-  gp_Vec        V3 = Pp.ThirdAxisOfInertia();
+  Vector3d        V3 = Pp.ThirdAxisOfInertia();
   Standard_Real Xv3, Yv3, Zv3;
   V3.Coord(Xv3, Yv3, Zv3);
   Standard_Real D, X, Y, Z;
@@ -164,7 +164,7 @@ gp_Lin GProp_PEquation::Line() const
 {
   if (!IsLinear())
     throw Standard_NoSuchObject();
-  return gp_Lin(g, gp_Dir(v1));
+  return gp_Lin(g, Dir3d(v1));
 }
 
 Point3d GProp_PEquation::Point() const
@@ -174,7 +174,7 @@ Point3d GProp_PEquation::Point() const
   return g;
 }
 
-void GProp_PEquation::Box(Point3d& P, gp_Vec& V1, gp_Vec& V2, gp_Vec& V3) const
+void GProp_PEquation::Box(Point3d& P, Vector3d& V1, Vector3d& V2, Vector3d& V3) const
 {
   if (!IsSpace())
     throw Standard_NoSuchObject();

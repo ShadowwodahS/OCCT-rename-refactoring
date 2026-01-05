@@ -26,7 +26,7 @@
 
 //=================================================================================================
 
-BRepPrim_Revolution::BRepPrim_Revolution(const gp_Ax2&               A,
+BRepPrim_Revolution::BRepPrim_Revolution(const Frame3d&               A,
                                          const Standard_Real         VMin,
                                          const Standard_Real         VMax,
                                          const Handle(Geom_Curve)&   M,
@@ -39,7 +39,7 @@ BRepPrim_Revolution::BRepPrim_Revolution(const gp_Ax2&               A,
 
 //=================================================================================================
 
-BRepPrim_Revolution::BRepPrim_Revolution(const gp_Ax2&       A,
+BRepPrim_Revolution::BRepPrim_Revolution(const Frame3d&       A,
                                          const Standard_Real VMin,
                                          const Standard_Real VMax)
     : BRepPrim_OneAxis(BRepPrim_Builder(), A, VMin, VMax)
@@ -71,7 +71,7 @@ TopoDS_Edge BRepPrim_Revolution::MakeEmptyMeridianEdge(const Standard_Real Ang) 
 {
   TopoDS_Edge        E;
   Handle(Geom_Curve) C = Handle(Geom_Curve)::DownCast(myMeridian->Copy());
-  gp_Trsf            T;
+  Transform3d            T;
   T.SetRotation(Axes().Axis(), Ang);
   C->Transform(T);
   myBuilder.Builder().MakeEdge(E, C, Precision::Confusion());

@@ -150,15 +150,15 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectMgr_Selection
       Point3d        PjOffSetPnt  = ElCLib::Value(ElCLib::Parameter(laxis, myPosition), laxis);
       Standard_Real h =
         fabs(PjOffSetPnt.Distance(PjAttachPnt1) / cos(myAxisDirAttach.Angle(myFDirAttach)));
-      gp_Vec        VL1(myFDirAttach);
-      gp_Vec        VLa(PjAttachPnt1, PjOffSetPnt);
+      Vector3d        VL1(myFDirAttach);
+      Vector3d        VLa(PjAttachPnt1, PjOffSetPnt);
       Standard_Real scal = VL1.Dot(VLa);
       if (scal < 0)
         VL1.Reverse();
       VL1.Multiply(h);
       Point3d P1       = myFAttach.Translated(VL1);
       Point3d ProjAxis = ElCLib::Value(ElCLib::Parameter(laxis, P1), laxis);
-      gp_Vec v(P1, ProjAxis);
+      Vector3d v(P1, ProjAxis);
       Point3d P2 = ProjAxis.Translated(v);
 
       gp_Lin L3;
@@ -224,22 +224,22 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectMgr_Selection
       Point3d  Center1         = circ1.Location();
       Point3d  ProjOffsetPoint = ElCLib::Value(ElCLib::Parameter(laxis, OffsetPnt), laxis);
       Point3d  ProjCenter1     = ElCLib::Value(ElCLib::Parameter(laxis, Center1), laxis);
-      gp_Vec  Vp(ProjCenter1, Center1);
+      Vector3d  Vp(ProjCenter1, Center1);
       if (Vp.Magnitude() <= Precision::Confusion())
-        Vp = gp_Vec(laxis.Direction()) ^ myPlane->Pln().Position().Direction();
+        Vp = Vector3d(laxis.Direction()) ^ myPlane->Pln().Position().Direction();
       Standard_Real Dt, R, h;
       Dt = ProjCenter1.Distance(ProjOffsetPoint);
       R  = circ1.Radius();
       if (Dt > .999 * R)
       {
         Dt = .999 * R;
-        gp_Vec Vout(ProjCenter1, ProjOffsetPoint);
+        Vector3d Vout(ProjCenter1, ProjOffsetPoint);
         ProjOffsetPoint = ProjCenter1.Translated(Vout.Divided(Vout.Magnitude()).Multiplied(Dt));
         OffsetPnt       = ProjOffsetPoint;
       }
       h         = Sqrt(R * R - Dt * Dt);
       Point3d P1 = ProjOffsetPoint.Translated(Vp.Added(Vp.Divided(Vp.Magnitude()).Multiplied(h)));
-      gp_Vec v(P1, ProjOffsetPoint);
+      Vector3d v(P1, ProjOffsetPoint);
       Point3d P2 = ProjOffsetPoint.Translated(v);
 
       gp_Lin L3;
@@ -294,7 +294,7 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectMgr_Selection
     {
       Point3d ProjOffsetPoint      = ElCLib::Value(ElCLib::Parameter(laxis, myPosition), laxis);
       Point3d ProjAttachmentPoint1 = ElCLib::Value(ElCLib::Parameter(laxis, myFAttach), laxis);
-      gp_Vec PjAtt1_Att1(ProjAttachmentPoint1, myFAttach);
+      Vector3d PjAtt1_Att1(ProjAttachmentPoint1, myFAttach);
       Point3d P1 = ProjOffsetPoint.Translated(PjAtt1_Att1);
       Point3d P2 = ProjOffsetPoint.Translated(PjAtt1_Att1.Reversed());
       gp_Lin L3;
@@ -527,9 +527,9 @@ void PrsDim_SymmetricRelation::ComputeTwoEdgesSymmetric(const Handle(Prs3d_Prese
   {
     // Point3d PjFAttach = ElCLib::Value(ElCLib::Parameter(laxis,myFAttach),laxis);
     //  offset pour eviter confusion Edge et Dimension
-    gp_Vec offset(myAxisDirAttach);
+    Vector3d offset(myAxisDirAttach);
     offset = offset * myArrowSize * (-5);
-    gp_Vec Vt(myFAttach, PjFAttach);
+    Vector3d Vt(myFAttach, PjFAttach);
     Point3d curpos = PjFAttach.Translated(offset.Added(Vt.Multiplied(.15)));
     myPosition    = curpos;
   }
@@ -630,9 +630,9 @@ void PrsDim_SymmetricRelation::ComputeTwoVerticesSymmetric(const Handle(Prs3d_Pr
   {
     Point3d PjFAttach = ElCLib::Value(ElCLib::Parameter(laxis, myFAttach), laxis);
     // offset pour eviter confusion Edge et Dimension
-    gp_Vec offset(myAxisDirAttach);
+    Vector3d offset(myAxisDirAttach);
     offset = offset * myArrowSize * (-5);
-    gp_Vec Vt(myFAttach, PjFAttach);
+    Vector3d Vt(myFAttach, PjFAttach);
     Point3d curpos = PjFAttach.Translated(offset.Added(Vt.Multiplied(.15)));
     myPosition    = curpos;
   }

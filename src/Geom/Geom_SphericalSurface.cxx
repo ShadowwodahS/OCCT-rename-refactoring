@@ -35,14 +35,14 @@ IMPLEMENT_STANDARD_RTTIEXT(Geom_SphericalSurface, Geom_ElementarySurface)
 
 typedef Geom_Circle           Circle;
 typedef Geom_SphericalSurface SphericalSurface;
-typedef gp_Ax2                Ax2;
+typedef Frame3d                Ax2;
 typedef gp_Ax3                Ax3;
 typedef gp_Circ               Circ;
-typedef gp_Dir                Dir;
+typedef Dir3d                Dir;
 typedef Point3d                Pnt;
-typedef gp_Trsf               Trsf;
+typedef Transform3d               Trsf;
 typedef gp_XYZ                XYZ;
-typedef gp_Vec                Vec;
+typedef Vector3d                Vec;
 
 //=================================================================================================
 

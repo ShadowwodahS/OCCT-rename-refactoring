@@ -25,15 +25,15 @@
 #include <TColStd_SequenceOfReal.hxx>
 
 class Geom_Curve;
-class gp_Ax2;
+class Frame3d;
 class Geom2d_Curve;
 class gp_GTrsf2d;
 class Adaptor3d_CurveOnSurface;
 class Geom_BoundedCurve;
 class Point3d;
-class gp_Vec;
+class Vector3d;
 class Geom_BoundedSurface;
-class gp_Dir;
+class Dir3d;
 class Adaptor3d_Curve;
 class Geom_BSplineSurface;
 class Geom_BezierSurface;
@@ -53,7 +53,7 @@ public:
   //! corresponding to curve 2d  from package Geom2d, on
   //! the plan defined with the local coordinate system
   //! Position.
-  Standard_EXPORT static Handle(Geom_Curve) To3d(const gp_Ax2&               Position,
+  Standard_EXPORT static Handle(Geom_Curve) To3d(const Frame3d&               Position,
                                                  const Handle(Geom2d_Curve)& Curve2d);
 
   //! Computes the    curve    3d  from   package   Geom
@@ -95,8 +95,8 @@ public:
   Standard_EXPORT static void AdjustExtremity(Handle(Geom_BoundedCurve)& Curve,
                                               const Point3d&              P1,
                                               const Point3d&              P2,
-                                              const gp_Vec&              T1,
-                                              const gp_Vec&              T2);
+                                              const Vector3d&              T1,
+                                              const Vector3d&              T2);
 
   //! Extends the bounded curve Curve to the point Point.
   //! The extension is built:
@@ -149,7 +149,7 @@ public:
   //! -- -- -- IsSingular is True if  points are on line --
   //! Tol is used to determine singular cases.
   Standard_EXPORT static void AxeOfInertia(const TColgp_Array1OfPnt& Points,
-                                           gp_Ax2&                   Axe,
+                                           Frame3d&                   Axe,
                                            Standard_Boolean&         IsSingular,
                                            const Standard_Real       Tol = 1.0e-7);
 
@@ -157,8 +157,8 @@ public:
   //! value  of some  points.
   Standard_EXPORT static void Inertia(const TColgp_Array1OfPnt& Points,
                                       Point3d&                   Bary,
-                                      gp_Dir&                   XDir,
-                                      gp_Dir&                   YDir,
+                                      Dir3d&                   XDir,
+                                      Dir3d&                   YDir,
                                       Standard_Real&            Xgap,
                                       Standard_Real&            YGap,
                                       Standard_Real&            ZGap);
@@ -244,7 +244,7 @@ public:
   Standard_EXPORT static Standard_Integer NormEstim(const Handle(Geom_Surface)& theSurf,
                                                     const gp_Pnt2d&             theUV,
                                                     const Standard_Real         theTol,
-                                                    gp_Dir&                     theNorm);
+                                                    Dir3d&                     theNorm);
 
   //! This method defines if opposite boundaries of surface
   //! coincide with given tolerance

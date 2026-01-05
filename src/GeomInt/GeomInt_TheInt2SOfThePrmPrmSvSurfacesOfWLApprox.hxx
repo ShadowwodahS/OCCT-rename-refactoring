@@ -88,7 +88,7 @@ public:
   Standard_Boolean IsTangent() const;
 
   //! Returns the tangent at the intersection line.
-  const gp_Dir& Direction() const;
+  const Dir3d& Direction() const;
 
   //! Returns the tangent at the intersection line in the
   //! parametric space of the first surface.
@@ -112,7 +112,7 @@ private:
   Standard_Boolean                                             empty;
   IntSurf_PntOn2S                                              pint;
   Standard_Boolean                                             tangent;
-  gp_Dir                                                       d3d;
+  Dir3d                                                       d3d;
   gp_Dir2d                                                     d2d1;
   gp_Dir2d                                                     d2d2;
   GeomInt_TheFunctionOfTheInt2SOfThePrmPrmSvSurfacesOfWLApprox myZerParFunc;

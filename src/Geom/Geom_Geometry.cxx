@@ -29,10 +29,10 @@ IMPLEMENT_STANDARD_RTTIEXT(Geom_Geometry, RefObject)
 
 typedef Geom_Geometry Geometry;
 typedef Point3d        Pnt;
-typedef gp_Vec        Vec;
-typedef gp_Ax1        Ax1;
-typedef gp_Ax2        Ax2;
-typedef gp_Trsf       Trsf;
+typedef Vector3d        Vec;
+typedef Axis3d        Ax1;
+typedef Frame3d        Ax2;
+typedef Transform3d       Trsf;
 
 Handle(Geom_Geometry) Geom_Geometry::Copy() const
 {
@@ -49,7 +49,7 @@ void Geom_Geometry::Mirror(const Point3d& P)
   Transform(T);
 }
 
-void Geom_Geometry::Mirror(const gp_Ax1& A1)
+void Geom_Geometry::Mirror(const Axis3d& A1)
 {
 
   Trsf T;
@@ -57,7 +57,7 @@ void Geom_Geometry::Mirror(const gp_Ax1& A1)
   Transform(T);
 }
 
-void Geom_Geometry::Mirror(const gp_Ax2& A2)
+void Geom_Geometry::Mirror(const Frame3d& A2)
 {
 
   Trsf T;
@@ -65,7 +65,7 @@ void Geom_Geometry::Mirror(const gp_Ax2& A2)
   Transform(T);
 }
 
-void Geom_Geometry::Rotate(const gp_Ax1& A1, const Standard_Real Ang)
+void Geom_Geometry::Rotate(const Axis3d& A1, const Standard_Real Ang)
 {
 
   Trsf T;
@@ -81,7 +81,7 @@ void Geom_Geometry::Scale(const Point3d& P, const Standard_Real S)
   Transform(T);
 }
 
-void Geom_Geometry::Translate(const gp_Vec& V)
+void Geom_Geometry::Translate(const Vector3d& V)
 {
 
   Trsf T;
@@ -103,21 +103,21 @@ Handle(Geom_Geometry) Geom_Geometry::Mirrored(const Point3d& P) const
   return G;
 }
 
-Handle(Geom_Geometry) Geom_Geometry::Mirrored(const gp_Ax1& A1) const
+Handle(Geom_Geometry) Geom_Geometry::Mirrored(const Axis3d& A1) const
 {
   Handle(Geom_Geometry) G = Copy();
   G->Mirror(A1);
   return G;
 }
 
-Handle(Geom_Geometry) Geom_Geometry::Mirrored(const gp_Ax2& A2) const
+Handle(Geom_Geometry) Geom_Geometry::Mirrored(const Frame3d& A2) const
 {
   Handle(Geom_Geometry) G = Copy();
   G->Mirror(A2);
   return G;
 }
 
-Handle(Geom_Geometry) Geom_Geometry::Rotated(const gp_Ax1& A1, const Standard_Real Ang) const
+Handle(Geom_Geometry) Geom_Geometry::Rotated(const Axis3d& A1, const Standard_Real Ang) const
 {
   Handle(Geom_Geometry) G = Copy();
   G->Rotate(A1, Ang);
@@ -131,14 +131,14 @@ Handle(Geom_Geometry) Geom_Geometry::Scaled(const Point3d& P, const Standard_Rea
   return G;
 }
 
-Handle(Geom_Geometry) Geom_Geometry::Transformed(const gp_Trsf& T) const
+Handle(Geom_Geometry) Geom_Geometry::Transformed(const Transform3d& T) const
 {
   Handle(Geom_Geometry) G = Copy();
   G->Transform(T);
   return G;
 }
 
-Handle(Geom_Geometry) Geom_Geometry::Translated(const gp_Vec& V) const
+Handle(Geom_Geometry) Geom_Geometry::Translated(const Vector3d& V) const
 {
   Handle(Geom_Geometry) G = Copy();
   G->Translate(V);

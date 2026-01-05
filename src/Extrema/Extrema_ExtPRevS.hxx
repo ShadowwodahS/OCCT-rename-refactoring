@@ -81,7 +81,7 @@ private:
   Standard_Real                           myvinf;
   Standard_Real                           myvsup;
   Standard_Real                           mytolv;
-  gp_Ax2                                  myPosition;
+  Frame3d                                  myPosition;
   Extrema_GenExtPS                        myExtPS;
   Standard_Boolean                        myIsAnalyticallyComputable;
   Standard_Boolean                        myDone;

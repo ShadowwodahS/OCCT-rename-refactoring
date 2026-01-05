@@ -33,40 +33,40 @@ class GeomFill_Fixed : public GeomFill_TrihedronLaw
 {
 
 public:
-  Standard_EXPORT GeomFill_Fixed(const gp_Vec& Tangent, const gp_Vec& Normal);
+  Standard_EXPORT GeomFill_Fixed(const Vector3d& Tangent, const Vector3d& Normal);
 
   Standard_EXPORT virtual Handle(GeomFill_TrihedronLaw) Copy() const Standard_OVERRIDE;
 
   //! compute Triedrhon on curve at parameter <Param>
   Standard_EXPORT virtual Standard_Boolean D0(const Standard_Real Param,
-                                              gp_Vec&             Tangent,
-                                              gp_Vec&             Normal,
-                                              gp_Vec&             BiNormal) Standard_OVERRIDE;
+                                              Vector3d&             Tangent,
+                                              Vector3d&             Normal,
+                                              Vector3d&             BiNormal) Standard_OVERRIDE;
 
   //! compute Triedrhon and  derivative Trihedron  on curve
   //! at parameter <Param>
   //! Warning : It used only for C1 or C2 approximation
   Standard_EXPORT virtual Standard_Boolean D1(const Standard_Real Param,
-                                              gp_Vec&             Tangent,
-                                              gp_Vec&             DTangent,
-                                              gp_Vec&             Normal,
-                                              gp_Vec&             DNormal,
-                                              gp_Vec&             BiNormal,
-                                              gp_Vec&             DBiNormal) Standard_OVERRIDE;
+                                              Vector3d&             Tangent,
+                                              Vector3d&             DTangent,
+                                              Vector3d&             Normal,
+                                              Vector3d&             DNormal,
+                                              Vector3d&             BiNormal,
+                                              Vector3d&             DBiNormal) Standard_OVERRIDE;
 
   //! compute  Trihedron on curve
   //! first and seconde  derivatives.
   //! Warning : It used only for C2 approximation
   Standard_EXPORT virtual Standard_Boolean D2(const Standard_Real Param,
-                                              gp_Vec&             Tangent,
-                                              gp_Vec&             DTangent,
-                                              gp_Vec&             D2Tangent,
-                                              gp_Vec&             Normal,
-                                              gp_Vec&             DNormal,
-                                              gp_Vec&             D2Normal,
-                                              gp_Vec&             BiNormal,
-                                              gp_Vec&             DBiNormal,
-                                              gp_Vec&             D2BiNormal) Standard_OVERRIDE;
+                                              Vector3d&             Tangent,
+                                              Vector3d&             DTangent,
+                                              Vector3d&             D2Tangent,
+                                              Vector3d&             Normal,
+                                              Vector3d&             DNormal,
+                                              Vector3d&             D2Normal,
+                                              Vector3d&             BiNormal,
+                                              Vector3d&             DBiNormal,
+                                              Vector3d&             D2BiNormal) Standard_OVERRIDE;
 
   //! Returns  the number  of  intervals for  continuity
   //! <S>.
@@ -84,9 +84,9 @@ public:
 
   //! Get average value of Tangent(t) and Normal(t) it is usfull to
   //! make fast approximation of rational  surfaces.
-  Standard_EXPORT virtual void GetAverageLaw(gp_Vec& ATangent,
-                                             gp_Vec& ANormal,
-                                             gp_Vec& ABiNormal) Standard_OVERRIDE;
+  Standard_EXPORT virtual void GetAverageLaw(Vector3d& ATangent,
+                                             Vector3d& ANormal,
+                                             Vector3d& ABiNormal) Standard_OVERRIDE;
 
   //! Return True.
   Standard_EXPORT virtual Standard_Boolean IsConstant() const Standard_OVERRIDE;
@@ -95,9 +95,9 @@ public:
 
 protected:
 private:
-  gp_Vec T;
-  gp_Vec N;
-  gp_Vec B;
+  Vector3d T;
+  Vector3d N;
+  Vector3d B;
 };
 
 #endif // _GeomFill_Fixed_HeaderFile

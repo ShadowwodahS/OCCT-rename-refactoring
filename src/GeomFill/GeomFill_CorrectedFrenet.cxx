@@ -102,9 +102,9 @@ static Standard_Real ComputeTorsion(const Standard_Real            Param,
   Standard_Real Torsion;
 
   Point3d aPoint;
-  gp_Vec DC1, DC2, DC3;
+  Vector3d DC1, DC2, DC3;
   aCurve->D3(Param, aPoint, DC1, DC2, DC3);
-  gp_Vec        DC1crossDC2      = DC1 ^ DC2;
+  Vector3d        DC1crossDC2      = DC1 ^ DC2;
   Standard_Real Norm_DC1crossDC2 = DC1crossDC2.Magnitude();
 
   Standard_Real DC1DC2DC3 = DC1crossDC2 * DC3; // mixed product
@@ -298,7 +298,7 @@ static Standard_Boolean FindPlane(const Handle(Adaptor3d_Curve)& theC, Handle(Ge
   if (!TabP.IsNull())
   { // Recherche d'un plan moyen et controle
     Standard_Boolean issingular;
-    gp_Ax2           inertia;
+    Frame3d           inertia;
     GeomLib::AxeOfInertia(TabP->Array1(), inertia, issingular);
     if (issingular)
     {
@@ -399,7 +399,7 @@ void GeomFill_CorrectedFrenet::Init()
   TColStd_SequenceOfReal SeqPoles, SeqAngle;
   TColgp_SequenceOfVec   SeqTangent, SeqNormal;
 
-  gp_Vec Tangent, Normal, BN;
+  Vector3d Tangent, Normal, BN;
   frenet->D0(myTrimmed->FirstParameter(), Tangent, Normal, BN);
   Standard_Integer NbStep;
   //  Standard_Real StartAng = 0, AvStep, Step, t;
@@ -496,10 +496,10 @@ Standard_Boolean GeomFill_CorrectedFrenet::InitInterval(const Standard_Real     
                                                         const Standard_Real     Last,
                                                         const Standard_Real     Step,
                                                         Standard_Real&          startAng,
-                                                        gp_Vec&                 prevTangent,
-                                                        gp_Vec&                 prevNormal,
-                                                        gp_Vec&                 aT,
-                                                        gp_Vec&                 aN,
+                                                        Vector3d&                 prevTangent,
+                                                        Vector3d&                 prevNormal,
+                                                        Vector3d&                 aT,
+                                                        Vector3d&                 aN,
                                                         Handle(Law_Function)&   FuncInt,
                                                         TColStd_SequenceOfReal& SeqPoles,
                                                         TColStd_SequenceOfReal& SeqAngle,
@@ -507,22 +507,22 @@ Standard_Boolean GeomFill_CorrectedFrenet::InitInterval(const Standard_Real     
                                                         TColgp_SequenceOfVec&   SeqNormal) const
 {
   Bnd_Box                Boite;
-  gp_Vec                 Tangent, Normal, BN, cross;
+  Vector3d                 Tangent, Normal, BN, cross;
   TColStd_SequenceOfReal parameters;
   TColStd_SequenceOfReal EvolAT;
   Standard_Real          Param  = First, LengthMin, L, norm;
   Standard_Boolean       isZero = Standard_True, isConst = Standard_True;
   Standard_Integer       i;
   Point3d                 PonC;
-  gp_Vec                 D1;
+  Vector3d                 D1;
 
   frenet->SetInterval(First, Last); // To have right evaluation at bounds
   GeomFill_SnglrFunc CS(myCurve);
   BndLib_Add3dCurve::Add(CS, First, Last, 1.e-2, Boite);
   LengthMin = Boite.GetGap() * 1.e-4;
 
-  aT = gp_Vec(0, 0, 0);
-  aN = gp_Vec(0, 0, 0);
+  aT = Vector3d(0, 0, 0);
+  aN = Vector3d(0, 0, 0);
 
   Standard_Real angleAT = 0., currParam, currStep = Step;
 
@@ -646,13 +646,13 @@ Standard_Boolean GeomFill_CorrectedFrenet::InitInterval(const Standard_Real     
 // Purpose : Calculate angle of rotation of trihedron normal and its derivatives relative
 //           at any position on his curve
 //===============================================================
-Standard_Real GeomFill_CorrectedFrenet::CalcAngleAT(const gp_Vec& Tangent,
-                                                    const gp_Vec& Normal,
-                                                    const gp_Vec& prevTangent,
-                                                    const gp_Vec& prevNormal) const
+Standard_Real GeomFill_CorrectedFrenet::CalcAngleAT(const Vector3d& Tangent,
+                                                    const Vector3d& Normal,
+                                                    const Vector3d& prevTangent,
+                                                    const Vector3d& prevNormal) const
 {
   Standard_Real angle;
-  gp_Vec        Normal_rot, cross;
+  Vector3d        Normal_rot, cross;
   angle = Tangent.Angle(prevTangent);
   if (Abs(angle) > Precision::Angular() && Abs(angle) < M_PI - Precision::Angular())
   {
@@ -712,7 +712,7 @@ Standard_Real GeomFill_CorrectedFrenet::GetAngleAT(const Standard_Real Param) co
   };
   //  Calculate differentiation between approximated and local values of AngleAT
   Standard_Real AngP = TLaw->Value(Param), AngPo = HArrAngle->Value(iC), dAng = AngP - AngPo;
-  gp_Vec        Tangent, Normal, BN;
+  Vector3d        Tangent, Normal, BN;
   frenet->D0(Param, Tangent, Normal, BN);
   Standard_Real DAng = CalcAngleAT(Tangent, Normal, HArrTangent->Value(iC), HArrNormal->Value(iC));
   Standard_Real DA   = diffAng(DAng, dAng);
@@ -727,9 +727,9 @@ Standard_Real GeomFill_CorrectedFrenet::GetAngleAT(const Standard_Real Param) co
 //=================================================================================================
 
 Standard_Boolean GeomFill_CorrectedFrenet::D0(const Standard_Real Param,
-                                              gp_Vec&             Tangent,
-                                              gp_Vec&             Normal,
-                                              gp_Vec&             BiNormal)
+                                              Vector3d&             Tangent,
+                                              Vector3d&             Normal,
+                                              Vector3d&             BiNormal)
 {
   frenet->D0(Param, Tangent, Normal, BiNormal);
   if (isFrenet)
@@ -740,7 +740,7 @@ Standard_Boolean GeomFill_CorrectedFrenet::D0(const Standard_Real Param,
   angleAT = GetAngleAT(Param); // OCC78
 
   // rotation around Tangent
-  gp_Vec cross;
+  Vector3d cross;
   cross = Tangent.Crossed(Normal);
   Normal.SetLinearForm(Sin(angleAT), cross, (1 - Cos(angleAT)), Tangent.Crossed(cross), Normal);
   BiNormal = Tangent.Crossed(Normal);
@@ -751,12 +751,12 @@ Standard_Boolean GeomFill_CorrectedFrenet::D0(const Standard_Real Param,
 //=================================================================================================
 
 Standard_Boolean GeomFill_CorrectedFrenet::D1(const Standard_Real Param,
-                                              gp_Vec&             Tangent,
-                                              gp_Vec&             DTangent,
-                                              gp_Vec&             Normal,
-                                              gp_Vec&             DNormal,
-                                              gp_Vec&             BiNormal,
-                                              gp_Vec&             DBiNormal)
+                                              Vector3d&             Tangent,
+                                              Vector3d&             DTangent,
+                                              Vector3d&             Normal,
+                                              Vector3d&             DNormal,
+                                              Vector3d&             BiNormal,
+                                              Vector3d&             DBiNormal)
 {
   frenet->D1(Param, Tangent, DTangent, Normal, DNormal, BiNormal, DBiNormal);
   if (isFrenet)
@@ -768,7 +768,7 @@ Standard_Boolean GeomFill_CorrectedFrenet::D1(const Standard_Real Param,
   TLaw->D1(Param, angleAT, d_angleAT);
   angleAT = GetAngleAT(Param); // OCC78
 
-  gp_Vec cross, dcross, tcross, dtcross, aux;
+  Vector3d cross, dcross, tcross, dtcross, aux;
   sina = Sin(angleAT);
   cosa = Cos(angleAT);
 
@@ -789,7 +789,7 @@ Standard_Boolean GeomFill_CorrectedFrenet::D1(const Standard_Real Param,
   DBiNormal.SetLinearForm(1, DTangent.Crossed(Normal), Tangent.Crossed(DNormal));
 
   // for test
-  /*  gp_Vec FDN, Tf, Nf, BNf;
+  /*  Vector3d FDN, Tf, Nf, BNf;
     Standard_Real h;
     h = 1.0e-8;
     if (Param + h > myTrimmed->LastParameter()) h = -h;
@@ -806,15 +806,15 @@ Standard_Boolean GeomFill_CorrectedFrenet::D1(const Standard_Real Param,
 //=================================================================================================
 
 Standard_Boolean GeomFill_CorrectedFrenet::D2(const Standard_Real Param,
-                                              gp_Vec&             Tangent,
-                                              gp_Vec&             DTangent,
-                                              gp_Vec&             D2Tangent,
-                                              gp_Vec&             Normal,
-                                              gp_Vec&             DNormal,
-                                              gp_Vec&             D2Normal,
-                                              gp_Vec&             BiNormal,
-                                              gp_Vec&             DBiNormal,
-                                              gp_Vec&             D2BiNormal)
+                                              Vector3d&             Tangent,
+                                              Vector3d&             DTangent,
+                                              Vector3d&             D2Tangent,
+                                              Vector3d&             Normal,
+                                              Vector3d&             DNormal,
+                                              Vector3d&             D2Normal,
+                                              Vector3d&             BiNormal,
+                                              Vector3d&             DBiNormal,
+                                              Vector3d&             D2BiNormal)
 {
   frenet->D2(Param,
              Tangent,
@@ -834,7 +834,7 @@ Standard_Boolean GeomFill_CorrectedFrenet::D2(const Standard_Real Param,
   TLaw->D2(Param, angleAT, d_angleAT, d2_angleAT);
   angleAT = GetAngleAT(Param); // OCC78
 
-  gp_Vec cross, dcross, d2cross, tcross, dtcross, d2tcross, aux;
+  Vector3d cross, dcross, d2cross, tcross, dtcross, d2tcross, aux;
   sina  = Sin(angleAT);
   cosa  = Cos(angleAT);
   cross = Tangent.Crossed(Normal);
@@ -897,7 +897,7 @@ Standard_Boolean GeomFill_CorrectedFrenet::D2(const Standard_Real Param,
                            Tangent.Crossed(D2Normal));
 
   // for test
-  /*  gp_Vec FD2N, FD2T, FD2BN, Tf, DTf, Nf, DNf, BNf, DBNf;
+  /*  Vector3d FD2N, FD2T, FD2BN, Tf, DTf, Nf, DNf, BNf, DBNf;
     Standard_Real h;
     h = 1.0e-8;
     if (Param + h > myTrimmed->LastParameter()) h = -h;
@@ -1038,7 +1038,7 @@ GeomFill_Trihedron GeomFill_CorrectedFrenet::EvaluateBestMode()
 
 //=================================================================================================
 
-void GeomFill_CorrectedFrenet::GetAverageLaw(gp_Vec& ATangent, gp_Vec& ANormal, gp_Vec& ABiNormal)
+void GeomFill_CorrectedFrenet::GetAverageLaw(Vector3d& ATangent, Vector3d& ANormal, Vector3d& ABiNormal)
 {
   if (isFrenet)
     frenet->GetAverageLaw(ATangent, ANormal, ABiNormal);

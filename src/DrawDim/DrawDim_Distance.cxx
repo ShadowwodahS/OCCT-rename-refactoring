@@ -86,8 +86,8 @@ void DrawDim_Distance::DrawOn(Draw_Display& dis) const
   if (surf1.GetType() != GeomAbs_Plane)
     return;
 
-  gp_Ax1 anAx1 = surf1.Plane().Axis();
-  gp_Vec V     = anAx1.Direction();
+  Axis3d anAx1 = surf1.Plane().Axis();
+  Vector3d V     = anAx1.Direction();
 
   // output
   Point3d FAttach; // first attach point
@@ -110,7 +110,7 @@ void DrawDim_Distance::DrawOn(Draw_Display& dis) const
     // translate the point until the second face
     BRepAdaptor_Surface surf2(myPlane2);
     surf2.D0(0, 0, SAttach);
-    Standard_Real r = V.Dot(gp_Vec(FAttach, SAttach));
+    Standard_Real r = V.Dot(Vector3d(FAttach, SAttach));
     V *= r;
   }
 

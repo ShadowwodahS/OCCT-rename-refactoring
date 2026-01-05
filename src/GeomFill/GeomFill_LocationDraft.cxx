@@ -44,7 +44,7 @@ IMPLEMENT_STANDARD_RTTIEXT(GeomFill_LocationDraft, GeomFill_LocationLaw)
 
 //=================================================================================================
 
-GeomFill_LocationDraft::GeomFill_LocationDraft(const gp_Dir& Direction, const Standard_Real Angle)
+GeomFill_LocationDraft::GeomFill_LocationDraft(const Dir3d& Direction, const Standard_Real Angle)
 {
   myDir = Direction; // direction de depouille
 
@@ -137,7 +137,7 @@ void GeomFill_LocationDraft::Prepare()
   Standard_Integer                  ii, jj;
   Standard_Real                     f, l, t;
   Point3d                            P;
-  gp_Vec                            D, T, N, B;
+  Vector3d                            D, T, N, B;
   Handle(Geom_Line)                 L;
   IntCurveSurface_IntersectionPoint P1, P2;
   f = myCurve->FirstParameter();
@@ -195,10 +195,10 @@ const Handle(Adaptor3d_Curve)& GeomFill_LocationDraft::GetCurve() const
 
 //=================================================================================================
 
-Standard_Boolean GeomFill_LocationDraft::D0(const Standard_Real Param, gp_Mat& M, gp_Vec& V)
+Standard_Boolean GeomFill_LocationDraft::D0(const Standard_Real Param, gp_Mat& M, Vector3d& V)
 {
   Standard_Boolean Ok;
-  gp_Vec           T, N, B;
+  Vector3d           T, N, B;
   Point3d           P;
 
   myTrimmed->D0(Param, P);
@@ -223,12 +223,12 @@ Standard_Boolean GeomFill_LocationDraft::D0(const Standard_Real Param, gp_Mat& M
 //==================================================================
 Standard_Boolean GeomFill_LocationDraft::D0(const Standard_Real   Param,
                                             gp_Mat&               M,
-                                            gp_Vec&               V,
+                                            Vector3d&               V,
                                             TColgp_Array1OfPnt2d& Poles2d)
 {
   Standard_Boolean Ok;
-  //  gp_Vec D,T,N,B,DT,DN,DB;
-  gp_Vec D, T, N, B;
+  //  Vector3d D,T,N,B,DT,DN,DB;
+  Vector3d D, T, N, B;
   Point3d P;
 
   myCurve->D0(Param, P);
@@ -333,14 +333,14 @@ Standard_Boolean GeomFill_LocationDraft::D0(const Standard_Real   Param,
 //==================================================================
 Standard_Boolean GeomFill_LocationDraft::D1(const Standard_Real   Param,
                                             gp_Mat&               M,
-                                            gp_Vec&               V,
+                                            Vector3d&               V,
                                             gp_Mat&               DM,
-                                            gp_Vec&               DV,
+                                            Vector3d&               DV,
                                             TColgp_Array1OfPnt2d& Poles2d,
                                             TColgp_Array1OfVec2d& DPoles2d)
 {
   Standard_Boolean Ok;
-  gp_Vec           D, T, N, B, DT, DN, DB;
+  Vector3d           D, T, N, B, DT, DN, DB;
   Point3d           P;
 
   myCurve->D1(Param, P, DV);
@@ -465,17 +465,17 @@ Standard_Boolean GeomFill_LocationDraft::D1(const Standard_Real   Param,
 //==================================================================
 Standard_Boolean GeomFill_LocationDraft::D2(const Standard_Real   Param,
                                             gp_Mat&               M,
-                                            gp_Vec&               V,
+                                            Vector3d&               V,
                                             gp_Mat&               DM,
-                                            gp_Vec&               DV,
+                                            Vector3d&               DV,
                                             gp_Mat&               D2M,
-                                            gp_Vec&               D2V,
+                                            Vector3d&               D2V,
                                             TColgp_Array1OfPnt2d& Poles2d,
                                             TColgp_Array1OfVec2d& DPoles2d,
                                             TColgp_Array1OfVec2d& D2Poles2d)
 {
   Standard_Boolean Ok;
-  gp_Vec           D, T, N, B, DT, DN, DB, D2T, D2N, D2B;
+  Vector3d           D, T, N, B, DT, DN, DB, D2T, D2N, D2B;
   Point3d           P;
 
   myCurve->D2(Param, P, DV, D2V);
@@ -719,11 +719,11 @@ Standard_Real GeomFill_LocationDraft::GetMaximalNorm()
 
 //=================================================================================================
 
-void GeomFill_LocationDraft::GetAverageLaw(gp_Mat& AM, gp_Vec& AV)
+void GeomFill_LocationDraft::GetAverageLaw(gp_Mat& AM, Vector3d& AV)
 {
   Standard_Integer ii;
   Standard_Real    U, delta;
-  gp_Vec           V1, V2, V3, V;
+  Vector3d           V1, V2, V3, V;
 
   myLaw->GetAverageLaw(V1, V2, V3);
   AM.SetCols(V1.XYZ(), V2.XYZ(), V3.XYZ());
@@ -777,7 +777,7 @@ Standard_Boolean GeomFill_LocationDraft::IsIntersec() const
 
 //=================================================================================================
 
-gp_Dir GeomFill_LocationDraft::Direction() const
+Dir3d GeomFill_LocationDraft::Direction() const
 {
   return myDir;
 }

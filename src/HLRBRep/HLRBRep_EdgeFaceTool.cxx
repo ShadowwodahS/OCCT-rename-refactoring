@@ -29,10 +29,10 @@
 Standard_Real HLRBRep_EdgeFaceTool::CurvatureValue(const Standard_Address F,
                                                    const Standard_Real    U,
                                                    const Standard_Real    V,
-                                                   const gp_Dir&          Tg)
+                                                   const Dir3d&          Tg)
 {
   Point3d P;
-  gp_Vec D1U, D1V, D2U, D2V, D2UV;
+  Vector3d D1U, D1V, D2U, D2V, D2UV;
   ((HLRBRep_Surface*)F)->D2(U, V, P, D1U, D1V, D2U, D2V, D2UV);
   Standard_Real d1ut   = D1U * Tg;
   Standard_Real d1vt   = D1V * Tg;
@@ -47,7 +47,7 @@ Standard_Real HLRBRep_EdgeFaceTool::CurvatureValue(const Standard_Address F,
     Standard_Real alfa2    = alfa * alfa;
     Standard_Real beta2    = beta * beta;
     Standard_Real alfabeta = alfa * beta;
-    gp_Vec        Nm       = D1U ^ D1V;
+    Vector3d        Nm       = D1U ^ D1V;
     Nm.Normalize();
     Standard_Real N = (Nm * D2U) * alfa2 + 2 * (Nm * D2UV) * alfabeta + (Nm * D2V) * beta2;
     Standard_Real D = nmu2 * alfa2 + 2 * d1ud1v * alfabeta + nmv2 * beta2;

@@ -40,7 +40,7 @@ XCAFNoteObjects_NoteObject::XCAFNoteObjects_NoteObject(
 
 //=================================================================================================
 
-void XCAFNoteObjects_NoteObject::SetPlane(const gp_Ax2& thePlane)
+void XCAFNoteObjects_NoteObject::SetPlane(const Frame3d& thePlane)
 {
   myPlane    = thePlane;
   myHasPlane = Standard_True;

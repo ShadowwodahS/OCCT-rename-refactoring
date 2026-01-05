@@ -37,7 +37,7 @@ Handle(Geom_Surface) ShapePersistent_Geom_Surface::pRevolution::Import() const
   if (myBasisCurve.IsNull())
     return NULL;
 
-  return new Geom_SurfaceOfRevolution(myBasisCurve->Import(), gp_Ax1(myLocation, myDirection));
+  return new Geom_SurfaceOfRevolution(myBasisCurve->Import(), Axis3d(myLocation, myDirection));
 }
 
 Handle(Geom_Surface) ShapePersistent_Geom_Surface::pBezier::Import() const

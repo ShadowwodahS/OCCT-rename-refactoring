@@ -22,7 +22,7 @@
 #include <Prs3d_Drawer.hxx>
 #include <Prs3d_Presentation.hxx>
 
-class gp_Ax2;
+class Frame3d;
 class Point3d;
 class gp_Circ;
 class gp_Elips;
@@ -36,7 +36,7 @@ public:
   //! two vertices.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Handle(Prs3d_Drawer)&       aDrawer,
-                                  const gp_Ax2&                     theAxe,
+                                  const Frame3d&                     theAxe,
                                   const Point3d&                     MidPoint,
                                   const Point3d&                     Position,
                                   const Point3d&                     AttachPoint,
@@ -46,7 +46,7 @@ public:
   //! two lines or linear segments.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Handle(Prs3d_Drawer)&       aDrawer,
-                                  const gp_Ax2&                     theAxe,
+                                  const Frame3d&                     theAxe,
                                   const Point3d&                     MidPoint,
                                   const Point3d&                     Position,
                                   const Point3d&                     AttachPoint,

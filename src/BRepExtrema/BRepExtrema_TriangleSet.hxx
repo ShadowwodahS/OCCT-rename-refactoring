@@ -100,7 +100,7 @@ private:
 
   //! Initializes nodes
   void initNodes(const TColgp_Array1OfPnt& theNodes,
-                 const gp_Trsf&            theTrsf,
+                 const Transform3d&            theTrsf,
                  const Standard_Integer    theIndex);
 
 protected:

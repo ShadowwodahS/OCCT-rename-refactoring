@@ -1214,10 +1214,10 @@ static TopoDS_Solid GetNewSolid(const TopoDS_Shape& S, TopoDS_Face& F)
   Standard_Real MidV = (MaxV + MinV) * 0.5;
 
   Point3d MidP;
-  gp_Vec SurfDU, SurfDV;
+  Vector3d SurfDU, SurfDV;
   ASurf.D1(MidU, MidV, MidP, SurfDU, SurfDV);
 
-  gp_Vec Normal = SurfDU.Crossed(SurfDV);
+  Vector3d Normal = SurfDU.Crossed(SurfDV);
 
   if (hsFace.Orientation() == TopAbs_FORWARD)
     Normal *= -1.e+10;

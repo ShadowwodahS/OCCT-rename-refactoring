@@ -466,7 +466,7 @@ public:
   }
 
   //! Transforms theX, theY, theZ with the transformation theTrsf.
-  Standard_EXPORT static void Transforms(const gp_Trsf&      theTrsf,
+  Standard_EXPORT static void Transforms(const Transform3d&      theTrsf,
                                          const Standard_Real theX,
                                          const Standard_Real theY,
                                          const Standard_Real theZ,
@@ -483,7 +483,7 @@ public:
 
 protected:
   //! Transforms boundaries with <theTrsf> transformation.
-  Standard_EXPORT static void TransformBoundaries(const gp_Trsf& theTrsf,
+  Standard_EXPORT static void TransformBoundaries(const Transform3d& theTrsf,
                                                   Standard_Real& theXMin,
                                                   Standard_Real& theYMin,
                                                   Standard_Real& theZMin,

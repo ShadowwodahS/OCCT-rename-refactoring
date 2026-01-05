@@ -474,9 +474,9 @@ static void BuildSplitsOfFace(const TopoDS_Face&            theFace,
 // function : GetAverageTangent
 // purpose  : Computes average tangent vector along the curve
 //=======================================================================
-static gp_Vec GetAverageTangent(const TopoDS_Shape& theS, const Standard_Integer theNbP)
+static Vector3d GetAverageTangent(const TopoDS_Shape& theS, const Standard_Integer theNbP)
 {
-  gp_Vec          aVA;
+  Vector3d          aVA;
   TopExp_Explorer aExp(theS, TopAbs_EDGE);
   for (; aExp.More(); aExp.Next())
   {
@@ -486,7 +486,7 @@ static gp_Vec GetAverageTangent(const TopoDS_Shape& theS, const Standard_Integer
     const Handle(Geom_Curve)& aC = BRep_Tool::Curve(aE, aT1, aT2);
     //
     Point3d        aP;
-    gp_Vec        aV, aVSum;
+    Vector3d        aV, aVSum;
     Standard_Real aT  = aT1;
     Standard_Real aDt = (aT2 - aT1) / theNbP;
     while (aT <= aT2)
@@ -2087,13 +2087,13 @@ void BRepOffset_BuildOffsetFaces::FindInvalidEdges(
             // located between tangent edges
             Standard_Boolean                   bAllTgt = Standard_True;
             TopTools_ListIteratorOfListOfShape aItLEFOr(*pLEFOr);
-            gp_Vec                             aVRef = GetAverageTangent(aItLEFOr.Value(), aNbP);
+            Vector3d                             aVRef = GetAverageTangent(aItLEFOr.Value(), aNbP);
             for (; aItLEFOr.More(); aItLEFOr.Next())
             {
               const TopoDS_Shape& aEOr = aItLEFOr.Value();
               BRep_Builder().Add(aCEOr, aEOr);
 
-              gp_Vec aVCur = GetAverageTangent(aEOr, aNbP);
+              Vector3d aVCur = GetAverageTangent(aEOr, aNbP);
               if (!aVRef.IsParallel(aVCur, Precision::Angular()))
                 bAllTgt = Standard_False;
             }
@@ -2161,8 +2161,8 @@ void BRepOffset_BuildOffsetFaces::FindInvalidEdges(
           // get average tangent vector for each curve taking into account
           // the orientations of the edges, i.e. the edge is reversed
           // the vector is reversed as well
-          gp_Vec aVSum1 = GetAverageTangent(aEIm, aNbP);
-          gp_Vec aVSum2 = GetAverageTangent(aEOrF, aNbP);
+          Vector3d aVSum1 = GetAverageTangent(aEIm, aNbP);
+          Vector3d aVSum2 = GetAverageTangent(aEOrF, aNbP);
           //
           aVSum1.Normalize();
           aVSum2.Normalize();
@@ -2457,7 +2457,7 @@ void BRepOffset_BuildOffsetFaces::FindInvalidEdges(
       FindShape(aE, aFClassified, NULL, aEClassified);
       TopAbs_Orientation anOriClass = aEClassified.Orientation();
 
-      gp_Dir aDNClass;
+      Dir3d aDNClass;
       BOPTools_AlgoTools3D::GetNormalToFaceOnEdge(TopoDS::Edge(aEClassified),
                                                   TopoDS::Face(aFClassified),
                                                   aDNClass);
@@ -2474,7 +2474,7 @@ void BRepOffset_BuildOffsetFaces::FindInvalidEdges(
 
         if (anEdgeSetClass.IsEqual(anEdgeSetUnclass))
         {
-          gp_Dir aDNUnclass;
+          Dir3d aDNUnclass;
           BOPTools_AlgoTools3D::GetNormalToFaceOnEdge(TopoDS::Edge(aE),
                                                       TopoDS::Face(aFUnclassified),
                                                       aDNUnclass);
@@ -3218,8 +3218,8 @@ Standard_Boolean BRepOffset_BuildOffsetFaces::CheckInverted(
   const Point3d& aPO1 = BRep_Tool::Pnt(aVO1);
   const Point3d& aPO2 = BRep_Tool::Pnt(aVO2);
   //
-  gp_Vec aVI(aPI1, aPI2);
-  gp_Vec aVO(aPO1, aPO2);
+  Vector3d aVI(aPI1, aPI2);
+  Vector3d aVO(aPO1, aPO2);
   //
   Standard_Real    anAngle   = aVI.Angle(aVO);
   Standard_Boolean bInverted = Abs(anAngle - M_PI) < 1.e-4;

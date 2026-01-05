@@ -165,7 +165,7 @@ static Standard_Integer DumpDGTs(Draw_Interpretor& di, Standard_Integer argc, co
             di << ", AQ " << aDimTolObj->GetAngularQualifier();
           if (aDimTolObj->GetType() == XCAFDimTolObjects_DimensionType_Location_Oriented)
           {
-            gp_Dir aD;
+            Dir3d aD;
             aDimTolObj->GetDirection(aD);
             di << ", D (" << aD.X() << ", " << aD.Y() << ", " << aD.Z() << ")";
           }
@@ -217,7 +217,7 @@ static Standard_Integer DumpDGTs(Draw_Interpretor& di, Standard_Integer argc, co
 
           if (aDimTolObj->HasAxis())
           {
-            gp_Ax2 anAx = aDimTolObj->GetAxis();
+            Frame3d anAx = aDimTolObj->GetAxis();
             di << ", A ( L (" << anAx.Location().X() << anAx.Location().Y() << anAx.Location().Z()
                << "), XD (" << anAx.XDirection().X() << anAx.XDirection().Y()
                << anAx.XDirection().Z() << "), RD (" << anAx.YDirection().X()
@@ -328,7 +328,7 @@ static Standard_Integer DumpDGTs(Draw_Interpretor& di, Standard_Integer argc, co
             di << " T " << aDatumObj->GetDatumTargetType();
             if (aDatumObj->GetDatumTargetType() != XCAFDimTolObjects_DatumTargetType_Area)
             {
-              gp_Ax2 anAx = aDatumObj->GetDatumTargetAxis();
+              Frame3d anAx = aDatumObj->GetDatumTargetAxis();
               di << ", A ( L (" << anAx.Location().X() << anAx.Location().Y() << anAx.Location().Z()
                  << "), XD (" << anAx.XDirection().X() << anAx.XDirection().Y()
                  << anAx.XDirection().Z() << "), RD (" << anAx.YDirection().X()
@@ -2938,7 +2938,7 @@ static Standard_Integer addDimDir(Draw_Interpretor& di, Standard_Integer argc, c
   if (aLabel.FindAttribute(XCAFDoc_Dimension::GetID(), aDimension))
   {
     Handle(XCAFDimTolObjects_DimensionObject) anObj = aDimension->GetObject();
-    anObj->SetDirection(gp_Dir(Draw::Atof(argv[3]), Draw::Atof(argv[4]), Draw::Atof(argv[5])));
+    anObj->SetDirection(Dir3d(Draw::Atof(argv[3]), Draw::Atof(argv[4]), Draw::Atof(argv[5])));
     aDimension->SetObject(anObj);
   }
   return 0;
@@ -2971,7 +2971,7 @@ static Standard_Integer getDimDir(Draw_Interpretor& di, Standard_Integer argc, c
   Handle(XCAFDoc_Dimension) aDimension;
   if (aLabel.FindAttribute(XCAFDoc_Dimension::GetID(), aDimension))
   {
-    gp_Dir dir;
+    Dir3d dir;
     if (aDimension->GetObject()->GetDirection(dir))
     {
       di << dir.X() << ";" << dir.Y() << ";" << dir.Z();
@@ -3079,9 +3079,9 @@ static Standard_Integer addGDTPosition(Draw_Interpretor& di,
   }
 
   Point3d aPoint(Draw::Atof(argv[3]), Draw::Atof(argv[4]), Draw::Atof(argv[5]));
-  gp_Dir aNormal(Draw::Atof(argv[6]), Draw::Atof(argv[7]), Draw::Atof(argv[8]));
-  gp_Dir aDir(Draw::Atof(argv[9]), Draw::Atof(argv[10]), Draw::Atof(argv[11]));
-  gp_Ax2 aPlane(aPoint, aNormal, aDir);
+  Dir3d aNormal(Draw::Atof(argv[6]), Draw::Atof(argv[7]), Draw::Atof(argv[8]));
+  Dir3d aDir(Draw::Atof(argv[9]), Draw::Atof(argv[10]), Draw::Atof(argv[11]));
+  Frame3d aPlane(aPoint, aNormal, aDir);
   // Dimension
   Handle(XCAFDoc_Dimension) aDimension;
   if (aLabel.FindAttribute(XCAFDoc_Dimension::GetID(), aDimension))
@@ -3137,7 +3137,7 @@ static Standard_Integer getGDTPosition(Draw_Interpretor& di,
     return 1;
   }
   Point3d aPoint;
-  gp_Dir aNormal, aDir;
+  Dir3d aNormal, aDir;
   // Dimension
   Handle(XCAFDoc_Dimension) aDimension;
   if (aLabel.FindAttribute(XCAFDoc_Dimension::GetID(), aDimension))

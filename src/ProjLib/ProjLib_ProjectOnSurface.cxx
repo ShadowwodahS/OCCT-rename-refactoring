@@ -66,7 +66,7 @@ static Point3d OnSurface_Value(const Standard_Real            U,
 
 static Standard_Boolean OnSurface_D1(const Standard_Real,            // U,
                                      Point3d&,                        // P,
-                                     gp_Vec&,                        // V,
+                                     Vector3d&,                        // V,
                                      const Handle(Adaptor3d_Curve)&, //  myCurve,
                                      Extrema_ExtPS*)                 // myExtPS)
 {
@@ -109,7 +109,7 @@ public:
 
   Standard_Boolean D1(const Standard_Real theT,
                       NCollection_Array1<gp_Vec2d>& /*theVec2d*/,
-                      NCollection_Array1<gp_Vec>& theVec) const
+                      NCollection_Array1<Vector3d>& theVec) const
   {
     Point3d aPnt;
     return OnSurface_D1(theT, aPnt, theVec(1), myCurve, myExtPS);

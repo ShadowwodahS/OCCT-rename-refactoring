@@ -44,7 +44,7 @@ TopoDS_Vertex ShapeBuild_Vertex::CombineVertex(const Point3d&       pnt1,
   Point3d        pos;
   Standard_Real tol;
 
-  gp_Vec        v    = pnt2.XYZ() - pnt1.XYZ();
+  Vector3d        v    = pnt2.XYZ() - pnt1.XYZ();
   Standard_Real dist = v.Magnitude();
 
   // #47 rln 09.12.98 S4054 PRO14323 entity 2844

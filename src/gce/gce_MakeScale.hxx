@@ -25,7 +25,7 @@
 class Point3d;
 
 //! Implements an elementary construction algorithm for
-//! a scaling transformation in 3D space. The result is a gp_Trsf transformation.
+//! a scaling transformation in 3D space. The result is a Transform3d transformation.
 //! A MakeScale object provides a framework for:
 //! -   defining the construction of the transformation,
 //! -   implementing the construction algorithm, and
@@ -41,14 +41,14 @@ public:
   Standard_EXPORT gce_MakeScale(const Point3d& Point, const Standard_Real Scale);
 
   //! Returns the constructed transformation.
-  Standard_EXPORT const gp_Trsf& Value() const;
+  Standard_EXPORT const Transform3d& Value() const;
 
-  Standard_EXPORT const gp_Trsf& Operator() const;
-  Standard_EXPORT                operator gp_Trsf() const;
+  Standard_EXPORT const Transform3d& Operator() const;
+  Standard_EXPORT                operator Transform3d() const;
 
 protected:
 private:
-  gp_Trsf TheScale;
+  Transform3d TheScale;
 };
 
 #endif // _gce_MakeScale_HeaderFile

@@ -42,8 +42,8 @@ public:
                               const Standard_Real V1,
                               const Standard_Real U2,
                               const Standard_Real V2,
-                              const gp_Vec&       Tg1,
-                              const gp_Vec&       Tg2,
+                              const Vector3d&       Tg1,
+                              const Vector3d&       Tg2,
                               const gp_Vec2d&     Tg12d,
                               const gp_Vec2d&     Tg22d);
 
@@ -63,8 +63,8 @@ public:
                               const Standard_Real U,
                               const Standard_Real V,
                               const Standard_Real W,
-                              const gp_Vec&       Tgs,
-                              const gp_Vec&       Tgc,
+                              const Vector3d&       Tgs,
+                              const Vector3d&       Tgc,
                               const gp_Vec2d&     Tg2d);
 
   //! Creates a point on a surface and a curve, without tangents.
@@ -85,8 +85,8 @@ public:
                               const Standard_Real U2,
                               const Standard_Real V2,
                               const Standard_Real PC,
-                              const gp_Vec&       Tg1,
-                              const gp_Vec&       Tg2,
+                              const Vector3d&       Tg1,
+                              const Vector3d&       Tg2,
                               const gp_Vec2d&     Tg12d,
                               const gp_Vec2d&     Tg22d);
 
@@ -111,8 +111,8 @@ public:
                               const Standard_Real V2,
                               const Standard_Real PC1,
                               const Standard_Real PC2,
-                              const gp_Vec&       Tg1,
-                              const gp_Vec&       Tg2,
+                              const Vector3d&       Tg1,
+                              const Vector3d&       Tg2,
                               const gp_Vec2d&     Tg12d,
                               const gp_Vec2d&     Tg22d);
 
@@ -135,8 +135,8 @@ public:
                                 const Standard_Real V1,
                                 const Standard_Real U2,
                                 const Standard_Real V2,
-                                const gp_Vec&       Tg1,
-                                const gp_Vec&       Tg2,
+                                const Vector3d&       Tg1,
+                                const Vector3d&       Tg2,
                                 const gp_Vec2d&     Tg12d,
                                 const gp_Vec2d&     Tg22d);
 
@@ -157,8 +157,8 @@ public:
                                 const Standard_Real U,
                                 const Standard_Real V,
                                 const Standard_Real W,
-                                const gp_Vec&       Tgs,
-                                const gp_Vec&       Tgc,
+                                const Vector3d&       Tgs,
+                                const Vector3d&       Tgc,
                                 const gp_Vec2d&     Tg2d);
 
   //! Set the values for a point on a surface and a curve,
@@ -180,8 +180,8 @@ public:
                                 const Standard_Real U2,
                                 const Standard_Real V2,
                                 const Standard_Real PC,
-                                const gp_Vec&       Tg1,
-                                const gp_Vec&       Tg2,
+                                const Vector3d&       Tg1,
+                                const Vector3d&       Tg2,
                                 const gp_Vec2d&     Tg12d,
                                 const gp_Vec2d&     Tg22d);
 
@@ -206,8 +206,8 @@ public:
                                 const Standard_Real V2,
                                 const Standard_Real PC1,
                                 const Standard_Real PC2,
-                                const gp_Vec&       Tg1,
-                                const gp_Vec&       Tg2,
+                                const Vector3d&       Tg1,
+                                const Vector3d&       Tg2,
                                 const gp_Vec2d&     Tg12d,
                                 const gp_Vec2d&     Tg22d);
 
@@ -246,9 +246,9 @@ public:
 
   void ParametersOnS2(Standard_Real& U, Standard_Real& V) const;
 
-  const gp_Vec& TangentOnS1() const;
+  const Vector3d& TangentOnS1() const;
 
-  const gp_Vec& TangentOnS2() const;
+  const Vector3d& TangentOnS2() const;
 
   gp_Vec2d Tangent2dOnS1() const;
 
@@ -262,9 +262,9 @@ public:
 
   Standard_Real ParameterOnC() const;
 
-  const gp_Vec& TangentOnS() const;
+  const Vector3d& TangentOnS() const;
 
-  const gp_Vec& TangentOnC() const;
+  const Vector3d& TangentOnC() const;
 
   gp_Vec2d Tangent2d() const;
 
@@ -276,16 +276,16 @@ public:
 
   Standard_Real ParameterOnC2() const;
 
-  const gp_Vec& TangentOnC1() const;
+  const Vector3d& TangentOnC1() const;
 
-  const gp_Vec& TangentOnC2() const;
+  const Vector3d& TangentOnC2() const;
 
 protected:
 private:
   Point3d           pt1;
   Point3d           pt2;
-  gp_Vec           tg1;
-  gp_Vec           tg2;
+  Vector3d           tg1;
+  Vector3d           tg2;
   Standard_Real    prm;
   Standard_Real    u1;
   Standard_Real    v1;

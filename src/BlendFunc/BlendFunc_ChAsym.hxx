@@ -98,11 +98,11 @@ public:
 
   Standard_EXPORT Standard_Boolean IsTangencyPoint() const Standard_OVERRIDE;
 
-  Standard_EXPORT const gp_Vec& TangentOnS1() const Standard_OVERRIDE;
+  Standard_EXPORT const Vector3d& TangentOnS1() const Standard_OVERRIDE;
 
   Standard_EXPORT const gp_Vec2d& Tangent2dOnS1() const Standard_OVERRIDE;
 
-  Standard_EXPORT const gp_Vec& TangentOnS2() const Standard_OVERRIDE;
+  Standard_EXPORT const Vector3d& TangentOnS2() const Standard_OVERRIDE;
 
   Standard_EXPORT const gp_Vec2d& Tangent2dOnS2() const Standard_OVERRIDE;
 
@@ -118,10 +118,10 @@ public:
                                const Standard_Real V1,
                                const Standard_Real U2,
                                const Standard_Real V2,
-                               gp_Vec&             TgFirst,
-                               gp_Vec&             TgLast,
-                               gp_Vec&             NormFirst,
-                               gp_Vec&             NormLast) const Standard_OVERRIDE;
+                               Vector3d&             TgFirst,
+                               Vector3d&             TgLast,
+                               Vector3d&             NormFirst,
+                               Vector3d&             NormLast) const Standard_OVERRIDE;
 
   //! Utile pour une visu rapide et approximative de la surface.
   Standard_EXPORT void Section(const Standard_Real Param,
@@ -223,16 +223,16 @@ private:
   Standard_Real             dist1;
   Standard_Real             angle;
   Standard_Real             tgang;
-  gp_Vec                    nplan;
+  Vector3d                    nplan;
   Point3d                    pt1;
-  gp_Vec                    tsurf1;
+  Vector3d                    tsurf1;
   Point3d                    pt2;
   math_Vector               FX;
   math_Matrix               DX;
   Standard_Boolean          istangent;
-  gp_Vec                    tg1;
+  Vector3d                    tg1;
   gp_Vec2d                  tg12d;
-  gp_Vec                    tg2;
+  Vector3d                    tg2;
   gp_Vec2d                  tg22d;
   Standard_Integer          choix;
   Standard_Real             distmin;

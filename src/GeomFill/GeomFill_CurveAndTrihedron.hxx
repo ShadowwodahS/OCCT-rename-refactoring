@@ -61,12 +61,12 @@ public:
   //! compute Location and 2d points
   Standard_EXPORT virtual Standard_Boolean D0(const Standard_Real Param,
                                               gp_Mat&             M,
-                                              gp_Vec&             V) Standard_OVERRIDE;
+                                              Vector3d&             V) Standard_OVERRIDE;
 
   //! compute Location and 2d points
   Standard_EXPORT virtual Standard_Boolean D0(const Standard_Real   Param,
                                               gp_Mat&               M,
-                                              gp_Vec&               V,
+                                              Vector3d&               V,
                                               TColgp_Array1OfPnt2d& Poles2d) Standard_OVERRIDE;
 
   //! compute location 2d  points and  associated
@@ -74,9 +74,9 @@ public:
   //! Warning : It used only for C1 or C2 approximation
   Standard_EXPORT virtual Standard_Boolean D1(const Standard_Real   Param,
                                               gp_Mat&               M,
-                                              gp_Vec&               V,
+                                              Vector3d&               V,
                                               gp_Mat&               DM,
-                                              gp_Vec&               DV,
+                                              Vector3d&               DV,
                                               TColgp_Array1OfPnt2d& Poles2d,
                                               TColgp_Array1OfVec2d& DPoles2d) Standard_OVERRIDE;
 
@@ -85,11 +85,11 @@ public:
   //! Warning : It used only for C2 approximation
   Standard_EXPORT virtual Standard_Boolean D2(const Standard_Real   Param,
                                               gp_Mat&               M,
-                                              gp_Vec&               V,
+                                              Vector3d&               V,
                                               gp_Mat&               DM,
-                                              gp_Vec&               DV,
+                                              Vector3d&               DV,
                                               gp_Mat&               D2M,
-                                              gp_Vec&               D2V,
+                                              Vector3d&               D2V,
                                               TColgp_Array1OfPnt2d& Poles2d,
                                               TColgp_Array1OfVec2d& DPoles2d,
                                               TColgp_Array1OfVec2d& D2Poles2d) Standard_OVERRIDE;
@@ -132,7 +132,7 @@ public:
 
   //! Get average value of M(t) and V(t) it is usfull to
   //! make fast approximation of rational  surfaces.
-  Standard_EXPORT virtual void GetAverageLaw(gp_Mat& AM, gp_Vec& AV) Standard_OVERRIDE;
+  Standard_EXPORT virtual void GetAverageLaw(gp_Mat& AM, Vector3d& AV) Standard_OVERRIDE;
 
   //! Say if the Location  Law, is an translation of  Location
   //! The default implementation is " returns False ".
@@ -154,9 +154,9 @@ private:
   Handle(Adaptor3d_Curve)       myCurve;
   Handle(Adaptor3d_Curve)       myTrimmed;
   Point3d                        Point;
-  gp_Vec                        V1;
-  gp_Vec                        V2;
-  gp_Vec                        V3;
+  Vector3d                        V1;
+  Vector3d                        V2;
+  Vector3d                        V3;
   gp_Mat                        Trans;
 };
 

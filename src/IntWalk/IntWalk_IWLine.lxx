@@ -146,7 +146,7 @@ inline void IntWalk_IWLine::PassingPoint(const Standard_Integer Index,
   IndexPnts = couple(Index).Second();
 }
 
-inline void IntWalk_IWLine::SetTangentVector(const gp_Vec& V, const Standard_Integer Index)
+inline void IntWalk_IWLine::SetTangentVector(const Vector3d& V, const Standard_Integer Index)
 {
   indextg = Index;
   vcttg   = V;
@@ -167,7 +167,7 @@ inline void IntWalk_IWLine::SetTangencyAtEnd(const Standard_Boolean IsTangent)
   istgtend = IsTangent;
 }
 
-inline const gp_Vec& IntWalk_IWLine::TangentVector(Standard_Integer& Index) const
+inline const Vector3d& IntWalk_IWLine::TangentVector(Standard_Integer& Index) const
 {
   //--    if(istgtend == Standard_False && istgtbeg == Standard_False) {
   //--      std::cout<<" IntWalk_IWLine.lxx : Pb "<<std::endl;

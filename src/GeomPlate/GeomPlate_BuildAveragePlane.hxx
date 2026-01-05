@@ -84,12 +84,12 @@ protected:
 private:
   //! Computes a base of the average plane defined by (myG,N)
   //! using eigen vectors
-  Standard_EXPORT void BasePlan(const gp_Vec& N);
+  Standard_EXPORT void BasePlan(const Vector3d& N);
 
   //! Defines the average plane.
   //! if NOption = 1 : the average plane is the inertial plane.
   //! if NOption = 2 : the average plane is the plane of max. flux.
-  Standard_EXPORT gp_Vec DefPlan(const Standard_Integer NOption);
+  Standard_EXPORT Vector3d DefPlan(const Standard_Integer NOption);
 
   Handle(TColgp_HArray1OfPnt) myPts;
   Standard_Real               myUmax;
@@ -99,8 +99,8 @@ private:
   Handle(Geom_Plane)          myPlane;
   Standard_Real               myTol;
   Handle(Geom_Line)           myLine;
-  gp_Vec                      myOX;
-  gp_Vec                      myOY;
+  Vector3d                      myOX;
+  Vector3d                      myOY;
   Point3d                      myG;
   Standard_Integer            myNbBoundPoints;
 };

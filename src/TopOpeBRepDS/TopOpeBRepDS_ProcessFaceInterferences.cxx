@@ -77,7 +77,7 @@ Standard_EXPORT Standard_Boolean FUN_mkTonF(const TopoDS_Face&       F,
   FUN_tool_bounds(E, f, l);
   const Standard_Real PAR_T = 0.456789;
   Standard_Real       pmil  = (1. - PAR_T) * f + PAR_T * l;
-  gp_Vec              tgE;
+  Vector3d              tgE;
   Standard_Boolean    ok;
 
   ok = TopOpeBRepTool_TOOL::TggeomE(pmil, E, tgE);
@@ -98,17 +98,17 @@ Standard_EXPORT Standard_Boolean FUN_mkTonF(const TopoDS_Face&       F,
   if (!ok)
     return Standard_False;
 
-  gp_Dir           ngF = FUN_tool_nggeomF(uvF, F);
+  Dir3d           ngF = FUN_tool_nggeomF(uvF, F);
   Standard_Real    xx  = Abs(ngF.Dot(tgE));
   Standard_Boolean tgt = (Abs(1 - xx) < tola);
   if (tgt)
     return Standard_False;
 
-  gp_Dir ntFS;
+  Dir3d ntFS;
   ok = TopOpeBRepTool_TOOL::Nt(uvFS, FS, ntFS);
   if (!ok)
     return Standard_False;
-  gp_Dir           beafter = ngF ^ tgE;
+  Dir3d           beafter = ngF ^ tgE;
   Standard_Real    yy      = beafter.Dot(ntFS);
   Standard_Boolean unk     = (Abs(yy) < tola);
   if (unk)

@@ -24,7 +24,7 @@
 #include <TColStd_HArray1OfReal.hxx>
 #include <IGESData_IGESEntity.hxx>
 class Point3d;
-class gp_Vec;
+class Vector3d;
 
 class IGESGeom_CopiousData;
 DEFINE_STANDARD_HANDLE(IGESGeom_CopiousData, IGESData_IGESEntity)
@@ -96,11 +96,11 @@ public:
 
   //! returns i, j, k values if 3-tuple else returns (0, 0, 0)
   //! raises exception if anIndex <= 0 or anIndex > NbPoints()
-  Standard_EXPORT gp_Vec Vector(const Standard_Integer anIndex) const;
+  Standard_EXPORT Vector3d Vector(const Standard_Integer anIndex) const;
 
   //! returns transformed vector if 3-tuple else returns (0, 0, 0)
   //! raises exception if anIndex <= 0 or anIndex > NbPoints()
-  Standard_EXPORT gp_Vec TransformedVector(const Standard_Integer anIndex) const;
+  Standard_EXPORT Vector3d TransformedVector(const Standard_Integer anIndex) const;
 
   DEFINE_STANDARD_RTTIEXT(IGESGeom_CopiousData, IGESData_IGESEntity)
 

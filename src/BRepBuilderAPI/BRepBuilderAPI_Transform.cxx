@@ -21,7 +21,7 @@
 
 //=================================================================================================
 
-BRepBuilderAPI_Transform::BRepBuilderAPI_Transform(const gp_Trsf& T)
+BRepBuilderAPI_Transform::BRepBuilderAPI_Transform(const Transform3d& T)
     : myTrsf(T)
 {
   myModification = new BRepTools_TrsfModification(T);
@@ -30,7 +30,7 @@ BRepBuilderAPI_Transform::BRepBuilderAPI_Transform(const gp_Trsf& T)
 //=================================================================================================
 
 BRepBuilderAPI_Transform::BRepBuilderAPI_Transform(const TopoDS_Shape&    theShape,
-                                                   const gp_Trsf&         theTrsf,
+                                                   const Transform3d&         theTrsf,
                                                    const Standard_Boolean theCopyGeom,
                                                    const Standard_Boolean theCopyMesh)
     : myTrsf(theTrsf)

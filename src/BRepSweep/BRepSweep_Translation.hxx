@@ -43,7 +43,7 @@ public:
   Standard_EXPORT BRepSweep_Translation(const TopoDS_Shape&    S,
                                         const Sweep_NumShape&  N,
                                         const TopLoc_Location& L,
-                                        const gp_Vec&          V,
+                                        const Vector3d&          V,
                                         const Standard_Boolean C,
                                         const Standard_Boolean Canonize = Standard_True);
 
@@ -176,11 +176,11 @@ public:
 
   //! Returns the Vector of the Prism,  if it is an infinite
   //! prism the Vec is unitar.
-  Standard_EXPORT gp_Vec Vec() const;
+  Standard_EXPORT Vector3d Vec() const;
 
 protected:
 private:
-  gp_Vec           myVec;
+  Vector3d           myVec;
   Standard_Boolean myCanonize;
 };
 

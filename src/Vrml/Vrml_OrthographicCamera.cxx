@@ -19,14 +19,14 @@ Vrml_OrthographicCamera::Vrml_OrthographicCamera()
       myHeight(2)
 {
 
-  gp_Vec tmpVec(0, 0, 1);
+  Vector3d tmpVec(0, 0, 1);
   myPosition = tmpVec;
 
   Vrml_SFRotation tmpSFR(0, 0, 1, 0);
   myOrientation = tmpSFR;
 }
 
-Vrml_OrthographicCamera::Vrml_OrthographicCamera(const gp_Vec&          aPosition,
+Vrml_OrthographicCamera::Vrml_OrthographicCamera(const Vector3d&          aPosition,
                                                  const Vrml_SFRotation& aOrientation,
                                                  const Standard_Real    aFocalDistance,
                                                  const Standard_Real    aHeight)
@@ -37,12 +37,12 @@ Vrml_OrthographicCamera::Vrml_OrthographicCamera(const gp_Vec&          aPositio
   myHeight        = aHeight;
 }
 
-void Vrml_OrthographicCamera::SetPosition(const gp_Vec& aPosition)
+void Vrml_OrthographicCamera::SetPosition(const Vector3d& aPosition)
 {
   myPosition = aPosition;
 }
 
-gp_Vec Vrml_OrthographicCamera::Position() const
+Vector3d Vrml_OrthographicCamera::Position() const
 {
   return myPosition;
 }

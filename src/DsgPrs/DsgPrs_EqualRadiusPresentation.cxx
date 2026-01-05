@@ -50,7 +50,7 @@ void DsgPrs_EqualRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPres
   aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
 
   // Add presentation of arrows
-  gp_Dir FirstDir  = gce_MakeDir(FirstCenter, FirstPoint),
+  Dir3d FirstDir  = gce_MakeDir(FirstCenter, FirstPoint),
          SecondDir = gce_MakeDir(SecondCenter, SecondPoint);
   DsgPrs::ComputeSymbol(aPresentation,
                         LA,
@@ -79,10 +79,10 @@ void DsgPrs_EqualRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPres
     SmallDist = Dist * 0.05; // take 1/20 part of length;
     if (SmallDist <= Precision::Confusion())
       SmallDist = Dist;
-    gp_Dir LineDir = gce_MakeDir(FirstCenter, SecondCenter);
-    gp_Dir OrtDir  = Plane->Pln().Axis().Direction() ^ LineDir;
+    Dir3d LineDir = gce_MakeDir(FirstCenter, SecondCenter);
+    Dir3d OrtDir  = Plane->Pln().Axis().Direction() ^ LineDir;
 
-    gp_Vec OrtVec = gp_Vec(OrtDir) * SmallDist;
+    Vector3d OrtVec = Vector3d(OrtDir) * SmallDist;
 
     // Compute the text position
     aTextPos = Middle.Translated(OrtVec);
@@ -95,7 +95,7 @@ void DsgPrs_EqualRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPres
     if (SmallDist <= Precision::Confusion())
       SmallDist = Rad;
 
-    gp_Vec aVec(SmallDist, SmallDist, SmallDist);
+    Vector3d aVec(SmallDist, SmallDist, SmallDist);
 
     // Compute the text position
     aTextPos = FirstCenter.Translated(aVec);

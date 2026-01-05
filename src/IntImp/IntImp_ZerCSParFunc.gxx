@@ -50,7 +50,7 @@ Standard_Boolean IntImp_ZerCSParFunc::Value(const math_Vector& X,
 Standard_Boolean IntImp_ZerCSParFunc::Derivatives ( const math_Vector& X,
 						    math_Matrix& D) {
   Point3d Psurf,Pcurv;
-  gp_Vec D1u,D1v,D1w;
+  Vector3d D1u,D1v,D1w;
   ThePSurfaceTool::D1(surface,X(1),X(2),Psurf,D1u,D1v);
   TheCurveTool::D1(curve,X(3),Pcurv,D1w);
   D(1,1) =  D1u.X();
@@ -69,7 +69,7 @@ Standard_Boolean IntImp_ZerCSParFunc::Values( const math_Vector& X,
 					      math_Vector& F,
 					      math_Matrix& D) {
   Point3d Psurf,Pcurv;
-  gp_Vec D1u,D1v,D1w;
+  Vector3d D1u,D1v,D1w;
   ThePSurfaceTool::D1(surface,X(1),X(2),Psurf,D1u,D1v);
   TheCurveTool::D1(curve,X(3),Pcurv,D1w);
   D(1,1) =  D1u.X();

@@ -236,11 +236,11 @@ void Compute(const Standard_Real theP1,
 }
 } // end namespace
 
-static void OpenMin(const gp_Dir& V, Bnd_Box& B)
+static void OpenMin(const Dir3d& V, Bnd_Box& B)
 {
-  gp_Dir OX(1., 0., 0.);
-  gp_Dir OY(0., 1., 0.);
-  gp_Dir OZ(0., 0., 1.);
+  Dir3d OX(1., 0., 0.);
+  Dir3d OY(0., 1., 0.);
+  Dir3d OZ(0., 0., 1.);
   if (V.IsParallel(OX, Precision::Angular()))
     B.OpenXmin();
   else if (V.IsParallel(OY, Precision::Angular()))
@@ -255,11 +255,11 @@ static void OpenMin(const gp_Dir& V, Bnd_Box& B)
   }
 }
 
-static void OpenMax(const gp_Dir& V, Bnd_Box& B)
+static void OpenMax(const Dir3d& V, Bnd_Box& B)
 {
-  gp_Dir OX(1., 0., 0.);
-  gp_Dir OY(0., 1., 0.);
-  gp_Dir OZ(0., 0., 1.);
+  Dir3d OX(1., 0., 0.);
+  Dir3d OY(0., 1., 0.);
+  Dir3d OZ(0., 0., 1.);
   if (V.IsParallel(OX, Precision::Angular()))
     B.OpenXmax();
   else if (V.IsParallel(OY, Precision::Angular()))
@@ -274,11 +274,11 @@ static void OpenMax(const gp_Dir& V, Bnd_Box& B)
   }
 }
 
-static void OpenMinMax(const gp_Dir& V, Bnd_Box& B)
+static void OpenMinMax(const Dir3d& V, Bnd_Box& B)
 {
-  gp_Dir OX(1., 0., 0.);
-  gp_Dir OY(0., 1., 0.);
-  gp_Dir OZ(0., 0., 1.);
+  Dir3d OX(1., 0., 0.);
+  Dir3d OY(0., 1., 0.);
+  Dir3d OZ(0., 0., 1.);
   if (V.IsParallel(OX, Precision::Angular()))
   {
     B.OpenXmax();
@@ -507,7 +507,7 @@ void BndLib::Add(const gp_Circ&      C,
   gp_XYZ        O   = C.Location().XYZ();
   gp_XYZ        Xd  = C.XAxis().Direction().XYZ();
   gp_XYZ        Yd  = C.YAxis().Direction().XYZ();
-  const gp_Ax2& pos = C.Position();
+  const Frame3d& pos = C.Position();
   //
   Standard_Real tt;
   Standard_Real xmin, xmax, txmin, txmax;
@@ -700,7 +700,7 @@ void BndLib::Add(const gp_Elips&     C,
   gp_XYZ        O    = C.Location().XYZ();
   gp_XYZ        Xd   = C.XAxis().Direction().XYZ();
   gp_XYZ        Yd   = C.YAxis().Direction().XYZ();
-  const gp_Ax2& pos  = C.Position();
+  const Frame3d& pos  = C.Position();
   //
   Standard_Real tt;
   Standard_Real xmin, xmax, txmin, txmax;
@@ -1149,7 +1149,7 @@ static void ComputeCyl(const gp_Cylinder&  Cyl,
   gp_Circ aC = ElSLib::CylinderVIso(Cyl.Position(), Cyl.Radius(), VMin);
   BndLib::Add(aC, UMin, UMax, 0., B);
   //
-  gp_Vec aT = (VMax - VMin) * Cyl.Axis().Direction();
+  Vector3d aT = (VMax - VMin) * Cyl.Axis().Direction();
   aC.Translate(aT);
   BndLib::Add(aC, UMin, UMax, 0., B);
 }
@@ -1274,13 +1274,13 @@ void BndLib::Add(const gp_Cone&      S,
     }
     else if (Precision::IsPositiveInfinite(VMax))
     {
-      gp_Dir D(Cos(A) * S.Axis().Direction());
+      Dir3d D(Cos(A) * S.Axis().Direction());
       OpenMinMax(D, B);
     }
     else
     {
       ComputeCone(S, UMin, UMax, 0., VMax, B);
-      gp_Dir D(Cos(A) * S.Axis().Direction());
+      Dir3d D(Cos(A) * S.Axis().Direction());
       OpenMin(D, B);
     }
   }
@@ -1288,7 +1288,7 @@ void BndLib::Add(const gp_Cone&      S,
   {
     if (Precision::IsNegativeInfinite(VMax))
     {
-      gp_Dir D(Cos(A) * S.Axis().Direction());
+      Dir3d D(Cos(A) * S.Axis().Direction());
       OpenMinMax(D, B);
     }
     else if (Precision::IsPositiveInfinite(VMax))
@@ -1298,7 +1298,7 @@ void BndLib::Add(const gp_Cone&      S,
     else
     {
       ComputeCone(S, UMin, UMax, 0., VMax, B);
-      gp_Dir D(Cos(A) * S.Axis().Direction());
+      Dir3d D(Cos(A) * S.Axis().Direction());
       OpenMax(D, B);
     }
   }
@@ -1307,13 +1307,13 @@ void BndLib::Add(const gp_Cone&      S,
     if (Precision::IsNegativeInfinite(VMax))
     {
       ComputeCone(S, UMin, UMax, VMin, 0., B);
-      gp_Dir D(Cos(A) * S.Axis().Direction());
+      Dir3d D(Cos(A) * S.Axis().Direction());
       OpenMin(D, B);
     }
     else if (Precision::IsPositiveInfinite(VMax))
     {
       ComputeCone(S, UMin, UMax, VMin, 0., B);
-      gp_Dir D(Cos(A) * S.Axis().Direction());
+      Dir3d D(Cos(A) * S.Axis().Direction());
       OpenMax(D, B);
     }
     else
@@ -1798,7 +1798,7 @@ Standard_Integer ComputeBox(const gp_Hypr&      aHypr,
   aEps = Epsilon(1.);
   iErr = 1;
   //
-  const gp_Ax2& aPos  = aHypr.Position();
+  const Frame3d& aPos  = aHypr.Position();
   const gp_XYZ& aXDir = aPos.XDirection().XYZ();
   const gp_XYZ& aYDir = aPos.YDirection().XYZ();
   aRmaj               = aHypr.MajorRadius();

@@ -220,7 +220,7 @@ static Standard_Boolean SearchFD(TopOpeBRepDS_DataStructure&  DStr,
 static Standard_Boolean ToricCorner(const TopoDS_Face&  F,
                                     const Standard_Real rd,
                                     const Standard_Real rf,
-                                    const gp_Vec&       v)
+                                    const Vector3d&       v)
 {
   if (Abs(rd - rf) > Precision::Confusion())
   {
@@ -415,11 +415,11 @@ void ChFi3d_FilBuilder::PerformThreeCorner(const Standard_Integer Jndex)
 
   Standard_Real Rdeb, Rfin, Rdp, Rfp;
   Point3d        Pdeb, Pfin, Pdp, Pfp;
-  gp_Vec        Vdeb, Vfin, Vdp, Vfp;
+  Vector3d        Vdeb, Vfin, Vdp, Vfp;
   if (c1pointu)
   {
     Point3d        pbid;
-    gp_Vec        qv[3];
+    Vector3d        qv[3];
     Standard_Real qr[3];
     for (ii = 0; ii <= 2; ii++)
     {
@@ -490,7 +490,7 @@ void ChFi3d_FilBuilder::PerformThreeCorner(const Standard_Integer Jndex)
   if (!pivdif)
   {
     Point3d        ptestdeb, ptestfin;
-    gp_Vec        bidvec;
+    Vector3d        bidvec;
     Standard_Real bidr;
     ChFi3d_ExtrSpineCarac(DStr,
                           CD[deb],
@@ -910,7 +910,7 @@ void ChFi3d_FilBuilder::PerformThreeCorner(const Standard_Integer Jndex)
                               2.e-4);
       Standard_Integer kkk;
       Point3d           ppbid;
-      gp_Vec           vp1, vp2;
+      Vector3d           vp1, vp2;
       kkk =
         CD[deb]->SetOfSurfData()->Value(i[deb][pivot])->Interference(jf[deb][pivot]).LineIndex();
       DStr.Curve(kkk).Curve()->D1(p[deb][pivot], ppbid, vp1);

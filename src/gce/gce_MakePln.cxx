@@ -24,13 +24,13 @@
 #include <gp_Pnt.hxx>
 #include <StdFail_NotDone.hxx>
 
-gce_MakePln::gce_MakePln(const gp_Ax2& A2)
+gce_MakePln::gce_MakePln(const Frame3d& A2)
 {
   ThePln   = gp_Pln(gp_Ax3(A2));
   TheError = gce_Done;
 }
 
-gce_MakePln::gce_MakePln(const Point3d& P, const gp_Dir& V)
+gce_MakePln::gce_MakePln(const Point3d& P, const Dir3d& V)
 {
   ThePln   = gp_Pln(P, V);
   TheError = gce_Done;
@@ -44,7 +44,7 @@ gce_MakePln::gce_MakePln(const Point3d& P1, const Point3d& P2)
   }
   else
   {
-    gp_Dir dir(P2.XYZ() - P1.XYZ());
+    Dir3d dir(P2.XYZ() - P1.XYZ());
     ThePln   = gp_Pln(P1, dir);
     TheError = gce_Done;
   }
@@ -81,8 +81,8 @@ gce_MakePln::gce_MakePln(const Point3d& P1, const Point3d& P2, const Point3d& P3
   }
   else
   {
-    gp_Dir DNorm(Norm);
-    gp_Dir Dx(V1);
+    Dir3d DNorm(Norm);
+    Dir3d Dx(V1);
     ThePln   = gp_Pln(gp_Ax3(P1, DNorm, Dx));
     TheError = gce_Done;
   }
@@ -114,7 +114,7 @@ gce_MakePln::gce_MakePln(const gp_Pln& Pl, const Point3d& Point)
 //  Creation d un gp_pln a partir d un Ax1 (Point + Normale).             +
 //=========================================================================
 
-gce_MakePln::gce_MakePln(const gp_Ax1& Axis)
+gce_MakePln::gce_MakePln(const Axis3d& Axis)
 {
   ThePln   = gp_Pln(Axis.Location(), Axis.Direction());
   TheError = gce_Done;

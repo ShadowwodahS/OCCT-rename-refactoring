@@ -328,7 +328,7 @@ Standard_Boolean BRepExtrema_TriangleSet::initEdge(const TopoDS_Edge&     theEdg
 // purpose  : Initializes nodes
 //=======================================================================
 void BRepExtrema_TriangleSet::initNodes(const TColgp_Array1OfPnt& theNodes,
-                                        const gp_Trsf&            theTrsf,
+                                        const Transform3d&            theTrsf,
                                         const Standard_Integer    theIndex)
 {
   for (Standard_Integer aVertIdx = 1; aVertIdx <= theNodes.Size(); ++aVertIdx)

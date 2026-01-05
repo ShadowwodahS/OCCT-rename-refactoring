@@ -26,7 +26,7 @@
 
 class gp_Circ;
 class Point3d;
-class gp_Vec;
+class Vector3d;
 
 //! Implements construction algorithms for an
 //! arc of circle in 3D space. The result is a Geom_TrimmedCurve curve.
@@ -87,7 +87,7 @@ public:
   //! -   P1, P2 and P3 are collinear and not coincident, or
   //! -   the vector defined by the points P1 and
   //! P2 is collinear with the vector V.
-  Standard_EXPORT GC_MakeArcOfCircle(const Point3d& P1, const gp_Vec& V, const Point3d& P2);
+  Standard_EXPORT GC_MakeArcOfCircle(const Point3d& P1, const Vector3d& V, const Point3d& P2);
 
   //! Returns the constructed arc of circle.
   //! Exceptions StdFail_NotDone if no arc of circle is constructed.

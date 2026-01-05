@@ -294,7 +294,7 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Compute(const Standard_Boolean Se
     {
       Handle(Geom_OffsetCurve)            offset    = Handle(Geom_OffsetCurve)::DownCast(basis);
       Standard_Real                       value     = offset->Offset();
-      gp_Dir                              direction = offset->Direction();
+      Dir3d                              direction = offset->Direction();
       Handle(Geom_Curve)                  bas       = offset->BasisCurve();
       ShapeUpgrade_ConvertCurve3dToBezier converter;
       converter.Init(bas, VFirst, VLast);
@@ -330,7 +330,7 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Compute(const Standard_Boolean Se
       nbCurves                = curves->Length();
     }
 
-    gp_Ax1                            axis = revol->Axis();
+    Axis3d                            axis = revol->Axis();
     Handle(TColGeom_HArray2OfSurface) surf = new TColGeom_HArray2OfSurface(1, 1, 1, nbCurves);
     Standard_Real                     Umin, Umax, Vmin, Vmax;
     mySurface->Bounds(Umin, Umax, Vmin, Vmax);
@@ -377,7 +377,7 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Compute(const Standard_Boolean Se
     Handle(Geom_SurfaceOfLinearExtrusion) extr =
       Handle(Geom_SurfaceOfLinearExtrusion)::DownCast(mySurface);
     Handle(Geom_Curve) basis = extr->BasisCurve();
-    // gp_Dir direction = extr->Direction(); // direction not used (skl)
+    // Dir3d direction = extr->Direction(); // direction not used (skl)
 
     Handle(TColGeom_HArray1OfCurve)     curves;
     Standard_Integer                    nbCurves;
@@ -391,7 +391,7 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Compute(const Standard_Boolean Se
     curves                  = converter.GetCurves();
     nbCurves                = curves->Length();
 
-    gp_Trsf shiftF, shiftL;
+    Transform3d shiftF, shiftL;
     shiftF.SetTranslation(extr->Value(UFirst, 0), extr->Value(UFirst, VFirst));
     shiftL.SetTranslation(extr->Value(UFirst, 0), extr->Value(UFirst, VLast));
     Handle(TColGeom_HArray2OfSurface) surf = new TColGeom_HArray2OfSurface(1, nbCurves, 1, 1);

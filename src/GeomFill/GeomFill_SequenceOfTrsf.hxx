@@ -20,6 +20,6 @@
 #include <gp_Trsf.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<gp_Trsf> GeomFill_SequenceOfTrsf;
+typedef NCollection_Sequence<Transform3d> GeomFill_SequenceOfTrsf;
 
 #endif

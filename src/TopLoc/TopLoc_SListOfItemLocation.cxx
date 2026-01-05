@@ -27,7 +27,7 @@ TopLoc_SListOfItemLocation::TopLoc_SListOfItemLocation(const TopLoc_ItemLocation
 {
   if (!myNode->Tail().IsEmpty())
   {
-    const gp_Trsf& aT = myNode->Tail().Value().myTrsf;
+    const Transform3d& aT = myNode->Tail().Value().myTrsf;
     myNode->Value().myTrsf.PreMultiply(aT);
   }
 }

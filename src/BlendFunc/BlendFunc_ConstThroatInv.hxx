@@ -61,18 +61,18 @@ protected:
   Standard_Real sign2;
 
   Point3d        ptgui;
-  gp_Vec        nplan;
+  Vector3d        nplan;
   Standard_Real normtg;
   Standard_Real theD;
-  gp_Vec        d1gui;
-  gp_Vec        d2gui;
+  Vector3d        d1gui;
+  Vector3d        d2gui;
 
   Point3d pts1;
   Point3d pts2;
-  gp_Vec d1u1;
-  gp_Vec d1v1;
-  gp_Vec d1u2;
-  gp_Vec d1v2;
+  Vector3d d1u1;
+  Vector3d d1v1;
+  Vector3d d1u2;
+  Vector3d d1v2;
 
 private:
 };

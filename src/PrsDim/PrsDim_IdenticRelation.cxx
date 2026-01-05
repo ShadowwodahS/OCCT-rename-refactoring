@@ -190,7 +190,7 @@ static Standard_Boolean ComputeAttach(const gp_Circ& thecirc,
   Point3d                  aCenter = thecirc.Location();
   if (aCenter.Distance(curpos) <= confusion)
   {
-    gp_Vec vprec(aCenter, aFAttach);
+    Vector3d vprec(aCenter, aFAttach);
     vprec.Normalize();
     curpos.Translate(vprec * 1e-5);
   }
@@ -258,7 +258,7 @@ static Standard_Boolean ComputeAttach(const gp_Elips& theEll,
   Point3d                  aCenter = theEll.Location();
   if (aCenter.Distance(curpos) <= confusion)
   {
-    gp_Vec vprec(aCenter, aFAttach);
+    Vector3d vprec(aCenter, aFAttach);
     vprec.Normalize();
     curpos.Translate(vprec * 1e-5);
   }
@@ -451,15 +451,15 @@ void PrsDim_IdenticRelation::ComputeSelection(const Handle(SelectMgr_Selection)&
         aSelection->Add(seg);
 
         // attach = projection of Position() on the curve;
-        gp_Vec v1(myFAttach, mySAttach);
-        gp_Vec v2(myFAttach, myPosition);
+        Vector3d v1(myFAttach, mySAttach);
+        Vector3d v2(myFAttach, myPosition);
         if (v1.IsParallel(v2, Precision::Angular()))
         {
           attach = mySAttach;
         }
         else
         {
-          gp_Lin ll(myFAttach, gp_Dir(v1));
+          gp_Lin ll(myFAttach, Dir3d(v1));
           attach = ElCLib::Value(ElCLib::Parameter(ll, myPosition), ll);
         }
       }
@@ -585,8 +585,8 @@ void PrsDim_IdenticRelation::ComputeTwoLinesPresentation(const Handle(Prs3d_Pres
       myFAttach = mySAttach = thelin->Lin().Location();
       Point3d curpos;
       gp_Pln pln(myPlane->Pln());
-      gp_Dir dir(pln.XAxis().Direction());
-      gp_Vec transvec     = gp_Vec(dir) * myArrowSize;
+      Dir3d dir(pln.XAxis().Direction());
+      Vector3d transvec     = Vector3d(dir) * myArrowSize;
       curpos              = myFAttach.Translated(transvec);
       myPosition          = curpos;
       myAutomaticPosition = Standard_True;
@@ -702,9 +702,9 @@ void PrsDim_IdenticRelation::ComputeTwoLinesPresentation(const Handle(Prs3d_Pres
     if (myAutomaticPosition)
     {
 
-      gp_Vec vtrans(myFAttach, mySAttach);
+      Vector3d vtrans(myFAttach, mySAttach);
       vtrans.Normalize();
-      vtrans.Cross(gp_Vec(myPlane->Pln().Axis().Direction()));
+      vtrans.Cross(Vector3d(myPlane->Pln().Axis().Direction()));
       vtrans *= ComputeSegSize();
       curpos              = middle.Translated(vtrans);
       myPosition          = curpos;
@@ -718,11 +718,11 @@ void PrsDim_IdenticRelation::ComputeTwoLinesPresentation(const Handle(Prs3d_Pres
       Standard_Real           pcurpos = ElCLib::Parameter(thelin->Lin(), curpos);
       Standard_Real           dist    = thelin->Lin().Distance(curpos);
       Point3d                  proj    = ElCLib::Value(pcurpos, thelin->Lin());
-      gp_Vec                  trans;
+      Vector3d                  trans;
       constexpr Standard_Real confusion(Precision::Confusion());
       if (dist >= confusion)
       {
-        trans = gp_Vec(proj, curpos);
+        trans = Vector3d(proj, curpos);
         trans.Normalize();
       }
       Standard_Real pf = ElCLib::Parameter(thelin->Lin(), myFAttach);
@@ -788,7 +788,7 @@ void PrsDim_IdenticRelation::ComputeTwoCirclesPresentation(const Handle(Prs3d_Pr
       mySAttach             = ElCLib::Value(Modulo2PI(pfirst1 + rad), thecirc->Circ());
 
       Point3d curpos = ElCLib::Value(pfirst1, thecirc->Circ());
-      gp_Vec vtrans(myCenter, curpos);
+      Vector3d vtrans(myCenter, curpos);
       vtrans.Normalize();
       vtrans *= aSegSize;
       curpos.Translate(vtrans);
@@ -858,7 +858,7 @@ void PrsDim_IdenticRelation::ComputeTwoCirclesPresentation(const Handle(Prs3d_Pr
       mySAttach              = ElCLib::Value(pSAttach, thecirc->Circ());
       if (myAutomaticPosition)
       {
-        gp_Vec vtrans(myCenter, curpos);
+        Vector3d vtrans(myCenter, curpos);
         vtrans.Normalize();
         vtrans *= aSegSize;
         curpos.Translate(vtrans);
@@ -1031,7 +1031,7 @@ void PrsDim_IdenticRelation::ComputeAutoArcPresentation(const Handle(Geom_Circle
   mySAttach = ElCLib::Value(Modulo2PI(pmiddle + rad), thecirc->Circ());
 
   Point3d curpos = ElCLib::Value(pmiddle, thecirc->Circ());
-  gp_Vec vtrans(myCenter, curpos);
+  Vector3d vtrans(myCenter, curpos);
   vtrans.Normalize();
   vtrans *= aSegSize;
   myPosition = curpos.Translated(vtrans);
@@ -1056,7 +1056,7 @@ void PrsDim_IdenticRelation::ComputeNotAutoCircPresentation(const Handle(Geom_Ci
   constexpr Standard_Real confusion(Precision::Confusion());
   if (myCenter.Distance(curpos) <= confusion)
   {
-    gp_Vec vprec(myCenter, myFAttach);
+    Vector3d vprec(myCenter, myFAttach);
     vprec.Normalize();
     curpos.Translate(vprec * 1e-5);
   }
@@ -1148,7 +1148,7 @@ void PrsDim_IdenticRelation::ComputeTwoEllipsesPresentation(const Handle(Prs3d_P
       mySAttach             = ElCLib::Value(Modulo2PI(pfirst1 + rad), theEll->Elips());
 
       Point3d curpos = ElCLib::Value(pfirst1, theEll->Elips());
-      gp_Vec vtrans(myCenter, curpos);
+      Vector3d vtrans(myCenter, curpos);
       vtrans.Normalize();
       vtrans *= aSegSize;
       curpos.Translate(vtrans);
@@ -1218,7 +1218,7 @@ void PrsDim_IdenticRelation::ComputeTwoEllipsesPresentation(const Handle(Prs3d_P
       mySAttach              = ElCLib::Value(pSAttach, theEll->Elips());
       if (myAutomaticPosition)
       {
-        gp_Vec vtrans(myCenter, curpos);
+        Vector3d vtrans(myCenter, curpos);
         vtrans.Normalize();
         vtrans *= aSegSize;
         curpos.Translate(vtrans);
@@ -1392,7 +1392,7 @@ void PrsDim_IdenticRelation::ComputeAutoArcPresentation(const Handle(Geom_Ellips
   mySAttach = ElCLib::Value(Modulo2PI(pmiddle + rad), anEll);
 
   Point3d curpos = ElCLib::Value(pmiddle, anEll);
-  gp_Vec vtrans(myCenter, curpos);
+  Vector3d vtrans(myCenter, curpos);
   vtrans.Normalize();
   vtrans *= aSegSize;
   myPosition = curpos.Translated(vtrans);
@@ -1417,7 +1417,7 @@ void PrsDim_IdenticRelation::ComputeNotAutoElipsPresentation(const Handle(Geom_E
   constexpr Standard_Real confusion(Precision::Confusion());
   if (myCenter.Distance(curpos) <= confusion)
   {
-    gp_Vec vprec(myCenter, myFAttach);
+    Vector3d vprec(myCenter, myFAttach);
     vprec.Normalize();
     curpos.Translate(vprec * 1e-5);
   }
@@ -1512,8 +1512,8 @@ void PrsDim_IdenticRelation::ComputeTwoVerticesPresentation(const Handle(Prs3d_P
     symbsize *= 5;
     // Computation of the direction of the segment of the presentation
     // we take the median of the edges connected to vertices
-    gp_Dir                                dF, dS;
-    gp_Dir                                myDir;
+    Dir3d                                dF, dS;
+    Dir3d                                myDir;
     TColStd_ListIteratorOfListOfTransient it(Users());
     if (it.More())
     {
@@ -1547,7 +1547,7 @@ void PrsDim_IdenticRelation::ComputeTwoVerticesPresentation(const Handle(Prs3d_P
       {
         myDir.SetXYZ(dF.XYZ() + dS.XYZ());
       }
-      curpos = myFAttach.Translated(gp_Vec(myDir) * symbsize);
+      curpos = myFAttach.Translated(Vector3d(myDir) * symbsize);
     }
     // jfa 11/10/2000
     else
@@ -1589,7 +1589,7 @@ Standard_Real PrsDim_IdenticRelation::ComputeSegSize() const
 //=======================================================================
 Standard_Boolean PrsDim_IdenticRelation::ComputeDirection(const TopoDS_Wire&   aWire,
                                                           const TopoDS_Vertex& VERT,
-                                                          gp_Dir&              dF) const
+                                                          Dir3d&              dF) const
 {
   // we take the median of the edges connected to vertices
   TopoDS_Edge edg1, edg2;
@@ -1617,7 +1617,7 @@ Standard_Boolean PrsDim_IdenticRelation::ComputeDirection(const TopoDS_Wire&   a
                                  myPlane))
       return Standard_False;
 
-    gp_Dir d1, d2;
+    Dir3d d1, d2;
     if (curv1->IsInstance(STANDARD_TYPE(Geom_Circle)))
     {
       d1 = ComputeCircleDirection(Handle(Geom_Circle)::DownCast(curv1), VERT);
@@ -1678,10 +1678,10 @@ Standard_Boolean PrsDim_IdenticRelation::ComputeDirection(const TopoDS_Wire&   a
 
 //=================================================================================================
 
-gp_Dir PrsDim_IdenticRelation::ComputeLineDirection(const Handle(Geom_Line)& lin,
+Dir3d PrsDim_IdenticRelation::ComputeLineDirection(const Handle(Geom_Line)& lin,
                                                     const Point3d&            firstP) const
 {
-  gp_Dir dir;
+  Dir3d dir;
   dir = lin->Lin().Direction();
   if (!myFAttach.IsEqual(firstP, Precision::Confusion()))
     dir.Reverse();
@@ -1690,11 +1690,11 @@ gp_Dir PrsDim_IdenticRelation::ComputeLineDirection(const Handle(Geom_Line)& lin
 
 //=================================================================================================
 
-gp_Dir PrsDim_IdenticRelation::ComputeCircleDirection(const Handle(Geom_Circle)& circ,
+Dir3d PrsDim_IdenticRelation::ComputeCircleDirection(const Handle(Geom_Circle)& circ,
                                                       const TopoDS_Vertex&       VERT) const
 {
-  gp_Vec V(circ->Location(), BRep_Tool::Pnt(VERT));
-  return gp_Dir(V);
+  Vector3d V(circ->Location(), BRep_Tool::Pnt(VERT));
+  return Dir3d(V);
 }
 
 //=================================================================================================
@@ -1765,7 +1765,7 @@ void PrsDim_IdenticRelation::ComputeOneEdgeOVertexPresentation(
     symbsize *= 5;
     // Computation of the direction of the segment of the presentation
     // we take the median of the edges connected to vertices
-    gp_Dir myDir;
+    Dir3d myDir;
     if (aCurve->IsKind(STANDARD_TYPE(Geom_Line)))
     {
       myDir = Handle(Geom_Line)::DownCast(aCurve)->Lin().Direction();
@@ -1784,7 +1784,7 @@ void PrsDim_IdenticRelation::ComputeOneEdgeOVertexPresentation(
     }
     // jfa 10/10/2000 end
 
-    curpos              = myFAttach.Translated(gp_Vec(myDir) * symbsize);
+    curpos              = myFAttach.Translated(Vector3d(myDir) * symbsize);
     myPosition          = curpos;
     myAutomaticPosition = Standard_True;
   }

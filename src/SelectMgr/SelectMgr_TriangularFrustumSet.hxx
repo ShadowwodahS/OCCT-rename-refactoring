@@ -140,7 +140,7 @@ public:
     const Standard_Real            theBottomRad,
     const Standard_Real            theTopRad,
     const Standard_Real            theHeight,
-    const gp_Trsf&                 theTrsf,
+    const Transform3d&                 theTrsf,
     const Standard_Boolean         theIsHollow,
     const SelectMgr_ViewClipRange& theClipRange,
     SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
@@ -151,7 +151,7 @@ public:
     const Standard_Real    theBottomRad,
     const Standard_Real    theTopRad,
     const Standard_Real    theHeight,
-    const gp_Trsf&         theTrsf,
+    const Transform3d&         theTrsf,
     const Standard_Boolean theIsHollow,
     Standard_Boolean*      theInside = NULL) const Standard_OVERRIDE;
 
@@ -159,7 +159,7 @@ public:
   //! theBottomRad and theTopRad, height theHeight and transformation to apply theTrsf.
   Standard_EXPORT virtual Standard_Boolean OverlapsCircle(
     const Standard_Real            theBottomRad,
-    const gp_Trsf&                 theTrsf,
+    const Transform3d&                 theTrsf,
     const Standard_Boolean         theIsFilled,
     const SelectMgr_ViewClipRange& theClipRange,
     SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
@@ -167,7 +167,7 @@ public:
   //! Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses
   //! theBottomRad and theTopRad, height theHeight and transformation to apply theTrsf.
   Standard_EXPORT virtual Standard_Boolean OverlapsCircle(const Standard_Real    theBottomRad,
-                                                          const gp_Trsf&         theTrsf,
+                                                          const Transform3d&         theTrsf,
                                                           const Standard_Boolean theIsFilled,
                                                           Standard_Boolean* theInside = NULL) const
     Standard_OVERRIDE;
@@ -192,12 +192,12 @@ private:
 
   //! Checks whether the circle intersects with the boundary of the current volume selection
   Standard_EXPORT Standard_Boolean isIntersectBoundary(const Standard_Real    theRadius,
-                                                       const gp_Trsf&         theTrsf,
+                                                       const Transform3d&         theTrsf,
                                                        const Standard_Boolean theIsFilled) const;
 
   //! Checks whether the triangle intersects with a segment
   Standard_EXPORT static Standard_Boolean segmentTriangleIntersection(const Point3d& theOrig,
-                                                                      const gp_Vec& theDir,
+                                                                      const Vector3d& theDir,
                                                                       const Point3d& theV1,
                                                                       const Point3d& theV2,
                                                                       const Point3d& theV3);

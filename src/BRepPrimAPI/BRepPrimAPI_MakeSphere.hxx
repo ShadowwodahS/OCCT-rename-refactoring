@@ -23,7 +23,7 @@
 #include <BRepPrim_Sphere.hxx>
 #include <BRepPrimAPI_MakeOneAxis.hxx>
 class Point3d;
-class gp_Ax2;
+class Frame3d;
 
 //! Describes functions to build spheres or portions of spheres.
 //! A MakeSphere object provides a framework for:
@@ -100,13 +100,13 @@ public:
   //! Make a sphere.
   //! @param[in] Axis  coordinate system for the construction of the sphere
   //! @param[in] R     sphere radius
-  Standard_EXPORT BRepPrimAPI_MakeSphere(const gp_Ax2& Axis, const Standard_Real R);
+  Standard_EXPORT BRepPrimAPI_MakeSphere(const Frame3d& Axis, const Standard_Real R);
 
   //! Make a sphere (spherical wedge).
   //! @param[in] Axis   coordinate system for the construction of the sphere
   //! @param[in] R      sphere radius
   //! @param[in] angle  angle between the radii lying within the bounding semidisks
-  Standard_EXPORT BRepPrimAPI_MakeSphere(const gp_Ax2&       Axis,
+  Standard_EXPORT BRepPrimAPI_MakeSphere(const Frame3d&       Axis,
                                          const Standard_Real R,
                                          const Standard_Real angle);
 
@@ -115,7 +115,7 @@ public:
   //! @param[in] R       sphere radius
   //! @param[in] angle1  first angle defining a spherical segment
   //! @param[in] angle2  second angle defining a spherical segment
-  Standard_EXPORT BRepPrimAPI_MakeSphere(const gp_Ax2&       Axis,
+  Standard_EXPORT BRepPrimAPI_MakeSphere(const Frame3d&       Axis,
                                          const Standard_Real R,
                                          const Standard_Real angle1,
                                          const Standard_Real angle2);
@@ -130,7 +130,7 @@ public:
   //! case of a complete truncated sphere),
   //! -   and in case of a portion of sphere, two planar faces
   //! to shut the shape.(in the planes u = 0 and u = angle).
-  Standard_EXPORT BRepPrimAPI_MakeSphere(const gp_Ax2&       Axis,
+  Standard_EXPORT BRepPrimAPI_MakeSphere(const Frame3d&       Axis,
                                          const Standard_Real R,
                                          const Standard_Real angle1,
                                          const Standard_Real angle2,

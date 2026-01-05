@@ -690,7 +690,7 @@ Standard_Boolean ShapeAnalysis_Edge::CheckSameParameter(const TopoDS_Edge&     e
 
   if (!aCurveLoc.IsIdentity())
   {
-    const gp_Trsf& aTrsf = aCurveLoc.Transformation();
+    const Transform3d& aTrsf = aCurveLoc.Transformation();
     aC3D                 = Handle(Geom_Curve)::DownCast(aC3D->Transformed(aTrsf));
     aFirst               = aC3D->TransformedParameter(aFirst, aTrsf);
     aLast                = aC3D->TransformedParameter(aLast, aTrsf);

@@ -23,7 +23,7 @@
 
 #include <BRepPrim_Revolution.hxx>
 class Point3d;
-class gp_Ax2;
+class Frame3d;
 class TopoDS_Face;
 
 //! Implements the sphere primitive
@@ -43,7 +43,7 @@ public:
   Standard_EXPORT BRepPrim_Sphere(const Point3d& Center, const Standard_Real Radius);
 
   //! Creates a sphere with given axes system.
-  Standard_EXPORT BRepPrim_Sphere(const gp_Ax2& Axes, const Standard_Real Radius);
+  Standard_EXPORT BRepPrim_Sphere(const Frame3d& Axes, const Standard_Real Radius);
 
   //! The surface normal should be directed  towards the
   //! outside.

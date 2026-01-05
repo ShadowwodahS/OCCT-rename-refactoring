@@ -151,7 +151,7 @@ TopoDS_Vertex IGESToBRep_TopoCurve::TransferPoint(const Handle(IGESGeom_Point)& 
   // szv#9:PRO19565:04Oct99
   if (GetModeTransfer() && start->HasTransf())
   {
-    gp_Trsf T;
+    Transform3d T;
     SetEpsilon(1.E-04);
     if (IGESData_ToolLocation::ConvertLocation(GetEpsilon(),
                                                start->CompoundLocation(),
@@ -343,12 +343,12 @@ TopoDS_Shape IGESToBRep_TopoCurve::TransferCompositeCurve(
 {
   TopoDS_Shape res;
   TopoDS_Face  f;
-  gp_Trsf      trans;
+  Transform3d      trans;
   res = TransferCompositeCurveGeneral(start, Standard_False, f, trans, 1.);
 
   if (!res.IsNull() && start->HasTransf())
   {
-    gp_Trsf T;
+    Transform3d T;
     SetEpsilon(1.E-04);
     if (IGESData_ToolLocation::ConvertLocation(GetEpsilon(),
                                                start->CompoundLocation(),
@@ -542,7 +542,7 @@ TopoDS_Shape IGESToBRep_TopoCurve::TransferCurveOnFace(TopoDS_Face&             
 
   if (start->HasTransf())
   {
-    gp_Trsf T;
+    Transform3d T;
     SetEpsilon(1.E-04);
     if (IGESData_ToolLocation::ConvertLocation(GetEpsilon(), start->CompoundLocation(), T))
     {
@@ -586,7 +586,7 @@ TopoDS_Shape IGESToBRep_TopoCurve::TransferOffsetCurve(const Handle(IGESGeom_Off
   }
 
   Standard_Real Offset = start->FirstOffsetDistance();
-  gp_Dir        NrmDir;
+  Dir3d        NrmDir;
   if (start->HasTransf())
     NrmDir = start->TransformedNormalVector();
   else
@@ -707,7 +707,7 @@ TopoDS_Shape IGESToBRep_TopoCurve::TransferOffsetCurve(const Handle(IGESGeom_Off
 
   if (start->HasTransf())
   {
-    gp_Trsf T;
+    Transform3d T;
     SetEpsilon(1.E-04);
     if (IGESData_ToolLocation::ConvertLocation(GetEpsilon(),
                                                start->CompoundLocation(),
@@ -1042,7 +1042,7 @@ TopoDS_Shape IGESToBRep_TopoCurve::TransferTopoBasicCurve(const Handle(IGESData_
   Standard_Boolean bIsNeedTransf = start->IsKind(STANDARD_TYPE(IGESGeom_SplineCurve));
   if (start->HasTransf() && bIsNeedTransf)
   {
-    gp_Trsf T;
+    Transform3d T;
     SetEpsilon(1.E-04);
     if (IGESData_ToolLocation::ConvertLocation(GetEpsilon(),
                                                start->CompoundLocation(),
@@ -1408,7 +1408,7 @@ TopoDS_Shape IGESToBRep_TopoCurve::TransferBoundaryOnFace(TopoDS_Face&          
 
   if (start->HasTransf())
   {
-    gp_Trsf T;
+    Transform3d T;
     SetEpsilon(1.E-04);
     if (IGESData_ToolLocation::ConvertLocation(GetEpsilon(), start->CompoundLocation(), T))
     {

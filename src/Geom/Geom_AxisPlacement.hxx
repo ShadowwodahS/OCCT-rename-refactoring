@@ -22,7 +22,7 @@
 #include <gp_Ax1.hxx>
 #include <Geom_Geometry.hxx>
 #include <Standard_Real.hxx>
-class gp_Dir;
+class Dir3d;
 class Point3d;
 
 class Geom_AxisPlacement;
@@ -68,7 +68,7 @@ public:
   //! For a Geom_Axis2Placement:
   //! Standard_ConstructionError if A1 and the
   //! previous "X Direction" of the coordinate system are parallel.
-  Standard_EXPORT void SetAxis(const gp_Ax1& A1);
+  Standard_EXPORT void SetAxis(const Axis3d& A1);
 
   //! Changes the direction of the axis placement.
   //! If <me> is an axis placement two axis the main "Direction"
@@ -77,7 +77,7 @@ public:
   //! Raises ConstructionError only for an axis placement two axis if V and the
   //! previous "XDirection" are parallel because it is not possible
   //! to calculate the new "XDirection" and the new "YDirection".
-  Standard_EXPORT virtual void SetDirection(const gp_Dir& V) = 0;
+  Standard_EXPORT virtual void SetDirection(const Dir3d& V) = 0;
 
   //! Assigns the point P as the origin of this positioning  system.
   Standard_EXPORT void SetLocation(const Point3d& P);
@@ -90,10 +90,10 @@ public:
   //! Returns the main axis of the axis placement.
   //! For an "Axis2placement" it is the main axis (Location, Direction ).
   //! For an "Axis1Placement" this method returns a copy of <me>.
-  Standard_EXPORT const gp_Ax1& Axis() const;
+  Standard_EXPORT const Axis3d& Axis() const;
 
   //! Returns the main "Direction" of an axis placement.
-  Standard_EXPORT gp_Dir Direction() const;
+  Standard_EXPORT Dir3d Direction() const;
 
   //! Returns the Location point (origin) of the axis placement.
   Standard_EXPORT Point3d Location() const;
@@ -101,7 +101,7 @@ public:
   DEFINE_STANDARD_RTTIEXT(Geom_AxisPlacement, Geom_Geometry)
 
 protected:
-  gp_Ax1 axis;
+  Axis3d axis;
 
 private:
 };

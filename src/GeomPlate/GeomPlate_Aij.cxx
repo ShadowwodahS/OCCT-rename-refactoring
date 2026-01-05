@@ -26,7 +26,7 @@ GeomPlate_Aij::GeomPlate_Aij()
 
 GeomPlate_Aij::GeomPlate_Aij(const Standard_Integer anInd1,
                              const Standard_Integer anInd2,
-                             const gp_Vec&          aVec)
+                             const Vector3d&          aVec)
 {
   Ind1 = anInd1;
   Ind2 = anInd2;

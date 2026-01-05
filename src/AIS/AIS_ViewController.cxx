@@ -1438,7 +1438,7 @@ void AIS_ViewController::handlePanning(const Handle(V3d_View)& theView)
   Graphic3d_Vec2i aWinSize;
   theView->Window()->Size(aWinSize.x(), aWinSize.y());
 
-  const gp_Dir& aDir = aCam->Direction();
+  const Dir3d& aDir = aCam->Direction();
   const gp_Ax3  aCameraCS(aCam->Center(), aDir.Reversed(), aDir ^ aCam->Up());
   const gp_XYZ  anEyeToPnt = myPanPnt3d.XYZ() - aCam->Eye().XYZ();
   // clang-format off
@@ -1448,9 +1448,9 @@ void AIS_ViewController::handlePanning(const Handle(V3d_View)& theView)
                              -aViewDims.X() * myGL.Panning.Delta.y() / double(aWinSize.x()));
 
   // theView->Translate (aCam, aDxy.x(), aDxy.y());
-  gp_Trsf      aPanTrsf;
-  const gp_Vec aCameraPan =
-    gp_Vec(aCameraCS.XDirection()) * aDxy.x() + gp_Vec(aCameraCS.YDirection()) * aDxy.y();
+  Transform3d      aPanTrsf;
+  const Vector3d aCameraPan =
+    Vector3d(aCameraCS.XDirection()) * aDxy.x() + Vector3d(aCameraCS.YDirection()) * aDxy.y();
   aPanTrsf.SetTranslation(aCameraPan);
   aCam->Transform(aPanTrsf);
   theView->Invalidate();
@@ -1548,7 +1548,7 @@ void AIS_ViewController::handleZoom(const Handle(V3d_View)&   theView,
   Graphic3d_Vec2d aDxy = aZoomAtPointXYv / aCoef;
   aCam->SetScale(aCam->Scale() / aCoef);
 
-  const gp_Dir& aDir = aCam->Direction();
+  const Dir3d& aDir = aCam->Direction();
   const gp_Ax3  aCameraCS(aCam->Center(), aDir.Reversed(), aDir ^ aCam->Up());
 
   // pan back to the point
@@ -1574,9 +1574,9 @@ void AIS_ViewController::handleZoom(const Handle(V3d_View)&   theView,
   }
 
   // theView->Translate (aCam, aDxy.x(), aDxy.y());
-  gp_Trsf      aPanTrsf;
-  const gp_Vec aCameraPan =
-    gp_Vec(aCameraCS.XDirection()) * aDxy.x() + gp_Vec(aCameraCS.YDirection()) * aDxy.y();
+  Transform3d      aPanTrsf;
+  const Vector3d aCameraPan =
+    Vector3d(aCameraCS.XDirection()) * aDxy.x() + Vector3d(aCameraCS.YDirection()) * aDxy.y();
   aPanTrsf.SetTranslation(aCameraPan);
   aCam->Transform(aPanTrsf);
   theView->Invalidate();
@@ -1627,7 +1627,7 @@ void AIS_ViewController::handleOrbitRotation(const Handle(V3d_View)& theView,
     myCamStartOpEye    = aCam->Eye();
     myCamStartOpCenter = aCam->Center();
 
-    gp_Trsf aTrsf;
+    Transform3d aTrsf;
     aTrsf.SetTransformation(gp_Ax3(myRotatePnt3d, aCam->OrthogonalizedUp(), aCam->Direction()),
                             gp_Ax3(myRotatePnt3d, gp::DZ(), gp::DX()));
     const gp_Quaternion aRot = aTrsf.GetRotation();
@@ -1637,8 +1637,8 @@ void AIS_ViewController::handleOrbitRotation(const Handle(V3d_View)& theView,
                         myRotateStartYawPitchRoll[2]);
 
     aTrsf.Invert();
-    myCamStartOpToEye    = gp_Vec(myRotatePnt3d, aCam->Eye()).Transformed(aTrsf);
-    myCamStartOpToCenter = gp_Vec(myRotatePnt3d, aCam->Center()).Transformed(aTrsf);
+    myCamStartOpToEye    = Vector3d(myRotatePnt3d, aCam->Eye()).Transformed(aTrsf);
+    myCamStartOpToCenter = Vector3d(myRotatePnt3d, aCam->Center()).Transformed(aTrsf);
 
     theView->Invalidate();
   }
@@ -1673,10 +1673,10 @@ void AIS_ViewController::handleOrbitRotation(const Handle(V3d_View)& theView,
 
     gp_Quaternion aRot;
     aRot.SetEulerAngles(gp_YawPitchRoll, aYawAngleNew, aPitchAngleNew, aRoll);
-    gp_Trsf aTrsfRot;
+    Transform3d aTrsfRot;
     aTrsfRot.SetRotation(aRot);
 
-    const gp_Dir aNewUp = gp::DZ().Transformed(aTrsfRot);
+    const Dir3d aNewUp = gp::DZ().Transformed(aTrsfRot);
     aCam->SetUp(aNewUp);
     aCam->SetEyeAndCenter(myRotatePnt3d.XYZ() + myCamStartOpToEye.Transformed(aTrsfRot).XYZ(),
                           myRotatePnt3d.XYZ() + myCamStartOpToCenter.Transformed(aTrsfRot).XYZ());
@@ -1734,13 +1734,13 @@ void AIS_ViewController::handleOrbitRotation(const Handle(V3d_View)& theView,
     }
 
     // rotate camera around 3 initial axes
-    gp_Dir aCamDir(aCam->Direction().Reversed());
-    gp_Dir aCamUp(aCam->Up());
-    gp_Dir aCamSide(aCamUp.Crossed(aCamDir));
+    Dir3d aCamDir(aCam->Direction().Reversed());
+    Dir3d aCamUp(aCam->Up());
+    Dir3d aCamSide(aCamUp.Crossed(aCamDir));
 
-    gp_Trsf aRot[2], aTrsf;
-    aRot[0].SetRotation(gp_Ax1(myRotatePnt3d, aCamUp), -aDX);
-    aRot[1].SetRotation(gp_Ax1(myRotatePnt3d, aCamSide), aDY);
+    Transform3d aRot[2], aTrsf;
+    aRot[0].SetRotation(Axis3d(myRotatePnt3d, aCamUp), -aDX);
+    aRot[1].SetRotation(Axis3d(myRotatePnt3d, aCamSide), aDY);
     aTrsf.Multiply(aRot[0]);
     aTrsf.Multiply(aRot[1]);
 
@@ -1775,7 +1775,7 @@ void AIS_ViewController::handleViewRotation(const Handle(V3d_View)& theView,
   }
   if (myGL.ViewRotation.ToStart)
   {
-    gp_Trsf aTrsf;
+    Transform3d aTrsf;
     aTrsf.SetTransformation(gp_Ax3(gp::Origin(), aCam->OrthogonalizedUp(), aCam->Direction()),
                             gp_Ax3(gp::Origin(), gp::DZ(), gp::DX()));
     const gp_Quaternion aRot       = aTrsf.GetRotation();
@@ -1814,11 +1814,11 @@ void AIS_ViewController::handleViewRotation(const Handle(V3d_View)& theView,
   const double  aYawAngleNew = myRotateStartYawPitchRoll[0] + aYawAngleDelta;
   gp_Quaternion aRot;
   aRot.SetEulerAngles(gp_YawPitchRoll, aYawAngleNew, aPitchAngleNew, theRoll);
-  gp_Trsf aTrsfRot;
+  Transform3d aTrsfRot;
   aTrsfRot.SetRotation(aRot);
 
-  const gp_Dir aNewUp  = gp::DZ().Transformed(aTrsfRot);
-  const gp_Dir aNewDir = gp::DX().Transformed(aTrsfRot);
+  const Dir3d aNewUp  = gp::DZ().Transformed(aTrsfRot);
+  const Dir3d aNewDir = gp::DX().Transformed(aTrsfRot);
   aCam->SetUp(aNewUp);
   aCam->SetDirectionFromEye(aNewDir);
   aCam->OrthogonalizeUp();
@@ -1860,7 +1860,7 @@ bool AIS_ViewController::PickPoint(Point3d&                               thePnt
 bool AIS_ViewController::PickAxis(Point3d&                               theTopPnt,
                                   const Handle(AIS_InteractiveContext)& theCtx,
                                   const Handle(V3d_View)&               theView,
-                                  const gp_Ax1&                         theAxis)
+                                  const Axis3d&                         theAxis)
 {
   ResetPreviousMoveTo();
 
@@ -2102,10 +2102,10 @@ AIS_WalkDelta AIS_ViewController::handleNavigationKeys(const Handle(AIS_Interact
     theView->View()->IsActiveXR() ? theView->View()->BaseXRCamera() : theView->Camera();
 
   // move forward in plane XY and up along Z
-  const gp_Dir anUp = ToLockOrbitZUp() ? gp::DZ() : aCam->OrthogonalizedUp();
+  const Dir3d anUp = ToLockOrbitZUp() ? gp::DZ() : aCam->OrthogonalizedUp();
   if (aWalk.ToMove() && myToAllowPanning)
   {
-    const gp_Vec aSide = -aCam->SideRight();
+    const Vector3d aSide = -aCam->SideRight();
     gp_XYZ       aFwd  = aCam->Direction().XYZ();
     aFwd -= anUp.XYZ() * (anUp.XYZ() * aFwd);
 
@@ -2139,7 +2139,7 @@ AIS_WalkDelta AIS_ViewController::handleNavigationKeys(const Handle(AIS_Interact
         }
       }
 
-      gp_Trsf aTrsfTranslate;
+      Transform3d aTrsfTranslate;
       aTrsfTranslate.SetTranslation(aMoveVec);
       aCam->Transform(aTrsfTranslate);
     }
@@ -2149,23 +2149,23 @@ AIS_WalkDelta AIS_ViewController::handleNavigationKeys(const Handle(AIS_Interact
   {
     if (!aWalk[AIS_WalkRotation_Yaw].IsEmpty())
     {
-      gp_Trsf aTrsfRot;
-      aTrsfRot.SetRotation(gp_Ax1(aCam->Eye(), anUp),
+      Transform3d aTrsfRot;
+      aTrsfRot.SetRotation(Axis3d(aCam->Eye(), anUp),
                            aWalk[AIS_WalkRotation_Yaw].Value * aRotSpeed);
       aCam->Transform(aTrsfRot);
     }
     if (!aWalk[AIS_WalkRotation_Pitch].IsEmpty())
     {
-      const gp_Vec aSide = -aCam->SideRight();
-      gp_Trsf      aTrsfRot;
-      aTrsfRot.SetRotation(gp_Ax1(aCam->Eye(), aSide),
+      const Vector3d aSide = -aCam->SideRight();
+      Transform3d      aTrsfRot;
+      aTrsfRot.SetRotation(Axis3d(aCam->Eye(), aSide),
                            -aWalk[AIS_WalkRotation_Pitch].Value * aRotSpeed);
       aCam->Transform(aTrsfRot);
     }
     if (!aWalk[AIS_WalkRotation_Roll].IsEmpty() && !ToLockOrbitZUp())
     {
-      gp_Trsf aTrsfRot;
-      aTrsfRot.SetRotation(gp_Ax1(aCam->Center(), aCam->Direction()),
+      Transform3d aTrsfRot;
+      aTrsfRot.SetRotation(Axis3d(aCam->Center(), aCam->Direction()),
                            aWalk[AIS_WalkRotation_Roll].Value * aRotSpeed);
       aCam->Transform(aTrsfRot);
     }
@@ -2262,8 +2262,8 @@ void AIS_ViewController::handleCameraActions(const Handle(AIS_InteractiveContext
         }
         if (!Precision::IsInfinite(aPanPnt.X()) && myToShowPanAnchorPoint)
         {
-          gp_Trsf aPntTrsf;
-          aPntTrsf.SetTranslation(gp_Vec(aPanPnt.XYZ()));
+          Transform3d aPntTrsf;
+          aPntTrsf.SetTranslation(Vector3d(aPanPnt.XYZ()));
           theCtx->SetLocation(myAnchorPointPrs2, aPntTrsf);
         }
       }
@@ -2299,8 +2299,8 @@ void AIS_ViewController::handleCameraActions(const Handle(AIS_InteractiveContext
       aGravPnt = GravityPoint(theCtx, theView);
       if (myToShowRotateCenter)
       {
-        gp_Trsf aPntTrsf;
-        aPntTrsf.SetTranslation(gp_Vec(aGravPnt.XYZ()));
+        Transform3d aPntTrsf;
+        aPntTrsf.SetTranslation(Vector3d(aGravPnt.XYZ()));
         theCtx->SetLocation(myAnchorPointPrs1, aPntTrsf);
         theCtx->SetLocation(myAnchorPointPrs2, aPntTrsf);
       }
@@ -2440,8 +2440,8 @@ void AIS_ViewController::handleXRTurnPad(const Handle(AIS_InteractiveContext)&,
     if (aPadClick.IsActive && aPadClick.IsPressed && aPadClick.IsChanged && aPadPos.IsActive
         && Abs(aPadPos.VecXYZ.y()) < 0.5f && Abs(aPadPos.VecXYZ.x()) > 0.7f)
     {
-      gp_Trsf aTrsfTurn;
-      aTrsfTurn.SetRotation(gp_Ax1(gp::Origin(), theView->View()->BaseXRCamera()->Up()),
+      Transform3d aTrsfTurn;
+      aTrsfTurn.SetRotation(Axis3d(gp::Origin(), theView->View()->BaseXRCamera()->Up()),
                             aPadPos.VecXYZ.x() < 0.0f ? myXRTurnAngle : -myXRTurnAngle);
       theView->View()->TurnViewXRCamera(aTrsfTurn);
       break;
@@ -2504,7 +2504,7 @@ void AIS_ViewController::handleXRTeleport(const Handle(AIS_InteractiveContext)& 
                                     : myXRLastPickDepthRight;
       aPickDepth                = Precision::Infinite();
       Graphic3d_Vec3      aPickNorm;
-      const gp_Trsf       aHandBase = theView->View()->PoseXRToWorld(aPose.Orientation);
+      const Transform3d       aHandBase = theView->View()->PoseXRToWorld(aPose.Orientation);
       const Standard_Real aHeadHeight =
         theView->View()->XRSession()->HeadPose().TranslationPart().Y();
       {
@@ -2526,11 +2526,11 @@ void AIS_ViewController::handleXRTeleport(const Handle(AIS_InteractiveContext)& 
         myXRLastTeleportHand = Aspect_XRTrackedDeviceRole_Other;
         if (!Precision::IsInfinite(aPickDepth))
         {
-          const gp_Dir aTeleDir = -gp::DZ().Transformed(aHandBase);
-          const gp_Dir anUpDir  = theView->View()->BaseXRCamera()->Up();
+          const Dir3d aTeleDir = -gp::DZ().Transformed(aHandBase);
+          const Dir3d anUpDir  = theView->View()->BaseXRCamera()->Up();
 
           bool   isHorizontal = false;
-          gp_Dir aPickNormDir(aPickNorm.x(), aPickNorm.y(), aPickNorm.z());
+          Dir3d aPickNormDir(aPickNorm.x(), aPickNorm.y(), aPickNorm.z());
           if (anUpDir.IsEqual(aPickNormDir, M_PI_4) || anUpDir.IsEqual(-aPickNormDir, M_PI_4))
           {
             isHorizontal = true;
@@ -3163,11 +3163,11 @@ void AIS_ViewController::handleViewRedraw(const Handle(AIS_InteractiveContext)&,
 
 Standard_Integer AIS_ViewController::handleXRMoveTo(const Handle(AIS_InteractiveContext)& theCtx,
                                                     const Handle(V3d_View)&               theView,
-                                                    const gp_Trsf&                        thePose,
+                                                    const Transform3d&                        thePose,
                                                     const Standard_Boolean theToHighlight)
 {
   // ResetPreviousMoveTo();
-  const gp_Ax1     aViewAxis   = theView->View()->ViewAxisInWorld(thePose);
+  const Axis3d     aViewAxis   = theView->View()->ViewAxisInWorld(thePose);
   Standard_Integer aPickResult = 0;
   if (theToHighlight)
   {
@@ -3231,7 +3231,7 @@ void AIS_ViewController::handleXRHighlight(const Handle(AIS_InteractiveContext)&
   aPickDepth                = Precision::Infinite();
   if (theCtx->MainSelector()->NbPicked() > 0)
   {
-    const gp_Trsf                  aHandBase = theView->View()->PoseXRToWorld(aPose.Orientation);
+    const Transform3d                  aHandBase = theView->View()->PoseXRToWorld(aPose.Orientation);
     const SelectMgr_SortCriterion& aPicked   = theCtx->MainSelector()->PickedData(1);
     aPickDepth                               = aPicked.Point.Distance(aHandBase.TranslationPart());
   }
@@ -3344,14 +3344,14 @@ void AIS_ViewController::handleXRPresentations(const Handle(AIS_InteractiveConte
       theCtx->Display(aPosePrs, 0, -1, false);
     }
 
-    gp_Trsf aPoseLocal = aPose.Orientation;
+    Transform3d aPoseLocal = aPose.Orientation;
     if (aDeviceIter == aHeadDevice)
     {
       // show headset position on floor level
       aPoseLocal.SetTranslationPart(
-        gp_Vec(aPoseLocal.TranslationPart().X(), 0.0, aPoseLocal.TranslationPart().Z()));
+        Vector3d(aPoseLocal.TranslationPart().X(), 0.0, aPoseLocal.TranslationPart().Z()));
     }
-    const gp_Trsf aPoseWorld = theView->View()->PoseXRToWorld(aPoseLocal);
+    const Transform3d aPoseWorld = theView->View()->PoseXRToWorld(aPoseLocal);
     theCtx->SetLocation(aPosePrs, aPoseWorld);
 
     Standard_Real aLaserLen = 0.0;

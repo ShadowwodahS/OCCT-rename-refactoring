@@ -47,10 +47,10 @@ IMPLEMENT_STANDARD_RTTIEXT(Geom_SurfaceOfLinearExtrusion, Geom_SweptSurface)
 
 typedef Geom_SurfaceOfLinearExtrusion SurfaceOfLinearExtrusion;
 typedef Geom_Curve                    Curve;
-typedef gp_Dir                        Dir;
+typedef Dir3d                        Dir;
 typedef Point3d                        Pnt;
-typedef gp_Trsf                       Trsf;
-typedef gp_Vec                        Vec;
+typedef Transform3d                       Trsf;
+typedef Vector3d                        Vec;
 typedef gp_XYZ                        XYZ;
 
 //=================================================================================================
@@ -285,7 +285,7 @@ Standard_Boolean Geom_SurfaceOfLinearExtrusion::IsVPeriodic() const
 
 void Geom_SurfaceOfLinearExtrusion::TransformParameters(Standard_Real& U,
                                                         Standard_Real& V,
-                                                        const gp_Trsf& T) const
+                                                        const Transform3d& T) const
 {
   U = basisCurve->TransformedParameter(U, T);
   if (!Precision::IsInfinite(V))
@@ -294,7 +294,7 @@ void Geom_SurfaceOfLinearExtrusion::TransformParameters(Standard_Real& U,
 
 //=================================================================================================
 
-gp_GTrsf2d Geom_SurfaceOfLinearExtrusion::ParametricTransformation(const gp_Trsf& T) const
+gp_GTrsf2d Geom_SurfaceOfLinearExtrusion::ParametricTransformation(const Transform3d& T) const
 {
   // transformation in the V Direction
   gp_GTrsf2d TV;

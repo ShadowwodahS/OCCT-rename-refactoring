@@ -23,11 +23,11 @@
 
 class Geom_Transformation;
 class Point3d;
-class gp_Ax1;
+class Axis3d;
 class gp_Lin;
-class gp_Dir;
+class Dir3d;
 class gp_Pln;
-class gp_Ax2;
+class Frame3d;
 
 //! This class implements elementary construction algorithms for a
 //! symmetrical transformation in 3D space about a point,
@@ -43,19 +43,19 @@ public:
 
   Standard_EXPORT GC_MakeMirror(const Point3d& Point);
 
-  Standard_EXPORT GC_MakeMirror(const gp_Ax1& Axis);
+  Standard_EXPORT GC_MakeMirror(const Axis3d& Axis);
 
   Standard_EXPORT GC_MakeMirror(const gp_Lin& Line);
 
   //! Make a symmetry transformation af axis defined by
   //! <Point> and <Direc>.
-  Standard_EXPORT GC_MakeMirror(const Point3d& Point, const gp_Dir& Direc);
+  Standard_EXPORT GC_MakeMirror(const Point3d& Point, const Dir3d& Direc);
 
   //! Make a symmetry transformation of plane <Plane>.
   Standard_EXPORT GC_MakeMirror(const gp_Pln& Plane);
 
   //! Make a symmetry transformation of plane <Plane>.
-  Standard_EXPORT GC_MakeMirror(const gp_Ax2& Plane);
+  Standard_EXPORT GC_MakeMirror(const Frame3d& Plane);
 
   //! Returns the constructed transformation.
   Standard_EXPORT const Handle(Geom_Transformation)& Value() const;

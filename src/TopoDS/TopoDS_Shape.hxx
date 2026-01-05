@@ -94,7 +94,7 @@ public:
   //! @param theRaiseExc flag to raise exception in case of transformation with scale or negative.
   void Location(const TopLoc_Location& theLoc, const Standard_Boolean theRaiseExc = Standard_False)
   {
-    const gp_Trsf& aTrsf = theLoc.Transformation();
+    const Transform3d& aTrsf = theLoc.Transformation();
     if (theRaiseExc)
     {
       validateTransformation(aTrsf);
@@ -193,7 +193,7 @@ public:
   //! @param theRaiseExc flag to raise exception in case of transformation with scale or negative.
   void Move(const TopLoc_Location& thePosition, const Standard_Boolean theRaiseExc = Standard_False)
   {
-    const gp_Trsf& aTrsf = thePosition.Transformation();
+    const Transform3d& aTrsf = thePosition.Transformation();
     if (theRaiseExc)
     {
       validateTransformation(aTrsf);
@@ -315,7 +315,7 @@ protected:
   //! Checks if the transformation contains scaling or negative values.
   //! Raises an exception if the transformation is invalid.
   //! @param theTrsf transformation to validate
-  void validateTransformation(const gp_Trsf& theTrsf) const
+  void validateTransformation(const Transform3d& theTrsf) const
   {
     if (Abs(Abs(theTrsf.ScaleFactor()) - 1.) > TopLoc_Location::ScalePrec() || theTrsf.IsNegative())
     {

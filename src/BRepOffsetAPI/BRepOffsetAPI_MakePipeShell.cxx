@@ -51,14 +51,14 @@ void BRepOffsetAPI_MakePipeShell::SetDiscreteMode()
 
 //=================================================================================================
 
-void BRepOffsetAPI_MakePipeShell::SetMode(const gp_Ax2& Axe)
+void BRepOffsetAPI_MakePipeShell::SetMode(const Frame3d& Axe)
 {
   myPipe->Set(Axe);
 }
 
 //=================================================================================================
 
-void BRepOffsetAPI_MakePipeShell::SetMode(const gp_Dir& BiNormal)
+void BRepOffsetAPI_MakePipeShell::SetMode(const Dir3d& BiNormal)
 {
   myPipe->Set(BiNormal);
 }

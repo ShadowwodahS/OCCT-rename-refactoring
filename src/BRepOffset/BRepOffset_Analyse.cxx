@@ -42,7 +42,7 @@
 #include <ChFi3d.hxx>
 #include <LocalAnalysis_SurfaceContinuity.hxx>
 
-static void CorrectOrientationOfTangent(gp_Vec&              TangVec,
+static void CorrectOrientationOfTangent(Vector3d&              TangVec,
                                         const TopoDS_Vertex& aVertex,
                                         const TopoDS_Edge&   anEdge)
 {
@@ -527,7 +527,7 @@ void BRepOffset_Analyse::TreatTangentFaces(const TopTools_ListOfShape&  theLE,
       Standard_Real               anOffset = anEdgeOffsetMap.Find(aE1);
       const TopTools_ListOfShape& aLF1     = Ancestors(aE1);
 
-      gp_Dir aDN1;
+      Dir3d aDN1;
       BOPTools_AlgoTools3D::GetNormalToFaceOnEdge(aE1, TopoDS::Face(aLF1.First()), aDN1);
 
       TopTools_ListOfShape::Iterator itCB2 = itCB1;
@@ -539,7 +539,7 @@ void BRepOffset_Analyse::TreatTangentFaces(const TopTools_ListOfShape&  theLE,
 
         const TopTools_ListOfShape& aLF2 = Ancestors(aE2);
 
-        gp_Dir aDN2;
+        Dir3d aDN2;
         BOPTools_AlgoTools3D::GetNormalToFaceOnEdge(aE2, TopoDS::Face(aLF2.First()), aDN2);
 
         if (aDN1.XYZ().Crossed(aDN2.XYZ()).Modulus() < aSinTol)
@@ -551,7 +551,7 @@ void BRepOffset_Analyse::TreatTangentFaces(const TopTools_ListOfShape&  theLE,
       }
 
       // Make the prism
-      BRepPrimAPI_MakePrism aMP(aBlock, gp_Vec(aDN1.XYZ()) * anOffset);
+      BRepPrimAPI_MakePrism aMP(aBlock, Vector3d(aDN1.XYZ()) * anOffset);
       if (!aMP.IsDone())
         continue;
 
@@ -581,7 +581,7 @@ void BRepOffset_Analyse::TreatTangentFaces(const TopTools_ListOfShape&  theLE,
         // Orient the face so its normal is directed to smaller offset face
         {
           // get normal of the new face
-          gp_Dir aDN;
+          Dir3d aDN;
           BOPTools_AlgoTools3D::GetNormalToFaceOnEdge(aE, aFNew, aDN);
 
           // get bi-normal for the aFOpposite
@@ -607,7 +607,7 @@ void BRepOffset_Analyse::TreatTangentFaces(const TopTools_ListOfShape&  theLE,
                                               aP2d,
                                               aPInF);
 
-          gp_Vec aBN(aPOnE, aPInF);
+          Vector3d aBN(aPOnE, aPInF);
 
           if (aBN.Dot(aDN) < 0)
             aFNew.Reverse();
@@ -913,7 +913,7 @@ void BRepOffset_Analyse::TangentEdges(const TopoDS_Edge&    Edge,
                                       const TopoDS_Vertex&  Vertex,
                                       TopTools_ListOfShape& Edges) const
 {
-  gp_Vec V, VRef;
+  Vector3d V, VRef;
 
   Standard_Real     U, URef;
   BRepAdaptor_Curve C3d, C3dRef;

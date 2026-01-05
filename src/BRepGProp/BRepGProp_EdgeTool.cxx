@@ -72,7 +72,7 @@ Point3d BRepGProp_EdgeTool::Value(const BRepAdaptor_Curve& C, const Standard_Rea
 void BRepGProp_EdgeTool::D1(const BRepAdaptor_Curve& C,
                             const Standard_Real      U,
                             Point3d&                  P,
-                            gp_Vec&                  V1)
+                            Vector3d&                  V1)
 {
   C.D1(U, P, V1);
 }

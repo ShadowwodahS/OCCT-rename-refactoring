@@ -27,7 +27,7 @@
 #include <TColgp_Array1OfVec.hxx>
 #include <Geom_BSplineCurve.hxx>
 
-class gp_Vec;
+class Vector3d;
 
 //! This  class  is  used  to  interpolate a  BsplineCurve
 //! passing   through  an  array  of  points,  with  a  C2
@@ -141,8 +141,8 @@ public:
   //! the first and last points of the table of
   //! points through which the curve passes, as
   //! defined at the time of initialization).
-  Standard_EXPORT void Load(const gp_Vec&          InitialTangent,
-                            const gp_Vec&          FinalTangent,
+  Standard_EXPORT void Load(const Vector3d&          InitialTangent,
+                            const Vector3d&          FinalTangent,
                             const Standard_Boolean Scale = Standard_True);
 
   //! Assigns this constrained BSpline curve to be

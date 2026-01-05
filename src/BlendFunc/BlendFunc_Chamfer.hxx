@@ -25,7 +25,7 @@
 
 class math_Matrix;
 class Point3d;
-class gp_Vec;
+class Vector3d;
 class gp_Vec2d;
 
 //! Class for a function used to compute a "ordinary" chamfer:
@@ -63,11 +63,11 @@ public:
 
   Standard_EXPORT Standard_Boolean IsTangencyPoint() const Standard_OVERRIDE;
 
-  Standard_EXPORT const gp_Vec& TangentOnS1() const Standard_OVERRIDE;
+  Standard_EXPORT const Vector3d& TangentOnS1() const Standard_OVERRIDE;
 
   Standard_EXPORT const gp_Vec2d& Tangent2dOnS1() const Standard_OVERRIDE;
 
-  Standard_EXPORT const gp_Vec& TangentOnS2() const Standard_OVERRIDE;
+  Standard_EXPORT const Vector3d& TangentOnS2() const Standard_OVERRIDE;
 
   Standard_EXPORT const gp_Vec2d& Tangent2dOnS2() const Standard_OVERRIDE;
 
@@ -79,10 +79,10 @@ public:
                                const Standard_Real V1,
                                const Standard_Real U2,
                                const Standard_Real V2,
-                               gp_Vec&             TgFirst,
-                               gp_Vec&             TgLast,
-                               gp_Vec&             NormFirst,
-                               gp_Vec&             NormLast) const Standard_OVERRIDE;
+                               Vector3d&             TgFirst,
+                               Vector3d&             TgLast,
+                               Vector3d&             NormFirst,
+                               Vector3d&             NormLast) const Standard_OVERRIDE;
 
   //! Sets the distances and the "quadrant".
   Standard_EXPORT void Set(const Standard_Real    Dist1,

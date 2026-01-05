@@ -168,11 +168,11 @@ static Standard_Boolean CheckMultiCurve(const AppParCurves_MultiCurve& theMultiC
     sprintf(name, "bc3d_%d_%d", indc, nbbc);
     DrawTrSurf::Set(name, theBezier);
 #endif
-    gp_Vec FirstVec, SecondVec;
+    Vector3d FirstVec, SecondVec;
     Standard_Integer indp = 2;
     while (indp <= aPoles.Upper())
     {
-      FirstVec = gp_Vec(aPoles(1), aPoles(indp++));
+      FirstVec = Vector3d(aPoles(1), aPoles(indp++));
       Standard_Real aLength = FirstVec.Magnitude();
       if (aLength > gp::Resolution())
       {
@@ -184,7 +184,7 @@ static Standard_Boolean CheckMultiCurve(const AppParCurves_MultiCurve& theMultiC
     //for (Standard_Integer k = 3; k <= aPoles.Upper(); k++)
     while (indp <= aPoles.Upper())
     {
-      SecondVec = gp_Vec(MidPnt, aPoles(indp));
+      SecondVec = Vector3d(MidPnt, aPoles(indp));
       Standard_Real aLength = SecondVec.Magnitude();
       if (aLength <= gp::Resolution())
       {
@@ -234,9 +234,9 @@ static Standard_Boolean CheckMultiCurve(const AppParCurves_MultiCurve& theMultiC
             LoopFound = Standard_False;
             break;
           }
-          gp_Vec Vec1(FirstPnt, Pnt1);
+          Vector3d Vec1(FirstPnt, Pnt1);
           Vec1.Normalize();
-          gp_Vec Vec2(FirstPnt, Pnt2);
+          Vector3d Vec2(FirstPnt, Pnt2);
           Vec2.Normalize();
           Standard_Real ScalProd = Vec1 * Vec2;
           if (ScalProd < MinScalProd)
@@ -478,7 +478,7 @@ void Approx_ComputeLine::FirstTangencyVector(const MultiLine&       Line,
     AppParCurves_MultiCurve C = LSQ.BezierValue();
     
     Point3d myP;
-    gp_Vec myV;
+    Vector3d myV;
     gp_Pnt2d myP2d;
     gp_Vec2d myV2d;
     j = 1;
@@ -554,7 +554,7 @@ void Approx_ComputeLine::LastTangencyVector(const MultiLine&       Line,
     AppParCurves_MultiCurve C = LSQ.BezierValue();
     
     Point3d myP;
-    gp_Vec myV;
+    Vector3d myV;
     gp_Pnt2d myP2d;
     gp_Vec2d myV2d;
     j = 1;
@@ -615,7 +615,7 @@ Standard_Real Approx_ComputeLine::
   if (nbP3d != 0) {
     P1 = tabP1(1);
     P2 = tabP2(1);
-    gp_Vec P1P2(P1, P2), myV;
+    Vector3d P1P2(P1, P2), myV;
     myV.SetCoord(V(low), V(low+1), V(low+2));
     lambda = (P1P2.Magnitude())/(myV.Magnitude()*(U2-U1));
     S = (P1P2.Dot(myV)> 0.0) ? 1.0 : -1.0;
@@ -668,7 +668,7 @@ Standard_Real Approx_ComputeLine::
   if (nbP3d != 0) {
     P1 = tabP(1);
     P2 = tabP2(1);
-    gp_Vec P1P2(P1, P2), myV;
+    Vector3d P1P2(P1, P2), myV;
     myV.SetCoord(V(low), V(low+1), V(low+2));
     lambda = (P1P2.Magnitude())/(myV.Magnitude()*(U2-U1));
     S = (P1P2.Dot(myV)> 0.0) ? 1.0 : -1.0;
@@ -831,7 +831,7 @@ void Approx_ComputeLine::Perform(const MultiLine& Line)
           GoUp = Standard_False, Interpol;
   Standard_Real thetol3d, thetol2d;
   Approx_Status MyStatus;
-//  gp_Vec V13d, V23d;
+//  Vector3d V13d, V23d;
 //  gp_Vec2d V2d;
   Thefirstpt = LineTool::FirstPoint(Line);
   Thelastpt  = LineTool::LastPoint(Line);
@@ -1382,7 +1382,7 @@ Standard_Boolean  Approx_ComputeLine::ComputeCurve(const MultiLine& Line,
 				      const Standard_Integer lastpt)
 {
   Standard_Integer i, j, nbP3d, nbP2d, deg;
-  gp_Vec V13d, V23d;
+  Vector3d V13d, V23d;
   gp_Vec2d V12d, V22d;
   Point3d P1, P2;
   gp_Pnt2d P12d, P22d;
@@ -1434,7 +1434,7 @@ Standard_Boolean  Approx_ComputeLine::ComputeCurve(const MultiLine& Line,
 #endif
     if (Tangent1) {
       for (i = 1; i <= nbP3d; i++) {
-	gp_Vec PVec(tabP1(i), tabP2(i));
+	Vector3d PVec(tabP1(i), tabP2(i));
 	V13d = tabV1(i);
 	if (!PVec.IsParallel(V13d, Precision::Angular())) {
 #ifdef OCCT_DEBUG
@@ -1457,7 +1457,7 @@ Standard_Boolean  Approx_ComputeLine::ComputeCurve(const MultiLine& Line,
 
     if (Tangent2) {
       for (i = 1; i <= nbP3d; i++) {
-	gp_Vec PVec(tabP1(i), tabP2(i));
+	Vector3d PVec(tabP1(i), tabP2(i));
 	V23d = tabV2(i);
 	if (!PVec.IsParallel(V23d, Precision::Angular())) {
 #ifdef OCCT_DEBUG

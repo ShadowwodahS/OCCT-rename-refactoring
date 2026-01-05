@@ -80,13 +80,13 @@ protected:
   //! SAT intersection test between frustum given and planar convex polygon represented as ordered
   //! point set
   Standard_Boolean hasPolygonOverlap(const TColgp_Array1OfPnt& theArrayOfPnts,
-                                     gp_Vec&                   theNormal) const;
+                                     Vector3d&                   theNormal) const;
 
   //! SAT intersection test between defined volume and given triangle
   Standard_Boolean hasTriangleOverlap(const Point3d& thePnt1,
                                       const Point3d& thePnt2,
                                       const Point3d& thePnt3,
-                                      gp_Vec&       theNormal) const;
+                                      Vector3d&       theNormal) const;
 
   //! Intersection test between defined volume and given sphere
   Standard_Boolean hasSphereOverlap(const Point3d&       thePnt1,
@@ -97,13 +97,13 @@ protected:
   Standard_Boolean hasCylinderOverlap(const Standard_Real    theBottomRad,
                                       const Standard_Real    theTopRad,
                                       const Standard_Real    theHeight,
-                                      const gp_Trsf&         theTrsf,
+                                      const Transform3d&         theTrsf,
                                       const Standard_Boolean theIsHollow,
                                       Standard_Boolean*      theInside = NULL) const;
 
   //! Intersection test between defined volume and given circle.
   Standard_Boolean hasCircleOverlap(const Standard_Real    theRadius,
-                                    const gp_Trsf&         theTrsf,
+                                    const Transform3d&         theTrsf,
                                     const Standard_Boolean theIsFilled,
                                     Standard_Boolean*      theInside = NULL) const;
 
@@ -112,7 +112,7 @@ protected:
   Standard_Boolean isInsideCylinderEndFace(const Standard_Real       theBottomRad,
                                            const Standard_Real       theTopRad,
                                            const Standard_Real       theHeight,
-                                           const gp_Trsf&            theTrsf,
+                                           const Transform3d&            theTrsf,
                                            const TColgp_Array1OfPnt& theVertices) const;
 
   //! Checking whether the point thePnt is inside the shape with borders theVertices.
@@ -131,7 +131,7 @@ private:
   //! the cylinder (or cone) end face with the center theCenter and radius theRadius
   Standard_Boolean isIntersectCircle(const Standard_Real       theRadius,
                                      const Point3d&             theCenter,
-                                     const gp_Trsf&            theTrsf,
+                                     const Transform3d&            theTrsf,
                                      const TColgp_Array1OfPnt& theVertices) const;
 
   //! Checks if AABB and frustum are separated along the given axis
@@ -147,7 +147,7 @@ private:
                                const gp_XYZ& theAxis) const;
 
 protected:
-  gp_Vec myPlanes[N + 2];   //!< Plane equations
+  Vector3d myPlanes[N + 2];   //!< Plane equations
   Point3d myVertices[N * 2]; //!< Vertices coordinates
 
   // clang-format off
@@ -157,7 +157,7 @@ protected:
   Standard_Real myMinOrthoVertsProjections[3];     //!< Cached projections of vertices onto directions of ortho unit vectors
   // clang-format on
 
-  gp_Vec myEdgeDirs[6]; //!< Cached edge directions
+  Vector3d myEdgeDirs[6]; //!< Cached edge directions
 };
 
 #include <SelectMgr_Frustum.lxx>

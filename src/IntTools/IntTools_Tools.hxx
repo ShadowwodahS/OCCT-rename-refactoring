@@ -32,7 +32,7 @@ class TopoDS_Edge;
 class IntTools_CommonPrt;
 class Point3d;
 class IntTools_Curve;
-class gp_Dir;
+class Dir3d;
 class Geom_Curve;
 class Bnd_Box;
 class IntTools_Range;
@@ -117,11 +117,11 @@ public:
                                           IntTools_SequenceOfCurves&       aSOut);
 
   //! Returns True if D1 and D2 coincide
-  Standard_EXPORT static Standard_Boolean IsDirsCoinside(const gp_Dir& D1, const gp_Dir& D2);
+  Standard_EXPORT static Standard_Boolean IsDirsCoinside(const Dir3d& D1, const Dir3d& D2);
 
   //! Returns True if D1 and D2 coincide with given tolerance
-  Standard_EXPORT static Standard_Boolean IsDirsCoinside(const gp_Dir&       D1,
-                                                         const gp_Dir&       D2,
+  Standard_EXPORT static Standard_Boolean IsDirsCoinside(const Dir3d&       D1,
+                                                         const Dir3d&       D2,
                                                          const Standard_Real aTol);
 
   //! Returns True if aC is BoundedCurve from Geom and

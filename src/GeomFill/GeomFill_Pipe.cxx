@@ -99,7 +99,7 @@ static Standard_Boolean CheckSense(const TColGeom_SequenceOfCurve& Seq1,
     if ((u - f) * (u - l) > 0.0)
       u = l;
   }
-  gp_Ax2           AxeRef, Axe;
+  Frame3d           AxeRef, Axe;
   Point3d           Pos;
   Standard_Boolean sing;
   GeomLib::AxeOfInertia(Tab, AxeRef, sing);
@@ -115,15 +115,15 @@ static Standard_Boolean CheckSense(const TColGeom_SequenceOfCurve& Seq1,
   C1->D0(u, P1);
   u += h;
   C1->D0(u, P2);
-  alpha1 = gp_Vec(Pos, P1).AngleWithRef(gp_Vec(Pos, P2), AxeRef.Direction());
+  alpha1 = Vector3d(Pos, P1).AngleWithRef(Vector3d(Pos, P2), AxeRef.Direction());
   P1     = P2;
   u += h;
   C1->D0(u, P2);
-  alpha2 = gp_Vec(Pos, P1).AngleWithRef(gp_Vec(Pos, P2), AxeRef.Direction());
+  alpha2 = Vector3d(Pos, P1).AngleWithRef(Vector3d(Pos, P2), AxeRef.Direction());
   P1     = P2;
   u += h;
   C1->D0(u, P2);
-  alpha3 = gp_Vec(Pos, P1).AngleWithRef(gp_Vec(Pos, P2), AxeRef.Direction());
+  alpha3 = Vector3d(Pos, P1).AngleWithRef(Vector3d(Pos, P2), AxeRef.Direction());
   Seq2.Append(C1);
 
   for (Standard_Integer iseq = 2; iseq <= Seq1.Length(); iseq++)
@@ -152,15 +152,15 @@ static Standard_Boolean CheckSense(const TColGeom_SequenceOfCurve& Seq1,
     C2->D0(u, P1);
     u += h;
     C2->D0(u, P2);
-    beta1 = gp_Vec(Pos, P1).AngleWithRef(gp_Vec(Pos, P2), AxeRef.Direction());
+    beta1 = Vector3d(Pos, P1).AngleWithRef(Vector3d(Pos, P2), AxeRef.Direction());
     P1    = P2;
     u += h;
     C2->D0(u, P2);
-    beta2 = gp_Vec(Pos, P1).AngleWithRef(gp_Vec(Pos, P2), AxeRef.Direction());
+    beta2 = Vector3d(Pos, P1).AngleWithRef(Vector3d(Pos, P2), AxeRef.Direction());
     P1    = P2;
     u += h;
     C2->D0(u, P2);
-    beta3 = gp_Vec(Pos, P1).AngleWithRef(gp_Vec(Pos, P2), AxeRef.Direction());
+    beta3 = Vector3d(Pos, P1).AngleWithRef(Vector3d(Pos, P2), AxeRef.Direction());
 
     // meme sens ?
     Standard_Boolean ok      = Standard_True,
@@ -279,7 +279,7 @@ GeomFill_Pipe::GeomFill_Pipe(const Handle(Geom_Curve)&       Path,
 
 GeomFill_Pipe::GeomFill_Pipe(const Handle(Geom_Curve)& Path,
                              const Handle(Geom_Curve)& Curve1,
-                             const gp_Dir&             Direction)
+                             const Dir3d&             Direction)
     : myStatus(GeomFill_PipeNotOk),
       myExchUV(Standard_False),
       myKPart(Standard_False)
@@ -479,8 +479,8 @@ void GeomFill_Pipe::Init(const Handle(Geom_Curve)& Path,
 
     case GeomFill_IsFixed: {
       Standard_Real     Eps = 1.e-9;
-      gp_Vec            V1(0, 0, 1), V2(0, 1, 0);
-      gp_Dir            D;
+      Vector3d            V1(0, 0, 1), V2(0, 1, 0);
+      Dir3d            D;
       GeomLProp_CLProps CP(Path, param, 2, Eps);
       if (CP.IsTangentDefined())
       {
@@ -496,7 +496,7 @@ void GeomFill_Pipe::Init(const Handle(Geom_Curve)& Path,
         else
         {
           Point3d P0(0., 0., 0.);
-          gp_Ax2 Axe(P0, D);
+          Frame3d Axe(P0, D);
           D = Axe.XDirection();
           V2.SetXYZ(D.XYZ());
           V2.Normalize();
@@ -515,8 +515,8 @@ void GeomFill_Pipe::Init(const Handle(Geom_Curve)& Path,
       Standard_Real ponsec = Place.ParameterOnSection();
 
       Standard_Real     Eps = 1.e-9;
-      gp_Vec            V(0, 1, 0);
-      gp_Dir            D;
+      Vector3d            V(0, 1, 0);
+      Dir3d            D;
       GeomLProp_CLProps CP(FirstSect, ponsec, 2, Eps);
       if (CP.IsTangentDefined())
       {
@@ -530,7 +530,7 @@ void GeomFill_Pipe::Init(const Handle(Geom_Curve)& Path,
         else
         {
           Point3d P0(0., 0., 0.);
-          gp_Ax2 Axe(P0, D);
+          Frame3d Axe(P0, D);
           D = Axe.XDirection();
           V.SetXYZ(D.XYZ());
           V.Normalize();
@@ -602,13 +602,13 @@ void GeomFill_Pipe::Init(const Handle(Geom2d_Curve)& Path,
 
 void GeomFill_Pipe::Init(const Handle(Geom_Curve)& Path,
                          const Handle(Geom_Curve)& FirstSect,
-                         const gp_Dir&             Direction)
+                         const Dir3d&             Direction)
 {
   Init();
 
   Handle(Geom_Curve) Sect;
   myAdpPath = new (GeomAdaptor_Curve)(Handle(Geom_Curve)::DownCast(Path->Copy()));
-  gp_Vec V;
+  Vector3d V;
   V.SetXYZ(Direction.XYZ());
   Handle(GeomFill_ConstantBiNormal) TLaw = new (GeomFill_ConstantBiNormal)(V);
 
@@ -896,13 +896,13 @@ Standard_Boolean GeomFill_Pipe::KPartT4()
       && myAdpLastSect->GetType() == GeomAbs_Line)
   {
     // try to generate a cylinder.
-    gp_Ax1 A0 = myAdpPath->Line().Position();
-    gp_Ax1 A1 = myAdpFirstSect->Line().Position();
-    gp_Ax1 A2 = myAdpLastSect->Line().Position();
+    Axis3d A0 = myAdpPath->Line().Position();
+    Axis3d A1 = myAdpFirstSect->Line().Position();
+    Axis3d A2 = myAdpLastSect->Line().Position();
     // direction must be the same.
-    gp_Dir D0 = A0.Direction();
-    gp_Dir D1 = A1.Direction();
-    gp_Dir D2 = A2.Direction();
+    Dir3d D0 = A0.Direction();
+    Dir3d D1 = A1.Direction();
+    Dir3d D2 = A2.Direction();
     if (!D0.IsEqual(D1, Precision::Angular()) || !D1.IsEqual(D2, Precision::Angular()))
     {
       return Ok;
@@ -921,13 +921,13 @@ Standard_Boolean GeomFill_Pipe::KPartT4()
     Point3d P0 = myAdpPath->Value(myAdpPath->FirstParameter());
     Point3d P1 = myAdpFirstSect->Value(myAdpFirstSect->FirstParameter());
     Point3d P2 = myAdpLastSect->Value(myAdpLastSect->FirstParameter());
-    gp_Dir V1(gp_Vec(P0, P1));
-    gp_Dir V2(gp_Vec(P0, P2));
+    Dir3d V1(Vector3d(P0, P1));
+    Dir3d V2(Vector3d(P0, P2));
     if (Abs(V1.Dot(D0)) > Precision::Confusion() || Abs(V2.Dot(D0)) > Precision::Confusion())
       return Ok;
 
     // the result is a cylindrical surface.
-    gp_Dir X(V1), Y(V2), ZRef;
+    Dir3d X(V1), Y(V2), ZRef;
     ZRef = X.Crossed(Y);
 
     gp_Ax3 Axis(A0.Location(), D0, X);
@@ -935,7 +935,7 @@ Standard_Boolean GeomFill_Pipe::KPartT4()
       Axis.YReverse();
 
     // rotate the surface to set the iso U = 0 not in the result.
-    Axis.Rotate(gp_Ax1(P0, ZRef), -M_PI / 2.);
+    Axis.Rotate(Axis3d(P0, ZRef), -M_PI / 2.);
 
     mySurface           = new Geom_CylindricalSurface(Axis, myRadius);
     Standard_Real Alpha = V1.AngleWithRef(V2, ZRef);
@@ -960,12 +960,12 @@ Standard_Boolean GeomFill_Pipe::KPartT4()
     if (Abs(Alp0 - Alp1) > Precision::Angular() || Abs(Alp0 - Alp2) > Precision::Angular())
       return Ok;
 
-    gp_Ax2 A0 = myAdpPath->Circle().Position();
-    gp_Ax2 A1 = myAdpFirstSect->Circle().Position();
-    gp_Ax2 A2 = myAdpLastSect->Circle().Position();
-    gp_Dir D0 = A0.Direction();
-    gp_Dir D1 = A1.Direction();
-    gp_Dir D2 = A2.Direction();
+    Frame3d A0 = myAdpPath->Circle().Position();
+    Frame3d A1 = myAdpFirstSect->Circle().Position();
+    Frame3d A2 = myAdpLastSect->Circle().Position();
+    Dir3d D0 = A0.Direction();
+    Dir3d D1 = A1.Direction();
+    Dir3d D2 = A2.Direction();
     Point3d P0 = myAdpPath->Value(myAdpPath->FirstParameter());
     Point3d P1 = myAdpFirstSect->Value(myAdpFirstSect->FirstParameter());
     Point3d P2 = myAdpLastSect->Value(myAdpLastSect->FirstParameter());
@@ -981,16 +981,16 @@ Standard_Boolean GeomFill_Pipe::KPartT4()
       return Ok;
 
     // les 3 premiers points doivent etre dans la meme section.
-    gp_Dir  V1(gp_Vec(P0, P1));
-    gp_Dir  V2(gp_Vec(P0, P2));
+    Dir3d  V1(Vector3d(P0, P1));
+    Dir3d  V2(Vector3d(P0, P2));
     gp_Circ Ci   = myAdpPath->Circle();
-    gp_Vec  YRef = ElCLib::CircleDN(myAdpPath->FirstParameter(), A0, Ci.Radius(), 1);
+    Vector3d  YRef = ElCLib::CircleDN(myAdpPath->FirstParameter(), A0, Ci.Radius(), 1);
     if (Abs(V1.Dot(YRef)) > Precision::Confusion() || Abs(V2.Dot(YRef)) > Precision::Confusion())
       return Ok;
 
     // OK it`s a Toroidal Surface !!  OUF !!
     gp_Torus T(A0, Ci.Radius(), myRadius);
-    gp_Vec   XRef(A0.Location(), P0);
+    Vector3d   XRef(A0.Location(), P0);
     // au maximum on fait un tore d`ouverture en V = PI
     Standard_Real VV1    = V1.AngleWithRef(XRef, YRef);
     Standard_Real VV2    = V2.AngleWithRef(XRef, YRef);

@@ -1399,7 +1399,7 @@ Standard_Boolean BRepOffset_Inter2d::ExtentEdge(const TopoDS_Edge&  E,
             gp_Pnt2d P2d1 = MinPC->Value(0.), P2d2 = MinPC->Value(1.);
             Point3d   P1 = MinSurf->Value(P2d1.X(), P2d1.Y());
             Point3d   P2 = MinSurf->Value(P2d2.X(), P2d2.Y());
-            gp_Vec   aVec(P1, P2);
+            Vector3d   aVec(P1, P2);
             C3d = new Geom_Line(P1, aVec);
           }
         }
@@ -1511,9 +1511,9 @@ Standard_Boolean BRepOffset_Inter2d::ExtentEdge(const TopoDS_Edge&  E,
       // The curve is not prolonged on begin or end.
       // Trying to prolong it adding a segment to its bound.
       Point3d                              aPBnd;
-      gp_Vec                              aVBnd;
+      Vector3d                              aVBnd;
       Point3d                              aPBeg;
-      gp_Dir                              aDBnd;
+      Dir3d                              aDBnd;
       Handle(Geom_Line)                   aLin;
       Handle(Geom_TrimmedCurve)           aSegment;
       GeomConvert_CompCurveToBSplineCurve aCompCurve(aTrCurve, Convert_RationalC1);
@@ -1524,7 +1524,7 @@ Standard_Boolean BRepOffset_Inter2d::ExtentEdge(const TopoDS_Edge&  E,
       {
         C3d->D1(FirstPar, aPBnd, aVBnd);
         aDBnd.SetXYZ(aVBnd.XYZ());
-        aPBeg    = aPBnd.Translated(gp_Vec(-aDelta * aDBnd.XYZ()));
+        aPBeg    = aPBnd.Translated(Vector3d(-aDelta * aDBnd.XYZ()));
         aLin     = new Geom_Line(aPBeg, aDBnd);
         aSegment = new Geom_TrimmedCurve(aLin, 0, aDelta);
 

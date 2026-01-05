@@ -36,14 +36,14 @@ IMPLEMENT_STANDARD_RTTIEXT(Geom_ToroidalSurface, Geom_ElementarySurface)
 
 typedef Geom_ToroidalSurface ToroidalSurface;
 typedef TColStd_Array1OfReal Array1OfReal;
-typedef gp_Ax1               Ax1;
-typedef gp_Ax2               Ax2;
+typedef Axis3d               Ax1;
+typedef Frame3d               Ax2;
 typedef gp_Ax3               Ax3;
 typedef gp_Circ              Circ;
-typedef gp_Dir               Dir;
+typedef Dir3d               Dir;
 typedef Point3d               Pnt;
-typedef gp_Trsf              Trsf;
-typedef gp_Vec               Vec;
+typedef Transform3d              Trsf;
+typedef Vector3d               Vec;
 typedef gp_XYZ               XYZ;
 
 //=================================================================================================

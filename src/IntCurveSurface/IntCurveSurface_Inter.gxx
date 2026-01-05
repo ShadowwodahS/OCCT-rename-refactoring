@@ -1386,10 +1386,10 @@ void SectionPointToParameters(const Intf_SectionPoint&              Sp,
       Polyhedron.Parameters(Pt1,ua,va);
       Polyhedron.Parameters(Pt2,ub,vb);
       Polyhedron.Parameters(Pt3,uc,vc);
-      gp_Vec Normale(gp_Vec(PA,PB).Crossed(gp_Vec(PA,PC)));
-      cc = (gp_Vec(PA,PB).Crossed(gp_Vec(PA,P))).Dot(Normale);
-      ca = (gp_Vec(PB,PC).Crossed(gp_Vec(PB,P))).Dot(Normale);
-      cb = (gp_Vec(PC,PA).Crossed(gp_Vec(PC,P))).Dot(Normale);
+      Vector3d Normale(Vector3d(PA,PB).Crossed(Vector3d(PA,PC)));
+      cc = (Vector3d(PA,PB).Crossed(Vector3d(PA,P))).Dot(Normale);
+      ca = (Vector3d(PB,PC).Crossed(Vector3d(PB,P))).Dot(Normale);
+      cb = (Vector3d(PC,PA).Crossed(Vector3d(PC,P))).Dot(Normale);
       cabc = ca + cb + cc;
       
       ca/=cabc;     cb/=cabc;       cc/=cabc;
@@ -1429,7 +1429,7 @@ void IntCurveSurface_ComputeTransitions(const TheCurve& curve,
 					const Standard_Real u,
 					const Standard_Real v) { 
   
-  gp_Vec NSurf,D1U,D1V;//TgCurv;
+  Vector3d NSurf,D1U,D1V;//TgCurv;
   Point3d Psurf;
   Standard_Real CosDir;
   
@@ -1519,7 +1519,7 @@ void EstLimForInfExtr(const gp_Lin&   Line,
 
   if(IsOffSurf) aBasSurf = TheSurfaceTool::BasisSurface(surface);
 
-  gp_Dir aDirOfExt;
+  Dir3d aDirOfExt;
 
   if(IsOffSurf) aDirOfExt = aBasSurf->Direction();
   else aDirOfExt = TheSurfaceTool::Direction(surface);
@@ -1788,8 +1788,8 @@ void EstLimForInfRevl(const gp_Lin&   Line,
   }
 
   Handle(Adaptor3d_Curve) aBasisCurve = TheSurfaceTool::BasisCurve(surface);
-  gp_Ax1 aRevAx = TheSurfaceTool::AxeOfRevolution(surface);
-  gp_Vec aXVec = aRevAx.Direction();
+  Axis3d aRevAx = TheSurfaceTool::AxeOfRevolution(surface);
+  Vector3d aXVec = aRevAx.Direction();
   constexpr Standard_Real aTolAng = Precision::Angular();
 
   // make plane to project a basis curve
@@ -1797,14 +1797,14 @@ void EstLimForInfRevl(const gp_Lin&   Line,
   Standard_Real aU = 0.;
   Point3d P = aBasisCurve->Value(aU);
   while (O.SquareDistance(P) <= Precision::PConfusion() ||
-	 aXVec.IsParallel( gp_Vec(O,P), aTolAng)) {
+	 aXVec.IsParallel( Vector3d(O,P), aTolAng)) {
     aU += 1.;
     P = aBasisCurve->Value(aU);
     if (aU > 3)
       // basis curve is a line coinciding with aXVec, P is any not on aXVec
       P = Point3d(aU, aU+1, aU+2);
   }
-  gp_Vec aNVec = aXVec ^ gp_Vec(O,P);
+  Vector3d aNVec = aXVec ^ Vector3d(O,P);
   gp_Pln aPln (gp_Ax3 (O, aNVec ,aXVec));
 
   // project basic curve
@@ -1832,14 +1832,14 @@ void EstLimForInfRevl(const gp_Lin&   Line,
       aU += 1.;
       P = Point3d(aU, aU+1, aU+2); // any not on aXVec
     }
-    aNVec = aXVec ^ gp_Vec(O,P);
+    aNVec = aXVec ^ Vector3d(O,P);
   } else
     aNVec = aXVec.Crossed( Line.Direction() );
   
   aPln  = gp_Pln (gp_Ax3 (O, aNVec ,aXVec));
 
   // make a second plane perpendicular to the first one, rotated around aXVec
-  gp_Pln aPlnPrp = aPln.Rotated (gp_Ax1 (O,aXVec), M_PI/2.);
+  gp_Pln aPlnPrp = aPln.Rotated (Axis3d (O,aXVec), M_PI/2.);
   
   // project Line and it's X-axe symmetric one to plane and intersect
   // resulting curve with projection of Basic Curve
@@ -1893,7 +1893,7 @@ void EstLimForInfOffs(const gp_Lin&   Line,
   if(aTypeOfBasSurf == GeomAbs_Plane) {
 
     gp_Pln aPln = aBasSurf->Plane();
-    gp_Vec aT = aPln.Position().XDirection()^aPln.Position().YDirection();
+    Vector3d aT = aPln.Position().XDirection()^aPln.Position().YDirection();
     aT *= anOffVal;
     aPln.Translate(aT);
     IntAna_IntConicQuad LinPlane(Line,aPln,TOLERANCE_ANGULAIRE);
@@ -1931,7 +1931,7 @@ void EstLimForInfOffs(const gp_Lin&   Line,
       aCyl.SetRadius(aR);
     }
     else if ( aR <= -TOLTANGENCY ){
-      anA.Rotate(gp_Ax1(anA.Location(), anA.Direction()), M_PI);
+      anA.Rotate(Axis3d(anA.Location(), anA.Direction()), M_PI);
       aCyl.SetPosition(anA);
 // modified by NIZHNY-MKK  Mon Oct  3 17:37:54 2005
 //       aCyl.SetRadius(Abs(aR));
@@ -1978,7 +1978,7 @@ void EstLimForInfOffs(const gp_Lin&   Line,
     gp_Ax3 anA = aCon.Position();
     if ( aR >= 0.) {
 
-      gp_Vec aZ( anA.Direction());
+      Vector3d aZ( anA.Direction());
       aZ *= - anOffVal * Sin(anAng);
       anA.Translate(aZ);
       aCon.SetPosition(anA);

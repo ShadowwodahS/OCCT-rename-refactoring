@@ -306,11 +306,11 @@ void StdPrs_DeflectionCurve::Add(const Handle(Prs3d_Presentation)& aPresentation
     if (aDrawer->LineArrowDraw() && !aGroup.IsNull())
     {
       Point3d Location;
-      gp_Vec Direction;
+      Vector3d Direction;
       aCurve.D1(V2, Location, Direction);
       Prs3d_Arrow::Draw(aGroup,
                         Location,
-                        gp_Dir(Direction),
+                        Dir3d(Direction),
                         aDrawer->ArrowAspect()->Angle(),
                         aDrawer->ArrowAspect()->Length());
     }
@@ -353,11 +353,11 @@ void StdPrs_DeflectionCurve::Add(const Handle(Prs3d_Presentation)& aPresentation
   if (aDrawer->LineArrowDraw() && !aGroup.IsNull())
   {
     Point3d Location;
-    gp_Vec Direction;
+    Vector3d Direction;
     aCurve.D1(V2, Location, Direction);
     Prs3d_Arrow::Draw(aGroup,
                       Location,
-                      gp_Dir(Direction),
+                      Dir3d(Direction),
                       aDrawer->ArrowAspect()->Angle(),
                       aDrawer->ArrowAspect()->Length());
   }

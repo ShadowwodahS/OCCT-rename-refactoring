@@ -157,12 +157,12 @@ void BRepBuilderAPI_FindPlane::Init(const TopoDS_Shape& S, const Standard_Real T
 
       if (disMax > tol2)
       {
-        gp_Vec        V1(p0, p1), V3;
+        Vector3d        V1(p0, p1), V3;
         Standard_Real proMax = 0.0;
         Point3d        p2     = p0;
         for (Standard_Integer j = 2; j <= points.Length(); j++)
         {
-          V3                = V1 ^ gp_Vec(p0, points(j));
+          V3                = V1 ^ Vector3d(p0, points(j));
           Standard_Real pro = V3.SquareMagnitude();
           if (pro > proMax)
           {
@@ -173,7 +173,7 @@ void BRepBuilderAPI_FindPlane::Init(const TopoDS_Shape& S, const Standard_Real T
 
         if (p0.SquareDistance(p2) > tol2)
         {
-          gp_Dir D1(V1), D2(gp_Vec(p0, p2));
+          Dir3d D1(V1), D2(Vector3d(p0, p2));
           if (!D1.IsParallel(D2, Precision::Angular()))
           {
             P     = new Geom_Plane(gp_Ax3(p0, D1.Crossed(D2), D1));

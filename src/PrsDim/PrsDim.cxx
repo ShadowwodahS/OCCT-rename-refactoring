@@ -777,11 +777,11 @@ Standard_Boolean PrsDim::GetPlaneFromFace(const TopoDS_Face&    aFace,
   else if (surf2->GetType() == GeomAbs_SurfaceOfExtrusion)
   {
     Handle(Adaptor3d_Curve) BasisCurve   = surf2->BasisCurve();
-    gp_Dir                  ExtrusionDir = surf2->Direction();
+    Dir3d                  ExtrusionDir = surf2->Direction();
     if (BasisCurve->GetType() == GeomAbs_Line)
     {
       gp_Lin BasisLine = BasisCurve->Line();
-      gp_Dir LineDir   = BasisLine.Direction();
+      Dir3d LineDir   = BasisLine.Direction();
       Point3d LinePos   = BasisLine.Location();
       gp_Pln thePlane(LinePos, LineDir ^ ExtrusionDir);
       aPlane    = thePlane;
@@ -836,8 +836,8 @@ Standard_Boolean PrsDim::GetPlaneFromFace(const TopoDS_Face&    aFace,
 
 Point3d PrsDim::ProjectPointOnPlane(const Point3d& aPoint, const gp_Pln& aPlane)
 {
-  gp_Vec aVec(aPlane.Location(), aPoint);
-  gp_Vec Normal = aPlane.Axis().Direction();
+  Vector3d aVec(aPlane.Location(), aPoint);
+  Vector3d Normal = aPlane.Axis().Direction();
   Normal        = (aVec * Normal) * Normal;
 
   return (aPoint.Translated(-Normal));
@@ -935,15 +935,15 @@ Standard_Boolean PrsDim::InitAngleBetweenPlanarFaces(const TopoDS_Face&     theF
   GeomAPI_ProjectPointOnCurve aProj(aFirstCenter, anIntersectCurve);
   theCenter = aProj.NearestPoint();
 
-  gp_Vec aFirstNormal = anIntersectLin.Direction() ^ aFirstPlane->Pln().Axis().Direction();
-  if (aFirstNormal * gp_Vec(theCenter, aFirstCenter) < 0.0)
+  Vector3d aFirstNormal = anIntersectLin.Direction() ^ aFirstPlane->Pln().Axis().Direction();
+  if (aFirstNormal * Vector3d(theCenter, aFirstCenter) < 0.0)
   {
     aFirstNormal.Reverse();
   }
   theFirstAttach = theCenter.Translated(aFirstNormal);
 
-  gp_Vec aSecondNormal = anIntersectLin.Direction() ^ aSecondPlane->Pln().Axis().Direction();
-  if (aSecondNormal * gp_Vec(theCenter, aSecondCenter) < 0.0)
+  Vector3d aSecondNormal = anIntersectLin.Direction() ^ aSecondPlane->Pln().Axis().Direction();
+  if (aSecondNormal * Vector3d(theCenter, aSecondCenter) < 0.0)
   {
     aSecondNormal.Reverse();
   }
@@ -1018,9 +1018,9 @@ Standard_Boolean PrsDim::InitAngleBetweenCurvilinearFaces(
   {
     Handle(Geom_ConicalSurface) aCone = Handle(Geom_ConicalSurface)::DownCast(aSecondSurf);
 
-    gp_Dir anXdirection = aCone->Cone().XAxis().Direction();
+    Dir3d anXdirection = aCone->Cone().XAxis().Direction();
 
-    gp_Dir aToFirstAttach =
+    Dir3d aToFirstAttach =
       gce_MakeDir(ProjectPointOnLine(theFirstAttach, gp_Lin(aCone->Cone().Axis())), theFirstAttach);
 
     Standard_Real aSecondU = anXdirection.Angle(aToFirstAttach);
@@ -1050,7 +1050,7 @@ Standard_Boolean PrsDim::InitAngleBetweenCurvilinearFaces(
     // Move theFirstAttach on aFirstLine if it is on theCenter.
     if (theCenter.SquareDistance(theFirstAttach) <= SquareTolerance)
     {
-      gp_Vec aDir(aFirstLine->Lin().Direction());
+      Vector3d aDir(aFirstLine->Lin().Direction());
       theFirstAttach = theCenter.Translated(aDir);
 
       // theFirstAttach should be on theFirstSurf.
@@ -1094,7 +1094,7 @@ Standard_Boolean PrsDim::InitAngleBetweenCurvilinearFaces(
   }
   else // aFirstLine and aSecondLine are coincident
   {
-    gp_Vec aDir(aFirstLine->Lin().Direction());
+    Vector3d aDir(aFirstLine->Lin().Direction());
     theFirstAttach  = theCenter.Translated(aDir);
     theSecondAttach = theCenter.Translated(-aDir);
   }
@@ -1109,7 +1109,7 @@ void PrsDim::InitLengthBetweenCurvilinearFaces(const TopoDS_Face&    theFirstFac
                                                Handle(Geom_Surface)& theSecondSurf,
                                                Point3d&               theFirstAttach,
                                                Point3d&               theSecondAttach,
-                                               gp_Dir&               theDirOnPlane)
+                                               Dir3d&               theDirOnPlane)
 {
   GeomAPI_ProjectPointOnSurf aProjector;
   Standard_Real              aPU, aPV;
@@ -1122,7 +1122,7 @@ void PrsDim::InitLengthBetweenCurvilinearFaces(const TopoDS_Face&    theFirstFac
   theFirstAttach = aProjector.NearestPoint();
   aProjector.LowerDistanceParameters(aPU, aPV);
 
-  gp_Vec aD1U, aD1V;
+  Vector3d aD1U, aD1V;
   theFirstSurf->D1(aPU, aPV, theFirstAttach, aD1U, aD1V);
 
   if (aD1U.SquareMagnitude() <= SquareTolerance || aD1V.SquareMagnitude() <= SquareTolerance)
@@ -1136,15 +1136,15 @@ void PrsDim::InitLengthBetweenCurvilinearFaces(const TopoDS_Face&    theFirstFac
   aD1U.Normalize();
   aD1V.Normalize();
 
-  theDirOnPlane = gp_Dir(aD1U);
+  theDirOnPlane = Dir3d(aD1U);
 
-  gp_Dir aFirstSurfN = gp_Dir(aD1U ^ aD1V);
+  Dir3d aFirstSurfN = Dir3d(aD1U ^ aD1V);
 
   aProjector.Init(theFirstAttach, theSecondSurf);
 
   Standard_Integer aBestPointIndex = 0;
   Standard_Real    aMinDist        = RealLast();
-  gp_Dir           aLocalDir;
+  Dir3d           aLocalDir;
 
   for (Standard_Integer aPointIt = 1; aPointIt <= aProjector.NbPoints(); aPointIt++)
   {
@@ -1154,8 +1154,8 @@ void PrsDim::InitLengthBetweenCurvilinearFaces(const TopoDS_Face&    theFirstFac
 
     aLocalDir =
       aD1U.SquareMagnitude() <= SquareTolerance || aD1V.SquareMagnitude() <= SquareTolerance
-        ? gp_Dir(gp_Vec(theFirstAttach, aProjector.Point(aPointIt)))
-        : gp_Dir(aD1U ^ aD1V);
+        ? Dir3d(Vector3d(theFirstAttach, aProjector.Point(aPointIt)))
+        : Dir3d(aD1U ^ aD1V);
 
     if (aFirstSurfN.IsParallel(aLocalDir, Precision::Angular())
         && aProjector.Distance(aPointIt) < aMinDist)
@@ -1189,7 +1189,7 @@ void PrsDim::InitLengthBetweenCurvilinearFaces(const TopoDS_Face&    theFirstFac
 }
 
 Point3d PrsDim::TranslatePointToBound(const Point3d&  aPoint,
-                                     const gp_Dir&  aDir,
+                                     const Dir3d&  aDir,
                                      const Bnd_Box& aBndBox)
 {
   if (aBndBox.IsOut(aPoint))
@@ -1219,7 +1219,7 @@ Point3d PrsDim::TranslatePointToBound(const Point3d&  aPoint,
         t = (Bound(i, j) - Origin(i)) / Dir(i);
         if (t < 0.0e0)
           continue;
-        Result = aPoint.Translated(gp_Vec(aDir) * t);
+        Result = aPoint.Translated(Vector3d(aDir) * t);
         if (!EnlargedBox.IsOut(Result))
         {
           IsFound = Standard_True;

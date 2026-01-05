@@ -647,7 +647,7 @@ void BRepBlend_SurfRstLineBuilder::InternalPerform(Blend_SurfRstFunction&  Func,
         {
           ws = solinvs(1);
           // It is necessary to reevaluate the deviation (BUC60360)
-          gp_Vec t, n;
+          Vector3d t, n;
           Func.Set(ws);
           Arc->Value(solinvs(3)).Coord(U, V);
           sol(1)  = U;
@@ -1294,7 +1294,7 @@ void BRepBlend_SurfRstLineBuilder::Transition(const Standard_Boolean           O
                                               IntSurf_Transition&              TArc)
 {
   Standard_Boolean computetranstionaveclacorde = 0;
-  gp_Vec           tgline;
+  Vector3d           tgline;
   Blend_Point      prevprev;
 
   if (previousP.IsTangencyPoint())
@@ -1315,7 +1315,7 @@ void BRepBlend_SurfRstLineBuilder::Transition(const Standard_Boolean           O
   gp_Vec2d dp2d;
 
   Point3d pbid;
-  gp_Vec d1u, d1v, normale, tgrst;
+  Vector3d d1u, d1v, normale, tgrst;
 
   Arc->D1(Param, p2d, dp2d);
   if (OnFirst)
@@ -1324,7 +1324,7 @@ void BRepBlend_SurfRstLineBuilder::Transition(const Standard_Boolean           O
     if (!computetranstionaveclacorde)
       tgline = previousP.TangentOnS1();
     else
-      tgline = gp_Vec(prevprev.PointOnS(), previousP.PointOnS());
+      tgline = Vector3d(prevprev.PointOnS(), previousP.PointOnS());
   }
   else
   {
@@ -1332,7 +1332,7 @@ void BRepBlend_SurfRstLineBuilder::Transition(const Standard_Boolean           O
     if (!computetranstionaveclacorde)
       tgline = previousP.TangentOnS2();
     else
-      tgline = gp_Vec(prevprev.PointOnC(), previousP.PointOnC());
+      tgline = Vector3d(prevprev.PointOnC(), previousP.PointOnC());
   }
 
   tgrst.SetLinearForm(dp2d.X(), d1u, dp2d.Y(), d1v);
@@ -1418,19 +1418,19 @@ Blend_Status BRepBlend_SurfRstLineBuilder::CheckDeflectionOnSurf(const Blend_Poi
   Standard_Boolean    prevpointistangent = previousP.IsTangencyPoint();
 
   Point3d Psurf = CurPoint.PointOnS();
-  gp_Vec Tgsurf;
+  Vector3d Tgsurf;
   if (!curpointistangent)
   {
     Tgsurf = CurPoint.TangentOnS();
   }
   Point3d prevP = previousP.PointOnS();
-  gp_Vec prevTg;
+  Vector3d prevTg;
   if (!prevpointistangent)
   {
     prevTg = previousP.TangentOnS();
   }
   Standard_Real Norme, prevNorme = 0.;
-  gp_Vec        Corde(prevP, Psurf);
+  Vector3d        Corde(prevP, Psurf);
   Norme = Corde.SquareMagnitude();
   //  if(!curpointistangent) curNorme = Tgsurf.SquareMagnitude();
   if (!prevpointistangent)
@@ -1504,19 +1504,19 @@ Blend_Status BRepBlend_SurfRstLineBuilder::CheckDeflectionOnRst(const Blend_Poin
   Standard_Boolean    prevpointistangent = previousP.IsTangencyPoint();
 
   Point3d Psurf = CurPoint.PointOnC();
-  gp_Vec Tgsurf;
+  Vector3d Tgsurf;
   if (!curpointistangent)
   {
     Tgsurf = CurPoint.TangentOnC();
   }
   Point3d prevP = previousP.PointOnC();
-  gp_Vec prevTg;
+  Vector3d prevTg;
   if (!prevpointistangent)
   {
     prevTg = previousP.TangentOnC();
   }
   Standard_Real Norme, prevNorme = 0.;
-  gp_Vec        Corde(prevP, Psurf);
+  Vector3d        Corde(prevP, Psurf);
   Norme = Corde.SquareMagnitude();
   //  if(!curpointistangent) curNorme = Tgsurf.SquareMagnitude();
   if (!prevpointistangent)
@@ -1592,7 +1592,7 @@ Blend_Status BRepBlend_SurfRstLineBuilder::TestArret(Blend_SurfRstFunction& Func
 {
   Point3d            pts, ptrst;
   gp_Pnt2d          pt2drst;
-  gp_Vec            tgs, tgrst;
+  Vector3d            tgs, tgrst;
   gp_Vec2d          tg2ds, tg2drst;
   Blend_Status      StateS, StateRst;
   IntSurf_TypeTrans tras = IntSurf_Undecided, trarst = IntSurf_Undecided;
@@ -1654,7 +1654,7 @@ Blend_Status BRepBlend_SurfRstLineBuilder::TestArret(Blend_SurfRstFunction& Func
 
     if (!comptra && !curpointistangent)
     {
-      gp_Vec tgsecs, nors;
+      Vector3d tgsecs, nors;
       Func.Decroch(sol, nors, tgsecs);
       nors.Normalize();
       Standard_Real testra = tgsecs.Dot(nors.Crossed(tgs));
@@ -1744,7 +1744,7 @@ Standard_Boolean BRepBlend_SurfRstLineBuilder::CheckInside(Blend_SurfRstFunction
   SituOnS = domain1->Classify(p2d, tolpoint2d, 0);
 
   // lost contact
-  gp_Vec tgs, nors;
+  Vector3d tgs, nors;
   Decroch = Func.Decroch(sol, tgs, nors);
 
   return (SituOnC == TopAbs_IN && SituOnS == TopAbs_IN && !Decroch);

@@ -94,7 +94,7 @@ Standard_Boolean MeshVS_VectorPrsBuilder::HasVectors(const Standard_Boolean IsEl
 
 Standard_Boolean MeshVS_VectorPrsBuilder::GetVector(const Standard_Boolean IsElement,
                                                     const Standard_Integer ID,
-                                                    gp_Vec&                Vect) const
+                                                    Vector3d&                Vect) const
 {
   const MeshVS_DataMapOfIntegerVector* aMap = &myNodeVectorMap;
   if (IsElement)
@@ -111,7 +111,7 @@ Standard_Boolean MeshVS_VectorPrsBuilder::GetVector(const Standard_Boolean IsEle
 
 void MeshVS_VectorPrsBuilder::SetVector(const Standard_Boolean IsElement,
                                         const Standard_Integer ID,
-                                        const gp_Vec&          Vect)
+                                        const Vector3d&          Vect)
 {
   MeshVS_DataMapOfIntegerVector* aMap = &myNodeVectorMap;
   if (IsElement)
@@ -203,8 +203,8 @@ void MeshVS_VectorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
   Standard_Real      k, b, aMaxValue, aMinValue, aValue, X, Y, Z;
 
   Standard_Real aMinLength = calculateArrow(anArrowPnt, aMaxLen, anArrowPart);
-  gp_Vec        aVec;
-  gp_Trsf       aTrsf;
+  Vector3d        aVec;
+  Transform3d       aTrsf;
 
   GetMinMaxVectorValue(IsElement, aMinValue, aMaxValue);
 
@@ -272,7 +272,7 @@ void MeshVS_VectorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
           continue;
         }
 
-        aTrsf.SetDisplacement(gp_Ax3(Point3d(0, 0, 0), gp_Dir(0, 0, 1)),
+        aTrsf.SetDisplacement(gp_Ax3(Point3d(0, 0, 0), Dir3d(0, 0, 1)),
                               gp_Ax3(Point3d(X, Y, Z), aVec));
 
         DrawVector(aTrsf,
@@ -324,7 +324,7 @@ void MeshVS_VectorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
 // Purpose : Fill arrays of primitives for drawing force
 //=======================================================================
 void MeshVS_VectorPrsBuilder::DrawVector(
-  const gp_Trsf&                             theTrsf,
+  const Transform3d&                             theTrsf,
   const Standard_Real                        theLength,
   const Standard_Real                        theMaxLength,
   const TColgp_Array1OfPnt&                  theArrowPoints,

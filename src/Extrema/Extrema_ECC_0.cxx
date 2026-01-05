@@ -38,7 +38,7 @@
 #define POnC_hxx <Extrema_POnCurv.hxx>
 #define Pnt Point3d
 #define Pnt_hxx <gp_Pnt.hxx>
-#define Vec gp_Vec
+#define Vec Vector3d
 #define Vec_hxx <gp_Vec.hxx>
 #define Extrema_GExtPC Extrema_ExtPC
 #define Extrema_GenExtCC Extrema_ECC

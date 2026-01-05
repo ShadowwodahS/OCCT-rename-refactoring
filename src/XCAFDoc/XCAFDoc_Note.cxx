@@ -148,7 +148,7 @@ void XCAFDoc_Note::SetObject(const Handle(XCAFNoteObjects_NoteObject)& theObject
 
   if (theObject->HasPlane())
   {
-    gp_Ax2 anAx = theObject->GetPlane();
+    Frame3d anAx = theObject->GetPlane();
 
     gp_Pln aP(anAx);
     TDataXtd_Plane::Set(Label().FindChild(ChildLab_Plane), aP);

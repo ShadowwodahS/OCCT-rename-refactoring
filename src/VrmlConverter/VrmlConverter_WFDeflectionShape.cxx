@@ -271,7 +271,7 @@ else {
   if (qnt != 0)
   {
     Handle(TColgp_HArray1OfVec) HAV = new TColgp_HArray1OfVec(1, qnt);
-    gp_Vec                      V;
+    Vector3d                      V;
     Point3d                      P;
     Standard_Integer            i = 0;
 

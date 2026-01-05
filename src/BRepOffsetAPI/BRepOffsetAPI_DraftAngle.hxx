@@ -27,7 +27,7 @@
 
 class TopoDS_Shape;
 class TopoDS_Face;
-class gp_Dir;
+class Dir3d;
 class gp_Pln;
 
 // resolve name collisions with X11 headers
@@ -115,7 +115,7 @@ public:
   //! to cancel the results of the unsuccessful taper-adding
   //! transformation and to retrieve the previous shape.
   Standard_EXPORT void Add(const TopoDS_Face&     F,
-                           const gp_Dir&          Direction,
+                           const Dir3d&          Direction,
                            const Standard_Real    Angle,
                            const gp_Pln&          NeutralPlane,
                            const Standard_Boolean Flag = Standard_True);

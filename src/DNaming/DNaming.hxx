@@ -31,7 +31,7 @@ class TFunction_Function;
 class TDataStd_Integer;
 class TDataStd_Name;
 class TNaming_NamedShape;
-class gp_Ax1;
+class Axis3d;
 class TDataStd_UAttribute;
 class TopoDS_Shape;
 class BRepBuilderAPI_MakeShape;
@@ -59,7 +59,7 @@ public:
     const Standard_Integer            thePosition);
 
   Standard_EXPORT static Standard_Boolean ComputeAxis(const Handle(TNaming_NamedShape)& theNS,
-                                                      gp_Ax1&                           theAx1);
+                                                      Axis3d&                           theAx1);
 
   Standard_EXPORT static Handle(TNaming_NamedShape) GetFunctionResult(
     const Handle(TFunction_Function)& theFunction);
@@ -94,7 +94,7 @@ public:
     const Handle(TDataStd_UAttribute)& theObject);
 
   Standard_EXPORT static Standard_Boolean ComputeSweepDir(const TopoDS_Shape& theShape,
-                                                          gp_Ax1&             theAxis);
+                                                          Axis3d&             theAxis);
 
   Standard_EXPORT static void LoadAndOrientModifiedShapes(
     BRepBuilderAPI_MakeShape&           MakeShape,

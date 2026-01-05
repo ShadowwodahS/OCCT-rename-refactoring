@@ -285,10 +285,10 @@ Standard_Boolean BRepTools_GTrsfModification::NewTriangulation(
   {
     for (Standard_Integer anInd = 1; anInd <= theTriangulation->NbNodes(); ++anInd)
     {
-      gp_Dir aNormal = theTriangulation->Normal(anInd);
+      Dir3d aNormal = theTriangulation->Normal(anInd);
       gp_Mat aMat    = aGTrsf.VectorialPart();
       aMat.SetDiagonal(1., 1., 1.);
-      gp_Trsf aTrsf;
+      Transform3d aTrsf;
       aTrsf.SetForm(gp_Rotation);
       (gp_Mat&)aTrsf.HVectorialPart() = aMat;
       aNormal.Transform(aTrsf);

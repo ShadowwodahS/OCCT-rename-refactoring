@@ -50,7 +50,7 @@ void Contap_SurfFunction::Set(const Handle(Adaptor3d_Surface)& S)
   Standard_Integer i;
   Standard_Integer nbs = Contap_HContTool::NbSamplePoints(S);
   Standard_Real    U, V;
-  gp_Vec           norm;
+  Vector3d           norm;
   if (nbs > 0)
   {
     myMean = 0.;
@@ -83,8 +83,8 @@ Standard_Boolean Contap_SurfFunction::Value(const math_Vector& X, math_Vector& F
   Usol = X(1);
   Vsol = X(2);
   //  Adaptor3d_HSurfaceTool::D1(mySurf,Usol,Vsol,solpt,d1u,d1v);
-  //  gp_Vec norm(d1u.Crossed(d1v));
-  gp_Vec norm;
+  //  Vector3d norm(d1u.Crossed(d1v));
+  Vector3d norm;
   Contap_SurfProps::Normale(mySurf, Usol, Vsol, solpt, norm);
   switch (myType)
   {
@@ -93,7 +93,7 @@ Standard_Boolean Contap_SurfFunction::Value(const math_Vector& X, math_Vector& F
     }
     break;
     case Contap_ContourPrs: {
-      F(1) = valf = (norm.Dot(gp_Vec(myEye, solpt))) / myMean;
+      F(1) = valf = (norm.Dot(Vector3d(myEye, solpt))) / myMean;
     }
     break;
     case Contap_DraftStd: {
@@ -110,12 +110,12 @@ Standard_Boolean Contap_SurfFunction::Value(const math_Vector& X, math_Vector& F
 
 Standard_Boolean Contap_SurfFunction::Derivatives(const math_Vector& X, math_Matrix& Grad)
 {
-  //  gp_Vec d2u,d2v,d2uv;
+  //  Vector3d d2u,d2v,d2uv;
   Usol = X(1);
   Vsol = X(2);
   //  Adaptor3d_HSurfaceTool::D2(mySurf,Usol,Vsol,solpt,d1u,d1v,d2u,d2v,d2uv);
 
-  gp_Vec norm, dnu, dnv;
+  Vector3d norm, dnu, dnv;
   Contap_SurfProps::NormAndDn(mySurf, Usol, Vsol, solpt, norm, dnu, dnv);
 
   switch (myType)
@@ -128,14 +128,14 @@ Standard_Boolean Contap_SurfFunction::Derivatives(const math_Vector& X, math_Mat
     }
     break;
     case Contap_ContourPrs: {
-      gp_Vec Ep(myEye, solpt);
+      Vector3d Ep(myEye, solpt);
       Grad(1, 1) = (dnu.Dot(Ep)) / myMean;
       Grad(1, 2) = (dnv.Dot(Ep)) / myMean;
     }
     break;
     case Contap_DraftStd: {
-      //      gp_Vec norm(d1u.Crossed(d1v).Normalized());
-      //      gp_Vec dnorm(d2u.Crossed(d1v) + d1u.Crossed(d2uv));
+      //      Vector3d norm(d1u.Crossed(d1v).Normalized());
+      //      Vector3d dnorm(d2u.Crossed(d1v) + d1u.Crossed(d2uv));
       //      Grad(1,1) = (dnorm.Dot(myDir)-myCosAng*dnorm.Dot(norm))/myMean;
       //      dnorm = d2uv.Crossed(d1v) + d1u.Crossed(d2v);
       //      Grad(1,2) = (dnorm.Dot(myDir)-myCosAng*dnorm.Dot(norm))/myMean;
@@ -159,13 +159,13 @@ Standard_Boolean Contap_SurfFunction::Values(const math_Vector& X,
                                              math_Vector&       F,
                                              math_Matrix&       Grad)
 {
-  //  gp_Vec d2u,d2v,d2uv;
+  //  Vector3d d2u,d2v,d2uv;
 
   Usol = X(1);
   Vsol = X(2);
   //  Adaptor3d_HSurfaceTool::D2(mySurf,Usol,Vsol,solpt,d1u,d1v,d2u,d2v,d2uv);
-  //  gp_Vec norm(d1u.Crossed(d1v));
-  gp_Vec norm, dnu, dnv;
+  //  Vector3d norm(d1u.Crossed(d1v));
+  Vector3d norm, dnu, dnv;
   Contap_SurfProps::NormAndDn(mySurf, Usol, Vsol, solpt, norm, dnu, dnv);
 
   switch (myType)
@@ -180,7 +180,7 @@ Standard_Boolean Contap_SurfFunction::Values(const math_Vector& X,
     }
     break;
     case Contap_ContourPrs: {
-      gp_Vec Ep(myEye, solpt);
+      Vector3d Ep(myEye, solpt);
       F(1) = (norm.Dot(Ep)) / myMean;
       //      Grad(1,1) = ((d2u.Crossed(d1v) + d1u.Crossed(d2uv)).Dot(Ep))/myMean;
       //      Grad(1,2) = ((d2uv.Crossed(d1v) + d1u.Crossed(d2v)).Dot(Ep))/myMean;
@@ -192,7 +192,7 @@ Standard_Boolean Contap_SurfFunction::Values(const math_Vector& X,
       F(1) = (norm.Dot(myDir) - myCosAng * norm.Magnitude()) / myMean;
       norm.Normalize();
       /*
-      gp_Vec dnorm(d2u.Crossed(d1v) + d1u.Crossed(d2uv));
+      Vector3d dnorm(d2u.Crossed(d1v) + d1u.Crossed(d2uv));
       Grad(1,1) = (dnorm.Dot(myDir)-myCosAng*dnorm.Dot(norm))/myMean;
       dnorm = d2uv.Crossed(d1v) + d1u.Crossed(d2v);
       Grad(1,2) = (dnorm.Dot(myDir)-myCosAng*dnorm.Dot(norm))/myMean;
@@ -220,9 +220,9 @@ Standard_Boolean Contap_SurfFunction::IsTangent()
     computed = Standard_True;
     if (!derived)
     {
-      //      gp_Vec d2u,d2v,d2uv;
+      //      Vector3d d2u,d2v,d2uv;
       //      Adaptor3d_HSurfaceTool::D2(mySurf, Usol, Vsol, solpt, d1u, d1v, d2u, d2v, d2uv);
-      gp_Vec norm, dnu, dnv;
+      Vector3d norm, dnu, dnv;
       Contap_SurfProps::NormAndDn(mySurf, Usol, Vsol, solpt, norm, dnu, dnv);
 
       switch (myType)
@@ -235,7 +235,7 @@ Standard_Boolean Contap_SurfFunction::IsTangent()
         }
         break;
         case Contap_ContourPrs: {
-          gp_Vec Ep(myEye, solpt);
+          Vector3d Ep(myEye, solpt);
           //	  Fpu = ((d2u.Crossed(d1v) + d1u.Crossed(d2uv)).Dot(Ep))/myMean;
           //	  Fpv = ((d2uv.Crossed(d1v) + d1u.Crossed(d2v)).Dot(Ep))/myMean;
           Fpu = (dnu.Dot(Ep)) / myMean;
@@ -244,8 +244,8 @@ Standard_Boolean Contap_SurfFunction::IsTangent()
         break;
         case Contap_DraftStd: {
           /*
-          gp_Vec norm(d1u.Crossed(d1v).Normalized());
-          gp_Vec dnorm(d2u.Crossed(d1v) + d1u.Crossed(d2uv));
+          Vector3d norm(d1u.Crossed(d1v).Normalized());
+          Vector3d dnorm(d2u.Crossed(d1v) + d1u.Crossed(d2uv));
           Fpu = (dnorm.Dot(myDir)-myCosAng*dnorm.Dot(norm))/myMean;
           dnorm = d2uv.Crossed(d1v) + d1u.Crossed(d2v);
           Fpv = (dnorm.Dot(myDir)-myCosAng*dnorm.Dot(norm))/myMean;
@@ -271,7 +271,7 @@ Standard_Boolean Contap_SurfFunction::IsTangent()
     else
     {
       d2d = gp_Dir2d(-Fpv, Fpu);
-      gp_Vec d1u, d1v;
+      Vector3d d1u, d1v;
       Adaptor3d_HSurfaceTool::D1(mySurf, Usol, Vsol, solpt, d1u, d1v); // ajout jag 02.95
 
       gp_XYZ d3dxyz(-Fpv * d1u.XYZ());

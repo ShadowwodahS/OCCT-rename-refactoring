@@ -441,7 +441,7 @@ void IntPolyh_MaillageAffinage::FillArrayOfPnt(const Standard_Integer           
       aV = theVPars(j);
 
       const IntPolyh_PointNormal& aPN   = thePointsNorm.Value(iCnt);
-      gp_Vec                      aNorm = aPN.Normal.Multiplied(1.5 * theDeflTol);
+      Vector3d                      aNorm = aPN.Normal.Multiplied(1.5 * theDeflTol);
       if (!isShiftFwd)
         aNorm.Reverse();
       Point3d aP = aPN.Point.Translated(aNorm);
@@ -1921,8 +1921,8 @@ void CalculPtsInterTriEdgeCoplanaires(const Standard_Integer   TriSurfID,
 {
   Standard_Real aDE, aDC;
   //
-  gp_Vec aVE(Edge.X(), Edge.Y(), Edge.Z());
-  gp_Vec aVC(Cote.X(), Cote.Y(), Cote.Z());
+  Vector3d aVE(Edge.X(), Edge.Y(), Edge.Z());
+  Vector3d aVC(Cote.X(), Cote.Y(), Cote.Z());
   //
   aDE = aVE.SquareMagnitude();
   aDC = aVC.SquareMagnitude();

@@ -59,7 +59,7 @@
 #include <TopoDS_Wire.hxx>
 #include <Geom_Surface.hxx>
 
-static gp_Vec MakeFinVec(const TopoDS_Wire& aWire, const TopoDS_Vertex& aVertex)
+static Vector3d MakeFinVec(const TopoDS_Wire& aWire, const TopoDS_Vertex& aVertex)
 {
   TopoDS_Vertex          Vfirst, Vlast, Origin;
   BRepTools_WireExplorer Explo(aWire);
@@ -77,7 +77,7 @@ static gp_Vec MakeFinVec(const TopoDS_Wire& aWire, const TopoDS_Vertex& aVertex)
       break;
     }
   }
-  return gp_Vec(BRep_Tool::Pnt(Origin), BRep_Tool::Pnt(aVertex));
+  return Vector3d(BRep_Tool::Pnt(Origin), BRep_Tool::Pnt(aVertex));
 }
 
 static TopoDS_Wire WireFromList(TopTools_ListOfShape& Edges)
@@ -496,7 +496,7 @@ void BRepFill_Filling::FindExtremitiesOfHoles(const TopTools_ListOfShape& WireLi
     return;
   }
 
-  gp_Vec        FinVec    = MakeFinVec(theWire, Vlast);
+  Vector3d        FinVec    = MakeFinVec(theWire, Vlast);
   TopoDS_Vertex theVertex = Vlast;
   VerSeq.Append(Vlast);
 
@@ -512,7 +512,7 @@ void BRepFill_Filling::FindExtremitiesOfHoles(const TopTools_ListOfShape& WireLi
       const TopoDS_Wire& CurWire = TopoDS::Wire(WireSeq(i));
       TopExp::Vertices(CurWire, Vfirst, Vlast);
 
-      Standard_Real angle = FinVec.Angle(gp_Vec(BRep_Tool::Pnt(theVertex), BRep_Tool::Pnt(Vfirst)));
+      Standard_Real angle = FinVec.Angle(Vector3d(BRep_Tool::Pnt(theVertex), BRep_Tool::Pnt(Vfirst)));
       if (angle < MinAngle)
       {
         MinAngle = angle;
@@ -520,7 +520,7 @@ void BRepFill_Filling::FindExtremitiesOfHoles(const TopTools_ListOfShape& WireLi
         MinInd   = i;
         IsLast   = Standard_True;
       }
-      angle = FinVec.Angle(gp_Vec(BRep_Tool::Pnt(theVertex), BRep_Tool::Pnt(Vlast)));
+      angle = FinVec.Angle(Vector3d(BRep_Tool::Pnt(theVertex), BRep_Tool::Pnt(Vlast)));
       if (angle < MinAngle)
       {
         MinAngle = angle;

@@ -66,8 +66,8 @@ void HLRTopoBRep_OutLiner::Fill(const HLRAlgo_Projector&       P,
   {
     if (myOutLinedShape.IsNull())
     {
-      gp_Vec  Vecz(0., 0., 1.);
-      gp_Trsf Tr(P.Transformation());
+      Vector3d  Vecz(0., 0., 1.);
+      Transform3d Tr(P.Transformation());
       Tr.Invert();
       Vecz.Transform(Tr);
       Contap_Contour FO;
@@ -79,7 +79,7 @@ void HLRTopoBRep_OutLiner::Fill(const HLRAlgo_Projector&       P,
       }
       else
       {
-        gp_Dir DirZ(Vecz);
+        Dir3d DirZ(Vecz);
         FO.Init(DirZ);
       }
       HLRTopoBRep_DSFiller::Insert(myOriginalShape, FO, myDS, MST, nbIso);

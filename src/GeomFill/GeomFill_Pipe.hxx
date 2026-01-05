@@ -28,7 +28,7 @@ class GeomFill_LocationLaw;
 class GeomFill_SectionLaw;
 class Geom_Curve;
 class Geom2d_Curve;
-class gp_Dir;
+class Dir3d;
 
 //! Describes functions to construct pipes. A pipe is built by
 //! sweeping a curve (the section) along another curve (the path).
@@ -114,7 +114,7 @@ public:
   //! binormal direction <Dir>
   Standard_EXPORT GeomFill_Pipe(const Handle(Geom_Curve)& Path,
                                 const Handle(Geom_Curve)& FirstSect,
-                                const gp_Dir&             Dir);
+                                const Dir3d&             Dir);
 
   //! Create a pipe with an evolving section
   //! The section evaluate from First to Last Section
@@ -197,7 +197,7 @@ public:
 
   Standard_EXPORT void Init(const Handle(Geom_Curve)& Path,
                             const Handle(Geom_Curve)& FirstSect,
-                            const gp_Dir&             Dir);
+                            const Dir3d&             Dir);
 
   Standard_EXPORT void Init(const Handle(Geom_Curve)& Path,
                             const Handle(Geom_Curve)& FirstSect,

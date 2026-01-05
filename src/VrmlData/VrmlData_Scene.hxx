@@ -130,7 +130,7 @@ public:
    * @param theLocation
    *   Location of the found node with respect to the whole VRML shape.
    */
-  Standard_EXPORT Handle(VrmlData_Node) FindNode(const char* theName, gp_Trsf& theLocation) const;
+  Standard_EXPORT Handle(VrmlData_Node) FindNode(const char* theName, Transform3d& theLocation) const;
 
   /**
    * Export to text stream (file or else).

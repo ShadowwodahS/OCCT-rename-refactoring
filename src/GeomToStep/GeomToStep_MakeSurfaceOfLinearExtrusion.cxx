@@ -39,7 +39,7 @@ GeomToStep_MakeSurfaceOfLinearExtrusion::GeomToStep_MakeSurfaceOfLinearExtrusion
   Handle(StepGeom_Vector)                   aExtrusionAxis;
 
   GeomToStep_MakeCurve  MkCurve(S->BasisCurve(), theLocalFactors);
-  GeomToStep_MakeVector MkVector(gp_Vec(S->Direction()), theLocalFactors);
+  GeomToStep_MakeVector MkVector(Vector3d(S->Direction()), theLocalFactors);
 
   aSweptCurve    = MkCurve.Value();
   aExtrusionAxis = MkVector.Value();

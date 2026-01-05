@@ -26,7 +26,7 @@
 #include <TopTools_HSequenceOfShape.hxx>
 #include <Standard_Integer.hxx>
 #include <TopoDS_Wire.hxx>
-class gp_Dir;
+class Dir3d;
 class Point3d;
 
 //! The  Projection   class provides  conical  and
@@ -41,7 +41,7 @@ public:
   //! Makes a Cylindrical projection of Wire om Shape
   Standard_EXPORT BRepProj_Projection(const TopoDS_Shape& Wire,
                                       const TopoDS_Shape& Shape,
-                                      const gp_Dir&       D);
+                                      const Dir3d&       D);
 
   //! Makes a Conical projection of Wire om Shape
   Standard_EXPORT BRepProj_Projection(const TopoDS_Shape& Wire,

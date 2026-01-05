@@ -23,11 +23,11 @@
 #include <Geom_Conic.hxx>
 #include <Standard_Integer.hxx>
 class gp_Parab;
-class gp_Ax2;
-class gp_Ax1;
+class Frame3d;
+class Axis3d;
 class Point3d;
-class gp_Vec;
-class gp_Trsf;
+class Vector3d;
+class Transform3d;
 class Geom_Geometry;
 
 class Geom_Parabola;
@@ -37,7 +37,7 @@ DEFINE_STANDARD_HANDLE(Geom_Parabola, Geom_Conic)
 //! A parabola is defined by its focal length (i.e. the
 //! distance between its focus and its apex) and is
 //! positioned in space with a coordinate system
-//! (gp_Ax2 object) where:
+//! (Frame3d object) where:
 //! - the origin is the apex of the parabola,
 //! - the "X Axis" defines the axis of symmetry; the
 //! parabola is on the positive side of this axis,
@@ -80,7 +80,7 @@ public:
   //! of the parabola. The Location point of A2 is the vertex of
   //! the parabola
   //! Raised if Focal < 0.0
-  Standard_EXPORT Geom_Parabola(const gp_Ax2& A2, const Standard_Real Focal);
+  Standard_EXPORT Geom_Parabola(const Frame3d& A2, const Standard_Real Focal);
 
   //! D is the directrix of the parabola and F the focus point.
   //! The symmetry axis (XAxis) of the parabola is normal to the
@@ -90,7 +90,7 @@ public:
   //! point is the vertex of the parabola. The normal to the plane
   //! of the parabola is the cross product between the XAxis and the
   //! YAxis.
-  Standard_EXPORT Geom_Parabola(const gp_Ax1& D, const Point3d& F);
+  Standard_EXPORT Geom_Parabola(const Axis3d& D, const Point3d& F);
 
   //! Assigns the value Focal to the focal distance of this parabola.
   //! Exceptions Standard_ConstructionError if Focal is negative.
@@ -131,9 +131,9 @@ public:
   //! plane of this parabola, located on the negative side
   //! of its axis of symmetry, at a distance from the apex
   //! equal to the focal length.
-  //! The directrix is returned as an axis (gp_Ax1 object),
+  //! The directrix is returned as an axis (Axis3d object),
   //! where the origin is located on the "X Axis" of this parabola.
-  Standard_EXPORT gp_Ax1 Directrix() const;
+  Standard_EXPORT Axis3d Directrix() const;
 
   //! Returns 1. (which is the eccentricity of any parabola).
   Standard_EXPORT Standard_Real Eccentricity() const Standard_OVERRIDE;
@@ -164,31 +164,31 @@ public:
   Standard_EXPORT void D0(const Standard_Real U, Point3d& P) const Standard_OVERRIDE;
 
   //! Returns the point P of parameter U and the first derivative V1.
-  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, gp_Vec& V1) const Standard_OVERRIDE;
+  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, Vector3d& V1) const Standard_OVERRIDE;
 
   //! Returns the point P of parameter U, the first and second
   //! derivatives V1 and V2.
   Standard_EXPORT void D2(const Standard_Real U,
                           Point3d&             P,
-                          gp_Vec&             V1,
-                          gp_Vec&             V2) const Standard_OVERRIDE;
+                          Vector3d&             V1,
+                          Vector3d&             V2) const Standard_OVERRIDE;
 
   //! Returns the point P of parameter U, the first second and third
   //! derivatives V1 V2 and V3.
   Standard_EXPORT void D3(const Standard_Real U,
                           Point3d&             P,
-                          gp_Vec&             V1,
-                          gp_Vec&             V2,
-                          gp_Vec&             V3) const Standard_OVERRIDE;
+                          Vector3d&             V1,
+                          Vector3d&             V2,
+                          Vector3d&             V3) const Standard_OVERRIDE;
 
   //! For the point of parameter U of this parabola,
   //! computes the vector corresponding to the Nth derivative.
   //! Exceptions Standard_RangeError if N is less than 1.
-  Standard_EXPORT gp_Vec DN(const Standard_Real    U,
+  Standard_EXPORT Vector3d DN(const Standard_Real    U,
                             const Standard_Integer N) const Standard_OVERRIDE;
 
   //! Applies the transformation T to this parabola.
-  Standard_EXPORT void Transform(const gp_Trsf& T) Standard_OVERRIDE;
+  Standard_EXPORT void Transform(const Transform3d& T) Standard_OVERRIDE;
 
   //! Returns the  parameter on the  transformed  curve for
   //! the transform of the point of parameter U on <me>.
@@ -201,7 +201,7 @@ public:
   //!
   //! This methods returns <U> * T.ScaleFactor()
   Standard_EXPORT Standard_Real TransformedParameter(const Standard_Real U,
-                                                     const gp_Trsf&      T) const Standard_OVERRIDE;
+                                                     const Transform3d&      T) const Standard_OVERRIDE;
 
   //! Returns a  coefficient to compute the parameter on
   //! the transformed  curve  for  the transform  of the
@@ -214,7 +214,7 @@ public:
   //! Value(U).Transformed(T)
   //!
   //! This methods returns T.ScaleFactor()
-  Standard_EXPORT Standard_Real ParametricTransformation(const gp_Trsf& T) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Real ParametricTransformation(const Transform3d& T) const Standard_OVERRIDE;
 
   //! Creates a new object which is a copy of this parabola.
   Standard_EXPORT Handle(Geom_Geometry) Copy() const Standard_OVERRIDE;

@@ -1044,7 +1044,7 @@ void BRepAlgo_Loop::UpdateVEmap(TopTools_IndexedDataMapOfShapeListOfShape& theVE
       Points(++jj)                 = aPnt;
     }
 
-    gp_Ax2           anAxis;
+    Frame3d           anAxis;
     Standard_Boolean IsSingular;
     GeomLib::AxeOfInertia(Points, anAxis, IsSingular);
     Point3d        aCentre  = anAxis.Location();

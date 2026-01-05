@@ -128,7 +128,7 @@ void ShapeUpgrade_SplitCurve3d::Build(const Standard_Boolean Segment)
     Handle(Geom_OffsetCurve)  tmp      = Handle(Geom_OffsetCurve)::DownCast(myCurve);
     Handle(Geom_Curve)        BasCurve = tmp->BasisCurve();
     Standard_Real             Offset   = tmp->Offset();
-    gp_Dir                    Direct   = tmp->Direction();
+    Dir3d                    Direct   = tmp->Direction();
     ShapeUpgrade_SplitCurve3d spc;
     spc.Init(BasCurve, First, Last);
     spc.SetSplitValues(mySplitValues);

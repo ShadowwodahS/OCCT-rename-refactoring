@@ -257,7 +257,7 @@ static Standard_Integer gplate(Draw_Interpretor& di, Standard_Integer n, const c
   {
     //      Point3d P1,P2,P3;
     Point3d P1;
-    //      gp_Vec V1,V2,V3,V4,V5;
+    //      Vector3d V1,V2,V3,V4,V5;
 
     if (DrawTrSurf::GetPoint(a[Indice], P1))
     {

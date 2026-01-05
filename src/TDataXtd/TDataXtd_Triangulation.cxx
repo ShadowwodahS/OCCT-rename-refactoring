@@ -227,7 +227,7 @@ void TDataXtd_Triangulation::SetTriangle(const Standard_Integer theIndex,
 // purpose  : Changes normal at the given index.
 //           Raises Standard_OutOfRange exception.
 //=======================================================================
-void TDataXtd_Triangulation::SetNormal(const Standard_Integer theIndex, const gp_Dir& theNormal)
+void TDataXtd_Triangulation::SetNormal(const Standard_Integer theIndex, const Dir3d& theNormal)
 {
   Backup();
   myTriangulation->SetNormal(theIndex, theNormal);
@@ -247,7 +247,7 @@ Standard_Boolean TDataXtd_Triangulation::HasNormals() const
 // purpose  : return normal at the given index.
 //           Raises Standard_OutOfRange exception.
 //=======================================================================
-gp_Dir TDataXtd_Triangulation::Normal(const Standard_Integer theIndex) const
+Dir3d TDataXtd_Triangulation::Normal(const Standard_Integer theIndex) const
 {
   return myTriangulation->Normal(theIndex);
 }

@@ -126,33 +126,33 @@ void Adaptor3d_Curve::D0(const Standard_Real, Point3d&) const
 
 //=================================================================================================
 
-// void Adaptor3d_Curve::D1(const Standard_Real U, Point3d& P, gp_Vec& V) const
-void Adaptor3d_Curve::D1(const Standard_Real, Point3d&, gp_Vec&) const
+// void Adaptor3d_Curve::D1(const Standard_Real U, Point3d& P, Vector3d& V) const
+void Adaptor3d_Curve::D1(const Standard_Real, Point3d&, Vector3d&) const
 {
   throw Standard_NotImplemented("Adaptor3d_Curve::D1");
 }
 
 //=================================================================================================
 
-// void Adaptor3d_Curve::D2(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2) const
-void Adaptor3d_Curve::D2(const Standard_Real, Point3d&, gp_Vec&, gp_Vec&) const
+// void Adaptor3d_Curve::D2(const Standard_Real U, Point3d& P, Vector3d& V1, Vector3d& V2) const
+void Adaptor3d_Curve::D2(const Standard_Real, Point3d&, Vector3d&, Vector3d&) const
 {
   throw Standard_NotImplemented("Adaptor3d_Curve::D2");
 }
 
 //=================================================================================================
 
-// void Adaptor3d_Curve::D3(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2, gp_Vec& V3)
+// void Adaptor3d_Curve::D3(const Standard_Real U, Point3d& P, Vector3d& V1, Vector3d& V2, Vector3d& V3)
 // const
-void Adaptor3d_Curve::D3(const Standard_Real, Point3d&, gp_Vec&, gp_Vec&, gp_Vec&) const
+void Adaptor3d_Curve::D3(const Standard_Real, Point3d&, Vector3d&, Vector3d&, Vector3d&) const
 {
   throw Standard_NotImplemented("Adaptor3d_Curve::D3");
 }
 
 //=================================================================================================
 
-// gp_Vec Adaptor3d_Curve::DN(const Standard_Real U, const Standard_Integer N) const
-gp_Vec Adaptor3d_Curve::DN(const Standard_Real, const Standard_Integer) const
+// Vector3d Adaptor3d_Curve::DN(const Standard_Real U, const Standard_Integer N) const
+Vector3d Adaptor3d_Curve::DN(const Standard_Real, const Standard_Integer) const
 {
   throw Standard_NotImplemented("Adaptor3d_Curve::DN");
 }

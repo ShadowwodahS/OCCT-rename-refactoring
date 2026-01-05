@@ -89,7 +89,7 @@ Standard_Integer DNaming_CylinderDriver::Execute(Handle(TFunction_Logbook)& theL
     aFunction->SetFailure(WRONG_AXIS);
     return -1;
   }
-  // Creation of gp axis (gp_Ax2):
+  // Creation of gp axis (Frame3d):
   if (aTopoDSAxis.ShapeType() != TopAbs_EDGE && aTopoDSAxis.ShapeType() != TopAbs_WIRE)
   {
 #ifdef OCCT_DEBUG
@@ -100,7 +100,7 @@ Standard_Integer DNaming_CylinderDriver::Execute(Handle(TFunction_Logbook)& theL
     return -1;
   }
 
-  gp_Ax2 anAxis;
+  Frame3d anAxis;
   if (aTopoDSAxis.ShapeType() == TopAbs_WIRE)
   {
     TopExp_Explorer anExplorer(aTopoDSAxis, TopAbs_EDGE);
@@ -111,7 +111,7 @@ Standard_Integer DNaming_CylinderDriver::Execute(Handle(TFunction_Logbook)& theL
   if (aCurveAda.GetType() == GeomAbs_Line)
   {
     gp_Lin aLin = aCurveAda.Line();
-    anAxis      = gp_Ax2(aLin.Location(), aLin.Direction());
+    anAxis      = Frame3d(aLin.Location(), aLin.Direction());
     if (!aTopoDSAxis.Infinite())
     {
       TopoDS_Vertex V1, V2;

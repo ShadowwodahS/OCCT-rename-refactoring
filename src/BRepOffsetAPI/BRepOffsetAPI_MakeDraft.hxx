@@ -27,7 +27,7 @@
 #include <BRepBuilderAPI_TransitionMode.hxx>
 #include <TopTools_ListOfShape.hxx>
 class TopoDS_Shape;
-class gp_Dir;
+class Dir3d;
 class Geom_Surface;
 class TopoDS_Shell;
 
@@ -45,7 +45,7 @@ public:
   //! Standard_NotDone if Shape is not a TopoDS_Wire,
   //! Topo_DS_Face or TopoDS_Shell with free boundaries.
   Standard_EXPORT BRepOffsetAPI_MakeDraft(const TopoDS_Shape& Shape,
-                                          const gp_Dir&       Dir,
+                                          const Dir3d&       Dir,
                                           const Standard_Real Angle);
 
   //! Sets the options of this draft tool.

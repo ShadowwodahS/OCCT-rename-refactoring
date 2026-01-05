@@ -877,7 +877,7 @@ void DNaming::LoadAndOrientGeneratedShapes(BRepBuilderAPI_MakeShape&           M
 // function : ComputeNormalizedVector
 // purpose  : Computes normalized vector from shape if it is possible
 //=======================================================================
-Standard_Boolean DNaming::ComputeAxis(const Handle(TNaming_NamedShape)& theNS, gp_Ax1& theAx1)
+Standard_Boolean DNaming::ComputeAxis(const Handle(TNaming_NamedShape)& theNS, Axis3d& theAx1)
 {
   if (theNS.IsNull() || theNS->IsEmpty())
     return Standard_False;
@@ -960,7 +960,7 @@ Handle(TNaming_NamedShape) DNaming::GetAttachmentsContext(const Handle(TDataStd_
 // function : ComputeSweepDir
 // purpose  : Computes direction for extrusion
 //=======================================================================
-Standard_Boolean DNaming::ComputeSweepDir(const TopoDS_Shape& theShape, gp_Ax1& theAxis)
+Standard_Boolean DNaming::ComputeSweepDir(const TopoDS_Shape& theShape, Axis3d& theAxis)
 {
   // Find surface
   Handle(Geom_Plane) aPlane;

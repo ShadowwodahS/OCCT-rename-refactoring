@@ -34,7 +34,7 @@ class IGESGeom_Plane;
 class IGESSolid_PlaneSurface;
 class IGESBasic_SingleParent;
 class gp_Pln;
-class gp_Trsf;
+class Transform3d;
 class gp_Trsf2d;
 
 //! Provides methods to transfer topologic surfaces entities
@@ -93,7 +93,7 @@ protected:
 private:
   Standard_EXPORT TopoDS_Shape TransferPlaneParts(const Handle(IGESGeom_Plane)& start,
                                                   gp_Pln&                       gplan,
-                                                  gp_Trsf&                      locat,
+                                                  Transform3d&                      locat,
                                                   const Standard_Boolean        first);
 
   Standard_Real TheULength;

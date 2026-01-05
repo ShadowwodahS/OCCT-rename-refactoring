@@ -52,10 +52,10 @@ public:
 
   //! Initialize a Transition with the local description
   //! of a Curve.
-  Standard_EXPORT void Reset(const gp_Dir& Tgt, const gp_Dir& Norm, const Standard_Real Curv);
+  Standard_EXPORT void Reset(const Dir3d& Tgt, const Dir3d& Norm, const Standard_Real Curv);
 
   //! Initialize a Transition with the local description of a straight line.
-  Standard_EXPORT void Reset(const gp_Dir& Tgt);
+  Standard_EXPORT void Reset(const Dir3d& Tgt);
 
   //! Add  a curve element to the  boundary.    If Or is
   //! REVERSED  the curve  is   before the intersection,
@@ -63,8 +63,8 @@ public:
   //! intersection   and    if   Or  is   INTERNAL   the
   //! intersection is in the middle of the curv.
   Standard_EXPORT void Compare(const Standard_Real      Tole,
-                               const gp_Dir&            Tang,
-                               const gp_Dir&            Norm,
+                               const Dir3d&            Tang,
+                               const Dir3d&            Norm,
                                const Standard_Real      Curv,
                                const TopAbs_Orientation S,
                                const TopAbs_Orientation Or);
@@ -87,9 +87,9 @@ private:
   //! before N2,C2 in the edge orientation
   Standard_EXPORT Standard_Boolean IsBefore(const Standard_Real Tole,
                                             const Standard_Real Angl,
-                                            const gp_Dir&       Nor1,
+                                            const Dir3d&       Nor1,
                                             const Standard_Real Cur1,
-                                            const gp_Dir&       Nor2,
+                                            const Dir3d&       Nor2,
                                             const Standard_Real Cur2) const;
 
   //! Compare two angles at tolerance Tole
@@ -97,16 +97,16 @@ private:
                                            const Standard_Real Ang2,
                                            const Standard_Real Tole) const;
 
-  gp_Dir             myTgt;
-  gp_Dir             myNorm;
+  Dir3d             myTgt;
+  Dir3d             myNorm;
   Standard_Real      myCurv;
   Standard_Boolean   Init;
-  gp_Dir             TgtFirst;
-  gp_Dir             NormFirst;
+  Dir3d             TgtFirst;
+  Dir3d             NormFirst;
   Standard_Real      CurvFirst;
   TopAbs_Orientation TranFirst;
-  gp_Dir             TgtLast;
-  gp_Dir             NormLast;
+  Dir3d             TgtLast;
+  Dir3d             NormLast;
   Standard_Real      CurvLast;
   TopAbs_Orientation TranLast;
 };

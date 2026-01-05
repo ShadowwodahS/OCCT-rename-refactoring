@@ -112,7 +112,7 @@ static Standard_Integer sweep(Draw_Interpretor& di, Standard_Integer n, const ch
   }
   else if (Option == GeomFill_IsConstantNormal)
   {
-    gp_Dir             D(Draw::Atof(a[3]), Draw::Atof(a[4]), Draw::Atof(a[5]));
+    Dir3d             D(Draw::Atof(a[3]), Draw::Atof(a[4]), Draw::Atof(a[5]));
     Handle(Geom_Curve) path   = DrawTrSurf::GetCurve(a[6]);
     Handle(Geom_Curve) firstS = DrawTrSurf::GetCurve(a[7]);
     Pipe.Init(path, firstS, D);

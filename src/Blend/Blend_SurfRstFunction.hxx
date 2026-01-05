@@ -31,7 +31,7 @@
 class math_Matrix;
 class Point3d;
 class gp_Pnt2d;
-class gp_Vec;
+class Vector3d;
 class gp_Vec2d;
 class Blend_Point;
 
@@ -134,14 +134,14 @@ public:
   Standard_EXPORT virtual Standard_Boolean IsTangencyPoint() const = 0;
 
   //! Returns the tangent vector at PointOnS, in 3d space.
-  Standard_EXPORT virtual const gp_Vec& TangentOnS() const = 0;
+  Standard_EXPORT virtual const Vector3d& TangentOnS() const = 0;
 
   //! Returns the tangent vector at PointOnS, in the
   //! parametric space of the first surface.
   Standard_EXPORT virtual const gp_Vec2d& Tangent2dOnS() const = 0;
 
   //! Returns the tangent vector at PointOnC, in 3d space.
-  Standard_EXPORT virtual const gp_Vec& TangentOnRst() const = 0;
+  Standard_EXPORT virtual const Vector3d& TangentOnRst() const = 0;
 
   //! Returns the tangent vector at PointOnRst, in the
   //! parametric space of the second surface.
@@ -150,8 +150,8 @@ public:
   //! Enables implementation  of a criterion of decrochage
   //! specific to  the function.
   Standard_EXPORT virtual Standard_Boolean Decroch(const math_Vector& Sol,
-                                                   gp_Vec&            NS,
-                                                   gp_Vec&            TgS) const = 0;
+                                                   Vector3d&            NS,
+                                                   Vector3d&            TgS) const = 0;
 
   //! Returns  if the section is rational
   Standard_EXPORT virtual Standard_Boolean IsRational() const = 0;

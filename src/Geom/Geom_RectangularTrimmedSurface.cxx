@@ -39,11 +39,11 @@
 IMPLEMENT_STANDARD_RTTIEXT(Geom_RectangularTrimmedSurface, Geom_BoundedSurface)
 
 typedef Geom_RectangularTrimmedSurface RectangularTrimmedSurface;
-typedef gp_Ax1                         Ax1;
-typedef gp_Ax2                         Ax2;
+typedef Axis3d                         Ax1;
+typedef Frame3d                         Ax2;
 typedef Point3d                         Pnt;
-typedef gp_Trsf                        Trsf;
-typedef gp_Vec                         Vec;
+typedef Transform3d                        Trsf;
+typedef Vector3d                         Vec;
 
 //=================================================================================================
 
@@ -572,14 +572,14 @@ Standard_Boolean Geom_RectangularTrimmedSurface::IsVClosed() const
 
 void Geom_RectangularTrimmedSurface::TransformParameters(Standard_Real& U,
                                                          Standard_Real& V,
-                                                         const gp_Trsf& T) const
+                                                         const Transform3d& T) const
 {
   basisSurf->TransformParameters(U, V, T);
 }
 
 //=================================================================================================
 
-gp_GTrsf2d Geom_RectangularTrimmedSurface::ParametricTransformation(const gp_Trsf& T) const
+gp_GTrsf2d Geom_RectangularTrimmedSurface::ParametricTransformation(const Transform3d& T) const
 {
   return basisSurf->ParametricTransformation(T);
 }

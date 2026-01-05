@@ -24,7 +24,7 @@
 
 class Law_Function;
 class Point3d;
-class gp_Vec;
+class Vector3d;
 
 class GeomFill_SimpleBound;
 DEFINE_STANDARD_HANDLE(GeomFill_SimpleBound, GeomFill_Boundary)
@@ -75,7 +75,7 @@ public:
 
   Standard_EXPORT Point3d Value(const Standard_Real U) const Standard_OVERRIDE;
 
-  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, gp_Vec& V) const Standard_OVERRIDE;
+  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, Vector3d& V) const Standard_OVERRIDE;
 
   Standard_EXPORT void Reparametrize(const Standard_Real    First,
                                      const Standard_Real    Last,

@@ -98,7 +98,7 @@ public:
 
   //! Constructs a manipulator object with input location and positions of axes and all parts to be
   //! displayed.
-  Standard_EXPORT AIS_Manipulator(const gp_Ax2& thePosition);
+  Standard_EXPORT AIS_Manipulator(const Frame3d& thePosition);
 
   //! Disable or enable visual parts for translation, rotation or scaling for some axis.
   //! By default all parts are enabled (will be displayed).
@@ -200,7 +200,7 @@ public:
     const AIS_DragAction                  theAction) Standard_OVERRIDE;
 
   //! Init start (reference) transformation.
-  //! @warning It is used in chain with StartTransform-Transform(gp_Trsf)-StopTransform
+  //! @warning It is used in chain with StartTransform-Transform(Transform3d)-StopTransform
   //! and is used only for custom transform set. If Transform(const Standard_Integer, const
   //! Standard_Integer) is used, initial data is set automatically, and it is reset on
   //! DeactivateCurrentMode call if it is not reset yet.
@@ -212,10 +212,10 @@ public:
   //! @remark The transformation is set using SetLocalTransformation for owning objects.
   //! The location of the manipulator is stored also in Local Transformation,
   //! so that there's no need to redisplay objects.
-  //! @warning It is used in chain with StartTransform-Transform(gp_Trsf)-StopTransform
+  //! @warning It is used in chain with StartTransform-Transform(Transform3d)-StopTransform
   //! and is used only for custom transform set.
   //! @warning It will does nothing if transformation is not initiated (with StartTransform() call).
-  Standard_EXPORT void Transform(const gp_Trsf& aTrsf);
+  Standard_EXPORT void Transform(const Transform3d& aTrsf);
 
   //! Apply camera transformation to flat skin manipulator
   Standard_EXPORT void RecomputeTransformation(const Handle(Graphic3d_Camera)& theCamera)
@@ -227,14 +227,14 @@ public:
 
   //! Reset start (reference) transformation.
   //! @param[in] theToApply  option to apply or to cancel the started transformation.
-  //! @warning It is used in chain with StartTransform-Transform(gp_Trsf)-StopTransform
+  //! @warning It is used in chain with StartTransform-Transform(Transform3d)-StopTransform
   //! and is used only for custom transform set.
   Standard_EXPORT void StopTransform(const Standard_Boolean theToApply = Standard_True);
 
   //! Apply transformation made from mouse moving from start position
   //! (save on the first Transform() call and reset on DeactivateCurrentMode() call.)
   //! to the in/out mouse position (theX, theY)
-  Standard_EXPORT gp_Trsf Transform(const Standard_Integer  theX,
+  Standard_EXPORT Transform3d Transform(const Standard_Integer  theX,
                                     const Standard_Integer  theY,
                                     const Handle(V3d_View)& theView);
 
@@ -245,7 +245,7 @@ public:
   Standard_EXPORT Standard_Boolean ObjectTransformation(const Standard_Integer  theX,
                                                         const Standard_Integer  theY,
                                                         const Handle(V3d_View)& theView,
-                                                        gp_Trsf&                theTrsf);
+                                                        Transform3d&                theTrsf);
 
   //! Make inactive the current selected manipulator part and reset current axis index and current
   //! mode. After its call HasActiveMode() returns false.
@@ -274,17 +274,17 @@ public:
 
   Standard_Boolean HasActiveTransformation() { return myHasStartedTransformation; }
 
-  gp_Trsf StartTransformation() const
+  Transform3d StartTransformation() const
   {
-    return !myStartTrsfs.IsEmpty() ? myStartTrsfs.First() : gp_Trsf();
+    return !myStartTrsfs.IsEmpty() ? myStartTrsfs.First() : Transform3d();
   }
 
-  gp_Trsf StartTransformation(Standard_Integer theIndex) const
+  Transform3d StartTransformation(Standard_Integer theIndex) const
   {
     Standard_ProgramError_Raise_if(
       theIndex < 1 || theIndex > Objects()->Upper(),
       "AIS_Manipulator::StartTransformation(): theIndex is out of bounds");
-    return !myStartTrsfs.IsEmpty() ? myStartTrsfs(theIndex) : gp_Trsf();
+    return !myStartTrsfs.IsEmpty() ? myStartTrsfs(theIndex) : Transform3d();
   }
 
 public: //! @name Configuration of graphical transformations
@@ -329,10 +329,10 @@ public: //! @name Setters for parameters
   Standard_Integer ActiveAxisIndex() const { return myCurrentIndex; }
 
   //! @return poition of manipulator interactive object.
-  const gp_Ax2& Position() const { return myPosition; }
+  const Frame3d& Position() const { return myPosition; }
 
   //! Sets position of the manipulator object.
-  Standard_EXPORT void SetPosition(const gp_Ax2& thePosition);
+  Standard_EXPORT void SetPosition(const Frame3d& thePosition);
 
   Standard_ShortReal Size() const { return myAxes[0].Size(); }
 
@@ -487,13 +487,13 @@ protected: //! @name Auxiliary classes to fill presentation with proper primitiv
 
     void Init(const Standard_ShortReal theInnerRadius,
               const Standard_ShortReal theOuterRadius,
-              const gp_Ax1&            thePosition,
+              const Axis3d&            thePosition,
               const Standard_Real      theAngle,
               const Standard_Integer   theSlicesNb = 20,
               const Standard_Integer   theStacksNb = 20);
 
   protected:
-    gp_Ax1             myPosition;
+    Axis3d             myPosition;
     Standard_ShortReal myInnerRad;
     Standard_ShortReal myOuterRad;
   };
@@ -525,7 +525,7 @@ protected: //! @name Auxiliary classes to fill presentation with proper primitiv
 
     ~Cube() {}
 
-    void Init(const gp_Ax1&            thePosition,
+    void Init(const Axis3d&            thePosition,
               const Standard_ShortReal myBoxSize,
               const ManipulatorSkin    theSkinMode);
 
@@ -538,7 +538,7 @@ protected: //! @name Auxiliary classes to fill presentation with proper primitiv
                      const Point3d&          theP1,
                      const Point3d&          theP2,
                      const Point3d&          theP3,
-                     const gp_Dir&          theNormal);
+                     const Dir3d&          theNormal);
 
   protected:
     Handle(Poly_Triangulation)         myTriangulation;
@@ -557,14 +557,14 @@ protected: //! @name Auxiliary classes to fill presentation with proper primitiv
     ~Sector() {}
 
     void Init(const Standard_ShortReal theRadius,
-              const gp_Ax1&            thePosition,
-              const gp_Dir&            theXDirection,
+              const Axis3d&            thePosition,
+              const Dir3d&            theXDirection,
               const ManipulatorSkin    theSkinMode,
               const Standard_Integer   theSlicesNb = 5,
               const Standard_Integer   theStacksNb = 5);
 
   protected:
-    gp_Ax1             myPosition;
+    Axis3d             myPosition;
     Standard_ShortReal myRadius;
   };
 
@@ -576,7 +576,7 @@ protected: //! @name Auxiliary classes to fill presentation with proper primitiv
   class Axis
   {
   public:
-    Axis(const gp_Ax1&            theAxis   = gp_Ax1(),
+    Axis(const Axis3d&            theAxis   = Axis3d(),
          const Quantity_Color&    theColor  = Quantity_Color(),
          const Standard_ShortReal theLength = 10.0f);
 
@@ -585,11 +585,11 @@ protected: //! @name Auxiliary classes to fill presentation with proper primitiv
                  const Handle(Prs3d_ShadingAspect)&        theAspect,
                  const ManipulatorSkin                     theSkinMode);
 
-    const gp_Ax1& ReferenceAxis() const { return myReferenceAxis; }
+    const Axis3d& ReferenceAxis() const { return myReferenceAxis; }
 
-    void SetPosition(const gp_Ax1& thePosition) { myPosition = thePosition; }
+    void SetPosition(const Axis3d& thePosition) { myPosition = thePosition; }
 
-    const gp_Ax1& Position() const { return myPosition; }
+    const Axis3d& Position() const { return myPosition; }
 
     void SetTransformPersistence(const Handle(Graphic3d_TransformPers)& theTrsfPers)
     {
@@ -734,8 +734,8 @@ protected: //! @name Auxiliary classes to fill presentation with proper primitiv
     const Point3d& ScalerCubePosition() const { return myCubePos; }
 
   protected:
-    gp_Ax1         myReferenceAxis; //!< Returns reference axis assignment.
-    gp_Ax1         myPosition;      //!< Position of the axis including local transformation.
+    Axis3d         myReferenceAxis; //!< Returns reference axis assignment.
+    Axis3d         myPosition;      //!< Position of the axis including local transformation.
     Quantity_Color myColor;
 
     Standard_Boolean   myHasTranslation;
@@ -779,7 +779,7 @@ protected:
   Axis   myAxes[3]; //!< Tree axes of the manipulator.
   Sphere myCenter;  //!< Visual part displaying the center sphere of the manipulator.
                     // clang-format off
-  gp_Ax2 myPosition; //!< Position of the manipulator object. it displays its location and position of its axes.
+  Frame3d myPosition; //!< Position of the manipulator object. it displays its location and position of its axes.
 
   Disk                    myCircle; //!< Outer circle
   Handle(Graphic3d_Group) myCircleGroup;
@@ -797,10 +797,10 @@ protected:
 
 protected: //! @name Fields for interactive transformation. Fields only for internal needs. They do not have public interface.
 
-  NCollection_Sequence<gp_Trsf> myStartTrsfs; //!< Owning object transformation for start. It is used internally.
+  NCollection_Sequence<Transform3d> myStartTrsfs; //!< Owning object transformation for start. It is used internally.
   Standard_Boolean myHasStartedTransformation; //!< Shows if transformation is processed (sequential calls of Transform()).
                                               // clang-format on
-  gp_Ax2        myStartPosition; //! Start position of manipulator.
+  Frame3d        myStartPosition; //! Start position of manipulator.
   Point3d        myStartPick;     //! 3d point corresponding to start mouse pick.
   Standard_Real myPrevState;     //! Previous value of angle during rotation.
 

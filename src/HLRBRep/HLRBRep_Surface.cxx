@@ -75,7 +75,7 @@ Standard_Boolean HLRBRep_Surface::SideRowsOfPoles(const Standard_Real    tol,
   Standard_Real    x0, y0, x, y, z;
   Standard_Boolean result;
   Standard_Real    tole = (Standard_Real)tol;
-  const gp_Trsf&   T    = myProj->Transformation();
+  const Transform3d&   T    = myProj->Transformation();
 
   for (iu = 1; iu <= nbuPoles; iu++)
   {
@@ -138,13 +138,13 @@ Standard_Boolean HLRBRep_Surface::SideRowsOfPoles(const Standard_Real    tol,
 Standard_Boolean HLRBRep_Surface::IsSide(const Standard_Real tolF, const Standard_Real toler) const
 {
   Point3d        Pt;
-  gp_Vec        D;
+  Vector3d        D;
   Standard_Real r;
 
   if (myType == GeomAbs_Plane)
   {
     gp_Pln Pl = Plane();
-    gp_Ax1 A  = Pl.Axis();
+    Axis3d A  = Pl.Axis();
     Pt        = A.Location();
     D         = A.Direction();
     Pt.Transform(myProj->Transformation());
@@ -162,7 +162,7 @@ Standard_Boolean HLRBRep_Surface::IsSide(const Standard_Real tolF, const Standar
     if (myProj->Perspective())
       return Standard_False;
     gp_Cylinder Cyl = HLRBRep_BSurfaceTool::Cylinder(mySurf);
-    gp_Ax1      A   = Cyl.Axis();
+    Axis3d      A   = Cyl.Axis();
     D               = A.Direction();
     D.Transform(myProj->Transformation());
     r = Sqrt(D.X() * D.X() + D.Y() * D.Y());
@@ -276,10 +276,10 @@ gp_Pln HLRBRep_Surface::Plane() const
   {
     case GeomAbs_BezierSurface: {
       Point3d P;
-      gp_Vec D1U;
-      gp_Vec D1V;
+      Vector3d D1U;
+      Vector3d D1V;
       D1(0.5, 0.5, P, D1U, D1V);
-      return gp_Pln(P, gp_Dir(D1U.Crossed(D1V)));
+      return gp_Pln(P, Dir3d(D1U.Crossed(D1V)));
     }
 
     default:

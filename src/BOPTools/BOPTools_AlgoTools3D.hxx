@@ -22,7 +22,7 @@
 #include <Standard_Integer.hxx>
 class TopoDS_Edge;
 class TopoDS_Face;
-class gp_Dir;
+class Dir3d;
 class Geom_Surface;
 class Geom2d_Curve;
 class Point3d;
@@ -56,7 +56,7 @@ public:
     const TopoDS_Edge&              aE,
     const TopoDS_Face&              aF,
     const Standard_Real             aT,
-    gp_Dir&                         aD,
+    Dir3d&                         aD,
     const Handle(IntTools_Context)& theContext = Handle(IntTools_Context)());
 
   //! Computes normal to the face <aF> for the point on the edge <aE>
@@ -65,20 +65,20 @@ public:
   Standard_EXPORT static void GetNormalToFaceOnEdge(
     const TopoDS_Edge&              aE,
     const TopoDS_Face&              aF,
-    gp_Dir&                         aD,
+    Dir3d&                         aD,
     const Handle(IntTools_Context)& theContext = Handle(IntTools_Context)());
 
   //! Returns 1  if scalar product aNF1* aNF2>0.<br>
   //! Returns 0  if directions aNF1 aNF2 coincide<br>
   //! Returns -1 if scalar product aNF1* aNF2<0.
-  Standard_EXPORT static Standard_Integer SenseFlag(const gp_Dir& aNF1, const gp_Dir& aNF2);
+  Standard_EXPORT static Standard_Integer SenseFlag(const Dir3d& aNF1, const Dir3d& aNF2);
 
   //! Compute normal <aD> to surface <aS> in point (U,V)
   //! Returns TRUE if directions aD1U, aD1V coincide
   Standard_EXPORT static Standard_Boolean GetNormalToSurface(const Handle(Geom_Surface)& aS,
                                                              const Standard_Real         U,
                                                              const Standard_Real         V,
-                                                             gp_Dir&                     aD);
+                                                             Dir3d&                     aD);
 
   //! Computes normal to the face <aF> for the 3D-point that
   //! belongs to the edge <aE> at parameter <aT>.<br>
@@ -99,7 +99,7 @@ public:
     const TopoDS_Face&              aF,
     const Standard_Real             aT,
     Point3d&                         aPx,
-    gp_Dir&                         aD,
+    Dir3d&                         aD,
     const Handle(IntTools_Context)& theContext);
 
   //! Computes normal to the face <aF> for the 3D-point that
@@ -119,7 +119,7 @@ public:
                                                                       const TopoDS_Face&  theF,
                                                                       const Standard_Real aT,
                                                                       Point3d&             aP,
-                                                                      gp_Dir&             aDNF,
+                                                                      Dir3d&             aDNF,
                                                                       const Standard_Real aDt2D);
 
   //! Computes normal to the face <aF> for the 3D-point that
@@ -142,7 +142,7 @@ public:
     const Standard_Real             aT,
     const Standard_Real             aDt2D,
     Point3d&                         aP,
-    gp_Dir&                         aDNF,
+    Dir3d&                         aDNF,
     const Handle(IntTools_Context)& theContext);
 
   //! Compute the point <aPx>,  (<aP2D>)  that is near to

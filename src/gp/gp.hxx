@@ -23,9 +23,9 @@
 #include <Standard_Real.hxx>
 
 class Point3d;
-class gp_Dir;
-class gp_Ax1;
-class gp_Ax2;
+class Dir3d;
+class Axis3d;
+class Frame3d;
 class gp_Pnt2d;
 class gp_Dir2d;
 class gp_Ax2d;
@@ -58,41 +58,41 @@ public:
   Standard_EXPORT static const Point3d& Origin();
 
   //! Returns a unit vector with the combination (1,0,0)
-  Standard_EXPORT static const gp_Dir& DX();
+  Standard_EXPORT static const Dir3d& DX();
 
   //! Returns a unit vector with the combination (0,1,0)
-  Standard_EXPORT static const gp_Dir& DY();
+  Standard_EXPORT static const Dir3d& DY();
 
   //! Returns a unit vector with the combination (0,0,1)
-  Standard_EXPORT static const gp_Dir& DZ();
+  Standard_EXPORT static const Dir3d& DZ();
 
   //! Identifies an axis where its origin is Origin
   //! and its unit vector coordinates  X = 1.0,  Y = Z = 0.0
-  Standard_EXPORT static const gp_Ax1& OX();
+  Standard_EXPORT static const Axis3d& OX();
 
   //! Identifies an axis where its origin is Origin
   //! and its unit vector coordinates Y = 1.0,  X = Z = 0.0
-  Standard_EXPORT static const gp_Ax1& OY();
+  Standard_EXPORT static const Axis3d& OY();
 
   //! Identifies an axis where its origin is Origin
   //! and its unit vector coordinates Z = 1.0,  Y = X = 0.0
-  Standard_EXPORT static const gp_Ax1& OZ();
+  Standard_EXPORT static const Axis3d& OZ();
 
   //! Identifies a coordinate system where its origin is Origin,
   //! and its "main Direction" and "X Direction" coordinates
   //! Z = 1.0, X = Y =0.0 and X direction coordinates X = 1.0, Y = Z = 0.0
-  Standard_EXPORT static const gp_Ax2& XOY();
+  Standard_EXPORT static const Frame3d& XOY();
 
   //! Identifies a coordinate system where its origin is Origin,
   //! and its "main Direction" and "X Direction" coordinates
   //! Y = 1.0, X = Z =0.0 and X direction coordinates Z = 1.0, X = Y = 0.0
-  Standard_EXPORT static const gp_Ax2& ZOX();
+  Standard_EXPORT static const Frame3d& ZOX();
 
   //! Identifies a coordinate system where its origin is Origin,
   //! and its "main Direction" and "X Direction" coordinates
   //! X = 1.0, Z = Y =0.0 and X direction coordinates Y = 1.0, X = Z = 0.0
   //! In 2D space
-  Standard_EXPORT static const gp_Ax2& YOZ();
+  Standard_EXPORT static const Frame3d& YOZ();
 
   //! Identifies a Cartesian point with coordinates X = Y = 0.0
   Standard_EXPORT static const gp_Pnt2d& Origin2d();

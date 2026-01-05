@@ -162,10 +162,10 @@ static Standard_Real anOrthogSqValue(const Point3d&                    aBasePnt,
   // F2 = Dot(S_V, Vec(aBasePnt, aProjPnt))
 
   Point3d aProjPnt;
-  gp_Vec aSu, aSv;
+  Vector3d aSu, aSv;
 
   Surf->D1(theU, theV, aProjPnt, aSu, aSv);
-  gp_Vec aBaseVec(aBasePnt, aProjPnt);
+  Vector3d aBaseVec(aBasePnt, aProjPnt);
 
   if (aSu.SquareMagnitude() > Precision::SquareConfusion())
     aSu.Normalize();
@@ -471,7 +471,7 @@ public:
 
   Standard_Boolean D1(const Standard_Real /*theT*/,
                       NCollection_Array1<gp_Vec2d>& /*theVec2d*/,
-                      NCollection_Array1<gp_Vec>& /*theVec*/) const
+                      NCollection_Array1<Vector3d>& /*theVec*/) const
   {
     return Standard_False;
   }
@@ -1747,8 +1747,8 @@ Handle(Geom2d_BSplineCurve) ProjLib_ComputeApproxOnPolarSurface::ProjectUsingIni
       Point3d p12 = BSS->Pole(1, 2);
       Point3d p21 = BSS->Pole(2, 1);
       Point3d p22 = BSS->Pole(2, 2);
-      gp_Vec V1(p11, p12);
-      gp_Vec V2(p21, p22);
+      Vector3d V1(p11, p12);
+      Vector3d V2(p21, p22);
       if (V1.IsEqual(V2, Tol3d, Tol3d / (p11.Distance(p12) * 180 / M_PI)))
       {
         Standard_Integer Dist2Min = IntegerLast();
@@ -1867,8 +1867,8 @@ Handle(Geom2d_BSplineCurve) ProjLib_ComputeApproxOnPolarSurface::ProjectUsingIni
       Point3d p12 = BS->Pole(1, 2);
       Point3d p21 = BS->Pole(2, 1);
       Point3d p22 = BS->Pole(2, 2);
-      gp_Vec V1(p11, p12);
-      gp_Vec V2(p21, p22);
+      Vector3d V1(p11, p12);
+      Vector3d V2(p21, p22);
       if (V1.IsEqual(V2, Tol3d, Tol3d / (p11.Distance(p12) * 180 / M_PI)))
       {
         Standard_Integer Dist2Min = IntegerLast();

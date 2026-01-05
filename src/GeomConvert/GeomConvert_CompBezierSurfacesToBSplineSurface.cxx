@@ -61,7 +61,7 @@ GeomConvert_CompBezierSurfacesToBSplineSurface::GeomConvert_CompBezierSurfacesTo
 {
   Standard_Integer   ii, jj, multU = 0, multV, minus;
   Standard_Boolean   Ok;
-  gp_Vec             vec;
+  Vector3d             vec;
   Standard_Real      V1, V2, V3, Ratio, L1, L2, Tol, val;
   Point3d             P1, P2, P3;
   Handle(Geom_Curve) FirstCurve, SecondCurve;

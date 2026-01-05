@@ -22,7 +22,7 @@
 #include <Standard_Handle.hxx>
 
 #include <BRepPrim_Revolution.hxx>
-class gp_Ax2;
+class Frame3d;
 class Point3d;
 class TopoDS_Face;
 
@@ -38,7 +38,7 @@ public:
   //!
   //! Errors : Major < Resolution
   //! Minor < Resolution
-  Standard_EXPORT BRepPrim_Torus(const gp_Ax2&       Position,
+  Standard_EXPORT BRepPrim_Torus(const Frame3d&       Position,
                                  const Standard_Real Major,
                                  const Standard_Real Minor);
 

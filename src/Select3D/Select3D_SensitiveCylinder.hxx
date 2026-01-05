@@ -32,7 +32,7 @@ public:
                                              const Standard_Real                  theBottomRad,
                                              const Standard_Real                  theTopRad,
                                              const Standard_Real                  theHeight,
-                                             const gp_Trsf&                       theTrsf,
+                                             const Transform3d&                       theTrsf,
                                              const Standard_Boolean theIsHollow = Standard_False);
 
   //! Checks whether the cylinder overlaps current selecting volume
@@ -57,7 +57,7 @@ public:
   Standard_EXPORT virtual Point3d CenterOfGeometry() const Standard_OVERRIDE;
 
   //! Returns cylinder transformation
-  const gp_Trsf& Transformation() const { return myTrsf; }
+  const Transform3d& Transformation() const { return myTrsf; }
 
   //! Returns cylinder top radius
   Standard_Real TopRadius() const { return myTopRadius; }
@@ -72,7 +72,7 @@ public:
   Standard_Boolean IsHollow() const { return myIsHollow; }
 
 protected:
-  gp_Trsf          myTrsf;         //!< cylinder transformation to apply
+  Transform3d          myTrsf;         //!< cylinder transformation to apply
   Standard_Real    myBottomRadius; //!< cylinder bottom radius
   Standard_Real    myTopRadius;    //!< cylinder top radius
   Standard_Real    myHeight;       //!< cylinder height

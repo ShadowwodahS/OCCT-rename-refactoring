@@ -24,7 +24,7 @@
 #include <Prs3d_Presentation.hxx>
 
 class Point3d;
-class gp_Dir;
+class Dir3d;
 
 //! A framework to define display of tangents.
 class DsgPrs_TangentPresentation
@@ -39,7 +39,7 @@ public:
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Handle(Prs3d_Drawer)&       aDrawer,
                                   const Point3d&                     OffsetPoint,
-                                  const gp_Dir&                     aDirection,
+                                  const Dir3d&                     aDirection,
                                   const Standard_Real               aLength);
 
 protected:

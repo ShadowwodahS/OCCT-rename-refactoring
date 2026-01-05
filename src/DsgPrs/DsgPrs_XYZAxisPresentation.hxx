@@ -24,7 +24,7 @@
 #include <Prs3d_Presentation.hxx>
 
 class Prs3d_LineAspect;
-class gp_Dir;
+class Dir3d;
 class Point3d;
 class Prs3d_ArrowAspect;
 class Prs3d_TextAspect;
@@ -46,7 +46,7 @@ public:
   //! Each axis will be identified as X, Y, or Z by the text aText.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Handle(Prs3d_LineAspect)&   anLineAspect,
-                                  const gp_Dir&                     aDir,
+                                  const Dir3d&                     aDir,
                                   const Standard_Real               aVal,
                                   const Standard_CString            aText,
                                   const Point3d&                     aPfirst,
@@ -57,7 +57,7 @@ public:
                                   const Handle(Prs3d_LineAspect)&   aLineAspect,
                                   const Handle(Prs3d_ArrowAspect)&  anArrowAspect,
                                   const Handle(Prs3d_TextAspect)&   aTextAspect,
-                                  const gp_Dir&                     aDir,
+                                  const Dir3d&                     aDir,
                                   const Standard_Real               aVal,
                                   const Standard_CString            aText,
                                   const Point3d&                     aPfirst,

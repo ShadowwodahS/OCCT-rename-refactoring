@@ -747,8 +747,8 @@ static Standard_Integer profile(Draw_Interpretor& di, Standard_Integer n, const 
         if (i >= n)
           goto badargs;
         {
-          gp_Vec vn(Draw::Atof(a[i - 5]), Draw::Atof(a[i - 4]), Draw::Atof(a[i - 3]));
-          gp_Vec vx(Draw::Atof(a[i - 2]), Draw::Atof(a[i - 1]), Draw::Atof(a[i]));
+          Vector3d vn(Draw::Atof(a[i - 5]), Draw::Atof(a[i - 4]), Draw::Atof(a[i - 3]));
+          Vector3d vx(Draw::Atof(a[i - 2]), Draw::Atof(a[i - 1]), Draw::Atof(a[i]));
           if (vn.Magnitude() <= Precision::Confusion())
           {
             di << "profile : null direction";
@@ -759,7 +759,7 @@ static Standard_Integer profile(Draw_Interpretor& di, Standard_Integer n, const 
             di << "profile : null direction";
             return 1;
           }
-          gp_Ax2 ax(P.Location(), vn, vx);
+          Frame3d ax(P.Location(), vn, vx);
           P.SetPosition(ax);
         }
         stayfirst = Standard_True;

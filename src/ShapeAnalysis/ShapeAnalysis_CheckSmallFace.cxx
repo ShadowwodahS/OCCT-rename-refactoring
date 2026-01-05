@@ -871,7 +871,7 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckTwisted(const TopoDS_Face& F
   Standard_Real u = umin, du = (umax - umin) / nbint;
   Standard_Real v = vmin, dv = (umax - umin) / nbint;
 
-  // gp_Dir norm;
+  // Dir3d norm;
   for (iu = 1; iu <= nbint; iu++)
   {
     for (iv = 1; iv <= nbint; iv++)
@@ -879,7 +879,7 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckTwisted(const TopoDS_Face& F
       //      GLS.SetParameters (u,v);
       //      if (GLS.IsNormalDefined()) norm = GLS.Normal();
       Point3d curp;
-      gp_Vec V1, V2, VXnorm;
+      Vector3d V1, V2, VXnorm;
       GAS.D1(u, v, curp, V1, V2);
       VXnorm = V1.Crossed(V2);
       nx.SetValue(iu, iv, VXnorm.X());
@@ -1076,7 +1076,7 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckPinEdges(const TopoDS_Edge& 
   else if (pv.Distance(pp2) <= tol)
     paramc2 = cl2;
   // Computing first derivative vectors and compare angle
-  //   gp_Vec V11, V12, V21, V22;
+  //   Vector3d V11, V12, V21, V22;
   //   Point3d tmp;
   //   C1->D2(paramc1, tmp, V11, V21);
   //   C2->D2(paramc2, tmp, V12, V22);
@@ -1129,7 +1129,7 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckPinEdges(const TopoDS_Edge& 
   if (dist <= tol)
   {
     // Computing first derivative vectors and compare angle
-    gp_Vec V11, V12, V21, V22;
+    Vector3d V11, V12, V21, V22;
     Point3d tmp;
     C1->D2(paramc1, tmp, V11, V21);
     C2->D2(paramc2, tmp, V12, V22);

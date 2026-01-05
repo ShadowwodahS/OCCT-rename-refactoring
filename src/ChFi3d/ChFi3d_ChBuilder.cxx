@@ -113,7 +113,7 @@ void ExtentSpineOnCommonFace(Handle(ChFiDS_Spine)&  Spine1,
   Standard_Real d1plus = 0., d2plus = 0.;
 
   Point3d tmp;
-  gp_Vec tg1, tg2;
+  Vector3d tg1, tg2;
   Spine1->D1(Spine1->Absc(V), tmp, tg1);
   Spine2->D1(Spine2->Absc(V), tmp, tg2);
   tg1.Normalize();
@@ -735,7 +735,7 @@ Standard_Boolean ChFi3d_ChBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           
   Standard_Real MaxStep     = longueur * 0.05;
   Standard_Real radiusspine = 0, locfleche, w;
   Point3d        Pbid;
-  gp_Vec        d1, d2;
+  Vector3d        d1, d2;
   // As ElSpine is parameterized by a curvilinear quasi-abscissa,
   // the min radius is estimated as 1/D2 max;
   // for(Standard_Integer i = 0; i <= 20; i++){
@@ -1325,7 +1325,7 @@ Standard_Boolean ChFi3d_ChBuilder::PerformFirstSection(const Handle(ChFiDS_Spine
     BRepBlend_Walking TheWalk(S1, S2, I1, I2, HGuide);
 
     // calculate an approximate starting solution
-    gp_Vec TgF, TgL, tmp1, tmp2, d1gui;
+    Vector3d TgF, TgL, tmp1, tmp2, d1gui;
     Point3d pt1, pt2, ptgui;
     gp_XYZ temp;
 
@@ -1414,7 +1414,7 @@ Standard_Boolean ChFi3d_ChBuilder::PerformFirstSection(const Handle(ChFiDS_Spine
     BRepBlend_Walking TheWalk(S1, S2, I1, I2, HGuide);
 
     // calculate an approximate starting solution
-    gp_Vec TgF, TgL, tmp1, tmp2, d1gui;
+    Vector3d TgF, TgL, tmp1, tmp2, d1gui;
     Point3d pt1, pt2, ptgui;
     gp_XYZ temp;
 
@@ -1496,7 +1496,7 @@ Standard_Boolean ChFi3d_ChBuilder::PerformFirstSection(const Handle(ChFiDS_Spine
     BRepBlend_Walking TheWalk(S1, S2, I1, I2, HGuide);
 
     // calculate an approximate starting solution
-    gp_Vec TgF, TgL, tmp1, tmp2, d1gui;
+    Vector3d TgF, TgL, tmp1, tmp2, d1gui;
     Point3d pt1, pt2, ptgui;
     gp_XYZ temp;
 
@@ -1928,7 +1928,7 @@ void ChFi3d_ChBuilder::ExtentOneCorner(const TopoDS_Vertex& V, const Handle(ChFi
       }
     }
 
-    gp_Vec tg1, tg2, tgsp;
+    Vector3d tg1, tg2, tgsp;
     Point3d tmp, ptgui;
     Spine->D1(Spine->Absc(V),ptgui,tgsp);
     if (isfirst)
@@ -2219,7 +2219,7 @@ void ChFi3d_ChBuilder::SetRegul()
   BRepAdaptor_Curve2d                PC;
   Standard_Real                      u, v, t;
   Point3d                             p;
-  gp_Vec                             n1, n2, du, dv;
+  Vector3d                             n1, n2, du, dv;
   BRep_Builder                       B;
   Standard_Real                      Seuil  = M_PI / 360.;
   Standard_Real                      Seuil2 = Seuil * Seuil;

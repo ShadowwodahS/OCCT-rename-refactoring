@@ -32,7 +32,7 @@ static Standard_Boolean IsTangentDefined (LProp_SLProps& SProp,
                                           LProp_Status&  theStatus)
 {
   Standard_Real Tol = linTol * linTol;
-  gp_Vec V[2];
+  Vector3d V[2];
   Order = 0;
 
   while (Order < 3)
@@ -145,7 +145,7 @@ const Point3d& LProp_SLProps::Value() const
   return myPnt;
 }
 
-const gp_Vec& LProp_SLProps::D1U()
+const Vector3d& LProp_SLProps::D1U()
 {
   if (myDerOrder < 1)
   {
@@ -156,7 +156,7 @@ const gp_Vec& LProp_SLProps::D1U()
   return myD1u;
 }
 
-const gp_Vec& LProp_SLProps::D1V()
+const Vector3d& LProp_SLProps::D1V()
 {
   if (myDerOrder < 1)
   {
@@ -167,7 +167,7 @@ const gp_Vec& LProp_SLProps::D1V()
   return myD1v;
 }
 
-const gp_Vec& LProp_SLProps::D2U()
+const Vector3d& LProp_SLProps::D2U()
 {
   if (myDerOrder < 2) 
   {
@@ -178,7 +178,7 @@ const gp_Vec& LProp_SLProps::D2U()
   return myD2u;
 }
 
-const gp_Vec& LProp_SLProps::D2V()
+const Vector3d& LProp_SLProps::D2V()
 {
   if (myDerOrder < 2) 
   {
@@ -189,7 +189,7 @@ const gp_Vec& LProp_SLProps::D2V()
   return myD2v;
 }
 
-const gp_Vec& LProp_SLProps::DUV()
+const Vector3d& LProp_SLProps::DUV()
 {
   if (myDerOrder < 2) 
   {
@@ -213,13 +213,13 @@ Standard_Boolean LProp_SLProps::IsTangentUDefined ()
           mySignificantFirstDerivativeOrderU, myUTangentStatus);
 }
 
-void LProp_SLProps::TangentU (gp_Dir& D) 
+void LProp_SLProps::TangentU (Dir3d& D) 
 {
   if(!IsTangentUDefined())
     throw LProp_NotDefined();
 
   if(mySignificantFirstDerivativeOrderU == 1)
-    D = gp_Dir(myD1u);
+    D = Dir3d(myD1u);
   else
   {
     const Standard_Real DivisionFactor = 1.e-3;
@@ -234,7 +234,7 @@ void LProp_SLProps::TangentU (gp_Dir& D)
     
     const Standard_Real aDeltaU = Max(du*DivisionFactor,MinStep);
 
-    gp_Vec V = myD2u;
+    Vector3d V = myD2u;
     
     Standard_Real u;
           
@@ -247,13 +247,13 @@ void LProp_SLProps::TangentU (gp_Dir& D)
     Tool::Value(mySurf, Min(myU, u),myV,P1);
     Tool::Value(mySurf, Max(myU, u),myV,P2);
     
-    gp_Vec V1(P1,P2);
+    Vector3d V1(P1,P2);
     Standard_Real aDirFactor = V.Dot(V1);
     
     if(aDirFactor < 0.0)
       V = -V;
     
-    D = gp_Dir(V);
+    D = Dir3d(V);
   }
 }
 
@@ -270,13 +270,13 @@ Standard_Boolean LProp_SLProps::IsTangentVDefined ()
           mySignificantFirstDerivativeOrderV, myVTangentStatus);
 }
 
-void LProp_SLProps::TangentV (gp_Dir& D)
+void LProp_SLProps::TangentV (Dir3d& D)
 {
   if(!IsTangentVDefined())
     throw LProp_NotDefined();
   
   if(mySignificantFirstDerivativeOrderV == 1)
-    D = gp_Dir(myD1v);
+    D = Dir3d(myD1v);
   else
   {
     const Standard_Real DivisionFactor = 1.e-3;
@@ -292,7 +292,7 @@ void LProp_SLProps::TangentV (gp_Dir& D)
     
     const Standard_Real aDeltaV = Max(dv*DivisionFactor,MinStep);
 
-    gp_Vec V = myD2v;
+    Vector3d V = myD2v;
     
     Standard_Real v;
           
@@ -305,13 +305,13 @@ void LProp_SLProps::TangentV (gp_Dir& D)
     Tool::Value(mySurf, myU, Min(myV, v),P1);
     Tool::Value(mySurf, myU, Max(myV, v),P2);
     
-    gp_Vec V1(P1,P2);
+    Vector3d V1(P1,P2);
     Standard_Real aDirFactor = V.Dot(V1);
     
     if(aDirFactor < 0.0)
       V = -V;
     
-    D = gp_Dir(V);
+    D = Dir3d(V);
   }
 }
 
@@ -338,7 +338,7 @@ Standard_Boolean LProp_SLProps::IsNormalDefined()
   return Standard_False;
 }
 
-const gp_Dir& LProp_SLProps::Normal ()
+const Dir3d& LProp_SLProps::Normal ()
 {
   if(!IsNormalDefined())
   {
@@ -380,7 +380,7 @@ Standard_Boolean LProp_SLProps::IsCurvatureDefined ()
 
   // here we compute the curvature features of the surface
 
-  gp_Vec Norm (myNormal);
+  Vector3d Norm (myNormal);
 
   Standard_Real E = myD1u.SquareMagnitude();
   Standard_Real F = myD1u.Dot(myD1v);
@@ -402,8 +402,8 @@ Standard_Boolean LProp_SLProps::IsCurvatureDefined ()
   {
     myMinCurv = N / G;
     myMaxCurv = myMinCurv;
-    myDirMinCurv = gp_Dir (myD1u);
-    myDirMaxCurv = gp_Dir (myD1u.Crossed(Norm));
+    myDirMinCurv = Dir3d (myD1u);
+    myDirMaxCurv = Dir3d (myD1u.Crossed(Norm));
     myMeanCurv = myMinCurv;            // (Cmin + Cmax) / 2.
     myGausCurv = myMinCurv * myMinCurv;  // (Cmin * Cmax)
     myCurvatureStatus = LProp_Computed;
@@ -414,7 +414,7 @@ Standard_Boolean LProp_SLProps::IsCurvatureDefined ()
   B = B / MaxABC;
   C = C / MaxABC;
   Standard_Real Curv1, Curv2, Root1, Root2;
-  gp_Vec VectCurv1, VectCurv2;
+  Vector3d VectCurv1, VectCurv2;
 
   if (Abs(A) > RealEpsilon())
   {
@@ -469,15 +469,15 @@ Standard_Boolean LProp_SLProps::IsCurvatureDefined ()
   {
     myMinCurv = Curv1;
     myMaxCurv = Curv2;
-    myDirMinCurv = gp_Dir (VectCurv1);
-    myDirMaxCurv = gp_Dir (VectCurv2);
+    myDirMinCurv = Dir3d (VectCurv1);
+    myDirMaxCurv = Dir3d (VectCurv2);
   }
   else
   {
     myMinCurv = Curv2;
     myMaxCurv = Curv1;
-    myDirMinCurv = gp_Dir (VectCurv2);
-    myDirMaxCurv = gp_Dir (VectCurv1);
+    myDirMinCurv = Dir3d (VectCurv2);
+    myDirMaxCurv = Dir3d (VectCurv1);
   }
 
   myMeanCurv = ((N * E) - (2. * M * F) + (L * G)) // voir Farin p.282
@@ -512,7 +512,7 @@ Standard_Real LProp_SLProps::MinCurvature ()
   return myMinCurv;
 }
 
-void LProp_SLProps::CurvatureDirections(gp_Dir& Max, gp_Dir& Min)
+void LProp_SLProps::CurvatureDirections(Dir3d& Max, Dir3d& Min)
 {
   if(!IsCurvatureDefined())
     throw LProp_NotDefined();

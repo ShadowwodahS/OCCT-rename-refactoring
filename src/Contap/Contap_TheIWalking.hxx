@@ -220,7 +220,7 @@ private:
   Standard_Real                         Vm;
   Standard_Real                         VM;
   IntSurf_PntOn2S                       previousPoint;
-  gp_Vec                                previousd3d;
+  Vector3d                                previousd3d;
   gp_Dir2d                              previousd2d;
   TColStd_SequenceOfInteger             seqAjout;
   TColStd_SequenceOfInteger             seqAlone;

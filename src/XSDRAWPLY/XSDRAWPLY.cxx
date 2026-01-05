@@ -200,7 +200,7 @@ static Standard_Integer WritePly(Draw_Interpretor& theDI,
 
     protected:
       virtual void addPoint(const Point3d&       thePoint,
-                            const gp_Vec&       theNorm,
+                            const Vector3d&       theNorm,
                             const gp_Pnt2d&     theUV,
                             const TopoDS_Shape& theFace)
       {

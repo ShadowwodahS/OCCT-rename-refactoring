@@ -78,14 +78,14 @@ void DsgPrs_IdenticPresentation::Add(const Handle(Prs3d_Presentation)& aPresenta
   aPrims->AddVertex(aSAttach);
 
   // trait joignant aPntOffset
-  gp_Vec v1(aFAttach, aSAttach);
-  gp_Vec v2(aSAttach, aPntOffset);
+  Vector3d v1(aFAttach, aSAttach);
+  Vector3d v2(aSAttach, aPntOffset);
 
   aPrims->AddVertex(aPntOffset);
   if (!v1.IsParallel(v2, Precision::Angular()))
   {
     // on joint aPntOffset a son projete
-    gp_Lin ll(aFAttach, gp_Dir(v1));
+    gp_Lin ll(aFAttach, Dir3d(v1));
     aPrims->AddVertex(ElCLib::Value(ElCLib::Parameter(ll, aPntOffset), ll));
   }
   else
@@ -100,7 +100,7 @@ void DsgPrs_IdenticPresentation::Add(const Handle(Prs3d_Presentation)& aPresenta
 void DsgPrs_IdenticPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                      const Handle(Prs3d_Drawer)&       aDrawer,
                                      const TCollection_ExtendedString& aText,
-                                     const gp_Ax2&                     theAxe,
+                                     const Frame3d&                     theAxe,
                                      const Point3d&                     aCenter,
                                      const Point3d&                     aFAttach,
                                      const Point3d&                     aSAttach,
@@ -109,7 +109,7 @@ void DsgPrs_IdenticPresentation::Add(const Handle(Prs3d_Presentation)& aPresenta
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
 
-  gp_Ax2 ax = theAxe;
+  Frame3d ax = theAxe;
   ax.SetLocation(aCenter);
   Standard_Real rad = aCenter.Distance(aFAttach);
   gp_Circ       CC(ax, rad);
@@ -149,7 +149,7 @@ void DsgPrs_IdenticPresentation::Add(const Handle(Prs3d_Presentation)& aPresenta
 void DsgPrs_IdenticPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                      const Handle(Prs3d_Drawer)&       aDrawer,
                                      const TCollection_ExtendedString& aText,
-                                     const gp_Ax2&                     theAxe,
+                                     const Frame3d&                     theAxe,
                                      const Point3d&                     aCenter,
                                      const Point3d&                     aFAttach,
                                      const Point3d&                     aSAttach,
@@ -159,7 +159,7 @@ void DsgPrs_IdenticPresentation::Add(const Handle(Prs3d_Presentation)& aPresenta
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
 
-  gp_Ax2 ax = theAxe;
+  Frame3d ax = theAxe;
   ax.SetLocation(aCenter);
   Standard_Real rad = aCenter.Distance(aFAttach);
   gp_Circ       CC(ax, rad);

@@ -25,10 +25,10 @@
 #include <Geom_Circle.hxx>
 
 class gp_Circ;
-class gp_Ax2;
+class Frame3d;
 class Point3d;
-class gp_Dir;
-class gp_Ax1;
+class Dir3d;
+class Axis3d;
 
 //! This class implements the following algorithms used
 //! to create Cirlec from Geom.
@@ -58,7 +58,7 @@ public:
   //! A2 is the local coordinates system of the circle.
   //! It is not forbidden to create a circle with Radius = 0.0
   //! Status is "NegativeRadius" if Radius < 0.
-  Standard_EXPORT GC_MakeCircle(const gp_Ax2& A2, const Standard_Real Radius);
+  Standard_EXPORT GC_MakeCircle(const Frame3d& A2, const Standard_Real Radius);
 
   //! Make a Circle from Geom <TheCirc> parallel to another
   //! Circ <Circ> with a distance <Dist>.
@@ -79,7 +79,7 @@ public:
   //! <Center> and the normal of its plane <Norm> and
   //! its radius <Radius>.
   Standard_EXPORT GC_MakeCircle(const Point3d&       Center,
-                                const gp_Dir&       Norm,
+                                const Dir3d&       Norm,
                                 const Standard_Real Radius);
 
   //! Make a Circle from Geom <TheCirc> with its center
@@ -91,7 +91,7 @@ public:
 
   //! Make a Circle from Geom <TheCirc> with its center
   //! <Center> and its radius <Radius>.
-  Standard_EXPORT GC_MakeCircle(const gp_Ax1& Axis, const Standard_Real Radius);
+  Standard_EXPORT GC_MakeCircle(const Axis3d& Axis, const Standard_Real Radius);
 
   //! Returns the constructed circle.
   //! Exceptions

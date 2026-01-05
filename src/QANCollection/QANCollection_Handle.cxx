@@ -60,7 +60,7 @@ inline void func(const Handle(Point3d)&) {}
 
 inline void func(const Handle(gp_XYZ)&) {}
 
-inline void func(const Handle(gp_Trsf)&) {}
+inline void func(const Handle(Transform3d)&) {}
 
 static Standard_Integer QAHandleOps(Draw_Interpretor& theDI,
                                     Standard_Integer /*theArgNb*/,

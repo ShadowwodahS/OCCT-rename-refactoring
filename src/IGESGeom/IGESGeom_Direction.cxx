@@ -32,19 +32,19 @@ void IGESGeom_Direction::Init(const gp_XYZ& aDirection)
   InitTypeAndForm(123, 0);
 }
 
-gp_Vec IGESGeom_Direction::Value() const
+Vector3d IGESGeom_Direction::Value() const
 {
-  gp_Vec direction(theDirection);
+  Vector3d direction(theDirection);
   return direction;
 }
 
-gp_Vec IGESGeom_Direction::TransformedValue() const
+Vector3d IGESGeom_Direction::TransformedValue() const
 {
   if (!HasTransf())
-    return gp_Vec(theDirection);
+    return Vector3d(theDirection);
   gp_XYZ   xyz(theDirection);
   gp_GTrsf loc = Location();
   loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
   loc.Transforms(xyz);
-  return gp_Vec(xyz);
+  return Vector3d(xyz);
 }

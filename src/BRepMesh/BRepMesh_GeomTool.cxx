@@ -243,10 +243,10 @@ Standard_Boolean BRepMesh_GeomTool::Normal(const Handle(BRepAdaptor_Surface)& th
                                            const Standard_Real                theParamU,
                                            const Standard_Real                theParamV,
                                            Point3d&                            thePoint,
-                                           gp_Dir&                            theNormal)
+                                           Dir3d&                            theNormal)
 {
   Standard_Boolean isOK = Standard_True;
-  gp_Vec           aD1U, aD1V;
+  Vector3d           aD1U, aD1V;
 
   theSurface->D1(theParamU, theParamV, thePoint, aD1U, aD1V);
 
@@ -254,7 +254,7 @@ Standard_Boolean BRepMesh_GeomTool::Normal(const Handle(BRepAdaptor_Surface)& th
   CSLib::Normal(aD1U, aD1V, Precision::Angular(), aStatus, theNormal);
   if (aStatus != CSLib_Done)
   {
-    gp_Vec aD2U, aD2V, aD2UV;
+    Vector3d aD2U, aD2V, aD2UV;
     theSurface->D2(theParamU, theParamV, thePoint, aD1U, aD1V, aD2U, aD2V, aD2UV);
     CSLib_NormalStatus aNormalStatus;
     CSLib::Normal(aD1U,

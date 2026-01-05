@@ -46,7 +46,7 @@ LocOpe_Prism::LocOpe_Prism()
 
 //=================================================================================================
 
-LocOpe_Prism::LocOpe_Prism(const TopoDS_Shape& Base, const gp_Vec& V)
+LocOpe_Prism::LocOpe_Prism(const TopoDS_Shape& Base, const Vector3d& V)
     : myBase(Base),
       myVec(V),
       myIsTrans(Standard_False)
@@ -57,7 +57,7 @@ LocOpe_Prism::LocOpe_Prism(const TopoDS_Shape& Base, const gp_Vec& V)
 
 //=================================================================================================
 
-LocOpe_Prism::LocOpe_Prism(const TopoDS_Shape& Base, const gp_Vec& V, const gp_Vec& Vtra)
+LocOpe_Prism::LocOpe_Prism(const TopoDS_Shape& Base, const Vector3d& V, const Vector3d& Vtra)
     : myBase(Base),
       myVec(V),
       myTra(Vtra),
@@ -69,7 +69,7 @@ LocOpe_Prism::LocOpe_Prism(const TopoDS_Shape& Base, const gp_Vec& V, const gp_V
 
 //=================================================================================================
 
-void LocOpe_Prism::Perform(const TopoDS_Shape& Base, const gp_Vec& V)
+void LocOpe_Prism::Perform(const TopoDS_Shape& Base, const Vector3d& V)
 {
   myMap.Clear();
   myFirstShape.Nullify();
@@ -85,7 +85,7 @@ void LocOpe_Prism::Perform(const TopoDS_Shape& Base, const gp_Vec& V)
 
 //=================================================================================================
 
-void LocOpe_Prism::Perform(const TopoDS_Shape& Base, const gp_Vec& V, const gp_Vec& Vtra)
+void LocOpe_Prism::Perform(const TopoDS_Shape& Base, const Vector3d& V, const Vector3d& Vtra)
 {
   myMap.Clear();
   myFirstShape.Nullify();
@@ -108,7 +108,7 @@ void LocOpe_Prism::IntPerf()
   BRepTools_Modifier Modif;
   if (myIsTrans)
   {
-    gp_Trsf T;
+    Transform3d T;
     T.SetTranslation(myTra);
     Handle(BRepTools_TrsfModification) modbase = new BRepTools_TrsfModification(T);
     Modif.Init(theBase);
@@ -266,7 +266,7 @@ void LocOpe_Prism::Curves(TColGeom_SequenceOfCurve& Scurves) const
 
   for (Standard_Integer jj = 1; jj <= spt.Length(); jj++)
   {
-    gp_Ax1                    theAx(spt(jj), myVec);
+    Axis3d                    theAx(spt(jj), myVec);
     Handle(Geom_Line)         theLin = new Geom_Line(theAx);
     Handle(Geom_TrimmedCurve) trlin  = new Geom_TrimmedCurve(theLin, u1, u2, Standard_True);
     Scurves.Append(trlin);
@@ -286,7 +286,7 @@ Handle(Geom_Curve) LocOpe_Prism::BarycCurve() const
     bar.ChangeCoord() += pvt.XYZ();
   }
   bar.ChangeCoord().Divide(spt.Length());
-  gp_Ax1            newAx(bar, myVec);
+  Axis3d            newAx(bar, myVec);
   Handle(Geom_Line) theLin = new Geom_Line(newAx);
   return theLin;
 }

@@ -473,7 +473,7 @@ bool RWGltf_GltfJsonParser::parseTransformationMatrix(const TCollection_AsciiStr
 
   if (!aMat4.IsIdentity())
   {
-    gp_Trsf aTrsf;
+    Transform3d aTrsf;
     aTrsf.SetValues(aMat4.GetValue(0, 0),
                     aMat4.GetValue(0, 1),
                     aMat4.GetValue(0, 2),
@@ -505,7 +505,7 @@ bool RWGltf_GltfJsonParser::parseTransformationComponents(
   const RWGltf_JsonValue*        theTranslationVal,
   TopLoc_Location&               theResult) const
 {
-  gp_Trsf aTrsf;
+  Transform3d aTrsf;
   if (theRotationVal != NULL)
   {
     if (!theRotationVal->IsArray() || theRotationVal->Size() != 4)
@@ -590,7 +590,7 @@ bool RWGltf_GltfJsonParser::parseTransformationComponents(
       aTrsf.GetMat4(aMat4);
 
       aMat4 = aMat4 * aScaleMat;
-      aTrsf = gp_Trsf();
+      aTrsf = Transform3d();
       aTrsf.SetValues(aMat4.GetValue(0, 0),
                       aMat4.GetValue(0, 1),
                       aMat4.GetValue(0, 2),
@@ -1834,7 +1834,7 @@ bool RWGltf_GltfJsonParser::gltfParsePrimArray(TopoDS_Shape&                  th
     {
       // make a located Shape copy
       TopoDS_Shape aShapeCopy = thePrimArrayShape;
-      aShapeCopy.Location(TopLoc_Location(gp_Trsf()));
+      aShapeCopy.Location(TopLoc_Location(Transform3d()));
       RWMesh_NodeAttributes aShapeAttribs;
       aShapeAttribs.RawName = theMeshName;
       aShapeAttribs.Style.SetMaterial(aMat);
@@ -2408,7 +2408,7 @@ void RWGltf_GltfJsonParser::bindNamedShape(TopoDS_Shape&                     the
                  && theGroup == ShapeMapGroup_Nodes)
         {
           // keep Product name (from Mesh) separated from Instance name (from Node)
-          theShape.Location(TopLoc_Location(gp_Trsf()) * theShape.Location(), Standard_False);
+          theShape.Location(TopLoc_Location(Transform3d()) * theShape.Location(), Standard_False);
         }
       }
     }
@@ -2450,7 +2450,7 @@ void RWGltf_GltfJsonParser::bindNamedShape(TopoDS_Shape&                     the
       if (myAttribMap->Find(aShape, anOldAttribs) && !anOldAttribs.Name.IsEmpty())
       {
         // keep Product name (from Mesh) separated from Instance name (from Node)
-        theShape.Location(TopLoc_Location(gp_Trsf()) * theShape.Location(), Standard_False);
+        theShape.Location(TopLoc_Location(Transform3d()) * theShape.Location(), Standard_False);
       }
     }
     myAttribMap->Bind(theShape, aShapeAttribs);

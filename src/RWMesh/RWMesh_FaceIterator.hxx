@@ -113,9 +113,9 @@ public:
 
   //! Return normal at specified node index with face transformation applied and face orientation
   //! applied.
-  gp_Dir NormalTransformed(Standard_Integer theNode) const
+  Dir3d NormalTransformed(Standard_Integer theNode) const
   {
-    gp_Dir aNorm = normal(theNode);
+    Dir3d aNorm = normal(theNode);
     if (myTrsf.Form() != gp_Identity)
     {
       aNorm.Transform(myTrsf);
@@ -153,7 +153,7 @@ public:
   }
 
   //! Return normal at specified node index without face transformation applied.
-  Standard_EXPORT gp_Dir normal(Standard_Integer theNode) const;
+  Standard_EXPORT Dir3d normal(Standard_Integer theNode) const;
 
   //! Return triangle with specified index.
   Poly_Triangle triangle(Standard_Integer theElemIndex) const

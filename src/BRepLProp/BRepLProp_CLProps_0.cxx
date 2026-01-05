@@ -28,11 +28,11 @@
 
 #define Curve BRepAdaptor_Curve
 #define Curve_hxx <BRepAdaptor_Curve.hxx>
-#define Vec gp_Vec
+#define Vec Vector3d
 #define Vec_hxx <gp_Vec.hxx>
 #define Pnt Point3d
 #define Pnt_hxx <gp_Pnt.hxx>
-#define Dir gp_Dir
+#define Dir Dir3d
 #define Dir_hxx <gp_Dir.hxx>
 #define Tool BRepLProp_CurveTool
 #define Tool_hxx <BRepLProp_CurveTool.hxx>

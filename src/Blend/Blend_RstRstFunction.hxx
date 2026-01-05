@@ -32,7 +32,7 @@
 class math_Matrix;
 class Point3d;
 class gp_Pnt2d;
-class gp_Vec;
+class Vector3d;
 class gp_Vec2d;
 class Blend_Point;
 
@@ -138,14 +138,14 @@ public:
   Standard_EXPORT virtual Standard_Boolean IsTangencyPoint() const = 0;
 
   //! Returns the tangent vector at PointOnS, in 3d space.
-  Standard_EXPORT virtual const gp_Vec& TangentOnRst1() const = 0;
+  Standard_EXPORT virtual const Vector3d& TangentOnRst1() const = 0;
 
   //! Returns the tangent vector at PointOnS, in the
   //! parametric space of the first surface.
   Standard_EXPORT virtual const gp_Vec2d& Tangent2dOnRst1() const = 0;
 
   //! Returns the tangent vector at PointOnC, in 3d space.
-  Standard_EXPORT virtual const gp_Vec& TangentOnRst2() const = 0;
+  Standard_EXPORT virtual const Vector3d& TangentOnRst2() const = 0;
 
   //! Returns the tangent vector at PointOnRst, in the
   //! parametric space of the second surface.
@@ -156,10 +156,10 @@ public:
   //! Warning: Can  be  called  without  previous  call  of issolution
   //! but  the  values  calculated can  be  senseless.
   Standard_EXPORT virtual Blend_DecrochStatus Decroch(const math_Vector& Sol,
-                                                      gp_Vec&            NRst1,
-                                                      gp_Vec&            TgRst1,
-                                                      gp_Vec&            NRst2,
-                                                      gp_Vec&            TgRst2) const = 0;
+                                                      Vector3d&            NRst1,
+                                                      Vector3d&            TgRst1,
+                                                      Vector3d&            NRst2,
+                                                      Vector3d&            TgRst2) const = 0;
 
   //! Returns  if the section is rational
   Standard_EXPORT virtual Standard_Boolean IsRational() const = 0;

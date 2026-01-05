@@ -370,7 +370,7 @@ void SelectMgr_ViewerSelector::computeFrustum(const Handle(Select3D_SensitiveEnt
   {
     if (!theCachedMgrs.Find(aScale, theResMgr))
     {
-      theResMgr = theMgrGlobal.ScaleAndTransform(aScale, gp_Trsf(), NULL);
+      theResMgr = theMgrGlobal.ScaleAndTransform(aScale, Transform3d(), NULL);
       theCachedMgrs.Bind(aScale, theResMgr);
     }
     theResMgr.SetViewClipping(theMgrObject);
@@ -1284,7 +1284,7 @@ void SelectMgr_ViewerSelector::Pick(const TColgp_Array1OfPnt2d& thePolyline,
 
 //=================================================================================================
 
-void SelectMgr_ViewerSelector::Pick(const gp_Ax1& theAxis, const Handle(V3d_View)& theView)
+void SelectMgr_ViewerSelector::Pick(const Axis3d& theAxis, const Handle(V3d_View)& theView)
 {
   updateZLayers(theView);
 
@@ -1393,7 +1393,7 @@ void SelectMgr_ViewerSelector::ClearSensitive(const Handle(V3d_View)& theView)
 //=================================================================================================
 
 void SelectMgr_ViewerSelector::DisplaySensitive(const Handle(SelectMgr_Selection)& theSel,
-                                                const gp_Trsf&                     theTrsf,
+                                                const Transform3d&                     theTrsf,
                                                 const Handle(V3d_View)&            theView,
                                                 const Standard_Boolean             theToClearOthers)
 {

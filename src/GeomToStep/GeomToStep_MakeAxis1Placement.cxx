@@ -32,7 +32,7 @@
 // Creation d' un axis1_placement de prostep a partir d' un Ax1 de gp
 //=============================================================================
 GeomToStep_MakeAxis1Placement::GeomToStep_MakeAxis1Placement(
-  const gp_Ax1&           A,
+  const Axis3d&           A,
   const StepData_Factors& theLocalFactors)
 {
 #include "GeomToStep_MakeAxis1Placement_gen.pxx"
@@ -58,7 +58,7 @@ GeomToStep_MakeAxis1Placement::GeomToStep_MakeAxis1Placement(
   const Handle(Geom_Axis1Placement)& Axis1,
   const StepData_Factors&            theLocalFactors)
 {
-  gp_Ax1 A;
+  Axis3d A;
   A = Axis1->Ax1();
 #include "GeomToStep_MakeAxis1Placement_gen.pxx"
 }

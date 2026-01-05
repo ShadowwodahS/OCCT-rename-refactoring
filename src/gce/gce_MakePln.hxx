@@ -23,10 +23,10 @@
 
 #include <gp_Pln.hxx>
 #include <gce_Root.hxx>
-class gp_Ax2;
+class Frame3d;
 class Point3d;
-class gp_Dir;
-class gp_Ax1;
+class Dir3d;
+class Axis3d;
 
 //! This class implements the following algorithms used
 //! to create a Plane from gp.
@@ -56,11 +56,11 @@ public:
   //! The "Location" of A2 defines the location (origin) of the plane.
   //! The "XDirection" and "YDirection" of A2 define the "XAxis" and
   //! the "YAxis" of the plane used to parametrize the plane.
-  Standard_EXPORT gce_MakePln(const gp_Ax2& A2);
+  Standard_EXPORT gce_MakePln(const Frame3d& A2);
 
   //! Creates a plane with the  "Location" point <P>
   //! and the normal direction <V>.
-  Standard_EXPORT gce_MakePln(const Point3d& P, const gp_Dir& V);
+  Standard_EXPORT gce_MakePln(const Point3d& P, const Dir3d& V);
 
   //! Creates a plane from its cartesian equation :
   //! A * X + B * Y + C * Z + D = 0.0
@@ -103,7 +103,7 @@ public:
   //! C*C) is less than or equal to gp::Resolution(),
   //! -   gce_ConfusedPoints if P1 and P2 are coincident, or
   //! -   gce_ColinearPoints if P1, P2 and P3 are collinear.
-  Standard_EXPORT gce_MakePln(const gp_Ax1& Axis);
+  Standard_EXPORT gce_MakePln(const Axis3d& Axis);
 
   //! Returns the constructed plane.
   //! Exceptions StdFail_NotDone if no plane is constructed.

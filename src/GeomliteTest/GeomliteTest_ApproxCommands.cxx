@@ -262,12 +262,12 @@ static void PointsByFile(Handle(AppDef_HArray1OfMultiPointConstraint)&   MPC,
         if (Constraint >= AppParCurves_TangencyPoint)
         {
           iFile >> x >> y >> z;
-          MPC->ChangeValue(num).SetTang(1, gp_Vec(x, y, z));
+          MPC->ChangeValue(num).SetTang(1, Vector3d(x, y, z));
         }
         if (Constraint >= AppParCurves_CurvaturePoint)
         {
           iFile >> x >> y >> z;
-          MPC->ChangeValue(num).SetCurv(1, gp_Vec(x, y, z));
+          MPC->ChangeValue(num).SetCurv(1, Vector3d(x, y, z));
         }
       }
     }

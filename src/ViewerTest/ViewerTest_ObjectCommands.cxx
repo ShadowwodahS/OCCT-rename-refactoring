@@ -348,11 +348,11 @@ static Standard_Boolean setTrihedronParams(Standard_Integer      theArgsNb,
   Handle(TColStd_HSequenceOfAsciiString) aXValues, aZValues;
   if (aMapOfArgs.Find("xaxis", aXValues) && aMapOfArgs.Find("zaxis", aZValues))
   {
-    gp_Dir aXDir(aXValues->Value(1).RealValue(),
+    Dir3d aXDir(aXValues->Value(1).RealValue(),
                  aXValues->Value(2).RealValue(),
                  aXValues->Value(3).RealValue());
 
-    gp_Dir aZDir(aZValues->Value(1).RealValue(),
+    Dir3d aZDir(aZValues->Value(1).RealValue(),
                  aZValues->Value(2).RealValue(),
                  aZValues->Value(3).RealValue());
 
@@ -363,7 +363,7 @@ static Standard_Boolean setTrihedronParams(Standard_Integer      theArgsNb,
       return Standard_False;
     }
 
-    aComponent->SetAx2(gp_Ax2(aComponent->Location(), aZDir, aXDir));
+    aComponent->SetAx2(Frame3d(aComponent->Location(), aZDir, aXDir));
   }
 
   if (aMapOfArgs.Find("dispmode", aValues))
@@ -947,7 +947,7 @@ static int VAxisBuilder(Draw_Interpretor& di, Standard_Integer argc, const char*
     }
     Point3d p1(coord[0], coord[1], coord[2]), p2(coord[3], coord[4], coord[5]);
 
-    gp_Vec            myVect(p1, p2);
+    Vector3d            myVect(p1, p2);
     Handle(Geom_Line) myLine  = new Geom_Line(p1, myVect);
     Handle(AIS_Axis)  TheAxis = new AIS_Axis(myLine);
     GetMapOfAIS().Bind(TheAxis, name);
@@ -986,8 +986,8 @@ static int VAxisBuilder(Draw_Interpretor& di, Standard_Integer argc, const char*
         // Construction de l'axe
         Point3d                      A = BRep_Tool::Pnt(TopoDS::Vertex(aShapeA));
         Point3d                      B = BRep_Tool::Pnt(TopoDS::Vertex(aShapeB));
-        gp_Vec                      V(A, B);
-        gp_Dir                      D(V);
+        Vector3d                      V(A, B);
+        Dir3d                      D(V);
         Handle(Geom_Axis1Placement) OrigineAndVect = new Geom_Axis1Placement(A, D);
         Handle(AIS_Axis)            TheAxis        = new AIS_Axis(OrigineAndVect);
         GetMapOfAIS().Bind(TheAxis, name);
@@ -1000,8 +1000,8 @@ static int VAxisBuilder(Draw_Interpretor& di, Standard_Integer argc, const char*
         TopExp::Vertices(ed, Va, Vb);
         Point3d                      A = BRep_Tool::Pnt(Va);
         Point3d                      B = BRep_Tool::Pnt(Vb);
-        gp_Vec                      V(A, B);
-        gp_Dir                      D(V);
+        Vector3d                      V(A, B);
+        Dir3d                      D(V);
         Handle(Geom_Axis1Placement) OrigineAndVect = new Geom_Axis1Placement(A, D);
         Handle(AIS_Axis)            TheAxis        = new AIS_Axis(OrigineAndVect);
         GetMapOfAIS().Bind(TheAxis, name);
@@ -1034,8 +1034,8 @@ static int VAxisBuilder(Draw_Interpretor& di, Standard_Integer argc, const char*
       TopExp::Vertices(ed, Va, Vc);
       Point3d                      A = BRep_Tool::Pnt(Va);
       Point3d                      C = BRep_Tool::Pnt(Vc);
-      gp_Vec                      V(A, C);
-      gp_Dir                      D(V);
+      Vector3d                      V(A, C);
+      Dir3d                      D(V);
       Handle(Geom_Axis1Placement) OrigineAndVect = new Geom_Axis1Placement(B, D);
       Handle(AIS_Axis)            TheAxis        = new AIS_Axis(OrigineAndVect);
       GetMapOfAIS().Bind(TheAxis, name);
@@ -1067,8 +1067,8 @@ static int VAxisBuilder(Draw_Interpretor& di, Standard_Integer argc, const char*
       Point3d                      A = BRep_Tool::Pnt(Va);
       Point3d                      C = BRep_Tool::Pnt(Vc);
       Point3d                      E(A.Y() + A.Z() - C.Y() - C.Z(), C.X() - A.X(), C.X() - A.X());
-      gp_Vec                      V(A, E);
-      gp_Dir                      D(V);
+      Vector3d                      V(A, E);
+      Dir3d                      D(V);
       Handle(Geom_Axis1Placement) OrigineAndVect = new Geom_Axis1Placement(B, D);
       Handle(AIS_Axis)            TheAxis        = new AIS_Axis(OrigineAndVect);
       GetMapOfAIS().Bind(TheAxis, name);
@@ -1367,10 +1367,10 @@ static Standard_Integer VPlaneBuilder(Draw_Interpretor& /*di*/,
       Handle(Geom_Line)  aGeomLineA  = anAISAxisA->Component();
       Handle(Geom_Point) aGeomPointB = anAISPointB->Component();
 
-      gp_Ax1                      anAxis      = aGeomLineA->Position();
+      Axis3d                      anAxis      = aGeomLineA->Position();
       Handle(Geom_CartesianPoint) aCartPointB = Handle(Geom_CartesianPoint)::DownCast(aGeomPointB);
 
-      gp_Dir D = anAxis.Direction();
+      Dir3d D = anAxis.Direction();
       Point3d B = aCartPointB->Pnt();
 
       // Construction of AIS_Plane
@@ -1680,11 +1680,11 @@ static Standard_Integer VPlaneBuilder(Draw_Interpretor& /*di*/,
       TopExp::Vertices(anEdgeA, aVAa, aVAb);
       Point3d Aa = BRep_Tool::Pnt(aVAa);
       Point3d Ab = BRep_Tool::Pnt(aVAb);
-      gp_Vec ab(Aa, Ab);
+      Vector3d ab(Aa, Ab);
 
-      gp_Dir Dab(ab);
+      Dir3d Dab(ab);
       // Creation of rotation axis
-      gp_Ax1 aRotAxis(Aa, Dab);
+      Axis3d aRotAxis(Aa, Dab);
 
       TopoDS_Face aFace = TopoDS::Face(*aShapeB);
       // The edge must be parallel to the face
@@ -1822,7 +1822,7 @@ static int VChangePlane(Draw_Interpretor& /*theDi*/,
     }
   }
 
-  gp_Dir aDirection(aDirX, aDirY, aDirZ);
+  Dir3d aDirection(aDirX, aDirY, aDirZ);
   Point3d aCenterPnt(aCenterX, aCenterY, aCenterZ);
   aPlane->SetCenter(aCenterPnt);
   aPlane->SetComponent(new Geom_Plane(aCenterPnt, aDirection));
@@ -1958,7 +1958,7 @@ static int VLineBuilder(Draw_Interpretor& di, Standard_Integer argc, const char*
 
 Handle(Geom_Circle) CreateCircle(Point3d theCenter, Standard_Real theRadius)
 {
-  gp_Ax2              anAxes(theCenter, gp_Dir(gp_Vec(0., 0., 1.)));
+  Frame3d              anAxes(theCenter, Dir3d(Vector3d(0., 0., 1.)));
   gp_Circ             aCirc(anAxes, theRadius);
   Handle(Geom_Circle) aCircle = new Geom_Circle(aCirc);
   return aCircle;
@@ -2241,8 +2241,8 @@ static int VCircleBuilder(Draw_Interpretor& /*di*/, Standard_Integer argc, const
       Handle(Geom_CartesianPoint) aCartPointB = Handle(Geom_CartesianPoint)::DownCast(aGeomPointB);
 
       gp_Pln              aGpPlane = aGeomPlane->Pln();
-      gp_Ax1              aGpAxe   = aGpPlane.Axis();
-      gp_Dir              aDir     = aGpAxe.Direction();
+      Axis3d              aGpAxe   = aGpPlane.Axis();
+      Dir3d              aDir     = aGpAxe.Direction();
       Point3d              aCenter  = aCartPointB->Pnt();
       GC_MakeCircle       aCir     = GC_MakeCircle(aCenter, aDir, anR);
       Handle(Geom_Circle) aGeomCircle;
@@ -2341,8 +2341,8 @@ static int VCircleBuilder(Draw_Interpretor& /*di*/, Standard_Integer argc, const
       gp_Pln              aPlane     = aSurface.Plane();
       Handle(Geom_Plane)  aGeomPlane = new Geom_Plane(aPlane);
       gp_Pln              aGpPlane   = aGeomPlane->Pln();
-      gp_Ax1              aGpAxe     = aGpPlane.Axis();
-      gp_Dir              aDir       = aGpAxe.Direction();
+      Axis3d              aGpAxe     = aGpPlane.Axis();
+      Dir3d              aDir       = aGpAxe.Direction();
 
       // Recover the center
       Point3d aCenter = BRep_Tool::Pnt(TopoDS::Vertex(aShapeB));
@@ -2413,8 +2413,8 @@ static int VDrawText(Draw_Interpretor& theDI, Standard_Integer theArgsNb, const 
   Aspect_TypeOfDisplayText        aDisplayType = Aspect_TODT_NORMAL;
 
   Standard_Boolean aHasPlane = Standard_False;
-  gp_Dir           aNormal;
-  gp_Dir           aDirection;
+  Dir3d           aNormal;
+  Dir3d           aDirection;
   Point3d           aPos;
 
   Handle(Font_TextFormatter) aTextFormatter;
@@ -2688,7 +2688,7 @@ static int VDrawText(Draw_Interpretor& theDI, Standard_Integer theArgsNb, const 
 
   if (aHasPlane)
   {
-    aTextPrs->SetOrientation3D(gp_Ax2(aPos, aNormal, aDirection));
+    aTextPrs->SetOrientation3D(Frame3d(aPos, aNormal, aDirection));
   }
 
   aTextPrs->SetDisplayType(aDisplayType);
@@ -2961,7 +2961,7 @@ Handle(Poly_Triangulation) CalculationOfSphere(double X, double Y, double Z, int
   Standard_Integer        index[3];
   constexpr Standard_Real Tol = Precision::Confusion();
 
-  gp_Dir Nor;
+  Dir3d Nor;
   for (i = 1; i <= polyTriangulation->NbNodes(); i++)
   {
     gp_XYZ eqPlan(0, 0, 0);
@@ -2981,9 +2981,9 @@ Handle(Poly_Triangulation) CalculationOfSphere(double X, double Y, double Z, int
 
     Standard_Real modmax = eqPlan.Modulus();
     if (modmax > Tol)
-      Nor = gp_Dir(eqPlan);
+      Nor = Dir3d(eqPlan);
     else
-      Nor = gp_Dir(0., 0., 1.);
+      Nor = Dir3d(0., 0., 1.);
 
     polyTriangulation->SetNormal(i, Nor.XYZ());
   }
@@ -3097,15 +3097,15 @@ static int VComputeHLR(Draw_Interpretor&, Standard_Integer theArgNb, const char*
   TCollection_AsciiString aShapeName, aHlrName;
   TopoDS_Shape            aSh;
   Point3d                  anEye;
-  gp_Dir                  aDir;
-  gp_Ax2                  aProjAx;
+  Dir3d                  aDir;
+  Frame3d                  aProjAx;
   bool                    hasViewDirArg = false;
   Prs3d_TypeOfHLR         anAlgoType    = Prs3d_TOH_PolyAlgo;
   bool                    toShowCNEdges = false, toShowHiddenEdges = false;
   int                     aNbIsolines = 0;
   if (Handle(V3d_Viewer) aViewer = ViewerTest::GetViewerFromContext())
   {
-    gp_Dir           aRight;
+    Dir3d           aRight;
     Handle(V3d_View) aView = ViewerTest::CurrentView();
     Standard_Integer aWidth, aHeight;
     Standard_Real    aCentX, aCentY, aCentZ, aDirX, aDirY, aDirZ;
@@ -3190,7 +3190,7 @@ static int VComputeHLR(Draw_Interpretor&, Standard_Integer theArgNb, const char*
     else if (!hasViewDirArg && anArgIter + 8 < theArgNb)
     {
       hasViewDirArg = true;
-      gp_Dir anUp;
+      Dir3d anUp;
       anEye.SetCoord(Draw::Atof(theArgVec[anArgIter + 0]),
                      Draw::Atof(theArgVec[anArgIter + 1]),
                      Draw::Atof(theArgVec[anArgIter + 2]));
@@ -3908,7 +3908,7 @@ namespace
 //! Auxiliary function for parsing translation vector - either 2D or 3D.
 static Standard_Integer parseTranslationVec(Standard_Integer theArgNb,
                                             const char**     theArgVec,
-                                            gp_Vec&          theVec)
+                                            Vector3d&          theVec)
 {
   if (theArgNb < 2)
   {
@@ -3979,7 +3979,7 @@ static Standard_Integer VSetLocation(Draw_Interpretor& theDI,
     else if (anArg == "-reset")
     {
       toPrintInfo = Standard_False;
-      aContext->SetLocation(anObj, gp_Trsf());
+      aContext->SetLocation(anObj, Transform3d());
     }
     else if (anArg == "-copyfrom" || anArg == "-copy")
     {
@@ -4010,11 +4010,11 @@ static Standard_Integer VSetLocation(Draw_Interpretor& theDI,
         return 1;
       }
 
-      gp_Trsf aTrsf;
-      aTrsf.SetRotation(gp_Ax1(Point3d(Draw::Atof(theArgVec[anArgIter + 1]),
+      Transform3d aTrsf;
+      aTrsf.SetRotation(Axis3d(Point3d(Draw::Atof(theArgVec[anArgIter + 1]),
                                       Draw::Atof(theArgVec[anArgIter + 2]),
                                       Draw::Atof(theArgVec[anArgIter + 3])),
-                               gp_Vec(Draw::Atof(theArgVec[anArgIter + 4]),
+                               Vector3d(Draw::Atof(theArgVec[anArgIter + 4]),
                                       Draw::Atof(theArgVec[anArgIter + 5]),
                                       Draw::Atof(theArgVec[anArgIter + 6]))),
                         Draw::Atof(theArgVec[anArgIter + 7]) * (M_PI / 180.0));
@@ -4033,7 +4033,7 @@ static Standard_Integer VSetLocation(Draw_Interpretor& theDI,
     else if (anArg == "-translate" || anArg == "-pretranslate")
     {
       toPrintInfo = Standard_False;
-      gp_Vec           aLocVec;
+      Vector3d           aLocVec;
       Standard_Integer aNbParsed =
         parseTranslationVec(theArgNb - anArgIter - 1, theArgVec + anArgIter + 1, aLocVec);
       anArgIter += aNbParsed;
@@ -4043,7 +4043,7 @@ static Standard_Integer VSetLocation(Draw_Interpretor& theDI,
         return 1;
       }
 
-      gp_Trsf aTrsf;
+      Transform3d aTrsf;
       aTrsf.SetTranslationPart(aLocVec);
       if (anArg == "-pretranslate")
       {
@@ -4120,7 +4120,7 @@ static Standard_Integer VSetLocation(Draw_Interpretor& theDI,
 
       if (anArg == "-setscale")
       {
-        gp_Trsf aTrsf = anObj->LocalTransformation();
+        Transform3d aTrsf = anObj->LocalTransformation();
         if (hasScaleLoc)
         {
           aTrsf.SetScale(aScaleLoc, aScale);
@@ -4133,7 +4133,7 @@ static Standard_Integer VSetLocation(Draw_Interpretor& theDI,
       }
       else
       {
-        gp_Trsf aTrsf;
+        Transform3d aTrsf;
         if (hasScaleLoc)
         {
           aTrsf.SetScale(aScaleLoc, aScale);
@@ -4163,11 +4163,11 @@ static Standard_Integer VSetLocation(Draw_Interpretor& theDI,
         return 1;
       }
 
-      gp_Trsf aTrsf;
-      aTrsf.SetMirror(gp_Ax2(Point3d(Draw::Atof(theArgVec[theArgNb - 6]),
+      Transform3d aTrsf;
+      aTrsf.SetMirror(Frame3d(Point3d(Draw::Atof(theArgVec[theArgNb - 6]),
                                     Draw::Atof(theArgVec[theArgNb - 5]),
                                     Draw::Atof(theArgVec[theArgNb - 4])),
-                             gp_Vec(Draw::Atof(theArgVec[theArgNb - 3]),
+                             Vector3d(Draw::Atof(theArgVec[theArgNb - 3]),
                                     Draw::Atof(theArgVec[theArgNb - 2]),
                                     Draw::Atof(theArgVec[theArgNb - 1]))));
       anArgIter += 6;
@@ -4206,7 +4206,7 @@ static Standard_Integer VSetLocation(Draw_Interpretor& theDI,
                                     aQuatArgs[1].RealValue(),
                                     aQuatArgs[2].RealValue(),
                                     aQuatArgs[3].RealValue());
-          gp_Trsf             aTrsf = anObj->LocalTransformation();
+          Transform3d             aTrsf = anObj->LocalTransformation();
           aTrsf.SetRotationPart(aQuat);
           aContext->SetLocation(anObj, aTrsf);
           continue;
@@ -4226,13 +4226,13 @@ static Standard_Integer VSetLocation(Draw_Interpretor& theDI,
     else if (anArg == "-setlocation" || anArg == "-location")
     {
       toPrintInfo = Standard_False;
-      gp_Vec           aLocVec;
+      Vector3d           aLocVec;
       Standard_Integer aNbParsed =
         parseTranslationVec(theArgNb - anArgIter - 1, theArgVec + anArgIter + 1, aLocVec);
       anArgIter += aNbParsed;
       if (aNbParsed != 0)
       {
-        gp_Trsf aTrsf = anObj->LocalTransformation();
+        Transform3d aTrsf = anObj->LocalTransformation();
         aTrsf.SetTranslationPart(aLocVec);
         aContext->SetLocation(anObj, aTrsf);
       }
@@ -4250,7 +4250,7 @@ static Standard_Integer VSetLocation(Draw_Interpretor& theDI,
     else if (aCmdName == "vsetlocation")
     {
       // compatibility with old syntax
-      gp_Vec           aLocVec;
+      Vector3d           aLocVec;
       Standard_Integer aNbParsed =
         parseTranslationVec(theArgNb - anArgIter, theArgVec + anArgIter, aLocVec);
       if (aNbParsed == 0)
@@ -4260,7 +4260,7 @@ static Standard_Integer VSetLocation(Draw_Interpretor& theDI,
       }
       anArgIter = anArgIter + aNbParsed - 1;
 
-      gp_Trsf aTrsf;
+      Transform3d aTrsf;
       aTrsf.SetTranslationPart(aLocVec);
       aContext->SetLocation(anObj, aTrsf);
       toPrintInfo = Standard_False;
@@ -4282,7 +4282,7 @@ static Standard_Integer VSetLocation(Draw_Interpretor& theDI,
     return 0;
   }
 
-  const gp_Trsf       aTrsf = anObj->LocalTransformation();
+  const Transform3d       aTrsf = anObj->LocalTransformation();
   const gp_XYZ        aLoc  = aTrsf.TranslationPart();
   const gp_Quaternion aRot  = aTrsf.GetRotation();
   char                aText[4096];
@@ -4416,8 +4416,8 @@ static Standard_Integer VConnect(Draw_Interpretor& /*di*/, Standard_Integer argc
   }
 
   // Create transformation
-  gp_Trsf aTrsf;
-  aTrsf.SetTranslationPart(gp_Vec(Draw::Atof(argv[anArgIter + 0]),
+  Transform3d aTrsf;
+  aTrsf.SetTranslationPart(Vector3d(Draw::Atof(argv[anArgIter + 0]),
                                   Draw::Atof(argv[anArgIter + 1]),
                                   Draw::Atof(argv[anArgIter + 2])));
   TopLoc_Location aLocation(aTrsf);
@@ -4479,8 +4479,8 @@ static Standard_Integer VConnectTo(Draw_Interpretor& /*di*/,
   }
 
   // Create transformation
-  gp_Trsf aTrsf;
-  aTrsf.SetTranslationPart(gp_Vec(Draw::Atof(argv[anArgIter + 0]),
+  Transform3d aTrsf;
+  aTrsf.SetTranslationPart(Vector3d(Draw::Atof(argv[anArgIter + 0]),
                                   Draw::Atof(argv[anArgIter + 1]),
                                   Draw::Atof(argv[anArgIter + 2])));
   anArgIter += 3;
@@ -4627,8 +4627,8 @@ static Standard_Integer VAddConnected(Draw_Interpretor&, Standard_Integer argc, 
     return 1;
   }
 
-  gp_Trsf aTrsf;
-  aTrsf.SetTranslation(gp_Vec(aX, aY, aZ));
+  Transform3d aTrsf;
+  aTrsf.SetTranslation(Vector3d(aX, aY, aZ));
 
   anAssembly->Connect(anIObj, aTrsf);
   TheAISContext()->Display(anAssembly, Standard_False);
@@ -5179,7 +5179,7 @@ static Standard_Integer VTorus(Draw_Interpretor& /*di*/,
                                                                           aPipeAngle,
                                                                           aNbSlices,
                                                                           aNbStacks,
-                                                                          gp_Trsf());
+                                                                          Transform3d());
   Handle(AIS_InteractiveObject)      anIO       = new MyPArrayObject(aTriangles);
   ViewerTest::Display(aName, anIO, false);
   return 0;
@@ -5272,7 +5272,7 @@ static Standard_Integer VCylinder(Draw_Interpretor& /*di*/,
   }
 
   Handle(Graphic3d_ArrayOfTriangles) aTriangles =
-    Prs3d_ToolCylinder::Create(aBotRad, aTopRad, aHeight, aNbSlices, aNbStacks, gp_Trsf());
+    Prs3d_ToolCylinder::Create(aBotRad, aTopRad, aHeight, aNbSlices, aNbStacks, Transform3d());
   Handle(AIS_InteractiveObject) anIO = new MyPArrayObject(aTriangles);
   ViewerTest::Display(aName, anIO, false);
   return 0;
@@ -5341,7 +5341,7 @@ static Standard_Integer VSphere(Draw_Interpretor& /*di*/,
   }
 
   Handle(Graphic3d_ArrayOfTriangles) aTriangles =
-    Prs3d_ToolSphere::Create(aRad, aNbSlices, aNbStacks, gp_Trsf());
+    Prs3d_ToolSphere::Create(aRad, aNbSlices, aNbStacks, Transform3d());
   Handle(AIS_InteractiveObject) anIO = new MyPArrayObject(aTriangles);
   ViewerTest::Display(aName, anIO, false);
   return 0;
@@ -5693,8 +5693,8 @@ static int TextToBRep(Draw_Interpretor& /*theDI*/,
   Font_FontAspect         aFontAspect        = Font_FA_Regular;
   Standard_Boolean        anIsCompositeCurve = Standard_False;
   gp_Ax3                  aPenAx3(gp::XOY());
-  gp_Dir                  aNormal(0.0, 0.0, 1.0);
-  gp_Dir                  aDirection(1.0, 0.0, 0.0);
+  Dir3d                  aNormal(0.0, 0.0, 1.0);
+  Dir3d                  aDirection(1.0, 0.0, 0.0);
   Point3d                  aPenLoc;
 
   Graphic3d_HorizontalTextAlignment aHJustification = Graphic3d_HTA_LEFT;
@@ -6399,7 +6399,7 @@ static Standard_Integer VPointCloud(Draw_Interpretor& theDI,
 
     protected:
       virtual void addPoint(const Point3d&   thePoint,
-                            const gp_Vec&   theNorm,
+                            const Vector3d&   theNorm,
                             const gp_Pnt2d& theUV,
                             const TopoDS_Shape&) Standard_OVERRIDE
       {
@@ -6455,7 +6455,7 @@ static Standard_Integer VPointCloud(Draw_Interpretor& theDI,
       Standard_Real aBeta     = aBetaDistrib(aRandomGenerator);
       Standard_Real aDistance = isSurface ? aDistRadius : aRadiusDistrib(aRandomGenerator);
 
-      gp_Dir aDir(Cos(anAlpha) * Sin(aBeta), Sin(anAlpha), Cos(anAlpha) * Cos(aBeta));
+      Dir3d aDir(Cos(anAlpha) * Sin(aBeta), Sin(anAlpha), Cos(anAlpha) * Cos(aBeta));
       Point3d aPoint = aDistCenter.Translated(aDir.XYZ() * aDistance);
 
       const Standard_Integer anIndexOfPoint = anArrayPoints->AddVertex(aPoint);
@@ -6625,7 +6625,7 @@ protected:
         std::pair<Point3d, Point3d> aPair = aPntIt.Value();
         if (toReverse)
         {
-          const gp_Vec aDir = aPair.first.XYZ() - aPair.second.XYZ();
+          const Vector3d aDir = aPair.first.XYZ() - aPair.second.XYZ();
           aPair.second      = aPair.first.XYZ() + aDir.XYZ();
         }
 
@@ -6633,7 +6633,7 @@ protected:
         aSegments->AddVertex(aPair.second);
         Prs3d_Arrow::Draw(aPrsGroup,
                           aPair.second,
-                          gp_Vec(aPair.first, aPair.second),
+                          Vector3d(aPair.first, aPair.second),
                           aArrowAngle,
                           aArrowLength);
       }

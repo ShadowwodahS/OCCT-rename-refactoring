@@ -32,24 +32,24 @@ gp_Elips gp_Elips::Mirrored(const Point3d& P) const
   return E;
 }
 
-void gp_Elips::Mirror(const gp_Ax1& A1)
+void gp_Elips::Mirror(const Axis3d& A1)
 {
   pos.Mirror(A1);
 }
 
-gp_Elips gp_Elips::Mirrored(const gp_Ax1& A1) const
+gp_Elips gp_Elips::Mirrored(const Axis3d& A1) const
 {
   gp_Elips E = *this;
   E.pos.Mirror(A1);
   return E;
 }
 
-void gp_Elips::Mirror(const gp_Ax2& A2)
+void gp_Elips::Mirror(const Frame3d& A2)
 {
   pos.Mirror(A2);
 }
 
-gp_Elips gp_Elips::Mirrored(const gp_Ax2& A2) const
+gp_Elips gp_Elips::Mirrored(const Frame3d& A2) const
 {
   gp_Elips E = *this;
   E.pos.Mirror(A2);

@@ -256,7 +256,7 @@ static Standard_Integer DrawDim_SPLACEMENT(Draw_Interpretor& di, Standard_Intege
       DrawDim::Pln(to, pto);
       gp_Ax3  axfrom(pfrom.Position());
       gp_Ax3  axto(pto.Position());
-      gp_Trsf trsf;
+      Transform3d trsf;
       trsf.SetDisplacement(axfrom, axto);
       TopLoc_Location move(trsf);
       shape.Move(move);
@@ -288,7 +288,7 @@ static Standard_Integer DrawDim_GPLACEMENT(Draw_Interpretor& di, Standard_Intege
       DrawDim::Pln(to, pto);
       gp_Ax3  axfrom(pfrom.Position());
       gp_Ax3  axto(pto.Position());
-      gp_Trsf trsf;
+      Transform3d trsf;
       trsf.SetDisplacement(axfrom, axto);
       Handle(Geom_Geometry) newgeom = geom->Transformed(trsf);
       DrawTrSurf::Set(a[1], newgeom);

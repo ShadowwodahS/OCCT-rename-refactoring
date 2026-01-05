@@ -481,7 +481,7 @@ Standard_Boolean ChFi3d_Builder::CompleteData(Handle(ChFiDS_SurfData)&         D
   TopAbs_Orientation   tra1 = TopAbs_FORWARD, orsurf = Or;
   Standard_Real        x, y, w = 0.5 * (UFirst + ULast);
   Point3d               p;
-  gp_Vec               du, dv;
+  Vector3d               du, dv;
   Handle(Geom2d_Curve) c2dtrim;
   Standard_Real        tolreached = 1.e-5;
   if (!PC1.IsNull())
@@ -491,9 +491,9 @@ Standard_Boolean ChFi3d_Builder::CompleteData(Handle(ChFiDS_SurfData)&         D
     ChFi3d_SameParameter(hcS1, c2dtrim, S1, tolapp3d, tolreached);
     c2dtrim->Value(w).Coord(x, y);
     S1->D1(x, y, p, du, dv);
-    gp_Vec nf = du.Crossed(dv);
+    Vector3d nf = du.Crossed(dv);
     Surfcoin->D1(w, VFirst, p, du, dv);
-    gp_Vec ns = du.Crossed(dv);
+    Vector3d ns = du.Crossed(dv);
     if (nf.Dot(ns) > 0.)
       tra1 = TopAbs_REVERSED;
     else if (On1)
@@ -519,9 +519,9 @@ Standard_Boolean ChFi3d_Builder::CompleteData(Handle(ChFiDS_SurfData)&         D
     ChFi3d_SameParameter(hcS2, c2dtrim, S2, tolapp3d, tolreached);
     c2dtrim->Value(w).Coord(x, y);
     S2->D1(x, y, p, du, dv);
-    gp_Vec np = du.Crossed(dv);
+    Vector3d np = du.Crossed(dv);
     Surfcoin->D1(w, VLast, p, du, dv);
-    gp_Vec ns = du.Crossed(dv);
+    Vector3d ns = du.Crossed(dv);
     if (np.Dot(ns) < 0.)
     {
       tra2 = TopAbs_REVERSED;
@@ -934,7 +934,7 @@ Standard_Boolean ChFi3d_Builder::StoreData(Handle(ChFiDS_SurfData)&         Data
   //  Modified by skv - Wed Jun  9 17:16:26 2004 OCC5898 Begin
   //   gp_Pnt2d PUV = PCurveOnFace->Value((VFirst+VLast)/2.);
   //   Point3d P;
-  //   gp_Vec Du1,Du2,Dv1,Dv2;
+  //   Vector3d Du1,Du2,Dv1,Dv2;
   //   Sref->D1(PUV.X(),PUV.Y(),P,Du1,Dv1);
   //   Du1.Cross(Dv1);
   //   if (Or1 == TopAbs_REVERSED) Du1.Reverse();
@@ -952,7 +952,7 @@ Standard_Boolean ChFi3d_Builder::StoreData(Handle(ChFiDS_SurfData)&         Data
     Standard_Real aParam  = VFirst + aDeltav;
     gp_Pnt2d      PUV     = PCurveOnFace->Value(aParam);
     Point3d        P;
-    gp_Vec        Du1, Du2, Dv1, Dv2;
+    Vector3d        Du1, Du2, Dv1, Dv2;
 
     Sref->D1(PUV.X(), PUV.Y(), P, Du1, Dv1);
     Du1.Cross(Dv1);

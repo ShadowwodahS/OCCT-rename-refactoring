@@ -46,7 +46,7 @@ Point3d GeomFill_DegeneratedBound::Value(const Standard_Real) const
 //=================================================================================================
 
 // void GeomFill_DegeneratedBound::D1(const Standard_Real U,
-void GeomFill_DegeneratedBound::D1(const Standard_Real, Point3d& P, gp_Vec& V) const
+void GeomFill_DegeneratedBound::D1(const Standard_Real, Point3d& P, Vector3d& V) const
 {
   P = myPoint;
   V.SetCoord(0., 0., 0.);

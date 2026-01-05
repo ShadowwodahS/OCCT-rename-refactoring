@@ -27,7 +27,7 @@
 
 class Point3d;
 class Geom_Plane;
-class gp_Dir;
+class Dir3d;
 class gp_Circ;
 
 //! A framework to display equal distances between shapes and a given plane.
@@ -57,7 +57,7 @@ public:
                                           const Handle(Prs3d_Drawer)&       aDrawer,
                                           const Point3d&                     aPoint1,
                                           const Point3d&                     aPoint2,
-                                          const gp_Dir&                     aDir,
+                                          const Dir3d&                     aDir,
                                           const Point3d&                     aPosition,
                                           const DsgPrs_ArrowSide            anArrowSide,
                                           Point3d&                           anExtremePnt1,

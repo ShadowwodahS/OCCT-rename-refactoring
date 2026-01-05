@@ -23,7 +23,7 @@
 //=========================================================================
 //   Creation of a 3D Geom translation of translation vector Vec.  +
 //=========================================================================
-GC_MakeTranslation::GC_MakeTranslation(const gp_Vec& Vec)
+GC_MakeTranslation::GC_MakeTranslation(const Vector3d& Vec)
 {
   TheTranslation = new Geom_Transformation();
   TheTranslation->SetTranslation(Vec);

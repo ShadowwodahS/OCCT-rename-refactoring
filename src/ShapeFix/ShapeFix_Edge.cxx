@@ -131,7 +131,7 @@ Standard_Boolean ShapeFix_Edge::FixAddPCurve(const TopoDS_Edge&          edge,
   Handle(Geom_Surface) aTransSurf = surface;
   if (!location.IsIdentity())
   {
-    gp_Trsf aTrsf(location);
+    Transform3d aTrsf(location);
     aTransSurf = Handle(Geom_Surface)::DownCast(surface->Transformed(aTrsf));
   }
   Handle(ShapeAnalysis_Surface) sas = new ShapeAnalysis_Surface(aTransSurf);

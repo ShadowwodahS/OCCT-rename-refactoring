@@ -682,8 +682,8 @@ Standard_Boolean TopOpeBRepTool_FuseEdges::SameSupport(const TopoDS_Edge& E1,
   {
     gp_Lin li1(Handle(Geom_Line)::DownCast(C1)->Lin());
     gp_Lin li2(Handle(Geom_Line)::DownCast(C2)->Lin());
-    gp_Dir dir1(li1.Direction());
-    gp_Dir dir2(li2.Direction());
+    Dir3d dir1(li1.Direction());
+    Dir3d dir2(li2.Direction());
 
     if (dir1.IsParallel(dir2, tolang))
     {

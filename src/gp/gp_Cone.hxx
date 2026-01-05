@@ -74,7 +74,7 @@ public:
   //! Changes the symmetry axis of the cone.  Raises ConstructionError
   //! the direction of theA1 is parallel to the "XDirection"
   //! of the coordinate system of the cone.
-  void SetAxis(const gp_Ax1& theA1) { pos.SetAxis(theA1); }
+  void SetAxis(const Axis3d& theA1) { pos.SetAxis(theA1); }
 
   //! Changes the location of the cone.
   void SetLocation(const Point3d& theLoc) { pos.SetLocation(theLoc); }
@@ -125,7 +125,7 @@ public:
   Standard_Boolean Direct() const { return pos.Direct(); }
 
   //! returns the symmetry axis of the cone.
-  const gp_Ax1& Axis() const { return pos.Axis(); }
+  const Axis3d& Axis() const { return pos.Axis(); }
 
   //! Computes the coefficients of the implicit equation of the quadric
   //! in the absolute cartesian coordinates system :
@@ -156,10 +156,10 @@ public:
   Standard_Real SemiAngle() const { return semiAngle; }
 
   //! Returns the XAxis of the reference plane.
-  gp_Ax1 XAxis() const { return gp_Ax1(pos.Location(), pos.XDirection()); }
+  Axis3d XAxis() const { return Axis3d(pos.Location(), pos.XDirection()); }
 
   //! Returns the YAxis of the reference plane.
-  gp_Ax1 YAxis() const { return gp_Ax1(pos.Location(), pos.YDirection()); }
+  Axis3d YAxis() const { return Axis3d(pos.Location(), pos.YDirection()); }
 
   Standard_EXPORT void Mirror(const Point3d& theP);
 
@@ -168,25 +168,25 @@ public:
   //! symmetry.
   Standard_NODISCARD Standard_EXPORT gp_Cone Mirrored(const Point3d& theP) const;
 
-  Standard_EXPORT void Mirror(const gp_Ax1& theA1);
+  Standard_EXPORT void Mirror(const Axis3d& theA1);
 
   //! Performs the symmetrical transformation of a cone with
   //! respect to an axis placement which is the axis of the
   //! symmetry.
-  Standard_NODISCARD Standard_EXPORT gp_Cone Mirrored(const gp_Ax1& theA1) const;
+  Standard_NODISCARD Standard_EXPORT gp_Cone Mirrored(const Axis3d& theA1) const;
 
-  Standard_EXPORT void Mirror(const gp_Ax2& theA2);
+  Standard_EXPORT void Mirror(const Frame3d& theA2);
 
   //! Performs the symmetrical transformation of a cone with respect
   //! to a plane. The axis placement theA2 locates the plane of the
   //! of the symmetry : (Location, XDirection, YDirection).
-  Standard_NODISCARD Standard_EXPORT gp_Cone Mirrored(const gp_Ax2& theA2) const;
+  Standard_NODISCARD Standard_EXPORT gp_Cone Mirrored(const Frame3d& theA2) const;
 
-  void Rotate(const gp_Ax1& theA1, const Standard_Real theAng) { pos.Rotate(theA1, theAng); }
+  void Rotate(const Axis3d& theA1, const Standard_Real theAng) { pos.Rotate(theA1, theAng); }
 
   //! Rotates a cone. theA1 is the axis of the rotation.
   //! Ang is the angular value of the rotation in radians.
-  Standard_NODISCARD gp_Cone Rotated(const gp_Ax1& theA1, const Standard_Real theAng) const
+  Standard_NODISCARD gp_Cone Rotated(const Axis3d& theA1, const Standard_Real theAng) const
   {
     gp_Cone aCone = *this;
     aCone.pos.Rotate(theA1, theAng);
@@ -199,16 +199,16 @@ public:
   //! The absolute value of theS is used to scale the cone
   Standard_NODISCARD gp_Cone Scaled(const Point3d& theP, const Standard_Real theS) const;
 
-  void Transform(const gp_Trsf& theT);
+  void Transform(const Transform3d& theT);
 
   //! Transforms a cone with the transformation theT from class Trsf.
-  Standard_NODISCARD gp_Cone Transformed(const gp_Trsf& theT) const;
+  Standard_NODISCARD gp_Cone Transformed(const Transform3d& theT) const;
 
-  void Translate(const gp_Vec& theV) { pos.Translate(theV); }
+  void Translate(const Vector3d& theV) { pos.Translate(theV); }
 
   //! Translates a cone in the direction of the vector theV.
   //! The magnitude of the translation is the vector's magnitude.
-  Standard_NODISCARD gp_Cone Translated(const gp_Vec& theV) const
+  Standard_NODISCARD gp_Cone Translated(const Vector3d& theV) const
   {
     gp_Cone aCone = *this;
     aCone.pos.Translate(theV);
@@ -303,7 +303,7 @@ inline gp_Cone gp_Cone::Scaled(const Point3d& theP, const Standard_Real theS) co
 // function : Transform
 // purpose  :
 // =======================================================================
-inline void gp_Cone::Transform(const gp_Trsf& theT)
+inline void gp_Cone::Transform(const Transform3d& theT)
 {
   pos.Transform(theT);
   radius *= theT.ScaleFactor();
@@ -317,7 +317,7 @@ inline void gp_Cone::Transform(const gp_Trsf& theT)
 // function : Transformed
 // purpose  :
 // =======================================================================
-inline gp_Cone gp_Cone::Transformed(const gp_Trsf& theT) const
+inline gp_Cone gp_Cone::Transformed(const Transform3d& theT) const
 {
   gp_Cone aC = *this;
   aC.pos.Transform(theT);

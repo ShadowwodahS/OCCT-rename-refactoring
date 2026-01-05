@@ -159,7 +159,7 @@ Standard_Boolean IVtkTools_ShapeDataSource::Contains(const IVtkOCC_Shape::Handle
 //=================================================================================================
 
 vtkSmartPointer<vtkPolyData> IVtkTools_ShapeDataSource::transform(vtkPolyData*   theSource,
-                                                                  const gp_Trsf& theTrsf) const
+                                                                  const Transform3d& theTrsf) const
 {
   vtkSmartPointer<vtkPolyData> aResult = vtkSmartPointer<vtkPolyData>::New();
   aResult->Allocate();

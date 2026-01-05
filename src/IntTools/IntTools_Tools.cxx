@@ -110,7 +110,7 @@ void IntTools_Tools::RejectLines(const IntTools_SequenceOfCurves& aSIn,
   Standard_Boolean   bFlag;
   Handle(Geom_Curve) aC3D;
 
-  gp_Dir aD1, aD2;
+  Dir3d aD1, aD2;
 
   aSOut.Clear();
 
@@ -161,7 +161,7 @@ void IntTools_Tools::RejectLines(const IntTools_SequenceOfCurves& aSIn,
 
 //=================================================================================================
 
-Standard_Boolean IntTools_Tools::IsDirsCoinside(const gp_Dir& D1, const gp_Dir& D2)
+Standard_Boolean IntTools_Tools::IsDirsCoinside(const Dir3d& D1, const Dir3d& D2)
 {
   Standard_Boolean bFlag;
   Point3d           P1(D1.X(), D1.Y(), D1.Z());
@@ -174,8 +174,8 @@ Standard_Boolean IntTools_Tools::IsDirsCoinside(const gp_Dir& D1, const gp_Dir& 
 
 //=================================================================================================
 
-Standard_Boolean IntTools_Tools::IsDirsCoinside(const gp_Dir&       D1,
-                                                const gp_Dir&       D2,
+Standard_Boolean IntTools_Tools::IsDirsCoinside(const Dir3d&       D1,
+                                                const Dir3d&       D2,
                                                 const Standard_Real dLim)
 {
   Standard_Boolean bFlag;
@@ -508,7 +508,7 @@ void ParabolaTolerance(const Handle(Geom_Curve)& aC3D,
   Standard_Real     aFocal, aX1, aX2, aTol1, aTol2;
   Point3d            aPf, aPl;
   gp_Parab          aParab = aGP->Parab();
-  gp_Ax1            aXAxis = aParab.XAxis();
+  Axis3d            aXAxis = aParab.XAxis();
   Handle(Geom_Line) aGAxis = new Geom_Line(aXAxis);
 
   aFocal = aGP->Focal();
@@ -706,10 +706,10 @@ Standard_Integer IntTools_Tools::SegPln(const gp_Lin&       theLin,
   aTol = theTolLin + theTolPln;
   //
   const gp_Ax3& aPosPln = thePln.Position();
-  const gp_Dir& aDirPln = aPosPln.Direction();
+  const Dir3d& aDirPln = aPosPln.Direction();
   const Point3d& aLocPln = aPosPln.Location();
   //
-  const gp_Dir& aDirLin = theLin.Direction();
+  const Dir3d& aDirLin = theLin.Direction();
   const Point3d& aLocLin = theLin.Location();
   //
   aP1.SetXYZ(aLocLin.XYZ() + theTLin1 * aDirLin.XYZ());

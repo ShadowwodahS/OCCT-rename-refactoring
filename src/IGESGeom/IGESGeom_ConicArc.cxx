@@ -168,27 +168,27 @@ Standard_Boolean IGESGeom_ConicArc::IsClosed() const
   return ((theStart.X() == theEnd.X()) && (theStart.Y() == theEnd.Y()));
 }
 
-gp_Dir IGESGeom_ConicArc::Axis() const
+Dir3d IGESGeom_ConicArc::Axis() const
 {
-  gp_Dir axis(0.0, 0.0, 1.0);
+  Dir3d axis(0.0, 0.0, 1.0);
   return axis;
 }
 
 //    Valeurs calculees
 
-gp_Dir IGESGeom_ConicArc::TransformedAxis() const
+Dir3d IGESGeom_ConicArc::TransformedAxis() const
 {
   gp_XYZ axis(0.0, 0.0, 1.0);
   if (!HasTransf())
-    return gp_Dir(axis);
+    return Dir3d(axis);
   gp_GTrsf loc = Location();
   loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
   loc.Transforms(axis);
-  return gp_Dir(axis);
+  return Dir3d(axis);
 }
 
 void IGESGeom_ConicArc::Definition(Point3d&        Center,
-                                   gp_Dir&        MainAxis,
+                                   Dir3d&        MainAxis,
                                    Standard_Real& Rmin,
                                    Standard_Real& Rmax) const
 {
@@ -199,7 +199,7 @@ void IGESGeom_ConicArc::Definition(Point3d&        Center,
 }
 
 void IGESGeom_ConicArc::TransformedDefinition(Point3d&        Center,
-                                              gp_Dir&        MainAxis,
+                                              Dir3d&        MainAxis,
                                               Standard_Real& Rmin,
                                               Standard_Real& Rmax) const
 {

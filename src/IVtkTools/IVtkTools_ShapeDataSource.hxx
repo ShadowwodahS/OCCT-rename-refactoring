@@ -87,7 +87,7 @@ protected: //! @name Internals
   //! @param[in] theSource  source polygonal data to transform.
   //! @param[in] theTrsf  transformation to apply.
   //! @return resulting polygonal data (transformed copy of source).
-  vtkSmartPointer<vtkPolyData> transform(vtkPolyData* theSource, const gp_Trsf& theTrsf) const;
+  vtkSmartPointer<vtkPolyData> transform(vtkPolyData* theSource, const Transform3d& theTrsf) const;
 
 protected:
   IVtkTools_ShapeDataSource();

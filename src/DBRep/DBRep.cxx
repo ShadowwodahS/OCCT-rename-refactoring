@@ -1402,7 +1402,7 @@ static Standard_Integer normals(Draw_Interpretor& theDI,
       if (bPrint)
       {
         // Make the normal vector from the points
-        gp_Vec aV(aVec.first, aVec.second);
+        Vector3d aV(aVec.first, aVec.second);
         if (bReverse)
           aV.Reverse();
 

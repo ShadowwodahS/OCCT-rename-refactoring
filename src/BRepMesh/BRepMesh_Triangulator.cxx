@@ -75,7 +75,7 @@ Handle(Poly_Triangulation) BRepMesh_Triangulator::ToPolyTriangulation(
 BRepMesh_Triangulator::BRepMesh_Triangulator(
   const NCollection_Vector<gp_XYZ>&                  theXYZs,
   const NCollection_List<TColStd_SequenceOfInteger>& theWires,
-  const gp_Dir&                                      theNorm)
+  const Dir3d&                                      theNorm)
     : myXYZs(theXYZs),
       myWires(theWires),
       myPlane(gp::Origin(), theNorm)
@@ -181,7 +181,7 @@ Standard_Boolean BRepMesh_Triangulator::checkCondition(const int (&theNodes)[4],
   const gp_XYZ aCross2 = aV0.Crossed(aV2);
   return (aCross1.SquareModulus() < Precision::SquareConfusion()
           || aCross2.SquareModulus() < Precision::SquareConfusion()
-          || gp_Dir(aCross1).IsEqual(gp_Dir(aCross2), 0.01));
+          || Dir3d(aCross1).IsEqual(Dir3d(aCross2), 0.01));
 }
 
 //=================================================================================================

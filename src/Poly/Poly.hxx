@@ -136,7 +136,7 @@ public:
   //! @param[out] theDistance  distance along ray to intersection point
   //! @return TRUE if intersection takes place, FALSE otherwise.
   Standard_EXPORT static Standard_Boolean Intersect(const Handle(Poly_Triangulation)& theTri,
-                                                    const gp_Ax1&                     theAxis,
+                                                    const Axis3d&                     theAxis,
                                                     const Standard_Boolean            theIsClosest,
                                                     Poly_Triangle&                    theTriangle,
                                                     Standard_Real&                    theDistance);
@@ -150,7 +150,7 @@ public:
   //! @param[out] theParam  param on line of the intersection point
   //! @return 1 if intersection was found, 0 otherwise.
   Standard_EXPORT static Standard_Integer IntersectTriLine(const gp_XYZ&  theStart,
-                                                           const gp_Dir&  theDir,
+                                                           const Dir3d&  theDir,
                                                            const gp_XYZ&  theV0,
                                                            const gp_XYZ&  theV1,
                                                            const gp_XYZ&  theV2,

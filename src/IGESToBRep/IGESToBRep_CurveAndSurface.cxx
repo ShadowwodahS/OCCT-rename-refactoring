@@ -222,7 +222,7 @@ TopoDS_Shape IGESToBRep_CurveAndSurface::TransferGeometry(const Handle(IGESData_
   // Message_Msg msg202 ("XSTEP_202");
   ////////////////////////////
   TopoDS_Shape res;
-  gp_Trsf      T408;
+  Transform3d      T408;
   if (start.IsNull())
   {
     Message_Msg msg1005("IGES_1005"); //  Software error :  start IsNull.
@@ -264,7 +264,7 @@ TopoDS_Shape IGESToBRep_CurveAndSurface::TransferGeometry(const Handle(IGESData_
     DeclareAndCast(IGESBasic_SingularSubfigure, st408, start);
     Handle(IGESBasic_SubfigureDef) stsub = st408->Subfigure();
     gp_XYZ                         trans = st408->Translation();
-    gp_Vec                         vectr(trans);
+    Vector3d                         vectr(trans);
     Standard_Real                  scunit = GetUnitFactor();
     vectr.Multiply(scunit);
     T408.SetTranslation(vectr);
@@ -515,7 +515,7 @@ TopoDS_Shape IGESToBRep_CurveAndSurface::TransferGeometry(const Handle(IGESData_
 
   if (start->HasTransf())
   {
-    gp_Trsf T;
+    Transform3d T;
     SetEpsilon(1.E-04);
     if (IGESData_ToolLocation::ConvertLocation(GetEpsilon(),
                                                start->CompoundLocation(),

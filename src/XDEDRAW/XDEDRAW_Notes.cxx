@@ -1281,10 +1281,10 @@ static Standard_Integer noteDump(Draw_Interpretor& di, Standard_Integer argc, co
     di << "plane : ";
     if (aNoteObj->HasPlane())
     {
-      const gp_Ax2& anAx = aNoteObj->GetPlane();
+      const Frame3d& anAx = aNoteObj->GetPlane();
       const Point3d& aP   = anAx.Location();
       di << "P : [ " << aP.X() << " " << aP.Y() << " " << aP.Z() << " ]";
-      const gp_Dir& aN = anAx.Direction();
+      const Dir3d& aN = anAx.Direction();
       di << "N : [ " << aN.X() << " " << aN.Y() << " " << aN.Z() << " ]";
     }
     di << "attachment point : ";

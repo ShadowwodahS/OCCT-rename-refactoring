@@ -290,7 +290,7 @@ void VrmlData_ShapeConvert::Convert(const Standard_Boolean theExtractFaces,
           {
             // Create a Transform grouping node
             Handle(VrmlData_Group) aTrans = new VrmlData_Group(myScene, 0L, Standard_True);
-            gp_Trsf                aTrsf(aLoc);
+            Transform3d                aTrsf(aLoc);
             if (fabs(myScale - 1.) > Precision::Confusion())
             {
               const gp_XYZ aTransl = aTrsf.TranslationPart() * myScale;
@@ -427,7 +427,7 @@ Handle(VrmlData_Geometry) VrmlData_ShapeConvert::triToIndexedFaceSet(
       for (i = 0; i < nNodes; i++)
       {
         const gp_Pnt2d aUV = theTri->UVNode(i + 1);
-        gp_Dir         aNormal;
+        Dir3d         aNormal;
         if (GeomLib::NormEstim(aSurface, aUV, Tol, aNormal) > 1)
         {
           // Try to estimate as middle normal of adjacent triangles
@@ -449,7 +449,7 @@ Handle(VrmlData_Geometry) VrmlData_ShapeConvert::triToIndexedFaceSet(
           }
 
           if (eqPlan.SquareModulus() > gp::Resolution())
-            aNormal = gp_Dir(eqPlan);
+            aNormal = Dir3d(eqPlan);
         }
         if (isReverse)
           aNormal.Reverse();
@@ -692,7 +692,7 @@ void VrmlData_ShapeConvert::addShape(const Handle(VrmlData_Group)&   theParent,
       {
         // Create a Transform grouping node
         Handle(VrmlData_Group) aTrans = new VrmlData_Group(myScene, 0L, Standard_True);
-        gp_Trsf                aTrsf(aLoc);
+        Transform3d                aTrsf(aLoc);
         if (fabs(myScale - 1.) > Precision::Confusion())
         {
           const gp_XYZ aTransl = aTrsf.TranslationPart() * myScale;
@@ -731,7 +731,7 @@ void VrmlData_ShapeConvert::addInstance(const Handle(VrmlData_Group)&   theParen
   {
     // Create a Transform grouping node
     aTrans = new VrmlData_Group(myScene, 0L, Standard_True);
-    gp_Trsf aTrsf(aLoc);
+    Transform3d aTrsf(aLoc);
     if (fabs(myScale - 1.) > Precision::Confusion())
     {
       const gp_XYZ aTransl = aTrsf.TranslationPart() * myScale;
@@ -793,7 +793,7 @@ void VrmlData_ShapeConvert::addAssembly(const Handle(VrmlData_Group)&   theParen
     TopLoc_Location aLoc = aShapeTool->GetLocation(theLabel);
     if (!aLoc.IsIdentity())
     {
-      gp_Trsf aTrsf(aLoc);
+      Transform3d aTrsf(aLoc);
       if (fabs(myScale - 1.) > Precision::Confusion())
       {
         const gp_XYZ aTransl = aTrsf.TranslationPart() * myScale;

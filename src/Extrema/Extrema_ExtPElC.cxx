@@ -63,9 +63,9 @@ void Extrema_ExtPElC::Perform(const Point3d&       P,
 {
   myDone  = Standard_False;
   myNbExt = 0;
-  gp_Vec        V1(L.Direction());
+  Vector3d        V1(L.Direction());
   Point3d        OR = L.Location();
-  gp_Vec        V(OR, P);
+  Vector3d        V(OR, P);
   Standard_Real Mydist = V1.Dot(V);
   if ((Mydist >= Uinf - Tol) && (Mydist <= Usup + Tol))
   {
@@ -123,13 +123,13 @@ Method:
   // 1- Projection of the point P in the plane of circle -> Pp ...
 
   Point3d O = C.Location();
-  gp_Vec Axe(C.Axis().Direction());
-  gp_Vec Trsl = Axe.Multiplied(-(gp_Vec(O, P).Dot(Axe)));
+  Vector3d Axe(C.Axis().Direction());
+  Vector3d Trsl = Axe.Multiplied(-(Vector3d(O, P).Dot(Axe)));
   Point3d Pp   = P.Translated(Trsl);
 
   // 2- Calculate u solutions in [0.,2.*PI] ...
 
-  gp_Vec OPp(O, Pp);
+  Vector3d OPp(O, Pp);
   if (OPp.Magnitude() < Tol)
   {
     return;
@@ -222,8 +222,8 @@ Method:
   // 1- Projection of point P in the plane of the ellipse -> Pp ...
 
   Point3d O = C.Location();
-  gp_Vec Axe(C.Axis().Direction());
-  gp_Vec Trsl = Axe.Multiplied(-(gp_Vec(O, P).Dot(Axe)));
+  Vector3d Axe(C.Axis().Direction());
+  Vector3d Trsl = Axe.Multiplied(-(Vector3d(O, P).Dot(Axe)));
   Point3d Pp   = P.Translated(Trsl);
 
   // 2- Calculation of solutions ...
@@ -231,7 +231,7 @@ Method:
   Standard_Integer NoSol, NbSol;
   Standard_Real    A = C.MajorRadius();
   Standard_Real    B = C.MinorRadius();
-  gp_Vec           OPp(O, Pp);
+  Vector3d           OPp(O, Pp);
   Standard_Real    OPpMagn = OPp.Magnitude();
   if (OPpMagn < Tol)
   {
@@ -240,8 +240,8 @@ Method:
       return;
     }
   }
-  Standard_Real X = OPp.Dot(gp_Vec(C.XAxis().Direction()));
-  Standard_Real Y = OPp.Dot(gp_Vec(C.YAxis().Direction()));
+  Standard_Real X = OPp.Dot(Vector3d(C.XAxis().Direction()));
+  Standard_Real Y = OPp.Dot(Vector3d(C.YAxis().Direction()));
   //  Standard_Real Y = Sqrt(OPpMagn*OPpMagn-X*X);
 
   Standard_Real ko2 = (B * B - A * A) / 2., ko3 = -B * Y, ko4 = A * X;
@@ -322,8 +322,8 @@ Method:
   // 1- Projection of point P in the plane of hyperbola -> Pp ...
 
   Point3d O = C.Location();
-  gp_Vec Axe(C.Axis().Direction());
-  gp_Vec Trsl = Axe.Multiplied(-(gp_Vec(O, P).Dot(Axe)));
+  Vector3d Axe(C.Axis().Direction());
+  Vector3d Trsl = Axe.Multiplied(-(Vector3d(O, P).Dot(Axe)));
   Point3d Pp   = P.Translated(Trsl);
 
   // 2- Calculation of solutions ...
@@ -331,9 +331,9 @@ Method:
   Standard_Real Tol2 = Tol * Tol;
   Standard_Real R    = C.MajorRadius();
   Standard_Real r    = C.MinorRadius();
-  gp_Vec        OPp(O, Pp);
-  Standard_Real X = OPp.Dot(gp_Vec(C.XAxis().Direction()));
-  Standard_Real Y = OPp.Dot(gp_Vec(C.YAxis().Direction()));
+  Vector3d        OPp(O, Pp);
+  Standard_Real X = OPp.Dot(Vector3d(C.XAxis().Direction()));
+  Standard_Real Y = OPp.Dot(Vector3d(C.YAxis().Direction()));
 
   Standard_Real              C1 = (R * R + r * r) / 4.;
   math_DirectPolynomialRoots Sol(C1, -(X * R + Y * r) / 2., 0., (X * R - Y * r) / 2., -C1);
@@ -421,17 +421,17 @@ Method:
   // 1- Projection of point P in the plane of the parabola -> Pp ...
 
   Point3d O = C.Location();
-  gp_Vec Axe(C.Axis().Direction());
-  gp_Vec Trsl = Axe.Multiplied(-(gp_Vec(O, P).Dot(Axe)));
+  Vector3d Axe(C.Axis().Direction());
+  Vector3d Trsl = Axe.Multiplied(-(Vector3d(O, P).Dot(Axe)));
   Point3d Pp   = P.Translated(Trsl);
 
   // 2- Calculation of solutions ...
 
   Standard_Real F = C.Focal();
-  gp_Vec        OPp(O, Pp);
-  Standard_Real X = OPp.Dot(gp_Vec(C.XAxis().Direction()));
+  Vector3d        OPp(O, Pp);
+  Standard_Real X = OPp.Dot(Vector3d(C.XAxis().Direction()));
   //  Standard_Real Y = Sqrt(OPpMagn*OPpMagn-X*X);
-  Standard_Real              Y = OPp.Dot(gp_Vec(C.YAxis().Direction()));
+  Standard_Real              Y = OPp.Dot(Vector3d(C.YAxis().Direction()));
   math_DirectPolynomialRoots Sol(1. / (4. * F), 0., 2. * F - X, -2. * F * Y);
   if (!Sol.IsDone())
   {

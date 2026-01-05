@@ -58,8 +58,8 @@ Standard_Real IntPatch_PointLine::CurvatureRadiusOfIntersLine(
   Standard_Real aU1 = 0.0, aV1 = 0.0, aU2 = 0.0, aV2 = 0.0;
   theUVPoint.Parameters(aU1, aV1, aU2, aV2);
   Point3d aPt;
-  gp_Vec aDU1, aDV1, aDUU1, aDUV1, aDVV1;
-  gp_Vec aDU2, aDV2, aDUU2, aDUV2, aDVV2;
+  Vector3d aDU1, aDV1, aDUU1, aDUV1, aDVV1;
+  Vector3d aDU2, aDV2, aDUU2, aDUV2, aDVV2;
 
   theS1->D2(aU1, aV1, aPt, aDU1, aDV1, aDUU1, aDVV1, aDUV1);
   theS2->D2(aU2, aV2, aPt, aDU2, aDV2, aDUU2, aDVV2, aDUV2);
@@ -117,9 +117,9 @@ Standard_Real IntPatch_PointLine::CurvatureRadiusOfIntersLine(
   }
 #endif
 
-  const gp_Vec aN1(aDU1.Crossed(aDV1)), aN2(aDU2.Crossed(aDV2));
+  const Vector3d aN1(aDU1.Crossed(aDV1)), aN2(aDU2.Crossed(aDV2));
   // Tangent vector to the intersection curve
-  const gp_Vec        aCTan(aN1.Crossed(aN2));
+  const Vector3d        aCTan(aN1.Crossed(aN2));
   const Standard_Real aSqMagnFDer = aCTan.SquareMagnitude();
 
   if (aSqMagnFDer < 1.0e-8)
@@ -136,7 +136,7 @@ Standard_Real IntPatch_PointLine::CurvatureRadiusOfIntersLine(
     // This algorithm is described in NonSingularProcessing() function
     // in ApproxInt_ImpPrmSvSurfaces.gxx file
     Standard_Real aSqNMagn = aN1.SquareMagnitude();
-    gp_Vec        aTgU(aCTan.Crossed(aDU1)), aTgV(aCTan.Crossed(aDV1));
+    Vector3d        aTgU(aCTan.Crossed(aDU1)), aTgV(aCTan.Crossed(aDV1));
     Standard_Real aDeltaU = aTgV.SquareMagnitude() / aSqNMagn;
     Standard_Real aDeltaV = aTgU.SquareMagnitude() / aSqNMagn;
 
@@ -179,7 +179,7 @@ Standard_Real IntPatch_PointLine::CurvatureRadiusOfIntersLine(
                             + aDvS2 * aDvS2 * aDVV2.Dot(aN2);
 
   // Principal normal to the intersection curve
-  const gp_Vec        aCNorm((aF1 * aC - aF2 * aB) / aDetSyst * aN1
+  const Vector3d        aCNorm((aF1 * aC - aF2 * aB) / aDetSyst * aN1
                       + (aA * aF2 - aF1 * aB) / aDetSyst * aN2);
   const Standard_Real aSqMagnSDer = aCNorm.CrossSquareMagnitude(aCTan);
 

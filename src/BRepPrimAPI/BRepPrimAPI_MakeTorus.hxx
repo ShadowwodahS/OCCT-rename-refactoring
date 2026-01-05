@@ -23,7 +23,7 @@
 
 #include <BRepPrim_Torus.hxx>
 #include <BRepPrimAPI_MakeOneAxis.hxx>
-class gp_Ax2;
+class Frame3d;
 
 //! Describes functions to build tori or portions of tori.
 //! A MakeTorus object provides a framework for:
@@ -74,7 +74,7 @@ public:
   //! @param[in] Axes  coordinate system for the construction of the sphere
   //! @param[in] R1    distance from the center of the pipe to the center of the torus
   //! @param[in] R2    radius of the pipe
-  Standard_EXPORT BRepPrimAPI_MakeTorus(const gp_Ax2&       Axes,
+  Standard_EXPORT BRepPrimAPI_MakeTorus(const Frame3d&       Axes,
                                         const Standard_Real R1,
                                         const Standard_Real R2);
 
@@ -83,7 +83,7 @@ public:
   //! @param[in] R1     distance from the center of the pipe to the center of the torus
   //! @param[in] R2     radius of the pipe
   //! @param[in] angle  angle to create a torus pipe segment
-  Standard_EXPORT BRepPrimAPI_MakeTorus(const gp_Ax2&       Axes,
+  Standard_EXPORT BRepPrimAPI_MakeTorus(const Frame3d&       Axes,
                                         const Standard_Real R1,
                                         const Standard_Real R2,
                                         const Standard_Real angle);
@@ -94,7 +94,7 @@ public:
   //! @param[in] R2      radius of the pipe
   //! @param[in] angle1  first  angle to create a torus ring segment
   //! @param[in] angle2  second angle to create a torus ring segment
-  Standard_EXPORT BRepPrimAPI_MakeTorus(const gp_Ax2&       Axes,
+  Standard_EXPORT BRepPrimAPI_MakeTorus(const Frame3d&       Axes,
                                         const Standard_Real R1,
                                         const Standard_Real R2,
                                         const Standard_Real angle1,
@@ -120,7 +120,7 @@ public:
   //! of the reference circle gives the v parameter on the
   //! reference circle. The X axis gives the origin of the v
   //! parameter. Near 0, as v increases, the Z coordinate decreases.
-  Standard_EXPORT BRepPrimAPI_MakeTorus(const gp_Ax2&       Axes,
+  Standard_EXPORT BRepPrimAPI_MakeTorus(const Frame3d&       Axes,
                                         const Standard_Real R1,
                                         const Standard_Real R2,
                                         const Standard_Real angle1,

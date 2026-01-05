@@ -65,7 +65,7 @@ public:
 
   //! Creates a plane with the  "Location" point <theP>
   //! and the normal direction <theV>.
-  Standard_EXPORT gp_Pln(const Point3d& theP, const gp_Dir& theV);
+  Standard_EXPORT gp_Pln(const Point3d& theP, const Dir3d& theV);
 
   //! Creates a plane from its cartesian equation :
   //! @code
@@ -90,7 +90,7 @@ public:
   //! -   its origin and "main Direction" become those of the
   //! axis theA1 (the "X Direction" and "Y Direction" are then recomputed).
   //! Raises ConstructionError if the theA1 is parallel to the "XAxis" of the plane.
-  void SetAxis(const gp_Ax1& theA1) { pos.SetAxis(theA1); }
+  void SetAxis(const Axis3d& theA1) { pos.SetAxis(theA1); }
 
   //! Changes the origin of the plane.
   void SetLocation(const Point3d& theLoc) { pos.SetLocation(theLoc); }
@@ -110,7 +110,7 @@ public:
   Standard_Boolean Direct() const { return pos.Direct(); }
 
   //! Returns the plane's normal Axis.
-  const gp_Ax1& Axis() const { return pos.Axis(); }
+  const Axis3d& Axis() const { return pos.Axis(); }
 
   //! Returns the plane's location (origin).
   const Point3d& Location() const { return pos.Location(); }
@@ -149,10 +149,10 @@ public:
   }
 
   //! Returns the X axis of the plane.
-  gp_Ax1 XAxis() const { return gp_Ax1(pos.Location(), pos.XDirection()); }
+  Axis3d XAxis() const { return Axis3d(pos.Location(), pos.XDirection()); }
 
   //! Returns the Y axis  of the plane.
-  gp_Ax1 YAxis() const { return gp_Ax1(pos.Location(), pos.YDirection()); }
+  Axis3d YAxis() const { return Axis3d(pos.Location(), pos.YDirection()); }
 
   //! Returns true if this plane contains the point theP. This means that
   //! -   the distance between point theP and this plane is less
@@ -192,7 +192,7 @@ public:
   //! The "XAxis" and the "YAxis" are reversed.
   Standard_NODISCARD Standard_EXPORT gp_Pln Mirrored(const Point3d& theP) const;
 
-  Standard_EXPORT void Mirror(const gp_Ax1& theA1);
+  Standard_EXPORT void Mirror(const Axis3d& theA1);
 
   //! Performs   the symmetrical transformation  of a
   //! plane with respect to an axis placement  which is the axis
@@ -202,9 +202,9 @@ public:
   //! the "XDirection" and the "YDirection" after transformation
   //! if  the  initial plane was right  handed,  else  it is the
   //! opposite.
-  Standard_NODISCARD Standard_EXPORT gp_Pln Mirrored(const gp_Ax1& theA1) const;
+  Standard_NODISCARD Standard_EXPORT gp_Pln Mirrored(const Axis3d& theA1) const;
 
-  Standard_EXPORT void Mirror(const gp_Ax2& theA2);
+  Standard_EXPORT void Mirror(const Frame3d& theA2);
 
   //! Performs the  symmetrical transformation  of  a
   //! plane    with respect to    an axis  placement.   The axis
@@ -214,13 +214,13 @@ public:
   //! direction is the cross  product between   the "XDirection"
   //! and the "YDirection"  after  transformation if the initial
   //! plane was right handed, else it is the opposite.
-  Standard_NODISCARD Standard_EXPORT gp_Pln Mirrored(const gp_Ax2& theA2) const;
+  Standard_NODISCARD Standard_EXPORT gp_Pln Mirrored(const Frame3d& theA2) const;
 
-  void Rotate(const gp_Ax1& theA1, const Standard_Real theAng) { pos.Rotate(theA1, theAng); }
+  void Rotate(const Axis3d& theA1, const Standard_Real theAng) { pos.Rotate(theA1, theAng); }
 
   //! rotates a plane. theA1 is the axis of the rotation.
   //! theAng is the angular value of the rotation in radians.
-  Standard_NODISCARD gp_Pln Rotated(const gp_Ax1& theA1, const Standard_Real theAng) const
+  Standard_NODISCARD gp_Pln Rotated(const Axis3d& theA1, const Standard_Real theAng) const
   {
     gp_Pln aPl = *this;
     aPl.pos.Rotate(theA1, theAng);
@@ -237,25 +237,25 @@ public:
     return aPl;
   }
 
-  void Transform(const gp_Trsf& theT) { pos.Transform(theT); }
+  void Transform(const Transform3d& theT) { pos.Transform(theT); }
 
   //! Transforms a plane with the transformation theT from class Trsf.
   //! The transformation is performed on the "Location"
   //! point, on the "XAxis" and the "YAxis".
   //! The resulting normal direction is the cross product between
   //! the "XDirection" and the "YDirection" after transformation.
-  Standard_NODISCARD gp_Pln Transformed(const gp_Trsf& theT) const
+  Standard_NODISCARD gp_Pln Transformed(const Transform3d& theT) const
   {
     gp_Pln aPl = *this;
     aPl.pos.Transform(theT);
     return aPl;
   }
 
-  void Translate(const gp_Vec& theV) { pos.Translate(theV); }
+  void Translate(const Vector3d& theV) { pos.Translate(theV); }
 
   //! Translates a plane in the direction of the vector theV.
   //! The magnitude of the translation is the vector's magnitude.
-  Standard_NODISCARD gp_Pln Translated(const gp_Vec& theV) const
+  Standard_NODISCARD gp_Pln Translated(const Vector3d& theV) const
   {
     gp_Pln aPl = *this;
     aPl.pos.Translate(theV);
@@ -290,7 +290,7 @@ inline void gp_Pln::Coefficients(Standard_Real& theA,
                                  Standard_Real& theC,
                                  Standard_Real& theD) const
 {
-  const gp_Dir& aDir = pos.Direction();
+  const Dir3d& aDir = pos.Direction();
   if (pos.Direct())
   {
     theA = aDir.X();
@@ -314,7 +314,7 @@ inline void gp_Pln::Coefficients(Standard_Real& theA,
 inline Standard_Real gp_Pln::Distance(const Point3d& theP) const
 {
   const Point3d& aLoc = pos.Location();
-  const gp_Dir& aDir = pos.Direction();
+  const Dir3d& aDir = pos.Direction();
   Standard_Real aD   = (aDir.X() * (theP.X() - aLoc.X()) + aDir.Y() * (theP.Y() - aLoc.Y())
                       + aDir.Z() * (theP.Z() - aLoc.Z()));
   if (aD < 0)
@@ -335,7 +335,7 @@ inline Standard_Real gp_Pln::Distance(const gp_Lin& theL) const
   {
     const Point3d& aP   = theL.Location();
     const Point3d& aLoc = pos.Location();
-    const gp_Dir& aDir = pos.Direction();
+    const Dir3d& aDir = pos.Direction();
     aD                 = (aDir.X() * (aP.X() - aLoc.X()) + aDir.Y() * (aP.Y() - aLoc.Y())
           + aDir.Z() * (aP.Z() - aLoc.Z()));
     if (aD < 0)
@@ -357,7 +357,7 @@ inline Standard_Real gp_Pln::Distance(const gp_Pln& theOther) const
   {
     const Point3d& aP   = theOther.pos.Location();
     const Point3d& aLoc = pos.Location();
-    const gp_Dir& aDir = pos.Direction();
+    const Dir3d& aDir = pos.Direction();
     aD                 = (aDir.X() * (aP.X() - aLoc.X()) + aDir.Y() * (aP.Y() - aLoc.Y())
           + aDir.Z() * (aP.Z() - aLoc.Z()));
     if (aD < 0)

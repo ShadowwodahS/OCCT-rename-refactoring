@@ -58,8 +58,8 @@
   #include <Geom2d_Line.hxx>
 #endif
 
-static gp_Ax2        DirToAx2(const Point3d& P, const gp_Dir& D);
-static void          RefineDir(gp_Dir& aDir);
+static Frame3d        DirToAx2(const Point3d& P, const Dir3d& D);
+static void          RefineDir(Dir3d& aDir);
 static Standard_Real EstimDist(const gp_Cone& theCon1, const gp_Cone& theCon2);
 
 //=======================================================================
@@ -69,8 +69,8 @@ static Standard_Real EstimDist(const gp_Cone& theCon1, const gp_Cone& theCon2);
 class AxeOperator
 {
 public:
-  AxeOperator(const gp_Ax1&       A1,
-              const gp_Ax1&       A2,
+  AxeOperator(const Axis3d&       A1,
+              const Axis3d&       A2,
               const Standard_Real theEpsDistance = 1.e-14,
               const Standard_Real theEpsAxesPara = Precision::Angular());
 
@@ -108,8 +108,8 @@ protected:
 
 private:
   Point3d           ptintersect;
-  gp_Ax1           Axe1;
-  gp_Ax1           Axe2;
+  Axis3d           Axe1;
+  Axis3d           Axe2;
   Standard_Real    thedistance;
   Standard_Boolean theparallel;
   Standard_Boolean thecoplanar;
@@ -121,8 +121,8 @@ private:
 
 //=================================================================================================
 
-AxeOperator::AxeOperator(const gp_Ax1&       A1,
-                         const gp_Ax1&       A2,
+AxeOperator::AxeOperator(const Axis3d&       A1,
+                         const Axis3d&       A2,
                          const Standard_Real theEpsDistance,
                          const Standard_Real theEpsAxesPara)
     : Axe1(A1),
@@ -131,8 +131,8 @@ AxeOperator::AxeOperator(const gp_Ax1&       A1,
       myEPSILON_AXES_PARA(theEpsAxesPara)
 {
   //---------------------------------------------------------------------
-  gp_Dir V1 = Axe1.Direction();
-  gp_Dir V2 = Axe2.Direction();
+  Dir3d V1 = Axe1.Direction();
+  Dir3d V2 = Axe2.Direction();
   Point3d P1 = Axe1.Location();
   Point3d P2 = Axe2.Location();
   //
@@ -152,7 +152,7 @@ AxeOperator::AxeOperator(const gp_Ax1&       A1,
   }
   else
   {
-    thedistance = Abs(gp_Vec(perp.Normalized()).Dot(gp_Vec(Axe1.Location(), Axe2.Location())));
+    thedistance = Abs(Vector3d(perp.Normalized()).Dot(Vector3d(Axe1.Location(), Axe2.Location())));
   }
   //--- check if Axis are Coplanar
   Standard_Real D33;
@@ -210,11 +210,11 @@ AxeOperator::AxeOperator(const gp_Ax1&       A1,
 
 void AxeOperator::Distance(Standard_Real& dist, Standard_Real& Param1, Standard_Real& Param2)
 {
-  gp_Vec O1O2(Axe1.Location(), Axe2.Location());
-  gp_Dir U1 = Axe1.Direction(); //-- juste pour voir.
-  gp_Dir U2 = Axe2.Direction();
+  Vector3d O1O2(Axe1.Location(), Axe2.Location());
+  Dir3d U1 = Axe1.Direction(); //-- juste pour voir.
+  Dir3d U2 = Axe2.Direction();
 
-  gp_Dir        N = U1.Crossed(U2);
+  Dir3d        N = U1.Crossed(U2);
   Standard_Real D = Det33(U1.X(), U2.X(), N.X(), U1.Y(), U2.Y(), N.Y(), U1.Z(), U2.Z(), N.Z());
   if (D)
   {
@@ -231,9 +231,9 @@ void AxeOperator::Distance(Standard_Real& dist, Standard_Real& Param1, Standard_
 
 //=======================================================================
 // function : DirToAx2
-// purpose  : returns a gp_Ax2 where D is the main direction
+// purpose  : returns a Frame3d where D is the main direction
 //=======================================================================
-gp_Ax2 DirToAx2(const Point3d& P, const gp_Dir& D)
+Frame3d DirToAx2(const Point3d& P, const Dir3d& D)
 {
   Standard_Real x  = D.X();
   Standard_Real ax = Abs(x);
@@ -243,15 +243,15 @@ gp_Ax2 DirToAx2(const Point3d& P, const gp_Dir& D)
   Standard_Real az = Abs(z);
   if ((ax == 0.0) || ((ax < ay) && (ax < az)))
   {
-    return (gp_Ax2(P, D, gp_Dir(gp_Vec(0.0, -z, y))));
+    return (Frame3d(P, D, Dir3d(Vector3d(0.0, -z, y))));
   }
   else if ((ay == 0.0) || ((ay < ax) && (ay < az)))
   {
-    return (gp_Ax2(P, D, gp_Dir(gp_Vec(-z, 0.0, x))));
+    return (Frame3d(P, D, Dir3d(Vector3d(-z, 0.0, x))));
   }
   else
   {
-    return (gp_Ax2(P, D, gp_Dir(gp_Vec(-y, x, 0.0))));
+    return (Frame3d(P, D, Dir3d(Vector3d(-y, x, 0.0))));
   }
 }
 
@@ -398,9 +398,9 @@ void IntAna_QuadQuadGeo::Perform(const gp_Pln&       P1,
   P1.Coefficients(A1, B1, C1, D1);
   P2.Coefficients(A2, B2, C2, D2);
   //
-  gp_Vec aVN1(A1, B1, C1);
-  gp_Vec aVN2(A2, B2, C2);
-  gp_Vec vd(aVN1.Crossed(aVN2));
+  Vector3d aVN1(A1, B1, C1);
+  Vector3d aVN2(A2, B2, C2);
+  Vector3d vd(aVN1.Crossed(aVN2));
   //
   const Point3d& aLocP1 = P1.Location();
   const Point3d& aLocP2 = P2.Location();
@@ -429,8 +429,8 @@ void IntAna_QuadQuadGeo::Perform(const gp_Pln&       P1,
     par1 = dist1 / denom;
     par2 = -dist2 / denom;
 
-    gp_Vec inter1(aVN1.Crossed(vd));
-    gp_Vec inter2(aVN2.Crossed(vd));
+    Vector3d inter1(aVN1.Crossed(vd));
+    Vector3d inter2(aVN2.Crossed(vd));
 
     X1 = aLocP1.X() + par1 * inter1.X();
     Y1 = aLocP1.Y() + par1 * inter1.Y();
@@ -440,7 +440,7 @@ void IntAna_QuadQuadGeo::Perform(const gp_Pln&       P1,
     Z2 = aLocP2.Z() + par2 * inter2.Z();
 
     pt1     = Point3d((X1 + X2) * 0.5, (Y1 + Y2) * 0.5, (Z1 + Z2) * 0.5);
-    dir1    = gp_Dir(vd);
+    dir1    = Dir3d(vd);
     typeres = IntAna_Line;
     nbint   = 1;
     //
@@ -472,7 +472,7 @@ void IntAna_QuadQuadGeo::Perform(const gp_Pln&       P1,
         IntAna_IntConicQuad aICQ;
         //
         // 1.
-        gp_Dir aDN1(aVN1);
+        Dir3d aDN1(aVN1);
         gp_Lin aL1(pt1, aDN1);
         //
         aICQ.Perform(aL1, P1, TolAng, Tol);
@@ -485,7 +485,7 @@ void IntAna_QuadQuadGeo::Perform(const gp_Pln&       P1,
         const Point3d& aPnt1 = aICQ.Point(1);
         //----------------------------------
         // 2.
-        gp_Dir aDL2(dir1.Crossed(aDN1));
+        Dir3d aDL2(dir1.Crossed(aDN1));
         gp_Lin aL2(aPnt1, aDL2);
         //
         aICQ.Perform(aL2, P2, TolAng, Tol);
@@ -566,8 +566,8 @@ void IntAna_QuadQuadGeo::Perform(const gp_Pln&       P,
   Standard_Real    tolang    = Tolang;
   Standard_Boolean newparams = Standard_False;
 
-  gp_Vec        ldv(axec.Direction());
-  gp_Vec        npv(normp);
+  Vector3d        ldv(axec.Direction());
+  Vector3d        npv(normp);
   Standard_Real dA = Abs(ldv.Angle(npv));
   if (dA > (M_PI / 4.))
   {
@@ -613,8 +613,8 @@ void IntAna_QuadQuadGeo::Perform(const gp_Pln&       P,
                       omegaXYZtrnsl.Z() - distt * C);
         Point3d ppt1;
         ppt1.SetXYZ(omega1);
-        gp_Vec vv1(pt1, ppt1);
-        gp_Dir dd1(vv1);
+        Vector3d vv1(pt1, ppt1);
+        Dir3d dd1(vv1);
         dir1 = dd1;
       }
       else
@@ -646,10 +646,10 @@ void IntAna_QuadQuadGeo::Perform(const gp_Pln&       P,
         Point3d ppt1, ppt2;
         ppt1.SetXYZ(omega1 - ht * axey);
         ppt2.SetXYZ(omega1 + ht * axey);
-        gp_Vec vv1(pt1, ppt1);
-        gp_Vec vv2(pt2, ppt2);
-        gp_Dir dd1(vv1);
-        gp_Dir dd2(vv2);
+        Vector3d vv1(pt1, ppt1);
+        Vector3d vv2(pt2, ppt2);
+        Dir3d dd1(vv1);
+        Dir3d dd2(vv2);
         dir1 = dd1;
         dir2 = dd2;
       }
@@ -1075,8 +1075,8 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cylinder&  Cyl1,
       Point3d P2t = Cyl2.Location();
       Point3d P2;
       //-- P2t is projected on the plane (P1,DirCylX,DirCylY)
-      gp_Dir        DirCyl          = Cyl1.Position().Direction();
-      Standard_Real ProjP2OnDirCyl1 = gp_Vec(DirCyl).Dot(gp_Vec(P1, P2t));
+      Dir3d        DirCyl          = Cyl1.Position().Direction();
+      Standard_Real ProjP2OnDirCyl1 = Vector3d(DirCyl).Dot(Vector3d(P1, P2t));
 
       // P2 is a projection the location of the 2nd cylinder on the base
       // of the 1st cylinder
@@ -1146,7 +1146,7 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cylinder&  Cyl1,
         const Standard_Boolean isTangent = ((4.0 * aR1R1 * aSin2) < Tol * Tol);
 
         // Normalized vector P1P2
-        const gp_Vec DirA1A2((P2.XYZ() - P1.XYZ()) / DistA1A2);
+        const Vector3d DirA1A2((P2.XYZ() - P1.XYZ()) / DistA1A2);
 
         if (isTangent)
         {
@@ -1166,8 +1166,8 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cylinder&  Cyl1,
           // two intersection points).
           // 2. Intercept the segment from P1 along direction,
           // determined in the preview paragraph and having R1 length
-          const gp_Dir &aXDir = Cyl1.Position().XDirection(), &aYDir = Cyl1.Position().YDirection();
-          const gp_Vec  aR1Xdir = R1 * aXDir.XYZ(), aR1Ydir = R1 * aYDir.XYZ();
+          const Dir3d &aXDir = Cyl1.Position().XDirection(), &aYDir = Cyl1.Position().YDirection();
+          const Vector3d  aR1Xdir = R1 * aXDir.XYZ(), aR1Ydir = R1 * aYDir.XYZ();
 
           // Source 2D-coordinates of the P1P2 vector normalized
           // in coordinate system, based on the X- and Y-directions
@@ -1214,8 +1214,8 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cylinder&  Cyl1,
       //-- and identical radius
       typeres        = IntAna_Ellipse;
       nbint          = 2;
-      gp_Dir DirCyl1 = Cyl1.Position().Direction();
-      gp_Dir DirCyl2 = Cyl2.Position().Direction();
+      Dir3d DirCyl1 = Cyl1.Position().Direction();
+      Dir3d DirCyl2 = Cyl2.Position().Direction();
       pt1 = pt2 = A1A2.PtIntersect();
 
       Standard_Real A = DirCyl1.Angle(DirCyl2);
@@ -1229,10 +1229,10 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cylinder&  Cyl1,
         return;
       }
 
-      gp_Vec dircyl1(DirCyl1);
-      gp_Vec dircyl2(DirCyl2);
-      dir1 = gp_Dir(dircyl1.Added(dircyl2));
-      dir2 = gp_Dir(dircyl1.Subtracted(dircyl2));
+      Vector3d dircyl1(DirCyl1);
+      Vector3d dircyl2(DirCyl2);
+      dir1 = Dir3d(dircyl1.Added(dircyl2));
+      dir2 = Dir3d(dircyl1.Subtracted(dircyl2));
 
       param2    = Cyl1.Radius() / A;
       param1    = Cyl1.Radius() / B;
@@ -1258,8 +1258,8 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cylinder&  Cyl1,
         typeres = IntAna_Point;
         Standard_Real d, p1, p2;
 
-        gp_Dir D1 = Cyl1.Axis().Direction();
-        gp_Dir D2 = Cyl2.Axis().Direction();
+        Dir3d D1 = Cyl1.Axis().Direction();
+        Dir3d D2 = Cyl2.Axis().Direction();
         A1A2.Distance(d, p1, p2);
         Point3d P = Cyl1.Axis().Location();
         Point3d P1(P.X() - p1 * D1.X(), P.Y() - p1 * D1.Y(), P.Z() - p1 * D1.Z());
@@ -1268,8 +1268,8 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cylinder&  Cyl1,
 
         Point3d P2(P.X() - p2 * D2.X(), P.Y() - p2 * D2.Y(), P.Z() - p2 * D2.Z());
 
-        gp_Vec P1P2(P1, P2);
-        D1 = gp_Dir(P1P2);
+        Vector3d P1P2(P1, P2);
+        D1 = Dir3d(P1P2);
         p1 = Cyl1.Radius();
 
         pt1.SetCoord(P1.X() + p1 * D1.X(), P1.Y() + p1 * D1.Y(), P1.Z() + p1 * D1.Z());
@@ -1320,7 +1320,7 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cylinder& Cyl, const gp_Cone& Con, con
   {
     Point3d        Pt   = Con.Apex();
     Standard_Real dist = Cyl.Radius() / (Tan(Con.SemiAngle()));
-    gp_Dir        dir  = Cyl.Position().Direction();
+    Dir3d        dir  = Cyl.Position().Direction();
     pt1.SetCoord(Pt.X() + dist * dir.X(), Pt.Y() + dist * dir.Y(), Pt.Z() + dist * dir.Z());
     pt2.SetCoord(Pt.X() - dist * dir.X(), Pt.Y() - dist * dir.Y(), Pt.Z() - dist * dir.Z());
     dir1 = dir2 = dir;
@@ -1377,7 +1377,7 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cylinder& Cyl, const gp_Sphere& Sph, c
     else
     {
       Standard_Real dist = Sqrt(Sph.Radius() * Sph.Radius() - Cyl.Radius() * Cyl.Radius());
-      gp_Dir        dir  = Cyl.Position().Direction();
+      Dir3d        dir  = Cyl.Position().Direction();
       dir1 = dir2 = dir;
       typeres     = IntAna_Circle;
       pt1.SetCoord(Pt.X() + dist * dir.X(), Pt.Y() + dist * dir.Y(), Pt.Z() + dist * dir.Z());
@@ -1477,8 +1477,8 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cone& Con1, const gp_Cone& Con2, const
     //-- two circles
     Standard_Real x;
     Point3d        P = Con1.Apex();
-    gp_Dir        D = Con1.Position().Direction();
-    Standard_Real d = gp_Vec(D).Dot(gp_Vec(P, Con2.Apex()));
+    Dir3d        D = Con1.Position().Direction();
+    Standard_Real d = Vector3d(D).Dot(Vector3d(P, Con2.Apex()));
 
     if (Abs(tg1 - tg2) > myEPSILON_ANGLE_CONE)
     {
@@ -1522,17 +1522,17 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cone& Con1, const gp_Cone& Con2, const
   {
 
     Standard_Real DistA1A2 = A1A2.Distance();
-    gp_Dir        DA1      = Con1.Position().Direction();
-    gp_Vec        O1O2(Con1.Apex(), Con2.Apex());
-    gp_Dir        O1O2n(O1O2); // normalization of the vector before projection
-    Standard_Real O1O2_DA1 = gp_Vec(DA1).Dot(gp_Vec(O1O2n));
+    Dir3d        DA1      = Con1.Position().Direction();
+    Vector3d        O1O2(Con1.Apex(), Con2.Apex());
+    Dir3d        O1O2n(O1O2); // normalization of the vector before projection
+    Standard_Real O1O2_DA1 = Vector3d(DA1).Dot(Vector3d(O1O2n));
 
-    gp_Vec O1_Proj_A2(O1O2n.X() - O1O2_DA1 * DA1.X(),
+    Vector3d O1_Proj_A2(O1O2n.X() - O1O2_DA1 * DA1.X(),
                       O1O2n.Y() - O1O2_DA1 * DA1.Y(),
                       O1O2n.Z() - O1O2_DA1 * DA1.Z());
-    gp_Dir DB1 = gp_Dir(O1_Proj_A2);
+    Dir3d DB1 = Dir3d(O1_Proj_A2);
 
-    Standard_Real yO1O2  = O1O2.Dot(gp_Vec(DA1));
+    Standard_Real yO1O2  = O1O2.Dot(Vector3d(DA1));
     Standard_Real ABSTG1 = Abs(tg1);
     Standard_Real X2     = (DistA1A2 / ABSTG1 - yO1O2) * 0.5;
     Standard_Real X1     = X2 + yO1O2;
@@ -1544,10 +1544,10 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cone& Con1, const gp_Cone& Con2, const
     Point3d MO1O2(0.5 * (Con1.Apex().X() + Con2.Apex().X()),
                  0.5 * (Con1.Apex().Y() + Con2.Apex().Y()),
                  0.5 * (Con1.Apex().Z() + Con2.Apex().Z()));
-    gp_Vec P1MO1O2(P1, MO1O2);
+    Vector3d P1MO1O2(P1, MO1O2);
 
-    gp_Dir DA1_X_DB1 = DA1.Crossed(DB1);
-    gp_Dir OrthoPln  = DA1_X_DB1.Crossed(gp_Dir(P1MO1O2));
+    Dir3d DA1_X_DB1 = DA1.Crossed(DB1);
+    Dir3d OrthoPln  = DA1_X_DB1.Crossed(Dir3d(P1MO1O2));
 
     IntAna_QuadQuadGeo INTER_QUAD_PLN(gp_Pln(P1, OrthoPln), Con1, Tol, Tol);
     if (INTER_QUAD_PLN.IsDone())
@@ -1616,7 +1616,7 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cone& Con1, const gp_Cone& Con2, const
     Standard_Real    aCosGamma, aSinGamma, aDx, aR2, aRD2, aD2;
     gp_Pnt2d         aP0, aPA1, aP1, aPA2;
     gp_Vec2d         aVAx2;
-    gp_Ax1           aAx1, aAx2;
+    Axis3d           aAx1, aAx2;
     //
     // Preliminary analysis. Determination of iRet
     //
@@ -1680,7 +1680,7 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cone& Con1, const gp_Cone& Con2, const
     //
     Standard_Real      aDa;
     Point3d             aQApex1, aQA1, aQA2, aQX, aQX1, aQX2;
-    gp_Dir             aD3Ax1, aD3Ax2;
+    Dir3d             aD3Ax1, aD3Ax2;
     gp_Lin             aLin;
     IntAna_QuadQuadGeo aIntr;
     //
@@ -1715,10 +1715,10 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cone& Con1, const gp_Cone& Con2, const
     }
     //
     aLin                = aIntr.Line(1);
-    const gp_Dir& aDLin = aLin.Direction();
-    gp_Vec        aVLin(aDLin);
+    const Dir3d& aDLin = aLin.Direction();
+    Vector3d        aVLin(aDLin);
     Point3d        aOrig = aLin.Location();
-    gp_Vec        aVr(aQA1, aOrig);
+    Vector3d        aVr(aQA1, aOrig);
     aDx = aVLin.Dot(aVr);
     aQX = aOrig.Translated(aDx * aVLin);
     //
@@ -1736,8 +1736,8 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cone& Con1, const gp_Cone& Con2, const
       // one line
       nbint = 1;
       pt1   = aQApex1;
-      gp_Vec aVX(aQApex1, aQX);
-      dir1 = gp_Dir(aVX);
+      Vector3d aVX(aQApex1, aQX);
+      dir1 = Dir3d(aVX);
     }
 
     else
@@ -1751,10 +1751,10 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cone& Con1, const gp_Cone& Con2, const
       //
       pt1 = aQApex1;
       pt2 = aQApex1;
-      gp_Vec aVX1(aQApex1, aQX1);
-      dir1 = gp_Dir(aVX1);
-      gp_Vec aVX2(aQApex1, aQX2);
-      dir2 = gp_Dir(aVX2);
+      Vector3d aVX1(aQApex1, aQX1);
+      dir1 = Dir3d(aVX1);
+      Vector3d aVX2(aQApex1, aQX2);
+      dir2 = Dir3d(aVX2);
     }
   } // else if (aDA1A2<aTol2) {
   // Case when cones have common generatrix
@@ -1782,7 +1782,7 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cone& Con1, const gp_Cone& Con2, const
     myCommonGen = Standard_True;
 
     // common generatrix of cones
-    gp_Lin aGen(aPApex1, gp_Dir(gp_Vec(aPApex1, aPApex2)));
+    gp_Lin aGen(aPApex1, Dir3d(Vector3d(aPApex1, aPApex2)));
 
     // Intersection point of axes
     Point3d aPAxeInt = A1A2.PtIntersect();
@@ -1796,10 +1796,10 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cone& Con1, const gp_Cone& Con2, const
     gp_Lin aGen2 = aGen.Rotated(Con2.Axis(), M_PI);
     //
     // Intersection point of generatrixes
-    gp_Dir aN; // solution plane normal
-    gp_Dir aD1 = aGen1.Direction();
+    Dir3d aN; // solution plane normal
+    Dir3d aD1 = aGen1.Direction();
 
-    gp_Dir aD2(aD1.Crossed(aGen.Direction()));
+    Dir3d aD2(aD1.Crossed(aGen.Direction()));
 
     if (aD1.IsParallel(aGen2.Direction(), Precision::Angular()))
     {
@@ -1813,18 +1813,18 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cone& Con1, const gp_Cone& Con2, const
     }
     else
     {
-      gp_Dir        D1      = aGen1.Position().Direction();
-      gp_Dir        D2      = aGen2.Position().Direction();
+      Dir3d        D1      = aGen1.Position().Direction();
+      Dir3d        D2      = aGen2.Position().Direction();
       Point3d        O1      = aGen1.Location();
       Point3d        O2      = aGen2.Location();
       Standard_Real D1DotD2 = D1.Dot(D2);
       Standard_Real aSin    = 1. - D1DotD2 * D1DotD2;
-      gp_Vec        O1O2(O1, O2);
+      Vector3d        O1O2(O1, O2);
       Standard_Real U2 = (D1.XYZ() * (O1O2.Dot(D1)) - (O1O2.XYZ())).Dot(D2.XYZ());
       U2 /= aSin;
       Point3d aPGint(ElCLib::Value(U2, aGen2));
 
-      aD1 = gp_Dir(gp_Vec(aPGint, myPChar));
+      aD1 = Dir3d(Vector3d(aPGint, myPChar));
       aN  = aD1.Crossed(aD2);
     }
     // Plane that must contain intersection curves
@@ -1932,10 +1932,10 @@ void IntAna_QuadQuadGeo::Perform(const gp_Sphere& Sph, const gp_Cone& Con, const
   {
     Point3d        ConApex        = Con.Apex();
     Standard_Real dApexSphCenter = Pt.Distance(ConApex);
-    gp_Dir        ConDir;
+    Dir3d        ConDir;
     if (dApexSphCenter > RealEpsilon())
     {
-      ConDir = gp_Dir(gp_Vec(ConApex, Pt));
+      ConDir = Dir3d(Vector3d(ConApex, Pt));
     }
     else
     {
@@ -2073,7 +2073,7 @@ void IntAna_QuadQuadGeo::Perform(const gp_Sphere&    Sph1,
     {
       return;
     }
-    gp_Dir        Dir = gp_Dir(gp_Vec(O1, O2));
+    Dir3d        Dir = Dir3d(Vector3d(O1, O2));
     Standard_Real t   = Rmax - dO1O2 - Rmin;
 
     //----------------------------------------------------------------------
@@ -2183,8 +2183,8 @@ void IntAna_QuadQuadGeo::Perform(const gp_Pln& Pln, const gp_Torus& Tor, const S
     return;
   }
   //
-  const gp_Ax1 aPlnAx = Pln.Axis();
-  const gp_Ax1 aTorAx = Tor.Axis();
+  const Axis3d aPlnAx = Pln.Axis();
+  const Axis3d aTorAx = Tor.Axis();
   //
   Standard_Boolean bParallel, bNormal;
   //
@@ -2251,7 +2251,7 @@ void IntAna_QuadQuadGeo::Perform(const gp_Pln& Pln, const gp_Torus& Tor, const S
     dir2 = dir1 = aPlnAx.Direction();
     nbint       = 2;
     //
-    gp_Dir aDir = aTorAx.Direction() ^ dir1;
+    Dir3d aDir = aTorAx.Direction() ^ dir1;
     pt1.SetXYZ(aTorLoc.XYZ() + aRMaj * aDir.XYZ());
     pt2.SetXYZ(aTorLoc.XYZ() - aRMaj * aDir.XYZ());
   }
@@ -2302,8 +2302,8 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cylinder&  Cyl,
     return;
   }
   //
-  const gp_Ax1 aCylAx = Cyl.Axis();
-  const gp_Ax1 aTorAx = Tor.Axis();
+  const Axis3d aCylAx = Cyl.Axis();
+  const Axis3d aTorAx = Tor.Axis();
   //
   const gp_Lin aLin(aTorAx);
   const Point3d aLocCyl = Cyl.Location();
@@ -2385,8 +2385,8 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cone& Con, const gp_Torus& Tor, const 
     return;
   }
   //
-  const gp_Ax1 aConAx = Con.Axis();
-  const gp_Ax1 aTorAx = Tor.Axis();
+  const Axis3d aConAx = Con.Axis();
+  const Axis3d aTorAx = Tor.Axis();
   //
   const gp_Lin aLin(aTorAx);
   const Point3d aConApex = Con.Apex();
@@ -2401,17 +2401,17 @@ void IntAna_QuadQuadGeo::Perform(const gp_Cone& Con, const gp_Torus& Tor, const 
   Standard_Real    anAngle, aDist, aParam[4], aDt;
   Standard_Integer i;
   Point3d           aTorLoc, aPCT, aPN, aPt[4];
-  gp_Dir           aDir[4];
+  Dir3d           aDir[4];
   //
   anAngle = Con.SemiAngle();
   aTorLoc = aTorAx.Location();
   //
   aPN.SetXYZ(aTorLoc.XYZ() + aRMaj * Tor.YAxis().Direction().XYZ());
-  gp_Dir aDN(gp_Vec(aTorLoc, aPN));
-  gp_Ax1 anAxCLRot(aConApex, aDN);
+  Dir3d aDN(Vector3d(aTorLoc, aPN));
+  Axis3d anAxCLRot(aConApex, aDN);
   gp_Lin aConL = aLin.Rotated(anAxCLRot, anAngle);
-  gp_Dir aDL   = aConL.Position().Direction();
-  gp_Dir aXDir = Tor.XAxis().Direction();
+  Dir3d aDL   = aConL.Position().Direction();
+  Dir3d aXDir = Tor.XAxis().Direction();
   //
   typeres = IntAna_Empty;
   //
@@ -2528,7 +2528,7 @@ void IntAna_QuadQuadGeo::Perform(const gp_Sphere& Sph, const gp_Torus& Tor, cons
     return;
   }
   //
-  const gp_Ax1 aTorAx = Tor.Axis();
+  const Axis3d aTorAx = Tor.Axis();
   const gp_Lin aLin(aTorAx);
   const Point3d aSphLoc = Sph.Location();
   //
@@ -2541,11 +2541,11 @@ void IntAna_QuadQuadGeo::Perform(const gp_Sphere& Sph, const gp_Torus& Tor, cons
   Standard_Real aRSph, aDist;
   Point3d        aTorLoc;
   //
-  gp_Dir aXDir = Tor.XAxis().Direction();
+  Dir3d aXDir = Tor.XAxis().Direction();
   aTorLoc.SetXYZ(aTorAx.Location().XYZ() + aRMaj * aXDir.XYZ());
   aRSph = Sph.Radius();
   //
-  gp_Vec aVec12(aTorLoc, aSphLoc);
+  Vector3d aVec12(aTorLoc, aSphLoc);
   aDist = aVec12.Magnitude();
   if (((aDist - Tol) > (aRMin + aRSph)) || ((aDist + Tol) < Abs(aRMin - aRSph)))
   {
@@ -2560,9 +2560,9 @@ void IntAna_QuadQuadGeo::Perform(const gp_Sphere& Sph, const gp_Torus& Tor, cons
   anAlpha = 0.5 * (aRMin * aRMin - aRSph * aRSph + aDist * aDist) / aDist;
   aBeta   = Sqrt(Abs(aRMin * aRMin - anAlpha * anAlpha));
   //
-  gp_Dir aDir12(aVec12);
+  Dir3d aDir12(aVec12);
   gp_XYZ aPh = aTorLoc.XYZ() + anAlpha * aDir12.XYZ();
-  gp_Dir aDC = Tor.YAxis().Direction() ^ aDir12;
+  Dir3d aDC = Tor.YAxis().Direction() ^ aDir12;
   //
   Point3d aP;
   gp_XYZ aDVal = aBeta * aDC.XYZ();
@@ -2623,8 +2623,8 @@ void IntAna_QuadQuadGeo::Perform(const gp_Torus&     Tor1,
   aRMin2 = Tor2.MinorRadius();
   aRMaj2 = Tor2.MajorRadius();
   //
-  const gp_Ax1& anAx1 = Tor1.Axis();
-  const gp_Ax1& anAx2 = Tor2.Axis();
+  const Axis3d& anAx1 = Tor1.Axis();
+  const Axis3d& anAx2 = Tor2.Axis();
   //
   const Point3d& aLoc1 = anAx1.Location();
   const Point3d& aLoc2 = anAx2.Location();
@@ -2651,11 +2651,11 @@ void IntAna_QuadQuadGeo::Perform(const gp_Torus&     Tor1,
   Standard_Real aDist;
   Point3d        aP1, aP2;
   //
-  gp_Dir aXDir1 = Tor1.XAxis().Direction();
+  Dir3d aXDir1 = Tor1.XAxis().Direction();
   aP1.SetXYZ(aLoc1.XYZ() + aRMaj1 * aXDir1.XYZ());
   aP2.SetXYZ(aLoc2.XYZ() + aRMaj2 * aXDir1.XYZ());
   //
-  gp_Vec aV12(aP1, aP2);
+  Vector3d aV12(aP1, aP2);
   aDist = aV12.Magnitude();
   if (((aDist - Tol) > (aRMin1 + aRMin2)) || ((aDist + Tol) < Abs(aRMin1 - aRMin2)))
   {
@@ -2670,9 +2670,9 @@ void IntAna_QuadQuadGeo::Perform(const gp_Torus&     Tor1,
   anAlpha = 0.5 * (aRMin1 * aRMin1 - aRMin2 * aRMin2 + aDist * aDist) / aDist;
   aBeta   = Sqrt(Abs(aRMin1 * aRMin1 - anAlpha * anAlpha));
   //
-  gp_Dir aDir12(aV12);
+  Dir3d aDir12(aV12);
   gp_XYZ aPh = aP1.XYZ() + anAlpha * aDir12.XYZ();
-  gp_Dir aDC = Tor1.YAxis().Direction() ^ aDir12;
+  Dir3d aDC = Tor1.YAxis().Direction() ^ aDir12;
   //
   Point3d aP;
   gp_XYZ aDVal = aBeta * aDC.XYZ();
@@ -2816,7 +2816,7 @@ gp_Elips IntAna_QuadQuadGeo::Ellipse(const Standard_Integer n) const
       R1   = R2;
       R2   = aTmp;
     }
-    gp_Ax2   anAx2(pt1, dir1, dir2);
+    Frame3d   anAx2(pt1, dir1, dir2);
     gp_Elips anElips(anAx2, R1, R2);
     return anElips;
   }
@@ -2829,7 +2829,7 @@ gp_Elips IntAna_QuadQuadGeo::Ellipse(const Standard_Integer n) const
       R1   = R2;
       R2   = aTmp;
     }
-    gp_Ax2   anAx2(pt2, dir2, dir1);
+    Frame3d   anAx2(pt2, dir2, dir1);
     gp_Elips anElips(anAx2, R1, R2);
     return anElips;
   }
@@ -2853,7 +2853,7 @@ gp_Parab IntAna_QuadQuadGeo::Parabola(const Standard_Integer n) const
   {
     throw Standard_OutOfRange();
   }
-  return (gp_Parab(gp_Ax2(pt1, dir1, dir2), param1));
+  return (gp_Parab(Frame3d(pt1, dir1, dir2), param1));
 }
 
 //=======================================================================
@@ -2872,11 +2872,11 @@ gp_Hypr IntAna_QuadQuadGeo::Hyperbola(const Standard_Integer n) const
   }
   if (n == 1)
   {
-    return (gp_Hypr(gp_Ax2(pt1, dir1, dir2), param1, param1bis));
+    return (gp_Hypr(Frame3d(pt1, dir1, dir2), param1, param1bis));
   }
   else
   {
-    return (gp_Hypr(gp_Ax2(pt2, dir1, dir2.Reversed()), param2, param2bis));
+    return (gp_Hypr(Frame3d(pt2, dir1, dir2.Reversed()), param2, param2bis));
   }
 }
 
@@ -2896,7 +2896,7 @@ const Point3d& IntAna_QuadQuadGeo::PChar() const
 
 //=================================================================================================
 
-void RefineDir(gp_Dir& aDir)
+void RefineDir(Dir3d& aDir)
 {
   Standard_Integer k, m, n;
   Standard_Real    aC[3];

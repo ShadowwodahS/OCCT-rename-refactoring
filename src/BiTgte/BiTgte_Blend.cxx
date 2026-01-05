@@ -248,8 +248,8 @@ static void KPartCurve3d(const TopoDS_Edge&   Edge,
             gp_Sphere Sph  = S.Sphere();
             gp_Ax3    Axis = Sph.Position();
             gp_Circ   Ci   = ElSLib::SphereVIso(Axis, Sph.Radius(), P.Y());
-            gp_Dir    DRev = Axis.XDirection().Crossed(Axis.YDirection());
-            gp_Ax1    AxeRev(Axis.Location(), DRev);
+            Dir3d    DRev = Axis.XDirection().Crossed(Axis.YDirection());
+            Axis3d    AxeRev(Axis.Location(), DRev);
             Ci.Rotate(AxeRev, P.X());
             Handle(Geom_Circle) Circle = new Geom_Circle(Ci);
             if (D.IsOpposite(gp::DX2d(), Precision::Angular()))
@@ -263,8 +263,8 @@ static void KPartCurve3d(const TopoDS_Edge&   Edge,
           gp_Pnt2d    P    = C.Line().Location();
           gp_Ax3      Axis = Cyl.Position();
           gp_Circ     Ci   = ElSLib::CylinderVIso(Axis, Cyl.Radius(), P.Y());
-          gp_Dir      DRev = Axis.XDirection().Crossed(Axis.YDirection());
-          gp_Ax1      AxeRev(Axis.Location(), DRev);
+          Dir3d      DRev = Axis.XDirection().Crossed(Axis.YDirection());
+          Axis3d      AxeRev(Axis.Location(), DRev);
           Ci.Rotate(AxeRev, P.X());
           Handle(Geom_Circle) Circle = new Geom_Circle(Ci);
           if (D.IsOpposite(gp::DX2d(), Precision::Angular()))
@@ -277,8 +277,8 @@ static void KPartCurve3d(const TopoDS_Edge&   Edge,
           gp_Pnt2d P    = C.Line().Location();
           gp_Ax3   Axis = Cone.Position();
           gp_Circ  Ci   = ElSLib::ConeVIso(Axis, Cone.RefRadius(), Cone.SemiAngle(), P.Y());
-          gp_Dir   DRev = Axis.XDirection().Crossed(Axis.YDirection());
-          gp_Ax1   AxeRev(Axis.Location(), DRev);
+          Dir3d   DRev = Axis.XDirection().Crossed(Axis.YDirection());
+          Axis3d   AxeRev(Axis.Location(), DRev);
           Ci.Rotate(AxeRev, P.X());
           Handle(Geom_Circle) Circle = new Geom_Circle(Ci);
           if (D.IsOpposite(gp::DX2d(), Precision::Angular()))
@@ -291,8 +291,8 @@ static void KPartCurve3d(const TopoDS_Edge&   Edge,
           gp_Pnt2d P    = C.Line().Location();
           gp_Ax3   Axis = Tore.Position();
           gp_Circ  Ci   = ElSLib::TorusVIso(Axis, Tore.MajorRadius(), Tore.MinorRadius(), P.Y());
-          gp_Dir   DRev = Axis.XDirection().Crossed(Axis.YDirection());
-          gp_Ax1   AxeRev(Axis.Location(), DRev);
+          Dir3d   DRev = Axis.XDirection().Crossed(Axis.YDirection());
+          Axis3d   AxeRev(Axis.Location(), DRev);
           Ci.Rotate(AxeRev, P.X());
           Handle(Geom_Circle) Circle = new Geom_Circle(Ci);
           if (D.IsOpposite(gp::DX2d(), Precision::Angular()))
@@ -311,13 +311,13 @@ static void KPartCurve3d(const TopoDS_Edge&   Edge,
           gp_Circ Ci = ElSLib::SphereUIso(Axis, Sph.Radius(), 0.);
 
           // set to sameparameter (rotation of the circle - offset from Y)
-          gp_Dir DRev = Axis.XDirection().Crossed(Axis.Direction());
-          gp_Ax1 AxeRev(Axis.Location(), DRev);
+          Dir3d DRev = Axis.XDirection().Crossed(Axis.Direction());
+          Axis3d AxeRev(Axis.Location(), DRev);
           Ci.Rotate(AxeRev, P.Y());
 
           // transformation by iso U ( = P.X())
           DRev   = Axis.XDirection().Crossed(Axis.YDirection());
-          AxeRev = gp_Ax1(Axis.Location(), DRev);
+          AxeRev = Axis3d(Axis.Location(), DRev);
           Ci.Rotate(AxeRev, P.X());
           Handle(Geom_Circle) Circle = new Geom_Circle(Ci);
 
@@ -330,7 +330,7 @@ static void KPartCurve3d(const TopoDS_Edge&   Edge,
           gp_Cylinder Cyl = S.Cylinder();
           gp_Pnt2d    P   = C.Line().Location();
           gp_Lin      L   = ElSLib::CylinderUIso(Cyl.Position(), Cyl.Radius(), P.X());
-          gp_Vec      Tr(L.Direction());
+          Vector3d      Tr(L.Direction());
           Tr.Multiply(P.Y());
           L.Translate(Tr);
           Handle(Geom_Line) Line = new Geom_Line(L);
@@ -343,7 +343,7 @@ static void KPartCurve3d(const TopoDS_Edge&   Edge,
           gp_Cone  Cone = S.Cone();
           gp_Pnt2d P    = C.Line().Location();
           gp_Lin   L = ElSLib::ConeUIso(Cone.Position(), Cone.RefRadius(), Cone.SemiAngle(), P.X());
-          gp_Vec   Tr(L.Direction());
+          Vector3d   Tr(L.Direction());
           Tr.Multiply(P.Y());
           L.Translate(Tr);
           Handle(Geom_Line) Line = new Geom_Line(L);
@@ -392,7 +392,7 @@ public:
 
   Standard_Boolean D1(const Standard_Real /*theT*/,
                       NCollection_Array1<gp_Vec2d>& /*theVec2d*/,
-                      NCollection_Array1<gp_Vec>& /*theVec*/) const
+                      NCollection_Array1<Vector3d>& /*theVec*/) const
   {
     return Standard_False;
   }

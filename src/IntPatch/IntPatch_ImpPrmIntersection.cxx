@@ -222,10 +222,10 @@ void ComputeTangency(const IntPatch_TheSOnBounds&       solrst,
   // Standard_Boolean ispassing;
   IntPatch_ThePathPointOfTheSOnBounds PStart;
   IntSurf_PathPoint                   PPoint;
-  gp_Vec                              vectg;
+  Vector3d                              vectg;
   gp_Dir2d                            dirtg;
   Point3d                              ptbid;
-  gp_Vec                              d1u, d1v, v1, v2;
+  Vector3d                              d1u, d1v, v1, v2;
   gp_Pnt2d                            p2d;
   gp_Vec2d                            d2d;
   //
@@ -315,7 +315,7 @@ void ComputeTangency(const IntPatch_TheSOnBounds&       solrst,
         }
         else
         { // traiter la transition complexe
-          gp_Dir                   bidnorm(1., 1., 1.);
+          Dir3d                   bidnorm(1., 1., 1.);
           Standard_Real            tole = 1.e-8;
           TopAbs_Orientation       LocTrans;
           TopTrans_CurveTransition comptrans;
@@ -610,9 +610,9 @@ void IntPatch_ImpPrmIntersection::Perform(const Handle(Adaptor3d_Surface)&   Sur
   IntSurf_Transition TLine, TArc;
   IntSurf_TypeTrans  trans1, trans2;
   Point3d             valpt, ptbid;
-  gp_Vec             tgline, tgrst, norm1, norm2, d1u, d1v;
-  gp_Dir             DirNormale;
-  gp_Vec             VecNormale;
+  Vector3d             tgline, tgrst, norm1, norm2, d1u, d1v;
+  Dir3d             DirNormale;
+  Vector3d             VecNormale;
 
   gp_Pnt2d p2d;
   gp_Vec2d d2d;
@@ -1407,7 +1407,7 @@ void IntPatch_ImpPrmIntersection::Perform(const Handle(Adaptor3d_Surface)&   Sur
           _thepointAtBeg.SetVertex(reversed, _vtx);
         _thepointAtBeg.SetArc(reversed, thesegm.Curve(), paramf, TLineUnk, TArcUnk);
 
-        gp_Vec   d1u1, d1v1, d1u2, d1v2;
+        Vector3d   d1u1, d1v1, d1u2, d1v2;
         gp_Vec2d _d2d;
         Surf1->D1(_u1, _v1, ptbid, d1u1, d1v1);
         norm1 = d1u1.Crossed(d1v1);
@@ -1473,7 +1473,7 @@ void IntPatch_ImpPrmIntersection::Perform(const Handle(Adaptor3d_Surface)&   Sur
           _thepointAtEnd.SetVertex(reversed, _vtx);
         _thepointAtEnd.SetArc(reversed, thesegm.Curve(), paraml, TLineUnk, TArcUnk);
 
-        gp_Vec   d1u1, d1v1, d1u2, d1v2;
+        Vector3d   d1u1, d1v1, d1u2, d1v2;
         gp_Vec2d _d2d;
         Surf1->D1(_u1, _v1, ptbid, d1u1, d1v1);
         norm1 = d1u1.Crossed(d1v1);

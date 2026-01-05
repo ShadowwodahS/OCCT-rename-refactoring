@@ -26,7 +26,7 @@ void Contap_SurfProps::Normale(const Handle(Adaptor3d_Surface)& S,
                                const Standard_Real              U,
                                const Standard_Real              V,
                                Point3d&                          P,
-                               gp_Vec&                          Norm)
+                               Vector3d&                          Norm)
 {
 
   GeomAbs_SurfaceType typS = Adaptor3d_HSurfaceTool::GetType(S);
@@ -46,7 +46,7 @@ void Contap_SurfProps::Normale(const Handle(Adaptor3d_Surface)& S,
     case GeomAbs_Sphere: {
       gp_Sphere sp(Adaptor3d_HSurfaceTool::Sphere(S));
       P    = ElSLib::Value(U, V, sp);
-      Norm = gp_Vec(sp.Location(), P);
+      Norm = Vector3d(sp.Location(), P);
       if (sp.Direct())
       {
         Norm.Divide(sp.Radius());
@@ -118,7 +118,7 @@ void Contap_SurfProps::Normale(const Handle(Adaptor3d_Surface)& S,
     }
     break;
     default: {
-      gp_Vec d1u, d1v;
+      Vector3d d1u, d1v;
       Adaptor3d_HSurfaceTool::D1(S, U, V, P, d1u, d1v);
       Norm = d1u.Crossed(d1v);
     }
@@ -132,9 +132,9 @@ void Contap_SurfProps::DerivAndNorm(const Handle(Adaptor3d_Surface)& S,
                                     const Standard_Real              U,
                                     const Standard_Real              V,
                                     Point3d&                          P,
-                                    gp_Vec&                          d1u,
-                                    gp_Vec&                          d1v,
-                                    gp_Vec&                          Norm)
+                                    Vector3d&                          d1u,
+                                    Vector3d&                          d1v,
+                                    Vector3d&                          Norm)
 {
 
   GeomAbs_SurfaceType typS = Adaptor3d_HSurfaceTool::GetType(S);
@@ -154,7 +154,7 @@ void Contap_SurfProps::DerivAndNorm(const Handle(Adaptor3d_Surface)& S,
     case GeomAbs_Sphere: {
       gp_Sphere sp(Adaptor3d_HSurfaceTool::Sphere(S));
       ElSLib::D1(U, V, sp, P, d1u, d1v);
-      Norm = gp_Vec(sp.Location(), P);
+      Norm = Vector3d(sp.Location(), P);
       if (sp.Direct())
       {
         Norm.Divide(sp.Radius());
@@ -237,9 +237,9 @@ void Contap_SurfProps::NormAndDn(const Handle(Adaptor3d_Surface)& S,
                                  const Standard_Real              U,
                                  const Standard_Real              V,
                                  Point3d&                          P,
-                                 gp_Vec&                          Norm,
-                                 gp_Vec&                          Dnu,
-                                 gp_Vec&                          Dnv)
+                                 Vector3d&                          Norm,
+                                 Vector3d&                          Dnu,
+                                 Vector3d&                          Dnv)
 {
 
   GeomAbs_SurfaceType typS = Adaptor3d_HSurfaceTool::GetType(S);
@@ -253,14 +253,14 @@ void Contap_SurfProps::NormAndDn(const Handle(Adaptor3d_Surface)& S,
       {
         Norm.Reverse();
       }
-      Dnu = Dnv = gp_Vec(0., 0., 0.);
+      Dnu = Dnv = Vector3d(0., 0., 0.);
     }
     break;
 
     case GeomAbs_Sphere: {
       gp_Sphere sp(Adaptor3d_HSurfaceTool::Sphere(S));
       ElSLib::D1(U, V, sp, P, Dnu, Dnv);
-      Norm              = gp_Vec(sp.Location(), P);
+      Norm              = Vector3d(sp.Location(), P);
       Standard_Real Rad = sp.Radius();
       if (!sp.Direct())
       {
@@ -282,7 +282,7 @@ void Contap_SurfProps::NormAndDn(const Handle(Adaptor3d_Surface)& S,
         Norm.Reverse();
         Dnu.Reverse();
       }
-      Dnv = gp_Vec(0., 0., 0.);
+      Dnv = Vector3d(0., 0., 0.);
     }
     break;
 
@@ -335,12 +335,12 @@ void Contap_SurfProps::NormAndDn(const Handle(Adaptor3d_Surface)& S,
         Norm.Reverse();
         Dnu.Reverse();
       }
-      Dnv = gp_Vec(0., 0., 0.);
+      Dnv = Vector3d(0., 0., 0.);
     }
     break;
 
     default: {
-      gp_Vec d1u, d1v, d2u, d2v, d2uv;
+      Vector3d d1u, d1v, d2u, d2v, d2uv;
       Adaptor3d_HSurfaceTool::D2(S, U, V, P, d1u, d1v, d2u, d2v, d2uv);
       Norm = d1u.Crossed(d1v);
       Dnu  = d2u.Crossed(d1v) + d1u.Crossed(d2uv);

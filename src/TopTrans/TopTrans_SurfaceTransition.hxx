@@ -59,16 +59,16 @@ public:
   //! description of the intersection curve and of the
   //! reference surface.
   //! PREQUESITORY : Norm oriented OUTSIDE "geometric matter"
-  Standard_EXPORT void Reset(const gp_Dir&       Tgt,
-                             const gp_Dir&       Norm,
-                             const gp_Dir&       MaxD,
-                             const gp_Dir&       MinD,
+  Standard_EXPORT void Reset(const Dir3d&       Tgt,
+                             const Dir3d&       Norm,
+                             const Dir3d&       MaxD,
+                             const Dir3d&       MinD,
                              const Standard_Real MaxCurv,
                              const Standard_Real MinCurv);
 
   //! Initialize  a  Surface Transition  with the  local
   //! description of a straight line.
-  Standard_EXPORT void Reset(const gp_Dir& Tgt, const gp_Dir& Norm);
+  Standard_EXPORT void Reset(const Dir3d& Tgt, const Dir3d& Norm);
 
   //! Add a face element to the boundary.
   //!
@@ -85,9 +85,9 @@ public:
   //! O INTERNAL means the curve intersection is in the face.
   //! PREQUESITORY : Norm oriented OUTSIDE "geometric matter"
   Standard_EXPORT void Compare(const Standard_Real      Tole,
-                               const gp_Dir&            Norm,
-                               const gp_Dir&            MaxD,
-                               const gp_Dir&            MinD,
+                               const Dir3d&            Norm,
+                               const Dir3d&            MaxD,
+                               const Dir3d&            MinD,
                                const Standard_Real      MaxCurv,
                                const Standard_Real      MinCurv,
                                const TopAbs_Orientation S,
@@ -95,7 +95,7 @@ public:
 
   //! Add a plane or a cylindric face to the boundary.
   Standard_EXPORT void Compare(const Standard_Real      Tole,
-                               const gp_Dir&            Norm,
+                               const Dir3d&            Norm,
                                const TopAbs_Orientation S,
                                const TopAbs_Orientation O);
 
@@ -125,13 +125,13 @@ private:
                                        TopAbs_Orientation&      TranRef);
 
   Standard_EXPORT Standard_Real ComputeCos(const Standard_Real      Tole,
-                                           const gp_Dir&            Norm,
+                                           const Dir3d&            Norm,
                                            const TopAbs_Orientation O,
                                            Standard_Boolean&        isleft) const;
 
-  gp_Dir                       myTgt;
-  gp_Dir                       myNorm;
-  gp_Dir                       beafter;
+  Dir3d                       myTgt;
+  Dir3d                       myNorm;
+  Dir3d                       beafter;
   Standard_Real                myCurvRef;
   TColStd_Array2OfReal         myAng;
   TColStd_Array2OfReal         myCurv;

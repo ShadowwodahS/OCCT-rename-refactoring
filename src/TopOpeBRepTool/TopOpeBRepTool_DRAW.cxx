@@ -202,7 +202,7 @@ Standard_EXPORT void FDRAW_DINLOE(const TCollection_AsciiString pref,
 
 Standard_EXPORT void FUN_tool_draw(const TCollection_AsciiString& aa,
                                    const Point3d&                  p,
-                                   const gp_Dir&                  d)
+                                   const Dir3d&                  d)
 {
   char*                     aaa = aa.ToCString();
   Handle(Geom_Line)         L   = new Geom_Line(p, d);

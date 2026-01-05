@@ -26,8 +26,8 @@ TopCnx_EdgeFaceTransition::TopCnx_EdgeFaceTransition()
 
 //=================================================================================================
 
-void TopCnx_EdgeFaceTransition::Reset(const gp_Dir&       Tgt,
-                                      const gp_Dir&       Norm,
+void TopCnx_EdgeFaceTransition::Reset(const Dir3d&       Tgt,
+                                      const Dir3d&       Norm,
                                       const Standard_Real Curv)
 {
   myCurveTransition.Reset(Tgt, Norm, Curv);
@@ -36,7 +36,7 @@ void TopCnx_EdgeFaceTransition::Reset(const gp_Dir&       Tgt,
 
 //=================================================================================================
 
-void TopCnx_EdgeFaceTransition::Reset(const gp_Dir& Tgt)
+void TopCnx_EdgeFaceTransition::Reset(const Dir3d& Tgt)
 {
   myCurveTransition.Reset(Tgt);
   nbBoundForward = nbBoundReversed = 0;
@@ -45,8 +45,8 @@ void TopCnx_EdgeFaceTransition::Reset(const gp_Dir& Tgt)
 //=================================================================================================
 
 void TopCnx_EdgeFaceTransition::AddInterference(const Standard_Real      Tole,
-                                                const gp_Dir&            Tang,
-                                                const gp_Dir&            Norm,
+                                                const Dir3d&            Tang,
+                                                const Dir3d&            Norm,
                                                 const Standard_Real      Curv,
                                                 const TopAbs_Orientation Or,
                                                 const TopAbs_Orientation Tr,

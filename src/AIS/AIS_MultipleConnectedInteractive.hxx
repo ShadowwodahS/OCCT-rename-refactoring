@@ -97,7 +97,7 @@ public: // short aliases to Connect() method
   //! theInteractive.
   //! @return created instance object (AIS_ConnectedInteractive or AIS_MultipleConnectedInteractive)
   Handle(AIS_InteractiveObject) Connect(const Handle(AIS_InteractiveObject)& theAnotherObj,
-                                        const gp_Trsf&                       theLocation)
+                                        const Transform3d&                       theLocation)
   {
     return connect(theAnotherObj,
                    new TopLoc_Datum3D(theLocation),
@@ -109,7 +109,7 @@ public: // short aliases to Connect() method
   //! mode.
   //! @return created instance object (AIS_ConnectedInteractive or AIS_MultipleConnectedInteractive)
   Handle(AIS_InteractiveObject) Connect(const Handle(AIS_InteractiveObject)&   theAnotherObj,
-                                        const gp_Trsf&                         theLocation,
+                                        const Transform3d&                         theLocation,
                                         const Handle(Graphic3d_TransformPers)& theTrsfPers)
   {
     return connect(theAnotherObj, new TopLoc_Datum3D(theLocation), theTrsfPers);

@@ -24,7 +24,7 @@
 #include <Prs3d_Presentation.hxx>
 
 class Point3d;
-class gp_Dir;
+class Dir3d;
 
 //! A framework to define display of relations of concentricity.
 class DsgPrs_ConcentricPresentation
@@ -43,7 +43,7 @@ public:
                                   const Handle(Prs3d_Drawer)&       aDrawer,
                                   const Point3d&                     aCenter,
                                   const Standard_Real               aRadius,
-                                  const gp_Dir&                     aNorm,
+                                  const Dir3d&                     aNorm,
                                   const Point3d&                     aPoint);
 
 protected:

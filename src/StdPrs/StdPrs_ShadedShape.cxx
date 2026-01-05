@@ -179,7 +179,7 @@ static Handle(Graphic3d_ArrayOfTriangles) fillTriangles(const TopoDS_Shape&    t
     {
       continue;
     }
-    const gp_Trsf& aTrsf = aLoc.Transformation();
+    const Transform3d& aTrsf = aLoc.Transformation();
 
     // Determinant of transform matrix less then 0 means that mirror transform applied.
     Standard_Boolean isMirrored = aTrsf.VectorialPart().Determinant() < 0;
@@ -198,7 +198,7 @@ static Handle(Graphic3d_ArrayOfTriangles) fillTriangles(const TopoDS_Shape&    t
     for (Standard_Integer aNodeIter = 1; aNodeIter <= aT->NbNodes(); ++aNodeIter)
     {
       aPoint       = aT->Node(aNodeIter);
-      gp_Dir aNorm = aT->Normal(aNodeIter);
+      Dir3d aNorm = aT->Normal(aNodeIter);
       if ((aFace.Orientation() == TopAbs_REVERSED) ^ isMirrored)
       {
         aNorm.Reverse();
@@ -244,17 +244,17 @@ static Handle(Graphic3d_ArrayOfTriangles) fillTriangles(const TopoDS_Shape&    t
       const Point3d aP2 = aT->Node(anIndex[1]);
       const Point3d aP3 = aT->Node(anIndex[2]);
 
-      gp_Vec aV1(aP1, aP2);
+      Vector3d aV1(aP1, aP2);
       if (aV1.SquareMagnitude() <= aPreci)
       {
         continue;
       }
-      gp_Vec aV2(aP2, aP3);
+      Vector3d aV2(aP2, aP3);
       if (aV2.SquareMagnitude() <= aPreci)
       {
         continue;
       }
-      gp_Vec aV3(aP3, aP1);
+      Vector3d aV3(aP3, aP1);
       if (aV3.SquareMagnitude() <= aPreci)
       {
         continue;

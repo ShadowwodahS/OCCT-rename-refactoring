@@ -402,9 +402,9 @@ void Adaptor3d_IsoCurve::D0(const Standard_Real T, Point3d& P) const
 
 //=================================================================================================
 
-void Adaptor3d_IsoCurve::D1(const Standard_Real T, Point3d& P, gp_Vec& V) const
+void Adaptor3d_IsoCurve::D1(const Standard_Real T, Point3d& P, Vector3d& V) const
 {
-  gp_Vec dummy;
+  Vector3d dummy;
   switch (myIso)
   {
 
@@ -424,9 +424,9 @@ void Adaptor3d_IsoCurve::D1(const Standard_Real T, Point3d& P, gp_Vec& V) const
 
 //=================================================================================================
 
-void Adaptor3d_IsoCurve::D2(const Standard_Real T, Point3d& P, gp_Vec& V1, gp_Vec& V2) const
+void Adaptor3d_IsoCurve::D2(const Standard_Real T, Point3d& P, Vector3d& V1, Vector3d& V2) const
 {
-  gp_Vec dummy1, dummy2, dummy3;
+  Vector3d dummy1, dummy2, dummy3;
   switch (myIso)
   {
 
@@ -446,11 +446,11 @@ void Adaptor3d_IsoCurve::D2(const Standard_Real T, Point3d& P, gp_Vec& V1, gp_Ve
 
 void Adaptor3d_IsoCurve::D3(const Standard_Real T,
                             Point3d&             P,
-                            gp_Vec&             V1,
-                            gp_Vec&             V2,
-                            gp_Vec&             V3) const
+                            Vector3d&             V1,
+                            Vector3d&             V2,
+                            Vector3d&             V3) const
 {
-  gp_Vec dummy[6];
+  Vector3d dummy[6];
   switch (myIso)
   {
 
@@ -492,7 +492,7 @@ void Adaptor3d_IsoCurve::D3(const Standard_Real T,
 
 //=================================================================================================
 
-gp_Vec Adaptor3d_IsoCurve::DN(const Standard_Real T, const Standard_Integer N) const
+Vector3d Adaptor3d_IsoCurve::DN(const Standard_Real T, const Standard_Integer N) const
 {
   switch (myIso)
   {
@@ -508,7 +508,7 @@ gp_Vec Adaptor3d_IsoCurve::DN(const Standard_Real T, const Standard_Integer N) c
   }
 
   // portage WNT
-  return gp_Vec();
+  return Vector3d();
 }
 
 //=================================================================================================
@@ -601,7 +601,7 @@ GeomAbs_CurveType Adaptor3d_IsoCurve::GetType() const
 gp_Lin Adaptor3d_IsoCurve::Line() const
 {
   Point3d P;
-  gp_Vec V;
+  Vector3d V;
   D1(0, P, V);
   return gp_Lin(P, V);
 }
@@ -610,7 +610,7 @@ gp_Lin Adaptor3d_IsoCurve::Line() const
 
 static void computeHR(const gp_Ax3& axes, const Point3d& P, Standard_Real& h, Standard_Real& radius)
 {
-  gp_Vec V(axes.Location(), P);
+  Vector3d V(axes.Location(), P);
   h      = V * axes.Direction();
   radius = V * axes.XDirection();
 }
@@ -715,17 +715,17 @@ gp_Circ Adaptor3d_IsoCurve::Circle() const
       if (myIso == GeomAbs_IsoV)
       {
         const Point3d aVal0 = Value(0.0);
-        gp_Ax1       Ax1   = mySurface->AxeOfRevolution();
+        Axis3d       Ax1   = mySurface->AxeOfRevolution();
         if (gp_Lin(Ax1).Contains(aVal0, Precision::Confusion()))
         {
-          return gp_Circ(gp_Ax2(aVal0, Ax1.Direction()), 0);
+          return gp_Circ(Frame3d(aVal0, Ax1.Direction()), 0);
         }
         else
         {
-          gp_Vec DX(Ax1.Location(), aVal0);
+          Vector3d DX(Ax1.Location(), aVal0);
           axes = gp_Ax3(Ax1.Location(), Ax1.Direction(), DX);
           computeHR(axes, aVal0, h, radius);
-          gp_Vec VT = axes.Direction();
+          Vector3d VT = axes.Direction();
           axes.Translate(VT * h);
           return gp_Circ(axes.Ax2(), radius);
         }
@@ -738,7 +738,7 @@ gp_Circ Adaptor3d_IsoCurve::Circle() const
 
     case GeomAbs_SurfaceOfExtrusion: {
       return mySurface->BasisCurve()->Circle().Translated(myParameter
-                                                          * gp_Vec(mySurface->Direction()));
+                                                          * Vector3d(mySurface->Direction()));
     }
     default: {
       throw Standard_NoSuchObject("Adaptor3d_IsoCurve:Circle");
@@ -757,7 +757,7 @@ gp_Elips Adaptor3d_IsoCurve::Ellipse() const
 
     case GeomAbs_SurfaceOfExtrusion: {
       return mySurface->BasisCurve()->Ellipse().Translated(myParameter
-                                                           * gp_Vec(mySurface->Direction()));
+                                                           * Vector3d(mySurface->Direction()));
     }
     default: {
       throw Standard_NoSuchObject("Adaptor3d_IsoCurve:Ellipse");
@@ -1012,7 +1012,7 @@ Handle(Geom_BezierCurve) Adaptor3d_IsoCurve::Bezier() const
   {
     C = mySurface->BasisCurve()->Bezier();
     C = Handle(Geom_BezierCurve)::DownCast(C->Copy());
-    C->Translate(myParameter * gp_Vec(mySurface->Direction()));
+    C->Translate(myParameter * Vector3d(mySurface->Direction()));
   }
   else if (myIso == GeomAbs_IsoU)
   {
@@ -1041,7 +1041,7 @@ Handle(Geom_BSplineCurve) Adaptor3d_IsoCurve::BSpline() const
   {
     C = mySurface->BasisCurve()->BSpline();
     C = Handle(Geom_BSplineCurve)::DownCast(C->Copy());
-    C->Translate(myParameter * gp_Vec(mySurface->Direction()));
+    C->Translate(myParameter * Vector3d(mySurface->Direction()));
   }
   else if (myIso == GeomAbs_IsoU)
   {

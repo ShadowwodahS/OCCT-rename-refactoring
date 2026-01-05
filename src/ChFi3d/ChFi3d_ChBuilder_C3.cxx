@@ -64,9 +64,9 @@ static Standard_Boolean CoPlanar(const Point3d& PntA,
                                  const Point3d& PntC,
                                  const Point3d& PntD)
 {
-  gp_Vec vecAB(PntA, PntB);
-  gp_Vec vecAC(PntA, PntC);
-  gp_Vec vecAD(PntA, PntD);
+  Vector3d vecAB(PntA, PntB);
+  Vector3d vecAC(PntA, PntC);
+  Vector3d vecAD(PntA, PntD);
 
   Standard_Real nor2AB  = vecAB.SquareMagnitude();
   Standard_Real nor2AC  = vecAC.SquareMagnitude();
@@ -83,7 +83,7 @@ static Standard_Boolean CoPlanar(const Point3d& PntA,
   Standard_Real ProACAD = vecAC.Dot(vecAD);
   Standard_Real Alpha1  = ProABAD * nor2AC - ProABAC * ProACAD;
   Standard_Real Alpha2  = ProACAD * nor2AB - ProABAC * ProABAD;
-  gp_Vec        vecDABC = Alpha1 * vecAB + Alpha2 * vecAC - Alpha * vecAD;
+  Vector3d        vecDABC = Alpha1 * vecAB + Alpha2 * vecAC - Alpha * vecAD;
 
   return (vecDABC.Magnitude() / Alpha) < Precision::Confusion();
 }
@@ -139,8 +139,8 @@ static Standard_Boolean ComputeIntersection(TopOpeBRepDS_DataStructure&    DStr,
                                             Handle(Geom_Curve)&            gc,
                                             Handle(Geom2d_Curve)&          pc1,
                                             Handle(Geom2d_Curve)&          pc2,
-                                            gp_Vec&                        derudeb,
-                                            gp_Vec&                        dervdeb,
+                                            Vector3d&                        derudeb,
+                                            Vector3d&                        dervdeb,
                                             gp_Pnt2d&                      ptcoindeb,
                                             const Standard_Real            tol3d,
                                             const Standard_Real            tol2d,
@@ -503,12 +503,12 @@ void ChFi3d_ChBuilder::PerformThreeCorner(const Standard_Integer Jndex)
   p2d[deb] = fdpiv->Interference(jf[pivot][fin]).PCurveOnSurf()->Value(p[pivot][fin]);
 
   //  Point3d pnt;
-  gp_Vec deru, derv;
+  Vector3d deru, derv;
 
   //  p3d[fin] = HSpiv->Value(p2d[fin].X(),p2d[fin].Y());
   //  p3d[deb] = HSpiv->Value(p2d[deb].X(),p2d[deb].Y());
   Fac->D1(p2d[pivot].X(), p2d[pivot].Y(), p3d[pivot], deru, derv);
-  gp_Vec norpl = deru.Crossed(derv);
+  Vector3d norpl = deru.Crossed(derv);
   //  if (!c1triangle)
   p3d[3] = Fac->Value(p2d[3].X(), p2d[3].Y());
 
@@ -534,9 +534,9 @@ void ChFi3d_ChBuilder::PerformThreeCorner(const Standard_Integer Jndex)
   // le chanfrein est porte par le plan passant par les 3  premiers p3d.
   // Sinon, on construit le chanfrein par la methode GeomFill_ConstrainedFilling
   Standard_Boolean c1plan = c1triangle;
-  gp_Vec           v1(p3d[pivot], p3d[deb]);
-  gp_Vec           v2(p3d[pivot], p3d[fin]);
-  gp_Vec           nor = v1.Crossed(v2);
+  Vector3d           v1(p3d[pivot], p3d[deb]);
+  Vector3d           v2(p3d[pivot], p3d[fin]);
+  Vector3d           nor = v1.Crossed(v2);
 
   done = Standard_False;
 
@@ -554,9 +554,9 @@ void ChFi3d_ChBuilder::PerformThreeCorner(const Standard_Integer Jndex)
     //-------
 
     // on construit le plan
-    gp_Dir ndir(nor);
-    //    gp_Dir xdir(gp_Vec(p3d[fin],p3d[deb]));
-    gp_Dir xdir = gp_Dir(gp_Vec(p3d[fin], p3d[deb]));
+    Dir3d ndir(nor);
+    //    Dir3d xdir(Vector3d(p3d[fin],p3d[deb]));
+    Dir3d xdir = Dir3d(Vector3d(p3d[fin], p3d[deb]));
     gp_Ax3 planAx3(p3d[pivot], ndir, xdir);
     if (planAx3.YDirection().Dot(v1) <= 0.)
       planAx3.YReverse();
@@ -564,10 +564,10 @@ void ChFi3d_ChBuilder::PerformThreeCorner(const Standard_Integer Jndex)
     coin->ChangeSurf(ChFiKPart_IndexSurfaceInDS(gpl, DStr));
 
     // on oriente coin
-    gp_Vec norface = norpl;
+    Vector3d norface = norpl;
     if (face[pivot].Orientation() == TopAbs_REVERSED)
       norface.Reverse();
-    gp_Vec norcoin = gpl->Pln().Position().XDirection().Crossed(gpl->Pln().Position().YDirection());
+    Vector3d norcoin = gpl->Pln().Position().XDirection().Crossed(gpl->Pln().Position().YDirection());
     if (norcoin.Dot(norface) <= 0.)
       coin->ChangeOrientation() = TopAbs_REVERSED;
     else
@@ -598,7 +598,7 @@ void ChFi3d_ChBuilder::PerformThreeCorner(const Standard_Integer Jndex)
                              tol2d,
                              tolrcoinpiv))
       throw StdFail_NotDone("echec calcul intersection coin-pivot");
-    gp_Vec norpiv = deru.Crossed(derv);
+    Vector3d norpiv = deru.Crossed(derv);
 
     // intersection coin-deb
     Standard_Real tolrcoindeb;
@@ -756,7 +756,7 @@ void ChFi3d_ChBuilder::PerformThreeCorner(const Standard_Integer Jndex)
     Standard_Integer          ind1 = fddeb->Interference(jf[deb][pivot]).LineIndex();
     Standard_Integer          ind2 = fdfin->Interference(jf[fin][pivot]).LineIndex();
     Point3d                    Pfin, Pdeb;
-    gp_Vec                    vpfin, vpdeb;
+    Vector3d                    vpfin, vpdeb;
 
     DStr.Curve(ind1).Curve()->D1(p[deb][pivot], Pfin, vpfin);
     DStr.Curve(ind2).Curve()->D1(p[fin][pivot], Pdeb, vpdeb);

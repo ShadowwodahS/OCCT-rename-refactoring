@@ -66,13 +66,13 @@ static Standard_Integer GetNbPars(const GeomAbs_CurveType theTarget);
 static Standard_Integer GetNbPars(const GeomAbs_SurfaceType theTarget);
 static Standard_Boolean SetConicParameters(const GeomAbs_CurveType   theTarget,
                                            const Handle(Geom_Curve)& theConic,
-                                           gp_Ax2&                   thePos,
+                                           Frame3d&                   thePos,
                                            TColStd_Array1OfReal&     theParams);
 static Standard_Boolean CompareConicParams(const GeomAbs_CurveType     theTarget,
                                            const Standard_Real         theTol,
-                                           const gp_Ax2&               theRefPos,
+                                           const Frame3d&               theRefPos,
                                            const TColStd_Array1OfReal& theRefParams,
-                                           const gp_Ax2&               thePos,
+                                           const Frame3d&               thePos,
                                            const TColStd_Array1OfReal& theParams);
 static Standard_Boolean SetSurfParams(const GeomAbs_SurfaceType   theTarget,
                                       const Handle(Geom_Surface)& theElemSurf,
@@ -418,7 +418,7 @@ Standard_Boolean ShapeAnalysis_CanonicalRecognition::IsSphere(const Standard_Rea
 
 Standard_Boolean ShapeAnalysis_CanonicalRecognition::IsConic(const GeomAbs_CurveType theTarget,
                                                              const Standard_Real     theTol,
-                                                             gp_Ax2&                 thePos,
+                                                             Frame3d&                 thePos,
                                                              TColStd_Array1OfReal&   theParams)
 {
   if (myStatus != 0)
@@ -449,7 +449,7 @@ Standard_Boolean ShapeAnalysis_CanonicalRecognition::IsConic(const GeomAbs_Curve
       myStatus = 1;
       return Standard_False;
     }
-    gp_Ax2               aPos;
+    Frame3d               aPos;
     TColStd_Array1OfReal aParams(1, theParams.Length());
     const TopoDS_Shape&  anEdge = anIter.Value();
 
@@ -504,7 +504,7 @@ Standard_Boolean ShapeAnalysis_CanonicalRecognition::IsConic(const GeomAbs_Curve
 Standard_Boolean ShapeAnalysis_CanonicalRecognition::IsLine(const Standard_Real theTol,
                                                             gp_Lin&             theLin)
 {
-  gp_Ax2               aPos;
+  Frame3d               aPos;
   TColStd_Array1OfReal aParams(1, 1);
 
   GeomAbs_CurveType aTarget = GeomAbs_Line;
@@ -521,7 +521,7 @@ Standard_Boolean ShapeAnalysis_CanonicalRecognition::IsLine(const Standard_Real 
 Standard_Boolean ShapeAnalysis_CanonicalRecognition::IsCircle(const Standard_Real theTol,
                                                               gp_Circ&            theCirc)
 {
-  gp_Ax2               aPos;
+  Frame3d               aPos;
   TColStd_Array1OfReal aParams(1, 1);
 
   GeomAbs_CurveType aTarget = GeomAbs_Circle;
@@ -539,7 +539,7 @@ Standard_Boolean ShapeAnalysis_CanonicalRecognition::IsCircle(const Standard_Rea
 Standard_Boolean ShapeAnalysis_CanonicalRecognition::IsEllipse(const Standard_Real theTol,
                                                                gp_Elips&           theElips)
 {
-  gp_Ax2               aPos;
+  Frame3d               aPos;
   TColStd_Array1OfReal aParams(1, 2);
 
   GeomAbs_CurveType aTarget = GeomAbs_Ellipse;
@@ -888,15 +888,15 @@ Standard_Boolean ShapeAnalysis_CanonicalRecognition::GetSurfaceByLS(
   {
     // Set search direction for location to be perpendicular to axis to avoid
     // searching along axis
-    const gp_Dir aDir = thePos.Direction();
+    const Dir3d aDir = thePos.Direction();
     gp_Pln       aPln(thePos.Location(), aDir);
-    gp_Dir       aUDir = aPln.Position().XDirection();
-    gp_Dir       aVDir = aPln.Position().YDirection();
+    Dir3d       aUDir = aPln.Position().XDirection();
+    Dir3d       aVDir = aPln.Position().YDirection();
     for (i = 1; i <= 3; ++i)
     {
       aDirMatrix(i, 1) = aUDir.Coord(i);
       aDirMatrix(i, 2) = aVDir.Coord(i);
-      gp_Dir aUVDir(aUDir.XYZ() + aVDir.XYZ());
+      Dir3d aUVDir(aUDir.XYZ() + aVDir.XYZ());
       aDirMatrix(i, 3) = aUVDir.Coord(i);
     }
   }
@@ -1007,7 +1007,7 @@ Standard_Integer GetNbPars(const GeomAbs_SurfaceType theTarget)
 
 Standard_Boolean SetConicParameters(const GeomAbs_CurveType   theTarget,
                                     const Handle(Geom_Curve)& theConic,
-                                    gp_Ax2&                   thePos,
+                                    Frame3d&                   thePos,
                                     TColStd_Array1OfReal&     theParams)
 {
   if (theConic.IsNull())
@@ -1043,9 +1043,9 @@ Standard_Boolean SetConicParameters(const GeomAbs_CurveType   theTarget,
 
 Standard_Boolean CompareConicParams(const GeomAbs_CurveType     theTarget,
                                     const Standard_Real         theTol,
-                                    const gp_Ax2&               theRefPos,
+                                    const Frame3d&               theRefPos,
                                     const TColStd_Array1OfReal& theRefParams,
-                                    const gp_Ax2&               thePos,
+                                    const Frame3d&               thePos,
                                     const TColStd_Array1OfReal& theParams)
 {
   Standard_Integer i, aNbPars = GetNbPars(theTarget);
@@ -1061,9 +1061,9 @@ Standard_Boolean CompareConicParams(const GeomAbs_CurveType     theTarget,
   if (theTarget == GeomAbs_Line)
     aTol = Precision::Infinite();
 
-  const gp_Ax1& aRef     = theRefPos.Axis();
-  const gp_Ax1& anAx1    = thePos.Axis();
-  gp_Ax1        anAx1Rev = anAx1.Reversed();
+  const Axis3d& aRef     = theRefPos.Axis();
+  const Axis3d& anAx1    = thePos.Axis();
+  Axis3d        anAx1Rev = anAx1.Reversed();
 
   if (aRef.IsCoaxial(anAx1, anAngTol, aTol) || aRef.IsCoaxial(anAx1Rev, anAngTol, aTol))
   {
@@ -1155,9 +1155,9 @@ Standard_Boolean CompareSurfParams(const GeomAbs_SurfaceType   theTarget,
     aTol = Precision::Infinite();
   }
 
-  const gp_Ax1& aRef     = theRefPos.Axis();
-  const gp_Ax1& anAx1    = thePos.Axis();
-  gp_Ax1        anAx1Rev = anAx1.Reversed();
+  const Axis3d& aRef     = theRefPos.Axis();
+  const Axis3d& anAx1    = thePos.Axis();
+  Axis3d        anAx1Rev = anAx1.Reversed();
   if (!(aRef.IsCoaxial(anAx1, anAngTol, aTol) || aRef.IsCoaxial(anAx1Rev, anAngTol, aTol)))
   {
     return Standard_False;
@@ -1200,8 +1200,8 @@ Standard_Real DeviationSurfParams(const GeomAbs_SurfaceType   theTarget,
   }
   else
   {
-    const gp_Dir& aRefDir  = theRefPos.Direction();
-    const gp_Dir& aDir     = thePos.Direction();
+    const Dir3d& aRefDir  = theRefPos.Direction();
+    const Dir3d& aDir     = thePos.Direction();
     Standard_Real anAngDev = (1. - Abs(aRefDir * aDir));
     aDevPars += anAngDev;
   }
@@ -1279,7 +1279,7 @@ static Standard_Real GetLSGap(const Handle(TColgp_HArray1OfXYZ)& thePoints,
 
   Standard_Real aGap = 0.;
   gp_XYZ        aLoc = thePos.Location().XYZ();
-  gp_Vec        aDir(thePos.Direction());
+  Vector3d        aDir(thePos.Direction());
 
   Standard_Integer i;
   if (theTarget == GeomAbs_Sphere)
@@ -1296,7 +1296,7 @@ static Standard_Real GetLSGap(const Handle(TColgp_HArray1OfXYZ)& thePoints,
     Standard_Real anR = theParams(1);
     for (i = thePoints->Lower(); i <= thePoints->Upper(); ++i)
     {
-      gp_Vec aD(thePoints->Value(i) - aLoc);
+      Vector3d aD(thePoints->Value(i) - aLoc);
       aD.Cross(aDir);
       aGap = Max(aGap, Abs((aD.Magnitude() - anR)));
     }

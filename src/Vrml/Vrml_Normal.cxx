@@ -23,7 +23,7 @@ Vrml_Normal::Vrml_Normal(const Handle(TColgp_HArray1OfVec)& aVector)
 
 Vrml_Normal::Vrml_Normal()
 {
-  gp_Vec Tmp_Vec;
+  Vector3d Tmp_Vec;
   myVector = new TColgp_HArray1OfVec(1, 1);
 
   Tmp_Vec.SetX(0);

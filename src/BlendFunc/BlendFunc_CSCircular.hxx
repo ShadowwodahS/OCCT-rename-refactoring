@@ -109,11 +109,11 @@ public:
 
   Standard_EXPORT Standard_Boolean IsTangencyPoint() const Standard_OVERRIDE;
 
-  Standard_EXPORT const gp_Vec& TangentOnS() const Standard_OVERRIDE;
+  Standard_EXPORT const Vector3d& TangentOnS() const Standard_OVERRIDE;
 
   Standard_EXPORT const gp_Vec2d& Tangent2d() const Standard_OVERRIDE;
 
-  Standard_EXPORT const gp_Vec& TangentOnC() const Standard_OVERRIDE;
+  Standard_EXPORT const Vector3d& TangentOnC() const Standard_OVERRIDE;
 
   //! Returns the tangent vector at the section,
   //! at the beginning and the end of the section, and
@@ -121,8 +121,8 @@ public:
   //! these points.
   Standard_EXPORT void Tangent(const Standard_Real U,
                                const Standard_Real V,
-                               gp_Vec&             TgS,
-                               gp_Vec&             NormS) const Standard_OVERRIDE;
+                               Vector3d&             TgS,
+                               Vector3d&             NormS) const Standard_OVERRIDE;
 
   Standard_EXPORT void Set(const Standard_Real Radius, const Standard_Integer Choix);
 
@@ -235,14 +235,14 @@ private:
   Standard_Real                prmc;
   Standard_Real                dprmc;
   Standard_Boolean             istangent;
-  gp_Vec                       tgs;
+  Vector3d                       tgs;
   gp_Vec2d                     tg2d;
-  gp_Vec                       tgc;
+  Vector3d                       tgc;
   Standard_Real                ray;
   Standard_Integer             choix;
-  gp_Vec                       d1gui;
-  gp_Vec                       d2gui;
-  gp_Vec                       nplan;
+  Vector3d                       d1gui;
+  Vector3d                       d2gui;
+  Vector3d                       nplan;
   Standard_Real                normtg;
   Standard_Real                maxang;
   Standard_Real                minang;

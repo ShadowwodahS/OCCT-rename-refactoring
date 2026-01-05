@@ -751,7 +751,7 @@ Standard_Boolean XCAFDoc_Editor::RescaleGeometry(const TDF_Label&       theLabel
 
   Standard_Boolean anIsDone = Standard_True;
 
-  gp_Trsf aTrsf;
+  Transform3d aTrsf;
   aTrsf.SetScaleFactor(theScaleFactor);
   BRepBuilderAPI_Transform aBRepTrsf(aTrsf);
 
@@ -817,7 +817,7 @@ Standard_Boolean XCAFDoc_Editor::RescaleGeometry(const TDF_Label&       theLabel
       else if (aNodeType == XCAFDoc_AssemblyGraph::NodeType_Occurrence)
       {
         TopLoc_Location aLoc  = aShapeTool->GetLocation(aLabel);
-        gp_Trsf         aTrsf = aLoc.Transformation();
+        Transform3d         aTrsf = aLoc.Transformation();
         aTrsf.SetTranslationPart(aTrsf.TranslationPart() * theScaleFactor);
         XCAFDoc_Location::Set(aLabel, aTrsf);
       }
@@ -887,7 +887,7 @@ Standard_Boolean XCAFDoc_Editor::RescaleGeometry(const TDF_Label&       theLabel
 
         if (aDimObj->HasPlane())
         {
-          gp_Ax2 aPln = aDimObj->GetPlane();
+          Frame3d aPln = aDimObj->GetPlane();
           aPln.SetLocation(aPln.Location().XYZ() * theScaleFactor);
           aDimObj->SetPlane(aPln);
         }
@@ -1012,7 +1012,7 @@ Standard_Boolean XCAFDoc_Editor::RescaleGeometry(const TDF_Label&       theLabel
 
         if (aDatumObj->HasDatumTargetParams())
         {
-          gp_Ax2 anAxis = aDatumObj->GetDatumTargetAxis();
+          Frame3d anAxis = aDatumObj->GetDatumTargetAxis();
           anAxis.SetLocation(anAxis.Location().XYZ() * theScaleFactor);
           aDatumObj->SetDatumTargetAxis(anAxis);
           // TODO: Should we rescale target length and width?
@@ -1035,7 +1035,7 @@ Standard_Boolean XCAFDoc_Editor::RescaleGeometry(const TDF_Label&       theLabel
 
         if (aDatumObj->HasPlane())
         {
-          gp_Ax2 aPln = aDatumObj->GetPlane();
+          Frame3d aPln = aDatumObj->GetPlane();
           aPln.SetLocation(aPln.Location().XYZ() * theScaleFactor);
           aDatumObj->SetPlane(aPln);
         }
@@ -1091,7 +1091,7 @@ Standard_Boolean XCAFDoc_Editor::RescaleGeometry(const TDF_Label&       theLabel
 
         if (aNoteObj->HasPlane())
         {
-          gp_Ax2 aPln = aNoteObj->GetPlane();
+          Frame3d aPln = aNoteObj->GetPlane();
           aPln.SetLocation(aPln.Location().XYZ() * theScaleFactor);
           aNoteObj->SetPlane(aPln);
         }

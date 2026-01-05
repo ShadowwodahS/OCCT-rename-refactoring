@@ -27,7 +27,7 @@ class Geom2d_Curve;
 class Geom_Curve;
 class Geom_Surface;
 class Geom_Plane;
-class gp_Dir;
+class Dir3d;
 
 //! Projection of a curve on a surface.
 class GeomProjLib
@@ -138,7 +138,7 @@ public:
   Standard_EXPORT static Handle(Geom_Curve) ProjectOnPlane(
     const Handle(Geom_Curve)& Curve,
     const Handle(Geom_Plane)& Plane,
-    const gp_Dir&             Dir,
+    const Dir3d&             Dir,
     const Standard_Boolean    KeepParametrization);
 
 protected:

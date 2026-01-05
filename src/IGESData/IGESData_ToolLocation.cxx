@@ -229,18 +229,18 @@ gp_GTrsf IGESData_ToolLocation::EffectiveLocation(const Handle(IGESData_IGESEnti
   return locat;
 }
 
-Standard_Boolean IGESData_ToolLocation::AnalyseLocation(const gp_GTrsf& loc, gp_Trsf& result) const
+Standard_Boolean IGESData_ToolLocation::AnalyseLocation(const gp_GTrsf& loc, Transform3d& result) const
 {
   return ConvertLocation(theprec, loc, result);
 }
 
 Standard_Boolean IGESData_ToolLocation::ConvertLocation(const Standard_Real prec,
                                                         const gp_GTrsf&     loc,
-                                                        gp_Trsf&            result,
+                                                        Transform3d&            result,
                                                         const Standard_Real unit)
 {
   if (result.Form() != gp_Identity)
-    result = gp_Trsf(); // Identite forcee au depart
+    result = Transform3d(); // Identite forcee au depart
   // On prend le contenu de <loc>. Attention a l adressage
   gp_XYZ v1(loc.Value(1, 1), loc.Value(1, 2), loc.Value(1, 3));
   gp_XYZ v2(loc.Value(2, 1), loc.Value(2, 2), loc.Value(2, 3));
@@ -274,14 +274,14 @@ Standard_Boolean IGESData_ToolLocation::ConvertLocation(const Standard_Real prec
       || v3.X() != 0. || v3.Y() != 0. || v3.Z() != 1.)
   {
     // Pas Identite : vraie construction depuis un Ax3
-    gp_Dir d1(v1);
-    gp_Dir d2(v2);
-    gp_Dir d3(v3);
+    Dir3d d1(v1);
+    Dir3d d2(v2);
+    Dir3d d3(v3);
     gp_Ax3 axes(Point3d(0, 0, 0), d3, d1);
     d3.Cross(d1);
     if (d3.Dot(d2) < 0)
       axes.YReverse();
-    gp_Trsf transf;
+    Transform3d transf;
     transf.SetTransformation(axes);
     result *= transf; // szv#9:PRO19565:04Oct99
   }

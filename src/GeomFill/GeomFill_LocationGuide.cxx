@@ -75,7 +75,7 @@ static void TraceRevol(const Standard_Real                        t,
                        const gp_Mat&                              Trans)
 
 {
-  gp_Vec T, N, B;
+  Vector3d T, N, B;
   Point3d P;
   gp_Ax3 Rep(gp::Origin(), gp::DZ(), gp::DX());
 
@@ -85,13 +85,13 @@ static void TraceRevol(const Standard_Real                        t,
   gp_Mat M(N.XYZ(), B.XYZ(), T.XYZ());
   M *= Trans;
 
-  gp_Dir D = M.Column(3);
-  gp_Ax1 Ax(P, D); // axe pour la surface de revoltuion
+  Dir3d D = M.Column(3);
+  Axis3d Ax(P, D); // axe pour la surface de revoltuion
 
   // calculer transfo entre triedre et Oxyz
-  gp_Dir  N2 = N;
+  Dir3d  N2 = N;
   gp_Ax3  N3(P, D, N2);
-  gp_Trsf Transfo;
+  Transform3d Transfo;
   Transfo.SetTransformation(N3, Rep);
 
   // transformer la section
@@ -215,7 +215,7 @@ void GeomFill_LocationGuide::SetRotation(const Standard_Real PrecAngle, Standard
   gp_Ax3 Rep(gp::Origin(), gp::DZ(), gp::DX());
   //  Point3d P,P1,P2;
   Point3d                            P;
-  gp_Vec                            T, N, B;
+  Vector3d                            T, N, B;
   Standard_Integer                  ii, Deg;
   Standard_Boolean                  isconst, israt = Standard_False;
   Standard_Real                     t, v, w, OldAngle = 0, Angle, DeltaG, Diff;
@@ -292,19 +292,19 @@ void GeomFill_LocationGuide::SetRotation(const Standard_Real PrecAngle, Standard
       myStatus = myLaw->ErrorStatus();
       return; // Y a rien a faire.
     }
-    gp_Dir D = T;
+    Dir3d D = T;
     if (WithTrans)
     {
       gp_Mat M(N.XYZ(), B.XYZ(), T.XYZ());
       M *= Trans;
       D = M.Column(3);
     }
-    gp_Ax1 Ax(P, D); // axe pour la surface de revoltuion
+    Axis3d Ax(P, D); // axe pour la surface de revoltuion
 
     // calculer transfo entre triedre et Oxyz
-    gp_Dir  N2 = N;
+    Dir3d  N2 = N;
     gp_Ax3  N3(P, D, N2);
-    gp_Trsf Transfo;
+    Transform3d Transfo;
     Transfo.SetTransformation(N3, Rep);
 
     // transformer la section
@@ -584,10 +584,10 @@ void GeomFill_LocationGuide::SetTrsf(const gp_Mat& Transfo)
 
 //=================================================================================================
 
-Standard_Boolean GeomFill_LocationGuide::D0(const Standard_Real Param, gp_Mat& M, gp_Vec& V)
+Standard_Boolean GeomFill_LocationGuide::D0(const Standard_Real Param, gp_Mat& M, Vector3d& V)
 {
   Standard_Boolean Ok;
-  gp_Vec           T, N, B;
+  Vector3d           T, N, B;
   Point3d           P;
 
   myCurve->D0(Param, P);
@@ -658,11 +658,11 @@ Standard_Boolean GeomFill_LocationGuide::D0(const Standard_Real Param, gp_Mat& M
 //==================================================================
 Standard_Boolean GeomFill_LocationGuide::D0(const Standard_Real Param,
                                             gp_Mat&             M,
-                                            gp_Vec&             V,
+                                            Vector3d&             V,
                                             //					     TColgp_Array1OfPnt2d& Poles2d)
                                             TColgp_Array1OfPnt2d&)
 {
-  gp_Vec           T, N, B;
+  Vector3d           T, N, B;
   Point3d           P;
   Standard_Boolean Ok;
 
@@ -736,16 +736,16 @@ Standard_Boolean GeomFill_LocationGuide::D0(const Standard_Real Param,
 //==================================================================
 Standard_Boolean GeomFill_LocationGuide::D1(const Standard_Real Param,
                                             gp_Mat&             M,
-                                            gp_Vec&             V,
+                                            Vector3d&             V,
                                             gp_Mat&             DM,
-                                            gp_Vec&             DV,
+                                            Vector3d&             DV,
                                             //					     TColgp_Array1OfPnt2d& Poles2d,
                                             TColgp_Array1OfPnt2d&,
                                             //					     TColgp_Array1OfVec2d& DPoles2d)
                                             TColgp_Array1OfVec2d&)
 {
-  //  gp_Vec T, N, B, DT, DN, DB, T0, N0, B0;
-  gp_Vec T, N, B, DT, DN, DB;
+  //  Vector3d T, N, B, DT, DN, DB, T0, N0, B0;
+  Vector3d T, N, B, DT, DN, DB;
   //  Point3d P, P0;
   Point3d           P;
   Standard_Boolean Ok;
@@ -837,7 +837,7 @@ Standard_Boolean GeomFill_LocationGuide::D1(const Standard_Real Param,
          // transfo entre triedre (en Q) et Oxyz
          gp_Ax3 Rep(gp::Origin(),gp::DZ(), gp::DX());
          gp_Ax3 RepTriedre(gp::Origin(),t,n);
-         gp_Trsf Transfo3;
+         Transform3d Transfo3;
          Transfo3.SetTransformation(Rep,RepTriedre);
          // on  se place dans Oxyz
          Transfo3.Transforms(n);
@@ -873,7 +873,7 @@ Standard_Boolean GeomFill_LocationGuide::D1(const Standard_Real Param,
          db += b;
 
          // on repasse dans repere triedre
-             gp_Trsf InvTrsf;
+             Transform3d InvTrsf;
          InvTrsf = Transfo3.Inverted();
          InvTrsf.Transforms(dn);
          InvTrsf.Transforms(db);
@@ -902,11 +902,11 @@ Standard_Boolean GeomFill_LocationGuide::D1(const Standard_Real Param,
 Standard_Boolean GeomFill_LocationGuide::D2(
   const Standard_Real Param,
   gp_Mat&             M,
-  gp_Vec&             V,
+  Vector3d&             V,
   gp_Mat&             DM,
-  gp_Vec&             DV,
+  Vector3d&             DV,
   gp_Mat&             D2M,
-  gp_Vec&             D2V,
+  Vector3d&             D2V,
   //					     TColgp_Array1OfPnt2d& Poles2d,
   TColgp_Array1OfPnt2d&,
   //					     TColgp_Array1OfVec2d& DPoles2d,
@@ -914,8 +914,8 @@ Standard_Boolean GeomFill_LocationGuide::D2(
   //					     TColgp_Array1OfVec2d& D2Poles2d)
   TColgp_Array1OfVec2d&)
 {
-  gp_Vec T, N, B, DT, DN, DB, D2T, D2N, D2B;
-  //  gp_Vec T0, N0, B0, T1, N1, B1;
+  Vector3d T, N, B, DT, DN, DB, D2T, D2N, D2B;
+  //  Vector3d T0, N0, B0, T1, N1, B1;
   //  Point3d P, P0, P1;
   Point3d           P;
   Standard_Boolean Ok;
@@ -1023,14 +1023,14 @@ Standard_Boolean GeomFill_LocationGuide::D2(
     // rotation
     //------------------------------------------
 
-          gp_Trsf Tr;
+          Transform3d Tr;
           Point3d Q (0, 0 ,0);
-          gp_Ax1 Axe (Q, D);
+          Axis3d Axe (Q, D);
           Tr.SetRotation(Axe, R(2));
 
-          gp_Vec b,b2;
+          Vector3d b,b2;
           b = b2 = B;
-          gp_Vec n,n2;
+          Vector3d n,n2;
           n = n2 = N;
 
           B.Transform(Tr);
@@ -1042,15 +1042,15 @@ Standard_Boolean GeomFill_LocationGuide::D2(
     // derivees de la rotation
     // A VERIFIER !!!!
     //-----------------------------------------
-          gp_Vec db,dn,db3,dn3;
+          Vector3d db,dn,db3,dn3;
           db = db3 = DB;
           dn = dn3 = DN;
 
-          gp_Vec db1,dn1,db2,dn2;
+          Vector3d db1,dn1,db2,dn2;
 
     //transfo entre triedre et Oxyz
           gp_Ax3 RepTriedre4(Q,D,B2);
-          gp_Trsf Transfo3;
+          Transform3d Transfo3;
           Transfo3.SetTransformation(Rep,RepTriedre4);
 
     //on passe dans le repere du triedre
@@ -1088,18 +1088,18 @@ Standard_Boolean GeomFill_LocationGuide::D2(
           M2prim.Multiply(Aprim);
 
     // transformation
-          gp_Trsf Rot;
+          Transform3d Rot;
           Rot.SetValues(M2(1,1),M2(1,2),M2(1,3),0,
                 M2(2,1),M2(2,2),M2(2,3),0,
                 M2(3,1),M2(3,2),M2(3,3),0,
                 1.e-8,1.e-8);
-          gp_Trsf DRot;
+          Transform3d DRot;
           DRot.SetValues(M2prim(1,1),M2prim(1,2),M2prim(1,3),0,
                  M2prim(2,1),M2prim(2,2),M2prim(2,3),0,
                  M2prim(3,1),M2prim(3,2),M2prim(3,3),0,
                  1.e-8,1.e-8);
 
-          gp_Trsf D2Rot;
+          Transform3d D2Rot;
           D2Rot.SetValues(M2sec(1,1),M2sec(1,2),M2sec(1,3),0,
                   M2sec(2,1),M2sec(2,2),M2sec(2,3),0,
                   M2sec(3,1),M2sec(3,2),M2sec(3,3),0,
@@ -1293,11 +1293,11 @@ Standard_Real GeomFill_LocationGuide::GetMaximalNorm()
 
 //=================================================================================================
 
-void GeomFill_LocationGuide::GetAverageLaw(gp_Mat& AM, gp_Vec& AV)
+void GeomFill_LocationGuide::GetAverageLaw(gp_Mat& AM, Vector3d& AV)
 {
   Standard_Integer ii;
   Standard_Real    U, delta;
-  gp_Vec           V, V1, V2, V3;
+  Vector3d           V, V1, V2, V3;
 
   myLaw->GetAverageLaw(V1, V2, V3);
   AM.SetCols(V1.XYZ(), V2.XYZ(), V3.XYZ());
@@ -1446,7 +1446,7 @@ GeomFill_PipeError GeomFill_LocationGuide::ComputeAutomaticLaw(
   Handle(TColgp_HArray1OfPnt2d)& ParAndRad) const
 {
   Point3d           P;
-  gp_Vec           T, N, B;
+  Vector3d           T, N, B;
   Standard_Integer ii;
   Standard_Real    t;
 

@@ -36,7 +36,7 @@ public:
   //! @return merged triangulation or NULL on no result
   Standard_EXPORT static Handle(Poly_Triangulation) MergeNodes(
     const Handle(Poly_Triangulation)& theTris,
-    const gp_Trsf&                    theTrsf,
+    const Transform3d&                    theTrsf,
     const Standard_Boolean            theToReverse,
     const double                      theSmoothAngle,
     const double                      theMergeTolerance = 0.0,
@@ -102,7 +102,7 @@ public:
   //! @param[in] theTrsf transformation to apply
   //! @param[in] theToReverse reverse triangle nodes order
   Standard_EXPORT virtual void AddTriangulation(const Handle(Poly_Triangulation)& theTris,
-                                                const gp_Trsf&         theTrsf      = gp_Trsf(),
+                                                const Transform3d&         theTrsf      = Transform3d(),
                                                 const Standard_Boolean theToReverse = false);
 
   //! Prepare and return result triangulation (temporary data will be truncated to result size).

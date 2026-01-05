@@ -137,7 +137,7 @@ void AIS_PlaneTrihedron::Compute(const Handle(PrsMgr_PresentationManager)&,
   // drawing axis in X direction
   Point3d        first, last;
   Standard_Real value = myDrawer->DatumAspect()->AxisLength(Prs3d_DatumParts_XAxis);
-  gp_Dir        xDir  = myPlane->Position().Ax2().XDirection();
+  Dir3d        xDir  = myPlane->Position().Ax2().XDirection();
 
   Point3d        orig = myPlane->Position().Ax2().Location();
   Standard_Real xo, yo, zo, x, y, z;
@@ -158,7 +158,7 @@ void AIS_PlaneTrihedron::Compute(const Handle(PrsMgr_PresentationManager)&,
 
   // drawing axis in Y direction
   value       = myDrawer->DatumAspect()->AxisLength(Prs3d_DatumParts_YAxis);
-  gp_Dir yDir = myPlane->Position().Ax2().YDirection();
+  Dir3d yDir = myPlane->Position().Ax2().YDirection();
 
   yDir.Coord(x, y, z);
   last.SetCoord(xo + x * value, yo + y * value, zo + z * value);
@@ -189,7 +189,7 @@ void AIS_PlaneTrihedron::ComputeSelection(const Handle(SelectMgr_Selection)& aSe
   {
     case 0: { // triedre complet
       Prior = 5;
-      //      gp_Ax2 theax = gp_Ax2(myPlane->Position().Ax2());
+      //      Frame3d theax = Frame3d(myPlane->Position().Ax2());
       //      Point3d p1 = theax.Location();
 
       eown = new SelectMgr_EntityOwner(this, Prior);
@@ -242,12 +242,12 @@ void ExtremityPoints(TColgp_Array1OfPnt&         PP,
                      const Handle(Geom_Plane)&   myPlane,
                      const Handle(Prs3d_Drawer)& myDrawer)
 {
-  //  gp_Ax2 theax(myPlane->Ax2());
-  gp_Ax2 theax(myPlane->Position().Ax2());
+  //  Frame3d theax(myPlane->Ax2());
+  Frame3d theax(myPlane->Position().Ax2());
   PP(1) = theax.Location();
 
   Standard_Real len = myDrawer->DatumAspect()->AxisLength(Prs3d_DatumParts_XAxis);
-  gp_Vec        vec = theax.XDirection();
+  Vector3d        vec = theax.XDirection();
   vec *= len;
   PP(2) = PP(1).Translated(vec);
 

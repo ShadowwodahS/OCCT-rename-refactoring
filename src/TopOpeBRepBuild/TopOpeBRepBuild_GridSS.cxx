@@ -1382,7 +1382,7 @@ void TopOpeBRepBuild_Builder::AddONPatchesSFS(const TopOpeBRepBuild_GTopo&  G1,
       aBAC1.D0(par, aP2d);
       BRepAdaptor_Surface aBAS1(aFace1);
       Point3d              aPbid;
-      gp_Vec              aN1, aDU, aDV;
+      Vector3d              aN1, aDU, aDV;
       aBAS1.D1(aP2d.X(), aP2d.Y(), aPbid, aDU, aDV);
       aN1                = aDU ^ aDV;
       Standard_Real norm = aN1.Magnitude();
@@ -1418,7 +1418,7 @@ void TopOpeBRepBuild_Builder::AddONPatchesSFS(const TopOpeBRepBuild_GTopo&  G1,
           BRepAdaptor_Curve2d aBAC2(aChkEdge, aFace2);
           aBAC2.D0(par, aP2d);
           BRepAdaptor_Surface aBAS2(aFace2);
-          gp_Vec              aN2;
+          Vector3d              aN2;
           aBAS2.D1(aP2d.X(), aP2d.Y(), aPbid, aDU, aDV);
           aN2  = aDU ^ aDV;
           norm = aN2.Magnitude();
@@ -1591,9 +1591,9 @@ static Standard_Boolean AreFacesCoincideInArea(const TopoDS_Shape&         theBa
   gp_Pnt2d            aP2d = ElCLib::Value(pLinMin * T, aLin);
   BRepAdaptor_Surface aBAS(aBaseFace);
   Point3d              aPnt;
-  gp_Vec              d1u, d1v;
+  Vector3d              d1u, d1v;
   aBAS.D1(aP2d.X(), aP2d.Y(), aPnt, d1u, d1v);
-  gp_Vec        aNormBase = d1u ^ d1v;
+  Vector3d        aNormBase = d1u ^ d1v;
   Standard_Real mag       = aNormBase.Magnitude();
   if (mag < gp::Resolution())
     return Standard_False;
@@ -1611,7 +1611,7 @@ static Standard_Boolean AreFacesCoincideInArea(const TopoDS_Shape&         theBa
   Standard_Real u, v;
   aProj.LowerDistanceParameters(u, v);
   aSurf->D1(u, v, aPnt, d1u, d1v);
-  gp_Vec aNorm = d1u ^ d1v;
+  Vector3d aNorm = d1u ^ d1v;
   mag          = aNorm.Magnitude();
   if (mag < gp::Resolution())
     return Standard_False;

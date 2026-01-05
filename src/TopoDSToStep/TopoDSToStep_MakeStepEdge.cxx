@@ -190,7 +190,7 @@ void TopoDSToStep_MakeStepEdge::Init(const TopoDS_Edge&                    aEdge
   if (!C.IsNull())
   {
     C           = Handle(Geom_Curve)::DownCast(C->Copy());
-    gp_Trsf Tr1 = CA.Trsf();
+    Transform3d Tr1 = CA.Trsf();
     C->Transform(Tr1);
     // Special treatment is needed for very short edges based on periodic curves.
     // Since edge in STEP does not store its parametric range, parameters are computed
@@ -271,8 +271,8 @@ void TopoDSToStep_MakeStepEdge::Init(const TopoDS_Edge&                    aEdge
     {
       U1                    = CA.FirstParameter();
       U2                    = CA.LastParameter();
-      gp_Vec              V = gp_Vec(CA.Value(U1), CA.Value(U2));
-      Handle(Geom_Line)   L = new Geom_Line(CA.Value(U1), gp_Dir(V));
+      Vector3d              V = Vector3d(CA.Value(U1), CA.Value(U2));
+      Handle(Geom_Line)   L = new Geom_Line(CA.Value(U1), Dir3d(V));
       GeomToStep_MakeLine MkLine(L, theLocalFactors);
       Gpms = MkLine.Value();
     }

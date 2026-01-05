@@ -36,7 +36,7 @@ void IGESConvGeom_GeomBuilder::Clear()
 {
   theXYZ = new TColgp_HSequenceOfXYZ();
   theVec = new TColgp_HSequenceOfXYZ();
-  gp_Trsf trid;
+  Transform3d trid;
   thepos = trid;
 }
 
@@ -108,12 +108,12 @@ Handle(IGESGeom_CopiousData) IGESConvGeom_GeomBuilder::MakeCopiousData(
   return res;
 }
 
-gp_Trsf IGESConvGeom_GeomBuilder::Position() const
+Transform3d IGESConvGeom_GeomBuilder::Position() const
 {
   return thepos;
 }
 
-void IGESConvGeom_GeomBuilder::SetPosition(const gp_Trsf& pos)
+void IGESConvGeom_GeomBuilder::SetPosition(const Transform3d& pos)
 {
   thepos = pos;
 }
@@ -121,21 +121,21 @@ void IGESConvGeom_GeomBuilder::SetPosition(const gp_Trsf& pos)
 void IGESConvGeom_GeomBuilder::SetPosition(const gp_Ax3& pos)
 {
   gp_Ax3  orig(gp::XOY());
-  gp_Trsf ps;
+  Transform3d ps;
   ps.SetTransformation(pos, orig);
   thepos = ps;
 }
 
-void IGESConvGeom_GeomBuilder::SetPosition(const gp_Ax2& pos)
+void IGESConvGeom_GeomBuilder::SetPosition(const Frame3d& pos)
 {
   gp_Ax3 a3(pos);
   SetPosition(a3);
 }
 
-void IGESConvGeom_GeomBuilder::SetPosition(const gp_Ax1& pos)
+void IGESConvGeom_GeomBuilder::SetPosition(const Axis3d& pos)
 {
   const Point3d& p = pos.Location();
-  const gp_Dir& d = pos.Direction();
+  const Dir3d& d = pos.Direction();
   gp_Ax3        a3(p, d);
   SetPosition(a3);
 }

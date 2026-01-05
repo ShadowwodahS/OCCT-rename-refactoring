@@ -18,9 +18,9 @@
 //=================================================================================================
 
 void SelectMgr_ViewClipRange::AddClippingPlanes(const Graphic3d_SequenceOfHClipPlane& thePlanes,
-                                                const gp_Ax1&                         thePickRay)
+                                                const Axis3d&                         thePickRay)
 {
-  const gp_Dir& aViewRayDir = thePickRay.Direction();
+  const Dir3d& aViewRayDir = thePickRay.Direction();
   const Point3d& aNearPnt    = thePickRay.Location();
 
   Graphic3d_Vec4d aPlaneABCD;

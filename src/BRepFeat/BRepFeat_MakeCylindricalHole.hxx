@@ -40,11 +40,11 @@ public:
   BRepFeat_MakeCylindricalHole();
 
   //! Sets the axis of the hole(s).
-  void Init(const gp_Ax1& Axis);
+  void Init(const Axis3d& Axis);
 
   //! Sets the shape and  axis on which hole(s)  will be
   //! performed.
-  void Init(const TopoDS_Shape& S, const gp_Ax1& Axis);
+  void Init(const TopoDS_Shape& S, const Axis3d& Axis);
 
   //! Performs every  hole of    radius  <Radius>.  This
   //! command  has the  same effect as   a cut operation
@@ -104,7 +104,7 @@ protected:
 private:
   Standard_EXPORT BRepFeat_Status Validate();
 
-  gp_Ax1           myAxis;
+  Axis3d           myAxis;
   Standard_Boolean myAxDef;
   BRepFeat_Status  myStatus;
   Standard_Boolean myIsBlind;

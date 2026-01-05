@@ -324,8 +324,8 @@ static Standard_Integer triarea(Draw_Interpretor& di, int n, const char** a)
         const Point3d p1 = aPoly->Node(n1);
         const Point3d p2 = aPoly->Node(n2);
         const Point3d p3 = aPoly->Node(n3);
-        gp_Vec       v1(p1, p2);
-        gp_Vec       v2(p1, p3);
+        Vector3d       v1(p1, p2);
+        Vector3d       v2(p1, p3);
         double       ar = v1.CrossMagnitude(v2);
         aTriArea += ar;
       }
@@ -387,7 +387,7 @@ static Standard_Integer tricheck(Draw_Interpretor& di, int n, const char** a)
       const TopoDS_Face&         aFace  = TopoDS::Face(aShape);
       TopLoc_Location            aLoc;
       Handle(Poly_Triangulation) aT   = BRep_Tool::Triangulation(aFace, aLoc);
-      const gp_Trsf&             trsf = aLoc.Transformation();
+      const Transform3d&             trsf = aLoc.Transformation();
 
       TColgp_Array1OfPnt   pnts(1, 2);
       TColgp_Array1OfPnt2d pnts2d(1, 2);
@@ -457,7 +457,7 @@ static Standard_Integer tricheck(Draw_Interpretor& di, int n, const char** a)
       const TopoDS_Face&         aFace = TopoDS::Face(aMapF.FindKey(iface));
       TopLoc_Location            aLoc;
       Handle(Poly_Triangulation) aT   = BRep_Tool::Triangulation(aFace, aLoc);
-      const gp_Trsf&             trsf = aLoc.Transformation();
+      const Transform3d&             trsf = aLoc.Transformation();
       DrawTrSurf::Set(name, aT->Node(inode).Transformed(trsf));
       if (aT->HasUVNodes())
       {
@@ -480,7 +480,7 @@ static Standard_Integer tricheck(Draw_Interpretor& di, int n, const char** a)
 
       const TopoDS_Face&               aFace = TopoDS::Face(aMapF.FindKey(aFaceId));
       TopLoc_Location                  aLoc;
-      const gp_Trsf&                   aTrsf = aLoc.Transformation();
+      const Transform3d&                   aTrsf = aLoc.Transformation();
       const Handle(Poly_Triangulation) aT    = BRep_Tool::Triangulation(aFace, aLoc);
       const Poly_Triangle&             aTri  = aT->Triangle(aTriID);
       Standard_Integer                 aN1, aN2, aN3;
@@ -603,7 +603,7 @@ static Standard_Integer tricheck(Draw_Interpretor& di, int n, const char** a)
     {
       di << "Not connected mesh inside face " << aFaceId << "\n";
 
-      const gp_Trsf& trsf = aLoc.Transformation();
+      const Transform3d& trsf = aLoc.Transformation();
 
       TColgp_Array1OfPnt                       pnts(1, 2);
       TColgp_Array1OfPnt2d                     pnts2d(1, 2);

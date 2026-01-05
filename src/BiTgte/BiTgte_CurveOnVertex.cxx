@@ -141,28 +141,28 @@ void BiTgte_CurveOnVertex::D0(const Standard_Real /*U*/, Point3d& P) const
 
 //=================================================================================================
 
-void BiTgte_CurveOnVertex::D1(const Standard_Real, Point3d&, gp_Vec&) const
+void BiTgte_CurveOnVertex::D1(const Standard_Real, Point3d&, Vector3d&) const
 {
   throw Standard_NotImplemented("BiTgte_CurveOnVertex");
 }
 
 //=================================================================================================
 
-void BiTgte_CurveOnVertex::D2(const Standard_Real, Point3d&, gp_Vec&, gp_Vec&) const
+void BiTgte_CurveOnVertex::D2(const Standard_Real, Point3d&, Vector3d&, Vector3d&) const
 {
   throw Standard_NotImplemented("BiTgte_CurveOnVertex");
 }
 
 //=================================================================================================
 
-void BiTgte_CurveOnVertex::D3(const Standard_Real, Point3d&, gp_Vec&, gp_Vec&, gp_Vec&) const
+void BiTgte_CurveOnVertex::D3(const Standard_Real, Point3d&, Vector3d&, Vector3d&, Vector3d&) const
 {
   throw Standard_NotImplemented("BiTgte_CurveOnVertex");
 }
 
 //=================================================================================================
 
-gp_Vec BiTgte_CurveOnVertex::DN(const Standard_Real, const Standard_Integer) const
+Vector3d BiTgte_CurveOnVertex::DN(const Standard_Real, const Standard_Integer) const
 {
   throw Standard_NotImplemented("BiTgte_CurveOnVertex");
 }

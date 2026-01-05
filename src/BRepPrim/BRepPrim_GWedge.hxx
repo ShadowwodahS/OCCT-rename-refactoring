@@ -73,7 +73,7 @@ public:
   //! The result is a box
   //! dx,dy,dz should be positive
   Standard_EXPORT BRepPrim_GWedge(const BRepPrim_Builder& B,
-                                  const gp_Ax2&           Axes,
+                                  const Frame3d&           Axes,
                                   const Standard_Real     dx,
                                   const Standard_Real     dy,
                                   const Standard_Real     dz);
@@ -91,7 +91,7 @@ public:
   //! dx,dy,dz should be positive
   //! ltx should not be negative
   Standard_EXPORT BRepPrim_GWedge(const BRepPrim_Builder& B,
-                                  const gp_Ax2&           Axes,
+                                  const Frame3d&           Axes,
                                   const Standard_Real     dx,
                                   const Standard_Real     dy,
                                   const Standard_Real     dz,
@@ -104,7 +104,7 @@ public:
   //! XYZMax - XYZMin should be positive
   //! ZX2Max - ZX2Min should not be negative
   Standard_EXPORT BRepPrim_GWedge(const BRepPrim_Builder& B,
-                                  const gp_Ax2&           Axes,
+                                  const Frame3d&           Axes,
                                   const Standard_Real     xmin,
                                   const Standard_Real     ymin,
                                   const Standard_Real     zmin,
@@ -117,7 +117,7 @@ public:
                                   const Standard_Real     x2max);
 
   //! Returns the coordinates system from <me>.
-  Standard_EXPORT gp_Ax2 Axes() const;
+  Standard_EXPORT Frame3d Axes() const;
 
   //! Returns Xmin value from <me>.
   Standard_EXPORT Standard_Real GetXMin() const;
@@ -215,7 +215,7 @@ public:
 protected:
 private:
   BRepPrim_Builder myBuilder;
-  gp_Ax2           myAxes;
+  Frame3d           myAxes;
   Standard_Real    XMin;
   Standard_Real    XMax;
   Standard_Real    YMin;

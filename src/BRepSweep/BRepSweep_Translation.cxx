@@ -78,7 +78,7 @@ static void SetThePCurve(const BRep_Builder&         B,
 BRepSweep_Translation::BRepSweep_Translation(const TopoDS_Shape&    S,
                                              const Sweep_NumShape&  N,
                                              const TopLoc_Location& L,
-                                             const gp_Vec&          V,
+                                             const Vector3d&          V,
                                              const Standard_Boolean C,
                                              const Standard_Boolean Canonize)
     : BRepSweep_Trsf(BRep_Builder(), S, N, L, C),
@@ -217,11 +217,11 @@ TopoDS_Shape BRepSweep_Translation::MakeEmptyFace(const TopoDS_Shape&   aGenS,
     Standard_Real      First, Last;
     Handle(Geom_Curve) C = BRep_Tool::Curve(TopoDS::Edge(aGenS), L, First, Last);
     toler                = BRep_Tool::Tolerance(TopoDS::Edge(aGenS));
-    gp_Trsf Tr           = L.Transformation();
+    Transform3d Tr           = L.Transformation();
     C                    = Handle(Geom_Curve)::DownCast(C->Copy());
     // extruded surfaces are inverted correspondingly to the topology, so reverse.
     C->Transform(Tr);
-    gp_Dir D(myVec);
+    Dir3d D(myVec);
     D.Reverse();
 
     if (myCanonize)
@@ -252,7 +252,7 @@ TopoDS_Shape BRepSweep_Translation::MakeEmptyFace(const TopoDS_Shape&   aGenS,
     TopLoc_Location L;
     S          = BRep_Tool::Surface(TopoDS::Face(aGenS), L);
     toler      = BRep_Tool::Tolerance(TopoDS::Face(aGenS));
-    gp_Trsf Tr = L.Transformation();
+    Transform3d Tr = L.Transformation();
     S          = Handle(Geom_Surface)::DownCast(S->Copy());
     S->Transform(Tr);
     if (aDirS.Index() == 2)
@@ -335,7 +335,7 @@ void BRepSweep_Translation::SetGeneratingPCurve(const TopoDS_Shape& aNewFace,
 
         if(aDirV.Index()==2) gl.Translate(myVec);
         Point3d pnt = gl.Location();
-        gp_Dir dir = gl.Direction();
+        Dir3d dir = gl.Direction();
         Standard_Real u,v;
         ElSLib::PlaneParameters(ax3,pnt,u,v);
         gp_Pnt2d pnt2d(u,v);
@@ -380,7 +380,7 @@ void BRepSweep_Translation::SetDirectingPCurve(const TopoDS_Shape& aNewFace,
         gp_Pln pln = AS.Plane();
         gp_Ax3 ax3 = pln.Position();
         Point3d pv = BRep_Tool::Pnt(TopoDS::Vertex(aGenV));
-        gp_Dir dir(myVec);
+        Dir3d dir(myVec);
         Standard_Real u,v;
         ElSLib::PlaneParameters(ax3,pv,u,v);
         gp_Pnt2d pnt2d(u,v);
@@ -403,7 +403,7 @@ TopAbs_Orientation BRepSweep_Translation::DirectSolid(const TopoDS_Shape& aGenS,
   // compare the face normal and the direction
   BRepAdaptor_Surface surf(TopoDS::Face(aGenS));
   Point3d              P;
-  gp_Vec              du, dv;
+  Vector3d              du, dv;
   surf.D1((surf.FirstUParameter() + surf.LastUParameter()) / 2.,
           (surf.FirstVParameter() + surf.LastVParameter()) / 2.,
           P,
@@ -505,7 +505,7 @@ Standard_Boolean BRepSweep_Translation::IsInvariant(const TopoDS_Shape&) const
 
 //=================================================================================================
 
-gp_Vec BRepSweep_Translation::Vec() const
+Vector3d BRepSweep_Translation::Vec() const
 {
   return myVec;
 }

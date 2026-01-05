@@ -101,7 +101,7 @@ Standard_Boolean ShapeCustom_SweptToElementary::NewSurface(const TopoDS_Face&   
   {
     Handle(Geom_SurfaceOfRevolution) SR  = Handle(Geom_SurfaceOfRevolution)::DownCast(SS);
     Handle(Geom_Curve)               bc  = SR->BasisCurve();
-    gp_Ax1                           ax1 = SR->Axis();
+    Axis3d                           ax1 = SR->Axis();
     Handle(GeomAdaptor_Curve)        HC  = new GeomAdaptor_Curve();
     HC->Load(bc, bc->FirstParameter(), bc->LastParameter());
     GeomAdaptor_SurfaceOfRevolution AS(HC, ax1);
@@ -142,7 +142,7 @@ Standard_Boolean ShapeCustom_SweptToElementary::NewSurface(const TopoDS_Face&   
   {
     Handle(Geom_SurfaceOfLinearExtrusion) SLE = Handle(Geom_SurfaceOfLinearExtrusion)::DownCast(SS);
     Handle(Geom_Curve)                    bc  = SLE->BasisCurve();
-    gp_Dir                                dir = SLE->Direction();
+    Dir3d                                dir = SLE->Direction();
     Handle(GeomAdaptor_Curve)             HC  = new GeomAdaptor_Curve();
     HC->Load(bc, bc->FirstParameter(), bc->LastParameter());
     GeomAdaptor_SurfaceOfLinearExtrusion AS(HC, dir);
@@ -265,8 +265,8 @@ Standard_Boolean ShapeCustom_SweptToElementary::NewCurve2d(const TopoDS_Edge&   
         SR->Bounds(UR1, UR2, VR1, VR2);
         SR->D0(UR1, VR1, PR);
         Point3d        P0 = SPH->Location();
-        gp_Vec        VS(P0, PS);
-        gp_Vec        VR(P0, PR);
+        Vector3d        VS(P0, PS);
+        Vector3d        VR(P0, PR);
         Standard_Real angle = VS.Angle(VR);
         gp_Vec2d      shift(0, VS1 - VR1 + angle);
         C->Translate(shift);

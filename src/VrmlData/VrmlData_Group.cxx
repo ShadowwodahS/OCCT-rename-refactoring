@@ -62,7 +62,7 @@ Standard_Boolean VrmlData_Group::RemoveNode(const Handle(VrmlData_Node)& theNode
 
 //=================================================================================================
 
-Standard_Boolean VrmlData_Group::SetTransform(const gp_Trsf& theTrsf)
+Standard_Boolean VrmlData_Group::SetTransform(const Transform3d& theTrsf)
 {
   Standard_Boolean aResult(Standard_False);
   if (myIsTransform)
@@ -106,7 +106,7 @@ Handle(VrmlData_Node) VrmlData_Group::Clone(const Handle(VrmlData_Node)& theOthe
 
 //=================================================================================================
 
-Handle(VrmlData_Node) VrmlData_Group::FindNode(const char* theName, gp_Trsf& theLocation) const
+Handle(VrmlData_Node) VrmlData_Group::FindNode(const char* theName, Transform3d& theLocation) const
 {
   Handle(VrmlData_Node) aResult;
   Iterator              anIter(myNodes);
@@ -487,17 +487,17 @@ VrmlData_ErrorStatus VrmlData_Group::Read(VrmlData_InBuffer& theBuffer)
     if (myIsTransform)
     {
       // Create the corresponding transformation.
-      gp_Trsf tRot, tCentInv;
+      Transform3d tRot, tCentInv;
       myTrsf.SetTranslation(aTrans + aCenter);
-      gp_Ax1 aRotation(gp::Origin(), aRotAxis);
-      tRot.SetRotation(gp_Ax1(gp::Origin(), aRotAxis), aRotAngle);
+      Axis3d aRotation(gp::Origin(), aRotAxis);
+      tRot.SetRotation(Axis3d(gp::Origin(), aRotAxis), aRotAngle);
       myTrsf.Multiply(tRot);
       // Check that the scale is uniform (the same value in all 3 directions.
       // Only in this case the scaling is applied.
       const Standard_Real aScaleDiff[2] = {aScale.X() - aScale.Y(), aScale.X() - aScale.Z()};
       if (aScaleDiff[0] * aScaleDiff[0] + aScaleDiff[1] * aScaleDiff[1] < Precision::Confusion())
       {
-        gp_Trsf tScale;
+        Transform3d tScale;
         tScale.SetScale(gp::Origin(), (aScale.X() + aScale.Y() + aScale.Z()) / 3.);
         myTrsf.Multiply(tScale);
       }

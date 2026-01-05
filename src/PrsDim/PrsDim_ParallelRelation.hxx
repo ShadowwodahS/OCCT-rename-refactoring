@@ -66,7 +66,7 @@ private:
 private:
   Point3d myFAttach;
   Point3d mySAttach;
-  gp_Dir myDirAttach;
+  Dir3d myDirAttach;
 };
 
 #endif // _PrsDim_ParallelRelation_HeaderFile

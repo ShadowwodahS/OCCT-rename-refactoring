@@ -798,8 +798,8 @@ Standard_Boolean TopOpeBRepTool_REGUS::NextinBlock()
 static Standard_Boolean FUN_vectors(const TopoDS_Face&     f,
                                     const TopoDS_Edge&     e,
                                     const Standard_Real    pare,
-                                    gp_Dir&                nt,
-                                    gp_Dir&                xx,
+                                    Dir3d&                nt,
+                                    Dir3d&                xx,
                                     const Standard_Real    tola,
                                     const Standard_Boolean approx)
 {
@@ -812,11 +812,11 @@ static Standard_Boolean FUN_vectors(const TopoDS_Face&     f,
   }
   else
   {
-    gp_Vec           tmp;
+    Vector3d           tmp;
     Standard_Boolean ok = FUN_tool_nggeomF(pare, e, f, tmp);
     if (!ok)
       return Standard_False;
-    nt = gp_Dir(tmp);
+    nt = Dir3d(tmp);
   }
   if (M_REVERSED(f.Orientation()))
     nt.Reverse();
@@ -859,9 +859,9 @@ Standard_Boolean TopOpeBRepTool_REGUS::NearestF(const TopoDS_Edge&          e,
 
   // RONd (x,y,z) = (xxref,ntref,x^y)
   // clang-format off
-  Standard_Real tola = Precision::Angular()*1.e3; //gp_Dir xapp,yapp; Standard_Boolean refapp = Standard_False;
+  Standard_Real tola = Precision::Angular()*1.e3; //Dir3d xapp,yapp; Standard_Boolean refapp = Standard_False;
   // clang-format on
-  gp_Dir           x, y;
+  Dir3d           x, y;
   Standard_Boolean ok = ::FUN_vectors(fref, e, pare, y, x, tola, Standard_False);
   if (!ok)
   {
@@ -876,7 +876,7 @@ Standard_Boolean TopOpeBRepTool_REGUS::NearestF(const TopoDS_Edge&          e,
   for (; itf.More(); itf.Next())
   {
     ffound = TopoDS::Face(itf.Value());
-    gp_Dir ntfound, xxfound;
+    Dir3d ntfound, xxfound;
     ok = ::FUN_vectors(ffound, e, pare, ntfound, xxfound, tola, Standard_False);
     if (!ok)
     {
@@ -928,7 +928,7 @@ Standard_Boolean TopOpeBRepTool_REGUS::NearestF(const TopoDS_Edge&          e,
   // ----------------------
   for (; itf.More(); itf.Next())
   {
-    gp_Dir             nti, xxi;
+    Dir3d             nti, xxi;
     const TopoDS_Face& fi = TopoDS::Face(itf.Value());
     ok                    = ::FUN_vectors(fi, e, pare, nti, xxi, tola, Standard_False);
     if (!ok)

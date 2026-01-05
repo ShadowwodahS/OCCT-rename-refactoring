@@ -410,7 +410,7 @@ void Poly_MergeNodesTool::PushLastElement(int theNbNodes)
 //=================================================================================================
 
 void Poly_MergeNodesTool::AddTriangulation(const Handle(Poly_Triangulation)& theTris,
-                                           const gp_Trsf&                    theTrsf,
+                                           const Transform3d&                    theTrsf,
                                            const Standard_Boolean            theToReverse)
 {
   if (theTris.IsNull())
@@ -461,7 +461,7 @@ Handle(Poly_Triangulation) Poly_MergeNodesTool::Result()
 
 Handle(Poly_Triangulation) Poly_MergeNodesTool::MergeNodes(
   const Handle(Poly_Triangulation)& theTris,
-  const gp_Trsf&                    theTrsf,
+  const Transform3d&                    theTrsf,
   const Standard_Boolean            theToReverse,
   const double                      theSmoothAngle,
   const double                      theMergeTolerance,

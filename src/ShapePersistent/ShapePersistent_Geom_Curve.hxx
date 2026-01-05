@@ -190,14 +190,14 @@ class ShapePersistent_Geom_Curve : private ShapePersistent_Geom
 
   private:
     Handle(Curve) myBasisCurve;
-    gp_Dir        myOffsetDirection;
+    Dir3d        myOffsetDirection;
     Standard_Real myOffsetValue;
   };
 
 public:
-  typedef instance<Curve, Geom_Line, gp_Ax1> Line;
+  typedef instance<Curve, Geom_Line, Axis3d> Line;
 
-  typedef subBase_gp<Curve, gp_Ax2>                Conic;
+  typedef subBase_gp<Curve, Frame3d>                Conic;
   typedef instance<Conic, Geom_Circle, gp_Circ>    Circle;
   typedef instance<Conic, Geom_Ellipse, gp_Elips>  Ellipse;
   typedef instance<Conic, Geom_Hyperbola, gp_Hypr> Hyperbola;
@@ -244,18 +244,18 @@ public:
 // Line
 //=======================================================================
 template <>
-Standard_CString ShapePersistent_Geom::instance<ShapePersistent_Geom::Curve, Geom_Line, gp_Ax1>::
+Standard_CString ShapePersistent_Geom::instance<ShapePersistent_Geom::Curve, Geom_Line, Axis3d>::
   PName() const;
 
 template <>
-void ShapePersistent_Geom::instance<ShapePersistent_Geom::Curve, Geom_Line, gp_Ax1>::Write(
+void ShapePersistent_Geom::instance<ShapePersistent_Geom::Curve, Geom_Line, Axis3d>::Write(
   StdObjMgt_WriteData& theWriteData) const;
 
 //=======================================================================
 // Conic
 //=======================================================================
 template <>
-Standard_CString ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Curve, gp_Ax2>::PName()
+Standard_CString ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Curve, Frame3d>::PName()
   const;
 
 //=======================================================================

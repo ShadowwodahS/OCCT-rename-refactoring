@@ -158,7 +158,7 @@ public:
   //! The direction does not change flyout direction of dimension.
   //! @param[in] theDirection  the dimension direction.
   //! @param[in] theUseDirection  boolean value if custom direction should be used.
-  Standard_EXPORT void SetDirection(const gp_Dir&          theDirection,
+  Standard_EXPORT void SetDirection(const Dir3d&          theDirection,
                                     const Standard_Boolean theUseDirection = Standard_True);
 
 protected:
@@ -166,7 +166,7 @@ protected:
   Standard_EXPORT virtual Standard_Boolean CheckPlane(const gp_Pln& thePlane) const
     Standard_OVERRIDE;
 
-  Standard_EXPORT virtual gp_Pln ComputePlane(const gp_Dir& theAttachDir) const;
+  Standard_EXPORT virtual gp_Pln ComputePlane(const Dir3d& theAttachDir) const;
 
   //! Computes distance between dimension points. If custom direction is defined, the distance
   //! is a projection value of the distance between points to this direction
@@ -203,7 +203,7 @@ protected:
 
   Standard_EXPORT Standard_Boolean InitTwoEdgesLength(const TopoDS_Edge& theFirstEdge,
                                                       const TopoDS_Edge& theSecondEdge,
-                                                      gp_Dir&            theEdgeDir);
+                                                      Dir3d&            theEdgeDir);
 
   //! Auxiliary method for InitTwoShapesPoints()
   //! in case of the distance between edge and vertex.
@@ -211,7 +211,7 @@ protected:
   //! @param[out] theEdgeDir  is the direction on the edge to build automatic plane.
   Standard_EXPORT Standard_Boolean InitEdgeVertexLength(const TopoDS_Edge&   theEdge,
                                                         const TopoDS_Vertex& theVertex,
-                                                        gp_Dir&              theEdgeDir,
+                                                        Dir3d&              theEdgeDir,
                                                         Standard_Boolean     isInfinite);
 
   //! Auxiliary method for InitTwoShapesPoints()
@@ -223,7 +223,7 @@ protected:
   //! @param[out] theEdgeDir  is the direction on the edge to build automatic plane.
   Standard_EXPORT Standard_Boolean InitEdgeFaceLength(const TopoDS_Edge& theEdge,
                                                       const TopoDS_Face& theFace,
-                                                      gp_Dir&            theEdgeDir);
+                                                      Dir3d&            theEdgeDir);
 
   //! Initialization of two attach points in case of two owner shapes.
   Standard_EXPORT Standard_Boolean InitTwoShapesPoints(const TopoDS_Shape& theFirstShape,
@@ -239,7 +239,7 @@ protected:
   Point3d           mySecondPoint;
   TopoDS_Shape     myFirstShape;
   TopoDS_Shape     mySecondShape;
-  gp_Dir           myDirection;
+  Dir3d           myDirection;
   Standard_Boolean myHasCustomDirection;
 };
 

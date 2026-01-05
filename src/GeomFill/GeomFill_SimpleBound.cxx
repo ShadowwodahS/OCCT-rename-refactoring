@@ -47,7 +47,7 @@ Point3d GeomFill_SimpleBound::Value(const Standard_Real U) const
 
 //=================================================================================================
 
-void GeomFill_SimpleBound::D1(const Standard_Real U, Point3d& P, gp_Vec& V) const
+void GeomFill_SimpleBound::D1(const Standard_Real U, Point3d& P, Vector3d& V) const
 {
   Standard_Real x = U, dx = 1.;
   if (!myPar.IsNull())

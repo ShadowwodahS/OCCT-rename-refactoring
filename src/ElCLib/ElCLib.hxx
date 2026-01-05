@@ -31,7 +31,7 @@ class gp_Circ;
 class gp_Elips;
 class gp_Hypr;
 class gp_Parab;
-class gp_Vec;
+class Vector3d;
 class gp_Lin2d;
 class gp_Circ2d;
 class gp_Elips2d;
@@ -39,11 +39,11 @@ class gp_Hypr2d;
 class gp_Parab2d;
 class gp_Pnt2d;
 class gp_Vec2d;
-class gp_Ax1;
-class gp_Ax2;
+class Axis3d;
+class Frame3d;
 class gp_Ax2d;
 class gp_Ax22d;
-class gp_Dir;
+class Dir3d;
 class gp_Dir2d;
 
 //! Provides functions for basic geometric computations on
@@ -113,32 +113,32 @@ public:
   //! -   the point P of parameter U, and
   //! -   the first derivative vector V1 at this point.
   //! The results P and V1 are either:
-  //! -   a Point3d point and a gp_Vec vector, for a curve in 3D  space, or
+  //! -   a Point3d point and a Vector3d vector, for a curve in 3D  space, or
   //! -   a gp_Pnt2d point and a gp_Vec2d vector, for a curve in 2D space.
-  static void D1(const Standard_Real U, const gp_Lin& L, Point3d& P, gp_Vec& V1);
+  static void D1(const Standard_Real U, const gp_Lin& L, Point3d& P, Vector3d& V1);
 
-  static void D1(const Standard_Real U, const gp_Circ& C, Point3d& P, gp_Vec& V1);
+  static void D1(const Standard_Real U, const gp_Circ& C, Point3d& P, Vector3d& V1);
 
-  static void D1(const Standard_Real U, const gp_Elips& E, Point3d& P, gp_Vec& V1);
+  static void D1(const Standard_Real U, const gp_Elips& E, Point3d& P, Vector3d& V1);
 
-  static void D1(const Standard_Real U, const gp_Hypr& H, Point3d& P, gp_Vec& V1);
+  static void D1(const Standard_Real U, const gp_Hypr& H, Point3d& P, Vector3d& V1);
 
-  static void D1(const Standard_Real U, const gp_Parab& Prb, Point3d& P, gp_Vec& V1);
+  static void D1(const Standard_Real U, const gp_Parab& Prb, Point3d& P, Vector3d& V1);
 
   //! For elementary curves (circles and conics) from the gp
   //! package, computes:
   //! - the point P of parameter U, and
   //! - the first and second derivative vectors V1 and V2 at this point.
   //! The results, P, V1 and V2, are either:
-  //! -   a Point3d point and two gp_Vec vectors, for a curve in 3D space, or
+  //! -   a Point3d point and two Vector3d vectors, for a curve in 3D space, or
   //! -   a gp_Pnt2d point and two gp_Vec2d vectors, for a curve in 2D space.
-  static void D2(const Standard_Real U, const gp_Circ& C, Point3d& P, gp_Vec& V1, gp_Vec& V2);
+  static void D2(const Standard_Real U, const gp_Circ& C, Point3d& P, Vector3d& V1, Vector3d& V2);
 
-  static void D2(const Standard_Real U, const gp_Elips& E, Point3d& P, gp_Vec& V1, gp_Vec& V2);
+  static void D2(const Standard_Real U, const gp_Elips& E, Point3d& P, Vector3d& V1, Vector3d& V2);
 
-  static void D2(const Standard_Real U, const gp_Hypr& H, Point3d& P, gp_Vec& V1, gp_Vec& V2);
+  static void D2(const Standard_Real U, const gp_Hypr& H, Point3d& P, Vector3d& V1, Vector3d& V2);
 
-  static void D2(const Standard_Real U, const gp_Parab& Prb, Point3d& P, gp_Vec& V1, gp_Vec& V2);
+  static void D2(const Standard_Real U, const gp_Parab& Prb, Point3d& P, Vector3d& V1, Vector3d& V2);
 
   //! For elementary curves (circles, ellipses and hyperbolae)
   //! from the gp package, computes:
@@ -146,45 +146,45 @@ public:
   //! -   the first, second and third derivative vectors V1, V2
   //! and V3 at this point.
   //! The results, P, V1, V2 and V3, are either:
-  //! -   a Point3d point and three gp_Vec vectors, for a curve in 3D space, or
+  //! -   a Point3d point and three Vector3d vectors, for a curve in 3D space, or
   //! -   a gp_Pnt2d point and three gp_Vec2d vectors, for a curve in 2D space.
   static void D3(const Standard_Real U,
                  const gp_Circ&      C,
                  Point3d&             P,
-                 gp_Vec&             V1,
-                 gp_Vec&             V2,
-                 gp_Vec&             V3);
+                 Vector3d&             V1,
+                 Vector3d&             V2,
+                 Vector3d&             V3);
 
   static void D3(const Standard_Real U,
                  const gp_Elips&     E,
                  Point3d&             P,
-                 gp_Vec&             V1,
-                 gp_Vec&             V2,
-                 gp_Vec&             V3);
+                 Vector3d&             V1,
+                 Vector3d&             V2,
+                 Vector3d&             V3);
 
   static void D3(const Standard_Real U,
                  const gp_Hypr&      H,
                  Point3d&             P,
-                 gp_Vec&             V1,
-                 gp_Vec&             V2,
-                 gp_Vec&             V3);
+                 Vector3d&             V1,
+                 Vector3d&             V2,
+                 Vector3d&             V3);
 
   //! For elementary curves (lines, circles and conics) from
   //! the gp package, computes the vector corresponding to
   //! the Nth derivative at the point of parameter U. The result is either:
-  //! -   a gp_Vec vector for a curve in 3D space, or
+  //! -   a Vector3d vector for a curve in 3D space, or
   //! -   a gp_Vec2d vector for a curve in 2D space.
   //! In the following functions N is the order of derivation
   //! and should be greater than 0
-  static gp_Vec DN(const Standard_Real U, const gp_Lin& L, const Standard_Integer N);
+  static Vector3d DN(const Standard_Real U, const gp_Lin& L, const Standard_Integer N);
 
-  static gp_Vec DN(const Standard_Real U, const gp_Circ& C, const Standard_Integer N);
+  static Vector3d DN(const Standard_Real U, const gp_Circ& C, const Standard_Integer N);
 
-  static gp_Vec DN(const Standard_Real U, const gp_Elips& E, const Standard_Integer N);
+  static Vector3d DN(const Standard_Real U, const gp_Elips& E, const Standard_Integer N);
 
-  static gp_Vec DN(const Standard_Real U, const gp_Hypr& H, const Standard_Integer N);
+  static Vector3d DN(const Standard_Real U, const gp_Hypr& H, const Standard_Integer N);
 
-  static gp_Vec DN(const Standard_Real U, const gp_Parab& Prb, const Standard_Integer N);
+  static Vector3d DN(const Standard_Real U, const gp_Parab& Prb, const Standard_Integer N);
 
   static gp_Pnt2d Value(const Standard_Real U, const gp_Lin2d& L);
 
@@ -270,138 +270,138 @@ public:
   //! from package gp. They are called by the previous functions.
   //! Example :
   //! A circle is defined by its position and its radius.
-  Standard_EXPORT static Point3d LineValue(const Standard_Real U, const gp_Ax1& Pos);
+  Standard_EXPORT static Point3d LineValue(const Standard_Real U, const Axis3d& Pos);
 
   Standard_EXPORT static Point3d CircleValue(const Standard_Real U,
-                                            const gp_Ax2&       Pos,
+                                            const Frame3d&       Pos,
                                             const Standard_Real Radius);
 
   Standard_EXPORT static Point3d EllipseValue(const Standard_Real U,
-                                             const gp_Ax2&       Pos,
+                                             const Frame3d&       Pos,
                                              const Standard_Real MajorRadius,
                                              const Standard_Real MinorRadius);
 
   Standard_EXPORT static Point3d HyperbolaValue(const Standard_Real U,
-                                               const gp_Ax2&       Pos,
+                                               const Frame3d&       Pos,
                                                const Standard_Real MajorRadius,
                                                const Standard_Real MinorRadius);
 
   Standard_EXPORT static Point3d ParabolaValue(const Standard_Real U,
-                                              const gp_Ax2&       Pos,
+                                              const Frame3d&       Pos,
                                               const Standard_Real Focal);
 
   Standard_EXPORT static void LineD1(const Standard_Real U,
-                                     const gp_Ax1&       Pos,
+                                     const Axis3d&       Pos,
                                      Point3d&             P,
-                                     gp_Vec&             V1);
+                                     Vector3d&             V1);
 
   Standard_EXPORT static void CircleD1(const Standard_Real U,
-                                       const gp_Ax2&       Pos,
+                                       const Frame3d&       Pos,
                                        const Standard_Real Radius,
                                        Point3d&             P,
-                                       gp_Vec&             V1);
+                                       Vector3d&             V1);
 
   Standard_EXPORT static void EllipseD1(const Standard_Real U,
-                                        const gp_Ax2&       Pos,
+                                        const Frame3d&       Pos,
                                         const Standard_Real MajorRadius,
                                         const Standard_Real MinorRadius,
                                         Point3d&             P,
-                                        gp_Vec&             V1);
+                                        Vector3d&             V1);
 
   Standard_EXPORT static void HyperbolaD1(const Standard_Real U,
-                                          const gp_Ax2&       Pos,
+                                          const Frame3d&       Pos,
                                           const Standard_Real MajorRadius,
                                           const Standard_Real MinorRadius,
                                           Point3d&             P,
-                                          gp_Vec&             V1);
+                                          Vector3d&             V1);
 
   Standard_EXPORT static void ParabolaD1(const Standard_Real U,
-                                         const gp_Ax2&       Pos,
+                                         const Frame3d&       Pos,
                                          const Standard_Real Focal,
                                          Point3d&             P,
-                                         gp_Vec&             V1);
+                                         Vector3d&             V1);
 
   Standard_EXPORT static void CircleD2(const Standard_Real U,
-                                       const gp_Ax2&       Pos,
+                                       const Frame3d&       Pos,
                                        const Standard_Real Radius,
                                        Point3d&             P,
-                                       gp_Vec&             V1,
-                                       gp_Vec&             V2);
+                                       Vector3d&             V1,
+                                       Vector3d&             V2);
 
   Standard_EXPORT static void EllipseD2(const Standard_Real U,
-                                        const gp_Ax2&       Pos,
+                                        const Frame3d&       Pos,
                                         const Standard_Real MajorRadius,
                                         const Standard_Real MinorRadius,
                                         Point3d&             P,
-                                        gp_Vec&             V1,
-                                        gp_Vec&             V2);
+                                        Vector3d&             V1,
+                                        Vector3d&             V2);
 
   Standard_EXPORT static void HyperbolaD2(const Standard_Real U,
-                                          const gp_Ax2&       Pos,
+                                          const Frame3d&       Pos,
                                           const Standard_Real MajorRadius,
                                           const Standard_Real MinorRadius,
                                           Point3d&             P,
-                                          gp_Vec&             V1,
-                                          gp_Vec&             V2);
+                                          Vector3d&             V1,
+                                          Vector3d&             V2);
 
   Standard_EXPORT static void ParabolaD2(const Standard_Real U,
-                                         const gp_Ax2&       Pos,
+                                         const Frame3d&       Pos,
                                          const Standard_Real Focal,
                                          Point3d&             P,
-                                         gp_Vec&             V1,
-                                         gp_Vec&             V2);
+                                         Vector3d&             V1,
+                                         Vector3d&             V2);
 
   Standard_EXPORT static void CircleD3(const Standard_Real U,
-                                       const gp_Ax2&       Pos,
+                                       const Frame3d&       Pos,
                                        const Standard_Real Radius,
                                        Point3d&             P,
-                                       gp_Vec&             V1,
-                                       gp_Vec&             V2,
-                                       gp_Vec&             V3);
+                                       Vector3d&             V1,
+                                       Vector3d&             V2,
+                                       Vector3d&             V3);
 
   Standard_EXPORT static void EllipseD3(const Standard_Real U,
-                                        const gp_Ax2&       Pos,
+                                        const Frame3d&       Pos,
                                         const Standard_Real MajorRadius,
                                         const Standard_Real MinorRadius,
                                         Point3d&             P,
-                                        gp_Vec&             V1,
-                                        gp_Vec&             V2,
-                                        gp_Vec&             V3);
+                                        Vector3d&             V1,
+                                        Vector3d&             V2,
+                                        Vector3d&             V3);
 
   Standard_EXPORT static void HyperbolaD3(const Standard_Real U,
-                                          const gp_Ax2&       Pos,
+                                          const Frame3d&       Pos,
                                           const Standard_Real MajorRadius,
                                           const Standard_Real MinorRadius,
                                           Point3d&             P,
-                                          gp_Vec&             V1,
-                                          gp_Vec&             V2,
-                                          gp_Vec&             V3);
+                                          Vector3d&             V1,
+                                          Vector3d&             V2,
+                                          Vector3d&             V3);
 
   //! In the following functions N is the order of derivation
   //! and should be greater than 0
-  Standard_EXPORT static gp_Vec LineDN(const Standard_Real    U,
-                                       const gp_Ax1&          Pos,
+  Standard_EXPORT static Vector3d LineDN(const Standard_Real    U,
+                                       const Axis3d&          Pos,
                                        const Standard_Integer N);
 
-  Standard_EXPORT static gp_Vec CircleDN(const Standard_Real    U,
-                                         const gp_Ax2&          Pos,
+  Standard_EXPORT static Vector3d CircleDN(const Standard_Real    U,
+                                         const Frame3d&          Pos,
                                          const Standard_Real    Radius,
                                          const Standard_Integer N);
 
-  Standard_EXPORT static gp_Vec EllipseDN(const Standard_Real    U,
-                                          const gp_Ax2&          Pos,
+  Standard_EXPORT static Vector3d EllipseDN(const Standard_Real    U,
+                                          const Frame3d&          Pos,
                                           const Standard_Real    MajorRadius,
                                           const Standard_Real    MinorRadius,
                                           const Standard_Integer N);
 
-  Standard_EXPORT static gp_Vec HyperbolaDN(const Standard_Real    U,
-                                            const gp_Ax2&          Pos,
+  Standard_EXPORT static Vector3d HyperbolaDN(const Standard_Real    U,
+                                            const Frame3d&          Pos,
                                             const Standard_Real    MajorRadius,
                                             const Standard_Real    MinorRadius,
                                             const Standard_Integer N);
 
-  Standard_EXPORT static gp_Vec ParabolaDN(const Standard_Real    U,
-                                           const gp_Ax2&          Pos,
+  Standard_EXPORT static Vector3d ParabolaDN(const Standard_Real    U,
+                                           const Frame3d&          Pos,
                                            const Standard_Real    Focal,
                                            const Standard_Integer N);
 
@@ -597,13 +597,13 @@ public:
   //! and the directrix.
   static Standard_Real Parameter(const gp_Parab2d& Prb, const gp_Pnt2d& P);
 
-  Standard_EXPORT static Standard_Real LineParameter(const gp_Ax1& Pos, const Point3d& P);
+  Standard_EXPORT static Standard_Real LineParameter(const Axis3d& Pos, const Point3d& P);
 
   //! parametrization
   //! P (U) = L.Location() + U * L.Direction()
   Standard_EXPORT static Standard_Real LineParameter(const gp_Ax2d& Pos, const gp_Pnt2d& P);
 
-  Standard_EXPORT static Standard_Real CircleParameter(const gp_Ax2& Pos, const Point3d& P);
+  Standard_EXPORT static Standard_Real CircleParameter(const Frame3d& Pos, const Point3d& P);
 
   //! Pos is the Axis of the Circle
   //! parametrization
@@ -612,7 +612,7 @@ public:
   //! Y (U) = Radius * Sin (U)
   Standard_EXPORT static Standard_Real CircleParameter(const gp_Ax22d& Pos, const gp_Pnt2d& P);
 
-  Standard_EXPORT static Standard_Real EllipseParameter(const gp_Ax2&       Pos,
+  Standard_EXPORT static Standard_Real EllipseParameter(const Frame3d&       Pos,
                                                         const Standard_Real MajorRadius,
                                                         const Standard_Real MinorRadius,
                                                         const Point3d&       P);
@@ -627,7 +627,7 @@ public:
                                                         const Standard_Real MinorRadius,
                                                         const gp_Pnt2d&     P);
 
-  Standard_EXPORT static Standard_Real HyperbolaParameter(const gp_Ax2&       Pos,
+  Standard_EXPORT static Standard_Real HyperbolaParameter(const Frame3d&       Pos,
                                                           const Standard_Real MajorRadius,
                                                           const Standard_Real MinorRadius,
                                                           const Point3d&       P);
@@ -642,7 +642,7 @@ public:
                                                           const Standard_Real MinorRadius,
                                                           const gp_Pnt2d&     P);
 
-  Standard_EXPORT static Standard_Real ParabolaParameter(const gp_Ax2& Pos, const Point3d& P);
+  Standard_EXPORT static Standard_Real ParabolaParameter(const Frame3d& Pos, const Point3d& P);
 
   //! Pos is the mirror axis of the parabola
   //! parametrization
@@ -653,29 +653,29 @@ public:
   //! 2d curve at a given position defined with an Ax2.
   Standard_EXPORT static Standard_Real ParabolaParameter(const gp_Ax22d& Pos, const gp_Pnt2d& P);
 
-  Standard_EXPORT static Point3d To3d(const gp_Ax2& Pos, const gp_Pnt2d& P);
+  Standard_EXPORT static Point3d To3d(const Frame3d& Pos, const gp_Pnt2d& P);
 
-  Standard_EXPORT static gp_Vec To3d(const gp_Ax2& Pos, const gp_Vec2d& V);
+  Standard_EXPORT static Vector3d To3d(const Frame3d& Pos, const gp_Vec2d& V);
 
-  Standard_EXPORT static gp_Dir To3d(const gp_Ax2& Pos, const gp_Dir2d& V);
+  Standard_EXPORT static Dir3d To3d(const Frame3d& Pos, const gp_Dir2d& V);
 
-  Standard_EXPORT static gp_Ax1 To3d(const gp_Ax2& Pos, const gp_Ax2d& A);
+  Standard_EXPORT static Axis3d To3d(const Frame3d& Pos, const gp_Ax2d& A);
 
-  Standard_EXPORT static gp_Ax2 To3d(const gp_Ax2& Pos, const gp_Ax22d& A);
+  Standard_EXPORT static Frame3d To3d(const Frame3d& Pos, const gp_Ax22d& A);
 
-  Standard_EXPORT static gp_Lin To3d(const gp_Ax2& Pos, const gp_Lin2d& L);
+  Standard_EXPORT static gp_Lin To3d(const Frame3d& Pos, const gp_Lin2d& L);
 
-  Standard_EXPORT static gp_Circ To3d(const gp_Ax2& Pos, const gp_Circ2d& C);
+  Standard_EXPORT static gp_Circ To3d(const Frame3d& Pos, const gp_Circ2d& C);
 
-  Standard_EXPORT static gp_Elips To3d(const gp_Ax2& Pos, const gp_Elips2d& E);
+  Standard_EXPORT static gp_Elips To3d(const Frame3d& Pos, const gp_Elips2d& E);
 
-  Standard_EXPORT static gp_Hypr To3d(const gp_Ax2& Pos, const gp_Hypr2d& H);
+  Standard_EXPORT static gp_Hypr To3d(const Frame3d& Pos, const gp_Hypr2d& H);
 
   //! These functions build a 3D geometric entity from a 2D geometric entity.
   //! The "X Axis" and the "Y Axis" of the global coordinate
   //! system (i.e. 2D space) are lined up respectively with the
   //! "X Axis" and "Y Axis" of the 3D coordinate system, Pos.
-  Standard_EXPORT static gp_Parab To3d(const gp_Ax2& Pos, const gp_Parab2d& Prb);
+  Standard_EXPORT static gp_Parab To3d(const Frame3d& Pos, const gp_Parab2d& Prb);
 
 protected:
 private:

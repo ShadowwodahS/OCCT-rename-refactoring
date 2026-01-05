@@ -35,7 +35,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(Extrema_ExtPRevS, RefObject)
 
-static gp_Ax2 GetPosition(
+static Frame3d GetPosition(
   const GeomAdaptor_SurfaceOfRevolution& S) // const Handle(Adaptor_HCurve)& C)
 {
   Handle(Adaptor3d_Curve) C = S.BasisCurve();
@@ -45,15 +45,15 @@ static gp_Ax2 GetPosition(
 
     case GeomAbs_Line: {
       gp_Lin L = C->Line();
-      gp_Dir N = S.AxeOfRevolution().Direction();
+      Dir3d N = S.AxeOfRevolution().Direction();
       if (N.IsParallel(L.Direction(), Precision::Angular()))
       {
-        gp_Vec OO(L.Location(), S.AxeOfRevolution().Location());
+        Vector3d OO(L.Location(), S.AxeOfRevolution().Location());
         if (OO.Magnitude() <= gp::Resolution())
         {
-          OO = gp_Vec(L.Location(), ElCLib::Value(100, L));
+          OO = Vector3d(L.Location(), ElCLib::Value(100, L));
           if (N.IsParallel(OO, Precision::Angular()))
-            return gp_Ax2(); // Line and axe of revolution coincide
+            return Frame3d(); // Line and axe of revolution coincide
         }
         N ^= OO;
       }
@@ -61,7 +61,7 @@ static gp_Ax2 GetPosition(
       {
         N ^= L.Direction();
       }
-      return gp_Ax2(L.Location(), N, L.Direction());
+      return Frame3d(L.Location(), N, L.Direction());
     }
     case GeomAbs_Circle:
       return C->Circle().Position();
@@ -72,7 +72,7 @@ static gp_Ax2 GetPosition(
     case GeomAbs_Parabola:
       return C->Parabola().Position();
     default:
-      return gp_Ax2();
+      return Frame3d();
   }
 }
 
@@ -82,7 +82,7 @@ static Standard_Boolean HasSingularity(const GeomAdaptor_SurfaceOfRevolution& S)
 {
 
   const Handle(Adaptor3d_Curve) C = S.BasisCurve();
-  gp_Dir                        N = S.AxeOfRevolution().Direction();
+  Dir3d                        N = S.AxeOfRevolution().Direction();
   Point3d                        P = S.AxeOfRevolution().Location();
 
   gp_Lin L(P, N);
@@ -132,8 +132,8 @@ static void PerformExtPElC(Extrema_ExtPElC&               E,
 //=================================================================================================
 
 static Standard_Boolean IsCaseAnalyticallyComputable(const GeomAbs_CurveType& theType,
-                                                     const gp_Ax2&            theCurvePos,
-                                                     const gp_Ax1&            AxeOfRevolution)
+                                                     const Frame3d&            theCurvePos,
+                                                     const Axis3d&            AxeOfRevolution)
 {
   // check type
   switch (theType)
@@ -157,7 +157,7 @@ static Standard_Boolean IsCaseAnalyticallyComputable(const GeomAbs_CurveType& th
   if ((pl.SquareDistance(p1) < aThreshold) && (pl.SquareDistance(p2) < aThreshold))
     return Standard_True;
   return Standard_False;
-  //   gp_Vec V (AxeOfRevolution.Location(),theCurvePos.Location());
+  //   Vector3d V (AxeOfRevolution.Location(),theCurvePos.Location());
   //   if (Abs( V * theCurvePos.Direction()) <= gp::Resolution())
   //     return Standard_True;
   //   else
@@ -312,18 +312,18 @@ void Extrema_ExtPRevS::Perform(const Point3d& P)
 
   Handle(Adaptor3d_Curve) anACurve = myS->BasisCurve();
 
-  gp_Ax1 Ax  = myS->AxeOfRevolution();
-  gp_Vec Dir = Ax.Direction(), Z = myPosition.Direction();
+  Axis3d Ax  = myS->AxeOfRevolution();
+  Vector3d Dir = Ax.Direction(), Z = myPosition.Direction();
   Point3d O = Ax.Location();
 
-  Standard_Real OPdir = gp_Vec(O, P).Dot(Dir);
+  Standard_Real OPdir = Vector3d(O, P).Dot(Dir);
   Point3d        Pp    = P.Translated(Dir.Multiplied(-OPdir));
   if (O.IsEqual(Pp, Precision::Confusion())) // P is on the AxeOfRevolution
     return;
 
   Standard_Real U, V;
   Point3d        P1, Ppp;
-  Standard_Real OPpz = gp_Vec(O, Pp).Dot(Z);
+  Standard_Real OPpz = Vector3d(O, Pp).Dot(Z);
   if (Abs(OPpz) <= gp::Resolution())
   {
     Ppp = Pp;
@@ -336,20 +336,20 @@ void Extrema_ExtPRevS::Perform(const Point3d& P)
       U = M_PI / 2;
     else
     {
-      U = gp_Vec(O, Ppp).AngleWithRef(gp_Vec(O, Pp), Dir);
+      U = Vector3d(O, Ppp).AngleWithRef(Vector3d(O, Pp), Dir);
     }
   }
 
-  gp_Vec OPpp(O, Ppp), OPq(O, myS->Value(M_PI / 2, 0));
+  Vector3d OPpp(O, Ppp), OPq(O, myS->Value(M_PI / 2, 0));
   if (U != M_PI / 2)
   {
     if (Abs(OPq.Magnitude()) <= gp::Resolution())
-      OPq = gp_Vec(O, myS->Value(M_PI / 2, anACurve->LastParameter() / 10));
+      OPq = Vector3d(O, myS->Value(M_PI / 2, anACurve->LastParameter() / 10));
     if (OPpp.AngleWithRef(OPq, Dir) < 0)
       U += M_PI;
   }
 
-  gp_Trsf T;
+  Transform3d T;
   T.SetRotation(Ax, -U);
   P1 = P.Transformed(T);
 

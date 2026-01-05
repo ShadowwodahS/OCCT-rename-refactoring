@@ -2192,13 +2192,13 @@ void OpenGl_View::updatePerspCameraPT(const OpenGl_Mat4&           theOrientatio
                           static_cast<float>(anOrig.Y()),
                           static_cast<float>(anOrig.Z()));
 
-  const gp_Dir aView = myCamera->Direction();
+  const Dir3d aView = myCamera->Direction();
 
   OpenGl_Vec3 anEyeViewMono = OpenGl_Vec3(static_cast<float>(aView.X()),
                                           static_cast<float>(aView.Y()),
                                           static_cast<float>(aView.Z()));
 
-  const gp_Dir anUp = myCamera->Up();
+  const Dir3d anUp = myCamera->Up();
 
   myEyeVert = OpenGl_Vec3(static_cast<float>(anUp.X()),
                           static_cast<float>(anUp.Y()),

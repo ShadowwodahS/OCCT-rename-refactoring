@@ -145,27 +145,27 @@ static Standard_Integer anasurface(Draw_Interpretor&, Standard_Integer n, const 
 
   if (n < 5)
   {
-    loc = gp_Ax3(Point3d(0, 0, 0), gp_Dir(0, 0, 1), gp_Dir(1, 0, 0));
+    loc = gp_Ax3(Point3d(0, 0, 0), Dir3d(0, 0, 1), Dir3d(1, 0, 0));
     i   = 2;
   }
   else if (n < 8)
   {
     loc = gp_Ax3(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
-                 gp_Dir(0, 0, 1),
-                 gp_Dir(1, 0, 0));
+                 Dir3d(0, 0, 1),
+                 Dir3d(1, 0, 0));
     i   = 5;
   }
   else if (n < 11)
   {
     loc = gp_Ax3(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
-                 gp_Dir(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7])));
+                 Dir3d(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7])));
     i   = 8;
   }
   else if (n < 14)
   {
     loc = gp_Ax3(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
-                 gp_Dir(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7])),
-                 gp_Dir(Draw::Atof(a[8]), Draw::Atof(a[9]), Draw::Atof(a[10])));
+                 Dir3d(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7])),
+                 Dir3d(Draw::Atof(a[8]), Draw::Atof(a[9]), Draw::Atof(a[10])));
     i   = 11;
   }
   else
@@ -351,7 +351,7 @@ static Standard_Integer algosurface(Draw_Interpretor&, Standard_Integer n, const
   if (GC.IsNull())
     return 1;
 
-  gp_Dir D;
+  Dir3d D;
   Point3d P;
 
   if (!strcasecmp(a[0], "extsurf"))
@@ -368,7 +368,7 @@ static Standard_Integer algosurface(Draw_Interpretor&, Standard_Integer n, const
     P.SetCoord(Draw::Atof(a[3]), Draw::Atof(a[4]), Draw::Atof(a[5]));
     D.SetCoord(Draw::Atof(a[6]), Draw::Atof(a[7]), Draw::Atof(a[8]));
 
-    Handle(Geom_SurfaceOfRevolution) result = new Geom_SurfaceOfRevolution(GC, gp_Ax1(P, D));
+    Handle(Geom_SurfaceOfRevolution) result = new Geom_SurfaceOfRevolution(GC, Axis3d(P, D));
 
     DrawTrSurf::Set(a[1], result);
   }
@@ -979,7 +979,7 @@ static Standard_Integer offseting(Draw_Interpretor&, Standard_Integer n, const c
   {
     if (n < 7)
       return 1;
-    gp_Dir                   D(Draw::Atof(a[4]), Draw::Atof(a[5]), Draw::Atof(a[6]));
+    Dir3d                   D(Draw::Atof(a[4]), Draw::Atof(a[5]), Draw::Atof(a[6]));
     Handle(Geom_OffsetCurve) GT = new Geom_OffsetCurve(GC, dist, D);
     result                      = GT;
   }
@@ -1056,10 +1056,10 @@ static Standard_Integer value(Draw_Interpretor&, Standard_Integer n, const char*
   Point3d P;
   if (n >= 13)
   {
-    gp_Vec DU, DV;
+    Vector3d DU, DV;
     if (n >= 22)
     {
-      gp_Vec D2U, D2V, D2UV;
+      Vector3d D2U, D2V, D2UV;
       GS->D2(U, V, P, DU, DV, D2U, D2V, D2UV);
       Draw::Set(a[13], D2U.X());
       Draw::Set(a[14], D2U.Y());
@@ -1116,7 +1116,7 @@ static Standard_Integer derivative(Draw_Interpretor&,
   Standard_Integer aNu = Draw::Atoi(theArgv[4]);
   Standard_Integer aNv = Draw::Atoi(theArgv[5]);
 
-  gp_Vec aDeriv = aSurf->DN(aU, aV, aNu, aNv);
+  Vector3d aDeriv = aSurf->DN(aU, aV, aNu, aNv);
 
   Draw::Set(theArgv[6], aDeriv.X());
   Draw::Set(theArgv[7], aDeriv.Y());

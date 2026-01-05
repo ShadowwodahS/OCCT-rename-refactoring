@@ -32,8 +32,8 @@
 #include <TColStd_Array1OfReal.hxx>
 #include <TColStd_Array1OfInteger.hxx>
 class Point3d;
-class gp_Vec;
-class gp_Trsf;
+class Vector3d;
+class Transform3d;
 class Geom_Geometry;
 
 class Geom_BSplineCurve;
@@ -460,7 +460,7 @@ public:
   //! with the constrain to deform the curve accordingly
   Standard_EXPORT void MovePointAndTangent(const Standard_Real    U,
                                            const Point3d&          P,
-                                           const gp_Vec&          Tangent,
+                                           const Vector3d&          Tangent,
                                            const Standard_Real    Tolerance,
                                            const Standard_Integer StartingCondition,
                                            const Standard_Integer EndingCondition,
@@ -519,20 +519,20 @@ public:
   Standard_EXPORT void D0(const Standard_Real U, Point3d& P) const Standard_OVERRIDE;
 
   //! Raised if the continuity of the curve is not C1.
-  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, gp_Vec& V1) const Standard_OVERRIDE;
+  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, Vector3d& V1) const Standard_OVERRIDE;
 
   //! Raised if the continuity of the curve is not C2.
   Standard_EXPORT void D2(const Standard_Real U,
                           Point3d&             P,
-                          gp_Vec&             V1,
-                          gp_Vec&             V2) const Standard_OVERRIDE;
+                          Vector3d&             V1,
+                          Vector3d&             V2) const Standard_OVERRIDE;
 
   //! Raised if the continuity of the curve is not C3.
   Standard_EXPORT void D3(const Standard_Real U,
                           Point3d&             P,
-                          gp_Vec&             V1,
-                          gp_Vec&             V2,
-                          gp_Vec&             V3) const Standard_OVERRIDE;
+                          Vector3d&             V1,
+                          Vector3d&             V2,
+                          Vector3d&             V3) const Standard_OVERRIDE;
 
   //! For the point of parameter U of this BSpline curve,
   //! computes the vector corresponding to the Nth derivative.
@@ -556,7 +556,7 @@ public:
   //! the same as if we consider the whole definition of the
   //! curve. Of course the evaluations are different outside
   //! this parametric domain.
-  Standard_EXPORT gp_Vec DN(const Standard_Real    U,
+  Standard_EXPORT Vector3d DN(const Standard_Real    U,
                             const Standard_Integer N) const Standard_OVERRIDE;
 
   //! Raised if FromK1 = ToK2.
@@ -577,7 +577,7 @@ public:
                                const Standard_Integer FromK1,
                                const Standard_Integer ToK2,
                                Point3d&                P,
-                               gp_Vec&                V1) const;
+                               Vector3d&                V1) const;
 
   //! Raised if the local continuity of the curve is not C2
   //! between the knot K1 and the knot K2.
@@ -586,8 +586,8 @@ public:
                                const Standard_Integer FromK1,
                                const Standard_Integer ToK2,
                                Point3d&                P,
-                               gp_Vec&                V1,
-                               gp_Vec&                V2) const;
+                               Vector3d&                V1,
+                               Vector3d&                V2) const;
 
   //! Raised if the local continuity of the curve is not C3
   //! between the knot K1 and the knot K2.
@@ -596,15 +596,15 @@ public:
                                const Standard_Integer FromK1,
                                const Standard_Integer ToK2,
                                Point3d&                P,
-                               gp_Vec&                V1,
-                               gp_Vec&                V2,
-                               gp_Vec&                V3) const;
+                               Vector3d&                V1,
+                               Vector3d&                V2,
+                               Vector3d&                V3) const;
 
   //! Raised if the local continuity of the curve is not CN
   //! between the knot K1 and the knot K2.
   //! Raised if FromK1 = ToK2.
   //! Raised if N < 1.
-  Standard_EXPORT gp_Vec LocalDN(const Standard_Real    U,
+  Standard_EXPORT Vector3d LocalDN(const Standard_Real    U,
                                  const Standard_Integer FromK1,
                                  const Standard_Integer ToK2,
                                  const Standard_Integer N) const;
@@ -805,7 +805,7 @@ public:
   Standard_EXPORT const TColStd_Array1OfReal* Weights() const;
 
   //! Applies the transformation T to this BSpline curve.
-  Standard_EXPORT void Transform(const gp_Trsf& T) Standard_OVERRIDE;
+  Standard_EXPORT void Transform(const Transform3d& T) Standard_OVERRIDE;
 
   //! Returns the value of the maximum degree of the normalized
   //! B-spline basis functions in this package.

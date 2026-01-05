@@ -51,7 +51,7 @@ public:
   //! For a surface of revolution it is the direction of the
   //! revolution axis, for a surface of linear extrusion it is
   //! the direction of extrusion.
-  Standard_EXPORT const gp_Dir& Direction() const;
+  Standard_EXPORT const Dir3d& Direction() const;
 
   //! Returns the referenced curve of the surface.
   //! For a surface of revolution it is the revolution curve,
@@ -66,7 +66,7 @@ public:
 
 protected:
   Handle(Geom_Curve) basisCurve;
-  gp_Dir             direction;
+  Dir3d             direction;
   GeomAbs_Shape      smooth;
 
 private:

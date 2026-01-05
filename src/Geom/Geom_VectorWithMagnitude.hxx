@@ -21,9 +21,9 @@
 #include <Standard_Type.hxx>
 
 #include <Geom_Vector.hxx>
-class gp_Vec;
+class Vector3d;
 class Point3d;
-class gp_Trsf;
+class Transform3d;
 class Geom_Geometry;
 
 class Geom_VectorWithMagnitude;
@@ -36,7 +36,7 @@ class Geom_VectorWithMagnitude : public Geom_Vector
 
 public:
   //! Creates a transient copy of V.
-  Standard_EXPORT Geom_VectorWithMagnitude(const gp_Vec& V);
+  Standard_EXPORT Geom_VectorWithMagnitude(const Vector3d& V);
 
   //! Creates a vector with three cartesian coordinates.
   Standard_EXPORT Geom_VectorWithMagnitude(const Standard_Real X,
@@ -52,8 +52,8 @@ public:
                                 const Standard_Real Y,
                                 const Standard_Real Z);
 
-  //! Converts the gp_Vec vector V into this vector.
-  Standard_EXPORT void SetVec(const gp_Vec& V);
+  //! Converts the Vector3d vector V into this vector.
+  Standard_EXPORT void SetVec(const Vector3d& V);
 
   //! Changes the X coordinate of <me>.
   Standard_EXPORT void SetX(const Standard_Real X);
@@ -131,7 +131,7 @@ public:
     const Handle(Geom_Vector)& Other) const;
 
   //! Applies the transformation T to this vector.
-  Standard_EXPORT void Transform(const gp_Trsf& T) Standard_OVERRIDE;
+  Standard_EXPORT void Transform(const Transform3d& T) Standard_OVERRIDE;
 
   //! Creates a new object which is a copy of this vector.
   Standard_EXPORT Handle(Geom_Geometry) Copy() const Standard_OVERRIDE;

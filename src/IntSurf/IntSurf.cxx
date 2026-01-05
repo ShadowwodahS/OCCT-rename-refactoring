@@ -25,9 +25,9 @@
 //-- tgFirst   = Tangente Ligne Intersection
 //-- tgSecond  = Tangenet Restriction
 //-- Normale   = Normale a la surface
-void IntSurf::MakeTransition(const gp_Vec&       TgFirst,
-                             const gp_Vec&       TgSecond,
-                             const gp_Dir&       Normale,
+void IntSurf::MakeTransition(const Vector3d&       TgFirst,
+                             const Vector3d&       TgSecond,
+                             const Dir3d&       Normale,
                              IntSurf_Transition& TFirst,
                              IntSurf_Transition& TSecond)
 
@@ -36,7 +36,7 @@ void IntSurf::MakeTransition(const gp_Vec&       TgFirst,
   // Effectuer le produit mixte normale, tangente 1, tangente 2
   // pour avoir le type de la transition.
 
-  gp_Vec pvect(TgSecond.Crossed(TgFirst));
+  Vector3d pvect(TgSecond.Crossed(TgFirst));
 
   Standard_Real NTgSecond                = TgSecond.Magnitude();
   Standard_Real NTgFirst                 = TgFirst.Magnitude();
@@ -70,8 +70,8 @@ void IntSurf::MakeTransition(const gp_Vec&       TgFirst,
     {
 #if 0 
       //-- MODIF XAB
-      gp_Vec V1(TgSecond.X() / NTgSecond,TgSecond.Y() / NTgSecond, TgSecond.Z() / NTgSecond);
-      gp_Vec V2(TgFirst.X() / NTgFirst,TgFirst.Y() / NTgFirst, TgFirst.Z() / NTgFirst);
+      Vector3d V1(TgSecond.X() / NTgSecond,TgSecond.Y() / NTgSecond, TgSecond.Z() / NTgSecond);
+      Vector3d V2(TgFirst.X() / NTgFirst,TgFirst.Y() / NTgFirst, TgFirst.Z() / NTgFirst);
       
       pvect = V1.Crossed(V2);
       yu = pvect.Dot(Normale);

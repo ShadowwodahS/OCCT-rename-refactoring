@@ -102,8 +102,8 @@ void AIS_LightSourceOwner::HilightWithColor(const Handle(PrsMgr_PresentationMana
     const Standard_Real    aRadius = aLightSource->Size() * 0.5;
     const Standard_Integer aNbPnts = int(aLightSource->ArcSize() * 180 / (M_PI * aRadius));
     TColgp_Array1OfPnt     aCircPoints(0, aNbPnts);
-    const gp_Dir           aDirNorm(gp_Vec(gp::Origin(), aDetPnt));
-    gp_Dir                 aDirNormToPln(gp::DY());
+    const Dir3d           aDirNorm(Vector3d(gp::Origin(), aDetPnt));
+    Dir3d                 aDirNormToPln(gp::DY());
     if (!gp::DX().IsParallel(aDirNorm, Precision::Angular()))
     {
       aDirNormToPln = gp::DX().Crossed(aDirNorm);
@@ -112,7 +112,7 @@ void AIS_LightSourceOwner::HilightWithColor(const Handle(PrsMgr_PresentationMana
     {
       aCircPoints.SetValue(
         aStep,
-        (aDetPnt.Rotated(gp_Ax1(gp::Origin(), aDirNormToPln), M_PI / 90 * (aStep - aNbPnts / 2))));
+        (aDetPnt.Rotated(Axis3d(gp::Origin(), aDirNormToPln), M_PI / 90 * (aStep - aNbPnts / 2))));
     }
 
     Handle(Graphic3d_Group)            aCircGroup = aPrs->NewGroup();
@@ -122,7 +122,7 @@ void AIS_LightSourceOwner::HilightWithColor(const Handle(PrsMgr_PresentationMana
     for (Standard_Integer anIdx = 0; anIdx < aNbPnts; ++anIdx)
     {
       aPolylines->AddVertex(
-        aCircPoints.Value(anIdx).Rotated(gp_Ax1(gp::Origin(), aDirNorm), M_PI / 2));
+        aCircPoints.Value(anIdx).Rotated(Axis3d(gp::Origin(), aDirNorm), M_PI / 2));
     }
     aPolylines->AddBound(aNbPnts);
     for (Standard_Integer anIdx = 0; anIdx < aNbPnts; ++anIdx)
@@ -268,9 +268,9 @@ Standard_Boolean AIS_LightSource::ProcessDragging(const Handle(AIS_InteractiveCo
           && aStartPosition.Distance(aCurrPosition) > Precision::Confusion())
       {
         gp_Quaternion aQRot;
-        aQRot.SetRotation(gp_Vec(Point3d(0, 0, 0), aStartPosition),
-                          gp_Vec(Point3d(0, 0, 0), aCurrPosition));
-        gp_Trsf aTrsf;
+        aQRot.SetRotation(Vector3d(Point3d(0, 0, 0), aStartPosition),
+                          Vector3d(Point3d(0, 0, 0), aCurrPosition));
+        Transform3d aTrsf;
         aTrsf.SetRotation(aQRot);
         SetLocalTransformation(myLocTrsfStart * aTrsf);
         const Standard_Integer aHiMod = HasHilightMode() ? HilightMode() : 0;
@@ -421,7 +421,7 @@ void AIS_LightSource::updateLightLocalTransformation()
     case Graphic3d_TypeOfLightSource_Ambient: {
       if (myIsZoomable)
       {
-        gp_Trsf aTrsf;
+        Transform3d aTrsf;
         aTrsf.SetTranslation(gp::Origin(), myLightSource->Position());
         myLocalTransformation = new TopLoc_Datum3D(aTrsf);
       }
@@ -431,8 +431,8 @@ void AIS_LightSource::updateLightLocalTransformation()
       const Point3d aLightPos = (myIsZoomable && !myLightSource->IsHeadlight())
                                  ? myLightSource->DisplayPosition()
                                  : gp::Origin();
-      gp_Trsf      aTrsf;
-      const gp_Ax2 anAx2(aLightPos, -myLightSource->Direction());
+      Transform3d      aTrsf;
+      const Frame3d anAx2(aLightPos, -myLightSource->Direction());
       aTrsf.SetTransformation(anAx2, gp_Ax3());
       myLocalTransformation = new TopLoc_Datum3D(aTrsf);
       break;
@@ -440,15 +440,15 @@ void AIS_LightSource::updateLightLocalTransformation()
     case Graphic3d_TypeOfLightSource_Positional: {
       if (myIsZoomable)
       {
-        gp_Trsf aTrsf;
+        Transform3d aTrsf;
         aTrsf.SetTranslation(gp::Origin(), myLightSource->Position());
         myLocalTransformation = new TopLoc_Datum3D(aTrsf);
       }
       break;
     }
     case Graphic3d_TypeOfLightSource_Spot: {
-      gp_Trsf      aTrsf;
-      const gp_Ax2 anAx2(myIsZoomable ? myLightSource->Position() : gp::Origin(),
+      Transform3d      aTrsf;
+      const Frame3d anAx2(myIsZoomable ? myLightSource->Position() : gp::Origin(),
                          -myLightSource->Direction());
       aTrsf.SetTransformation(anAx2, gp_Ax3());
       myLocalTransformation = new TopLoc_Datum3D(aTrsf);
@@ -462,14 +462,14 @@ void AIS_LightSource::updateLightLocalTransformation()
 
 void AIS_LightSource::setLocalTransformation(const Handle(TopLoc_Datum3D)& theTrsf)
 {
-  const gp_Trsf aTrsf = !theTrsf.IsNull() ? theTrsf->Transformation() : gp_Trsf();
+  const Transform3d aTrsf = !theTrsf.IsNull() ? theTrsf->Transformation() : Transform3d();
   switch (myLightSource->Type())
   {
     case Graphic3d_TypeOfLightSource_Ambient: {
       break;
     }
     case Graphic3d_TypeOfLightSource_Directional: {
-      gp_Dir aNewDir = (-gp::DZ()).Transformed(aTrsf);
+      Dir3d aNewDir = (-gp::DZ()).Transformed(aTrsf);
       myLightSource->SetDirection(aNewDir);
       if (myIsZoomable)
       {
@@ -487,7 +487,7 @@ void AIS_LightSource::setLocalTransformation(const Handle(TopLoc_Datum3D)& theTr
       Point3d aNewPos = gp::Origin().Transformed(aTrsf);
       myLightSource->SetPosition(aNewPos);
 
-      gp_Dir aNewDir = (-gp::DZ()).Transformed(aTrsf);
+      Dir3d aNewDir = (-gp::DZ()).Transformed(aTrsf);
       myLightSource->SetDirection(aNewDir);
       break;
     }
@@ -552,7 +552,7 @@ void AIS_LightSource::computeAmbient(const Handle(Prs3d_Presentation)& thePrs,
   if (theMode == 0)
   {
     Handle(Graphic3d_ArrayOfTriangles) aSphereArray =
-      Prs3d_ToolSphere::Create(mySize * 0.25, myNbSplitsQuadric, myNbSplitsQuadric, gp_Trsf());
+      Prs3d_ToolSphere::Create(mySize * 0.25, myNbSplitsQuadric, myNbSplitsQuadric, Transform3d());
     Handle(Graphic3d_Group) aSphereGroup = thePrs->NewGroup();
     aSphereGroup->SetClosed(true);
     aSphereGroup->SetGroupPrimitivesAspect(myDrawer->ShadingAspect()->Aspect());
@@ -562,7 +562,7 @@ void AIS_LightSource::computeAmbient(const Handle(Prs3d_Presentation)& thePrs,
   {
     const Standard_Real    aLen      = mySize * 0.25;
     const Standard_Integer aNbArrows = 6;
-    const gp_Dir aDirList[6] = {-gp::DX(), gp::DX(), -gp::DY(), gp::DY(), -gp::DZ(), gp::DZ()};
+    const Dir3d aDirList[6] = {-gp::DX(), gp::DX(), -gp::DY(), gp::DY(), -gp::DZ(), gp::DZ()};
 
     const Prs3d_ToolCylinder           aCylTool(mySize * 0.1,
                                       0.0,
@@ -576,7 +576,7 @@ void AIS_LightSource::computeAmbient(const Handle(Prs3d_Presentation)& thePrs,
     Handle(Graphic3d_ArrayOfSegments) aLineArray = new Graphic3d_ArrayOfSegments(aNbArrows * 2);
     for (Standard_Integer anArrIter = 0; anArrIter < aNbArrows; ++anArrIter)
     {
-      const gp_Dir& aDir = aDirList[anArrIter];
+      const Dir3d& aDir = aDirList[anArrIter];
       const gp_XYZ  aPnt = aLightPos + aDir.XYZ() * aLen;
       if (!aLineArray.IsNull())
       {
@@ -586,7 +586,7 @@ void AIS_LightSource::computeAmbient(const Handle(Prs3d_Presentation)& thePrs,
       if (!aTrisArray.IsNull())
       {
         const gp_Ax3 aSystem(aPnt + aDir.XYZ() * aLen, -aDir);
-        gp_Trsf      aTrsfCone;
+        Transform3d      aTrsfCone;
         aTrsfCone.SetTransformation(aSystem, gp_Ax3());
         aCylTool.FillArray(aTrisArray, aTrsfCone);
       }
@@ -626,7 +626,7 @@ void AIS_LightSource::computeDirectional(const Handle(Prs3d_Presentation)& thePr
   const Standard_Real aStep     = aDistance * 0.5;
 
   // light source direction is set to local transformation
-  const gp_Dir aLightDir = -gp::DZ();
+  const Dir3d aLightDir = -gp::DZ();
   const gp_XYZ aLightPos = -aStep * aLightDir.XYZ();
 
   Standard_Integer aNbArrows = 1;
@@ -644,7 +644,7 @@ void AIS_LightSource::computeDirectional(const Handle(Prs3d_Presentation)& thePr
   }
   TColgp_Array1OfPnt aPoints(1, aNbArrows);
   {
-    const gp_Ax2 anAxes(gp::Origin(), aLightDir);
+    const Frame3d anAxes(gp::Origin(), aLightDir);
     const gp_XYZ aDY  = anAxes.YDirection().XYZ() * aStep;
     const gp_XYZ aDX  = anAxes.XDirection().XYZ() * aStep;
     const gp_XYZ aDXY = aDX + aDY;
@@ -703,7 +703,7 @@ void AIS_LightSource::computeDirectional(const Handle(Prs3d_Presentation)& thePr
     if (!aTrisArray.IsNull())
     {
       const gp_Ax3 aSystem(aPnt.XYZ() + aLightDir.XYZ() * aDistance, aLightDir);
-      gp_Trsf      aTrsfCone;
+      Transform3d      aTrsfCone;
       aTrsfCone.SetTransformation(aSystem, gp_Ax3());
       aCylTool.FillArray(aTrisArray, aTrsfCone);
     }
@@ -755,7 +755,7 @@ void AIS_LightSource::computePositional(const Handle(Prs3d_Presentation)& thePrs
   if (theMode == 0 && aRadius > 0.0 && myToDisplayRange)
   {
     Handle(Graphic3d_ArrayOfTriangles) aPosRangeArray =
-      Prs3d_ToolSphere::Create(aRadius, myNbSplitsQuadric, myNbSplitsQuadric, gp_Trsf());
+      Prs3d_ToolSphere::Create(aRadius, myNbSplitsQuadric, myNbSplitsQuadric, Transform3d());
     Handle(Graphic3d_Group) aRangeGroup = thePrs->NewGroup();
     aRangeGroup->SetClosed(true);
     aRangeGroup->SetGroupPrimitivesAspect(myDrawer->ShadingAspect()->Aspect());
@@ -776,7 +776,7 @@ void AIS_LightSource::computeSpot(const Handle(Prs3d_Presentation)& thePrs,
                                   const Standard_Integer            theMode)
 {
   // light source position and direction are set to local transformation
-  const gp_Dir        aLightDir = -gp::DZ();
+  const Dir3d        aLightDir = -gp::DZ();
   const gp_XYZ        aLightPos = gp::Origin().XYZ();
   const Standard_Real aDistance =
     (myIsZoomable && myLightSource->HasRange()) ? myLightSource->Range() : mySize;
@@ -810,7 +810,7 @@ void AIS_LightSource::computeSpot(const Handle(Prs3d_Presentation)& thePrs,
     const Standard_ShortReal aHalfAngle = myLightSource->Angle() / 2.0f;
     const Standard_Real      aRadius    = aDistance * Tan(aHalfAngle);
     gp_Ax3                   aSystem(aLightPos + aLightDir.XYZ() * aDistance, -aLightDir);
-    gp_Trsf                  aTrsfCone;
+    Transform3d                  aTrsfCone;
     aTrsfCone.SetTransformation(aSystem, gp_Ax3());
     Handle(Graphic3d_ArrayOfTriangles) aSpotRangeArray =
       Prs3d_ToolCylinder::Create(aRadius,

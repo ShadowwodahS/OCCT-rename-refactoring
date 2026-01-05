@@ -30,7 +30,7 @@ static void Perform(BRepIntCurveSurface_Inter&, LocOpe_SequenceOfPntFace&);
 
 //=================================================================================================
 
-void LocOpe_CurveShapeIntersector::Init(const gp_Ax1& Axis, const TopoDS_Shape& S)
+void LocOpe_CurveShapeIntersector::Init(const Axis3d& Axis, const TopoDS_Shape& S)
 {
   myDone = Standard_False;
   myPoints.Clear();

@@ -189,7 +189,7 @@ Standard_Boolean BRepLib_PointCloudShape::addDensityPoints(const TopoDS_Shape& t
   BRepTopAdaptor_FClass2d aClassifier(aFace, Precision::Confusion());
 
   const TopLoc_Location& aLoc  = theFace.Location();
-  const gp_Trsf&         aTrsf = aLoc.Transformation();
+  const Transform3d&         aTrsf = aLoc.Transformation();
   TopLoc_Location        aLoc1;
   Handle(Geom_Surface)   aSurf = BRep_Tool::Surface(aFace, aLoc1);
   if (aSurf.IsNull())
@@ -214,10 +214,10 @@ Standard_Boolean BRepLib_PointCloudShape::addDensityPoints(const TopoDS_Shape& t
     nbCurPnts++;
 
     Point3d aP1;
-    gp_Vec dU, dV;
+    Vector3d dU, dV;
     aSurf->D1(aU, aV, aP1, dU, dV);
 
-    gp_Vec aNorm = dU ^ dV;
+    Vector3d aNorm = dU ^ dV;
     if (aFace.Orientation() == TopAbs_REVERSED)
     {
       aNorm.Reverse();
@@ -236,7 +236,7 @@ Standard_Boolean BRepLib_PointCloudShape::addDensityPoints(const TopoDS_Shape& t
     aP1.Transform(aTrsf);
     if (aNormMod > gp::Resolution())
     {
-      aNorm = gp_Dir(aNorm).Transformed(aTrsf);
+      aNorm = Dir3d(aNorm).Transformed(aTrsf);
     }
     addPoint(aP1, aNorm, aUVNode, aFace);
   }
@@ -257,14 +257,14 @@ Standard_Boolean BRepLib_PointCloudShape::addTriangulationPoints(const TopoDS_Sh
 
   TopLoc_Location      aLoc1;
   Handle(Geom_Surface) aSurf = BRep_Tool::Surface(aFace, aLoc1);
-  const gp_Trsf&       aTrsf = aLoc.Transformation();
+  const Transform3d&       aTrsf = aLoc.Transformation();
 
   BRepLib_ToolTriangulatedShape::ComputeNormals(aFace, aTriangulation);
   Standard_Boolean aHasUVNode = aTriangulation->HasUVNodes();
   for (Standard_Integer aNodeIter = 1; aNodeIter <= aTriangulation->NbNodes(); ++aNodeIter)
   {
     Point3d aP1     = aTriangulation->Node(aNodeIter);
-    gp_Dir aNormal = aTriangulation->Normal(aNodeIter);
+    Dir3d aNormal = aTriangulation->Normal(aNodeIter);
     if (!aLoc.IsIdentity())
     {
       aP1.Transform(aTrsf);

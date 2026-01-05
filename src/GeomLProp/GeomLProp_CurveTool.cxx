@@ -28,7 +28,7 @@ void GeomLProp_CurveTool::Value(const Handle(Geom_Curve)& C, const Standard_Real
 void GeomLProp_CurveTool::D1(const Handle(Geom_Curve)& C,
                              const Standard_Real       U,
                              Point3d&                   P,
-                             gp_Vec&                   V1)
+                             Vector3d&                   V1)
 {
   C->D1(U, P, V1);
 }
@@ -36,8 +36,8 @@ void GeomLProp_CurveTool::D1(const Handle(Geom_Curve)& C,
 void GeomLProp_CurveTool::D2(const Handle(Geom_Curve)& C,
                              const Standard_Real       U,
                              Point3d&                   P,
-                             gp_Vec&                   V1,
-                             gp_Vec&                   V2)
+                             Vector3d&                   V1,
+                             Vector3d&                   V2)
 {
   C->D2(U, P, V1, V2);
 }
@@ -45,9 +45,9 @@ void GeomLProp_CurveTool::D2(const Handle(Geom_Curve)& C,
 void GeomLProp_CurveTool::D3(const Handle(Geom_Curve)& C,
                              const Standard_Real       U,
                              Point3d&                   P,
-                             gp_Vec&                   V1,
-                             gp_Vec&                   V2,
-                             gp_Vec&                   V3)
+                             Vector3d&                   V1,
+                             Vector3d&                   V2,
+                             Vector3d&                   V3)
 {
   C->D3(U, P, V1, V2, V3);
 }

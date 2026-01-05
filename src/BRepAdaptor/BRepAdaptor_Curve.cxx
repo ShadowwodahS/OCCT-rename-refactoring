@@ -87,7 +87,7 @@ void BRepAdaptor_Curve::Reset()
   myCurve.Reset();
   myConSurf.Nullify();
   myEdge.Nullify();
-  myTrsf = gp_Trsf();
+  myTrsf = Transform3d();
 }
 
 //=================================================================================================
@@ -151,7 +151,7 @@ void BRepAdaptor_Curve::Initialize(const TopoDS_Edge& E, const TopoDS_Face& F)
 
 //=================================================================================================
 
-const gp_Trsf& BRepAdaptor_Curve::Trsf() const
+const Transform3d& BRepAdaptor_Curve::Trsf() const
 {
   return myTrsf;
 }
@@ -363,7 +363,7 @@ void BRepAdaptor_Curve::D0(const Standard_Real U, Point3d& P) const
 
 //=================================================================================================
 
-void BRepAdaptor_Curve::D1(const Standard_Real U, Point3d& P, gp_Vec& V) const
+void BRepAdaptor_Curve::D1(const Standard_Real U, Point3d& P, Vector3d& V) const
 {
   if (myConSurf.IsNull())
     myCurve.D1(U, P, V);
@@ -375,7 +375,7 @@ void BRepAdaptor_Curve::D1(const Standard_Real U, Point3d& P, gp_Vec& V) const
 
 //=================================================================================================
 
-void BRepAdaptor_Curve::D2(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2) const
+void BRepAdaptor_Curve::D2(const Standard_Real U, Point3d& P, Vector3d& V1, Vector3d& V2) const
 {
   if (myConSurf.IsNull())
     myCurve.D2(U, P, V1, V2);
@@ -390,9 +390,9 @@ void BRepAdaptor_Curve::D2(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec
 
 void BRepAdaptor_Curve::D3(const Standard_Real U,
                            Point3d&             P,
-                           gp_Vec&             V1,
-                           gp_Vec&             V2,
-                           gp_Vec&             V3) const
+                           Vector3d&             V1,
+                           Vector3d&             V2,
+                           Vector3d&             V3) const
 {
   if (myConSurf.IsNull())
     myCurve.D3(U, P, V1, V2, V3);
@@ -406,9 +406,9 @@ void BRepAdaptor_Curve::D3(const Standard_Real U,
 
 //=================================================================================================
 
-gp_Vec BRepAdaptor_Curve::DN(const Standard_Real U, const Standard_Integer N) const
+Vector3d BRepAdaptor_Curve::DN(const Standard_Real U, const Standard_Integer N) const
 {
-  gp_Vec V;
+  Vector3d V;
   if (myConSurf.IsNull())
     V = myCurve.DN(U, N);
   else

@@ -265,7 +265,7 @@ private:
 /**
  * Implementation for 3D space
  */
-class gp_Dir;
+class Dir3d;
 
 class Poly_MakeLoops3D : public Poly_MakeLoops
 {
@@ -278,13 +278,13 @@ public:
     // it is impossible to return a valid direction
 
     //! returns the tangent vector at the first node of a link
-    virtual Standard_Boolean GetFirstTangent(const Link& theLink, gp_Dir& theDir) const = 0;
+    virtual Standard_Boolean GetFirstTangent(const Link& theLink, Dir3d& theDir) const = 0;
 
     //! returns the tangent vector at the last node of a link
-    virtual Standard_Boolean GetLastTangent(const Link& theLink, gp_Dir& theDir) const = 0;
+    virtual Standard_Boolean GetLastTangent(const Link& theLink, Dir3d& theDir) const = 0;
 
     //! returns the normal to the surface at a given node
-    virtual Standard_Boolean GetNormal(Standard_Integer theNode, gp_Dir& theDir) const = 0;
+    virtual Standard_Boolean GetNormal(Standard_Integer theNode, Dir3d& theDir) const = 0;
   };
 
   //! Constructor. If helper is NULL then the algorithm will

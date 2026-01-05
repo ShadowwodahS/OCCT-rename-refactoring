@@ -125,21 +125,21 @@ public:
 
   Standard_EXPORT Standard_Boolean IsTangencyPoint() const Standard_OVERRIDE;
 
-  Standard_EXPORT const gp_Vec& TangentOnRst1() const Standard_OVERRIDE;
+  Standard_EXPORT const Vector3d& TangentOnRst1() const Standard_OVERRIDE;
 
   Standard_EXPORT const gp_Vec2d& Tangent2dOnRst1() const Standard_OVERRIDE;
 
-  Standard_EXPORT const gp_Vec& TangentOnRst2() const Standard_OVERRIDE;
+  Standard_EXPORT const Vector3d& TangentOnRst2() const Standard_OVERRIDE;
 
   Standard_EXPORT const gp_Vec2d& Tangent2dOnRst2() const Standard_OVERRIDE;
 
   //! Permet  d ' implementer   un   critere  de  decrochage
   //! specifique a la fonction.
   Standard_EXPORT Blend_DecrochStatus Decroch(const math_Vector& Sol,
-                                              gp_Vec&            NRst1,
-                                              gp_Vec&            TgRst1,
-                                              gp_Vec&            NRst2,
-                                              gp_Vec&            TgRst2) const Standard_OVERRIDE;
+                                              Vector3d&            NRst1,
+                                              Vector3d&            TgRst1,
+                                              Vector3d&            NRst2,
+                                              Vector3d&            TgRst2) const Standard_OVERRIDE;
 
   Standard_EXPORT void Set(const Standard_Real Radius, const Standard_Integer Choix);
 
@@ -151,9 +151,9 @@ public:
   //! radius ray.
   Standard_EXPORT Standard_Boolean CenterCircleRst1Rst2(const Point3d& PtRst1,
                                                         const Point3d& PtRst2,
-                                                        const gp_Vec& np,
+                                                        const Vector3d& np,
                                                         Point3d&       Center,
-                                                        gp_Vec&       VdMed) const;
+                                                        Vector3d&       VdMed) const;
 
   Standard_EXPORT void Section(const Standard_Real Param,
                                const Standard_Real U,
@@ -253,16 +253,16 @@ private:
   Standard_Real                prmrst1;
   Standard_Real                prmrst2;
   Standard_Boolean             istangent;
-  gp_Vec                       tgrst1;
+  Vector3d                       tgrst1;
   gp_Vec2d                     tg2drst1;
-  gp_Vec                       tgrst2;
+  Vector3d                       tgrst2;
   gp_Vec2d                     tg2drst2;
   Standard_Real                ray;
   Standard_Integer             choix;
   Point3d                       ptgui;
-  gp_Vec                       d1gui;
-  gp_Vec                       d2gui;
-  gp_Vec                       nplan;
+  Vector3d                       d1gui;
+  Vector3d                       d2gui;
+  Vector3d                       nplan;
   Standard_Real                normtg;
   Standard_Real                theD;
   Handle(Adaptor3d_Surface)    surfref1;

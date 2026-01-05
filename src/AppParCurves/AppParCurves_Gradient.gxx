@@ -75,8 +75,8 @@ AppParCurves_Gradient::
   Point3d Pt;
 //  gp_Pnt2d Pt2d, P12d, P22d;
   gp_Pnt2d Pt2d;
-//  gp_Vec V1, V2, MyV;
-  gp_Vec V1, MyV;
+//  Vector3d V1, V2, MyV;
+  Vector3d V1, MyV;
 //  gp_Vec2d V12d, V22d, MyV2d;
   gp_Vec2d V12d, MyV2d;
   Done = Standard_False;
@@ -148,7 +148,7 @@ AppParCurves_Gradient::
       for (l=1; l<=deg+1; l++) TabCoef(l) = TheCoef(l+i2);
       i2 += deg+1;
       BSplCLib::CoefsD1(UF, TabCoef, BSplCLib::NoWeights(), Pt, V1);
-      MyV = gp_Vec(Pt, TabP(k));
+      MyV = Vector3d(Pt, TabP(k));
       FU += MyV*V1;
       DFU += V1.SquareMagnitude();
     }

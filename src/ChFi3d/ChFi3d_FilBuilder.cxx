@@ -114,7 +114,7 @@ static void SimulParams(const Handle(ChFiDS_ElSpine)&  HGuide,
   MaxStep                = longueur * 0.05;
   Standard_Real w;
   // Point3d Pbid;
-  // gp_Vec d1,d2;
+  // Vector3d d1,d2;
   Standard_Real radiussect;
   if (fsp->IsConstant())
     radiussect = fsp->Radius();

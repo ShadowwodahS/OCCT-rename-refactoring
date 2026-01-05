@@ -667,7 +667,7 @@ void BRepFill::Axe(const TopoDS_Shape& Spine,
                    const Standard_Real Tol)
 {
   Point3d Loc, Loc1, Loc2;
-  gp_Vec Tang, Tang1, Tang2, Normal;
+  Vector3d Tang, Tang1, Tang2, Normal;
 
   Handle(Geom_Surface) S;
   TopLoc_Location      L;
@@ -789,7 +789,7 @@ void BRepFill::Axe(const TopoDS_Shape& Spine,
       TopExp::Vertices(E, V1, V2);
       P1 = BRep_Tool::Pnt(V1);
       P2 = BRep_Tool::Pnt(V2);
-      gp_Vec vec(P1, P2);
+      Vector3d vec(P1, P2);
       sca1 += Abs(Tang1.Dot(vec));
       sca2 += Abs(Tang2.Dot(vec));
     }
@@ -858,7 +858,7 @@ void BRepFill::Axe(const TopoDS_Shape& Spine,
 
 void BRepFill::SearchOrigin(TopoDS_Wire&        W,
                             const Point3d&       P,
-                            const gp_Vec&       Dir,
+                            const Vector3d&       Dir,
                             const Standard_Real Tol)
 {
   if (!W.Closed())
@@ -973,7 +973,7 @@ void BRepFill::SearchOrigin(TopoDS_Wire&        W,
   }
   BRepAdaptor_Curve AC(E);
   Point3d            Pe;
-  gp_Vec            Ve;
+  Vector3d            Ve;
   AC.D1(theparam, Pe, Ve);
   if (E.Orientation() == TopAbs_REVERSED)
   {

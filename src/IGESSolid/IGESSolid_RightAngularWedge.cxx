@@ -82,59 +82,59 @@ Point3d IGESSolid_RightAngularWedge::TransformedCorner() const
   }
 }
 
-gp_Dir IGESSolid_RightAngularWedge::XAxis() const
+Dir3d IGESSolid_RightAngularWedge::XAxis() const
 {
-  return gp_Dir(theXAxis);
+  return Dir3d(theXAxis);
 }
 
-gp_Dir IGESSolid_RightAngularWedge::TransformedXAxis() const
+Dir3d IGESSolid_RightAngularWedge::TransformedXAxis() const
 {
   if (!HasTransf())
-    return gp_Dir(theXAxis);
+    return Dir3d(theXAxis);
   else
   {
     gp_XYZ   tmp = theXAxis;
     gp_GTrsf loc = Location();
     loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
     loc.Transforms(tmp);
-    return gp_Dir(tmp);
+    return Dir3d(tmp);
   }
 }
 
-gp_Dir IGESSolid_RightAngularWedge::YAxis() const
+Dir3d IGESSolid_RightAngularWedge::YAxis() const
 {
-  return gp_Dir(theXAxis ^ theZAxis); // ^ overloaded
+  return Dir3d(theXAxis ^ theZAxis); // ^ overloaded
 }
 
-gp_Dir IGESSolid_RightAngularWedge::TransformedYAxis() const
+Dir3d IGESSolid_RightAngularWedge::TransformedYAxis() const
 {
   if (!HasTransf())
-    return gp_Dir(theXAxis ^ theZAxis);
+    return Dir3d(theXAxis ^ theZAxis);
   else
   {
     gp_XYZ   tmp = theXAxis ^ theZAxis;
     gp_GTrsf loc = Location();
     loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
     loc.Transforms(tmp);
-    return gp_Dir(tmp);
+    return Dir3d(tmp);
   }
 }
 
-gp_Dir IGESSolid_RightAngularWedge::ZAxis() const
+Dir3d IGESSolid_RightAngularWedge::ZAxis() const
 {
-  return gp_Dir(theZAxis);
+  return Dir3d(theZAxis);
 }
 
-gp_Dir IGESSolid_RightAngularWedge::TransformedZAxis() const
+Dir3d IGESSolid_RightAngularWedge::TransformedZAxis() const
 {
   if (!HasTransf())
-    return gp_Dir(theZAxis);
+    return Dir3d(theZAxis);
   else
   {
     gp_XYZ   tmp = theZAxis;
     gp_GTrsf loc = Location();
     loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
     loc.Transforms(tmp);
-    return gp_Dir(tmp);
+    return Dir3d(tmp);
   }
 }

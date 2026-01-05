@@ -275,10 +275,10 @@ void BRepFill_PipeShell::SetDiscrete()
 // function : Set
 // purpose  : Define a law Constant
 //=======================================================================
-void BRepFill_PipeShell::Set(const gp_Ax2& Axe)
+void BRepFill_PipeShell::Set(const Frame3d& Axe)
 {
   myTrihedron = GeomFill_IsFixed;
-  gp_Vec V1, V2;
+  Vector3d V1, V2;
   V1.SetXYZ(Axe.Direction().XYZ());
   V2.SetXYZ(Axe.XDirection().XYZ());
   Handle(GeomFill_Fixed)             TLaw = new (GeomFill_Fixed)(V1, V2);
@@ -291,7 +291,7 @@ void BRepFill_PipeShell::Set(const gp_Ax2& Axe)
 // function : Set
 // purpose  : Construct a law of location of binormal fixed type
 //=======================================================================
-void BRepFill_PipeShell::Set(const gp_Dir& BiNormal)
+void BRepFill_PipeShell::Set(const Dir3d& BiNormal)
 {
   myTrihedron = GeomFill_IsConstantNormal;
 
@@ -355,7 +355,7 @@ void BRepFill_PipeShell::Set(const TopoDS_Wire&           AuxiliarySpine,
   {
     // Case guide closed : Determination of the origin
     // & reorientation of the guide
-    gp_Vec Dir;
+    Vector3d Dir;
     Point3d SpOr;
     if (!SpClose)
     {
@@ -364,7 +364,7 @@ void BRepFill_PipeShell::Set(const TopoDS_Wire&           AuxiliarySpine,
       TopExp::Vertices(mySpine, Vf, Vl);
       SpOr = BRep_Tool::Pnt(Vf);
       P    = BRep_Tool::Pnt(Vl);
-      gp_Vec V(P, SpOr);
+      Vector3d V(P, SpOr);
       SpOr.BaryCenter(0.5, P, 0.5);
       Dir = V;
     }
@@ -979,7 +979,7 @@ void BRepFill_PipeShell::Prepare()
   if (mySeq.Length() == 1)
   {
     Standard_Real p1;
-    gp_Trsf       aTrsf;
+    Transform3d       aTrsf;
     Place(mySeq(1), theSect, aTrsf, p1);
     TopoDS_Wire aLocalShape = theSect;
     if (mySeq(1).IsLaw())
@@ -1008,7 +1008,7 @@ void BRepFill_PipeShell::Prepare()
     TColStd_SequenceOfInteger IndSec;
     GeomFill_SequenceOfTrsf   Transformations;
     Standard_Integer          NbL = myLocation->NbLaw();
-    gp_Trsf                   aTrsf;
+    Transform3d                   aTrsf;
     Standard_Real             V1, V2, param;
     myLocation->CurvilinearBounds(NbL, V1, V2);
     V1                    = 0.;
@@ -1189,7 +1189,7 @@ void BRepFill_PipeShell::Prepare()
 //=======================================================================
 void BRepFill_PipeShell::Place(const BRepFill_Section& Sec,
                                TopoDS_Wire&            W,
-                               gp_Trsf&                aTrsf,
+                               Transform3d&                aTrsf,
                                Standard_Real&          param)
 {
   BRepFill_SectionPlacement Place(myLocation,

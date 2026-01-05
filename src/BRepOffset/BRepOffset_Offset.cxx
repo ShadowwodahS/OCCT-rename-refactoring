@@ -217,8 +217,8 @@ static void ComputeCurve3d(const TopoDS_Edge&          Edge,
             gp_Sphere Sph  = S.Sphere();
             gp_Ax3    Axis = Sph.Position();
             gp_Circ   Ci   = ElSLib::SphereVIso(Axis, Sph.Radius(), P.Y());
-            gp_Dir    DRev = Axis.XDirection().Crossed(Axis.YDirection());
-            gp_Ax1    AxeRev(Axis.Location(), DRev);
+            Dir3d    DRev = Axis.XDirection().Crossed(Axis.YDirection());
+            Axis3d    AxeRev(Axis.Location(), DRev);
             Ci.Rotate(AxeRev, P.X());
             Handle(Geom_Circle) Circle = new Geom_Circle(Ci);
             if (D.IsOpposite(gp::DX2d(), Precision::Angular()))
@@ -233,8 +233,8 @@ static void ComputeCurve3d(const TopoDS_Edge&          Edge,
           gp_Pnt2d    P    = C.Line().Location();
           gp_Ax3      Axis = Cyl.Position();
           gp_Circ     Ci   = ElSLib::CylinderVIso(Axis, Cyl.Radius(), P.Y());
-          gp_Dir      DRev = Axis.XDirection().Crossed(Axis.YDirection());
-          gp_Ax1      AxeRev(Axis.Location(), DRev);
+          Dir3d      DRev = Axis.XDirection().Crossed(Axis.YDirection());
+          Axis3d      AxeRev(Axis.Location(), DRev);
           Ci.Rotate(AxeRev, P.X());
           Handle(Geom_Circle) Circle = new Geom_Circle(Ci);
           if (D.IsOpposite(gp::DX2d(), Precision::Angular()))
@@ -248,8 +248,8 @@ static void ComputeCurve3d(const TopoDS_Edge&          Edge,
           gp_Pnt2d P    = C.Line().Location();
           gp_Ax3   Axis = Cone.Position();
           gp_Circ  Ci   = ElSLib::ConeVIso(Axis, Cone.RefRadius(), Cone.SemiAngle(), P.Y());
-          gp_Dir   DRev = Axis.XDirection().Crossed(Axis.YDirection());
-          gp_Ax1   AxeRev(Axis.Location(), DRev);
+          Dir3d   DRev = Axis.XDirection().Crossed(Axis.YDirection());
+          Axis3d   AxeRev(Axis.Location(), DRev);
           Ci.Rotate(AxeRev, P.X());
           Handle(Geom_Circle) Circle = new Geom_Circle(Ci);
           if (D.IsOpposite(gp::DX2d(), Precision::Angular()))
@@ -263,8 +263,8 @@ static void ComputeCurve3d(const TopoDS_Edge&          Edge,
           gp_Pnt2d P    = C.Line().Location();
           gp_Ax3   Axis = Tore.Position();
           gp_Circ  Ci   = ElSLib::TorusVIso(Axis, Tore.MajorRadius(), Tore.MinorRadius(), P.Y());
-          gp_Dir   DRev = Axis.XDirection().Crossed(Axis.YDirection());
-          gp_Ax1   AxeRev(Axis.Location(), DRev);
+          Dir3d   DRev = Axis.XDirection().Crossed(Axis.YDirection());
+          Axis3d   AxeRev(Axis.Location(), DRev);
           Ci.Rotate(AxeRev, P.X());
           Handle(Geom_Circle) Circle = new Geom_Circle(Ci);
           if (D.IsOpposite(gp::DX2d(), Precision::Angular()))
@@ -284,13 +284,13 @@ static void ComputeCurve3d(const TopoDS_Edge&          Edge,
           gp_Circ Ci = ElSLib::SphereUIso(Axis, Sph.Radius(), 0.);
 
           // set to sameparameter (rotation of circle - offset of Y)
-          gp_Dir DRev = Axis.XDirection().Crossed(Axis.Direction());
-          gp_Ax1 AxeRev(Axis.Location(), DRev);
+          Dir3d DRev = Axis.XDirection().Crossed(Axis.Direction());
+          Axis3d AxeRev(Axis.Location(), DRev);
           Ci.Rotate(AxeRev, P.Y());
 
           // transformation en iso U ( = P.X())
           DRev   = Axis.XDirection().Crossed(Axis.YDirection());
-          AxeRev = gp_Ax1(Axis.Location(), DRev);
+          AxeRev = Axis3d(Axis.Location(), DRev);
           Ci.Rotate(AxeRev, P.X());
           Handle(Geom_Circle) Circle = new Geom_Circle(Ci);
 
@@ -304,7 +304,7 @@ static void ComputeCurve3d(const TopoDS_Edge&          Edge,
           gp_Cylinder Cyl = S.Cylinder();
           gp_Pnt2d    P   = C.Line().Location();
           gp_Lin      L   = ElSLib::CylinderUIso(Cyl.Position(), Cyl.Radius(), P.X());
-          gp_Vec      Tr(L.Direction());
+          Vector3d      Tr(L.Direction());
           Tr.Multiply(P.Y());
           L.Translate(Tr);
           Handle(Geom_Line) Line = new Geom_Line(L);
@@ -318,7 +318,7 @@ static void ComputeCurve3d(const TopoDS_Edge&          Edge,
           gp_Cone  Cone = S.Cone();
           gp_Pnt2d P    = C.Line().Location();
           gp_Lin   L = ElSLib::ConeUIso(Cone.Position(), Cone.RefRadius(), Cone.SemiAngle(), P.X());
-          gp_Vec   Tr(L.Direction());
+          Vector3d   Tr(L.Direction());
           Tr.Multiply(P.Y());
           L.Translate(Tr);
           Handle(Geom_Line) Line = new Geom_Line(L);
@@ -600,9 +600,9 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
             Pfirst                                  = TheSurf->Value(uf1, vf1);
             Pquart                                  = TheSurf->Value(uf1, 0.75 * vf1 + 0.25 * vf2);
             Pmid                                    = TheSurf->Value(uf1, 0.5 * (vf1 + vf2));
-            gp_Vec                    DirApex       = gp_Vec(Pfirst, Pquart) ^ gp_Vec(Pfirst, Pmid);
+            Vector3d                    DirApex       = Vector3d(Pfirst, Pquart) ^ Vector3d(Pfirst, Pmid);
             Handle(Geom_Line)         LineApex      = new Geom_Line(Papex, DirApex);
-            gp_Vec                    DirGeneratrix = BasisSurf->DN(uf1, vf1, 1, 0);
+            Vector3d                    DirGeneratrix = BasisSurf->DN(uf1, vf1, 1, 0);
             Handle(Geom_Line)         LineGeneratrix = new Geom_Line(Pfirst, DirGeneratrix);
             GeomAPI_ExtremaCurveCurve theExtrema(LineGeneratrix, LineApex);
             Point3d                    Pint1, Pint2;
@@ -641,9 +641,9 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
             Pfirst                                  = TheSurf->Value(uf2, vf1);
             Pquart                                  = TheSurf->Value(uf2, 0.75 * vf1 + 0.25 * vf2);
             Pmid                                    = TheSurf->Value(uf2, 0.5 * (vf1 + vf2));
-            gp_Vec                    DirApex       = gp_Vec(Pfirst, Pquart) ^ gp_Vec(Pfirst, Pmid);
+            Vector3d                    DirApex       = Vector3d(Pfirst, Pquart) ^ Vector3d(Pfirst, Pmid);
             Handle(Geom_Line)         LineApex      = new Geom_Line(Papex, DirApex);
-            gp_Vec                    DirGeneratrix = BasisSurf->DN(uf2, vf1, 1, 0);
+            Vector3d                    DirGeneratrix = BasisSurf->DN(uf2, vf1, 1, 0);
             Handle(Geom_Line)         LineGeneratrix = new Geom_Line(Pfirst, DirGeneratrix);
             GeomAPI_ExtremaCurveCurve theExtrema(LineGeneratrix, LineApex);
             Point3d                    Pint1, Pint2;
@@ -682,9 +682,9 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
             Pfirst                                  = TheSurf->Value(uf1, vf1);
             Pquart                                  = TheSurf->Value(0.75 * uf1 + 0.25 * uf2, vf1);
             Pmid                                    = TheSurf->Value(0.5 * (uf1 + uf2), vf1);
-            gp_Vec                    DirApex       = gp_Vec(Pfirst, Pquart) ^ gp_Vec(Pfirst, Pmid);
+            Vector3d                    DirApex       = Vector3d(Pfirst, Pquart) ^ Vector3d(Pfirst, Pmid);
             Handle(Geom_Line)         LineApex      = new Geom_Line(Papex, DirApex);
-            gp_Vec                    DirGeneratrix = BasisSurf->DN(uf1, vf1, 0, 1);
+            Vector3d                    DirGeneratrix = BasisSurf->DN(uf1, vf1, 0, 1);
             Handle(Geom_Line)         LineGeneratrix = new Geom_Line(Pfirst, DirGeneratrix);
             GeomAPI_ExtremaCurveCurve theExtrema(LineGeneratrix, LineApex);
             Point3d                    Pint1, Pint2;
@@ -725,9 +725,9 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
             Pfirst                                  = TheSurf->Value(uf1, vf2);
             Pquart                                  = TheSurf->Value(0.75 * uf1 + 0.25 * uf2, vf2);
             Pmid                                    = TheSurf->Value(0.5 * (uf1 + uf2), vf2);
-            gp_Vec                    DirApex       = gp_Vec(Pfirst, Pquart) ^ gp_Vec(Pfirst, Pmid);
+            Vector3d                    DirApex       = Vector3d(Pfirst, Pquart) ^ Vector3d(Pfirst, Pmid);
             Handle(Geom_Line)         LineApex      = new Geom_Line(Papex, DirApex);
-            gp_Vec                    DirGeneratrix = BasisSurf->DN(uf1, vf2, 0, 1);
+            Vector3d                    DirGeneratrix = BasisSurf->DN(uf1, vf2, 0, 1);
             Handle(Geom_Line)         LineGeneratrix = new Geom_Line(Pfirst, DirGeneratrix);
             GeomAPI_ExtremaCurveCurve theExtrema(LineGeneratrix, LineApex);
             Point3d                    Pint1, Pint2;
@@ -978,7 +978,7 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
           /*
           if (!BRep_Tool::Degenerated(E))
             {
-          Handle(Geom_Line) theLine = new Geom_Line( P1, gp_Vec(P1, P2) );
+          Handle(Geom_Line) theLine = new Geom_Line( P1, Vector3d(P1, P2) );
           myBuilder.UpdateEdge( OE, theLine, BRep_Tool::Tolerance(E) );
             }
           */
@@ -1485,11 +1485,11 @@ void BRepOffset_Offset::Init(const TopoDS_Vertex&        Vertex,
   GProp_GProps GlobalProps;
   BRepGProp::LinearProperties(theWire, GlobalProps);
   Point3d BaryCenter = GlobalProps.CentreOfMass();
-  gp_Vec Xdir(BaryCenter, Origin);
+  Vector3d Xdir(BaryCenter, Origin);
 
   Point3d FarestCorner = GetFarestCorner(theWire);
   gp_Pln thePlane     = gce_MakePln(Origin, BaryCenter, FarestCorner);
-  gp_Dir Vdir         = thePlane.Axis().Direction();
+  Dir3d Vdir         = thePlane.Axis().Direction();
 
   gp_Ax3 Axis(Origin, Vdir, Xdir);
 

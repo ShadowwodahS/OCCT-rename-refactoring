@@ -600,7 +600,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
     // #53 rln 24.12.98 CCI60005
     // Trimmed ellipse. To avoid huge weights in B-Spline first rotate it and then convert
     Handle(Geom_Ellipse) copystart = Handle(Geom_Ellipse)::DownCast(start->Copy());
-    gp_Ax2               pos       = copystart->Position();
+    Frame3d               pos       = copystart->Position();
     copystart->SetPosition(pos.Rotated(pos.Axis(), gp_Ax3(pos).Direct() ? Udeb : 2 * M_PI - Udeb));
     Handle(Geom_BSplineCurve) Bspline;
     //: q3 abv 17 Mar 99: use GeomConvert_ApproxCurve for precise conversion

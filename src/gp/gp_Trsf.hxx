@@ -25,11 +25,11 @@
 
 class Point3d;
 class gp_Trsf2d;
-class gp_Ax1;
-class gp_Ax2;
+class Axis3d;
+class Frame3d;
 class gp_Quaternion;
 class gp_Ax3;
-class gp_Vec;
+class Vector3d;
 
 // Avoid possible conflict with SetForm macro defined by windows.h
 #ifdef SetForm
@@ -55,13 +55,13 @@ class gp_Vec;
 //! transformation and T defines the translation part of the
 //! transformation.
 //! This transformation never change the nature of the objects.
-class gp_Trsf
+class Transform3d
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Returns the identity transformation.
-  gp_Trsf();
+  Transform3d();
 
   //! Creates  a 3D transformation from the 2D transformation theT.
   //! The resulting transformation has a homogeneous
@@ -79,7 +79,7 @@ public:
   //! plane of the 3D space, (i.e. in the plane defined by the
   //! origin (0., 0., 0.) and the vectors DX (1., 0., 0.), and DY
   //! (0., 1., 0.)). The scale factor is applied to the entire space.
-  Standard_EXPORT gp_Trsf(const gp_Trsf2d& theT);
+  Standard_EXPORT Transform3d(const gp_Trsf2d& theT);
 
   //! Makes the transformation into a symmetrical transformation.
   //! theP is the center of the symmetry.
@@ -87,18 +87,18 @@ public:
 
   //! Makes the transformation into a symmetrical transformation.
   //! theA1 is the center of the axial symmetry.
-  Standard_EXPORT void SetMirror(const gp_Ax1& theA1);
+  Standard_EXPORT void SetMirror(const Axis3d& theA1);
 
   //! Makes the transformation into a symmetrical transformation.
   //! theA2 is the center of the planar symmetry
   //! and defines the plane of symmetry by its origin, "X
   //! Direction" and "Y Direction".
-  Standard_EXPORT void SetMirror(const gp_Ax2& theA2);
+  Standard_EXPORT void SetMirror(const Frame3d& theA2);
 
   //! Changes the transformation into a rotation.
   //! theA1 is the rotation axis and theAng is the angular value of the
   //! rotation in radians.
-  Standard_EXPORT void SetRotation(const gp_Ax1& theA1, const Standard_Real theAng);
+  Standard_EXPORT void SetRotation(const Axis3d& theA1, const Standard_Real theAng);
 
   //! Changes the transformation into a rotation defined by quaternion.
   //! Note that rotation is performed around origin, i.e.
@@ -148,7 +148,7 @@ public:
   //! double x1, y1, z1;  // are the coordinates of a point in the local system theFromSystem1
   //! double x2, y2, z2;  // are the coordinates of a point in the local system theToSystem2
   //! Point3d P1 (x1, y1, z1)
-  //! gp_Trsf T;
+  //! Transform3d T;
   //! T.SetTransformation (theFromSystem1, theToSystem2);
   //! Point3d P2 = P1.Transformed (T);
   //! P2.Coord (x2, y2, z2);
@@ -170,18 +170,18 @@ public:
   Standard_EXPORT void SetTransformation(const gp_Ax3& theToSystem);
 
   //! Sets transformation by directly specified rotation and translation.
-  Standard_EXPORT void SetTransformation(const gp_Quaternion& R, const gp_Vec& theT);
+  Standard_EXPORT void SetTransformation(const gp_Quaternion& R, const Vector3d& theT);
 
   //! Changes the transformation into a translation.
   //! theV is the vector of the translation.
-  void SetTranslation(const gp_Vec& theV);
+  void SetTranslation(const Vector3d& theV);
 
   //! Makes the transformation into a translation where the translation vector
   //! is the vector (theP1, theP2) defined from point theP1 to point theP2.
   void SetTranslation(const Point3d& theP1, const Point3d& theP2);
 
   //! Replaces the translation vector with the vector theV.
-  Standard_EXPORT void SetTranslationPart(const gp_Vec& theV);
+  Standard_EXPORT void SetTranslationPart(const Vector3d& theV);
 
   //! Modifies the scale factor.
   //! Raises ConstructionError  If theS is null.
@@ -235,7 +235,7 @@ public:
   //! value "theAngle", i.e., 0. < theAngle <= PI.
   //! Note that this rotation is defined only by the vectorial part of
   //! the transformation; generally you would need to check also the
-  //! translational part to obtain the axis (gp_Ax1) of rotation.
+  //! translational part to obtain the axis (Axis3d) of rotation.
   Standard_EXPORT Standard_Boolean GetRotation(gp_XYZ& theAxis, Standard_Real& theAngle) const;
 
   //! Returns quaternion representing rotational part of the transformation.
@@ -269,38 +269,38 @@ public:
   //! In a C++ implementation you can also write Tcomposed = <me> * T.
   //! Example :
   //! @code
-  //! gp_Trsf T1, T2, Tcomp; ...............
+  //! Transform3d T1, T2, Tcomp; ...............
   //! Tcomp = T2.Multiplied(T1);         // or   (Tcomp = T2 * T1)
   //! Point3d P1(10.,3.,4.);
   //! Point3d P2 = P1.Transformed(Tcomp); // using Tcomp
   //! Point3d P3 = P1.Transformed(T1);    // using T1 then T2
   //! P3.Transform(T2);                  // P3 = P2 !!!
   //! @endcode
-  Standard_NODISCARD gp_Trsf Inverted() const
+  Standard_NODISCARD Transform3d Inverted() const
   {
-    gp_Trsf aT = *this;
+    Transform3d aT = *this;
     aT.Invert();
     return aT;
   }
 
-  Standard_NODISCARD gp_Trsf Multiplied(const gp_Trsf& theT) const
+  Standard_NODISCARD Transform3d Multiplied(const Transform3d& theT) const
   {
-    gp_Trsf aTresult(*this);
+    Transform3d aTresult(*this);
     aTresult.Multiply(theT);
     return aTresult;
   }
 
-  Standard_NODISCARD gp_Trsf operator*(const gp_Trsf& theT) const { return Multiplied(theT); }
+  Standard_NODISCARD Transform3d operator*(const Transform3d& theT) const { return Multiplied(theT); }
 
   //! Computes the transformation composed with <me> and theT.
   //! <me> = <me> * theT
-  Standard_EXPORT void Multiply(const gp_Trsf& theT);
+  Standard_EXPORT void Multiply(const Transform3d& theT);
 
-  void operator*=(const gp_Trsf& theT) { Multiply(theT); }
+  void operator*=(const Transform3d& theT) { Multiply(theT); }
 
   //! Computes the transformation composed with <me> and T.
   //! <me> = theT * <me>
-  Standard_EXPORT void PreMultiply(const gp_Trsf& theT);
+  Standard_EXPORT void PreMultiply(const Transform3d& theT);
 
   Standard_EXPORT void Power(const Standard_Integer theN);
 
@@ -311,9 +311,9 @@ public:
   //!
   //! Raises if theN < 0 and if the matrix of the transformation not
   //! inversible.
-  Standard_NODISCARD gp_Trsf Powered(const Standard_Integer theN) const
+  Standard_NODISCARD Transform3d Powered(const Standard_Integer theN) const
   {
-    gp_Trsf aT = *this;
+    Transform3d aT = *this;
     aT.Power(theN);
     return aT;
   }
@@ -376,10 +376,10 @@ private:
 #include <gp_Pnt.hxx>
 
 //=======================================================================
-// function : gp_Trsf
+// function : Transform3d
 // purpose :
 //=======================================================================
-inline gp_Trsf::gp_Trsf()
+inline Transform3d::Transform3d()
     : scale(1.0),
       shape(gp_Identity),
       matrix(1, 0, 0, 0, 1, 0, 0, 0, 1),
@@ -391,7 +391,7 @@ inline gp_Trsf::gp_Trsf()
 // function : SetMirror
 // purpose :
 //=======================================================================
-inline void gp_Trsf::SetMirror(const Point3d& theP)
+inline void Transform3d::SetMirror(const Point3d& theP)
 {
   shape = gp_PntMirror;
   scale = -1.0;
@@ -404,7 +404,7 @@ inline void gp_Trsf::SetMirror(const Point3d& theP)
 // function : SetTranslation
 // purpose :
 //=======================================================================
-inline void gp_Trsf::SetTranslation(const gp_Vec& theV)
+inline void Transform3d::SetTranslation(const Vector3d& theV)
 {
   shape = gp_Translation;
   scale = 1.;
@@ -416,7 +416,7 @@ inline void gp_Trsf::SetTranslation(const gp_Vec& theV)
 // function : SetTranslation
 // purpose :
 //=======================================================================
-inline void gp_Trsf::SetTranslation(const Point3d& theP1, const Point3d& theP2)
+inline void Transform3d::SetTranslation(const Point3d& theP1, const Point3d& theP2)
 {
   shape = gp_Translation;
   scale = 1.0;
@@ -428,7 +428,7 @@ inline void gp_Trsf::SetTranslation(const Point3d& theP1, const Point3d& theP2)
 // function : Value
 // purpose :
 //=======================================================================
-inline Standard_Real gp_Trsf::Value(const Standard_Integer theRow,
+inline Standard_Real Transform3d::Value(const Standard_Integer theRow,
                                     const Standard_Integer theCol) const
 {
   Standard_OutOfRange_Raise_if(theRow < 1 || theRow > 3 || theCol < 1 || theCol > 4, " ");
@@ -446,7 +446,7 @@ inline Standard_Real gp_Trsf::Value(const Standard_Integer theRow,
 // function : Transforms
 // purpose :
 //=======================================================================
-inline void gp_Trsf::Transforms(Standard_Real& theX, Standard_Real& theY, Standard_Real& theZ) const
+inline void Transform3d::Transforms(Standard_Real& theX, Standard_Real& theY, Standard_Real& theZ) const
 {
   gp_XYZ aTriplet(theX, theY, theZ);
   aTriplet.Multiply(matrix);
@@ -464,7 +464,7 @@ inline void gp_Trsf::Transforms(Standard_Real& theX, Standard_Real& theY, Standa
 // function : Transforms
 // purpose :
 //=======================================================================
-inline void gp_Trsf::Transforms(gp_XYZ& theCoord) const
+inline void Transform3d::Transforms(gp_XYZ& theCoord) const
 {
   theCoord.Multiply(matrix);
   if (scale != 1.0)

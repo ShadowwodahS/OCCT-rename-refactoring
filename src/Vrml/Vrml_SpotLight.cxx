@@ -28,8 +28,8 @@ Vrml_SpotLight::Vrml_SpotLight()
 Vrml_SpotLight::Vrml_SpotLight(const Standard_Boolean aOnOff,
                                const Standard_Real    aIntensity,
                                const Quantity_Color&  aColor,
-                               const gp_Vec&          aLocation,
-                               const gp_Vec&          aDirection,
+                               const Vector3d&          aLocation,
+                               const Vector3d&          aDirection,
                                const Standard_Real    aDropOffRate,
                                const Standard_Real    aCutOffAngle)
 {
@@ -80,22 +80,22 @@ Quantity_Color Vrml_SpotLight::Color() const
   return myColor;
 }
 
-void Vrml_SpotLight::SetLocation(const gp_Vec& aLocation)
+void Vrml_SpotLight::SetLocation(const Vector3d& aLocation)
 {
   myLocation = aLocation;
 }
 
-gp_Vec Vrml_SpotLight::Location() const
+Vector3d Vrml_SpotLight::Location() const
 {
   return myLocation;
 }
 
-void Vrml_SpotLight::SetDirection(const gp_Vec& aDirection)
+void Vrml_SpotLight::SetDirection(const Vector3d& aDirection)
 {
   myDirection = aDirection;
 }
 
-gp_Vec Vrml_SpotLight::Direction() const
+Vector3d Vrml_SpotLight::Direction() const
 {
   return myDirection;
 }

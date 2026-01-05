@@ -27,7 +27,7 @@ class Graphic3d_MaterialAspect;
 class Graphic3d_AspectLine3d;
 class Graphic3d_AspectMarker3d;
 class Graphic3d_AspectText3d;
-class gp_Vec;
+class Vector3d;
 
 //! This class provides auxiliary methods to create different aspects
 class MeshVS_Tool
@@ -65,12 +65,12 @@ public:
   //! Get one of normals to polygon described by these points.
   //! If the polygon isn't planar, function returns false
   Standard_EXPORT static Standard_Boolean GetNormal(const TColStd_Array1OfReal& Nodes,
-                                                    gp_Vec&                     Norm);
+                                                    Vector3d&                     Norm);
 
   //! Get an average of normals to non-planar polygon described by these points or compute
   //! normal of planar polygon. If the polygon isn't planar, function returns false
   Standard_EXPORT static Standard_Boolean GetAverageNormal(const TColStd_Array1OfReal& Nodes,
-                                                           gp_Vec&                     Norm);
+                                                           Vector3d&                     Norm);
 
 protected:
 private:

@@ -1311,22 +1311,22 @@ void Graphic3d_CView::SynchronizeXRBaseToPosedCamera()
 //=================================================================================================
 
 void Graphic3d_CView::ComputeXRPosedCameraFromBase(Graphic3d_Camera& theCam,
-                                                   const gp_Trsf&    theXRTrsf) const
+                                                   const Transform3d&    theXRTrsf) const
 {
   theCam.Copy(myBaseXRCamera);
 
   // convert head pose into camera transformation
   const gp_Ax3 anAxVr(gp::Origin(), gp::DZ(), gp::DX());
   const gp_Ax3 aCameraCS(gp::Origin(), -myBaseXRCamera->Direction(), -myBaseXRCamera->SideRight());
-  gp_Trsf      aTrsfCS;
+  Transform3d      aTrsfCS;
   aTrsfCS.SetTransformation(aCameraCS, anAxVr);
-  const gp_Trsf aTrsfToCamera = aTrsfCS * theXRTrsf * aTrsfCS.Inverted();
-  gp_Trsf       aTrsfToEye;
+  const Transform3d aTrsfToCamera = aTrsfCS * theXRTrsf * aTrsfCS.Inverted();
+  Transform3d       aTrsfToEye;
   aTrsfToEye.SetTranslation(myBaseXRCamera->Eye().XYZ());
 
-  const gp_Trsf aTrsf    = aTrsfToEye * aTrsfToCamera;
-  const gp_Dir  anUpNew  = myBaseXRCamera->Up().Transformed(aTrsf);
-  const gp_Dir  aDirNew  = myBaseXRCamera->Direction().Transformed(aTrsf);
+  const Transform3d aTrsf    = aTrsfToEye * aTrsfToCamera;
+  const Dir3d  anUpNew  = myBaseXRCamera->Up().Transformed(aTrsf);
+  const Dir3d  aDirNew  = myBaseXRCamera->Direction().Transformed(aTrsf);
   const Point3d  anEyeNew = gp::Origin().Translated(aTrsf.TranslationPart());
   theCam.SetUp(anUpNew);
   theCam.SetDirectionFromEye(aDirNew);
@@ -1360,16 +1360,16 @@ void Graphic3d_CView::SynchronizeXRPosedToBaseCamera()
 //=================================================================================================
 
 void Graphic3d_CView::ComputeXRBaseCameraFromPosed(const Graphic3d_Camera& theCamPosed,
-                                                   const gp_Trsf&          thePoseTrsf)
+                                                   const Transform3d&          thePoseTrsf)
 {
   const gp_Ax3 anAxVr(gp::Origin(), gp::DZ(), gp::DX());
   const gp_Ax3 aCameraCS(gp::Origin(), -myBaseXRCamera->Direction(), -myBaseXRCamera->SideRight());
-  gp_Trsf      aTrsfCS;
+  Transform3d      aTrsfCS;
   aTrsfCS.SetTransformation(aCameraCS, anAxVr);
-  const gp_Trsf aTrsfToCamera  = aTrsfCS * thePoseTrsf * aTrsfCS.Inverted();
-  const gp_Trsf aTrsfCamToHead = aTrsfToCamera.Inverted();
-  const gp_Dir  anUpNew        = theCamPosed.Up().Transformed(aTrsfCamToHead);
-  const gp_Dir  aDirNew        = theCamPosed.Direction().Transformed(aTrsfCamToHead);
+  const Transform3d aTrsfToCamera  = aTrsfCS * thePoseTrsf * aTrsfCS.Inverted();
+  const Transform3d aTrsfCamToHead = aTrsfToCamera.Inverted();
+  const Dir3d  anUpNew        = theCamPosed.Up().Transformed(aTrsfCamToHead);
+  const Dir3d  aDirNew        = theCamPosed.Direction().Transformed(aTrsfCamToHead);
   const Point3d  anEyeNew = theCamPosed.Eye().Translated(aTrsfToCamera.TranslationPart().Reversed());
   myBaseXRCamera->SetUp(anUpNew);
   myBaseXRCamera->SetDirectionFromEye(aDirNew);
@@ -1378,11 +1378,11 @@ void Graphic3d_CView::ComputeXRBaseCameraFromPosed(const Graphic3d_Camera& theCa
 
 //=================================================================================================
 
-void Graphic3d_CView::TurnViewXRCamera(const gp_Trsf& theTrsfTurn)
+void Graphic3d_CView::TurnViewXRCamera(const Transform3d& theTrsfTurn)
 {
   // use current eye position as an anchor
   const Handle(Graphic3d_Camera)& aCamBase = myBaseXRCamera;
-  gp_Trsf                         aHeadTrsfLocal;
+  Transform3d                         aHeadTrsfLocal;
   aHeadTrsfLocal.SetTranslationPart(myXRSession->HeadPose().TranslationPart());
   const Point3d anEyeAnchor = PoseXRToWorld(aHeadTrsfLocal).TranslationPart();
 
@@ -1392,9 +1392,9 @@ void Graphic3d_CView::TurnViewXRCamera(const gp_Trsf& theTrsfTurn)
   // recompute new eye
   const gp_Ax3 anAxVr(gp::Origin(), gp::DZ(), gp::DX());
   const gp_Ax3 aCameraCS(gp::Origin(), -aCamBase->Direction(), -aCamBase->SideRight());
-  gp_Trsf      aTrsfCS;
+  Transform3d      aTrsfCS;
   aTrsfCS.SetTransformation(aCameraCS, anAxVr);
-  const gp_Trsf aTrsfToCamera = aTrsfCS * aHeadTrsfLocal * aTrsfCS.Inverted();
+  const Transform3d aTrsfToCamera = aTrsfCS * aHeadTrsfLocal * aTrsfCS.Inverted();
   const Point3d  anEyeNew      = anEyeAnchor.Translated(aTrsfToCamera.TranslationPart().Reversed());
   aCamBase->MoveEyeTo(anEyeNew);
 

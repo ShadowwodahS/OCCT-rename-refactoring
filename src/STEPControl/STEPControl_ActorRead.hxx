@@ -34,7 +34,7 @@ class RefObject;
 class Transfer_Binder;
 class Transfer_TransientProcess;
 class StepGeom_Axis2Placement3d;
-class gp_Trsf;
+class Transform3d;
 class StepRepr_RepresentationRelationship;
 class TransferBRep_ShapeBinder;
 class StepBasic_ProductDefinition;
@@ -106,7 +106,7 @@ public:
                           const Handle(StepRepr_Representation)&   OrigContext,
                           const Handle(StepRepr_Representation)&   TargContext,
                           const Handle(Transfer_TransientProcess)& TP,
-                          gp_Trsf&                                 Trsf,
+                          Transform3d&                                 Trsf,
                           const StepData_Factors& theLocalFactors = StepData_Factors());
 
   //! Computes transformation defined by given
@@ -114,7 +114,7 @@ public:
   Standard_EXPORT Standard_Boolean
     ComputeSRRWT(const Handle(StepRepr_RepresentationRelationship)& SRR,
                  const Handle(Transfer_TransientProcess)&           TP,
-                 gp_Trsf&                                           Trsf,
+                 Transform3d&                                           Trsf,
                  const StepData_Factors& theLocalFactors = StepData_Factors());
 
   DEFINE_STANDARD_RTTIEXT(STEPControl_ActorRead, Transfer_ActorOfTransientProcess)

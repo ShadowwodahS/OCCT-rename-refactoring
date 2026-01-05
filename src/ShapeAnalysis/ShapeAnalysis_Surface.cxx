@@ -1007,22 +1007,22 @@ Standard_Integer ShapeAnalysis_Surface::SurfaceNewton(const gp_Pnt2d&     p2dPre
   constexpr Standard_Real Tol  = Precision::Confusion();
   constexpr Standard_Real Tol2 = Tol * Tol; //, rs2p=1e10;
   Standard_Real           U = p2dPrev.X(), V = p2dPrev.Y();
-  gp_Vec                  rsfirst = P3D.XYZ() - Value(U, V).XYZ(); // pdn
+  Vector3d                  rsfirst = P3D.XYZ() - Value(U, V).XYZ(); // pdn
   for (Standard_Integer i = 0; i < 25; i++)
   {
-    gp_Vec ru, rv, ruu, rvv, ruv;
+    Vector3d ru, rv, ruu, rvv, ruv;
     Point3d pnt;
     SurfAdapt.D2(U, V, pnt, ru, rv, ruu, rvv, ruv);
 
     // normal
     Standard_Real ru2 = ru * ru, rv2 = rv * rv;
-    gp_Vec        n    = ru ^ rv;
+    Vector3d        n    = ru ^ rv;
     Standard_Real nrm2 = n.SquareMagnitude();
     if (nrm2 < 1e-10 || Precision::IsPositiveInfinite(nrm2))
       break; // n == 0, use standard
 
     // descriminant
-    gp_Vec        rs   = P3D.XYZ() - Value(U, V).XYZ();
+    Vector3d        rs   = P3D.XYZ() - Value(U, V).XYZ();
     Standard_Real rSuu = (rs * ruu);
     Standard_Real rSvv = (rs * rvv);
     Standard_Real rSuv = (rs * ruv);
@@ -1310,11 +1310,11 @@ gp_Pnt2d ShapeAnalysis_Surface::ValueOfUV(const Point3d& P3D, const Standard_Rea
                 if (mySurf->Continuity() != GeomAbs_C0)
                 {
                   constexpr Standard_Real Tol = Precision::Confusion();
-                  gp_Vec                  D1U, D1V;
+                  Vector3d                  D1U, D1V;
                   Point3d                  pnt;
                   SurfAdapt.D1(UU, VV, pnt, D1U, D1V);
-                  gp_Vec        b = D1U.Crossed(D1V);
-                  gp_Vec        a(pnt, P3D);
+                  Vector3d        b = D1U.Crossed(D1V);
+                  Vector3d        a(pnt, P3D);
                   Standard_Real ab   = a.Dot(b);
                   Standard_Real nrm2 = b.SquareMagnitude();
                   if (nrm2 > 1e-10)

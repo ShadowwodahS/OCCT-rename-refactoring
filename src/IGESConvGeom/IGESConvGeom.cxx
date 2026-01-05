@@ -138,7 +138,7 @@ Standard_Integer IGESConvGeom::SplineCurveFromIGES(const Handle(IGESGeom_SplineC
 
   //%13 pdn 12.02.99 USA60293
   //  if (st->HasTransf()) {
-  //    gp_Trsf trsf;
+  //    Transform3d trsf;
   //    Standard_Real epsilon = 1.E-04;
   //    if (IGESData_ToolLocation::ConvertLocation
   //	(epsilon,st->CompoundLocation(),trsf)) {
@@ -560,7 +560,7 @@ Standard_Integer IGESConvGeom::SplineSurfaceFromIGES(const Handle(IGESGeom_Splin
   if (st->HasTransf())
   {
     gp_GTrsf      GSplTrsf(st->CompoundLocation());
-    gp_Trsf       SplTrsf;
+    Transform3d       SplTrsf;
     Standard_Real epsilon = 1.E-04;
     if (IGESData_ToolLocation::ConvertLocation(epsilon, GSplTrsf, SplTrsf))
       for (iBs = BsPole.LowerRow(); iBs <= BsPole.UpperRow(); iBs++)

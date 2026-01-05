@@ -28,7 +28,7 @@
 //=================================================================================================
 
 BRepSweep_Prism::BRepSweep_Prism(const TopoDS_Shape&    S,
-                                 const gp_Vec&          V,
+                                 const Vector3d&          V,
                                  const Standard_Boolean C,
                                  const Standard_Boolean Canonize)
     : myTranslation(S, NumShape(), Location(V), V, C, Canonize)
@@ -40,7 +40,7 @@ BRepSweep_Prism::BRepSweep_Prism(const TopoDS_Shape&    S,
 //=================================================================================================
 
 BRepSweep_Prism::BRepSweep_Prism(const TopoDS_Shape&    S,
-                                 const gp_Dir&          D,
+                                 const Dir3d&          D,
                                  const Standard_Boolean Inf,
                                  const Standard_Boolean C,
                                  const Standard_Boolean Canonize)
@@ -92,7 +92,7 @@ TopoDS_Shape BRepSweep_Prism::LastShape(const TopoDS_Shape& aGenS)
 
 //=================================================================================================
 
-gp_Vec BRepSweep_Prism::Vec() const
+Vector3d BRepSweep_Prism::Vec() const
 {
   return myTranslation.Vec();
 }
@@ -122,9 +122,9 @@ Sweep_NumShape BRepSweep_Prism::NumShape(const Standard_Boolean Inf) const
 
 //=================================================================================================
 
-TopLoc_Location BRepSweep_Prism::Location(const gp_Vec& V) const
+TopLoc_Location BRepSweep_Prism::Location(const Vector3d& V) const
 {
-  gp_Trsf gpt;
+  Transform3d gpt;
   gpt.SetTranslation(V);
   TopLoc_Location L(gpt);
   return L;

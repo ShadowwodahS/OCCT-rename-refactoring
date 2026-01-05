@@ -301,9 +301,9 @@ void Extrema_ExtElCS::Perform(const gp_Circ& C, const gp_Pln& S)
   myIsPar = Standard_False;
   myNbExt = 0;
 
-  gp_Ax2 Pos   = C.Position();
-  gp_Dir NCirc = Pos.Direction();
-  gp_Dir NPln  = S.Axis().Direction();
+  Frame3d Pos   = C.Position();
+  Dir3d NCirc = Pos.Direction();
+  Dir3d NPln  = S.Axis().Direction();
 
   Standard_Boolean isParallel = Standard_False;
 
@@ -314,10 +314,10 @@ void Extrema_ExtElCS::Perform(const gp_Circ& C, const gp_Pln& S)
   else
   {
 
-    gp_Dir ExtLine = NCirc ^ NPln;
+    Dir3d ExtLine = NCirc ^ NPln;
     ExtLine        = ExtLine ^ NCirc;
     //
-    gp_Dir        XDir = Pos.XDirection();
+    Dir3d        XDir = Pos.XDirection();
     Standard_Real T[2];
     T[0] = XDir.AngleWithRef(ExtLine, NCirc);
     if (T[0] < 0.)
@@ -466,13 +466,13 @@ void Extrema_ExtElCS::Perform(const gp_Circ& C, const gp_Cylinder& S)
           continue;
         }
 
-        gp_Dir           aDir(aPOnAxis.Value().XYZ().Subtracted(aPOnCirc.Value().XYZ()));
+        Dir3d           aDir(aPOnAxis.Value().XYZ().Subtracted(aPOnCirc.Value().XYZ()));
         Standard_Real    aShift[2] = {aDist + aCylRad, aDist - aCylRad};
         Standard_Integer j;
 
         for (j = 0; j < 2; j++)
         {
-          gp_Vec aVec(aDir);
+          Vector3d aVec(aDir);
           Point3d aPntOnCyl;
 
           aVec.Multiply(aShift[j]);
@@ -716,9 +716,9 @@ void Extrema_ExtElCS::Perform(const gp_Hypr& C, const gp_Pln& S)
   myIsPar = Standard_False;
   myNbExt = 0;
 
-  gp_Ax2 Pos   = C.Position();
-  gp_Dir NHypr = Pos.Direction();
-  gp_Dir NPln  = S.Axis().Direction();
+  Frame3d Pos   = C.Position();
+  Dir3d NHypr = Pos.Direction();
+  Dir3d NPln  = S.Axis().Direction();
 
   if (NHypr.IsParallel(NPln, Precision::Angular()))
   {
@@ -731,8 +731,8 @@ void Extrema_ExtElCS::Perform(const gp_Hypr& C, const gp_Pln& S)
   else
   {
 
-    gp_Dir XDir = Pos.XDirection();
-    gp_Dir YDir = Pos.YDirection();
+    Dir3d XDir = Pos.XDirection();
+    Dir3d YDir = Pos.YDirection();
 
     Standard_Real A = C.MinorRadius() * (NPln.Dot(YDir));
     Standard_Real B = C.MajorRadius() * (NPln.Dot(XDir));

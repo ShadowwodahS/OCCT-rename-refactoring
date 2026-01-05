@@ -79,12 +79,12 @@ void StdPrs_Plane::Add(const Handle(Prs3d_Presentation)& aPresentation,
     TheGroup->AddPrimitiveArray(aPrims);
   }
 
-  gp_Dir        norm = thegeom->Pln().Axis().Direction();
+  Dir3d        norm = thegeom->Pln().Axis().Direction();
   Point3d        loc;
   Standard_Real siz = theaspect->ArrowsSize();
   Standard_Real len = theaspect->ArrowsLength();
   Standard_Real ang = theaspect->ArrowsAngle();
-  gp_Vec        trans(norm);
+  Vector3d        trans(norm);
   trans.Scale(Standard_Real(siz));
 
   TheGroup->SetPrimitivesAspect(theaspect->ArrowAspect()->Aspect());

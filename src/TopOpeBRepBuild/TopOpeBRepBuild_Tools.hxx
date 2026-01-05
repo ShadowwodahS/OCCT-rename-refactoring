@@ -34,7 +34,7 @@ class TopoDS_Shape;
 class TopOpeBRepTool_ShapeClassifier;
 class TopoDS_Face;
 class TopoDS_Edge;
-class gp_Vec;
+class Vector3d;
 class TopoDS_Wire;
 
 //! Auxiliary  methods  used  in  TopOpeBRepBuild_Builder1  class
@@ -97,22 +97,22 @@ public:
 
   Standard_EXPORT static void GetNormalToFaceOnEdge(const TopoDS_Face& aFObj,
                                                     const TopoDS_Edge& anEdgeObj,
-                                                    gp_Vec&            aDirNormal);
+                                                    Vector3d&            aDirNormal);
 
   //! This  function  used  to  compute  normal  in  point  which  is  located
   //! near  the  point  with  param  UV    (used  for  computation  of  normals  where  the  normal
   //! in  the  point UV  equal  to  zero).
   Standard_EXPORT static void GetNormalInNearestPoint(const TopoDS_Face& aFace,
                                                       const TopoDS_Edge& anEdge,
-                                                      gp_Vec&            aNormal);
+                                                      Vector3d&            aNormal);
 
   Standard_EXPORT static Standard_Boolean GetTangentToEdgeEdge(const TopoDS_Face& aFObj,
                                                                const TopoDS_Edge& anEdgeObj,
                                                                const TopoDS_Edge& aOriEObj,
-                                                               gp_Vec&            aTangent);
+                                                               Vector3d&            aTangent);
 
   Standard_EXPORT static Standard_Boolean GetTangentToEdge(const TopoDS_Edge& anEdgeObj,
-                                                           gp_Vec&            aTangent);
+                                                           Vector3d&            aTangent);
 
   //! Recompute  PCurves  of  the  all  edges  from  the  wire  on  the  <toFace>
   Standard_EXPORT static void UpdatePCurves(const TopoDS_Wire& aWire,

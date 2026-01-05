@@ -235,8 +235,8 @@ void BRepFill_Pipe::Perform(const TopoDS_Wire&  Spine,
   Handle(GeomFill_LocationLaw) law;
 
   gp_Mat        M;
-  gp_Vec        V;
-  gp_Trsf       fila;
+  Vector3d        V;
+  Transform3d       fila;
   Standard_Real first, last;
   myLoc->Law(1)->GetDomain(first, last);
   myLoc->Law(1)->D0(first, M, V);

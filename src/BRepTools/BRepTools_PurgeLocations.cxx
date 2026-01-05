@@ -46,7 +46,7 @@ Standard_Boolean BRepTools_PurgeLocations::Perform(const TopoDS_Shape& theShape)
     if (aLoc.IsIdentity())
       break;
 
-    const gp_Trsf&   aTrsf = aLoc.Transformation();
+    const Transform3d&   aTrsf = aLoc.Transformation();
     Standard_Boolean isBadTrsf =
       aTrsf.IsNegative() || (Abs(Abs(aTrsf.ScaleFactor()) - 1.) > TopLoc_Location::ScalePrec());
     if (isBadTrsf)
@@ -126,7 +126,7 @@ Standard_Boolean BRepTools_PurgeLocations::PurgeLocation(const TopoDS_Shape& the
   while (!isEmpty)
   {
     const Handle(TopLoc_Datum3D)& aFD   = aRefLoc.FirstDatum();
-    gp_Trsf                       aTrsf = aFD->Trsf();
+    Transform3d                       aTrsf = aFD->Trsf();
     Standard_Integer              aFP   = aRefLoc.FirstPower();
     Standard_Boolean              isBad =
       aTrsf.IsNegative() || (Abs(Abs(aTrsf.ScaleFactor()) - 1.) > TopLoc_Location::ScalePrec());

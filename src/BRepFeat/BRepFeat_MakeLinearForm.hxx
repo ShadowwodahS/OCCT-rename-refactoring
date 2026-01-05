@@ -67,8 +67,8 @@ public:
   BRepFeat_MakeLinearForm(const TopoDS_Shape&       Sbase,
                           const TopoDS_Wire&        W,
                           const Handle(Geom_Plane)& P,
-                          const gp_Vec&             Direction,
-                          const gp_Vec&             Direction1,
+                          const Vector3d&             Direction,
+                          const Vector3d&             Direction1,
                           const Standard_Integer    Fuse,
                           const Standard_Boolean    Modify);
 
@@ -86,8 +86,8 @@ public:
   Standard_EXPORT void Init(const TopoDS_Shape&       Sbase,
                             const TopoDS_Wire&        W,
                             const Handle(Geom_Plane)& P,
-                            const gp_Vec&             Direction,
-                            const gp_Vec&             Direction1,
+                            const Vector3d&             Direction,
+                            const Vector3d&             Direction1,
                             const Standard_Integer    Fuse,
                             const Standard_Boolean    Modify);
 
@@ -120,8 +120,8 @@ public:
 protected:
 private:
   Handle(Geom_Curve)                 myCrv;
-  gp_Vec                             myDir;
-  gp_Vec                             myDir1;
+  Vector3d                             myDir;
+  Vector3d                             myDir1;
   Handle(Geom_Plane)                 myPln;
   Standard_Real                      myBnd;
   TopTools_DataMapOfShapeListOfShape mySlface;

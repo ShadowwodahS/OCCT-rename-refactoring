@@ -24,7 +24,7 @@ Select3D_SensitiveCylinder::Select3D_SensitiveCylinder(
   const Standard_Real                  theBottomRad,
   const Standard_Real                  theTopRad,
   const Standard_Real                  theHeight,
-  const gp_Trsf&                       theTrsf,
+  const Transform3d&                       theTrsf,
   const Standard_Boolean               theIsHollow)
     : Select3D_SensitiveEntity(theOwnerId),
       myTrsf(theTrsf),

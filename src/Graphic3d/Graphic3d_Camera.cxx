@@ -61,10 +61,10 @@ static Standard_Real zEpsilon(const Standard_Real theValue)
 //! Convert camera definition to Ax3
 gp_Ax3 cameraToAx3(const Graphic3d_Camera& theCamera)
 {
-  const gp_Dir aBackDir = -theCamera.Direction();
-  const gp_Dir anXAxis(theCamera.Up().Crossed(aBackDir));
-  const gp_Dir anYAxis(aBackDir.Crossed(anXAxis));
-  const gp_Dir aZAxis(anXAxis.Crossed(anYAxis));
+  const Dir3d aBackDir = -theCamera.Direction();
+  const Dir3d anXAxis(theCamera.Up().Crossed(aBackDir));
+  const Dir3d anYAxis(aBackDir.Crossed(anXAxis));
+  const Dir3d aZAxis(anXAxis.Crossed(anYAxis));
   return gp_Ax3(Point3d(0.0, 0.0, 0.0), aZAxis, anXAxis);
 }
 } // namespace
@@ -194,7 +194,7 @@ void Graphic3d_Camera::Copy(const Handle(Graphic3d_Camera)& theOther)
 void Graphic3d_Camera::SetIdentityOrientation()
 {
   SetEyeAndCenter(Point3d(0.0, 0.0, 0.0), Point3d(0.0, 0.0, -1.0));
-  SetUp(gp_Dir(0.0, 1.0, 0.0));
+  SetUp(Dir3d(0.0, 1.0, 0.0));
 }
 
 //=================================================================================================
@@ -223,7 +223,7 @@ void Graphic3d_Camera::SetEyeAndCenter(const Point3d& theEye, const Point3d& the
   myDistance = theEye.Distance(theCenter);
   if (myDistance > gp::Resolution())
   {
-    myDirection = gp_Dir(theCenter.XYZ() - theEye.XYZ());
+    myDirection = Dir3d(theCenter.XYZ() - theEye.XYZ());
   }
   InvalidateOrientation();
 }
@@ -242,7 +242,7 @@ void Graphic3d_Camera::SetEye(const Point3d& theEye)
   myDistance           = myEye.Distance(aCenter);
   if (myDistance > gp::Resolution())
   {
-    myDirection = gp_Dir(aCenter.XYZ() - myEye.XYZ());
+    myDirection = Dir3d(aCenter.XYZ() - myEye.XYZ());
   }
   InvalidateOrientation();
 }
@@ -260,14 +260,14 @@ void Graphic3d_Camera::SetCenter(const Point3d& theCenter)
   myDistance = aDistance;
   if (myDistance > gp::Resolution())
   {
-    myDirection = gp_Dir(theCenter.XYZ() - myEye.XYZ());
+    myDirection = Dir3d(theCenter.XYZ() - myEye.XYZ());
   }
   InvalidateOrientation();
 }
 
 //=================================================================================================
 
-void Graphic3d_Camera::SetUp(const gp_Dir& theUp)
+void Graphic3d_Camera::SetUp(const Dir3d& theUp)
 {
   if (Up().IsEqual(theUp, 0.0))
   {
@@ -311,7 +311,7 @@ void Graphic3d_Camera::SetDistance(const Standard_Real theDistance)
 
 //=================================================================================================
 
-void Graphic3d_Camera::SetDirectionFromEye(const gp_Dir& theDir)
+void Graphic3d_Camera::SetDirectionFromEye(const Dir3d& theDir)
 {
   if (myDirection.IsEqual(theDir, 0.0))
   {
@@ -324,7 +324,7 @@ void Graphic3d_Camera::SetDirectionFromEye(const gp_Dir& theDir)
 
 //=================================================================================================
 
-void Graphic3d_Camera::SetDirection(const gp_Dir& theDir)
+void Graphic3d_Camera::SetDirection(const Dir3d& theDir)
 {
   if (myDirection.IsEqual(theDir, 0.0))
   {
@@ -529,10 +529,10 @@ void Graphic3d_Camera::OrthogonalizeUp()
 
 //=================================================================================================
 
-gp_Dir Graphic3d_Camera::OrthogonalizedUp() const
+Dir3d Graphic3d_Camera::OrthogonalizedUp() const
 {
-  gp_Dir aDir  = Direction();
-  gp_Dir aLeft = aDir.Crossed(Up());
+  Dir3d aDir  = Direction();
+  Dir3d aLeft = aDir.Crossed(Up());
 
   // recompute up as: up = left x direction
   return aLeft.Crossed(aDir);
@@ -540,7 +540,7 @@ gp_Dir Graphic3d_Camera::OrthogonalizedUp() const
 
 //=================================================================================================
 
-void Graphic3d_Camera::Transform(const gp_Trsf& theTrsf)
+void Graphic3d_Camera::Transform(const Transform3d& theTrsf)
 {
   if (theTrsf.Form() == gp_Identity)
   {
@@ -730,9 +730,9 @@ void Graphic3d_Camera::Frustum(gp_Pln& theLeft,
                                gp_Pln& theNear,
                                gp_Pln& theFar) const
 {
-  gp_Vec aProjection = gp_Vec(Direction());
-  gp_Vec anUp        = OrthogonalizedUp();
-  gp_Vec aSide       = aProjection ^ anUp;
+  Vector3d aProjection = Vector3d(Direction());
+  Vector3d anUp        = OrthogonalizedUp();
+  Vector3d aSide       = aProjection ^ anUp;
 
   Standard_ASSERT_RAISE(!aProjection.IsParallel(anUp, Precision::Angular()),
                         "Can not derive SIDE = PROJ x UP - directions are parallel");
@@ -757,18 +757,18 @@ void Graphic3d_Camera::Frustum(gp_Pln& theLeft,
   Point3d aPntBottom = Center().Translated(aHScaleVer * -anUp);
   Point3d aPntTop    = Center().Translated(aHScaleVer * anUp);
 
-  gp_Vec aDirLeft   = aSide;
-  gp_Vec aDirRight  = -aSide;
-  gp_Vec aDirBottom = anUp;
-  gp_Vec aDirTop    = -anUp;
+  Vector3d aDirLeft   = aSide;
+  Vector3d aDirRight  = -aSide;
+  Vector3d aDirBottom = anUp;
+  Vector3d aDirTop    = -anUp;
   if (!IsOrthographic())
   {
     Standard_Real aHFOVHor = ATan(Tan(DTR_HALF * FOVy()) * Aspect());
     Standard_Real aHFOVVer = DTR_HALF * FOVy();
-    aDirLeft.Rotate(gp_Ax1(gp::Origin(), anUp), aHFOVHor);
-    aDirRight.Rotate(gp_Ax1(gp::Origin(), anUp), -aHFOVHor);
-    aDirBottom.Rotate(gp_Ax1(gp::Origin(), aSide), -aHFOVVer);
-    aDirTop.Rotate(gp_Ax1(gp::Origin(), aSide), aHFOVVer);
+    aDirLeft.Rotate(Axis3d(gp::Origin(), anUp), aHFOVHor);
+    aDirRight.Rotate(Axis3d(gp::Origin(), anUp), -aHFOVHor);
+    aDirBottom.Rotate(Axis3d(gp::Origin(), aSide), -aHFOVVer);
+    aDirTop.Rotate(Axis3d(gp::Origin(), aSide), aHFOVVer);
   }
 
   theLeft   = gp_Pln(aPntLeft, aDirLeft);
@@ -1313,9 +1313,9 @@ bool Graphic3d_Camera::FitMinMax(const Bnd_Box&      theBox,
           aFrustumPlane[6]);
 
   // Prepare camera up, side, direction vectors.
-  const gp_Dir aCamUp   = OrthogonalizedUp();
-  const gp_Dir aCamDir  = Direction();
-  const gp_Dir aCamSide = aCamDir ^ aCamUp;
+  const Dir3d aCamUp   = OrthogonalizedUp();
+  const Dir3d aCamDir  = Direction();
+  const Dir3d aCamSide = aCamDir ^ aCamUp;
 
   // Prepare scene bounding box parameters.
   const Point3d aBndCenter = (aBndMin.XYZ() + aBndMax.XYZ()) / 2.0;
@@ -1361,12 +1361,12 @@ bool Graphic3d_Camera::FitMinMax(const Bnd_Box&      theBox,
   for (Standard_Integer anI = aFrustumPlane.Lower(); anI <= aFrustumPlane.Upper(); ++anI)
   {
     // Measure distances from center of bounding box to its corners towards the frustum plane.
-    const gp_Dir& aPlaneN = aFrustumPlane[anI].Axis().Direction();
+    const Dir3d& aPlaneN = aFrustumPlane[anI].Axis().Direction();
 
     Standard_Real& aFitDist = aFitDistance[anI];
     for (Standard_Integer aJ = aBndCorner.Lower(); aJ <= aBndCorner.Upper(); ++aJ)
     {
-      aFitDist = Max(aFitDist, gp_Vec(aBndCenter, aBndCorner[aJ]).Dot(aPlaneN));
+      aFitDist = Max(aFitDist, Vector3d(aBndCenter, aBndCorner[aJ]).Dot(aPlaneN));
     }
   }
   // The center of camera is placed on the same line with center of bounding box.
@@ -1403,11 +1403,11 @@ bool Graphic3d_Camera::FitMinMax(const Bnd_Box&      theBox,
   Standard_Real anAssymYv      = anAssymY * aViewSizeYv * 0.5;
   Standard_Real anOffsetXv     = (aFitDistance[2] - aFitDistance[1]) * 0.5 + anAssymXv;
   Standard_Real anOffsetYv     = (aFitDistance[4] - aFitDistance[3]) * 0.5 + anAssymYv;
-  gp_Vec        aTranslateSide = gp_Vec(aCamSide) * anOffsetXv;
-  gp_Vec        aTranslateUp   = gp_Vec(aCamUp) * anOffsetYv;
+  Vector3d        aTranslateSide = Vector3d(aCamSide) * anOffsetXv;
+  Vector3d        aTranslateUp   = Vector3d(aCamUp) * anOffsetYv;
   Point3d        aCamNewCenter  = aBndCenter.Translated(aTranslateSide).Translated(aTranslateUp);
 
-  gp_Trsf aCenterTrsf;
+  Transform3d aCenterTrsf;
   aCenterTrsf.SetTranslation(Center(), aCamNewCenter);
   Transform(aCenterTrsf);
   SetDistance(aFitDistance[6] + aFitDistance[5]);
@@ -1493,7 +1493,7 @@ bool Graphic3d_Camera::ZFitAll(const Standard_Real theScaleFactor,
   }
 
   // Camera eye plane.
-  gp_Dir aCamDir = Direction();
+  Dir3d aCamDir = Direction();
   Point3d aCamEye = myEye;
   gp_Pln aCamPln(aCamEye, aCamDir);
 
@@ -1518,7 +1518,7 @@ bool Graphic3d_Camera::ZFitAll(const Standard_Real theScaleFactor,
     Standard_Real aDistance = aCamPln.Distance(aMeasurePnt);
 
     // Check if the camera is intruded into the scene.
-    gp_Vec aVecToMeasurePnt(aCamEye, aMeasurePnt);
+    Vector3d aVecToMeasurePnt(aCamEye, aMeasurePnt);
     if (aVecToMeasurePnt.Magnitude() > gp::Resolution()
         && aCamDir.IsOpposite(aVecToMeasurePnt, M_PI * 0.5))
     {
@@ -1664,7 +1664,7 @@ void Graphic3d_Camera::Interpolate(const Handle(Graphic3d_Camera)& theStart,
   {
     gp_Ax3  aCamStart = cameraToAx3(*theStart);
     gp_Ax3  aCamEnd   = cameraToAx3(*theEnd);
-    gp_Trsf aTrsfStart, aTrsfEnd;
+    Transform3d aTrsfStart, aTrsfEnd;
     aTrsfStart.SetTransformation(aCamStart, gp::XOY());
     aTrsfEnd.SetTransformation(aCamEnd, gp::XOY());
 
@@ -1672,7 +1672,7 @@ void Graphic3d_Camera::Interpolate(const Handle(Graphic3d_Camera)& theStart,
     gp_Quaternion aRotEnd   = aTrsfEnd.GetRotation();
     gp_Quaternion aRotDelta = aRotEnd * aRotStart.Inverted();
     gp_Quaternion aRot      = gp_QuaternionNLerp::Interpolate(gp_Quaternion(), aRotDelta, theT);
-    gp_Trsf       aTrsfRot;
+    Transform3d       aTrsfRot;
     aTrsfRot.SetRotation(aRot);
     theCamera->Transform(aTrsfRot);
   }
@@ -1704,7 +1704,7 @@ void Graphic3d_Camera::Interpolate(const Handle(Graphic3d_Camera)& theStart,
       anAnchor = NCollection_Lerp<gp_XYZ>::Interpolate(anAnchorStart, anAnchorEnd, theT);
     }
 
-    const gp_Vec        aDirEyeToCenter     = theCamera->Direction();
+    const Vector3d        aDirEyeToCenter     = theCamera->Direction();
     const Standard_Real aDistEyeCenterStart = theStart->Eye().Distance(theStart->Center());
     const Standard_Real aDistEyeCenterEnd   = theEnd->Eye().Distance(theEnd->Center());
     const Standard_Real aDistEyeCenter =

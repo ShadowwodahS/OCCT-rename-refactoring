@@ -1293,8 +1293,8 @@ static Handle(Geom_Curve) TestCurve(const TopoDS_Face& Base)
     return toto;
   }
   gp_Pln            pp = P->Pln();
-  gp_Dir            Normale(pp.Position().XDirection() ^ pp.Position().YDirection());
-  gp_Ax1            theAx(bar, Normale);
+  Dir3d            Normale(pp.Position().XDirection() ^ pp.Position().YDirection());
+  Axis3d            theAx(bar, Normale);
   Handle(Geom_Line) theLin = new Geom_Line(theAx);
   return theLin;
 }

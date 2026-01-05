@@ -22,7 +22,7 @@
 
 #include <gp_Pnt.hxx>
 #include <gp_Mat.hxx>
-class gp_Ax1;
+class Axis3d;
 class GProp_PrincipalProps;
 
 //! Implements a general mechanism to compute the global properties of
@@ -221,7 +221,7 @@ public:
 
   //! computes the moment of inertia of the material system about the
   //! axis A.
-  Standard_EXPORT Standard_Real MomentOfInertia(const gp_Ax1& A) const;
+  Standard_EXPORT Standard_Real MomentOfInertia(const Axis3d& A) const;
 
   //! Computes the principal properties of inertia of the current system.
   //! There is always a set of axes for which the products
@@ -239,7 +239,7 @@ public:
   Standard_EXPORT GProp_PrincipalProps PrincipalProperties() const;
 
   //! Returns the radius of gyration of the current system about the axis A.
-  Standard_EXPORT Standard_Real RadiusOfGyration(const gp_Ax1& A) const;
+  Standard_EXPORT Standard_Real RadiusOfGyration(const Axis3d& A) const;
 
 protected:
   Point3d        g;

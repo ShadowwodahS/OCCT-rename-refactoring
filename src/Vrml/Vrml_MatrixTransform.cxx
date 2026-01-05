@@ -23,24 +23,24 @@ Vrml_MatrixTransform::Vrml_MatrixTransform()
   //	        a31, a32, a33, a34 : Real;
   //	     Tolang, TolDist : Real)
 
-  gp_Trsf T;
+  Transform3d T;
   T.SetValues(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0);
   T.SetScaleFactor(1);
 
   myMatrix = T;
 }
 
-Vrml_MatrixTransform::Vrml_MatrixTransform(const gp_Trsf& aMatrix)
+Vrml_MatrixTransform::Vrml_MatrixTransform(const Transform3d& aMatrix)
 {
   myMatrix = aMatrix;
 }
 
-void Vrml_MatrixTransform::SetMatrix(const gp_Trsf& aMatrix)
+void Vrml_MatrixTransform::SetMatrix(const Transform3d& aMatrix)
 {
   myMatrix = aMatrix;
 }
 
-gp_Trsf Vrml_MatrixTransform::Matrix() const
+Transform3d Vrml_MatrixTransform::Matrix() const
 {
   return myMatrix;
 }

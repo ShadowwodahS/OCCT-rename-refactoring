@@ -610,7 +610,7 @@ void GeomAdaptor_Curve::D0(const Standard_Real U, Point3d& P) const
 
 //=================================================================================================
 
-void GeomAdaptor_Curve::D1(const Standard_Real U, Point3d& P, gp_Vec& V) const
+void GeomAdaptor_Curve::D1(const Standard_Real U, Point3d& P, Vector3d& V) const
 {
   switch (myTypeCurve)
   {
@@ -642,7 +642,7 @@ void GeomAdaptor_Curve::D1(const Standard_Real U, Point3d& P, gp_Vec& V) const
 
 //=================================================================================================
 
-void GeomAdaptor_Curve::D2(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2) const
+void GeomAdaptor_Curve::D2(const Standard_Real U, Point3d& P, Vector3d& V1, Vector3d& V2) const
 {
   switch (myTypeCurve)
   {
@@ -676,9 +676,9 @@ void GeomAdaptor_Curve::D2(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec
 
 void GeomAdaptor_Curve::D3(const Standard_Real U,
                            Point3d&             P,
-                           gp_Vec&             V1,
-                           gp_Vec&             V2,
-                           gp_Vec&             V3) const
+                           Vector3d&             V1,
+                           Vector3d&             V2,
+                           Vector3d&             V3) const
 {
   switch (myTypeCurve)
   {
@@ -710,7 +710,7 @@ void GeomAdaptor_Curve::D3(const Standard_Real U,
 
 //=================================================================================================
 
-gp_Vec GeomAdaptor_Curve::DN(const Standard_Real U, const Standard_Integer N) const
+Vector3d GeomAdaptor_Curve::DN(const Standard_Real U, const Standard_Integer N) const
 {
   switch (myTypeCurve)
   {

@@ -43,7 +43,7 @@ DBRep_HideData::DBRep_HideData()
 //=================================================================================================
 
 void DBRep_HideData::Set(const Standard_Integer viewID,
-                         const gp_Trsf&         TProj,
+                         const Transform3d&         TProj,
                          const Standard_Real    focal,
                          const TopoDS_Shape&    S,
                          const Standard_Real    ang)
@@ -110,7 +110,7 @@ void DBRep_HideData::Set(const Standard_Integer viewID,
 
 //=================================================================================================
 
-Standard_Boolean DBRep_HideData::IsSame(const gp_Trsf& TProj, const Standard_Real focal) const
+Standard_Boolean DBRep_HideData::IsSame(const Transform3d& TProj, const Standard_Real focal) const
 {
   if (focal > 0)
   {

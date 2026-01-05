@@ -166,7 +166,7 @@ void Graphic3d_CLight::SetHeadlight(Standard_Boolean theValue)
 
 //=================================================================================================
 
-void Graphic3d_CLight::SetDirection(const gp_Dir& theDir)
+void Graphic3d_CLight::SetDirection(const Dir3d& theDir)
 {
   Standard_ProgramError_Raise_if(myType != Graphic3d_TypeOfLightSource_Spot
                                    && myType != Graphic3d_TypeOfLightSource_Directional,
@@ -313,7 +313,7 @@ void Graphic3d_CLight::DumpJson(Standard_OStream& theOStream, Standard_Integer t
   if (myType == Graphic3d_TypeOfLightSource_Spot
       || myType == Graphic3d_TypeOfLightSource_Directional)
   {
-    gp_Dir aDirection = Direction();
+    Dir3d aDirection = Direction();
     OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, &aDirection)
   }
   if (myType == Graphic3d_TypeOfLightSource_Positional

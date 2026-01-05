@@ -537,7 +537,7 @@ public:
   Standard_EXPORT virtual bool PickAxis(Point3d&                               theTopPnt,
                                         const Handle(AIS_InteractiveContext)& theCtx,
                                         const Handle(V3d_View)&               theView,
-                                        const gp_Ax1&                         theAxis);
+                                        const Axis3d&                         theAxis);
 
   //! Compute rotation gravity center point depending on rotation mode.
   //! This method is expected to be called from rendering thread.
@@ -672,7 +672,7 @@ public:
   Standard_EXPORT virtual Standard_Integer handleXRMoveTo(
     const Handle(AIS_InteractiveContext)& theCtx,
     const Handle(V3d_View)&               theView,
-    const gp_Trsf&                        thePose,
+    const Transform3d&                        thePose,
     const Standard_Boolean                theToHighlight);
 
 protected:
@@ -821,12 +821,12 @@ protected: //! @name rotation/panning transient state variables
   Handle(AIS_Point)   myAnchorPointPrs2;          //!< anchor point presentation (Graphic3d_ZLayerId_Topmost)
   Point3d              myPanPnt3d;                 //!< active panning anchor point
   Point3d              myRotatePnt3d;              //!< active rotation center of gravity
-  gp_Dir              myCamStartOpUp;             //!< camera Up    direction at the beginning of rotation
-  gp_Dir              myCamStartOpDir;            //!< camera View  direction at the beginning of rotation
+  Dir3d              myCamStartOpUp;             //!< camera Up    direction at the beginning of rotation
+  Dir3d              myCamStartOpDir;            //!< camera View  direction at the beginning of rotation
   Point3d              myCamStartOpEye;            //!< camera Eye    position at the beginning of rotation
   Point3d              myCamStartOpCenter;         //!< camera Center position at the beginning of rotation
-  gp_Vec              myCamStartOpToCenter;       //!< vector from rotation gravity point to camera Center at the beginning of rotation
-  gp_Vec              myCamStartOpToEye;          //!< vector from rotation gravity point to camera Eye    at the beginning of rotation
+  Vector3d              myCamStartOpToCenter;       //!< vector from rotation gravity point to camera Center at the beginning of rotation
+  Vector3d              myCamStartOpToEye;          //!< vector from rotation gravity point to camera Eye    at the beginning of rotation
   Graphic3d_Vec3d     myRotateStartYawPitchRoll;  //!< camera yaw pitch roll at the beginning of rotation
   // clang-format on
 };

@@ -93,8 +93,8 @@ void PrsDim_Chamf2dDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
     return;
 
   Handle(Geom_Line) glin = Handle(Geom_Line)::DownCast(gcurv);
-  gp_Dir            dir1(glin->Position().Direction());
-  gp_Dir            norm1 = myPlane->Pln().Axis().Direction();
+  Dir3d            dir1(glin->Position().Direction());
+  Dir3d            norm1 = myPlane->Pln().Axis().Direction();
   myDir                   = norm1.Crossed(dir1);
 
   //-------------------------------------------------
@@ -110,13 +110,13 @@ void PrsDim_Chamf2dDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
   if (!PrsDim::ComputeGeometry(nextedge,glinnext,pfirstnext,plastnext) )
     return;
 
-  gp_Vec v1(pfirst,plast);
-  gp_Vec v2;
+  Vector3d v1(pfirst,plast);
+  Vector3d v2;
   if (pfirst.IsEqual(plastnext, Precision::Confusion()))
     v2.SetXYZ(pfirstnext.XYZ() - pfirst.XYZ());
   else
     v2.SetXYZ(plastnext.XYZ() - pfirst.XYZ());
-  gp_Vec crossvec = v1.Crossed(v2);
+  Vector3d crossvec = v1.Crossed(v2);
 
   myDir = dimserv.GetDirection().Crossed(glin->Position().Direction());
   if (crossvec.Dot(dimserv.GetDirection()) > 0 )
@@ -129,7 +129,7 @@ void PrsDim_Chamf2dDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
   if (myAutomaticPosition)
   {
     myPntAttach.SetXYZ((pfirst.XYZ() + plast.XYZ()) / 2);
-    gp_Vec transVec(myDir);
+    Vector3d transVec(myDir);
     transVec *= myVal;
     curpos = myPntAttach.Translated(transVec);
 
@@ -150,7 +150,7 @@ void PrsDim_Chamf2dDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
 
     if (curpos.Distance(myPntAttach) < 5.)
     {
-      gp_Vec transVec(myDir);
+      Vector3d transVec(myDir);
       transVec *= 5.;
       curpos = myPntAttach.Translated(transVec);
     }

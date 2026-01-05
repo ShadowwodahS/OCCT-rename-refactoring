@@ -22,7 +22,7 @@
 //=================================================================================================
 
 GeomConvert_FuncConeLSDist::GeomConvert_FuncConeLSDist(const Handle(TColgp_HArray1OfXYZ)& thePoints,
-                                                       const gp_Dir&                      theDir)
+                                                       const Dir3d&                      theDir)
     : myPoints(thePoints),
       myDir(theDir)
 {

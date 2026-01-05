@@ -27,7 +27,7 @@
 #include <Standard_Dump.hxx>
 #include <Standard_OutOfRange.hxx>
 
-void Point3d::Transform(const gp_Trsf& T)
+void Point3d::Transform(const Transform3d& T)
 {
   if (T.Form() == gp_Identity)
   {
@@ -67,28 +67,28 @@ Point3d Point3d::Mirrored(const Point3d& P) const
   return Pres;
 }
 
-void Point3d::Mirror(const gp_Ax1& A1)
+void Point3d::Mirror(const Axis3d& A1)
 {
-  gp_Trsf T;
+  Transform3d T;
   T.SetMirror(A1);
   T.Transforms(coord);
 }
 
-Point3d Point3d::Mirrored(const gp_Ax1& A1) const
+Point3d Point3d::Mirrored(const Axis3d& A1) const
 {
   Point3d P = *this;
   P.Mirror(A1);
   return P;
 }
 
-void Point3d::Mirror(const gp_Ax2& A2)
+void Point3d::Mirror(const Frame3d& A2)
 {
-  gp_Trsf T;
+  Transform3d T;
   T.SetMirror(A2);
   T.Transforms(coord);
 }
 
-Point3d Point3d::Mirrored(const gp_Ax2& A2) const
+Point3d Point3d::Mirrored(const Frame3d& A2) const
 {
   Point3d P = *this;
   P.Mirror(A2);

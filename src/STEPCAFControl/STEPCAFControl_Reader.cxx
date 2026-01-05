@@ -1093,7 +1093,7 @@ static void SetAssemblyComponentStyle(
         gp_Ax3                      anAx3Orig(anOrig->Ax2());
         gp_Ax3                      anAx3Targ(aTarg->Ax2());
 
-        gp_Trsf aTr1;
+        Transform3d aTr1;
         aTr1.SetTransformation(anAx3Targ, anAx3Orig);
         TopLoc_Location aLoc1(aTr1);
         aLoc = aLoc.Multiplied(aLoc1);
@@ -2339,7 +2339,7 @@ Standard_Boolean readPMIPresentation(const Handle(RefObject)&       thePresentEn
         Handle(StepVisual_TessellatedGeometricSet)::DownCast(aRepresentationItem);
       if (aTessSet.IsNull())
         continue;
-      gp_Trsf aTransf;
+      Transform3d aTransf;
       if (aTessSet->IsKind(STANDARD_TYPE(StepVisual_RepositionedTessellatedGeometricSet)))
       {
         Handle(StepVisual_RepositionedTessellatedGeometricSet) aRTGS =
@@ -2448,7 +2448,7 @@ Standard_Boolean readPMIPresentation(const Handle(RefObject)&       thePresentEn
 // purpose  : read annotation plane
 //=======================================================================
 Standard_Boolean readAnnotationPlane(const Handle(StepVisual_AnnotationPlane)& theAnnotationPlane,
-                                     gp_Ax2&                                   thePlane,
+                                     Frame3d&                                   thePlane,
                                      const StepData_Factors&                   theLocalFactors)
 {
   if (theAnnotationPlane.IsNull())
@@ -2523,7 +2523,7 @@ void readAnnotation(const Handle(XSControl_TransferReader)& theTR,
   Handle(StepRepr_RepresentationItem) aDMIAE = aDMIA->IdentifiedItemValue(1);
   if (aDMIAE.IsNull())
     return;
-  gp_Ax2 aPlaneAxes;
+  Frame3d aPlaneAxes;
   subs = aGraph.Sharings(aDMIAE);
   Handle(StepVisual_AnnotationPlane) anAnPlane;
   for (subs.Start(); subs.More() && anAnPlane.IsNull(); subs.Next())
@@ -3289,8 +3289,8 @@ Standard_Boolean STEPCAFControl_Reader::readDatumsAP242(const Handle(RefObject)&
               Handle(TColStd_HArray1OfReal) aDirArr               = anAx->Axis()->DirectionRatios();
               Handle(TColStd_HArray1OfReal) aDirRArr = anAx->RefDirection()->DirectionRatios();
               Handle(TColStd_HArray1OfReal) aLocArr  = anAx->Location()->Coordinates();
-              gp_Dir                        aDir;
-              gp_Dir                        aDirR;
+              Dir3d                        aDir;
+              Dir3d                        aDirR;
               Point3d                        aPnt;
               if (!aDirArr.IsNull() && aDirArr->Length() > 2 && !aDirRArr.IsNull()
                   && aDirRArr->Length() > 2 && !aLocArr.IsNull() && aLocArr->Length() > 2)
@@ -3298,7 +3298,7 @@ Standard_Boolean STEPCAFControl_Reader::readDatumsAP242(const Handle(RefObject)&
                 aDir.SetCoord(aDirArr->Lower(), aDirArr->Lower() + 1, aDirArr->Lower() + 2);
                 aDirR.SetCoord(aDirRArr->Lower(), aDirRArr->Lower() + 1, aDirRArr->Lower() + 2);
                 aPnt.SetCoord(aLocArr->Lower(), aLocArr->Lower() + 1, aLocArr->Lower() + 2);
-                gp_Ax2 anA(aPnt, aDir, aDirR);
+                Frame3d anA(aPnt, aDir, aDirR);
                 anObj->SetAxis(anA);
                 aTol->SetObject(anObj);
               }
@@ -4408,7 +4408,7 @@ static void setDimObjectToXCAF(const Handle(RefObject)&    theEnt,
         {
           // for Oriented Dimensional Location
           Handle(TColStd_HArray1OfReal) aDirArr = anAP->RefDirection()->DirectionRatios();
-          gp_Dir                        aDir;
+          Dir3d                        aDir;
           Standard_Integer              aDirLower = aDirArr->Lower();
           if (!aDirArr.IsNull() && aDirArr->Length() > 2)
           {
@@ -4918,7 +4918,7 @@ Standard_Boolean STEPCAFControl_Reader::ReadGDTs(const Handle(XSControl_WorkSess
       TDataStd_Name::Set(aGDTL, aStr);
       TDF_LabelSequence anEmptySeq2;
       aDGTTool->SetDimension(aShapesL, anEmptySeq2, aGDTL);
-      gp_Ax2 aPlaneAxes;
+      Frame3d aPlaneAxes;
       if (!anAnPlane.IsNull())
       {
         if (readAnnotationPlane(anAnPlane, aPlaneAxes, aLocalFactors))

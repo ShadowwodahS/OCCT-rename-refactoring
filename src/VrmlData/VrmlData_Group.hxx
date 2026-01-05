@@ -93,13 +93,13 @@ public:
    * Set the transformation. Returns True if the group is Transform type,
    * otherwise do nothing and return False.
    */
-  Standard_EXPORT Standard_Boolean SetTransform(const gp_Trsf& theTrsf);
+  Standard_EXPORT Standard_Boolean SetTransform(const Transform3d& theTrsf);
 
   /**
    * Query the transform value.
    * For group without transformation this always returns Identity
    */
-  inline const gp_Trsf& GetTransform() const { return myTrsf; }
+  inline const Transform3d& GetTransform() const { return myTrsf; }
 
   /**
    * Query if the node is Transform type.
@@ -131,7 +131,7 @@ public:
    * @param theLocation
    *   Location of the found node with respect to this Group.
    */
-  Standard_EXPORT Handle(VrmlData_Node) FindNode(const char* theName, gp_Trsf& theLocation) const;
+  Standard_EXPORT Handle(VrmlData_Node) FindNode(const char* theName, Transform3d& theLocation) const;
 
   /**
    * Get the shape representing the group geometry.
@@ -154,7 +154,7 @@ private:
   Standard_Boolean    myIsTransform;
   VrmlData_ListOfNode myNodes;
   Bnd_B3f             myBox;
-  gp_Trsf             myTrsf;
+  Transform3d             myTrsf;
 
 public:
   // Declaration of CASCADE RTTI

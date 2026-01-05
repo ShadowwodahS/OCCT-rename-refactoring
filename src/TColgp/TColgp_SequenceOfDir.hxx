@@ -20,6 +20,6 @@
 #include <gp_Dir.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<gp_Dir> TColgp_SequenceOfDir;
+typedef NCollection_Sequence<Dir3d> TColgp_SequenceOfDir;
 
 #endif

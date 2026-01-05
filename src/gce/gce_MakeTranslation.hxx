@@ -22,11 +22,11 @@
 #include <Standard_Handle.hxx>
 
 #include <gp_Trsf.hxx>
-class gp_Vec;
+class Vector3d;
 class Point3d;
 
 //! This class implements elementary construction algorithms for a
-//! translation in 3D space. The result is a gp_Trsf transformation.
+//! translation in 3D space. The result is a Transform3d transformation.
 //! A MakeTranslation object provides a framework for:
 //! -   defining the construction of the transformation,
 //! -   implementing the construction algorithm, and
@@ -37,21 +37,21 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Constructs a translation along the vector " Vect"
-  Standard_EXPORT gce_MakeTranslation(const gp_Vec& Vect);
+  Standard_EXPORT gce_MakeTranslation(const Vector3d& Vect);
 
   //! Constructs a translation along the vector
   //! (Point1,Point2) defined from the point Point1 to the point Point2.
   Standard_EXPORT gce_MakeTranslation(const Point3d& Point1, const Point3d& Point2);
 
   //! Returns the constructed transformation.
-  Standard_EXPORT const gp_Trsf& Value() const;
+  Standard_EXPORT const Transform3d& Value() const;
 
-  Standard_EXPORT const gp_Trsf& Operator() const;
-  Standard_EXPORT                operator gp_Trsf() const;
+  Standard_EXPORT const Transform3d& Operator() const;
+  Standard_EXPORT                operator Transform3d() const;
 
 protected:
 private:
-  gp_Trsf TheTranslation;
+  Transform3d TheTranslation;
 };
 
 #endif // _gce_MakeTranslation_HeaderFile

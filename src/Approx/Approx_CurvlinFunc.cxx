@@ -105,7 +105,7 @@ static void findfourpoints(const Standard_Real,
 {
   Standard_Real k, tau, mod1, mod2, OMEGA;
   Point3d P;
-  gp_Vec D1, D2, D3;
+  Vector3d D1, D2, D3;
   C.D3(U, P, D1, D2, D3);
   mod1 = D1.Magnitude();
   mod2 = D1.Crossed(D2).Magnitude();
@@ -570,7 +570,7 @@ Standard_Boolean Approx_CurvlinFunc::EvalCase1(const Standard_Real    S,
     throw Standard_ConstructionError("Approx_CurvlinFunc::EvalCase1");
 
   Point3d        C;
-  gp_Vec        dC_dU, dC_dS, d2C_dU2, d2C_dS2;
+  Vector3d        dC_dU, dC_dS, d2C_dU2, d2C_dS2;
   Standard_Real U, Mag, dU_dS, d2U_dS2;
 
   U = GetUParameter(*myC3D, S, 1);
@@ -690,7 +690,7 @@ Standard_Boolean Approx_CurvlinFunc::EvalCurOnSur(const Standard_Real    S,
   gp_Pnt2d      C2D;
   Point3d        C;
   gp_Vec2d      dC2D_dU, d2C2D_dU2;
-  gp_Vec        dC_dU, d2C_dU2, dC_dS, d2C_dS2, dS_dV, dS_dW, d2S_dV2, d2S_dW2, d2S_dVdW;
+  Vector3d        dC_dU, d2C_dU2, dC_dS, d2C_dS2, dS_dV, dS_dW, d2S_dV2, d2S_dW2, d2S_dVdW;
 
   switch (Order)
   {

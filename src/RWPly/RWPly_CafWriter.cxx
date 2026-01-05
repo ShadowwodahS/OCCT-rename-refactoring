@@ -250,7 +250,7 @@ bool RWPly_CafWriter::writeNodes(RWPly_PlyWriterContext&    theWriter,
     myCSTrsf.TransformPosition(aNode);
     if (theFace.HasNormals())
     {
-      gp_Dir aNorm = theFace.NormalTransformed(aNodeIter);
+      Dir3d aNorm = theFace.NormalTransformed(aNodeIter);
       aNormVec.SetValues((float)aNorm.X(), (float)aNorm.Y(), (float)aNorm.Z());
       myCSTrsf.TransformNormal(aNormVec);
     }

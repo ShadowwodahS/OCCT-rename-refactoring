@@ -375,7 +375,7 @@ void Poly_Triangulation::unsetCachedMinMax()
 //=================================================================================================
 
 Standard_Boolean Poly_Triangulation::MinMax(Bnd_Box&       theBox,
-                                            const gp_Trsf& theTrsf,
+                                            const Transform3d& theTrsf,
                                             const bool     theIsAccurate) const
 {
   Bnd_Box aBox;
@@ -400,7 +400,7 @@ Standard_Boolean Poly_Triangulation::MinMax(Bnd_Box&       theBox,
 
 //=================================================================================================
 
-Bnd_Box Poly_Triangulation::computeBoundingBox(const gp_Trsf& theTrsf) const
+Bnd_Box Poly_Triangulation::computeBoundingBox(const Transform3d& theTrsf) const
 {
   Bnd_Box aBox;
   if (theTrsf.Form() == gp_Identity)

@@ -390,7 +390,7 @@ Handle(Geom2d_Curve) BRep_Tool::CurveOnPlane(const TopoDS_Edge&          E,
   // Transform curve and update parameters in account of scale factor
   if (!aCurveLocation.IsIdentity())
   {
-    const gp_Trsf& aTrsf = aCurveLocation.Transformation();
+    const Transform3d& aTrsf = aCurveLocation.Transformation();
     C3D                  = Handle(Geom_Curve)::DownCast(C3D->Transformed(aTrsf));
     f                    = C3D->TransformedParameter(f, aTrsf);
     l                    = C3D->TransformedParameter(l, aTrsf);

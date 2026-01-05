@@ -58,7 +58,7 @@ Standard_EXPORT void           FDRAW_DINLOE(const TCollection_AsciiString pref,
                                             const TCollection_AsciiString str2);
 Standard_EXPORT void           FUN_tool_draw(const TCollection_AsciiString& aa,
                                              const Point3d&                  p,
-                                             const gp_Dir&                  d);
+                                             const Dir3d&                  d);
 Standard_EXPORT void           FUN_tool_draw(const TCollection_AsciiString& aa,
                                              const gp_Pnt2d&                p,
                                              const gp_Dir2d&                d,

@@ -87,13 +87,13 @@ void VrmlConverter_ShadedShape::Add(Standard_OStream&                   anOStrea
       // controlling whether the triangle correct from a 3d point of
       // view: (the triangle may exist in the UV space but the
       // in the 3d space a dimension is null for example)
-      gp_Vec V1(P1, P2);
+      Vector3d V1(P1, P2);
       if (V1.SquareMagnitude() > 1.e-10)
       {
-        gp_Vec V2(P2, P3);
+        Vector3d V2(P2, P3);
         if (V2.SquareMagnitude() > 1.e-10)
         {
-          gp_Vec V3(P3, P1);
+          Vector3d V3(P3, P1);
           if (V3.SquareMagnitude() > 1.e-10)
           {
             V1.Normalize();
@@ -125,7 +125,7 @@ void VrmlConverter_ShadedShape::Add(Standard_OStream&                   anOStrea
     Handle(TColgp_HArray1OfVec) HAV1 = new TColgp_HArray1OfVec(1, nbVertices);
     Handle(TColgp_HArray1OfVec) HAV2 = new TColgp_HArray1OfVec(1, nbVertices);
 
-    gp_Vec V, VV;
+    Vector3d V, VV;
 
     Handle(TColStd_HArray1OfInteger) HAI1 = new TColStd_HArray1OfInteger(1, 4 * nbTriangles);
     Handle(TColStd_HArray1OfInteger) HAI3 =
@@ -191,13 +191,13 @@ void VrmlConverter_ShadedShape::Add(Standard_OStream&                   anOStrea
           const Point3d P1 = T->Node(n[0]);
           const Point3d P2 = T->Node(n[1]);
           const Point3d P3 = T->Node(n[2]);
-          gp_Vec       V1(P1, P2);
+          Vector3d       V1(P1, P2);
           if (V1.SquareMagnitude() > 1.e-10)
           {
-            gp_Vec V2(P2, P3);
+            Vector3d V2(P2, P3);
             if (V2.SquareMagnitude() > 1.e-10)
             {
-              gp_Vec V3(P3, P1);
+              Vector3d V3(P3, P1);
               if (V3.SquareMagnitude() > 1.e-10)
               {
                 V1.Normalize();
@@ -384,8 +384,8 @@ void VrmlConverter_ShadedShape::ComputeNormal(const TopoDS_Face&  aFace,
   if (hasUV && !GS.IsNull())
   {
     Standard_Boolean       OK = Standard_True;
-    gp_Vec                 D1U, D1V;
-    gp_Vec                 D2U, D2V, D2UV;
+    Vector3d                 D1U, D1V;
+    Vector3d                 D2U, D2V, D2UV;
     Point3d                 P;
     Standard_Real          U, V;
     CSLib_DerivativeStatus aStatus;
@@ -420,7 +420,7 @@ void VrmlConverter_ShadedShape::ComputeNormal(const TopoDS_Face&  aFace,
         gp_XYZ v2(T->Node(n[2]).Coord() - T->Node(n[1]).Coord());
         eqPlan += (v1 ^ v2).Normalized();
       }
-      Nor(i) = gp_Dir(eqPlan);
+      Nor(i) = Dir3d(eqPlan);
       if (aFace.Orientation() == TopAbs_REVERSED)
         (Nor(i)).Reverse();
     }

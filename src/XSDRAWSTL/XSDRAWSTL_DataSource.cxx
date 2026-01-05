@@ -62,10 +62,10 @@ XSDRAWSTL_DataSource::XSDRAWSTL_DataSource(const Handle(Poly_Triangulation)& aMe
       const Point3d aP2 = myMesh->Node(V[1]);
       const Point3d aP3 = myMesh->Node(V[2]);
 
-      gp_Vec aV1(aP1, aP2);
-      gp_Vec aV2(aP2, aP3);
+      Vector3d aV1(aP1, aP2);
+      Vector3d aV2(aP2, aP3);
 
-      gp_Vec aN = aV1.Crossed(aV2);
+      Vector3d aN = aV1.Crossed(aV2);
       if (aN.SquareMagnitude() > Precision::SquareConfusion())
         aN.Normalize();
       else

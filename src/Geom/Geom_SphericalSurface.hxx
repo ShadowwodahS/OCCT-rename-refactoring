@@ -26,8 +26,8 @@ class gp_Ax3;
 class gp_Sphere;
 class Geom_Curve;
 class Point3d;
-class gp_Vec;
-class gp_Trsf;
+class Vector3d;
+class Transform3d;
 class Geom_Geometry;
 
 class Geom_SphericalSurface;
@@ -203,45 +203,45 @@ public:
   Standard_EXPORT void D1(const Standard_Real U,
                           const Standard_Real V,
                           Point3d&             P,
-                          gp_Vec&             D1U,
-                          gp_Vec&             D1V) const Standard_OVERRIDE;
+                          Vector3d&             D1U,
+                          Vector3d&             D1V) const Standard_OVERRIDE;
 
   //! Computes the current point, the first and the second derivatives
   //! in the directions U and V.
   Standard_EXPORT void D2(const Standard_Real U,
                           const Standard_Real V,
                           Point3d&             P,
-                          gp_Vec&             D1U,
-                          gp_Vec&             D1V,
-                          gp_Vec&             D2U,
-                          gp_Vec&             D2V,
-                          gp_Vec&             D2UV) const Standard_OVERRIDE;
+                          Vector3d&             D1U,
+                          Vector3d&             D1V,
+                          Vector3d&             D2U,
+                          Vector3d&             D2V,
+                          Vector3d&             D2UV) const Standard_OVERRIDE;
 
   //! Computes the current point, the first,the second and the third
   //! derivatives in the directions U and V.
   Standard_EXPORT void D3(const Standard_Real U,
                           const Standard_Real V,
                           Point3d&             P,
-                          gp_Vec&             D1U,
-                          gp_Vec&             D1V,
-                          gp_Vec&             D2U,
-                          gp_Vec&             D2V,
-                          gp_Vec&             D2UV,
-                          gp_Vec&             D3U,
-                          gp_Vec&             D3V,
-                          gp_Vec&             D3UUV,
-                          gp_Vec&             D3UVV) const Standard_OVERRIDE;
+                          Vector3d&             D1U,
+                          Vector3d&             D1V,
+                          Vector3d&             D2U,
+                          Vector3d&             D2V,
+                          Vector3d&             D2UV,
+                          Vector3d&             D3U,
+                          Vector3d&             D3V,
+                          Vector3d&             D3UUV,
+                          Vector3d&             D3UVV) const Standard_OVERRIDE;
 
   //! Computes the derivative of order Nu in the direction u
   //! and Nv in the direction v.
   //! Raised if Nu + Nv < 1 or Nu < 0 or Nv < 0.
-  Standard_EXPORT gp_Vec DN(const Standard_Real    U,
+  Standard_EXPORT Vector3d DN(const Standard_Real    U,
                             const Standard_Real    V,
                             const Standard_Integer Nu,
                             const Standard_Integer Nv) const Standard_OVERRIDE;
 
   //! Applies the transformation T to this sphere.
-  Standard_EXPORT void Transform(const gp_Trsf& T) Standard_OVERRIDE;
+  Standard_EXPORT void Transform(const Transform3d& T) Standard_OVERRIDE;
 
   //! Creates a new object which is a copy of this sphere.
   Standard_EXPORT Handle(Geom_Geometry) Copy() const Standard_OVERRIDE;

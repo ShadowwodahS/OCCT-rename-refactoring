@@ -115,7 +115,7 @@ AppCont_LeastSquare::AppCont_LeastSquare(const AppCont_Function&       SSP,
   myNbdiscret = myNbPoints;
   NCollection_Array1<Point3d>   aTabP(1, Max(myNbP, 1));
   NCollection_Array1<gp_Pnt2d> aTabP2d(1, Max(myNbP2d, 1));
-  NCollection_Array1<gp_Vec>   aTabV(1, Max(myNbP, 1));
+  NCollection_Array1<Vector3d>   aTabV(1, Max(myNbP, 1));
   NCollection_Array1<gp_Vec2d> aTabV2d(1, Max(myNbP2d, 1));
 
   for (Standard_Integer aDimIdx = 1; aDimIdx <= myNbP * 3 + myNbP2d * 2; aDimIdx++)

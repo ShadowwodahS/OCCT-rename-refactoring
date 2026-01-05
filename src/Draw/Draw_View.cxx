@@ -102,7 +102,7 @@ Standard_Boolean Draw_View::Init(const char* theType)
     ResetFrame();
   }
 
-  gp_Trsf aRotation;
+  Transform3d aRotation;
   Point3d  Pvise(0.0, 0.0, 0.0);
 
   if (!strcmp("+X+Y", theType) || myIs2D)
@@ -111,191 +111,191 @@ Standard_Boolean Draw_View::Init(const char* theType)
   }
   else if (!strcmp("-Y+X", theType))
   {
-    const gp_Dir aD(0., 0., 1.);
-    myMatrix.SetRotation(gp_Ax1(Pvise, aD), 0.5 * M_PI);
+    const Dir3d aD(0., 0., 1.);
+    myMatrix.SetRotation(Axis3d(Pvise, aD), 0.5 * M_PI);
   }
   else if (!strcmp("-X-Y", theType))
   {
-    const gp_Dir aD(0., 0., 1.);
-    myMatrix.SetRotation(gp_Ax1(Pvise, aD), M_PI);
+    const Dir3d aD(0., 0., 1.);
+    myMatrix.SetRotation(Axis3d(Pvise, aD), M_PI);
   }
   else if (!strcmp("+Y-X", theType))
   {
-    const gp_Dir aD(0., 0., 1.);
-    myMatrix.SetRotation(gp_Ax1(Pvise, aD), -0.5 * M_PI);
+    const Dir3d aD(0., 0., 1.);
+    myMatrix.SetRotation(Axis3d(Pvise, aD), -0.5 * M_PI);
   }
   else if (!strcmp("+Y+X", theType))
   {
-    const gp_Dir aD1(0., 0., 1.);
-    const gp_Dir aD2(0., 1., 0.);
+    const Dir3d aD1(0., 0., 1.);
+    const Dir3d aD2(0., 1., 0.);
 
-    myMatrix.SetRotation(gp_Ax1(Pvise, aD1), -0.5 * M_PI);
-    aRotation.SetRotation(gp_Ax1(Pvise, aD2), M_PI);
+    myMatrix.SetRotation(Axis3d(Pvise, aD1), -0.5 * M_PI);
+    aRotation.SetRotation(Axis3d(Pvise, aD2), M_PI);
     myMatrix.Multiply(aRotation);
   }
   else if (!strcmp("-X+Y", theType))
   {
-    const gp_Dir aD(0., 1., 0.);
-    myMatrix.SetRotation(gp_Ax1(Pvise, aD), M_PI);
+    const Dir3d aD(0., 1., 0.);
+    myMatrix.SetRotation(Axis3d(Pvise, aD), M_PI);
   }
   else if (!strcmp("-Y-X", theType))
   {
-    const gp_Dir aD1(0., 0., 1.);
-    const gp_Dir aD2(1., 0., 0.);
+    const Dir3d aD1(0., 0., 1.);
+    const Dir3d aD2(1., 0., 0.);
 
-    myMatrix.SetRotation(gp_Ax1(Pvise, aD1), -0.5 * M_PI);
-    aRotation.SetRotation(gp_Ax1(Pvise, aD2), M_PI);
+    myMatrix.SetRotation(Axis3d(Pvise, aD1), -0.5 * M_PI);
+    aRotation.SetRotation(Axis3d(Pvise, aD2), M_PI);
     myMatrix.Multiply(aRotation);
   }
   else if (!strcmp("+X-Y", theType))
   {
-    const gp_Dir aD(1., 0., 0.);
-    myMatrix.SetRotation(gp_Ax1(Pvise, aD), M_PI);
+    const Dir3d aD(1., 0., 0.);
+    myMatrix.SetRotation(Axis3d(Pvise, aD), M_PI);
   }
   else if (!strcmp("+X+Z", theType))
   {
-    const gp_Dir aD(1., 0., 0.);
-    myMatrix.SetRotation(gp_Ax1(Pvise, aD), -0.5 * M_PI);
+    const Dir3d aD(1., 0., 0.);
+    myMatrix.SetRotation(Axis3d(Pvise, aD), -0.5 * M_PI);
   }
   else if (!strcmp("-Z+X", theType))
   {
-    const gp_Dir aD1(1., 0., 0.);
-    const gp_Dir aD2(0., 1., 0.);
+    const Dir3d aD1(1., 0., 0.);
+    const Dir3d aD2(0., 1., 0.);
 
-    myMatrix.SetRotation(gp_Ax1(Pvise, aD1), -0.5 * M_PI);
-    aRotation.SetRotation(gp_Ax1(Pvise, aD2), -0.5 * M_PI);
+    myMatrix.SetRotation(Axis3d(Pvise, aD1), -0.5 * M_PI);
+    aRotation.SetRotation(Axis3d(Pvise, aD2), -0.5 * M_PI);
     myMatrix.Multiply(aRotation);
   }
   else if (!strcmp("-X-Z", theType))
   {
-    const gp_Dir aD1(1., 0., 0.);
-    const gp_Dir aD2(0., 1., 0.);
+    const Dir3d aD1(1., 0., 0.);
+    const Dir3d aD2(0., 1., 0.);
 
-    myMatrix.SetRotation(gp_Ax1(Pvise, aD1), -0.5 * M_PI);
-    aRotation.SetRotation(gp_Ax1(Pvise, aD2), -M_PI);
+    myMatrix.SetRotation(Axis3d(Pvise, aD1), -0.5 * M_PI);
+    aRotation.SetRotation(Axis3d(Pvise, aD2), -M_PI);
     myMatrix.Multiply(aRotation);
   }
   else if (!strcmp("+Z-X", theType))
   {
-    const gp_Dir aD1(1., 0., 0.);
-    const gp_Dir aD2(0., 1., 0.);
+    const Dir3d aD1(1., 0., 0.);
+    const Dir3d aD2(0., 1., 0.);
 
-    myMatrix.SetRotation(gp_Ax1(Pvise, aD1), -0.5 * M_PI);
-    aRotation.SetRotation(gp_Ax1(Pvise, aD2), 0.5 * M_PI);
+    myMatrix.SetRotation(Axis3d(Pvise, aD1), -0.5 * M_PI);
+    aRotation.SetRotation(Axis3d(Pvise, aD2), 0.5 * M_PI);
     myMatrix.Multiply(aRotation);
   }
   else if (!strcmp("+Z+X", theType))
   {
-    const gp_Dir aD1(1., 0., 0.);
-    const gp_Dir aD2(0., 1., 0.);
+    const Dir3d aD1(1., 0., 0.);
+    const Dir3d aD2(0., 1., 0.);
 
-    myMatrix.SetRotation(gp_Ax1(Pvise, aD1), 0.5 * M_PI);
-    aRotation.SetRotation(gp_Ax1(Pvise, aD2), 0.5 * M_PI);
+    myMatrix.SetRotation(Axis3d(Pvise, aD1), 0.5 * M_PI);
+    aRotation.SetRotation(Axis3d(Pvise, aD2), 0.5 * M_PI);
     myMatrix.Multiply(aRotation);
   }
   else if (!strcmp("-X+Z", theType))
   {
-    const gp_Dir aD1(1., 0., 0.);
-    const gp_Dir aD2(0., 1., 0.);
+    const Dir3d aD1(1., 0., 0.);
+    const Dir3d aD2(0., 1., 0.);
 
-    myMatrix.SetRotation(gp_Ax1(Pvise, aD1), 0.5 * M_PI);
-    aRotation.SetRotation(gp_Ax1(Pvise, aD2), M_PI);
+    myMatrix.SetRotation(Axis3d(Pvise, aD1), 0.5 * M_PI);
+    aRotation.SetRotation(Axis3d(Pvise, aD2), M_PI);
     myMatrix.Multiply(aRotation);
   }
   else if (!strcmp("-Z-X", theType))
   {
-    const gp_Dir aD1(1., 0., 0.);
-    const gp_Dir aD2(0., 1., 0.);
+    const Dir3d aD1(1., 0., 0.);
+    const Dir3d aD2(0., 1., 0.);
 
-    myMatrix.SetRotation(gp_Ax1(Pvise, aD1), 0.5 * M_PI);
-    aRotation.SetRotation(gp_Ax1(Pvise, aD2), -0.5 * M_PI);
+    myMatrix.SetRotation(Axis3d(Pvise, aD1), 0.5 * M_PI);
+    aRotation.SetRotation(Axis3d(Pvise, aD2), -0.5 * M_PI);
     myMatrix.Multiply(aRotation);
   }
   else if (!strcmp("+X-Z", theType))
   {
-    const gp_Dir aD(1., 0., 0.);
-    myMatrix.SetRotation(gp_Ax1(Pvise, aD), 0.5 * M_PI);
+    const Dir3d aD(1., 0., 0.);
+    myMatrix.SetRotation(Axis3d(Pvise, aD), 0.5 * M_PI);
   }
   else if (!strcmp("+Y+Z", theType))
   {
-    const gp_Dir aD1(0., 1., 0.);
-    const gp_Dir aD2(1., 0., 0.);
+    const Dir3d aD1(0., 1., 0.);
+    const Dir3d aD2(1., 0., 0.);
 
-    myMatrix.SetRotation(gp_Ax1(Pvise, aD1), -0.5 * M_PI);
-    aRotation.SetRotation(gp_Ax1(Pvise, aD2), -0.5 * M_PI);
+    myMatrix.SetRotation(Axis3d(Pvise, aD1), -0.5 * M_PI);
+    aRotation.SetRotation(Axis3d(Pvise, aD2), -0.5 * M_PI);
     myMatrix.Multiply(aRotation);
   }
   else if (!strcmp("-Z+Y", theType))
   {
-    const gp_Dir aD(0., 1., 0.);
-    myMatrix.SetRotation(gp_Ax1(Pvise, aD), -0.5 * M_PI);
+    const Dir3d aD(0., 1., 0.);
+    myMatrix.SetRotation(Axis3d(Pvise, aD), -0.5 * M_PI);
   }
   else if (!strcmp("-Y-Z", theType))
   {
-    const gp_Dir aD1(0., 1., 0.);
-    const gp_Dir aD2(1., 0., 0.);
+    const Dir3d aD1(0., 1., 0.);
+    const Dir3d aD2(1., 0., 0.);
 
-    myMatrix.SetRotation(gp_Ax1(Pvise, aD1), -0.5 * M_PI);
-    aRotation.SetRotation(gp_Ax1(Pvise, aD2), 0.5 * M_PI);
+    myMatrix.SetRotation(Axis3d(Pvise, aD1), -0.5 * M_PI);
+    aRotation.SetRotation(Axis3d(Pvise, aD2), 0.5 * M_PI);
     myMatrix.Multiply(aRotation);
   }
   else if (!strcmp("+Z-Y", theType))
   {
-    const gp_Dir aD1(0., 1., 0.);
-    const gp_Dir aD2(1., 0., 0.);
+    const Dir3d aD1(0., 1., 0.);
+    const Dir3d aD2(1., 0., 0.);
 
-    myMatrix.SetRotation(gp_Ax1(Pvise, aD1), -0.5 * M_PI);
-    aRotation.SetRotation(gp_Ax1(Pvise, aD2), M_PI);
+    myMatrix.SetRotation(Axis3d(Pvise, aD1), -0.5 * M_PI);
+    aRotation.SetRotation(Axis3d(Pvise, aD2), M_PI);
     myMatrix.Multiply(aRotation);
   }
   else if (!strcmp("+Z+Y", theType))
   {
-    const gp_Dir aD(0., 1., 0.);
-    myMatrix.SetRotation(gp_Ax1(Pvise, aD), 0.5 * M_PI);
+    const Dir3d aD(0., 1., 0.);
+    myMatrix.SetRotation(Axis3d(Pvise, aD), 0.5 * M_PI);
   }
   else if (!strcmp("-Y+Z", theType))
   {
-    const gp_Dir aD1(0., 1., 0.);
-    const gp_Dir aD2(1., 0., 0.);
+    const Dir3d aD1(0., 1., 0.);
+    const Dir3d aD2(1., 0., 0.);
 
-    myMatrix.SetRotation(gp_Ax1(Pvise, aD1), 0.5 * M_PI);
-    aRotation.SetRotation(gp_Ax1(Pvise, aD2), -0.5 * M_PI);
+    myMatrix.SetRotation(Axis3d(Pvise, aD1), 0.5 * M_PI);
+    aRotation.SetRotation(Axis3d(Pvise, aD2), -0.5 * M_PI);
     myMatrix.Multiply(aRotation);
   }
   else if (!strcmp("-Z-Y", theType))
   {
-    const gp_Dir aD1(0., 1., 0.);
-    const gp_Dir aD2(1., 0., 0.);
+    const Dir3d aD1(0., 1., 0.);
+    const Dir3d aD2(1., 0., 0.);
 
-    myMatrix.SetRotation(gp_Ax1(Pvise, aD1), 0.5 * M_PI);
-    aRotation.SetRotation(gp_Ax1(Pvise, aD2), M_PI);
+    myMatrix.SetRotation(Axis3d(Pvise, aD1), 0.5 * M_PI);
+    aRotation.SetRotation(Axis3d(Pvise, aD2), M_PI);
     myMatrix.Multiply(aRotation);
   }
   else if (!strcmp("+Y-Z", theType))
   {
-    const gp_Dir aD1(0., 1., 0.);
-    const gp_Dir aD2(1., 0., 0.);
+    const Dir3d aD1(0., 1., 0.);
+    const Dir3d aD2(1., 0., 0.);
 
-    myMatrix.SetRotation(gp_Ax1(Pvise, aD1), 0.5 * M_PI);
-    aRotation.SetRotation(gp_Ax1(Pvise, aD2), 0.5 * M_PI);
+    myMatrix.SetRotation(Axis3d(Pvise, aD1), 0.5 * M_PI);
+    aRotation.SetRotation(Axis3d(Pvise, aD2), 0.5 * M_PI);
     myMatrix.Multiply(aRotation);
   }
   else if (!strcmp("AXON", theType))
   {
-    const gp_Dir aD1(1., 0., 0.);
-    const gp_Dir aD2(0., 0., 1.);
+    const Dir3d aD1(1., 0., 0.);
+    const Dir3d aD2(0., 0., 1.);
 
-    myMatrix.SetRotation(gp_Ax1(Pvise, aD1), -0.25 * M_PI);
-    aRotation.SetRotation(gp_Ax1(Pvise, aD2), -0.25 * M_PI);
+    myMatrix.SetRotation(Axis3d(Pvise, aD1), -0.25 * M_PI);
+    aRotation.SetRotation(Axis3d(Pvise, aD2), -0.25 * M_PI);
     myMatrix.Multiply(aRotation);
   }
   else if (!strcmp("PERS", theType))
   {
-    const gp_Dir aD1(1., 0., 0.);
-    const gp_Dir aD2(0., 0., 1.);
+    const Dir3d aD1(1., 0., 0.);
+    const Dir3d aD2(0., 0., 1.);
 
-    myMatrix.SetRotation(gp_Ax1(Pvise, aD1), -0.25 * M_PI);
-    aRotation.SetRotation(gp_Ax1(Pvise, aD2), -0.25 * M_PI);
+    myMatrix.SetRotation(Axis3d(Pvise, aD1), -0.25 * M_PI);
+    aRotation.SetRotation(Axis3d(Pvise, aD2), -0.25 * M_PI);
     myMatrix.Multiply(aRotation);
 
     myIsPers = Standard_True;
@@ -311,7 +311,7 @@ Standard_Boolean Draw_View::Init(const char* theType)
 
 //=================================================================================================
 
-void Draw_View::Transform(const gp_Trsf& theTransformation)
+void Draw_View::Transform(const Transform3d& theTransformation)
 {
   myMatrix.Multiply(theTransformation);
 }

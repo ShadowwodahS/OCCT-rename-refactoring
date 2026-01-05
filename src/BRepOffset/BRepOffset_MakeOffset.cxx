@@ -2484,17 +2484,17 @@ void BRepOffset_MakeOffset::CorrectConicalFaces()
       BRep_Tool::Range(CurEdge, f, l);
       if (isFirstFace)
       {
-        gp_Vec aVec1(fPnt, mPnt);
-        gp_Vec aVec2(fPnt, lPnt);
-        gp_Vec aNorm   = aVec1.Crossed(aVec2);
+        Vector3d aVec1(fPnt, mPnt);
+        Vector3d aVec2(fPnt, lPnt);
+        Vector3d aNorm   = aVec1.Crossed(aVec2);
         Point3d theApex = BRep_Tool::Pnt(anApex);
-        gp_Vec ApexToFpnt(theApex, fPnt);
-        gp_Vec Ydir = aNorm ^ ApexToFpnt;
-        gp_Vec Xdir = Ydir ^ aNorm;
-        // Xdir.Rotate(gp_Ax1(theApex, aNorm), -f);
-        gp_Ax2 anAx2(theApex, gp_Dir(aNorm), gp_Dir(Xdir));
+        Vector3d ApexToFpnt(theApex, fPnt);
+        Vector3d Ydir = aNorm ^ ApexToFpnt;
+        Vector3d Xdir = Ydir ^ aNorm;
+        // Xdir.Rotate(Axis3d(theApex, aNorm), -f);
+        Frame3d anAx2(theApex, Dir3d(aNorm), Dir3d(Xdir));
         theSphere.SetRadius(myOffset);
-        theSphere.SetPosition(gp_Ax3(anAx2) /*gp_Ax3(theApex, gp_Dir(aNorm))*/);
+        theSphere.SetPosition(gp_Ax3(anAx2) /*gp_Ax3(theApex, Dir3d(aNorm))*/);
         aSphSurf       = new Geom_SphericalSurface(theSphere);
         FirstPoint     = fPnt;
         theFirstVertex = BRepLib_MakeVertex(fPnt);
@@ -3178,7 +3178,7 @@ void BRepOffset_MakeOffset::MakeMissingWalls(const Message_ProgressRange& theRan
             // To avoid computation of complex analytical continuation of Sin / ArcSin.
             Standard_Real aSinValue     = Min(2 * anEdgeTol / aPntOF.Distance(aPntOL), 1.0);
             Standard_Real aMaxAngle     = Min(Abs(ASin(aSinValue)), M_PI_4); // Maximal angle.
-            Standard_Real aCurrentAngle = gp_Vec(aPntF, aPntL).Angle(gp_Vec(aPntOF, aPntOL));
+            Standard_Real aCurrentAngle = Vector3d(aPntF, aPntL).Angle(Vector3d(aPntOF, aPntOL));
             if (aC->IsKind(STANDARD_TYPE(Geom_Line)) && Abs(aCurrentAngle) > aMaxAngle)
             {
               // anEdge not collinear to offset edge.
@@ -3257,7 +3257,7 @@ void BRepOffset_MakeOffset::MakeMissingWalls(const Message_ProgressRange& theRan
       Standard_Real        lpar      = BAcurve.LastParameter();
       Point3d               PonE      = BAcurve.Value(fpar);
       Point3d               PonOE     = BAcurveOE.Value(fpar);
-      gp_Dir               OffsetDir = gce_MakeDir(PonE, PonOE);
+      Dir3d               OffsetDir = gce_MakeDir(PonE, PonOE);
       Handle(Geom2d_Line)  EdgeLine2d, OELine2d, aLine2d, aLine2d2;
       Standard_Boolean     IsPlanar = Standard_False;
       if (BAcurve.GetType() == GeomAbs_Circle && BAcurveOE.GetType() == GeomAbs_Circle)
@@ -3265,7 +3265,7 @@ void BRepOffset_MakeOffset::MakeMissingWalls(const Message_ProgressRange& theRan
         gp_Circ aCirc   = BAcurve.Circle();
         gp_Circ aCircOE = BAcurveOE.Circle();
         gp_Lin  anAxisLine(aCirc.Axis());
-        gp_Dir  CircAxisDir = aCirc.Axis().Direction();
+        Dir3d  CircAxisDir = aCirc.Axis().Direction();
         if (aCirc.Axis().IsParallel(aCircOE.Axis(), Precision::Confusion())
             && anAxisLine.Contains(aCircOE.Location(), Precision::Confusion()))
         { // cylinder, plane or cone
@@ -4473,7 +4473,7 @@ BRepOffset_Error checkSinglePoint(const Standard_Real               theUParam,
                                   const NCollection_Vector<Point3d>& theBadPoints)
 {
   Point3d aPnt;
-  gp_Vec aD1U, aD1V;
+  Vector3d aD1U, aD1V;
   theSurf->D1(theUParam, theVParam, aPnt, aD1U, aD1V);
 
   if (aD1U.SquareMagnitude() < Precision::SquareConfusion()
@@ -5349,14 +5349,14 @@ Standard_Boolean BRepOffset_MakeOffset::IsPlanar()
           vm = 0.;
         }
         Point3d aP;
-        gp_Vec aD1, aD2;
+        Vector3d aD1, aD2;
         aBAS.D1(um, vm, aP, aD1, aD2);
-        gp_Vec aNorm    = aD1.Crossed(aD2);
-        gp_Dir aPlnNorm = aPln.Position().Direction();
+        Vector3d aNorm    = aD1.Crossed(aD2);
+        Dir3d aPlnNorm = aPln.Position().Direction();
         if (aNorm.Dot(aPlnNorm) < 0.)
         {
           aPlnNorm.Reverse();
-          gp_Ax1 anAx(aPln.Position().Location(), aPlnNorm);
+          Axis3d anAx(aPln.Position().Location(), aPlnNorm);
           aPln.SetAxis(anAx);
         }
         Handle(Geom_Plane) aPlane = new Geom_Plane(aPln);

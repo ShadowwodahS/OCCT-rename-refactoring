@@ -27,7 +27,7 @@
 
 //=================================================================================================
 
-BRepPrim_Cylinder::BRepPrim_Cylinder(const gp_Ax2&       Position,
+BRepPrim_Cylinder::BRepPrim_Cylinder(const Frame3d&       Position,
                                      const Standard_Real Radius,
                                      const Standard_Real Height)
     : BRepPrim_Revolution(Position, 0, Height),
@@ -48,7 +48,7 @@ BRepPrim_Cylinder::BRepPrim_Cylinder(const Standard_Real Radius)
 //=================================================================================================
 
 BRepPrim_Cylinder::BRepPrim_Cylinder(const Point3d& Center, const Standard_Real Radius)
-    : BRepPrim_Revolution(gp_Ax2(Center, gp_Dir(0, 0, 1), gp_Dir(1, 0, 0)),
+    : BRepPrim_Revolution(Frame3d(Center, Dir3d(0, 0, 1), Dir3d(1, 0, 0)),
                           RealFirst(),
                           RealLast()),
       myRadius(Radius)
@@ -58,7 +58,7 @@ BRepPrim_Cylinder::BRepPrim_Cylinder(const Point3d& Center, const Standard_Real 
 
 //=================================================================================================
 
-BRepPrim_Cylinder::BRepPrim_Cylinder(const gp_Ax2& Axes, const Standard_Real Radius)
+BRepPrim_Cylinder::BRepPrim_Cylinder(const Frame3d& Axes, const Standard_Real Radius)
     : BRepPrim_Revolution(Axes, RealFirst(), RealLast()),
       myRadius(Radius)
 {
@@ -79,7 +79,7 @@ BRepPrim_Cylinder::BRepPrim_Cylinder(const Standard_Real R, const Standard_Real 
 BRepPrim_Cylinder::BRepPrim_Cylinder(const Point3d&       Center,
                                      const Standard_Real R,
                                      const Standard_Real H)
-    : BRepPrim_Revolution(gp_Ax2(Center, gp_Dir(0, 0, 1), gp_Dir(1, 0, 0)), 0, H),
+    : BRepPrim_Revolution(Frame3d(Center, Dir3d(0, 0, 1), Dir3d(1, 0, 0)), 0, H),
       myRadius(R)
 {
   SetMeridian();
@@ -99,9 +99,9 @@ TopoDS_Face BRepPrim_Cylinder::MakeEmptyLateralFace() const
 
 void BRepPrim_Cylinder::SetMeridian()
 {
-  gp_Vec V = Axes().XDirection();
+  Vector3d V = Axes().XDirection();
   V.Multiply(myRadius);
-  gp_Ax1 A = Axes().Axis();
+  Axis3d A = Axes().Axis();
   A.Translate(V);
   Handle(Geom_Line)   L   = new Geom_Line(A);
   Handle(Geom2d_Line) L2d = new Geom2d_Line(gp_Pnt2d(myRadius, 0), gp_Dir2d(0, 1));

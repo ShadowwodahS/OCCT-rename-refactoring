@@ -437,7 +437,7 @@ static void Replace(const TDF_Label& L, const TopTools_DataMapOfShapeShape& M)
 
 //=================================================================================================
 
-void TNaming::Transform(const TDF_Label& L, const gp_Trsf& T)
+void TNaming::Transform(const TDF_Label& L, const Transform3d& T)
 {
 
   //--------------------------------------------------------------------
@@ -472,7 +472,7 @@ void TNaming::IDList(TDF_IDList& anIDList)
 
 //=================================================================================================
 
-void TNaming::Replicate(const Handle(TNaming_NamedShape)& NS, const gp_Trsf& T, const TDF_Label& L)
+void TNaming::Replicate(const Handle(TNaming_NamedShape)& NS, const Transform3d& T, const TDF_Label& L)
 {
   TopoDS_Shape SH = TNaming_Tool::CurrentShape(NS);
   TNaming::Replicate(SH, T, L);
@@ -480,7 +480,7 @@ void TNaming::Replicate(const Handle(TNaming_NamedShape)& NS, const gp_Trsf& T, 
 
 //=================================================================================================
 
-void TNaming::Replicate(const TopoDS_Shape& SH, const gp_Trsf& T, const TDF_Label& L)
+void TNaming::Replicate(const TopoDS_Shape& SH, const Transform3d& T, const TDF_Label& L)
 {
   // transform
   BRepBuilderAPI_Transform opeTrsf(T);

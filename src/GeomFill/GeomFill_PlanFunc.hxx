@@ -25,7 +25,7 @@
 #include <gp_Pnt.hxx>
 #include <math_FunctionWithDerivative.hxx>
 
-class gp_Vec;
+class Vector3d;
 
 class GeomFill_PlanFunc : public math_FunctionWithDerivative
 {
@@ -33,7 +33,7 @@ public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT GeomFill_PlanFunc(const Point3d&                  P,
-                                    const gp_Vec&                  V,
+                                    const Vector3d&                  V,
                                     const Handle(Adaptor3d_Curve)& C);
 
   //! computes the value <F>of the function for the variable <X>.
@@ -63,15 +63,15 @@ public:
                           Standard_Real&      D2);
 
   Standard_EXPORT void DEDT(const Standard_Real X,
-                            const gp_Vec&       DP,
-                            const gp_Vec&       DV,
+                            const Vector3d&       DP,
+                            const Vector3d&       DV,
                             Standard_Real&      DF);
 
   Standard_EXPORT void D2E(const Standard_Real X,
-                           const gp_Vec&       DP,
-                           const gp_Vec&       D2P,
-                           const gp_Vec&       DV,
-                           const gp_Vec&       D2V,
+                           const Vector3d&       DP,
+                           const Vector3d&       D2P,
+                           const Vector3d&       DV,
+                           const Vector3d&       D2V,
                            Standard_Real&      DFDT,
                            Standard_Real&      D2FDT2,
                            Standard_Real&      D2FDTDX);

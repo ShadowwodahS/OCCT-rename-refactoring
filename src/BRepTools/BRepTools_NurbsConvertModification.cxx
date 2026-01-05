@@ -468,8 +468,8 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve(const TopoDS_Edge&
     C = new Geom_TrimmedCurve(C, f, l);
 
   // modif WOK++ portage hp (fbi du 14/03/97)
-  //   gp_Trsf trsf(L);
-  //   gp_Trsf trsf = L.Transformation();
+  //   Transform3d trsf(L);
+  //   Transform3d trsf = L.Transformation();
 
   //  C = GeomConvert::CurveToBSplineCurve(C,Convert_QuasiAngular);
 

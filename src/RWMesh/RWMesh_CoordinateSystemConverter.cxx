@@ -53,14 +53,14 @@ void RWMesh_CoordinateSystemConverter::Init(const gp_Ax3& theInputSystem,
     myHasScale   = Standard_False;
   }
 
-  gp_Trsf aTrsf;
+  Transform3d aTrsf;
   if (myHasInputAx3 && myHasOutputAx3)
   {
     aTrsf.SetTransformation(theOutputSystem, theInputSystem);
     if (aTrsf.TranslationPart().IsEqual(gp_XYZ(0.0, 0.0, 0.0), gp::Resolution())
         && aTrsf.GetRotation().IsEqual(gp_Quaternion()))
     {
-      aTrsf = gp_Trsf();
+      aTrsf = Transform3d();
     }
   }
 

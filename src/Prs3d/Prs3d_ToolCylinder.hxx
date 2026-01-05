@@ -36,7 +36,7 @@ public:
     const Standard_Real    theHeight,
     const Standard_Integer theNbSlices,
     const Standard_Integer theNbStacks,
-    const gp_Trsf&         theTrsf);
+    const Transform3d&         theTrsf);
 
 public:
   //! Initializes the algorithm creating a cylinder.
@@ -57,7 +57,7 @@ protected:
                                         const Standard_Real theV) const Standard_OVERRIDE;
 
   //! Computes normal at given parameter location of the surface.
-  Standard_EXPORT virtual gp_Dir Normal(const Standard_Real theU,
+  Standard_EXPORT virtual Dir3d Normal(const Standard_Real theU,
                                         const Standard_Real theV) const Standard_OVERRIDE;
 
 protected:

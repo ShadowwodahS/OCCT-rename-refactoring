@@ -171,7 +171,7 @@ void XCAFDoc_Dimension::SetObject(const Handle(XCAFDimTolObjects_DimensionObject
   Handle(TColStd_HArray1OfReal) anArrR;
   if (theObject->GetType() == XCAFDimTolObjects_DimensionType_Location_Oriented)
   {
-    gp_Dir aD;
+    Dir3d aD;
     theObject->GetDirection(aD);
     anArrR = new TColStd_HArray1OfReal(1, 3);
     anArrR->SetValue(1, aD.X());
@@ -211,7 +211,7 @@ void XCAFDoc_Dimension::SetObject(const Handle(XCAFDimTolObjects_DimensionObject
 
   if (theObject->HasPlane())
   {
-    gp_Ax2 anAx = theObject->GetPlane();
+    Frame3d anAx = theObject->GetPlane();
 
     Handle(TColStd_HArray1OfReal) aLocArr = new TColStd_HArray1OfReal(1, 3);
     for (Standard_Integer i = 1; i <= 3; i++)
@@ -375,7 +375,7 @@ Handle(XCAFDimTolObjects_DimensionObject) XCAFDoc_Dimension::GetObject() const
   if (Label().FindChild(ChildLab_Dir).FindAttribute(TDataStd_RealArray::GetID(), aDir)
       && !aDir->Array().IsNull() && aDir->Array()->Length() > 0)
   {
-    gp_Dir aD(aDir->Array()->Value(1), aDir->Array()->Value(2), aDir->Array()->Value(3));
+    Dir3d aD(aDir->Array()->Value(1), aDir->Array()->Value(2), aDir->Array()->Value(3));
     anObj->SetDirection(aD);
   }
 
@@ -410,9 +410,9 @@ Handle(XCAFDimTolObjects_DimensionObject) XCAFDoc_Dimension::GetObject() const
     Point3d aL(aLoc->Value(aLoc->Lower()),
               aLoc->Value(aLoc->Lower() + 1),
               aLoc->Value(aLoc->Lower() + 2));
-    gp_Dir aD(aN->Value(aN->Lower()), aN->Value(aN->Lower() + 1), aN->Value(aN->Lower() + 2));
-    gp_Dir aDR(aR->Value(aR->Lower()), aR->Value(aR->Lower() + 1), aR->Value(aR->Lower() + 2));
-    gp_Ax2 anAx(aL, aD, aDR);
+    Dir3d aD(aN->Value(aN->Lower()), aN->Value(aN->Lower() + 1), aN->Value(aN->Lower() + 2));
+    Dir3d aDR(aR->Value(aR->Lower()), aR->Value(aR->Lower() + 1), aR->Value(aR->Lower() + 2));
+    Frame3d anAx(aL, aD, aDR);
     anObj->SetPlane(anAx);
   }
 

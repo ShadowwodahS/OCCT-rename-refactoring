@@ -44,7 +44,7 @@ void HLRBRep_PolyHLRToShape::Update(const Handle(HLRBRep_PolyAlgo)& A)
   myBiPntHid.Clear();
   TopoDS_Shape       S;
   Standard_Boolean   reg1, regn, outl, intl;
-  const gp_Trsf&     T = myAlgo->Projector().Transformation();
+  const Transform3d&     T = myAlgo->Projector().Transformation();
   HLRAlgo_EdgeStatus status;
 
   for (myAlgo->InitHide(); myAlgo->MoreHide(); myAlgo->NextHide())
@@ -138,7 +138,7 @@ TopoDS_Shape HLRBRep_PolyHLRToShape::InternalCompound(const Standard_Integer typ
   }
   else
   {
-    const gp_Trsf& T = myAlgo->Projector().Transformation();
+    const Transform3d& T = myAlgo->Projector().Transformation();
     TopoDS_Shape   SBP;
 
     for (myAlgo->InitShow(); myAlgo->MoreShow(); myAlgo->NextShow())

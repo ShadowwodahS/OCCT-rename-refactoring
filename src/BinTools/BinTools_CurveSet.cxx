@@ -340,7 +340,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Point3d& P)
 
 //=================================================================================================
 
-static Standard_IStream& operator>>(Standard_IStream& IS, gp_Dir& D)
+static Standard_IStream& operator>>(Standard_IStream& IS, Dir3d& D)
 {
   Standard_Real X = 0., Y = 0., Z = 0.;
   BinTools::GetReal(IS, X);
@@ -355,7 +355,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, gp_Dir& D)
 static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_Line)& L)
 {
   Point3d P(0., 0., 0.);
-  gp_Dir AX(1., 0., 0.);
+  Dir3d AX(1., 0., 0.);
   IS >> P >> AX;
   L = new Geom_Line(P, AX);
   return IS;
@@ -366,11 +366,11 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_Line)& L)
 static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_Circle)& C)
 {
   Point3d        P(0., 0., 0.);
-  gp_Dir        A(1., 0., 0.), AX(1., 0., 0.), AY(1., 0., 0.);
+  Dir3d        A(1., 0., 0.), AX(1., 0., 0.), AY(1., 0., 0.);
   Standard_Real R = 0.;
   IS >> P >> A >> AX >> AY;
   BinTools::GetReal(IS, R);
-  C = new Geom_Circle(gp_Ax2(P, A, AX), R);
+  C = new Geom_Circle(Frame3d(P, A, AX), R);
   return IS;
 }
 
@@ -379,12 +379,12 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_Circle)& C
 static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_Ellipse)& E)
 {
   Point3d        P(0., 0., 0.);
-  gp_Dir        A(1., 0., 0.), AX(1., 0., 0.), AY(1., 0., 0.);
+  Dir3d        A(1., 0., 0.), AX(1., 0., 0.), AY(1., 0., 0.);
   Standard_Real R1 = 0., R2 = 0.;
   IS >> P >> A >> AX >> AY;
   BinTools::GetReal(IS, R1);
   BinTools::GetReal(IS, R2);
-  E = new Geom_Ellipse(gp_Ax2(P, A, AX), R1, R2);
+  E = new Geom_Ellipse(Frame3d(P, A, AX), R1, R2);
   return IS;
 }
 
@@ -393,11 +393,11 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_Ellipse)& 
 static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_Parabola)& C)
 {
   Point3d        P(0., 0., 0.);
-  gp_Dir        A(1., 0., 0.), AX(1., 0., 0.), AY(1., 0., 0.);
+  Dir3d        A(1., 0., 0.), AX(1., 0., 0.), AY(1., 0., 0.);
   Standard_Real R1 = 0.;
   IS >> P >> A >> AX >> AY;
   BinTools::GetReal(IS, R1);
-  C = new Geom_Parabola(gp_Ax2(P, A, AX), R1);
+  C = new Geom_Parabola(Frame3d(P, A, AX), R1);
   return IS;
 }
 
@@ -406,12 +406,12 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_Parabola)&
 static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_Hyperbola)& H)
 {
   Point3d        P(0., 0., 0.);
-  gp_Dir        A(1., 0., 0.), AX(1., 0., 0.), AY(1., 0., 0);
+  Dir3d        A(1., 0., 0.), AX(1., 0., 0.), AY(1., 0., 0);
   Standard_Real R1 = 0., R2 = 0.;
   IS >> P >> A >> AX >> AY;
   BinTools::GetReal(IS, R1);
   BinTools::GetReal(IS, R2);
-  H = new Geom_Hyperbola(gp_Ax2(P, A, AX), R1, R2);
+  H = new Geom_Hyperbola(Frame3d(P, A, AX), R1, R2);
   return IS;
 }
 
@@ -513,7 +513,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_OffsetCurv
 {
   Standard_Real p = 0.;
   BinTools::GetReal(IS, p); // Offset
-  gp_Dir D(1., 0., 0.);
+  Dir3d D(1., 0., 0.);
   IS >> D;
   Handle(Geom_Curve) BC;
   BinTools_CurveSet::ReadCurve(IS, BC);

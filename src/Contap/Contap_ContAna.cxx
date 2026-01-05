@@ -36,7 +36,7 @@ Contap_ContAna::Contap_ContAna()
 {
 }
 
-void Contap_ContAna::Perform(const gp_Sphere& S, const gp_Dir& D)
+void Contap_ContAna::Perform(const gp_Sphere& S, const Dir3d& D)
 {
   done = Standard_False;
   typL = GeomAbs_Circle;
@@ -55,7 +55,7 @@ void Contap_ContAna::Perform(const gp_Sphere& S, const gp_Dir& D)
   done  = Standard_True;
 }
 
-void Contap_ContAna::Perform(const gp_Sphere& S, const gp_Dir& D, const Standard_Real Angle)
+void Contap_ContAna::Perform(const gp_Sphere& S, const Dir3d& D, const Standard_Real Angle)
 {
   done = Standard_False;
   typL = GeomAbs_Circle;
@@ -113,7 +113,7 @@ void Contap_ContAna::Perform(const gp_Sphere& S, const Point3d& Eye)
   done = Standard_True;
 }
 
-void Contap_ContAna::Perform(const gp_Cylinder& C, const gp_Dir& D)
+void Contap_ContAna::Perform(const gp_Cylinder& C, const Dir3d& D)
 {
   done = Standard_False;
 
@@ -137,7 +137,7 @@ void Contap_ContAna::Perform(const gp_Cylinder& C, const gp_Dir& D)
   done = Standard_True;
 }
 
-void Contap_ContAna::Perform(const gp_Cylinder& C, const gp_Dir& D, const Standard_Real Angle)
+void Contap_ContAna::Perform(const gp_Cylinder& C, const Dir3d& D, const Standard_Real Angle)
 {
   done = Standard_False;
 
@@ -225,7 +225,7 @@ void Contap_ContAna::Perform(const gp_Cylinder& C, const Point3d& Eye)
   done = Standard_True;
 }
 
-void Contap_ContAna::Perform(const gp_Cone& C, const gp_Dir& D)
+void Contap_ContAna::Perform(const gp_Cone& C, const Dir3d& D)
 {
   done = Standard_False;
 
@@ -286,7 +286,7 @@ void Contap_ContAna::Perform(const gp_Cone& C, const gp_Dir& D)
   done = Standard_True;
 }
 
-void Contap_ContAna::Perform(const gp_Cone& C, const gp_Dir& D, const Standard_Real Angle)
+void Contap_ContAna::Perform(const gp_Cone& C, const Dir3d& D, const Standard_Real Angle)
 {
   done  = Standard_False;
   nbSol = 0;

@@ -116,7 +116,7 @@ public:
     {
       OCC_CATCH_SIGNALS
 
-      gp_Trsf aTrsf;
+      Transform3d aTrsf;
       if (BOPAlgo_Tools::TrsfToPoint(myBox1, myBox2, aTrsf))
       {
         // Shapes are located far from origin, move the shapes to the origin,
@@ -964,7 +964,7 @@ void BOPAlgo_PaveFiller::ForceInterfEF(const BOPDS_IndexedMapOfPaveBlock& theMPB
       // Middle point
       Point3d aPOnE;
       // Tangent vector in the middle point
-      gp_Vec aVETgt;
+      Vector3d aVETgt;
       aBAC.D1(BOPTools_AlgoTools2D::IntermediatePoint(aTS[0], aTS[1]), aPOnE, aVETgt);
       if (aVETgt.SquareMagnitude() < gp::Resolution())
         continue;
@@ -996,7 +996,7 @@ void BOPAlgo_PaveFiller::ForceInterfEF(const BOPDS_IndexedMapOfPaveBlock& theMPB
       if (aSurfAdaptor.GetType() != GeomAbs_Plane || aBAC.GetType() != GeomAbs_Line)
       {
         Point3d aPOnS = aProjPS.NearestPoint();
-        gp_Vec aVFNorm(aPOnS, aPOnE);
+        Vector3d aVFNorm(aPOnS, aPOnE);
         if (aVFNorm.SquareMagnitude() > gp::Resolution())
         {
           // Angle between vectors should be close to 90 degrees.

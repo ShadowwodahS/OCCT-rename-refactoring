@@ -1033,7 +1033,7 @@ Standard_Integer TreatLC (const TheArc& A,
   Handle(Geom_Curve) aCEdge=BRep_Tool::Curve(*anE, f, l);
   
   gp_Cylinder aCyl=aQuadric.Cylinder();
-  const gp_Ax1& anAx1=aCyl.Axis();
+  const Axis3d& anAx1=aCyl.Axis();
   gp_Lin aLin(anAx1);
   Handle(Geom_Line) aCAxis=new Geom_Line (aLin);
   aR=aCyl.Radius();

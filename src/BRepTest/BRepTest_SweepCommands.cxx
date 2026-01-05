@@ -72,7 +72,7 @@ static Standard_Integer prism(Draw_Interpretor&, Standard_Integer n, const char*
   if (base.IsNull())
     return 1;
 
-  gp_Vec V(Draw::Atof(a[3]), Draw::Atof(a[4]), Draw::Atof(a[5]));
+  Vector3d V(Draw::Atof(a[3]), Draw::Atof(a[4]), Draw::Atof(a[5]));
 
   Standard_Boolean copy = Standard_False;
   Standard_Boolean inf  = Standard_False;
@@ -90,7 +90,7 @@ static Standard_Integer prism(Draw_Interpretor&, Standard_Integer n, const char*
   BRepPrimAPI_MakePrism* Prism;
   if (inf || sinf)
   {
-    Prism = new BRepPrimAPI_MakePrism(base, gp_Dir(V), inf);
+    Prism = new BRepPrimAPI_MakePrism(base, Dir3d(V), inf);
   }
   else
   {
@@ -124,8 +124,8 @@ static Standard_Integer revol(Draw_Interpretor& di, Standard_Integer n, const ch
     return 1;
 
   Point3d P(Draw::Atof(a[3]), Draw::Atof(a[4]), Draw::Atof(a[5]));
-  gp_Dir D(Draw::Atof(a[6]), Draw::Atof(a[7]), Draw::Atof(a[8]));
-  gp_Ax1 A(P, D);
+  Dir3d D(Draw::Atof(a[6]), Draw::Atof(a[7]), Draw::Atof(a[8]));
+  Axis3d A(P, D);
 
   Standard_Real angle = Draw::Atof(a[9]) * (M_PI / 180.0);
 
@@ -230,10 +230,10 @@ static Standard_Integer geompipe(Draw_Interpretor&, Standard_Integer n, const ch
   Standard_Boolean          rotate      = Standard_False;
   Standard_Real             Radius      = Draw::Atof(a[4]);
   Point3d                    ctr;
-  gp_Vec                    norm;
+  Vector3d                    norm;
   ProfileCurve->D1(aSpFirst, ctr, norm);
-  gp_Vec              xAxisStart(ctr, SpineCurve->Value(aSpFirst));
-  gp_Ax2              aAx2Start(ctr, norm, xAxisStart);
+  Vector3d              xAxisStart(ctr, SpineCurve->Value(aSpFirst));
+  Frame3d              aAx2Start(ctr, norm, xAxisStart);
   Handle(Geom_Circle) cStart = new Geom_Circle(aAx2Start, Radius);
   Standard_Integer    k      = 5;
   if (n > k)
@@ -677,7 +677,7 @@ static Standard_Integer setsweep(Draw_Interpretor& di, Standard_Integer n, const
       di << "bad arguments !\n";
       return 1;
     }
-    gp_Dir D(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4]));
+    Dir3d D(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4]));
     Sweep->SetMode(D);
   }
   else if (!strcmp(a[1], "-FX"))
@@ -687,16 +687,16 @@ static Standard_Integer setsweep(Draw_Interpretor& di, Standard_Integer n, const
       di << "bad arguments !\n";
       return 1;
     }
-    gp_Dir D(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4]));
+    Dir3d D(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4]));
     if (n == 8)
     {
-      gp_Dir DN(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7]));
-      gp_Ax2 Axe(Point3d(0., 0., 0.), D, DN);
+      Dir3d DN(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7]));
+      Frame3d Axe(Point3d(0., 0., 0.), D, DN);
       Sweep->SetMode(Axe);
     }
     else
     {
-      gp_Ax2 Axe(Point3d(0., 0., 0.), D);
+      Frame3d Axe(Point3d(0., 0., 0.), D);
       Sweep->SetMode(Axe);
     }
   }

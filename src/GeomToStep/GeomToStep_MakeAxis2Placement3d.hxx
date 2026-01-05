@@ -24,9 +24,9 @@
 #include <GeomToStep_Root.hxx>
 #include <StepData_StepModel.hxx>
 class StepGeom_Axis2Placement3d;
-class gp_Ax2;
+class Frame3d;
 class gp_Ax3;
-class gp_Trsf;
+class Transform3d;
 class Geom_Axis2Placement;
 
 //! This class implements the mapping between classes
@@ -42,7 +42,7 @@ public:
     const StepData_Factors& theLocalFactors = StepData_Factors());
 
   Standard_EXPORT GeomToStep_MakeAxis2Placement3d(
-    const gp_Ax2&           A,
+    const Frame3d&           A,
     const StepData_Factors& theLocalFactors = StepData_Factors());
 
   Standard_EXPORT GeomToStep_MakeAxis2Placement3d(
@@ -50,7 +50,7 @@ public:
     const StepData_Factors& theLocalFactors = StepData_Factors());
 
   Standard_EXPORT GeomToStep_MakeAxis2Placement3d(
-    const gp_Trsf&          T,
+    const Transform3d&          T,
     const StepData_Factors& theLocalFactors = StepData_Factors());
 
   Standard_EXPORT GeomToStep_MakeAxis2Placement3d(

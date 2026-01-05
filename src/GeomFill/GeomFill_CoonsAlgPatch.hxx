@@ -25,7 +25,7 @@
 #include <Standard_Integer.hxx>
 class GeomFill_Boundary;
 class Law_Function;
-class gp_Vec;
+class Vector3d;
 
 class GeomFill_CoonsAlgPatch;
 DEFINE_STANDARD_HANDLE(GeomFill_CoonsAlgPatch, RefObject)
@@ -58,16 +58,16 @@ public:
 
   //! Computes   the  d/dU   partial   derivative  on    the
   //! algorithmic patch at parameters U and V.
-  Standard_EXPORT gp_Vec D1U(const Standard_Real U, const Standard_Real V) const;
+  Standard_EXPORT Vector3d D1U(const Standard_Real U, const Standard_Real V) const;
 
   //! Computes    the  d/dV    partial    derivative on  the
   //! algorithmic patch at parameters U and V.
-  Standard_EXPORT gp_Vec D1V(const Standard_Real U, const Standard_Real V) const;
+  Standard_EXPORT Vector3d D1V(const Standard_Real U, const Standard_Real V) const;
 
   //! Computes the   d2/dUdV  partial  derivative   on   the
   //! algorithmic  patch made with linear blending functions
   //! at parameter U and V.
-  Standard_EXPORT gp_Vec DUV(const Standard_Real U, const Standard_Real V) const;
+  Standard_EXPORT Vector3d DUV(const Standard_Real U, const Standard_Real V) const;
 
   Standard_EXPORT const Point3d& Corner(const Standard_Integer I) const;
 

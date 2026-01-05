@@ -30,14 +30,14 @@
 // ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
-Standard_EXPORT gp_Dir FUN_tool_nCinsideS(const gp_Dir& tgC, const gp_Dir& ngS)
+Standard_EXPORT Dir3d FUN_tool_nCinsideS(const Dir3d& tgC, const Dir3d& ngS)
 {
   // Give us a curve C on surface S,<parOnC>,a parameter
   // Purpose : compute normal vector to C,tangent to S at
   //           given point,oriented INSIDE S
   // <tgC> : geometric tangent at point of <parOnC>
   // <ngS> : geometric normal at point of <parOnC>
-  gp_Dir XX(ngS ^ tgC);
+  Dir3d XX(ngS ^ tgC);
   return XX;
 }
 
@@ -53,20 +53,20 @@ Standard_EXPORT gp_Dir2d FUN_tool_nC2dINSIDES(const gp_Dir2d& tgC2d)
   // (X,Y,Z) describes a RONd with :
   // X = (tgC2d,0),Y = (xx,0),Z =(0,0,1)
   // ------------------------------------------------------------
-  gp_Dir X, Y, Z;
-  Z = gp_Dir(0., 0., 1.);
-  X = gp_Dir(tgC2d.X(), tgC2d.Y(), 0.);
+  Dir3d X, Y, Z;
+  Z = Dir3d(0., 0., 1.);
+  X = Dir3d(tgC2d.X(), tgC2d.Y(), 0.);
   Y = Z ^ X;
   gp_Dir2d xx(Y.X(), Y.Y());
   return xx;
 }
 
 // ----------------------------------------------------------------------
-// Standard_EXPORT gp_Vec FUN_tool_getgeomxx(const TopoDS_Face& Fi,
-Standard_EXPORT gp_Vec FUN_tool_getgeomxx(const TopoDS_Face&,
+// Standard_EXPORT Vector3d FUN_tool_getgeomxx(const TopoDS_Face& Fi,
+Standard_EXPORT Vector3d FUN_tool_getgeomxx(const TopoDS_Face&,
                                           const TopoDS_Edge&  Ei,
                                           const Standard_Real parEi,
-                                          const gp_Dir&       ngFi)
+                                          const Dir3d&       ngFi)
 {
   // <Ei> is an edge of <Fi>,
   // computing XX a vector normal to <ngFi>,
@@ -75,25 +75,25 @@ Standard_EXPORT gp_Vec FUN_tool_getgeomxx(const TopoDS_Face&,
   // <parEi> on edge <Ei>)
   // <XX> is oriented inside 2d <F> if <E> is FORWARD in <F>
 
-  gp_Vec           tgEi;
+  Vector3d           tgEi;
   Standard_Boolean ok = TopOpeBRepTool_TOOL::TggeomE(parEi, Ei, tgEi);
   if (!ok)
-    return gp_Vec(0., 0., 0.); // NYIRAISE
-  gp_Dir XX = FUN_tool_nCinsideS(tgEi, ngFi);
+    return Vector3d(0., 0., 0.); // NYIRAISE
+  Dir3d XX = FUN_tool_nCinsideS(tgEi, ngFi);
   return XX;
 }
 
 // ----------------------------------------------------------------------
-Standard_EXPORT gp_Vec FUN_tool_getgeomxx(const TopoDS_Face&  Fi,
+Standard_EXPORT Vector3d FUN_tool_getgeomxx(const TopoDS_Face&  Fi,
                                           const TopoDS_Edge&  Ei,
                                           const Standard_Real parOnEi)
 {
-  gp_Vec           xx(1., 0., 0.);
+  Vector3d           xx(1., 0., 0.);
   gp_Pnt2d         uvi;
   Standard_Boolean ok = FUN_tool_paronEF(Ei, parOnEi, Fi, uvi);
   if (!ok)
     return xx; // nyiRaise
-  gp_Vec ngFi = FUN_tool_nggeomF(uvi, Fi);
+  Vector3d ngFi = FUN_tool_nggeomF(uvi, Fi);
   xx          = FUN_tool_getgeomxx(Fi, Ei, parOnEi, ngFi);
   return xx;
 }
@@ -102,13 +102,13 @@ Standard_EXPORT gp_Vec FUN_tool_getgeomxx(const TopoDS_Face&  Fi,
 Standard_EXPORT Standard_Boolean FUN_tool_getxx(const TopoDS_Face&  Fi,
                                                 const TopoDS_Edge&  Ei,
                                                 const Standard_Real parEi,
-                                                const gp_Dir&       ngFi,
-                                                gp_Dir&             XX)
+                                                const Dir3d&       ngFi,
+                                                Dir3d&             XX)
 {
-  gp_Vec xx = FUN_tool_getgeomxx(Fi, Ei, parEi, ngFi);
+  Vector3d xx = FUN_tool_getgeomxx(Fi, Ei, parEi, ngFi);
   if (xx.Magnitude() < gp::Resolution())
     return Standard_False;
-  XX = gp_Dir(xx);
+  XX = Dir3d(xx);
   TopAbs_Orientation oriEinF;
   Standard_Boolean   ok = FUN_tool_orientEinFFORWARD(Ei, Fi, oriEinF);
   if (!ok)
@@ -122,14 +122,14 @@ Standard_EXPORT Standard_Boolean FUN_tool_getxx(const TopoDS_Face&  Fi,
 Standard_EXPORT Standard_Boolean FUN_tool_getxx(const TopoDS_Face&  Fi,
                                                 const TopoDS_Edge&  Ei,
                                                 const Standard_Real parEi,
-                                                gp_Dir&             XX)
+                                                Dir3d&             XX)
 {
   Standard_Real    tolFi = BRep_Tool::Tolerance(Fi) * 1.e2; // nyitol
   gp_Pnt2d         uv;
   Standard_Boolean ok = FUN_tool_parF(Ei, parEi, Fi, uv, tolFi);
   if (!ok)
     return Standard_False;
-  gp_Vec ng = FUN_tool_nggeomF(uv, Fi);
+  Vector3d ng = FUN_tool_nggeomF(uv, Fi);
   ok        = FUN_tool_getxx(Fi, Ei, parEi, ng, XX);
   return ok;
 }

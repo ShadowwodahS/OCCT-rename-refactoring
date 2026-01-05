@@ -121,8 +121,8 @@ Standard_Boolean GeomConvert_CurveToAnaCurve::IsLinear(const TColgp_Array1OfPnt&
     return Standard_False;
 
   Standard_Real tol2 = tolerance * tolerance;
-  gp_Vec        avec(aPoles(iMax1), aPoles(iMax2));
-  gp_Dir        adir(avec);
+  Vector3d        avec(aPoles(iMax1), aPoles(iMax2));
+  Dir3d        adir(avec);
   gp_Lin        alin(aPoles(iMax1), adir);
 
   Standard_Real aMax = 0.;
@@ -146,8 +146,8 @@ gp_Lin GeomConvert_CurveToAnaCurve::GetLine(const Point3d&  P1,
                                             Standard_Real& cf,
                                             Standard_Real& cl)
 {
-  gp_Vec avec(P1, P2);
-  gp_Dir adir(avec);
+  Vector3d avec(P1, P2);
+  Dir3d adir(avec);
   gp_Lin alin(P1, adir);
   cf = ElCLib::Parameter(alin, P1);
   cl = ElCLib::Parameter(alin, P2);
@@ -247,8 +247,8 @@ Standard_Boolean GeomConvert_CurveToAnaCurve::GetCircle(gp_Circ&      crc,
     return Standard_False;
   //  Recalage sur P0
   Point3d PC  = crc.Location();
-  gp_Ax2 axe = crc.Position();
-  gp_Vec VX(PC, P0);
+  Frame3d axe = crc.Position();
+  Vector3d VX(PC, P0);
   axe.SetXDirection(VX);
   crc.SetPosition(axe);
   return Standard_True;
@@ -329,7 +329,7 @@ Handle(Geom_Curve) GeomConvert_CurveToAnaCurve::ComputeCircle(const Handle(Geom_
 //=================================================================================================
 
 static Standard_Boolean IsArrayPntPlanar(const Handle(TColgp_HArray1OfPnt)& HAP,
-                                         gp_Dir&                            Norm,
+                                         Dir3d&                            Norm,
                                          const Standard_Real                prec)
 {
   Standard_Integer size = HAP->Length();
@@ -342,11 +342,11 @@ static Standard_Boolean IsArrayPntPlanar(const Handle(TColgp_HArray1OfPnt)& HAP,
   Standard_Real dist2 = P1.Distance(P3);
   if (dist1 < prec || dist2 < prec)
     return Standard_False;
-  gp_Vec V1(P1, P2);
-  gp_Vec V2(P1, P3);
+  Vector3d V1(P1, P2);
+  Vector3d V2(P1, P3);
   if (V1.IsParallel(V2, prec))
     return Standard_False;
-  gp_Vec NV = V1.Crossed(V2);
+  Vector3d NV = V1.Crossed(V2);
 
   Standard_Integer i;
   for (i = 1; i <= 3; ++i)
@@ -368,7 +368,7 @@ static Standard_Boolean IsArrayPntPlanar(const Handle(TColgp_HArray1OfPnt)& HAP,
       {
         return Standard_False;
       }
-      gp_Vec VN(P1, PN);
+      Vector3d VN(P1, PN);
       if (!NV.IsNormal(VN, prec))
         return Standard_False;
     }
@@ -388,7 +388,7 @@ static Standard_Boolean ConicDefinition(const Standard_Real    a,
                                         const Standard_Boolean IsParab,
                                         const Standard_Boolean IsEllip,
                                         Point3d&                Center,
-                                        gp_Dir&                MainAxis,
+                                        Dir3d&                MainAxis,
                                         Standard_Real&         Rmin,
                                         Standard_Real&         Rmax)
 {
@@ -539,12 +539,12 @@ Handle(Geom_Curve) GeomConvert_CurveToAnaCurve::ComputeEllipse(const Handle(Geom
   }
   aBC /= 5;
   aBC *= -1;
-  gp_Vec aTrans(aBC);
+  Vector3d aTrans(aBC);
   for (i = 1; i <= 5; ++i)
   {
     AP->ChangeValue(i).Translate(aTrans);
   }
-  gp_Dir ndir;
+  Dir3d ndir;
   if (!IsArrayPntPlanar(AP, ndir, prec))
     return res;
 
@@ -553,9 +553,9 @@ Handle(Geom_Curve) GeomConvert_CurveToAnaCurve::ComputeEllipse(const Handle(Geom
     return res;
 
   gp_Ax3  AX(Point3d(0, 0, 0), ndir);
-  gp_Trsf Tr;
+  Transform3d Tr;
   Tr.SetTransformation(AX);
-  gp_Trsf Tr2 = Tr.Inverted();
+  Transform3d Tr2 = Tr.Inverted();
 
   math_Matrix Dt(1, 5, 1, 5);
   math_Vector F(1, 5), Sl(1, 5);
@@ -592,7 +592,7 @@ Handle(Geom_Curve) GeomConvert_CurveToAnaCurve::ComputeEllipse(const Handle(Geom
 
   Standard_Real    Rmax, Rmin;
   Point3d           Center;
-  gp_Dir           MainAxis;
+  Dir3d           MainAxis;
   Standard_Boolean IsParab = Standard_False, IsEllip = Standard_False;
 
   if (Q2 > 0 && Q1 * Q3 < 0)
@@ -613,10 +613,10 @@ Handle(Geom_Curve) GeomConvert_CurveToAnaCurve::ComputeEllipse(const Handle(Geom
                   Center.Y() + MainAxis.Y() * 10,
                   Center.Z() + MainAxis.Z() * 10);
       Point3d NewPtmp = Ptmp.Transformed(Tr2);
-      gp_Dir NewMainAxis(NewPtmp.X() - NewCenter.X(),
+      Dir3d NewMainAxis(NewPtmp.X() - NewCenter.X(),
                          NewPtmp.Y() - NewCenter.Y(),
                          NewPtmp.Z() - NewCenter.Z());
-      gp_Ax2 ax2(NewCenter, ndir, NewMainAxis);
+      Frame3d ax2(NewCenter, ndir, NewMainAxis);
 
       gp_Elips anEllipse(ax2, Rmax, Rmin);
       anEllipse.Translate(aTrans);

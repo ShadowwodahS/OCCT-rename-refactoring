@@ -41,7 +41,7 @@ BRepPrim_Sphere::BRepPrim_Sphere(const Standard_Real Radius)
 //=================================================================================================
 
 BRepPrim_Sphere::BRepPrim_Sphere(const Point3d& Center, const Standard_Real Radius)
-    : BRepPrim_Revolution(gp_Ax2(Center, gp_Dir(0, 0, 1), gp_Dir(1, 0, 0)), PMIN, PMAX),
+    : BRepPrim_Revolution(Frame3d(Center, Dir3d(0, 0, 1), Dir3d(1, 0, 0)), PMIN, PMAX),
       myRadius(Radius)
 {
   SetMeridian();
@@ -49,7 +49,7 @@ BRepPrim_Sphere::BRepPrim_Sphere(const Point3d& Center, const Standard_Real Radi
 
 //=================================================================================================
 
-BRepPrim_Sphere::BRepPrim_Sphere(const gp_Ax2& Axes, const Standard_Real Radius)
+BRepPrim_Sphere::BRepPrim_Sphere(const Frame3d& Axes, const Standard_Real Radius)
     : BRepPrim_Revolution(Axes, PMIN, PMAX),
       myRadius(Radius)
 {
@@ -75,9 +75,9 @@ void BRepPrim_Sphere::SetMeridian()
 
   SetMeridianOffset(2 * M_PI);
 
-  gp_Dir D = Axes().YDirection();
+  Dir3d D = Axes().YDirection();
   D.Reverse();
-  gp_Ax2                A(Axes().Location(), D, Axes().XDirection());
+  Frame3d                A(Axes().Location(), D, Axes().XDirection());
   Handle(Geom_Circle)   C   = new Geom_Circle(A, myRadius);
   Handle(Geom2d_Circle) C2d = new Geom2d_Circle(gp_Ax2d(gp_Pnt2d(0, 0), gp_Dir2d(1, 0)), myRadius);
   Meridian(C, C2d);

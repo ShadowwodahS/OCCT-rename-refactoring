@@ -569,14 +569,14 @@ Standard_Real Poly::PointOnTriangle(const gp_XY& theP1,
 //=================================================================================================
 
 Standard_Boolean Poly::Intersect(const Handle(Poly_Triangulation)& theTri,
-                                 const gp_Ax1&                     theAxis,
+                                 const Axis3d&                     theAxis,
                                  const Standard_Boolean            theIsClosest,
                                  Poly_Triangle&                    theTriangle,
                                  Standard_Real&                    theDistance)
 {
   const Standard_Real aConf = 1E-15;
   const gp_XYZ&       aLoc  = theAxis.Location().XYZ();
-  const gp_Dir&       aDir  = theAxis.Direction();
+  const Dir3d&       aDir  = theAxis.Direction();
 
   Standard_Real    aResult      = theIsClosest ? RealLast() : 0.0;
   Standard_Real    aParam       = 0.0;
@@ -632,7 +632,7 @@ static double Determinant(const double a[3][4], const int c1, const int c2, cons
 // purpose  : Intersect a triangle with a line
 //=======================================================================
 Standard_Integer Poly::IntersectTriLine(const gp_XYZ&  theStart,
-                                        const gp_Dir&  theDir,
+                                        const Dir3d&  theDir,
                                         const gp_XYZ&  theV0,
                                         const gp_XYZ&  theV1,
                                         const gp_XYZ&  theV2,

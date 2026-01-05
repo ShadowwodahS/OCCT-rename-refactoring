@@ -74,16 +74,16 @@ Standard_Boolean TopOpeBRepTool_mkTondgE::Initialize(const TopoDS_Edge& dgE,
   Standard_Boolean     ok = FUN_tool_paronEF(mydgE, par, myF, uv);
   if (!ok)
     return Standard_False;
-  gp_Vec tmp;
+  Vector3d tmp;
   ok    = TopOpeBRepTool_TOOL::NggeomF(uv, myF, tmp);
-  myngf = gp_Dir(tmp);
+  myngf = Dir3d(tmp);
   if (!ok)
     return Standard_False;
 
   myuvi                = uvi;
   myFi                 = Fi;
   Standard_Boolean oki = TopOpeBRepTool_TOOL::NggeomF(myuvi, myFi, tmp);
-  myngfi               = gp_Dir(tmp);
+  myngfi               = Dir3d(tmp);
   if (!oki)
     return Standard_False;
 
@@ -194,16 +194,16 @@ static Standard_Boolean FUN_getEc(const TopoDS_Face& f, const TopoDS_Vertex& v, 
   return Standard_False;
 }
 
-static Standard_Boolean FUN_MkTonE(const gp_Vec& faxis,
-                                   const gp_Vec& dirINcle,
-                                   const gp_Vec& xxi,
-                                   const gp_Vec& /*ngf*/,
+static Standard_Boolean FUN_MkTonE(const Vector3d& faxis,
+                                   const Vector3d& dirINcle,
+                                   const Vector3d& xxi,
+                                   const Vector3d& /*ngf*/,
                                    Standard_Real&    par1,
                                    Standard_Real&    par2,
                                    Standard_Boolean& outin)
 {
   // tgi  / (tgi,xxi,faxis) is direct :
-  gp_Vec tgi = xxi.Crossed(faxis);
+  Vector3d tgi = xxi.Crossed(faxis);
 
   // ******************** getting par1, par2
   // at par1 : tr(dge, ei/fi) = forward
@@ -264,18 +264,18 @@ Standard_Boolean TopOpeBRepTool_mkTondgE::MkTonE(Standard_Integer& mkT,
 
   // dirINcle : tangent to cle at v oriented INSIDE 1d(cle)
   Standard_Integer ovcle;
-  gp_Vec           dirINcle;
+  Vector3d           dirINcle;
   Standard_Boolean ok = TopOpeBRepTool_TOOL::TgINSIDE(v, myclE, dirINcle, ovcle);
   if (!ok)
     return NOI;
 
   // faxis : describes f's axis for parametrization of <dgE>
-  gp_Vec faxis = myngf;
+  Vector3d faxis = myngf;
   if (ovcle == FORWARD)
     faxis.Reverse();
 
   // xxi : normal to fi oriented INSIDE 3d(fi)
-  gp_Vec xxi;
+  Vector3d xxi;
   ok = TopOpeBRepTool_TOOL::NggeomF(myuvi, myFi, xxi);
   if (!ok)
     return Standard_False;
@@ -321,7 +321,7 @@ Standard_Boolean TopOpeBRepTool_mkTondgE::MkTonE(const TopoDS_Edge& ei,
   FUN_tool_bounds(ei, pfi, pli);
   Standard_Real    tolpi = TopOpeBRepTool_TOOL::TolP(ei, myFi);
   Standard_Boolean onfi = (Abs(pari - pfi) < tolpi), onli = (Abs(pari - pli) < tolpi);
-  gp_Vec           tgin1di;
+  Vector3d           tgin1di;
   Standard_Boolean ok = TopOpeBRepTool_TOOL::TggeomE(pari, ei, tgin1di);
   if (!ok)
     return Standard_False;
@@ -341,7 +341,7 @@ Standard_Boolean TopOpeBRepTool_mkTondgE::MkTonE(const TopoDS_Edge& ei,
 
   // dirINcle : tangent to cle at v oriented INSIDE 1d(cle)
   Standard_Integer ovcle;
-  gp_Vec           dirINcle;
+  Vector3d           dirINcle;
   ok = TopOpeBRepTool_TOOL::TgINSIDE(v, myclE, dirINcle, ovcle);
   if (!ok)
     return NOI;
@@ -350,13 +350,13 @@ Standard_Boolean TopOpeBRepTool_mkTondgE::MkTonE(const TopoDS_Edge& ei,
     return Standard_False; // no transition to compute
 
   // faxis : describes f's axis for parametrization of <dgE>
-  gp_Vec faxis = myngf;
+  Vector3d faxis = myngf;
   if (ovcle == FORWARD)
     faxis.Reverse();
 
-  gp_Dir xxi;  // isT2d=true : normal to ei oriented INSIDE 2d(fi)
+  Dir3d xxi;  // isT2d=true : normal to ei oriented INSIDE 2d(fi)
                //              normal to fi oriented INSIDE 3d(fi)
-  gp_Dir xxri; // isT2d=true : oriented inside 1d(ei)
+  Dir3d xxri; // isT2d=true : oriented inside 1d(ei)
                //              oriented inside 2d(fi)
 
   TopoDS_Vertex    vclo;
@@ -390,9 +390,9 @@ Standard_Boolean TopOpeBRepTool_mkTondgE::MkTonE(const TopoDS_Edge& ei,
   else
   {
     // xxi :
-    gp_Vec tmp;
+    Vector3d tmp;
     ok  = TopOpeBRepTool_TOOL::NggeomF(myuvi, myFi, tmp);
-    xxi = gp_Dir(tmp);
+    xxi = Dir3d(tmp);
     if (!ok)
       return Standard_False;
     if (M_FORWARD(myFi.Orientation()))
@@ -409,7 +409,7 @@ Standard_Boolean TopOpeBRepTool_mkTondgE::MkTonE(const TopoDS_Edge& ei,
       return Standard_False;
 
     mkT               = MKI12;              // without restrictions.
-    gp_Vec        tgi = xxi.Crossed(faxis); // tgi /(tgi,xxi,faxis) is direct :
+    Vector3d        tgi = xxi.Crossed(faxis); // tgi /(tgi,xxi,faxis) is direct :
     Standard_Real dot = tgi.Dot(xxri);
     if (Abs(dot) < FUN_tola())
     {
@@ -447,7 +447,7 @@ Standard_Boolean TopOpeBRepTool_mkTondgE::MkTonE(const TopoDS_Edge& ei,
   } //! isT2d
 
   mkT                      = MKI12;              // without restrictions.
-  gp_Vec           tgi     = xxi.Crossed(faxis); // tgi /(tgi,xxi,faxis) is direct :
+  Vector3d           tgi     = xxi.Crossed(faxis); // tgi /(tgi,xxi,faxis) is direct :
   Standard_Real    dot     = tgi.Dot(xxri);
   Standard_Boolean keepang = (dot > 0);
   if (keepang)

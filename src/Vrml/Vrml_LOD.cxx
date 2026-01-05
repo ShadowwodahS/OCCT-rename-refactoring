@@ -20,12 +20,12 @@ IMPLEMENT_STANDARD_RTTIEXT(Vrml_LOD, RefObject)
 Vrml_LOD::Vrml_LOD()
 {
   myRange = new TColStd_HArray1OfReal(1, 1);
-  gp_Vec tmpVec(0, 0, 0);
+  Vector3d tmpVec(0, 0, 0);
   myCenter    = tmpVec;
   myRangeFlag = Standard_False;
 }
 
-Vrml_LOD::Vrml_LOD(const Handle(TColStd_HArray1OfReal)& aRange, const gp_Vec& aCenter)
+Vrml_LOD::Vrml_LOD(const Handle(TColStd_HArray1OfReal)& aRange, const Vector3d& aCenter)
 {
   myRange     = aRange;
   myCenter    = aCenter;
@@ -43,12 +43,12 @@ Handle(TColStd_HArray1OfReal) Vrml_LOD::Range() const
   return myRange;
 }
 
-void Vrml_LOD::SetCenter(const gp_Vec& aCenter)
+void Vrml_LOD::SetCenter(const Vector3d& aCenter)
 {
   myCenter = aCenter;
 }
 
-gp_Vec Vrml_LOD::Center() const
+Vector3d Vrml_LOD::Center() const
 {
   return myCenter;
 }

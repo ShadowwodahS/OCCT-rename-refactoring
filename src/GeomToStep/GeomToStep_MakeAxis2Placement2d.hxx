@@ -24,7 +24,7 @@
 #include <GeomToStep_Root.hxx>
 
 class StepGeom_Axis2Placement2d;
-class gp_Ax2;
+class Frame3d;
 class gp_Ax22d;
 
 //! This class implements the mapping between classes
@@ -37,7 +37,7 @@ public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT GeomToStep_MakeAxis2Placement2d(
-    const gp_Ax2&           A,
+    const Frame3d&           A,
     const StepData_Factors& theLocalFactors = StepData_Factors());
 
   Standard_EXPORT GeomToStep_MakeAxis2Placement2d(

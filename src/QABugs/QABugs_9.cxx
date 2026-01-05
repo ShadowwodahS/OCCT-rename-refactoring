@@ -31,7 +31,7 @@
 
 static Standard_Integer BUC60857(Draw_Interpretor& di, Standard_Integer /*argc*/, const char** argv)
 {
-  gp_Ax2 Cone_Ax;
+  Frame3d Cone_Ax;
   double R1 = 8, R2 = 16;
   Point3d P0(0, 0, 0), P1(0, 0, 20), P2(0, 0, 45);
 

@@ -67,7 +67,7 @@ public:
   //!
   //! Raised if the direction of A1 is parallel to the XAxis of the
   //! coordinate system of the surface.
-  void SetAxis(const gp_Ax1& theA1) { pos.SetAxis(theA1); }
+  void SetAxis(const Axis3d& theA1) { pos.SetAxis(theA1); }
 
   //! Changes the location of the local coordinates system of the
   //! surface.
@@ -77,7 +77,7 @@ public:
   void SetPosition(const gp_Ax3& theAx3) { pos = theAx3; }
 
   //! Returns the main axis of the surface (ZAxis).
-  const gp_Ax1& Axis() const { return pos.Axis(); }
+  const Axis3d& Axis() const { return pos.Axis(); }
 
   //! Returns the location point of the local coordinate system of the
   //! surface.

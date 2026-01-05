@@ -23,7 +23,7 @@
 
 #include <GeomToStep_Root.hxx>
 class StepGeom_Direction;
-class gp_Dir;
+class Dir3d;
 class gp_Dir2d;
 class Geom_Direction;
 class Geom2d_Direction;
@@ -37,7 +37,7 @@ class GeomToStep_MakeDirection : public GeomToStep_Root
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT GeomToStep_MakeDirection(const gp_Dir& D);
+  Standard_EXPORT GeomToStep_MakeDirection(const Dir3d& D);
 
   Standard_EXPORT GeomToStep_MakeDirection(const gp_Dir2d& D);
 

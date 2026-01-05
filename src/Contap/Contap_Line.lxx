@@ -82,5 +82,5 @@ inline gp_Circ Contap_Line::Circle() const
   {
     throw Standard_DomainError();
   }
-  return gp_Circ(gp_Ax2(pt, dir1, dir2), rad);
+  return gp_Circ(Frame3d(pt, dir1, dir2), rad);
 }

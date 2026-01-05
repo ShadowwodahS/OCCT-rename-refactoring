@@ -123,7 +123,7 @@ void LocOpe_FindEdges::Set(const TopoDS_Shape& FFrom, const TopoDS_Shape& FTo)
           // Point debut, calage dans periode, et detection meme sens
 
           Point3d p1, p2;
-          gp_Vec tgf, tgt;
+          Vector3d tgf, tgt;
           ElCLib::D1(ff, cif, p1, tgf);
           p2 = ElCLib::Value(lf, cif);
 
@@ -185,7 +185,7 @@ void LocOpe_FindEdges::Set(const TopoDS_Shape& FFrom, const TopoDS_Shape& FTo)
           // Point debut, calage dans periode, et detection meme sens
 
           Point3d p1, p2;
-          gp_Vec tgf, tgt;
+          Vector3d tgf, tgt;
           ElCLib::D1(ff, cif, p1, tgf);
           p2 = ElCLib::Value(lf, cif);
 

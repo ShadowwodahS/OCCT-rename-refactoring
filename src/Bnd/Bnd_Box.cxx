@@ -69,7 +69,7 @@ void Bnd_Box::Set(const Point3d& P)
 
 //=================================================================================================
 
-void Bnd_Box::Set(const Point3d& P, const gp_Dir& D)
+void Bnd_Box::Set(const Point3d& P, const Dir3d& D)
 {
   SetVoid();
   Add(P, D);
@@ -317,7 +317,7 @@ Standard_Boolean Bnd_Box::IsThin(const Standard_Real tol) const
 
 //=================================================================================================
 
-Bnd_Box Bnd_Box::Transformed(const gp_Trsf& T) const
+Bnd_Box Bnd_Box::Transformed(const Transform3d& T) const
 {
   if (IsVoid())
   {
@@ -370,7 +370,7 @@ Bnd_Box Bnd_Box::Transformed(const gp_Trsf& T) const
     return aNewBox;
   }
 
-  gp_Dir           aDirs[6];
+  Dir3d           aDirs[6];
   Standard_Integer aNbDirs = 0;
   if (IsOpenXmin())
   {
@@ -469,7 +469,7 @@ void Bnd_Box::Add(const Point3d& P)
 
 //=================================================================================================
 
-void Bnd_Box::Add(const Point3d& P, const gp_Dir& D)
+void Bnd_Box::Add(const Point3d& P, const Dir3d& D)
 {
   Add(P);
   Add(D);
@@ -477,7 +477,7 @@ void Bnd_Box::Add(const Point3d& P, const gp_Dir& D)
 
 //=================================================================================================
 
-void Bnd_Box::Add(const gp_Dir& D)
+void Bnd_Box::Add(const Dir3d& D)
 {
   Standard_Real DX, DY, DZ;
   D.Coord(DX, DY, DZ);
@@ -723,14 +723,14 @@ Standard_Boolean Bnd_Box::IsOut(const Bnd_Box& Other) const
 
 //=================================================================================================
 
-Standard_Boolean Bnd_Box::IsOut(const Bnd_Box& Other, const gp_Trsf& T) const
+Standard_Boolean Bnd_Box::IsOut(const Bnd_Box& Other, const Transform3d& T) const
 {
   return IsOut(Other.Transformed(T));
 }
 
 //=================================================================================================
 
-Standard_Boolean Bnd_Box::IsOut(const gp_Trsf& T1, const Bnd_Box& Other, const gp_Trsf& T2) const
+Standard_Boolean Bnd_Box::IsOut(const Transform3d& T1, const Bnd_Box& Other, const Transform3d& T2) const
 {
   return Transformed(T1).IsOut(Other.Transformed(T2));
 }
@@ -785,7 +785,7 @@ static Standard_Boolean IsSegmentOut(Standard_Real x1,
   return Standard_False;
 }
 
-Standard_Boolean Bnd_Box::IsOut(const Point3d& P1, const Point3d& P2, const gp_Dir& D) const
+Standard_Boolean Bnd_Box::IsOut(const Point3d& P1, const Point3d& P2, const Dir3d& D) const
 {
 
   if (IsWhole())

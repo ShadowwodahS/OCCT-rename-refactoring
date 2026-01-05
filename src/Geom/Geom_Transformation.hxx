@@ -53,9 +53,9 @@ DEFINE_STANDARD_HANDLE(Geom_Transformation, RefObject)
 //! the transformation.
 //! Note: Geom_Transformation transformations
 //! provide the same kind of "geometric" services as
-//! gp_Trsf ones but have more complex data structures.
+//! Transform3d ones but have more complex data structures.
 //! The geometric objects provided by the Geom
-//! package use gp_Trsf transformations in the syntaxes
+//! package use Transform3d transformations in the syntaxes
 //! Transform and Transformed.
 //! Geom_Transformation transformations are used in
 //! a context where they can be shared by several
@@ -68,7 +68,7 @@ public:
   Standard_EXPORT Geom_Transformation();
 
   //! Creates a transient copy of T.
-  Standard_EXPORT Geom_Transformation(const gp_Trsf& T);
+  Standard_EXPORT Geom_Transformation(const Transform3d& T);
 
   //! Makes the transformation into a symmetrical transformation
   //! with respect to a point P.
@@ -78,18 +78,18 @@ public:
   //! Makes the transformation into a symmetrical transformation
   //! with respect to an axis A1.
   //! A1 is the center of the axial symmetry.
-  void SetMirror(const gp_Ax1& theA1) { gpTrsf.SetMirror(theA1); }
+  void SetMirror(const Axis3d& theA1) { gpTrsf.SetMirror(theA1); }
 
   //! Makes the transformation into a symmetrical transformation
   //! with respect to a plane.  The plane of the symmetry is
   //! defined with the axis placement A2. It is the plane
   //! (Location, XDirection, YDirection).
-  void SetMirror(const gp_Ax2& theA2) { gpTrsf.SetMirror(theA2); }
+  void SetMirror(const Frame3d& theA2) { gpTrsf.SetMirror(theA2); }
 
   //! Makes the transformation into a rotation.
   //! A1 is the axis rotation and Ang is the angular value
   //! of the rotation in radians.
-  void SetRotation(const gp_Ax1& theA1, const Standard_Real theAng)
+  void SetRotation(const Axis3d& theA1, const Standard_Real theAng)
   {
     gpTrsf.SetRotation(theA1, theAng);
   }
@@ -129,14 +129,14 @@ public:
 
   //! Makes the transformation into a translation.
   //! V is the vector of the translation.
-  void SetTranslation(const gp_Vec& theVec) { gpTrsf.SetTranslation(theVec); }
+  void SetTranslation(const Vector3d& theVec) { gpTrsf.SetTranslation(theVec); }
 
   //! Makes the transformation into a translation from the point
   //! P1 to the point P2.
   void SetTranslation(const Point3d& P1, const Point3d& P2) { gpTrsf.SetTranslation(P1, P2); }
 
-  //! Converts the gp_Trsf transformation T into this transformation.
-  void SetTrsf(const gp_Trsf& theTrsf) { gpTrsf = theTrsf; }
+  //! Converts the Transform3d transformation T into this transformation.
+  void SetTrsf(const Transform3d& theTrsf) { gpTrsf = theTrsf; }
 
   //! Checks whether this transformation is an indirect
   //! transformation: returns true if the determinant of the
@@ -151,7 +151,7 @@ public:
   Standard_Real ScaleFactor() const { return gpTrsf.ScaleFactor(); }
 
   //! Returns a non transient copy of <me>.
-  const gp_Trsf& Trsf() const { return gpTrsf; }
+  const Transform3d& Trsf() const { return gpTrsf; }
 
   //! Returns the coefficients of the global matrix of transformation.
   //! It is a 3 rows X 4 columns matrix.
@@ -211,7 +211,7 @@ public:
                                         Standard_Integer  theDepth = -1) const;
 
 private:
-  gp_Trsf gpTrsf;
+  Transform3d gpTrsf;
 };
 
 #endif // _Geom_Transformation_HeaderFile

@@ -25,7 +25,7 @@
 #include <TopoDS_Face.hxx>
 
 class Point3d;
-class gp_Vec;
+class Vector3d;
 class gp_Pln;
 class gp_Cylinder;
 class gp_Cone;
@@ -33,8 +33,8 @@ class gp_Sphere;
 class gp_Torus;
 class Geom_BezierSurface;
 class Geom_BSplineSurface;
-class gp_Ax1;
-class gp_Dir;
+class Axis3d;
+class Dir3d;
 
 DEFINE_STANDARD_HANDLE(BRepAdaptor_Surface, Adaptor3d_Surface)
 
@@ -78,7 +78,7 @@ public:
   Standard_EXPORT GeomAdaptor_Surface& ChangeSurface();
 
   //! Returns the surface coordinate system.
-  Standard_EXPORT const gp_Trsf& Trsf() const;
+  Standard_EXPORT const Transform3d& Trsf() const;
 
   //! Returns the face.
   Standard_EXPORT const TopoDS_Face& Face() const;
@@ -176,8 +176,8 @@ public:
   Standard_EXPORT void D1(const Standard_Real U,
                           const Standard_Real V,
                           Point3d&             P,
-                          gp_Vec&             D1U,
-                          gp_Vec&             D1V) const Standard_OVERRIDE;
+                          Vector3d&             D1U,
+                          Vector3d&             D1V) const Standard_OVERRIDE;
 
   //! Computes   the point,  the  first  and  second
   //! derivatives on the surface.
@@ -186,11 +186,11 @@ public:
   Standard_EXPORT void D2(const Standard_Real U,
                           const Standard_Real V,
                           Point3d&             P,
-                          gp_Vec&             D1U,
-                          gp_Vec&             D1V,
-                          gp_Vec&             D2U,
-                          gp_Vec&             D2V,
-                          gp_Vec&             D2UV) const Standard_OVERRIDE;
+                          Vector3d&             D1U,
+                          Vector3d&             D1V,
+                          Vector3d&             D2U,
+                          Vector3d&             D2V,
+                          Vector3d&             D2UV) const Standard_OVERRIDE;
 
   //! Computes the point,  the first, second and third
   //! derivatives on the surface.
@@ -199,22 +199,22 @@ public:
   Standard_EXPORT void D3(const Standard_Real U,
                           const Standard_Real V,
                           Point3d&             P,
-                          gp_Vec&             D1U,
-                          gp_Vec&             D1V,
-                          gp_Vec&             D2U,
-                          gp_Vec&             D2V,
-                          gp_Vec&             D2UV,
-                          gp_Vec&             D3U,
-                          gp_Vec&             D3V,
-                          gp_Vec&             D3UUV,
-                          gp_Vec&             D3UVV) const Standard_OVERRIDE;
+                          Vector3d&             D1U,
+                          Vector3d&             D1V,
+                          Vector3d&             D2U,
+                          Vector3d&             D2V,
+                          Vector3d&             D2UV,
+                          Vector3d&             D3U,
+                          Vector3d&             D3V,
+                          Vector3d&             D3UUV,
+                          Vector3d&             D3UVV) const Standard_OVERRIDE;
 
   //! Computes the derivative of order Nu in the direction
   //! U and Nv in the direction V at the point P(U, V).
   //! Raised if the current U  interval is not not CNu
   //! and the current V interval is not CNv.
   //! Raised if Nu + Nv < 1 or Nu < 0 or Nv < 0.
-  Standard_EXPORT gp_Vec DN(const Standard_Real    U,
+  Standard_EXPORT Vector3d DN(const Standard_Real    U,
                             const Standard_Real    V,
                             const Standard_Integer Nu,
                             const Standard_Integer Nv) const Standard_OVERRIDE;
@@ -273,9 +273,9 @@ public:
   //! Be Careful when using this method
   Standard_EXPORT Handle(Geom_BSplineSurface) BSpline() const Standard_OVERRIDE;
 
-  Standard_EXPORT gp_Ax1 AxeOfRevolution() const Standard_OVERRIDE;
+  Standard_EXPORT Axis3d AxeOfRevolution() const Standard_OVERRIDE;
 
-  Standard_EXPORT gp_Dir Direction() const Standard_OVERRIDE;
+  Standard_EXPORT Dir3d Direction() const Standard_OVERRIDE;
 
   //! only for SurfaceOfExtrusion and SurfaceOfRevolution
   //! Warning: this will make a copy of the underlying curve
@@ -289,7 +289,7 @@ public:
 
 private:
   GeomAdaptor_Surface mySurf;
-  gp_Trsf             myTrsf;
+  Transform3d             myTrsf;
   TopoDS_Face         myFace;
 };
 

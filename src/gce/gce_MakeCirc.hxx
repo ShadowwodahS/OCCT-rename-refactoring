@@ -22,11 +22,11 @@
 
 #include <gp_Circ.hxx>
 #include <gce_Root.hxx>
-class gp_Ax2;
+class Frame3d;
 class Point3d;
-class gp_Dir;
+class Dir3d;
 class gp_Pln;
-class gp_Ax1;
+class Axis3d;
 
 //! This class implements the following algorithms used
 //! to create Circ from gp.
@@ -53,7 +53,7 @@ public:
   //! Warnings :
   //! It is not forbidden to create a circle with Radius = 0.0
   //! The status is "NegativeRadius" if Radius < 0.0
-  Standard_EXPORT gce_MakeCirc(const gp_Ax2& A2, const Standard_Real Radius);
+  Standard_EXPORT gce_MakeCirc(const Frame3d& A2, const Standard_Real Radius);
 
   //! Makes a Circ from gp <TheCirc> coaxial to another
   //! Circ <Circ> at a distance <Dist>.
@@ -74,7 +74,7 @@ public:
   //! <Center> and the normal of its plane <Norm> and
   //! its radius <Radius>.
   Standard_EXPORT gce_MakeCirc(const Point3d&       Center,
-                               const gp_Dir&       Norm,
+                               const Dir3d&       Norm,
                                const Standard_Real Radius);
 
   //! Makes a Circ from gp <TheCirc> with its center
@@ -107,7 +107,7 @@ public:
   //! -   gce_ConfusedPoints if two of the three points
   //! P1, P2 and P3 are coincident; or
   //! -   gce_NullAxis if Center and Ptaxis are coincident.
-  Standard_EXPORT gce_MakeCirc(const gp_Ax1& Axis, const Standard_Real Radius);
+  Standard_EXPORT gce_MakeCirc(const Axis3d& Axis, const Standard_Real Radius);
 
   //! Returns the constructed circle.
   //! Exceptions StdFail_NotDone if no circle is constructed.

@@ -28,21 +28,21 @@ class GeomEvaluator_SurfaceOfRevolution : public GeomEvaluator_Surface
 public:
   //! Initialize evaluator by revolved curve, the axis of revolution and the location
   Standard_EXPORT GeomEvaluator_SurfaceOfRevolution(const Handle(Geom_Curve)& theBase,
-                                                    const gp_Dir&             theRevolDir,
+                                                    const Dir3d&             theRevolDir,
                                                     const Point3d&             theRevolLoc);
   //! Initialize evaluator by adaptor of the revolved curve, the axis of revolution and the location
   Standard_EXPORT GeomEvaluator_SurfaceOfRevolution(const Handle(Adaptor3d_Curve)& theBase,
-                                                    const gp_Dir&                  theRevolDir,
+                                                    const Dir3d&                  theRevolDir,
                                                     const Point3d&                  theRevolLoc);
 
   //! Change direction of the axis of revolution
-  void SetDirection(const gp_Dir& theDirection) { myRotAxis.SetDirection(theDirection); }
+  void SetDirection(const Dir3d& theDirection) { myRotAxis.SetDirection(theDirection); }
 
   //! Change location of the axis of revolution
   void SetLocation(const Point3d& theLocation) { myRotAxis.SetLocation(theLocation); }
 
   //! Change the axis of revolution
-  void SetAxis(const gp_Ax1& theAxis) { myRotAxis = theAxis; }
+  void SetAxis(const Axis3d& theAxis) { myRotAxis = theAxis; }
 
   //! Value of surface
   Standard_EXPORT void D0(const Standard_Real theU,
@@ -52,34 +52,34 @@ public:
   Standard_EXPORT void D1(const Standard_Real theU,
                           const Standard_Real theV,
                           Point3d&             theValue,
-                          gp_Vec&             theD1U,
-                          gp_Vec&             theD1V) const Standard_OVERRIDE;
+                          Vector3d&             theD1U,
+                          Vector3d&             theD1V) const Standard_OVERRIDE;
   //! Value, first and second derivatives of surface
   Standard_EXPORT void D2(const Standard_Real theU,
                           const Standard_Real theV,
                           Point3d&             theValue,
-                          gp_Vec&             theD1U,
-                          gp_Vec&             theD1V,
-                          gp_Vec&             theD2U,
-                          gp_Vec&             theD2V,
-                          gp_Vec&             theD2UV) const Standard_OVERRIDE;
+                          Vector3d&             theD1U,
+                          Vector3d&             theD1V,
+                          Vector3d&             theD2U,
+                          Vector3d&             theD2V,
+                          Vector3d&             theD2UV) const Standard_OVERRIDE;
   //! Value, first, second and third derivatives of surface
   Standard_EXPORT void D3(const Standard_Real theU,
                           const Standard_Real theV,
                           Point3d&             theValue,
-                          gp_Vec&             theD1U,
-                          gp_Vec&             theD1V,
-                          gp_Vec&             theD2U,
-                          gp_Vec&             theD2V,
-                          gp_Vec&             theD2UV,
-                          gp_Vec&             theD3U,
-                          gp_Vec&             theD3V,
-                          gp_Vec&             theD3UUV,
-                          gp_Vec&             theD3UVV) const Standard_OVERRIDE;
+                          Vector3d&             theD1U,
+                          Vector3d&             theD1V,
+                          Vector3d&             theD2U,
+                          Vector3d&             theD2V,
+                          Vector3d&             theD2UV,
+                          Vector3d&             theD3U,
+                          Vector3d&             theD3V,
+                          Vector3d&             theD3UUV,
+                          Vector3d&             theD3UVV) const Standard_OVERRIDE;
   //! Calculates N-th derivatives of surface, where N = theDerU + theDerV.
   //!
   //! Raises if N < 1 or theDerU < 0 or theDerV < 0
-  Standard_EXPORT gp_Vec DN(const Standard_Real    theU,
+  Standard_EXPORT Vector3d DN(const Standard_Real    theU,
                             const Standard_Real    theV,
                             const Standard_Integer theDerU,
                             const Standard_Integer theDerV) const Standard_OVERRIDE;
@@ -91,7 +91,7 @@ public:
 private:
   Handle(Geom_Curve)      myBaseCurve;
   Handle(Adaptor3d_Curve) myBaseAdaptor;
-  gp_Ax1                  myRotAxis;
+  Axis3d                  myRotAxis;
 };
 
 DEFINE_STANDARD_HANDLE(GeomEvaluator_SurfaceOfRevolution, GeomEvaluator_Surface)

@@ -130,12 +130,12 @@ Standard_Integer TopOpeBRepDS_TOOL::EShareG(const Handle(TopOpeBRepDS_HDataStruc
     TopoDS_Vertex    vEsd = Gb1 ? vsd : vG;
 
     Standard_Integer ovE;
-    gp_Vec           tgE;
+    Vector3d           tgE;
     ok = TopOpeBRepTool_TOOL::TgINSIDE(vE, E, tgE, ovE);
     if (!ok)
       continue;
     Standard_Integer ovEsd;
-    gp_Vec           tgEsd;
+    Vector3d           tgEsd;
     ok = TopOpeBRepTool_TOOL::TgINSIDE(vEsd, Esd, tgEsd, ovEsd);
     if (!ok)
       continue;
@@ -146,7 +146,7 @@ Standard_Integer TopOpeBRepDS_TOOL::EShareG(const Handle(TopOpeBRepDS_HDataStruc
       mapesd.Add(Esd);
       continue;
     }
-    Standard_Real dot = gp_Dir(tgE).Dot(gp_Dir(tgEsd));
+    Standard_Real dot = Dir3d(tgE).Dot(Dir3d(tgEsd));
     if (dot > 0.)
       mapesd.Add(Esd);
   }

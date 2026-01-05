@@ -1113,7 +1113,7 @@ void PutPCurves(const TopoDS_Edge& Efrom, const TopoDS_Edge& Eto, const TopoDS_S
     }
 
     Point3d pt;
-    gp_Vec d1f, d1t;
+    Vector3d d1f, d1t;
 
     C->D1(f, pt, d1f);
 

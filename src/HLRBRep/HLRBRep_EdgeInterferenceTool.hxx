@@ -25,7 +25,7 @@
 #include <Standard_Integer.hxx>
 #include <TopAbs_Orientation.hxx>
 class HLRBRep_Data;
-class gp_Dir;
+class Dir3d;
 class HLRAlgo_Interference;
 
 //! Implements the  methods required  to  instantiates
@@ -57,8 +57,8 @@ public:
   //! parameter   <Para>.  See  method  Reset  of  class
   //! EdgeFaceTransition from TopCnx for other arguments.
   Standard_EXPORT void EdgeGeometry(const Standard_Real Param,
-                                    gp_Dir&             Tgt,
-                                    gp_Dir&             Nrm,
+                                    Dir3d&             Tgt,
+                                    Dir3d&             Nrm,
                                     Standard_Real&      Curv) const;
 
   Standard_Real ParameterOfInterference(const HLRAlgo_Interference& I) const;
@@ -77,8 +77,8 @@ public:
   //! of the class  EdgeFaceTransition  from  TopCnx for
   //! the other arguments.
   Standard_EXPORT void InterferenceBoundaryGeometry(const HLRAlgo_Interference& I,
-                                                    gp_Dir&                     Tang,
-                                                    gp_Dir&                     Norm,
+                                                    Dir3d&                     Tang,
+                                                    Dir3d&                     Norm,
                                                     Standard_Real&              Curv) const;
 
 protected:

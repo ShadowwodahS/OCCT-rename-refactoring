@@ -221,7 +221,7 @@ public:
   //! @param theCriteria the Criteria to check whether thranformation is required
   Standard_EXPORT static Standard_Boolean TrsfToPoint(const Bnd_Box&      theBox1,
                                                       const Bnd_Box&      theBox2,
-                                                      gp_Trsf&            theTrsf,
+                                                      Transform3d&            theTrsf,
                                                       const Point3d&       thePoint    = Point3d(0.0,
                                                                                       0.0,
                                                                                       0.0),

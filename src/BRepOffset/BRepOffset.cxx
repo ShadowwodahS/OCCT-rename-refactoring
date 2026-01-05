@@ -56,7 +56,7 @@ Handle(Geom_Surface) BRepOffset::Surface(const Handle(Geom_Surface)& Surface,
   if (TheType == STANDARD_TYPE(Geom_Plane))
   {
     Handle(Geom_Plane) P = Handle(Geom_Plane)::DownCast(Surface);
-    gp_Vec             T = P->Position().XDirection() ^ P->Position().YDirection();
+    Vector3d             T = P->Position().XDirection() ^ P->Position().YDirection();
     T *= Offset;
     Result = Handle(Geom_Plane)::DownCast(P->Translated(T));
   }
@@ -75,7 +75,7 @@ Handle(Geom_Surface) BRepOffset::Surface(const Handle(Geom_Surface)& Surface,
     }
     else if (Radius <= -Tol)
     {
-      Axis.Rotate(gp_Ax1(Axis.Location(), Axis.Direction()), M_PI);
+      Axis.Rotate(Axis3d(Axis.Location(), Axis.Direction()), M_PI);
       Result    = new Geom_CylindricalSurface(Axis, Abs(Radius));
       theStatus = BRepOffset_Reversed;
     }
@@ -92,17 +92,17 @@ Handle(Geom_Surface) BRepOffset::Surface(const Handle(Geom_Surface)& Surface,
     gp_Ax3                      Axis   = C->Position();
     if (Radius >= 0.)
     {
-      gp_Vec Z(Axis.Direction());
+      Vector3d Z(Axis.Direction());
       Z *= -Offset * Sin(Alpha);
       Axis.Translate(Z);
     }
     else
     {
       Radius = -Radius;
-      gp_Vec Z(Axis.Direction());
+      Vector3d Z(Axis.Direction());
       Z *= -Offset * Sin(Alpha);
       Axis.Translate(Z);
-      Axis.Rotate(gp_Ax1(Axis.Location(), Axis.Direction()), M_PI);
+      Axis.Rotate(Axis3d(Axis.Location(), Axis.Direction()), M_PI);
       Alpha = -Alpha;
     }
     Result = new Geom_ConicalSurface(Axis, Alpha, Radius);
@@ -122,7 +122,7 @@ Handle(Geom_Surface) BRepOffset::Surface(const Handle(Geom_Surface)& Surface,
     }
     else if (Radius <= -Tol)
     {
-      Axis.Rotate(gp_Ax1(Axis.Location(), Axis.Direction()), M_PI);
+      Axis.Rotate(Axis3d(Axis.Location(), Axis.Direction()), M_PI);
       Axis.ZReverse();
       Result    = new Geom_SphericalSurface(Axis, -Radius);
       theStatus = BRepOffset_Reversed;

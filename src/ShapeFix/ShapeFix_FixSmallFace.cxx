@@ -696,10 +696,10 @@ Standard_Boolean ShapeFix_FixSmallFace::SplitOneFace(TopoDS_Face&     F,
         return Standard_False;
       // Create split edge
       TopoDS_Edge        theSplitEdge;
-      gp_Lin             lin(vp, gp_Dir(gp_Vec(vp, proj)));
+      gp_Lin             lin(vp, Dir3d(Vector3d(vp, proj)));
       Standard_Real      firstparam = ElCLib::Parameter(lin, vp);
       Standard_Real      lastparam  = ElCLib::Parameter(lin, proj);
-      Handle(Geom_Line)  L          = new Geom_Line(vp, gp_Vec(vp, proj));
+      Handle(Geom_Line)  L          = new Geom_Line(vp, Vector3d(vp, proj));
       Handle(Geom_Curve) the3dc     = L;
       theBuilder.MakeEdge(theSplitEdge, the3dc, Precision::Confusion());
       theBuilder.Add(theSplitEdge, V.Oriented(TopAbs_FORWARD));

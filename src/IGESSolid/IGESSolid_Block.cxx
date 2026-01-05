@@ -75,59 +75,59 @@ Point3d IGESSolid_Block::TransformedCorner() const
   }
 }
 
-gp_Dir IGESSolid_Block::XAxis() const
+Dir3d IGESSolid_Block::XAxis() const
 {
-  return gp_Dir(theXAxis);
+  return Dir3d(theXAxis);
 }
 
-gp_Dir IGESSolid_Block::TransformedXAxis() const
+Dir3d IGESSolid_Block::TransformedXAxis() const
 {
   if (!HasTransf())
-    return gp_Dir(theXAxis);
+    return Dir3d(theXAxis);
   else
   {
     gp_XYZ   xyz = theXAxis;
     gp_GTrsf loc = Location();
     loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
     loc.Transforms(xyz);
-    return gp_Dir(xyz);
+    return Dir3d(xyz);
   }
 }
 
-gp_Dir IGESSolid_Block::YAxis() const
+Dir3d IGESSolid_Block::YAxis() const
 {
-  return gp_Dir(theXAxis ^ theZAxis); // ^ overloaded
+  return Dir3d(theXAxis ^ theZAxis); // ^ overloaded
 }
 
-gp_Dir IGESSolid_Block::TransformedYAxis() const
+Dir3d IGESSolid_Block::TransformedYAxis() const
 {
   if (!HasTransf())
-    return gp_Dir(theXAxis ^ theZAxis);
+    return Dir3d(theXAxis ^ theZAxis);
   else
   {
     gp_XYZ   xyz = theXAxis ^ theZAxis;
     gp_GTrsf loc = Location();
     loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
     loc.Transforms(xyz);
-    return gp_Dir(xyz);
+    return Dir3d(xyz);
   }
 }
 
-gp_Dir IGESSolid_Block::ZAxis() const
+Dir3d IGESSolid_Block::ZAxis() const
 {
-  return gp_Dir(theZAxis);
+  return Dir3d(theZAxis);
 }
 
-gp_Dir IGESSolid_Block::TransformedZAxis() const
+Dir3d IGESSolid_Block::TransformedZAxis() const
 {
   if (!HasTransf())
-    return gp_Dir(theZAxis);
+    return Dir3d(theZAxis);
   else
   {
     gp_XYZ   xyz(theZAxis);
     gp_GTrsf loc = Location();
     loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
     loc.Transforms(xyz);
-    return gp_Dir(xyz);
+    return Dir3d(xyz);
   }
 }

@@ -33,7 +33,7 @@ gce_MakeDir::gce_MakeDir(const Point3d& P1, const Point3d& P2)
   }
   else
   {
-    TheDir   = gp_Dir(P2.XYZ() - P1.XYZ());
+    TheDir   = Dir3d(P2.XYZ() - P1.XYZ());
     TheError = gce_Done;
   }
 }
@@ -46,12 +46,12 @@ gce_MakeDir::gce_MakeDir(const gp_XYZ& Coord)
   }
   else
   {
-    TheDir   = gp_Dir(Coord);
+    TheDir   = Dir3d(Coord);
     TheError = gce_Done;
   }
 }
 
-gce_MakeDir::gce_MakeDir(const gp_Vec& V)
+gce_MakeDir::gce_MakeDir(const Vector3d& V)
 {
   if (V.Magnitude() <= gp::Resolution())
   {
@@ -59,7 +59,7 @@ gce_MakeDir::gce_MakeDir(const gp_Vec& V)
   }
   else
   {
-    TheDir   = gp_Dir(V);
+    TheDir   = Dir3d(V);
     TheError = gce_Done;
   }
 }
@@ -72,23 +72,23 @@ gce_MakeDir::gce_MakeDir(const Standard_Real Xv, const Standard_Real Yv, const S
   }
   else
   {
-    TheDir   = gp_Dir(Xv, Yv, Zv);
+    TheDir   = Dir3d(Xv, Yv, Zv);
     TheError = gce_Done;
   }
 }
 
-const gp_Dir& gce_MakeDir::Value() const
+const Dir3d& gce_MakeDir::Value() const
 {
   StdFail_NotDone_Raise_if(TheError != gce_Done, "gce_MakeDir::Value() - no result");
   return TheDir;
 }
 
-const gp_Dir& gce_MakeDir::Operator() const
+const Dir3d& gce_MakeDir::Operator() const
 {
   return Value();
 }
 
-gce_MakeDir::operator gp_Dir() const
+gce_MakeDir::operator Dir3d() const
 {
   return Value();
 }

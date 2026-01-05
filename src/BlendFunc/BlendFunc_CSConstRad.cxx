@@ -137,7 +137,7 @@ Standard_Boolean BlendFunc_CSConstRad::IsSolution(const math_Vector& Sol, const 
   math_Vector valsol(1, 3), secmember(1, 3);
   math_Matrix gradsol(1, 3, 1, 3);
 
-  gp_Vec        dnplan, d1u1, d1v1, d1, temp, ns, ns2, ncrossns, resul;
+  Vector3d        dnplan, d1u1, d1v1, d1, temp, ns, ns2, ncrossns, resul;
   Standard_Real norm, ndotns, grosterme;
   Standard_Real Cosa, Sina, Angle;
 
@@ -173,7 +173,7 @@ Standard_Boolean BlendFunc_CSConstRad::IsSolution(const math_Vector& Sol, const 
                        ns);
 
     ns.SetLinearForm(ndotns / norm, nplan, -1. / norm, ns);
-    resul.SetLinearForm(ray, ns, gp_Vec(ptc, pts));
+    resul.SetLinearForm(ray, ns, Vector3d(ptc, pts));
     secmember(3) = -2. * (temp.Dot(resul));
 
     math_Gauss Resol(gradsol);
@@ -227,17 +227,17 @@ Standard_Boolean BlendFunc_CSConstRad::IsSolution(const math_Vector& Sol, const 
 
 Standard_Boolean BlendFunc_CSConstRad::Value(const math_Vector& X, math_Vector& F)
 {
-  gp_Vec d1u1, d1v1;
+  Vector3d d1u1, d1v1;
   surf->D1(X(1), X(2), pts, d1u1, d1v1);
   ptc = curv->Value(X(3));
 
   F(1) = nplan.XYZ().Dot(pts.XYZ()) + theD;
   F(2) = nplan.XYZ().Dot(ptc.XYZ()) + theD;
 
-  gp_Vec              vref, ns = d1u1.Crossed(d1v1);
+  Vector3d              vref, ns = d1u1.Crossed(d1v1);
   const Standard_Real norm = nplan.Crossed(ns).Magnitude();
   ns.SetLinearForm(nplan.Dot(ns) / norm, nplan, -1. / norm, ns);
-  vref.SetLinearForm(ray, ns, gp_Vec(ptc, pts));
+  vref.SetLinearForm(ray, ns, Vector3d(ptc, pts));
 
   F(3) = vref.SquareMagnitude() - ray * ray;
 
@@ -249,8 +249,8 @@ Standard_Boolean BlendFunc_CSConstRad::Value(const math_Vector& X, math_Vector& 
 
 Standard_Boolean BlendFunc_CSConstRad::Derivatives(const math_Vector& X, math_Matrix& D)
 {
-  gp_Vec d1u1, d1v1, d2u1, d2v1, d2uv1, d1;
-  gp_Vec ns, ncrossns, resul, temp, vref;
+  Vector3d d1u1, d1v1, d2u1, d2v1, d2uv1, d1;
+  Vector3d ns, ncrossns, resul, temp, vref;
 
   Standard_Real norm, ndotns, grosterme;
 
@@ -272,7 +272,7 @@ Standard_Boolean BlendFunc_CSConstRad::Derivatives(const math_Vector& X, math_Ma
 
   vref.SetLinearForm(ndotns, nplan, -1., ns);
   vref.Divide(norm);
-  vref.SetLinearForm(ray, vref, gp_Vec(ptc, pts));
+  vref.SetLinearForm(ray, vref, Vector3d(ptc, pts));
 
   // Derivee par rapport a u1
   temp      = d2u1.Crossed(d1v1).Added(d1u1.Crossed(d2uv1));
@@ -310,9 +310,9 @@ Standard_Boolean BlendFunc_CSConstRad::Derivatives(const math_Vector& X, math_Ma
 
 Standard_Boolean BlendFunc_CSConstRad::Values(const math_Vector& X, math_Vector& F, math_Matrix& D)
 {
-  gp_Vec d1u1, d1v1, d1;
-  gp_Vec d2u1, d2v1, d2uv1;
-  gp_Vec ns, ncrossns, resul, temp, vref;
+  Vector3d d1u1, d1v1, d1;
+  Vector3d d2u1, d2v1, d2uv1;
+  Vector3d ns, ncrossns, resul, temp, vref;
 
   Standard_Real norm, ndotns, grosterme;
 
@@ -337,7 +337,7 @@ Standard_Boolean BlendFunc_CSConstRad::Values(const math_Vector& X, math_Vector&
 
   vref.SetLinearForm(ndotns, nplan, -1., ns);
   vref.Divide(norm);
-  vref.SetLinearForm(ray, vref, gp_Vec(ptc, pts));
+  vref.SetLinearForm(ray, vref, Vector3d(ptc, pts));
 
   F(3) = vref.SquareMagnitude() - ray * ray;
 
@@ -410,7 +410,7 @@ Standard_Boolean BlendFunc_CSConstRad::IsTangencyPoint() const
 
 //=================================================================================================
 
-const gp_Vec& BlendFunc_CSConstRad::TangentOnS() const
+const Vector3d& BlendFunc_CSConstRad::TangentOnS() const
 {
   if (istangent)
     throw Standard_DomainError("BlendFunc_CSConstRad::TangentOnS");
@@ -419,7 +419,7 @@ const gp_Vec& BlendFunc_CSConstRad::TangentOnS() const
 
 //=================================================================================================
 
-const gp_Vec& BlendFunc_CSConstRad::TangentOnC() const
+const Vector3d& BlendFunc_CSConstRad::TangentOnC() const
 {
   if (istangent)
     throw Standard_DomainError("BlendFunc_CSConstRad::TangentOnC");
@@ -439,21 +439,21 @@ const gp_Vec2d& BlendFunc_CSConstRad::Tangent2d() const
 
 void BlendFunc_CSConstRad::Tangent(const Standard_Real U,
                                    const Standard_Real V,
-                                   gp_Vec&             TgS,
-                                   gp_Vec&             NmS) const
+                                   Vector3d&             TgS,
+                                   Vector3d&             NmS) const
 {
   Point3d bid;
-  gp_Vec d1u, d1v;
+  Vector3d d1u, d1v;
   surf->D1(U, V, bid, d1u, d1v);
 
-  gp_Vec ns;
+  Vector3d ns;
   NmS = ns = d1u.Crossed(d1v);
 
   const Standard_Real norm = nplan.Crossed(ns).Magnitude();
   ns.SetLinearForm(nplan.Dot(ns) / norm, nplan, -1. / norm, ns);
 
   Point3d Center(bid.XYZ() + ray * ns.XYZ());
-  TgS = nplan.Crossed(gp_Vec(Center, bid));
+  TgS = nplan.Crossed(Vector3d(Center, bid));
   if (choix % 2 == 1)
     TgS.Reverse();
 }
@@ -468,8 +468,8 @@ void BlendFunc_CSConstRad::Section(const Standard_Real Param,
                                    Standard_Real&      Pfin,
                                    gp_Circ&            C)
 {
-  gp_Vec        d1u1, d1v1;
-  gp_Vec        ns;
+  Vector3d        d1u1, d1v1;
+  Vector3d        ns;
   Standard_Real norm;
   Point3d        Center;
 
@@ -488,11 +488,11 @@ void BlendFunc_CSConstRad::Section(const Standard_Real Param,
 
   if (choix % 2 == 0)
   {
-    C.SetPosition(gp_Ax2(Center, nplan, ns));
+    C.SetPosition(Frame3d(Center, nplan, ns));
   }
   else
   {
-    C.SetPosition(gp_Ax2(Center, nplan.Reversed(), ns));
+    C.SetPosition(Frame3d(Center, nplan.Reversed(), ns));
   }
   Pdeb = 0.;
   Pfin = ElCLib::Parameter(C, ptc);
@@ -529,10 +529,10 @@ Standard_Boolean BlendFunc_CSConstRad::GetSection(const Standard_Real Param,
 
   Standard_Integer i, lowp = tabP.Lower(), lowv = tabV.Lower();
 
-  gp_Vec d1u1, d1v1, d2u1, d2v1, d2uv1, d1; //,d1u2,d1v2;
-  gp_Vec ns, dnplan, dnw, dn2w, ncrn, dncrn, ns2;
-  gp_Vec ncrossns, resul;
-  gp_Vec resulu, resulv, temp;
+  Vector3d d1u1, d1v1, d2u1, d2v1, d2uv1, d1; //,d1u2,d1v2;
+  Vector3d ns, dnplan, dnw, dn2w, ncrn, dncrn, ns2;
+  Vector3d ncrossns, resul;
+  Vector3d resulu, resulv, temp;
 
   Standard_Real norm, ndotns, grosterme;
   Standard_Real lambda, Cosa, Sina;
@@ -576,7 +576,7 @@ Standard_Boolean BlendFunc_CSConstRad::GetSection(const Standard_Real Param,
                     ns);
 
   temp.SetLinearForm(ndotns / norm, nplan, -1. / norm, ns);
-  resul.SetLinearForm(ray, temp, gp_Vec(ptc, pts));
+  resul.SetLinearForm(ray, temp, Vector3d(ptc, pts));
   secmember(3) = -2. * ray * (dnw.Dot(resul)); // jag 950105 il manquait ray
 
   math_Gauss Resol(gradsol);
@@ -750,8 +750,8 @@ void BlendFunc_CSConstRad::Section(const Blend_Point&    P,
                                    TColgp_Array1OfPnt2d& Poles2d,
                                    TColStd_Array1OfReal& Weights)
 {
-  gp_Vec d1u1, d1v1; //,d1;
-  gp_Vec ns, ns2;    //,temp,np2;
+  Vector3d d1u1, d1v1; //,d1;
+  Vector3d ns, ns2;    //,temp,np2;
   Point3d Center;
 
   Standard_Real norm, u1, v1, w;
@@ -788,7 +788,7 @@ void BlendFunc_CSConstRad::Section(const Blend_Point&    P,
 
   Center.SetXYZ(pts.XYZ() + ray * ns.XYZ());
 
-  ns2 = gp_Vec(Center, ptc).Normalized();
+  ns2 = Vector3d(Center, ptc).Normalized();
 
   if (choix % 2 != 0)
   {
@@ -809,10 +809,10 @@ Standard_Boolean BlendFunc_CSConstRad::Section(const Blend_Point&    P,
                                                TColStd_Array1OfReal& DWeights)
 {
 
-  gp_Vec d1u1, d1v1, d2u1, d2v1, d2uv1, d1;
-  gp_Vec ns, ns2, dnplan, dnw, dn2w; //,np2,dnp2;
-  gp_Vec ncrossns;
-  gp_Vec resulu, resulv, temp, tgct, resul;
+  Vector3d d1u1, d1v1, d2u1, d2v1, d2uv1, d1;
+  Vector3d ns, ns2, dnplan, dnw, dn2w; //,np2,dnp2;
+  Vector3d ncrossns;
+  Vector3d resulu, resulv, temp, tgct, resul;
 
   Point3d Center;
 
@@ -861,7 +861,7 @@ Standard_Boolean BlendFunc_CSConstRad::Section(const Blend_Point&    P,
                     ns);
 
   temp.SetLinearForm(ndotns / norm, nplan, -1. / norm, ns);
-  resul.SetLinearForm(ray, temp, gp_Vec(ptc, pts));
+  resul.SetLinearForm(ray, temp, Vector3d(ptc, pts));
   secmember(3) = -2. * ray * (dnw.Dot(resul)); // jag 950105 il manquait ray
 
   math_Gauss Resol(gradsol);

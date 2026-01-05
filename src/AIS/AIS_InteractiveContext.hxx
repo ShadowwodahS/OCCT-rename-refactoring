@@ -413,7 +413,7 @@ public: //! @name mouse picking logic (detection and dynamic highlighting of ent
   //! If theToRedrawOnUpdate is set to false, callee should call RedrawImmediate() to highlight
   //! detected object.
   //! @sa PickingStrategy()
-  Standard_EXPORT AIS_StatusOfDetection MoveTo(const gp_Ax1&           theAxis,
+  Standard_EXPORT AIS_StatusOfDetection MoveTo(const Axis3d&           theAxis,
                                                const Handle(V3d_View)& theView,
                                                const Standard_Boolean  theToRedrawOnUpdate);
 

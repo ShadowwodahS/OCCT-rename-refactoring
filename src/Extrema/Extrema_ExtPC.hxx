@@ -34,7 +34,7 @@ class Adaptor3d_Curve;
 class Extrema_CurveTool;
 class Extrema_ExtPElC;
 class Point3d;
-class gp_Vec;
+class Vector3d;
 class Extrema_POnCurv;
 class Extrema_EPCOfExtPC;
 class Extrema_PCFOfEPCOfExtPC;

@@ -244,7 +244,7 @@ void HLRTopoBRep_DSFiller::InsertFace(const Standard_Integer /*FI*/,
                             FO.SurfaceFunction();
 
                           Standard_Boolean isTg1,isTg2;
-                          gp_Vec tg1,tg2;
+                          Vector3d tg1,tg2;
                           gp_Vec2d uv1,uv2;
                           math_Vector UV(1,2),F(1,1);
 

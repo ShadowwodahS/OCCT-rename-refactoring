@@ -38,7 +38,7 @@
 static Standard_Boolean FaceNormal(const TopoDS_Face&  aF,
                                    const Standard_Real U,
                                    const Standard_Real V,
-                                   gp_Dir&             aDN);
+                                   Dir3d&             aDN);
 
 static Standard_Real GetAddToParam(const gp_Lin& L, const Standard_Real P, const Bnd_Box& B);
 
@@ -54,7 +54,7 @@ static Standard_Integer GetTransi(const TopoDS_Face&                 f1,
 static Standard_Boolean GetNormalOnFaceBound(const TopoDS_Edge& E,
                                              const TopoDS_Face& F,
                                              Standard_Real      param,
-                                             gp_Dir&            OutDir);
+                                             Dir3d&            OutDir);
 
 static void Trans(Standard_Real parmin, IntCurveSurface_TransitionOnCurve& tran, int& state);
 
@@ -108,7 +108,7 @@ void BRepClass3d_SClassifier::PerformInfinitePoint(BRepClass3d_SolidExplorer& aS
   Standard_Boolean bFound;
   Standard_Real    aParam, aU = 0., aV = 0.;
   Point3d           aPoint;
-  gp_Dir           aDN;
+  Dir3d           aDN;
 
   math_BullardGenerator aRandomGenerator;
   myFace.Nullify();
@@ -566,10 +566,10 @@ Standard_Real GetAddToParam(const gp_Lin& L, const Standard_Real P, const Bnd_Bo
 Standard_Boolean FaceNormal(const TopoDS_Face&  aF,
                             const Standard_Real U,
                             const Standard_Real V,
-                            gp_Dir&             aDN)
+                            Dir3d&             aDN)
 {
   Point3d               aPnt;
-  gp_Vec               aD1U, aD1V, aN;
+  Vector3d               aD1U, aD1V, aN;
   Handle(Geom_Surface) aS;
 
   aS = BRep_Tool::Surface(aF);
@@ -592,7 +592,7 @@ Standard_Boolean FaceNormal(const TopoDS_Face&  aF,
 static Standard_Boolean GetNormalOnFaceBound(const TopoDS_Edge&  E,
                                              const TopoDS_Face&  F,
                                              const Standard_Real param,
-                                             gp_Dir&             OutDir)
+                                             Dir3d&             OutDir)
 {
   Standard_Real f = 0, l = 0;
 
@@ -621,13 +621,13 @@ static Standard_Integer GetTransi(const TopoDS_Face&                 f1,
   // 1 => OK
   // 0 => skip
   //-1 => probably a faulty line
-  gp_Dir nf1, nf2;
+  Dir3d nf1, nf2;
   if (!GetNormalOnFaceBound(e, f1, param, nf1))
     return -1;
   if (!GetNormalOnFaceBound(e, f2, param, nf2))
     return -1;
 
-  const gp_Dir& LDir = L.Direction();
+  const Dir3d& LDir = L.Direction();
 
   if (Abs(LDir.Dot(nf1)) < Precision::Angular() || Abs(LDir.Dot(nf2)) < Precision::Angular())
   {
@@ -648,9 +648,9 @@ static Standard_Integer GetTransi(const TopoDS_Face&                 f1,
     return 1;
   }
 
-  gp_Vec N = nf1 ^ nf2;
+  Vector3d N = nf1 ^ nf2;
   // clang-format off
-  gp_Dir ProjL = N.XYZ() ^ LDir.XYZ() ^ N.XYZ(); //proj LDir on the plane defined by nf1/nf2 directions
+  Dir3d ProjL = N.XYZ() ^ LDir.XYZ() ^ N.XYZ(); //proj LDir on the plane defined by nf1/nf2 directions
   // clang-format on
 
   Standard_Real fAD = nf1.Dot(ProjL);

@@ -35,8 +35,8 @@ void Contap_ArcFunction::Set(const Handle(Adaptor3d_Surface)& S)
   Standard_Integer i;
   Standard_Integer nbs = Contap_HContTool::NbSamplePoints(S);
   Standard_Real    U, V;
-  //  gp_Vec d1u,d1v;
-  gp_Vec norm;
+  //  Vector3d d1u,d1v;
+  Vector3d norm;
   if (nbs > 0)
   {
     myMean = 0.;
@@ -54,11 +54,11 @@ void Contap_ArcFunction::Set(const Handle(Adaptor3d_Surface)& S)
 
 Standard_Boolean Contap_ArcFunction::Value(const Standard_Real U, Standard_Real& F)
 {
-  // gp_Vec d1u,d1v;
+  // Vector3d d1u,d1v;
   gp_Pnt2d pt2d(Contap_HCurve2dTool::Value(myArc, U));
   //  Adaptor3d_HSurfaceTool::D1(mySurf,pt2d.X(),pt2d.Y(),solpt,d1u,d1v);
-  //  gp_Vec norm(d1u.Crossed(d1v));
-  gp_Vec norm;
+  //  Vector3d norm(d1u.Crossed(d1v));
+  Vector3d norm;
   Contap_SurfProps::Normale(mySurf, pt2d.X(), pt2d.Y(), solpt, norm);
 
   switch (myType)
@@ -68,7 +68,7 @@ Standard_Boolean Contap_ArcFunction::Value(const Standard_Real U, Standard_Real&
     }
     break;
     case Contap_ContourPrs: {
-      F = (norm.Dot(gp_Vec(myEye, solpt))) / myMean;
+      F = (norm.Dot(Vector3d(myEye, solpt))) / myMean;
     }
     break;
     case Contap_DraftStd: {
@@ -87,10 +87,10 @@ Standard_Boolean Contap_ArcFunction::Derivative(const Standard_Real U, Standard_
   gp_Pnt2d      pt2d;
   gp_Vec2d      d2d;
   Standard_Real dfu = 0., dfv = 0.;
-  //  gp_Vec d1u,d1v,d2u,d2v,d2uv;
+  //  Vector3d d1u,d1v,d2u,d2v,d2uv;
   Contap_HCurve2dTool::D1(myArc, U, pt2d, d2d);
   //  Adaptor3d_HSurfaceTool::D2(mySurf,pt2d.X(),pt2d.Y(),solpt,d1u,d1v,d2u,d2v,d2uv);
-  gp_Vec norm, dnu, dnv;
+  Vector3d norm, dnu, dnv;
   Contap_SurfProps::NormAndDn(mySurf, pt2d.X(), pt2d.Y(), solpt, norm, dnu, dnv);
 
   switch (myType)
@@ -103,7 +103,7 @@ Standard_Boolean Contap_ArcFunction::Derivative(const Standard_Real U, Standard_
     }
     break;
     case Contap_ContourPrs: {
-      gp_Vec Ep(myEye, solpt);
+      Vector3d Ep(myEye, solpt);
       //      dfu = ((d2u.Crossed(d1v) + d1u.Crossed(d2uv)).Dot(Ep))/myMean;
       //      dfv = ((d2uv.Crossed(d1v) + d1u.Crossed(d2v)).Dot(Ep))/myMean;
       dfu = (dnu.Dot(Ep)) / myMean;
@@ -112,8 +112,8 @@ Standard_Boolean Contap_ArcFunction::Derivative(const Standard_Real U, Standard_
     break;
     case Contap_DraftStd: {
       /*
-      gp_Vec norm(d1u.Crossed(d1v).Normalized());
-      gp_Vec dnorm(d2u.Crossed(d1v) + d1u.Crossed(d2uv));
+      Vector3d norm(d1u.Crossed(d1v).Normalized());
+      Vector3d dnorm(d2u.Crossed(d1v) + d1u.Crossed(d2uv));
       dfu = (dnorm.Dot(myDir)-myCosAng*dnorm.Dot(norm))/myMean;
       dnorm = d2uv.Crossed(d1v) + d1u.Crossed(d2v);
       dfv = (dnorm.Dot(myDir)-myCosAng*dnorm.Dot(norm))/myMean;
@@ -138,11 +138,11 @@ Standard_Boolean Contap_ArcFunction::Values(const Standard_Real U,
   gp_Pnt2d      pt2d;
   gp_Vec2d      d2d;
   Standard_Real dfu = 0., dfv = 0.;
-  // gp_Vec d1u,d1v,d2u,d2v,d2uv;
+  // Vector3d d1u,d1v,d2u,d2v,d2uv;
   Contap_HCurve2dTool::D1(myArc, U, pt2d, d2d);
   //  Adaptor3d_HSurfaceTool::D2(mySurf,pt2d.X(),pt2d.Y(),solpt,d1u,d1v,d2u,d2v,d2uv);
-  //  gp_Vec norm(d1u.Crossed(d1v));
-  gp_Vec norm, dnu, dnv;
+  //  Vector3d norm(d1u.Crossed(d1v));
+  Vector3d norm, dnu, dnv;
   Contap_SurfProps::NormAndDn(mySurf, pt2d.X(), pt2d.Y(), solpt, norm, dnu, dnv);
 
   switch (myType)
@@ -156,7 +156,7 @@ Standard_Boolean Contap_ArcFunction::Values(const Standard_Real U,
     }
     break;
     case Contap_ContourPrs: {
-      gp_Vec Ep(myEye, solpt);
+      Vector3d Ep(myEye, solpt);
       F = (norm.Dot(Ep)) / myMean;
       //      dfu = ((d2u.Crossed(d1v) + d1u.Crossed(d2uv)).Dot(Ep))/myMean;
       //      dfv = ((d2uv.Crossed(d1v) + d1u.Crossed(d2v)).Dot(Ep))/myMean;
@@ -168,7 +168,7 @@ Standard_Boolean Contap_ArcFunction::Values(const Standard_Real U,
       F = (norm.Dot(myDir) - myCosAng * norm.Magnitude()) / myMean;
       norm.Normalize();
       /*
-      gp_Vec dnorm(d2u.Crossed(d1v) + d1u.Crossed(d2uv));
+      Vector3d dnorm(d2u.Crossed(d1v) + d1u.Crossed(d2uv));
       dfu = (dnorm.Dot(myDir)-myCosAng*dnorm.Dot(norm))/myMean;
       dnorm = d2uv.Crossed(d1v) + d1u.Crossed(d2v);
       dfv = (dnorm.Dot(myDir)-myCosAng*dnorm.Dot(norm))/myMean;

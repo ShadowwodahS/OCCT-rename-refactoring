@@ -986,7 +986,7 @@ void TopOpeBRepBuild_Builder1::GFillEdgeSameDomWES(const TopoDS_Shape&          
         TopoDS_Edge aSplitP = aSplitPart;
         aSplitP.Orientation(AdjEOR.Orientation());
 
-        gp_Vec aTg, aN1, aN2, aN3, aBiN;
+        Vector3d aTg, aN1, aN2, aN3, aBiN;
         TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(TopoDS::Face(aSDToAdjFace), aSplitP, aN2);
         if (aSDToAdjFace.Orientation() == TopAbs_REVERSED)
           aN2.Reverse();
@@ -1205,7 +1205,7 @@ void TopOpeBRepBuild_Builder1::PerformONParts(const TopoDS_Shape& FOR1,
         neworiE = Orient(oriE, RevOriE);
 
         newE.Orientation(oriE);
-        gp_Vec aTg, aN2, aN3, aBiN;
+        Vector3d aTg, aN2, aN3, aBiN;
         TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(TopoDS::Face(FOR), TopoDS::Edge(newE), aN2);
         if (FOR.Orientation() == TopAbs_REVERSED)
           aN2.Reverse();
@@ -1244,7 +1244,7 @@ void TopOpeBRepBuild_Builder1::PerformONParts(const TopoDS_Shape& FOR1,
       {
         // compute orientation of the future face
         Standard_Boolean stateOfFaceOri = Standard_False;
-        gp_Vec           aNbf, aNsf, OrigNormalbf; // aTg, aBiN, aOut;
+        Vector3d           aNbf, aNsf, OrigNormalbf; // aTg, aBiN, aOut;
         TopoDS_Edge      aLocalEdge = TopoDS::Edge(newE);
         TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(aSDFace, aLocalEdge, aNsf);
         //	TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(TopoDS::Face(aSDFace), TopoDS::Edge(newE),
@@ -1345,7 +1345,7 @@ void TopOpeBRepBuild_Builder1::PerformPieceIn2D(const TopoDS_Edge&           Edg
 
   TB = (iref == 1) ? TB1 : TB2;
 
-  gp_Vec aTg, aN1, aN2, aN3, aBiN;
+  Vector3d aTg, aN1, aN2, aN3, aBiN;
 
   TopAbs_Orientation O1   = edgeFace.Orientation();
   TopAbs_Orientation O2   = toFace.Orientation();
@@ -1586,7 +1586,7 @@ Standard_Integer TopOpeBRepBuild_Builder1::TwoPiecesON(const TopTools_SequenceOf
   Standard_Real aScProductObj = 0., aScProductTool = 0., aTol = 1.e-5;
 
   Standard_Real aScPrObj = 0., aScPrTool = 0.;
-  gp_Vec        anyN;
+  Vector3d        anyN;
 
   TopoDS_Shape anAdjFaceObj, anAdjFaceTool;
 
@@ -1605,13 +1605,13 @@ Standard_Integer TopOpeBRepBuild_Builder1::TwoPiecesON(const TopTools_SequenceOf
   TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(aFObj, anEdgeObj, anyN);
   if (aFObj.Orientation() == TopAbs_REVERSED)
     anyN.Reverse();
-  gp_Dir aDNObj(anyN);
+  Dir3d aDNObj(anyN);
 
   //
   TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(aFTool, anEdgeTool, anyN);
   if (aFTool.Orientation() == TopAbs_REVERSED)
     anyN.Reverse();
-  gp_Dir aDNTool(anyN);
+  Dir3d aDNTool(anyN);
 
   // are aFaceObj & aFaceTool different oriented faces or not ?
   IsFacesDifOriented = aDNObj * aDNTool < 0.;
@@ -1624,7 +1624,7 @@ Standard_Integer TopOpeBRepBuild_Builder1::TwoPiecesON(const TopTools_SequenceOf
     anEdgeObj.Reverse();
   }
 
-  gp_Dir           aDTObj(anyN);
+  Dir3d           aDTObj(anyN);
   Standard_Boolean RevTool =
     TopOpeBRepBuild_Tools::GetTangentToEdgeEdge(aFTool, anEdgeTool, aOriETool, anyN);
   if (RevTool)
@@ -1632,7 +1632,7 @@ Standard_Integer TopOpeBRepBuild_Builder1::TwoPiecesON(const TopTools_SequenceOf
     aPieceTool.Reverse();
     anEdgeTool.Reverse();
   }
-  gp_Dir aDTTool(anyN);
+  Dir3d aDTTool(anyN);
 
   IsEdgesRevSense = aDTObj * aDTTool < 0.;
 
@@ -1647,12 +1647,12 @@ Standard_Integer TopOpeBRepBuild_Builder1::TwoPiecesON(const TopTools_SequenceOf
     TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(TopoDS::Face(anAdjFaceObj), anEdgeObj, anyN);
     if (anAdjFaceObj.Orientation() == TopAbs_REVERSED)
       anyN.Reverse();
-    gp_Dir aDNAObj(anyN);
+    Dir3d aDNAObj(anyN);
 
     TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(TopoDS::Face(anAdjFaceTool), anEdgeTool, anyN);
     if (anAdjFaceTool.Orientation() == TopAbs_REVERSED)
       anyN.Reverse();
-    gp_Dir aDNATool(anyN);
+    Dir3d aDNATool(anyN);
 
     aScPrObj  = (aDTObj ^ aDNTool) * aDNAObj;
     aScPrTool = (aDTTool ^ aDNObj) * aDNATool;
@@ -1680,9 +1680,9 @@ Standard_Integer TopOpeBRepBuild_Builder1::TwoPiecesON(const TopTools_SequenceOf
     aScProductTool = aScPrTool;
     /*
     // mine
-    gp_Dir aDBNObj(aDNObj^aDTObj);
+    Dir3d aDBNObj(aDNObj^aDTObj);
     aScProductObj=aDBNObj*aDNATool;
-    gp_Dir aDBNTool(aDNTool^aDTTool);
+    Dir3d aDBNTool(aDNTool^aDTTool);
     aScProductTool=aDBNTool*aDNAObj;
     */
     // Scalar prouducts must not have too small value:
@@ -2083,7 +2083,7 @@ void TopOpeBRepBuild_Builder1::OrientateEdgeOnFace(TopoDS_Edge&                 
                                                    const TopOpeBRepBuild_GTopo& G1,
                                                    Standard_Boolean& stateOfFaceOri) const
 {
-  gp_Vec aN1, aN2;
+  Vector3d aN1, aN2;
 
   stateOfFaceOri = Standard_False;
 

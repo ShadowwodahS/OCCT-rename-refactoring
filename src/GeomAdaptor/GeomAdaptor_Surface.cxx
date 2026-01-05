@@ -761,8 +761,8 @@ void GeomAdaptor_Surface::D0(const Standard_Real U, const Standard_Real V, Point
 void GeomAdaptor_Surface::D1(const Standard_Real U,
                              const Standard_Real V,
                              Point3d&             P,
-                             gp_Vec&             D1U,
-                             gp_Vec&             D1V) const
+                             Vector3d&             D1U,
+                             Vector3d&             D1V) const
 {
   Standard_Integer Ideb, Ifin, IVdeb, IVfin, USide = 0, VSide = 0;
   Standard_Real    u = U, v = V;
@@ -821,11 +821,11 @@ void GeomAdaptor_Surface::D1(const Standard_Real U,
 void GeomAdaptor_Surface::D2(const Standard_Real U,
                              const Standard_Real V,
                              Point3d&             P,
-                             gp_Vec&             D1U,
-                             gp_Vec&             D1V,
-                             gp_Vec&             D2U,
-                             gp_Vec&             D2V,
-                             gp_Vec&             D2UV) const
+                             Vector3d&             D1U,
+                             Vector3d&             D1V,
+                             Vector3d&             D2U,
+                             Vector3d&             D2V,
+                             Vector3d&             D2UV) const
 {
   Standard_Integer Ideb, Ifin, IVdeb, IVfin, USide = 0, VSide = 0;
   Standard_Real    u = U, v = V;
@@ -886,15 +886,15 @@ void GeomAdaptor_Surface::D2(const Standard_Real U,
 void GeomAdaptor_Surface::D3(const Standard_Real U,
                              const Standard_Real V,
                              Point3d&             P,
-                             gp_Vec&             D1U,
-                             gp_Vec&             D1V,
-                             gp_Vec&             D2U,
-                             gp_Vec&             D2V,
-                             gp_Vec&             D2UV,
-                             gp_Vec&             D3U,
-                             gp_Vec&             D3V,
-                             gp_Vec&             D3UUV,
-                             gp_Vec&             D3UVV) const
+                             Vector3d&             D1U,
+                             Vector3d&             D1V,
+                             Vector3d&             D2U,
+                             Vector3d&             D2V,
+                             Vector3d&             D2UV,
+                             Vector3d&             D3U,
+                             Vector3d&             D3V,
+                             Vector3d&             D3UUV,
+                             Vector3d&             D3UVV) const
 {
   Standard_Integer Ideb, Ifin, IVdeb, IVfin, USide = 0, VSide = 0;
   Standard_Real    u = U, v = V;
@@ -966,7 +966,7 @@ void GeomAdaptor_Surface::D3(const Standard_Real U,
 
 //=================================================================================================
 
-gp_Vec GeomAdaptor_Surface::DN(const Standard_Real    U,
+Vector3d GeomAdaptor_Surface::DN(const Standard_Real    U,
                                const Standard_Real    V,
                                const Standard_Integer Nu,
                                const Standard_Integer Nv) const
@@ -1356,7 +1356,7 @@ Handle(Geom_BSplineSurface) GeomAdaptor_Surface::BSpline() const
 
 //=================================================================================================
 
-gp_Ax1 GeomAdaptor_Surface::AxeOfRevolution() const
+Axis3d GeomAdaptor_Surface::AxeOfRevolution() const
 {
   if (mySurfaceType != GeomAbs_SurfaceOfRevolution)
     throw Standard_NoSuchObject("GeomAdaptor_Surface::AxeOfRevolution");
@@ -1365,7 +1365,7 @@ gp_Ax1 GeomAdaptor_Surface::AxeOfRevolution() const
 
 //=================================================================================================
 
-gp_Dir GeomAdaptor_Surface::Direction() const
+Dir3d GeomAdaptor_Surface::Direction() const
 {
   if (mySurfaceType != GeomAbs_SurfaceOfExtrusion)
     throw Standard_NoSuchObject("GeomAdaptor_Surface::Direction");

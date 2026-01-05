@@ -47,8 +47,8 @@ static Standard_Boolean shiftPoint(const Standard_Real                theUStart,
                                    Standard_Real&                     theV,
                                    const Handle(Geom_Surface)&        theSurf,
                                    const Handle(GeomAdaptor_Surface)& theAdaptor,
-                                   const gp_Vec&                      theD1U,
-                                   const gp_Vec&                      theD1V)
+                                   const Vector3d&                      theD1U,
+                                   const Vector3d&                      theD1V)
 {
   // Get parametric bounds and closure status
   Standard_Real    aUMin, aUMax, aVMin, aVMax;
@@ -119,7 +119,7 @@ static void derivatives(Standard_Integer                   theMaxOrder,
 {
   Standard_Integer i, j;
   Point3d           P;
-  gp_Vec           DL1U, DL1V, DL2U, DL2V, DL2UV, DL3U, DL3UUV, DL3UVV, DL3V;
+  Vector3d           DL1U, DL1V, DL2U, DL2V, DL2UV, DL3U, DL3UUV, DL3UVV, DL3V;
 
   if (theAlongU || theAlongV)
   {
@@ -217,13 +217,13 @@ static void derivatives(Standard_Integer                   theMaxOrder,
   }
 }
 
-inline Standard_Boolean IsInfiniteCoord(const gp_Vec& theVec)
+inline Standard_Boolean IsInfiniteCoord(const Vector3d& theVec)
 {
   return Precision::IsInfinite(theVec.X()) || Precision::IsInfinite(theVec.Y())
          || Precision::IsInfinite(theVec.Z());
 }
 
-inline void CheckInfinite(const gp_Vec& theVecU, const gp_Vec& theVecV)
+inline void CheckInfinite(const Vector3d& theVecU, const Vector3d& theVecV)
 {
   if (IsInfiniteCoord(theVecU) || IsInfiniteCoord(theVecV))
   {
@@ -269,7 +269,7 @@ void GeomEvaluator_OffsetSurface::D0(const Standard_Real theU,
   Standard_Real aU = theU, aV = theV;
   for (;;)
   {
-    gp_Vec aD1U, aD1V;
+    Vector3d aD1U, aD1V;
     BaseD1(aU, aV, theValue, aD1U, aD1V);
 
     CheckInfinite(aD1U, aD1V);
@@ -293,13 +293,13 @@ void GeomEvaluator_OffsetSurface::D0(const Standard_Real theU,
 void GeomEvaluator_OffsetSurface::D1(const Standard_Real theU,
                                      const Standard_Real theV,
                                      Point3d&             theValue,
-                                     gp_Vec&             theD1U,
-                                     gp_Vec&             theD1V) const
+                                     Vector3d&             theD1U,
+                                     Vector3d&             theD1V) const
 {
   Standard_Real aU = theU, aV = theV;
   for (;;)
   {
-    gp_Vec aD2U, aD2V, aD2UV;
+    Vector3d aD2U, aD2V, aD2UV;
     BaseD2(aU, aV, theValue, theD1U, theD1V, aD2U, aD2V, aD2UV);
 
     CheckInfinite(theD1U, theD1V);
@@ -323,16 +323,16 @@ void GeomEvaluator_OffsetSurface::D1(const Standard_Real theU,
 void GeomEvaluator_OffsetSurface::D2(const Standard_Real theU,
                                      const Standard_Real theV,
                                      Point3d&             theValue,
-                                     gp_Vec&             theD1U,
-                                     gp_Vec&             theD1V,
-                                     gp_Vec&             theD2U,
-                                     gp_Vec&             theD2V,
-                                     gp_Vec&             theD2UV) const
+                                     Vector3d&             theD1U,
+                                     Vector3d&             theD1V,
+                                     Vector3d&             theD2U,
+                                     Vector3d&             theD2V,
+                                     Vector3d&             theD2UV) const
 {
   Standard_Real aU = theU, aV = theV;
   for (;;)
   {
-    gp_Vec aD3U, aD3V, aD3UUV, aD3UVV;
+    Vector3d aD3U, aD3V, aD3UUV, aD3UVV;
     BaseD3(aU, aV, theValue, theD1U, theD1V, theD2U, theD2V, theD2UV, aD3U, aD3V, aD3UUV, aD3UVV);
 
     CheckInfinite(theD1U, theD1V);
@@ -367,15 +367,15 @@ void GeomEvaluator_OffsetSurface::D2(const Standard_Real theU,
 void GeomEvaluator_OffsetSurface::D3(const Standard_Real theU,
                                      const Standard_Real theV,
                                      Point3d&             theValue,
-                                     gp_Vec&             theD1U,
-                                     gp_Vec&             theD1V,
-                                     gp_Vec&             theD2U,
-                                     gp_Vec&             theD2V,
-                                     gp_Vec&             theD2UV,
-                                     gp_Vec&             theD3U,
-                                     gp_Vec&             theD3V,
-                                     gp_Vec&             theD3UUV,
-                                     gp_Vec&             theD3UVV) const
+                                     Vector3d&             theD1U,
+                                     Vector3d&             theD1V,
+                                     Vector3d&             theD2U,
+                                     Vector3d&             theD2V,
+                                     Vector3d&             theD2UV,
+                                     Vector3d&             theD3U,
+                                     Vector3d&             theD3V,
+                                     Vector3d&             theD3UUV,
+                                     Vector3d&             theD3UVV) const
 {
   Standard_Real aU = theU, aV = theV;
   for (;;)
@@ -422,7 +422,7 @@ void GeomEvaluator_OffsetSurface::D3(const Standard_Real theU,
   }
 }
 
-gp_Vec GeomEvaluator_OffsetSurface::DN(const Standard_Real    theU,
+Vector3d GeomEvaluator_OffsetSurface::DN(const Standard_Real    theU,
                                        const Standard_Real    theV,
                                        const Standard_Integer theDerU,
                                        const Standard_Integer theDerV) const
@@ -436,7 +436,7 @@ gp_Vec GeomEvaluator_OffsetSurface::DN(const Standard_Real    theU,
   for (;;)
   {
     Point3d aP;
-    gp_Vec aD1U, aD1V;
+    Vector3d aD1U, aD1V;
     BaseD1(aU, aV, aP, aD1U, aD1V);
 
     CheckInfinite(aD1U, aD1V);
@@ -487,8 +487,8 @@ void GeomEvaluator_OffsetSurface::BaseD0(const Standard_Real theU,
 void GeomEvaluator_OffsetSurface::BaseD1(const Standard_Real theU,
                                          const Standard_Real theV,
                                          Point3d&             theValue,
-                                         gp_Vec&             theD1U,
-                                         gp_Vec&             theD1V) const
+                                         Vector3d&             theD1U,
+                                         Vector3d&             theD1V) const
 {
   if (!myBaseAdaptor.IsNull())
     myBaseAdaptor->D1(theU, theV, theValue, theD1U, theD1V);
@@ -499,11 +499,11 @@ void GeomEvaluator_OffsetSurface::BaseD1(const Standard_Real theU,
 void GeomEvaluator_OffsetSurface::BaseD2(const Standard_Real theU,
                                          const Standard_Real theV,
                                          Point3d&             theValue,
-                                         gp_Vec&             theD1U,
-                                         gp_Vec&             theD1V,
-                                         gp_Vec&             theD2U,
-                                         gp_Vec&             theD2V,
-                                         gp_Vec&             theD2UV) const
+                                         Vector3d&             theD1U,
+                                         Vector3d&             theD1V,
+                                         Vector3d&             theD2U,
+                                         Vector3d&             theD2V,
+                                         Vector3d&             theD2UV) const
 {
   if (!myBaseAdaptor.IsNull())
     myBaseAdaptor->D2(theU, theV, theValue, theD1U, theD1V, theD2U, theD2V, theD2UV);
@@ -514,15 +514,15 @@ void GeomEvaluator_OffsetSurface::BaseD2(const Standard_Real theU,
 void GeomEvaluator_OffsetSurface::BaseD3(const Standard_Real theU,
                                          const Standard_Real theV,
                                          Point3d&             theValue,
-                                         gp_Vec&             theD1U,
-                                         gp_Vec&             theD1V,
-                                         gp_Vec&             theD2U,
-                                         gp_Vec&             theD2V,
-                                         gp_Vec&             theD2UV,
-                                         gp_Vec&             theD3U,
-                                         gp_Vec&             theD3V,
-                                         gp_Vec&             theD3UUV,
-                                         gp_Vec&             theD3UVV) const
+                                         Vector3d&             theD1U,
+                                         Vector3d&             theD1V,
+                                         Vector3d&             theD2U,
+                                         Vector3d&             theD2V,
+                                         Vector3d&             theD2UV,
+                                         Vector3d&             theD3U,
+                                         Vector3d&             theD3V,
+                                         Vector3d&             theD3UUV,
+                                         Vector3d&             theD3UVV) const
 {
   if (!myBaseAdaptor.IsNull())
     myBaseAdaptor->D3(theU,
@@ -555,14 +555,14 @@ void GeomEvaluator_OffsetSurface::BaseD3(const Standard_Real theU,
 void GeomEvaluator_OffsetSurface::CalculateD0(const Standard_Real theU,
                                               const Standard_Real theV,
                                               Point3d&             theValue,
-                                              const gp_Vec&       theD1U,
-                                              const gp_Vec&       theD1V) const
+                                              const Vector3d&       theD1U,
+                                              const Vector3d&       theD1V) const
 {
   // Normalize derivatives before normal calculation because it gives more stable result.
   // There will be normalized only derivatives greater than 1.0 to avoid differences in last
   // significant digit
-  gp_Vec        aD1U(theD1U);
-  gp_Vec        aD1V(theD1V);
+  Vector3d        aD1U(theD1U);
+  Vector3d        aD1V(theD1V);
   Standard_Real aD1UNorm2 = aD1U.SquareMagnitude();
   Standard_Real aD1VNorm2 = aD1V.SquareMagnitude();
   if (aD1UNorm2 > 1.0)
@@ -570,7 +570,7 @@ void GeomEvaluator_OffsetSurface::CalculateD0(const Standard_Real theU,
   if (aD1VNorm2 > 1.0)
     aD1V /= Sqrt(aD1VNorm2);
 
-  gp_Vec aNorm = aD1U.Crossed(aD1V);
+  Vector3d aNorm = aD1U.Crossed(aD1V);
   if (aNorm.SquareMagnitude() > the_D1MagTol * the_D1MagTol)
   {
     // Non singular case. Simple computations.
@@ -605,7 +605,7 @@ void GeomEvaluator_OffsetSurface::CalculateD0(const Standard_Real theU,
     else
       derivatives(MaxOrder, 1, theU, theV, myBaseAdaptor, 0, 0, AlongU, AlongV, L, DerNUV, DerSurf);
 
-    gp_Dir             Normal;
+    Dir3d             Normal;
     CSLib_NormalStatus NStatus = CSLib_Singular;
     CSLib::Normal(MaxOrder,
                   DerNUV,
@@ -623,8 +623,8 @@ void GeomEvaluator_OffsetSurface::CalculateD0(const Standard_Real theU,
     if (NStatus == CSLib_InfinityOfSolutions)
     {
       // Replace zero derivative and try to calculate normal
-      gp_Vec aNewDU = theD1U;
-      gp_Vec aNewDV = theD1V;
+      Vector3d aNewDU = theD1U;
+      Vector3d aNewDV = theD1V;
       if (ReplaceDerivative(theU, theV, aNewDU, aNewDV, the_D1MagTol * the_D1MagTol))
         CSLib::Normal(aNewDU, aNewDV, the_D1MagTol, NStatus, Normal);
     }
@@ -640,11 +640,11 @@ void GeomEvaluator_OffsetSurface::CalculateD0(const Standard_Real theU,
 void GeomEvaluator_OffsetSurface::CalculateD1(const Standard_Real theU,
                                               const Standard_Real theV,
                                               Point3d&             theValue,
-                                              gp_Vec&             theD1U,
-                                              gp_Vec&             theD1V,
-                                              const gp_Vec&       theD2U,
-                                              const gp_Vec&       theD2V,
-                                              const gp_Vec&       theD2UV) const
+                                              Vector3d&             theD1U,
+                                              Vector3d&             theD1V,
+                                              const Vector3d&       theD2U,
+                                              const Vector3d&       theD2V,
+                                              const Vector3d&       theD2UV) const
 {
   // Check offset side.
   Handle(Geom_BSplineSurface) L;
@@ -655,8 +655,8 @@ void GeomEvaluator_OffsetSurface::CalculateD1(const Standard_Real theU,
   // Normalize derivatives before normal calculation because it gives more stable result.
   // There will be normalized only derivatives greater than 1.0 to avoid differences in last
   // significant digit
-  gp_Vec        aD1U(theD1U);
-  gp_Vec        aD1V(theD1V);
+  Vector3d        aD1U(theD1U);
+  Vector3d        aD1V(theD1V);
   Standard_Real aD1UNorm2 = aD1U.SquareMagnitude();
   Standard_Real aD1VNorm2 = aD1V.SquareMagnitude();
   if (aD1UNorm2 > 1.0)
@@ -666,7 +666,7 @@ void GeomEvaluator_OffsetSurface::CalculateD1(const Standard_Real theU,
 
   Standard_Boolean isSingular = Standard_False;
   Standard_Integer MaxOrder   = 0;
-  gp_Vec           aNorm      = aD1U.Crossed(aD1V);
+  Vector3d           aNorm      = aD1U.Crossed(aD1V);
   if (aNorm.SquareMagnitude() <= the_D1MagTol * the_D1MagTol)
   {
     if (!myOscSurf.IsNull())
@@ -688,7 +688,7 @@ void GeomEvaluator_OffsetSurface::CalculateD1(const Standard_Real theU,
     aNorm.Normalize();
     theValue.SetXYZ(theValue.XYZ() + myOffset * aSign * aNorm.XYZ());
 
-    gp_Vec        aN0(aNorm.XYZ()), aN1U, aN1V;
+    Vector3d        aN0(aNorm.XYZ()), aN1U, aN1V;
     Standard_Real aScale = (theD1U ^ theD1V).Dot(aN0);
     aN1U.SetX(theD2U.Y() * theD1V.Z() + theD1U.Y() * theD2UV.Z() - theD2U.Z() * theD1V.Y()
               - theD1U.Z() * theD2UV.Y());
@@ -734,7 +734,7 @@ void GeomEvaluator_OffsetSurface::CalculateD1(const Standard_Real theU,
   else
     derivatives(MaxOrder, 2, theU, theV, myBaseAdaptor, 1, 1, AlongU, AlongV, L, DerNUV, DerSurf);
 
-  gp_Dir             Normal;
+  Dir3d             Normal;
   CSLib_NormalStatus NStatus;
   CSLib::Normal(MaxOrder,
                 DerNUV,
@@ -751,8 +751,8 @@ void GeomEvaluator_OffsetSurface::CalculateD1(const Standard_Real theU,
                 OrderV);
   if (NStatus == CSLib_InfinityOfSolutions)
   {
-    gp_Vec aNewDU = theD1U;
-    gp_Vec aNewDV = theD1V;
+    Vector3d aNewDU = theD1U;
+    Vector3d aNewDV = theD1V;
     // Replace zero derivative and try to calculate normal
     if (ReplaceDerivative(theU, theV, aNewDU, aNewDV, the_D1MagTol * the_D1MagTol))
     {
@@ -802,17 +802,17 @@ void GeomEvaluator_OffsetSurface::CalculateD1(const Standard_Real theU,
 void GeomEvaluator_OffsetSurface::CalculateD2(const Standard_Real theU,
                                               const Standard_Real theV,
                                               Point3d&             theValue,
-                                              gp_Vec&             theD1U,
-                                              gp_Vec&             theD1V,
-                                              gp_Vec&             theD2U,
-                                              gp_Vec&             theD2V,
-                                              gp_Vec&             theD2UV,
-                                              const gp_Vec&       theD3U,
-                                              const gp_Vec&       theD3V,
-                                              const gp_Vec&       theD3UUV,
-                                              const gp_Vec&       theD3UVV) const
+                                              Vector3d&             theD1U,
+                                              Vector3d&             theD1V,
+                                              Vector3d&             theD2U,
+                                              Vector3d&             theD2V,
+                                              Vector3d&             theD2UV,
+                                              const Vector3d&       theD3U,
+                                              const Vector3d&       theD3V,
+                                              const Vector3d&       theD3UUV,
+                                              const Vector3d&       theD3UVV) const
 {
-  gp_Dir             Normal;
+  Dir3d             Normal;
   CSLib_NormalStatus NStatus;
   CSLib::Normal(theD1U, theD1V, the_D1MagTol, NStatus, Normal);
 
@@ -894,17 +894,17 @@ void GeomEvaluator_OffsetSurface::CalculateD2(const Standard_Real theU,
 void GeomEvaluator_OffsetSurface::CalculateD3(const Standard_Real theU,
                                               const Standard_Real theV,
                                               Point3d&             theValue,
-                                              gp_Vec&             theD1U,
-                                              gp_Vec&             theD1V,
-                                              gp_Vec&             theD2U,
-                                              gp_Vec&             theD2V,
-                                              gp_Vec&             theD2UV,
-                                              gp_Vec&             theD3U,
-                                              gp_Vec&             theD3V,
-                                              gp_Vec&             theD3UUV,
-                                              gp_Vec&             theD3UVV) const
+                                              Vector3d&             theD1U,
+                                              Vector3d&             theD1V,
+                                              Vector3d&             theD2U,
+                                              Vector3d&             theD2V,
+                                              Vector3d&             theD2UV,
+                                              Vector3d&             theD3U,
+                                              Vector3d&             theD3V,
+                                              Vector3d&             theD3UUV,
+                                              Vector3d&             theD3UVV) const
 {
-  gp_Dir             Normal;
+  Dir3d             Normal;
   CSLib_NormalStatus NStatus;
   CSLib::Normal(theD1U, theD1V, the_D1MagTol, NStatus, Normal);
   const Standard_Integer MaxOrder = (NStatus == CSLib_Defined) ? 0 : 3;
@@ -993,14 +993,14 @@ void GeomEvaluator_OffsetSurface::CalculateD3(const Standard_Real theU,
   theD3UVV += aSign * myOffset * CSLib::DNNormal(1, 2, DerNUV, OrderU, OrderV);
 }
 
-gp_Vec GeomEvaluator_OffsetSurface::CalculateDN(const Standard_Real    theU,
+Vector3d GeomEvaluator_OffsetSurface::CalculateDN(const Standard_Real    theU,
                                                 const Standard_Real    theV,
                                                 const Standard_Integer theNu,
                                                 const Standard_Integer theNv,
-                                                const gp_Vec&          theD1U,
-                                                const gp_Vec&          theD1V) const
+                                                const Vector3d&          theD1U,
+                                                const Vector3d&          theD1V) const
 {
-  gp_Dir             Normal;
+  Dir3d             Normal;
   CSLib_NormalStatus NStatus;
   CSLib::Normal(theD1U, theD1V, the_D1MagTol, NStatus, Normal);
   const Standard_Integer MaxOrder = (NStatus == CSLib_Defined) ? 0 : 3;
@@ -1071,7 +1071,7 @@ gp_Vec GeomEvaluator_OffsetSurface::CalculateDN(const Standard_Real    theU,
     throw Geom_UndefinedValue(
       "GeomEvaluator_OffsetSurface::CalculateDN(): Unable to calculate normal");
 
-  gp_Vec D;
+  Vector3d D;
   if (!myBaseSurf.IsNull())
     D = myBaseSurf->DN(theU, theV, theNu, theNv);
   else
@@ -1100,8 +1100,8 @@ void GeomEvaluator_OffsetSurface::Bounds(Standard_Real& theUMin,
 Standard_Boolean GeomEvaluator_OffsetSurface::ReplaceDerivative(
   const Standard_Real theU,
   const Standard_Real theV,
-  gp_Vec&             theDU,
-  gp_Vec&             theDV,
+  Vector3d&             theDU,
+  Vector3d&             theDV,
   const Standard_Real theSquareTol) const
 {
   Standard_Boolean isReplaceDU = theDU.SquareMagnitude() < theSquareTol;
@@ -1135,7 +1135,7 @@ Standard_Boolean GeomEvaluator_OffsetSurface::ReplaceDerivative(
     }
 
     Point3d aP;
-    gp_Vec aDU, aDV;
+    Vector3d aDU, aDV;
     // Step away from current parametric coordinates and calculate derivatives once again.
     // Replace zero derivative by the obtained.
     for (Standard_Real aStepSign = -1.0; aStepSign <= 1.0 && !isReplaced; aStepSign += 2.0)

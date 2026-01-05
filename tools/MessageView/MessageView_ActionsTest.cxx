@@ -240,35 +240,35 @@ void MessageView_ActionsTest::OnTestMessenger()
     aCoords.DumpJson(sout);
     sout.Flush(Standard_True);
   }
-  // gp_Dir
+  // Dir3d
   {
-    gp_Dir aDir(0.3, 0.3, 0.4);
+    Dir3d aDir(0.3, 0.3, 0.4);
     aDir.DumpJson(sout);
     sout.Flush(Standard_True);
   }
-  // gp_Ax1
+  // Axis3d
   {
-    gp_Ax1 aCoords(Point3d(1.3, 2.3, 3.4), gp_Dir(0.3, 0.3, 0.4));
+    Axis3d aCoords(Point3d(1.3, 2.3, 3.4), Dir3d(0.3, 0.3, 0.4));
     aCoords.DumpJson(sout);
     sout.Flush(Standard_True);
   }
-  // gp_Ax2
+  // Frame3d
   {
-    gp_Ax2 aCoords(Point3d(10.3, 20.3, 30.4), gp_Dir(0.3, 0.3, 0.4));
+    Frame3d aCoords(Point3d(10.3, 20.3, 30.4), Dir3d(0.3, 0.3, 0.4));
     aCoords.DumpJson(sout);
     sout.Flush(Standard_True);
   }
   // gp_Ax3
   {
-    gp_Ax3 aPln(Point3d(10., 20., 15.), gp_Dir(0., 0., 1.), gp_Dir(1., 0., 0.));
+    gp_Ax3 aPln(Point3d(10., 20., 15.), Dir3d(0., 0., 1.), Dir3d(1., 0., 0.));
     aPln.DumpJson(sout);
     sout.Flush(Standard_True);
   }
-  // gp_Trsf
+  // Transform3d
   {
-    gp_Trsf aTrsf;
+    Transform3d aTrsf;
     aTrsf.SetRotation(gp::OZ(), 0.3);
-    aTrsf.SetTranslationPart(gp_Vec(15., 15., 15.));
+    aTrsf.SetTranslationPart(Vector3d(15., 15., 15.));
     aTrsf.SetScaleFactor(3.);
 
     aTrsf.DumpJson(sout);
@@ -283,9 +283,9 @@ void MessageView_ActionsTest::OnTestMessenger()
   // Bnd_OBB
   {
     Bnd_OBB anOBB(Point3d(-10., -15., -10.),
-                  gp_Dir(1., 0., 0.),
-                  gp_Dir(0., 1., 0.),
-                  gp_Dir(0., 0., 1.),
+                  Dir3d(1., 0., 0.),
+                  Dir3d(0., 1., 0.),
+                  Dir3d(0., 0., 1.),
                   5.,
                   10.,
                   5.);

@@ -31,7 +31,7 @@ public:
                                        const Standard_Boolean      theIsHeadlight = Standard_False);
 
   //! Creates a directional light source in the viewer.
-  Standard_EXPORT V3d_DirectionalLight(const gp_Dir&          theDirection,
+  Standard_EXPORT V3d_DirectionalLight(const Dir3d&          theDirection,
                                        const Quantity_Color&  theColor       = Quantity_NOC_WHITE,
                                        const Standard_Boolean theIsHeadlight = Standard_False);
 

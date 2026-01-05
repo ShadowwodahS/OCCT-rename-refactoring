@@ -165,7 +165,7 @@ static Standard_Real EvalPhase(const TopoDS_Edge&         Edge,
   }
   Point3d P = GAS.Value(0., V);
 
-  if (gp_Vec(Axis.Location(), P).Dot(Axis.XDirection()) < 0.)
+  if (Vector3d(Axis.Location(), P).Dot(Axis.XDirection()) < 0.)
     return M_PI;
   else
     return 0.;
@@ -380,7 +380,7 @@ static void EvalParameters(const TopoDS_Edge&          Edge,
     }
 
     gp_Vec2d D12d = Bis->DN(UBis, 1);
-    gp_Vec   D1(D12d.X(), D12d.Y(), 0.);
+    Vector3d   D1(D12d.X(), D12d.Y(), 0.);
 
     Standard_Real U = Axis.XDirection().AngleWithRef(D1, Axis.XDirection() ^ Axis.YDirection());
     U += Phase;

@@ -28,7 +28,7 @@
 
 class Point3d;
 class TopoDS_Face;
-class gp_Vec;
+class Vector3d;
 class TopoDS_Shell;
 class gp_Lin;
 class IntCurvesFace_Intersector;
@@ -69,8 +69,8 @@ public:
                                                               Standard_Real&     u,
                                                               Standard_Real&     v,
                                                               Standard_Real&     Param,
-                                                              gp_Vec&            theVecD1U,
-                                                              gp_Vec&            theVecD1V);
+                                                              Vector3d&            theVecD1U,
+                                                              Vector3d&            theVecD1V);
 
   Standard_EXPORT static Standard_Boolean FindAPointInTheFace(const TopoDS_Face& F,
                                                               Point3d&            P,
@@ -115,8 +115,8 @@ public:
                                                   const Standard_Real                v1,
                                                   const Standard_Real                u2,
                                                   const Standard_Real                v2,
-                                                  gp_Vec&                            theVecD1U,
-                                                  gp_Vec& theVecD1V) const;
+                                                  Vector3d&                            theVecD1U,
+                                                  Vector3d& theVecD1V) const;
 
   //! Starts an exploration of the shells.
   Standard_EXPORT void InitShell();

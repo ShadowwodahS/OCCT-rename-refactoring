@@ -37,13 +37,13 @@ Standard_Boolean ShapeAnalysis_Geom::NearestPlane(const TColgp_Array1OfPnt& Pnts
   g.Coord(Xg, Yg, Zg);
 
   GProp_PrincipalProps Pp = Pmat.PrincipalProperties();
-  gp_Vec               V1 = Pp.FirstAxisOfInertia();
+  Vector3d               V1 = Pp.FirstAxisOfInertia();
   Standard_Real        Xv1, Yv1, Zv1;
   V1.Coord(Xv1, Yv1, Zv1);
-  gp_Vec        V2 = Pp.SecondAxisOfInertia();
+  Vector3d        V2 = Pp.SecondAxisOfInertia();
   Standard_Real Xv2, Yv2, Zv2;
   V2.Coord(Xv2, Yv2, Zv2);
-  gp_Vec        V3 = Pp.ThirdAxisOfInertia();
+  Vector3d        V3 = Pp.ThirdAxisOfInertia();
   Standard_Real Xv3, Yv3, Zv3;
   V3.Coord(Xv3, Yv3, Zv3);
 
@@ -124,13 +124,13 @@ Standard_Boolean ShapeAnalysis_Geom::NearestPlane(const TColgp_Array1OfPnt& Pnts
 //=================================================================================================
 
 Standard_Boolean ShapeAnalysis_Geom::PositionTrsf(const Handle(TColStd_HArray2OfReal)& coefs,
-                                                  gp_Trsf&                             trsf,
+                                                  Transform3d&                             trsf,
                                                   const Standard_Real                  unit,
                                                   const Standard_Real                  prec)
 {
   Standard_Boolean result = Standard_True;
 
-  trsf = gp_Trsf(); // szv#4:S4163:12Mar99 moved
+  trsf = Transform3d(); // szv#4:S4163:12Mar99 moved
 
   if (coefs.IsNull())
     return Standard_True; // szv#4:S4163:12Mar99 moved
@@ -148,7 +148,7 @@ Standard_Boolean ShapeAnalysis_Geom::PositionTrsf(const Handle(TColStd_HArray2Of
   ////    trsf = gtrsf.Trsf();
   // ---  Prec et Unit ont ete lues suite aux StepFile_Read
   //      Valables pour tous les composants d un assemblage transmis
-  // trsf = gp_Trsf();  // Identite forcee au depart //szv#4:S4163:12Mar99 not needed
+  // trsf = Transform3d();  // Identite forcee au depart //szv#4:S4163:12Mar99 not needed
   //  On prend le contenu de <gtrsf>. Attention a l adressage
   gp_XYZ v1(gtrsf.Value(1, 1), gtrsf.Value(2, 1), gtrsf.Value(3, 1));
   gp_XYZ v2(gtrsf.Value(1, 2), gtrsf.Value(2, 2), gtrsf.Value(3, 2));
@@ -180,9 +180,9 @@ Standard_Boolean ShapeAnalysis_Geom::PositionTrsf(const Handle(TColStd_HArray2Of
       || v3.X() != 0 || v3.Y() != 0 || v3.Z() != 1)
   {
     //  Pas Identite : vraie construction depuis un Ax3
-    gp_Dir d1(v1);
-    gp_Dir d2(v2);
-    gp_Dir d3(v3);
+    Dir3d d1(v1);
+    Dir3d d2(v2);
+    Dir3d d3(v3);
     gp_Ax3 axes(Point3d(0, 0, 0), d3, d1);
     d3.Cross(d1);
     if (d3.Dot(d2) < 0)
@@ -193,14 +193,14 @@ Standard_Boolean ShapeAnalysis_Geom::PositionTrsf(const Handle(TColStd_HArray2Of
   //  Restent les autres caracteristiques :
   if (Abs(mm - 1.) > prec)
     trsf.SetScale(Point3d(0, 0, 0), mm); // szv#4:S4163:12Mar99 optimized
-  gp_Vec tp(gtrsf.TranslationPart());
+  Vector3d tp(gtrsf.TranslationPart());
   if (unit != 1.)
     tp.Multiply(unit);
   if (tp.X() != 0 || tp.Y() != 0 || tp.Z() != 0)
     trsf.SetTranslationPart(tp);
   /* }
   catch(ExceptionBase) {
-    trsf = gp_Trsf();
+    trsf = Transform3d();
     result = Standard_False;
   } */
 

@@ -29,12 +29,12 @@
 //              theAngTol is angular tolerance.
 //=================================================================================================
 
-static Standard_Boolean IsSingular(const gp_Vec&       theDU,
-                                   const gp_Vec&       theDV,
+static Standard_Boolean IsSingular(const Vector3d&       theDU,
+                                   const Vector3d&       theDV,
                                    const Standard_Real theSqLinTol,
                                    const Standard_Real theAngTol)
 {
-  gp_Vec aDU(theDU), aDV(theDV);
+  Vector3d aDU(theDU), aDV(theDV);
 
   const Standard_Real aSqMagnDU = aDU.SquareMagnitude(), aSqMagnDV = aDV.SquareMagnitude();
 
@@ -77,12 +77,12 @@ static Standard_Boolean IsSingular(const gp_Vec&       theDU,
 //            always have magnitude 1.0).
 //=================================================================================================
 
-static Standard_Boolean SingularProcessing(const gp_Vec&          theDU,
-                                           const gp_Vec&          theDV,
+static Standard_Boolean SingularProcessing(const Vector3d&          theDU,
+                                           const Vector3d&          theDV,
                                            const Standard_Boolean theIsTo3DTgCompute,
                                            const Standard_Real    theLinTol,
                                            const Standard_Real    theAngTol,
-                                           gp_Vec&                theTg3D,
+                                           Vector3d&                theTg3D,
                                            gp_Vec2d&              theTg2D)
 {
   // Attention: @ \sin theAngTol \approx theAngTol @ (for cross-product)
@@ -284,19 +284,19 @@ static Standard_Boolean SingularProcessing(const gp_Vec&          theDU,
 //              More over, vector Tg has always to be NORMALIZED.
 //=================================================================================================
 
-static Standard_Boolean NonSingularProcessing(const gp_Vec&       theDU,
-                                              const gp_Vec&       theDV,
-                                              const gp_Vec&       theTg3D,
+static Standard_Boolean NonSingularProcessing(const Vector3d&       theDU,
+                                              const Vector3d&       theDV,
+                                              const Vector3d&       theTg3D,
                                               const Standard_Real theLinTol,
                                               const Standard_Real theAngTol,
                                               gp_Vec2d&           theTg2D)
 {
-  const gp_Vec        aNormal = theDU.Crossed(theDV);
+  const Vector3d        aNormal = theDU.Crossed(theDV);
   const Standard_Real aSQMagn = aNormal.SquareMagnitude();
 
   if (IsSingular(theDU, theDV, theLinTol, theAngTol))
   {
-    gp_Vec aTg(theTg3D);
+    Vector3d aTg(theTg3D);
     return SingularProcessing(theDU, theDV, Standard_False, theLinTol, theAngTol, aTg, theTg2D);
   }
 
@@ -311,7 +311,7 @@ static Standard_Boolean NonSingularProcessing(const gp_Vec&       theDU,
   //(if @\left \| \vec{A} \times \vec{B} \right \| > 0.0 @,
   // else it is singular case).
 
-  const gp_Vec        aTgU(theTg3D.Crossed(theDU)), aTgV(theTg3D.Crossed(theDV));
+  const Vector3d        aTgU(theTg3D.Crossed(theDU)), aTgV(theTg3D.Crossed(theDV));
   const Standard_Real aDeltaU = aTgV.SquareMagnitude() / aSQMagn;
   const Standard_Real aDeltaV = aTgU.SquareMagnitude() / aSQMagn;
 
@@ -357,7 +357,7 @@ void ApproxInt_ImpPrmSvSurfaces::Pnt(const Standard_Real u1,
                                      Point3d&             P)
 {
   Point3d        aP;
-  gp_Vec        aT;
+  Vector3d        aT;
   gp_Vec2d      aTS1, aTS2;
   Standard_Real tu1 = u1;
   Standard_Real tu2 = u2;
@@ -373,10 +373,10 @@ Standard_Boolean ApproxInt_ImpPrmSvSurfaces::Tangency(const Standard_Real u1,
                                                       const Standard_Real v1,
                                                       const Standard_Real u2,
                                                       const Standard_Real v2,
-                                                      gp_Vec&             T)
+                                                      Vector3d&             T)
 {
   Point3d           aP;
-  gp_Vec           aT;
+  Vector3d           aT;
   gp_Vec2d         aTS1, aTS2;
   Standard_Real    tu1 = u1;
   Standard_Real    tu2 = u2;
@@ -396,7 +396,7 @@ Standard_Boolean ApproxInt_ImpPrmSvSurfaces::TangencyOnSurf1(const Standard_Real
                                                              gp_Vec2d&           T)
 {
   Point3d           aP;
-  gp_Vec           aT;
+  Vector3d           aT;
   gp_Vec2d         aTS1, aTS2;
   Standard_Real    tu1 = u1;
   Standard_Real    tu2 = u2;
@@ -416,7 +416,7 @@ Standard_Boolean ApproxInt_ImpPrmSvSurfaces::TangencyOnSurf2(const Standard_Real
                                                              gp_Vec2d&           T)
 {
   Point3d           aP;
-  gp_Vec           aT;
+  Vector3d           aT;
   gp_Vec2d         aTS1, aTS2;
   Standard_Real    tu1 = u1;
   Standard_Real    tu2 = u2;
@@ -438,7 +438,7 @@ Standard_Boolean ApproxInt_ImpPrmSvSurfaces::Compute(Standard_Real& u1,
                                                      Standard_Real& u2,
                                                      Standard_Real& v2,
                                                      Point3d&        P,
-                                                     gp_Vec&        Tg,
+                                                     Vector3d&        Tg,
                                                      gp_Vec2d&      Tguv1,
                                                      gp_Vec2d&      Tguv2)
 {
@@ -482,7 +482,7 @@ Standard_Boolean ApproxInt_ImpPrmSvSurfaces::Compute(Standard_Real& u1,
         (MyParOnS2bis.Y() == v2))
     {
 
-      gp_Vec           TV(MyTg);
+      Vector3d           TV(MyTg);
       gp_Vec2d         TV1(MyTguv1);
       gp_Vec2d         TV2(MyTguv2);
       Point3d           TP(MyPnt);
@@ -566,8 +566,8 @@ Standard_Boolean ApproxInt_ImpPrmSvSurfaces::Compute(Standard_Real& u1,
 
     if ((DistAvantApresV <= 0.001) && (DistAvantApresU <= 0.001))
     {
-      gp_Vec aD1uPrm, aD1vPrm;
-      gp_Vec aD1uQuad, aD1vQuad;
+      Vector3d aD1uPrm, aD1vPrm;
+      Vector3d aD1uQuad, aD1vQuad;
 
       if (MyImplicitFirst)
       {
@@ -621,7 +621,7 @@ Standard_Boolean ApproxInt_ImpPrmSvSurfaces::Compute(Standard_Real& u1,
       MyPnt = P;
 
       // Normals to the surfaces
-      gp_Vec aNormalPrm(aD1uPrm.Crossed(aD1vPrm)), aNormalImp(aQSurf.Normale(MyPnt));
+      Vector3d aNormalPrm(aD1uPrm.Crossed(aD1vPrm)), aNormalImp(aQSurf.Normale(MyPnt));
 
       const Standard_Real aSQMagnPrm = aNormalPrm.SquareMagnitude(),
                           aSQMagnImp = aNormalImp.SquareMagnitude();
@@ -780,7 +780,7 @@ Standard_Boolean ApproxInt_ImpPrmSvSurfaces::SeekPoint(const Standard_Real u1,
                                                        IntSurf_PntOn2S&    Point)
 {
   Point3d                 aP;
-  gp_Vec                 aT;
+  Vector3d                 aT;
   gp_Vec2d               aTS1, aTS2;
   const IntSurf_Quadric& aQSurf = MyZerImpFunc.ISurface();
   const ThePSurface&     aPSurf = MyZerImpFunc.PSurface();

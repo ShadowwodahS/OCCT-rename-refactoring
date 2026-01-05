@@ -38,9 +38,9 @@
 
 static void t3dto2d(Standard_Real& a,
                     Standard_Real& b,
-                    const gp_Vec&  A,
-                    const gp_Vec&  B,
-                    const gp_Vec&  C)
+                    const Vector3d&  A,
+                    const Vector3d&  B,
+                    const Vector3d&  C)
 {
   Standard_Real AB   = A.Dot(B);
   Standard_Real AC   = A.Dot(C);
@@ -155,7 +155,7 @@ Standard_Integer BRepBlend_SurfRstEvolRad::NbEquations() const
 
 Standard_Boolean BRepBlend_SurfRstEvolRad::Value(const math_Vector& X, math_Vector& F)
 {
-  gp_Vec        d1u1, d1v1, ns, vref;
+  Vector3d        d1u1, d1v1, ns, vref;
   Standard_Real norm;
 
   surf->D1(X(1), X(2), pts, d1u1, d1v1);
@@ -168,7 +168,7 @@ Standard_Boolean BRepBlend_SurfRstEvolRad::Value(const math_Vector& X, math_Vect
   ns   = d1u1.Crossed(d1v1);
   norm = nplan.Crossed(ns).Magnitude();
   ns.SetLinearForm(nplan.Dot(ns) / norm, nplan, -1. / norm, ns);
-  vref.SetLinearForm(ray, ns, gp_Vec(ptrst, pts));
+  vref.SetLinearForm(ray, ns, Vector3d(ptrst, pts));
   F(3) = vref.SquareMagnitude() - ray * ray;
   return Standard_True;
 }
@@ -177,8 +177,8 @@ Standard_Boolean BRepBlend_SurfRstEvolRad::Value(const math_Vector& X, math_Vect
 
 Standard_Boolean BRepBlend_SurfRstEvolRad::Derivatives(const math_Vector& X, math_Matrix& D)
 {
-  gp_Vec d1u1, d1v1, d2u1, d2v1, d2uv1, d1;
-  gp_Vec ns, ncrossns, resul, temp, vref;
+  Vector3d d1u1, d1v1, d2u1, d2v1, d2uv1, d1;
+  Vector3d ns, ncrossns, resul, temp, vref;
 
   Standard_Real norm, ndotns, grosterme;
 
@@ -200,7 +200,7 @@ Standard_Boolean BRepBlend_SurfRstEvolRad::Derivatives(const math_Vector& X, mat
 
   vref.SetLinearForm(ndotns, nplan, -1., ns);
   vref.Divide(norm);
-  vref.SetLinearForm(ray, vref, gp_Vec(ptrst, pts));
+  vref.SetLinearForm(ray, vref, Vector3d(ptrst, pts));
 
   // Derivative corresponding to u1
   temp      = d2u1.Crossed(d1v1).Added(d1u1.Crossed(d2uv1));
@@ -239,9 +239,9 @@ Standard_Boolean BRepBlend_SurfRstEvolRad::Values(const math_Vector& X,
                                                   math_Vector&       F,
                                                   math_Matrix&       D)
 {
-  gp_Vec d1u1, d1v1, d1;
-  gp_Vec d2u1, d2v1, d2uv1;
-  gp_Vec ns, ncrossns, resul, temp, vref;
+  Vector3d d1u1, d1v1, d1;
+  Vector3d d2u1, d2v1, d2uv1;
+  Vector3d ns, ncrossns, resul, temp, vref;
 
   Standard_Real norm, ndotns, grosterme;
 
@@ -266,7 +266,7 @@ Standard_Boolean BRepBlend_SurfRstEvolRad::Values(const math_Vector& X,
 
   vref.SetLinearForm(ndotns, nplan, -1., ns);
   vref.Divide(norm);
-  vref.SetLinearForm(ray, vref, gp_Vec(ptrst, pts));
+  vref.SetLinearForm(ray, vref, Vector3d(ptrst, pts));
 
   F(3) = vref.SquareMagnitude() - ray * ray;
 
@@ -314,8 +314,8 @@ void BRepBlend_SurfRstEvolRad::Set(const Handle(Adaptor3d_Surface)& SurfRef,
 
 void BRepBlend_SurfRstEvolRad::Set(const Standard_Real Param)
 {
-  d1gui = gp_Vec(0., 0., 0.);
-  nplan = gp_Vec(0., 0., 0.);
+  d1gui = Vector3d(0., 0., 0.);
+  nplan = Vector3d(0., 0., 0.);
   tguide->D2(Param, ptgui, d1gui, d2gui);
   normtg = d1gui.Magnitude();
   nplan.SetXYZ(d1gui.Normalized().XYZ());
@@ -381,7 +381,7 @@ Standard_Boolean BRepBlend_SurfRstEvolRad::IsSolution(const math_Vector&  Sol,
   math_Vector valsol(1, 3), secmember(1, 3);
   math_Matrix gradsol(1, 3, 1, 3);
 
-  gp_Vec        dnplan, d1u1, d1v1, d1urst, d1vrst, d1, temp, ns, ns2, ncrossns, resul;
+  Vector3d        dnplan, d1u1, d1v1, d1urst, d1vrst, d1, temp, ns, ns2, ncrossns, resul;
   Point3d        bid;
   Standard_Real norm, ndotns, grosterme;
   Standard_Real Cosa, Sina, Angle;
@@ -411,7 +411,7 @@ Standard_Boolean BRepBlend_SurfRstEvolRad::IsSolution(const math_Vector&  Sol,
     norm     = ncrossns.Magnitude();
 
     grosterme = ncrossns.Dot(dnplan.Crossed(ns)) / norm / norm;
-    gp_Vec dnw;
+    Vector3d dnw;
     dnw.SetLinearForm((dnplan.Dot(ns) - grosterme * ndotns) / norm,
                       nplan,
                       ndotns / norm,
@@ -420,7 +420,7 @@ Standard_Boolean BRepBlend_SurfRstEvolRad::IsSolution(const math_Vector&  Sol,
                       ns);
 
     ns.SetLinearForm(ndotns / norm, nplan, -1. / norm, ns);
-    resul.SetLinearForm(ray, ns, gp_Vec(ptrst, pts));
+    resul.SetLinearForm(ray, ns, Vector3d(ptrst, pts));
 
     secmember(3) = -2. * ray * (dnw.Dot(resul)) - 2. * dray * (ns.Dot(resul)) + 2. * ray * dray;
     math_Gauss Resol(gradsol);
@@ -543,7 +543,7 @@ Standard_Boolean BRepBlend_SurfRstEvolRad::IsTangencyPoint() const
 
 //=================================================================================================
 
-const gp_Vec& BRepBlend_SurfRstEvolRad::TangentOnS() const
+const Vector3d& BRepBlend_SurfRstEvolRad::TangentOnS() const
 {
   if (istangent)
   {
@@ -565,7 +565,7 @@ const gp_Vec2d& BRepBlend_SurfRstEvolRad::Tangent2dOnS() const
 
 //=================================================================================================
 
-const gp_Vec& BRepBlend_SurfRstEvolRad::TangentOnRst() const
+const Vector3d& BRepBlend_SurfRstEvolRad::TangentOnRst() const
 {
   if (istangent)
   {
@@ -588,12 +588,12 @@ const gp_Vec2d& BRepBlend_SurfRstEvolRad::Tangent2dOnRst() const
 //=================================================================================================
 
 Standard_Boolean BRepBlend_SurfRstEvolRad::Decroch(const math_Vector& Sol,
-                                                   gp_Vec&            NS,
-                                                   gp_Vec&            TgS) const
+                                                   Vector3d&            NS,
+                                                   Vector3d&            TgS) const
 {
-  gp_Vec        TgRst, NRst, NRstInPlane, NSInPlane;
+  Vector3d        TgRst, NRst, NRstInPlane, NSInPlane;
   Point3d        bid, Center;
-  gp_Vec        d1u, d1v;
+  Vector3d        d1u, d1v;
   Standard_Real norm, unsurnorm;
 
   surf->D1(Sol(1), Sol(2), bid, d1u, d1v);
@@ -606,7 +606,7 @@ Standard_Boolean BRepBlend_SurfRstEvolRad::Decroch(const math_Vector& Sol,
   Center.SetXYZ(bid.XYZ() + ray * NSInPlane.XYZ());
   if (choix > 2)
     NSInPlane.Reverse();
-  TgS = nplan.Crossed(gp_Vec(Center, bid));
+  TgS = nplan.Crossed(Vector3d(Center, bid));
   if (choix % 2 == 1)
   {
     TgS.Reverse();
@@ -618,7 +618,7 @@ Standard_Boolean BRepBlend_SurfRstEvolRad::Decroch(const math_Vector& Sol,
   norm      = nplan.Crossed(NRst).Magnitude();
   unsurnorm = 1. / norm;
   NRstInPlane.SetLinearForm(nplan.Dot(NRst) * unsurnorm, nplan, -unsurnorm, NRst);
-  gp_Vec centptrst(Center, bid);
+  Vector3d centptrst(Center, bid);
   if (centptrst.Dot(NRstInPlane) < 0.)
     NRstInPlane.Reverse();
   TgRst = nplan.Crossed(centptrst);
@@ -677,8 +677,8 @@ void BRepBlend_SurfRstEvolRad::Section(const Standard_Real Param,
                                        Standard_Real&      Pfin,
                                        gp_Circ&            C)
 {
-  gp_Vec        d1u1, d1v1;
-  gp_Vec        ns, np;
+  Vector3d        d1u1, d1v1;
+  Vector3d        ns, np;
   Standard_Real norm;
   Point3d        Center;
 
@@ -704,7 +704,7 @@ void BRepBlend_SurfRstEvolRad::Section(const Standard_Real Param,
   {
     np.Reverse();
   }
-  C.SetPosition(gp_Ax2(Center, np, ns));
+  C.SetPosition(Frame3d(Center, np, ns));
 
   Pdeb = 0.; // ElCLib::Parameter(C,pts);
   Pfin = ElCLib::Parameter(C, ptrst);
@@ -713,7 +713,7 @@ void BRepBlend_SurfRstEvolRad::Section(const Standard_Real Param,
   if (Pfin > 1.5 * M_PI)
   {
     np.Reverse();
-    C.SetPosition(gp_Ax2(Center, np, ns));
+    C.SetPosition(Frame3d(Center, np, ns));
     Pfin = ElCLib::Parameter(C, ptrst);
   }
   if (Pfin < Precision::PConfusion())
@@ -846,11 +846,11 @@ Standard_Boolean BRepBlend_SurfRstEvolRad::Section(const Blend_Point&    P,
                                                    TColStd_Array1OfReal& DWeigths)
 {
 
-  gp_Vec d1u1, d1v1, d2u1, d2v1, d2uv1, d1;
-  gp_Vec ns, ns2, dnplan, dnw, dn2w; //,np2,dnp2;
-  gp_Vec ncrossns;
-  gp_Vec resulu, resulv, temp, tgct, resul;
-  gp_Vec d1urst, d1vrst;
+  Vector3d d1u1, d1v1, d2u1, d2v1, d2uv1, d1;
+  Vector3d ns, ns2, dnplan, dnw, dn2w; //,np2,dnp2;
+  Vector3d ncrossns;
+  Vector3d resulu, resulv, temp, tgct, resul;
+  Vector3d d1urst, d1vrst;
   Point3d Center, bid;
 
   Standard_Real norm, ndotns, grosterme, aDray;
@@ -910,7 +910,7 @@ Standard_Boolean BRepBlend_SurfRstEvolRad::Section(const Blend_Point&    P,
                     ns);
 
   temp.SetLinearForm(ndotns / norm, nplan, -1. / norm, ns);
-  resul.SetLinearForm(ray, temp, gp_Vec(ptrst, pts));
+  resul.SetLinearForm(ray, temp, Vector3d(ptrst, pts));
 
   // secmember(3) = -2.*ray*(dnw.Dot(resul)); // jag 950105 il manquait ray
   secmember(3) = -2. * ray * (dnw.Dot(resul)) - 2. * aDray * (temp.Dot(resul)) + 2. * ray * aDray;
@@ -1088,8 +1088,8 @@ void BRepBlend_SurfRstEvolRad::Section(const Blend_Point&    P,
                                        TColgp_Array1OfPnt2d& Poles2d,
                                        TColStd_Array1OfReal& Weigths)
 {
-  gp_Vec d1u1, d1v1; //,d1;
-  gp_Vec ns, ns2;    //,temp,np2;
+  Vector3d d1u1, d1v1; //,d1;
+  Vector3d ns, ns2;    //,temp,np2;
   Point3d Center;
 
   Standard_Real norm, u1, v1, w;
@@ -1132,7 +1132,7 @@ void BRepBlend_SurfRstEvolRad::Section(const Blend_Point&    P,
 
   Center.SetXYZ(pts.XYZ() + ray * ns.XYZ());
 
-  ns2 = gp_Vec(Center, ptrst).Normalized();
+  ns2 = Vector3d(Center, ptrst).Normalized();
   if (ray > 0)
     ns.Reverse();
   if (choix % 2 != 0)

@@ -62,9 +62,9 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   // calculate the fillet (torus or sphere).
   Standard_Boolean c1sphere = Standard_False;
   gp_Ax3           PosPl    = Pln.Position();
-  gp_Dir           Dpnat    = PosPl.XDirection().Crossed(PosPl.YDirection());
-  gp_Dir           Dp       = Dpnat;
-  gp_Dir           Df       = Dp;
+  Dir3d           Dpnat    = PosPl.XDirection().Crossed(PosPl.YDirection());
+  Dir3d           Dp       = Dpnat;
+  Dir3d           Df       = Dp;
   if (Or1 == TopAbs_REVERSED)
   {
     Dp.Reverse();
@@ -83,7 +83,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   Or.SetCoord(Or.X() + Radius * Dp.X(), Or.Y() + Radius * Dp.Y(), Or.Z() + Radius * Dp.Z());
 
   Point3d PtSp;
-  gp_Vec DSp;
+  Vector3d DSp;
   ElCLib::D1(First, Spine, PtSp, DSp);
   IntAna_QuadQuadGeo CInt(Pln, Con, Precision::Angular(), Precision::Confusion());
   Point3d             Pv;
@@ -97,27 +97,27 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   {
     return Standard_False;
   }
-  gp_Dir Dx(gp_Vec(cPln, Pv));
-  gp_Dir Dy(DSp);
+  Dir3d Dx(Vector3d(cPln, Pv));
+  Dir3d Dy(DSp);
   ElSLib::Parameters(Con, Pv, u, v);
   Point3d PtCon;
-  gp_Vec Vu, Vv;
+  Vector3d Vu, Vv;
   ElSLib::D1(u, v, Con, PtCon, Vu, Vv);
-  gp_Dir Dc(Vu.Crossed(Vv));
+  Dir3d Dc(Vu.Crossed(Vv));
   if (Or2 == TopAbs_REVERSED)
   {
     Dc.Reverse();
   }
-  gp_Dir Dz = Dp;
+  Dir3d Dz = Dp;
 
   Point3d pp(Pv.X() + Dc.X(), Pv.Y() + Dc.Y(), Pv.Z() + Dc.Z());
   ElSLib::PlaneParameters(PosPl, pp, u, v);
   ElSLib::PlaneD0(u, v, PosPl, pp);
-  gp_Dir ddp(gp_Vec(Pv, pp));
+  Dir3d ddp(Vector3d(Pv, pp));
   ElSLib::Parameters(Con, Pv, u, v);
-  gp_Vec dcu, dcv;
+  Vector3d dcu, dcv;
   ElSLib::D1(u, v, Con, pp, dcu, dcv);
-  gp_Dir ddc(dcv);
+  Dir3d ddc(dcv);
   if (ddc.Dot(Dp) < 0.)
     ddc.Reverse();
   Standard_Real    Ang    = ddp.Angle(ddc);
@@ -172,7 +172,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   // It is checked if the orientation of the fillet is the same
   // as of the faces.
   Point3d P, PP;
-  gp_Vec deru, derv;
+  Vector3d deru, derv;
   P.SetCoord(cPln.X() + Rad * Dx.X(), cPln.Y() + Rad * Dx.Y(), cPln.Z() + Rad * Dx.Z());
   if (c1sphere)
   {
@@ -187,7 +187,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
       v = v + 2 * M_PI;
   }
   gp_Pnt2d         p2dFil(0., v);
-  gp_Dir           norFil(deru.Crossed(derv));
+  Dir3d           norFil(deru.Crossed(derv));
   Standard_Boolean toreverse = (norFil.Dot(Df) <= 0.);
   if (toreverse)
   {
@@ -206,7 +206,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
 
   Handle(Geom2d_Circle) GCirc2dPln;
   Handle(Geom_Circle)   GCircPln;
-  gp_Ax2                circAx2 = FilAx3.Ax2();
+  Frame3d                circAx2 = FilAx3.Ax2();
   if (!c1sphere)
   {
     ElSLib::PlaneParameters(PosPl, P, u, v);
@@ -278,7 +278,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   if (u < fu || u > lu)
     u = ElCLib::InPeriod(u, fu, fu + 2 * M_PI);
   ElSLib::D1(u, v, Con, PP, deru, derv);
-  gp_Dir   norCon = deru.Crossed(derv);
+  Dir3d   norCon = deru.Crossed(derv);
   gp_Dir2d d2dCon = gp::DX2d();
   if (deru.Dot(Dy) < 0.)
   {
@@ -291,7 +291,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   gp_Pnt2d            p2dCon(u, v);
   gp_Lin2d            lin2dCon(p2dCon, d2dCon);
   Handle(Geom2d_Line) GLin2dCon = new Geom2d_Line(lin2dCon);
-  Standard_Real       scal      = gp_Vec(Dp).Dot(gp_Vec(Pv, P));
+  Standard_Real       scal      = Vector3d(Dp).Dot(Vector3d(Pv, P));
   PP.SetCoord(cPln.X() + scal * Dp.X(), cPln.Y() + scal * Dp.Y(), cPln.Z() + scal * Dp.Z());
   circAx2.SetLocation(PP);
   gp_Circ             circCon(circAx2, P.Distance(PP));

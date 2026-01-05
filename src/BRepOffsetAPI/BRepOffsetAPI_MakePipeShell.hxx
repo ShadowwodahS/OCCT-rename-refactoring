@@ -29,8 +29,8 @@
 #include <BRepBuilderAPI_TransitionMode.hxx>
 #include <TopTools_ListOfShape.hxx>
 class TopoDS_Wire;
-class gp_Ax2;
-class gp_Dir;
+class Frame3d;
+class Dir3d;
 class TopoDS_Shape;
 class TopoDS_Vertex;
 class Law_Function;
@@ -74,12 +74,12 @@ public:
 
   //! Sets  a  fixed  trihedron  to  perform  the  sweeping
   //! all sections will be parallel.
-  Standard_EXPORT void SetMode(const gp_Ax2& Axe);
+  Standard_EXPORT void SetMode(const Frame3d& Axe);
 
   //! Sets a fixed BiNormal  direction to perform the --
   //! sweeping.   Angular   relations   between  the
   //! section(s) and <BiNormal> will be constant
-  Standard_EXPORT void SetMode(const gp_Dir& BiNormal);
+  Standard_EXPORT void SetMode(const Dir3d& BiNormal);
 
   //! Sets support to the spine to define the BiNormal of
   //! the trihedron, like the normal  to the surfaces.

@@ -58,15 +58,15 @@ void DsgPrs_EqualDistancePresentation::Add(const Handle(Prs3d_Presentation)& aPr
   aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
 
   // Add presentation of arrows (points)
-  gp_Dir aDir(0, 0, 1);
+  Dir3d aDir(0, 0, 1);
   DsgPrs::ComputeSymbol(aPresentation, LA, Middle12, Middle34, aDir, aDir, DsgPrs_AS_BOTHPT);
   // ota -- begin --
   // Two small lines in the middle of this line
   Point3d        Middle((Middle12.XYZ() + Middle34.XYZ()) * 0.5), aTextPos;
   Standard_Real Dist = Middle12.Distance(Middle34);
   Standard_Real SmallDist;
-  gp_Dir        LineDir, OrtDir;
-  gp_Vec        LineVec, OrtVec;
+  Dir3d        LineDir, OrtDir;
+  Vector3d        LineVec, OrtVec;
 
   if (Dist > Precision::Confusion())
   {
@@ -75,18 +75,18 @@ void DsgPrs_EqualDistancePresentation::Add(const Handle(Prs3d_Presentation)& aPr
       SmallDist = Dist;
     LineDir = gce_MakeDir(Middle12, Middle34);
     OrtDir  = Plane->Pln().Axis().Direction() ^ LineDir;
-    LineVec = gp_Vec(LineDir) * SmallDist;
-    OrtVec  = gp_Vec(OrtDir) * SmallDist;
+    LineVec = Vector3d(LineDir) * SmallDist;
+    OrtVec  = Vector3d(OrtDir) * SmallDist;
 
     aTextPos = Middle.Translated(OrtVec);
   }
   else
   {
-    gp_Vec Vec1(Middle, Point1);
+    Vector3d Vec1(Middle, Point1);
 
     if (Vec1.SquareMagnitude() > Precision::Confusion() * Precision::Confusion())
     {
-      Standard_Real Angle  = gp_Vec(Middle, Point1).Angle(gp_Vec(Middle, Point3));
+      Standard_Real Angle  = Vector3d(Middle, Point1).Angle(Vector3d(Middle, Point3));
       Point3d        MidPnt = Point1.Rotated(Plane->Pln().Axis(), Angle * 0.5);
       OrtDir               = gce_MakeDir(Middle, MidPnt);
       LineDir              = OrtDir ^ Plane->Pln().Axis().Direction();
@@ -96,14 +96,14 @@ void DsgPrs_EqualDistancePresentation::Add(const Handle(Prs3d_Presentation)& aPr
       if (SmallDist <= Precision::Confusion())
         SmallDist = Distance;
 
-      OrtVec  = gp_Vec(OrtDir) * SmallDist;
-      LineVec = gp_Vec(LineDir) * SmallDist;
+      OrtVec  = Vector3d(OrtDir) * SmallDist;
+      LineVec = Vector3d(LineDir) * SmallDist;
     }
     else
     {
       SmallDist = 5.0;
-      OrtVec    = gp_Vec(Plane->Pln().XAxis().Direction()) * SmallDist;
-      LineVec   = gp_Vec(Plane->Pln().YAxis().Direction()) * SmallDist;
+      OrtVec    = Vector3d(Plane->Pln().XAxis().Direction()) * SmallDist;
+      LineVec   = Vector3d(Plane->Pln().YAxis().Direction()) * SmallDist;
     }
     aTextPos = Middle.Translated(OrtVec);
   }
@@ -123,7 +123,7 @@ void DsgPrs_EqualDistancePresentation::AddInterval(const Handle(Prs3d_Presentati
                                                    const Handle(Prs3d_Drawer)&       aDrawer,
                                                    const Point3d&                     aPoint1,
                                                    const Point3d&                     aPoint2,
-                                                   const gp_Dir&                     aDirection,
+                                                   const Dir3d&                     aDirection,
                                                    const Point3d&                     aPosition,
                                                    const DsgPrs_ArrowSide            anArrowSide,
                                                    Point3d&                           aProj1,
@@ -145,7 +145,7 @@ void DsgPrs_EqualDistancePresentation::AddInterval(const Handle(Prs3d_Presentati
   aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
 
   // add arrows presentation
-  gp_Dir aDir(aProj2.XYZ() - aProj1.XYZ());
+  Dir3d aDir(aProj2.XYZ() - aProj1.XYZ());
 
   DsgPrs::ComputeSymbol(aPresentation, LA, aProj1, aProj2, aDir.Reversed(), aDir, anArrowSide);
 }
@@ -228,7 +228,7 @@ void DsgPrs_EqualDistancePresentation::AddIntervalBetweenTwoArcs(
   }
 
   // get the direction of interval
-  gp_Dir DirOfArrow;
+  Dir3d DirOfArrow;
   if (aPoint4.Distance(aPoint2) > Precision::Confusion())
   {
     DirOfArrow.SetXYZ(aPoint4.XYZ() - aPoint2.XYZ());

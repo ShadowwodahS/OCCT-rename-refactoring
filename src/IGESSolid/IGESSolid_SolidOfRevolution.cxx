@@ -76,21 +76,21 @@ Point3d IGESSolid_SolidOfRevolution::TransformedAxisPoint() const
   }
 }
 
-gp_Dir IGESSolid_SolidOfRevolution::Axis() const
+Dir3d IGESSolid_SolidOfRevolution::Axis() const
 {
-  return gp_Dir(theAxis);
+  return Dir3d(theAxis);
 }
 
-gp_Dir IGESSolid_SolidOfRevolution::TransformedAxis() const
+Dir3d IGESSolid_SolidOfRevolution::TransformedAxis() const
 {
   if (!HasTransf())
-    return gp_Dir(theAxis);
+    return Dir3d(theAxis);
   else
   {
     gp_XYZ   tmp = theAxis;
     gp_GTrsf loc = Location();
     loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
     loc.Transforms(tmp);
-    return gp_Dir(tmp);
+    return Dir3d(tmp);
   }
 }

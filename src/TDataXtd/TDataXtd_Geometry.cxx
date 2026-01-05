@@ -93,7 +93,7 @@ Standard_Boolean TDataXtd_Geometry::Point(const Handle(TNaming_NamedShape)& NS, 
 
 //=================================================================================================
 
-Standard_Boolean TDataXtd_Geometry::Axis(const TDF_Label& L, gp_Ax1& G)
+Standard_Boolean TDataXtd_Geometry::Axis(const TDF_Label& L, Axis3d& G)
 {
   Handle(TNaming_NamedShape) NS;
   if (L.FindAttribute(TNaming_NamedShape::GetID(), NS))
@@ -105,7 +105,7 @@ Standard_Boolean TDataXtd_Geometry::Axis(const TDF_Label& L, gp_Ax1& G)
 
 //=================================================================================================
 
-Standard_Boolean TDataXtd_Geometry::Axis(const Handle(TNaming_NamedShape)& NS, gp_Ax1& G)
+Standard_Boolean TDataXtd_Geometry::Axis(const Handle(TNaming_NamedShape)& NS, Axis3d& G)
 {
   gp_Lin lin;
   if (Line(NS, lin))

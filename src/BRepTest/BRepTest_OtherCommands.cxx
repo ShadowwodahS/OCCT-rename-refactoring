@@ -60,7 +60,7 @@
 static void        SampleEdges(const TopoDS_Shape& theShape, TColgp_SequenceOfPnt& theSeq);
 static TopoDS_Face NextFaceForPrism(const TopoDS_Shape& shape,
                                     const TopoDS_Shape& basis,
-                                    const gp_Ax1&       ax1);
+                                    const Axis3d&       ax1);
 static void        PrintState(Draw_Interpretor& aDI, const TopAbs_State& aState);
 //
 static Standard_Integer emptyshape(Draw_Interpretor&, Standard_Integer, const char**);
@@ -397,8 +397,8 @@ Standard_Integer MakeBoss(Draw_Interpretor&, Standard_Integer, const char** a)
 
   TopoDS_Shape myFaceOnShape;
   Point3d       Pnt(0.0, 0.0, 50.0);
-  gp_Dir       Dir(-0.0, -0.0, -1.0);
-  gp_Ax1       ax(Pnt, Dir);
+  Dir3d       Dir(-0.0, -0.0, -1.0);
+  Axis3d       ax(Pnt, Dir);
 
   myFaceOnShape = NextFaceForPrism(myS, myBasis, ax);
 
@@ -559,7 +559,7 @@ void PrintState(Draw_Interpretor& aDI, const TopAbs_State& aState)
 //=======================================================================
 TopoDS_Face NextFaceForPrism(const TopoDS_Shape& shape,
                              const TopoDS_Shape& basis,
-                             const gp_Ax1&       ax1)
+                             const Axis3d&       ax1)
 {
   TopoDS_Face nextFace;
 
@@ -570,8 +570,8 @@ TopoDS_Face NextFaceForPrism(const TopoDS_Shape& shape,
   {
     const Point3d& pt = seqPnts(i);
     // find a axis through a face
-    gp_Dir dir = ax1.Direction();
-    gp_Ax1 ax1b(pt, dir);
+    Dir3d dir = ax1.Direction();
+    Axis3d ax1b(pt, dir);
 
     LocOpe_CSIntersector ASI(shape);
     LocOpe_SequenceOfLin slin;

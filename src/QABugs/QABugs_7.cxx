@@ -276,7 +276,7 @@ static Standard_Integer OCC862(Draw_Interpretor& di, Standard_Integer argc, cons
   // Create trimmed line
   gp_XYZ                    p1(60000, -7504.83, 6000);
   gp_XYZ                    p2(60000, 7504.83, 6000);
-  Handle(Geom_Line)         L  = new Geom_Line(Point3d(p1), gp_Dir(p2 - p1));
+  Handle(Geom_Line)         L  = new Geom_Line(Point3d(p1), Dir3d(p2 - p1));
   Handle(Geom_TrimmedCurve) C2 = new Geom_TrimmedCurve(L, 0.0, (p2 - p1).Modulus());
 
   DrawTrSurf::Set(argv[1], C1);

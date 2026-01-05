@@ -23,7 +23,7 @@
 #include <gp_Vec.hxx>
 
 //! Describes a line in 3D space.
-//! A line is positioned in space with an axis (a gp_Ax1
+//! A line is positioned in space with an axis (a Axis3d
 //! object) which gives it an origin and a unit vector.
 //! A line and an axis are similar objects, thus, we can
 //! convert one into the other. A line provides direct access
@@ -46,7 +46,7 @@ public:
   gp_Lin() {}
 
   //! Creates a line defined by axis theA1.
-  gp_Lin(const gp_Ax1& theA1)
+  gp_Lin(const Axis3d& theA1)
       : pos(theA1)
   {
   }
@@ -54,7 +54,7 @@ public:
   //! Creates a line passing through point theP and parallel to
   //! vector theV (theP and theV are, respectively, the origin and
   //! the unit vector of the positioning axis of the line).
-  gp_Lin(const Point3d& theP, const gp_Dir& theV)
+  gp_Lin(const Point3d& theP, const Dir3d& theV)
       : pos(theP, theV)
   {
   }
@@ -73,7 +73,7 @@ public:
   }
 
   //! Changes the direction of the line.
-  void SetDirection(const gp_Dir& theV) { pos.SetDirection(theV); }
+  void SetDirection(const Dir3d& theV) { pos.SetDirection(theV); }
 
   //! Changes the location point (origin) of the line.
   void SetLocation(const Point3d& theP) { pos.SetLocation(theP); }
@@ -81,17 +81,17 @@ public:
   //! Complete redefinition of the line.
   //! The "Location" point of <theA1> is the origin of the line.
   //! The "Direction" of <theA1> is  the direction of the line.
-  void SetPosition(const gp_Ax1& theA1) { pos = theA1; }
+  void SetPosition(const Axis3d& theA1) { pos = theA1; }
 
   //! Returns the direction of the line.
-  const gp_Dir& Direction() const { return pos.Direction(); }
+  const Dir3d& Direction() const { return pos.Direction(); }
 
   //! Returns the location point (origin) of the line.
   const Point3d& Location() const { return pos.Location(); }
 
   //! Returns the axis placement one axis with the same
   //! location and direction as <me>.
-  const gp_Ax1& Position() const { return pos; }
+  const Axis3d& Position() const { return pos; }
 
   //! Computes the angle between two lines in radians.
   Standard_Real Angle(const gp_Lin& theOther) const
@@ -137,26 +137,26 @@ public:
   //! the symmetry.
   Standard_NODISCARD Standard_EXPORT gp_Lin Mirrored(const Point3d& theP) const;
 
-  Standard_EXPORT void Mirror(const gp_Ax1& theA1);
+  Standard_EXPORT void Mirror(const Axis3d& theA1);
 
   //! Performs the symmetrical transformation of a line
   //! with respect to an axis placement which is the axis
   //! of the symmetry.
-  Standard_NODISCARD Standard_EXPORT gp_Lin Mirrored(const gp_Ax1& theA1) const;
+  Standard_NODISCARD Standard_EXPORT gp_Lin Mirrored(const Axis3d& theA1) const;
 
-  Standard_EXPORT void Mirror(const gp_Ax2& theA2);
+  Standard_EXPORT void Mirror(const Frame3d& theA2);
 
   //! Performs the symmetrical transformation of a line
   //! with respect to a plane. The axis placement  <theA2>
   //! locates the plane of the symmetry :
   //! (Location, XDirection, YDirection).
-  Standard_NODISCARD Standard_EXPORT gp_Lin Mirrored(const gp_Ax2& theA2) const;
+  Standard_NODISCARD Standard_EXPORT gp_Lin Mirrored(const Frame3d& theA2) const;
 
-  void Rotate(const gp_Ax1& theA1, const Standard_Real theAng) { pos.Rotate(theA1, theAng); }
+  void Rotate(const Axis3d& theA1, const Standard_Real theAng) { pos.Rotate(theA1, theAng); }
 
   //! Rotates a line. A1 is the axis of the rotation.
   //! Ang is the angular value of the rotation in radians.
-  Standard_NODISCARD gp_Lin Rotated(const gp_Ax1& theA1, const Standard_Real theAng) const
+  Standard_NODISCARD gp_Lin Rotated(const Axis3d& theA1, const Standard_Real theAng) const
   {
     gp_Lin aL = *this;
     aL.pos.Rotate(theA1, theAng);
@@ -175,21 +175,21 @@ public:
     return aL;
   }
 
-  void Transform(const gp_Trsf& theT) { pos.Transform(theT); }
+  void Transform(const Transform3d& theT) { pos.Transform(theT); }
 
   //! Transforms a line with the transformation theT from class Trsf.
-  Standard_NODISCARD gp_Lin Transformed(const gp_Trsf& theT) const
+  Standard_NODISCARD gp_Lin Transformed(const Transform3d& theT) const
   {
     gp_Lin aL = *this;
     aL.pos.Transform(theT);
     return aL;
   }
 
-  void Translate(const gp_Vec& theV) { pos.Translate(theV); }
+  void Translate(const Vector3d& theV) { pos.Translate(theV); }
 
   //! Translates a line in the direction of the vector theV.
   //! The magnitude of the translation is the vector's magnitude.
-  Standard_NODISCARD gp_Lin Translated(const gp_Vec& theV) const
+  Standard_NODISCARD gp_Lin Translated(const Vector3d& theV) const
   {
     gp_Lin aL = *this;
     aL.pos.Translate(theV);
@@ -202,12 +202,12 @@ public:
   Standard_NODISCARD gp_Lin Translated(const Point3d& theP1, const Point3d& theP2) const
   {
     gp_Lin aL = *this;
-    aL.pos.Translate(gp_Vec(theP1, theP2));
+    aL.pos.Translate(Vector3d(theP1, theP2));
     return aL;
   }
 
 private:
-  gp_Ax1 pos;
+  Axis3d pos;
 };
 
 //=======================================================================
@@ -229,7 +229,7 @@ inline Standard_Real gp_Lin::Distance(const Point3d& theP) const
 inline Standard_Real gp_Lin::SquareDistance(const Point3d& theP) const
 {
   const Point3d& aLoc = pos.Location();
-  gp_Vec        aV(theP.X() - aLoc.X(), theP.Y() - aLoc.Y(), theP.Z() - aLoc.Z());
+  Vector3d        aV(theP.X() - aLoc.X(), theP.Y() - aLoc.Y(), theP.Z() - aLoc.Z());
   aV.Cross(pos.Direction());
   return aV.SquareMagnitude();
 }
@@ -241,7 +241,7 @@ inline Standard_Real gp_Lin::SquareDistance(const Point3d& theP) const
 inline gp_Lin gp_Lin::Normal(const Point3d& theP) const
 {
   const Point3d& aLoc = pos.Location();
-  gp_Dir        aV(theP.X() - aLoc.X(), theP.Y() - aLoc.Y(), theP.Z() - aLoc.Z());
+  Dir3d        aV(theP.X() - aLoc.X(), theP.Y() - aLoc.Y(), theP.Z() - aLoc.Z());
   aV = pos.Direction().CrossCrossed(aV, pos.Direction());
   return gp_Lin(theP, aV);
 }

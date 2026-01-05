@@ -361,7 +361,7 @@ void BRepFill_Evolved::PrivatePerform(const TopoDS_Face&     Spine,
   // Positioning of mySpine and myProfil in the workspace.
   //-------------------------------------------------------------------
   TopLoc_Location LSpine = FindLocation(mySpine);
-  gp_Trsf         T;
+  Transform3d         T;
   T.SetTransformation(AxeProf);
   TopLoc_Location LProfile(T);
   TopLoc_Location InitLS = mySpine.Location();
@@ -548,7 +548,7 @@ static void IsInversed(const TopoDS_Shape& S,
     return;
 
   Point3d            P;
-  gp_Vec            DS, DC1, DC2;
+  Vector3d            DS, DC1, DC2;
   BRepAdaptor_Curve CS(TopoDS::Edge(S));
   if (S.Orientation() == TopAbs_FORWARD)
   {
@@ -682,7 +682,7 @@ void BRepFill_Evolved::ElementaryPerform(const TopoDS_Face&              Sp,
   TColStd_SequenceOfReal       EmptySeqOfReal;
 
   // mark of the profile.
-  gp_Ax3 AxeRef(Point3d(0., 0., 0.), gp_Dir(0., 0., 1.), gp_Dir(1., 0., 0.));
+  gp_Ax3 AxeRef(Point3d(0., 0., 0.), Dir3d(0., 0., 1.), Dir3d(1., 0., 0.));
 
   //---------------------------------------------------------------
   // Construction of revolutions and tubes.
@@ -1401,8 +1401,8 @@ void BRepFill_Evolved::PlanarPerform(const TopoDS_Face&              Sp,
     // Construction of faces limited by parallels.
     // - set to the height of the support face.
     //----------------------------------------------------
-    gp_Trsf T;
-    T.SetTranslation(gp_Vec(0, 0, Alt));
+    Transform3d T;
+    T.SetTranslation(Vector3d(0, 0, Alt));
     TopLoc_Location LT(T);
     TopoDS_Shape    aLocalShape = mySpine.Moved(LT);
     FR.Init(TopoDS::Face(aLocalShape));
@@ -1506,7 +1506,7 @@ void BRepFill_Evolved::VerticalPerform(const TopoDS_Face&              Sp,
     }
 #endif
 
-    BRepSweep_Prism PS(Base, gp_Vec(0, 0, Alt2 - Alt1), Standard_False);
+    BRepSweep_Prism PS(Base, Vector3d(0, 0, Alt2 - Alt1), Standard_False);
 #ifdef DRAW
     if (AffichEdge)
     {
@@ -2117,7 +2117,7 @@ void BRepFill_Evolved::AddTopAndBottom(BRepTools_Quilt& Glue)
           Standard_Real u  = 0.3 * f + 0.7 * l;
           Standard_Real us = 0.3 * fs + 0.7 * ls;
           Point3d        P;
-          gp_Vec        V1, V2;
+          Vector3d        V1, V2;
           C1.D1(us, P, V1);
           C2.D1(u, P, V2);
           ToReverse          = (V1.Dot(V2) < 0.);
@@ -2155,10 +2155,10 @@ void BRepFill_Evolved::AddTopAndBottom(BRepTools_Quilt& Glue)
             Standard_Real u = 0.3 * f + 0.7 * l;
             Point3d        P = BRep_Tool::Pnt(ES);
             Point3d        PC;
-            gp_Vec        VC;
+            Vector3d        VC;
             C.D1(u, PC, VC);
-            gp_Vec aPPC(P, PC);
-            gp_Vec Prod = aPPC.Crossed(VC);
+            Vector3d aPPC(P, PC);
+            Vector3d Prod = aPPC.Crossed(VC);
             if (IsOut)
             {
               ToReverse = Prod.Z() < 0.;
@@ -2254,7 +2254,7 @@ void BRepFill_Evolved::MakePipe(const TopoDS_Edge& SE, const gp_Ax3& AxeRef)
   BRepTools_WireExplorer ProfExp;
   TopExp_Explorer        FaceExp;
 
-  gp_Trsf trsf;
+  Transform3d trsf;
   if (Side(myProfile, BRepFill_Confusion()) > 3)
   { // side right
     trsf.SetRotation(gp::OZ(), M_PI);
@@ -2271,7 +2271,7 @@ void BRepFill_Evolved::MakePipe(const TopoDS_Edge& SE, const gp_Ax3& AxeRef)
   // Copy of the profile to avoid the accumulation of
   // locations on the Edges of myProfile!
 
-  Handle(BRepTools_TrsfModification) TrsfMod = new BRepTools_TrsfModification(gp_Trsf());
+  Handle(BRepTools_TrsfModification) TrsfMod = new BRepTools_TrsfModification(Transform3d());
   BRepTools_Modifier                 Modif(DummyProf, TrsfMod);
 
   TopoDS_Wire GenProf = TopoDS::Wire(Modif.ModifiedShape(DummyProf));
@@ -2339,7 +2339,7 @@ void BRepFill_Evolved::MakeRevol(const TopoDS_Edge&   SE,
   BRepTools_WireExplorer ProfExp;
   TopExp_Explorer        FaceExp;
 
-  gp_Trsf trsf;
+  Transform3d trsf;
   if (Side(myProfile, BRepFill_Confusion()) > 3)
   { // side right
     trsf.SetRotation(gp::OZ(), M_PI);
@@ -2352,11 +2352,11 @@ void BRepFill_Evolved::MakeRevol(const TopoDS_Edge&   SE,
   //		 AxeRef,SE,
   //		 mySpine,Standard_False);
 
-  gp_Ax1 AxeRev(BRep_Tool::Pnt(VLast), -gp::DZ());
+  Axis3d AxeRev(BRep_Tool::Pnt(VLast), -gp::DZ());
 
   // Position of the sewing on the edge of the spine
   // so that the bissectrices didn't cross the sewings.
-  gp_Trsf dummy;
+  Transform3d dummy;
   dummy.SetRotation(AxeRev, 1.5 * M_PI);
   TopLoc_Location DummyLoc(dummy);
   GenProf.Move(DummyLoc);
@@ -2445,8 +2445,8 @@ TopLoc_Location BRepFill_Evolved::FindLocation(const TopoDS_Face& Face) const
   Handle(Geom_Plane) P    = Handle(Geom_Plane)::DownCast(S);
   gp_Ax3             Axis = P->Position();
 
-  gp_Trsf T;
-  gp_Ax3  AxeRef(Point3d(0., 0., 0.), gp_Dir(0., 0., 1.), gp_Dir(1., 0., 0.));
+  Transform3d T;
+  gp_Ax3  AxeRef(Point3d(0., 0., 0.), Dir3d(0., 0., 1.), Dir3d(1., 0., 0.));
   T.SetTransformation(AxeRef, Axis);
 
   return TopLoc_Location(T);
@@ -2776,10 +2776,10 @@ const TopoDS_Wire PutProfilAt(const TopoDS_Wire&     ProfRef,
       C2d->D1(First, P, D1);
   }
   Point3d P3d(P.X(), P.Y(), 0.);
-  gp_Vec V3d(D1.X(), D1.Y(), 0.);
+  Vector3d V3d(D1.X(), D1.Y(), 0.);
 
   gp_Ax3  Ax(P3d, gp::DZ(), V3d);
-  gp_Trsf Trans;
+  Transform3d Trans;
   Trans.SetTransformation(Ax, AxeRef);
   TopoDS_Shape aLocalShape = ProfRef.Moved(TopLoc_Location(Trans));
   Prof                     = TopoDS::Wire(aLocalShape);
@@ -3148,7 +3148,7 @@ void CutEdgeProf(const TopoDS_Edge&            E,
   CT->Transform(L.Transformation());
 
   // project it in the plane and return the associated PCurve
-  gp_Dir Normal = Plane->Pln().Axis().Direction();
+  Dir3d Normal = Plane->Pln().Axis().Direction();
   C             = GeomProjLib::ProjectOnPlane(CT, Plane, Normal, Standard_False);
   C2d           = GeomProjLib::Curve2d(C, Plane);
 

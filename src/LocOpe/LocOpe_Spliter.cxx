@@ -278,7 +278,7 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
           TopLoc_Location    Loc;
           Standard_Real      f, l;
           Point3d             pbid;
-          gp_Vec             v1, v2;
+          Vector3d             v1, v2;
           Handle(Geom_Curve) C = BRep_Tool::Curve(e1, Loc, f, l);
           C->D1(f, pbid, v1);
           v1.Transform(Loc.Transformation());

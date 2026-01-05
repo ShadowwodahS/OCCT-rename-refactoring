@@ -64,8 +64,8 @@ static Standard_Boolean isSameLine(const Point3d& theFirstPoint,
                                    const Point3d& theCenterPoint,
                                    const Point3d& theSecondPoint)
 {
-  gp_Vec aVec1(theFirstPoint, theCenterPoint);
-  gp_Vec aVec2(theCenterPoint, theSecondPoint);
+  Vector3d aVec1(theFirstPoint, theCenterPoint);
+  Vector3d aVec2(theCenterPoint, theSecondPoint);
 
   return aVec1.IsParallel(aVec2, Precision::Angular());
 }
@@ -288,10 +288,10 @@ Point3d PrsDim_AngleDimension::GetCenterOnArc(const Point3d& theFirstAttach,
   // reversed
   if (myType == PrsDim_TypeOfAngle_Exterior)
   {
-    gp_Ax1 anAxis = aPlane.Axis();
-    gp_Dir aDir   = anAxis.Direction();
+    Axis3d anAxis = aPlane.Axis();
+    Dir3d aDir   = anAxis.Direction();
     aDir.Reverse();
-    aPlane.SetAxis(gp_Ax1(anAxis.Location(), aDir));
+    aPlane.SetAxis(Axis3d(anAxis.Location(), aDir));
   }
 
   Standard_Real aRadius = theFirstAttach.Distance(theCenter);
@@ -315,11 +315,11 @@ Point3d PrsDim_AngleDimension::GetCenterOnArc(const Point3d& theFirstAttach,
 
 //=================================================================================================
 
-gp_Dir PrsDim_AngleDimension::GetNormalForMinAngle() const
+Dir3d PrsDim_AngleDimension::GetNormalForMinAngle() const
 {
-  const gp_Dir& aNormal = myPlane.Axis().Direction();
-  gp_Dir        aFirst(gp_Vec(myCenterPoint, myFirstPoint));
-  gp_Dir        aSecond(gp_Vec(myCenterPoint, mySecondPoint));
+  const Dir3d& aNormal = myPlane.Axis().Direction();
+  Dir3d        aFirst(Vector3d(myCenterPoint, myFirstPoint));
+  Dir3d        aSecond(Vector3d(myCenterPoint, mySecondPoint));
 
   return aFirst.AngleWithRef(aSecond, aNormal) < 0.0 ? aNormal.Reversed() : aNormal;
 }
@@ -341,10 +341,10 @@ void PrsDim_AngleDimension::DrawArc(const Handle(Prs3d_Presentation)& thePresent
   // reversed
   if (myType == PrsDim_TypeOfAngle_Exterior)
   {
-    gp_Ax1 anAxis = aPlane.Axis();
-    gp_Dir aDir   = anAxis.Direction();
+    Axis3d anAxis = aPlane.Axis();
+    Dir3d aDir   = anAxis.Direction();
     aDir.Reverse();
-    aPlane.SetAxis(gp_Ax1(anAxis.Location(), aDir));
+    aPlane.SetAxis(Axis3d(anAxis.Location(), aDir));
   }
 
   // construct circle forming the arc
@@ -371,8 +371,8 @@ void PrsDim_AngleDimension::DrawArc(const Handle(Prs3d_Presentation)& thePresent
                                  anArcCurve->LastParameter());
 
   // compute number of discretization elements in old-fanshioned way
-  gp_Vec        aCenterToFirstVec(theCenter, theFirstAttach);
-  gp_Vec        aCenterToSecondVec(theCenter, theSecondAttach);
+  Vector3d        aCenterToFirstVec(theCenter, theFirstAttach);
+  Vector3d        aCenterToSecondVec(theCenter, theSecondAttach);
   Standard_Real anAngle = aCenterToFirstVec.Angle(aCenterToSecondVec);
   if (myType == PrsDim_TypeOfAngle_Exterior)
     anAngle = 2.0 * M_PI - anAngle;
@@ -451,7 +451,7 @@ void PrsDim_AngleDimension::DrawArcWithText(const Handle(Prs3d_Presentation)& th
   if (theMode == ComputeMode_All || theMode == ComputeMode_Text)
   {
     Point3d aTextPos = ElCLib::Value(aParamMid, aCircle);
-    gp_Dir aTextDir = gce_MakeDir(theFirstAttach, theSecondAttach);
+    Dir3d aTextDir = gce_MakeDir(theFirstAttach, theSecondAttach);
 
     // Drawing text
     drawText(thePresentation, aTextPos, aTextDir, theText, theLabelPosition);
@@ -517,13 +517,13 @@ void PrsDim_AngleDimension::ComputePlane()
 
   // Compute working plane so that Y axis is codirectional
   // with Y axis of text coordinate system (necessary for text alignment)
-  gp_Vec aFirstVec   = gp_Vec(myCenterPoint, myFirstPoint);
-  gp_Vec aSecondVec  = gp_Vec(myCenterPoint, mySecondPoint);
-  gp_Vec aDirectionN = aSecondVec ^ aFirstVec;
-  gp_Vec aDirectionY = aFirstVec + aSecondVec;
-  gp_Vec aDirectionX = aDirectionY ^ aDirectionN;
+  Vector3d aFirstVec   = Vector3d(myCenterPoint, myFirstPoint);
+  Vector3d aSecondVec  = Vector3d(myCenterPoint, mySecondPoint);
+  Vector3d aDirectionN = aSecondVec ^ aFirstVec;
+  Vector3d aDirectionY = aFirstVec + aSecondVec;
+  Vector3d aDirectionX = aDirectionY ^ aDirectionN;
 
-  myPlane = gp_Pln(gp_Ax3(myCenterPoint, gp_Dir(aDirectionN), gp_Dir(aDirectionX)));
+  myPlane = gp_Pln(gp_Ax3(myCenterPoint, Dir3d(aDirectionN), Dir3d(aDirectionX)));
 }
 
 //=================================================================================================
@@ -563,8 +563,8 @@ Standard_Real PrsDim_AngleDimension::ComputeValue() const
     return 0.0;
   }
 
-  gp_Vec aVec1(myCenterPoint, myFirstPoint);
-  gp_Vec aVec2(myCenterPoint, mySecondPoint);
+  Vector3d aVec1(myCenterPoint, myFirstPoint);
+  Vector3d aVec2(myCenterPoint, mySecondPoint);
 
   Standard_Real anAngle = aVec1.AngleWithRef(aVec2, GetNormalForMinAngle());
 
@@ -620,18 +620,18 @@ void PrsDim_AngleDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
   FitTextAlignment(aHorisontalTextPos, aLabelPosition, isArrowsExternal);
 
   Point3d aFirstAttach =
-    myCenterPoint.Translated(gp_Vec(myCenterPoint, myFirstPoint).Normalized() * GetFlyout());
+    myCenterPoint.Translated(Vector3d(myCenterPoint, myFirstPoint).Normalized() * GetFlyout());
   Point3d aSecondAttach =
-    myCenterPoint.Translated(gp_Vec(myCenterPoint, mySecondPoint).Normalized() * GetFlyout());
+    myCenterPoint.Translated(Vector3d(myCenterPoint, mySecondPoint).Normalized() * GetFlyout());
 
   // Arrows positions and directions
-  gp_Vec aWorkingPlaneDir(GetNormalForMinAngle());
+  Vector3d aWorkingPlaneDir(GetNormalForMinAngle());
 
-  gp_Dir aFirstExtensionDir  = aWorkingPlaneDir.Reversed() ^ gp_Vec(myCenterPoint, aFirstAttach);
-  gp_Dir aSecondExtensionDir = aWorkingPlaneDir ^ gp_Vec(myCenterPoint, aSecondAttach);
+  Dir3d aFirstExtensionDir  = aWorkingPlaneDir.Reversed() ^ Vector3d(myCenterPoint, aFirstAttach);
+  Dir3d aSecondExtensionDir = aWorkingPlaneDir ^ Vector3d(myCenterPoint, aSecondAttach);
 
-  gp_Vec aFirstArrowVec  = gp_Vec(aFirstExtensionDir) * anArrowLength;
-  gp_Vec aSecondArrowVec = gp_Vec(aSecondExtensionDir) * anArrowLength;
+  Vector3d aFirstArrowVec  = Vector3d(aFirstExtensionDir) * anArrowLength;
+  Vector3d aSecondArrowVec = Vector3d(aSecondExtensionDir) * anArrowLength;
 
   if (isArrowsExternal)
   {
@@ -683,11 +683,11 @@ void PrsDim_AngleDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
       // compute text primitives
       if (theMode == ComputeMode_All || theMode == ComputeMode_Text)
       {
-        gp_Vec aDimensionDir(aFirstAttach, aSecondAttach);
+        Vector3d aDimensionDir(aFirstAttach, aSecondAttach);
         Point3d aTextPos = IsTextPositionCustom()
                             ? myFixedTextPosition
                             : GetCenterOnArc(aFirstAttach, aSecondAttach, myCenterPoint);
-        gp_Dir aTextDir = aDimensionDir;
+        Dir3d aTextDir = aDimensionDir;
 
         drawText(thePresentation, aTextPos, aTextDir, aLabelString, aLabelPosition);
       }
@@ -761,9 +761,9 @@ void PrsDim_AngleDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
     thePresentation->NewGroup();
 
     if (isArrowVisible(PrsDim_TypeOfAngleArrowVisibility_First))
-      DrawArrow(thePresentation, aFirstArrowBegin, gp_Dir(aFirstArrowVec));
+      DrawArrow(thePresentation, aFirstArrowBegin, Dir3d(aFirstArrowVec));
     if (isArrowVisible(PrsDim_TypeOfAngleArrowVisibility_Second))
-      DrawArrow(thePresentation, aSecondArrowBegin, gp_Dir(aSecondArrowVec));
+      DrawArrow(thePresentation, aSecondArrowBegin, Dir3d(aSecondArrowVec));
   }
 
   if ((theMode == ComputeMode_All || theMode == ComputeMode_Line) && isArrowsExternal)
@@ -824,9 +824,9 @@ void PrsDim_AngleDimension::ComputeFlyoutSelection(const Handle(SelectMgr_Select
                                                    const Handle(SelectMgr_EntityOwner)& theOwner)
 {
   Point3d aFirstAttach =
-    myCenterPoint.Translated(gp_Vec(myCenterPoint, myFirstPoint).Normalized() * GetFlyout());
+    myCenterPoint.Translated(Vector3d(myCenterPoint, myFirstPoint).Normalized() * GetFlyout());
   Point3d aSecondAttach =
-    myCenterPoint.Translated(gp_Vec(myCenterPoint, mySecondPoint).Normalized() * GetFlyout());
+    myCenterPoint.Translated(Vector3d(myCenterPoint, mySecondPoint).Normalized() * GetFlyout());
 
   Handle(Select3D_SensitiveGroup) aSensitiveEntity = new Select3D_SensitiveGroup(theOwner);
   aSensitiveEntity->Add(new Select3D_SensitiveSegment(theOwner, myCenterPoint, aFirstAttach));
@@ -862,7 +862,7 @@ Standard_Boolean PrsDim_AngleDimension::InitTwoEdgesAngle(gp_Pln& theComputedPla
   theComputedPlane = isParallelLines
                        ? gp_Pln(gp::XOY())
                        : gp_Pln(aSecondLin.Location(),
-                                gp_Vec(aFirstLin.Direction()) ^ gp_Vec(aSecondLin.Direction()));
+                                Vector3d(aFirstLin.Direction()) ^ Vector3d(aSecondLin.Direction()));
 
   // Compute geometry for this plane and edges
   Standard_Boolean   isInfinite1, isInfinite2;
@@ -907,7 +907,7 @@ Standard_Boolean PrsDim_AngleDimension::InitTwoEdgesAngle(gp_Pln& theComputedPla
     const Standard_Real aParam22 = ElCLib::Parameter(aFirstLin, aLastPoint2);
     myCenterPoint =
       ElCLib::Value((Min(aParam11, aParam12) + Max(aParam21, aParam22)) * 0.5, aFirstLin);
-    myFirstPoint  = myCenterPoint.Translated(gp_Vec(aFirstLin.Direction()) * Abs(GetFlyout()));
+    myFirstPoint  = myCenterPoint.Translated(Vector3d(aFirstLin.Direction()) * Abs(GetFlyout()));
     mySecondPoint = myCenterPoint.XYZ()
                     + (aFirstLin.Direction().IsEqual(aSecondLin.Direction(), Precision::Angular())
                          ? aFirstLin.Direction().Reversed().XYZ() * Abs(GetFlyout())
@@ -931,8 +931,8 @@ Standard_Boolean PrsDim_AngleDimension::InitTwoEdgesAngle(gp_Pln& theComputedPla
 
     if (isInfinite1 || isInfinite2)
     {
-      myFirstPoint  = myCenterPoint.Translated(gp_Vec(aFirstLin.Direction()) * Abs(GetFlyout()));
-      mySecondPoint = myCenterPoint.Translated(gp_Vec(aSecondLin.Direction()) * Abs(GetFlyout()));
+      myFirstPoint  = myCenterPoint.Translated(Vector3d(aFirstLin.Direction()) * Abs(GetFlyout()));
+      mySecondPoint = myCenterPoint.Translated(Vector3d(aSecondLin.Direction()) * Abs(GetFlyout()));
 
       return IsValidPoints(myFirstPoint, myCenterPoint, mySecondPoint);
     }
@@ -961,7 +961,7 @@ Standard_Boolean PrsDim_AngleDimension::InitTwoFacesAngle()
   TopoDS_Face aFirstFace  = TopoDS::Face(myFirstShape);
   TopoDS_Face aSecondFace = TopoDS::Face(mySecondShape);
 
-  gp_Dir               aFirstDir, aSecondDir;
+  Dir3d               aFirstDir, aSecondDir;
   gp_Pln               aFirstPln, aSecondPln;
   Handle(Geom_Surface) aFirstBasisSurf, aSecondBasisSurf;
   PrsDim_KindOfSurface aFirstSurfType, aSecondSurfType;
@@ -1010,7 +1010,7 @@ Standard_Boolean PrsDim_AngleDimension::InitTwoFacesAngle(const Point3d& thePoin
   TopoDS_Face aFirstFace  = TopoDS::Face(myFirstShape);
   TopoDS_Face aSecondFace = TopoDS::Face(mySecondShape);
 
-  gp_Dir               aFirstDir, aSecondDir;
+  Dir3d               aFirstDir, aSecondDir;
   gp_Pln               aFirstPln, aSecondPln;
   Handle(Geom_Surface) aFirstBasisSurf, aSecondBasisSurf;
   PrsDim_KindOfSurface aFirstSurfType, aSecondSurfType;
@@ -1095,14 +1095,14 @@ Standard_Boolean PrsDim_AngleDimension::InitConeAngle()
 
     Point3d aFirst1 = aConeAdaptor.Value(0., aMinV);
     Point3d aLast1  = aConeAdaptor.Value(0., aMaxV);
-    gp_Vec aVec1(aFirst1, aLast1);
+    Vector3d aVec1(aFirst1, aLast1);
 
     // Projection <aFirst> on <aLin>
     Point3d aFirst2 = ElCLib::Value(ElCLib::Parameter(aLin, aFirst1), aLin);
     // Projection <aLast> on <aLin>
     Point3d aLast2 = ElCLib::Value(ElCLib::Parameter(aLin, aLast1), aLin);
 
-    gp_Vec aVec2(aFirst2, aLast2);
+    Vector3d aVec2(aFirst2, aLast2);
 
     // Check if two parts of revolution are parallel (it's a cylinder) or normal (it's a circle).
     if (aVec1.IsParallel(aVec2, Precision::Angular())
@@ -1163,7 +1163,7 @@ Standard_Boolean PrsDim_AngleDimension::IsValidPoints(const Point3d& theFirstPoi
 {
   return theFirstPoint.Distance(theCenterPoint) > Precision::Confusion()
          && theSecondPoint.Distance(theCenterPoint) > Precision::Confusion()
-         && gp_Vec(theCenterPoint, theFirstPoint).Angle(gp_Vec(theCenterPoint, theSecondPoint))
+         && Vector3d(theCenterPoint, theFirstPoint).Angle(Vector3d(theCenterPoint, theSecondPoint))
               > Precision::Angular();
 }
 
@@ -1214,9 +1214,9 @@ Point3d PrsDim_AngleDimension::GetTextPosition() const
   TCollection_ExtendedString aLabelString = GetValueString(aLabelWidth);
 
   Point3d aFirstAttach =
-    myCenterPoint.Translated(gp_Vec(myCenterPoint, myFirstPoint).Normalized() * GetFlyout());
+    myCenterPoint.Translated(Vector3d(myCenterPoint, myFirstPoint).Normalized() * GetFlyout());
   Point3d aSecondAttach =
-    myCenterPoint.Translated(gp_Vec(myCenterPoint, mySecondPoint).Normalized() * GetFlyout());
+    myCenterPoint.Translated(Vector3d(myCenterPoint, mySecondPoint).Normalized() * GetFlyout());
 
   // Handle user-defined and automatic arrow placement
   Standard_Boolean isArrowsExternal = Standard_False;
@@ -1231,26 +1231,26 @@ Point3d PrsDim_AngleDimension::GetTextPosition() const
     }
     break;
     case LabelPosition_Left: {
-      gp_Dir aPlaneNormal =
-        gp_Vec(aFirstAttach, aSecondAttach) ^ gp_Vec(myCenterPoint, aFirstAttach);
-      gp_Dir        anExtensionDir  = aPlaneNormal ^ gp_Vec(myCenterPoint, aFirstAttach);
+      Dir3d aPlaneNormal =
+        Vector3d(aFirstAttach, aSecondAttach) ^ Vector3d(myCenterPoint, aFirstAttach);
+      Dir3d        anExtensionDir  = aPlaneNormal ^ Vector3d(myCenterPoint, aFirstAttach);
       Standard_Real anExtensionSize = aDimensionAspect->ExtensionSize();
       Standard_Real anOffset        = isArrowsExternal
                                         ? anExtensionSize + aDimensionAspect->ArrowAspect()->Length()
                                         : anExtensionSize;
-      gp_Vec        anExtensionVec  = gp_Vec(anExtensionDir) * -anOffset;
+      Vector3d        anExtensionVec  = Vector3d(anExtensionDir) * -anOffset;
       aTextPosition                 = aFirstAttach.Translated(anExtensionVec);
     }
     break;
     case LabelPosition_Right: {
-      gp_Dir aPlaneNormal =
-        gp_Vec(aFirstAttach, aSecondAttach) ^ gp_Vec(myCenterPoint, aFirstAttach);
-      gp_Dir        anExtensionDir  = aPlaneNormal ^ gp_Vec(myCenterPoint, aSecondAttach);
+      Dir3d aPlaneNormal =
+        Vector3d(aFirstAttach, aSecondAttach) ^ Vector3d(myCenterPoint, aFirstAttach);
+      Dir3d        anExtensionDir  = aPlaneNormal ^ Vector3d(myCenterPoint, aSecondAttach);
       Standard_Real anExtensionSize = aDimensionAspect->ExtensionSize();
       Standard_Real anOffset        = isArrowsExternal
                                         ? anExtensionSize + aDimensionAspect->ArrowAspect()->Length()
                                         : anExtensionSize;
-      gp_Vec        anExtensionVec  = gp_Vec(anExtensionDir) * anOffset;
+      Vector3d        anExtensionVec  = Vector3d(anExtensionDir) * anOffset;
       aTextPosition                 = aSecondAttach.Translated(anExtensionVec);
     }
     break;
@@ -1290,13 +1290,13 @@ void PrsDim_AngleDimension::AdjustParameters(const Point3d&  theTextPos,
   Standard_Real                 anArrowLength    = aDimensionAspect->ArrowAspect()->Length();
 
   // Build circle with radius that is equal to distance from text position to the center point.
-  Standard_Real aRadius = gp_Vec(myCenterPoint, theTextPos).Magnitude();
+  Standard_Real aRadius = Vector3d(myCenterPoint, theTextPos).Magnitude();
 
   // Set attach points in positive direction of the flyout.
   Point3d aFirstAttach =
-    myCenterPoint.Translated(gp_Vec(myCenterPoint, myFirstPoint).Normalized() * aRadius);
+    myCenterPoint.Translated(Vector3d(myCenterPoint, myFirstPoint).Normalized() * aRadius);
   Point3d aSecondAttach =
-    myCenterPoint.Translated(gp_Vec(myCenterPoint, mySecondPoint).Normalized() * aRadius);
+    myCenterPoint.Translated(Vector3d(myCenterPoint, mySecondPoint).Normalized() * aRadius);
 
   gce_MakeCirc aConstructCircle(myCenterPoint, GetPlane(), aRadius);
   if (!aConstructCircle.IsDone())
@@ -1354,7 +1354,7 @@ void PrsDim_AngleDimension::AdjustParameters(const Point3d&  theTextPos,
 
     theAlignment = Prs3d_DTHP_Left;
 
-    gp_Vec aPosFlyoutDir = gp_Vec(myCenterPoint, myFirstPoint).Normalized().Scaled(aRadius);
+    Vector3d aPosFlyoutDir = Vector3d(myCenterPoint, myFirstPoint).Normalized().Scaled(aRadius);
 
     theFlyout =
       aFirstTextProj.Distance(myCenterPoint.Translated(aPosFlyoutDir)) > Precision::Confusion()
@@ -1371,7 +1371,7 @@ void PrsDim_AngleDimension::AdjustParameters(const Point3d&  theTextPos,
 
     theAlignment = Prs3d_DTHP_Right;
 
-    gp_Vec aPosFlyoutDir = gp_Vec(myCenterPoint, mySecondPoint).Normalized().Scaled(aRadius);
+    Vector3d aPosFlyoutDir = Vector3d(myCenterPoint, mySecondPoint).Normalized().Scaled(aRadius);
 
     theFlyout =
       aSecondTextProj.Distance(myCenterPoint.Translated(aPosFlyoutDir)) > Precision::Confusion()
@@ -1402,9 +1402,9 @@ void PrsDim_AngleDimension::FitTextAlignment(
   }
 
   Point3d aFirstAttach =
-    myCenterPoint.Translated(gp_Vec(myCenterPoint, myFirstPoint).Normalized() * GetFlyout());
+    myCenterPoint.Translated(Vector3d(myCenterPoint, myFirstPoint).Normalized() * GetFlyout());
   Point3d aSecondAttach =
-    myCenterPoint.Translated(gp_Vec(myCenterPoint, mySecondPoint).Normalized() * GetFlyout());
+    myCenterPoint.Translated(Vector3d(myCenterPoint, mySecondPoint).Normalized() * GetFlyout());
 
   // Handle user-defined and automatic arrow placement
   switch (aDimensionAspect->ArrowOrientation())
@@ -1416,7 +1416,7 @@ void PrsDim_AngleDimension::FitTextAlignment(
       theIsArrowsExternal = false;
       break;
     case Prs3d_DAO_Fit: {
-      gp_Vec        anAttachVector(aFirstAttach, aSecondAttach);
+      Vector3d        anAttachVector(aFirstAttach, aSecondAttach);
       Standard_Real aDimensionWidth = anAttachVector.Magnitude();
 
       // Add margin to ensure a small tail between text and arrow
@@ -1444,7 +1444,7 @@ void PrsDim_AngleDimension::FitTextAlignment(
       theLabelPosition |= LabelPosition_HCenter;
       break;
     case Prs3d_DTHP_Fit: {
-      gp_Vec        anAttachVector(aFirstAttach, aSecondAttach);
+      Vector3d        anAttachVector(aFirstAttach, aSecondAttach);
       Standard_Real aDimensionWidth = anAttachVector.Magnitude();
       Standard_Real anArrowsWidth   = anArrowLength * 2.0;
       Standard_Real aContentWidth = theIsArrowsExternal ? aLabelWidth : aLabelWidth + anArrowsWidth;

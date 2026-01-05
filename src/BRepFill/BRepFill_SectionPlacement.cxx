@@ -221,7 +221,7 @@ void BRepFill_SectionPlacement::Perform(const Standard_Boolean WithContact,
   //       }
 
   //       // On invente une section
-  //       gp_Dir D(0, 0, 1);
+  //       Dir3d D(0, 0, 1);
   //       Point3d Origine, PV;
   //       Origine = BRep_Tool::Pnt(V);
   //       Standard_Real length;
@@ -236,7 +236,7 @@ void BRepFill_SectionPlacement::Perform(const Standard_Boolean WithContact,
   //       }
   //       length = Origine.Distance(PV);
   //       if (length > Precision::Confusion()) {
-  // 	gp_Vec theVec(Origine, PV);
+  // 	Vector3d theVec(Origine, PV);
   // 	D.SetXYZ(theVec.XYZ());
   //       }
   //       else length = 10*Precision::Confusion();
@@ -371,7 +371,7 @@ void BRepFill_SectionPlacement::Perform(const Standard_Boolean WithContact,
   }
 }
 
-const gp_Trsf& BRepFill_SectionPlacement::Transformation() const
+const Transform3d& BRepFill_SectionPlacement::Transformation() const
 {
   return myTrsf;
 }

@@ -47,8 +47,8 @@ public:
   Standard_EXPORT Vrml_SpotLight(const Standard_Boolean aOnOff,
                                  const Standard_Real    aIntensity,
                                  const Quantity_Color&  aColor,
-                                 const gp_Vec&          aLocation,
-                                 const gp_Vec&          aDirection,
+                                 const Vector3d&          aLocation,
+                                 const Vector3d&          aDirection,
                                  const Standard_Real    aDropOffRate,
                                  const Standard_Real    aCutOffAngle);
 
@@ -64,13 +64,13 @@ public:
 
   Standard_EXPORT Quantity_Color Color() const;
 
-  Standard_EXPORT void SetLocation(const gp_Vec& aLocation);
+  Standard_EXPORT void SetLocation(const Vector3d& aLocation);
 
-  Standard_EXPORT gp_Vec Location() const;
+  Standard_EXPORT Vector3d Location() const;
 
-  Standard_EXPORT void SetDirection(const gp_Vec& aDirection);
+  Standard_EXPORT void SetDirection(const Vector3d& aDirection);
 
-  Standard_EXPORT gp_Vec Direction() const;
+  Standard_EXPORT Vector3d Direction() const;
 
   Standard_EXPORT void SetDropOffRate(const Standard_Real aDropOffRate);
 
@@ -87,8 +87,8 @@ private:
   Standard_Boolean myOnOff;
   Standard_Real    myIntensity;
   Quantity_Color   myColor;
-  gp_Vec           myLocation;
-  gp_Vec           myDirection;
+  Vector3d           myLocation;
+  Vector3d           myDirection;
   Standard_Real    myDropOffRate;
   Standard_Real    myCutOffAngle;
 };

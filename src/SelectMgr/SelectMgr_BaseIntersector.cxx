@@ -81,9 +81,9 @@ const Point3d& SelectMgr_BaseIntersector::GetFarPnt() const
 
 //=================================================================================================
 
-const gp_Dir& SelectMgr_BaseIntersector::GetViewRayDirection() const
+const Dir3d& SelectMgr_BaseIntersector::GetViewRayDirection() const
 {
-  static const gp_Dir anEmptyDir;
+  static const Dir3d anEmptyDir;
   return anEmptyDir;
 }
 
@@ -100,7 +100,7 @@ const gp_Pnt2d& SelectMgr_BaseIntersector::GetMousePosition() const
 Standard_Boolean SelectMgr_BaseIntersector::RaySphereIntersection(const Point3d&       theCenter,
                                                                   const Standard_Real theRadius,
                                                                   const Point3d&       theLoc,
-                                                                  const gp_Dir&       theRayDir,
+                                                                  const Dir3d&       theRayDir,
                                                                   Standard_Real&      theTimeEnter,
                                                                   Standard_Real& theTimeLeave) const
 {
@@ -144,7 +144,7 @@ Standard_Boolean SelectMgr_BaseIntersector::RayCylinderIntersection(
   const Standard_Real    theTopRadius,
   const Standard_Real    theHeight,
   const Point3d&          theLoc,
-  const gp_Dir&          theRayDir,
+  const Dir3d&          theRayDir,
   const Standard_Boolean theIsHollow,
   Standard_Real&         theTimeEnter,
   Standard_Real&         theTimeLeave) const
@@ -187,10 +187,10 @@ Standard_Boolean SelectMgr_BaseIntersector::RayCylinderIntersection(
       aSystem.SetLocation(Point3d(0, 0, -aTriangleHeight));
       aSystem.SetDirection(gp::DZ());
     }
-    gp_Trsf aTrsfCone;
+    Transform3d aTrsfCone;
     aTrsfCone.SetTransformation(gp_Ax3(), aSystem);
     const Point3d        aPnt(theLoc.Transformed(aTrsfCone));
-    const gp_Dir        aDir(theRayDir.Transformed(aTrsfCone));
+    const Dir3d        aDir(theRayDir.Transformed(aTrsfCone));
     const Standard_Real aMaxRad     = Max(theBottomRadius, theTopRadius);
     const Standard_Real aConeHeight = theHeight + aTriangleHeight;
 
@@ -267,7 +267,7 @@ Standard_Boolean SelectMgr_BaseIntersector::RayCylinderIntersection(
 Standard_Boolean SelectMgr_BaseIntersector::RayCircleIntersection(
   const Standard_Real    theRadius,
   const Point3d&          theLoc,
-  const gp_Dir&          theRayDir,
+  const Dir3d&          theRayDir,
   const Standard_Boolean theIsFilled,
   Standard_Real&         theTime) const
 {

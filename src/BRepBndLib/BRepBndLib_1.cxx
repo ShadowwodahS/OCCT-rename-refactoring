@@ -182,7 +182,7 @@ static Standard_Integer PointsForOBB(const TopoDS_Shape&    theS,
     }
 
     const Standard_Integer aCNode = aTrng->NbNodes();
-    const gp_Trsf          aTrsf  = aLoc;
+    const Transform3d          aTrsf  = aLoc;
     for (Standard_Integer i = 1; i <= aCNode; i++)
     {
       if (thePts != NULL)
@@ -251,7 +251,7 @@ static Standard_Integer PointsForOBB(const TopoDS_Shape&    theS,
 // purpose : Returns 0 if the theDir does not match any axis of WCS.
 //            Otherwise, returns the index of correspond axis.
 //=======================================================================
-static Standard_Integer IsWCS(const gp_Dir& theDir)
+static Standard_Integer IsWCS(const Dir3d& theDir)
 {
   constexpr Standard_Real aToler = Precision::Angular() * Precision::Angular();
 
@@ -371,7 +371,7 @@ static void ComputePCA(const TopoDS_Shape&    theS,
   ComputeProperties(theS, aGCommon);
 
   // Transform the shape to the local coordinate system
-  gp_Trsf aTrsf;
+  Transform3d aTrsf;
 
   const Standard_Integer anIdx1 = IsWCS(aGCommon.PrincipalProperties().FirstAxisOfInertia());
   const Standard_Integer anIdx2 = IsWCS(aGCommon.PrincipalProperties().SecondAxisOfInertia());

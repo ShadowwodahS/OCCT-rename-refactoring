@@ -495,7 +495,7 @@ Standard_Boolean Approx_SweepApproximation::D1(const Standard_Real Param,
                                                Standard_Real&      Result)
 {
   gp_XY            Vcoord;
-  gp_Vec           Vaux;
+  Vector3d           Vaux;
   Standard_Integer index, ii;
   Standard_Boolean Ok          = Standard_True;
   Standard_Real*   LocalResult = &Result;
@@ -577,7 +577,7 @@ Standard_Boolean Approx_SweepApproximation::D2(const Standard_Real Param,
                                                Standard_Real&      Result)
 {
   gp_XY            Vcoord;
-  gp_Vec           Vaux;
+  Vector3d           Vaux;
   Standard_Integer index, ii;
   Standard_Boolean Ok          = Standard_True;
   Standard_Real*   LocalResult = &Result;

@@ -83,8 +83,8 @@ public:
   Standard_EXPORT void D1(const Standard_Real& theU,
                           const Standard_Real& theV,
                           Point3d&              thePoint,
-                          gp_Vec&              theTangentU,
-                          gp_Vec&              theTangentV) const;
+                          Vector3d&              theTangentU,
+                          Vector3d&              theTangentV) const;
 
   //! Calculates the point on the surface and derivatives till second order
   //! \param[in]  theU            first parameter of calculation of the value
@@ -98,11 +98,11 @@ public:
   Standard_EXPORT void D2(const Standard_Real& theU,
                           const Standard_Real& theV,
                           Point3d&              thePoint,
-                          gp_Vec&              theTangentU,
-                          gp_Vec&              theTangentV,
-                          gp_Vec&              theCurvatureU,
-                          gp_Vec&              theCurvatureV,
-                          gp_Vec&              theCurvatureUV) const;
+                          Vector3d&              theTangentU,
+                          Vector3d&              theTangentV,
+                          Vector3d&              theCurvatureU,
+                          Vector3d&              theCurvatureV,
+                          Vector3d&              theCurvatureUV) const;
 
   DEFINE_STANDARD_RTTIEXT(BSplSLib_Cache, RefObject)
 

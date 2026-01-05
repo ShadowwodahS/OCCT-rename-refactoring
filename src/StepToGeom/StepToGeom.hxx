@@ -65,7 +65,7 @@ class Geom2d_Line;
 class Geom2d_Parabola;
 class Geom2d_VectorWithMagnitude;
 
-class gp_Trsf;
+class Transform3d;
 class gp_Trsf2d;
 
 class StepGeom_Axis1Placement;
@@ -238,7 +238,7 @@ public:
     const StepData_Factors&                                   theLocalFactors = StepData_Factors());
   Standard_EXPORT static Standard_Boolean MakeTransformation3d(
     const Handle(StepGeom_CartesianTransformationOperator3d)& SCTO,
-    gp_Trsf&                                                  CT,
+    Transform3d&                                                  CT,
     const StepData_Factors&                                   theLocalFactors = StepData_Factors());
   Standard_EXPORT static Handle(Geom_TrimmedCurve) MakeTrimmedCurve(
     const Handle(StepGeom_TrimmedCurve)& SC,

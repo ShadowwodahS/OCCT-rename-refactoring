@@ -27,7 +27,7 @@
 //=============================================================================
 // Creation d' une direction de prostep a partir d' une Dir de gp
 //=============================================================================
-GeomToStep_MakeDirection::GeomToStep_MakeDirection(const gp_Dir& D)
+GeomToStep_MakeDirection::GeomToStep_MakeDirection(const Dir3d& D)
 {
   Handle(StepGeom_Direction)    Dir        = new StepGeom_Direction;
   Handle(TColStd_HArray1OfReal) aDirRatios = new TColStd_HArray1OfReal(1, 3);
@@ -68,7 +68,7 @@ GeomToStep_MakeDirection::GeomToStep_MakeDirection(const gp_Dir2d& D)
 
 GeomToStep_MakeDirection::GeomToStep_MakeDirection(const Handle(Geom_Direction)& Direc)
 {
-  gp_Dir                        D;
+  Dir3d                        D;
   Handle(StepGeom_Direction)    Dir        = new StepGeom_Direction;
   Handle(TColStd_HArray1OfReal) aDirRatios = new TColStd_HArray1OfReal(1, 3);
   Standard_Real                 X, Y, Z;

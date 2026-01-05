@@ -281,8 +281,8 @@ Blend_Status BRepBlend_CSWalking::TestArret(Blend_CSFunction&      Function,
 
 {
   Point3d            pt1, pt2;
-  gp_Vec            V1, V2;
-  gp_Vec            Tgp1, Nor1;
+  Vector3d            V1, V2;
+  Vector3d            Tgp1, Nor1;
   gp_Vec2d          V12d;
   gp_Pnt2d          pt2d;
   Standard_Real     pOnC;
@@ -414,7 +414,7 @@ Blend_Status BRepBlend_CSWalking::TestArret(Blend_CSFunction&      Function,
 
 Blend_Status BRepBlend_CSWalking::CheckDeflectionOnSurf(const Point3d&   Psurf,
                                                         const gp_Pnt2d& Ponsurf,
-                                                        const gp_Vec&   Tgsurf,
+                                                        const Vector3d&   Tgsurf,
                                                         const gp_Vec2d& Tgonsurf)
 {
   // regle par tests dans U4 correspond a 11.478 d
@@ -429,7 +429,7 @@ Blend_Status BRepBlend_CSWalking::CheckDeflectionOnSurf(const Point3d&   Psurf,
   //  TColgp_Array1OfPnt Poles(1,4);
   //  Point3d POnCurv,Milieu;
   Point3d   prevP;
-  gp_Vec   prevTg;
+  Vector3d   prevTg;
   gp_Vec2d previousd2d;
 
   prevP  = previousP.PointOnS();
@@ -437,7 +437,7 @@ Blend_Status BRepBlend_CSWalking::CheckDeflectionOnSurf(const Point3d&   Psurf,
   tolu   = Adaptor3d_HSurfaceTool::UResolution(surf, tolpoint3d);
   tolv   = Adaptor3d_HSurfaceTool::VResolution(surf, tolpoint3d);
 
-  gp_Vec Corde(prevP, Psurf);
+  Vector3d Corde(prevP, Psurf);
   Norme     = Corde.SquareMagnitude();
   prevNorme = prevTg.SquareMagnitude(); // JAG MODIF 25.04.94
 
@@ -524,7 +524,7 @@ if (FlecheCourante <= 0.5*fleche) {
 
 Blend_Status BRepBlend_CSWalking::CheckDeflectionOnCurv(const Point3d&       Pcurv,
                                                         const Standard_Real Param,
-                                                        const gp_Vec&       Tgcurv)
+                                                        const Vector3d&       Tgcurv)
 {
   // regle par tests dans U4 correspond a 11.478 d
   const Standard_Real CosRef3D = 0.98;
@@ -535,13 +535,13 @@ Blend_Status BRepBlend_CSWalking::CheckDeflectionOnCurv(const Point3d&       Pcu
   //  TColgp_Array1OfPnt Poles(1,4);
   //  Point3d POnCurv,Milieu;
   Point3d prevP;
-  gp_Vec prevTg;
+  Vector3d prevTg;
 
   prevP  = previousP.PointOnC();
   prevTg = previousP.TangentOnC();
   tolu   = BRepBlend_HCurveTool::Resolution(curv, tolpoint3d);
 
-  gp_Vec Corde(prevP, Pcurv);
+  Vector3d Corde(prevP, Pcurv);
   Norme     = Corde.SquareMagnitude();
   prevNorme = prevTg.SquareMagnitude(); // JAG MODIF 25.04.94
 
@@ -783,7 +783,7 @@ void BRepBlend_CSWalking::Transition(const Handle(Adaptor2d_Curve2d)& A,
   gp_Vec2d dp2d;
 
   Point3d pbid;
-  gp_Vec d1u, d1v, normale, tgrst;
+  Vector3d d1u, d1v, normale, tgrst;
 
   BRepBlend_HCurve2dTool::D1(A, Param, p2d, dp2d);
   Adaptor3d_HSurfaceTool::D1(surf, p2d.X(), p2d.Y(), pbid, d1u, d1v);

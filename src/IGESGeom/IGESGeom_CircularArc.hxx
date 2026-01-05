@@ -24,7 +24,7 @@
 #include <IGESData_IGESEntity.hxx>
 class gp_Pnt2d;
 class Point3d;
-class gp_Dir;
+class Dir3d;
 
 class IGESGeom_CircularArc;
 DEFINE_STANDARD_HANDLE(IGESGeom_CircularArc, IGESData_IGESEntity)
@@ -83,10 +83,10 @@ public:
   Standard_EXPORT Standard_Real Angle() const;
 
   //! Z-Axis of circle (i.e. [0,0,1])
-  Standard_EXPORT gp_Dir Axis() const;
+  Standard_EXPORT Dir3d Axis() const;
 
   //! Z-Axis after applying Trans. Matrix
-  Standard_EXPORT gp_Dir TransformedAxis() const;
+  Standard_EXPORT Dir3d TransformedAxis() const;
 
   //! True if StartPoint = EndPoint
   Standard_EXPORT Standard_Boolean IsClosed() const;

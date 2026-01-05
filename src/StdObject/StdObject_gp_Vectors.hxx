@@ -134,7 +134,7 @@ inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const 
   return theWriteData;
 }
 
-inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, gp_Vec& theVec)
+inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, Vector3d& theVec)
 {
   StdObjMgt_ReadData::ObjectSentry aSentry(theReadData);
 
@@ -144,7 +144,7 @@ inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, gp_Vec& t
   return theReadData;
 }
 
-inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const gp_Vec& theVec)
+inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const Vector3d& theVec)
 {
   StdObjMgt_WriteData::ObjectSentry aSentry(theWriteData);
 
@@ -152,7 +152,7 @@ inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const 
   return theWriteData;
 }
 
-inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, gp_Dir& theDir)
+inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, Dir3d& theDir)
 {
   StdObjMgt_ReadData::ObjectSentry aSentry(theReadData);
 
@@ -162,7 +162,7 @@ inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, gp_Dir& t
   return theReadData;
 }
 
-inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const gp_Dir& theDir)
+inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const Dir3d& theDir)
 {
   StdObjMgt_WriteData::ObjectSentry aSentry(theWriteData);
 

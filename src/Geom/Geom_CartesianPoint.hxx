@@ -22,7 +22,7 @@
 #include <gp_Pnt.hxx>
 #include <Geom_Point.hxx>
 #include <Standard_Real.hxx>
-class gp_Trsf;
+class Transform3d;
 class Geom_Geometry;
 
 class Geom_CartesianPoint;
@@ -79,7 +79,7 @@ public:
   Standard_EXPORT Standard_Real Z() const Standard_OVERRIDE;
 
   //! Applies the transformation T to this point.
-  Standard_EXPORT void Transform(const gp_Trsf& T) Standard_OVERRIDE;
+  Standard_EXPORT void Transform(const Transform3d& T) Standard_OVERRIDE;
 
   //! Creates a new object which is a copy of this point.
   Standard_EXPORT Handle(Geom_Geometry) Copy() const Standard_OVERRIDE;

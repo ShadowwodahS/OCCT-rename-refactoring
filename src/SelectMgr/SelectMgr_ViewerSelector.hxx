@@ -287,7 +287,7 @@ public:
   //! Picks the sensitive entity according to the input axis.
   //! This is geometric intersection 3D objects by axis
   //! (camera parameters are ignored and objects with transform persistence are skipped).
-  Standard_EXPORT void Pick(const gp_Ax1& theAxis, const Handle(V3d_View)& theView);
+  Standard_EXPORT void Pick(const Axis3d& theAxis, const Handle(V3d_View)& theView);
 
   //! Dump of detection results into image.
   //! This method performs axis picking for each pixel in the image
@@ -308,7 +308,7 @@ public:
   Standard_EXPORT void ClearSensitive(const Handle(V3d_View)& theView);
 
   Standard_EXPORT void DisplaySensitive(const Handle(SelectMgr_Selection)& theSel,
-                                        const gp_Trsf&                     theTrsf,
+                                        const Transform3d&                     theTrsf,
                                         const Handle(V3d_View)&            theView,
                                         const Standard_Boolean theToClearOthers = Standard_True);
 
@@ -402,7 +402,7 @@ protected:
   NCollection_DataMap<Graphic3d_ZLayerId, Standard_Integer> myZLayerOrderMap;
   Handle(Select3D_BVHBuilder3d)                             myEntitySetBuilder;
   Point3d                                                    myCameraEye;
-  gp_Dir                                                    myCameraDir;
+  Dir3d                                                    myCameraDir;
   Standard_Real                                             myCameraScale;
 
   Standard_Boolean                myToPrebuildBVH;

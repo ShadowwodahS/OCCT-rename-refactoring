@@ -100,7 +100,7 @@ static Standard_Integer LocDump(Draw_Interpretor& di, Standard_Integer argc, con
   const TopLoc_Location& L = a.Location();
   di << "Location of shape " << argv[1] << ":\n";
   di << "Results in:\n";
-  gp_Trsf          T = L.Transformation();
+  Transform3d          T = L.Transformation();
   TopLoc_Location  l(T);
   Standard_SStream aSStream;
   l.ShallowDump(aSStream);

@@ -572,7 +572,7 @@ void Extrema_GenExtCS::GlobMinConicS(const Adaptor3d_Curve& theC,
   theTUV(3) = anUV(2);
 
   Standard_Boolean isBadSol = Standard_False;
-  gp_Vec           aDU, aDV, aDT;
+  Vector3d           aDU, aDV, aDT;
   Point3d           aPOnS, aPOnC;
   myS->D1(anUV(1), anUV(2), aPOnS, aDU, aDV);
   theC.D1(aCT, aPOnC, aDT);
@@ -580,11 +580,11 @@ void Extrema_GenExtCS::GlobMinConicS(const Adaptor3d_Curve& theC,
   if (aSqDist <= Precision::SquareConfusion())
     return;
 
-  gp_Vec aN = aDU.Crossed(aDV);
+  Vector3d aN = aDU.Crossed(aDV);
   if (aN.SquareMagnitude() < Precision::SquareConfusion())
     return;
 
-  gp_Vec PcPs(aPOnC, aPOnS);
+  Vector3d PcPs(aPOnC, aPOnS);
 
   Standard_Real anAngMin = M_PI_2 - M_PI_2 / 10.;
   Standard_Real anAngMax = M_PI_2 + M_PI_2 / 10.;

@@ -19,7 +19,7 @@
 #include <Standard_Type.hxx>
 
 class Point3d;
-class gp_Vec;
+class Vector3d;
 
 //! Interface for calculation of values and derivatives for different kinds of curves in 3D.
 //! Works both with adaptors and curves.
@@ -31,20 +31,20 @@ public:
   //! Value of 3D curve
   virtual void D0(const Standard_Real theU, Point3d& theValue) const = 0;
   //! Value and first derivatives of curve
-  virtual void D1(const Standard_Real theU, Point3d& theValue, gp_Vec& theD1) const = 0;
+  virtual void D1(const Standard_Real theU, Point3d& theValue, Vector3d& theD1) const = 0;
   //! Value, first and second derivatives of curve
   virtual void D2(const Standard_Real theU,
                   Point3d&             theValue,
-                  gp_Vec&             theD1,
-                  gp_Vec&             theD2) const = 0;
+                  Vector3d&             theD1,
+                  Vector3d&             theD2) const = 0;
   //! Value, first, second and third derivatives of curve
   virtual void D3(const Standard_Real theU,
                   Point3d&             theValue,
-                  gp_Vec&             theD1,
-                  gp_Vec&             theD2,
-                  gp_Vec&             theD3) const = 0;
+                  Vector3d&             theD1,
+                  Vector3d&             theD2,
+                  Vector3d&             theD3) const = 0;
   //! Calculates N-th derivatives of curve, where N = theDerU. Raises if N < 1
-  virtual gp_Vec DN(const Standard_Real theU, const Standard_Integer theDerU) const = 0;
+  virtual Vector3d DN(const Standard_Real theU, const Standard_Integer theDerU) const = 0;
 
   virtual Handle(GeomEvaluator_Curve) ShallowCopy() const = 0;
 

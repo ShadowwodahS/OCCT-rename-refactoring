@@ -22,7 +22,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Geom_Transformation, RefObject)
 
 Geom_Transformation::Geom_Transformation() {}
 
-Geom_Transformation::Geom_Transformation(const gp_Trsf& T)
+Geom_Transformation::Geom_Transformation(const Transform3d& T)
     : gpTrsf(T)
 {
 }
@@ -51,7 +51,7 @@ Handle(Geom_Transformation) Geom_Transformation::Multiplied(
 Handle(Geom_Transformation) Geom_Transformation::Powered(const Standard_Integer N) const
 {
 
-  gp_Trsf T = gpTrsf;
+  Transform3d T = gpTrsf;
   T.Power(N);
   return new Geom_Transformation(T);
 }

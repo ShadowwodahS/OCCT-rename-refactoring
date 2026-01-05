@@ -36,7 +36,7 @@
 
 class gp_Circ;
 class Blend_Point;
-class gp_Ax1;
+class Axis3d;
 
 class BlendFunc_ConstRad : public Blend_Function
 {
@@ -94,11 +94,11 @@ public:
 
   Standard_EXPORT Standard_Boolean IsTangencyPoint() const Standard_OVERRIDE;
 
-  Standard_EXPORT const gp_Vec& TangentOnS1() const Standard_OVERRIDE;
+  Standard_EXPORT const Vector3d& TangentOnS1() const Standard_OVERRIDE;
 
   Standard_EXPORT const gp_Vec2d& Tangent2dOnS1() const Standard_OVERRIDE;
 
-  Standard_EXPORT const gp_Vec& TangentOnS2() const Standard_OVERRIDE;
+  Standard_EXPORT const Vector3d& TangentOnS2() const Standard_OVERRIDE;
 
   Standard_EXPORT const gp_Vec2d& Tangent2dOnS2() const Standard_OVERRIDE;
 
@@ -110,10 +110,10 @@ public:
                                const Standard_Real V1,
                                const Standard_Real U2,
                                const Standard_Real V2,
-                               gp_Vec&             TgFirst,
-                               gp_Vec&             TgLast,
-                               gp_Vec&             NormFirst,
-                               gp_Vec&             NormLast) const Standard_OVERRIDE;
+                               Vector3d&             TgFirst,
+                               Vector3d&             TgLast,
+                               Vector3d&             NormFirst,
+                               Vector3d&             NormLast) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual Standard_Boolean TwistOnS1() const Standard_OVERRIDE;
 
@@ -206,7 +206,7 @@ public:
                                TColgp_Array1OfPnt2d& Poles2d,
                                TColStd_Array1OfReal& Weigths) Standard_OVERRIDE;
 
-  Standard_EXPORT gp_Ax1 AxeRot(const Standard_Real Prm);
+  Standard_EXPORT Axis3d AxeRot(const Standard_Real Prm);
 
   Standard_EXPORT void Resolution(const Standard_Integer IC2d,
                                   const Standard_Real    Tol,
@@ -227,9 +227,9 @@ private:
   Point3d                       pts1;
   Point3d                       pts2;
   Standard_Boolean             istangent;
-  gp_Vec                       tg1;
+  Vector3d                       tg1;
   gp_Vec2d                     tg12d;
-  gp_Vec                       tg2;
+  Vector3d                       tg2;
   gp_Vec2d                     tg22d;
   Standard_Real                param;
   Standard_Real                ray1;
@@ -239,45 +239,45 @@ private:
   Standard_Integer             myTOrder;
   math_Vector                  xval;
   Standard_Real                tval;
-  gp_Vec                       d1u1;
-  gp_Vec                       d1u2;
-  gp_Vec                       d1v1;
-  gp_Vec                       d1v2;
-  gp_Vec                       d2u1;
-  gp_Vec                       d2v1;
-  gp_Vec                       d2uv1;
-  gp_Vec                       d2u2;
-  gp_Vec                       d2v2;
-  gp_Vec                       d2uv2;
-  gp_Vec                       dn1w;
-  gp_Vec                       dn2w;
-  gp_Vec                       d2n1w;
-  gp_Vec                       d2n2w;
-  gp_Vec                       nplan;
-  gp_Vec                       nsurf1;
-  gp_Vec                       dns1u1;
-  gp_Vec                       dns1u2;
-  gp_Vec                       dns1v1;
-  gp_Vec                       dns1v2;
-  gp_Vec                       nsurf2;
-  gp_Vec                       dnplan;
-  gp_Vec                       d2nplan;
-  gp_Vec                       dnsurf1;
-  gp_Vec                       dnsurf2;
-  gp_Vec                       dndu1;
-  gp_Vec                       dndu2;
-  gp_Vec                       dndv1;
-  gp_Vec                       dndv2;
-  gp_Vec                       d2ndu1;
-  gp_Vec                       d2ndu2;
-  gp_Vec                       d2ndv1;
-  gp_Vec                       d2ndv2;
-  gp_Vec                       d2nduv1;
-  gp_Vec                       d2nduv2;
-  gp_Vec                       d2ndtu1;
-  gp_Vec                       d2ndtu2;
-  gp_Vec                       d2ndtv1;
-  gp_Vec                       d2ndtv2;
+  Vector3d                       d1u1;
+  Vector3d                       d1u2;
+  Vector3d                       d1v1;
+  Vector3d                       d1v2;
+  Vector3d                       d2u1;
+  Vector3d                       d2v1;
+  Vector3d                       d2uv1;
+  Vector3d                       d2u2;
+  Vector3d                       d2v2;
+  Vector3d                       d2uv2;
+  Vector3d                       dn1w;
+  Vector3d                       dn2w;
+  Vector3d                       d2n1w;
+  Vector3d                       d2n2w;
+  Vector3d                       nplan;
+  Vector3d                       nsurf1;
+  Vector3d                       dns1u1;
+  Vector3d                       dns1u2;
+  Vector3d                       dns1v1;
+  Vector3d                       dns1v2;
+  Vector3d                       nsurf2;
+  Vector3d                       dnplan;
+  Vector3d                       d2nplan;
+  Vector3d                       dnsurf1;
+  Vector3d                       dnsurf2;
+  Vector3d                       dndu1;
+  Vector3d                       dndu2;
+  Vector3d                       dndv1;
+  Vector3d                       dndv2;
+  Vector3d                       d2ndu1;
+  Vector3d                       d2ndu2;
+  Vector3d                       d2ndv1;
+  Vector3d                       d2ndv2;
+  Vector3d                       d2nduv1;
+  Vector3d                       d2nduv2;
+  Vector3d                       d2ndtu1;
+  Vector3d                       d2ndtu2;
+  Vector3d                       d2ndtv1;
+  Vector3d                       d2ndtv2;
   math_Vector                  E;
   math_Matrix                  DEDX;
   math_Vector                  DEDT;

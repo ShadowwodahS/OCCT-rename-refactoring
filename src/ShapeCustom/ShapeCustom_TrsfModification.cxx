@@ -32,7 +32,7 @@ IMPLEMENT_STANDARD_RTTIEXT(ShapeCustom_TrsfModification, BRepTools_TrsfModificat
 
 //=================================================================================================
 
-ShapeCustom_TrsfModification::ShapeCustom_TrsfModification(const gp_Trsf& T)
+ShapeCustom_TrsfModification::ShapeCustom_TrsfModification(const Transform3d& T)
     : BRepTools_TrsfModification(T)
 {
 }

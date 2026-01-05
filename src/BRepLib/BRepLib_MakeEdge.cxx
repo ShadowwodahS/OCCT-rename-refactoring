@@ -196,7 +196,7 @@ BRepLib_MakeEdge::BRepLib_MakeEdge(const TopoDS_Vertex& V1, const TopoDS_Vertex&
     myError = BRepLib_LineThroughIdenticPoints;
     return;
   }
-  gp_Lin            L(P1, gp_Vec(P1, P2));
+  gp_Lin            L(P1, Vector3d(P1, P2));
   Handle(Geom_Line) GL = new Geom_Line(L);
   Init(GL, V1, V2, 0, l);
 }
@@ -211,7 +211,7 @@ BRepLib_MakeEdge::BRepLib_MakeEdge(const Point3d& P1, const Point3d& P2)
     myError = BRepLib_LineThroughIdenticPoints;
     return;
   }
-  gp_Lin            L(P1, gp_Vec(P1, P2));
+  gp_Lin            L(P1, Vector3d(P1, P2));
   Handle(Geom_Line) GL = new Geom_Line(L);
   Init(GL, P1, P2, 0, l);
 }

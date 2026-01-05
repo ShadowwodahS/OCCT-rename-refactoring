@@ -64,8 +64,8 @@ static Standard_Integer OCC426(Draw_Interpretor& di, Standard_Integer argc, cons
   TopoDS_Face      F1         = BRepBuilderAPI_MakeFace(W1.Wire(), OnlyPlane1);
 
   Point3d        P1(0, 0, 0);
-  gp_Dir        D1(0, 0, 30);
-  gp_Ax1        A1(P1, D1);
+  Dir3d        D1(0, 0, 30);
+  Axis3d        A1(P1, D1);
   Standard_Real angle1 = 360 * (M_PI / 180.0);
   TopoDS_Shape  rs1    = BRepPrimAPI_MakeRevol(F1, A1, angle1);
 
@@ -82,8 +82,8 @@ static Standard_Integer OCC426(Draw_Interpretor& di, Standard_Integer argc, cons
   TopoDS_Face      F2         = BRepBuilderAPI_MakeFace(W2.Wire(), OnlyPlane2);
 
   Point3d        P2(0, 0, 0);
-  gp_Dir        D2(0, 0, 30);
-  gp_Ax1        A2(P2, D2);
+  Dir3d        D2(0, 0, 30);
+  Axis3d        A2(P2, D2);
   Standard_Real angle2 = 270 * (M_PI / 180.0);
   TopoDS_Shape  rs2    = BRepPrimAPI_MakeRevol(F2, A2, angle2);
 
@@ -98,8 +98,8 @@ static Standard_Integer OCC426(Draw_Interpretor& di, Standard_Integer argc, cons
   TopoDS_Face      F3         = BRepBuilderAPI_MakeFace(W3.Wire(), OnlyPlane3);
 
   Point3d        P3(0, 0, 0);
-  gp_Dir        D3(0, 0, 30);
-  gp_Ax1        A3(P3, D3);
+  Dir3d        D3(0, 0, 30);
+  Axis3d        A3(P3, D3);
   Standard_Real angle3 = 360 * (M_PI / 180.0);
   TopoDS_Shape  rs3    = BRepPrimAPI_MakeRevol(F3, A3, angle3);
 
@@ -383,8 +383,8 @@ static Standard_Integer OCC712(Draw_Interpretor& di, Standard_Integer argc, cons
   try
   {
     OCC_CATCH_SIGNALS
-    gp_Dir slabDir(0, 0, 1);
-    gp_Vec slabVect(slabDir);
+    Dir3d slabDir(0, 0, 1);
+    Vector3d slabVect(slabDir);
     slabVect *= slabThick;
 
     BRepPrimAPI_MakePrism slab(F, slabVect, Standard_True);
@@ -495,8 +495,8 @@ static Standard_Integer OCC822_1(Draw_Interpretor& di, Standard_Integer argc, co
   int index = 1;
 
   Point3d P1(0, 0, 0);
-  gp_Dir D1(0, 0, 1);
-  gp_Ax2 A1(P1, D1);
+  Dir3d D1(0, 0, 1);
+  Frame3d A1(P1, D1);
 
   BRepPrimAPI_MakeCylinder cylMakerIn(A1, 40, 110);
   BRepPrimAPI_MakeCylinder cylMakerOut(A1, 50, 100);
@@ -504,8 +504,8 @@ static Standard_Integer OCC822_1(Draw_Interpretor& di, Standard_Integer argc, co
   TopoDS_Shape             cylOut = cylMakerOut.Shape();
 
   Point3d P2(0, 0, 0);
-  gp_Dir D2(0, 0, -1);
-  gp_Ax2 A2(P2, D2);
+  Dir3d D2(0, 0, -1);
+  Frame3d A2(P2, D2);
 
   BRepPrimAPI_MakeCone conMakerIn(A2, 40, 60, 110);
   BRepPrimAPI_MakeCone conMakerOut(A2, 50, 70, 100);
@@ -564,10 +564,10 @@ static Standard_Integer OCC822_2(Draw_Interpretor& di, Standard_Integer argc, co
 
   int index = 1;
 
-  gp_Dir              xDir(1, 0, 0);
-  gp_Dir              zDir(0, 0, 1);
+  Dir3d              xDir(1, 0, 0);
+  Dir3d              zDir(0, 0, 1);
   Point3d              cen1(0, 0, 0);
-  gp_Ax2              cor1(cen1, zDir, xDir);
+  Frame3d              cor1(cen1, zDir, xDir);
   BRepPrimAPI_MakeBox boxMaker(cor1, 100, 100, 100);
   TopoDS_Shape        box = boxMaker.Shape();
   if (index < argc)
@@ -622,16 +622,16 @@ static Standard_Integer OCC823(Draw_Interpretor& di, Standard_Integer argc, cons
   Standard_Real size  = 0.001;
 
   Point3d                   P1(40, 50, 0);
-  gp_Dir                   D1(100, 0, 0);
-  gp_Ax2                   A1(P1, D1);
+  Dir3d                   D1(100, 0, 0);
+  Frame3d                   A1(P1, D1);
   BRepPrimAPI_MakeCylinder mkCyl1(A1, 20, 100);
   TopoDS_Shape             cyl1 = mkCyl1.Shape();
   if (index < argc)
     DBRep::Set(argv[index++], cyl1);
 
   Point3d                   P2(100, 50, size);
-  gp_Dir                   D2(0, size, 80);
-  gp_Ax2                   A2(P2, D2);
+  Dir3d                   D2(0, size, 80);
+  Frame3d                   A2(P2, D2);
   BRepPrimAPI_MakeCylinder mkCyl2(A2, 20, 80);
   TopoDS_Shape             cyl2 = mkCyl2.Shape();
   if (index < argc)
@@ -679,8 +679,8 @@ static Standard_Integer OCC824(Draw_Interpretor& di, Standard_Integer argc, cons
   int index = 1;
 
   Point3d                   P1(100, 0, 0);
-  gp_Dir                   D1(-1, 0, 0);
-  gp_Ax2                   A1(P1, D1);
+  Dir3d                   D1(-1, 0, 0);
+  Frame3d                   A1(P1, D1);
   BRepPrimAPI_MakeCylinder mkCyl(A1, 20, 100);
   TopoDS_Shape             cyl = mkCyl.Shape();
   if (index < argc)
@@ -847,8 +847,8 @@ static Standard_Integer OCC826(Draw_Interpretor& di, Standard_Integer argc, cons
   TopoDS_Face      F1      = BRepBuilderAPI_MakeFace(W1.Wire(), myFalse);
 
   Point3d        P1(0, 0, 0);
-  gp_Dir        D1(0, 30, 0);
-  gp_Ax1        A1(P1, D1);
+  Dir3d        D1(0, 30, 0);
+  Axis3d        A1(P1, D1);
   Standard_Real angle1 = 360 * (M_PI / 180.0);
   TopoDS_Shape  rev    = BRepPrimAPI_MakeRevol(F1, A1, angle1);
   if (index < argc)
@@ -912,16 +912,16 @@ static Standard_Integer OCC827(Draw_Interpretor& di, Standard_Integer argc, cons
   TopoDS_Face      F1      = BRepBuilderAPI_MakeFace(W1.Wire(), myFalse);
 
   Point3d        P1(0, 0, 0);
-  gp_Dir        D1(0, 0, 30);
-  gp_Ax1        A1(P1, D1);
+  Dir3d        D1(0, 0, 30);
+  Axis3d        A1(P1, D1);
   Standard_Real angle1 = 360 * (M_PI / 180.0);
   TopoDS_Shape  rev    = BRepPrimAPI_MakeRevol(F1, A1, angle1);
   if (index < argc)
     DBRep::Set(argv[index++], rev);
 
   Point3d                P2(0, 0, 50);
-  gp_Dir                D2(0, 0, 30);
-  gp_Ax2                A2(P2, D2);
+  Dir3d                D2(0, 0, 30);
+  Frame3d                A2(P2, D2);
   Standard_Real         majRad = 15;
   Standard_Real         minRad = 5;
   BRepPrimAPI_MakeTorus Torus1(A2, majRad, minRad);
@@ -930,8 +930,8 @@ static Standard_Integer OCC827(Draw_Interpretor& di, Standard_Integer argc, cons
     DBRep::Set(argv[index++], tor1);
 
   Point3d                P3(0, 0, 10);
-  gp_Dir                D3(0, 0, 30);
-  gp_Ax2                A3(P3, D3);
+  Dir3d                D3(0, 0, 30);
+  Frame3d                A3(P3, D3);
   BRepPrimAPI_MakeTorus Torus2(A3, majRad, minRad);
   TopoDS_Shape          tor2 = Torus2.Shape();
   if (index < argc)
@@ -1092,8 +1092,8 @@ static Standard_Integer OCC828(Draw_Interpretor& di, Standard_Integer argc, cons
   try
   {
     OCC_CATCH_SIGNALS
-    gp_Dir slabDir(0, 0, 1);
-    gp_Vec slabVect(slabDir);
+    Dir3d slabDir(0, 0, 1);
+    Vector3d slabVect(slabDir);
     slabVect *= slabThick;
 
     BRepPrimAPI_MakePrism slab(F, slabVect, Standard_True);

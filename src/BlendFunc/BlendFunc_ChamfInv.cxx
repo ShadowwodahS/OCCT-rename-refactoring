@@ -147,7 +147,7 @@ Standard_Boolean BlendFunc_ChamfInv::Derivatives(const math_Vector& X, math_Matr
   gp_Pnt2d         p2d;
   gp_Vec2d         v2d, df1, df2;
   Point3d           pts, ptgui;
-  gp_Vec           temp, d1u, d1v, nplan;
+  Vector3d           temp, d1u, d1v, nplan;
   math_Vector      x1(1, 2), x2(1, 2);
   math_Matrix      d1(1, 2, 1, 2), d2(1, 2, 1, 2);
 
@@ -186,7 +186,7 @@ Standard_Boolean BlendFunc_ChamfInv::Derivatives(const math_Vector& X, math_Matr
   if (first)
   {
     D(1, 1) = nplan.Dot(temp);
-    D(2, 1) = 2 * (gp_Vec(ptgui, pts).Dot(temp));
+    D(2, 1) = 2 * (Vector3d(ptgui, pts).Dot(temp));
     D(3, 1) = 0.;
     D(4, 1) = 0.;
   }
@@ -195,7 +195,7 @@ Standard_Boolean BlendFunc_ChamfInv::Derivatives(const math_Vector& X, math_Matr
     D(1, 1) = 0.;
     D(2, 1) = 0.;
     D(3, 1) = nplan.Dot(temp);
-    D(4, 1) = 2 * (gp_Vec(ptgui, pts).Dot(temp));
+    D(4, 1) = 2 * (Vector3d(ptgui, pts).Dot(temp));
   }
 
   // derivees par rapport a W

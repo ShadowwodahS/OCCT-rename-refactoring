@@ -58,7 +58,7 @@ Handle(Geom_Geometry) Geom_OffsetCurve::Copy() const
 
 Geom_OffsetCurve::Geom_OffsetCurve(const Handle(Geom_Curve)& theCurve,
                                    const Standard_Real       theOffset,
-                                   const gp_Dir&             theDir,
+                                   const Dir3d&             theDir,
                                    const Standard_Boolean    isTheNotCheckC0)
     : direction(theDir),
       offsetValue(theOffset)
@@ -84,14 +84,14 @@ Standard_Real Geom_OffsetCurve::ReversedParameter(const Standard_Real U) const
 
 //=================================================================================================
 
-const gp_Dir& Geom_OffsetCurve::Direction() const
+const Dir3d& Geom_OffsetCurve::Direction() const
 {
   return direction;
 }
 
 //=================================================================================================
 
-void Geom_OffsetCurve::SetDirection(const gp_Dir& V)
+void Geom_OffsetCurve::SetDirection(const Dir3d& V)
 {
   direction = V;
   myEvaluator->SetOffsetDirection(direction);
@@ -143,9 +143,9 @@ void Geom_OffsetCurve::SetBasisCurve(const Handle(Geom_Curve)& C,
       Handle(Geom_OffsetCurve) aOC = Handle(Geom_OffsetCurve)::DownCast(aCheckingCurve);
       aCheckingCurve               = aOC->BasisCurve();
       Standard_Real PrevOff        = aOC->Offset();
-      gp_Vec        V1(aOC->Direction());
-      gp_Vec        V2(direction);
-      gp_Vec        Vdir(PrevOff * V1 + offsetValue * V2);
+      Vector3d        V1(aOC->Direction());
+      Vector3d        V2(direction);
+      Vector3d        Vdir(PrevOff * V1 + offsetValue * V2);
 
       if (offsetValue >= 0.)
       {
@@ -242,14 +242,14 @@ void Geom_OffsetCurve::D0(const Standard_Real U, Point3d& P) const
 
 //=================================================================================================
 
-void Geom_OffsetCurve::D1(const Standard_Real U, Point3d& P, gp_Vec& V1) const
+void Geom_OffsetCurve::D1(const Standard_Real U, Point3d& P, Vector3d& V1) const
 {
   myEvaluator->D1(U, P, V1);
 }
 
 //=================================================================================================
 
-void Geom_OffsetCurve::D2(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2) const
+void Geom_OffsetCurve::D2(const Standard_Real U, Point3d& P, Vector3d& V1, Vector3d& V2) const
 {
   myEvaluator->D2(U, P, V1, V2);
 }
@@ -258,22 +258,22 @@ void Geom_OffsetCurve::D2(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec&
 
 void Geom_OffsetCurve::D3(const Standard_Real theU,
                           Point3d&             theP,
-                          gp_Vec&             theV1,
-                          gp_Vec&             theV2,
-                          gp_Vec&             theV3) const
+                          Vector3d&             theV1,
+                          Vector3d&             theV2,
+                          Vector3d&             theV3) const
 {
   myEvaluator->D3(theU, theP, theV1, theV2, theV3);
 }
 
 //=================================================================================================
 
-gp_Vec Geom_OffsetCurve::DN(const Standard_Real U, const Standard_Integer N) const
+Vector3d Geom_OffsetCurve::DN(const Standard_Real U, const Standard_Integer N) const
 {
   Standard_RangeError_Raise_if(N < 1,
                                "Exception: "
                                "Geom_OffsetCurve::DN(...). N<1.");
 
-  gp_Vec VN, Vtemp;
+  Vector3d VN, Vtemp;
   Point3d Ptemp;
   switch (N)
   {
@@ -337,7 +337,7 @@ Standard_Boolean Geom_OffsetCurve::IsCN(const Standard_Integer N) const
 
 //=================================================================================================
 
-void Geom_OffsetCurve::Transform(const gp_Trsf& T)
+void Geom_OffsetCurve::Transform(const Transform3d& T)
 {
   basisCurve->Transform(T);
   direction.Transform(T);
@@ -349,14 +349,14 @@ void Geom_OffsetCurve::Transform(const gp_Trsf& T)
 
 //=================================================================================================
 
-Standard_Real Geom_OffsetCurve::TransformedParameter(const Standard_Real U, const gp_Trsf& T) const
+Standard_Real Geom_OffsetCurve::TransformedParameter(const Standard_Real U, const Transform3d& T) const
 {
   return basisCurve->TransformedParameter(U, T);
 }
 
 //=================================================================================================
 
-Standard_Real Geom_OffsetCurve::ParametricTransformation(const gp_Trsf& T) const
+Standard_Real Geom_OffsetCurve::ParametricTransformation(const Transform3d& T) const
 {
   return basisCurve->ParametricTransformation(T);
 }

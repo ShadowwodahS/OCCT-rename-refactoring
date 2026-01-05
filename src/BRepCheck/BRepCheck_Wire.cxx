@@ -476,7 +476,7 @@ static Standard_Boolean IsDistanceIn2DTolerance(
   dumax = aFaceSurface.UResolution(aTol3d);
   dvmax = aFaceSurface.VResolution(aTol3d);
   Point3d        aP;
-  gp_Vec        aDU, aDV;
+  Vector3d        aDU, aDV;
   Standard_Real um = (thePnt.X() + thePntRef.X()) / 2.;
   Standard_Real vm = (thePnt.Y() + thePntRef.Y()) / 2.;
   aFaceSurface.D1(um, vm, aP, aDU, aDV);
@@ -1442,7 +1442,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoDS_Face&     F,
               }
               else
               {
-                gp_Lin           Lig(VertexLePlusProche, gp_Vec(VertexLePlusProche, P3d));
+                gp_Lin           Lig(VertexLePlusProche, Vector3d(VertexLePlusProche, P3d));
                 Standard_Real    du1   = 0.1 * (IP_ParamOnFirst - VParaOnEdge1);
                 Standard_Real    du2   = 0.1 * (IP_ParamOnSecond - VParaOnEdge2);
                 Standard_Real    maxd1 = 0., maxd2 = 0.;
@@ -1478,7 +1478,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoDS_Face&     F,
                 }
                 //-- same for edge2
                 //  Modified by skv - Wed Jul 23 12:22:20 2003 OCC1764 Begin
-                gp_Dir aTmpDir(P3d2.XYZ().Subtracted(VertexLePlusProche.XYZ()));
+                Dir3d aTmpDir(P3d2.XYZ().Subtracted(VertexLePlusProche.XYZ()));
 
                 Lig.SetDirection(aTmpDir);
                 //  Modified by skv - Wed Jul 23 12:22:23 2003 OCC1764 End

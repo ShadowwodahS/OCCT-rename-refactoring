@@ -670,7 +670,7 @@ void Approx_CurvilinearParameter::ToleranceComputation(const Handle(Adaptor2d_Cu
   Standard_Real Max_dS_dv = 1., Max_dS_dw = 1.;
   Point3d        P;
   gp_Pnt2d      pntVW;
-  gp_Vec        dS_dv, dS_dw;
+  Vector3d        dS_dv, dS_dw;
 
   for (Standard_Integer i = 1; i <= MaxNumber; i++)
   {

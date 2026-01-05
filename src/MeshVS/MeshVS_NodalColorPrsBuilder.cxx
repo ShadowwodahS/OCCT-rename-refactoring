@@ -270,7 +270,7 @@ void MeshVS_NodalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
 
   Point3d        P, Start;
   Standard_Real aMin = gp::Resolution() * gp::Resolution();
-  gp_Dir        aDefNorm(0., 0., 1.);
+  Dir3d        aDefNorm(0., 0., 1.);
 
   // Prepare for scaling the incoming colors
   const Standard_Real anColorRatio = 1.0;
@@ -323,17 +323,17 @@ void MeshVS_NodalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
                         aCoords(3 * (aSubIdx == 0 ? 0 : (aNodeIdx + aSubIdx)) + 2),
                         aCoords(3 * (aSubIdx == 0 ? 0 : (aNodeIdx + aSubIdx)) + 3));
 
-            gp_Vec aNorm = aDefNorm;
+            Vector3d aNorm = aDefNorm;
 
             if (hasNormals)
             {
-              gp_Vec aTestNorm(aNormals->Value(3 * (aSubIdx == 0 ? 0 : (aNodeIdx + aSubIdx)) + 1),
+              Vector3d aTestNorm(aNormals->Value(3 * (aSubIdx == 0 ? 0 : (aNodeIdx + aSubIdx)) + 1),
                                aNormals->Value(3 * (aSubIdx == 0 ? 0 : (aNodeIdx + aSubIdx)) + 2),
                                aNormals->Value(3 * (aSubIdx == 0 ? 0 : (aNodeIdx + aSubIdx)) + 3));
 
               if (aTestNorm.SquareMagnitude() > aMin)
               {
-                aNorm = gp_Dir(aTestNorm);
+                aNorm = Dir3d(aTestNorm);
               }
             }
 
@@ -549,7 +549,7 @@ void MeshVS_NodalColorPrsBuilder::AddVolumePrs(
         aPolyNodes.SetValue(3 * aNodeIdx + 3, aZ);
       }
 
-      gp_Vec aNorm(0.0, 0.0, 1.0);
+      Vector3d aNorm(0.0, 0.0, 1.0);
 
       if (theIsShaded)
       {

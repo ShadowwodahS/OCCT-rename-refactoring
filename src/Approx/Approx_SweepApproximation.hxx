@@ -219,7 +219,7 @@ private:
   Handle(TColStd_HArray1OfReal)    AError3d;
   Handle(Approx_HArray1OfGTrsf2d)  AAffin;
   Handle(TColStd_HArray1OfReal)    COnSurfErr;
-  gp_Vec                           Translation;
+  Vector3d                           Translation;
   Handle(TColgp_HArray1OfPnt)      myPoles;
   Handle(TColgp_HArray1OfPnt2d)    myPoles2d;
   Handle(TColStd_HArray1OfReal)    myWeigths;

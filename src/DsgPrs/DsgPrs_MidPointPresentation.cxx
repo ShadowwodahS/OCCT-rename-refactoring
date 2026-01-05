@@ -35,7 +35,7 @@
 //===================================================================
 void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                       const Handle(Prs3d_Drawer)&       aDrawer,
-                                      const gp_Ax2&                     theAxe,
+                                      const Frame3d&                     theAxe,
                                       const Point3d&                     MidPoint,
                                       const Point3d&                     Position,
                                       const Point3d&                     AttachPoint,
@@ -45,7 +45,7 @@ void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
 
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
 
-  gp_Ax2 ax = theAxe;
+  Frame3d ax = theAxe;
   ax.SetLocation(MidPoint);
   gp_Circ aCircleM(ax, rad);
 
@@ -102,7 +102,7 @@ void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
 //===================================================================
 void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                       const Handle(Prs3d_Drawer)&       aDrawer,
-                                      const gp_Ax2&                     theAxe,
+                                      const Frame3d&                     theAxe,
                                       const Point3d&                     MidPoint,
                                       const Point3d&                     Position,
                                       const Point3d&                     AttachPoint,
@@ -116,7 +116,7 @@ void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
 
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
 
-  gp_Ax2 ax = theAxe;
+  Frame3d ax = theAxe;
   ax.SetLocation(MidPoint);
   gp_Circ aCircleM(ax, rad);
 
@@ -185,7 +185,7 @@ void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
 
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
 
-  gp_Ax2 ax = aCircle.Position();
+  Frame3d ax = aCircle.Position();
   ax.SetLocation(MidPoint);
   gp_Circ aCircleM(ax, rad);
 
@@ -267,7 +267,7 @@ void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
 
   Point3d Ptmp, ptcur;
 
-  gp_Ax2 ax = aCircle.Position();
+  Frame3d ax = aCircle.Position();
   ax.SetLocation(MidPoint);
   gp_Circ aCircleM(ax, rad);
 

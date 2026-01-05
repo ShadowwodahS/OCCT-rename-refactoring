@@ -36,26 +36,26 @@ GeomFill_PipeError GeomFill_TrihedronLaw::ErrorStatus() const
 }
 
 Standard_Boolean GeomFill_TrihedronLaw::D1(const Standard_Real,
-                                           gp_Vec&,
-                                           gp_Vec&,
-                                           gp_Vec&,
-                                           gp_Vec&,
-                                           gp_Vec&,
-                                           gp_Vec&)
+                                           Vector3d&,
+                                           Vector3d&,
+                                           Vector3d&,
+                                           Vector3d&,
+                                           Vector3d&,
+                                           Vector3d&)
 {
   throw Standard_NotImplemented(" GeomFill_TrihedronLaw::D2");
 }
 
 Standard_Boolean GeomFill_TrihedronLaw::D2(const Standard_Real,
-                                           gp_Vec&,
-                                           gp_Vec&,
-                                           gp_Vec&,
-                                           gp_Vec&,
-                                           gp_Vec&,
-                                           gp_Vec&,
-                                           gp_Vec&,
-                                           gp_Vec&,
-                                           gp_Vec&)
+                                           Vector3d&,
+                                           Vector3d&,
+                                           Vector3d&,
+                                           Vector3d&,
+                                           Vector3d&,
+                                           Vector3d&,
+                                           Vector3d&,
+                                           Vector3d&,
+                                           Vector3d&)
 {
   throw Standard_NotImplemented(" GeomFill_TrihedronLaw::D2");
 }

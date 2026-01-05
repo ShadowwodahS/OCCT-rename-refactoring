@@ -40,7 +40,7 @@ IMPLEMENT_STANDARD_RTTIEXT(BRepTools_TrsfModification, BRepTools_Modification)
 
 //=================================================================================================
 
-BRepTools_TrsfModification::BRepTools_TrsfModification(const gp_Trsf& T)
+BRepTools_TrsfModification::BRepTools_TrsfModification(const Transform3d& T)
     : myTrsf(T),
       myCopyMesh(Standard_False)
 {
@@ -48,7 +48,7 @@ BRepTools_TrsfModification::BRepTools_TrsfModification(const gp_Trsf& T)
 
 //=================================================================================================
 
-gp_Trsf& BRepTools_TrsfModification::Trsf()
+Transform3d& BRepTools_TrsfModification::Trsf()
 {
   return myTrsf;
 }
@@ -81,7 +81,7 @@ Standard_Boolean BRepTools_TrsfModification::NewSurface(const TopoDS_Face&    F,
   RevWires = Standard_False;
   RevFace  = myTrsf.IsNegative();
 
-  gp_Trsf LT = L.Transformation();
+  Transform3d LT = L.Transformation();
   LT.Invert();
   LT.Multiply(myTrsf);
   LT.Multiply(L.Transformation());
@@ -110,7 +110,7 @@ Standard_Boolean BRepTools_TrsfModification::NewTriangulation(
     return Standard_False;
   }
 
-  gp_Trsf aTrsf = myTrsf;
+  Transform3d aTrsf = myTrsf;
   if (!aLoc.IsIdentity())
   {
     aTrsf = aLoc.Transformation().Inverted() * aTrsf * aLoc.Transformation();
@@ -156,7 +156,7 @@ Standard_Boolean BRepTools_TrsfModification::NewTriangulation(
   {
     for (Standard_Integer anInd = 1; anInd <= theTriangulation->NbNodes(); ++anInd)
     {
-      gp_Dir aNormal = theTriangulation->Normal(anInd);
+      Dir3d aNormal = theTriangulation->Normal(anInd);
       aNormal.Transform(aTrsf);
       theTriangulation->SetNormal(anInd, aNormal);
     }
@@ -182,7 +182,7 @@ Standard_Boolean BRepTools_TrsfModification::NewPolygon(const TopoDS_Edge&      
     return Standard_False;
   }
 
-  gp_Trsf aTrsf = myTrsf;
+  Transform3d aTrsf = myTrsf;
   if (!aLoc.IsIdentity())
   {
     aTrsf = aLoc.Transformation().Inverted() * aTrsf * aLoc.Transformation();
@@ -284,7 +284,7 @@ Standard_Boolean BRepTools_TrsfModification::NewCurve(const TopoDS_Edge&  E,
   Tol = BRep_Tool::Tolerance(E);
   Tol *= Abs(myTrsf.ScaleFactor());
 
-  gp_Trsf LT = L.Transformation();
+  Transform3d LT = L.Transformation();
   LT.Invert();
   LT.Multiply(myTrsf);
   LT.Multiply(L.Transformation());

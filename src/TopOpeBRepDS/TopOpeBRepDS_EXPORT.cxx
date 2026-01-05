@@ -279,8 +279,8 @@ Standard_EXPORT Standard_Boolean FDS_aresamdom(const TopOpeBRepDS_DataStructure&
       // NYI a arranger
       gp_Pnt2d p2d1, p2d2;
       BRep_Tool::UVPoints(TopoDS::Edge(ES), TopoDS::Face(F1), p2d1, p2d2);
-      gp_Dir        d1   = FUN_tool_ngS(p2d1, su1);
-      gp_Dir        d2   = FUN_tool_ngS(p2d2, su2);
+      Dir3d        d1   = FUN_tool_ngS(p2d1, su1);
+      Dir3d        d2   = FUN_tool_ngS(p2d2, su2);
       Standard_Real tola = Precision::Angular();
       Standard_Real dot  = d1.Dot(d2);
       trfa_samdom        = (Abs(1. - Abs(dot)) < tola);
@@ -486,21 +486,21 @@ Standard_EXPORT Standard_Boolean FDS_Config3d(const TopoDS_Shape&  E1,
   Point3d           PE1;
   Standard_Real    pE1;
   Standard_Boolean ok1 = FUN_tool_findPinE(TopoDS::Edge(E1), PE1, pE1);
-  gp_Vec           VE1;
+  Vector3d           VE1;
   if (ok1)
     ok1 = TopOpeBRepTool_TOOL::TggeomE(pE1, TopoDS::Edge(E1), VE1);
 
   Standard_Real    pE2, dE2;
   Standard_Boolean ok2 = FUN_tool_projPonE(PE1, TopoDS::Edge(E2), pE2, dE2);
-  gp_Vec           VE2;
+  Vector3d           VE2;
   if (ok2)
     ok2 = TopOpeBRepTool_TOOL::TggeomE(pE2, TopoDS::Edge(E2), VE2);
 
   if (!ok1 || !ok2)
     return Standard_False;
 
-  gp_Dir        DE1(VE1);
-  gp_Dir        DE2(VE2);
+  Dir3d        DE1(VE1);
+  Dir3d        DE2(VE2);
   Standard_Real dot = DE1.Dot(DE2);
   same              = (dot > 0);
   c                 = (same) ? TopOpeBRepDS_SAMEORIENTED : TopOpeBRepDS_DIFFORIENTED;
@@ -1289,11 +1289,11 @@ Standard_EXPORT Standard_Boolean FUN_ds_shareG(const Handle(TopOpeBRepDS_HDataSt
   if (d2 > tol)
     return Standard_False;
 
-  gp_Vec nggeomF2;
+  Vector3d nggeomF2;
   ok = FUN_tool_nggeomF(par2, E2, F2, nggeomF2);
   if (!ok)
     return Standard_False;
-  gp_Dir nxx2;
+  Dir3d nxx2;
   ok = FUN_tool_getxx(F2, E2, par2, nggeomF2, nxx2);
   if (!ok)
     return Standard_False;
@@ -1316,11 +1316,11 @@ Standard_EXPORT Standard_Boolean FUN_ds_shareG(const Handle(TopOpeBRepDS_HDataSt
       continue;
 
     // E1 on F1, E2 on F2, E1 and E2 share split Esp(nyi : check it)
-    gp_Vec nggeomF1;
+    Vector3d nggeomF1;
     ok = FUN_tool_nggeomF(par1, E1, F1, nggeomF1);
     if (!ok)
       return Standard_False;
-    gp_Dir nxx1;
+    Dir3d nxx1;
     ok = FUN_tool_getxx(F1, E1, par1, nggeomF1, nxx1);
     if (!ok)
       return Standard_False;
@@ -1390,15 +1390,15 @@ Standard_EXPORT Standard_Boolean FUN_ds_mkTonFsdm(const Handle(TopOpeBRepDS_HDat
   ok = FUN_tool_value(parEG, EG, P);
   if (!ok)
     return Standard_False;
-  gp_Vec tgtEG;
+  Vector3d tgtEG;
   ok = TopOpeBRepTool_TOOL::TggeomE(parEG, EG, tgtEG);
   if (!ok)
     return Standard_False;
-  gp_Vec ngF1;
+  Vector3d ngF1;
   ok = FUN_tool_nggeomF(parEG, EG, F1, ngF1);
   if (!ok)
     return Standard_False;
-  gp_Vec beafter = ngF1 ^ tgtEG;
+  Vector3d beafter = ngF1 ^ tgtEG;
 
   // nxx2 :
   // ------
@@ -1414,11 +1414,11 @@ Standard_EXPORT Standard_Boolean FUN_ds_mkTonFsdm(const Handle(TopOpeBRepDS_HDat
     if (d2 > tol)
       return Standard_False;
   }
-  gp_Vec ngF2;
+  Vector3d ngF2;
   ok = FUN_tool_nggeomF(par2, E2, F2, ngF2);
   if (!ok)
     return Standard_False;
-  gp_Dir nxx2;
+  Dir3d nxx2;
   ok = FUN_tool_getxx(F2, E2, par2, ngF2, nxx2);
   if (!ok)
     return Standard_False;
@@ -1942,8 +1942,8 @@ Standard_EXPORT void FUN_ds_completeforSE5(const Handle(TopOpeBRepDS_HDataStruct
       ok = FUN_tool_paronEF(E2, parE2, F2, uv2);
       if (!ok)
         return;
-      gp_Dir ngF2 = FUN_tool_nggeomF(uv2, F2);
-      gp_Dir xxF2;
+      Dir3d ngF2 = FUN_tool_nggeomF(uv2, F2);
+      Dir3d xxF2;
       ok = FUN_tool_getxx(F2, E2, parE2, ngF2, xxF2);
       if (!ok)
         return;
@@ -1956,8 +1956,8 @@ Standard_EXPORT void FUN_ds_completeforSE5(const Handle(TopOpeBRepDS_HDataStruct
       ok = FUN_tool_paronEF(E2, parE2, F3, uv3);
       if (!ok)
         return;
-      gp_Dir ngF3 = FUN_tool_nggeomF(uv3, F3);
-      gp_Dir xxF3;
+      Dir3d ngF3 = FUN_tool_nggeomF(uv3, F3);
+      Dir3d xxF3;
       ok = FUN_tool_getxx(F3, E2, parE2, ngF3, xxF3);
       if (!ok)
         return;
@@ -2114,9 +2114,9 @@ Standard_EXPORT void FUN_ds_completeforSE6(const Handle(TopOpeBRepDS_HDataStruct
             else if (M_INTERNAL(O))
             {
               Standard_Real parEsd = BRep_Tool::Parameter(vG, Esd);
-              gp_Vec        tgEsd;
+              Vector3d        tgEsd;
               TopOpeBRepTool_TOOL::TggeomE(parEsd, Esd, tgEsd); // dir
-              gp_Vec tgE;
+              Vector3d tgE;
               TopOpeBRepTool_TOOL::TggeomE(parE, SE, tgE); // dir
               Standard_Real    dot    = tgEsd.Dot(tgE);
               Standard_Boolean SO     = (dot > 0.);

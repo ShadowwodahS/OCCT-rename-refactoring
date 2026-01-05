@@ -45,7 +45,7 @@ Standard_Boolean BlendFunc_ConstThroatWithPenetration::IsSolution(const math_Vec
 
   tol = Tol;
 
-  gp_Vec dnplan, temp1, temp2, temp3;
+  Vector3d dnplan, temp1, temp2, temp3;
 
   if (Abs(valsol(1)) <= Tol && Abs(valsol(2)) <= Tol && Abs(valsol(3)) <= Tol * Tol
       && Abs(valsol(4)) <= Tol)
@@ -96,11 +96,11 @@ Standard_Boolean BlendFunc_ConstThroatWithPenetration::Value(const math_Vector& 
   F(1) = nplan.XYZ().Dot(pts1.XYZ()) + theD;
   F(2) = nplan.XYZ().Dot(pts2.XYZ()) + theD;
 
-  const gp_Vec vref(ptgui, pts1);
+  const Vector3d vref(ptgui, pts1);
 
   F(3) = vref.SquareMagnitude() - Throat * Throat;
 
-  const gp_Vec vec12(pts1, pts2);
+  const Vector3d vec12(pts1, pts2);
 
   F(4) = vref.Dot(vec12);
 
@@ -123,21 +123,21 @@ Standard_Boolean BlendFunc_ConstThroatWithPenetration::Derivatives(const math_Ve
   D(2, 2) = 0.;
   D(2, 3) = nplan.Dot(d1u2);
   D(2, 4) = nplan.Dot(d1v2);
-  D(3, 1) = 2. * gp_Vec(ptgui, pts1).Dot(d1u1);
-  D(3, 2) = 2. * gp_Vec(ptgui, pts1).Dot(d1v1);
+  D(3, 1) = 2. * Vector3d(ptgui, pts1).Dot(d1u1);
+  D(3, 2) = 2. * Vector3d(ptgui, pts1).Dot(d1v1);
   D(3, 3) = 0.;
   D(3, 4) = 0.;
-  D(4, 1) = d1u1.Dot(gp_Vec(pts1, pts2)) - gp_Vec(ptgui, pts1).Dot(d1u1);
-  D(4, 2) = d1v1.Dot(gp_Vec(pts1, pts2)) - gp_Vec(ptgui, pts1).Dot(d1v1);
-  D(4, 3) = gp_Vec(ptgui, pts1).Dot(d1u2);
-  D(4, 4) = gp_Vec(ptgui, pts1).Dot(d1v2);
+  D(4, 1) = d1u1.Dot(Vector3d(pts1, pts2)) - Vector3d(ptgui, pts1).Dot(d1u1);
+  D(4, 2) = d1v1.Dot(Vector3d(pts1, pts2)) - Vector3d(ptgui, pts1).Dot(d1v1);
+  D(4, 3) = Vector3d(ptgui, pts1).Dot(d1u2);
+  D(4, 4) = Vector3d(ptgui, pts1).Dot(d1v2);
 
   return Standard_True;
 }
 
 //=================================================================================================
 
-const gp_Vec& BlendFunc_ConstThroatWithPenetration::TangentOnS1() const
+const Vector3d& BlendFunc_ConstThroatWithPenetration::TangentOnS1() const
 {
   if (istangent)
     throw Standard_DomainError("BlendFunc_ConstThroatWithPenetration::TangentOnS1");
@@ -146,7 +146,7 @@ const gp_Vec& BlendFunc_ConstThroatWithPenetration::TangentOnS1() const
 
 //=================================================================================================
 
-const gp_Vec& BlendFunc_ConstThroatWithPenetration::TangentOnS2() const
+const Vector3d& BlendFunc_ConstThroatWithPenetration::TangentOnS2() const
 {
   if (istangent)
     throw Standard_DomainError("BlendFunc_ConstThroatWithPenetration::TangentOnS2");

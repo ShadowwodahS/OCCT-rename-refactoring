@@ -63,13 +63,13 @@ void Draw_Axis3D::DrawOn(Draw_Display& dis) const
   Standard_Real z = dis.Zoom();
   z               = (Standard_Real)mySize / z;
   Point3d P, P0 = myAxes.Location();
-  P = P0.Translated(gp_Vec(myAxes.XDirection()) * z);
+  P = P0.Translated(Vector3d(myAxes.XDirection()) * z);
   dis.Draw(P0, P);
   dis.DrawString(P, "X");
-  P = P0.Translated(gp_Vec(myAxes.YDirection()) * z);
+  P = P0.Translated(Vector3d(myAxes.YDirection()) * z);
   dis.Draw(P0, P);
   dis.DrawString(P, "Y");
-  P = P0.Translated(gp_Vec(myAxes.Direction()) * z);
+  P = P0.Translated(Vector3d(myAxes.Direction()) * z);
   dis.Draw(P0, P);
   dis.DrawString(P, "Z");
   Draw_Bounds = Standard_True;

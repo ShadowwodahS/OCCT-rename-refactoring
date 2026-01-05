@@ -23,7 +23,7 @@ TopoDS_Shape StdPrs_BRepTextBuilder::Perform(StdPrs_BRepFont&                  t
                                              const Handle(Font_TextFormatter)& theFormatter,
                                              const gp_Ax3&                     thePenLoc)
 {
-  gp_Trsf                aTrsf;
+  Transform3d                aTrsf;
   gp_XYZ                 aPen;
   TopoDS_Shape           aGlyphShape;
   TopoDS_Compound        aResult;
@@ -45,7 +45,7 @@ TopoDS_Shape StdPrs_BRepTextBuilder::Perform(StdPrs_BRepFont&                  t
     aGlyphShape = theFont.RenderGlyph(aFormatterIt.Symbol());
     if (!aGlyphShape.IsNull())
     {
-      aTrsf.SetTranslation(gp_Vec(aPen));
+      aTrsf.SetTranslation(Vector3d(aPen));
       aGlyphShape.Move(aTrsf);
       myBuilder.Add(aResult, aGlyphShape);
     }

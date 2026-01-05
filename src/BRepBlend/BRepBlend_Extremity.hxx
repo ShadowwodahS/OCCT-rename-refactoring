@@ -87,14 +87,14 @@ public:
 
   //! Set the tangent   vector  for an extremity on  a
   //! surface.
-  void SetTangent(const gp_Vec& Tangent);
+  void SetTangent(const Vector3d& Tangent);
 
   //! Returns TRUE if the Tangent is  stored.
   Standard_Boolean HasTangent() const;
 
   //! This  method returns the   value of tangent  in 3d
   //! space.
-  const gp_Vec& Tangent() const;
+  const Vector3d& Tangent() const;
 
   //! This method returns the fuzziness on the point
   //! in 3d space.
@@ -141,7 +141,7 @@ private:
   Handle(Adaptor3d_HVertex)      vtx;
   BRepBlend_SequenceOfPointOnRst seqpt;
   Point3d                         pt;
-  gp_Vec                         tang;
+  Vector3d                         tang;
   Standard_Real                  param;
   Standard_Real                  u;
   Standard_Real                  v;

@@ -232,7 +232,7 @@ void AppDef_Variational::Init()
   TColgp_Array1OfVec   TabV3dcurv(1, Max(1, myNbP3d));
   TColgp_Array1OfVec2d TabV2dcurv(1, Max(1, myNbP2d));
 
-  gp_Vec   Vt3d, Vc3d;
+  Vector3d   Vt3d, Vc3d;
   gp_Vec2d Vt2d, Vc2d;
 
   myNbConstraints = myConstraints->Length();
@@ -2877,7 +2877,7 @@ void AppDef_Variational::Adjusting(Handle(AppDef_SmoothCriterion)& J,
   }
 }
 
-static Standard_Boolean NotParallel(gp_Vec& T, gp_Vec& V)
+static Standard_Boolean NotParallel(Vector3d& T, Vector3d& V)
 {
   V = T;
   V.SetX(V.X() + 1.);
@@ -3219,9 +3219,9 @@ Standard_Boolean AppDef_Variational::InitTthetaF(const Standard_Integer        n
 {
   if ((ndimen < 2) || (ndimen > 3))
     return Standard_False;
-  gp_Vec        T, V;
-  gp_Vec        theta1, theta2;
-  gp_Vec        F;
+  Vector3d        T, V;
+  Vector3d        theta1, theta2;
+  Vector3d        F;
   Standard_Real XX, XY, YY, XZ, YZ, ZZ;
 
   if ((typcon == AppParCurves_TangencyPoint) || (typcon == AppParCurves_CurvaturePoint))

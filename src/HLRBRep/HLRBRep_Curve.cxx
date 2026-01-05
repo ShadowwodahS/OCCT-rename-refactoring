@@ -120,7 +120,7 @@ Standard_Real HLRBRep_Curve::Update(Standard_Real TotMin[16], Standard_Real TotM
     case GeomAbs_Circle:
       if (!((HLRAlgo_Projector*)myProj)->Perspective())
       {
-        gp_Dir D1 = HLRBRep_BCurveTool::Circle(myCurve).Axis().Direction();
+        Dir3d D1 = HLRBRep_BCurveTool::Circle(myCurve).Axis().Direction();
         D1.Transform(((HLRAlgo_Projector*)myProj)->Transformation());
         if (D1.IsParallel(gp::DZ(), Precision::Angular()))
           myType = GeomAbs_Circle;
@@ -132,8 +132,8 @@ Standard_Real HLRBRep_Curve::Update(Standard_Real TotMin[16], Standard_Real TotM
         {
           myType = GeomAbs_Ellipse;
           // compute the angle offset
-          gp_Dir D3 = D1.Crossed(gp::DZ());
-          gp_Dir D2 = HLRBRep_BCurveTool::Circle(myCurve).XAxis().Direction();
+          Dir3d D3 = D1.Crossed(gp::DZ());
+          Dir3d D2 = HLRBRep_BCurveTool::Circle(myCurve).XAxis().Direction();
           D2.Transform(((HLRAlgo_Projector*)myProj)->Transformation());
           myOX = D3.AngleWithRef(D2, D1);
         }
@@ -143,7 +143,7 @@ Standard_Real HLRBRep_Curve::Update(Standard_Real TotMin[16], Standard_Real TotM
     case GeomAbs_Ellipse:
       if (!((HLRAlgo_Projector*)myProj)->Perspective())
       {
-        gp_Dir D1 = HLRBRep_BCurveTool::Ellipse(myCurve).Axis().Direction();
+        Dir3d D1 = HLRBRep_BCurveTool::Ellipse(myCurve).Axis().Direction();
         D1.Transform(((HLRAlgo_Projector*)myProj)->Transformation());
         if (D1.IsParallel(gp::DZ(), Precision::Angular()))
         {
@@ -181,13 +181,13 @@ Standard_Real HLRBRep_Curve::Update(Standard_Real TotMin[16], Standard_Real TotM
     else
     { // bezier degree 1
       Point3d PL;
-      gp_Vec VL;
+      Vector3d VL;
       HLRBRep_BCurveTool::D1(myCurve, 0, PL, VL);
       L   = gp_Lin(PL, VL);
       l3d = PL.Distance(HLRBRep_BCurveTool::Value(myCurve, 1.));
     }
     Point3d P = L.Location();
-    gp_Vec V = L.Direction();
+    Vector3d V = L.Direction();
     P.Transform(((HLRAlgo_Projector*)myProj)->Transformation());
     V.Transform(((HLRAlgo_Projector*)myProj)->Transformation());
     if (((HLRAlgo_Projector*)myProj)->Perspective())
@@ -200,12 +200,12 @@ Standard_Real HLRBRep_Curve::Update(Standard_Real TotMin[16], Standard_Real TotM
       Standard_Real l = -(VFX.X() * F.X() + VFX.Y() * F.Y());
       F.SetCoord(F.X() + VFX.X() * l, F.Y() + VFX.Y() * l);
       myOX = VFX.X() * (P.X() - F.X()) + VFX.Y() * (P.Y() - F.Y());
-      gp_Vec VFZ(-F.X(), -F.Y(), ((HLRAlgo_Projector*)myProj)->Focus());
+      Vector3d VFZ(-F.X(), -F.Y(), ((HLRAlgo_Projector*)myProj)->Focus());
       myOF = VFZ.Magnitude();
       VFZ /= myOF;
       myVZ = VFZ * V;
       myVZ *= l3d;
-      myOZ = VFZ * gp_Vec(P.X() - F.X(), P.Y() - F.Y(), P.Z());
+      myOZ = VFZ * Vector3d(P.X() - F.X(), P.Y() - F.Y(), P.Z());
     }
     else
       myVX = Sqrt(V.X() * V.X() + V.Y() * V.Y()) * l3d;
@@ -330,7 +330,7 @@ void HLRBRep_Curve::D1(const Standard_Real U, gp_Pnt2d& P, gp_Vec2d& V) const
   //            f             f
 
   Point3d P3D;
-  gp_Vec V13D;
+  Vector3d V13D;
   HLRBRep_BCurveTool::D1(myCurve, U, P3D, V13D);
   if (myProj->Perspective())
   {
@@ -364,7 +364,7 @@ void HLRBRep_Curve::D2(const Standard_Real U, gp_Pnt2d& P, gp_Vec2d& V1, gp_Vec2
   //               f                f            f             f
 
   Point3d P3D;
-  gp_Vec V13D, V23D;
+  Vector3d V13D, V23D;
   HLRBRep_BCurveTool::D2(myCurve, U, P3D, V13D, V23D);
   P3D.Transform(myProj->Transformation());
   V13D.Transform(myProj->Transformation());
@@ -432,9 +432,9 @@ gp_Elips2d HLRBRep_Curve::Ellipse() const
   // this is a circle
   gp_Circ C = HLRBRep_BCurveTool::Circle(myCurve);
   C.Transform(myProj->Transformation());
-  const gp_Dir& D1  = C.Axis().Direction();
-  const gp_Dir& D3  = D1.Crossed(gp::DZ());
-  const gp_Dir& D2  = D1.Crossed(D3);
+  const Dir3d& D1  = C.Axis().Direction();
+  const Dir3d& D3  = D1.Crossed(gp::DZ());
+  const Dir3d& D2  = D1.Crossed(D3);
   Standard_Real rap = sqrt(D2.X() * D2.X() + D2.Y() * D2.Y());
   gp_Dir2d      d(D1.Y(), -D1.X());
   gp_Pnt2d      p(C.Location().X(), C.Location().Y());

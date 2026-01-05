@@ -23,11 +23,11 @@
 #include <Geom_Conic.hxx>
 #include <Standard_Integer.hxx>
 class gp_Elips;
-class gp_Ax2;
-class gp_Ax1;
+class Frame3d;
+class Axis3d;
 class Point3d;
-class gp_Vec;
-class gp_Trsf;
+class Vector3d;
+class Transform3d;
 class Geom_Geometry;
 
 class Geom_Ellipse;
@@ -36,7 +36,7 @@ DEFINE_STANDARD_HANDLE(Geom_Ellipse, Geom_Conic)
 //! Describes an ellipse in 3D space.
 //! An ellipse is defined by its major and minor radii and,
 //! as with any conic curve, is positioned in space with a
-//! right-handed coordinate system (gp_Ax2 object) where:
+//! right-handed coordinate system (Frame3d object) where:
 //! - the origin is the center of the ellipse,
 //! - the "X Direction" defines the major axis, and
 //! - the "Y Direction" defines the minor axis.
@@ -89,7 +89,7 @@ public:
   //! Warning The Geom package does not prevent the
   //! construction of an ellipse where MajorRadius and
   //! MinorRadius are equal.
-  Standard_EXPORT Geom_Ellipse(const gp_Ax2&       A2,
+  Standard_EXPORT Geom_Ellipse(const Frame3d&       A2,
                                const Standard_Real MajorRadius,
                                const Standard_Real MinorRadius);
 
@@ -122,14 +122,14 @@ public:
   //! the "XAxis".
   //! Raised if Eccentricity = 0.0. (The ellipse degenerates
   //! into a circle)
-  Standard_EXPORT gp_Ax1 Directrix1() const;
+  Standard_EXPORT Axis3d Directrix1() const;
 
   //! This line is obtained by the symmetrical transformation
   //! of "Directrix1" with respect to the "YAxis" of the ellipse.
   //!
   //! Raised if Eccentricity = 0.0. (The ellipse degenerates into a
   //! circle).
-  Standard_EXPORT gp_Ax1 Directrix2() const;
+  Standard_EXPORT Axis3d Directrix2() const;
 
   //! Returns the eccentricity of the ellipse  between 0.0 and 1.0
   //! If f is the distance between the center of the ellipse and
@@ -184,31 +184,31 @@ public:
   //! the "XAxis" and "YDir" the "YAxis" of the ellipse.
   Standard_EXPORT void D0(const Standard_Real U, Point3d& P) const Standard_OVERRIDE;
 
-  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, gp_Vec& V1) const Standard_OVERRIDE;
+  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, Vector3d& V1) const Standard_OVERRIDE;
 
   //! Returns the point P of parameter U. The vectors V1 and V2
   //! are the first and second derivatives at this point.
   Standard_EXPORT void D2(const Standard_Real U,
                           Point3d&             P,
-                          gp_Vec&             V1,
-                          gp_Vec&             V2) const Standard_OVERRIDE;
+                          Vector3d&             V1,
+                          Vector3d&             V2) const Standard_OVERRIDE;
 
   //! Returns the point P of parameter U, the first second and
   //! third derivatives V1 V2 and V3.
   Standard_EXPORT void D3(const Standard_Real U,
                           Point3d&             P,
-                          gp_Vec&             V1,
-                          gp_Vec&             V2,
-                          gp_Vec&             V3) const Standard_OVERRIDE;
+                          Vector3d&             V1,
+                          Vector3d&             V2,
+                          Vector3d&             V3) const Standard_OVERRIDE;
 
   //! For the point of parameter U of this ellipse, computes
   //! the vector corresponding to the Nth derivative.
   //! Exceptions Standard_RangeError if N is less than 1.
-  Standard_EXPORT gp_Vec DN(const Standard_Real    U,
+  Standard_EXPORT Vector3d DN(const Standard_Real    U,
                             const Standard_Integer N) const Standard_OVERRIDE;
 
   //! Applies the transformation T to this ellipse.
-  Standard_EXPORT void Transform(const gp_Trsf& T) Standard_OVERRIDE;
+  Standard_EXPORT void Transform(const Transform3d& T) Standard_OVERRIDE;
 
   //! Creates a new object which is a copy of this ellipse.
   Standard_EXPORT Handle(Geom_Geometry) Copy() const Standard_OVERRIDE;

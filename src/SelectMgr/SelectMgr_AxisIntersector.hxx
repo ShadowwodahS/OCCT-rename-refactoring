@@ -30,7 +30,7 @@ public:
   Standard_EXPORT virtual ~SelectMgr_AxisIntersector();
 
   //! Initializes selecting axis according to the input one
-  Standard_EXPORT void Init(const gp_Ax1& theAxis);
+  Standard_EXPORT void Init(const Axis3d& theAxis);
 
   //! Builds axis according to internal parameters.
   //! NOTE: it should be called after Init() method
@@ -132,7 +132,7 @@ public:
     const Standard_Real            theBottomRad,
     const Standard_Real            theTopRad,
     const Standard_Real            theHeight,
-    const gp_Trsf&                 theTrsf,
+    const Transform3d&                 theTrsf,
     const Standard_Boolean         theIsHollow,
     const SelectMgr_ViewClipRange& theClipRange,
     SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
@@ -143,7 +143,7 @@ public:
     const Standard_Real    theBottomRad,
     const Standard_Real    theTopRad,
     const Standard_Real    theHeight,
-    const gp_Trsf&         theTrsf,
+    const Transform3d&         theTrsf,
     const Standard_Boolean theIsHollow,
     Standard_Boolean*      theInside = NULL) const Standard_OVERRIDE;
 
@@ -153,7 +153,7 @@ public:
   //! via theTrsf transformation for gp::XOY() with center in gp::Origin().
   Standard_EXPORT virtual Standard_Boolean OverlapsCircle(
     const Standard_Real            theRadius,
-    const gp_Trsf&                 theTrsf,
+    const Transform3d&                 theTrsf,
     const Standard_Boolean         theIsFilled,
     const SelectMgr_ViewClipRange& theClipRange,
     SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
@@ -163,7 +163,7 @@ public:
   //! The position and orientation of the circle are specified
   //! via theTrsf transformation for gp::XOY() with center in gp::Origin().
   Standard_EXPORT virtual Standard_Boolean OverlapsCircle(const Standard_Real    theRadius,
-                                                          const gp_Trsf&         theTrsf,
+                                                          const Transform3d&         theTrsf,
                                                           const Standard_Boolean theIsFilled,
                                                           Standard_Boolean* theInside = NULL) const
     Standard_OVERRIDE;
@@ -185,7 +185,7 @@ public:
   Standard_EXPORT virtual const Point3d& GetFarPnt() const Standard_OVERRIDE;
 
   //! Returns axis direction.
-  Standard_EXPORT virtual const gp_Dir& GetViewRayDirection() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const Dir3d& GetViewRayDirection() const Standard_OVERRIDE;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
@@ -214,12 +214,12 @@ protected:
   //! Returns true if selecting axis intersects plane.
   //! Also saves time of axis-plane intersection and intersection point as pick result.
   Standard_EXPORT Standard_Boolean
-    rayPlaneIntersection(const gp_Vec&            thePlane,
+    rayPlaneIntersection(const Vector3d&            thePlane,
                          const Point3d&            thePntOnPlane,
                          SelectBasics_PickResult& thePickResult) const;
 
 private:
-  gp_Ax1 myAxis;
+  Axis3d myAxis;
 };
 
 #endif // _SelectMgr_AxisIntersector_HeaderFile

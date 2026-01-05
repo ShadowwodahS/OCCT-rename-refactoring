@@ -187,14 +187,14 @@ void XCAFDimTolObjects_DatumObject::SetDatumTargetType(
 
 //=================================================================================================
 
-gp_Ax2 XCAFDimTolObjects_DatumObject::GetDatumTargetAxis() const
+Frame3d XCAFDimTolObjects_DatumObject::GetDatumTargetAxis() const
 {
   return myAxis;
 }
 
 //=================================================================================================
 
-void XCAFDimTolObjects_DatumObject::SetDatumTargetAxis(const gp_Ax2& theAxis)
+void XCAFDimTolObjects_DatumObject::SetDatumTargetAxis(const Frame3d& theAxis)
 {
   myAxis      = theAxis;
   myIsValidDT = Standard_True;

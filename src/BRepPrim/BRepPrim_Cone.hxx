@@ -22,7 +22,7 @@
 #include <Standard_Handle.hxx>
 
 #include <BRepPrim_Revolution.hxx>
-class gp_Ax2;
+class Frame3d;
 class Point3d;
 class TopoDS_Face;
 
@@ -44,7 +44,7 @@ public:
   //! Angle < Resolution / Height
   //! Angle > PI/2 - Resolution / Height
   Standard_EXPORT BRepPrim_Cone(const Standard_Real Angle,
-                                const gp_Ax2&       Position,
+                                const Frame3d&       Position,
                                 const Standard_Real Height,
                                 const Standard_Real Radius = 0);
 
@@ -55,7 +55,7 @@ public:
   Standard_EXPORT BRepPrim_Cone(const Standard_Real Angle, const Point3d& Apex);
 
   //! infinite cone with Axes
-  Standard_EXPORT BRepPrim_Cone(const Standard_Real Angle, const gp_Ax2& Axes);
+  Standard_EXPORT BRepPrim_Cone(const Standard_Real Angle, const Frame3d& Axes);
 
   //! create a  Cone at origin  on Z axis, of height  H,
   //! radius R1 at Z = 0, R2 at  Z = H, X is  the origin
@@ -78,7 +78,7 @@ public:
                                 const Standard_Real H);
 
   //! same as above with given axes system.
-  Standard_EXPORT BRepPrim_Cone(const gp_Ax2&       Axes,
+  Standard_EXPORT BRepPrim_Cone(const Frame3d&       Axes,
                                 const Standard_Real R1,
                                 const Standard_Real R2,
                                 const Standard_Real H);

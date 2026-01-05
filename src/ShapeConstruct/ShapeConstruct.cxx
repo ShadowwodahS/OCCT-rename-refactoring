@@ -173,13 +173,13 @@ Handle(Geom_BSplineSurface) ShapeConstruct::ConvertSurfaceToBSpline(
   {
     Handle(Geom_SurfaceOfLinearExtrusion) extr = Handle(Geom_SurfaceOfLinearExtrusion)::DownCast(S);
     Handle(Geom_Curve)                    basis = extr->BasisCurve();
-    // gp_Dir direction = extr->Direction(); // direction not used (skl)
+    // Dir3d direction = extr->Direction(); // direction not used (skl)
 
     GeomAbs_Shape             cnt = (Continuity > GeomAbs_C2 ? GeomAbs_C2 : Continuity);
     Handle(Geom_BSplineCurve) bspl =
       ConvertCurveToBSpline(basis, UF, UL, Tol3d, cnt, MaxSegments, MaxDegree);
 
-    gp_Trsf shiftF, shiftL;
+    Transform3d shiftF, shiftL;
     shiftF.SetTranslation(extr->Value(UF, 0), extr->Value(UF, VF));
     shiftL.SetTranslation(extr->Value(UF, 0), extr->Value(UF, VL));
 
@@ -234,7 +234,7 @@ Handle(Geom_BSplineSurface) ShapeConstruct::ConvertSurfaceToBSpline(
       cnt               = (cnt > GeomAbs_C2 ? GeomAbs_C2 : cnt);
       Handle(Geom_BSplineCurve) bspl =
         ConvertCurveToBSpline(basis, VF, VL, Tol3d, cnt, MaxSegments, MaxDegree);
-      gp_Ax1                           axis     = revol->Axis();
+      Axis3d                           axis     = revol->Axis();
       Handle(Geom_SurfaceOfRevolution) newRevol = new Geom_SurfaceOfRevolution(bspl, axis);
 #ifdef OCCT_DEBUG
       std::cout << " Revolution on offset converted" << std::endl;
@@ -618,7 +618,7 @@ Standard_Boolean ShapeConstruct::JoinCurves(const Handle(Geom2d_Curve)& aC2d1,
   // Use 3d tool instead
   //      Geom2dConvert_CompCurveToBSplineCurve connect2d(bsplc12d);
   Point3d                    vPnt(0, 0, 0);
-  gp_Vec                    vDir(0, 0, 1);
+  Vector3d                    vDir(0, 0, 1);
   gp_Pln                    vPln(vPnt, vDir);
   Handle(Geom_BSplineCurve) bspl1 =
     Handle(Geom_BSplineCurve)::DownCast(GeomAPI::To3d(bsplc12d, vPln));

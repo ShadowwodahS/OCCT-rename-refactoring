@@ -172,9 +172,9 @@ public:
 
   Standard_EXPORT void D0(const Standard_Real AbsC, Point3d& P);
 
-  Standard_EXPORT void D1(const Standard_Real AbsC, Point3d& P, gp_Vec& V1);
+  Standard_EXPORT void D1(const Standard_Real AbsC, Point3d& P, Vector3d& V1);
 
-  Standard_EXPORT void D2(const Standard_Real AbsC, Point3d& P, gp_Vec& V1, gp_Vec& V2);
+  Standard_EXPORT void D2(const Standard_Real AbsC, Point3d& P, Vector3d& V1, Vector3d& V2);
 
   Standard_EXPORT void SetCurrent(const Standard_Integer Index);
 
@@ -285,8 +285,8 @@ private:
   Standard_Boolean              haslasttgt;
   Point3d                        firstori;
   Point3d                        lastori;
-  gp_Vec                        firsttgt;
-  gp_Vec                        lasttgt;
+  Vector3d                        firsttgt;
+  Vector3d                        lasttgt;
   Standard_Real                 valref;
   Standard_Boolean              hasref;
   ChFiDS_ErrorStatus            errorstate;

@@ -777,7 +777,7 @@ Handle(Geom2d_Curve) ShapeConstruct_ProjectCurveOnSurface::getLine(
     {
       gp_XY  aCurPoint = aP2d[0].XY() + aVec.XY() * (theparams(i) - theparams(1));
       Point3d aCurP;
-      gp_Vec aNormalVec, aDu, aDv;
+      Vector3d aNormalVec, aDu, aDv;
       aSurf->D1(aCurPoint.X(), aCurPoint.Y(), aCurP, aDu, aDv);
       aNormalVec = aDu ^ aDv;
       if (aNormalVec.SquareMagnitude() < Precision::SquareConfusion())
@@ -785,7 +785,7 @@ Handle(Geom2d_Curve) ShapeConstruct_ProjectCurveOnSurface::getLine(
         isNormalCheck = Standard_False;
         break;
       }
-      gp_Lin        aNormalLine(aCurP, gp_Dir(aNormalVec));
+      gp_Lin        aNormalLine(aCurP, Dir3d(aNormalVec));
       Standard_Real aDist = aNormalLine.Distance(thepoints(i));
       if (aDist > theTol)
         return 0;

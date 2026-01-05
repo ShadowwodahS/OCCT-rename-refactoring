@@ -148,21 +148,21 @@ void ChFi3d_ExtrSpineCarac(const TopOpeBRepDS_DataStructure& DStr,
                            const Standard_Integer            jf,
                            const Standard_Integer            sens,
                            Point3d&                           P,
-                           gp_Vec&                           V,
+                           Vector3d&                           V,
                            Standard_Real&                    R);
 
 Handle(Geom_Circle) ChFi3d_CircularSpine(Standard_Real&      WFirst,
                                          Standard_Real&      WLast,
                                          const Point3d&       Pdeb,
-                                         const gp_Vec&       Vdeb,
+                                         const Vector3d&       Vdeb,
                                          const Point3d&       Pfin,
-                                         const gp_Vec&       Vfin,
+                                         const Vector3d&       Vfin,
                                          const Standard_Real rad);
 
 Handle(Geom_BezierCurve) ChFi3d_Spine(const Point3d&       pd,
-                                      gp_Vec&             vd,
+                                      Vector3d&             vd,
                                       const Point3d&       pf,
-                                      gp_Vec&             vf,
+                                      Vector3d&             vf,
                                       const Standard_Real R);
 
 Handle(GeomFill_Boundary) ChFi3d_mkbound(const Handle(Adaptor3d_Surface)& Fac,
@@ -180,10 +180,10 @@ Handle(GeomFill_Boundary) ChFi3d_mkbound(const Handle(Adaptor3d_Surface)& Surf,
                                          Handle(Geom2d_Curve)&            curv,
                                          const Standard_Integer           sens1,
                                          const gp_Pnt2d&                  p1,
-                                         gp_Vec&                          v1,
+                                         Vector3d&                          v1,
                                          const Standard_Integer           sens2,
                                          const gp_Pnt2d&                  p2,
-                                         gp_Vec&                          v2,
+                                         Vector3d&                          v2,
                                          const Standard_Real              t3d,
                                          const Standard_Real              ta);
 
@@ -215,9 +215,9 @@ Handle(GeomFill_Boundary) ChFi3d_mkbound(const Handle(Adaptor3d_Surface)& Fac,
                                          const Standard_Real              ta,
                                          const Standard_Boolean isfreeboundary = Standard_False);
 
-void ChFi3d_Coefficient(const gp_Vec&  V3d,
-                        const gp_Vec&  D1u,
-                        const gp_Vec&  D1v,
+void ChFi3d_Coefficient(const Vector3d&  V3d,
+                        const Vector3d&  D1u,
+                        const Vector3d&  D1v,
                         Standard_Real& DU,
                         Standard_Real& DV);
 
@@ -229,9 +229,9 @@ Handle(Geom2d_Curve) ChFi3d_BuildPCurve(const gp_Pnt2d&        p1,
 
 Handle(Geom2d_Curve) ChFi3d_BuildPCurve(const Handle(Adaptor3d_Surface)& Surf,
                                         const gp_Pnt2d&                  p1,
-                                        const gp_Vec&                    v1,
+                                        const Vector3d&                    v1,
                                         const gp_Pnt2d&                  p2,
-                                        const gp_Vec&                    v2,
+                                        const Vector3d&                    v2,
                                         const Standard_Boolean           redresse = Standard_False);
 
 Handle(Geom2d_Curve) ChFi3d_BuildPCurve(const Handle(Adaptor3d_Surface)& Surf,

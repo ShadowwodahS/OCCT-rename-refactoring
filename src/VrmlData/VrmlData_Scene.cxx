@@ -398,9 +398,9 @@ Handle(VrmlData_Node) VrmlData_Scene::FindNode(const char* theName,
 
 //=================================================================================================
 
-Handle(VrmlData_Node) VrmlData_Scene::FindNode(const char* theName, gp_Trsf& theLocation) const
+Handle(VrmlData_Node) VrmlData_Scene::FindNode(const char* theName, Transform3d& theLocation) const
 {
-  gp_Trsf               aLoc;
+  Transform3d               aLoc;
   Handle(VrmlData_Node) aResult;
   Iterator              anIter(myLstNodes);
   for (; anIter.More(); anIter.Next())

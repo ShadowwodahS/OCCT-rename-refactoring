@@ -24,10 +24,10 @@
 #include <GeomEvaluator_SurfaceOfExtrusion.hxx>
 #include <Standard_Integer.hxx>
 class Geom_Curve;
-class gp_Dir;
+class Dir3d;
 class Point3d;
-class gp_Vec;
-class gp_Trsf;
+class Vector3d;
+class Transform3d;
 class gp_GTrsf2d;
 class Geom_Geometry;
 
@@ -77,11 +77,11 @@ public:
   //! Degenerated surface cases are not detected. For example if the
   //! curve C is a line and V is parallel to the direction of this
   //! line.
-  Standard_EXPORT Geom_SurfaceOfLinearExtrusion(const Handle(Geom_Curve)& C, const gp_Dir& V);
+  Standard_EXPORT Geom_SurfaceOfLinearExtrusion(const Handle(Geom_Curve)& C, const Dir3d& V);
 
   //! Assigns V as the "direction of extrusion" for this
   //! surface of linear extrusion.
-  Standard_EXPORT void SetDirection(const gp_Dir& V);
+  Standard_EXPORT void SetDirection(const Dir3d& V);
 
   //! Modifies this surface of linear extrusion by redefining
   //! its "basis curve" (the "extruded curve").
@@ -182,8 +182,8 @@ public:
   Standard_EXPORT void D1(const Standard_Real U,
                           const Standard_Real V,
                           Point3d&             P,
-                          gp_Vec&             D1U,
-                          gp_Vec&             D1V) const Standard_OVERRIDE;
+                          Vector3d&             D1U,
+                          Vector3d&             D1V) const Standard_OVERRIDE;
 
   //! --- Purpose ;
   //! Computes the current point, the first and the second derivatives
@@ -192,11 +192,11 @@ public:
   Standard_EXPORT void D2(const Standard_Real U,
                           const Standard_Real V,
                           Point3d&             P,
-                          gp_Vec&             D1U,
-                          gp_Vec&             D1V,
-                          gp_Vec&             D2U,
-                          gp_Vec&             D2V,
-                          gp_Vec&             D2UV) const Standard_OVERRIDE;
+                          Vector3d&             D1U,
+                          Vector3d&             D1V,
+                          Vector3d&             D2U,
+                          Vector3d&             D2V,
+                          Vector3d&             D2UV) const Standard_OVERRIDE;
 
   //! Computes the current point, the first,the second and the third
   //! derivatives in the directions U and V.
@@ -204,28 +204,28 @@ public:
   Standard_EXPORT void D3(const Standard_Real U,
                           const Standard_Real V,
                           Point3d&             P,
-                          gp_Vec&             D1U,
-                          gp_Vec&             D1V,
-                          gp_Vec&             D2U,
-                          gp_Vec&             D2V,
-                          gp_Vec&             D2UV,
-                          gp_Vec&             D3U,
-                          gp_Vec&             D3V,
-                          gp_Vec&             D3UUV,
-                          gp_Vec&             D3UVV) const Standard_OVERRIDE;
+                          Vector3d&             D1U,
+                          Vector3d&             D1V,
+                          Vector3d&             D2U,
+                          Vector3d&             D2V,
+                          Vector3d&             D2UV,
+                          Vector3d&             D3U,
+                          Vector3d&             D3V,
+                          Vector3d&             D3UUV,
+                          Vector3d&             D3UVV) const Standard_OVERRIDE;
 
   //! Computes the derivative of order Nu in the direction u
   //! and Nv in the direction v.
   //! Raises UndefinedDerivative if the continuity of the surface is not CNu in the u
   //! direction and CNv in the v direction.
   //! Raises RangeError if Nu + Nv < 1 or Nu < 0 or Nv < 0.
-  Standard_EXPORT gp_Vec DN(const Standard_Real    U,
+  Standard_EXPORT Vector3d DN(const Standard_Real    U,
                             const Standard_Real    V,
                             const Standard_Integer Nu,
                             const Standard_Integer Nv) const Standard_OVERRIDE;
 
   //! Applies the transformation T to this surface of linear extrusion.
-  Standard_EXPORT void Transform(const gp_Trsf& T) Standard_OVERRIDE;
+  Standard_EXPORT void Transform(const Transform3d& T) Standard_OVERRIDE;
 
   //! Computes the  parameters on the  transformed  surface for
   //! the transform of the point of parameters U,V on <me>.
@@ -245,7 +245,7 @@ public:
   //! V by T.ScaleFactor()
   Standard_EXPORT virtual void TransformParameters(Standard_Real& U,
                                                    Standard_Real& V,
-                                                   const gp_Trsf& T) const Standard_OVERRIDE;
+                                                   const Transform3d& T) const Standard_OVERRIDE;
 
   //! Returns a 2d transformation  used to find the  new
   //! parameters of a point on the transformed surface.
@@ -264,7 +264,7 @@ public:
   //! This method returns a scale
   //! U by BasisCurve()->ParametricTransformation(T)
   //! V by T.ScaleFactor()
-  Standard_EXPORT virtual gp_GTrsf2d ParametricTransformation(const gp_Trsf& T) const
+  Standard_EXPORT virtual gp_GTrsf2d ParametricTransformation(const Transform3d& T) const
     Standard_OVERRIDE;
 
   //! Creates a new object which is a copy of this surface of linear extrusion.

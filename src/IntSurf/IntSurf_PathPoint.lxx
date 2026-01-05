@@ -20,7 +20,7 @@ inline void IntSurf_PathPoint::AddUV(const Standard_Real U, const Standard_Real 
   sequv->Append(gp_XY(U, V));
 }
 
-inline void IntSurf_PathPoint::SetDirections(const gp_Vec& V, const gp_Dir2d& D)
+inline void IntSurf_PathPoint::SetDirections(const Vector3d& V, const gp_Dir2d& D)
 {
 
   istgt = Standard_False;
@@ -64,7 +64,7 @@ inline Standard_Boolean IntSurf_PathPoint::IsTangent() const
   return istgt;
 }
 
-inline const gp_Vec& IntSurf_PathPoint::Direction3d() const
+inline const Vector3d& IntSurf_PathPoint::Direction3d() const
 {
 
   if (istgt)

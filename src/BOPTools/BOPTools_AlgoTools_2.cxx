@@ -289,7 +289,7 @@ void BOPTools_AlgoTools::CorrectRange(const TopoDS_Edge&    aE1,
   BRepAdaptor_Curve aBC;
   GeomAbs_CurveType aCT;
   Point3d            aP;
-  gp_Vec            aDer;
+  Vector3d            aDer;
   //
   aNewSR = aSR;
   //
@@ -369,7 +369,7 @@ void BOPTools_AlgoTools::CorrectRange(const TopoDS_Edge&    aE,
   BRepAdaptor_Curve aBC;
   GeomAbs_CurveType aCT;
   Point3d            aP;
-  gp_Vec            aDer;
+  Vector3d            aDer;
   //
   aNewSR = aSR;
   //

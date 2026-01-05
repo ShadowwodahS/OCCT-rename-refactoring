@@ -190,7 +190,7 @@ public:
   //! Adds a vertice and vertex normal in the vertex array.
   //! Warning: theNormal is ignored when the hasVNormals constructor parameter is FALSE.
   //! @return the actual vertex number
-  Standard_Integer AddVertex(const Point3d& theVertex, const gp_Dir& theNormal)
+  Standard_Integer AddVertex(const Point3d& theVertex, const Dir3d& theNormal)
   {
     return AddVertex(theVertex.X(),
                      theVertex.Y(),
@@ -239,7 +239,7 @@ public:
   //! and      theColor  is ignored when the hasVColors  constructor parameter is FALSE.
   //! @return the actual vertex number
   Standard_Integer AddVertex(const Point3d&         theVertex,
-                             const gp_Dir&         theNormal,
+                             const Dir3d&         theNormal,
                              const Quantity_Color& theColor)
   {
     const Standard_Integer anIndex = AddVertex(theVertex, theNormal);
@@ -255,7 +255,7 @@ public:
   //! @endcode
   //! @return the actual vertex number
   Standard_Integer AddVertex(const Point3d&          theVertex,
-                             const gp_Dir&          theNormal,
+                             const Dir3d&          theNormal,
                              const Standard_Integer theColor32)
   {
     const Standard_Integer anIndex = AddVertex(theVertex, theNormal);
@@ -307,7 +307,7 @@ public:
   //! and      theTexel  is ignored when the hasVTexels  constructor parameter is FALSE.
   //! @return the actual vertex number
   Standard_Integer AddVertex(const Point3d&   theVertex,
-                             const gp_Dir&   theNormal,
+                             const Dir3d&   theNormal,
                              const gp_Pnt2d& theTexel)
   {
     return AddVertex(theVertex.X(),
@@ -465,7 +465,7 @@ public:
   //! Change the vertex normal in the array.
   //! @param[in] theIndex  node index within [1, VertexNumberAllocated()] range
   //! @param[in] theNormal normalized surface normal
-  void SetVertexNormal(const Standard_Integer theIndex, const gp_Dir& theNormal)
+  void SetVertexNormal(const Standard_Integer theIndex, const Dir3d& theNormal)
   {
     SetVertexNormal(theIndex, theNormal.X(), theNormal.Y(), theNormal.Z());
   }
@@ -614,11 +614,11 @@ public:
   //! Returns the vertex normal from the vertex table if defined.
   //! @param[in] theRank node index within [1, VertexNumber()] range
   //! @return normalized 3D vector defining surface normal
-  gp_Dir VertexNormal(const Standard_Integer theRank) const
+  Dir3d VertexNormal(const Standard_Integer theRank) const
   {
     Standard_Real anXYZ[3];
     VertexNormal(theRank, anXYZ[0], anXYZ[1], anXYZ[2]);
-    return gp_Dir(anXYZ[0], anXYZ[1], anXYZ[2]);
+    return Dir3d(anXYZ[0], anXYZ[1], anXYZ[2]);
   }
 
   //! Returns the vertex normal coordinates at rank theRank from the vertex table if defined.

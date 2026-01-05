@@ -610,7 +610,7 @@ static Standard_Integer tanginterpol(Draw_Interpretor& di, Standard_Integer n, c
 
   Standard_Boolean periodic_flag = Standard_False;
   Point3d           a_point;
-  gp_Vec           a_vector;
+  Vector3d           a_vector;
   tolerance = 1.0e-5;
 
   Handle(Geom_BSplineCurve) NewCurvePtr;
@@ -721,7 +721,7 @@ static Standard_Integer gcarc(Draw_Interpretor& di, Standard_Integer n, const ch
             if (n > 6)
             {
               DrawTrSurf::GetPoint(a[6], P4);
-              gp_Vec             V1 = gp_Vec(P2, P3);
+              Vector3d             V1 = Vector3d(P2, P3);
               Handle(Geom_Curve) thearc(GC_MakeArcOfCircle(P1, V1, P4).Value());
               DrawTrSurf::Set(a[1], thearc);
               return 1;

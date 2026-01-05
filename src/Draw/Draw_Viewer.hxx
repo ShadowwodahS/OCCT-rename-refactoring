@@ -60,14 +60,14 @@ public:
   Standard_EXPORT void  RotateView(const Standard_Integer id, const gp_Dir2d&, const Standard_Real);
   Standard_EXPORT void  RotateView(const Standard_Integer id,
                                    const Point3d&,
-                                   const gp_Dir&,
+                                   const Dir3d&,
                                    const Standard_Real);
   Standard_EXPORT void  SetFocal(const Standard_Integer id, const Standard_Real FocalDist);
   Standard_EXPORT char* GetType(const Standard_Integer id) const;
   Standard_EXPORT Standard_Real    Zoom(const Standard_Integer id) const;
   Standard_EXPORT Standard_Real    Focal(const Standard_Integer id) const;
-  Standard_EXPORT void             SetTrsf(const Standard_Integer id, gp_Trsf& T);
-  Standard_EXPORT void             GetTrsf(const Standard_Integer id, gp_Trsf& T) const;
+  Standard_EXPORT void             SetTrsf(const Standard_Integer id, Transform3d& T);
+  Standard_EXPORT void             GetTrsf(const Standard_Integer id, Transform3d& T) const;
   Standard_EXPORT void             GetPosSize(const Standard_Integer id,
                                               Standard_Integer&      X,
                                               Standard_Integer&      Y,

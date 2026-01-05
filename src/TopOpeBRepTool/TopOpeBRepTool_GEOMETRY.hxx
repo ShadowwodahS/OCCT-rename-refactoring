@@ -29,10 +29,10 @@
 Standard_EXPORT Handle(Geom2d_Curve) BASISCURVE2D(const Handle(Geom2d_Curve)& C);
 // Standard_EXPORT Standard_Boolean FUN_tool_IsUViso(const Handle(Geom2d_Curve)&
 // PC,Standard_Boolean& isoU,Standard_Boolean& isoV,gp_Dir2d& d2d,gp_Pnt2d& O2d);
-Standard_EXPORT gp_Dir FUN_tool_dirC(const Standard_Real par, const Handle(Geom_Curve)& C);
+Standard_EXPORT Dir3d FUN_tool_dirC(const Standard_Real par, const Handle(Geom_Curve)& C);
 Standard_EXPORT Standard_Boolean FUN_tool_onapex(const gp_Pnt2d&             p2d,
                                                  const Handle(Geom_Surface)& S);
-Standard_EXPORT gp_Dir           FUN_tool_ngS(const gp_Pnt2d& p2d, const Handle(Geom_Surface)& S);
+Standard_EXPORT Dir3d           FUN_tool_ngS(const gp_Pnt2d& p2d, const Handle(Geom_Surface)& S);
 
 // ----------------------------------------------------------------------
 // curve type,surface type :
@@ -53,7 +53,7 @@ Standard_EXPORT void             FUN_tool_UpdateBnd2d(Bnd_Box2d& B2d, const Bnd_
 // ----------------------------------------------------------------------
 // oriented vectors :
 // ----------------------------------------------------------------------
-Standard_EXPORT gp_Dir   FUN_tool_nCinsideS(const gp_Dir& tgC, const gp_Dir& ngS);
+Standard_EXPORT Dir3d   FUN_tool_nCinsideS(const Dir3d& tgC, const Dir3d& ngS);
 Standard_EXPORT gp_Dir2d FUN_tool_nC2dINSIDES(const gp_Dir2d& tgC2d);
 
 #endif

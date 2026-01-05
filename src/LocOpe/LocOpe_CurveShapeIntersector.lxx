@@ -31,7 +31,7 @@ inline LocOpe_CurveShapeIntersector::LocOpe_CurveShapeIntersector()
 // purpose  :
 //=======================================================================
 
-inline LocOpe_CurveShapeIntersector::LocOpe_CurveShapeIntersector(const gp_Ax1&       Axis,
+inline LocOpe_CurveShapeIntersector::LocOpe_CurveShapeIntersector(const Axis3d&       Axis,
                                                                   const TopoDS_Shape& S)
 {
   Init(Axis, S);

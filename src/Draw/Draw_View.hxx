@@ -57,10 +57,10 @@ public: // @name getters and setters
   void SetZoom(const Standard_Real theZoom) { myZoom = theZoom; }
 
   //! Gets matrix of view.
-  const gp_Trsf& GetMatrix() const { return myMatrix; }
+  const Transform3d& GetMatrix() const { return myMatrix; }
 
   //! Sets view matrix.
-  void SetMatrix(const gp_Trsf& theMatrix) { myMatrix = theMatrix; }
+  void SetMatrix(const Transform3d& theMatrix) { myMatrix = theMatrix; }
 
   //! Gets focal distance.
   Standard_Real GetFocalDistance() const { return myFocalDistance; }
@@ -82,7 +82,7 @@ public: //! @name view API
   Standard_Boolean Init(const char* theType);
 
   //! Transform view matrix.
-  void Transform(const gp_Trsf& theTransformation);
+  void Transform(const Transform3d& theTransformation);
 
   //! Resets frame of current view.
   void ResetFrame();
@@ -104,7 +104,7 @@ protected:
   Standard_Boolean myIs2D;
   Standard_Real    myFocalDistance;
   Standard_Real    myZoom;
-  gp_Trsf          myMatrix;
+  Transform3d          myMatrix;
   Standard_Integer myDx;
   Standard_Integer myDy;
   Standard_Integer myFrameX0;

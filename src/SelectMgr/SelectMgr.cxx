@@ -54,9 +54,9 @@ static Handle(TColgp_HSequenceOfPnt) shrunkTriangle(const Point3d* thePnts, cons
 static void addTriangulation(Prs3d_NListOfSequenceOfPnt&                    theSeqLines,
                              Prs3d_NListOfSequenceOfPnt&                    theSeqFree,
                              const Handle(Select3D_SensitiveTriangulation)& theTri,
-                             const gp_Trsf&                                 theLoc)
+                             const Transform3d&                                 theLoc)
 {
-  gp_Trsf aTrsf = theLoc;
+  Transform3d aTrsf = theLoc;
   if (theTri->HasInitLocation())
   {
     aTrsf = theLoc * theTri->GetInitLocation();
@@ -83,7 +83,7 @@ static void addTriangulation(Prs3d_NListOfSequenceOfPnt&                    theS
 //! Fill in bounding box polylines.
 static void addBoundingBox(Prs3d_NListOfSequenceOfPnt&          theSeqLines,
                            const Handle(Select3D_SensitiveBox)& theSensBox,
-                           const gp_Trsf&                       theLoc)
+                           const Transform3d&                       theLoc)
 {
   Graphic3d_Vec3d aMin, aMax;
   theSensBox->Box().Get(aMin.x(), aMin.y(), aMin.z(), aMax.x(), aMax.y(), aMax.z());
@@ -130,14 +130,14 @@ static void addBoundingBox(Prs3d_NListOfSequenceOfPnt&          theSeqLines,
 //! Fill in circle polylines.
 static void addCircle(Prs3d_NListOfSequenceOfPnt& theSeqLines,
                       const Standard_Real         theRadius,
-                      const gp_Trsf&              theTrsf,
+                      const Transform3d&              theTrsf,
                       const Standard_Real         theHeight = 0)
 {
   const Standard_Real anUStep = 0.1;
   gp_XYZ              aVec(0, 0, theHeight);
 
   Handle(TColgp_HSequenceOfPnt) aPoints = new TColgp_HSequenceOfPnt();
-  Geom_Circle                   aGeom(gp_Ax2(), theRadius);
+  Geom_Circle                   aGeom(Frame3d(), theRadius);
   for (Standard_Real anU = 0.0f; anU < (2.0 * M_PI + anUStep); anU += anUStep)
   {
     Point3d aCircPnt = aGeom.Value(anU).Coord() + aVec;
@@ -150,12 +150,12 @@ static void addCircle(Prs3d_NListOfSequenceOfPnt& theSeqLines,
 //! Fill in cylinder polylines.
 static void addCylinder(Prs3d_NListOfSequenceOfPnt&               theSeqLines,
                         const Handle(Select3D_SensitiveCylinder)& theSensCyl,
-                        const gp_Trsf&                            theLoc)
+                        const Transform3d&                            theLoc)
 {
   Handle(TColgp_HSequenceOfPnt) aVertLine1 = new TColgp_HSequenceOfPnt();
   Handle(TColgp_HSequenceOfPnt) aVertLine2 = new TColgp_HSequenceOfPnt();
 
-  const gp_Trsf&      aTrsf   = theLoc.Multiplied(theSensCyl->Transformation());
+  const Transform3d&      aTrsf   = theLoc.Multiplied(theSensCyl->Transformation());
   const Standard_Real aHeight = theSensCyl->Height();
 
   for (int aCircNum = 0; aCircNum < 3; aCircNum++)
@@ -184,7 +184,7 @@ static void addCylinder(Prs3d_NListOfSequenceOfPnt&               theSeqLines,
 
 void SelectMgr::ComputeSensitivePrs(const Handle(Graphic3d_Structure)&     thePrs,
                                     const Handle(SelectMgr_Selection)&     theSel,
-                                    const gp_Trsf&                         theLoc,
+                                    const Transform3d&                         theLoc,
                                     const Handle(Graphic3d_TransformPers)& theTrsfPers)
 {
   thePrs->SetTransformPersistence(theTrsfPers);

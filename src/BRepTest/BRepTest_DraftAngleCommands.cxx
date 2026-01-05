@@ -57,12 +57,12 @@ static Standard_Integer DEP(Draw_Interpretor& theCommands, Standard_Integer narg
   TopoDS_Shape             V = DBRep::Get(a[2]);
   BRepOffsetAPI_DraftAngle drft(V);
 
-  gp_Dir Dirextract(Draw::Atof(a[3]), Draw::Atof(a[4]), Draw::Atof(a[5]));
+  Dir3d Dirextract(Draw::Atof(a[3]), Draw::Atof(a[4]), Draw::Atof(a[5]));
 
   TopoDS_Face   F;
   Standard_Real Angle;
   Point3d        Pax;
-  gp_Dir        Dax;
+  Dir3d        Dax;
   for (Standard_Integer ii = 0; ii < (narg - 6) / 8; ii++)
   {
     TopoDS_Shape aLocalShape(DBRep::Get(a[8 * ii + 6], TopAbs_FACE));
@@ -114,12 +114,12 @@ static Standard_Integer NDEP(Draw_Interpretor& theCommands, Standard_Integer nar
 
   BRepOffsetAPI_DraftAngle drft(V);
 
-  gp_Dir Dirextract(Draw::Atof(a[3]), Draw::Atof(a[4]), Draw::Atof(a[5]));
+  Dir3d Dirextract(Draw::Atof(a[3]), Draw::Atof(a[4]), Draw::Atof(a[5]));
 
   TopoDS_Face      F;
   Standard_Real    Angle;
   Point3d           Pax;
-  gp_Dir           Dax;
+  Dir3d           Dax;
   Standard_Boolean Flag;
   for (Standard_Integer ii = 0; ii < (narg - 6) / 9; ii++)
   {
@@ -182,7 +182,7 @@ static Standard_Integer draft(Draw_Interpretor& di, Standard_Integer n, const ch
   z    = Draw::Atof(a[5]);
   teta = Draw::Atof(a[6]); // angle de depouille (teta)
 
-  gp_Dir D(x, y, z);
+  Dir3d D(x, y, z);
 
   BRepOffsetAPI_MakeDraft MkDraft(SInit, D, teta);
 

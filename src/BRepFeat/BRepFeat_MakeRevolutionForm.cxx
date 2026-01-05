@@ -96,7 +96,7 @@ static void SetGluedFaces(const TopTools_DataMapOfShapeListOfShape& theSlmap,
 void BRepFeat_MakeRevolutionForm::Init(const TopoDS_Shape&       Sbase,
                                        const TopoDS_Wire&        W,
                                        const Handle(Geom_Plane)& Plane,
-                                       const gp_Ax1&             Axis,
+                                       const Axis3d&             Axis,
                                        const Standard_Real       H1,
                                        const Standard_Real       H2,
                                        const Standard_Integer    Mode,
@@ -389,9 +389,9 @@ void BRepFeat_MakeRevolutionForm::Init(const TopoDS_Shape&       Sbase,
     Standard_Real LastRayon  = proj1.Distance(1);
     Point3d        LastCenter = proj1.Point(1);
 
-    gp_Vec  axv(myAxe.Direction());
-    gp_Ax2  ax2(FirstCenter, axv);
-    gp_Ax2  ax2p(LastCenter, axv);
+    Vector3d  axv(myAxe.Direction());
+    Frame3d  ax2(FirstCenter, axv);
+    Frame3d  ax2p(LastCenter, axv);
     gp_Circ theFC(ax2, FirstRayon);
     gp_Circ theLC(ax2p, LastRayon);
 
@@ -433,7 +433,7 @@ void BRepFeat_MakeRevolutionForm::Init(const TopoDS_Shape&       Sbase,
         Handle(Geom_Circle) C1   = Handle(Geom_Circle)::DownCast(FirstCrv);
         gp_Circ             Circ = C1->Circ();
         FirstCircle              = Circ;
-        gp_Ax1 circax            = FirstCircle.Axis();
+        Axis3d circax            = FirstCircle.Axis();
         if (!circax.IsCoaxial(myAxe, Precision::Confusion(), Precision::Confusion()))
           Sliding = Standard_False;
         else
@@ -460,7 +460,7 @@ void BRepFeat_MakeRevolutionForm::Init(const TopoDS_Shape&       Sbase,
         Handle(Geom_Circle) C1   = Handle(Geom_Circle)::DownCast(LastCrv);
         gp_Circ             Circ = C1->Circ();
         LastCircle               = Circ;
-        gp_Ax1 circax            = LastCircle.Axis();
+        Axis3d circax            = LastCircle.Axis();
         if (!circax.IsCoaxial(myAxe, Precision::Confusion(), Precision::Confusion()))
           Sliding = Standard_False;
         else
@@ -1150,7 +1150,7 @@ void BRepFeat_MakeRevolutionForm::Perform()
 
   if (myAngle2 != 0)
   {
-    gp_Trsf T;
+    Transform3d T;
     T.SetRotation(myAxe, -myAngle2);
     BRepBuilderAPI_Transform trsf(T);
     trsf.Perform(myPbase, Standard_False);
@@ -1209,8 +1209,8 @@ void BRepFeat_MakeRevolutionForm::Perform()
   gp_Pln           Pln0 = myPln->Pln();
   BRepLib_MakeFace f(Pln0);
 
-  gp_Vec vec1 = myHeight1 * Normal(f, Pt);
-  gp_Vec vec2 = -myHeight2 * Normal(f, Pt);
+  Vector3d vec1 = myHeight1 * Normal(f, Pt);
+  Vector3d vec2 = -myHeight2 * Normal(f, Pt);
 
   gp_Pln Pln1 = Pln0.Translated(vec1);
   gp_Pln Pln2 = Pln0.Translated(vec2);

@@ -261,9 +261,9 @@ Standard_Boolean ShapeFix_Wire::FixGap3d(const Standard_Integer num, const Stand
   }
   // Restore offset curves
   if (offset1)
-    c1 = new Geom_OffsetCurve(c1, offval1.Modulus(), gp_Dir(offval1));
+    c1 = new Geom_OffsetCurve(c1, offval1.Modulus(), Dir3d(offval1));
   if (offset2)
-    c2 = new Geom_OffsetCurve(c2, offval2.Modulus(), gp_Dir(offval2));
+    c2 = new Geom_OffsetCurve(c2, offval2.Modulus(), Dir3d(offval2));
 
   Standard_Boolean done1 = Standard_False, done2 = Standard_False;
 

@@ -208,14 +208,14 @@ Standard_Boolean PrsDim_LengthDimension::CheckPlane(const gp_Pln& thePlane) cons
 
 //=================================================================================================
 
-gp_Pln PrsDim_LengthDimension::ComputePlane(const gp_Dir& theAttachDir) const
+gp_Pln PrsDim_LengthDimension::ComputePlane(const Dir3d& theAttachDir) const
 {
   if (!IsValidPoints(myFirstPoint, mySecondPoint))
   {
     return gp_Pln();
   }
 
-  Point3d      aThirdPoint(myFirstPoint.Translated(gp_Vec(theAttachDir)));
+  Point3d      aThirdPoint(myFirstPoint.Translated(Vector3d(theAttachDir)));
   gce_MakePln aPlaneConstrustor(myFirstPoint, mySecondPoint, aThirdPoint);
   return aPlaneConstrustor.Value();
 }
@@ -258,7 +258,7 @@ Standard_Real PrsDim_LengthDimension::ComputeValue() const
   if (!myHasCustomDirection)
     return myFirstPoint.Distance(mySecondPoint);
 
-  return fabs(gp_Vec(myFirstPoint, mySecondPoint).Dot(myDirection));
+  return fabs(Vector3d(myFirstPoint, mySecondPoint).Dot(myDirection));
 }
 
 //=================================================================================================
@@ -294,13 +294,13 @@ void PrsDim_LengthDimension::ComputeFlyoutLinePoints(const Point3d& theFirstPoin
   }
 
   // find scalar of projection target vector (from start to second point) to flyout vector
-  gp_Ax1 aPlaneNormal = GetPlane().Axis();
-  gp_Vec aFlyoutNormalizedDir(aPlaneNormal.Direction() ^ myDirection);
+  Axis3d aPlaneNormal = GetPlane().Axis();
+  Vector3d aFlyoutNormalizedDir(aPlaneNormal.Direction() ^ myDirection);
   aFlyoutNormalizedDir.Normalize();
   Standard_Real aTargetProjectedToFlyout =
-    gp_Vec(theFirstPoint, theSecondPoint).Dot(aFlyoutNormalizedDir);
+    Vector3d(theFirstPoint, theSecondPoint).Dot(aFlyoutNormalizedDir);
 
-  gp_Dir aFlyoutVector = aFlyoutNormalizedDir;
+  Dir3d aFlyoutVector = aFlyoutNormalizedDir;
   // create lines for layouts
   gp_Lin aLine1(theFirstPoint, aFlyoutVector);
   gp_Lin aLine2(theSecondPoint, aFlyoutVector);
@@ -340,7 +340,7 @@ Standard_Boolean PrsDim_LengthDimension::IsValidPoints(const Point3d& theFirstPo
 //=======================================================================
 Standard_Boolean PrsDim_LengthDimension::InitTwoEdgesLength(const TopoDS_Edge& theFirstEdge,
                                                             const TopoDS_Edge& theSecondEdge,
-                                                            gp_Dir&            theDirAttach)
+                                                            Dir3d&            theDirAttach)
 {
   Handle(Geom_Curve) aFirstCurve, aSecondCurve;
   Point3d             aPoint11, aPoint12, aPoint21, aPoint22;
@@ -424,7 +424,7 @@ Standard_Boolean PrsDim_LengthDimension::InitTwoEdgesLength(const TopoDS_Edge& t
     anExtrema.LowerDistanceParameters(aParam1, aParam2);
     BRepAdaptor_Curve aCurveAdaptor(theFirstEdge);
     Point3d            aPoint;
-    gp_Vec            aDir;
+    Vector3d            aDir;
     aCurveAdaptor.D1(aParam1, aPoint, aDir);
     if (aDir.SquareMagnitude() <= gp::Resolution())
     {
@@ -442,7 +442,7 @@ Standard_Boolean PrsDim_LengthDimension::InitTwoEdgesLength(const TopoDS_Edge& t
 //=======================================================================
 Standard_Boolean PrsDim_LengthDimension::InitEdgeVertexLength(const TopoDS_Edge&   theEdge,
                                                               const TopoDS_Vertex& theVertex,
-                                                              gp_Dir&              theEdgeDir,
+                                                              Dir3d&              theEdgeDir,
                                                               Standard_Boolean     isInfinite)
 {
   Point3d             anEdgePoint1, anEdgePoint2;
@@ -479,7 +479,7 @@ Standard_Boolean PrsDim_LengthDimension::InitEdgeVertexLength(const TopoDS_Edge&
 
   BRepAdaptor_Curve aCurveAdaptor(theEdge);
   Point3d            aPoint;
-  gp_Vec            aDir;
+  Vector3d            aDir;
   aCurveAdaptor.D1(anExtrema.LowerDistanceParameter(), aPoint, aDir);
   if (aDir.SquareMagnitude() <= gp::Resolution())
   {
@@ -493,7 +493,7 @@ Standard_Boolean PrsDim_LengthDimension::InitEdgeVertexLength(const TopoDS_Edge&
 
 Standard_Boolean PrsDim_LengthDimension::InitEdgeFaceLength(const TopoDS_Edge& theEdge,
                                                             const TopoDS_Face& theFace,
-                                                            gp_Dir&            theEdgeDir)
+                                                            Dir3d&            theEdgeDir)
 {
   theEdgeDir = gp::DX();
 
@@ -522,7 +522,7 @@ Standard_Boolean PrsDim_LengthDimension::InitEdgeFaceLength(const TopoDS_Edge& t
     aParam = (aD1 < aD2 ? aCurveAdaptor.FirstParameter() : aCurveAdaptor.LastParameter());
   }
   Point3d aP;
-  gp_Vec aV;
+  Vector3d aV;
   aCurveAdaptor.D1(aParam, aP, aV);
   if (aV.SquareMagnitude() > gp::Resolution())
   {
@@ -550,7 +550,7 @@ Standard_Boolean PrsDim_LengthDimension::InitTwoShapesPoints(const TopoDS_Shape&
                                                              Standard_Boolean&   theIsPlaneComputed)
 {
   theIsPlaneComputed = Standard_False;
-  gp_Dir           aDirAttach;
+  Dir3d           aDirAttach;
   Standard_Boolean isInfinite = Standard_False;
   Standard_Boolean isSuccess  = Standard_False;
   switch (theFirstShape.ShapeType())
@@ -651,7 +651,7 @@ Standard_Boolean PrsDim_LengthDimension::InitTwoShapesPoints(const TopoDS_Shape&
           mySecondPoint = BRep_Tool::Surface(aSecondFace)->Value(aU2, aV2);
 
           // Adjust automatic plane
-          gp_Ax2 aLocalAxes(myFirstPoint, gce_MakeDir(myFirstPoint, mySecondPoint));
+          Frame3d aLocalAxes(myFirstPoint, gce_MakeDir(myFirstPoint, mySecondPoint));
           aDirAttach = gce_MakeDir(aLocalAxes.XDirection());
 
           // Check points
@@ -836,7 +836,7 @@ void PrsDim_LengthDimension::SetTextPosition(const Point3d& theTextPos)
 
 //=================================================================================================
 
-void PrsDim_LengthDimension::SetDirection(const gp_Dir&          theDirection,
+void PrsDim_LengthDimension::SetDirection(const Dir3d&          theDirection,
                                           const Standard_Boolean theUseDirection)
 {
   myHasCustomDirection = theUseDirection;

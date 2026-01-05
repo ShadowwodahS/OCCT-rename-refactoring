@@ -43,41 +43,41 @@ public:
 
   Standard_EXPORT Vrml_Transform();
 
-  Standard_EXPORT Vrml_Transform(const gp_Vec&          aTranslation,
+  Standard_EXPORT Vrml_Transform(const Vector3d&          aTranslation,
                                  const Vrml_SFRotation& aRotation,
-                                 const gp_Vec&          aScaleFactor,
+                                 const Vector3d&          aScaleFactor,
                                  const Vrml_SFRotation& aScaleOrientation,
-                                 const gp_Vec&          aCenter);
+                                 const Vector3d&          aCenter);
 
-  Standard_EXPORT void SetTranslation(const gp_Vec& aTranslation);
+  Standard_EXPORT void SetTranslation(const Vector3d& aTranslation);
 
-  Standard_EXPORT gp_Vec Translation() const;
+  Standard_EXPORT Vector3d Translation() const;
 
   Standard_EXPORT void SetRotation(const Vrml_SFRotation& aRotation);
 
   Standard_EXPORT Vrml_SFRotation Rotation() const;
 
-  Standard_EXPORT void SetScaleFactor(const gp_Vec& aScaleFactor);
+  Standard_EXPORT void SetScaleFactor(const Vector3d& aScaleFactor);
 
-  Standard_EXPORT gp_Vec ScaleFactor() const;
+  Standard_EXPORT Vector3d ScaleFactor() const;
 
   Standard_EXPORT void SetScaleOrientation(const Vrml_SFRotation& aScaleOrientation);
 
   Standard_EXPORT Vrml_SFRotation ScaleOrientation() const;
 
-  Standard_EXPORT void SetCenter(const gp_Vec& aCenter);
+  Standard_EXPORT void SetCenter(const Vector3d& aCenter);
 
-  Standard_EXPORT gp_Vec Center() const;
+  Standard_EXPORT Vector3d Center() const;
 
   Standard_EXPORT Standard_OStream& Print(Standard_OStream& anOStream) const;
 
 protected:
 private:
-  gp_Vec          myTranslation;
+  Vector3d          myTranslation;
   Vrml_SFRotation myRotation;
-  gp_Vec          myScaleFactor;
+  Vector3d          myScaleFactor;
   Vrml_SFRotation myScaleOrientation;
-  gp_Vec          myCenter;
+  Vector3d          myCenter;
 };
 
 #endif // _Vrml_Transform_HeaderFile

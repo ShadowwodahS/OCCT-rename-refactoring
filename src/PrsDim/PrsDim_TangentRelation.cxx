@@ -85,9 +85,9 @@ void PrsDim_TangentRelation::Compute(const Handle(PrsMgr_PresentationManager)&,
 void PrsDim_TangentRelation::ComputeSelection(const Handle(SelectMgr_Selection)& aSelection,
                                               const Standard_Integer)
 {
-  gp_Vec vec(myDir);
-  gp_Vec vec1 = vec.Multiplied(myLength);
-  gp_Vec vec2 = vec.Multiplied(-myLength);
+  Vector3d vec(myDir);
+  Vector3d vec1 = vec.Multiplied(myLength);
+  Vector3d vec2 = vec.Multiplied(-myLength);
   Point3d p1   = myPosition.Translated(vec1);
   Point3d p2   = myPosition.Translated(vec2);
 
@@ -142,7 +142,7 @@ static Standard_Boolean ComputeTangencyPoint(const Handle(Geom_Curve)& GC1,
       {
         continue; // tangent line and conic can have only one point with zero distance
       }
-      gp_Vec aVector1, aVector2;
+      Vector3d aVector1, aVector2;
       if (GC1->IsInstance(STANDARD_TYPE(Geom_Circle)))
       {
         Handle(Geom_Circle) circle(Handle(Geom_Circle)::DownCast(GC1));
@@ -261,9 +261,9 @@ void PrsDim_TangentRelation::ComputeTwoEdgesTangent(const Handle(Prs3d_Presentat
     }
   }
 
-  gp_Vec        theVector;
+  Vector3d        theVector;
   Point3d        pint3d;          // tangency point
-  gp_Dir        theDir;          // tangency direction
+  Dir3d        theDir;          // tangency direction
   Standard_Real par_inter = 0.0; // parameter of tangency point
 
   if (found)
@@ -401,7 +401,7 @@ void PrsDim_TangentRelation::ComputeTwoEdgesTangent(const Handle(Prs3d_Presentat
         par_inter = ElCLib::Parameter(circle1->Circ(), pint3d);
         ElCLib::D1(par_inter, circle1->Circ(), pint3d, theVector);
       }
-      theDir = gp_Dir(theVector);
+      theDir = Dir3d(theVector);
     }
     break;
     case 23: // circle ellipse
@@ -431,7 +431,7 @@ void PrsDim_TangentRelation::ComputeTwoEdgesTangent(const Handle(Prs3d_Presentat
         par_inter = ElCLib::Parameter(circle->Circ(), pint3d);
         ElCLib::D1(par_inter, circle->Circ(), pint3d, theVector);
       }
-      theDir = gp_Dir(theVector);
+      theDir = Dir3d(theVector);
     }
     break;
     case 32: // ellipse circle
@@ -461,7 +461,7 @@ void PrsDim_TangentRelation::ComputeTwoEdgesTangent(const Handle(Prs3d_Presentat
         par_inter = ElCLib::Parameter(circle->Circ(), pint3d);
         ElCLib::D1(par_inter, circle->Circ(), pint3d, theVector);
       }
-      theDir = gp_Dir(theVector);
+      theDir = Dir3d(theVector);
     }
     break;
     case 33: // ellipse ellipse
@@ -491,7 +491,7 @@ void PrsDim_TangentRelation::ComputeTwoEdgesTangent(const Handle(Prs3d_Presentat
         par_inter = ElCLib::Parameter(ellipse1->Elips(), pint3d);
         ElCLib::D1(par_inter, ellipse1->Elips(), pint3d, theVector);
       }
-      theDir = gp_Dir(theVector);
+      theDir = Dir3d(theVector);
     }
     break;
     // jfa 19/10/2000 end

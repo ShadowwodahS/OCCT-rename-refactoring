@@ -28,7 +28,7 @@ TopLoc_Datum3D::TopLoc_Datum3D() {}
 
 //=================================================================================================
 
-TopLoc_Datum3D::TopLoc_Datum3D(const gp_Trsf& T)
+TopLoc_Datum3D::TopLoc_Datum3D(const Transform3d& T)
     : myTrsf(T)
 {
 }
@@ -47,7 +47,7 @@ void TopLoc_Datum3D::ShallowDump(Standard_OStream& S) const
 {
   S << " TopLoc_Datum3D " << (void*)this << std::endl;
   Standard_Integer i;
-  gp_Trsf          T = myTrsf;
+  Transform3d          T = myTrsf;
   for (i = 1; i <= 3; i++)
   {
     S << "  ( " << std::setw(10) << T.Value(i, 1);

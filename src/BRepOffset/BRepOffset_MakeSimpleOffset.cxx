@@ -247,9 +247,9 @@ static void tgtfaces(const TopoDS_Edge&     Ed,
   l -= eps; // points of pointed squares.
   gp_Pnt2d      p;
   Point3d        pp1, pp2; //,PP;
-  gp_Vec        du1, dv1;
-  gp_Vec        du2, dv2;
-  gp_Vec        d1, d2;
+  Vector3d        du1, dv1;
+  Vector3d        du2, dv2;
+  Vector3d        d1, d2;
   Standard_Real norm;
 
   const Standard_Integer NBPNT = 23;

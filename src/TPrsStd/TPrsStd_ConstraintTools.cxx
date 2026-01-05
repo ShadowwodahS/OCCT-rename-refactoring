@@ -357,13 +357,13 @@ void TPrsStd_ConstraintTools::ComputeDistance(const Handle(TDataXtd_Constraint)&
         if (aP1.Distance(aP2) < aP1.Distance(aP3))
         {
           aShape2 = aV3;
-          gp_Ax2 ax2(aP1, gp_Dir(aP2.XYZ() - aP1.XYZ()));
+          Frame3d ax2(aP1, Dir3d(aP2.XYZ() - aP1.XYZ()));
           aPlane = new Geom_Plane(aP1, ax2.XDirection());
         }
         else
         {
           aShape2 = aV4;
-          gp_Ax2 anAx2(aP1, gp_Dir(aP3.XYZ() - aP1.XYZ()));
+          Frame3d anAx2(aP1, Dir3d(aP3.XYZ() - aP1.XYZ()));
           aPlane = new Geom_Plane(aP1, anAx2.XDirection());
         }
       }
@@ -951,7 +951,7 @@ void TPrsStd_ConstraintTools::ComputeAngle(const Handle(TDataXtd_Constraint)& aC
       return;
     }
 
-    gp_Ax1 anax1aFace1;
+    Axis3d anax1aFace1;
     gp_Pln aPlnaFace1;
 
     BRepAdaptor_Surface aSurfaFace(aFace);
@@ -985,7 +985,7 @@ void TPrsStd_ConstraintTools::ComputeAngle(const Handle(TDataXtd_Constraint)& aC
       return;
     }
 
-    gp_Ax1 anax1aFace2;
+    Axis3d anax1aFace2;
     gp_Pln aPlnaFace2;
     if (shape2.ShapeType() == TopAbs_WIRE)
     {
@@ -1607,8 +1607,8 @@ static Standard_Boolean CheckShapesPair(const TopoDS_Shape& aShape1, const TopoD
     BRepAdaptor_Curve aCurve2(TopoDS::Edge(aShape2));
     if (aCurve1.GetType() == GeomAbs_Line && aCurve2.GetType() == GeomAbs_Line)
     { // Are lines parallel ?
-      gp_Dir aDir1 = aCurve1.Line().Direction();
-      gp_Dir aDir2 = aCurve2.Line().Direction();
+      Dir3d aDir1 = aCurve1.Line().Direction();
+      Dir3d aDir2 = aCurve2.Line().Direction();
       if (!(aDir1.IsParallel(aDir2, Precision::Confusion())))
       {
 #ifdef OCCT_DEBUG
@@ -1726,8 +1726,8 @@ void TPrsStd_ConstraintTools::ComputeEqualRadius(const Handle(TDataXtd_Constrain
     Standard_Real A, B, C, D1, D2;
     aPlane1->Coefficients(A, B, C, D1); // Get normalized coefficients
     aPlane2->Coefficients(A, B, C, D2); // Get normalized coefficients
-    const gp_Dir& aDir1 = anAx31.Direction();
-    const gp_Dir& aDir2 = anAx32.Direction();
+    const Dir3d& aDir1 = anAx31.Direction();
+    const Dir3d& aDir2 = anAx32.Direction();
 
     if (Abs(D1 - D2) < Precision::Confusion() && aDir1.IsParallel(aDir2, Precision::Confusion()))
       aplane = aPlane2;
@@ -2001,7 +2001,7 @@ void TPrsStd_ConstraintTools::ComputeOffset(const Handle(TDataXtd_Constraint)& a
         CURVE.Initialize(NE);
         aGeomGeometry = CURVE.Curve().Curve()->Transformed(CURVE.Trsf());
         gp_Lin NLin   = Handle(Geom_Line)::DownCast(aGeomGeometry)->Lin();
-        gp_Dir TDir(NLin.Location().XYZ() - OLin.Location().XYZ());
+        Dir3d TDir(NLin.Location().XYZ() - OLin.Location().XYZ());
         aplane = new Geom_Plane(NLin.Location(), NLin.Direction() ^ TDir);
 
         if (ais.IsNull())
@@ -2021,7 +2021,7 @@ void TPrsStd_ConstraintTools::ComputeOffset(const Handle(TDataXtd_Constraint)& a
       else if (CURVE.GetType() == GeomAbs_Circle)
       {
         Handle(Geom_Geometry) aGeomGeometry = CURVE.Curve().Curve()->Transformed(CURVE.Trsf());
-        gp_Ax1                ax = Handle(Geom_Circle)::DownCast(aGeomGeometry)->Circ().Axis();
+        Axis3d                ax = Handle(Geom_Circle)::DownCast(aGeomGeometry)->Circ().Axis();
         aplane                   = new Geom_Plane(ax.Location(), ax.Direction());
         is_planar                = Standard_True;
       }

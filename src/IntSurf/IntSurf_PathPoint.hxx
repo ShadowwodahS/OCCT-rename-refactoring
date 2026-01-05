@@ -40,7 +40,7 @@ public:
 
   void AddUV(const Standard_Real U, const Standard_Real V);
 
-  void SetDirections(const gp_Vec& V, const gp_Dir2d& D);
+  void SetDirections(const Vector3d& V, const gp_Dir2d& D);
 
   void SetTangency(const Standard_Boolean Tang);
 
@@ -54,7 +54,7 @@ public:
 
   Standard_Boolean IsTangent() const;
 
-  const gp_Vec& Direction3d() const;
+  const Vector3d& Direction3d() const;
 
   const gp_Dir2d& Direction2d() const;
 
@@ -67,7 +67,7 @@ private:
   Point3d                       pt;
   Standard_Boolean             ispass;
   Standard_Boolean             istgt;
-  gp_Vec                       vectg;
+  Vector3d                       vectg;
   gp_Dir2d                     dirtg;
   Handle(TColgp_HSequenceOfXY) sequv;
 };

@@ -55,13 +55,13 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
 
   // calcul du cylindre
   gp_Ax3 Pos1 = Pl1.Position();
-  gp_Dir D1   = Pos1.XDirection().Crossed(Pos1.YDirection());
+  Dir3d D1   = Pos1.XDirection().Crossed(Pos1.YDirection());
   if (Or1 == TopAbs_REVERSED)
   {
     D1.Reverse();
   }
   gp_Ax3 Pos2 = Pl2.Position();
-  gp_Dir D2   = Pos2.XDirection().Crossed(Pos2.YDirection());
+  Dir3d D2   = Pos2.XDirection().Crossed(Pos2.YDirection());
   if (Or2 == TopAbs_REVERSED)
   {
     D2.Reverse();
@@ -78,14 +78,14 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   {
     return Standard_False;
   }
-  gp_Dir        AxisCylinder = Spine.Direction();
+  Dir3d        AxisCylinder = Spine.Direction();
   Standard_Real Ang          = D1.Angle(D2);
-  gp_Vec        V            = gp_Vec(D1) + gp_Vec(D2);
-  gp_Dir        S(V);
+  Vector3d        V            = Vector3d(D1) + Vector3d(D2);
+  Dir3d        S(V);
   Point3d        C;
   Standard_Real Fac = Radius / Cos(Ang / 2.);
   C.SetCoord(Pv.X() + Fac * S.X(), Pv.Y() + Fac * S.Y(), Pv.Z() + Fac * S.Z());
-  gp_Dir xdir = D1.Reversed();
+  Dir3d xdir = D1.Reversed();
   gp_Ax3 CylAx3(C, AxisCylinder, xdir);
   if (CylAx3.YDirection().Dot(D2) >= 0.)
   {
@@ -97,11 +97,11 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   // On regarde si l orientation du cylindre est la meme que celle
   // des faces.
   Point3d P;
-  gp_Vec deru, derv;
+  Vector3d deru, derv;
   ElSLib::CylinderD1(0., 0., CylAx3, Radius, P, deru, derv);
-  gp_Dir norcyl(deru.Crossed(derv));
-  gp_Dir norpl   = Pos1.XDirection().Crossed(Pos1.YDirection());
-  gp_Dir norface = norpl;
+  Dir3d norcyl(deru.Crossed(derv));
+  Dir3d norpl   = Pos1.XDirection().Crossed(Pos1.YDirection());
+  Dir3d norface = norpl;
   if (Of1 == TopAbs_REVERSED)
   {
     norface.Reverse();

@@ -26,7 +26,7 @@
 
 class TCollection_ExtendedString;
 class Point3d;
-class gp_Dir;
+class Dir3d;
 class gp_Pln;
 class Geom_Surface;
 
@@ -51,7 +51,7 @@ public:
                                   const TCollection_ExtendedString& aText,
                                   const Point3d&                     AttachmentPoint1,
                                   const Point3d&                     AttachmentPoint2,
-                                  const gp_Dir&                     aDirection,
+                                  const Dir3d&                     aDirection,
                                   const Point3d&                     OffsetPoint);
 
   //! Draws a line segment representing a length in the
@@ -69,7 +69,7 @@ public:
                                   const TCollection_ExtendedString& aText,
                                   const Point3d&                     AttachmentPoint1,
                                   const Point3d&                     AttachmentPoint2,
-                                  const gp_Dir&                     aDirection,
+                                  const Dir3d&                     aDirection,
                                   const Point3d&                     OffsetPoint,
                                   const DsgPrs_ArrowSide            ArrowSide);
 
@@ -90,7 +90,7 @@ public:
                                   const Point3d&                     AttachmentPoint1,
                                   const Point3d&                     AttachmentPoint2,
                                   const gp_Pln&                     PlaneOfFaces,
-                                  const gp_Dir&                     aDirection,
+                                  const Dir3d&                     aDirection,
                                   const Point3d&                     OffsetPoint,
                                   const DsgPrs_ArrowSide            ArrowSide);
 
@@ -111,7 +111,7 @@ public:
                                   const Handle(Geom_Surface)&       SecondSurf,
                                   const Point3d&                     AttachmentPoint1,
                                   const Point3d&                     AttachmentPoint2,
-                                  const gp_Dir&                     aDirection,
+                                  const Dir3d&                     aDirection,
                                   const Point3d&                     OffsetPoint,
                                   const DsgPrs_ArrowSide            ArrowSide);
 

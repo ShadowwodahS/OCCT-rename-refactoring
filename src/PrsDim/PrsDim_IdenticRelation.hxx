@@ -30,7 +30,7 @@ class Geom_Circle;
 class Geom_Ellipse;
 class TopoDS_Wire;
 class TopoDS_Vertex;
-class gp_Dir;
+class Dir3d;
 
 DEFINE_STANDARD_HANDLE(PrsDim_IdenticRelation, PrsDim_Relation)
 
@@ -138,12 +138,12 @@ private:
 
   Standard_EXPORT Standard_Boolean ComputeDirection(const TopoDS_Wire&   aWire,
                                                     const TopoDS_Vertex& aVertex,
-                                                    gp_Dir&              aDir) const;
+                                                    Dir3d&              aDir) const;
 
-  Standard_EXPORT gp_Dir ComputeLineDirection(const Handle(Geom_Line)& aLin,
+  Standard_EXPORT Dir3d ComputeLineDirection(const Handle(Geom_Line)& aLin,
                                               const Point3d&            anExtremity) const;
 
-  Standard_EXPORT gp_Dir ComputeCircleDirection(const Handle(Geom_Circle)& aCirc,
+  Standard_EXPORT Dir3d ComputeCircleDirection(const Handle(Geom_Circle)& aCirc,
                                                 const TopoDS_Vertex&       ConnectedVertex) const;
 
 private:

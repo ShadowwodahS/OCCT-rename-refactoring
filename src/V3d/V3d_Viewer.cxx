@@ -46,7 +46,7 @@ V3d_Viewer::V3d_Viewer(const Handle(Graphic3d_GraphicDriver)& theDriver)
       myDefaultTypeOfView(V3d_ORTHOGRAPHIC),
       myComputedMode(Standard_True),
       myDefaultComputedMode(Standard_False),
-      myPrivilegedPlane(gp_Ax3(Point3d(0., 0., 0), gp_Dir(0., 0., 1.), gp_Dir(1., 0., 0.))),
+      myPrivilegedPlane(gp_Ax3(Point3d(0., 0., 0), Dir3d(0., 0., 1.), Dir3d(1., 0., 0.))),
       myDisplayPlane(Standard_False),
       myDisplayPlaneLength(1000.0),
       myGridType(Aspect_GT_Rectangular),

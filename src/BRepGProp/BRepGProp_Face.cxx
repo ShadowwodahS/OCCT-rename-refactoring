@@ -194,9 +194,9 @@ void BRepGProp_Face::Load(const TopoDS_Face& F)
 void BRepGProp_Face::Normal(const Standard_Real U,
                             const Standard_Real V,
                             Point3d&             P,
-                            gp_Vec&             VNor) const
+                            Vector3d&             VNor) const
 {
-  gp_Vec D1U, D1V;
+  Vector3d D1U, D1V;
   mySurface.D1(U, V, P, D1U, D1V);
   VNor = D1U.Crossed(D1V);
   if (mySReverse)

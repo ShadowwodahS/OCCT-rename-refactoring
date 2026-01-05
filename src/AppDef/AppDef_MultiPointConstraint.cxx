@@ -209,7 +209,7 @@ AppDef_MultiPointConstraint::AppDef_MultiPointConstraint(const TColgp_Array1OfPn
   }
 }
 
-void AppDef_MultiPointConstraint::SetTang(const Standard_Integer Index, const gp_Vec& Tang)
+void AppDef_MultiPointConstraint::SetTang(const Standard_Integer Index, const Vector3d& Tang)
 {
   if (tabTang.IsNull())
     tabTang = new TColgp_HArray1OfVec(1, nbP);
@@ -220,7 +220,7 @@ void AppDef_MultiPointConstraint::SetTang(const Standard_Integer Index, const gp
   tabTang->SetValue(Index, Tang);
 }
 
-gp_Vec AppDef_MultiPointConstraint::Tang(const Standard_Integer Index) const
+Vector3d AppDef_MultiPointConstraint::Tang(const Standard_Integer Index) const
 {
   if ((Index <= 0) || (Index > nbP))
   {
@@ -250,7 +250,7 @@ gp_Vec2d AppDef_MultiPointConstraint::Tang2d(const Standard_Integer Index) const
   return tabTang2d->Value(Index - nbP);
 }
 
-void AppDef_MultiPointConstraint::SetCurv(const Standard_Integer Index, const gp_Vec& Curv)
+void AppDef_MultiPointConstraint::SetCurv(const Standard_Integer Index, const Vector3d& Curv)
 {
   if (tabCurv.IsNull())
     tabCurv = new TColgp_HArray1OfVec(1, nbP);
@@ -261,7 +261,7 @@ void AppDef_MultiPointConstraint::SetCurv(const Standard_Integer Index, const gp
   tabCurv->SetValue(Index, Curv);
 }
 
-gp_Vec AppDef_MultiPointConstraint::Curv(const Standard_Integer Index) const
+Vector3d AppDef_MultiPointConstraint::Curv(const Standard_Integer Index) const
 {
   if ((Index <= 0) || (Index > nbP))
   {

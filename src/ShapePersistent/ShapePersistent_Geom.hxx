@@ -163,15 +163,15 @@ public:
   typedef subBase_empty<basic>                         Point;
   typedef instance<Point, Geom_CartesianPoint, Point3d> CartesianPoint;
 
-  typedef subBase_gp<basic, gp_Vec>                          Vector;
-  typedef instance<Vector, Geom_Direction, gp_Dir>           Direction;
-  typedef instance<Vector, Geom_VectorWithMagnitude, gp_Vec> VectorWithMagnitude;
+  typedef subBase_gp<basic, Vector3d>                          Vector;
+  typedef instance<Vector, Geom_Direction, Dir3d>           Direction;
+  typedef instance<Vector, Geom_VectorWithMagnitude, Vector3d> VectorWithMagnitude;
 
-  typedef subBase_gp<basic, gp_Ax1>                            AxisPlacement;
-  typedef instance<AxisPlacement, Geom_Axis1Placement, gp_Ax1> Axis1Placement;
+  typedef subBase_gp<basic, Axis3d>                            AxisPlacement;
+  typedef instance<AxisPlacement, Geom_Axis1Placement, Axis3d> Axis1Placement;
   typedef instance<AxisPlacement, Geom_Axis2Placement>         Axis2Placement;
 
-  typedef instance<SharedBase<Geom_Transformation>, Geom_Transformation, gp_Trsf> Transformation;
+  typedef instance<SharedBase<Geom_Transformation>, Geom_Transformation, Transform3d> Transformation;
 
   typedef geometryBase<Geom_Curve>   Curve;
   typedef geometryBase<Geom_Surface> Surface;
@@ -222,7 +222,7 @@ inline void ShapePersistent_Geom::instance<ShapePersistent_Geom::Point,
 
 template <>
 inline Standard_CString ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::basic,
-                                                         gp_Vec>::PName() const
+                                                         Vector3d>::PName() const
 {
   return "PGeom_Vector";
 }
@@ -233,7 +233,7 @@ inline Standard_CString ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::b
 
 template <>
 inline Standard_CString ShapePersistent_Geom::
-  instance<ShapePersistent_Geom::Direction, Geom_Direction, gp_Dir>::PName() const
+  instance<ShapePersistent_Geom::Direction, Geom_Direction, Dir3d>::PName() const
 {
   return "PGeom_Direction";
 }
@@ -241,7 +241,7 @@ inline Standard_CString ShapePersistent_Geom::
 template <>
 inline void ShapePersistent_Geom::instance<ShapePersistent_Geom::Direction,
                                            Geom_Direction,
-                                           gp_Dir>::Write(StdObjMgt_WriteData& theWriteData) const
+                                           Dir3d>::Write(StdObjMgt_WriteData& theWriteData) const
 {
   Handle(Geom_Direction) aMyGeom = Handle(Geom_Direction)::DownCast(myTransient);
   theWriteData << aMyGeom->Dir();
@@ -254,7 +254,7 @@ inline void ShapePersistent_Geom::instance<ShapePersistent_Geom::Direction,
 template <>
 inline Standard_CString ShapePersistent_Geom::instance<ShapePersistent_Geom::VectorWithMagnitude,
                                                        Geom_VectorWithMagnitude,
-                                                       gp_Vec>::PName() const
+                                                       Vector3d>::PName() const
 {
   return "PGeom_VectorWithMagnitude";
 }
@@ -262,7 +262,7 @@ inline Standard_CString ShapePersistent_Geom::instance<ShapePersistent_Geom::Vec
 template <>
 inline void ShapePersistent_Geom::instance<ShapePersistent_Geom::VectorWithMagnitude,
                                            Geom_VectorWithMagnitude,
-                                           gp_Vec>::Write(StdObjMgt_WriteData& theWriteData) const
+                                           Vector3d>::Write(StdObjMgt_WriteData& theWriteData) const
 {
   Handle(Geom_VectorWithMagnitude) aMyGeom =
     Handle(Geom_VectorWithMagnitude)::DownCast(myTransient);
@@ -275,7 +275,7 @@ inline void ShapePersistent_Geom::instance<ShapePersistent_Geom::VectorWithMagni
 
 template <>
 inline Standard_CString ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::basic,
-                                                         gp_Ax1>::PName() const
+                                                         Axis3d>::PName() const
 {
   return "PGeom_AxisPlacement";
 }
@@ -286,7 +286,7 @@ inline Standard_CString ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::b
 
 template <>
 inline Standard_CString ShapePersistent_Geom::
-  instance<ShapePersistent_Geom::Axis1Placement, Geom_Axis1Placement, gp_Ax1>::PName() const
+  instance<ShapePersistent_Geom::Axis1Placement, Geom_Axis1Placement, Axis3d>::PName() const
 {
   return "PGeom_Axis1Placement";
 }
@@ -294,7 +294,7 @@ inline Standard_CString ShapePersistent_Geom::
 template <>
 inline void ShapePersistent_Geom::instance<ShapePersistent_Geom::Axis1Placement,
                                            Geom_Axis1Placement,
-                                           gp_Ax1>::Write(StdObjMgt_WriteData& theWriteData) const
+                                           Axis3d>::Write(StdObjMgt_WriteData& theWriteData) const
 {
   Handle(Geom_Axis1Placement) aMyGeom = Handle(Geom_Axis1Placement)::DownCast(myTransient);
   write(theWriteData, aMyGeom->Ax1());
@@ -316,8 +316,8 @@ inline void ShapePersistent_Geom::instance<ShapePersistent_Geom::AxisPlacement,
                                            Geom_Axis2Placement>::Read(StdObjMgt_ReadData&
                                                                         theReadData)
 {
-  gp_Ax1 anAxis;
-  gp_Dir anXDirection;
+  Axis3d anAxis;
+  Dir3d anXDirection;
 
   theReadData >> anAxis >> anXDirection;
 
@@ -330,8 +330,8 @@ inline void ShapePersistent_Geom::instance<ShapePersistent_Geom::AxisPlacement,
                                                                          theWriteData) const
 {
   Handle(Geom_Axis2Placement) aMyGeom      = Handle(Geom_Axis2Placement)::DownCast(myTransient);
-  const gp_Ax1&               anAxis       = aMyGeom->Axis();
-  const gp_Dir&               anXDirection = aMyGeom->Direction();
+  const Axis3d&               anAxis       = aMyGeom->Axis();
+  const Dir3d&               anXDirection = aMyGeom->Direction();
   write(theWriteData, anAxis) << anXDirection;
 }
 
@@ -341,7 +341,7 @@ inline void ShapePersistent_Geom::instance<ShapePersistent_Geom::AxisPlacement,
 
 template <>
 inline Standard_CString ShapePersistent_Geom::
-  instance<ShapePersistent_Geom::Transformation, Geom_Transformation, gp_Trsf>::PName() const
+  instance<ShapePersistent_Geom::Transformation, Geom_Transformation, Transform3d>::PName() const
 {
   return "PGeom_Transformation";
 }
@@ -349,7 +349,7 @@ inline Standard_CString ShapePersistent_Geom::
 template <>
 inline void ShapePersistent_Geom::instance<ShapePersistent_Geom::Transformation,
                                            Geom_Transformation,
-                                           gp_Trsf>::Write(StdObjMgt_WriteData& theWriteData) const
+                                           Transform3d>::Write(StdObjMgt_WriteData& theWriteData) const
 {
   theWriteData << myTransient->Trsf();
 }

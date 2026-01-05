@@ -185,8 +185,8 @@ inline void HLRBRep_Surface::D0(const Standard_Real U, const Standard_Real V, Po
 inline void HLRBRep_Surface::D1(const Standard_Real U,
                                 const Standard_Real V,
                                 Point3d&             P,
-                                gp_Vec&             D1U,
-                                gp_Vec&             D1V) const
+                                Vector3d&             D1U,
+                                Vector3d&             D1V) const
 {
   HLRBRep_BSurfaceTool::D1(mySurf, U, V, P, D1U, D1V);
 }
@@ -199,11 +199,11 @@ inline void HLRBRep_Surface::D1(const Standard_Real U,
 inline void HLRBRep_Surface::D2(const Standard_Real U,
                                 const Standard_Real V,
                                 Point3d&             P,
-                                gp_Vec&             D1U,
-                                gp_Vec&             D1V,
-                                gp_Vec&             D2U,
-                                gp_Vec&             D2V,
-                                gp_Vec&             D2UV) const
+                                Vector3d&             D1U,
+                                Vector3d&             D1V,
+                                Vector3d&             D2U,
+                                Vector3d&             D2V,
+                                Vector3d&             D2UV) const
 {
   HLRBRep_BSurfaceTool::D2(mySurf, U, V, P, D1U, D1V, D2U, D2V, D2UV);
 }
@@ -216,15 +216,15 @@ inline void HLRBRep_Surface::D2(const Standard_Real U,
 inline void HLRBRep_Surface::D3(const Standard_Real U,
                                 const Standard_Real V,
                                 Point3d&             P,
-                                gp_Vec&             D1U,
-                                gp_Vec&             D1V,
-                                gp_Vec&             D2U,
-                                gp_Vec&             D2V,
-                                gp_Vec&             D2UV,
-                                gp_Vec&             D3U,
-                                gp_Vec&             D3V,
-                                gp_Vec&             D3UUV,
-                                gp_Vec&             D3UVV) const
+                                Vector3d&             D1U,
+                                Vector3d&             D1V,
+                                Vector3d&             D2U,
+                                Vector3d&             D2V,
+                                Vector3d&             D2UV,
+                                Vector3d&             D3U,
+                                Vector3d&             D3V,
+                                Vector3d&             D3UUV,
+                                Vector3d&             D3UVV) const
 {
   HLRBRep_BSurfaceTool::D3(mySurf, U, V, P, D1U, D1V, D2U, D2V, D2UV, D3U, D3V, D3UUV, D3UVV);
 }
@@ -234,7 +234,7 @@ inline void HLRBRep_Surface::D3(const Standard_Real U,
 // purpose  :
 //=======================================================================
 
-inline gp_Vec HLRBRep_Surface::DN(const Standard_Real    U,
+inline Vector3d HLRBRep_Surface::DN(const Standard_Real    U,
                                   const Standard_Real    V,
                                   const Standard_Integer Nu,
                                   const Standard_Integer Nv) const
@@ -357,7 +357,7 @@ inline Standard_Integer HLRBRep_Surface::NbVKnots() const
 // purpose  :
 //=======================================================================
 
-inline gp_Ax1 HLRBRep_Surface::Axis() const
+inline Axis3d HLRBRep_Surface::Axis() const
 {
   return HLRBRep_BSurfaceTool::AxeOfRevolution(mySurf);
 }

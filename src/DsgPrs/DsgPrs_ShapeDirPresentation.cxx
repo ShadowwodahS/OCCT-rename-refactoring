@@ -139,7 +139,7 @@ static Standard_Boolean FindPointOnFace(const TopoDS_Face& face, gp_Pnt2d& pt2d)
 
 static Standard_Boolean ComputeDir(const TopoDS_Shape&    shape,
                                    Point3d&                pt,
-                                   gp_Dir&                dir,
+                                   Dir3d&                dir,
                                    const Standard_Integer mode)
 {
   TopLoc_Location loc;
@@ -198,7 +198,7 @@ void DsgPrs_ShapeDirPresentation::Add(const Handle(Prs3d_Presentation)& prs,
   if ((mode != 0) && (mode != 1))
     return;
 
-  gp_Dir  dir;
+  Dir3d  dir;
   Point3d  pt;
   Bnd_Box box;
 

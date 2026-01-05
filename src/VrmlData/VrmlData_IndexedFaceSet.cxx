@@ -94,7 +94,7 @@ const Handle(TopoDS_TShape)& VrmlData_IndexedFaceSet::TShape()
   NCollection_Map<int>                        mapNodeId;
   NCollection_Map<int>                        mapPolyId;
   NCollection_List<TColStd_SequenceOfInteger> aPolygons;
-  NCollection_List<gp_Dir>                    aNorms;
+  NCollection_List<Dir3d>                    aNorms;
   Standard_Integer                            i = 0;
   for (; i < (int)myNbPolygons; i++)
   {
@@ -137,7 +137,7 @@ const Handle(TopoDS_TShape)& VrmlData_IndexedFaceSet::TShape()
       // degenerate polygon
       continue;
     }
-    gp_Dir aNormal(aSum);
+    Dir3d aNormal(aSum);
     mapPolyId.Add(i);
     aPolygons.Append(aPolygon);
     aNorms.Append(aNormal);
@@ -181,7 +181,7 @@ const Handle(TopoDS_TShape)& VrmlData_IndexedFaceSet::TShape()
   // calculate triangles
   NCollection_List<Poly_Triangle> aTriangles;
   itP.Init(aPolygons);
-  for (NCollection_List<gp_Dir>::Iterator itN(aNorms); itP.More(); itP.Next(), itN.Next())
+  for (NCollection_List<Dir3d>::Iterator itN(aNorms); itP.More(); itP.Next(), itN.Next())
   {
     NCollection_List<Poly_Triangle> aTrias;
     try

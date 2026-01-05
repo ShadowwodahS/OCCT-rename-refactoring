@@ -21,7 +21,7 @@
 #include <gp_Pnt.hxx>
 #include <StdFail_NotDone.hxx>
 
-gce_MakeParab::gce_MakeParab(const gp_Ax2& A2, const Standard_Real Focal)
+gce_MakeParab::gce_MakeParab(const Frame3d& A2, const Standard_Real Focal)
 {
   if (Focal < 0.0)
   {
@@ -34,7 +34,7 @@ gce_MakeParab::gce_MakeParab(const gp_Ax2& A2, const Standard_Real Focal)
   }
 }
 
-gce_MakeParab::gce_MakeParab(const gp_Ax1& D, const Point3d& F)
+gce_MakeParab::gce_MakeParab(const Axis3d& D, const Point3d& F)
 {
   TheParab = gp_Parab(D, F);
   TheError = gce_Done;

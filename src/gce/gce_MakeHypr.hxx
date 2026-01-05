@@ -23,7 +23,7 @@
 
 #include <gp_Hypr.hxx>
 #include <gce_Root.hxx>
-class gp_Ax2;
+class Frame3d;
 class Point3d;
 
 //! This class implements the following algorithms used to
@@ -78,7 +78,7 @@ public:
   //! MinorRadius.
   //! The status is "NegativeRadius" if MajorRadius < 0.0 and
   //! "InvertRadius" if MinorRadius > MajorRadius.
-  Standard_EXPORT gce_MakeHypr(const gp_Ax2&       A2,
+  Standard_EXPORT gce_MakeHypr(const Frame3d&       A2,
                                const Standard_Real MajorRadius,
                                const Standard_Real MinorRadius);
 

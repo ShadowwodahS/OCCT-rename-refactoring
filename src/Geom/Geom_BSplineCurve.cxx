@@ -995,7 +995,7 @@ void Geom_BSplineCurve::MovePoint(const Standard_Real    U,
   TColgp_Array1OfPnt npoles(1, poles->Length());
   Point3d             P0;
   D0(U, P0);
-  gp_Vec Displ(P0, P);
+  Vector3d Displ(P0, P);
   BSplCLib::MovePoint(U,
                       Displ,
                       Index1,
@@ -1018,7 +1018,7 @@ void Geom_BSplineCurve::MovePoint(const Standard_Real    U,
 
 void Geom_BSplineCurve::MovePointAndTangent(const Standard_Real    U,
                                             const Point3d&          P,
-                                            const gp_Vec&          Tangent,
+                                            const Vector3d&          Tangent,
                                             const Standard_Real    Tolerance,
                                             const Standard_Integer StartingCondition,
                                             const Standard_Integer EndingCondition,
@@ -1035,9 +1035,9 @@ void Geom_BSplineCurve::MovePointAndTangent(const Standard_Real    U,
   TColgp_Array1OfPnt new_poles(1, poles->Length());
   Point3d             P0;
 
-  gp_Vec delta_derivative;
+  Vector3d delta_derivative;
   D1(U, P0, delta_derivative);
-  gp_Vec delta(P0, P);
+  Vector3d delta(P0, P);
   for (ii = 1; ii <= 3; ii++)
   {
     delta_derivative.SetCoord(ii, Tangent.Coord(ii) - delta_derivative.Coord(ii));

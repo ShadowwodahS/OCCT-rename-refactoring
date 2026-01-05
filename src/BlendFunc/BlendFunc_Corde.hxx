@@ -61,14 +61,14 @@ public:
   Standard_EXPORT const Point3d& PointOnGuide() const;
 
   //! returns the normal to CGuide at Ptgui.
-  Standard_EXPORT const gp_Vec& NPlan() const;
+  Standard_EXPORT const Vector3d& NPlan() const;
 
   //! Returns True when it is not possible to compute
   //! the tangent vectors at PointOnS.
   Standard_EXPORT Standard_Boolean IsTangencyPoint() const;
 
   //! Returns the tangent vector at PointOnS, in 3d space.
-  Standard_EXPORT const gp_Vec& TangentOnS() const;
+  Standard_EXPORT const Vector3d& TangentOnS() const;
 
   //! Returns the tangent vector at PointOnS, in the
   //! parametric space of the first surface.
@@ -92,10 +92,10 @@ private:
   Standard_Real             normtg;
   Standard_Real             theD;
   Point3d                    ptgui;
-  gp_Vec                    nplan;
-  gp_Vec                    d1gui;
-  gp_Vec                    d2gui;
-  gp_Vec                    tgs;
+  Vector3d                    nplan;
+  Vector3d                    d1gui;
+  Vector3d                    d2gui;
+  Vector3d                    tgs;
   gp_Vec2d                  tg2d;
   Standard_Boolean          istangent;
 };

@@ -26,13 +26,13 @@ BRepPrimAPI_MakeWedge::BRepPrimAPI_MakeWedge(const Standard_Real dx,
                                              const Standard_Real dy,
                                              const Standard_Real dz,
                                              const Standard_Real ltx)
-    : myWedge(gp_Ax2(Point3d(0, 0, 0), gp_Dir(0, 0, 1), gp_Dir(1, 0, 0)), dx, dy, dz, ltx)
+    : myWedge(Frame3d(Point3d(0, 0, 0), Dir3d(0, 0, 1), Dir3d(1, 0, 0)), dx, dy, dz, ltx)
 {
 }
 
 //=================================================================================================
 
-BRepPrimAPI_MakeWedge::BRepPrimAPI_MakeWedge(const gp_Ax2&       Axes,
+BRepPrimAPI_MakeWedge::BRepPrimAPI_MakeWedge(const Frame3d&       Axes,
                                              const Standard_Real dx,
                                              const Standard_Real dy,
                                              const Standard_Real dz,
@@ -50,7 +50,7 @@ BRepPrimAPI_MakeWedge::BRepPrimAPI_MakeWedge(const Standard_Real dx,
                                              const Standard_Real zmin,
                                              const Standard_Real xmax,
                                              const Standard_Real zmax)
-    : myWedge(gp_Ax2(Point3d(0, 0, 0), gp_Dir(0, 0, 1), gp_Dir(1, 0, 0)),
+    : myWedge(Frame3d(Point3d(0, 0, 0), Dir3d(0, 0, 1), Dir3d(1, 0, 0)),
               0,
               0,
               0,
@@ -66,7 +66,7 @@ BRepPrimAPI_MakeWedge::BRepPrimAPI_MakeWedge(const Standard_Real dx,
 
 //=================================================================================================
 
-BRepPrimAPI_MakeWedge::BRepPrimAPI_MakeWedge(const gp_Ax2&       Axes,
+BRepPrimAPI_MakeWedge::BRepPrimAPI_MakeWedge(const Frame3d&       Axes,
                                              const Standard_Real dx,
                                              const Standard_Real dy,
                                              const Standard_Real dz,

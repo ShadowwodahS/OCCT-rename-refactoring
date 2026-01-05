@@ -100,7 +100,7 @@ Standard_Real GeomFill_SnglrFunc::Period() const
 Point3d GeomFill_SnglrFunc::Value(const Standard_Real U) const
 {
   Point3d C;
-  gp_Vec DC, D2C;
+  Vector3d DC, D2C;
   myHCurve->D2(U, C, DC, D2C);
   DC *= ratio;
   return Point3d(DC.Crossed(D2C).XYZ());
@@ -109,26 +109,26 @@ Point3d GeomFill_SnglrFunc::Value(const Standard_Real U) const
 void GeomFill_SnglrFunc::D0(const Standard_Real U, Point3d& P) const
 {
   Point3d C;
-  gp_Vec DC, D2C;
+  Vector3d DC, D2C;
   myHCurve->D2(U, C, DC, D2C);
   DC *= ratio;
   P = Point3d(DC.Crossed(D2C).XYZ());
 }
 
-void GeomFill_SnglrFunc::D1(const Standard_Real U, Point3d& P, gp_Vec& V) const
+void GeomFill_SnglrFunc::D1(const Standard_Real U, Point3d& P, Vector3d& V) const
 {
   Point3d C;
-  gp_Vec DC, D2C, D3C;
+  Vector3d DC, D2C, D3C;
   myHCurve->D3(U, C, DC, D2C, D3C);
   DC *= ratio;
   P = Point3d(DC.Crossed(D2C).XYZ());
   V = DC.Crossed(D3C);
 }
 
-void GeomFill_SnglrFunc::D2(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2) const
+void GeomFill_SnglrFunc::D2(const Standard_Real U, Point3d& P, Vector3d& V1, Vector3d& V2) const
 {
   Point3d C;
-  gp_Vec DC, D2C, D3C, D4C;
+  Vector3d DC, D2C, D3C, D4C;
   myHCurve->D3(U, C, DC, D2C, D3C);
   P   = Point3d(DC.Crossed(D2C).XYZ());
   V1  = DC.Crossed(D3C);
@@ -142,11 +142,11 @@ void GeomFill_SnglrFunc::D2(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Ve
 
 void GeomFill_SnglrFunc::D3(const Standard_Real U,
                             Point3d&             P,
-                            gp_Vec&             V1,
-                            gp_Vec&             V2,
-                            gp_Vec&             V3) const
+                            Vector3d&             V1,
+                            Vector3d&             V2,
+                            Vector3d&             V3) const
 {
-  gp_Vec DC, D2C, D3C, D4C, D5C;
+  Vector3d DC, D2C, D3C, D4C, D5C;
   myHCurve->D3(U, P, DC, D2C, D3C);
   D4C = myHCurve->DN(U, 4);
   D5C = myHCurve->DN(U, 5);
@@ -156,11 +156,11 @@ void GeomFill_SnglrFunc::D3(const Standard_Real U,
   V3  = (DC.Crossed(D5C) + D2C.Crossed(D4C) * 2) * ratio;
 }
 
-gp_Vec GeomFill_SnglrFunc::DN(const Standard_Real U, const Standard_Integer N) const
+Vector3d GeomFill_SnglrFunc::DN(const Standard_Real U, const Standard_Integer N) const
 {
   Standard_RangeError_Raise_if(N < 1, "Exception: Geom2d_OffsetCurve::DN(). N<1.");
 
-  gp_Vec D1C, D2C, D3C;
+  Vector3d D1C, D2C, D3C;
   Point3d C;
 
   switch (N)

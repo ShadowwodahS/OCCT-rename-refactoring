@@ -111,9 +111,9 @@ void BRepGProp_MeshProps::CalculateProps(const Point3d&          p1,
   //
 
   // Define plane and coordinates of triangle nodes on plane
-  gp_Vec        aV12(p2, p1);
-  gp_Vec        aV23(p3, p2);
-  gp_Vec        aNorm = aV12 ^ aV23;
+  Vector3d        aV12(p2, p1);
+  Vector3d        aV23(p3, p2);
+  Vector3d        aNorm = aV12 ^ aV23;
   Standard_Real aDet  = aNorm.Magnitude();
   if (aDet <= gp::Resolution())
   {
@@ -121,7 +121,7 @@ void BRepGProp_MeshProps::CalculateProps(const Point3d&          p1,
   }
   gp_XYZ aCenter = (p1.XYZ() + p2.XYZ() + p3.XYZ()) / 3.;
   Point3d aPC(aCenter);
-  gp_Dir aDN(aNorm);
+  Dir3d aDN(aNorm);
   gp_Ax3 aPosPln(aPC, aDN);
   // Coordinates of nodes on plane
   Standard_Real x1, y1, x2, y2, x3, y3;
@@ -179,7 +179,7 @@ void BRepGProp_MeshProps::Perform(const Handle(Poly_Triangulation)& theMesh,
   }
   else
   {
-    const gp_Trsf& aTr = theLoc.Transformation();
+    const Transform3d& aTr = theLoc.Transformation();
     //
     Standard_Boolean isToCopy = aTr.ScaleFactor() * aTr.HVectorialPart().Determinant() < 0.
                                 || Abs(Abs(aTr.ScaleFactor()) - 1.) > gp::Resolution();
@@ -200,7 +200,7 @@ void BRepGProp_MeshProps::Perform(const Handle(Poly_Triangulation)& theMesh,
       return;
     }
     //
-    gp_Trsf aTrInv   = aTr.Inverted();
+    Transform3d aTrInv   = aTr.Inverted();
     Point3d  loc_save = loc;
     loc.Transform(aTrInv);
     Perform(theMesh, theOri);

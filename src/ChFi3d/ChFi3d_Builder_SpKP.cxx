@@ -217,7 +217,7 @@ static Standard_Real ParamOnSpine(const TopOpeBRepDS_DataStructure& DStr,
   {
     // construction of the plane containing the section of CD with parameter ptg.
     Point3d             PP;
-    gp_Vec             VV;
+    Vector3d             VV;
     Handle(Geom_Curve) c3d;
     if (CD->InterferenceOnS1().LineIndex() != 0)
     {
@@ -229,7 +229,7 @@ static Standard_Real ParamOnSpine(const TopOpeBRepDS_DataStructure& DStr,
     }
     c3d->D1(ptg, PP, VV);
 
-    gp_Pln                      nlp(PP, gp_Dir(VV));
+    gp_Pln                      nlp(PP, Dir3d(VV));
     Handle(Geom_Plane)          pln  = new Geom_Plane(nlp);
     Handle(GeomAdaptor_Surface) plan = new GeomAdaptor_Surface(GeomAdaptor_Surface(pln));
 
@@ -340,7 +340,7 @@ void ChFi3d_Builder::Trunc(const Handle(ChFiDS_SurfData)&   SD,
   Standard_Boolean bid;
   Standard_Real    wsp = ParamOnSpine(DStr, wtg, SD, Spine, iedge, 0, 0, tolesp, bid);
   Point3d           ped, psp;
-  gp_Vec           ded, dsp;
+  Vector3d           ded, dsp;
   TopoDS_Vertex    bout1, bout2, boutemp;
 
   const BRepAdaptor_Curve& bc = Spine->CurrentElementarySpine(iedge);

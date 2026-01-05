@@ -381,7 +381,7 @@ void RWGltf_CafWriter::saveNormals(RWGltf_GltfFace&                             
   const Standard_Integer aNodeUpper = theFaceIter.NodeUpper();
   for (Standard_Integer aNodeIter = theFaceIter.NodeLower(); aNodeIter <= aNodeUpper; ++aNodeIter)
   {
-    const gp_Dir   aNormal = theFaceIter.NormalTransformed(aNodeIter);
+    const Dir3d   aNormal = theFaceIter.NormalTransformed(aNodeIter);
     Graphic3d_Vec3 aVecNormal((float)aNormal.X(), (float)aNormal.Y(), (float)aNormal.Z());
     myCSTrsf.TransformNormal(aVecNormal);
     if (theMesh.get() != nullptr)
@@ -2294,7 +2294,7 @@ void RWGltf_CafWriter::writeNodes(const Handle(TDocStd_Document)&         theDoc
     }
     if (!aDocNode.LocalTrsf.IsIdentity())
     {
-      gp_Trsf aTrsf = aDocNode.LocalTrsf.Transformation();
+      Transform3d aTrsf = aDocNode.LocalTrsf.Transformation();
       if (aTrsf.Form() != gp_Identity)
       {
         myCSTrsf.TransformTransformation(aTrsf);

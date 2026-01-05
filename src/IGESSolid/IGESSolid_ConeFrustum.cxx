@@ -72,21 +72,21 @@ Point3d IGESSolid_ConeFrustum::TransformedFaceCenter() const
   }
 }
 
-gp_Dir IGESSolid_ConeFrustum::Axis() const
+Dir3d IGESSolid_ConeFrustum::Axis() const
 {
-  return gp_Dir(theAxis);
+  return Dir3d(theAxis);
 }
 
-gp_Dir IGESSolid_ConeFrustum::TransformedAxis() const
+Dir3d IGESSolid_ConeFrustum::TransformedAxis() const
 {
   if (!HasTransf())
-    return gp_Dir(theAxis);
+    return Dir3d(theAxis);
   else
   {
     gp_XYZ   xyz = theAxis;
     gp_GTrsf loc = Location();
     loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
     loc.Transforms(xyz);
-    return gp_Dir(xyz);
+    return Dir3d(xyz);
   }
 }

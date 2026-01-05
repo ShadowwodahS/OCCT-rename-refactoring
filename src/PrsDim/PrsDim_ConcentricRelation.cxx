@@ -111,8 +111,8 @@ void PrsDim_ConcentricRelation::ComputeEdgeVertexConcentric(
   Handle(Geom_Circle) CIRCLE(Handle(Geom_Circle)::DownCast(C));
   myCenter = CIRCLE->Location();
   myRad    = Min(CIRCLE->Radius() / 5., 15.);
-  gp_Dir vec(p1.XYZ() - myCenter.XYZ());
-  gp_Vec vectrans(vec);
+  Dir3d vec(p1.XYZ() - myCenter.XYZ());
+  Vector3d vectrans(vec);
   myPnt = myCenter.Translated(vectrans.Multiplied(myRad));
   DsgPrs_ConcentricPresentation::Add(aPresentation, myDrawer, myCenter, myRad, myDir, myPnt);
   if (!isOnPlanEdge)
@@ -135,8 +135,8 @@ void PrsDim_ConcentricRelation::ComputeTwoVerticesConcentric(
   PrsDim::ComputeGeometry(V2, P2, myPlane, isOnPlanVertex2);
   myCenter = P1;
   myRad    = 15.;
-  gp_Dir vec(myPlane->Pln().Position().XDirection());
-  gp_Vec vectrans(vec);
+  Dir3d vec(myPlane->Pln().Position().XDirection());
+  Vector3d vectrans(vec);
   myPnt = myCenter.Translated(vectrans.Multiplied(myRad));
   DsgPrs_ConcentricPresentation::Add(aPresentation, myDrawer, myCenter, myRad, myDir, myPnt);
   if (!isOnPlanVertex1)
@@ -189,8 +189,8 @@ void PrsDim_ConcentricRelation::ComputeTwoEdgesConcentric(
     myRad = 15.;
 
   // Calculate a point of circle of radius myRad
-  gp_Dir vec(ptat11.XYZ() - myCenter.XYZ());
-  gp_Vec vectrans(vec);
+  Dir3d vec(ptat11.XYZ() - myCenter.XYZ());
+  Vector3d vectrans(vec);
   myPnt = myCenter.Translated(vectrans.Multiplied(myRad));
 
   DsgPrs_ConcentricPresentation::Add(aPresentation, myDrawer, myCenter, myRad, myDir, myPnt);
@@ -228,7 +228,7 @@ void PrsDim_ConcentricRelation::ComputeSelection(const Handle(SelectMgr_Selectio
   // Creation of 2 sensitive circles
 
   // the greater
-  gp_Ax2                           anAx(myCenter, myDir);
+  Frame3d                           anAx(myCenter, myDir);
   gp_Circ                          aCirc(anAx, myRad);
   Handle(Select3D_SensitiveCircle) sensit = new Select3D_SensitiveCircle(anOwner, aCirc);
   aSelection->Add(sensit);
@@ -244,7 +244,7 @@ void PrsDim_ConcentricRelation::ComputeSelection(const Handle(SelectMgr_Selectio
   seg = new Select3D_SensitiveSegment(anOwner, otherPnt, myPnt);
   aSelection->Add(seg);
 
-  gp_Ax1 RotateAxis(myCenter, myDir);
+  Axis3d RotateAxis(myCenter, myDir);
   Point3d FPnt = myCenter.Rotated(RotateAxis, M_PI_2);
   Point3d SPnt = myCenter.Rotated(RotateAxis, -M_PI_2);
   seg         = new Select3D_SensitiveSegment(anOwner, FPnt, SPnt);

@@ -24,7 +24,7 @@
 #include <gp_XYZ.hxx>
 #include <gp_XY.hxx>
 #include <IGESData_ViewKindEntity.hxx>
-class gp_Vec;
+class Vector3d;
 class Point3d;
 class gp_Pnt2d;
 class IGESData_TransfEntity;
@@ -96,7 +96,7 @@ public:
   Standard_EXPORT Standard_Real ScaleFactor() const;
 
   //! returns the View plane normal vector (model space)
-  Standard_EXPORT gp_Vec ViewNormalVector() const;
+  Standard_EXPORT Vector3d ViewNormalVector() const;
 
   //! returns the View reference point (model space)
   Standard_EXPORT Point3d ViewReferencePoint() const;
@@ -105,7 +105,7 @@ public:
   Standard_EXPORT Point3d CenterOfProjection() const;
 
   //! returns the View up vector (model space)
-  Standard_EXPORT gp_Vec ViewUpVector() const;
+  Standard_EXPORT Vector3d ViewUpVector() const;
 
   //! returns the View plane distance (model space)
   Standard_EXPORT Standard_Real ViewPlaneDistance() const;

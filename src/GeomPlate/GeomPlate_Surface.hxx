@@ -25,11 +25,11 @@
 #include <GeomAbs_Shape.hxx>
 #include <Standard_Integer.hxx>
 #include <TColgp_SequenceOfXY.hxx>
-class gp_Trsf;
+class Transform3d;
 class gp_GTrsf2d;
 class Geom_Curve;
 class Point3d;
-class gp_Vec;
+class Vector3d;
 class Geom_Geometry;
 
 class GeomPlate_Surface;
@@ -99,7 +99,7 @@ public:
   //! Cylinder, Cone, Revolved and Extruded surfaces.
   Standard_EXPORT virtual void TransformParameters(Standard_Real& U,
                                                    Standard_Real& V,
-                                                   const gp_Trsf& T) const Standard_OVERRIDE;
+                                                   const Transform3d& T) const Standard_OVERRIDE;
 
   //! Returns a 2d transformation  used to find the  new
   //! parameters of a point on the transformed surface.
@@ -119,7 +119,7 @@ public:
   //!
   //! It  can be redefined.  For  example on  the Plane,
   //! Cylinder, Cone, Revolved and Extruded surfaces.
-  Standard_EXPORT virtual gp_GTrsf2d ParametricTransformation(const gp_Trsf& T) const
+  Standard_EXPORT virtual gp_GTrsf2d ParametricTransformation(const Transform3d& T) const
     Standard_OVERRIDE;
 
   Standard_EXPORT void Bounds(Standard_Real& U1,
@@ -214,8 +214,8 @@ public:
   Standard_EXPORT void D1(const Standard_Real U,
                           const Standard_Real V,
                           Point3d&             P,
-                          gp_Vec&             D1U,
-                          gp_Vec&             D1V) const Standard_OVERRIDE;
+                          Vector3d&             D1U,
+                          Vector3d&             D1V) const Standard_OVERRIDE;
 
   //! Computes the point P, the first and the second derivatives in
   //! the directions U and V at this point.
@@ -223,11 +223,11 @@ public:
   Standard_EXPORT void D2(const Standard_Real U,
                           const Standard_Real V,
                           Point3d&             P,
-                          gp_Vec&             D1U,
-                          gp_Vec&             D1V,
-                          gp_Vec&             D2U,
-                          gp_Vec&             D2V,
-                          gp_Vec&             D2UV) const Standard_OVERRIDE;
+                          Vector3d&             D1U,
+                          Vector3d&             D1V,
+                          Vector3d&             D2U,
+                          Vector3d&             D2V,
+                          Vector3d&             D2UV) const Standard_OVERRIDE;
 
   //! Computes the point P, the first,the second and the third
   //! derivatives in the directions U and V at this point.
@@ -235,15 +235,15 @@ public:
   Standard_EXPORT void D3(const Standard_Real U,
                           const Standard_Real V,
                           Point3d&             P,
-                          gp_Vec&             D1U,
-                          gp_Vec&             D1V,
-                          gp_Vec&             D2U,
-                          gp_Vec&             D2V,
-                          gp_Vec&             D2UV,
-                          gp_Vec&             D3U,
-                          gp_Vec&             D3V,
-                          gp_Vec&             D3UUV,
-                          gp_Vec&             D3UVV) const Standard_OVERRIDE;
+                          Vector3d&             D1U,
+                          Vector3d&             D1V,
+                          Vector3d&             D2U,
+                          Vector3d&             D2V,
+                          Vector3d&             D2UV,
+                          Vector3d&             D3U,
+                          Vector3d&             D3V,
+                          Vector3d&             D3UUV,
+                          Vector3d&             D3UVV) const Standard_OVERRIDE;
 
   //! ---Purpose ;
   //! Computes the derivative of order Nu in the direction U and Nv
@@ -252,7 +252,7 @@ public:
   //! Raised if the continuity of the surface is not CNu in the U
   //! direction or not CNv in the V direction.
   //! Raised if Nu + Nv < 1 or Nu < 0 or Nv < 0.
-  Standard_EXPORT gp_Vec DN(const Standard_Real    U,
+  Standard_EXPORT Vector3d DN(const Standard_Real    U,
                             const Standard_Real    V,
                             const Standard_Integer Nu,
                             const Standard_Integer Nv) const Standard_OVERRIDE;
@@ -264,7 +264,7 @@ public:
   //! or a complex transformation obtained by combination of
   //! the previous elementaries transformations.
   //! (see class Transformation of the package Geom).
-  Standard_EXPORT void Transform(const gp_Trsf& T) Standard_OVERRIDE;
+  Standard_EXPORT void Transform(const Transform3d& T) Standard_OVERRIDE;
 
   Standard_EXPORT Handle(Geom_Surface) CallSurfinit() const;
 

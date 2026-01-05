@@ -488,13 +488,13 @@ static Standard_Boolean IsSweepParallelSpine(const Handle(GeomFill_LocationLaw)&
   // Get the first and last transformations of the location
   Standard_Real aFirst;
   Standard_Real aLast;
-  gp_Vec        VBegin;
-  gp_Vec        VEnd;
+  Vector3d        VBegin;
+  Vector3d        VEnd;
   gp_Mat        M;
   gp_GTrsf      GTfBegin;
-  gp_Trsf       TfBegin;
+  Transform3d       TfBegin;
   gp_GTrsf      GTfEnd;
-  gp_Trsf       TfEnd;
+  Transform3d       TfEnd;
 
   theLoc->GetDomain(aFirst, aLast);
 
@@ -561,8 +561,8 @@ static Standard_Boolean IsSweepParallelSpine(const Handle(GeomFill_LocationLaw)&
   aPntLastSec.Transform(TfEnd);
 
   Point3d aPntFirstSec = ElCLib::Value(UFirst, L);
-  gp_Vec aVecSec(aPntFirstSec, aPntLastSec);
-  gp_Vec aVecSpine = VEnd - VBegin;
+  Vector3d aVecSec(aPntFirstSec, aPntLastSec);
+  Vector3d aVecSpine = VEnd - VBegin;
 
   Standard_Boolean isParallel = aVecSec.IsParallel(aVecSpine, theTol);
 
@@ -583,7 +583,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
   isUPeriodic = mySec->IsUPeriodic();
   Handle(Geom_Surface) S;
   GeomAbs_CurveType    SectionType;
-  gp_Vec               V;
+  Vector3d               V;
   gp_Mat               M;
   Standard_Real        levier, error = 0;
   Standard_Real        UFirst = 0, VFirst = First, ULast = 0, VLast = Last;
@@ -593,13 +593,13 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
   if (myLoc->IsTranslation(error))
   {
     // Donne de la translation
-    gp_Vec DP, DS;
+    Vector3d DP, DS;
     myLoc->D0(1, M, DS);
     myLoc->D0(0, M, V);
     DP = DS - V;
     DP.Normalize();
     gp_GTrsf Tf;
-    gp_Trsf  Tf2;
+    Transform3d  Tf2;
     Tf.SetVectorialPart(M);
     Tf.SetTranslationPart(V.XYZ());
     try
@@ -652,7 +652,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
         if (SError <= Tol)
         {
           Ok = Standard_True;
-          gp_Ax2 AxisOfPlane(L.Location(), DS ^ DP, DS);
+          Frame3d AxisOfPlane(L.Location(), DS ^ DP, DS);
           S = new (Geom_Plane)(AxisOfPlane);
         }
         else
@@ -712,7 +712,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
     {
 
       Point3d             P1, P2, Centre0, Centre1, Centre2;
-      gp_Vec             dsection;
+      Vector3d             dsection;
       Handle(Geom_Curve) Section;
       GeomAdaptor_Curve  AC;
       gp_Circ            C;
@@ -743,13 +743,13 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
       Centre0 = C.Location();
 
       Standard_Real Angle;
-      gp_Vec        N(Centre1, P1);
+      Vector3d        N(Centre1, P1);
       if (N.Magnitude() < 1.e-9)
       {
-        gp_Vec Bis(Centre2, P2);
+        Vector3d Bis(Centre2, P2);
         N = Bis;
       }
-      gp_Vec L(P1, P2), Dir(Centre1, Centre2);
+      Vector3d L(P1, P2), Dir(Centre1, Centre2);
 
       Angle = L.Angle(Dir);
       if ((Angle > 0.01) && (Angle < M_PI / 2 - 0.01))
@@ -766,7 +766,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
         // Bornes en U
         UFirst = AC.FirstParameter();
         ULast  = AC.LastParameter();
-        gp_Vec diso;
+        Vector3d diso;
         Point3d pbis;
         S->VIso(VLast)->D1(0, pbis, diso);
         if (diso.Magnitude() > 1.e-9 && dsection.Magnitude() > 1.e-9)
@@ -796,7 +796,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
       Point3d Centre;
       isVPeriodic = (Abs(Last - First - 2 * M_PI) < 1.e-15);
       Standard_Real RotRadius;
-      gp_Vec        DP, DS, DN;
+      Vector3d        DP, DS, DN;
       myLoc->D0(0.1, M, DS);
       myLoc->D0(0, M, V);
       myLoc->Rotation(Centre);
@@ -814,7 +814,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
       DP.Normalize();
 
       gp_GTrsf Tf;
-      gp_Trsf  Tf2;
+      Transform3d  Tf2;
       Tf.SetVectorialPart(M);
       Tf.SetTranslationPart(V.XYZ());
       //      try { // Pas joli mais il n'y as pas d'autre moyens de tester SetValues
@@ -850,7 +850,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
         Standard_Real    Radius;
         Standard_Boolean IsGoodSide = Standard_True;
         C.Transform(Tf2);
-        gp_Vec DC;
+        Vector3d DC;
         // On calcul le centre eventuel
         DC.SetXYZ(C.Location().XYZ() - Centre.XYZ());
         Centre.ChangeCoord() += (DC.Dot(DN)) * DN.XYZ();
@@ -863,7 +863,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
 
         // On verifie d'abord que le plan de la section est // a
         // l'axe de rotation
-        gp_Vec NC;
+        Vector3d NC;
         NC.SetXYZ(C.Position().Direction().XYZ());
         NC.Normalize();
         error = Abs(NC.Dot(DN));
@@ -942,7 +942,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
             // Il faut donc modifier UFirst, ULast...
             Handle(Geom_Circle) Iso;
             Iso = Handle(Geom_Circle)::DownCast(S->UIso(0.));
-            gp_Ax2 axeiso;
+            Frame3d axeiso;
             axeiso = Iso->Circ().Position();
 
             if (C.Position().Direction().IsOpposite(axeiso.Direction(), 0.1))
@@ -979,7 +979,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
       {
         gp_Lin L = AC.Line();
         L.Transform(Tf2);
-        gp_Vec DL;
+        Vector3d DL;
         DL.SetXYZ(L.Direction().XYZ());
         levier = Max(Abs(AC.FirstParameter()), AC.LastParameter());
         // si la line est ortogonale au cercle de rotation
@@ -994,7 +994,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
 
           // Calcul du centre du vecteur supportant la "XDirection"
           Point3d CentreOfSurf;
-          gp_Vec O1O2(Centre, L.Location()), trans;
+          Vector3d O1O2(Centre, L.Location()), trans;
           trans = DN;
           trans *= DN.Dot(O1O2);
           CentreOfSurf = Centre.Translated(trans);
@@ -1071,7 +1071,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
         if (IsTrsf)
         {
           Section->Transform(Tf2);
-          gp_Ax1 Axis(Centre, DN);
+          Axis3d Axis(Centre, DN);
           S        = new (Geom_SurfaceOfRevolution)(Section, Axis);
           myExchUV = Standard_True;
           SError   = 0.;

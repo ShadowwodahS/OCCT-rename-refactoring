@@ -44,7 +44,7 @@ static const TopoDS_Shape& check(const TopoDS_Shape& S)
 //=================================================================================================
 
 BRepPrimAPI_MakeRevol::BRepPrimAPI_MakeRevol(const TopoDS_Shape&    S,
-                                             const gp_Ax1&          A,
+                                             const Axis3d&          A,
                                              const Standard_Real    D,
                                              const Standard_Boolean Copy)
     : myRevol(check(S), A, D, Copy),
@@ -65,7 +65,7 @@ BRepPrimAPI_MakeRevol::BRepPrimAPI_MakeRevol(const TopoDS_Shape&    S,
 //=================================================================================================
 
 BRepPrimAPI_MakeRevol::BRepPrimAPI_MakeRevol(const TopoDS_Shape&    S,
-                                             const gp_Ax1&          A,
+                                             const Axis3d&          A,
                                              const Standard_Boolean Copy)
     :
 
@@ -239,7 +239,7 @@ void BRepPrimAPI_MakeRevol::Build(const Message_ProgressRange& /*theRange*/)
 // purpose  : used in CheckValidity to find out is there
 //           intersection between curve and axe of revolution
 //=======================================================================
-static Standard_Boolean IsIntersect(const Handle(Adaptor3d_Curve)& theC, const gp_Ax1& theAxe)
+static Standard_Boolean IsIntersect(const Handle(Adaptor3d_Curve)& theC, const Axis3d& theAxe)
 {
   const gp_Lin anAxis(theAxe);
   // Quick test for circle
@@ -285,7 +285,7 @@ static Standard_Boolean IsIntersect(const Handle(Adaptor3d_Curve)& theC, const g
 //=================================================================================================
 
 Standard_Boolean BRepPrimAPI_MakeRevol::CheckValidity(const TopoDS_Shape& theShape,
-                                                      const gp_Ax1&       theA)
+                                                      const Axis3d&       theA)
 {
   TopExp_Explorer  anExp(theShape, TopAbs_EDGE);
   Standard_Boolean IsValid = Standard_True;
@@ -301,7 +301,7 @@ Standard_Boolean BRepPrimAPI_MakeRevol::CheckValidity(const TopoDS_Shape& theSha
     TopLoc_Location    L;
     Standard_Real      First, Last;
     Handle(Geom_Curve) C  = BRep_Tool::Curve(anE, L, First, Last);
-    gp_Trsf            Tr = L.Transformation();
+    Transform3d            Tr = L.Transformation();
     C                     = Handle(Geom_Curve)::DownCast(C->Copy());
     C                     = new Geom_TrimmedCurve(C, First, Last);
     C->Transform(Tr);

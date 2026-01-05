@@ -299,13 +299,13 @@ static Standard_Boolean Normal(const Handle(TopOpeBRepDS_GapTool)&        A,
                                const Handle(TopOpeBRepDS_HDataStructure)& HDS,
                                const Handle(TopOpeBRepDS_Interference)&   I,
                                const TopoDS_Face&                         F,
-                               gp_Dir&                                    D)
+                               Dir3d&                                    D)
 
 {
   TopOpeBRepDS_Kind GK, SK;
   Standard_Integer  IG, IS;
   Point3d            PS;
-  gp_Vec            TU, TV, N;
+  Vector3d            TU, TV, N;
   gp_Pnt2d          P2d;
 
   BRepAdaptor_Surface S(F);
@@ -347,7 +347,7 @@ static Standard_Boolean Normal(const Handle(TopOpeBRepDS_GapTool)&        A,
         //	if (N.SquareMagnitude() >= gp::Resolution()); { // !!
         if (N.SquareMagnitude() >= gp::Resolution())
         {
-          D = gp_Dir(N);
+          D = Dir3d(N);
           return 1;
         }
       }
@@ -373,7 +373,7 @@ void TopOpeBRepDS_GapFiller::FilterByIncidentDistance(const TopoDS_Face&        
 
   Standard_Real    TolDef  = 0.94; // cos(20degre);
   Standard_Real    TolDist = 20 * PI1.Tolerance();
-  gp_Dir           N1, N2;
+  Dir3d           N1, N2;
   Standard_Boolean Ok1 = Normal(myGapTool, myHDS, I, F, N1);
 
   for (TopOpeBRepDS_ListIteratorOfListOfInterference it(LI); it.More(); it.Next())

@@ -30,9 +30,9 @@ class Standard_DomainError;
 class Standard_OutOfRange;
 class LProp_NotDefined;
 class BRepAdaptor_Curve;
-class gp_Vec;
+class Vector3d;
 class Point3d;
-class gp_Dir;
+class Dir3d;
 class BRepLProp_CurveTool;
 
 class BRepLProp_CLProps
@@ -82,15 +82,15 @@ public:
 
   //! Returns the first derivative.
   //! The derivative is computed if it has not been yet.
-  Standard_EXPORT const gp_Vec& D1();
+  Standard_EXPORT const Vector3d& D1();
 
   //! Returns the second derivative.
   //! The derivative is computed if it has not been yet.
-  Standard_EXPORT const gp_Vec& D2();
+  Standard_EXPORT const Vector3d& D2();
 
   //! Returns the third derivative.
   //! The derivative is computed if it has not been yet.
-  Standard_EXPORT const gp_Vec& D3();
+  Standard_EXPORT const Vector3d& D3();
 
   //! Returns True if the tangent is defined.
   //! For example, the tangent is not defined if the
@@ -98,13 +98,13 @@ public:
   Standard_EXPORT Standard_Boolean IsTangentDefined();
 
   //! output  the tangent direction <D>
-  Standard_EXPORT void Tangent(gp_Dir& D);
+  Standard_EXPORT void Tangent(Dir3d& D);
 
   //! Returns the curvature.
   Standard_EXPORT Standard_Real Curvature();
 
   //! Returns the normal direction <N>.
-  Standard_EXPORT void Normal(gp_Dir& N);
+  Standard_EXPORT void Normal(Dir3d& N);
 
   //! Returns the centre of curvature <P>.
   Standard_EXPORT void CentreOfCurvature(Point3d& P);
@@ -117,8 +117,8 @@ private:
   Standard_Real     myCN;
   Standard_Real     myLinTol;
   Point3d            myPnt;
-  gp_Vec            myDerivArr[3];
-  gp_Dir            myTangent;
+  Vector3d            myDerivArr[3];
+  Dir3d            myTangent;
   Standard_Real     myCurvature;
   LProp_Status      myTangentStatus;
   Standard_Integer  mySignificantFirstDerivativeOrder;

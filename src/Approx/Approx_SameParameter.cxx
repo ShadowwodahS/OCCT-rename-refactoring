@@ -114,14 +114,14 @@ static void ProjectPointOnCurve(const Standard_Real    InitValue,
   Standard_Integer num_iter = 0, not_done = 1;
 
   Point3d        a_point;
-  gp_Vec        vector, d1, d2;
+  Vector3d        vector, d1, d2;
   Standard_Real func, func_derivative, param = InitValue;
   Status = Standard_False;
   do
   {
     num_iter++;
     Curve.D2(param, a_point, d1, d2);
-    vector = gp_Vec(a_point, APoint);
+    vector = Vector3d(a_point, APoint);
 
     func = vector.Dot(d1);
     if (Abs(func) < Tolerance * d1.Magnitude())
@@ -770,7 +770,7 @@ Standard_Boolean Approx_SameParameter::ComputeTangents(const Adaptor3d_CurveOnSu
   const Standard_Real aSmallMagnitude = 1.0e-12;
   // Check tangency on curve border.
   Point3d aPnt, aPntCOnS;
-  gp_Vec aVec, aVecConS;
+  Vector3d aVec, aVecConS;
 
   // First point.
   const Standard_Real aParamFirst = myC3d->FirstParameter();

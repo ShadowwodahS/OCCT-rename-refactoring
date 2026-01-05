@@ -235,7 +235,7 @@ Standard_Boolean IntTools_EdgeFace::IsEqDistance(const Point3d&              aP,
   if (aSurfType == GeomAbs_Cylinder)
   {
     gp_Cylinder   aCyl  = aBAS.Cylinder();
-    const gp_Ax1& anAx1 = aCyl.Axis();
+    const Axis3d& anAx1 = aCyl.Axis();
     gp_Lin        aLinAxis(anAx1);
     Standard_Real aDC, aRadius = aCyl.Radius();
     aDC = aLinAxis.Distance(aP);
@@ -249,7 +249,7 @@ Standard_Boolean IntTools_EdgeFace::IsEqDistance(const Point3d&              aP,
   if (aSurfType == GeomAbs_Cone)
   {
     gp_Cone       aCone = aBAS.Cone();
-    const gp_Ax1& anAx1 = aCone.Axis();
+    const Axis3d& anAx1 = aCone.Axis();
     gp_Lin        aLinAxis(anAx1);
     Standard_Real aDC, aRadius, aDS, aSemiAngle;
     aDC = aLinAxis.Distance(aP);
@@ -779,12 +779,12 @@ Standard_Boolean IsCoplanar(const BRepAdaptor_Curve& aCurve, const BRepAdaptor_S
   if (aCType == GeomAbs_Circle && aSType == GeomAbs_Plane)
   {
     gp_Circ       aCirc   = aCurve.Circle();
-    const gp_Ax1& anAx1   = aCirc.Axis();
-    const gp_Dir& aDirAx1 = anAx1.Direction();
+    const Axis3d& anAx1   = aCirc.Axis();
+    const Dir3d& aDirAx1 = anAx1.Direction();
 
     gp_Pln        aPln    = aSurface.Plane();
-    const gp_Ax1& anAx    = aPln.Axis();
-    const gp_Dir& aDirPln = anAx.Direction();
+    const Axis3d& anAx    = aPln.Axis();
+    const Dir3d& aDirPln = anAx.Direction();
 
     bFlag = IntTools_Tools::IsDirsCoinside(aDirAx1, aDirPln);
   }

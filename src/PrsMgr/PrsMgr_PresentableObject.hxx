@@ -254,7 +254,7 @@ public: //! @name object transformation
   //! Sets local transformation to theTransformation.
   //! Note that the local transformation of the object having Transformation Persistence
   //! is applied within Local Coordinate system defined by this Persistence.
-  void SetLocalTransformation(const gp_Trsf& theTrsf)
+  void SetLocalTransformation(const Transform3d& theTrsf)
   {
     setLocalTransformation(new TopLoc_Datum3D(theTrsf));
   }
@@ -281,7 +281,7 @@ public: //! @name object transformation
   //! Return the local transformation.
   //! Note that the local transformation of the object having Transformation Persistence
   //! is applied within Local Coordinate system defined by this Persistence.
-  const gp_Trsf& LocalTransformation() const
+  const Transform3d& LocalTransformation() const
   {
     return !myLocalTransformation.IsNull() ? myLocalTransformation->Trsf() : getIdentityTrsf();
   }
@@ -289,7 +289,7 @@ public: //! @name object transformation
   //! Return the transformation taking into account transformation of parent object(s).
   //! Note that the local transformation of the object having Transformation Persistence
   //! is applied within Local Coordinate system defined by this Persistence.
-  const gp_Trsf& Transformation() const
+  const Transform3d& Transformation() const
   {
     return !myTransformation.IsNull() ? myTransformation->Trsf() : getIdentityTrsf();
   }
@@ -439,7 +439,7 @@ protected: //! @name interface methods
     const Handle(TopLoc_Datum3D)& theTransformation);
 
   //! Return the identity transformation.
-  Standard_EXPORT static const gp_Trsf& getIdentityTrsf();
+  Standard_EXPORT static const Transform3d& getIdentityTrsf();
 
   //! Recompute computed (HLR) presentations (when view is in computed mode).
   Standard_EXPORT void recomputeComputed() const;

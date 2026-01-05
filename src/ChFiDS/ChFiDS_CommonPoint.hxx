@@ -66,7 +66,7 @@ public:
   void SetPoint(const Point3d& thePoint) { point = thePoint; }
 
   //! Set the output 3d  vector
-  void SetVector(const gp_Vec& theVector)
+  void SetVector(const Vector3d& theVector)
   {
     hasvector = Standard_True;
     vector    = theVector;
@@ -127,7 +127,7 @@ public:
   Standard_Boolean HasVector() const { return hasvector; }
 
   //! Returns the output  3d vector
-  const gp_Vec& Vector() const
+  const Vector3d& Vector() const
   {
     if (!hasvector)
     {
@@ -140,7 +140,7 @@ private:
   TopoDS_Edge        arc;
   TopoDS_Vertex      vtx;
   Point3d             point;
-  gp_Vec             vector;
+  Vector3d             vector;
   Standard_Real      tol;
   Standard_Real      prmarc;
   Standard_Real      prmtg;

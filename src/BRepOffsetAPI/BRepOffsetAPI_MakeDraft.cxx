@@ -19,7 +19,7 @@
 #include <TopoDS_Shell.hxx>
 
 BRepOffsetAPI_MakeDraft::BRepOffsetAPI_MakeDraft(const TopoDS_Shape& Shape,
-                                                 const gp_Dir&       Dir,
+                                                 const Dir3d&       Dir,
                                                  const Standard_Real Angle)
     : myDraft(Shape, Dir, Angle)
 {

@@ -30,10 +30,10 @@
 IMPLEMENT_STANDARD_RTTIEXT(Geom_Circle, Geom_Conic)
 
 typedef Geom_Circle Circle;
-typedef gp_Ax2      Ax2;
+typedef Frame3d      Ax2;
 typedef Point3d      Pnt;
-typedef gp_Trsf     Trsf;
-typedef gp_Vec      Vec;
+typedef Transform3d     Trsf;
+typedef Vector3d      Vec;
 typedef gp_XYZ      XYZ;
 
 //=================================================================================================

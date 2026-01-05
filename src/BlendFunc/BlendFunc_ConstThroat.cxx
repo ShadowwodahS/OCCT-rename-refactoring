@@ -69,7 +69,7 @@ Standard_Boolean BlendFunc_ConstThroat::IsSolution(const math_Vector& Sol, const
 
   tol = Tol;
 
-  gp_Vec dnplan, temp1, temp2, tempmid;
+  Vector3d dnplan, temp1, temp2, tempmid;
 
   if (Abs(valsol(1)) <= Tol && Abs(valsol(2)) <= Tol && Abs(valsol(3)) <= Tol * Tol
       && Abs(valsol(4)) <= Tol * Tol)
@@ -121,12 +121,12 @@ Standard_Boolean BlendFunc_ConstThroat::Value(const math_Vector& X, math_Vector&
   F(2) = nplan.XYZ().Dot(pts2.XYZ()) + theD;
 
   const Point3d ptmid((pts1.XYZ() + pts2.XYZ()) / 2);
-  const gp_Vec vmid(ptgui, ptmid);
+  const Vector3d vmid(ptgui, ptmid);
 
   F(3) = vmid.SquareMagnitude() - Throat * Throat;
 
-  const gp_Vec vref1(ptgui, pts1);
-  const gp_Vec vref2(ptgui, pts2);
+  const Vector3d vref1(ptgui, pts1);
+  const Vector3d vref2(ptgui, pts2);
 
   F(4) = vref1.SquareMagnitude() - vref2.SquareMagnitude();
 
@@ -148,14 +148,14 @@ Standard_Boolean BlendFunc_ConstThroat::Derivatives(const math_Vector& X, math_M
   D(2, 2) = 0.;
   D(2, 3) = nplan.Dot(d1u2);
   D(2, 4) = nplan.Dot(d1v2);
-  D(3, 1) = gp_Vec((pts1.XYZ() + pts2.XYZ()) / 2 - ptgui.XYZ()).Dot(d1u1);
-  D(3, 2) = gp_Vec((pts1.XYZ() + pts2.XYZ()) / 2 - ptgui.XYZ()).Dot(d1v1);
-  D(3, 3) = gp_Vec((pts1.XYZ() + pts2.XYZ()) / 2 - ptgui.XYZ()).Dot(d1u2);
-  D(3, 4) = gp_Vec((pts1.XYZ() + pts2.XYZ()) / 2 - ptgui.XYZ()).Dot(d1v2);
-  D(4, 1) = 2. * gp_Vec(ptgui, pts1).Dot(d1u1);
-  D(4, 2) = 2. * gp_Vec(ptgui, pts1).Dot(d1v1);
-  D(4, 3) = -2. * gp_Vec(ptgui, pts2).Dot(d1u2);
-  D(4, 4) = -2. * gp_Vec(ptgui, pts2).Dot(d1v2);
+  D(3, 1) = Vector3d((pts1.XYZ() + pts2.XYZ()) / 2 - ptgui.XYZ()).Dot(d1u1);
+  D(3, 2) = Vector3d((pts1.XYZ() + pts2.XYZ()) / 2 - ptgui.XYZ()).Dot(d1v1);
+  D(3, 3) = Vector3d((pts1.XYZ() + pts2.XYZ()) / 2 - ptgui.XYZ()).Dot(d1u2);
+  D(3, 4) = Vector3d((pts1.XYZ() + pts2.XYZ()) / 2 - ptgui.XYZ()).Dot(d1v2);
+  D(4, 1) = 2. * Vector3d(ptgui, pts1).Dot(d1u1);
+  D(4, 2) = 2. * Vector3d(ptgui, pts1).Dot(d1v1);
+  D(4, 3) = -2. * Vector3d(ptgui, pts2).Dot(d1u2);
+  D(4, 4) = -2. * Vector3d(ptgui, pts2).Dot(d1v2);
 
   return Standard_True;
 }
@@ -183,7 +183,7 @@ Standard_Boolean BlendFunc_ConstThroat::IsTangencyPoint() const
 
 //=================================================================================================
 
-const gp_Vec& BlendFunc_ConstThroat::TangentOnS1() const
+const Vector3d& BlendFunc_ConstThroat::TangentOnS1() const
 {
   if (istangent)
     throw Standard_DomainError("BlendFunc_ConstThroat::TangentOnS1");
@@ -192,7 +192,7 @@ const gp_Vec& BlendFunc_ConstThroat::TangentOnS1() const
 
 //=================================================================================================
 
-const gp_Vec& BlendFunc_ConstThroat::TangentOnS2() const
+const Vector3d& BlendFunc_ConstThroat::TangentOnS2() const
 {
   if (istangent)
     throw Standard_DomainError("BlendFunc_ConstThroat::TangentOnS2");
@@ -223,13 +223,13 @@ void BlendFunc_ConstThroat::Tangent(const Standard_Real U1,
                                     const Standard_Real V1,
                                     const Standard_Real U2,
                                     const Standard_Real V2,
-                                    gp_Vec&             TgF,
-                                    gp_Vec&             TgL,
-                                    gp_Vec&             NmF,
-                                    gp_Vec&             NmL) const
+                                    Vector3d&             TgF,
+                                    Vector3d&             TgL,
+                                    Vector3d&             NmF,
+                                    Vector3d&             NmL) const
 {
   Point3d           pt;
-  gp_Vec           d1u, d1v;
+  Vector3d           d1u, d1v;
   Standard_Boolean revF = Standard_False;
   Standard_Boolean revL = Standard_False;
 

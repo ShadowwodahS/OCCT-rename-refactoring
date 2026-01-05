@@ -56,7 +56,7 @@ Standard_Real BRepTopAdaptor_HVertex::Resolution(const Handle(Adaptor2d_Curve2d)
   gp_Vec2d                    v2d;
   C->D1(p, p2d, v2d);
   Point3d P, P1;
-  gp_Vec DU, DV, DC;
+  Vector3d DU, DV, DC;
   S.D1(p2d.X(), p2d.Y(), P, DU, DV);
   DC.SetLinearForm(v2d.X(), DU, v2d.Y(), DV);
   Standard_Real ResUV, mag = DC.Magnitude();

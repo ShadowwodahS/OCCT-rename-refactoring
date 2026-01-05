@@ -360,11 +360,11 @@ static Standard_Boolean IsInsideIn2d(const gp_Pnt2d&     aBasePnt,
 //            In 3d space. Static subfunction in DeleteByTube.
 //=========================================================================
 static Standard_Boolean IsInsideIn3d(const Point3d&       aBasePnt,
-                                     const gp_Vec&       aBaseVec,
+                                     const Vector3d&       aBaseVec,
                                      const Point3d&       aNextPnt,
                                      const Standard_Real aSquareMaxDist)
 {
-  gp_Vec aVec(aBasePnt, aNextPnt);
+  Vector3d aVec(aBasePnt, aNextPnt);
 
   // d*d = (basevec^(nextpnt-basepnt))**2 / basevec**2
   Standard_Real aSquareDist = aVec.CrossSquareMagnitude(aBaseVec) / aBaseVec.SquareMagnitude();
@@ -431,7 +431,7 @@ static Handle(IntPatch_WLine) DeleteByTube(const Handle(IntPatch_WLine)&    theW
   gp_Vec2d      aBase2dVec1(UonS1[1] - UonS1[0], VonS1[1] - VonS1[0]);
   gp_Vec2d      aBase2dVec2(UonS2[1] - UonS2[0], VonS2[1] - VonS2[0]);
   Point3d        aBase3dPnt = theWLine->Point(1).Value();
-  gp_Vec        aBase3dVec(theWLine->Point(1).Value(), theWLine->Point(2).Value());
+  Vector3d        aBase3dVec(theWLine->Point(1).Value(), theWLine->Point(2).Value());
   Standard_Real aPrevStep = aBase3dVec.SquareMagnitude();
 
   // Choose base tolerance and scale it to pipe algorithm.
@@ -523,7 +523,7 @@ static Handle(IntPatch_WLine) DeleteByTube(const Handle(IntPatch_WLine)&    theW
       aBase2dVec1.SetCoord(UonS1[1] - UonS1[0], VonS1[1] - VonS1[0]);
       aBase2dVec2.SetCoord(UonS2[1] - UonS2[0], VonS2[1] - VonS2[0]);
       aBase3dPnt = theWLine->Point(i - 1).Value();
-      aBase3dVec = gp_Vec(theWLine->Point(i - 1).Value(), theWLine->Point(i).Value());
+      aBase3dVec = Vector3d(theWLine->Point(i - 1).Value(), theWLine->Point(i).Value());
 
       aPrevStep = aBase3dVec.SquareMagnitude();
 
@@ -863,9 +863,9 @@ static IntPatchWT_WLsConnectionType CheckArgumentsToExtend(const Handle(Adaptor3
                                                            const IntSurf_PntOn2S&     thePtWL1,
                                                            const IntSurf_PntOn2S&     thePtWL2,
                                                            IntSurf_PntOn2S&           theNewPoint,
-                                                           const gp_Vec&              theVec1,
-                                                           const gp_Vec&              theVec2,
-                                                           const gp_Vec&              theVec3,
+                                                           const Vector3d&              theVec1,
+                                                           const Vector3d&              theVec2,
+                                                           const Vector3d&              theVec3,
                                                            const Bnd_Box2d&           theBoxS1,
                                                            const Bnd_Box2d&           theBoxS2,
                                                            const Standard_Real        theToler3D,
@@ -1047,12 +1047,12 @@ Standard_Boolean CheckArgumentsToJoin(const Handle(Adaptor3d_Surface)& theS1,
   //   2. Modulus of perpendicular (O->theP2) to the segment (theP1->theP3)
   //   is less than 0.01*<modulus of this segment>.
 
-  const gp_Vec aV12f(theP1, theP2), aV12l(theP2, theP3);
+  const Vector3d aV12f(theP1, theP2), aV12l(theP2, theP3);
 
   if (aV12f.Angle(aV12l) > IntPatch_WLineTool::myMaxConcatAngle)
     return Standard_False;
 
-  const gp_Vec        aV13(theP1, theP3);
+  const Vector3d        aV13(theP1, theP3);
   const Standard_Real aSq13 = aV13.SquareMagnitude();
 
   return (aV12f.CrossSquareMagnitude(aV13) < 1.0e-4 * aSq13 * aSq13);
@@ -1069,9 +1069,9 @@ static void ExtendTwoWLFirstFirst(const Handle(Adaptor3d_Surface)& theS1,
                                   const Handle(IntPatch_WLine)&    theWLine2,
                                   const IntSurf_PntOn2S&           thePtWL1,
                                   const IntSurf_PntOn2S&           thePtWL2,
-                                  const gp_Vec&                    theVec1,
-                                  const gp_Vec&                    theVec2,
-                                  const gp_Vec&                    theVec3,
+                                  const Vector3d&                    theVec1,
+                                  const Vector3d&                    theVec2,
+                                  const Vector3d&                    theVec3,
                                   const Bnd_Box2d&                 theBoxS1,
                                   const Bnd_Box2d&                 theBoxS2,
                                   const Standard_Real              theToler3D,
@@ -1150,9 +1150,9 @@ static void ExtendTwoWLFirstLast(const Handle(Adaptor3d_Surface)& theS1,
                                  const Handle(IntPatch_WLine)&    theWLine2,
                                  const IntSurf_PntOn2S&           thePtWL1,
                                  const IntSurf_PntOn2S&           thePtWL2,
-                                 const gp_Vec&                    theVec1,
-                                 const gp_Vec&                    theVec2,
-                                 const gp_Vec&                    theVec3,
+                                 const Vector3d&                    theVec1,
+                                 const Vector3d&                    theVec2,
+                                 const Vector3d&                    theVec3,
                                  const Bnd_Box2d&                 theBoxS1,
                                  const Bnd_Box2d&                 theBoxS2,
                                  const Standard_Real              theToler3D,
@@ -1229,9 +1229,9 @@ static void ExtendTwoWLLastFirst(const Handle(Adaptor3d_Surface)& theS1,
                                  const Handle(IntPatch_WLine)&    theWLine2,
                                  const IntSurf_PntOn2S&           thePtWL1,
                                  const IntSurf_PntOn2S&           thePtWL2,
-                                 const gp_Vec&                    theVec1,
-                                 const gp_Vec&                    theVec2,
-                                 const gp_Vec&                    theVec3,
+                                 const Vector3d&                    theVec1,
+                                 const Vector3d&                    theVec2,
+                                 const Vector3d&                    theVec3,
                                  const Bnd_Box2d&                 theBoxS1,
                                  const Bnd_Box2d&                 theBoxS2,
                                  const Standard_Real              theToler3D,
@@ -1302,9 +1302,9 @@ static void ExtendTwoWLLastLast(const Handle(Adaptor3d_Surface)& theS1,
                                 const Handle(IntPatch_WLine)&    theWLine2,
                                 const IntSurf_PntOn2S&           thePtWL1,
                                 const IntSurf_PntOn2S&           thePtWL2,
-                                const gp_Vec&                    theVec1,
-                                const gp_Vec&                    theVec2,
-                                const gp_Vec&                    theVec3,
+                                const Vector3d&                    theVec1,
+                                const Vector3d&                    theVec2,
+                                const Vector3d&                    theVec3,
                                 const Bnd_Box2d&                 theBoxS1,
                                 const Bnd_Box2d&                 theBoxS2,
                                 const Standard_Real              theToler3D,
@@ -1768,7 +1768,7 @@ void IntPatch_WLineTool::ExtendTwoWLines(IntPatch_SequenceOfLine&         theSli
   if (theSlin.Length() < 2)
     return;
 
-  gp_Vec aVec1, aVec2, aVec3;
+  Vector3d aVec1, aVec2, aVec3;
 
   unsigned int hasBeenJoinedCounter = 0;
 

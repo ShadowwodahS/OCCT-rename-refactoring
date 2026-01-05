@@ -108,10 +108,10 @@ static void QuasiFleche(const Adaptor3d_Curve&  C,
                         const Standard_Real     Deflection2,
                         const Standard_Real     Udeb,
                         const Point3d&           Pdeb,
-                        const gp_Vec&           Vdeb,
+                        const Vector3d&           Vdeb,
                         const Standard_Real     Ufin,
                         const Point3d&           Pfin,
-                        const gp_Vec&           Vfin,
+                        const Vector3d&           Vfin,
                         const Standard_Integer  Nbmin,
                         const Standard_Real     Eps,
                         TColStd_SequenceOfReal& Parameters,
@@ -289,9 +289,9 @@ static Standard_Boolean KPartCircle(const TopoDS_Face&                          
     if (fabs(Alt) > gp::Resolution())
     {
       BRepAdaptor_Surface S(mySpine, 0);
-      gp_Ax1              Nor = S.Plane().Axis();
-      gp_Trsf             T;
-      gp_Vec              Trans(Nor.Direction());
+      Axis3d              Nor = S.Plane().Axis();
+      Transform3d             T;
+      Vector3d              Trans(Nor.Direction());
       Trans = Alt * Trans;
       T.SetTranslation(Trans);
       myShape.Move(TopLoc_Location(T));
@@ -642,8 +642,8 @@ void Compute(const TopoDS_Face&                                 Spine,
   Standard_Real ALT = Alt;
   if (Spine.Orientation() == TopAbs_REVERSED)
     ALT = -Alt;
-  gp_Trsf T;
-  T.SetTranslation(gp_Vec(0., 0., ALT));
+  Transform3d T;
+  T.SetTranslation(Vector3d(0., 0., ALT));
   TopLoc_Location L(T);
 
   for (TopExp_Explorer exp(Spine, TopAbs_WIRE); exp.More(); exp.Next())
@@ -731,7 +731,7 @@ void BRepFill_OffsetWire::PerformWithBiLo(const TopoDS_Face&              Spine,
     if (myWorkSpine.Orientation() == TopAbs_REVERSED)
       anAlt = -Alt;
     RefPlane = Handle(Geom_Plane)::DownCast(
-      RefPlane->Translated(anAlt * gp_Vec(RefPlane->Axis().Direction())));
+      RefPlane->Translated(anAlt * Vector3d(RefPlane->Axis().Direction())));
   }
 
   //---------------------------------------------------------------
@@ -2679,7 +2679,7 @@ static Standard_Boolean PerformCurve(TColStd_SequenceOfReal& Parameters,
   Standard_Real UU2 = Max(U1, U2);
 
   Point3d Pdeb, Pfin;
-  gp_Vec Ddeb, Dfin;
+  Vector3d Ddeb, Dfin;
   C.D1(UU1, Pdeb, Ddeb);
   Parameters.Append(UU1);
   Points.Append(Pdeb);
@@ -2716,10 +2716,10 @@ static void QuasiFleche(const Adaptor3d_Curve& C,
                         const Standard_Real     Deflection2,
                         const Standard_Real     Udeb,
                         const Point3d&           Pdeb,
-                        const gp_Vec&           Vdeb,
+                        const Vector3d&           Vdeb,
                         const Standard_Real     Ufin,
                         const Point3d&           Pfin,
-                        const gp_Vec&           Vfin,
+                        const Vector3d&           Vfin,
                         const Standard_Integer  Nbmin,
                         const Standard_Real     Eps,
                         TColStd_SequenceOfReal& Parameters,
@@ -2728,7 +2728,7 @@ static void QuasiFleche(const Adaptor3d_Curve& C,
   Standard_Integer Ptslength = Points.Length();
   Standard_Real    Udelta    = Ufin - Udeb;
   Point3d           Pdelta;
-  gp_Vec           Vdelta;
+  Vector3d           Vdelta;
   if (Nbmin > 2)
   {
     Udelta /= (Nbmin - 1);
@@ -2740,7 +2740,7 @@ static void QuasiFleche(const Adaptor3d_Curve& C,
     Vdelta = Vfin;
   }
 
-  Standard_Real    Norme     = gp_Vec(Pdeb, Pdelta).SquareMagnitude();
+  Standard_Real    Norme     = Vector3d(Pdeb, Pdelta).SquareMagnitude();
   Standard_Real    theFleche = 0;
   Standard_Boolean flecheok  = Standard_False;
   if (Norme > Eps)

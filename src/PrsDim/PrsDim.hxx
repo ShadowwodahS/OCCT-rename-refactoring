@@ -190,7 +190,7 @@ public:
                                                                 Handle(Geom_Surface)& theSecondSurf,
                                                                 Point3d& theFirstAttach,
                                                                 Point3d& theSecondAttach,
-                                                                gp_Dir& theDirOnPlane);
+                                                                Dir3d& theDirOnPlane);
 
   //! Finds three points for the angle dimension between
   //! two planes.
@@ -219,7 +219,7 @@ public:
   Standard_EXPORT static Point3d ProjectPointOnLine(const Point3d& aPoint, const gp_Lin& aLine);
 
   Standard_EXPORT static Point3d TranslatePointToBound(const Point3d&  aPoint,
-                                                      const gp_Dir&  aDir,
+                                                      const Dir3d&  aDir,
                                                       const Bnd_Box& aBndBox);
 
   //! returns  True  if  point  with anAttachPar  is

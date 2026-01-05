@@ -52,7 +52,7 @@ public:
   //! Focal <= 0 means parallel projection
   //! Alg : the hidden lines
   Standard_EXPORT void Set(const Standard_Integer ViewId,
-                           const gp_Trsf&         TProj,
+                           const Transform3d&         TProj,
                            const Standard_Real    Focal,
                            const TopoDS_Shape&    S,
                            const Standard_Real    ang);
@@ -62,7 +62,7 @@ public:
   Standard_Real Angle() const { return myAngle; }
 
   //! Returns True if the projection is the same
-  Standard_EXPORT Standard_Boolean IsSame(const gp_Trsf& TProj, const Standard_Real Focla) const;
+  Standard_EXPORT Standard_Boolean IsSame(const Transform3d& TProj, const Standard_Real Focla) const;
 
   Standard_EXPORT void DrawOn(Draw_Display&          D,
                               const Standard_Boolean withRg1,
@@ -76,7 +76,7 @@ public:
 
 private:
   Standard_Integer     myView;
-  gp_Trsf              myTrsf;
+  Transform3d              myTrsf;
   Standard_Real        myFocal;
   HLRBRep_ListOfBPoint myBiPntVis;
   HLRBRep_ListOfBPoint myBiPntHid;

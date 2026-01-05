@@ -23,7 +23,7 @@
 #include <Standard_Real.hxx>
 #include <Standard_Transient.hxx>
 class Point3d;
-class gp_Vec;
+class Vector3d;
 
 class GeomFill_Boundary;
 DEFINE_STANDARD_HANDLE(GeomFill_Boundary, RefObject)
@@ -42,13 +42,13 @@ class GeomFill_Boundary : public RefObject
 public:
   Standard_EXPORT virtual Point3d Value(const Standard_Real U) const = 0;
 
-  Standard_EXPORT virtual void D1(const Standard_Real U, Point3d& P, gp_Vec& V) const = 0;
+  Standard_EXPORT virtual void D1(const Standard_Real U, Point3d& P, Vector3d& V) const = 0;
 
   Standard_EXPORT virtual Standard_Boolean HasNormals() const;
 
-  Standard_EXPORT virtual gp_Vec Norm(const Standard_Real U) const;
+  Standard_EXPORT virtual Vector3d Norm(const Standard_Real U) const;
 
-  Standard_EXPORT virtual void D1Norm(const Standard_Real U, gp_Vec& N, gp_Vec& DN) const;
+  Standard_EXPORT virtual void D1Norm(const Standard_Real U, Vector3d& N, Vector3d& DN) const;
 
   Standard_EXPORT virtual void Reparametrize(const Standard_Real    First,
                                              const Standard_Real    Last,

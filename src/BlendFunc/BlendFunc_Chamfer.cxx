@@ -153,14 +153,14 @@ Standard_Boolean BlendFunc_Chamfer::IsTangencyPoint() const
 
 //=================================================================================================
 
-const gp_Vec& BlendFunc_Chamfer::TangentOnS1() const
+const Vector3d& BlendFunc_Chamfer::TangentOnS1() const
 {
   return corde1.TangentOnS();
 }
 
 //=================================================================================================
 
-const gp_Vec& BlendFunc_Chamfer::TangentOnS2() const
+const Vector3d& BlendFunc_Chamfer::TangentOnS2() const
 {
   return corde2.TangentOnS();
 }
@@ -189,14 +189,14 @@ void BlendFunc_Chamfer::Tangent(const Standard_Real U1,
                                 const Standard_Real V1,
                                 const Standard_Real U2,
                                 const Standard_Real V2,
-                                gp_Vec&             TgF,
-                                gp_Vec&             TgL,
-                                gp_Vec&             NmF,
-                                gp_Vec&             NmL) const
+                                Vector3d&             TgF,
+                                Vector3d&             TgL,
+                                Vector3d&             NmF,
+                                Vector3d&             NmL) const
 {
   Point3d           pt1, pt2, ptgui;
-  gp_Vec           d1u1, d1v1, d1u2, d1v2;
-  gp_Vec           nplan;
+  Vector3d           d1u1, d1v1, d1u2, d1v2;
+  Vector3d           nplan;
   Standard_Boolean revF = Standard_False;
   Standard_Boolean revL = Standard_False;
 

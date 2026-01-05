@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 class Geom_Surface;
 class Point3d;
-class gp_Vec;
+class Vector3d;
 
 class GeomLProp_SurfaceTool
 {
@@ -44,8 +44,8 @@ public:
                                  const Standard_Real         U,
                                  const Standard_Real         V,
                                  Point3d&                     P,
-                                 gp_Vec&                     D1U,
-                                 gp_Vec&                     D1V);
+                                 Vector3d&                     D1U,
+                                 Vector3d&                     D1V);
 
   //! Computes the point <P>, the first derivative <D1*> and second
   //! derivative <D2*> of parameter <U> and <V> on the Surface <S>.
@@ -53,13 +53,13 @@ public:
                                  const Standard_Real         U,
                                  const Standard_Real         V,
                                  Point3d&                     P,
-                                 gp_Vec&                     D1U,
-                                 gp_Vec&                     D1V,
-                                 gp_Vec&                     D2U,
-                                 gp_Vec&                     D2V,
-                                 gp_Vec&                     DUV);
+                                 Vector3d&                     D1U,
+                                 Vector3d&                     D1V,
+                                 Vector3d&                     D2U,
+                                 Vector3d&                     D2V,
+                                 Vector3d&                     DUV);
 
-  Standard_EXPORT static gp_Vec DN(const Handle(Geom_Surface)& S,
+  Standard_EXPORT static Vector3d DN(const Handle(Geom_Surface)& S,
                                    const Standard_Real         U,
                                    const Standard_Real         V,
                                    const Standard_Integer      IU,

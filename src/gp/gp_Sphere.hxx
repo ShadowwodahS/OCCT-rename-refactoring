@@ -125,10 +125,10 @@ public:
   Standard_Real Volume() const { return (4.0 * M_PI * radius * radius * radius) / 3.0; }
 
   //! Returns the axis X of the sphere.
-  gp_Ax1 XAxis() const { return gp_Ax1(pos.Location(), pos.XDirection()); }
+  Axis3d XAxis() const { return Axis3d(pos.Location(), pos.XDirection()); }
 
   //! Returns the axis Y of the sphere.
-  gp_Ax1 YAxis() const { return gp_Ax1(pos.Location(), pos.YDirection()); }
+  Axis3d YAxis() const { return Axis3d(pos.Location(), pos.YDirection()); }
 
   Standard_EXPORT void Mirror(const Point3d& theP);
 
@@ -137,25 +137,25 @@ public:
   //! symmetry.
   Standard_NODISCARD Standard_EXPORT gp_Sphere Mirrored(const Point3d& theP) const;
 
-  Standard_EXPORT void Mirror(const gp_Ax1& theA1);
+  Standard_EXPORT void Mirror(const Axis3d& theA1);
 
   //! Performs the symmetrical transformation of a sphere with
   //! respect to an axis placement which is the axis of the
   //! symmetry.
-  Standard_NODISCARD Standard_EXPORT gp_Sphere Mirrored(const gp_Ax1& theA1) const;
+  Standard_NODISCARD Standard_EXPORT gp_Sphere Mirrored(const Axis3d& theA1) const;
 
-  Standard_EXPORT void Mirror(const gp_Ax2& theA2);
+  Standard_EXPORT void Mirror(const Frame3d& theA2);
 
   //! Performs the symmetrical transformation of a sphere with respect
   //! to a plane. The axis placement theA2 locates the plane of the
   //! of the symmetry : (Location, XDirection, YDirection).
-  Standard_NODISCARD Standard_EXPORT gp_Sphere Mirrored(const gp_Ax2& theA2) const;
+  Standard_NODISCARD Standard_EXPORT gp_Sphere Mirrored(const Frame3d& theA2) const;
 
-  void Rotate(const gp_Ax1& theA1, const Standard_Real theAng) { pos.Rotate(theA1, theAng); }
+  void Rotate(const Axis3d& theA1, const Standard_Real theAng) { pos.Rotate(theA1, theAng); }
 
   //! Rotates a sphere. theA1 is the axis of the rotation.
   //! theAng is the angular value of the rotation in radians.
-  Standard_NODISCARD gp_Sphere Rotated(const gp_Ax1& theA1, const Standard_Real theAng) const
+  Standard_NODISCARD gp_Sphere Rotated(const Axis3d& theA1, const Standard_Real theAng) const
   {
     gp_Sphere aC = *this;
     aC.pos.Rotate(theA1, theAng);
@@ -168,16 +168,16 @@ public:
   //! The absolute value of S is used to scale the sphere
   Standard_NODISCARD gp_Sphere Scaled(const Point3d& theP, const Standard_Real theS) const;
 
-  void Transform(const gp_Trsf& theT);
+  void Transform(const Transform3d& theT);
 
   //! Transforms a sphere with the transformation theT from class Trsf.
-  Standard_NODISCARD gp_Sphere Transformed(const gp_Trsf& theT) const;
+  Standard_NODISCARD gp_Sphere Transformed(const Transform3d& theT) const;
 
-  void Translate(const gp_Vec& theV) { pos.Translate(theV); }
+  void Translate(const Vector3d& theV) { pos.Translate(theV); }
 
   //! Translates a sphere in the direction of the vector theV.
   //! The magnitude of the translation is the vector's magnitude.
-  Standard_NODISCARD gp_Sphere Translated(const gp_Vec& theV) const
+  Standard_NODISCARD gp_Sphere Translated(const Vector3d& theV) const
   {
     gp_Sphere aC = *this;
     aC.pos.Translate(theV);
@@ -233,7 +233,7 @@ inline gp_Sphere gp_Sphere::Scaled(const Point3d& theP, const Standard_Real theS
 // function : Transform
 // purpose :
 //=======================================================================
-inline void gp_Sphere::Transform(const gp_Trsf& theT)
+inline void gp_Sphere::Transform(const Transform3d& theT)
 {
   pos.Transform(theT);
   radius *= theT.ScaleFactor();
@@ -247,7 +247,7 @@ inline void gp_Sphere::Transform(const gp_Trsf& theT)
 // function : Transformed
 // purpose :
 //=======================================================================
-inline gp_Sphere gp_Sphere::Transformed(const gp_Trsf& theT) const
+inline gp_Sphere gp_Sphere::Transformed(const Transform3d& theT) const
 {
   gp_Sphere aC = *this;
   aC.pos.Transform(theT);

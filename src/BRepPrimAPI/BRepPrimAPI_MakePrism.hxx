@@ -24,8 +24,8 @@
 #include <BRepPrimAPI_MakeSweep.hxx>
 #include <TopTools_ListOfShape.hxx>
 class TopoDS_Shape;
-class gp_Vec;
-class gp_Dir;
+class Vector3d;
+class Dir3d;
 
 //! Describes functions to build linear swept topologies, called prisms.
 //! A prism is defined by:
@@ -53,7 +53,7 @@ public:
   //! S is copied. If Canonize is true then generated surfaces
   //! are attempted to be canonized in simple types
   Standard_EXPORT BRepPrimAPI_MakePrism(const TopoDS_Shape&    S,
-                                        const gp_Vec&          V,
+                                        const Vector3d&          V,
                                         const Standard_Boolean Copy     = Standard_False,
                                         const Standard_Boolean Canonize = Standard_True);
 
@@ -64,7 +64,7 @@ public:
   //! If Canonize is true then generated surfaces
   //! are attempted to be canonized in simple types
   Standard_EXPORT BRepPrimAPI_MakePrism(const TopoDS_Shape&    S,
-                                        const gp_Dir&          D,
+                                        const Dir3d&          D,
                                         const Standard_Boolean Inf      = Standard_True,
                                         const Standard_Boolean Copy     = Standard_False,
                                         const Standard_Boolean Canonize = Standard_True);

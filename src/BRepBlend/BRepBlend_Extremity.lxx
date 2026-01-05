@@ -19,7 +19,7 @@ inline const Point3d& BRepBlend_Extremity::Value() const
   return pt;
 }
 
-inline void BRepBlend_Extremity::SetTangent(const gp_Vec& Tangent)
+inline void BRepBlend_Extremity::SetTangent(const Vector3d& Tangent)
 {
   hastang = Standard_True;
   tang    = Tangent;
@@ -30,7 +30,7 @@ inline Standard_Boolean BRepBlend_Extremity::HasTangent() const
   return hastang;
 }
 
-inline const gp_Vec& BRepBlend_Extremity::Tangent() const
+inline const Vector3d& BRepBlend_Extremity::Tangent() const
 {
   if (!hastang)
   {

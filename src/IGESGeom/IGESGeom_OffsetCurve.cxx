@@ -99,20 +99,20 @@ Standard_Real IGESGeom_OffsetCurve::ArcLength2() const
   return theArcLength2;
 }
 
-gp_Vec IGESGeom_OffsetCurve::NormalVector() const
+Vector3d IGESGeom_OffsetCurve::NormalVector() const
 {
-  return (gp_Vec(theNormalVector));
+  return (Vector3d(theNormalVector));
 }
 
-gp_Vec IGESGeom_OffsetCurve::TransformedNormalVector() const
+Vector3d IGESGeom_OffsetCurve::TransformedNormalVector() const
 {
   if (!HasTransf())
-    return gp_Vec(theNormalVector);
+    return Vector3d(theNormalVector);
   gp_XYZ   tempXYZ(theNormalVector);
   gp_GTrsf loc = Location();
   loc.SetTranslationPart(gp_XYZ(0., 0., 0.));
   loc.Transforms(tempXYZ);
-  return gp_Vec(tempXYZ);
+  return Vector3d(tempXYZ);
 }
 
 Standard_Real IGESGeom_OffsetCurve::StartParameter() const

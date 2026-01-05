@@ -41,7 +41,7 @@ TopLoc_Location::TopLoc_Location(const Handle(TopLoc_Datum3D)& D)
 
 //=================================================================================================
 
-TopLoc_Location::TopLoc_Location(const gp_Trsf& T)
+TopLoc_Location::TopLoc_Location(const Transform3d& T)
 {
   Handle(TopLoc_Datum3D) D = new TopLoc_Datum3D(T);
   myItems.Construct(TopLoc_ItemLocation(D, 1));
@@ -49,16 +49,16 @@ TopLoc_Location::TopLoc_Location(const gp_Trsf& T)
 
 //=================================================================================================
 
-const gp_Trsf& TopLoc_Location::Transformation() const
+const Transform3d& TopLoc_Location::Transformation() const
 {
-  static const gp_Trsf THE_IDENTITY_TRSF;
+  static const Transform3d THE_IDENTITY_TRSF;
   if (IsIdentity())
     return THE_IDENTITY_TRSF;
   else
     return myItems.Value().myTrsf;
 }
 
-TopLoc_Location::operator gp_Trsf() const
+TopLoc_Location::operator Transform3d() const
 {
   return Transformation();
 }

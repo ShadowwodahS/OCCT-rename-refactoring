@@ -100,7 +100,7 @@ void GeomFill_PolynomialConvertor::Init()
 
 void GeomFill_PolynomialConvertor::Section(const Point3d&       FirstPnt,
                                            const Point3d&       Center,
-                                           const gp_Vec&       Dir,
+                                           const Vector3d&       Dir,
                                            const Standard_Real Angle,
                                            TColgp_Array1OfPnt& Poles) const
 {
@@ -109,7 +109,7 @@ void GeomFill_PolynomialConvertor::Section(const Point3d&       FirstPnt,
   Standard_Integer ii;
   Standard_Real    Cos_b = Cos(Angle), Sin_b = Sin(Angle);
   Standard_Real    beta, beta2, beta3;
-  gp_Vec           V1(Center, FirstPnt), V2;
+  Vector3d           V1(Center, FirstPnt), V2;
   V2    = Dir ^ V1;
   beta  = Angle / 2;
   beta2 = beta * beta;
@@ -150,11 +150,11 @@ void GeomFill_PolynomialConvertor::Section(const Point3d&       FirstPnt,
 }
 
 void GeomFill_PolynomialConvertor::Section(const Point3d&       FirstPnt,
-                                           const gp_Vec&       DFirstPnt,
+                                           const Vector3d&       DFirstPnt,
                                            const Point3d&       Center,
-                                           const gp_Vec&       DCenter,
-                                           const gp_Vec&       Dir,
-                                           const gp_Vec&       DDir,
+                                           const Vector3d&       DCenter,
+                                           const Vector3d&       Dir,
+                                           const Vector3d&       DDir,
                                            const Standard_Real Angle,
                                            const Standard_Real DAngle,
                                            TColgp_Array1OfPnt& Poles,
@@ -165,7 +165,7 @@ void GeomFill_PolynomialConvertor::Section(const Point3d&       FirstPnt,
   Standard_Integer ii;
   Standard_Real    Cos_b = Cos(Angle), Sin_b = Sin(Angle);
   Standard_Real    beta, beta2, beta3, bprim;
-  gp_Vec           V1(Center, FirstPnt), V1Prim, V2;
+  Vector3d           V1(Center, FirstPnt), V1Prim, V2;
   V2    = Dir ^ V1;
   beta  = Angle / 2;
   bprim = DAngle / 2;
@@ -234,14 +234,14 @@ void GeomFill_PolynomialConvertor::Section(const Point3d&       FirstPnt,
 }
 
 void GeomFill_PolynomialConvertor::Section(const Point3d&       FirstPnt,
-                                           const gp_Vec&       DFirstPnt,
-                                           const gp_Vec&       D2FirstPnt,
+                                           const Vector3d&       DFirstPnt,
+                                           const Vector3d&       D2FirstPnt,
                                            const Point3d&       Center,
-                                           const gp_Vec&       DCenter,
-                                           const gp_Vec&       D2Center,
-                                           const gp_Vec&       Dir,
-                                           const gp_Vec&       DDir,
-                                           const gp_Vec&       D2Dir,
+                                           const Vector3d&       DCenter,
+                                           const Vector3d&       D2Center,
+                                           const Vector3d&       Dir,
+                                           const Vector3d&       DDir,
+                                           const Vector3d&       D2Dir,
                                            const Standard_Real Angle,
                                            const Standard_Real DAngle,
                                            const Standard_Real D2Angle,
@@ -257,7 +257,7 @@ void GeomFill_PolynomialConvertor::Section(const Point3d&       FirstPnt,
   Standard_Integer ii;
   Standard_Real    aux, Cos_b = Cos(Angle), Sin_b = Sin(Angle);
   Standard_Real    beta, beta2, beta3, bprim, bprim2, bsecn;
-  gp_Vec           V1(Center, FirstPnt), V1Prim, V1Secn, V2;
+  Vector3d           V1(Center, FirstPnt), V1Prim, V1Secn, V2;
   V2     = Dir ^ V1;
   beta   = Angle / 2;
   bprim  = DAngle / 2;

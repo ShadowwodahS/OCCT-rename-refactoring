@@ -195,7 +195,7 @@ public:
 
 protected:
 private:
-  gp_Ax2                   pos;
+  Frame3d                   pos;
   Standard_Real            par1;
   Standard_Real            par2;
   Standard_Boolean         fipt;

@@ -77,7 +77,7 @@ static void ConvertBndToShape(const Bnd_OBB& theBox, const char* const theName)
                &aZDir  = theBox.ZDirection();
   Standard_Real aHalfX = theBox.XHSize(), aHalfY = theBox.YHSize(), aHalfZ = theBox.ZHSize();
 
-  gp_Ax2 anAxes(aBaryCenter, aZDir, aXDir);
+  Frame3d anAxes(aBaryCenter, aZDir, aXDir);
   anAxes.SetLocation(aBaryCenter.XYZ() - aHalfX * aXDir - aHalfY * aYDir - aHalfZ * aZDir);
   TopoDS_Solid aBox = BRepPrimAPI_MakeBox(anAxes, 2.0 * aHalfX, 2.0 * aHalfY, 2.0 * aHalfZ);
   DBRep::Set(theName, aBox);
@@ -116,7 +116,7 @@ static Standard_Integer transform(Draw_Interpretor&, Standard_Integer n, const c
   if (n <= 1)
     return 1;
 
-  gp_Trsf          T;
+  Transform3d          T;
   Standard_Integer last  = n;
   const char*      aName = a[0];
 
@@ -163,7 +163,7 @@ static Standard_Integer transform(Draw_Interpretor&, Standard_Integer n, const c
     {
       if (n < 5)
         return 1;
-      T.SetTranslation(gp_Vec(Draw::Atof(a[n - 3]), Draw::Atof(a[n - 2]), Draw::Atof(a[n - 1])));
+      T.SetTranslation(Vector3d(Draw::Atof(a[n - 3]), Draw::Atof(a[n - 2]), Draw::Atof(a[n - 1])));
       last = n - 3;
     }
     else if (!strcmp(aName, "rotate"))
@@ -171,8 +171,8 @@ static Standard_Integer transform(Draw_Interpretor&, Standard_Integer n, const c
       if (n < 9)
         return 1;
       T.SetRotation(
-        gp_Ax1(Point3d(Draw::Atof(a[n - 7]), Draw::Atof(a[n - 6]), Draw::Atof(a[n - 5])),
-               gp_Vec(Draw::Atof(a[n - 4]), Draw::Atof(a[n - 3]), Draw::Atof(a[n - 2]))),
+        Axis3d(Point3d(Draw::Atof(a[n - 7]), Draw::Atof(a[n - 6]), Draw::Atof(a[n - 5])),
+               Vector3d(Draw::Atof(a[n - 4]), Draw::Atof(a[n - 3]), Draw::Atof(a[n - 2]))),
         Draw::Atof(a[n - 1]) * (M_PI / 180.0));
       last = n - 7;
     }
@@ -180,8 +180,8 @@ static Standard_Integer transform(Draw_Interpretor&, Standard_Integer n, const c
     {
       if (n < 8)
         return 1;
-      T.SetMirror(gp_Ax2(Point3d(Draw::Atof(a[n - 6]), Draw::Atof(a[n - 5]), Draw::Atof(a[n - 4])),
-                         gp_Vec(Draw::Atof(a[n - 3]), Draw::Atof(a[n - 2]), Draw::Atof(a[n - 1]))));
+      T.SetMirror(Frame3d(Point3d(Draw::Atof(a[n - 6]), Draw::Atof(a[n - 5]), Draw::Atof(a[n - 4])),
+                         Vector3d(Draw::Atof(a[n - 3]), Draw::Atof(a[n - 2]), Draw::Atof(a[n - 1]))));
 
       last = n - 6;
     }
@@ -269,7 +269,7 @@ static Standard_Integer deform(Draw_Interpretor& di, Standard_Integer n, const c
     return 1;
   }
 
-  gp_Trsf  T;
+  Transform3d  T;
   gp_GTrsf GT(T);
 
   //  gp_Mat rot(Draw::Atof(a[last-3]),0,0,0,Draw::Atof(a[last-2]),0,0,0,Draw::Atof(a[last-1]));
@@ -1017,7 +1017,7 @@ static Standard_Integer reperageshape(Draw_Interpretor& di, Standard_Integer nar
   // std::cout << "Pick positions with button "<<std::endl;
   di << "Pick positions with button \n";
   Standard_Integer id, X, Y, b;
-  gp_Trsf          T;
+  Transform3d          T;
   Point3d           P1, P2;
   dout.Select(id, X, Y, b);
 
@@ -1029,7 +1029,7 @@ static Standard_Integer reperageshape(Draw_Interpretor& di, Standard_Integer nar
   P1.SetCoord((Standard_Real)X / z, (Standard_Real)Y / z, -1.0);
   P1.Transform(T);
 
-  gp_Ax1                         Axe(P1, gp_Vec(P1, P2));
+  Axis3d                         Axe(P1, Vector3d(P1, P2));
   IntCurvesFace_ShapeIntersector Inter;
   Inter.Load(TheShape1, 1e-7);
 
@@ -1184,7 +1184,7 @@ static Standard_Integer vecdc(Draw_Interpretor& di, Standard_Integer, const char
   di << "Pick positions with button \n";
 
   Standard_Integer id, X, Y, b;
-  gp_Trsf          T;
+  Transform3d          T;
   Point3d           P1, P2, PP1, PP2;
 
   //-----------------------------------------------------------

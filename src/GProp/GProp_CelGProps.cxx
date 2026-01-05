@@ -85,7 +85,7 @@ void GProp_CelGProps::Perform(const gp_Circ& C, const Standard_Real U1, const St
 
 void GProp_CelGProps::Perform(const gp_Lin& C, const Standard_Real U1, const Standard_Real U2)
 {
-  gp_Ax1 Pos = C.Position();
+  Axis3d Pos = C.Position();
   Point3d P1  = ElCLib::LineValue(U1, Pos);
   dim        = Abs(U2 - U1);
   Point3d P2  = ElCLib::LineValue(U2, Pos);

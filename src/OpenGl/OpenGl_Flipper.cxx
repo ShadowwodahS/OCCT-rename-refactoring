@@ -23,7 +23,7 @@
 
 //=================================================================================================
 
-OpenGl_Flipper::OpenGl_Flipper(const gp_Ax2& theReferenceSystem)
+OpenGl_Flipper::OpenGl_Flipper(const Frame3d& theReferenceSystem)
     : OpenGl_Element(),
       myReferenceOrigin((Standard_ShortReal)theReferenceSystem.Location().X(),
                         (Standard_ShortReal)theReferenceSystem.Location().Y(),

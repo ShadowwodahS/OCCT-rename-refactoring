@@ -96,7 +96,7 @@ public:
 
   //! Returns the point and the first derivative at parameter
   //! Theta on the curve.
-  Standard_EXPORT Standard_Boolean D1u(const Standard_Real Theta, Point3d& P, gp_Vec& V);
+  Standard_EXPORT Standard_Boolean D1u(const Standard_Real Theta, Point3d& P, Vector3d& V);
 
   //! Tries to find the parameter of the point P on the curve.
   //! If the method returns False, the "projection" is

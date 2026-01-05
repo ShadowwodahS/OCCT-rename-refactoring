@@ -24,14 +24,14 @@
 
 static Standard_Boolean STATIC_DEFINED = Standard_False;
 
-static gp_Dir FUN_nCinsideS(const gp_Dir& tgC, const gp_Dir& ngS)
+static Dir3d FUN_nCinsideS(const Dir3d& tgC, const Dir3d& ngS)
 {
   // Give us a curve C on surface S, <parOnC>, a parameter
   // Purpose : compute normal vector to C, tangent to S at
   //           given point , oriented INSIDE S
   // <tgC> : geometric tangent at point of <parOnC>
   // <ngS> : geometric normal at point of <parOnC>
-  gp_Dir XX(ngS ^ tgC);
+  Dir3d XX(ngS ^ tgC);
   return XX;
 }
 
@@ -48,14 +48,14 @@ static Standard_Integer FUN_OO(const Standard_Integer i)
   return 0;
 }
 
-// static Standard_Real FUN_Ang(const gp_Dir& Normref,
-static Standard_Real FUN_Ang(const gp_Dir&,
-                             const gp_Dir&            beafter,
-                             const gp_Dir&            TgC,
-                             const gp_Dir&            Norm,
+// static Standard_Real FUN_Ang(const Dir3d& Normref,
+static Standard_Real FUN_Ang(const Dir3d&,
+                             const Dir3d&            beafter,
+                             const Dir3d&            TgC,
+                             const Dir3d&            Norm,
                              const TopAbs_Orientation O)
 {
-  gp_Dir dironF = FUN_nCinsideS(TgC, Norm);
+  Dir3d dironF = FUN_nCinsideS(TgC, Norm);
   if (M_REVERSED(O))
     dironF.Reverse();
 
@@ -241,10 +241,10 @@ TopTrans_SurfaceTransition::TopTrans_SurfaceTransition()
   STATIC_DEFINED = Standard_False;
 }
 
-void TopTrans_SurfaceTransition::Reset(const gp_Dir&       Tgt,
-                                       const gp_Dir&       Norm,
-                                       const gp_Dir&       MaxD,
-                                       const gp_Dir&       MinD,
+void TopTrans_SurfaceTransition::Reset(const Dir3d&       Tgt,
+                                       const Dir3d&       Norm,
+                                       const Dir3d&       MaxD,
+                                       const Dir3d&       MinD,
                                        const Standard_Real MaxCurv,
                                        const Standard_Real MinCurv)
 {
@@ -296,7 +296,7 @@ void TopTrans_SurfaceTransition::Reset(const gp_Dir&       Tgt,
   myTouchFlag = Standard_False; // eap Mar 25 2002
 }
 
-void TopTrans_SurfaceTransition::Reset(const gp_Dir& Tgt, const gp_Dir& Norm)
+void TopTrans_SurfaceTransition::Reset(const Dir3d& Tgt, const Dir3d& Norm)
 {
   STATIC_DEFINED = Standard_True;
 
@@ -315,9 +315,9 @@ void TopTrans_SurfaceTransition::Reset(const gp_Dir& Tgt, const gp_Dir& Norm)
 void TopTrans_SurfaceTransition::Compare
   //(const Standard_Real Tole,
   (const Standard_Real,
-   const gp_Dir&            Norm,
-   const gp_Dir&            MaxD,
-   const gp_Dir&            MinD,
+   const Dir3d&            Norm,
+   const Dir3d&            MaxD,
+   const Dir3d&            MinD,
    const Standard_Real      MaxCurv,
    const Standard_Real      MinCurv,
    const TopAbs_Orientation S,
@@ -347,7 +347,7 @@ void TopTrans_SurfaceTransition::Compare
     Curv = Abs(MinCurv);
   if (myCurvRef < tola)
     Curv = 0.;
-  gp_Dir        dironF = FUN_nCinsideS(myTgt, Norm);
+  Dir3d        dironF = FUN_nCinsideS(myTgt, Norm);
   Standard_Real prod   = (dironF ^ Norm).Dot(myTgt);
   if (prod < 0.)
     Curv = -Curv;
@@ -422,7 +422,7 @@ void TopTrans_SurfaceTransition::Compare
 
 void TopTrans_SurfaceTransition::Compare
   //(const Standard_Real Tole,
-  (const Standard_Real, const gp_Dir& Norm, const TopAbs_Orientation S, const TopAbs_Orientation O)
+  (const Standard_Real, const Dir3d& Norm, const TopAbs_Orientation S, const TopAbs_Orientation O)
 {
   if (!STATIC_DEFINED)
     return;

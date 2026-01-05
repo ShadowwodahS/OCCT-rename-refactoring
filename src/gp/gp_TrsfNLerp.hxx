@@ -19,7 +19,7 @@
 #include <NCollection_Lerp.hxx>
 #include <Precision.hxx>
 
-//! Linear interpolation tool for transformation defined by gp_Trsf.
+//! Linear interpolation tool for transformation defined by Transform3d.
 //!
 //! In general case, there is a no well-defined interpolation between arbitrary transformations,
 //! because desired transient values might vary depending on application needs.
@@ -30,17 +30,17 @@
 //! thus this tool might be considered for simple cases or for interpolating between small
 //! intervals.
 template <>
-class NCollection_Lerp<gp_Trsf>
+class NCollection_Lerp<Transform3d>
 {
 public:
   //! Empty constructor
   NCollection_Lerp() {}
 
   //! Main constructor.
-  NCollection_Lerp(const gp_Trsf& theStart, const gp_Trsf& theEnd) { Init(theStart, theEnd); }
+  NCollection_Lerp(const Transform3d& theStart, const Transform3d& theEnd) { Init(theStart, theEnd); }
 
   //! Initialize values.
-  void Init(const gp_Trsf& theStart, const gp_Trsf& theEnd)
+  void Init(const Transform3d& theStart, const Transform3d& theEnd)
   {
     myTrsfStart = theStart;
     myTrsfEnd   = theEnd;
@@ -53,7 +53,7 @@ public:
   //! @param theT normalized interpolation coefficient within [0, 1] range,
   //!             with 0 pointing to first value and 1 to the second value.
   //! @param[out] theResult  interpolated value
-  void Interpolate(double theT, gp_Trsf& theResult) const
+  void Interpolate(double theT, Transform3d& theResult) const
   {
     if (Abs(theT - 0.0) < Precision::Confusion())
     {
@@ -72,7 +72,7 @@ public:
     myLocLerp.Interpolate(theT, aLoc);
     myRotLerp.Interpolate(theT, aRot);
     myScaleLerp.Interpolate(theT, aScale);
-    theResult = gp_Trsf();
+    theResult = Transform3d();
     theResult.SetRotation(aRot);
     theResult.SetTranslationPart(aLoc);
     theResult.SetScaleFactor(aScale);
@@ -82,10 +82,10 @@ private:
   NCollection_Lerp<gp_XYZ>        myLocLerp;
   NCollection_Lerp<Standard_Real> myScaleLerp;
   gp_QuaternionNLerp              myRotLerp;
-  gp_Trsf                         myTrsfStart;
-  gp_Trsf                         myTrsfEnd;
+  Transform3d                         myTrsfStart;
+  Transform3d                         myTrsfEnd;
 };
 
-typedef NCollection_Lerp<gp_Trsf> gp_TrsfNLerp;
+typedef NCollection_Lerp<Transform3d> gp_TrsfNLerp;
 
 #endif // _gp_TrsfNLerp_HeaderFile

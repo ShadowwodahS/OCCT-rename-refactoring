@@ -122,7 +122,7 @@ public:
       }
       //
       Point3d aP1, aP2;
-      gp_Vec aDC1, aDC2, aDCC1, aDCC2;
+      Vector3d aDC1, aDC2, aDCC1, aDCC2;
       //
       if (!theDeriv2)
       {
@@ -135,13 +135,13 @@ public:
         myCurve2.D2(theX, aP2, aDC2, aDCC2);
       }
 
-      const gp_Vec aVec1(aP1, aP2), aVec2(aDC2 - aDC1);
+      const Vector3d aVec1(aP1, aP2), aVec2(aDC2 - aDC1);
       //
       theDeriv1 = -2.0 * aVec1.Dot(aVec2);
 
       if (theDeriv2)
       {
-        const gp_Vec aVec3(aDCC2 - aDCC1);
+        const Vector3d aVec3(aDCC2 - aDCC1);
         *theDeriv2 = -2.0 * (aVec2.SquareMagnitude() + aVec1.Dot(aVec3));
       }
     }

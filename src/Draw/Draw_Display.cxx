@@ -187,11 +187,11 @@ void Draw_Display::Draw(const gp_Circ&         C,
   Point3d PC = Cloc.Location();
   Point3d P  = ElCLib::Value(A1, Cloc);
   MoveTo(P);
-  gp_Vec V1(PC, P);
+  Vector3d V1(PC, P);
   P = ElCLib::Value(A1 + angle, Cloc);
-  gp_Vec V2(PC, P);
+  Vector3d V2(PC, P);
   DrawTo(P);
-  gp_Vec V;
+  Vector3d V;
 
   for (Standard_Integer i = 2; i < n; i++)
   {

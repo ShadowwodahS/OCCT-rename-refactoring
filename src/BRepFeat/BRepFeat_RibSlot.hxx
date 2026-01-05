@@ -34,7 +34,7 @@
 #include <Standard_Integer.hxx>
 class TopoDS_Edge;
 class Geom_Plane;
-class gp_Dir;
+class Dir3d;
 class Geom_Curve;
 class TopoDS_Vertex;
 class LocOpe_Gluer;
@@ -121,7 +121,7 @@ protected:
                                     const Standard_Real       bnd,
                                     const Handle(Geom_Plane)& Pln);
 
-  Standard_EXPORT gp_Dir Normal(const TopoDS_Face& F, const Point3d& P);
+  Standard_EXPORT Dir3d Normal(const TopoDS_Face& F, const Point3d& P);
 
   Standard_EXPORT void EdgeExtention(TopoDS_Edge&           e,
                                      const Standard_Real    bnd,

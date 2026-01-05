@@ -112,7 +112,7 @@ Standard_Integer DNaming_TransformationDriver::Execute(Handle(TFunction_Logbook)
     return -1;
   }
   //
-  gp_Trsf              aTransformation;
+  Transform3d              aTransformation;
   const Standard_GUID& aGUID = aFunction->GetDriverGUID();
 
   try
@@ -122,17 +122,17 @@ Standard_Integer DNaming_TransformationDriver::Execute(Handle(TFunction_Logbook)
       Standard_Real aDX = DNaming::GetReal(aFunction, PTRANSF_DX)->Get();
       Standard_Real aDY = DNaming::GetReal(aFunction, PTRANSF_DY)->Get();
       Standard_Real aDZ = DNaming::GetReal(aFunction, PTRANSF_DZ)->Get();
-      gp_Vec        aVector(aDX, aDY, aDZ);
+      Vector3d        aVector(aDX, aDY, aDZ);
       aTransformation.SetTranslation(aVector);
     }
     else if (aGUID == PTALINE_GUID)
     {
       Handle(TDataStd_UAttribute) aLineObj = DNaming::GetObjectArg(aFunction, PTRANSF_LINE);
       Handle(TNaming_NamedShape)  aLineNS  = DNaming::GetObjectValue(aLineObj);
-      gp_Ax1                      anAxis;
+      Axis3d                      anAxis;
       if (!DNaming::ComputeAxis(aLineNS, anAxis))
         throw ExceptionBase();
-      gp_Vec aVector(anAxis.Direction());
+      Vector3d aVector(anAxis.Direction());
       aVector.Normalize();
       Standard_Real anOffset = DNaming::GetReal(aFunction, PTRANSF_OFF)->Get();
       aVector *= anOffset;
@@ -142,7 +142,7 @@ Standard_Integer DNaming_TransformationDriver::Execute(Handle(TFunction_Logbook)
     {
       Handle(TDataStd_UAttribute) aLineObj = DNaming::GetObjectArg(aFunction, PTRANSF_LINE);
       Handle(TNaming_NamedShape)  aLineNS  = DNaming::GetObjectValue(aLineObj);
-      gp_Ax1                      anAxis;
+      Axis3d                      anAxis;
       if (!DNaming::ComputeAxis(aLineNS, anAxis))
         throw ExceptionBase();
 
@@ -163,7 +163,7 @@ Standard_Integer DNaming_TransformationDriver::Execute(Handle(TFunction_Logbook)
       if (!isPlanarSurface.IsPlanar())
         throw ExceptionBase();
       gp_Pln aPlane     = isPlanarSurface.Plan();
-      gp_Ax2 aMirrorAx2 = aPlane.Position().Ax2();
+      Frame3d aMirrorAx2 = aPlane.Position().Ax2();
       aTransformation.SetMirror(aMirrorAx2);
     }
     else
@@ -369,7 +369,7 @@ static void CollectShapes(const TopoDS_Shape&             SSh,
 
 void DNaming_TransformationDriver::LoadNamingDS(const TDF_Label&                  theResultLabel,
                                                 const Handle(TNaming_NamedShape)& theSourceNS,
-                                                const gp_Trsf&                    theTrsf) const
+                                                const Transform3d&                    theTrsf) const
 {
   if (theSourceNS.IsNull() || theSourceNS->IsEmpty())
     return;

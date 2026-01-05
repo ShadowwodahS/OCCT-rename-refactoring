@@ -57,9 +57,9 @@ Standard_Boolean ChFiKPart_MakeRotule(TopOpeBRepDS_DataStructure&    DStr,
   // calcul du tore.
   //---------------
   gp_Ax3 pos    = pl.Position();
-  gp_Dir dpl    = pos.XDirection().Crossed(pos.YDirection());
-  gp_Dir dfpl   = dpl;
-  gp_Dir dplnat = dpl;
+  Dir3d dpl    = pos.XDirection().Crossed(pos.YDirection());
+  Dir3d dfpl   = dpl;
+  Dir3d dplnat = dpl;
   if (opl == TopAbs_REVERSED)
   {
     dpl.Reverse();
@@ -69,13 +69,13 @@ Standard_Boolean ChFiKPart_MakeRotule(TopOpeBRepDS_DataStructure&    DStr,
     dfpl.Reverse();
   }
   pos         = pl1.Position();
-  gp_Dir dpl1 = pos.XDirection().Crossed(pos.YDirection());
+  Dir3d dpl1 = pos.XDirection().Crossed(pos.YDirection());
   if (opl1 == TopAbs_REVERSED)
   {
     dpl1.Reverse();
   }
   pos         = pl2.Position();
-  gp_Dir dpl2 = pos.XDirection().Crossed(pos.YDirection());
+  Dir3d dpl2 = pos.XDirection().Crossed(pos.YDirection());
   if (opl2 == TopAbs_REVERSED)
   {
     dpl2.Reverse();
@@ -105,9 +105,9 @@ Standard_Boolean ChFiKPart_MakeRotule(TopOpeBRepDS_DataStructure&    DStr,
   // on compare l orientation du tore a celle de la face en bout.
   //------------------------------------------------------------
   Point3d pp;
-  gp_Vec du, dv;
+  Vector3d du, dv;
   ElSLib::TorusD1(0., M_PI / 2, ppos, r, r, pp, du, dv);
-  gp_Dir           drot(du.Crossed(dv));
+  Dir3d           drot(du.Crossed(dv));
   Standard_Boolean reversecur = (drot.Dot(dplnat) <= 0.);
   Standard_Boolean reversefil = (drot.Dot(dfpl) <= 0.);
   if (reversefil)
@@ -124,7 +124,7 @@ Standard_Boolean ChFiKPart_MakeRotule(TopOpeBRepDS_DataStructure&    DStr,
 
   // du cote du plan
   //---------------
-  gp_Ax2 circAx2 = ppos.Ax2();
+  Frame3d circAx2 = ppos.Ax2();
   circAx2.SetLocation(pcirc);
   Handle(Geom_Circle) GC = new Geom_Circle(circAx2, r);
   Standard_Real       u, v;

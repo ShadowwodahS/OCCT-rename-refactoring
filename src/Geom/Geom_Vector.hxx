@@ -121,13 +121,13 @@ public:
   Standard_EXPORT Standard_Real DotCross(const Handle(Geom_Vector)& V1,
                                          const Handle(Geom_Vector)& V2) const;
 
-  //! Converts this vector into a gp_Vec vector.
-  Standard_EXPORT const gp_Vec& Vec() const;
+  //! Converts this vector into a Vector3d vector.
+  Standard_EXPORT const Vector3d& Vec() const;
 
   DEFINE_STANDARD_RTTIEXT(Geom_Vector, Geom_Geometry)
 
 protected:
-  gp_Vec gpVec;
+  Vector3d gpVec;
 
 private:
 };

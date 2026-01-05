@@ -77,7 +77,7 @@ public:
       Point3d aPt;
 
       // 0 for U-coordinate, 1 - for V one
-      gp_Vec aD1[2], aD2[2];
+      Vector3d aD1[2], aD2[2];
       myPSurf->D1(theX(anIndX), theX(anIndX + 1), aPt, aD1[0], aD1[1]);
       myQSurf->D1(aUV[0], aUV[1], aPt, aD2[0], aD2[1]);
 
@@ -421,8 +421,8 @@ The reason is written below.
 */
 //=======================================================================
 Standard_Boolean IntPatch_SpecialPoints::ProcessSphere(const IntSurf_PntOn2S& thePtIso,
-                                                       const gp_Vec&          theDUofPSurf,
-                                                       const gp_Vec&          theDVofPSurf,
+                                                       const Vector3d&          theDUofPSurf,
+                                                       const Vector3d&          theDVofPSurf,
                                                        const Standard_Boolean theIsReversed,
                                                        const Standard_Real    theVquad,
                                                        Standard_Real&         theUquad,
@@ -566,8 +566,8 @@ of the cone with a plane tangent to 2nd (intersected) surface.
 */
 //=======================================================================
 Standard_Boolean IntPatch_SpecialPoints::ProcessCone(const IntSurf_PntOn2S& thePtIso,
-                                                     const gp_Vec&          theDUofPSurf,
-                                                     const gp_Vec&          theDVofPSurf,
+                                                     const Vector3d&          theDUofPSurf,
+                                                     const Vector3d&          theDVofPSurf,
                                                      const gp_Cone&         theCone,
                                                      const Standard_Boolean theIsReversed,
                                                      Standard_Real&         theUquad,
@@ -847,11 +847,11 @@ Standard_Boolean IntPatch_SpecialPoints::AddSingularPole(const Handle(Adaptor3d_
   //(there is no point in transformation of full surface).
 
   Point3d aPtemp;
-  gp_Vec aVecDu, aVecDv;
+  Vector3d aVecDu, aVecDv;
   thePSurf->D1(aU0, aV0, aPtemp, aVecDu, aVecDv);
 
   // Transforms parametric surface in coordinate-system of the quadric
-  gp_Trsf aTr;
+  Transform3d aTr;
   aTr.SetTransformation((theQSurf->GetType() == GeomAbs_Sphere) ? theQSurf->Sphere().Position()
                                                                 : theQSurf->Cone().Position());
 
@@ -978,11 +978,11 @@ Standard_Boolean IntPatch_SpecialPoints::ContinueAfterSpecialPoint(
       theNewPoint.Parameters(aUquad, aVquad, aU0, aV0);
 
     Point3d aPtemp;
-    gp_Vec aVecDu, aVecDv;
+    Vector3d aVecDu, aVecDv;
     thePSurf->D1(aU0, aV0, aPtemp, aVecDu, aVecDv);
 
     // Transforms parametric surface in coordinate-system of the quadric
-    gp_Trsf aTr;
+    Transform3d aTr;
     aTr.SetTransformation(theQSurf->Cone().Position());
 
     // Derivatives of transformed thePSurf

@@ -47,7 +47,7 @@ inline Standard_Boolean IntImp_Int2S::IsTangent() const
   return tangent;
 }
 
-inline const gp_Dir& IntImp_Int2S::Direction() const
+inline const Dir3d& IntImp_Int2S::Direction() const
 {
 
   if (!done)

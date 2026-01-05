@@ -159,16 +159,16 @@ Standard_Boolean BlendFunc_EvolRadInv::Value(const math_Vector& X, math_Vector& 
   const Standard_Real ray = fevol->Value(X(2));
 
   Point3d ptcur;
-  gp_Vec d1cur;
+  Vector3d d1cur;
   curv->D1(X(2), ptcur, d1cur);
 
-  const gp_Vec        nplan = d1cur.Normalized();
+  const Vector3d        nplan = d1cur.Normalized();
   const Standard_Real theD  = -(nplan.XYZ().Dot(ptcur.XYZ()));
 
   const gp_Pnt2d pt2d(csurf->Value(X(1)));
 
   Point3d pts1, pts2;
-  gp_Vec d1u1, d1v1, d1u2, d1v2;
+  Vector3d d1u1, d1v1, d1u2, d1v2;
   if (first)
   {
     surf1->D1(pt2d.X(), pt2d.Y(), pts1, d1u1, d1v1);
@@ -185,7 +185,7 @@ Standard_Boolean BlendFunc_EvolRadInv::Value(const math_Vector& X, math_Vector& 
            / 2.
          + theD;
 
-  gp_Vec ns1 = d1u1.Crossed(d1v1);
+  Vector3d ns1 = d1u1.Crossed(d1v1);
   if (ns1.Magnitude() < Eps)
   {
     if (first)
@@ -197,7 +197,7 @@ Standard_Boolean BlendFunc_EvolRadInv::Value(const math_Vector& X, math_Vector& 
     }
   }
 
-  gp_Vec ns2 = d1u2.Crossed(d1v2).XYZ();
+  Vector3d ns2 = d1u2.Crossed(d1v2).XYZ();
   if (ns2.Magnitude() < Eps)
   {
     if (!first)
@@ -209,8 +209,8 @@ Standard_Boolean BlendFunc_EvolRadInv::Value(const math_Vector& X, math_Vector& 
     }
   }
 
-  const gp_Vec  ncrossns1 = nplan.Crossed(ns1);
-  const gp_Vec  ncrossns2 = nplan.Crossed(ns2);
+  const Vector3d  ncrossns1 = nplan.Crossed(ns1);
+  const Vector3d  ncrossns2 = nplan.Crossed(ns2);
   Standard_Real norm1     = ncrossns1.Magnitude();
   Standard_Real norm2     = ncrossns2.Magnitude();
 
@@ -223,7 +223,7 @@ Standard_Boolean BlendFunc_EvolRadInv::Value(const math_Vector& X, math_Vector& 
     norm2 = 1.;
   }
 
-  gp_Vec              resul;
+  Vector3d              resul;
   const Standard_Real ndotns1 = nplan.Dot(ns1);
   const Standard_Real ndotns2 = nplan.Dot(ns2);
   ns1.SetLinearForm(ndotns1 / norm1, nplan, -1. / norm1, ns1);
@@ -248,14 +248,14 @@ Standard_Boolean BlendFunc_EvolRadInv::Values(const math_Vector& X, math_Vector&
   fevol->D1(X(2), ray, dray);
 
   Point3d ptcur;
-  gp_Vec d1cur, d2cur;
+  Vector3d d1cur, d2cur;
   curv->D2(X(2), ptcur, d1cur, d2cur);
 
   const Standard_Real normtgcur = d1cur.Magnitude();
-  const gp_Vec        nplan     = d1cur.Normalized();
+  const Vector3d        nplan     = d1cur.Normalized();
   const Standard_Real theD      = -(nplan.XYZ().Dot(ptcur.XYZ()));
 
-  gp_Vec dnplan;
+  Vector3d dnplan;
   dnplan.SetLinearForm(-nplan.Dot(d2cur), nplan, d2cur);
   dnplan /= normtgcur;
 
@@ -264,9 +264,9 @@ Standard_Boolean BlendFunc_EvolRadInv::Values(const math_Vector& X, math_Vector&
   csurf->D1(X(1), p2d, v2d);
 
   Point3d pts1, pts2;
-  gp_Vec d1u1, d1v1, d1u2, d1v2;
-  gp_Vec d2u1, d2v1, d2u2, d2v2, d2uv1, d2uv2;
-  gp_Vec temp;
+  Vector3d d1u1, d1v1, d1u2, d1v2;
+  Vector3d d2u1, d2v1, d2u2, d2v2, d2uv1, d2uv2;
+  Vector3d temp;
   if (first)
   {
     surf1->D2(p2d.X(), p2d.Y(), pts1, d1u1, d1v1, d2u1, d2v1, d2uv1);
@@ -297,7 +297,7 @@ Standard_Boolean BlendFunc_EvolRadInv::Values(const math_Vector& X, math_Vector&
            / 2.
          + theD;
 
-  gp_Vec ns1 = d1u1.Crossed(d1v1);
+  Vector3d ns1 = d1u1.Crossed(d1v1);
   if (ns1.Magnitude() < Eps)
   {
     if (first)
@@ -309,7 +309,7 @@ Standard_Boolean BlendFunc_EvolRadInv::Values(const math_Vector& X, math_Vector&
     }
   }
 
-  gp_Vec ns2 = d1u2.Crossed(d1v2);
+  Vector3d ns2 = d1u2.Crossed(d1v2);
   if (ns2.Magnitude() < Eps)
   {
     if (!first)
@@ -321,8 +321,8 @@ Standard_Boolean BlendFunc_EvolRadInv::Values(const math_Vector& X, math_Vector&
     }
   }
 
-  const gp_Vec  ncrossns1 = nplan.Crossed(ns1);
-  const gp_Vec  ncrossns2 = nplan.Crossed(ns2);
+  const Vector3d  ncrossns1 = nplan.Crossed(ns1);
+  const Vector3d  ncrossns2 = nplan.Crossed(ns2);
   Standard_Real norm1     = ncrossns1.Magnitude();
   Standard_Real norm2     = ncrossns2.Magnitude();
   if (norm1 < Eps)
@@ -334,13 +334,13 @@ Standard_Boolean BlendFunc_EvolRadInv::Values(const math_Vector& X, math_Vector&
     norm2 = 1.;
   }
 
-  gp_Vec        resul1, resul2;
+  Vector3d        resul1, resul2;
   Standard_Real grosterme;
 
   const Standard_Real ndotns1 = nplan.Dot(ns1);
   const Standard_Real ndotns2 = nplan.Dot(ns2);
   temp.SetLinearForm(ndotns1 / norm1, nplan, -1. / norm1, ns1);
-  resul1.SetLinearForm(sg1 * ray, temp, gp_Vec(pts2, pts1));
+  resul1.SetLinearForm(sg1 * ray, temp, Vector3d(pts2, pts1));
   temp.SetLinearForm(ndotns2 / norm2, nplan, -1. / norm2, ns2);
   resul1.Subtract(sg2 * ray * temp);
 

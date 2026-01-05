@@ -183,14 +183,14 @@ void ChFiDS_ElSpine::D0(const Standard_Real AbsC, Point3d& P) const
 
 //=================================================================================================
 
-void ChFiDS_ElSpine::D1(const Standard_Real AbsC, Point3d& P, gp_Vec& V1) const
+void ChFiDS_ElSpine::D1(const Standard_Real AbsC, Point3d& P, Vector3d& V1) const
 {
   curve.D1(AbsC, P, V1);
 }
 
 //=================================================================================================
 
-void ChFiDS_ElSpine::D2(const Standard_Real AbsC, Point3d& P, gp_Vec& V1, gp_Vec& V2) const
+void ChFiDS_ElSpine::D2(const Standard_Real AbsC, Point3d& P, Vector3d& V1, Vector3d& V2) const
 {
   curve.D2(AbsC, P, V1, V2);
 }
@@ -199,9 +199,9 @@ void ChFiDS_ElSpine::D2(const Standard_Real AbsC, Point3d& P, gp_Vec& V1, gp_Vec
 
 void ChFiDS_ElSpine::D3(const Standard_Real AbsC,
                         Point3d&             P,
-                        gp_Vec&             V1,
-                        gp_Vec&             V2,
-                        gp_Vec&             V3) const
+                        Vector3d&             V1,
+                        Vector3d&             V2,
+                        Vector3d&             V3) const
 {
   curve.D3(AbsC, P, V1, V2, V3);
 }
@@ -250,7 +250,7 @@ void ChFiDS_ElSpine::SetOrigin(const Standard_Real O)
 
 //=================================================================================================
 
-void ChFiDS_ElSpine::SetFirstPointAndTgt(const Point3d& P, const gp_Vec& T)
+void ChFiDS_ElSpine::SetFirstPointAndTgt(const Point3d& P, const Vector3d& T)
 {
   ptfirst = P;
   tgfirst = T;
@@ -258,7 +258,7 @@ void ChFiDS_ElSpine::SetFirstPointAndTgt(const Point3d& P, const gp_Vec& T)
 
 //=================================================================================================
 
-void ChFiDS_ElSpine::SetLastPointAndTgt(const Point3d& P, const gp_Vec& T)
+void ChFiDS_ElSpine::SetLastPointAndTgt(const Point3d& P, const Vector3d& T)
 {
   ptlast = P;
   tglast = T;
@@ -266,14 +266,14 @@ void ChFiDS_ElSpine::SetLastPointAndTgt(const Point3d& P, const gp_Vec& T)
 
 //=================================================================================================
 
-void ChFiDS_ElSpine::AddVertexWithTangent(const gp_Ax1& anAx1)
+void ChFiDS_ElSpine::AddVertexWithTangent(const Axis3d& anAx1)
 {
   VerticesWithTangents.Append(anAx1);
 }
 
 //=================================================================================================
 
-void ChFiDS_ElSpine::FirstPointAndTgt(Point3d& P, gp_Vec& T) const
+void ChFiDS_ElSpine::FirstPointAndTgt(Point3d& P, Vector3d& T) const
 {
   P = ptfirst;
   T = tgfirst;
@@ -281,7 +281,7 @@ void ChFiDS_ElSpine::FirstPointAndTgt(Point3d& P, gp_Vec& T) const
 
 //=================================================================================================
 
-void ChFiDS_ElSpine::LastPointAndTgt(Point3d& P, gp_Vec& T) const
+void ChFiDS_ElSpine::LastPointAndTgt(Point3d& P, Vector3d& T) const
 {
   P = ptlast;
   T = tglast;
@@ -296,7 +296,7 @@ Standard_Integer ChFiDS_ElSpine::NbVertices() const
 
 //=================================================================================================
 
-const gp_Ax1& ChFiDS_ElSpine::VertexWithTangent(const Standard_Integer Index) const
+const Axis3d& ChFiDS_ElSpine::VertexWithTangent(const Standard_Integer Index) const
 {
   return VerticesWithTangents(Index);
 }

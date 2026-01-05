@@ -128,20 +128,20 @@ public:
   //! +x is to the right
   //! -z is forward
   //! Distance unit is meters by default (@sa UnitFactor()).
-  const gp_Trsf& HeadPose() const { return myHeadPose; }
+  const Transform3d& HeadPose() const { return myHeadPose; }
 
   //! Return left hand orientation.
-  gp_Trsf LeftHandPose() const
+  Transform3d LeftHandPose() const
   {
     const Standard_Integer aDevice = NamedTrackedDevice(Aspect_XRTrackedDeviceRole_LeftHand);
-    return aDevice != -1 ? myTrackedPoses[aDevice].Orientation : gp_Trsf();
+    return aDevice != -1 ? myTrackedPoses[aDevice].Orientation : Transform3d();
   }
 
   //! Return right hand orientation.
-  gp_Trsf RightHandPose() const
+  Transform3d RightHandPose() const
   {
     const Standard_Integer aDevice = NamedTrackedDevice(Aspect_XRTrackedDeviceRole_RightHand);
-    return aDevice != -1 ? myTrackedPoses[aDevice].Orientation : gp_Trsf();
+    return aDevice != -1 ? myTrackedPoses[aDevice].Orientation : Transform3d();
   }
 
   //! Return number of tracked poses array.
@@ -252,7 +252,7 @@ protected:
   Aspect_XRActionSetMap           myActionSets;   //!< actions sets
   TrackingUniverseOrigin          myTrackOrigin;  //!< tracking origin
   Aspect_TrackedDevicePoseArray   myTrackedPoses; //!< array of tracked poses
-  gp_Trsf                         myHeadPose;     //!< head orientation
+  Transform3d                         myHeadPose;     //!< head orientation
   NCollection_Vec2<int>           myRendSize;     //!< viewport Width x Height for rendering into VR
   Aspect_FrustumLRBT<double>      myFrustumL;     //!< left  eye projection frustum
   Aspect_FrustumLRBT<double>      myFrustumR;     //!< right eye projection frustum

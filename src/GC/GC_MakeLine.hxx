@@ -24,10 +24,10 @@
 #include <GC_Root.hxx>
 #include <Geom_Line.hxx>
 
-class gp_Ax1;
+class Axis3d;
 class gp_Lin;
 class Point3d;
-class gp_Dir;
+class Dir3d;
 
 //! This class implements the following algorithms used
 //! to create a Line from Geom.
@@ -46,13 +46,13 @@ public:
 
   //! Creates a line located in 3D space with the axis placement A1.
   //! The Location of A1 is the origin of the line.
-  Standard_EXPORT GC_MakeLine(const gp_Ax1& A1);
+  Standard_EXPORT GC_MakeLine(const Axis3d& A1);
 
   //! Creates a line from a non persistent line from package gp.
   Standard_EXPORT GC_MakeLine(const gp_Lin& L);
 
   //! P is the origin and V is the direction of the line.
-  Standard_EXPORT GC_MakeLine(const Point3d& P, const gp_Dir& V);
+  Standard_EXPORT GC_MakeLine(const Point3d& P, const Dir3d& V);
 
   //! Make a Line from Geom <TheLin> parallel to another
   //! Lin <Lin> and passing through a Pnt <Point>.

@@ -106,7 +106,7 @@ static GeomAbs_CurveType TypeOfEdge(const TopoDS_Edge& anEdge)
   return BAcurve.GetType();
 }
 
-static gp_Vec TangentOfEdge(const TopoDS_Shape& aShape, const Standard_Boolean OnFirst)
+static Vector3d TangentOfEdge(const TopoDS_Shape& aShape, const Standard_Boolean OnFirst)
 {
   TopoDS_Edge        anEdge = TopoDS::Edge(aShape);
   TopAbs_Orientation anOr   = anEdge.Orientation();
@@ -120,7 +120,7 @@ static gp_Vec TangentOfEdge(const TopoDS_Shape& aShape, const Standard_Boolean O
     thePar = (anOr == TopAbs_FORWARD) ? lpar : fpar;
 
   Point3d thePoint;
-  gp_Vec theTangent;
+  Vector3d theTangent;
   aCurve->D1(thePar, thePoint, theTangent);
   if (anOr == TopAbs_REVERSED)
     theTangent.Reverse();
@@ -830,10 +830,10 @@ void BRepOffsetAPI_MiddlePath::Build(const Message_ProgressRange& /*theRange*/)
       MidEdges(i) = BRepLib_MakeEdge(Centers(i), Centers(i + 1));
     else if (TypeOfMidEdge == GeomAbs_Circle)
     {
-      gp_Ax1           theAxis;
-      gp_Dir           theDir1, theDir2;
+      Axis3d           theAxis;
+      Dir3d           theDir1, theDir2;
       Standard_Real    theAngle = 0.;
-      gp_Vec           theTangent;
+      Vector3d           theTangent;
       Standard_Boolean SimilarArcs = Standard_True;
       for (j = 1; j <= myPaths.Length(); j++)
       {
@@ -849,8 +849,8 @@ void BRepOffsetAPI_MiddlePath::Build(const Message_ProgressRange& /*theRange*/)
         if (j == 1)
         {
           theAxis                = aCirc.Axis();
-          theDir1                = gp_Vec(aCirc.Location(), Pnt1);
-          theDir2                = gp_Vec(aCirc.Location(), Pnt2);
+          theDir1                = Vector3d(aCirc.Location(), Pnt1);
+          theDir2                = Vector3d(aCirc.Location(), Pnt2);
           theAngle               = lpar - fpar;
           Standard_Real theParam = (anEdge.Orientation() == TopAbs_FORWARD) ? fpar : lpar;
           aCurve->D1(theParam, Pnt1, theTangent);
@@ -859,15 +859,15 @@ void BRepOffsetAPI_MiddlePath::Build(const Message_ProgressRange& /*theRange*/)
         }
         else
         {
-          gp_Ax1 anAxis = aCirc.Axis();
+          Axis3d anAxis = aCirc.Axis();
           gp_Lin aLin(anAxis);
           if (!aLin.Contains(theAxis.Location(), LinTol) || !anAxis.IsParallel(theAxis, AngTol))
           {
             SimilarArcs = Standard_False;
             break;
           }
-          gp_Dir aDir1 = gp_Vec(aCirc.Location(), Pnt1);
-          gp_Dir aDir2 = gp_Vec(aCirc.Location(), Pnt2);
+          Dir3d aDir1 = Vector3d(aCirc.Location(), Pnt1);
+          Dir3d aDir2 = Vector3d(aCirc.Location(), Pnt2);
           if (!((aDir1.IsEqual(theDir1, AngTol) && aDir2.IsEqual(theDir2, AngTol))
                 || (aDir1.IsEqual(theDir2, AngTol) && aDir2.IsEqual(theDir1, AngTol))))
           {
@@ -883,10 +883,10 @@ void BRepOffsetAPI_MiddlePath::Build(const Message_ProgressRange& /*theRange*/)
         Standard_Real Parameter = (Centers(i).XYZ() - AxisLoc) * AxisDir;
         Point3d        theCenterOfCirc(AxisLoc + Parameter * AxisDir);
 
-        gp_Vec Vec1(theCenterOfCirc, Centers(i));
-        gp_Vec Vec2(theCenterOfCirc, Centers(i + 1));
+        Vector3d Vec1(theCenterOfCirc, Centers(i));
+        Vector3d Vec2(theCenterOfCirc, Centers(i + 1));
         /*
-        gp_Dir VecProd = Vec1 ^ Vec2;
+        Dir3d VecProd = Vec1 ^ Vec2;
         if (theAxis.Direction() * VecProd < 0.)
           theAxis.Reverse();
         */
@@ -896,14 +896,14 @@ void BRepOffsetAPI_MiddlePath::Build(const Message_ProgressRange& /*theRange*/)
           anAngle += 2. * M_PI;
         if (Abs(anAngle - theAngle) > AngTol)
           theAxis.Reverse();
-        gp_Ax2              theAx2(theCenterOfCirc, theAxis.Direction(), Vec1);
+        Frame3d              theAx2(theCenterOfCirc, theAxis.Direction(), Vec1);
         Handle(Geom_Circle) theCircle = GC_MakeCircle(theAx2, Vec1.Magnitude());
-        gp_Vec              aTangent;
+        Vector3d              aTangent;
         theCircle->D1(0., Pnt1, aTangent);
         if (aTangent * theTangent < 0.)
         {
           theAxis.Reverse();
-          theAx2    = gp_Ax2(theCenterOfCirc, theAxis.Direction(), Vec1);
+          theAx2    = Frame3d(theCenterOfCirc, theAxis.Direction(), Vec1);
           theCircle = GC_MakeCircle(theAx2, Vec1.Magnitude());
         }
         BRepLib_MakeEdge aME(theCircle, 0., theAngle);
@@ -935,7 +935,7 @@ void BRepOffsetAPI_MiddlePath::Build(const Message_ProgressRange& /*theRange*/)
         TColgp_SequenceOfPnt PntSeq;
         for (Standard_Integer indp = 1; indp <= myPaths.Length(); indp++)
         {
-          gp_Vec aTangent;
+          Vector3d aTangent;
           if (k == i)
           {
             if (myPaths(indp)(k).ShapeType() == TopAbs_VERTEX)
@@ -953,8 +953,8 @@ void BRepOffsetAPI_MiddlePath::Build(const Message_ProgressRange& /*theRange*/)
             if (myPaths(indp)(k - 1).ShapeType() == TopAbs_VERTEX
                 || myPaths(indp)(k).ShapeType() == TopAbs_VERTEX)
               continue;
-            gp_Vec Tangent1 = TangentOfEdge(myPaths(indp)(k - 1), Standard_False); // at end
-            gp_Vec Tangent2 = TangentOfEdge(myPaths(indp)(k), Standard_True);      // at begin
+            Vector3d Tangent1 = TangentOfEdge(myPaths(indp)(k - 1), Standard_False); // at end
+            Vector3d Tangent2 = TangentOfEdge(myPaths(indp)(k), Standard_True);      // at begin
             aTangent        = Tangent1 + Tangent2;
           }
           aTangent.Normalize();
@@ -965,10 +965,10 @@ void BRepOffsetAPI_MiddlePath::Build(const Message_ProgressRange& /*theRange*/)
         for (Standard_Integer ip = 1; ip <= PntSeq.Length(); ip++)
           PntArray(ip) = PntSeq(ip);
         Point3d        theBary;
-        gp_Dir        xdir, ydir;
+        Dir3d        xdir, ydir;
         Standard_Real xgap, ygap, zgap;
         GeomLib::Inertia(PntArray, theBary, xdir, ydir, xgap, ygap, zgap);
-        gp_Vec theTangent(theBary.XYZ());
+        Vector3d theTangent(theBary.XYZ());
         theTangents(k - i + 1) = theTangent;
       }
       theFlags->Init(Standard_True);

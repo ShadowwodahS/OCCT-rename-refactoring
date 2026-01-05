@@ -537,7 +537,7 @@ void IntPatch_ALineToWLine::MakeWLine(const Handle(IntPatch_ALine)& theALine,
       Standard_Real    aTgMagn      = 0.0;
       {
         Point3d aPnt3d;
-        gp_Vec aTg;
+        Vector3d aTg;
         theALine->D1(aParameter, aPnt3d, aTg);
         if (GetSectionRadius(aPnt3d) < 5.0e-6)
         {
@@ -638,7 +638,7 @@ void IntPatch_ALineToWLine::MakeWLine(const Handle(IntPatch_ALine)& theALine,
         {
           // Prediction of the next point
           Point3d aPnt3dNext;
-          gp_Vec aTg;
+          Vector3d aTg;
           theALine->D1(aParameter + aStep, aPnt3dNext, aTg);
           Standard_Real anU1 = 0.0, aV1 = 0.0, anU2 = 0.0, aV2 = 0.0;
           myQuad1.Parameters(aPnt3dNext, anU1, aV1);
@@ -913,8 +913,8 @@ void IntPatch_ALineToWLine::MakeWLine(const Handle(IntPatch_ALine)& theALine,
       const Standard_Integer indice1 = Max(aLinOn2S->NbPoints() / 3, 2);
       const Point3d &         aPP0    = aLinOn2S->Value(indice1 - 1).Value(),
                    &aPP1             = aLinOn2S->Value(indice1).Value();
-      const gp_Vec tgvalid(aPP0, aPP1);
-      const gp_Vec aNQ1(myQuad1.Normale(aPP0)), aNQ2(myQuad2.Normale(aPP0));
+      const Vector3d tgvalid(aPP0, aPP1);
+      const Vector3d aNQ1(myQuad1.Normale(aPP0)), aNQ2(myQuad2.Normale(aPP0));
 
       const Standard_Real dotcross = tgvalid.DotCross(aNQ2, aNQ1);
 

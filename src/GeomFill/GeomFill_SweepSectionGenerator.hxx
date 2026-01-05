@@ -29,7 +29,7 @@
 
 class Geom_BSplineCurve;
 class Geom_Curve;
-class gp_Trsf;
+class Transform3d;
 
 //! class for instantiation of AppBlend.
 //! evaluate the sections of a sweep surface.
@@ -116,7 +116,7 @@ public:
                                TColStd_Array1OfReal&  Weigths) const;
 
   //! raised if <Index> not in the range [1,NbSections()]
-  Standard_EXPORT const gp_Trsf& Transformation(const Standard_Integer Index) const;
+  Standard_EXPORT const Transform3d& Transformation(const Standard_Integer Index) const;
 
   //! Returns  the parameter of   <P>, to impose  it for the
   //! approximation.
@@ -130,7 +130,7 @@ private:
   Handle(Adaptor3d_Curve)   myAdpPath;
   Handle(Adaptor3d_Curve)   myAdpFirstSect;
   Handle(Adaptor3d_Curve)   myAdpLastSect;
-  gp_Ax1                    myCircPathAxis;
+  Axis3d                    myCircPathAxis;
   Standard_Real             myRadius;
   Standard_Boolean          myIsDone;
   Standard_Integer          myNbSections;

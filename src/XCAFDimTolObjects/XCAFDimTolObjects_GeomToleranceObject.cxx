@@ -200,7 +200,7 @@ Standard_Real XCAFDimTolObjects_GeomToleranceObject::GetMaxValueModifier() const
 
 //=================================================================================================
 
-void XCAFDimTolObjects_GeomToleranceObject::SetAxis(const gp_Ax2& theAxis)
+void XCAFDimTolObjects_GeomToleranceObject::SetAxis(const Frame3d& theAxis)
 {
   myAxis    = theAxis;
   myHasAxis = Standard_True;
@@ -208,7 +208,7 @@ void XCAFDimTolObjects_GeomToleranceObject::SetAxis(const gp_Ax2& theAxis)
 
 //=================================================================================================
 
-gp_Ax2 XCAFDimTolObjects_GeomToleranceObject::GetAxis() const
+Frame3d XCAFDimTolObjects_GeomToleranceObject::GetAxis() const
 {
   return myAxis;
 }

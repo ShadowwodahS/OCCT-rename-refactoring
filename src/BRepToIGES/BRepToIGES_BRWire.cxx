@@ -264,7 +264,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferEdge(
 
   if (!Curve3d.IsNull())
   {
-    gp_Trsf Tr = L.Transformation();
+    Transform3d Tr = L.Transformation();
     if (Tr.Form() != gp_Identity)
       Curve3d = Handle(Geom_Curve)::DownCast(Curve3d->Transformed(Tr));
     else

@@ -36,24 +36,24 @@ public:
   LocOpe_LinearForm();
 
   LocOpe_LinearForm(const TopoDS_Shape& Base,
-                    const gp_Vec&       V,
+                    const Vector3d&       V,
                     const Point3d&       Pnt1,
                     const Point3d&       Pnt2);
 
   LocOpe_LinearForm(const TopoDS_Shape& Base,
-                    const gp_Vec&       V,
-                    const gp_Vec&       Vectra,
+                    const Vector3d&       V,
+                    const Vector3d&       Vectra,
                     const Point3d&       Pnt1,
                     const Point3d&       Pnt2);
 
   Standard_EXPORT void Perform(const TopoDS_Shape& Base,
-                               const gp_Vec&       V,
+                               const Vector3d&       V,
                                const Point3d&       Pnt1,
                                const Point3d&       Pnt2);
 
   Standard_EXPORT void Perform(const TopoDS_Shape& Base,
-                               const gp_Vec&       V,
-                               const gp_Vec&       Vectra,
+                               const Vector3d&       V,
+                               const Vector3d&       Vectra,
                                const Point3d&       Pnt1,
                                const Point3d&       Pnt2);
 
@@ -70,8 +70,8 @@ private:
   Standard_EXPORT void IntPerf();
 
   TopoDS_Shape                       myBase;
-  gp_Vec                             myVec;
-  gp_Vec                             myTra;
+  Vector3d                             myVec;
+  Vector3d                             myTra;
   Standard_Boolean                   myDone;
   Standard_Boolean                   myIsTrans;
   TopoDS_Shape                       myRes;

@@ -38,7 +38,7 @@ class GeomFill_LocationDraft : public GeomFill_LocationLaw
 {
 
 public:
-  Standard_EXPORT GeomFill_LocationDraft(const gp_Dir& Direction, const Standard_Real Angle);
+  Standard_EXPORT GeomFill_LocationDraft(const Dir3d& Direction, const Standard_Real Angle);
 
   Standard_EXPORT void SetStopSurf(const Handle(Adaptor3d_Surface)& Surf);
 
@@ -59,12 +59,12 @@ public:
   //! compute Location
   Standard_EXPORT virtual Standard_Boolean D0(const Standard_Real Param,
                                               gp_Mat&             M,
-                                              gp_Vec&             V) Standard_OVERRIDE;
+                                              Vector3d&             V) Standard_OVERRIDE;
 
   //! compute Location and 2d points
   Standard_EXPORT virtual Standard_Boolean D0(const Standard_Real   Param,
                                               gp_Mat&               M,
-                                              gp_Vec&               V,
+                                              Vector3d&               V,
                                               TColgp_Array1OfPnt2d& Poles2d) Standard_OVERRIDE;
 
   //! compute location 2d  points and  associated
@@ -72,9 +72,9 @@ public:
   //! Warning : It used only for C1 or C2 approximation
   Standard_EXPORT virtual Standard_Boolean D1(const Standard_Real   Param,
                                               gp_Mat&               M,
-                                              gp_Vec&               V,
+                                              Vector3d&               V,
                                               gp_Mat&               DM,
-                                              gp_Vec&               DV,
+                                              Vector3d&               DV,
                                               TColgp_Array1OfPnt2d& Poles2d,
                                               TColgp_Array1OfVec2d& DPoles2d) Standard_OVERRIDE;
 
@@ -83,11 +83,11 @@ public:
   //! Warning : It used only for C2 approximation
   Standard_EXPORT virtual Standard_Boolean D2(const Standard_Real   Param,
                                               gp_Mat&               M,
-                                              gp_Vec&               V,
+                                              Vector3d&               V,
                                               gp_Mat&               DM,
-                                              gp_Vec&               DV,
+                                              Vector3d&               DV,
                                               gp_Mat&               D2M,
-                                              gp_Vec&               D2V,
+                                              Vector3d&               D2V,
                                               TColgp_Array1OfPnt2d& Poles2d,
                                               TColgp_Array1OfVec2d& DPoles2d,
                                               TColgp_Array1OfVec2d& D2Poles2d) Standard_OVERRIDE;
@@ -155,7 +155,7 @@ public:
 
   //! Get average value of M(t) and V(t) it is usfull to
   //! make fast approximation of rational  surfaces.
-  Standard_EXPORT virtual void GetAverageLaw(gp_Mat& AM, gp_Vec& AV) Standard_OVERRIDE;
+  Standard_EXPORT virtual void GetAverageLaw(gp_Mat& AM, Vector3d& AV) Standard_OVERRIDE;
 
   //! Say if the Location  Law, is an translation of  Location
   //! The default implementation is " returns False ".
@@ -171,7 +171,7 @@ public:
   //! Say if the generatrice interset the surface
   Standard_EXPORT Standard_Boolean IsIntersec() const;
 
-  Standard_EXPORT gp_Dir Direction() const;
+  Standard_EXPORT Dir3d Direction() const;
 
   DEFINE_STANDARD_RTTIEXT(GeomFill_LocationDraft, GeomFill_LocationLaw)
 
@@ -186,7 +186,7 @@ private:
   Handle(Adaptor3d_Surface)       mySurf;
   Handle(Adaptor3d_Curve)         myCurve;
   Handle(Adaptor3d_Curve)         myTrimmed;
-  gp_Dir                          myDir;
+  Dir3d                          myDir;
   Standard_Real                   myAngle;
   Standard_Integer                myNbPts;
   Standard_Boolean                Intersec;

@@ -14,7 +14,7 @@
 
 #include <GProp_PrincipalProps.hxx>
 
-typedef gp_Vec Vec;
+typedef Vector3d Vec;
 typedef Point3d Pnt;
 
 GProp_PrincipalProps::GProp_PrincipalProps()
@@ -34,9 +34,9 @@ GProp_PrincipalProps::GProp_PrincipalProps(const Standard_Real Ixx,
                                            const Standard_Real Rxx,
                                            const Standard_Real Ryy,
                                            const Standard_Real Rzz,
-                                           const gp_Vec&       Vxx,
-                                           const gp_Vec&       Vyy,
-                                           const gp_Vec&       Vzz,
+                                           const Vector3d&       Vxx,
+                                           const Vector3d&       Vyy,
+                                           const Vector3d&       Vzz,
                                            const Point3d&       G)
     : i1(Ixx),
       i2(Iyy),

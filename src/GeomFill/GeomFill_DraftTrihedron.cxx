@@ -30,11 +30,11 @@ IMPLEMENT_STANDARD_RTTIEXT(GeomFill_DraftTrihedron, GeomFill_TrihedronLaw)
 // function : DDeriv
 // purpose  : computes (F/|F|)''
 //=======================================================================
-static gp_Vec DDeriv(const gp_Vec& F, const gp_Vec& DF, const gp_Vec& D2F)
+static Vector3d DDeriv(const Vector3d& F, const Vector3d& DF, const Vector3d& D2F)
 {
   Standard_Real Norma = F.Magnitude();
 
-  gp_Vec Result =
+  Vector3d Result =
     (D2F - 2 * DF * (F * DF) / (Norma * Norma)) / Norma
     - F
         * ((DF.SquareMagnitude() + F * D2F - 3 * (F * DF) * (F * DF) / (Norma * Norma))
@@ -44,7 +44,7 @@ static gp_Vec DDeriv(const gp_Vec& F, const gp_Vec& DF, const gp_Vec& D2F)
 
 //=================================================================================================
 
-GeomFill_DraftTrihedron::GeomFill_DraftTrihedron(const gp_Vec& BiNormal, const Standard_Real Angle)
+GeomFill_DraftTrihedron::GeomFill_DraftTrihedron(const Vector3d& BiNormal, const Standard_Real Angle)
 {
   B = BiNormal;
   B.Normalize();
@@ -64,23 +64,23 @@ void GeomFill_DraftTrihedron::SetAngle(const Standard_Real Angle)
 // purpose  : calculation of trihedron
 //=======================================================================
 Standard_Boolean GeomFill_DraftTrihedron::D0(const Standard_Real Param,
-                                             gp_Vec&             Tangent,
-                                             gp_Vec&             Normal,
-                                             gp_Vec&             BiNormal)
+                                             Vector3d&             Tangent,
+                                             Vector3d&             Normal,
+                                             Vector3d&             BiNormal)
 {
   Point3d P;
-  gp_Vec T;
+  Vector3d T;
   myTrimmed->D1(Param, P, T);
   T.Normalize();
 
-  gp_Vec        b     = T.Crossed(B);
+  Vector3d        b     = T.Crossed(B);
   Standard_Real normb = b.Magnitude();
 
   b /= normb;
   if (normb < 1.e-12)
     return Standard_False;
 
-  gp_Vec v = b.Crossed(T);
+  Vector3d v = b.Crossed(T);
 
   Standard_Real mu = myCos;
   mu               = myCos;
@@ -104,15 +104,15 @@ Standard_Boolean GeomFill_DraftTrihedron::D0(const Standard_Real Param,
 // purpose  :  calculation of trihedron and first derivative
 //=======================================================================
 Standard_Boolean GeomFill_DraftTrihedron::D1(const Standard_Real Param,
-                                             gp_Vec&             Tangent,
-                                             gp_Vec&             DTangent,
-                                             gp_Vec&             Normal,
-                                             gp_Vec&             DNormal,
-                                             gp_Vec&             BiNormal,
-                                             gp_Vec&             DBiNormal)
+                                             Vector3d&             Tangent,
+                                             Vector3d&             DTangent,
+                                             Vector3d&             Normal,
+                                             Vector3d&             DNormal,
+                                             Vector3d&             BiNormal,
+                                             Vector3d&             DBiNormal)
 {
   Point3d P;
-  gp_Vec T, DT, aux;
+  Vector3d T, DT, aux;
 
   myTrimmed->D2(Param, P, T, aux);
 
@@ -122,7 +122,7 @@ Standard_Boolean GeomFill_DraftTrihedron::D1(const Standard_Real Param,
   DT.SetLinearForm(-(T.Dot(aux)), T, aux);
   DT /= normT;
 
-  gp_Vec db, b = T.Crossed(B);
+  Vector3d db, b = T.Crossed(B);
   normb = b.Magnitude();
   if (normb < 1.e-12)
     return Standard_False;
@@ -131,8 +131,8 @@ Standard_Boolean GeomFill_DraftTrihedron::D1(const Standard_Real Param,
   db.SetLinearForm(-(b.Dot(aux)), b, aux);
   db /= normb;
 
-  gp_Vec v  = b.Crossed(T);
-  gp_Vec dv = db.Crossed(T) + b.Crossed(DT);
+  Vector3d v  = b.Crossed(T);
+  Vector3d dv = db.Crossed(T) + b.Crossed(DT);
 
   Standard_Real mu = myCos;
 
@@ -158,18 +158,18 @@ Standard_Boolean GeomFill_DraftTrihedron::D1(const Standard_Real Param,
 // purpose  : calculation of trihedron and derivatives 1 et 2
 //=======================================================================
 Standard_Boolean GeomFill_DraftTrihedron::D2(const Standard_Real Param,
-                                             gp_Vec&             Tangent,
-                                             gp_Vec&             DTangent,
-                                             gp_Vec&             D2Tangent,
-                                             gp_Vec&             Normal,
-                                             gp_Vec&             DNormal,
-                                             gp_Vec&             D2Normal,
-                                             gp_Vec&             BiNormal,
-                                             gp_Vec&             DBiNormal,
-                                             gp_Vec&             D2BiNormal)
+                                             Vector3d&             Tangent,
+                                             Vector3d&             DTangent,
+                                             Vector3d&             D2Tangent,
+                                             Vector3d&             Normal,
+                                             Vector3d&             DNormal,
+                                             Vector3d&             D2Normal,
+                                             Vector3d&             BiNormal,
+                                             Vector3d&             DBiNormal,
+                                             Vector3d&             D2BiNormal)
 {
   Point3d        P;
-  gp_Vec        T, DT, D2T, aux, aux2;
+  Vector3d        T, DT, D2T, aux, aux2;
   Standard_Real dot;
 
   myTrimmed->D3(Param, P, T, aux, aux2);
@@ -183,7 +183,7 @@ Standard_Boolean GeomFill_DraftTrihedron::D2(const Standard_Real Param,
   DT.SetLinearForm(-dot, T, aux);
   DT /= normT;
 
-  gp_Vec db, d2b, b = T.Crossed(B);
+  Vector3d db, d2b, b = T.Crossed(B);
   normb = b.Magnitude();
   if (normb < 1.e-12)
     return Standard_False;
@@ -196,9 +196,9 @@ Standard_Boolean GeomFill_DraftTrihedron::D2(const Standard_Real Param,
   db.SetLinearForm(-dot, b, aux);
   db /= normb;
 
-  gp_Vec v   = b.Crossed(T);
-  gp_Vec dv  = db.Crossed(T) + b.Crossed(DT);
-  gp_Vec d2v = d2b.Crossed(T) + 2 * db.Crossed(DT) + b.Crossed(D2T);
+  Vector3d v   = b.Crossed(T);
+  Vector3d dv  = db.Crossed(T) + b.Crossed(DT);
+  Vector3d d2v = d2b.Crossed(T) + 2 * db.Crossed(DT) + b.Crossed(D2T);
 
   Standard_Real mu = myCos, rac;
   rac              = Sqrt(1 - mu * mu);
@@ -291,13 +291,13 @@ void GeomFill_DraftTrihedron::Intervals(TColStd_Array1OfReal& TT, const GeomAbs_
 
 //=================================================================================================
 
-void GeomFill_DraftTrihedron::GetAverageLaw(gp_Vec& ATangent, gp_Vec& ANormal, gp_Vec& ABiNormal)
+void GeomFill_DraftTrihedron::GetAverageLaw(Vector3d& ATangent, Vector3d& ANormal, Vector3d& ABiNormal)
 {
   Standard_Integer Num = 20; // order of digitalization
-  gp_Vec           T, N, BN;
-  ATangent  = gp_Vec(0, 0, 0);
-  ANormal   = gp_Vec(0, 0, 0);
-  ABiNormal = gp_Vec(0, 0, 0);
+  Vector3d           T, N, BN;
+  ATangent  = Vector3d(0, 0, 0);
+  ANormal   = Vector3d(0, 0, 0);
+  ABiNormal = Vector3d(0, 0, 0);
 
   Standard_Real Step = (myTrimmed->LastParameter() - myTrimmed->FirstParameter()) / Num;
   Standard_Real Param;
@@ -329,7 +329,7 @@ Standard_Boolean GeomFill_DraftTrihedron::IsConstant() const
 Standard_Boolean GeomFill_DraftTrihedron::IsOnlyBy3dCurve() const
 {
   GeomAbs_CurveType TheType = myCurve->GetType();
-  gp_Ax1            TheAxe;
+  Axis3d            TheAxe;
 
   switch (TheType)
   {
@@ -350,7 +350,7 @@ Standard_Boolean GeomFill_DraftTrihedron::IsOnlyBy3dCurve() const
       break;
     }
     case GeomAbs_Line: { // La normale du plan de la courbe est il perpendiculaire a la BiNormale ?
-      gp_Vec V;
+      Vector3d V;
       V.SetXYZ(myCurve->Line().Direction().XYZ());
       return V.IsParallel(B, Precision::Angular());
     }
@@ -359,7 +359,7 @@ Standard_Boolean GeomFill_DraftTrihedron::IsOnlyBy3dCurve() const
   }
 
   // La normale du plan de la courbe est il // a la BiNormale ?
-  gp_Vec V;
+  Vector3d V;
   V.SetXYZ(TheAxe.Direction().XYZ());
   return V.IsParallel(B, Precision::Angular());
 }

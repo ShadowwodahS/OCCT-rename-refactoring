@@ -88,7 +88,7 @@ public:
                           gp_Vec2d&            theTangent) const;
   Standard_EXPORT void D1(const Standard_Real& theParameter,
                           Point3d&              thePoint,
-                          gp_Vec&              theTangent) const;
+                          Vector3d&              theTangent) const;
 
   //! Calculates the point on the curve and two derivatives in the specified parameter
   //! \param[in]  theParameter parameter of calculation of the value
@@ -102,8 +102,8 @@ public:
                           gp_Vec2d&            theCurvature) const;
   Standard_EXPORT void D2(const Standard_Real& theParameter,
                           Point3d&              thePoint,
-                          gp_Vec&              theTangent,
-                          gp_Vec&              theCurvature) const;
+                          Vector3d&              theTangent,
+                          Vector3d&              theCurvature) const;
 
   //! Calculates the point on the curve and three derivatives in the specified parameter
   //! \param[in]  theParameter parameter of calculation of the value
@@ -119,9 +119,9 @@ public:
                           gp_Vec2d&            theTorsion) const;
   Standard_EXPORT void D3(const Standard_Real& theParameter,
                           Point3d&              thePoint,
-                          gp_Vec&              theTangent,
-                          gp_Vec&              theCurvature,
-                          gp_Vec&              theTorsion) const;
+                          Vector3d&              theTangent,
+                          Vector3d&              theCurvature,
+                          Vector3d&              theTorsion) const;
 
   DEFINE_STANDARD_RTTIEXT(BSplCLib_Cache, RefObject)
 

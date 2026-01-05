@@ -23,7 +23,7 @@
 #include <BRepPrim_Wedge.hxx>
 #include <BRepBuilderAPI_MakeShape.hxx>
 class Point3d;
-class gp_Ax2;
+class Frame3d;
 class TopoDS_Shell;
 class TopoDS_Solid;
 class TopoDS_Face;
@@ -70,7 +70,7 @@ public:
   Standard_EXPORT BRepPrimAPI_MakeBox(const Point3d& P1, const Point3d& P2);
 
   //! Make a box with Ax2 (the left corner and the axis) and size dx, dy, dz.
-  Standard_EXPORT BRepPrimAPI_MakeBox(const gp_Ax2&       Axes,
+  Standard_EXPORT BRepPrimAPI_MakeBox(const Frame3d&       Axes,
                                       const Standard_Real dx,
                                       const Standard_Real dy,
                                       const Standard_Real dz);
@@ -90,7 +90,7 @@ public:
   Standard_EXPORT void Init(const Point3d& thePnt1, const Point3d& thePnt2);
 
   //! Init a box with Ax2 (the left corner and the theAxes) and size theDX, theDY, theDZ.
-  Standard_EXPORT void Init(const gp_Ax2&       theAxes,
+  Standard_EXPORT void Init(const Frame3d&       theAxes,
                             const Standard_Real theDX,
                             const Standard_Real theDY,
                             const Standard_Real theDZ);

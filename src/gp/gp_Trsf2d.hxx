@@ -20,7 +20,7 @@
 #include <gp_XY.hxx>
 #include <Standard_OutOfRange.hxx>
 
-class gp_Trsf;
+class Transform3d;
 class gp_Pnt2d;
 class gp_Ax2d;
 class gp_Vec2d;
@@ -51,7 +51,7 @@ public:
 
   //! Creates a 2d transformation in the XY plane from a
   //! 3d transformation .
-  gp_Trsf2d(const gp_Trsf& theT);
+  gp_Trsf2d(const Transform3d& theT);
 
   //! Changes the transformation into a symmetrical transformation.
   //! theP is the center of the symmetry.
@@ -232,7 +232,7 @@ inline gp_Trsf2d::gp_Trsf2d()
 // function : gp_Trsf2d
 // purpose :
 //=======================================================================
-inline gp_Trsf2d::gp_Trsf2d(const gp_Trsf& theT)
+inline gp_Trsf2d::gp_Trsf2d(const Transform3d& theT)
     : scale(theT.ScaleFactor()),
       shape(theT.Form()),
       loc(theT.TranslationPart().X(), theT.TranslationPart().Y())

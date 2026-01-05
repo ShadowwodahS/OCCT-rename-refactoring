@@ -101,14 +101,14 @@ Standard_Boolean Extrema_FuncExtCS::Value(const math_Vector& UV, math_Vector& F)
   myU = UV(2);
   myV = UV(3);
 
-  //  gp_Vec Dtc, Dttc;
-  gp_Vec Dtc;
-  ///  gp_Vec Dus, Dvs, Duvs, Duus, Dvvs;
-  gp_Vec Dus, Dvs;
+  //  Vector3d Dtc, Dttc;
+  Vector3d Dtc;
+  ///  Vector3d Dus, Dvs, Duvs, Duus, Dvvs;
+  Vector3d Dus, Dvs;
   myC->D1(myt, myP1, Dtc);
   myS->D1(myU, myV, myP2, Dus, Dvs);
 
-  gp_Vec P1P2(myP2, myP1);
+  Vector3d P1P2(myP2, myP1);
 
   F(1) = P1P2.Dot(Dtc);
   F(2) = P1P2.Dot(Dus);
@@ -136,12 +136,12 @@ Standard_Boolean Extrema_FuncExtCS::Values(const math_Vector& UV, math_Vector& F
   myU = UV(2);
   myV = UV(3);
 
-  gp_Vec Dtc, Dttc;
-  gp_Vec Dus, Dvs, Duvs, Duus, Dvvs;
+  Vector3d Dtc, Dttc;
+  Vector3d Dus, Dvs, Duvs, Duus, Dvvs;
   myC->D2(myt, myP1, Dtc, Dttc);
   myS->D2(myU, myV, myP2, Dus, Dvs, Duus, Dvvs, Duvs);
 
-  gp_Vec P1P2(myP2, myP1);
+  Vector3d P1P2(myP2, myP1);
 
   F(1) = P1P2.Dot(Dtc);
   F(2) = P1P2.Dot(Dus);

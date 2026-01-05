@@ -59,11 +59,11 @@
 
 static TopoDS_Edge FindEdgeCloseToBisectorPlane(const TopoDS_Vertex& theVertex,
                                                 TopoDS_Compound&     theComp,
-                                                const gp_Ax1&        theAxis);
+                                                const Axis3d&        theAxis);
 
 static Standard_Boolean FindMiddleEdges(const TopoDS_Vertex&  theVertex1,
                                         const TopoDS_Vertex&  theVertex2,
-                                        const gp_Ax1&         theAxis,
+                                        const Axis3d&         theAxis,
                                         TopoDS_Compound&      theComp,
                                         TopTools_ListOfShape& theElist);
 
@@ -76,14 +76,14 @@ static Standard_Boolean FindCommonVertex(const TopoDS_Edge&   theFirstEdge,
 static Standard_Boolean FindCommonVertex(const BOPDS_PDS&       theDS,
                                          const Standard_Integer theEIndex1,
                                          const Standard_Integer theEIndex2,
-                                         const gp_Vec&          theCrossDirection,
+                                         const Vector3d&          theCrossDirection,
                                          TopoDS_Vertex&         theCommonVertex,
                                          Standard_Real&         theParamOnE1,
                                          Standard_Real&         theParamOnE2);
 
 static Standard_Boolean SplitUEdges(const Handle(TopTools_HArray2OfShape)& theUEdges,
                                     const BOPDS_PDS&                       theDS,
-                                    const gp_Vec&                          theCrossDirection,
+                                    const Vector3d&                          theCrossDirection,
                                     TopTools_DataMapOfShapeListOfShape&    theHistMap);
 
 static void StoreVedgeInHistMap(const Handle(TopTools_HArray1OfShape)& theVEdges,
@@ -193,8 +193,8 @@ static void UpdateSectionEdge(TopoDS_Edge&         theEdge,
 
 BRepFill_TrimShellCorner::BRepFill_TrimShellCorner(const Handle(TopTools_HArray2OfShape)& theFaces,
                                                    const BRepFill_TransitionStyle theTransition,
-                                                   const gp_Ax2&                  theAxeOfBisPlane,
-                                                   const gp_Vec& theIntPointCrossDir)
+                                                   const Frame3d&                  theAxeOfBisPlane,
+                                                   const Vector3d& theIntPointCrossDir)
     : myTransition(theTransition),
       myAxeOfBisPlane(theAxeOfBisPlane),
       myIntPointCrossDir(theIntPointCrossDir),
@@ -1182,7 +1182,7 @@ Standard_Boolean BRepFill_TrimShellCorner::ChooseSection(const TopoDS_Shape&  Co
 // ------------------------------------------------------------------------------------------
 Standard_Boolean SplitUEdges(const Handle(TopTools_HArray2OfShape)& theUEdges,
                              const BOPDS_PDS&                       theDS,
-                             const gp_Vec&                          theCrossDirection,
+                             const Vector3d&                          theCrossDirection,
                              TopTools_DataMapOfShapeListOfShape&    theHistMap)
 {
 
@@ -1330,7 +1330,7 @@ void FindFreeVertices(const TopoDS_Shape&        theShape,
 Standard_Boolean FindCommonVertex(const BOPDS_PDS&       theDS,
                                   const Standard_Integer theEIndex1,
                                   const Standard_Integer theEIndex2,
-                                  const gp_Vec&          theCrossDirection,
+                                  const Vector3d&          theCrossDirection,
                                   TopoDS_Vertex&         theCommonVertex,
                                   Standard_Real&         theParamOnE1,
                                   Standard_Real&         theParamOnE2)
@@ -1370,8 +1370,8 @@ Standard_Boolean FindCommonVertex(const BOPDS_PDS&       theDS,
           IntTools_Tools::VertexParameters(aCP, theParamOnE2, theParamOnE1);
 
         Point3d aPt;
-        gp_Vec aDirOnE1, aDirOnE2;
-        gp_Dir aIntersectPointCrossDir;
+        Vector3d aDirOnE1, aDirOnE2;
+        Dir3d aIntersectPointCrossDir;
 
         // intersect point aDirOnE1.cross(aDirOnE2) should same direction with path
         // theCrossDirection
@@ -2501,7 +2501,7 @@ static Standard_Real ComputeAveragePlaneAndMaxDeviation(const TopoDS_Shape& aWir
     }
   }
 
-  gp_Ax2 Axe;
+  Frame3d Axe;
   GeomLib::AxeOfInertia(Pnts, Axe, IsSingular);
   if (IsSingular)
     return -1;
@@ -2562,7 +2562,7 @@ static void UpdateSectionEdge(TopoDS_Edge&         theEdge,
 //<theAxis> is the axis of bisector plane
 static TopoDS_Edge FindEdgeCloseToBisectorPlane(const TopoDS_Vertex& theVertex,
                                                 TopoDS_Compound&     theComp,
-                                                const gp_Ax1&        theAxis)
+                                                const Axis3d&        theAxis)
 {
   TopTools_IndexedDataMapOfShapeListOfShape VEmap;
   TopExp::MapShapesAndAncestors(theComp, TopAbs_VERTEX, TopAbs_EDGE, VEmap);
@@ -2596,8 +2596,8 @@ static TopoDS_Edge FindEdgeCloseToBisectorPlane(const TopoDS_Vertex& theVertex,
         BRepAdaptor_Curve BAcurve(anEdge);
         Point3d            FirstPnt = BAcurve.Value(BAcurve.FirstParameter());
         Point3d            LastPnt  = BAcurve.Value(BAcurve.LastParameter());
-        gp_Vec            EdgeVec(FirstPnt, LastPnt);
-        gp_Ax1            EdgeAxis(FirstPnt, EdgeVec);
+        Vector3d            EdgeVec(FirstPnt, LastPnt);
+        Axis3d            EdgeAxis(FirstPnt, EdgeVec);
         anAngle = EdgeAxis.Direction().Angle(theAxis.Direction());
         if (anAngle > M_PI / 2)
           anAngle = M_PI - anAngle;
@@ -2624,7 +2624,7 @@ static TopoDS_Edge FindEdgeCloseToBisectorPlane(const TopoDS_Vertex& theVertex,
 
 static Standard_Boolean FindMiddleEdges(const TopoDS_Vertex&  theVertex1,
                                         const TopoDS_Vertex&  theVertex2,
-                                        const gp_Ax1&         theAxis,
+                                        const Axis3d&         theAxis,
                                         TopoDS_Compound&      theComp,
                                         TopTools_ListOfShape& theElist)
 {

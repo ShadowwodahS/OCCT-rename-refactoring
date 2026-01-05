@@ -99,14 +99,14 @@ static Point3d Get3DPointAtMousePosition()
   aView->Proj(xv, yv, zv);
   Standard_Real xat, yat, zat;
   aView->At(xat, yat, zat);
-  gp_Pln aPlane(Point3d(xat, yat, zat), gp_Dir(xv, yv, zv));
+  gp_Pln aPlane(Point3d(xat, yat, zat), Dir3d(xv, yv, zv));
 
   Standard_Integer aPixX, aPixY;
   Standard_Real    aX, aY, aZ, aDX, aDY, aDZ;
 
   ViewerTest::GetMousePosition(aPixX, aPixY);
   aView->ConvertWithProj(aPixX, aPixY, aX, aY, aZ, aDX, aDY, aDZ);
-  gp_Lin aLine(Point3d(aX, aY, aZ), gp_Dir(aDX, aDY, aDZ));
+  gp_Lin aLine(Point3d(aX, aY, aZ), Dir3d(aDX, aDY, aDZ));
 
   // Compute intersection
   Handle(Geom_Line)  aGeomLine  = new Geom_Line(aLine);
@@ -138,12 +138,12 @@ static Standard_Boolean Get3DPointAtMousePosition(const Point3d& theFirstPoint,
   // Get 3D point in view coordinates and projection vector from the pixel point.
   ViewerTest::GetMousePosition(aPixX, aPixY);
   aView->ConvertWithProj(aPixX, aPixY, aX, aY, aZ, aDx, aDy, aDz);
-  gp_Lin aProjLin(Point3d(aX, aY, aZ), gp_Dir(aDx, aDy, aDz));
+  gp_Lin aProjLin(Point3d(aX, aY, aZ), Dir3d(aDx, aDy, aDz));
 
   // Get plane
-  gp_Vec aDimVec(theFirstPoint, theSecondPoint);
+  Vector3d aDimVec(theFirstPoint, theSecondPoint);
   aView->Up(aUx, aUy, aUz);
-  gp_Vec aViewUp(aUx, aUy, aUz);
+  Vector3d aViewUp(aUx, aUy, aUz);
 
   if (aDimVec.IsParallel(aViewUp, Precision::Angular()))
   {
@@ -151,7 +151,7 @@ static Standard_Boolean Get3DPointAtMousePosition(const Point3d& theFirstPoint,
     return Standard_True;
   }
 
-  gp_Vec aDimNormal = aDimVec ^ aViewUp;
+  Vector3d aDimNormal = aDimVec ^ aViewUp;
   gp_Pln aViewPlane = gce_MakePln(theFirstPoint, aDimNormal);
 
   // Get intersection of view plane and projection line
@@ -1648,7 +1648,7 @@ static int VLengthParam(Draw_Interpretor&, Standard_Integer theArgNum, const cha
   }
 
   // parse direction value
-  gp_Dir                  aDirection;
+  Dir3d                  aDirection;
   int                     anArgumentIt = 2;
   TCollection_AsciiString aParam(theArgVec[anArgumentIt]);
   aParam.LowerCase();
@@ -1697,7 +1697,7 @@ static int VLengthParam(Draw_Interpretor&, Standard_Integer theArgNum, const cha
         Message::SendFail("Error: wrong number of direction arguments");
         return 1;
       }
-      aDirection = gp_Dir(aCoords.Value(1), aCoords.Value(2), aCoords.Value(3));
+      aDirection = Dir3d(aCoords.Value(1), aCoords.Value(2), aCoords.Value(3));
     }
   }
 

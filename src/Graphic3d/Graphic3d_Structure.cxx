@@ -785,7 +785,7 @@ void Graphic3d_Structure::addTransformed(Graphic3d_BndBox3d&    theBox,
 
 //=================================================================================================
 
-void Graphic3d_Structure::Transforms(const gp_Trsf&      theTrsf,
+void Graphic3d_Structure::Transforms(const Transform3d&      theTrsf,
                                      const Standard_Real theX,
                                      const Standard_Real theY,
                                      const Standard_Real theZ,
@@ -809,7 +809,7 @@ void Graphic3d_Structure::Transforms(const gp_Trsf&      theTrsf,
 
 //=================================================================================================
 
-void Graphic3d_Structure::TransformBoundaries(const gp_Trsf& theTrsf,
+void Graphic3d_Structure::TransformBoundaries(const Transform3d& theTrsf,
                                               Standard_Real& theXMin,
                                               Standard_Real& theYMin,
                                               Standard_Real& theZMin,

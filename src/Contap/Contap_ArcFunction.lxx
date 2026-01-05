@@ -14,7 +14,7 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-inline void Contap_ArcFunction::Set(const gp_Dir& Direction, const Standard_Real Angle)
+inline void Contap_ArcFunction::Set(const Dir3d& Direction, const Standard_Real Angle)
 {
   myType   = Contap_DraftStd;
   myDir    = Direction;
@@ -28,7 +28,7 @@ inline void Contap_ArcFunction::Set(const Point3d& Eye, const Standard_Real Angl
   myCosAng = Cos(M_PI / 2. + Angle);
 }
 
-inline void Contap_ArcFunction::Set(const gp_Dir& Direction)
+inline void Contap_ArcFunction::Set(const Dir3d& Direction)
 {
   myType = Contap_ContourStd;
   myDir  = Direction;

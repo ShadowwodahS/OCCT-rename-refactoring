@@ -85,9 +85,9 @@ Standard_Real IGESDraw_PerspectiveView::ScaleFactor() const
   return theScaleFactor;
 }
 
-gp_Vec IGESDraw_PerspectiveView::ViewNormalVector() const
+Vector3d IGESDraw_PerspectiveView::ViewNormalVector() const
 {
-  gp_Vec tempRes(theViewNormalVector);
+  Vector3d tempRes(theViewNormalVector);
   return tempRes;
 }
 
@@ -103,9 +103,9 @@ Point3d IGESDraw_PerspectiveView::CenterOfProjection() const
   return tempRes;
 }
 
-gp_Vec IGESDraw_PerspectiveView::ViewUpVector() const
+Vector3d IGESDraw_PerspectiveView::ViewUpVector() const
 {
-  gp_Vec tempRes(theViewUpVector);
+  Vector3d tempRes(theViewUpVector);
   return tempRes;
 }
 

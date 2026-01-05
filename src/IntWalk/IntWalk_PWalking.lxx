@@ -63,7 +63,7 @@ inline Standard_Boolean IntWalk_PWalking::IsClosed() const
   return close;
 }
 
-inline const gp_Dir& IntWalk_PWalking::TangentAtLine(Standard_Integer& theIndex) const
+inline const Dir3d& IntWalk_PWalking::TangentAtLine(Standard_Integer& theIndex) const
 {
   if (!done)
     throw StdFail_NotDone();

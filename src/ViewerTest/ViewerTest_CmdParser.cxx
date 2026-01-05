@@ -373,10 +373,10 @@ Graphic3d_Vec3d ViewerTest_CmdParser::ArgVec3d(const std::string& theOptionName,
 
 //=================================================================================================
 
-gp_Vec ViewerTest_CmdParser::ArgVec(const std::string& theOptionName,
+Vector3d ViewerTest_CmdParser::ArgVec(const std::string& theOptionName,
                                     Standard_Integer   theArgumentIndex) const
 {
-  return gp_Vec(Draw::Atof(Arg(theOptionName, theArgumentIndex).c_str()),
+  return Vector3d(Draw::Atof(Arg(theOptionName, theArgumentIndex).c_str()),
                 Draw::Atof(Arg(theOptionName, theArgumentIndex + 1).c_str()),
                 Draw::Atof(Arg(theOptionName, theArgumentIndex + 2).c_str()));
 }

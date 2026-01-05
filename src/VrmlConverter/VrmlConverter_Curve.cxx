@@ -96,7 +96,7 @@ static void DrawCurve(const Adaptor3d_Curve&              aCurve,
   switch (aCurve.GetType())
   {
     case GeomAbs_Line: {
-      gp_Vec V;
+      Vector3d V;
       HAV1 = new TColgp_HArray1OfVec(1, 2);
       // array of coordinates of line
       Point3d p = aCurve.Value(U1);
@@ -126,7 +126,7 @@ static void DrawCurve(const Adaptor3d_Curve&              aCurve,
       //     std::cout << "nbintervals " << nbintervals << std::endl;
       //     std::cout <<  "N " << N << std::endl;
 
-      gp_Vec V;
+      Vector3d V;
       HAV1 = new TColgp_HArray1OfVec(1, N);
       //      HAI1 = new TColStd_HArray1OfInteger(1,(N/2*3+N%2));
       HAI1             = new TColStd_HArray1OfInteger(1, N + 1);

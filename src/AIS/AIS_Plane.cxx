@@ -519,9 +519,9 @@ void AIS_Plane::ComputeFields()
     Handle(Prs3d_DatumAspect) DA = myDrawer->DatumAspect();
 
     Point3d Orig = myAx2->Ax2().Location();
-    gp_Dir oX   = myAx2->Ax2().XDirection();
-    gp_Dir oY   = myAx2->Ax2().YDirection();
-    gp_Dir oZ   = myAx2->Ax2().Direction();
+    Dir3d oX   = myAx2->Ax2().XDirection();
+    Dir3d oY   = myAx2->Ax2().YDirection();
+    Dir3d oZ   = myAx2->Ax2().Direction();
     myCenter    = Orig;
     Standard_Real xo, yo, zo, x1, y1, z1, x2, y2, z2, x3, y3, z3, x4 = 0, y4 = 0, z4 = 0;
     Standard_Real x5 = 0, y5 = 0, z5 = 0;

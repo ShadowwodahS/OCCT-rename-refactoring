@@ -25,7 +25,7 @@ static const char* Translate(const char* theStr, gp_XYZ& P);
 
 //=================================================================================================
 
-XmlObjMgt_DOMString XmlObjMgt_GP::Translate(const gp_Trsf& aTrsf)
+XmlObjMgt_DOMString XmlObjMgt_GP::Translate(const Transform3d& aTrsf)
 {
   char                buf[256];
   XmlObjMgt_DOMString S1(Translate(aTrsf.HVectorialPart())), S2(Translate(aTrsf.TranslationPart()));
@@ -58,7 +58,7 @@ XmlObjMgt_DOMString XmlObjMgt_GP::Translate(const gp_XYZ& anXYZ)
 
 //=================================================================================================
 
-Standard_Boolean XmlObjMgt_GP::Translate(const XmlObjMgt_DOMString& theStr, gp_Trsf& T)
+Standard_Boolean XmlObjMgt_GP::Translate(const XmlObjMgt_DOMString& theStr, Transform3d& T)
 {
   Standard_Boolean aResult = Standard_False;
   const char*      aStr    = theStr.GetString();

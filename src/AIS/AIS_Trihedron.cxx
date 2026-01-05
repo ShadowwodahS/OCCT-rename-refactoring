@@ -162,7 +162,7 @@ void AIS_Trihedron::Compute(const Handle(PrsMgr_PresentationManager)& thePrsMgr,
 
   thePrs->SetInfiniteState(Standard_True);
 
-  gp_Ax2 anAxis(myComponent->Ax2());
+  Frame3d anAxis(myComponent->Ax2());
   updatePrimitives(myDrawer->DatumAspect(),
                    myTrihDispMode,
                    anAxis.Location(),
@@ -486,7 +486,7 @@ void AIS_Trihedron::computePresentation(const Handle(PrsMgr_PresentationManager)
 
       const Standard_Real               anAxisLength = anAspect->AxisLength(aPart);
       const TCollection_ExtendedString& aLabel       = myLabels[aPart];
-      gp_Dir                            aDir;
+      Dir3d                            aDir;
       switch (aPart)
       {
         case Prs3d_DatumParts_XAxis:
@@ -743,16 +743,16 @@ Handle(Select3D_SensitiveEntity) AIS_Trihedron::createSensitiveEntity(
 void AIS_Trihedron::updatePrimitives(const Handle(Prs3d_DatumAspect)& theAspect,
                                      Prs3d_DatumMode                  theMode,
                                      const Point3d&                    theOrigin,
-                                     const gp_Dir&                    theXDirection,
-                                     const gp_Dir&                    theYDirection,
-                                     const gp_Dir&                    theZDirection)
+                                     const Dir3d&                    theXDirection,
+                                     const Dir3d&                    theYDirection,
+                                     const Dir3d&                    theZDirection)
 {
   for (Standard_Integer aPartIter = 0; aPartIter < Prs3d_DatumParts_NB; ++aPartIter)
   {
     myPrimitives[aPartIter].Nullify();
   }
 
-  NCollection_DataMap<Prs3d_DatumParts, gp_Dir> anAxisDirs;
+  NCollection_DataMap<Prs3d_DatumParts, Dir3d> anAxisDirs;
   anAxisDirs.Bind(Prs3d_DatumParts_XAxis, theXDirection);
   anAxisDirs.Bind(Prs3d_DatumParts_YAxis, theYDirection);
   anAxisDirs.Bind(Prs3d_DatumParts_ZAxis, theZDirection);
@@ -812,8 +812,8 @@ void AIS_Trihedron::updatePrimitives(const Handle(Prs3d_DatumAspect)& theAspect,
         * theAspect->Attribute(Prs3d_DatumAttribute_ShadingOriginRadiusPercent);
       const Standard_Integer aNbOfFacettes =
         (Standard_Integer)theAspect->Attribute(Prs3d_DatumAttribute_ShadingNumberOfFacettes);
-      gp_Trsf aSphereTransform;
-      aSphereTransform.SetTranslationPart(gp_Vec(gp::Origin(), theOrigin));
+      Transform3d aSphereTransform;
+      aSphereTransform.SetTranslationPart(Vector3d(gp::Origin(), theOrigin));
       myPrimitives[Prs3d_DatumParts_Origin] =
         Prs3d_ToolSphere::Create(aSphereRadius, aNbOfFacettes, aNbOfFacettes, aSphereTransform);
     }
@@ -835,7 +835,7 @@ void AIS_Trihedron::updatePrimitives(const Handle(Prs3d_DatumAspect)& theAspect,
         const Prs3d_DatumParts anArrowPart  = Prs3d_DatumAspect::ArrowPartForAxis(aPart);
         const bool             aDrawArrow   = theAspect->DrawDatumPart(anArrowPart);
         const Standard_Real    anAxisLength = theAspect->AxisLength(aPart);
-        const gp_Ax1           anAxis(theOrigin, anAxisDirs.Find(aPart));
+        const Axis3d           anAxis(theOrigin, anAxisDirs.Find(aPart));
 
         if (theAspect->DrawDatumPart(aPart))
         {

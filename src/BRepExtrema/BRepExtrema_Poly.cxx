@@ -71,7 +71,7 @@ Standard_Boolean BRepExtrema_Poly::Distance(const TopoDS_Shape& S1,
     Tr                   = BRep_Tool::Triangulation(F, L);
     if (!Tr.IsNull())
     {
-      const gp_Trsf aTrsf = L;
+      const Transform3d aTrsf = L;
       n                   = Tr->NbNodes();
       for (i = 1; i <= n; i++)
       {
@@ -90,7 +90,7 @@ Standard_Boolean BRepExtrema_Poly::Distance(const TopoDS_Shape& S1,
     Tr                   = BRep_Tool::Triangulation(F, L);
     if (!Tr.IsNull())
     {
-      const gp_Trsf aTrsf = L;
+      const Transform3d aTrsf = L;
       n                   = Tr->NbNodes();
       for (i = 1; i <= n; i++)
       {

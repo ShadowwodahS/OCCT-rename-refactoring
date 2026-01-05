@@ -123,14 +123,14 @@ public:
 
   //! Changes normal at the given index.
   //! Raises Standard_OutOfRange exception.
-  Standard_EXPORT void SetNormal(const Standard_Integer theIndex, const gp_Dir& theNormal);
+  Standard_EXPORT void SetNormal(const Standard_Integer theIndex, const Dir3d& theNormal);
 
   //! Returns Standard_True if nodal normals are defined.
   Standard_EXPORT Standard_Boolean HasNormals() const;
 
   //! @return normal at the given index.
   //! Raises Standard_OutOfRange exception.
-  Standard_EXPORT gp_Dir Normal(const Standard_Integer theIndex) const;
+  Standard_EXPORT Dir3d Normal(const Standard_Integer theIndex) const;
 
   //! Inherited attribute methods
   //  ===========================

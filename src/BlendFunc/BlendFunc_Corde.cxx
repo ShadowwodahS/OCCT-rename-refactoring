@@ -62,11 +62,11 @@ void BlendFunc_Corde::SetParam(const Standard_Real Param)
 
 Standard_Boolean BlendFunc_Corde::Value(const math_Vector& X, math_Vector& F)
 {
-  gp_Vec d1u, d1v;
+  Vector3d d1u, d1v;
   surf->D1(X(1), X(2), pts, d1u, d1v);
 
   F(1) = nplan.XYZ().Dot(pts.XYZ()) + theD;
-  const gp_Vec vref(ptgui, pts);
+  const Vector3d vref(ptgui, pts);
   F(2) = vref.SquareMagnitude() - dis * dis;
 
   return Standard_True;
@@ -79,13 +79,13 @@ Standard_Boolean BlendFunc_Corde::Value(const math_Vector& X, math_Vector& F)
 
 Standard_Boolean BlendFunc_Corde::Derivatives(const math_Vector& X, math_Matrix& D)
 {
-  gp_Vec d1u, d1v;
+  Vector3d d1u, d1v;
   surf->D1(X(1), X(2), pts, d1u, d1v);
 
   D(1, 1) = nplan.Dot(d1u);
   D(1, 2) = nplan.Dot(d1v);
-  D(2, 1) = 2. * gp_Vec(ptgui, pts).Dot(d1u);
-  D(2, 2) = 2. * gp_Vec(ptgui, pts).Dot(d1v);
+  D(2, 1) = 2. * Vector3d(ptgui, pts).Dot(d1u);
+  D(2, 2) = 2. * Vector3d(ptgui, pts).Dot(d1v);
 
   return Standard_True;
 }
@@ -106,7 +106,7 @@ const Point3d& BlendFunc_Corde::PointOnGuide() const
 
 //=================================================================================================
 
-const gp_Vec& BlendFunc_Corde::NPlan() const
+const Vector3d& BlendFunc_Corde::NPlan() const
 {
   return nplan;
 }
@@ -120,7 +120,7 @@ Standard_Boolean BlendFunc_Corde::IsTangencyPoint() const
 
 //=================================================================================================
 
-const gp_Vec& BlendFunc_Corde::TangentOnS() const
+const Vector3d& BlendFunc_Corde::TangentOnS() const
 {
   if (istangent)
     throw Standard_DomainError("BlendFunc_Corde::TangentOnS");
@@ -143,13 +143,13 @@ const gp_Vec2d& BlendFunc_Corde::Tangent2dOnS() const
 
 void BlendFunc_Corde::DerFguide(const math_Vector& Sol, gp_Vec2d& DerF)
 {
-  gp_Vec d1u, d1v;
+  Vector3d d1u, d1v;
   surf->D1(Sol(1), Sol(2), pts, d1u, d1v);
 
-  gp_Vec dnplan;
+  Vector3d dnplan;
   dnplan.SetLinearForm(1. / normtg, d2gui, -1. / normtg * (nplan.Dot(d2gui)), nplan);
 
-  const gp_Vec temp(pts.XYZ() - ptgui.XYZ());
+  const Vector3d temp(pts.XYZ() - ptgui.XYZ());
 
   DerF.SetX(dnplan.Dot(temp) - nplan.Dot(d1gui));
   DerF.SetY(-2. * d1gui.Dot(temp));
@@ -162,7 +162,7 @@ Standard_Boolean BlendFunc_Corde::IsSolution(const math_Vector& Sol, const Stand
   math_Vector secmember(1, 2), valsol(1, 2);
   math_Matrix gradsol(1, 2, 1, 2);
 
-  gp_Vec dnplan, temp, d1u, d1v;
+  Vector3d dnplan, temp, d1u, d1v;
 
   Value(Sol, valsol);
   Derivatives(Sol, gradsol);

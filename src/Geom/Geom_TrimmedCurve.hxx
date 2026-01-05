@@ -25,8 +25,8 @@
 #include <Standard_Integer.hxx>
 class Geom_Curve;
 class Point3d;
-class gp_Vec;
-class gp_Trsf;
+class Vector3d;
+class Transform3d;
 class Geom_Geometry;
 
 class Geom_TrimmedCurve;
@@ -197,31 +197,31 @@ public:
   Standard_EXPORT void D0(const Standard_Real U, Point3d& P) const Standard_OVERRIDE;
 
   //! Raised if the continuity of the curve is not C1.
-  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, gp_Vec& V1) const Standard_OVERRIDE;
+  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, Vector3d& V1) const Standard_OVERRIDE;
 
   //! Raised if the continuity of the curve is not C2.
   Standard_EXPORT void D2(const Standard_Real U,
                           Point3d&             P,
-                          gp_Vec&             V1,
-                          gp_Vec&             V2) const Standard_OVERRIDE;
+                          Vector3d&             V1,
+                          Vector3d&             V2) const Standard_OVERRIDE;
 
   //! Raised if the continuity of the curve is not C3.
   Standard_EXPORT void D3(const Standard_Real U,
                           Point3d&             P,
-                          gp_Vec&             V1,
-                          gp_Vec&             V2,
-                          gp_Vec&             V3) const Standard_OVERRIDE;
+                          Vector3d&             V1,
+                          Vector3d&             V2,
+                          Vector3d&             V3) const Standard_OVERRIDE;
 
   //! N is the order of derivation.
   //! Raised if the continuity of the curve is not CN.
   //! Raised if N < 1.
   //! geometric transformations
-  Standard_EXPORT gp_Vec DN(const Standard_Real    U,
+  Standard_EXPORT Vector3d DN(const Standard_Real    U,
                             const Standard_Integer N) const Standard_OVERRIDE;
 
   //! Applies the transformation T to this trimmed curve.
   //! Warning The basis curve is also modified.
-  Standard_EXPORT void Transform(const gp_Trsf& T) Standard_OVERRIDE;
+  Standard_EXPORT void Transform(const Transform3d& T) Standard_OVERRIDE;
 
   //! Returns the  parameter on the  transformed  curve for
   //! the transform of the point of parameter U on <me>.
@@ -234,7 +234,7 @@ public:
   //!
   //! This methods calls the basis curve method.
   Standard_EXPORT virtual Standard_Real TransformedParameter(const Standard_Real U,
-                                                             const gp_Trsf&      T) const
+                                                             const Transform3d&      T) const
     Standard_OVERRIDE;
 
   //! Returns a  coefficient to compute the parameter on
@@ -248,7 +248,7 @@ public:
   //! Value(U).Transformed(T)
   //!
   //! This methods calls the basis curve method.
-  Standard_EXPORT virtual Standard_Real ParametricTransformation(const gp_Trsf& T) const
+  Standard_EXPORT virtual Standard_Real ParametricTransformation(const Transform3d& T) const
     Standard_OVERRIDE;
 
   //! Creates a new object which is a copy of this trimmed curve.

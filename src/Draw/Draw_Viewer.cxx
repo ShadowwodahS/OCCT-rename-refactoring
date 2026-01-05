@@ -226,11 +226,11 @@ void Draw_Viewer::RotateView(const Standard_Integer id, const gp_Dir2d& D, const
     return;
   if (myViews[id])
   {
-    gp_Trsf T = myViews[id]->GetMatrix();
+    Transform3d T = myViews[id]->GetMatrix();
 
     T.Invert();
     Point3d PP(0, 0, 0);
-    gp_Dir DD(D.X(), D.Y(), 0);
+    Dir3d DD(D.X(), D.Y(), 0);
     PP.Transform(T);
     DD.Transform(T);
     RotateView(id, PP, DD, A);
@@ -241,15 +241,15 @@ void Draw_Viewer::RotateView(const Standard_Integer id, const gp_Dir2d& D, const
 
 void Draw_Viewer::RotateView(const Standard_Integer id,
                              const Point3d&          P,
-                             const gp_Dir&          D,
+                             const Dir3d&          D,
                              const Standard_Real    A)
 {
   if (Draw_Batch)
     return;
   if (myViews[id])
   {
-    gp_Trsf T;
-    T.SetRotation(gp_Ax1(P, D), A);
+    Transform3d T;
+    T.SetRotation(Axis3d(P, D), A);
     myViews[id]->Transform(T);
   }
 }
@@ -302,7 +302,7 @@ Standard_Real Draw_Viewer::Focal(const Standard_Integer id) const
 
 //=================================================================================================
 
-void Draw_Viewer::GetTrsf(const Standard_Integer id, gp_Trsf& T) const
+void Draw_Viewer::GetTrsf(const Standard_Integer id, Transform3d& T) const
 {
   if (Draw_Batch)
     return;
@@ -324,7 +324,7 @@ Standard_Boolean Draw_Viewer::Is3D(const Standard_Integer id) const
 
 //=================================================================================================
 
-void Draw_Viewer::SetTrsf(const Standard_Integer id, gp_Trsf& T)
+void Draw_Viewer::SetTrsf(const Standard_Integer id, Transform3d& T)
 {
   if (Draw_Batch)
     return;

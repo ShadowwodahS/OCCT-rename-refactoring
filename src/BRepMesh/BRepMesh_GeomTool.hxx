@@ -139,7 +139,7 @@ public: //! @name static API
                                                  const Standard_Real                theParamU,
                                                  const Standard_Real                theParamV,
                                                  Point3d&                            thePoint,
-                                                 gp_Dir&                            theNormal);
+                                                 Dir3d&                            theNormal);
 
   //! Checks intersection between two lines defined by two points.
   //! @param theStartPnt1 start point of first line.
@@ -187,7 +187,7 @@ public: //! @name static API
     // 23.03.2010 skl for OCC21645 - change precision for comparison
     if (theFirstPoint.SquareDistance(theLastPoint) > Precision::SquareConfusion())
     {
-      gp_Lin aLin(theFirstPoint, gp_Dir(gp_Vec(theFirstPoint, theLastPoint)));
+      gp_Lin aLin(theFirstPoint, Dir3d(Vector3d(theFirstPoint, theLastPoint)));
       return aLin.SquareDistance(theMidPoint);
     }
 

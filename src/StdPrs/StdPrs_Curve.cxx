@@ -226,11 +226,11 @@ void StdPrs_Curve::Add(const Handle(Prs3d_Presentation)& aPresentation,
   if (aDrawer->LineArrowDraw())
   {
     Point3d Location;
-    gp_Vec Direction;
+    Vector3d Direction;
     aCurve.D1(aCurve.LastParameter(), Location, Direction);
     Prs3d_Arrow::Draw(aPresentation->CurrentGroup(),
                       Location,
-                      gp_Dir(Direction),
+                      Dir3d(Direction),
                       aDrawer->ArrowAspect()->Angle(),
                       aDrawer->ArrowAspect()->Length());
   }
@@ -290,11 +290,11 @@ void StdPrs_Curve::Add(const Handle(Prs3d_Presentation)& aPresentation,
   if (aDrawer->LineArrowDraw())
   {
     Point3d Location;
-    gp_Vec Direction;
+    Vector3d Direction;
     aCurve.D1(aCurve.LastParameter(), Location, Direction);
     Prs3d_Arrow::Draw(aPresentation->CurrentGroup(),
                       Location,
-                      gp_Dir(Direction),
+                      Dir3d(Direction),
                       aDrawer->ArrowAspect()->Angle(),
                       aDrawer->ArrowAspect()->Length());
   }

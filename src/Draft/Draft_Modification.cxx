@@ -85,7 +85,7 @@ void Draft_Modification::Init(const TopoDS_Shape& S)
 //=================================================================================================
 
 Standard_Boolean Draft_Modification::Add(const TopoDS_Face&     F,
-                                         const gp_Dir&          Direction,
+                                         const Dir3d&          Direction,
                                          const Standard_Real    Angle,
                                          const gp_Pln&          NeutralPlane,
                                          const Standard_Boolean Flag)

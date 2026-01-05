@@ -169,7 +169,7 @@ static void ComputeLambda(const math_Matrix&  Constraint,
   Vec2 /= Length;
   Standard_Real t, squared1 = Vec2.Norm2(), GW;
   //  math_Matrix Vec(1, Constraint.RowNumber(), 1, size-1);
-  //  gp_Vec Vfirst(p0.XYZ()), Vlast(Point.XYZ());
+  //  Vector3d Vfirst(p0.XYZ()), Vlast(Point.XYZ());
   //  TColgp_Array1OfVec Der(2, 4);
   //  Der(2) = d1; Der(3) = d2; Der(4) = d3;
 
@@ -571,7 +571,7 @@ void GeomLib::EvalMaxDistanceAlongParameter(const Adaptor3d_Curve&      ACurve,
 
 //=================================================================================================
 
-Handle(Geom_Curve) GeomLib::To3d(const gp_Ax2& Position, const Handle(Geom2d_Curve)& Curve2d)
+Handle(Geom_Curve) GeomLib::To3d(const Frame3d& Position, const Handle(Geom2d_Curve)& Curve2d)
 {
   Handle(Geom_Curve)    Curve3d;
   Handle(TypeInfo) KindOfCurve = Curve2d->DynamicType();
@@ -1048,14 +1048,14 @@ void GeomLib_CurveOnSurfaceEvaluator::Evaluate(Standard_Integer*, /*Dimension*/
   }
   if (*DerivativeRequest == 1)
   {
-    gp_Vec Vector;
+    Vector3d Vector;
     TrimCurve->D1((*Parameter), Point, Vector);
     for (Standard_Integer ii = 0; ii < 3; ii++)
       Result[ii] = Vector.Coord(ii + 1);
   }
   if (*DerivativeRequest == 2)
   {
-    gp_Vec Vector, VecBis;
+    Vector3d Vector, VecBis;
     TrimCurve->D2((*Parameter), Point, VecBis, Vector);
     for (Standard_Integer ii = 0; ii < 3; ii++)
       Result[ii] = Vector.Coord(ii + 1);
@@ -1104,7 +1104,7 @@ void GeomLib::BuildCurve3d(const Standard_Real       Tolerance,
     if (!P.IsNull())
     {
       // compute the 3d curve
-      gp_Ax2                     axes         = P->Position().Ax2();
+      Frame3d                     axes         = P->Position().Ax2();
       const Geom2dAdaptor_Curve& geom2d_curve = *geom_adaptor_curve_ptr;
       NewCurvePtr                             = GeomLib::To3d(axes, geom2d_curve.Curve());
       return;
@@ -1186,8 +1186,8 @@ void GeomLib::BuildCurve3d(const Standard_Real       Tolerance,
 void GeomLib::AdjustExtremity(Handle(Geom_BoundedCurve)& Curve,
                               const Point3d&              P1,
                               const Point3d&              P2,
-                              const gp_Vec&              T1,
-                              const gp_Vec&              T2)
+                              const Vector3d&              T1,
+                              const Vector3d&              T2)
 {
   // il faut Convertir l'entree (en preservant si possible le parametrage)
   Handle(Geom_BSplineCurve) aIn, aDef;
@@ -1195,7 +1195,7 @@ void GeomLib::AdjustExtremity(Handle(Geom_BoundedCurve)& Curve,
 
   Standard_Integer        ii, jj;
   Point3d                  P;
-  gp_Vec                  V, Vtan, DV;
+  Vector3d                  V, Vtan, DV;
   TColgp_Array1OfPnt      PolesDef(1, 4), Coeffs(1, 4);
   TColStd_Array1OfReal    FK(1, 8);
   TColStd_Array1OfReal    Ti(1, 4);
@@ -1287,7 +1287,7 @@ void GeomLib::ExtendCurveToPoint(Handle(Geom_BoundedCurve)& Curve,
   math_Matrix      MatCoefs(1, size, 1, size);
   Standard_Real    Lambda, L1;
   Standard_Integer ii, jj;
-  gp_Vec           d1, d2, d3;
+  Vector3d           d1, d2, d3;
   Point3d           p0;
   // il faut Convertir l'entree (en preservant si possible le parametrage)
   GeomConvert_CompCurveToBSplineCurve Concat(Curve, Convert_QuasiAngular);
@@ -1323,7 +1323,7 @@ void GeomLib::ExtendCurveToPoint(Handle(Geom_BoundedCurve)& Curve,
     // longueur du segment bout de la courbe - point cible.
     // On essai d'avoir sur le prolongement la vitesse moyenne que l'on
     // a sur la courbe.
-    gp_Vec        daux;
+    Vector3d        daux;
     Point3d        pp;
     Standard_Real f = Curve->FirstParameter(), t, dt, norm;
     dt              = (Curve->LastParameter() - f) / 9;
@@ -1646,7 +1646,7 @@ void GeomLib::ExtendSurfByLength(Handle(Geom_BoundedSurface)& Surface,
 
     //  calcul de la contrainte a atteindre
 
-    gp_Vec CurT, OldT;
+    Vector3d CurT, OldT;
 
     Standard_Real NTgte, val, Tgtol = 1.e-12, OldN = 0.0;
     if (rational)
@@ -1930,14 +1930,14 @@ void GeomLib::ExtendSurfByLength(Handle(Geom_BoundedSurface)& Surface,
 
 void GeomLib::Inertia(const TColgp_Array1OfPnt& Points,
                       Point3d&                   Bary,
-                      gp_Dir&                   XDir,
-                      gp_Dir&                   YDir,
+                      Dir3d&                   XDir,
+                      Dir3d&                   YDir,
                       Standard_Real&            Xgap,
                       Standard_Real&            Ygap,
                       Standard_Real&            Zgap)
 {
   gp_XYZ GB(0., 0., 0.), Diff;
-  //  gp_Vec A,B,C,D;
+  //  Vector3d A,B,C,D;
 
   Standard_Integer i, nb = Points.Length();
   GB.SetCoord(0., 0., 0.);
@@ -2047,19 +2047,19 @@ void GeomLib::Inertia(const TColgp_Array1OfPnt& Points,
 //=================================================================================================
 
 void GeomLib::AxeOfInertia(const TColgp_Array1OfPnt& Points,
-                           gp_Ax2&                   Axe,
+                           Frame3d&                   Axe,
                            Standard_Boolean&         IsSingular,
                            const Standard_Real       Tol)
 {
   Point3d        Bary;
-  gp_Dir        OX, OY, OZ;
+  Dir3d        OX, OY, OZ;
   Standard_Real gx, gy, gz;
 
   GeomLib::Inertia(Points, Bary, OX, OY, gx, gy, gz);
 
   if (gy * Points.Length() <= Tol)
   {
-    gp_Ax2 axe(Bary, OX);
+    Frame3d axe(Bary, OX);
     OY         = axe.XDirection();
     IsSingular = Standard_True;
   }
@@ -2069,7 +2069,7 @@ void GeomLib::AxeOfInertia(const TColgp_Array1OfPnt& Points,
   }
 
   OZ = OX ^ OY;
-  gp_Ax2 TheAxe(Bary, OZ, OX);
+  Frame3d TheAxe(Bary, OZ, OX);
   Axe = TheAxe;
 }
 
@@ -2516,18 +2516,18 @@ void GeomLib::CancelDenominatorDerivative(Handle(Geom_BSplineSurface)& BSurf,
 Standard_Integer GeomLib::NormEstim(const Handle(Geom_Surface)& theSurf,
                                     const gp_Pnt2d&             theUV,
                                     const Standard_Real         theTol,
-                                    gp_Dir&                     theNorm)
+                                    Dir3d&                     theNorm)
 {
   const Standard_Real aTol2 = Square(theTol);
 
-  gp_Vec DU, DV;
+  Vector3d DU, DV;
   Point3d aDummyPnt;
   theSurf->D1(theUV.X(), theUV.Y(), aDummyPnt, DU, DV);
 
   const Standard_Real MDU = DU.SquareMagnitude(), MDV = DV.SquareMagnitude();
   if (MDU >= aTol2 && MDV >= aTol2)
   {
-    gp_Vec        aNorm = DU ^ DV;
+    Vector3d        aNorm = DU ^ DV;
     Standard_Real aMagn = aNorm.SquareMagnitude();
     if (aMagn < aTol2)
     {
@@ -2538,10 +2538,10 @@ Standard_Integer GeomLib::NormEstim(const Handle(Geom_Surface)& theSurf,
     return 0;
   }
 
-  gp_Vec             D2U, D2V, D2UV;
+  Vector3d             D2U, D2V, D2UV;
   Standard_Boolean   isDone = false;
   CSLib_NormalStatus aStatus;
-  gp_Dir             aNormal;
+  Dir3d             aNormal;
 
   theSurf->D2(theUV.X(), theUV.Y(), aDummyPnt, DU, DV, D2U, D2V, D2UV);
   CSLib::Normal(DU, DV, D2U, D2V, D2UV, theTol, isDone, aStatus, aNormal);
@@ -2560,7 +2560,7 @@ Standard_Integer GeomLib::NormEstim(const Handle(Geom_Surface)& theSurf,
   // check for cone apex singularity point
   if ((theUV.Y() > Vmin + step) && (theUV.Y() < Vmax - step))
   {
-    gp_Dir        aNormal1, aNormal2;
+    Dir3d        aNormal1, aNormal2;
     Standard_Real aConeSingularityAngleEps = 1.0e-4;
     theSurf->D1(theUV.X(), theUV.Y() - sign * step, aDummyPnt, DU, DV);
     if ((DU.XYZ().SquareModulus() > eps) && (DV.XYZ().SquareModulus() > eps))
@@ -2587,7 +2587,7 @@ Standard_Integer GeomLib::NormEstim(const Handle(Geom_Surface)& theSurf,
     }
 
     theSurf->D1(theUV.X(), theUV.Y() + sign * step, aDummyPnt, DU, DV);
-    gp_Vec Norm = DU ^ DV;
+    Vector3d Norm = DU ^ DV;
     if (Norm.SquareMagnitude() < eps)
     {
       Standard_Real sign1 = -1.0;
@@ -2613,7 +2613,7 @@ Standard_Integer GeomLib::NormEstim(const Handle(Geom_Surface)& theSurf,
     }
 
     theSurf->D1(theUV.X() + sign * step, theUV.Y(), aDummyPnt, DU, DV);
-    gp_Vec Norm = DU ^ DV;
+    Vector3d Norm = DU ^ DV;
     if (Norm.SquareMagnitude() < eps)
     {
       Standard_Real sign1 = -1.0;

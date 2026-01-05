@@ -25,7 +25,7 @@
 #include <Standard_Integer.hxx>
 class gp_Pnt2d;
 class Point3d;
-class gp_Dir;
+class Dir3d;
 
 class IGESGeom_ConicArc;
 DEFINE_STANDARD_HANDLE(IGESGeom_ConicArc, IGESData_IGESEntity)
@@ -109,10 +109,10 @@ public:
   Standard_EXPORT Standard_Boolean IsClosed() const;
 
   //! Z-Axis of conic (i.e. [0,0,1])
-  Standard_EXPORT gp_Dir Axis() const;
+  Standard_EXPORT Dir3d Axis() const;
 
   //! Z-Axis after applying Trans. Matrix
-  Standard_EXPORT gp_Dir TransformedAxis() const;
+  Standard_EXPORT Dir3d TransformedAxis() const;
 
   //! Returns a Definition computed from equation, easier to use
   //! <Center> : the center of the conic (meaningless for
@@ -125,14 +125,14 @@ public:
   //! Warning : the basic definition (by equation) is not very stable,
   //! limit cases may be approximative
   Standard_EXPORT void Definition(Point3d&        Center,
-                                  gp_Dir&        MainAxis,
+                                  Dir3d&        MainAxis,
                                   Standard_Real& rmin,
                                   Standard_Real& rmax) const;
 
   //! Same as Definition, but the Location is applied on the
   //! Center and the MainAxis
   Standard_EXPORT void TransformedDefinition(Point3d&        Center,
-                                             gp_Dir&        MainAxis,
+                                             Dir3d&        MainAxis,
                                              Standard_Real& rmin,
                                              Standard_Real& rmax) const;
 

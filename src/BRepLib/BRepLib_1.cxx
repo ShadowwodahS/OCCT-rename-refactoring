@@ -101,7 +101,7 @@ static Standard_Boolean findNearestValidPoint(const Adaptor3d_Curve& theCurve,
       for (;;)
       {
         // cycle to go out of local singularity
-        gp_Vec aD1;
+        Vector3d aD1;
         theCurve.D1(anUOut, aP, aD1);
         isOut = (aP.SquareDistance(theVertPnt) > aSqTol);
         if (!isOut && aD1.SquareMagnitude() < aD1Mag)

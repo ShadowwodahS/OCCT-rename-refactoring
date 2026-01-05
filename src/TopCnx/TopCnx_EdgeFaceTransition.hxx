@@ -23,7 +23,7 @@
 
 #include <TopTrans_CurveTransition.hxx>
 #include <TopAbs_Orientation.hxx>
-class gp_Dir;
+class Dir3d;
 
 //! TheEdgeFaceTransition is an algorithm to   compute
 //! the  cumulated  transition for interferences on an
@@ -38,10 +38,10 @@ public:
 
   //! Initialize  the     algorithm    with the    local
   //! description of the edge.
-  Standard_EXPORT void Reset(const gp_Dir& Tgt, const gp_Dir& Norm, const Standard_Real Curv);
+  Standard_EXPORT void Reset(const Dir3d& Tgt, const Dir3d& Norm, const Standard_Real Curv);
 
   //! Initialize the algorithm with a linear Edge.
-  Standard_EXPORT void Reset(const gp_Dir& Tgt);
+  Standard_EXPORT void Reset(const Dir3d& Tgt);
 
   //! Add a curve  element to the  boundary.  Or  is the
   //! orientation of   the interference on  the boundary
@@ -49,8 +49,8 @@ public:
   //! BTr     is   the    boundary  transition    of the
   //! interference.
   Standard_EXPORT void AddInterference(const Standard_Real      Tole,
-                                       const gp_Dir&            Tang,
-                                       const gp_Dir&            Norm,
+                                       const Dir3d&            Tang,
+                                       const Dir3d&            Norm,
                                        const Standard_Real      Curv,
                                        const TopAbs_Orientation Or,
                                        const TopAbs_Orientation Tr,

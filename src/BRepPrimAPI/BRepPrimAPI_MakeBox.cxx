@@ -42,7 +42,7 @@ inline Point3d pmin(const Point3d&       p,
 BRepPrimAPI_MakeBox::BRepPrimAPI_MakeBox(const Standard_Real dx,
                                          const Standard_Real dy,
                                          const Standard_Real dz)
-    : myWedge(gp_Ax2(pmin(Point3d(0, 0, 0), dx, dy, dz), gp_Dir(0, 0, 1), gp_Dir(1, 0, 0)),
+    : myWedge(Frame3d(pmin(Point3d(0, 0, 0), dx, dy, dz), Dir3d(0, 0, 1), Dir3d(1, 0, 0)),
               Abs(dx),
               Abs(dy),
               Abs(dz))
@@ -55,7 +55,7 @@ BRepPrimAPI_MakeBox::BRepPrimAPI_MakeBox(const Point3d&       P,
                                          const Standard_Real dx,
                                          const Standard_Real dy,
                                          const Standard_Real dz)
-    : myWedge(gp_Ax2(pmin(P, dx, dy, dz), gp_Dir(0, 0, 1), gp_Dir(1, 0, 0)),
+    : myWedge(Frame3d(pmin(P, dx, dy, dz), Dir3d(0, 0, 1), Dir3d(1, 0, 0)),
               Abs(dx),
               Abs(dy),
               Abs(dz))
@@ -70,7 +70,7 @@ inline Point3d pmin(const Point3d& p1, const Point3d& p2)
 }
 
 BRepPrimAPI_MakeBox::BRepPrimAPI_MakeBox(const Point3d& P1, const Point3d& P2)
-    : myWedge(gp_Ax2(pmin(P1, P2), gp_Dir(0, 0, 1), gp_Dir(1, 0, 0)),
+    : myWedge(Frame3d(pmin(P1, P2), Dir3d(0, 0, 1), Dir3d(1, 0, 0)),
               Abs(P2.X() - P1.X()),
               Abs(P2.Y() - P1.Y()),
               Abs(P2.Z() - P1.Z()))
@@ -79,7 +79,7 @@ BRepPrimAPI_MakeBox::BRepPrimAPI_MakeBox(const Point3d& P1, const Point3d& P2)
 
 //=================================================================================================
 
-BRepPrimAPI_MakeBox::BRepPrimAPI_MakeBox(const gp_Ax2&       Axes,
+BRepPrimAPI_MakeBox::BRepPrimAPI_MakeBox(const Frame3d&       Axes,
                                          const Standard_Real dx,
                                          const Standard_Real dy,
                                          const Standard_Real dz)
@@ -94,7 +94,7 @@ void BRepPrimAPI_MakeBox::Init(const Standard_Real theDX,
                                const Standard_Real theDZ)
 {
   myWedge = BRepPrim_Wedge(
-    gp_Ax2(pmin(Point3d(0, 0, 0), theDX, theDY, theDZ), gp_Dir(0, 0, 1), gp_Dir(1, 0, 0)),
+    Frame3d(pmin(Point3d(0, 0, 0), theDX, theDY, theDZ), Dir3d(0, 0, 1), Dir3d(1, 0, 0)),
     Abs(theDX),
     Abs(theDY),
     Abs(theDZ));
@@ -108,7 +108,7 @@ void BRepPrimAPI_MakeBox::Init(const Point3d&       thePnt,
                                const Standard_Real theDZ)
 {
   myWedge =
-    BRepPrim_Wedge(gp_Ax2(pmin(thePnt, theDX, theDY, theDZ), gp_Dir(0, 0, 1), gp_Dir(1, 0, 0)),
+    BRepPrim_Wedge(Frame3d(pmin(thePnt, theDX, theDY, theDZ), Dir3d(0, 0, 1), Dir3d(1, 0, 0)),
                    Abs(theDX),
                    Abs(theDY),
                    Abs(theDZ));
@@ -118,7 +118,7 @@ void BRepPrimAPI_MakeBox::Init(const Point3d&       thePnt,
 
 void BRepPrimAPI_MakeBox::Init(const Point3d& thePnt1, const Point3d& thePnt2)
 {
-  myWedge = BRepPrim_Wedge(gp_Ax2(pmin(thePnt1, thePnt2), gp_Dir(0, 0, 1), gp_Dir(1, 0, 0)),
+  myWedge = BRepPrim_Wedge(Frame3d(pmin(thePnt1, thePnt2), Dir3d(0, 0, 1), Dir3d(1, 0, 0)),
                            Abs(thePnt2.X() - thePnt1.X()),
                            Abs(thePnt2.Y() - thePnt1.Y()),
                            Abs(thePnt2.Z() - thePnt1.Z()));
@@ -126,7 +126,7 @@ void BRepPrimAPI_MakeBox::Init(const Point3d& thePnt1, const Point3d& thePnt2)
 
 //=================================================================================================
 
-void BRepPrimAPI_MakeBox::Init(const gp_Ax2&       theAxes,
+void BRepPrimAPI_MakeBox::Init(const Frame3d&       theAxes,
                                const Standard_Real theDX,
                                const Standard_Real theDY,
                                const Standard_Real theDZ)

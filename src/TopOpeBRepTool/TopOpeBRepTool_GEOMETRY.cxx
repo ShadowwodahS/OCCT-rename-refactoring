@@ -66,12 +66,12 @@ Standard_EXPORT Standard_Boolean FUN_tool_IsUViso(const Handle(Geom2d_Curve)& PC
 }*/
 
 // ----------------------------------------------------------------------
-Standard_EXPORT gp_Dir FUN_tool_dirC(const Standard_Real par, const Handle(Geom_Curve)& C)
+Standard_EXPORT Dir3d FUN_tool_dirC(const Standard_Real par, const Handle(Geom_Curve)& C)
 {
   Point3d p;
-  gp_Vec tgE;
+  Vector3d tgE;
   C->D1(par, p, tgE);
-  gp_Dir dirC(tgE);
+  Dir3d dirC(tgE);
   return dirC;
 }
 
@@ -103,13 +103,13 @@ Standard_EXPORT Standard_Boolean FUN_tool_onapex(const gp_Pnt2d& p2d, const Hand
 }
 
 // ----------------------------------------------------------------------
-Standard_EXPORT gp_Dir FUN_tool_ngS(const gp_Pnt2d& p2d, const Handle(Geom_Surface)& S)
+Standard_EXPORT Dir3d FUN_tool_ngS(const gp_Pnt2d& p2d, const Handle(Geom_Surface)& S)
 {
   // ###############################
   // nyi : all geometries are direct
   // ###############################
   Point3d p;
-  gp_Vec d1u, d1v;
+  Vector3d d1u, d1v;
   S->D1(p2d.X(), p2d.Y(), p, d1u, d1v);
 
   Standard_Real    du    = d1u.Magnitude();
@@ -127,8 +127,8 @@ Standard_EXPORT gp_Dir FUN_tool_ngS(const gp_Pnt2d& p2d, const Handle(Geom_Surfa
       Standard_Boolean apex  = nullx && (Abs(p2d.Y()) < toluv);
       if (apex)
       {
-        gp_Dir axis = GS.Cone().Axis().Direction();
-        gp_Vec ng(axis);
+        Dir3d axis = GS.Cone().Axis().Direction();
+        Vector3d ng(axis);
         ng.Reverse();
         return ng;
       }
@@ -145,7 +145,7 @@ Standard_EXPORT gp_Dir FUN_tool_ngS(const gp_Pnt2d& p2d, const Handle(Geom_Surfa
         else
           y -= 1.;
         S->D1(x, y, p, d1u, d1v);
-        gp_Vec ng = d1u ^ d1v;
+        Vector3d ng = d1u ^ d1v;
         return ng;
       }
     }
@@ -164,7 +164,7 @@ Standard_EXPORT gp_Dir FUN_tool_ngS(const gp_Pnt2d& p2d, const Handle(Geom_Surfa
       {
         Point3d center = GS.Sphere().Location();
         Point3d value  = GS.Value(u, v);
-        gp_Vec ng(center, value);
+        Vector3d ng(center, value);
         //	ng.Reverse();
         return ng;
       }
@@ -172,12 +172,12 @@ Standard_EXPORT gp_Dir FUN_tool_ngS(const gp_Pnt2d& p2d, const Handle(Geom_Surfa
 #ifdef OCCT_DEBUG
     std::cout << "FUN_tool_nggeomF NYI" << std::endl;
 #endif
-    return gp_Dir(0, 0, 1);
+    return Dir3d(0, 0, 1);
   }
 
-  gp_Dir udir(d1u);
-  gp_Dir vdir(d1v);
-  gp_Dir ngS(udir ^ vdir);
+  Dir3d udir(d1u);
+  Dir3d vdir(d1v);
+  Dir3d ngS(udir ^ vdir);
   return ngS;
 }
 

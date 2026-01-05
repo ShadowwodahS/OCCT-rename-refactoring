@@ -621,7 +621,7 @@ static Standard_Integer pick(Draw_Interpretor&, Standard_Integer n, const char**
   dout.Select(id, X, Y, b, wait);
   Standard_Real z = dout.Zoom(id);
   Point3d        P((Standard_Real)X / z, (Standard_Real)Y / z, 0);
-  gp_Trsf       T;
+  Transform3d       T;
   dout.GetTrsf(id, T);
   T.Invert();
   P.Transform(T);
@@ -650,7 +650,7 @@ static Standard_Integer lastrep(Draw_Interpretor& di, Standard_Integer n, const 
   {
     Standard_Real z = dout.Zoom(p_id);
     Point3d        P((Standard_Real)p_X / z, (Standard_Real)p_Y / z, 0);
-    gp_Trsf       T;
+    Transform3d       T;
     dout.GetTrsf(p_id, T);
     T.Invert();
     P.Transform(T);

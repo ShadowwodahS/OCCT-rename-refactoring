@@ -36,17 +36,17 @@ public:
 
   Standard_EXPORT Vrml_Scale();
 
-  Standard_EXPORT Vrml_Scale(const gp_Vec& aScaleFactor);
+  Standard_EXPORT Vrml_Scale(const Vector3d& aScaleFactor);
 
-  Standard_EXPORT void SetScaleFactor(const gp_Vec& aScaleFactor);
+  Standard_EXPORT void SetScaleFactor(const Vector3d& aScaleFactor);
 
-  Standard_EXPORT gp_Vec ScaleFactor() const;
+  Standard_EXPORT Vector3d ScaleFactor() const;
 
   Standard_EXPORT Standard_OStream& Print(Standard_OStream& anOStream) const;
 
 protected:
 private:
-  gp_Vec myScaleFactor;
+  Vector3d myScaleFactor;
 };
 
 #endif // _Vrml_Scale_HeaderFile

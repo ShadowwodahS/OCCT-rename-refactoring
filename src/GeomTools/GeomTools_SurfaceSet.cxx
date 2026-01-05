@@ -107,7 +107,7 @@ static void Print(const Point3d& P, Standard_OStream& OS, const Standard_Boolean
 
 //=================================================================================================
 
-static void Print(const gp_Dir& D, Standard_OStream& OS, const Standard_Boolean compact)
+static void Print(const Dir3d& D, Standard_OStream& OS, const Standard_Boolean compact)
 {
   OS << D.X();
   if (!compact)
@@ -649,7 +649,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Point3d& P)
 
 //=================================================================================================
 
-static Standard_IStream& operator>>(Standard_IStream& IS, gp_Dir& D)
+static Standard_IStream& operator>>(Standard_IStream& IS, Dir3d& D)
 {
   Standard_Real X = 0., Y = 0., Z = 0.;
   GeomTools::GetReal(IS, X);
@@ -664,7 +664,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, gp_Dir& D)
 static Standard_IStream& operator>>(Standard_IStream& IS, gp_Ax3& A3)
 {
   Point3d P(0., 0., 0.);
-  gp_Dir A(1., 0., 0.), AX(1., 0., 0.), AY(1., 0., 0.);
+  Dir3d A(1., 0., 0.), AX(1., 0., 0.), AY(1., 0., 0.);
   IS >> P >> A >> AX >> AY;
   gp_Ax3 ax3(P, A, AX);
   if (AY.DotCross(A, AX) < 0)
@@ -755,7 +755,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_ToroidalSu
 
 static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_SurfaceOfLinearExtrusion)& S)
 {
-  gp_Dir D(1., 0., 0.);
+  Dir3d D(1., 0., 0.);
   IS >> D;
   Handle(Geom_Curve) C = GeomTools_CurveSet::ReadCurve(IS);
   S                    = new Geom_SurfaceOfLinearExtrusion(C, D);
@@ -770,10 +770,10 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_SurfaceOfL
 static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_SurfaceOfRevolution)& S)
 {
   Point3d P(0., 0., 0.);
-  gp_Dir D(1., 0., 0.);
+  Dir3d D(1., 0., 0.);
   IS >> P >> D;
   Handle(Geom_Curve) C = GeomTools_CurveSet::ReadCurve(IS);
-  S                    = new Geom_SurfaceOfRevolution(C, gp_Ax1(P, D));
+  S                    = new Geom_SurfaceOfRevolution(C, Axis3d(P, D));
   return IS;
 }
 

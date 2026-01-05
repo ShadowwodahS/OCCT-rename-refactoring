@@ -22,7 +22,7 @@
 #include <Standard_Handle.hxx>
 
 class Geom_Transformation;
-class gp_Vec;
+class Vector3d;
 class Point3d;
 
 //! This class implements elementary construction algorithms for a
@@ -38,7 +38,7 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Constructs a translation along the vector " Vect "
-  Standard_EXPORT GC_MakeTranslation(const gp_Vec& Vect);
+  Standard_EXPORT GC_MakeTranslation(const Vector3d& Vect);
 
   //! Constructs a translation along the vector (Point1,Point2)
   //! defined from the point Point1 to the point Point2.

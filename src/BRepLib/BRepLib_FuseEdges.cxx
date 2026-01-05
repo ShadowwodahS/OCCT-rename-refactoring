@@ -830,8 +830,8 @@ Standard_Boolean BRepLib_FuseEdges::SameSupport(const TopoDS_Edge& E1, const Top
   {
     gp_Lin li1(Handle(Geom_Line)::DownCast(C1)->Lin());
     gp_Lin li2(Handle(Geom_Line)::DownCast(C2)->Lin());
-    gp_Dir dir1(li1.Direction());
-    gp_Dir dir2(li2.Direction());
+    Dir3d dir1(li1.Direction());
+    Dir3d dir2(li2.Direction());
 
     if (dir1.IsParallel(dir2, tolang))
     {
@@ -883,7 +883,7 @@ Standard_Boolean BRepLib_FuseEdges::SameSupport(const TopoDS_Edge& E1, const Top
     {
       // Check G1 continuity
       Point3d aPf1, aPl1, aPf2, aPl2;
-      gp_Vec aDf1, aDl1, aDf2, aDl2;
+      Vector3d aDf1, aDl1, aDf2, aDl2;
 
       C1->D1(f1, aPf1, aDf1);
       C1->D1(l1, aPl1, aDl1);

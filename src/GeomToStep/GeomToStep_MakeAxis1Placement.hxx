@@ -25,7 +25,7 @@
 #include <GeomToStep_Root.hxx>
 
 class StepGeom_Axis1Placement;
-class gp_Ax1;
+class Axis3d;
 class gp_Ax2d;
 class Geom_Axis1Placement;
 class Geom2d_AxisPlacement;
@@ -40,7 +40,7 @@ public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT GeomToStep_MakeAxis1Placement(
-    const gp_Ax1&           A,
+    const Axis3d&           A,
     const StepData_Factors& theLocalFactors = StepData_Factors());
 
   Standard_EXPORT GeomToStep_MakeAxis1Placement(

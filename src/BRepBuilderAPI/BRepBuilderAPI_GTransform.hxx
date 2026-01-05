@@ -29,7 +29,7 @@ class TopoDS_Shape;
 //! Geometric transformation on a shape.
 //! The transformation to be applied is defined as a gp_GTrsf
 //! transformation. It may be:
-//! -      a transformation equivalent to a gp_Trsf transformation, the
+//! -      a transformation equivalent to a Transform3d transformation, the
 //! most common case: you should , however, use a BRepAPI_Transform
 //! object to perform this kind of transformation; or
 //! -      an affinity, or

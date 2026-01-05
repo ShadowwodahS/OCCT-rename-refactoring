@@ -29,7 +29,7 @@ class Geom_Surface;
 class TopoDS_Face;
 class BRepAdaptor_Surface;
 class BRepAdaptor_Curve;
-class gp_Dir;
+class Dir3d;
 
 class TopOpeBRepTool_ShapeTool
 {
@@ -103,15 +103,15 @@ public:
   //! P on curve BRAC. Returns the tolerance indicating if T,N are null.
   Standard_EXPORT static Standard_Real EdgeData(const BRepAdaptor_Curve& BRAC,
                                                 const Standard_Real      P,
-                                                gp_Dir&                  T,
-                                                gp_Dir&                  N,
+                                                Dir3d&                  T,
+                                                Dir3d&                  N,
                                                 Standard_Real&           C);
 
   //! Same as previous on edge E.
   Standard_EXPORT static Standard_Real EdgeData(const TopoDS_Shape& E,
                                                 const Standard_Real P,
-                                                gp_Dir&             T,
-                                                gp_Dir&             N,
+                                                Dir3d&             T,
+                                                Dir3d&             N,
                                                 Standard_Real&      C);
 
   Standard_EXPORT static Standard_Real Resolution3dU(const Handle(Geom_Surface)& SU,

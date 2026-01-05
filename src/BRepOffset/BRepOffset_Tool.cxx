@@ -500,7 +500,7 @@ void BRepOffset_Tool::OrientSection(const TopoDS_Edge&  E,
   else
     ParOnC = BOPTools_AlgoTools2D::IntermediatePoint(f, l);
 
-  gp_Vec T1 = C->DN(ParOnC, 1).Transformed(L.Transformation());
+  Vector3d T1 = C->DN(ParOnC, 1).Transformed(L.Transformation());
   if (T1.SquareMagnitude() > gp::Resolution())
   {
     T1.Normalize();
@@ -508,20 +508,20 @@ void BRepOffset_Tool::OrientSection(const TopoDS_Edge&  E,
 
   gp_Pnt2d P = C1->Value(ParOnC);
   Point3d   P3;
-  gp_Vec   D1U, D1V;
+  Vector3d   D1U, D1V;
 
   S1->D1(P.X(), P.Y(), P3, D1U, D1V);
-  gp_Vec DN1(D1U ^ D1V);
+  Vector3d DN1(D1U ^ D1V);
   if (F1.Orientation() == TopAbs_REVERSED)
     DN1.Reverse();
 
   P = C2->Value(ParOnC);
   S2->D1(P.X(), P.Y(), P3, D1U, D1V);
-  gp_Vec DN2(D1U ^ D1V);
+  Vector3d DN2(D1U ^ D1V);
   if (F2.Orientation() == TopAbs_REVERSED)
     DN2.Reverse();
 
-  gp_Vec        ProVec = DN2 ^ T1;
+  Vector3d        ProVec = DN2 ^ T1;
   Standard_Real Prod   = DN1.Dot(ProVec);
   if (Prod < 0.0)
   {
@@ -950,7 +950,7 @@ static Standard_Boolean BSplineEdges(const TopoDS_Edge&     E1,
   Param2 = (par2 == 0) ? first2 : last2;
 
   Point3d Pnt1, Pnt2;
-  gp_Vec Der1, Der2;
+  Vector3d Der1, Der2;
   C1->D1(Param1, Pnt1, Der1);
   C2->D1(Param2, Pnt2, Der2);
 
@@ -1591,7 +1591,7 @@ void BRepOffset_Tool::Inter3D(const TopoDS_Face&    F1,
           BRepAdaptor_Curve aBAcurve(anEdge);
           Point3d            aMidPntOnEdge =
             aBAcurve.Value((aBAcurve.FirstParameter() + aBAcurve.LastParameter()) / 2);
-          gp_Vec RefToMid(aRefPnt, aMidPntOnEdge);
+          Vector3d RefToMid(aRefPnt, aMidPntOnEdge);
 
           Extrema_ExtPC aProjector(aRefPnt, aBAcurve);
           if (aProjector.IsDone())
@@ -1610,7 +1610,7 @@ void BRepOffset_Tool::Inter3D(const TopoDS_Face&    F1,
             if (imin != 0)
             {
               Point3d        aProjectionOnEdge = aProjector.Point(imin).Value();
-              gp_Vec        RefToProj(aRefPnt, aProjectionOnEdge);
+              Vector3d        RefToProj(aRefPnt, aProjectionOnEdge);
               Standard_Real anAngle = RefToProj.Angle(RefToMid);
               if (anAngle < MinAngle)
               {
@@ -4280,13 +4280,13 @@ Standard_Boolean BRepOffset_Tool::CheckPlanesNormals(const TopoDS_Face&  theFace
     return Standard_False;
   }
   //
-  gp_Dir aDN1 = aBAS1.Plane().Position().Direction();
+  Dir3d aDN1 = aBAS1.Plane().Position().Direction();
   if (theFace1.Orientation() == TopAbs_REVERSED)
   {
     aDN1.Reverse();
   }
   //
-  gp_Dir aDN2 = aBAS2.Plane().Position().Direction();
+  Dir3d aDN2 = aBAS2.Plane().Position().Direction();
   if (theFace2.Orientation() == TopAbs_REVERSED)
   {
     aDN2.Reverse();

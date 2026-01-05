@@ -19,6 +19,6 @@
 #include <gp_Trsf.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<gp_Trsf> TDataXtd_Array1OfTrsf;
+typedef NCollection_Array1<Transform3d> TDataXtd_Array1OfTrsf;
 
 #endif

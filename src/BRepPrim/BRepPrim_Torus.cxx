@@ -28,7 +28,7 @@
 
 //=================================================================================================
 
-BRepPrim_Torus::BRepPrim_Torus(const gp_Ax2&       Position,
+BRepPrim_Torus::BRepPrim_Torus(const Frame3d&       Position,
                                const Standard_Real Major,
                                const Standard_Real Minor)
     : BRepPrim_Revolution(Position, 0, 2 * M_PI),
@@ -53,7 +53,7 @@ BRepPrim_Torus::BRepPrim_Torus(const Standard_Real Major, const Standard_Real Mi
 BRepPrim_Torus::BRepPrim_Torus(const Point3d&       Center,
                                const Standard_Real Major,
                                const Standard_Real Minor)
-    : BRepPrim_Revolution(gp_Ax2(Center, gp_Dir(0, 0, 1), gp_Dir(1, 0, 0)), 0, 2 * M_PI),
+    : BRepPrim_Revolution(Frame3d(Center, Dir3d(0, 0, 1), Dir3d(1, 0, 0)), 0, 2 * M_PI),
       myMajor(Major),
       myMinor(Minor)
 {
@@ -74,10 +74,10 @@ TopoDS_Face BRepPrim_Torus::MakeEmptyLateralFace() const
 
 void BRepPrim_Torus::SetMeridian()
 {
-  gp_Dir D = Axes().YDirection();
+  Dir3d D = Axes().YDirection();
   D.Reverse();
-  gp_Ax2 A(Axes().Location(), D, Axes().XDirection());
-  gp_Vec V = Axes().XDirection();
+  Frame3d A(Axes().Location(), D, Axes().XDirection());
+  Vector3d V = Axes().XDirection();
   V.Multiply(myMajor);
   A.Translate(V);
   Handle(Geom_Circle)   C = new Geom_Circle(A, myMinor);

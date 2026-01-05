@@ -124,7 +124,7 @@ void ShapeUpgrade_SplitCurve3dContinuity::Compute()
     Handle(Geom_OffsetCurve) tmp      = Handle(Geom_OffsetCurve)::DownCast(myCurve);
     Handle(Geom_Curve)       BasCurve = tmp->BasisCurve();
     // Standard_Real Offset = tmp->Offset(); // Offset not used (skl)
-    // gp_Dir Direct = tmp->Direction(); // Direct not used (skl)
+    // Dir3d Direct = tmp->Direction(); // Direct not used (skl)
     ShapeUpgrade_SplitCurve3dContinuity spc;
     //    spc.Init(BasCurve,Max(tmp->FirstParameter(),First),Min(tmp->LastParameter(),Last));
     spc.Init(BasCurve, First, Last);

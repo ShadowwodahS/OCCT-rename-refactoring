@@ -28,7 +28,7 @@ class TopoDS_Shape;
 
 //! Geometric transformation on a shape.
 //! The transformation to be applied is defined as a
-//! gp_Trsf transformation, i.e. a transformation which does
+//! Transform3d transformation, i.e. a transformation which does
 //! not modify the underlying geometry of shapes.
 //! The transformation is applied to:
 //! -   all curves which support edges of a shape, and
@@ -45,9 +45,9 @@ public:
   //! Constructs a framework for applying the geometric
   //! transformation T to a shape. Use the function Perform
   //! to define the shape to transform.
-  Standard_EXPORT BRepBuilderAPI_Transform(const gp_Trsf& T);
+  Standard_EXPORT BRepBuilderAPI_Transform(const Transform3d& T);
 
-  //! Creates a transformation from the gp_Trsf <theTrsf>, and
+  //! Creates a transformation from the Transform3d <theTrsf>, and
   //! applies it to the shape <theShape>. If the transformation
   //! is  direct   and isometric (determinant  =  1) and
   //! <theCopyGeom> =  Standard_False,  the resulting shape  is
@@ -57,7 +57,7 @@ public:
   //! If <theCopyMesh> is true, the triangulation will be copied,
   //! and the copy will be assigned to the result shape.
   Standard_EXPORT BRepBuilderAPI_Transform(const TopoDS_Shape&    theShape,
-                                           const gp_Trsf&         theTrsf,
+                                           const Transform3d&         theTrsf,
                                            const Standard_Boolean theCopyGeom = Standard_False,
                                            const Standard_Boolean theCopyMesh = Standard_False);
 
@@ -89,7 +89,7 @@ public:
 
 protected:
 private:
-  gp_Trsf          myTrsf;
+  Transform3d          myTrsf;
   TopLoc_Location  myLocation;
   Standard_Boolean myUseModif;
 };

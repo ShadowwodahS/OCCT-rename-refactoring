@@ -30,7 +30,7 @@
 #include <TNaming_NameType.hxx>
 class TDF_Label;
 class TopLoc_Location;
-class gp_Trsf;
+class Transform3d;
 class TNaming_NamedShape;
 class TopoDS_Shape;
 class TopoDS_Face;
@@ -130,20 +130,20 @@ public:
   //! Warning: le  remplacement du shape est  fait    dans tous
   //! les    attributs  qui  le contiennent meme si ceux
   //! ci ne sont pas associees a des sous-labels de <Label>.
-  Standard_EXPORT static void Transform(const TDF_Label& label, const gp_Trsf& aTransformation);
+  Standard_EXPORT static void Transform(const TDF_Label& label, const Transform3d& aTransformation);
 
   //! Replicates the named shape with the transformation <T>
   //! on the label <L> (and sub-labels if necessary)
   //! (TNaming_GENERATED is set)
   Standard_EXPORT static void Replicate(const Handle(TNaming_NamedShape)& NS,
-                                        const gp_Trsf&                    T,
+                                        const Transform3d&                    T,
                                         const TDF_Label&                  L);
 
   //! Replicates the shape with the transformation <T>
   //! on the label <L> (and sub-labels if necessary)
   //! (TNaming_GENERATED is set)
   Standard_EXPORT static void Replicate(const TopoDS_Shape& SH,
-                                        const gp_Trsf&      T,
+                                        const Transform3d&      T,
                                         const TDF_Label&    L);
 
   //! Builds shape from map content

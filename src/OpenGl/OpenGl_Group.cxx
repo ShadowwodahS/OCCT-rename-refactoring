@@ -191,7 +191,7 @@ void OpenGl_Group::AddText(const Handle(Graphic3d_Text)& theTextParams,
 //=================================================================================================
 
 void OpenGl_Group::SetFlippingOptions(const Standard_Boolean theIsEnabled,
-                                      const gp_Ax2&          theRefPlane)
+                                      const Frame3d&          theRefPlane)
 {
   OpenGl_Flipper* aFlipper = new OpenGl_Flipper(theRefPlane);
   aFlipper->SetOptions(theIsEnabled);

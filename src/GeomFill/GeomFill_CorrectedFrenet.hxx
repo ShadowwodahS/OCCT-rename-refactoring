@@ -57,34 +57,34 @@ public:
 
   //! compute Triedrhon on curve at parameter <Param>
   Standard_EXPORT virtual Standard_Boolean D0(const Standard_Real Param,
-                                              gp_Vec&             Tangent,
-                                              gp_Vec&             Normal,
-                                              gp_Vec&             BiNormal) Standard_OVERRIDE;
+                                              Vector3d&             Tangent,
+                                              Vector3d&             Normal,
+                                              Vector3d&             BiNormal) Standard_OVERRIDE;
 
   //! compute Triedrhon and  derivative Trihedron  on curve
   //! at parameter <Param>
   //! Warning : It used only for C1 or C2 approximation
   Standard_EXPORT virtual Standard_Boolean D1(const Standard_Real Param,
-                                              gp_Vec&             Tangent,
-                                              gp_Vec&             DTangent,
-                                              gp_Vec&             Normal,
-                                              gp_Vec&             DNormal,
-                                              gp_Vec&             BiNormal,
-                                              gp_Vec&             DBiNormal) Standard_OVERRIDE;
+                                              Vector3d&             Tangent,
+                                              Vector3d&             DTangent,
+                                              Vector3d&             Normal,
+                                              Vector3d&             DNormal,
+                                              Vector3d&             BiNormal,
+                                              Vector3d&             DBiNormal) Standard_OVERRIDE;
 
   //! compute  Trihedron on curve
   //! first and seconde  derivatives.
   //! Warning : It used only for C2 approximation
   Standard_EXPORT virtual Standard_Boolean D2(const Standard_Real Param,
-                                              gp_Vec&             Tangent,
-                                              gp_Vec&             DTangent,
-                                              gp_Vec&             D2Tangent,
-                                              gp_Vec&             Normal,
-                                              gp_Vec&             DNormal,
-                                              gp_Vec&             D2Normal,
-                                              gp_Vec&             BiNormal,
-                                              gp_Vec&             DBiNormal,
-                                              gp_Vec&             D2BiNormal) Standard_OVERRIDE;
+                                              Vector3d&             Tangent,
+                                              Vector3d&             DTangent,
+                                              Vector3d&             D2Tangent,
+                                              Vector3d&             Normal,
+                                              Vector3d&             DNormal,
+                                              Vector3d&             D2Normal,
+                                              Vector3d&             BiNormal,
+                                              Vector3d&             DBiNormal,
+                                              Vector3d&             D2BiNormal) Standard_OVERRIDE;
 
   //! Returns  the number  of  intervals for  continuity
   //! <S>.
@@ -112,9 +112,9 @@ public:
 
   //! Get average value of Tangent(t) and Normal(t) it is usfull to
   //! make fast approximation of rational  surfaces.
-  Standard_EXPORT virtual void GetAverageLaw(gp_Vec& ATangent,
-                                             gp_Vec& ANormal,
-                                             gp_Vec& ABiNormal) Standard_OVERRIDE;
+  Standard_EXPORT virtual void GetAverageLaw(Vector3d& ATangent,
+                                             Vector3d& ANormal,
+                                             Vector3d& ABiNormal) Standard_OVERRIDE;
 
   //! Say if the law is Constant.
   Standard_EXPORT virtual Standard_Boolean IsConstant() const Standard_OVERRIDE;
@@ -134,10 +134,10 @@ private:
                                                 const Standard_Real     Last,
                                                 const Standard_Real     Step,
                                                 Standard_Real&          startAng,
-                                                gp_Vec&                 prevTangent,
-                                                gp_Vec&                 prevNormal,
-                                                gp_Vec&                 aT,
-                                                gp_Vec&                 aN,
+                                                Vector3d&                 prevTangent,
+                                                Vector3d&                 prevNormal,
+                                                Vector3d&                 aT,
+                                                Vector3d&                 aN,
                                                 Handle(Law_Function)&   FuncInt,
                                                 TColStd_SequenceOfReal& SeqPoles,
                                                 TColStd_SequenceOfReal& SeqAngle,
@@ -145,10 +145,10 @@ private:
                                                 TColgp_SequenceOfVec&   SeqNormal) const;
 
   //! Computes angle of Normal evolution of Frenet between any two points on the curve.
-  Standard_EXPORT Standard_Real CalcAngleAT(const gp_Vec& Tangent,
-                                            const gp_Vec& Normal,
-                                            const gp_Vec& prevTangent,
-                                            const gp_Vec& prevNormal) const;
+  Standard_EXPORT Standard_Real CalcAngleAT(const Vector3d& Tangent,
+                                            const Vector3d& Normal,
+                                            const Vector3d& prevTangent,
+                                            const Vector3d& prevNormal) const;
 
   //! Get corrected value of angle of Normal evolution of Frenet
   Standard_EXPORT Standard_Real GetAngleAT(const Standard_Real P) const;
@@ -156,8 +156,8 @@ private:
   Handle(GeomFill_Frenet)       frenet;
   Handle(Law_Function)          EvolAroundT;
   Handle(Law_Function)          TLaw;
-  gp_Vec                        AT;
-  gp_Vec                        AN;
+  Vector3d                        AT;
+  Vector3d                        AN;
   Standard_Boolean              isFrenet;
   Standard_Boolean              myForEvaluation;
   Handle(TColStd_HArray1OfReal) HArrPoles;

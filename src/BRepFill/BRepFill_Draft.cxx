@@ -73,7 +73,7 @@ static Standard_Boolean Affich = 0;
 
 //=================================================================================================
 
-static void ComputeTrsf(const TopoDS_Wire& W, const gp_Dir& D, Bnd_Box& Box, gp_Trsf& Tf)
+static void ComputeTrsf(const TopoDS_Wire& W, const Dir3d& D, Bnd_Box& Box, Transform3d& Tf)
 {
   // Calculate approximate barycenter
   BRepTools_WireExplorer Exp(W);
@@ -113,7 +113,7 @@ static void ComputeTrsf(const TopoDS_Wire& W, const gp_Dir& D, Bnd_Box& Box, gp_
 
 //=================================================================================================
 
-static Standard_Real Longueur(const Bnd_Box& WBox, const Bnd_Box& SBox, gp_Dir& D, Point3d& P)
+static Standard_Real Longueur(const Bnd_Box& WBox, const Bnd_Box& SBox, Dir3d& D, Point3d& P)
 {
   // face of the box most remoted from the face input in
   // the direction of skin
@@ -147,14 +147,14 @@ static Standard_Real Longueur(const Bnd_Box& WBox, const Bnd_Box& SBox, gp_Dir& 
 //======================================================================
 static Standard_Boolean GoodOrientation(const Bnd_Box&                      B,
                                         const Handle(BRepFill_LocationLaw)& Law,
-                                        const gp_Dir&                       D)
+                                        const Dir3d&                       D)
 {
   Standard_Real f, l, r, t;
   Standard_Real aXmin, aYmin, aZmin, aXmax, aYmax, aZmax;
 
   B.Get(aXmin, aYmin, aZmin, aXmax, aYmax, aZmax);
   Point3d P1(aXmin, aYmin, aZmin), P2(aXmax, aYmax, aZmax);
-  gp_Vec V(P1, P2);
+  Vector3d V(P1, P2);
 
   Law->CurvilinearBounds(Law->NbLaw(), f, l);
   r = V.Magnitude() / l;
@@ -183,13 +183,13 @@ static Standard_Boolean GoodOrientation(const Bnd_Box&                      B,
 
   Bary /= Nb;
   Point3d        Centre(Bary);
-  gp_Vec        Normal(D.XYZ());
+  Vector3d        Normal(D.XYZ());
   Standard_Real Angle = 0;
-  gp_Vec        Ref(Centre, Pnts(1));
+  Vector3d        Ref(Centre, Pnts(1));
 
   for (ii = 2; ii <= Nb; ii++)
   {
-    gp_Vec R(Centre, Pnts(ii));
+    Vector3d R(Centre, Pnts(ii));
     Angle += Ref.AngleWithRef(R, Normal);
     Ref = R;
   }
@@ -199,7 +199,7 @@ static Standard_Boolean GoodOrientation(const Bnd_Box&                      B,
 
 //=================================================================================================
 
-BRepFill_Draft::BRepFill_Draft(const TopoDS_Shape& S, const gp_Dir& Dir, const Standard_Real Angle)
+BRepFill_Draft::BRepFill_Draft(const TopoDS_Shape& S, const Dir3d& Dir, const Standard_Real Angle)
 {
   myLoc.Nullify();
   mySec.Nullify();
@@ -318,7 +318,7 @@ void BRepFill_Draft::Perform(const Standard_Real LengthMax)
   Handle(Geom_Surface) S;
   S.Nullify();
   Bnd_Box WBox; //, SBox;
-  gp_Trsf Trsf;
+  Transform3d Trsf;
 
   ComputeTrsf(myWire, myDir, WBox, Trsf);
   Init(S, LengthMax, WBox);
@@ -334,7 +334,7 @@ void BRepFill_Draft::Perform(const Handle(Geom_Surface)& Surface,
                              const Standard_Boolean      KeepInsideSurface)
 {
   Bnd_Box       WBox, SBox;
-  gp_Trsf       Trsf;
+  Transform3d       Trsf;
   Point3d        Pt;
   Standard_Real L;
 
@@ -365,7 +365,7 @@ void BRepFill_Draft::Perform(const Handle(Geom_Surface)& Surface,
 void BRepFill_Draft::Perform(const TopoDS_Shape& StopShape, const Standard_Boolean KeepOutSide)
 {
   Bnd_Box       WBox, SBox;
-  gp_Trsf       Trsf;
+  Transform3d       Trsf;
   Point3d        Pt;
   Standard_Real L;
 
@@ -403,7 +403,7 @@ void BRepFill_Draft::Perform(const TopoDS_Shape& StopShape, const Standard_Boole
   L /= Abs(Cos(myAngle));
 
   // surface of stop
-  gp_Trsf Inv;
+  Transform3d Inv;
   Inv = Trsf.Inverted(); // inverted transformation
   Pt.Transform(Inv);     // coordinate in the absolute reference
   Handle(Geom_Plane) Plan = new (Geom_Plane)(Pt, myDir);
@@ -453,16 +453,16 @@ void BRepFill_Draft::Init(const Handle(Geom_Surface)&,
   // law of section
   // generating line is straight and parallel to binormal.
   Point3d P(0, 0, 0);
-  gp_Vec D(0., 1., 0.);
+  Vector3d D(0., 1., 0.);
 
   // Control of the orientation
   Standard_Real f, l;
   myLoc->Law(1)->GetDomain(f, l);
   gp_Mat M;
 
-  gp_Vec Bid;
+  Vector3d Bid;
   myLoc->Law(1)->D0((f + l) / 2, M, Bid);
-  gp_Dir BN(M.Column(2));
+  Dir3d BN(M.Column(2));
 
   Standard_Real ang = myDir.Angle(BN);
   if (ang > M_PI / 2)
@@ -517,7 +517,7 @@ void BRepFill_Draft::BuildShell(const Handle(Geom_Surface)& Surf,
     BRepAdaptor_Surface SF(F);
     Standard_Real       u, v;
     Point3d              P;
-    gp_Vec              V1, V2, V;
+    Vector3d              V1, V2, V;
     u = SF.FirstUParameter();
     v = SF.FirstVParameter();
     SF.D1(u, v, P, V1, V2);

@@ -45,7 +45,7 @@ public:
                                             const Standard_Boolean WithContact    = Standard_False,
                                             const Standard_Boolean WithCorrection = Standard_False);
 
-  Standard_EXPORT const gp_Trsf& Transformation() const;
+  Standard_EXPORT const Transform3d& Transformation() const;
 
   Standard_EXPORT Standard_Real AbscissaOnPath();
 
@@ -57,7 +57,7 @@ private:
 
   Handle(BRepFill_LocationLaw) myLaw;
   TopoDS_Shape                 mySection;
-  gp_Trsf                      myTrsf;
+  Transform3d                      myTrsf;
   Standard_Real                myParam;
   Standard_Integer             myIndex;
 };

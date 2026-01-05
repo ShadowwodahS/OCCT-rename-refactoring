@@ -603,7 +603,7 @@ void HLRBRep_Data::Write(const Handle(HLRBRep_Data)& DS,
 void HLRBRep_Data::Update(const HLRAlgo_Projector& P)
 {
   myProj             = P;
-  const gp_Trsf&   T = myProj.Transformation();
+  const Transform3d&   T = myProj.Transformation();
   Standard_Integer i;
   Standard_Real    tolMinMax = 0;
 
@@ -732,7 +732,7 @@ void HLRBRep_Data::Update(const HLRAlgo_Projector& P)
     else
     {
       Point3d Pt;
-      gp_Vec Tg1, Tg2;
+      Vector3d Tg1, Tg2;
       EC.D1(EC.Parameter3d(EC.FirstParameter()), Pt, Tg1);
       EC.D1(EC.Parameter3d(EC.LastParameter()), Pt, Tg2);
       Tg1.Transform(T);
@@ -741,14 +741,14 @@ void HLRBRep_Data::Update(const HLRAlgo_Projector& P)
         ver1 = Standard_True;
       else
       {
-        gp_Dir Dir1(Tg1);
+        Dir3d Dir1(Tg1);
         ver1 = Abs(Dir1.X()) + Abs(Dir1.Y()) < myToler * 10;
       }
       if (Abs(Tg2.X()) + Abs(Tg2.Y()) < myToler * 10)
         ver2 = Standard_True;
       else
       {
-        gp_Dir Dir2(Tg2);
+        Dir3d Dir2(Tg2);
         ver2 = Abs(Dir2.X()) + Abs(Dir2.Y()) < myToler * 10;
       }
     }
@@ -847,7 +847,7 @@ void HLRBRep_Data::Update(const HLRAlgo_Projector& P)
             Pt = EC.Value3D(p);
             if (mySLProps.IsNormalDefined())
             {
-              gp_Vec Nm = mySLProps.Normal();
+              Vector3d Nm = mySLProps.Normal();
               Pt.Transform(T);
               Nm.Transform(T);
               if (myProj.Perspective())
@@ -1521,30 +1521,30 @@ void HLRBRep_Data::EdgeState(const Standard_Real p1,
     mySLProps.SetParameters(pu, pv);
     if (mySLProps.IsNormalDefined())
     {
-      gp_Dir NrmFace = mySLProps.Normal();
+      Dir3d NrmFace = mySLProps.Normal();
 
       Point3d Pbid;
-      gp_Vec TngEdge;
+      Vector3d TngEdge;
       ((HLRBRep_Curve*)myLEGeom)->D1(p1, Pbid, TngEdge);
 
-      const gp_Trsf& TI = myProj.InvertedTransformation();
-      gp_Dir         V;
+      const Transform3d& TI = myProj.InvertedTransformation();
+      Dir3d         V;
       if (myProj.Perspective())
       {
         gp_Pnt2d P2d;
         myProj.Project(Pbid, P2d);
-        V = gp_Dir(P2d.X(), P2d.Y(), -myProj.Focus());
+        V = Dir3d(P2d.X(), P2d.Y(), -myProj.Focus());
       }
       else
       {
-        V = gp_Dir(0, 0, -1);
+        V = Dir3d(0, 0, -1);
       }
       V.Transform(TI);
       if (NrmFace.Dot(V) > 0.)
         NrmFace.Reverse();
 
       const Standard_Real scal =
-        (TngEdge.SquareMagnitude() > 1.e-10) ? NrmFace.Dot(gp_Dir(TngEdge)) : 0.;
+        (TngEdge.SquareMagnitude() > 1.e-10) ? NrmFace.Dot(Dir3d(TngEdge)) : 0.;
 
       if (scal > myToler * 10)
       {
@@ -1670,8 +1670,8 @@ Standard_Boolean HLRBRep_Data::OrientOutLine(const Standard_Integer I, HLRBRep_F
   const Handle(HLRAlgo_WiresBlock)& wb = FD.Wires();
   Standard_Integer                  nw = wb->NbWires();
   Standard_Integer                  iw1, ie1, ne1;
-  const gp_Trsf&                    T              = myProj.Transformation();
-  const gp_Trsf&                    TI             = myProj.InvertedTransformation();
+  const Transform3d&                    T              = myProj.Transformation();
+  const Transform3d&                    TI             = myProj.InvertedTransformation();
   Standard_Boolean                  inverted       = Standard_False;
   Standard_Boolean                  FirstInversion = Standard_True;
 
@@ -1706,25 +1706,25 @@ Standard_Boolean HLRBRep_Data::OrientOutLine(const Standard_Integer I, HLRBRep_F
         if (HLRBRep_EdgeFaceTool::UVPoint(p, myFEGeom, iFaceGeom, pu, pv))
         {
           Point3d Pt;
-          gp_Vec Tg;
+          Vector3d Tg;
           mySLProps.SetParameters(pu, pv);
           EC.D1(p, Pt, Tg);
-          gp_Dir V;
+          Dir3d V;
           if (myProj.Perspective())
           {
             gp_Pnt2d P2d;
             myProj.Project(Pt, P2d);
-            V = gp_Dir(P2d.X(), P2d.Y(), -myProj.Focus());
+            V = Dir3d(P2d.X(), P2d.Y(), -myProj.Focus());
           }
           else
           {
-            V = gp_Dir(0, 0, -1);
+            V = Dir3d(0, 0, -1);
           }
           V.Transform(TI);
           if (mySLProps.IsNormalDefined())
           {
             Standard_Real curv = HLRBRep_EdgeFaceTool::CurvatureValue(iFaceGeom, pu, pv, V);
-            gp_Vec        Nm   = mySLProps.Normal();
+            Vector3d        Nm   = mySLProps.Normal();
             if (curv == 0)
             {
 #ifdef OCCT_DEBUG
@@ -1786,7 +1786,7 @@ void HLRBRep_Data::OrientOthEdge(const Standard_Integer I, HLRBRep_FaceData& FD)
   const Handle(HLRAlgo_WiresBlock)& wb = FD.Wires();
   Standard_Integer                  nw = wb->NbWires();
   Standard_Integer                  iw1, ie1, ne1;
-  const gp_Trsf&                    T = myProj.Transformation();
+  const Transform3d&                    T = myProj.Transformation();
 
   for (iw1 = 1; iw1 <= nw; iw1++)
   {
@@ -1811,7 +1811,7 @@ void HLRBRep_Data::OrientOthEdge(const Standard_Integer I, HLRBRep_FaceData& FD)
           mySLProps.SetParameters(pu, pv);
           if (mySLProps.IsNormalDefined())
           {
-            gp_Vec Nm = mySLProps.Normal();
+            Vector3d Nm = mySLProps.Normal();
             Pt.Transform(T);
             Nm.Transform(T);
             if (myProj.Perspective())

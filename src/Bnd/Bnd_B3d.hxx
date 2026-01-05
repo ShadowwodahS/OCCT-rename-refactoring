@@ -26,8 +26,8 @@
 #include <gp_XYZ.hxx>
 class gp_XYZ;
 class Point3d;
-class gp_Trsf;
-class gp_Ax1;
+class Transform3d;
+class Axis3d;
 class gp_Ax3;
 
 class Bnd_B3d
@@ -80,7 +80,7 @@ public:
 
   //! Transform the bounding box with the given transformation.
   //! The resulting box will be larger if theTrsf contains rotation.
-  Standard_NODISCARD Standard_EXPORT Bnd_B3d Transformed(const gp_Trsf& theTrsf) const;
+  Standard_NODISCARD Standard_EXPORT Bnd_B3d Transformed(const Transform3d& theTrsf) const;
 
   //! Check the given point for the inclusion in the Box.
   //! Returns True if the point is outside.
@@ -103,7 +103,7 @@ public:
   //! Check the given box oriented by the given transformation
   //! for the intersection with the current box.
   //! Returns True if there is no intersection between boxes.
-  Standard_EXPORT Standard_Boolean IsOut(const Bnd_B3d& theOtherBox, const gp_Trsf& theTrsf) const;
+  Standard_EXPORT Standard_Boolean IsOut(const Bnd_B3d& theOtherBox, const Transform3d& theTrsf) const;
 
   //! Check the given Line for the intersection with the current box.
   //! Returns True if there is no intersection.
@@ -111,7 +111,7 @@ public:
   //! theOverthickness is the addition to the size of the current box
   //! (may be negative). If positive, it can be treated as the thickness
   //! of the line 'theLine' or the radius of the cylinder along 'theLine'
-  Standard_EXPORT Standard_Boolean IsOut(const gp_Ax1&          theLine,
+  Standard_EXPORT Standard_Boolean IsOut(const Axis3d&          theLine,
                                          const Standard_Boolean isRay            = Standard_False,
                                          const Standard_Real    theOverthickness = 0.0) const;
 
@@ -126,7 +126,7 @@ public:
   //! Check that the box 'this' is inside the given box 'theBox'
   //! transformed by 'theTrsf'. Returns True if 'this' box is fully
   //! inside the transformed 'theBox'.
-  Standard_EXPORT Standard_Boolean IsIn(const Bnd_B3d& theBox, const gp_Trsf& theTrsf) const;
+  Standard_EXPORT Standard_Boolean IsIn(const Bnd_B3d& theBox, const Transform3d& theTrsf) const;
 
   //! Set the Center coordinates
   void SetCenter(const gp_XYZ& theCenter);

@@ -25,7 +25,7 @@
 #include <Geom_Ellipse.hxx>
 
 class gp_Elips;
-class gp_Ax2;
+class Frame3d;
 class Point3d;
 
 //! This class implements construction algorithms for an ellipse in
@@ -60,7 +60,7 @@ public:
   //! -   the major radius computed with Center and S1
   //! is less than the minor radius computed with Center, S1 and S2, or
   //! -   Center, S1 and S2 are collinear.
-  Standard_EXPORT GC_MakeEllipse(const gp_Ax2&       A2,
+  Standard_EXPORT GC_MakeEllipse(const Frame3d&       A2,
                                  const Standard_Real MajorRadius,
                                  const Standard_Real MinorRadius);
 

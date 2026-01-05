@@ -161,7 +161,7 @@ void BRepTools_WireExplorer::Init(const TopoDS_Wire&  W,
     if (aGAS.GetType() == GeomAbs_Cone)
     {
       Point3d aP;
-      gp_Vec aD1U, aD1V;
+      Vector3d aD1U, aD1V;
       aGAS.D1(UMin, VMin, aP, aD1U, aD1V);
       Standard_Real tol1, tol2, maxtol = .0005 * (UMax - UMin);
       Standard_Real a = aD1U.Magnitude();
@@ -185,7 +185,7 @@ void BRepTools_WireExplorer::Init(const TopoDS_Wire&  W,
     {
       Standard_Real maxTol = Max(myTolU, myTolV);
       Point3d        aP;
-      gp_Vec        aDU, aDV;
+      Vector3d        aDU, aDV;
       aGAS.D1((UMax - UMin) / 2., (VMax - VMin) / 2., aP, aDU, aDV);
       Standard_Real mod = Sqrt(aDU * aDU + aDV * aDV);
       if (mod > gp::Resolution())

@@ -25,7 +25,7 @@
 
 class TCollection_ExtendedString;
 class Point3d;
-class gp_Dir;
+class Dir3d;
 
 //! A framework to define display of offsets.
 class DsgPrs_OffsetPresentation
@@ -45,8 +45,8 @@ public:
                                   const TCollection_ExtendedString& aText,
                                   const Point3d&                     AttachmentPoint1,
                                   const Point3d&                     AttachmentPoint2,
-                                  const gp_Dir&                     aDirection,
-                                  const gp_Dir&                     aDirection2,
+                                  const Dir3d&                     aDirection,
+                                  const Dir3d&                     aDirection2,
                                   const Point3d&                     OffsetPoint);
 
   //! draws the representation of axes alignment Constraint
@@ -58,8 +58,8 @@ public:
                                       const TCollection_ExtendedString& aText,
                                       const Point3d&                     AttachmentPoint1,
                                       const Point3d&                     AttachmentPoint2,
-                                      const gp_Dir&                     aDirection,
-                                      const gp_Dir&                     aDirection2,
+                                      const Dir3d&                     aDirection,
+                                      const Dir3d&                     aDirection2,
                                       const Point3d&                     OffsetPoint);
 
 protected:

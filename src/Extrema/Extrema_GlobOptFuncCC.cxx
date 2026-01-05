@@ -73,7 +73,7 @@ static Standard_Boolean _Gradient(const Adaptor3d_Curve& C1,
                                   math_Vector&           G)
 {
   Point3d C1D0, C2D0;
-  gp_Vec C1D1, C2D1;
+  Vector3d C1D1, C2D1;
 
   if (X(1) < C1.FirstParameter() || X(1) > C1.LastParameter() || X(2) < C2.FirstParameter()
       || X(2) > C2.LastParameter())
@@ -125,8 +125,8 @@ static Standard_Boolean _Hessian(const Adaptor3d_Curve& C1,
                                  math_Matrix&           H)
 {
   Point3d C1D0, C2D0;
-  gp_Vec C1D1, C2D1;
-  gp_Vec C1D2, C2D2;
+  Vector3d C1D1, C2D1;
+  Vector3d C1D2, C2D2;
 
   if (X(1) < C1.FirstParameter() || X(1) > C1.LastParameter() || X(2) < C2.FirstParameter()
       || X(2) > C2.LastParameter())

@@ -23,15 +23,15 @@
 
 #include <gp_Trsf.hxx>
 class Point3d;
-class gp_Ax1;
+class Axis3d;
 class gp_Lin;
-class gp_Dir;
+class Dir3d;
 class gp_Pln;
-class gp_Ax2;
+class Frame3d;
 
 //! This class mplements elementary construction algorithms for a
 //! symmetrical transformation in 3D space about a point,
-//! axis or plane. The result is a gp_Trsf transformation.
+//! axis or plane. The result is a Transform3d transformation.
 //! A MakeMirror object provides a framework for:
 //! -   defining the construction of the transformation,
 //! -   implementing the construction algorithm, and
@@ -43,29 +43,29 @@ public:
 
   Standard_EXPORT gce_MakeMirror(const Point3d& Point);
 
-  Standard_EXPORT gce_MakeMirror(const gp_Ax1& Axis);
+  Standard_EXPORT gce_MakeMirror(const Axis3d& Axis);
 
   Standard_EXPORT gce_MakeMirror(const gp_Lin& Line);
 
   //! Makes a symmetry transformation af axis defined by
   //! <Point> and <Direc>.
-  Standard_EXPORT gce_MakeMirror(const Point3d& Point, const gp_Dir& Direc);
+  Standard_EXPORT gce_MakeMirror(const Point3d& Point, const Dir3d& Direc);
 
   //! Makes a symmetry transformation of plane <Plane>.
   Standard_EXPORT gce_MakeMirror(const gp_Pln& Plane);
 
   //! Makes a symmetry transformation of plane <Plane>.
-  Standard_EXPORT gce_MakeMirror(const gp_Ax2& Plane);
+  Standard_EXPORT gce_MakeMirror(const Frame3d& Plane);
 
   //! Returns the constructed transformation.
-  Standard_EXPORT const gp_Trsf& Value() const;
+  Standard_EXPORT const Transform3d& Value() const;
 
-  Standard_EXPORT const gp_Trsf& Operator() const;
-  Standard_EXPORT                operator gp_Trsf() const;
+  Standard_EXPORT const Transform3d& Operator() const;
+  Standard_EXPORT                operator Transform3d() const;
 
 protected:
 private:
-  gp_Trsf TheMirror;
+  Transform3d TheMirror;
 };
 
 #endif // _gce_MakeMirror_HeaderFile

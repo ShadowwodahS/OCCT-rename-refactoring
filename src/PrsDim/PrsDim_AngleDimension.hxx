@@ -212,7 +212,7 @@ protected:
   //! Gets plane normal for minimal angle.
   //! Dimension computation is based on three attach points and plane normal.
   //! Based on this normal angle arc, arrows and extensions are constructed.
-  gp_Dir GetNormalForMinAngle() const;
+  Dir3d GetNormalForMinAngle() const;
 
   //! @param[in] theFirstAttach  the first attachment point.
   //! @param[in] theSecondAttach  the second attachment point.

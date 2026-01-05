@@ -119,7 +119,7 @@ static void DUMP(const MultiLine& Line)
       if (Ok) {
         for (j = 1; j <= nbP3d; j++) {
           sprintf(solname, "%s%i%s_%i", "t", j, "3d", i);
-          L3d = new Geom_Line(tabP(j), gp_Dir(TabV(j)));
+          L3d = new Geom_Line(tabP(j), Dir3d(TabV(j)));
           L3dt = new Geom_TrimmedCurve(L3d, 0.0, 0.3);
           char* Temp = solname;
           DrawTrSurf::Set(Temp, L3dt);
@@ -242,7 +242,7 @@ void Approx_BSplComputeLine::FirstTangencyVector(const MultiLine&  Line,
     AppParCurves_MultiCurve C = LSQ.BezierValue();
 
     Point3d myP;
-    gp_Vec myV;
+    Vector3d myV;
     gp_Pnt2d myP2d;
     gp_Vec2d myV2d;
     j = 1;
@@ -323,7 +323,7 @@ void Approx_BSplComputeLine::LastTangencyVector(const MultiLine&       Line,
     AppParCurves_MultiCurve C = LSQ.BezierValue();
 
     Point3d myP;
-    gp_Vec myV;
+    Vector3d myV;
     gp_Pnt2d myP2d;
     gp_Vec2d myV2d;
     j = 1;
@@ -389,7 +389,7 @@ SearchFirstLambda(const MultiLine&            Line,
   if (nbP3d != 0) {
     P1 = tabP1(1);
     P2 = tabP2(1);
-    gp_Vec P1P2(P1, P2), myV;
+    Vector3d P1P2(P1, P2), myV;
     myV.SetCoord(V(low), V(low + 1), V(low + 2));
     lambda = (P1P2.Magnitude()) / (myV.Magnitude()*(U2 - U1));
     S = (P1P2.Dot(myV) > 0.0) ? 1.0 : -1.0;
@@ -448,7 +448,7 @@ SearchLastLambda(const MultiLine&            Line,
   if (nbP3d != 0) {
     P1 = tabP(1);
     P2 = tabP2(1);
-    gp_Vec P1P2(P1, P2), myV;
+    Vector3d P1P2(P1, P2), myV;
     myV.SetCoord(V(low), V(low + 1), V(low + 2));
     lambda = (P1P2.Magnitude()) / (myV.Magnitude()*(U2 - U1));
     S = (P1P2.Dot(myV) > 0.0) ? 1.0 : -1.0;
@@ -1416,7 +1416,7 @@ void Approx_BSplComputeLine::TangencyVector(
   nbP2d = LineTool::NbP2d(Line);
 
   Point3d myP;
-  gp_Vec myV;
+  Vector3d myV;
   gp_Pnt2d myP2d;
   gp_Vec2d myV2d;
   j = 1;

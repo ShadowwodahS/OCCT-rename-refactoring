@@ -680,7 +680,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
 
   // creation de la generatrice : Generatrix
   Handle(Geom_Line) Ligne =
-    new Geom_Line(Point3d(start->Cylinder().Radius(), 0.0, 0.0), gp_Dir(0.0, 0.0, 1.0));
+    new Geom_Line(Point3d(start->Cylinder().Radius(), 0.0, 0.0), Dir3d(0.0, 0.0, 1.0));
   GeomToIGES_GeomCurve        GC(*this);
   Handle(IGESData_IGESEntity) Generatrix = GC.TransferCurve(Ligne, V1, V2);
   Point3d                      gen1       = Ligne->Value(V1);
@@ -758,7 +758,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   // creation de la generatrice : Generatrix
   Handle(Geom_Line) Ligne =
     new Geom_Line(Point3d(start->Cone().RefRadius(), 0.0, 0.0),
-                  gp_Dir(sin(start->Cone().SemiAngle()), 0., cos(start->Cone().SemiAngle())));
+                  Dir3d(sin(start->Cone().SemiAngle()), 0., cos(start->Cone().SemiAngle())));
   GeomToIGES_GeomCurve        GC(*this);
   Handle(IGESData_IGESEntity) Generatrix = GC.TransferCurve(Ligne, V1, V2);
   Point3d                      gen1       = Ligne->Value(V1);
@@ -834,7 +834,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   Standard_Real V2 = Vfin;
 
   // creation de la generatrice : Generatrix (1/2 cercle)
-  gp_Ax2                      Axe(gp::Origin(), -gp::DY(), gp::DX());
+  Frame3d                      Axe(gp::Origin(), -gp::DY(), gp::DX());
   Handle(Geom_Circle)         Cercle = new Geom_Circle(Axe, start->Sphere().Radius());
   GeomToIGES_GeomCurve        GC(*this);
   Handle(IGESData_IGESEntity) Gen = GC.TransferCurve(Cercle, V1, V2);
@@ -901,7 +901,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   Standard_Real                        V2   = Vfin;
 
   // creation de la generatrice : Generatrix (cercle)
-  gp_Ax2 Axe = gp_Ax2(Point3d((start->Torus().MajorRadius()), 0., 0.), -gp::DY(), gp::DX());
+  Frame3d Axe = Frame3d(Point3d((start->Torus().MajorRadius()), 0., 0.), -gp::DY(), gp::DX());
   Handle(Geom_Circle)         Cercle = new Geom_Circle(Axe, start->Torus().MinorRadius());
   GeomToIGES_GeomCurve        GC(*this);
   Handle(IGESData_IGESEntity) Gen = GC.TransferCurve(Cercle, V1, V2);
@@ -1106,7 +1106,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
 
   // creation de l`axe : Axis .
   Handle(IGESGeom_Line) Axis = new IGESGeom_Line;
-  gp_Ax1                Axe  = start->Axis();
+  Axis3d                Axe  = start->Axis();
   Standard_Real         X1, Y1, Z1, X2, Y2, Z2;
   Axe.Location().Coord(X1, Y1, Z1);
   Axe.Direction().Coord(X2, Y2, Z2);
@@ -1159,7 +1159,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   Handle(IGESData_IGESEntity) Surface  = TransferSurface(TheSurf, Udeb, Ufin, Vdeb, Vfin);
   Standard_Real               Distance = start->Offset() / GetUnit();
   GeomLProp_SLProps           Prop = GeomLProp_SLProps(TheSurf, Um, Vm, 1, Precision::Confusion());
-  gp_Dir                      Dir  = Prop.Normal();
+  Dir3d                      Dir  = Prop.Normal();
   Standard_Real               Xd, Yd, Zd;
   Dir.Coord(Xd, Yd, Zd);
   gp_XYZ Indicator = gp_XYZ(Xd / GetUnit(), Yd / GetUnit(), Zd / GetUnit());
@@ -1272,9 +1272,9 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferConicalSurface(
   gp_Cone       Con     = start->Cone();
   Standard_Real aRadius = Con.RefRadius() / GetUnit();
   Standard_Real angle   = Con.SemiAngle();
-  gp_Ax1        Axe     = Con.Axis();
-  gp_Ax1        XAxe    = Con.XAxis();
-  gp_Dir        XDir    = XAxe.Direction();
+  Axis3d        Axe     = Con.Axis();
+  Axis3d        XAxe    = Con.XAxis();
+  Dir3d        XDir    = XAxe.Direction();
 
   Handle(Geom_CartesianPoint) mypoint = new Geom_CartesianPoint(Con.Location());
   if (angle < 0.)

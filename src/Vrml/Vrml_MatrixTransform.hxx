@@ -42,17 +42,17 @@ public:
 
   Standard_EXPORT Vrml_MatrixTransform();
 
-  Standard_EXPORT Vrml_MatrixTransform(const gp_Trsf& aMatrix);
+  Standard_EXPORT Vrml_MatrixTransform(const Transform3d& aMatrix);
 
-  Standard_EXPORT void SetMatrix(const gp_Trsf& aMatrix);
+  Standard_EXPORT void SetMatrix(const Transform3d& aMatrix);
 
-  Standard_EXPORT gp_Trsf Matrix() const;
+  Standard_EXPORT Transform3d Matrix() const;
 
   Standard_EXPORT Standard_OStream& Print(Standard_OStream& anOStream) const;
 
 protected:
 private:
-  gp_Trsf myMatrix;
+  Transform3d myMatrix;
 };
 
 #endif // _Vrml_MatrixTransform_HeaderFile

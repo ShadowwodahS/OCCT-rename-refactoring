@@ -23,9 +23,9 @@
 #include <Geom_Curve.hxx>
 #include <Standard_Integer.hxx>
 #include <GeomAbs_Shape.hxx>
-class gp_Trsf;
+class Transform3d;
 class Point3d;
-class gp_Vec;
+class Vector3d;
 
 class ShapeExtend_ComplexCurve;
 DEFINE_STANDARD_HANDLE(ShapeExtend_ComplexCurve, Geom_Curve)
@@ -53,7 +53,7 @@ public:
                                                       const Standard_Real    Ulocal) const = 0;
 
   //! Applies transformation to each curve
-  Standard_EXPORT virtual void Transform(const gp_Trsf& T) Standard_OVERRIDE;
+  Standard_EXPORT virtual void Transform(const Transform3d& T) Standard_OVERRIDE;
 
   //! Returns 1 - U
   virtual Standard_Real ReversedParameter(const Standard_Real U) const Standard_OVERRIDE;
@@ -82,20 +82,20 @@ public:
 
   Standard_EXPORT virtual void D1(const Standard_Real U,
                                   Point3d&             P,
-                                  gp_Vec&             V1) const Standard_OVERRIDE;
+                                  Vector3d&             V1) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual void D2(const Standard_Real U,
                                   Point3d&             P,
-                                  gp_Vec&             V1,
-                                  gp_Vec&             V2) const Standard_OVERRIDE;
+                                  Vector3d&             V1,
+                                  Vector3d&             V2) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual void D3(const Standard_Real U,
                                   Point3d&             P,
-                                  gp_Vec&             V1,
-                                  gp_Vec&             V2,
-                                  gp_Vec&             V3) const Standard_OVERRIDE;
+                                  Vector3d&             V1,
+                                  Vector3d&             V2,
+                                  Vector3d&             V3) const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual gp_Vec DN(const Standard_Real    U,
+  Standard_EXPORT virtual Vector3d DN(const Standard_Real    U,
                                     const Standard_Integer N) const Standard_OVERRIDE;
 
   //! Returns scale factor for recomputing of deviatives.
@@ -111,7 +111,7 @@ protected:
   Standard_EXPORT ShapeExtend_ComplexCurve();
 
   //! Transform the derivative according to its order
-  Standard_EXPORT void TransformDN(gp_Vec&                V,
+  Standard_EXPORT void TransformDN(Vector3d&                V,
                                    const Standard_Integer ind,
                                    const Standard_Integer N) const;
 

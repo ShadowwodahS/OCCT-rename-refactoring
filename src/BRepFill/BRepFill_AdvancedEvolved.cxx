@@ -108,7 +108,7 @@ void BRepFill_AdvancedEvolved::GetSpineAndProfile(const TopoDS_Wire& theSpine,
   TopTools_IndexedDataMapOfShapeListOfShape aMVEP;
   TopExp::MapShapesAndAncestors(theProfile, TopAbs_VERTEX, TopAbs_EDGE, aMVEP);
 
-  gp_Vec aN2;
+  Vector3d aN2;
   Point3d aLoc;
 
   for (Standard_Integer i = 1; i <= aMVEP.Size(); i++)
@@ -129,7 +129,7 @@ void BRepFill_AdvancedEvolved::GetSpineAndProfile(const TopoDS_Wire& theSpine,
     const Standard_Real aPar2 = BRep_Tool::Parameter(aVC, anE2);
 
     Point3d aP;
-    gp_Vec aT1, aT2;
+    Vector3d aT1, aT2;
 
     anAC1.D1(aPar1, aP, aT1);
     anAC1.D1(aPar2, aP, aT2);
@@ -207,7 +207,7 @@ void BRepFill_AdvancedEvolved::GetSpineAndProfile(const TopoDS_Wire& theSpine,
         const Standard_Real aPar2 = BRep_Tool::Parameter(aV, anE2);
 
         Point3d aP;
-        gp_Vec aT1, aT2;
+        Vector3d aT1, aT2;
 
         anAC1.D1(aPar1, aP, aT1);
         anAC1.D1(aPar2, aP, aT2);
@@ -242,7 +242,7 @@ void BRepFill_AdvancedEvolved::GetSpineAndProfile(const TopoDS_Wire& theSpine,
         anExtr.ParOnEdgeS1(anIdxMin, aPar);
 
         Point3d aP;
-        gp_Vec aT1;
+        Vector3d aT1;
         anAC.D1(aPar, aP, aT1);
 
         if (aT1.Dot(aN2) > 0.0)
@@ -261,8 +261,8 @@ void BRepFill_AdvancedEvolved::GetSpineAndProfile(const TopoDS_Wire& theSpine,
       const TopoDS_Face&       aFSpine = aMkFSpine.Face();
       const Handle(Geom_Plane) aPlnSpine =
         Handle(Geom_Plane)::DownCast(BRep_Tool::Surface(aFSpine));
-      const gp_Vec aN1(aPlnSpine->Axis().Direction());
-      gp_Vec       aTanV;
+      const Vector3d aN1(aPlnSpine->Axis().Direction());
+      Vector3d       aTanV;
 
       if (anExtr.SupportTypeShape2(anIdxMin) == BRepExtrema_IsVertex)
       {
@@ -281,7 +281,7 @@ void BRepFill_AdvancedEvolved::GetSpineAndProfile(const TopoDS_Wire& theSpine,
         const Standard_Real aPar2 = BRep_Tool::Parameter(aV, anE2);
 
         Point3d aP;
-        gp_Vec aT1, aT2;
+        Vector3d aT1, aT2;
 
         anAC1.D1(aPar1, aP, aT1);
         anAC1.D1(aPar2, aP, aT2);
@@ -520,7 +520,7 @@ void BRepFill_AdvancedEvolved::GetLids()
   // Square of the default angular tolerance in
   // BOPAlgo_Tools::EdgesToWires(...) and BOPAlgo_Tools::WiresToFaces(...) methods
   const Standard_Real aSqAnguarTol = aTol * aTol / aSqDiag;
-  const gp_Dir&       aNormal      = aSurf->Position().Direction();
+  const Dir3d&       aNormal      = aSurf->Position().Direction();
 
   // Obtain free-edges from myPipeShell. All edges must be planar
   // and parallel to the plane of mySpine
@@ -532,7 +532,7 @@ void BRepFill_AdvancedEvolved::GetLids()
   TopTools_ListOfShape aLE;
 
   Point3d aPtmp;
-  gp_Vec aTan;
+  Vector3d aTan;
 
   Standard_Real aDPMax = 0.;
   for (Standard_Integer i = 1; i <= aMapEF.Size(); i++)
@@ -1148,7 +1148,7 @@ Standard_Boolean NormalFunc::Value(const math_Vector& theX, Standard_Real& theF)
 
   const gp_Pnt2d aP2d(aC->Value(theX(1)));
   Point3d aP3d;
-  gp_Vec aD1u, aD1v;
+  Vector3d aD1u, aD1v;
   aS->D1(aP2d.X(), aP2d.Y(), aP3d, aD1u, aD1v);
 
   theF = aD1u.Crossed(aD1v).SquareMagnitude();
@@ -1190,7 +1190,7 @@ Standard_Boolean NormalFunc::Gradient(const math_Vector& theX, math_Vector& theG
   aC->D1(theX(1), aP2d, aDc);
 
   Point3d aP3d;
-  gp_Vec aD1u, aD1v, aD2u, aD2v, aD2uv;
+  Vector3d aD1u, aD1v, aD2u, aD2v, aD2uv;
   aS->D2(aP2d.X(), aP2d.Y(), aP3d, aD1u, aD1v, aD2u, aD2v, aD2uv);
 
   theG(1) = (aD1v.X()*aD1u.Y())*(aD1u.Y()*(aD2uv.X()*aDc.X() + aD2v.X()*aDc.Y()) +

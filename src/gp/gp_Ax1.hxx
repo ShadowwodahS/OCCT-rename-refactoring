@@ -18,9 +18,9 @@
 #include <gp_Pnt.hxx>
 #include <gp_Dir.hxx>
 
-class gp_Ax2;
-class gp_Trsf;
-class gp_Vec;
+class Frame3d;
+class Transform3d;
+class Vector3d;
 
 //! Describes an axis in 3D space.
 //! An axis is defined by:
@@ -34,34 +34,34 @@ class gp_Vec;
 //! symmetry, axis of rotation, and so on).
 //! For example, this entity can be used to locate a geometric entity
 //! or to define a symmetry axis.
-class gp_Ax1
+class Axis3d
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates an axis object representing Z axis of
   //! the reference coordinate system.
-  gp_Ax1()
+  Axis3d()
       : loc(0., 0., 0.),
         vdir(0., 0., 1.)
   {
   }
 
   //! P is the location point and V is the direction of <me>.
-  gp_Ax1(const Point3d& theP, const gp_Dir& theV)
+  Axis3d(const Point3d& theP, const Dir3d& theV)
       : loc(theP),
         vdir(theV)
   {
   }
 
   //! Assigns V as the "Direction"  of this axis.
-  void SetDirection(const gp_Dir& theV) { vdir = theV; }
+  void SetDirection(const Dir3d& theV) { vdir = theV; }
 
   //! Assigns  P as the origin of this axis.
   void SetLocation(const Point3d& theP) { loc = theP; }
 
   //! Returns the direction of <me>.
-  const gp_Dir& Direction() const { return vdir; }
+  const Dir3d& Direction() const { return vdir; }
 
   //! Returns the location point of <me>.
   const Point3d& Location() const { return loc; }
@@ -73,14 +73,14 @@ public:
   //! or equal to <LinearTolerance> and
   //! . the distance between <Other>.Location() and <me> is lower
   //! or equal to LinearTolerance.
-  Standard_EXPORT Standard_Boolean IsCoaxial(const gp_Ax1&       Other,
+  Standard_EXPORT Standard_Boolean IsCoaxial(const Axis3d&       Other,
                                              const Standard_Real AngularTolerance,
                                              const Standard_Real LinearTolerance) const;
 
   //! Returns True if the direction of this and another axis are normal to each other.
   //! That is, if the angle between the two axes is equal to Pi/2.
   //! Note: the tolerance criterion is given by theAngularTolerance.
-  Standard_Boolean IsNormal(const gp_Ax1& theOther, const Standard_Real theAngularTolerance) const
+  Standard_Boolean IsNormal(const Axis3d& theOther, const Standard_Real theAngularTolerance) const
   {
     return vdir.IsNormal(theOther.vdir, theAngularTolerance);
   }
@@ -88,7 +88,7 @@ public:
   //! Returns True if the direction of this and another axis are parallel with opposite orientation.
   //! That is, if the angle between the two axes is equal to Pi.
   //! Note: the tolerance criterion is given by theAngularTolerance.
-  Standard_Boolean IsOpposite(const gp_Ax1& theOther, const Standard_Real theAngularTolerance) const
+  Standard_Boolean IsOpposite(const Axis3d& theOther, const Standard_Real theAngularTolerance) const
   {
     return vdir.IsOpposite(theOther.vdir, theAngularTolerance);
   }
@@ -96,23 +96,23 @@ public:
   //! Returns True if the direction of this and another axis are parallel with same orientation or
   //! opposite orientation. That is, if the angle between the two axes is equal to 0 or Pi. Note:
   //! the tolerance criterion is given by theAngularTolerance.
-  Standard_Boolean IsParallel(const gp_Ax1& theOther, const Standard_Real theAngularTolerance) const
+  Standard_Boolean IsParallel(const Axis3d& theOther, const Standard_Real theAngularTolerance) const
   {
     return vdir.IsParallel(theOther.vdir, theAngularTolerance);
   }
 
   //! Computes the angular value, in radians, between this.Direction() and theOther.Direction().
   //! Returns the angle between 0 and 2*PI radians.
-  Standard_Real Angle(const gp_Ax1& theOther) const { return vdir.Angle(theOther.vdir); }
+  Standard_Real Angle(const Axis3d& theOther) const { return vdir.Angle(theOther.vdir); }
 
   //! Reverses the unit vector of this axis and assigns the result to this axis.
   void Reverse() { vdir.Reverse(); }
 
   //! Reverses the unit vector of this axis and creates a new one.
-  Standard_NODISCARD gp_Ax1 Reversed() const
+  Standard_NODISCARD Axis3d Reversed() const
   {
-    gp_Dir D = vdir.Reversed();
-    return gp_Ax1(loc, D);
+    Dir3d D = vdir.Reversed();
+    return Axis3d(loc, D);
   }
 
   //! Performs the symmetrical transformation of an axis
@@ -123,33 +123,33 @@ public:
   //! Performs the symmetrical transformation of an axis
   //! placement with respect to the point P which is the
   //! center of the symmetry and creates a new axis.
-  Standard_NODISCARD Standard_EXPORT gp_Ax1 Mirrored(const Point3d& P) const;
+  Standard_NODISCARD Standard_EXPORT Axis3d Mirrored(const Point3d& P) const;
 
   //! Performs the symmetrical transformation of an axis
   //! placement with respect to an axis placement which
   //! is the axis of the symmetry and assigns the result to this axis.
-  Standard_EXPORT void Mirror(const gp_Ax1& A1);
+  Standard_EXPORT void Mirror(const Axis3d& A1);
 
   //! Performs the symmetrical transformation of an axis
   //! placement with respect to an axis placement which
   //! is the axis of the symmetry and creates a new axis.
-  Standard_NODISCARD Standard_EXPORT gp_Ax1 Mirrored(const gp_Ax1& A1) const;
+  Standard_NODISCARD Standard_EXPORT Axis3d Mirrored(const Axis3d& A1) const;
 
   //! Performs the symmetrical transformation of an axis
   //! placement with respect to a plane. The axis placement
   //! <A2> locates the plane of the symmetry :
   //! (Location, XDirection, YDirection) and assigns the result to this axis.
-  Standard_EXPORT void Mirror(const gp_Ax2& A2);
+  Standard_EXPORT void Mirror(const Frame3d& A2);
 
   //! Performs the symmetrical transformation of an axis
   //! placement with respect to a plane. The axis placement
   //! <A2> locates the plane of the symmetry :
   //! (Location, XDirection, YDirection) and creates a new axis.
-  Standard_NODISCARD Standard_EXPORT gp_Ax1 Mirrored(const gp_Ax2& A2) const;
+  Standard_NODISCARD Standard_EXPORT Axis3d Mirrored(const Frame3d& A2) const;
 
   //! Rotates this axis at an angle theAngRad (in radians) about the axis theA1
   //! and assigns the result to this axis.
-  void Rotate(const gp_Ax1& theA1, const Standard_Real theAngRad)
+  void Rotate(const Axis3d& theA1, const Standard_Real theAngRad)
   {
     loc.Rotate(theA1, theAngRad);
     vdir.Rotate(theA1, theAngRad);
@@ -157,9 +157,9 @@ public:
 
   //! Rotates this axis at an angle theAngRad (in radians) about the axis theA1
   //! and creates a new one.
-  Standard_NODISCARD gp_Ax1 Rotated(const gp_Ax1& theA1, const Standard_Real theAngRad) const
+  Standard_NODISCARD Axis3d Rotated(const Axis3d& theA1, const Standard_Real theAngRad) const
   {
-    gp_Ax1 A = *this;
+    Axis3d A = *this;
     A.Rotate(theA1, theAngRad);
     return A;
   }
@@ -179,15 +179,15 @@ public:
   //! Applies a scaling transformation to this axis with:
   //! - scale factor theS, and
   //! - center theP and creates a new axis.
-  Standard_NODISCARD gp_Ax1 Scaled(const Point3d& theP, const Standard_Real theS) const
+  Standard_NODISCARD Axis3d Scaled(const Point3d& theP, const Standard_Real theS) const
   {
-    gp_Ax1 A1 = *this;
+    Axis3d A1 = *this;
     A1.Scale(theP, theS);
     return A1;
   }
 
   //! Applies the transformation theT to this axis and assigns the result to this axis.
-  void Transform(const gp_Trsf& theT)
+  void Transform(const Transform3d& theT)
   {
     loc.Transform(theT);
     vdir.Transform(theT);
@@ -197,21 +197,21 @@ public:
   //!
   //! Translates an axis plaxement in the direction of the vector <V>.
   //! The magnitude of the translation is the vector's magnitude.
-  Standard_NODISCARD gp_Ax1 Transformed(const gp_Trsf& theT) const
+  Standard_NODISCARD Axis3d Transformed(const Transform3d& theT) const
   {
-    gp_Ax1 A1 = *this;
+    Axis3d A1 = *this;
     A1.Transform(theT);
     return A1;
   }
 
   //! Translates this axis by the vector theV, and assigns the result to this axis.
-  void Translate(const gp_Vec& theV) { loc.Translate(theV); }
+  void Translate(const Vector3d& theV) { loc.Translate(theV); }
 
   //! Translates this axis by the vector theV,
   //! and creates a new one.
-  Standard_NODISCARD gp_Ax1 Translated(const gp_Vec& theV) const
+  Standard_NODISCARD Axis3d Translated(const Vector3d& theV) const
   {
-    gp_Ax1 A1 = *this;
+    Axis3d A1 = *this;
     (A1.loc).Translate(theV);
     return A1;
   }
@@ -224,9 +224,9 @@ public:
   //! Translates this axis by:
   //! the vector (theP1, theP2) defined from point theP1 to point theP2.
   //! and creates a new one.
-  Standard_NODISCARD gp_Ax1 Translated(const Point3d& theP1, const Point3d& theP2) const
+  Standard_NODISCARD Axis3d Translated(const Point3d& theP1, const Point3d& theP2) const
   {
-    gp_Ax1 A1 = *this;
+    Axis3d A1 = *this;
     (A1.loc).Translate(theP1, theP2);
     return A1;
   }
@@ -240,7 +240,7 @@ public:
 
 private:
   Point3d loc;
-  gp_Dir vdir;
+  Dir3d vdir;
 };
 
 #endif // _gp_Ax1_HeaderFile

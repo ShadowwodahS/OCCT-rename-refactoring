@@ -32,10 +32,10 @@ void StdPrs_HLRShape::ComputeHLR(const Handle(Prs3d_Presentation)& thePresentati
                                  const Handle(Prs3d_Drawer)&       theDrawer,
                                  const Handle(Graphic3d_Camera)&   theProjector) const
 {
-  gp_Dir  aBackDir = -theProjector->Direction();
-  gp_Dir  aXpers   = theProjector->Up().Crossed(aBackDir);
+  Dir3d  aBackDir = -theProjector->Direction();
+  Dir3d  aXpers   = theProjector->Up().Crossed(aBackDir);
   gp_Ax3  anAx3(theProjector->Center(), aBackDir, aXpers);
-  gp_Trsf aTrsf;
+  Transform3d aTrsf;
   aTrsf.SetTransformation(anAx3);
   const HLRAlgo_Projector aProj(aTrsf, !theProjector->IsOrthographic(), theProjector->Scale());
 

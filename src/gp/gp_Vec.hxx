@@ -19,39 +19,39 @@
 #include <gp_XYZ.hxx>
 #include <Standard_DomainError.hxx>
 
-class gp_Dir;
+class Dir3d;
 class Point3d;
-class gp_Ax1;
-class gp_Ax2;
-class gp_Trsf;
+class Axis3d;
+class Frame3d;
+class Transform3d;
 
 //! Defines a non-persistent vector in 3D space.
-class gp_Vec
+class Vector3d
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates a zero vector.
-  gp_Vec() {}
+  Vector3d() {}
 
   //! Creates a unitary vector from a direction theV.
-  gp_Vec(const gp_Dir& theV);
+  Vector3d(const Dir3d& theV);
 
   //! Creates a vector with a triplet of coordinates.
-  gp_Vec(const gp_XYZ& theCoord)
+  Vector3d(const gp_XYZ& theCoord)
       : coord(theCoord)
   {
   }
 
   //! Creates a point with its three cartesian coordinates.
-  gp_Vec(const Standard_Real theXv, const Standard_Real theYv, const Standard_Real theZv)
+  Vector3d(const Standard_Real theXv, const Standard_Real theYv, const Standard_Real theZv)
       : coord(theXv, theYv, theZv)
   {
   }
 
   //! Creates a vector from two points. The length of the vector
   //! is the distance between theP1 and theP2
-  gp_Vec(const Point3d& theP1, const Point3d& theP2);
+  Vector3d(const Point3d& theP1, const Point3d& theP2);
 
   //! Changes the coordinate of range theIndex
   //! theIndex = 1 => X is modified
@@ -115,19 +115,19 @@ public:
   //! Returns True if the two vectors have the same magnitude value
   //! and the same direction. The precision values are theLinearTolerance
   //! for the magnitude and theAngularTolerance for the direction.
-  Standard_EXPORT Standard_Boolean IsEqual(const gp_Vec&       theOther,
+  Standard_EXPORT Standard_Boolean IsEqual(const Vector3d&       theOther,
                                            const Standard_Real theLinearTolerance,
                                            const Standard_Real theAngularTolerance) const;
 
   //! Returns True if abs(<me>.Angle(theOther) - PI/2.) <= theAngularTolerance
   //! Raises VectorWithNullMagnitude if <me>.Magnitude() <= Resolution or
   //! theOther.Magnitude() <= Resolution from gp
-  Standard_Boolean IsNormal(const gp_Vec& theOther, const Standard_Real theAngularTolerance) const;
+  Standard_Boolean IsNormal(const Vector3d& theOther, const Standard_Real theAngularTolerance) const;
 
   //! Returns True if PI - <me>.Angle(theOther) <= theAngularTolerance
   //! Raises VectorWithNullMagnitude if <me>.Magnitude() <= Resolution or
   //! Other.Magnitude() <= Resolution from gp
-  Standard_Boolean IsOpposite(const gp_Vec& theOther, const Standard_Real theAngularTolerance) const
+  Standard_Boolean IsOpposite(const Vector3d& theOther, const Standard_Real theAngularTolerance) const
   {
     Standard_Real anAng = M_PI - Angle(theOther);
     return anAng <= theAngularTolerance;
@@ -139,7 +139,7 @@ public:
   //! a plane but two vectors with opposite directions are considered
   //! as parallel. Raises VectorWithNullMagnitude if <me>.Magnitude() <= Resolution or
   //! Other.Magnitude() <= Resolution from gp
-  Standard_Boolean IsParallel(const gp_Vec& theOther, const Standard_Real theAngularTolerance) const
+  Standard_Boolean IsParallel(const Vector3d& theOther, const Standard_Real theAngularTolerance) const
   {
     Standard_Real anAng = Angle(theOther);
     return anAng <= theAngularTolerance || M_PI - anAng <= theAngularTolerance;
@@ -150,7 +150,7 @@ public:
   //! Raises VectorWithNullMagnitude if <me>.Magnitude() <= Resolution from gp or
   //! theOther.Magnitude() <= Resolution because the angular value is
   //! indefinite if one of the vectors has a null magnitude.
-  Standard_Real Angle(const gp_Vec& theOther) const;
+  Standard_Real Angle(const Vector3d& theOther) const;
 
   //! Computes the angle, in radians, between this vector and
   //! vector theOther. The result is a value between -Pi and Pi.
@@ -166,7 +166,7 @@ public:
   //! Standard_DomainError if this vector, the vector theOther,
   //! and the vector theVRef are coplanar, unless this vector and
   //! the vector theOther are parallel.
-  Standard_Real AngleWithRef(const gp_Vec& theOther, const gp_Vec& theVRef) const;
+  Standard_Real AngleWithRef(const Vector3d& theOther, const Vector3d& theVRef) const;
 
   //! Computes the magnitude of this vector.
   Standard_Real Magnitude() const { return coord.Modulus(); }
@@ -175,34 +175,34 @@ public:
   Standard_Real SquareMagnitude() const { return coord.SquareModulus(); }
 
   //! Adds two vectors
-  void Add(const gp_Vec& theOther) { coord.Add(theOther.coord); }
+  void Add(const Vector3d& theOther) { coord.Add(theOther.coord); }
 
-  void operator+=(const gp_Vec& theOther) { Add(theOther); }
+  void operator+=(const Vector3d& theOther) { Add(theOther); }
 
   //! Adds two vectors
-  Standard_NODISCARD gp_Vec Added(const gp_Vec& theOther) const
+  Standard_NODISCARD Vector3d Added(const Vector3d& theOther) const
   {
-    gp_Vec aV = *this;
+    Vector3d aV = *this;
     aV.coord.Add(theOther.coord);
     return aV;
   }
 
-  Standard_NODISCARD gp_Vec operator+(const gp_Vec& theOther) const { return Added(theOther); }
+  Standard_NODISCARD Vector3d operator+(const Vector3d& theOther) const { return Added(theOther); }
 
   //! Subtracts two vectors
-  void Subtract(const gp_Vec& theRight) { coord.Subtract(theRight.coord); }
+  void Subtract(const Vector3d& theRight) { coord.Subtract(theRight.coord); }
 
-  void operator-=(const gp_Vec& theRight) { Subtract(theRight); }
+  void operator-=(const Vector3d& theRight) { Subtract(theRight); }
 
   //! Subtracts two vectors
-  Standard_NODISCARD gp_Vec Subtracted(const gp_Vec& theRight) const
+  Standard_NODISCARD Vector3d Subtracted(const Vector3d& theRight) const
   {
-    gp_Vec aV = *this;
+    Vector3d aV = *this;
     aV.coord.Subtract(theRight.coord);
     return aV;
   }
 
-  Standard_NODISCARD gp_Vec operator-(const gp_Vec& theRight) const { return Subtracted(theRight); }
+  Standard_NODISCARD Vector3d operator-(const Vector3d& theRight) const { return Subtracted(theRight); }
 
   //! Multiplies a vector by a scalar
   void Multiply(const Standard_Real theScalar) { coord.Multiply(theScalar); }
@@ -210,14 +210,14 @@ public:
   void operator*=(const Standard_Real theScalar) { Multiply(theScalar); }
 
   //! Multiplies a vector by a scalar
-  Standard_NODISCARD gp_Vec Multiplied(const Standard_Real theScalar) const
+  Standard_NODISCARD Vector3d Multiplied(const Standard_Real theScalar) const
   {
-    gp_Vec aV = *this;
+    Vector3d aV = *this;
     aV.coord.Multiply(theScalar);
     return aV;
   }
 
-  Standard_NODISCARD gp_Vec operator*(const Standard_Real theScalar) const
+  Standard_NODISCARD Vector3d operator*(const Standard_Real theScalar) const
   {
     return Multiplied(theScalar);
   }
@@ -228,37 +228,37 @@ public:
   void operator/=(const Standard_Real theScalar) { Divide(theScalar); }
 
   //! Divides a vector by a scalar
-  Standard_NODISCARD gp_Vec Divided(const Standard_Real theScalar) const
+  Standard_NODISCARD Vector3d Divided(const Standard_Real theScalar) const
   {
-    gp_Vec aV = *this;
+    Vector3d aV = *this;
     aV.coord.Divide(theScalar);
     return aV;
   }
 
-  Standard_NODISCARD gp_Vec operator/(const Standard_Real theScalar) const
+  Standard_NODISCARD Vector3d operator/(const Standard_Real theScalar) const
   {
     return Divided(theScalar);
   }
 
   //! computes the cross product between two vectors
-  void Cross(const gp_Vec& theRight) { coord.Cross(theRight.coord); }
+  void Cross(const Vector3d& theRight) { coord.Cross(theRight.coord); }
 
-  void operator^=(const gp_Vec& theRight) { Cross(theRight); }
+  void operator^=(const Vector3d& theRight) { Cross(theRight); }
 
   //! computes the cross product between two vectors
-  Standard_NODISCARD gp_Vec Crossed(const gp_Vec& theRight) const
+  Standard_NODISCARD Vector3d Crossed(const Vector3d& theRight) const
   {
-    gp_Vec aV = *this;
+    Vector3d aV = *this;
     aV.coord.Cross(theRight.coord);
     return aV;
   }
 
-  Standard_NODISCARD gp_Vec operator^(const gp_Vec& theRight) const { return Crossed(theRight); }
+  Standard_NODISCARD Vector3d operator^(const Vector3d& theRight) const { return Crossed(theRight); }
 
   //! Computes the magnitude of the cross
   //! product between <me> and theRight.
   //! Returns || <me> ^ theRight ||
-  Standard_Real CrossMagnitude(const gp_Vec& theRight) const
+  Standard_Real CrossMagnitude(const Vector3d& theRight) const
   {
     return coord.CrossMagnitude(theRight.coord);
   }
@@ -266,34 +266,34 @@ public:
   //! Computes the square magnitude of
   //! the cross product between <me> and theRight.
   //! Returns || <me> ^ theRight ||**2
-  Standard_Real CrossSquareMagnitude(const gp_Vec& theRight) const
+  Standard_Real CrossSquareMagnitude(const Vector3d& theRight) const
   {
     return coord.CrossSquareMagnitude(theRight.coord);
   }
 
   //! Computes the triple vector product.
   //! <me> ^= (theV1 ^ theV2)
-  void CrossCross(const gp_Vec& theV1, const gp_Vec& theV2)
+  void CrossCross(const Vector3d& theV1, const Vector3d& theV2)
   {
     coord.CrossCross(theV1.coord, theV2.coord);
   }
 
   //! Computes the triple vector product.
   //! <me> ^ (theV1 ^ theV2)
-  Standard_NODISCARD gp_Vec CrossCrossed(const gp_Vec& theV1, const gp_Vec& theV2) const
+  Standard_NODISCARD Vector3d CrossCrossed(const Vector3d& theV1, const Vector3d& theV2) const
   {
-    gp_Vec aV = *this;
+    Vector3d aV = *this;
     aV.coord.CrossCross(theV1.coord, theV2.coord);
     return aV;
   }
 
   //! computes the scalar product
-  Standard_Real Dot(const gp_Vec& theOther) const { return coord.Dot(theOther.coord); }
+  Standard_Real Dot(const Vector3d& theOther) const { return coord.Dot(theOther.coord); }
 
-  Standard_Real operator*(const gp_Vec& theOther) const { return Dot(theOther); }
+  Standard_Real operator*(const Vector3d& theOther) const { return Dot(theOther); }
 
   //! Computes the triple scalar product <me> * (theV1 ^ theV2).
-  Standard_Real DotCross(const gp_Vec& theV1, const gp_Vec& theV2) const
+  Standard_Real DotCross(const Vector3d& theV1, const Vector3d& theV2) const
   {
     return coord.DotCross(theV1.coord, theV2.coord);
   }
@@ -305,37 +305,37 @@ public:
   {
     Standard_Real aD = coord.Modulus();
     Standard_ConstructionError_Raise_if(aD <= gp::Resolution(),
-                                        "gp_Vec::Normalize() - vector has zero norm");
+                                        "Vector3d::Normalize() - vector has zero norm");
     coord.Divide(aD);
   }
 
   //! normalizes a vector
   //! Raises an exception if the magnitude of the vector is
   //! lower or equal to Resolution from gp.
-  Standard_NODISCARD gp_Vec Normalized() const;
+  Standard_NODISCARD Vector3d Normalized() const;
 
   //! Reverses the direction of a vector
   void Reverse() { coord.Reverse(); }
 
   //! Reverses the direction of a vector
-  Standard_NODISCARD gp_Vec Reversed() const
+  Standard_NODISCARD Vector3d Reversed() const
   {
-    gp_Vec aV = *this;
+    Vector3d aV = *this;
     aV.coord.Reverse();
     return aV;
   }
 
-  Standard_NODISCARD gp_Vec operator-() const { return Reversed(); }
+  Standard_NODISCARD Vector3d operator-() const { return Reversed(); }
 
   //! <me> is set to the following linear form :
   //! theA1 * theV1 + theA2 * theV2 + theA3 * theV3 + theV4
   void SetLinearForm(const Standard_Real theA1,
-                     const gp_Vec&       theV1,
+                     const Vector3d&       theV1,
                      const Standard_Real theA2,
-                     const gp_Vec&       theV2,
+                     const Vector3d&       theV2,
                      const Standard_Real theA3,
-                     const gp_Vec&       theV3,
-                     const gp_Vec&       theV4)
+                     const Vector3d&       theV3,
+                     const Vector3d&       theV4)
   {
     coord.SetLinearForm(theA1, theV1.coord, theA2, theV2.coord, theA3, theV3.coord, theV4.coord);
   }
@@ -343,11 +343,11 @@ public:
   //! <me> is set to the following linear form :
   //! theA1 * theV1 + theA2 * theV2 + theA3 * theV3
   void SetLinearForm(const Standard_Real theA1,
-                     const gp_Vec&       theV1,
+                     const Vector3d&       theV1,
                      const Standard_Real theA2,
-                     const gp_Vec&       theV2,
+                     const Vector3d&       theV2,
                      const Standard_Real theA3,
-                     const gp_Vec&       theV3)
+                     const Vector3d&       theV3)
   {
     coord.SetLinearForm(theA1, theV1.coord, theA2, theV2.coord, theA3, theV3.coord);
   }
@@ -355,10 +355,10 @@ public:
   //! <me> is set to the following linear form :
   //! theA1 * theV1 + theA2 * theV2 + theV3
   void SetLinearForm(const Standard_Real theA1,
-                     const gp_Vec&       theV1,
+                     const Vector3d&       theV1,
                      const Standard_Real theA2,
-                     const gp_Vec&       theV2,
-                     const gp_Vec&       theV3)
+                     const Vector3d&       theV2,
+                     const Vector3d&       theV3)
   {
     coord.SetLinearForm(theA1, theV1.coord, theA2, theV2.coord, theV3.coord);
   }
@@ -366,53 +366,53 @@ public:
   //! <me> is set to the following linear form :
   //! theA1 * theV1 + theA2 * theV2
   void SetLinearForm(const Standard_Real theA1,
-                     const gp_Vec&       theV1,
+                     const Vector3d&       theV1,
                      const Standard_Real theA2,
-                     const gp_Vec&       theV2)
+                     const Vector3d&       theV2)
   {
     coord.SetLinearForm(theA1, theV1.coord, theA2, theV2.coord);
   }
 
   //! <me> is set to the following linear form : theA1 * theV1 + theV2
-  void SetLinearForm(const Standard_Real theA1, const gp_Vec& theV1, const gp_Vec& theV2)
+  void SetLinearForm(const Standard_Real theA1, const Vector3d& theV1, const Vector3d& theV2)
   {
     coord.SetLinearForm(theA1, theV1.coord, theV2.coord);
   }
 
   //! <me> is set to the following linear form : theV1 + theV2
-  void SetLinearForm(const gp_Vec& theV1, const gp_Vec& theV2)
+  void SetLinearForm(const Vector3d& theV1, const Vector3d& theV2)
   {
     coord.SetLinearForm(theV1.coord, theV2.coord);
   }
 
-  Standard_EXPORT void Mirror(const gp_Vec& theV);
+  Standard_EXPORT void Mirror(const Vector3d& theV);
 
   //! Performs the symmetrical transformation of a vector
   //! with respect to the vector theV which is the center of
   //! the  symmetry.
-  Standard_NODISCARD Standard_EXPORT gp_Vec Mirrored(const gp_Vec& theV) const;
+  Standard_NODISCARD Standard_EXPORT Vector3d Mirrored(const Vector3d& theV) const;
 
-  Standard_EXPORT void Mirror(const gp_Ax1& theA1);
+  Standard_EXPORT void Mirror(const Axis3d& theA1);
 
   //! Performs the symmetrical transformation of a vector
   //! with respect to an axis placement which is the axis
   //! of the symmetry.
-  Standard_NODISCARD Standard_EXPORT gp_Vec Mirrored(const gp_Ax1& theA1) const;
+  Standard_NODISCARD Standard_EXPORT Vector3d Mirrored(const Axis3d& theA1) const;
 
-  Standard_EXPORT void Mirror(const gp_Ax2& theA2);
+  Standard_EXPORT void Mirror(const Frame3d& theA2);
 
   //! Performs the symmetrical transformation of a vector
   //! with respect to a plane. The axis placement theA2 locates
   //! the plane of the symmetry : (Location, XDirection, YDirection).
-  Standard_NODISCARD Standard_EXPORT gp_Vec Mirrored(const gp_Ax2& theA2) const;
+  Standard_NODISCARD Standard_EXPORT Vector3d Mirrored(const Frame3d& theA2) const;
 
-  void Rotate(const gp_Ax1& theA1, const Standard_Real theAng);
+  void Rotate(const Axis3d& theA1, const Standard_Real theAng);
 
   //! Rotates a vector. theA1 is the axis of the rotation.
   //! theAng is the angular value of the rotation in radians.
-  Standard_NODISCARD gp_Vec Rotated(const gp_Ax1& theA1, const Standard_Real theAng) const
+  Standard_NODISCARD Vector3d Rotated(const Axis3d& theA1, const Standard_Real theAng) const
   {
-    gp_Vec aVres = *this;
+    Vector3d aVres = *this;
     aVres.Rotate(theA1, theAng);
     return aVres;
   }
@@ -420,20 +420,20 @@ public:
   void Scale(const Standard_Real theS) { coord.Multiply(theS); }
 
   //! Scales a vector. theS is the scaling value.
-  Standard_NODISCARD gp_Vec Scaled(const Standard_Real theS) const
+  Standard_NODISCARD Vector3d Scaled(const Standard_Real theS) const
   {
-    gp_Vec aV = *this;
+    Vector3d aV = *this;
     aV.coord.Multiply(theS);
     return aV;
   }
 
   //! Transforms a vector with the transformation theT.
-  Standard_EXPORT void Transform(const gp_Trsf& theT);
+  Standard_EXPORT void Transform(const Transform3d& theT);
 
   //! Transforms a vector with the transformation theT.
-  Standard_NODISCARD gp_Vec Transformed(const gp_Trsf& theT) const
+  Standard_NODISCARD Vector3d Transformed(const Transform3d& theT) const
   {
-    gp_Vec aV = *this;
+    Vector3d aV = *this;
     aV.Transform(theT);
     return aV;
   }
@@ -450,19 +450,19 @@ private:
 #include <gp_Trsf.hxx>
 
 //=======================================================================
-// function :  gp_Vec
+// function :  Vector3d
 // purpose :
 //=======================================================================
-inline gp_Vec::gp_Vec(const gp_Dir& theV)
+inline Vector3d::Vector3d(const Dir3d& theV)
 {
   coord = theV.XYZ();
 }
 
 //=======================================================================
-// function :  gp_Vec
+// function :  Vector3d
 // purpose :
 //=======================================================================
-inline gp_Vec::gp_Vec(const Point3d& theP1, const Point3d& theP2)
+inline Vector3d::Vector3d(const Point3d& theP1, const Point3d& theP2)
 {
   coord = theP2.XYZ().Subtracted(theP1.XYZ());
 }
@@ -471,7 +471,7 @@ inline gp_Vec::gp_Vec(const Point3d& theP1, const Point3d& theP2)
 // function :  IsNormal
 // purpose :
 //=======================================================================
-inline Standard_Boolean gp_Vec::IsNormal(const gp_Vec&       theOther,
+inline Standard_Boolean Vector3d::IsNormal(const Vector3d&       theOther,
                                          const Standard_Real theAngularTolerance) const
 {
   Standard_Real anAng = M_PI / 2.0 - Angle(theOther);
@@ -486,37 +486,37 @@ inline Standard_Boolean gp_Vec::IsNormal(const gp_Vec&       theOther,
 // function :  Angle
 // purpose :
 //=======================================================================
-inline Standard_Real gp_Vec::Angle(const gp_Vec& theOther) const
+inline Standard_Real Vector3d::Angle(const Vector3d& theOther) const
 {
   gp_VectorWithNullMagnitude_Raise_if(coord.Modulus() <= gp::Resolution()
                                         || theOther.coord.Modulus() <= gp::Resolution(),
                                       " ");
-  return (gp_Dir(coord)).Angle(theOther);
+  return (Dir3d(coord)).Angle(theOther);
 }
 
 //=======================================================================
 // function :  AngleWithRef
 // purpose :
 //=======================================================================
-inline Standard_Real gp_Vec::AngleWithRef(const gp_Vec& theOther, const gp_Vec& theVRef) const
+inline Standard_Real Vector3d::AngleWithRef(const Vector3d& theOther, const Vector3d& theVRef) const
 {
   gp_VectorWithNullMagnitude_Raise_if(coord.Modulus() <= gp::Resolution()
                                         || theVRef.coord.Modulus() <= gp::Resolution()
                                         || theOther.coord.Modulus() <= gp::Resolution(),
                                       " ");
-  return (gp_Dir(coord)).AngleWithRef(theOther, theVRef);
+  return (Dir3d(coord)).AngleWithRef(theOther, theVRef);
 }
 
 //=======================================================================
 // function :  Normalized
 // purpose :
 //=======================================================================
-inline gp_Vec gp_Vec::Normalized() const
+inline Vector3d Vector3d::Normalized() const
 {
   Standard_Real aD = coord.Modulus();
   Standard_ConstructionError_Raise_if(aD <= gp::Resolution(),
-                                      "gp_Vec::Normalized() - vector has zero norm");
-  gp_Vec aV = *this;
+                                      "Vector3d::Normalized() - vector has zero norm");
+  Vector3d aV = *this;
   aV.coord.Divide(aD);
   return aV;
 }
@@ -525,9 +525,9 @@ inline gp_Vec gp_Vec::Normalized() const
 // function :  Rotate
 // purpose :
 //=======================================================================
-inline void gp_Vec::Rotate(const gp_Ax1& theA1, const Standard_Real theAng)
+inline void Vector3d::Rotate(const Axis3d& theA1, const Standard_Real theAng)
 {
-  gp_Trsf aT;
+  Transform3d aT;
   aT.SetRotation(theA1, theAng);
   coord.Multiply(aT.VectorialPart());
 }
@@ -536,7 +536,7 @@ inline void gp_Vec::Rotate(const gp_Ax1& theA1, const Standard_Real theAng)
 // function :  operator*
 // purpose :
 //=======================================================================
-inline gp_Vec operator*(const Standard_Real theScalar, const gp_Vec& theV)
+inline Vector3d operator*(const Standard_Real theScalar, const Vector3d& theV)
 {
   return theV.Multiplied(theScalar);
 }

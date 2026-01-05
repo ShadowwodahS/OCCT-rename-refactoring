@@ -85,9 +85,9 @@ void GeomFill_FunctionGuide::SetParam(const Standard_Real,
   gp_Ax3 Rep(gp::Origin(), gp::DZ(), gp::DX());
 
   // calculer transfo entre triedre et Oxyz
-  gp_Dir  B2 = DX;
+  Dir3d  B2 = DX;
   gp_Ax3  RepTriedre(C, D, B2);
-  gp_Trsf Transfo;
+  Transform3d Transfo;
   Transfo.SetTransformation(RepTriedre, Rep);
 
   if (isconst)
@@ -111,7 +111,7 @@ void GeomFill_FunctionGuide::SetParam(const Standard_Real,
       TheCurve = new (Geom_BSplineCurve)(Poles, Knots, Mult, Deg, TheLaw->IsUPeriodic());
   }
 
-  gp_Ax1 Axe(C, Dir);
+  Axis3d Axe(C, Dir);
   TheCurve->Transform(Transfo);
   TheSurface = new (Geom_SurfaceOfRevolution)(TheCurve, Axe);
 }
@@ -157,7 +157,7 @@ Standard_Boolean GeomFill_FunctionGuide::Value(const math_Vector& X, math_Vector
 Standard_Boolean GeomFill_FunctionGuide::Derivatives(const math_Vector& X, math_Matrix& D)
 {
   Point3d P, P1;
-  gp_Vec DP, DP1U, DP1V;
+  Vector3d DP, DP1U, DP1V;
 
   TheGuide->D1(X(1), P, DP);
   TheSurface->D1(X(2), X(3), P1, DP1U, DP1V);
@@ -182,7 +182,7 @@ Standard_Boolean GeomFill_FunctionGuide::Values(const math_Vector& X,
                                                 math_Matrix&       D)
 {
   Point3d P, P1;
-  gp_Vec DP, DP1U, DP1V;
+  Vector3d DP, DP1U, DP1V;
 
   TheGuide->D1(X(1), P, DP);                  // derivee de la generatrice
   TheSurface->D1(X(2), X(3), P1, DP1U, DP1V); // derivee de la new surface
@@ -210,7 +210,7 @@ Standard_Boolean GeomFill_FunctionGuide::DerivT(const math_Vector& X,
                                                 math_Vector&       F)
 {
   Point3d P;
-  gp_Vec DS;
+  Vector3d DS;
   DSDT(X(2), X(3), DCentre, DDir, DS);
 
   TheCurve->D0(X(1), P);
@@ -230,7 +230,7 @@ void GeomFill_FunctionGuide::DSDT(const Standard_Real U,
                                   const Standard_Real V,
                                   const gp_XYZ&       DC,
                                   const gp_XYZ&       DDir,
-                                  gp_Vec&             DS) const
+                                  Vector3d&             DS) const
 {
   // C origine sur l'axe de revolution
   // Vdir vecteur unitaire definissant la direction de l'axe de revolution
@@ -307,7 +307,7 @@ void GeomFill_FunctionGuide::DSDT(const Standard_Real U,
                           math_Matrix& D)
 {
   Point3d P1,P2;
-  gp_Vec DP1,DP2,DP2U,DP2V,DP1U,DP1V;
+  Vector3d DP1,DP2,DP2U,DP2V,DP1U,DP1V;
 
   TheCurve->D1(R(1), P1, DP1); // guide
   TheCurve->D1(X0(1), P2, DP2);
@@ -337,8 +337,8 @@ void GeomFill_FunctionGuide::DSDT(const Standard_Real U,
                           GeomFill_Tensor& T)
 {
   Point3d P,P1;
-  gp_Vec DP,D2P,DPU,DPV;
-  gp_Vec D2PU, D2PV, D2PUV;
+  Vector3d DP,D2P,DPU,DPV;
+  Vector3d D2PU, D2PV, D2PUV;
 
   TheCurve->D2(X(1), P1, DP, D2P);
   TheSurface->D2(X(2), X(3), P, DPU, DPV, D2PU, D2PV, D2PUV);

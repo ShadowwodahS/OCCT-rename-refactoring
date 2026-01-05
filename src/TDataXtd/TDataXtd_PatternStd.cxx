@@ -212,13 +212,13 @@ Standard_Integer TDataXtd_PatternStd::NbTrsfs() const
 void TDataXtd_PatternStd::ComputeTrsfs(TDataXtd_Array1OfTrsf& Trsfs) const
 {
   Standard_Integer nb = 0;
-  gp_Trsf          trsf;
+  Transform3d          trsf;
 
   if (mySignature < 5)
   {
 
     // recover direction and step
-    gp_Ax1 axis1;
+    Axis3d axis1;
     TDataXtd_Geometry::Axis(myAxis1, axis1);
     if (myAxis1Reversed)
       axis1.Reverse();
@@ -229,7 +229,7 @@ void TDataXtd_PatternStd::ComputeTrsfs(TDataXtd_Array1OfTrsf& Trsfs) const
     {
       if (mySignature != 2)
       {
-        gp_Vec vec(axis1.Direction());
+        Vector3d vec(axis1.Direction());
         vec *= (value1 * (i - 1));
         trsf.SetTranslation(vec);
       }
@@ -243,7 +243,7 @@ void TDataXtd_PatternStd::ComputeTrsfs(TDataXtd_Array1OfTrsf& Trsfs) const
     if (mySignature == 3 || mySignature == 4)
     {
       // recover direction and step
-      gp_Ax1 axis2;
+      Axis3d axis2;
       TDataXtd_Geometry::Axis(myAxis2, axis2);
       if (myAxis2Reversed)
         axis2.Reverse();
@@ -252,10 +252,10 @@ void TDataXtd_PatternStd::ComputeTrsfs(TDataXtd_Array1OfTrsf& Trsfs) const
 
       for (Standard_Integer j = 2; j <= myNb2->Get(); j++)
       {
-        gp_Trsf trsf2;
+        Transform3d trsf2;
         if (mySignature == 3)
         {
-          gp_Vec vec(axis2.Direction());
+          Vector3d vec(axis2.Direction());
           vec *= (value2 * (j - 1));
           trsf2.SetTranslation(vec);
         }

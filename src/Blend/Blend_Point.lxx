@@ -60,7 +60,7 @@ inline Standard_Boolean Blend_Point::IsTangencyPoint() const
   return istgt;
 }
 
-inline const gp_Vec& Blend_Point::TangentOnS1() const
+inline const Vector3d& Blend_Point::TangentOnS1() const
 {
   if (istgt)
   {
@@ -69,7 +69,7 @@ inline const gp_Vec& Blend_Point::TangentOnS1() const
   return tg1;
 }
 
-inline const gp_Vec& Blend_Point::TangentOnS2() const
+inline const Vector3d& Blend_Point::TangentOnS2() const
 {
   if (istgt)
   {
@@ -125,7 +125,7 @@ inline Standard_Real Blend_Point::ParameterOnC() const
   return pc2;
 }
 
-inline const gp_Vec& Blend_Point::TangentOnS() const
+inline const Vector3d& Blend_Point::TangentOnS() const
 {
   if (istgt || !hass1)
   {
@@ -134,7 +134,7 @@ inline const gp_Vec& Blend_Point::TangentOnS() const
   return tg1;
 }
 
-inline const gp_Vec& Blend_Point::TangentOnC() const
+inline const Vector3d& Blend_Point::TangentOnC() const
 {
   if (istgt)
   {
@@ -180,7 +180,7 @@ inline Standard_Real Blend_Point::ParameterOnC2() const
   return pc2;
 }
 
-inline const gp_Vec& Blend_Point::TangentOnC1() const
+inline const Vector3d& Blend_Point::TangentOnC1() const
 {
   if (istgt || !hass1)
   {
@@ -189,7 +189,7 @@ inline const gp_Vec& Blend_Point::TangentOnC1() const
   return tg1;
 }
 
-inline const gp_Vec& Blend_Point::TangentOnC2() const
+inline const Vector3d& Blend_Point::TangentOnC2() const
 {
   if (istgt)
   {

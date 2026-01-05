@@ -15,7 +15,7 @@
 
 Vrml_Transform::Vrml_Transform()
 {
-  gp_Vec tmpV(0, 0, 0);
+  Vector3d tmpV(0, 0, 0);
   myTranslation = tmpV;
 
   Vrml_SFRotation tmpSFR(0, 0, 1, 0);
@@ -38,11 +38,11 @@ Vrml_Transform::Vrml_Transform()
   myCenter = tmpV;
 }
 
-Vrml_Transform::Vrml_Transform(const gp_Vec&          aTranslation,
+Vrml_Transform::Vrml_Transform(const Vector3d&          aTranslation,
                                const Vrml_SFRotation& aRotation,
-                               const gp_Vec&          aScaleFactor,
+                               const Vector3d&          aScaleFactor,
                                const Vrml_SFRotation& aScaleOrientation,
-                               const gp_Vec&          aCenter)
+                               const Vector3d&          aCenter)
 {
   myTranslation      = aTranslation;
   myRotation         = aRotation;
@@ -51,12 +51,12 @@ Vrml_Transform::Vrml_Transform(const gp_Vec&          aTranslation,
   myCenter           = aCenter;
 }
 
-void Vrml_Transform::SetTranslation(const gp_Vec& aTranslation)
+void Vrml_Transform::SetTranslation(const Vector3d& aTranslation)
 {
   myTranslation = aTranslation;
 }
 
-gp_Vec Vrml_Transform::Translation() const
+Vector3d Vrml_Transform::Translation() const
 {
   return myTranslation;
 }
@@ -71,12 +71,12 @@ Vrml_SFRotation Vrml_Transform::Rotation() const
   return myRotation;
 }
 
-void Vrml_Transform::SetScaleFactor(const gp_Vec& aScaleFactor)
+void Vrml_Transform::SetScaleFactor(const Vector3d& aScaleFactor)
 {
   myScaleFactor = aScaleFactor;
 }
 
-gp_Vec Vrml_Transform::ScaleFactor() const
+Vector3d Vrml_Transform::ScaleFactor() const
 {
   return myScaleFactor;
 }
@@ -91,12 +91,12 @@ Vrml_SFRotation Vrml_Transform::ScaleOrientation() const
   return myScaleOrientation;
 }
 
-void Vrml_Transform::SetCenter(const gp_Vec& aCenter)
+void Vrml_Transform::SetCenter(const Vector3d& aCenter)
 {
   myCenter = aCenter;
 }
 
-gp_Vec Vrml_Transform::Center() const
+Vector3d Vrml_Transform::Center() const
 {
   return myCenter;
 }

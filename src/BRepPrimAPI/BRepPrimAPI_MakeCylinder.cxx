@@ -37,7 +37,7 @@ BRepPrimAPI_MakeCylinder::BRepPrimAPI_MakeCylinder(const Standard_Real R,
 
 //=================================================================================================
 
-BRepPrimAPI_MakeCylinder::BRepPrimAPI_MakeCylinder(const gp_Ax2&       Axes,
+BRepPrimAPI_MakeCylinder::BRepPrimAPI_MakeCylinder(const Frame3d&       Axes,
                                                    const Standard_Real R,
                                                    const Standard_Real H)
     : myCylinder(Axes, R, H)
@@ -46,7 +46,7 @@ BRepPrimAPI_MakeCylinder::BRepPrimAPI_MakeCylinder(const gp_Ax2&       Axes,
 
 //=================================================================================================
 
-BRepPrimAPI_MakeCylinder::BRepPrimAPI_MakeCylinder(const gp_Ax2&       Axes,
+BRepPrimAPI_MakeCylinder::BRepPrimAPI_MakeCylinder(const Frame3d&       Axes,
                                                    const Standard_Real R,
                                                    const Standard_Real H,
                                                    const Standard_Real Angle)

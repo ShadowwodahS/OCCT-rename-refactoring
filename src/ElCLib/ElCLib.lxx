@@ -37,19 +37,19 @@ inline Point3d ElCLib::Value(const Standard_Real U, const gp_Circ& C)
   return ElCLib::CircleValue(U, C.Position(), C.Radius());
 }
 
-inline void ElCLib::D1(const Standard_Real U, const gp_Lin& L, Point3d& P, gp_Vec& V1)
+inline void ElCLib::D1(const Standard_Real U, const gp_Lin& L, Point3d& P, Vector3d& V1)
 {
 
   ElCLib::LineD1(U, L.Position(), P, V1);
 }
 
-inline void ElCLib::D1(const Standard_Real U, const gp_Circ& C, Point3d& P, gp_Vec& V1)
+inline void ElCLib::D1(const Standard_Real U, const gp_Circ& C, Point3d& P, Vector3d& V1)
 {
 
   ElCLib::CircleD1(U, C.Position(), C.Radius(), P, V1);
 }
 
-inline void ElCLib::D2(const Standard_Real U, const gp_Circ& C, Point3d& P, gp_Vec& V1, gp_Vec& V2)
+inline void ElCLib::D2(const Standard_Real U, const gp_Circ& C, Point3d& P, Vector3d& V1, Vector3d& V2)
 {
 
   ElCLib::CircleD2(U, C.Position(), C.Radius(), P, V1, V2);
@@ -58,9 +58,9 @@ inline void ElCLib::D2(const Standard_Real U, const gp_Circ& C, Point3d& P, gp_V
 inline void ElCLib::D3(const Standard_Real U,
                        const gp_Circ&      C,
                        Point3d&             P,
-                       gp_Vec&             V1,
-                       gp_Vec&             V2,
-                       gp_Vec&             V3)
+                       Vector3d&             V1,
+                       Vector3d&             V2,
+                       Vector3d&             V3)
 {
 
   ElCLib::CircleD3(U, C.Position(), C.Radius(), P, V1, V2, V3);
@@ -71,13 +71,13 @@ inline Point3d ElCLib::Value(const Standard_Real U, const gp_Elips& E)
   return ElCLib::EllipseValue(U, E.Position(), E.MajorRadius(), E.MinorRadius());
 }
 
-inline void ElCLib::D1(const Standard_Real U, const gp_Elips& E, Point3d& P, gp_Vec& V1)
+inline void ElCLib::D1(const Standard_Real U, const gp_Elips& E, Point3d& P, Vector3d& V1)
 {
 
   ElCLib::EllipseD1(U, E.Position(), E.MajorRadius(), E.MinorRadius(), P, V1);
 }
 
-inline void ElCLib::D2(const Standard_Real U, const gp_Elips& E, Point3d& P, gp_Vec& V1, gp_Vec& V2)
+inline void ElCLib::D2(const Standard_Real U, const gp_Elips& E, Point3d& P, Vector3d& V1, Vector3d& V2)
 {
 
   ElCLib::EllipseD2(U, E.Position(), E.MajorRadius(), E.MinorRadius(), P, V1, V2);
@@ -86,9 +86,9 @@ inline void ElCLib::D2(const Standard_Real U, const gp_Elips& E, Point3d& P, gp_
 inline void ElCLib::D3(const Standard_Real U,
                        const gp_Elips&     E,
                        Point3d&             P,
-                       gp_Vec&             V1,
-                       gp_Vec&             V2,
-                       gp_Vec&             V3)
+                       Vector3d&             V1,
+                       Vector3d&             V2,
+                       Vector3d&             V3)
 {
 
   ElCLib::EllipseD3(U, E.Position(), E.MajorRadius(), E.MinorRadius(), P, V1, V2, V3);
@@ -100,13 +100,13 @@ inline Point3d ElCLib::Value(const Standard_Real U, const gp_Hypr& H)
   return ElCLib::HyperbolaValue(U, H.Position(), H.MajorRadius(), H.MinorRadius());
 }
 
-inline void ElCLib::D1(const Standard_Real U, const gp_Hypr& H, Point3d& P, gp_Vec& V1)
+inline void ElCLib::D1(const Standard_Real U, const gp_Hypr& H, Point3d& P, Vector3d& V1)
 {
 
   ElCLib::HyperbolaD1(U, H.Position(), H.MajorRadius(), H.MinorRadius(), P, V1);
 }
 
-inline void ElCLib::D2(const Standard_Real U, const gp_Hypr& H, Point3d& P, gp_Vec& V1, gp_Vec& V2)
+inline void ElCLib::D2(const Standard_Real U, const gp_Hypr& H, Point3d& P, Vector3d& V1, Vector3d& V2)
 {
 
   ElCLib::HyperbolaD2(U, H.Position(), H.MajorRadius(), H.MinorRadius(), P, V1, V2);
@@ -115,9 +115,9 @@ inline void ElCLib::D2(const Standard_Real U, const gp_Hypr& H, Point3d& P, gp_V
 inline void ElCLib::D3(const Standard_Real U,
                        const gp_Hypr&      H,
                        Point3d&             P,
-                       gp_Vec&             V1,
-                       gp_Vec&             V2,
-                       gp_Vec&             V3)
+                       Vector3d&             V1,
+                       Vector3d&             V2,
+                       Vector3d&             V3)
 {
 
   ElCLib::HyperbolaD3(U, H.Position(), H.MajorRadius(), H.MinorRadius(), P, V1, V2, V3);
@@ -129,7 +129,7 @@ inline Point3d ElCLib::Value(const Standard_Real U, const gp_Parab& Prb)
   return ElCLib::ParabolaValue(U, Prb.Position(), Prb.Focal());
 }
 
-inline void ElCLib::D1(const Standard_Real U, const gp_Parab& Prb, Point3d& P, gp_Vec& V1)
+inline void ElCLib::D1(const Standard_Real U, const gp_Parab& Prb, Point3d& P, Vector3d& V1)
 {
 
   ElCLib::ParabolaD1(U, Prb.Position(), Prb.Focal(), P, V1);
@@ -138,8 +138,8 @@ inline void ElCLib::D1(const Standard_Real U, const gp_Parab& Prb, Point3d& P, g
 inline void ElCLib::D2(const Standard_Real U,
                        const gp_Parab&     Prb,
                        Point3d&             P,
-                       gp_Vec&             V1,
-                       gp_Vec&             V2)
+                       Vector3d&             V1,
+                       Vector3d&             V2)
 {
 
   ElCLib::ParabolaD2(U, Prb.Position(), Prb.Focal(), P, V1, V2);
@@ -277,31 +277,31 @@ inline void ElCLib::D3(const Standard_Real U,
   ElCLib::HyperbolaD3(U, H.Axis(), H.MajorRadius(), H.MinorRadius(), P, V1, V2, V3);
 }
 
-inline gp_Vec ElCLib::DN(const Standard_Real U, const gp_Lin& L, const Standard_Integer N)
+inline Vector3d ElCLib::DN(const Standard_Real U, const gp_Lin& L, const Standard_Integer N)
 {
 
   return ElCLib::LineDN(U, L.Position(), N);
 }
 
-inline gp_Vec ElCLib::DN(const Standard_Real U, const gp_Circ& C, const Standard_Integer N)
+inline Vector3d ElCLib::DN(const Standard_Real U, const gp_Circ& C, const Standard_Integer N)
 {
 
   return ElCLib::CircleDN(U, C.Position(), C.Radius(), N);
 }
 
-inline gp_Vec ElCLib::DN(const Standard_Real U, const gp_Elips& E, const Standard_Integer N)
+inline Vector3d ElCLib::DN(const Standard_Real U, const gp_Elips& E, const Standard_Integer N)
 {
 
   return ElCLib::EllipseDN(U, E.Position(), E.MajorRadius(), E.MinorRadius(), N);
 }
 
-inline gp_Vec ElCLib::DN(const Standard_Real U, const gp_Hypr& H, const Standard_Integer N)
+inline Vector3d ElCLib::DN(const Standard_Real U, const gp_Hypr& H, const Standard_Integer N)
 {
 
   return ElCLib::HyperbolaDN(U, H.Position(), H.MajorRadius(), H.MinorRadius(), N);
 }
 
-inline gp_Vec ElCLib::DN(const Standard_Real U, const gp_Parab& Prb, const Standard_Integer N)
+inline Vector3d ElCLib::DN(const Standard_Real U, const gp_Parab& Prb, const Standard_Integer N)
 {
 
   return ElCLib::ParabolaDN(U, Prb.Position(), Prb.Focal(), N);

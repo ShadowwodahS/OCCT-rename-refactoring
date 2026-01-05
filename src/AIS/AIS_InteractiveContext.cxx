@@ -2500,7 +2500,7 @@ AIS_StatusOfDetection AIS_InteractiveContext::MoveTo(const Standard_Integer  the
 
 //=================================================================================================
 
-AIS_StatusOfDetection AIS_InteractiveContext::MoveTo(const gp_Ax1&           theAxis,
+AIS_StatusOfDetection AIS_InteractiveContext::MoveTo(const Axis3d&           theAxis,
                                                      const Handle(V3d_View)& theView,
                                                      const Standard_Boolean  theToRedrawOnUpdate)
 {

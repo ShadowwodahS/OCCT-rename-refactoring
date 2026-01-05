@@ -23,7 +23,7 @@
 #include <Standard_Integer.hxx>
 #include <gp_XYZ.hxx>
 #include <IGESData_IGESEntity.hxx>
-class gp_Vec;
+class Vector3d;
 
 class IGESGeom_OffsetCurve;
 DEFINE_STANDARD_HANDLE(IGESGeom_OffsetCurve, IGESData_IGESEntity)
@@ -125,11 +125,11 @@ public:
   Standard_EXPORT Standard_Real ArcLength2() const;
 
   //! returns unit vector normal to plane containing curve to be offset
-  Standard_EXPORT gp_Vec NormalVector() const;
+  Standard_EXPORT Vector3d NormalVector() const;
 
   //! returns unit vector normal to plane containing curve to be offset
   //! after applying Transf. Matrix
-  Standard_EXPORT gp_Vec TransformedNormalVector() const;
+  Standard_EXPORT Vector3d TransformedNormalVector() const;
 
   Standard_EXPORT void Parameters(Standard_Real& StartParam, Standard_Real& EndParam) const;
 

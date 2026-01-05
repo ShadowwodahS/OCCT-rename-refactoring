@@ -28,7 +28,7 @@
 #include <Standard_ConstructionError.hxx>
 #include <Standard_Dump.hxx>
 
-gp_Ax2::gp_Ax2(const Point3d& P, const gp_Dir& V)
+Frame3d::Frame3d(const Point3d& P, const Dir3d& V)
     : axis(P, V)
 {
   Standard_Real A    = V.X();
@@ -43,7 +43,7 @@ gp_Ax2::gp_Ax2(const Point3d& P, const gp_Dir& V)
   Standard_Real Cabs = C;
   if (Cabs < 0)
     Cabs = -Cabs;
-  gp_Dir D;
+  Dir3d D;
 
   //  pour determiner l axe X :
   //  on dit que le produit scalaire Vx.V = 0.
@@ -74,7 +74,7 @@ gp_Ax2::gp_Ax2(const Point3d& P, const gp_Dir& V)
   SetXDirection(D);
 }
 
-void gp_Ax2::Mirror(const Point3d& P)
+void Frame3d::Mirror(const Point3d& P)
 {
   Point3d Temp = axis.Location();
   Temp.Mirror(P);
@@ -83,14 +83,14 @@ void gp_Ax2::Mirror(const Point3d& P)
   vydir.Reverse();
 }
 
-gp_Ax2 gp_Ax2::Mirrored(const Point3d& P) const
+Frame3d Frame3d::Mirrored(const Point3d& P) const
 {
-  gp_Ax2 Temp = *this;
+  Frame3d Temp = *this;
   Temp.Mirror(P);
   return Temp;
 }
 
-void gp_Ax2::Mirror(const gp_Ax1& A1)
+void Frame3d::Mirror(const Axis3d& A1)
 {
   vydir.Mirror(A1);
   vxdir.Mirror(A1);
@@ -100,14 +100,14 @@ void gp_Ax2::Mirror(const gp_Ax1& A1)
   axis.SetDirection(vxdir.Crossed(vydir));
 }
 
-gp_Ax2 gp_Ax2::Mirrored(const gp_Ax1& A1) const
+Frame3d Frame3d::Mirrored(const Axis3d& A1) const
 {
-  gp_Ax2 Temp = *this;
+  Frame3d Temp = *this;
   Temp.Mirror(A1);
   return Temp;
 }
 
-void gp_Ax2::Mirror(const gp_Ax2& A2)
+void Frame3d::Mirror(const Frame3d& A2)
 {
   vydir.Mirror(A2);
   vxdir.Mirror(A2);
@@ -117,14 +117,14 @@ void gp_Ax2::Mirror(const gp_Ax2& A2)
   axis.SetDirection(vxdir.Crossed(vydir));
 }
 
-gp_Ax2 gp_Ax2::Mirrored(const gp_Ax2& A2) const
+Frame3d Frame3d::Mirrored(const Frame3d& A2) const
 {
-  gp_Ax2 Temp = *this;
+  Frame3d Temp = *this;
   Temp.Mirror(A2);
   return Temp;
 }
 
-void gp_Ax2::DumpJson(Standard_OStream& theOStream, Standard_Integer) const {
+void Frame3d::DumpJson(Standard_OStream& theOStream, Standard_Integer) const {
   OCCT_DUMP_VECTOR_CLASS(theOStream,
                          "Location",
                          3,
@@ -140,7 +140,7 @@ void gp_Ax2::DumpJson(Standard_OStream& theOStream, Standard_Integer) const {
     OCCT_DUMP_VECTOR_CLASS(theOStream, "XDirection", 3, vxdir.X(), vxdir.Y(), vxdir.Z())
       OCCT_DUMP_VECTOR_CLASS(theOStream, "YDirection", 3, vydir.X(), vydir.Y(), vydir.Z())}
 
-Standard_Boolean gp_Ax2::InitFromJson(const Standard_SStream& theSStream,
+Standard_Boolean Frame3d::InitFromJson(const Standard_SStream& theSStream,
                                       Standard_Integer&       theStreamPos)
 {
   Standard_Integer        aPos       = theStreamPos;
@@ -181,9 +181,9 @@ Standard_Boolean gp_Ax2::InitFromJson(const Standard_SStream& theSStream,
                          &anYDir.ChangeCoord(2),
                          &anYDir.ChangeCoord(3))
 
-  axis.SetDirection(gp_Dir(aDir));
-  vxdir = gp_Dir(aXDir);
-  vydir = gp_Dir(anYDir);
+  axis.SetDirection(Dir3d(aDir));
+  vxdir = Dir3d(aXDir);
+  vydir = Dir3d(anYDir);
 
   if (!Direction().IsEqual(aDir, Precision::Confusion()))
     return Standard_False;

@@ -86,10 +86,10 @@ Standard_Boolean Extrema_FuncPSNorm::Value(const math_Vector& UV, math_Vector& F
     throw Standard_TypeMismatch();
   myU = UV(1);
   myV = UV(2);
-  gp_Vec Dus, Dvs;
+  Vector3d Dus, Dvs;
   myS->D1(myU, myV, myPs, Dus, Dvs);
 
-  gp_Vec PPs(myP, myPs);
+  Vector3d PPs(myP, myPs);
 
   F(1) = PPs.Dot(Dus);
   F(2) = PPs.Dot(Dvs);
@@ -113,10 +113,10 @@ Standard_Boolean Extrema_FuncPSNorm::Values(const math_Vector& UV, math_Vector& 
     throw Standard_TypeMismatch();
   myU = UV(1);
   myV = UV(2);
-  gp_Vec Dus, Dvs, Duus, Dvvs, Duvs;
+  Vector3d Dus, Dvs, Duus, Dvvs, Duvs;
   myS->D2(myU, myV, myPs, Dus, Dvs, Duus, Dvvs, Duvs);
 
-  gp_Vec PPs(myP, myPs);
+  Vector3d PPs(myP, myPs);
 
   Df(1, 1) = Dus.SquareMagnitude() + PPs.Dot(Duus);
   Df(1, 2) = Dvs.Dot(Dus) + PPs.Dot(Duvs);

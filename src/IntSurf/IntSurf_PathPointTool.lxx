@@ -40,7 +40,7 @@ inline Standard_Boolean IntSurf_PathPointTool::IsTangent(const IntSurf_PathPoint
   return PStart.IsTangent();
 }
 
-inline gp_Vec IntSurf_PathPointTool::Direction3d(const IntSurf_PathPoint& PStart)
+inline Vector3d IntSurf_PathPointTool::Direction3d(const IntSurf_PathPoint& PStart)
 {
   return PStart.Direction3d();
 }

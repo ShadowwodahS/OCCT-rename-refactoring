@@ -28,8 +28,8 @@
 #include <BSplCLib.hxx>
 
 class Point3d;
-class gp_Vec;
-class gp_Trsf;
+class Vector3d;
+class Transform3d;
 class Geom_Geometry;
 
 class Geom_BezierCurve;
@@ -236,12 +236,12 @@ public:
 
   Standard_EXPORT void D0(const Standard_Real U, Point3d& P) const Standard_OVERRIDE;
 
-  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, gp_Vec& V1) const Standard_OVERRIDE;
+  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, Vector3d& V1) const Standard_OVERRIDE;
 
   Standard_EXPORT void D2(const Standard_Real U,
                           Point3d&             P,
-                          gp_Vec&             V1,
-                          gp_Vec&             V2) const Standard_OVERRIDE;
+                          Vector3d&             V1,
+                          Vector3d&             V2) const Standard_OVERRIDE;
 
   //! For this Bezier curve, computes
   //! - the point P of parameter U, or
@@ -252,15 +252,15 @@ public:
   //! Note: the parameter U can be outside the bounds of the curve.
   Standard_EXPORT void D3(const Standard_Real U,
                           Point3d&             P,
-                          gp_Vec&             V1,
-                          gp_Vec&             V2,
-                          gp_Vec&             V3) const Standard_OVERRIDE;
+                          Vector3d&             V1,
+                          Vector3d&             V2,
+                          Vector3d&             V3) const Standard_OVERRIDE;
 
   //! For the point of parameter U of this Bezier curve,
   //! computes the vector corresponding to the Nth derivative.
   //! Note: the parameter U can be outside the bounds of the curve.
   //! Exceptions Standard_RangeError if N is less than 1.
-  Standard_EXPORT gp_Vec DN(const Standard_Real    U,
+  Standard_EXPORT Vector3d DN(const Standard_Real    U,
                             const Standard_Integer N) const Standard_OVERRIDE;
 
   //! Returns Value (U=0.), it is the first control point of the curve.
@@ -310,7 +310,7 @@ public:
   }
 
   //! Applies the transformation T to this Bezier curve.
-  Standard_EXPORT void Transform(const gp_Trsf& T) Standard_OVERRIDE;
+  Standard_EXPORT void Transform(const Transform3d& T) Standard_OVERRIDE;
 
   //! Returns the value of the maximum polynomial degree
   //! of any Geom_BezierCurve curve. This value is 25.

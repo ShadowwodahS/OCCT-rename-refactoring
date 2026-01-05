@@ -601,7 +601,7 @@ Handle(Geom_BSplineSurface) GeomConvert::SurfaceToBSplineSurface(const Handle(Ge
       // Compute the poles.
       TColgp_Array2OfPnt   NewPoles(1, NbUPoles, 1, NbVPoles);
       TColStd_Array2OfReal NewWeights(1, NbUPoles, 1, NbVPoles);
-      gp_Trsf              Trsf;
+      Transform3d              Trsf;
 
       for (i = 1; i <= NbUPoles; i += 2)
       {
@@ -671,9 +671,9 @@ Handle(Geom_BSplineSurface) GeomConvert::SurfaceToBSplineSurface(const Handle(Ge
       TColStd_Array1OfInteger VMults(1, 2);
       VMults.Init(2);
 
-      gp_Vec D(Extru->Direction());
-      gp_Vec DV1 = VFirst * D;
-      gp_Vec DV2 = VLast * D;
+      Vector3d D(Extru->Direction());
+      Vector3d DV1 = VFirst * D;
+      Vector3d DV2 = VLast * D;
       for (Standard_Integer i = 1; i <= C->NbPoles(); i++)
       {
         Poles(i, 1)   = C->Pole(i).Translated(DV1);
@@ -838,7 +838,7 @@ Handle(Geom_BSplineSurface) GeomConvert::SurfaceToBSplineSurface(const Handle(Ge
       // Compute the poles.
       TColgp_Array2OfPnt   NewPoles(1, NbUPoles, 1, NbVPoles);
       TColStd_Array2OfReal NewWeights(1, NbUPoles, 1, NbVPoles);
-      gp_Trsf              Trsf;
+      Transform3d              Trsf;
 
       for (i = 1; i <= NbUPoles; i += 2)
       {
