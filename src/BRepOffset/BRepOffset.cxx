@@ -204,7 +204,7 @@ Handle(Geom_Surface) BRepOffset::CollapseSingularities(const Handle(Geom_Surface
   }
 
   // find singularities (vertices of degenerated edges)
-  NCollection_List<gp_Pnt>        aDegenPnt;
+  NCollection_List<Point3d>        aDegenPnt;
   NCollection_List<Standard_Real> aDegenTol;
   for (TopExp_Explorer anExp(theFace, TopAbs_EDGE); anExp.More(); anExp.Next())
   {
@@ -257,7 +257,7 @@ Handle(Geom_Surface) BRepOffset::CollapseSingularities(const Handle(Geom_Surface
           aPoles(RowStart[iSide] + iPole * RowStep[iSide], ColStart[iSide] + iPole * ColStep[iSide])
             .XYZ();
       }
-      gp_Pnt aCenter(aSum / NbSteps[iSide]);
+      Point3d aCenter(aSum / NbSteps[iSide]);
 
       // determine if all poles of the side fit into:
       Standard_Boolean isCollapsed = Standard_True; // aCenter precisely (with gp::Resolution())
@@ -269,7 +269,7 @@ Handle(Geom_Surface) BRepOffset::CollapseSingularities(const Handle(Geom_Surface
         isDegenerated[iDegen] = Standard_True;
       for (int iPole = 0; iPole < NbSteps[iSide]; iPole++)
       {
-        const gp_Pnt& aPole = aPoles(RowStart[iSide] + iPole * RowStep[iSide],
+        const Point3d& aPole = aPoles(RowStart[iSide] + iPole * RowStep[iSide],
                                      ColStart[iSide] + iPole * ColStep[iSide]);
 
         // distance from CG
@@ -280,7 +280,7 @@ Handle(Geom_Surface) BRepOffset::CollapseSingularities(const Handle(Geom_Surface
           isSingular = Standard_False;
 
         // distances from degenerated points
-        NCollection_List<gp_Pnt>::Iterator        aDegPntIt(aDegenPnt);
+        NCollection_List<Point3d>::Iterator        aDegPntIt(aDegenPnt);
         NCollection_List<Standard_Real>::Iterator aDegTolIt(aDegenTol);
         for (size_t iDegen = 0; iDegen < isDegenerated.Size();
              aDegPntIt.Next(), aDegTolIt.Next(), ++iDegen)
@@ -301,7 +301,7 @@ Handle(Geom_Surface) BRepOffset::CollapseSingularities(const Handle(Geom_Surface
       if (!isSingular)
       {
         Standard_Integer                          aNbFit = 0;
-        NCollection_List<gp_Pnt>::Iterator        aDegPntIt(aDegenPnt);
+        NCollection_List<Point3d>::Iterator        aDegPntIt(aDegenPnt);
         NCollection_List<Standard_Real>::Iterator aDegTolIt(aDegenTol);
         for (size_t iDegen = 0; iDegen < isDegenerated.Size(); ++iDegen)
         {

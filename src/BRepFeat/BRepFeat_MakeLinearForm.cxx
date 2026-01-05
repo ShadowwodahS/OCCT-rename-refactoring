@@ -195,7 +195,7 @@ void BRepFeat_MakeLinearForm::Init(const TopoDS_Shape&       Sbase,
 
   TopoDS_Shape U;
   U.Nullify();
-  gp_Pnt        FirstCorner, LastCorner;
+  Point3d        FirstCorner, LastCorner;
   Standard_Real bnd = HeightMax(mySbase, U, FirstCorner, LastCorner);
   myBnd             = bnd;
 
@@ -255,7 +255,7 @@ void BRepFeat_MakeLinearForm::Init(const TopoDS_Shape&       Sbase,
   }
 
   // ---Proofing Point for the side of the wire to be filled - side material
-  gp_Pnt CheckPnt = CheckPoint(FirstEdge, bnd / 10., myPln);
+  Point3d CheckPnt = CheckPoint(FirstEdge, bnd / 10., myPln);
 
   //  Standard_Real f, l;
 
@@ -296,14 +296,14 @@ void BRepFeat_MakeLinearForm::Init(const TopoDS_Shape&       Sbase,
   // is too expensive - improve
   if (Sliding)
   {
-    gp_Pnt p1(myFirstPnt.X() + myDir.X(), myFirstPnt.Y() + myDir.Y(), myFirstPnt.Z() + myDir.Z());
+    Point3d p1(myFirstPnt.X() + myDir.X(), myFirstPnt.Y() + myDir.Y(), myFirstPnt.Z() + myDir.Z());
     BRepLib_MakeEdge  ee1(myFirstPnt, p1);
     BRepExtrema_ExtCF ext1(ee1, FirstFace);
     if (ext1.NbExt() == 1
         && ext1.SquareDistance(1)
              <= BRep_Tool::Tolerance(FirstFace) * BRep_Tool::Tolerance(FirstFace))
     {
-      gp_Pnt p2(myLastPnt.X() + myDir.X(), myLastPnt.Y() + myDir.Y(), myLastPnt.Z() + myDir.Z());
+      Point3d p2(myLastPnt.X() + myDir.X(), myLastPnt.Y() + myDir.Y(), myLastPnt.Z() + myDir.Z());
       BRepLib_MakeEdge  ee2(myLastPnt, p2);
       BRepExtrema_ExtCF ext2(ee2, LastFace); // ExtCF : curves and surfaces
       if (ext2.NbExt() == 1
@@ -327,7 +327,7 @@ void BRepFeat_MakeLinearForm::Init(const TopoDS_Shape&       Sbase,
   {
     if (Sliding)
     {
-      gp_Pnt            p1(myFirstPnt.X() + myDir1.X(),
+      Point3d            p1(myFirstPnt.X() + myDir1.X(),
                 myFirstPnt.Y() + myDir1.Y(),
                 myFirstPnt.Z() + myDir1.Z());
       BRepLib_MakeEdge  ee1(myFirstPnt, p1);
@@ -336,7 +336,7 @@ void BRepFeat_MakeLinearForm::Init(const TopoDS_Shape&       Sbase,
           && ext1.SquareDistance(1)
                <= BRep_Tool::Tolerance(FirstFace) * BRep_Tool::Tolerance(FirstFace))
       {
-        gp_Pnt            p2(myLastPnt.X() + myDir1.X(),
+        Point3d            p2(myLastPnt.X() + myDir1.X(),
                   myLastPnt.Y() + myDir1.Y(),
                   myLastPnt.Z() + myDir1.Z());
         BRepLib_MakeEdge  ee2(myLastPnt, p2);
@@ -445,7 +445,7 @@ void BRepFeat_MakeLinearForm::Init(const TopoDS_Shape&       Sbase,
         Standard_Real      f, l;
         Handle(Geom_Curve) cc = BRep_Tool::Curve(E, f, l);
         cc                    = new Geom_TrimmedCurve(cc, f, l);
-        gp_Pnt pt;
+        Point3d pt;
         if (!FirstEdge.IsSame(LastEdge))
         {
           pt = BRep_Tool::Pnt(TopExp::LastVertex(E, Standard_True));
@@ -533,8 +533,8 @@ void BRepFeat_MakeLinearForm::Init(const TopoDS_Shape&       Sbase,
         else
         {
           Handle(Geom_Curve) cc = BRep_Tool::Curve(E, f, l);
-          gp_Pnt             pf = BRep_Tool::Pnt(TopExp::FirstVertex(E, Standard_True));
-          gp_Pnt             pl = myLastPnt;
+          Point3d             pf = BRep_Tool::Pnt(TopExp::FirstVertex(E, Standard_True));
+          Point3d             pl = myLastPnt;
           TopoDS_Edge        ee;
           if (thePreviousEdge.IsNull())
           {
@@ -566,7 +566,7 @@ void BRepFeat_MakeLinearForm::Init(const TopoDS_Shape&       Sbase,
     Standard_Boolean                   FirstOK = Standard_False;
     Standard_Boolean                   LastOK  = Standard_False;
 
-    gp_Pnt               theLastPnt = myLastPnt;
+    Point3d               theLastPnt = myLastPnt;
     Standard_Integer     sens       = 0;
     TopoDS_Edge          theEdge, theLEdge, theFEdge;
     Standard_Integer     counter1 = counter;
@@ -575,7 +575,7 @@ void BRepFeat_MakeLinearForm::Init(const TopoDS_Shape&       Sbase,
     while (!FirstOK)
     {
       const TopoDS_Edge&        edg = TopoDS::Edge(it.Value());
-      gp_Pnt                    fp, lp;
+      Point3d                    fp, lp;
       Standard_Real             f, l;
       Handle(Geom_Curve)        ccc = BRep_Tool::Curve(edg, f, l);
       Handle(Geom_TrimmedCurve) cc  = new Geom_TrimmedCurve(ccc, f, l);
@@ -1021,8 +1021,8 @@ void BRepFeat_MakeLinearForm::Perform()
 //=======================================================================
 Standard_Boolean BRepFeat_MakeLinearForm::Propagate(TopTools_ListOfShape& SliList,
                                                     const TopoDS_Face&    fac,
-                                                    const gp_Pnt&         Firstpnt,
-                                                    const gp_Pnt&         Lastpnt,
+                                                    const Point3d&         Firstpnt,
+                                                    const Point3d&         Lastpnt,
                                                     Standard_Boolean&     falseside)
 {
 #ifdef OCCT_DEBUG
@@ -1030,8 +1030,8 @@ Standard_Boolean BRepFeat_MakeLinearForm::Propagate(TopTools_ListOfShape& SliLis
   if (trc)
     std::cout << "BRepFeat_MakeLinearForm::Propagate" << std::endl;
 #endif
-  gp_Pnt Firstpoint = Firstpnt;
-  gp_Pnt Lastpoint  = Lastpnt;
+  Point3d Firstpoint = Firstpnt;
+  Point3d Lastpoint  = Lastpnt;
 
   Standard_Boolean result = Standard_True;
   TopoDS_Face      CurrentFace, saveFace;
@@ -1049,7 +1049,7 @@ Standard_Boolean BRepFeat_MakeLinearForm::Propagate(TopTools_ListOfShape& SliLis
 
   TopExp_Explorer  Ex;
   TopoDS_Edge      eb, ec;
-  gp_Pnt           p1, p2;
+  Point3d           p1, p2;
   Standard_Real    t1 = 0., t2 = 0.;
   Standard_Boolean c1f, c2f, c1l, c2l;
 
@@ -1106,7 +1106,7 @@ Standard_Boolean BRepFeat_MakeLinearForm::Propagate(TopTools_ListOfShape& SliLis
   BRep_Builder    BB;
 
   TopoDS_Vertex Vprevious;
-  gp_Pnt        ptprev;
+  Point3d        ptprev;
   Standard_Real dp;
 
   while (!(LastOK && FirstOK))
@@ -1156,11 +1156,11 @@ Standard_Boolean BRepFeat_MakeLinearForm::Propagate(TopTools_ListOfShape& SliLis
               BRepExtrema_ExtPF perp(ve1, fac);
               if (perp.IsDone())
               {
-                gp_Pnt pe1 = perp.Point(1);
+                Point3d pe1 = perp.Point(1);
                 perp.Perform(ve2, fac);
                 if (perp.IsDone())
                 {
-                  gp_Pnt pe2 = perp.Point(1);
+                  Point3d pe2 = perp.Point(1);
                   if (pe1.Distance(pe2) <= BRep_Tool::Tolerance(rfe))
                     result = Standard_True;
                 }

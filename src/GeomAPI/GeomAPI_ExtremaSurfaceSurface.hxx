@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 #include <Extrema_ExtSS.hxx>
 class Geom_Surface;
-class gp_Pnt;
+class Point3d;
 
 //! Describes functions for computing all the extrema
 //! between two surfaces.
@@ -121,7 +121,7 @@ public:
   //! Standard_OutOfRange if Index is not in the range [
   //! 1,NbExtrema ], where NbExtrema is the
   //! number of extrema computed by this algorithm.
-  Standard_EXPORT void Points(const Standard_Integer Index, gp_Pnt& P1, gp_Pnt& P2) const;
+  Standard_EXPORT void Points(const Standard_Integer Index, Point3d& P1, Point3d& P2) const;
 
   //! Returns the parameters (U1,V1) of the point on the
   //! first surface, and (U2,V2) of the point on the second
@@ -152,7 +152,7 @@ public:
   //! the second surface, which are the ends of the
   //! shortest extremum computed by this algorithm.
   //! Exceptions StdFail_NotDone if this algorithm fails.
-  Standard_EXPORT void NearestPoints(gp_Pnt& P1, gp_Pnt& P2) const;
+  Standard_EXPORT void NearestPoints(Point3d& P1, Point3d& P2) const;
 
   //! Returns the parameters (U1,V1) of the point on the
   //! first surface and (U2,V2) of the point on the second

@@ -62,7 +62,7 @@ private:
   gp_Cylinder              myCylinder;
   gp_Sphere                mySphere;
   gp_Torus                 myTorus;
-  gp_Pnt                   myPTrim[4];
+  Point3d                   myPTrim[4];
   // Boundaries
   Standard_Real myTf;
   Standard_Real myTl;

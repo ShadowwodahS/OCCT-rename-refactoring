@@ -22,7 +22,7 @@
 
 #include <gp_XYZ.hxx>
 #include <IGESData_IGESEntity.hxx>
-class gp_Pnt;
+class Point3d;
 class gp_Dir;
 
 class IGESSolid_Block;
@@ -64,11 +64,11 @@ public:
   Standard_EXPORT Standard_Real ZLength() const;
 
   //! returns the corner point coordinates of the Block
-  Standard_EXPORT gp_Pnt Corner() const;
+  Standard_EXPORT Point3d Corner() const;
 
   //! returns the corner point coordinates of the Block after applying
   //! the TransformationMatrix
-  Standard_EXPORT gp_Pnt TransformedCorner() const;
+  Standard_EXPORT Point3d TransformedCorner() const;
 
   //! returns the direction defining the local X-axis
   Standard_EXPORT gp_Dir XAxis() const;

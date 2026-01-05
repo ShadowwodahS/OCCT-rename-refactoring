@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 class gp_Circ;
 class gp_Ax2;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 class gp_Trsf;
 class Geom_Geometry;
@@ -121,22 +121,22 @@ public:
   //! P = C + R * Cos (U) * XDir + R * Sin (U) * YDir
   //! where C is the center of the circle , XDir the XDirection and
   //! YDir the YDirection of the circle's local coordinate system.
-  Standard_EXPORT void D0(const Standard_Real U, gp_Pnt& P) const Standard_OVERRIDE;
+  Standard_EXPORT void D0(const Standard_Real U, Point3d& P) const Standard_OVERRIDE;
 
   //! Returns the point P of parameter U and the first derivative V1.
-  Standard_EXPORT void D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V1) const Standard_OVERRIDE;
+  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, gp_Vec& V1) const Standard_OVERRIDE;
 
   //! Returns the point P of parameter U, the first and second
   //! derivatives V1 and V2.
   Standard_EXPORT void D2(const Standard_Real U,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             V1,
                           gp_Vec&             V2) const Standard_OVERRIDE;
 
   //! Returns the point P of parameter u, the first second and third
   //! derivatives V1 V2 and V3.
   Standard_EXPORT void D3(const Standard_Real U,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             V1,
                           gp_Vec&             V2,
                           gp_Vec&             V3) const Standard_OVERRIDE;

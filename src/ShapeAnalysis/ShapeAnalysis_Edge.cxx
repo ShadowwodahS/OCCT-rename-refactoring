@@ -416,10 +416,10 @@ Standard_Boolean ShapeAnalysis_Edge::CheckCurve3dWithPCurve(const TopoDS_Edge&  
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::CheckPoints(const gp_Pnt&       P1A,
-                                                 const gp_Pnt&       P1B,
-                                                 const gp_Pnt&       P2A,
-                                                 const gp_Pnt&       P2B,
+Standard_Boolean ShapeAnalysis_Edge::CheckPoints(const Point3d&       P1A,
+                                                 const Point3d&       P1B,
+                                                 const Point3d&       P2A,
+                                                 const Point3d&       P2B,
                                                  const Standard_Real preci1,
                                                  const Standard_Real preci2)
 {
@@ -441,8 +441,8 @@ Standard_Boolean ShapeAnalysis_Edge::CheckVerticesWithCurve3d(const TopoDS_Edge&
 
   TopoDS_Vertex V1  = FirstVertex(edge);
   TopoDS_Vertex V2  = LastVertex(edge);
-  gp_Pnt        p1v = BRep_Tool::Pnt(V1);
-  gp_Pnt        p2v = BRep_Tool::Pnt(V2);
+  Point3d        p1v = BRep_Tool::Pnt(V1);
+  Point3d        p2v = BRep_Tool::Pnt(V2);
 
   Standard_Real      cf, cl;
   Handle(Geom_Curve) c3d;
@@ -456,7 +456,7 @@ Standard_Boolean ShapeAnalysis_Edge::CheckVerticesWithCurve3d(const TopoDS_Edge&
   if (vtx != 2)
   {
     //  1er VTX
-    gp_Pnt p13d = c3d->Value(cf);
+    Point3d p13d = c3d->Value(cf);
     // szv#4:S4163:12Mar99 optimized
     if (p1v.Distance(p13d) > (preci < 0 ? BRep_Tool::Tolerance(V1) : preci))
       myStatus |= ShapeExtend_DONE1;
@@ -465,7 +465,7 @@ Standard_Boolean ShapeAnalysis_Edge::CheckVerticesWithCurve3d(const TopoDS_Edge&
   if (vtx != 1)
   {
     //  2me VTX
-    gp_Pnt p23d = c3d->Value(cl);
+    Point3d p23d = c3d->Value(cl);
     // szv#4:S4163:12Mar99 optimized
     if (p2v.Distance(p23d) > (preci < 0 ? BRep_Tool::Tolerance(V2) : preci))
       myStatus |= ShapeExtend_DONE2;
@@ -500,8 +500,8 @@ Standard_Boolean ShapeAnalysis_Edge::CheckVerticesWithPCurve(const TopoDS_Edge& 
 
   TopoDS_Vertex V1  = FirstVertex(edge);
   TopoDS_Vertex V2  = LastVertex(edge);
-  gp_Pnt        p1v = BRep_Tool::Pnt(V1);
-  gp_Pnt        p2v = BRep_Tool::Pnt(V2);
+  Point3d        p1v = BRep_Tool::Pnt(V1);
+  Point3d        p2v = BRep_Tool::Pnt(V2);
 
   Standard_Real        cf, cl;
   Handle(Geom2d_Curve) c2d;
@@ -515,7 +515,7 @@ Standard_Boolean ShapeAnalysis_Edge::CheckVerticesWithPCurve(const TopoDS_Edge& 
   if (vtx != 2)
   { //  1er VTX
     gp_Pnt2d p1uv = c2d->Value(cf);
-    gp_Pnt   p12d = surf->Value(p1uv.X(), p1uv.Y());
+    Point3d   p12d = surf->Value(p1uv.X(), p1uv.Y());
     if (!loc.IsIdentity())
       p12d.Transform(loc.Transformation());
     // szv#4:S4163:12Mar99 optimized
@@ -526,7 +526,7 @@ Standard_Boolean ShapeAnalysis_Edge::CheckVerticesWithPCurve(const TopoDS_Edge& 
   if (vtx != 1)
   { //  2me VTX
     gp_Pnt2d p2uv = c2d->Value(cl);
-    gp_Pnt   p22d = surf->Value(p2uv.X(), p2uv.Y());
+    Point3d   p22d = surf->Value(p2uv.X(), p2uv.Y());
     if (!loc.IsIdentity())
       p22d.Transform(loc.Transformation());
     // szv#4:S4163:12Mar99 optimized
@@ -558,8 +558,8 @@ static Standard_Integer CheckVertexTolerance(const TopoDS_Edge&     edge,
 
   Standard_Real old1 = BRep_Tool::Tolerance(V1);
   Standard_Real old2 = BRep_Tool::Tolerance(V2);
-  gp_Pnt        pnt1 = BRep_Tool::Pnt(V1);
-  gp_Pnt        pnt2 = BRep_Tool::Pnt(V2);
+  Point3d        pnt1 = BRep_Tool::Pnt(V1);
+  Point3d        pnt2 = BRep_Tool::Pnt(V2);
 
   Standard_Real      a, b;
   Handle(Geom_Curve) c3d;
@@ -590,8 +590,8 @@ static Standard_Integer CheckVertexTolerance(const TopoDS_Edge&     edge,
       sae.PCurve(edge, S, L, pcurve, a, b, Standard_True);
       gp_Pnt2d p1 = pcurve->Value(a);
       gp_Pnt2d p2 = pcurve->Value(b);
-      gp_Pnt   P1 = S->Value(p1.X(), p1.Y()).Transformed(L.Transformation());
-      gp_Pnt   P2 = S->Value(p2.X(), p2.Y()).Transformed(L.Transformation());
+      Point3d   P1 = S->Value(p1.X(), p1.Y()).Transformed(L.Transformation());
+      Point3d   P2 = S->Value(p2.X(), p2.Y()).Transformed(L.Transformation());
       toler1      = Max(toler1, pnt1.SquareDistance(P1));
       toler2      = Max(toler2, pnt2.SquareDistance(P2));
     }
@@ -607,8 +607,8 @@ static Standard_Integer CheckVertexTolerance(const TopoDS_Edge&     edge,
     {
       gp_Pnt2d p1 = pcurve->Value(a);
       gp_Pnt2d p2 = pcurve->Value(b);
-      gp_Pnt   P1 = S->Value(p1.X(), p1.Y()).Transformed(L.Transformation());
-      gp_Pnt   P2 = S->Value(p2.X(), p2.Y()).Transformed(L.Transformation());
+      Point3d   P1 = S->Value(p1.X(), p1.Y()).Transformed(L.Transformation());
+      Point3d   P2 = S->Value(p2.X(), p2.Y()).Transformed(L.Transformation());
       toler1      = Max(toler1, pnt1.SquareDistance(P1));
       toler2      = Max(toler2, pnt2.SquareDistance(P2));
     }
@@ -807,7 +807,7 @@ static Standard_Boolean IsOverlapPartEdges(const TopoDS_Edge&   theFirstEdge,
   for (Standard_Real aS = theStartLength; aS <= theEndLength; aS += theStep / 2)
   {
 
-    gp_Pnt aPoint;
+    Point3d aPoint;
     if (aS <= Precision::Confusion())
     {
       TopoDS_Vertex V1 = TopExp::FirstVertex(theFirstEdge, Standard_True);

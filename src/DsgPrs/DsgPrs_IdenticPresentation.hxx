@@ -24,7 +24,7 @@
 #include <Prs3d_Presentation.hxx>
 
 class TCollection_ExtendedString;
-class gp_Pnt;
+class Point3d;
 class gp_Ax2;
 class gp_Elips;
 
@@ -38,8 +38,8 @@ public:
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Handle(Prs3d_Drawer)&       aDrawer,
                                   const TCollection_ExtendedString& aText,
-                                  const gp_Pnt&                     aPntAttach,
-                                  const gp_Pnt&                     aPntOffset);
+                                  const Point3d&                     aPntAttach,
+                                  const Point3d&                     aPntOffset);
 
   //! draws the 'identic' presentation by
   //! drawing a line between <aFAttach> and
@@ -49,9 +49,9 @@ public:
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Handle(Prs3d_Drawer)&       aDrawer,
                                   const TCollection_ExtendedString& aText,
-                                  const gp_Pnt&                     aFAttach,
-                                  const gp_Pnt&                     aSAttach,
-                                  const gp_Pnt&                     aPntOffset);
+                                  const Point3d&                     aFAttach,
+                                  const Point3d&                     aSAttach,
+                                  const Point3d&                     aPntOffset);
 
   //! draws the 'identic' presentation in the case of
   //! circles : draws an arc of circle between
@@ -63,10 +63,10 @@ public:
                                   const Handle(Prs3d_Drawer)&       aDrawer,
                                   const TCollection_ExtendedString& aText,
                                   const gp_Ax2&                     aAx2,
-                                  const gp_Pnt&                     aCenter,
-                                  const gp_Pnt&                     aFAttach,
-                                  const gp_Pnt&                     aSAttach,
-                                  const gp_Pnt&                     aPntOffset);
+                                  const Point3d&                     aCenter,
+                                  const Point3d&                     aFAttach,
+                                  const Point3d&                     aSAttach,
+                                  const Point3d&                     aPntOffset);
 
   //! draws the 'identic' presentation in the case of
   //! circles : draws an arc of circle between
@@ -77,11 +77,11 @@ public:
                                   const Handle(Prs3d_Drawer)&       aDrawer,
                                   const TCollection_ExtendedString& aText,
                                   const gp_Ax2&                     aAx2,
-                                  const gp_Pnt&                     aCenter,
-                                  const gp_Pnt&                     aFAttach,
-                                  const gp_Pnt&                     aSAttach,
-                                  const gp_Pnt&                     aPntOffset,
-                                  const gp_Pnt&                     aPntOnCirc);
+                                  const Point3d&                     aCenter,
+                                  const Point3d&                     aFAttach,
+                                  const Point3d&                     aSAttach,
+                                  const Point3d&                     aPntOffset,
+                                  const Point3d&                     aPntOnCirc);
 
   //! draws the 'identic' presentation in the case of
   //! ellipses: draws an arc of the anEllipse
@@ -91,10 +91,10 @@ public:
                                   const Handle(Prs3d_Drawer)&       aDrawer,
                                   const TCollection_ExtendedString& aText,
                                   const gp_Elips&                   anEllipse,
-                                  const gp_Pnt&                     aFAttach,
-                                  const gp_Pnt&                     aSAttach,
-                                  const gp_Pnt&                     aPntOffset,
-                                  const gp_Pnt&                     aPntOnElli);
+                                  const Point3d&                     aFAttach,
+                                  const Point3d&                     aSAttach,
+                                  const Point3d&                     aPntOffset,
+                                  const Point3d&                     aPntOnElli);
 
 protected:
 private:

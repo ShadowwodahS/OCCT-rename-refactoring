@@ -91,7 +91,7 @@ Standard_Integer GeomTools_SurfaceSet::Index(const Handle(Geom_Surface)& S) cons
 
 //=================================================================================================
 
-static void Print(const gp_Pnt& P, Standard_OStream& OS, const Standard_Boolean compact)
+static void Print(const Point3d& P, Standard_OStream& OS, const Standard_Boolean compact)
 {
   OS << P.X();
   if (!compact)
@@ -637,7 +637,7 @@ void GeomTools_SurfaceSet::Write(Standard_OStream&            OS,
 
 //=================================================================================================
 
-static Standard_IStream& operator>>(Standard_IStream& IS, gp_Pnt& P)
+static Standard_IStream& operator>>(Standard_IStream& IS, Point3d& P)
 {
   Standard_Real X = 0., Y = 0., Z = 0.;
   GeomTools::GetReal(IS, X);
@@ -663,7 +663,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, gp_Dir& D)
 
 static Standard_IStream& operator>>(Standard_IStream& IS, gp_Ax3& A3)
 {
-  gp_Pnt P(0., 0., 0.);
+  Point3d P(0., 0., 0.);
   gp_Dir A(1., 0., 0.), AX(1., 0., 0.), AY(1., 0., 0.);
   IS >> P >> A >> AX >> AY;
   gp_Ax3 ax3(P, A, AX);
@@ -769,7 +769,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_SurfaceOfL
 
 static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_SurfaceOfRevolution)& S)
 {
-  gp_Pnt P(0., 0., 0.);
+  Point3d P(0., 0., 0.);
   gp_Dir D(1., 0., 0.);
   IS >> P >> D;
   Handle(Geom_Curve) C = GeomTools_CurveSet::ReadCurve(IS);

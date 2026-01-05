@@ -168,7 +168,7 @@ Handle(Geom_Surface) GeomConvert_SurfToAnaSurf::TryCylinerCone(const Handle(Geom
   if (!firstisocirc.IsNull() || !lastisocirc.IsNull())
   {
     Standard_Real R1, R2, R3;
-    gp_Pnt        P1, P2, P3;
+    Point3d        P1, P2, P3;
     if (!firstisocirc.IsNull())
     {
       R1 = firstisocirc->Circ().Radius();
@@ -300,7 +300,7 @@ Standard_Boolean GeomConvert_SurfToAnaSurf::GetCylByLS(const Handle(TColgp_HArra
   Standard_Real aLSDist;
   aGlobSolver.Perform(aSteps, aLSDist, aStartPoint);
   //
-  gp_Pnt aLoc(aStartPoint(1), aStartPoint(2), aStartPoint(3));
+  Point3d aLoc(aStartPoint(1), aStartPoint(2), aStartPoint(3));
   thePos.SetLocation(aLoc);
   theR = aStartPoint(4);
 
@@ -477,7 +477,7 @@ Handle(Geom_Surface) GeomConvert_SurfToAnaSurf::TryCylinderByGaussField(
     return aNewSurf;
   }
   gp_Dir aNorm = aProps.Normal();
-  gp_Pnt aLoc  = aProps.Value();
+  Point3d aLoc  = aProps.Value();
   gp_Dir anAxD(anAvDir);
   gp_Vec aT(aSign * anAvR * aNorm.XYZ());
   aLoc.Translate(aT);
@@ -574,7 +574,7 @@ Handle(Geom_Surface) GeomConvert_SurfToAnaSurf::TryTorusSphere(
     return newSurface;
 
   // get centers of the major radius
-  gp_Pnt aPnt1, aPnt2, aPnt3;
+  Point3d aPnt1, aPnt2, aPnt3;
   aPnt1 = circle->Circ().Location();
   aPnt2 = aCircle1->Circ().Location();
   aPnt3 = aCircle2->Circ().Location();
@@ -600,7 +600,7 @@ Handle(Geom_Surface) GeomConvert_SurfToAnaSurf::TryTorusSphere(
     return newSurface;
 
   Standard_Real aMajorR = circ.Radius();
-  gp_Pnt        aCenter = circ.Location();
+  Point3d        aCenter = circ.Location();
   gp_Dir        aDir((aPnt1.XYZ() - aCenter.XYZ()) ^ (aPnt3.XYZ() - aCenter.XYZ()));
   gp_Ax3        anAx3(aCenter, aDir);
   newSurface = new Geom_ToroidalSurface(anAx3, aMajorR, R);
@@ -650,7 +650,7 @@ Standard_Real GeomConvert_SurfToAnaSurf::ComputeGap(const Handle(Geom_Surface)& 
   Standard_Boolean onSurface = Standard_True;
 
   Standard_Real S, T;
-  gp_Pnt        P3d, P3d2;
+  Point3d        P3d, P3d2;
 
   const Standard_Integer NP = 21;
   Standard_Real          DU, DV;

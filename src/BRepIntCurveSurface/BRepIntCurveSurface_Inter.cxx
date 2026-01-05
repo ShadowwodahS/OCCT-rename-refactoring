@@ -264,7 +264,7 @@ const TopoDS_Face& BRepIntCurveSurface_Inter::Face() const
 
 //=================================================================================================
 
-const gp_Pnt& BRepIntCurveSurface_Inter::Pnt() const
+const Point3d& BRepIntCurveSurface_Inter::Pnt() const
 {
   if (myCurrentindex == 0)
     throw StdFail_NotDone();

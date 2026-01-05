@@ -46,7 +46,7 @@ public:
   Standard_Integer NbPoints() const;
 
   //! Returns the intersection point of range Index.
-  const gp_Pnt& Value(const Standard_Integer Index) const;
+  const Point3d& Value(const Standard_Integer Index) const;
 
   //! Returns the parameter on the line of the intersection
   //! point of range Index.
@@ -60,7 +60,7 @@ protected:
 private:
   Standard_Boolean done;
   Standard_Integer nbpt;
-  gp_Pnt           thePoint[4];
+  Point3d           thePoint[4];
   Standard_Real    theParam[4];
   Standard_Real    theFi[4];
   Standard_Real    theTheta[4];

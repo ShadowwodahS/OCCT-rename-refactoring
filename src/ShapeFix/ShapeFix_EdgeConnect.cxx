@@ -197,7 +197,7 @@ void ShapeFix_EdgeConnect::Build()
         // Calculate vertex position for this curve
         Standard_Real theFParam, theLParam;
         GC->Range(theFParam, theLParam);
-        gp_Pnt thePoint;
+        Point3d thePoint;
         if (use_start)
         {
           GC->D0(theFParam, thePoint);
@@ -263,7 +263,7 @@ void ShapeFix_EdgeConnect::Build()
       theMaxDev = Precision::Confusion();
 
     // Update shared vertex
-    theBuilder.UpdateVertex(theSharedVertex, gp_Pnt(thePosition), theMaxDev);
+    theBuilder.UpdateVertex(theSharedVertex, Point3d(thePosition), theMaxDev);
 
     // Iterate on edges, adding shared vertex
     for (theLIterator.Initialize(theList); theLIterator.More(); theLIterator.Next())

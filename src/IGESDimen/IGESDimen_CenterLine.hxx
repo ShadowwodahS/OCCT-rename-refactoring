@@ -23,7 +23,7 @@
 #include <Standard_Integer.hxx>
 #include <TColgp_HArray1OfXY.hxx>
 #include <IGESData_IGESEntity.hxx>
-class gp_Pnt;
+class Point3d;
 
 class IGESDimen_CenterLine;
 DEFINE_STANDARD_HANDLE(IGESDimen_CenterLine, IGESData_IGESEntity)
@@ -61,11 +61,11 @@ public:
 
   //! returns the data point as Pnt from gp.
   //! raises exception if Index <= 0 or Index > NbPoints()
-  Standard_EXPORT gp_Pnt Point(const Standard_Integer Index) const;
+  Standard_EXPORT Point3d Point(const Standard_Integer Index) const;
 
   //! returns the data point as Pnt from gp after Transformation.
   //! raises exception if Index <= 0 or Index > NbPoints()
-  Standard_EXPORT gp_Pnt TransformedPoint(const Standard_Integer Index) const;
+  Standard_EXPORT Point3d TransformedPoint(const Standard_Integer Index) const;
 
   //! returns True if Form is 20.
   Standard_EXPORT Standard_Boolean IsCrossHair() const;

@@ -46,7 +46,7 @@ public:
 
   Standard_EXPORT Standard_Boolean Gradient(const math_Vector& X, math_Vector& G)
   {
-    gp_Pnt P1, P2;
+    Point3d P1, P2;
     gp_Vec Du1s1, Dv1s1;
     gp_Vec Du2s2, Dv2s2;
     myS1->D1(X(1), X(2), P1, Du1s1, Dv1s1);
@@ -68,7 +68,7 @@ public:
   {
     F = myS1->Value(X(1), X(2)).SquareDistance(myS2->Value(X(3), X(4)));
 
-    gp_Pnt P1, P2;
+    Point3d P1, P2;
     gp_Vec Du1s1, Dv1s1;
     gp_Vec Du2s2, Dv2s2;
     myS1->D1(X(1), X(2), P1, Du1s1, Dv1s1);
@@ -196,7 +196,7 @@ void Extrema_GenExtSS::Initialize(const Adaptor3d_Surface& S2,
   Standard_Real PasV = myv2sup - myv2min;
   Standard_Real U0   = PasU / myusample / 100.;
   Standard_Real V0   = PasV / myvsample / 100.;
-  gp_Pnt        P1;
+  Point3d        P1;
   PasU = (PasU - U0) / (myusample - 1);
   PasV = (PasV - V0) / (myvsample - 1);
   U0   = myu2min + U0 / 2.;
@@ -245,7 +245,7 @@ void Extrema_GenExtSS::Perform(const Adaptor3d_Surface& S1,
 
   Standard_Real    U1, V1, U2, V2;
   Standard_Integer NoU1, NoV1, NoU2, NoV2;
-  gp_Pnt           P1, P2;
+  Point3d           P1, P2;
 
   // Parametrage de l echantillon sur S1
 
@@ -302,9 +302,9 @@ void Extrema_GenExtSS::Perform(const Adaptor3d_Surface& S1,
   Standard_Real distmin = RealLast(), distmax = 0.0, TheDist;
 
   Standard_Integer N1Umin = 0, N1Vmin = 0, N2Umin = 0, N2Vmin = 0;
-  gp_Pnt           PP1min, PP2min;
+  Point3d           PP1min, PP2min;
   Standard_Integer N1Umax = 0, N1Vmax = 0, N2Umax = 0, N2Vmax = 0;
-  gp_Pnt           PP1max, PP2max;
+  Point3d           PP1max, PP2max;
 
   for (NoU1 = 1, U1 = U10; NoU1 <= myusample; NoU1++, U1 += PasU1)
   {

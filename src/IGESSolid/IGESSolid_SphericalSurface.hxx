@@ -23,7 +23,7 @@
 #include <IGESData_IGESEntity.hxx>
 class IGESGeom_Point;
 class IGESGeom_Direction;
-class gp_Pnt;
+class Point3d;
 
 class IGESSolid_SphericalSurface;
 DEFINE_STANDARD_HANDLE(IGESSolid_SphericalSurface, IGESData_IGESEntity)
@@ -57,7 +57,7 @@ public:
 
   //! returns the center of the spherical surface after applying
   //! TransformationMatrix
-  Standard_EXPORT gp_Pnt TransformedCenter() const;
+  Standard_EXPORT Point3d TransformedCenter() const;
 
   //! returns the radius of the spherical surface
   Standard_EXPORT Standard_Real Radius() const;

@@ -32,7 +32,7 @@ public:
   {
   }
 
-  Standard_Boolean Contains(const gp_Pnt& thePnt) const
+  Standard_Boolean Contains(const Point3d& thePnt) const
   {
     if (!myIsInitialized)
       return Standard_False;
@@ -46,7 +46,7 @@ public:
     return Standard_False;
   }
 
-  void MakePlane(const gp_Pnt& thePnt1, const gp_Pnt& thePnt2, const gp_Pnt& thePnt3)
+  void MakePlane(const Point3d& thePnt1, const Point3d& thePnt2, const Point3d& thePnt3)
   {
     const gp_XYZ& aVec1 = thePnt2.XYZ() - thePnt1.XYZ();
     const gp_XYZ& aVec2 = thePnt3.XYZ() - thePnt1.XYZ();
@@ -85,8 +85,8 @@ Select3D_InteriorSensitivePointSet::Select3D_InteriorSensitivePointSet(
   gp_XYZ            aPntSum(0.0, 0.0, 0.0);
   for (Standard_Integer aPntIter = aLowerIdx; aPntIter <= anUpperIdx; ++aPntIter)
   {
-    gp_Pnt        aPnt1, aPnt2;
-    const gp_Pnt& aPnt3 = thePoints.Value(aPntIter);
+    Point3d        aPnt1, aPnt2;
+    const Point3d& aPnt3 = thePoints.Value(aPntIter);
     aPntSum += aPnt3.XYZ();
     SelectMgr_Vec3 aCurrPnt(aPnt3.X(), aPnt3.Y(), aPnt3.Z());
     aBndBox.Add(aCurrPnt);
@@ -225,7 +225,7 @@ Standard_Real Select3D_InteriorSensitivePointSet::Center(const Standard_Integer 
                                                          const Standard_Integer theAxis) const
 {
   const Standard_Integer aPolygIdx = myPolygonsIdxs->Value(theIdx);
-  const gp_Pnt           aCOG      = myPlanarPolygons.Value(aPolygIdx)->CenterOfGeometry();
+  const Point3d           aCOG      = myPlanarPolygons.Value(aPolygIdx)->CenterOfGeometry();
   return aCOG.Coord(theAxis - 1);
 }
 
@@ -295,7 +295,7 @@ Select3D_BndBox3d Select3D_InteriorSensitivePointSet::BoundingBox()
 // purpose  : Returns center of the point set. If location transformation
 //            is set, it will be applied
 //=======================================================================
-gp_Pnt Select3D_InteriorSensitivePointSet::CenterOfGeometry() const
+Point3d Select3D_InteriorSensitivePointSet::CenterOfGeometry() const
 {
   return myCOG;
 }

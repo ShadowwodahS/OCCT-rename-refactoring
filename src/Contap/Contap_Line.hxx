@@ -91,7 +91,7 @@ private:
   Handle(Contap_TheHSequenceOfPoint) svtx;
   Handle(Adaptor2d_Curve2d)          thearc;
   Contap_IType                       typL;
-  gp_Pnt                             pt;
+  Point3d                             pt;
   gp_Dir                             dir1;
   gp_Dir                             dir2;
   Standard_Real                      rad;

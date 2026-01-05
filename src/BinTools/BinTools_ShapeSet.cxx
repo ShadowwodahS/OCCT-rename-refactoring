@@ -552,7 +552,7 @@ void BinTools_ShapeSet::WriteShape(const TopoDS_Shape& S, Standard_OStream& OS) 
       // Write the point geometry
       TopoDS_Vertex V = TopoDS::Vertex(S);
       BinTools::PutReal(OS, BRep_Tool::Tolerance(V));
-      gp_Pnt p = BRep_Tool::Pnt(V);
+      Point3d p = BRep_Tool::Pnt(V);
       OS << p;
 #ifdef OCCT_DEBUG_POS
       std::streamoff aPos;
@@ -798,7 +798,7 @@ void BinTools_ShapeSet::ReadShape(const TopAbs_ShapeEnum T, Standard_IStream& IS
         BinTools::GetReal(IS, X);
         BinTools::GetReal(IS, Y);
         BinTools::GetReal(IS, Z);
-        gp_Pnt aPnt(X, Y, Z);
+        Point3d aPnt(X, Y, Z);
         myBuilder.MakeVertex(V, aPnt, tol);
         Handle(BRep_TVertex) TV = Handle(BRep_TVertex)::DownCast(V.TShape());
 
@@ -1322,7 +1322,7 @@ void BinTools_ShapeSet::WritePolygon3D(Standard_OStream&            OS,
       const TColgp_Array1OfPnt& aNodes   = aPoly->Nodes();
       for (Standard_Integer aNodeIter = 1; aNodeIter <= aNbNodes; ++aNodeIter)
       {
-        const gp_Pnt& aPnt = aNodes.Value(aNodeIter);
+        const Point3d& aPnt = aNodes.Value(aNodeIter);
         BinTools::PutReal(OS, aPnt.X());
         BinTools::PutReal(OS, aPnt.Y());
         BinTools::PutReal(OS, aPnt.Z());
@@ -1440,7 +1440,7 @@ void BinTools_ShapeSet::WriteTriangulation(Standard_OStream&            OS,
       // write the 3d nodes
       for (Standard_Integer aNodeIter = 1; aNodeIter <= aNbNodes; ++aNodeIter)
       {
-        const gp_Pnt aPnt = aTriangulation->Node(aNodeIter);
+        const Point3d aPnt = aTriangulation->Node(aNodeIter);
         BinTools::PutReal(OS, aPnt.X());
         BinTools::PutReal(OS, aPnt.Y());
         BinTools::PutReal(OS, aPnt.Z());
@@ -1529,7 +1529,7 @@ void BinTools_ShapeSet::ReadTriangulation(Standard_IStream&            IS,
         new Poly_Triangulation(aNbNodes, aNbTriangles, hasUV, hasNormals);
       aTriangulation->Deflection(aDefl);
 
-      gp_Pnt aNode;
+      Point3d aNode;
       for (Standard_Integer aNodeIter = 1; aNodeIter <= aNbNodes; ++aNodeIter)
       {
         BinTools::GetReal(IS, aNode.ChangeCoord().ChangeCoord(1));

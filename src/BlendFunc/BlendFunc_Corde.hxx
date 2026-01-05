@@ -55,10 +55,10 @@ public:
   //! False otherwise.
   Standard_EXPORT Standard_Boolean Derivatives(const math_Vector& X, math_Matrix& D);
 
-  Standard_EXPORT const gp_Pnt& PointOnS() const;
+  Standard_EXPORT const Point3d& PointOnS() const;
 
   //! returns the point of parameter <Param> on CGuide
-  Standard_EXPORT const gp_Pnt& PointOnGuide() const;
+  Standard_EXPORT const Point3d& PointOnGuide() const;
 
   //! returns the normal to CGuide at Ptgui.
   Standard_EXPORT const gp_Vec& NPlan() const;
@@ -86,12 +86,12 @@ protected:
 private:
   Handle(Adaptor3d_Surface) surf;
   Handle(Adaptor3d_Curve)   guide;
-  gp_Pnt                    pts;
+  Point3d                    pts;
   gp_Pnt2d                  pt2d;
   Standard_Real             dis;
   Standard_Real             normtg;
   Standard_Real             theD;
-  gp_Pnt                    ptgui;
+  Point3d                    ptgui;
   gp_Vec                    nplan;
   gp_Vec                    d1gui;
   gp_Vec                    d2gui;

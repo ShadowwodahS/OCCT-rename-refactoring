@@ -20,7 +20,7 @@
 #include <IntTools_SequenceOfRoots.hxx>
 
 class TopoDS_Edge;
-class gp_Pnt;
+class Point3d;
 class Geom_Curve;
 class BRepAdaptor_Curve;
 
@@ -45,7 +45,7 @@ public:
   Standard_EXPORT static void FindRootStates(IntTools_SequenceOfRoots& aSeq,
                                              const Standard_Real       anEpsNull);
 
-  Standard_EXPORT static Standard_Integer Parameter(const gp_Pnt&             P,
+  Standard_EXPORT static Standard_Integer Parameter(const Point3d&             P,
                                                     const Handle(Geom_Curve)& Curve,
                                                     Standard_Real&            aParm);
 

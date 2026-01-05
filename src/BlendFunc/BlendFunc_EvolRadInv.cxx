@@ -158,7 +158,7 @@ Standard_Boolean BlendFunc_EvolRadInv::Value(const math_Vector& X, math_Vector& 
 {
   const Standard_Real ray = fevol->Value(X(2));
 
-  gp_Pnt ptcur;
+  Point3d ptcur;
   gp_Vec d1cur;
   curv->D1(X(2), ptcur, d1cur);
 
@@ -167,7 +167,7 @@ Standard_Boolean BlendFunc_EvolRadInv::Value(const math_Vector& X, math_Vector& 
 
   const gp_Pnt2d pt2d(csurf->Value(X(1)));
 
-  gp_Pnt pts1, pts2;
+  Point3d pts1, pts2;
   gp_Vec d1u1, d1v1, d1u2, d1v2;
   if (first)
   {
@@ -247,7 +247,7 @@ Standard_Boolean BlendFunc_EvolRadInv::Values(const math_Vector& X, math_Vector&
   Standard_Real ray, dray;
   fevol->D1(X(2), ray, dray);
 
-  gp_Pnt ptcur;
+  Point3d ptcur;
   gp_Vec d1cur, d2cur;
   curv->D2(X(2), ptcur, d1cur, d2cur);
 
@@ -263,7 +263,7 @@ Standard_Boolean BlendFunc_EvolRadInv::Values(const math_Vector& X, math_Vector&
   gp_Vec2d v2d;
   csurf->D1(X(1), p2d, v2d);
 
-  gp_Pnt pts1, pts2;
+  Point3d pts1, pts2;
   gp_Vec d1u1, d1v1, d1u2, d1v2;
   gp_Vec d2u1, d2v1, d2u2, d2v2, d2uv1, d2uv2;
   gp_Vec temp;

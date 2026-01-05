@@ -241,7 +241,7 @@ void Approx_BSplComputeLine::FirstTangencyVector(const MultiLine&  Line,
       LSQ(Line, index, index + 2, firstC, lastC, mypar, nbpoles);
     AppParCurves_MultiCurve C = LSQ.BezierValue();
 
-    gp_Pnt myP;
+    Point3d myP;
     gp_Vec myV;
     gp_Pnt2d myP2d;
     gp_Vec2d myV2d;
@@ -322,7 +322,7 @@ void Approx_BSplComputeLine::LastTangencyVector(const MultiLine&       Line,
       LSQ(Line, index - 2, index, firstC, lastC, mypar, nbpoles);
     AppParCurves_MultiCurve C = LSQ.BezierValue();
 
-    gp_Pnt myP;
+    Point3d myP;
     gp_Vec myV;
     gp_Pnt2d myP2d;
     gp_Vec2d myV2d;
@@ -361,7 +361,7 @@ SearchFirstLambda(const MultiLine&            Line,
   // dq/dw = lambda* V = (p2-p1)/(u2-u1)
 
   Standard_Integer nbP2d, nbP3d;
-  gp_Pnt P1, P2;
+  Point3d P1, P2;
   gp_Pnt2d P12d, P22d;
   nbP3d = LineTool::NbP3d(Line);
   nbP2d = LineTool::NbP2d(Line);
@@ -422,7 +422,7 @@ SearchLastLambda(const MultiLine&            Line,
   // dq/dw = lambda* V = (p2-p1)/(u2-u1)
 
   Standard_Integer nbP2d, nbP3d;
-  gp_Pnt P1, P2;
+  Point3d P1, P2;
   gp_Pnt2d P12d, P22d;
   nbP3d = LineTool::NbP3d(Line);
   nbP2d = LineTool::NbP2d(Line);
@@ -841,7 +841,7 @@ void Approx_BSplComputeLine::Parameters(const MultiLine& Line,
       dist = 0.0;
       for (j = 1; j <= nbP3d; j++)
       {
-        const gp_Pnt &aP1 = tabP(j),
+        const Point3d &aP1 = tabP(j),
           &aP2 = tabPP(j);
         dist += aP2.SquareDistance(aP1);
       }
@@ -1415,7 +1415,7 @@ void Approx_BSplComputeLine::TangencyVector(
   nbP3d = LineTool::NbP3d(Line);
   nbP2d = LineTool::NbP2d(Line);
 
-  gp_Pnt myP;
+  Point3d myP;
   gp_Vec myV;
   gp_Pnt2d myP2d;
   gp_Vec2d myV2d;

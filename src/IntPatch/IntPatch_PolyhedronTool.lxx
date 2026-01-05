@@ -45,7 +45,7 @@ inline void IntPatch_PolyhedronTool::Triangle(const IntPatch_Polyhedron& thePoly
   thePolyh.Triangle(Index, P1, P2, P3);
 }
 
-inline const gp_Pnt& IntPatch_PolyhedronTool::Point(const IntPatch_Polyhedron& thePolyh,
+inline const Point3d& IntPatch_PolyhedronTool::Point(const IntPatch_Polyhedron& thePolyh,
                                                     const Standard_Integer     Index)
 {
   return thePolyh.Point(Index);

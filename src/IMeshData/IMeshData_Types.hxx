@@ -108,7 +108,7 @@ typedef NCollection_Shared<NCollection_Sequence<Standard_Real>>    SequenceOfRea
 
 namespace Model
 {
-typedef std::deque<gp_Pnt, NCollection_OccAllocator<gp_Pnt>>                     SequenceOfPnt;
+typedef std::deque<Point3d, NCollection_OccAllocator<Point3d>>                     SequenceOfPnt;
 typedef std::deque<gp_Pnt2d, NCollection_OccAllocator<gp_Pnt2d>>                 SequenceOfPnt2d;
 typedef std::deque<Standard_Real, NCollection_OccAllocator<Standard_Real>>       SequenceOfReal;
 typedef std::deque<Standard_Integer, NCollection_OccAllocator<Standard_Integer>> SequenceOfInteger;

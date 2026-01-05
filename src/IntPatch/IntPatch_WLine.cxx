@@ -158,8 +158,8 @@ static void RecadreMemePeriode(IntSurf_PntOn2S&       POn2S,
   POn2S.SetValue(u1, v1, u2, v2);
 }
 
-static Standard_Boolean CompareVertexAndPoint(const gp_Pnt&        V,
-                                              const gp_Pnt&        P,
+static Standard_Boolean CompareVertexAndPoint(const Point3d&        V,
+                                              const Point3d&        P,
                                               const Standard_Real& Tol)
 {
   const Standard_Real aSQDist = V.SquareDistance(P);
@@ -623,7 +623,7 @@ void IntPatch_WLine::ComputeVertexParameters(const Standard_Real RTol)
   //----------------------------------------------------
   for (i = 1; i <= nbvtx; i++)
   {
-    const gp_Pnt& P    = svtx.Value(i).Value();
+    const Point3d& P    = svtx.Value(i).Value();
     Standard_Real vTol = svtx.Value(i).Tolerance();
 
     indicevertex       = svtx.Value(i).ParameterOnLine();

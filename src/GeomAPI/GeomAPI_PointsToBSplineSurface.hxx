@@ -127,7 +127,7 @@ public:
   //! array of  Points.
   //!
   //! The points will be constructed as follow:
-  //! P(i,j) = gp_Pnt( X0 + (i-1)*dX ,
+  //! P(i,j) = Point3d( X0 + (i-1)*dX ,
   //! Y0 + (j-1)*dY ,
   //! ZPoints(i,j)   )
   //!
@@ -138,7 +138,7 @@ public:
   //! 3- the distance from the point <Points> to the
   //! BSpline will be lower to Tol3D
   //! 4- the parametrization of the surface will verify:
-  //! S->Value( U, V) = gp_Pnt( U, V, Z(U,V) );
+  //! S->Value( U, V) = Point3d( U, V, Z(U,V) );
 
   Standard_EXPORT GeomAPI_PointsToBSplineSurface(const TColStd_Array2OfReal& ZPoints,
                                                  const Standard_Real         X0,
@@ -187,7 +187,7 @@ public:
   //! array of  Points.
   //!
   //! The points will be constructed as follow:
-  //! P(i,j) = gp_Pnt( X0 + (i-1)*dX ,
+  //! P(i,j) = Point3d( X0 + (i-1)*dX ,
   //! Y0 + (j-1)*dY ,
   //! ZPoints(i,j)   )
   //!
@@ -198,7 +198,7 @@ public:
   //! 3- the distance from the point <Points> to the
   //! BSpline will be lower to Tol3D
   //! 4- the parametrization of the surface will verify:
-  //! S->Value( U, V) = gp_Pnt( U, V, Z(U,V) );
+  //! S->Value( U, V) = Point3d( U, V, Z(U,V) );
 
   Standard_EXPORT void Init(const TColStd_Array2OfReal& ZPoints,
                             const Standard_Real         X0,
@@ -214,7 +214,7 @@ public:
   //! array of  Points.
   //!
   //! The points will be constructed as follow:
-  //! P(i,j) = gp_Pnt( X0 + (i-1)*dX ,
+  //! P(i,j) = Point3d( X0 + (i-1)*dX ,
   //! Y0 + (j-1)*dY ,
   //! ZPoints(i,j)   )
   //!
@@ -223,7 +223,7 @@ public:
   //! 1- his degree will be 3
   //! 2- his  continuity will be  C2.
   //! 4- the parametrization of the surface will verify:
-  //! S->Value( U, V) = gp_Pnt( U, V, Z(U,V) );
+  //! S->Value( U, V) = Point3d( U, V, Z(U,V) );
 
   Standard_EXPORT void Interpolate(const TColStd_Array2OfReal& ZPoints,
                                    const Standard_Real         X0,

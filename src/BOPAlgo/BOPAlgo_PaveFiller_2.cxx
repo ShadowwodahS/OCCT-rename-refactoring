@@ -557,7 +557,7 @@ void BOPAlgo_PaveFiller::SplitPaveBlocks(const TColStd_MapOfInteger& theMEdges,
         // Pave blocks forming the common block
         BOPDS_ListOfPaveBlock aLPBCB;
         // Point in the middle of the first pave block in the common block
-        gp_Pnt aPMFirst(0., 0., 0.);
+        Point3d aPMFirst(0., 0., 0.);
         // Tolerance of the first edge in the common block
         Standard_Real aTolEFirst = 0.;
         //

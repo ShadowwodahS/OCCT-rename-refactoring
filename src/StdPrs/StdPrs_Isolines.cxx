@@ -102,7 +102,7 @@ static void findLimits(const Adaptor3d_Curve& theCurve,
     return;
   }
 
-  gp_Pnt        aP1, aP2;
+  Point3d        aP1, aP2;
   Standard_Real aDelta = 1.0;
   if (isFirstInf && isLastInf)
   {
@@ -290,7 +290,7 @@ void StdPrs_Isolines::addOnTriangulation(const Handle(Poly_Triangulation)& theTr
       {
         Standard_Integer aNodeIdxs[3];
         theTriangulation->Triangle(aTriIter).Get(aNodeIdxs[0], aNodeIdxs[1], aNodeIdxs[2]);
-        const gp_Pnt   aNodesXYZ[3] = {theTriangulation->Node(aNodeIdxs[0]),
+        const Point3d   aNodesXYZ[3] = {theTriangulation->Node(aNodeIdxs[0]),
                                        theTriangulation->Node(aNodeIdxs[1]),
                                        theTriangulation->Node(aNodeIdxs[2])};
         const gp_Pnt2d aNodesUV[3]  = {theTriangulation->UVNode(aNodeIdxs[0]),
@@ -710,7 +710,7 @@ void StdPrs_Isolines::UVIsoParameters(const TopoDS_Face&      theFace,
 Standard_Boolean StdPrs_Isolines::findSegmentOnTriangulation(const Handle(Geom_Surface)& theSurface,
                                                              const bool                  theIsU,
                                                              const gp_Lin2d&             theIsoline,
-                                                             const gp_Pnt*   theNodesXYZ,
+                                                             const Point3d*   theNodesXYZ,
                                                              const gp_Pnt2d* theNodesUV,
                                                              SegOnIso&       theSegment)
 {
@@ -724,8 +724,8 @@ Standard_Boolean StdPrs_Isolines::findSegmentOnTriangulation(const Handle(Geom_S
 
     const gp_Pnt2d& aNodeUV1 = theNodesUV[aLinkIter];
     const gp_Pnt2d& aNodeUV2 = theNodesUV[(aLinkIter + 1) % 3];
-    const gp_Pnt&   aNode1   = theNodesXYZ[aLinkIter];
-    const gp_Pnt&   aNode2   = theNodesXYZ[(aLinkIter + 1) % 3];
+    const Point3d&   aNode1   = theNodesXYZ[aLinkIter];
+    const Point3d&   aNode2   = theNodesXYZ[(aLinkIter + 1) % 3];
 
     // Compute distance of uv points to isoline taking into consideration their relative
     // location against the isoline (left or right). Null value for a node means that the
@@ -781,7 +781,7 @@ Standard_Boolean StdPrs_Isolines::findSegmentOnTriangulation(const Handle(Geom_S
 
     Standard_Real anAlpha = Abs(aDistanceUV1) / (Abs(aDistanceUV1) + Abs(aDistanceUV2));
 
-    gp_Pnt        aCross(0.0, 0.0, 0.0);
+    Point3d        aCross(0.0, 0.0, 0.0);
     Standard_Real aCrossU     = aNodeUV1.X() + anAlpha * (aNodeUV2.X() - aNodeUV1.X());
     Standard_Real aCrossV     = aNodeUV1.Y() + anAlpha * (aNodeUV2.Y() - aNodeUV1.Y());
     Standard_Real aCrossParam = theIsU ? aCrossV : aCrossU;

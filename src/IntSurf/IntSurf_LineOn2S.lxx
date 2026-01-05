@@ -35,7 +35,7 @@ inline void IntSurf_LineOn2S::Value(const Standard_Integer Index, const IntSurf_
   mySeq(Index) = P;
 }
 
-inline void IntSurf_LineOn2S::SetPoint(const Standard_Integer Index, const gp_Pnt& thePnt)
+inline void IntSurf_LineOn2S::SetPoint(const Standard_Integer Index, const Point3d& thePnt)
 {
   mySeq(Index).SetValue(thePnt);
 }

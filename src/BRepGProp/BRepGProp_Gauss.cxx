@@ -255,9 +255,9 @@ Standard_Integer BRepGProp_Gauss::FillIntervalBounds(
 
 //=================================================================================================
 
-void BRepGProp_Gauss::computeVInertiaOfElementaryPart(const gp_Pnt&             thePoint,
+void BRepGProp_Gauss::computeVInertiaOfElementaryPart(const Point3d&             thePoint,
                                                       const gp_Vec&             theNormal,
-                                                      const gp_Pnt&             theLocation,
+                                                      const Point3d&             theLocation,
                                                       const Standard_Real       theWeight,
                                                       const Standard_Real       theCoeff[],
                                                       const Standard_Boolean    theIsByPoint,
@@ -339,9 +339,9 @@ void BRepGProp_Gauss::computeVInertiaOfElementaryPart(const gp_Pnt&             
 
 //=================================================================================================
 
-void BRepGProp_Gauss::computeSInertiaOfElementaryPart(const gp_Pnt&             thePoint,
+void BRepGProp_Gauss::computeSInertiaOfElementaryPart(const Point3d&             thePoint,
                                                       const gp_Vec&             theNormal,
-                                                      const gp_Pnt&             theLocation,
+                                                      const Point3d&             theLocation,
                                                       const Standard_Real       theWeight,
                                                       BRepGProp_Gauss::Inertia& theOutInertia)
 {
@@ -425,7 +425,7 @@ void BRepGProp_Gauss::multAndRestoreInertia(const Standard_Real       theValue,
 //=================================================================================================
 
 void BRepGProp_Gauss::convert(const BRepGProp_Gauss::Inertia& theInertia,
-                              gp_Pnt&                         theOutGravityCenter,
+                              Point3d&                         theOutGravityCenter,
                               gp_Mat&                         theOutMatrixOfInertia,
                               Standard_Real&                  theOutMass)
 {
@@ -454,7 +454,7 @@ void BRepGProp_Gauss::convert(const BRepGProp_Gauss::Inertia& theInertia,
 void BRepGProp_Gauss::convert(const BRepGProp_Gauss::Inertia& theInertia,
                               const Standard_Real             theCoeff[],
                               const Standard_Boolean          theIsByPoint,
-                              gp_Pnt&                         theOutGravityCenter,
+                              Point3d&                         theOutGravityCenter,
                               gp_Mat&                         theOutMatrixOfInertia,
                               Standard_Real&                  theOutMass)
 {
@@ -492,12 +492,12 @@ void BRepGProp_Gauss::convert(const BRepGProp_Gauss::Inertia& theInertia,
 
 Standard_Real BRepGProp_Gauss::Compute(BRepGProp_Face&        theSurface,
                                        BRepGProp_Domain&      theDomain,
-                                       const gp_Pnt&          theLocation,
+                                       const Point3d&          theLocation,
                                        const Standard_Real    theEps,
                                        const Standard_Real    theCoeff[],
                                        const Standard_Boolean theIsByPoint,
                                        Standard_Real&         theOutMass,
-                                       gp_Pnt&                theOutGravityCenter,
+                                       Point3d&                theOutGravityCenter,
                                        gp_Mat&                theOutInertia)
 {
   const Standard_Boolean isErrorCalculation =
@@ -761,7 +761,7 @@ Standard_Real BRepGProp_Gauss::Compute(BRepGProp_Face&        theSurface,
                     }
                   else
                   {
-                    gp_Pnt aPoint;
+                    Point3d aPoint;
                     gp_Vec aNormal;
 
                     for (kU = 0; kU < kUEnd; ++kU)
@@ -1032,10 +1032,10 @@ Standard_Real BRepGProp_Gauss::Compute(BRepGProp_Face&        theSurface,
 
 Standard_Real BRepGProp_Gauss::Compute(BRepGProp_Face&     theSurface,
                                        BRepGProp_Domain&   theDomain,
-                                       const gp_Pnt&       theLocation,
+                                       const Point3d&       theLocation,
                                        const Standard_Real theEps,
                                        Standard_Real&      theOutMass,
-                                       gp_Pnt&             theOutGravityCenter,
+                                       Point3d&             theOutGravityCenter,
                                        gp_Mat&             theOutInertia)
 {
   Standard_ASSERT_RAISE(myType == Sinert, "BRepGProp_Gauss: Incorrect type");
@@ -1055,9 +1055,9 @@ Standard_Real BRepGProp_Gauss::Compute(BRepGProp_Face&     theSurface,
 
 void BRepGProp_Gauss::Compute(BRepGProp_Face&   theSurface,
                               BRepGProp_Domain& theDomain,
-                              const gp_Pnt&     theLocation,
+                              const Point3d&     theLocation,
                               Standard_Real&    theOutMass,
-                              gp_Pnt&           theOutGravityCenter,
+                              Point3d&           theOutGravityCenter,
                               gp_Mat&           theOutInertia)
 {
   Standard_ASSERT_RAISE(myType == Sinert, "BRepGProp_Gauss: Incorrect type");
@@ -1124,7 +1124,7 @@ void BRepGProp_Gauss::Compute(BRepGProp_Face&   theSurface,
         const Standard_Real u       = add(um, mult(ur, GaussSPV(j)));
         const Standard_Real aWeight = Dul * GaussSWV(j);
 
-        gp_Pnt aPoint;
+        Point3d aPoint;
         gp_Vec aNormal;
         theSurface.Normal(u, v, aPoint, aNormal);
 
@@ -1146,11 +1146,11 @@ void BRepGProp_Gauss::Compute(BRepGProp_Face&   theSurface,
 
 void BRepGProp_Gauss::Compute(BRepGProp_Face&        theSurface,
                               BRepGProp_Domain&      theDomain,
-                              const gp_Pnt&          theLocation,
+                              const Point3d&          theLocation,
                               const Standard_Real    theCoeff[],
                               const Standard_Boolean theIsByPoint,
                               Standard_Real&         theOutMass,
-                              gp_Pnt&                theOutGravityCenter,
+                              Point3d&                theOutGravityCenter,
                               gp_Mat&                theOutInertia)
 {
   Standard_ASSERT_RAISE(myType == Vinert, "BRepGProp_Gauss: Incorrect type");
@@ -1208,7 +1208,7 @@ void BRepGProp_Gauss::Compute(BRepGProp_Face&        theSurface,
         const Standard_Real u       = um + ur * GaussP(j);
         const Standard_Real aWeight = Dul * GaussW(j);
 
-        gp_Pnt aPoint;
+        Point3d aPoint;
         gp_Vec aNormal;
 
         theSurface.Normal(u, v, aPoint, aNormal);
@@ -1236,11 +1236,11 @@ void BRepGProp_Gauss::Compute(BRepGProp_Face&        theSurface,
 //=================================================================================================
 
 void BRepGProp_Gauss::Compute(const BRepGProp_Face&  theSurface,
-                              const gp_Pnt&          theLocation,
+                              const Point3d&          theLocation,
                               const Standard_Real    theCoeff[],
                               const Standard_Boolean theIsByPoint,
                               Standard_Real&         theOutMass,
-                              gp_Pnt&                theOutGravityCenter,
+                              Point3d&                theOutGravityCenter,
                               gp_Mat&                theOutInertia)
 {
   Standard_Real LowerU, UpperU, LowerV, UpperV;
@@ -1266,7 +1266,7 @@ void BRepGProp_Gauss::Compute(const BRepGProp_Face&  theSurface,
   Standard_Real       ur = 0.5 * add(UpperU, -LowerU);
   Standard_Real       vr = 0.5 * add(UpperV, -LowerV);
 
-  gp_Pnt aPoint;
+  Point3d aPoint;
   gp_Vec aNormal;
 
   BRepGProp_Gauss::Inertia anInertia;
@@ -1327,9 +1327,9 @@ void BRepGProp_Gauss::Compute(const BRepGProp_Face&  theSurface,
 //=================================================================================================
 
 void BRepGProp_Gauss::Compute(const BRepGProp_Face& theSurface,
-                              const gp_Pnt&         theLocation,
+                              const Point3d&         theLocation,
                               Standard_Real&        theOutMass,
-                              gp_Pnt&               theOutGravityCenter,
+                              Point3d&               theOutGravityCenter,
                               gp_Mat&               theOutInertia)
 {
   Standard_ASSERT_RAISE(myType == Sinert, "BRepGProp_Gauss: Incorrect type");

@@ -1442,7 +1442,7 @@ void AIS_ViewController::handlePanning(const Handle(V3d_View)& theView)
   const gp_Ax3  aCameraCS(aCam->Center(), aDir.Reversed(), aDir ^ aCam->Up());
   const gp_XYZ  anEyeToPnt = myPanPnt3d.XYZ() - aCam->Eye().XYZ();
   // clang-format off
-  const gp_Pnt aViewDims = aCam->ViewDimensions (anEyeToPnt.Dot (aCam->Direction().XYZ())); // view dimensions at 3D point
+  const Point3d aViewDims = aCam->ViewDimensions (anEyeToPnt.Dot (aCam->Direction().XYZ())); // view dimensions at 3D point
   // clang-format on
   const Graphic3d_Vec2d aDxy(-aViewDims.X() * myGL.Panning.Delta.x() / double(aWinSize.x()),
                              -aViewDims.X() * myGL.Panning.Delta.y() / double(aWinSize.x()));
@@ -1482,7 +1482,7 @@ void AIS_ViewController::handleZRotate(const Handle(V3d_View)& theView)
 
 void AIS_ViewController::handleZoom(const Handle(V3d_View)&   theView,
                                     const Aspect_ScrollDelta& theParams,
-                                    const gp_Pnt*             thePnt)
+                                    const Point3d*             thePnt)
 {
   if (!myToAllowZooming)
   {
@@ -1561,7 +1561,7 @@ void AIS_ViewController::handleZoom(const Handle(V3d_View)&   theView,
                    anEyeToPnt.Dot(aCameraCS.YDirection().XYZ()));
 
     // view dimensions at 3D point
-    const gp_Pnt aViewDims1 = aCam->ViewDimensions(anEyeToPnt.Dot(aCam->Direction().XYZ()));
+    const Point3d aViewDims1 = aCam->ViewDimensions(anEyeToPnt.Dot(aCam->Direction().XYZ()));
 
     Graphic3d_Vec2i aWinSize;
     theView->Window()->Size(aWinSize.x(), aWinSize.y());
@@ -1604,7 +1604,7 @@ void AIS_ViewController::handleZFocusScroll(const Handle(V3d_View)&   theView,
 //=================================================================================================
 
 void AIS_ViewController::handleOrbitRotation(const Handle(V3d_View)& theView,
-                                             const gp_Pnt&           thePnt,
+                                             const Point3d&           thePnt,
                                              bool                    theToLockZUp)
 {
   if (!myToAllowRotation)
@@ -1827,7 +1827,7 @@ void AIS_ViewController::handleViewRotation(const Handle(V3d_View)& theView,
 
 //=================================================================================================
 
-bool AIS_ViewController::PickPoint(gp_Pnt&                               thePnt,
+bool AIS_ViewController::PickPoint(Point3d&                               thePnt,
                                    const Handle(AIS_InteractiveContext)& theCtx,
                                    const Handle(V3d_View)&               theView,
                                    const Graphic3d_Vec2i&                theCursor,
@@ -1857,7 +1857,7 @@ bool AIS_ViewController::PickPoint(gp_Pnt&                               thePnt,
 
 //=================================================================================================
 
-bool AIS_ViewController::PickAxis(gp_Pnt&                               theTopPnt,
+bool AIS_ViewController::PickAxis(Point3d&                               theTopPnt,
                                   const Handle(AIS_InteractiveContext)& theCtx,
                                   const Handle(V3d_View)&               theView,
                                   const gp_Ax1&                         theAxis)
@@ -1879,7 +1879,7 @@ bool AIS_ViewController::PickAxis(gp_Pnt&                               theTopPn
 
 //=================================================================================================
 
-gp_Pnt AIS_ViewController::GravityPoint(const Handle(AIS_InteractiveContext)& theCtx,
+Point3d AIS_ViewController::GravityPoint(const Handle(AIS_InteractiveContext)& theCtx,
                                         const Handle(V3d_View)&               theView)
 {
   switch (myRotationMode)
@@ -1895,7 +1895,7 @@ gp_Pnt AIS_ViewController::GravityPoint(const Handle(AIS_InteractiveContext)& th
         aCursor = aViewPort / 2;
       }
 
-      gp_Pnt aPnt;
+      Point3d aPnt;
       if (PickPoint(aPnt, theCtx, theView, aCursor, myToStickToRayOnRotation))
       {
         return aPnt;
@@ -2246,7 +2246,7 @@ void AIS_ViewController::handleCameraActions(const Handle(AIS_InteractiveContext
   {
     if (myGL.Panning.ToStart && myToAllowPanning)
     {
-      gp_Pnt aPanPnt(Precision::Infinite(), 0.0, 0.0);
+      Point3d aPanPnt(Precision::Infinite(), 0.0, 0.0);
       if (!theView->Camera()->IsOrthographic())
       {
         bool toStickToRay = false;
@@ -2293,7 +2293,7 @@ void AIS_ViewController::handleCameraActions(const Handle(AIS_InteractiveContext
       }
     }
 
-    gp_Pnt aGravPnt;
+    Point3d aGravPnt;
     if (myGL.OrbitRotation.ToStart)
     {
       aGravPnt = GravityPoint(theCtx, theView);
@@ -2369,7 +2369,7 @@ void AIS_ViewController::handleCameraActions(const Handle(AIS_InteractiveContext
 
       if (!theView->Camera()->IsOrthographic())
       {
-        gp_Pnt aPnt;
+        Point3d aPnt;
         if (aZoomParams.HasPoint()
             && PickPoint(aPnt, theCtx, theView, aZoomParams.Point, myToStickToRayOnZoom))
         {
@@ -2536,7 +2536,7 @@ void AIS_ViewController::handleXRTeleport(const Handle(AIS_InteractiveContext)& 
             isHorizontal = true;
           }
 
-          gp_Pnt aNewEye = aHandBase.TranslationPart();
+          Point3d aNewEye = aHandBase.TranslationPart();
           if (isHorizontal)
           {
             aNewEye = aHandBase.TranslationPart() + aTeleDir.XYZ() * aPickDepth

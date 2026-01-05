@@ -357,9 +357,9 @@ void V3d_Trihedron::compute()
   // Display labels.
   {
     Handle(Graphic3d_Group) aLabelGroup = addGroup(myStructure, aGroupIter);
-    const gp_Pnt            aPoints[3]  = {gp_Pnt(aScale + 2.0 * aRayon, 0.0, -aRayon),
-                                           gp_Pnt(aRayon, aScale + 3.0 * aRayon, 2.0 * aRayon),
-                                           gp_Pnt(-2.0 * aRayon, 0.5 * aRayon, aScale + 3.0 * aRayon)};
+    const Point3d            aPoints[3]  = {Point3d(aScale + 2.0 * aRayon, 0.0, -aRayon),
+                                           Point3d(aRayon, aScale + 3.0 * aRayon, 2.0 * aRayon),
+                                           Point3d(-2.0 * aRayon, 0.5 * aRayon, aScale + 3.0 * aRayon)};
     for (Standard_Integer anAxisIter = 0; anAxisIter < 3; ++anAxisIter)
     {
       Prs3d_Text::Draw(aLabelGroup,

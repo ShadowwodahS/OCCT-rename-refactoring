@@ -47,7 +47,7 @@ public:
 
   Standard_EXPORT Standard_Boolean Values(const math_Vector& X, math_Vector& F, math_Matrix& D);
 
-  Standard_EXPORT const gp_Pnt& Point() const;
+  Standard_EXPORT const Point3d& Point() const;
 
   Standard_EXPORT Standard_Real Root() const;
 
@@ -60,7 +60,7 @@ private:
   Standard_Address curve;
   Standard_Address surface1;
   Standard_Address surface2;
-  gp_Pnt           p;
+  Point3d           p;
   Standard_Real    f;
 };
 

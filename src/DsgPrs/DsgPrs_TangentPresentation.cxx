@@ -28,15 +28,15 @@
 
 void DsgPrs_TangentPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                      const Handle(Prs3d_Drawer)&       aDrawer,
-                                     const gp_Pnt&                     OffsetPoint,
+                                     const Point3d&                     OffsetPoint,
                                      const gp_Dir&                     aDirection,
                                      const Standard_Real               length)
 {
   gp_Vec vec(aDirection);
   gp_Vec vec1 = vec.Multiplied(length);
   gp_Vec vec2 = vec.Multiplied(-length);
-  gp_Pnt p1   = OffsetPoint.Translated(vec1);
-  gp_Pnt p2   = OffsetPoint.Translated(vec2);
+  Point3d p1   = OffsetPoint.Translated(vec1);
+  Point3d p2   = OffsetPoint.Translated(vec2);
 
   // Aspect
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();

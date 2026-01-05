@@ -19,8 +19,8 @@
 #include <gp_Pnt.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<Standard_Real, gp_Pnt> QANCollection_DataMapOfRealPnt;
-typedef NCollection_DataMap<Standard_Real, gp_Pnt>::Iterator
+typedef NCollection_DataMap<Standard_Real, Point3d> QANCollection_DataMapOfRealPnt;
+typedef NCollection_DataMap<Standard_Real, Point3d>::Iterator
   QANCollection_DataMapIteratorOfDataMapOfRealPnt;
 
 #endif

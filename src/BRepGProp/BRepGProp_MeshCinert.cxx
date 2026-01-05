@@ -22,7 +22,7 @@ BRepGProp_MeshCinert::BRepGProp_MeshCinert() {}
 
 //=================================================================================================
 
-void BRepGProp_MeshCinert::SetLocation(const gp_Pnt& CLocation)
+void BRepGProp_MeshCinert::SetLocation(const Point3d& CLocation)
 {
   loc = CLocation;
 }
@@ -202,7 +202,7 @@ void BRepGProp_MeshCinert::PreparePolygon(const TopoDS_Edge&           theE,
       for (i = 1; i <= aNbNodes; ++i)
       {
         const gp_Pnt2d& aP2d = aNodes2D(i);
-        gp_Pnt          aP   = aS->Value(aP2d.X(), aP2d.Y());
+        Point3d          aP   = aS->Value(aP2d.X(), aP2d.Y());
         thePolyg->SetValue(i, aP);
       }
     }
@@ -212,7 +212,7 @@ void BRepGProp_MeshCinert::PreparePolygon(const TopoDS_Edge&           theE,
       for (i = 1; i <= aNbNodes; ++i)
       {
         const gp_Pnt2d& aP2d = aNodes2D(i);
-        gp_Pnt          aP   = aS->Value(aP2d.X(), aP2d.Y());
+        Point3d          aP   = aS->Value(aP2d.X(), aP2d.Y());
         aP.Transform(aTr);
         thePolyg->SetValue(i, aP);
       }

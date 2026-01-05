@@ -117,7 +117,7 @@ Standard_Real IGESGeom_CopiousData::ZPlane() const
   return theZPlane;
 }
 
-gp_Pnt IGESGeom_CopiousData::Point(const Standard_Integer anIndex) const
+Point3d IGESGeom_CopiousData::Point(const Standard_Integer anIndex) const
 {
   Standard_Integer lower = theData->Lower();
   Standard_Integer real_index;
@@ -146,17 +146,17 @@ gp_Pnt IGESGeom_CopiousData::Point(const Standard_Integer anIndex) const
     Z          = theData->Value(real_index + 2);
   }
 
-  gp_Pnt point(X, Y, Z);
+  Point3d point(X, Y, Z);
   return point;
 }
 
-gp_Pnt IGESGeom_CopiousData::TransformedPoint(const Standard_Integer anIndex) const
+Point3d IGESGeom_CopiousData::TransformedPoint(const Standard_Integer anIndex) const
 {
   if (!HasTransf())
     return Point(anIndex);
   gp_XYZ xyz(Point(anIndex).XYZ());
   Location().Transforms(xyz);
-  return gp_Pnt(xyz);
+  return Point3d(xyz);
 }
 
 gp_Vec IGESGeom_CopiousData::Vector(const Standard_Integer anIndex) const

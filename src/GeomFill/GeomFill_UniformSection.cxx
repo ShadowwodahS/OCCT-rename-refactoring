@@ -270,10 +270,10 @@ void GeomFill_UniformSection::GetTolerance(const Standard_Real BoundTol,
 //=======================================================
 // Purpose :
 //=======================================================
-gp_Pnt GeomFill_UniformSection::BarycentreOfSurf() const
+Point3d GeomFill_UniformSection::BarycentreOfSurf() const
 {
   Standard_Real U = mySection->FirstParameter(), Delta;
-  gp_Pnt        P, Bary;
+  Point3d        P, Bary;
 
   Delta = (myCurve->LastParameter() - U) / 20;
   Bary.SetCoord(0., 0., 0.);

@@ -28,22 +28,22 @@ class gp_Trsf;
 class gp_Vec;
 
 //! Defines a 3D cartesian point.
-class gp_Pnt
+class Point3d
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates a point with zero coordinates.
-  gp_Pnt() {}
+  Point3d() {}
 
   //! Creates a point from a XYZ object.
-  gp_Pnt(const gp_XYZ& theCoord)
+  Point3d(const gp_XYZ& theCoord)
       : coord(theCoord)
   {
   }
 
   //! Creates a  point with its 3 cartesian's coordinates : theXp, theYp, theZp.
-  gp_Pnt(const Standard_Real theXp, const Standard_Real theYp, const Standard_Real theZp)
+  Point3d(const Standard_Real theXp, const Standard_Real theYp, const Standard_Real theZp)
       : coord(theXp, theYp, theZp)
   {
   }
@@ -111,7 +111,7 @@ public:
 
   //! Assigns the result of the following expression to this point
   //! (theAlpha*this + theBeta*theP) / (theAlpha + theBeta)
-  void BaryCenter(const Standard_Real theAlpha, const gp_Pnt& theP, const Standard_Real theBeta)
+  void BaryCenter(const Standard_Real theAlpha, const Point3d& theP, const Standard_Real theBeta)
   {
     coord.SetLinearForm(theAlpha, coord, theBeta, theP.coord);
     coord.Divide(theAlpha + theBeta);
@@ -120,55 +120,55 @@ public:
   //! Comparison
   //! Returns True if the distance between the two points is
   //! lower or equal to theLinearTolerance.
-  Standard_Boolean IsEqual(const gp_Pnt& theOther, const Standard_Real theLinearTolerance) const
+  Standard_Boolean IsEqual(const Point3d& theOther, const Standard_Real theLinearTolerance) const
   {
     return Distance(theOther) <= theLinearTolerance;
   }
 
   //! Computes the distance between two points.
-  Standard_Real Distance(const gp_Pnt& theOther) const;
+  Standard_Real Distance(const Point3d& theOther) const;
 
   //! Computes the square distance between two points.
-  Standard_Real SquareDistance(const gp_Pnt& theOther) const;
+  Standard_Real SquareDistance(const Point3d& theOther) const;
 
   //! Performs the symmetrical transformation of a point
   //! with respect to the point theP which is the center of
   //! the  symmetry.
-  Standard_EXPORT void Mirror(const gp_Pnt& theP);
+  Standard_EXPORT void Mirror(const Point3d& theP);
 
   //! Performs the symmetrical transformation of a point
   //! with respect to an axis placement which is the axis
   //! of the symmetry.
-  Standard_NODISCARD Standard_EXPORT gp_Pnt Mirrored(const gp_Pnt& theP) const;
+  Standard_NODISCARD Standard_EXPORT Point3d Mirrored(const Point3d& theP) const;
 
   Standard_EXPORT void Mirror(const gp_Ax1& theA1);
 
   //! Performs the symmetrical transformation of a point
   //! with respect to a plane. The axis placement theA2 locates
   //! the plane of the symmetry : (Location, XDirection, YDirection).
-  Standard_NODISCARD Standard_EXPORT gp_Pnt Mirrored(const gp_Ax1& theA1) const;
+  Standard_NODISCARD Standard_EXPORT Point3d Mirrored(const gp_Ax1& theA1) const;
 
   Standard_EXPORT void Mirror(const gp_Ax2& theA2);
 
   //! Rotates a point. theA1 is the axis of the rotation.
   //! theAng is the angular value of the rotation in radians.
-  Standard_NODISCARD Standard_EXPORT gp_Pnt Mirrored(const gp_Ax2& theA2) const;
+  Standard_NODISCARD Standard_EXPORT Point3d Mirrored(const gp_Ax2& theA2) const;
 
   void Rotate(const gp_Ax1& theA1, const Standard_Real theAng);
 
-  Standard_NODISCARD gp_Pnt Rotated(const gp_Ax1& theA1, const Standard_Real theAng) const
+  Standard_NODISCARD Point3d Rotated(const gp_Ax1& theA1, const Standard_Real theAng) const
   {
-    gp_Pnt aP = *this;
+    Point3d aP = *this;
     aP.Rotate(theA1, theAng);
     return aP;
   }
 
   //! Scales a point. theS is the scaling value.
-  void Scale(const gp_Pnt& theP, const Standard_Real theS);
+  void Scale(const Point3d& theP, const Standard_Real theS);
 
-  Standard_NODISCARD gp_Pnt Scaled(const gp_Pnt& theP, const Standard_Real theS) const
+  Standard_NODISCARD Point3d Scaled(const Point3d& theP, const Standard_Real theS) const
   {
-    gp_Pnt aPres = *this;
+    Point3d aPres = *this;
     aPres.Scale(theP, theS);
     return aPres;
   }
@@ -176,9 +176,9 @@ public:
   //! Transforms a point with the transformation T.
   Standard_EXPORT void Transform(const gp_Trsf& theT);
 
-  Standard_NODISCARD gp_Pnt Transformed(const gp_Trsf& theT) const
+  Standard_NODISCARD Point3d Transformed(const gp_Trsf& theT) const
   {
-    gp_Pnt aP = *this;
+    Point3d aP = *this;
     aP.Transform(theT);
     return aP;
   }
@@ -187,18 +187,18 @@ public:
   //! The magnitude of the translation is the vector's magnitude.
   void Translate(const gp_Vec& theV);
 
-  Standard_NODISCARD gp_Pnt Translated(const gp_Vec& theV) const;
+  Standard_NODISCARD Point3d Translated(const gp_Vec& theV) const;
 
   //! Translates a point from the point theP1 to the point theP2.
-  void Translate(const gp_Pnt& theP1, const gp_Pnt& theP2)
+  void Translate(const Point3d& theP1, const Point3d& theP2)
   {
     coord.Add(theP2.coord);
     coord.Subtract(theP1.coord);
   }
 
-  Standard_NODISCARD gp_Pnt Translated(const gp_Pnt& theP1, const gp_Pnt& theP2) const
+  Standard_NODISCARD Point3d Translated(const Point3d& theP1, const Point3d& theP2) const
   {
-    gp_Pnt aP = *this;
+    Point3d aP = *this;
     aP.Translate(theP1, theP2);
     return aP;
   }
@@ -217,9 +217,9 @@ private:
 namespace std
 {
 template <>
-struct hash<gp_Pnt>
+struct hash<Point3d>
 {
-  size_t operator()(const gp_Pnt& thePnt) const noexcept
+  size_t operator()(const Point3d& thePnt) const noexcept
   {
     union {
       Standard_Real    R[3];
@@ -234,9 +234,9 @@ struct hash<gp_Pnt>
 };
 
 template <>
-struct equal_to<gp_Pnt>
+struct equal_to<Point3d>
 {
-  bool operator()(const gp_Pnt& thePnt1, const gp_Pnt& thePnt2) const noexcept
+  bool operator()(const Point3d& thePnt1, const Point3d& thePnt2) const noexcept
   {
     if (Abs(thePnt1.X() - thePnt2.X()) > Epsilon(thePnt2.X()))
       return false;
@@ -257,7 +257,7 @@ struct equal_to<gp_Pnt>
 // function : Distance
 // purpose :
 //=======================================================================
-inline Standard_Real gp_Pnt::Distance(const gp_Pnt& theOther) const
+inline Standard_Real Point3d::Distance(const Point3d& theOther) const
 {
   Standard_Real aD   = 0, aDD;
   const gp_XYZ& aXYZ = theOther.coord;
@@ -280,7 +280,7 @@ inline Standard_Real gp_Pnt::Distance(const gp_Pnt& theOther) const
 // function : SquareDistance
 // purpose :
 //=======================================================================
-inline Standard_Real gp_Pnt::SquareDistance(const gp_Pnt& theOther) const
+inline Standard_Real Point3d::SquareDistance(const Point3d& theOther) const
 {
   Standard_Real aD  = 0, aDD;
   const gp_XYZ& XYZ = theOther.coord;
@@ -303,7 +303,7 @@ inline Standard_Real gp_Pnt::SquareDistance(const gp_Pnt& theOther) const
 // function : Rotate
 // purpose :
 //=======================================================================
-inline void gp_Pnt::Rotate(const gp_Ax1& theA1, const Standard_Real theAng)
+inline void Point3d::Rotate(const gp_Ax1& theA1, const Standard_Real theAng)
 {
   gp_Trsf aT;
   aT.SetRotation(theA1, theAng);
@@ -314,7 +314,7 @@ inline void gp_Pnt::Rotate(const gp_Ax1& theA1, const Standard_Real theAng)
 // function : Scale
 // purpose :
 //=======================================================================
-inline void gp_Pnt::Scale(const gp_Pnt& theP, const Standard_Real theS)
+inline void Point3d::Scale(const Point3d& theP, const Standard_Real theS)
 {
   gp_XYZ aXYZ = theP.coord;
   aXYZ.Multiply(1.0 - theS);
@@ -326,7 +326,7 @@ inline void gp_Pnt::Scale(const gp_Pnt& theP, const Standard_Real theS)
 // function : Translate
 // purpose :
 //=======================================================================
-inline void gp_Pnt::Translate(const gp_Vec& theV)
+inline void Point3d::Translate(const gp_Vec& theV)
 {
   coord.Add(theV.XYZ());
 }
@@ -335,9 +335,9 @@ inline void gp_Pnt::Translate(const gp_Vec& theV)
 // function : Translated
 // purpose :
 //=======================================================================
-inline gp_Pnt gp_Pnt::Translated(const gp_Vec& theV) const
+inline Point3d Point3d::Translated(const gp_Vec& theV) const
 {
-  gp_Pnt aP = *this;
+  Point3d aP = *this;
   aP.coord.Add(theV.XYZ());
   return aP;
 }

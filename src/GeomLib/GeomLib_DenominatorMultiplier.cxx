@@ -48,8 +48,8 @@ Standard_Real GeomLib_DenominatorMultiplier::Value(const Standard_Real UParamete
 
 {
   Standard_Real Dumaxv, Duminv, dDduumaxv, dDduuminv, Dv, Buv = 0.0;
-  // gp_Pnt         HermPnt;
-  gp_Pnt                  N;
+  // Point3d         HermPnt;
+  Point3d                  N;
   gp_Vec                  Nu, Nv;
   TColgp_Array2OfPnt      surface_poles(1, mySurface->NbUPoles(), 1, mySurface->NbVPoles());
   TColStd_Array2OfReal    surface_weights(1, mySurface->NbUPoles(), 1, mySurface->NbVPoles());

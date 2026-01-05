@@ -20,7 +20,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Select3D_SensitiveSphere, Select3D_SensitiveEntity)
 //=================================================================================================
 
 Select3D_SensitiveSphere::Select3D_SensitiveSphere(const Handle(SelectMgr_EntityOwner)& theOwnerId,
-                                                   const gp_Pnt&                        theCenter,
+                                                   const Point3d&                        theCenter,
                                                    const Standard_Real                  theRadius)
     : Select3D_SensitiveEntity(theOwnerId),
       myCenter(theCenter),
@@ -34,7 +34,7 @@ Select3D_SensitiveSphere::Select3D_SensitiveSphere(const Handle(SelectMgr_Entity
 Standard_Boolean Select3D_SensitiveSphere::Matches(SelectBasics_SelectingVolumeManager& theMgr,
                                                    SelectBasics_PickResult& thePickResult)
 {
-  myLastDetectedPoint = gp_Pnt(RealLast(), RealLast(), RealLast());
+  myLastDetectedPoint = Point3d(RealLast(), RealLast(), RealLast());
   if (theMgr.GetActiveSelectionType() != SelectMgr_SelectionType_Point)
   {
     if (!theMgr.IsOverlapAllowed())

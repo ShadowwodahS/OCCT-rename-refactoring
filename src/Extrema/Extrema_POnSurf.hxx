@@ -21,7 +21,7 @@
 #include <Standard_DefineAlloc.hxx>
 
 #include <gp_Pnt.hxx>
-class gp_Pnt;
+class Point3d;
 
 //! Definition of a point on surface.
 class Extrema_POnSurf
@@ -34,14 +34,14 @@ public:
 
   //! Creation of a point on surface with parameter
   //! values on the surface and a Pnt from gp.
-  Extrema_POnSurf(const Standard_Real U, const Standard_Real V, const gp_Pnt& P);
+  Extrema_POnSurf(const Standard_Real U, const Standard_Real V, const Point3d& P);
 
   //! Returns the 3d point.
-  const gp_Pnt& Value() const;
+  const Point3d& Value() const;
 
   //! Sets the params of current POnSurf instance.
   //! (e.g. to the point to be projected).
-  void SetParameters(const Standard_Real theU, const Standard_Real theV, const gp_Pnt& thePnt);
+  void SetParameters(const Standard_Real theU, const Standard_Real theV, const Point3d& thePnt);
 
   //! Returns the parameter values on the surface.
   void Parameter(Standard_Real& U, Standard_Real& V) const;
@@ -50,7 +50,7 @@ protected:
 private:
   Standard_Real myU;
   Standard_Real myV;
-  gp_Pnt        myP;
+  Point3d        myP;
 };
 
 #include <Extrema_POnSurf.lxx>

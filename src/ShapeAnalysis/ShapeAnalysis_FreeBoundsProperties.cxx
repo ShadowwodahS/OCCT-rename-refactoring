@@ -62,7 +62,7 @@ static void ContourProperties(const TopoDS_Wire& wire,
     Standard_Integer ibeg = 0;
     if (nbe == 1)
     {
-      gp_Pnt pntIni = c3d->Value(First);
+      Point3d pntIni = c3d->Value(First);
       prev          = pntIni.XYZ();
       cont          = prev;
       ibeg          = 1;
@@ -71,7 +71,7 @@ static void ContourProperties(const TopoDS_Wire& wire,
     for (Standard_Integer i = ibeg; i < NbControl; i++)
     {
       Standard_Real prm     = ((NbControl - 1 - i) * First + i * Last) / (NbControl - 1);
-      gp_Pnt        pntCurr = c3d->Value(prm);
+      Point3d        pntCurr = c3d->Value(prm);
       gp_XYZ        curr    = pntCurr.XYZ();
       gp_XYZ        delta   = curr - prev;
       length += delta.Modulus();
@@ -330,7 +330,7 @@ Standard_Boolean ShapeAnalysis_FreeBoundsProperties::CheckNotches(const TopoDS_W
   if (!sae.Curve3d(E1, c3d1, First1, Last1) || !sae.Curve3d(E2, c3d2, First2, Last2))
     return Standard_False;
 
-  gp_Pnt pnt;
+  Point3d pnt;
   gp_Vec vec1, vec2;
   c3d1->D1(Last1, pnt, vec1);
   c3d2->D1(First2, pnt, vec2);
@@ -346,7 +346,7 @@ Standard_Boolean ShapeAnalysis_FreeBoundsProperties::CheckNotches(const TopoDS_W
     for (Standard_Integer i = 0; i < NbControl; i++)
     {
       Standard_Real prm     = ((NbControl - 1 - i) * First1 + i * Last1) / (NbControl - 1);
-      gp_Pnt        pntCurr = c3d1->Value(prm);
+      Point3d        pntCurr = c3d1->Value(prm);
 
       Standard_Real p1, p2;
       if (First2 < Last2)

@@ -111,7 +111,7 @@ Handle(AIS_Line) AIS_PlaneTrihedron::YAxis() const
 
 Handle(AIS_Point) AIS_PlaneTrihedron::Position() const
 {
-  gp_Pnt             aPnt   = myPlane->Pln().Location();
+  Point3d             aPnt   = myPlane->Pln().Location();
   Handle(Geom_Point) aPoint = new Geom_CartesianPoint(aPnt);
   Handle(AIS_Point)  aPt    = new AIS_Point(aPoint);
   return aPt;
@@ -135,11 +135,11 @@ void AIS_PlaneTrihedron::Compute(const Handle(PrsMgr_PresentationManager)&,
                                  const Standard_Integer)
 {
   // drawing axis in X direction
-  gp_Pnt        first, last;
+  Point3d        first, last;
   Standard_Real value = myDrawer->DatumAspect()->AxisLength(Prs3d_DatumParts_XAxis);
   gp_Dir        xDir  = myPlane->Position().Ax2().XDirection();
 
-  gp_Pnt        orig = myPlane->Position().Ax2().Location();
+  Point3d        orig = myPlane->Position().Ax2().Location();
   Standard_Real xo, yo, zo, x, y, z;
   orig.Coord(xo, yo, zo);
   xDir.Coord(x, y, z);
@@ -190,7 +190,7 @@ void AIS_PlaneTrihedron::ComputeSelection(const Handle(SelectMgr_Selection)& aSe
     case 0: { // triedre complet
       Prior = 5;
       //      gp_Ax2 theax = gp_Ax2(myPlane->Position().Ax2());
-      //      gp_Pnt p1 = theax.Location();
+      //      Point3d p1 = theax.Location();
 
       eown = new SelectMgr_EntityOwner(this, Prior);
       for (Standard_Integer i = 1; i <= 2; i++)

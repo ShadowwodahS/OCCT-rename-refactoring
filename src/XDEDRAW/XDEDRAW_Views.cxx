@@ -487,7 +487,7 @@ static Standard_Integer setProjectionPoint(Draw_Interpretor& di,
   {
     Handle(XCAFView_Object) anObj = aView->GetObject();
     anObj->SetProjectionPoint(
-      gp_Pnt(Draw::Atof(argv[3]), Draw::Atof(argv[4]), Draw::Atof(argv[5])));
+      Point3d(Draw::Atof(argv[3]), Draw::Atof(argv[4]), Draw::Atof(argv[5])));
     aView->SetObject(anObj);
   }
   return 0;
@@ -523,7 +523,7 @@ static Standard_Integer getProjectionPoint(Draw_Interpretor& di,
   Handle(XCAFDoc_View) aView;
   if (aLabel.FindAttribute(XCAFDoc_View::GetID(), aView))
   {
-    gp_Pnt aPnt = aView->GetObject()->ProjectionPoint();
+    Point3d aPnt = aView->GetObject()->ProjectionPoint();
     di << aPnt.X() << " " << aPnt.Y() << " " << aPnt.Z();
   }
   return 0;
@@ -1185,7 +1185,7 @@ static Standard_Integer dump(Draw_Interpretor& di, Standard_Integer argc, const 
       break;
   }
 
-  gp_Pnt aPnt = aView->GetObject()->ProjectionPoint();
+  Point3d aPnt = aView->GetObject()->ProjectionPoint();
   di << "Projection point: " << aPnt.X() << " " << aPnt.Y() << " " << aPnt.Z() << "\n";
 
   gp_Dir aDir = aView->GetObject()->ViewDirection();

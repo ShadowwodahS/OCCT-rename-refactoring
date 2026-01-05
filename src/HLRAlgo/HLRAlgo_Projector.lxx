@@ -95,7 +95,7 @@ inline void HLRAlgo_Projector::Transform(gp_Vec& D) const
 // purpose  :
 //=======================================================================
 
-inline void HLRAlgo_Projector::Transform(gp_Pnt& Pnt) const
+inline void HLRAlgo_Projector::Transform(Point3d& Pnt) const
 {
   Pnt.Transform(myTrsf);
 }

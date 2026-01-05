@@ -22,7 +22,7 @@
 #include <Standard_Handle.hxx>
 
 #include <gp_Pnt.hxx>
-class gp_Pnt;
+class Point3d;
 
 class Extrema_POnCurv
 {
@@ -34,13 +34,13 @@ public:
 
   //! Creation of a point on curve with a parameter
   //! value on the curve and a Pnt from gp.
-  Standard_EXPORT Extrema_POnCurv(const Standard_Real U, const gp_Pnt& P);
+  Standard_EXPORT Extrema_POnCurv(const Standard_Real U, const Point3d& P);
 
   //! sets the point and parameter values.
-  Standard_EXPORT void SetValues(const Standard_Real U, const gp_Pnt& P);
+  Standard_EXPORT void SetValues(const Standard_Real U, const Point3d& P);
 
   //! Returns the point.
-  const gp_Pnt& Value() const;
+  const Point3d& Value() const;
 
   //! Returns the parameter on the curve.
   Standard_Real Parameter() const;
@@ -48,10 +48,10 @@ public:
 protected:
 private:
   Standard_Real myU;
-  gp_Pnt        myP;
+  Point3d        myP;
 };
 
-#define Pnt gp_Pnt
+#define Pnt Point3d
 #define Pnt_hxx <gp_Pnt.hxx>
 #define Extrema_Point Extrema_POnCurv
 #define Extrema_Point_hxx <Extrema_POnCurv.hxx>

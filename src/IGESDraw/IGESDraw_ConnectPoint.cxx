@@ -56,18 +56,18 @@ void IGESDraw_ConnectPoint::Init(const gp_XYZ&                                aP
   InitTypeAndForm(132, 0);
 }
 
-gp_Pnt IGESDraw_ConnectPoint::Point() const
+Point3d IGESDraw_ConnectPoint::Point() const
 {
-  gp_Pnt tempPoint(thePoint);
+  Point3d tempPoint(thePoint);
   return tempPoint;
 }
 
-gp_Pnt IGESDraw_ConnectPoint::TransformedPoint() const
+Point3d IGESDraw_ConnectPoint::TransformedPoint() const
 {
   gp_XYZ tempPoint = thePoint;
   if (HasTransf())
     Location().Transforms(tempPoint);
-  gp_Pnt tempRes(tempPoint);
+  Point3d tempRes(tempPoint);
 
   return (tempRes);
 }

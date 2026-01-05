@@ -64,7 +64,7 @@ void Convert_Tools::ConvertStreamToPresentations(
     return;
   }
 
-  gp_Pnt aPnt;
+  Point3d aPnt;
   if (aPnt.InitFromJson(theSStream, aStartPos))
   {
     thePresentations.Append(new Convert_TransientShape(BRepBuilderAPI_MakeVertex(aPnt)));
@@ -127,10 +127,10 @@ void Convert_Tools::ConvertStreamToPresentations(
   {
     TopoDS_Shape aShape;
 
-    gp_Pnt aPntMin = gp_Pnt(aSelectBndBox.CornerMin().x(),
+    Point3d aPntMin = Point3d(aSelectBndBox.CornerMin().x(),
                             aSelectBndBox.CornerMin().y(),
                             aSelectBndBox.CornerMin().z());
-    gp_Pnt aPntMax = gp_Pnt(aSelectBndBox.CornerMax().x(),
+    Point3d aPntMax = Point3d(aSelectBndBox.CornerMax().x(),
                             aSelectBndBox.CornerMax().y(),
                             aSelectBndBox.CornerMax().z());
     if (CreateBoxShape(aPntMin, aPntMax, aShape))
@@ -176,8 +176,8 @@ Standard_Boolean Convert_Tools::CreateShape(const Bnd_Box& theBoundingBox, TopoD
   Standard_Real aXmin, anYmin, aZmin, aXmax, anYmax, aZmax;
   theBoundingBox.Get(aXmin, anYmin, aZmin, aXmax, anYmax, aZmax);
 
-  gp_Pnt aPntMin = gp_Pnt(aXmin, anYmin, aZmin);
-  gp_Pnt aPntMax = gp_Pnt(aXmax, anYmax, aZmax);
+  Point3d aPntMin = Point3d(aXmin, anYmin, aZmin);
+  Point3d aPntMax = Point3d(aXmax, anYmax, aZmax);
 
   return CreateBoxShape(aPntMin, aPntMax, theShape);
 }
@@ -199,13 +199,13 @@ Standard_Boolean Convert_Tools::CreateShape(const Bnd_OBB& theBoundingBox, TopoD
   aBuilder.MakeCompound(aCompound);
 
   aBuilder.Add(aCompound,
-               BRepBuilderAPI_MakeEdge(gp_Pnt(anArrPnts.Value(0)), gp_Pnt(anArrPnts.Value(1))));
+               BRepBuilderAPI_MakeEdge(Point3d(anArrPnts.Value(0)), Point3d(anArrPnts.Value(1))));
   aBuilder.Add(aCompound,
-               BRepBuilderAPI_MakeEdge(gp_Pnt(anArrPnts.Value(0)), gp_Pnt(anArrPnts.Value(2))));
+               BRepBuilderAPI_MakeEdge(Point3d(anArrPnts.Value(0)), Point3d(anArrPnts.Value(2))));
   aBuilder.Add(aCompound,
-               BRepBuilderAPI_MakeEdge(gp_Pnt(anArrPnts.Value(1)), gp_Pnt(anArrPnts.Value(3))));
+               BRepBuilderAPI_MakeEdge(Point3d(anArrPnts.Value(1)), Point3d(anArrPnts.Value(3))));
   aBuilder.Add(aCompound,
-               BRepBuilderAPI_MakeEdge(gp_Pnt(anArrPnts.Value(2)), gp_Pnt(anArrPnts.Value(3))));
+               BRepBuilderAPI_MakeEdge(Point3d(anArrPnts.Value(2)), Point3d(anArrPnts.Value(3))));
 
   theShape = aCompound;
   return Standard_True;
@@ -215,8 +215,8 @@ Standard_Boolean Convert_Tools::CreateShape(const Bnd_OBB& theBoundingBox, TopoD
 // function : CreateBoxShape
 // purpose  :
 //=======================================================================
-Standard_Boolean Convert_Tools::CreateBoxShape(const gp_Pnt& thePntMin,
-                                               const gp_Pnt& thePntMax,
+Standard_Boolean Convert_Tools::CreateBoxShape(const Point3d& thePntMin,
+                                               const Point3d& thePntMax,
                                                TopoDS_Shape& theShape)
 {
   BRepPreviewAPI_MakeBox aMakeBox;
@@ -273,7 +273,7 @@ void Convert_Tools::CreatePresentation(
   const gp_Trsf&                                theTrsf,
   NCollection_List<Handle(RefObject)>& thePresentations)
 {
-  Bnd_Box aBox(gp_Pnt(), gp_Pnt(10., 10., 10));
+  Bnd_Box aBox(Point3d(), Point3d(10., 10., 10));
 
   TopoDS_Shape aBoxShape;
   if (!Convert_Tools::CreateShape(aBox, aBoxShape))

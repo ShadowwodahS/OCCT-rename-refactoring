@@ -81,7 +81,7 @@ void DrawTrSurf_Curve::DrawOn(Draw_Display& dis) const
 
   if (firstInf || lastInf)
   {
-    gp_Pnt        P1, P2;
+    Point3d        P1, P2;
     Standard_Real delta = 1;
     if (firstInf && lastInf)
     {
@@ -124,7 +124,7 @@ void DrawTrSurf_Curve::DrawOn(Draw_Display& dis) const
   if (disporigin)
   {
     Draw_Bounds = Standard_False;
-    gp_Pnt P;
+    Point3d P;
     gp_Vec V;
     C.D1(Last, P, V);
     gp_Pnt2d p1, p2;
@@ -154,7 +154,7 @@ void DrawTrSurf_Curve::DrawOn(Draw_Display& dis) const
     C.Intervals(TI, GeomAbs_CN);
     Standard_Real     Resolution = 1.0e-9, Curvature;
     GeomLProp_CLProps LProp(curv, 2, Resolution);
-    gp_Pnt            P1, P2;
+    Point3d            P1, P2;
 
     for (intrv = 1; intrv <= nbintv; intrv++)
     {

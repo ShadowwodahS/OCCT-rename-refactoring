@@ -20,11 +20,11 @@ struct Select3D_Pnt
 {
   Standard_ShortReal x, y, z;
 
-  operator gp_Pnt() const { return gp_Pnt(x, y, z); }
+  operator Point3d() const { return Point3d(x, y, z); }
 
   operator gp_XYZ() const { return gp_XYZ(x, y, z); }
 
-  gp_Pnt operator=(const gp_Pnt& thePnt)
+  Point3d operator=(const Point3d& thePnt)
   {
     x = RealToShortReal(thePnt.X());
     y = RealToShortReal(thePnt.Y());

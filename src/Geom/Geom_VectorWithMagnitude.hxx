@@ -22,7 +22,7 @@
 
 #include <Geom_Vector.hxx>
 class gp_Vec;
-class gp_Pnt;
+class Point3d;
 class gp_Trsf;
 class Geom_Geometry;
 
@@ -45,7 +45,7 @@ public:
 
   //! Creates a vector from the point P1 to the point P2.
   //! The magnitude of the vector is the distance between P1 and P2
-  Standard_EXPORT Geom_VectorWithMagnitude(const gp_Pnt& P1, const gp_Pnt& P2);
+  Standard_EXPORT Geom_VectorWithMagnitude(const Point3d& P1, const Point3d& P2);
 
   //! Assigns the values X, Y and Z to the coordinates of this vector.
   Standard_EXPORT void SetCoord(const Standard_Real X,

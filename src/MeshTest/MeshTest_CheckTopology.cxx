@@ -119,8 +119,8 @@ void MeshTest_CheckTopology::Perform(Draw_Interpretor& di)
       const gp_Trsf&   aTrsf2 = aFace2.Location().Transformation();
       for (; i1 <= aNodes1.Upper(); i1++, i2++)
       {
-        const gp_Pnt        aP1     = aT1->Node(aNodes1[i1]).Transformed(aTrsf1);
-        const gp_Pnt        aP2     = aT2->Node(aNodes2[i2]).Transformed(aTrsf2);
+        const Point3d        aP1     = aT1->Node(aNodes1[i1]).Transformed(aTrsf1);
+        const Point3d        aP2     = aT2->Node(aNodes2[i2]).Transformed(aTrsf2);
         const Standard_Real aSqDist = aP1.SquareDistance(aP2);
         if (aSqDist > aSqDefle)
         {
@@ -178,7 +178,7 @@ void MeshTest_CheckTopology::Perform(Draw_Interpretor& di)
       aUsedNodes.Add(n[1]);
       aUsedNodes.Add(n[2]);
 
-      const gp_Pnt aPts[3] = {aT->Node(n[0]).Transformed(aTrsf),
+      const Point3d aPts[3] = {aT->Node(n[0]).Transformed(aTrsf),
                               aT->Node(n[1]).Transformed(aTrsf),
                               aT->Node(n[2]).Transformed(aTrsf)};
 

@@ -32,7 +32,7 @@ GC_MakePlane::GC_MakePlane(const gp_Pln& Pl)
   ThePlane = new Geom_Plane(Pl);
 }
 
-GC_MakePlane::GC_MakePlane(const gp_Pnt& P, const gp_Dir& V)
+GC_MakePlane::GC_MakePlane(const Point3d& P, const gp_Dir& V)
 {
   TheError = gce_Done;
   ThePlane = new Geom_Plane(P, V);
@@ -58,7 +58,7 @@ GC_MakePlane::GC_MakePlane(const Standard_Real A,
 //   Creation d un Geom_Plane passant par trois points.                   +
 //=========================================================================
 
-GC_MakePlane::GC_MakePlane(const gp_Pnt& P1, const gp_Pnt& P2, const gp_Pnt& P3)
+GC_MakePlane::GC_MakePlane(const Point3d& P1, const Point3d& P2, const Point3d& P3)
 {
   gce_MakePln Pl(P1, P2, P3);
   TheError = Pl.Status();
@@ -84,7 +84,7 @@ GC_MakePlane::GC_MakePlane(const gp_Pln& Pl, const Standard_Real Dist)
 //   <Point1>.                                                            +
 //=========================================================================
 
-GC_MakePlane::GC_MakePlane(const gp_Pln& Pl, const gp_Pnt& Point)
+GC_MakePlane::GC_MakePlane(const gp_Pln& Pl, const Point3d& Point)
 {
   gp_Pln Pln = gce_MakePln(Pl, Point);
   TheError   = gce_Done;

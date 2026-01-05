@@ -422,10 +422,10 @@ const TopoDS_Shape& TopOpeBRep_EdgesIntersector::Vertex1(const Standard_Integer 
 
 //=================================================================================================
 
-gp_Pnt TopOpeBRep_EdgesIntersector::Value1() const
+Point3d TopOpeBRep_EdgesIntersector::Value1() const
 {
   gp_Pnt2d p2 = Point1().Value();
-  gp_Pnt   p;
+  Point3d   p;
   if (Precision::IsInfinite(p2.X()) || Precision::IsInfinite(p2.Y()))
   {
     Standard_Real inf = Precision::Infinite();

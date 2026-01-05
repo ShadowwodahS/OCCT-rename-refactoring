@@ -52,7 +52,7 @@ Standard_Integer IntTools::GetRadius(const BRepAdaptor_Curve& C,
   }
 
   Standard_Real t2;
-  gp_Pnt        P1, P2, P3;
+  Point3d        P1, P2, P3;
 
   t2 = 0.5 * (t1 + t3);
 
@@ -317,7 +317,7 @@ void IntTools::FindRootStates(IntTools_SequenceOfRoots& mySequenceOfRoots,
 
 //=================================================================================================
 
-Standard_Integer IntTools::Parameter(const gp_Pnt&             aP,
+Standard_Integer IntTools::Parameter(const Point3d&             aP,
                                      const Handle(Geom_Curve)& aCurve,
                                      Standard_Real&            aParameter)
 {

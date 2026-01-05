@@ -38,7 +38,7 @@ Draw_Axis3D::Draw_Axis3D(const Draw_Color& col, const Standard_Integer Size)
 
 //=================================================================================================
 
-Draw_Axis3D::Draw_Axis3D(const gp_Pnt& p, const Draw_Color& col, const Standard_Integer Size)
+Draw_Axis3D::Draw_Axis3D(const Point3d& p, const Draw_Color& col, const Standard_Integer Size)
     : myAxes(p, gp::DZ(), gp::DX()),
       myColor(col),
       mySize(Size)
@@ -62,7 +62,7 @@ void Draw_Axis3D::DrawOn(Draw_Display& dis) const
   dis.SetColor(myColor);
   Standard_Real z = dis.Zoom();
   z               = (Standard_Real)mySize / z;
-  gp_Pnt P, P0 = myAxes.Location();
+  Point3d P, P0 = myAxes.Location();
   P = P0.Translated(gp_Vec(myAxes.XDirection()) * z);
   dis.Draw(P0, P);
   dis.DrawString(P, "X");

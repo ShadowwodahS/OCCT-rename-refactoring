@@ -57,7 +57,7 @@ public:
   //! Checks whether the boundary of the current volume selection intersects with a sphere or are
   //! there it's boundaries lying inside the sphere
   Standard_EXPORT Standard_Boolean
-    IsBoundaryIntersectSphere(const gp_Pnt&             theCenter,
+    IsBoundaryIntersectSphere(const Point3d&             theCenter,
                               const Standard_Real       theRadius,
                               const gp_Dir&             thePlaneNormal,
                               const TColgp_Array1OfPnt& theBoundaries,

@@ -75,26 +75,26 @@ private:
 
   Standard_EXPORT void ComputeTwoLinesPresentation(const Handle(Prs3d_Presentation)& aPresentation,
                                                    const Handle(Geom_Line)&          aLin,
-                                                   gp_Pnt&                           Pnt1On1,
-                                                   gp_Pnt&                           Pnt2On1,
-                                                   gp_Pnt&                           Pnt1On2,
-                                                   gp_Pnt&                           Pnt2On2,
+                                                   Point3d&                           Pnt1On1,
+                                                   Point3d&                           Pnt2On1,
+                                                   Point3d&                           Pnt1On2,
+                                                   Point3d&                           Pnt2On2,
                                                    const Standard_Boolean            isInf1,
                                                    const Standard_Boolean            isInf2);
 
   Standard_EXPORT void ComputeTwoCirclesPresentation(
     const Handle(Prs3d_Presentation)& aPresentation,
     const Handle(Geom_Circle)&        aCircle,
-    const gp_Pnt&                     Pnt1On1,
-    const gp_Pnt&                     Pnt2On1,
-    const gp_Pnt&                     Pnt1On2,
-    const gp_Pnt&                     Pnt2On2);
+    const Point3d&                     Pnt1On1,
+    const Point3d&                     Pnt2On1,
+    const Point3d&                     Pnt1On2,
+    const Point3d&                     Pnt2On2);
 
   //! Computes the presentation of the identic constraint
   //! between 2 arcs in the case of automatic presentation
   Standard_EXPORT void ComputeAutoArcPresentation(const Handle(Geom_Circle)& aCircle,
-                                                  const gp_Pnt&              firstp,
-                                                  const gp_Pnt&              lastp,
+                                                  const Point3d&              firstp,
+                                                  const Point3d&              lastp,
                                                   const Standard_Boolean isstatic = Standard_False);
 
   //! Computes the presentation of the identic constraint
@@ -104,21 +104,21 @@ private:
   //! Computes the presentation of the identic constraint
   //! between 2 arcs in the case of non automatic presentation
   Standard_EXPORT void ComputeNotAutoArcPresentation(const Handle(Geom_Circle)& aCircle,
-                                                     const gp_Pnt&              pntfirst,
-                                                     const gp_Pnt&              pntlast);
+                                                     const Point3d&              pntfirst,
+                                                     const Point3d&              pntlast);
 
   Standard_EXPORT void ComputeTwoEllipsesPresentation(const Handle(Prs3d_Presentation)& aPrs,
                                                       const Handle(Geom_Ellipse)&       anEll,
-                                                      const gp_Pnt&                     Pnt1On1,
-                                                      const gp_Pnt&                     Pnt2On1,
-                                                      const gp_Pnt&                     Pnt1On2,
-                                                      const gp_Pnt&                     Pnt2On2);
+                                                      const Point3d&                     Pnt1On1,
+                                                      const Point3d&                     Pnt2On1,
+                                                      const Point3d&                     Pnt1On2,
+                                                      const Point3d&                     Pnt2On2);
 
   //! Computes the presentation of the identic constraint
   //! between 2 arcs in the case of automatic presentation
   Standard_EXPORT void ComputeAutoArcPresentation(const Handle(Geom_Ellipse)& theEll,
-                                                  const gp_Pnt&               firstp,
-                                                  const gp_Pnt&               lastp,
+                                                  const Point3d&               firstp,
+                                                  const Point3d&               lastp,
                                                   const Standard_Boolean isstatic = Standard_False);
 
   //! Computes the presentation of the identic constraint
@@ -128,8 +128,8 @@ private:
   //! Computes the presentation of the identic constraint
   //! between 2 arcs in the case of non automatic presentation
   Standard_EXPORT void ComputeNotAutoArcPresentation(const Handle(Geom_Ellipse)& theEll,
-                                                     const gp_Pnt&               pntfirst,
-                                                     const gp_Pnt&               pntlast);
+                                                     const Point3d&               pntfirst,
+                                                     const Point3d&               pntlast);
 
   Standard_EXPORT void ComputeTwoVerticesPresentation(
     const Handle(Prs3d_Presentation)& aPresentation);
@@ -141,7 +141,7 @@ private:
                                                     gp_Dir&              aDir) const;
 
   Standard_EXPORT gp_Dir ComputeLineDirection(const Handle(Geom_Line)& aLin,
-                                              const gp_Pnt&            anExtremity) const;
+                                              const Point3d&            anExtremity) const;
 
   Standard_EXPORT gp_Dir ComputeCircleDirection(const Handle(Geom_Circle)& aCirc,
                                                 const TopoDS_Vertex&       ConnectedVertex) const;
@@ -149,9 +149,9 @@ private:
 private:
   TColStd_ListOfTransient myUsers;
   Standard_Boolean        isCircle;
-  gp_Pnt                  myFAttach;
-  gp_Pnt                  mySAttach;
-  gp_Pnt                  myCenter;
+  Point3d                  myFAttach;
+  Point3d                  mySAttach;
+  Point3d                  myCenter;
 };
 
 #endif // _PrsDim_IdenticRelation_HeaderFile

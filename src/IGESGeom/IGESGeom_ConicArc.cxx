@@ -90,12 +90,12 @@ gp_Pnt2d IGESGeom_ConicArc::StartPoint() const
   return start;
 }
 
-gp_Pnt IGESGeom_ConicArc::TransformedStartPoint() const
+Point3d IGESGeom_ConicArc::TransformedStartPoint() const
 {
   gp_XYZ start(theStart.X(), theStart.Y(), theZT);
   if (HasTransf())
     Location().Transforms(start);
-  gp_Pnt transStart(start);
+  Point3d transStart(start);
   return transStart;
 }
 
@@ -105,12 +105,12 @@ gp_Pnt2d IGESGeom_ConicArc::EndPoint() const
   return end;
 }
 
-gp_Pnt IGESGeom_ConicArc::TransformedEndPoint() const
+Point3d IGESGeom_ConicArc::TransformedEndPoint() const
 {
   gp_XYZ end(theEnd.X(), theEnd.Y(), theZT);
   if (HasTransf())
     Location().Transforms(end);
-  gp_Pnt transEnd(end);
+  Point3d transEnd(end);
   return transEnd;
 }
 
@@ -187,7 +187,7 @@ gp_Dir IGESGeom_ConicArc::TransformedAxis() const
   return gp_Dir(axis);
 }
 
-void IGESGeom_ConicArc::Definition(gp_Pnt&        Center,
+void IGESGeom_ConicArc::Definition(Point3d&        Center,
                                    gp_Dir&        MainAxis,
                                    Standard_Real& Rmin,
                                    Standard_Real& Rmax) const
@@ -198,7 +198,7 @@ void IGESGeom_ConicArc::Definition(gp_Pnt&        Center,
   MainAxis.SetCoord(Xax, Yax, 0.);
 }
 
-void IGESGeom_ConicArc::TransformedDefinition(gp_Pnt&        Center,
+void IGESGeom_ConicArc::TransformedDefinition(Point3d&        Center,
                                               gp_Dir&        MainAxis,
                                               Standard_Real& Rmin,
                                               Standard_Real& Rmax) const

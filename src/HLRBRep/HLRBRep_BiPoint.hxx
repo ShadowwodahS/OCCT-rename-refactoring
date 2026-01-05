@@ -23,7 +23,7 @@
 #include <gp_Pnt.hxx>
 #include <TopoDS_Shape.hxx>
 class TopoDS_Shape;
-class gp_Pnt;
+class Point3d;
 
 //! Contains the colors of a shape.
 class HLRBRep_BiPoint
@@ -60,9 +60,9 @@ public:
   {
   }
 
-  const gp_Pnt& P1() const { return myP1; }
+  const Point3d& P1() const { return myP1; }
 
-  const gp_Pnt& P2() const { return myP2; }
+  const Point3d& P2() const { return myP2; }
 
   const TopoDS_Shape& Shape() const { return myShape; }
 
@@ -85,8 +85,8 @@ public:
   void IntLine(const Standard_Boolean B) { myIntLine = B; }
 
 private:
-  gp_Pnt           myP1;
-  gp_Pnt           myP2;
+  Point3d           myP1;
+  Point3d           myP2;
   TopoDS_Shape     myShape;
   Standard_Boolean myRg1Line;
   Standard_Boolean myRgNLine;

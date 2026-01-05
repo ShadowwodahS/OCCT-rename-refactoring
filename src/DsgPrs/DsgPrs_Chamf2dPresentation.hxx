@@ -25,7 +25,7 @@
 #include <DsgPrs_ArrowSide.hxx>
 #include <Prs3d_Presentation.hxx>
 
-class gp_Pnt;
+class Point3d;
 class TCollection_ExtendedString;
 
 //! Framework for display of 2D chamfers.
@@ -42,8 +42,8 @@ public:
   //! defined by the attribute manager aDrawer.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Handle(Prs3d_Drawer)&       aDrawer,
-                                  const gp_Pnt&                     aPntAttach,
-                                  const gp_Pnt&                     aPntEnd,
+                                  const Point3d&                     aPntAttach,
+                                  const Point3d&                     aPntEnd,
                                   const TCollection_ExtendedString& aText);
 
   //! Defines the display of texts, symbols and icons used
@@ -57,8 +57,8 @@ public:
   //! value of the enumeration DsgPrs_Arrowside.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Handle(Prs3d_Drawer)&       aDrawer,
-                                  const gp_Pnt&                     aPntAttach,
-                                  const gp_Pnt&                     aPntEnd,
+                                  const Point3d&                     aPntAttach,
+                                  const Point3d&                     aPntEnd,
                                   const TCollection_ExtendedString& aText,
                                   const DsgPrs_ArrowSide            ArrowSide);
 

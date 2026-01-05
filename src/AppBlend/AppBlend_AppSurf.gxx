@@ -833,8 +833,8 @@ void AppBlend_AppSurf::Perform(const Handle(TheLine)& Lin,
 //  modified by EAP Thu Jan  3 15:45:23 2002 ___BEGIN___
       if (knownp && theapprox.NbMultiCurves() > 1) 
       {
-	gp_Pnt aFirstPole = mucu.Pole(Index, 1);
-	gp_Pnt aLastPole  = mucu.Pole(Index, mucu.NbPoles());
+	Point3d aFirstPole = mucu.Pole(Index, 1);
+	Point3d aLastPole  = mucu.Pole(Index, mucu.NbPoles());
 	aPoleDistSeq.Append (aFirstPole.Distance(aLastPole));
 	aWholeDist += aPoleDistSeq.Last();
       }

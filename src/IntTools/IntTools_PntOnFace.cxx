@@ -28,7 +28,7 @@ IntTools_PntOnFace::IntTools_PntOnFace()
 //=================================================================================================
 
 void IntTools_PntOnFace::Init(const TopoDS_Face&  aF,
-                              const gp_Pnt&       aP,
+                              const Point3d&       aP,
                               const Standard_Real anU,
                               const Standard_Real aV)
 {
@@ -47,7 +47,7 @@ void IntTools_PntOnFace::SetFace(const TopoDS_Face& aF)
 
 //=================================================================================================
 
-void IntTools_PntOnFace::SetPnt(const gp_Pnt& aP)
+void IntTools_PntOnFace::SetPnt(const Point3d& aP)
 {
   myPnt = aP;
 }
@@ -76,7 +76,7 @@ const TopoDS_Face& IntTools_PntOnFace::Face() const
 
 //=================================================================================================
 
-const gp_Pnt& IntTools_PntOnFace::Pnt() const
+const Point3d& IntTools_PntOnFace::Pnt() const
 {
   return myPnt;
 }

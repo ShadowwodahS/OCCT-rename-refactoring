@@ -80,7 +80,7 @@ public:
   const gp_Circ& Circle() const { return myCircle; }
 
   //! @return anchor point on circle for diameter dimension.
-  Standard_EXPORT gp_Pnt AnchorPoint();
+  Standard_EXPORT Point3d AnchorPoint();
 
   //! @return the measured shape.
   const TopoDS_Shape& Shape() const { return myShape; }
@@ -112,9 +112,9 @@ public:
   Standard_EXPORT virtual void SetModelUnits(const TCollection_AsciiString& theUnits)
     Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void SetTextPosition(const gp_Pnt& theTextPos) Standard_OVERRIDE;
+  Standard_EXPORT virtual void SetTextPosition(const Point3d& theTextPos) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual gp_Pnt GetTextPosition() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Point3d GetTextPosition() const Standard_OVERRIDE;
 
 protected:
   //! Override this method to change logic of anchor point computation.
@@ -151,17 +151,17 @@ protected:
   //! @param[out] theFirstPnt  the first point.
   //! @param[out] theSecondPnt  the second point.
   Standard_EXPORT void ComputeSidePoints(const gp_Circ& theCircle,
-                                         gp_Pnt&        theFirstPnt,
-                                         gp_Pnt&        theSecondPnt);
+                                         Point3d&        theFirstPnt,
+                                         Point3d&        theSecondPnt);
 
   Standard_EXPORT Standard_Boolean IsValidCircle(const gp_Circ& theCircle) const;
 
   Standard_EXPORT Standard_Boolean IsValidAnchor(const gp_Circ& theCircle,
-                                                 const gp_Pnt&  thePnt) const;
+                                                 const Point3d&  thePnt) const;
 
 private:
   gp_Circ      myCircle;
-  gp_Pnt       myAnchorPoint;
+  Point3d       myAnchorPoint;
   TopoDS_Shape myShape;
 };
 

@@ -121,7 +121,7 @@ void AIS_CameraFrustum::fillTriangles()
 
     myTriangles = new Graphic3d_ArrayOfTriangles(Graphic3d_Camera::FrustumVerticesNB,
                                                  aPlaneTriangleVertsNb * aPlanesNb);
-    myTriangles->SetVertice(Graphic3d_Camera::FrustumVerticesNB, gp_Pnt(0.0, 0.0, 0.0));
+    myTriangles->SetVertice(Graphic3d_Camera::FrustumVerticesNB, Point3d(0.0, 0.0, 0.0));
 
     // Triangles go in order (clockwise vertices traversing for correct normal):
     // (0, 2, 1), (3, 1, 2)
@@ -164,7 +164,7 @@ void AIS_CameraFrustum::fillTriangles()
        ++aPointIter)
   {
     const Graphic3d_Vec3d aPnt = myPoints[aPointIter];
-    myTriangles->SetVertice(aPointIter + 1, gp_Pnt(aPnt.x(), aPnt.y(), aPnt.z()));
+    myTriangles->SetVertice(aPointIter + 1, Point3d(aPnt.x(), aPnt.y(), aPnt.z()));
   }
 }
 
@@ -178,7 +178,7 @@ void AIS_CameraFrustum::fillBorders()
     const Standard_Integer aPlanesNb         = 3 * 2;
     myBorders = new Graphic3d_ArrayOfSegments(Graphic3d_Camera::FrustumVerticesNB,
                                               aPlaneSegmVertsNb * aPlanesNb);
-    myBorders->SetVertice(Graphic3d_Camera::FrustumVerticesNB, gp_Pnt(0.0, 0.0, 0.0));
+    myBorders->SetVertice(Graphic3d_Camera::FrustumVerticesNB, Point3d(0.0, 0.0, 0.0));
 
     // Segments go in order:
     // (0, 2), (2, 3), (3, 1), (1, 0)
@@ -209,7 +209,7 @@ void AIS_CameraFrustum::fillBorders()
        ++aPointIter)
   {
     const Graphic3d_Vec3d aPnt = myPoints[aPointIter];
-    myBorders->SetVertice(aPointIter + 1, gp_Pnt(aPnt.x(), aPnt.y(), aPnt.z()));
+    myBorders->SetVertice(aPointIter + 1, Point3d(aPnt.x(), aPnt.y(), aPnt.z()));
   }
 }
 

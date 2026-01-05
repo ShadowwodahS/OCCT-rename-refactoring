@@ -43,7 +43,7 @@ BRepBuilderAPI_MakeEdge::BRepBuilderAPI_MakeEdge(const TopoDS_Vertex& V1, const 
 
 //=================================================================================================
 
-BRepBuilderAPI_MakeEdge::BRepBuilderAPI_MakeEdge(const gp_Pnt& P1, const gp_Pnt& P2)
+BRepBuilderAPI_MakeEdge::BRepBuilderAPI_MakeEdge(const Point3d& P1, const Point3d& P2)
     : myMakeEdge(P1, P2)
 {
   if (myMakeEdge.IsDone())
@@ -82,8 +82,8 @@ BRepBuilderAPI_MakeEdge::BRepBuilderAPI_MakeEdge(const gp_Lin&       L,
 //=================================================================================================
 
 BRepBuilderAPI_MakeEdge::BRepBuilderAPI_MakeEdge(const gp_Lin& L,
-                                                 const gp_Pnt& P1,
-                                                 const gp_Pnt& P2)
+                                                 const Point3d& P1,
+                                                 const Point3d& P2)
     : myMakeEdge(L, P1, P2)
 {
   if (myMakeEdge.IsDone())
@@ -136,8 +136,8 @@ BRepBuilderAPI_MakeEdge::BRepBuilderAPI_MakeEdge(const gp_Circ&      C,
 //=================================================================================================
 
 BRepBuilderAPI_MakeEdge::BRepBuilderAPI_MakeEdge(const gp_Circ& C,
-                                                 const gp_Pnt&  P1,
-                                                 const gp_Pnt&  P2)
+                                                 const Point3d&  P1,
+                                                 const Point3d&  P2)
     : myMakeEdge(C, P1, P2)
 {
   if (myMakeEdge.IsDone())
@@ -190,8 +190,8 @@ BRepBuilderAPI_MakeEdge::BRepBuilderAPI_MakeEdge(const gp_Elips&     E,
 //=================================================================================================
 
 BRepBuilderAPI_MakeEdge::BRepBuilderAPI_MakeEdge(const gp_Elips& E,
-                                                 const gp_Pnt&   P1,
-                                                 const gp_Pnt&   P2)
+                                                 const Point3d&   P1,
+                                                 const Point3d&   P2)
     : myMakeEdge(E, P1, P2)
 {
   if (myMakeEdge.IsDone())
@@ -244,8 +244,8 @@ BRepBuilderAPI_MakeEdge::BRepBuilderAPI_MakeEdge(const gp_Hypr&      H,
 //=================================================================================================
 
 BRepBuilderAPI_MakeEdge::BRepBuilderAPI_MakeEdge(const gp_Hypr& H,
-                                                 const gp_Pnt&  P1,
-                                                 const gp_Pnt&  P2)
+                                                 const Point3d&  P1,
+                                                 const Point3d&  P2)
     : myMakeEdge(H, P1, P2)
 {
   if (myMakeEdge.IsDone())
@@ -298,8 +298,8 @@ BRepBuilderAPI_MakeEdge::BRepBuilderAPI_MakeEdge(const gp_Parab&     P,
 //=================================================================================================
 
 BRepBuilderAPI_MakeEdge::BRepBuilderAPI_MakeEdge(const gp_Parab& P,
-                                                 const gp_Pnt&   P1,
-                                                 const gp_Pnt&   P2)
+                                                 const Point3d&   P1,
+                                                 const Point3d&   P2)
     : myMakeEdge(P, P1, P2)
 {
   if (myMakeEdge.IsDone())
@@ -352,8 +352,8 @@ BRepBuilderAPI_MakeEdge::BRepBuilderAPI_MakeEdge(const Handle(Geom_Curve)& L,
 //=================================================================================================
 
 BRepBuilderAPI_MakeEdge::BRepBuilderAPI_MakeEdge(const Handle(Geom_Curve)& L,
-                                                 const gp_Pnt&             P1,
-                                                 const gp_Pnt&             P2)
+                                                 const Point3d&             P1,
+                                                 const Point3d&             P2)
     : myMakeEdge(L, P1, P2)
 {
   if (myMakeEdge.IsDone())
@@ -380,8 +380,8 @@ BRepBuilderAPI_MakeEdge::BRepBuilderAPI_MakeEdge(const Handle(Geom_Curve)& L,
 //=================================================================================================
 
 BRepBuilderAPI_MakeEdge::BRepBuilderAPI_MakeEdge(const Handle(Geom_Curve)& L,
-                                                 const gp_Pnt&             P1,
-                                                 const gp_Pnt&             P2,
+                                                 const Point3d&             P1,
+                                                 const Point3d&             P2,
                                                  const Standard_Real       p1,
                                                  const Standard_Real       p2)
     : myMakeEdge(L, P1, P2, p1, p2)
@@ -441,8 +441,8 @@ BRepBuilderAPI_MakeEdge::BRepBuilderAPI_MakeEdge(const Handle(Geom2d_Curve)& L,
 
 BRepBuilderAPI_MakeEdge::BRepBuilderAPI_MakeEdge(const Handle(Geom2d_Curve)& L,
                                                  const Handle(Geom_Surface)& S,
-                                                 const gp_Pnt&               P1,
-                                                 const gp_Pnt&               P2)
+                                                 const Point3d&               P1,
+                                                 const Point3d&               P2)
     : myMakeEdge(L, S, P1, P2)
 {
   if (myMakeEdge.IsDone())
@@ -471,8 +471,8 @@ BRepBuilderAPI_MakeEdge::BRepBuilderAPI_MakeEdge(const Handle(Geom2d_Curve)& L,
 
 BRepBuilderAPI_MakeEdge::BRepBuilderAPI_MakeEdge(const Handle(Geom2d_Curve)& L,
                                                  const Handle(Geom_Surface)& S,
-                                                 const gp_Pnt&               P1,
-                                                 const gp_Pnt&               P2,
+                                                 const Point3d&               P1,
+                                                 const Point3d&               P2,
                                                  const Standard_Real         p1,
                                                  const Standard_Real         p2)
     : myMakeEdge(L, S, P1, P2, p1, p2)
@@ -529,7 +529,7 @@ void BRepBuilderAPI_MakeEdge::Init(const Handle(Geom_Curve)& C,
 
 //=================================================================================================
 
-void BRepBuilderAPI_MakeEdge::Init(const Handle(Geom_Curve)& C, const gp_Pnt& P1, const gp_Pnt& P2)
+void BRepBuilderAPI_MakeEdge::Init(const Handle(Geom_Curve)& C, const Point3d& P1, const Point3d& P2)
 {
   myMakeEdge.Init(C, P1, P2);
   if (myMakeEdge.IsDone())
@@ -556,8 +556,8 @@ void BRepBuilderAPI_MakeEdge::Init(const Handle(Geom_Curve)& C,
 //=================================================================================================
 
 void BRepBuilderAPI_MakeEdge::Init(const Handle(Geom_Curve)& C,
-                                   const gp_Pnt&             P1,
-                                   const gp_Pnt&             P2,
+                                   const Point3d&             P1,
+                                   const Point3d&             P2,
                                    const Standard_Real       p1,
                                    const Standard_Real       p2)
 {
@@ -616,8 +616,8 @@ void BRepBuilderAPI_MakeEdge::Init(const Handle(Geom2d_Curve)& C,
 
 void BRepBuilderAPI_MakeEdge::Init(const Handle(Geom2d_Curve)& C,
                                    const Handle(Geom_Surface)& S,
-                                   const gp_Pnt&               P1,
-                                   const gp_Pnt&               P2)
+                                   const Point3d&               P1,
+                                   const Point3d&               P2)
 {
   myMakeEdge.Init(C, S, P1, P2);
   if (myMakeEdge.IsDone())
@@ -646,8 +646,8 @@ void BRepBuilderAPI_MakeEdge::Init(const Handle(Geom2d_Curve)& C,
 
 void BRepBuilderAPI_MakeEdge::Init(const Handle(Geom2d_Curve)& C,
                                    const Handle(Geom_Surface)& S,
-                                   const gp_Pnt&               P1,
-                                   const gp_Pnt&               P2,
+                                   const Point3d&               P1,
+                                   const Point3d&               P2,
                                    const Standard_Real         p1,
                                    const Standard_Real         p2)
 {

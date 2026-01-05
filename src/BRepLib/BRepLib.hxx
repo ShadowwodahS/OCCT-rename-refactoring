@@ -287,7 +287,7 @@ public:
   //! This can be used to construct the new vertex which covers the given set of
   //! other vertices.
   Standard_EXPORT static void BoundingVertex(const NCollection_List<TopoDS_Shape>& theLV,
-                                             gp_Pnt&                               theNewCenter,
+                                             Point3d&                               theNewCenter,
                                              Standard_Real&                        theNewTol);
 
   //! For an edge defined by 3d curve and tolerance and vertices defined by points,
@@ -298,10 +298,10 @@ public:
   Standard_EXPORT static Standard_Boolean FindValidRange(const Adaptor3d_Curve& theCurve,
                                                          const Standard_Real    theTolE,
                                                          const Standard_Real    theParV1,
-                                                         const gp_Pnt&          thePntV1,
+                                                         const Point3d&          thePntV1,
                                                          const Standard_Real    theTolV1,
                                                          const Standard_Real    theParV2,
-                                                         const gp_Pnt&          thePntV2,
+                                                         const Point3d&          thePntV2,
                                                          const Standard_Real    theTolV2,
                                                          Standard_Real&         theFirst,
                                                          Standard_Real&         theLast);

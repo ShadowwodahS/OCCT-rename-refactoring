@@ -52,7 +52,7 @@ IntCurveSurface_Polyhedron::IntCurveSurface_Polyhedron (const ThePSurface&     S
        C_MyPnts(NULL),C_MyU(NULL),C_MyV(NULL),C_MyIsOnBounds(NULL)
 {
   Standard_Integer t = (nbdeltaU+1)*(nbdeltaV+1)+1; 
-  gp_Pnt           *CMyPnts = new gp_Pnt[t];         C_MyPnts = (void *)CMyPnts;
+  Point3d           *CMyPnts = new Point3d[t];         C_MyPnts = (void *)CMyPnts;
   Standard_Real    *CMyU    = new Standard_Real[t];  C_MyU    = (void *)CMyU;  
   Standard_Real    *CMyV    = new Standard_Real[t];  C_MyV    = (void *)CMyV;
 
@@ -77,7 +77,7 @@ IntCurveSurface_Polyhedron::IntCurveSurface_Polyhedron (const ThePSurface&     S
       C_MyPnts(NULL),C_MyU(NULL),C_MyV(NULL),C_MyIsOnBounds(NULL)
 {
   Standard_Integer t = (nbdeltaU+1)*(nbdeltaV+1)+1; 
-  gp_Pnt           *CMyPnts = new gp_Pnt[t];         C_MyPnts = (void *)CMyPnts;
+  Point3d           *CMyPnts = new Point3d[t];         C_MyPnts = (void *)CMyPnts;
   Standard_Real    *CMyU    = new Standard_Real[t];  C_MyU    = (void *)CMyU;  
   Standard_Real    *CMyV    = new Standard_Real[t];  C_MyV    = (void *)CMyV;
 
@@ -92,7 +92,7 @@ IntCurveSurface_Polyhedron::IntCurveSurface_Polyhedron (const ThePSurface&     S
 
 void IntCurveSurface_Polyhedron::Destroy() { 
   //-- printf("\n IntCurveSurface_Polyhedron::Destroy\n");
-  gp_Pnt *CMyPnts     = (gp_Pnt *)C_MyPnts;       if(C_MyPnts) delete [] CMyPnts;
+  Point3d *CMyPnts     = (Point3d *)C_MyPnts;       if(C_MyPnts) delete [] CMyPnts;
   Standard_Real *CMyU = (Standard_Real *)C_MyU;   if(C_MyU)    delete [] CMyU;
   Standard_Real *CMyV = (Standard_Real *)C_MyV;   if(C_MyV)    delete [] CMyV;
 
@@ -119,14 +119,14 @@ void IntCurveSurface_Polyhedron::Init(const ThePSurface&     Surface,
   Standard_Real    U,V;
   Standard_Real    U1mU0sNbdeltaU = (U1-U0)/(Standard_Real)nbdeltaU;
   Standard_Real    V1mV0sNbdeltaV = (V1-V0)/(Standard_Real)nbdeltaV;
-  gp_Pnt TP;
+  Point3d TP;
   Standard_Integer Index=1;
   //-- --------------------------------------------------
   //-- Index varie de 1 -> (nbdu+1)*(nbdv+1)
   //-- V est la colonne
   //-- U est la ligne 
   //-- --------------------------------------------------
-  gp_Pnt *CMyPnts     = (gp_Pnt *)C_MyPnts;
+  Point3d *CMyPnts     = (Point3d *)C_MyPnts;
   Standard_Real *CMyU = (Standard_Real *)C_MyU;
   Standard_Real *CMyV = (Standard_Real *)C_MyV;
   Standard_Boolean *CMyIsOnBounds = (Standard_Boolean *)C_MyIsOnBounds;
@@ -203,14 +203,14 @@ void IntCurveSurface_Polyhedron::Init(const ThePSurface&     Surface,
   //#define DEBUGDUMP
   Standard_Integer i1,i2;
   Standard_Real    U,V;
-  gp_Pnt TP;
+  Point3d TP;
   Standard_Integer Index=1;
   //-- --------------------------------------------------
   //-- Index varie de 1 -> (nbdu+1)*(nbdv+1)
   //-- V est la colonne
   //-- U est la ligne 
   //-- --------------------------------------------------
-  gp_Pnt *CMyPnts     = (gp_Pnt *)C_MyPnts;
+  Point3d *CMyPnts     = (Point3d *)C_MyPnts;
   Standard_Real *CMyU = (Standard_Real *)C_MyU;
   Standard_Real *CMyV = (Standard_Real *)C_MyV;
   Standard_Boolean *CMyIsOnBounds = (Standard_Boolean *)C_MyIsOnBounds;
@@ -295,7 +295,7 @@ Standard_Real IntCurveSurface_Polyhedron::DeflectionOnTriangle (const ThePSurfac
   Triangle(Triang,i1,i2,i3);
   //-- Calcul de l equation du plan
   Standard_Real u1,v1,u2,v2,u3,v3;
-  gp_Pnt P1,P2,P3;
+  Point3d P1,P2,P3;
   P1 = Point(i1,u1,v1);
   P2 = Point(i2,u2,v2);
   P3 = Point(i3,u3,v3);
@@ -316,7 +316,7 @@ Standard_Real IntCurveSurface_Polyhedron::DeflectionOnTriangle (const ThePSurfac
   //-- Calcul du point u,v  au centre du triangle
   Standard_Real u = (u1+u2+u3)/3.0;
   Standard_Real v = (v1+v2+v3)/3.0;
-  gp_Pnt P =  ThePSurfaceTool::Value(Surface,u,v);
+  Point3d P =  ThePSurfaceTool::Value(Surface,u,v);
   gp_Vec P1P(P1,P);
   return(Abs(P1P.Dot(NormalVector)));
 }
@@ -381,9 +381,9 @@ void IntCurveSurface_Polyhedron::FillBounding()
   Standard_Integer nbtriangles = NbTriangles();
   for (Standard_Integer iTri=1; iTri<=nbtriangles; iTri++) {
     Triangle(iTri, np1, np2, np3);
-    gp_Pnt p1(Point(np1));
-    gp_Pnt p2(Point(np2));
-    gp_Pnt p3(Point(np3));
+    Point3d p1(Point(np1));
+    Point3d p2(Point(np2));
+    Point3d p3(Point(np3));
     Boite.SetVoid();
     if(p1.SquareDistance(p2)>LONGUEUR_MINI_EDGE_TRIANGLE) {
       if(p1.SquareDistance(p3)>LONGUEUR_MINI_EDGE_TRIANGLE) {
@@ -645,7 +645,7 @@ void IntCurveSurface_Polyhedron::PlaneEquation (const Standard_Integer Triang,
 //purpose  : 
 //=======================================================================
 Standard_Boolean IntCurveSurface_Polyhedron::Contain (const Standard_Integer Triang,
-						      const gp_Pnt& ThePnt) const
+						      const Point3d& ThePnt) const
 {
   Standard_Integer i1,i2,i3;
   Triangle(Triang,i1,i2,i3);
@@ -706,7 +706,7 @@ void IntCurveSurface_Polyhedron::Triangle (const Standard_Integer Index,
 //=======================================================================
 //function : Point
 //=======================================================================
-const gp_Pnt& IntCurveSurface_Polyhedron::Point(const Standard_Integer Index
+const Point3d& IntCurveSurface_Polyhedron::Point(const Standard_Integer Index
 						,Standard_Real& U
 						,Standard_Real& V) const 
 {
@@ -715,7 +715,7 @@ const gp_Pnt& IntCurveSurface_Polyhedron::Point(const Standard_Integer Index
     printf("\n Erreur IntCurveSurface_Polyhedron::Parameters\n");
   }
 #endif
-  gp_Pnt *CMyPnts     = (gp_Pnt *)C_MyPnts;
+  Point3d *CMyPnts     = (Point3d *)C_MyPnts;
   Standard_Real *CMyU = (Standard_Real *)C_MyU;
   Standard_Real *CMyV = (Standard_Real *)C_MyV;
   U=CMyU[Index];
@@ -725,25 +725,25 @@ const gp_Pnt& IntCurveSurface_Polyhedron::Point(const Standard_Integer Index
 //=======================================================================
 //function : Point
 //=======================================================================
-const gp_Pnt& IntCurveSurface_Polyhedron::Point(const Standard_Integer Index) const {
+const Point3d& IntCurveSurface_Polyhedron::Point(const Standard_Integer Index) const {
 #if CHECKBOUNDS 
   if(Index<0 || Index>((nbdeltaU+1)*(nbdeltaV+1))) { 
     printf("\n Erreur IntCurveSurface_Polyhedron::Parameters\n");
   }
 #endif
   
-  gp_Pnt *CMyPnts     = (gp_Pnt *)C_MyPnts;
+  Point3d *CMyPnts     = (Point3d *)C_MyPnts;
   return CMyPnts[Index];
 }
 //=======================================================================
 //function : Point
 //=======================================================================
-//void IntCurveSurface_Polyhedron::Point (const gp_Pnt& p, 
+//void IntCurveSurface_Polyhedron::Point (const Point3d& p, 
 //					const Standard_Integer lig,
 //					const Standard_Integer col,
 //					const Standard_Real u,
 //					const Standard_Real v) 
-void IntCurveSurface_Polyhedron::Point (const gp_Pnt& , 
+void IntCurveSurface_Polyhedron::Point (const Point3d& , 
 					const Standard_Integer ,
 					const Standard_Integer ,
 					const Standard_Real ,
@@ -754,7 +754,7 @@ void IntCurveSurface_Polyhedron::Point (const gp_Pnt& ,
 //=======================================================================
 //function : Point
 //=======================================================================
-void IntCurveSurface_Polyhedron::Point (const Standard_Integer Index,gp_Pnt& P) const
+void IntCurveSurface_Polyhedron::Point (const Standard_Integer Index,Point3d& P) const
 {
 #if CHECKBOUNDS 
   if(Index<0 || Index>((nbdeltaU+1)*(nbdeltaV+1))) { 
@@ -762,7 +762,7 @@ void IntCurveSurface_Polyhedron::Point (const Standard_Integer Index,gp_Pnt& P) 
   }
 #endif
   
-  gp_Pnt *CMyPnts     = (gp_Pnt *)C_MyPnts;
+  Point3d *CMyPnts     = (Point3d *)C_MyPnts;
   P = CMyPnts[Index];
 }
 

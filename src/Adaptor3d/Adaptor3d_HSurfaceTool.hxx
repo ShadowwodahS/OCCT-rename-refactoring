@@ -136,7 +136,7 @@ public:
     return theSurf->VPeriod();
   }
 
-  static gp_Pnt Value(const Handle(Adaptor3d_Surface)& theSurf,
+  static Point3d Value(const Handle(Adaptor3d_Surface)& theSurf,
                       const Standard_Real              theU,
                       const Standard_Real              theV)
   {
@@ -146,7 +146,7 @@ public:
   static void D0(const Handle(Adaptor3d_Surface)& theSurf,
                  const Standard_Real              theU,
                  const Standard_Real              theV,
-                 gp_Pnt&                          thePnt)
+                 Point3d&                          thePnt)
   {
     theSurf->D0(theU, theV, thePnt);
   }
@@ -154,7 +154,7 @@ public:
   static void D1(const Handle(Adaptor3d_Surface)& theSurf,
                  const Standard_Real              theU,
                  const Standard_Real              theV,
-                 gp_Pnt&                          thePnt,
+                 Point3d&                          thePnt,
                  gp_Vec&                          theD1U,
                  gp_Vec&                          theD1V)
   {
@@ -164,7 +164,7 @@ public:
   static void D2(const Handle(Adaptor3d_Surface)& theSurf,
                  const Standard_Real              theU,
                  const Standard_Real              theV,
-                 gp_Pnt&                          thePnt,
+                 Point3d&                          thePnt,
                  gp_Vec&                          theD1U,
                  gp_Vec&                          theD1V,
                  gp_Vec&                          theD2U,
@@ -177,7 +177,7 @@ public:
   static void D3(const Handle(Adaptor3d_Surface)& theSurf,
                  const Standard_Real              theU,
                  const Standard_Real              theV,
-                 gp_Pnt&                          thePnt,
+                 Point3d&                          thePnt,
                  gp_Vec&                          theD1U,
                  gp_Vec&                          theD1V,
                  gp_Vec&                          theD2U,

@@ -216,7 +216,7 @@ static Standard_Real ParamOnSpine(const TopOpeBRepDS_DataStructure& DStr,
   else
   {
     // construction of the plane containing the section of CD with parameter ptg.
-    gp_Pnt             PP;
+    Point3d             PP;
     gp_Vec             VV;
     Handle(Geom_Curve) c3d;
     if (CD->InterferenceOnS1().LineIndex() != 0)
@@ -263,7 +263,7 @@ static Standard_Real ParamOnSpine(const TopOpeBRepDS_DataStructure& DStr,
       CE.Initialize(Spine->Edges(ii));
       Standard_Real tolc = CE.Resolution(tol);
       found              = ChFi3d_InterPlaneEdge(plan, HE, Nl, First, tolc);
-      gp_Pnt point       = CE.Value(Nl);
+      Point3d point       = CE.Value(Nl);
 #ifdef OCCT_DEBUG
       std::cout << "******* ParamOnSpine() for edge " << iedge << std::endl;
       std::cout << Nl << std::endl;
@@ -339,7 +339,7 @@ void ChFi3d_Builder::Trunc(const Handle(ChFiDS_SurfData)&   SD,
   Standard_Real    wtg = SD->InterferenceOnS1().Parameter(isfirst);
   Standard_Boolean bid;
   Standard_Real    wsp = ParamOnSpine(DStr, wtg, SD, Spine, iedge, 0, 0, tolesp, bid);
-  gp_Pnt           ped, psp;
+  Point3d           ped, psp;
   gp_Vec           ded, dsp;
   TopoDS_Vertex    bout1, bout2, boutemp;
 
@@ -370,7 +370,7 @@ void ChFi3d_Builder::Trunc(const Handle(ChFiDS_SurfData)&   SD,
     ded.Reverse();
   }
   Spine->D1(wsp, psp, dsp);
-  gp_Pnt                      p1, p2;
+  Point3d                      p1, p2;
   const Handle(Geom_Surface)& surf = DStr.Surface(SD->Surf()).Surface();
   gp_Pnt2d                    pp1, pp2;
   pp1                   = SD->InterferenceOnS1().PCurveOnSurf()->Value(wtg);

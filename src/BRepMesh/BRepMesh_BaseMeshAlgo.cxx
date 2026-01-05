@@ -128,7 +128,7 @@ Standard_Boolean BRepMesh_BaseMeshAlgo::initDataStructure()
 
 //=================================================================================================
 
-Standard_Integer BRepMesh_BaseMeshAlgo::registerNode(const gp_Pnt&                  thePoint,
+Standard_Integer BRepMesh_BaseMeshAlgo::registerNode(const Point3d&                  thePoint,
                                                      const gp_Pnt2d&                thePoint2d,
                                                      const BRepMesh_DegreeOfFreedom theMovability,
                                                      const Standard_Boolean         isForceAdd)

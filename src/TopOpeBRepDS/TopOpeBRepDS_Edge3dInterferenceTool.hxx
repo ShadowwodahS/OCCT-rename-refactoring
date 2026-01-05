@@ -60,7 +60,7 @@ private:
   Standard_Boolean           myrefdef;
   Standard_Integer           myIsVertex;
   TopoDS_Shape               myVonOO;
-  gp_Pnt                     myP3d;
+  Point3d                     myP3d;
   gp_Dir                     myTgtref;
 };
 

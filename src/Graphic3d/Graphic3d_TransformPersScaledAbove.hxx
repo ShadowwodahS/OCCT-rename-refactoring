@@ -26,7 +26,7 @@ class Graphic3d_TransformPersScaledAbove : public Graphic3d_TransformPers
 public:
   //! Create a Zoom transformation persistence with an anchor 3D point and a scale value
   Standard_EXPORT Graphic3d_TransformPersScaledAbove(const Standard_Real theScale,
-                                                     const gp_Pnt&       thePnt);
+                                                     const Point3d&       thePnt);
 
   //! Destructor
   virtual ~Graphic3d_TransformPersScaledAbove() {}

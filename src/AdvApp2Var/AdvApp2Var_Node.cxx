@@ -26,7 +26,7 @@ AdvApp2Var_Node::AdvApp2Var_Node()
       myOrdInU(2),
       myOrdInV(2)
 {
-  gp_Pnt P0(0., 0., 0.);
+  Point3d P0(0., 0., 0.);
   myTruePoints.Init(P0);
   myErrors.Init(0.);
 }
@@ -39,7 +39,7 @@ AdvApp2Var_Node::AdvApp2Var_Node(const Standard_Integer iu, const Standard_Integ
       myOrdInU(iu),
       myOrdInV(iv)
 {
-  gp_Pnt P0(0., 0., 0.);
+  Point3d P0(0., 0., 0.);
   myTruePoints.Init(P0);
   myErrors.Init(0.);
 }
@@ -55,7 +55,7 @@ AdvApp2Var_Node::AdvApp2Var_Node(const gp_XY&           UV,
       myOrdInU(iu),
       myOrdInV(iv)
 {
-  gp_Pnt P0(0., 0., 0.);
+  Point3d P0(0., 0., 0.);
   myTruePoints.Init(P0);
   myErrors.Init(0.);
 }

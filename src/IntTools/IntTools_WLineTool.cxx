@@ -54,7 +54,7 @@ static Standard_Boolean IsDegeneratedZone(const gp_Pnt2d&             aP2d,
   Standard_Real    aXm, aYm, aXb, aYb, aXe, aYe;
   aS->Bounds(US1, US2, VS1, VS2);
 
-  gp_Pnt aPm, aPb, aPe;
+  Point3d aPm, aPb, aPe;
 
   aXm = aP2d.X();
   aYm = aP2d.Y();
@@ -141,7 +141,7 @@ static Standard_Boolean IsPointInDegeneratedZone(const IntSurf_PntOn2S& aP2S,
   aS1->Bounds(US21, US22, VS21, VS22);
   GeomAdaptor_Surface aGAS2(aS2);
   //
-  // const gp_Pnt& aP=aP2S.Value();
+  // const Point3d& aP=aP2S.Value();
   aP2S.Parameters(U1, V1, U2, V2);
   //
   aDelta = 1.e-7;
@@ -856,9 +856,9 @@ Standard_Boolean IntTools_WLineTool::DecompositionOfWLine(
                       IntSurf_PntOn2S atmppoint = aNewP;
                       atmppoint.SetValue((surfit == 0), anewU, anewV);
                       atmppoint.Parameters(U1, V1, U2, V2);
-                      gp_Pnt P1 = theSurface1->Value(U1, V1);
-                      gp_Pnt P2 = theSurface2->Value(U2, V2);
-                      gp_Pnt P0 = aPoint.Value();
+                      Point3d P1 = theSurface1->Value(U1, V1);
+                      Point3d P2 = theSurface2->Value(U2, V2);
+                      Point3d P0 = aPoint.Value();
 
                       if (P0.IsEqual(P1, aTol) && P0.IsEqual(P2, aTol) && P1.IsEqual(P2, aTol))
                       {
@@ -973,7 +973,7 @@ Standard_Boolean IntTools_WLineTool::DecompositionOfWLine(
 
             Handle(GeomAdaptor_Surface) aSurfaceOther = (surfit == 0) ? theSurface2 : theSurface1;
 
-            gp_Pnt aP3d = aSurface->Value(anewpoint.X(), anewpoint.Y());
+            Point3d aP3d = aSurface->Value(anewpoint.X(), anewpoint.Y());
             aProjector.Perform(aP3d);
 
             if (aProjector.IsDone())

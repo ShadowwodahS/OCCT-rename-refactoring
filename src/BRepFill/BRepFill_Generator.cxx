@@ -73,7 +73,7 @@ Standard_Integer DetectKPart(const TopoDS_Edge& Edge1, const TopoDS_Edge& Edge2)
   Standard_Boolean   degen1 = BRep_Tool::Degenerated(Edge1);
 
   // find the particular case
-  gp_Pnt        pos1, pos;
+  Point3d        pos1, pos;
   Standard_Real dist;
   Standard_Real dist1 = 0.;
   gp_Ax1        axe1, axe;
@@ -202,7 +202,7 @@ Standard_Integer DetectKPart(const TopoDS_Edge& Edge1, const TopoDS_Edge& Edge2)
               Standard_Boolean Same,
                 SameParametricLength = (Abs(h1 - h2) < Precision::PConfusion());
               Standard_Real m1 = (first1 + last1) / 2., m2 = (first2 + last2) / 2.;
-              gp_Pnt        P1, P2;
+              Point3d        P1, P2;
               gp_Vec        DU;
               AdC1.D1(m1, P1, DU);
               AdC.D0(m2, P2);
@@ -225,7 +225,7 @@ Standard_Integer DetectKPart(const TopoDS_Edge& Edge1, const TopoDS_Edge& Edge2)
               Standard_Boolean Same,
                 SameParametricLength = (Abs(h1 - h2) < Precision::PConfusion());
               Standard_Real m1 = (first1 + last1) / 2., m2 = (first2 + last2) / 2.;
-              gp_Pnt        P1, P2;
+              Point3d        P1, P2;
               gp_Vec        DU;
               AdC1.D1(m1, P1, DU);
               AdC.D0(m2, P2);
@@ -535,8 +535,8 @@ Standard_Boolean CreateKPart(const TopoDS_Edge&     Edge1,
       aLine = L2;
     }
 
-    gp_Pnt P1 = (degen1) ? BRep_Tool::Pnt(v1f) : L1.Location();
-    gp_Pnt P2 = (degen2) ? BRep_Tool::Pnt(v2f) : L2.Location();
+    Point3d P1 = (degen1) ? BRep_Tool::Pnt(v1f) : L1.Location();
+    Point3d P2 = (degen2) ? BRep_Tool::Pnt(v2f) : L2.Location();
 
     gp_Vec             P1P2(P1, P2);
     gp_Dir             D1 = aLine.Direction();

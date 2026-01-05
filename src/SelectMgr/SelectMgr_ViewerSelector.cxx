@@ -455,7 +455,7 @@ void SelectMgr_ViewerSelector::traverseObject(const Handle(SelectMgr_SelectableO
       // into local space of transformation persistence object.
       // As more simple alternative - just clip entire object by its anchor point defined in the
       // world space.
-      const gp_Pnt anAnchor = theObject->TransformPersistence()->AnchorPoint();
+      const Point3d anAnchor = theObject->TransformPersistence()->AnchorPoint();
       for (Graphic3d_SequenceOfHClipPlane::Iterator aPlaneIt(*theMgr.ViewClipping());
            aPlaneIt.More();
            aPlaneIt.Next())

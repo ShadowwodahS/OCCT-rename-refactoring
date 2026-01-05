@@ -162,7 +162,7 @@ Handle(SelectMgr_BaseIntersector) SelectMgr_TriangularFrustum::ScaleAndTransform
 
   for (Standard_Integer anIt = 0; anIt < 6; anIt++)
   {
-    gp_Pnt aPoint = myVertices[anIt];
+    Point3d aPoint = myVertices[anIt];
     theTrsf.Transforms(aPoint.ChangeCoord());
     aRes->myVertices[anIt] = aPoint;
   }
@@ -236,7 +236,7 @@ Standard_Boolean SelectMgr_TriangularFrustum::OverlapsBox(const SelectMgr_Vec3& 
 // purpose  : Intersection test between defined volume and given point
 // =======================================================================
 Standard_Boolean SelectMgr_TriangularFrustum::OverlapsPoint(
-  const gp_Pnt& thePnt,
+  const Point3d& thePnt,
   const SelectMgr_ViewClipRange& /*theClipRange*/,
   SelectBasics_PickResult& /*thePickResult*/) const
 {
@@ -262,8 +262,8 @@ Standard_Boolean SelectMgr_TriangularFrustum::OverlapsPolygon(
     const Standard_Integer anUpper = theArrayOfPnts.Upper();
     for (Standard_Integer aPtIdx = aLower; aPtIdx <= anUpper; ++aPtIdx)
     {
-      const gp_Pnt& aStartPt = theArrayOfPnts.Value(aPtIdx);
-      const gp_Pnt& aEndPt   = theArrayOfPnts.Value(aPtIdx == anUpper ? aLower : (aPtIdx + 1));
+      const Point3d& aStartPt = theArrayOfPnts.Value(aPtIdx);
+      const Point3d& aEndPt   = theArrayOfPnts.Value(aPtIdx == anUpper ? aLower : (aPtIdx + 1));
       if (!hasSegmentOverlap(aStartPt, aEndPt))
       {
         return Standard_False;
@@ -284,8 +284,8 @@ Standard_Boolean SelectMgr_TriangularFrustum::OverlapsPolygon(
 // purpose  : Checks if line segment overlaps selecting frustum
 // =======================================================================
 Standard_Boolean SelectMgr_TriangularFrustum::OverlapsSegment(
-  const gp_Pnt& thePnt1,
-  const gp_Pnt& thePnt2,
+  const Point3d& thePnt1,
+  const Point3d& thePnt2,
   const SelectMgr_ViewClipRange& /*theClipRange*/,
   SelectBasics_PickResult& /*thePickResult*/) const
 {
@@ -300,16 +300,16 @@ Standard_Boolean SelectMgr_TriangularFrustum::OverlapsSegment(
 //            given sensitivity type
 // =======================================================================
 Standard_Boolean SelectMgr_TriangularFrustum::OverlapsTriangle(
-  const gp_Pnt&                  thePnt1,
-  const gp_Pnt&                  thePnt2,
-  const gp_Pnt&                  thePnt3,
+  const Point3d&                  thePnt1,
+  const Point3d&                  thePnt2,
+  const Point3d&                  thePnt3,
   Select3D_TypeOfSensitivity     theSensType,
   const SelectMgr_ViewClipRange& theClipRange,
   SelectBasics_PickResult&       thePickResult) const
 {
   if (theSensType == Select3D_TOS_BOUNDARY)
   {
-    const gp_Pnt             aPntsArrayBuf[3] = {thePnt1, thePnt2, thePnt3};
+    const Point3d             aPntsArrayBuf[3] = {thePnt1, thePnt2, thePnt3};
     const TColgp_Array1OfPnt aPntsArray(aPntsArrayBuf[0], 1, 3);
     return OverlapsPolygon(aPntsArray, Select3D_TOS_BOUNDARY, theClipRange, thePickResult);
   }
@@ -324,7 +324,7 @@ Standard_Boolean SelectMgr_TriangularFrustum::OverlapsTriangle(
 
 //=================================================================================================
 
-Standard_Boolean SelectMgr_TriangularFrustum::OverlapsSphere(const gp_Pnt&       theCenter,
+Standard_Boolean SelectMgr_TriangularFrustum::OverlapsSphere(const Point3d&       theCenter,
                                                              const Standard_Real theRadius,
                                                              Standard_Boolean*   theInside) const
 {
@@ -338,7 +338,7 @@ Standard_Boolean SelectMgr_TriangularFrustum::OverlapsSphere(const gp_Pnt&      
 //=================================================================================================
 
 Standard_Boolean SelectMgr_TriangularFrustum::OverlapsSphere(
-  const gp_Pnt&                  theCenter,
+  const Point3d&                  theCenter,
   const Standard_Real            theRadius,
   const SelectMgr_ViewClipRange& theClipRange,
   SelectBasics_PickResult&       thePickResult) const

@@ -100,7 +100,7 @@ Handle(Geom_Surface) ShapeCustom_Surface::ConvertToAnalytical(const Standard_Rea
   //  mySurf->Bounds(U1, U2, V1, V2);
   TColgp_Array1OfPnt   p1(1, 3), p2(1, 3), p3(1, 3);
   TColStd_Array1OfReal R(1, 3);
-  gp_Pnt               origPnt, resPnt;
+  Point3d               origPnt, resPnt;
   gp_Vec               origD1U, resD1U, resD1V;
 
   Standard_Boolean aCySpCo = Standard_False;
@@ -311,7 +311,7 @@ Handle(Geom_Surface) ShapeCustom_Surface::ConvertToAnalytical(const Standard_Rea
       }
       if ((Abs(R(1) - R(2)) < tol) && (Abs(R(1) - R(3)) < tol))
       {
-        gp_Pnt        p10(0.5 * (p3(1).X() + p3(2).X()),
+        Point3d        p10(0.5 * (p3(1).X() + p3(2).X()),
                    0.5 * (p3(1).Y() + p3(2).Y()),
                    0.5 * (p3(1).Z() + p3(2).Z()));
         gp_Vec        aVec(p10, p3(1));
@@ -359,7 +359,7 @@ Handle(Geom_Surface) ShapeCustom_Surface::ConvertToAnalytical(const Standard_Rea
 
   const Standard_Integer NP = 21;
   Standard_Real          S = 0., T = 0.; // U,V deja fait
-  gp_Pnt                 P3d, P3d2;
+  Point3d                 P3d, P3d2;
   Standard_Boolean       onSurface = Standard_True;
 
   Standard_Real dis;

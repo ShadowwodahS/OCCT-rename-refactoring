@@ -38,19 +38,19 @@ Standard_Real IGESSolid_Sphere::Radius() const
   return theRadius;
 }
 
-gp_Pnt IGESSolid_Sphere::Center() const
+Point3d IGESSolid_Sphere::Center() const
 {
-  return gp_Pnt(theCenter);
+  return Point3d(theCenter);
 }
 
-gp_Pnt IGESSolid_Sphere::TransformedCenter() const
+Point3d IGESSolid_Sphere::TransformedCenter() const
 {
   if (!HasTransf())
-    return gp_Pnt(theCenter);
+    return Point3d(theCenter);
   else
   {
     gp_XYZ tmp = theCenter;
     Location().Transforms(tmp);
-    return gp_Pnt(tmp);
+    return Point3d(tmp);
   }
 }

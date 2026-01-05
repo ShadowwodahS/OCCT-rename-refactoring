@@ -122,7 +122,7 @@ void AIS_PointCloudOwner::HilightWithColor(const Handle(PrsMgr_PresentationManag
   Handle(Graphic3d_ArrayOfPoints) aPoints = new Graphic3d_ArrayOfPoints(aMap->Map().Extent());
   for (TColStd_PackedMapOfInteger::Iterator aPntIter(aMap->Map()); aPntIter.More(); aPntIter.Next())
   {
-    const gp_Pnt aPnt = anAllPoints->Vertice(aPntIter.Key() + 1);
+    const Point3d aPnt = anAllPoints->Vertice(aPntIter.Key() + 1);
     aPoints->AddVertex(aPnt);
   }
 

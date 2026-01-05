@@ -21,7 +21,7 @@
 
 #include <Draw_Color.hxx>
 #include <Draw_Drawable3D.hxx>
-class gp_Pnt;
+class Point3d;
 class Draw_Display;
 
 class DrawDim_Dimension;
@@ -42,7 +42,7 @@ public:
 
   Standard_EXPORT Draw_Color TextColor() const;
 
-  Standard_EXPORT void DrawText(const gp_Pnt& Pos, Draw_Display& D) const;
+  Standard_EXPORT void DrawText(const Point3d& Pos, Draw_Display& D) const;
 
   DEFINE_STANDARD_RTTIEXT(DrawDim_Dimension, Draw_Drawable3D)
 

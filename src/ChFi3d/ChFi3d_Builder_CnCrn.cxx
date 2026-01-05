@@ -288,7 +288,7 @@ static void CurveHermite(const TopOpeBRepDS_DataStructure& DStr,
                          TColStd_SequenceOfReal&           param,
                          Standard_Real&                    error)
 {
-  gp_Pnt             p01, p02;
+  Point3d             p01, p02;
   gp_Vec             d11, d12;
   Standard_Integer   ii, jj;
   Standard_Real      up1, up2;
@@ -344,7 +344,7 @@ static void CurveHermite(const TopOpeBRepDS_DataStructure& DStr,
     Cont(4) = d12.XYZ() * (-lambda);
   TColgp_Array1OfPnt ExtrapPoles(1, size);
   TColgp_Array1OfPnt ExtraCoeffs(1, size);
-  gp_Pnt             p0(0, 0, 0);
+  Point3d             p0(0, 0, 0);
   ExtraCoeffs.Init(p0);
   for (ii = 1; ii <= size; ii++)
   {
@@ -720,7 +720,7 @@ static void PerformTwoCornerSameExt(TopOpeBRepDS_DataStructure&  DStr,
   Standard_Boolean                              isfirst;
   Standard_Integer                              indic1, indic2, indpoint1, indpoint2, ind, indcurve;
   Standard_Real                                 tol;
-  gp_Pnt                                        P1, P2, P3, P4;
+  Point3d                                        P1, P2, P3, P4;
   gp_Pnt2d                                      p2d;
   Handle(Geom_Curve)                            cint;
   Handle(Geom2d_Curve)                          C2dint1, C2dint2;
@@ -948,12 +948,12 @@ static void RemoveSurfData(const ChFiDS_StripeMap& myVDataMap,
 static void ParametrePlate(const Standard_Integer             n3d,
                            const GeomPlate_BuildPlateSurface& PSurf,
                            const Handle(Geom_Surface)&        Surf,
-                           const gp_Pnt&                      point,
+                           const Point3d&                      point,
                            const Standard_Real                apperror,
                            gp_Pnt2d&                          uv)
 {
   Standard_Integer ip;
-  gp_Pnt           P1;
+  Point3d           P1;
   Standard_Real    par;
   Standard_Boolean trouve = Standard_False;
   for (ip = 1; ip <= n3d && !trouve; ip++)
@@ -984,7 +984,7 @@ static void SummarizeNormal(const TopoDS_Vertex& V1,
   if (!V1.IsSame(TopExp::FirstVertex(Ecur)))
     uv1 = uv2;
 
-  gp_Pnt P;
+  Point3d P;
   gp_Vec d1U, d1V;
   BRep_Tool::Surface(Fcur)->D1(uv1.X(), uv1.Y(), P, d1U, d1V);
   gp_Vec N = d1U.Crossed(d1V);
@@ -1040,7 +1040,7 @@ static TopAbs_Orientation PlateOrientation(const Handle(Geom_Surface)&          
                                            const gp_Vec&                            theRefDir)
 {
   gp_Vec        du, dv;
-  gp_Pnt        pp1, pp2, pp3;
+  Point3d        pp1, pp2, pp3;
   gp_Pnt2d      uv;
   Standard_Real fpar, lpar;
   Standard_Real SumScal1 = 0, SumScal2 = 0;
@@ -1603,7 +1603,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
 
   // determine the minimum recoil distance that can't be exceeded
   Standard_Boolean distmini = Standard_False;
-  gp_Pnt           som      = BRep_Tool::Pnt(V1), pic;
+  Point3d           som      = BRep_Tool::Pnt(V1), pic;
   gp_Pnt2d         p2;
   TopoDS_Edge      edgemin;
   TopoDS_Vertex    V, V2;
@@ -1840,7 +1840,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
     TColStd_Array1OfReal dist1(0, size);
     TColStd_Array1OfReal dist2(0, size);
     Standard_Real        distance = 0.;
-    gp_Pnt               sommet   = BRep_Tool::Pnt(V1);
+    Point3d               sommet   = BRep_Tool::Pnt(V1);
     if (!deuxconges)
       for (ic = 0; ic < nedge; ic++)
       {
@@ -1957,7 +1957,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
   //
 
   Standard_Real tolcp = 0;
-  gp_Pnt        PE, sommet = BRep_Tool::Pnt(V1);
+  Point3d        PE, sommet = BRep_Tool::Pnt(V1);
   if (!deuxconges)
     for (ic = 0; ic < nedge; ic++)
     {
@@ -2342,7 +2342,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
   Standard_Boolean intersection = Standard_False, introuve;
   if (nconges == 2 && !deuxconges)
   {
-    gp_Pnt           P1, P2, P3, P4;
+    Point3d           P1, P2, P3, P4;
     Standard_Integer ic1 = 0, ic2 = 0;
     trouve = Standard_False;
     for (ic = 0; ic < nedge && !trouve; ic++)
@@ -2448,7 +2448,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
                             avedev);
       TopOpeBRepDS_Curve tcurv3d(Curv3d, maxapp);
       indcurve3d.SetValue(n3d, DStr.AddCurve(tcurv3d));
-      gp_Pnt point1, point2;
+      Point3d point1, point2;
       point1 = CurvOnS.Value(CurvOnS.FirstParameter());
       point2 = CurvOnS.Value(CurvOnS.LastParameter());
 
@@ -2534,7 +2534,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
     {
       Indices(nedge, ic, icplus, icmoins);
       BRepAdaptor_Curve C(TopoDS::Edge(Evive.Value(ic)));
-      /*gp_Pnt*/ PE = C.Value(p.Value(ic, icplus));
+      /*Point3d*/ PE = C.Value(p.Value(ic, icplus));
       TopOpeBRepDS_Point TPE(PE, BRep_Tool::Tolerance(TopoDS::Edge(Evive.Value(ic))));
       ChFiDS_CommonPoint cp;
       if (deuxconges)
@@ -2830,7 +2830,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
           if (sharp.Value(icplus) && indpoint.Value(icplus, 0) == 0)
           {
             // it is necessary to initialize indpoint[icplus][0] and indpoint[icplus][1]
-            gp_Pnt point2;
+            Point3d point2;
             point2 = curveint->Value(parfin);
             TopOpeBRepDS_Point tpoint2(point2, maxapp);
             indpoint.SetValue(icplus, 0, DStr.AddPoint(tpoint2));
@@ -2902,7 +2902,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
     if (moresurf.Value(ic))
     {
       TopoDS_Vertex Vf, Vl;
-      gp_Pnt        Pf, Pl, P1, P2, Pcom;
+      Point3d        Pf, Pl, P1, P2, Pcom;
       ind = 0; // must be initialized because of possible use, see L2249
       Standard_Real      up1, up2;
       TopAbs_Orientation orvt;
@@ -3152,7 +3152,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
 //    Standard_Real ang1=PSurf.G1Error();
 #endif
     //     gp_Vec n1,n2,du,dv,du1,dv1;
-    //     gp_Pnt pp,pp1;
+    //     Point3d pp,pp1;
     //     Standard_Real tpar;
     //     gp_Pnt2d uv;
     //     Standard_Real scal;
@@ -3291,7 +3291,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
           gp_Pnt2d             UV1, UV2;
           Handle(Geom_Curve)   C3d;
           Handle(Geom2d_Curve) C2d, curv2d;
-          gp_Pnt               ptic, pticplus;
+          Point3d               ptic, pticplus;
           BRepAdaptor_Curve    BCurv1(TopoDS::Edge(Evive.Value(ic)));
           BRepAdaptor_Curve    BCurv2(TopoDS::Edge(Evive.Value(icplus)));
           Standard_Real        par1 = p.Value(ic, icplus);
@@ -3389,7 +3389,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
         {
           // limitation of the alive edge
           TopAbs_Orientation ori;
-          gp_Pnt             Pf, Pl, sommet1;
+          Point3d             Pf, Pl, sommet1;
           TopoDS_Vertex      Vd = TopExp::FirstVertex(TopoDS::Edge(Evive.Value(ic)));
           TopoDS_Vertex      Vf = TopExp::LastVertex(TopoDS::Edge(Evive.Value(ic)));
           Pf                    = BRep_Tool::Pnt(Vd);
@@ -3500,7 +3500,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
         {
           // limitation of the alive edge
           TopAbs_Orientation ori;
-          gp_Pnt             Pf, Pl, sommet1;
+          Point3d             Pf, Pl, sommet1;
           TopoDS_Vertex      Vd = TopExp::FirstVertex(TopoDS::Edge(Evive.Value(ic)));
           TopoDS_Vertex      Vf = TopExp::LastVertex(TopoDS::Edge(Evive.Value(ic)));
           Pf                    = BRep_Tool::Pnt(Vd);

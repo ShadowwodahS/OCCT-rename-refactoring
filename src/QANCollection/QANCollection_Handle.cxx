@@ -56,7 +56,7 @@ inline void func(const Handle(Geom_BSplineCurve)&) {}
 
 inline void func(const Handle(Geom_Surface)&) {}
 
-inline void func(const Handle(gp_Pnt)&) {}
+inline void func(const Handle(Point3d)&) {}
 
 inline void func(const Handle(gp_XYZ)&) {}
 
@@ -253,19 +253,19 @@ static Standard_Integer QAHandleOps(Draw_Interpretor& theDI,
   // Part 2: classes not inheriting transient
   // ===============================================================
   /*
-    Handle(gp_Pnt) aPnt = new gp_Pnt (gp::Origin());
+    Handle(Point3d) aPnt = new Point3d (gp::Origin());
     CHECK(theDI, ! aPnt.IsNull(), "handle for non-null");
 
-    const Handle(gp_Pnt)& cPnt = aPnt; // cast to self const ref
+    const Handle(Point3d)& cPnt = aPnt; // cast to self const ref
   //  const Handle(gp_XYZ)& cXYZ = aPnt; // cast to base const ref
-    gp_Pnt* pPnt = aPnt.get();
-    const gp_Pnt* cpPnt = aPnt.get();
-    gp_Pnt& rPnt = *aPnt;
-    const gp_Pnt& crPnt = *cPnt;
+    Point3d* pPnt = aPnt.get();
+    const Point3d* cpPnt = aPnt.get();
+    Point3d& rPnt = *aPnt;
+    const Point3d& crPnt = *cPnt;
   //  Handle(gp_XYZ) aXYZ = aPnt; // copy from handle to derived type
   //  aXYZ = cPnt; // assignment to handle of derived type
 
-  //  aPnt = Handle(gp_Pnt)::DownCast (cXYZ);
+  //  aPnt = Handle(Point3d)::DownCast (cXYZ);
   //  CHECK(theDI, ! aPnt.IsNull(), "down cast");
 
     // comparison operators
@@ -280,7 +280,7 @@ static Standard_Integer QAHandleOps(Draw_Interpretor& theDI,
     CHECK(theDI, &rPnt == aPnt,  "equality of reference and handle");
     CHECK(theDI, &crPnt == aPnt,  "equality of reference and handle");
 
-    Handle(gp_Pnt) aPnt2;
+    Handle(Point3d) aPnt2;
     CHECK(theDI, aPnt != aPnt2, "inequality of handle to the same type handle");
     CHECK(theDI, aPnt2 != cPnt, "inequality of const and non-const handle");
   //  CHECK(theDI, aPnt2 != cXYZ, "inequality of handle and base handle");

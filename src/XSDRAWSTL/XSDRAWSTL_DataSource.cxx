@@ -36,7 +36,7 @@ XSDRAWSTL_DataSource::XSDRAWSTL_DataSource(const Handle(Poly_Triangulation)& aMe
     for (Standard_Integer i = 1; i <= aNbNodes; i++)
     {
       myNodes.Add(i);
-      gp_Pnt xyz = myMesh->Node(i);
+      Point3d xyz = myMesh->Node(i);
 
       myNodeCoords->SetValue(i, 1, xyz.X());
       myNodeCoords->SetValue(i, 2, xyz.Y());
@@ -58,9 +58,9 @@ XSDRAWSTL_DataSource::XSDRAWSTL_DataSource(const Handle(Poly_Triangulation)& aMe
       Standard_Integer V[3];
       aTri.Get(V[0], V[1], V[2]);
 
-      const gp_Pnt aP1 = myMesh->Node(V[0]);
-      const gp_Pnt aP2 = myMesh->Node(V[1]);
-      const gp_Pnt aP3 = myMesh->Node(V[2]);
+      const Point3d aP1 = myMesh->Node(V[0]);
+      const Point3d aP2 = myMesh->Node(V[1]);
+      const Point3d aP3 = myMesh->Node(V[2]);
 
       gp_Vec aV1(aP1, aP2);
       gp_Vec aV2(aP2, aP3);

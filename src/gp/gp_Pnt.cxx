@@ -27,7 +27,7 @@
 #include <Standard_Dump.hxx>
 #include <Standard_OutOfRange.hxx>
 
-void gp_Pnt::Transform(const gp_Trsf& T)
+void Point3d::Transform(const gp_Trsf& T)
 {
   if (T.Form() == gp_Identity)
   {
@@ -52,7 +52,7 @@ void gp_Pnt::Transform(const gp_Trsf& T)
   }
 }
 
-void gp_Pnt::Mirror(const gp_Pnt& P)
+void Point3d::Mirror(const Point3d& P)
 {
   coord.Reverse();
   gp_XYZ XYZ = P.coord;
@@ -60,51 +60,51 @@ void gp_Pnt::Mirror(const gp_Pnt& P)
   coord.Add(XYZ);
 }
 
-gp_Pnt gp_Pnt::Mirrored(const gp_Pnt& P) const
+Point3d Point3d::Mirrored(const Point3d& P) const
 {
-  gp_Pnt Pres = *this;
+  Point3d Pres = *this;
   Pres.Mirror(P);
   return Pres;
 }
 
-void gp_Pnt::Mirror(const gp_Ax1& A1)
+void Point3d::Mirror(const gp_Ax1& A1)
 {
   gp_Trsf T;
   T.SetMirror(A1);
   T.Transforms(coord);
 }
 
-gp_Pnt gp_Pnt::Mirrored(const gp_Ax1& A1) const
+Point3d Point3d::Mirrored(const gp_Ax1& A1) const
 {
-  gp_Pnt P = *this;
+  Point3d P = *this;
   P.Mirror(A1);
   return P;
 }
 
-void gp_Pnt::Mirror(const gp_Ax2& A2)
+void Point3d::Mirror(const gp_Ax2& A2)
 {
   gp_Trsf T;
   T.SetMirror(A2);
   T.Transforms(coord);
 }
 
-gp_Pnt gp_Pnt::Mirrored(const gp_Ax2& A2) const
+Point3d Point3d::Mirrored(const gp_Ax2& A2) const
 {
-  gp_Pnt P = *this;
+  Point3d P = *this;
   P.Mirror(A2);
   return P;
 }
 
-void gp_Pnt::DumpJson(Standard_OStream& theOStream, Standard_Integer) const {
-  OCCT_DUMP_VECTOR_CLASS(theOStream, "gp_Pnt", 3, coord.X(), coord.Y(), coord.Z())}
+void Point3d::DumpJson(Standard_OStream& theOStream, Standard_Integer) const {
+  OCCT_DUMP_VECTOR_CLASS(theOStream, "Point3d", 3, coord.X(), coord.Y(), coord.Z())}
 
-Standard_Boolean gp_Pnt::InitFromJson(const Standard_SStream& theSStream,
+Standard_Boolean Point3d::InitFromJson(const Standard_SStream& theSStream,
                                       Standard_Integer&       theStreamPos)
 {
   Standard_Integer aPos = theStreamPos;
 
   OCCT_INIT_VECTOR_CLASS(Standard_Dump::Text(theSStream),
-                         "gp_Pnt",
+                         "Point3d",
                          aPos,
                          3,
                          &coord.ChangeCoord(1),

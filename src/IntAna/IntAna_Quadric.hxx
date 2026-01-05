@@ -92,7 +92,7 @@ public:
                                        const gp_Ax3&  Axis) const;
 
   //! Returns the list of special points (with singularities)
-  const NCollection_List<gp_Pnt>& SpecialPoints() const { return mySpecialPoints; }
+  const NCollection_List<Point3d>& SpecialPoints() const { return mySpecialPoints; }
 
 protected:
 private:
@@ -106,7 +106,7 @@ private:
   Standard_Real            CY;
   Standard_Real            CZ;
   Standard_Real            CCte;
-  NCollection_List<gp_Pnt> mySpecialPoints;
+  NCollection_List<Point3d> mySpecialPoints;
 };
 
 #endif // _IntAna_Quadric_HeaderFile

@@ -53,7 +53,7 @@ inline Standard_Real CPnts_UniformDeflection::Value() const
 // purpose  :
 //=======================================================================
 
-inline gp_Pnt CPnts_UniformDeflection::Point() const
+inline Point3d CPnts_UniformDeflection::Point() const
 {
   StdFail_NotDone_Raise_if(!myDone, "CPnts_UniformDeflection::Point() - no result");
   return myPoints[myIPoint + 1];

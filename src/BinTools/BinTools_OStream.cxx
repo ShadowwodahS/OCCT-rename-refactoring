@@ -165,7 +165,7 @@ BinTools_OStream& BinTools_OStream::operator<<(const Standard_ExtCharacter& theV
 // function : operator <<
 // purpose  :
 //=======================================================================
-BinTools_OStream& BinTools_OStream::operator<<(const gp_Pnt& theValue)
+BinTools_OStream& BinTools_OStream::operator<<(const Point3d& theValue)
 {
 #if DO_INVERSE
   myRealBuf[0] = FSD_BinaryFile::InverseReal(theValue.X());

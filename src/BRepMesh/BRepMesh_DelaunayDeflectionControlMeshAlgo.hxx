@@ -140,13 +140,13 @@ private:
   class NormalDeviation
   {
   public:
-    NormalDeviation(const gp_Pnt& theRefPnt, const gp_Vec& theNormal)
+    NormalDeviation(const Point3d& theRefPnt, const gp_Vec& theNormal)
         : myRefPnt(theRefPnt),
           myNormal(theNormal)
     {
     }
 
-    Standard_Real SquareDeviation(const gp_Pnt& thePoint) const
+    Standard_Real SquareDeviation(const Point3d& thePoint) const
     {
       const Standard_Real aDeflection = Abs(myNormal.Dot(gp_Vec(myRefPnt, thePoint)));
       return aDeflection * aDeflection;
@@ -158,7 +158,7 @@ private:
     void operator=(const NormalDeviation& theOther);
 
   private:
-    const gp_Pnt& myRefPnt;
+    const Point3d& myRefPnt;
     const gp_Vec& myNormal;
   };
 
@@ -166,13 +166,13 @@ private:
   class LineDeviation
   {
   public:
-    LineDeviation(const gp_Pnt& thePnt1, const gp_Pnt& thePnt2)
+    LineDeviation(const Point3d& thePnt1, const Point3d& thePnt2)
         : myPnt1(thePnt1),
           myPnt2(thePnt2)
     {
     }
 
-    Standard_Real SquareDeviation(const gp_Pnt& thePoint) const
+    Standard_Real SquareDeviation(const Point3d& thePoint) const
     {
       return BRepMesh_GeomTool::SquareDeflectionOfSegment(myPnt1, myPnt2, thePoint);
     }
@@ -183,8 +183,8 @@ private:
     void operator=(const LineDeviation& theOther);
 
   private:
-    const gp_Pnt& myPnt1;
-    const gp_Pnt& myPnt2;
+    const Point3d& myPnt1;
+    const Point3d& myPnt2;
   };
 
   //! Returns nodes info of the given triangle.
@@ -345,7 +345,7 @@ private:
                                               const TriangleNodeInfo& theNodeInfo2,
                                               const gp_XY&            theMidPoint)
   {
-    const gp_Pnt aPnt = getPoint3d(theMidPoint);
+    const Point3d aPnt = getPoint3d(theMidPoint);
     return ((theNodeInfo1.Point - aPnt.XYZ()).SquareModulus() < mySqMinSize
             || (theNodeInfo2.Point - aPnt.XYZ()).SquareModulus() < mySqMinSize);
   }
@@ -383,9 +383,9 @@ private:
   }
 
   //! Returns 3d point corresponding to the given one in 2d space.
-  gp_Pnt getPoint3d(const gp_XY& thePnt2d)
+  Point3d getPoint3d(const gp_XY& thePnt2d)
   {
-    gp_Pnt aPnt;
+    Point3d aPnt;
     this->getDFace()->GetSurface()->D0(thePnt2d.X(), thePnt2d.Y(), aPnt);
     return aPnt;
   }
@@ -396,7 +396,7 @@ private:
   template <class DeflectionFunctor>
   Standard_Boolean usePoint(const gp_XY& thePnt2d, const DeflectionFunctor& theDeflectionFunctor)
   {
-    const gp_Pnt aPnt = getPoint3d(thePnt2d);
+    const Point3d aPnt = getPoint3d(thePnt2d);
     if (!checkDeflectionOfPointAndUpdateCache(thePnt2d,
                                               aPnt,
                                               theDeflectionFunctor.SquareDeviation(aPnt)))
@@ -411,7 +411,7 @@ private:
   //! Checks the given point for specified linear deflection.
   //! Updates value of total mesh defleciton.
   Standard_Boolean checkDeflectionOfPointAndUpdateCache(const gp_XY&        thePnt2d,
-                                                        const gp_Pnt&       thePnt3d,
+                                                        const Point3d&       thePnt3d,
                                                         const Standard_Real theSqDeflection)
   {
     if (theSqDeflection > myMaxSqDeflection)
@@ -433,7 +433,7 @@ private:
   //! shot by it for MinSize criteria.
   //! This check is expected to roughly estimate and prevent
   //! generation of triangles with sides smaller than MinSize.
-  Standard_Boolean rejectByMinSize(const gp_XY& thePnt2d, const gp_Pnt& thePnt3d)
+  Standard_Boolean rejectByMinSize(const gp_XY& thePnt2d, const Point3d& thePnt3d)
   {
     IMeshData::MapOfInteger   aUsedNodes;
     IMeshData::ListOfInteger& aCirclesList =
@@ -454,7 +454,7 @@ private:
         {
           aUsedNodes.Add(aNodes[i]);
           const BRepMesh_Vertex& aVertex = this->getStructure()->GetNode(aNodes[i]);
-          const gp_Pnt&          aPoint  = this->getNodesMap()->Value(aVertex.Location3d());
+          const Point3d&          aPoint  = this->getNodesMap()->Value(aVertex.Location3d());
 
           if (thePnt3d.SquareDistance(aPoint) < mySqMinSize)
           {

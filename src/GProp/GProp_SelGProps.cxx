@@ -25,7 +25,7 @@
 
 GProp_SelGProps::GProp_SelGProps() {}
 
-void GProp_SelGProps::SetLocation(const gp_Pnt& SLocation)
+void GProp_SelGProps::SetLocation(const Point3d& SLocation)
 {
   loc = SLocation;
 }
@@ -349,7 +349,7 @@ GProp_SelGProps::GProp_SelGProps(const gp_Cone&      S,
                                  const Standard_Real Alpha2,
                                  const Standard_Real Z1,
                                  const Standard_Real Z2,
-                                 const gp_Pnt&       SLocation)
+                                 const Point3d&       SLocation)
 {
   SetLocation(SLocation);
   Perform(S, Alpha1, Alpha2, Z1, Z2);
@@ -360,7 +360,7 @@ GProp_SelGProps::GProp_SelGProps(const gp_Cylinder&  S,
                                  const Standard_Real Alpha2,
                                  const Standard_Real Z1,
                                  const Standard_Real Z2,
-                                 const gp_Pnt&       SLocation)
+                                 const Point3d&       SLocation)
 {
   SetLocation(SLocation);
   Perform(S, Alpha1, Alpha2, Z1, Z2);
@@ -371,7 +371,7 @@ GProp_SelGProps::GProp_SelGProps(const gp_Sphere&    S,
                                  const Standard_Real Teta2,
                                  const Standard_Real Alpha1,
                                  const Standard_Real Alpha2,
-                                 const gp_Pnt&       SLocation)
+                                 const Point3d&       SLocation)
 {
   SetLocation(SLocation);
   Perform(S, Teta1, Teta2, Alpha1, Alpha2);
@@ -382,7 +382,7 @@ GProp_SelGProps::GProp_SelGProps(const gp_Torus&     S,
                                  const Standard_Real Teta2,
                                  const Standard_Real Alpha1,
                                  const Standard_Real Alpha2,
-                                 const gp_Pnt&       SLocation)
+                                 const Point3d&       SLocation)
 {
   SetLocation(SLocation);
   Perform(S, Teta1, Teta2, Alpha1, Alpha2);

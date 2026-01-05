@@ -28,10 +28,10 @@
 
 void DsgPrs_ConcentricPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                         const Handle(Prs3d_Drawer)&       aDrawer,
-                                        const gp_Pnt&                     aCenter,
+                                        const Point3d&                     aCenter,
                                         const Standard_Real               aRadius,
                                         const gp_Dir&                     aNorm,
-                                        const gp_Pnt&                     aPoint)
+                                        const Point3d&                     aPoint)
 {
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
 
@@ -44,7 +44,7 @@ void DsgPrs_ConcentricPresentation::Add(const Handle(Prs3d_Presentation)& aPrese
 
   Handle(Graphic3d_ArrayOfPolylines) aPrims = new Graphic3d_ArrayOfPolylines(2 * nbp + 6, 4);
 
-  gp_Pnt pt1 = ElCLib::Value(0., Circ);
+  Point3d pt1 = ElCLib::Value(0., Circ);
   aPrims->AddBound(nbp + 1);
   aPrims->AddVertex(pt1);
   Standard_Real    ucur = dteta;
@@ -68,8 +68,8 @@ void DsgPrs_ConcentricPresentation::Add(const Handle(Prs3d_Presentation)& aPrese
   gp_Dir vecnorm(aPoint.XYZ() - aCenter.XYZ());
   gp_Vec vec(vecnorm);
   vec.Multiply(aRadius);
-  gp_Pnt p1 = aCenter.Translated(vec);
-  gp_Pnt p2 = aCenter.Translated(-vec);
+  Point3d p1 = aCenter.Translated(vec);
+  Point3d p2 = aCenter.Translated(-vec);
 
   aPrims->AddBound(2);
   aPrims->AddVertex(p1);

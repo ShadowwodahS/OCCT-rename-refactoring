@@ -63,10 +63,10 @@ public:
   }
 
   //! Returns the Point of the <N>th extremum distance. <br>
-  gp_Pnt PointOnFace1(const Standard_Integer N) const { return myPointsOnS1.Value(N).Value(); }
+  Point3d PointOnFace1(const Standard_Integer N) const { return myPointsOnS1.Value(N).Value(); }
 
   //! Returns the Point of the <N>th extremum distance. <br>
-  gp_Pnt PointOnFace2(const Standard_Integer N) const { return myPointsOnS2.Value(N).Value(); }
+  Point3d PointOnFace2(const Standard_Integer N) const { return myPointsOnS2.Value(N).Value(); }
 
 private:
   Extrema_ExtSS               myExtSS;

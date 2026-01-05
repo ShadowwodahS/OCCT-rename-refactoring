@@ -26,7 +26,7 @@
 // function : Constructor
 //==========================================================================
 BRepGProp_VinertGK::BRepGProp_VinertGK(BRepGProp_Face&        theSurface,
-                                       const gp_Pnt&          theLocation,
+                                       const Point3d&          theLocation,
                                        const Standard_Real    theTolerance,
                                        const Standard_Boolean theCGFlag,
                                        const Standard_Boolean theIFlag)
@@ -42,8 +42,8 @@ BRepGProp_VinertGK::BRepGProp_VinertGK(BRepGProp_Face&        theSurface,
 //==========================================================================
 
 BRepGProp_VinertGK::BRepGProp_VinertGK(BRepGProp_Face&        theSurface,
-                                       const gp_Pnt&          thePoint,
-                                       const gp_Pnt&          theLocation,
+                                       const Point3d&          thePoint,
+                                       const Point3d&          theLocation,
                                        const Standard_Real    theTolerance,
                                        const Standard_Boolean theCGFlag,
                                        const Standard_Boolean theIFlag)
@@ -60,7 +60,7 @@ BRepGProp_VinertGK::BRepGProp_VinertGK(BRepGProp_Face&        theSurface,
 
 BRepGProp_VinertGK::BRepGProp_VinertGK(BRepGProp_Face&        theSurface,
                                        BRepGProp_Domain&      theDomain,
-                                       const gp_Pnt&          theLocation,
+                                       const Point3d&          theLocation,
                                        const Standard_Real    theTolerance,
                                        const Standard_Boolean theCGFlag,
                                        const Standard_Boolean theIFlag)
@@ -77,8 +77,8 @@ BRepGProp_VinertGK::BRepGProp_VinertGK(BRepGProp_Face&        theSurface,
 
 BRepGProp_VinertGK::BRepGProp_VinertGK(BRepGProp_Face&        theSurface,
                                        BRepGProp_Domain&      theDomain,
-                                       const gp_Pnt&          thePoint,
-                                       const gp_Pnt&          theLocation,
+                                       const Point3d&          thePoint,
+                                       const Point3d&          theLocation,
                                        const Standard_Real    theTolerance,
                                        const Standard_Boolean theCGFlag,
                                        const Standard_Boolean theIFlag)
@@ -95,7 +95,7 @@ BRepGProp_VinertGK::BRepGProp_VinertGK(BRepGProp_Face&        theSurface,
 
 BRepGProp_VinertGK::BRepGProp_VinertGK(BRepGProp_Face&        theSurface,
                                        const gp_Pln&          thePlane,
-                                       const gp_Pnt&          theLocation,
+                                       const Point3d&          theLocation,
                                        const Standard_Real    theTolerance,
                                        const Standard_Boolean theCGFlag,
                                        const Standard_Boolean theIFlag)
@@ -113,7 +113,7 @@ BRepGProp_VinertGK::BRepGProp_VinertGK(BRepGProp_Face&        theSurface,
 BRepGProp_VinertGK::BRepGProp_VinertGK(BRepGProp_Face&        theSurface,
                                        BRepGProp_Domain&      theDomain,
                                        const gp_Pln&          thePlane,
-                                       const gp_Pnt&          theLocation,
+                                       const Point3d&          theLocation,
                                        const Standard_Real    theTolerance,
                                        const Standard_Boolean theCGFlag,
                                        const Standard_Boolean theIFlag)
@@ -145,7 +145,7 @@ Standard_Real BRepGProp_VinertGK::Perform(BRepGProp_Face&        theSurface,
 //==========================================================================
 
 Standard_Real BRepGProp_VinertGK::Perform(BRepGProp_Face&        theSurface,
-                                          const gp_Pnt&          thePoint,
+                                          const Point3d&          thePoint,
                                           const Standard_Real    theTolerance,
                                           const Standard_Boolean theCGFlag,
                                           const Standard_Boolean theIFlag)
@@ -189,7 +189,7 @@ Standard_Real BRepGProp_VinertGK::Perform(BRepGProp_Face&        theSurface,
 
 Standard_Real BRepGProp_VinertGK::Perform(BRepGProp_Face&        theSurface,
                                           BRepGProp_Domain&      theDomain,
-                                          const gp_Pnt&          thePoint,
+                                          const Point3d&          thePoint,
                                           const Standard_Real    theTolerance,
                                           const Standard_Boolean theCGFlag,
                                           const Standard_Boolean theIFlag)

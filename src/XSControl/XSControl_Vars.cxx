@@ -62,12 +62,12 @@ Handle(Geom_Surface) XSControl_Vars::GetSurface(Standard_CString& name) const
   return GetCasted(Geom_Surface, Get(name));
 }
 
-void XSControl_Vars::SetPoint(const Standard_CString name, const gp_Pnt& val)
+void XSControl_Vars::SetPoint(const Standard_CString name, const Point3d& val)
 {
   Set(name, new Geom_CartesianPoint(val));
 }
 
-Standard_Boolean XSControl_Vars::GetPoint(Standard_CString& name, gp_Pnt& pnt) const
+Standard_Boolean XSControl_Vars::GetPoint(Standard_CString& name, Point3d& pnt) const
 {
   DeclareAndCast(Geom_CartesianPoint, val, Get(name));
   if (val.IsNull())

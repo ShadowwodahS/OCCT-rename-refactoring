@@ -79,7 +79,7 @@ Standard_Boolean IntTools_Tools::IsClosed(const Handle(Geom_Curve)& aC3D)
 {
   Standard_Boolean bRet;
   Standard_Real    aF, aL, aDist, aPC;
-  gp_Pnt           aP1, aP2;
+  Point3d           aP1, aP2;
 
   Handle(Geom_BoundedCurve) aGBC = Handle(Geom_BoundedCurve)::DownCast(aC3D);
   if (aGBC.IsNull())
@@ -164,8 +164,8 @@ void IntTools_Tools::RejectLines(const IntTools_SequenceOfCurves& aSIn,
 Standard_Boolean IntTools_Tools::IsDirsCoinside(const gp_Dir& D1, const gp_Dir& D2)
 {
   Standard_Boolean bFlag;
-  gp_Pnt           P1(D1.X(), D1.Y(), D1.Z());
-  gp_Pnt           P2(D2.X(), D2.Y(), D2.Z());
+  Point3d           P1(D1.X(), D1.Y(), D1.Z());
+  Point3d           P2(D2.X(), D2.Y(), D2.Z());
   Standard_Real    dLim = 0.0002, d;
   d                     = P1.Distance(P2);
   bFlag                 = (d < dLim || fabs(2. - d) < dLim);
@@ -181,8 +181,8 @@ Standard_Boolean IntTools_Tools::IsDirsCoinside(const gp_Dir&       D1,
   Standard_Boolean bFlag;
   Standard_Real    d;
   //
-  gp_Pnt P1(D1.X(), D1.Y(), D1.Z());
-  gp_Pnt P2(D2.X(), D2.Y(), D2.Z());
+  Point3d P1(D1.X(), D1.Y(), D1.Z());
+  Point3d P2(D2.X(), D2.Y(), D2.Z());
   d     = P1.Distance(P2);
   bFlag = (d < dLim || fabs(2. - d) < dLim);
   return bFlag;
@@ -264,13 +264,13 @@ Standard_Real IntTools_Tools::IntermediatePoint(const Standard_Real aFirst,
 
 //=================================================================================================
 
-Standard_Boolean IntTools_Tools::IsVertex(const gp_Pnt&        aP,
+Standard_Boolean IntTools_Tools::IsVertex(const Point3d&        aP,
                                           const Standard_Real  aTolPV,
                                           const TopoDS_Vertex& aV)
 {
   Standard_Boolean bRet;
   Standard_Real    aTolV, aD, dTol;
-  gp_Pnt           aPv;
+  Point3d           aPv;
 
   aTolV = BRep_Tool::Tolerance(aV);
   //
@@ -321,7 +321,7 @@ Standard_Boolean IntTools_Tools::IsVertex(const TopoDS_Edge&   aE,
                                           const Standard_Real  t)
 {
   Standard_Real aTolV, aTolV2, d2;
-  gp_Pnt        aPv, aPt;
+  Point3d        aPv, aPt;
 
   BRepAdaptor_Curve aBAC(aE);
   aBAC.D0(t, aPt);
@@ -343,7 +343,7 @@ Standard_Boolean IntTools_Tools::IsVertex(const TopoDS_Edge& aE, const Standard_
 {
   Standard_Real aTolV, aTolV2, d2;
   TopoDS_Vertex aV;
-  gp_Pnt        aPv, aPt;
+  Point3d        aPv, aPt;
 
   BRepAdaptor_Curve aBAC(aE);
   aBAC.D0(t, aPt);
@@ -370,7 +370,7 @@ Standard_Boolean IntTools_Tools::IsVertex(const TopoDS_Edge& aE, const Standard_
 Standard_Integer IntTools_Tools::ComputeVV(const TopoDS_Vertex& aV1, const TopoDS_Vertex& aV2)
 {
   Standard_Real aTolV1, aTolV2, aTolSum, d;
-  gp_Pnt        aP1, aP2;
+  Point3d        aP1, aP2;
 
   aTolV1  = BRep_Tool::Tolerance(aV1);
   aTolV2  = BRep_Tool::Tolerance(aV2);
@@ -422,7 +422,7 @@ Standard_Boolean IntTools_Tools::IsMiddlePointsEqual(const TopoDS_Edge& aE1, con
 {
   Standard_Boolean bRet;
   Standard_Real    f1, l1, m1, f2, l2, m2, aTol1, aTol2, aSumTol, aD2;
-  gp_Pnt           aP1, aP2;
+  Point3d           aP1, aP2;
 
   aTol1                 = BRep_Tool::Tolerance(aE1);
   Handle(Geom_Curve) C1 = BRep_Tool::Curve(aE1, f1, l1);
@@ -506,7 +506,7 @@ void ParabolaTolerance(const Handle(Geom_Curve)& aC3D,
 
   Standard_Integer  aNbPoints;
   Standard_Real     aFocal, aX1, aX2, aTol1, aTol2;
-  gp_Pnt            aPf, aPl;
+  Point3d            aPf, aPl;
   gp_Parab          aParab = aGP->Parab();
   gp_Ax1            aXAxis = aParab.XAxis();
   Handle(Geom_Line) aGAxis = new Geom_Line(aXAxis);
@@ -692,7 +692,7 @@ Standard_Integer IntTools_Tools::SegPln(const gp_Lin&       theLin,
                                         const Standard_Real theTolLin,
                                         const gp_Pln&       thePln,
                                         const Standard_Real theTolPln,
-                                        gp_Pnt&             theP,
+                                        Point3d&             theP,
                                         Standard_Real&      theTP,
                                         Standard_Real&      theTolP,
                                         Standard_Real&      theTPmin,
@@ -700,17 +700,17 @@ Standard_Integer IntTools_Tools::SegPln(const gp_Lin&       theLin,
 {
   Standard_Integer iRet;
   Standard_Real    aTol, aA, aB, aC, aD, aE, aH, aTP, aDist1, aDist2;
-  gp_Pnt           aP1, aP2;
+  Point3d           aP1, aP2;
   //
   iRet = 0;
   aTol = theTolLin + theTolPln;
   //
   const gp_Ax3& aPosPln = thePln.Position();
   const gp_Dir& aDirPln = aPosPln.Direction();
-  const gp_Pnt& aLocPln = aPosPln.Location();
+  const Point3d& aLocPln = aPosPln.Location();
   //
   const gp_Dir& aDirLin = theLin.Direction();
-  const gp_Pnt& aLocLin = theLin.Location();
+  const Point3d& aLocLin = theLin.Location();
   //
   aP1.SetXYZ(aLocLin.XYZ() + theTLin1 * aDirLin.XYZ());
   aDist1 = aDirPln.X() * (aP1.X() - aLocPln.X()) + aDirPln.Y() * (aP1.Y() - aLocPln.Y())

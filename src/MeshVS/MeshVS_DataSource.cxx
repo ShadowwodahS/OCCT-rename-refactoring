@@ -304,7 +304,7 @@ Bnd_Box MeshVS_DataSource::GetBoundingBox() const
       Standard_Integer aKey = anIter.Key();
       if (!GetGeom(aKey, Standard_False, aCoords, nbNodes, aType))
         continue;
-      aBox.Add(gp_Pnt(aCoordsBuf[0], aCoordsBuf[1], aCoordsBuf[2]));
+      aBox.Add(Point3d(aCoordsBuf[0], aCoordsBuf[1], aCoordsBuf[2]));
     }
   }
   return aBox;

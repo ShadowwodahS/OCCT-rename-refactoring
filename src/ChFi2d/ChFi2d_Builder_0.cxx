@@ -57,11 +57,11 @@
 #include <TopoDS_Vertex.hxx>
 #include <TopoDS_Wire.hxx>
 
-gp_Pnt ComputePoint(const TopoDS_Vertex& V,
+Point3d ComputePoint(const TopoDS_Vertex& V,
                     const TopoDS_Edge&   E,
                     const Standard_Real  D1,
                     Standard_Real&       Param1);
-gp_Pnt ComputePoint(const TopoDS_Face&       F,
+Point3d ComputePoint(const TopoDS_Face&       F,
                     const Handle(Geom_Line)& L,
                     const TopoDS_Edge&       E,
                     Standard_Real&           Param);
@@ -479,8 +479,8 @@ TopoDS_Edge ChFi2d_Builder::BuildChamferEdge(const TopoDS_Vertex& V,
   } // if ( D1 <=0 ...
 
   Standard_Real param1, param2;
-  gp_Pnt        p1 = ComputePoint(V, AdjEdge1, D1, param1);
-  gp_Pnt        p2 = ComputePoint(V, AdjEdge2, D2, param2);
+  Point3d        p1 = ComputePoint(V, AdjEdge1, D1, param1);
+  Point3d        p2 = ComputePoint(V, AdjEdge2, D2, param2);
 
   Standard_Real tol = Precision::Confusion();
   BRep_Builder  B;
@@ -543,8 +543,8 @@ TopoDS_Edge ChFi2d_Builder::BuildChamferEdge(const TopoDS_Vertex& V,
   } // if ( D <= 0 ...
 
   Standard_Real param1, param2;
-  gp_Pnt        p1 = ComputePoint(V, AdjEdge1, D, param1);
-  gp_Pnt        p  = BRep_Tool::Pnt(V);
+  Point3d        p1 = ComputePoint(V, AdjEdge1, D, param1);
+  Point3d        p  = BRep_Tool::Pnt(V);
   gp_Vec        myVec(p1, p);
 
   // compute the tangent vector on AdjEdge2 at the vertex V.
@@ -553,7 +553,7 @@ TopoDS_Edge ChFi2d_Builder::BuildChamferEdge(const TopoDS_Vertex& V,
   first = c.FirstParameter();
   last  = c.LastParameter();
 
-  gp_Pnt aPoint;
+  Point3d aPoint;
   gp_Vec tan;
   c.D1(first, aPoint, tan);
   if (aPoint.Distance(p) > Precision::Confusion())
@@ -578,7 +578,7 @@ TopoDS_Edge ChFi2d_Builder::BuildChamferEdge(const TopoDS_Vertex& V,
   Handle(Geom_Line) newLine = new Geom_Line(p1, myDir);
   BRep_Builder      B1;
   B1.MakeEdge(chamfer, newLine, Precision::Confusion());
-  gp_Pnt p2 = ComputePoint(refFace, newLine, AdjEdge2, param2);
+  Point3d p2 = ComputePoint(refFace, newLine, AdjEdge2, param2);
 
   Standard_Real tol = Precision::Confusion();
   BRep_Builder  B;
@@ -620,7 +620,7 @@ TopoDS_Edge ChFi2d_Builder::BuildChamferEdge(const TopoDS_Vertex& V,
 
 //=================================================================================================
 
-gp_Pnt ComputePoint(const TopoDS_Vertex& V,
+Point3d ComputePoint(const TopoDS_Vertex& V,
                     const TopoDS_Edge&   E,
                     const Standard_Real  D,
                     Standard_Real&       Param)
@@ -631,10 +631,10 @@ gp_Pnt ComputePoint(const TopoDS_Vertex& V,
   first = c.FirstParameter();
   last  = c.LastParameter();
 
-  gp_Pnt thePoint;
+  Point3d thePoint;
   if (c.GetType() == GeomAbs_Line)
   {
-    gp_Pnt        p1, p2;
+    Point3d        p1, p2;
     TopoDS_Vertex v1, v2;
     TopExp::Vertices(E, v1, v2);
     p1 = BRep_Tool::Pnt(v1);
@@ -686,7 +686,7 @@ gp_Pnt ComputePoint(const TopoDS_Vertex& V,
   else
   {
     // in all other case than lines and circles.
-    gp_Pnt        p;
+    Point3d        p;
     TopoDS_Vertex v1, v2;
     TopExp::Vertices(E, v1, v2);
     if (V.IsSame(v1))
@@ -716,7 +716,7 @@ gp_Pnt ComputePoint(const TopoDS_Vertex& V,
 
 //=================================================================================================
 
-gp_Pnt ComputePoint(const TopoDS_Face&       F,
+Point3d ComputePoint(const TopoDS_Face&       F,
                     const Handle(Geom_Line)& L,
                     const TopoDS_Edge&       E,
                     Standard_Real&           Param)
@@ -751,7 +751,7 @@ gp_Pnt ComputePoint(const TopoDS_Face&       F,
     } // while ( i <= ...
   } // if (Intersection.IsDone ...
 
-  gp_Pnt thePoint = Adaptor3dSurface.Value(p2d.X(), p2d.Y());
+  Point3d thePoint = Adaptor3dSurface.Value(p2d.X(), p2d.Y());
   return thePoint;
 } // ComputePoint
 

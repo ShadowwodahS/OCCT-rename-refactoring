@@ -101,7 +101,7 @@ Standard_Boolean Select3D_SensitiveBox::Matches(SelectBasics_SelectingVolumeMana
 // purpose  : Returns center of the box. If location transformation
 //            is set, it will be applied
 //=======================================================================
-gp_Pnt Select3D_SensitiveBox::CenterOfGeometry() const
+Point3d Select3D_SensitiveBox::CenterOfGeometry() const
 {
   return myCenter3d;
 }

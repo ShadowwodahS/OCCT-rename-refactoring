@@ -741,7 +741,7 @@ Standard_Integer bopcurves(Draw_Interpretor& di, Standard_Integer n, const char*
     for (Standard_Integer i = 1; i <= aNbPoints; i++)
     {
       const IntTools_PntOn2Faces& aPi = aSPs(i);
-      const gp_Pnt&               aP  = aPi.P1().Pnt();
+      const Point3d&               aP  = aPi.P1().Pnt();
       //
       TCollection_AsciiString anIndx(i), aNmx;
       aNmx                   = aNp + anIndx;

@@ -81,7 +81,7 @@ void AIS_TextLabel::SetText(const TCollection_ExtendedString& theText)
 
 //=================================================================================================
 
-void AIS_TextLabel::SetPosition(const gp_Pnt& thePosition)
+void AIS_TextLabel::SetPosition(const Point3d& thePosition)
 {
   myOrientation3D.SetLocation(thePosition);
 }
@@ -154,7 +154,7 @@ void AIS_TextLabel::UnsetOrientation3D()
 
 //=================================================================================================
 
-const gp_Pnt& AIS_TextLabel::Position() const
+const Point3d& AIS_TextLabel::Position() const
 {
   return myOrientation3D.Location();
 }
@@ -225,7 +225,7 @@ void AIS_TextLabel::Compute(const Handle(PrsMgr_PresentationManager)&,
   {
     case 0: {
       Handle(Prs3d_TextAspect) anAsp     = myDrawer->TextAspect();
-      gp_Pnt                   aPosition = Position();
+      Point3d                   aPosition = Position();
 
       const Standard_Boolean isTextZoomable = anAsp->Aspect()->GetTextZoomable();
       if (myHasOrientation3D)
@@ -244,7 +244,7 @@ void AIS_TextLabel::Compute(const Handle(PrsMgr_PresentationManager)&,
         aPosition = gp::Origin();
       }
 
-      gp_Pnt        aCenterOfLabel;
+      Point3d        aCenterOfLabel;
       Standard_Real aWidth, aHeight;
 
       Standard_Boolean isInit = calculateLabelParams(aPosition, aCenterOfLabel, aWidth, aHeight);
@@ -285,8 +285,8 @@ void AIS_TextLabel::Compute(const Handle(PrsMgr_PresentationManager)&,
         const Standard_Real aDy         = aHeight * 0.5;
         gp_Trsf             aLabelPlane = calculateLabelTrsf(aPosition, aCenterOfLabel);
 
-        gp_Pnt aMinPnt = gp_Pnt(-aDx, -aDy, 0.0).Transformed(aLabelPlane);
-        gp_Pnt aMaxPnt = gp_Pnt(aDx, aDy, 0.0).Transformed(aLabelPlane);
+        Point3d aMinPnt = Point3d(-aDx, -aDy, 0.0).Transformed(aLabelPlane);
+        Point3d aMaxPnt = Point3d(aDx, aDy, 0.0).Transformed(aLabelPlane);
 
         Graphic3d_BndBox4f& aBox = thePrs->CurrentGroup()->ChangeBoundingBox();
         aBox.Add(Graphic3d_Vec4((float)aMinPnt.X(), (float)aMinPnt.Y(), (float)aMinPnt.Z(), 1.0));
@@ -308,13 +308,13 @@ void AIS_TextLabel::ComputeSelection(const Handle(SelectMgr_Selection)& theSelec
     case 0: {
       Handle(SelectMgr_EntityOwner) anEntityOwner = new SelectMgr_EntityOwner(this, 10);
 
-      gp_Pnt aPosition = Position();
+      Point3d aPosition = Position();
       if (!TransformPersistence().IsNull() && TransformPersistence()->Mode() != Graphic3d_TMF_2d)
       {
         aPosition = gp::Origin();
       }
 
-      gp_Pnt        aCenterOfLabel;
+      Point3d        aCenterOfLabel;
       Standard_Real aWidth, aHeight;
 
       if (!calculateLabelParams(aPosition, aCenterOfLabel, aWidth, aHeight))
@@ -331,10 +331,10 @@ void AIS_TextLabel::ComputeSelection(const Handle(SelectMgr_Selection)& theSelec
 
       // sensitive planar rectangle for text
       TColgp_Array1OfPnt aRectanglePoints(1, 5);
-      aRectanglePoints.ChangeValue(1) = gp_Pnt(-aDx, -aDy, 0.0).Transformed(aLabelPlane);
-      aRectanglePoints.ChangeValue(2) = gp_Pnt(-aDx, aDy, 0.0).Transformed(aLabelPlane);
-      aRectanglePoints.ChangeValue(3) = gp_Pnt(aDx, aDy, 0.0).Transformed(aLabelPlane);
-      aRectanglePoints.ChangeValue(4) = gp_Pnt(aDx, -aDy, 0.0).Transformed(aLabelPlane);
+      aRectanglePoints.ChangeValue(1) = Point3d(-aDx, -aDy, 0.0).Transformed(aLabelPlane);
+      aRectanglePoints.ChangeValue(2) = Point3d(-aDx, aDy, 0.0).Transformed(aLabelPlane);
+      aRectanglePoints.ChangeValue(3) = Point3d(aDx, aDy, 0.0).Transformed(aLabelPlane);
+      aRectanglePoints.ChangeValue(4) = Point3d(aDx, -aDy, 0.0).Transformed(aLabelPlane);
       aRectanglePoints.ChangeValue(5) = aRectanglePoints.Value(1);
 
       Handle(Select3D_SensitiveFace) aTextSensitive =
@@ -348,8 +348,8 @@ void AIS_TextLabel::ComputeSelection(const Handle(SelectMgr_Selection)& theSelec
 
 //=================================================================================================
 
-Standard_Boolean AIS_TextLabel::calculateLabelParams(const gp_Pnt&  thePosition,
-                                                     gp_Pnt&        theCenterOfLabel,
+Standard_Boolean AIS_TextLabel::calculateLabelParams(const Point3d&  thePosition,
+                                                     Point3d&        theCenterOfLabel,
                                                      Standard_Real& theWidth,
                                                      Standard_Real& theHeight) const
 {
@@ -399,7 +399,7 @@ Standard_Boolean AIS_TextLabel::calculateLabelParams(const gp_Pnt&  thePosition,
 
 //=================================================================================================
 
-gp_Trsf AIS_TextLabel::calculateLabelTrsf(const gp_Pnt& thePosition, gp_Pnt& theCenterOfLabel) const
+gp_Trsf AIS_TextLabel::calculateLabelTrsf(const Point3d& thePosition, Point3d& theCenterOfLabel) const
 {
   const Standard_Real anAngle = myDrawer->TextAspect()->Aspect()->TextAngle() * M_PI / 180.0;
   const gp_Ax1        aRotAxis(thePosition, gp_Dir(0.0, 0.0, 1.0));

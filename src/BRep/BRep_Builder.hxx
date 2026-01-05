@@ -36,7 +36,7 @@ class Geom2d_Curve;
 class gp_Pnt2d;
 class Poly_Polygon2D;
 class TopoDS_Vertex;
-class gp_Pnt;
+class Point3d;
 
 //! A framework providing advanced tolerance control.
 //! It is used to build Shapes.
@@ -321,11 +321,11 @@ public:
   void MakeVertex(TopoDS_Vertex& V) const;
 
   //! Makes a vertex from a 3D point.
-  void MakeVertex(TopoDS_Vertex& V, const gp_Pnt& P, const Standard_Real Tol) const;
+  void MakeVertex(TopoDS_Vertex& V, const Point3d& P, const Standard_Real Tol) const;
 
   //! Sets a 3D point on the vertex.
   Standard_EXPORT void UpdateVertex(const TopoDS_Vertex& V,
-                                    const gp_Pnt&        P,
+                                    const Point3d&        P,
                                     const Standard_Real  Tol) const;
 
   //! Sets  the parameter  for the   vertex on the  edge

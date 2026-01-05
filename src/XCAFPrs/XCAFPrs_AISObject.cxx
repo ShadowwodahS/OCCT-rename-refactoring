@@ -70,7 +70,7 @@ static void DisplayText(const TDF_Label&                  aLabel,
       {
         Standard_Real aXmin, aYmin, aZmin, aXmax, aYmax, aZmax;
         aBox.Get(aXmin, aYmin, aZmin, aXmax, aYmax, aZmax);
-        gp_Pnt aPnt(0.5 * (aXmin + aXmax), 0.5 * (aYmin + aYmax), 0.5 * (aZmin + aZmax));
+        Point3d aPnt(0.5 * (aXmin + aXmax), 0.5 * (aYmin + aYmax), 0.5 * (aZmin + aZmax));
         Prs3d_Text::Draw(aPrs->CurrentGroup(), anAspect, aName->Get(), aPnt);
       }
     }

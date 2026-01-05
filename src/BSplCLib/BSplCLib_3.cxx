@@ -27,7 +27,7 @@
 #define Dimension_gen 3
 
 #define Array1OfPoints TColgp_Array1OfPnt
-#define Point gp_Pnt
+#define Point Point3d
 #define Vector gp_Vec
 
 #define PointToCoords(carr, pnt, op)                                                               \

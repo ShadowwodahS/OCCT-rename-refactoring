@@ -1035,7 +1035,7 @@ static Standard_Integer offsetcurve(Draw_Interpretor& di, Standard_Integer argc,
   Handle(Geom_Curve) GC     = DrawTrSurf::GetCurve(argv[2]);
   if (GC.IsNull())
     return 1;
-  gp_Pnt point;
+  Point3d point;
   DrawTrSurf::GetPoint(argv[4], point);
   gp_Dir                   dir(point.XYZ());
   Handle(Geom_OffsetCurve) offcrv = new Geom_OffsetCurve(GC, Offset, dir);

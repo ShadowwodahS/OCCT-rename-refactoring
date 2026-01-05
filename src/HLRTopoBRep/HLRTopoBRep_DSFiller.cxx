@@ -355,7 +355,7 @@ void HLRTopoBRep_DSFiller::InsertFace(const Standard_Integer /*FI*/,
                   {
                     knots.SetValue(i, (Standard_Real)i);
                     mults.SetValue(i, 1);
-                    const gp_Pnt& P = Line.Point(i + ipF - 1).Value();
+                    const Point3d& P = Line.Point(i + ipF - 1).Value();
                     if (P.X() < Minx)
                       Minx = P.X();
                     if (P.Y() < Miny)
@@ -521,12 +521,12 @@ void HLRTopoBRep_DSFiller::InsertFace(const Standard_Integer /*FI*/,
       {
         if (i == 1 && aVer[0].IsSame(aVer[1]))
           continue;
-        gp_Pnt Pnt1 = BRep_Tool::Pnt(aVer[i]);
+        Point3d Pnt1 = BRep_Tool::Pnt(aVer[i]);
         for (Standard_Integer j = 0; j < 2; j++)
         {
           if (aVer[i].IsSame(aVer2[j]))
             continue;
-          gp_Pnt Pnt2 = BRep_Tool::Pnt(aVer2[j]);
+          Point3d Pnt2 = BRep_Tool::Pnt(aVer2[j]);
           if (Pnt1.SquareDistance(Pnt2) <= SqTol)
           {
             BRep_Builder aBB;
@@ -563,13 +563,13 @@ TopoDS_Vertex HLRTopoBRep_DSFiller::MakeVertex(const Contap_Point& P,
     {
       const TopoDS_Edge& E   = (*(BRepAdaptor_Curve2d*)(P.Arc().get())).Edge();
       Standard_Real      Par = P.ParameterOnArc();
-      const gp_Pnt&      P3d = P.Value();
+      const Point3d&      P3d = P.Value();
 
       for (DS.InitVertex(E); DS.MoreVertex(); DS.NextVertex())
       {
         TopoDS_Vertex curV = DS.Vertex();
         Standard_Real curP = DS.Parameter();
-        const gp_Pnt& PPP  = BRep_Tool::Pnt(curV);
+        const Point3d& PPP  = BRep_Tool::Pnt(curV);
         Standard_Real TTT  = BRep_Tool::Tolerance(curV);
         if (P3d.IsEqual(PPP, TTT))
         {

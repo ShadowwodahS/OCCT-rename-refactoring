@@ -30,7 +30,7 @@
 #include <Standard_ConstructionError.hxx>
 #include <Standard_Dump.hxx>
 
-gp_Pln::gp_Pln(const gp_Pnt& P, const gp_Dir& V)
+gp_Pln::gp_Pln(const Point3d& P, const gp_Dir& V)
 {
   Standard_Real A    = V.X();
   Standard_Real B    = V.Y();
@@ -90,32 +90,32 @@ gp_Pln::gp_Pln(const Standard_Real A,
   if (Babs <= Aabs && Babs <= Cabs)
   {
     if (Aabs > Cabs)
-      pos = gp_Ax3(gp_Pnt(-D / A, 0., 0.), gp_Dir(A, B, C), gp_Dir(-C, 0., A));
+      pos = gp_Ax3(Point3d(-D / A, 0., 0.), gp_Dir(A, B, C), gp_Dir(-C, 0., A));
     else
-      pos = gp_Ax3(gp_Pnt(0., 0., -D / C), gp_Dir(A, B, C), gp_Dir(C, 0., -A));
+      pos = gp_Ax3(Point3d(0., 0., -D / C), gp_Dir(A, B, C), gp_Dir(C, 0., -A));
   }
   else if (Aabs <= Babs && Aabs <= Cabs)
   {
     if (Babs > Cabs)
-      pos = gp_Ax3(gp_Pnt(0., -D / B, 0.), gp_Dir(A, B, C), gp_Dir(0., -C, B));
+      pos = gp_Ax3(Point3d(0., -D / B, 0.), gp_Dir(A, B, C), gp_Dir(0., -C, B));
     else
-      pos = gp_Ax3(gp_Pnt(0., 0., -D / C), gp_Dir(A, B, C), gp_Dir(0., C, -B));
+      pos = gp_Ax3(Point3d(0., 0., -D / C), gp_Dir(A, B, C), gp_Dir(0., C, -B));
   }
   else
   {
     if (Aabs > Babs)
-      pos = gp_Ax3(gp_Pnt(-D / A, 0., 0.), gp_Dir(A, B, C), gp_Dir(-B, A, 0.));
+      pos = gp_Ax3(Point3d(-D / A, 0., 0.), gp_Dir(A, B, C), gp_Dir(-B, A, 0.));
     else
-      pos = gp_Ax3(gp_Pnt(0., -D / B, 0.), gp_Dir(A, B, C), gp_Dir(B, -A, 0.));
+      pos = gp_Ax3(Point3d(0., -D / B, 0.), gp_Dir(A, B, C), gp_Dir(B, -A, 0.));
   }
 }
 
-void gp_Pln::Mirror(const gp_Pnt& P)
+void gp_Pln::Mirror(const Point3d& P)
 {
   pos.Mirror(P);
 }
 
-gp_Pln gp_Pln::Mirrored(const gp_Pnt& P) const
+gp_Pln gp_Pln::Mirrored(const Point3d& P) const
 {
   gp_Pln Pl = *this;
   Pl.pos.Mirror(P);

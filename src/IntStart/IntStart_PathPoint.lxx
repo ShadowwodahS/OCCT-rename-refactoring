@@ -14,7 +14,7 @@
 
 #include <Standard_DomainError.hxx>
 
-inline void IntStart_PathPoint::SetValue(const gp_Pnt&       P,
+inline void IntStart_PathPoint::SetValue(const Point3d&       P,
                                          const Standard_Real Tol,
                                          const TheVertex&    V,
                                          const TheArc&       A,
@@ -29,7 +29,7 @@ inline void IntStart_PathPoint::SetValue(const gp_Pnt&       P,
   param = Parameter;
 }
 
-inline void IntStart_PathPoint::SetValue(const gp_Pnt&       P,
+inline void IntStart_PathPoint::SetValue(const Point3d&       P,
                                          const Standard_Real Tol,
                                          const TheArc&       A,
                                          const Standard_Real Parameter)
@@ -42,7 +42,7 @@ inline void IntStart_PathPoint::SetValue(const gp_Pnt&       P,
   param = Parameter;
 }
 
-inline const gp_Pnt& IntStart_PathPoint::Value() const
+inline const Point3d& IntStart_PathPoint::Value() const
 {
 
   return point;

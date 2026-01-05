@@ -27,7 +27,7 @@ ChFi3d_SearchSing::ChFi3d_SearchSing(const Handle(Geom_Curve)& C1, const Handle(
 
 Standard_Boolean ChFi3d_SearchSing::Value(const Standard_Real X, Standard_Real& F)
 {
-  gp_Pnt P1, P2;
+  Point3d P1, P2;
   gp_Vec V1, V2;
   myC1->D1(X, P1, V1);
   myC2->D1(X, P2, V2);
@@ -38,7 +38,7 @@ Standard_Boolean ChFi3d_SearchSing::Value(const Standard_Real X, Standard_Real& 
 
 Standard_Boolean ChFi3d_SearchSing::Derivative(const Standard_Real X, Standard_Real& D)
 {
-  gp_Pnt P1, P2;
+  Point3d P1, P2;
   gp_Vec V1, V2, W1, W2;
   myC1->D2(X, P1, V1, W1);
   myC2->D2(X, P2, V2, W2);
@@ -52,7 +52,7 @@ Standard_Boolean ChFi3d_SearchSing::Values(const Standard_Real X,
                                            Standard_Real&      F,
                                            Standard_Real&      D)
 {
-  gp_Pnt P1, P2;
+  Point3d P1, P2;
   gp_Vec V1, V2, W1, W2;
   myC1->D2(X, P1, V1, W1);
   myC2->D2(X, P2, V2, W2);

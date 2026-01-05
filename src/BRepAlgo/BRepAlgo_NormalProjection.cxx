@@ -241,7 +241,7 @@ void BRepAlgo_NormalProjection::Build()
       TopoDS_Shape     prj;
       Standard_Boolean Degenerated = Standard_False;
       gp_Pnt2d         P2d, Pdeb, Pfin;
-      gp_Pnt           P;
+      Point3d           P;
       Standard_Real    UIso, VIso;
 
       Handle(Adaptor2d_Curve2d) HPCur;
@@ -357,7 +357,7 @@ void BRepAlgo_NormalProjection::Build()
               Degenerated = Standard_True;
               Standard_Real             Dist;
               Handle(Geom_BSplineCurve) BS3d = appr.Curve3d();
-              gp_Pnt                    P1(0., 0., 0.), PP; // skl : I change "P" to "PP"
+              Point3d                    P1(0., 0., 0.), PP; // skl : I change "P" to "PP"
               Standard_Integer          NbPoint, ii;        // skl : I change "i" to "ii"
               Standard_Real             Par, DPar;
               // start from 3 points to reject non degenerated edges

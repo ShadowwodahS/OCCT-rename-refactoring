@@ -74,15 +74,15 @@ public:
 
   //! Returns True if Frustum (theVertices) intersects the circle.
   Standard_EXPORT Standard_Boolean isIntersectCircle(const Standard_Real       theRadius,
-                                                     const gp_Pnt&             theCenter,
+                                                     const Point3d&             theCenter,
                                                      const gp_Trsf&            theTrsf,
                                                      const TColgp_Array1OfPnt& theVertices) const;
 
   //! Returns True if Seg1 (thePnt1Seg1, thePnt2Seg1) and Seg2 (thePnt1Seg2, thePnt2Seg2) intersect.
-  Standard_EXPORT Standard_Boolean isSegmentsIntersect(const gp_Pnt& thePnt1Seg1,
-                                                       const gp_Pnt& thePnt2Seg1,
-                                                       const gp_Pnt& thePnt1Seg2,
-                                                       const gp_Pnt& thePnt2Seg2) const;
+  Standard_EXPORT Standard_Boolean isSegmentsIntersect(const Point3d& thePnt1Seg1,
+                                                       const Point3d& thePnt2Seg1,
+                                                       const Point3d& thePnt1Seg2,
+                                                       const Point3d& thePnt2Seg2) const;
 
   //! Builds volume according to internal parameters.
   //! NOTE: it should be called after Init() method
@@ -133,12 +133,12 @@ public:
 
   //! Intersection test between defined volume and given point
   Standard_EXPORT virtual Standard_Boolean OverlapsPoint(
-    const gp_Pnt&                  thePnt,
+    const Point3d&                  thePnt,
     const SelectMgr_ViewClipRange& theClipRange,
     SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
 
   //! Intersection test between defined volume and given point
-  Standard_EXPORT virtual Standard_Boolean OverlapsPoint(const gp_Pnt& thePnt) const
+  Standard_EXPORT virtual Standard_Boolean OverlapsPoint(const Point3d& thePnt) const
     Standard_OVERRIDE;
 
   //! SAT intersection test between defined volume and given ordered set of points,
@@ -152,8 +152,8 @@ public:
 
   //! Checks if line segment overlaps selecting frustum
   Standard_EXPORT virtual Standard_Boolean OverlapsSegment(
-    const gp_Pnt&                  thePnt1,
-    const gp_Pnt&                  thePnt2,
+    const Point3d&                  thePnt1,
+    const Point3d&                  thePnt2,
     const SelectMgr_ViewClipRange& theClipRange,
     SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
 
@@ -161,22 +161,22 @@ public:
   //! be considered of interior part or boundary line defined by triangle vertices
   //! depending on given sensitivity type
   Standard_EXPORT virtual Standard_Boolean OverlapsTriangle(
-    const gp_Pnt&                  thePnt1,
-    const gp_Pnt&                  thePnt2,
-    const gp_Pnt&                  thePnt3,
+    const Point3d&                  thePnt1,
+    const Point3d&                  thePnt2,
+    const Point3d&                  thePnt3,
     Select3D_TypeOfSensitivity     theSensType,
     const SelectMgr_ViewClipRange& theClipRange,
     SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
 
   //! Intersection test between defined volume and given sphere
   Standard_EXPORT virtual Standard_Boolean OverlapsSphere(
-    const gp_Pnt&                  theCenter,
+    const Point3d&                  theCenter,
     const Standard_Real            theRadius,
     const SelectMgr_ViewClipRange& theClipRange,
     SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
 
   //! Intersection test between defined volume and given sphere
-  Standard_EXPORT virtual Standard_Boolean OverlapsSphere(const gp_Pnt&       theCenter,
+  Standard_EXPORT virtual Standard_Boolean OverlapsSphere(const Point3d&       theCenter,
                                                           const Standard_Real theRadius,
                                                           Standard_Boolean*   theInside) const
     Standard_OVERRIDE;
@@ -226,26 +226,26 @@ public:
   //! Measures distance between 3d projection of user-picked
   //! screen point and given point theCOG.
   //! It makes sense only for frustums built on a single point.
-  Standard_EXPORT virtual Standard_Real DistToGeometryCenter(const gp_Pnt& theCOG) const
+  Standard_EXPORT virtual Standard_Real DistToGeometryCenter(const Point3d& theCOG) const
     Standard_OVERRIDE;
 
   //! Calculates the point on a view ray that was detected during the run of selection algo by given
   //! depth
-  Standard_EXPORT virtual gp_Pnt DetectedPoint(const Standard_Real theDepth) const
+  Standard_EXPORT virtual Point3d DetectedPoint(const Standard_Real theDepth) const
     Standard_OVERRIDE;
 
   //! A set of helper functions that return rectangular selecting frustum data
-  const gp_Pnt* GetVertices() const { return myVertices; }
+  const Point3d* GetVertices() const { return myVertices; }
 
   //! Returns projection of 2d mouse picked point or projection
   //! of center of 2d rectangle (for point and rectangular selection
   //! correspondingly) onto near view frustum plane
-  virtual const gp_Pnt& GetNearPnt() const Standard_OVERRIDE { return myNearPickedPnt; }
+  virtual const Point3d& GetNearPnt() const Standard_OVERRIDE { return myNearPickedPnt; }
 
   //! Returns projection of 2d mouse picked point or projection
   //! of center of 2d rectangle (for point and rectangular selection
   //! correspondingly) onto far view frustum plane
-  virtual const gp_Pnt& GetFarPnt() const Standard_OVERRIDE { return myFarPickedPnt; }
+  virtual const Point3d& GetFarPnt() const Standard_OVERRIDE { return myFarPickedPnt; }
 
   //! Returns view ray direction.
   virtual const gp_Dir& GetViewRayDirection() const Standard_OVERRIDE { return myViewRayDir; }
@@ -263,12 +263,12 @@ public:
                                         Standard_Integer  theDepth = -1) const Standard_OVERRIDE;
 
 protected:
-  Standard_EXPORT void segmentSegmentDistance(const gp_Pnt&            theSegPnt1,
-                                              const gp_Pnt&            theSegPnt2,
+  Standard_EXPORT void segmentSegmentDistance(const Point3d&            theSegPnt1,
+                                              const Point3d&            theSegPnt2,
                                               SelectBasics_PickResult& thePickResult) const;
 
   Standard_EXPORT bool segmentPlaneIntersection(const gp_Vec&            thePlane,
-                                                const gp_Pnt&            thePntOnPlane,
+                                                const Point3d&            thePntOnPlane,
                                                 SelectBasics_PickResult& thePickResult) const;
 
 private:
@@ -290,8 +290,8 @@ private:
 private:
   // clang-format off
   SelectionRectangle      mySelRectangle;              //!< parameters for selection by point or box (it is used to build frustum)
-  gp_Pnt                  myNearPickedPnt;             //!< 3d projection of user-picked selection point onto near view plane
-  gp_Pnt                  myFarPickedPnt;              //!< 3d projection of user-picked selection point onto far view plane
+  Point3d                  myNearPickedPnt;             //!< 3d projection of user-picked selection point onto near view plane
+  Point3d                  myFarPickedPnt;              //!< 3d projection of user-picked selection point onto far view plane
   gp_Dir                  myViewRayDir;                //!< view ray direction
   Standard_Real           myScale;                     //!< Scale factor of applied transformation, if there was any
   // clang-format on

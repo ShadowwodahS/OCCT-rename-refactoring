@@ -39,9 +39,9 @@ void DsgPrs_EllipseRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPr
                                            const Handle(Prs3d_Drawer)&       aDrawer,
                                            const Standard_Real               theval,
                                            const TCollection_ExtendedString& aText,
-                                           const gp_Pnt&                     aPosition,
-                                           const gp_Pnt&                     anEndOfArrow,
-                                           const gp_Pnt&                     aCenter,
+                                           const Point3d&                     aPosition,
+                                           const Point3d&                     anEndOfArrow,
+                                           const Point3d&                     aCenter,
                                            const Standard_Boolean            IsMaxRadius,
                                            const DsgPrs_ArrowSide            ArrowPrs)
 {
@@ -50,7 +50,7 @@ void DsgPrs_EllipseRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPr
 
   const Standard_Real    dist   = aCenter.Distance(aPosition);
   const Standard_Boolean inside = (dist <= theval);
-  gp_Pnt                 EndPoint(inside ? anEndOfArrow : aPosition);
+  Point3d                 EndPoint(inside ? anEndOfArrow : aPosition);
 
   Handle(Graphic3d_ArrayOfSegments) aPrims = new Graphic3d_ArrayOfSegments(2);
   aPrims->AddVertex(aCenter);
@@ -77,9 +77,9 @@ void DsgPrs_EllipseRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPr
                                            const Standard_Real               theval,
                                            const TCollection_ExtendedString& aText,
                                            const gp_Elips&                   anEllipse,
-                                           const gp_Pnt&                     aPosition,
-                                           const gp_Pnt&                     anEndOfArrow,
-                                           const gp_Pnt&                     aCenter,
+                                           const Point3d&                     aPosition,
+                                           const Point3d&                     anEndOfArrow,
+                                           const Point3d&                     aCenter,
                                            const Standard_Real               uFirst,
                                            const Standard_Boolean            IsInDomain,
                                            const Standard_Boolean            IsMaxRadius,
@@ -128,9 +128,9 @@ void DsgPrs_EllipseRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPr
                                            const Standard_Real               theval,
                                            const TCollection_ExtendedString& aText,
                                            const Handle(Geom_OffsetCurve)&   aCurve,
-                                           const gp_Pnt&                     aPosition,
-                                           const gp_Pnt&                     anEndOfArrow,
-                                           const gp_Pnt&                     aCenter,
+                                           const Point3d&                     aPosition,
+                                           const Point3d&                     anEndOfArrow,
+                                           const Point3d&                     aCenter,
                                            const Standard_Real               uFirst,
                                            const Standard_Boolean            IsInDomain,
                                            const Standard_Boolean            IsMaxRadius,
@@ -151,7 +151,7 @@ void DsgPrs_EllipseRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPr
     // clang-format off
     const Standard_Real Alpha = DsgPrs::DistanceFromApex(aBEllipse, anEndOfArrow, uFirst);//length of ellipse arc
     // clang-format on
-    gp_Pnt p1;
+    Point3d p1;
     aCurve->D0(uFirst, p1);
     gp_Vec        Vapex(aCenter, anEndOfArrow);
     gp_Vec        Vpnt(aCenter, p1);

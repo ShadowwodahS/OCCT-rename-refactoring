@@ -59,18 +59,18 @@ static void AddSpecialPoints(const IntAna_Quadric& theQuad,
                              Standard_Real&        theTheta2)
 {
   const Standard_Real             aPeriod = M_PI + M_PI;
-  const NCollection_List<gp_Pnt>& aLSP    = theQuad.SpecialPoints();
+  const NCollection_List<Point3d>& aLSP    = theQuad.SpecialPoints();
 
   if (aLSP.IsEmpty())
     return;
 
   Standard_Real aU = 0.0, aV = 0.0;
   Standard_Real aMaxDelta = 0.0;
-  for (NCollection_List<gp_Pnt>::Iterator anItr(aLSP); anItr.More(); anItr.Next())
+  for (NCollection_List<Point3d>::Iterator anItr(aLSP); anItr.More(); anItr.Next())
   {
-    const gp_Pnt& aPt = anItr.Value();
+    const Point3d& aPt = anItr.Value();
     ElSLib::Parameters(theGpObj, aPt, aU, aV);
-    const gp_Pnt aPProj(ElSLib::Value(aU, aV, theGpObj));
+    const Point3d aPProj(ElSLib::Value(aU, aV, theGpObj));
 
     if (aPt.SquareDistance(aPProj) > Precision::SquareConfusion())
     {
@@ -1614,7 +1614,7 @@ const IntAna_Curve& IntAna_IntQuadQuad::Curve(const Standard_Integer i) const
 
 //=================================================================================================
 
-const gp_Pnt& IntAna_IntQuadQuad::Point(const Standard_Integer i) const
+const Point3d& IntAna_IntQuadQuad::Point(const Standard_Integer i) const
 {
   if (!done)
   {
@@ -1708,7 +1708,7 @@ void DumpCurve(const Standard_Integer aIndex,
   Standard_Boolean bIsOpen, bIsConstant, bIsFirstOpen, bIsLastOpen;
   Standard_Integer i, aNb;
   Standard_Real aT1, aT2, aT, dT;
-  gp_Pnt aP;
+  Point3d aP;
   //
   aC.Domain(aT1, aT2);
   bIsOpen=aC.IsOpen();

@@ -99,7 +99,7 @@ Select3D_BndBox3d Select3D_SensitiveCylinder::BoundingBox()
 
 //=================================================================================================
 
-gp_Pnt Select3D_SensitiveCylinder::CenterOfGeometry() const
+Point3d Select3D_SensitiveCylinder::CenterOfGeometry() const
 {
-  return gp_Pnt(0, 0, myHeight / 2).Transformed(myTrsf);
+  return Point3d(0, 0, myHeight / 2).Transformed(myTrsf);
 }

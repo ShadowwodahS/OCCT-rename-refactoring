@@ -707,8 +707,8 @@ TopoDS_Shape IGESToBRep_TopoSurface::TransferSurfaceOfRevolution(
   DeclareAndCast(IGESGeom_Line, srgen, st->Generatrix());
   if (!srgen.IsNull())
   {
-    gp_Pnt gen1 = srgen->StartPoint();
-    gp_Pnt gen2 = srgen->EndPoint();
+    Point3d gen1 = srgen->StartPoint();
+    Point3d gen2 = srgen->EndPoint();
     TheULength  = gen1.Distance(gen2) * GetUnitFactor();
   }
 
@@ -735,10 +735,10 @@ TopoDS_Shape IGESToBRep_TopoSurface::TransferSurfaceOfRevolution(
   }
 
   gp_Trsf startLoc;
-  gp_Pnt  pt1 = igesAxis->TransformedStartPoint(); // smh#11
-  gp_Pnt  pt2 = igesAxis->TransformedEndPoint();   // smh#11
-  pt1.Scale(gp_Pnt(0, 0, 0), GetUnitFactor());
-  pt2.Scale(gp_Pnt(0, 0, 0), GetUnitFactor());
+  Point3d  pt1 = igesAxis->TransformedStartPoint(); // smh#11
+  Point3d  pt2 = igesAxis->TransformedEndPoint();   // smh#11
+  pt1.Scale(Point3d(0, 0, 0), GetUnitFactor());
+  pt2.Scale(Point3d(0, 0, 0), GetUnitFactor());
   // #30 rln 19.10.98 To keep IGES surface normal CAS.CADE axis = reversed IGES axis
   // CAS.CADE SA = 2*PI - IGES TA
   // CAS.CADE TA = 2*PI - IGES SA
@@ -902,9 +902,9 @@ TopoDS_Shape IGESToBRep_TopoSurface::TransferTabulatedCylinder(
   // TopoDS_Vertex firstVertex = TopExp::FirstVertex(firstEdge);
   TopoDS_Vertex firstVertex, lastVertex;
   ShapeAnalysis::FindBounds(directrix, firstVertex, lastVertex);
-  gp_Pnt pt1 = BRep_Tool::Pnt(firstVertex);
-  gp_Pnt pt2 = st->EndPoint();
-  pt2.Scale(gp_Pnt(0, 0, 0), GetUnitFactor());
+  Point3d pt1 = BRep_Tool::Pnt(firstVertex);
+  Point3d pt2 = st->EndPoint();
+  pt2.Scale(Point3d(0, 0, 0), GetUnitFactor());
 
   TheULength = pt1.Distance(pt2);
   if (TheULength < Precision::Confusion())
@@ -1602,7 +1602,7 @@ TopoDS_Shape IGESToBRep_TopoSurface::TransferPlaneParts(const Handle(IGESGeom_Pl
   {
     B.MakeFace(plane); // Just to create a empty Plane with a Tshape.
     Handle(Geom_Plane) geomPln = new Geom_Plane(pln);
-    geomPln->Scale(gp_Pnt(0, 0, 0), GetUnitFactor());
+    geomPln->Scale(Point3d(0, 0, 0), GetUnitFactor());
     //   ATTENTION, ici on CALCULE la trsf, on ne l`applique pas ...
     // S4054: B.UpdateFace (plane, geomPln, TopLoc_Location(),
     // GetEpsGeom()*GetUnitFactor());

@@ -66,8 +66,8 @@ public:
   //! @param[in] theFirstPoint  the first point.
   //! @param[in] theSecondPoint  the second point.
   //! @param[in] thePlane  the plane to orient dimension.
-  Standard_EXPORT PrsDim_LengthDimension(const gp_Pnt& theFirstPoint,
-                                         const gp_Pnt& theSecondPoint,
+  Standard_EXPORT PrsDim_LengthDimension(const Point3d& theFirstPoint,
+                                         const Point3d& theSecondPoint,
                                          const gp_Pln& thePlane);
 
   //! Construct length dimension between two arbitrary shapes in
@@ -86,10 +86,10 @@ public:
 
 public:
   //! @return first attachment point.
-  const gp_Pnt& FirstPoint() const { return myFirstPoint; }
+  const Point3d& FirstPoint() const { return myFirstPoint; }
 
   //! @return second attachment point.
-  const gp_Pnt& SecondPoint() const { return mySecondPoint; }
+  const Point3d& SecondPoint() const { return mySecondPoint; }
 
   //! @return first attachment shape.
   const TopoDS_Shape& FirstShape() const { return myFirstShape; }
@@ -104,8 +104,8 @@ public:
   //! @param[in] theFirstPoint  the first point.
   //! @param[in] theSecondPoint  the second point.
   //! @param[in] thePlane  the user-defined plane
-  Standard_EXPORT void SetMeasuredGeometry(const gp_Pnt& theFirstPoint,
-                                           const gp_Pnt& theSecondPoint,
+  Standard_EXPORT void SetMeasuredGeometry(const Point3d& theFirstPoint,
+                                           const Point3d& theSecondPoint,
                                            const gp_Pln& thePlane);
 
   //! Measure length of edge.
@@ -149,9 +149,9 @@ public:
   Standard_EXPORT virtual void SetModelUnits(const TCollection_AsciiString& theUnits)
     Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void SetTextPosition(const gp_Pnt& theTextPos) Standard_OVERRIDE;
+  Standard_EXPORT virtual void SetTextPosition(const Point3d& theTextPos) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual gp_Pnt GetTextPosition() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Point3d GetTextPosition() const Standard_OVERRIDE;
 
   //! Set custom direction for dimension. If it is not set, the direction is obtained
   //! from the measured geometry (e.g. line between points of dimension)
@@ -185,10 +185,10 @@ protected:
   //! @param[in] theSecondPoint  the second attach point of linear dimension.
   //! @param[out] theLineBegPoint  the first attach point of linear dimension.
   //! @param[out] theLineEndPoint  the second attach point of linear dimension.
-  Standard_EXPORT virtual void ComputeFlyoutLinePoints(const gp_Pnt& theFirstPoint,
-                                                       const gp_Pnt& theSecondPoint,
-                                                       gp_Pnt&       theLineBegPoint,
-                                                       gp_Pnt& theLineEndPoint) Standard_OVERRIDE;
+  Standard_EXPORT virtual void ComputeFlyoutLinePoints(const Point3d& theFirstPoint,
+                                                       const Point3d& theSecondPoint,
+                                                       Point3d&       theLineBegPoint,
+                                                       Point3d& theLineEndPoint) Standard_OVERRIDE;
 
   Standard_EXPORT virtual void ComputeFlyoutSelection(
     const Handle(SelectMgr_Selection)&   theSelection,
@@ -198,8 +198,8 @@ protected:
   //! Checks that distance between two points is valid.
   //! @param[in] theFirstPoint  the first point.
   //! @param[in] theSecondPoint  the second point.
-  Standard_EXPORT Standard_Boolean IsValidPoints(const gp_Pnt& theFirstPoint,
-                                                 const gp_Pnt& theSecondPoint) const;
+  Standard_EXPORT Standard_Boolean IsValidPoints(const Point3d& theFirstPoint,
+                                                 const Point3d& theSecondPoint) const;
 
   Standard_EXPORT Standard_Boolean InitTwoEdgesLength(const TopoDS_Edge& theFirstEdge,
                                                       const TopoDS_Edge& theSecondEdge,
@@ -235,8 +235,8 @@ protected:
   Standard_EXPORT Standard_Boolean InitOneShapePoints(const TopoDS_Shape& theShape);
 
 protected:
-  gp_Pnt           myFirstPoint;
-  gp_Pnt           mySecondPoint;
+  Point3d           myFirstPoint;
+  Point3d           mySecondPoint;
   TopoDS_Shape     myFirstShape;
   TopoDS_Shape     mySecondShape;
   gp_Dir           myDirection;

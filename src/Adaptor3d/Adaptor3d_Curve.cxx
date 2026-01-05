@@ -110,41 +110,41 @@ Standard_Real Adaptor3d_Curve::Period() const
 
 //=================================================================================================
 
-// gp_Pnt Adaptor3d_Curve::Value(const Standard_Real U) const
-gp_Pnt Adaptor3d_Curve::Value(const Standard_Real) const
+// Point3d Adaptor3d_Curve::Value(const Standard_Real U) const
+Point3d Adaptor3d_Curve::Value(const Standard_Real) const
 {
   throw Standard_NotImplemented("Adaptor3d_Curve::Value");
 }
 
 //=================================================================================================
 
-// void Adaptor3d_Curve::D0(const Standard_Real U, gp_Pnt& P) const
-void Adaptor3d_Curve::D0(const Standard_Real, gp_Pnt&) const
+// void Adaptor3d_Curve::D0(const Standard_Real U, Point3d& P) const
+void Adaptor3d_Curve::D0(const Standard_Real, Point3d&) const
 {
   throw Standard_NotImplemented("Adaptor3d_Curve::D0");
 }
 
 //=================================================================================================
 
-// void Adaptor3d_Curve::D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V) const
-void Adaptor3d_Curve::D1(const Standard_Real, gp_Pnt&, gp_Vec&) const
+// void Adaptor3d_Curve::D1(const Standard_Real U, Point3d& P, gp_Vec& V) const
+void Adaptor3d_Curve::D1(const Standard_Real, Point3d&, gp_Vec&) const
 {
   throw Standard_NotImplemented("Adaptor3d_Curve::D1");
 }
 
 //=================================================================================================
 
-// void Adaptor3d_Curve::D2(const Standard_Real U, gp_Pnt& P, gp_Vec& V1, gp_Vec& V2) const
-void Adaptor3d_Curve::D2(const Standard_Real, gp_Pnt&, gp_Vec&, gp_Vec&) const
+// void Adaptor3d_Curve::D2(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2) const
+void Adaptor3d_Curve::D2(const Standard_Real, Point3d&, gp_Vec&, gp_Vec&) const
 {
   throw Standard_NotImplemented("Adaptor3d_Curve::D2");
 }
 
 //=================================================================================================
 
-// void Adaptor3d_Curve::D3(const Standard_Real U, gp_Pnt& P, gp_Vec& V1, gp_Vec& V2, gp_Vec& V3)
+// void Adaptor3d_Curve::D3(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2, gp_Vec& V3)
 // const
-void Adaptor3d_Curve::D3(const Standard_Real, gp_Pnt&, gp_Vec&, gp_Vec&, gp_Vec&) const
+void Adaptor3d_Curve::D3(const Standard_Real, Point3d&, gp_Vec&, gp_Vec&, gp_Vec&) const
 {
   throw Standard_NotImplemented("Adaptor3d_Curve::D3");
 }

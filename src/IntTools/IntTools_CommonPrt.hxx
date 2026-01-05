@@ -108,10 +108,10 @@ public:
   Standard_EXPORT void SetAllNullFlag(const Standard_Boolean aFlag);
 
   //! Modifier
-  Standard_EXPORT void SetBoundingPoints(const gp_Pnt& aP1, const gp_Pnt& aP2);
+  Standard_EXPORT void SetBoundingPoints(const Point3d& aP1, const Point3d& aP2);
 
   //! Selector
-  Standard_EXPORT void BoundingPoints(gp_Pnt& aP1, gp_Pnt& aP2) const;
+  Standard_EXPORT void BoundingPoints(Point3d& aP1, Point3d& aP2) const;
 
 protected:
 private:
@@ -123,8 +123,8 @@ private:
   Standard_Real             myVertPar2;
   IntTools_SequenceOfRanges myRanges2;
   Standard_Boolean          myAllNullFlag;
-  gp_Pnt                    myPnt1;
-  gp_Pnt                    myPnt2;
+  Point3d                    myPnt1;
+  Point3d                    myPnt2;
 };
 
 #endif // _IntTools_CommonPrt_HeaderFile

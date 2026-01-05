@@ -88,9 +88,9 @@ static Standard_Real ComputeTolerance(TopoDS_Edge&                E,
   {
     Standard_Real t     = unsurnn * i;
     Standard_Real u     = first * (1. - t) + last * t;
-    gp_Pnt        Pc3d  = c3d->Value(u);
+    Point3d        Pc3d  = c3d->Value(u);
     gp_Pnt2d      UV    = C->Value(u);
-    gp_Pnt        Pcons = surf->Value(UV.X(), UV.Y());
+    Point3d        Pcons = surf->Value(UV.X(), UV.Y());
     if (Precision::IsInfinite(Pcons.X()) || Precision::IsInfinite(Pcons.Y())
         || Precision::IsInfinite(Pcons.Z()))
     {
@@ -155,7 +155,7 @@ TopoDS_Shape BRepSweep_Rotation::MakeEmptyVertex(const TopoDS_Shape&   aGenV,
 {
   // call only in construction mode with copy.
   Standard_ConstructionError_Raise_if(!myCopy, "BRepSweep_Rotation::MakeEmptyVertex");
-  gp_Pnt        P = BRep_Tool::Pnt(TopoDS::Vertex(aGenV));
+  Point3d        P = BRep_Tool::Pnt(TopoDS::Vertex(aGenV));
   TopoDS_Vertex V;
   if (aDirV.Index() == 2)
     P.Transform(myLocation.Transformation());
@@ -177,10 +177,10 @@ TopoDS_Shape BRepSweep_Rotation::MakeEmptyDirectingEdge(const TopoDS_Shape& aGen
                                                         const Sweep_NumShape&)
 {
   TopoDS_Edge E;
-  gp_Pnt      P = BRep_Tool::Pnt(TopoDS::Vertex(aGenV));
+  Point3d      P = BRep_Tool::Pnt(TopoDS::Vertex(aGenV));
   gp_Dir      Dirz(myAxe.Direction());
   gp_Vec      V(Dirz);
-  gp_Pnt      O(myAxe.Location());
+  Point3d      O(myAxe.Location());
   O.Translate(V.Dot(gp_Vec(O, P)) * V);
   if (O.IsEqual(P, Precision::Confusion()))
   {
@@ -396,7 +396,7 @@ void BRepSweep_Rotation::SetGeneratingPCurve(const TopoDS_Shape& aNewFace,
   GeomAdaptor_Surface AS(BRep_Tool::Surface(TopoDS::Face(aNewFace), Loc));
   Standard_Real       First, Last;
   Standard_Real       u, v;
-  gp_Pnt              point;
+  Point3d              point;
   gp_Pnt2d            pnt2d;
   gp_Dir2d            dir2d;
   gp_Lin2d            L;
@@ -501,7 +501,7 @@ void BRepSweep_Rotation::SetDirectingPCurve(const TopoDS_Shape& aNewFace,
   TopLoc_Location      Loc;
   GeomAdaptor_Surface  AS(BRep_Tool::Surface(TopoDS::Face(aNewFace), Loc));
   Standard_Real        par = BRep_Tool::Parameter(TopoDS::Vertex(aGenV), TopoDS::Edge(aGenE));
-  gp_Pnt               p2  = BRep_Tool::Pnt(TopoDS::Vertex(aGenV));
+  Point3d               p2  = BRep_Tool::Pnt(TopoDS::Vertex(aGenV));
   gp_Pnt2d             p22d;
   Standard_Real        u, v;
   Handle(Geom2d_Curve) thePCurve;
@@ -512,7 +512,7 @@ void BRepSweep_Rotation::SetDirectingPCurve(const TopoDS_Shape& aNewFace,
     case GeomAbs_Plane: {
       gp_Pln        pln = AS.Plane();
       gp_Ax3        ax3 = pln.Position();
-      gp_Pnt        p1  = pln.Location();
+      Point3d        p1  = pln.Location();
       Standard_Real R   = p1.Distance(p2);
       ElSLib::PlaneParameters(ax3, p2, u, v);
       gp_Dir2d              dx2d(u, v);
@@ -544,7 +544,7 @@ void BRepSweep_Rotation::SetDirectingPCurve(const TopoDS_Shape& aNewFace,
     break;
 
     case GeomAbs_Torus: {
-      gp_Pnt            p1;
+      Point3d            p1;
       Standard_Real     u1, u2, v1, v2;
       gp_Torus          tor = AS.Torus();
       BRepAdaptor_Curve BC(TopoDS::Edge(aGenE));
@@ -610,14 +610,14 @@ TopAbs_Orientation BRepSweep_Rotation::DirectSolid(const TopoDS_Shape& aGenS, co
 { // compare the face normal and the direction
   Standard_Real       aU1, aU2, aV1, aV2, aUx, aVx, aX, aMV2, aTol2, aTx;
   TopAbs_Orientation  aOr;
-  gp_Pnt              aP;
+  Point3d              aP;
   gp_Vec              du, dv;
   BRepAdaptor_Surface surf(TopoDS::Face(aGenS));
   //
   aTol2 = Precision::Confusion();
   aTol2 = aTol2 * aTol2;
   //
-  const gp_Pnt& aPAxeLoc = myAxe.Location();
+  const Point3d& aPAxeLoc = myAxe.Location();
   const gp_Dir& aPAxeDir = myAxe.Direction();
   //
   aU1 = surf.FirstUParameter();
@@ -657,7 +657,7 @@ TopAbs_Orientation
 {
   // compare the face normal and the direction
   BRepAdaptor_Surface surf(TopoDS::Face(aGenS));
-  gp_Pnt P;
+  Point3d P;
   gp_Vec du,dv;
   surf.D1((surf.FirstUParameter() + surf.LastUParameter()) / 2.,
       (surf.FirstVParameter() + surf.LastVParameter()) / 2.,
@@ -847,7 +847,7 @@ Standard_Boolean BRepSweep_Rotation::IsInvariant(const TopoDS_Shape& aGenS) cons
   }
   else if (aGenS.ShapeType() == TopAbs_VERTEX)
   {
-    gp_Pnt P = BRep_Tool::Pnt(TopoDS::Vertex(aGenS));
+    Point3d P = BRep_Tool::Pnt(TopoDS::Vertex(aGenS));
     gp_Lin Lin(myAxe.Location(), myAxe.Direction());
     return (Lin.Distance(P) <= BRep_Tool::Tolerance(TopoDS::Vertex(aGenS)));
   }

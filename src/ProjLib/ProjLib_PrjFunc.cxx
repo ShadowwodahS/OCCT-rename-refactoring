@@ -97,7 +97,7 @@ Standard_Boolean ProjLib_PrjFunc::Values(const math_Vector& X, math_Vector& F, m
   /*  if(X(1) > mySup.X() || X(1) < myInf.X()) return Standard_False;
     if(X(2) > mySup.Y() || X(2) < myInf.Y()) return Standard_False;
   */
-  gp_Pnt S, C;
+  Point3d S, C;
   gp_Vec DS1_u, DS1_v, DS2_u, DS2_uv, DS2_v, DC1_t;
   myCurve->D1(t, C, DC1_t);
   mySurface->D2(u, v, S, DS1_u, DS1_v, DS2_u, DS2_v, DS2_uv);

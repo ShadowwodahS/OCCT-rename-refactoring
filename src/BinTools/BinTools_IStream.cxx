@@ -159,7 +159,7 @@ BinTools_IStream& BinTools_IStream::operator>>(Standard_Integer& theValue)
 // function : operator <<
 // purpose  :
 //=======================================================================
-BinTools_IStream& BinTools_IStream::operator>>(gp_Pnt& theValue)
+BinTools_IStream& BinTools_IStream::operator>>(Point3d& theValue)
 {
   Standard_Real aValue;
   for (int aCoord = 1; aCoord <= 3; aCoord++)

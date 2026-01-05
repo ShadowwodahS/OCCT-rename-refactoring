@@ -595,7 +595,7 @@ static Standard_Boolean FUN_staproj(const TopoDS_Edge&     e,
   Standard_Boolean ok  = FUN_getnearpar(e, pe, pf, pl, factor, st, par);
   if (!ok)
     return Standard_False;
-  gp_Pnt pt;
+  Point3d pt;
   ok = FUN_tool_value(par, e, pt);
   if (!ok)
     return Standard_False;

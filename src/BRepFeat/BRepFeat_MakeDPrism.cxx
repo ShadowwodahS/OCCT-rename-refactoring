@@ -1272,12 +1272,12 @@ static void MajMap(const TopoDS_Shape&                 theB,
 
 static Handle(Geom_Curve) TestCurve(const TopoDS_Face& Base)
 {
-  gp_Pnt               bar(0., 0., 0.);
+  Point3d               bar(0., 0., 0.);
   TColgp_SequenceOfPnt spt;
   LocOpe::SampleEdges(Base, spt);
   for (Standard_Integer jj = 1; jj <= spt.Length(); jj++)
   {
-    const gp_Pnt& pvt = spt(jj);
+    const Point3d& pvt = spt(jj);
     bar.ChangeCoord() += pvt.XYZ();
   }
   bar.ChangeCoord().Divide(spt.Length());

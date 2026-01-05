@@ -96,8 +96,8 @@ static Standard_Integer QATestExtremaSS(Draw_Interpretor& theInterpretor,
   {
     for (Standard_Real aY = aYmin + 0.5 * aStep; aY < aYmax; aY += aStep)
     {
-      aList.Append(BRepBuilderAPI_MakeVertex(gp_Pnt(aX, aY, aZmin)));
-      aList.Append(BRepBuilderAPI_MakeVertex(gp_Pnt(aX, aY, aZmax)));
+      aList.Append(BRepBuilderAPI_MakeVertex(Point3d(aX, aY, aZmin)));
+      aList.Append(BRepBuilderAPI_MakeVertex(Point3d(aX, aY, aZmax)));
 
       aPoints.Append(gp_XYZ(aX, aY, aZmin));
       aPoints.Append(gp_XYZ(aX, aY, aZmax));
@@ -105,8 +105,8 @@ static Standard_Integer QATestExtremaSS(Draw_Interpretor& theInterpretor,
 
     for (Standard_Real aZ = aZmin + 0.5 * aStep; aZ < aZmax; aZ += aStep)
     {
-      aList.Append(BRepBuilderAPI_MakeVertex(gp_Pnt(aX, aYmin, aZ)));
-      aList.Append(BRepBuilderAPI_MakeVertex(gp_Pnt(aX, aYmax, aZ)));
+      aList.Append(BRepBuilderAPI_MakeVertex(Point3d(aX, aYmin, aZ)));
+      aList.Append(BRepBuilderAPI_MakeVertex(Point3d(aX, aYmax, aZ)));
 
       aPoints.Append(gp_XYZ(aX, aYmin, aZ));
       aPoints.Append(gp_XYZ(aX, aYmax, aZ));
@@ -117,8 +117,8 @@ static Standard_Integer QATestExtremaSS(Draw_Interpretor& theInterpretor,
   {
     for (Standard_Real aZ = aZmin + 0.5 * aStep; aZ < aZmax; aZ += aStep)
     {
-      aList.Append(BRepBuilderAPI_MakeVertex(gp_Pnt(aXmin, aY, aZ)));
-      aList.Append(BRepBuilderAPI_MakeVertex(gp_Pnt(aXmax, aY, aZ)));
+      aList.Append(BRepBuilderAPI_MakeVertex(Point3d(aXmin, aY, aZ)));
+      aList.Append(BRepBuilderAPI_MakeVertex(Point3d(aXmax, aY, aZ)));
 
       aPoints.Append(gp_XYZ(aXmin, aY, aZ));
       aPoints.Append(gp_XYZ(aXmax, aY, aZ));

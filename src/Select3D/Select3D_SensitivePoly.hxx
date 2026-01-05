@@ -90,9 +90,9 @@ public:
   }
 
   //! Return point.
-  gp_Pnt GetPoint3d(const Standard_Integer thePntIdx) const
+  Point3d GetPoint3d(const Standard_Integer thePntIdx) const
   {
-    return (thePntIdx >= 0 && thePntIdx < myPolyg.Size()) ? myPolyg.Pnt(thePntIdx) : gp_Pnt();
+    return (thePntIdx >= 0 && thePntIdx < myPolyg.Size()) ? myPolyg.Pnt(thePntIdx) : Point3d();
   }
 
   //! Returns bounding box of a polygon. If location
@@ -101,7 +101,7 @@ public:
 
   //! Returns center of the point set. If location transformation
   //! is set, it will be applied
-  Standard_EXPORT virtual gp_Pnt CenterOfGeometry() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Point3d CenterOfGeometry() const Standard_OVERRIDE;
 
   //! Returns the amount of segments of the poly
   Standard_EXPORT virtual Standard_Integer Size() const Standard_OVERRIDE;
@@ -145,7 +145,7 @@ protected:
 
 protected:
   Select3D_PointData               myPolyg;          //!< Points of the poly
-  mutable gp_Pnt                   myCOG;            //!< Center of the poly
+  mutable Point3d                   myCOG;            //!< Center of the poly
   Handle(TColStd_HArray1OfInteger) mySegmentIndexes; //!< Segment indexes for BVH tree build
   Select3D_BndBox3d                myBndBox;         //!< Bounding box of the poly
   // clang-format off

@@ -91,7 +91,7 @@ PrsDim_FixRelation::PrsDim_FixRelation(const TopoDS_Shape&       aShape,
 PrsDim_FixRelation::PrsDim_FixRelation(const TopoDS_Shape&       aShape,
                                        const Handle(Geom_Plane)& aPlane,
                                        const TopoDS_Wire&        aWire,
-                                       const gp_Pnt&             aPosition,
+                                       const Point3d&             aPosition,
                                        const Standard_Real       anArrowSize)
     : PrsDim_Relation(),
       myWire(aWire)
@@ -123,7 +123,7 @@ PrsDim_FixRelation::PrsDim_FixRelation(const TopoDS_Shape& aShape, const Handle(
 
 PrsDim_FixRelation::PrsDim_FixRelation(const TopoDS_Shape&       aShape,
                                        const Handle(Geom_Plane)& aPlane,
-                                       const gp_Pnt&             aPosition,
+                                       const Point3d&             aPosition,
                                        const Standard_Real       anArrowSize)
 {
   myFShape   = aShape;
@@ -141,7 +141,7 @@ void PrsDim_FixRelation::Compute(const Handle(PrsMgr_PresentationManager)&,
 {
   // Calculate position of the symbol and
   // point of attach of the segment on the shape
-  gp_Pnt curpos;
+  Point3d curpos;
   if (myFShape.ShapeType() == TopAbs_VERTEX)
     ComputeVertex(TopoDS::Vertex(myFShape), curpos);
   else if (myFShape.ShapeType() == TopAbs_EDGE)
@@ -181,8 +181,8 @@ void PrsDim_FixRelation::ComputeSelection(const Handle(SelectMgr_Selection)& aSe
   norac.Rotate(ax, M_PI / 8);
 
   norac *= (myArrowSize / 2);
-  gp_Pnt P1 = myPosition.Translated(norac);
-  gp_Pnt P2 = myPosition.Translated(-norac);
+  Point3d P1 = myPosition.Translated(norac);
+  Point3d P2 = myPosition.Translated(-norac);
   seg       = new Select3D_SensitiveSegment(own, P1, P2);
   aSelection->Add(seg);
 
@@ -190,8 +190,8 @@ void PrsDim_FixRelation::ComputeSelection(const Handle(SelectMgr_Selection)& aSe
   P1 = myPosition.Translated(norac);
   P2 = myPosition.Translated(-norac);
   dirac *= (myArrowSize / 2);
-  gp_Pnt PF(P1.XYZ());
-  gp_Pnt PL = PF.Translated(dirac);
+  Point3d PF(P1.XYZ());
+  Point3d PL = PF.Translated(dirac);
   PL.Translate(norac);
   seg = new Select3D_SensitiveSegment(own, PF, PL);
   aSelection->Add(seg);
@@ -214,7 +214,7 @@ void PrsDim_FixRelation::ComputeSelection(const Handle(SelectMgr_Selection)& aSe
 //           when you fix a vertex
 //=======================================================================
 
-void PrsDim_FixRelation::ComputeVertex(const TopoDS_Vertex& /*FixVertex*/, gp_Pnt& curpos)
+void PrsDim_FixRelation::ComputeVertex(const TopoDS_Vertex& /*FixVertex*/, Point3d& curpos)
 {
   myPntAttach = BRep_Tool::Pnt(TopoDS::Vertex(myFShape));
   curpos      = myPosition;
@@ -231,17 +231,17 @@ void PrsDim_FixRelation::ComputeVertex(const TopoDS_Vertex& /*FixVertex*/, gp_Pn
 
 //=================================================================================================
 
-gp_Pnt PrsDim_FixRelation::ComputePosition(const Handle(Geom_Curve)& curv1,
+Point3d PrsDim_FixRelation::ComputePosition(const Handle(Geom_Curve)& curv1,
                                            const Handle(Geom_Curve)& curv2,
-                                           const gp_Pnt&             firstp1,
-                                           const gp_Pnt&             lastp1,
-                                           const gp_Pnt&             firstp2,
-                                           const gp_Pnt&             lastp2) const
+                                           const Point3d&             firstp1,
+                                           const Point3d&             lastp1,
+                                           const Point3d&             firstp2,
+                                           const Point3d&             lastp2) const
 {
   //---------------------------------------------------------
   // calculate the point of attach
   //---------------------------------------------------------
-  gp_Pnt curpos;
+  Point3d curpos;
 
   if (curv1->IsInstance(STANDARD_TYPE(Geom_Circle))
       || curv2->IsInstance(STANDARD_TYPE(Geom_Circle)))
@@ -290,14 +290,14 @@ gp_Pnt PrsDim_FixRelation::ComputePosition(const Handle(Geom_Curve)& curv1,
 //           The "dimension" is in the "middle" of the two edges.
 //=======================================================================
 
-gp_Pnt PrsDim_FixRelation::ComputePosition(const Handle(Geom_Curve)& curv,
-                                           const gp_Pnt&             firstp,
-                                           const gp_Pnt&             lastp) const
+Point3d PrsDim_FixRelation::ComputePosition(const Handle(Geom_Curve)& curv,
+                                           const Point3d&             firstp,
+                                           const Point3d&             lastp) const
 {
   //---------------------------------------------------------
   // calculate the point of attach
   //---------------------------------------------------------
-  gp_Pnt curpos;
+  Point3d curpos;
 
   if (curv->IsKind(STANDARD_TYPE(Geom_Circle)))
   {
@@ -332,10 +332,10 @@ gp_Pnt PrsDim_FixRelation::ComputePosition(const Handle(Geom_Curve)& curv,
 //           when you fix an edge
 //=======================================================================
 
-void PrsDim_FixRelation::ComputeEdge(const TopoDS_Edge& FixEdge, gp_Pnt& curpos)
+void PrsDim_FixRelation::ComputeEdge(const TopoDS_Edge& FixEdge, Point3d& curpos)
 {
   Handle(Geom_Curve) curEdge;
-  gp_Pnt             ptbeg, ptend;
+  Point3d             ptbeg, ptend;
   if (!PrsDim::ComputeGeometry(FixEdge, curEdge, ptbeg, ptend))
     return;
 
@@ -374,7 +374,7 @@ void PrsDim_FixRelation::ComputeEdge(const TopoDS_Edge& FixEdge, gp_Pnt& curpos)
 //=======================================================================
 
 void PrsDim_FixRelation::ComputeLinePosition(const gp_Lin&  glin,
-                                             gp_Pnt&        pos,
+                                             Point3d&        pos,
                                              Standard_Real& pfirst,
                                              Standard_Real& plast)
 {
@@ -430,7 +430,7 @@ void PrsDim_FixRelation::ComputeLinePosition(const gp_Lin&  glin,
 //=======================================================================
 
 void PrsDim_FixRelation::ComputeCirclePosition(const gp_Circ& gcirc,
-                                               gp_Pnt&        pos,
+                                               Point3d&        pos,
                                                Standard_Real& pfirst,
                                                Standard_Real& plast)
 {

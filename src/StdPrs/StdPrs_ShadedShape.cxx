@@ -142,7 +142,7 @@ static Handle(Graphic3d_ArrayOfTriangles) fillTriangles(const TopoDS_Shape&    t
 {
   Handle(Poly_Triangulation) aT;
   TopLoc_Location            aLoc;
-  gp_Pnt                     aPoint;
+  Point3d                     aPoint;
   Standard_Integer           aNbTriangles = 0;
   Standard_Integer           aNbVertices  = 0;
 
@@ -240,9 +240,9 @@ static Handle(Graphic3d_ArrayOfTriangles) fillTriangles(const TopoDS_Shape&    t
         aT->Triangle(aTriIter).Get(anIndex[0], anIndex[1], anIndex[2]);
       }
 
-      const gp_Pnt aP1 = aT->Node(anIndex[0]);
-      const gp_Pnt aP2 = aT->Node(anIndex[1]);
-      const gp_Pnt aP3 = aT->Node(anIndex[2]);
+      const Point3d aP1 = aT->Node(anIndex[0]);
+      const Point3d aP2 = aT->Node(anIndex[1]);
+      const Point3d aP3 = aT->Node(anIndex[2]);
 
       gp_Vec aV1(aP1, aP2);
       if (aV1.SquareMagnitude() <= aPreci)
@@ -420,7 +420,7 @@ static Handle(Graphic3d_ArrayOfSegments) fillFaceBoundaries(const TopoDS_Shape& 
       // node index in face triangulation
       // get node and apply location transformation to the node
       const Standard_Integer aTriIndex = anEdgeNodes.Value(aNodeIdx);
-      gp_Pnt                 aTriNode  = aTriangulation->Node(aTriIndex);
+      Point3d                 aTriNode  = aTriangulation->Node(aTriIndex);
       if (!aTrsf.IsIdentity())
       {
         aTriNode.Transform(aTrsf);

@@ -55,7 +55,7 @@ typedef gp_Ax1                   Ax1;
 typedef gp_Ax2                   Ax2;
 typedef gp_Dir                   Dir;
 typedef gp_Lin                   Lin;
-typedef gp_Pnt                   Pnt;
+typedef Point3d                   Pnt;
 typedef gp_Trsf                  Trsf;
 typedef gp_Vec                   Vec;
 typedef gp_XYZ                   XYZ;
@@ -113,7 +113,7 @@ Standard_Real Geom_SurfaceOfRevolution::VReversedParameter(const Standard_Real V
 
 //=================================================================================================
 
-const gp_Pnt& Geom_SurfaceOfRevolution::Location() const
+const Point3d& Geom_SurfaceOfRevolution::Location() const
 {
 
   return loc;

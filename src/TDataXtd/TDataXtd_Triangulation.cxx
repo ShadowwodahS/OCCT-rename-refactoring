@@ -155,7 +155,7 @@ Standard_Boolean TDataXtd_Triangulation::HasUVNodes() const
 //           Raises Standard_OutOfRange exception if theIndex is less than 1 or greater than
 //           NbNodes.
 //=======================================================================
-gp_Pnt TDataXtd_Triangulation::Node(const Standard_Integer theIndex) const
+Point3d TDataXtd_Triangulation::Node(const Standard_Integer theIndex) const
 {
   return myTriangulation->Node(theIndex);
 }
@@ -167,7 +167,7 @@ gp_Pnt TDataXtd_Triangulation::Node(const Standard_Integer theIndex) const
 //           Raises Standard_OutOfRange exception if theIndex is less than 1 or greater than
 //           NbNodes.
 //=======================================================================
-void TDataXtd_Triangulation::SetNode(const Standard_Integer theIndex, const gp_Pnt& theNode)
+void TDataXtd_Triangulation::SetNode(const Standard_Integer theIndex, const Point3d& theNode)
 {
   Backup();
   myTriangulation->SetNode(theIndex, theNode);

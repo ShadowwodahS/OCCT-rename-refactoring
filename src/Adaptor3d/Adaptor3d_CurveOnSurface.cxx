@@ -55,7 +55,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(Adaptor3d_CurveOnSurface, Adaptor3d_Curve)
 
-static gp_Pnt to3d(const gp_Pln& Pl, const gp_Pnt2d& P)
+static Point3d to3d(const gp_Pln& Pl, const gp_Pnt2d& P)
 {
   return ElSLib::Value(P.X(), P.Y(), Pl);
 }
@@ -72,7 +72,7 @@ static gp_Vec to3d(const gp_Pln& Pl, const gp_Vec2d& V)
 
 static gp_Ax2 to3d(const gp_Pln& Pl, const gp_Ax22d& A)
 {
-  gp_Pnt P  = to3d(Pl, A.Location());
+  Point3d P  = to3d(Pl, A.Location());
   gp_Vec VX = to3d(Pl, A.XAxis().Direction());
   gp_Vec VY = to3d(Pl, A.YAxis().Direction());
   return gp_Ax2(P, VX.Crossed(VY), VX);
@@ -1152,9 +1152,9 @@ Standard_Real Adaptor3d_CurveOnSurface::Period() const
 
 //=================================================================================================
 
-gp_Pnt Adaptor3d_CurveOnSurface::Value(const Standard_Real U) const
+Point3d Adaptor3d_CurveOnSurface::Value(const Standard_Real U) const
 {
-  gp_Pnt   P;
+  Point3d   P;
   gp_Pnt2d Puv;
 
   if (myType == GeomAbs_Line)
@@ -1172,7 +1172,7 @@ gp_Pnt Adaptor3d_CurveOnSurface::Value(const Standard_Real U) const
 
 //=================================================================================================
 
-void Adaptor3d_CurveOnSurface::D0(const Standard_Real U, gp_Pnt& P) const
+void Adaptor3d_CurveOnSurface::D0(const Standard_Real U, Point3d& P) const
 {
   gp_Pnt2d Puv;
 
@@ -1189,7 +1189,7 @@ void Adaptor3d_CurveOnSurface::D0(const Standard_Real U, gp_Pnt& P) const
 
 //=================================================================================================
 
-void Adaptor3d_CurveOnSurface::D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V) const
+void Adaptor3d_CurveOnSurface::D1(const Standard_Real U, Point3d& P, gp_Vec& V) const
 {
   gp_Pnt2d Puv;
   gp_Vec2d Duv;
@@ -1225,7 +1225,7 @@ void Adaptor3d_CurveOnSurface::D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V) c
 
 //=================================================================================================
 
-void Adaptor3d_CurveOnSurface::D2(const Standard_Real U, gp_Pnt& P, gp_Vec& V1, gp_Vec& V2) const
+void Adaptor3d_CurveOnSurface::D2(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2) const
 {
   gp_Pnt2d UV;
   gp_Vec2d DW, D2W;
@@ -1274,7 +1274,7 @@ void Adaptor3d_CurveOnSurface::D2(const Standard_Real U, gp_Pnt& P, gp_Vec& V1, 
 //=================================================================================================
 
 void Adaptor3d_CurveOnSurface::D3(const Standard_Real U,
-                                  gp_Pnt&             P,
+                                  Point3d&             P,
                                   gp_Vec&             V1,
                                   gp_Vec&             V2,
                                   gp_Vec&             V3) const
@@ -1333,7 +1333,7 @@ void Adaptor3d_CurveOnSurface::D3(const Standard_Real U,
 
 gp_Vec Adaptor3d_CurveOnSurface::DN(const Standard_Real U, const Standard_Integer N) const
 {
-  gp_Pnt P;
+  Point3d P;
   gp_Vec V1, V2, V;
   switch (N)
   {
@@ -1558,7 +1558,7 @@ void Adaptor3d_CurveOnSurface::EvalKPart()
       myCirc = to3d(mySurface->Plane(), myCurve->Circle());
     else if (myType == GeomAbs_Line)
     {
-      gp_Pnt   P;
+      Point3d   P;
       gp_Vec   V;
       gp_Pnt2d Puv;
       gp_Vec2d Duv;

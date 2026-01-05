@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 #include <TopAbs_State.hxx>
 class BRepClass3d_SolidExplorer;
-class gp_Pnt;
+class Point3d;
 
 //! Provides an algorithm to classify a point in a solid.
 class BRepClass3d_SClassifier
@@ -38,13 +38,13 @@ public:
   //! Constructor to classify the point P with the
   //! tolerance Tol on the solid S.
   Standard_EXPORT BRepClass3d_SClassifier(BRepClass3d_SolidExplorer& S,
-                                          const gp_Pnt&              P,
+                                          const Point3d&              P,
                                           const Standard_Real        Tol);
 
   //! Classify the point P with the
   //! tolerance Tol on the solid S.
   Standard_EXPORT void Perform(BRepClass3d_SolidExplorer& S,
-                               const gp_Pnt&              P,
+                               const Point3d&              P,
                                const Standard_Real        Tol);
 
   //! Classify an infinite point with the

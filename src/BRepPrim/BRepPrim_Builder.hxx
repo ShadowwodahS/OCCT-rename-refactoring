@@ -31,7 +31,7 @@ class gp_Circ;
 class gp_Lin2d;
 class gp_Circ2d;
 class TopoDS_Vertex;
-class gp_Pnt;
+class Point3d;
 
 //! implements the abstract Builder with the BRep Builder
 class BRepPrim_Builder
@@ -88,7 +88,7 @@ public:
   Standard_EXPORT void SetPCurve(TopoDS_Edge& E, const TopoDS_Face& F, const gp_Circ2d& C) const;
 
   //! Returns in <V> a Vertex built with the point <P>.
-  Standard_EXPORT void MakeVertex(TopoDS_Vertex& V, const gp_Pnt& P) const;
+  Standard_EXPORT void MakeVertex(TopoDS_Vertex& V, const Point3d& P) const;
 
   //! Reverses the Face <F>.
   Standard_EXPORT void ReverseFace(TopoDS_Face& F) const;

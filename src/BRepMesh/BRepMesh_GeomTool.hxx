@@ -89,7 +89,7 @@ public:
   //! @param theIsReplace if TRUE replaces existing point lying within
   //! parameteric tolerance of the given point.
   //! @return index of new added point or found with parametric tolerance
-  Standard_Integer AddPoint(const gp_Pnt&          thePoint,
+  Standard_Integer AddPoint(const Point3d&          thePoint,
                             const Standard_Real    theParam,
                             const Standard_Boolean theIsReplace = Standard_True)
   {
@@ -110,7 +110,7 @@ public:
   Standard_EXPORT Standard_Boolean Value(const Standard_Integer theIndex,
                                          const Standard_Real    theIsoParam,
                                          Standard_Real&         theParam,
-                                         gp_Pnt&                thePoint,
+                                         Point3d&                thePoint,
                                          gp_Pnt2d&              theUV) const;
 
   //! Gets parameters of discretization point with the given index.
@@ -123,7 +123,7 @@ public:
   Standard_EXPORT Standard_Boolean Value(const Standard_Integer             theIndex,
                                          const Handle(BRepAdaptor_Surface)& theSurface,
                                          Standard_Real&                     theParam,
-                                         gp_Pnt&                            thePoint,
+                                         Point3d&                            thePoint,
                                          gp_Pnt2d&                          theUV) const;
 
 public: //! @name static API
@@ -138,7 +138,7 @@ public: //! @name static API
   Standard_EXPORT static Standard_Boolean Normal(const Handle(BRepAdaptor_Surface)& theSurface,
                                                  const Standard_Real                theParamU,
                                                  const Standard_Real                theParamV,
-                                                 gp_Pnt&                            thePoint,
+                                                 Point3d&                            thePoint,
                                                  gp_Dir&                            theNormal);
 
   //! Checks intersection between two lines defined by two points.
@@ -180,9 +180,9 @@ public: //! @name static API
                                            gp_Pnt2d&              theIntPnt);
 
   //! Compute deflection of the given segment.
-  static Standard_Real SquareDeflectionOfSegment(const gp_Pnt& theFirstPoint,
-                                                 const gp_Pnt& theLastPoint,
-                                                 const gp_Pnt& theMidPoint)
+  static Standard_Real SquareDeflectionOfSegment(const Point3d& theFirstPoint,
+                                                 const Point3d& theLastPoint,
+                                                 const Point3d& theMidPoint)
   {
     // 23.03.2010 skl for OCC21645 - change precision for comparison
     if (theFirstPoint.SquareDistance(theLastPoint) > Precision::SquareConfusion())

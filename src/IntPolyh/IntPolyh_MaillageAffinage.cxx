@@ -352,7 +352,7 @@ void IntPolyh_MaillageAffinage::FillArrayOfPnt(const Standard_Integer      SurfI
   Standard_Integer aNbU, aNbV, iCnt, i, j;
   Standard_Integer aID1, aID2, aJD1, aJD2;
   Standard_Real    aTol, aU, aV, aX, aY, aZ;
-  gp_Pnt           aP;
+  Point3d           aP;
   //
   aNbU                               = (SurfID == 1) ? NbSamplesU1 : NbSamplesU2;
   aNbV                               = (SurfID == 1) ? NbSamplesV1 : NbSamplesV2;
@@ -444,7 +444,7 @@ void IntPolyh_MaillageAffinage::FillArrayOfPnt(const Standard_Integer           
       gp_Vec                      aNorm = aPN.Normal.Multiplied(1.5 * theDeflTol);
       if (!isShiftFwd)
         aNorm.Reverse();
-      gp_Pnt aP = aPN.Point.Translated(aNorm);
+      Point3d aP = aPN.Point.Translated(aNorm);
 
       IntPolyh_Point& aIP = TPoints[iCnt];
       aP.Coord(aX, aY, aZ);
@@ -3532,7 +3532,7 @@ Standard_Boolean IsDegenerated(const Handle(Adaptor3d_Surface)& aS,
   Standard_Boolean bRet;
   Standard_Integer i, aNbP;
   Standard_Real    aU, dU, aU1, aU2, aV, dV, aV1, aV2, aD2;
-  gp_Pnt           aP1, aP2;
+  Point3d           aP1, aP2;
   //
   bRet  = Standard_False;
   aNbP  = 3;

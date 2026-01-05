@@ -32,7 +32,7 @@ Standard_Boolean ShapeAnalysis_Geom::NearestPlane(const TColgp_Array1OfPnt& Pnts
 {
   // szv#4:S4163:12Mar99 warning
   GProp_PGProps Pmat(Pnts);
-  gp_Pnt        g = Pmat.CentreOfMass();
+  Point3d        g = Pmat.CentreOfMass();
   Standard_Real Xg, Yg, Zg;
   g.Coord(Xg, Yg, Zg);
 
@@ -183,7 +183,7 @@ Standard_Boolean ShapeAnalysis_Geom::PositionTrsf(const Handle(TColStd_HArray2Of
     gp_Dir d1(v1);
     gp_Dir d2(v2);
     gp_Dir d3(v3);
-    gp_Ax3 axes(gp_Pnt(0, 0, 0), d3, d1);
+    gp_Ax3 axes(Point3d(0, 0, 0), d3, d1);
     d3.Cross(d1);
     if (d3.Dot(d2) < 0)
       axes.YReverse();
@@ -192,7 +192,7 @@ Standard_Boolean ShapeAnalysis_Geom::PositionTrsf(const Handle(TColStd_HArray2Of
 
   //  Restent les autres caracteristiques :
   if (Abs(mm - 1.) > prec)
-    trsf.SetScale(gp_Pnt(0, 0, 0), mm); // szv#4:S4163:12Mar99 optimized
+    trsf.SetScale(Point3d(0, 0, 0), mm); // szv#4:S4163:12Mar99 optimized
   gp_Vec tp(gtrsf.TranslationPart());
   if (unit != 1.)
     tp.Multiply(unit);

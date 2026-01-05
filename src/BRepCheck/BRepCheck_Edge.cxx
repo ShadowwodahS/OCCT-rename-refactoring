@@ -654,7 +654,7 @@ Standard_Real BRepCheck_Edge::Tolerance()
   }
 
   Standard_Real    dist2, tol2, tolCal = 0., prm;
-  gp_Pnt           center, othP;
+  Point3d           center, othP;
   Standard_Integer i;
   for (i = 0; i < NCONTROL; i++)
   {
@@ -731,8 +731,8 @@ BRepCheck_Status BRepCheck_Edge::CheckPolygonOnTriangulation(const TopoDS_Edge& 
            i++)
       {
         const Standard_Real aParam = aPOnTriag->Parameters()->Value(i);
-        const gp_Pnt        aPE(aBC.Value(aParam));
-        const gp_Pnt        aPnt(aTriang->Node(anIndices(i)).Transformed(aTrsf));
+        const Point3d        aPE(aBC.Value(aParam));
+        const Point3d        aPnt(aTriang->Node(anIndices(i)).Transformed(aTrsf));
 
         const Standard_Real aSQDist = aPE.SquareDistance(aPnt);
         if (aSQDist > aTol * aTol)
@@ -766,7 +766,7 @@ BRepCheck_Status BRepCheck_Edge::CheckPolygonOnTriangulation(const TopoDS_Edge& 
       Standard_Real aLP = aBC.LastParameter();
 
       const Standard_Real aStep = (aLP - aFP) / IntToReal(NCONTROL);
-      gp_Pnt              aP;
+      Point3d              aP;
       Standard_Real       aPar = aFP;
 
       for (Standard_Integer i = 1; i < NCONTROL; i++)

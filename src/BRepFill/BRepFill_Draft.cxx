@@ -113,7 +113,7 @@ static void ComputeTrsf(const TopoDS_Wire& W, const gp_Dir& D, Bnd_Box& Box, gp_
 
 //=================================================================================================
 
-static Standard_Real Longueur(const Bnd_Box& WBox, const Bnd_Box& SBox, gp_Dir& D, gp_Pnt& P)
+static Standard_Real Longueur(const Bnd_Box& WBox, const Bnd_Box& SBox, gp_Dir& D, Point3d& P)
 {
   // face of the box most remoted from the face input in
   // the direction of skin
@@ -153,7 +153,7 @@ static Standard_Boolean GoodOrientation(const Bnd_Box&                      B,
   Standard_Real aXmin, aYmin, aZmin, aXmax, aYmax, aZmax;
 
   B.Get(aXmin, aYmin, aZmin, aXmax, aYmax, aZmax);
-  gp_Pnt P1(aXmin, aYmin, aZmin), P2(aXmax, aYmax, aZmax);
+  Point3d P1(aXmin, aYmin, aZmin), P2(aXmax, aYmax, aZmax);
   gp_Vec V(P1, P2);
 
   Law->CurvilinearBounds(Law->NbLaw(), f, l);
@@ -182,7 +182,7 @@ static Standard_Boolean GoodOrientation(const Bnd_Box&                      B,
   }
 
   Bary /= Nb;
-  gp_Pnt        Centre(Bary);
+  Point3d        Centre(Bary);
   gp_Vec        Normal(D.XYZ());
   Standard_Real Angle = 0;
   gp_Vec        Ref(Centre, Pnts(1));
@@ -335,7 +335,7 @@ void BRepFill_Draft::Perform(const Handle(Geom_Surface)& Surface,
 {
   Bnd_Box       WBox, SBox;
   gp_Trsf       Trsf;
-  gp_Pnt        Pt;
+  Point3d        Pt;
   Standard_Real L;
 
   ComputeTrsf(myWire, myDir, WBox, Trsf);
@@ -366,7 +366,7 @@ void BRepFill_Draft::Perform(const TopoDS_Shape& StopShape, const Standard_Boole
 {
   Bnd_Box       WBox, SBox;
   gp_Trsf       Trsf;
-  gp_Pnt        Pt;
+  Point3d        Pt;
   Standard_Real L;
 
   ComputeTrsf(myWire, myDir, WBox, Trsf);
@@ -452,7 +452,7 @@ void BRepFill_Draft::Init(const Handle(Geom_Surface)&,
 
   // law of section
   // generating line is straight and parallel to binormal.
-  gp_Pnt P(0, 0, 0);
+  Point3d P(0, 0, 0);
   gp_Vec D(0., 1., 0.);
 
   // Control of the orientation
@@ -516,7 +516,7 @@ void BRepFill_Draft::BuildShell(const Handle(Geom_Surface)& Surf,
     F = TopoDS::Face(ex.Current());
     BRepAdaptor_Surface SF(F);
     Standard_Real       u, v;
-    gp_Pnt              P;
+    Point3d              P;
     gp_Vec              V1, V2, V;
     u = SF.FirstUParameter();
     v = SF.FirstVParameter();

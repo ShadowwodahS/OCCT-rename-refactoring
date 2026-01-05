@@ -81,10 +81,10 @@ public:
   //! @name positional/spot light properties
 public:
   //! Returns location of positional/spot light; (0, 0, 0) by default.
-  const gp_Pnt& Position() const { return myPosition; }
+  const Point3d& Position() const { return myPosition; }
 
   //! Setup location of positional/spot light.
-  Standard_EXPORT void SetPosition(const gp_Pnt& thePosition);
+  Standard_EXPORT void SetPosition(const Point3d& thePosition);
 
   //! Returns location of positional/spot light.
   void Position(Standard_Real& theX, Standard_Real& theY, Standard_Real& theZ) const
@@ -97,7 +97,7 @@ public:
   //! Setup location of positional/spot light.
   void SetPosition(Standard_Real theX, Standard_Real theY, Standard_Real theZ)
   {
-    SetPosition(gp_Pnt(theX, theY, theZ));
+    SetPosition(Point3d(theX, theY, theZ));
   }
 
   //! Returns constant attenuation factor of positional/spot light source; 1.0f by default.
@@ -154,13 +154,13 @@ public:
 
   //! Returns location of positional/spot/directional light, which is the same as returned by
   //! Position().
-  const gp_Pnt& DisplayPosition() const { return myPosition; }
+  const Point3d& DisplayPosition() const { return myPosition; }
 
   //! Setup location of positional/spot/directional light,
   //! which is the same as SetPosition() but allows directional light source
   //! (technically having no position, but this point can be used for displaying light source
   //! presentation).
-  Standard_EXPORT void SetDisplayPosition(const gp_Pnt& thePosition);
+  Standard_EXPORT void SetDisplayPosition(const Point3d& thePosition);
 
   //! @name spotlight additional definition parameters
 public:
@@ -272,7 +272,7 @@ private:
 protected:
   TCollection_AsciiString myId;                      //!< resource id
   TCollection_AsciiString myName;                    //!< user given name
-  gp_Pnt                  myPosition;                //!< light position
+  Point3d                  myPosition;                //!< light position
   Quantity_ColorRGBA      myColor;                   //!< light color
   Graphic3d_Vec4          myDirection;               //!< direction of directional/spot light
   Graphic3d_Vec4          myParams;                  //!< packed light parameters

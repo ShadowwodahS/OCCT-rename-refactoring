@@ -153,7 +153,7 @@ static Standard_Boolean RebuildShape(const TopoDS_Vertex& theVertex, TopoDS_Vert
   BRep_Builder aB;
   aB.MakeVertex(theNewVertex);
   theNewVertex.Orientation(theVertex.Orientation());
-  gp_Pnt p1 = BRep_Tool::Pnt(theVertex);
+  Point3d p1 = BRep_Tool::Pnt(theVertex);
   aB.UpdateVertex(theNewVertex, p1, BRep_Tool::Tolerance(theVertex));
   return Standard_True;
 }

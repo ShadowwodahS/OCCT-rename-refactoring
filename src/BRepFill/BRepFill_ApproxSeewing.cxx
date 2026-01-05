@@ -59,7 +59,7 @@ void BRepFill_ApproxSeewing::Perform(const BRepFill_MultiLine& ML)
   Standard_Real    Dist, dU = (U2 - U1) / (2 * NbPoints - 1);
 
   TColgp_Array1OfPnt2d LP(1, 2 * NbPoints); // tableau Longueur <-> Param
-  gp_Pnt               aPnt1, aPnt2;
+  Point3d               aPnt1, aPnt2;
   aPnt1 = myML.Value(U1);
 
   for (i = 0; i < 2 * NbPoints; i++)
@@ -76,7 +76,7 @@ void BRepFill_ApproxSeewing::Perform(const BRepFill_MultiLine& ML)
 
   AppDef_MultiLine            MLS(NbPoints);
   AppDef_MultiPointConstraint MP(1, 2);
-  gp_Pnt                      P3d;
+  Point3d                      P3d;
   gp_Pnt2d                    PF1, PF2;
 
   ML.Value3dOnF1OnF2(U1, P3d, PF1, PF2);

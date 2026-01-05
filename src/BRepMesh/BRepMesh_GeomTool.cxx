@@ -193,7 +193,7 @@ BRepMesh_GeomTool::BRepMesh_GeomTool(const Handle(BRepAdaptor_Surface)& theSurfa
 Standard_Boolean BRepMesh_GeomTool::Value(const Standard_Integer             theIndex,
                                           const Handle(BRepAdaptor_Surface)& theSurface,
                                           Standard_Real&                     theParam,
-                                          gp_Pnt&                            thePoint,
+                                          Point3d&                            thePoint,
                                           gp_Pnt2d&                          theUV) const
 {
   if (theIndex < 1 || theIndex > NbPoints())
@@ -220,7 +220,7 @@ Standard_Boolean BRepMesh_GeomTool::Value(const Standard_Integer             the
 Standard_Boolean BRepMesh_GeomTool::Value(const Standard_Integer theIndex,
                                           const Standard_Real    theIsoParam,
                                           Standard_Real&         theParam,
-                                          gp_Pnt&                thePoint,
+                                          Point3d&                thePoint,
                                           gp_Pnt2d&              theUV) const
 {
   if (theIndex < 1 || theIndex > NbPoints())
@@ -242,7 +242,7 @@ Standard_Boolean BRepMesh_GeomTool::Value(const Standard_Integer theIndex,
 Standard_Boolean BRepMesh_GeomTool::Normal(const Handle(BRepAdaptor_Surface)& theSurface,
                                            const Standard_Real                theParamU,
                                            const Standard_Real                theParamV,
-                                           gp_Pnt&                            thePoint,
+                                           Point3d&                            thePoint,
                                            gp_Dir&                            theNormal)
 {
   Standard_Boolean isOK = Standard_True;

@@ -61,7 +61,7 @@ static Standard_Integer DEP(Draw_Interpretor& theCommands, Standard_Integer narg
 
   TopoDS_Face   F;
   Standard_Real Angle;
-  gp_Pnt        Pax;
+  Point3d        Pax;
   gp_Dir        Dax;
   for (Standard_Integer ii = 0; ii < (narg - 6) / 8; ii++)
   {
@@ -118,7 +118,7 @@ static Standard_Integer NDEP(Draw_Interpretor& theCommands, Standard_Integer nar
 
   TopoDS_Face      F;
   Standard_Real    Angle;
-  gp_Pnt           Pax;
+  Point3d           Pax;
   gp_Dir           Dax;
   Standard_Boolean Flag;
   for (Standard_Integer ii = 0; ii < (narg - 6) / 9; ii++)

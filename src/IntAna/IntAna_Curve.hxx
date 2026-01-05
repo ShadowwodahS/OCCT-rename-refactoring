@@ -92,18 +92,18 @@ public:
   Standard_EXPORT Standard_Boolean IsLastOpen() const;
 
   //! Returns the point at parameter Theta on the curve.
-  Standard_EXPORT gp_Pnt Value(const Standard_Real Theta);
+  Standard_EXPORT Point3d Value(const Standard_Real Theta);
 
   //! Returns the point and the first derivative at parameter
   //! Theta on the curve.
-  Standard_EXPORT Standard_Boolean D1u(const Standard_Real Theta, gp_Pnt& P, gp_Vec& V);
+  Standard_EXPORT Standard_Boolean D1u(const Standard_Real Theta, Point3d& P, gp_Vec& V);
 
   //! Tries to find the parameter of the point P on the curve.
   //! If the method returns False, the "projection" is
   //! impossible.
   //! If the method returns True at least one parameter has been found.
   //! theParams is always sorted in ascending order.
-  Standard_EXPORT void FindParameter(const gp_Pnt& P, TColStd_ListOfReal& theParams) const;
+  Standard_EXPORT void FindParameter(const Point3d& P, TColStd_ListOfReal& theParams) const;
 
   //! If flag is True, the Curve is not defined at the
   //! first parameter of its domain.
@@ -118,7 +118,7 @@ public:
 
 protected:
   //! Protected function.
-  Standard_EXPORT gp_Pnt InternalValue(const Standard_Real Theta1,
+  Standard_EXPORT Point3d InternalValue(const Standard_Real Theta1,
                                        const Standard_Real Theta2) const;
 
   //! Protected function.

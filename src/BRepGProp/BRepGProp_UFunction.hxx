@@ -64,7 +64,7 @@ public:
   //! coefficients is 4 and they represent the combination of
   //! plane parameters and shift values.
   Standard_EXPORT BRepGProp_UFunction(const BRepGProp_Face&  theSurface,
-                                      const gp_Pnt&          theVertex,
+                                      const Point3d&          theVertex,
                                       const Standard_Boolean IsByPoint,
                                       const Standard_Real*   theCoeffs);
 
@@ -107,7 +107,7 @@ private:
   Standard_EXPORT Standard_Boolean InertiaValue(const Standard_Real X, Standard_Real& F);
 
   BRepGProp_Face       mySurface;
-  gp_Pnt               myVertex;
+  Point3d               myVertex;
   const Standard_Real* myCoeffs;
   Standard_Real        myVParam;
   GProp_ValueType      myValueType;

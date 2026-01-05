@@ -122,7 +122,7 @@ void BSplCLib::PolesCoefficients(const TColgp_Array1OfPnt2d& Poles,
 void BSplCLib::D0(const Standard_Real         U,
                   const TColgp_Array1OfPnt&   Poles,
                   const TColStd_Array1OfReal* Weights,
-                  gp_Pnt&                     P)
+                  Point3d&                     P)
 {
   Standard_Integer      deg = Poles.Length() - 1;
   BSplCLib_BezierArrays bzarr(deg);
@@ -146,7 +146,7 @@ void BSplCLib::D0(const Standard_Real         U,
 void BSplCLib::D1(const Standard_Real         U,
                   const TColgp_Array1OfPnt&   Poles,
                   const TColStd_Array1OfReal* Weights,
-                  gp_Pnt&                     P,
+                  Point3d&                     P,
                   gp_Vec&                     V)
 {
   Standard_Integer      deg = Poles.Length() - 1;
@@ -172,7 +172,7 @@ void BSplCLib::D1(const Standard_Real         U,
 void BSplCLib::D2(const Standard_Real         U,
                   const TColgp_Array1OfPnt&   Poles,
                   const TColStd_Array1OfReal* Weights,
-                  gp_Pnt&                     P,
+                  Point3d&                     P,
                   gp_Vec&                     V1,
                   gp_Vec&                     V2)
 {
@@ -200,7 +200,7 @@ void BSplCLib::D2(const Standard_Real         U,
 void BSplCLib::D3(const Standard_Real         U,
                   const TColgp_Array1OfPnt&   Poles,
                   const TColStd_Array1OfReal* Weights,
-                  gp_Pnt&                     P,
+                  Point3d&                     P,
                   gp_Vec&                     V1,
                   gp_Vec&                     V2,
                   gp_Vec&                     V3)

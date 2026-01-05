@@ -24,7 +24,7 @@
 #include <Standard_Real.hxx>
 #include <Standard_Boolean.hxx>
 class Standard_OutOfRange;
-class gp_Pnt;
+class Point3d;
 class HLRBRep_ThePolygonOfInterCSurf;
 class Bnd_Box;
 
@@ -43,11 +43,11 @@ public:
   static Standard_Integer NbSegments(const HLRBRep_ThePolygonOfInterCSurf& thePolygon);
 
   //! Give the point of range Index in the Polygon.
-  static const gp_Pnt& BeginOfSeg(const HLRBRep_ThePolygonOfInterCSurf& thePolygon,
+  static const Point3d& BeginOfSeg(const HLRBRep_ThePolygonOfInterCSurf& thePolygon,
                                   const Standard_Integer                Index);
 
   //! Give the point of range Index in the Polygon.
-  static const gp_Pnt& EndOfSeg(const HLRBRep_ThePolygonOfInterCSurf& thePolygon,
+  static const Point3d& EndOfSeg(const HLRBRep_ThePolygonOfInterCSurf& thePolygon,
                                 const Standard_Integer                Index);
 
   Standard_EXPORT static void Dump(const HLRBRep_ThePolygonOfInterCSurf& thePolygon);
@@ -56,7 +56,7 @@ protected:
 private:
 };
 
-#define ThePoint gp_Pnt
+#define ThePoint Point3d
 #define ThePoint_hxx <gp_Pnt.hxx>
 #define ThePolygon HLRBRep_ThePolygonOfInterCSurf
 #define ThePolygon_hxx <HLRBRep_ThePolygonOfInterCSurf.hxx>

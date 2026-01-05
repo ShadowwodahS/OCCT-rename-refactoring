@@ -50,13 +50,13 @@ public:
   Standard_Boolean IsEmpty() const;
 
   //! Returns the intersection point.
-  const gp_Pnt& Value() const;
+  const Point3d& Value() const;
 
 protected:
 private:
   Standard_Boolean done;
   Standard_Boolean empt;
-  gp_Pnt           pnt;
+  Point3d           pnt;
 };
 
 #include <IntAna_Int3Pln.lxx>

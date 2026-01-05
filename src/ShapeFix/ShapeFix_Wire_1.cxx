@@ -177,7 +177,7 @@ Standard_Boolean ShapeFix_Wire::FixGap3d(const Standard_Integer num, const Stand
   }
 
   // Check gap in 3d space
-  gp_Pnt        cpnt1 = C1->Value(clast1), cpnt2 = C2->Value(cfirst2);
+  Point3d        cpnt1 = C1->Value(clast1), cpnt2 = C2->Value(cfirst2);
   Standard_Real gap = cpnt1.Distance(cpnt2);
   if (!convert && gap <= preci)
     return Standard_False;
@@ -190,9 +190,9 @@ Standard_Boolean ShapeFix_Wire::FixGap3d(const Standard_Integer num, const Stand
                    reversed2 = (E2.Orientation() == TopAbs_REVERSED);
 
   TopoDS_Vertex V1 = SAE.LastVertex(E1), V2 = SAE.FirstVertex(E2);
-  gp_Pnt        vpnt = (V1.IsSame(V2))
+  Point3d        vpnt = (V1.IsSame(V2))
                          ? BRep_Tool::Pnt(V1)
-                         : gp_Pnt((BRep_Tool::Pnt(V1).XYZ() + BRep_Tool::Pnt(V2).XYZ()) * 0.5);
+                         : Point3d((BRep_Tool::Pnt(V1).XYZ() + BRep_Tool::Pnt(V2).XYZ()) * 0.5);
 
   Standard_Real first1, last1, first2, last2;
   if (reversed1)
@@ -515,7 +515,7 @@ Standard_Boolean ShapeFix_Wire::FixGap3d(const Standard_Integer num, const Stand
       u1 = AdjustOnPeriodic3d(c1, reversed1, first1, last1, u1);
       u2 = AdjustOnPeriodic3d(c2, !reversed2, first2, last2, u2);
       // Check points to satisfy distance criterium
-      gp_Pnt p1 = c1->Value(u1), p2 = c2->Value(u2);
+      Point3d p1 = c1->Value(u1), p2 = c2->Value(u2);
       if (p1.Distance(p2) <= gap && Abs(cfirst1 - u1) > ::Precision::PConfusion()
           && Abs(clast2 - u2) > ::Precision::PConfusion()
           && (((u1 > first1) && (u1 < last1)) || ((u2 > first2) && (u2 < last2))
@@ -559,7 +559,7 @@ Standard_Boolean ShapeFix_Wire::FixGap3d(const Standard_Integer num, const Stand
           {
             OCC_CATCH_SIGNALS
             // First find all intersections
-            gp_Pnt           pp1, pp2;
+            Point3d           pp1, pp2;
             Standard_Integer index1 = 0, index2 = 0;
             Standard_Real    uu1, uu2, pardist, pardist1 = -1., pardist2 = -1.;
             for (Standard_Integer i = 1; i <= Extr.NbExtrema(); i++)
@@ -593,9 +593,9 @@ Standard_Boolean ShapeFix_Wire::FixGap3d(const Standard_Integer num, const Stand
               {
                 // take intersection closer to vertex point
                 Extr.Parameters(index1, uu1, uu2);
-                pp1 = gp_Pnt((c1->Value(uu1).XYZ() + c2->Value(uu2).XYZ()) * 0.5);
+                pp1 = Point3d((c1->Value(uu1).XYZ() + c2->Value(uu2).XYZ()) * 0.5);
                 Extr.Parameters(index2, uu1, uu2);
-                pp2 = gp_Pnt((c1->Value(uu1).XYZ() + c2->Value(uu2).XYZ()) * 0.5);
+                pp2 = Point3d((c1->Value(uu1).XYZ() + c2->Value(uu2).XYZ()) * 0.5);
                 if (pp2.Distance(vpnt) < pp1.Distance(vpnt))
                   index1 = index2;
               }

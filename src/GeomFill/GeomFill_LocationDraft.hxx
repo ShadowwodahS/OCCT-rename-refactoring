@@ -166,7 +166,7 @@ public:
   //! The default implementation is " returns False ".
   Standard_EXPORT virtual Standard_Boolean IsRotation(Standard_Real& Error) const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void Rotation(gp_Pnt& Center) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void Rotation(Point3d& Center) const Standard_OVERRIDE;
 
   //! Say if the generatrice interset the surface
   Standard_EXPORT Standard_Boolean IsIntersec() const;

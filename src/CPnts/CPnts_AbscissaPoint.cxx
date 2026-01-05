@@ -40,7 +40,7 @@
 // auxiliary functions to compute the length of the derivative
 static Standard_Real f3d(const Standard_Real X, const Standard_Address C)
 {
-  gp_Pnt P;
+  Point3d P;
   gp_Vec V;
   ((Adaptor3d_Curve*)C)->D1(X, P, V);
   return V.Magnitude();

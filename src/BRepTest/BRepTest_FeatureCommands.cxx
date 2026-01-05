@@ -248,7 +248,7 @@ static Standard_Integer HOLE1(Draw_Interpretor& theCommands, Standard_Integer na
     return 1;
   TopoDS_Shape S = DBRep::Get(a[2]);
 
-  gp_Pnt Or(Draw::Atof(a[3]), Draw::Atof(a[4]), Draw::Atof(a[5]));
+  Point3d Or(Draw::Atof(a[3]), Draw::Atof(a[4]), Draw::Atof(a[5]));
   gp_Dir Di(Draw::Atof(a[6]), Draw::Atof(a[7]), Draw::Atof(a[8]));
 
   Standard_Real Radius = Draw::Atof(a[9]);
@@ -285,7 +285,7 @@ static Standard_Integer HOLE2(Draw_Interpretor& theCommands, Standard_Integer na
     return 1;
   TopoDS_Shape S = DBRep::Get(a[2]);
 
-  gp_Pnt Or(Draw::Atof(a[3]), Draw::Atof(a[4]), Draw::Atof(a[5]));
+  Point3d Or(Draw::Atof(a[3]), Draw::Atof(a[4]), Draw::Atof(a[5]));
   gp_Dir Di(Draw::Atof(a[6]), Draw::Atof(a[7]), Draw::Atof(a[8]));
 
   Standard_Real Radius = Draw::Atof(a[9]);
@@ -312,7 +312,7 @@ static Standard_Integer HOLE3(Draw_Interpretor& theCommands, Standard_Integer na
     return 1;
   TopoDS_Shape S = DBRep::Get(a[2]);
 
-  gp_Pnt Or(Draw::Atof(a[3]), Draw::Atof(a[4]), Draw::Atof(a[5]));
+  Point3d Or(Draw::Atof(a[3]), Draw::Atof(a[4]), Draw::Atof(a[5]));
   gp_Dir Di(Draw::Atof(a[6]), Draw::Atof(a[7]), Draw::Atof(a[8]));
 
   Standard_Real Radius = Draw::Atof(a[9]);
@@ -338,7 +338,7 @@ static Standard_Integer HOLE4(Draw_Interpretor& theCommands, Standard_Integer na
     return 1;
   TopoDS_Shape S = DBRep::Get(a[2]);
 
-  gp_Pnt Or(Draw::Atof(a[3]), Draw::Atof(a[4]), Draw::Atof(a[5]));
+  Point3d Or(Draw::Atof(a[3]), Draw::Atof(a[4]), Draw::Atof(a[5]));
   gp_Dir Di(Draw::Atof(a[6]), Draw::Atof(a[7]), Draw::Atof(a[8]));
 
   Standard_Real Radius = Draw::Atof(a[9]);
@@ -1372,7 +1372,7 @@ static Standard_Integer ROW(Draw_Interpretor& theCommands, Standard_Integer narg
   TopoDS_Shape       S = DBRep::Get(a[3]);
   BRepFeat_MakeRevol theRFace;
   gp_Dir             D;
-  gp_Pnt             Or;
+  Point3d             Or;
   Standard_Real      Angle = 0;
   TopoDS_Shape       FFrom, FUntil;
   Standard_Integer   i, borne;
@@ -1556,7 +1556,7 @@ static Standard_Integer ROF(Draw_Interpretor& theCommands, Standard_Integer narg
   TopoDS_Shape       S = DBRep::Get(a[3]);
   BRepFeat_MakeRevol theRFace;
   gp_Dir             D;
-  gp_Pnt             Or;
+  Point3d             Or;
   Standard_Real      Angle = 0;
   TopoDS_Shape       FFrom, FUntil;
   Standard_Integer   i, borne;
@@ -1893,7 +1893,7 @@ static Standard_Integer DEFIN(Draw_Interpretor& theCommands, Standard_Integer na
     else if (narg == 14)
     {
       rfdef = Standard_True;
-      gp_Pnt Or(X, Y, Z);
+      Point3d Or(X, Y, Z);
       X                = Draw::Atof(a[7]);
       Y                = Draw::Atof(a[8]);
       Z                = Draw::Atof(a[9]);
@@ -1914,7 +1914,7 @@ static Standard_Integer DEFIN(Draw_Interpretor& theCommands, Standard_Integer na
     else if (narg == 12 && strcasecmp(a[0], "FEATLF"))
     {
       rvdef = Standard_True;
-      gp_Pnt Or(X, Y, Z);
+      Point3d Or(X, Y, Z);
       X         = Draw::Atof(a[7]);
       Y         = Draw::Atof(a[8]);
       Z         = Draw::Atof(a[9]);

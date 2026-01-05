@@ -32,7 +32,7 @@ class Standard_OutOfRange;
 class Adaptor3d_Curve;
 class Extrema_CurveTool;
 class Extrema_POnCurv;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 class math_Matrix;
 
@@ -105,8 +105,8 @@ private:
   Standard_Real             myTol;
   Standard_Real             myU;
   Standard_Real             myV;
-  gp_Pnt                    myP1;
-  gp_Pnt                    myP2;
+  Point3d                    myP1;
+  Point3d                    myP2;
   gp_Vec                    myDu;
   gp_Vec                    myDv;
   TColStd_SequenceOfReal    mySqDist;
@@ -131,7 +131,7 @@ private:
 #define Tool2_hxx <Extrema_CurveTool.hxx>
 #define POnC Extrema_POnCurv
 #define POnC_hxx <Extrema_POnCurv.hxx>
-#define Pnt gp_Pnt
+#define Pnt Point3d
 #define Pnt_hxx <gp_Pnt.hxx>
 #define Vec gp_Vec
 #define Vec_hxx <gp_Vec.hxx>

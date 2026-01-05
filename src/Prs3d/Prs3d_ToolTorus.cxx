@@ -36,11 +36,11 @@ void Prs3d_ToolTorus::init(const Standard_Real    theMajorRad,
 
 //=================================================================================================
 
-gp_Pnt Prs3d_ToolTorus::Vertex(const Standard_Real theU, const Standard_Real theV) const
+Point3d Prs3d_ToolTorus::Vertex(const Standard_Real theU, const Standard_Real theV) const
 {
   const Standard_Real aU = theU * myAngle;
   const Standard_Real aV = myVMin + theV * (myVMax - myVMin);
-  return gp_Pnt((myMajorRadius + myMinorRadius * Cos(aV)) * Cos(aU),
+  return Point3d((myMajorRadius + myMinorRadius * Cos(aV)) * Cos(aU),
                 (myMajorRadius + myMinorRadius * Cos(aV)) * Sin(aU),
                 myMinorRadius * Sin(aV));
 }

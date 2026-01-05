@@ -235,27 +235,27 @@ void V3d_RectangularGrid::DefineLines()
   TColgp_SequenceOfPnt aSeqLines, aSeqTenth;
 
   // verticals
-  aSeqTenth.Append(gp_Pnt(0., -myYSize, -zl));
-  aSeqTenth.Append(gp_Pnt(0., myYSize, -zl));
+  aSeqTenth.Append(Point3d(0., -myYSize, -zl));
+  aSeqTenth.Append(Point3d(0., myYSize, -zl));
   for (nblines = 1, xl = aXStep; xl < myXSize; xl += aXStep, nblines++)
   {
     TColgp_SequenceOfPnt& aSeq = (Modulus(nblines, 10) != 0) ? aSeqLines : aSeqTenth;
-    aSeq.Append(gp_Pnt(xl, -myYSize, -zl));
-    aSeq.Append(gp_Pnt(xl, myYSize, -zl));
-    aSeq.Append(gp_Pnt(-xl, -myYSize, -zl));
-    aSeq.Append(gp_Pnt(-xl, myYSize, -zl));
+    aSeq.Append(Point3d(xl, -myYSize, -zl));
+    aSeq.Append(Point3d(xl, myYSize, -zl));
+    aSeq.Append(Point3d(-xl, -myYSize, -zl));
+    aSeq.Append(Point3d(-xl, myYSize, -zl));
   }
 
   // horizontals
-  aSeqTenth.Append(gp_Pnt(-myXSize, 0., -zl));
-  aSeqTenth.Append(gp_Pnt(myXSize, 0., -zl));
+  aSeqTenth.Append(Point3d(-myXSize, 0., -zl));
+  aSeqTenth.Append(Point3d(myXSize, 0., -zl));
   for (nblines = 1, yl = aYStep; yl < myYSize; yl += aYStep, nblines++)
   {
     TColgp_SequenceOfPnt& aSeq = (Modulus(nblines, 10) != 0) ? aSeqLines : aSeqTenth;
-    aSeq.Append(gp_Pnt(-myXSize, yl, -zl));
-    aSeq.Append(gp_Pnt(myXSize, yl, -zl));
-    aSeq.Append(gp_Pnt(-myXSize, -yl, -zl));
-    aSeq.Append(gp_Pnt(myXSize, -yl, -zl));
+    aSeq.Append(Point3d(-myXSize, yl, -zl));
+    aSeq.Append(Point3d(myXSize, yl, -zl));
+    aSeq.Append(Point3d(-myXSize, -yl, -zl));
+    aSeq.Append(Point3d(myXSize, -yl, -zl));
   }
 
   if (aSeqLines.Length())
@@ -315,14 +315,14 @@ void V3d_RectangularGrid::DefinePoints()
   TColgp_SequenceOfPnt aSeqPnts;
   for (xl = 0.0; xl <= myXSize; xl += aXStep)
   {
-    aSeqPnts.Append(gp_Pnt(xl, 0.0, -myOffSet));
-    aSeqPnts.Append(gp_Pnt(-xl, 0.0, -myOffSet));
+    aSeqPnts.Append(Point3d(xl, 0.0, -myOffSet));
+    aSeqPnts.Append(Point3d(-xl, 0.0, -myOffSet));
     for (yl = aYStep; yl <= myYSize; yl += aYStep)
     {
-      aSeqPnts.Append(gp_Pnt(xl, yl, -myOffSet));
-      aSeqPnts.Append(gp_Pnt(xl, -yl, -myOffSet));
-      aSeqPnts.Append(gp_Pnt(-xl, yl, -myOffSet));
-      aSeqPnts.Append(gp_Pnt(-xl, -yl, -myOffSet));
+      aSeqPnts.Append(Point3d(xl, yl, -myOffSet));
+      aSeqPnts.Append(Point3d(xl, -yl, -myOffSet));
+      aSeqPnts.Append(Point3d(-xl, yl, -myOffSet));
+      aSeqPnts.Append(Point3d(-xl, -yl, -myOffSet));
     }
   }
   if (aSeqPnts.Length())

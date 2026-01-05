@@ -157,7 +157,7 @@ Standard_Boolean ShapeFix_EdgeProjAux::IsIso(const Handle(Geom2d_Curve)& /*theCu
 // Purpose : Computes the trimming parameter of Pt1 on COnS
 // ----------------------------------------------------------------------------
 
-static Standard_Boolean FindParameterWithExt(const gp_Pnt&                   Pt1,
+static Standard_Boolean FindParameterWithExt(const Point3d&                   Pt1,
                                              const Adaptor3d_CurveOnSurface& COnS,
                                              const Standard_Real             Uinf,
                                              const Standard_Real             Usup,
@@ -216,7 +216,7 @@ void ShapeFix_EdgeProjAux::Init2d(const Standard_Real preci)
   myLastParam  = 0.;
   TopoDS_Vertex V1, V2;
   TopExp::Vertices(myEdge, V1, V2);
-  gp_Pnt Pt1, Pt2;
+  Point3d Pt1, Pt2;
   // pdn 28.12.98: r_39-db.stp #605: use ends of 3d curve instead of vertices
   ShapeAnalysis_Edge sae;
   Standard_Real      a, b;
@@ -412,7 +412,7 @@ void ShapeFix_EdgeProjAux::Init2d(const Standard_Real preci)
 
   Standard_Real       w1 = 0., w2 = 0.;
   ShapeAnalysis_Curve sac;
-  gp_Pnt              pnt;
+  Point3d              pnt;
   Standard_Real       dist = sac.Project(COnS, Pt1, preci, pnt, w1, Standard_False);
   // if distance is infinite then projection is not performed
   if (Precision::IsInfinite(dist))
@@ -476,7 +476,7 @@ void ShapeFix_EdgeProjAux::Init2d(const Standard_Real preci)
       UpdateParam2d(theCurve2d);
       return;
     }
-    gp_Pnt        mid = C3d1->Value((cf + cl) / 2);
+    Point3d        mid = C3d1->Value((cf + cl) / 2);
     Standard_Real wmid;
     sac.Project(COnS, mid, preci, pnt, wmid, Standard_False);
     wmid += ShapeAnalysis::AdjustToPeriod(wmid, 0, period);
@@ -530,8 +530,8 @@ void ShapeFix_EdgeProjAux::Init3d(const Standard_Real preci)
 
   V1         = TopExp::FirstVertex(myEdge);
   V2         = TopExp::LastVertex(myEdge);
-  gp_Pnt Pt1 = BRep_Tool::Pnt(V1);
-  gp_Pnt Pt2 = BRep_Tool::Pnt(V2);
+  Point3d Pt1 = BRep_Tool::Pnt(V1);
+  Point3d Pt2 = BRep_Tool::Pnt(V2);
 
   GeomAdaptor_Surface         SA     = GeomAdaptor_Surface(theSurface);
   Handle(GeomAdaptor_Surface) myHSur = new GeomAdaptor_Surface(SA);
@@ -552,8 +552,8 @@ void ShapeFix_EdgeProjAux::Init3d(const Standard_Real preci)
   if (theCurve2d->IsKind(STANDARD_TYPE(Geom2d_BoundedCurve)))
   {
 
-    gp_Pnt Pdeb = COnS.Value(Uinf);
-    gp_Pnt Pfin = COnS.Value(Usup);
+    Point3d Pdeb = COnS.Value(Uinf);
+    Point3d Pfin = COnS.Value(Usup);
 
     // szv#4:S4163:12Mar99 optimized
     if (Pdeb.IsEqual(Pt1, preci) && Pfin.IsEqual(Pt2, preci))

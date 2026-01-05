@@ -109,8 +109,8 @@ void BlendFunc_GenChamfer::Section(const Standard_Real /*Param*/,
                                    Standard_Real&      Pfin,
                                    gp_Lin&             C)
 {
-  const gp_Pnt pts1 = surf1->Value(U1, V1);
-  const gp_Pnt pts2 = surf2->Value(U2, V2);
+  const Point3d pts1 = surf1->Value(U1, V1);
+  const Point3d pts2 = surf2->Value(U2, V2);
   const gp_Dir dir(gp_Vec(pts1, pts2));
 
   C.SetLocation(pts1);

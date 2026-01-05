@@ -64,7 +64,7 @@ public:
   virtual Standard_Integer NbSubElements() const Standard_OVERRIDE { return 1; }
 
   //! Returns center of the circle with transformation applied
-  Standard_EXPORT virtual gp_Pnt CenterOfGeometry() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Point3d CenterOfGeometry() const Standard_OVERRIDE;
 
   //! The transformation for gp::XOY() with center in gp::Origin(),
   //! it specifies the position and orientation of the circle.

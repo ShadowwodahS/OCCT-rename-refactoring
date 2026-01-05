@@ -32,7 +32,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Geom_Ellipse, Geom_Conic)
 
 typedef gp_Ax1  Ax1;
 typedef gp_Ax2  Ax2;
-typedef gp_Pnt  Pnt;
+typedef Point3d  Pnt;
 typedef gp_Vec  Vec;
 typedef gp_Trsf Trsf;
 typedef gp_XYZ  XYZ;
@@ -184,7 +184,7 @@ Ax1 Geom_Ellipse::Directrix2() const
 
 //=================================================================================================
 
-void Geom_Ellipse::D0(const Standard_Real U, gp_Pnt& P) const
+void Geom_Ellipse::D0(const Standard_Real U, Point3d& P) const
 {
 
   P = ElCLib::EllipseValue(U, pos, majorRadius, minorRadius);

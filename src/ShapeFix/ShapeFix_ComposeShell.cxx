@@ -126,8 +126,8 @@ void ShapeFix_ComposeShell::Init(const Handle(ShapeExtend_CompositeSurface)& Gri
         V0 = GV0;
       if (::Precision::IsInfinite(V1))
         V1 = GV1;
-      gp_Pnt P0 = theSurface->Value(U0, (V0 + V1) / 2.);
-      gp_Pnt P1 = theSurface->Value(U1, (V0 + V1) / 2.);
+      Point3d P0 = theSurface->Value(U0, (V0 + V1) / 2.);
+      Point3d P1 = theSurface->Value(U1, (V0 + V1) / 2.);
       if (P0.Distance(P1) > Precision::Confusion() * 10)
         myUClosed = Standard_False;
     }
@@ -137,8 +137,8 @@ void ShapeFix_ComposeShell::Init(const Handle(ShapeExtend_CompositeSurface)& Gri
         U0 = GU0;
       if (::Precision::IsInfinite(U1))
         U1 = GU1;
-      gp_Pnt P0 = theSurface->Value((U0 + U1) / 2., V0);
-      gp_Pnt P1 = theSurface->Value((U0 + U1) / 2., V1);
+      Point3d P0 = theSurface->Value((U0 + U1) / 2., V0);
+      Point3d P1 = theSurface->Value((U0 + U1) / 2., V1);
       if (P0.Distance(P1) > Precision::Confusion() * 10)
         myVClosed = Standard_False;
     }
@@ -788,7 +788,7 @@ static void DistributeSplitPoints(const Handle(ShapeExtend_WireData)& sbwd,
 
 //=================================================================================================
 
-static Standard_Integer CheckByCurve3d(const gp_Pnt&             pos,
+static Standard_Integer CheckByCurve3d(const Point3d&             pos,
                                        const Handle(Geom_Curve)& c3d,
                                        const Standard_Real       param,
                                        const gp_Trsf&            T,
@@ -796,7 +796,7 @@ static Standard_Integer CheckByCurve3d(const gp_Pnt&             pos,
 {
   if (c3d.IsNull())
     return Standard_True;
-  gp_Pnt p = c3d->Value(param);
+  Point3d p = c3d->Value(param);
   if (T.Form() != gp_Identity)
     p.Transform(T);
   return pos.SquareDistance(p) <= tol * tol;
@@ -917,8 +917,8 @@ ShapeFix_WireSegment ShapeFix_ComposeShell::SplitWire(ShapeFix_WireSegment&     
     TopoDS_Vertex lastV    = sae.LastVertex(edge);
     Standard_Real prevVTol = LimitTolerance(BRep_Tool::Tolerance(prevV));
     Standard_Real lastVTol = LimitTolerance(BRep_Tool::Tolerance(lastV));
-    gp_Pnt        prevVPnt = BRep_Tool::Pnt(prevV);
-    gp_Pnt        lastVPnt = BRep_Tool::Pnt(lastV);
+    Point3d        prevVPnt = BRep_Tool::Pnt(prevV);
+    Point3d        lastVPnt = BRep_Tool::Pnt(lastV);
     if (T.Form() != gp_Identity)
     {
       prevVPnt.Transform(T);
@@ -948,10 +948,10 @@ ShapeFix_WireSegment ShapeFix_ComposeShell::SplitWire(ShapeFix_WireSegment&     
       Standard_Integer    n = 1;
       for (; n <= nbNMVert; n++)
       {
-        gp_Pnt        apV    = BRep_Tool::Pnt(TopoDS::Vertex(aNMVertices.Value(n)));
+        Point3d        apV    = BRep_Tool::Pnt(TopoDS::Vertex(aNMVertices.Value(n)));
         Standard_Real apar   = firstPar;
         Standard_Real adist2 = RealLast();
-        gp_Pnt        aPproj;
+        Point3d        aPproj;
         if (!c3d.IsNull())
         {
           ShapeAnalysis_Curve asae;
@@ -993,8 +993,8 @@ ShapeFix_WireSegment ShapeFix_ComposeShell::SplitWire(ShapeFix_WireSegment&     
     Standard_Real    prevPar    = firstPar;
     gp_Pnt2d         prevPnt2d  = C2d->Value(prevPar);
     gp_Pnt2d         lastPnt2d  = C2d->Value(lastPar);
-    gp_Pnt           prevPnt    = myGrid->Value(prevPnt2d);
-    gp_Pnt           lastPnt    = myGrid->Value(lastPnt2d);
+    Point3d           prevPnt    = myGrid->Value(prevPnt2d);
+    Point3d           lastPnt    = myGrid->Value(lastPnt2d);
     Standard_Boolean isPeriodic = C2d->IsPeriodic();
     Standard_Real    aPeriod    = (isPeriodic ? C2d->Period() : 0.);
 
@@ -1025,7 +1025,7 @@ ShapeFix_WireSegment ShapeFix_ComposeShell::SplitWire(ShapeFix_WireSegment&     
       }
 
       gp_Pnt2d currPnt2d;
-      gp_Pnt   currPnt;
+      Point3d   currPnt;
 
       // Try to adjust current splitting point to previous or end of edge
       Standard_Boolean doCut = Standard_True;
@@ -1320,7 +1320,7 @@ Standard_Boolean ShapeFix_ComposeShell::SplitByLine(ShapeFix_WireSegment&      w
   {
     Handle(ShapeAnalysis_Surface) aSurfTool = new ShapeAnalysis_Surface(BRep_Tool::Surface(myFace));
     TopoDS_Vertex                 aVert     = wire.GetVertex();
-    gp_Pnt                        aP3d      = BRep_Tool::Pnt(aVert);
+    Point3d                        aP3d      = BRep_Tool::Pnt(aVert);
     gp_Pnt2d                      aP2d      = aSurfTool->ValueOfUV(aP3d, Precision::Confusion());
     Standard_Real                 dev       = 0.;
     Standard_Integer              code      = PointLinePosition(aP2d, line, dev);
@@ -1831,8 +1831,8 @@ void ShapeFix_ComposeShell::SplitByLine(ShapeFix_SequenceOfWireSegment& wires,
       aMaxTol = Precision::Infinite();
     Standard_Real aTol1 = Min(BRep_Tool::Tolerance(V1), aMaxTol);
     Standard_Real aTol2 = Min(BRep_Tool::Tolerance(V2), aMaxTol);
-    gp_Pnt        aP1   = BRep_Tool::Pnt(V1);
-    gp_Pnt        aP2   = BRep_Tool::Pnt(V2);
+    Point3d        aP1   = BRep_Tool::Pnt(V1);
+    Point3d        aP2   = BRep_Tool::Pnt(V2);
     Standard_Real aD    = aP1.SquareDistance(aP2);
     if (SplitLinePar(i) - SplitLinePar(i - 1) < ::Precision::PConfusion()
         || (canbeMerged && (aD <= (aTol1 * aTol1) || aD <= (aTol2 * aTol2))))
@@ -2190,7 +2190,7 @@ static Standard_Integer IsShortSegment(const ShapeFix_WireSegment& seg,
   if (!Vf.IsSame(seg.LastVertex()))
     return 0;
 
-  gp_Pnt        pnt  = BRep_Tool::Pnt(Vf);
+  Point3d        pnt  = BRep_Tool::Pnt(Vf);
   Standard_Real tol  = BRep_Tool::Tolerance(Vf);
   Standard_Real tol2 = tol * tol;
 
@@ -2214,7 +2214,7 @@ static Standard_Integer IsShortSegment(const ShapeFix_WireSegment& seg,
       code = -1;
 
     // check 3d
-    gp_Pnt midPnt3d = myGrid->Value(midPnt.X(), midPnt.Y());
+    Point3d midPnt3d = myGrid->Value(midPnt.X(), midPnt.Y());
     if (!myLoc.IsIdentity())
       midPnt3d.Transform(myLoc.Transformation());
     if (midPnt3d.SquareDistance(pnt) > tol2)
@@ -2658,7 +2658,7 @@ static gp_Pnt2d GetMiddlePoint(const ShapeFix_WireSegment& wire, const TopoDS_Fa
   if (wire.IsVertex())
   {
     TopoDS_Vertex                 aV        = wire.GetVertex();
-    gp_Pnt                        aP3D      = BRep_Tool::Pnt(aV);
+    Point3d                        aP3D      = BRep_Tool::Pnt(aV);
     Handle(Geom_Surface)          surf      = BRep_Tool::Surface(face);
     Handle(ShapeAnalysis_Surface) aSurfTool = new ShapeAnalysis_Surface(surf);
     return aSurfTool->ValueOfUV(aP3D, Precision::Confusion());
@@ -2888,7 +2888,7 @@ void ShapeFix_ComposeShell::MakeFacesOnPatch(TopTools_SequenceOfShape&   faces,
       else if (loops(j).ShapeType() == TopAbs_VERTEX)
       {
         TopoDS_Vertex aV = TopoDS::Vertex(loops(j));
-        gp_Pnt        aP = BRep_Tool::Pnt(aV);
+        Point3d        aP = BRep_Tool::Pnt(aV);
         unp              = aSurfTool->ValueOfUV(aP, Precision::Confusion());
       }
       else

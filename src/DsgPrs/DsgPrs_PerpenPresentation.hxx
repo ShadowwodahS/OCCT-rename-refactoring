@@ -23,7 +23,7 @@
 #include <Prs3d_Drawer.hxx>
 #include <Prs3d_Presentation.hxx>
 
-class gp_Pnt;
+class Point3d;
 
 //! A framework to define display of perpendicular
 //! constraints between shapes.
@@ -42,11 +42,11 @@ public:
   //! defined by the attribute manager aDrawer.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Handle(Prs3d_Drawer)&       aDrawer,
-                                  const gp_Pnt&                     pAx1,
-                                  const gp_Pnt&                     pAx2,
-                                  const gp_Pnt&                     pnt1,
-                                  const gp_Pnt&                     pnt2,
-                                  const gp_Pnt&                     OffsetPoint,
+                                  const Point3d&                     pAx1,
+                                  const Point3d&                     pAx2,
+                                  const Point3d&                     pnt1,
+                                  const Point3d&                     pnt2,
+                                  const Point3d&                     OffsetPoint,
                                   const Standard_Boolean            intOut1,
                                   const Standard_Boolean            intOut2);
 

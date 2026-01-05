@@ -33,7 +33,7 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Returns the location of the SectionPoint.
-  Standard_EXPORT const gp_Pnt& Pnt() const;
+  Standard_EXPORT const Point3d& Pnt() const;
 
   //! Returns the cumulated  Parameter of the SectionPoint on the
   //! first element.
@@ -90,7 +90,7 @@ public:
   //! Builds  a  SectionPoint    with the  respective  dimensions
   //! (vertex edge or face)  of the concerned arguments and their
   //! addresses in the Topological structure.
-  Standard_EXPORT Intf_SectionPoint(const gp_Pnt&          Where,
+  Standard_EXPORT Intf_SectionPoint(const Point3d&          Where,
                                     const Intf_PIType      DimeO,
                                     const Standard_Integer AddrO1,
                                     const Standard_Integer AddrO2,
@@ -119,7 +119,7 @@ public:
   Standard_EXPORT void Dump(const Standard_Integer Indent) const;
 
 private:
-  gp_Pnt           myPnt;
+  Point3d           myPnt;
   Intf_PIType      DimenObje;
   Standard_Integer IndexO1;
   Standard_Integer IndexO2;

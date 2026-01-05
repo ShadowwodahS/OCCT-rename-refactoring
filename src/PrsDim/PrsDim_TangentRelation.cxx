@@ -88,8 +88,8 @@ void PrsDim_TangentRelation::ComputeSelection(const Handle(SelectMgr_Selection)&
   gp_Vec vec(myDir);
   gp_Vec vec1 = vec.Multiplied(myLength);
   gp_Vec vec2 = vec.Multiplied(-myLength);
-  gp_Pnt p1   = myPosition.Translated(vec1);
-  gp_Pnt p2   = myPosition.Translated(vec2);
+  Point3d p1   = myPosition.Translated(vec1);
+  Point3d p2   = myPosition.Translated(vec2);
 
   Handle(SelectMgr_EntityOwner)     own = new SelectMgr_EntityOwner(this, 7);
   Handle(Select3D_SensitiveSegment) seg = new Select3D_SensitiveSegment(own, p1, p2);
@@ -108,19 +108,19 @@ void PrsDim_TangentRelation::ComputeTwoFacesTangent(
 
 static Standard_Boolean ComputeTangencyPoint(const Handle(Geom_Curve)& GC1,
                                              const Handle(Geom_Curve)& GC2,
-                                             gp_Pnt&                   aPoint)
+                                             Point3d&                   aPoint)
 {
   Standard_Real U1f = GC1->FirstParameter();
   Standard_Real U1l = GC1->LastParameter();
   Standard_Real U2f = GC2->FirstParameter();
   Standard_Real U2l = GC2->LastParameter();
 
-  gp_Pnt                    PC1;
+  Point3d                    PC1;
   Standard_Real             mindist = 0;
   GeomAPI_ExtremaCurveCurve Ex(GC1, GC2, U1f, U1l, U2f, U2l);
   for (Standard_Integer i = 1; i <= Ex.NbExtrema(); i++)
   {
-    gp_Pnt P1, P2;
+    Point3d P1, P2;
     Ex.Points(i, P1, P2);
     Standard_Real dist = P1.Distance(P2);
     if (i == 1)
@@ -183,7 +183,7 @@ static Standard_Boolean ComputeTangencyPoint(const Handle(Geom_Curve)& GC1,
 void PrsDim_TangentRelation::ComputeTwoEdgesTangent(const Handle(Prs3d_Presentation)& aPresentation)
 {
   Handle(Geom_Curve) copy1, copy2;
-  gp_Pnt             ptat11, ptat12, ptat21, ptat22;
+  Point3d             ptat11, ptat12, ptat21, ptat22;
   Standard_Boolean   isInfinite1, isInfinite2;
   Handle(Geom_Curve) extCurv;
   if (!PrsDim::ComputeGeometry(TopoDS::Edge(myFShape),
@@ -262,7 +262,7 @@ void PrsDim_TangentRelation::ComputeTwoEdgesTangent(const Handle(Prs3d_Presentat
   }
 
   gp_Vec        theVector;
-  gp_Pnt        pint3d;          // tangency point
+  Point3d        pint3d;          // tangency point
   gp_Dir        theDir;          // tangency direction
   Standard_Real par_inter = 0.0; // parameter of tangency point
 
@@ -507,7 +507,7 @@ void PrsDim_TangentRelation::ComputeTwoEdgesTangent(const Handle(Prs3d_Presentat
   DsgPrs_TangentPresentation::Add(aPresentation, myDrawer, myAttach, myDir, myLength);
   if ((myExtShape != 0) && !extCurv.IsNull())
   {
-    gp_Pnt pf, pl;
+    Point3d pf, pl;
     if (myExtShape == 1)
     {
       if (!isInfinite1)

@@ -65,7 +65,7 @@ const Handle(TopoDS_TShape)& VrmlData_Box::TShape()
     try
     {
       const TopoDS_Shell aShell =
-        BRepPrimAPI_MakeBox(gp_Pnt(-0.5 * mySize), mySize.X(), mySize.Y(), mySize.Z());
+        BRepPrimAPI_MakeBox(Point3d(-0.5 * mySize), mySize.X(), mySize.Y(), mySize.Z());
       SetTShape(aShell.TShape());
       myIsModified = Standard_False;
     }
@@ -127,7 +127,7 @@ const Handle(TopoDS_TShape)& VrmlData_Cone::TShape()
   {
     try
     {
-      gp_Ax2        aLocalAxis(gp_Pnt(0., -0.5 * myHeight, 0.), gp_Dir(0., 1., 0.));
+      gp_Ax2        aLocalAxis(Point3d(0., -0.5 * myHeight, 0.), gp_Dir(0., 1., 0.));
       BRepPrim_Cone aBuilder(aLocalAxis, myBottomRadius, 0., myHeight);
       if (!myHasBottom)
         myTShape = aBuilder.LateralFace().TShape();
@@ -241,7 +241,7 @@ const Handle(TopoDS_TShape)& VrmlData_Cylinder::TShape()
   {
     try
     {
-      gp_Ax2            aLocalAxis(gp_Pnt(0., -0.5 * myHeight, 0.), gp_Dir(0., 1., 0.));
+      gp_Ax2            aLocalAxis(Point3d(0., -0.5 * myHeight, 0.), gp_Dir(0., 1., 0.));
       BRepPrim_Cylinder aBuilder(aLocalAxis, myRadius, myHeight);
       BRepPrim_Builder  aShapeBuilder;
       TopoDS_Shell      aShell;

@@ -41,7 +41,7 @@ Standard_Boolean TPrsStd_PointDriver::Update(const TDF_Label&               aLab
     return Standard_False;
   }
 
-  gp_Pnt pnt;
+  Point3d pnt;
   if (!TDataXtd_Geometry::Point(aLabel, pnt))
   {
     return Standard_False;

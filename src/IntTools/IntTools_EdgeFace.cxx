@@ -64,7 +64,7 @@ Standard_Boolean IntTools_EdgeFace::IsCoincident()
   Standard_Integer i, iCnt;
   Standard_Real    dT, aT, aD, aT1, aT2, aU, aV;
 
-  gp_Pnt       aP;
+  Point3d       aP;
   TopAbs_State aState;
   gp_Pnt2d     aP2d;
   //
@@ -167,7 +167,7 @@ void IntTools_EdgeFace::CheckData()
 Standard_Boolean IntTools_EdgeFace::IsProjectable(const Standard_Real aT) const
 {
   Standard_Boolean bFlag;
-  gp_Pnt           aPC;
+  Point3d           aPC;
   //
   myC.D0(aT, aPC);
   bFlag = myContext->IsValidPointForFace(aPC, myFace, myCriteria);
@@ -182,7 +182,7 @@ Standard_Real IntTools_EdgeFace::DistanceFunction(const Standard_Real t)
   Standard_Real aD;
 
   //
-  gp_Pnt P;
+  Point3d P;
   myC.D0(t, P);
   //
   Standard_Boolean bIsEqDistance;
@@ -223,7 +223,7 @@ Standard_Real IntTools_EdgeFace::DistanceFunction(const Standard_Real t)
 //
 //=================================================================================================
 
-Standard_Boolean IntTools_EdgeFace::IsEqDistance(const gp_Pnt&              aP,
+Standard_Boolean IntTools_EdgeFace::IsEqDistance(const Point3d&              aP,
                                                  const BRepAdaptor_Surface& aBAS,
                                                  const Standard_Real        aTol,
                                                  Standard_Real&             aD)
@@ -255,7 +255,7 @@ Standard_Boolean IntTools_EdgeFace::IsEqDistance(const gp_Pnt&              aP,
     aDC = aLinAxis.Distance(aP);
     if (aDC < aTol)
     {
-      gp_Pnt anApex = aCone.Apex();
+      Point3d anApex = aCone.Apex();
       aSemiAngle    = aCone.SemiAngle();
       aDS           = aP.Distance(anApex);
 
@@ -270,7 +270,7 @@ Standard_Boolean IntTools_EdgeFace::IsEqDistance(const gp_Pnt&              aP,
     Standard_Real aMajorRadius, aMinorRadius, aDC;
 
     gp_Torus aTorus = aBAS.Torus();
-    gp_Pnt   aPLoc  = aTorus.Location();
+    Point3d   aPLoc  = aTorus.Location();
     aMajorRadius    = aTorus.MajorRadius();
 
     aDC = fabs(aPLoc.Distance(aP) - aMajorRadius);
@@ -303,7 +303,7 @@ Standard_Integer IntTools_EdgeFace::MakeType(IntTools_CommonPrt& aCommonPrt)
   aCommonPrt.Range1(af1, al1);
 
   {
-    gp_Pnt aPF, aPL;
+    Point3d aPF, aPL;
     myC.D0(af1, aPF);
     myC.D0(al1, aPL);
     df1                           = aPF.Distance(aPL);
@@ -577,7 +577,7 @@ void IntTools_EdgeFace::Perform()
     IntTools_CommonPrt& aCP = mySeqOfCommonPrts.ChangeValue(i);
     //
     Standard_Real aTx1, aTx2;
-    gp_Pnt        aPx1, aPx2;
+    Point3d        aPx1, aPx2;
     //
     aCP.Range1(aTx1, aTx2);
     myC.D0(aTx1, aPx1);
@@ -808,7 +808,7 @@ Standard_Boolean IsRadius(const BRepAdaptor_Curve&   aCurve,
   if (aCType == GeomAbs_Circle && aSType == GeomAbs_Plane)
   {
     gp_Circ       aCirc   = aCurve.Circle();
-    const gp_Pnt  aCenter = aCirc.Location();
+    const Point3d  aCenter = aCirc.Location();
     Standard_Real aR      = aCirc.Radius();
     gp_Pln        aPln    = aSurface.Plane();
     Standard_Real aD      = aPln.Distance(aCenter);

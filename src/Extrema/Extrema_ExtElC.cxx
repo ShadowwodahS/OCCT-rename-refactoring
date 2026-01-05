@@ -349,7 +349,7 @@ Extrema_ExtElC::Extrema_ExtElC(const gp_Lin& theC1, const gp_Lin& theC2, const S
 
   // Here myIsPar == Standard_False;
 
-  const gp_Pnt aP1(ElCLib::Value(aU1, theC1)), aP2(ElCLib::Value(aU2, theC2));
+  const Point3d aP1(ElCLib::Value(aU1, theC1)), aP2(ElCLib::Value(aU2, theC2));
   mySqDist[myNbExt]   = aP1.SquareDistance(aP2);
   myPoint[myNbExt][0] = Extrema_POnCurv(aU1, aP1);
   myPoint[myNbExt][1] = Extrema_POnCurv(aU2, aP2);
@@ -424,7 +424,7 @@ Standard_Boolean Extrema_ExtElC::PlanarLineCircleExtrema(const gp_Lin&  theLin,
       aCircPar = anInters.Point(aDelta).ParamOnSecond();
     }
 
-    const gp_Pnt aPOnL(ElCLib::LineValue(aLinPar, theLin.Position())),
+    const Point3d aPOnL(ElCLib::LineValue(aLinPar, theLin.Position())),
       aPOnC(ElCLib::CircleValue(aCircPar, theCirc.Position(), theCirc.Radius()));
 
     mySqDist[myNbExt] = aPOnL.SquareDistance(aPOnC);
@@ -502,8 +502,8 @@ Extrema_ExtElC::Extrema_ExtElC(const gp_Lin& C1, const gp_Circ& C2, const Standa
   D.Coord(Dx, Dy, Dz);
   //
   // Calcul de V dans le repere du cercle:
-  gp_Pnt O1 = C1.Location();
-  gp_Pnt O2 = C2.Location();
+  Point3d O1 = C1.Location();
+  Point3d O2 = C2.Location();
   gp_Vec O2O1(O2, O1);
   //
   aTolRO2O1 = gp::Resolution();
@@ -601,7 +601,7 @@ Extrema_ExtElC::Extrema_ExtElC(const gp_Lin& C1, const gp_Circ& C2, const Standa
   // Storage of solutions ...
   Standard_Integer NoSol, NbSol;
   Standard_Real    U1, U2;
-  gp_Pnt           P1, P2;
+  Point3d           P1, P2;
   //
   NbSol = Sol.NbSolutions();
   for (NoSol = 1; NoSol <= NbSol; ++NoSol)
@@ -678,8 +678,8 @@ Extrema_ExtElC::Extrema_ExtElC(const gp_Lin& C1, const gp_Elips& C2)
   D.SetCoord(Dx, Dy, Dz);
 
   // Calculate V ...
-  gp_Pnt O1 = C1.Location();
-  gp_Pnt O2 = C2.Location();
+  Point3d O1 = C1.Location();
+  Point3d O2 = C2.Location();
   gp_Vec O2O1(O2, O1);
   O2O1.SetCoord(O2O1.Dot(x2), O2O1.Dot(y2), O2O1.Dot(z2));
   gp_XYZ Vxyz = (D.XYZ() * (O2O1.Dot(D))) - O2O1.XYZ();
@@ -717,7 +717,7 @@ Extrema_ExtElC::Extrema_ExtElC(const gp_Lin& C1, const gp_Elips& C2)
   if (Sol.InfiniteRoots())
   {
     myIsPar     = Standard_True;
-    gp_Pnt aP   = ElCLib::EllipseValue(0., C2.Position(), C2.MajorRadius(), C2.MinorRadius());
+    Point3d aP   = ElCLib::EllipseValue(0., C2.Position(), C2.MajorRadius(), C2.MinorRadius());
     mySqDist[0] = C1.SquareDistance(aP);
     myNbExt     = 1;
     myDone      = Standard_True;
@@ -725,7 +725,7 @@ Extrema_ExtElC::Extrema_ExtElC(const gp_Lin& C1, const gp_Elips& C2)
   }
 
   // Storage of solutions ...
-  gp_Pnt           P1, P2;
+  Point3d           P1, P2;
   Standard_Real    U1, U2;
   Standard_Integer NbSol = Sol.NbSolutions();
   for (Standard_Integer NoSol = 1; NoSol <= NbSol; NoSol++)
@@ -802,8 +802,8 @@ Extrema_ExtElC::Extrema_ExtElC(const gp_Lin& C1, const gp_Hypr& C2)
   D.SetCoord(Dx, Dy, Dz);
 
   // Calculate V ...
-  gp_Pnt O1 = C1.Location();
-  gp_Pnt O2 = C2.Location();
+  Point3d O1 = C1.Location();
+  Point3d O2 = C2.Location();
   gp_Vec O2O1(O2, O1);
   O2O1.SetCoord(O2O1.Dot(x2), O2O1.Dot(y2), O2O1.Dot(z2));
   gp_XYZ        Vxyz = (D.XYZ() * (O2O1.Dot(D))) - O2O1.XYZ();
@@ -827,7 +827,7 @@ Extrema_ExtElC::Extrema_ExtElC(const gp_Lin& C1, const gp_Hypr& C2)
   }
 
   // Store solutions ...
-  gp_Pnt           P1, P2;
+  Point3d           P1, P2;
   Standard_Real    U1, U2, v;
   Standard_Integer NbSol = Sol.NbSolutions();
   for (Standard_Integer NoSol = 1; NoSol <= NbSol; NoSol++)
@@ -904,8 +904,8 @@ Extrema_ExtElC::Extrema_ExtElC(const gp_Lin& C1, const gp_Parab& C2)
   D.SetCoord(Dx, Dy, Dz);
 
   // Calculate V ...
-  gp_Pnt O1 = C1.Location();
-  gp_Pnt O2 = C2.Location();
+  Point3d O1 = C1.Location();
+  Point3d O2 = C2.Location();
   gp_Vec O2O1(O2, O1);
   O2O1.SetCoord(O2O1.Dot(x2), O2O1.Dot(y2), O2O1.Dot(z2));
   gp_XYZ Vxyz = (D.XYZ() * (O2O1.Dot(D))) - O2O1.XYZ();
@@ -924,7 +924,7 @@ Extrema_ExtElC::Extrema_ExtElC(const gp_Lin& C1, const gp_Parab& C2)
   }
 
   // Storage of solutions ...
-  gp_Pnt           P1, P2;
+  Point3d           P1, P2;
   Standard_Real    U1, U2;
   Standard_Integer NbSol = Sol.NbSolutions();
   for (Standard_Integer NoSol = 1; NoSol <= NbSol; NoSol++)
@@ -947,7 +947,7 @@ Extrema_ExtElC::Extrema_ExtElC(const gp_Circ& C1, const gp_Circ& C2)
 {
   Standard_Boolean bIsSamePlane, bIsSameAxe;
   Standard_Real    aTolD, aTolD2, aTolA, aD2, aDC2;
-  gp_Pnt           aPc1, aPc2;
+  Point3d           aPc1, aPc2;
   gp_Dir           aDc1, aDc2;
   //
   myIsPar = Standard_False;
@@ -996,7 +996,7 @@ Extrema_ExtElC::Extrema_ExtElC(const gp_Circ& C1, const gp_Circ& C2)
   Standard_Integer j1, j2;
   Standard_Real    aR1, aR2, aD12, aT11, aT12, aT21, aT22;
   gp_Circ          aC1, aC2;
-  gp_Pnt           aP11, aP12, aP21, aP22;
+  Point3d           aP11, aP12, aP21, aP22;
   //
   myDone = Standard_True;
   //
@@ -1064,7 +1064,7 @@ Extrema_ExtElC::Extrema_ExtElC(const gp_Circ& C1, const gp_Circ& C2)
   {
     Standard_Boolean bNbExt6;
     Standard_Real    aAlpha, aBeta, aT[2], aVal, aDist2;
-    gp_Pnt           aPt, aPL1, aPL2;
+    Point3d           aPt, aPL1, aPL2;
     gp_Dir           aDLt;
     //
     aAlpha = 0.5 * (aR1 * aR1 - aR2 * aR2 + aD12 * aD12) / aD12;

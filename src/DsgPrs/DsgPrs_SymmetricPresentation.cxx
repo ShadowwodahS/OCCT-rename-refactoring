@@ -41,17 +41,17 @@
 //===================================================================
 void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                        const Handle(Prs3d_Drawer)&       aDrawer,
-                                       const gp_Pnt&                     AttachmentPoint1,
-                                       const gp_Pnt&                     AttachmentPoint2,
+                                       const Point3d&                     AttachmentPoint1,
+                                       const Point3d&                     AttachmentPoint2,
                                        const gp_Dir&                     aDirection1,
                                        const gp_Lin&                     aAxis,
-                                       const gp_Pnt&                     OffsetPoint)
+                                       const Point3d&                     OffsetPoint)
 {
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
 
-  gp_Pnt        ProjOffsetPoint = ElCLib::Value(ElCLib::Parameter(aAxis, OffsetPoint), aAxis);
-  gp_Pnt        PjAttachPnt1    = ElCLib::Value(ElCLib::Parameter(aAxis, AttachmentPoint1), aAxis);
+  Point3d        ProjOffsetPoint = ElCLib::Value(ElCLib::Parameter(aAxis, OffsetPoint), aAxis);
+  Point3d        PjAttachPnt1    = ElCLib::Value(ElCLib::Parameter(aAxis, AttachmentPoint1), aAxis);
   gp_Dir        aDirectionAxis  = aAxis.Direction();
   Standard_Real h =
     fabs(ProjOffsetPoint.Distance(PjAttachPnt1) / cos(aDirectionAxis.Angle(aDirection1)));
@@ -64,7 +64,7 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
     VL1.Reverse();
   VL1.Multiply(h);
 
-  gp_Pnt P1, P2;
+  Point3d P1, P2;
 
   //======================================
   // SYMMETRY OF EDGE PERPEND. TO THE AXIS
@@ -98,7 +98,7 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
   if (parcur > parmax)
     parmax = parcur;
   parcur      = ElCLib::Parameter(L3, OffsetPoint);
-  gp_Pnt offp = ElCLib::Value(parcur, L3);
+  Point3d offp = ElCLib::Value(parcur, L3);
 
   Standard_Boolean outside = Standard_False;
   if (parcur < parmin)
@@ -112,12 +112,12 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
     outside = Standard_True;
   }
 
-  gp_Pnt PointMin = ElCLib::Value(parmin, L3);
-  gp_Pnt PointMax = ElCLib::Value(parmax, L3);
+  Point3d PointMin = ElCLib::Value(parmin, L3);
+  Point3d PointMax = ElCLib::Value(parmax, L3);
 
   Standard_Real X, Y, Z;
   Standard_Real D1(aAxis.Distance(AttachmentPoint1)), coeff(.5);
-  gp_Pnt        pint, Pj_P1, P1Previous = P1;
+  Point3d        pint, Pj_P1, P1Previous = P1;
 
   /*=======================================================
    TO AVOID CROSSING
@@ -137,7 +137,7 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
   if (v.IsOpposite((Attch1_PjAttch1), Precision::Confusion()))
   {
     Cross = Standard_True;
-    gp_Pnt PntTempo;
+    Point3d PntTempo;
     PntTempo = P1;
     P1       = P2;
     P2       = PntTempo;
@@ -216,9 +216,9 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
     aPrims->AddVertex(P1);
 
     //==== PROCESSING OF CALL 2 =====
-    gp_Pnt Pj_pint = ElCLib::Value(ElCLib::Parameter(aAxis, pint), aAxis);
+    Point3d Pj_pint = ElCLib::Value(ElCLib::Parameter(aAxis, pint), aAxis);
     gp_Vec V_int(pint, Pj_pint);
-    gp_Pnt Sym_pint = Pj_pint.Translated(V_int);
+    Point3d Sym_pint = Pj_pint.Translated(V_int);
 
     aPrims->AddBound(3);
     aPrims->AddVertex(AttachmentPoint2);
@@ -300,9 +300,9 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
     aPrims->AddVertex(P1);
 
     //==== PROCESSING OF CALL 2 =====
-    gp_Pnt Pj_pint = ElCLib::Value(ElCLib::Parameter(aAxis, pint), aAxis);
+    Point3d Pj_pint = ElCLib::Value(ElCLib::Parameter(aAxis, pint), aAxis);
     gp_Vec V_int(pint, Pj_pint);
-    gp_Pnt Sym_pint = Pj_pint.Translated(V_int);
+    Point3d Sym_pint = Pj_pint.Translated(V_int);
 
     aPrims->AddBound(3);
     aPrims->AddVertex(AttachmentPoint2);
@@ -378,7 +378,7 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
   gp_Vec vecB = Vaxe.Multiplied(vecA.Magnitude());
   vecB.Multiply(.5);
 
-  gp_Pnt pm, pOff;
+  Point3d pm, pOff;
   if (VLa.Dot(VL1) == 0)
   {
     gp_Vec Vper(P1, ElCLib::Value(ElCLib::Parameter(aAxis, P1), aAxis));
@@ -431,7 +431,7 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
   gp_Vec        vsymper(vsym.Y(), -vsym.X(), vsym.Z());
 
   aPrims->AddBound(5);
-  gp_Pnt pm1 = pm.Translated(vsym.Added(vsymper));
+  Point3d pm1 = pm.Translated(vsym.Added(vsymper));
   aPrims->AddVertex(pm1);
   pm1 = pm1.Translated(vsym.Reversed().Multiplied(2).Added(vsymper.Reversed().Multiplied(2)));
   aPrims->AddVertex(pm1);
@@ -457,19 +457,19 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
 //===================================================================
 void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                        const Handle(Prs3d_Drawer)&       aDrawer,
-                                       const gp_Pnt&                     AttachmentPoint1,
-                                       const gp_Pnt&                     AttachmentPoint2,
+                                       const Point3d&                     AttachmentPoint1,
+                                       const Point3d&                     AttachmentPoint2,
                                        const gp_Circ&                    aCircle1,
                                        const gp_Lin&                     aAxis,
-                                       const gp_Pnt&                     OffsetPoint)
+                                       const Point3d&                     OffsetPoint)
 {
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
 
-  gp_Pnt OffsetPnt(OffsetPoint.X(), OffsetPoint.Y(), OffsetPoint.Z());
-  gp_Pnt Center1         = aCircle1.Location();
-  gp_Pnt ProjOffsetPoint = ElCLib::Value(ElCLib::Parameter(aAxis, OffsetPnt), aAxis);
-  gp_Pnt ProjCenter1     = ElCLib::Value(ElCLib::Parameter(aAxis, Center1), aAxis);
+  Point3d OffsetPnt(OffsetPoint.X(), OffsetPoint.Y(), OffsetPoint.Z());
+  Point3d Center1         = aCircle1.Location();
+  Point3d ProjOffsetPoint = ElCLib::Value(ElCLib::Parameter(aAxis, OffsetPnt), aAxis);
+  Point3d ProjCenter1     = ElCLib::Value(ElCLib::Parameter(aAxis, Center1), aAxis);
   gp_Vec Vp(ProjCenter1, Center1);
   if (Vp.Magnitude() <= Precision::Confusion())
     Vp = gp_Vec(aAxis.Direction()) ^ aCircle1.Position().Direction();
@@ -485,9 +485,9 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
     OffsetPnt       = ProjOffsetPoint;
   }
   h         = Sqrt(R * R - Dt * Dt);
-  gp_Pnt P1 = ProjOffsetPoint.Translated(Vp.Added(Vp.Divided(Vp.Magnitude()).Multiplied(h)));
+  Point3d P1 = ProjOffsetPoint.Translated(Vp.Added(Vp.Divided(Vp.Magnitude()).Multiplied(h)));
   gp_Vec v(P1, ProjOffsetPoint);
-  gp_Pnt P2 = ProjOffsetPoint.Translated(v);
+  Point3d P2 = ProjOffsetPoint.Translated(v);
 
   gp_Lin        L3 = gce_MakeLin(P1, P2);
   Standard_Real parmin, parmax, parcur;
@@ -512,8 +512,8 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
     parmax  = parcur;
     outside = Standard_True;
   }
-  gp_Pnt PointMin = ElCLib::Value(parmin, L3);
-  gp_Pnt PointMax = ElCLib::Value(parmax, L3);
+  Point3d PointMin = ElCLib::Value(parmin, L3);
+  Point3d PointMax = ElCLib::Value(parmax, L3);
 
   //==== PROCESSING OF FACE ===========
   Handle(Graphic3d_ArrayOfPrimitives) aPrims = new Graphic3d_ArrayOfSegments(2);
@@ -560,14 +560,14 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
   aPrims = new Graphic3d_ArrayOfPolylines(nbp);
   aPrims->AddVertex(AttachmentPoint1);
   alphaIter = Dalpha;
-  gp_Pnt           PntIter;
+  Point3d           PntIter;
   Standard_Integer i;
   for (i = 2; i <= nbp; i++, alphaIter += Dalpha)
     aPrims->AddVertex(ElCLib::Value(ParamPAttach1 + alphaIter, aCircle1));
   aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
 
   //==== PROCESSING OF CALL 2 =====
-  gp_Pnt        Center2 = ProjCenter1.Translated(Vp.Reversed());
+  Point3d        Center2 = ProjCenter1.Translated(Vp.Reversed());
   gp_Dir        DirC2   = aCircle1.Axis().Direction();
   gp_Ax2        AxeC2(Center2, DirC2);
   gp_Circ       aCircle2(AxeC2, aCircle1.Radius());
@@ -654,8 +654,8 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
   gp_Vec vecB = Vaxe.Multiplied(vecA.Magnitude());
   vecB.Multiply(.5);
 
-  gp_Pnt pm   = P1.Translated(Vvar.Multiplied(.5));
-  gp_Pnt pOff = OffsetPnt.Translated(vecB);
+  Point3d pm   = P1.Translated(Vvar.Multiplied(.5));
+  Point3d pOff = OffsetPnt.Translated(vecB);
 
   // Calculation of extremas of the axis of the symbol
   gp_Vec vecAxe = vecA.Multiplied(.7);
@@ -699,7 +699,7 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
   gp_Vec        vsymper(vsym.Y(), -vsym.X(), vsym.Z());
 
   aPrims->AddBound(5);
-  gp_Pnt pm1 = pm.Translated(vsym.Added(vsymper));
+  Point3d pm1 = pm.Translated(vsym.Added(vsymper));
   aPrims->AddVertex(pm1);
   pm1 = pm1.Translated(vsym.Reversed().Multiplied(2).Added(vsymper.Reversed().Multiplied(2)));
   aPrims->AddVertex(pm1);
@@ -725,10 +725,10 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
 //===================================================================
 void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                        const Handle(Prs3d_Drawer)&       aDrawer,
-                                       const gp_Pnt&                     AttachmentPoint1,
-                                       const gp_Pnt&                     AttachmentPoint2,
+                                       const Point3d&                     AttachmentPoint1,
+                                       const Point3d&                     AttachmentPoint2,
                                        const gp_Lin&                     aAxis,
-                                       const gp_Pnt&                     OffsetPoint)
+                                       const Point3d&                     OffsetPoint)
 {
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
@@ -766,24 +766,24 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
     // Calculate extremas of the axis of the symbol
     gp_Vec VAO(AttachmentPoint1, OffsetPoint);
     gp_Vec uVAO  = VAO.Divided(VAO.Magnitude());
-    gp_Pnt pDaxe = OffsetPoint.Translated(uVAO.Multiplied(3.));
-    gp_Pnt pFaxe = pDaxe.Translated(uVAO.Multiplied(12.));
+    Point3d pDaxe = OffsetPoint.Translated(uVAO.Multiplied(3.));
+    Point3d pFaxe = pDaxe.Translated(uVAO.Multiplied(12.));
 
     aPrims->AddVertex(pDaxe);
     aPrims->AddVertex(pFaxe);
 
     // Calculate extremas of the superior segment of the symbol
     gp_Vec nVAO(-uVAO.Y(), uVAO.X(), uVAO.Z());
-    gp_Pnt sgP11 = pDaxe.Translated(uVAO.Multiplied(2.).Added(nVAO.Multiplied(2.)));
-    gp_Pnt sgP12 = sgP11.Translated(uVAO.Multiplied(8.));
+    Point3d sgP11 = pDaxe.Translated(uVAO.Multiplied(2.).Added(nVAO.Multiplied(2.)));
+    Point3d sgP12 = sgP11.Translated(uVAO.Multiplied(8.));
 
     aPrims->AddVertex(sgP11);
     aPrims->AddVertex(sgP12);
 
     // Calculate extremas of the inferior segment of the symbol
     gp_Vec nVAOr = nVAO.Reversed();
-    gp_Pnt sgP21 = pDaxe.Translated(uVAO.Multiplied(2.).Added(nVAOr.Multiplied(2.)));
-    gp_Pnt sgP22 = sgP21.Translated(uVAO.Multiplied(8.));
+    Point3d sgP21 = pDaxe.Translated(uVAO.Multiplied(2.).Added(nVAOr.Multiplied(2.)));
+    Point3d sgP22 = sgP21.Translated(uVAO.Multiplied(8.));
 
     aPrims->AddVertex(sgP21);
     aPrims->AddVertex(sgP22);
@@ -796,11 +796,11 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
 
   else
   {
-    gp_Pnt ProjOffsetPoint      = ElCLib::Value(ElCLib::Parameter(aAxis, OffsetPoint), aAxis);
-    gp_Pnt ProjAttachmentPoint1 = ElCLib::Value(ElCLib::Parameter(aAxis, AttachmentPoint1), aAxis);
+    Point3d ProjOffsetPoint      = ElCLib::Value(ElCLib::Parameter(aAxis, OffsetPoint), aAxis);
+    Point3d ProjAttachmentPoint1 = ElCLib::Value(ElCLib::Parameter(aAxis, AttachmentPoint1), aAxis);
     gp_Vec PjAtt1_Att1(ProjAttachmentPoint1, AttachmentPoint1);
-    gp_Pnt P1 = ProjOffsetPoint.Translated(PjAtt1_Att1);
-    gp_Pnt P2 = ProjOffsetPoint.Translated(PjAtt1_Att1.Reversed());
+    Point3d P1 = ProjOffsetPoint.Translated(PjAtt1_Att1);
+    Point3d P2 = ProjOffsetPoint.Translated(PjAtt1_Att1.Reversed());
 
     gp_Lin        L3 = gce_MakeLin(P1, P2);
     Standard_Real parmin, parmax, parcur;
@@ -825,8 +825,8 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
       parmax  = parcur;
       outside = Standard_True;
     }
-    gp_Pnt PointMin = ElCLib::Value(parmin, L3);
-    gp_Pnt PointMax = ElCLib::Value(parmax, L3);
+    Point3d PointMin = ElCLib::Value(parmin, L3);
+    Point3d PointMax = ElCLib::Value(parmax, L3);
 
     //==== PROCESSING OF FACE ===========
     aPresentation->NewGroup();
@@ -903,8 +903,8 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
     gp_Vec vecB = Vaxe.Multiplied(vecA.Magnitude());
     vecB.Multiply(.5);
 
-    gp_Pnt pm   = P1.Translated(vec.Multiplied(.5));
-    gp_Pnt pOff = OffsetPoint.Translated(vecB);
+    Point3d pm   = P1.Translated(vec.Multiplied(.5));
+    Point3d pOff = OffsetPoint.Translated(vecB);
 
     // Calculate the extremas of the axis of the symbol
     gp_Vec vecAxe = vecA.Multiplied(.7);
@@ -948,7 +948,7 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
     gp_Vec        vsymper(vsym.Y(), -vsym.X(), vsym.Z());
 
     aPrims->AddBound(5);
-    gp_Pnt pm1 = pm.Translated(vsym.Added(vsymper));
+    Point3d pm1 = pm.Translated(vsym.Added(vsymper));
     aPrims->AddVertex(pm1);
     pm1 = pm1.Translated(vsym.Reversed().Multiplied(2).Added(vsymper.Reversed().Multiplied(2)));
     aPrims->AddVertex(pm1);

@@ -85,7 +85,7 @@ class GProp_PrincipalProps;
 //!
 //! //returns the centre of mass of the system in the
 //! //absolute cartesian coordinate system
-//! gp_Pnt G = System.CentreOfMass ();
+//! Point3d G = System.CentreOfMass ();
 //!
 //! //computes the principales inertia of the system
 //! GProp_PrincipalProps Pp  = System.PrincipalProperties();
@@ -122,7 +122,7 @@ public:
   //! system. Use it once per component of the system,
   //! and then use the interrogation functions available to
   //! access the computed values.
-  Standard_EXPORT GProp_GProps(const gp_Pnt& SystemLocation);
+  Standard_EXPORT GProp_GProps(const Point3d& SystemLocation);
 
   //! Either
   //! - initializes the global properties retained by this
@@ -193,7 +193,7 @@ public:
   //! the gravitational field is uniform, it is the center of gravity.
   //! The coordinates returned for the center of mass are
   //! expressed in the absolute Cartesian coordinate system.
-  Standard_EXPORT gp_Pnt CentreOfMass() const;
+  Standard_EXPORT Point3d CentreOfMass() const;
 
   //! returns the matrix of inertia. It is a symmetrical matrix.
   //! The coefficients of the matrix are the quadratic moments of
@@ -242,8 +242,8 @@ public:
   Standard_EXPORT Standard_Real RadiusOfGyration(const gp_Ax1& A) const;
 
 protected:
-  gp_Pnt        g;
-  gp_Pnt        loc;
+  Point3d        g;
+  Point3d        loc;
   Standard_Real dim;
   gp_Mat        inertia;
 

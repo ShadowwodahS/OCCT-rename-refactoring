@@ -96,7 +96,7 @@ static Standard_Boolean CheckEdgeLength(const TopoDS_Edge& E)
   if (anExtent != 1)
     return Standard_True;
 
-  gp_Pnt p1, p2;
+  Point3d p1, p2;
   f  = BC.FirstParameter();
   l  = BC.LastParameter();
   dt = (l - f) / aN;
@@ -580,7 +580,7 @@ Standard_Boolean TopOpeBRepTool_TOOL::TggeomE(const Standard_Real      par,
     return Standard_False;
   Standard_Real thepar = par;
 
-  gp_Pnt thepnt;
+  Point3d thepnt;
   BC.D1(thepar, thepnt, Tg);
   Tg.Normalize();
   return Standard_True;
@@ -1278,7 +1278,7 @@ Standard_Boolean TopOpeBRepTool_TOOL::Getduv(const TopoDS_Face&  f,
   bndf.Get(f1, f2, f3, l1, l2, l3);
   gp_Vec d123(f1 - l1, f2 - l2, f3 - l3);
 
-  gp_Pnt p;
+  Point3d p;
   FUN_tool_value(uv, f, p);
   p.Translate(dir.Multiplied(factor));
   Standard_Real d;
@@ -1387,7 +1387,7 @@ static Standard_Boolean FUN_ngF(const gp_Pnt2d& uv, const TopoDS_Face& F, gp_Vec
   // ###############################
   // nyi : all geometries are direct
   // ###############################
-  gp_Pnt p;
+  Point3d p;
   gp_Vec d1u, d1v;
   bs.D1(uv.X(), uv.Y(), p, d1u, d1v);
 
@@ -1442,8 +1442,8 @@ static Standard_Boolean FUN_ngF(const gp_Pnt2d& uv, const TopoDS_Face& F, gp_Vec
       Standard_Boolean apex         = vpisur2 || vmoinspisur2;
       if (apex)
       {
-        gp_Pnt center = bs.Sphere().Location();
-        gp_Pnt value  = bs.Value(u, v);
+        Point3d center = bs.Sphere().Location();
+        Point3d value  = bs.Value(u, v);
         gp_Vec ng(center, value);
         ngF = ng;
         return Standard_True;
@@ -1531,13 +1531,13 @@ Standard_Boolean TopOpeBRepTool_TOOL::MatterKPtg(const TopoDS_Face& f1,
   ok1 = TopOpeBRepTool_TOOL::uvApp(f1, e, pare, eps, uvapp1);
   if (!ok1)
     return Standard_False;
-  gp_Pnt pf1;
+  Point3d pf1;
   FUN_tool_value(uvapp1, f1, pf1);
 
   gp_Pnt2d         uv2;
   Standard_Real    d;
   Standard_Boolean ok2 = FUN_tool_projPonF(pf1, f2, uv2, d);
-  gp_Pnt           pf2;
+  Point3d           pf2;
   FUN_tool_value(uv2, f2, pf2);
   if (!ok2)
     return Standard_False;
@@ -1564,7 +1564,7 @@ Standard_Boolean TopOpeBRepTool_TOOL::MatterKPtg(const TopoDS_Face& f1,
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool_TOOL::Getstp3dF(const gp_Pnt&      p,
+Standard_Boolean TopOpeBRepTool_TOOL::Getstp3dF(const Point3d&      p,
                                                 const TopoDS_Face& f,
                                                 gp_Pnt2d&          uv,
                                                 TopAbs_State&      st)
@@ -1583,7 +1583,7 @@ Standard_Boolean TopOpeBRepTool_TOOL::Getstp3dF(const gp_Pnt&      p,
     return Standard_True;
   }
 
-  gp_Pnt ppr;
+  Point3d ppr;
   ok = FUN_tool_value(uv, f, ppr);
   if (!ok)
     return Standard_False;
@@ -1841,13 +1841,13 @@ Standard_Boolean TopOpeBRepTool_TOOL::EdgeONFace(const Standard_Real par,
   FUN_tool_bounds(ed, f, l);
   Standard_Boolean onf  = (Abs(par - f) < tol1de);
   Standard_Real    opar = onf ? ((1 - x) * f + x * l) : ((1 - x) * f + x * par);
-  gp_Pnt           opc  = bc.Value(opar);
+  Point3d           opc  = bc.Value(opar);
 
   gp_Pnt2d ouv;
   ok = FUN_tool_parF(ed, opar, fa, ouv, tolf);
   if (!ok)
     return Standard_False;
-  gp_Pnt ops = bs.Value(ouv.X(), ouv.Y());
+  Point3d ops = bs.Value(ouv.X(), ouv.Y());
 
   Standard_Real dd = opc.Distance(ops);
   isonfa           = (dd < tol3d);

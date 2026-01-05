@@ -42,7 +42,7 @@ static Standard_Boolean IsoIsDeg(const Adaptor3d_Surface& S,
   V1                     = S.FirstVParameter();
   V2                     = S.LastVParameter();
   gp_Vec        D1U, D1V;
-  gp_Pnt        P;
+  Point3d        P;
   Standard_Real Step, D1NormMax;
   if (IT == GeomAbs_IsoV)
   {
@@ -143,7 +143,7 @@ Extrema_ExtPS::Extrema_ExtPS()
 
 //=================================================================================================
 
-Extrema_ExtPS::Extrema_ExtPS(const gp_Pnt&            theP,
+Extrema_ExtPS::Extrema_ExtPS(const Point3d&            theP,
                              const Adaptor3d_Surface& theS,
                              const Standard_Real      theTolU,
                              const Standard_Real      theTolV,
@@ -166,7 +166,7 @@ Extrema_ExtPS::Extrema_ExtPS(const gp_Pnt&            theP,
 
 //=================================================================================================
 
-Extrema_ExtPS::Extrema_ExtPS(const gp_Pnt&            theP,
+Extrema_ExtPS::Extrema_ExtPS(const Point3d&            theP,
                              const Adaptor3d_Surface& theS,
                              const Standard_Real      theUinf,
                              const Standard_Real      theUsup,
@@ -243,7 +243,7 @@ void Extrema_ExtPS::Initialize(const Adaptor3d_Surface& theS,
 
 //=================================================================================================
 
-void Extrema_ExtPS::Perform(const gp_Pnt& thePoint)
+void Extrema_ExtPS::Perform(const Point3d& thePoint)
 {
   myPoints.Clear();
   mySqDist.Clear();
@@ -372,10 +372,10 @@ void Extrema_ExtPS::TrimmedSquareDistances(Standard_Real& dUfVf,
                                            Standard_Real& dUfVl,
                                            Standard_Real& dUlVf,
                                            Standard_Real& dUlVl,
-                                           gp_Pnt&        PUfVf,
-                                           gp_Pnt&        PUfVl,
-                                           gp_Pnt&        PUlVf,
-                                           gp_Pnt&        PUlVl) const
+                                           Point3d&        PUfVf,
+                                           Point3d&        PUfVl,
+                                           Point3d&        PUlVf,
+                                           Point3d&        PUlVl) const
 {
   dUfVf = d11;
   dUfVl = d12;

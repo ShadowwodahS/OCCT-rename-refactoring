@@ -23,7 +23,7 @@
 #include <Standard_Real.hxx>
 class Geom_Curve;
 class TopLoc_Location;
-class gp_Pnt;
+class Point3d;
 class BRep_CurveRepresentation;
 
 class BRep_Curve3D;
@@ -37,7 +37,7 @@ public:
   Standard_EXPORT BRep_Curve3D(const Handle(Geom_Curve)& C, const TopLoc_Location& L);
 
   //! Computes the point at parameter U.
-  Standard_EXPORT void D0(const Standard_Real U, gp_Pnt& P) const Standard_OVERRIDE;
+  Standard_EXPORT void D0(const Standard_Real U, Point3d& P) const Standard_OVERRIDE;
 
   //! Returns True.
   Standard_EXPORT virtual Standard_Boolean IsCurve3D() const Standard_OVERRIDE;

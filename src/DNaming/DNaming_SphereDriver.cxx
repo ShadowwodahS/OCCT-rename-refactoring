@@ -102,7 +102,7 @@ Standard_Integer DNaming_SphereDriver::Execute(Handle(TFunction_Logbook)& theLog
     aFunction->SetFailure(WRONG_ARGUMENT);
     return -1;
   }
-  gp_Pnt aCenter = gp_Pnt(0., 0., 0.);
+  Point3d aCenter = Point3d(0., 0., 0.);
   if (aCntShape.ShapeType() == TopAbs_VERTEX)
   {
     aCenter = BRep_Tool::Pnt(TopoDS::Vertex(aCntShape));

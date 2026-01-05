@@ -57,9 +57,9 @@ public:
   Standard_EXPORT Standard_Boolean IsSolution(const math_Vector&  Sol,
                                               const Standard_Real Tol) Standard_OVERRIDE;
 
-  // Standard_EXPORT const gp_Pnt& PointOnS1() const Standard_OVERRIDE;
+  // Standard_EXPORT const Point3d& PointOnS1() const Standard_OVERRIDE;
 
-  // Standard_EXPORT const gp_Pnt& PointOnS2() const Standard_OVERRIDE;
+  // Standard_EXPORT const Point3d& PointOnS2() const Standard_OVERRIDE;
 
   // Standard_EXPORT Standard_Boolean IsTangencyPoint() const Standard_OVERRIDE;
 

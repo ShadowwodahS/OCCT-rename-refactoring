@@ -407,7 +407,7 @@ static void ChFi3d_ExtendSurface(Handle(Geom_Surface)& S, Standard_Integer& prol
     return;
 
   Standard_Real length, umin, umax, vmin, vmax;
-  gp_Pnt        P1, P2;
+  Point3d        P1, P2;
   S->Bounds(umin, umax, vmin, vmax);
   S->D0(umin, vmin, P1);
   S->D0(umax, vmax, P2);
@@ -953,7 +953,7 @@ void ChFi3d_Builder::PerformOneCorner(const Standard_Integer Index,
           Standard_Real Tol = 1.e-4;
           if (Abs(par2 - Udeb) > Tol && Abs(Ufin - par2) > Tol)
           {
-            gp_Pnt             P1 = ponc1.Value();
+            Point3d             P1 = ponc1.Value();
             TopOpeBRepDS_Point tpoint(P1, Tol);
             indpt      = DStr.AddPoint(tpoint);
             intcouture = Standard_True;
@@ -1381,7 +1381,7 @@ void ChFi3d_Builder::PerformOneCorner(const Standard_Integer Index,
           {
             par1                  = extCC.ParameterOnE1(i);
             par2                  = extCC.ParameterOnE2(i);
-            gp_Pnt             P1 = extCC.PointOnE1(i);
+            Point3d             P1 = extCC.PointOnE1(i);
             TopOpeBRepDS_Point tpoint(P1, 1.e-4);
             indpt      = DStr.AddPoint(tpoint);
             intcouture = Standard_True;
@@ -1867,7 +1867,7 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
   stripe->SetIndexPoint(ChFi3d_IndexPointInDS(CV1, DStr), isfirst, 1);
   stripe->SetIndexPoint(ChFi3d_IndexPointInDS(CV2, DStr), isfirst, 2);
 
-  //  gp_Pnt p3d;
+  //  Point3d p3d;
   //  gp_Pnt2d p2d;
   Standard_Real      dist;
   Standard_Integer   Ishape1 = Fd->IndexOfS1();
@@ -1923,7 +1923,7 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
   // and by the way define necessity to check shrink
   gp_Pnt2d P2d1 = Fi1.PCurveOnSurf()->Value(Fi1.Parameter(isfirst));
   gp_Pnt2d P2d2 = Fi1.PCurveOnSurf()->Value(Fi1.Parameter(!isfirst));
-  gp_Pnt   aP1, aP2;
+  Point3d   aP1, aP2;
   HGs->D0(P2d1.X(), P2d1.Y(), aP1);
   HGs->D0(P2d2.X(), P2d2.Y(), aP2);
   Standard_Real Fi1Length = aP1.Distance(aP2);
@@ -2611,7 +2611,7 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
         }
         else
         {
-          gp_Pnt        P       = BRep_Tool::Pnt(Vtx);
+          Point3d        P       = BRep_Tool::Pnt(Vtx);
           Standard_Real distmin = P.Distance(inters.Point(1).Pnt());
           nbp                   = 1;
           for (Standard_Integer i = 2; i <= inters.NbPoints(); i++)
@@ -2829,7 +2829,7 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
     p2 = Cc->LastParameter();
     Standard_Real to1, to2;
     gp_Pnt2d      p2d1, p2d2;
-    gp_Pnt        P1, P2, P3, P4, P5, P6, P7, P8;
+    Point3d        P1, P2, P3, P4, P5, P6, P7, P8;
     HGs->D0(Pardeb(1), Pardeb(2), P1);
     HGs->D0(Parfin(1), Parfin(2), P2);
     HBs->D0(Pardeb(3), Pardeb(4), P3);
@@ -2877,7 +2877,7 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
     }
     else
     {
-      gp_Pnt             point = Cc->Value(Cc->LastParameter());
+      Point3d             point = Cc->Value(Cc->LastParameter());
       TopOpeBRepDS_Point tpoint(point, to2);
       indpoint2 = DStr.AddPoint(tpoint);
     }
@@ -2979,7 +2979,7 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
         if (!(oneintersection1 || oneintersection2))
           proledge[nb] = Standard_True;
         Standard_Integer indp1, indp2, ind;
-        gp_Pnt           pext;
+        Point3d           pext;
         Standard_Real    ubid, vbid;
         pext = BRep_Tool::Pnt(Vtx);
         GeomAdaptor_Curve  cad;
@@ -2997,7 +2997,7 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
           {
             if (!C1.IsNull())
             {
-              gp_Pnt Pl;
+              Point3d Pl;
               Pl = C1->Value(C1->LastParameter());
               // Standard_Boolean sens;
               sens = Pl.Distance(pext) < tolpt;
@@ -3009,7 +3009,7 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
           {
             if (!C1.IsNull())
             {
-              gp_Pnt Pl;
+              Point3d Pl;
               Pl = C1->Value(C1->LastParameter());
               // Standard_Boolean sens;
               sens = Pl.Distance(pext) < tolpt;
@@ -3265,7 +3265,7 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
                         0); // out except tolers
 
     indpoint1 = indpoint2 = midIpoint;
-    gp_Pnt point;
+    Point3d point;
     if (isOnSame1)
     {
       point = C3d->Value(p2);
@@ -3334,7 +3334,7 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
     Handle(Geom2d_Curve) PCend = InterfPS[nb]->PCurve();
     // point near which self intersection may occur
     TopOpeBRepDS_Point& Pds   = DStr.ChangePoint(midIpoint);
-    const gp_Pnt&       Pvert = Pds.Point();
+    const Point3d&       Pvert = Pds.Point();
     Standard_Real       tol   = Pds.Tolerance();
 
     Geom2dAdaptor_Curve PC1(Ps), PC2(PCend);
@@ -3344,7 +3344,7 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
     for (nb = 1; nb <= Intersector.NbPoints(); nb++)
     {
       const IntRes2d_IntersectionPoint& ip   = Intersector.Point(nb);
-      gp_Pnt                            Pint = C3d->Value(ip.ParamOnFirst());
+      Point3d                            Pint = C3d->Value(ip.ParamOnFirst());
       tol                                    = Max(tol, Pvert.Distance(Pint));
       Pint                                   = Cend->Value(ip.ParamOnSecond());
       tol                                    = Max(tol, Pvert.Distance(Pint));
@@ -3355,7 +3355,7 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
       if (is.HasFirstPoint())
       {
         const IntRes2d_IntersectionPoint& ip   = is.FirstPoint();
-        gp_Pnt                            Pint = C3d->Value(ip.ParamOnFirst());
+        Point3d                            Pint = C3d->Value(ip.ParamOnFirst());
         tol                                    = Max(tol, Pvert.Distance(Pint));
         Pint                                   = Cend->Value(ip.ParamOnSecond());
         tol                                    = Max(tol, Pvert.Distance(Pint));
@@ -3363,7 +3363,7 @@ void ChFi3d_Builder::PerformIntersectionAtEnd(const Standard_Integer Index)
       if (is.HasLastPoint())
       {
         const IntRes2d_IntersectionPoint& ip   = is.LastPoint();
-        gp_Pnt                            Pint = C3d->Value(ip.ParamOnFirst());
+        Point3d                            Pint = C3d->Value(ip.ParamOnFirst());
         tol                                    = Max(tol, Pvert.Distance(Pint));
         Pint                                   = Cend->Value(ip.ParamOnSecond());
         tol                                    = Max(tol, Pvert.Distance(Pint));
@@ -3576,9 +3576,9 @@ void ChFi3d_Builder::PerformMoreSurfdata(const Standard_Integer Index)
   Handle(GeomAdaptor_Surface) H2      = new GeomAdaptor_Surface(aSurf);
   Standard_Real               aTolex1 = 0.;
   Standard_Integer            i;
-  gp_Pnt                      aPext1;
-  gp_Pnt                      aPext2;
-  gp_Pnt                      aPext;
+  Point3d                      aPext1;
+  Point3d                      aPext2;
+  Point3d                      aPext;
   Standard_Boolean            isPextFound;
 
   if (!anInterSS.IsDone())
@@ -3640,7 +3640,7 @@ void ChFi3d_Builder::PerformMoreSurfdata(const Standard_Integer Index)
     {
       if (anExt.IsMin(i))
       {
-        gp_Pnt aProjPnt = anExt.Point(i).Value();
+        Point3d aProjPnt = anExt.Point(i).Value();
 
         if (aPext.Distance(aProjPnt) <= aTol3d)
         {
@@ -3819,8 +3819,8 @@ void ChFi3d_Builder::PerformMoreSurfdata(const Standard_Integer Index)
 
   Standard_Integer indPoint1;
   Standard_Integer indPoint2;
-  gp_Pnt           aPoint1;
-  gp_Pnt           aPoint2;
+  Point3d           aPoint1;
+  Point3d           aPoint2;
 
   if (is2ndCP1OnArc)
   {
@@ -3910,10 +3910,10 @@ void ChFi3d_Builder::PerformMoreSurfdata(const Standard_Integer Index)
 
   // Define the orientation of aTrCracc
   Standard_Boolean isToReverse;
-  gp_Pnt           aP1;
-  gp_Pnt           aP2;
-  gp_Pnt           aP3;
-  gp_Pnt           aP4;
+  Point3d           aP1;
+  Point3d           aP2;
+  Point3d           aP3;
+  Point3d           aP4;
 
   if (isDoSecondSection)
   {
@@ -4593,7 +4593,7 @@ void ChFi3d_Builder::IntersectMoreCorner(const Standard_Integer Index)
           Standard_Real Tol = 1.e-4;
           if (Abs(par2 - Udeb) > Tol && Abs(Ufin - par2) > Tol)
           {
-            gp_Pnt             P1 = ponc1.Value();
+            Point3d             P1 = ponc1.Value();
             TopOpeBRepDS_Point tpoint(P1, Tol);
             indpt      = DStr.AddPoint(tpoint);
             intcouture = Standard_True;

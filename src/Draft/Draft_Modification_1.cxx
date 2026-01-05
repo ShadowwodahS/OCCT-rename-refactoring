@@ -90,11 +90,11 @@ static Standard_Boolean Choose(const Draft_IndexedDataMapOfFaceFaceInfo&,
                                GeomAdaptor_Curve&,
                                GeomAdaptor_Surface&);
 
-static Standard_Real Parameter(const Handle(Geom_Curve)&, const gp_Pnt&, Standard_Integer&);
+static Standard_Real Parameter(const Handle(Geom_Curve)&, const Point3d&, Standard_Integer&);
 
 static Standard_Real SmartParameter(Draft_EdgeInfo&,
                                     const Standard_Real EdgeTol,
-                                    const gp_Pnt&,
+                                    const Point3d&,
                                     const Standard_Integer,
                                     const Handle(Geom_Surface)&,
                                     const Handle(Geom_Surface)&);
@@ -828,7 +828,7 @@ void Draft_Modification::Perform()
 
       if (Einf.NewGeometry() && Einf.Geometry().IsNull())
       {
-        gp_Pnt ptfixe;
+        Point3d ptfixe;
         if (!Einf.IsTangent(ptfixe))
         {
           const TopoDS_Face& FirstFace  = Einf.FirstFace();
@@ -845,7 +845,7 @@ void Draft_Modification::Perform()
           Standard_Real pmin  = 0.;
           Standard_Real prmfv = BRep_Tool::Parameter(FV, theEdge);
           Standard_Real prmlv = BRep_Tool::Parameter(LV, theEdge);
-          gp_Pnt        pfv, plv;
+          Point3d        pfv, plv;
           gp_Vec        d1fv, d1lv, newd1;
           C->D1(prmfv, pfv, d1fv);
           C->D1(prmlv, plv, d1lv);
@@ -1010,7 +1010,7 @@ void Draft_Modification::Perform()
                       Standard_Real plvpar = myExtPC.Point(2).Parameter();
                       newC                 = i2s.Line(i);
 
-                      gp_Pnt pfvprim, plvprim;
+                      Point3d pfvprim, plvprim;
 
                       newC->D0(pfvpar, pfvprim);
                       newC->D0(plvpar, plvprim);
@@ -1084,7 +1084,7 @@ void Draft_Modification::Perform()
                   else if (myExtPC.NbExt() < 1)
                   {
                     Standard_Real dist1_2, dist2_2;
-                    gp_Pnt        p1b, p2b;
+                    Point3d        p1b, p2b;
                     myExtPC.TrimmedSquareDistances(dist1_2, dist2_2, p1b, p2b);
                     if (dist1_2 < dist2_2)
                     {
@@ -1145,7 +1145,7 @@ void Draft_Modification::Perform()
                 for (i = 1; i <= i2s.NbLines(); i++)
                 {
                   const Handle(Geom_Curve)&  aCurve = i2s.Line(i);
-                  gp_Pnt                     Pnt    = aCurve->Value(aCurve->FirstParameter());
+                  Point3d                     Pnt    = aCurve->Value(aCurve->FirstParameter());
                   GeomAPI_ProjectPointOnSurf projector(Pnt, S1, Precision::Confusion());
                   Standard_Real              U, V;
                   projector.LowerDistanceParameters(U, V);
@@ -1188,7 +1188,7 @@ void Draft_Modification::Perform()
                 for (i = 1; i <= Candidates.Length(); i++)
                 {
                   Handle(Geom_Curve)  aCurve = Candidates(i);
-                  gp_Pnt              Pnt    = aCurve->Value(aCurve->FirstParameter());
+                  Point3d              Pnt    = aCurve->Value(aCurve->FirstParameter());
                   const Standard_Real Dist   = Pnt.Distance(pfv);
                   if (Dist - DistMin < -Precision::Confusion())
                   {
@@ -1207,7 +1207,7 @@ void Draft_Modification::Perform()
                   Curves.Append(i2s.Line(i));
 
               TColGeom_SequenceOfCurve ToGlue;
-              gp_Pnt                   EndPoint = FirstCurve->Value(FirstCurve->LastParameter());
+              Point3d                   EndPoint = FirstCurve->Value(FirstCurve->LastParameter());
               Standard_Boolean         added    = Standard_True;
               while (added)
               {
@@ -1215,7 +1215,7 @@ void Draft_Modification::Perform()
                 for (i = 1; i <= Curves.Length(); i++)
                 {
                   Handle(Geom_Curve) aCurve = Curves(i);
-                  gp_Pnt             pfirst, plast;
+                  Point3d             pfirst, plast;
                   pfirst = aCurve->Value(aCurve->FirstParameter());
                   plast  = aCurve->Value(aCurve->LastParameter());
                   if (pfirst.Distance(EndPoint) <= Precision::Confusion())
@@ -1367,7 +1367,7 @@ void Draft_Modification::Perform()
           }
           newC = new Geom_Line(ptfixe, dirextr);
 
-          gp_Pnt pfv;
+          Point3d pfv;
           gp_Vec d1fv, newd1;
           C->D1(0., pfv, d1fv);
           newC->D1(0., pfv, newd1);
@@ -1417,7 +1417,7 @@ void Draft_Modification::Perform()
       {
 
         // no concerted edge => alignment of two consecutive edges.
-        gp_Pnt pvt;
+        Point3d pvt;
         Vinf.ChangeGeometry() = pvt;
         Vinf.InitEdgeIterator();
         if (Vinf.MoreEdge())
@@ -1425,7 +1425,7 @@ void Draft_Modification::Perform()
           const TopoDS_Edge& Edg1 = Vinf.Edge();
           // const Draft_EdgeInfo& Einf1 = myEMap(Edg1);
           Draft_EdgeInfo& Einf1 = myEMap.ChangeFromKey(Edg1);
-          gp_Pnt          vtori = BRep_Tool::Pnt(TVV);
+          Point3d          vtori = BRep_Tool::Pnt(TVV);
           // Einf1.Geometry()->D0(Vinf.Parameter(Edg1), pvt);
           GeomAPI_ProjectPointOnCurve Projector(vtori, Einf1.Geometry()); // patch
           pvt = Projector.NearestPoint();
@@ -1448,7 +1448,7 @@ void Draft_Modification::Perform()
             // const Draft_EdgeInfo& Einf2 = myEMap(Edg2);
             Draft_EdgeInfo& Einf2 = myEMap.ChangeFromKey(Edg2);
             //	    Standard_Real f;
-            gp_Pnt opvt;
+            Point3d opvt;
             Einf2.Geometry()->D0(Vinf.Parameter(Edg2), opvt);
 
 #ifdef OCCT_DEBUG
@@ -1507,8 +1507,8 @@ void Draft_Modification::Perform()
         return;
       }
 
-      gp_Pnt vtori = BRep_Tool::Pnt(TVV);
-      gp_Pnt pvt;
+      Point3d vtori = BRep_Tool::Pnt(TVV);
+      Point3d pvt;
 
       Standard_Integer nbsol = myintcs.NbPoints();
       if (nbsol <= 0)
@@ -1622,7 +1622,7 @@ void Draft_Modification::Perform()
         Standard_Real            aF = 0.0, aL = 0.0;
         const Handle(Geom_Curve) aSCurve   = BRep_Tool::Curve(edg, aF, aL);
         Handle(Geom_Curve)       anIntCurv = aEinf.Geometry();
-        gp_Pnt                   aPf, aPl;
+        Point3d                   aPf, aPl;
         gp_Vec                   aDirNF, aDirNL, aDirOF, aDirOL;
         aSCurve->D1(BRep_Tool::Parameter(Vf, edg), aPf, aDirOF);
         aSCurve->D1(BRep_Tool::Parameter(Vl, edg), aPl, aDirOL);
@@ -1792,7 +1792,7 @@ Handle(Geom_Surface) Draft_Modification::NewSurface(const Handle(Geom_Surface)& 
         alpha = -alpha;
       }
 
-      gp_Pnt Center = i2s.Circle(1).Location();
+      Point3d Center = i2s.Circle(1).Location();
       if (testdir < 0.)
       {
         alpha = -alpha;
@@ -1856,7 +1856,7 @@ Handle(Geom_Surface) Draft_Modification::NewSurface(const Handle(Geom_Surface)& 
       alpha = -alpha;
     }
 
-    gp_Pnt Center = i2s.Circle(1).Location();
+    Point3d Center = i2s.Circle(1).Location();
     if (Abs(Angle) > Precision::Angular())
     {
       if (testdir < 0.)
@@ -1946,7 +1946,7 @@ Handle(Geom_Curve) Draft_Modification::NewCurve(const Handle(Geom_Curve)&   C,
   {
     Standard_Real U, V;
     gp_Vec        d1u, d1v;
-    gp_Pnt        pbid;
+    Point3d        pbid;
     gp_Cylinder   Cy = Handle(Geom_CylindricalSurface)::DownCast(S)->Cylinder();
     ElSLib::Parameters(Cy, lin.Location(), U, V);
     ElSLib::D1(U, V, Cy, pbid, d1u, d1v);
@@ -1956,7 +1956,7 @@ Handle(Geom_Curve) Draft_Modification::NewCurve(const Handle(Geom_Curve)&   C,
   {
     Standard_Real U, V;
     gp_Vec        d1u, d1v;
-    gp_Pnt        pbid;
+    Point3d        pbid;
     gp_Cone       Co = Handle(Geom_ConicalSurface)::DownCast(S)->Cone();
     ElSLib::Parameters(Co, lin.Location(), U, V);
     ElSLib::D1(U, V, Co, pbid, d1u, d1v);
@@ -2027,7 +2027,7 @@ static Standard_Boolean Choose(const Draft_IndexedDataMapOfFaceFaceInfo& theFMap
   TopLoc_Location    Loc;
   Handle(Geom_Curve) C = BRep_Tool::Curve(Eref, Loc, f, l);
   C                    = Handle(Geom_Curve)::DownCast(C->Transformed(Loc.Transformation()));
-  gp_Pnt ptbid;
+  Point3d ptbid;
   // prm = Parameter(C,BRep_Tool::Pnt(Vtx));
   Standard_Integer done;
   Standard_Real    param = Parameter(C, BRep_Tool::Pnt(Vtx), done);
@@ -2111,7 +2111,7 @@ static Standard_Boolean Choose(const Draft_IndexedDataMapOfFaceFaceInfo& theFMap
 
 //=================================================================================================
 
-static Standard_Real Parameter(const Handle(Geom_Curve)& C, const gp_Pnt& P, Standard_Integer& done)
+static Standard_Real Parameter(const Handle(Geom_Curve)& C, const Point3d& P, Standard_Integer& done)
 {
   done                        = 0;
   Handle(Geom_Curve)    cbase = C;
@@ -2176,7 +2176,7 @@ static Standard_Real Parameter(const Handle(Geom_Curve)& C, const gp_Pnt& P, Sta
     else
     {
       Standard_Real dist1_2, dist2_2;
-      gp_Pnt        p1b, p2b;
+      Point3d        p1b, p2b;
       myExtPC.TrimmedSquareDistances(dist1_2, dist2_2, p1b, p2b);
       if (dist1_2 < dist2_2)
       {
@@ -2207,7 +2207,7 @@ static Standard_Real Parameter(const Handle(Geom_Curve)& C, const gp_Pnt& P, Sta
 
 static Standard_Real SmartParameter(Draft_EdgeInfo&             Einf,
                                     const Standard_Real         EdgeTol,
-                                    const gp_Pnt&               Pnt,
+                                    const Point3d&               Pnt,
                                     const Standard_Integer      sign,
                                     const Handle(Geom_Surface)& S1,
                                     const Handle(Geom_Surface)& S2)

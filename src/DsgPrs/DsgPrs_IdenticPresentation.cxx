@@ -37,8 +37,8 @@
 void DsgPrs_IdenticPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                      const Handle(Prs3d_Drawer)&       aDrawer,
                                      const TCollection_ExtendedString& aText,
-                                     const gp_Pnt&                     aPntAttach,
-                                     const gp_Pnt&                     aPntOffset)
+                                     const Point3d&                     aPntAttach,
+                                     const Point3d&                     aPntOffset)
 {
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
@@ -65,9 +65,9 @@ void DsgPrs_IdenticPresentation::Add(const Handle(Prs3d_Presentation)& aPresenta
 void DsgPrs_IdenticPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                      const Handle(Prs3d_Drawer)&       aDrawer,
                                      const TCollection_ExtendedString& aText,
-                                     const gp_Pnt&                     aFAttach,
-                                     const gp_Pnt&                     aSAttach,
-                                     const gp_Pnt&                     aPntOffset)
+                                     const Point3d&                     aFAttach,
+                                     const Point3d&                     aSAttach,
+                                     const Point3d&                     aPntOffset)
 {
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
@@ -101,10 +101,10 @@ void DsgPrs_IdenticPresentation::Add(const Handle(Prs3d_Presentation)& aPresenta
                                      const Handle(Prs3d_Drawer)&       aDrawer,
                                      const TCollection_ExtendedString& aText,
                                      const gp_Ax2&                     theAxe,
-                                     const gp_Pnt&                     aCenter,
-                                     const gp_Pnt&                     aFAttach,
-                                     const gp_Pnt&                     aSAttach,
-                                     const gp_Pnt&                     aPntOffset)
+                                     const Point3d&                     aCenter,
+                                     const Point3d&                     aFAttach,
+                                     const Point3d&                     aSAttach,
+                                     const Point3d&                     aPntOffset)
 {
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
@@ -150,11 +150,11 @@ void DsgPrs_IdenticPresentation::Add(const Handle(Prs3d_Presentation)& aPresenta
                                      const Handle(Prs3d_Drawer)&       aDrawer,
                                      const TCollection_ExtendedString& aText,
                                      const gp_Ax2&                     theAxe,
-                                     const gp_Pnt&                     aCenter,
-                                     const gp_Pnt&                     aFAttach,
-                                     const gp_Pnt&                     aSAttach,
-                                     const gp_Pnt&                     aPntOffset,
-                                     const gp_Pnt&                     aPntOnCirc)
+                                     const Point3d&                     aCenter,
+                                     const Point3d&                     aFAttach,
+                                     const Point3d&                     aSAttach,
+                                     const Point3d&                     aPntOffset,
+                                     const Point3d&                     aPntOnCirc)
 {
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
@@ -202,10 +202,10 @@ void DsgPrs_IdenticPresentation::Add(const Handle(Prs3d_Presentation)& aPresenta
                                      const Handle(Prs3d_Drawer)&       aDrawer,
                                      const TCollection_ExtendedString& aText,
                                      const gp_Elips&                   anEllipse,
-                                     const gp_Pnt&                     aFAttach,
-                                     const gp_Pnt&                     aSAttach,
-                                     const gp_Pnt&                     aPntOffset,
-                                     const gp_Pnt&                     aPntOnElli)
+                                     const Point3d&                     aFAttach,
+                                     const Point3d&                     aSAttach,
+                                     const Point3d&                     aPntOffset,
+                                     const Point3d&                     aPntOnElli)
 {
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());

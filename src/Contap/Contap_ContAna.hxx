@@ -44,19 +44,19 @@ public:
 
   Standard_EXPORT void Perform(const gp_Sphere& S, const gp_Dir& D, const Standard_Real Ang);
 
-  Standard_EXPORT void Perform(const gp_Sphere& S, const gp_Pnt& Eye);
+  Standard_EXPORT void Perform(const gp_Sphere& S, const Point3d& Eye);
 
   Standard_EXPORT void Perform(const gp_Cylinder& C, const gp_Dir& D);
 
   Standard_EXPORT void Perform(const gp_Cylinder& C, const gp_Dir& D, const Standard_Real Ang);
 
-  Standard_EXPORT void Perform(const gp_Cylinder& C, const gp_Pnt& Eye);
+  Standard_EXPORT void Perform(const gp_Cylinder& C, const Point3d& Eye);
 
   Standard_EXPORT void Perform(const gp_Cone& C, const gp_Dir& D);
 
   Standard_EXPORT void Perform(const gp_Cone& C, const gp_Dir& D, const Standard_Real Ang);
 
-  Standard_EXPORT void Perform(const gp_Cone& C, const gp_Pnt& Eye);
+  Standard_EXPORT void Perform(const gp_Cone& C, const Point3d& Eye);
 
   Standard_Boolean IsDone() const;
 
@@ -75,10 +75,10 @@ private:
   Standard_Boolean  done;
   Standard_Integer  nbSol;
   GeomAbs_CurveType typL;
-  gp_Pnt            pt1;
-  gp_Pnt            pt2;
-  gp_Pnt            pt3;
-  gp_Pnt            pt4;
+  Point3d            pt1;
+  Point3d            pt2;
+  Point3d            pt3;
+  Point3d            pt4;
   gp_Dir            dir1;
   gp_Dir            dir2;
   gp_Dir            dir3;

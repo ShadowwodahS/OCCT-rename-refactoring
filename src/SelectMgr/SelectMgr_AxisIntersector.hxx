@@ -76,12 +76,12 @@ public:
 
   //! Intersection test between defined axis and given point
   Standard_EXPORT virtual Standard_Boolean OverlapsPoint(
-    const gp_Pnt&                  thePnt,
+    const Point3d&                  thePnt,
     const SelectMgr_ViewClipRange& theClipRange,
     SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
 
   //! Intersection test between defined axis and given point
-  Standard_EXPORT virtual Standard_Boolean OverlapsPoint(const gp_Pnt& thePnt) const
+  Standard_EXPORT virtual Standard_Boolean OverlapsPoint(const Point3d& thePnt) const
     Standard_OVERRIDE;
 
   //! Intersection test between defined axis and given ordered set of points,
@@ -95,8 +95,8 @@ public:
 
   //! Checks if selecting axis intersects line segment
   Standard_EXPORT virtual Standard_Boolean OverlapsSegment(
-    const gp_Pnt&                  thePnt1,
-    const gp_Pnt&                  thePnt2,
+    const Point3d&                  thePnt1,
+    const Point3d&                  thePnt2,
     const SelectMgr_ViewClipRange& theClipRange,
     SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
 
@@ -104,16 +104,16 @@ public:
   //! be considered of interior part or boundary line defined by triangle vertices
   //! depending on given sensitivity type
   Standard_EXPORT virtual Standard_Boolean OverlapsTriangle(
-    const gp_Pnt&                  thePnt1,
-    const gp_Pnt&                  thePnt2,
-    const gp_Pnt&                  thePnt3,
+    const Point3d&                  thePnt1,
+    const Point3d&                  thePnt2,
+    const Point3d&                  thePnt3,
     Select3D_TypeOfSensitivity     theSensType,
     const SelectMgr_ViewClipRange& theClipRange,
     SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
 
   //! Intersection test between defined axis and given sphere with center theCenter
   //! and radius theRadius
-  Standard_EXPORT virtual Standard_Boolean OverlapsSphere(const gp_Pnt&       theCenter,
+  Standard_EXPORT virtual Standard_Boolean OverlapsSphere(const Point3d&       theCenter,
                                                           const Standard_Real theRadius,
                                                           Standard_Boolean* theInside = NULL) const
     Standard_OVERRIDE;
@@ -121,7 +121,7 @@ public:
   //! Intersection test between defined axis and given sphere with center theCenter
   //! and radius theRadius
   Standard_EXPORT virtual Standard_Boolean OverlapsSphere(
-    const gp_Pnt&                  theCenter,
+    const Point3d&                  theCenter,
     const Standard_Real            theRadius,
     const SelectMgr_ViewClipRange& theClipRange,
     SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
@@ -170,19 +170,19 @@ public:
 
 public:
   //! Measures distance between start axis point and given point theCOG.
-  Standard_EXPORT virtual Standard_Real DistToGeometryCenter(const gp_Pnt& theCOG) const
+  Standard_EXPORT virtual Standard_Real DistToGeometryCenter(const Point3d& theCOG) const
     Standard_OVERRIDE;
 
   //! Calculates the point on a axis ray that was detected during the run of selection algo by given
   //! depth
-  Standard_EXPORT virtual gp_Pnt DetectedPoint(const Standard_Real theDepth) const
+  Standard_EXPORT virtual Point3d DetectedPoint(const Standard_Real theDepth) const
     Standard_OVERRIDE;
 
   //! Returns near point along axis.
-  Standard_EXPORT virtual const gp_Pnt& GetNearPnt() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const Point3d& GetNearPnt() const Standard_OVERRIDE;
 
   //! Returns far point along axis (infinite).
-  Standard_EXPORT virtual const gp_Pnt& GetFarPnt() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const Point3d& GetFarPnt() const Standard_OVERRIDE;
 
   //! Returns axis direction.
   Standard_EXPORT virtual const gp_Dir& GetViewRayDirection() const Standard_OVERRIDE;
@@ -202,20 +202,20 @@ protected:
 
   //! Returns true if selecting axis intersects point.
   //! Also returns time of axis-point intersection.
-  Standard_EXPORT Standard_Boolean hasIntersection(const gp_Pnt&  thePnt,
+  Standard_EXPORT Standard_Boolean hasIntersection(const Point3d&  thePnt,
                                                    Standard_Real& theDepth) const;
 
   //! Returns true if selecting axis intersects segment.
   //! Also saves time of axis-segment intersection and intersection point as pick result.
-  Standard_EXPORT Standard_Boolean raySegmentDistance(const gp_Pnt&            theSegPnt1,
-                                                      const gp_Pnt&            theSegPnt2,
+  Standard_EXPORT Standard_Boolean raySegmentDistance(const Point3d&            theSegPnt1,
+                                                      const Point3d&            theSegPnt2,
                                                       SelectBasics_PickResult& thePickResult) const;
 
   //! Returns true if selecting axis intersects plane.
   //! Also saves time of axis-plane intersection and intersection point as pick result.
   Standard_EXPORT Standard_Boolean
     rayPlaneIntersection(const gp_Vec&            thePlane,
-                         const gp_Pnt&            thePntOnPlane,
+                         const Point3d&            thePntOnPlane,
                          SelectBasics_PickResult& thePickResult) const;
 
 private:

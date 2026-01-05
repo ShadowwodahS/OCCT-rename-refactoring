@@ -74,7 +74,7 @@ GeomFill_FunctionGuide::GeomFill_FunctionGuide(const Handle(GeomFill_SectionLaw)
 //==============================================
 // void GeomFill_FunctionGuide::SetParam(const Standard_Real Param,
 void GeomFill_FunctionGuide::SetParam(const Standard_Real,
-                                      const gp_Pnt& C,
+                                      const Point3d& C,
                                       const gp_XYZ& D,
                                       const gp_XYZ& DX)
 {
@@ -138,7 +138,7 @@ Standard_Integer GeomFill_FunctionGuide::NbEquations() const
 //==============================================
 Standard_Boolean GeomFill_FunctionGuide::Value(const math_Vector& X, math_Vector& F)
 {
-  gp_Pnt P, P1;
+  Point3d P, P1;
 
   TheGuide->D0(X(1), P);
   TheSurface->D0(X(2), X(3), P1);
@@ -156,7 +156,7 @@ Standard_Boolean GeomFill_FunctionGuide::Value(const math_Vector& X, math_Vector
 //==============================================
 Standard_Boolean GeomFill_FunctionGuide::Derivatives(const math_Vector& X, math_Matrix& D)
 {
-  gp_Pnt P, P1;
+  Point3d P, P1;
   gp_Vec DP, DP1U, DP1V;
 
   TheGuide->D1(X(1), P, DP);
@@ -181,7 +181,7 @@ Standard_Boolean GeomFill_FunctionGuide::Values(const math_Vector& X,
                                                 math_Vector&       F,
                                                 math_Matrix&       D)
 {
-  gp_Pnt P, P1;
+  Point3d P, P1;
   gp_Vec DP, DP1U, DP1V;
 
   TheGuide->D1(X(1), P, DP);                  // derivee de la generatrice
@@ -209,7 +209,7 @@ Standard_Boolean GeomFill_FunctionGuide::DerivT(const math_Vector& X,
                                                 const gp_XYZ&      DDir,
                                                 math_Vector&       F)
 {
-  gp_Pnt P;
+  Point3d P;
   gp_Vec DS;
   DSDT(X(2), X(3), DCentre, DDir, DS);
 
@@ -238,7 +238,7 @@ void GeomFill_FunctionGuide::DSDT(const Standard_Real U,
   // OM (u,v) = OC + CQ * Cos(U) + (CQ.Vdir)(1-Cos(U)) * Vdir +
   //            (Vdir^CQ)* Sin(U)
 
-  gp_Pnt Pc;
+  Point3d Pc;
   TheCurve->D0(V, Pc); // Q(v)
   //   if (!isconst)
 
@@ -306,7 +306,7 @@ void GeomFill_FunctionGuide::DSDT(const Standard_Real U,
                           const math_Vector & X0,
                           math_Matrix& D)
 {
-  gp_Pnt P1,P2;
+  Point3d P1,P2;
   gp_Vec DP1,DP2,DP2U,DP2V,DP1U,DP1V;
 
   TheCurve->D1(R(1), P1, DP1); // guide
@@ -336,7 +336,7 @@ void GeomFill_FunctionGuide::DSDT(const Standard_Real U,
  Standard_Boolean GeomFill_FunctionGuide::Deriv2X(const math_Vector & X,
                           GeomFill_Tensor& T)
 {
-  gp_Pnt P,P1;
+  Point3d P,P1;
   gp_Vec DP,D2P,DPU,DPV;
   gp_Vec D2PU, D2PV, D2PUV;
 

@@ -108,7 +108,7 @@ Standard_Integer DNaming_Line3DDriver::Execute(Handle(TFunction_Logbook)& theLog
     if (!aNS1->IsEmpty())
     {
       aShape1                = aNS1->Get();
-      const gp_Pnt aDebPoint = BRep_Tool::Pnt(TopoDS::Vertex(aShape1));
+      const Point3d aDebPoint = BRep_Tool::Pnt(TopoDS::Vertex(aShape1));
       (void)aDebPoint;
       //	std::cout << aCounter << " X = " <<  aDebPoint.X() << " Y = " <<  aDebPoint.Y() << " Z =
       //" <<  aDebPoint.Z() << std::endl;
@@ -118,7 +118,7 @@ Standard_Integer DNaming_Line3DDriver::Execute(Handle(TFunction_Logbook)& theLog
     if (!aNS2->IsEmpty())
     {
       aShape2                = aNS2->Get();
-      const gp_Pnt aDebPoint = BRep_Tool::Pnt(TopoDS::Vertex(aShape2));
+      const Point3d aDebPoint = BRep_Tool::Pnt(TopoDS::Vertex(aShape2));
       (void)aDebPoint;
       //      std::cout << aCounter+1 << " X = " <<  aDebPoint.X() << " Y = " <<  aDebPoint.Y() << "
       //      Z = " <<  aDebPoint.Z() << std::endl;
@@ -134,8 +134,8 @@ Standard_Integer DNaming_Line3DDriver::Execute(Handle(TFunction_Logbook)& theLog
     aShape1 = aNS1->Get();
     aShape2 = aNS2->Get();
 #ifdef OCCT_DEBUG
-    const gp_Pnt aDebPoint1 = BRep_Tool::Pnt(TopoDS::Vertex(aShape1));
-    const gp_Pnt aDebPoint2 = BRep_Tool::Pnt(TopoDS::Vertex(aShape2));
+    const Point3d aDebPoint1 = BRep_Tool::Pnt(TopoDS::Vertex(aShape1));
+    const Point3d aDebPoint2 = BRep_Tool::Pnt(TopoDS::Vertex(aShape2));
     //      std::cout << aCounter   << " X = " <<  aDebPoint1.X() << " Y = " <<  aDebPoint1.Y() << "
     //      Z = " <<  aDebPoint1.Z() << std::endl; std::cout << aCounter+1 << " X = " <<
     //      aDebPoint2.X() << " Y = " <<  aDebPoint2.Y() << " Z = " <<  aDebPoint2.Z() << std::endl;
@@ -226,8 +226,8 @@ void DNaming_Line3DDriver::LoadNamingDS(const TDF_Label&              theResultL
   TopoDS_Vertex          aFirst, aLast;
   for (Standard_Integer i = 1; i < aLength; i++)
   {
-    gp_Pnt           aP1    = BRep_Tool::Pnt(TopoDS::Vertex(theArV.Value(i)));
-    gp_Pnt           aP2    = BRep_Tool::Pnt(TopoDS::Vertex(theArV.Value(i + 1)));
+    Point3d           aP1    = BRep_Tool::Pnt(TopoDS::Vertex(theArV.Value(i)));
+    Point3d           aP2    = BRep_Tool::Pnt(TopoDS::Vertex(theArV.Value(i + 1)));
     Standard_Boolean aFound = Standard_False;
     TopExp_Explorer  anExp(theWire, TopAbs_EDGE);
     for (; anExp.More(); anExp.Next())
@@ -235,8 +235,8 @@ void DNaming_Line3DDriver::LoadNamingDS(const TDF_Label&              theResultL
       const TopoDS_Edge& anE = TopoDS::Edge(anExp.Current());
       TopoDS_Vertex      aV, aV1, aV2;
       TopExp::Vertices(anE, aV1, aV2);
-      gp_Pnt aPE1 = BRep_Tool::Pnt(aV1);
-      gp_Pnt aPE2 = BRep_Tool::Pnt(aV2);
+      Point3d aPE1 = BRep_Tool::Pnt(aV1);
+      Point3d aPE2 = BRep_Tool::Pnt(aV2);
       if (aP1.IsEqual(aPE1, Precision::Confusion()) && aP2.IsEqual(aPE2, Precision::Confusion()))
       {
         anArE.SetValue(i, anE);
@@ -252,16 +252,16 @@ void DNaming_Line3DDriver::LoadNamingDS(const TDF_Label&              theResultL
   if (isClosed)
   {
     Standard_Boolean aFound = Standard_False;
-    gp_Pnt           aP1    = BRep_Tool::Pnt(TopoDS::Vertex(theArV.Value(aLength)));
-    gp_Pnt           aP2    = BRep_Tool::Pnt(TopoDS::Vertex(theArV.Value(1)));
+    Point3d           aP1    = BRep_Tool::Pnt(TopoDS::Vertex(theArV.Value(aLength)));
+    Point3d           aP2    = BRep_Tool::Pnt(TopoDS::Vertex(theArV.Value(1)));
     TopExp_Explorer  anExp(theWire, TopAbs_EDGE);
     for (; anExp.More(); anExp.Next())
     {
       const TopoDS_Edge& anE = TopoDS::Edge(anExp.Current());
       TopoDS_Vertex      aV, aV1, aV2;
       TopExp::Vertices(anE, aV1, aV2);
-      gp_Pnt aPE1 = BRep_Tool::Pnt(aV1);
-      gp_Pnt aPE2 = BRep_Tool::Pnt(aV2);
+      Point3d aPE1 = BRep_Tool::Pnt(aV1);
+      Point3d aPE2 = BRep_Tool::Pnt(aV2);
       if (aP1.IsEqual(aPE1, Precision::Confusion()) && aP2.IsEqual(aPE2, Precision::Confusion()))
       {
         anArE.SetValue(aLength, anE);

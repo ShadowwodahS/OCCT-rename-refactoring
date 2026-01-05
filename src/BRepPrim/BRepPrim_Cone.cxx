@@ -64,7 +64,7 @@ BRepPrim_Cone::BRepPrim_Cone(const Standard_Real Angle)
 
 //=================================================================================================
 
-BRepPrim_Cone::BRepPrim_Cone(const Standard_Real Angle, const gp_Pnt& Apex)
+BRepPrim_Cone::BRepPrim_Cone(const Standard_Real Angle, const Point3d& Apex)
     : BRepPrim_Revolution(gp_Ax2(Apex, gp_Dir(0, 0, 1), gp_Dir(1, 0, 0)), 0, RealLast()),
       myHalfAngle(Angle),
       myRadius(0.)
@@ -98,7 +98,7 @@ BRepPrim_Cone::BRepPrim_Cone(const Standard_Real R1, const Standard_Real R2, con
 
 //=================================================================================================
 
-BRepPrim_Cone::BRepPrim_Cone(const gp_Pnt&       Center,
+BRepPrim_Cone::BRepPrim_Cone(const Point3d&       Center,
                              const Standard_Real R1,
                              const Standard_Real R2,
                              const Standard_Real H)

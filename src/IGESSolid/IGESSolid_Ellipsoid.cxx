@@ -58,20 +58,20 @@ Standard_Real IGESSolid_Ellipsoid::ZLength() const
   return theSize.Z();
 }
 
-gp_Pnt IGESSolid_Ellipsoid::Center() const
+Point3d IGESSolid_Ellipsoid::Center() const
 {
-  return gp_Pnt(theCenter);
+  return Point3d(theCenter);
 }
 
-gp_Pnt IGESSolid_Ellipsoid::TransformedCenter() const
+Point3d IGESSolid_Ellipsoid::TransformedCenter() const
 {
   if (!HasTransf())
-    return gp_Pnt(theCenter);
+    return Point3d(theCenter);
   else
   {
     gp_XYZ tmp = theCenter;
     Location().Transforms(tmp);
-    return gp_Pnt(tmp);
+    return Point3d(tmp);
   }
 }
 

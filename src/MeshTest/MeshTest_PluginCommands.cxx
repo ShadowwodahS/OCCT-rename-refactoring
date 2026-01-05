@@ -321,9 +321,9 @@ static Standard_Integer triarea(Draw_Interpretor& di, int n, const char** a)
         const Poly_Triangle tri = aPoly->Triangle(j);
         int                 n1, n2, n3;
         tri.Get(n1, n2, n3);
-        const gp_Pnt p1 = aPoly->Node(n1);
-        const gp_Pnt p2 = aPoly->Node(n2);
-        const gp_Pnt p3 = aPoly->Node(n3);
+        const Point3d p1 = aPoly->Node(n1);
+        const Point3d p2 = aPoly->Node(n2);
+        const Point3d p3 = aPoly->Node(n3);
         gp_Vec       v1(p1, p2);
         gp_Vec       v2(p1, p3);
         double       ar = v1.CrossMagnitude(v2);

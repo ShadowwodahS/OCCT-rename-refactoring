@@ -146,7 +146,7 @@ private:
 
     Standard_Boolean Accept(const Standard_Integer& theObj);
 
-    void SetCurrentVertex(const gp_Pnt& theP, Standard_Real theTol, Standard_Integer theVInd);
+    void SetCurrentVertex(const Point3d& theP, Standard_Real theTol, Standard_Integer theVInd);
 
     const NCollection_List<Standard_Integer>& GetResultInds() const { return myResultInd; }
 
@@ -157,7 +157,7 @@ private:
     BRepLib_BndBoxVertexSelector& operator=(const BRepLib_BndBoxVertexSelector&);
 
     const TopTools_IndexedMapOfShape&  myMapOfShape; // vertices
-    gp_Pnt                             myP;
+    Point3d                             myP;
     Standard_Real                      myTolP;
     Standard_Integer                   myVInd;
     Bnd_Box                            myVBox;

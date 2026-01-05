@@ -161,7 +161,7 @@ private:
 
 public:
   typedef subBase_empty<basic>                         Point;
-  typedef instance<Point, Geom_CartesianPoint, gp_Pnt> CartesianPoint;
+  typedef instance<Point, Geom_CartesianPoint, Point3d> CartesianPoint;
 
   typedef subBase_gp<basic, gp_Vec>                          Vector;
   typedef instance<Vector, Geom_Direction, gp_Dir>           Direction;
@@ -202,7 +202,7 @@ inline Standard_CString ShapePersistent_Geom::subBase_empty<ShapePersistent_Geom
 
 template <>
 inline Standard_CString ShapePersistent_Geom::
-  instance<ShapePersistent_Geom::Point, Geom_CartesianPoint, gp_Pnt>::PName() const
+  instance<ShapePersistent_Geom::Point, Geom_CartesianPoint, Point3d>::PName() const
 {
   return "PGeom_CartesianPoint";
 }
@@ -210,7 +210,7 @@ inline Standard_CString ShapePersistent_Geom::
 template <>
 inline void ShapePersistent_Geom::instance<ShapePersistent_Geom::Point,
                                            Geom_CartesianPoint,
-                                           gp_Pnt>::Write(StdObjMgt_WriteData& theWriteData) const
+                                           Point3d>::Write(StdObjMgt_WriteData& theWriteData) const
 {
   Handle(Geom_CartesianPoint) aMyGeom = Handle(Geom_CartesianPoint)::DownCast(myTransient);
   theWriteData << aMyGeom->Pnt();

@@ -47,12 +47,12 @@ gp_Pnt2d IGESGeom_CircularArc::Center() const
   return Center;
 }
 
-gp_Pnt IGESGeom_CircularArc::TransformedCenter() const
+Point3d IGESGeom_CircularArc::TransformedCenter() const
 {
   gp_XYZ Center(theCenter.X(), theCenter.Y(), theZT);
   if (HasTransf())
     Location().Transforms(Center);
-  gp_Pnt transCenter(Center);
+  Point3d transCenter(Center);
   return transCenter;
 }
 
@@ -62,12 +62,12 @@ gp_Pnt2d IGESGeom_CircularArc::StartPoint() const
   return Start;
 }
 
-gp_Pnt IGESGeom_CircularArc::TransformedStartPoint() const
+Point3d IGESGeom_CircularArc::TransformedStartPoint() const
 {
   gp_XYZ Start(theStart.X(), theStart.Y(), theZT);
   if (HasTransf())
     Location().Transforms(Start);
-  gp_Pnt transStart(Start);
+  Point3d transStart(Start);
   return transStart;
 }
 
@@ -82,12 +82,12 @@ gp_Pnt2d IGESGeom_CircularArc::EndPoint() const
   return End;
 }
 
-gp_Pnt IGESGeom_CircularArc::TransformedEndPoint() const
+Point3d IGESGeom_CircularArc::TransformedEndPoint() const
 {
   gp_XYZ End(theEnd.X(), theEnd.Y(), theZT);
   if (HasTransf())
     Location().Transforms(End);
-  gp_Pnt transEnd(End);
+  Point3d transEnd(End);
   return transEnd;
 }
 

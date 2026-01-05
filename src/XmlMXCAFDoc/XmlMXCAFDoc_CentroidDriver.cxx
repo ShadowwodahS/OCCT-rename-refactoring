@@ -56,7 +56,7 @@ Standard_Boolean XmlMXCAFDoc_CentroidDriver::Paste(const XmlObjMgt_Persistent&  
     return Standard_False;
   }
 
-  gp_Pnt           aPos;
+  Point3d           aPos;
   Standard_Real    aValue;
   Standard_CString aValueStr = Standard_CString(aPosStr.GetString());
 
@@ -112,7 +112,7 @@ void XmlMXCAFDoc_CentroidDriver::Paste(const Handle(TDF_Attribute)& theSource,
   Handle(XCAFDoc_Centroid) aTPos = Handle(XCAFDoc_Centroid)::DownCast(theSource);
   if (!aTPos.IsNull())
   {
-    gp_Pnt aPos = aTPos->Get();
+    Point3d aPos = aTPos->Get();
     char   buf[75]; // (24 + 1) * 3
     Sprintf(buf, "%.17g %.17g %.17g", aPos.X(), aPos.Y(), aPos.Z());
     XmlObjMgt::SetStringValue(theTarget.Element(), buf);

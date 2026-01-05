@@ -51,7 +51,7 @@ void IntStart_SearchInside::Perform (TheFunction& Func,
   list.Clear();
   Standard_Real aBinf[2], aBsup[2], aUVap[2], atoler[2];
   math_Vector Binf(aBinf,1,2), Bsup(aBsup,1,2), UVap(aUVap,1,2), toler(atoler,1,2);
-  gp_Pnt psol;
+  Point3d psol;
   Standard_Boolean testpnt;
   Standard_Integer i,j,nbpt;
   TopAbs_State situ;
@@ -117,7 +117,7 @@ void IntStart_SearchInside::Perform (TheFunction& Func,
   
   for (i=1; i <= Nbsample+12; i++) {
     gp_Pnt2d s2d;
-    gp_Pnt s3d;
+    Point3d s3d;
     Standard_Boolean nepastester=Standard_False;
     if(i<=Nbsample) { 
       T->SamplePoint(i,s2d,s3d);      
@@ -130,9 +130,9 @@ void IntStart_SearchInside::Perform (TheFunction& Func,
       v2 = Bsup(2) = Min(vmax,UVap(2)+dv);
       
       
-      //-- gp_Pnt Pmilieu = ThePSurfaceTool::Value(PS,0.5*(u1+u2),0.5*(v1+v2));
-      gp_Pnt Pextrm1 = ThePSurfaceTool::Value(PS,u1,v1);
-      gp_Pnt Pextrm2 = ThePSurfaceTool::Value(PS,u2,v2);
+      //-- Point3d Pmilieu = ThePSurfaceTool::Value(PS,0.5*(u1+u2),0.5*(v1+v2));
+      Point3d Pextrm1 = ThePSurfaceTool::Value(PS,u1,v1);
+      Point3d Pextrm2 = ThePSurfaceTool::Value(PS,u2,v2);
       Standard_Real aValf[1];
       math_Vector Valf(aValf,1,1);
       Func.Value(UVap,Valf);
@@ -181,7 +181,7 @@ void IntStart_SearchInside::Perform (TheFunction& Func,
 	    
 	    while (testpnt) {
 	      const IntSurf_InteriorPoint&  IPj = list(j);
-	      const gp_Pnt& Pj = IPj.Value();
+	      const Point3d& Pj = IPj.Value();
 	      if (   (Abs(Pj.X()-psol.X()) <= Epsilon)
 		  && (Abs(Pj.Y()-psol.Y()) <= Epsilon)
 		  && (Abs(Pj.Z()-psol.Z()) <= Epsilon)
@@ -249,7 +249,7 @@ void IntStart_SearchInside::Perform (TheFunction& Func,
       Standard_Real tol = Func.Tolerance();
       Standard_Real valf = Func.Root();
       if (Abs(valf) <= tol && !Func.IsTangent()) {
-	const gp_Pnt& psol = Func.Point();
+	const Point3d& psol = Func.Point();
 	Rsnld.Root(UVap);
 	IntSurf_InteriorPoint intp (psol,UVap(1),UVap(2),
 				    Func.Direction3d(),Func.Direction2d());

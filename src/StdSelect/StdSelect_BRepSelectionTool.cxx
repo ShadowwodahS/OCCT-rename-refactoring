@@ -470,7 +470,7 @@ static Standard_Boolean FindLimits(const Adaptor3d_Curve& theCurve,
   Standard_Boolean isLastInf  = Precision::IsPositiveInfinite(theLast);
   if (isFirstInf || isLastInf)
   {
-    gp_Pnt           aPnt1, aPnt2;
+    Point3d           aPnt1, aPnt2;
     Standard_Real    aDelta      = 1.0;
     Standard_Integer anIterCount = 0;
     if (isFirstInf && isLastInf)
@@ -712,7 +712,7 @@ Standard_Boolean StdSelect_BRepSelectionTool::GetSensitiveForFace(
           aRad2   = aCircles[1].Radius();
           aHeight = aCircles[0].Location().Distance(aCircles[1].Location());
 
-          const gp_Pnt aPos = aCircles[0].Location();
+          const Point3d aPos = aCircles[0].Location();
           const gp_Dir aDirection(aCircles[1].Location().XYZ() - aPos.XYZ());
 
           aTrsf.SetTransformation(gp_Ax3(aPos, aDirection), gp::XOY());
@@ -735,7 +735,7 @@ Standard_Boolean StdSelect_BRepSelectionTool::GetSensitiveForFace(
         const gp_Cylinder aCyl = BRepAdaptor_Surface(theFace).Cylinder();
 
         const Standard_Real aRad = aCyl.Radius();
-        const gp_Pnt        aPos = aCircles[0].Location();
+        const Point3d        aPos = aCircles[0].Location();
         const gp_Dir        aDirection(aCircles[1].Location().XYZ() - aPos.XYZ());
         const Standard_Real aHeight = aPos.Distance(aCircles[1].Location());
 

@@ -24,7 +24,7 @@
 #include <GC_Root.hxx>
 #include <Geom_RectangularTrimmedSurface.hxx>
 
-class gp_Pnt;
+class Point3d;
 class gp_Circ;
 class gp_Ax1;
 
@@ -45,7 +45,7 @@ public:
   //! Its axis is <P1P2> and its radius is the distance
   //! between <P3> and <P1P2>.
   //! The height is the distance between P1 and P2.
-  Standard_EXPORT GC_MakeTrimmedCylinder(const gp_Pnt& P1, const gp_Pnt& P2, const gp_Pnt& P3);
+  Standard_EXPORT GC_MakeTrimmedCylinder(const Point3d& P1, const Point3d& P2, const Point3d& P3);
 
   //! Make a cylindricalSurface <Cyl> from gp by its base <Circ>.
   //! Its axis is the normal to the plane defined bi <Circ>.

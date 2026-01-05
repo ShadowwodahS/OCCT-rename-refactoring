@@ -25,7 +25,7 @@
 #include <Geom_Plane.hxx>
 
 class gp_Pln;
-class gp_Pnt;
+class Point3d;
 class gp_Dir;
 class gp_Ax1;
 
@@ -50,7 +50,7 @@ public:
 
   //! P is the "Location" point or origin of the plane.
   //! V is the direction normal to the plane.
-  Standard_EXPORT GC_MakePlane(const gp_Pnt& P, const gp_Dir& V);
+  Standard_EXPORT GC_MakePlane(const Point3d& P, const gp_Dir& V);
 
   //! Creates a plane from its cartesian equation :
   //! Ax + By + Cz + D = 0.0
@@ -63,7 +63,7 @@ public:
 
   //! Make a Plane from Geom <ThePlane> parallel to another
   //! Pln <Pln> and passing through a Pnt <Point>.
-  Standard_EXPORT GC_MakePlane(const gp_Pln& Pln, const gp_Pnt& Point);
+  Standard_EXPORT GC_MakePlane(const gp_Pln& Pln, const Point3d& Point);
 
   //! Make a Plane from Geom <ThePlane> parallel to another
   //! Pln <Pln> at the distance <Dist> which can be greater
@@ -77,7 +77,7 @@ public:
   //! Make a Plane from Geom <ThePlane> passing through 3
   //! Pnt <P1>,<P2>,<P3>.
   //! It returns false if <P1> <P2> <P3> are confused.
-  Standard_EXPORT GC_MakePlane(const gp_Pnt& P1, const gp_Pnt& P2, const gp_Pnt& P3);
+  Standard_EXPORT GC_MakePlane(const Point3d& P1, const Point3d& P2, const Point3d& P3);
 
   //! Make a Plane  passing through the location of <Axis>and
   //! normal to the Direction of <Axis>.

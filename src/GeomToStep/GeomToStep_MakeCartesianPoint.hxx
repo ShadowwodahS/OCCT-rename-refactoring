@@ -23,7 +23,7 @@
 
 #include <GeomToStep_Root.hxx>
 class StepGeom_CartesianPoint;
-class gp_Pnt;
+class Point3d;
 class gp_Pnt2d;
 class Geom_CartesianPoint;
 class Geom2d_CartesianPoint;
@@ -38,7 +38,7 @@ class GeomToStep_MakeCartesianPoint : public GeomToStep_Root
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT GeomToStep_MakeCartesianPoint(const gp_Pnt& P, const Standard_Real aFactor);
+  Standard_EXPORT GeomToStep_MakeCartesianPoint(const Point3d& P, const Standard_Real aFactor);
 
   Standard_EXPORT GeomToStep_MakeCartesianPoint(const gp_Pnt2d& P, const Standard_Real aFactor);
 

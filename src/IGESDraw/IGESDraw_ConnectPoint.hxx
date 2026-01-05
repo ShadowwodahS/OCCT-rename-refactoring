@@ -25,7 +25,7 @@
 #include <IGESData_IGESEntity.hxx>
 class TCollection_HAsciiString;
 class IGESGraph_TextDisplayTemplate;
-class gp_Pnt;
+class Point3d;
 
 class IGESDraw_ConnectPoint;
 DEFINE_STANDARD_HANDLE(IGESDraw_ConnectPoint, IGESData_IGESEntity)
@@ -71,10 +71,10 @@ public:
                             const Handle(IGESData_IGESEntity)&           anOwnerSubfigure);
 
   //! returns the coordinate of the connection point
-  Standard_EXPORT gp_Pnt Point() const;
+  Standard_EXPORT Point3d Point() const;
 
   //! returns the Transformed coordinate of the connection point
-  Standard_EXPORT gp_Pnt TransformedPoint() const;
+  Standard_EXPORT Point3d TransformedPoint() const;
 
   //! returns True if Display symbol is specified
   //! else returns False

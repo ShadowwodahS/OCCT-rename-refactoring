@@ -90,8 +90,8 @@ void DrawDim_Distance::DrawOn(Draw_Display& dis) const
   gp_Vec V     = anAx1.Direction();
 
   // output
-  gp_Pnt FAttach; // first attach point
-  gp_Pnt SAttach; // second attach point
+  Point3d FAttach; // first attach point
+  Point3d SAttach; // second attach point
 
   // first point, try a vertex
   TopExp_Explorer explo(myPlane1, TopAbs_VERTEX);

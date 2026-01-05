@@ -31,24 +31,24 @@ class Draw_Segment3D : public Draw_Drawable3D
 {
 
 public:
-  Standard_EXPORT Draw_Segment3D(const gp_Pnt& p1, const gp_Pnt& p2, const Draw_Color& col);
+  Standard_EXPORT Draw_Segment3D(const Point3d& p1, const Point3d& p2, const Draw_Color& col);
 
   Standard_EXPORT void DrawOn(Draw_Display& dis) const Standard_OVERRIDE;
 
-  Standard_EXPORT const gp_Pnt& First() const;
+  Standard_EXPORT const Point3d& First() const;
 
-  Standard_EXPORT void First(const gp_Pnt& P);
+  Standard_EXPORT void First(const Point3d& P);
 
-  Standard_EXPORT const gp_Pnt& Last() const;
+  Standard_EXPORT const Point3d& Last() const;
 
-  Standard_EXPORT void Last(const gp_Pnt& P);
+  Standard_EXPORT void Last(const Point3d& P);
 
   DEFINE_STANDARD_RTTIEXT(Draw_Segment3D, Draw_Drawable3D)
 
 protected:
 private:
-  gp_Pnt     myFirst;
-  gp_Pnt     myLast;
+  Point3d     myFirst;
+  Point3d     myLast;
   Draw_Color myColor;
 };
 

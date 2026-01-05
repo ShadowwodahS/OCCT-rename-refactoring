@@ -181,7 +181,7 @@ protected: //! @name interface for filling triangulation data
   //! @param[in] thePnt  node position
   virtual void setNodePosition(const Handle(Poly_Triangulation)& theMesh,
                                Standard_Integer                  theIndex,
-                               const gp_Pnt&                     thePnt) const
+                               const Point3d&                     thePnt) const
   {
     theMesh->SetNode(theIndex, thePnt);
   }

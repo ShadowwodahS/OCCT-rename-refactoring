@@ -59,7 +59,7 @@ Standard_Boolean XmlMDataXtd_PositionDriver::Paste(const XmlObjMgt_Persistent&  
     return Standard_False;
   }
 
-  gp_Pnt           aPos;
+  Point3d           aPos;
   Standard_Real    aValue;
   Standard_CString aValueStr = Standard_CString(aPosStr.GetString());
 
@@ -115,7 +115,7 @@ void XmlMDataXtd_PositionDriver::Paste(const Handle(TDF_Attribute)& theSource,
   Handle(TDataXtd_Position) aTPos = Handle(TDataXtd_Position)::DownCast(theSource);
   if (!aTPos.IsNull())
   {
-    gp_Pnt aPos = aTPos->GetPosition();
+    Point3d aPos = aTPos->GetPosition();
     char   buf[75]; // (24 + 1) * 3
     Sprintf(buf, "%.17g %.17g %.17g", aPos.X(), aPos.Y(), aPos.Z());
     XmlObjMgt::SetStringValue(theTarget.Element(), buf);

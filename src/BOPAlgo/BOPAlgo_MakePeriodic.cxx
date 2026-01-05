@@ -124,8 +124,8 @@ void BOPAlgo_MakePeriodic::Trim()
   aBox.Enlarge(0.1 * sqrt(aBox.SquareExtent()));
 
   // Get Corner points of the bounding box
-  gp_Pnt aPMin = aBox.CornerMin();
-  gp_Pnt aPMax = aBox.CornerMax();
+  Point3d aPMin = aBox.CornerMin();
+  Point3d aPMax = aBox.CornerMax();
 
   // Update corner points according to the requested trim parameters
   for (Standard_Integer i = 0; i < 3; ++i)

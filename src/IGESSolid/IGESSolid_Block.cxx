@@ -58,20 +58,20 @@ Standard_Real IGESSolid_Block::ZLength() const
   return theSize.Z();
 }
 
-gp_Pnt IGESSolid_Block::Corner() const
+Point3d IGESSolid_Block::Corner() const
 {
-  return gp_Pnt(theCorner);
+  return Point3d(theCorner);
 }
 
-gp_Pnt IGESSolid_Block::TransformedCorner() const
+Point3d IGESSolid_Block::TransformedCorner() const
 {
   if (!HasTransf())
-    return gp_Pnt(theCorner);
+    return Point3d(theCorner);
   else
   {
     gp_XYZ tmp = theCorner;
     Location().Transforms(tmp);
-    return gp_Pnt(tmp);
+    return Point3d(tmp);
   }
 }
 

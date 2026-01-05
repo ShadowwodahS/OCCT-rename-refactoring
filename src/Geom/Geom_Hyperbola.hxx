@@ -25,7 +25,7 @@
 class gp_Hypr;
 class gp_Ax2;
 class gp_Ax1;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 class gp_Trsf;
 class Geom_Geometry;
@@ -195,11 +195,11 @@ public:
 
   //! Returns the first focus of the hyperbola. This focus is on the
   //! positive side of the XAxis of the hyperbola.
-  Standard_EXPORT gp_Pnt Focus1() const;
+  Standard_EXPORT Point3d Focus1() const;
 
   //! Returns the second focus of the hyperbola. This focus is on the
   //! negative side of the XAxis of the hyperbola.
-  Standard_EXPORT gp_Pnt Focus2() const;
+  Standard_EXPORT Point3d Focus2() const;
 
   //! Returns the major or minor radius of this hyperbola.
   //! The major radius is also the distance between the
@@ -230,22 +230,22 @@ public:
   //! MinorRadius * Sinh (U) * YDir
   //! where C is the center of the hyperbola , XDir the XDirection and
   //! YDir the YDirection of the hyperbola's local coordinate system.
-  Standard_EXPORT void D0(const Standard_Real U, gp_Pnt& P) const Standard_OVERRIDE;
+  Standard_EXPORT void D0(const Standard_Real U, Point3d& P) const Standard_OVERRIDE;
 
   //! Returns the point P of parameter U and the first derivative V1.
-  Standard_EXPORT void D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V1) const Standard_OVERRIDE;
+  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, gp_Vec& V1) const Standard_OVERRIDE;
 
   //! Returns the point P of parameter U, the first and second
   //! derivatives V1 and V2.
   Standard_EXPORT void D2(const Standard_Real U,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             V1,
                           gp_Vec&             V2) const Standard_OVERRIDE;
 
   //! Returns the point P of parameter U, the first second and
   //! third derivatives V1 V2 and V3.
   Standard_EXPORT void D3(const Standard_Real U,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             V1,
                           gp_Vec&             V2,
                           gp_Vec&             V3) const Standard_OVERRIDE;

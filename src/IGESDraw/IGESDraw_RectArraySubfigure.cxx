@@ -64,18 +64,18 @@ Standard_Real IGESDraw_RectArraySubfigure::ScaleFactor() const
   return theScaleFactor;
 }
 
-gp_Pnt IGESDraw_RectArraySubfigure::LowerLeftCorner() const
+Point3d IGESDraw_RectArraySubfigure::LowerLeftCorner() const
 {
-  gp_Pnt tempLowerLeftCorner(theLowerLeftCorner);
+  Point3d tempLowerLeftCorner(theLowerLeftCorner);
   return tempLowerLeftCorner;
 }
 
-gp_Pnt IGESDraw_RectArraySubfigure::TransformedLowerLeftCorner() const
+Point3d IGESDraw_RectArraySubfigure::TransformedLowerLeftCorner() const
 {
   gp_XYZ tempLowerLeftCorner = theLowerLeftCorner;
   if (HasTransf())
     Location().Transforms(tempLowerLeftCorner);
-  gp_Pnt tempRes(tempLowerLeftCorner);
+  Point3d tempRes(tempLowerLeftCorner);
 
   return (tempRes);
 }

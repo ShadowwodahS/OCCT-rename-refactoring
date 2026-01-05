@@ -287,7 +287,7 @@ void IGESGeom_ToolConicArc::OwnDump(const Handle(IGESGeom_ConicArc)& ent,
     S << " -- Computed Definition : ask level > 4" << std::endl;
   else
   {
-    gp_Pnt        Cen;
+    Point3d        Cen;
     gp_Dir        Ax;
     Standard_Real Rmin, Rmax;
     ent->Definition(Cen, Ax, Rmin, Rmax);

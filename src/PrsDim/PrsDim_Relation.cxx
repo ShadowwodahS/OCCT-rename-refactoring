@@ -66,8 +66,8 @@ PrsDim_Relation::PrsDim_Relation(const PrsMgr_TypeOfPresentation3d aTypeOfPresen
 void PrsDim_Relation::ComputeProjEdgePresentation(const Handle(Prs3d_Presentation)& aPrs,
                                                   const TopoDS_Edge&                anEdge,
                                                   const Handle(Geom_Curve)&         ProjCurv,
-                                                  const gp_Pnt&                     FirstP,
-                                                  const gp_Pnt&                     LastP,
+                                                  const Point3d&                     FirstP,
+                                                  const Point3d&                     LastP,
                                                   const Quantity_NameOfColor        aColor,
                                                   const Standard_Real               width,
                                                   const Aspect_TypeOfLine           aProjTOL,
@@ -125,7 +125,7 @@ void PrsDim_Relation::ComputeProjEdgePresentation(const Handle(Prs3d_Presentatio
   myDrawer->WireAspect()->SetTypeOfLine(aCallTOL);
   if (!isInfinite)
   {
-    gp_Pnt ppf, ppl;
+    Point3d ppf, ppl;
     ppf = BRep_Tool::Pnt(TopExp::FirstVertex(TopoDS::Edge(anEdge)));
     ppl = BRep_Tool::Pnt(TopExp::LastVertex(TopoDS::Edge(anEdge)));
     if (FirstP.Distance(ppf) > gp::Resolution())
@@ -161,7 +161,7 @@ void PrsDim_Relation::ComputeProjEdgePresentation(const Handle(Prs3d_Presentatio
 
 void PrsDim_Relation::ComputeProjVertexPresentation(const Handle(Prs3d_Presentation)& aPrs,
                                                     const TopoDS_Vertex&              aVertex,
-                                                    const gp_Pnt&                     ProjPoint,
+                                                    const Point3d&                     ProjPoint,
                                                     const Quantity_NameOfColor        aColor,
                                                     const Standard_Real               width,
                                                     const Aspect_TypeOfMarker         aProjTOM,

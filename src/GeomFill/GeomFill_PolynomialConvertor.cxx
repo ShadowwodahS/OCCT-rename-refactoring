@@ -98,8 +98,8 @@ void GeomFill_PolynomialConvertor::Init()
   BH = B * H;
 }
 
-void GeomFill_PolynomialConvertor::Section(const gp_Pnt&       FirstPnt,
-                                           const gp_Pnt&       Center,
+void GeomFill_PolynomialConvertor::Section(const Point3d&       FirstPnt,
+                                           const Point3d&       Center,
                                            const gp_Vec&       Dir,
                                            const Standard_Real Angle,
                                            TColgp_Array1OfPnt& Poles) const
@@ -149,9 +149,9 @@ void GeomFill_PolynomialConvertor::Section(const gp_Pnt&       FirstPnt,
   }
 }
 
-void GeomFill_PolynomialConvertor::Section(const gp_Pnt&       FirstPnt,
+void GeomFill_PolynomialConvertor::Section(const Point3d&       FirstPnt,
                                            const gp_Vec&       DFirstPnt,
-                                           const gp_Pnt&       Center,
+                                           const Point3d&       Center,
                                            const gp_Vec&       DCenter,
                                            const gp_Vec&       Dir,
                                            const gp_Vec&       DDir,
@@ -233,10 +233,10 @@ void GeomFill_PolynomialConvertor::Section(const gp_Pnt&       FirstPnt,
   }
 }
 
-void GeomFill_PolynomialConvertor::Section(const gp_Pnt&       FirstPnt,
+void GeomFill_PolynomialConvertor::Section(const Point3d&       FirstPnt,
                                            const gp_Vec&       DFirstPnt,
                                            const gp_Vec&       D2FirstPnt,
-                                           const gp_Pnt&       Center,
+                                           const Point3d&       Center,
                                            const gp_Vec&       DCenter,
                                            const gp_Vec&       D2Center,
                                            const gp_Vec&       Dir,

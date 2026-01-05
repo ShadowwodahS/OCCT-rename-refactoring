@@ -39,7 +39,7 @@ inline Standard_Real IntImp_ZerImpFunc::Tolerance() const
   return tol;
 }
 
-inline const gp_Pnt& IntImp_ZerImpFunc::Point() const
+inline const Point3d& IntImp_ZerImpFunc::Point() const
 {
   return pntsol;
 }

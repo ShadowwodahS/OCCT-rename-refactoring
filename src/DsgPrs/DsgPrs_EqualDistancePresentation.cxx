@@ -39,17 +39,17 @@
 //=================================================================================
 void DsgPrs_EqualDistancePresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                            const Handle(Prs3d_Drawer)&       aDrawer,
-                                           const gp_Pnt&                     Point1,
-                                           const gp_Pnt&                     Point2,
-                                           const gp_Pnt&                     Point3,
-                                           const gp_Pnt&                     Point4,
+                                           const Point3d&                     Point1,
+                                           const Point3d&                     Point2,
+                                           const Point3d&                     Point3,
+                                           const Point3d&                     Point4,
                                            const Handle(Geom_Plane)&         Plane)
 {
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
 
   // Line between two middles
-  gp_Pnt Middle12((Point1.XYZ() + Point2.XYZ()) * 0.5),
+  Point3d Middle12((Point1.XYZ() + Point2.XYZ()) * 0.5),
     Middle34((Point3.XYZ() + Point4.XYZ()) * 0.5);
 
   Handle(Graphic3d_ArrayOfSegments) aPrims = new Graphic3d_ArrayOfSegments(2);
@@ -62,7 +62,7 @@ void DsgPrs_EqualDistancePresentation::Add(const Handle(Prs3d_Presentation)& aPr
   DsgPrs::ComputeSymbol(aPresentation, LA, Middle12, Middle34, aDir, aDir, DsgPrs_AS_BOTHPT);
   // ota -- begin --
   // Two small lines in the middle of this line
-  gp_Pnt        Middle((Middle12.XYZ() + Middle34.XYZ()) * 0.5), aTextPos;
+  Point3d        Middle((Middle12.XYZ() + Middle34.XYZ()) * 0.5), aTextPos;
   Standard_Real Dist = Middle12.Distance(Middle34);
   Standard_Real SmallDist;
   gp_Dir        LineDir, OrtDir;
@@ -87,7 +87,7 @@ void DsgPrs_EqualDistancePresentation::Add(const Handle(Prs3d_Presentation)& aPr
     if (Vec1.SquareMagnitude() > Precision::Confusion() * Precision::Confusion())
     {
       Standard_Real Angle  = gp_Vec(Middle, Point1).Angle(gp_Vec(Middle, Point3));
-      gp_Pnt        MidPnt = Point1.Rotated(Plane->Pln().Axis(), Angle * 0.5);
+      Point3d        MidPnt = Point1.Rotated(Plane->Pln().Axis(), Angle * 0.5);
       OrtDir               = gce_MakeDir(Middle, MidPnt);
       LineDir              = OrtDir ^ Plane->Pln().Axis().Direction();
 
@@ -121,13 +121,13 @@ void DsgPrs_EqualDistancePresentation::Add(const Handle(Prs3d_Presentation)& aPr
 //==================================================================================
 void DsgPrs_EqualDistancePresentation::AddInterval(const Handle(Prs3d_Presentation)& aPresentation,
                                                    const Handle(Prs3d_Drawer)&       aDrawer,
-                                                   const gp_Pnt&                     aPoint1,
-                                                   const gp_Pnt&                     aPoint2,
+                                                   const Point3d&                     aPoint1,
+                                                   const Point3d&                     aPoint2,
                                                    const gp_Dir&                     aDirection,
-                                                   const gp_Pnt&                     aPosition,
+                                                   const Point3d&                     aPosition,
                                                    const DsgPrs_ArrowSide            anArrowSide,
-                                                   gp_Pnt&                           aProj1,
-                                                   gp_Pnt&                           aProj2)
+                                                   Point3d&                           aProj1,
+                                                   Point3d&                           aProj2)
 {
   const Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
@@ -160,10 +160,10 @@ void DsgPrs_EqualDistancePresentation::AddIntervalBetweenTwoArcs(
   const Handle(Prs3d_Drawer)&       aDrawer,
   const gp_Circ&                    aCirc1,
   const gp_Circ&                    aCirc2,
-  const gp_Pnt&                     aPoint1,
-  const gp_Pnt&                     aPoint2,
-  const gp_Pnt&                     aPoint3,
-  const gp_Pnt&                     aPoint4,
+  const Point3d&                     aPoint1,
+  const Point3d&                     aPoint2,
+  const Point3d&                     aPoint3,
+  const Point3d&                     aPoint4,
   const DsgPrs_ArrowSide            anArrowSide)
 {
   const Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
@@ -236,7 +236,7 @@ void DsgPrs_EqualDistancePresentation::AddIntervalBetweenTwoArcs(
   else
   {
     // Let's take the radius direction
-    gp_Pnt aCenter = aCirc1.Location();
+    Point3d aCenter = aCirc1.Location();
     if (aPoint4.Distance(aCenter) < Precision::Confusion())
       return;
     DirOfArrow.SetXYZ(aPoint4.XYZ() - aCenter.XYZ());

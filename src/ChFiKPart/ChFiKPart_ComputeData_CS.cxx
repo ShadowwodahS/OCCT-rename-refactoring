@@ -37,15 +37,15 @@ void ChFiKPart_CornerSpine(const Handle(Adaptor3d_Surface)& S1,
   gp_Ax3 ax = S1->Plane().Position();
   gp_Vec V1(ax.XDirection());
   gp_Vec V2(ax.YDirection());
-  gp_Pnt P;
+  Point3d P;
   gp_Vec du, dv;
   S2->D1(P1S2.X(), P1S2.Y(), P, du, dv);
   gp_Vec V(P, S1->Value(P1S1.X(), P1S1.Y()));
   V = V.Dot(V1) * V1 + V.Dot(V2) * V2;
   V.Normalize();
-  gp_Pnt P2 = S2->Value(P2S2.X(), P2S2.Y());
+  Point3d P2 = S2->Value(P2S2.X(), P2S2.Y());
   gp_Vec Vorien(P, P2);
-  gp_Pnt cent;
+  Point3d cent;
   gp_Dir dx(V);
   if (V.Dot(Vorien) >= 0.)
   {

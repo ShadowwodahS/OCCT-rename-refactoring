@@ -37,7 +37,7 @@
 #include <TopoDS_Shape.hxx>
 #include <TopTools_IndexedDataMapOfShapeListOfShape.hxx>
 
-static Standard_Boolean FindCircle(const gp_Ax1&, const gp_Pnt&, gp_Circ&);
+static Standard_Boolean FindCircle(const gp_Ax1&, const Point3d&, gp_Circ&);
 
 //=================================================================================================
 
@@ -247,7 +247,7 @@ void LocOpe_Revol::Curves(TColGeom_SequenceOfCurve& Scurves) const
   LocOpe::SampleEdges(myFirstShape, spt);
   for (Standard_Integer jj = 1; jj <= spt.Length(); jj++)
   {
-    const gp_Pnt& pvt = spt(jj);
+    const Point3d& pvt = spt(jj);
     gp_Circ       CAX;
     if (FindCircle(myAxis, pvt, CAX))
     {
@@ -263,12 +263,12 @@ void LocOpe_Revol::Curves(TColGeom_SequenceOfCurve& Scurves) const
 
 Handle(Geom_Curve) LocOpe_Revol::BarycCurve() const
 {
-  gp_Pnt               bar(0., 0., 0.);
+  Point3d               bar(0., 0., 0.);
   TColgp_SequenceOfPnt spt;
   LocOpe::SampleEdges(myFirstShape, spt);
   for (Standard_Integer jj = 1; jj <= spt.Length(); jj++)
   {
-    const gp_Pnt& pvt = spt(jj);
+    const Point3d& pvt = spt(jj);
     bar.ChangeCoord() += pvt.XYZ();
   }
   bar.ChangeCoord().Divide(spt.Length());
@@ -285,7 +285,7 @@ Handle(Geom_Curve) LocOpe_Revol::BarycCurve() const
 
 //=================================================================================================
 
-static Standard_Boolean FindCircle(const gp_Ax1& Ax, const gp_Pnt& Pt, gp_Circ& Ci)
+static Standard_Boolean FindCircle(const gp_Ax1& Ax, const Point3d& Pt, gp_Circ& Ci)
 {
 
   const gp_Dir& Dax = Ax.Direction();
@@ -293,7 +293,7 @@ static Standard_Boolean FindCircle(const gp_Ax1& Ax, const gp_Pnt& Pt, gp_Circ& 
 
   Standard_Real prm = OP.Dot(Dax);
 
-  gp_Pnt        prj(Ax.Location().XYZ().Added(prm * Dax.XYZ()));
+  Point3d        prj(Ax.Location().XYZ().Added(prm * Dax.XYZ()));
   gp_Vec        axx(prj, Pt);
   Standard_Real Radius = axx.Magnitude();
   if (Radius < Precision::Confusion())

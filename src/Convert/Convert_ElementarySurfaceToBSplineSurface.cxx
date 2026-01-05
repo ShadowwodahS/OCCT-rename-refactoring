@@ -103,7 +103,7 @@ Standard_Boolean Convert_ElementarySurfaceToBSplineSurface::IsVPeriodic() const
 
 //=================================================================================================
 
-gp_Pnt Convert_ElementarySurfaceToBSplineSurface::Pole(const Standard_Integer UIndex,
+Point3d Convert_ElementarySurfaceToBSplineSurface::Pole(const Standard_Integer UIndex,
                                                        const Standard_Integer VIndex) const
 {
   Standard_OutOfRange_Raise_if(UIndex < 1 || UIndex > nbUPoles || VIndex < 1 || VIndex > nbVPoles,

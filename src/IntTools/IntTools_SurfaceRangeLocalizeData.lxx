@@ -83,12 +83,12 @@ inline Standard_Real IntTools_SurfaceRangeLocalizeData::GetVParam(
 
 inline void IntTools_SurfaceRangeLocalizeData::SetGridPoint(const Standard_Integer theUIndex,
                                                             const Standard_Integer theVIndex,
-                                                            const gp_Pnt&          thePoint)
+                                                            const Point3d&          thePoint)
 {
   myGridPoints->SetValue(theUIndex, theVIndex, thePoint);
 }
 
-inline const gp_Pnt& IntTools_SurfaceRangeLocalizeData::GetGridPoint(
+inline const Point3d& IntTools_SurfaceRangeLocalizeData::GetGridPoint(
   const Standard_Integer theUIndex,
   const Standard_Integer theVIndex) const
 {

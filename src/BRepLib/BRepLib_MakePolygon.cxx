@@ -32,7 +32,7 @@ BRepLib_MakePolygon::BRepLib_MakePolygon() {}
 
 //=================================================================================================
 
-BRepLib_MakePolygon::BRepLib_MakePolygon(const gp_Pnt& P1, const gp_Pnt& P2)
+BRepLib_MakePolygon::BRepLib_MakePolygon(const Point3d& P1, const Point3d& P2)
 {
   Add(P1);
   Add(P2);
@@ -40,9 +40,9 @@ BRepLib_MakePolygon::BRepLib_MakePolygon(const gp_Pnt& P1, const gp_Pnt& P2)
 
 //=================================================================================================
 
-BRepLib_MakePolygon::BRepLib_MakePolygon(const gp_Pnt&          P1,
-                                         const gp_Pnt&          P2,
-                                         const gp_Pnt&          P3,
+BRepLib_MakePolygon::BRepLib_MakePolygon(const Point3d&          P1,
+                                         const Point3d&          P2,
+                                         const Point3d&          P3,
                                          const Standard_Boolean Cl)
 {
   Add(P1);
@@ -54,10 +54,10 @@ BRepLib_MakePolygon::BRepLib_MakePolygon(const gp_Pnt&          P1,
 
 //=================================================================================================
 
-BRepLib_MakePolygon::BRepLib_MakePolygon(const gp_Pnt&          P1,
-                                         const gp_Pnt&          P2,
-                                         const gp_Pnt&          P3,
-                                         const gp_Pnt&          P4,
+BRepLib_MakePolygon::BRepLib_MakePolygon(const Point3d&          P1,
+                                         const Point3d&          P2,
+                                         const Point3d&          P3,
+                                         const Point3d&          P4,
                                          const Standard_Boolean Cl)
 {
   Add(P1);
@@ -108,7 +108,7 @@ BRepLib_MakePolygon::BRepLib_MakePolygon(const TopoDS_Vertex&   V1,
 
 //=================================================================================================
 
-void BRepLib_MakePolygon::Add(const gp_Pnt& P)
+void BRepLib_MakePolygon::Add(const Point3d& P)
 {
   BRep_Builder  B;
   TopoDS_Vertex V;

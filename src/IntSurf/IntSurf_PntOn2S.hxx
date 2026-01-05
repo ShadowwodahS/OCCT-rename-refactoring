@@ -38,18 +38,18 @@ public:
   Standard_EXPORT IntSurf_PntOn2S();
 
   //! Sets the value of the point in 3d space.
-  void SetValue(const gp_Pnt& Pt);
+  void SetValue(const Point3d& Pt);
 
   //! Sets the values of the point in 3d space, and
   //! in the parametric space of one of the surface.
-  Standard_EXPORT void SetValue(const gp_Pnt&          Pt,
+  Standard_EXPORT void SetValue(const Point3d&          Pt,
                                 const Standard_Boolean OnFirst,
                                 const Standard_Real    U,
                                 const Standard_Real    V);
 
   //! Sets the values of the point in 3d space, and
   //! in the parametric space of each surface.
-  void SetValue(const gp_Pnt&       Pt,
+  void SetValue(const Point3d&       Pt,
                 const Standard_Real U1,
                 const Standard_Real V1,
                 const Standard_Real U2,
@@ -69,7 +69,7 @@ public:
                 const Standard_Real V2);
 
   //! Returns the point in 3d space.
-  const gp_Pnt& Value() const;
+  const Point3d& Value() const;
 
   //! Returns the point in 2d space of one of the surfaces.
   Standard_EXPORT gp_Pnt2d ValueOnSurface(const Standard_Boolean OnFirst) const;
@@ -98,7 +98,7 @@ public:
 
 protected:
 private:
-  gp_Pnt        pt;
+  Point3d        pt;
   Standard_Real u1;
   Standard_Real v1;
   Standard_Real u2;

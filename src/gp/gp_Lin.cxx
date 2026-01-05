@@ -41,12 +41,12 @@ Standard_Real gp_Lin::Distance(const gp_Lin& Other) const
   }
 }
 
-void gp_Lin::Mirror(const gp_Pnt& P)
+void gp_Lin::Mirror(const Point3d& P)
 {
   pos.Mirror(P);
 }
 
-gp_Lin gp_Lin::Mirrored(const gp_Pnt& P) const
+gp_Lin gp_Lin::Mirrored(const Point3d& P) const
 {
   gp_Lin L = *this;
   L.pos.Mirror(P);

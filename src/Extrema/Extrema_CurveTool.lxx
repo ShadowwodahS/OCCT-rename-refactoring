@@ -50,7 +50,7 @@ inline Standard_Real Extrema_CurveTool::LastParameter(const Adaptor3d_Curve& C)
 // purpose  :
 //=======================================================================
 
-inline gp_Pnt Extrema_CurveTool::Value(const Adaptor3d_Curve& C, const Standard_Real U)
+inline Point3d Extrema_CurveTool::Value(const Adaptor3d_Curve& C, const Standard_Real U)
 {
   return C.Value(U);
 }
@@ -60,7 +60,7 @@ inline gp_Pnt Extrema_CurveTool::Value(const Adaptor3d_Curve& C, const Standard_
 // purpose  :
 //=======================================================================
 
-inline void Extrema_CurveTool::D0(const Adaptor3d_Curve& C, const Standard_Real U, gp_Pnt& P)
+inline void Extrema_CurveTool::D0(const Adaptor3d_Curve& C, const Standard_Real U, Point3d& P)
 {
   C.D0(U, P);
 }
@@ -72,7 +72,7 @@ inline void Extrema_CurveTool::D0(const Adaptor3d_Curve& C, const Standard_Real 
 
 inline void Extrema_CurveTool::D1(const Adaptor3d_Curve& C,
                                   const Standard_Real    U,
-                                  gp_Pnt&                P,
+                                  Point3d&                P,
                                   gp_Vec&                V)
 {
   C.D1(U, P, V);
@@ -85,7 +85,7 @@ inline void Extrema_CurveTool::D1(const Adaptor3d_Curve& C,
 
 inline void Extrema_CurveTool::D2(const Adaptor3d_Curve& C,
                                   const Standard_Real    U,
-                                  gp_Pnt&                P,
+                                  Point3d&                P,
                                   gp_Vec&                V1,
                                   gp_Vec&                V2)
 {
@@ -99,7 +99,7 @@ inline void Extrema_CurveTool::D2(const Adaptor3d_Curve& C,
 
 inline void Extrema_CurveTool::D3(const Adaptor3d_Curve& C,
                                   const Standard_Real    U,
-                                  gp_Pnt&                P,
+                                  Point3d&                P,
                                   gp_Vec&                V1,
                                   gp_Vec&                V2,
                                   gp_Vec&                V3)

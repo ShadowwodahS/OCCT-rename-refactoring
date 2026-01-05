@@ -26,7 +26,7 @@
 #include <GeomAdaptor_Surface.hxx>
 #include <Extrema_ExtAlgo.hxx>
 #include <Extrema_ExtFlag.hxx>
-class gp_Pnt;
+class Point3d;
 class Geom_Surface;
 
 //! This class implements methods for  computing all the orthogonal
@@ -42,7 +42,7 @@ public:
 
   //! Create the projection  of a point <P> on a surface
   //! <Surface>
-  Standard_EXPORT GeomAPI_ProjectPointOnSurf(const gp_Pnt&               P,
+  Standard_EXPORT GeomAPI_ProjectPointOnSurf(const Point3d&               P,
                                              const Handle(Geom_Surface)& Surface,
                                              const Extrema_ExtAlgo Algo = Extrema_ExtAlgo_Grad);
 
@@ -51,12 +51,12 @@ public:
   //! Create the projection of a point <P>  on a surface
   //! <Surface>. The solution are computed in the domain
   //! [Umin,Usup] [Vmin,Vsup] of the surface.
-  Standard_EXPORT GeomAPI_ProjectPointOnSurf(const gp_Pnt&               P,
+  Standard_EXPORT GeomAPI_ProjectPointOnSurf(const Point3d&               P,
                                              const Handle(Geom_Surface)& Surface,
                                              const Standard_Real         Tolerance,
                                              const Extrema_ExtAlgo Algo = Extrema_ExtAlgo_Grad);
 
-  Standard_EXPORT GeomAPI_ProjectPointOnSurf(const gp_Pnt&               P,
+  Standard_EXPORT GeomAPI_ProjectPointOnSurf(const Point3d&               P,
                                              const Handle(Geom_Surface)& Surface,
                                              const Standard_Real         Umin,
                                              const Standard_Real         Usup,
@@ -67,7 +67,7 @@ public:
 
   //! Init the projection  of a point <P> on a surface
   //! <Surface>
-  Standard_EXPORT GeomAPI_ProjectPointOnSurf(const gp_Pnt&               P,
+  Standard_EXPORT GeomAPI_ProjectPointOnSurf(const Point3d&               P,
                                              const Handle(Geom_Surface)& Surface,
                                              const Standard_Real         Umin,
                                              const Standard_Real         Usup,
@@ -75,7 +75,7 @@ public:
                                              const Standard_Real         Vsup,
                                              const Extrema_ExtAlgo Algo = Extrema_ExtAlgo_Grad);
 
-  Standard_EXPORT void Init(const gp_Pnt&               P,
+  Standard_EXPORT void Init(const Point3d&               P,
                             const Handle(Geom_Surface)& Surface,
                             const Standard_Real         Tolerance,
                             const Extrema_ExtAlgo       Algo = Extrema_ExtAlgo_Grad);
@@ -83,11 +83,11 @@ public:
   //! Init the projection of a point <P>  on a surface
   //! <Surface>. The solution are computed in the domain
   //! [Umin,Usup] [Vmin,Vsup] of the surface.
-  Standard_EXPORT void Init(const gp_Pnt&               P,
+  Standard_EXPORT void Init(const Point3d&               P,
                             const Handle(Geom_Surface)& Surface,
                             const Extrema_ExtAlgo       Algo = Extrema_ExtAlgo_Grad);
 
-  Standard_EXPORT void Init(const gp_Pnt&               P,
+  Standard_EXPORT void Init(const Point3d&               P,
                             const Handle(Geom_Surface)& Surface,
                             const Standard_Real         Umin,
                             const Standard_Real         Usup,
@@ -99,7 +99,7 @@ public:
   //! Init the projection for many points on a surface
   //! <Surface>. The solutions will be computed in the domain
   //! [Umin,Usup] [Vmin,Vsup] of the surface.
-  Standard_EXPORT void Init(const gp_Pnt&               P,
+  Standard_EXPORT void Init(const Point3d&               P,
                             const Handle(Geom_Surface)& Surface,
                             const Standard_Real         Umin,
                             const Standard_Real         Usup,
@@ -131,7 +131,7 @@ public:
   void SetExtremaFlag(const Extrema_ExtFlag theExtFlag) { myExtPS.SetFlag(theExtFlag); }
 
   //! Performs the projection of a point on the current surface.
-  Standard_EXPORT void Perform(const gp_Pnt& P);
+  Standard_EXPORT void Perform(const Point3d& P);
 
   Standard_EXPORT Standard_Boolean IsDone() const;
 
@@ -145,7 +145,7 @@ public:
   //! Exceptions
   //! Standard_OutOfRange if Index is not in the range [ 1,NbPoints ], where
   //! NbPoints is the number of solution points.
-  Standard_EXPORT gp_Pnt Point(const Standard_Integer Index) const;
+  Standard_EXPORT Point3d Point(const Standard_Integer Index) const;
 
   //! Returns the parameters (U,V) on the
   //! surface of the orthogonal projection. Index is a number of a
@@ -169,8 +169,8 @@ public:
   //! on the surface.
   //! Exceptions
   //! StdFail_NotDone if projection fails.
-  Standard_EXPORT gp_Pnt NearestPoint() const;
-  Standard_EXPORT        operator gp_Pnt() const;
+  Standard_EXPORT Point3d NearestPoint() const;
+  Standard_EXPORT        operator Point3d() const;
 
   //! Returns the parameters (U,V) on the
   //! surface of the nearest computed orthogonal projection of the point.

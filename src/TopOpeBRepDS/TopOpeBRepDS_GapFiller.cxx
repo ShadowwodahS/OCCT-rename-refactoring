@@ -304,7 +304,7 @@ static Standard_Boolean Normal(const Handle(TopOpeBRepDS_GapTool)&        A,
 {
   TopOpeBRepDS_Kind GK, SK;
   Standard_Integer  IG, IS;
-  gp_Pnt            PS;
+  Point3d            PS;
   gp_Vec            TU, TV, N;
   gp_Pnt2d          P2d;
 
@@ -367,7 +367,7 @@ void TopOpeBRepDS_GapFiller::FilterByIncidentDistance(const TopoDS_Face&        
   Handle(TopOpeBRepDS_Interference) ISol;
 
   const TopOpeBRepDS_Point& PI1 = myHDS->Point(I->Geometry());
-  const gp_Pnt              GPI = PI1.Point();
+  const Point3d              GPI = PI1.Point();
 
   BRepAdaptor_Surface S(F, 0);
 
@@ -386,7 +386,7 @@ void TopOpeBRepDS_GapFiller::FilterByIncidentDistance(const TopoDS_Face&        
 
     Standard_Boolean          Ok2  = Normal(myGapTool, myHDS, CI, F, N2);
     const TopOpeBRepDS_Point& P    = myHDS->Point((CI->Geometry()));
-    const gp_Pnt              GP   = P.Point();
+    const Point3d              GP   = P.Point();
     Standard_Real             Dist = GP.Distance(GPI);
 
     //---------------------------------------------------------------------------
@@ -454,7 +454,7 @@ void TopOpeBRepDS_GapFiller::ReBuildGeom(const Handle(TopOpeBRepDS_Interference)
   }
   U = (UMax + UMin) * 0.5;
   BRepAdaptor_Curve  C(E);
-  gp_Pnt             GP = C.Value(U);
+  Point3d             GP = C.Value(U);
   TopOpeBRepDS_Point P(GP, TolMax);
 
   // Mise a jour.

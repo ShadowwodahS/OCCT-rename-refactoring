@@ -183,7 +183,7 @@ void Graphic3d_CLight::SetDirection(const gp_Dir& theDir)
 
 //=================================================================================================
 
-void Graphic3d_CLight::SetPosition(const gp_Pnt& thePosition)
+void Graphic3d_CLight::SetPosition(const Point3d& thePosition)
 {
   Standard_ProgramError_Raise_if(myType != Graphic3d_TypeOfLightSource_Spot
                                    && myType != Graphic3d_TypeOfLightSource_Positional,
@@ -194,7 +194,7 @@ void Graphic3d_CLight::SetPosition(const gp_Pnt& thePosition)
 
 //=================================================================================================
 
-void Graphic3d_CLight::SetDisplayPosition(const gp_Pnt& thePosition)
+void Graphic3d_CLight::SetDisplayPosition(const Point3d& thePosition)
 {
   Standard_ProgramError_Raise_if(myType == Graphic3d_TypeOfLightSource_Ambient,
                                  "Graphic3d_CLight::SetDisplayPosition(), incorrect light type");

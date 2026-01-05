@@ -51,8 +51,8 @@ Standard_EXPORT const char* MeshTest_DrawLinks(const char* theNameStr, void* the
       Standard_Integer       n2   = aLink.LastNode();
       const BRepMesh_Vertex& aV1  = aMeshData->GetNode(n1);
       const BRepMesh_Vertex& aV2  = aMeshData->GetNode(n2);
-      Handle(Draw_Segment3D) aSeg = new Draw_Segment3D(gp_Pnt(aV1.Coord().X(), aV1.Coord().Y(), 0),
-                                                       gp_Pnt(aV2.Coord().X(), aV2.Coord().Y(), 0),
+      Handle(Draw_Segment3D) aSeg = new Draw_Segment3D(Point3d(aV1.Coord().X(), aV1.Coord().Y(), 0),
+                                                       Point3d(aV2.Coord().X(), aV2.Coord().Y(), 0),
                                                        Draw_bleu);
       Draw::Set((aName + "_" + i).ToCString(), aSeg);
     }
@@ -94,10 +94,10 @@ Standard_EXPORT const char* MeshTest_DrawTriangles(const char* theNameStr, void*
       const BRepMesh_Vertex&       aV1   = aMeshData->GetNode(n[0]);
       const BRepMesh_Vertex&       aV2   = aMeshData->GetNode(n[1]);
       const BRepMesh_Vertex&       aV3   = aMeshData->GetNode(n[2]);
-      gp_Pnt                       aP[4] = {gp_Pnt(aV1.Coord().X(), aV1.Coord().Y(), 0),
-                                            gp_Pnt(aV2.Coord().X(), aV2.Coord().Y(), 0),
-                                            gp_Pnt(aV3.Coord().X(), aV3.Coord().Y(), 0),
-                                            gp_Pnt(aV1.Coord().X(), aV1.Coord().Y(), 0)};
+      Point3d                       aP[4] = {Point3d(aV1.Coord().X(), aV1.Coord().Y(), 0),
+                                            Point3d(aV2.Coord().X(), aV2.Coord().Y(), 0),
+                                            Point3d(aV3.Coord().X(), aV3.Coord().Y(), 0),
+                                            Point3d(aV1.Coord().X(), aV1.Coord().Y(), 0)};
       TColgp_Array1OfPnt           aPnts(aP[0], 1, 4);
       Handle(Poly_Polygon3D)       aPoly  = new Poly_Polygon3D(aPnts);
       Handle(DrawTrSurf_Polygon3D) aDPoly = new DrawTrSurf_Polygon3D(aPoly);

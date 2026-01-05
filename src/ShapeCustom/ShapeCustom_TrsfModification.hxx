@@ -28,7 +28,7 @@ class TopLoc_Location;
 class TopoDS_Edge;
 class Geom_Curve;
 class TopoDS_Vertex;
-class gp_Pnt;
+class Point3d;
 class Geom2d_Curve;
 
 class ShapeCustom_TrsfModification;
@@ -68,7 +68,7 @@ public:
   //! Sets <Tol> as actual tolerance of <V> multiplied with scale
   //! factor.
   Standard_EXPORT Standard_Boolean NewPoint(const TopoDS_Vertex& V,
-                                            gp_Pnt&              P,
+                                            Point3d&              P,
                                             Standard_Real&       Tol) Standard_OVERRIDE;
 
   //! Calls inherited method.

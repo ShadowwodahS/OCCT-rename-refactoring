@@ -97,7 +97,7 @@ void TopOpeBRepTool_SolidClassifier::Clear()
 //=================================================================================================
 
 TopAbs_State TopOpeBRepTool_SolidClassifier::Classify(const TopoDS_Solid& SOL,
-                                                      const gp_Pnt&       P,
+                                                      const Point3d&       P,
                                                       const Standard_Real Tol)
 {
   myPClassifier = NULL;
@@ -144,7 +144,7 @@ TopAbs_State TopOpeBRepTool_SolidClassifier::Classify(const TopoDS_Solid& SOL,
 //=================================================================================================
 
 TopAbs_State TopOpeBRepTool_SolidClassifier::Classify(const TopoDS_Shell& SHE,
-                                                      const gp_Pnt&       P,
+                                                      const Point3d&       P,
                                                       const Standard_Real Tol)
 {
   myPClassifier = NULL;

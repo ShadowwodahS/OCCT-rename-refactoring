@@ -1771,7 +1771,7 @@ Standard_Boolean STEPCAFControl_Reader::ReadValProps(
       Handle(StepRepr_RepresentationItem) ent = rep->ItemsValue(j);
       Standard_Boolean                    isArea;
       Standard_Real                       val;
-      gp_Pnt                              pos;
+      Point3d                              pos;
       if (Props.GetPropReal(ent, val, isArea, theLocalFactors))
       {
         if (isArea)
@@ -2402,8 +2402,8 @@ Standard_Boolean readPMIPresentation(const Handle(RefObject)&       thePresentEn
               {
                 continue;
               }
-              gp_Pnt                  aP1(aPoints->Value(anIndex) * theFact);
-              gp_Pnt                  aP2(aPoints->Value(aNextIndex) * theFact);
+              Point3d                  aP1(aPoints->Value(anIndex) * theFact);
+              Point3d                  aP2(aPoints->Value(aNextIndex) * theFact);
               BRepBuilderAPI_MakeEdge aMaker(aP1, aP2);
               if (aMaker.IsDone())
               {
@@ -2560,7 +2560,7 @@ void readAnnotation(const Handle(XSControl_TransferReader)& theTR,
   Bnd_Box aBox;
   if (!readPMIPresentation(aDMIAE, theTR, aFact, aResAnnotation, aPresentName, aBox, aLocalFactors))
     return;
-  gp_Pnt aPtext(0., 0., 0.);
+  Point3d aPtext(0., 0., 0.);
   // if Annotation plane location inside bounding box set it to text position
   // else set the center of bounding box to text position 0027372
   if (!aBox.IsVoid())
@@ -2573,7 +2573,7 @@ void readAnnotation(const Handle(XSControl_TransferReader)& theTR,
     }
     else
     {
-      aPtext = gp_Pnt((aXmin + aXmax) * 0.5, (aYmin + aYmax) * 0.5, (aZmin + aZmax) * 0.5);
+      aPtext = Point3d((aXmin + aXmax) * 0.5, (aYmin + aYmax) * 0.5, (aZmin + aZmax) * 0.5);
     }
   }
   else
@@ -2671,7 +2671,7 @@ void readConnectionPoints(const Handle(XSControl_TransferReader)&          theTR
     }
 
     // set connection point to object
-    gp_Pnt aPnt(aPoint->CoordinatesValue(1) * aFact,
+    Point3d aPnt(aPoint->CoordinatesValue(1) * aFact,
                 aPoint->CoordinatesValue(2) * aFact,
                 aPoint->CoordinatesValue(3) * aFact);
     theDimObject->SetPoint(aPnt);
@@ -2721,7 +2721,7 @@ void readConnectionPoints(const Handle(XSControl_TransferReader)&          theTR
       if (!aPoint.IsNull())
       {
         // set connection point to object
-        gp_Pnt aPnt(aPoint->CoordinatesValue(1) * aFact,
+        Point3d aPnt(aPoint->CoordinatesValue(1) * aFact,
                     aPoint->CoordinatesValue(2) * aFact,
                     aPoint->CoordinatesValue(3) * aFact);
         theDimObject->SetPoint(aPnt);
@@ -2743,7 +2743,7 @@ void readConnectionPoints(const Handle(XSControl_TransferReader)&          theTR
       if (!aPoint.IsNull())
       {
         // set connection point to object
-        gp_Pnt aPnt(aPoint->CoordinatesValue(1) * aFact,
+        Point3d aPnt(aPoint->CoordinatesValue(1) * aFact,
                     aPoint->CoordinatesValue(2) * aFact,
                     aPoint->CoordinatesValue(3) * aFact);
         theDimObject->SetPoint2(aPnt);
@@ -3291,7 +3291,7 @@ Standard_Boolean STEPCAFControl_Reader::readDatumsAP242(const Handle(RefObject)&
               Handle(TColStd_HArray1OfReal) aLocArr  = anAx->Location()->Coordinates();
               gp_Dir                        aDir;
               gp_Dir                        aDirR;
-              gp_Pnt                        aPnt;
+              Point3d                        aPnt;
               if (!aDirArr.IsNull() && aDirArr->Length() > 2 && !aDirRArr.IsNull()
                   && aDirRArr->Length() > 2 && !aLocArr.IsNull() && aLocArr->Length() > 2)
               {

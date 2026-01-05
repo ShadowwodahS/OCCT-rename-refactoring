@@ -44,7 +44,7 @@
 //      La solution a pour centre l intersection de ces deux droite et    +
 //      pour rayon la distance entre ce centre et l un des trois points.  +
 //=========================================================================
-gce_MakeCirc::gce_MakeCirc(const gp_Pnt& P1, const gp_Pnt& P2, const gp_Pnt& P3)
+gce_MakeCirc::gce_MakeCirc(const Point3d& P1, const Point3d& P2, const Point3d& P3)
 {
   //=========================================================================
   //   Traitement.                                                          +
@@ -96,9 +96,9 @@ gce_MakeCirc::gce_MakeCirc(const gp_Pnt& P1, const gp_Pnt& P2, const gp_Pnt& P3)
   //
   gp_Dir Dir3(VDir3);
   gp_Dir dir = Dir1.Crossed(Dir3);
-  gp_Lin L1(gp_Pnt((P1.XYZ() + P2.XYZ()) / 2.), dir);
+  gp_Lin L1(Point3d((P1.XYZ() + P2.XYZ()) / 2.), dir);
   dir = VDir2.Crossed(Dir3);
-  gp_Lin L2(gp_Pnt((P3.XYZ() + P2.XYZ()) / 2.), dir);
+  gp_Lin L2(Point3d((P3.XYZ() + P2.XYZ()) / 2.), dir);
 
   constexpr Standard_Real Tol = Precision::PConfusion();
   Extrema_ExtElC          distmin(L1, L2, Tol);
@@ -127,7 +127,7 @@ gce_MakeCirc::gce_MakeCirc(const gp_Pnt& P1, const gp_Pnt& P2, const gp_Pnt& P3)
     else
     {
       Standard_Real    TheDist = RealLast();
-      gp_Pnt           pInt, pon1, pon2;
+      Point3d           pInt, pon1, pon2;
       Standard_Integer i = 1;
       Extrema_POnCurv  Pon1, Pon2;
       while (i <= nbext)
@@ -138,7 +138,7 @@ gce_MakeCirc::gce_MakeCirc(const gp_Pnt& P1, const gp_Pnt& P2, const gp_Pnt& P3)
           distmin.Points(i, Pon1, Pon2);
           pon1 = Pon1.Value();
           pon2 = Pon2.Value();
-          pInt = gp_Pnt((pon1.XYZ() + pon2.XYZ()) / 2.);
+          pInt = Point3d((pon1.XYZ() + pon2.XYZ()) / 2.);
         }
         i++;
       }
@@ -186,7 +186,7 @@ gce_MakeCirc::gce_MakeCirc(const gp_Ax2& A2, const Standard_Real Radius)
 //   Creation d un gp_Circ par son centre <Center>, son plan <Plane> et   +
 //   son rayon <Radius>.                                                  +
 //=========================================================================
-gce_MakeCirc::gce_MakeCirc(const gp_Pnt& Center, const gp_Pln& Plane, const Standard_Real Radius)
+gce_MakeCirc::gce_MakeCirc(const Point3d& Center, const gp_Pln& Plane, const Standard_Real Radius)
 {
   gce_MakeCirc C = gce_MakeCirc(Center, Plane.Position().Direction(), Radius);
   TheCirc        = C.Value();
@@ -198,7 +198,7 @@ gce_MakeCirc::gce_MakeCirc(const gp_Pnt& Center, const gp_Pln& Plane, const Stan
 // purpose  : Creation d un gp_Circ par son centre <Center>,
 // sa normale <Norm> et son rayon <Radius>.
 //=======================================================================
-gce_MakeCirc::gce_MakeCirc(const gp_Pnt& Center, const gp_Dir& Norm, const Standard_Real Radius)
+gce_MakeCirc::gce_MakeCirc(const Point3d& Center, const gp_Dir& Norm, const Standard_Real Radius)
 {
   if (Radius < 0.)
   {
@@ -264,7 +264,7 @@ gce_MakeCirc::gce_MakeCirc(const gp_Pnt& Center, const gp_Dir& Norm, const Stand
 // purpose  :  Creation d un gp_Circ par son centre <Center>,
 // sa normale <Ptaxis> et  son rayon <Radius>
 //=======================================================================
-gce_MakeCirc::gce_MakeCirc(const gp_Pnt& Center, const gp_Pnt& Ptaxis, const Standard_Real Radius)
+gce_MakeCirc::gce_MakeCirc(const Point3d& Center, const Point3d& Ptaxis, const Standard_Real Radius)
 {
   if (Radius < 0.)
   {
@@ -346,7 +346,7 @@ gce_MakeCirc::gce_MakeCirc(const gp_Ax1& Axis, const Standard_Real Radius)
   else
   {
     gp_Dir        Norm(Axis.Direction());
-    gp_Pnt        Center(Axis.Location());
+    Point3d        Center(Axis.Location());
     Standard_Real A    = Norm.X();
     Standard_Real B    = Norm.Y();
     Standard_Real C    = Norm.Z();
@@ -424,7 +424,7 @@ gce_MakeCirc::gce_MakeCirc(const gp_Circ& Circ, const Standard_Real Dist)
 // purpose  : Creation d un gp_Circ concentrique a un autre gp_circ dont le rayon
 //   est egal a la distance de <Point> a l axe de <Circ>.
 //=======================================================================
-gce_MakeCirc::gce_MakeCirc(const gp_Circ& Circ, const gp_Pnt& P)
+gce_MakeCirc::gce_MakeCirc(const gp_Circ& Circ, const Point3d& P)
 {
   Standard_Real Rad = gp_Lin(Circ.Axis()).Distance(P);
   TheCirc           = gp_Circ(Circ.Position(), Rad);

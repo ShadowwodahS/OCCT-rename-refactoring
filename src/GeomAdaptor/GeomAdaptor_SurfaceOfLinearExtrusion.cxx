@@ -312,7 +312,7 @@ gp_Pln GeomAdaptor_SurfaceOfLinearExtrusion::Plane() const
   Standard_NoSuchObject_Raise_if(GetType() != GeomAbs_Plane,
                                  "GeomAdaptor_SurfaceOfLinearExtrusion::Plane");
 
-  gp_Pnt        P;
+  Point3d        P;
   gp_Vec        D1u, newZ;
   Standard_Real UFirst = myBasisCurve->FirstParameter();
   Standard_Real ULast  = myBasisCurve->LastParameter();

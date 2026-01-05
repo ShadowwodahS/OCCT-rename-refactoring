@@ -121,7 +121,7 @@ PERFORM(const gp_Lin& L, const IntAna_Quadric& Quad)
       {
         Standard_Real t = LinQuadPol.Value(i);
         paramonc[i - 1] = t;
-        pnts[i - 1]     = gp_Pnt(Lx0 + Lx * t, Ly0 + Ly * t, Lz0 + Lz * t);
+        pnts[i - 1]     = Point3d(Lx0 + Lx * t, Ly0 + Ly * t, Lz0 + Lz * t);
       }
     }
   }
@@ -456,7 +456,7 @@ void IntAna_IntConicQuad::Perform(const gp_Lin&       L,
   Standard_Real Dis, Direc;
 
   P.Coefficients(A, B, C, D);
-  gp_Pnt Orig(L.Location());
+  Point3d Orig(L.Location());
   L.Direction().Coord(Al, Bl, Cl);
 
   Direc = A * Al + B * Bl + C * Cl;
@@ -469,7 +469,7 @@ void IntAna_IntConicQuad::Perform(const gp_Lin&       L,
     if (Len != 0 && Direc != 0)
     {
       // check the distance from bounding point of the line to the plane
-      gp_Pnt aP1, aP2;
+      Point3d aP1, aP2;
       //
       aP1.SetCoord(Orig.X() - Dis * A, Orig.Y() - Dis * B, Orig.Z() - Dis * C);
       aP2.SetCoord(aP1.X() + Len * Al, aP1.Y() + Len * Bl, aP1.Z() + Len * Cl);

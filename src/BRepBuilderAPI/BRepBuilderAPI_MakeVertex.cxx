@@ -20,7 +20,7 @@
 
 //=================================================================================================
 
-BRepBuilderAPI_MakeVertex::BRepBuilderAPI_MakeVertex(const gp_Pnt& P)
+BRepBuilderAPI_MakeVertex::BRepBuilderAPI_MakeVertex(const Point3d& P)
     : myMakeVertex(P)
 {
   if (myMakeVertex.IsDone())

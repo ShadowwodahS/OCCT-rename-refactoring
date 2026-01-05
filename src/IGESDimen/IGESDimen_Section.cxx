@@ -63,18 +63,18 @@ Standard_Real IGESDimen_Section::ZDisplacement() const
   return theZDisplacement;
 }
 
-gp_Pnt IGESDimen_Section::Point(const Standard_Integer Index) const
+Point3d IGESDimen_Section::Point(const Standard_Integer Index) const
 {
   gp_XY  tempXY = theDataPoints->Value(Index);
-  gp_Pnt point(tempXY.X(), tempXY.Y(), theZDisplacement);
+  Point3d point(tempXY.X(), tempXY.Y(), theZDisplacement);
   return point;
 }
 
-gp_Pnt IGESDimen_Section::TransformedPoint(const Standard_Integer Index) const
+Point3d IGESDimen_Section::TransformedPoint(const Standard_Integer Index) const
 {
   gp_XY  point2d = theDataPoints->Value(Index);
   gp_XYZ point(point2d.X(), point2d.Y(), theZDisplacement);
   if (HasTransf())
     Location().Transforms(point);
-  return gp_Pnt(point);
+  return Point3d(point);
 }

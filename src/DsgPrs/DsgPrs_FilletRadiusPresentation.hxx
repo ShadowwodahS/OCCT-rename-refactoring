@@ -25,7 +25,7 @@
 #include <Prs3d_Presentation.hxx>
 
 class TCollection_ExtendedString;
-class gp_Pnt;
+class Point3d;
 class gp_Dir;
 class Geom_TrimmedCurve;
 
@@ -43,16 +43,16 @@ public:
                                   const Handle(Prs3d_Drawer)&       aDrawer,
                                   const Standard_Real               thevalue,
                                   const TCollection_ExtendedString& aText,
-                                  const gp_Pnt&                     aPosition,
+                                  const Point3d&                     aPosition,
                                   const gp_Dir&                     aNormalDir,
-                                  const gp_Pnt&                     aBasePnt,
-                                  const gp_Pnt&                     aFirstPoint,
-                                  const gp_Pnt&                     aSecondPoint,
-                                  const gp_Pnt&                     aCenter,
+                                  const Point3d&                     aBasePnt,
+                                  const Point3d&                     aFirstPoint,
+                                  const Point3d&                     aSecondPoint,
+                                  const Point3d&                     aCenter,
                                   const DsgPrs_ArrowSide            ArrowPrs,
                                   const Standard_Boolean            drawRevers,
-                                  gp_Pnt&                           DrawPosition,
-                                  gp_Pnt&                           EndOfArrow,
+                                  Point3d&                           DrawPosition,
+                                  Point3d&                           EndOfArrow,
                                   Handle(Geom_TrimmedCurve)&        TrimCurve,
                                   Standard_Boolean&                 HasCircle);
 

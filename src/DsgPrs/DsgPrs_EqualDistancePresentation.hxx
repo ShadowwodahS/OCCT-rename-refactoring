@@ -25,7 +25,7 @@
 #include <DsgPrs_ArrowSide.hxx>
 #include <Prs3d_Presentation.hxx>
 
-class gp_Pnt;
+class Point3d;
 class Geom_Plane;
 class gp_Dir;
 class gp_Circ;
@@ -45,23 +45,23 @@ public:
   //! These distances are used to compare two shapes by this vector alone.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Handle(Prs3d_Drawer)&       aDrawer,
-                                  const gp_Pnt&                     Point1,
-                                  const gp_Pnt&                     Point2,
-                                  const gp_Pnt&                     Point3,
-                                  const gp_Pnt&                     Point4,
+                                  const Point3d&                     Point1,
+                                  const Point3d&                     Point2,
+                                  const Point3d&                     Point3,
+                                  const Point3d&                     Point4,
                                   const Handle(Geom_Plane)&         Plane);
 
   //! is used for presentation of interval between
   //! two lines or two points or between a line and a point.
   Standard_EXPORT static void AddInterval(const Handle(Prs3d_Presentation)& aPresentation,
                                           const Handle(Prs3d_Drawer)&       aDrawer,
-                                          const gp_Pnt&                     aPoint1,
-                                          const gp_Pnt&                     aPoint2,
+                                          const Point3d&                     aPoint1,
+                                          const Point3d&                     aPoint2,
                                           const gp_Dir&                     aDir,
-                                          const gp_Pnt&                     aPosition,
+                                          const Point3d&                     aPosition,
                                           const DsgPrs_ArrowSide            anArrowSide,
-                                          gp_Pnt&                           anExtremePnt1,
-                                          gp_Pnt&                           anExtremePnt2);
+                                          Point3d&                           anExtremePnt1,
+                                          Point3d&                           anExtremePnt2);
 
   //! is used for presentation of interval between two arcs.
   //! One of arcs can have a zero radius.
@@ -70,10 +70,10 @@ public:
     const Handle(Prs3d_Drawer)&       aDrawer,
     const gp_Circ&                    aCircle1,
     const gp_Circ&                    aCircle2,
-    const gp_Pnt&                     aPoint1,
-    const gp_Pnt&                     aPoint2,
-    const gp_Pnt&                     aPoint3,
-    const gp_Pnt&                     aPoint4,
+    const Point3d&                     aPoint1,
+    const Point3d&                     aPoint2,
+    const Point3d&                     aPoint3,
+    const Point3d&                     aPoint4,
     const DsgPrs_ArrowSide            anArrowSide);
 
 protected:

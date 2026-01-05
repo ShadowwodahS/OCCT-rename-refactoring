@@ -223,7 +223,7 @@ void IntTools_SurfaceRangeLocalizeData::SetFrame(const Standard_Real theUMin,
     myVIndMin = aLen + 1;
 }
 
-const gp_Pnt& IntTools_SurfaceRangeLocalizeData::GetPointInFrame(
+const Point3d& IntTools_SurfaceRangeLocalizeData::GetPointInFrame(
   const Standard_Integer theUIndex,
   const Standard_Integer theVIndex) const
 {

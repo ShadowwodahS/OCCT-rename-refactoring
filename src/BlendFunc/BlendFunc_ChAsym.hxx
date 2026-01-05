@@ -92,9 +92,9 @@ public:
                                           math_Vector&       F,
                                           math_Matrix&       D) Standard_OVERRIDE;
 
-  Standard_EXPORT const gp_Pnt& PointOnS1() const Standard_OVERRIDE;
+  Standard_EXPORT const Point3d& PointOnS1() const Standard_OVERRIDE;
 
-  Standard_EXPORT const gp_Pnt& PointOnS2() const Standard_OVERRIDE;
+  Standard_EXPORT const Point3d& PointOnS2() const Standard_OVERRIDE;
 
   Standard_EXPORT Standard_Boolean IsTangencyPoint() const Standard_OVERRIDE;
 
@@ -224,9 +224,9 @@ private:
   Standard_Real             angle;
   Standard_Real             tgang;
   gp_Vec                    nplan;
-  gp_Pnt                    pt1;
+  Point3d                    pt1;
   gp_Vec                    tsurf1;
-  gp_Pnt                    pt2;
+  Point3d                    pt2;
   math_Vector               FX;
   math_Matrix               DX;
   Standard_Boolean          istangent;

@@ -199,7 +199,7 @@ Standard_Boolean ShapeCustom_ConvertToBSpline::NewCurve(const TopoDS_Edge&  E,
 //=================================================================================================
 
 Standard_Boolean ShapeCustom_ConvertToBSpline::NewPoint(const TopoDS_Vertex& /*V*/,
-                                                        gp_Pnt& /*P*/,
+                                                        Point3d& /*P*/,
                                                         Standard_Real& /*Tol*/)
 {
   return Standard_False;

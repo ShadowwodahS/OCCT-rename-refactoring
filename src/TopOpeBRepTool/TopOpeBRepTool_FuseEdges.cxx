@@ -346,8 +346,8 @@ void TopOpeBRepTool_FuseEdges::BuildListResultEdges()
         Handle(Geom_BoundedCurve) ExtC = Handle(Geom_BoundedCurve)::DownCast(C->Copy());
         if (!ExtC.IsNull())
         {
-          gp_Pnt PF = BRep_Tool::Pnt(VF);
-          gp_Pnt PL = BRep_Tool::Pnt(VL);
+          Point3d PF = BRep_Tool::Pnt(VF);
+          Point3d PL = BRep_Tool::Pnt(VL);
           GeomLib::ExtendCurveToPoint(ExtC, PF, 1, 0);
           GeomLib::ExtendCurveToPoint(ExtC, PL, 1, 1);
 
@@ -689,10 +689,10 @@ Standard_Boolean TopOpeBRepTool_FuseEdges::SameSupport(const TopoDS_Edge& E1,
     {
       // on verifie que l'on n'a pas de cas degenere. Par exemple E1 et E2 connexes
       // mais bouclant l'un sur l'autre (cas tres rare)
-      gp_Pnt pf1 = BRep_Tool::Pnt(TopExp::FirstVertex(E1, Standard_True));
-      gp_Pnt pl1 = BRep_Tool::Pnt(TopExp::LastVertex(E1, Standard_True));
-      gp_Pnt pf2 = BRep_Tool::Pnt(TopExp::FirstVertex(E2, Standard_True));
-      gp_Pnt pl2 = BRep_Tool::Pnt(TopExp::LastVertex(E2, Standard_True));
+      Point3d pf1 = BRep_Tool::Pnt(TopExp::FirstVertex(E1, Standard_True));
+      Point3d pl1 = BRep_Tool::Pnt(TopExp::LastVertex(E1, Standard_True));
+      Point3d pf2 = BRep_Tool::Pnt(TopExp::FirstVertex(E2, Standard_True));
+      Point3d pl2 = BRep_Tool::Pnt(TopExp::LastVertex(E2, Standard_True));
       if (pl1.Distance(pf2) < tollin && pl2.Distance(pf1) < tollin)
         return Standard_False;
       else

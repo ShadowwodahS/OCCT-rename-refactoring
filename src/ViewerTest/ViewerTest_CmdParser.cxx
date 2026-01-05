@@ -383,10 +383,10 @@ gp_Vec ViewerTest_CmdParser::ArgVec(const std::string& theOptionName,
 
 //=================================================================================================
 
-gp_Pnt ViewerTest_CmdParser::ArgPnt(const std::string& theOptionName,
+Point3d ViewerTest_CmdParser::ArgPnt(const std::string& theOptionName,
                                     Standard_Integer   theArgumentIndex) const
 {
-  return gp_Pnt(Draw::Atof(Arg(theOptionName, theArgumentIndex).c_str()),
+  return Point3d(Draw::Atof(Arg(theOptionName, theArgumentIndex).c_str()),
                 Draw::Atof(Arg(theOptionName, theArgumentIndex + 1).c_str()),
                 Draw::Atof(Arg(theOptionName, theArgumentIndex + 2).c_str()));
 }

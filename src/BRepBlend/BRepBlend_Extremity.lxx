@@ -14,7 +14,7 @@
 
 #include <Standard_DomainError.hxx>
 
-inline const gp_Pnt& BRepBlend_Extremity::Value() const
+inline const Point3d& BRepBlend_Extremity::Value() const
 {
   return pt;
 }

@@ -31,7 +31,7 @@ GProp_GProps::GProp_GProps()
   inertia = gp_Mat(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 }
 
-GProp_GProps::GProp_GProps(const gp_Pnt& SystemLocation)
+GProp_GProps::GProp_GProps(const Point3d& SystemLocation)
     : g(gp::Origin()),
       loc(SystemLocation),
       dim(0.0)
@@ -100,9 +100,9 @@ Standard_Real GProp_GProps::Mass() const
   return dim;
 }
 
-gp_Pnt GProp_GProps::CentreOfMass() const
+Point3d GProp_GProps::CentreOfMass() const
 {
-  return gp_Pnt(loc.XYZ() + g.XYZ());
+  return Point3d(loc.XYZ() + g.XYZ());
 }
 
 gp_Mat GProp_GProps::MatrixOfInertia() const
@@ -137,7 +137,7 @@ Standard_Real GProp_GProps::MomentOfInertia(const gp_Ax1& A) const
   {
     gp_Mat HMat;
     gp_Mat AxisInertia = MatrixOfInertia();
-    GProp::HOperator(gp_Pnt(loc.XYZ() + g.XYZ()), A.Location(), dim, HMat);
+    GProp::HOperator(Point3d(loc.XYZ() + g.XYZ()), A.Location(), dim, HMat);
     AxisInertia = AxisInertia + HMat;
     return (A.Direction().XYZ()).Dot((A.Direction().XYZ()).Multiplied(AxisInertia));
   }
@@ -191,5 +191,5 @@ GProp_PrincipalProps GProp_GProps::PrincipalProperties() const
                               Vxx,
                               Vyy,
                               Vzz,
-                              gp_Pnt(g.XYZ() + loc.XYZ()));
+                              Point3d(g.XYZ() + loc.XYZ()));
 }

@@ -31,7 +31,7 @@ class TopoDS_Shape;
 class StepRepr_RepresentationItem;
 class StepRepr_CharacterizedDefinition;
 class StepRepr_RepresentationContext;
-class gp_Pnt;
+class Point3d;
 class StepRepr_NextAssemblyUsageOccurrence;
 class StepRepr_PropertyDefinition;
 
@@ -84,7 +84,7 @@ public:
   //! If instance is True, then centroid is assigned to
   //! an instance of component in assembly
   Standard_EXPORT Standard_Boolean AddCentroid(const TopoDS_Shape&    Shape,
-                                               const gp_Pnt&          Pnt,
+                                               const Point3d&          Pnt,
                                                const Standard_Boolean instance = Standard_False);
 
   //! Finds target STEP entity to which validation props should
@@ -132,7 +132,7 @@ public:
   Standard_EXPORT Standard_Boolean
     GetPropPnt(const Handle(StepRepr_RepresentationItem)&    item,
                const Handle(StepRepr_RepresentationContext)& Context,
-               gp_Pnt&                                       Pnt,
+               Point3d&                                       Pnt,
                const StepData_Factors& theLocalFactors = StepData_Factors()) const;
 
   //! Sets current assembly shape SDR (for FindCDSR calls)

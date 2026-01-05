@@ -39,15 +39,15 @@ Handle(IGESData_IGESEntity) IGESGeom_TabulatedCylinder::Directrix() const
   return theDirectrix;
 }
 
-gp_Pnt IGESGeom_TabulatedCylinder::EndPoint() const
+Point3d IGESGeom_TabulatedCylinder::EndPoint() const
 {
-  return (gp_Pnt(theEnd));
+  return (Point3d(theEnd));
 }
 
-gp_Pnt IGESGeom_TabulatedCylinder::TransformedEndPoint() const
+Point3d IGESGeom_TabulatedCylinder::TransformedEndPoint() const
 {
   gp_XYZ EndPoint = theEnd;
   if (HasTransf())
     Location().Transforms(EndPoint);
-  return (gp_Pnt(EndPoint));
+  return (Point3d(EndPoint));
 }

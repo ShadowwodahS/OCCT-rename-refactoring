@@ -28,7 +28,7 @@ class TopoDS_Shape;
 class GeomAdaptor_Curve;
 class gp_Lin;
 class IntCurveSurface_IntersectionPoint;
-class gp_Pnt;
+class Point3d;
 class TopoDS_Face;
 
 //! Computes the intersection between a face and a
@@ -88,7 +88,7 @@ public:
   Standard_EXPORT IntCurveSurface_IntersectionPoint Point() const;
 
   //! returns the current geometric Point
-  Standard_EXPORT const gp_Pnt& Pnt() const;
+  Standard_EXPORT const Point3d& Pnt() const;
 
   //! returns the U parameter of the current point
   //! on the current face.

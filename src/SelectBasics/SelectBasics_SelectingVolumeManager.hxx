@@ -22,7 +22,7 @@
 #include <SelectBasics_PickResult.hxx>
 #include <SelectMgr_SelectionType.hxx>
 
-class gp_Pnt;
+class Point3d;
 
 //! This class provides an interface for selecting volume manager,
 //! which is responsible for all overlap detection methods and
@@ -53,13 +53,13 @@ public:
                                        Standard_Boolean* theInside = NULL) const = 0;
 
   //! Returns true if selecting volume is overlapped by point thePnt
-  virtual Standard_Boolean OverlapsPoint(const gp_Pnt&            thePnt,
+  virtual Standard_Boolean OverlapsPoint(const Point3d&            thePnt,
                                          SelectBasics_PickResult& thePickResult) const = 0;
 
   //! Returns true if selecting volume is overlapped by point thePnt.
   //! Does not perform depth calculation, so this method is defined as
   //! helper function for inclusion test.
-  virtual Standard_Boolean OverlapsPoint(const gp_Pnt& thePnt) const = 0;
+  virtual Standard_Boolean OverlapsPoint(const Point3d& thePnt) const = 0;
 
   //! Returns true if selecting volume is overlapped by planar convex polygon, which points
   //! are stored in theArrayOfPts, taking into account sensitivity type theSensType
@@ -69,27 +69,27 @@ public:
 
   //! Returns true if selecting volume is overlapped by line segment with start point at thePt1
   //! and end point at thePt2
-  virtual Standard_Boolean OverlapsSegment(const gp_Pnt&            thePt1,
-                                           const gp_Pnt&            thePt2,
+  virtual Standard_Boolean OverlapsSegment(const Point3d&            thePt1,
+                                           const Point3d&            thePt2,
                                            SelectBasics_PickResult& thePickResult) const = 0;
 
   //! Returns true if selecting volume is overlapped by triangle with vertices thePt1,
   //! thePt2 and thePt3, taking into account sensitivity type theSensType
-  virtual Standard_Boolean OverlapsTriangle(const gp_Pnt&            thePt1,
-                                            const gp_Pnt&            thePt2,
-                                            const gp_Pnt&            thePt3,
+  virtual Standard_Boolean OverlapsTriangle(const Point3d&            thePt1,
+                                            const Point3d&            thePt2,
+                                            const Point3d&            thePt3,
                                             Standard_Integer         theSensType,
                                             SelectBasics_PickResult& thePickResult) const = 0;
 
   //! Returns true if selecting volume is overlapped by sphere with center theCenter
   //! and radius theRadius
-  virtual Standard_Boolean OverlapsSphere(const gp_Pnt&            theCenter,
+  virtual Standard_Boolean OverlapsSphere(const Point3d&            theCenter,
                                           const Standard_Real      theRadius,
                                           SelectBasics_PickResult& thePickResult) const = 0;
 
   //! Returns true if selecting volume is overlapped by sphere with center theCenter
   //! and radius theRadius
-  virtual Standard_Boolean OverlapsSphere(const gp_Pnt&       theCenter,
+  virtual Standard_Boolean OverlapsSphere(const Point3d&       theCenter,
                                           const Standard_Real theRadius,
                                           Standard_Boolean*   theInside = NULL) const = 0;
 
@@ -134,10 +134,10 @@ public:
 public:
   //! Calculates distance from 3d projection of user-defined selection point
   //! to the given point theCOG
-  virtual Standard_Real DistToGeometryCenter(const gp_Pnt& theCOG) const = 0;
+  virtual Standard_Real DistToGeometryCenter(const Point3d& theCOG) const = 0;
 
   //! Return 3D point corresponding to specified depth within picking ray.
-  virtual gp_Pnt DetectedPoint(const Standard_Real theDepth) const = 0;
+  virtual Point3d DetectedPoint(const Standard_Real theDepth) const = 0;
 
   //! Returns flag indicating if partial overlapping of entities is allowed or should be rejected.
   virtual Standard_Boolean IsOverlapAllowed() const = 0;
@@ -146,13 +146,13 @@ public:
   //! Returns projection of 2d mouse picked point or projection
   //! of center of 2d rectangle (for point and rectangular selection
   //! correspondingly) onto near view frustum plane
-  virtual gp_Pnt GetNearPickedPnt() const = 0;
+  virtual Point3d GetNearPickedPnt() const = 0;
 
   //! Valid only for point and rectangular selection.
   //! Returns projection of 2d mouse picked point or projection
   //! of center of 2d rectangle (for point and rectangular selection
   //! correspondingly) onto far view frustum plane
-  virtual gp_Pnt GetFarPickedPnt() const = 0;
+  virtual Point3d GetFarPickedPnt() const = 0;
 
   //! Valid only for point and rectangular selection.
   //! Returns view ray direction
@@ -199,14 +199,14 @@ public:
 
   Standard_DEPRECATED("Deprecated alias for OverlapsPoint()")
 
-  Standard_Boolean Overlaps(const gp_Pnt& thePnt, SelectBasics_PickResult& thePickResult) const
+  Standard_Boolean Overlaps(const Point3d& thePnt, SelectBasics_PickResult& thePickResult) const
   {
     return OverlapsPoint(thePnt, thePickResult);
   }
 
   Standard_DEPRECATED("Deprecated alias for OverlapsPoint()")
 
-  Standard_Boolean Overlaps(const gp_Pnt& thePnt) const { return OverlapsPoint(thePnt); }
+  Standard_Boolean Overlaps(const Point3d& thePnt) const { return OverlapsPoint(thePnt); }
 
   Standard_DEPRECATED("Deprecated alias for OverlapsPolygon()")
   Standard_EXPORT Standard_Boolean Overlaps(const Handle(TColgp_HArray1OfPnt)& theArrayOfPts,
@@ -224,8 +224,8 @@ public:
 
   Standard_DEPRECATED("Deprecated alias for OverlapsSegment()")
 
-  Standard_Boolean Overlaps(const gp_Pnt&            thePnt1,
-                            const gp_Pnt&            thePnt2,
+  Standard_Boolean Overlaps(const Point3d&            thePnt1,
+                            const Point3d&            thePnt2,
                             SelectBasics_PickResult& thePickResult) const
   {
     return OverlapsSegment(thePnt1, thePnt2, thePickResult);
@@ -233,9 +233,9 @@ public:
 
   Standard_DEPRECATED("Deprecated alias for OverlapsTriangle()")
 
-  Standard_Boolean Overlaps(const gp_Pnt&            thePnt1,
-                            const gp_Pnt&            thePnt2,
-                            const gp_Pnt&            thePnt3,
+  Standard_Boolean Overlaps(const Point3d&            thePnt1,
+                            const Point3d&            thePnt2,
+                            const Point3d&            thePnt3,
                             Standard_Integer         theSensType,
                             SelectBasics_PickResult& thePickResult) const
   {

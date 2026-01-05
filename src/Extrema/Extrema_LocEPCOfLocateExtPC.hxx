@@ -27,7 +27,7 @@ class StdFail_NotDone;
 class Adaptor3d_Curve;
 class Extrema_CurveTool;
 class Extrema_POnCurv;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 class Extrema_PCLocFOfLocEPCOfLocateExtPC;
 
@@ -47,7 +47,7 @@ public:
   //! TolU is used to decide to stop the iterations.
   //! At the nth iteration, the criteria is:
   //! abs(Un - Un-1) < TolU.
-  Standard_EXPORT Extrema_LocEPCOfLocateExtPC(const gp_Pnt&          P,
+  Standard_EXPORT Extrema_LocEPCOfLocateExtPC(const Point3d&          P,
                                               const Adaptor3d_Curve& C,
                                               const Standard_Real    U0,
                                               const Standard_Real    TolU);
@@ -62,7 +62,7 @@ public:
   //! TolU is used to decide to stop the iterations.
   //! At the nth iteration, the criteria is:
   //! abs(Un - Un-1) < TolU.
-  Standard_EXPORT Extrema_LocEPCOfLocateExtPC(const gp_Pnt&          P,
+  Standard_EXPORT Extrema_LocEPCOfLocateExtPC(const Point3d&          P,
                                               const Adaptor3d_Curve& C,
                                               const Standard_Real    U0,
                                               const Standard_Real    Umin,
@@ -78,7 +78,7 @@ public:
   //! the algorithm is done with the point P.
   //! An exception is raised if the fields have not
   //! been initialized.
-  Standard_EXPORT void Perform(const gp_Pnt& P, const Standard_Real U0);
+  Standard_EXPORT void Perform(const Point3d& P, const Standard_Real U0);
 
   //! Returns True if the distance is found.
   Standard_EXPORT Standard_Boolean IsDone() const;

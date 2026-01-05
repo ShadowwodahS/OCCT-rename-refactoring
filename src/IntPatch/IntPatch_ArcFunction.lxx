@@ -14,7 +14,7 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-inline const gp_Pnt& IntPatch_ArcFunction::Valpoint(const Standard_Integer Index) const
+inline const Point3d& IntPatch_ArcFunction::Valpoint(const Standard_Integer Index) const
 {
   return seqpt(Index);
 }
@@ -52,7 +52,7 @@ inline const Handle(Adaptor3d_Surface)& IntPatch_ArcFunction::Surface() const
   return (mySurf);
 }
 
-inline const gp_Pnt& IntPatch_ArcFunction::LastComputedPoint() const
+inline const Point3d& IntPatch_ArcFunction::LastComputedPoint() const
 {
   return ptsol;
 }

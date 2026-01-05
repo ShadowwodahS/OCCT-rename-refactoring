@@ -134,7 +134,7 @@ void IGESConvGeom_GeomBuilder::SetPosition(const gp_Ax2& pos)
 
 void IGESConvGeom_GeomBuilder::SetPosition(const gp_Ax1& pos)
 {
-  const gp_Pnt& p = pos.Location();
+  const Point3d& p = pos.Location();
   const gp_Dir& d = pos.Direction();
   gp_Ax3        a3(p, d);
   SetPosition(a3);

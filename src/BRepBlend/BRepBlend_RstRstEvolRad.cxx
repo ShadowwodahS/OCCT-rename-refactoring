@@ -265,7 +265,7 @@ Standard_Boolean BRepBlend_RstRstEvolRad::IsSolution(const math_Vector&  Sol,
   math_Matrix gradsol(1, 2, 1, 2);
 
   gp_Vec dnplan, d1urst1, d1vrst1, d1urst2, d1vrst2, d11, d21, temp;
-  gp_Pnt bid;
+  Point3d bid;
 
   Standard_Real Cosa, Sina, Angle;
 
@@ -326,7 +326,7 @@ Standard_Boolean BRepBlend_RstRstEvolRad::IsSolution(const math_Vector&  Sol,
       tg2drst2.SetCoord(a, b);
     }
 
-    gp_Pnt           Center;
+    Point3d           Center;
     gp_Vec           NotUsed;
     Standard_Boolean IsCenter;
 
@@ -379,14 +379,14 @@ Standard_Real BRepBlend_RstRstEvolRad::GetMinimalDistance() const
 
 //=================================================================================================
 
-const gp_Pnt& BRepBlend_RstRstEvolRad::PointOnRst1() const
+const Point3d& BRepBlend_RstRstEvolRad::PointOnRst1() const
 {
   return ptrst1;
 }
 
 //=================================================================================================
 
-const gp_Pnt& BRepBlend_RstRstEvolRad::PointOnRst2() const
+const Point3d& BRepBlend_RstRstEvolRad::PointOnRst2() const
 {
   return ptrst2;
 }
@@ -479,7 +479,7 @@ Blend_DecrochStatus BRepBlend_RstRstEvolRad::Decroch(const math_Vector& Sol,
                                                      gp_Vec&            TgRst2) const
 {
   gp_Vec        NRst1InPlane, NRst2InPlane;
-  gp_Pnt        PtTmp1, PtTmp2, Center;
+  Point3d        PtTmp1, PtTmp2, Center;
   gp_Vec        d1u, d1v, centptrst, NotUsed;
   Standard_Real norm, unsurnorm;
   Standard_Real u, v;
@@ -566,10 +566,10 @@ void BRepBlend_RstRstEvolRad::Set(const BlendFunc_SectionShape TypeSection)
 // function : CenterCircleRst1Rst2
 // purpose  : Calculate the center of circle passing by two points of restrictions
 //=======================================================================
-Standard_Boolean BRepBlend_RstRstEvolRad::CenterCircleRst1Rst2(const gp_Pnt& PtRst1,
-                                                               const gp_Pnt& PtRst2,
+Standard_Boolean BRepBlend_RstRstEvolRad::CenterCircleRst1Rst2(const Point3d& PtRst1,
+                                                               const Point3d& PtRst2,
                                                                const gp_Vec& np,
-                                                               gp_Pnt&       Center,
+                                                               Point3d&       Center,
                                                                gp_Vec&       VdMed) const
 {
 
@@ -615,7 +615,7 @@ void BRepBlend_RstRstEvolRad::Section(const Standard_Real Param,
                                       gp_Circ&            C)
 {
   gp_Vec ns, np, NotUsed;
-  gp_Pnt Center;
+  Point3d Center;
 
   tguide->D1(Param, ptgui, d1gui);
   ray    = tevol->Value(Param);
@@ -774,7 +774,7 @@ void BRepBlend_RstRstEvolRad::Section(const Blend_Point&    P,
                                       TColStd_Array1OfReal& Weights)
 {
   gp_Vec        n1, n2, NotUsed;
-  gp_Pnt        Center;
+  Point3d        Center;
   Standard_Real u, v;
 
   Standard_Real    prm = P.Parameter();
@@ -838,7 +838,7 @@ Standard_Boolean BRepBlend_RstRstEvolRad::Section(const Blend_Point&    P,
   gp_Vec dnplan, d1n1, d1n2; //,np2, dnp2;
   gp_Vec temp, tgct;
   gp_Vec d1urst, d1vrst;
-  gp_Pnt Center, NotUsed;
+  Point3d Center, NotUsed;
 
   Standard_Real norm2, normmed, Dist;
 

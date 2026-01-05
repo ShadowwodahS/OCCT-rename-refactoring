@@ -102,8 +102,8 @@ void GeomAdaptor_SurfaceOfRevolution::Load(const gp_Ax1& V)
     new GeomEvaluator_SurfaceOfRevolution(myBasisCurve, myAxis.Direction(), myAxis.Location());
 
   // Eval myAxeRev : axe of revolution ( Determination de Ox).
-  gp_Pnt           P, Q;
-  gp_Pnt           O = myAxis.Location();
+  Point3d           P, Q;
+  Point3d           O = myAxis.Location();
   gp_Dir           Ox;
   gp_Dir           Oz   = myAxis.Direction();
   Standard_Boolean yrev = Standard_False;
@@ -149,7 +149,7 @@ void GeomAdaptor_SurfaceOfRevolution::Load(const gp_Ax1& V)
     Standard_Real    Last  = myBasisCurve->LastParameter();
     Standard_Integer Ratio = 1;
     Standard_Real    Dist;
-    gp_Pnt           PP;
+    Point3d           PP;
     do
     {
       PP   = myBasisCurve->Value(First + (Last - First) / Ratio);
@@ -360,7 +360,7 @@ GeomAbs_SurfaceType GeomAdaptor_SurfaceOfRevolution::GetType() const
 
       if (myAxis.IsParallel(Axe, TolAng))
       {
-        gp_Pnt        P = Value(0., 0.);
+        Point3d        P = Value(0., 0.);
         Standard_Real R = gp_Vec(myAxeRev.Location(), P) * myAxeRev.XDirection();
         if (R > TolConf)
         {
@@ -376,8 +376,8 @@ GeomAbs_SurfaceType GeomAdaptor_SurfaceOfRevolution::GetType() const
         Standard_Boolean istrim = (!Precision::IsInfinite(uf) && !Precision::IsInfinite(ul));
         if (istrim)
         {
-          gp_Pnt        pf  = myBasisCurve->Value(uf);
-          gp_Pnt        pl  = myBasisCurve->Value(ul);
+          Point3d        pf  = myBasisCurve->Value(uf);
+          Point3d        pl  = myBasisCurve->Value(ul);
           Standard_Real len = pf.Distance(pl);
           // on calcule la distance projetee sur l axe.
           gp_Vec        vlin(pf, pl);
@@ -385,7 +385,7 @@ GeomAbs_SurfaceType GeomAdaptor_SurfaceOfRevolution::GetType() const
           Standard_Real projlen = Abs(vaxe.Dot(vlin));
           if ((len - projlen) <= TolConf)
           {
-            gp_Pnt        P = Value(0., 0.);
+            Point3d        P = Value(0., 0.);
             Standard_Real R = gp_Vec(myAxeRev.Location(), P) * myAxeRev.XDirection();
             if (R > TolConf)
             {
@@ -413,7 +413,7 @@ GeomAbs_SurfaceType GeomAdaptor_SurfaceOfRevolution::GetType() const
       gp_Lin        aLin(myAxis);
       //
       gp_Circ       C   = myBasisCurve->Circle();
-      const gp_Pnt& aLC = C.Location();
+      const Point3d& aLC = C.Location();
       aR                = C.Radius();
       //
 
@@ -447,10 +447,10 @@ gp_Pln GeomAdaptor_SurfaceOfRevolution::Plane() const
                                  "GeomAdaptor_SurfaceOfRevolution:Plane");
 
   gp_Ax3        Axe       = myAxeRev;
-  gp_Pnt        aPonCurve = Value(0., 0.);
+  Point3d        aPonCurve = Value(0., 0.);
   Standard_Real aDot = (aPonCurve.XYZ() - myAxis.Location().XYZ()).Dot(myAxis.Direction().XYZ());
 
-  gp_Pnt P(myAxis.Location().XYZ() + aDot * myAxis.Direction().XYZ());
+  Point3d P(myAxis.Location().XYZ() + aDot * myAxis.Direction().XYZ());
   Axe.SetLocation(P);
   if (Axe.XDirection().Dot(myBasisCurve->Line().Direction()) >= -Precision::Confusion())
     Axe.XReverse();
@@ -465,7 +465,7 @@ gp_Cylinder GeomAdaptor_SurfaceOfRevolution::Cylinder() const
   Standard_NoSuchObject_Raise_if(GetType() != GeomAbs_Cylinder,
                                  "GeomAdaptor_SurfaceOfRevolution::Cylinder");
 
-  gp_Pnt        P = Value(0., 0.);
+  Point3d        P = Value(0., 0.);
   Standard_Real R = gp_Vec(myAxeRev.Location(), P) * myAxeRev.XDirection();
   return gp_Cylinder(myAxeRev, R);
 }
@@ -479,11 +479,11 @@ gp_Cone GeomAdaptor_SurfaceOfRevolution::Cone() const
   gp_Ax3        Axe   = myAxeRev;
   gp_Dir        ldir  = (myBasisCurve->Line()).Direction();
   Standard_Real Angle = (Axe.Direction()).Angle(ldir);
-  gp_Pnt        P0    = Value(0., 0.);
+  Point3d        P0    = Value(0., 0.);
   Standard_Real R     = (Axe.Location()).Distance(P0);
   if (R >= Precision::Confusion())
   {
-    gp_Pnt        O = Axe.Location();
+    Point3d        O = Axe.Location();
     gp_Vec        OP0(O, P0);
     Standard_Real t = OP0.Dot(Axe.XDirection());
     t /= ldir.Dot(Axe.XDirection());

@@ -65,7 +65,7 @@ public:
 
   //! Creates a plane with the  "Location" point <theP>
   //! and the normal direction <theV>.
-  Standard_EXPORT gp_Pln(const gp_Pnt& theP, const gp_Dir& theV);
+  Standard_EXPORT gp_Pln(const Point3d& theP, const gp_Dir& theV);
 
   //! Creates a plane from its cartesian equation :
   //! @code
@@ -93,7 +93,7 @@ public:
   void SetAxis(const gp_Ax1& theA1) { pos.SetAxis(theA1); }
 
   //! Changes the origin of the plane.
-  void SetLocation(const gp_Pnt& theLoc) { pos.SetLocation(theLoc); }
+  void SetLocation(const Point3d& theLoc) { pos.SetLocation(theLoc); }
 
   //! Changes the local coordinate system of the plane.
   void SetPosition(const gp_Ax3& theA3) { pos = theA3; }
@@ -113,13 +113,13 @@ public:
   const gp_Ax1& Axis() const { return pos.Axis(); }
 
   //! Returns the plane's location (origin).
-  const gp_Pnt& Location() const { return pos.Location(); }
+  const Point3d& Location() const { return pos.Location(); }
 
   //! Returns the local coordinate system of the plane .
   const gp_Ax3& Position() const { return pos; }
 
   //! Computes the distance between <me> and the point <theP>.
-  Standard_Real Distance(const gp_Pnt& theP) const;
+  Standard_Real Distance(const Point3d& theP) const;
 
   //! Computes the distance between <me> and the line <theL>.
   Standard_Real Distance(const gp_Lin& theL) const;
@@ -128,7 +128,7 @@ public:
   Standard_Real Distance(const gp_Pln& theOther) const;
 
   //! Computes the square distance between <me> and the point <theP>.
-  Standard_Real SquareDistance(const gp_Pnt& theP) const
+  Standard_Real SquareDistance(const Point3d& theP) const
   {
     Standard_Real aD = Distance(theP);
     return aD * aD;
@@ -162,7 +162,7 @@ public:
   //! AngularTolerance, and the distance between the origin
   //! of line L and this plane is less than or equal to
   //! theLinearTolerance.
-  Standard_Boolean Contains(const gp_Pnt& theP, const Standard_Real theLinearTolerance) const
+  Standard_Boolean Contains(const Point3d& theP, const Standard_Real theLinearTolerance) const
   {
     return Distance(theP) <= theLinearTolerance;
   }
@@ -183,14 +183,14 @@ public:
            && pos.Direction().IsNormal(theL.Direction(), theAngularTolerance);
   }
 
-  Standard_EXPORT void Mirror(const gp_Pnt& theP);
+  Standard_EXPORT void Mirror(const Point3d& theP);
 
   //! Performs the symmetrical transformation of a plane with respect
   //! to the point <theP> which is the center of the symmetry
   //! Warnings :
   //! The normal direction to the plane is not changed.
   //! The "XAxis" and the "YAxis" are reversed.
-  Standard_NODISCARD Standard_EXPORT gp_Pln Mirrored(const gp_Pnt& theP) const;
+  Standard_NODISCARD Standard_EXPORT gp_Pln Mirrored(const Point3d& theP) const;
 
   Standard_EXPORT void Mirror(const gp_Ax1& theA1);
 
@@ -227,10 +227,10 @@ public:
     return aPl;
   }
 
-  void Scale(const gp_Pnt& theP, const Standard_Real theS) { pos.Scale(theP, theS); }
+  void Scale(const Point3d& theP, const Standard_Real theS) { pos.Scale(theP, theS); }
 
   //! Scales a plane. theS is the scaling value.
-  Standard_NODISCARD gp_Pln Scaled(const gp_Pnt& theP, const Standard_Real theS) const
+  Standard_NODISCARD gp_Pln Scaled(const Point3d& theP, const Standard_Real theS) const
   {
     gp_Pln aPl = *this;
     aPl.pos.Scale(theP, theS);
@@ -262,10 +262,10 @@ public:
     return aPl;
   }
 
-  void Translate(const gp_Pnt& theP1, const gp_Pnt& theP2) { pos.Translate(theP1, theP2); }
+  void Translate(const Point3d& theP1, const Point3d& theP2) { pos.Translate(theP1, theP2); }
 
   //! Translates a plane from the point theP1 to the point theP2.
-  Standard_NODISCARD gp_Pln Translated(const gp_Pnt& theP1, const gp_Pnt& theP2) const
+  Standard_NODISCARD gp_Pln Translated(const Point3d& theP1, const Point3d& theP2) const
   {
     gp_Pln aPl = *this;
     aPl.pos.Translate(theP1, theP2);
@@ -303,7 +303,7 @@ inline void gp_Pln::Coefficients(Standard_Real& theA,
     theB = -aDir.Y();
     theC = -aDir.Z();
   }
-  const gp_Pnt& aP = pos.Location();
+  const Point3d& aP = pos.Location();
   theD             = -(theA * aP.X() + theB * aP.Y() + theC * aP.Z());
 }
 
@@ -311,9 +311,9 @@ inline void gp_Pln::Coefficients(Standard_Real& theA,
 // function : Distance
 // purpose :
 //=======================================================================
-inline Standard_Real gp_Pln::Distance(const gp_Pnt& theP) const
+inline Standard_Real gp_Pln::Distance(const Point3d& theP) const
 {
-  const gp_Pnt& aLoc = pos.Location();
+  const Point3d& aLoc = pos.Location();
   const gp_Dir& aDir = pos.Direction();
   Standard_Real aD   = (aDir.X() * (theP.X() - aLoc.X()) + aDir.Y() * (theP.Y() - aLoc.Y())
                       + aDir.Z() * (theP.Z() - aLoc.Z()));
@@ -333,8 +333,8 @@ inline Standard_Real gp_Pln::Distance(const gp_Lin& theL) const
   Standard_Real aD = 0.0;
   if ((pos.Direction()).IsNormal(theL.Direction(), gp::Resolution()))
   {
-    const gp_Pnt& aP   = theL.Location();
-    const gp_Pnt& aLoc = pos.Location();
+    const Point3d& aP   = theL.Location();
+    const Point3d& aLoc = pos.Location();
     const gp_Dir& aDir = pos.Direction();
     aD                 = (aDir.X() * (aP.X() - aLoc.X()) + aDir.Y() * (aP.Y() - aLoc.Y())
           + aDir.Z() * (aP.Z() - aLoc.Z()));
@@ -355,8 +355,8 @@ inline Standard_Real gp_Pln::Distance(const gp_Pln& theOther) const
   Standard_Real aD = 0.0;
   if ((pos.Direction()).IsParallel(theOther.pos.Direction(), gp::Resolution()))
   {
-    const gp_Pnt& aP   = theOther.pos.Location();
-    const gp_Pnt& aLoc = pos.Location();
+    const Point3d& aP   = theOther.pos.Location();
+    const Point3d& aLoc = pos.Location();
     const gp_Dir& aDir = pos.Direction();
     aD                 = (aDir.X() * (aP.X() - aLoc.X()) + aDir.Y() * (aP.Y() - aLoc.Y())
           + aDir.Z() * (aP.Z() - aLoc.Z()));

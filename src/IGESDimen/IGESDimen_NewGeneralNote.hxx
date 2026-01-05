@@ -28,7 +28,7 @@
 #include <IGESData_HArray1OfIGESEntity.hxx>
 #include <TColgp_HArray1OfXYZ.hxx>
 #include <IGESData_IGESEntity.hxx>
-class gp_Pnt;
+class Point3d;
 class TCollection_HAsciiString;
 
 class IGESDimen_NewGeneralNote;
@@ -114,10 +114,10 @@ public:
   Standard_EXPORT Standard_Integer JustifyCode() const;
 
   //! returns Text containment area Location point
-  Standard_EXPORT gp_Pnt AreaLocation() const;
+  Standard_EXPORT Point3d AreaLocation() const;
 
   //! returns Text containment area Location point after Transformation
-  Standard_EXPORT gp_Pnt TransformedAreaLocation() const;
+  Standard_EXPORT Point3d TransformedAreaLocation() const;
 
   //! returns distance from the containment area plane
   Standard_EXPORT Standard_Real ZDepthAreaLocation() const;
@@ -126,10 +126,10 @@ public:
   Standard_EXPORT Standard_Real AreaRotationAngle() const;
 
   //! returns position of first base line
-  Standard_EXPORT gp_Pnt BaseLinePosition() const;
+  Standard_EXPORT Point3d BaseLinePosition() const;
 
   //! returns position of first base line after Transformation
-  Standard_EXPORT gp_Pnt TransformedBaseLinePosition() const;
+  Standard_EXPORT Point3d TransformedBaseLinePosition() const;
 
   //! returns distance from the Base line position plane
   Standard_EXPORT Standard_Real ZDepthBaseLinePosition() const;
@@ -240,11 +240,11 @@ public:
 
   //! returns text start point of string
   //! raises exception if Index <= 0 or Index > NbStrings()
-  Standard_EXPORT gp_Pnt StartPoint(const Standard_Integer Index) const;
+  Standard_EXPORT Point3d StartPoint(const Standard_Integer Index) const;
 
   //! returns text start point of string after Transformation
   //! raises exception if Index <= 0 or Index > NbStrings()
-  Standard_EXPORT gp_Pnt TransformedStartPoint(const Standard_Integer Index) const;
+  Standard_EXPORT Point3d TransformedStartPoint(const Standard_Integer Index) const;
 
   //! returns distance from the start point plane
   //! raises exception if Index <= 0 or Index > NbStrings()

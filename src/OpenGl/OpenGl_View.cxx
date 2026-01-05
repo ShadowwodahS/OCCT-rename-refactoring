@@ -454,8 +454,8 @@ static void SetMinMaxValuesCallback(Graphic3d_CView* theView)
   Bnd_Box aBox = theView->MinMaxValues();
   if (!aBox.IsVoid())
   {
-    gp_Pnt aMin = aBox.CornerMin();
-    gp_Pnt aMax = aBox.CornerMax();
+    Point3d aMin = aBox.CornerMin();
+    Point3d aMax = aBox.CornerMax();
 
     Graphic3d_Vec3 aMinVec((Standard_ShortReal)aMin.X(),
                            (Standard_ShortReal)aMin.Y(),
@@ -880,8 +880,8 @@ Bnd_Box OpenGl_View::MinMaxValues(const Standard_Boolean theToIncludeAuxiliary) 
   if (theToIncludeAuxiliary && myRenderParams.ToShowStats
       && !myWorkspace->GetGlContext()->arbDepthClamp)
   {
-    Bnd_Box aStatsBox(gp_Pnt(float(myWindow->Width() / 2.0), float(myWindow->Height() / 2.0), 0.0),
-                      gp_Pnt(float(myWindow->Width() / 2.0), float(myWindow->Height() / 2.0), 0.0));
+    Bnd_Box aStatsBox(Point3d(float(myWindow->Width() / 2.0), float(myWindow->Height() / 2.0), 0.0),
+                      Point3d(float(myWindow->Width() / 2.0), float(myWindow->Height() / 2.0), 0.0));
     myRenderParams.StatsPosition->Apply(myCamera,
                                         myCamera->ProjectionMatrix(),
                                         myCamera->OrientationMatrix(),
@@ -2532,7 +2532,7 @@ void OpenGl_View::render(Graphic3d_Camera::Projection theProjection,
 
   // if the view is scaled normal vectors are scaled to unit
   // length for correct displaying of shaded objects
-  const gp_Pnt anAxialScale = aContext->Camera()->AxialScale();
+  const Point3d anAxialScale = aContext->Camera()->AxialScale();
   if (anAxialScale.X() != 1.F || anAxialScale.Y() != 1.F || anAxialScale.Z() != 1.F)
   {
     aContext->SetGlNormalizeEnabled(Standard_True);

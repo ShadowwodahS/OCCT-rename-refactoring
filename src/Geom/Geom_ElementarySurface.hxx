@@ -71,7 +71,7 @@ public:
 
   //! Changes the location of the local coordinates system of the
   //! surface.
-  void SetLocation(const gp_Pnt& theLoc) { pos.SetLocation(theLoc); }
+  void SetLocation(const Point3d& theLoc) { pos.SetLocation(theLoc); }
 
   //! Changes the local coordinates system of the surface.
   void SetPosition(const gp_Ax3& theAx3) { pos = theAx3; }
@@ -81,7 +81,7 @@ public:
 
   //! Returns the location point of the local coordinate system of the
   //! surface.
-  const gp_Pnt& Location() const { return pos.Location(); }
+  const Point3d& Location() const { return pos.Location(); }
 
   //! Returns the local coordinates system of the surface.
   const gp_Ax3& Position() const { return pos; }

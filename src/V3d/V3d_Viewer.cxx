@@ -46,7 +46,7 @@ V3d_Viewer::V3d_Viewer(const Handle(Graphic3d_GraphicDriver)& theDriver)
       myDefaultTypeOfView(V3d_ORTHOGRAPHIC),
       myComputedMode(Standard_True),
       myDefaultComputedMode(Standard_False),
-      myPrivilegedPlane(gp_Ax3(gp_Pnt(0., 0., 0), gp_Dir(0., 0., 1.), gp_Dir(1., 0., 0.))),
+      myPrivilegedPlane(gp_Ax3(Point3d(0., 0., 0), gp_Dir(0., 0., 1.), gp_Dir(1., 0., 0.))),
       myDisplayPlane(Standard_False),
       myDisplayPlaneLength(1000.0),
       myGridType(Aspect_GT_Rectangular),
@@ -497,9 +497,9 @@ void V3d_Viewer::DisplayPrivilegedPlane(const Standard_Boolean theOnOff,
 
   Handle(Graphic3d_ArrayOfSegments) aPrims = new Graphic3d_ArrayOfSegments(6);
 
-  const gp_Pnt& p0 = myPrivilegedPlane.Location();
+  const Point3d& p0 = myPrivilegedPlane.Location();
 
-  const gp_Pnt pX(p0.XYZ() + myDisplayPlaneLength * myPrivilegedPlane.XDirection().XYZ());
+  const Point3d pX(p0.XYZ() + myDisplayPlaneLength * myPrivilegedPlane.XDirection().XYZ());
   aPrims->AddVertex(p0);
   aPrims->AddVertex(pX);
   Handle(Graphic3d_Text) aText = new Graphic3d_Text(1.0f / 81.0f);
@@ -507,7 +507,7 @@ void V3d_Viewer::DisplayPrivilegedPlane(const Standard_Boolean theOnOff,
   aText->SetPosition(pX);
   aGroup->AddText(aText);
 
-  const gp_Pnt pY(p0.XYZ() + myDisplayPlaneLength * myPrivilegedPlane.YDirection().XYZ());
+  const Point3d pY(p0.XYZ() + myDisplayPlaneLength * myPrivilegedPlane.YDirection().XYZ());
   aPrims->AddVertex(p0);
   aPrims->AddVertex(pY);
   aText = new Graphic3d_Text(1.0f / 81.0f);
@@ -515,7 +515,7 @@ void V3d_Viewer::DisplayPrivilegedPlane(const Standard_Boolean theOnOff,
   aText->SetPosition(pY);
   aGroup->AddText(aText);
 
-  const gp_Pnt pZ(p0.XYZ() + myDisplayPlaneLength * myPrivilegedPlane.Direction().XYZ());
+  const Point3d pZ(p0.XYZ() + myDisplayPlaneLength * myPrivilegedPlane.Direction().XYZ());
   aPrims->AddVertex(p0);
   aPrims->AddVertex(pZ);
   aText = new Graphic3d_Text(1.0f / 81.0f);

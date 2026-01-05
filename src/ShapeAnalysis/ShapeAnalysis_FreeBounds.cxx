@@ -208,8 +208,8 @@ void ShapeAnalysis_FreeBounds::ConnectWiresToWires(Handle(TopTools_HSequenceOfSh
     Bnd_Box       aBox;
     TopoDS_Vertex trV1, trV2;
     ShapeAnalysis::FindBounds(trW, trV1, trV2);
-    gp_Pnt trP1 = BRep_Tool::Pnt(trV1);
-    gp_Pnt trP2 = BRep_Tool::Pnt(trV2);
+    Point3d trP1 = BRep_Tool::Pnt(trV1);
+    Point3d trP2 = BRep_Tool::Pnt(trV2);
     aBox.Set(trP1);
     aBox.Add(trP2);
     aBox.SetGap(tolerance);
@@ -232,7 +232,7 @@ void ShapeAnalysis_FreeBounds::ConnectWiresToWires(Handle(TopTools_HSequenceOfSh
     Vf = sae.FirstVertex(sewd->Edge(1));
     Vl = sae.LastVertex(sewd->Edge(sewd->NbEdges()));
 
-    gp_Pnt pf, pl;
+    Point3d pf, pl;
     pf = BRep_Tool::Pnt(Vf);
     pl = BRep_Tool::Pnt(Vl);
     FVBox.Set(pf);
@@ -420,7 +420,7 @@ static void SplitWire(const TopoDS_Wire&                 wire,
         Standard_Boolean found;
         TopoDS_Edge      edge;
         TopoDS_Vertex    lvertex;
-        gp_Pnt           lpoint;
+        Point3d           lpoint;
 
         // searching for connection in ces
         if (SearchBackward)
@@ -434,7 +434,7 @@ static void SplitWire(const TopoDS_Wire&                 wire,
           for (j = ces.Length(); (j >= 1) && !found; j--)
           {
             TopoDS_Vertex fv = sae.FirstVertex(sewd->Edge(ces.Value(j)));
-            gp_Pnt        fp = BRep_Tool::Pnt(fv);
+            Point3d        fp = BRep_Tool::Pnt(fv);
             if ((shared && lvertex.IsSame(fv)) || (!shared && lpoint.IsEqual(fp, tolerance)))
               found = Standard_True;
           }
@@ -468,7 +468,7 @@ static void SplitWire(const TopoDS_Wire&                 wire,
           if (statuses.Value(j) == 0)
           {
             TopoDS_Vertex fv = sae.FirstVertex(sewd->Edge(j));
-            gp_Pnt        fp = BRep_Tool::Pnt(fv);
+            Point3d        fp = BRep_Tool::Pnt(fv);
             if ((shared && lvertex.IsSame(fv)) || (!shared && lpoint.IsEqual(fp, tolerance)))
               found = Standard_True;
           }

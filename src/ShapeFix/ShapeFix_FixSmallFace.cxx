@@ -75,7 +75,7 @@ void ShapeFix_FixSmallFace::Perform()
 TopoDS_Shape ShapeFix_FixSmallFace::FixSpotFace()
 {
 
-  // gp_Pnt spot;
+  // Point3d spot;
   // Standard_Real spotol;
   Standard_Boolean done = Standard_False;
   TopAbs_ShapeEnum st   = myShape.ShapeType();
@@ -136,7 +136,7 @@ Standard_Boolean ShapeFix_FixSmallFace::ReplaceVerticesInCaseOfSpot(
   Standard_Real        theMaxDev;
   Standard_Real        theMaxTol = 0.0;
   thePositions.Clear();
-  gp_Pnt thePoint;
+  Point3d thePoint;
   // smh#8
   TopoDS_Shape tmpFace = Context()->Apply(F);
   F                    = TopoDS::Face(tmpFace);
@@ -187,7 +187,7 @@ Standard_Boolean ShapeFix_FixSmallFace::ReplaceVerticesInCaseOfSpot(
   // Create new vertex with mean point
   TopoDS_Vertex theSharedVertex;
   theBuilder.MakeVertex(theSharedVertex);
-  theBuilder.UpdateVertex(theSharedVertex, gp_Pnt(thePosition), theMaxDev + theMaxTol / 2);
+  theBuilder.UpdateVertex(theSharedVertex, Point3d(thePosition), theMaxDev + theMaxTol / 2);
   // Use external tolerance
   //   if (tol!=-1.0) theBuilder.UpdateVertex( theSharedVertex, tol);
   // Replacing all vertices in the face by new one
@@ -376,7 +376,7 @@ TopoDS_Edge ShapeFix_FixSmallFace::ComputeSharedEdgeForStripFace(const TopoDS_Fa
   TopoDS_Vertex V1, V2, V3, V4;
   TopExp::Vertices(E1, V1, V2);
   TopExp::Vertices(E2, V3, V4);
-  gp_Pnt        p1, p2;
+  Point3d        p1, p2;
   Standard_Real dev;
   p1  = BRep_Tool::Pnt(V1);
   p2  = BRep_Tool::Pnt(V3);
@@ -399,7 +399,7 @@ TopoDS_Edge ShapeFix_FixSmallFace::ComputeSharedEdgeForStripFace(const TopoDS_Fa
     {
       dev         = (dev / 2) * 1.0001;
       thePosition = (p1.XYZ() + p2.XYZ()) / 2;
-      theBuilder.UpdateVertex(theFirstVer, gp_Pnt(thePosition), dev);
+      theBuilder.UpdateVertex(theFirstVer, Point3d(thePosition), dev);
       // if(Context()->Status(V1, temp) != 0) theFirstVer = TopoDS::Vertex (temp); //If this vertex
       // already recorded in map else //take recorded vertex
       //   if(theRepVert->Status(V3, temp) != 0) theFirstVer = TopoDS::Vertex (temp);
@@ -424,7 +424,7 @@ TopoDS_Edge ShapeFix_FixSmallFace::ComputeSharedEdgeForStripFace(const TopoDS_Fa
         p2          = BRep_Tool::Pnt(V4);
         dev         = p1.Distance(p2);
         thePosition = (p1.XYZ() + p2.XYZ()) / 2;
-        theBuilder.UpdateVertex(theSecondVer, gp_Pnt(thePosition), dev);
+        theBuilder.UpdateVertex(theSecondVer, Point3d(thePosition), dev);
         // if(theRepVert->Status(V2, temp) != 0) theSecondVer = TopoDS::Vertex (temp); //If this
         // vertex already recorded in map else
         //   if(theRepVert->Status(V4, temp) != 0) theSecondVer = TopoDS::Vertex (temp);
@@ -459,7 +459,7 @@ TopoDS_Edge ShapeFix_FixSmallFace::ComputeSharedEdgeForStripFace(const TopoDS_Fa
       {
         dev         = (dev / 2) * 1.0001;
         thePosition = (p1.XYZ() + p2.XYZ()) / 2;
-        theBuilder.UpdateVertex(theFirstVer, gp_Pnt(thePosition), dev);
+        theBuilder.UpdateVertex(theFirstVer, Point3d(thePosition), dev);
         //    if(theRepVert->Status(V1, temp) != 0) theFirstVer = TopoDS::Vertex (temp); //If this
         //    vertex already recorded in map
         //  else
@@ -484,7 +484,7 @@ TopoDS_Edge ShapeFix_FixSmallFace::ComputeSharedEdgeForStripFace(const TopoDS_Fa
           p2          = BRep_Tool::Pnt(V3);
           dev         = p1.Distance(p2);
           thePosition = (p1.XYZ() + p2.XYZ()) / 2;
-          theBuilder.UpdateVertex(theSecondVer, gp_Pnt(thePosition), dev);
+          theBuilder.UpdateVertex(theSecondVer, Point3d(thePosition), dev);
         }
         else
           theSecondVer = V2;
@@ -624,8 +624,8 @@ Standard_Boolean ShapeFix_FixSmallFace::SplitOneFace(TopoDS_Face&     F,
     V = TopoDS::Vertex(itc.Current());
     if (V.IsNull())
       return Standard_False;
-    gp_Pnt        proj;
-    gp_Pnt        vp = BRep_Tool::Pnt(V);
+    Point3d        proj;
+    Point3d        vp = BRep_Tool::Pnt(V);
     TopoDS_Vertex theNewVertex;
     TopoDS_Edge   E;
     TopoDS_Edge   theFirstEdge, theSecondEdge;

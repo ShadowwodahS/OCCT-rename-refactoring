@@ -181,7 +181,7 @@ public:
   Standard_Integer NbPoints() const;
 
   //! Returns the point of range N.
-  const gp_Pnt& Point(const Standard_Integer N) const;
+  const Point3d& Point(const Standard_Integer N) const;
 
   //! Returns the parameter on the line of the intersection
   //! point of range N.
@@ -193,7 +193,7 @@ private:
   Standard_Boolean parallel;
   Standard_Boolean inquadric;
   Standard_Integer nbpts;
-  gp_Pnt           pnts[4];
+  Point3d           pnts[4];
   Standard_Real    paramonc[4];
 };
 

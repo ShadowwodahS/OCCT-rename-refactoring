@@ -153,7 +153,7 @@ Handle(Poly_Triangulation) RWObj_TriangulationReader::GetTriangulation()
     new Poly_Triangulation(myNodes.Length(), myTriangles.Length(), hasUV);
   for (Standard_Integer aNodeIter = 0; aNodeIter < myNodes.Size(); ++aNodeIter)
   {
-    const gp_Pnt& aNode = myNodes.Value(aNodeIter);
+    const Point3d& aNode = myNodes.Value(aNodeIter);
     aPoly->SetNode(aNodeIter + 1, aNode);
   }
   if (hasUV)

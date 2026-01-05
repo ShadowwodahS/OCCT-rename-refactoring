@@ -19,7 +19,7 @@
 #include <Standard_DefineAlloc.hxx>
 
 class TopoDS_Edge;
-class gp_Pnt;
+class Point3d;
 
 class BRepExtrema_ExtCC
 {
@@ -50,11 +50,11 @@ public:
   //! Returns the parameter on the first edge of the <N>th extremum distance. <br>
   Standard_EXPORT Standard_Real ParameterOnE1(const Standard_Integer N) const;
   //! Returns the Point of the <N>th extremum distance on the edge E1. <br>
-  Standard_EXPORT gp_Pnt PointOnE1(const Standard_Integer N) const;
+  Standard_EXPORT Point3d PointOnE1(const Standard_Integer N) const;
   //! Returns the parameter on the second edge of the <N>th extremum distance. <br>
   Standard_EXPORT Standard_Real ParameterOnE2(const Standard_Integer N) const;
   //! Returns the Point of the <N>th extremum distance on the edge E2. <br>
-  Standard_EXPORT gp_Pnt PointOnE2(const Standard_Integer N) const;
+  Standard_EXPORT Point3d PointOnE2(const Standard_Integer N) const;
   //! if the edges is a trimmed curve, <br>
   //! dist11 is a square distance between the point on E1 <br>
   //! of parameter FirstParameter and the point of <br>
@@ -63,10 +63,10 @@ public:
                                               Standard_Real& distP12,
                                               Standard_Real& distP21,
                                               Standard_Real& distP22,
-                                              gp_Pnt&        P11,
-                                              gp_Pnt&        P12,
-                                              gp_Pnt&        P21,
-                                              gp_Pnt&        P22) const;
+                                              Point3d&        P11,
+                                              Point3d&        P12,
+                                              Point3d&        P21,
+                                              Point3d&        P22) const;
 
 private:
   Extrema_ExtCC             myExtCC;

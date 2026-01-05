@@ -48,7 +48,7 @@ public:
   {
   }
 
-  void DefineCheckPoint(const gp_Pnt& theXYZ) { myXYZ = theXYZ; }
+  void DefineCheckPoint(const Point3d& theXYZ) { myXYZ = theXYZ; }
 
   Bnd_Sphere& Sphere() const { return mySol; }
 
@@ -57,7 +57,7 @@ public:
   virtual Standard_Boolean Accept(const Standard_Integer& theObj) = 0;
 
 protected:
-  gp_Pnt                             myXYZ;
+  Point3d                             myXYZ;
   const Handle(Bnd_HArray1OfSphere)& mySphereArray;
   Bnd_Sphere&                        mySol;
 
@@ -224,7 +224,7 @@ Extrema_GenExtPS::~Extrema_GenExtPS()
 
 //=================================================================================================
 
-Extrema_GenExtPS::Extrema_GenExtPS(const gp_Pnt&            P,
+Extrema_GenExtPS::Extrema_GenExtPS(const Point3d&            P,
                                    const Adaptor3d_Surface& S,
                                    const Standard_Integer   NbU,
                                    const Standard_Integer   NbV,
@@ -240,7 +240,7 @@ Extrema_GenExtPS::Extrema_GenExtPS(const gp_Pnt&            P,
   Perform(P);
 }
 
-Extrema_GenExtPS::Extrema_GenExtPS(const gp_Pnt&            P,
+Extrema_GenExtPS::Extrema_GenExtPS(const Point3d&            P,
                                    const Adaptor3d_Surface& S,
                                    const Standard_Integer   NbU,
                                    const Standard_Integer   NbV,
@@ -432,7 +432,7 @@ const Extrema_POnSurfParams& Extrema_GenExtPS::ComputeEdgeParameters(
   const Standard_Boolean       IsUEdge,
   const Extrema_POnSurfParams& theParam0,
   const Extrema_POnSurfParams& theParam1,
-  const gp_Pnt&                thePoint,
+  const Point3d&                thePoint,
   const Standard_Real          theDiffTol)
 {
   const Standard_Real aSqrDist01 = theParam0.Value().SquareDistance(theParam1.Value());
@@ -496,7 +496,7 @@ const Extrema_POnSurfParams& Extrema_GenExtPS::ComputeEdgeParameters(
   }
 }
 
-void Extrema_GenExtPS::BuildGrid(const gp_Pnt& thePoint)
+void Extrema_GenExtPS::BuildGrid(const Point3d& thePoint)
 {
   // if grid was already built skip its creation
   if (!myInit)
@@ -538,7 +538,7 @@ void Extrema_GenExtPS::BuildGrid(const gp_Pnt& thePoint)
     {
       for (Standard_Integer NoV = 1; NoV <= myvsample; NoV++)
       {
-        gp_Pnt                aP1 = myS->Value(myUParams->Value(NoU), myVParams->Value(NoV));
+        Point3d                aP1 = myS->Value(myUParams->Value(NoU), myVParams->Value(NoV));
         Extrema_POnSurfParams aParam(myUParams->Value(NoU), myVParams->Value(NoV), aP1);
 
         aParam.SetElementType(Extrema_Node);
@@ -721,7 +721,7 @@ static Standard_Real LengthOfIso(const Adaptor3d_Surface& theS,
   Standard_Real    aLen = 0.;
   Standard_Integer i;
   Standard_Real    dPar = (thePar2 - thePar1) / (theNbPnts - 1);
-  gp_Pnt           aP1, aP2;
+  Point3d           aP1, aP2;
   Standard_Real    aPar = thePar1 + dPar;
   if (theIso == GeomAbs_IsoU)
   {
@@ -832,7 +832,7 @@ void Extrema_GenExtPS::BuildTree()
   Standard_Real PasV = myvsup - myvmin;
   Standard_Real U0   = PasU / myusample / 100.;
   Standard_Real V0   = PasV / myvsample / 100.;
-  gp_Pnt        P1;
+  Point3d        P1;
   PasU = (PasU - U0) / (myusample - 1);
   PasV = (PasV - V0) / (myvsample - 1);
   U0   = U0 / 2. + myumin;
@@ -869,7 +869,7 @@ void Extrema_GenExtPS::BuildTree()
   aFiller.Fill();
 }
 
-void Extrema_GenExtPS::FindSolution(const gp_Pnt& /*P*/, const Extrema_POnSurfParams& theParams)
+void Extrema_GenExtPS::FindSolution(const Point3d& /*P*/, const Extrema_POnSurfParams& theParams)
 {
   math_Vector Tol(1, 2);
   Tol(1) = mytolu;
@@ -902,7 +902,7 @@ void Extrema_GenExtPS::SetAlgo(const Extrema_ExtAlgo A)
   myAlgo = A;
 }
 
-void Extrema_GenExtPS::Perform(const gp_Pnt& P)
+void Extrema_GenExtPS::Perform(const Point3d& P)
 {
   myDone = Standard_False;
   myF.SetPoint(P);

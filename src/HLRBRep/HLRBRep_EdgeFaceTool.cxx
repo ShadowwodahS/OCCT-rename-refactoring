@@ -31,7 +31,7 @@ Standard_Real HLRBRep_EdgeFaceTool::CurvatureValue(const Standard_Address F,
                                                    const Standard_Real    V,
                                                    const gp_Dir&          Tg)
 {
-  gp_Pnt P;
+  Point3d P;
   gp_Vec D1U, D1V, D2U, D2V, D2UV;
   ((HLRBRep_Surface*)F)->D2(U, V, P, D1U, D1V, D2U, D2V, D2UV);
   Standard_Real d1ut   = D1U * Tg;

@@ -27,7 +27,7 @@ class SelectMgr_SortCriterion
 {
 public:
   Handle(Select3D_SensitiveEntity) Entity; //!< detected entity
-  gp_Pnt                           Point;  //!< 3D point
+  Point3d                           Point;  //!< 3D point
   Graphic3d_Vec3                   Normal; //!< surface normal or 0 vector if undefined
   Standard_Real                    Depth;  //!< distance from the view plane to the entity
                                            // clang-format off

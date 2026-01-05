@@ -36,7 +36,7 @@
 #define PERF_ENABLE_METERS
 #include <OSD_PerfMeter.hxx>
 
-#define ItemType gp_Pnt
+#define ItemType Point3d
 #define Key1Type Standard_Real
 #define Key2Type Standard_Integer
 

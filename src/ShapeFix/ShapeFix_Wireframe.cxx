@@ -725,7 +725,7 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
                   // Compare angles between edges
                   // Standard_Real Ang1, Ang2;
                   gp_Vec Vec1, Vec2;
-                  gp_Pnt P;
+                  Point3d P;
                   C1->D1(last1, P, Vec1);
                   C2->D1(first2, P, Vec2);
                   if (edge1.Orientation() == TopAbs_REVERSED)
@@ -1084,7 +1084,7 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
                   Standard_Real      f1, l1;
                   if (sae.Curve3d(ed, c3d, f1, l1, Standard_False))
                   {
-                    gp_Pnt p1, p2, p3;
+                    Point3d p1, p2, p3;
                     c3d->D0(f1, p1);
                     c3d->D0(l1, p2);
                     c3d->D0((f1 + l1) * 0.5, p3);
@@ -1209,7 +1209,7 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
             // Compare angles between edges
             // Standard_Real Ang1, Ang2;
             gp_Vec Vec1, Vec2;
-            gp_Pnt P;
+            Point3d P;
             C1->D1(last1, P, Vec1);
             C2->D1(first2, P, Vec2);
             if (edge1.Orientation() == TopAbs_REVERSED)
@@ -1563,7 +1563,7 @@ Standard_Boolean ShapeFix_Wireframe::MergeSmallEdges(
             Standard_Real      f1, l1;
             if (sae.Curve3d(ed, c3d, f1, l1, Standard_False))
             {
-              gp_Pnt p1, p2, p3;
+              Point3d p1, p2, p3;
               c3d->D0(f1, p1);
               c3d->D0(l1, p2);
               c3d->D0((f1 + l1) * 0.5, p3);

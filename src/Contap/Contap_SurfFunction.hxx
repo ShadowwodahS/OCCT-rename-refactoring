@@ -41,13 +41,13 @@ public:
 
   Standard_EXPORT void Set(const Handle(Adaptor3d_Surface)& S);
 
-  void Set(const gp_Pnt& Eye);
+  void Set(const Point3d& Eye);
 
   void Set(const gp_Dir& Dir);
 
   void Set(const gp_Dir& Dir, const Standard_Real Angle);
 
-  void Set(const gp_Pnt& Eye, const Standard_Real Angle);
+  void Set(const Point3d& Eye, const Standard_Real Angle);
 
   void Set(const Standard_Real Tolerance);
 
@@ -74,7 +74,7 @@ public:
   Standard_Real Tolerance() const;
 
   //! Returns the value of the solution point on the surface.
-  const gp_Pnt& Point() const;
+  const Point3d& Point() const;
 
   Standard_EXPORT Standard_Boolean IsTangent();
 
@@ -84,7 +84,7 @@ public:
 
   Contap_TFunction FunctionType() const;
 
-  const gp_Pnt& Eye() const;
+  const Point3d& Eye() const;
 
   const gp_Dir& Direction() const;
 
@@ -101,11 +101,11 @@ private:
   Standard_Real             myMean;
   Contap_TFunction          myType;
   gp_Dir                    myDir;
-  gp_Pnt                    myEye;
+  Point3d                    myEye;
   Standard_Real             myAng;
   Standard_Real             myCosAng;
   Standard_Real             tol;
-  gp_Pnt                    solpt;
+  Point3d                    solpt;
   Standard_Real             valf;
   Standard_Real             Usol;
   Standard_Real             Vsol;

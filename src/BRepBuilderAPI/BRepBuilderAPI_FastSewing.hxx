@@ -134,7 +134,7 @@ protected:
     }
 
     //! Geometry point of this Vertex
-    gp_Pnt        myPnt;
+    Point3d        myPnt;
     TopoDS_Vertex myTopoVert;
 
     //! List of faces and edges which share this vertex
@@ -255,7 +255,7 @@ protected:
     typedef Standard_Integer Target;
 
     NodeInspector(const NCollection_Vector<FS_Vertex>& theVec,
-                  const gp_Pnt&                        thePnt,
+                  const Point3d&                        thePnt,
                   const Standard_Real                  theTol);
 
     Standard_EXPORT NCollection_CellFilter_Action Inspect(const Target theId);
@@ -265,7 +265,7 @@ protected:
   private:
     NodeInspector&                       operator=(const NodeInspector&);
     const NCollection_Vector<FS_Vertex>& myVecOfVertexes;
-    gp_Pnt                               myPoint;
+    Point3d                               myPoint;
     Standard_Real                        mySQToler;
     Target                               myResID;
     Standard_Boolean                     myIsFindingEnable;

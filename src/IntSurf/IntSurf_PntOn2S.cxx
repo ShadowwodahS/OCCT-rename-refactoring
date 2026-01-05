@@ -23,7 +23,7 @@ IntSurf_PntOn2S::IntSurf_PntOn2S()
 {
 }
 
-void IntSurf_PntOn2S::SetValue(const gp_Pnt&          Pt,
+void IntSurf_PntOn2S::SetValue(const Point3d&          Pt,
                                const Standard_Boolean OnFirst,
                                const Standard_Real    U,
                                const Standard_Real    V)

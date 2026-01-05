@@ -23,7 +23,7 @@
 #include <Standard_Integer.hxx>
 #include <TColgp_HArray1OfXY.hxx>
 #include <IGESData_IGESEntity.hxx>
-class gp_Pnt;
+class Point3d;
 
 class IGESDimen_WitnessLine;
 DEFINE_STANDARD_HANDLE(IGESDimen_WitnessLine, IGESData_IGESEntity)
@@ -58,11 +58,11 @@ public:
 
   //! returns Index'th. data point
   //! raises exception if Index <= 0 or Index > NbPoints
-  Standard_EXPORT gp_Pnt Point(const Standard_Integer Index) const;
+  Standard_EXPORT Point3d Point(const Standard_Integer Index) const;
 
   //! returns data point after Transformation.
   //! raises exception if Index <= 0 or Index > NbPoints
-  Standard_EXPORT gp_Pnt TransformedPoint(const Standard_Integer Index) const;
+  Standard_EXPORT Point3d TransformedPoint(const Standard_Integer Index) const;
 
   DEFINE_STANDARD_RTTIEXT(IGESDimen_WitnessLine, IGESData_IGESEntity)
 

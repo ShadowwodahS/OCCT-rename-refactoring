@@ -16,7 +16,7 @@
 
 //  --		<lbr@sdsun2>
 
-inline const gp_Pnt& IntCurveSurface_IntersectionPoint::Pnt() const
+inline const Point3d& IntCurveSurface_IntersectionPoint::Pnt() const
 {
   return (myP);
 }

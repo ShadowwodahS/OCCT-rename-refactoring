@@ -119,8 +119,8 @@ void IntTools_ShrunkRange::Perform()
     return;
   }
   //
-  gp_Pnt        aP1 = BRep_Tool::Pnt(myV1);
-  gp_Pnt        aP2 = BRep_Tool::Pnt(myV2);
+  Point3d        aP1 = BRep_Tool::Pnt(myV1);
+  Point3d        aP2 = BRep_Tool::Pnt(myV2);
   Standard_Real aTolE, aTolV1, aTolV2;
   aTolE  = BRep_Tool::Tolerance(myEdge);
   aTolV1 = BRep_Tool::Tolerance(myV1);

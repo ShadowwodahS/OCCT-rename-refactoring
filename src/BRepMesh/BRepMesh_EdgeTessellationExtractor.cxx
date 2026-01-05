@@ -54,10 +54,10 @@ Standard_Integer BRepMesh_EdgeTessellationExtractor::PointsNb() const
 //=================================================================================================
 
 Standard_Boolean BRepMesh_EdgeTessellationExtractor::Value(const Standard_Integer theIndex,
-                                                           gp_Pnt&                thePoint,
+                                                           Point3d&                thePoint,
                                                            Standard_Real& theParameter) const
 {
-  const gp_Pnt aRefPnt = myTriangulation->Node(myIndices->Value(theIndex));
+  const Point3d aRefPnt = myTriangulation->Node(myIndices->Value(theIndex));
   thePoint             = BRepMesh_ShapeTool::UseLocation(aRefPnt, myLoc);
 
   theParameter = myProvider.Parameter(theIndex, thePoint);

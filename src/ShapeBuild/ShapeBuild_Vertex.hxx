@@ -21,7 +21,7 @@
 #include <Standard_DefineAlloc.hxx>
 
 class TopoDS_Vertex;
-class gp_Pnt;
+class Point3d;
 
 //! Provides low-level functions used for constructing vertices
 class ShapeBuild_Vertex
@@ -43,8 +43,8 @@ public:
 
   //! The same function as above, except that it accepts two points
   //! and two tolerances instead of vertices
-  Standard_EXPORT TopoDS_Vertex CombineVertex(const gp_Pnt&       pnt1,
-                                              const gp_Pnt&       pnt2,
+  Standard_EXPORT TopoDS_Vertex CombineVertex(const Point3d&       pnt1,
+                                              const Point3d&       pnt2,
                                               const Standard_Real tol1,
                                               const Standard_Real tol2,
                                               const Standard_Real tolFactor = 1.0001) const;

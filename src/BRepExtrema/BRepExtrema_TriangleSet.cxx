@@ -333,7 +333,7 @@ void BRepExtrema_TriangleSet::initNodes(const TColgp_Array1OfPnt& theNodes,
 {
   for (Standard_Integer aVertIdx = 1; aVertIdx <= theNodes.Size(); ++aVertIdx)
   {
-    gp_Pnt aVertex = theNodes.Value(aVertIdx);
+    Point3d aVertex = theNodes.Value(aVertIdx);
 
     aVertex.Transform(theTrsf);
 

@@ -57,7 +57,7 @@
 //------------------------------------------------------------------------------
 // function: TRI_SOLUTION
 //------------------------------------------------------------------------------
-static Standard_Boolean TRI_SOLUTION(const BRepExtrema_SeqOfSolution& SeqSol, const gp_Pnt& Pt)
+static Standard_Boolean TRI_SOLUTION(const BRepExtrema_SeqOfSolution& SeqSol, const Point3d& Pt)
 {
   for (BRepExtrema_SeqOfSolution::iterator anIt = SeqSol.begin(); anIt != SeqSol.end(); anIt++)
   {
@@ -159,14 +159,14 @@ static void TRIM_INFINIT_EDGE(const TopoDS_Edge& S1,
     Standard_Real Xmin, Ymin, Zmin, Xmax, Ymax, Zmax;
     aEdgeBox.Get(Xmin, Ymin, Zmin, Xmax, Ymax, Zmax);
 
-    const gp_Pnt aPnt0(Xmin, Ymin, Zmin);
-    const gp_Pnt aPnt1(Xmin, Ymax, Zmin);
-    const gp_Pnt aPnt2(Xmin, Ymax, Zmax);
-    const gp_Pnt aPnt3(Xmin, Ymin, Zmax);
-    const gp_Pnt aPnt4(Xmax, Ymax, Zmin);
-    const gp_Pnt aPnt5(Xmax, Ymax, Zmax);
-    const gp_Pnt aPnt6(Xmax, Ymin, Zmax);
-    const gp_Pnt aPnt7(Xmax, Ymin, Zmin);
+    const Point3d aPnt0(Xmin, Ymin, Zmin);
+    const Point3d aPnt1(Xmin, Ymax, Zmin);
+    const Point3d aPnt2(Xmin, Ymax, Zmax);
+    const Point3d aPnt3(Xmin, Ymin, Zmax);
+    const Point3d aPnt4(Xmax, Ymax, Zmin);
+    const Point3d aPnt5(Xmax, Ymax, Zmax);
+    const Point3d aPnt6(Xmax, Ymin, Zmax);
+    const Point3d aPnt7(Xmax, Ymin, Zmin);
 
     Standard_Real               arrU[8];
     GeomAPI_ProjectPointOnCurve aProj(aPnt0, pCurv);
@@ -321,14 +321,14 @@ static void TRIM_INFINIT_FACE(const TopoDS_Shape& S1,
     Standard_Real Xmin, Ymin, Zmin, Xmax, Ymax, Zmax;
     aEdgeBox.Get(Xmin, Ymin, Zmin, Xmax, Ymax, Zmax);
 
-    const gp_Pnt aPnt0(Xmin, Ymin, Zmin);
-    const gp_Pnt aPnt1(Xmin, Ymax, Zmin);
-    const gp_Pnt aPnt2(Xmin, Ymax, Zmax);
-    const gp_Pnt aPnt3(Xmin, Ymin, Zmax);
-    const gp_Pnt aPnt4(Xmax, Ymax, Zmin);
-    const gp_Pnt aPnt5(Xmax, Ymax, Zmax);
-    const gp_Pnt aPnt6(Xmax, Ymin, Zmax);
-    const gp_Pnt aPnt7(Xmax, Ymin, Zmin);
+    const Point3d aPnt0(Xmin, Ymin, Zmin);
+    const Point3d aPnt1(Xmin, Ymax, Zmin);
+    const Point3d aPnt2(Xmin, Ymax, Zmax);
+    const Point3d aPnt3(Xmin, Ymin, Zmax);
+    const Point3d aPnt4(Xmax, Ymax, Zmin);
+    const Point3d aPnt5(Xmax, Ymax, Zmax);
+    const Point3d aPnt6(Xmax, Ymin, Zmax);
+    const Point3d aPnt7(Xmax, Ymin, Zmin);
 
     Standard_Real              arrU[8], arrV[8];
     GeomAPI_ProjectPointOnSurf aProj(aPnt0, pSurf);
@@ -462,13 +462,13 @@ static void PERFORM_C0(const TopoDS_Edge&         S1,
       Standard_Real Udeb, Ufin;
       BRep_Tool::Range(Eother, Udeb, Ufin);
 
-      gp_Pnt                   P1, Pt;
+      Point3d                   P1, Pt;
       Standard_Integer         i, ii;
       BRepClass_FaceClassifier classifier;
       for (i = 1; i <= arrInter.Length(); i++)
       {
         const Standard_Real aParameter = arrInter(i);
-        const gp_Pnt        aPnt       = aAdaptorCurve.Value(aParameter);
+        const Point3d        aPnt       = aAdaptorCurve.Value(aParameter);
         const TopoDS_Vertex V1         = BRepBuilderAPI_MakeVertex(aPnt);
 
         BRepExtrema_ExtPC      Ext(V1, Eother);
@@ -527,7 +527,7 @@ static void PERFORM_C0(const TopoDS_Edge&         S1,
         for (Standard_Integer i2 = 1; i2 <= arrInterOther.Length(); i2++)
         {
           const Standard_Real aParameterOther = arrInterOther(i2);
-          const gp_Pnt        aPntOther       = aAdaptorCurveOther.Value(aParameterOther);
+          const Point3d        aPntOther       = aAdaptorCurveOther.Value(aParameterOther);
           const Standard_Real Dst             = aPnt.Distance(aPntOther);
           if ((Dst < DstRef - Eps) || (fabs(Dst - DstRef) < Eps))
           {
@@ -553,7 +553,7 @@ static void PERFORM_C0(const TopoDS_Edge&         S1,
 // purpose  : Checks in 3d if the extrema point belongs to edge boundary
 //=======================================================================
 static Standard_Boolean isOnBoundary(const TopoDS_Edge&  theEdge,
-                                     const gp_Pnt&       theSol,
+                                     const Point3d&       theSol,
                                      const Standard_Real theParam,
                                      const Standard_Real thePTol)
 {
@@ -695,8 +695,8 @@ void BRepExtrema_DistanceSS::Perform(const TopoDS_Vertex&       theS1,
                                      BRepExtrema_SeqOfSolution& theSeqSolShape1,
                                      BRepExtrema_SeqOfSolution& theSeqSolShape2)
 {
-  const gp_Pnt aP1 = BRep_Tool::Pnt(theS1);
-  const gp_Pnt aP2 = BRep_Tool::Pnt(theS2);
+  const Point3d aP1 = BRep_Tool::Pnt(theS1);
+  const Point3d aP2 = BRep_Tool::Pnt(theS2);
 
   const Standard_Real Dst = aP1.Distance(aP2);
   if ((Dst < myDstRef - myEps) || (fabs(Dst - myDstRef) < myEps))
@@ -739,7 +739,7 @@ void BRepExtrema_DistanceSS::Perform(const TopoDS_Vertex&       theS1,
     Dstmin = sqrt(Dstmin);
     if ((Dstmin < myDstRef - myEps) || (fabs(Dstmin - myDstRef) < myEps))
     {
-      gp_Pnt                  Pt, P1 = BRep_Tool::Pnt(theS1);
+      Point3d                  Pt, P1 = BRep_Tool::Pnt(theS1);
       constexpr Standard_Real epsP = Precision::PConfusion();
 
       for (i = 1; i <= NbExtrema; i++)
@@ -794,7 +794,7 @@ void BRepExtrema_DistanceSS::Perform(const TopoDS_Vertex&       theS1,
     if ((Dstmin < myDstRef - myEps) || (fabs(Dstmin - myDstRef) < myEps))
     {
       Standard_Real            U, V;
-      gp_Pnt                   Pt, P1 = BRep_Tool::Pnt(theS1);
+      Point3d                   Pt, P1 = BRep_Tool::Pnt(theS1);
       BRepClass_FaceClassifier classifier;
       const Standard_Real      tol = BRep_Tool::Tolerance(theS2);
 
@@ -856,7 +856,7 @@ void BRepExtrema_DistanceSS::Perform(const TopoDS_Edge&         theS1,
     Dstmin = sqrt(Dstmin);
     if ((Dstmin < myDstRef - myEps) || (fabs(Dstmin - myDstRef) < myEps))
     {
-      gp_Pnt                  Pt1, Pt2;
+      Point3d                  Pt1, Pt2;
       constexpr Standard_Real epsP = Precision::PConfusion();
 
       for (i = 1; i <= NbExtrema; i++)
@@ -904,8 +904,8 @@ void BRepExtrema_DistanceSS::Perform(const TopoDS_Edge&         theS1,
     BRepExtrema_SeqOfSolution::iterator anIt2 = seqSol2.begin();
     for (; anIt1 != seqSol1.end() && anIt2 != seqSol2.end(); anIt1++, anIt2++)
     {
-      gp_Pnt Pt1 = anIt1->Point();
-      gp_Pnt Pt2 = anIt2->Point();
+      Point3d Pt1 = anIt1->Point();
+      Point3d Pt2 = anIt2->Point();
       if (TRI_SOLUTION(theSeqSolShape1, Pt1) || TRI_SOLUTION(theSeqSolShape2, Pt2))
       {
         theSeqSolShape1.Append(*anIt1);
@@ -949,7 +949,7 @@ void BRepExtrema_DistanceSS::Perform(const TopoDS_Edge&         theS1,
       Standard_Real       U, V;
       const Standard_Real tol = BRep_Tool::Tolerance(theS2);
 
-      gp_Pnt                  Pt1, Pt2;
+      Point3d                  Pt1, Pt2;
       constexpr Standard_Real epsP = Precision::PConfusion();
 
       for (i = 1; i <= NbExtrema; i++)
@@ -997,7 +997,7 @@ void BRepExtrema_DistanceSS::Perform(const TopoDS_Edge&         theS1,
     TColStd_Array1OfReal arrInter(1, 1 + nbIntervals);
     aAdaptorCurve.Intervals(arrInter, GeomAbs_C1);
 
-    gp_Pnt              Pt;
+    Point3d              Pt;
     Standard_Real       U, V;
     const Standard_Real tol = BRep_Tool::Tolerance(theS2);
 
@@ -1005,7 +1005,7 @@ void BRepExtrema_DistanceSS::Perform(const TopoDS_Edge&         theS1,
     for (i = 1; i <= arrInter.Length(); i++)
     {
       const Standard_Real aParameter = arrInter(i);
-      gp_Pnt              aPnt       = aAdaptorCurve.Value(aParameter);
+      Point3d              aPnt       = aAdaptorCurve.Value(aParameter);
       TopoDS_Vertex       V1         = BRepBuilderAPI_MakeVertex(aPnt);
 
       BRepExtrema_ExtPF      ExtPF(V1, theS2);
@@ -1099,7 +1099,7 @@ void BRepExtrema_DistanceSS::Perform(const TopoDS_Face&         theS1,
       const Standard_Real tol1 = BRep_Tool::Tolerance(theS1);
       const Standard_Real tol2 = BRep_Tool::Tolerance(theS2);
 
-      gp_Pnt                   Pt1, Pt2;
+      Point3d                   Pt1, Pt2;
       gp_Pnt2d                 PUV;
       Standard_Real            U1, V1, U2, V2;
       BRepClass_FaceClassifier classifier;

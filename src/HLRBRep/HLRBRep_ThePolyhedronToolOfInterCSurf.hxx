@@ -28,7 +28,7 @@
 class Standard_OutOfRange;
 class HLRBRep_ThePolyhedronOfInterCSurf;
 class Bnd_Box;
-class gp_Pnt;
+class Point3d;
 
 class HLRBRep_ThePolyhedronToolOfInterCSurf
 {
@@ -58,7 +58,7 @@ public:
                        Standard_Integer&                        P3);
 
   //! Give the point of index i in the polyhedral surface.
-  static const gp_Pnt& Point(const HLRBRep_ThePolyhedronOfInterCSurf& thePolyh,
+  static const Point3d& Point(const HLRBRep_ThePolyhedronOfInterCSurf& thePolyh,
                              const Standard_Integer                   Index);
 
   //! Give the address Tricon of the triangle connexe to

@@ -49,8 +49,8 @@ public:
                                                        const Standard_Real Y,
                                                        const Standard_Real Z,
                                                        const Standard_Real aDistance,
-                                                       const gp_Pnt&       p1,
-                                                       const gp_Pnt&       p2,
+                                                       const Point3d&       p1,
+                                                       const Point3d&       p2,
                                                        Standard_Real&      dist);
 
   //! Computes the absolute deflection value based on relative deflection

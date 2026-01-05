@@ -24,10 +24,10 @@
 #include <BinTools_FormatVersion.hxx>
 
 class TopoDS_Shape;
-class gp_Pnt;
+class Point3d;
 
-//! Writes to the stream a gp_Pnt data
-Standard_OStream& operator<<(Standard_OStream& OS, const gp_Pnt& P);
+//! Writes to the stream a Point3d data
+Standard_OStream& operator<<(Standard_OStream& OS, const Point3d& P);
 
 //! A base class for all readers/writers of TopoDS_Shape into/from stream.
 class BinTools_ShapeSetBase

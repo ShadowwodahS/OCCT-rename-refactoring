@@ -57,9 +57,9 @@ public:
                            const TopOpeBRepDS_Curve&                C,
                            const Handle(TopOpeBRepDS_Interference)& I);
 
-  Standard_EXPORT void SetEdgePntPar(const gp_Pnt& P, const Standard_Real par);
+  Standard_EXPORT void SetEdgePntPar(const Point3d& P, const Standard_Real par);
 
-  Standard_EXPORT void GetEdgePntPar(gp_Pnt& P, Standard_Real& par) const;
+  Standard_EXPORT void GetEdgePntPar(Point3d& P, Standard_Real& par) const;
 
   Standard_EXPORT Standard_Boolean IsEdgePntParDef() const;
 
@@ -74,7 +74,7 @@ private:
   TopTrans_SurfaceTransition  myTool;
   TopoDS_Shape                myEdge;
   Standard_Boolean            isLine;
-  gp_Pnt                      myPntOnEd;
+  Point3d                      myPntOnEd;
   Standard_Real               myParOnEd;
   Standard_Boolean            myOnEdDef;
   Standard_Real               myTole;

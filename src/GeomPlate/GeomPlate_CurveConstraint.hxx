@@ -22,7 +22,7 @@
 
 class Geom2d_Curve;
 class Law_Function;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 
 class GeomPlate_CurveConstraint;
@@ -113,12 +113,12 @@ public:
 
   Standard_EXPORT GeomLProp_SLProps& LPropSurf(const Standard_Real U);
 
-  Standard_EXPORT void D0(const Standard_Real U, gp_Pnt& P) const;
+  Standard_EXPORT void D0(const Standard_Real U, Point3d& P) const;
 
-  Standard_EXPORT void D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V1, gp_Vec& V2) const;
+  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2) const;
 
   Standard_EXPORT void D2(const Standard_Real U,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             V1,
                           gp_Vec&             V2,
                           gp_Vec&             V3,

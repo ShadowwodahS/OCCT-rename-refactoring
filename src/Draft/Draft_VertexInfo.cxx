@@ -44,14 +44,14 @@ void Draft_VertexInfo::Add(const TopoDS_Edge& E)
 
 //=================================================================================================
 
-const gp_Pnt& Draft_VertexInfo::Geometry() const
+const Point3d& Draft_VertexInfo::Geometry() const
 {
   return myGeom;
 }
 
 //=================================================================================================
 
-gp_Pnt& Draft_VertexInfo::ChangeGeometry()
+Point3d& Draft_VertexInfo::ChangeGeometry()
 {
   return myGeom;
 }

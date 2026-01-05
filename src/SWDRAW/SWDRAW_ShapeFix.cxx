@@ -1000,7 +1000,7 @@ static Standard_Integer connectedges(Draw_Interpretor& di, Standard_Integer n, c
       {
         TopoDS_Vertex aV1, aV2;
         TopExp::Vertices(TopoDS::Edge(aExp1.Current()), aV1, aV2);
-        gp_Pnt aP = BRep_Tool::Pnt(aV1);
+        Point3d aP = BRep_Tool::Pnt(aV1);
         di << aP.X() << " " << aP.Y() << " " << aP.Z() << "\n";
       }
     }

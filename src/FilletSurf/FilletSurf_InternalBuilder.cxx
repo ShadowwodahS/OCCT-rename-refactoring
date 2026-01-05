@@ -74,7 +74,7 @@ static Standard_Boolean IntPlanEdge(Handle(BRepAdaptor_Curve)& Ed,
   Standard_Boolean            done = 0;
   Standard_Real               f    = Ed->FirstParameter();
   Standard_Real               l    = Ed->LastParameter();
-  gp_Pnt                      Or   = P.Location();
+  Point3d                      Or   = P.Location();
   Handle(Geom_Plane)          Pln  = new Geom_Plane(P);
   Handle(GeomAdaptor_Surface) Plan = new GeomAdaptor_Surface(GeomAdaptor_Surface(Pln));
 
@@ -91,7 +91,7 @@ static Standard_Boolean IntPlanEdge(Handle(BRepAdaptor_Curve)& Ed,
     for (iip = 1; iip <= nbp; iip++)
     {
       IP                 = Intersection.Point(iip);
-      gp_Pnt        pint = IP.Pnt();
+      Point3d        pint = IP.Pnt();
       Standard_Real d    = pint.Distance(Or);
       if (d < dist)
       {
@@ -101,12 +101,12 @@ static Standard_Boolean IntPlanEdge(Handle(BRepAdaptor_Curve)& Ed,
       }
     }
   }
-  gp_Pnt        pdeb = Ed->Value(f);
-  gp_Pnt        pfin = Ed->Value(l);
+  Point3d        pdeb = Ed->Value(f);
+  Point3d        pfin = Ed->Value(l);
   Standard_Real u, v;
   // check if the extremities are not solution
   ElSLib::Parameters(P, pdeb, u, v);
-  gp_Pnt        projdeb  = ElSLib::Value(u, v, P);
+  Point3d        projdeb  = ElSLib::Value(u, v, P);
   Standard_Real dprojdeb = pdeb.Distance(projdeb);
   if (dprojdeb < tol3d)
   {
@@ -119,7 +119,7 @@ static Standard_Boolean IntPlanEdge(Handle(BRepAdaptor_Curve)& Ed,
     }
   }
   ElSLib::Parameters(P, pfin, u, v);
-  gp_Pnt        projfin  = ElSLib::Value(u, v, P);
+  Point3d        projfin  = ElSLib::Value(u, v, P);
   Standard_Real dprojfin = pfin.Distance(projfin);
   if (dprojfin < tol3d)
   {
@@ -141,7 +141,7 @@ static Standard_Boolean ComputeEdgeParameter(const Handle(ChFiDS_Spine)& Spine,
                                              const Standard_Real         tol3d)
 {
   Handle(ChFiDS_ElSpine) Guide = Spine->ElSpine(ind);
-  gp_Pnt                 P;
+  Point3d                 P;
   gp_Vec                 V;
   Guide->D1(pelsp, P, V);
   gp_Pln                    pln(P, V);
@@ -279,7 +279,7 @@ Standard_Integer FilletSurf_InternalBuilder::Add(const TopTools_ListOfShape& E,
   // ElSpine is immediately constructed
   Handle(ChFiDS_ElSpine) hels = new ChFiDS_ElSpine();
   gp_Vec                 TFirst, TLast;
-  gp_Pnt                 PFirst, PLast;
+  Point3d                 PFirst, PLast;
   sp->D1(sp->FirstParameter(), PFirst, TFirst);
   sp->D1(sp->LastParameter(), PLast, TLast);
   hels->FirstParameter(sp->FirstParameter());

@@ -73,7 +73,7 @@ void DrawTrSurf_BezierCurve2d::FindPole(const Standard_Real X,
   Standard_Real              Prec = XPrec / D.Zoom();
   Index++;
   Standard_Integer NbPoles = bz->NbPoles();
-  gp_Pnt           P;
+  Point3d           P;
   gp_Pnt2d         P2d;
   while (Index <= NbPoles)
   {

@@ -413,7 +413,7 @@ void BOPAlgo_PaveFiller::PerformEE(const Message_ProgressRange& theRange)
           }
 
           BOPTools_AlgoTools::MakeNewVertex(aE1, aT1, aE2, aT2, aVnew);
-          const gp_Pnt aPnew = BRep_Tool::Pnt(aVnew);
+          const Point3d aPnew = BRep_Tool::Pnt(aVnew);
 
           if (isVExists)
           {
@@ -423,8 +423,8 @@ void BOPAlgo_PaveFiller::PerformEE(const Message_ProgressRange& theRange)
             // If it is a touching point, do nothing.
             // If it is an intersection point, update the existing vertex to cover the
             // intersection point.
-            const gp_Pnt aPOnE1 = BRepAdaptor_Curve(aE1).Value(aT1);
-            const gp_Pnt aPOnE2 = BRepAdaptor_Curve(aE2).Value(aT2);
+            const Point3d aPOnE1 = BRepAdaptor_Curve(aE1).Value(aT1);
+            const Point3d aPOnE2 = BRepAdaptor_Curve(aE2).Value(aT2);
             if (aPOnE1.Distance(aPOnE2) > Precision::Intersection())
               // No intersection point
               continue;
@@ -436,7 +436,7 @@ void BOPAlgo_PaveFiller::PerformEE(const Message_ProgressRange& theRange)
               if (bIsOnPave[j])
               {
                 const TopoDS_Vertex& aV      = TopoDS::Vertex(myDS->Shape(nV[j]));
-                const gp_Pnt         aP      = BRep_Tool::Pnt(aV);
+                const Point3d         aP      = BRep_Tool::Pnt(aV);
                 Standard_Real        aDistPP = aP.Distance(aPnew);
                 // Just update the vertex
                 UpdateVertex(nV[j], aDistPP);
@@ -463,7 +463,7 @@ void BOPAlgo_PaveFiller::PerformEE(const Message_ProgressRange& theRange)
             Standard_Integer     nVS[2], iFound;
             Standard_Real        aTolVx, aD2, aDT2;
             TColStd_MapOfInteger aMV;
-            gp_Pnt               aPx;
+            Point3d               aPx;
             //
             iFound = 0;
             j      = -1;
@@ -1081,7 +1081,7 @@ void BOPAlgo_PaveFiller::ForceInterfEE(const Message_ProgressRange& theRange)
       Standard_Real                    aT11, aT12;
       aPB1->Range(aT11, aT12);
       BRepAdaptor_Curve aBAC1(aE1);
-      gp_Pnt            aPm;
+      Point3d            aPm;
       gp_Vec            aVTgt1;
       aBAC1.D1((aT11 + aT12) * 0.5, aPm, aVTgt1);
       if (aVTgt1.SquareMagnitude() < gp::Resolution())
@@ -1131,7 +1131,7 @@ void BOPAlgo_PaveFiller::ForceInterfEE(const Message_ProgressRange& theRange)
             if (!aProjPC.NbPoints())
               continue;
 
-            gp_Pnt aPm2;
+            Point3d aPm2;
             gp_Vec aVTgt2;
             aBAC2.D1(aProjPC.LowerDistanceParameter(), aPm2, aVTgt2);
             if (aVTgt2.SquareMagnitude() < gp::Resolution())

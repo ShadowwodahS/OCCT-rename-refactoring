@@ -74,7 +74,7 @@ Standard_EXPORT Standard_Integer FUN_tool_getindex(const Extrema_ExtPC2d& ponc)
 }
 
 // ----------------------------------------------------------------------
-Standard_EXPORT Standard_Boolean FUN_tool_projPonC(const gp_Pnt&            P,
+Standard_EXPORT Standard_Boolean FUN_tool_projPonC(const Point3d&            P,
                                                    const Standard_Real      tole,
                                                    const BRepAdaptor_Curve& BAC,
                                                    const Standard_Real      pmin,
@@ -96,7 +96,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_projPonC(const gp_Pnt&            P,
     for (Standard_Integer i = 1; i <= 2; i++)
     {
       Standard_Real    par  = (i == 1) ? pmin : pmax;
-      gp_Pnt           pt   = BAC.Value(par);
+      Point3d           pt   = BAC.Value(par);
       Standard_Real    d2   = pt.SquareDistance(P);
       Standard_Boolean onpt = (d2 < tole * tole);
       if (onpt)
@@ -115,7 +115,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_projPonC(const gp_Pnt&            P,
 }
 
 // ----------------------------------------------------------------------
-Standard_EXPORT Standard_Boolean FUN_tool_projPonC(const gp_Pnt&            P,
+Standard_EXPORT Standard_Boolean FUN_tool_projPonC(const Point3d&            P,
                                                    const BRepAdaptor_Curve& BAC,
                                                    const Standard_Real      pmin,
                                                    const Standard_Real      pmax,
@@ -129,7 +129,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_projPonC(const gp_Pnt&            P,
 }
 
 // ----------------------------------------------------------------------
-Standard_EXPORT Standard_Boolean FUN_tool_projPonC(const gp_Pnt&            P,
+Standard_EXPORT Standard_Boolean FUN_tool_projPonC(const Point3d&            P,
                                                    const BRepAdaptor_Curve& BAC,
                                                    Standard_Real&           param,
                                                    Standard_Real&           dist)
@@ -143,7 +143,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_projPonC(const gp_Pnt&            P,
 }
 
 // ----------------------------------------------------------------------
-Standard_EXPORT Standard_Boolean FUN_tool_projPonC2D(const gp_Pnt&              P,
+Standard_EXPORT Standard_Boolean FUN_tool_projPonC2D(const Point3d&              P,
                                                      const Standard_Real        tole,
                                                      const BRepAdaptor_Curve2d& BAC2D,
                                                      const Standard_Real        pmin,
@@ -190,7 +190,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_projPonC2D(const gp_Pnt&              
 }
 
 // ----------------------------------------------------------------------
-Standard_EXPORT Standard_Boolean FUN_tool_projPonC2D(const gp_Pnt&              P,
+Standard_EXPORT Standard_Boolean FUN_tool_projPonC2D(const Point3d&              P,
                                                      const BRepAdaptor_Curve2d& BAC2D,
                                                      const Standard_Real        pmin,
                                                      const Standard_Real        pmax,
@@ -204,7 +204,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_projPonC2D(const gp_Pnt&              
 }
 
 // ----------------------------------------------------------------------
-Standard_EXPORT Standard_Boolean FUN_tool_projPonC2D(const gp_Pnt&              P,
+Standard_EXPORT Standard_Boolean FUN_tool_projPonC2D(const Point3d&              P,
                                                      const BRepAdaptor_Curve2d& BAC2D,
                                                      Standard_Real&             param,
                                                      Standard_Real&             dist)
@@ -218,7 +218,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_projPonC2D(const gp_Pnt&              
 }
 
 // ----------------------------------------------------------------------
-Standard_EXPORT Standard_Boolean FUN_tool_projPonS(const gp_Pnt&               P,
+Standard_EXPORT Standard_Boolean FUN_tool_projPonS(const Point3d&               P,
                                                    const Handle(Geom_Surface)& S,
                                                    gp_Pnt2d&                   UV,
                                                    Standard_Real&              dist,
@@ -251,7 +251,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_projPonS(const gp_Pnt&               P
 // ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
-Standard_EXPORT Standard_Boolean FUN_tool_projPonE(const gp_Pnt&       P,
+Standard_EXPORT Standard_Boolean FUN_tool_projPonE(const Point3d&       P,
                                                    const Standard_Real tole,
                                                    const TopoDS_Edge&  E,
                                                    Standard_Real&      param,
@@ -278,7 +278,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_projPonE(const gp_Pnt&       P,
 }
 
 // ----------------------------------------------------------------------
-Standard_EXPORT Standard_Boolean FUN_tool_projPonE(const gp_Pnt&      P,
+Standard_EXPORT Standard_Boolean FUN_tool_projPonE(const Point3d&      P,
                                                    const TopoDS_Edge& E,
                                                    Standard_Real&     param,
                                                    Standard_Real&     dist)
@@ -289,7 +289,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_projPonE(const gp_Pnt&      P,
 }
 
 // ----------------------------------------------------------------------
-Standard_EXPORT Standard_Boolean FUN_tool_projPonboundedF(const gp_Pnt&      P,
+Standard_EXPORT Standard_Boolean FUN_tool_projPonboundedF(const Point3d&      P,
                                                           const TopoDS_Face& F,
                                                           gp_Pnt2d&          UV,
                                                           Standard_Real&     dist)
@@ -329,7 +329,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_projPonboundedF(const gp_Pnt&      P,
 }
 
 // ----------------------------------------------------------------------
-Standard_EXPORT Standard_Boolean FUN_tool_projPonF(const gp_Pnt&         P,
+Standard_EXPORT Standard_Boolean FUN_tool_projPonF(const Point3d&         P,
                                                    const TopoDS_Face&    F,
                                                    gp_Pnt2d&             UV,
                                                    Standard_Real&        dist,

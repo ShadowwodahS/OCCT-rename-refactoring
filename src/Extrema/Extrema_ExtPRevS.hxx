@@ -35,7 +35,7 @@ public:
 
   //! It calculates all the distances between a point
   //! from gp and a SurfacePtr from Adaptor3d.
-  Standard_EXPORT Extrema_ExtPRevS(const gp_Pnt&                                  P,
+  Standard_EXPORT Extrema_ExtPRevS(const Point3d&                                  P,
                                    const Handle(GeomAdaptor_SurfaceOfRevolution)& S,
                                    const Standard_Real                            Umin,
                                    const Standard_Real                            Usup,
@@ -46,7 +46,7 @@ public:
 
   //! It calculates all the distances between a point
   //! from gp and a SurfacePtr from Adaptor3d.
-  Standard_EXPORT Extrema_ExtPRevS(const gp_Pnt&                                  P,
+  Standard_EXPORT Extrema_ExtPRevS(const Point3d&                                  P,
                                    const Handle(GeomAdaptor_SurfaceOfRevolution)& S,
                                    const Standard_Real                            TolU,
                                    const Standard_Real                            TolV);
@@ -59,7 +59,7 @@ public:
                                   const Standard_Real                            TolU,
                                   const Standard_Real                            TolV);
 
-  Standard_EXPORT void Perform(const gp_Pnt& P);
+  Standard_EXPORT void Perform(const Point3d& P);
 
   //! Returns True if the distances are found.
   Standard_EXPORT Standard_Boolean IsDone() const;

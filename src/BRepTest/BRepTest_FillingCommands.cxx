@@ -255,8 +255,8 @@ static Standard_Integer gplate(Draw_Interpretor& di, Standard_Integer n, const c
 
   for (i = 1; i <= NbPointConstraint; i++)
   {
-    //      gp_Pnt P1,P2,P3;
-    gp_Pnt P1;
+    //      Point3d P1,P2,P3;
+    Point3d P1;
     //      gp_Vec V1,V2,V3,V4,V5;
 
     if (DrawTrSurf::GetPoint(a[Indice], P1))
@@ -494,7 +494,7 @@ static Standard_Integer filling(Draw_Interpretor& di, Standard_Integer n, const 
   Standard_Integer     i = (InitFace.IsNull()) ? 5 : 6, k;
   TopoDS_Edge          E;
   TopoDS_Face          F;
-  gp_Pnt               Point;
+  Point3d               Point;
   Standard_Integer     Order;
   TopTools_ListOfShape ListForHistory;
   for (k = 1; k <= NbBounds; k++)

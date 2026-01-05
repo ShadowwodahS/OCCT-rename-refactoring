@@ -103,7 +103,7 @@ void IGESDimen_ToolSection::OwnCopy(const Handle(IGESDimen_Section)& another,
 
   for (Standard_Integer i = 1; i <= nbval; i++)
   {
-    gp_Pnt tempPnt = (another->Point(i));
+    Point3d tempPnt = (another->Point(i));
     gp_XY  tempPnt2d(tempPnt.X(), tempPnt.Y());
     dataPoints->SetValue(i, tempPnt2d);
   }

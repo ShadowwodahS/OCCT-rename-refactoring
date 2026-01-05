@@ -24,7 +24,7 @@
 #include <gp_Trsf.hxx>
 class gp_Lin;
 class gp_Ax1;
-class gp_Pnt;
+class Point3d;
 class gp_Dir;
 
 //! This class implements elementary construction algorithms for a
@@ -46,7 +46,7 @@ public:
 
   //! Constructs a rotation through angle Angle about the axis defined by:
   //! the point Point and the unit vector Direc.
-  Standard_EXPORT gce_MakeRotation(const gp_Pnt&       Point,
+  Standard_EXPORT gce_MakeRotation(const Point3d&       Point,
                                    const gp_Dir&       Direc,
                                    const Standard_Real Angle);
 

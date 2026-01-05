@@ -49,7 +49,7 @@ public:
   //! tolerance represents the greatest difference in curvature
   //! allowed between the constraint and the target surface.
   //! Raises   ConstructionError if Order  is  not  0  or  -1
-  Standard_EXPORT GeomPlate_PointConstraint(const gp_Pnt&          Pt,
+  Standard_EXPORT GeomPlate_PointConstraint(const Point3d&          Pt,
                                             const Standard_Integer Order,
                                             const Standard_Real    TolDist = 0.0001);
 
@@ -119,11 +119,11 @@ public:
   //! Raises   ConstructionError if  the  point  is  not  on  the  surface
   Standard_EXPORT Standard_Real G2Criterion() const;
 
-  Standard_EXPORT void D0(gp_Pnt& P) const;
+  Standard_EXPORT void D0(Point3d& P) const;
 
-  Standard_EXPORT void D1(gp_Pnt& P, gp_Vec& V1, gp_Vec& V2) const;
+  Standard_EXPORT void D1(Point3d& P, gp_Vec& V1, gp_Vec& V2) const;
 
-  Standard_EXPORT void D2(gp_Pnt& P, gp_Vec& V1, gp_Vec& V2, gp_Vec& V3, gp_Vec& V4, gp_Vec& V5)
+  Standard_EXPORT void D2(Point3d& P, gp_Vec& V1, gp_Vec& V2, gp_Vec& V3, gp_Vec& V4, gp_Vec& V5)
     const;
 
   Standard_EXPORT Standard_Boolean HasPnt2dOnSurf() const;
@@ -141,7 +141,7 @@ protected:
 
 private:
   GeomLProp_SLProps    myLProp;
-  gp_Pnt               myPoint;
+  Point3d               myPoint;
   gp_Pnt2d             myPt2d;
   Handle(Geom_Surface) mySurf;
   gp_Vec               myD11;

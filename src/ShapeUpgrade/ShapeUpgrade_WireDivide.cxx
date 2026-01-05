@@ -456,9 +456,9 @@ void ShapeUpgrade_WireDivide::Perform()
         {
           TopoDS_Vertex aVold = TopoDS::Vertex(aItv.Value());
           aSeqNMVertices.Append(aVold);
-          gp_Pnt        aP = BRep_Tool::Pnt(TopoDS::Vertex(aVold));
+          Point3d        aP = BRep_Tool::Pnt(TopoDS::Vertex(aVold));
           Standard_Real ppar;
-          gp_Pnt        pproj;
+          Point3d        pproj;
           if (!c3d.IsNull())
             sac.Project(c3d, aP, Precision(), pproj, ppar, af, al, Standard_False);
           else
@@ -505,8 +505,8 @@ void ShapeUpgrade_WireDivide::Perform()
       B.MakeWire(resWire);
       //      TopoDS_Vertex firstVertex, lastVertex;
       Standard_Integer numE  = 0;
-      gp_Pnt           pntV1 = BRep_Tool::Pnt(V1);
-      // gp_Pnt pntV2 = BRep_Tool::Pnt(V2); // pntV2 not used - see below (skl)
+      Point3d           pntV1 = BRep_Tool::Pnt(V1);
+      // Point3d pntV2 = BRep_Tool::Pnt(V2); // pntV2 not used - see below (skl)
       // Standard_Real V2Tol = LimitTolerance( BRep_Tool::Tolerance(V2) ); // V2Tol not used - see
       // below (skl)
 
@@ -540,7 +540,7 @@ void ShapeUpgrade_WireDivide::Perform()
         {
           Standard_Real par, parf /*,SavParl*/;
           // Standard_Real SaveParf; // SaveParf not used - see below (skl)
-          gp_Pnt P, P1, PM;
+          Point3d P, P1, PM;
           // if edge has 3d curve, take point from it
           if (!theNewCurve3d.IsNull())
           {
@@ -606,7 +606,7 @@ void ShapeUpgrade_WireDivide::Perform()
             if (P.Distance(P1) > MinTolerance() || P.Distance(PM) > MinTolerance())
             {
               // FixSmallCurveTool->Perform(prevEdge,theNewCurve3d,theNewPCurve1,revPCurve,SavParf,SavParl);
-              gp_Pnt pmid = 0.5 * (pntV1.XYZ() + P1.XYZ());
+              Point3d pmid = 0.5 * (pntV1.XYZ() + P1.XYZ());
               B.UpdateVertex(V1, pmid, 0);
             }
             else
@@ -621,7 +621,7 @@ void ShapeUpgrade_WireDivide::Perform()
               }
               else
               {
-                gp_Pnt pmid = 0.5 * (pntV1.XYZ() + P1.XYZ());
+                Point3d pmid = 0.5 * (pntV1.XYZ() + P1.XYZ());
                 B.UpdateVertex(V1, pmid, 0);
               }
             }

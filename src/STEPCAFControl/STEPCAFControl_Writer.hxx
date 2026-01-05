@@ -343,7 +343,7 @@ protected:
                          const Standard_Boolean                  theHasSemantic,
                          const Standard_Boolean                  theHasPlane,
                          const gp_Ax2&                           theAnnotationPlane,
-                         const gp_Pnt&                           theTextPosition,
+                         const Point3d&                           theTextPosition,
                          const Handle(RefObject)&       theDimension,
                          const StepData_Factors& theLocalFactors = StepData_Factors());
 

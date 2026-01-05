@@ -206,7 +206,7 @@ Standard_Boolean ShapeCustom_SweptToElementary::NewCurve(const TopoDS_Edge&  E,
 //=================================================================================================
 
 Standard_Boolean ShapeCustom_SweptToElementary::NewPoint(const TopoDS_Vertex& /*V*/,
-                                                         gp_Pnt& /*P*/,
+                                                         Point3d& /*P*/,
                                                          Standard_Real& /*Tol*/)
 {
   // 3d points are never modified
@@ -243,7 +243,7 @@ Standard_Boolean ShapeCustom_SweptToElementary::NewCurve2d(const TopoDS_Edge&   
         Handle(Geom_SurfaceOfRevolution) SR = Handle(Geom_SurfaceOfRevolution)::DownCast(SS);
         Standard_Real                    U1, U2, V1, V2;
         SR->Bounds(U1, U2, V1, V2);
-        gp_Pnt P0;
+        Point3d P0;
         SR->D0(U1, V1, P0);
         Handle(ShapeAnalysis_Surface) sas = new ShapeAnalysis_Surface(NS);
         gp_Pnt2d                      p2d = sas->ValueOfUV(P0, Precision::Confusion());
@@ -256,7 +256,7 @@ Standard_Boolean ShapeCustom_SweptToElementary::NewCurve2d(const TopoDS_Edge&   
       if (SS->IsKind(STANDARD_TYPE(Geom_SurfaceOfRevolution)))
       {
         Handle(Geom_SurfaceOfRevolution) SR = Handle(Geom_SurfaceOfRevolution)::DownCast(SS);
-        gp_Pnt                           PR, PS;
+        Point3d                           PR, PS;
         Handle(Geom_SphericalSurface)    SPH = Handle(Geom_SphericalSurface)::DownCast(NS);
         Standard_Real                    US1, US2, VS1, VS2;
         SPH->Bounds(US1, US2, VS1, VS2);
@@ -264,7 +264,7 @@ Standard_Boolean ShapeCustom_SweptToElementary::NewCurve2d(const TopoDS_Edge&   
         Standard_Real UR1, UR2, VR1, VR2;
         SR->Bounds(UR1, UR2, VR1, VR2);
         SR->D0(UR1, VR1, PR);
-        gp_Pnt        P0 = SPH->Location();
+        Point3d        P0 = SPH->Location();
         gp_Vec        VS(P0, PS);
         gp_Vec        VR(P0, PR);
         Standard_Real angle = VS.Angle(VR);

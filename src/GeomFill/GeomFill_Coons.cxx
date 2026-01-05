@@ -83,10 +83,10 @@ void GeomFill_Coons::Init(const TColgp_Array1OfPnt& P1,
   TColgp_Array1OfPnt Pole(1, 4);
   TColgp_Array1OfPnt CoefU(1, NPolU);
   TColgp_Array1OfPnt CoefV(1, NPolV);
-  Coef(4) = gp_Pnt(2., -2., 0.);
-  Coef(3) = gp_Pnt(-3., 3., 0.);
-  Coef(2) = gp_Pnt(0., 0., 0.);
-  Coef(1) = gp_Pnt(1., 0., 0.);
+  Coef(4) = Point3d(2., -2., 0.);
+  Coef(3) = Point3d(-3., 3., 0.);
+  Coef(2) = Point3d(0., 0., 0.);
+  Coef(1) = Point3d(1., 0., 0.);
   PLib::CoefficientsPoles(Coef, PLib::NoWeights(), Pole, PLib::NoWeights());
   if (NPolU > 4)
   {
@@ -119,7 +119,7 @@ void GeomFill_Coons::Init(const TColgp_Array1OfPnt& P1,
   }
 
   // Clacul des poles interieurs
-  gp_Pnt P;
+  Point3d P;
   for (j = 2; j < NPolV; j++)
   {
     for (i = 2; i < NPolU; i++)

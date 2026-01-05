@@ -50,7 +50,7 @@ static Standard_Integer extendcurve(Draw_Interpretor& di, Standard_Integer n, co
     return 1;
   }
 
-  gp_Pnt P;
+  Point3d P;
   if (!DrawTrSurf::GetPoint(a[2], P))
     return 1;
   Standard_Boolean apres = Standard_True;

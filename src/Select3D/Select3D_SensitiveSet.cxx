@@ -273,9 +273,9 @@ Select3D_BndBox3d Select3D_SensitiveSet::BoundingBox()
 // purpose  : This method should be redefined in Select3D_SensitiveSet
 //            descendants
 //=======================================================================
-gp_Pnt Select3D_SensitiveSet::CenterOfGeometry() const
+Point3d Select3D_SensitiveSet::CenterOfGeometry() const
 {
-  return gp_Pnt(RealLast(), RealLast(), RealLast());
+  return Point3d(RealLast(), RealLast(), RealLast());
 }
 
 //=======================================================================

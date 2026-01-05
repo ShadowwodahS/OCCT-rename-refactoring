@@ -351,9 +351,9 @@ void TPrsStd_ConstraintTools::ComputeDistance(const Handle(TDataXtd_Constraint)&
           TopExp::Vertices(TopoDS::Wire(aShape2), aV3, aV4);
         }
         aShape1    = aV1;
-        gp_Pnt aP1 = BRep_Tool::Pnt(aV1);
-        gp_Pnt aP2 = BRep_Tool::Pnt(aV3);
-        gp_Pnt aP3 = BRep_Tool::Pnt(aV4);
+        Point3d aP1 = BRep_Tool::Pnt(aV1);
+        Point3d aP2 = BRep_Tool::Pnt(aV3);
+        Point3d aP3 = BRep_Tool::Pnt(aV4);
         if (aP1.Distance(aP2) < aP1.Distance(aP3))
         {
           aShape2 = aV3;
@@ -379,13 +379,13 @@ void TPrsStd_ConstraintTools::ComputeDistance(const Handle(TDataXtd_Constraint)&
   Standard_Boolean isCheckPlane = (aDim.IsNull() && !isFaces) || isPlanar;
   if ((isVertices || isEdges) && !isPlanar)
   {
-    gp_Pnt aP1, aP2, aP3;
+    Point3d aP1, aP2, aP3;
 
     if (isVertices)
     {
       aP1 = BRep_Tool::Pnt(TopoDS::Vertex(aShape1));
       aP2 = BRep_Tool::Pnt(TopoDS::Vertex(aShape2));
-      aP3 = gp_Pnt(aP1.Y() - 1.0, aP2.X() + 1.0, 0.0);
+      aP3 = Point3d(aP1.Y() - 1.0, aP2.X() + 1.0, 0.0);
     }
 
     if (isEdges)
@@ -1619,8 +1619,8 @@ static Standard_Boolean CheckShapesPair(const TopoDS_Shape& aShape1, const TopoD
     }
     else if (aCurve1.GetType() == GeomAbs_Circle && aCurve2.GetType() == GeomAbs_Circle)
     {
-      gp_Pnt aCntr1 = aCurve1.Circle().Location(); // get the circle center
-      gp_Pnt aCntr2 = aCurve2.Circle().Location(); // get the circle center
+      Point3d aCntr1 = aCurve1.Circle().Location(); // get the circle center
+      Point3d aCntr2 = aCurve2.Circle().Location(); // get the circle center
       if (!aCntr1.IsEqual(aCntr2, Precision::Confusion()))
       {
 #ifdef OCCT_DEBUG
@@ -1639,7 +1639,7 @@ static Standard_Boolean CheckShapesPair(const TopoDS_Shape& aShape1, const TopoD
   }
   else if (aShape1.ShapeType() != TopAbs_VERTEX || aShape2.ShapeType() != TopAbs_VERTEX)
   {
-    gp_Pnt            aPnt;
+    Point3d            aPnt;
     BRepAdaptor_Curve aCurve;
     if (aShape1.ShapeType() == TopAbs_VERTEX)
     {
@@ -1653,7 +1653,7 @@ static Standard_Boolean CheckShapesPair(const TopoDS_Shape& aShape1, const TopoD
     }
     if (aCurve.GetType() == GeomAbs_Circle)
     {
-      gp_Pnt aCntr = aCurve.Circle().Location();
+      Point3d aCntr = aCurve.Circle().Location();
       if (!aCntr.IsEqual(aPnt, Precision::Confusion()))
       {
 #ifdef OCCT_DEBUG
@@ -2055,7 +2055,7 @@ void TPrsStd_ConstraintTools::ComputeOffset(const Handle(TDataXtd_Constraint)& a
     ComputeTextAndValue(aConst, val1, txt, Standard_False);
     TopExp_Explorer EXP1(S1, TopAbs_VERTEX);
     S1       = EXP1.Current();
-    gp_Pnt P = BRep_Tool::Pnt(TopoDS::Vertex(S1));
+    Point3d P = BRep_Tool::Pnt(TopoDS::Vertex(S1));
 
     TopoDS_Vertex nearest;
     Standard_Real dist(RealLast());
@@ -2063,7 +2063,7 @@ void TPrsStd_ConstraintTools::ComputeOffset(const Handle(TDataXtd_Constraint)& a
     for (TopExp_Explorer EXP2(S2, TopAbs_VERTEX); EXP2.More(); EXP2.Next())
     {
       const TopoDS_Vertex& current = TopoDS::Vertex(EXP2.Current());
-      gp_Pnt               curpnt  = BRep_Tool::Pnt(current);
+      Point3d               curpnt  = BRep_Tool::Pnt(current);
       Standard_Real        curdist = P.SquareDistance(curpnt);
       if (curdist < dist)
       {
@@ -2371,7 +2371,7 @@ void TPrsStd_ConstraintTools::GetGeom(const Handle(TDataXtd_Constraint)& aConst,
   }
   gp_Pln aplane;
   gp_Lin anaxis;
-  gp_Pnt apoint;
+  Point3d apoint;
 
   TDF_Label label = atgeom->Label();
 

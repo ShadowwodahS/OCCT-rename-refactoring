@@ -26,7 +26,7 @@
 
 class gp_Circ;
 class gp_Ax2;
-class gp_Pnt;
+class Point3d;
 class gp_Dir;
 class gp_Ax1;
 
@@ -69,24 +69,24 @@ public:
 
   //! Make a Circle from Geom <TheCirc> parallel to another
   //! Circ <Circ> and passing through a Pnt <Point>.
-  Standard_EXPORT GC_MakeCircle(const gp_Circ& Circ, const gp_Pnt& Point);
+  Standard_EXPORT GC_MakeCircle(const gp_Circ& Circ, const Point3d& Point);
 
   //! Make a Circ from gp <TheCirc> passing through 3
   //! Pnt2d <P1>,<P2>,<P3>.
-  Standard_EXPORT GC_MakeCircle(const gp_Pnt& P1, const gp_Pnt& P2, const gp_Pnt& P3);
+  Standard_EXPORT GC_MakeCircle(const Point3d& P1, const Point3d& P2, const Point3d& P3);
 
   //! Make a Circle from Geom <TheCirc> with its center
   //! <Center> and the normal of its plane <Norm> and
   //! its radius <Radius>.
-  Standard_EXPORT GC_MakeCircle(const gp_Pnt&       Center,
+  Standard_EXPORT GC_MakeCircle(const Point3d&       Center,
                                 const gp_Dir&       Norm,
                                 const Standard_Real Radius);
 
   //! Make a Circle from Geom <TheCirc> with its center
   //! <Center> and the normal of its plane defined by the
   //! two points <Center> and <PtAxis> and its radius <Radius>.
-  Standard_EXPORT GC_MakeCircle(const gp_Pnt&       Center,
-                                const gp_Pnt&       PtAxis,
+  Standard_EXPORT GC_MakeCircle(const Point3d&       Center,
+                                const Point3d&       PtAxis,
                                 const Standard_Real Radius);
 
   //! Make a Circle from Geom <TheCirc> with its center

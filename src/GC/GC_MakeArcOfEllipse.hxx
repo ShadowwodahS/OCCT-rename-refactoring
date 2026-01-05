@@ -25,7 +25,7 @@
 #include <Geom_TrimmedCurve.hxx>
 
 class gp_Elips;
-class gp_Pnt;
+class Point3d;
 
 //! Implements construction algorithms for an arc
 //! of ellipse in 3D space. The result is a Geom_TrimmedCurve curve.
@@ -50,7 +50,7 @@ public:
   //! a Ellipse between point <P> and the angle Alpha
   //! given in radians.
   Standard_EXPORT GC_MakeArcOfEllipse(const gp_Elips&        Elips,
-                                      const gp_Pnt&          P,
+                                      const Point3d&          P,
                                       const Standard_Real    Alpha,
                                       const Standard_Boolean Sense);
 
@@ -63,8 +63,8 @@ public:
   //! -   Alpha1, Alpha2 and Alpha are angle values, given in radians.
   //! -   IsDone always returns true.
   Standard_EXPORT GC_MakeArcOfEllipse(const gp_Elips&        Elips,
-                                      const gp_Pnt&          P1,
-                                      const gp_Pnt&          P2,
+                                      const Point3d&          P1,
+                                      const Point3d&          P2,
                                       const Standard_Boolean Sense);
 
   //! Returns the constructed arc of ellipse.

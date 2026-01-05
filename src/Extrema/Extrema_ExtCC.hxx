@@ -112,10 +112,10 @@ public:
                                               Standard_Real& distP12,
                                               Standard_Real& distP21,
                                               Standard_Real& distP22,
-                                              gp_Pnt&        P11,
-                                              gp_Pnt&        P12,
-                                              gp_Pnt&        P21,
-                                              gp_Pnt&        P22) const;
+                                              Point3d&        P11,
+                                              Point3d&        P12,
+                                              Point3d&        P21,
+                                              Point3d&        P22) const;
 
   //! Set flag for single extrema computation. Works on parametric solver only.
   Standard_EXPORT void SetSingleSolutionFlag(const Standard_Boolean theSingleSolutionFlag);
@@ -170,10 +170,10 @@ private:
   Standard_Real             myInf[2];
   Standard_Real             mySup[2];
   Standard_Real             myTol[2];
-  gp_Pnt                    myP1f;
-  gp_Pnt                    myP1l;
-  gp_Pnt                    myP2f;
-  gp_Pnt                    myP2l;
+  Point3d                    myP1f;
+  Point3d                    myP1l;
+  Point3d                    myP2f;
+  Point3d                    myP2l;
   Standard_Real             mydist11;
   Standard_Real             mydist12;
   Standard_Real             mydist21;

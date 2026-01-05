@@ -113,7 +113,7 @@ public:
 
   Standard_Integer NbPoints() const;
 
-  gp_Pnt Point(const Standard_Integer Index) const;
+  Point3d Point(const Standard_Integer Index) const;
 
   Standard_EXPORT gp_Pnt2d Pnt2d(const Standard_Integer Index,
                                  const Standard_Boolean OnFirst) const;

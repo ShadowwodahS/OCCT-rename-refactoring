@@ -33,7 +33,7 @@ public:
   DEFINE_STANDARD_RTTIEXT(MeshVS_SensitiveFace, Select3D_SensitiveFace)
 
 protected:
-  gp_Pnt myCenter;
+  Point3d myCenter;
 };
 
 DEFINE_STANDARD_HANDLE(MeshVS_SensitiveFace, Select3D_SensitiveFace)

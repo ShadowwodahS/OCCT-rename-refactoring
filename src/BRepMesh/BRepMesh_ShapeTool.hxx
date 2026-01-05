@@ -110,7 +110,7 @@ public:
   //! Applies location to the given point and return result.
   //! @param thePnt point to be transformed.
   //! @param theLoc location to be applied.
-  Standard_EXPORT static gp_Pnt UseLocation(const gp_Pnt& thePnt, const TopLoc_Location& theLoc);
+  Standard_EXPORT static Point3d UseLocation(const Point3d& thePnt, const TopLoc_Location& theLoc);
 
   //! Gets the strict UV locations of the extremities of the edge using pcurve.
   Standard_EXPORT static Standard_Boolean UVPoints(

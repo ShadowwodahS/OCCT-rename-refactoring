@@ -80,21 +80,21 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
     Dpl.Reverse();
 
   // compute the origin of the conical chamfer PtPl
-  gp_Pnt        Or = Con.Location();
+  Point3d        Or = Con.Location();
   Standard_Real u, v;
   ElSLib::PlaneParameters(PosPl, Or, u, v);
   gp_Pnt2d pt2dPln(u, v);
   ElSLib::PlaneD0(u, v, PosPl, Or);
-  gp_Pnt PtPl = Or;
+  Point3d PtPl = Or;
 
-  gp_Pnt PtSp;
+  Point3d PtSp;
   gp_Vec DSp;
   ElCLib::D1(First, Spine, PtSp, DSp);
   gp_Dir Dx(gp_Vec(PtPl, PtSp));
 
   // compute the normal to the cone in PtSp
   gp_Vec deru, derv;
-  gp_Pnt PtCon;
+  Point3d PtCon;
   ElSLib::Parameters(Con, PtSp, u, v);
   ElSLib::D1(u, v, Con, PtCon, deru, derv);
   gp_Dir Dcon(deru.Crossed(derv));
@@ -231,7 +231,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   }
 
   Or.SetCoord(Or.X() + move * Dpl.X(), Or.Y() + move * Dpl.Y(), Or.Z() + move * Dpl.Z());
-  gp_Pnt Pt(Or.X() + dis * PosPl.XDirection().X(),
+  Point3d Pt(Or.X() + dis * PosPl.XDirection().X(),
             Or.Y() + dis * PosPl.XDirection().Y(),
             Or.Z() + dis * PosPl.XDirection().Z());
 
@@ -441,7 +441,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
     //  of the faces
 
     // search the normal to the conical chamfer
-    gp_Pnt P;
+    Point3d P;
     u = 0.;
     if (plandab)
       v = sqrt(dis * dis + move * move);

@@ -324,8 +324,8 @@ TopoDS_Edge XSAlgo_ShapeProcessor::MakeEdgeOnCurve(const TopoDS_Edge& aSourceEdg
   {
     return aResult;
   }
-  const gp_Pnt            aCurveStartPt = aSourceGeomCurve->Value(aStartParam);
-  const gp_Pnt            aCurveEndPt   = aSourceGeomCurve->Value(anEndParam);
+  const Point3d            aCurveStartPt = aSourceGeomCurve->Value(aStartParam);
+  const Point3d            aCurveEndPt   = aSourceGeomCurve->Value(anEndParam);
   BRepBuilderAPI_MakeEdge anEdgeMaker(aSourceGeomCurve,
                                       aCurveStartPt,
                                       aCurveEndPt,
@@ -382,13 +382,13 @@ Standard_Boolean XSAlgo_ShapeProcessor::CheckPCurve(const TopoDS_Edge&     theEd
   Standard_Real      aCurve3DParam2;
   anEdgeAnalyzer.Curve3d(theEdge, aCurve3D, aCurve3DParam1, aCurve3DParam2, Standard_False);
 
-  const gp_Pnt        aCurve3DPoint1 = aSurface->Value(aCurve2DPoint1.X(), aCurve2DPoint1.Y());
-  const gp_Pnt        aCurve3DPoint2 = aSurface->Value(aCurve2DPoint2.X(), aCurve2DPoint2.Y());
+  const Point3d        aCurve3DPoint1 = aSurface->Value(aCurve2DPoint1.X(), aCurve2DPoint1.Y());
+  const Point3d        aCurve3DPoint2 = aSurface->Value(aCurve2DPoint2.X(), aCurve2DPoint2.Y());
   const TopoDS_Vertex aVertex1       = TopExp::FirstVertex(theEdge);
   const TopoDS_Vertex aVertex2       = TopExp::LastVertex(theEdge);
-  const gp_Pnt        aPV1 =
+  const Point3d        aPV1 =
     (aCurve3D.IsNull() ? BRep_Tool::Pnt(aVertex1) : aCurve3D->Value(aCurve3DParam1));
-  const gp_Pnt aPV2 =
+  const Point3d aPV2 =
     (aCurve3D.IsNull() ? BRep_Tool::Pnt(aVertex2) : aCurve3D->Value(aCurve3DParam2));
   const Standard_Real aDist11 = aPV1.Distance(aCurve3DPoint1);
   const Standard_Real aDist22 = aPV2.Distance(aCurve3DPoint2);

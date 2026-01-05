@@ -57,7 +57,7 @@
 
 static void Parameters(const Handle(GeomAdaptor_Surface)&,
                        const Handle(GeomAdaptor_Surface)&,
-                       const gp_Pnt&,
+                       const Point3d&,
                        Standard_Real&,
                        Standard_Real&,
                        Standard_Real&,
@@ -567,7 +567,7 @@ void IntTools_FaceFace::Perform(const TopoDS_Face&     aF1,
     for (Standard_Integer i = 1; i <= aNbPnts; ++i)
     {
       const IntSurf_PntOn2S& aISPnt = myIntersector.Point(i).PntOn2S();
-      const gp_Pnt&          aPnt   = aISPnt.Value();
+      const Point3d&          aPnt   = aISPnt.Value();
       aISPnt.Parameters(U1, V1, U2, V2);
       //
       // check the validity of the intersection point for the faces
@@ -729,8 +729,8 @@ reapprox:;
     const IntSurf_PntOn2S& p1  = aWLine->Point(1);
     const IntSurf_PntOn2S& p2  = aWLine->Point(nbp);
 
-    const gp_Pnt& P1 = p1.Value();
-    const gp_Pnt& P2 = p2.Value();
+    const Point3d& P1 = p1.Value();
+    const Point3d& P2 = p2.Value();
 
     if (P1.SquareDistance(P2) < 1.e-14)
     {
@@ -857,7 +857,7 @@ reapprox:;
             aTestPrm = IntTools_Tools::IntermediatePoint(-dT, dT);
           }
           //
-          gp_Pnt ptref(newc->Value(aTestPrm));
+          Point3d ptref(newc->Value(aTestPrm));
           //
           GeomAbs_SurfaceType typS1 = myHS1->GetType();
           GeomAbs_SurfaceType typS2 = myHS2->GetType();
@@ -931,8 +931,8 @@ reapprox:;
           }
           else
           {
-            gp_Pnt P1 = newc->Value(fprm);
-            gp_Pnt P2 = newc->Value(aPeriod);
+            Point3d P1 = newc->Value(fprm);
+            Point3d P2 = newc->Value(aPeriod);
 
             if (P1.Distance(P2) > myTol)
             {
@@ -963,8 +963,8 @@ reapprox:;
           }
           else
           {
-            gp_Pnt P1 = newc->Value(aNul);
-            gp_Pnt P2 = newc->Value(lprm);
+            Point3d P1 = newc->Value(aNul);
+            Point3d P2 = newc->Value(lprm);
 
             if (P1.Distance(P2) > myTol)
             {
@@ -1091,7 +1091,7 @@ reapprox:;
 
           for (j = 0; j <= 17; j++)
           {
-            gp_Pnt ptref(newc->Value(j * aTwoPIdiv17));
+            Point3d ptref(newc->Value(j * aTwoPIdiv17));
             Tol = Precision::Confusion();
 
             Parameters(myHS1, myHS2, ptref, u1, v1, u2, v2);
@@ -1823,7 +1823,7 @@ reapprox:;
 
 void Parameters(const Handle(GeomAdaptor_Surface)& HS1,
                 const Handle(GeomAdaptor_Surface)& HS2,
-                const gp_Pnt&                      Ptref,
+                const Point3d&                      Ptref,
                 Standard_Real&                     U1,
                 Standard_Real&                     V1,
                 Standard_Real&                     U2,
@@ -2208,7 +2208,7 @@ Standard_Boolean ParameterOutOfBoundary(const Standard_Real             theParam
       acurpar += adelta;
     else
       acurpar -= adelta;
-    gp_Pnt aPCurrent = theCurve->Value(acurpar);
+    Point3d aPCurrent = theCurve->Value(acurpar);
     aPrj1.Perform(aPCurrent);
     Standard_Real U = 0., V = 0.;
 
@@ -2307,13 +2307,13 @@ Standard_Boolean ApproxWithPCurves(const gp_Cylinder& theCyl, const gp_Sphere& t
   //
   {
     Standard_Real aD2, aRc2, aEps;
-    gp_Pnt        aApexSph;
+    Point3d        aApexSph;
     //
     aEps = 1.E-7;
     aRc2 = R1 * R1;
     //
     const gp_Ax3& aAx3Sph = theSph.Position();
-    const gp_Pnt& aLocSph = aAx3Sph.Location();
+    const Point3d& aLocSph = aAx3Sph.Location();
     const gp_Dir& aDirSph = aAx3Sph.Direction();
     //
     const gp_Ax1& aAx1Cyl = theCyl.Axis();
@@ -2348,7 +2348,7 @@ Standard_Boolean ApproxWithPCurves(const gp_Cylinder& theCyl, const gp_Sphere& t
     return bRes;
 
   Standard_Real par = ElCLib::Parameter(anCylAx, theSph.Location());
-  gp_Pnt        aP  = ElCLib::Value(par, anCylAx);
+  Point3d        aP  = ElCLib::Value(par, anCylAx);
   gp_Vec        aV(aP, theSph.Location());
 
   Standard_Real dd = aV.Dot(theSph.Position().XDirection());
@@ -2920,7 +2920,7 @@ Standard_Real MaxDistance(const Handle(Geom_Curve)&   theC,
                           GeomAPI_ProjectPointOnSurf& theProjPS)
 {
   Standard_Real aD;
-  gp_Pnt        aP;
+  Point3d        aP;
   //
   theC->D0(aT, aP);
   theProjPS.Perform(aP);

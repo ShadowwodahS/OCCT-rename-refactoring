@@ -1245,7 +1245,7 @@ void TopOpeBRep_FacesFiller::AddShapesLine()
     //  MSV: take into account that geometry can be of type VERTEX
     Standard_Integer  ipf = myDSCIL.First()->Geometry();
     TopOpeBRepDS_Kind kpf = myDSCIL.First()->GeometryType();
-    gp_Pnt            ptf;
+    Point3d            ptf;
     Standard_Real     tol, tolf, toll;
     if (kpf == TopOpeBRepDS_POINT)
     {
@@ -1278,7 +1278,7 @@ void TopOpeBRep_FacesFiller::AddShapesLine()
     for (Standard_Integer ii = 1; ii <= myLine->NbWPoint(); ii++)
     {
       TopOpeBRep_WPointInter wp = myLine->WPoint(ii);
-      gp_Pnt                 pp = wp.Value();
+      Point3d                 pp = wp.Value();
       if (!pp.IsEqual(ptf, tol))
       {
         onsampt = Standard_False;

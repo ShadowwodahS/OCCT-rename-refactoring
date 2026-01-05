@@ -21,7 +21,7 @@
 
 #include <Geom_AxisPlacement.hxx>
 class gp_Ax1;
-class gp_Pnt;
+class Point3d;
 class gp_Dir;
 class gp_Trsf;
 class Geom_Geometry;
@@ -51,7 +51,7 @@ public:
 
   //! P is the origin of the axis placement and V is the direction
   //! of the axis placement.
-  Standard_EXPORT Geom_Axis1Placement(const gp_Pnt& P, const gp_Dir& V);
+  Standard_EXPORT Geom_Axis1Placement(const Point3d& P, const gp_Dir& V);
 
   //! Returns a non transient copy of <me>.
   Standard_EXPORT const gp_Ax1& Ax1() const;

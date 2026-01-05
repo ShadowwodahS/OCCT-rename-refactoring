@@ -25,7 +25,7 @@
 #include <Standard_Boolean.hxx>
 #include <gp_XYZ.hxx>
 class gp_XYZ;
-class gp_Pnt;
+class Point3d;
 class gp_Trsf;
 class gp_Ax1;
 class gp_Ax3;
@@ -51,7 +51,7 @@ public:
   Standard_EXPORT void Add(const gp_XYZ& thePnt);
 
   //! Update the box by a point.
-  void Add(const gp_Pnt& thePnt);
+  void Add(const Point3d& thePnt);
 
   //! Update the box by another box.
   void Add(const Bnd_B3d& theBox);

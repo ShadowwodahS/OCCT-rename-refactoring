@@ -165,7 +165,7 @@ TopAbs_State TopOpeBRep_FacesFiller::StBipVPonF(const TopOpeBRep_VPointInter& vp
   BRepAdaptor_Curve  BC(arc);
   Standard_Real      x      = 0.789;
   Standard_Real      parmil = (1 - x) * uf + x * ul; // xpu170898
-  gp_Pnt             pmil   = BC.Value(parmil);
+  Point3d             pmil   = BC.Value(parmil);
 
 #ifdef OCCT_DEBUG
   #ifdef DRAW
@@ -283,7 +283,7 @@ Standard_Boolean TopOpeBRep_FacesFiller::LSameDomainERL(const TopOpeBRep_LineInt
   TopOpeBRep_GeomTool::MakeCurve(f, l, L, CL);
   Standard_Real t  = 0.417789;
   Standard_Real p  = (1 - t) * f + t * l;
-  gp_Pnt        Pm = CL->Value(p);
+  Point3d        Pm = CL->Value(p);
 
   TopTools_ListIteratorOfListOfShape it;
   it.Initialize(ERL);
@@ -396,8 +396,8 @@ Standard_EXPORT Standard_Boolean FUN_EqualPonR(const TopOpeBRep_LineInter&,
                                                const TopOpeBRep_VPointInter& VP1,
                                                const TopOpeBRep_VPointInter& VP2)
 {
-  gp_Pnt           P1    = VP1.Value();
-  gp_Pnt           P2    = VP2.Value();
+  Point3d           P1    = VP1.Value();
+  Point3d           P2    = VP2.Value();
   Standard_Real    Ptol1 = VP1.Tolerance(), Ptol2 = VP2.Tolerance();
   Standard_Real    Ptol   = (Ptol1 > Ptol2) ? Ptol1 : Ptol2;
   Standard_Boolean Pequal = P1.IsEqual(P2, Ptol);

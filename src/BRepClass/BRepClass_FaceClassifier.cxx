@@ -38,7 +38,7 @@ BRepClass_FaceClassifier::BRepClass_FaceClassifier(BRepClass_FaceExplorer& F,
 //=================================================================================================
 
 BRepClass_FaceClassifier::BRepClass_FaceClassifier(const TopoDS_Face&     theF,
-                                                   const gp_Pnt&          theP,
+                                                   const Point3d&          theP,
                                                    const Standard_Real    theTol,
                                                    const Standard_Boolean theUseBndBox,
                                                    const Standard_Real    theGapCheckTol)
@@ -74,7 +74,7 @@ void BRepClass_FaceClassifier::Perform(const TopoDS_Face&     theF,
 //=================================================================================================
 
 void BRepClass_FaceClassifier::Perform(const TopoDS_Face&     theF,
-                                       const gp_Pnt&          theP,
+                                       const Point3d&          theP,
                                        const Standard_Real    theTol,
                                        const Standard_Boolean theUseBndBox,
                                        const Standard_Real    theGapCheckTol)

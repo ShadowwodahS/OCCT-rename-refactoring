@@ -44,7 +44,7 @@ static void FindLimits(const Handle(Adaptor3d_Surface)& surf,
 
   if (UfirstInf || UlastInf)
   {
-    gp_Pnt        P1, P2;
+    Point3d        P1, P2;
     Standard_Real v;
     if (VfirstInf && VlastInf)
       v = 0;
@@ -92,7 +92,7 @@ static void FindLimits(const Handle(Adaptor3d_Surface)& surf,
 
   if (VfirstInf || VlastInf)
   {
-    gp_Pnt        P1, P2;
+    Point3d        P1, P2;
     Standard_Real u = (UFirst + ULast) / 2;
 
     Standard_Real delta = aLimit * 2;

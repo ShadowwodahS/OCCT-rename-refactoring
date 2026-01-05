@@ -53,7 +53,7 @@ public:
   //! TolU et TolV are used to determine the conditions
   //! to stop the iterations; at the iteration number n:
   //! (Un - Un-1) < TolU and (Vn - Vn-1) < TolV .
-  Standard_EXPORT Extrema_ExtPS(const gp_Pnt&            P,
+  Standard_EXPORT Extrema_ExtPS(const Point3d&            P,
                                 const Adaptor3d_Surface& S,
                                 const Standard_Real      TolU,
                                 const Standard_Real      TolV,
@@ -68,7 +68,7 @@ public:
   //! TolU et TolV are used to determine the conditions
   //! to stop the iterations; at the iteration number n:
   //! (Un - Un-1) < TolU and (Vn - Vn-1) < TolV .
-  Standard_EXPORT Extrema_ExtPS(const gp_Pnt&            P,
+  Standard_EXPORT Extrema_ExtPS(const Point3d&            P,
                                 const Adaptor3d_Surface& S,
                                 const Standard_Real      Uinf,
                                 const Standard_Real      Usup,
@@ -91,7 +91,7 @@ public:
   //! Computes the distances.
   //! An exception is raised if the fields have not been
   //! initialized.
-  Standard_EXPORT void Perform(const gp_Pnt& P);
+  Standard_EXPORT void Perform(const Point3d& P);
 
   //! Returns True if the distances are found.
   Standard_EXPORT Standard_Boolean IsDone() const;
@@ -118,10 +118,10 @@ public:
                                               Standard_Real& dUfVl,
                                               Standard_Real& dUlVf,
                                               Standard_Real& dUlVl,
-                                              gp_Pnt&        PUfVf,
-                                              gp_Pnt&        PUfVl,
-                                              gp_Pnt&        PUlVf,
-                                              gp_Pnt&        PUlVl) const;
+                                              Point3d&        PUfVf,
+                                              Point3d&        PUfVl,
+                                              Point3d&        PUlVf,
+                                              Point3d&        PUlVl) const;
 
   Standard_EXPORT void SetFlag(const Extrema_ExtFlag F);
 
@@ -146,10 +146,10 @@ private:
   Standard_Real             d12;
   Standard_Real             d21;
   Standard_Real             d22;
-  gp_Pnt                    P11;
-  gp_Pnt                    P12;
-  gp_Pnt                    P21;
-  gp_Pnt                    P22;
+  Point3d                    P11;
+  Point3d                    P12;
+  Point3d                    P21;
+  Point3d                    P22;
   TColStd_SequenceOfReal    mySqDist;
   GeomAbs_SurfaceType       mytype;
   Handle(Extrema_ExtPExtS)  myExtPExtS;

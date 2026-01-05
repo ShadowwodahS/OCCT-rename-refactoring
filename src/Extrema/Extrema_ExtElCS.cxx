@@ -94,8 +94,8 @@ void Extrema_ExtElCS::Perform(const gp_Lin& C, const gp_Cylinder& S)
 
     Extrema_POnCurv myPOnC1, myPOnC2;
     Extrem.Points(1, myPOnC1, myPOnC2);
-    gp_Pnt PonAxis = myPOnC1.Value();
-    gp_Pnt PC      = myPOnC2.Value();
+    Point3d PonAxis = myPOnC1.Value();
+    Point3d PC      = myPOnC2.Value();
 
     // line intersects the cylinder
     if (radius - PonAxis.Distance(PC) > Precision::PConfusion())
@@ -120,7 +120,7 @@ void Extrema_ExtElCS::Perform(const gp_Lin& C, const gp_Cylinder& S)
           for (i = 1; i <= myNbExt; i++)
           {
             mySqDist->SetValue(i, 0.);
-            gp_Pnt P_int = Inters.Point(i);
+            Point3d P_int = Inters.Point(i);
             w            = Inters.ParamOnConic(i);
             Extrema_POnCurv PonC(w, P_int);
             myPoint1->SetValue(i, PonC);
@@ -217,7 +217,7 @@ void Extrema_ExtElCS::Perform(const gp_Lin& C, const gp_Sphere& S)
   myIsPar                    = Standard_False;
   Standard_Integer aStartIdx = 0;
 
-  gp_Pnt aCenter = S.Location();
+  Point3d aCenter = S.Location();
 
   Extrema_ExtPElC Extrem(aCenter, C, Precision::Angular(), RealFirst(), RealLast());
 
@@ -350,7 +350,7 @@ void Extrema_ExtElCS::Perform(const gp_Circ& C, const gp_Pln& S)
       myPoint2 = new Extrema_HArray1OfPOnSurf(1, myNbExt);
 
       Standard_Integer i;
-      gp_Pnt           PC, PP;
+      Point3d           PC, PP;
       Standard_Real    U, V;
       Extrema_POnCurv  POnC;
       Extrema_POnSurf  POnS;
@@ -473,7 +473,7 @@ void Extrema_ExtElCS::Perform(const gp_Circ& C, const gp_Cylinder& S)
         for (j = 0; j < 2; j++)
         {
           gp_Vec aVec(aDir);
-          gp_Pnt aPntOnCyl;
+          Point3d aPntOnCyl;
 
           aVec.Multiply(aShift[j]);
           aPntOnCyl = aPOnCirc.Value().Translated(aVec);
@@ -497,7 +497,7 @@ void Extrema_ExtElCS::Perform(const gp_Circ& C, const gp_Cylinder& S)
         Standard_Real aU;
         Standard_Real aV;
 
-        gp_Pnt aInterPnt = aCircCylInter.Point(i);
+        Point3d aInterPnt = aCircCylInter.Point(i);
 
         aU = ElCLib::Parameter(C, aInterPnt);
         Extrema_POnCurv aPOnCirc(aU, aInterPnt);
@@ -613,13 +613,13 @@ void Extrema_ExtElCS::Perform(const gp_Circ& C, const gp_Sphere& S)
     // Compute parameter on circle
     const Standard_Real aT = ElCLib::Parameter(C, S.Location());
     // Compute point on circle
-    gp_Pnt aPOnC = ElCLib::Value(aT, C);
+    Point3d aPOnC = ElCLib::Value(aT, C);
 
     // Compute parameters on sphere
     Standard_Real aU, aV;
     ElSLib::Parameters(S, aPOnC, aU, aV);
     // Compute point on sphere
-    gp_Pnt aPOnS = ElSLib::Value(aU, aV, S);
+    Point3d aPOnS = ElSLib::Value(aU, aV, S);
 
     // Save solution
     myPoint1->SetValue(1, Extrema_POnCurv(aT, aPOnC));
@@ -684,7 +684,7 @@ void Extrema_ExtElCS::Perform(const gp_Circ& C, const gp_Sphere& S)
     Standard_Real aU, aV;
     ElSLib::Parameters(S, P1.Value(), aU, aV);
     // Compute point on sphere
-    gp_Pnt aPOnS = ElSLib::Value(aU, aV, S);
+    Point3d aPOnS = ElSLib::Value(aU, aV, S);
 
     // Save solution
     myPoint1->SetValue(iSol, P1);
@@ -740,7 +740,7 @@ void Extrema_ExtElCS::Perform(const gp_Hypr& C, const gp_Pln& S)
     if (Abs(B) > Abs(A))
     {
       Standard_Real   T  = -0.5 * Log((A + B) / (B - A));
-      gp_Pnt          Ph = ElCLib::HyperbolaValue(T, Pos, C.MajorRadius(), C.MinorRadius());
+      Point3d          Ph = ElCLib::HyperbolaValue(T, Pos, C.MajorRadius(), C.MinorRadius());
       Extrema_POnCurv PC(T, Ph);
       myPoint1 = new Extrema_HArray1OfPOnCurv(1, 1);
       myPoint1->SetValue(1, PC);
@@ -750,7 +750,7 @@ void Extrema_ExtElCS::Perform(const gp_Hypr& C, const gp_Pln& S)
 
       Standard_Real U, V;
       ElSLib::PlaneParameters(S.Position(), Ph, U, V);
-      gp_Pnt          Pp = ElSLib::PlaneValue(U, V, S.Position());
+      Point3d          Pp = ElSLib::PlaneValue(U, V, S.Position());
       Extrema_POnSurf PS(U, V, Pp);
       myPoint2 = new Extrema_HArray1OfPOnSurf(1, 1);
       myPoint2->SetValue(1, PS);

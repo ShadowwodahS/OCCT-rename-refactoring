@@ -87,7 +87,7 @@ public: //! @name writing into file
   //! @param[in] theNorm  surface normal direction at the point
   //! @param[in] theUV    surface/texture UV coordinates
   //! @param[in] theColor RGB color values
-  Standard_EXPORT bool WriteVertex(const gp_Pnt&           thePoint,
+  Standard_EXPORT bool WriteVertex(const Point3d&           thePoint,
                                    const Graphic3d_Vec3&   theNorm,
                                    const Graphic3d_Vec2&   theUV,
                                    const Graphic3d_Vec4ub& theColor);

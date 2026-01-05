@@ -141,7 +141,7 @@ void VrmlConverter_WFDeflectionRestrictedFace::Add(Standard_OStream&            
   // trim the isos
   gp_Pnt2d      P1, P2;
   Standard_Real U1, U2;
-  gp_Pnt        dummypnt;
+  Point3d        dummypnt;
   for (ToolRst.Init(); ToolRst.More(); ToolRst.Next())
   {
     TopAbs_Orientation       Orient    = ToolRst.Orientation();

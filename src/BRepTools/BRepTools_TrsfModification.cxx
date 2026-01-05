@@ -122,7 +122,7 @@ Standard_Boolean BRepTools_TrsfModification::NewTriangulation(
   // apply transformation to 3D nodes
   for (Standard_Integer anInd = 1; anInd <= theTriangulation->NbNodes(); ++anInd)
   {
-    gp_Pnt aP = theTriangulation->Node(anInd);
+    Point3d aP = theTriangulation->Node(anInd);
     aP.Transform(aTrsf);
     theTriangulation->SetNode(anInd, aP);
   }
@@ -300,7 +300,7 @@ Standard_Boolean BRepTools_TrsfModification::NewCurve(const TopoDS_Edge&  E,
 //=================================================================================================
 
 Standard_Boolean BRepTools_TrsfModification::NewPoint(const TopoDS_Vertex& V,
-                                                      gp_Pnt&              P,
+                                                      Point3d&              P,
                                                       Standard_Real&       Tol)
 {
   P   = BRep_Tool::Pnt(V);

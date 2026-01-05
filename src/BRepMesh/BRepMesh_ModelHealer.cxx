@@ -101,9 +101,9 @@ Standard_Boolean isSameWithSomeOf(const TopoDS_Vertex& theRefVertex,
 }
 
 //! Returns True if some of two vertcies is within tolerance of reference one.
-Standard_Boolean isInToleranceWithSomeOf(const gp_Pnt&       theRefPoint,
-                                         const gp_Pnt&       thePoint1,
-                                         const gp_Pnt&       thePoint2,
+Standard_Boolean isInToleranceWithSomeOf(const Point3d&       theRefPoint,
+                                         const Point3d&       thePoint1,
+                                         const Point3d&       thePoint2,
                                          const Standard_Real theTol)
 {
   const Standard_Real aSqTol = theTol * theTol;
@@ -331,7 +331,7 @@ void BRepMesh_ModelHealer::fixFaceBoundaries(const IMeshData::IFaceHandle& theDF
         for (int i = 0; i < aCurrPCurve->ParametersNb(); ++i)
         {
           const gp_Pnt2d& aPnt = aCurrPCurve->GetPoint(i);
-          aPoly.Add(gp_Pnt(aPnt.X(), aPnt.Y(), 0.));
+          aPoly.Add(Point3d(aPnt.X(), aPnt.Y(), 0.));
         }
 
         if (aPoly.IsDone())
@@ -409,13 +409,13 @@ TopoDS_Vertex BRepMesh_ModelHealer::getCommonVertex(const IMeshData::IEdgeHandle
     return aVertex1_2;
   }
 
-  const gp_Pnt        aPnt1_1 = BRep_Tool::Pnt(aVertex1_1);
-  const gp_Pnt        aPnt1_2 = BRep_Tool::Pnt(aVertex1_2);
+  const Point3d        aPnt1_1 = BRep_Tool::Pnt(aVertex1_1);
+  const Point3d        aPnt1_2 = BRep_Tool::Pnt(aVertex1_2);
   const Standard_Real aTol1_1 = BRep_Tool::Tolerance(aVertex1_1);
   const Standard_Real aTol1_2 = BRep_Tool::Tolerance(aVertex1_2);
 
-  const gp_Pnt        aPnt2_1 = BRep_Tool::Pnt(aVertex2_1);
-  const gp_Pnt        aPnt2_2 = BRep_Tool::Pnt(aVertex2_2);
+  const Point3d        aPnt2_1 = BRep_Tool::Pnt(aVertex2_1);
+  const Point3d        aPnt2_2 = BRep_Tool::Pnt(aVertex2_2);
   const Standard_Real aTol2_1 = BRep_Tool::Tolerance(aVertex2_1);
   const Standard_Real aTol2_2 = BRep_Tool::Tolerance(aVertex2_2);
 

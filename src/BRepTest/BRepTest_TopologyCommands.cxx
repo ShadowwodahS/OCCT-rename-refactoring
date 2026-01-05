@@ -31,7 +31,7 @@ static Standard_Integer halfspace(Draw_Interpretor& di, Standard_Integer n, cons
     return 1;
 
   // Le point indiquant le cote "matiere".
-  gp_Pnt RefPnt = gp_Pnt(Draw::Atof(a[3]), Draw::Atof(a[4]), Draw::Atof(a[5]));
+  Point3d RefPnt = Point3d(Draw::Atof(a[3]), Draw::Atof(a[4]), Draw::Atof(a[5]));
 
   TopoDS_Shape Face = DBRep::Get(a[2], TopAbs_FACE);
   if (Face.IsNull())

@@ -47,7 +47,7 @@
 
 //=================================================================================================
 
-gp_Pnt2d ProjLib::Project(const gp_Pln& Pl, const gp_Pnt& P)
+gp_Pnt2d ProjLib::Project(const gp_Pln& Pl, const Point3d& P)
 {
   Standard_Real U, V;
   ElSLib::Parameters(Pl, P, U, V);
@@ -96,7 +96,7 @@ gp_Hypr2d ProjLib::Project(const gp_Pln& Pl, const gp_Hypr& H)
 
 //=================================================================================================
 
-gp_Pnt2d ProjLib::Project(const gp_Cylinder& Cy, const gp_Pnt& P)
+gp_Pnt2d ProjLib::Project(const gp_Cylinder& Cy, const Point3d& P)
 {
   Standard_Real U, V;
   ElSLib::Parameters(Cy, P, U, V);
@@ -121,7 +121,7 @@ gp_Lin2d ProjLib::Project(const gp_Cylinder& Cy, const gp_Circ& Ci)
 
 //=================================================================================================
 
-gp_Pnt2d ProjLib::Project(const gp_Cone& Co, const gp_Pnt& P)
+gp_Pnt2d ProjLib::Project(const gp_Cone& Co, const Point3d& P)
 {
   Standard_Real U, V;
   ElSLib::Parameters(Co, P, U, V);
@@ -146,7 +146,7 @@ gp_Lin2d ProjLib::Project(const gp_Cone& Co, const gp_Circ& Ci)
 
 //=================================================================================================
 
-gp_Pnt2d ProjLib::Project(const gp_Sphere& Sp, const gp_Pnt& P)
+gp_Pnt2d ProjLib::Project(const gp_Sphere& Sp, const Point3d& P)
 {
   Standard_Real U, V;
   ElSLib::Parameters(Sp, P, U, V);
@@ -163,7 +163,7 @@ gp_Lin2d ProjLib::Project(const gp_Sphere& Sp, const gp_Circ& Ci)
 
 //=================================================================================================
 
-gp_Pnt2d ProjLib::Project(const gp_Torus& To, const gp_Pnt& P)
+gp_Pnt2d ProjLib::Project(const gp_Torus& To, const Point3d& P)
 {
   Standard_Real U, V;
   ElSLib::Parameters(To, P, U, V);

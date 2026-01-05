@@ -23,7 +23,7 @@
 #include <IGESData_IGESEntity.hxx>
 class IGESGeom_Point;
 class IGESGeom_Direction;
-class gp_Pnt;
+class Point3d;
 
 class IGESSolid_ToroidalSurface;
 DEFINE_STANDARD_HANDLE(IGESSolid_ToroidalSurface, IGESData_IGESEntity)
@@ -58,7 +58,7 @@ public:
 
   //! returns the center point coordinates of the surface
   //! after applying TransformationMatrix
-  Standard_EXPORT gp_Pnt TransformedCenter() const;
+  Standard_EXPORT Point3d TransformedCenter() const;
 
   //! returns the direction of the axis
   Standard_EXPORT Handle(IGESGeom_Direction) Axis() const;

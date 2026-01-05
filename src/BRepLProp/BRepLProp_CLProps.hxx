@@ -31,7 +31,7 @@ class Standard_OutOfRange;
 class LProp_NotDefined;
 class BRepAdaptor_Curve;
 class gp_Vec;
-class gp_Pnt;
+class Point3d;
 class gp_Dir;
 class BRepLProp_CurveTool;
 
@@ -78,7 +78,7 @@ public:
   Standard_EXPORT void SetCurve(const BRepAdaptor_Curve& C);
 
   //! Returns the Point.
-  Standard_EXPORT const gp_Pnt& Value() const;
+  Standard_EXPORT const Point3d& Value() const;
 
   //! Returns the first derivative.
   //! The derivative is computed if it has not been yet.
@@ -107,7 +107,7 @@ public:
   Standard_EXPORT void Normal(gp_Dir& N);
 
   //! Returns the centre of curvature <P>.
-  Standard_EXPORT void CentreOfCurvature(gp_Pnt& P);
+  Standard_EXPORT void CentreOfCurvature(Point3d& P);
 
 protected:
 private:
@@ -116,7 +116,7 @@ private:
   Standard_Integer  myDerOrder;
   Standard_Real     myCN;
   Standard_Real     myLinTol;
-  gp_Pnt            myPnt;
+  Point3d            myPnt;
   gp_Vec            myDerivArr[3];
   gp_Dir            myTangent;
   Standard_Real     myCurvature;

@@ -75,7 +75,7 @@ void IntSurf_LineOn2S::RemovePoint(const Standard_Integer index)
   myBxyz.SetWhole();
 }
 
-Standard_Boolean IntSurf_LineOn2S::IsOutBox(const gp_Pnt& Pxyz)
+Standard_Boolean IntSurf_LineOn2S::IsOutBox(const Point3d& Pxyz)
 {
   if (myBxyz.IsWhole())
   {
@@ -83,7 +83,7 @@ Standard_Boolean IntSurf_LineOn2S::IsOutBox(const gp_Pnt& Pxyz)
     myBxyz.SetVoid();
     for (Standard_Integer i = 1; i <= n; i++)
     {
-      gp_Pnt P = mySeq(i).Value();
+      Point3d P = mySeq(i).Value();
       myBxyz.Add(P);
     }
     Standard_Real x0, y0, z0, x1, y1, z1;

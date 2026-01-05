@@ -27,7 +27,7 @@ class Geom_Geometry;
 class Geom2d_Curve;
 class Geom_Curve;
 class Geom_Surface;
-class gp_Pnt;
+class Point3d;
 class gp_Pnt2d;
 class TopoDS_Shape;
 
@@ -63,11 +63,11 @@ public:
 
   Standard_EXPORT virtual Handle(Geom_Surface) GetSurface(Standard_CString& name) const;
 
-  Standard_EXPORT virtual void SetPoint(const Standard_CString name, const gp_Pnt& val);
+  Standard_EXPORT virtual void SetPoint(const Standard_CString name, const Point3d& val);
 
   Standard_EXPORT virtual void SetPoint2d(const Standard_CString name, const gp_Pnt2d& val);
 
-  Standard_EXPORT virtual Standard_Boolean GetPoint(Standard_CString& name, gp_Pnt& pnt) const;
+  Standard_EXPORT virtual Standard_Boolean GetPoint(Standard_CString& name, Point3d& pnt) const;
 
   Standard_EXPORT virtual Standard_Boolean GetPoint2d(Standard_CString& name, gp_Pnt2d& pnt) const;
 

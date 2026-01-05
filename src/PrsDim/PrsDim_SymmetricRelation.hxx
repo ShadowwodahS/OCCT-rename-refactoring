@@ -72,8 +72,8 @@ private:
 
 private:
   TopoDS_Shape myTool;
-  gp_Pnt       myFAttach;
-  gp_Pnt       mySAttach;
+  Point3d       myFAttach;
+  Point3d       mySAttach;
   gp_Dir       myFDirAttach;
   gp_Dir       myAxisDirAttach;
 };

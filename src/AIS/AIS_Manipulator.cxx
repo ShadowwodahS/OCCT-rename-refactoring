@@ -333,7 +333,7 @@ void AIS_Manipulator::EnableMode(const AIS_ManipulatorMode theMode)
 
 //=================================================================================================
 
-void AIS_Manipulator::attachToPoint(const gp_Pnt& thePoint)
+void AIS_Manipulator::attachToPoint(const Point3d& thePoint)
 {
   gp_Ax2 aPosition = gp::XOY();
   aPosition.SetLocation(thePoint);
@@ -354,7 +354,7 @@ void AIS_Manipulator::attachToBox(const Bnd_Box& theBox)
 
   gp_Ax2 aPosition = gp::XOY();
   aPosition.SetLocation(
-    gp_Pnt((anXmin + anXmax) * 0.5, (anYmin + anYmax) * 0.5, (aZmin + aZmax) * 0.5));
+    Point3d((anXmin + anXmax) * 0.5, (anYmin + anYmax) * 0.5, (aZmin + aZmax) * 0.5));
   SetPosition(aPosition);
 }
 
@@ -527,7 +527,7 @@ Standard_Boolean AIS_Manipulator::ObjectTransformation(const Standard_Integer  t
                            aProj.x(),
                            aProj.y(),
                            aProj.z());
-  const gp_Lin anInputLine(gp_Pnt(anInputPoint.x(), anInputPoint.y(), anInputPoint.z()),
+  const gp_Lin anInputLine(Point3d(anInputPoint.x(), anInputPoint.y(), anInputPoint.z()),
                            gp_Dir(aProj.x(), aProj.y(), aProj.z()));
   switch (myCurrentMode)
   {
@@ -543,7 +543,7 @@ Standard_Boolean AIS_Manipulator::ObjectTransformation(const Standard_Integer  t
 
       Extrema_POnCurv anExPnts[2];
       anExtrema.Points(1, anExPnts[0], anExPnts[1]);
-      const gp_Pnt aNewPosition = anExPnts[1].Value();
+      const Point3d aNewPosition = anExPnts[1].Value();
       if (!myHasStartedTransformation)
       {
         myStartPick                = aNewPosition;
@@ -576,7 +576,7 @@ Standard_Boolean AIS_Manipulator::ObjectTransformation(const Standard_Integer  t
       return Standard_True;
     }
     case AIS_MM_Rotation: {
-      const gp_Pnt        aPosLoc   = myStartPosition.Location();
+      const Point3d        aPosLoc   = myStartPosition.Location();
       const gp_Ax1        aCurrAxis = getAx1FromAx2Dir(myStartPosition, myCurrentIndex);
       IntAna_IntConicQuad aIntersector(anInputLine,
                                        gp_Pln(aPosLoc, aCurrAxis.Direction()),
@@ -587,7 +587,7 @@ Standard_Boolean AIS_Manipulator::ObjectTransformation(const Standard_Integer  t
         return Standard_False;
       }
 
-      const gp_Pnt aNewPosition = aIntersector.Point(1);
+      const Point3d aNewPosition = aIntersector.Point(1);
       if (!myHasStartedTransformation)
       {
         myStartPick                = aNewPosition;
@@ -660,7 +660,7 @@ Standard_Boolean AIS_Manipulator::ObjectTransformation(const Standard_Integer  t
       return Standard_True;
     }
     case AIS_MM_TranslationPlane: {
-      const gp_Pnt        aPosLoc   = myStartPosition.Location();
+      const Point3d        aPosLoc   = myStartPosition.Location();
       const gp_Ax1        aCurrAxis = getAx1FromAx2Dir(myStartPosition, myCurrentIndex);
       IntAna_IntConicQuad aIntersector(anInputLine,
                                        gp_Pln(aPosLoc, aCurrAxis.Direction()),
@@ -671,7 +671,7 @@ Standard_Boolean AIS_Manipulator::ObjectTransformation(const Standard_Integer  t
         return Standard_False;
       }
 
-      const gp_Pnt aNewPosition = aIntersector.Point(1);
+      const Point3d aNewPosition = aIntersector.Point(1);
       if (!myHasStartedTransformation)
       {
         myStartPick                = aNewPosition;
@@ -1018,7 +1018,7 @@ void AIS_Manipulator::Transform(const gp_Trsf& theTrsf)
       || (myCurrentMode == AIS_MM_Rotation && myBehaviorOnTransform.FollowRotation)
       || (myCurrentMode == AIS_MM_TranslationPlane && myBehaviorOnTransform.FollowDragging))
   {
-    gp_Pnt aPos  = myStartPosition.Location().Transformed(theTrsf);
+    Point3d aPos  = myStartPosition.Location().Transformed(theTrsf);
     gp_Dir aVDir = myStartPosition.Direction().Transformed(theTrsf);
     gp_Dir aXDir = myStartPosition.XDirection().Transformed(theTrsf);
     SetPosition(gp_Ax2(aPos, aVDir, aXDir));
@@ -1541,9 +1541,9 @@ void AIS_Manipulator::ComputeSelection(const Handle(SelectMgr_Selection)& theSel
           // define sensitivity by two crossed lines
           Standard_Real aSensitivityOffset =
             ZoomPersistence() ? aHighSensitivity * (0.5 + M_SQRT2) : 0.0;
-          gp_Pnt aP1 = myAxes[((anIt + 1) % 3)].TranslatorTipPosition().Translated(
+          Point3d aP1 = myAxes[((anIt + 1) % 3)].TranslatorTipPosition().Translated(
             myAxes[((anIt + 2) % 3)].ReferenceAxis().Direction().XYZ() * aSensitivityOffset);
-          gp_Pnt aP2 = myAxes[((anIt + 2) % 3)].TranslatorTipPosition().Translated(
+          Point3d aP2 = myAxes[((anIt + 2) % 3)].TranslatorTipPosition().Translated(
             myAxes[((anIt + 1) % 3)].ReferenceAxis().Direction().XYZ() * aSensitivityOffset);
           gp_XYZ aMidP  = (aP1.XYZ() + aP2.XYZ()) / 2.0;
           gp_XYZ anOrig = aMidP.Normalized().Multiplied(aSensitivityOffset);
@@ -1609,7 +1609,7 @@ void AIS_Manipulator::Disk::Init(const Standard_ShortReal theInnerRadius,
 // purpose  :
 //=======================================================================
 void AIS_Manipulator::Sphere::Init(const Standard_ShortReal theRadius,
-                                   const gp_Pnt&            thePosition,
+                                   const Point3d&            thePosition,
                                    const ManipulatorSkin    theSkinMode,
                                    const Standard_Integer   theSlicesNb,
                                    const Standard_Integer   theStacksNb)
@@ -1645,7 +1645,7 @@ void AIS_Manipulator::Cube::Init(const gp_Ax1&            thePosition,
     else
       aXDirection = gp::DX();
 
-    gp_Pnt aLocation =
+    Point3d aLocation =
       thePosition.Location().Translated(gp_Vec(thePosition.Direction().XYZ() * theSize));
     gp_Ax3  aSystem(aLocation, aXDirection, thePosition.Direction());
     gp_Trsf aTrsf;
@@ -1664,19 +1664,19 @@ void AIS_Manipulator::Cube::Init(const gp_Ax1&            thePosition,
     myTriangulation = new Poly_Triangulation(aPoints, aPolyTriangles);
 
     gp_Ax2 aPln(thePosition.Location(), thePosition.Direction());
-    gp_Pnt aBottomLeft = thePosition.Location().XYZ() - aPln.XDirection().XYZ() * theSize * 0.5
+    Point3d aBottomLeft = thePosition.Location().XYZ() - aPln.XDirection().XYZ() * theSize * 0.5
                          - aPln.YDirection().XYZ() * theSize * 0.5;
-    gp_Pnt aV2 = aBottomLeft.XYZ() + aPln.YDirection().XYZ() * theSize;
-    gp_Pnt aV3 =
+    Point3d aV2 = aBottomLeft.XYZ() + aPln.YDirection().XYZ() * theSize;
+    Point3d aV3 =
       aBottomLeft.XYZ() + aPln.YDirection().XYZ() * theSize + aPln.XDirection().XYZ() * theSize;
-    gp_Pnt aV4       = aBottomLeft.XYZ() + aPln.XDirection().XYZ() * theSize;
-    gp_Pnt aTopRight = thePosition.Location().XYZ() + thePosition.Direction().XYZ() * theSize
+    Point3d aV4       = aBottomLeft.XYZ() + aPln.XDirection().XYZ() * theSize;
+    Point3d aTopRight = thePosition.Location().XYZ() + thePosition.Direction().XYZ() * theSize
                        + aPln.XDirection().XYZ() * theSize * 0.5
                        + aPln.YDirection().XYZ() * theSize * 0.5;
-    gp_Pnt aV5 = aTopRight.XYZ() - aPln.YDirection().XYZ() * theSize;
-    gp_Pnt aV6 =
+    Point3d aV5 = aTopRight.XYZ() - aPln.YDirection().XYZ() * theSize;
+    Point3d aV6 =
       aTopRight.XYZ() - aPln.YDirection().XYZ() * theSize - aPln.XDirection().XYZ() * theSize;
-    gp_Pnt aV7 = aTopRight.XYZ() - aPln.XDirection().XYZ() * theSize;
+    Point3d aV7 = aTopRight.XYZ() - aPln.XDirection().XYZ() * theSize;
 
     gp_Dir aRight((gp_Vec(aTopRight, aV7) ^ gp_Vec(aTopRight, aV2)).XYZ());
     gp_Dir aFront((gp_Vec(aV3, aV4) ^ gp_Vec(aV3, aV5)).XYZ());
@@ -1713,9 +1713,9 @@ void AIS_Manipulator::Cube::Init(const gp_Ax1&            thePosition,
 // purpose  :
 //=======================================================================
 void AIS_Manipulator::Cube::addTriangle(const Standard_Integer theIndex,
-                                        const gp_Pnt&          theP1,
-                                        const gp_Pnt&          theP2,
-                                        const gp_Pnt&          theP3,
+                                        const Point3d&          theP1,
+                                        const Point3d&          theP2,
+                                        const Point3d&          theP3,
                                         const gp_Dir&          theNormal)
 {
   myTriangulation->SetNode(theIndex * 3 + 1, theP1);
@@ -1751,10 +1751,10 @@ void AIS_Manipulator::Sector::Init(const Standard_ShortReal theRadius,
     myTriangulation = new Poly_Triangulation(4, 2, Standard_False);
 
     const Standard_Real anIndent = theRadius / 3.0;
-    gp_Pnt              aV1      = gp_Pnt(anIndent, anIndent, 0.0).Transformed(aTrsf);
-    gp_Pnt              aV2      = gp_Pnt(anIndent, anIndent * 2.0, 0.0).Transformed(aTrsf);
-    gp_Pnt              aV3      = gp_Pnt(anIndent * 2.0, anIndent * 2.0, 0.0).Transformed(aTrsf);
-    gp_Pnt              aV4      = gp_Pnt(anIndent * 2.0, anIndent, 0.0).Transformed(aTrsf);
+    Point3d              aV1      = Point3d(anIndent, anIndent, 0.0).Transformed(aTrsf);
+    Point3d              aV2      = Point3d(anIndent, anIndent * 2.0, 0.0).Transformed(aTrsf);
+    Point3d              aV3      = Point3d(anIndent * 2.0, anIndent * 2.0, 0.0).Transformed(aTrsf);
+    Point3d              aV4      = Point3d(anIndent * 2.0, anIndent, 0.0).Transformed(aTrsf);
     gp_Dir              aNormal  = gp_Dir(0.0, 0.0, -1.0).Transformed(aTrsf);
 
     myArray->AddVertex(aV1, aNormal);
@@ -1822,7 +1822,7 @@ void AIS_Manipulator::Axis::Compute(const Handle(PrsMgr_PresentationManager)& th
     const Standard_Real anArrowLength   = 0.25 * myLength;
     const Standard_Real aCylinderLength = myLength - anArrowLength;
     myArrowTipPos =
-      gp_Pnt(0.0, 0.0, 0.0).Translated(myReferenceAxis.Direction().XYZ() * aCylinderLength);
+      Point3d(0.0, 0.0, 0.0).Translated(myReferenceAxis.Direction().XYZ() * aCylinderLength);
 
     myTranslatorGroup = thePrs->NewGroup();
     myTranslatorGroup->SetClosed(theSkinMode == ManipulatorSkin_Shaded);
@@ -1856,7 +1856,7 @@ void AIS_Manipulator::Axis::Compute(const Handle(PrsMgr_PresentationManager)& th
       {
         for (Standard_Integer aV = 0; aV <= aStripsNb; ++aV)
         {
-          gp_Pnt aVertex = gp_Pnt(0.0, myAxisRadius * (1.5f * aU - 0.75f), aLength * aV * aStepV)
+          Point3d aVertex = Point3d(0.0, myAxisRadius * (1.5f * aU - 0.75f), aLength * aV * aStepV)
                              .Transformed(aTrsf);
           myTriangleArray->AddVertex(aVertex, aNormal);
 
@@ -1979,8 +1979,8 @@ void AIS_Manipulator::Axis::Compute(const Handle(PrsMgr_PresentationManager)& th
     else
       aXDirection = gp::DX();
 
-    gp_Pnt             aPosition = theSkinMode == ManipulatorSkin_Flat
-                                     ? gp_Pnt(myReferenceAxis.Direction().Reversed().XYZ() * (myAxisRadius))
+    Point3d             aPosition = theSkinMode == ManipulatorSkin_Flat
+                                     ? Point3d(myReferenceAxis.Direction().Reversed().XYZ() * (myAxisRadius))
                                      : gp::Origin();
     Standard_ShortReal aRadius =
       theSkinMode == ManipulatorSkin_Flat ? myLength : myInnerRadius + myIndent * 2;

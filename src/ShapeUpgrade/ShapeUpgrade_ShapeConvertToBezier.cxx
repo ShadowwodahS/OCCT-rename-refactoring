@@ -161,10 +161,10 @@ Standard_Boolean ShapeUpgrade_ShapeConvertToBezier::Perform(const Standard_Boole
               }
               if (!bezier.IsNull())
               { // gka fix against small edges ; merging ends of 3d curves
-                gp_Pnt p1  = bezier->Value(first);
-                gp_Pnt p2  = bezier->Value(last);
-                gp_Pnt p1v = BRep_Tool::Pnt(V1);
-                gp_Pnt p2v = BRep_Tool::Pnt(V2);
+                Point3d p1  = bezier->Value(first);
+                Point3d p2  = bezier->Value(last);
+                Point3d p1v = BRep_Tool::Pnt(V1);
+                Point3d p2v = BRep_Tool::Pnt(V2);
                 if (p1.Distance(p1v) > Precision::Confusion())
                   bezier->SetPole(1, p1v);
                 if (p2.Distance(p2v) > Precision::Confusion())

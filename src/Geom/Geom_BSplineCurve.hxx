@@ -31,7 +31,7 @@
 #include <TColgp_Array1OfPnt.hxx>
 #include <TColStd_Array1OfReal.hxx>
 #include <TColStd_Array1OfInteger.hxx>
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 class gp_Trsf;
 class Geom_Geometry;
@@ -402,7 +402,7 @@ public:
   //! Standard_OutOfRange if Index is outside the
   //! bounds of the poles table.
   //! Standard_ConstructionError if Weight is negative or null.
-  Standard_EXPORT void SetPole(const Standard_Integer Index, const gp_Pnt& P);
+  Standard_EXPORT void SetPole(const Standard_Integer Index, const Point3d& P);
 
   //! Modifies this BSpline curve by assigning P to the pole
   //! of index Index in the poles table.
@@ -415,7 +415,7 @@ public:
   //! bounds of the poles table.
   //! Standard_ConstructionError if Weight is negative or null.
   Standard_EXPORT void SetPole(const Standard_Integer Index,
-                               const gp_Pnt&          P,
+                               const Point3d&          P,
                                const Standard_Real    Weight);
 
   //! Changes the weight for the pole of range Index.
@@ -441,7 +441,7 @@ public:
   //! - Index1 or Index2 is less than 1 or greater than the
   //! number of poles of this BSpline curve.
   Standard_EXPORT void MovePoint(const Standard_Real    U,
-                                 const gp_Pnt&          P,
+                                 const Point3d&          P,
                                  const Standard_Integer Index1,
                                  const Standard_Integer Index2,
                                  Standard_Integer&      FirstModifiedPole,
@@ -459,7 +459,7 @@ public:
   //! ErrorStatus != 0 means that there are not enough degree of freedom
   //! with the constrain to deform the curve accordingly
   Standard_EXPORT void MovePointAndTangent(const Standard_Real    U,
-                                           const gp_Pnt&          P,
+                                           const Point3d&          P,
                                            const gp_Vec&          Tangent,
                                            const Standard_Real    Tolerance,
                                            const Standard_Integer StartingCondition,
@@ -516,20 +516,20 @@ public:
   Standard_EXPORT Standard_Integer Degree() const;
 
   //! Returns in P the point of parameter U.
-  Standard_EXPORT void D0(const Standard_Real U, gp_Pnt& P) const Standard_OVERRIDE;
+  Standard_EXPORT void D0(const Standard_Real U, Point3d& P) const Standard_OVERRIDE;
 
   //! Raised if the continuity of the curve is not C1.
-  Standard_EXPORT void D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V1) const Standard_OVERRIDE;
+  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, gp_Vec& V1) const Standard_OVERRIDE;
 
   //! Raised if the continuity of the curve is not C2.
   Standard_EXPORT void D2(const Standard_Real U,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             V1,
                           gp_Vec&             V2) const Standard_OVERRIDE;
 
   //! Raised if the continuity of the curve is not C3.
   Standard_EXPORT void D3(const Standard_Real U,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             V1,
                           gp_Vec&             V2,
                           gp_Vec&             V3) const Standard_OVERRIDE;
@@ -560,7 +560,7 @@ public:
                             const Standard_Integer N) const Standard_OVERRIDE;
 
   //! Raised if FromK1 = ToK2.
-  Standard_EXPORT gp_Pnt LocalValue(const Standard_Real    U,
+  Standard_EXPORT Point3d LocalValue(const Standard_Real    U,
                                     const Standard_Integer FromK1,
                                     const Standard_Integer ToK2) const;
 
@@ -568,7 +568,7 @@ public:
   Standard_EXPORT void LocalD0(const Standard_Real    U,
                                const Standard_Integer FromK1,
                                const Standard_Integer ToK2,
-                               gp_Pnt&                P) const;
+                               Point3d&                P) const;
 
   //! Raised if the local continuity of the curve is not C1
   //! between the knot K1 and the knot K2.
@@ -576,7 +576,7 @@ public:
   Standard_EXPORT void LocalD1(const Standard_Real    U,
                                const Standard_Integer FromK1,
                                const Standard_Integer ToK2,
-                               gp_Pnt&                P,
+                               Point3d&                P,
                                gp_Vec&                V1) const;
 
   //! Raised if the local continuity of the curve is not C2
@@ -585,7 +585,7 @@ public:
   Standard_EXPORT void LocalD2(const Standard_Real    U,
                                const Standard_Integer FromK1,
                                const Standard_Integer ToK2,
-                               gp_Pnt&                P,
+                               Point3d&                P,
                                gp_Vec&                V1,
                                gp_Vec&                V2) const;
 
@@ -595,7 +595,7 @@ public:
   Standard_EXPORT void LocalD3(const Standard_Real    U,
                                const Standard_Integer FromK1,
                                const Standard_Integer ToK2,
-                               gp_Pnt&                P,
+                               Point3d&                P,
                                gp_Vec&                V1,
                                gp_Vec&                V2,
                                gp_Vec&                V3) const;
@@ -614,7 +614,7 @@ public:
   //! The last point of the curve is different from the last
   //! pole of the curve if the multiplicity of the last knot
   //! is lower than Degree.
-  Standard_EXPORT gp_Pnt EndPoint() const Standard_OVERRIDE;
+  Standard_EXPORT Point3d EndPoint() const Standard_OVERRIDE;
 
   //! Returns the index in the knot array of the knot
   //! corresponding to the first or last parameter of this BSpline curve.
@@ -776,7 +776,7 @@ public:
 
   //! Returns the pole of range Index.
   //! Raised if Index < 1 or Index > NbPoles.
-  Standard_EXPORT const gp_Pnt& Pole(const Standard_Integer Index) const;
+  Standard_EXPORT const Point3d& Pole(const Standard_Integer Index) const;
 
   //! Returns the poles of the B-spline curve;
   //!
@@ -790,7 +790,7 @@ public:
   //! Warnings :
   //! This point is different from the first pole of the curve if the
   //! multiplicity of the first knot is lower than Degree.
-  Standard_EXPORT gp_Pnt StartPoint() const Standard_OVERRIDE;
+  Standard_EXPORT Point3d StartPoint() const Standard_OVERRIDE;
 
   //! Returns the weight of the pole of range Index .
   //! Raised if Index < 1 or Index > NbPoles.

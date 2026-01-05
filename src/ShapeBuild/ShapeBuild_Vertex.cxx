@@ -35,13 +35,13 @@ TopoDS_Vertex ShapeBuild_Vertex::CombineVertex(const TopoDS_Vertex& V1,
 
 //=================================================================================================
 
-TopoDS_Vertex ShapeBuild_Vertex::CombineVertex(const gp_Pnt&       pnt1,
-                                               const gp_Pnt&       pnt2,
+TopoDS_Vertex ShapeBuild_Vertex::CombineVertex(const Point3d&       pnt1,
+                                               const Point3d&       pnt2,
                                                const Standard_Real tol1,
                                                const Standard_Real tol2,
                                                const Standard_Real tolFactor) const
 {
-  gp_Pnt        pos;
+  Point3d        pos;
   Standard_Real tol;
 
   gp_Vec        v    = pnt2.XYZ() - pnt1.XYZ();

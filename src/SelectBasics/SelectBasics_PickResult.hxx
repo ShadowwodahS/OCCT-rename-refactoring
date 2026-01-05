@@ -43,7 +43,7 @@ public:
   //! Constructor with initialization.
   SelectBasics_PickResult(Standard_Real theDepth,
                           Standard_Real theDistToCenter,
-                          const gp_Pnt& theObjPickedPnt)
+                          const Point3d& theObjPickedPnt)
       : myObjPickedPnt(theObjPickedPnt),
         myDepth(theDepth),
         myDistToCenter(theDistToCenter)
@@ -58,7 +58,7 @@ public:
   void Invalidate()
   {
     myDepth        = RealLast();
-    myObjPickedPnt = gp_Pnt(RealLast(), 0.0, 0.0);
+    myObjPickedPnt = Point3d(RealLast(), 0.0, 0.0);
     myNormal.SetValues(0.0f, 0.0f, 0.0f);
   }
 
@@ -74,10 +74,10 @@ public:
   //! Return picked point lying on detected entity.
   //! WARNING! Point is defined in local coordinate system and should be translated into World
   //! System before usage!
-  const gp_Pnt& PickedPoint() const { return myObjPickedPnt; }
+  const Point3d& PickedPoint() const { return myObjPickedPnt; }
 
   //! Set picked point.
-  void SetPickedPoint(const gp_Pnt& theObjPickedPnt) { myObjPickedPnt = theObjPickedPnt; }
+  void SetPickedPoint(const Point3d& theObjPickedPnt) { myObjPickedPnt = theObjPickedPnt; }
 
   //! Return distance to geometry center (auxiliary value for comparing results).
   Standard_Real DistToGeomCenter() const { return myDistToCenter; }
@@ -100,7 +100,7 @@ public:
   }
 
 private:
-  gp_Pnt                  myObjPickedPnt; //!< User-picked selection point onto object
+  Point3d                  myObjPickedPnt; //!< User-picked selection point onto object
   NCollection_Vec3<float> myNormal;       //!< surface normal
   Standard_Real           myDepth;        //!< Depth to detected point
   // clang-format off

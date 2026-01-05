@@ -214,7 +214,7 @@ void TopOpeBRep_FFDumper::DumpVP(const TopOpeBRep_VPointInter& VP)
     std::cout << " NOT kept";
   std::cout << std::endl;
   Standard_Boolean k = VP.Keep();
-  const gp_Pnt&    P = VP.Value();
+  const Point3d&    P = VP.Value();
   std::cout << PRODINP << "L" << il << "P" << VP.Index();
   if (k)
     std::cout << "K";

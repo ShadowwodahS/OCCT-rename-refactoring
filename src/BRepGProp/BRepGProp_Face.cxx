@@ -193,7 +193,7 @@ void BRepGProp_Face::Load(const TopoDS_Face& F)
 
 void BRepGProp_Face::Normal(const Standard_Real U,
                             const Standard_Real V,
-                            gp_Pnt&             P,
+                            Point3d&             P,
                             gp_Vec&             VNor) const
 {
   gp_Vec D1U, D1V;

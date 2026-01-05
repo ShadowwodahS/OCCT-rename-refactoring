@@ -222,7 +222,7 @@ public:
   Standard_EXPORT static Standard_Boolean TrsfToPoint(const Bnd_Box&      theBox1,
                                                       const Bnd_Box&      theBox2,
                                                       gp_Trsf&            theTrsf,
-                                                      const gp_Pnt&       thePoint    = gp_Pnt(0.0,
+                                                      const Point3d&       thePoint    = Point3d(0.0,
                                                                                       0.0,
                                                                                       0.0),
                                                       const Standard_Real theCriteria = 1.e+5);

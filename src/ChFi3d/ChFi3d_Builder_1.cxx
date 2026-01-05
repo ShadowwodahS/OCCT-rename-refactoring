@@ -182,7 +182,7 @@ static TopoDS_Edge MakeOffsetEdge(const TopoDS_Edge&         theEdge,
   }
 
   Handle(Geom_Curve) IntCurve = Intersector.Line(1);
-  gp_Pnt             Ends[2];
+  Point3d             Ends[2];
   BRepAdaptor_Curve  aBAcurve(theEdge);
   Ends[0] = aBAcurve.Value(aBAcurve.FirstParameter());
   Ends[1] = aBAcurve.Value(aBAcurve.LastParameter());
@@ -228,7 +228,7 @@ static TopoDS_Edge MakeOffsetEdge(const TopoDS_Edge&         theEdge,
       break;
     Extrema_ExtPC Projector(Ends[ind_end], GAcurve);
     Standard_Real param[4], dist[4];
-    gp_Pnt        Pnt[4];
+    Point3d        Pnt[4];
     param[1] = GAcurve.FirstParameter();
     param[2] = GAcurve.LastParameter();
     Projector.TrimmedSquareDistances(dist[1], dist[2], Pnt[1], Pnt[2]);
@@ -256,8 +256,8 @@ static TopoDS_Edge MakeOffsetEdge(const TopoDS_Edge&         theEdge,
   if (Params[0] > Params[1])
   {
     Standard_Boolean IsClosed = Standard_False;
-    gp_Pnt           fpnt     = IntCurve->Value(IntCurve->FirstParameter());
-    gp_Pnt           lpnt     = IntCurve->Value(IntCurve->LastParameter());
+    Point3d           fpnt     = IntCurve->Value(IntCurve->FirstParameter());
+    Point3d           lpnt     = IntCurve->Value(IntCurve->LastParameter());
     if (fpnt.SquareDistance(lpnt) <= Precision::SquareConfusion())
       IsClosed = Standard_True;
     if (IsClosed)
@@ -274,7 +274,7 @@ static TopoDS_Edge MakeOffsetEdge(const TopoDS_Edge&         theEdge,
   if (aBAcurve.IsClosed() /*HGuide->IsPeriodic()*/ /*HGuide->IsClosed()*/) // check the direction of
                                                                            // closed curve
   {
-    gp_Pnt aPnt, anOffsetPnt;
+    Point3d aPnt, anOffsetPnt;
     gp_Vec Tangent, OffsetTangent;
     aBAcurve.D1(aBAcurve.FirstParameter(), aPnt, Tangent);
     IntCurve->D1(Params[0], anOffsetPnt, OffsetTangent);
@@ -609,7 +609,7 @@ static Standard_Boolean TangentExtremity(const TopoDS_Vertex&               V,
   Standard_Real        p1 = BRep_Tool::Parameter(V, e1, f1);
   Standard_Real        p2 = BRep_Tool::Parameter(V, e2, f2);
   Standard_Real        u, v, f, l, Eps = 1.e-9;
-  gp_Vec               n1, n2; //   gp_Pnt pt1,pt2;
+  gp_Vec               n1, n2; //   Point3d pt1,pt2;
   Handle(Geom2d_Curve) pc1 = BRep_Tool::CurveOnSurface(e1, f1, f, l);
   pc1->Value(p1).Coord(u, v);
   BRepLProp_SLProps theProp1(*hs1, u, v, 1, Eps);
@@ -833,7 +833,7 @@ Standard_Boolean ChFi3d_Builder::PerformElement(const Handle(ChFiDS_Spine)& Spin
   TopTools_ListIteratorOfListOfShape Jt;
   Standard_Real                      Wl, Wf;
   Standard_Boolean                   degeneOnEc;
-  gp_Pnt                             P2;
+  Point3d                             P2;
   gp_Vec                             V1, V2;
   TopoDS_Vertex                      Ve1, VStart, FVEc, LVEc, FVEv, LVEv;
   TopoDS_Edge                        Ev, Ec(Spine->Edges(1));

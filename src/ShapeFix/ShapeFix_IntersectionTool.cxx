@@ -63,7 +63,7 @@ ShapeFix_IntersectionTool::ShapeFix_IntersectionTool(const Handle(ShapeBuild_ReS
 //: h0 abv 29 May 98: PRO10105 1949: like in BRepCheck, point is to be taken
 // from 3d curve (but only if edge is SameParameter)
 //=======================================================================
-static gp_Pnt GetPointOnEdge(const TopoDS_Edge&                   edge,
+static Point3d GetPointOnEdge(const TopoDS_Edge&                   edge,
                              const Handle(ShapeAnalysis_Surface)& surf,
                              const Geom2dAdaptor_Curve&           Crv2d,
                              const Standard_Real                  param)
@@ -103,7 +103,7 @@ Standard_Boolean ShapeFix_IntersectionTool::SplitEdge(const TopoDS_Edge&   edge,
   if (Abs(a - param) < 0.01 * preci || Abs(b - param) < 0.01 * preci)
     return Standard_False;
   // check distanse between edge and new vertex
-  gp_Pnt          P1;
+  Point3d          P1;
   TopLoc_Location L;
   if (BRep_Tool::SameParameter(edge) && !BRep_Tool::Degenerated(edge))
   {
@@ -123,7 +123,7 @@ Standard_Boolean ShapeFix_IntersectionTool::SplitEdge(const TopoDS_Edge&   edge,
     if (!L.IsIdentity())
       P1 = P1.Transformed(L.Transformation());
   }
-  gp_Pnt P2 = BRep_Tool::Pnt(vert);
+  Point3d P2 = BRep_Tool::Pnt(vert);
   if (P1.Distance(P2) > preci)
   {
     // return Standard_False;
@@ -462,13 +462,13 @@ Standard_Boolean ShapeFix_IntersectionTool::UnionVertexes(const Handle(ShapeExte
   BRep_Builder       B;
   TopoDS_Vertex      V;
   TopoDS_Vertex      V1F  = sae.FirstVertex(edge1);
-  gp_Pnt             PV1F = BRep_Tool::Pnt(V1F);
+  Point3d             PV1F = BRep_Tool::Pnt(V1F);
   TopoDS_Vertex      V1L  = sae.LastVertex(edge1);
-  gp_Pnt             PV1L = BRep_Tool::Pnt(V1L);
+  Point3d             PV1L = BRep_Tool::Pnt(V1L);
   TopoDS_Vertex      V2F  = sae.FirstVertex(edge2);
-  gp_Pnt             PV2F = BRep_Tool::Pnt(V2F);
+  Point3d             PV2F = BRep_Tool::Pnt(V2F);
   TopoDS_Vertex      V2L  = sae.LastVertex(edge2);
-  gp_Pnt             PV2L = BRep_Tool::Pnt(V2L);
+  Point3d             PV2L = BRep_Tool::Pnt(V2L);
   Standard_Real      d11  = PV1F.Distance(PV2F);
   Standard_Real      d12  = PV1F.Distance(PV2L);
   Standard_Real      d21  = PV1L.Distance(PV2F);
@@ -482,7 +482,7 @@ Standard_Boolean ShapeFix_IntersectionTool::UnionVertexes(const Handle(ShapeExte
       B.UpdateVertex(V1F, tolv);
       TopoDS_Edge NewE = sbe.CopyReplaceVertices(edge2, V1F, V2L);
       //      std::cout<<"union vertexes V1F and V2F"<<std::endl;
-      //      gp_Pnt Ptmp = BRep_Tool::Pnt(V1F);
+      //      Point3d Ptmp = BRep_Tool::Pnt(V1F);
       //      B.MakeVertex(V,Ptmp,tolv);
       //      myContext->Replace(V1F,V);
       //      myContext->Replace(V2F,V);
@@ -555,7 +555,7 @@ Standard_Boolean ShapeFix_IntersectionTool::UnionVertexes(const Handle(ShapeExte
       B.UpdateVertex(V1F, tolv);
       TopoDS_Edge NewE = sbe.CopyReplaceVertices(edge2, V2F, V1F);
       //      std::cout<<"union vertexes V1F and V2L"<<std::endl;
-      //      gp_Pnt Ptmp = BRep_Tool::Pnt(V1F);
+      //      Point3d Ptmp = BRep_Tool::Pnt(V1F);
       //      B.MakeVertex(V,Ptmp,tolv);
       //      myContext->Replace(V1F,V);
       //      myContext->Replace(V2L,V);
@@ -629,7 +629,7 @@ Standard_Boolean ShapeFix_IntersectionTool::UnionVertexes(const Handle(ShapeExte
       B.UpdateVertex(V1L, tolv);
       TopoDS_Edge NewE = sbe.CopyReplaceVertices(edge2, V1L, V2L);
       //      std::cout<<"union vertexes V1L and V2F"<<std::endl;
-      //      gp_Pnt Ptmp = BRep_Tool::Pnt(V1L);
+      //      Point3d Ptmp = BRep_Tool::Pnt(V1L);
       //      B.MakeVertex(V,Ptmp,tolv);
       //      myContext->Replace(V1L,V);
       //      myContext->Replace(V2F,V);
@@ -702,7 +702,7 @@ Standard_Boolean ShapeFix_IntersectionTool::UnionVertexes(const Handle(ShapeExte
       B.UpdateVertex(V1L, tolv);
       TopoDS_Edge NewE = sbe.CopyReplaceVertices(edge2, V2F, V1L);
       //      std::cout<<"union vertexes V1L and V2L"<<std::endl;
-      //      gp_Pnt Ptmp = BRep_Tool::Pnt(V1L);
+      //      Point3d Ptmp = BRep_Tool::Pnt(V1L);
       //      B.MakeVertex(V,Ptmp,tolv);
       //      myContext->Replace(V1L,V);
       //      myContext->Replace(V2L,V);
@@ -860,14 +860,14 @@ Standard_Boolean ShapeFix_IntersectionTool::FindVertAndSplitEdge(
   // find needed vertex from edge2 and split edge1 using it
   ShapeAnalysis_Edge            sae;
   Handle(ShapeAnalysis_Surface) sas = new ShapeAnalysis_Surface(BRep_Tool::Surface(face));
-  gp_Pnt                        pi1 = GetPointOnEdge(edge1, sas, Crv1, param1);
+  Point3d                        pi1 = GetPointOnEdge(edge1, sas, Crv1, param1);
   BRep_Builder                  B;
   TopoDS_Vertex                 V;
   Standard_Real                 tolV;
   TopoDS_Vertex                 V1        = sae.FirstVertex(edge2);
-  gp_Pnt                        PV1       = BRep_Tool::Pnt(V1);
+  Point3d                        PV1       = BRep_Tool::Pnt(V1);
   TopoDS_Vertex                 V2        = sae.LastVertex(edge2);
-  gp_Pnt                        PV2       = BRep_Tool::Pnt(V2);
+  Point3d                        PV2       = BRep_Tool::Pnt(V2);
   TopoDS_Vertex                 V11       = sae.FirstVertex(edge1);
   TopoDS_Vertex                 V12       = sae.LastVertex(edge1);
   Standard_Boolean              NeedSplit = Standard_True;
@@ -985,17 +985,17 @@ Standard_Boolean ShapeFix_IntersectionTool::FixSelfIntersectWire(Handle(ShapeExt
           {
             Standard_Real param1 = IP.ParamOnFirst();
             Standard_Real param2 = IP.ParamOnSecond();
-            gp_Pnt        pi1    = GetPointOnEdge(edge1, sas, C1, param1);
-            gp_Pnt        pi2    = GetPointOnEdge(edge2, sas, C2, param2);
+            Point3d        pi1    = GetPointOnEdge(edge1, sas, C1, param1);
+            Point3d        pi2    = GetPointOnEdge(edge2, sas, C2, param2);
             BRep_Builder  B;
             TopoDS_Vertex V;
             Standard_Real tolV = 0;
             // analysis for edge1
             Standard_Boolean ModifE1 = Standard_False;
             TopoDS_Vertex    VF1     = sae.FirstVertex(edge1);
-            gp_Pnt           PVF1    = BRep_Tool::Pnt(VF1);
+            Point3d           PVF1    = BRep_Tool::Pnt(VF1);
             TopoDS_Vertex    VL1     = sae.LastVertex(edge1);
-            gp_Pnt           PVL1    = BRep_Tool::Pnt(VL1);
+            Point3d           PVL1    = BRep_Tool::Pnt(VL1);
             Standard_Real    dist1   = pi1.Distance(PVF1);
             Standard_Real    dist2   = pi1.Distance(PVL1);
             Standard_Real    distmin = Min(dist1, dist2);
@@ -1026,9 +1026,9 @@ Standard_Boolean ShapeFix_IntersectionTool::FixSelfIntersectWire(Handle(ShapeExt
             // analysis for edge2
             Standard_Boolean ModifE2 = Standard_False;
             TopoDS_Vertex    VF2     = sae.FirstVertex(edge2);
-            gp_Pnt           PVF2    = BRep_Tool::Pnt(VF2);
+            Point3d           PVF2    = BRep_Tool::Pnt(VF2);
             TopoDS_Vertex    VL2     = sae.LastVertex(edge2);
-            gp_Pnt           PVL2    = BRep_Tool::Pnt(VL2);
+            Point3d           PVL2    = BRep_Tool::Pnt(VL2);
             dist1                    = pi2.Distance(PVF2);
             dist2                    = pi2.Distance(PVL2);
             distmin                  = Min(dist1, dist2);
@@ -1076,7 +1076,7 @@ Standard_Boolean ShapeFix_IntersectionTool::FixSelfIntersectWire(Handle(ShapeExt
             }
             if (!ModifE1 && !ModifE2)
             {
-              gp_Pnt P0((pi1.X() + pi2.X()) / 2, (pi1.Y() + pi2.Y()) / 2, (pi1.Z() + pi2.Z()) / 2);
+              Point3d P0((pi1.X() + pi2.X()) / 2, (pi1.Y() + pi2.Y()) / 2, (pi1.Z() + pi2.Z()) / 2);
               tolV = Max((pi1.Distance(pi2) / 2) * 1.00001, Precision::Confusion());
               B.MakeVertex(V, P0, tolV);
               MaxTolVert                    = Max(MaxTolVert, tolV);
@@ -1158,19 +1158,19 @@ Standard_Boolean ShapeFix_IntersectionTool::FixSelfIntersectWire(Handle(ShapeExt
             IntRes2d_IntersectionPoint IPL    = IS.LastPoint();
             Standard_Real              p12    = IPL.ParamOnFirst();
             Standard_Real              p22    = IPL.ParamOnSecond();
-            gp_Pnt                     Pnt11  = GetPointOnEdge(edge1, sas, C1, p11);
-            gp_Pnt                     Pnt12  = GetPointOnEdge(edge1, sas, C1, p12);
-            gp_Pnt                     Pnt21  = GetPointOnEdge(edge2, sas, C2, p21);
-            gp_Pnt                     Pnt22  = GetPointOnEdge(edge2, sas, C2, p22);
+            Point3d                     Pnt11  = GetPointOnEdge(edge1, sas, C1, p11);
+            Point3d                     Pnt12  = GetPointOnEdge(edge1, sas, C1, p12);
+            Point3d                     Pnt21  = GetPointOnEdge(edge2, sas, C2, p21);
+            Point3d                     Pnt22  = GetPointOnEdge(edge2, sas, C2, p22);
             // next string commented by skl 29.12.2004 for OCC7624
             // if( Pnt11.Distance(Pnt21)>myPreci || Pnt12.Distance(Pnt22)>myPreci ) continue;
             if (Pnt11.Distance(Pnt21) > MaxTolVert || Pnt12.Distance(Pnt22) > MaxTolVert)
               continue;
             // analysis for edge1
             TopoDS_Vertex V1  = sae.FirstVertex(edge1);
-            gp_Pnt        PV1 = BRep_Tool::Pnt(V1);
+            Point3d        PV1 = BRep_Tool::Pnt(V1);
             TopoDS_Vertex V2  = sae.LastVertex(edge1);
-            gp_Pnt        PV2 = BRep_Tool::Pnt(V2);
+            Point3d        PV2 = BRep_Tool::Pnt(V2);
             // Standard_Real tol1 = BRep_Tool::Tolerance(V1);
             // Standard_Real tol2 = BRep_Tool::Tolerance(V2);
             // Standard_Real maxtol = Max(tol1,tol2);
@@ -1232,9 +1232,9 @@ Standard_Boolean ShapeFix_IntersectionTool::FixSelfIntersectWire(Handle(ShapeExt
             }
             // analysis for edge2
             TopoDS_Vertex V12  = sae.FirstVertex(edge2);
-            gp_Pnt        PV12 = BRep_Tool::Pnt(V12);
+            Point3d        PV12 = BRep_Tool::Pnt(V12);
             TopoDS_Vertex V22  = sae.LastVertex(edge2);
-            gp_Pnt        PV22 = BRep_Tool::Pnt(V22);
+            Point3d        PV22 = BRep_Tool::Pnt(V22);
             // tol1 = BRep_Tool::Tolerance(V1);
             // tol2 = BRep_Tool::Tolerance(V2);
             // maxtol = Max(tol1,tol2);
@@ -1316,9 +1316,9 @@ Standard_Boolean ShapeFix_IntersectionTool::FixSelfIntersectWire(Handle(ShapeExt
             {
               Standard_Real param1 = (p11 + p12) / 2;
               Standard_Real param2 = (p21 + p22) / 2;
-              gp_Pnt        Pnt10  = GetPointOnEdge(edge1, sas, C1, param1);
-              gp_Pnt        Pnt20  = GetPointOnEdge(edge2, sas, C2, param2);
-              gp_Pnt        P0((Pnt10.X() + Pnt20.X()) / 2,
+              Point3d        Pnt10  = GetPointOnEdge(edge1, sas, C1, param1);
+              Point3d        Pnt20  = GetPointOnEdge(edge2, sas, C2, param2);
+              Point3d        P0((Pnt10.X() + Pnt20.X()) / 2,
                         (Pnt10.Y() + Pnt20.Y()) / 2,
                         (Pnt10.Z() + Pnt20.Z()) / 2);
               dist1                       = Max(Pnt11.Distance(P0), Pnt12.Distance(P0));
@@ -1348,10 +1348,10 @@ Standard_Boolean ShapeFix_IntersectionTool::FixSelfIntersectWire(Handle(ShapeExt
                 //  segment is big and we have to split each intersecting edge
                 //  on 3 edges --> middle edge - edge based on segment
                 //  after we can remove edges maked from segment
-                gp_Pnt        P01((Pnt11.X() + Pnt21.X()) / 2,
+                Point3d        P01((Pnt11.X() + Pnt21.X()) / 2,
                            (Pnt11.Y() + Pnt21.Y()) / 2,
                            (Pnt11.Z() + Pnt21.Z()) / 2);
-                gp_Pnt        P02((Pnt12.X() + Pnt22.X()) / 2,
+                Point3d        P02((Pnt12.X() + Pnt22.X()) / 2,
                            (Pnt12.Y() + Pnt22.Y()) / 2,
                            (Pnt12.Z() + Pnt22.Z()) / 2);
                 Standard_Real tolV1 = Max(Pnt11.Distance(P01), Pnt21.Distance(P01));
@@ -1751,9 +1751,9 @@ Standard_Boolean ShapeFix_IntersectionTool::FixIntersectingWires(TopoDS_Face& fa
                 // create new vertex and split both edges
                 Standard_Real param1 = IP.ParamOnFirst();
                 Standard_Real param2 = IP.ParamOnSecond();
-                gp_Pnt        pi1    = GetPointOnEdge(edge1, sas, C1, param1);
-                gp_Pnt        pi2    = GetPointOnEdge(edge2, sas, C2, param2);
-                gp_Pnt        P0((pi1.X() + pi2.X()) / 2,
+                Point3d        pi1    = GetPointOnEdge(edge1, sas, C1, param1);
+                Point3d        pi2    = GetPointOnEdge(edge2, sas, C2, param2);
+                Point3d        P0((pi1.X() + pi2.X()) / 2,
                           (pi1.Y() + pi2.Y()) / 2,
                           (pi1.Z() + pi2.Z()) / 2);
                 BRep_Builder  B;
@@ -1843,16 +1843,16 @@ Standard_Boolean ShapeFix_IntersectionTool::FixIntersectingWires(TopoDS_Face& fa
                 IntRes2d_IntersectionPoint IPL    = IS.LastPoint();
                 Standard_Real              p12    = IPL.ParamOnFirst();
                 Standard_Real              p22    = IPL.ParamOnSecond();
-                gp_Pnt                     Pnt11  = GetPointOnEdge(edge1, sas, C1, p11);
-                gp_Pnt                     Pnt12  = GetPointOnEdge(edge1, sas, C1, p12);
-                gp_Pnt                     Pnt21  = GetPointOnEdge(edge2, sas, C2, p21);
-                gp_Pnt                     Pnt22  = GetPointOnEdge(edge2, sas, C2, p22);
+                Point3d                     Pnt11  = GetPointOnEdge(edge1, sas, C1, p11);
+                Point3d                     Pnt12  = GetPointOnEdge(edge1, sas, C1, p12);
+                Point3d                     Pnt21  = GetPointOnEdge(edge2, sas, C2, p21);
+                Point3d                     Pnt22  = GetPointOnEdge(edge2, sas, C2, p22);
 
                 // analysis for edge1
                 TopoDS_Vertex V1      = sae.FirstVertex(edge1);
-                gp_Pnt        PV1     = BRep_Tool::Pnt(V1);
+                Point3d        PV1     = BRep_Tool::Pnt(V1);
                 TopoDS_Vertex V2      = sae.LastVertex(edge1);
-                gp_Pnt        PV2     = BRep_Tool::Pnt(V2);
+                Point3d        PV2     = BRep_Tool::Pnt(V2);
                 Standard_Real dist1   = Pnt11.Distance(PV1);
                 Standard_Real dist2   = Pnt12.Distance(PV1);
                 Standard_Real maxdist = Max(dist1, dist2);
@@ -1911,9 +1911,9 @@ Standard_Boolean ShapeFix_IntersectionTool::FixIntersectingWires(TopoDS_Face& fa
 
                 // analysis for edge2
                 TopoDS_Vertex V12  = sae.FirstVertex(edge2);
-                gp_Pnt        PV12 = BRep_Tool::Pnt(V12);
+                Point3d        PV12 = BRep_Tool::Pnt(V12);
                 TopoDS_Vertex V22  = sae.LastVertex(edge2);
-                gp_Pnt        PV22 = BRep_Tool::Pnt(V22);
+                Point3d        PV22 = BRep_Tool::Pnt(V22);
                 dist1              = Pnt21.Distance(PV12);
                 dist2              = Pnt22.Distance(PV12);
                 maxdist            = Max(dist1, dist2);
@@ -1984,10 +1984,10 @@ Standard_Boolean ShapeFix_IntersectionTool::FixIntersectingWires(TopoDS_Face& fa
                   {
                     // segment is big and we have to split each intersecting edge
                     // on 3 edges --> middle edge - edge based on segment
-                    gp_Pnt        P01((Pnt11.X() + Pnt21.X()) / 2,
+                    Point3d        P01((Pnt11.X() + Pnt21.X()) / 2,
                                (Pnt11.Y() + Pnt21.Y()) / 2,
                                (Pnt11.Z() + Pnt21.Z()) / 2);
-                    gp_Pnt        P02((Pnt12.X() + Pnt22.X()) / 2,
+                    Point3d        P02((Pnt12.X() + Pnt22.X()) / 2,
                                (Pnt12.Y() + Pnt22.Y()) / 2,
                                (Pnt12.Z() + Pnt22.Z()) / 2);
                     Standard_Real tolV1 = Max(Pnt11.Distance(P01), Pnt21.Distance(P01));
@@ -2185,13 +2185,13 @@ Standard_Boolean ShapeFix_IntersectionTool::FixIntersectingWires(TopoDS_Face& fa
                   else
                   {
                     // split each intersecting edge on two edges
-                    gp_Pnt        P0((Pnt11.X() + Pnt12.X()) / 2,
+                    Point3d        P0((Pnt11.X() + Pnt12.X()) / 2,
                               (Pnt11.Y() + Pnt12.Y()) / 2,
                               (Pnt11.Z() + Pnt12.Z()) / 2);
                     Standard_Real param1 = (p11 + p12) / 2;
                     Standard_Real param2 = (p21 + p22) / 2;
-                    gp_Pnt        Pnt10  = GetPointOnEdge(edge1, sas, C1, param1);
-                    gp_Pnt        Pnt20  = GetPointOnEdge(edge2, sas, C2, param2);
+                    Point3d        Pnt10  = GetPointOnEdge(edge1, sas, C1, param1);
+                    Point3d        Pnt20  = GetPointOnEdge(edge2, sas, C2, param2);
                     dist1                = Max(Pnt11.Distance(P0), Pnt12.Distance(Pnt10));
                     dist2                = Max(Pnt21.Distance(P0), Pnt22.Distance(Pnt10));
                     Standard_Real tolV   = Max(dist1, dist2);

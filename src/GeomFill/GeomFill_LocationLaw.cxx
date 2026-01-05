@@ -108,7 +108,7 @@ Standard_Boolean GeomFill_LocationLaw::IsRotation(Standard_Real&) const
   return Standard_False;
 }
 
-void GeomFill_LocationLaw::Rotation(gp_Pnt&) const
+void GeomFill_LocationLaw::Rotation(Point3d&) const
 {
   throw Standard_NotImplemented("GeomFill_SectionLaw::Rotation");
 }

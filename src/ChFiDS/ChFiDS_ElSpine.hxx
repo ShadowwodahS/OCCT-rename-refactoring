@@ -86,21 +86,21 @@ public:
 
   Standard_EXPORT virtual Standard_Real Period() const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual gp_Pnt Value(const Standard_Real AbsC) const Standard_OVERRIDE;
+  Standard_EXPORT virtual Point3d Value(const Standard_Real AbsC) const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void D0(const Standard_Real AbsC, gp_Pnt& P) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void D0(const Standard_Real AbsC, Point3d& P) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual void D1(const Standard_Real AbsC,
-                                  gp_Pnt&             P,
+                                  Point3d&             P,
                                   gp_Vec&             V1) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual void D2(const Standard_Real AbsC,
-                                  gp_Pnt&             P,
+                                  Point3d&             P,
                                   gp_Vec&             V1,
                                   gp_Vec&             V2) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual void D3(const Standard_Real AbsC,
-                                  gp_Pnt&             P,
+                                  Point3d&             P,
                                   gp_Vec&             V1,
                                   gp_Vec&             V2,
                                   gp_Vec&             V3) const Standard_OVERRIDE;
@@ -115,17 +115,17 @@ public:
 
   Standard_EXPORT void SetOrigin(const Standard_Real O);
 
-  Standard_EXPORT void FirstPointAndTgt(gp_Pnt& P, gp_Vec& T) const;
+  Standard_EXPORT void FirstPointAndTgt(Point3d& P, gp_Vec& T) const;
 
-  Standard_EXPORT void LastPointAndTgt(gp_Pnt& P, gp_Vec& T) const;
+  Standard_EXPORT void LastPointAndTgt(Point3d& P, gp_Vec& T) const;
 
   Standard_EXPORT Standard_Integer NbVertices() const;
 
   Standard_EXPORT const gp_Ax1& VertexWithTangent(const Standard_Integer Index) const;
 
-  Standard_EXPORT void SetFirstPointAndTgt(const gp_Pnt& P, const gp_Vec& T);
+  Standard_EXPORT void SetFirstPointAndTgt(const Point3d& P, const gp_Vec& T);
 
-  Standard_EXPORT void SetLastPointAndTgt(const gp_Pnt& P, const gp_Vec& T);
+  Standard_EXPORT void SetLastPointAndTgt(const Point3d& P, const gp_Vec& T);
 
   Standard_EXPORT void AddVertexWithTangent(const gp_Ax1& anAx1);
 
@@ -155,8 +155,8 @@ public:
 
 private:
   GeomAdaptor_Curve       curve;
-  gp_Pnt                  ptfirst;
-  gp_Pnt                  ptlast;
+  Point3d                  ptfirst;
+  Point3d                  ptlast;
   gp_Vec                  tgfirst;
   gp_Vec                  tglast;
   TColgp_SequenceOfAx1    VerticesWithTangents;

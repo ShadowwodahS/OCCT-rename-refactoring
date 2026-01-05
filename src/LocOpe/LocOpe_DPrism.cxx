@@ -69,12 +69,12 @@ LocOpe_DPrism::LocOpe_DPrism(const TopoDS_Face&  Spine,
   Standard_Real y = Height1 * sin(Angle);
   Standard_Real z = Height1 * cos(Angle);
 
-  TopoDS_Vertex Vert2 = BRepLib_MakeVertex(gp_Pnt(0, y, z));
+  TopoDS_Vertex Vert2 = BRepLib_MakeVertex(Point3d(0, y, z));
 
   Standard_Real y1 = -Height2 * sin(Angle);
   Standard_Real z1 = -Height2 * cos(Angle);
 
-  TopoDS_Vertex Vert1 = BRepLib_MakeVertex(gp_Pnt(0, y1, z1));
+  TopoDS_Vertex Vert1 = BRepLib_MakeVertex(Point3d(0, y1, z1));
 
   myProfile2 = BRepLib_MakeEdge(Vert1, Vert2);
 
@@ -88,7 +88,7 @@ LocOpe_DPrism::LocOpe_DPrism(const TopoDS_Face&  Spine,
   Standard_Real Deltay = Max(Umax - Umin, Vmax - Vmin) + Abs(y);
   Deltay *= 2;
 
-  TopoDS_Vertex Vert3 = BRepLib_MakeVertex(gp_Pnt(0, y + Deltay, z));
+  TopoDS_Vertex Vert3 = BRepLib_MakeVertex(Point3d(0, y + Deltay, z));
   myProfile3          = BRepLib_MakeEdge(Vert2, Vert3);
 
   Umax = 0.;
@@ -100,7 +100,7 @@ LocOpe_DPrism::LocOpe_DPrism(const TopoDS_Face&  Spine,
   Standard_Real Deltay1 = Max(Umax - Umin, Vmax - Vmin) + Abs(y1);
   Deltay1 *= 2;
 
-  TopoDS_Vertex Vert4 = BRepLib_MakeVertex(gp_Pnt(0, y1 + Deltay1, z1));
+  TopoDS_Vertex Vert4 = BRepLib_MakeVertex(Point3d(0, y1 + Deltay1, z1));
   myProfile1          = BRepLib_MakeEdge(Vert4, Vert1);
 
   myProfile = BRepLib_MakeWire(myProfile1, myProfile2, myProfile3);
@@ -362,8 +362,8 @@ LocOpe_DPrism::LocOpe_DPrism(const TopoDS_Face&  Spine,
   Standard_Real y = Height * sin(Angle);
   Standard_Real z = Height * cos(Angle);
 
-  TopoDS_Vertex Vert1 = BRepLib_MakeVertex(gp_Pnt(0, 0, 0));
-  TopoDS_Vertex Vert2 = BRepLib_MakeVertex(gp_Pnt(0, y, z));
+  TopoDS_Vertex Vert1 = BRepLib_MakeVertex(Point3d(0, 0, 0));
+  TopoDS_Vertex Vert2 = BRepLib_MakeVertex(Point3d(0, y, z));
   myProfile2          = BRepLib_MakeEdge(Vert1, Vert2);
 
   Standard_Real Umin, Umax, Vmin, Vmax;
@@ -371,10 +371,10 @@ LocOpe_DPrism::LocOpe_DPrism(const TopoDS_Face&  Spine,
   Standard_Real Deltay = Max(Umax - Umin, Vmax - Vmin) + Abs(y);
   Deltay *= 2;
 
-  TopoDS_Vertex Vert3 = BRepLib_MakeVertex(gp_Pnt(0, y + Deltay, z));
+  TopoDS_Vertex Vert3 = BRepLib_MakeVertex(Point3d(0, y + Deltay, z));
   myProfile3          = BRepLib_MakeEdge(Vert2, Vert3);
 
-  TopoDS_Vertex Vert4 = BRepLib_MakeVertex(gp_Pnt(0, Deltay, 0));
+  TopoDS_Vertex Vert4 = BRepLib_MakeVertex(Point3d(0, Deltay, 0));
   myProfile1          = BRepLib_MakeEdge(Vert4, Vert1);
 
   myProfile = BRepLib_MakeWire(myProfile1, myProfile2, myProfile3);
@@ -606,8 +606,8 @@ void LocOpe_DPrism::Curves(TColGeom_SequenceOfCurve& Scurves) const
   // Retrieves dy and dz with myProfile2
   TopoDS_Vertex V1, V2;
   TopExp::Vertices(myProfile2, V1, V2);
-  gp_Pnt        P1 = BRep_Tool::Pnt(V1);
-  gp_Pnt        P2 = BRep_Tool::Pnt(V2);
+  Point3d        P1 = BRep_Tool::Pnt(V1);
+  Point3d        P2 = BRep_Tool::Pnt(V2);
   Standard_Real dy = P2.Y() - P1.Y();
   Standard_Real dz = P2.Z() - P1.Z();
   Scurves.Clear();
@@ -654,7 +654,7 @@ void LocOpe_DPrism::Curves(TColGeom_SequenceOfCurve& Scurves) const
       for (i = 0; i <= NECHANT; i++)
       {
         prm = ((NECHANT - i) * f + i * l) / NECHANT;
-        gp_Pnt pt;
+        Point3d pt;
         gp_Vec d1;
         C->D1(prm, pt, d1);
         if (exp.Current().Orientation() == TopAbs_REVERSED)
@@ -679,8 +679,8 @@ Handle(Geom_Curve) LocOpe_DPrism::BarycCurve() const
 {
   TopoDS_Vertex V1, V2;
   TopExp::Vertices(myProfile2, V1, V2);
-  gp_Pnt        P1 = BRep_Tool::Pnt(V1);
-  gp_Pnt        P2 = BRep_Tool::Pnt(V2);
+  Point3d        P1 = BRep_Tool::Pnt(V1);
+  Point3d        P2 = BRep_Tool::Pnt(V2);
   Standard_Real dz = P2.Z() - P1.Z();
 
   Handle(Geom_Surface) S = BRep_Tool::Surface(mySpine);
@@ -715,7 +715,7 @@ Handle(Geom_Curve) LocOpe_DPrism::BarycCurve() const
   }
   gp_Vec Vec = dz * Normale.XYZ();
 
-  gp_Pnt               bar(0., 0., 0.);
+  Point3d               bar(0., 0., 0.);
   TColgp_SequenceOfPnt spt;
   if (!myFirstShape.IsNull())
   {
@@ -727,7 +727,7 @@ Handle(Geom_Curve) LocOpe_DPrism::BarycCurve() const
   }
   for (Standard_Integer jj = 1; jj <= spt.Length(); jj++)
   {
-    const gp_Pnt& pvt = spt(jj);
+    const Point3d& pvt = spt(jj);
     bar.ChangeCoord() += pvt.XYZ();
   }
   bar.ChangeCoord().Divide(spt.Length());

@@ -507,9 +507,9 @@ Standard_EXPORT void FUN_resolveEUNKNOWN
     Standard_Real parb   = (1 - ttb) * fE + ttb * parcpi;
     Standard_Real tta    = 0.2;
     Standard_Real para   = (1 - tta) * parcpi + tta * lE;
-    gp_Pnt        Pb;
+    Point3d        Pb;
     CE->D0(parb, Pb);
-    gp_Pnt Pa;
+    Point3d Pa;
     CE->D0(para, Pa);
 
     BRep_Builder       BB;

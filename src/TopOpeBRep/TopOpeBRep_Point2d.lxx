@@ -221,7 +221,7 @@ inline Standard_Integer TopOpeBRep_Point2d::Index() const
 // function : SetValue
 // purpose  :
 //=======================================================================
-inline void TopOpeBRep_Point2d::SetValue(const gp_Pnt& P)
+inline void TopOpeBRep_Point2d::SetValue(const Point3d& P)
 {
   mypnt = P;
 }
@@ -230,7 +230,7 @@ inline void TopOpeBRep_Point2d::SetValue(const gp_Pnt& P)
 // function : Value
 // purpose  :
 //=======================================================================
-inline const gp_Pnt& TopOpeBRep_Point2d::Value() const
+inline const Point3d& TopOpeBRep_Point2d::Value() const
 {
   return mypnt;
 }

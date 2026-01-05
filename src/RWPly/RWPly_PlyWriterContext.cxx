@@ -223,7 +223,7 @@ bool RWPly_PlyWriterContext::WriteHeader(const Standard_Integer                 
 
 //=================================================================================================
 
-bool RWPly_PlyWriterContext::WriteVertex(const gp_Pnt&           thePoint,
+bool RWPly_PlyWriterContext::WriteVertex(const Point3d&           thePoint,
                                          const Graphic3d_Vec3&   theNorm,
                                          const Graphic3d_Vec2&   theUV,
                                          const Graphic3d_Vec4ub& theColor)

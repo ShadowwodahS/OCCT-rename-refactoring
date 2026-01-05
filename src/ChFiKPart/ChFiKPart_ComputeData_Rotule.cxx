@@ -84,7 +84,7 @@ Standard_Boolean ChFiKPart_MakeRotule(TopOpeBRepDS_DataStructure&    DStr,
   Standard_Real alpha = dpl1.Angle(dpl2);
 
   IntAna_QuadQuadGeo LInt(pl1, pl2, Precision::Angular(), Precision::Confusion());
-  gp_Pnt             ptor, pcirc;
+  Point3d             ptor, pcirc;
   if (LInt.IsDone())
   {
 
@@ -104,7 +104,7 @@ Standard_Boolean ChFiKPart_MakeRotule(TopOpeBRepDS_DataStructure&    DStr,
 
   // on compare l orientation du tore a celle de la face en bout.
   //------------------------------------------------------------
-  gp_Pnt pp;
+  Point3d pp;
   gp_Vec du, dv;
   ElSLib::TorusD1(0., M_PI / 2, ppos, r, r, pp, du, dv);
   gp_Dir           drot(du.Crossed(dv));

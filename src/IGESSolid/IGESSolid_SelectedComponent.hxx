@@ -23,7 +23,7 @@
 #include <gp_XYZ.hxx>
 #include <IGESData_IGESEntity.hxx>
 class IGESSolid_BooleanTree;
-class gp_Pnt;
+class Point3d;
 
 class IGESSolid_SelectedComponent;
 DEFINE_STANDARD_HANDLE(IGESSolid_SelectedComponent, IGESData_IGESEntity)
@@ -48,11 +48,11 @@ public:
   Standard_EXPORT Handle(IGESSolid_BooleanTree) Component() const;
 
   //! returns the point on/in the selected component
-  Standard_EXPORT gp_Pnt SelectPoint() const;
+  Standard_EXPORT Point3d SelectPoint() const;
 
   //! returns the point on/in the selected component
   //! after applying TransformationMatrix
-  Standard_EXPORT gp_Pnt TransformedSelectPoint() const;
+  Standard_EXPORT Point3d TransformedSelectPoint() const;
 
   DEFINE_STANDARD_RTTIEXT(IGESSolid_SelectedComponent, IGESData_IGESEntity)
 

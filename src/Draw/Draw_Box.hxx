@@ -44,16 +44,16 @@ protected:
   void ToWCS(const Standard_Real theX,
              const Standard_Real theY,
              const Standard_Real theZ,
-             gp_Pnt&             theP) const;
+             Point3d&             theP) const;
 
   //! Moves the point thePt along X-direction of myOBB on the distance theShift.
-  void MoveX(const Standard_Real theShift, gp_Pnt& thePt) const;
+  void MoveX(const Standard_Real theShift, Point3d& thePt) const;
 
   //! Moves the point thePt along Y-direction of myOBB on the distance theShift.
-  void MoveY(const Standard_Real theShift, gp_Pnt& thePt) const;
+  void MoveY(const Standard_Real theShift, Point3d& thePt) const;
 
   //! Moves the point thePt along Z-direction of myOBB on the distance theShift.
-  void MoveZ(const Standard_Real theShift, gp_Pnt& thePt) const;
+  void MoveZ(const Standard_Real theShift, Point3d& thePt) const;
 
 private:
   //! Oriented bounding box

@@ -619,7 +619,7 @@ void BRepTools_Modifier::CreateNewVertices(const TopTools_IndexedDataMapOfShapeL
 {
   double       aToler;
   BRep_Builder aBB;
-  gp_Pnt       aPnt;
+  Point3d       aPnt;
   for (int i = 1; i <= theMVE.Extent(); i++)
   {
     // fill MyMap only with vertices with NewPoint == true

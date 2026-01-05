@@ -147,7 +147,7 @@ void BRepMesh_ShapeTool::CheckAndUpdateFlags(const IMeshData::IEdgeHandle&   the
       // const Standard_Real    aEdgeTolerance     = BRep_Tool::Tolerance (aEdge);
       // const Standard_Real    aSqEdgeTolerance   = aEdgeTolerance * aEdgeTolerance;
 
-      gp_Pnt aPrevPnt;
+      Point3d aPrevPnt;
       aCurve->D0(aFirstParam, aPrevPnt);
 
       Standard_Real aLength = 0.0;
@@ -156,7 +156,7 @@ void BRepMesh_ShapeTool::CheckAndUpdateFlags(const IMeshData::IEdgeHandle&   the
         const Standard_Real aParameter = aFirstParam + i * aDu;
         // Calculation of the length of the edge in 3D
         // in order to check degenerativity
-        gp_Pnt aPnt;
+        Point3d aPnt;
         aCurve->D0(aParameter, aPnt);
         aLength += aPrevPnt.Distance(aPnt);
 
@@ -164,7 +164,7 @@ void BRepMesh_ShapeTool::CheckAndUpdateFlags(const IMeshData::IEdgeHandle&   the
         //{
         //   // Check that points taken at the 3d and pcurve using
         //   // same parameter are within tolerance of an edge.
-        //   gp_Pnt aPntOnSurf;
+        //   Point3d aPntOnSurf;
         //   aCurveOnSurf.D0 (aParameter, aPntOnSurf);
         //   theEdge->SetSameParam (aPnt.SquareDistance (aPntOnSurf) < aSqEdgeTolerance);
         // }
@@ -194,7 +194,7 @@ void BRepMesh_ShapeTool::AddInFace(const TopoDS_Face&          theFace,
     aTrsf.Invert();
     for (Standard_Integer aNodeIter = 1; aNodeIter <= theTriangulation->NbNodes(); ++aNodeIter)
     {
-      gp_Pnt aNode = theTriangulation->Node(aNodeIter);
+      Point3d aNode = theTriangulation->Node(aNodeIter);
       aNode.Transform(aTrsf);
       theTriangulation->SetNode(aNodeIter, aNode);
     }
@@ -263,7 +263,7 @@ void BRepMesh_ShapeTool::UpdateEdge(const TopoDS_Edge&            theEdge,
 
 //=================================================================================================
 
-gp_Pnt BRepMesh_ShapeTool::UseLocation(const gp_Pnt& thePnt, const TopLoc_Location& theLoc)
+Point3d BRepMesh_ShapeTool::UseLocation(const Point3d& thePnt, const TopLoc_Location& theLoc)
 {
   if (theLoc.IsIdentity())
   {

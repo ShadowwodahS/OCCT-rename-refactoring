@@ -170,7 +170,7 @@ static Standard_Boolean PlaneOfWire(const TopoDS_Wire& W, gp_Pln& P)
   TopLoc_Location      L;
 
   GProp_GProps     GP;
-  gp_Pnt           Bary;
+  Point3d           Bary;
   Standard_Boolean isBaryDefined = Standard_False;
 
   // shielding for particular cases : only one edge circle or ellipse
@@ -489,8 +489,8 @@ static Standard_Boolean SearchVertex(const TopTools_ListOfShape& List,
   return trouve;
 }
 
-static Standard_Boolean EdgeIntersectOnWire(const gp_Pnt&                             P1,
-                                            const gp_Pnt&                             P2,
+static Standard_Boolean EdgeIntersectOnWire(const Point3d&                             P1,
+                                            const Point3d&                             P2,
                                             Standard_Real                             percent,
                                             const TopTools_DataMapOfShapeListOfShape& Map,
                                             const TopoDS_Wire&                        W,
@@ -517,7 +517,7 @@ static Standard_Boolean EdgeIntersectOnWire(const gp_Pnt&                       
   BRepBndLib::Add(W, B);
   Standard_Real x1, x2, y1, y2, z1, z2;
   B.Get(x1, y1, z1, x2, y2, z2);
-  gp_Pnt           BP1(x1, y1, z1), BP2(x2, y2, z2);
+  Point3d           BP1(x1, y1, z1), BP2(x2, y2, z2);
   Standard_Real    diag         = BP1.Distance(BP2);
   Standard_Real    dernierparam = diag;
   BRepLib_MakeEdge ME(droite, 0., dernierparam);
@@ -529,11 +529,11 @@ static Standard_Boolean EdgeIntersectOnWire(const gp_Pnt&                       
   {
     // choose the solution closest to P2
     Standard_Integer isol = 1;
-    gp_Pnt           Psol = DSS.PointOnShape2(isol);
+    Point3d           Psol = DSS.PointOnShape2(isol);
     Standard_Real    dss  = P2.Distance(Psol);
     for (Standard_Integer iss = 2; iss <= DSS.NbSolution(); iss++)
     {
-      gp_Pnt        Pss   = DSS.PointOnShape2(iss);
+      Point3d        Pss   = DSS.PointOnShape2(iss);
       Standard_Real aDist = P2.Distance(Pss);
       if (dss > aDist)
       {
@@ -640,12 +640,12 @@ static Standard_Boolean EdgeIntersectOnWire(const gp_Pnt&                       
 }
 
 static void Transform(const Standard_Boolean WithRotation,
-                      const gp_Pnt&          P,
-                      const gp_Pnt&          Pos1,
+                      const Point3d&          P,
+                      const Point3d&          Pos1,
                       const gp_Vec&          Ax1,
-                      const gp_Pnt&          Pos2,
+                      const Point3d&          Pos2,
                       const gp_Vec&          Ax2,
-                      gp_Pnt&                Pnew)
+                      Point3d&                Pnew)
 {
 
   Pnew        = P.Translated(Pos1, Pos2);
@@ -1057,10 +1057,10 @@ void BRepFill_CompatibleWires::SameNumberByPolarMethod(const Standard_Boolean Wi
       RMap.Bind(Vi, Init);
 
       // it is required to find intersection Vi - wire2
-      gp_Pnt Pi = BRep_Tool::Pnt(Vi);
+      Point3d Pi = BRep_Tool::Pnt(Vi);
 
       // return Pi in the current plane
-      gp_Pnt Pnew;
+      Point3d Pnew;
       Transform(WithRotation,
                 Pi,
                 Pos->Value(i),
@@ -1162,10 +1162,10 @@ void BRepFill_CompatibleWires::SameNumberByPolarMethod(const Standard_Boolean Wi
       if (intersect)
       {
         // it is necessary to find intersection Vi - wire2
-        gp_Pnt Pi = BRep_Tool::Pnt(Vi);
+        Point3d Pi = BRep_Tool::Pnt(Vi);
 
         // return Pi in the current plane
-        gp_Pnt Pnew;
+        Point3d Pnew;
         Transform(WithRotation,
                   Pi,
                   Pos->Value(i),
@@ -1218,7 +1218,7 @@ void BRepFill_CompatibleWires::SameNumberByPolarMethod(const Standard_Boolean Wi
     Standard_Real                      U1 = BRep_Tool::Parameter(VF, ECur);
     Standard_Real                      U2 = BRep_Tool::Parameter(VL, ECur);
     BRepAdaptor_Curve                  Curve(ECur);
-    gp_Pnt                             PPs = Curve.Value(0.1 * (U1 + 9 * U2));
+    Point3d                             PPs = Curve.Value(0.1 * (U1 + 9 * U2));
     TopTools_ListIteratorOfListOfShape itF(MapVLV(VF)), itL(MapVLV(VL));
     Standard_Integer                   rang = ideb;
     while (rang < i)
@@ -1245,8 +1245,8 @@ void BRepFill_CompatibleWires::SameNumberByPolarMethod(const Standard_Boolean Wi
         Standard_Real     U1param = BRep_Tool::Parameter(VVF, E);
         Standard_Real     U2param = BRep_Tool::Parameter(VVL, E);
         BRepAdaptor_Curve CurveE(E);
-        gp_Pnt            PP1 = CurveE.Value(0.1 * (U1param + 9 * U2param));
-        gp_Pnt            PP2 = CurveE.Value(0.1 * (9 * U1param + U2param));
+        Point3d            PP1 = CurveE.Value(0.1 * (U1param + 9 * U2param));
+        Point3d            PP2 = CurveE.Value(0.1 * (9 * U1param + U2param));
 
         for (rang = i; rang > ideb; rang--)
         {
@@ -1315,8 +1315,8 @@ void BRepFill_CompatibleWires::SameNumberByPolarMethod(const Standard_Boolean Wi
       U1 = BRep_Tool::Parameter(VVF, E);
       U2 = BRep_Tool::Parameter(VVL, E);
       Curve.Initialize(E);
-      gp_Pnt PP1 = Curve.Value(0.1 * (U1 + 9 * U2));
-      gp_Pnt PP2 = Curve.Value(0.1 * (9 * U1 + U2));
+      Point3d PP1 = Curve.Value(0.1 * (U1 + 9 * U2));
+      Point3d PP2 = Curve.Value(0.1 * (9 * U1 + U2));
 
       for (rang = i; rang > ideb; rang--)
       {
@@ -1549,7 +1549,7 @@ void BRepFill_CompatibleWires::SameNumberByACR(const Standard_Boolean report)
           {
             TopTools_ListOfShape LE;
             LE.Clear();
-            gp_Pnt               P1, P2;
+            Point3d               P1, P2;
             const TopoDS_Vertex& V1 = anExp1.CurrentVertex();
             TopoDS_Vertex        VF, VR;
             TopExp::Vertices(Ecur, VF, VR, Standard_True);
@@ -1648,7 +1648,7 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
   // reorganize the wires respecting orientation and origin
 
   TopoDS_Vertex Vdeb, Vfin;
-  gp_Pnt        Pdeb, Psuiv, PPs;
+  Point3d        Pdeb, Psuiv, PPs;
 
   BRepTools_WireExplorer anExp;
 
@@ -1739,7 +1739,7 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
     NbSamples = 4;
   gp_Pln FirstPlane;
   PlaneOfWire(TopoDS::Wire(myWork(ideb)), FirstPlane);
-  gp_Pnt PrevBary           = FirstPlane.Location();
+  Point3d PrevBary           = FirstPlane.Location();
   gp_Vec NormalOfFirstPlane = FirstPlane.Axis().Direction();
   for (i = ideb + 1; i <= ifin; i++)
   {
@@ -1749,7 +1749,7 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
     // to first bary center
     gp_Pln CurPlane;
     PlaneOfWire(aWire, CurPlane);
-    gp_Pnt CurBary = CurPlane.Location();
+    Point3d CurBary = CurPlane.Location();
     gp_Vec aVec(PrevBary, CurBary);
     gp_Vec anOffsetProj = (aVec * NormalOfFirstPlane) * NormalOfFirstPlane;
     CurBary.Translate(-anOffsetProj); // projected current bary center
@@ -1783,9 +1783,9 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
         for (k = j, n = 1; k <= theLength; k++, n++)
         {
           const TopoDS_Vertex& Vprev = TopoDS::Vertex(PrevSeq(n));
-          gp_Pnt               Pprev = BRep_Tool::Pnt(Vprev);
+          Point3d               Pprev = BRep_Tool::Pnt(Vprev);
           const TopoDS_Vertex& V     = TopoDS::Vertex(SeqVertices(k));
-          gp_Pnt               P     = BRep_Tool::Pnt(V).XYZ() + Offset.XYZ();
+          Point3d               P     = BRep_Tool::Pnt(V).XYZ() + Offset.XYZ();
           SumDist += Pprev.Distance(P);
           if (NbSamples > 0)
           {
@@ -1807,8 +1807,8 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
                 (CurEdge.Orientation() == TopAbs_FORWARD)
                   ? (Ecurve.FirstParameter() + nbs * SampleOnCur)
                   : (Ecurve.FirstParameter() + (NbSamples - nbs) * SampleOnCur);
-              gp_Pnt PonPrev = PrevEcurve.Value(ParOnPrev);
-              gp_Pnt PonCur  = Ecurve.Value(ParOnCur).XYZ() + Offset.XYZ();
+              Point3d PonPrev = PrevEcurve.Value(ParOnPrev);
+              Point3d PonCur  = Ecurve.Value(ParOnCur).XYZ() + Offset.XYZ();
               SumDist += PonPrev.Distance(PonCur);
             }
           }
@@ -1816,9 +1816,9 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
         for (k = 1; k < j; k++, n++)
         {
           const TopoDS_Vertex& Vprev = TopoDS::Vertex(PrevSeq(n));
-          gp_Pnt               Pprev = BRep_Tool::Pnt(Vprev);
+          Point3d               Pprev = BRep_Tool::Pnt(Vprev);
           const TopoDS_Vertex& V     = TopoDS::Vertex(SeqVertices(k));
-          gp_Pnt               P     = BRep_Tool::Pnt(V).XYZ() + Offset.XYZ();
+          Point3d               P     = BRep_Tool::Pnt(V).XYZ() + Offset.XYZ();
           SumDist += Pprev.Distance(P);
           if (NbSamples > 0)
           {
@@ -1840,8 +1840,8 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
                 (CurEdge.Orientation() == TopAbs_FORWARD)
                   ? (Ecurve.FirstParameter() + nbs * SampleOnCur)
                   : (Ecurve.FirstParameter() + (NbSamples - nbs) * SampleOnCur);
-              gp_Pnt PonPrev = PrevEcurve.Value(ParOnPrev);
-              gp_Pnt PonCur  = Ecurve.Value(ParOnCur).XYZ() + Offset.XYZ();
+              Point3d PonPrev = PrevEcurve.Value(ParOnPrev);
+              Point3d PonCur  = Ecurve.Value(ParOnCur).XYZ() + Offset.XYZ();
               SumDist += PonPrev.Distance(PonCur);
             }
           }
@@ -1858,9 +1858,9 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
         for (k = j, n = 1; k >= 1; k--, n++)
         {
           const TopoDS_Vertex& Vprev = TopoDS::Vertex(PrevSeq(n));
-          gp_Pnt               Pprev = BRep_Tool::Pnt(Vprev);
+          Point3d               Pprev = BRep_Tool::Pnt(Vprev);
           const TopoDS_Vertex& V     = TopoDS::Vertex(SeqVertices(k));
-          gp_Pnt               P     = BRep_Tool::Pnt(V).XYZ() + Offset.XYZ();
+          Point3d               P     = BRep_Tool::Pnt(V).XYZ() + Offset.XYZ();
           SumDist += Pprev.Distance(P);
           if (NbSamples > 0)
           {
@@ -1885,8 +1885,8 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
                 (CurEdge.Orientation() == TopAbs_FORWARD)
                   ? (Ecurve.FirstParameter() + (NbSamples - nbs) * SampleOnCur)
                   : (Ecurve.FirstParameter() + nbs * SampleOnCur);
-              gp_Pnt PonPrev = PrevEcurve.Value(ParOnPrev);
-              gp_Pnt PonCur  = Ecurve.Value(ParOnCur).XYZ() + Offset.XYZ();
+              Point3d PonPrev = PrevEcurve.Value(ParOnPrev);
+              Point3d PonCur  = Ecurve.Value(ParOnCur).XYZ() + Offset.XYZ();
               SumDist += PonPrev.Distance(PonCur);
             }
           }
@@ -1894,9 +1894,9 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
         for (k = theLength; k > j; k--, n++)
         {
           const TopoDS_Vertex& Vprev = TopoDS::Vertex(PrevSeq(n));
-          gp_Pnt               Pprev = BRep_Tool::Pnt(Vprev);
+          Point3d               Pprev = BRep_Tool::Pnt(Vprev);
           const TopoDS_Vertex& V     = TopoDS::Vertex(SeqVertices(k));
-          gp_Pnt               P     = BRep_Tool::Pnt(V).XYZ() + Offset.XYZ();
+          Point3d               P     = BRep_Tool::Pnt(V).XYZ() + Offset.XYZ();
           SumDist += Pprev.Distance(P);
           if (NbSamples > 0)
           {
@@ -1918,8 +1918,8 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
                 (CurEdge.Orientation() == TopAbs_FORWARD)
                   ? (Ecurve.FirstParameter() + (NbSamples - nbs) * SampleOnCur)
                   : (Ecurve.FirstParameter() + nbs * SampleOnCur);
-              gp_Pnt PonPrev = PrevEcurve.Value(ParOnPrev);
-              gp_Pnt PonCur  = Ecurve.Value(ParOnCur).XYZ() + Offset.XYZ();
+              Point3d PonPrev = PrevEcurve.Value(ParOnPrev);
+              Point3d PonCur  = Ecurve.Value(ParOnCur).XYZ() + Offset.XYZ();
               SumDist += PonPrev.Distance(PonCur);
             }
           }
@@ -2034,7 +2034,7 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
     else
     {
       // on ramene Pdeb, Psuiv et PPs dans le plan courant
-      gp_Pnt Pnew, Pnext, PPn;
+      Point3d Pnew, Pnext, PPn;
       Transform(Standard_True,
                 Pdeb,
                 Pos->Value(i - 1),
@@ -2060,7 +2060,7 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
       Standard_Real    distmini, dist;
       Standard_Integer rang = 0, rangdeb = 0;
       TopoDS_Vertex    Vmini;
-      gp_Pnt           Pmini, P1, P2;
+      Point3d           Pmini, P1, P2;
       SeqOfVertices(wire, SeqV);
       if (SeqV.Length() > NbMaxV)
       {
@@ -2124,7 +2124,7 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
             }
           }
         }
-        gp_Pnt Popti;
+        Point3d Popti;
         if (!Vopti.IsNull())
           Popti = BRep_Tool::Pnt(Vopti);
         Vmini = Vopti;
@@ -2169,7 +2169,7 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
       else
       {
         // cas general
-        gp_Pnt        Pbout = Pnext;
+        Point3d        Pbout = Pnext;
         TopoDS_Edge   E1, E2;
         TopoDS_Vertex V1, V2;
         EdgesFromVertex(wire, Vmini, E1, E2);
@@ -2310,7 +2310,7 @@ void BRepFill_CompatibleWires::SearchOrigin()
   gp_Pln P0, P;
 
   TopoDS_Vertex Vdeb, Vfin;
-  gp_Pnt        Pdeb, Pfin; //,Psuiv;
+  Point3d        Pdeb, Pfin; //,Psuiv;
 
   BRepTools_WireExplorer anExp;
 
@@ -2375,7 +2375,7 @@ void BRepFill_CompatibleWires::SearchOrigin()
     {
 
       // particular case of straight segments
-      gp_Pnt        P1 = BRep_Tool::Pnt(Vdeb), P2 = BRep_Tool::Pnt(Vfin);
+      Point3d        P1 = BRep_Tool::Pnt(Vdeb), P2 = BRep_Tool::Pnt(Vfin);
       Standard_Real dist1, dist2;
       dist1    = Pdeb.Distance(P1) + Pfin.Distance(P2);
       dist2    = Pdeb.Distance(P2) + Pfin.Distance(P1);
@@ -2385,9 +2385,9 @@ void BRepFill_CompatibleWires::SearchOrigin()
     else
     {
       // OCC86
-      gp_Pnt P1 = BRep_Tool::Pnt(Vdeb), P1o = Pdeb, P2 = BRep_Tool::Pnt(Vfin), P2o = Pfin;
+      Point3d P1 = BRep_Tool::Pnt(Vdeb), P1o = Pdeb, P2 = BRep_Tool::Pnt(Vfin), P2o = Pfin;
       /*    // return Pdeb in the current plane
-            gp_Pnt Pnew = Pdeb.Translated (P0.Location(),P.Location());
+            Point3d Pnew = Pdeb.Translated (P0.Location(),P.Location());
             gp_Ax1 A0 = P0.Axis();
             gp_Ax1 A1 = P.Axis();
 

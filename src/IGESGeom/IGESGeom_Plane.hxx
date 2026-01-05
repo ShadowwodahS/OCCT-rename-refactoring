@@ -23,7 +23,7 @@
 #include <gp_XYZ.hxx>
 #include <IGESData_IGESEntity.hxx>
 #include <Standard_Integer.hxx>
-class gp_Pnt;
+class Point3d;
 
 class IGESGeom_Plane;
 DEFINE_STANDARD_HANDLE(IGESGeom_Plane, IGESData_IGESEntity)
@@ -80,11 +80,11 @@ public:
   Standard_EXPORT Standard_Boolean HasSymbolAttach() const;
 
   //! returns (X, Y, Z) if symbol exists else returns (0, 0, 0)
-  Standard_EXPORT gp_Pnt SymbolAttach() const;
+  Standard_EXPORT Point3d SymbolAttach() const;
 
   //! returns (X, Y, Z) if symbol exists after applying Transf. Matrix
   //! else returns (0, 0, 0)
-  Standard_EXPORT gp_Pnt TransformedSymbolAttach() const;
+  Standard_EXPORT Point3d TransformedSymbolAttach() const;
 
   //! Size of optional display symbol
   Standard_EXPORT Standard_Real SymbolSize() const;

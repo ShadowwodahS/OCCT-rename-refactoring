@@ -266,7 +266,7 @@ void Law_Interpolate::PerformPeriodic()
 
   Standard_Real period;
 
-  // gp_Pnt a_point;
+  // Point3d a_point;
 
   num_points = myPoints->Length();
   period = myParameters->Value(myParameters->Upper()) - myParameters->Value(myParameters->Lower());

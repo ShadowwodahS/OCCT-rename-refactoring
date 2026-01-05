@@ -63,7 +63,7 @@ Standard_Boolean ChFiKPart_Sphere(TopOpeBRepDS_DataStructure&      DStr,
   // - u+ to P2S2
 
   Standard_Real ptol = Precision::Confusion();
-  gp_Pnt        p1, p2, p3;
+  Point3d        p1, p2, p3;
   gp_Vec        v1, v2;
   S1->D1(PS1.X(), PS1.Y(), p1, v1, v2);
   gp_Dir ds1(v1.Crossed(v2));
@@ -77,10 +77,10 @@ Standard_Boolean ChFiKPart_Sphere(TopOpeBRepDS_DataStructure&      DStr,
   S2->D0(P2S2.X(), P2S2.Y(), p3);
   gp_Circ       ci    = gce_MakeCirc(p1, p2, p3);
   gp_Dir        di    = ci.Axis().Direction();
-  gp_Pnt        pp    = ci.Location();
+  Point3d        pp    = ci.Location();
   Standard_Real rr    = ci.Radius();
   Standard_Real delta = sqrt(Rad * Rad - rr * rr);
-  gp_Pnt        cen(pp.X() + delta * di.X(), pp.Y() + delta * di.Y(), pp.Z() + delta * di.Z());
+  Point3d        cen(pp.X() + delta * di.X(), pp.Y() + delta * di.Y(), pp.Z() + delta * di.Z());
   gp_Dir        dz(gp_Vec(p1, cen));
   if (Abs(ds1.Dot(dz) - 1.) > ptol)
   {
@@ -172,7 +172,7 @@ Standard_Boolean ChFiKPart_Sphere(TopOpeBRepDS_DataStructure&      DStr,
   }
   else
     C2d = ChFiKPart_PCurve(P1S2, P2S2, 0., ang);
-  gp_Pnt pp1;
+  Point3d pp1;
   S2->D1(P1S2.X(), P1S2.Y(), pp1, v1, v2);
   gp_Dir ds2(v1.Crossed(v2));
   toreverse = (ds2.Dot(dddx) <= 0.);

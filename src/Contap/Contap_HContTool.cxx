@@ -319,7 +319,7 @@ Standard_Integer Contap_HContTool::NbPoints(const Handle(Adaptor2d_Curve2d)&)
 
 void Contap_HContTool::Value(const Handle(Adaptor2d_Curve2d)&,
                              const Standard_Integer,
-                             gp_Pnt&,
+                             Point3d&,
                              Standard_Real&,
                              Standard_Real&)
 {

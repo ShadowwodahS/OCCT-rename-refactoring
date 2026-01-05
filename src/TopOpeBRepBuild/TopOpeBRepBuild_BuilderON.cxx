@@ -451,7 +451,7 @@ static Standard_Integer FUN_findeSD(const TopOpeBRepDS_DataStructure& BDS,
                                     const Standard_Integer            D)
 {
   // chercher eSD = SameDomain3d/2d de EG, arete de FOR, qui contient EspON
-  gp_Pnt        ptON;
+  Point3d        ptON;
   Standard_Real parON;
   FUN_tool_findPinE(EspON, ptON, parON);
   TopTools_ListOfShape lesdSD;
@@ -634,7 +634,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
   Standard_Boolean eONFS = Standard_True; // xpu240898
   if (eghassd && (!espONesd))
   {
-    gp_Pnt           pON;
+    Point3d           pON;
     Standard_Boolean ok = FUN_tool_value(parON, eON, pON);
     if (!ok)
       return;
@@ -871,7 +871,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
       ok = FUN_tool_paronEF(EG, parEG, FOR, UVfor, tolFOR);
       if (!ok)
         return;
-      gp_Pnt Pfor, Pfs;
+      Point3d Pfor, Pfs;
       FUN_tool_value(UVfor, FOR, Pfor);
       tolON = Max(Max(tolFOR, tolFS), tolEG) * 10.;
       Standard_Real d;
@@ -1456,7 +1456,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
 
   if (!EGBoundFOR && !espONesd)
   { // xpu220998 : ctocylcongA1 (FOR10,FS19,EG8)
-    gp_Pnt           ptON;
+    Point3d           ptON;
     Standard_Boolean ok = FUN_tool_value(parON, eON, ptON);
     if (!ok)
       return; // nyiRAISE

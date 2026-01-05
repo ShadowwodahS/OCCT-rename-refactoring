@@ -521,7 +521,7 @@ public:
   //! @param[in] theCursor  mouse cursor
   //! @param[in] theToStickToPickRay  when TRUE, the result point will lie on picking ray
   //! @return TRUE if result has been found
-  Standard_EXPORT virtual bool PickPoint(gp_Pnt&                               thePnt,
+  Standard_EXPORT virtual bool PickPoint(Point3d&                               thePnt,
                                          const Handle(AIS_InteractiveContext)& theCtx,
                                          const Handle(V3d_View)&               theView,
                                          const Graphic3d_Vec2i&                theCursor,
@@ -534,14 +534,14 @@ public:
   //! @param[in] theView    active view
   //! @param[in] theAxis    selection axis
   //! @return TRUE if result has been found
-  Standard_EXPORT virtual bool PickAxis(gp_Pnt&                               theTopPnt,
+  Standard_EXPORT virtual bool PickAxis(Point3d&                               theTopPnt,
                                         const Handle(AIS_InteractiveContext)& theCtx,
                                         const Handle(V3d_View)&               theView,
                                         const gp_Ax1&                         theAxis);
 
   //! Compute rotation gravity center point depending on rotation mode.
   //! This method is expected to be called from rendering thread.
-  Standard_EXPORT virtual gp_Pnt GravityPoint(const Handle(AIS_InteractiveContext)& theCtx,
+  Standard_EXPORT virtual Point3d GravityPoint(const Handle(AIS_InteractiveContext)& theCtx,
                                               const Handle(V3d_View)&               theView);
 
   //! Modify view camera to fit all objects.
@@ -586,10 +586,10 @@ public:
   bool hasPanningAnchorPoint() const { return !Precision::IsInfinite(myPanPnt3d.X()); }
 
   //! Return active panning anchor point.
-  const gp_Pnt& panningAnchorPoint() const { return myPanPnt3d; }
+  const Point3d& panningAnchorPoint() const { return myPanPnt3d; }
 
   //! Set active panning anchor point.
-  void setPanningAnchorPoint(const gp_Pnt& thePnt) { myPanPnt3d = thePnt; }
+  void setPanningAnchorPoint(const Point3d& thePnt) { myPanPnt3d = thePnt; }
 
   //! Handle panning event myGL.Panning.
   Standard_EXPORT virtual void handlePanning(const Handle(V3d_View)& theView);
@@ -607,7 +607,7 @@ public:
   //! This method is expected to be called from rendering thread.
   Standard_EXPORT virtual void handleZoom(const Handle(V3d_View)&   theView,
                                           const Aspect_ScrollDelta& theParams,
-                                          const gp_Pnt*             thePnt);
+                                          const Point3d*             thePnt);
 
   //! Handle ZScroll event myGL.ZoomActions.
   //! This method is expected to be called from rendering thread.
@@ -620,7 +620,7 @@ public:
   //! @param theToLockZUp amend camera to exclude roll angle (put camera Up vector to plane
   //! containing global Z and view direction)
   Standard_EXPORT virtual void handleOrbitRotation(const Handle(V3d_View)& theView,
-                                                   const gp_Pnt&           thePnt,
+                                                   const Point3d&           thePnt,
                                                    bool                    theToLockZUp);
 
   //! Handle view direction rotation events myGL.ViewRotation.
@@ -819,12 +819,12 @@ protected: //! @name rotation/panning transient state variables
 
   Handle(AIS_Point)   myAnchorPointPrs1;          //!< anchor point presentation (Graphic3d_ZLayerId_Top)
   Handle(AIS_Point)   myAnchorPointPrs2;          //!< anchor point presentation (Graphic3d_ZLayerId_Topmost)
-  gp_Pnt              myPanPnt3d;                 //!< active panning anchor point
-  gp_Pnt              myRotatePnt3d;              //!< active rotation center of gravity
+  Point3d              myPanPnt3d;                 //!< active panning anchor point
+  Point3d              myRotatePnt3d;              //!< active rotation center of gravity
   gp_Dir              myCamStartOpUp;             //!< camera Up    direction at the beginning of rotation
   gp_Dir              myCamStartOpDir;            //!< camera View  direction at the beginning of rotation
-  gp_Pnt              myCamStartOpEye;            //!< camera Eye    position at the beginning of rotation
-  gp_Pnt              myCamStartOpCenter;         //!< camera Center position at the beginning of rotation
+  Point3d              myCamStartOpEye;            //!< camera Eye    position at the beginning of rotation
+  Point3d              myCamStartOpCenter;         //!< camera Center position at the beginning of rotation
   gp_Vec              myCamStartOpToCenter;       //!< vector from rotation gravity point to camera Center at the beginning of rotation
   gp_Vec              myCamStartOpToEye;          //!< vector from rotation gravity point to camera Eye    at the beginning of rotation
   Graphic3d_Vec3d     myRotateStartYawPitchRoll;  //!< camera yaw pitch roll at the beginning of rotation

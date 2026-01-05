@@ -96,7 +96,7 @@ Select3D_BndBox3d Select3D_SensitiveCircle::BoundingBox()
 
 //=================================================================================================
 
-gp_Pnt Select3D_SensitiveCircle::CenterOfGeometry() const
+Point3d Select3D_SensitiveCircle::CenterOfGeometry() const
 {
-  return gp_Pnt(myTrsf.TranslationPart());
+  return Point3d(myTrsf.TranslationPart());
 }

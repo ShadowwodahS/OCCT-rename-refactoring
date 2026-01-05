@@ -26,7 +26,7 @@
 inline void HLRBRep_SLPropsATool::Value(const Standard_Address A,
                                         const Standard_Real    U,
                                         const Standard_Real    V,
-                                        gp_Pnt&                P)
+                                        Point3d&                P)
 {
   P = ((HLRBRep_Surface*)A)->Value(U, V);
 }
@@ -39,7 +39,7 @@ inline void HLRBRep_SLPropsATool::Value(const Standard_Address A,
 inline void HLRBRep_SLPropsATool::D1(const Standard_Address A,
                                      const Standard_Real    U,
                                      const Standard_Real    V,
-                                     gp_Pnt&                P,
+                                     Point3d&                P,
                                      gp_Vec&                D1U,
                                      gp_Vec&                D1V)
 {
@@ -54,7 +54,7 @@ inline void HLRBRep_SLPropsATool::D1(const Standard_Address A,
 inline void HLRBRep_SLPropsATool::D2(const Standard_Address A,
                                      const Standard_Real    U,
                                      const Standard_Real    V,
-                                     gp_Pnt&                P,
+                                     Point3d&                P,
                                      gp_Vec&                D1U,
                                      gp_Vec&                D1V,
                                      gp_Vec&                D2U,

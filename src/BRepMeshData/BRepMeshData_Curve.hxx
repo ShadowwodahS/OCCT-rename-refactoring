@@ -35,15 +35,15 @@ public:
 
   //! Inserts new discretization point at the given position.
   Standard_EXPORT virtual void InsertPoint(const Standard_Integer thePosition,
-                                           const gp_Pnt&          thePoint,
+                                           const Point3d&          thePoint,
                                            const Standard_Real theParamOnPCurve) Standard_OVERRIDE;
 
   //! Adds new discretization point to pcurve.
-  Standard_EXPORT virtual void AddPoint(const gp_Pnt&       thePoint,
+  Standard_EXPORT virtual void AddPoint(const Point3d&       thePoint,
                                         const Standard_Real theParamOnCurve) Standard_OVERRIDE;
 
   //! Returns discretization point with the given index.
-  Standard_EXPORT virtual gp_Pnt& GetPoint(const Standard_Integer theIndex) Standard_OVERRIDE;
+  Standard_EXPORT virtual Point3d& GetPoint(const Standard_Integer theIndex) Standard_OVERRIDE;
 
   //! Removes point with the given index.
   Standard_EXPORT virtual void RemovePoint(const Standard_Integer theIndex) Standard_OVERRIDE;

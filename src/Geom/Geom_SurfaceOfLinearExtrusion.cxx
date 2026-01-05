@@ -48,7 +48,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Geom_SurfaceOfLinearExtrusion, Geom_SweptSurface)
 typedef Geom_SurfaceOfLinearExtrusion SurfaceOfLinearExtrusion;
 typedef Geom_Curve                    Curve;
 typedef gp_Dir                        Dir;
-typedef gp_Pnt                        Pnt;
+typedef Point3d                        Pnt;
 typedef gp_Trsf                       Trsf;
 typedef gp_Vec                        Vec;
 typedef gp_XYZ                        XYZ;

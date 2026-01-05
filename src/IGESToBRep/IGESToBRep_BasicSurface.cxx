@@ -236,7 +236,7 @@ Handle(Geom_Surface) IGESToBRep_BasicSurface::TransferBasicSurface(
     // AddFail(start,"The IGESEntity cannot be transferred");
   }
   else
-    resurf->Scale(gp_Pnt(0, 0, 0), GetUnitFactor());
+    resurf->Scale(Point3d(0, 0, 0), GetUnitFactor());
 
   return resurf;
 }
@@ -274,7 +274,7 @@ Handle(Geom_Plane) IGESToBRep_BasicSurface::TransferPlaneSurface(
     return res;
   }
 
-  gp_Pnt Pt      = Point->Value();
+  Point3d Pt      = Point->Value();
   gp_Dir Normale = gp_Dir(Dir->Value());
   if (!Param)
   {
@@ -327,7 +327,7 @@ Handle(Geom_CylindricalSurface) IGESToBRep_BasicSurface::TransferRigthCylindrica
     return res;
   }
 
-  gp_Pnt Pt = Point->Value();
+  Point3d Pt = Point->Value();
   gp_Dir ax = gp_Dir(Axis->Value());
   gp_Ax3 ax3;
   if (!Param)
@@ -392,7 +392,7 @@ Handle(Geom_ConicalSurface) IGESToBRep_BasicSurface::TransferRigthConicalSurface
   if (radius < Precision::Confusion())
     radius = 0.;
 
-  gp_Pnt Pt = Point->Value();
+  Point3d Pt = Point->Value();
   gp_Dir ax = gp_Dir(Axis->Value());
   gp_Ax3 ax3;
   if (!Param)
@@ -450,7 +450,7 @@ Handle(Geom_SphericalSurface) IGESToBRep_BasicSurface::TransferSphericalSurface(
     return res;
   }
 
-  gp_Pnt Pt = Point->Value();
+  Point3d Pt = Point->Value();
   gp_Dir ax = gp_Dir(Axis->Value());
   gp_Ax3 ax3;
   if (!Param)
@@ -509,7 +509,7 @@ Handle(Geom_ToroidalSurface) IGESToBRep_BasicSurface::TransferToroidalSurface(
     return res;
   }
 
-  gp_Pnt Pt = Point->Value();
+  Point3d Pt = Point->Value();
   gp_Dir ax = gp_Dir(Axis->Value());
   gp_Ax3 ax3;
   if (!Param)

@@ -25,7 +25,7 @@
 #include <Geom_TrimmedCurve.hxx>
 
 class gp_Parab;
-class gp_Pnt;
+class Point3d;
 
 //! Implements construction algorithms for an arc
 //! of parabola in 3D space. The result is a Geom_TrimmedCurve curve.
@@ -51,15 +51,15 @@ public:
   //! a Parabola between point <P> and the parameter
   //! Alpha (given in radians).
   Standard_EXPORT GC_MakeArcOfParabola(const gp_Parab&        Parab,
-                                       const gp_Pnt&          P,
+                                       const Point3d&          P,
                                        const Standard_Real    Alpha,
                                        const Standard_Boolean Sense);
 
   //! Creates an arc of Parabola (TrimmedCurve from Geom) from
   //! a Parabola between two points P1 and P2.
   Standard_EXPORT GC_MakeArcOfParabola(const gp_Parab&        Parab,
-                                       const gp_Pnt&          P1,
-                                       const gp_Pnt&          P2,
+                                       const Point3d&          P1,
+                                       const Point3d&          P2,
                                        const Standard_Boolean Sense);
 
   //! Returns the constructed arc of parabola.

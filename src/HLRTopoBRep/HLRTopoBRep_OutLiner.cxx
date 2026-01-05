@@ -73,7 +73,7 @@ void HLRTopoBRep_OutLiner::Fill(const HLRAlgo_Projector&       P,
       Contap_Contour FO;
       if (P.Perspective())
       {
-        gp_Pnt Eye;
+        Point3d Eye;
         Eye.SetXYZ(P.Focus() * Vecz.XYZ());
         FO.Init(Eye);
       }
@@ -162,7 +162,7 @@ void HLRTopoBRep_OutLiner::ProcessFace(const TopoDS_Face&             F,
 
       BRepAdaptor_Curve C(E);
       Standard_Real     par = 0.34 * C.FirstParameter() + 0.66 * C.LastParameter();
-      gp_Pnt            P   = C.Value(par);
+      Point3d            P   = C.Value(par);
       TopoDS_Vertex     V1, V2, aV1, aV2;
       TopExp::Vertices(E, V1, V2);
 

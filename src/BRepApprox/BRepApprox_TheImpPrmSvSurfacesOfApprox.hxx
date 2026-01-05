@@ -34,7 +34,7 @@ class IntSurf_Quadric;
 class IntSurf_QuadricTool;
 class BRepApprox_ApproxLine;
 class BRepApprox_TheZerImpFuncOfTheImpPrmSvSurfacesOfApprox;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 class gp_Vec2d;
 
@@ -54,7 +54,7 @@ public:
                                            Standard_Real& v1,
                                            Standard_Real& u2,
                                            Standard_Real& v2,
-                                           gp_Pnt&        Pt,
+                                           Point3d&        Pt,
                                            gp_Vec&        Tg,
                                            gp_Vec2d&      Tguv1,
                                            gp_Vec2d&      Tguv2);
@@ -63,7 +63,7 @@ public:
                            const Standard_Real v1,
                            const Standard_Real u2,
                            const Standard_Real v2,
-                           gp_Pnt&             P);
+                           Point3d&             P);
 
   Standard_EXPORT Standard_Boolean SeekPoint(const Standard_Real u1,
                                              const Standard_Real v1,
@@ -105,7 +105,7 @@ protected:
 private:
   gp_Pnt2d                                              MyParOnS1;
   gp_Pnt2d                                              MyParOnS2;
-  gp_Pnt                                                MyPnt;
+  Point3d                                                MyPnt;
   gp_Vec2d                                              MyTguv1;
   gp_Vec2d                                              MyTguv2;
   gp_Vec                                                MyTg;
@@ -113,7 +113,7 @@ private:
   Standard_Boolean                                      MyHasBeenComputed;
   gp_Pnt2d                                              MyParOnS1bis;
   gp_Pnt2d                                              MyParOnS2bis;
-  gp_Pnt                                                MyPntbis;
+  Point3d                                                MyPntbis;
   gp_Vec2d                                              MyTguv1bis;
   gp_Vec2d                                              MyTguv2bis;
   gp_Vec                                                MyTgbis;

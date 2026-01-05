@@ -103,7 +103,7 @@ Standard_Boolean Draw_View::Init(const char* theType)
   }
 
   gp_Trsf aRotation;
-  gp_Pnt  Pvise(0.0, 0.0, 0.0);
+  Point3d  Pvise(0.0, 0.0, 0.0);
 
   if (!strcmp("+X+Y", theType) || myIs2D)
   {

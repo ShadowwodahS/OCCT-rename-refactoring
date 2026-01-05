@@ -20,7 +20,7 @@
 #include <Standard_DomainError.hxx>
 
 class gp_Dir;
-class gp_Pnt;
+class Point3d;
 class gp_Ax1;
 class gp_Ax2;
 class gp_Trsf;
@@ -51,7 +51,7 @@ public:
 
   //! Creates a vector from two points. The length of the vector
   //! is the distance between theP1 and theP2
-  gp_Vec(const gp_Pnt& theP1, const gp_Pnt& theP2);
+  gp_Vec(const Point3d& theP1, const Point3d& theP2);
 
   //! Changes the coordinate of range theIndex
   //! theIndex = 1 => X is modified
@@ -462,7 +462,7 @@ inline gp_Vec::gp_Vec(const gp_Dir& theV)
 // function :  gp_Vec
 // purpose :
 //=======================================================================
-inline gp_Vec::gp_Vec(const gp_Pnt& theP1, const gp_Pnt& theP2)
+inline gp_Vec::gp_Vec(const Point3d& theP1, const Point3d& theP2)
 {
   coord = theP2.XYZ().Subtracted(theP1.XYZ());
 }

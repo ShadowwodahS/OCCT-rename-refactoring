@@ -22,7 +22,7 @@
 
 #include <gp_XYZ.hxx>
 #include <IGESData_IGESEntity.hxx>
-class gp_Pnt;
+class Point3d;
 class gp_Dir;
 
 class IGESSolid_SolidOfRevolution;
@@ -67,10 +67,10 @@ public:
   Standard_EXPORT Standard_Real Fraction() const;
 
   //! returns the point on the axis
-  Standard_EXPORT gp_Pnt AxisPoint() const;
+  Standard_EXPORT Point3d AxisPoint() const;
 
   //! returns the point on the axis after applying Trans.Matrix
-  Standard_EXPORT gp_Pnt TransformedAxisPoint() const;
+  Standard_EXPORT Point3d TransformedAxisPoint() const;
 
   //! returns the direction of the axis
   Standard_EXPORT gp_Dir Axis() const;

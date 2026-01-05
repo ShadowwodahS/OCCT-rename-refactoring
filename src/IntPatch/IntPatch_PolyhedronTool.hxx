@@ -26,7 +26,7 @@
 class Standard_OutOfRange;
 class Bnd_Box;
 class IntPatch_Polyhedron;
-class gp_Pnt;
+class Point3d;
 
 //! Describe the signature of a polyhedral surface with
 //! only triangular  facets and the necessary information
@@ -58,7 +58,7 @@ public:
                        Standard_Integer&          P3);
 
   //! Give the point of index i in the polyhedral surface.
-  static const gp_Pnt& Point(const IntPatch_Polyhedron& thePolyh, const Standard_Integer Index);
+  static const Point3d& Point(const IntPatch_Polyhedron& thePolyh, const Standard_Integer Index);
 
   //! Gives the address Tricon of the triangle connexe to
   //! the triangle of address Triang by the edge Pivot Pedge

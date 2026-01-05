@@ -23,7 +23,7 @@ IntSurf_PathPoint::IntSurf_PathPoint()
 {
 }
 
-IntSurf_PathPoint::IntSurf_PathPoint(const gp_Pnt& P, const Standard_Real U, const Standard_Real V)
+IntSurf_PathPoint::IntSurf_PathPoint(const Point3d& P, const Standard_Real U, const Standard_Real V)
     : pt(P),
       ispass(Standard_True),
       istgt(Standard_True)
@@ -32,7 +32,7 @@ IntSurf_PathPoint::IntSurf_PathPoint(const gp_Pnt& P, const Standard_Real U, con
   sequv->Append(gp_XY(U, V));
 }
 
-void IntSurf_PathPoint::SetValue(const gp_Pnt& P, const Standard_Real U, const Standard_Real V)
+void IntSurf_PathPoint::SetValue(const Point3d& P, const Standard_Real U, const Standard_Real V)
 {
   pt    = P;
   sequv = new TColgp_HSequenceOfXY();

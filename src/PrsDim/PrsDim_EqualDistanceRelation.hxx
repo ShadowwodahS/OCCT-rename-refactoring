@@ -74,11 +74,11 @@ public:
                                                     const Standard_Boolean            AutomaticPos,
                                                     const Standard_Boolean            IsSetBndBox,
                                                     const Bnd_Box&                    BndBox,
-                                                    gp_Pnt&                           Position,
-                                                    gp_Pnt&                           FirstAttach,
-                                                    gp_Pnt&                           SecondAttach,
-                                                    gp_Pnt&                           FirstExtreme,
-                                                    gp_Pnt&                           SecondExtreme,
+                                                    Point3d&                           Position,
+                                                    Point3d&                           FirstAttach,
+                                                    Point3d&                           SecondAttach,
+                                                    Point3d&                           FirstExtreme,
+                                                    Point3d&                           SecondExtreme,
                                                     DsgPrs_ArrowSide&                 SymbolPrs);
 
   //! Computes the interval position between two vertexs. FirstAttach,
@@ -94,11 +94,11 @@ public:
     const Standard_Boolean            IsSetBndBox,
     const Bnd_Box&                    BndBox,
     const PrsDim_TypeOfDist           TypeDist,
-    gp_Pnt&                           Position,
-    gp_Pnt&                           FirstAttach,
-    gp_Pnt&                           SecondAttach,
-    gp_Pnt&                           FirstExtreme,
-    gp_Pnt&                           SecondExtreme,
+    Point3d&                           Position,
+    Point3d&                           FirstAttach,
+    Point3d&                           SecondAttach,
+    Point3d&                           FirstExtreme,
+    Point3d&                           SecondExtreme,
     DsgPrs_ArrowSide&                 SymbolPrs);
 
   //! Compute the interval location between a vertex and an edge. Edge may be
@@ -113,11 +113,11 @@ public:
     const Standard_Boolean            AutomaticPos,
     const Standard_Boolean            IsSetBndBox,
     const Bnd_Box&                    BndBox,
-    gp_Pnt&                           Position,
-    gp_Pnt&                           FirstAttach,
-    gp_Pnt&                           SecondAttach,
-    gp_Pnt&                           FirstExtreme,
-    gp_Pnt&                           SecondExtreme,
+    Point3d&                           Position,
+    Point3d&                           FirstAttach,
+    Point3d&                           SecondAttach,
+    Point3d&                           FirstExtreme,
+    Point3d&                           SecondExtreme,
     DsgPrs_ArrowSide&                 SymbolPrs);
 
 private:
@@ -131,14 +131,14 @@ private:
 private:
   TopoDS_Shape myShape3;
   TopoDS_Shape myShape4;
-  gp_Pnt       myAttachPoint1;
-  gp_Pnt       myAttachPoint2;
-  gp_Pnt       myAttachPoint3;
-  gp_Pnt       myAttachPoint4;
-  gp_Pnt       myPoint1;
-  gp_Pnt       myPoint2;
-  gp_Pnt       myPoint3;
-  gp_Pnt       myPoint4;
+  Point3d       myAttachPoint1;
+  Point3d       myAttachPoint2;
+  Point3d       myAttachPoint3;
+  Point3d       myAttachPoint4;
+  Point3d       myPoint1;
+  Point3d       myPoint2;
+  Point3d       myPoint3;
+  Point3d       myPoint4;
 };
 
 #endif // _PrsDim_EqualDistanceRelation_HeaderFile

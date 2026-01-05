@@ -349,8 +349,8 @@ Standard_Boolean Validate(const Adaptor3d_Curve& CRef,
     for (i = 0; i < NCONTROL; i++)
     {
       Standard_Real prm    = ((aNC1 - i) * First + i * Last) / aNC1;
-      gp_Pnt        pref   = CRef.Value(prm);
-      gp_Pnt        pother = Other.Value(prm);
+      Point3d        pref   = CRef.Value(prm);
+      Point3d        pother = Other.Value(prm);
 
       aD = pref.SquareDistance(pother);
 
@@ -371,8 +371,8 @@ Standard_Boolean Validate(const Adaptor3d_Curve& CRef,
     OFirst = Other.FirstParameter();
     OLast  = Other.LastParameter();
 
-    gp_Pnt pd  = CRef.Value(First);
-    gp_Pnt pdo = Other.Value(OFirst);
+    Point3d pd  = CRef.Value(First);
+    Point3d pdo = Other.Value(OFirst);
 
     aD = pd.SquareDistance(pdo);
     if (aD > MaxDistance)
@@ -396,10 +396,10 @@ Standard_Boolean Validate(const Adaptor3d_Curve& CRef,
     for (i = 2; i < aNC1; i++)
     {
       Standard_Real rprm = ((aNC1 - i) * First + i * Last) / aNC1;
-      gp_Pnt        pref = CRef.Value(rprm);
+      Point3d        pref = CRef.Value(rprm);
 
       Standard_Real oprm   = ((aNC1 - i) * OFirst + i * OLast) / aNC1;
-      gp_Pnt        pother = Other.Value(oprm);
+      Point3d        pother = Other.Value(oprm);
 
       refd.Perform(pother, rprm);
       if (!refd.IsDone() || refd.SquareDistance() > Tol * Tol)
@@ -450,7 +450,7 @@ void CheckEdge(const TopoDS_Edge& Ed, const Standard_Real aMaxTol)
   TopoDS_Edge E = Ed;
   E.Orientation(TopAbs_FORWARD);
 
-  gp_Pnt Controlp;
+  Point3d Controlp;
 
   TopExp_Explorer aVExp;
   aVExp.Init(E, TopAbs_VERTEX);
@@ -459,7 +459,7 @@ void CheckEdge(const TopoDS_Edge& Ed, const Standard_Real aMaxTol)
     TopoDS_Vertex aVertex = TopoDS::Vertex(aVExp.Current());
 
     Handle(BRep_TVertex)& TV   = *((Handle(BRep_TVertex)*)&aVertex.TShape());
-    const gp_Pnt&         prep = TV->Pnt();
+    const Point3d&         prep = TV->Pnt();
 
     Standard_Real Tol, aD2, aNewTolerance, dd;
 

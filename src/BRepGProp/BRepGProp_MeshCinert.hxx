@@ -19,7 +19,7 @@
 #include <TColgp_Array1OfPnt.hxx>
 #include <TColgp_HArray1OfPnt.hxx>
 #include <GProp_GProps.hxx>
-class gp_Pnt;
+class Point3d;
 class TopoDS_Edge;
 
 //! Computes the  global properties of
@@ -36,7 +36,7 @@ public:
 
   Standard_EXPORT BRepGProp_MeshCinert();
 
-  Standard_EXPORT void SetLocation(const gp_Pnt& CLocation);
+  Standard_EXPORT void SetLocation(const Point3d& CLocation);
 
   //! Computes the  global properties of
   //! of polylines  represented by set of points.

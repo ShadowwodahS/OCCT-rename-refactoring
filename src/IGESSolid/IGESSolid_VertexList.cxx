@@ -38,7 +38,7 @@ Standard_Integer IGESSolid_VertexList::NbVertices() const
   return (theVertices.IsNull() ? 0 : theVertices->Length());
 }
 
-gp_Pnt IGESSolid_VertexList::Vertex(const Standard_Integer Index) const
+Point3d IGESSolid_VertexList::Vertex(const Standard_Integer Index) const
 {
-  return gp_Pnt(theVertices->Value(Index));
+  return Point3d(theVertices->Value(Index));
 }

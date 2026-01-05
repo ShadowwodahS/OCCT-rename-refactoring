@@ -27,7 +27,7 @@
 #include <TopTools_ShapeMapHasher.hxx>
 
 typedef NCollection_DataMap<TopoDS_Shape, IVtk_MeshType, TopTools_ShapeMapHasher> IVtk_ShapeTypeMap;
-typedef NCollection_Sequence<gp_Pnt>                                              IVtk_Polyline;
+typedef NCollection_Sequence<Point3d>                                              IVtk_Polyline;
 typedef NCollection_List<IVtk_Polyline>                                           IVtk_PolylineList;
 
 class Prs3d_Drawer;

@@ -32,7 +32,7 @@
 static Standard_Integer AffichEps = 0;
 #endif
 
-static gp_Pnt roughBaryCenter(const TopoDS_Shape& S)
+static Point3d roughBaryCenter(const TopoDS_Shape& S)
 {
   Standard_Integer i;
   TopExp_Explorer  ex;
@@ -64,7 +64,7 @@ static gp_Pnt roughBaryCenter(const TopoDS_Shape& S)
       }
     }
   }
-  return gp_Pnt(xyz);
+  return Point3d(xyz);
 }
 
 void BRepGProp::LinearProperties(const TopoDS_Shape&    S,
@@ -73,7 +73,7 @@ void BRepGProp::LinearProperties(const TopoDS_Shape&    S,
                                  const Standard_Boolean UseTriangulation)
 {
   // find the origin
-  gp_Pnt P(0, 0, 0);
+  Point3d P(0, 0, 0);
   P.Transform(S.Location());
   SProps = GProp_GProps(P);
 
@@ -125,7 +125,7 @@ static Standard_Real surfaceProperties(const TopoDS_Shape&    S,
 #endif
   Standard_Real    ErrorMax = 0.0, Error;
   TopExp_Explorer  ex;
-  gp_Pnt           P(roughBaryCenter(S));
+  Point3d           P(roughBaryCenter(S));
   BRepGProp_Sinert G;
   G.SetLocation(P);
   BRepGProp_MeshProps MG(BRepGProp_MeshProps::Sinert);
@@ -214,7 +214,7 @@ void BRepGProp::SurfaceProperties(const TopoDS_Shape&    S,
                                   const Standard_Boolean UseTriangulation)
 {
   // find the origin
-  gp_Pnt P(0, 0, 0);
+  Point3d P(0, 0, 0);
   P.Transform(S.Location());
   Props = GProp_GProps(P);
   surfaceProperties(S, Props, 1.0, SkipShared, UseTriangulation);
@@ -226,7 +226,7 @@ Standard_Real BRepGProp::SurfaceProperties(const TopoDS_Shape&    S,
                                            const Standard_Boolean SkipShared)
 {
   // find the origin
-  gp_Pnt P(0, 0, 0);
+  Point3d P(0, 0, 0);
   P.Transform(S.Location());
   Props                  = GProp_GProps(P);
   Standard_Real ErrorMax = surfaceProperties(S, Props, Eps, SkipShared, Standard_False);
@@ -247,7 +247,7 @@ static Standard_Real volumeProperties(const TopoDS_Shape&    S,
 #endif
   Standard_Real    ErrorMax = 0.0, Error = 0.0;
   TopExp_Explorer  ex;
-  gp_Pnt           P(roughBaryCenter(S));
+  Point3d           P(roughBaryCenter(S));
   BRepGProp_Vinert G;
   G.SetLocation(P);
   BRepGProp_MeshProps MG(BRepGProp_MeshProps::Vinert);
@@ -349,7 +349,7 @@ void BRepGProp::VolumeProperties(const TopoDS_Shape&    S,
                                  const Standard_Boolean UseTriangulation)
 {
   // find the origin
-  gp_Pnt P(0, 0, 0);
+  Point3d P(0, 0, 0);
   P.Transform(S.Location());
   Props = GProp_GProps(P);
   if (OnlyClosed)
@@ -380,7 +380,7 @@ Standard_Real BRepGProp::VolumeProperties(const TopoDS_Shape&    S,
                                           const Standard_Boolean SkipShared)
 {
   // find the origin
-  gp_Pnt P(0, 0, 0);
+  Point3d P(0, 0, 0);
   P.Transform(S.Location());
   Props = GProp_GProps(P);
   Standard_Integer i;
@@ -440,7 +440,7 @@ static Standard_Real volumePropertiesGK(const TopoDS_Shape&    theShape,
   Standard_Real aTol = theTol;
 
   // Compute properties.
-  gp_Pnt              aLoc(roughBaryCenter(theShape));
+  Point3d              aLoc(roughBaryCenter(theShape));
   BRepGProp_VinertGK  aVProps;
   BRepGProp_Face      aPropFace(IsUseSpan);
   BRepGProp_Domain    aPropDomain;
@@ -513,7 +513,7 @@ Standard_Real BRepGProp::VolumePropertiesGK(const TopoDS_Shape&    S,
                                             const Standard_Boolean IFlag,
                                             const Standard_Boolean SkipShared)
 {
-  gp_Pnt        P(0, 0, 0);
+  Point3d        P(0, 0, 0);
   Standard_Real anError = 0.;
 
   P.Transform(S.Location());
@@ -589,7 +589,7 @@ static Standard_Real volumePropertiesGK(const TopoDS_Shape&    theShape,
   Standard_Real aTol = theTol;
 
   // Compute properties.
-  gp_Pnt              aLoc(roughBaryCenter(theShape));
+  Point3d              aLoc(roughBaryCenter(theShape));
   BRepGProp_VinertGK  aVProps;
   BRepGProp_Face      aPropFace(IsUseSpan);
   BRepGProp_Domain    aPropDomain;
@@ -663,7 +663,7 @@ Standard_Real BRepGProp::VolumePropertiesGK(const TopoDS_Shape&    S,
                                             const Standard_Boolean IFlag,
                                             const Standard_Boolean SkipShared)
 {
-  gp_Pnt        P(0, 0, 0);
+  Point3d        P(0, 0, 0);
   Standard_Real anError = 0.;
 
   P.Transform(S.Location());

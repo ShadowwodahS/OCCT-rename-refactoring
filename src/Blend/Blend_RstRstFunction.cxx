@@ -19,12 +19,12 @@
 #include <gp_Pnt.hxx>
 #include <Standard_NotImplemented.hxx>
 
-const gp_Pnt& Blend_RstRstFunction::Pnt1() const
+const Point3d& Blend_RstRstFunction::Pnt1() const
 {
   return PointOnRst1();
 }
 
-const gp_Pnt& Blend_RstRstFunction::Pnt2() const
+const Point3d& Blend_RstRstFunction::Pnt2() const
 {
   return PointOnRst2();
 }

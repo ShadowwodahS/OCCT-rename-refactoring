@@ -320,7 +320,7 @@ Standard_Integer IntPatch_HInterTool::NbPoints(const Handle(Adaptor2d_Curve2d)&)
 
 void IntPatch_HInterTool::Value(const Handle(Adaptor2d_Curve2d)&,
                                 const Standard_Integer,
-                                gp_Pnt&,
+                                Point3d&,
                                 Standard_Real&,
                                 Standard_Real&)
 {

@@ -86,9 +86,9 @@ void SelectMgr_TriangularFrustumSet::Build()
   {
     BRepMesh_Vertex aVertex(mySelPolyline.Points->Value(aPtIdx).XY(), aPtIdx, BRepMesh_Frontier);
     anIndexes.Append(aMeshStructure->AddNode(aVertex));
-    const gp_Pnt aNearPnt =
+    const Point3d aNearPnt =
       myBuilder->ProjectPntOnViewPlane(aVertex.Coord().X(), aVertex.Coord().Y(), 0.0);
-    const gp_Pnt aFarPnt =
+    const Point3d aFarPnt =
       myBuilder->ProjectPntOnViewPlane(aVertex.Coord().X(), aVertex.Coord().Y(), 1.0);
     myBoundaryPoints.SetValue(aPtIdx, aNearPnt);
     myBoundaryPoints.SetValue(aPtIdx + mySelPolyline.Points->Size(), aFarPnt);
@@ -180,7 +180,7 @@ Handle(SelectMgr_BaseIntersector) SelectMgr_TriangularFrustumSet::ScaleAndTransf
   for (Standard_Integer anIdx = myBoundaryPoints.Lower(); anIdx <= myBoundaryPoints.Upper();
        anIdx++)
   {
-    gp_Pnt aPoint = myBoundaryPoints.Value(anIdx);
+    Point3d aPoint = myBoundaryPoints.Value(anIdx);
     theTrsf.Transforms(aPoint.ChangeCoord());
     aRes->myBoundaryPoints.SetValue(anIdx, aPoint);
   }
@@ -266,19 +266,19 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsBox(const SelectMgr_Vec
       return Standard_True;
     }
 
-    gp_Pnt aMinMaxPnts[2] = {gp_Pnt(theMinPnt.x(), theMinPnt.y(), theMinPnt.z()),
-                             gp_Pnt(theMaxPnt.x(), theMaxPnt.y(), theMaxPnt.z())};
+    Point3d aMinMaxPnts[2] = {Point3d(theMinPnt.x(), theMinPnt.y(), theMinPnt.z()),
+                             Point3d(theMaxPnt.x(), theMaxPnt.y(), theMaxPnt.z())};
 
-    gp_Pnt anOffset[3] = {gp_Pnt(aMinMaxPnts[1].X() - aMinMaxPnts[0].X(), 0.0, 0.0),
-                          gp_Pnt(0.0, aMinMaxPnts[1].Y() - aMinMaxPnts[0].Y(), 0.0),
-                          gp_Pnt(0.0, 0.0, aMinMaxPnts[1].Z() - aMinMaxPnts[0].Z())};
+    Point3d anOffset[3] = {Point3d(aMinMaxPnts[1].X() - aMinMaxPnts[0].X(), 0.0, 0.0),
+                          Point3d(0.0, aMinMaxPnts[1].Y() - aMinMaxPnts[0].Y(), 0.0),
+                          Point3d(0.0, 0.0, aMinMaxPnts[1].Z() - aMinMaxPnts[0].Z())};
 
     Standard_Integer aSign = 1;
     for (Standard_Integer aPntsIdx = 0; aPntsIdx < 2; aPntsIdx++)
     {
       for (Standard_Integer aCoordIdx = 0; aCoordIdx < 3; aCoordIdx++)
       {
-        gp_Pnt anOffsetPnt = aMinMaxPnts[aPntsIdx].XYZ() + aSign * anOffset[aCoordIdx].XYZ();
+        Point3d anOffsetPnt = aMinMaxPnts[aPntsIdx].XYZ() + aSign * anOffset[aCoordIdx].XYZ();
         if (isIntersectBoundary(aMinMaxPnts[aPntsIdx], anOffsetPnt)
             || isIntersectBoundary(anOffsetPnt,
                                    anOffsetPnt.XYZ() + aSign * anOffset[(aCoordIdx + 1) % 3].XYZ()))
@@ -298,7 +298,7 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsBox(const SelectMgr_Vec
 //=================================================================================================
 
 Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsPoint(
-  const gp_Pnt&                  thePnt,
+  const Point3d&                  thePnt,
   const SelectMgr_ViewClipRange& theClipRange,
   SelectBasics_PickResult&       thePickResult) const
 {
@@ -360,8 +360,8 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsPolygon(
 //=================================================================================================
 
 Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsSegment(
-  const gp_Pnt&                  thePnt1,
-  const gp_Pnt&                  thePnt2,
+  const Point3d&                  thePnt1,
+  const Point3d&                  thePnt2,
   const SelectMgr_ViewClipRange& theClipRange,
   SelectBasics_PickResult&       thePickResult) const
 {
@@ -394,9 +394,9 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsSegment(
 //=================================================================================================
 
 Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsTriangle(
-  const gp_Pnt&                  thePnt1,
-  const gp_Pnt&                  thePnt2,
-  const gp_Pnt&                  thePnt3,
+  const Point3d&                  thePnt1,
+  const Point3d&                  thePnt2,
+  const Point3d&                  thePnt3,
   Select3D_TypeOfSensitivity     theSensType,
   const SelectMgr_ViewClipRange& theClipRange,
   SelectBasics_PickResult&       thePickResult) const
@@ -432,7 +432,7 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsTriangle(
 //=================================================================================================
 
 Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsSphere(
-  const gp_Pnt&       theCenter,
+  const Point3d&       theCenter,
   const Standard_Real theRadius,
   Standard_Boolean* /*theInside*/) const
 {
@@ -479,7 +479,7 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsSphere(
 
       // distance from point(x,y,z) to plane(A,B,C,D) d = | Ax + By + Cz + D | / sqrt (A^2 + B^2 +
       // C^2) = aPnt.Dot (Norm) / 1
-      const gp_Pnt aCenterProj = theCenter.XYZ() - aNorm.XYZ() * theCenter.XYZ().Dot(aNorm.XYZ());
+      const Point3d aCenterProj = theCenter.XYZ() - aNorm.XYZ() * theCenter.XYZ().Dot(aNorm.XYZ());
 
       // If the center of the sphere is inside of the volume projection, then anAngleSum will be
       // equal 2*M_PI
@@ -493,12 +493,12 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsSphere(
       {
         aBoundaries.SetValue(anIdx, myBoundaryPoints[anIdx]);
 
-        gp_Pnt aPnt1 = myBoundaryPoints.Value(anIdx);
-        gp_Pnt aPnt2 = myBoundaryPoints.Value(anIdx + 1);
+        Point3d aPnt1 = myBoundaryPoints.Value(anIdx);
+        Point3d aPnt2 = myBoundaryPoints.Value(anIdx + 1);
 
         // Projections of the points on the plane
-        gp_Pnt aPntProj1 = aPnt1.XYZ() - aNorm.XYZ() * aPnt1.XYZ().Dot(aNorm.XYZ());
-        gp_Pnt aPntProj2 = aPnt2.XYZ() - aNorm.XYZ() * aPnt2.XYZ().Dot(aNorm.XYZ());
+        Point3d aPntProj1 = aPnt1.XYZ() - aNorm.XYZ() * aPnt1.XYZ().Dot(aNorm.XYZ());
+        Point3d aPntProj2 = aPnt2.XYZ() - aNorm.XYZ() * aPnt2.XYZ().Dot(aNorm.XYZ());
 
         gp_Vec aVecAngle1(aCenterProj, aPntProj1);
         gp_Vec aVecAngle2(aCenterProj, aPntProj2);
@@ -525,7 +525,7 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsSphere(
 //=================================================================================================
 
 Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsSphere(
-  const gp_Pnt&                  theCenter,
+  const Point3d&                  theCenter,
   const Standard_Real            theRadius,
   const SelectMgr_ViewClipRange& theClipRange,
   SelectBasics_PickResult&       thePickResult) const
@@ -584,8 +584,8 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsCylinder(
   Standard_Boolean*      theInside) const
 {
   const gp_Dir aCylNorm(gp::DZ().Transformed(theTrsf));
-  const gp_Pnt aBottomCenter(gp::Origin().Transformed(theTrsf));
-  const gp_Pnt aTopCenter = aBottomCenter.XYZ() + aCylNorm.XYZ() * theHeight;
+  const Point3d aBottomCenter(gp::Origin().Transformed(theTrsf));
+  const Point3d aTopCenter = aBottomCenter.XYZ() + aCylNorm.XYZ() * theHeight;
 
   const gp_Vec aVecPlane1(myFrustums.First()->myVertices[0], myFrustums.First()->myVertices[1]);
   const gp_Vec aVecPlane2(myFrustums.First()->myVertices[0], myFrustums.First()->myVertices[2]);
@@ -599,13 +599,13 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsCylinder(
 
   const Standard_Real aTBottom =
     -(aBottomCenter.XYZ().Dot(aDirNorm.XYZ()) + aCoefD) / aDirNorm.Dot(aDirNorm);
-  const gp_Pnt aBottomCenterProject(aCoefA * aTBottom + aBottomCenter.X(),
+  const Point3d aBottomCenterProject(aCoefA * aTBottom + aBottomCenter.X(),
                                     aCoefB * aTBottom + aBottomCenter.Y(),
                                     aCoefC * aTBottom + aBottomCenter.Z());
 
   const Standard_Real aTTop =
     -(aTopCenter.XYZ().Dot(aDirNorm.XYZ()) + aCoefD) / aDirNorm.Dot(aDirNorm);
-  const gp_Pnt aTopCenterProject(aCoefA * aTTop + aTopCenter.X(),
+  const Point3d aTopCenterProject(aCoefA * aTTop + aTopCenter.X(),
                                  aCoefB * aTTop + aTopCenter.Y(),
                                  aCoefC * aTTop + aTopCenter.Z());
 
@@ -617,7 +617,7 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsCylinder(
     aCylNormProject = aTopBottomVec / aTopBottomDist;
   }
 
-  gp_Pnt aPoints[6];
+  Point3d aPoints[6];
   aPoints[0] = aBottomCenterProject.XYZ() - aCylNormProject * theBottomRad * Abs(aCosAngle);
   aPoints[1] = aTopCenterProject.XYZ() + aCylNormProject * theTopRad * Abs(aCosAngle);
   const gp_Dir aDirEndFaces = (aCylNorm.IsParallel(aDirNorm, Precision::Angular()))
@@ -629,7 +629,7 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsCylinder(
   aPoints[4] = aBottomCenterProject.XYZ() + aDirEndFaces.XYZ() * theBottomRad;
   aPoints[5] = aBottomCenterProject.XYZ() - aDirEndFaces.XYZ() * theBottomRad;
 
-  gp_Pnt             aVerticesBuf[3];
+  Point3d             aVerticesBuf[3];
   TColgp_Array1OfPnt aVertices(aVerticesBuf[0], 0, 2);
 
   bool isCylInsideTriangSet = true;
@@ -700,7 +700,7 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsCircle(const Standard_R
                                                                 const Standard_Boolean theIsFilled,
                                                                 Standard_Boolean* theInside) const
 {
-  const gp_Pnt aCenter(gp::Origin().Transformed(theTrsf));
+  const Point3d aCenter(gp::Origin().Transformed(theTrsf));
   const gp_Vec aVecPlane1(myFrustums.First()->myVertices[0], myFrustums.First()->myVertices[1]);
   const gp_Vec aVecPlane2(myFrustums.First()->myVertices[0], myFrustums.First()->myVertices[2]);
 
@@ -710,11 +710,11 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::OverlapsCircle(const Standard_R
   aPln.Coefficients(aCoefA, aCoefB, aCoefC, aCoefD);
 
   const Standard_Real aT = -(aCenter.XYZ().Dot(aDirNorm.XYZ()) + aCoefD) / aDirNorm.Dot(aDirNorm);
-  const gp_Pnt        aCenterProject(aCoefA * aT + aCenter.X(),
+  const Point3d        aCenterProject(aCoefA * aT + aCenter.X(),
                               aCoefB * aT + aCenter.Y(),
                               aCoefC * aT + aCenter.Z());
 
-  gp_Pnt             aVerticesBuf[3];
+  Point3d             aVerticesBuf[3];
   TColgp_Array1OfPnt aVertices(aVerticesBuf[0], 0, 2);
 
   if (!theIsFilled)
@@ -794,10 +794,10 @@ void SelectMgr_TriangularFrustumSet::SetAllowOverlapDetection(const Standard_Boo
 
 //=================================================================================================
 
-Standard_Boolean SelectMgr_TriangularFrustumSet::pointInTriangle(const gp_Pnt& thePnt,
-                                                                 const gp_Pnt& theV1,
-                                                                 const gp_Pnt& theV2,
-                                                                 const gp_Pnt& theV3)
+Standard_Boolean SelectMgr_TriangularFrustumSet::pointInTriangle(const Point3d& thePnt,
+                                                                 const Point3d& theV1,
+                                                                 const Point3d& theV2,
+                                                                 const Point3d& theV3)
 {
   gp_Vec a = theV1.XYZ() - thePnt.XYZ();
   gp_Vec b = theV2.XYZ() - thePnt.XYZ();
@@ -818,10 +818,10 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::pointInTriangle(const gp_Pnt& t
 //=================================================================================================
 
 Standard_Boolean SelectMgr_TriangularFrustumSet::segmentSegmentIntersection(
-  const gp_Pnt& theStartPnt1,
-  const gp_Pnt& theEndPnt1,
-  const gp_Pnt& theStartPnt2,
-  const gp_Pnt& theEndPnt2)
+  const Point3d& theStartPnt1,
+  const Point3d& theEndPnt1,
+  const Point3d& theStartPnt2,
+  const Point3d& theEndPnt2)
 {
   gp_XYZ aVec1  = theEndPnt1.XYZ() - theStartPnt1.XYZ();
   gp_XYZ aVec2  = theEndPnt2.XYZ() - theStartPnt2.XYZ();
@@ -854,7 +854,7 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::isIntersectBoundary(
 {
   Standard_Integer aFacesNb = myBoundaryPoints.Size() / 2;
 
-  const gp_Pnt& aCircCenter = theTrsf.TranslationPart();
+  const Point3d& aCircCenter = theTrsf.TranslationPart();
   gp_Ax2        anAxis;
   anAxis.Transform(theTrsf);
   Handle(Geom_Circle) aCirc = new Geom_Circle(anAxis, theRadius);
@@ -866,7 +866,7 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::isIntersectBoundary(
        anIdx < aFacesNb + myBoundaryPoints.Lower();
        anIdx++)
   {
-    gp_Pnt aFace[4] = {myBoundaryPoints.Value(anIdx),
+    Point3d aFace[4] = {myBoundaryPoints.Value(anIdx),
                        myBoundaryPoints.Value(anIdx + aFacesNb),
                        myBoundaryPoints.Value(anIdx % aFacesNb + 1 + aFacesNb),
                        myBoundaryPoints.Value(anIdx % aFacesNb + 1)};
@@ -889,13 +889,13 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::isIntersectBoundary(
 
     gp_Lin aLine       = anInterLine->Lin();
     gp_Lin aNormalLine = aLine.Normal(aCircCenter);
-    gp_Pnt aCrossPoint =
+    Point3d aCrossPoint =
       aCircCenter.Translated(aNormalLine.Direction().Reversed().XYZ() * aDistance);
 
     Standard_Real anOffset = Sqrt(theRadius * theRadius - aDistance * aDistance);
     // Line-circle intersection points
-    gp_Pnt aP1 = aCrossPoint.Translated(aLine.Direction().XYZ() * anOffset);
-    gp_Pnt aP2 = aCrossPoint.Translated(aLine.Direction().Reversed().XYZ() * anOffset);
+    Point3d aP1 = aCrossPoint.Translated(aLine.Direction().XYZ() * anOffset);
+    Point3d aP2 = aCrossPoint.Translated(aLine.Direction().Reversed().XYZ() * anOffset);
 
     if (pointInTriangle(aP1, aFace[0], aFace[1], aFace[2])
         || pointInTriangle(aP1, aFace[0], aFace[2], aFace[3])
@@ -918,18 +918,18 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::isIntersectBoundary(
 
 //=================================================================================================
 
-Standard_Boolean SelectMgr_TriangularFrustumSet::isIntersectBoundary(const gp_Pnt& thePnt1,
-                                                                     const gp_Pnt& thePnt2) const
+Standard_Boolean SelectMgr_TriangularFrustumSet::isIntersectBoundary(const Point3d& thePnt1,
+                                                                     const Point3d& thePnt2) const
 {
   Standard_Integer aFacesNb = myBoundaryPoints.Size() / 2;
   gp_Vec           aDir     = thePnt2.XYZ() - thePnt1.XYZ();
-  gp_Pnt           anOrig   = thePnt1;
+  Point3d           anOrig   = thePnt1;
 
   for (Standard_Integer anIdx = myBoundaryPoints.Lower();
        anIdx < aFacesNb + myBoundaryPoints.Lower();
        anIdx++)
   {
-    gp_Pnt aFace[4] = {myBoundaryPoints.Value(anIdx),
+    Point3d aFace[4] = {myBoundaryPoints.Value(anIdx),
                        myBoundaryPoints.Value(anIdx + aFacesNb),
                        myBoundaryPoints.Value(anIdx % aFacesNb + 1 + aFacesNb),
                        myBoundaryPoints.Value(anIdx % aFacesNb + 1)};
@@ -947,11 +947,11 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::isIntersectBoundary(const gp_Pn
 // function : segmentTriangleIntersection
 // purpose  : Moller-Trumbore ray-triangle intersection test
 //=======================================================================
-Standard_Boolean SelectMgr_TriangularFrustumSet::segmentTriangleIntersection(const gp_Pnt& theOrig,
+Standard_Boolean SelectMgr_TriangularFrustumSet::segmentTriangleIntersection(const Point3d& theOrig,
                                                                              const gp_Vec& theDir,
-                                                                             const gp_Pnt& theV1,
-                                                                             const gp_Pnt& theV2,
-                                                                             const gp_Pnt& theV3)
+                                                                             const Point3d& theV1,
+                                                                             const Point3d& theV2,
+                                                                             const Point3d& theV3)
 {
   gp_Vec        aPVec, aTVec, aQVec;
   Standard_Real aD, aInvD, anU, aV, aT;
@@ -992,7 +992,7 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::segmentTriangleIntersection(con
 
 //=================================================================================================
 
-gp_Pnt SelectMgr_TriangularFrustumSet::DetectedPoint(const Standard_Real theDepth) const
+Point3d SelectMgr_TriangularFrustumSet::DetectedPoint(const Standard_Real theDepth) const
 {
   (void)theDepth;
   throw Standard_ProgramError("SelectMgr_TriangularFrustumSet::DetectedPoint() should not be "

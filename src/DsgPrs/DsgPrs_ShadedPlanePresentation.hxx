@@ -23,7 +23,7 @@
 #include <Prs3d_Drawer.hxx>
 #include <Prs3d_Presentation.hxx>
 
-class gp_Pnt;
+class Point3d;
 
 //! A framework to define display of shaded planes.
 class DsgPrs_ShadedPlanePresentation
@@ -37,9 +37,9 @@ public:
   //! defined by the attribute manager aDrawer.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Handle(Prs3d_Drawer)&       aDrawer,
-                                  const gp_Pnt&                     aPt1,
-                                  const gp_Pnt&                     aPt2,
-                                  const gp_Pnt&                     aPt3);
+                                  const Point3d&                     aPt1,
+                                  const Point3d&                     aPt2,
+                                  const Point3d&                     aPt3);
 
 protected:
 private:

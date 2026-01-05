@@ -22,8 +22,8 @@ Blend_Point::Blend_Point()
 {
 }
 
-Blend_Point::Blend_Point(const gp_Pnt&       P1,
-                         const gp_Pnt&       P2,
+Blend_Point::Blend_Point(const Point3d&       P1,
+                         const Point3d&       P2,
                          const Standard_Real Param,
                          const Standard_Real U1,
                          const Standard_Real V1,
@@ -54,8 +54,8 @@ Blend_Point::Blend_Point(const gp_Pnt&       P1,
 {
 }
 
-Blend_Point::Blend_Point(const gp_Pnt&       P1,
-                         const gp_Pnt&       P2,
+Blend_Point::Blend_Point(const Point3d&       P1,
+                         const Point3d&       P2,
                          const Standard_Real Param,
                          const Standard_Real U1,
                          const Standard_Real V1,
@@ -76,8 +76,8 @@ Blend_Point::Blend_Point(const gp_Pnt&       P1,
 {
 }
 
-void Blend_Point::SetValue(const gp_Pnt&       P1,
-                           const gp_Pnt&       P2,
+void Blend_Point::SetValue(const Point3d&       P1,
+                           const Point3d&       P2,
                            const Standard_Real Param,
                            const Standard_Real U1,
                            const Standard_Real V1,
@@ -108,8 +108,8 @@ void Blend_Point::SetValue(const gp_Pnt&       P1,
   vtg22d = Tg22d.Y();
 }
 
-void Blend_Point::SetValue(const gp_Pnt&       P1,
-                           const gp_Pnt&       P2,
+void Blend_Point::SetValue(const Point3d&       P1,
+                           const Point3d&       P2,
                            const Standard_Real Param,
                            const Standard_Real U1,
                            const Standard_Real V1,
@@ -130,8 +130,8 @@ void Blend_Point::SetValue(const gp_Pnt&       P1,
   istgt = Standard_True;
 }
 
-Blend_Point::Blend_Point(const gp_Pnt&       Ps,
-                         const gp_Pnt&       Pc,
+Blend_Point::Blend_Point(const Point3d&       Ps,
+                         const Point3d&       Pc,
                          const Standard_Real Param,
                          const Standard_Real U,
                          const Standard_Real V,
@@ -157,8 +157,8 @@ Blend_Point::Blend_Point(const gp_Pnt&       Ps,
 {
 }
 
-Blend_Point::Blend_Point(const gp_Pnt&       Ps,
-                         const gp_Pnt&       Pc,
+Blend_Point::Blend_Point(const Point3d&       Ps,
+                         const Point3d&       Pc,
                          const Standard_Real Param,
                          const Standard_Real U,
                          const Standard_Real V,
@@ -177,8 +177,8 @@ Blend_Point::Blend_Point(const gp_Pnt&       Ps,
 {
 }
 
-void Blend_Point::SetValue(const gp_Pnt&       Ps,
-                           const gp_Pnt&       Pc,
+void Blend_Point::SetValue(const Point3d&       Ps,
+                           const Point3d&       Pc,
                            const Standard_Real Param,
                            const Standard_Real U,
                            const Standard_Real V,
@@ -204,8 +204,8 @@ void Blend_Point::SetValue(const gp_Pnt&       Ps,
   vtg12d = Tg2d.Y();
 }
 
-void Blend_Point::SetValue(const gp_Pnt&       Ps,
-                           const gp_Pnt&       Pc,
+void Blend_Point::SetValue(const Point3d&       Ps,
+                           const Point3d&       Pc,
                            const Standard_Real Param,
                            const Standard_Real U,
                            const Standard_Real V,
@@ -224,8 +224,8 @@ void Blend_Point::SetValue(const gp_Pnt&       Ps,
   istgt = Standard_True;
 }
 
-Blend_Point::Blend_Point(const gp_Pnt&       P1,
-                         const gp_Pnt&       P2,
+Blend_Point::Blend_Point(const Point3d&       P1,
+                         const Point3d&       P2,
                          const Standard_Real Param,
                          const Standard_Real U1,
                          const Standard_Real V1,
@@ -258,8 +258,8 @@ Blend_Point::Blend_Point(const gp_Pnt&       P1,
 {
 }
 
-Blend_Point::Blend_Point(const gp_Pnt&       P1,
-                         const gp_Pnt&       P2,
+Blend_Point::Blend_Point(const Point3d&       P1,
+                         const Point3d&       P2,
                          const Standard_Real Param,
                          const Standard_Real U1,
                          const Standard_Real V1,
@@ -282,8 +282,8 @@ Blend_Point::Blend_Point(const gp_Pnt&       P1,
 {
 }
 
-void Blend_Point::SetValue(const gp_Pnt&       P1,
-                           const gp_Pnt&       P2,
+void Blend_Point::SetValue(const Point3d&       P1,
+                           const Point3d&       P2,
                            const Standard_Real Param,
                            const Standard_Real U1,
                            const Standard_Real V1,
@@ -316,8 +316,8 @@ void Blend_Point::SetValue(const gp_Pnt&       P1,
   vtg22d = Tg22d.Y();
 }
 
-void Blend_Point::SetValue(const gp_Pnt&       P1,
-                           const gp_Pnt&       P2,
+void Blend_Point::SetValue(const Point3d&       P1,
+                           const Point3d&       P2,
                            const Standard_Real Param,
                            const Standard_Real U1,
                            const Standard_Real V1,
@@ -340,8 +340,8 @@ void Blend_Point::SetValue(const gp_Pnt&       P1,
   istgt = Standard_True;
 }
 
-Blend_Point::Blend_Point(const gp_Pnt&       P1,
-                         const gp_Pnt&       P2,
+Blend_Point::Blend_Point(const Point3d&       P1,
+                         const Point3d&       P2,
                          const Standard_Real Param,
                          const Standard_Real U1,
                          const Standard_Real V1,
@@ -376,8 +376,8 @@ Blend_Point::Blend_Point(const gp_Pnt&       P1,
 {
 }
 
-Blend_Point::Blend_Point(const gp_Pnt&       P1,
-                         const gp_Pnt&       P2,
+Blend_Point::Blend_Point(const Point3d&       P1,
+                         const Point3d&       P2,
                          const Standard_Real Param,
                          const Standard_Real U1,
                          const Standard_Real V1,
@@ -402,8 +402,8 @@ Blend_Point::Blend_Point(const gp_Pnt&       P1,
 {
 }
 
-void Blend_Point::SetValue(const gp_Pnt&       P1,
-                           const gp_Pnt&       P2,
+void Blend_Point::SetValue(const Point3d&       P1,
+                           const Point3d&       P2,
                            const Standard_Real Param,
                            const Standard_Real U1,
                            const Standard_Real V1,
@@ -438,8 +438,8 @@ void Blend_Point::SetValue(const gp_Pnt&       P1,
   vtg22d = Tg22d.Y();
 }
 
-void Blend_Point::SetValue(const gp_Pnt&       P1,
-                           const gp_Pnt&       P2,
+void Blend_Point::SetValue(const Point3d&       P1,
+                           const Point3d&       P2,
                            const Standard_Real Param,
                            const Standard_Real U1,
                            const Standard_Real V1,
@@ -464,8 +464,8 @@ void Blend_Point::SetValue(const gp_Pnt&       P1,
   istgt = Standard_True;
 }
 
-void Blend_Point::SetValue(const gp_Pnt&       P1,
-                           const gp_Pnt&       P2,
+void Blend_Point::SetValue(const Point3d&       P1,
+                           const Point3d&       P2,
                            const Standard_Real Param,
                            const Standard_Real PC1,
                            const Standard_Real PC2)

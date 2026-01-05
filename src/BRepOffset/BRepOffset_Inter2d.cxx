@@ -304,7 +304,7 @@ static void Store(const TopoDS_Edge&                         theEdge,
       continue;
     }
     //
-    const gp_Pnt&       aP   = BRep_Tool::Pnt(aV);
+    const Point3d&       aP   = BRep_Tool::Pnt(aV);
     const Standard_Real aTol = BRep_Tool::Tolerance(aV);
     //
     TopTools_ListOfShape               aLVC;
@@ -316,7 +316,7 @@ static void Store(const TopoDS_Edge&                         theEdge,
       {
         break;
       }
-      const gp_Pnt&       aPEx    = BRep_Tool::Pnt(aVEx);
+      const Point3d&       aPEx    = BRep_Tool::Pnt(aVEx);
       const Standard_Real aTolVEx = BRep_Tool::Tolerance(aVEx);
       if (aP.IsEqual(aPEx, aTol + aTolVEx))
       {
@@ -446,7 +446,7 @@ static void EdgeInter(const TopoDS_Face&                         F,
 
     TColgp_SequenceOfPnt   ResPoints;
     TColStd_SequenceOfReal ResParamsOnE1, ResParamsOnE2;
-    gp_Pnt                 DegPoint;
+    Point3d                 DegPoint;
     Standard_Boolean       WithDegen = BRep_Tool::Degenerated(E1) || BRep_Tool::Degenerated(E2);
 
     if (WithDegen)
@@ -472,7 +472,7 @@ static void EdgeInter(const TopoDS_Face&                         F,
     Geom2dInt_GInter     Inter2d(GAC1, GAC2, TolDub, TolDub);
     for (i = 1; i <= Inter2d.NbPoints(); i++)
     {
-      gp_Pnt P3d;
+      Point3d P3d;
       if (WithDegen)
         P3d = DegPoint;
       else
@@ -497,13 +497,13 @@ static void EdgeInter(const TopoDS_Face&                         F,
         continue;
       }
 
-      gp_Pnt        P          = ResPoints(i); // ponc1.Value();
+      Point3d        P          = ResPoints(i); // ponc1.Value();
       TopoDS_Vertex aNewVertex = BRepLib_MakeVertex(P);
       aNewVertex.Orientation(TopAbs_INTERNAL);
       B.UpdateVertex(aNewVertex, aT1, E1, Tol);
       B.UpdateVertex(aNewVertex, aT2, E2, Tol);
-      gp_Pnt        P1 = CE1.Value(aT1);
-      gp_Pnt        P2 = CE2.Value(aT2);
+      Point3d        P1 = CE1.Value(aT1);
+      Point3d        P2 = CE2.Value(aT2);
       Standard_Real dist1, dist2, dist3;
       dist1 = P1.Distance(P);
       dist2 = P2.Distance(P);
@@ -593,8 +593,8 @@ static void EdgeInter(const TopoDS_Face&                         F,
         }
       }
       //
-      gp_Pnt        P1   = BRep_Tool::Pnt(V1[j]);
-      gp_Pnt        P2   = BRep_Tool::Pnt(V2[k]);
+      Point3d        P1   = BRep_Tool::Pnt(V1[j]);
+      Point3d        P2   = BRep_Tool::Pnt(V2[k]);
       Standard_Real Dist = P1.Distance(P2);
       if (Dist < TolConf)
       {
@@ -622,7 +622,7 @@ static void EdgeInter(const TopoDS_Face&                         F,
     // There can be doubles
     //----------------------------------
     TopTools_ListIteratorOfListOfShape it1LV1, it1LV2, it2LV1;
-    gp_Pnt                             P1, P2;
+    Point3d                             P1, P2;
     Standard_Boolean                   Purge = Standard_True;
 
     while (Purge)
@@ -725,7 +725,7 @@ static void RefEdgeInter(const TopoDS_Face&                         F,
 
   TColgp_SequenceOfPnt   ResPoints;
   TColStd_SequenceOfReal ResParamsOnE1, ResParamsOnE2;
-  gp_Pnt                 DegPoint;
+  Point3d                 DegPoint;
   Standard_Boolean       WithDegen = BRep_Tool::Degenerated(E1) || BRep_Tool::Degenerated(E2);
 
   if (WithDegen)
@@ -777,7 +777,7 @@ static void RefEdgeInter(const TopoDS_Face&                         F,
   //
   for (i = 1; i <= Inter2d.NbPoints(); i++)
   {
-    gp_Pnt P3d;
+    Point3d P3d;
     if (WithDegen)
       P3d = DegPoint;
     else
@@ -802,13 +802,13 @@ static void RefEdgeInter(const TopoDS_Face&                         F,
       continue;
     }
 
-    gp_Pnt        P          = ResPoints(i); // ponc1.Value();
+    Point3d        P          = ResPoints(i); // ponc1.Value();
     TopoDS_Vertex aNewVertex = BRepLib_MakeVertex(P);
     aNewVertex.Orientation(TopAbs_INTERNAL);
     B.UpdateVertex(aNewVertex, aT1, E1, Tol);
     B.UpdateVertex(aNewVertex, aT2, E2, Tol);
-    gp_Pnt        P1 = CE1.Value(aT1);
-    gp_Pnt        P2 = CE2.Value(aT2);
+    Point3d        P1 = CE1.Value(aT1);
+    Point3d        P2 = CE2.Value(aT2);
     Standard_Real dist1, dist2, dist3;
     dist1 = P1.Distance(P);
     dist2 = P2.Distance(P);
@@ -903,8 +903,8 @@ static void RefEdgeInter(const TopoDS_Face&                         F,
         }
       }
       //
-      gp_Pnt        P1   = BRep_Tool::Pnt(V1[j]);
-      gp_Pnt        P2   = BRep_Tool::Pnt(V2[k]);
+      Point3d        P1   = BRep_Tool::Pnt(V1[j]);
+      Point3d        P2   = BRep_Tool::Pnt(V2[k]);
       Standard_Real Dist = P1.Distance(P2);
       if (Dist < TolConf)
       {
@@ -929,7 +929,7 @@ static void RefEdgeInter(const TopoDS_Face&                         F,
     // there can be doubles
     //----------------------------------
     TopTools_ListIteratorOfListOfShape it1LV1, it1LV2, it2LV1;
-    gp_Pnt                             P1, P2;
+    Point3d                             P1, P2;
     Standard_Boolean                   Purge = Standard_True;
 
     while (Purge)
@@ -969,12 +969,12 @@ static void RefEdgeInter(const TopoDS_Face&                         F,
     if (LV1.Extent() > 1)
     {
       // std::cout << "IFV - RefEdgeInter: remove vertex" << std::endl;
-      gp_Pnt        Pref = BRep_Tool::Pnt(theVref);
+      Point3d        Pref = BRep_Tool::Pnt(theVref);
       Standard_Real dmin = RealLast();
       TopoDS_Vertex Vmin;
       for (it1LV1.Initialize(LV1); it1LV1.More(); it1LV1.Next())
       {
-        gp_Pnt        P = BRep_Tool::Pnt(TopoDS::Vertex(it1LV1.Value()));
+        Point3d        P = BRep_Tool::Pnt(TopoDS::Vertex(it1LV1.Value()));
         Standard_Real d = P.SquareDistance(Pref);
         if (d < dmin)
         {
@@ -1347,7 +1347,7 @@ Standard_Boolean BRepOffset_Inter2d::ExtentEdge(const TopoDS_Edge&  E,
         if (!Precision::IsInfinite(FirstParOnPC))
         {
           gp_Pnt2d P2d1 = MinPC->Value(FirstParOnPC);
-          gp_Pnt   P1   = MinSurf->Value(P2d1.X(), P2d1.Y());
+          Point3d   P1   = MinSurf->Value(P2d1.X(), P2d1.Y());
           P1.Transform(MinLoc.Transformation());
           Projector.Init(P1, C3d);
           if (Projector.NbPoints() > 0)
@@ -1360,7 +1360,7 @@ Standard_Boolean BRepOffset_Inter2d::ExtentEdge(const TopoDS_Edge&  E,
         if (!Precision::IsInfinite(LastParOnPC))
         {
           gp_Pnt2d P2d2 = MinPC->Value(LastParOnPC);
-          gp_Pnt   P2   = MinSurf->Value(P2d2.X(), P2d2.Y());
+          Point3d   P2   = MinSurf->Value(P2d2.X(), P2d2.Y());
           P2.Transform(MinLoc.Transformation());
           Projector.Init(P2, C3d);
           if (Projector.NbPoints() > 0)
@@ -1397,8 +1397,8 @@ Standard_Boolean BRepOffset_Inter2d::ExtentEdge(const TopoDS_Edge&  E,
           if (IsLine)
           {
             gp_Pnt2d P2d1 = MinPC->Value(0.), P2d2 = MinPC->Value(1.);
-            gp_Pnt   P1 = MinSurf->Value(P2d1.X(), P2d1.Y());
-            gp_Pnt   P2 = MinSurf->Value(P2d2.X(), P2d2.Y());
+            Point3d   P1 = MinSurf->Value(P2d1.X(), P2d1.Y());
+            Point3d   P2 = MinSurf->Value(P2d2.X(), P2d2.Y());
             gp_Vec   aVec(P1, P2);
             C3d = new Geom_Line(P1, aVec);
           }
@@ -1510,9 +1510,9 @@ Standard_Boolean BRepOffset_Inter2d::ExtentEdge(const TopoDS_Edge&  E,
 
       // The curve is not prolonged on begin or end.
       // Trying to prolong it adding a segment to its bound.
-      gp_Pnt                              aPBnd;
+      Point3d                              aPBnd;
       gp_Vec                              aVBnd;
-      gp_Pnt                              aPBeg;
+      Point3d                              aPBeg;
       gp_Dir                              aDBnd;
       Handle(Geom_Line)                   aLin;
       Handle(Geom_TrimmedCurve)           aSegment;
@@ -1580,7 +1580,7 @@ static Standard_Boolean UpdateVertex(const TopoDS_Vertex& V,
   Standard_Real           Nl     = NC.LastParameter();
   Standard_Real           U      = 0.;
   constexpr Standard_Real ParTol = Precision::PConfusion();
-  gp_Pnt                  P      = BRep_Tool::Pnt(V);
+  Point3d                  P      = BRep_Tool::Pnt(V);
   Standard_Boolean        OK     = Standard_False;
 
   if (P.Distance(OC.Value(Of)) < TolConf)

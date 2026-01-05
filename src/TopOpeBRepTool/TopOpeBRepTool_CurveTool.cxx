@@ -370,7 +370,7 @@ Standard_Boolean TopOpeBRepTool_CurveTool::MakeCurves(const Standard_Real       
 
     Standard_Integer ip = 1, NbPol = 1;
     Standard_Real    d, d1, d2;
-    gp_Pnt           P = PolC3D(ip);
+    Point3d           P = PolC3D(ip);
     gp_Pnt2d         P1, P2;
     if (CompPC1)
       P1 = PolPC1(ip);
@@ -540,7 +540,7 @@ Standard_Boolean TopOpeBRepTool_CurveTool::MakeCurves(const Standard_Real       
   TColgp_Array1OfPnt   Polc3d(1, npol);
   TColStd_Array1OfReal par(1, npol);
   HC3D->Poles(Polc3d);
-  gp_Pnt P = Polc3d(1);
+  Point3d P = Polc3d(1);
 
   Standard_Boolean IsBad = Standard_False;
   Standard_Integer ip;

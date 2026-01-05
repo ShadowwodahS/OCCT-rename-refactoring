@@ -222,7 +222,7 @@ void BRepFill_SectionPlacement::Perform(const Standard_Boolean WithContact,
 
   //       // On invente une section
   //       gp_Dir D(0, 0, 1);
-  //       gp_Pnt Origine, PV;
+  //       Point3d Origine, PV;
   //       Origine = BRep_Tool::Pnt(V);
   //       Standard_Real length;
 
@@ -278,7 +278,7 @@ void BRepFill_SectionPlacement::Perform(const Standard_Boolean WithContact,
   {
     Ex.Init(mySection, TopAbs_VERTEX);
     TopoDS_Vertex theVertex = TopoDS::Vertex(Ex.Current());
-    gp_Pnt        thePoint  = BRep_Tool::Pnt(theVertex);
+    Point3d        thePoint  = BRep_Tool::Pnt(theVertex);
     theSection              = new Geom_CartesianPoint(thePoint);
   }
 
@@ -302,7 +302,7 @@ void BRepFill_SectionPlacement::Perform(const Standard_Boolean WithContact,
 #ifdef OCCT_DEBUG
   if (myDebug)
   {
-    gp_Pnt P_Path;
+    Point3d P_Path;
     P_Path = adpPath->Value(theParam);
     std::cout << "Point on Path" << P_Path.X() << ", " << P_Path.Y() << ", " << P_Path.Z() << ", "
               << std::endl;

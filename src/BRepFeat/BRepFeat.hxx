@@ -28,7 +28,7 @@
 #include <Standard_OStream.hxx>
 #include <BRepFeat_StatusError.hxx>
 class TopoDS_Shape;
-class gp_Pnt;
+class Point3d;
 class Geom_Curve;
 class TopoDS_Face;
 class BRepTopAdaptor_FClass2d;
@@ -85,7 +85,7 @@ public:
 
   Standard_EXPORT static void SampleEdges(const TopoDS_Shape& S, TColgp_SequenceOfPnt& Pt);
 
-  Standard_EXPORT static void Barycenter(const TopoDS_Shape& S, gp_Pnt& Pt);
+  Standard_EXPORT static void Barycenter(const TopoDS_Shape& S, Point3d& Pt);
 
   Standard_EXPORT static Standard_Real ParametricBarycenter(const TopoDS_Shape&       S,
                                                             const Handle(Geom_Curve)& C);

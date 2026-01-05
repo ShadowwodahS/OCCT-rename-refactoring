@@ -41,7 +41,7 @@ static void FindLimits(const Adaptor3d_Curve& aCurve,
 
   if (firstInf || lastInf)
   {
-    gp_Pnt        P1, P2;
+    Point3d        P1, P2;
     Standard_Real delta = 1;
     if (firstInf && lastInf)
     {
@@ -134,7 +134,7 @@ static void DrawCurve(Adaptor3d_Curve&                    aCurve,
       HAI1 = new TColStd_HArray1OfInteger(1, 3);
 
       // array of coordinates of line
-      gp_Pnt p = aCurve.Value(U1);
+      Point3d p = aCurve.Value(U1);
       V.SetX(p.X());
       V.SetY(p.Y());
       V.SetZ(p.Z());
@@ -169,7 +169,7 @@ static void DrawCurve(Adaptor3d_Curve&                    aCurve,
 
           DU = (U2 - U1) / N;
           Standard_Real U;
-          gp_Pnt        p;
+          Point3d        p;
 
           for (Standard_Integer Index = 1; Index <= N + 1; Index++)
           {
@@ -208,7 +208,7 @@ static void DrawCurve(Adaptor3d_Curve&                    aCurve,
           key  = Standard_True;
           HAV1 = new TColgp_HArray1OfVec(1, NumberOfPoints);
           HAI1 = new TColStd_HArray1OfInteger(1, NumberOfPoints + 1);
-          gp_Pnt p;
+          Point3d p;
 
           for (i = 1; i <= NumberOfPoints; i++)
           {
@@ -377,7 +377,7 @@ void VrmlConverter_DeflectionCurve::Add(Standard_OStream&                    anO
   Handle(TColStd_HArray1OfInteger) aHAI1 = new TColStd_HArray1OfInteger(1, aNbNodes + 1);
 
   Standard_Integer i;
-  gp_Pnt           aPoint;
+  Point3d           aPoint;
   gp_Vec           aVec;
   for (i = 1; i <= aNbNodes; i++)
   {

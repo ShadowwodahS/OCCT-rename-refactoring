@@ -141,7 +141,7 @@ void BRepPrim_Builder::SetPCurve(TopoDS_Edge& E, const TopoDS_Face& F, const gp_
 // purpose  : Make a Vertex
 //=======================================================================
 
-void BRepPrim_Builder::MakeVertex(TopoDS_Vertex& V, const gp_Pnt& P) const
+void BRepPrim_Builder::MakeVertex(TopoDS_Vertex& V, const Point3d& P) const
 {
   myBuilder.MakeVertex(V, P, Precision::Confusion());
 }

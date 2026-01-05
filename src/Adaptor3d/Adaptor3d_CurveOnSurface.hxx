@@ -97,23 +97,23 @@ public:
   Standard_EXPORT Standard_Real Period() const Standard_OVERRIDE;
 
   //! Computes the point of parameter U on the curve.
-  Standard_EXPORT gp_Pnt Value(const Standard_Real U) const Standard_OVERRIDE;
+  Standard_EXPORT Point3d Value(const Standard_Real U) const Standard_OVERRIDE;
 
   //! Computes the point of parameter U on the curve.
-  Standard_EXPORT void D0(const Standard_Real U, gp_Pnt& P) const Standard_OVERRIDE;
+  Standard_EXPORT void D0(const Standard_Real U, Point3d& P) const Standard_OVERRIDE;
 
   //! Computes the point of parameter U on the curve with its
   //! first derivative.
   //! Raised if the continuity of the current interval
   //! is not C1.
-  Standard_EXPORT void D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V) const Standard_OVERRIDE;
+  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, gp_Vec& V) const Standard_OVERRIDE;
 
   //! Returns the point P of parameter U, the first and second
   //! derivatives V1 and V2.
   //! Raised if the continuity of the current interval
   //! is not C2.
   Standard_EXPORT void D2(const Standard_Real U,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             V1,
                           gp_Vec&             V2) const Standard_OVERRIDE;
 
@@ -122,7 +122,7 @@ public:
   //! Raised if the continuity of the current interval
   //! is not C3.
   Standard_EXPORT void D3(const Standard_Real U,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             V1,
                           gp_Vec&             V2,
                           gp_Vec&             V3) const Standard_OVERRIDE;

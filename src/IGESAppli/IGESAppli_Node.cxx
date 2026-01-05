@@ -35,9 +35,9 @@ void IGESAppli_Node::Init(const gp_XYZ&                                aCoord,
   InitTypeAndForm(134, 0);
 }
 
-gp_Pnt IGESAppli_Node::Coord() const
+Point3d IGESAppli_Node::Coord() const
 {
-  return gp_Pnt(theCoord);
+  return Point3d(theCoord);
 }
 
 Handle(IGESData_TransfEntity) IGESAppli_Node::System() const
@@ -53,11 +53,11 @@ Standard_Integer IGESAppli_Node::SystemType() const
   return (theSystem->FormNumber() - 9); // 1 Cartesien, 2 Cylind. 3 Spher.
 }
 
-gp_Pnt IGESAppli_Node::TransformedNodalCoord() const
+Point3d IGESAppli_Node::TransformedNodalCoord() const
 {
   gp_XYZ                        tempCoord = Coord().XYZ();
   Handle(IGESData_TransfEntity) temp      = System();
   if (!temp.IsNull())
     temp->Value().Transforms(tempCoord);
-  return gp_Pnt(tempCoord);
+  return Point3d(tempCoord);
 }

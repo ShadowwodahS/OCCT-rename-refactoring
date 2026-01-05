@@ -47,7 +47,7 @@ GC_MakeEllipse::GC_MakeEllipse(const gp_Ax2&       A2,
   }
 }
 
-GC_MakeEllipse::GC_MakeEllipse(const gp_Pnt& S1, const gp_Pnt& S2, const gp_Pnt& Center)
+GC_MakeEllipse::GC_MakeEllipse(const Point3d& S1, const Point3d& S2, const Point3d& Center)
 {
   gce_MakeElips E = gce_MakeElips(S1, S2, Center);
   TheError        = E.Status();

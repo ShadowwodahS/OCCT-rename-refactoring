@@ -33,7 +33,7 @@
 // function : OnSurface_Value
 // purpose  : Evaluate current point of the projected curve
 //=======================================================================
-static gp_Pnt OnSurface_Value(const Standard_Real            U,
+static Point3d OnSurface_Value(const Standard_Real            U,
                               const Handle(Adaptor3d_Curve)& myCurve,
                               Extrema_ExtPS*                 myExtPS)
 {
@@ -54,7 +54,7 @@ static gp_Pnt OnSurface_Value(const Standard_Real            U,
   if (Index == 0)
   {
     std::cout << " Extrema non trouve pour U = " << U << std::endl;
-    return gp_Pnt(0., 0., 0.);
+    return Point3d(0., 0., 0.);
   }
   else
   {
@@ -65,7 +65,7 @@ static gp_Pnt OnSurface_Value(const Standard_Real            U,
 //=================================================================================================
 
 static Standard_Boolean OnSurface_D1(const Standard_Real,            // U,
-                                     gp_Pnt&,                        // P,
+                                     Point3d&,                        // P,
                                      gp_Vec&,                        // V,
                                      const Handle(Adaptor3d_Curve)&, //  myCurve,
                                      Extrema_ExtPS*)                 // myExtPS)
@@ -88,7 +88,7 @@ public:
     myNbPnt                     = 1;
     myNbPnt2d                   = 0;
     Standard_Real           U   = myCurve->FirstParameter();
-    gp_Pnt                  P   = myCurve->Value(U);
+    Point3d                  P   = myCurve->Value(U);
     constexpr Standard_Real Tol = Precision::PConfusion();
     myExtPS                     = new Extrema_ExtPS(P, *S, Tol, Tol);
   }
@@ -101,7 +101,7 @@ public:
 
   Standard_Boolean Value(const Standard_Real theT,
                          NCollection_Array1<gp_Pnt2d>& /*thePnt2d*/,
-                         NCollection_Array1<gp_Pnt>& thePnt) const
+                         NCollection_Array1<Point3d>& thePnt) const
   {
     thePnt(1) = OnSurface_Value(theT, myCurve, myExtPS);
     return Standard_True;
@@ -111,7 +111,7 @@ public:
                       NCollection_Array1<gp_Vec2d>& /*theVec2d*/,
                       NCollection_Array1<gp_Vec>& theVec) const
   {
-    gp_Pnt aPnt;
+    Point3d aPnt;
     return OnSurface_D1(theT, aPnt, theVec(1), myCurve, myExtPS);
   }
 

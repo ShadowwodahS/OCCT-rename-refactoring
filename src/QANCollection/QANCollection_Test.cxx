@@ -29,7 +29,7 @@
 #include <NCollection_IncAllocator.hxx>
 #include <NCollection_Array2.hxx>
 
-#define ItemType gp_Pnt
+#define ItemType Point3d
 #define Key1Type Standard_Real
 #define Key2Type Standard_Integer
 
@@ -787,9 +787,9 @@ static Standard_Integer QANColTestArray2(Draw_Interpretor& di,
     {
       for (Standard_Integer aColIter = 0; aColIter < aNbColsMin; ++aColIter)
       {
-        const gp_Pnt& aPnt1 =
+        const Point3d& aPnt1 =
           anArr2.Value(aRowIter + anArr2.LowerRow(), aColIter + anArr2.LowerCol());
-        const gp_Pnt& aPnt2 =
+        const Point3d& aPnt2 =
           anArr2Copy.Value(aRowIter + anArr2Copy.LowerRow(), aColIter + anArr2Copy.LowerCol());
         if (!aPnt1.IsEqual(aPnt2, gp::Resolution()))
         {

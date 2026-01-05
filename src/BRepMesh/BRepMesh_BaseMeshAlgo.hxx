@@ -29,7 +29,7 @@ class BRepMesh_DataStructureOfDelaun;
 class BRepMesh_BaseMeshAlgo : public IMeshTools_MeshAlgo
 {
 public:
-  typedef NCollection_Shared<NCollection_Vector<gp_Pnt>> VectorOfPnt;
+  typedef NCollection_Shared<NCollection_Vector<Point3d>> VectorOfPnt;
 
   //! Constructor.
   Standard_EXPORT BRepMesh_BaseMeshAlgo();
@@ -65,7 +65,7 @@ protected:
   //! Registers the given point in vertex map and adds 2d point to mesh data structure.
   //! Returns index of node in the structure.
   Standard_EXPORT virtual Standard_Integer registerNode(
-    const gp_Pnt&                  thePoint,
+    const Point3d&                  thePoint,
     const gp_Pnt2d&                thePoint2d,
     const BRepMesh_DegreeOfFreedom theMovability,
     const Standard_Boolean         isForceAdd);

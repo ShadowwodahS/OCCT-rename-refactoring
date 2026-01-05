@@ -67,7 +67,7 @@ void BRepFeat::SampleEdges(const TopoDS_Shape& theShape, TColgp_SequenceOfPnt& t
 // purpose  : Calcul du barycentre des edges d'un shape
 //=======================================================================
 
-void BRepFeat::Barycenter(const TopoDS_Shape& S, gp_Pnt& B)
+void BRepFeat::Barycenter(const TopoDS_Shape& S, Point3d& B)
 {
   TopTools_MapOfShape theMap;
   TopExp_Explorer     exp(S, TopAbs_EDGE);
@@ -142,7 +142,7 @@ Standard_Real BRepFeat::ParametricBarycenter(const TopoDS_Shape& S, const Handle
       for (i = 1; i < NECHANTBARYC; i++)
       {
         prm         = ((NECHANTBARYC - i) * f + i * l) / NECHANTBARYC;
-        gp_Pnt pone = C->Value(prm);
+        Point3d pone = C->Value(prm);
         // On projette sur CC
         extpc.Perform(pone);
         if (extpc.IsDone() && extpc.NbExt() >= 1)
@@ -170,7 +170,7 @@ Standard_Real BRepFeat::ParametricBarycenter(const TopoDS_Shape& S, const Handle
   {
     if (theMap.Add(exp.Current()))
     {
-      gp_Pnt pone = BRep_Tool::Pnt(TopoDS::Vertex(exp.Current()));
+      Point3d pone = BRep_Tool::Pnt(TopoDS::Vertex(exp.Current()));
       // On projette sur CC
       extpc.Perform(pone);
       if (extpc.IsDone() && extpc.NbExt() >= 1)
@@ -267,7 +267,7 @@ void BRepFeat::ParametricMinMax(const TopoDS_Shape&       S,
       for (i = 1; i < NECHANTBARYC; i++)
       {
         prm         = ((NECHANTBARYC - i) * f + i * l) / NECHANTBARYC;
-        gp_Pnt pone = C->Value(prm);
+        Point3d pone = C->Value(prm);
         // On projette sur CC
         extpc.Perform(pone);
         if (extpc.IsDone() && extpc.NbExt() >= 1)
@@ -301,7 +301,7 @@ void BRepFeat::ParametricMinMax(const TopoDS_Shape&       S,
   {
     if (theMap.Add(exp.Current()))
     {
-      gp_Pnt pone = BRep_Tool::Pnt(TopoDS::Vertex(exp.Current()));
+      Point3d pone = BRep_Tool::Pnt(TopoDS::Vertex(exp.Current()));
       // On projette sur CC
       extpc.Perform(pone);
       if (extpc.IsDone() && extpc.NbExt() >= 1)
@@ -538,7 +538,7 @@ void BRepFeat::FaceUntil(const TopoDS_Shape& Sbase, TopoDS_Face& FUntil)
       {
         for (Standard_Integer k = 0; k < 2; k++)
         {
-          gp_Pnt aP(x[i], y[j], z[k]);
+          Point3d aP(x[i], y[j], z[k]);
           ElSLib::Parameters(aPln, aP, u, v);
           if (u < umin)
             umin = u;
@@ -568,7 +568,7 @@ void BRepFeat::FaceUntil(const TopoDS_Shape& Sbase, TopoDS_Face& FUntil)
       {
         for (Standard_Integer k = 0; k < 2; k++)
         {
-          gp_Pnt aP(x[i], y[j], z[k]);
+          Point3d aP(x[i], y[j], z[k]);
           ElSLib::Parameters(aCyl, aP, u, v);
           if (v < vmin)
             vmin = v;
@@ -591,7 +591,7 @@ void BRepFeat::FaceUntil(const TopoDS_Shape& Sbase, TopoDS_Face& FUntil)
       {
         for (Standard_Integer k = 0; k < 2; k++)
         {
-          gp_Pnt aP(x[i], y[j], z[k]);
+          Point3d aP(x[i], y[j], z[k]);
           ElSLib::Parameters(aCon, aP, u, v);
           if (v < vmin)
             vmin = v;

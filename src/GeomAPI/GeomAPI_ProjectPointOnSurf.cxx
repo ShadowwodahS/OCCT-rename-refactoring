@@ -31,7 +31,7 @@ GeomAPI_ProjectPointOnSurf::GeomAPI_ProjectPointOnSurf()
 
 //=================================================================================================
 
-GeomAPI_ProjectPointOnSurf::GeomAPI_ProjectPointOnSurf(const gp_Pnt&               P,
+GeomAPI_ProjectPointOnSurf::GeomAPI_ProjectPointOnSurf(const Point3d&               P,
                                                        const Handle(Geom_Surface)& Surface,
                                                        const Extrema_ExtAlgo       theProjAlgo)
 {
@@ -40,7 +40,7 @@ GeomAPI_ProjectPointOnSurf::GeomAPI_ProjectPointOnSurf(const gp_Pnt&            
 
 //=================================================================================================
 
-GeomAPI_ProjectPointOnSurf::GeomAPI_ProjectPointOnSurf(const gp_Pnt&               P,
+GeomAPI_ProjectPointOnSurf::GeomAPI_ProjectPointOnSurf(const Point3d&               P,
                                                        const Handle(Geom_Surface)& Surface,
                                                        const Standard_Real         Tolerance,
                                                        const Extrema_ExtAlgo       theProjAlgo)
@@ -50,7 +50,7 @@ GeomAPI_ProjectPointOnSurf::GeomAPI_ProjectPointOnSurf(const gp_Pnt&            
 
 //=================================================================================================
 
-GeomAPI_ProjectPointOnSurf::GeomAPI_ProjectPointOnSurf(const gp_Pnt&               P,
+GeomAPI_ProjectPointOnSurf::GeomAPI_ProjectPointOnSurf(const Point3d&               P,
                                                        const Handle(Geom_Surface)& Surface,
                                                        const Standard_Real         Umin,
                                                        const Standard_Real         Usup,
@@ -64,7 +64,7 @@ GeomAPI_ProjectPointOnSurf::GeomAPI_ProjectPointOnSurf(const gp_Pnt&            
 
 //=================================================================================================
 
-GeomAPI_ProjectPointOnSurf::GeomAPI_ProjectPointOnSurf(const gp_Pnt&               P,
+GeomAPI_ProjectPointOnSurf::GeomAPI_ProjectPointOnSurf(const Point3d&               P,
                                                        const Handle(Geom_Surface)& Surface,
                                                        const Standard_Real         Umin,
                                                        const Standard_Real         Usup,
@@ -103,7 +103,7 @@ void GeomAPI_ProjectPointOnSurf::Init()
 
 //=================================================================================================
 
-void GeomAPI_ProjectPointOnSurf::Init(const gp_Pnt&               P,
+void GeomAPI_ProjectPointOnSurf::Init(const Point3d&               P,
                                       const Handle(Geom_Surface)& Surface,
                                       const Extrema_ExtAlgo       theProjAlgo)
 
@@ -113,7 +113,7 @@ void GeomAPI_ProjectPointOnSurf::Init(const gp_Pnt&               P,
 
 //=================================================================================================
 
-void GeomAPI_ProjectPointOnSurf::Init(const gp_Pnt&               P,
+void GeomAPI_ProjectPointOnSurf::Init(const Point3d&               P,
                                       const Handle(Geom_Surface)& Surface,
                                       const Standard_Real         Tolerance,
                                       const Extrema_ExtAlgo       theProjAlgo)
@@ -141,7 +141,7 @@ void GeomAPI_ProjectPointOnSurf::Init(const gp_Pnt&               P,
 
 //=================================================================================================
 
-void GeomAPI_ProjectPointOnSurf::Init(const gp_Pnt&               P,
+void GeomAPI_ProjectPointOnSurf::Init(const Point3d&               P,
                                       const Handle(Geom_Surface)& Surface,
                                       const Standard_Real         Umin,
                                       const Standard_Real         Usup,
@@ -165,7 +165,7 @@ void GeomAPI_ProjectPointOnSurf::Init(const gp_Pnt&               P,
 
 //=================================================================================================
 
-void GeomAPI_ProjectPointOnSurf::Init(const gp_Pnt&               P,
+void GeomAPI_ProjectPointOnSurf::Init(const Point3d&               P,
                                       const Handle(Geom_Surface)& Surface,
                                       const Standard_Real         Umin,
                                       const Standard_Real         Usup,
@@ -235,7 +235,7 @@ void GeomAPI_ProjectPointOnSurf::Init(const Handle(Geom_Surface)& Surface,
 
 //=================================================================================================
 
-void GeomAPI_ProjectPointOnSurf::Perform(const gp_Pnt& P)
+void GeomAPI_ProjectPointOnSurf::Perform(const Point3d& P)
 {
   myExtPS.Perform(P);
   Init();
@@ -264,7 +264,7 @@ Standard_Integer GeomAPI_ProjectPointOnSurf::NbPoints() const
 
 //=================================================================================================
 
-gp_Pnt GeomAPI_ProjectPointOnSurf::Point(const Standard_Integer Index) const
+Point3d GeomAPI_ProjectPointOnSurf::Point(const Standard_Integer Index) const
 {
   Standard_OutOfRange_Raise_if(Index < 1 || Index > NbPoints(),
                                "GeomAPI_ProjectPointOnSurf::Point");
@@ -293,7 +293,7 @@ Standard_Real GeomAPI_ProjectPointOnSurf::Distance(const Standard_Integer Index)
 
 //=================================================================================================
 
-gp_Pnt GeomAPI_ProjectPointOnSurf::NearestPoint() const
+Point3d GeomAPI_ProjectPointOnSurf::NearestPoint() const
 {
   StdFail_NotDone_Raise_if(!myIsDone, "GeomAPI_ProjectPointOnSurf::NearestPoint");
 
@@ -309,7 +309,7 @@ GeomAPI_ProjectPointOnSurf::operator Standard_Integer() const
 
 //=================================================================================================
 
-GeomAPI_ProjectPointOnSurf::operator gp_Pnt() const
+GeomAPI_ProjectPointOnSurf::operator Point3d() const
 {
   return NearestPoint();
 }

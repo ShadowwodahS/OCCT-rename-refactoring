@@ -147,21 +147,21 @@ void ChFi3d_ExtrSpineCarac(const TopOpeBRepDS_DataStructure& DStr,
                            const Standard_Real               p,
                            const Standard_Integer            jf,
                            const Standard_Integer            sens,
-                           gp_Pnt&                           P,
+                           Point3d&                           P,
                            gp_Vec&                           V,
                            Standard_Real&                    R);
 
 Handle(Geom_Circle) ChFi3d_CircularSpine(Standard_Real&      WFirst,
                                          Standard_Real&      WLast,
-                                         const gp_Pnt&       Pdeb,
+                                         const Point3d&       Pdeb,
                                          const gp_Vec&       Vdeb,
-                                         const gp_Pnt&       Pfin,
+                                         const Point3d&       Pfin,
                                          const gp_Vec&       Vfin,
                                          const Standard_Real rad);
 
-Handle(Geom_BezierCurve) ChFi3d_Spine(const gp_Pnt&       pd,
+Handle(Geom_BezierCurve) ChFi3d_Spine(const Point3d&       pd,
                                       gp_Vec&             vd,
-                                      const gp_Pnt&       pf,
+                                      const Point3d&       pf,
                                       gp_Vec&             vf,
                                       const Standard_Real R);
 
@@ -432,7 +432,7 @@ void ChFi3d_ComputesIntPC(const ChFiDS_FaceInterference&     Fi1,
                           const Handle(GeomAdaptor_Surface)& HS2,
                           Standard_Real&                     UInt1,
                           Standard_Real&                     UInt2,
-                          gp_Pnt&                            P);
+                          Point3d&                            P);
 
 Handle(GeomAdaptor_Surface) ChFi3d_BoundSurf(TopOpeBRepDS_DataStructure&    DStr,
                                              const Handle(ChFiDS_SurfData)& Fd1,
@@ -460,13 +460,13 @@ Standard_Boolean ChFi3d_SearchFD(TopOpeBRepDS_DataStructure&  DStr,
                                  Standard_Integer&            jf2);
 
 void ChFi3d_Parameters(const Handle(Geom_Surface)& S,
-                       const gp_Pnt&               p3d,
+                       const Point3d&               p3d,
                        Standard_Real&              u,
                        Standard_Real&              v);
 
 void ChFi3d_TrimCurve(const Handle(Geom_Curve)&  gc,
-                      const gp_Pnt&              FirstP,
-                      const gp_Pnt&              LastP,
+                      const Point3d&              FirstP,
+                      const Point3d&              LastP,
                       Handle(Geom_TrimmedCurve)& gtc);
 
 Standard_EXPORT void ChFi3d_PerformElSpine(Handle(ChFiDS_ElSpine)& HES,

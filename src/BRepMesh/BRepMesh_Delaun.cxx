@@ -2539,13 +2539,13 @@ Standard_CString BRepMesh_DumpPoly(void*            thePolygon,
     {
       const BRepMesh_Edge& aLink = aMeshData->GetLink(Abs(aLinksIt.Value()));
 
-      gp_Pnt aPnt[2];
+      Point3d aPnt[2];
       for (Standard_Integer i = 0; i < 2; ++i)
       {
         const Standard_Integer aNodeId = (i == 0) ? aLink.FirstNode() : aLink.LastNode();
 
         const gp_XY& aNode = aMeshData->GetNode(aNodeId).Coord();
-        aPnt[i]            = gp_Pnt(aNode.X(), aNode.Y(), 0.);
+        aPnt[i]            = Point3d(aNode.X(), aNode.Y(), 0.);
       }
 
       if (aPnt[0].SquareDistance(aPnt[1]) < Precision::SquareConfusion())

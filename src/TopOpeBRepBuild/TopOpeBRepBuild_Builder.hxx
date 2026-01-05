@@ -60,7 +60,7 @@ class TopOpeBRepBuild_ShellFaceSet;
 class TopOpeBRepDS_SurfaceIterator;
 class TopOpeBRepDS_CurveIterator;
 class TopoDS_Vertex;
-class gp_Pnt;
+class Point3d;
 
 // resolve name collisions with X11 headers
 #ifdef FillSolid
@@ -644,11 +644,11 @@ public:
 
   Standard_EXPORT void GdumpLS(const TopTools_ListOfShape& L) const;
 
-  Standard_EXPORT static void GdumpPNT(const gp_Pnt& P);
+  Standard_EXPORT static void GdumpPNT(const Point3d& P);
 
   Standard_EXPORT static void GdumpORIPARPNT(const TopAbs_Orientation o,
                                              const Standard_Real      p,
-                                             const gp_Pnt&            Pnt);
+                                             const Point3d&            Pnt);
 
   Standard_EXPORT void GdumpSHA(const TopoDS_Shape& S, const Standard_Address str = NULL) const;
 

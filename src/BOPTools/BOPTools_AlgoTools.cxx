@@ -76,7 +76,7 @@ static TopAbs_Orientation Orientation(const TopoDS_Edge& anE, const TopoDS_Face&
 
 static Standard_Boolean GetFaceDir(const TopoDS_Edge&              aE,
                                    const TopoDS_Face&              aF,
-                                   const gp_Pnt&                   aP,
+                                   const Point3d&                   aP,
                                    const Standard_Real             aT,
                                    const gp_Dir&                   aDTgt,
                                    const Standard_Boolean          theSmallFaces,
@@ -86,9 +86,9 @@ static Standard_Boolean GetFaceDir(const TopoDS_Edge&              aE,
                                    GeomAPI_ProjectPointOnSurf&     aProjPL,
                                    const Standard_Real             aDt);
 static Standard_Boolean FindPointInFace(const TopoDS_Face&              aF,
-                                        const gp_Pnt&                   aP,
+                                        const Point3d&                   aP,
                                         gp_Dir&                         aDB,
-                                        gp_Pnt&                         aPOut,
+                                        Point3d&                         aPOut,
                                         const Handle(IntTools_Context)& theContext,
                                         GeomAPI_ProjectPointOnSurf&     aProjPL,
                                         const Standard_Real             aDt,
@@ -96,7 +96,7 @@ static Standard_Boolean FindPointInFace(const TopoDS_Face&              aF,
 static Standard_Real    MinStep3D(const TopoDS_Edge&                  theE1,
                                   const TopoDS_Face&                  theF1,
                                   const BOPTools_ListOfCoupleOfShape& theLCS,
-                                  const gp_Pnt&                       aP,
+                                  const Point3d&                       aP,
                                   const Handle(IntTools_Context)&     theContext,
                                   Standard_Boolean&                   theSmallFaces);
 
@@ -666,7 +666,7 @@ TopAbs_State BOPTools_AlgoTools::ComputeState(const TopoDS_Face&                
 
   // All edges of the face are on the solid.
   // Get point inside the face and classify it relatively solid.
-  gp_Pnt           aP3D;
+  Point3d           aP3D;
   gp_Pnt2d         aP2D;
   Standard_Integer iErr = BOPTools_AlgoTools3D::PointInFace(theF, aP3D, aP2D, theContext);
   if (iErr != 0)
@@ -697,7 +697,7 @@ TopAbs_State BOPTools_AlgoTools::ComputeState(const TopoDS_Vertex&            th
                                               const Handle(IntTools_Context)& theContext)
 {
   TopAbs_State aState;
-  gp_Pnt       aP3D;
+  Point3d       aP3D;
   //
   aP3D   = BRep_Tool::Pnt(theV);
   aState = BOPTools_AlgoTools::ComputeState(aP3D, theRef, theTol, theContext);
@@ -714,7 +714,7 @@ TopAbs_State BOPTools_AlgoTools::ComputeState(const TopoDS_Edge&              th
   Standard_Real      aT1, aT2, aT = 0.;
   TopAbs_State       aState;
   Handle(Geom_Curve) aC3D;
-  gp_Pnt             aP3D;
+  Point3d             aP3D;
   //
   aC3D = BRep_Tool::Curve(theE, aT1, aT2);
   //
@@ -762,7 +762,7 @@ TopAbs_State BOPTools_AlgoTools::ComputeState(const TopoDS_Edge&              th
 
 //=================================================================================================
 
-TopAbs_State BOPTools_AlgoTools::ComputeState(const gp_Pnt&                   theP,
+TopAbs_State BOPTools_AlgoTools::ComputeState(const Point3d&                   theP,
                                               const TopoDS_Solid&             theRef,
                                               const Standard_Real             theTol,
                                               const Handle(IntTools_Context)& theContext)
@@ -968,7 +968,7 @@ Standard_Boolean BOPTools_AlgoTools::GetFaceOff(const TopoDS_Edge&              
   Standard_Boolean                           bRet, bIsComputed;
   Standard_Real                              aT, aT1, aT2, aAngle, aTwoPI, aAngleMin, aDt3D;
   Standard_Real                              aUmin, aUsup, aVmin, aVsup;
-  gp_Pnt                                     aPn1, aPn2, aPx;
+  Point3d                                     aPn1, aPn2, aPx;
   gp_Dir                                     aDN1, aDN2, aDBF, aDBF2, aDTF;
   gp_Vec                                     aVTgt;
   TopAbs_Orientation                         aOr;
@@ -1107,7 +1107,7 @@ Standard_Boolean BOPTools_AlgoTools::AreFacesSameDomain(const TopoDS_Face&      
   // and check its validity for the second face.
   // If valid - the faces are same domain.
 
-  gp_Pnt   aP1;
+  Point3d   aP1;
   gp_Pnt2d aP2D1;
   // Find point inside the first face
   Standard_Integer iErr = BOPTools_AlgoTools3D::PointInFace(theF1, aP1, aP2D1, theContext);
@@ -1294,7 +1294,7 @@ Standard_Boolean BOPTools_AlgoTools::IsSplitToReverse(const TopoDS_Face&        
   //
   Standard_Boolean bDone = Standard_False;
   // Find the point inside the split face
-  gp_Pnt   aPFSp;
+  Point3d   aPFSp;
   gp_Pnt2d aP2DFSp;
   //
   // Error status
@@ -1682,11 +1682,11 @@ void BOPTools_AlgoTools::MakeEdge(const IntTools_Curve& theIC,
 //=================================================================================================
 
 Standard_Integer BOPTools_AlgoTools::ComputeVV(const TopoDS_Vertex& aV1,
-                                               const gp_Pnt&        aP2,
+                                               const Point3d&        aP2,
                                                const Standard_Real  aTolP2)
 {
   Standard_Real aTolV1, aTolSum, aTolSum2, aD2;
-  gp_Pnt        aP1;
+  Point3d        aP1;
   //
   aTolV1 = BRep_Tool::Tolerance(aV1);
 
@@ -1710,7 +1710,7 @@ Standard_Integer BOPTools_AlgoTools::ComputeVV(const TopoDS_Vertex& aV1,
                                                const Standard_Real  aFuzz)
 {
   Standard_Real aTolV1, aTolV2, aTolSum, aTolSum2, aD2;
-  gp_Pnt        aP1, aP2;
+  Point3d        aP1, aP2;
   Standard_Real aFuzz1 = (aFuzz > Precision::Confusion() ? aFuzz : Precision::Confusion());
   //
   aTolV1   = BRep_Tool::Tolerance(aV1);
@@ -1739,7 +1739,7 @@ void BOPTools_AlgoTools::MakeVertex(const TopTools_ListOfShape& aLV, TopoDS_Vert
   else if (aNb > 1)
   {
     Standard_Real aNTol;
-    gp_Pnt        aNC;
+    Point3d        aNC;
     BRepLib::BoundingVertex(aLV, aNC, aNTol);
     BRep_Builder aBB;
     aBB.MakeVertex(aVnew, aNC, aNTol);
@@ -1918,7 +1918,7 @@ Standard_Boolean BOPTools_AlgoTools::IsBlockInOnFace(const IntTools_Range&      
   Standard_Boolean bFlag;
   Standard_Real    f1, l1, ULD, VLD;
   gp_Pnt2d         aP2D;
-  gp_Pnt           aP11, aP12;
+  Point3d           aP11, aP12;
   //
   aShrR.Range(f1, l1);
   Standard_Real dt = 0.0075, k; // dt=0.001,  k;
@@ -2051,7 +2051,7 @@ Standard_Boolean BOPTools_AlgoTools::IsMicroEdge(const TopoDS_Edge&             
 //=======================================================================
 Standard_Boolean GetFaceDir(const TopoDS_Edge&              aE,
                             const TopoDS_Face&              aF,
-                            const gp_Pnt&                   aP,
+                            const Point3d&                   aP,
                             const Standard_Real             aT,
                             const gp_Dir&                   aDTgt,
                             const Standard_Boolean          theSmallFaces,
@@ -2062,7 +2062,7 @@ Standard_Boolean GetFaceDir(const TopoDS_Edge&              aE,
                             const Standard_Real             aDt)
 {
   Standard_Real aTolE;
-  gp_Pnt        aPx;
+  Point3d        aPx;
   //
   BOPTools_AlgoTools3D::GetNormalToFaceOnEdge(aE, aF, aT, aDN, theContext);
   if (aF.Orientation() == TopAbs_REVERSED)
@@ -2102,9 +2102,9 @@ Standard_Boolean GetFaceDir(const TopoDS_Edge&              aE,
 //           <aDt> built in point <aP> with normal perpendicular to <aDB>.
 //=======================================================================
 Standard_Boolean FindPointInFace(const TopoDS_Face&              aF,
-                                 const gp_Pnt&                   aP,
+                                 const Point3d&                   aP,
                                  gp_Dir&                         aDB,
-                                 gp_Pnt&                         aPOut,
+                                 Point3d&                         aPOut,
                                  const Handle(IntTools_Context)& theContext,
                                  GeomAPI_ProjectPointOnSurf&     aProjPL,
                                  const Standard_Real             aDt,
@@ -2113,7 +2113,7 @@ Standard_Boolean FindPointInFace(const TopoDS_Face&              aF,
   Standard_Integer aNbItMax;
   Standard_Real    aDist, aDTol, aPM, anEps;
   Standard_Boolean bRet;
-  gp_Pnt           aP1, aPS;
+  Point3d           aP1, aPS;
   //
   aDTol = Precision::Angular();
   aPM   = aP.XYZ().Modulus();
@@ -2179,7 +2179,7 @@ Standard_Boolean FindPointInFace(const TopoDS_Face&              aF,
 Standard_Real MinStep3D(const TopoDS_Edge&                  theE1,
                         const TopoDS_Face&                  theF1,
                         const BOPTools_ListOfCoupleOfShape& theLCS,
-                        const gp_Pnt&                       aP,
+                        const Point3d&                       aP,
                         const Handle(IntTools_Context)&     theContext,
                         Standard_Boolean&                   theSmallFaces)
 {

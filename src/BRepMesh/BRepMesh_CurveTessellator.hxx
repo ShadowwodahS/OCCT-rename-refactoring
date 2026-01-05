@@ -54,7 +54,7 @@ public:
   //! @param thePoint tessellation point.
   //! @return True in case of valid result, false elewhere.
   Standard_EXPORT virtual Standard_Boolean Value(const Standard_Integer theIndex,
-                                                 gp_Pnt&                thePoint,
+                                                 Point3d&                thePoint,
                                                  Standard_Real&         theParameter) const
     Standard_OVERRIDE;
 
@@ -77,7 +77,7 @@ private:
                     const Standard_Integer      theNbIter);
 
   //! Checks whether the given point lies within tolerance of the vertex.
-  Standard_Boolean isInToleranceOfVertex(const gp_Pnt&        thePoint,
+  Standard_Boolean isInToleranceOfVertex(const Point3d&        thePoint,
                                          const TopoDS_Vertex& theVertex) const;
 
 private:

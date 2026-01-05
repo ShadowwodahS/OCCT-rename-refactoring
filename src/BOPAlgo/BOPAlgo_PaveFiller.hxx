@@ -53,7 +53,7 @@
 #include <TopTools_ListOfShape.hxx>
 class IntTools_Context;
 class BOPDS_PaveBlock;
-class gp_Pnt;
+class Point3d;
 class BOPDS_Curve;
 class TopoDS_Vertex;
 class TopoDS_Edge;
@@ -254,7 +254,7 @@ protected:
                                                          const TColStd_MapOfInteger& theMIFOn,
                                                          const TColStd_MapOfInteger& theMIFIn);
 
-  Standard_EXPORT Standard_Boolean IsExistingVertex(const gp_Pnt&               theP,
+  Standard_EXPORT Standard_Boolean IsExistingVertex(const Point3d&               theP,
                                                     const Standard_Real         theTol,
                                                     const TColStd_MapOfInteger& theMVOn) const;
 

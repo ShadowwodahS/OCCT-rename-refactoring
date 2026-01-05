@@ -30,7 +30,7 @@ Contap_Point::Contap_Point()
 {
 }
 
-Contap_Point::Contap_Point(const gp_Pnt& Pt, const Standard_Real U, const Standard_Real V)
+Contap_Point::Contap_Point(const Point3d& Pt, const Standard_Real U, const Standard_Real V)
     : pt(Pt),
       uparam(U),
       vparam(V),

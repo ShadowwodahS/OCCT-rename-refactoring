@@ -22,7 +22,7 @@
 
 #include <Standard_Integer.hxx>
 class BRepAdaptor_Surface;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 
 class BRepLProp_SurfaceTool
@@ -35,14 +35,14 @@ public:
   Standard_EXPORT static void Value(const BRepAdaptor_Surface& S,
                                     const Standard_Real        U,
                                     const Standard_Real        V,
-                                    gp_Pnt&                    P);
+                                    Point3d&                    P);
 
   //! Computes the point <P> and first derivative <D1*> of
   //! parameter <U> and <V> on the Surface <S>.
   Standard_EXPORT static void D1(const BRepAdaptor_Surface& S,
                                  const Standard_Real        U,
                                  const Standard_Real        V,
-                                 gp_Pnt&                    P,
+                                 Point3d&                    P,
                                  gp_Vec&                    D1U,
                                  gp_Vec&                    D1V);
 
@@ -51,7 +51,7 @@ public:
   Standard_EXPORT static void D2(const BRepAdaptor_Surface& S,
                                  const Standard_Real        U,
                                  const Standard_Real        V,
-                                 gp_Pnt&                    P,
+                                 Point3d&                    P,
                                  gp_Vec&                    D1U,
                                  gp_Vec&                    D1V,
                                  gp_Vec&                    D2U,

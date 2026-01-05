@@ -65,7 +65,7 @@ Handle(TDataXtd_Geometry) TDataXtd_Geometry::Set(const TDF_Label& L)
 
 //=================================================================================================
 
-Standard_Boolean TDataXtd_Geometry::Point(const TDF_Label& L, gp_Pnt& G)
+Standard_Boolean TDataXtd_Geometry::Point(const TDF_Label& L, Point3d& G)
 {
   Handle(TNaming_NamedShape) NS;
   if (L.FindAttribute(TNaming_NamedShape::GetID(), NS))
@@ -77,7 +77,7 @@ Standard_Boolean TDataXtd_Geometry::Point(const TDF_Label& L, gp_Pnt& G)
 
 //=================================================================================================
 
-Standard_Boolean TDataXtd_Geometry::Point(const Handle(TNaming_NamedShape)& NS, gp_Pnt& G)
+Standard_Boolean TDataXtd_Geometry::Point(const Handle(TNaming_NamedShape)& NS, Point3d& G)
 {
   const TopoDS_Shape& shape = TNaming_Tool::GetShape(NS);
   if (shape.IsNull())

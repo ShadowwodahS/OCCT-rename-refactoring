@@ -192,11 +192,11 @@ void IntCurveSurface_TheHCurveTool::SamplePars(const Handle(Adaptor3d_Curve)& C,
     }
 
     t2        = aPars(j);
-    gp_Pnt p1 = aBC->Value(t2);
+    Point3d p1 = aBC->Value(t2);
     for (k = j + 2; k <= nbsu; ++k)
     {
       t2        = aPars(k);
-      gp_Pnt p2 = aBC->Value(t2);
+      Point3d p2 = aBC->Value(t2);
 
       if (p1.SquareDistance(p2) <= tol)
         continue;
@@ -212,7 +212,7 @@ void IntCurveSurface_TheHCurveTool::SamplePars(const Handle(Adaptor3d_Curve)& C,
           break;
         }
 
-        gp_Pnt        pp = aBC->Value(aPars(l));
+        Point3d        pp = aBC->Value(aPars(l));
         Standard_Real d  = lin.SquareDistance(pp);
 
         if (d <= aDefl2)

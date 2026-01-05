@@ -27,7 +27,7 @@
 #include <Standard_Integer.hxx>
 #include <TopoDS_Wire.hxx>
 class gp_Dir;
-class gp_Pnt;
+class Point3d;
 
 //! The  Projection   class provides  conical  and
 //! cylindrical projections of  Edge  or  Wire  on
@@ -46,7 +46,7 @@ public:
   //! Makes a Conical projection of Wire om Shape
   Standard_EXPORT BRepProj_Projection(const TopoDS_Shape& Wire,
                                       const TopoDS_Shape& Shape,
-                                      const gp_Pnt&       P);
+                                      const Point3d&       P);
 
   //! returns False if the section failed
   Standard_Boolean IsDone() const;

@@ -145,25 +145,25 @@ static Standard_Integer anasurface(Draw_Interpretor&, Standard_Integer n, const 
 
   if (n < 5)
   {
-    loc = gp_Ax3(gp_Pnt(0, 0, 0), gp_Dir(0, 0, 1), gp_Dir(1, 0, 0));
+    loc = gp_Ax3(Point3d(0, 0, 0), gp_Dir(0, 0, 1), gp_Dir(1, 0, 0));
     i   = 2;
   }
   else if (n < 8)
   {
-    loc = gp_Ax3(gp_Pnt(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
+    loc = gp_Ax3(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
                  gp_Dir(0, 0, 1),
                  gp_Dir(1, 0, 0));
     i   = 5;
   }
   else if (n < 11)
   {
-    loc = gp_Ax3(gp_Pnt(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
+    loc = gp_Ax3(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
                  gp_Dir(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7])));
     i   = 8;
   }
   else if (n < 14)
   {
-    loc = gp_Ax3(gp_Pnt(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
+    loc = gp_Ax3(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
                  gp_Dir(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7])),
                  gp_Dir(Draw::Atof(a[8]), Draw::Atof(a[9]), Draw::Atof(a[10])));
     i   = 11;
@@ -352,7 +352,7 @@ static Standard_Integer algosurface(Draw_Interpretor&, Standard_Integer n, const
     return 1;
 
   gp_Dir D;
-  gp_Pnt P;
+  Point3d P;
 
   if (!strcasecmp(a[0], "extsurf"))
   {
@@ -1053,7 +1053,7 @@ static Standard_Integer value(Draw_Interpretor&, Standard_Integer n, const char*
   if (DrawPoint)
     n--;
 
-  gp_Pnt P;
+  Point3d P;
   if (n >= 13)
   {
     gp_Vec DU, DV;
@@ -1195,7 +1195,7 @@ static Standard_Integer movepole(Draw_Interpretor&, Standard_Integer n, const ch
     LastRow  = nup;
   }
 
-  gp_Pnt P;
+  Point3d P;
 
   for (Standard_Integer i = FirstRow; i <= LastRow; i++)
   {
@@ -1262,7 +1262,7 @@ static Standard_Integer movepoint(Draw_Interpretor&, Standard_Integer n, const c
     index2v = GBs->NbVPoles() - 1;
   }
 
-  gp_Pnt p;
+  Point3d p;
   GBs->D0(u, v, p);
   p.SetCoord(p.X() + dx, p.Y() + dy, p.Z() + dz);
   GBs->MovePoint(u, v, p, index1u, index2u, index1v, index2v, fmodifu, lmodifu, fmodifv, lmodifv);
@@ -1661,8 +1661,8 @@ static Standard_Integer compBsplSur(Draw_Interpretor&, Standard_Integer n, const
     for (; j <= nbP + 1; j++)
     {
       Standard_Real aV    = aVmin + aStepV * (j - 1);
-      gp_Pnt        aP1   = GBs1->Value(aU, aV);
-      gp_Pnt        aP2   = GBs2->Value(aU, aV);
+      Point3d        aP1   = GBs1->Value(aU, aV);
+      Point3d        aP2   = GBs2->Value(aU, aV);
       Standard_Real aDist = aP1.SquareDistance(aP2);
       if (aDist > Precision::SquareConfusion())
       {
@@ -1714,7 +1714,7 @@ static Standard_Integer parameters(Draw_Interpretor& di, Standard_Integer n, con
       di << "Unknown surface\n";
       return 1;
     }
-    gp_Pnt           P(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4]));
+    Point3d           P(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4]));
     Standard_Real    Tol = Draw::Atof(a[5]), U = 0., V = 0.;
     Standard_Boolean res = GeomLib_Tool::Parameters(S, P, Tol, U, V);
 
@@ -1736,7 +1736,7 @@ static Standard_Integer parameters(Draw_Interpretor& di, Standard_Integer n, con
       di << "Unknown curve\n";
       return 1;
     }
-    gp_Pnt           P(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4]));
+    Point3d           P(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4]));
     Standard_Real    Tol = Draw::Atof(a[5]), U = 0.;
     Standard_Boolean res = GeomLib_Tool::Parameter(C, P, Tol, U);
 

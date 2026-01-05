@@ -168,8 +168,8 @@ void HLRTest_DrawablePolyEdgeTool::DrawOn(Draw_Display& D) const
           todraw = Standard_False;
         if (todraw)
         {
-          D.MoveTo(gp_Pnt(PntX1, PntY1, PntZ1));
-          D.DrawTo(gp_Pnt(PntX2, PntY2, PntZ2));
+          D.MoveTo(Point3d(PntX1, PntY1, PntZ1));
+          D.DrawTo(Point3d(PntX2, PntY2, PntZ2));
         }
       }
     }

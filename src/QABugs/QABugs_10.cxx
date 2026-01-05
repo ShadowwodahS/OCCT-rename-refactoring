@@ -54,16 +54,16 @@ static Standard_Integer OCC426(Draw_Interpretor& di, Standard_Integer argc, cons
   }
 
   BRepBuilderAPI_MakePolygon W1;
-  W1.Add(gp_Pnt(10, 0, 0));
-  W1.Add(gp_Pnt(20, 0, 0));
-  W1.Add(gp_Pnt(20, 0, 10));
-  W1.Add(gp_Pnt(10, 0, 10));
-  W1.Add(gp_Pnt(10, 0, 0));
+  W1.Add(Point3d(10, 0, 0));
+  W1.Add(Point3d(20, 0, 0));
+  W1.Add(Point3d(20, 0, 10));
+  W1.Add(Point3d(10, 0, 10));
+  W1.Add(Point3d(10, 0, 0));
 
   Standard_Boolean OnlyPlane1 = Standard_False;
   TopoDS_Face      F1         = BRepBuilderAPI_MakeFace(W1.Wire(), OnlyPlane1);
 
-  gp_Pnt        P1(0, 0, 0);
+  Point3d        P1(0, 0, 0);
   gp_Dir        D1(0, 0, 30);
   gp_Ax1        A1(P1, D1);
   Standard_Real angle1 = 360 * (M_PI / 180.0);
@@ -72,32 +72,32 @@ static Standard_Integer OCC426(Draw_Interpretor& di, Standard_Integer argc, cons
   BRepBuilderAPI_MakePolygon W2;
   Standard_Real              f1 = 7.0710678118654752440;
   Standard_Real              f2 = 14.1421356237309504880;
-  W2.Add(gp_Pnt(f1, f1, 10));
-  W2.Add(gp_Pnt(f2, f2, 10));
-  W2.Add(gp_Pnt(f2, f2, 20));
-  W2.Add(gp_Pnt(f1, f1, 20));
-  W2.Add(gp_Pnt(f1, f1, 10));
+  W2.Add(Point3d(f1, f1, 10));
+  W2.Add(Point3d(f2, f2, 10));
+  W2.Add(Point3d(f2, f2, 20));
+  W2.Add(Point3d(f1, f1, 20));
+  W2.Add(Point3d(f1, f1, 10));
 
   Standard_Boolean OnlyPlane2 = Standard_False;
   TopoDS_Face      F2         = BRepBuilderAPI_MakeFace(W2.Wire(), OnlyPlane2);
 
-  gp_Pnt        P2(0, 0, 0);
+  Point3d        P2(0, 0, 0);
   gp_Dir        D2(0, 0, 30);
   gp_Ax1        A2(P2, D2);
   Standard_Real angle2 = 270 * (M_PI / 180.0);
   TopoDS_Shape  rs2    = BRepPrimAPI_MakeRevol(F2, A2, angle2);
 
   BRepBuilderAPI_MakePolygon W3;
-  W3.Add(gp_Pnt(10, 0, 20));
-  W3.Add(gp_Pnt(20, 0, 20));
-  W3.Add(gp_Pnt(20, 0, 30));
-  W3.Add(gp_Pnt(10, 0, 30));
-  W3.Add(gp_Pnt(10, 0, 20));
+  W3.Add(Point3d(10, 0, 20));
+  W3.Add(Point3d(20, 0, 20));
+  W3.Add(Point3d(20, 0, 30));
+  W3.Add(Point3d(10, 0, 30));
+  W3.Add(Point3d(10, 0, 20));
 
   Standard_Boolean OnlyPlane3 = Standard_False;
   TopoDS_Face      F3         = BRepBuilderAPI_MakeFace(W3.Wire(), OnlyPlane3);
 
-  gp_Pnt        P3(0, 0, 0);
+  Point3d        P3(0, 0, 0);
   gp_Dir        D3(0, 0, 30);
   gp_Ax1        A3(P3, D3);
   Standard_Real angle3 = 360 * (M_PI / 180.0);
@@ -249,7 +249,7 @@ static Standard_Integer OCC486(Draw_Interpretor& di, Standard_Integer argc, cons
       di << "OCC486 FAULTY. Null surface /n";
       return 1;
     }
-    gp_Pnt P3D(Draw::Atof(argv[2]), Draw::Atof(argv[3]), Draw::Atof(argv[4]));
+    Point3d P3D(Draw::Atof(argv[2]), Draw::Atof(argv[3]), Draw::Atof(argv[4]));
 
     constexpr Standard_Real Tol = Precision::PConfusion();
     Extrema_ExtPS           myExtPS;
@@ -284,7 +284,7 @@ static Standard_Integer OCC486(Draw_Interpretor& di, Standard_Integer argc, cons
       distMin = sqrt(distMin);
       Standard_Real S, T;
       myExtPS.Point(indMin).Parameter(S, T);
-      gp_Pnt        aCheckPnt  = aSurf.Value(S, T);
+      Point3d        aCheckPnt  = aSurf.Value(S, T);
       Standard_Real aCheckDist = P3D.Distance(aCheckPnt);
       di << "Solution is : U = " << S << "\t V = " << T << "\n";
       di << "Solution is : X = " << aCheckPnt.X() << "\t Y = " << aCheckPnt.Y()
@@ -337,14 +337,14 @@ static Standard_Integer OCC712(Draw_Interpretor& di, Standard_Integer argc, cons
   Standard_Real f1 = 75;
   Standard_Real f2 = 35;
 
-  gp_Pnt p1(-f2, f2, 0);
-  gp_Pnt p2(0, f1, 0);
-  gp_Pnt p3(f2, f2, 0);
-  gp_Pnt p4(f1, 0, 0);
-  gp_Pnt p5(f2, -f2, 0);
-  gp_Pnt p6(0, -f1, 0);
-  gp_Pnt p7(-f2, -f2, 0);
-  gp_Pnt p8(-f1, 0, 0);
+  Point3d p1(-f2, f2, 0);
+  Point3d p2(0, f1, 0);
+  Point3d p3(f2, f2, 0);
+  Point3d p4(f1, 0, 0);
+  Point3d p5(f2, -f2, 0);
+  Point3d p6(0, -f1, 0);
+  Point3d p7(-f2, -f2, 0);
+  Point3d p8(-f1, 0, 0);
 
   GC_MakeArcOfCircle arc1(p1, p2, p3);
   GC_MakeArcOfCircle arc2(p3, p4, p5);
@@ -494,7 +494,7 @@ static Standard_Integer OCC822_1(Draw_Interpretor& di, Standard_Integer argc, co
 
   int index = 1;
 
-  gp_Pnt P1(0, 0, 0);
+  Point3d P1(0, 0, 0);
   gp_Dir D1(0, 0, 1);
   gp_Ax2 A1(P1, D1);
 
@@ -503,7 +503,7 @@ static Standard_Integer OCC822_1(Draw_Interpretor& di, Standard_Integer argc, co
   TopoDS_Shape             cylIn  = cylMakerIn.Shape();
   TopoDS_Shape             cylOut = cylMakerOut.Shape();
 
-  gp_Pnt P2(0, 0, 0);
+  Point3d P2(0, 0, 0);
   gp_Dir D2(0, 0, -1);
   gp_Ax2 A2(P2, D2);
 
@@ -566,14 +566,14 @@ static Standard_Integer OCC822_2(Draw_Interpretor& di, Standard_Integer argc, co
 
   gp_Dir              xDir(1, 0, 0);
   gp_Dir              zDir(0, 0, 1);
-  gp_Pnt              cen1(0, 0, 0);
+  Point3d              cen1(0, 0, 0);
   gp_Ax2              cor1(cen1, zDir, xDir);
   BRepPrimAPI_MakeBox boxMaker(cor1, 100, 100, 100);
   TopoDS_Shape        box = boxMaker.Shape();
   if (index < argc)
     DBRep::Set(argv[index++], box);
 
-  BRepPrimAPI_MakeSphere sphereMaker(gp_Pnt(100.0, 50.0, 50.0), 25.0);
+  BRepPrimAPI_MakeSphere sphereMaker(Point3d(100.0, 50.0, 50.0), 25.0);
   TopoDS_Shape           sph = sphereMaker.Shape();
   if (index < argc)
     DBRep::Set(argv[index++], sph);
@@ -621,7 +621,7 @@ static Standard_Integer OCC823(Draw_Interpretor& di, Standard_Integer argc, cons
   int           index = 1;
   Standard_Real size  = 0.001;
 
-  gp_Pnt                   P1(40, 50, 0);
+  Point3d                   P1(40, 50, 0);
   gp_Dir                   D1(100, 0, 0);
   gp_Ax2                   A1(P1, D1);
   BRepPrimAPI_MakeCylinder mkCyl1(A1, 20, 100);
@@ -629,7 +629,7 @@ static Standard_Integer OCC823(Draw_Interpretor& di, Standard_Integer argc, cons
   if (index < argc)
     DBRep::Set(argv[index++], cyl1);
 
-  gp_Pnt                   P2(100, 50, size);
+  Point3d                   P2(100, 50, size);
   gp_Dir                   D2(0, size, 80);
   gp_Ax2                   A2(P2, D2);
   BRepPrimAPI_MakeCylinder mkCyl2(A2, 20, 80);
@@ -678,7 +678,7 @@ static Standard_Integer OCC824(Draw_Interpretor& di, Standard_Integer argc, cons
 
   int index = 1;
 
-  gp_Pnt                   P1(100, 0, 0);
+  Point3d                   P1(100, 0, 0);
   gp_Dir                   D1(-1, 0, 0);
   gp_Ax2                   A1(P1, D1);
   BRepPrimAPI_MakeCylinder mkCyl(A1, 20, 100);
@@ -750,18 +750,18 @@ static Standard_Integer OCC825(Draw_Interpretor& di, Standard_Integer argc, cons
   BRepBuilderAPI_MakeFace     faceMaker(BSpSurf, Precision::Confusion());
   const TopoDS_Face&          face = faceMaker.Face();
 
-  gp_Pnt                     pnt(0, size, 0);
+  Point3d                     pnt(0, size, 0);
   BRepPrimAPI_MakeHalfSpace* hSpace = new BRepPrimAPI_MakeHalfSpace(face, pnt);
   TopoDS_Shape               hsp    = hSpace->Solid();
   if (index < argc)
     DBRep::Set(argv[index++], hsp);
 
-  BRepPrimAPI_MakeSphere sphere1(gp_Pnt(0.0, 0.0, 0.0), 25.0);
+  BRepPrimAPI_MakeSphere sphere1(Point3d(0.0, 0.0, 0.0), 25.0);
   TopoDS_Shape           sph1 = sphere1.Shape();
   if (index < argc)
     DBRep::Set(argv[index++], sph1);
 
-  BRepPrimAPI_MakeSphere sphere2(gp_Pnt(0.0, 0.00001, 0.0), 25.0);
+  BRepPrimAPI_MakeSphere sphere2(Point3d(0.0, 0.00001, 0.0), 25.0);
   TopoDS_Shape           sph2 = sphere2.Shape();
   if (index < argc)
     DBRep::Set(argv[index++], sph2);
@@ -837,16 +837,16 @@ static Standard_Integer OCC826(Draw_Interpretor& di, Standard_Integer argc, cons
   Standard_Real y2 = 123.06856;
 
   BRepBuilderAPI_MakePolygon W1;
-  W1.Add(gp_Pnt(x1, y1, 0));
-  W1.Add(gp_Pnt(x2, y1, 0));
-  W1.Add(gp_Pnt(x2, y2, 0));
-  W1.Add(gp_Pnt(x1, y2, 0));
-  W1.Add(gp_Pnt(x1, y1, 0));
+  W1.Add(Point3d(x1, y1, 0));
+  W1.Add(Point3d(x2, y1, 0));
+  W1.Add(Point3d(x2, y2, 0));
+  W1.Add(Point3d(x1, y2, 0));
+  W1.Add(Point3d(x1, y1, 0));
 
   Standard_Boolean myFalse = Standard_False;
   TopoDS_Face      F1      = BRepBuilderAPI_MakeFace(W1.Wire(), myFalse);
 
-  gp_Pnt        P1(0, 0, 0);
+  Point3d        P1(0, 0, 0);
   gp_Dir        D1(0, 30, 0);
   gp_Ax1        A1(P1, D1);
   Standard_Real angle1 = 360 * (M_PI / 180.0);
@@ -854,7 +854,7 @@ static Standard_Integer OCC826(Draw_Interpretor& di, Standard_Integer argc, cons
   if (index < argc)
     DBRep::Set(argv[index++], rev);
 
-  BRepPrimAPI_MakeSphere sphere(gp_Pnt(166.373, 77.0402, 96.0555), 23.218586);
+  BRepPrimAPI_MakeSphere sphere(Point3d(166.373, 77.0402, 96.0555), 23.218586);
   TopoDS_Shape           sph = sphere.Shape();
   if (index < argc)
     DBRep::Set(argv[index++], sph);
@@ -902,16 +902,16 @@ static Standard_Integer OCC827(Draw_Interpretor& di, Standard_Integer argc, cons
   int index = 1;
 
   BRepBuilderAPI_MakePolygon W1;
-  W1.Add(gp_Pnt(10, 0, 0));
-  W1.Add(gp_Pnt(20, 0, 0));
-  W1.Add(gp_Pnt(20, 0, 50));
-  W1.Add(gp_Pnt(10, 0, 50));
-  W1.Add(gp_Pnt(10, 0, 0));
+  W1.Add(Point3d(10, 0, 0));
+  W1.Add(Point3d(20, 0, 0));
+  W1.Add(Point3d(20, 0, 50));
+  W1.Add(Point3d(10, 0, 50));
+  W1.Add(Point3d(10, 0, 0));
 
   Standard_Boolean myFalse = Standard_False;
   TopoDS_Face      F1      = BRepBuilderAPI_MakeFace(W1.Wire(), myFalse);
 
-  gp_Pnt        P1(0, 0, 0);
+  Point3d        P1(0, 0, 0);
   gp_Dir        D1(0, 0, 30);
   gp_Ax1        A1(P1, D1);
   Standard_Real angle1 = 360 * (M_PI / 180.0);
@@ -919,7 +919,7 @@ static Standard_Integer OCC827(Draw_Interpretor& di, Standard_Integer argc, cons
   if (index < argc)
     DBRep::Set(argv[index++], rev);
 
-  gp_Pnt                P2(0, 0, 50);
+  Point3d                P2(0, 0, 50);
   gp_Dir                D2(0, 0, 30);
   gp_Ax2                A2(P2, D2);
   Standard_Real         majRad = 15;
@@ -929,7 +929,7 @@ static Standard_Integer OCC827(Draw_Interpretor& di, Standard_Integer argc, cons
   if (index < argc)
     DBRep::Set(argv[index++], tor1);
 
-  gp_Pnt                P3(0, 0, 10);
+  Point3d                P3(0, 0, 10);
   gp_Dir                D3(0, 0, 30);
   gp_Ax2                A3(P3, D3);
   BRepPrimAPI_MakeTorus Torus2(A3, majRad, minRad);
@@ -1040,19 +1040,19 @@ static Standard_Integer OCC828(Draw_Interpretor& di, Standard_Integer argc, cons
 
   Standard_Real slabThick = 111;
 
-  gp_Pnt             p11(-27.598139, -7.0408573, 0.0);
-  gp_Pnt             p12(-28.483755, -17.487625, 0.0);
-  gp_Pnt             p13(-19.555504, -22.983587, 0.0);
+  Point3d             p11(-27.598139, -7.0408573, 0.0);
+  Point3d             p12(-28.483755, -17.487625, 0.0);
+  Point3d             p13(-19.555504, -22.983587, 0.0);
   GC_MakeArcOfCircle arc1(p11, p12, p13);
 
-  gp_Pnt             p21(12.125083, -22.983587, 0.0);
-  gp_Pnt             p22(21.1572, -17.27554, 0.0);
-  gp_Pnt             p23(19.878168, -6.6677585, 0.0);
+  Point3d             p21(12.125083, -22.983587, 0.0);
+  Point3d             p22(21.1572, -17.27554, 0.0);
+  Point3d             p23(19.878168, -6.6677585, 0.0);
   GC_MakeArcOfCircle arc2(p21, p22, p23);
 
-  gp_Pnt             p31(3.265825, 13.724955, 0.0);
-  gp_Pnt             p32(-4.7233953, 17.406338, 0.0);
-  gp_Pnt             p33(-12.529893, 13.351856, 0.0);
+  Point3d             p31(3.265825, 13.724955, 0.0);
+  Point3d             p32(-4.7233953, 17.406338, 0.0);
+  Point3d             p33(-12.529893, 13.351856, 0.0);
   GC_MakeArcOfCircle arc3(p31, p32, p33);
 
   GC_MakeSegment ln1(p13, p21);

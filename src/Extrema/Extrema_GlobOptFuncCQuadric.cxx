@@ -23,7 +23,7 @@ void Extrema_GlobOptFuncCQuadric::value(Standard_Real ct, Standard_Real& F)
 {
   Standard_Real u, v;
   //
-  gp_Pnt aCP = myC->Value(ct);
+  Point3d aCP = myC->Value(ct);
   switch (mySType)
   {
     case GeomAbs_Plane:
@@ -64,7 +64,7 @@ void Extrema_GlobOptFuncCQuadric::value(Standard_Real ct, Standard_Real& F)
   F = RealLast();
   if (u >= myUf && u <= myUl && v >= myVf && v <= myVl)
   {
-    gp_Pnt aPS = myS->Value(u, v);
+    Point3d aPS = myS->Value(u, v);
     F          = Min(F, aCP.SquareDistance(aPS));
   }
   Standard_Integer i;
@@ -220,7 +220,7 @@ void Extrema_GlobOptFuncCQuadric::QuadricParameters(const math_Vector& theCT,
   // points  myPTrim[]
   Standard_Real uext[4] = {myUf, myUl, myUl, myUf};
   Standard_Real vext[4] = {myVf, myVf, myVl, myVl};
-  gp_Pnt        aCP     = myC->Value(theCT(1));
+  Point3d        aCP     = myC->Value(theCT(1));
   switch (mySType)
   {
     case GeomAbs_Plane:
@@ -262,7 +262,7 @@ void Extrema_GlobOptFuncCQuadric::QuadricParameters(const math_Vector& theCT,
   Standard_Real F = RealLast();
   if (u >= myUf && u <= myUl && v >= myVf && v <= myVl)
   {
-    gp_Pnt aPS = myS->Value(u, v);
+    Point3d aPS = myS->Value(u, v);
     F          = aCP.SquareDistance(aPS);
   }
   Standard_Integer i;

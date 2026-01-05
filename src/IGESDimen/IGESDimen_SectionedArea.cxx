@@ -66,17 +66,17 @@ Standard_Integer IGESDimen_SectionedArea::Pattern() const
   return thePattern;
 }
 
-gp_Pnt IGESDimen_SectionedArea::PassingPoint() const
+Point3d IGESDimen_SectionedArea::PassingPoint() const
 {
-  return gp_Pnt(thePassingPoint);
+  return Point3d(thePassingPoint);
 }
 
-gp_Pnt IGESDimen_SectionedArea::TransformedPassingPoint() const
+Point3d IGESDimen_SectionedArea::TransformedPassingPoint() const
 {
   gp_XYZ tmpXYZ(thePassingPoint);
   if (HasTransf())
     Location().Transforms(tmpXYZ);
-  return gp_Pnt(tmpXYZ);
+  return Point3d(tmpXYZ);
 }
 
 Standard_Real IGESDimen_SectionedArea::ZDepth() const

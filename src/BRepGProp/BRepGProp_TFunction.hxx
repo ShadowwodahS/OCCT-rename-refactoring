@@ -25,7 +25,7 @@
 #include <GProp_ValueType.hxx>
 #include <Standard_Boolean.hxx>
 #include <math_Function.hxx>
-class gp_Pnt;
+class Point3d;
 
 //! This class represents the integrand function for the outer
 //! integral computation. The returned value represents the
@@ -52,7 +52,7 @@ public:
   //! coefficients is 4 and they represent the combination of
   //! plane parameters and shift values.
   Standard_EXPORT BRepGProp_TFunction(const BRepGProp_Face&  theSurface,
-                                      const gp_Pnt&          theVertex,
+                                      const Point3d&          theVertex,
                                       const Standard_Boolean IsByPoint,
                                       const Standard_Real*   theCoeffs,
                                       const Standard_Real    theUMin,

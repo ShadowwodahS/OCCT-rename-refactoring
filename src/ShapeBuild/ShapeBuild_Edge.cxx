@@ -585,7 +585,7 @@ Handle(Geom2d_Curve) ShapeBuild_Edge::TransformPCurve(const Handle(Geom2d_Curve)
     Handle(Geom2d_BSplineCurve) aBSpline2d;
     if (result->IsKind(STANDARD_TYPE(Geom2d_Conic)))
     {
-      // gp_Pln pln(gp_Pnt(0,0,0),gp_Dir(0,0,1));
+      // gp_Pln pln(Point3d(0,0,0),gp_Dir(0,0,1));
       // Handle(Geom_Curve) curve = GeomAPI::To3d(result,pln);
       // clang-format off
       Handle(Geom2d_Curve) tcurve = new Geom2d_TrimmedCurve(result,aFirst,aLast); //protection against parabols ets
@@ -725,7 +725,7 @@ void ShapeBuild_Edge::MakeEdge(TopoDS_Edge&              edge,
 
     TopoDS_Vertex V1, V2;
     TopExp::Vertices(E, V1, V2);
-    gp_Pnt P1 = BRep_Tool::Pnt(V1), P2 = BRep_Tool::Pnt(V2);
+    Point3d P1 = BRep_Tool::Pnt(V1), P2 = BRep_Tool::Pnt(V2);
     B.UpdateVertex(V1, P1.Transformed(L.Transformation()), 0.);
     B.UpdateVertex(V2, P2.Transformed(L.Transformation()), 0.);
   }
@@ -792,7 +792,7 @@ void ShapeBuild_Edge::MakeEdge(TopoDS_Edge&                edge,
 
     TopoDS_Vertex V1, V2;
     TopExp::Vertices(E, V1, V2);
-    gp_Pnt P1 = BRep_Tool::Pnt(V1), P2 = BRep_Tool::Pnt(V2);
+    Point3d P1 = BRep_Tool::Pnt(V1), P2 = BRep_Tool::Pnt(V2);
     B.UpdateVertex(V1, P1.Transformed(L.Transformation()), 0.);
     B.UpdateVertex(V2, P2.Transformed(L.Transformation()), 0.);
   }

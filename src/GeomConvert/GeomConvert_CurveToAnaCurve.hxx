@@ -29,7 +29,7 @@
 class Geom_Curve;
 class Geom_Line;
 class gp_Lin;
-class gp_Pnt;
+class Point3d;
 class gp_Circ;
 
 class GeomConvert_CurveToAnaCurve
@@ -105,16 +105,16 @@ public:
 
   //! Creates line on two points.
   //! Resulting parameters returned
-  Standard_EXPORT static gp_Lin GetLine(const gp_Pnt&  P1,
-                                        const gp_Pnt&  P2,
+  Standard_EXPORT static gp_Lin GetLine(const Point3d&  P1,
+                                        const Point3d&  P2,
                                         Standard_Real& cf,
                                         Standard_Real& cl);
 
   //! Creates circle on points. Returns true if OK.
   Standard_EXPORT static Standard_Boolean GetCircle(gp_Circ&      Circ,
-                                                    const gp_Pnt& P0,
-                                                    const gp_Pnt& P1,
-                                                    const gp_Pnt& P2);
+                                                    const Point3d& P0,
+                                                    const Point3d& P1,
+                                                    const Point3d& P2);
 
   //! Returns maximal deviation of converted surface from the original
   //! one computed by last call to ConvertToAnalytical

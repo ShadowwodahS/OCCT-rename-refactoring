@@ -23,7 +23,7 @@
 
 #include <Standard_Boolean.hxx>
 #include <Standard_Real.hxx>
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 class gp_Vec2d;
 class IntSurf_PntOn2S;
@@ -53,7 +53,7 @@ public:
                                                    Standard_Real& v1,
                                                    Standard_Real& u2,
                                                    Standard_Real& v2,
-                                                   gp_Pnt&        Pt,
+                                                   Point3d&        Pt,
                                                    gp_Vec&        Tg,
                                                    gp_Vec2d&      Tguv1,
                                                    gp_Vec2d&      Tguv2) = 0;
@@ -62,7 +62,7 @@ public:
                                    const Standard_Real v1,
                                    const Standard_Real u2,
                                    const Standard_Real v2,
-                                   gp_Pnt&             P) = 0;
+                                   Point3d&             P) = 0;
 
   //! computes point on curve and parameters on the surfaces
   Standard_EXPORT virtual Standard_Boolean SeekPoint(const Standard_Real u1,

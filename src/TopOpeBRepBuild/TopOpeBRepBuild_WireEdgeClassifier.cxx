@@ -427,7 +427,7 @@ void TopOpeBRepBuild_WireEdgeClassifier::ResetElement(const TopoDS_Shape& EE)
 #ifdef OCCT_DEBUG
   Standard_Real      f3, l3;
   Handle(Geom_Curve) C3D = BRep_Tool::Curve(E, f3, l3);
-  gp_Pnt             P3D;
+  Point3d             P3D;
   if (!C3D.IsNull())
     P3D = C3D->Value(par);
 #endif
@@ -468,7 +468,7 @@ Standard_Boolean TopOpeBRepBuild_WireEdgeClassifier::CompareElement(const TopoDS
 #ifdef OCCT_DEBUG
     Standard_Real      f3, l3;
     Handle(Geom_Curve) C3D = BRep_Tool::Curve(E, f3, l3);
-    gp_Pnt             P3D;
+    Point3d             P3D;
     if (!C3D.IsNull())
       P3D = C3D->Value(par);
 #endif

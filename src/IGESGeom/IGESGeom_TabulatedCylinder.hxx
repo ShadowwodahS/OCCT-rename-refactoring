@@ -22,7 +22,7 @@
 
 #include <gp_XYZ.hxx>
 #include <IGESData_IGESEntity.hxx>
-class gp_Pnt;
+class Point3d;
 
 class IGESGeom_TabulatedCylinder;
 DEFINE_STANDARD_HANDLE(IGESGeom_TabulatedCylinder, IGESData_IGESEntity)
@@ -53,11 +53,11 @@ public:
   Standard_EXPORT Handle(IGESData_IGESEntity) Directrix() const;
 
   //! returns end point of generatrix of the tabulated cylinder
-  Standard_EXPORT gp_Pnt EndPoint() const;
+  Standard_EXPORT Point3d EndPoint() const;
 
   //! returns end point of generatrix of the tabulated cylinder
   //! after applying Transf. Matrix
-  Standard_EXPORT gp_Pnt TransformedEndPoint() const;
+  Standard_EXPORT Point3d TransformedEndPoint() const;
 
   DEFINE_STANDARD_RTTIEXT(IGESGeom_TabulatedCylinder, IGESData_IGESEntity)
 

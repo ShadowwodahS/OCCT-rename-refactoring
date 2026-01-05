@@ -194,10 +194,10 @@ Standard_Boolean GeomPlate_Surface::IsCNv(const Standard_Integer) const
 
 //=================================================================================================
 
-void GeomPlate_Surface::D0(const Standard_Real U, const Standard_Real V, gp_Pnt& P) const
+void GeomPlate_Surface::D0(const Standard_Real U, const Standard_Real V, Point3d& P) const
 {
   gp_XY  P1(U, V);
-  gp_Pnt P2;
+  Point3d P2;
   mySurfinit->D0(U, V, P2);
   gp_XYZ P3; //=mySurfinter.Evaluate(P1);
   P3 = mySurfinter.Evaluate(P1);
@@ -211,12 +211,12 @@ void GeomPlate_Surface::D0(const Standard_Real U, const Standard_Real V, gp_Pnt&
 
 void GeomPlate_Surface::D1(const Standard_Real U,
                            const Standard_Real V,
-                           gp_Pnt&             P,
+                           Point3d&             P,
                            gp_Vec&             D1U,
                            gp_Vec&             D1V) const
 {
   gp_XY  P1(U, V);
-  gp_Pnt P2;
+  Point3d P2;
   D0(U, V, P);
   gp_Vec V1U, V1V;
   mySurfinit->D1(U, V, P2, V1U, V1V);
@@ -233,7 +233,7 @@ void GeomPlate_Surface::D1(const Standard_Real U,
 
 void GeomPlate_Surface::D2(const Standard_Real U,
                            const Standard_Real V,
-                           gp_Pnt&             P,
+                           Point3d&             P,
                            gp_Vec&             D1U,
                            gp_Vec&             D1V,
                            gp_Vec&             D2U,
@@ -241,7 +241,7 @@ void GeomPlate_Surface::D2(const Standard_Real U,
                            gp_Vec&             D2UV) const
 {
   gp_XY  P1(U, V);
-  gp_Pnt P2;
+  Point3d P2;
 
   gp_Vec V1U, V1V, V1UV, vv, v;
   D1(U, V, P, D1U, D1V);
@@ -259,12 +259,12 @@ void GeomPlate_Surface::D2(const Standard_Real U,
 
 //=================================================================================================
 
-// void GeomPlate_Surface::D3(const Standard_Real U, const Standard_Real V, gp_Pnt& P, gp_Vec& D1U,
+// void GeomPlate_Surface::D3(const Standard_Real U, const Standard_Real V, Point3d& P, gp_Vec& D1U,
 // gp_Vec& D1V, gp_Vec& D2U, gp_Vec& D2V, gp_Vec& D2UV, gp_Vec& D3U, gp_Vec& D3V, gp_Vec& D3UUV,
 // gp_Vec& D3UVV) const
 void GeomPlate_Surface::D3(const Standard_Real,
                            const Standard_Real,
-                           gp_Pnt&,
+                           Point3d&,
                            gp_Vec&,
                            gp_Vec&,
                            gp_Vec&,

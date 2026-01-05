@@ -31,7 +31,7 @@
 #include <GeomAbs_Shape.hxx>
 #include <BSplSLib.hxx>
 
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 class Geom_Curve;
 class gp_Trsf;
@@ -46,7 +46,7 @@ DEFINE_STANDARD_HANDLE(Geom_BezierSurface, Geom_BoundedSurface)
 //! - A rational Bezier surface is defined by a table of
 //! poles with varying associated weights.
 //! This data is manipulated using two associative 2D arrays:
-//! - the poles table, which is a 2D array of gp_Pnt, and
+//! - the poles table, which is a 2D array of Point3d, and
 //! - the weights table, which is a 2D array of reals.
 //! The bounds of these arrays are:
 //! - 1 and NbUPoles for the row bounds, where
@@ -302,7 +302,7 @@ public:
   //! or VIndex > NbVPoles.
   Standard_EXPORT void SetPole(const Standard_Integer UIndex,
                                const Standard_Integer VIndex,
-                               const gp_Pnt&          P);
+                               const Point3d&          P);
 
   //! Substitutes the pole and the weight of range UIndex, VIndex.
   //! If the surface <me> is not rational it can become rational.
@@ -313,7 +313,7 @@ public:
   //! Raised if Weight <= Resolution from package gp.
   Standard_EXPORT void SetPole(const Standard_Integer UIndex,
                                const Standard_Integer VIndex,
-                               const gp_Pnt&          P,
+                               const Point3d&          P,
                                const Standard_Real    Weight);
 
   //! Modifies a column of poles.
@@ -445,17 +445,17 @@ public:
 
   Standard_EXPORT void D0(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P) const Standard_OVERRIDE;
+                          Point3d&             P) const Standard_OVERRIDE;
 
   Standard_EXPORT void D1(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V) const Standard_OVERRIDE;
 
   Standard_EXPORT void D2(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V,
                           gp_Vec&             D2U,
@@ -472,7 +472,7 @@ public:
   //! Note: The parameters U and V can be outside the bounds of the surface.
   Standard_EXPORT void D3(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V,
                           gp_Vec&             D2U,
@@ -504,7 +504,7 @@ public:
   //! Returns the pole of range UIndex, VIndex
   //! Raised if UIndex < 1 or UIndex > NbUPoles, or
   //! VIndex < 1 or VIndex > NbVPoles.
-  Standard_EXPORT const gp_Pnt& Pole(const Standard_Integer UIndex,
+  Standard_EXPORT const Point3d& Pole(const Standard_Integer UIndex,
                                      const Standard_Integer VIndex) const;
 
   //! Returns the poles of the Bezier surface.

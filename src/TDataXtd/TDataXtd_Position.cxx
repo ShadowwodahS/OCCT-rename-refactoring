@@ -25,7 +25,7 @@ IMPLEMENT_STANDARD_RTTIEXT(TDataXtd_Position, TDF_Attribute)
 
 //=================================================================================================
 
-void TDataXtd_Position::Set(const TDF_Label& aLabel, const gp_Pnt& aPos)
+void TDataXtd_Position::Set(const TDF_Label& aLabel, const Point3d& aPos)
 {
   Handle(TDataXtd_Position) pos;
   if (!aLabel.FindAttribute(TDataXtd_Position::GetID(), pos))
@@ -51,7 +51,7 @@ Handle(TDataXtd_Position) TDataXtd_Position::Set(const TDF_Label& L)
 
 //=================================================================================================
 
-Standard_Boolean TDataXtd_Position::Get(const TDF_Label& aLabel, gp_Pnt& aPos)
+Standard_Boolean TDataXtd_Position::Get(const TDF_Label& aLabel, Point3d& aPos)
 {
   Handle(TDataXtd_Position) pos;
   if (aLabel.FindAttribute(TDataXtd_Position::GetID(), pos))
@@ -73,20 +73,20 @@ const Standard_GUID& TDataXtd_Position::GetID()
 //=================================================================================================
 
 TDataXtd_Position::TDataXtd_Position()
-    : myPosition(gp_Pnt(0., 0., 0.))
+    : myPosition(Point3d(0., 0., 0.))
 {
 }
 
 //=================================================================================================
 
-const gp_Pnt& TDataXtd_Position::GetPosition() const
+const Point3d& TDataXtd_Position::GetPosition() const
 {
   return myPosition;
 }
 
 //=================================================================================================
 
-void TDataXtd_Position::SetPosition(const gp_Pnt& aPos)
+void TDataXtd_Position::SetPosition(const Point3d& aPos)
 {
   // OCC2932 correction
   if (myPosition.X() == aPos.X() && myPosition.Y() == aPos.Y() && myPosition.Z() == aPos.Z())

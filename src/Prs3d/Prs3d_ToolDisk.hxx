@@ -58,7 +58,7 @@ public:
 
 protected:
   //! Computes vertex at given parameter location of the surface.
-  Standard_EXPORT virtual gp_Pnt Vertex(const Standard_Real theU,
+  Standard_EXPORT virtual Point3d Vertex(const Standard_Real theU,
                                         const Standard_Real theV) const Standard_OVERRIDE;
 
   //! Computes normal at given parameter location of the surface.

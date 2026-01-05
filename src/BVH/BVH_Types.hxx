@@ -66,27 +66,27 @@ struct VectorType<T, 3>
 template <class T>
 Bnd_Box ToBndBox(const T& theMin, const T& theMax)
 {
-  return Bnd_Box(gp_Pnt(theMin, 0., 0.), gp_Pnt(theMax, 0., 0.));
+  return Bnd_Box(Point3d(theMin, 0., 0.), Point3d(theMax, 0., 0.));
 }
 
 template <class T>
 Bnd_Box ToBndBox(const NCollection_Vec2<T>& theMin, const NCollection_Vec2<T>& theMax)
 {
-  return Bnd_Box(gp_Pnt(theMin.x(), theMin.y(), 0.), gp_Pnt(theMax.x(), theMax.y(), 0.));
+  return Bnd_Box(Point3d(theMin.x(), theMin.y(), 0.), Point3d(theMax.x(), theMax.y(), 0.));
 }
 
 template <class T>
 Bnd_Box ToBndBox(const NCollection_Vec3<T>& theMin, const NCollection_Vec3<T>& theMax)
 {
-  return Bnd_Box(gp_Pnt(theMin.x(), theMin.y(), theMin.z()),
-                 gp_Pnt(theMax.x(), theMax.y(), theMax.z()));
+  return Bnd_Box(Point3d(theMin.x(), theMin.y(), theMin.z()),
+                 Point3d(theMax.x(), theMax.y(), theMax.z()));
 }
 
 template <class T>
 Bnd_Box ToBndBox(const NCollection_Vec4<T>& theMin, const NCollection_Vec4<T>& theMax)
 {
-  return Bnd_Box(gp_Pnt(theMin.x(), theMin.y(), theMin.z()),
-                 gp_Pnt(theMax.x(), theMax.y(), theMax.z()));
+  return Bnd_Box(Point3d(theMin.x(), theMin.y(), theMin.z()),
+                 Point3d(theMax.x(), theMax.y(), theMax.z()));
 }
 
 template <class T>

@@ -54,7 +54,7 @@ public:
   virtual Standard_Integer NbSubElements() const Standard_OVERRIDE { return 1; }
 
   //! Returns center of the cylinder with transformation applied
-  Standard_EXPORT virtual gp_Pnt CenterOfGeometry() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Point3d CenterOfGeometry() const Standard_OVERRIDE;
 
   //! Returns cylinder transformation
   const gp_Trsf& Transformation() const { return myTrsf; }

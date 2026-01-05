@@ -58,13 +58,13 @@ public:
 
   Standard_EXPORT Extrema_FuncPSNorm();
 
-  Standard_EXPORT Extrema_FuncPSNorm(const gp_Pnt& P, const Adaptor3d_Surface& S);
+  Standard_EXPORT Extrema_FuncPSNorm(const Point3d& P, const Adaptor3d_Surface& S);
 
   //! sets the field mysurf of the function.
   Standard_EXPORT void Initialize(const Adaptor3d_Surface& S);
 
   //! sets the field mysurf of the function.
-  Standard_EXPORT void SetPoint(const gp_Pnt& P);
+  Standard_EXPORT void SetPoint(const Point3d& P);
 
   Standard_EXPORT Standard_Integer NbVariables() const Standard_OVERRIDE;
 
@@ -95,11 +95,11 @@ public:
   Standard_EXPORT const Extrema_POnSurf& Point(const Standard_Integer N) const;
 
 private:
-  gp_Pnt                    myP;
+  Point3d                    myP;
   const Adaptor3d_Surface*  myS;
   Standard_Real             myU;
   Standard_Real             myV;
-  gp_Pnt                    myPs;
+  Point3d                    myPs;
   TColStd_SequenceOfReal    mySqDist;
   Extrema_SequenceOfPOnSurf myPoint;
   Standard_Boolean          myPinit;

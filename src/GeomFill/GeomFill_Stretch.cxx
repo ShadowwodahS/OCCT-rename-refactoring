@@ -87,7 +87,7 @@ void GeomFill_Stretch::Init(const TColgp_Array1OfPnt& P1,
       PU  = (i - 1) / NU;
       PU1 = 1 - PU;
 
-      gp_Pnt P;
+      Point3d P;
       for (k = 1; k <= 3; k++)
       {
         P.SetCoord(k,

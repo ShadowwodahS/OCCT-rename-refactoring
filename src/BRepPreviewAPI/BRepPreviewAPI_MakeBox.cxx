@@ -24,10 +24,10 @@
 
 void BRepPreviewAPI_MakeBox::Build(const Message_ProgressRange& /*theRange*/)
 {
-  gp_Pnt anLocation = myWedge.Axes().Location();
+  Point3d anLocation = myWedge.Axes().Location();
 
-  gp_Pnt aFirstPoint(anLocation.X(), anLocation.Y(), anLocation.Z());
-  gp_Pnt aSecondPoint(anLocation.X() + myWedge.GetXMax(),
+  Point3d aFirstPoint(anLocation.X(), anLocation.Y(), anLocation.Z());
+  Point3d aSecondPoint(anLocation.X() + myWedge.GetXMax(),
                       anLocation.Y() + myWedge.GetYMax(),
                       anLocation.Z() + myWedge.GetZMax());
 
@@ -48,27 +48,27 @@ void BRepPreviewAPI_MakeBox::Build(const Message_ProgressRange& /*theRange*/)
   // thin box in only one direction is a rectangular face
   else if (aPreviewType == 1)
   {
-    gp_Pnt aPnt1, aPnt2, aPnt3, aPnt4;
+    Point3d aPnt1, aPnt2, aPnt3, aPnt4;
     if (aThinOnX)
     {
-      aPnt1 = gp_Pnt(aFirstPoint.X(), aFirstPoint.Y(), aFirstPoint.Z());
-      aPnt2 = gp_Pnt(aFirstPoint.X(), aSecondPoint.Y(), aFirstPoint.Z());
-      aPnt3 = gp_Pnt(aFirstPoint.X(), aSecondPoint.Y(), aSecondPoint.Z());
-      aPnt4 = gp_Pnt(aFirstPoint.X(), aFirstPoint.Y(), aSecondPoint.Z());
+      aPnt1 = Point3d(aFirstPoint.X(), aFirstPoint.Y(), aFirstPoint.Z());
+      aPnt2 = Point3d(aFirstPoint.X(), aSecondPoint.Y(), aFirstPoint.Z());
+      aPnt3 = Point3d(aFirstPoint.X(), aSecondPoint.Y(), aSecondPoint.Z());
+      aPnt4 = Point3d(aFirstPoint.X(), aFirstPoint.Y(), aSecondPoint.Z());
     }
     else if (aThinOnY)
     {
-      aPnt1 = gp_Pnt(aFirstPoint.X(), aFirstPoint.Y(), aFirstPoint.Z());
-      aPnt2 = gp_Pnt(aSecondPoint.X(), aFirstPoint.Y(), aFirstPoint.Z());
-      aPnt3 = gp_Pnt(aSecondPoint.X(), aFirstPoint.Y(), aSecondPoint.Z());
-      aPnt4 = gp_Pnt(aFirstPoint.X(), aFirstPoint.Y(), aSecondPoint.Z());
+      aPnt1 = Point3d(aFirstPoint.X(), aFirstPoint.Y(), aFirstPoint.Z());
+      aPnt2 = Point3d(aSecondPoint.X(), aFirstPoint.Y(), aFirstPoint.Z());
+      aPnt3 = Point3d(aSecondPoint.X(), aFirstPoint.Y(), aSecondPoint.Z());
+      aPnt4 = Point3d(aFirstPoint.X(), aFirstPoint.Y(), aSecondPoint.Z());
     }
     else if (aThinOnZ)
     {
-      aPnt1 = gp_Pnt(aFirstPoint.X(), aFirstPoint.Y(), aFirstPoint.Z());
-      aPnt2 = gp_Pnt(aSecondPoint.X(), aFirstPoint.Y(), aFirstPoint.Z());
-      aPnt3 = gp_Pnt(aSecondPoint.X(), aSecondPoint.Y(), aFirstPoint.Z());
-      aPnt4 = gp_Pnt(aFirstPoint.X(), aSecondPoint.Y(), aFirstPoint.Z());
+      aPnt1 = Point3d(aFirstPoint.X(), aFirstPoint.Y(), aFirstPoint.Z());
+      aPnt2 = Point3d(aSecondPoint.X(), aFirstPoint.Y(), aFirstPoint.Z());
+      aPnt3 = Point3d(aSecondPoint.X(), aSecondPoint.Y(), aFirstPoint.Z());
+      aPnt4 = Point3d(aFirstPoint.X(), aSecondPoint.Y(), aFirstPoint.Z());
     }
 
     makeRectangle(aPnt1, aPnt2, aPnt3, aPnt4);
@@ -86,24 +86,24 @@ void BRepPreviewAPI_MakeBox::Build(const Message_ProgressRange& /*theRange*/)
 
 //=================================================================================================
 
-void BRepPreviewAPI_MakeBox::makeVertex(const gp_Pnt& thePoint)
+void BRepPreviewAPI_MakeBox::makeVertex(const Point3d& thePoint)
 {
   myShape = BRepBuilderAPI_MakeVertex(thePoint);
 }
 
 //=================================================================================================
 
-void BRepPreviewAPI_MakeBox::makeEdge(const gp_Pnt& thePoint1, const gp_Pnt& thePoint2)
+void BRepPreviewAPI_MakeBox::makeEdge(const Point3d& thePoint1, const Point3d& thePoint2)
 {
   myShape = BRepBuilderAPI_MakeEdge(thePoint1, thePoint2);
 }
 
 //=================================================================================================
 
-void BRepPreviewAPI_MakeBox::makeRectangle(const gp_Pnt& thePnt1,
-                                           const gp_Pnt& thePnt2,
-                                           const gp_Pnt& thePnt3,
-                                           const gp_Pnt& thePnt4)
+void BRepPreviewAPI_MakeBox::makeRectangle(const Point3d& thePnt1,
+                                           const Point3d& thePnt2,
+                                           const Point3d& thePnt3,
+                                           const Point3d& thePnt4)
 {
   TopoDS_Edge anEdge1 = BRepBuilderAPI_MakeEdge(thePnt1, thePnt2);
   TopoDS_Edge anEdge2 = BRepBuilderAPI_MakeEdge(thePnt2, thePnt3);

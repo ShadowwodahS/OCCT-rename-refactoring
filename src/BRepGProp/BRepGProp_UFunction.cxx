@@ -22,7 +22,7 @@
 // purpose  :
 //=======================================================================
 BRepGProp_UFunction::BRepGProp_UFunction(const BRepGProp_Face&  theSurface,
-                                         const gp_Pnt&          theVertex,
+                                         const Point3d&          theVertex,
                                          const Standard_Boolean IsByPoint,
                                          const Standard_Real*   theCoeffs)
     : mySurface(theSurface),
@@ -77,7 +77,7 @@ Standard_Real BRepGProp_UFunction::VolumeValue(const Standard_Real X,
                                                Standard_Real&      theS,
                                                Standard_Real&      theD1)
 {
-  gp_Pnt aPnt;
+  Point3d aPnt;
   gp_Vec aNorm;
 
   mySurface.Normal(X, myVParam, aPnt, aNorm);

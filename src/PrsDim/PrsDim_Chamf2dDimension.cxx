@@ -65,7 +65,7 @@ PrsDim_Chamf2dDimension::PrsDim_Chamf2dDimension(const TopoDS_Shape&            
                                                  const Handle(Geom_Plane)&         aPlane,
                                                  const Standard_Real               aVal,
                                                  const TCollection_ExtendedString& aText,
-                                                 const gp_Pnt&                     aPosition,
+                                                 const Point3d&                     aPosition,
                                                  const DsgPrs_ArrowSide            aSymbolPrs,
                                                  const Standard_Real               anArrowSize)
     : PrsDim_Relation()
@@ -87,7 +87,7 @@ void PrsDim_Chamf2dDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
                                       const Standard_Integer)
 {
   Handle(Geom_Curve) gcurv;
-  gp_Pnt             pfirst, plast;
+  Point3d             pfirst, plast;
   const TopoDS_Edge& thechamfedge = TopoDS::Edge(myFShape);
   if (!PrsDim::ComputeGeometry(thechamfedge, gcurv, pfirst, plast))
     return;
@@ -105,7 +105,7 @@ void PrsDim_Chamf2dDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
   // recup. d'une edge adjacente a l'edge du chanfrein
   /*TopoDS_Edge nextedge = TopoDS::Edge(mySShape);
 
-  gp_Pnt pfirstnext,plastnext;
+  Point3d pfirstnext,plastnext;
   Handle(Geom_Line) glinnext;
   if (!PrsDim::ComputeGeometry(nextedge,glinnext,pfirstnext,plastnext) )
     return;
@@ -125,7 +125,7 @@ void PrsDim_Chamf2dDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
   //--------------------------------------------
   // Calcul du point de positionnement du texte
   //--------------------------------------------
-  gp_Pnt curpos;
+  Point3d curpos;
   if (myAutomaticPosition)
   {
     myPntAttach.SetXYZ((pfirst.XYZ() + plast.XYZ()) / 2);

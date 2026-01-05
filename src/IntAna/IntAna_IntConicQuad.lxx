@@ -52,7 +52,7 @@ inline Standard_Integer IntAna_IntConicQuad::NbPoints() const
   return (nbpts);
 }
 
-inline const gp_Pnt& IntAna_IntConicQuad::Point(const Standard_Integer i) const
+inline const Point3d& IntAna_IntConicQuad::Point(const Standard_Integer i) const
 {
 
   if (!done)

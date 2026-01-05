@@ -68,7 +68,7 @@ inline Standard_Boolean Bnd_B3x::IsVoid() const
 /**
  * Update the box by point.
  */
-inline void Bnd_B3x::Add(const gp_Pnt& thePnt)
+inline void Bnd_B3x::Add(const Point3d& thePnt)
 {
   Add(thePnt.XYZ());
 }

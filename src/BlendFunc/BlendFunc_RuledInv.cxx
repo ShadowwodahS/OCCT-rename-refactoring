@@ -116,7 +116,7 @@ Standard_Boolean BlendFunc_RuledInv::IsSolution(const math_Vector& Sol, const St
 
 Standard_Boolean BlendFunc_RuledInv::Value(const math_Vector& X, math_Vector& F)
 {
-  gp_Pnt ptcur;
+  Point3d ptcur;
   gp_Vec d1cur;
   curv->D1(X(2), ptcur, d1cur);
 
@@ -124,7 +124,7 @@ Standard_Boolean BlendFunc_RuledInv::Value(const math_Vector& X, math_Vector& F)
   const Standard_Real theD  = -(nplan.Dot(ptcur.XYZ()));
   const gp_Pnt2d      pt2d(csurf->Value(X(1)));
 
-  gp_Pnt pts1, pts2;
+  Point3d pts1, pts2;
   gp_Vec d1u1, d1v1, d1u2, d1v2;
   if (first)
   {
@@ -157,7 +157,7 @@ Standard_Boolean BlendFunc_RuledInv::Value(const math_Vector& X, math_Vector& F)
 
 Standard_Boolean BlendFunc_RuledInv::Derivatives(const math_Vector& X, math_Matrix& D)
 {
-  gp_Pnt ptcur;
+  Point3d ptcur;
   gp_Vec d1cur, d2cur;
   curv->D2(X(2), ptcur, d1cur, d2cur);
 
@@ -172,7 +172,7 @@ Standard_Boolean BlendFunc_RuledInv::Derivatives(const math_Vector& X, math_Matr
   gp_Vec2d v2d;
   csurf->D1(X(1), p2d, v2d);
 
-  gp_Pnt pts1, pts2;
+  Point3d pts1, pts2;
   gp_Vec d1u1, d1v1, d1u2, d1v2;
   gp_Vec d2u1, d2v1, d2u2, d2v2, d2uv1, d2uv2;
   gp_Vec dpdt, p1p2;
@@ -331,7 +331,7 @@ Standard_Boolean BlendFunc_RuledInv::Derivatives(const math_Vector& X, math_Matr
 
 Standard_Boolean BlendFunc_RuledInv::Values(const math_Vector& X, math_Vector& F, math_Matrix& D)
 {
-  gp_Pnt ptcur;
+  Point3d ptcur;
   gp_Vec d1cur, d2cur;
   curv->D2(X(2), ptcur, d1cur, d2cur);
 
@@ -347,7 +347,7 @@ Standard_Boolean BlendFunc_RuledInv::Values(const math_Vector& X, math_Vector& F
   gp_Vec2d v2d;
   csurf->D1(X(1), p2d, v2d);
 
-  gp_Pnt pts1, pts2;
+  Point3d pts1, pts2;
   gp_Vec d1u1, d1v1, d1u2, d1v2;
   gp_Vec d2u1, d2v1, d2u2, d2v2, d2uv1, d2uv2;
   gp_Vec dpdt, p1p2;

@@ -25,7 +25,7 @@
 class gp_Parab;
 class gp_Ax2;
 class gp_Ax1;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 class gp_Trsf;
 class Geom_Geometry;
@@ -90,7 +90,7 @@ public:
   //! point is the vertex of the parabola. The normal to the plane
   //! of the parabola is the cross product between the XAxis and the
   //! YAxis.
-  Standard_EXPORT Geom_Parabola(const gp_Ax1& D, const gp_Pnt& F);
+  Standard_EXPORT Geom_Parabola(const gp_Ax1& D, const Point3d& F);
 
   //! Assigns the value Focal to the focal distance of this parabola.
   //! Exceptions Standard_ConstructionError if Focal is negative.
@@ -141,7 +141,7 @@ public:
   //! Computes the focus of this parabola. The focus is on the
   //! positive side of the "X Axis" of the local coordinate
   //! system of the parabola.
-  Standard_EXPORT gp_Pnt Focus() const;
+  Standard_EXPORT Point3d Focus() const;
 
   //! Computes the focal distance of this parabola
   //! The focal distance is the distance between the apex
@@ -161,22 +161,22 @@ public:
   //! P = S + F * (U * U * XDir +  * U * YDir)
   //! where S is the vertex of the parabola, XDir the XDirection and
   //! YDir the YDirection of the parabola's local coordinate system.
-  Standard_EXPORT void D0(const Standard_Real U, gp_Pnt& P) const Standard_OVERRIDE;
+  Standard_EXPORT void D0(const Standard_Real U, Point3d& P) const Standard_OVERRIDE;
 
   //! Returns the point P of parameter U and the first derivative V1.
-  Standard_EXPORT void D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V1) const Standard_OVERRIDE;
+  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, gp_Vec& V1) const Standard_OVERRIDE;
 
   //! Returns the point P of parameter U, the first and second
   //! derivatives V1 and V2.
   Standard_EXPORT void D2(const Standard_Real U,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             V1,
                           gp_Vec&             V2) const Standard_OVERRIDE;
 
   //! Returns the point P of parameter U, the first second and third
   //! derivatives V1 V2 and V3.
   Standard_EXPORT void D3(const Standard_Real U,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             V1,
                           gp_Vec&             V2,
                           gp_Vec&             V3) const Standard_OVERRIDE;

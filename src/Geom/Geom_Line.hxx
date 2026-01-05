@@ -25,7 +25,7 @@
 #include <GeomAbs_Shape.hxx>
 #include <Standard_Integer.hxx>
 class gp_Lin;
-class gp_Pnt;
+class Point3d;
 class gp_Dir;
 class gp_Vec;
 class gp_Trsf;
@@ -58,7 +58,7 @@ public:
   //! Constructs a line passing through point P and parallel to vector V
   //! (P and V are, respectively, the origin and the unit
   //! vector of the positioning axis of the line).
-  Standard_EXPORT Geom_Line(const gp_Pnt& P, const gp_Dir& V);
+  Standard_EXPORT Geom_Line(const Point3d& P, const gp_Dir& V);
 
   //! Set <me> so that <me> has the same geometric properties as L.
   Standard_EXPORT void SetLin(const gp_Lin& L);
@@ -67,7 +67,7 @@ public:
   Standard_EXPORT void SetDirection(const gp_Dir& V);
 
   //! changes the "Location" point (origin) of the line.
-  Standard_EXPORT void SetLocation(const gp_Pnt& P);
+  Standard_EXPORT void SetLocation(const Point3d& P);
 
   //! changes the "Location" and a the "Direction" of <me>.
   Standard_EXPORT void SetPosition(const gp_Ax1& A1);
@@ -112,22 +112,22 @@ public:
   //! Returns in P the point of parameter U.
   //! P (U) = O + U * Dir where O is the "Location" point of the
   //! line and Dir the direction of the line.
-  Standard_EXPORT void D0(const Standard_Real U, gp_Pnt& P) const Standard_OVERRIDE;
+  Standard_EXPORT void D0(const Standard_Real U, Point3d& P) const Standard_OVERRIDE;
 
   //! Returns the point P of parameter u and the first derivative V1.
-  Standard_EXPORT void D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V1) const Standard_OVERRIDE;
+  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, gp_Vec& V1) const Standard_OVERRIDE;
 
   //! Returns the point P of parameter U, the first and second
   //! derivatives V1 and V2. V2 is a vector with null magnitude
   //! for a line.
   Standard_EXPORT void D2(const Standard_Real U,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             V1,
                           gp_Vec&             V2) const Standard_OVERRIDE;
 
   //! V2 and V3 are vectors with null magnitude for a line.
   Standard_EXPORT void D3(const Standard_Real U,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             V1,
                           gp_Vec&             V2,
                           gp_Vec&             V3) const Standard_OVERRIDE;

@@ -63,7 +63,7 @@ Standard_Integer BRepBlend_SurfPointEvolRadInv::NbEquations() const
 Standard_Boolean BRepBlend_SurfPointEvolRadInv::Value(const math_Vector& X, math_Vector& F)
 {
   Standard_Real theD, norm, unsurnorm;
-  gp_Pnt        ptcur, pts;
+  Point3d        ptcur, pts;
   gp_Vec        d1cur, d1u, d1v;
   gp_XYZ        nplan(0., 0., 0.), ns(0., 0., 0.), ref(0., 0., 0.);
   curv->D1(X(1), ptcur, d1cur);
@@ -88,7 +88,7 @@ Standard_Boolean BRepBlend_SurfPointEvolRadInv::Value(const math_Vector& X, math
 
 Standard_Boolean BRepBlend_SurfPointEvolRadInv::Derivatives(const math_Vector& X, math_Matrix& D)
 {
-  gp_Pnt        ptcur, pts;
+  Point3d        ptcur, pts;
   gp_Vec        d1cur, d2cur, nplan, dnplan, d1u, d1v, d2u, d2v, duv;
   Standard_Real dtheD, normd1cur, unsurnormd1cur, dray;
 
@@ -160,7 +160,7 @@ Standard_Boolean BRepBlend_SurfPointEvolRadInv::Values(const math_Vector& X,
                                                        math_Vector&       F,
                                                        math_Matrix&       D)
 {
-  gp_Pnt        ptcur, pts;
+  Point3d        ptcur, pts;
   gp_Vec        d1cur, d2cur, nplan, dnplan, d1u, d1v, d2u, d2v, duv;
   Standard_Real theD, dtheD, normd1cur, unsurnormd1cur, dray;
 
@@ -233,7 +233,7 @@ Standard_Boolean BRepBlend_SurfPointEvolRadInv::Values(const math_Vector& X,
 
 //=================================================================================================
 
-void BRepBlend_SurfPointEvolRadInv::Set(const gp_Pnt& P)
+void BRepBlend_SurfPointEvolRadInv::Set(const Point3d& P)
 {
   point = P;
 }

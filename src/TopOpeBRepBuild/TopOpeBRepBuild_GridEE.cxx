@@ -890,7 +890,7 @@ void TopOpeBRepBuild_Builder::GFillPointTopologyPVS(const TopoDS_Shape&         
     PVS.Append(PV);
 
 #ifdef OCCT_DEBUG
-    gp_Pnt P = BRep_Tool::Pnt(VPV);
+    Point3d P = BRep_Tool::Pnt(VPV);
     if (tSPS)
     {
       std::cout << "+";
@@ -944,7 +944,7 @@ void TopOpeBRepBuild_Builder::GFillPointTopologyPVS(const TopoDS_Shape&         
     PVS.Append(PVF);
 
 #ifdef OCCT_DEBUG
-    gp_Pnt PF = BRep_Tool::Pnt(VPV);
+    Point3d PF = BRep_Tool::Pnt(VPV);
     if (tSPS)
     {
       std::cout << "+";
@@ -979,7 +979,7 @@ void TopOpeBRepBuild_Builder::GFillPointTopologyPVS(const TopoDS_Shape&         
     PVR->InterferenceType() = ST1;
     PVS.Append(PVR);
 #ifdef OCCT_DEBUG
-    gp_Pnt PR = BRep_Tool::Pnt(VPV);
+    Point3d PR = BRep_Tool::Pnt(VPV);
     if (tSPS)
     {
       std::cout << "+";
@@ -1023,7 +1023,7 @@ Standard_Boolean TopOpeBRepBuild_Builder::GParamOnReference(const TopoDS_Vertex&
   }
 
   gp_Pln        pln = suplan->Pln();
-  gp_Pnt        p3  = BRep_Tool::Pnt(V);
+  Point3d        p3  = BRep_Tool::Pnt(V);
   Standard_Real u, v;
   ElSLib::Parameters(pln, p3, u, v);
   gp_Pnt2d             p2(u, v);

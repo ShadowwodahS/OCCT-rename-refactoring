@@ -33,7 +33,7 @@
 #include <gp_Torus.hxx>
 #include <gp_Ax1.hxx>
 class TopoDS_Face;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 class gp_Pln;
 
@@ -100,16 +100,16 @@ public:
   Standard_Real VPeriod() const;
 
   //! Computes the point of parameters U,V on the surface.
-  Standard_EXPORT gp_Pnt Value(const Standard_Real U, const Standard_Real V) const;
+  Standard_EXPORT Point3d Value(const Standard_Real U, const Standard_Real V) const;
 
   //! Computes the point of parameters U,V on the surface.
-  void D0(const Standard_Real U, const Standard_Real V, gp_Pnt& P) const;
+  void D0(const Standard_Real U, const Standard_Real V, Point3d& P) const;
 
   //! Computes the point  and the first derivatives on
   //! the surface.
   //! Raised   if  the continuity  of   the  current
   //! intervals is not C1.
-  void D1(const Standard_Real U, const Standard_Real V, gp_Pnt& P, gp_Vec& D1U, gp_Vec& D1V) const;
+  void D1(const Standard_Real U, const Standard_Real V, Point3d& P, gp_Vec& D1U, gp_Vec& D1V) const;
 
   //! Computes   the point,  the  first  and  second
   //! derivatives on the surface.
@@ -117,7 +117,7 @@ public:
   //! intervals is not C2.
   void D2(const Standard_Real U,
           const Standard_Real V,
-          gp_Pnt&             P,
+          Point3d&             P,
           gp_Vec&             D1U,
           gp_Vec&             D1V,
           gp_Vec&             D2U,
@@ -130,7 +130,7 @@ public:
   //! intervals is not C3.
   void D3(const Standard_Real U,
           const Standard_Real V,
-          gp_Pnt&             P,
+          Point3d&             P,
           gp_Vec&             D1U,
           gp_Vec&             D1V,
           gp_Vec&             D2U,

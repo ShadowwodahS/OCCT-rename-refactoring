@@ -27,7 +27,7 @@ TopOpeBRepDS_Point::TopOpeBRepDS_Point()
 
 //=================================================================================================
 
-TopOpeBRepDS_Point::TopOpeBRepDS_Point(const gp_Pnt& P, const Standard_Real T)
+TopOpeBRepDS_Point::TopOpeBRepDS_Point(const Point3d& P, const Standard_Real T)
     : myPoint(P),
       myTolerance(T),
       myKeep(Standard_True)
@@ -53,14 +53,14 @@ Standard_Boolean TopOpeBRepDS_Point::IsEqual(const TopOpeBRepDS_Point& P) const
 
 //=================================================================================================
 
-const gp_Pnt& TopOpeBRepDS_Point::Point() const
+const Point3d& TopOpeBRepDS_Point::Point() const
 {
   return myPoint;
 }
 
 //=================================================================================================
 
-gp_Pnt& TopOpeBRepDS_Point::ChangePoint()
+Point3d& TopOpeBRepDS_Point::ChangePoint()
 {
   return myPoint;
 }

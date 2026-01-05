@@ -28,7 +28,7 @@
 #include <IntTools_ListOfSurfaceRangeSample.hxx>
 class IntTools_SurfaceRangeSample;
 class Bnd_Box;
-class gp_Pnt;
+class Point3d;
 
 class IntTools_SurfaceRangeLocalizeData
 {
@@ -106,10 +106,10 @@ public:
   //! Set the grid point.
   void SetGridPoint(const Standard_Integer theUIndex,
                     const Standard_Integer theVIndex,
-                    const gp_Pnt&          thePoint);
+                    const Point3d&          thePoint);
 
   //! Set the grid point.
-  const gp_Pnt& GetGridPoint(const Standard_Integer theUIndex,
+  const Point3d& GetGridPoint(const Standard_Integer theUIndex,
                              const Standard_Integer theVIndex) const;
 
   //! Sets the frame area. Used to work with grid points.
@@ -125,7 +125,7 @@ public:
   Standard_Integer GetNBVPointsInFrame() const;
 
   //! Returns the grid point in frame.
-  Standard_EXPORT const gp_Pnt& GetPointInFrame(const Standard_Integer theUIndex,
+  Standard_EXPORT const Point3d& GetPointInFrame(const Standard_Integer theUIndex,
                                                 const Standard_Integer theVIndex) const;
 
   //! Query the U parameter of the grid points

@@ -175,7 +175,7 @@ static Standard_Integer QADNaming_CenterOfShape(Draw_Interpretor& di,
     for (; anExp.More(); anExp.Next(), all++)
     {
       TopoDS_Vertex aVertex = TopoDS::Vertex(anExp.Current());
-      gp_Pnt        aPoint  = BRep_Tool::Pnt(aVertex);
+      Point3d        aPoint  = BRep_Tool::Pnt(aVertex);
       x += aPoint.X();
       y += aPoint.Y();
       z += aPoint.Z();

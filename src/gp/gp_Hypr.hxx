@@ -120,7 +120,7 @@ public:
 
   //! Modifies this hyperbola, by redefining its local coordinate
   //! system so that its origin becomes theP.
-  void SetLocation(const gp_Pnt& theP) { pos = gp_Ax2(theP, pos.Direction(), pos.XDirection()); }
+  void SetLocation(const Point3d& theP) { pos = gp_Ax2(theP, pos.Direction(), pos.XDirection()); }
 
   //! Modifies the major  radius of this hyperbola.
   //! Exceptions
@@ -218,15 +218,15 @@ public:
 
   //! Returns the first focus of the hyperbola. This focus is on the
   //! positive side of the "XAxis" of the hyperbola.
-  gp_Pnt Focus1() const;
+  Point3d Focus1() const;
 
   //! Returns the second focus of the hyperbola. This focus is on the
   //! negative side of the "XAxis" of the hyperbola.
-  gp_Pnt Focus2() const;
+  Point3d Focus2() const;
 
   //! Returns  the location point of the hyperbola. It is the
   //! intersection point between the "XAxis" and the "YAxis".
-  const gp_Pnt& Location() const { return pos.Location(); }
+  const Point3d& Location() const { return pos.Location(); }
 
   //! Returns the major radius of the hyperbola. It is the radius
   //! on the "XAxis" of the hyperbola.
@@ -274,11 +274,11 @@ public:
   //! These axes are the minor axis (the "Y Axis") of this hyperbola
   gp_Ax1 YAxis() const { return gp_Ax1(pos.Location(), pos.YDirection()); }
 
-  Standard_EXPORT void Mirror(const gp_Pnt& theP);
+  Standard_EXPORT void Mirror(const Point3d& theP);
 
   //! Performs the symmetrical transformation of an hyperbola with
   //! respect  to the point theP which is the center of the symmetry.
-  Standard_NODISCARD Standard_EXPORT gp_Hypr Mirrored(const gp_Pnt& theP) const;
+  Standard_NODISCARD Standard_EXPORT gp_Hypr Mirrored(const Point3d& theP) const;
 
   Standard_EXPORT void Mirror(const gp_Ax1& theA1);
 
@@ -304,10 +304,10 @@ public:
     return aH;
   }
 
-  void Scale(const gp_Pnt& theP, const Standard_Real theS);
+  void Scale(const Point3d& theP, const Standard_Real theS);
 
   //! Scales an hyperbola. theS is the scaling value.
-  Standard_NODISCARD gp_Hypr Scaled(const gp_Pnt& theP, const Standard_Real theS) const;
+  Standard_NODISCARD gp_Hypr Scaled(const Point3d& theP, const Standard_Real theS) const;
 
   void Transform(const gp_Trsf& theT);
 
@@ -326,10 +326,10 @@ public:
     return aH;
   }
 
-  void Translate(const gp_Pnt& theP1, const gp_Pnt& theP2) { pos.Translate(theP1, theP2); }
+  void Translate(const Point3d& theP1, const Point3d& theP2) { pos.Translate(theP1, theP2); }
 
   //! Translates an hyperbola from the point theP1 to the point theP2.
-  Standard_NODISCARD gp_Hypr Translated(const gp_Pnt& theP1, const gp_Pnt& theP2) const
+  Standard_NODISCARD gp_Hypr Translated(const Point3d& theP1, const Point3d& theP2) const
   {
     gp_Hypr aH = *this;
     aH.pos.Translate(theP1, theP2);
@@ -376,31 +376,31 @@ inline gp_Ax1 gp_Hypr::Asymptote2() const
 // function : Focus1
 // purpose :
 //=======================================================================
-inline gp_Pnt gp_Hypr::Focus1() const
+inline Point3d gp_Hypr::Focus1() const
 {
   Standard_Real aC  = sqrt(majorRadius * majorRadius + minorRadius * minorRadius);
-  const gp_Pnt& aPP = pos.Location();
+  const Point3d& aPP = pos.Location();
   const gp_Dir& aDD = pos.XDirection();
-  return gp_Pnt(aPP.X() + aC * aDD.X(), aPP.Y() + aC * aDD.Y(), aPP.Z() + aC * aDD.Z());
+  return Point3d(aPP.X() + aC * aDD.X(), aPP.Y() + aC * aDD.Y(), aPP.Z() + aC * aDD.Z());
 }
 
 //=======================================================================
 // function : Focus2
 // purpose :
 //=======================================================================
-inline gp_Pnt gp_Hypr::Focus2() const
+inline Point3d gp_Hypr::Focus2() const
 {
   Standard_Real aC  = sqrt(majorRadius * majorRadius + minorRadius * minorRadius);
-  const gp_Pnt& aPP = pos.Location();
+  const Point3d& aPP = pos.Location();
   const gp_Dir& aDD = pos.XDirection();
-  return gp_Pnt(aPP.X() - aC * aDD.X(), aPP.Y() - aC * aDD.Y(), aPP.Z() - aC * aDD.Z());
+  return Point3d(aPP.X() - aC * aDD.X(), aPP.Y() - aC * aDD.Y(), aPP.Z() - aC * aDD.Z());
 }
 
 //=======================================================================
 // function : Scale
 // purpose :
 //=======================================================================
-inline void gp_Hypr::Scale(const gp_Pnt& theP, const Standard_Real theS)
+inline void gp_Hypr::Scale(const Point3d& theP, const Standard_Real theS)
 {
   majorRadius *= theS;
   if (majorRadius < 0)
@@ -419,7 +419,7 @@ inline void gp_Hypr::Scale(const gp_Pnt& theP, const Standard_Real theS)
 // function : Scaled
 // purpose :
 //=======================================================================
-inline gp_Hypr gp_Hypr::Scaled(const gp_Pnt& theP, const Standard_Real theS) const
+inline gp_Hypr gp_Hypr::Scaled(const Point3d& theP, const Standard_Real theS) const
 {
   gp_Hypr aH = *this;
   aH.majorRadius *= theS;
@@ -486,7 +486,7 @@ inline gp_Ax1 gp_Hypr::Directrix1() const
   gp_XYZ        anOrig = pos.XDirection().XYZ();
   anOrig.Multiply(majorRadius / anE);
   anOrig.Add(pos.Location().XYZ());
-  return gp_Ax1(gp_Pnt(anOrig), pos.YDirection());
+  return gp_Ax1(Point3d(anOrig), pos.YDirection());
 }
 
 //=======================================================================
@@ -499,7 +499,7 @@ inline gp_Ax1 gp_Hypr::Directrix2() const
   gp_XYZ        anOrig = pos.XDirection().XYZ();
   anOrig.Multiply(-majorRadius / anE);
   anOrig.Add(pos.Location().XYZ());
-  return gp_Ax1(gp_Pnt(anOrig), pos.YDirection());
+  return gp_Ax1(Point3d(anOrig), pos.YDirection());
 }
 
 #endif // _gp_Hypr_HeaderFile

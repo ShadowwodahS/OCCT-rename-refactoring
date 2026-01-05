@@ -37,17 +37,17 @@ public:
   //! Value of surface
   Standard_EXPORT void D0(const Standard_Real theU,
                           const Standard_Real theV,
-                          gp_Pnt&             theValue) const Standard_OVERRIDE;
+                          Point3d&             theValue) const Standard_OVERRIDE;
   //! Value and first derivatives of surface
   Standard_EXPORT void D1(const Standard_Real theU,
                           const Standard_Real theV,
-                          gp_Pnt&             theValue,
+                          Point3d&             theValue,
                           gp_Vec&             theD1U,
                           gp_Vec&             theD1V) const Standard_OVERRIDE;
   //! Value, first and second derivatives of surface
   Standard_EXPORT void D2(const Standard_Real theU,
                           const Standard_Real theV,
-                          gp_Pnt&             theValue,
+                          Point3d&             theValue,
                           gp_Vec&             theD1U,
                           gp_Vec&             theD1V,
                           gp_Vec&             theD2U,
@@ -56,7 +56,7 @@ public:
   //! Value, first, second and third derivatives of surface
   Standard_EXPORT void D3(const Standard_Real theU,
                           const Standard_Real theV,
-                          gp_Pnt&             theValue,
+                          Point3d&             theValue,
                           gp_Vec&             theD1U,
                           gp_Vec&             theD1V,
                           gp_Vec&             theD2U,
@@ -80,7 +80,7 @@ public:
 
 private:
   //! Shift the point along direction to the given distance (theShift)
-  void Shift(const Standard_Real theShift, gp_Pnt& thePoint) const
+  void Shift(const Standard_Real theShift, Point3d& thePoint) const
   {
     thePoint.ChangeCoord() += myDirection.XYZ() * theShift;
   }

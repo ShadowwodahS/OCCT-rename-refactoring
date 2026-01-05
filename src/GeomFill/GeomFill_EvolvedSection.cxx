@@ -288,11 +288,11 @@ void GeomFill_EvolvedSection::GetTolerance(const Standard_Real BoundTol,
 //=======================================================
 // Purpose :
 //=======================================================
-gp_Pnt GeomFill_EvolvedSection::BarycentreOfSurf() const
+Point3d GeomFill_EvolvedSection::BarycentreOfSurf() const
 {
   Standard_Real    U = mySection->FirstParameter(), Delta, b;
   Standard_Integer ii;
-  gp_Pnt           P, Bary;
+  Point3d           P, Bary;
 
   Delta = (myCurve->LastParameter() - U) / 20;
   Bary.SetCoord(0., 0., 0.);
@@ -355,7 +355,7 @@ Handle(Geom_Curve) GeomFill_EvolvedSection::ConstantSection() const
   if (!IsConstant(Err))
     throw StdFail_NotDone("The Law is not Constant!");
   gp_Trsf T;
-  gp_Pnt  P(0, 0, 0);
+  Point3d  P(0, 0, 0);
   scale = myLaw->Value(First) + myLaw->Value((First + Last) / 2) + myLaw->Value(Last);
   T.SetScale(P, scale / 3);
 

@@ -286,7 +286,7 @@ void Graphic3d_Group::Text(const Standard_CString  theText,
 {
   Handle(Graphic3d_Text) aText = new Graphic3d_Text((Standard_ShortReal)theHeight);
   aText->SetText(theText);
-  aText->SetPosition(gp_Pnt(thePoint.X(), thePoint.Y(), thePoint.Z()));
+  aText->SetPosition(Point3d(thePoint.X(), thePoint.Y(), thePoint.Z()));
   aText->SetHorizontalAlignment(theHta);
   aText->SetVerticalAlignment(theVta);
   AddText(aText, theToEvalMinMax);
@@ -301,7 +301,7 @@ void Graphic3d_Group::Text(const Standard_CString  theText,
 {
   Handle(Graphic3d_Text) aText = new Graphic3d_Text((Standard_ShortReal)theHeight);
   aText->SetText(theText);
-  aText->SetPosition(gp_Pnt(thePoint.X(), thePoint.Y(), thePoint.Z()));
+  aText->SetPosition(Point3d(thePoint.X(), thePoint.Y(), thePoint.Z()));
   AddText(aText, theToEvalMinMax);
 }
 
@@ -318,7 +318,7 @@ void Graphic3d_Group::Text(const TCollection_ExtendedString& theText,
 {
   Handle(Graphic3d_Text) aText = new Graphic3d_Text((Standard_ShortReal)theHeight);
   aText->SetText(theText.ToExtString());
-  aText->SetPosition(gp_Pnt(thePoint.X(), thePoint.Y(), thePoint.Z()));
+  aText->SetPosition(Point3d(thePoint.X(), thePoint.Y(), thePoint.Z()));
   aText->SetHorizontalAlignment(theHta);
   aText->SetVerticalAlignment(theVta);
   AddText(aText, theToEvalMinMax);
@@ -375,7 +375,7 @@ void Graphic3d_Group::Text(const TCollection_ExtendedString& theText,
 {
   Handle(Graphic3d_Text) aText = new Graphic3d_Text((Standard_ShortReal)theHeight);
   aText->SetText(theText.ToExtString());
-  aText->SetPosition(gp_Pnt(thePoint.X(), thePoint.Y(), thePoint.Z()));
+  aText->SetPosition(Point3d(thePoint.X(), thePoint.Y(), thePoint.Z()));
   AddText(aText, theToEvalMinMax);
 }
 
@@ -393,7 +393,7 @@ void Graphic3d_Group::AddText(const Handle(Graphic3d_Text)& theTextParams,
   {
     myStructure->CStructure()->Is2dText = !theTextParams->HasPlane();
 
-    gp_Pnt aPosition = theTextParams->Position();
+    Point3d aPosition = theTextParams->Position();
     myBounds.Add(Graphic3d_Vec4((Standard_ShortReal)aPosition.X(),
                                 (Standard_ShortReal)aPosition.Y(),
                                 (Standard_ShortReal)aPosition.Z(),

@@ -25,7 +25,7 @@
 class Geom2d_Curve;
 class Geom_Surface;
 class TopLoc_Location;
-class gp_Pnt;
+class Point3d;
 class BRep_CurveRepresentation;
 
 class BRep_CurveOnSurface;
@@ -46,7 +46,7 @@ public:
   void UVPoints(gp_Pnt2d& P1, gp_Pnt2d& P2) const;
 
   //! Computes the point at parameter U.
-  Standard_EXPORT void D0(const Standard_Real U, gp_Pnt& P) const Standard_OVERRIDE;
+  Standard_EXPORT void D0(const Standard_Real U, Point3d& P) const Standard_OVERRIDE;
 
   //! Returns True.
   Standard_EXPORT virtual Standard_Boolean IsCurveOnSurface() const Standard_OVERRIDE;

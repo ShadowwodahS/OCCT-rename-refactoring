@@ -47,12 +47,12 @@
 #include <gp_Vec2d.hxx>
 #include <StdFail_NotDone.hxx>
 
-static inline void D03d(const Standard_Address C, const Standard_Real U, gp_Pnt& P)
+static inline void D03d(const Standard_Address C, const Standard_Real U, Point3d& P)
 {
   ((Adaptor3d_Curve*)C)->D0(U, P);
 }
 
-static void D02d(const Standard_Address C, const Standard_Real U, gp_Pnt& PP)
+static void D02d(const Standard_Address C, const Standard_Real U, Point3d& PP)
 {
   gp_Pnt2d P;
   ((Adaptor2d_Curve2d*)C)->D0(U, P);
@@ -61,7 +61,7 @@ static void D02d(const Standard_Address C, const Standard_Real U, gp_Pnt& PP)
 
 static inline void D23d(const Standard_Address C,
                         const Standard_Real    U,
-                        gp_Pnt&                P,
+                        Point3d&                P,
                         gp_Vec&                V1,
                         gp_Vec&                V2)
 {
@@ -70,7 +70,7 @@ static inline void D23d(const Standard_Address C,
 
 static void D22d(const Standard_Address C,
                  const Standard_Real    U,
-                 gp_Pnt&                PP,
+                 Point3d&                PP,
                  gp_Vec&                VV1,
                  gp_Vec&                VV2)
 {
@@ -86,7 +86,7 @@ static void D22d(const Standard_Address C,
 
 void CPnts_UniformDeflection::Perform()
 {
-  gp_Pnt        P, P1, P2;
+  Point3d        P, P1, P2;
   gp_Vec        V1, V2, VV;
   Standard_Real Un1;
   Standard_Real NormD1, NormD2;

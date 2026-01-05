@@ -90,21 +90,21 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
     Dpl.Reverse();
 
   // compute the origin Or of the cone
-  gp_Pnt        Or = Cyl.Location();
+  Point3d        Or = Cyl.Location();
   Standard_Real u, v;
   ElSLib::PlaneParameters(PosPl, Or, u, v);
   gp_Pnt2d pt2dPln(u, v);
   ElSLib::PlaneD0(u, v, PosPl, Or);
-  gp_Pnt PtPl = Or; // projection of the cylinder origin
+  Point3d PtPl = Or; // projection of the cylinder origin
                     // on the plane
 
-  gp_Pnt PtSp; // start 3d point on the Spine
+  Point3d PtSp; // start 3d point on the Spine
   gp_Vec DSp;  // tangent vector to the spine on PtSp
   ElCLib::D1(First, Spine, PtSp, DSp);
   gp_Dir Dx(gp_Vec(Or, PtSp));
   gp_Dir Dy(DSp);
   ElSLib::Parameters(Cyl, PtSp, u, v);
-  gp_Pnt PtCyl; // point on the cylinder and on the Spine
+  Point3d PtCyl; // point on the cylinder and on the Spine
   gp_Vec Vu, Vv;
   ElSLib::D1(u, v, Cyl, PtCyl, Vu, Vv);
   gp_Dir Dcyl(Vu.Crossed(Vv)); // normal to the cylinder in PtSp
@@ -137,7 +137,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
 
   // variables used to compute the semiangle of the cone
   gp_Dir Vec1(Or.X() - PtPl.X(), Or.Y() - PtPl.Y(), Or.Z() - PtPl.Z());
-  gp_Pnt Pt(Or.X() + dis1 * PosPl.XDirection().X(),
+  Point3d Pt(Or.X() + dis1 * PosPl.XDirection().X(),
             Or.Y() + dis1 * PosPl.XDirection().Y(),
             Or.Z() + dis1 * PosPl.XDirection().Z());
   gp_Dir Vec2(Pt.X() - PtPl.X(), Pt.Y() - PtPl.Y(), Pt.Z() - PtPl.Z());
@@ -371,8 +371,8 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   //        _|_          Ofpl is orientation of the plane face allowing
   //         |4          to determine the side of the material
 
-  gp_Pnt OrSpine = ElCLib::Value(First, Spine);
-  gp_Pnt POnCyl, POnPln, OrCyl;
+  Point3d OrSpine = ElCLib::Value(First, Spine);
+  Point3d POnCyl, POnPln, OrCyl;
 
   gp_Dir XDir   = Spine.Direction();
   gp_Ax3 AxPln  = Pln.Position();
@@ -386,7 +386,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   gp_Ax3 AxCyl = Cyl.Position();
   // OrCyl is the point on axis of cylinder in the plane normal to the
   // axis containing OrSpine
-  gp_Pnt Loc = AxCyl.Location();
+  Point3d Loc = AxCyl.Location();
   gp_Vec LocSp(Loc, OrSpine);
   gp_XYZ temp = AxCyl.Direction().XYZ();
   temp        = temp.Multiplied(LocSp.XYZ().Multiplied(temp));

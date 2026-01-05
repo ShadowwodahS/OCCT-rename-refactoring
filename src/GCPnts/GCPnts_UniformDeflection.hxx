@@ -23,7 +23,7 @@
 
 class Adaptor3d_Curve;
 class Adaptor2d_Curve2d;
-class gp_Pnt;
+class Point3d;
 
 //! Provides an algorithm to compute a distribution of
 //! points on a 'C2' continuous curve.
@@ -186,7 +186,7 @@ public:
   //! Exceptions
   //! StdFAil_NotDone if this algorithm has not been
   //! initialized, or if the computation was not successful.
-  Standard_EXPORT gp_Pnt Value(const Standard_Integer Index) const;
+  Standard_EXPORT Point3d Value(const Standard_Integer Index) const;
 
   //! Returns the deflection between the curve and the
   //! polygon resulting from the points of the distribution

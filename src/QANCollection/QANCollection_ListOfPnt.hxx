@@ -19,7 +19,7 @@
 #include <gp_Pnt.hxx>
 #include <NCollection_List.hxx>
 
-typedef NCollection_List<gp_Pnt>           QANCollection_ListOfPnt;
-typedef NCollection_List<gp_Pnt>::Iterator QANCollection_ListIteratorOfListOfPnt;
+typedef NCollection_List<Point3d>           QANCollection_ListOfPnt;
+typedef NCollection_List<Point3d>::Iterator QANCollection_ListIteratorOfListOfPnt;
 
 #endif

@@ -155,7 +155,7 @@ Standard_Boolean LocOpe::TgtFaces(const TopoDS_Edge& E,
   f += eps; // pour eviter de faire des calculs sur les
   l -= eps; // pointes des carreaux pointus.
   gp_Pnt2d p;
-  gp_Pnt   pp1;
+  Point3d   pp1;
   gp_Vec   du, dv;
   gp_Vec   d1, d2;
 

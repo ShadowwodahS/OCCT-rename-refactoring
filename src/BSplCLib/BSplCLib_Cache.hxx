@@ -76,7 +76,7 @@ public:
   //! \param[in]  theParameter parameter of calculation of the value
   //! \param[out] thePoint     the result of calculation (the point on the curve)
   Standard_EXPORT void D0(const Standard_Real& theParameter, gp_Pnt2d& thePoint) const;
-  Standard_EXPORT void D0(const Standard_Real& theParameter, gp_Pnt& thePoint) const;
+  Standard_EXPORT void D0(const Standard_Real& theParameter, Point3d& thePoint) const;
 
   //! Calculates the point on the curve and its first derivative in the specified parameter
   //! \param[in]  theParameter parameter of calculation of the value
@@ -87,7 +87,7 @@ public:
                           gp_Pnt2d&            thePoint,
                           gp_Vec2d&            theTangent) const;
   Standard_EXPORT void D1(const Standard_Real& theParameter,
-                          gp_Pnt&              thePoint,
+                          Point3d&              thePoint,
                           gp_Vec&              theTangent) const;
 
   //! Calculates the point on the curve and two derivatives in the specified parameter
@@ -101,7 +101,7 @@ public:
                           gp_Vec2d&            theTangent,
                           gp_Vec2d&            theCurvature) const;
   Standard_EXPORT void D2(const Standard_Real& theParameter,
-                          gp_Pnt&              thePoint,
+                          Point3d&              thePoint,
                           gp_Vec&              theTangent,
                           gp_Vec&              theCurvature) const;
 
@@ -118,7 +118,7 @@ public:
                           gp_Vec2d&            theCurvature,
                           gp_Vec2d&            theTorsion) const;
   Standard_EXPORT void D3(const Standard_Real& theParameter,
-                          gp_Pnt&              thePoint,
+                          Point3d&              thePoint,
                           gp_Vec&              theTangent,
                           gp_Vec&              theCurvature,
                           gp_Vec&              theTorsion) const;

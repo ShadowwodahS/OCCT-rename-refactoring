@@ -75,7 +75,7 @@ void ProjLib_Cylinder::Init(const gp_Cylinder& Cyl)
 //           of myPlane.
 //=======================================================================
 
-static gp_Pnt2d EvalPnt2d(const gp_Pnt& P, const gp_Cylinder& Cy)
+static gp_Pnt2d EvalPnt2d(const Point3d& P, const gp_Cylinder& Cy)
 {
   gp_Vec        OP(Cy.Location(), P);
   Standard_Real X = OP.Dot(gp_Vec(Cy.Position().XDirection()));

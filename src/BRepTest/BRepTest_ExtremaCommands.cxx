@@ -47,7 +47,7 @@ static Standard_Integer distance(Draw_Interpretor& di, Standard_Integer n, const
   TopoDS_Shape S2 = DBRep::Get(name2);
   if (S1.IsNull() || S2.IsNull())
     return 1;
-  gp_Pnt        P1, P2;
+  Point3d        P1, P2;
   Standard_Real D;
   if (!BRepExtrema_Poly::Distance(S1, S2, P1, P2, D))
     return 1;
@@ -121,7 +121,7 @@ static Standard_Integer distmini(Draw_Interpretor& di, Standard_Integer n, const
 
     for (Standard_Integer i1 = 1; i1 <= dst.NbSolution(); i1++)
     {
-      gp_Pnt P1, P2;
+      Point3d P1, P2;
       P1 = (dst.PointOnShape1(i1));
       P2 = (dst.PointOnShape2(i1));
       if (dst.Value() <= 1.e-9)

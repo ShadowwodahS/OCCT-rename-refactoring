@@ -85,9 +85,9 @@ public:
   //! extremities of calculated sections.
   Standard_EXPORT Standard_Real GetMinimalDistance() const Standard_OVERRIDE;
 
-  Standard_EXPORT const gp_Pnt& PointOnS1() const Standard_OVERRIDE;
+  Standard_EXPORT const Point3d& PointOnS1() const Standard_OVERRIDE;
 
-  Standard_EXPORT const gp_Pnt& PointOnS2() const Standard_OVERRIDE;
+  Standard_EXPORT const Point3d& PointOnS2() const Standard_OVERRIDE;
 
   Standard_EXPORT Standard_Boolean IsTangencyPoint() const Standard_OVERRIDE;
 
@@ -202,14 +202,14 @@ private:
   Handle(Adaptor3d_Surface) surf1;
   Handle(Adaptor3d_Surface) surf2;
   Handle(Adaptor3d_Curve)   curv;
-  gp_Pnt                    pts1;
-  gp_Pnt                    pts2;
+  Point3d                    pts1;
+  Point3d                    pts2;
   Standard_Boolean          istangent;
   gp_Vec                    tg1;
   gp_Vec2d                  tg12d;
   gp_Vec                    tg2;
   gp_Vec2d                  tg22d;
-  gp_Pnt                    ptgui;
+  Point3d                    ptgui;
   gp_Vec                    d1gui;
   gp_Vec                    d2gui;
   gp_Vec                    nplan;

@@ -25,7 +25,7 @@
 
 GProp_VelGProps::GProp_VelGProps() {}
 
-void GProp_VelGProps::SetLocation(const gp_Pnt& VLocation)
+void GProp_VelGProps::SetLocation(const Point3d& VLocation)
 {
   loc = VLocation;
 }
@@ -35,7 +35,7 @@ GProp_VelGProps::GProp_VelGProps(const gp_Cylinder&  S,
                                  const Standard_Real Alpha2,
                                  const Standard_Real Z1,
                                  const Standard_Real Z2,
-                                 const gp_Pnt&       VLocation)
+                                 const Point3d&       VLocation)
 {
   SetLocation(VLocation);
   Perform(S, Alpha1, Alpha2, Z1, Z2);
@@ -46,7 +46,7 @@ GProp_VelGProps::GProp_VelGProps(const gp_Cone&      S,
                                  const Standard_Real Alpha2,
                                  const Standard_Real Z1,
                                  const Standard_Real Z2,
-                                 const gp_Pnt&       VLocation)
+                                 const Point3d&       VLocation)
 {
   SetLocation(VLocation);
   Perform(S, Alpha1, Alpha2, Z1, Z2);
@@ -57,7 +57,7 @@ GProp_VelGProps::GProp_VelGProps(const gp_Sphere&    S,
                                  const Standard_Real Teta2,
                                  const Standard_Real Alpha1,
                                  const Standard_Real Alpha2,
-                                 const gp_Pnt&       VLocation)
+                                 const Point3d&       VLocation)
 {
   SetLocation(VLocation);
   Perform(S, Teta1, Teta2, Alpha1, Alpha2);
@@ -68,7 +68,7 @@ GProp_VelGProps::GProp_VelGProps(const gp_Torus&     S,
                                  const Standard_Real Teta2,
                                  const Standard_Real Alpha1,
                                  const Standard_Real Alpha2,
-                                 const gp_Pnt&       VLocation)
+                                 const Point3d&       VLocation)
 {
   SetLocation(VLocation);
   Perform(S, Teta1, Teta2, Alpha1, Alpha2);

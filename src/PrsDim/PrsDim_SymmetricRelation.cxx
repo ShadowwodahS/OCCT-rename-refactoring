@@ -87,7 +87,7 @@ void PrsDim_SymmetricRelation::Compute(const Handle(PrsMgr_PresentationManager)&
   if (myTool.ShapeType() == TopAbs_EDGE)
   {
     Handle(Geom_Curve) aCurve, extcurve;
-    gp_Pnt             p1, p2;
+    Point3d             p1, p2;
     Standard_Boolean   isinfinite, isonplane;
     if (PrsDim::ComputeGeometry(TopoDS::Edge(myTool),
                                 aCurve,
@@ -100,7 +100,7 @@ void PrsDim_SymmetricRelation::Compute(const Handle(PrsMgr_PresentationManager)&
     {
       if (!extcurve.IsNull())
       {
-        gp_Pnt pf, pl;
+        Point3d pf, pl;
         if (!isinfinite)
         {
           pf = p1;
@@ -124,7 +124,7 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectMgr_Selection
   Standard_Real                     F, L;
 
   Handle(Geom_Curve) geom_axis, extcurve;
-  gp_Pnt             p1, p2;
+  Point3d             p1, p2;
   Standard_Boolean   isinfinite, isonplane;
   if (!PrsDim::ComputeGeometry(TopoDS::Edge(myTool),
                                geom_axis,
@@ -146,8 +146,8 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectMgr_Selection
     if (cu1.GetType() == GeomAbs_Line)
     {
       //      gp_Lin L1 (myFAttach,myFDirAttach);
-      gp_Pnt        PjAttachPnt1 = ElCLib::Value(ElCLib::Parameter(laxis, myFAttach), laxis);
-      gp_Pnt        PjOffSetPnt  = ElCLib::Value(ElCLib::Parameter(laxis, myPosition), laxis);
+      Point3d        PjAttachPnt1 = ElCLib::Value(ElCLib::Parameter(laxis, myFAttach), laxis);
+      Point3d        PjOffSetPnt  = ElCLib::Value(ElCLib::Parameter(laxis, myPosition), laxis);
       Standard_Real h =
         fabs(PjOffSetPnt.Distance(PjAttachPnt1) / cos(myAxisDirAttach.Angle(myFDirAttach)));
       gp_Vec        VL1(myFDirAttach);
@@ -156,10 +156,10 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectMgr_Selection
       if (scal < 0)
         VL1.Reverse();
       VL1.Multiply(h);
-      gp_Pnt P1       = myFAttach.Translated(VL1);
-      gp_Pnt ProjAxis = ElCLib::Value(ElCLib::Parameter(laxis, P1), laxis);
+      Point3d P1       = myFAttach.Translated(VL1);
+      Point3d ProjAxis = ElCLib::Value(ElCLib::Parameter(laxis, P1), laxis);
       gp_Vec v(P1, ProjAxis);
-      gp_Pnt P2 = ProjAxis.Translated(v);
+      Point3d P2 = ProjAxis.Translated(v);
 
       gp_Lin L3;
 
@@ -192,8 +192,8 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectMgr_Selection
       parmin = Min(parmin, parcur);
       parmax = Max(parmax, parcur);
 
-      gp_Pnt PointMin = ElCLib::Value(parmin, L3);
-      gp_Pnt PointMax = ElCLib::Value(parmax, L3);
+      Point3d PointMin = ElCLib::Value(parmin, L3);
+      Point3d PointMax = ElCLib::Value(parmax, L3);
 
       if (!PointMin.IsEqual(PointMax, Precision::Confusion()))
       {
@@ -220,10 +220,10 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectMgr_Selection
       //    Handle(Geom_Circle) geom_circ1 = (const Handle(Geom_Circle)&)
       //    BRep_Tool::Curve(TopoDS::Edge(myFShape),F,L);
       gp_Circ circ1(geom_circ1->Circ());
-      gp_Pnt  OffsetPnt(myPosition.X(), myPosition.Y(), myPosition.Z());
-      gp_Pnt  Center1         = circ1.Location();
-      gp_Pnt  ProjOffsetPoint = ElCLib::Value(ElCLib::Parameter(laxis, OffsetPnt), laxis);
-      gp_Pnt  ProjCenter1     = ElCLib::Value(ElCLib::Parameter(laxis, Center1), laxis);
+      Point3d  OffsetPnt(myPosition.X(), myPosition.Y(), myPosition.Z());
+      Point3d  Center1         = circ1.Location();
+      Point3d  ProjOffsetPoint = ElCLib::Value(ElCLib::Parameter(laxis, OffsetPnt), laxis);
+      Point3d  ProjCenter1     = ElCLib::Value(ElCLib::Parameter(laxis, Center1), laxis);
       gp_Vec  Vp(ProjCenter1, Center1);
       if (Vp.Magnitude() <= Precision::Confusion())
         Vp = gp_Vec(laxis.Direction()) ^ myPlane->Pln().Position().Direction();
@@ -238,9 +238,9 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectMgr_Selection
         OffsetPnt       = ProjOffsetPoint;
       }
       h         = Sqrt(R * R - Dt * Dt);
-      gp_Pnt P1 = ProjOffsetPoint.Translated(Vp.Added(Vp.Divided(Vp.Magnitude()).Multiplied(h)));
+      Point3d P1 = ProjOffsetPoint.Translated(Vp.Added(Vp.Divided(Vp.Magnitude()).Multiplied(h)));
       gp_Vec v(P1, ProjOffsetPoint);
-      gp_Pnt P2 = ProjOffsetPoint.Translated(v);
+      Point3d P2 = ProjOffsetPoint.Translated(v);
 
       gp_Lin L3;
       if (!P1.IsEqual(P2, Precision::Confusion()))
@@ -272,8 +272,8 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectMgr_Selection
       parmin = Min(parmin, parcur);
       parmax = Max(parmax, parcur);
 
-      gp_Pnt PointMin = ElCLib::Value(parmin, L3);
-      gp_Pnt PointMax = ElCLib::Value(parmax, L3);
+      Point3d PointMin = ElCLib::Value(parmin, L3);
+      Point3d PointMax = ElCLib::Value(parmax, L3);
 
       if (!PointMin.IsEqual(PointMax, Precision::Confusion()))
       {
@@ -292,11 +292,11 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectMgr_Selection
     }
     else
     {
-      gp_Pnt ProjOffsetPoint      = ElCLib::Value(ElCLib::Parameter(laxis, myPosition), laxis);
-      gp_Pnt ProjAttachmentPoint1 = ElCLib::Value(ElCLib::Parameter(laxis, myFAttach), laxis);
+      Point3d ProjOffsetPoint      = ElCLib::Value(ElCLib::Parameter(laxis, myPosition), laxis);
+      Point3d ProjAttachmentPoint1 = ElCLib::Value(ElCLib::Parameter(laxis, myFAttach), laxis);
       gp_Vec PjAtt1_Att1(ProjAttachmentPoint1, myFAttach);
-      gp_Pnt P1 = ProjOffsetPoint.Translated(PjAtt1_Att1);
-      gp_Pnt P2 = ProjOffsetPoint.Translated(PjAtt1_Att1.Reversed());
+      Point3d P1 = ProjOffsetPoint.Translated(PjAtt1_Att1);
+      Point3d P2 = ProjOffsetPoint.Translated(PjAtt1_Att1.Reversed());
       gp_Lin L3;
 
       if (!P1.IsEqual(P2, Precision::Confusion()))
@@ -328,8 +328,8 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectMgr_Selection
       parmin = Min(parmin, parcur);
       parmax = Max(parmax, parcur);
 
-      gp_Pnt PointMin = ElCLib::Value(parmin, L3);
-      gp_Pnt PointMax = ElCLib::Value(parmax, L3);
+      Point3d PointMin = ElCLib::Value(parmin, L3);
+      Point3d PointMax = ElCLib::Value(parmax, L3);
 
       if (!PointMin.IsEqual(PointMax, Precision::Confusion()))
       {
@@ -364,8 +364,8 @@ void PrsDim_SymmetricRelation::ComputeTwoEdgesSymmetric(const Handle(Prs3d_Prese
   BRepAdaptor_Curve cu2(TopoDS::Edge(mySShape));
   if (cu2.GetType() != GeomAbs_Line && cu2.GetType() != GeomAbs_Circle)
     return;
-  //  gp_Pnt pint3d,ptat11,ptat12,ptat21,ptat22;
-  gp_Pnt             ptat11, ptat12, ptat21, ptat22;
+  //  Point3d pint3d,ptat11,ptat12,ptat21,ptat22;
+  Point3d             ptat11, ptat12, ptat21, ptat22;
   Handle(Geom_Curve) geom1, geom2;
   Standard_Boolean   isInfinite1, isInfinite2;
   Handle(Geom_Curve) extCurv;
@@ -387,7 +387,7 @@ void PrsDim_SymmetricRelation::ComputeTwoEdgesSymmetric(const Handle(Prs3d_Prese
   }
   aprs->SetInfiniteState((isInfinite1 || isInfinite2) && (myExtShape != 0));
   Handle(Geom_Curve) geom_axis, extcurve;
-  gp_Pnt             p1, p2;
+  Point3d             p1, p2;
   Standard_Boolean   isinfinite, isonplane;
   if (!PrsDim::ComputeGeometry(TopoDS::Edge(myTool),
                                geom_axis,
@@ -418,7 +418,7 @@ void PrsDim_SymmetricRelation::ComputeTwoEdgesSymmetric(const Handle(Prs3d_Prese
   }
 
   // recherche points attache
-  gp_Pnt ProjOffset = ElCLib::Value(ElCLib::Parameter(laxis, myPosition), laxis);
+  Point3d ProjOffset = ElCLib::Value(ElCLib::Parameter(laxis, myPosition), laxis);
 
   /*//----------------------------------------------------
     //Quand on fait la symetrie de 2 edges consecutifs:
@@ -506,14 +506,14 @@ void PrsDim_SymmetricRelation::ComputeTwoEdgesSymmetric(const Handle(Prs3d_Prese
   //----------------------------------------------------
   // Si myFAttach <> mySAttach et PjFAttach = myFAttach
   //----------------------------------------------------
-  gp_Pnt PjFAttach = ElCLib::Value(ElCLib::Parameter(laxis, myFAttach), laxis);
+  Point3d PjFAttach = ElCLib::Value(ElCLib::Parameter(laxis, myFAttach), laxis);
 
   if (PjFAttach.IsEqual(myFAttach, Precision::Confusion()))
   {
     Handle(Geom_Line) geom_lin2(Handle(Geom_Line)::DownCast(geom2));
     gp_Lin            l2(geom_lin2->Lin());
     myFDirAttach = l2.Direction();
-    gp_Pnt PntTempo;
+    Point3d PntTempo;
     PntTempo  = myFAttach;
     myFAttach = mySAttach;
     mySAttach = PntTempo;
@@ -521,21 +521,21 @@ void PrsDim_SymmetricRelation::ComputeTwoEdgesSymmetric(const Handle(Prs3d_Prese
   }
 
   //----------------------------------------------------
-  //  gp_Pnt curpos;
+  //  Point3d curpos;
 
   if (myAutomaticPosition)
   {
-    // gp_Pnt PjFAttach = ElCLib::Value(ElCLib::Parameter(laxis,myFAttach),laxis);
+    // Point3d PjFAttach = ElCLib::Value(ElCLib::Parameter(laxis,myFAttach),laxis);
     //  offset pour eviter confusion Edge et Dimension
     gp_Vec offset(myAxisDirAttach);
     offset = offset * myArrowSize * (-5);
     gp_Vec Vt(myFAttach, PjFAttach);
-    gp_Pnt curpos = PjFAttach.Translated(offset.Added(Vt.Multiplied(.15)));
+    Point3d curpos = PjFAttach.Translated(offset.Added(Vt.Multiplied(.15)));
     myPosition    = curpos;
   }
 
-  gp_Pnt Pj1 = ElCLib::Value(ElCLib::Parameter(laxis, myFAttach), laxis);
-  gp_Pnt Pj2 = ElCLib::Value(ElCLib::Parameter(laxis, mySAttach), laxis);
+  Point3d Pj1 = ElCLib::Value(ElCLib::Parameter(laxis, myFAttach), laxis);
+  Point3d Pj2 = ElCLib::Value(ElCLib::Parameter(laxis, mySAttach), laxis);
   if ((myFAttach.SquareDistance(Pj1) + mySAttach.SquareDistance(Pj2)) <= Precision::Confusion())
     myArrowSize = 0.;
   Handle(Prs3d_DimensionAspect) la  = myDrawer->DimensionAspect();
@@ -562,7 +562,7 @@ void PrsDim_SymmetricRelation::ComputeTwoEdgesSymmetric(const Handle(Prs3d_Prese
                                       myPosition);
   if ((myExtShape != 0) && !extCurv.IsNull())
   {
-    gp_Pnt pf, pl;
+    Point3d pf, pl;
     if (myExtShape == 1)
     {
       if (!isInfinite1)
@@ -591,7 +591,7 @@ void PrsDim_SymmetricRelation::ComputeTwoVerticesSymmetric(const Handle(Prs3d_Pr
   if (myFShape.ShapeType() != TopAbs_VERTEX || mySShape.ShapeType() != TopAbs_VERTEX)
     return;
   Handle(Geom_Curve) geom_axis, extcurve;
-  gp_Pnt             p1, p2;
+  Point3d             p1, p2;
   Standard_Boolean   isinfinite, isonplane;
   if (!PrsDim::ComputeGeometry(TopoDS::Edge(myTool),
                                geom_axis,
@@ -625,15 +625,15 @@ void PrsDim_SymmetricRelation::ComputeTwoVerticesSymmetric(const Handle(Prs3d_Pr
   myAxisDirAttach = laxis.Direction();
 
   // recherche points attache
-  //  gp_Pnt curpos;
+  //  Point3d curpos;
   if (myAutomaticPosition)
   {
-    gp_Pnt PjFAttach = ElCLib::Value(ElCLib::Parameter(laxis, myFAttach), laxis);
+    Point3d PjFAttach = ElCLib::Value(ElCLib::Parameter(laxis, myFAttach), laxis);
     // offset pour eviter confusion Edge et Dimension
     gp_Vec offset(myAxisDirAttach);
     offset = offset * myArrowSize * (-5);
     gp_Vec Vt(myFAttach, PjFAttach);
-    gp_Pnt curpos = PjFAttach.Translated(offset.Added(Vt.Multiplied(.15)));
+    Point3d curpos = PjFAttach.Translated(offset.Added(Vt.Multiplied(.15)));
     myPosition    = curpos;
   }
   if (2 * (myFAttach.Distance(mySAttach)) <= Precision::Confusion())

@@ -27,7 +27,7 @@ IMPLEMENT_STANDARD_RTTIEXT(DrawTrSurf_Point, Draw_Drawable3D)
 
 //=================================================================================================
 
-DrawTrSurf_Point::DrawTrSurf_Point(const gp_Pnt&          P,
+DrawTrSurf_Point::DrawTrSurf_Point(const Point3d&          P,
                                    const Draw_MarkerShape Shape,
                                    const Draw_Color&      Col)
     : myPoint(P),
@@ -71,7 +71,7 @@ void DrawTrSurf_Point::DrawOn(Draw_Display& dis) const
 
 //=================================================================================================
 
-void DrawTrSurf_Point::Point(const gp_Pnt& P)
+void DrawTrSurf_Point::Point(const Point3d& P)
 {
   myPoint = P;
   is3D    = Standard_True;
@@ -169,7 +169,7 @@ Handle(Draw_Drawable3D) DrawTrSurf_Point::Restore(Standard_IStream& theStream)
   Handle(DrawTrSurf_Point) aDrawPoint;
   if (is3d)
   {
-    aDrawPoint = new DrawTrSurf_Point(gp_Pnt(x, y, z), aParams.PntMarker, aParams.PntColor);
+    aDrawPoint = new DrawTrSurf_Point(Point3d(x, y, z), aParams.PntMarker, aParams.PntColor);
   }
   else
   {

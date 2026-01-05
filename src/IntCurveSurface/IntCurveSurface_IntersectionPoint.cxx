@@ -26,7 +26,7 @@ IntCurveSurface_IntersectionPoint::IntCurveSurface_IntersectionPoint()
 
 //================================================================================
 IntCurveSurface_IntersectionPoint::IntCurveSurface_IntersectionPoint(
-  const gp_Pnt&                           P,
+  const Point3d&                           P,
   const Standard_Real                     USurf,
   const Standard_Real                     VSurf,
   const Standard_Real                     UCurv,
@@ -40,7 +40,7 @@ IntCurveSurface_IntersectionPoint::IntCurveSurface_IntersectionPoint(
 }
 
 //================================================================================
-void IntCurveSurface_IntersectionPoint::SetValues(const gp_Pnt&                           P,
+void IntCurveSurface_IntersectionPoint::SetValues(const Point3d&                           P,
                                                   const Standard_Real                     USurf,
                                                   const Standard_Real                     VSurf,
                                                   const Standard_Real                     UCurv,
@@ -54,7 +54,7 @@ void IntCurveSurface_IntersectionPoint::SetValues(const gp_Pnt&                 
 }
 
 //================================================================================
-void IntCurveSurface_IntersectionPoint::Values(gp_Pnt&                            P,
+void IntCurveSurface_IntersectionPoint::Values(Point3d&                            P,
                                                Standard_Real&                     USurf,
                                                Standard_Real&                     VSurf,
                                                Standard_Real&                     UCurv,

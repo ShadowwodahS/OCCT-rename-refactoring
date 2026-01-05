@@ -731,7 +731,7 @@ void HLRBRep_Data::Update(const HLRAlgo_Projector& P)
     }
     else
     {
-      gp_Pnt Pt;
+      Point3d Pt;
       gp_Vec Tg1, Tg2;
       EC.D1(EC.Parameter3d(EC.FirstParameter()), Pt, Tg1);
       EC.D1(EC.Parameter3d(EC.LastParameter()), Pt, Tg2);
@@ -843,7 +843,7 @@ void HLRBRep_Data::Update(const HLRAlgo_Projector& P)
           if (HLRBRep_EdgeFaceTool::UVPoint(p, myFEGeom, iFaceGeom, pu, pv))
           {
             mySLProps.SetParameters(pu, pv);
-            gp_Pnt Pt;
+            Point3d Pt;
             Pt = EC.Value3D(p);
             if (mySLProps.IsNormalDefined())
             {
@@ -1523,7 +1523,7 @@ void HLRBRep_Data::EdgeState(const Standard_Real p1,
     {
       gp_Dir NrmFace = mySLProps.Normal();
 
-      gp_Pnt Pbid;
+      Point3d Pbid;
       gp_Vec TngEdge;
       ((HLRBRep_Curve*)myLEGeom)->D1(p1, Pbid, TngEdge);
 
@@ -1705,7 +1705,7 @@ Standard_Boolean HLRBRep_Data::OrientOutLine(const Standard_Integer I, HLRBRep_F
           p = EC.Parameter3d((EC.LastParameter() + EC.FirstParameter()) / 2);
         if (HLRBRep_EdgeFaceTool::UVPoint(p, myFEGeom, iFaceGeom, pu, pv))
         {
-          gp_Pnt Pt;
+          Point3d Pt;
           gp_Vec Tg;
           mySLProps.SetParameters(pu, pv);
           EC.D1(p, Pt, Tg);
@@ -1807,7 +1807,7 @@ void HLRBRep_Data::OrientOthEdge(const Standard_Integer I, HLRBRep_FaceData& FD)
         p                       = EC.Parameter3d((EC.LastParameter() + EC.FirstParameter()) / 2);
         if (HLRBRep_EdgeFaceTool::UVPoint(p, myFEGeom, iFaceGeom, pu, pv))
         {
-          gp_Pnt Pt = EC.Value3D(p);
+          Point3d Pt = EC.Value3D(p);
           mySLProps.SetParameters(pu, pv);
           if (mySLProps.IsNormalDefined())
           {
@@ -2080,7 +2080,7 @@ q1,(q2>32768)? (32768-q2) : q2,q&0x80008000);
   }
 
   nbCal3Intersection++;
-  gp_Pnt   PLim;
+  Point3d   PLim;
   gp_Pnt2d Psta;
   Psta = EC.Value(sta);
   PLim = EC.Value3D(sta);
@@ -2126,7 +2126,7 @@ q1,(q2>32768)? (32768-q2) : q2,q&0x80008000);
       }
       else
         PeriodV = 0;
-      gp_Pnt                            PInter;
+      Point3d                            PInter;
       Standard_Real                     u, v, w;
       IntCurveSurface_TransitionOnCurve Tr;
 

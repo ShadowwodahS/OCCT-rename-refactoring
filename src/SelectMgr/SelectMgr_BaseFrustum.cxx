@@ -91,7 +91,7 @@ void SelectMgr_BaseFrustum::SetBuilder(const Handle(SelectMgr_FrustumBuilder)& t
 //=================================================================================================
 
 Standard_Boolean SelectMgr_BaseFrustum::IsBoundaryIntersectSphere(
-  const gp_Pnt&             theCenter,
+  const Point3d&             theCenter,
   const Standard_Real       theRadius,
   const gp_Dir&             thePlaneNormal,
   const TColgp_Array1OfPnt& theBoundaries,
@@ -101,17 +101,17 @@ Standard_Boolean SelectMgr_BaseFrustum::IsBoundaryIntersectSphere(
   {
     const Standard_Integer aNextIdx =
       ((anIdx + 1) == theBoundaries.Upper()) ? theBoundaries.Lower() : (anIdx + 1);
-    const gp_Pnt aPnt1 = theBoundaries.Value(anIdx);
-    const gp_Pnt aPnt2 = theBoundaries.Value(aNextIdx);
+    const Point3d aPnt1 = theBoundaries.Value(anIdx);
+    const Point3d aPnt2 = theBoundaries.Value(aNextIdx);
     if (aPnt1.Distance(aPnt2) < Precision::Confusion())
     {
       continue;
     }
 
     // Projections of the points on the plane
-    const gp_Pnt aPntProj1 =
+    const Point3d aPntProj1 =
       aPnt1.XYZ() - thePlaneNormal.XYZ() * aPnt1.XYZ().Dot(thePlaneNormal.XYZ());
-    const gp_Pnt aPntProj2 =
+    const Point3d aPntProj2 =
       aPnt2.XYZ() - thePlaneNormal.XYZ() * aPnt2.XYZ().Dot(thePlaneNormal.XYZ());
     if (aPntProj1.Distance(theCenter) < theRadius
         || aPntProj2.Distance(theCenter) < theRadius) // polygon intersects the sphere

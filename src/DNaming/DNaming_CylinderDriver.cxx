@@ -116,7 +116,7 @@ Standard_Integer DNaming_CylinderDriver::Execute(Handle(TFunction_Logbook)& theL
     {
       TopoDS_Vertex V1, V2;
       TopExp::Vertices(TopoDS::Edge(aTopoDSAxis), V1, V2);
-      gp_Pnt aP1 = BRep_Tool::Pnt(V1);
+      Point3d aP1 = BRep_Tool::Pnt(V1);
       anAxis.SetLocation(aP1);
     }
   }

@@ -141,7 +141,7 @@ static
 
 static 
   void IntCurveSurface_ComputeParamsOnQuadric(const TheSurface& surface,
-					      const gp_Pnt& P,
+					      const Point3d& P,
 					      Standard_Real& u,
 					      Standard_Real& v);
 
@@ -178,7 +178,7 @@ void IntCurveSurface_Inter::DoSurface(const TheSurface&   surface,
 // modified by NIZHNY-MKK  Mon Oct  3 17:38:45 2005
 //   Standard_Real dU = fabs(u1-u0)/50., dV = fabs(v1-v0)/50.;
   Standard_Real dU = (u1-u0)/50., dV = (v1-v0)/50.;
-  gp_Pnt aPnt;
+  Point3d aPnt;
 
   for(iU = 0; iU < 50; iU++) {
     
@@ -240,12 +240,12 @@ void IntCurveSurface_Inter::DoNewBounds(
   for(i = 1; i <= 2; i++) {
     for(j = 1; j <= 2; j++) {
       for(k = 1; k <= 2; k++) {
-        gp_Pnt aPoint(X(i),Y(j),Z(k));
+        Point3d aPoint(X(i),Y(j),Z(k));
         Standard_Real DistMin = 1.e+100;
         Standard_Integer diU = 0, diV = 0;
         for(iU = 1; iU <= 50; iU++) {
           for(iV = 1; iV <= 50; iV++) {
-            const gp_Pnt aP = pntsOnSurface.Value(iU,iV);
+            const Point3d aP = pntsOnSurface.Value(iU,iV);
             Standard_Real dist = aP.SquareDistance(aPoint);
             if(dist < DistMin) {
               DistMin = dist;
@@ -559,7 +559,7 @@ void IntCurveSurface_Inter::InternalPerform(const TheCurve&       curve,
 
 //  Standard_Real    u,v,w,winit;
   Standard_Real    u,v,w;
-  gp_Pnt P;
+  Point3d P;
   Standard_Real winf = polygon.InfParameter();
   Standard_Real wsup = polygon.SupParameter();
   Standard_Integer NbSectionPoints = interference.NbSectionPoints();
@@ -703,7 +703,7 @@ void IntCurveSurface_Inter::InternalPerform(const TheCurve&       curve,
 
 //  Standard_Real    u,v,w,winit;
   Standard_Real    u,v,w;
-  gp_Pnt P;
+  Point3d P;
   Standard_Real winf = polygon.InfParameter();
   Standard_Real wsup = polygon.SupParameter();
   Standard_Integer NbSectionPoints = interference.NbSectionPoints();
@@ -943,7 +943,7 @@ void IntCurveSurface_Inter::PerformConicSurf(const gp_Lin&   Line,
         Standard_Integer nbp = intlintorus.NbPoints();
         Standard_Real fi, theta, w;
         for (Standard_Integer i = 1; i <= nbp; i++) {
-          const gp_Pnt aDebPnt(intlintorus.Value(i));
+          const Point3d aDebPnt(intlintorus.Value(i));
           (void)aDebPnt;
           w = intlintorus.ParamOnLine(i);
           intlintorus.ParamOnTorus(i, fi, theta);
@@ -1262,7 +1262,7 @@ void IntCurveSurface_Inter::AppendIntAna(const TheCurve& curve,
       Standard_Integer nbp = intana_ConicQuad.NbPoints();
       Standard_Real u,v,w;
       for(Standard_Integer i = 1; i<= nbp; i++) { 
-	gp_Pnt P(intana_ConicQuad.Point(i));
+	Point3d P(intana_ConicQuad.Point(i));
 	w = intana_ConicQuad.ParamOnConic(i);
 	IntCurveSurface_ComputeParamsOnQuadric(surface,P,u,v);
 	AppendPoint(curve,w,surface,u,v);
@@ -1320,7 +1320,7 @@ void IntCurveSurface_Inter::AppendPoint(const TheCurve& curve,
   IntCurveSurface_TransitionOnCurve   TransOnCurve;
   IntCurveSurface_ComputeTransitions(curve,w,TransOnCurve,
 				     surface,u,v);
-  gp_Pnt P(TheCurveTool::Value(curve,w));
+  Point3d P(TheCurveTool::Value(curve,w));
   IntCurveSurface_IntersectionPoint IP(P,u,v,w,TransOnCurve);
   Append(IP); //-- invoque la methode de IntCurveSurface_Intersection.
   
@@ -1353,7 +1353,7 @@ void SectionPointToParameters(const Intf_SectionPoint&              Sp,
   Intf_PIType       typ;
   Standard_Integer  Adr1,Adr2;
   Standard_Real     Param,u,v;
-  gp_Pnt P(Sp.Pnt());
+  Point3d P(Sp.Pnt());
   
   Standard_Integer Pt1,Pt2,Pt3;
   Standard_Real u1 = 0.,v1 = 0.,param;
@@ -1380,9 +1380,9 @@ void SectionPointToParameters(const Intf_SectionPoint&              Sp,
     {
       Standard_Real ua,va,ub,vb,uc,vc,ca,cb,cc,cabc;
       Polyhedron.Triangle(Adr1,Pt1,Pt2,Pt3);
-      gp_Pnt PA(Polyhedron.Point(Pt1));
-      gp_Pnt PB(Polyhedron.Point(Pt2));
-      gp_Pnt PC(Polyhedron.Point(Pt3));
+      Point3d PA(Polyhedron.Point(Pt1));
+      Point3d PB(Polyhedron.Point(Pt2));
+      Point3d PC(Polyhedron.Point(Pt3));
       Polyhedron.Parameters(Pt1,ua,va);
       Polyhedron.Parameters(Pt2,ub,vb);
       Polyhedron.Parameters(Pt3,uc,vc);
@@ -1430,7 +1430,7 @@ void IntCurveSurface_ComputeTransitions(const TheCurve& curve,
 					const Standard_Real v) { 
   
   gp_Vec NSurf,D1U,D1V;//TgCurv;
-  gp_Pnt Psurf;
+  Point3d Psurf;
   Standard_Real CosDir;
   
   
@@ -1464,7 +1464,7 @@ void IntCurveSurface_ComputeTransitions(const TheCurve& curve,
 //purpose  : 
 //=======================================================================
 void IntCurveSurface_ComputeParamsOnQuadric(const TheSurface& surface,
-					    const gp_Pnt& P,
+					    const Point3d& P,
 					    Standard_Real& u,
 					    Standard_Real& v) { 
   GeomAbs_SurfaceType SurfaceType = TheSurfaceTool::GetType(surface);
@@ -1537,7 +1537,7 @@ void EstLimForInfExtr(const gp_Lin&   Line,
     gp_Lin aL;
     Standard_Real step = (U2new - U1new) / nbsu;
     Standard_Real u = U1new, v;
-    gp_Pnt aP;
+    Point3d aP;
     Extrema_POnCurv aP1, aP2;
     Standard_Integer i;
 
@@ -1577,7 +1577,7 @@ void EstLimForInfExtr(const gp_Lin&   Line,
     Standard_Real umin = RealLast(), umax = -umin;
     Standard_Real u0 = Min(Max(0., U1new), U2new);
     Standard_Real v0 = Min(Max(0., V1new), V2new);
-    gp_Pnt aP;
+    Point3d aP;
     TheSurfaceTool::D0(surface, u0, v0, aP);
     gp_Pln aRefPln(aP, aDirOfExt);
 
@@ -1793,16 +1793,16 @@ void EstLimForInfRevl(const gp_Lin&   Line,
   constexpr Standard_Real aTolAng = Precision::Angular();
 
   // make plane to project a basis curve
-  gp_Pnt O = aRevAx.Location();
+  Point3d O = aRevAx.Location();
   Standard_Real aU = 0.;
-  gp_Pnt P = aBasisCurve->Value(aU);
+  Point3d P = aBasisCurve->Value(aU);
   while (O.SquareDistance(P) <= Precision::PConfusion() ||
 	 aXVec.IsParallel( gp_Vec(O,P), aTolAng)) {
     aU += 1.;
     P = aBasisCurve->Value(aU);
     if (aU > 3)
       // basis curve is a line coinciding with aXVec, P is any not on aXVec
-      P = gp_Pnt(aU, aU+1, aU+2);
+      P = Point3d(aU, aU+1, aU+2);
   }
   gp_Vec aNVec = aXVec ^ gp_Vec(O,P);
   gp_Pln aPln (gp_Ax3 (O, aNVec ,aXVec));
@@ -1830,7 +1830,7 @@ void EstLimForInfRevl(const gp_Lin&   Line,
     P = Line.Location();
     while (O.SquareDistance(P) <= Precision::PConfusion()) {
       aU += 1.;
-      P = gp_Pnt(aU, aU+1, aU+2); // any not on aXVec
+      P = Point3d(aU, aU+1, aU+2); // any not on aXVec
     }
     aNVec = aXVec ^ gp_Vec(O,P);
   } else

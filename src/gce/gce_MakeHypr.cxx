@@ -27,7 +27,7 @@
 //   <CenterS1> donne le grand axe .                                      +
 //   <S1> donne le grand rayon et <S2> le petit rayon.                    +
 //=========================================================================
-gce_MakeHypr::gce_MakeHypr(const gp_Pnt& S1, const gp_Pnt& S2, const gp_Pnt& Center)
+gce_MakeHypr::gce_MakeHypr(const Point3d& S1, const Point3d& S2, const Point3d& Center)
 {
   gp_Dir        XAxis(gp_XYZ(S1.XYZ() - Center.XYZ()));
   gp_Lin        L(Center, XAxis);

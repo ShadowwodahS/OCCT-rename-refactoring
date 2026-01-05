@@ -359,7 +359,7 @@ Standard_Real Adaptor3d_IsoCurve::Period() const
 
 //=================================================================================================
 
-gp_Pnt Adaptor3d_IsoCurve::Value(const Standard_Real T) const
+Point3d Adaptor3d_IsoCurve::Value(const Standard_Real T) const
 {
   switch (myIso)
   {
@@ -376,12 +376,12 @@ gp_Pnt Adaptor3d_IsoCurve::Value(const Standard_Real T) const
     }
   }
   // portage WNT
-  return gp_Pnt();
+  return Point3d();
 }
 
 //=================================================================================================
 
-void Adaptor3d_IsoCurve::D0(const Standard_Real T, gp_Pnt& P) const
+void Adaptor3d_IsoCurve::D0(const Standard_Real T, Point3d& P) const
 {
   switch (myIso)
   {
@@ -402,7 +402,7 @@ void Adaptor3d_IsoCurve::D0(const Standard_Real T, gp_Pnt& P) const
 
 //=================================================================================================
 
-void Adaptor3d_IsoCurve::D1(const Standard_Real T, gp_Pnt& P, gp_Vec& V) const
+void Adaptor3d_IsoCurve::D1(const Standard_Real T, Point3d& P, gp_Vec& V) const
 {
   gp_Vec dummy;
   switch (myIso)
@@ -424,7 +424,7 @@ void Adaptor3d_IsoCurve::D1(const Standard_Real T, gp_Pnt& P, gp_Vec& V) const
 
 //=================================================================================================
 
-void Adaptor3d_IsoCurve::D2(const Standard_Real T, gp_Pnt& P, gp_Vec& V1, gp_Vec& V2) const
+void Adaptor3d_IsoCurve::D2(const Standard_Real T, Point3d& P, gp_Vec& V1, gp_Vec& V2) const
 {
   gp_Vec dummy1, dummy2, dummy3;
   switch (myIso)
@@ -445,7 +445,7 @@ void Adaptor3d_IsoCurve::D2(const Standard_Real T, gp_Pnt& P, gp_Vec& V1, gp_Vec
 //=================================================================================================
 
 void Adaptor3d_IsoCurve::D3(const Standard_Real T,
-                            gp_Pnt&             P,
+                            Point3d&             P,
                             gp_Vec&             V1,
                             gp_Vec&             V2,
                             gp_Vec&             V3) const
@@ -600,7 +600,7 @@ GeomAbs_CurveType Adaptor3d_IsoCurve::GetType() const
 
 gp_Lin Adaptor3d_IsoCurve::Line() const
 {
-  gp_Pnt P;
+  Point3d P;
   gp_Vec V;
   D1(0, P, V);
   return gp_Lin(P, V);
@@ -608,7 +608,7 @@ gp_Lin Adaptor3d_IsoCurve::Line() const
 
 //=================================================================================================
 
-static void computeHR(const gp_Ax3& axes, const gp_Pnt& P, Standard_Real& h, Standard_Real& radius)
+static void computeHR(const gp_Ax3& axes, const Point3d& P, Standard_Real& h, Standard_Real& radius)
 {
   gp_Vec V(axes.Location(), P);
   h      = V * axes.Direction();
@@ -714,7 +714,7 @@ gp_Circ Adaptor3d_IsoCurve::Circle() const
     case GeomAbs_SurfaceOfRevolution: {
       if (myIso == GeomAbs_IsoV)
       {
-        const gp_Pnt aVal0 = Value(0.0);
+        const Point3d aVal0 = Value(0.0);
         gp_Ax1       Ax1   = mySurface->AxeOfRevolution();
         if (gp_Lin(Ax1).Contains(aVal0, Precision::Confusion()))
         {

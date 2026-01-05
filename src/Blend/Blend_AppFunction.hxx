@@ -32,7 +32,7 @@
 #include <TColgp_Array1OfPnt2d.hxx>
 #include <TColgp_Array1OfVec2d.hxx>
 class math_Matrix;
-class gp_Pnt;
+class Point3d;
 class Blend_Point;
 
 //! Deferred class for a function used to compute a blending
@@ -107,10 +107,10 @@ public:
   Standard_EXPORT virtual Standard_Real GetMinimalDistance() const = 0;
 
   //! Returns the point on the first support.
-  Standard_EXPORT virtual const gp_Pnt& Pnt1() const = 0;
+  Standard_EXPORT virtual const Point3d& Pnt1() const = 0;
 
   //! Returns the point on the first support.
-  Standard_EXPORT virtual const gp_Pnt& Pnt2() const = 0;
+  Standard_EXPORT virtual const Point3d& Pnt2() const = 0;
 
   //! Returns  if the section is rational
   Standard_EXPORT virtual Standard_Boolean IsRational() const = 0;

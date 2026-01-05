@@ -25,7 +25,7 @@
 #include <Standard_Boolean.hxx>
 #include <math_Vector.hxx>
 class math_Matrix;
-class gp_Pnt;
+class Point3d;
 
 //! Deferred   class  for a  function  used  to compute  a
 //! blending surface between a  surface and a curve, using
@@ -68,7 +68,7 @@ public:
                                                   math_Matrix&       D) = 0;
 
   //! Set the Point on which a solution has to be found.
-  Standard_EXPORT virtual void Set(const gp_Pnt& P) = 0;
+  Standard_EXPORT virtual void Set(const Point3d& P) = 0;
 
   //! Returns in the vector Tolerance the parametric tolerance
   //! for each of the 3 variables;

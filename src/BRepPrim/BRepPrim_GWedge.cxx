@@ -465,7 +465,7 @@ gp_Pln BRepPrim_GWedge::Plane(const BRepPrim_Direction d1)
       break;
   };
 
-  gp_Pnt P = myAxes.Location();
+  Point3d P = myAxes.Location();
   P.Translate(X * gp_Vec(myAxes.XDirection()));
   P.Translate(Y * gp_Vec(myAxes.YDirection()));
   P.Translate(Z * gp_Vec(myAxes.Direction()));
@@ -836,7 +836,7 @@ gp_Lin BRepPrim_GWedge::Line(const BRepPrim_Direction d1, const BRepPrim_Directi
       break;
   }
 
-  gp_Pnt P = myAxes.Location();
+  Point3d P = myAxes.Location();
   P.Translate(X * gp_Vec(myAxes.XDirection()));
   P.Translate(Y * gp_Vec(myAxes.YDirection()));
   P.Translate(Z * gp_Vec(myAxes.Direction()));
@@ -943,7 +943,7 @@ Standard_Boolean BRepPrim_GWedge::HasVertex(const BRepPrim_Direction d1,
 
 //=================================================================================================
 
-gp_Pnt BRepPrim_GWedge::Point(const BRepPrim_Direction d1,
+Point3d BRepPrim_GWedge::Point(const BRepPrim_Direction d1,
                               const BRepPrim_Direction d2,
                               const BRepPrim_Direction d3)
 {
@@ -1006,7 +1006,7 @@ gp_Pnt BRepPrim_GWedge::Point(const BRepPrim_Direction d1,
       break;
   };
 
-  gp_Pnt P = myAxes.Location();
+  Point3d P = myAxes.Location();
   P.Translate(X * gp_Vec(myAxes.XDirection()));
   P.Translate(Y * gp_Vec(myAxes.YDirection()));
   P.Translate(Z * gp_Vec(myAxes.Direction()));

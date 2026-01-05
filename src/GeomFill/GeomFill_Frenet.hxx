@@ -164,7 +164,7 @@ private:
                                                    gp_Vec&       BiNormal,
                                                    const gp_Vec& NewTangent) const;
 
-  gp_Pnt                        P;
+  Point3d                        P;
   Handle(TColStd_HArray1OfReal) mySngl;
   Handle(TColStd_HArray1OfReal) mySnglLen;
   Standard_Boolean              isSngl;

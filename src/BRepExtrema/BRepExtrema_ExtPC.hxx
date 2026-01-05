@@ -51,7 +51,7 @@ public:
   Standard_Real Parameter(const Standard_Integer N) const { return myExtPC.Point(N).Parameter(); }
 
   //! Returns the Point of the <N>th extremum distance. <br>
-  gp_Pnt Point(const Standard_Integer N) const { return myExtPC.Point(N).Value(); }
+  Point3d Point(const Standard_Integer N) const { return myExtPC.Point(N).Value(); }
 
   //! if the curve is a trimmed curve, <br>
   //! dist1 is a square distance between <P> and the point <br>
@@ -60,8 +60,8 @@ public:
   //! of parameter LastParameter <pnt2>. <br>
   void TrimmedSquareDistances(Standard_Real& dist1,
                               Standard_Real& dist2,
-                              gp_Pnt&        pnt1,
-                              gp_Pnt&        pnt2) const
+                              Point3d&        pnt1,
+                              Point3d&        pnt2) const
   {
     myExtPC.TrimmedSquareDistances(dist1, dist2, pnt1, pnt2);
   }

@@ -22,7 +22,7 @@
 
 #include <Geom_Geometry.hxx>
 #include <Standard_Real.hxx>
-class gp_Pnt;
+class Point3d;
 
 class Geom_Point;
 DEFINE_STANDARD_HANDLE(Geom_Point, Geom_Geometry)
@@ -41,7 +41,7 @@ public:
                                      Standard_Real& Z) const = 0;
 
   //! returns a non transient copy of <me>
-  Standard_EXPORT virtual gp_Pnt Pnt() const = 0;
+  Standard_EXPORT virtual Point3d Pnt() const = 0;
 
   //! returns the X coordinate of <me>.
   Standard_EXPORT virtual Standard_Real X() const = 0;

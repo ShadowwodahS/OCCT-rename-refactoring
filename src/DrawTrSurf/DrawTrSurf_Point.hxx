@@ -32,7 +32,7 @@ class DrawTrSurf_Point : public Draw_Drawable3D
   Draw_Drawable3D_FACTORY public :
 
       Standard_EXPORT
-      DrawTrSurf_Point(const gp_Pnt& P, const Draw_MarkerShape Shape, const Draw_Color& Col);
+      DrawTrSurf_Point(const Point3d& P, const Draw_MarkerShape Shape, const Draw_Color& Col);
 
   Standard_EXPORT DrawTrSurf_Point(const gp_Pnt2d&        P,
                                    const Draw_MarkerShape Shape,
@@ -43,9 +43,9 @@ class DrawTrSurf_Point : public Draw_Drawable3D
   //! Is a 3D object. (Default True).
   Standard_EXPORT virtual Standard_Boolean Is3D() const Standard_OVERRIDE;
 
-  gp_Pnt Point() const { return myPoint; }
+  Point3d Point() const { return myPoint; }
 
-  Standard_EXPORT void Point(const gp_Pnt& P);
+  Standard_EXPORT void Point(const Point3d& P);
 
   gp_Pnt2d Point2d() const { return gp_Pnt2d(myPoint.X(), myPoint.Y()); }
 
@@ -72,7 +72,7 @@ class DrawTrSurf_Point : public Draw_Drawable3D
   Standard_EXPORT virtual void Whatis(Draw_Interpretor& I) const Standard_OVERRIDE;
 
 private:
-  gp_Pnt           myPoint;
+  Point3d           myPoint;
   Standard_Boolean is3D;
   Draw_MarkerShape myShape;
   Draw_Color       myColor;

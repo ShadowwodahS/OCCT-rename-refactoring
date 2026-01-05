@@ -69,7 +69,7 @@ void Approx_SweepFunction::Resolution(const Standard_Integer,
   throw Standard_NotImplemented("Approx_SweepFunction::Resolution");
 }
 
-gp_Pnt Approx_SweepFunction::BarycentreOfSurf() const
+Point3d Approx_SweepFunction::BarycentreOfSurf() const
 {
   throw Standard_NotImplemented("Approx_SweepFunction::BarycentreOfSurf");
 }

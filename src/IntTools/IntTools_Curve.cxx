@@ -52,8 +52,8 @@ Standard_Boolean IntTools_Curve::HasBounds() const
 
 Standard_Boolean IntTools_Curve::Bounds(Standard_Real& theFirst,
                                         Standard_Real& theLast,
-                                        gp_Pnt&        theFirstPnt,
-                                        gp_Pnt&        theLastPnt) const
+                                        Point3d&        theFirstPnt,
+                                        Point3d&        theLastPnt) const
 {
   Standard_Boolean bIsBounded = HasBounds();
   if (bIsBounded)
@@ -68,7 +68,7 @@ Standard_Boolean IntTools_Curve::Bounds(Standard_Real& theFirst,
 
 //=================================================================================================
 
-Standard_Boolean IntTools_Curve::D0(const Standard_Real& thePar, gp_Pnt& thePnt) const
+Standard_Boolean IntTools_Curve::D0(const Standard_Real& thePar, Point3d& thePnt) const
 {
   Standard_Boolean bInside =
     !(thePar < my3dCurve->FirstParameter() && thePar > my3dCurve->LastParameter());

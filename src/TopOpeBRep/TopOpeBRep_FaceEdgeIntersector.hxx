@@ -32,7 +32,7 @@
 #include <TopAbs_State.hxx>
 #include <TopAbs_Orientation.hxx>
 #include <TopAbs_ShapeEnum.hxx>
-class gp_Pnt;
+class Point3d;
 class gp_Pnt2d;
 class TopOpeBRepDS_Transition;
 
@@ -69,7 +69,7 @@ public:
   Standard_EXPORT void NextPoint();
 
   //! return the 3D point of the current intersection point.
-  Standard_EXPORT gp_Pnt Value() const;
+  Standard_EXPORT Point3d Value() const;
 
   //! parametre de Value() sur l'arete
   Standard_EXPORT Standard_Real Parameter() const;
@@ -85,7 +85,7 @@ public:
     Transition(const Standard_Integer Index, const TopAbs_Orientation FaceOrientation) const;
 
   Standard_EXPORT Standard_Boolean IsVertex(const TopoDS_Shape& S,
-                                            const gp_Pnt&       P,
+                                            const Point3d&       P,
                                             const Standard_Real Tol,
                                             TopoDS_Vertex&      V);
 

@@ -154,7 +154,7 @@ static void Recadre(const Handle(Adaptor3d_Surface)& myHS1,
 
 static void Parameters(const Handle(Adaptor3d_Surface)& myHS1,
                        const Handle(Adaptor3d_Surface)& myHS2,
-                       const gp_Pnt&                    Ptref,
+                       const Point3d&                    Ptref,
                        Standard_Real&                   U1,
                        Standard_Real&                   V1,
                        Standard_Real&                   U2,
@@ -500,7 +500,7 @@ static Standard_Integer AppendSameVertexW(Handle(IntPatch_WLine)&       wlig,
   a                              = 0;
   n                              = L->NbVertex();
   const IntPatch_Point& Vtxindex = L->Vertex(index);
-  const gp_Pnt&         Pntindex = Vtxindex.Value();
+  const Point3d&         Pntindex = Vtxindex.Value();
   Standard_Real         thetol1  = Vtxindex.Tolerance();
   for (i = 1; i <= n; i++)
   {
@@ -863,10 +863,10 @@ static Standard_Boolean IsSegmentSmall(const Handle(IntPatch_WLine)& WLine,
   Standard_Real tol  = Max(tolF, tolL);
 
   Standard_Real len = 0.;
-  gp_Pnt        p1  = WLine->Point(ipF).Value();
+  Point3d        p1  = WLine->Point(ipF).Value();
   for (Standard_Integer i = ipF + 1; i <= ipL; i++)
   {
-    const gp_Pnt& p2 = WLine->Point(i).Value();
+    const Point3d& p2 = WLine->Point(i).Value();
     len += p1.Distance(p2);
     if (len > tol)
       break;
@@ -952,7 +952,7 @@ static Standard_Boolean TestIfWLineIsRestriction(const IntPatch_SequenceOfLine& 
     Standard_Real          u1, v1, u2, v2;
     Pmid.Parameters(u1, v1, u2, v2);
     //-- Estimation d un majorant de Toluv a partir de Tol
-    gp_Pnt        ap;
+    Point3d        ap;
     gp_Vec        ad1u, ad1v;
     Standard_Real tol;
     //------------------------------------------
@@ -1000,7 +1000,7 @@ static Standard_Boolean ProjectOnArc(const Standard_Real              u,
                                      Standard_Real&                   par,
                                      Standard_Real&                   dist)
 {
-  gp_Pnt aPbid;
+  Point3d aPbid;
   gp_Vec ad1u, ad1v;
   surf->D1(u, v, aPbid, ad1u, ad1v);
   Standard_Real            tol2d = ComputeParametricTolerance(TolArc, ad1u, ad1v);
@@ -1342,7 +1342,7 @@ void IntPatch_LineConstructor::Perform(const IntPatch_SequenceOfLine&     slinre
       if (firstp != lastp)
       {
         Standard_Real pmid = (firstp + lastp) * 0.5;
-        gp_Pnt        Pmid = ALine->Value(pmid);
+        Point3d        Pmid = ALine->Value(pmid);
         Parameters(mySurf1, mySurf2, Pmid, u1, v1, u2, v2);
         Recadre(mySurf1, mySurf2, u1, v1, u2, v2);
         TopAbs_State in1, in2;
@@ -1416,7 +1416,7 @@ void IntPatch_LineConstructor::Perform(const IntPatch_SequenceOfLine&     slinre
 
         // modified by NIZHNY-MKK  Tue Apr  3 15:03:40 2001.BEGIN
         //------------------------------------------
-        gp_Pnt ap;
+        Point3d ap;
         gp_Vec ad1u, ad1v;
         mySurf1->D1(u1, v1, ap, ad1u, ad1v);
         Standard_Real aTolerance = ComputeParametricTolerance(TolArc, ad1u, ad1v);
@@ -1580,7 +1580,7 @@ void IntPatch_LineConstructor::Perform(const IntPatch_SequenceOfLine&     slinre
       {
         intrvtested        = Standard_True;
         Standard_Real pmid = (firstp + lastp) * 0.5;
-        gp_Pnt        Pmid;
+        Point3d        Pmid;
         if (typl == IntPatch_Lin)
         {
           Pmid = ElCLib::Value(pmid, GLine->Line());
@@ -1605,7 +1605,7 @@ void IntPatch_LineConstructor::Perform(const IntPatch_SequenceOfLine&     slinre
         Recadre(mySurf1, mySurf2, u1, v1, u2, v2);
 
         gp_Vec Du, Dv;
-        gp_Pnt P;
+        Point3d P;
         myDom1->Init();
         if (myDom2->More())
         {
@@ -1663,7 +1663,7 @@ void IntPatch_LineConstructor::Perform(const IntPatch_SequenceOfLine&     slinre
         {
           intrvtested        = Standard_True;
           Standard_Real pmid = (firstp + lastp) * 0.5;
-          gp_Pnt        Pmid;
+          Point3d        Pmid;
           if (typl == IntPatch_Circle)
           {
             Pmid = ElCLib::Value(pmid, GLine->Circle());
@@ -1759,16 +1759,16 @@ void IntPatch_LineConstructor::Perform(const IntPatch_SequenceOfLine&     slinre
         {
           Standard_Real u = (999.0 * u0 + u1) * 0.001;
 
-          gp_Pnt   P0   = Vtx1.Value();
+          Point3d   P0   = Vtx1.Value();
           gp_Pnt2d Px2d = RLine->ArcOnS1()->Value(u);
-          gp_Pnt   Px   = mySurf1->Value(Px2d.X(), Px2d.Y());
+          Point3d   Px   = mySurf1->Value(Px2d.X(), Px2d.Y());
           gp_Vec   P0Px = gp_Vec(P0, Px);
 
           Standard_Real U1, V1, U2, V2;
           Vtx1.PntOn2S().Parameters(U1, V1, U2, V2);
 
           gp_Vec D1u, D1v;
-          gp_Pnt P;
+          Point3d P;
           mySurf2->D1(U2, V2, P, D1u, D1v);
           myDom2->Init();
           if (myDom2->More())
@@ -1849,16 +1849,16 @@ void IntPatch_LineConstructor::Perform(const IntPatch_SequenceOfLine&     slinre
         {
           Standard_Real u = (999.0 * u0 + u1) * 0.001;
 
-          gp_Pnt   P0   = Vtx1.Value();
+          Point3d   P0   = Vtx1.Value();
           gp_Pnt2d Px2d = RLine->ArcOnS2()->Value(u);
-          gp_Pnt   Px   = mySurf2->Value(Px2d.X(), Px2d.Y());
+          Point3d   Px   = mySurf2->Value(Px2d.X(), Px2d.Y());
           gp_Vec   P0Px = gp_Vec(P0, Px);
 
           Standard_Real U1, V1, U2, V2;
           Vtx1.PntOn2S().Parameters(U1, V1, U2, V2);
 
           gp_Vec D1u, D1v;
-          gp_Pnt P;
+          Point3d P;
           mySurf1->D1(U1, V1, P, D1u, D1v);
           myDom1->Init();
           if (myDom2->More())

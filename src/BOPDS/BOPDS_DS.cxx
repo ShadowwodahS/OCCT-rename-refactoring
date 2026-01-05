@@ -367,7 +367,7 @@ void BOPDS_DS::Init(const Standard_Real theFuzz)
     {
       Bnd_Box&             aBox = aSI.ChangeBox();
       const TopoDS_Vertex& aV   = *((TopoDS_Vertex*)&aS);
-      const gp_Pnt&        aP   = BRep_Tool::Pnt(aV);
+      const Point3d&        aP   = BRep_Tool::Pnt(aV);
       aTol                      = BRep_Tool::Tolerance(aV);
       aBox.SetGap(aTol + aTolAdd);
       aBox.Add(aP);
@@ -391,7 +391,7 @@ void BOPDS_DS::Init(const Standard_Real theFuzz)
         Standard_Boolean   bInf1, bInf2;
         Standard_Integer   aIx;
         Standard_Real      aT1, aT2;
-        gp_Pnt             aPx;
+        Point3d             aPx;
         Handle(Geom_Curve) aC3D;
         TopoDS_Vertex      aVx;
         TopoDS_Edge        aEx;
@@ -1825,7 +1825,7 @@ Standard_Boolean BOPDS_DS::CheckCoincidence(const Handle(BOPDS_PaveBlock)& aPB1,
   Standard_Boolean bRet;
   Standard_Integer nE1, nE2, aNbPoints;
   Standard_Real    aT11, aT12, aT21, aT22, aT1m, aD, aTol, aT2x;
-  gp_Pnt           aP1m;
+  Point3d           aP1m;
   //
   bRet = Standard_False;
   //
@@ -1960,7 +1960,7 @@ void TotalShapes(const TopoDS_Shape& aS, Standard_Integer& aNbS, TopTools_MapOfS
 Standard_Real ComputeParameter(const TopoDS_Vertex& aV, const TopoDS_Edge& aE)
 {
   Standard_Real      aT1, aT2, aTRet, aTolE2, aD2;
-  gp_Pnt             aPC, aPV;
+  Point3d             aPC, aPV;
   Handle(Geom_Curve) aC3D;
   TopoDS_Edge        aEE;
   //
@@ -2234,10 +2234,10 @@ Standard_Boolean BOPDS_DS::IsValidShrunkData(const Handle(BOPDS_PaveBlock)& theP
     const TopoDS_Vertex& aV   = TopoDS::Vertex(Shape(nV[i]));
     Standard_Real        aTol = BRep_Tool::Tolerance(aV) + Precision::Confusion();
     // Bounding point
-    gp_Pnt aP = BRep_Tool::Pnt(aV);
+    Point3d aP = BRep_Tool::Pnt(aV);
     //
     // Point on the end of shrunk range
-    gp_Pnt aPS = aBAC.Value(aTS[i]);
+    Point3d aPS = aBAC.Value(aTS[i]);
     //
     Standard_Real aDist = aP.Distance(aPS);
     if (aTol - aDist > anEps)

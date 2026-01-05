@@ -67,17 +67,17 @@ static Standard_Integer BUC60842(Draw_Interpretor& di,
 
   Standard_CString st = abuf;
 
-  Handle(Geom_Circle)  cir = new Geom_Circle(gp_Ax2(gp_Pnt(823.687192, 502.366825, 478.960440),
+  Handle(Geom_Circle)  cir = new Geom_Circle(gp_Ax2(Point3d(823.687192, 502.366825, 478.960440),
                                                    gp_Dir(0.173648, 0.984808, 0.000000),
                                                    gp_Dir(-0.932169, 0.164367, -0.322560)),
                                             50);
-  Handle(Geom_Ellipse) ell = new Geom_Ellipse(gp_Ax2(gp_Pnt(1262.224429, 425.040878, 363.609716),
+  Handle(Geom_Ellipse) ell = new Geom_Ellipse(gp_Ax2(Point3d(1262.224429, 425.040878, 363.609716),
                                                      gp_Dir(0.173648, 0.984808, 0.000000),
                                                      gp_Dir(-0.932169, 0.164367, -0.322560)),
                                               150,
                                               100);
   Handle(Geom_Plane)   plne =
-    new Geom_Plane(gp_Ax3(gp_Ax2(gp_Pnt(1262.224429, 425.040878, 363.609716),
+    new Geom_Plane(gp_Ax3(gp_Ax2(Point3d(1262.224429, 425.040878, 363.609716),
                                  gp_Dir(0.173648, 0.984808, 0.000000),
                                  gp_Dir(-0.932169, 0.164367, -0.322560))));
 
@@ -233,7 +233,7 @@ static Standard_Integer BUC60970(Draw_Interpretor& di, Standard_Integer argc, co
   TopExp_Explorer    spineWireExp(spineWire, TopAbs_EDGE);
   Standard_Real      first, last;
   Handle(Geom_Curve) curl_ = BRep_Tool::Curve(TopoDS::Edge(spineWireExp.Current()), first, last);
-  gp_Pnt             firstPnt;
+  Point3d             firstPnt;
   gp_Vec             tanVec;
   curl_->D1(first, firstPnt, tanVec);
   tanVec.Normalize();
@@ -277,14 +277,14 @@ static Standard_Integer BUC60915_1(Draw_Interpretor& di, Standard_Integer argc, 
   /***************************************/
   // First view
   /***************************************/
-  gp_Pnt                        p1 = gp_Pnt(602.51, 50., 0.);
-  gp_Pnt                        p2 = gp_Pnt(602.51, 200., 0.);
-  gp_Pnt                        p3 = gp_Pnt(102.51, 200., 0.);
-  gp_Pnt                        p4 = gp_Pnt(102.51, 170., 0.);
-  gp_Pnt                        p5 = gp_Pnt(502.51, 170., 0.);
-  gp_Pnt                        p6 = gp_Pnt(502.51, 80., 0.);
-  gp_Pnt                        p7 = gp_Pnt(102.51, 80., 0.);
-  gp_Pnt                        p8 = gp_Pnt(102.51, 50., 0.);
+  Point3d                        p1 = Point3d(602.51, 50., 0.);
+  Point3d                        p2 = Point3d(602.51, 200., 0.);
+  Point3d                        p3 = Point3d(102.51, 200., 0.);
+  Point3d                        p4 = Point3d(102.51, 170., 0.);
+  Point3d                        p5 = Point3d(502.51, 170., 0.);
+  Point3d                        p6 = Point3d(502.51, 80., 0.);
+  Point3d                        p7 = Point3d(102.51, 80., 0.);
+  Point3d                        p8 = Point3d(102.51, 50., 0.);
   TopoDS_Vertex                 V1 = BRepBuilderAPI_MakeVertex(p1);
   TopoDS_Vertex                 V2 = BRepBuilderAPI_MakeVertex(p2);
   TopoDS_Vertex                 V3 = BRepBuilderAPI_MakeVertex(p3);
@@ -293,7 +293,7 @@ static Standard_Integer BUC60915_1(Draw_Interpretor& di, Standard_Integer argc, 
   TopoDS_Vertex                 V6 = BRepBuilderAPI_MakeVertex(p6);
   TopoDS_Vertex                 V7 = BRepBuilderAPI_MakeVertex(p7);
   TopoDS_Vertex                 V8 = BRepBuilderAPI_MakeVertex(p8);
-  gp_Pnt                        plnpt(0, 0, 0);
+  Point3d                        plnpt(0, 0, 0);
   gp_Dir                        plndir(0, 0, 1);
   Handle(Geom_Plane)            pln      = new Geom_Plane(plnpt, plndir);
   Handle(Prs3d_DimensionAspect) anAspect = new Prs3d_DimensionAspect();
@@ -323,15 +323,15 @@ static Standard_Integer BUC60915_1(Draw_Interpretor& di, Standard_Integer argc, 
   /***************************************/
   // dimension "R 88.58"
   /***************************************/
-  gp_Circ     cir = gp_Circ(gp_Ax2(gp_Pnt(191.09, -88.58, 0), gp_Dir(0, 0, 1)), 88.58);
-  TopoDS_Edge E1 = BRepBuilderAPI_MakeEdge(cir, gp_Pnt(191.09, 0, 0.), gp_Pnt(191.09, -177.16, 0.));
+  gp_Circ     cir = gp_Circ(gp_Ax2(Point3d(191.09, -88.58, 0), gp_Dir(0, 0, 1)), 88.58);
+  TopoDS_Edge E1 = BRepBuilderAPI_MakeEdge(cir, Point3d(191.09, 0, 0.), Point3d(191.09, -177.16, 0.));
   Handle(PrsDim_RadiusDimension) dim1 = new PrsDim_RadiusDimension(E1);
   dim1->SetDimensionAspect(anAspect);
   context->Display(dim1, Standard_False);
   /***************************************/
   // dimension "R 43.80"
   /***************************************/
-  gp_Circ     cir1   = gp_Circ(gp_Ax2(gp_Pnt(191.09, -88.58, 0), gp_Dir(0, 0, 1)), 43.80);
+  gp_Circ     cir1   = gp_Circ(gp_Ax2(Point3d(191.09, -88.58, 0), gp_Dir(0, 0, 1)), 43.80);
   TopoDS_Edge E_cir1 = BRepBuilderAPI_MakeEdge(cir1);
   dim1               = new PrsDim_RadiusDimension(E_cir1);
   anAspect->ArrowAspect()->SetLength(60.0);
@@ -340,7 +340,7 @@ static Standard_Integer BUC60915_1(Draw_Interpretor& di, Standard_Integer argc, 
   /***************************************/
   // dimension "R 17.86"
   /***************************************/
-  gp_Circ     cir2   = gp_Circ(gp_Ax2(gp_Pnt(566.11, -88.58, 0), gp_Dir(0, 0, -1)), 17.86);
+  gp_Circ     cir2   = gp_Circ(gp_Ax2(Point3d(566.11, -88.58, 0), gp_Dir(0, 0, -1)), 17.86);
   TopoDS_Edge E_cir2 = BRepBuilderAPI_MakeEdge(cir2);
   dim1               = new PrsDim_RadiusDimension(E_cir2);
   anAspect->ArrowAspect()->SetLength(40.0);
@@ -359,9 +359,9 @@ static Standard_Integer OCC138(Draw_Interpretor& di, Standard_Integer /*argc*/, 
     return 1;
   }
 
-  BRepPrimAPI_MakeBox box1(gp_Pnt(0, 0, 0), gp_Pnt(100, 100, 100));
-  BRepPrimAPI_MakeBox box2(gp_Pnt(120, 120, 120), gp_Pnt(300, 300, 300));
-  BRepPrimAPI_MakeBox box3(gp_Pnt(320, 320, 320), gp_Pnt(500, 500, 500));
+  BRepPrimAPI_MakeBox box1(Point3d(0, 0, 0), Point3d(100, 100, 100));
+  BRepPrimAPI_MakeBox box2(Point3d(120, 120, 120), Point3d(300, 300, 300));
+  BRepPrimAPI_MakeBox box3(Point3d(320, 320, 320), Point3d(500, 500, 500));
 
   Handle(AIS_InteractiveObject) ais1 = new AIS_Shape(box1.Shape());
   Handle(AIS_InteractiveObject) ais2 = new AIS_Shape(box2.Shape());
@@ -393,7 +393,7 @@ static Standard_Integer OCC138(Draw_Interpretor& di, Standard_Integer /*argc*/, 
   return 0;
 }
 
-static int geom_get_2Dpt_from_3Dpt(const gp_Pnt& pnt3d, const gp_Pln& pln, gp_Pnt2d& pnt2d)
+static int geom_get_2Dpt_from_3Dpt(const Point3d& pnt3d, const gp_Pln& pln, gp_Pnt2d& pnt2d)
 {
   int                 ret  = 0;
   Handle(Geom_Plane)  gpln = new Geom_Plane(pln);
@@ -416,13 +416,13 @@ static int geom_get_2Dpt_from_3Dpt(const gp_Pnt& pnt3d, const gp_Pln& pln, gp_Pn
 
 static Standard_Integer OCC353(Draw_Interpretor& di, Standard_Integer, const char**)
 {
-  gp_Ax2              ax21(gp_Pnt(100, 0, 0), gp_Dir(0, 0, 1));
+  gp_Ax2              ax21(Point3d(100, 0, 0), gp_Dir(0, 0, 1));
   Handle(Geom_Circle) h_cir1 = new Geom_Circle(ax21, 25);
 
-  gp_Ax2              ax22(gp_Pnt(-100, 0, 0), gp_Dir(0, 0, 1));
+  gp_Ax2              ax22(Point3d(-100, 0, 0), gp_Dir(0, 0, 1));
   Handle(Geom_Circle) h_cir2 = new Geom_Circle(ax22, 25);
 
-  gp_Pln               refpln(gp_Pnt(0, 0, 0), gp_Dir(0, 0, 1));
+  gp_Pln               refpln(Point3d(0, 0, 0), gp_Dir(0, 0, 1));
   Handle(Geom2d_Curve) cir2d1 = GeomAPI::To2d(h_cir1, refpln);
   Handle(Geom2d_Curve) cir2d2 = GeomAPI::To2d(h_cir2, refpln);
 
@@ -434,7 +434,7 @@ static Standard_Integer OCC353(Draw_Interpretor& di, Standard_Integer, const cha
 
   Handle(Geom_CartesianPoint) h_carpt = new Geom_CartesianPoint(0, 175, 0);
 
-  gp_Pnt   pt3d = h_carpt->Pnt();
+  Point3d   pt3d = h_carpt->Pnt();
   gp_Pnt2d pt2d;
   geom_get_2Dpt_from_3Dpt(pt3d, refpln, pt2d);
 
@@ -483,9 +483,9 @@ static Standard_Integer OCC138LC(Draw_Interpretor& di, Standard_Integer /*argc*/
     return 1;
   }
 
-  BRepPrimAPI_MakeBox box1(gp_Pnt(0, 0, 0), gp_Pnt(100, 100, 100));
-  BRepPrimAPI_MakeBox box2(gp_Pnt(120, 120, 120), gp_Pnt(300, 300, 300));
-  BRepPrimAPI_MakeBox box3(gp_Pnt(320, 320, 320), gp_Pnt(500, 500, 500));
+  BRepPrimAPI_MakeBox box1(Point3d(0, 0, 0), Point3d(100, 100, 100));
+  BRepPrimAPI_MakeBox box2(Point3d(120, 120, 120), Point3d(300, 300, 300));
+  BRepPrimAPI_MakeBox box3(Point3d(320, 320, 320), Point3d(500, 500, 500));
 
   Handle(AIS_InteractiveObject) ais1 = new AIS_Shape(box1.Shape());
   Handle(AIS_InteractiveObject) ais2 = new AIS_Shape(box2.Shape());
@@ -811,13 +811,13 @@ static Standard_Integer OCC813(Draw_Interpretor& di, Standard_Integer argc, cons
 
   // Between ellipse and point:
 
-  Handle(Geom_Ellipse) ell = new Geom_Ellipse(gp_Ax2(gp_Pnt(1262.224429, 425.040878, 363.609716),
+  Handle(Geom_Ellipse) ell = new Geom_Ellipse(gp_Ax2(Point3d(1262.224429, 425.040878, 363.609716),
                                                      gp_Dir(0.173648, 0.984808, 0.000000),
                                                      gp_Dir(-0.932169, 0.164367, -0.322560)),
                                               150,
                                               100);
   Handle(Geom_Plane)   plne =
-    new Geom_Plane(gp_Ax3(gp_Ax2(gp_Pnt(1262.224429, 425.040878, 363.609716),
+    new Geom_Plane(gp_Ax3(gp_Ax2(Point3d(1262.224429, 425.040878, 363.609716),
                                  gp_Dir(0.173648, 0.984808, 0.000000),
                                  gp_Dir(-0.932169, 0.164367, -0.322560))));
 
@@ -885,17 +885,17 @@ static Standard_Integer OCC814(Draw_Interpretor& di, Standard_Integer argc, cons
 
   // Between Ellipse and Circle:
 
-  Handle(Geom_Circle)  cir = new Geom_Circle(gp_Ax2(gp_Pnt(823.687192, 502.366825, 478.960440),
+  Handle(Geom_Circle)  cir = new Geom_Circle(gp_Ax2(Point3d(823.687192, 502.366825, 478.960440),
                                                    gp_Dir(0.173648, 0.984808, 0.000000),
                                                    gp_Dir(-0.932169, 0.164367, -0.322560)),
                                             50);
-  Handle(Geom_Ellipse) ell = new Geom_Ellipse(gp_Ax2(gp_Pnt(1262.224429, 425.040878, 363.609716),
+  Handle(Geom_Ellipse) ell = new Geom_Ellipse(gp_Ax2(Point3d(1262.224429, 425.040878, 363.609716),
                                                      gp_Dir(0.173648, 0.984808, 0.000000),
                                                      gp_Dir(-0.932169, 0.164367, -0.322560)),
                                               150,
                                               100);
   Handle(Geom_Plane)   plne =
-    new Geom_Plane(gp_Ax3(gp_Ax2(gp_Pnt(1262.224429, 425.040878, 363.609716),
+    new Geom_Plane(gp_Ax3(gp_Ax2(Point3d(1262.224429, 425.040878, 363.609716),
                                  gp_Dir(0.173648, 0.984808, 0.000000),
                                  gp_Dir(-0.932169, 0.164367, -0.322560))));
 
@@ -1015,7 +1015,7 @@ static Standard_Integer OCC884(Draw_Interpretor& di, Standard_Integer argc, cons
   Standard_CString aName = str;
   for (i = 1; i <= num; ++i)
   {
-    gp_Pnt pt = points3d(i);
+    Point3d pt = points3d(i);
     di << "Info: Intersecting pt : (" << pt.X() << ", " << pt.Y() << ", " << pt.Z() << ")\n";
     Sprintf(str, "p_%d", i);
     DrawTrSurf::Set(aName, pt);
@@ -1116,10 +1116,10 @@ static Standard_Integer OCCN1(Draw_Interpretor& di, Standard_Integer argc, const
   Standard_Integer fuse   = Draw::Atoi(argv[2]);
   Standard_Real    length = Draw::Atof(argv[3]);
 
-  BRepBuilderAPI_MakeEdge edge1(gp_Pnt(0, 0, 0), gp_Pnt(50, 0, 0));
-  BRepBuilderAPI_MakeEdge edge2(gp_Pnt(50, 0, 0), gp_Pnt(50, 50, 0));
-  BRepBuilderAPI_MakeEdge edge3(gp_Pnt(50, 50, 0), gp_Pnt(0, 50, 0));
-  BRepBuilderAPI_MakeEdge edge4(gp_Pnt(0, 50, 0), gp_Pnt(0, 0, 0));
+  BRepBuilderAPI_MakeEdge edge1(Point3d(0, 0, 0), Point3d(50, 0, 0));
+  BRepBuilderAPI_MakeEdge edge2(Point3d(50, 0, 0), Point3d(50, 50, 0));
+  BRepBuilderAPI_MakeEdge edge3(Point3d(50, 50, 0), Point3d(0, 50, 0));
+  BRepBuilderAPI_MakeEdge edge4(Point3d(0, 50, 0), Point3d(0, 0, 0));
   TopoDS_Edge             ted1 = edge1.Edge();
   TopoDS_Edge             ted2 = edge2.Edge();
   TopoDS_Edge             ted3 = edge3.Edge();
@@ -1134,7 +1134,7 @@ static Standard_Integer OCCN1(Draw_Interpretor& di, Standard_Integer argc, const
   ////////aContext->Display(face_ais);
 
   TopoDS_Solid        box;
-  BRepPrimAPI_MakeBox block(gp_Pnt(-50, -50, -150), 150, 150, 100);
+  BRepPrimAPI_MakeBox block(Point3d(-50, -50, -150), 150, 150, 100);
   box = block.Solid();
 
   TopoDS_Face top_face;
@@ -1177,7 +1177,7 @@ static Standard_Integer OCCN2(Draw_Interpretor& di, Standard_Integer argc, const
   BRepPrimAPI_MakeCylinder cylinder(50, 200);
   TopoDS_Shape             cylinder_sh = cylinder.Shape();
 
-  BRepPrimAPI_MakeSphere sphere(gp_Pnt(60, 0, 100), 50);
+  BRepPrimAPI_MakeSphere sphere(Point3d(60, 0, 100), 50);
   TopoDS_Shape           sphere_sh = sphere.Shape();
 
   di << "BRepAlgoAPI_Section section(cylinder_sh, sphere_sh)\n";
@@ -1216,7 +1216,7 @@ static Standard_Integer OCC2569(Draw_Interpretor& di, Standard_Integer argc, con
 
   TColgp_Array1OfPnt arr(1, poles);
   for (int i = 1; i <= poles; i++)
-    arr.SetValue(i, gp_Pnt(i + 10, i * 2 + 20, i * 3 + 45));
+    arr.SetValue(i, Point3d(i + 10, i * 2 + 20, i * 3 + 45));
 
   Handle(Geom_BezierCurve) bez = new Geom_BezierCurve(arr);
   if (bez.IsNull())
@@ -1294,7 +1294,7 @@ static Standard_Integer OCC1642(Draw_Interpretor& di, Standard_Integer argc, con
 
     for (int i = 1; i <= num; ++i)
     {
-      gp_Pnt pt = points3d(i);
+      Point3d pt = points3d(i);
       di << "\n Intersecting pt : (" << pt.X() << ", " << pt.Y() << ", " << pt.Z() << ")";
     }
   }
@@ -1418,7 +1418,7 @@ static Standard_Integer OCC1642(Draw_Interpretor& di, Standard_Integer argc, con
 
     for (int i = 1; i <= num; ++i)
     {
-      gp_Pnt pt = points3d(i);
+      Point3d pt = points3d(i);
       di << "\n Intersecting pt : (" << pt.X() << ", " << pt.Y() << ", " << pt.Z() << ")";
     }
   }

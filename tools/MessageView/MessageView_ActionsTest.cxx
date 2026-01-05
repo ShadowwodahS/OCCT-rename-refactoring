@@ -201,7 +201,7 @@ void createShapeOnLevel()
 
   Message_Messenger::StreamBuffer sout = Message::SendInfo();
 
-  BRepBuilderAPI_MakeEdge aBuilder(gp_Pnt(0., 0., 0.), gp_Pnt(20., 10., 20.));
+  BRepBuilderAPI_MakeEdge aBuilder(Point3d(0., 0., 0.), Point3d(20., 10., 20.));
   TopoDS_Shape            aShape = aBuilder.Shape();
 
   Message::DefaultMessenger() << aShape;
@@ -214,7 +214,7 @@ void createShapeOnLevel()
 void createShape()
 {
   Message_Messenger::StreamBuffer sout = Message::SendInfo();
-  BRepBuilderAPI_MakeEdge         aBuilder(gp_Pnt(0., 0., 0.), gp_Pnt(20., 10., 20.));
+  BRepBuilderAPI_MakeEdge         aBuilder(Point3d(0., 0., 0.), Point3d(20., 10., 20.));
   TopoDS_Shape                    aShape = aBuilder.Shape();
 
   Message::DefaultMessenger() << aShape;
@@ -248,19 +248,19 @@ void MessageView_ActionsTest::OnTestMessenger()
   }
   // gp_Ax1
   {
-    gp_Ax1 aCoords(gp_Pnt(1.3, 2.3, 3.4), gp_Dir(0.3, 0.3, 0.4));
+    gp_Ax1 aCoords(Point3d(1.3, 2.3, 3.4), gp_Dir(0.3, 0.3, 0.4));
     aCoords.DumpJson(sout);
     sout.Flush(Standard_True);
   }
   // gp_Ax2
   {
-    gp_Ax2 aCoords(gp_Pnt(10.3, 20.3, 30.4), gp_Dir(0.3, 0.3, 0.4));
+    gp_Ax2 aCoords(Point3d(10.3, 20.3, 30.4), gp_Dir(0.3, 0.3, 0.4));
     aCoords.DumpJson(sout);
     sout.Flush(Standard_True);
   }
   // gp_Ax3
   {
-    gp_Ax3 aPln(gp_Pnt(10., 20., 15.), gp_Dir(0., 0., 1.), gp_Dir(1., 0., 0.));
+    gp_Ax3 aPln(Point3d(10., 20., 15.), gp_Dir(0., 0., 1.), gp_Dir(1., 0., 0.));
     aPln.DumpJson(sout);
     sout.Flush(Standard_True);
   }
@@ -276,13 +276,13 @@ void MessageView_ActionsTest::OnTestMessenger()
   }
   // Bnd_Box
   {
-    Bnd_Box aBox(gp_Pnt(20., 15., 10.), gp_Pnt(25., 20., 15.));
+    Bnd_Box aBox(Point3d(20., 15., 10.), Point3d(25., 20., 15.));
     aBox.DumpJson(sout);
     sout.Flush(Standard_True);
   }
   // Bnd_OBB
   {
-    Bnd_OBB anOBB(gp_Pnt(-10., -15., -10.),
+    Bnd_OBB anOBB(Point3d(-10., -15., -10.),
                   gp_Dir(1., 0., 0.),
                   gp_Dir(0., 1., 0.),
                   gp_Dir(0., 0., 1.),

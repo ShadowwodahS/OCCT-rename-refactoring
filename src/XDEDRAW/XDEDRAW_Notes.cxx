@@ -1273,7 +1273,7 @@ static Standard_Integer noteDump(Draw_Interpretor& di, Standard_Integer argc, co
     di << "text point : ";
     if (aNoteObj->HasPointText())
     {
-      const gp_Pnt& aP = aNoteObj->GetPointText();
+      const Point3d& aP = aNoteObj->GetPointText();
       di << "[ " << aP.X() << " " << aP.Y() << " " << aP.Z() << " ]\n";
     }
     else
@@ -1282,7 +1282,7 @@ static Standard_Integer noteDump(Draw_Interpretor& di, Standard_Integer argc, co
     if (aNoteObj->HasPlane())
     {
       const gp_Ax2& anAx = aNoteObj->GetPlane();
-      const gp_Pnt& aP   = anAx.Location();
+      const Point3d& aP   = anAx.Location();
       di << "P : [ " << aP.X() << " " << aP.Y() << " " << aP.Z() << " ]";
       const gp_Dir& aN = anAx.Direction();
       di << "N : [ " << aN.X() << " " << aN.Y() << " " << aN.Z() << " ]";
@@ -1290,7 +1290,7 @@ static Standard_Integer noteDump(Draw_Interpretor& di, Standard_Integer argc, co
     di << "attachment point : ";
     if (aNoteObj->HasPoint())
     {
-      const gp_Pnt& aP = aNoteObj->GetPoint();
+      const Point3d& aP = aNoteObj->GetPoint();
       di << "[ " << aP.X() << " " << aP.Y() << " " << aP.Z() << " ]\n";
     }
     else

@@ -132,17 +132,17 @@ static Standard_Integer GetArc(IntPatch_SequenceOfLine&           theSlin,
                                const Handle(Adaptor3d_Surface)&   theSurfaceObj,
                                const Handle(Adaptor3d_TopolTool)& theDomainObj,
                                const Handle(Adaptor3d_Surface)&   theSurfaceTool,
-                               const gp_Pnt&                      theTestPoint,
+                               const Point3d&                      theTestPoint,
                                Standard_Real&                     theVrtxTol,
                                Handle(IntSurf_LineOn2S)&          theLineOn2S,
                                Standard_Real&                     theFirst,
                                Standard_Real&                     theLast);
 //------------------------------------------------------------------------------------------------
-static Standard_Boolean IsPointOK(const gp_Pnt&            theTestPnt,
+static Standard_Boolean IsPointOK(const Point3d&            theTestPnt,
                                   const Adaptor3d_Surface& theTestSurface,
                                   const Standard_Real&     theTol);
 //-------------------------------------------------------------------------------------------------
-static Standard_Boolean GetPointOn2S(const gp_Pnt&            theTestPnt,
+static Standard_Boolean GetPointOn2S(const Point3d&            theTestPnt,
                                      const Adaptor3d_Surface& theTestSurface,
                                      const Standard_Real&     theTol,
                                      Extrema_POnSurf&         theResultPoint);
@@ -653,7 +653,7 @@ static Standard_Boolean TestWLineAlongRestriction(const Handle(IntPatch_WLine)& 
     else
       Pmid.ParametersOnS2(u, v);
     //------------------------------------------
-    gp_Pnt ap;
+    Point3d ap;
     gp_Vec ad1u, ad1v;
     // Standard_Real nad1u, nad1v, tolu, tolv;
 
@@ -911,7 +911,7 @@ static Handle(IntPatch_RLine) BuildRLine(const IntPatch_SequenceOfLine&     theS
           Standard_Real par =
             Geom2dInt_TheProjPCurOfGInter::FindParameter(*theDomain->Value(), aPOnLine, 1e-7);
           aPOnArc = theDomain->Value()->Value(par);
-          gp_Pnt        ap;
+          Point3d        ap;
           gp_Vec        ad1u, ad1v;
           Standard_Real nad1u, nad1v, tolu, tolv;
 
@@ -1228,7 +1228,7 @@ static void MergeWLinesIfAllSegmentsAlongRestriction(IntPatch_SequenceOfLine&   
   Standard_Real    TolVrtx = 1.e-5;
   Standard_Integer testPointIndex =
     (sqVertexPoints.Length() > 3) ? ((Standard_Integer)sqVertexPoints.Length() / 2) : 2;
-  gp_Pnt        testPoint = sqVertexPoints.Value(testPointIndex);
+  Point3d        testPoint = sqVertexPoints.Value(testPointIndex);
   Standard_Real Fp = 0., Lp = 0.;
 
   Handle(IntSurf_LineOn2S) aLineOn2S = new IntSurf_LineOn2S();
@@ -1284,7 +1284,7 @@ static Standard_Integer GetArc(IntPatch_SequenceOfLine&           theSlin,
                                const Handle(Adaptor3d_Surface)&   theSurfaceObj,
                                const Handle(Adaptor3d_TopolTool)& theDomainObj,
                                const Handle(Adaptor3d_Surface)&   theSurfaceTool,
-                               const gp_Pnt&                      theTestPoint,
+                               const Point3d&                      theTestPoint,
                                Standard_Real&                     theVrtxTol,
                                Handle(IntSurf_LineOn2S)&          theLineOn2S,
                                Standard_Real&                     theFirst,
@@ -1410,7 +1410,7 @@ static Standard_Integer GetArc(IntPatch_SequenceOfLine&           theSlin,
     if (Abs(firstES1 - WLVertexParameters.Value(1)) > arc->Resolution(MaxVertexTol))
     {
       Standard_Real param = (firstES1 + WLVertexParameters.Value(1)) / 2.;
-      gp_Pnt        point;
+      Point3d        point;
       aCEdge->D0(param, point);
       if (!IsPointOK(point, *theSurfaceTool, CheckTol))
       {
@@ -1423,7 +1423,7 @@ static Standard_Integer GetArc(IntPatch_SequenceOfLine&           theSlin,
         > arc->Resolution(MaxVertexTol))
     {
       Standard_Real param = (lastES1 + WLVertexParameters.Value(WLVertexParameters.Length())) / 2.;
-      gp_Pnt        point;
+      Point3d        point;
       aCEdge->D0(param, point);
       if (!IsPointOK(point, *theSurfaceTool, CheckTol))
       {
@@ -1440,7 +1440,7 @@ static Standard_Integer GetArc(IntPatch_SequenceOfLine&           theSlin,
       {
         Standard_Real param =
           (WLVertexParameters.Value(i * 2) + WLVertexParameters.Value(i * 2 + 1)) / 2.;
-        gp_Pnt point;
+        Point3d point;
         aCEdge->D0(param, point);
         if (!IsPointOK(point, *theSurfaceTool, CheckTol))
         {
@@ -1463,7 +1463,7 @@ static Standard_Integer GetArc(IntPatch_SequenceOfLine&           theSlin,
       if (i == 99)
         cParam = ParamLast;
 
-      gp_Pnt cPnt;
+      Point3d cPnt;
       aCEdge->D0(cParam, cPnt);
       PointsFromArc.Append(cPnt);
       cParam += dParam;
@@ -1480,7 +1480,7 @@ static Standard_Integer GetArc(IntPatch_SequenceOfLine&           theSlin,
   {
     Extrema_POnSurf  pOnS1;
     Extrema_POnSurf  pOnS2;
-    gp_Pnt           arcpoint = PointsFromArc.Value(i);
+    Point3d           arcpoint = PointsFromArc.Value(i);
     Standard_Boolean isOnS1   = GetPointOn2S(arcpoint, *theSurfaceObj, CheckTol, pOnS1);
     Standard_Boolean isOnS2   = GetPointOn2S(arcpoint, *theSurfaceTool, CheckTol, pOnS2);
     if (isOnS1 && isOnS2)
@@ -1502,7 +1502,7 @@ static Standard_Integer GetArc(IntPatch_SequenceOfLine&           theSlin,
 //
 //  purpose: returns the state of testPoint on OTHER face.
 //========================================================================================
-static Standard_Boolean IsPointOK(const gp_Pnt&            theTestPnt,
+static Standard_Boolean IsPointOK(const Point3d&            theTestPnt,
                                   const Adaptor3d_Surface& theTestSurface,
                                   const Standard_Real&     theTol)
 {
@@ -1531,7 +1531,7 @@ static Standard_Boolean IsPointOK(const gp_Pnt&            theTestPnt,
 //
 //  purpose: check state of testPoint and returns result point if state is OK.
 //========================================================================================
-static Standard_Boolean GetPointOn2S(const gp_Pnt&            theTestPnt,
+static Standard_Boolean GetPointOn2S(const Point3d&            theTestPnt,
                                      const Adaptor3d_Surface& theTestSurface,
                                      const Standard_Real&     theTol,
                                      Extrema_POnSurf&         theResultPoint)

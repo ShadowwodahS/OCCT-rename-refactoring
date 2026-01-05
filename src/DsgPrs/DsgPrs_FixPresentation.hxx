@@ -23,7 +23,7 @@
 #include <Prs3d_Drawer.hxx>
 #include <Prs3d_Presentation.hxx>
 
-class gp_Pnt;
+class Point3d;
 class gp_Dir;
 
 //! class which draws the presentation of Fixed objects
@@ -39,8 +39,8 @@ public:
   //! aSymbSize is the size of the 'fix'symbol
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Handle(Prs3d_Drawer)&       aDrawer,
-                                  const gp_Pnt&                     aPntAttach,
-                                  const gp_Pnt&                     aPntEnd,
+                                  const Point3d&                     aPntAttach,
+                                  const Point3d&                     aPntEnd,
                                   const gp_Dir&                     aNormPln,
                                   const Standard_Real               aSymbSize);
 

@@ -282,7 +282,7 @@ Standard_Boolean Draft_Modification::NewCurve(const TopoDS_Edge&  E,
 
 //=================================================================================================
 
-Standard_Boolean Draft_Modification::NewPoint(const TopoDS_Vertex& V, gp_Pnt& P, Standard_Real& Tol)
+Standard_Boolean Draft_Modification::NewPoint(const TopoDS_Vertex& V, Point3d& P, Standard_Real& Tol)
 {
   if (!IsDone())
   {

@@ -61,8 +61,8 @@ private:
     const Handle(Prs3d_Presentation)& aPresentation);
 
 private:
-  gp_Pnt myFAttach;
-  gp_Pnt mySAttach;
+  Point3d myFAttach;
+  Point3d mySAttach;
 };
 
 #endif // _PrsDim_PerpendicularRelation_HeaderFile

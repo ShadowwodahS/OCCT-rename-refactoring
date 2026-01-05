@@ -53,7 +53,7 @@ Handle(StepVisual_CoordinatesList) GenerateCoordinateList(
   Handle(TColgp_HArray1OfXYZ) thePoints = new TColgp_HArray1OfXYZ(1, theTriangulation->NbNodes());
   for (Standard_Integer aNodeIndex = 1; aNodeIndex <= theTriangulation->NbNodes(); ++aNodeIndex)
   {
-    const gp_Pnt aCurrentNode = theTriangulation->Node(aNodeIndex).Transformed(theTransformation);
+    const Point3d aCurrentNode = theTriangulation->Node(aNodeIndex).Transformed(theTransformation);
     thePoints->SetValue(aNodeIndex, aCurrentNode.XYZ());
   }
   Handle(StepVisual_CoordinatesList) aCoordinatesList = new StepVisual_CoordinatesList;

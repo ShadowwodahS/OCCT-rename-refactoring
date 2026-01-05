@@ -64,8 +64,8 @@ private:
   gp_Elips                 myElips;
   gp_Hypr                  myHypr;
   gp_Parab                 myParab;
-  gp_Pnt                   myCPf;
-  gp_Pnt                   myCPl;
+  Point3d                   myCPf;
+  Point3d                   myCPl;
   // Boundaries
   Standard_Real myTf;
   Standard_Real myTl;

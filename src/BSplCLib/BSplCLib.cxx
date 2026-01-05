@@ -37,7 +37,7 @@
 #include <Standard_NotImplemented.hxx>
 #include <math_Vector.hxx>
 
-typedef gp_Pnt                  Pnt;
+typedef Point3d                  Pnt;
 typedef gp_Vec                  Vec;
 typedef TColgp_Array1OfPnt      Array1OfPnt;
 typedef TColStd_Array1OfReal    Array1OfReal;

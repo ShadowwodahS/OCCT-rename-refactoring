@@ -25,7 +25,7 @@
 #include <Standard_Boolean.hxx>
 #include <Standard_Real.hxx>
 class TopoDS_Shape;
-class gp_Pnt;
+class Point3d;
 class TopoDS_Edge;
 class gp_Lin;
 class gp_Circ;
@@ -57,7 +57,7 @@ public:
   //! =====
   Standard_EXPORT static void PlanarDimensionCommands(Draw_Interpretor& I);
 
-  Standard_EXPORT static gp_Pnt Nearest(const TopoDS_Shape& aShape, const gp_Pnt& apoint);
+  Standard_EXPORT static Point3d Nearest(const TopoDS_Shape& aShape, const Point3d& apoint);
 
   //! false if <e> is not a linear edge
   Standard_EXPORT static Standard_Boolean Lin(const TopoDS_Edge& e,

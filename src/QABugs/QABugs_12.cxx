@@ -55,7 +55,7 @@ static Standard_Integer OCC895(Draw_Interpretor& di, Standard_Integer argc, cons
   // This arc is rotated 5 degrees about the Z axis.
   // I don't know why, but if we don't rotate it,
   // the final shell is not twisted.
-  gp_Pnt center1(0, 10, 0);
+  Point3d center1(0, 10, 0);
   gp_Ax2 axis1 =
     reverse ? gp_Ax2(center1, gp::DY(), gp::DZ()) : gp_Ax2(center1, -gp::DY(), gp::DX());
   if (Abs(angle) > gp::Resolution())
@@ -82,7 +82,7 @@ static Standard_Integer OCC895(Draw_Interpretor& di, Standard_Integer argc, cons
   TopoDS_Wire wire1 = makeWire1.Wire();
 
   // Make a wire from the second arc for ThruSections.
-  gp_Pnt center2(10, 0, 0);
+  Point3d center2(10, 0, 0);
   gp_Ax2 axis2(center2, -gp::DX(), gp::DZ());
 
   gce_MakeCirc makeCirc2(axis2, rad);

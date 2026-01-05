@@ -54,7 +54,7 @@ public:
   //! TolU et TolV are used to determine the conditions
   //! to stop the iterations; at the iteration number n:
   //! (Un - Un-1) < TolU and (Vn - Vn-1) < TolV .
-  Standard_EXPORT Extrema_GenExtPS(const gp_Pnt&            P,
+  Standard_EXPORT Extrema_GenExtPS(const Point3d&            P,
                                    const Adaptor3d_Surface& S,
                                    const Standard_Integer   NbU,
                                    const Standard_Integer   NbV,
@@ -75,7 +75,7 @@ public:
   //! TolU et TolV are used to determine the conditions
   //! to stop the iterations; at the iteration number n:
   //! (Un - Un-1) < TolU and (Vn - Vn-1) < TolV .
-  Standard_EXPORT Extrema_GenExtPS(const gp_Pnt&            P,
+  Standard_EXPORT Extrema_GenExtPS(const Point3d&            P,
                                    const Adaptor3d_Surface& S,
                                    const Standard_Integer   NbU,
                                    const Standard_Integer   NbV,
@@ -107,7 +107,7 @@ public:
   //! the algorithm is done with the point P.
   //! An exception is raised if the fields have not
   //! been initialized.
-  Standard_EXPORT void Perform(const gp_Pnt& P);
+  Standard_EXPORT void Perform(const Point3d& P);
 
   Standard_EXPORT void SetFlag(const Extrema_ExtFlag F);
 
@@ -128,20 +128,20 @@ public:
 private:
   Standard_EXPORT void BuildTree();
 
-  Standard_EXPORT void FindSolution(const gp_Pnt& P, const Extrema_POnSurfParams& theParams);
+  Standard_EXPORT void FindSolution(const Point3d& P, const Extrema_POnSurfParams& theParams);
 
   //! Selection of points to build grid, depending on the type of surface
   Standard_EXPORT void GetGridPoints(const Adaptor3d_Surface& theSurf);
 
   //! Creation of grid of parametric points
-  Standard_EXPORT void BuildGrid(const gp_Pnt& thePoint);
+  Standard_EXPORT void BuildGrid(const Point3d& thePoint);
 
   //! Compute new edge parameters.
   Standard_EXPORT const Extrema_POnSurfParams& ComputeEdgeParameters(
     const Standard_Boolean       IsUEdge,
     const Extrema_POnSurfParams& theParam0,
     const Extrema_POnSurfParams& theParam1,
-    const gp_Pnt&                thePoints,
+    const Point3d&                thePoints,
     const Standard_Real          theDiffTol);
 
 private:

@@ -32,7 +32,7 @@ class V3d_PositionalLight : public V3d_PositionLight
   DEFINE_STANDARD_RTTIEXT(V3d_PositionalLight, V3d_PositionLight)
 public:
   //! Creates an isolated light source in the viewer with default attenuation factors (1.0, 0.0).
-  Standard_EXPORT V3d_PositionalLight(const gp_Pnt&         thePos,
+  Standard_EXPORT V3d_PositionalLight(const Point3d&         thePos,
                                       const Quantity_Color& theColor = Quantity_NOC_WHITE);
 
   using Graphic3d_CLight::Position;

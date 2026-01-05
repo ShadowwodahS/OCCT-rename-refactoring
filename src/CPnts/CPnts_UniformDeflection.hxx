@@ -149,7 +149,7 @@ public:
   Standard_Real Value() const;
 
   //! return the computed parameter
-  gp_Pnt Point() const;
+  Point3d Point() const;
 
 protected:
 private:
@@ -165,7 +165,7 @@ private:
   Standard_Integer myIPoint;
   Standard_Integer myNbPoints;
   Standard_Real    myParams[3];
-  gp_Pnt           myPoints[3];
+  Point3d           myPoints[3];
   Standard_Real    myDwmax;
   Standard_Real    myDeflection;
   Standard_Real    myFirstParam;

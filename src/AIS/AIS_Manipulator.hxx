@@ -436,7 +436,7 @@ protected:
   Standard_EXPORT Handle(Graphic3d_Group) getGroup(const Standard_Integer    theIndex,
                                                    const AIS_ManipulatorMode theMode) const;
 
-  Standard_EXPORT void attachToPoint(const gp_Pnt& thePoint);
+  Standard_EXPORT void attachToPoint(const Point3d& thePoint);
 
   Standard_EXPORT void attachToBox(const Bnd_Box& theBox);
 
@@ -508,13 +508,13 @@ protected: //! @name Auxiliary classes to fill presentation with proper primitiv
     }
 
     void Init(const Standard_ShortReal theRadius,
-              const gp_Pnt&            thePosition,
+              const Point3d&            thePosition,
               const ManipulatorSkin    theSkinMode,
               const Standard_Integer   theSlicesNb = 20,
               const Standard_Integer   theStacksNb = 20);
 
   protected:
-    gp_Pnt             myPosition;
+    Point3d             myPosition;
     Standard_ShortReal myRadius;
   };
 
@@ -535,9 +535,9 @@ protected: //! @name Auxiliary classes to fill presentation with proper primitiv
 
   private:
     void addTriangle(const Standard_Integer theIndex,
-                     const gp_Pnt&          theP1,
-                     const gp_Pnt&          theP2,
-                     const gp_Pnt&          theP3,
+                     const Point3d&          theP1,
+                     const Point3d&          theP2,
+                     const Point3d&          theP3,
                      const gp_Dir&          theNormal);
 
   protected:
@@ -692,7 +692,7 @@ protected: //! @name Auxiliary classes to fill presentation with proper primitiv
 
     Standard_ShortReal InnerRadius() const { return myInnerRadius + myIndent * 2.0f; }
 
-    gp_Pnt ScalerCenter(const gp_Pnt& theLocation) const
+    Point3d ScalerCenter(const Point3d& theLocation) const
     {
       return theLocation.XYZ()
              + myPosition.Direction().XYZ() * (myLength + myIndent + myBoxSize * 0.5f);
@@ -721,7 +721,7 @@ protected: //! @name Auxiliary classes to fill presentation with proper primitiv
     Standard_Integer FacettesNumber() const { return myFacettesNumber; }
 
   public:
-    const gp_Pnt& TranslatorTipPosition() const { return myArrowTipPos; }
+    const Point3d& TranslatorTipPosition() const { return myArrowTipPos; }
 
     const Sector& DraggerSector() const { return mySector; }
 
@@ -731,7 +731,7 @@ protected: //! @name Auxiliary classes to fill presentation with proper primitiv
 
     const Cube& ScalerCube() const { return myCube; }
 
-    const gp_Pnt& ScalerCubePosition() const { return myCubePos; }
+    const Point3d& ScalerCubePosition() const { return myCubePos; }
 
   protected:
     gp_Ax1         myReferenceAxis; //!< Returns reference axis assignment.
@@ -755,12 +755,12 @@ protected: //! @name Auxiliary classes to fill presentation with proper primitiv
   protected:
     Standard_Integer myFacettesNumber;
 
-    gp_Pnt myArrowTipPos;
+    Point3d myArrowTipPos;
     Sector mySector;
     Disk   myCircle;
     float  myCircleRadius;
     Cube   myCube;
-    gp_Pnt myCubePos;
+    Point3d myCubePos;
 
     Handle(Graphic3d_Group) myTranslatorGroup;
     Handle(Graphic3d_Group) myScalerGroup;
@@ -801,7 +801,7 @@ protected: //! @name Fields for interactive transformation. Fields only for inte
   Standard_Boolean myHasStartedTransformation; //!< Shows if transformation is processed (sequential calls of Transform()).
                                               // clang-format on
   gp_Ax2        myStartPosition; //! Start position of manipulator.
-  gp_Pnt        myStartPick;     //! 3d point corresponding to start mouse pick.
+  Point3d        myStartPick;     //! 3d point corresponding to start mouse pick.
   Standard_Real myPrevState;     //! Previous value of angle during rotation.
 
   //! Aspect used to color current detected part and current selected part.

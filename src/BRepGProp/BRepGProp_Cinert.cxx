@@ -21,7 +21,7 @@
 
 BRepGProp_Cinert::BRepGProp_Cinert() {}
 
-void BRepGProp_Cinert::SetLocation(const gp_Pnt& CLocation)
+void BRepGProp_Cinert::SetLocation(const Point3d& CLocation)
 {
   loc = CLocation;
 }
@@ -36,7 +36,7 @@ void BRepGProp_Cinert::Perform(const BRepAdaptor_Curve& C)
   Standard_Real    Upper = BRepGProp_EdgeTool::LastParameter(C);
   Standard_Integer Order = Min(BRepGProp_EdgeTool::IntegrationOrder(C), math::GaussPointsMax());
 
-  gp_Pnt        P;  // value on the curve
+  Point3d        P;  // value on the curve
   gp_Vec        V1; // first derivative on the curve
   Standard_Real ds; // curvilign abscissae
   Standard_Real ur, um, u;
@@ -151,7 +151,7 @@ void BRepGProp_Cinert::Perform(const BRepAdaptor_Curve& C)
     g.SetCoord(Ix / dim, Iy / dim, Iz / dim);
 }
 
-BRepGProp_Cinert::BRepGProp_Cinert(const BRepAdaptor_Curve& C, const gp_Pnt& CLocation)
+BRepGProp_Cinert::BRepGProp_Cinert(const BRepAdaptor_Curve& C, const Point3d& CLocation)
 {
   SetLocation(CLocation);
   Perform(C);

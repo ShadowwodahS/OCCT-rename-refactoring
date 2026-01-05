@@ -73,7 +73,7 @@ gp_Pnt2d TopOpeBRep_WPointInter::ValueOnS2() const
 
 //=================================================================================================
 
-const gp_Pnt& TopOpeBRep_WPointInter::Value() const
+const Point3d& TopOpeBRep_WPointInter::Value() const
 {
   return myPP2S->Value();
 }

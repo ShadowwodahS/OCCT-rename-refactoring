@@ -59,7 +59,7 @@ void DrawDim_Radius::DrawOn(Draw_Display& dis) const
   TopoDS_Shape myFShape = myCylinder;
 
   // output
-  gp_Pnt  myPosition;
+  Point3d  myPosition;
   gp_Circ myCircle;
 
 //=================================================================================================
@@ -77,7 +77,7 @@ void DrawDim_Radius::DrawOn(Draw_Display& dis) const
   vLast              = surfAlgo.LastVParameter();
   Standard_Real uMoy = (uFirst + uLast) / 2;
   Standard_Real vMoy = (vFirst + vLast) / 2;
-  gp_Pnt        curpos;
+  Point3d        curpos;
   surfAlgo.D0(uMoy, vMoy, curpos);
   const Handle(Geom_Surface)& surf = surfAlgo.Surface().Surface();
   Handle(Geom_Curve)          aCurve;
@@ -100,7 +100,7 @@ void DrawDim_Radius::DrawOn(Draw_Display& dis) const
   else
   {
     // compute a circle from 3 points on "aCurve"
-    gp_Pnt P1, P2;
+    Point3d P1, P2;
     surfAlgo.D0(uFirst, vMoy, P1);
     surfAlgo.D0(uLast, vMoy, P2);
     GC_MakeCircle mkCirc(P1, curpos, P2);

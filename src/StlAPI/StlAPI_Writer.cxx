@@ -81,7 +81,7 @@ Standard_Boolean StlAPI_Writer::Write(const TopoDS_Shape&          theShape,
     gp_Trsf aTrsf = aLoc.Transformation();
     for (Standard_Integer aNodeIter = 1; aNodeIter <= aTriangulation->NbNodes(); ++aNodeIter)
     {
-      gp_Pnt aPnt = aTriangulation->Node(aNodeIter);
+      Point3d aPnt = aTriangulation->Node(aNodeIter);
       aPnt.Transform(aTrsf);
       aMesh->SetNode(aNodeIter + aNodeOffset, aPnt);
     }

@@ -22,7 +22,7 @@
 
 #include <GProp_GProps.hxx>
 class BRepGProp_Face;
-class gp_Pnt;
+class Point3d;
 class BRepGProp_Domain;
 
 //! Computes the global properties of a face in 3D space.
@@ -35,24 +35,24 @@ public:
 
   Standard_EXPORT BRepGProp_Sinert();
 
-  Standard_EXPORT BRepGProp_Sinert(const BRepGProp_Face& S, const gp_Pnt& SLocation);
+  Standard_EXPORT BRepGProp_Sinert(const BRepGProp_Face& S, const Point3d& SLocation);
 
   //! Builds a Sinert to evaluate the global properties of
   //! the face <S>. If isNaturalRestriction is true the domain of S is defined
   //! with the natural bounds, else it defined with an iterator
   //! of Edge from TopoDS (see DomainTool from GProp)
-  Standard_EXPORT BRepGProp_Sinert(BRepGProp_Face& S, BRepGProp_Domain& D, const gp_Pnt& SLocation);
+  Standard_EXPORT BRepGProp_Sinert(BRepGProp_Face& S, BRepGProp_Domain& D, const Point3d& SLocation);
 
   Standard_EXPORT BRepGProp_Sinert(BRepGProp_Face&     S,
-                                   const gp_Pnt&       SLocation,
+                                   const Point3d&       SLocation,
                                    const Standard_Real Eps);
 
   Standard_EXPORT BRepGProp_Sinert(BRepGProp_Face&     S,
                                    BRepGProp_Domain&   D,
-                                   const gp_Pnt&       SLocation,
+                                   const Point3d&       SLocation,
                                    const Standard_Real Eps);
 
-  Standard_EXPORT void SetLocation(const gp_Pnt& SLocation);
+  Standard_EXPORT void SetLocation(const Point3d& SLocation);
 
   Standard_EXPORT void Perform(const BRepGProp_Face& S);
 

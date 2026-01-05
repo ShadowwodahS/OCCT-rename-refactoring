@@ -49,7 +49,7 @@ Standard_Boolean BinMXCAFDoc_CentroidDriver::Paste(
   Standard_Boolean         isOk = theSource >> x >> y >> z;
   if (isOk)
   {
-    gp_Pnt aPnt(x, y, z);
+    Point3d aPnt(x, y, z);
     anAtt->Set(aPnt);
   }
   return isOk;
@@ -62,6 +62,6 @@ void BinMXCAFDoc_CentroidDriver::Paste(const Handle(TDF_Attribute)& theSource,
                                        BinObjMgt_SRelocationTable& /*theRelocTable*/) const
 {
   Handle(XCAFDoc_Centroid) anAtt = Handle(XCAFDoc_Centroid)::DownCast(theSource);
-  gp_Pnt                   aPnt  = anAtt->Get();
+  Point3d                   aPnt  = anAtt->Get();
   theTarget << aPnt.X() << aPnt.Y() << aPnt.Z();
 }

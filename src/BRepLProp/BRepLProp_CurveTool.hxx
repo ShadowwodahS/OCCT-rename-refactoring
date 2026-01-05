@@ -22,7 +22,7 @@
 
 #include <Standard_Integer.hxx>
 class BRepAdaptor_Curve;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 
 class BRepLProp_CurveTool
@@ -31,20 +31,20 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Computes the point <P> of parameter <U> on the curve <C>.
-  Standard_EXPORT static void Value(const BRepAdaptor_Curve& C, const Standard_Real U, gp_Pnt& P);
+  Standard_EXPORT static void Value(const BRepAdaptor_Curve& C, const Standard_Real U, Point3d& P);
 
   //! Computes the point <P> and first derivative <V1> of
   //! parameter <U> on the curve <C>.
   Standard_EXPORT static void D1(const BRepAdaptor_Curve& C,
                                  const Standard_Real      U,
-                                 gp_Pnt&                  P,
+                                 Point3d&                  P,
                                  gp_Vec&                  V1);
 
   //! Computes the point <P>, the first derivative <V1> and second
   //! derivative <V2> of parameter <U> on the curve <C>.
   Standard_EXPORT static void D2(const BRepAdaptor_Curve& C,
                                  const Standard_Real      U,
-                                 gp_Pnt&                  P,
+                                 Point3d&                  P,
                                  gp_Vec&                  V1,
                                  gp_Vec&                  V2);
 
@@ -53,7 +53,7 @@ public:
   //! parameter <U> on the curve <C>.
   Standard_EXPORT static void D3(const BRepAdaptor_Curve& C,
                                  const Standard_Real      U,
-                                 gp_Pnt&                  P,
+                                 Point3d&                  P,
                                  gp_Vec&                  V1,
                                  gp_Vec&                  V2,
                                  gp_Vec&                  V3);

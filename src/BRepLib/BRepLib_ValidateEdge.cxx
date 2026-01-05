@@ -121,8 +121,8 @@ void BRepLib_ValidateEdge::processApprox()
       Standard_Real aControlPointParam =
         ((aControlPointsNumber - i) * aReferenceFirstParam + i * aReferenceLastParam)
         / aControlPointsNumber;
-      gp_Pnt        aReferencePoint = myReferenceCurve->Value(aControlPointParam);
-      gp_Pnt        anOtherPoint    = myOtherCurve->Value(aControlPointParam);
+      Point3d        aReferencePoint = myReferenceCurve->Value(aControlPointParam);
+      Point3d        anOtherPoint    = myOtherCurve->Value(aControlPointParam);
       Standard_Real aSquareDistance = aReferencePoint.SquareDistance(anOtherPoint);
       if (aSquareDistance > aMaxSquareDistance)
       {
@@ -138,8 +138,8 @@ void BRepLib_ValidateEdge::processApprox()
   }
   else
   {
-    gp_Pnt        aReferencePoint = myReferenceCurve->Value(aReferenceFirstParam);
-    gp_Pnt        anOtherPoint    = myOtherCurve->Value(anOtherFirstParam);
+    Point3d        aReferencePoint = myReferenceCurve->Value(aReferenceFirstParam);
+    Point3d        anOtherPoint    = myOtherCurve->Value(anOtherFirstParam);
     Standard_Real aSquareDistance = aReferencePoint.SquareDistance(anOtherPoint);
     if (aSquareDistance > aMaxSquareDistance)
     {
@@ -178,11 +178,11 @@ void BRepLib_ValidateEdge::processApprox()
       Standard_Real aReferenceParam =
         ((aControlPointsNumber - i) * aReferenceFirstParam + i * aReferenceLastParam)
         / aControlPointsNumber;
-      gp_Pnt        aReferenceExtremaPoint = myReferenceCurve->Value(aReferenceParam);
+      Point3d        aReferenceExtremaPoint = myReferenceCurve->Value(aReferenceParam);
       Standard_Real anOtherParam =
         ((aControlPointsNumber - i) * anOtherFirstParam + i * anOtherLastParam)
         / aControlPointsNumber;
-      gp_Pnt anOtherExtremaPoint = myOtherCurve->Value(anOtherParam);
+      Point3d anOtherExtremaPoint = myOtherCurve->Value(anOtherParam);
 
       aReferenceExtrema.Perform(anOtherExtremaPoint, aReferenceParam);
       if (aReferenceExtrema.IsDone())

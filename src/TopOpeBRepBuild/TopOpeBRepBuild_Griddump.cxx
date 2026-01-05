@@ -226,13 +226,13 @@ TCollection_AsciiString TopOpeBRepBuild_Builder::StringState(const TopAbs_State)
 //=================================================================================================
 
 #ifdef OCCT_DEBUG
-void TopOpeBRepBuild_Builder::GdumpPNT(const gp_Pnt& P)
+void TopOpeBRepBuild_Builder::GdumpPNT(const Point3d& P)
 {
   std::cout << P.X() << " " << P.Y() << " " << P.Z();
   std::cout.flush();
 }
 #else
-void TopOpeBRepBuild_Builder::GdumpPNT(const gp_Pnt&) {}
+void TopOpeBRepBuild_Builder::GdumpPNT(const Point3d&) {}
 #endif
 
 //=================================================================================================
@@ -240,7 +240,7 @@ void TopOpeBRepBuild_Builder::GdumpPNT(const gp_Pnt&) {}
 #ifdef OCCT_DEBUG
 void TopOpeBRepBuild_Builder::GdumpORIPARPNT(const TopAbs_Orientation o,
                                              const Standard_Real      p,
-                                             const gp_Pnt&            Pnt)
+                                             const Point3d&            Pnt)
 {
   TopAbs::Print(o, std::cout);
   std::cout << " " << p << " pnt ";
@@ -250,7 +250,7 @@ void TopOpeBRepBuild_Builder::GdumpORIPARPNT(const TopAbs_Orientation o,
 #else
 void TopOpeBRepBuild_Builder::GdumpORIPARPNT(const TopAbs_Orientation,
                                              const Standard_Real,
-                                             const gp_Pnt&)
+                                             const Point3d&)
 {
 }
 #endif
@@ -268,7 +268,7 @@ void TopOpeBRepBuild_Builder::GdumpEDGVER(const TopoDS_Shape&    E,
   const TopoDS_Edge&   EE  = TopoDS::Edge(E);
   const TopoDS_Vertex& VV  = TopoDS::Vertex(V);
   Standard_Real        par = BRep_Tool::Parameter(VV, EE);
-  gp_Pnt               P   = BRep_Tool::Pnt(VV);
+  Point3d               P   = BRep_Tool::Pnt(VV);
   GdumpORIPARPNT(VV.Orientation(), par, P);
   std::cout.flush();
 }
@@ -575,8 +575,8 @@ void TopOpeBRepBuild_Builder::GdumpFABU(TopOpeBRepBuild_FaceBuilder& ME) const
             std::cout << "; ";
             //	    std::cout<<PRODINS<<VFnam; std::cout<<"; ";
             //	    std::cout<<PRODINS<<VRnam; std::cout<<"; ";
-            //	    gp_Pnt PF = BRep_Tool::Pnt(VF);
-            //	    gp_Pnt PR = BRep_Tool::Pnt(VR);
+            //	    Point3d PF = BRep_Tool::Pnt(VF);
+            //	    Point3d PR = BRep_Tool::Pnt(VR);
             //	    std::cout<<std::endl;
             //	    std::cout<<"# ";
             //	    std::cout<<"dinp "<<VFnam<<"

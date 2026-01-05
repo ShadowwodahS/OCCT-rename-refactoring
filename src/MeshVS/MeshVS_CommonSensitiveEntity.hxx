@@ -58,7 +58,7 @@ public:
   Standard_EXPORT virtual Select3D_BndBox3d BoundingBox() Standard_OVERRIDE;
 
   //! Returns center of a mesh
-  Standard_EXPORT virtual gp_Pnt CenterOfGeometry() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Point3d CenterOfGeometry() const Standard_OVERRIDE;
 
   //! Create a copy.
   virtual Handle(Select3D_SensitiveEntity) GetConnected() Standard_OVERRIDE
@@ -90,7 +90,7 @@ protected:
 
 private:
   //! Return point for specified index.
-  gp_Pnt getVertexByIndex(const Standard_Integer theNodeIdx) const;
+  Point3d getVertexByIndex(const Standard_Integer theNodeIdx) const;
 
 private:
   Handle(MeshVS_DataSource)            myDataSource;  //!< mesh data source
@@ -99,7 +99,7 @@ private:
                                                       // clang-format off
   Standard_Integer                     myMaxFaceNodes; //!< maximum nodes within the element in mesh
                                                       // clang-format on
-  gp_Pnt            myCOG;                            //!< center of gravity
+  Point3d            myCOG;                            //!< center of gravity
   Select3D_BndBox3d myBndBox;                         //!< bounding box
 };
 

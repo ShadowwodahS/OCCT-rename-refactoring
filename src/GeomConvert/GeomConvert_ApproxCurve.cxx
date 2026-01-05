@@ -78,7 +78,7 @@ void GeomConvert_ApproxCurve_Eval::Evaluate(Standard_Integer* Dimension,
     StartEndSav[1] = StartEnd[1];
   }
 
-  gp_Pnt pnt;
+  Point3d pnt;
   gp_Vec v1, v2;
 
   switch (*Order)

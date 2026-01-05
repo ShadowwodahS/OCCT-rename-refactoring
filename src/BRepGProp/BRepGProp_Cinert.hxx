@@ -22,7 +22,7 @@
 
 #include <GProp_GProps.hxx>
 class BRepAdaptor_Curve;
-class gp_Pnt;
+class Point3d;
 
 //! Computes the  global properties of bounded curves
 //! in 3D space. The curve must have at least a continuity C1.
@@ -37,9 +37,9 @@ public:
 
   Standard_EXPORT BRepGProp_Cinert();
 
-  Standard_EXPORT BRepGProp_Cinert(const BRepAdaptor_Curve& C, const gp_Pnt& CLocation);
+  Standard_EXPORT BRepGProp_Cinert(const BRepAdaptor_Curve& C, const Point3d& CLocation);
 
-  Standard_EXPORT void SetLocation(const gp_Pnt& CLocation);
+  Standard_EXPORT void SetLocation(const Point3d& CLocation);
 
   Standard_EXPORT void Perform(const BRepAdaptor_Curve& C);
 

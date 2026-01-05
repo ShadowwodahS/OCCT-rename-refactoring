@@ -96,7 +96,7 @@ private:
   Standard_Real                AngleMax;
   Extrema_ExtPC                myExt;
   Standard_Boolean             myIsPoint;
-  gp_Pnt                       myPoint;
+  Point3d                       myPoint;
 };
 
 #endif // _GeomFill_SectionPlacement_HeaderFile

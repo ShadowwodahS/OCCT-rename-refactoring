@@ -572,7 +572,7 @@ Standard_Boolean ShapeFix_Wire::FixEdgeCurves()
           {
             Standard_Real    Preci;
             gp_Pnt2d         pd1, pd2;
-            gp_Pnt           P3d, pr;
+            Point3d           P3d, pr;
             Standard_Real    par1, par2, split;
             Standard_Boolean tmpUIsoDeg;
             S->Singularity(j, Preci, P3d, pd1, pd2, par1, par2, tmpUIsoDeg);
@@ -1488,7 +1488,7 @@ Standard_Boolean ShapeFix_Wire::FixShifted()
   Standard_Boolean end = (nb == 0), degstop = Standard_False;
   Standard_Integer stop  = nb;
   Standard_Integer degn2 = 0;
-  gp_Pnt           pdeg;
+  Point3d           pdeg;
   // pdn 17.12.98 r0901_ec 38237 to shift wire at 0
 
   // GeomAdaptor_Surface& GAS = myAnalyzer->Surface()->Adaptor3d()->ChangeSurface(); //SK
@@ -1517,7 +1517,7 @@ Standard_Boolean ShapeFix_Wire::FixShifted()
     if (V.IsNull())
       continue;
 
-    gp_Pnt p = BRep_Tool::Pnt(V);
+    Point3d p = BRep_Tool::Pnt(V);
 
     Standard_Real        a1 = 0., b1 = 0., a2 = 0., b2 = 0.;
     Handle(Geom2d_Curve) c2d1, c2d2;
@@ -1685,7 +1685,7 @@ Standard_Boolean ShapeFix_Wire::FixShifted()
       /*
             // pdn to fix half sphere
             TopoDS_Vertex VE = sae.LastVertex ( E2 );
-            gp_Pnt pe = BRep_Tool::Pnt ( VE );
+            Point3d pe = BRep_Tool::Pnt ( VE );
             //pdn is second vertex on singular point ?
             if ( surf->IsDegenerated ( pe, Max ( Precision(), BRep_Tool::Tolerance(V) ) ) ) {
           if ( ( c2d1.IsNull() && ! sae.PCurve ( E1, Face(), c2d1, a1, b1, Standard_True ) ) ||
@@ -2011,7 +2011,7 @@ static Standard_Boolean RemoveLoop(TopoDS_Edge&                      E,
   }
 
   // direct construction causes error on osf system.
-  gp_Pnt p(0, 0, 0);
+  Point3d p(0, 0, 0);
   gp_Dir d(0, 0, 1);
   gp_Ax3 ax(p, d);
   gp_Pln Pln(ax);
@@ -2105,9 +2105,9 @@ static Standard_Boolean RemoveLoop(TopoDS_Edge&                      E,
   Handle(GeomAdaptor_Surface) AS = new GeomAdaptor_Surface(S);
 
   Adaptor3d_CurveOnSurface ACS(AC, AS);
-  gp_Pnt                   P1(ACS.Value(t1));
-  gp_Pnt                   P2(ACS.Value(t2));
-  gp_Pnt pcurPnt((P1.X() + P2.X()) / 2, (P1.Y() + P2.Y()) / 2, (P1.Z() + P2.Z()) / 2);
+  Point3d                   P1(ACS.Value(t1));
+  Point3d                   P2(ACS.Value(t2));
+  Point3d pcurPnt((P1.X() + P2.X()) / 2, (P1.Y() + P2.Y()) / 2, (P1.Z() + P2.Z()) / 2);
 
   ShapeAnalysis_TransferParametersProj SFTP(E, face);
   Handle(TColStd_HSequenceOfReal)      Seq2d = new TColStd_HSequenceOfReal;
@@ -2243,9 +2243,9 @@ static Standard_Boolean RemoveLoop(TopoDS_Edge&                      E,
   Handle(GeomAdaptor_Surface) AS = new GeomAdaptor_Surface(S);
 
   Adaptor3d_CurveOnSurface ACS(AC, AS);
-  gp_Pnt                   P1(ACS.Value(t1));
-  gp_Pnt                   P2(ACS.Value(t2));
-  gp_Pnt pcurPnt((P1.X() + P2.X()) / 2, (P1.Y() + P2.Y()) / 2, (P1.Z() + P2.Z()) / 2);
+  Point3d                   P1(ACS.Value(t1));
+  Point3d                   P2(ACS.Value(t2));
+  Point3d pcurPnt((P1.X() + P2.X()) / 2, (P1.Y() + P2.Y()) / 2, (P1.Z() + P2.Z()) / 2);
 
   // transfer parameters from pcurve to 3d curve
   ShapeAnalysis_TransferParametersProj SFTP(E, face);
@@ -2287,9 +2287,9 @@ static Standard_Boolean RemoveLoop(TopoDS_Edge&                      E,
     return Standard_False;
 
   // create a point for middle vertex
-  gp_Pnt pnt1 = crv->Value(ftrim);
-  gp_Pnt pnt2 = crv->Value(ltrim);
-  gp_Pnt Pmid((pnt1.X() + pnt2.X()) / 2, (pnt1.Y() + pnt2.Y()) / 2, (pnt1.Z() + pnt2.Z()) / 2);
+  Point3d pnt1 = crv->Value(ftrim);
+  Point3d pnt2 = crv->Value(ltrim);
+  Point3d Pmid((pnt1.X() + pnt2.X()) / 2, (pnt1.Y() + pnt2.Y()) / 2, (pnt1.Z() + pnt2.Z()) / 2);
 
   BRep_Builder B;
 
@@ -2374,8 +2374,8 @@ Standard_Boolean ShapeFix_Wire::FixSelfIntersectingEdge(const Standard_Integer n
   TopoDS_Vertex      V2   = sae.LastVertex(E);
   Standard_Real      tol1 = BRep_Tool::Tolerance(V1);
   Standard_Real      tol2 = BRep_Tool::Tolerance(V2);
-  gp_Pnt             pnt1 = BRep_Tool::Pnt(V1);
-  gp_Pnt             pnt2 = BRep_Tool::Pnt(V2);
+  Point3d             pnt1 = BRep_Tool::Pnt(V1);
+  Point3d             pnt2 = BRep_Tool::Pnt(V2);
 
   // cycle is to verify fix in case of RemoveLoop
   Standard_Real        tolfact = 0.1; // factor for shifting by parameter in RemoveLoop
@@ -2391,7 +2391,7 @@ Standard_Boolean ShapeFix_Wire::FixSelfIntersectingEdge(const Standard_Integer n
       Standard_Real    prevFirst = 0, prevLast = 0;
       for (Standard_Integer i = 1; i <= points2d.Length(); i++)
       {
-        gp_Pnt        pint   = points3d.Value(i);
+        Point3d        pint   = points3d.Value(i);
         Standard_Real dist21 = pnt1.SquareDistance(pint);
         Standard_Real dist22 = pnt2.SquareDistance(pint);
         if (dist21 < tol1 * tol1 || dist22 < tol2 * tol2)
@@ -2527,8 +2527,8 @@ Standard_Boolean ShapeFix_Wire::FixSelfIntersectingEdge(const Standard_Integer n
 //=================================================================================================
 
 static Standard_Real ComputeLocalDeviation(const TopoDS_Edge& edge,
-                                           const gp_Pnt&      pint,
-                                           const gp_Pnt&      pnt,
+                                           const Point3d&      pint,
+                                           const Point3d&      pnt,
                                            Standard_Real      f,
                                            Standard_Real      l,
                                            const TopoDS_Face& face)
@@ -2561,7 +2561,7 @@ static Standard_Real ComputeLocalDeviation(const TopoDS_Edge& edge,
   Standard_Real          dev  = 0.;
   for (Standard_Integer i = 1; i < NSEG; i++)
   {
-    gp_Pnt        p = c3d->Value(f + i * step);
+    Point3d        p = c3d->Value(f + i * step);
     Standard_Real d = line.Distance(p);
     if (dev < d)
       dev = d;
@@ -2621,7 +2621,7 @@ Standard_Boolean ShapeFix_Wire::FixIntersectingEdges(const Standard_Integer num)
   TopoDS_Vertex      Vn = sae.LastVertex(E2);
 
   Standard_Real tol = BRep_Tool::Tolerance(V1);
-  gp_Pnt        pnt = BRep_Tool::Pnt(V1);
+  Point3d        pnt = BRep_Tool::Pnt(V1);
 
   Standard_Real    prevRange1 = RealLast(), prevRange2 = RealLast();
   Standard_Boolean cutEdge1 = Standard_False, cutEdge2 = Standard_False;
@@ -2642,7 +2642,7 @@ Standard_Boolean ShapeFix_Wire::FixIntersectingEdges(const Standard_Integer num)
     if (newRange1 > prevRange1 && newRange2 > prevRange2)
       continue;
 
-    gp_Pnt        pint   = points3d.Value(i);
+    Point3d        pint   = points3d.Value(i);
     Standard_Real rad    = errors.Value(i);
     Standard_Real newtol = 1.0001 * (pnt.Distance(pint) + rad);
 
@@ -2901,13 +2901,13 @@ Standard_Boolean ShapeFix_Wire::FixIntersectingEdges(const Standard_Integer num1
   Standard_Integer nb = points3d.Length();
   for (i = 1; i <= nb; i++)
   {
-    gp_Pnt pint = points3d.Value(i);
+    Point3d pint = points3d.Value(i);
 
     // searching for the nearest vertexies to the intersection point
     Standard_Real    aVtx1Param = 0., aVtx2Param = 0.;
     Standard_Integer aVC1, aVC2;
     Standard_Real    aMinDist = RealLast();
-    gp_Pnt           aNearestVertex;
+    Point3d           aNearestVertex;
     Standard_Real    aNecessaryVtxTole = 0.0;
     for (aVC1 = 1; aVC1 <= 2; aVC1++)
     {
@@ -2953,14 +2953,14 @@ Standard_Boolean ShapeFix_Wire::FixIntersectingEdges(const Standard_Integer num1
       for (aPointsC = 2; aPointsC < 19; aPointsC++)
       {
         Standard_Real u  = aVtx1Param + aPointsC * du1;
-        gp_Pnt        P1 = aCurve1->Value(u);
+        Point3d        P1 = aCurve1->Value(u);
         P1.Transform(L1.Transformation());
         Standard_Real d1 = aLig.Distance(P1) * 2.0000001;
         if (d1 > tole1 && d1 > aMaxEdgeTol1)
           aMaxEdgeTol1 = d1;
 
         u         = aVtx2Param + aPointsC * du2;
-        gp_Pnt P2 = aCurve2->Value(u);
+        Point3d P2 = aCurve2->Value(u);
         P2.Transform(L2.Transformation());
         Standard_Real d2 = aLig.Distance(P2) * 2.0000001;
         if (d2 > tole2 && d2 > aMaxEdgeTol2)
@@ -3189,7 +3189,7 @@ Standard_Boolean ShapeFix_Wire::FixLacking(const Standard_Integer num, const Sta
   TopoDS_Face                   face = myAnalyzer->Face();
   Handle(ShapeAnalysis_Surface) surf = myAnalyzer->Surface();
 
-  gp_Pnt        p3d1, p3d2;
+  Point3d        p3d1, p3d2;
   Standard_Real tol1 = ::Precision::Confusion(), tol2 = ::Precision::Confusion(); // SK
 
   //=============
@@ -3318,8 +3318,8 @@ Standard_Boolean ShapeFix_Wire::FixLacking(const Standard_Integer num, const Sta
       // else try to add either degenerated or closed edge
       if (!doAddLong)
       {
-        gp_Pnt pV = 0.5 * (BRep_Tool::Pnt(V1).XYZ() + BRep_Tool::Pnt(V2).XYZ());
-        gp_Pnt pm = myAnalyzer->Surface()->Value(0.5 * (p2d1.XY() + p2d2.XY()));
+        Point3d pV = 0.5 * (BRep_Tool::Pnt(V1).XYZ() + BRep_Tool::Pnt(V2).XYZ());
+        Point3d pm = myAnalyzer->Surface()->Value(0.5 * (p2d1.XY() + p2d2.XY()));
 
         Standard_Real dist = pV.Distance(pm);
         if (dist <= tol)

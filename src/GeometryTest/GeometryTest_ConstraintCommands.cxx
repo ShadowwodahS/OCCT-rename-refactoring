@@ -415,7 +415,7 @@ static Standard_Integer interpol(Draw_Interpretor& di, Standard_Integer n, const
       return 0;
     if (id < 0)
       return 0;
-    gp_Pnt           P;
+    Point3d           P;
     gp_Pnt2d         P2d;
     Standard_Boolean newcurve;
 
@@ -562,7 +562,7 @@ static Standard_Integer interpol(Draw_Interpretor& di, Standard_Integer n, const
       for (i = 1; i <= nbp; i++)
       {
         iFile >> x >> y >> z;
-        Point->SetValue(i, gp_Pnt(x, y, z));
+        Point->SetValue(i, Point3d(x, y, z));
       }
       GeomAPI_Interpolate anInterpolator(Point, Standard_False, 1.0e-5);
       anInterpolator.Perform();
@@ -609,7 +609,7 @@ static Standard_Integer tanginterpol(Draw_Interpretor& di, Standard_Integer n, c
   //    parameter ;
 
   Standard_Boolean periodic_flag = Standard_False;
-  gp_Pnt           a_point;
+  Point3d           a_point;
   gp_Vec           a_vector;
   tolerance = 1.0e-5;
 
@@ -696,7 +696,7 @@ static Standard_Integer gcarc(Draw_Interpretor& di, Standard_Integer n, const ch
 {
   if (n >= 5)
   {
-    gp_Pnt P1, P2, P3, P4;
+    Point3d P1, P2, P3, P4;
     if (!strcmp(a[2], "seg"))
     {
       if (DrawTrSurf::GetPoint(a[3], P1))

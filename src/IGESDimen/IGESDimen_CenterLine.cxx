@@ -60,20 +60,20 @@ Standard_Real IGESDimen_CenterLine::ZDisplacement() const
   return theZDisplacement;
 }
 
-gp_Pnt IGESDimen_CenterLine::Point(const Standard_Integer Index) const
+Point3d IGESDimen_CenterLine::Point(const Standard_Integer Index) const
 {
   gp_XY  tempXY = theDataPoints->Value(Index);
-  gp_Pnt point(tempXY.X(), tempXY.Y(), theZDisplacement);
+  Point3d point(tempXY.X(), tempXY.Y(), theZDisplacement);
   return point;
 }
 
-gp_Pnt IGESDimen_CenterLine::TransformedPoint(const Standard_Integer Index) const
+Point3d IGESDimen_CenterLine::TransformedPoint(const Standard_Integer Index) const
 {
   gp_XY  point2d = (theDataPoints->Value(Index));
   gp_XYZ point(point2d.X(), point2d.Y(), theZDisplacement);
   if (HasTransf())
     Location().Transforms(point);
-  return gp_Pnt(point);
+  return Point3d(point);
 }
 
 Standard_Boolean IGESDimen_CenterLine::IsCrossHair() const

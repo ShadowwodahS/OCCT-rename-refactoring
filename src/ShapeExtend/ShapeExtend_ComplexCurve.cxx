@@ -41,7 +41,7 @@ void ShapeExtend_ComplexCurve::Transform(const gp_Trsf& T)
 
 //=================================================================================================
 
-void ShapeExtend_ComplexCurve::D0(const Standard_Real U, gp_Pnt& P) const
+void ShapeExtend_ComplexCurve::D0(const Standard_Real U, Point3d& P) const
 {
   Standard_Real    UOut;
   Standard_Integer ind = LocateParameter(U, UOut);
@@ -50,7 +50,7 @@ void ShapeExtend_ComplexCurve::D0(const Standard_Real U, gp_Pnt& P) const
 
 //=================================================================================================
 
-void ShapeExtend_ComplexCurve::D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V1) const
+void ShapeExtend_ComplexCurve::D1(const Standard_Real U, Point3d& P, gp_Vec& V1) const
 {
   Standard_Real    UOut;
   Standard_Integer ind = LocateParameter(U, UOut);
@@ -60,7 +60,7 @@ void ShapeExtend_ComplexCurve::D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V1) 
 
 //=================================================================================================
 
-void ShapeExtend_ComplexCurve::D2(const Standard_Real U, gp_Pnt& P, gp_Vec& V1, gp_Vec& V2) const
+void ShapeExtend_ComplexCurve::D2(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2) const
 {
   Standard_Real    UOut;
   Standard_Integer ind = LocateParameter(U, UOut);
@@ -72,7 +72,7 @@ void ShapeExtend_ComplexCurve::D2(const Standard_Real U, gp_Pnt& P, gp_Vec& V1, 
 //=================================================================================================
 
 void ShapeExtend_ComplexCurve::D3(const Standard_Real U,
-                                  gp_Pnt&             P,
+                                  Point3d&             P,
                                   gp_Vec&             V1,
                                   gp_Vec&             V2,
                                   gp_Vec&             V3) const

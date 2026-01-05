@@ -77,13 +77,13 @@ private:
 
 //------------
 static void Parameters(const Handle(GeomAdaptor_Surface)& myHS1,
-                       const gp_Pnt&                      Ptref,
+                       const Point3d&                      Ptref,
                        Standard_Real&                     U1,
                        Standard_Real&                     V1);
 
 static void Parameters(const Handle(GeomAdaptor_Surface)& myHS1,
                        const Handle(GeomAdaptor_Surface)& myHS2,
-                       const gp_Pnt&                      Ptref,
+                       const Point3d&                      Ptref,
                        Standard_Real&                     U1,
                        Standard_Real&                     V1,
                        Standard_Real&                     U2,
@@ -92,7 +92,7 @@ static void Parameters(const Handle(GeomAdaptor_Surface)& myHS1,
 static void GLinePoint(const IntPatch_IType          typl,
                        const Handle(IntPatch_GLine)& GLine,
                        const Standard_Real           aT,
-                       gp_Pnt&                       aP);
+                       Point3d&                       aP);
 
 static void AdjustPeriodic(const Handle(GeomAdaptor_Surface)& myHS1,
                            const Handle(GeomAdaptor_Surface)& myHS2,
@@ -129,7 +129,7 @@ void GeomInt_LineConstructor::Perform(const Handle(IntPatch_Line)& L)
       if (firstp != lastp)
       {
         const Standard_Real pmid = (firstp + lastp) * 0.5;
-        const gp_Pnt        Pmid = ALine->Value(pmid);
+        const Point3d        Pmid = ALine->Value(pmid);
         Parameters(myHS1, myHS2, Pmid, u1, v1, u2, v2);
         AdjustPeriodic(myHS1, myHS2, u1, v1, u2, v2);
         const TopAbs_State in1 = myDom1->Classify(gp_Pnt2d(u1, v1), Tol);
@@ -353,7 +353,7 @@ void GeomInt_LineConstructor::Perform(const Handle(IntPatch_Line)& L)
       {
         intrvtested              = Standard_True;
         const Standard_Real pmid = (firstp + lastp) * 0.5;
-        gp_Pnt              Pmid;
+        Point3d              Pmid;
         GLinePoint(typl, GLine, pmid, Pmid);
         //
         Parameters(myHS1, myHS2, Pmid, u1, v1, u2, v2);
@@ -697,7 +697,7 @@ void GeomInt_LineConstructor::TreatCircle(const Handle(IntPatch_Line)& theLine,
   std::sort(aVtxArr.begin(), aVtxArr.end());
 
   Standard_Real aU1, aV1, aU2, aV2;
-  gp_Pnt        aPmid;
+  Point3d        aPmid;
   gp_Pnt2d      aP2D;
   for (Standard_Integer i = aVtxArr.Lower(); i <= aVtxArr.Upper() - 1; i++)
   {
@@ -815,7 +815,7 @@ void AdjustPeriodic(const Handle(GeomAdaptor_Surface)& myHS1,
 
 void Parameters(const Handle(GeomAdaptor_Surface)& myHS1,
                 const Handle(GeomAdaptor_Surface)& myHS2,
-                const gp_Pnt&                      Ptref,
+                const Point3d&                      Ptref,
                 Standard_Real&                     U1,
                 Standard_Real&                     V1,
                 Standard_Real&                     U2,
@@ -828,7 +828,7 @@ void Parameters(const Handle(GeomAdaptor_Surface)& myHS1,
 //=================================================================================================
 
 void Parameters(const Handle(GeomAdaptor_Surface)& myHS1,
-                const gp_Pnt&                      Ptref,
+                const Point3d&                      Ptref,
                 Standard_Real&                     U1,
                 Standard_Real&                     V1)
 {
@@ -862,7 +862,7 @@ void Parameters(const Handle(GeomAdaptor_Surface)& myHS1,
 void GLinePoint(const IntPatch_IType          typl,
                 const Handle(IntPatch_GLine)& GLine,
                 const Standard_Real           aT,
-                gp_Pnt&                       aP)
+                Point3d&                       aP)
 {
   switch (typl)
   {

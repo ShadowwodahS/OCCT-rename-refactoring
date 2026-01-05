@@ -23,10 +23,10 @@ const Standard_CString BinTools_ShapeSetBase::THE_ASCII_VERSIONS[BinTools_Format
    "Open CASCADE Topology V4, (c) Open Cascade"};
 
 //=======================================================================
-// function : operator << (gp_Pnt)
+// function : operator << (Point3d)
 // purpose  :
 //=======================================================================
-Standard_OStream& operator<<(Standard_OStream& OS, const gp_Pnt& P)
+Standard_OStream& operator<<(Standard_OStream& OS, const Point3d& P)
 {
   BinTools::PutReal(OS, P.X());
   BinTools::PutReal(OS, P.Y());

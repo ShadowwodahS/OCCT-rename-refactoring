@@ -60,9 +60,9 @@ Handle(IGESData_ViewKindEntity) IGESDraw_LabelDisplay::ViewItem(
   return (theViews->Value(ViewIndex));
 }
 
-gp_Pnt IGESDraw_LabelDisplay::TextLocation(const Standard_Integer ViewIndex) const
+Point3d IGESDraw_LabelDisplay::TextLocation(const Standard_Integer ViewIndex) const
 {
-  return (gp_Pnt(theTextLocations->Value(ViewIndex)));
+  return (Point3d(theTextLocations->Value(ViewIndex)));
 }
 
 Handle(IGESDimen_LeaderArrow) IGESDraw_LabelDisplay::LeaderEntity(
@@ -82,7 +82,7 @@ Handle(IGESData_IGESEntity) IGESDraw_LabelDisplay::DisplayedEntity(
   return (theDisplayedEntities->Value(EntityIndex));
 }
 
-gp_Pnt IGESDraw_LabelDisplay::TransformedTextLocation(const Standard_Integer ViewIndex) const
+Point3d IGESDraw_LabelDisplay::TransformedTextLocation(const Standard_Integer ViewIndex) const
 {
   gp_XYZ retXYZ;
   gp_XYZ tempXYZ = theTextLocations->Value(ViewIndex);
@@ -98,5 +98,5 @@ gp_Pnt IGESDraw_LabelDisplay::TransformedTextLocation(const Standard_Integer Vie
     DeclareAndCast(IGESDraw_PerspectiveView, thisView, tempView);
     retXYZ = thisView->ModelToView(tempXYZ);
   }
-  return (gp_Pnt(retXYZ));
+  return (Point3d(retXYZ));
 }

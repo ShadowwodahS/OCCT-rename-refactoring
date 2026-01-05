@@ -93,14 +93,14 @@ void LocOpe_FindEdges::Set(const TopoDS_Shape& FFrom, const TopoDS_Shape& FTo)
       {
         gp_Lin        lif  = Handle(Geom_Line)::DownCast(Cf)->Lin();
         gp_Lin        lit  = Handle(Geom_Line)::DownCast(Ct)->Lin();
-        gp_Pnt        p1   = ElCLib::Value(ff, lif);
-        gp_Pnt        p2   = ElCLib::Value(lf, lif);
+        Point3d        p1   = ElCLib::Value(ff, lif);
+        Point3d        p2   = ElCLib::Value(lf, lif);
         Standard_Real prm1 = ElCLib::Parameter(lit, p1);
         Standard_Real prm2 = ElCLib::Parameter(lit, p2);
         if (prm1 >= ft - Tol && prm1 <= lt + Tol && prm2 >= ft - Tol && prm2 <= lt + Tol)
         {
           Tol *= Tol;
-          gp_Pnt pt = ElCLib::Value(prm1, lit);
+          Point3d pt = ElCLib::Value(prm1, lit);
           if (pt.SquareDistance(p1) <= Tol)
           {
             pt = ElCLib::Value(prm2, lit);
@@ -122,7 +122,7 @@ void LocOpe_FindEdges::Set(const TopoDS_Shape& FFrom, const TopoDS_Shape& FTo)
         {
           // Point debut, calage dans periode, et detection meme sens
 
-          gp_Pnt p1, p2;
+          Point3d p1, p2;
           gp_Vec tgf, tgt;
           ElCLib::D1(ff, cif, p1, tgf);
           p2 = ElCLib::Value(lf, cif);
@@ -184,7 +184,7 @@ void LocOpe_FindEdges::Set(const TopoDS_Shape& FFrom, const TopoDS_Shape& FTo)
         {
           // Point debut, calage dans periode, et detection meme sens
 
-          gp_Pnt p1, p2;
+          Point3d p1, p2;
           gp_Vec tgf, tgt;
           ElCLib::D1(ff, cif, p1, tgf);
           p2 = ElCLib::Value(lf, cif);

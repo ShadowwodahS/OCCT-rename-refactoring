@@ -46,7 +46,7 @@ Handle(IGESGeom_Point) IGESSolid_ToroidalSurface::Center() const
   return theCenter;
 }
 
-gp_Pnt IGESSolid_ToroidalSurface::TransformedCenter() const
+Point3d IGESSolid_ToroidalSurface::TransformedCenter() const
 {
   if (!HasTransf())
     return theCenter->Value();
@@ -54,7 +54,7 @@ gp_Pnt IGESSolid_ToroidalSurface::TransformedCenter() const
   {
     gp_XYZ tmp = theCenter->Value().XYZ();
     Location().Transforms(tmp);
-    return gp_Pnt(tmp);
+    return Point3d(tmp);
   }
 }
 

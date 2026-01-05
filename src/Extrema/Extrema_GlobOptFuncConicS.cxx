@@ -23,7 +23,7 @@
 void Extrema_GlobOptFuncConicS::value(Standard_Real su, Standard_Real sv, Standard_Real& F)
 {
   Standard_Real ct;
-  gp_Pnt        aPS = myS->Value(su, sv);
+  Point3d        aPS = myS->Value(su, sv);
   switch (myCType)
   {
     case GeomAbs_Line:
@@ -56,7 +56,7 @@ void Extrema_GlobOptFuncConicS::value(Standard_Real su, Standard_Real sv, Standa
   F = RealLast();
   if (ct >= myTf && ct <= myTl)
   {
-    gp_Pnt aPC = myC->Value(ct);
+    Point3d aPC = myC->Value(ct);
     F          = Min(F, aPS.SquareDistance(aPC));
   }
   F = Min(F, aPS.SquareDistance(myCPf));
@@ -195,7 +195,7 @@ Standard_Boolean Extrema_GlobOptFuncConicS::Value(const math_Vector& X, Standard
 Standard_Real Extrema_GlobOptFuncConicS::ConicParameter(const math_Vector& theUV) const
 {
   Standard_Real ct;
-  gp_Pnt        aPS = myS->Value(theUV(1), theUV(2));
+  Point3d        aPS = myS->Value(theUV(1), theUV(2));
   switch (myCType)
   {
     case GeomAbs_Line:
@@ -228,7 +228,7 @@ Standard_Real Extrema_GlobOptFuncConicS::ConicParameter(const math_Vector& theUV
   Standard_Real F = RealLast();
   if (ct >= myTf && ct <= myTl)
   {
-    gp_Pnt aPC = myC->Value(ct);
+    Point3d aPC = myC->Value(ct);
     F          = Min(F, aPS.SquareDistance(aPC));
   }
   Standard_Real Fext = aPS.SquareDistance(myCPf);

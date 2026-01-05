@@ -95,7 +95,7 @@ void Approx_CurveOnSurface_Eval::Evaluate(Standard_Integer* Dimension,
     StartEndSav[0] = StartEnd[0];
     StartEndSav[1] = StartEnd[1];
   }
-  gp_Pnt pnt;
+  Point3d pnt;
 
   gp_Pnt2d pnt2d;
 
@@ -192,7 +192,7 @@ void Approx_CurveOnSurface_Eval3d::Evaluate(Standard_Integer* Dimension,
     StartEndSav[1] = StartEnd[1];
   }
 
-  gp_Pnt pnt;
+  Point3d pnt;
 
   switch (*Order)
   {
@@ -752,8 +752,8 @@ Standard_Boolean Approx_CurveOnSurface::buildC3dOnIsoLine(const Handle(Adaptor2d
 
     const gp_Pnt2d aPnt2d = theC2D->Value(aPar);
 
-    const gp_Pnt aPntC3D = myCurve3d->Value(aPar);
-    const gp_Pnt aPntC2D = mySurf->Value(aPnt2d.X(), aPnt2d.Y());
+    const Point3d aPntC3D = myCurve3d->Value(aPar);
+    const Point3d aPntC2D = mySurf->Value(aPnt2d.X(), aPnt2d.Y());
 
     const Standard_Real aSqDeviation = aPntC3D.SquareDistance(aPntC2D);
     myError3d                        = Max(aSqDeviation, myError3d);

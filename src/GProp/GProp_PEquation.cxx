@@ -167,14 +167,14 @@ gp_Lin GProp_PEquation::Line() const
   return gp_Lin(g, gp_Dir(v1));
 }
 
-gp_Pnt GProp_PEquation::Point() const
+Point3d GProp_PEquation::Point() const
 {
   if (!IsPoint())
     throw Standard_NoSuchObject();
   return g;
 }
 
-void GProp_PEquation::Box(gp_Pnt& P, gp_Vec& V1, gp_Vec& V2, gp_Vec& V3) const
+void GProp_PEquation::Box(Point3d& P, gp_Vec& V1, gp_Vec& V2, gp_Vec& V3) const
 {
   if (!IsSpace())
     throw Standard_NoSuchObject();

@@ -89,7 +89,7 @@ Standard_Boolean Geom_BSplineCurve::IsG1(const Standard_Real theTf,
     if (mult < aDeg)
       continue;
 
-    gp_Pnt aP1, aP2;
+    Point3d aP1, aP2;
     gp_Vec aV1, aV2;
     LocalD1(aTpar, aNKnot - 1, aNKnot, aP1, aV1);
     LocalD1(aTpar, aNKnot, aNKnot + 1, aP2, aV2);
@@ -119,7 +119,7 @@ Standard_Boolean Geom_BSplineCurve::IsG1(const Standard_Real theTf,
   // intersect curve boundary. Therefore, it is necessary to
   // check if curve is smooth in its first and last point.
 
-  gp_Pnt aP;
+  Point3d aP;
   gp_Vec aV1, aV2;
   D1(Knot(FirstUKnotIndex()), aP, aV1);
   D1(Knot(LastUKnotIndex()), aP, aV2);
@@ -166,7 +166,7 @@ Standard_Integer Geom_BSplineCurve::Degree() const
 
 //=================================================================================================
 
-void Geom_BSplineCurve::D0(const Standard_Real U, gp_Pnt& P) const
+void Geom_BSplineCurve::D0(const Standard_Real U, Point3d& P) const
 {
   Standard_Integer aSpanIndex = 0;
   Standard_Real    aNewU(U);
@@ -188,7 +188,7 @@ void Geom_BSplineCurve::D0(const Standard_Real U, gp_Pnt& P) const
 
 //=================================================================================================
 
-void Geom_BSplineCurve::D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V1) const
+void Geom_BSplineCurve::D1(const Standard_Real U, Point3d& P, gp_Vec& V1) const
 {
   Standard_Integer aSpanIndex = 0;
   Standard_Real    aNewU(U);
@@ -211,7 +211,7 @@ void Geom_BSplineCurve::D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V1) const
 
 //=================================================================================================
 
-void Geom_BSplineCurve::D2(const Standard_Real U, gp_Pnt& P, gp_Vec& V1, gp_Vec& V2) const
+void Geom_BSplineCurve::D2(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2) const
 {
   Standard_Integer aSpanIndex = 0;
   Standard_Real    aNewU(U);
@@ -236,7 +236,7 @@ void Geom_BSplineCurve::D2(const Standard_Real U, gp_Pnt& P, gp_Vec& V1, gp_Vec&
 //=================================================================================================
 
 void Geom_BSplineCurve::D3(const Standard_Real U,
-                           gp_Pnt&             P,
+                           Point3d&             P,
                            gp_Vec&             V1,
                            gp_Vec&             V2,
                            gp_Vec&             V3) const
@@ -282,7 +282,7 @@ gp_Vec Geom_BSplineCurve::DN(const Standard_Real U, const Standard_Integer N) co
 
 //=================================================================================================
 
-gp_Pnt Geom_BSplineCurve::EndPoint() const
+Point3d Geom_BSplineCurve::EndPoint() const
 {
   if (mults->Value(knots->Upper()) == deg + 1)
     return poles->Value(poles->Upper());
@@ -371,11 +371,11 @@ Standard_Real Geom_BSplineCurve::LastParameter() const
 
 //=================================================================================================
 
-gp_Pnt Geom_BSplineCurve::LocalValue(const Standard_Real    U,
+Point3d Geom_BSplineCurve::LocalValue(const Standard_Real    U,
                                      const Standard_Integer FromK1,
                                      const Standard_Integer ToK2) const
 {
-  gp_Pnt P;
+  Point3d P;
   LocalD0(U, FromK1, ToK2, P);
   return P;
 }
@@ -385,7 +385,7 @@ gp_Pnt Geom_BSplineCurve::LocalValue(const Standard_Real    U,
 void Geom_BSplineCurve::LocalD0(const Standard_Real    U,
                                 const Standard_Integer FromK1,
                                 const Standard_Integer ToK2,
-                                gp_Pnt&                P) const
+                                Point3d&                P) const
 {
   Standard_DomainError_Raise_if(FromK1 == ToK2, "Geom_BSplineCurve::LocalValue");
 
@@ -409,7 +409,7 @@ void Geom_BSplineCurve::LocalD0(const Standard_Real    U,
 void Geom_BSplineCurve::LocalD1(const Standard_Real    U,
                                 const Standard_Integer FromK1,
                                 const Standard_Integer ToK2,
-                                gp_Pnt&                P,
+                                Point3d&                P,
                                 gp_Vec&                V1) const
 {
   Standard_DomainError_Raise_if(FromK1 == ToK2, "Geom_BSplineCurve::LocalD1");
@@ -435,7 +435,7 @@ void Geom_BSplineCurve::LocalD1(const Standard_Real    U,
 void Geom_BSplineCurve::LocalD2(const Standard_Real    U,
                                 const Standard_Integer FromK1,
                                 const Standard_Integer ToK2,
-                                gp_Pnt&                P,
+                                Point3d&                P,
                                 gp_Vec&                V1,
                                 gp_Vec&                V2) const
 {
@@ -463,7 +463,7 @@ void Geom_BSplineCurve::LocalD2(const Standard_Real    U,
 void Geom_BSplineCurve::LocalD3(const Standard_Real    U,
                                 const Standard_Integer FromK1,
                                 const Standard_Integer ToK2,
-                                gp_Pnt&                P,
+                                Point3d&                P,
                                 gp_Vec&                V1,
                                 gp_Vec&                V2,
                                 gp_Vec&                V3) const
@@ -555,7 +555,7 @@ Standard_Integer Geom_BSplineCurve::NbPoles() const
 
 //=================================================================================================
 
-const gp_Pnt& Geom_BSplineCurve::Pole(const Standard_Integer Index) const
+const Point3d& Geom_BSplineCurve::Pole(const Standard_Integer Index) const
 {
   Standard_OutOfRange_Raise_if(Index < 1 || Index > poles->Length(), "Geom_BSplineCurve::Pole");
   return poles->Value(Index);
@@ -576,7 +576,7 @@ const TColgp_Array1OfPnt& Geom_BSplineCurve::Poles() const
 
 //=================================================================================================
 
-gp_Pnt Geom_BSplineCurve::StartPoint() const
+Point3d Geom_BSplineCurve::StartPoint() const
 {
   if (mults->Value(1) == deg + 1)
     return poles->Value(1);
@@ -760,8 +760,8 @@ Standard_Boolean Geom_BSplineCurve::IsEqual(const Handle(Geom_BSplineCurve)& the
   Standard_Integer i = 1;
   for (i = 1; i <= poles->Length(); i++)
   {
-    const gp_Pnt& aPole1 = poles->Value(i);
-    const gp_Pnt& aPole2 = theOther->Pole(i);
+    const Point3d& aPole1 = poles->Value(i);
+    const Point3d& aPole2 = theOther->Pole(i);
     if (fabs(aPole1.X() - aPole2.X()) > thePreci || fabs(aPole1.Y() - aPole2.Y()) > thePreci
         || fabs(aPole1.Z() - aPole2.Z()) > thePreci)
       return Standard_False;

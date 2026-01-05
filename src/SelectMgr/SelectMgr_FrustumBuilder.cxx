@@ -102,16 +102,16 @@ Standard_Real SelectMgr_FrustumBuilder::SignedPlanePntDist(const SelectMgr_Vec3&
 //            theZ = 0 - near plane,
 //            theZ = 1 - far plane
 // =======================================================================
-gp_Pnt SelectMgr_FrustumBuilder::ProjectPntOnViewPlane(const Standard_Real& theX,
+Point3d SelectMgr_FrustumBuilder::ProjectPntOnViewPlane(const Standard_Real& theX,
                                                        const Standard_Real& theY,
                                                        const Standard_Real& theZ) const
 {
   if (myCamera.IsNull())
   {
-    return gp_Pnt();
+    return Point3d();
   }
   // map coords to NDC
-  gp_Pnt anXYZ;
+  Point3d anXYZ;
   if (!myIsViewportSet)
   {
     anXYZ.SetCoord(2.0 * theX / myWidth - 1.0,

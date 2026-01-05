@@ -403,7 +403,7 @@ Standard_Boolean BRepBlend_Walking::PerformFirstSection(Blend_Function&        F
   Handle(Adaptor3d_HVertex) Vtx1, Vtx2;
   gp_Pnt2d                  p2d;
   Standard_Real             CorrectedU = 0., CorrectedV = 0.;
-  gp_Pnt                    CorrectedPnt;
+  Point3d                    CorrectedPnt;
 
   Func.GetTolerance(tolerance, tolpoint3d);
   Func.GetBounds(infbound, supbound);
@@ -505,7 +505,7 @@ Standard_Boolean BRepBlend_Walking::PerformFirstSection(Blend_Function&        F
     ParSol(2)          = p2d.Y();
     ParSol(3)          = solrst1(3);
     ParSol(4)          = solrst1(4);
-    gp_Pnt thePntOnRst = Adaptor3d_HSurfaceTool::Value(surf1, ParSol(1), ParSol(2));
+    Point3d thePntOnRst = Adaptor3d_HSurfaceTool::Value(surf1, ParSol(1), ParSol(2));
     if (CorrectExtremityOnOneRst(1,
                                  ParSol(3),
                                  ParSol(4),
@@ -535,7 +535,7 @@ Standard_Boolean BRepBlend_Walking::PerformFirstSection(Blend_Function&        F
     ParSol(2)          = solrst2(4);
     ParSol(3)          = p2d.X();
     ParSol(4)          = p2d.Y();
-    gp_Pnt thePntOnRst = Adaptor3d_HSurfaceTool::Value(surf2, ParSol(3), ParSol(4));
+    Point3d thePntOnRst = Adaptor3d_HSurfaceTool::Value(surf2, ParSol(3), ParSol(4));
     if (CorrectExtremityOnOneRst(2,
                                  ParSol(1),
                                  ParSol(2),
@@ -785,7 +785,7 @@ Blend_Status BRepBlend_Walking::TestArret(Blend_Function&        Function,
 //
 
 {
-  gp_Pnt            pt1, pt2;
+  Point3d            pt1, pt2;
   gp_Vec            V1, V2;
   gp_Vec            Tgp1, Tgp2, Nor1, Nor2;
   gp_Vec2d          V12d, V22d;
@@ -959,13 +959,13 @@ Blend_Status BRepBlend_Walking::CheckDeflection(const Standard_Boolean OnFirst,
   Standard_Real Du, Dv, Duv;
   Standard_Real tolu, tolv;
 
-  gp_Pnt           Psurf;
+  Point3d           Psurf;
   gp_Vec           Tgsurf;
   gp_Vec2d         Tgonsurf;
   Standard_Real    curparamu, curparamv;
   Standard_Boolean curpointistangent = CurPoint.IsTangencyPoint();
 
-  gp_Pnt           prevP;
+  Point3d           prevP;
   gp_Vec           prevTg;
   gp_Vec2d         previousd2d;
   Standard_Real    prevparamu, prevparamv;
@@ -1562,7 +1562,7 @@ void BRepBlend_Walking::Transition(const Standard_Boolean           OnFirst,
   gp_Pnt2d p2d;
   gp_Vec2d dp2d;
 
-  gp_Pnt             pbid;
+  Point3d             pbid;
   gp_Vec             d1u, d1v, normale, tgrst;
   gp_Dir             thenormal;
   CSLib_NormalStatus stat;
@@ -1820,7 +1820,7 @@ void BRepBlend_Walking::InternalPerform(Blend_Function&     Func,
   }
   Standard_Real parprec = param;
   gp_Vec        TgOnGuide, PrevTgOnGuide;
-  gp_Pnt        PtOnGuide;
+  Point3d        PtOnGuide;
   hguide->D1(parprec, PtOnGuide, TgOnGuide);
   PrevTgOnGuide = TgOnGuide;
 
@@ -2050,7 +2050,7 @@ void BRepBlend_Walking::InternalPerform(Blend_Function&     Func,
           //  avec les surfaces periodiques.
           State = Blend_OnRst12;
           param = (w1 + w2) / 2;
-          gp_Pnt Pnt1, Pnt2;
+          Point3d Pnt1, Pnt2;
           p2d    = BRepBlend_HCurve2dTool::Value(recdomain1->Value(), solrst1(1));
           sol(1) = p2d.X();
           sol(2) = p2d.Y();
@@ -2075,7 +2075,7 @@ void BRepBlend_Walking::InternalPerform(Blend_Function&     Func,
               // normal to plane built on 3 points:
               // point on guide curve and points on restrictions of adjacent
               // surfaces.
-              gp_Pnt Pnt0;
+              Point3d Pnt0;
               gp_Vec Dir0;
               hguide->D1(SavedParams[ind], Pnt0, Dir0);
               Standard_Real Length = Dir0.Magnitude();
@@ -2104,7 +2104,7 @@ void BRepBlend_Walking::InternalPerform(Blend_Function&     Func,
             theParam = SavedParams[1];
 
           Standard_Real    NewU, NewV, NewParam;
-          gp_Pnt           NewPnt;
+          Point3d           NewPnt;
           Standard_Boolean Corrected =
             CorrectExtremityOnOneRst(1, sol(3), sol(4), param, Pnt1, NewU, NewV, NewPnt, NewParam);
           if (Corrected)
@@ -2133,9 +2133,9 @@ void BRepBlend_Walking::InternalPerform(Blend_Function&     Func,
           sol(2) = p2d.Y();
           sol(3) = solrst1(3);
           sol(4) = solrst1(4);
-          gp_Pnt           thePntOnRst = Adaptor3d_HSurfaceTool::Value(surf1, sol(1), sol(2));
+          Point3d           thePntOnRst = Adaptor3d_HSurfaceTool::Value(surf1, sol(1), sol(2));
           Standard_Real    NewU, NewV, NewParam;
-          gp_Pnt           NewPnt;
+          Point3d           NewPnt;
           Standard_Boolean Corrected = CorrectExtremityOnOneRst(1,
                                                                 sol(3),
                                                                 sol(4),
@@ -2170,9 +2170,9 @@ void BRepBlend_Walking::InternalPerform(Blend_Function&     Func,
           sol(2) = solrst2(4);
           sol(3) = p2d.X();
           sol(4) = p2d.Y();
-          gp_Pnt           thePntOnRst = Adaptor3d_HSurfaceTool::Value(surf2, sol(3), sol(4));
+          Point3d           thePntOnRst = Adaptor3d_HSurfaceTool::Value(surf2, sol(3), sol(4));
           Standard_Real    NewU, NewV, NewParam;
-          gp_Pnt           NewPnt;
+          Point3d           NewPnt;
           Standard_Boolean Corrected = CorrectExtremityOnOneRst(2,
                                                                 sol(1),
                                                                 sol(2),
@@ -2513,10 +2513,10 @@ Standard_Boolean BRepBlend_Walking::CorrectExtremityOnOneRst(const Standard_Inte
                                                              const Standard_Real    theU,
                                                              const Standard_Real    theV,
                                                              const Standard_Real    theParam,
-                                                             const gp_Pnt&          thePntOnRst,
+                                                             const Point3d&          thePntOnRst,
                                                              Standard_Real&         NewU,
                                                              Standard_Real&         NewV,
-                                                             gp_Pnt&                NewPoint,
+                                                             Point3d&                NewPoint,
                                                              Standard_Real&         NewParam) const
 {
   const Standard_Real TolAng = 0.001; // bug OCC25701
@@ -2536,11 +2536,11 @@ Standard_Boolean BRepBlend_Walking::CorrectExtremityOnOneRst(const Standard_Inte
   Ends[1]                       = BRepBlend_HCurve2dTool::LastParameter(DomainOfRst->Value());
   Standard_Real GlobalMinSqDist = Precision::Infinite();
   Standard_Real ParamOnGuide    = 0;
-  gp_Pnt        PointOnGuide;
+  Point3d        PointOnGuide;
   for (Standard_Integer k = 0; k < 2; k++)
   {
     gp_Pnt2d      P2dOnEnd = BRepBlend_HCurve2dTool::Value(DomainOfRst->Value(), Ends[k]);
-    gp_Pnt        PntOnEnd = Adaptor3d_HSurfaceTool::Value(SurfOfRst, P2dOnEnd.X(), P2dOnEnd.Y());
+    Point3d        PntOnEnd = Adaptor3d_HSurfaceTool::Value(SurfOfRst, P2dOnEnd.X(), P2dOnEnd.Y());
     Extrema_ExtPC projoncurv(PntOnEnd, theElSpine);
     if (!projoncurv.IsDone())
       continue;
@@ -2577,7 +2577,7 @@ Standard_Boolean BRepBlend_Walking::CorrectExtremityOnOneRst(const Standard_Inte
   for (Standard_Integer ind = 1; ind <= theElSpine.NbVertices(); ind++)
   {
     const gp_Ax1& anAx1   = theElSpine.VertexWithTangent(ind);
-    gp_Pnt        aPnt    = anAx1.Location();
+    Point3d        aPnt    = anAx1.Location();
     Standard_Real aSqDist = PointOnGuide.SquareDistance(aPnt);
     if (aSqDist < GlobalMinSqDist)
     {
@@ -2585,11 +2585,11 @@ Standard_Boolean BRepBlend_Walking::CorrectExtremityOnOneRst(const Standard_Inte
       theAx1          = anAx1;
     }
   }
-  const gp_Pnt& Pnt0 = theAx1.Location();
+  const Point3d& Pnt0 = theAx1.Location();
   const gp_Dir& Dir0 = theAx1.Direction();
   // Check new point: is it real solution?
-  gp_Pnt      OldPonGuide = hguide->Value(theParam);
-  gp_Pnt      PntOnSurf2  = Adaptor3d_HSurfaceTool::Value(AnotherSurf, theU, theV); // old point
+  Point3d      OldPonGuide = hguide->Value(theParam);
+  Point3d      PntOnSurf2  = Adaptor3d_HSurfaceTool::Value(AnotherSurf, theU, theV); // old point
   gce_MakePln PlaneBuilder(thePntOnRst, OldPonGuide, PntOnSurf2);
   if (!PlaneBuilder.IsDone())
     return Standard_False;
@@ -2604,7 +2604,7 @@ Standard_Boolean BRepBlend_Walking::CorrectExtremityOnOneRst(const Standard_Inte
   // Project the point(theU,theV) on the plane(Pnt0,Dir0)
   gp_Vec aVec(Pnt0, PntOnSurf2);
   gp_Vec aTranslation((aVec.XYZ() * Dir0.XYZ()) * Dir0.XYZ());
-  gp_Pnt PntOnPlane = PntOnSurf2.Translated(-aTranslation);
+  Point3d PntOnPlane = PntOnSurf2.Translated(-aTranslation);
 
   // Check new point again: does point on restriction belong to the plane?
   PlaneBuilder = gce_MakePln(thePntOnRst, Pnt0, PntOnPlane);

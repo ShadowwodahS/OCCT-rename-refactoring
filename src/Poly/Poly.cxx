@@ -120,7 +120,7 @@ void Poly::Write(const Handle(Poly_Triangulation)& T,
   Standard_Integer i, nbNodes = T->NbNodes();
   for (i = 1; i <= nbNodes; i++)
   {
-    const gp_Pnt aNode = T->Node(i);
+    const Point3d aNode = T->Node(i);
     if (!Compact)
       OS << std::setw(10) << i << " : ";
     if (!Compact)

@@ -122,8 +122,8 @@ private:
 private:
   Handle(Geom_Line)           myComponent;
   Handle(Geom_Axis2Placement) myAx2;
-  gp_Pnt                      myPfirst;
-  gp_Pnt                      myPlast;
+  Point3d                      myPfirst;
+  Point3d                      myPlast;
   AIS_TypeOfAxis              myTypeOfAxis;
   Standard_Boolean            myIsXYZAxis;
   gp_Dir                      myDir;

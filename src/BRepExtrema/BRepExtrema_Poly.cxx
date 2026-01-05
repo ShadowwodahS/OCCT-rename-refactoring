@@ -28,8 +28,8 @@
 
 Standard_Boolean BRepExtrema_Poly::Distance(const TopoDS_Shape& S1,
                                             const TopoDS_Shape& S2,
-                                            gp_Pnt&             P1,
-                                            gp_Pnt&             P2,
+                                            Point3d&             P1,
+                                            Point3d&             P2,
                                             Standard_Real&      dist)
 {
   dist = Precision::Infinite();
@@ -103,10 +103,10 @@ Standard_Boolean BRepExtrema_Poly::Distance(const TopoDS_Shape& S1,
   Standard_Integer i1, i2;
   for (i1 = 1; i1 <= nbn1; i1++)
   {
-    const gp_Pnt& PP1 = TP1(i1);
+    const Point3d& PP1 = TP1(i1);
     for (i2 = 1; i2 <= nbn2; i2++)
     {
-      const gp_Pnt&       PP2  = TP2(i2);
+      const Point3d&       PP2  = TP2(i2);
       const Standard_Real dCur = PP1.Distance(PP2);
       if (dist > dCur)
       {

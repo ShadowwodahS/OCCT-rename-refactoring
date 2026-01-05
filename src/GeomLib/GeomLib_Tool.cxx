@@ -40,7 +40,7 @@ static const Standard_Real PARTOLERANCE = 1.e-9;
 //=======================================================================
 
 Standard_Boolean GeomLib_Tool::Parameter(const Handle(Geom_Curve)& Curve,
-                                         const gp_Pnt&             Point,
+                                         const Point3d&             Point,
                                          const Standard_Real       MaxDist,
                                          Standard_Real&            U)
 {
@@ -90,7 +90,7 @@ Standard_Boolean GeomLib_Tool::Parameter(const Handle(Geom_Curve)& Curve,
 //=======================================================================
 
 Standard_Boolean GeomLib_Tool::Parameters(const Handle(Geom_Surface)& Surface,
-                                          const gp_Pnt&               Point,
+                                          const Point3d&               Point,
                                           const Standard_Real         MaxDist,
                                           Standard_Real&              U,
                                           Standard_Real&              V)

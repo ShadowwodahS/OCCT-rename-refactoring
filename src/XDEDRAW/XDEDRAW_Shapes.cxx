@@ -1377,7 +1377,7 @@ static Standard_Integer setLocation(Draw_Interpretor&,
         && Draw::ParseReal(theArgVec[anArgIter + 7], aRotAngle))
     {
       anArgIter += 7;
-      aCurTransformation.SetRotation(gp_Ax1(gp_Pnt(aRotPnt), gp_Dir(aRotAxis)),
+      aCurTransformation.SetRotation(gp_Ax1(Point3d(aRotPnt), gp_Dir(aRotAxis)),
                                      aRotAngle * (M_PI / 180.0));
     }
     else if (anArg == "-move" && anArgIter + 3 < theArgNb
@@ -1392,7 +1392,7 @@ static Standard_Integer setLocation(Draw_Interpretor&,
              && Draw::ParseReal(theArgVec[anArgIter + 4], aScale))
     {
       anArgIter += 4;
-      aCurTransformation.SetScale(gp_Pnt(aScalePnt), aScale);
+      aCurTransformation.SetScale(Point3d(aScalePnt), aScale);
     }
     // second check for scale with scale factor only
     else if (anArg == "-scale" && anArgIter + 1 < theArgNb

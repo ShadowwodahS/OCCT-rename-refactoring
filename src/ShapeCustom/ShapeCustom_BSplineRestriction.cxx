@@ -1669,13 +1669,13 @@ Standard_Boolean ShapeCustom_BSplineRestriction::ConvertCurve2d(const Handle(Geo
 //=================================================================================================
 
 Standard_Boolean ShapeCustom_BSplineRestriction::NewPoint(const TopoDS_Vertex& V,
-                                                          gp_Pnt&              P,
+                                                          Point3d&              P,
                                                           Standard_Real&       Tol)
 {
   Tol = BRep_Tool::Tolerance(V);
   if (myConvert)
   {
-    gp_Pnt p1(BRep_Tool::Pnt(V).XYZ());
+    Point3d p1(BRep_Tool::Pnt(V).XYZ());
     P = p1;
     return Standard_True;
   }

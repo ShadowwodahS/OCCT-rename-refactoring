@@ -22,7 +22,7 @@
 
 #include <Standard_Integer.hxx>
 #include <Extrema_POnCurv.hxx>
-class gp_Pnt;
+class Point3d;
 class gp_Lin;
 class gp_Circ;
 class gp_Elips;
@@ -41,13 +41,13 @@ public:
 
   //! Calculates the extremum distance between the
   //! point P and the segment [Uinf,Usup] of the line C.
-  Standard_EXPORT Extrema_ExtPElC(const gp_Pnt&       P,
+  Standard_EXPORT Extrema_ExtPElC(const Point3d&       P,
                                   const gp_Lin&       C,
                                   const Standard_Real Tol,
                                   const Standard_Real Uinf,
                                   const Standard_Real Usup);
 
-  Standard_EXPORT void Perform(const gp_Pnt&       P,
+  Standard_EXPORT void Perform(const Point3d&       P,
                                const gp_Lin&       C,
                                const Standard_Real Tol,
                                const Standard_Real Uinf,
@@ -64,13 +64,13 @@ public:
   //! 0. <= Uinf <= 2.*PI and Usup > Uinf.
   //! If Usup > Uinf + 2.*PI, then only the solutions in
   //! the range [Uinf,Uinf+2.*PI[ are computed.
-  Standard_EXPORT Extrema_ExtPElC(const gp_Pnt&       P,
+  Standard_EXPORT Extrema_ExtPElC(const Point3d&       P,
                                   const gp_Circ&      C,
                                   const Standard_Real Tol,
                                   const Standard_Real Uinf,
                                   const Standard_Real Usup);
 
-  Standard_EXPORT void Perform(const gp_Pnt&       P,
+  Standard_EXPORT void Perform(const Point3d&       P,
                                const gp_Circ&      C,
                                const Standard_Real Tol,
                                const Standard_Real Uinf,
@@ -88,13 +88,13 @@ public:
   //! 0. <= Uinf <= 2.*PI and Usup > Uinf.
   //! If Usup > Uinf + 2.*PI, then only the solutions in
   //! the range [Uinf,Uinf+2.*PI[ are computed.
-  Standard_EXPORT Extrema_ExtPElC(const gp_Pnt&       P,
+  Standard_EXPORT Extrema_ExtPElC(const Point3d&       P,
                                   const gp_Elips&     C,
                                   const Standard_Real Tol,
                                   const Standard_Real Uinf,
                                   const Standard_Real Usup);
 
-  Standard_EXPORT void Perform(const gp_Pnt&       P,
+  Standard_EXPORT void Perform(const Point3d&       P,
                                const gp_Elips&     C,
                                const Standard_Real Tol,
                                const Standard_Real Uinf,
@@ -106,13 +106,13 @@ public:
   //! Tol is used to determine if two solutions u and v
   //! are identical; the condition is:
   //! dist(C(u),C(v)) < Tol.
-  Standard_EXPORT Extrema_ExtPElC(const gp_Pnt&       P,
+  Standard_EXPORT Extrema_ExtPElC(const Point3d&       P,
                                   const gp_Hypr&      C,
                                   const Standard_Real Tol,
                                   const Standard_Real Uinf,
                                   const Standard_Real Usup);
 
-  Standard_EXPORT void Perform(const gp_Pnt&       P,
+  Standard_EXPORT void Perform(const Point3d&       P,
                                const gp_Hypr&      C,
                                const Standard_Real Tol,
                                const Standard_Real Uinf,
@@ -124,13 +124,13 @@ public:
   //! Tol is used to determine if two solutions u and v
   //! are identical; the condition is:
   //! dist(C(u),C(v)) < Tol.
-  Standard_EXPORT Extrema_ExtPElC(const gp_Pnt&       P,
+  Standard_EXPORT Extrema_ExtPElC(const Point3d&       P,
                                   const gp_Parab&     C,
                                   const Standard_Real Tol,
                                   const Standard_Real Uinf,
                                   const Standard_Real Usup);
 
-  Standard_EXPORT void Perform(const gp_Pnt&       P,
+  Standard_EXPORT void Perform(const Point3d&       P,
                                const gp_Parab&     C,
                                const Standard_Real Tol,
                                const Standard_Real Uinf,

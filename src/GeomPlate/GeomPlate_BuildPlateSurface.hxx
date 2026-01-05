@@ -38,7 +38,7 @@ class GeomPlate_Surface;
 class GeomPlate_CurveConstraint;
 class GeomPlate_PointConstraint;
 class gp_Pnt2d;
-class gp_Pnt;
+class Point3d;
 class Geom2d_Curve;
 
 //! This class provides an algorithm for constructing such a plate surface that
@@ -214,7 +214,7 @@ private:
                                            Handle(TColStd_HArray1OfReal)& an,
                                            Handle(TColStd_HArray1OfReal)& courb);
 
-  Standard_EXPORT gp_Pnt2d ProjectPoint(const gp_Pnt& P);
+  Standard_EXPORT gp_Pnt2d ProjectPoint(const Point3d& P);
 
   Standard_EXPORT Handle(Geom2d_Curve) ProjectCurve(const Handle(Adaptor3d_Curve)& Curv);
 

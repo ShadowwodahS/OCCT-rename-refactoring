@@ -128,7 +128,7 @@ public:
   //! distance :
   //! -   Two points are considered to be coincident if their
   //! distance is smaller than the tolerance of confusion.
-  //! gp_Pnt P1, P2 ;
+  //! Point3d P1, P2 ;
   //! P1 = ...
   //! P2 = ...
   //! if ( P1.IsEqual ( P2 , Precision::Confusion() ) )

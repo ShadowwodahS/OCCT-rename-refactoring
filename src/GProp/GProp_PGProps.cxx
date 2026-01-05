@@ -17,7 +17,7 @@
 #include <Standard_DomainError.hxx>
 
 // #include <gp.hxx>
-typedef gp_Pnt               Pnt;
+typedef Point3d               Pnt;
 typedef gp_Mat               Mat;
 typedef gp_XYZ               XYZ;
 typedef TColgp_Array1OfPnt   Array1OfPnt;
@@ -66,7 +66,7 @@ void GProp_PGProps::AddPoint(const Pnt& P)
   }
 }
 
-void GProp_PGProps::AddPoint(const gp_Pnt& P, const Standard_Real Density)
+void GProp_PGProps::AddPoint(const Point3d& P, const Standard_Real Density)
 {
   if (Density <= gp::Resolution())
     throw Standard_DomainError();

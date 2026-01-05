@@ -248,7 +248,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::Perform(Handle(Geom_Curve
   TColgp_SequenceOfPnt                points;
   TColStd_SequenceOfReal              params;
   NCollection_Sequence<Standard_Real> aKnotCoeffs;
-  gp_Pnt                              p3d;
+  Point3d                              p3d;
   Standard_Integer                    iPnt;
 
   // In case of bspline compute parametrization speed on each
@@ -293,7 +293,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::Perform(Handle(Geom_Curve
       }
       Standard_Real    aStep = (aLastParam - aFirstParam) / (aNbIntPnts - 1);
       Standard_Integer anIntIdx;
-      gp_Pnt           p3d1, p3d2;
+      Point3d           p3d1, p3d2;
       // Start filling from first point.
       aC3DAdaptor.D0(aFirstParam, p3d1);
 
@@ -652,7 +652,7 @@ Handle(Geom2d_Curve) ShapeConstruct_ProjectCurveOnSurface::getLine(
   Standard_Boolean&             isFromCashe) const
 {
   Standard_Integer nb = thepoints.Length();
-  gp_Pnt           aP[4];
+  Point3d           aP[4];
   aP[0] = thepoints(1);
   aP[1] = thepoints(2);
   aP[2] = thepoints(nb - 1);
@@ -776,7 +776,7 @@ Handle(Geom2d_Curve) ShapeConstruct_ProjectCurveOnSurface::getLine(
     for (i = 1; i <= nb; i++)
     {
       gp_XY  aCurPoint = aP2d[0].XY() + aVec.XY() * (theparams(i) - theparams(1));
-      gp_Pnt aCurP;
+      Point3d aCurP;
       gp_Vec aNormalVec, aDu, aDv;
       aSurf->D1(aCurPoint.X(), aCurPoint.Y(), aCurP, aDu, aDv);
       aNormalVec = aDu ^ aDv;
@@ -799,7 +799,7 @@ Handle(Geom2d_Curve) ShapeConstruct_ProjectCurveOnSurface::getLine(
     for (i = 2; i < nb; i++)
     {
       gp_XY  aCurPoint = aP2d[0].XY() + aVec.XY() * (theparams(i) - theparams(1));
-      gp_Pnt aCurP;
+      Point3d aCurP;
       aSurf->D0(aCurPoint.X(), aCurPoint.Y(), aCurP);
       Standard_Real aDist1 = aCurP.SquareDistance(thepoints(i));
 
@@ -912,7 +912,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::ApproxPCurve(const Standa
 
   // projection of the points on surfaces
 
-  gp_Pnt        p3d;
+  Point3d        p3d;
   gp_Pnt2d      p2d;
   Standard_Real isoValue = 0., isoPar1 = 0., isoPar2 = 0., tPar = 0., tdeb, tfin;
   Standard_Real Cf, Cl, parf, parl; // szv#4:S4163:12Mar99 dist not needed
@@ -1031,7 +1031,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::ApproxPCurve(const Standa
       ChangeCycle = Standard_True;
   Standard_Boolean needResolveUJump = Standard_False;
   Standard_Boolean needResolveVJump = Standard_False;
-  gp_Pnt           prevP3d;
+  Point3d           prevP3d;
   gp_Pnt2d         prevP2d;
   // for( i = 1; i <= nbrPnt; i ++) {
   for (Standard_Integer ii = 1; ii <= nbrPnt; ii++)
@@ -1186,13 +1186,13 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::ApproxPCurve(const Standa
 
   // Check the extremities of 3d curve for coinciding with singularities of surf
   // Standard_Integer NbSing = mySurf->NbSingularities(Precision::Confusion());
-  gp_Pnt        PointFirst = points.First(), PointLast = points.Last();
+  Point3d        PointFirst = points.First(), PointLast = points.Last();
   Standard_Real aTolFirst = (TolFirst == -1) ? Precision::Confusion() : TolFirst;
   Standard_Real aTolLast  = (TolLast == -1) ? Precision::Confusion() : TolLast;
   for (Standard_Integer i = 1;; i++)
   {
     Standard_Real    aPreci, aFirstPar, aLastPar;
-    gp_Pnt           aP3d;
+    Point3d           aP3d;
     gp_Pnt2d         aFirstP2d, aLastP2d;
     Standard_Boolean IsUiso;
     if (!mySurf->Singularity(i, aPreci, aP3d, aFirstP2d, aLastP2d, aFirstPar, aLastPar, IsUiso))
@@ -1527,7 +1527,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::ApproxPCurve(const Standa
   {
     if (mySurf->IsUClosed(myPreci))
     {                                                  // #78 rln 12.03.99 S4135
-      mySurf->IsDegenerated(gp_Pnt(0, 0, 0), myPreci); // pour calculer les dgnr
+      mySurf->IsDegenerated(Point3d(0, 0, 0), myPreci); // pour calculer les dgnr
       if (mySurf->NbSingularities(myPreci) > 0)
       { // rln S4135
         // 1st, find gap point (degenerated pole)
@@ -1583,7 +1583,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::ApproxPCurve(const Standa
     }
     else if (mySurf->IsVClosed(myPreci))
     {                                                  // #78 rln 12.03.99 S4135
-      mySurf->IsDegenerated(gp_Pnt(0, 0, 0), myPreci); // pour calculer les dgnr
+      mySurf->IsDegenerated(Point3d(0, 0, 0), myPreci); // pour calculer les dgnr
       if (mySurf->NbSingularities(myPreci) > 0)
       { // rln S4135
         // 1st, find gap point (degenerated pole)
@@ -1680,7 +1680,7 @@ Handle(Geom2d_Curve) ShapeConstruct_ProjectCurveOnSurface::ApproximatePCurve(
 
     TColgp_Array1OfPnt points3d(1, numberPnt);
     gp_Pnt2d           pnt2d;
-    gp_Pnt             pnt;
+    Point3d             pnt;
     Standard_Integer   i; // svv #1
     for (i = 1; i <= numberPnt; i++)
     {
@@ -1913,7 +1913,7 @@ void ShapeConstruct_ProjectCurveOnSurface::CorrectExtremity(const Handle(Geom_Cu
     SecondParam        = (FirstParam + FinishParam) / 2;
     if (Abs(SecondParam - FirstParam) <= 2 * Precision::PConfusion())
       break;
-    gp_Pnt aP3d;
+    Point3d aP3d;
     theC3d->D0(SecondParam, aP3d);
     SecondPointOfLine =
       mySurf->NextValueOfUV(FirstPointOfLine, aP3d, myPreci, Precision::Confusion());
@@ -1967,7 +1967,7 @@ void ShapeConstruct_ProjectCurveOnSurface::InsertAdditionalPointOrAdjust(
     Standard_Real CurPar  = params(theIndex);
     Standard_Real PrevPar = params(theIndex - 1);
     Standard_Real MidPar  = (PrevPar + CurPar) / 2;
-    gp_Pnt        MidP3d;
+    Point3d        MidP3d;
     c3d->D0(MidPar, MidP3d);
     gp_Pnt2d      MidP2d   = mySurf->ValueOfUV(MidP3d, myPreci);
     Standard_Real MidCoord = MidP2d.Coord(theIndCoord);
@@ -2042,8 +2042,8 @@ void ShapeConstruct_ProjectCurveOnSurface::CheckPoints(Handle(TColgp_HArray1OfPn
   for (i = firstElem; i <= lastElem; i++)
     tmpParam.SetValue(i, 1);
   Standard_Real DistMin2 = RealLast();
-  gp_Pnt        Prev     = points->Value(lastValid);
-  gp_Pnt        Curr;
+  Point3d        Prev     = points->Value(lastValid);
+  Point3d        Curr;
   for (i = firstElem + 1; i <= lastElem; i++)
   {
     Curr                   = points->Value(i);
@@ -2233,7 +2233,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::IsAnIsoparametric(
       sTrim->Bounds(U1, U2, V1, V2);
     }
 
-    gp_Pnt           pt;
+    Point3d           pt;
     Standard_Integer mpt[2];
     mpt[0] = mpt[1] = 0;
     Standard_Real t, tpar[2] = {0.0, 0.0}, isoValue = 0.;
@@ -2302,12 +2302,12 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::IsAnIsoparametric(
         tt2 = U2;
       }
 
-      gp_Pnt ext1, ext2;
+      Point3d ext1, ext2;
       cI->D0(tt1, ext1);
       cI->D0(tt2, ext2);
 
       // PATCH CKY 9-JUL-1998 : protection contre singularite
-      gp_Pnt extmi;
+      Point3d extmi;
       cI->D0((tt1 + tt2) / 2, extmi);
       if (ext1.IsEqual(ext2, prec) && ext1.IsEqual(extmi, prec))
         continue;
@@ -2514,8 +2514,8 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::IsAnIsoparametric(
 //purpose  : auxiliaire prenant le meilleur extremum si ISO car doute possible
 //=======================================================================
 
- gp_Pnt2d ShapeConstruct_ProjectCurveOnSurface::BestExtremum(const gp_Pnt2d& P2iso,const gp_Pnt&
-P3ext,const gp_Pnt& P3next) const
+ gp_Pnt2d ShapeConstruct_ProjectCurveOnSurface::BestExtremum(const gp_Pnt2d& P2iso,const Point3d&
+P3ext,const Point3d& P3next) const
 {
 //  P2iso a ete calcule depuis P3ext sur une iso externe de la surface
 //  En principe bon mais circularite possible ... et IsU/VClosed faillible
@@ -2529,7 +2529,7 @@ P3ext,const gp_Pnt& P3next) const
   return P2iso;
   Standard_Real prec = Precision::Confusion();//myPreci;
   gp_Pnt2d P2cal = mySurf->ValueOfUV(P3ext, prec);
-  gp_Pnt   P3cal = mySurf->Value (P2cal);
+  Point3d   P3cal = mySurf->Value (P2cal);
   Standard_Real dcal = P3ext.Distance (P3cal);
   Standard_Real dnxt = P3ext.Distance (P3next);
   if (dcal > dnxt) return P2iso;    // en fait protection sur BUG (PRO8468)

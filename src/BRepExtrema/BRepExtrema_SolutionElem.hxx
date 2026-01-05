@@ -43,7 +43,7 @@ public:
   //! @param theSolType the type of solution
   //! @param theVertex  and the Vertex
   BRepExtrema_SolutionElem(const Standard_Real           theDist,
-                           const gp_Pnt&                 thePoint,
+                           const Point3d&                 thePoint,
                            const BRepExtrema_SupportType theSolType,
                            const TopoDS_Vertex&          theVertex)
       : myDist(theDist),
@@ -63,7 +63,7 @@ public:
   //! @param theEdge    the Edge
   //! @param theParam   the parameter to locate the solution
   BRepExtrema_SolutionElem(const Standard_Real           theDist,
-                           const gp_Pnt&                 thePoint,
+                           const Point3d&                 thePoint,
                            const BRepExtrema_SupportType theSolType,
                            const TopoDS_Edge&            theEdge,
                            const Standard_Real           theParam)
@@ -85,7 +85,7 @@ public:
   //! @param theU       U parameter to locate the solution
   //! @param theV       V parameter to locate the solution
   BRepExtrema_SolutionElem(const Standard_Real           theDist,
-                           const gp_Pnt&                 thePoint,
+                           const Point3d&                 thePoint,
                            const BRepExtrema_SupportType theSolType,
                            const TopoDS_Face&            theFace,
                            const Standard_Real           theU,
@@ -103,7 +103,7 @@ public:
   Standard_Real Dist() const { return myDist; }
 
   //! Returns the solution point.
-  const gp_Pnt& Point() const { return myPoint; }
+  const Point3d& Point() const { return myPoint; }
 
   //! Returns the Support type:
   //!   IsVertex => The solution is a vertex.
@@ -132,7 +132,7 @@ public:
 
 private:
   Standard_Real           myDist;
-  gp_Pnt                  myPoint;
+  Point3d                  myPoint;
   BRepExtrema_SupportType mySupType;
   TopoDS_Vertex           myVertex;
   TopoDS_Edge             myEdge;

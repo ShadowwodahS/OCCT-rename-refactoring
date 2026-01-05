@@ -383,7 +383,7 @@ void BOPAlgo_PaveFiller::PerformFF(const Message_ProgressRange& theRange)
             {
               const Standard_Integer& nVN  = itEEP.Value();
               const TopoDS_Vertex&    aVN  = TopoDS::Vertex(myDS->Shape(nVN));
-              const gp_Pnt&           aPnt = BRep_Tool::Pnt(aVN);
+              const Point3d&           aPnt = BRep_Tool::Pnt(aVN);
 
               // Compute points exactly on the edges
               GeomAPI_ProjectPointOnCurve& aProjPC1 = myContext->ProjPC(aE1);
@@ -394,8 +394,8 @@ void BOPAlgo_PaveFiller::PerformFF(const Message_ProgressRange& theRange)
               {
                 continue;
               }
-              gp_Pnt aP1 = aProjPC1.NbPoints() > 0 ? aProjPC1.NearestPoint() : aPnt;
-              gp_Pnt aP2 = aProjPC2.NbPoints() > 0 ? aProjPC2.NearestPoint() : aPnt;
+              Point3d aP1 = aProjPC1.NbPoints() > 0 ? aProjPC1.NearestPoint() : aPnt;
+              Point3d aP2 = aProjPC2.NbPoints() > 0 ? aProjPC2.NearestPoint() : aPnt;
 
               Standard_Real aShiftDist = aP1.Distance(aP2);
               if (aShiftDist > BRep_Tool::Tolerance(aVN))
@@ -541,7 +541,7 @@ void BOPAlgo_PaveFiller::PerformFF(const Message_ProgressRange& theRange)
     for (Standard_Integer i = 1; i <= aNbPoints; ++i)
     {
       const IntTools_PntOn2Faces& aPi = aPntsX(i);
-      const gp_Pnt&               aP  = aPi.P1().Pnt();
+      const Point3d&               aP  = aPi.P1().Pnt();
       //
       BOPDS_Point& aNP = aVNP.Appended();
       aNP.SetPnt(aP);
@@ -673,7 +673,7 @@ void BOPAlgo_PaveFiller::MakeBlocks(const Message_ProgressRange& theRange)
       BOPDS_CoupleOfPaveBlocks aCPB;
       //
       BOPDS_Point&  aNP = aVP.ChangeValue(j);
-      const gp_Pnt& aP  = aNP.Pnt();
+      const Point3d& aP  = aNP.Pnt();
       //
       bExist = IsExistingVertex(aP, aTolFF, aMVOnIn);
       if (!bExist)
@@ -1219,8 +1219,8 @@ void BOPAlgo_PaveFiller::PostTreatFF(BOPDS_IndexedDataMapOfShapeCoupleOfPaveBloc
     }
     //
     // make sure these vertices will be united
-    const gp_Pnt& aP1 = BRep_Tool::Pnt(aVerts[0]);
-    const gp_Pnt& aP2 = BRep_Tool::Pnt(aVerts[1]);
+    const Point3d& aP1 = BRep_Tool::Pnt(aVerts[0]);
+    const Point3d& aP2 = BRep_Tool::Pnt(aVerts[1]);
     //
     Standard_Real aDist  = aP1.Distance(aP2);
     Standard_Real aTolV1 = BRep_Tool::Tolerance(aVerts[0]);
@@ -1790,14 +1790,14 @@ void BOPAlgo_PaveFiller::UpdateFaceInfo(
 
 //=================================================================================================
 
-Standard_Boolean BOPAlgo_PaveFiller::IsExistingVertex(const gp_Pnt&               aP,
+Standard_Boolean BOPAlgo_PaveFiller::IsExistingVertex(const Point3d&               aP,
                                                       const Standard_Real         theTolR3D,
                                                       const TColStd_MapOfInteger& aMVOnIn) const
 {
   Standard_Boolean                  bRet;
   Standard_Integer                  nV, iFlag;
   Standard_Real                     aTolCheck;
-  gp_Pnt                            aPV;
+  Point3d                            aPV;
   Bnd_Box                           aBoxP;
   TColStd_MapIteratorOfMapOfInteger aIt;
   //
@@ -1840,7 +1840,7 @@ Standard_Boolean BOPAlgo_PaveFiller::IsExistingPaveBlock(const Handle(BOPDS_Pave
 
   Standard_Real                       aT1, aT2, aTm, aTx, aTolE, aTolCheck, aTol, aDist;
   Standard_Integer                    nE, iFlag, nV1, nV2;
-  gp_Pnt                              aPm;
+  Point3d                              aPm;
   Bnd_Box                             aBoxPm;
   TColStd_ListIteratorOfListOfInteger aItLI;
   //
@@ -1904,7 +1904,7 @@ Standard_Boolean BOPAlgo_PaveFiller::IsExistingPaveBlock(
 
   // first point
   Bnd_Box aBoxP1;
-  gp_Pnt  aP1;
+  Point3d  aP1;
   aIC.D0(aT1, aP1);
   aBoxP1.Add(aP1);
   const Standard_Real aTolV11 = BRep_Tool::Tolerance(TopoDS::Vertex(myDS->Shape(nV11)));
@@ -1920,7 +1920,7 @@ Standard_Boolean BOPAlgo_PaveFiller::IsExistingPaveBlock(
   // intermediate point
   Bnd_Box                   aBoxPm;
   Standard_Real             aTm = IntTools_Tools::IntermediatePoint(aT1, aT2);
-  gp_Pnt                    aPm;
+  Point3d                    aPm;
   gp_Vec                    aVTgt1;
   const Handle(Geom_Curve)& aC3d = aIC.Curve();
   aC3d->D1(aTm, aPm, aVTgt1);
@@ -1931,7 +1931,7 @@ Standard_Boolean BOPAlgo_PaveFiller::IsExistingPaveBlock(
 
   // last point
   Bnd_Box aBoxP2;
-  gp_Pnt  aP2;
+  Point3d  aP2;
   aIC.D0(aT2, aP2);
   aBoxP2.Add(aP2);
   const Standard_Real aTolV12 = BRep_Tool::Tolerance(TopoDS::Vertex(myDS->Shape(nV12)));
@@ -2009,7 +2009,7 @@ Standard_Boolean BOPAlgo_PaveFiller::IsExistingPaveBlock(
 
             if (aPEStatus == 0)
             {
-              gp_Pnt aPm2;
+              Point3d aPm2;
               gp_Vec aVTgt2;
               aBAC2.D1(aTldp, aPm2, aVTgt2);
               if (aVTgt2.SquareMagnitude() > gp::Resolution())
@@ -2112,7 +2112,7 @@ static void getBoundPaves(const BOPDS_DS*    theDS,
   // compare extreme vertices with ends of the curve
   const IntTools_Curve& aIC = theNC.Curve();
   Standard_Real         aT[2];
-  gp_Pnt                aP[2];
+  Point3d                aP[2];
   aIC.Bounds(aT[0], aT[1], aP[0], aP[1]);
   Standard_Real aTol = Max(theNC.Tolerance(), theNC.TangentialTolerance());
   aTol += Precision::Confusion();
@@ -2135,7 +2135,7 @@ void BOPAlgo_PaveFiller::PutBoundPaveOnCurve(const TopoDS_Face&     aF1,
 {
   const IntTools_Curve& aIC = aNC.Curve();
   Standard_Real         aT[2];
-  gp_Pnt                aP[2];
+  Point3d                aP[2];
   aIC.Bounds(aT[0], aT[1], aP[0], aP[1]);
   Standard_Real            aTolR3D = Max(aNC.Tolerance(), aNC.TangentialTolerance());
   Handle(BOPDS_PaveBlock)& aPB     = aNC.ChangePaveBlock1();
@@ -2278,9 +2278,9 @@ void BOPAlgo_PaveFiller::FilterPavesOnCurves(const BOPDS_VectorOfCurve&    theVN
       Standard_Integer     nV    = aPave.Index();
       const TopoDS_Vertex& aV    = TopoDS::Vertex(myDS->Shape(nV));
       // compute distance from vertex to the point on curve with vertex parameter
-      gp_Pnt        aPV  = BRep_Tool::Pnt(aV);
+      Point3d        aPV  = BRep_Tool::Pnt(aV);
       Standard_Real aPar = aPave.Parameter();
-      gp_Pnt        aPonC;
+      Point3d        aPonC;
       gp_Vec        aD1;
       aGAC.D1(aPar, aPonC, aD1);
       gp_Vec        aProjVec(aPV, aPonC);
@@ -2368,7 +2368,7 @@ Standard_Boolean BOPAlgo_PaveFiller::ExtendedTolerance(const Standard_Integer   
   Standard_Integer i, k, aNbLines, aNbInt;
   Standard_Real    aT11, aT12, aD1, aD2, aD;
   TopoDS_Vertex    aV;
-  gp_Pnt           aPV, aP11, aP12;
+  Point3d           aPV, aP11, aP12;
   //
   k      = 0;
   aNbInt = 2;
@@ -2456,7 +2456,7 @@ void BOPAlgo_PaveFiller::GetEFPnts(const Standard_Integer nF1,
         //
         GeomAPI_ProjectPointOnSurf& aProj = myContext->ProjPS(aFOpposite);
         //
-        gp_Pnt aPoint;
+        Point3d aPoint;
         aCurve->D0(aPar, aPoint);
         IntSurf_PntOn2S aPnt;
         if (!aPCurve.IsNull())
@@ -2547,7 +2547,7 @@ void BOPAlgo_PaveFiller::PutEFPavesOnCurve(const BOPDS_VectorOfCurve&           
   {
     nV                       = aItMI.Value();
     const TopoDS_Vertex& aV  = (*(TopoDS_Vertex*)(&myDS->Shape(nV)));
-    gp_Pnt               aPV = BRep_Tool::Pnt(aV);
+    Point3d               aPV = BRep_Tool::Pnt(aV);
     aProjPT.Perform(aPV);
     Standard_Integer aNbPoints = aProjPT.NbPoints();
     if (aNbPoints)
@@ -2599,7 +2599,7 @@ void BOPAlgo_PaveFiller::PutStickPavesOnCurve(const TopoDS_Face&                
   {
     Standard_Integer                  nV, m, n;
     Standard_Real                     aTC[2], aD, aD2, u, v, aDT2, aScPr, aDScPr;
-    gp_Pnt                            aPC[2], aPV;
+    Point3d                            aPC[2], aPV;
     gp_Dir                            aDN[2];
     gp_Pnt2d                          aP2D;
     TColStd_MapIteratorOfMapOfInteger aItMI, aItMI1;
@@ -2794,7 +2794,7 @@ void BOPAlgo_PaveFiller::PutPaveOnCurve(const Standard_Integer                 n
       bIsVertexOnLine = myContext->IsVertexOnLine(aV, anExtraTol, aIC, aTolR3D + myFuzzyValue, aT);
       if (bIsVertexOnLine)
       {
-        gp_Pnt aPOnC;
+        Point3d aPOnC;
         aIC.D0(aT, aPOnC);
         aTolV = aPOnC.Distance(BRep_Tool::Pnt(aV));
       }
@@ -2857,9 +2857,9 @@ void BOPAlgo_PaveFiller::PutPaveOnCurve(const Standard_Integer                 n
       aPave.SetParameter(aT);
       aPB->AppendExtPave(aPave);
       //
-      gp_Pnt aP1          = aGAC.Value(aT);
+      Point3d aP1          = aGAC.Value(aT);
       aTolV               = BRep_Tool::Tolerance(aV);
-      gp_Pnt        aP2   = BRep_Tool::Pnt(aV);
+      Point3d        aP2   = BRep_Tool::Pnt(aV);
       Standard_Real aDist = aP1.Distance(aP2);
       if (aTolV < aDist + aDTol)
       {
@@ -3192,9 +3192,9 @@ void BOPAlgo_PaveFiller::UpdateExistingPaveBlocks(
                   const TopoDS_Vertex& aV1 = TopoDS::Vertex(myDS->Shape(aPB2->Pave1().Index()));
                   const TopoDS_Vertex& aV2 = TopoDS::Vertex(myDS->Shape(aPB2->Pave2().Index()));
                   //
-                  gp_Pnt aP  = BRep_Tool::Pnt(aV);
-                  gp_Pnt aP1 = BRep_Tool::Pnt(aV1);
-                  gp_Pnt aP2 = BRep_Tool::Pnt(aV2);
+                  Point3d aP  = BRep_Tool::Pnt(aV);
+                  Point3d aP1 = BRep_Tool::Pnt(aV1);
+                  Point3d aP2 = BRep_Tool::Pnt(aV2);
                   //
                   Standard_Real aDist1 = aP.SquareDistance(aP1);
                   Standard_Real aDist2 = aP.SquareDistance(aP2);
@@ -3305,7 +3305,7 @@ void BOPAlgo_PaveFiller::PutClosingPaveOnCurve(BOPDS_Curve& aNC)
 
   // check closeness
   Standard_Real aT[2];
-  gp_Pnt        aP[2];
+  Point3d        aP[2];
   aIC.Bounds(aT[0], aT[1], aP[0], aP[1]);
 
   // Find the pave which has been put at one of the ends
@@ -3315,7 +3315,7 @@ void BOPAlgo_PaveFiller::PutClosingPaveOnCurve(BOPDS_Curve& aNC)
   // Keep the opposite parameter
   Standard_Real aTOp = 0.;
   // Keep the opposite bounding point
-  gp_Pnt aPOp;
+  Point3d aPOp;
 
   Handle(BOPDS_PaveBlock)&       aPB = aNC.ChangePaveBlock1();
   BOPDS_ListOfPave&              aLP = aPB->ChangeExtPaves();
@@ -3344,7 +3344,7 @@ void BOPAlgo_PaveFiller::PutClosingPaveOnCurve(BOPDS_Curve& aNC)
   // of found vertex
   const TopoDS_Vertex& aV    = TopoDS::Vertex(myDS->Shape(nV));
   Standard_Real        aTolV = BRep_Tool::Tolerance(aV);
-  gp_Pnt               aPV   = BRep_Tool::Pnt(aV);
+  Point3d               aPV   = BRep_Tool::Pnt(aV);
   // Tolerance for the point on the curve
   Standard_Real aTolP = Max(aNC.Tolerance(), aNC.TangentialTolerance());
   aTolP += Precision::Confusion();
@@ -3984,7 +3984,7 @@ void BOPAlgo_PaveFiller::CorrectToleranceOfSE()
     }
     //
     // compute the maximal distance from the vertex to the adjacent edges
-    gp_Pnt aP = BRep_Tool::Pnt(aV);
+    Point3d aP = BRep_Tool::Pnt(aV);
     //
     // Avoid repeated checks
     BOPDS_MapOfPaveBlock aMPBFence;
@@ -4011,7 +4011,7 @@ void BOPAlgo_PaveFiller::CorrectToleranceOfSE()
           continue;
         }
         //
-        gp_Pnt        aPonE = aC.Value(aPave.Parameter());
+        Point3d        aPonE = aC.Value(aPave.Parameter());
         Standard_Real aDist = aP.Distance(aPonE);
         aDist += BRep_Tool::Tolerance(aE);
         if (aDist > aMaxTol)

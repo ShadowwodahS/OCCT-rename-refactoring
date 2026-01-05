@@ -22,7 +22,7 @@
 
 #include <BRepPrim_Sphere.hxx>
 #include <BRepPrimAPI_MakeOneAxis.hxx>
-class gp_Pnt;
+class Point3d;
 class gp_Ax2;
 
 //! Describes functions to build spheres or portions of spheres.
@@ -65,13 +65,13 @@ public:
   //! Make a sphere.
   //! @param[in] Center  sphere center coordinates
   //! @param[in] R       sphere radius
-  Standard_EXPORT BRepPrimAPI_MakeSphere(const gp_Pnt& Center, const Standard_Real R);
+  Standard_EXPORT BRepPrimAPI_MakeSphere(const Point3d& Center, const Standard_Real R);
 
   //! Make a sphere (spherical wedge).
   //! @param[in] Center  sphere center coordinates
   //! @param[in] R       sphere radius
   //! @param[in] angle   angle between the radii lying within the bounding semidisks
-  Standard_EXPORT BRepPrimAPI_MakeSphere(const gp_Pnt&       Center,
+  Standard_EXPORT BRepPrimAPI_MakeSphere(const Point3d&       Center,
                                          const Standard_Real R,
                                          const Standard_Real angle);
 
@@ -80,7 +80,7 @@ public:
   //! @param[in] R       sphere radius
   //! @param[in] angle1  first angle defining a spherical segment
   //! @param[in] angle2  second angle defining a spherical segment
-  Standard_EXPORT BRepPrimAPI_MakeSphere(const gp_Pnt&       Center,
+  Standard_EXPORT BRepPrimAPI_MakeSphere(const Point3d&       Center,
                                          const Standard_Real R,
                                          const Standard_Real angle1,
                                          const Standard_Real angle2);
@@ -91,7 +91,7 @@ public:
   //! @param[in] angle1  first angle defining a spherical segment
   //! @param[in] angle2  second angle defining a spherical segment
   //! @param[in] angle3  angle between the radii lying within the bounding semidisks
-  Standard_EXPORT BRepPrimAPI_MakeSphere(const gp_Pnt&       Center,
+  Standard_EXPORT BRepPrimAPI_MakeSphere(const Point3d&       Center,
                                          const Standard_Real R,
                                          const Standard_Real angle1,
                                          const Standard_Real angle2,

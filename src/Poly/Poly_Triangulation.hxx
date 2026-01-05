@@ -139,12 +139,12 @@ public:
   //! Returns a node at the given index.
   //! @param[in] theIndex node index within [1, NbNodes()] range
   //! @return 3D point coordinates
-  gp_Pnt Node(Standard_Integer theIndex) const { return myNodes.Value(theIndex - 1); }
+  Point3d Node(Standard_Integer theIndex) const { return myNodes.Value(theIndex - 1); }
 
   //! Sets a node coordinates.
   //! @param[in] theIndex node index within [1, NbNodes()] range
   //! @param[in] thePnt   3D point coordinates
-  void SetNode(Standard_Integer theIndex, const gp_Pnt& thePnt)
+  void SetNode(Standard_Integer theIndex, const Point3d& thePnt)
   {
     myNodes.SetValue(theIndex - 1, thePnt);
   }

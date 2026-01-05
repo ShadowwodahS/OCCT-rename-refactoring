@@ -48,7 +48,7 @@ public:
     const Handle(Poly_Triangulation)&       theTrg,
     const TopLoc_Location&                  theInitLoc,
     const Handle(TColStd_HArray1OfInteger)& theFreeEdges,
-    const gp_Pnt&                           theCOG,
+    const Point3d&                           theCOG,
     const Standard_Boolean                  theIsInterior);
 
 public:
@@ -62,7 +62,7 @@ public:
   //! @param[out] theTriNodes  triangle nodes (with pre-applied transformation)
   //! @return TRUE if defined
   Standard_EXPORT bool LastDetectedTriangle(Poly_Triangle& theTriangle,
-                                            gp_Pnt         theTriNodes[3]) const;
+                                            Point3d         theTriNodes[3]) const;
 
   //! Return index of last detected triangle within [1..NbTris] range, or -1 if undefined.
   Standard_Integer LastDetectedTriangleIndex() const
@@ -104,7 +104,7 @@ public:
 
   //! Returns center of triangulation. If location transformation
   //! is set, it will be applied
-  Standard_EXPORT virtual gp_Pnt CenterOfGeometry() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Point3d CenterOfGeometry() const Standard_OVERRIDE;
 
   //! Returns true if the shape corresponding to the entity has init location
   Standard_EXPORT virtual Standard_Boolean HasInitLocation() const Standard_OVERRIDE;
@@ -154,7 +154,7 @@ private:
 protected:
   Handle(Poly_Triangulation)       myTriangul;
   TopLoc_Location                  myInitLocation;
-  gp_Pnt                           myCDG3D; //!< Center of the whole triangulation
+  Point3d                           myCDG3D; //!< Center of the whole triangulation
   Handle(TColStd_HArray1OfInteger) myFreeEdges;
   // clang-format off
   Standard_Boolean                 mySensType;            //!< Type of sensitivity: boundary or interior

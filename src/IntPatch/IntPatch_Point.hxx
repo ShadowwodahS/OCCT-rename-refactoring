@@ -26,7 +26,7 @@
 #include <Adaptor2d_Curve2d.hxx>
 
 class Adaptor3d_HVertex;
-class gp_Pnt;
+class Point3d;
 
 //! Definition of an intersection point between two surfaces.
 //! Such a point is contains geometrical information (see
@@ -43,11 +43,11 @@ public:
   //! when both surfaces are implicit ones.
   //! If Tangent is True, the point is a point of tangency
   //! between the surfaces.
-  Standard_EXPORT void SetValue(const gp_Pnt&          Pt,
+  Standard_EXPORT void SetValue(const Point3d&          Pt,
                                 const Standard_Real    Tol,
                                 const Standard_Boolean Tangent);
 
-  void SetValue(const gp_Pnt& Pt);
+  void SetValue(const Point3d& Pt);
 
   //! Sets the value of <pt> member
   void SetValue(const IntSurf_PntOn2S& thePOn2S);
@@ -89,7 +89,7 @@ public:
   void SetMultiple(const Standard_Boolean IsMult);
 
   //! Returns the intersection point (geometric information).
-  const gp_Pnt& Value() const;
+  const Point3d& Value() const;
 
   //! This method returns the parameter of the point
   //! on the intersection line.

@@ -66,7 +66,7 @@ void HLRTopoBRep_FaceIsoLiner::Perform(const Standard_Integer FI,
   TopoDS_Face     TF = F;
   TF.Orientation(TopAbs_FORWARD);
   gp_Pnt2d      P;
-  gp_Pnt        P1, P2;
+  Point3d        P1, P2;
   TopoDS_Vertex V1U, V2U, V1V, V2V;
 
   Geom2dHatch_Intersector Intersector(IntersectorConfusion, IntersectorTangency);
@@ -387,7 +387,7 @@ void HLRTopoBRep_FaceIsoLiner::Perform(const Standard_Integer FI,
 //=================================================================================================
 
 TopoDS_Vertex HLRTopoBRep_FaceIsoLiner::MakeVertex(const TopoDS_Edge&  E,
-                                                   const gp_Pnt&       P,
+                                                   const Point3d&       P,
                                                    const Standard_Real Par,
                                                    const Standard_Real Tol,
                                                    HLRTopoBRep_Data&   DS)

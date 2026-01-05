@@ -607,7 +607,7 @@ void IntWalk_PWalking::Perform(const TColStd_Array1OfReal& ParDep)
 // purpose  : Returns square distance between thePnt and theSurf.
 //            (theU0, theV0) is initial point for extrema
 //=======================================================================
-static Standard_Real SQDistPointSurface(const gp_Pnt&            thePnt,
+static Standard_Real SQDistPointSurface(const Point3d&            thePnt,
                                         const Adaptor3d_Surface& theSurf,
                                         const Standard_Real      theU0,
                                         const Standard_Real      theV0)
@@ -637,7 +637,7 @@ static Standard_Boolean IsTangentExtCheck(const Handle(Adaptor3d_Surface)& theSu
                                           const Standard_Real              theArrStep[])
 {
   {
-    gp_Pnt aPt;
+    Point3d aPt;
     gp_Vec aDu1, aDv1, aDu2, aDv2;
     theSurf1->D1(theU10, theV10, aPt, aDu1, aDv1);
     theSurf2->D1(theU20, theV20, aPt, aDu2, aDv2);
@@ -677,7 +677,7 @@ static Standard_Boolean IsTangentExtCheck(const Handle(Adaptor3d_Surface)& theSu
 
   for (Standard_Integer i = 0; i < aNbItems; i++)
   {
-    gp_Pnt              aP(theSurf1->Value(aParUS1[i], aParVS1[i]));
+    Point3d              aP(theSurf1->Value(aParUS1[i], aParVS1[i]));
     const Standard_Real aSqDist = SQDistPointSurface(aP, *theSurf2, theU20, theV20);
     if (aSqDist > aSQToler)
       return Standard_False;
@@ -685,7 +685,7 @@ static Standard_Boolean IsTangentExtCheck(const Handle(Adaptor3d_Surface)& theSu
 
   for (Standard_Integer i = 0; i < aNbItems; i++)
   {
-    gp_Pnt              aP(theSurf2->Value(aParUS2[i], aParVS2[i]));
+    Point3d              aP(theSurf2->Value(aParUS2[i], aParVS2[i]));
     const Standard_Real aSqDist = SQDistPointSurface(aP, *theSurf1, theU10, theV10);
     if (aSqDist > aSQToler)
       return Standard_False;
@@ -778,7 +778,7 @@ void IntWalk_PWalking::Perform(const TColStd_Array1OfReal& ParDep,
   Standard_Boolean       Arrive, DejaReparti;
   const Standard_Integer RejectIndexMAX = 250000;
   Standard_Integer       IncKey, RejectIndex;
-  gp_Pnt                 pf, pl;
+  Point3d                 pf, pl;
   //
   DejaReparti = Standard_False;
   IncKey      = 0;
@@ -1626,7 +1626,7 @@ void IntWalk_PWalking::Perform(const TColStd_Array1OfReal& ParDep,
                             const gp_Vec2d aDirS1(prevPntOnS1, curPntOnS1),
                               aDirS2(prevPntOnS2, curPntOnS2);
 
-                            gp_Pnt aPtemp;
+                            Point3d aPtemp;
                             gp_Vec aDuS1, aDvS1, aDuS2, aDvS2;
 
                             myIntersectionOn2S.Function().AuxillarSurface1()->D1(curPntOnS1.X(),
@@ -1994,8 +1994,8 @@ Standard_Boolean IntWalk_PWalking::ExtendLineInCommonZone(
 
               if (line->NbPoints() >= 1)
               {
-                gp_Pnt pf = line->Value(1).Value();
-                gp_Pnt pl = previousPoint.Value();
+                Point3d pf = line->Value(1).Value();
+                Point3d pl = previousPoint.Value();
 
                 if (pf.Distance(pl) < Precision::Confusion())
                 {
@@ -2078,8 +2078,8 @@ Standard_Boolean IntWalk_PWalking::ExtendLineInCommonZone(
 
                   if (line->NbPoints() >= 1)
                   {
-                    gp_Pnt pf = line->Value(1).Value();
-                    gp_Pnt pl = previousPoint.Value();
+                    Point3d pf = line->Value(1).Value();
+                    Point3d pl = previousPoint.Value();
 
                     if (pf.Distance(pl) < Precision::Confusion())
                     {
@@ -2293,7 +2293,7 @@ Standard_Boolean IntWalk_PWalking::DistanceMinimizeByGradient(
 
   Standard_Boolean aStatus = Standard_False;
 
-  gp_Pnt aP1, aP2;
+  Point3d aP1, aP2;
   gp_Vec aD1u, aD1v, aD2U, aD2V;
 
   theASurf1->D1(theInit(1), theInit(2), aP1, aD1u, aD1v);
@@ -2335,7 +2335,7 @@ Standard_Boolean IntWalk_PWalking::DistanceMinimizeByGradient(
     anAdd                     = aGradFV * aStepV2;
     const Standard_Real aParV = theInit(4) - Sign(Max(Abs(anAdd), aMinAddValV2), anAdd);
 
-    gp_Pnt aPt1, aPt2;
+    Point3d aPt1, aPt2;
 
     theASurf1->D1(aPARu, aPARv, aPt1, aD1u, aD1v);
     theASurf2->D1(aParU, aParV, aPt2, aD2U, aD2V);
@@ -2401,13 +2401,13 @@ Standard_Boolean IntWalk_PWalking::DistanceMinimizeByGradient(
 //=======================================================================
 Standard_Boolean IntWalk_PWalking::DistanceMinimizeByExtrema(
   const Handle(Adaptor3d_Surface)& theASurf,
-  const gp_Pnt&                    theP0,
+  const Point3d&                    theP0,
   Standard_Real&                   theU0,
   Standard_Real&                   theV0,
   const Standard_Real*             theStep0)
 {
   const Standard_Real aTol = 1.0e-14;
-  gp_Pnt              aPS;
+  Point3d              aPS;
   gp_Vec              aD1Su, aD1Sv, aD2Su, aD2Sv, aD2SuvTemp;
   Standard_Real       aSQDistPrev = RealLast();
   Standard_Real       aU = theU0, aV = theV0;
@@ -2494,9 +2494,9 @@ Standard_Boolean IntWalk_PWalking::HandleSingleSingularPoint(
       Handle(Adaptor3d_Surface) aSurfs[2] = {theASurf1, theASurf2};
       // Local resolutions
       Standard_Real    aTol2 = the3DTol * the3DTol;
-      gp_Pnt           aP;
+      Point3d           aP;
       gp_Vec           aDU, aDV;
-      gp_Pnt           aPInt;
+      Point3d           aPInt;
       Standard_Integer k;
       for (k = 0; k < 2; ++k)
       {
@@ -2634,9 +2634,9 @@ Standard_Boolean IntWalk_PWalking::SeekPointOnBoundary(const Handle(Adaptor3d_Su
     return isOK;
   }
 
-  gp_Pnt       aP1 = theASurf1->Value(aPnt(1), aPnt(2));
-  gp_Pnt       aP2 = theASurf2->Value(aPnt(3), aPnt(4));
-  const gp_Pnt aPInt(0.5 * (aP1.XYZ() + aP2.XYZ()));
+  Point3d       aP1 = theASurf1->Value(aPnt(1), aPnt(2));
+  Point3d       aP2 = theASurf2->Value(aPnt(3), aPnt(4));
+  const Point3d aPInt(0.5 * (aP1.XYZ() + aP2.XYZ()));
 
   const Standard_Real aSQDist = aPInt.SquareDistance(aP1);
   if (aSQDist > aTol * aTol)
@@ -2734,7 +2734,7 @@ Standard_Boolean IntWalk_PWalking::SeekPointOnBoundary(const Handle(Adaptor3d_Su
     {
       const Standard_Integer aNbPnts = line->NbPoints();
 
-      gp_Pnt           aPPrev, aPCurr;
+      Point3d           aPPrev, aPCurr;
       Standard_Integer aPInd = aNbPnts;
       for (; aPInd > 0; aPInd--)
       {
@@ -3088,8 +3088,8 @@ Standard_Boolean IntWalk_PWalking::SeekAdditionalPoints(const Handle(Adaptor3d_S
 
       if (aStatus)
       {
-        gp_Pnt aP1 = theASurf1->Value(aPnt(1), aPnt(2)), aP2 = theASurf2->Value(aPnt(3), aPnt(4));
-        gp_Pnt aPInt(0.5 * (aP1.XYZ() + aP2.XYZ()));
+        Point3d aP1 = theASurf1->Value(aPnt(1), aPnt(2)), aP2 = theASurf2->Value(aPnt(3), aPnt(4));
+        Point3d aPInt(0.5 * (aP1.XYZ() + aP2.XYZ()));
 
         const Standard_Real aSQDist1 = aPInt.SquareDistance(aP1),
                             aSQDist2 = aPInt.SquareDistance(aP2);
@@ -3336,11 +3336,11 @@ IntWalk_StatusDeflection IntWalk_PWalking::TestDeflection(const IntImp_ConstIsop
         previousPoint.ParametersOnS1(CurU, CurV);
       else
         previousPoint.ParametersOnS2(CurU, CurV);
-      gp_Pnt CurPnt =
+      Point3d CurPnt =
         (choixIso == IntImp_UIsoparametricOnCaro1 || choixIso == IntImp_VIsoparametricOnCaro1)
           ? Adaptor3d_HSurfaceTool::Value(Caro1, CurU, CurV)
           : Adaptor3d_HSurfaceTool::Value(Caro2, CurU, CurV);
-      gp_Pnt OffsetPnt;
+      Point3d OffsetPnt;
       switch (choixIso)
       {
         case IntImp_UIsoparametricOnCaro1:

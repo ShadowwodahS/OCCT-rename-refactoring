@@ -24,7 +24,7 @@
 // purpose  :
 //=======================================================================
 BRepGProp_TFunction::BRepGProp_TFunction(const BRepGProp_Face&  theSurface,
-                                         const gp_Pnt&          theVertex,
+                                         const Point3d&          theVertex,
                                          const Standard_Boolean IsByPoint,
                                          const Standard_Real*   theCoeffs,
                                          const Standard_Real    theUMin,

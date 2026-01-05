@@ -72,7 +72,7 @@ void DrawDim_Dimension::TextColor(const Draw_Color& C)
 
 //=================================================================================================
 
-void DrawDim_Dimension::DrawText(const gp_Pnt& P, Draw_Display& D) const
+void DrawDim_Dimension::DrawText(const Point3d& P, Draw_Display& D) const
 {
   TCollection_AsciiString t = Name();
   if (is_valued)

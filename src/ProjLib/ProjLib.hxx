@@ -22,7 +22,7 @@
 
 class gp_Pnt2d;
 class gp_Pln;
-class gp_Pnt;
+class Point3d;
 class gp_Lin2d;
 class gp_Lin;
 class gp_Circ2d;
@@ -65,7 +65,7 @@ class ProjLib
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT static gp_Pnt2d Project(const gp_Pln& Pl, const gp_Pnt& P);
+  Standard_EXPORT static gp_Pnt2d Project(const gp_Pln& Pl, const Point3d& P);
 
   Standard_EXPORT static gp_Lin2d Project(const gp_Pln& Pl, const gp_Lin& L);
 
@@ -77,23 +77,23 @@ public:
 
   Standard_EXPORT static gp_Hypr2d Project(const gp_Pln& Pl, const gp_Hypr& H);
 
-  Standard_EXPORT static gp_Pnt2d Project(const gp_Cylinder& Cy, const gp_Pnt& P);
+  Standard_EXPORT static gp_Pnt2d Project(const gp_Cylinder& Cy, const Point3d& P);
 
   Standard_EXPORT static gp_Lin2d Project(const gp_Cylinder& Cy, const gp_Lin& L);
 
   Standard_EXPORT static gp_Lin2d Project(const gp_Cylinder& Cy, const gp_Circ& Ci);
 
-  Standard_EXPORT static gp_Pnt2d Project(const gp_Cone& Co, const gp_Pnt& P);
+  Standard_EXPORT static gp_Pnt2d Project(const gp_Cone& Co, const Point3d& P);
 
   Standard_EXPORT static gp_Lin2d Project(const gp_Cone& Co, const gp_Lin& L);
 
   Standard_EXPORT static gp_Lin2d Project(const gp_Cone& Co, const gp_Circ& Ci);
 
-  Standard_EXPORT static gp_Pnt2d Project(const gp_Sphere& Sp, const gp_Pnt& P);
+  Standard_EXPORT static gp_Pnt2d Project(const gp_Sphere& Sp, const Point3d& P);
 
   Standard_EXPORT static gp_Lin2d Project(const gp_Sphere& Sp, const gp_Circ& Ci);
 
-  Standard_EXPORT static gp_Pnt2d Project(const gp_Torus& To, const gp_Pnt& P);
+  Standard_EXPORT static gp_Pnt2d Project(const gp_Torus& To, const Point3d& P);
 
   Standard_EXPORT static gp_Lin2d Project(const gp_Torus& To, const gp_Circ& Ci);
 

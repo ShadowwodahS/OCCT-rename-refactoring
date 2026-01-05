@@ -106,7 +106,7 @@ Standard_Integer props(Draw_Interpretor& di, Standard_Integer n, const char** a)
       BRepGProp::VolumeProperties(S, G, onlyClosed, SkipShared, UseTriangulation);
   }
 
-  gp_Pnt P = G.CentreOfMass();
+  Point3d P = G.CentreOfMass();
   gp_Mat I = G.MatrixOfInertia();
 
   if (n >= 5)
@@ -269,7 +269,7 @@ Standard_Integer vpropsgk(Draw_Interpretor& di, Standard_Integer n, const char**
   if (CGFlag || IFlag)
   {
     Standard_SStream aSStream1;
-    gp_Pnt           P = G.CentreOfMass();
+    Point3d           P = G.CentreOfMass();
     if (n > 6)
     {
       Draw::Set(a[6], P.X());
@@ -317,7 +317,7 @@ Standard_Integer vpropsgk(Draw_Interpretor& di, Standard_Integer n, const char**
 
     Standard_Real Ix, Iy, Iz;
     Pr.Moments(Ix, Iy, Iz);
-    gp_Pnt P = G.CentreOfMass();
+    Point3d P = G.CentreOfMass();
 
     Standard_SStream aSStream2;
 

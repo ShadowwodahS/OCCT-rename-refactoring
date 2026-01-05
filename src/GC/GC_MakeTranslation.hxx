@@ -23,7 +23,7 @@
 
 class Geom_Transformation;
 class gp_Vec;
-class gp_Pnt;
+class Point3d;
 
 //! This class implements elementary construction algorithms for a
 //! translation in 3D space. The result is a
@@ -42,7 +42,7 @@ public:
 
   //! Constructs a translation along the vector (Point1,Point2)
   //! defined from the point Point1 to the point Point2.
-  Standard_EXPORT GC_MakeTranslation(const gp_Pnt& Point1, const gp_Pnt& Point2);
+  Standard_EXPORT GC_MakeTranslation(const Point3d& Point1, const Point3d& Point2);
 
   //! Returns the constructed transformation.
   Standard_EXPORT const Handle(Geom_Transformation)& Value() const;

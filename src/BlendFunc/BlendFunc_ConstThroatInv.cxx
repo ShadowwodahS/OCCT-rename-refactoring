@@ -127,7 +127,7 @@ Standard_Boolean BlendFunc_ConstThroatInv::Value(const math_Vector& X, math_Vect
   F(1) = nplan.XYZ().Dot(pts1.XYZ()) + theD;
   F(2) = nplan.XYZ().Dot(pts2.XYZ()) + theD;
 
-  const gp_Pnt ptmid((pts1.XYZ() + pts2.XYZ()) / 2);
+  const Point3d ptmid((pts1.XYZ() + pts2.XYZ()) / 2);
   const gp_Vec vmid(ptgui, ptmid);
 
   F(3) = vmid.SquareMagnitude() - Throat * Throat;
@@ -147,7 +147,7 @@ Standard_Boolean BlendFunc_ConstThroatInv::Derivatives(const math_Vector& X, mat
   // Standard_Integer i, j;
   gp_Pnt2d p2d;
   gp_Vec2d v2d; //, df1, df2;
-  // gp_Pnt pts, ptgui;
+  // Point3d pts, ptgui;
   gp_Vec      dnplan, temp, temp1, temp2, tempmid; //, d1u, d1v, nplan;
   math_Vector XX(1, 4);                            // x1(1,2), x2(1,2);
   // math_Matrix d1(1,2,1,2), d2(1,2,1,2);

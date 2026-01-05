@@ -128,8 +128,8 @@ static Standard_Boolean FUN_islook(const TopoDS_Edge& e)
 {
   TopoDS_Vertex v1, v2;
   TopExp::Vertices(e, v1, v2);
-  gp_Pnt           p1     = BRep_Tool::Pnt(v1);
-  gp_Pnt           p2     = BRep_Tool::Pnt(v2);
+  Point3d           p1     = BRep_Tool::Pnt(v1);
+  Point3d           p2     = BRep_Tool::Pnt(v2);
   Standard_Real    dp1p2  = p1.Distance(p2);
   Standard_Boolean islook = (Abs(dp1p2) > 1.e-8) ? Standard_True : Standard_False;
   return islook;

@@ -69,7 +69,7 @@ public:
 protected:
 private:
   Standard_Boolean               myFirstCompare;
-  gp_Pnt                         myPoint3d;
+  Point3d                         myPoint3d;
   TopoDS_Shell                   myShell;
   BRep_Builder                   myBuilder;
   TopOpeBRepTool_SolidClassifier mySolidClassifier;

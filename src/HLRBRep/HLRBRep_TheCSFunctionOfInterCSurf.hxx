@@ -30,7 +30,7 @@ class HLRBRep_SurfaceTool;
 class gp_Lin;
 class HLRBRep_LineTool;
 class math_Matrix;
-class gp_Pnt;
+class Point3d;
 
 class HLRBRep_TheCSFunctionOfInterCSurf : public math_FunctionSetWithDerivatives
 {
@@ -49,7 +49,7 @@ public:
 
   Standard_EXPORT Standard_Boolean Values(const math_Vector& X, math_Vector& F, math_Matrix& D);
 
-  Standard_EXPORT const gp_Pnt& Point() const;
+  Standard_EXPORT const Point3d& Point() const;
 
   Standard_EXPORT Standard_Real Root() const;
 
@@ -61,7 +61,7 @@ protected:
 private:
   Standard_Address surface;
   gp_Lin           curve;
-  gp_Pnt           p;
+  Point3d           p;
   Standard_Real    f;
 };
 

@@ -77,7 +77,7 @@ static void NormalD0(const Standard_Real              U,
   if (Cont == GeomAbs_C0)
     throw Geom_UndefinedValue();
 #endif
-  gp_Pnt P;
+  Point3d P;
   Surf->D1(U, V, P, D1U, D1V);
   Standard_Real      MagTol = 0.000000001;
   CSLib_NormalStatus NStatus;
@@ -166,7 +166,7 @@ static void NormalD1(const Standard_Real              U,
   }
 #endif
   gp_Vec d2u, d2v, d2uv;
-  gp_Pnt P;
+  Point3d P;
   Surf->D2(U, V, P, D1UNormal, D1VNormal, d2u, d2v, d2uv);
   Standard_Real      MagTol = 0.000000001;
   CSLib_NormalStatus NStatus;
@@ -250,7 +250,7 @@ static void NormalD2(const Standard_Real              U,
   }
 #endif
   gp_Vec d3u, d3uuv, d3uvv, d3v;
-  gp_Pnt P;
+  Point3d P;
   Surf->D3(U, V, P, D1UNormal, D1VNormal, D2UNormal, D2VNormal, D2UVNormal, d3u, d3v, d3uuv, d3uvv);
   Standard_Real      MagTol = 0.000000001;
   CSLib_NormalStatus NStatus;
@@ -335,7 +335,7 @@ Standard_Boolean GeomFill_Darboux::D0(const Standard_Real Param,
 {
   gp_Pnt2d                  C2d;
   gp_Vec2d                  D2d;
-  gp_Pnt                    S;
+  Point3d                    S;
   gp_Vec                    dS_du, dS_dv;
   Handle(Adaptor2d_Curve2d) myCurve2d =
     static_cast<Adaptor3d_CurveOnSurface*>(myTrimmed.get())->GetCurve();
@@ -372,7 +372,7 @@ Standard_Boolean GeomFill_Darboux::D1(const Standard_Real Param,
 {
   gp_Pnt2d                  C2d;
   gp_Vec2d                  D2d, D2_2d;
-  gp_Pnt                    S;
+  Point3d                    S;
   gp_Vec                    dS_du, dS_dv, d2S_du, d2S_dv, d2S_duv, F, DF;
   Handle(Adaptor2d_Curve2d) myCurve2d =
     static_cast<Adaptor3d_CurveOnSurface*>(myTrimmed.get())->GetCurve();
@@ -417,7 +417,7 @@ Standard_Boolean GeomFill_Darboux::D2(const Standard_Real Param,
 {
   gp_Pnt2d C2d;
   gp_Vec2d D2d, D2_2d, D3_2d;
-  gp_Pnt   S;
+  Point3d   S;
   gp_Vec   dS_du, dS_dv, d2S_du, d2S_dv, d2S_duv, d3S_du, d3S_dv, d3S_duuv, d3S_duvv, F, DF, D2F;
   Handle(Adaptor2d_Curve2d) myCurve2d =
     static_cast<Adaptor3d_CurveOnSurface*>(myTrimmed.get())->GetCurve();

@@ -33,10 +33,10 @@
 
 void DsgPrs_EqualRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                          const Handle(Prs3d_Drawer)&       aDrawer,
-                                         const gp_Pnt&                     FirstCenter,
-                                         const gp_Pnt&                     SecondCenter,
-                                         const gp_Pnt&                     FirstPoint,
-                                         const gp_Pnt&                     SecondPoint,
+                                         const Point3d&                     FirstCenter,
+                                         const Point3d&                     SecondCenter,
+                                         const Point3d&                     FirstPoint,
+                                         const Point3d&                     SecondPoint,
                                          const Handle(Geom_Plane)&         Plane)
 {
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
@@ -68,7 +68,7 @@ void DsgPrs_EqualRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPres
                         DsgPrs_AS_FIRSTPT_LASTAR);
 
   // ota === begin ===
-  gp_Pnt        Middle((FirstCenter.XYZ() + SecondCenter.XYZ()) * 0.5), aTextPos;
+  Point3d        Middle((FirstCenter.XYZ() + SecondCenter.XYZ()) * 0.5), aTextPos;
   Standard_Real SmallDist;
   // Mark of constraint
   TCollection_ExtendedString aText("==");

@@ -130,8 +130,8 @@ static void Bubble(TColgp_SequenceOfPnt& Seq)
     Invert = Standard_False;
     for (Standard_Integer i = 1; i < NbPoints; i++)
     {
-      gp_Pnt P1 = Seq.Value(i);
-      gp_Pnt P2 = Seq.Value(i + 1);
+      Point3d P1 = Seq.Value(i);
+      Point3d P2 = Seq.Value(i + 1);
       if (P2.X() < P1.X())
       {
         Seq.Exchange(i, i + 1);
@@ -163,7 +163,7 @@ static Standard_Real EvalPhase(const TopoDS_Edge&         Edge,
       break;
     }
   }
-  gp_Pnt P = GAS.Value(0., V);
+  Point3d P = GAS.Value(0., V);
 
   if (gp_Vec(Axis.Location(), P).Dot(Axis.XDirection()) < 0.)
     return M_PI;
@@ -190,7 +190,7 @@ static void EvalParameters(const TopoDS_Edge&          Edge,
 
   Standard_Integer NbPoints, NbSegments;
   Standard_Real    U1, U2;
-  gp_Pnt           P; //,PSeq;
+  Point3d           P; //,PSeq;
 
   //  Standard_Real Tol = Precision::Intersection();
   //  modified by NIZHNY-EAP Wed Dec 22 15:00:51 1999 ___BEGIN___
@@ -262,7 +262,7 @@ static void EvalParameters(const TopoDS_Edge&          Edge,
       {
         U1 = Intersector.Point(i).ParamOnFirst();
         U2 = Intersector.Point(i).ParamOnSecond();
-        P  = gp_Pnt(U1, U2, 0.);
+        P  = Point3d(U1, U2, 0.);
         Seq.Append(P);
       }
     }
@@ -284,7 +284,7 @@ static void EvalParameters(const TopoDS_Edge&          Edge,
         U2 = Seg.FirstPoint().ParamOnSecond();
         U2 += Seg.LastPoint().ParamOnSecond();
         U2 /= 2.;
-        P = gp_Pnt(U1, U2, 0.);
+        P = Point3d(U1, U2, 0.);
         Seq.Append(P);
       }
     }
@@ -293,7 +293,7 @@ static void EvalParameters(const TopoDS_Edge&          Edge,
 
     //  modified by NIZHNY-EAP Fri Dec 24 18:47:24 1999 ___BEGIN___
     // Remove double points
-    gp_Pnt P1, P2;
+    Point3d P1, P2;
     for (Standard_Integer i = 1; i < NbPoints; i++)
     {
       P1 = Seq.Value(i);
@@ -312,7 +312,7 @@ static void EvalParameters(const TopoDS_Edge&          Edge,
     // the edge is degenerated : the point and it is found if it is
     // on the bissectrice.
 
-    gp_Pnt   P3d = BRep_Tool::Pnt(TopExp::FirstVertex(Edge));
+    Point3d   P3d = BRep_Tool::Pnt(TopExp::FirstVertex(Edge));
     gp_Pnt2d P2d(P3d.X(), P3d.Y());
 
     Standard_Real UBis = Bis->FirstParameter();
@@ -387,7 +387,7 @@ static void EvalParameters(const TopoDS_Edge&          Edge,
     if (U < 0.)
       U += 2 * M_PI;
 
-    P = gp_Pnt(Bis->FirstParameter(), U, 0.);
+    P = Point3d(Bis->FirstParameter(), U, 0.);
     Seq.Append(P);
   }
 }
@@ -420,7 +420,7 @@ void BRepFill_TrimSurfaceTool::IntersectWith(const TopoDS_Edge&    EdgeOnF1,
   StdFail_NotDone_Raise_if(Points.Length() != Points2.Length(),
                            "BRepFill_TrimSurfaceTool::IntersectWith: incoherent intersection");
 
-  gp_Pnt           PSeq;
+  Point3d           PSeq;
   Standard_Integer NbPoints = Points.Length();
   for (Standard_Integer i = 1; i <= NbPoints; i++)
   {
@@ -435,7 +435,7 @@ void BRepFill_TrimSurfaceTool::IntersectWith(const TopoDS_Edge&    EdgeOnF1,
 
 Standard_Boolean BRepFill_TrimSurfaceTool::IsOnFace(const gp_Pnt2d& Point) const
 {
-  gp_Pnt P(Point.X(), Point.Y(), 0.);
+  Point3d P(Point.X(), Point.Y(), 0.);
   gp_Lin Line(P, gp::DZ());
 
   BRepIntCurveSurface_Inter Inter;

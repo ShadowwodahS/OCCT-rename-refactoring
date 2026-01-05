@@ -39,7 +39,7 @@
 
 Standard_EXPORT Handle(Geom2d_Curve) MakePCurve(const ProjLib_ProjectedCurve& PC);
 
-static TopAbs_State FUN_staPinF3d(const gp_Pnt& P, const TopoDS_Face& F)
+static TopAbs_State FUN_staPinF3d(const Point3d& P, const TopoDS_Face& F)
 // prequesitory : the compute of state(P,3dmatter of F)
 // - solid classifier -
 {
@@ -52,7 +52,7 @@ static TopAbs_State FUN_staPinF3d(const gp_Pnt& P, const TopoDS_Face& F)
   Standard_Real tolF = BRep_Tool::Tolerance(F);
   if (d < tolF)
     return TopAbs_IN; // TopAbs_ON;
-  gp_Pnt pF;
+  Point3d pF;
   FUN_tool_value(UV, F, pF);
   gp_Dir ntF = FUN_tool_nggeomF(UV, F);
   if (F.Orientation() == TopAbs_REVERSED)
@@ -83,7 +83,7 @@ Standard_EXPORT void FUN_UNKFstasta(const TopoDS_Face&              FF,
 
   Standard_Real ttE  = 0.41237118973;
   Standard_Real parE = (1 - ttE) * fE + ttE * lE;
-  gp_Pnt        PE;
+  Point3d        PE;
   gp_Vec        VE;
   CEE->D1(parE, PE, VE);
 
@@ -96,7 +96,7 @@ Standard_EXPORT void FUN_UNKFstasta(const TopoDS_Face&              FF,
   Standard_Real u, v;
   PonS.Parameters(1, u, v);
   gp_Vec d1u, d1v;
-  gp_Pnt puv;
+  Point3d puv;
   SFF->D1(u, v, puv, d1u, d1v);
   gp_Vec        N = d1u.Crossed(d1v);
   Standard_Real FUMin, FUMax, FVMin, FVMax;
@@ -186,7 +186,7 @@ Standard_EXPORT void FUN_UNKFstasta(const TopoDS_Face&              FF,
     up += paru;
     vp += parv;
   }
-  gp_Pnt Pb;
+  Point3d Pb;
   SFF->D0(up, vp, Pb);
 
   Standard_Real um = u;
@@ -200,7 +200,7 @@ Standard_EXPORT void FUN_UNKFstasta(const TopoDS_Face&              FF,
     um -= paru;
     vm -= parv;
   }
-  gp_Pnt Pa;
+  Point3d Pa;
   SFF->D0(um, vm, Pa);
 
   Standard_Boolean permute = Standard_False;
@@ -226,7 +226,7 @@ Standard_EXPORT void FUN_UNKFstasta(const TopoDS_Face&              FF,
   }
   if (permute)
   {
-    gp_Pnt P;
+    Point3d P;
     P  = Pa;
     Pa = Pb;
     Pb = P;

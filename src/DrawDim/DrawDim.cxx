@@ -52,7 +52,7 @@ void DrawDim::AllCommands(Draw_Interpretor& theCommands)
 
 void DrawDim::DrawShapeName(const TopoDS_Shape& ashape, const Standard_CString aname)
 {
-  gp_Pnt                  position;
+  Point3d                  position;
   TCollection_AsciiString t(" ");
   switch (ashape.ShapeType())
   {
@@ -155,12 +155,12 @@ Standard_Boolean DrawDim::Circ(const TopoDS_Edge& e,
 
 //=================================================================================================
 
-gp_Pnt DrawDim::Nearest(const TopoDS_Shape& ashape, const gp_Pnt& apoint)
+Point3d DrawDim::Nearest(const TopoDS_Shape& ashape, const Point3d& apoint)
 {
   Standard_Real   dist = RealLast();
   Standard_Real   curdist;
-  gp_Pnt          result;
-  gp_Pnt          curpnt;
+  Point3d          result;
+  Point3d          curpnt;
   TopExp_Explorer explo(ashape, TopAbs_VERTEX);
   while (explo.More())
   {

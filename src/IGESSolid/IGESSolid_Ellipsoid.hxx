@@ -22,7 +22,7 @@
 
 #include <gp_XYZ.hxx>
 #include <IGESData_IGESEntity.hxx>
-class gp_Pnt;
+class Point3d;
 class gp_Dir;
 
 class IGESSolid_Ellipsoid;
@@ -67,11 +67,11 @@ public:
   Standard_EXPORT Standard_Real ZLength() const;
 
   //! returns the center of the ellipsoid
-  Standard_EXPORT gp_Pnt Center() const;
+  Standard_EXPORT Point3d Center() const;
 
   //! returns the center of the ellipsoid after applying
   //! TransformationMatrix
-  Standard_EXPORT gp_Pnt TransformedCenter() const;
+  Standard_EXPORT Point3d TransformedCenter() const;
 
   //! returns the vector corresponding to the local X-direction
   Standard_EXPORT gp_Dir XAxis() const;

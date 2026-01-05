@@ -54,7 +54,7 @@ private:
                             const Standard_Real           theU0,
                             const Standard_Real           theU1,
                             NCollection_Array1<gp_Pnt2d>& theFix2d,
-                            NCollection_Array1<gp_Pnt>&   theFix);
+                            NCollection_Array1<Point3d>&   theFix);
 
   AppParCurves_MultiCurve             mySCU;
   math_Matrix                         myPoints;

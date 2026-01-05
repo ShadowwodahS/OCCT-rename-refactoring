@@ -25,7 +25,7 @@
 #include <gce_Root.hxx>
 class gp_Vec;
 class gp_XYZ;
-class gp_Pnt;
+class Point3d;
 
 //! This class implements the following algorithms used
 //! to create a Dir from gp.
@@ -67,7 +67,7 @@ public:
   //! -   the magnitude of vector V,
   //! -   the modulus of Coord,
   //! -   Sqrt(Xv*Xv + Yv*Yv + Zv*Zv).
-  Standard_EXPORT gce_MakeDir(const gp_Pnt& P1, const gp_Pnt& P2);
+  Standard_EXPORT gce_MakeDir(const Point3d& P1, const Point3d& P2);
 
   //! Returns the constructed unit vector.
   //! Exceptions StdFail_NotDone if no unit vector is constructed.

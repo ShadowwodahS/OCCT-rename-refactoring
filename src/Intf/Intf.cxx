@@ -21,9 +21,9 @@
 
 //=================================================================================================
 
-void Intf::PlaneEquation(const gp_Pnt&  P1,
-                         const gp_Pnt&  P2,
-                         const gp_Pnt&  P3,
+void Intf::PlaneEquation(const Point3d&  P1,
+                         const Point3d&  P2,
+                         const Point3d&  P3,
                          gp_XYZ&        NormalVector,
                          Standard_Real& PolarDistance)
 {
@@ -45,10 +45,10 @@ void Intf::PlaneEquation(const gp_Pnt&  P1,
 
 //=================================================================================================
 
-Standard_Boolean Intf::Contain(const gp_Pnt& P1,
-                               const gp_Pnt& P2,
-                               const gp_Pnt& P3,
-                               const gp_Pnt& ThePnt)
+Standard_Boolean Intf::Contain(const Point3d& P1,
+                               const Point3d& P2,
+                               const Point3d& P3,
+                               const Point3d& ThePnt)
 {
   gp_XYZ v1 = (P2.XYZ() - P1.XYZ()) ^ (ThePnt.XYZ() - P1.XYZ());
   gp_XYZ v2 = (P3.XYZ() - P2.XYZ()) ^ (ThePnt.XYZ() - P2.XYZ());

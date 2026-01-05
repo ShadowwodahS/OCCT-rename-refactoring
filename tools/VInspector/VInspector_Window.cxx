@@ -1027,7 +1027,7 @@ void VInspector_Window::addLight(const Graphic3d_TypeOfLightSource& theSourceLig
   if (theSourceLight == Graphic3d_TOLS_SPOT)
   {
     aLight->SetAngle((Standard_ShortReal)M_PI - ShortRealEpsilon());
-    aLight->SetPosition(gp_Pnt(-100, -100, -100));
+    aLight->SetPosition(Point3d(-100, -100, -100));
   }
 
   theViewer->AddLight(aLight);

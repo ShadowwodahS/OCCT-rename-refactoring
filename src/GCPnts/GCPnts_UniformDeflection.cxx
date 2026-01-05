@@ -22,16 +22,16 @@
 #include <Standard_NotImplemented.hxx>
 #include <StdFail_NotDone.hxx>
 
-// mask the return of a Adaptor2d_Curve2d as a gp_Pnt
-static gp_Pnt Value(const Adaptor3d_Curve& theC, const Standard_Real theParameter)
+// mask the return of a Adaptor2d_Curve2d as a Point3d
+static Point3d Value(const Adaptor3d_Curve& theC, const Standard_Real theParameter)
 {
   return theC.Value(theParameter);
 }
 
-static gp_Pnt Value(const Adaptor2d_Curve2d& theC, const Standard_Real theParameter)
+static Point3d Value(const Adaptor2d_Curve2d& theC, const Standard_Real theParameter)
 {
   const gp_Pnt2d a2dPoint = theC.Value(theParameter);
-  return gp_Pnt(a2dPoint.X(), a2dPoint.Y(), 0.0);
+  return Point3d(a2dPoint.X(), a2dPoint.Y(), 0.0);
 }
 
 //=================================================================================================
@@ -133,7 +133,7 @@ void GCPnts_UniformDeflection::Initialize(const Adaptor2d_Curve2d& theC,
 
 //=================================================================================================
 
-gp_Pnt GCPnts_UniformDeflection::Value(const Standard_Integer theIndex) const
+Point3d GCPnts_UniformDeflection::Value(const Standard_Integer theIndex) const
 {
   StdFail_NotDone_Raise_if(!myDone, "GCPnts_UniformAbscissa::Parameter()");
   return myPoints.Value(theIndex);
@@ -170,7 +170,7 @@ static Standard_Boolean PerformLinear(const TheCurve&         theC,
                                       const Standard_Real     theU2)
 {
   theParameters.Append(theU1);
-  gp_Pnt aPoint = Value(theC, theU1);
+  Point3d aPoint = Value(theC, theU1);
   thePoints.Append(aPoint);
 
   theParameters.Append(theU2);
@@ -189,7 +189,7 @@ static Standard_Boolean PerformCircular(const TheCurve&         theC,
                                         const Standard_Real     theU1,
                                         const Standard_Real     theU2)
 {
-  gp_Pnt        aPoint;
+  Point3d        aPoint;
   Standard_Real anAngle      = Max(1.0 - (theDeflection / theC.Circle().Radius()), 0.0);
   anAngle                    = 2.0e0 * ACos(anAngle);
   Standard_Integer aNbPoints = (Standard_Integer)((theU2 - theU1) / anAngle);

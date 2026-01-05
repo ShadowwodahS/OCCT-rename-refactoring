@@ -106,9 +106,9 @@ public:
   //! extremities of calculated sections.
   Standard_EXPORT virtual Standard_Real GetMinimalDistance() const Standard_OVERRIDE;
 
-  Standard_EXPORT const gp_Pnt& PointOnRst1() const Standard_OVERRIDE;
+  Standard_EXPORT const Point3d& PointOnRst1() const Standard_OVERRIDE;
 
-  Standard_EXPORT const gp_Pnt& PointOnRst2() const Standard_OVERRIDE;
+  Standard_EXPORT const Point3d& PointOnRst2() const Standard_OVERRIDE;
 
   //! Returns U,V coordinates of the point on the surface.
   Standard_EXPORT const gp_Pnt2d& Pnt2dOnRst1() const Standard_OVERRIDE;
@@ -149,10 +149,10 @@ public:
 
   //! Give the center of circle define by PtRst1, PtRst2 and
   //! radius ray.
-  Standard_EXPORT Standard_Boolean CenterCircleRst1Rst2(const gp_Pnt& PtRst1,
-                                                        const gp_Pnt& PtRst2,
+  Standard_EXPORT Standard_Boolean CenterCircleRst1Rst2(const Point3d& PtRst1,
+                                                        const Point3d& PtRst2,
                                                         const gp_Vec& np,
-                                                        gp_Pnt&       Center,
+                                                        Point3d&       Center,
                                                         gp_Vec&       VdMed) const;
 
   Standard_EXPORT void Section(const Standard_Real Param,
@@ -246,8 +246,8 @@ private:
   Adaptor3d_CurveOnSurface     cons2;
   Handle(Adaptor3d_Curve)      guide;
   Handle(Adaptor3d_Curve)      tguide;
-  gp_Pnt                       ptrst1;
-  gp_Pnt                       ptrst2;
+  Point3d                       ptrst1;
+  Point3d                       ptrst2;
   gp_Pnt2d                     pt2drst1;
   gp_Pnt2d                     pt2drst2;
   Standard_Real                prmrst1;
@@ -259,7 +259,7 @@ private:
   gp_Vec2d                     tg2drst2;
   Standard_Real                ray;
   Standard_Integer             choix;
-  gp_Pnt                       ptgui;
+  Point3d                       ptgui;
   gp_Vec                       d1gui;
   gp_Vec                       d2gui;
   gp_Vec                       nplan;

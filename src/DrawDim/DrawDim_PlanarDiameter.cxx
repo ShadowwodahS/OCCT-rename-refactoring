@@ -59,13 +59,13 @@ void DrawDim_PlanarDiameter::DrawOn(Draw_Display& dis) const
       gp_Circ       circle = Handle(Geom_Circle)::DownCast(curve)->Circ();
       TopoDS_Vertex vf, vl;
       TopExp::Vertices(TopoDS::Edge(myCircle), vf, vl);
-      const gp_Pnt  first    = BRep_Tool::Pnt(vf);
+      const Point3d  first    = BRep_Tool::Pnt(vf);
       Standard_Real parfirst = ElCLib::Parameter(circle, first);
       Standard_Real parlast  = (parfirst + M_PI);
-      gp_Pnt        last     = ElCLib::Value(parlast, circle);
+      Point3d        last     = ElCLib::Value(parlast, circle);
       //
       dis.Draw(first, last);
-      gp_Pnt p((first.X() + last.X()) / 2, (first.Y() + last.Y()) / 2, (first.Z() + last.Z()) / 2);
+      Point3d p((first.X() + last.X()) / 2, (first.Y() + last.Y()) / 2, (first.Z() + last.Z()) / 2);
       DrawText(p, dis);
       return;
     }

@@ -231,18 +231,18 @@ static Handle(Geom_Plane) findPlane(const TopoDS_Shape& E1, const TopoDS_Shape& 
 // purpose  : Find a common (or the most close) point of two edges.
 //=======================================================================
 
-static gp_Pnt findCommonPoint(const TopoDS_Shape& E1, const TopoDS_Shape& E2)
+static Point3d findCommonPoint(const TopoDS_Shape& E1, const TopoDS_Shape& E2)
 {
   TopoDS_Vertex v11, v12, v21, v22;
   TopExp::Vertices(TopoDS::Edge(E1), v11, v12);
   TopExp::Vertices(TopoDS::Edge(E2), v21, v22);
 
-  gp_Pnt p11 = BRep_Tool::Pnt(v11);
-  gp_Pnt p12 = BRep_Tool::Pnt(v12);
-  gp_Pnt p21 = BRep_Tool::Pnt(v21);
-  gp_Pnt p22 = BRep_Tool::Pnt(v22);
+  Point3d p11 = BRep_Tool::Pnt(v11);
+  Point3d p12 = BRep_Tool::Pnt(v12);
+  Point3d p21 = BRep_Tool::Pnt(v21);
+  Point3d p22 = BRep_Tool::Pnt(v22);
 
-  gp_Pnt       common;
+  Point3d       common;
   const double d1121 = p11.SquareDistance(p21);
   const double d1122 = p11.SquareDistance(p22);
   const double d1221 = p12.SquareDistance(p21);
@@ -259,7 +259,7 @@ static gp_Pnt findCommonPoint(const TopoDS_Shape& E1, const TopoDS_Shape& E2)
   return common;
 }
 
-static gp_Pnt findCommonPoint(const TopoDS_Shape& W)
+static Point3d findCommonPoint(const TopoDS_Shape& W)
 {
   // The common point for two edges inside a wire
   // is a sharing vertex of two edges.
@@ -335,7 +335,7 @@ static Standard_Integer fillet2d(Draw_Interpretor& di, Standard_Integer n, const
   }
 
   // Find a common point of the edges.
-  gp_Pnt common = n == 5 ? findCommonPoint(E1, E2) : findCommonPoint(W);
+  Point3d common = n == 5 ? findCommonPoint(E1, E2) : findCommonPoint(W);
 
   // Get the number of solutions (usually it is equal to 1).
   Standard_Integer nbSolutions = algo.NbResults(common);

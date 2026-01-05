@@ -44,32 +44,32 @@ void IGESGeom_Line::SetInfinite(const Standard_Integer status)
     InitTypeAndForm(110, status);
 }
 
-gp_Pnt IGESGeom_Line::StartPoint() const
+Point3d IGESGeom_Line::StartPoint() const
 {
-  gp_Pnt start(theStart);
+  Point3d start(theStart);
   return start;
 }
 
-gp_Pnt IGESGeom_Line::TransformedStartPoint() const
+Point3d IGESGeom_Line::TransformedStartPoint() const
 {
   gp_XYZ Start = theStart;
   if (HasTransf())
     Location().Transforms(Start);
-  gp_Pnt transStart(Start);
+  Point3d transStart(Start);
   return transStart;
 }
 
-gp_Pnt IGESGeom_Line::EndPoint() const
+Point3d IGESGeom_Line::EndPoint() const
 {
-  gp_Pnt end(theEnd);
+  Point3d end(theEnd);
   return end;
 }
 
-gp_Pnt IGESGeom_Line::TransformedEndPoint() const
+Point3d IGESGeom_Line::TransformedEndPoint() const
 {
   gp_XYZ End = theEnd;
   if (HasTransf())
     Location().Transforms(End);
-  gp_Pnt transEnd(End);
+  Point3d transEnd(End);
   return transEnd;
 }

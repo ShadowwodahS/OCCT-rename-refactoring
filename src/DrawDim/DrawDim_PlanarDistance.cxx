@@ -34,7 +34,7 @@ IMPLEMENT_STANDARD_RTTIEXT(DrawDim_PlanarDistance, DrawDim_PlanarDimension)
 
 //=================================================================================================
 
-void DrawDim_PlanarDistance::Draw(const gp_Pnt&      point,
+void DrawDim_PlanarDistance::Draw(const Point3d&      point,
                                   const TopoDS_Edge& edge,
                                   Draw_Display&      dis) const
 {
@@ -43,11 +43,11 @@ void DrawDim_PlanarDistance::Draw(const gp_Pnt&      point,
   GeomAPI_ProjectPointOnCurve pj(point, line);
   if (pj.NbPoints() == 1)
   {
-    gp_Pnt first = point;
-    gp_Pnt last  = pj.Point(1);
+    Point3d first = point;
+    Point3d last  = pj.Point(1);
     dis.Draw(first, last);
 
-    gp_Pnt p((first.X() + last.X()) / 2, (first.Y() + last.Y()) / 2, (first.Z() + last.Z()) / 2);
+    Point3d p((first.X() + last.X()) / 2, (first.Y() + last.Y()) / 2, (first.Z() + last.Z()) / 2);
     DrawText(p, dis);
   }
 }
@@ -77,25 +77,25 @@ void DrawDim_PlanarDistance::DrawOn(Draw_Display& dis) const
 {
   if (myGeom1.ShapeType() == TopAbs_VERTEX && myGeom2.ShapeType() == TopAbs_VERTEX)
   {
-    gp_Pnt first = BRep_Tool::Pnt(TopoDS::Vertex(myGeom1));
-    gp_Pnt last  = BRep_Tool::Pnt(TopoDS::Vertex(myGeom2));
+    Point3d first = BRep_Tool::Pnt(TopoDS::Vertex(myGeom1));
+    Point3d last  = BRep_Tool::Pnt(TopoDS::Vertex(myGeom2));
     dis.Draw(first, last);
 
-    gp_Pnt p((first.X() + last.X()) / 2, (first.Y() + last.Y()) / 2, (first.Z() + last.Z()) / 2);
+    Point3d p((first.X() + last.X()) / 2, (first.Y() + last.Y()) / 2, (first.Z() + last.Z()) / 2);
     DrawText(p, dis);
     return;
   }
 
   else if (myGeom1.ShapeType() == TopAbs_VERTEX && myGeom2.ShapeType() == TopAbs_EDGE)
   {
-    gp_Pnt point = BRep_Tool::Pnt(TopoDS::Vertex(myGeom1));
+    Point3d point = BRep_Tool::Pnt(TopoDS::Vertex(myGeom1));
     Draw(point, TopoDS::Edge(myGeom2), dis);
     return;
   }
 
   else if (myGeom1.ShapeType() == TopAbs_EDGE && myGeom2.ShapeType() == TopAbs_VERTEX)
   {
-    gp_Pnt point = BRep_Tool::Pnt(TopoDS::Vertex(myGeom2));
+    Point3d point = BRep_Tool::Pnt(TopoDS::Vertex(myGeom2));
     Draw(point, TopoDS::Edge(myGeom1), dis);
     return;
   }
@@ -109,7 +109,7 @@ void DrawDim_PlanarDistance::DrawOn(Draw_Display& dis) const
       Handle(Geom_Line) L = Handle(Geom_Line)::DownCast(C);
       if (!L.IsNull())
       {
-        gp_Pnt      point = L->Lin().Location();
+        Point3d      point = L->Lin().Location();
         TopoDS_Edge edge  = TopoDS::Edge(myGeom2);
         Draw(point, edge, dis);
         return;

@@ -22,7 +22,7 @@
 #include <Standard_Real.hxx>
 #include <BRep_CurveRepresentation.hxx>
 class TopLoc_Location;
-class gp_Pnt;
+class Point3d;
 
 class BRep_GCurve;
 DEFINE_STANDARD_HANDLE(BRep_GCurve, BRep_CurveRepresentation)
@@ -47,7 +47,7 @@ public:
   void Last(const Standard_Real L);
 
   //! Computes the point at parameter U.
-  Standard_EXPORT virtual void D0(const Standard_Real U, gp_Pnt& P) const = 0;
+  Standard_EXPORT virtual void D0(const Standard_Real U, Point3d& P) const = 0;
 
   //! Recomputes any derived data after a modification.
   //! This is called when the range is modified.

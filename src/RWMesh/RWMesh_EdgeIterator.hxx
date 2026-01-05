@@ -93,7 +93,7 @@ public:
 
 public:
   //! Return the node with specified index with applied transformation.
-  gp_Pnt node(const Standard_Integer theNode) const Standard_OVERRIDE
+  Point3d node(const Standard_Integer theNode) const Standard_OVERRIDE
   {
     return myPolygon3D->Nodes().Value(theNode);
   }

@@ -42,13 +42,13 @@ static Standard_Boolean isCW(const BRepAdaptor_Curve& AC)
   const Standard_Real f      = AC.FirstParameter();
   const Standard_Real l      = AC.LastParameter();
   Handle(Geom_Circle) circle = Handle(Geom_Circle)::DownCast(AC.Curve().Curve());
-  gp_Pnt              start  = AC.Value(f);
-  gp_Pnt              end    = AC.Value(l);
-  gp_Pnt              center = AC.Circle().Location();
+  Point3d              start  = AC.Value(f);
+  Point3d              end    = AC.Value(l);
+  Point3d              center = AC.Circle().Location();
   gp_Ax3              plane  = AC.Circle().Position();
 
   // Get point on circle at half angle
-  gp_Pnt m;
+  Point3d m;
   circle->D0(0.5 * (f + l), m);
 
   // Compare angles between vectors to middle point and to the end point.
@@ -65,7 +65,7 @@ static Standard_Boolean isCW(const BRepAdaptor_Curve& AC)
 }
 
 // Equality of points computed through square distance between the points.
-static Standard_Boolean IsEqual(const gp_Pnt& p1, const gp_Pnt& p2)
+static Standard_Boolean IsEqual(const Point3d& p1, const Point3d& p2)
 {
   return p1.SquareDistance(p2) < Precision::SquareConfusion();
 }
@@ -184,8 +184,8 @@ void ChFi2d_AnaFilletAlgo::Init(const TopoDS_Wire& theWire, const gp_Pln& thePla
   if (v1.IsNull() || v2.IsNull())
     throw ExceptionBase("An infinite edge.");
 
-  gp_Pnt   P1 = BRep_Tool::Pnt(v1);
-  gp_Pnt   P2 = BRep_Tool::Pnt(v2);
+  Point3d   P1 = BRep_Tool::Pnt(v1);
+  Point3d   P2 = BRep_Tool::Pnt(v2);
   gp_Pnt2d p1 = ProjLib::Project(thePlane, P1);
   gp_Pnt2d p2 = ProjLib::Project(thePlane, P2);
   p1.Coord(x11, y11);
@@ -248,12 +248,12 @@ void ChFi2d_AnaFilletAlgo::Init(const TopoDS_Edge& theEdge1,
   if (v11.IsNull() || v12.IsNull() || v21.IsNull() || v22.IsNull())
     throw ExceptionBase("An infinite edge.");
 
-  gp_Pnt p11 = BRep_Tool::Pnt(v11);
-  gp_Pnt p12 = BRep_Tool::Pnt(v12);
-  gp_Pnt p21 = BRep_Tool::Pnt(v21);
-  gp_Pnt p22 = BRep_Tool::Pnt(v22);
+  Point3d p11 = BRep_Tool::Pnt(v11);
+  Point3d p12 = BRep_Tool::Pnt(v12);
+  Point3d p21 = BRep_Tool::Pnt(v21);
+  Point3d p22 = BRep_Tool::Pnt(v22);
 
-  gp_Pnt pcommon;
+  Point3d pcommon;
   if (IsEqual(p11, p21) || IsEqual(p11, p22))
   {
     pcommon = p11;
@@ -360,7 +360,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::Perform(const Standard_Real radius)
 
   // Construct a fillet.
   // Make circle.
-  gp_Pnt        center = ElSLib::Value(xc, yc, plane);
+  Point3d        center = ElSLib::Value(xc, yc, plane);
   const gp_Dir& normal = plane.Position().Direction();
   gp_Circ       circ(gp_Ax2(center, cw ? -normal : normal), radius);
 
@@ -416,7 +416,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::Perform(const Standard_Real radius)
   if (bRet)
   {
     // start: (xstart, ystart) - pstart.
-    gp_Pnt pstart;
+    Point3d pstart;
     if (xstart != DBL_MAX)
     {
       pstart = ElSLib::Value(xstart, ystart, plane);
@@ -429,7 +429,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::Perform(const Standard_Real radius)
         pstart = AC1.Value(AC1.FirstParameter() + start);
     }
     // end: (xend, yend) -> pend.
-    gp_Pnt pend;
+    Point3d pend;
     if (xend != DBL_MAX)
     {
       pend = ElSLib::Value(xend, yend, plane);
@@ -451,7 +451,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::Perform(const Standard_Real radius)
 
       // Limit the neighbours.
       // Left neighbour.
-      gp_Pnt p1, p2;
+      Point3d p1, p2;
       shrinke1.Nullify();
       if (e1.Orientation() == TopAbs_FORWARD)
       {
@@ -940,7 +940,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::Cut(const gp_Pln& thePlane,
                                            TopoDS_Edge&  theE1,
                                            TopoDS_Edge&  theE2)
 {
-  gp_Pnt                    p;
+  Point3d                    p;
   Standard_Boolean          found(Standard_False);
   Standard_Real             param1 = 0.0, param2 = 0.0;
   Standard_Real             f1, l1, f2, l2;

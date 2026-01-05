@@ -59,20 +59,20 @@ Standard_Real IGESSolid_SolidOfRevolution::Fraction() const
   return theFraction;
 }
 
-gp_Pnt IGESSolid_SolidOfRevolution::AxisPoint() const
+Point3d IGESSolid_SolidOfRevolution::AxisPoint() const
 {
-  return gp_Pnt(theAxisPoint);
+  return Point3d(theAxisPoint);
 }
 
-gp_Pnt IGESSolid_SolidOfRevolution::TransformedAxisPoint() const
+Point3d IGESSolid_SolidOfRevolution::TransformedAxisPoint() const
 {
   if (!HasTransf())
-    return gp_Pnt(theAxisPoint);
+    return Point3d(theAxisPoint);
   else
   {
     gp_XYZ tmp = theAxisPoint;
     Location().Transforms(tmp);
-    return gp_Pnt(tmp);
+    return Point3d(tmp);
   }
 }
 

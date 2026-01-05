@@ -23,7 +23,7 @@
 #include <Geom_Geometry.hxx>
 #include <Standard_Real.hxx>
 class gp_Dir;
-class gp_Pnt;
+class Point3d;
 
 class Geom_AxisPlacement;
 DEFINE_STANDARD_HANDLE(Geom_AxisPlacement, Geom_Geometry)
@@ -80,7 +80,7 @@ public:
   Standard_EXPORT virtual void SetDirection(const gp_Dir& V) = 0;
 
   //! Assigns the point P as the origin of this positioning  system.
-  Standard_EXPORT void SetLocation(const gp_Pnt& P);
+  Standard_EXPORT void SetLocation(const Point3d& P);
 
   //! Computes the angular value, in radians, between the
   //! "main Direction" of this positioning system and that
@@ -96,7 +96,7 @@ public:
   Standard_EXPORT gp_Dir Direction() const;
 
   //! Returns the Location point (origin) of the axis placement.
-  Standard_EXPORT gp_Pnt Location() const;
+  Standard_EXPORT Point3d Location() const;
 
   DEFINE_STANDARD_RTTIEXT(Geom_AxisPlacement, Geom_Geometry)
 

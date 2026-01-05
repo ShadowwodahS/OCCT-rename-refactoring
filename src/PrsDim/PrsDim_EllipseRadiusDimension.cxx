@@ -124,7 +124,7 @@ void PrsDim_EllipseRadiusDimension::ComputeCylFaceGeometry(const PrsDim_KindOfSu
   {
     Axis.SetDirection((Handle(Geom_SurfaceOfLinearExtrusion)::DownCast(aBasisSurf))->Direction());
     Axis.SetLocation(
-      gp_Pnt((Handle(Geom_SurfaceOfLinearExtrusion)::DownCast(aBasisSurf))->Direction().XYZ()));
+      Point3d((Handle(Geom_SurfaceOfLinearExtrusion)::DownCast(aBasisSurf))->Direction().XYZ()));
 
     aPlane.SetAxis(Axis);
     aPlane.SetLocation(myEllipse.Location());
@@ -188,7 +188,7 @@ void PrsDim_EllipseRadiusDimension::ComputePlanarFaceGeometry()
 {
 
   Standard_Boolean find = Standard_False;
-  gp_Pnt           ptfirst, ptend;
+  Point3d           ptfirst, ptend;
   TopExp_Explorer  ExploEd(TopoDS::Face(myFShape), TopAbs_EDGE);
   for (; ExploEd.More(); ExploEd.Next())
   {
@@ -232,7 +232,7 @@ void PrsDim_EllipseRadiusDimension::ComputePlanarFaceGeometry()
 
 void PrsDim_EllipseRadiusDimension::ComputeEdgeGeometry()
 {
-  gp_Pnt             ptfirst, ptend;
+  Point3d             ptfirst, ptend;
   Handle(Geom_Curve) curv;
   if (!PrsDim::ComputeGeometry(TopoDS::Edge(myFShape), curv, ptfirst, ptend))
     return;

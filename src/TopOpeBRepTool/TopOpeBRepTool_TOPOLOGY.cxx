@@ -264,7 +264,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_outbounds(const TopoDS_Shape& Sh,
 }
 
 // ----------------------------------------------------------------------
-Standard_EXPORT Standard_Boolean FUN_tool_PinC(const gp_Pnt&            P,
+Standard_EXPORT Standard_Boolean FUN_tool_PinC(const Point3d&            P,
                                                const BRepAdaptor_Curve& BAC,
                                                const Standard_Real      pmin,
                                                const Standard_Real      pmax,
@@ -287,7 +287,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_PinC(const gp_Pnt&            P,
 }
 
 // ----------------------------------------------------------------------
-Standard_EXPORT Standard_Boolean FUN_tool_PinC(const gp_Pnt&            P,
+Standard_EXPORT Standard_Boolean FUN_tool_PinC(const Point3d&            P,
                                                const BRepAdaptor_Curve& BAC,
                                                const Standard_Real      tol)
 {
@@ -302,7 +302,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_PinC(const gp_Pnt&            P,
 // ----------------------------------------------------------------------
 Standard_EXPORT Standard_Boolean FUN_tool_value(const Standard_Real par,
                                                 const TopoDS_Edge&  E,
-                                                gp_Pnt&             P)
+                                                Point3d&             P)
 {
   BRepAdaptor_Curve BAC(E);
   Standard_Real     f  = BAC.FirstParameter();
@@ -315,7 +315,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_value(const Standard_Real par,
 }
 
 // ----------------------------------------------------------------------
-Standard_EXPORT Standard_Boolean FUN_tool_value(const gp_Pnt2d& UV, const TopoDS_Face& F, gp_Pnt& P)
+Standard_EXPORT Standard_Boolean FUN_tool_value(const gp_Pnt2d& UV, const TopoDS_Face& F, Point3d& P)
 {
   BRepAdaptor_Surface BS(F);
   P = BS.Value(UV.X(), UV.Y());
@@ -323,7 +323,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_value(const gp_Pnt2d& UV, const TopoDS
 }
 
 // ----------------------------------------------------------------------
-Standard_EXPORT TopAbs_State FUN_tool_staPinE(const gp_Pnt&       P,
+Standard_EXPORT TopAbs_State FUN_tool_staPinE(const Point3d&       P,
                                               const TopoDS_Edge&  E,
                                               const Standard_Real tol)
 {
@@ -338,7 +338,7 @@ Standard_EXPORT TopAbs_State FUN_tool_staPinE(const gp_Pnt&       P,
   if (ProjonBAC.IsDone() && ProjonBAC.NbExt() > 0)
   {
     Standard_Integer i     = FUN_tool_getindex(ProjonBAC);
-    gp_Pnt           Pnear = ProjonBAC.Point(i).Value();
+    Point3d           Pnear = ProjonBAC.Point(i).Value();
     Standard_Real    d     = Pnear.Distance(P);
     sta                    = (d < tol) ? TopAbs_IN : TopAbs_OUT;
   }
@@ -346,7 +346,7 @@ Standard_EXPORT TopAbs_State FUN_tool_staPinE(const gp_Pnt&       P,
 }
 
 // ----------------------------------------------------------------------
-Standard_EXPORT TopAbs_State FUN_tool_staPinE(const gp_Pnt& P, const TopoDS_Edge& E)
+Standard_EXPORT TopAbs_State FUN_tool_staPinE(const Point3d& P, const TopoDS_Edge& E)
 {
   //  Standard_Real tol = Precision::Confusion()*10.;
   Standard_Real tol3d = BRep_Tool::Tolerance(E) * 1.e2; // KKKKK a revoir xpu(CTS21118,f14ou,GI13)
@@ -466,7 +466,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_nggeomF(const Standard_Real& paronE,
   if (project)
   {
     BRepAdaptor_Curve BC(E);
-    gp_Pnt            p3d = BC.Value(paronE);
+    Point3d            p3d = BC.Value(paronE);
     Standard_Real     d;
     Standard_Boolean  ok = FUN_tool_projPonF(p3d, F, p2d, d);
 
@@ -484,7 +484,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_nggeomF(const Standard_Real& paronE,
       return Standard_False;
     // modified by NIZHNY-MZV  Wed Dec  1 13:56:14 1999
     // xpu010698
-    gp_Pnt p3duv;
+    Point3d p3duv;
     FUN_tool_value(p2d, F, p3duv);
     Standard_Real dd = p3duv.Distance(p3d);
     if (dd > tol)
@@ -841,12 +841,12 @@ Standard_EXPORT Standard_Boolean FUN_tool_parVonE(const TopoDS_Vertex& v,
   }
   if (!isVofE)
   {
-    gp_Pnt pt = BRep_Tool::Pnt(v);
+    Point3d pt = BRep_Tool::Pnt(v);
     // <v> can share same domain with a vertex of <E>
     for (ex.Init(E, TopAbs_VERTEX); ex.More(); ex.Next())
     {
       const TopoDS_Vertex& vex  = TopoDS::Vertex(ex.Current());
-      gp_Pnt               ptex = BRep_Tool::Pnt(vex);
+      Point3d               ptex = BRep_Tool::Pnt(vex);
       if (ptex.IsEqual(pt, tol))
       {
         par = BRep_Tool::Parameter(vex, E);
@@ -873,7 +873,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_parE(const TopoDS_Edge&   E0,
                                                Standard_Real&       par,
                                                const Standard_Real  tol)
 {
-  gp_Pnt           P;
+  Point3d           P;
   Standard_Boolean ok = FUN_tool_value(par0, E0, P);
   if (!ok)
     return Standard_False;
@@ -907,7 +907,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_parF(const TopoDS_Edge&   E,
                                                const Standard_Real  tol3d)
 // ? <UV> : P -> <par> on <E>,<UV> on <F>
 {
-  gp_Pnt           P;
+  Point3d           P;
   Standard_Boolean ok = FUN_tool_value(par, E, P);
   if (!ok)
     return Standard_False;
@@ -966,7 +966,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_paronEF(const TopoDS_Edge&   E,
 // ----------------------------------------------------------------------
 Standard_EXPORT gp_Dir FUN_tool_dirC(const Standard_Real par, const BRepAdaptor_Curve& BAC)
 {
-  gp_Pnt p;
+  Point3d p;
   gp_Vec tgE;
   BAC.D1(par, p, tgE);
   gp_Dir dirC(tgE);
@@ -1027,7 +1027,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_quad(const TopoDS_Face& F)
 
 // ----------------------------------------------------------------------
 Standard_EXPORT Standard_Boolean FUN_tool_findPinBAC(const BRepAdaptor_Curve& BAC,
-                                                     gp_Pnt&                  P,
+                                                     Point3d&                  P,
                                                      Standard_Real&           par)
 {
   FUN_tool_findparinBAC(BAC, par);
@@ -1055,7 +1055,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_findparinE(const TopoDS_Shape& E, Stan
 
 // ----------------------------------------------------------------------
 Standard_EXPORT Standard_Boolean FUN_tool_findPinE(const TopoDS_Shape& E,
-                                                   gp_Pnt&             P,
+                                                   Point3d&             P,
                                                    Standard_Real&      par)
 {
   BRepAdaptor_Curve BAC(TopoDS::Edge(E));
@@ -1193,7 +1193,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_SameOri(const TopoDS_Edge& E1, const T
   FUN_tool_bounds(E2, f, l);
   Standard_Real x   = 0.345;
   Standard_Real mid = x * f + (1 - x) * l;
-  gp_Pnt        Pmid;
+  Point3d        Pmid;
   FUN_tool_value(mid, E2, Pmid);
   gp_Vec           tmp;
   Standard_Boolean ok = TopOpeBRepTool_TOOL::TggeomE(mid, E2, tmp);

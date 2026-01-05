@@ -182,7 +182,7 @@ void TopOpeBRepDS_BuildTool::MakeEdge(TopoDS_Shape& E, const TopOpeBRepDS_Curve&
       // of the curve C.
       TopoDS_Vertex V;
       Standard_Real first = GC->FirstParameter();
-      gp_Pnt        P     = GC->Value(first);
+      Point3d        P     = GC->Value(first);
       myBuilder.MakeVertex(V, P, C.Tolerance());
       myBuilder.Add(E, V);
       V.Reverse();
@@ -441,7 +441,7 @@ void TopOpeBRepDS_BuildTool::UpdateEdgeCurveTol
     const TopoDS_Vertex& vi = TopoDS::Vertex(exi.Current());
     if (vi.Orientation() != TopAbs_INTERNAL)
       continue;
-    gp_Pnt                      P     = BRep_Tool::Pnt(vi);
+    Point3d                      P     = BRep_Tool::Pnt(vi);
     Standard_Real               tolvi = TopOpeBRepTool_ShapeTool::Tolerance(vi);
     GeomAPI_ProjectPointOnCurve dm(P, C3Dnew, newparmin, newparmax);
     Standard_Boolean            dmdone = dm.Extrema().IsDone();
@@ -546,7 +546,7 @@ Standard_Boolean FUN_getUV(const Handle(Geom_Surface)& surf,
                            Standard_Real&              u0,
                            Standard_Real&              v0)
 {
-  gp_Pnt P3d;
+  Point3d P3d;
   C3D->D0(par3d, P3d);
   GeomAPI_ProjectPointOnSurf pons(P3d, surf);
   if (pons.NbPoints() < 1)
@@ -557,14 +557,14 @@ Standard_Boolean FUN_getUV(const Handle(Geom_Surface)& surf,
 
 Standard_Boolean FUN_reversePC(Handle(Geom2d_Curve) PCnew,
                                const TopoDS_Face&   F,
-                               const gp_Pnt&        P3DC3D,
+                               const Point3d&        P3DC3D,
                                const Standard_Real  par2d,
                                const Standard_Real  tol)
 {
   gp_Pnt2d P2D;
   PCnew->D0(par2d, P2D);
   BRepAdaptor_Surface BAS(F, Standard_False);
-  gp_Pnt              P3D        = BAS.Value(P2D.X(), P2D.Y());
+  Point3d              P3D        = BAS.Value(P2D.X(), P2D.Y());
   Standard_Boolean    PCreversed = Standard_False;
   Standard_Boolean    sam        = P3D.IsEqual(P3DC3D, tol);
   PCreversed                     = !sam;
@@ -970,7 +970,7 @@ static Standard_Boolean Project(const Handle(Geom_Curve)& C,
                                 const TopoDS_Vertex&      V,
                                 Standard_Real&            p)
 {
-  gp_Pnt            P   = BRep_Tool::Pnt(V);
+  Point3d            P   = BRep_Tool::Pnt(V);
   Standard_Real     tol = BRep_Tool::Tolerance(V);
   GeomAdaptor_Curve GAC(C);
   Extrema_ExtPC     extrema(P, GAC);
@@ -1053,7 +1053,7 @@ void TopOpeBRepDS_BuildTool::TranslateOnPeriodic(TopoDS_Shape&         F,
     {
       Handle(Geom_Curve)         c3d = BRep_Tool::Curve(TopoDS::Edge(E), C3Df, C3Dl);
       GeomAdaptor_Curve          GC(c3d);
-      gp_Pnt                     p3dtest = GC.Value(t);
+      Point3d                     p3dtest = GC.Value(t);
       Handle(Geom_Surface)       surf    = BRep_Tool::Surface(TopoDS::Face(F));
       GeomAPI_ProjectPointOnSurf pons(p3dtest, surf);
       if (!(pons.NbPoints() < 1))
@@ -1433,7 +1433,7 @@ void  TopOpeBRepDS_BuildTool::RecomputeCurveOnCone
 //  Standard_Real par3d = (1-fac)*newparmin + (fac)*newparmax;
 //  Standard_Real par2d = par3d - newparmin;
 //
-//  gp_Pnt P3DC3D;       C3D->D0(par3d,P3DC3D);
+//  Point3d P3DC3D;       C3D->D0(par3d,P3DC3D);
 //
 //  Standard_Boolean UisoLineOnSphe1 = Standard_False;
 //  UisoLineOnSphe1 = ::FUN_UisoLineOnSphe(F1,PC1new);

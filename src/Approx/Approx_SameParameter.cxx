@@ -104,7 +104,7 @@ void Approx_SameParameter_Evaluator::Evaluate(Standard_Integer*, /*Dimension*/
 //=================================================================================================
 
 static void ProjectPointOnCurve(const Standard_Real    InitValue,
-                                const gp_Pnt&          APoint,
+                                const Point3d&          APoint,
                                 const Standard_Real    Tolerance,
                                 const Standard_Integer NumIteration,
                                 const Adaptor3d_Curve& Curve,
@@ -113,7 +113,7 @@ static void ProjectPointOnCurve(const Standard_Real    InitValue,
 {
   Standard_Integer num_iter = 0, not_done = 1;
 
-  gp_Pnt        a_point;
+  Point3d        a_point;
   gp_Vec        vector, d1, d2;
   Standard_Real func, func_derivative, param = InitValue;
   Status = Standard_False;
@@ -159,7 +159,7 @@ static Standard_Real ComputeTolReached(const Handle(Adaptor3d_Curve)&  c3d,
   {
     Standard_Real t = IntToReal(i) / IntToReal(nbp);
     Standard_Real u = first * (1.0 - t) + last * t;
-    gp_Pnt        Pc3d, Pcons;
+    Point3d        Pc3d, Pcons;
     try
     {
       Pc3d  = c3d->Value(u);
@@ -225,7 +225,7 @@ static Standard_Boolean Check(const TColStd_Array1OfReal&     FlatKnots,
     // It should be inside of 3d curve parameter space.
     Standard_Real t    = unsurnn * i;
     Standard_Real tc3d = pc3d[0] * (1.0 - t) + pc3d[nbp - 1] * t; // weight function.
-    gp_Pnt        Pc3d = c3d->Value(tc3d);
+    Point3d        Pc3d = c3d->Value(tc3d);
     Standard_Real tcons;
     BSplCLib::Eval(tc3d,
                    Standard_False,
@@ -243,7 +243,7 @@ static Standard_Boolean Check(const TColStd_Array1OfReal&     FlatKnots,
       return Standard_False;
     }
     tprev               = tcons;
-    gp_Pnt        Pcons = cons.Value(tcons);
+    Point3d        Pcons = cons.Value(tcons);
     Standard_Real temp  = Pc3d.SquareDistance(Pcons);
     if (temp > d2)
       d2 = temp;
@@ -655,7 +655,7 @@ Standard_Boolean Approx_SameParameter::CheckSameParameter(Approx_SameParameter_D
   Standard_Boolean    isSameParam = Standard_True;
 
   // Compute initial distance on boundary points.
-  gp_Pnt Pcons, Pc3d;
+  Point3d Pcons, Pc3d;
   theData.myCOnS.D0(theData.myC2dPF, Pcons);
   myC3d->D0(theData.myC3dPF, Pc3d);
   Standard_Real dist2 = Pcons.SquareDistance(Pc3d);
@@ -730,7 +730,7 @@ Standard_Boolean Approx_SameParameter::CheckSameParameter(Approx_SameParameter_D
     Standard_Real          aCurDistMin = RealLast();
     for (Standard_Integer i = 1; i <= aNbExt; i++)
     {
-      const gp_Pnt& aP     = PR.Point(i).Value();
+      const Point3d& aP     = PR.Point(i).Value();
       Standard_Real aDist2 = aP.SquareDistance(Pcons);
       if (aDist2 < aCurDistMin)
       {
@@ -769,7 +769,7 @@ Standard_Boolean Approx_SameParameter::ComputeTangents(const Adaptor3d_CurveOnSu
 {
   const Standard_Real aSmallMagnitude = 1.0e-12;
   // Check tangency on curve border.
-  gp_Pnt aPnt, aPntCOnS;
+  Point3d aPnt, aPntCOnS;
   gp_Vec aVec, aVecConS;
 
   // First point.
@@ -894,7 +894,7 @@ Standard_Boolean Approx_SameParameter::IncreaseNbPoles(const TColStd_Array1OfRea
       Standard_Real ucons = 0.5 * (theData.myPC2d[ii] + theData.myPC2d[ii + 1]);
       Standard_Real uc3d  = 0.5 * (theData.myPC3d[ii] + theData.myPC3d[ii + 1]);
 
-      gp_Pnt Pcons;
+      Point3d Pcons;
       theData.myCOnS.D0(ucons, Pcons);
       Projector.Perform(Pcons, uc3d);
       if (Projector.IsDone())
@@ -944,7 +944,7 @@ Standard_Boolean Approx_SameParameter::IncreaseNbPoles(const TColStd_Array1OfRea
     Standard_Real ucons = 0.5 * (theData.myPC2d[n] + theData.myPC2d[n + 1]);
     Standard_Real uc3d  = 0.5 * (theData.myPC3d[n] + theData.myPC3d[n + 1]);
 
-    gp_Pnt Pcons;
+    Point3d Pcons;
     theData.myCOnS.D0(ucons, Pcons);
     Projector.Perform(Pcons, uc3d);
     if (Projector.IsDone())

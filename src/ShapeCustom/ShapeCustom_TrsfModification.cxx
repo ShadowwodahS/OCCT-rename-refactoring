@@ -66,7 +66,7 @@ Standard_Boolean ShapeCustom_TrsfModification::NewCurve(const TopoDS_Edge&  E,
 //=================================================================================================
 
 Standard_Boolean ShapeCustom_TrsfModification::NewPoint(const TopoDS_Vertex& V,
-                                                        gp_Pnt&              P,
+                                                        Point3d&              P,
                                                         Standard_Real&       Tol)
 {
   Standard_Boolean result = BRepTools_TrsfModification::NewPoint(V, P, Tol);

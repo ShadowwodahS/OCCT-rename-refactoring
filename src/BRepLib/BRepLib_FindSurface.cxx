@@ -214,7 +214,7 @@ static void fillPoints(const BRepAdaptor_Curve&                 theCurve,
                        TColStd_SequenceOfReal&                  theWeights)
 {
   Standard_Real aDistPrev = 0., aDistNext;
-  gp_Pnt        aPPrev(theCurve.Value(theParams(0))), aPNext;
+  Point3d        aPPrev(theCurve.Value(theParams(0))), aPNext;
 
   for (Standard_Integer iP = 1; iP <= theParams.Length(); ++iP)
   {

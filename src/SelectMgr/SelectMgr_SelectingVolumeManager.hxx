@@ -132,11 +132,11 @@ public:
 
   //! Intersection test between defined volume and given point
   Standard_EXPORT virtual Standard_Boolean OverlapsPoint(
-    const gp_Pnt&            thePnt,
+    const Point3d&            thePnt,
     SelectBasics_PickResult& thePickResult) const Standard_OVERRIDE;
 
   //! Intersection test between defined volume and given point
-  Standard_EXPORT virtual Standard_Boolean OverlapsPoint(const gp_Pnt& thePnt) const
+  Standard_EXPORT virtual Standard_Boolean OverlapsPoint(const Point3d& thePnt) const
     Standard_OVERRIDE;
 
   //! SAT intersection test between defined volume and given ordered set of points,
@@ -149,28 +149,28 @@ public:
 
   //! Checks if line segment overlaps selecting frustum
   Standard_EXPORT virtual Standard_Boolean OverlapsSegment(
-    const gp_Pnt&            thePnt1,
-    const gp_Pnt&            thePnt2,
+    const Point3d&            thePnt1,
+    const Point3d&            thePnt2,
     SelectBasics_PickResult& thePickResult) const Standard_OVERRIDE;
 
   //! SAT intersection test between defined volume and given triangle. The test may
   //! be considered of interior part or boundary line defined by triangle vertices
   //! depending on given sensitivity type
   Standard_EXPORT virtual Standard_Boolean OverlapsTriangle(
-    const gp_Pnt&            thePnt1,
-    const gp_Pnt&            thePnt2,
-    const gp_Pnt&            thePnt3,
+    const Point3d&            thePnt1,
+    const Point3d&            thePnt2,
+    const Point3d&            thePnt3,
     Standard_Integer         theSensType,
     SelectBasics_PickResult& thePickResult) const Standard_OVERRIDE;
 
   //! Intersection test between defined volume and given sphere
   Standard_EXPORT virtual Standard_Boolean OverlapsSphere(
-    const gp_Pnt&            theCenter,
+    const Point3d&            theCenter,
     const Standard_Real      theRadius,
     SelectBasics_PickResult& thePickResult) const Standard_OVERRIDE;
 
   //! Intersection test between defined volume and given sphere
-  Standard_EXPORT virtual Standard_Boolean OverlapsSphere(const gp_Pnt&       theCenter,
+  Standard_EXPORT virtual Standard_Boolean OverlapsSphere(const Point3d&       theCenter,
                                                           const Standard_Real theRadius,
                                                           Standard_Boolean* theInside = NULL) const
     Standard_OVERRIDE;
@@ -217,12 +217,12 @@ public:
 
   //! Measures distance between 3d projection of user-picked
   //! screen point and given point theCOG
-  Standard_EXPORT virtual Standard_Real DistToGeometryCenter(const gp_Pnt& theCOG) const
+  Standard_EXPORT virtual Standard_Real DistToGeometryCenter(const Point3d& theCOG) const
     Standard_OVERRIDE;
 
   //! Calculates the point on a view ray that was detected during the run of selection algo by given
   //! depth. Throws exception if active selection type is not Point.
-  Standard_EXPORT virtual gp_Pnt DetectedPoint(const Standard_Real theDepth) const
+  Standard_EXPORT virtual Point3d DetectedPoint(const Standard_Real theDepth) const
     Standard_OVERRIDE;
 
   //! If theIsToAllow is false, only fully included sensitives will be detected, otherwise the
@@ -259,19 +259,19 @@ public:
   void SetViewClipRanges(const SelectMgr_ViewClipRange& theRange) { myViewClipRange = theRange; }
 
   //! A set of helper functions that return rectangular selecting frustum data
-  Standard_EXPORT const gp_Pnt* GetVertices() const;
+  Standard_EXPORT const Point3d* GetVertices() const;
 
   //! Valid only for point and rectangular selection.
   //! Returns projection of 2d mouse picked point or projection
   //! of center of 2d rectangle (for point and rectangular selection
   //! correspondingly) onto near view frustum plane
-  Standard_EXPORT virtual gp_Pnt GetNearPickedPnt() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Point3d GetNearPickedPnt() const Standard_OVERRIDE;
 
   //! Valid only for point and rectangular selection.
   //! Returns projection of 2d mouse picked point or projection
   //! of center of 2d rectangle (for point and rectangular selection
   //! correspondingly) onto far view frustum plane
-  Standard_EXPORT virtual gp_Pnt GetFarPickedPnt() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Point3d GetFarPickedPnt() const Standard_OVERRIDE;
 
   //! Valid only for point and rectangular selection.
   //! Returns view ray direction

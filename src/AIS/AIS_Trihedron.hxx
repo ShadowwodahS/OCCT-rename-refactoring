@@ -233,7 +233,7 @@ protected:
   //! Parameters of datum position and orientation
   Standard_EXPORT void updatePrimitives(const Handle(Prs3d_DatumAspect)& theAspect,
                                         Prs3d_DatumMode                  theMode,
-                                        const gp_Pnt&                    theOrigin,
+                                        const Point3d&                    theOrigin,
                                         const gp_Dir&                    theXDir,
                                         const gp_Dir&                    theYDir,
                                         const gp_Dir&                    theZDir);

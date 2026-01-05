@@ -59,7 +59,7 @@ public:
   Standard_EXPORT void  SetZoom(const Standard_Integer id, const Standard_Real z);
   Standard_EXPORT void  RotateView(const Standard_Integer id, const gp_Dir2d&, const Standard_Real);
   Standard_EXPORT void  RotateView(const Standard_Integer id,
-                                   const gp_Pnt&,
+                                   const Point3d&,
                                    const gp_Dir&,
                                    const Standard_Real);
   Standard_EXPORT void  SetFocal(const Standard_Integer id, const Standard_Real FocalDist);
@@ -147,7 +147,7 @@ public:
          Handle(Draw_Drawable3D)& D,
          const Standard_Integer   First = 0) const; // search after this drawable
 
-  Standard_EXPORT void LastPick(gp_Pnt& P1, gp_Pnt& P2, Standard_Real& Param);
+  Standard_EXPORT void LastPick(Point3d& P1, Point3d& P2, Standard_Real& Param);
   // returns the extremities and parameter of the last picked segment
 
   Standard_EXPORT ~Draw_Viewer();

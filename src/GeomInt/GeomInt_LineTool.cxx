@@ -48,7 +48,7 @@ public:
             const Standard_Real         Vmin,
             const Standard_Real         Vsup);
   void Init();
-  void Perform(const gp_Pnt& P);
+  void Perform(const Point3d& P);
 
   Standard_Boolean IsDone() const { return myIsDone; }
 
@@ -101,7 +101,7 @@ void ProjectPointOnSurf::Init()
 
 //=================================================================================================
 
-void ProjectPointOnSurf::Perform(const gp_Pnt& P)
+void ProjectPointOnSurf::Perform(const Point3d& P)
 {
   myExtPS.Perform(P);
   Init();
@@ -773,9 +773,9 @@ Standard_Boolean GeomInt_LineTool::DecompositionOfWLine(
                       IntSurf_PntOn2S atmppoint = aNewP;
                       atmppoint.SetValue((surfit == 0), anewU, anewV);
                       atmppoint.Parameters(U1, V1, U2, V2);
-                      gp_Pnt P1 = theSurface1->Value(U1, V1);
-                      gp_Pnt P2 = theSurface2->Value(U2, V2);
-                      gp_Pnt P0 = aPoint.Value();
+                      Point3d P1 = theSurface1->Value(U1, V1);
+                      Point3d P2 = theSurface2->Value(U2, V2);
+                      Point3d P0 = aPoint.Value();
 
                       if (P0.IsEqual(P1, aTol) && P0.IsEqual(P2, aTol) && P1.IsEqual(P2, aTol))
                       {
@@ -844,7 +844,7 @@ Standard_Boolean GeomInt_LineTool::DecompositionOfWLine(
             ProjectPointOnSurf&         aProjector = (surfit == 0) ? aPrj2 : aPrj1;
             Handle(GeomAdaptor_Surface) aSurface   = (surfit == 0) ? theSurface1 : theSurface2;
 
-            gp_Pnt aP3d = aSurface->Value(anewpoint.X(), anewpoint.Y());
+            Point3d aP3d = aSurface->Value(anewpoint.X(), anewpoint.Y());
             aProjector.Perform(aP3d);
 
             if (aProjector.IsDone())

@@ -24,7 +24,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Geom_AxisPlacement, Geom_Geometry)
 
 typedef gp_Ax1 Ax1;
 typedef gp_Dir Dir;
-typedef gp_Pnt Pnt;
+typedef Point3d Pnt;
 typedef gp_Vec Vec;
 
 const gp_Ax1& Geom_AxisPlacement::Axis() const

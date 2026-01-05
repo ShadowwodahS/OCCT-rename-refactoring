@@ -26,7 +26,7 @@
 class gp_Ax3;
 class gp_Torus;
 class Geom_Curve;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 class gp_Trsf;
 class Geom_Geometry;
@@ -210,13 +210,13 @@ public:
   //! the YAxis and ZDir the direction of the ZAxis.
   Standard_EXPORT void D0(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P) const Standard_OVERRIDE;
+                          Point3d&             P) const Standard_OVERRIDE;
 
   //! Computes the current point and the first derivatives in
   //! the directions U and V.
   Standard_EXPORT void D1(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V) const Standard_OVERRIDE;
 
@@ -224,7 +224,7 @@ public:
   //! in the directions U and V.
   Standard_EXPORT void D2(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V,
                           gp_Vec&             D2U,
@@ -235,7 +235,7 @@ public:
   //! third derivatives in the directions U and V.
   Standard_EXPORT void D3(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V,
                           gp_Vec&             D2U,

@@ -36,9 +36,9 @@
 void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                       const Handle(Prs3d_Drawer)&       aDrawer,
                                       const gp_Ax2&                     theAxe,
-                                      const gp_Pnt&                     MidPoint,
-                                      const gp_Pnt&                     Position,
-                                      const gp_Pnt&                     AttachPoint,
+                                      const Point3d&                     MidPoint,
+                                      const Point3d&                     Position,
+                                      const Point3d&                     AttachPoint,
                                       const Standard_Boolean            first)
 {
   Standard_Real rad = AttachPoint.Distance(MidPoint) / 20.0;
@@ -103,11 +103,11 @@ void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
 void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                       const Handle(Prs3d_Drawer)&       aDrawer,
                                       const gp_Ax2&                     theAxe,
-                                      const gp_Pnt&                     MidPoint,
-                                      const gp_Pnt&                     Position,
-                                      const gp_Pnt&                     AttachPoint,
-                                      const gp_Pnt&                     Point1,
-                                      const gp_Pnt&                     Point2,
+                                      const Point3d&                     MidPoint,
+                                      const Point3d&                     Position,
+                                      const Point3d&                     AttachPoint,
+                                      const Point3d&                     Point1,
+                                      const Point3d&                     Point2,
                                       const Standard_Boolean            first)
 {
   Standard_Real rad = AttachPoint.Distance(MidPoint) / 20.0;
@@ -172,11 +172,11 @@ void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
 void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                       const Handle(Prs3d_Drawer)&       aDrawer,
                                       const gp_Circ&                    aCircle,
-                                      const gp_Pnt&                     MidPoint,
-                                      const gp_Pnt&                     Position,
-                                      const gp_Pnt&                     AttachPoint,
-                                      const gp_Pnt&                     Point1,
-                                      const gp_Pnt&                     Point2,
+                                      const Point3d&                     MidPoint,
+                                      const Point3d&                     Position,
+                                      const Point3d&                     AttachPoint,
+                                      const Point3d&                     Point1,
+                                      const Point3d&                     Point2,
                                       const Standard_Boolean            first)
 {
   Standard_Real rad = AttachPoint.Distance(MidPoint) / 20.0;
@@ -252,11 +252,11 @@ void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
 void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                       const Handle(Prs3d_Drawer)&       aDrawer,
                                       const gp_Elips&                   aCircle,
-                                      const gp_Pnt&                     MidPoint,
-                                      const gp_Pnt&                     Position,
-                                      const gp_Pnt&                     AttachPoint,
-                                      const gp_Pnt&                     Point1,
-                                      const gp_Pnt&                     Point2,
+                                      const Point3d&                     MidPoint,
+                                      const Point3d&                     Position,
+                                      const Point3d&                     AttachPoint,
+                                      const Point3d&                     Point1,
+                                      const Point3d&                     Point2,
                                       const Standard_Boolean            first)
 {
   Standard_Real rad = AttachPoint.Distance(MidPoint) / 20.0;
@@ -265,7 +265,7 @@ void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
 
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
 
-  gp_Pnt Ptmp, ptcur;
+  Point3d Ptmp, ptcur;
 
   gp_Ax2 ax = aCircle.Position();
   ax.SetLocation(MidPoint);

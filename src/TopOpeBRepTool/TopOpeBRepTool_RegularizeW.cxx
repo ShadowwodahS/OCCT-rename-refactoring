@@ -333,7 +333,7 @@ static Standard_Integer FUN_tool_classiwithp2d(const TopTools_Array1OfShape& wi)
     i = nite;
     j = (i == 1) ? 2 : 1;
     TopoDS_Face f = TopoDS::Face(fa(j));
-    const gp_Pnt p = p3d(i);
+    const Point3d p = p3d(i);
     Standard_Real tol = BRep_Tool::Tolerance(f);
     BRepClass_FaceClassifier Fclass(f, p, tol);
     sta = Fclass.State();

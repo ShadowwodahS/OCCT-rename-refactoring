@@ -72,7 +72,7 @@ void Draw_Grid::DrawOn(Draw_Display& Out) const
   Standard_Real    Offset;
   Standard_Real    zoom, Xmin, Xmax, Ymin, Ymax;
   gp_Trsf          T;
-  gp_Pnt           Pnt1, Pnt2;
+  Point3d           Pnt1, Pnt2;
 
   Standard_Integer IdtView;
   char*            Type;

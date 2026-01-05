@@ -2136,9 +2136,9 @@ static int VViewProj(Draw_Interpretor&, Standard_Integer theNbArgs, const char**
         }
 
         const Handle(Graphic3d_Camera)& aCamera     = aView->Camera();
-        const gp_Pnt                    anOriginVCS = aCamera->ConvertWorld2View(gp::Origin());
+        const Point3d                    anOriginVCS = aCamera->ConvertWorld2View(gp::Origin());
         const gp_Dir                    aDir        = anUp.Crossed(aRight);
-        aCamera->SetCenter(gp_Pnt(0, 0, 0));
+        aCamera->SetCenter(Point3d(0, 0, 0));
         aCamera->SetDirection(aDir);
         aCamera->SetUp(anUp);
         aCamera->OrthogonalizeUp();
@@ -2475,8 +2475,8 @@ static int VFitArea(Draw_Interpretor& theDI, Standard_Integer theArgNb, const ch
   }
 
   // Parse arguments.
-  gp_Pnt aWorldPnt1(0.0, 0.0, 0.0);
-  gp_Pnt aWorldPnt2(0.0, 0.0, 0.0);
+  Point3d aWorldPnt1(0.0, 0.0, 0.0);
+  Point3d aWorldPnt2(0.0, 0.0, 0.0);
 
   if (theArgNb == 5)
   {
@@ -2503,8 +2503,8 @@ static int VFitArea(Draw_Interpretor& theDI, Standard_Integer theArgNb, const ch
 
   // Convert model coordinates to view space
   Handle(Graphic3d_Camera) aCamera   = aView->Camera();
-  gp_Pnt                   aViewPnt1 = aCamera->ConvertWorld2View(aWorldPnt1);
-  gp_Pnt                   aViewPnt2 = aCamera->ConvertWorld2View(aWorldPnt2);
+  Point3d                   aViewPnt1 = aCamera->ConvertWorld2View(aWorldPnt1);
+  Point3d                   aViewPnt2 = aCamera->ConvertWorld2View(aWorldPnt2);
 
   // Determine fit area
   gp_Pnt2d aMinCorner(Min(aViewPnt1.X(), aViewPnt2.X()), Min(aViewPnt1.Y(), aViewPnt2.Y()));
@@ -5256,7 +5256,7 @@ static int VPriviledgedPlane(Draw_Interpretor& theDI,
   if (theArgNb == 1)
   {
     gp_Ax3        aPriviledgedPlane = aViewer->PrivilegedPlane();
-    const gp_Pnt& anOrig            = aPriviledgedPlane.Location();
+    const Point3d& anOrig            = aPriviledgedPlane.Location();
     const gp_Dir& aNorm             = aPriviledgedPlane.Direction();
     const gp_Dir& aXDir             = aPriviledgedPlane.XDirection();
     theDI << "Origin: " << anOrig.X() << " " << anOrig.Y() << " " << anOrig.Z() << " "
@@ -5274,7 +5274,7 @@ static int VPriviledgedPlane(Draw_Interpretor& theDI,
   Standard_Real    aNormZ   = Draw::Atof(theArgVec[anArgIdx++]);
 
   gp_Ax3 aPriviledgedPlane;
-  gp_Pnt anOrig(anOrigX, anOrigY, anOrigZ);
+  Point3d anOrig(anOrigX, anOrigY, anOrigZ);
   gp_Dir aNorm(aNormX, aNormY, aNormZ);
   if (theArgNb > 7)
   {
@@ -5802,10 +5802,10 @@ public:
     {
       const gp_Dir aNorm(0.0, 0.0, 1.0);
       myTris = new Graphic3d_ArrayOfTriangles(4, 6, true, false, true);
-      myTris->AddVertex(gp_Pnt(-myWidth * 0.5, -myHeight * 0.5, 0.0), aNorm, gp_Pnt2d(0.0, 0.0));
-      myTris->AddVertex(gp_Pnt(myWidth * 0.5, -myHeight * 0.5, 0.0), aNorm, gp_Pnt2d(1.0, 0.0));
-      myTris->AddVertex(gp_Pnt(-myWidth * 0.5, myHeight * 0.5, 0.0), aNorm, gp_Pnt2d(0.0, 1.0));
-      myTris->AddVertex(gp_Pnt(myWidth * 0.5, myHeight * 0.5, 0.0), aNorm, gp_Pnt2d(1.0, 1.0));
+      myTris->AddVertex(Point3d(-myWidth * 0.5, -myHeight * 0.5, 0.0), aNorm, gp_Pnt2d(0.0, 0.0));
+      myTris->AddVertex(Point3d(myWidth * 0.5, -myHeight * 0.5, 0.0), aNorm, gp_Pnt2d(1.0, 0.0));
+      myTris->AddVertex(Point3d(-myWidth * 0.5, myHeight * 0.5, 0.0), aNorm, gp_Pnt2d(0.0, 1.0));
+      myTris->AddVertex(Point3d(myWidth * 0.5, myHeight * 0.5, 0.0), aNorm, gp_Pnt2d(1.0, 1.0));
       myTris->AddEdge(1);
       myTris->AddEdge(2);
       myTris->AddEdge(3);
@@ -5846,7 +5846,7 @@ public:
         Prs3d_Text::Draw(thePrs->NewGroup(),
                          myDrawer->TextAspect(),
                          myLabel,
-                         gp_Pnt(0.0, 0.0, 0.0));
+                         Point3d(0.0, 0.0, 0.0));
         Handle(Graphic3d_Group) aGroup = thePrs->NewGroup();
         aGroup->AddPrimitiveArray(myRect);
         aGroup->SetGroupPrimitivesAspect(myDrawer->LineAspect()->Aspect());
@@ -6364,7 +6364,7 @@ static Standard_Integer VMoveTo(Draw_Interpretor& theDI,
                                                          false);
   ViewerTest::CurrentEventManager()->FlushViewEvents(ViewerTest::GetAISContext(), aView, true);
 
-  gp_Pnt                               aTopPnt(RealLast(), RealLast(), RealLast());
+  Point3d                               aTopPnt(RealLast(), RealLast(), RealLast());
   const Handle(SelectMgr_EntityOwner)& aDetOwner = aContext->DetectedOwner();
   for (Standard_Integer aDetIter = 1; aDetIter <= aContext->MainSelector()->NbPicked(); ++aDetIter)
   {
@@ -6466,13 +6466,13 @@ static Standard_Integer VSelectByAxis(Draw_Interpretor& theDI,
   }
 
   gp_Ax1 anAxis(anAxisLocation, anAxisDirection);
-  gp_Pnt aTopPnt;
+  Point3d aTopPnt;
   if (!ViewerTest::CurrentEventManager()->PickAxis(aTopPnt, aContext, aView, anAxis))
   {
     theDI << "There are no any intersections with this axis.";
     return 0;
   }
-  NCollection_Sequence<gp_Pnt>         aPoints;
+  NCollection_Sequence<Point3d>         aPoints;
   NCollection_Sequence<Graphic3d_Vec3> aNormals;
   NCollection_Sequence<Standard_Real>  aNormalLengths;
   for (Standard_Integer aPickIter = 1; aPickIter <= aContext->MainSelector()->NbPicked();
@@ -6508,10 +6508,10 @@ static Standard_Integer VSelectByAxis(Draw_Interpretor& theDI,
     ViewerTest::Display(TCollection_AsciiString(aName) + "_start", anAISStartPnt, false);
 
     Standard_Integer anIndex = 0;
-    for (NCollection_Sequence<gp_Pnt>::Iterator aPntIter(aPoints); aPntIter.More();
+    for (NCollection_Sequence<Point3d>::Iterator aPntIter(aPoints); aPntIter.More();
          aPntIter.Next(), anIndex++)
     {
-      const gp_Pnt& aPoint = aPntIter.Value();
+      const Point3d& aPoint = aPntIter.Value();
 
       // Display normals in intersection points
       if (toShowNormal)
@@ -6546,10 +6546,10 @@ static Standard_Integer VSelectByAxis(Draw_Interpretor& theDI,
   }
 
   Standard_Integer anIndex = 0;
-  for (NCollection_Sequence<gp_Pnt>::Iterator anIter(aPoints); anIter.More();
+  for (NCollection_Sequence<Point3d>::Iterator anIter(aPoints); anIter.More();
        anIter.Next(), anIndex++)
   {
-    const gp_Pnt& aPnt = anIter.Value();
+    const Point3d& aPnt = anIter.Value();
     theDI << aPnt.X() << " " << aPnt.Y() << " " << aPnt.Z() << "\n";
   }
   return 0;
@@ -9793,11 +9793,11 @@ static int VLight(Draw_Interpretor& theDi, Standard_Integer theArgsNb, const cha
           break;
         }
         case Graphic3d_TypeOfLightSource_Spot: {
-          aLightNew = new V3d_SpotLight(gp_Pnt(0.0, 0.0, 0.0));
+          aLightNew = new V3d_SpotLight(Point3d(0.0, 0.0, 0.0));
           break;
         }
         case Graphic3d_TypeOfLightSource_Positional: {
-          aLightNew = new V3d_PositionalLight(gp_Pnt(0.0, 0.0, 0.0));
+          aLightNew = new V3d_PositionalLight(Point3d(0.0, 0.0, 0.0));
           break;
         }
       }
@@ -12048,7 +12048,7 @@ static Standard_Integer VXRotate(Draw_Interpretor& di, Standard_Integer argc, co
   }
 
   gp_Trsf aTransform;
-  aTransform.SetRotation(gp_Ax1(gp_Pnt(0.0, 0.0, 0.0), gp_Vec(1.0, 0.0, 0.0)), anAngle);
+  aTransform.SetRotation(gp_Ax1(Point3d(0.0, 0.0, 0.0), gp_Vec(1.0, 0.0, 0.0)), anAngle);
   aTransform.SetTranslationPart(anIObj->LocalTransformation().TranslationPart());
 
   aContext->SetLocation(anIObj, aTransform);
@@ -12290,7 +12290,7 @@ static int VManipulator(Draw_Interpretor& theDi, Standard_Integer theArgsNb, con
              && Draw::ParseReal(theArgVec[anArgIter + 1], aTmpReal))
     {
       ++anArgIter;
-      aTrsf.SetScale(gp_Pnt(), aTmpReal);
+      aTrsf.SetScale(Point3d(), aTmpReal);
     }
     else if (anArg == "-rotate" && anArgIter + 7 < theArgsNb
              && parseXYZ(theArgVec + anArgIter + 1, aRotPnt)
@@ -12298,7 +12298,7 @@ static int VManipulator(Draw_Interpretor& theDi, Standard_Integer theArgsNb, con
              && Draw::ParseReal(theArgVec[anArgIter + 7], aTmpReal))
     {
       anArgIter += 7;
-      aTrsf.SetRotation(gp_Ax1(gp_Pnt(aRotPnt), gp_Dir(aRotAxis)), aTmpReal);
+      aTrsf.SetRotation(gp_Ax1(Point3d(aRotPnt), gp_Dir(aRotAxis)), aTmpReal);
     }
     //
     else if (anArg == "-addobject")
@@ -12532,7 +12532,7 @@ static int VManipulator(Draw_Interpretor& theDi, Standard_Integer theArgsNb, con
         aBox = aBox.FinitePart();
         if (!aBox.IsVoid())
         {
-          const gp_Pnt aCenter = (aBox.CornerMin().XYZ() + aBox.CornerMax().XYZ()) * 0.5;
+          const Point3d aCenter = (aBox.CornerMin().XYZ() + aBox.CornerMax().XYZ()) * 0.5;
           aPosition.SetLocation(aCenter);
         }
         break;
@@ -12550,7 +12550,7 @@ static int VManipulator(Draw_Interpretor& theDi, Standard_Integer theArgsNb, con
     {
       anXDir = aManipulator->Position().XDirection().XYZ();
     }
-    aManipulator->SetPosition(gp_Ax2(gp_Pnt(aLocation), gp_Dir(aVDir), gp_Dir(anXDir)));
+    aManipulator->SetPosition(gp_Ax2(Point3d(aLocation), gp_Dir(aVDir), gp_Dir(anXDir)));
   }
 
   // --------------------------------------

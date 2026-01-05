@@ -60,7 +60,7 @@ PrsDim_MaxRadiusDimension::PrsDim_MaxRadiusDimension(const TopoDS_Shape&        
 PrsDim_MaxRadiusDimension::PrsDim_MaxRadiusDimension(const TopoDS_Shape&               aShape,
                                                      const Standard_Real               aVal,
                                                      const TCollection_ExtendedString& aText,
-                                                     const gp_Pnt&                     aPosition,
+                                                     const Point3d&                     aPosition,
                                                      const DsgPrs_ArrowSide            aSymbolPrs,
                                                      const Standard_Real               anArrowSize)
     : PrsDim_EllipseRadiusDimension(aShape, aText)
@@ -109,7 +109,7 @@ void PrsDim_MaxRadiusDimension::ComputeEllipse(const Handle(Prs3d_Presentation)&
   arr->SetLength(myArrowSize);
 
   Standard_Real U; //,V;
-  gp_Pnt        curPos, Center;
+  Point3d        curPos, Center;
   Center = myEllipse.Location();
   if (myAutomaticPosition)
   {
@@ -162,7 +162,7 @@ void PrsDim_MaxRadiusDimension::ComputeArcOfEllipse(const Handle(Prs3d_Presentat
   arr->SetLength(myArrowSize);
 
   Standard_Real par;
-  gp_Pnt        curPos, Center;
+  Point3d        curPos, Center;
   Center                      = myEllipse.Location();
   Standard_Boolean IsInDomain = Standard_True;
   if (myAutomaticPosition)
@@ -237,12 +237,12 @@ void PrsDim_MaxRadiusDimension::ComputeSelection(const Handle(SelectMgr_Selectio
                                                  const Standard_Integer /*aMode*/)
 {
 
-  gp_Pnt        center          = myEllipse.Location();
-  gp_Pnt        AttachmentPoint = myPosition;
+  Point3d        center          = myEllipse.Location();
+  Point3d        AttachmentPoint = myPosition;
   Standard_Real dist            = center.Distance(AttachmentPoint);
   Standard_Real aRadius         = myVal;
   // Standard_Real inside  = Standard_False;
-  gp_Pnt pt1;
+  Point3d pt1;
   if (dist > aRadius)
     pt1 = AttachmentPoint;
   else

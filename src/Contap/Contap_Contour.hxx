@@ -25,7 +25,7 @@
 #include <Contap_ArcFunction.hxx>
 
 class gp_Vec;
-class gp_Pnt;
+class Point3d;
 class Adaptor3d_TopolTool;
 
 class Contap_Contour
@@ -39,7 +39,7 @@ public:
 
   Standard_EXPORT Contap_Contour(const gp_Vec& Direction, const Standard_Real Angle);
 
-  Standard_EXPORT Contap_Contour(const gp_Pnt& Eye);
+  Standard_EXPORT Contap_Contour(const Point3d& Eye);
 
   //! Creates the contour in a given direction.
   Standard_EXPORT Contap_Contour(const Handle(Adaptor3d_Surface)&   Surf,
@@ -55,7 +55,7 @@ public:
   //! Creates the contour for a perspective view.
   Standard_EXPORT Contap_Contour(const Handle(Adaptor3d_Surface)&   Surf,
                                  const Handle(Adaptor3d_TopolTool)& Domain,
-                                 const gp_Pnt&                      Eye);
+                                 const Point3d&                      Eye);
 
   //! Creates the contour in a given direction.
   Standard_EXPORT void Perform(const Handle(Adaptor3d_Surface)&   Surf,
@@ -75,13 +75,13 @@ public:
   //! Creates the contour for a perspective view.
   Standard_EXPORT void Perform(const Handle(Adaptor3d_Surface)&   Surf,
                                const Handle(Adaptor3d_TopolTool)& Domain,
-                               const gp_Pnt&                      Eye);
+                               const Point3d&                      Eye);
 
   Standard_EXPORT void Init(const gp_Vec& Direction);
 
   Standard_EXPORT void Init(const gp_Vec& Direction, const Standard_Real Angle);
 
-  Standard_EXPORT void Init(const gp_Pnt& Eye);
+  Standard_EXPORT void Init(const Point3d& Eye);
 
   Standard_Boolean IsDone() const;
 

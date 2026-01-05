@@ -24,7 +24,7 @@
 #include <IGESData_IGESEntity.hxx>
 #include <Standard_Integer.hxx>
 class gp_Pnt2d;
-class gp_Pnt;
+class Point3d;
 class gp_Dir;
 
 class IGESGeom_ConicArc;
@@ -87,14 +87,14 @@ public:
 
   //! returns the starting point of the arc after applying
   //! Transf. Matrix
-  Standard_EXPORT gp_Pnt TransformedStartPoint() const;
+  Standard_EXPORT Point3d TransformedStartPoint() const;
 
   //! returns the end point of the arc
   Standard_EXPORT gp_Pnt2d EndPoint() const;
 
   //! returns the end point of the arc after applying
   //! Transf. Matrix
-  Standard_EXPORT gp_Pnt TransformedEndPoint() const;
+  Standard_EXPORT Point3d TransformedEndPoint() const;
 
   //! returns True if parent conic curve is an ellipse
   Standard_EXPORT Standard_Boolean IsFromEllipse() const;
@@ -124,14 +124,14 @@ public:
   //! For a Parabola, Rmin = Rmax = the Focal
   //! Warning : the basic definition (by equation) is not very stable,
   //! limit cases may be approximative
-  Standard_EXPORT void Definition(gp_Pnt&        Center,
+  Standard_EXPORT void Definition(Point3d&        Center,
                                   gp_Dir&        MainAxis,
                                   Standard_Real& rmin,
                                   Standard_Real& rmax) const;
 
   //! Same as Definition, but the Location is applied on the
   //! Center and the MainAxis
-  Standard_EXPORT void TransformedDefinition(gp_Pnt&        Center,
+  Standard_EXPORT void TransformedDefinition(Point3d&        Center,
                                              gp_Dir&        MainAxis,
                                              Standard_Real& rmin,
                                              Standard_Real& rmax) const;

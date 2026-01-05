@@ -130,7 +130,7 @@ void TopOpeBRep_Point2d::Dump(const Standard_Integer E1index, const Standard_Int
   TopOpeBRepDS::Print(myedgesconfig, std::cout);
   std::cout << std::endl;
 
-  gp_Pnt P3D = Value();
+  Point3d P3D = Value();
   #ifdef DRAW
   std::cout << FUN_tool_PRODINP() << "P" << Index() << " " << P3D.X() << " " << P3D.Y() << " "
             << P3D.Z() << "; # tol = " << tol << std::endl;

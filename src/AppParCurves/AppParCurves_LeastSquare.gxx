@@ -317,7 +317,7 @@ void AppParCurves_LeastSquare::Init(const MultiLine& SSP,
 
   nbP2d = ToolLine::NbP2d(SSP);
   nbP   = ToolLine::NbP3d(SSP);
-  gp_Pnt Poi;
+  Point3d Poi;
   gp_Pnt2d Poi2d;
 //  gp_Vec V3d;
 //  gp_Vec2d V2d;
@@ -519,7 +519,7 @@ void AppParCurves_LeastSquare::Perform(const math_Vector& Parameters) {
   Standard_Integer i, j, k, Ci, i2, k1, k2;
   Standard_Integer nbpol1 = nbpoles-1, Ninc1 = Ninc-1;
   Standard_Real AD1, A0;
-//  gp_Pnt Pt;
+//  Point3d Pt;
 //  gp_Pnt2d Pt2d;
   iscalculated = Standard_False;
 
@@ -778,7 +778,7 @@ void AppParCurves_LeastSquare::Perform(const math_Vector&  Parameters,
   lambda2 = l2;
   Standard_Integer i, j, k, i2;
   Standard_Real AD0, AD1, AD2, A0, A1, A2;
-//  gp_Pnt Pt, P1, P2;
+//  Point3d Pt, P1, P2;
 //  gp_Pnt2d Pt2d, P12d, P22d;
   Standard_Real l11 = deg*l1, l22 = deg*l2;
 
@@ -1273,7 +1273,7 @@ const AppParCurves_MultiBSpCurve& AppParCurves_LeastSquare::BSplineValue()
   if (!done) {throw StdFail_NotDone();}
 
   Standard_Integer i, j, j2, npoints = nbP+nbP2d;
-  gp_Pnt Pt;
+  Point3d Pt;
   gp_Pnt2d Pt2d;
   Standard_Integer ideb = resinit, ifin = resfin;
   if (ideb >= 2) ideb = 2;

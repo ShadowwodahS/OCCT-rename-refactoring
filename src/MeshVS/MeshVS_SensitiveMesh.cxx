@@ -93,11 +93,11 @@ Select3D_BndBox3d MeshVS_SensitiveMesh::BoundingBox()
 // function : CenterOfGeometry
 // purpose  : Returns center of mesh
 //=======================================================================
-gp_Pnt MeshVS_SensitiveMesh::CenterOfGeometry() const
+Point3d MeshVS_SensitiveMesh::CenterOfGeometry() const
 {
   if (!myBndBox.IsValid())
-    return gp_Pnt(0.0, 0.0, 0.0);
+    return Point3d(0.0, 0.0, 0.0);
 
   SelectMgr_Vec3 aCenter = (myBndBox.CornerMax() + myBndBox.CornerMin()) * 0.5;
-  return gp_Pnt(aCenter.x(), aCenter.y(), aCenter.z());
+  return Point3d(aCenter.x(), aCenter.y(), aCenter.z());
 }

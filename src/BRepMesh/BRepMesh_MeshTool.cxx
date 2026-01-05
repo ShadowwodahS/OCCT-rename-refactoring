@@ -321,9 +321,9 @@ void BRepMesh_MeshTool::DumpTriangles(const Standard_CString   theFileName,
     const gp_XY& aV2 = myStructure->GetNode(aNodes[1]).Coord();
     const gp_XY& aV3 = myStructure->GetNode(aNodes[2]).Coord();
 
-    BRepBuilderAPI_MakePolygon aPoly(gp_Pnt(aV1.X(), aV1.Y(), 0.),
-                                     gp_Pnt(aV2.X(), aV2.Y(), 0.),
-                                     gp_Pnt(aV3.X(), aV3.Y(), 0.),
+    BRepBuilderAPI_MakePolygon aPoly(Point3d(aV1.X(), aV1.Y(), 0.),
+                                     Point3d(aV2.X(), aV2.Y(), 0.),
+                                     Point3d(aV3.X(), aV3.Y(), 0.),
                                      Standard_True);
 
     BRepBuilderAPI_MakeFace aFaceBuilder(gp_Pln(gp::XOY()), aPoly.Wire());

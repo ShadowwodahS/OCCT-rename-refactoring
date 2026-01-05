@@ -23,7 +23,7 @@
 #include <Prs3d_Drawer.hxx>
 #include <Prs3d_Presentation.hxx>
 
-class gp_Pnt;
+class Point3d;
 class gp_Dir;
 
 //! A framework to define display of tangents.
@@ -38,7 +38,7 @@ public:
   //! the attribute manager aDrawer.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Handle(Prs3d_Drawer)&       aDrawer,
-                                  const gp_Pnt&                     OffsetPoint,
+                                  const Point3d&                     OffsetPoint,
                                   const gp_Dir&                     aDirection,
                                   const Standard_Real               aLength);
 

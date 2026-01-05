@@ -22,7 +22,7 @@
 
 class gp_Pnt2d;
 class Adaptor3d_HVertex;
-class gp_Pnt;
+class Point3d;
 
 //! Tool for the intersection between 2 surfaces.
 //! Regroupe pour l instant les methodes hors Adaptor3d...
@@ -106,7 +106,7 @@ public:
   //! point of range Index.
   Standard_EXPORT static void Value(const Handle(Adaptor2d_Curve2d)& C,
                                     const Standard_Integer           Index,
-                                    gp_Pnt&                          Pt,
+                                    Point3d&                          Pt,
                                     Standard_Real&                   Tol,
                                     Standard_Real&                   U);
 

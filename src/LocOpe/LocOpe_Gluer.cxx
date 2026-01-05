@@ -355,7 +355,7 @@ static TopAbs_Orientation GetOrientation(const TopoDS_Face& Fn, const TopoDS_Fac
   TopExp_Explorer exp;
   Standard_Real   f, l;
   gp_Pnt2d        ptvtx;
-  gp_Pnt          pvt;
+  Point3d          pvt;
   gp_Vec          d1u, d1v, n1, n2;
 
   for (exp.Init(Fn, TopAbs_EDGE); exp.More(); exp.Next())

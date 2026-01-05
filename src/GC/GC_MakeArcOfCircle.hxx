@@ -25,7 +25,7 @@
 #include <Geom_TrimmedCurve.hxx>
 
 class gp_Circ;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 
 //! Implements construction algorithms for an
@@ -52,20 +52,20 @@ public:
   //! a circle between point <P> and the angle Alpha
   //! given in radians.
   Standard_EXPORT GC_MakeArcOfCircle(const gp_Circ&         Circ,
-                                     const gp_Pnt&          P,
+                                     const Point3d&          P,
                                      const Standard_Real    Alpha,
                                      const Standard_Boolean Sense);
 
   //! Make an arc of circle (TrimmedCurve from Geom) from
   //! a circle between two points P1 and P2.
   Standard_EXPORT GC_MakeArcOfCircle(const gp_Circ&         Circ,
-                                     const gp_Pnt&          P1,
-                                     const gp_Pnt&          P2,
+                                     const Point3d&          P1,
+                                     const Point3d&          P2,
                                      const Standard_Boolean Sense);
 
   //! Make an arc of circle (TrimmedCurve from Geom) from
   //! three points P1,P2,P3 between two points P1 and P2.
-  Standard_EXPORT GC_MakeArcOfCircle(const gp_Pnt& P1, const gp_Pnt& P2, const gp_Pnt& P3);
+  Standard_EXPORT GC_MakeArcOfCircle(const Point3d& P1, const Point3d& P2, const Point3d& P3);
 
   //! Make an arc of circle (TrimmedCurve from Geom) from
   //! two points P1,P2 and the tangente to the solution at
@@ -87,7 +87,7 @@ public:
   //! -   P1, P2 and P3 are collinear and not coincident, or
   //! -   the vector defined by the points P1 and
   //! P2 is collinear with the vector V.
-  Standard_EXPORT GC_MakeArcOfCircle(const gp_Pnt& P1, const gp_Vec& V, const gp_Pnt& P2);
+  Standard_EXPORT GC_MakeArcOfCircle(const Point3d& P1, const gp_Vec& V, const Point3d& P2);
 
   //! Returns the constructed arc of circle.
   //! Exceptions StdFail_NotDone if no arc of circle is constructed.

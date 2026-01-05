@@ -402,7 +402,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   {
     for (jpole = 1; jpole <= IndexV + 1; jpole++)
     {
-      gp_Pnt tempPnt = mysurface->Pole(ipole, jpole);
+      Point3d tempPnt = mysurface->Pole(ipole, jpole);
       tempPnt.Coord(Xd, Yd, Zd);
       gp_XYZ PXYZ = gp_XYZ(Xd / GetUnit(), Yd / GetUnit(), Zd / GetUnit());
       Poles->SetValue(UIndex, VIndex++, PXYZ);
@@ -586,7 +586,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(const Handle
   else
   {
     Handle(IGESGeom_BSplineSurface) BSpline = new IGESGeom_BSplineSurface;
-    gp_Pnt                          P1, P2, P3, P4;
+    Point3d                          P1, P2, P3, P4;
     start->D0(Udeb, Vdeb, P1);
     start->D0(Udeb, Vfin, P2);
     start->D0(Ufin, Vdeb, P3);
@@ -680,11 +680,11 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
 
   // creation de la generatrice : Generatrix
   Handle(Geom_Line) Ligne =
-    new Geom_Line(gp_Pnt(start->Cylinder().Radius(), 0.0, 0.0), gp_Dir(0.0, 0.0, 1.0));
+    new Geom_Line(Point3d(start->Cylinder().Radius(), 0.0, 0.0), gp_Dir(0.0, 0.0, 1.0));
   GeomToIGES_GeomCurve        GC(*this);
   Handle(IGESData_IGESEntity) Generatrix = GC.TransferCurve(Ligne, V1, V2);
-  gp_Pnt                      gen1       = Ligne->Value(V1);
-  gp_Pnt                      gen2       = Ligne->Value(V2);
+  Point3d                      gen1       = Ligne->Value(V1);
+  Point3d                      gen2       = Ligne->Value(V2);
   TheLength                              = gen1.Distance(gen2);
 
   // creation de l`axe : Axis .
@@ -701,7 +701,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   IGESConvGeom_GeomBuilder Build;
   Standard_Real            xloc, yloc, zloc;
   start->Cylinder().Location().Coord(xloc, yloc, zloc);
-  gp_Pnt Loc;
+  Point3d Loc;
   Loc.SetCoord(xloc, yloc, zloc);
   gp_Ax3 Pos = start->Cylinder().Position();
   Pos.SetLocation(Loc);
@@ -757,12 +757,12 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
 
   // creation de la generatrice : Generatrix
   Handle(Geom_Line) Ligne =
-    new Geom_Line(gp_Pnt(start->Cone().RefRadius(), 0.0, 0.0),
+    new Geom_Line(Point3d(start->Cone().RefRadius(), 0.0, 0.0),
                   gp_Dir(sin(start->Cone().SemiAngle()), 0., cos(start->Cone().SemiAngle())));
   GeomToIGES_GeomCurve        GC(*this);
   Handle(IGESData_IGESEntity) Generatrix = GC.TransferCurve(Ligne, V1, V2);
-  gp_Pnt                      gen1       = Ligne->Value(V1);
-  gp_Pnt                      gen2       = Ligne->Value(V2);
+  Point3d                      gen1       = Ligne->Value(V1);
+  Point3d                      gen2       = Ligne->Value(V2);
   //  TheLength = gen1.Distance(gen2)*Cos(start->Cone().SemiAngle());
   TheLength = gen1.Distance(gen2);
 
@@ -780,7 +780,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   IGESConvGeom_GeomBuilder Build;
   Standard_Real            xloc, yloc, zloc;
   start->Cone().Location().Coord(xloc, yloc, zloc);
-  gp_Pnt Loc;
+  Point3d Loc;
   Loc.SetCoord(xloc, yloc, zloc);
   gp_Ax3 Pos = start->Cone().Position();
   Pos.SetLocation(Loc);
@@ -852,7 +852,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
     IGESConvGeom_GeomBuilder Build;
     Standard_Real            xloc, yloc, zloc;
     start->Sphere().Location().Coord(xloc, yloc, zloc);
-    gp_Pnt Loc;
+    Point3d Loc;
     Loc.SetCoord(xloc, yloc, zloc);
     gp_Ax3 Pos = start->Sphere().Position();
     Pos.SetLocation(Loc);
@@ -901,7 +901,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   Standard_Real                        V2   = Vfin;
 
   // creation de la generatrice : Generatrix (cercle)
-  gp_Ax2 Axe = gp_Ax2(gp_Pnt((start->Torus().MajorRadius()), 0., 0.), -gp::DY(), gp::DX());
+  gp_Ax2 Axe = gp_Ax2(Point3d((start->Torus().MajorRadius()), 0., 0.), -gp::DY(), gp::DX());
   Handle(Geom_Circle)         Cercle = new Geom_Circle(Axe, start->Torus().MinorRadius());
   GeomToIGES_GeomCurve        GC(*this);
   Handle(IGESData_IGESEntity) Gen = GC.TransferCurve(Cercle, V1, V2);
@@ -919,7 +919,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   /* //:l6: useless
       Standard_Real xloc,yloc,zloc;
       start->Torus().Location().Coord(xloc,yloc,zloc);
-      gp_Pnt Loc;
+      Point3d Loc;
       Loc.SetCoord(xloc, yloc, zloc);
   */
   gp_Ax3 Pos = start->Torus().Position();
@@ -1015,7 +1015,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   // dans IGES l'origine de la generatrice est identique a l'origine
   // de la directrice , il faut translater la courbe si les deux
   // points ne sont pas confondus dans Geom et donc la copier !!!!!!!
-  gp_Pnt        TheEnd = start->Value(U1, V2);
+  Point3d        TheEnd = start->Value(U1, V2);
   Standard_Real Xe, Ye, Ze;
   TheEnd.Coord(Xe, Ye, Ze);
   gp_XYZ End = gp_XYZ(Xe / GetUnit(), Ye / GetUnit(), Ze / GetUnit());
@@ -1035,7 +1035,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   // Handle(IGESData_IGESEntity) Directrix = GC.TransferCurve( CopyCurve, V1, V2);
   Handle(IGESData_IGESEntity) Directrix = GC.TransferCurve(CopyCurve, U1, U2);
   // Handle(IGESData_IGESEntity) Directrix = GC.TransferCurve( TheCurve, U1, U2);
-  // gp_Pnt gen1 = start->Value(U1,V1);
+  // Point3d gen1 = start->Value(U1,V1);
   // TheLength = gen1.Distance(TheEnd);
 
   Surf->Init(Directrix, End);
@@ -1099,8 +1099,8 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   if (Curve->IsKind(STANDARD_TYPE(Geom_Line)))
   {
     DeclareAndCast(Geom_Line, Line, Curve);
-    gp_Pnt gen1 = Line->Value(V1);
-    gp_Pnt gen2 = Line->Value(V2);
+    Point3d gen1 = Line->Value(V1);
+    Point3d gen2 = Line->Value(V2);
     TheLength   = gen1.Distance(gen2);
   }
 
@@ -1279,7 +1279,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferConicalSurface(
   Handle(Geom_CartesianPoint) mypoint = new Geom_CartesianPoint(Con.Location());
   if (angle < 0.)
   {
-    gp_Pnt pnt = mypoint->Pnt();
+    Point3d pnt = mypoint->Pnt();
     mypoint->SetPnt(Con.Apex().XYZ() * 2 - pnt.XYZ());
     angle = -angle;
     XDir.Reverse();

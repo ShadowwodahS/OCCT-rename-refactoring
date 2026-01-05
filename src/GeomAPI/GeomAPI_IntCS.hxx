@@ -25,7 +25,7 @@
 #include <Standard_Integer.hxx>
 class Geom_Curve;
 class Geom_Surface;
-class gp_Pnt;
+class Point3d;
 
 //! This class implements methods for
 //! computing intersection points and  segments between a
@@ -63,7 +63,7 @@ public:
   //! Raises NotDone if the computation has failed or if
   //! the computation has not been done
   //! raises OutOfRange if Index is not in the range <1..NbPoints>
-  Standard_EXPORT const gp_Pnt& Point(const Standard_Integer Index) const;
+  Standard_EXPORT const Point3d& Point(const Standard_Integer Index) const;
 
   //! Returns parameter W on the curve
   //! and (parameters U,V) on the surface of the computed intersection point

@@ -113,7 +113,7 @@ static void SimulParams(const Handle(ChFiDS_ElSpine)&  HGuide,
   Standard_Real longueur = la - fi;
   MaxStep                = longueur * 0.05;
   Standard_Real w;
-  // gp_Pnt Pbid;
+  // Point3d Pbid;
   // gp_Vec d1,d2;
   Standard_Real radiussect;
   if (fsp->IsConstant())
@@ -2259,7 +2259,7 @@ void ChFi3d_FilBuilder::SplitSurf(ChFiDS_SequenceOfSurfData&    SeqData,
     TopOpeBRepDS_Surface        S;
     TopOpeBRepDS_Curve          C1, C2;
     Standard_Real               T, VertexTol;
-    gp_Pnt                      P3d, P1, P2;
+    Point3d                      P3d, P1, P2;
     ChFiDS_CommonPoint          LePoint;
     for (ii = 1; ii <= LesVi.Length(); ii++)
     {

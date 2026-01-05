@@ -66,7 +66,7 @@ Standard_Real TopOpeBRepTool_ShapeTool::Tolerance(const TopoDS_Shape& S)
 
 //=================================================================================================
 
-gp_Pnt TopOpeBRepTool_ShapeTool::Pnt(const TopoDS_Shape& S)
+Point3d TopOpeBRepTool_ShapeTool::Pnt(const TopoDS_Shape& S)
 {
   if (S.ShapeType() != TopAbs_VERTEX)
   {
@@ -426,14 +426,14 @@ Standard_Boolean TopOpeBRepTool_ShapeTool::SurfacesSameOriented(const BRepAdapto
 
     Standard_Real u1 = S1.FirstUParameter();
     Standard_Real v1 = S1.FirstVParameter();
-    gp_Pnt        p1;
+    Point3d        p1;
     gp_Vec        d1u, d1v;
     S1.D1(u1, v1, p1, d1u, d1v);
     gp_Vec n1 = d1u.Crossed(d1v);
 
     Standard_Real u2 = S2.FirstUParameter();
     Standard_Real v2 = S2.FirstVParameter();
-    gp_Pnt        p2;
+    Point3d        p2;
     gp_Vec        d2u, d2v;
     S2.D1(u2, v2, p2, d2u, d2v);
     gp_Vec n2 = d2u.Crossed(d2v);
@@ -448,7 +448,7 @@ Standard_Boolean TopOpeBRepTool_ShapeTool::SurfacesSameOriented(const BRepAdapto
     // prenons donc l'origine
     Standard_Real u1 = 0.;
     Standard_Real v1 = 0.;
-    gp_Pnt        p1;
+    Point3d        p1;
     gp_Vec        d1u, d1v;
     S1.D1(u1, v1, p1, d1u, d1v);
     gp_Vec n1 = d1u.Crossed(d1v);
@@ -463,7 +463,7 @@ Standard_Boolean TopOpeBRepTool_ShapeTool::SurfacesSameOriented(const BRepAdapto
 
     Standard_Real u2 = p22d.X();
     Standard_Real v2 = p22d.Y();
-    gp_Pnt        p2;
+    Point3d        p2;
     gp_Vec        d2u, d2v;
     S2.D1(u2, v2, p2, d2u, d2v);
     gp_Vec n2 = d2u.Crossed(d2v);

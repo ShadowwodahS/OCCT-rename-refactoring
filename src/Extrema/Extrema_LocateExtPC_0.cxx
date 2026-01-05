@@ -35,7 +35,7 @@
 #define TheCurveTool_hxx <Extrema_CurveTool.hxx>
 #define TheExtPElC Extrema_ExtPElC
 #define TheExtPElC_hxx <Extrema_ExtPElC.hxx>
-#define ThePoint gp_Pnt
+#define ThePoint Point3d
 #define ThePoint_hxx <gp_Pnt.hxx>
 #define TheVector gp_Vec
 #define TheVector_hxx <gp_Vec.hxx>

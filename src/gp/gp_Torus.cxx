@@ -151,12 +151,12 @@ void gp_Torus::Coefficients(TColStd_Array1OfReal& theCoef) const
                             + aSubRadius * aSubRadius;
 }
 
-void gp_Torus::Mirror(const gp_Pnt& P)
+void gp_Torus::Mirror(const Point3d& P)
 {
   pos.Mirror(P);
 }
 
-gp_Torus gp_Torus::Mirrored(const gp_Pnt& P) const
+gp_Torus gp_Torus::Mirrored(const Point3d& P) const
 {
   gp_Torus C = *this;
   C.pos.Mirror(P);

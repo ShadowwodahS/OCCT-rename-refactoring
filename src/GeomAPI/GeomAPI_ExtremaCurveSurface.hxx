@@ -25,7 +25,7 @@
 #include <Extrema_ExtCS.hxx>
 class Geom_Curve;
 class Geom_Surface;
-class gp_Pnt;
+class Point3d;
 
 //! Describes functions for computing all the extrema
 //! between a curve and a surface.
@@ -117,7 +117,7 @@ public:
   //! Standard_OutOfRange if Index is not in the range [
   //! 1,NbExtrema ], where NbExtrema is the
   //! number of extrema computed by this algorithm.
-  Standard_EXPORT void Points(const Standard_Integer Index, gp_Pnt& P1, gp_Pnt& P2) const;
+  Standard_EXPORT void Points(const Standard_Integer Index, Point3d& P1, Point3d& P2) const;
 
   //! Returns the parameters W of the point on the curve,
   //! and (U,V) of the point on the surface, which are the
@@ -145,7 +145,7 @@ public:
   //! Returns the points PC on the curve and PS on the
   //! surface, which are the ends of the shortest extremum computed by this algorithm.
   //! Exceptions - StdFail_NotDone if this algorithm fails.
-  Standard_EXPORT void NearestPoints(gp_Pnt& PC, gp_Pnt& PS) const;
+  Standard_EXPORT void NearestPoints(Point3d& PC, Point3d& PS) const;
 
   //! Returns the parameters W of the point on the curve
   //! and (U,V) of the point on the surface, which are the

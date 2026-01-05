@@ -289,7 +289,7 @@ static Standard_Integer FUN_comparekoletgesh(TopOpeBRepTool_ShapeClassifier& SC,
     const TopoDS_Face& f1 = TopoDS::Face(exf.Current());
     if (f1.IsSame(fkole1))
       continue;
-    gp_Pnt pnt1;
+    Point3d pnt1;
     BRepClass3d_SolidExplorer::FindAPointInTheFace(f1, pnt1);
     SC.StateP3DReference(pnt1);
     TopAbs_State stpnt1 = SC.State();
@@ -1416,7 +1416,7 @@ TopAbs_State TopOpeBRepBuild_Builder::KPclasSS(const TopoDS_Shape&         S1,
 #ifdef OCCT_DEBUG
   if (TopOpeBRepBuild_GettraceKPB())
   {
-    const gp_Pnt& P1 = myShapeClassifier.P3D();
+    const Point3d& P1 = myShapeClassifier.P3D();
     std::cout << "point P1 " << P1.X() << " " << P1.Y() << " " << P1.Z();
     std::cout << "  ";
     TopAbs::Print(state, std::cout);
@@ -1445,7 +1445,7 @@ TopAbs_State TopOpeBRepBuild_Builder::KPclasSS(const TopoDS_Shape& S1,
 #ifdef OCCT_DEBUG
   if (TopOpeBRepBuild_GettraceKPB())
   {
-    const gp_Pnt& P1 = myShapeClassifier.P3D();
+    const Point3d& P1 = myShapeClassifier.P3D();
     std::cout << "point P1 " << P1.X() << " " << P1.Y() << " " << P1.Z();
     std::cout << "  ";
     TopAbs::Print(state, std::cout);

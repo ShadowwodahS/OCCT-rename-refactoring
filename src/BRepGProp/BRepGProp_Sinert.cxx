@@ -27,7 +27,7 @@ BRepGProp_Sinert::BRepGProp_Sinert()
 
 //=================================================================================================
 
-BRepGProp_Sinert::BRepGProp_Sinert(const BRepGProp_Face& theSurface, const gp_Pnt& theLocation)
+BRepGProp_Sinert::BRepGProp_Sinert(const BRepGProp_Face& theSurface, const Point3d& theLocation)
 {
   SetLocation(theLocation);
   Perform(theSurface);
@@ -37,7 +37,7 @@ BRepGProp_Sinert::BRepGProp_Sinert(const BRepGProp_Face& theSurface, const gp_Pn
 
 BRepGProp_Sinert::BRepGProp_Sinert(BRepGProp_Face&   theSurface,
                                    BRepGProp_Domain& theDomain,
-                                   const gp_Pnt&     theLocation)
+                                   const Point3d&     theLocation)
 {
   SetLocation(theLocation);
   Perform(theSurface, theDomain);
@@ -46,7 +46,7 @@ BRepGProp_Sinert::BRepGProp_Sinert(BRepGProp_Face&   theSurface,
 //=================================================================================================
 
 BRepGProp_Sinert::BRepGProp_Sinert(BRepGProp_Face&     theSurface,
-                                   const gp_Pnt&       theLocation,
+                                   const Point3d&       theLocation,
                                    const Standard_Real theEps)
 {
   SetLocation(theLocation);
@@ -57,7 +57,7 @@ BRepGProp_Sinert::BRepGProp_Sinert(BRepGProp_Face&     theSurface,
 
 BRepGProp_Sinert::BRepGProp_Sinert(BRepGProp_Face&     theSurface,
                                    BRepGProp_Domain&   theDomain,
-                                   const gp_Pnt&       theLocation,
+                                   const Point3d&       theLocation,
                                    const Standard_Real theEps)
 {
   SetLocation(theLocation);
@@ -66,7 +66,7 @@ BRepGProp_Sinert::BRepGProp_Sinert(BRepGProp_Face&     theSurface,
 
 //=================================================================================================
 
-void BRepGProp_Sinert::SetLocation(const gp_Pnt& theLocation)
+void BRepGProp_Sinert::SetLocation(const Point3d& theLocation)
 {
   loc = theLocation;
 }

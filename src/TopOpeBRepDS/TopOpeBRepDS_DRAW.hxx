@@ -29,14 +29,14 @@
   #include <gp_Dir.hxx>
 
 Standard_EXPORT void FUN_draw(const TopoDS_Shape& s);
-Standard_EXPORT void FUN_draw(const gp_Pnt& p);
+Standard_EXPORT void FUN_draw(const Point3d& p);
 Standard_EXPORT void FUN_draw(const gp_Pnt2d& p);
 Standard_EXPORT void FUN_draw(const Handle(Geom2d_Curve) c, const Standard_Real dpar);
-Standard_EXPORT void FUN_draw(const gp_Pnt& p, const gp_Dir& v);
-Standard_EXPORT void FUN_draw(const gp_Pnt& p, const gp_Vec& v);
-Standard_EXPORT void FUN_brep_draw(const TCollection_AsciiString& aa, const gp_Pnt& p);
+Standard_EXPORT void FUN_draw(const Point3d& p, const gp_Dir& v);
+Standard_EXPORT void FUN_draw(const Point3d& p, const gp_Vec& v);
+Standard_EXPORT void FUN_brep_draw(const TCollection_AsciiString& aa, const Point3d& p);
 Standard_EXPORT void FUN_brep_draw(const TCollection_AsciiString& aa,
-                                   const gp_Pnt&                  p,
+                                   const Point3d&                  p,
                                    const gp_Dir&                  d);
 Standard_EXPORT void FUN_brep_draw(const TCollection_AsciiString& aa, const TopoDS_Shape& s);
 Standard_EXPORT void FUN_brep_draw(const TCollection_AsciiString& aa,

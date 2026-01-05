@@ -138,14 +138,14 @@ TopoDS_Vertex IGESToBRep_TopoCurve::TransferPoint(const Handle(IGESGeom_Point)& 
   }
 
   BRep_Builder B;
-  gp_Pnt       point;
+  Point3d       point;
 
   if (!GetModeTransfer() && start->HasTransf())
     point = start->TransformedValue();
   else
     point = start->Value();
 
-  point.Scale(gp_Pnt(0, 0, 0), GetUnitFactor());
+  point.Scale(Point3d(0, 0, 0), GetUnitFactor());
   B.MakeVertex(V1, point, Precision::Confusion()); // S4135: GetEpsGeom()*GetUnitFactor()
 
   // szv#9:PRO19565:04Oct99
@@ -181,12 +181,12 @@ TopoDS_Vertex IGESToBRep_TopoCurve::Transfer2dPoint(const Handle(IGESGeom_Point)
   }
 
   BRep_Builder B;
-  gp_Pnt       point;
+  Point3d       point;
 
   if (!GetModeTransfer() && start->HasTransf())
-    point = gp_Pnt(start->TransformedValue().X(), start->TransformedValue().Y(), 0.);
+    point = Point3d(start->TransformedValue().X(), start->TransformedValue().Y(), 0.);
   else
-    point = gp_Pnt(start->Value().X(), start->Value().Y(), 0.);
+    point = Point3d(start->Value().X(), start->Value().Y(), 0.);
 
   B.MakeVertex(V1, point, Precision::Confusion()); // S4135: GetEpsCoeff()
   return V1;

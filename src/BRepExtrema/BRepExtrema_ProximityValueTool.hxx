@@ -117,7 +117,7 @@ public:
   Standard_Real Distance() const { return myDistance; }
 
   //! Returns points on triangles sets, which provide the proximity distance.
-  void ProximityPoints(gp_Pnt& thePoint1, gp_Pnt& thePoint2) const
+  void ProximityPoints(Point3d& thePoint1, Point3d& thePoint2) const
   {
     thePoint1 = myPnt1;
     thePoint2 = myPnt2;
@@ -167,7 +167,7 @@ private:
 
   //! Splits the triangle recursively, halving the longest side
   //! to the area of ​​the current triangle > input step
-  void doRecurTrgSplit(const gp_Pnt (&theTrg)[3],
+  void doRecurTrgSplit(const Point3d (&theTrg)[3],
                        const ProxPnt_Status (&theEdgesStatus)[3],
                        const Standard_Real                 theTol,
                        const Standard_Real                 theStep,
@@ -223,7 +223,7 @@ private:
   Standard_Integer myNbSamples2; //!< Number of samples points on the second shape
 
   //! Proximity points
-  gp_Pnt myPnt1, myPnt2;
+  Point3d myPnt1, myPnt2;
 
   //! Proximity points' status
   ProxPnt_Status myPntStatus1, myPntStatus2;

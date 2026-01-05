@@ -35,7 +35,7 @@ class BRepBlend_PointOnRst;
 class BRepBlend_Extremity;
 class Blend_CSFunction;
 class IntSurf_Transition;
-class gp_Pnt;
+class Point3d;
 class gp_Pnt2d;
 class gp_Vec;
 class gp_Vec2d;
@@ -81,12 +81,12 @@ private:
                                      const Standard_Boolean           IsVtx,
                                      const Handle(Adaptor3d_HVertex)& Vtx);
 
-  Standard_EXPORT Blend_Status CheckDeflectionOnSurf(const gp_Pnt&   Psurf,
+  Standard_EXPORT Blend_Status CheckDeflectionOnSurf(const Point3d&   Psurf,
                                                      const gp_Pnt2d& Ponsurf,
                                                      const gp_Vec&   Tgsurf,
                                                      const gp_Vec2d& Tgonsurf);
 
-  Standard_EXPORT Blend_Status CheckDeflectionOnCurv(const gp_Pnt&       Pcurv,
+  Standard_EXPORT Blend_Status CheckDeflectionOnCurv(const Point3d&       Pcurv,
                                                      const Standard_Real Poncurv,
                                                      const gp_Vec&       Tgcurv);
 

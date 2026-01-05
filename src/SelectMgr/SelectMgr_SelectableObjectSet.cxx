@@ -174,8 +174,8 @@ public:
       }
       else
       {
-        const gp_Pnt aMin = aBoundingBox.CornerMin();
-        const gp_Pnt aMax = aBoundingBox.CornerMax();
+        const Point3d aMin = aBoundingBox.CornerMin();
+        const Point3d aMax = aBoundingBox.CornerMax();
         myBoundings.Add(new Select3D_HBndBox3d(Select3D_Vec3(aMin.X(), aMin.Y(), aMin.Z()),
                                                Select3D_Vec3(aMax.X(), aMax.Y(), aMax.Z())));
       }

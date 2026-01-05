@@ -36,8 +36,8 @@
 
 void LocOpe_LinearForm::Perform(const TopoDS_Shape& Base,
                                 const gp_Vec&       V,
-                                const gp_Pnt&       Pnt1,
-                                const gp_Pnt&       Pnt2)
+                                const Point3d&       Pnt1,
+                                const Point3d&       Pnt2)
 
 {
   myIsTrans = Standard_False;
@@ -62,8 +62,8 @@ void LocOpe_LinearForm::Perform(const TopoDS_Shape& Base,
 void LocOpe_LinearForm::Perform(const TopoDS_Shape& Base,
                                 const gp_Vec&       V,
                                 const gp_Vec&       Vectra,
-                                const gp_Pnt&       Pnt1,
-                                const gp_Pnt&       Pnt2)
+                                const Point3d&       Pnt1,
+                                const Point3d&       Pnt2)
 
 {
   myIsTrans = Standard_True;

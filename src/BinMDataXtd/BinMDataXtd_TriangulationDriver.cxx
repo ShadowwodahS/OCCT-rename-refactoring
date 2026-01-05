@@ -52,7 +52,7 @@ Standard_Boolean BinMDataXtd_TriangulationDriver::Paste(const BinObjMgt_Persiste
   Standard_Integer n1, n2, n3;
   Standard_Integer nbNodes(0), nbTriangles(0);
   Standard_Boolean hasUV(Standard_False);
-  gp_Pnt           p;
+  Point3d           p;
 
   theSource >> nbNodes;
   theSource >> nbTriangles;
@@ -76,7 +76,7 @@ Standard_Boolean BinMDataXtd_TriangulationDriver::Paste(const BinObjMgt_Persiste
     theSource >> x;
     theSource >> y;
     theSource >> z;
-    PT->SetNode(i, gp_Pnt(x, y, z));
+    PT->SetNode(i, Point3d(x, y, z));
   }
 
   // read 2d nodes
@@ -131,7 +131,7 @@ void BinMDataXtd_TriangulationDriver::Paste(const Handle(TDF_Attribute)& theSour
     // write 3d nodes
     for (Standard_Integer i = 1; i <= nbNodes; i++)
     {
-      const gp_Pnt aNode = PT->Node(i);
+      const Point3d aNode = PT->Node(i);
       theTarget << aNode.X();
       theTarget << aNode.Y();
       theTarget << aNode.Z();

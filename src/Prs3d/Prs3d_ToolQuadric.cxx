@@ -41,7 +41,7 @@ void Prs3d_ToolQuadric::FillArray(Handle(Graphic3d_ArrayOfTriangles)& theArray,
       for (Standard_Integer aV = 0; aV <= myStacksNb; ++aV)
       {
         const Standard_Real aParamV = aV * aStepV;
-        const gp_Pnt        aVertex = Vertex(aParamU, aParamV).Transformed(theTrsf);
+        const Point3d        aVertex = Vertex(aParamU, aParamV).Transformed(theTrsf);
         const gp_Dir        aNormal = Normal(aParamU, aParamV).Transformed(theTrsf);
         theArray->AddVertex(aVertex, aNormal);
 
@@ -107,7 +107,7 @@ Handle(Poly_Triangulation) Prs3d_ToolQuadric::CreatePolyTriangulation(const gp_T
     {
       const Standard_ShortReal aParamV = aV * aStepV;
       const Standard_Integer   aVertId = aU * (myStacksNb + 1) + (aV + 1);
-      gp_Pnt                   aVertex = Vertex(aParamU, aParamV).Transformed(theTrsf);
+      Point3d                   aVertex = Vertex(aParamU, aParamV).Transformed(theTrsf);
 
       aTriangulation->SetNode(aVertId, aVertex);
       if (aU != 0 && aV != 0)

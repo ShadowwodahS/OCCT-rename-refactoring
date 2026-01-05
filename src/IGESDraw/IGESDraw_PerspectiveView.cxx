@@ -91,15 +91,15 @@ gp_Vec IGESDraw_PerspectiveView::ViewNormalVector() const
   return tempRes;
 }
 
-gp_Pnt IGESDraw_PerspectiveView::ViewReferencePoint() const
+Point3d IGESDraw_PerspectiveView::ViewReferencePoint() const
 {
-  gp_Pnt tempRes(theViewReferencePoint);
+  Point3d tempRes(theViewReferencePoint);
   return tempRes;
 }
 
-gp_Pnt IGESDraw_PerspectiveView::CenterOfProjection() const
+Point3d IGESDraw_PerspectiveView::CenterOfProjection() const
 {
-  gp_Pnt tempRes(theCenterOfProjection);
+  Point3d tempRes(theCenterOfProjection);
   return tempRes;
 }
 

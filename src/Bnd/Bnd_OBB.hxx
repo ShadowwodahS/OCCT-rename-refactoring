@@ -48,7 +48,7 @@ public:
   }
 
   //! Constructor taking all defining parameters
-  Bnd_OBB(const gp_Pnt&       theCenter,
+  Bnd_OBB(const Point3d&       theCenter,
           const gp_Dir&       theXDirection,
           const gp_Dir&       theYDirection,
           const gp_Dir&       theZDirection,
@@ -109,7 +109,7 @@ public:
                                const Standard_Boolean      theIsOptimal        = Standard_False);
 
   //! Sets the center of OBB
-  void SetCenter(const gp_Pnt& theCenter) { myCenter = theCenter.XYZ(); }
+  void SetCenter(const Point3d& theCenter) { myCenter = theCenter.XYZ(); }
 
   //! Sets the X component of OBB - direction and size
   void SetXComponent(const gp_Dir& theXDirection, const Standard_Real theHXSize)
@@ -208,7 +208,7 @@ public:
   //! Index == 5: ( XHSize(), -YHSize(),  ZHSize())
   //! Index == 6: (-XHSize(),  YHSize(),  ZHSize())
   //! Index == 7: ( XHSize(),  YHSize(),  ZHSize()).
-  Standard_Boolean GetVertex(gp_Pnt theP[8]) const
+  Standard_Boolean GetVertex(Point3d theP[8]) const
   {
     if (IsVoid())
       return Standard_False;
@@ -243,7 +243,7 @@ public:
   Standard_EXPORT Standard_Boolean IsOut(const Bnd_OBB& theOther) const;
 
   //! Check if the point is inside of <this>.
-  Standard_EXPORT Standard_Boolean IsOut(const gp_Pnt& theP) const;
+  Standard_EXPORT Standard_Boolean IsOut(const Point3d& theP) const;
 
   //! Check if the theOther is completely inside *this.
   Standard_EXPORT Standard_Boolean IsCompletelyInside(const Bnd_OBB& theOther) const;
@@ -254,13 +254,13 @@ public:
 
   //! Rebuilds this in order to include all previous objects
   //! (which it was created from) and theP.
-  Standard_EXPORT void Add(const gp_Pnt& theP);
+  Standard_EXPORT void Add(const Point3d& theP);
 
   //! Dumps the content of me into the stream
   Standard_EXPORT void DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth = -1) const;
 
 protected:
-  void ProcessOnePoint(const gp_Pnt& theP)
+  void ProcessOnePoint(const Point3d& theP)
   {
     myIsAABox  = Standard_True;
     myHDims[0] = myHDims[1] = myHDims[2] = 0.0;

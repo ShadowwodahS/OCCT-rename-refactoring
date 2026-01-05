@@ -98,7 +98,7 @@ public:
     }
 
     Standard_Real aTol;
-    gp_Pnt        aPV;
+    Point3d        aPV;
     //
     BRepClass3d_SolidClassifier& aSC = myContext->SolidClassifier(myZ);
     //

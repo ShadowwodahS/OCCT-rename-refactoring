@@ -440,7 +440,7 @@ void GeomAPI_Interpolate::PerformPeriodic()
 
   Standard_Real period;
 
-  gp_Pnt a_point;
+  Point3d a_point;
 
   num_points = myPoints->Length();
   period = myParameters->Value(myParameters->Upper()) - myParameters->Value(myParameters->Lower());
@@ -616,7 +616,7 @@ void GeomAPI_Interpolate::PerformNonPeriodic()
   Standard_Integer degree, ii, jj, index, index1, index2, index3, mult_index, inversion_problem,
     num_points, num_distinct_knots, num_poles;
 
-  gp_Pnt a_point;
+  Point3d a_point;
 
   num_points = num_distinct_knots = num_poles = myPoints->Length();
   if (num_poles == 2 && !myTangentRequest)

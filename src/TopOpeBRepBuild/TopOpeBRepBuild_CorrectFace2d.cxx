@@ -780,7 +780,7 @@ void TopOpeBRepBuild_CorrectFace2d::CheckList(const TopoDS_Face&    aFace,
     }
   }
 
-  gp_Pnt P1, P2;
+  Point3d P1, P2;
   P1 = BRep_Tool::Pnt(aV1R);
   P2 = BRep_Tool::Pnt(aV2F);
 

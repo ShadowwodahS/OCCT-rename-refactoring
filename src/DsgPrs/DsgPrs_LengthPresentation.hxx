@@ -25,7 +25,7 @@
 #include <Prs3d_Presentation.hxx>
 
 class TCollection_ExtendedString;
-class gp_Pnt;
+class Point3d;
 class gp_Dir;
 class gp_Pln;
 class Geom_Surface;
@@ -49,10 +49,10 @@ public:
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Handle(Prs3d_Drawer)&       aDrawer,
                                   const TCollection_ExtendedString& aText,
-                                  const gp_Pnt&                     AttachmentPoint1,
-                                  const gp_Pnt&                     AttachmentPoint2,
+                                  const Point3d&                     AttachmentPoint1,
+                                  const Point3d&                     AttachmentPoint2,
                                   const gp_Dir&                     aDirection,
-                                  const gp_Pnt&                     OffsetPoint);
+                                  const Point3d&                     OffsetPoint);
 
   //! Draws a line segment representing a length in the
   //! display aPresentation.
@@ -67,10 +67,10 @@ public:
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Handle(Prs3d_Drawer)&       aDrawer,
                                   const TCollection_ExtendedString& aText,
-                                  const gp_Pnt&                     AttachmentPoint1,
-                                  const gp_Pnt&                     AttachmentPoint2,
+                                  const Point3d&                     AttachmentPoint1,
+                                  const Point3d&                     AttachmentPoint2,
                                   const gp_Dir&                     aDirection,
-                                  const gp_Pnt&                     OffsetPoint,
+                                  const Point3d&                     OffsetPoint,
                                   const DsgPrs_ArrowSide            ArrowSide);
 
   //! Draws a line segment representing a length in the
@@ -87,11 +87,11 @@ public:
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Handle(Prs3d_Drawer)&       aDrawer,
                                   const TCollection_ExtendedString& aText,
-                                  const gp_Pnt&                     AttachmentPoint1,
-                                  const gp_Pnt&                     AttachmentPoint2,
+                                  const Point3d&                     AttachmentPoint1,
+                                  const Point3d&                     AttachmentPoint2,
                                   const gp_Pln&                     PlaneOfFaces,
                                   const gp_Dir&                     aDirection,
-                                  const gp_Pnt&                     OffsetPoint,
+                                  const Point3d&                     OffsetPoint,
                                   const DsgPrs_ArrowSide            ArrowSide);
 
   //! Draws a line segment representing a length in the
@@ -109,10 +109,10 @@ public:
                                   const Handle(Prs3d_Drawer)&       aDrawer,
                                   const TCollection_ExtendedString& aText,
                                   const Handle(Geom_Surface)&       SecondSurf,
-                                  const gp_Pnt&                     AttachmentPoint1,
-                                  const gp_Pnt&                     AttachmentPoint2,
+                                  const Point3d&                     AttachmentPoint1,
+                                  const Point3d&                     AttachmentPoint2,
                                   const gp_Dir&                     aDirection,
-                                  const gp_Pnt&                     OffsetPoint,
+                                  const Point3d&                     OffsetPoint,
                                   const DsgPrs_ArrowSide            ArrowSide);
 
   //! Draws a line segment representing a length in the
@@ -124,8 +124,8 @@ public:
   //! The line and arrow attributes are specified by the attribute manager aDrawer.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Handle(Prs3d_Drawer)&       aDrawer,
-                                  const gp_Pnt&                     Pt1,
-                                  const gp_Pnt&                     Pt2,
+                                  const Point3d&                     Pt1,
+                                  const Point3d&                     Pt2,
                                   const DsgPrs_ArrowSide            ArrowSide);
 
 protected:

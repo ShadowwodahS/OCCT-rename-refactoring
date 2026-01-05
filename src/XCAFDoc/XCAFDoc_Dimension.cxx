@@ -185,7 +185,7 @@ void XCAFDoc_Dimension::SetObject(const Handle(XCAFDimTolObjects_DimensionObject
 
   if (theObject->HasPoint())
   {
-    gp_Pnt aPnt1 = theObject->GetPoint();
+    Point3d aPnt1 = theObject->GetPoint();
 
     Handle(TColStd_HArray1OfReal) aPntArr = new TColStd_HArray1OfReal(1, 3);
     for (Standard_Integer i = 1; i <= 3; i++)
@@ -198,7 +198,7 @@ void XCAFDoc_Dimension::SetObject(const Handle(XCAFDimTolObjects_DimensionObject
 
   if (theObject->HasPoint2())
   {
-    gp_Pnt aPnt2 = theObject->GetPoint2();
+    Point3d aPnt2 = theObject->GetPoint2();
 
     Handle(TColStd_HArray1OfReal) aPntArr = new TColStd_HArray1OfReal(1, 3);
     for (Standard_Integer i = 1; i <= 3; i++)
@@ -240,7 +240,7 @@ void XCAFDoc_Dimension::SetObject(const Handle(XCAFDimTolObjects_DimensionObject
 
   if (theObject->HasTextPoint())
   {
-    gp_Pnt aPntText = theObject->GetPointTextAttach();
+    Point3d aPntText = theObject->GetPointTextAttach();
 
     Handle(TColStd_HArray1OfReal) aLocArr = new TColStd_HArray1OfReal(1, 3);
     for (Standard_Integer i = 1; i <= 3; i++)
@@ -383,7 +383,7 @@ Handle(XCAFDimTolObjects_DimensionObject) XCAFDoc_Dimension::GetObject() const
   if (Label().FindChild(ChildLab_Pnt1).FindAttribute(TDataStd_RealArray::GetID(), aPnt1)
       && aPnt1->Length() == 3)
   {
-    gp_Pnt aP(aPnt1->Value(aPnt1->Lower()),
+    Point3d aP(aPnt1->Value(aPnt1->Lower()),
               aPnt1->Value(aPnt1->Lower() + 1),
               aPnt1->Value(aPnt1->Lower() + 2));
     anObj->SetPoint(aP);
@@ -393,7 +393,7 @@ Handle(XCAFDimTolObjects_DimensionObject) XCAFDoc_Dimension::GetObject() const
   if (Label().FindChild(ChildLab_Pnt2).FindAttribute(TDataStd_RealArray::GetID(), aPnt2)
       && aPnt2->Length() == 3)
   {
-    gp_Pnt aP(aPnt2->Value(aPnt2->Lower()),
+    Point3d aP(aPnt2->Value(aPnt2->Lower()),
               aPnt2->Value(aPnt2->Lower() + 1),
               aPnt2->Value(aPnt2->Lower() + 2));
     anObj->SetPoint2(aP);
@@ -407,7 +407,7 @@ Handle(XCAFDimTolObjects_DimensionObject) XCAFDoc_Dimension::GetObject() const
       && Label().FindChild(ChildLab_PlaneRef).FindAttribute(TDataStd_RealArray::GetID(), aR)
       && aR->Length() == 3)
   {
-    gp_Pnt aL(aLoc->Value(aLoc->Lower()),
+    Point3d aL(aLoc->Value(aLoc->Lower()),
               aLoc->Value(aLoc->Lower() + 1),
               aLoc->Value(aLoc->Lower() + 2));
     gp_Dir aD(aN->Value(aN->Lower()), aN->Value(aN->Lower() + 1), aN->Value(aN->Lower() + 2));
@@ -420,7 +420,7 @@ Handle(XCAFDimTolObjects_DimensionObject) XCAFDoc_Dimension::GetObject() const
   if (Label().FindChild(ChildLab_PntText).FindAttribute(TDataStd_RealArray::GetID(), aPntText)
       && aPntText->Length() == 3)
   {
-    gp_Pnt aP(aPntText->Value(aPntText->Lower()),
+    Point3d aP(aPntText->Value(aPntText->Lower()),
               aPntText->Value(aPntText->Lower() + 1),
               aPntText->Value(aPntText->Lower() + 2));
     anObj->SetPointTextAttach(aP);

@@ -43,17 +43,17 @@ static void ComputePoles(const Standard_Real R,
   Standard_Real    AlfaU    = deltaU / (nbUSpans * 2);
 
   Standard_Real UStart = U1;
-  Poles(1, 1)          = gp_Pnt(R * Cos(UStart), R * Sin(UStart), V1);
-  Poles(1, 2)          = gp_Pnt(R * Cos(UStart), R * Sin(UStart), V2);
+  Poles(1, 1)          = Point3d(R * Cos(UStart), R * Sin(UStart), V1);
+  Poles(1, 2)          = Point3d(R * Cos(UStart), R * Sin(UStart), V2);
 
   for (i = 1; i <= nbUSpans; i++)
   {
     Poles(2 * i, 1) =
-      gp_Pnt(R * Cos(UStart + AlfaU) / Cos(AlfaU), R * Sin(UStart + AlfaU) / Cos(AlfaU), V1);
+      Point3d(R * Cos(UStart + AlfaU) / Cos(AlfaU), R * Sin(UStart + AlfaU) / Cos(AlfaU), V1);
     Poles(2 * i, 2) =
-      gp_Pnt(R * Cos(UStart + AlfaU) / Cos(AlfaU), R * Sin(UStart + AlfaU) / Cos(AlfaU), V2);
-    Poles(2 * i + 1, 1) = gp_Pnt(R * Cos(UStart + 2 * AlfaU), R * Sin(UStart + 2 * AlfaU), V1);
-    Poles(2 * i + 1, 2) = gp_Pnt(R * Cos(UStart + 2 * AlfaU), R * Sin(UStart + 2 * AlfaU), V2);
+      Point3d(R * Cos(UStart + AlfaU) / Cos(AlfaU), R * Sin(UStart + AlfaU) / Cos(AlfaU), V2);
+    Poles(2 * i + 1, 1) = Point3d(R * Cos(UStart + 2 * AlfaU), R * Sin(UStart + 2 * AlfaU), V1);
+    Poles(2 * i + 1, 2) = Point3d(R * Cos(UStart + 2 * AlfaU), R * Sin(UStart + 2 * AlfaU), V2);
     UStart += 2 * AlfaU;
   }
 }

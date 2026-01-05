@@ -29,7 +29,7 @@
 
 //=================================================================================================
 
-GC_MakeArcOfCircle::GC_MakeArcOfCircle(const gp_Pnt& P1, const gp_Pnt& P2, const gp_Pnt& P3)
+GC_MakeArcOfCircle::GC_MakeArcOfCircle(const Point3d& P1, const Point3d& P2, const Point3d& P3)
 {
   Standard_Boolean sense;
   //
@@ -61,7 +61,7 @@ GC_MakeArcOfCircle::GC_MakeArcOfCircle(const gp_Pnt& P1, const gp_Pnt& P2, const
 
 //=================================================================================================
 
-GC_MakeArcOfCircle::GC_MakeArcOfCircle(const gp_Pnt& P1, const gp_Vec& V, const gp_Pnt& P2)
+GC_MakeArcOfCircle::GC_MakeArcOfCircle(const Point3d& P1, const gp_Vec& V, const Point3d& P2)
 {
   gp_Circ     cir;
   gce_MakeLin Corde(P1, P2);
@@ -73,7 +73,7 @@ GC_MakeArcOfCircle::GC_MakeArcOfCircle(const gp_Pnt& P1, const gp_Vec& V, const 
     gp_Dir dbid(V);
     gp_Dir Daxe(dbid ^ dir);
     gp_Dir Dir1(Daxe ^ dir);
-    gp_Lin bis(gp_Pnt((P1.X() + P2.X()) / 2., (P1.Y() + P2.Y()) / 2., (P1.Z() + P2.Z()) / 2.),
+    gp_Lin bis(Point3d((P1.X() + P2.X()) / 2., (P1.Y() + P2.Y()) / 2., (P1.Z() + P2.Z()) / 2.),
                Dir1);
     gp_Dir d(dbid ^ Daxe);
     gp_Lin norm(P1, d);
@@ -93,7 +93,7 @@ GC_MakeArcOfCircle::GC_MakeArcOfCircle(const gp_Pnt& P1, const gp_Vec& V, const 
       else
       {
         Standard_Real    TheDist = RealLast();
-        gp_Pnt           pInt, pon1, pon2;
+        Point3d           pInt, pon1, pon2;
         Standard_Integer i = 1;
         Extrema_POnCurv  Pon1, Pon2;
         while (i <= nbext)
@@ -104,7 +104,7 @@ GC_MakeArcOfCircle::GC_MakeArcOfCircle(const gp_Pnt& P1, const gp_Vec& V, const 
             distmin.Points(i, Pon1, Pon2);
             pon1 = Pon1.Value();
             pon2 = Pon2.Value();
-            pInt = gp_Pnt((pon1.XYZ() + pon2.XYZ()) / 2.);
+            pInt = Point3d((pon1.XYZ() + pon2.XYZ()) / 2.);
           }
           i++;
         }
@@ -122,8 +122,8 @@ GC_MakeArcOfCircle::GC_MakeArcOfCircle(const gp_Pnt& P1, const gp_Vec& V, const 
 //=================================================================================================
 
 GC_MakeArcOfCircle::GC_MakeArcOfCircle(const gp_Circ&         Circ,
-                                       const gp_Pnt&          P1,
-                                       const gp_Pnt&          P2,
+                                       const Point3d&          P1,
+                                       const Point3d&          P2,
                                        const Standard_Boolean Sense)
 {
   Standard_Real       Alpha1 = ElCLib::Parameter(Circ, P1);
@@ -136,7 +136,7 @@ GC_MakeArcOfCircle::GC_MakeArcOfCircle(const gp_Circ&         Circ,
 //=================================================================================================
 
 GC_MakeArcOfCircle::GC_MakeArcOfCircle(const gp_Circ&         Circ,
-                                       const gp_Pnt&          P,
+                                       const Point3d&          P,
                                        const Standard_Real    Alpha,
                                        const Standard_Boolean Sense)
 {

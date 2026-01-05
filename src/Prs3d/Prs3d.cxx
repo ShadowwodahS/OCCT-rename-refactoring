@@ -81,8 +81,8 @@ void Prs3d::AddFreeEdges(TColgp_SequenceOfPnt&             theSegments,
   Standard_Integer aFreeHalfNb = aFree.Length() / 2;
   for (Standard_Integer anI = 1; anI <= aFreeHalfNb; ++anI)
   {
-    const gp_Pnt aPoint1 = thePolyTri->Node(aFree(2 * anI - 1)).Transformed(theLocation);
-    const gp_Pnt aPoint2 = thePolyTri->Node(aFree(2 * anI)).Transformed(theLocation);
+    const Point3d aPoint1 = thePolyTri->Node(aFree(2 * anI - 1)).Transformed(theLocation);
+    const Point3d aPoint2 = thePolyTri->Node(aFree(2 * anI)).Transformed(theLocation);
     theSegments.Append(aPoint1);
     theSegments.Append(aPoint2);
   }
@@ -94,8 +94,8 @@ Standard_Boolean Prs3d::MatchSegment(const Standard_Real X,
                                      const Standard_Real Y,
                                      const Standard_Real Z,
                                      const Standard_Real aDistance,
-                                     const gp_Pnt&       P1,
-                                     const gp_Pnt&       P2,
+                                     const Point3d&       P1,
+                                     const Point3d&       P2,
                                      Standard_Real&      dist)
 {
   Standard_Real X1, Y1, Z1, X2, Y2, Z2;

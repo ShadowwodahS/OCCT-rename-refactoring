@@ -77,7 +77,7 @@ public:
   void SetAxis(const gp_Ax1& theA1) { pos.SetAxis(theA1); }
 
   //! Changes the location of the cone.
-  void SetLocation(const gp_Pnt& theLoc) { pos.SetLocation(theLoc); }
+  void SetLocation(const Point3d& theLoc) { pos.SetLocation(theLoc); }
 
   //! Changes the local coordinate system of the cone.
   //! This coordinate system defines the reference plane of the cone.
@@ -102,12 +102,12 @@ public:
 
   //! Computes the cone's top. The Apex of the cone is on the
   //! negative side of the symmetry axis of the cone.
-  gp_Pnt Apex() const
+  Point3d Apex() const
   {
     gp_XYZ aCoord = pos.Direction().XYZ();
     aCoord.Multiply(-radius / Tan(semiAngle));
     aCoord.Add(pos.Location().XYZ());
-    return gp_Pnt(aCoord);
+    return Point3d(aCoord);
   }
 
   //! Reverses the   U   parametrization of   the  cone
@@ -143,7 +143,7 @@ public:
                                     Standard_Real& theD) const;
 
   //! returns the "Location" point of the cone.
-  const gp_Pnt& Location() const { return pos.Location(); }
+  const Point3d& Location() const { return pos.Location(); }
 
   //! Returns the local coordinates system of the cone.
   const gp_Ax3& Position() const { return pos; }
@@ -161,12 +161,12 @@ public:
   //! Returns the YAxis of the reference plane.
   gp_Ax1 YAxis() const { return gp_Ax1(pos.Location(), pos.YDirection()); }
 
-  Standard_EXPORT void Mirror(const gp_Pnt& theP);
+  Standard_EXPORT void Mirror(const Point3d& theP);
 
   //! Performs the symmetrical transformation of a cone
   //! with respect to the point theP which is the center of the
   //! symmetry.
-  Standard_NODISCARD Standard_EXPORT gp_Cone Mirrored(const gp_Pnt& theP) const;
+  Standard_NODISCARD Standard_EXPORT gp_Cone Mirrored(const Point3d& theP) const;
 
   Standard_EXPORT void Mirror(const gp_Ax1& theA1);
 
@@ -193,11 +193,11 @@ public:
     return aCone;
   }
 
-  void Scale(const gp_Pnt& theP, const Standard_Real theS);
+  void Scale(const Point3d& theP, const Standard_Real theS);
 
   //! Scales a cone. theS is the scaling value.
   //! The absolute value of theS is used to scale the cone
-  Standard_NODISCARD gp_Cone Scaled(const gp_Pnt& theP, const Standard_Real theS) const;
+  Standard_NODISCARD gp_Cone Scaled(const Point3d& theP, const Standard_Real theS) const;
 
   void Transform(const gp_Trsf& theT);
 
@@ -215,10 +215,10 @@ public:
     return aCone;
   }
 
-  void Translate(const gp_Pnt& theP1, const gp_Pnt& theP2) { pos.Translate(theP1, theP2); }
+  void Translate(const Point3d& theP1, const Point3d& theP2) { pos.Translate(theP1, theP2); }
 
   //! Translates a cone from the point P1 to the point P2.
-  Standard_NODISCARD gp_Cone Translated(const gp_Pnt& theP1, const gp_Pnt& theP2) const
+  Standard_NODISCARD gp_Cone Translated(const Point3d& theP1, const Point3d& theP2) const
   {
     gp_Cone aCone = *this;
     aCone.pos.Translate(theP1, theP2);
@@ -273,7 +273,7 @@ inline void gp_Cone::SetSemiAngle(const Standard_Real theAng)
 // function : Scale
 // purpose  :
 // =======================================================================
-inline void gp_Cone::Scale(const gp_Pnt& theP, const Standard_Real theS)
+inline void gp_Cone::Scale(const Point3d& theP, const Standard_Real theS)
 {
   pos.Scale(theP, theS);
   radius *= theS;
@@ -287,7 +287,7 @@ inline void gp_Cone::Scale(const gp_Pnt& theP, const Standard_Real theS)
 // function : Scaled
 // purpose  :
 // =======================================================================
-inline gp_Cone gp_Cone::Scaled(const gp_Pnt& theP, const Standard_Real theS) const
+inline gp_Cone gp_Cone::Scaled(const Point3d& theP, const Standard_Real theS) const
 {
   gp_Cone aC = *this;
   aC.pos.Scale(theP, theS);

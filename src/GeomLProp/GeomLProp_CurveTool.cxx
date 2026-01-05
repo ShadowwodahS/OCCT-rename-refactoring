@@ -20,14 +20,14 @@
 #include <gp_Pnt.hxx>
 #include <gp_Vec.hxx>
 
-void GeomLProp_CurveTool::Value(const Handle(Geom_Curve)& C, const Standard_Real U, gp_Pnt& P)
+void GeomLProp_CurveTool::Value(const Handle(Geom_Curve)& C, const Standard_Real U, Point3d& P)
 {
   P = C->Value(U);
 }
 
 void GeomLProp_CurveTool::D1(const Handle(Geom_Curve)& C,
                              const Standard_Real       U,
-                             gp_Pnt&                   P,
+                             Point3d&                   P,
                              gp_Vec&                   V1)
 {
   C->D1(U, P, V1);
@@ -35,7 +35,7 @@ void GeomLProp_CurveTool::D1(const Handle(Geom_Curve)& C,
 
 void GeomLProp_CurveTool::D2(const Handle(Geom_Curve)& C,
                              const Standard_Real       U,
-                             gp_Pnt&                   P,
+                             Point3d&                   P,
                              gp_Vec&                   V1,
                              gp_Vec&                   V2)
 {
@@ -44,7 +44,7 @@ void GeomLProp_CurveTool::D2(const Handle(Geom_Curve)& C,
 
 void GeomLProp_CurveTool::D3(const Handle(Geom_Curve)& C,
                              const Standard_Real       U,
-                             gp_Pnt&                   P,
+                             Point3d&                   P,
                              gp_Vec&                   V1,
                              gp_Vec&                   V2,
                              gp_Vec&                   V3)

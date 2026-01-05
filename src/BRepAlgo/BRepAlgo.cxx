@@ -144,7 +144,7 @@ TopoDS_Wire BRepAlgo::ConvertWire(const TopoDS_Wire&  theWire,
       aDist   = 0.5 * aDist + Precision::Confusion();
       aPnt[0] = 0.5 * (aPnt[0].XY() + aPnt[1].XY());
     }
-    gp_Pnt aPnt3d;
+    Point3d aPnt3d;
     aSurf->D0(aPnt[0].X(), aPnt[0].Y(), aPnt3d);
     TopoDS_Vertex aFirstVertex;
     aVBuilder.MakeVertex(aFirstVertex, aPnt3d, aDist);
@@ -250,7 +250,7 @@ TopoDS_Wire BRepAlgo::ConcatenateWire(const TopoDS_Wire&  W,
   Standard_Real          First = 0., Last = 0., // extremal values for the curve
     First0 = 0., toler = 0., tolleft, tolright; // Vertex tolerances
   TopoDS_Vertex Vfirst, Vlast;                  // Vertex of the Wire
-  gp_Pnt        Pfirst, Plast;                  //, Pint;  corresponding points
+  Point3d        Pfirst, Plast;                  //, Pint;  corresponding points
 
   BRepLib_MakeWire MakeResult;
   Standard_Real    closed_tolerance = 0.0;
@@ -464,8 +464,8 @@ TopoDS_Edge BRepAlgo::ConcatenateWireC0(const TopoDS_Wire& aWire)
             if (aLine.Contains(PrevLine.Location(), LinTol)
                 && aLine.Direction().IsParallel(PrevLine.Direction(), AngTol))
             {
-              gp_Pnt P1 = ElCLib::Value(fpar, aLine);
-              gp_Pnt P2 = ElCLib::Value(lpar, aLine);
+              Point3d P1 = ElCLib::Value(fpar, aLine);
+              Point3d P2 = ElCLib::Value(lpar, aLine);
 
               NewFpar     = ElCLib::Parameter(PrevLine, P1);
               NewLpar     = ElCLib::Parameter(PrevLine, P2);
@@ -481,8 +481,8 @@ TopoDS_Edge BRepAlgo::ConcatenateWireC0(const TopoDS_Wire& aWire)
                 && Abs(aCircle.Radius() - PrevCircle.Radius()) <= LinTol
                 && aCircle.Axis().IsParallel(PrevCircle.Axis(), AngTol))
             {
-              gp_Pnt P1 = ElCLib::Value(fpar, aCircle);
-              gp_Pnt P2 = ElCLib::Value(lpar, aCircle);
+              Point3d P1 = ElCLib::Value(fpar, aCircle);
+              Point3d P2 = ElCLib::Value(lpar, aCircle);
 
               NewFpar     = ElCLib::Parameter(PrevCircle, P1);
               NewLpar     = ElCLib::Parameter(PrevCircle, P2);
@@ -500,8 +500,8 @@ TopoDS_Edge BRepAlgo::ConcatenateWireC0(const TopoDS_Wire& aWire)
                 && Abs(anEllipse.MinorRadius() - PrevEllipse.MinorRadius()) <= LinTol
                 && anEllipse.Axis().IsParallel(PrevEllipse.Axis(), AngTol))
             {
-              gp_Pnt P1 = ElCLib::Value(fpar, anEllipse);
-              gp_Pnt P2 = ElCLib::Value(lpar, anEllipse);
+              Point3d P1 = ElCLib::Value(fpar, anEllipse);
+              Point3d P2 = ElCLib::Value(lpar, anEllipse);
 
               NewFpar     = ElCLib::Parameter(PrevEllipse, P1);
               NewLpar     = ElCLib::Parameter(PrevEllipse, P2);
@@ -519,8 +519,8 @@ TopoDS_Edge BRepAlgo::ConcatenateWireC0(const TopoDS_Wire& aWire)
                 && Abs(aHypr.MinorRadius() - PrevHypr.MinorRadius()) <= LinTol
                 && aHypr.Axis().IsParallel(PrevHypr.Axis(), AngTol))
             {
-              gp_Pnt P1 = ElCLib::Value(fpar, aHypr);
-              gp_Pnt P2 = ElCLib::Value(lpar, aHypr);
+              Point3d P1 = ElCLib::Value(fpar, aHypr);
+              Point3d P2 = ElCLib::Value(lpar, aHypr);
 
               NewFpar     = ElCLib::Parameter(PrevHypr, P1);
               NewLpar     = ElCLib::Parameter(PrevHypr, P2);
@@ -537,8 +537,8 @@ TopoDS_Edge BRepAlgo::ConcatenateWireC0(const TopoDS_Wire& aWire)
                 && Abs(aParab.Focal() - PrevParab.Focal()) <= LinTol
                 && aParab.Axis().IsParallel(PrevParab.Axis(), AngTol))
             {
-              gp_Pnt P1 = ElCLib::Value(fpar, aParab);
-              gp_Pnt P2 = ElCLib::Value(lpar, aParab);
+              Point3d P1 = ElCLib::Value(fpar, aParab);
+              Point3d P2 = ElCLib::Value(lpar, aParab);
 
               NewFpar     = ElCLib::Parameter(PrevParab, P1);
               NewLpar     = ElCLib::Parameter(PrevParab, P2);

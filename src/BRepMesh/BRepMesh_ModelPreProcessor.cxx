@@ -207,7 +207,7 @@ private:
 
     const Standard_Real aDT = Abs(aLParam - aFParam) / aMod * theDU;
 
-    if (!splitCurve<gp_Pnt>(aHC, theDEdge->GetCurve(), aDT))
+    if (!splitCurve<Point3d>(aHC, theDEdge->GetCurve(), aDT))
     {
       return Standard_False;
     }

@@ -693,7 +693,7 @@ void V3d_View::SetFront()
 
   Handle(Graphic3d_Camera) aCamera = Camera();
 
-  aCamera->SetCenter(gp_Pnt(xo, yo, zo));
+  aCamera->SetCenter(Point3d(xo, yo, zo));
 
   if (SwitchSetFront)
   {
@@ -826,7 +826,7 @@ void V3d_View::Rotate(const Standard_Real    ax,
   aCamera->SetDirectionFromEye(myCamStartOpDir);
 
   // rotate camera around 3 initial axes
-  gp_Pnt aRCenter(aVref.X(), aVref.Y(), aVref.Z());
+  Point3d aRCenter(aVref.X(), aVref.Y(), aVref.Z());
 
   gp_Dir aZAxis(aCamera->Direction().Reversed());
   gp_Dir aYAxis(aCamera->Up());
@@ -914,7 +914,7 @@ void V3d_View::Rotate(const V3d_TypeOfAxe    theAxe,
 
   // rotate camera around passed axis
   gp_Trsf aRotation;
-  gp_Pnt  aRCenter(aVref.X(), aVref.Y(), aVref.Z());
+  Point3d  aRCenter(aVref.X(), aVref.Y(), aVref.Z());
   gp_Dir  aRAxis((theAxe == V3d_X) ? 1.0 : 0.0,
                 (theAxe == V3d_Y) ? 1.0 : 0.0,
                 (theAxe == V3d_Z) ? 1.0 : 0.0);
@@ -954,7 +954,7 @@ void V3d_View::Rotate(const Standard_Real angle, const Standard_Boolean Start)
   aCamera->SetDirectionFromEye(myCamStartOpDir);
 
   gp_Trsf aRotation;
-  gp_Pnt  aRCenter(myDefaultViewPoint);
+  Point3d  aRCenter(myDefaultViewPoint);
   gp_Dir  aRAxis(myDefaultViewAxis);
   aRotation.SetRotation(gp_Ax1(aRCenter, aRAxis), Angle);
 
@@ -1008,7 +1008,7 @@ void V3d_View::Turn(const Standard_Real    ax,
   aCamera->SetDirectionFromEye(myCamStartOpDir);
 
   // rotate camera around 3 initial axes
-  gp_Pnt aRCenter = aCamera->Eye();
+  Point3d aRCenter = aCamera->Eye();
   gp_Dir aZAxis(aCamera->Direction().Reversed());
   gp_Dir aYAxis(aCamera->Up());
   gp_Dir aXAxis(aYAxis.Crossed(aZAxis));
@@ -1074,7 +1074,7 @@ void V3d_View::Turn(const Standard_Real angle, const Standard_Boolean Start)
   aCamera->SetDirectionFromEye(myCamStartOpDir);
 
   gp_Trsf aRotation;
-  gp_Pnt  aRCenter = aCamera->Eye();
+  Point3d  aRCenter = aCamera->Eye();
   gp_Dir  aRAxis(myDefaultViewAxis);
   aRotation.SetRotation(gp_Ax1(aRCenter, aRAxis), Angle);
 
@@ -1106,7 +1106,7 @@ void V3d_View::SetTwist(const Standard_Real angle)
     throw V3d_BadValue("V3d_ViewSetTwist, alignment of Eye,At,Up,");
   }
 
-  gp_Pnt aRCenter = aCamera->Center();
+  Point3d aRCenter = aCamera->Center();
   gp_Dir aZAxis(aCamera->Direction().Reversed());
 
   gp_Trsf aTrsf;
@@ -1128,7 +1128,7 @@ void V3d_View::SetEye(const Standard_Real X, const Standard_Real Y, const Standa
 
   Handle(Graphic3d_Camera) aCamera = Camera();
 
-  aCamera->SetEye(gp_Pnt(X, Y, Z));
+  aCamera->SetEye(Point3d(X, Y, Z));
 
   SetTwist(aTwistBefore);
 
@@ -1154,8 +1154,8 @@ void V3d_View::SetDepth(const Standard_Real Depth)
   {
     // Move the view ref point instead of the eye.
     gp_Vec aDir(aCamera->Direction());
-    gp_Pnt aCameraEye    = aCamera->Eye();
-    gp_Pnt aCameraCenter = aCameraEye.Translated(aDir.Multiplied(Abs(Depth)));
+    Point3d aCameraEye    = aCamera->Eye();
+    Point3d aCameraCenter = aCameraEye.Translated(aDir.Multiplied(Abs(Depth)));
 
     aCamera->SetCenter(aCameraCenter);
   }
@@ -1211,9 +1211,9 @@ void V3d_View::SetProj(const V3d_TypeOfOrientation theOrientation, const Standar
 
   // retain camera panning from origin when switching projection
   const Handle(Graphic3d_Camera)& aCamera     = Camera();
-  const gp_Pnt                    anOriginVCS = aCamera->ConvertWorld2View(gp::Origin());
+  const Point3d                    anOriginVCS = aCamera->ConvertWorld2View(gp::Origin());
 
-  const Standard_Real aNewDist = aCamera->Eye().Distance(gp_Pnt(0, 0, 0));
+  const Standard_Real aNewDist = aCamera->Eye().Distance(Point3d(0, 0, 0));
   aCamera->SetEyeAndCenter(gp_XYZ(0, 0, 0) + aBck.XYZ() * aNewDist, gp_XYZ(0, 0, 0));
   aCamera->SetDirectionFromEye(-aBck);
   aCamera->SetUp(gp_Dir(anUp.x(), anUp.y(), anUp.z()));
@@ -1232,7 +1232,7 @@ void V3d_View::SetAt(const Standard_Real X, const Standard_Real Y, const Standar
 
   Standard_Boolean wasUpdateEnabled = SetImmediateUpdate(Standard_False);
 
-  Camera()->SetCenter(gp_Pnt(X, Y, Z));
+  Camera()->SetCenter(Point3d(X, Y, Z));
 
   SetTwist(aTwistBefore);
 
@@ -1647,17 +1647,17 @@ void V3d_View::WindowFit(const Standard_Integer theMinXp,
     Standard_Real aVMax = (2.0 / aWinHeight) * theMaxYp - 1.0;
 
     // compute camera panning
-    gp_Pnt aScreenCenter(0.0, 0.0, aDepth);
-    gp_Pnt aFitCenter((aUMin + aUMax) * 0.5, (aVMin + aVMax) * 0.5, aDepth);
-    gp_Pnt aPanTo   = aCamera->ConvertProj2View(aFitCenter);
-    gp_Pnt aPanFrom = aCamera->ConvertProj2View(aScreenCenter);
+    Point3d aScreenCenter(0.0, 0.0, aDepth);
+    Point3d aFitCenter((aUMin + aUMax) * 0.5, (aVMin + aVMax) * 0.5, aDepth);
+    Point3d aPanTo   = aCamera->ConvertProj2View(aFitCenter);
+    Point3d aPanFrom = aCamera->ConvertProj2View(aScreenCenter);
     gp_Vec aPanVec(aPanFrom, aPanTo);
 
     // compute section size
-    gp_Pnt aFitTopRight(aUMax, aVMax, aDepth);
-    gp_Pnt aFitBotLeft(aUMin, aVMin, aDepth);
-    gp_Pnt aViewBotLeft  = aCamera->ConvertProj2View(aFitBotLeft);
-    gp_Pnt aViewTopRight = aCamera->ConvertProj2View(aFitTopRight);
+    Point3d aFitTopRight(aUMax, aVMax, aDepth);
+    Point3d aFitBotLeft(aUMin, aVMin, aDepth);
+    Point3d aViewBotLeft  = aCamera->ConvertProj2View(aFitBotLeft);
+    Point3d aViewTopRight = aCamera->ConvertProj2View(aFitTopRight);
 
     Standard_Real aUSize = aViewTopRight.X() - aViewBotLeft.X();
     Standard_Real aVSize = aViewTopRight.Y() - aViewBotLeft.Y();
@@ -1736,7 +1736,7 @@ Standard_Real V3d_View::Convert(const Standard_Integer Vp) const
   MyWindow->Size(aDxw, aDyw);
   Standard_Real aValue;
 
-  gp_Pnt aViewDims = Camera()->ViewDimensions();
+  Point3d aViewDims = Camera()->ViewDimensions();
   aValue           = aViewDims.X() * (Standard_Real)Vp / (Standard_Real)aDxw;
 
   return aValue;
@@ -1755,7 +1755,7 @@ void V3d_View::Convert(const Standard_Integer Xp,
 
   MyWindow->Size(aDxw, aDyw);
 
-  gp_Pnt aPoint(Xp * 2.0 / aDxw - 1.0, (aDyw - Yp) * 2.0 / aDyw - 1.0, 0.0);
+  Point3d aPoint(Xp * 2.0 / aDxw - 1.0, (aDyw - Yp) * 2.0 / aDyw - 1.0, 0.0);
   aPoint = Camera()->ConvertProj2View(aPoint);
 
   Xv = aPoint.X();
@@ -1771,7 +1771,7 @@ Standard_Integer V3d_View::Convert(const Standard_Real Vv) const
   Standard_Integer aDxw, aDyw;
   MyWindow->Size(aDxw, aDyw);
 
-  gp_Pnt           aViewDims = Camera()->ViewDimensions();
+  Point3d           aViewDims = Camera()->ViewDimensions();
   Standard_Integer aValue    = RealToInt(aDxw * Vv / (aViewDims.X()));
 
   return aValue;
@@ -1789,9 +1789,9 @@ void V3d_View::Convert(const Standard_Real Xv,
   Standard_Integer aDxw, aDyw;
   MyWindow->Size(aDxw, aDyw);
 
-  gp_Pnt aPoint(Xv, Yv, 0.0);
+  Point3d aPoint(Xv, Yv, 0.0);
   aPoint = Camera()->ConvertView2Proj(aPoint);
-  aPoint = gp_Pnt((aPoint.X() + 1.0) * aDxw / 2.0, aDyw - (aPoint.Y() + 1.0) * aDyw / 2.0, 0.0);
+  aPoint = Point3d((aPoint.X() + 1.0) * aDxw / 2.0, aDyw - (aPoint.Y() + 1.0) * aDyw / 2.0, 0.0);
 
   Xp = RealToInt(aPoint.X());
   Yp = RealToInt(aPoint.Y());
@@ -1809,10 +1809,10 @@ void V3d_View::Convert(const Standard_Integer theXp,
   Standard_Integer aHeight = 0, aWidth = 0;
   MyWindow->Size(aWidth, aHeight);
 
-  const gp_Pnt anXYZ(2.0 * theXp / aWidth - 1.0,
+  const Point3d anXYZ(2.0 * theXp / aWidth - 1.0,
                      2.0 * (aHeight - 1 - theYp) / aHeight - 1.0,
                      Camera()->IsZeroToOneDepth() ? 0.0 : -1.0);
-  const gp_Pnt aResult = Camera()->UnProject(anXYZ);
+  const Point3d aResult = Camera()->UnProject(anXYZ);
   theX                 = aResult.X();
   theY                 = aResult.Y();
   theZ                 = aResult.Z();
@@ -1838,8 +1838,8 @@ void V3d_View::ConvertWithProj(const Standard_Integer theXp,
   const Standard_Real aZ  = 2.0 * 0.0 - 1.0;
 
   const Handle(Graphic3d_Camera)& aCamera  = Camera();
-  const gp_Pnt                    aResult1 = aCamera->UnProject(gp_Pnt(anX, anY, aZ));
-  const gp_Pnt                    aResult2 = aCamera->UnProject(gp_Pnt(anX, anY, aZ - 10.0));
+  const Point3d                    aResult1 = aCamera->UnProject(Point3d(anX, anY, aZ));
+  const Point3d                    aResult2 = aCamera->UnProject(Point3d(anX, anY, aZ - 10.0));
 
   theX = aResult1.X();
   theY = aResult1.Y();
@@ -1864,7 +1864,7 @@ void V3d_View::Convert(const Standard_Real X,
   Standard_Integer aHeight, aWidth;
   MyWindow->Size(aWidth, aHeight);
 
-  gp_Pnt aPoint = Camera()->Project(gp_Pnt(X, Y, Z));
+  Point3d aPoint = Camera()->Project(Point3d(X, Y, Z));
 
   Xp = RealToInt((aPoint.X() + 1) * 0.5 * aWidth);
   Yp = RealToInt(aHeight - 1 - (aPoint.Y() + 1) * 0.5 * aHeight);
@@ -1898,7 +1898,7 @@ void V3d_View::Project(const Standard_Real theX,
   Standard_Real aYSize               = aViewSpaceDimensions.Y();
   Standard_Real aZSize               = aViewSpaceDimensions.Z();
 
-  gp_Pnt aPoint = aCamera->Project(gp_Pnt(theX, theY, theZ));
+  Point3d aPoint = aCamera->Project(Point3d(theX, theY, theZ));
 
   // NDC [-1, 1] --> PROJ [ -size / 2, +size / 2 ]
   theXp = aPoint.X() * aXSize * 0.5;
@@ -1949,7 +1949,7 @@ Standard_Real V3d_View::Scale() const
 
 void V3d_View::AxialScale(Standard_Real& Sx, Standard_Real& Sy, Standard_Real& Sz) const
 {
-  gp_Pnt anAxialScale = Camera()->AxialScale();
+  Point3d anAxialScale = Camera()->AxialScale();
   Sx                  = anAxialScale.X();
   Sy                  = anAxialScale.Y();
   Sz                  = anAxialScale.Z();
@@ -1959,7 +1959,7 @@ void V3d_View::AxialScale(Standard_Real& Sx, Standard_Real& Sy, Standard_Real& S
 
 void V3d_View::Size(Standard_Real& Width, Standard_Real& Height) const
 {
-  gp_Pnt aViewDims = Camera()->ViewDimensions();
+  Point3d aViewDims = Camera()->ViewDimensions();
 
   Width  = aViewDims.X();
   Height = aViewDims.Y();
@@ -1969,7 +1969,7 @@ void V3d_View::Size(Standard_Real& Width, Standard_Real& Height) const
 
 Standard_Real V3d_View::ZSize() const
 {
-  gp_Pnt aViewDims = Camera()->ViewDimensions();
+  Point3d aViewDims = Camera()->ViewDimensions();
 
   return aViewDims.Z();
 }
@@ -2061,7 +2061,7 @@ Standard_Integer V3d_View::MinMax(Standard_Real& Xmin,
 
 //=================================================================================================
 
-gp_Pnt V3d_View::GravityPoint() const
+Point3d V3d_View::GravityPoint() const
 {
   Graphic3d_MapOfStructure aSetOfStructures;
   myView->DisplayedStructures(aSetOfStructures);
@@ -2109,19 +2109,19 @@ gp_Pnt V3d_View::GravityPoint() const
     Xmax                              = aBox.CornerMax().x();
     Ymax                              = aBox.CornerMax().y();
     Zmax                              = aBox.CornerMax().z();
-    gp_Pnt aPnts[THE_NB_BOUND_POINTS] = {gp_Pnt(Xmin, Ymin, Zmin),
-                                         gp_Pnt(Xmin, Ymin, Zmax),
-                                         gp_Pnt(Xmin, Ymax, Zmin),
-                                         gp_Pnt(Xmin, Ymax, Zmax),
-                                         gp_Pnt(Xmax, Ymin, Zmin),
-                                         gp_Pnt(Xmax, Ymin, Zmax),
-                                         gp_Pnt(Xmax, Ymax, Zmin),
-                                         gp_Pnt(Xmax, Ymax, Zmax)};
+    Point3d aPnts[THE_NB_BOUND_POINTS] = {Point3d(Xmin, Ymin, Zmin),
+                                         Point3d(Xmin, Ymin, Zmax),
+                                         Point3d(Xmin, Ymax, Zmin),
+                                         Point3d(Xmin, Ymax, Zmax),
+                                         Point3d(Xmax, Ymin, Zmin),
+                                         Point3d(Xmax, Ymin, Zmax),
+                                         Point3d(Xmax, Ymax, Zmin),
+                                         Point3d(Xmax, Ymax, Zmax)};
 
     for (Standard_Integer aPntIt = 0; aPntIt < THE_NB_BOUND_POINTS; ++aPntIt)
     {
-      const gp_Pnt& aBndPnt    = aPnts[aPntIt];
-      const gp_Pnt  aProjected = Camera()->Project(aBndPnt);
+      const Point3d& aBndPnt    = aPnts[aPntIt];
+      const Point3d  aProjected = Camera()->Project(aBndPnt);
       if (Abs(aProjected.X()) <= 1.0 && Abs(aProjected.Y()) <= 1.0)
       {
         aResult += aBndPnt.XYZ();
@@ -2137,18 +2137,18 @@ gp_Pnt V3d_View::GravityPoint() const
     if (!aBox.IsVoid())
     {
       aBox.Get(Xmin, Ymin, Zmin, Xmax, Ymax, Zmax);
-      gp_Pnt aPnts[THE_NB_BOUND_POINTS] = {gp_Pnt(Xmin, Ymin, Zmin),
-                                           gp_Pnt(Xmin, Ymin, Zmax),
-                                           gp_Pnt(Xmin, Ymax, Zmin),
-                                           gp_Pnt(Xmin, Ymax, Zmax),
-                                           gp_Pnt(Xmax, Ymin, Zmin),
-                                           gp_Pnt(Xmax, Ymin, Zmax),
-                                           gp_Pnt(Xmax, Ymax, Zmin),
-                                           gp_Pnt(Xmax, Ymax, Zmax)};
+      Point3d aPnts[THE_NB_BOUND_POINTS] = {Point3d(Xmin, Ymin, Zmin),
+                                           Point3d(Xmin, Ymin, Zmax),
+                                           Point3d(Xmin, Ymax, Zmin),
+                                           Point3d(Xmin, Ymax, Zmax),
+                                           Point3d(Xmax, Ymin, Zmin),
+                                           Point3d(Xmax, Ymin, Zmax),
+                                           Point3d(Xmax, Ymax, Zmin),
+                                           Point3d(Xmax, Ymax, Zmax)};
 
       for (Standard_Integer aPntIt = 0; aPntIt < THE_NB_BOUND_POINTS; ++aPntIt)
       {
-        const gp_Pnt& aBndPnt = aPnts[aPntIt];
+        const Point3d& aBndPnt = aPnts[aPntIt];
         aResult += aBndPnt.XYZ();
         ++aNbPoints;
       }
@@ -2167,7 +2167,7 @@ gp_Pnt V3d_View::GravityPoint() const
 
 void V3d_View::Eye(Standard_Real& X, Standard_Real& Y, Standard_Real& Z) const
 {
-  gp_Pnt aCameraEye = Camera()->Eye();
+  Point3d aCameraEye = Camera()->Eye();
   X                 = aCameraEye.X();
   Y                 = aCameraEye.Y();
   Z                 = aCameraEye.Z();
@@ -2221,7 +2221,7 @@ void V3d_View::Proj(Standard_Real& Dx, Standard_Real& Dy, Standard_Real& Dz) con
 
 void V3d_View::At(Standard_Real& X, Standard_Real& Y, Standard_Real& Z) const
 {
-  gp_Pnt aCameraCenter = Camera()->Center();
+  Point3d aCameraCenter = Camera()->Center();
   X                    = aCameraCenter.X();
   Y                    = aCameraCenter.Y();
   Z                    = aCameraCenter.Z();
@@ -2423,7 +2423,7 @@ void V3d_View::Panning(const Standard_Real    theDXv,
 
   Standard_Boolean wasUpdateEnabled = SetImmediateUpdate(Standard_False);
 
-  gp_Pnt aViewDims = aCamera->ViewDimensions();
+  Point3d aViewDims = aCamera->ViewDimensions();
 
   aCamera->SetEyeAndCenter(myCamStartOpEye, myCamStartOpCenter);
   aCamera->SetDirectionFromEye(myCamStartOpDir);
@@ -3029,7 +3029,7 @@ void V3d_View::Translate(const Handle(Graphic3d_Camera)& theCamera,
                          const Standard_Real             theDXv,
                          const Standard_Real             theDYv) const
 {
-  const gp_Pnt& aCenter = theCamera->Center();
+  const Point3d& aCenter = theCamera->Center();
   const gp_Dir& aDir    = theCamera->Direction();
   const gp_Dir& anUp    = theCamera->Up();
   gp_Ax3        aCameraCS(aCenter, aDir.Reversed(), aDir ^ anUp);
@@ -3256,8 +3256,8 @@ void V3d_View::Move(const Standard_Real    theDx,
 
   aCamera->SetEye(myCamStartOpEye);
 
-  aCamera->SetEye(aCamera->Eye().XYZ() + theDx * gp_Pnt(XX, XY, XZ).XYZ()
-                  + theDy * gp_Pnt(YX, YY, YZ).XYZ() + theDz * gp_Pnt(ZX, ZY, ZZ).XYZ());
+  aCamera->SetEye(aCamera->Eye().XYZ() + theDx * Point3d(XX, XY, XZ).XYZ()
+                  + theDy * Point3d(YX, YY, YZ).XYZ() + theDz * Point3d(ZX, ZY, ZZ).XYZ());
 
   ImmediateUpdate();
 }
@@ -3375,7 +3375,7 @@ void V3d_View::Translate(const Standard_Real theLength, const Standard_Boolean t
     myCamStartOpCenter = aCamera->Center();
   }
 
-  gp_Pnt aNewCenter(myCamStartOpCenter.XYZ() - myDefaultViewAxis.XYZ() * theLength);
+  Point3d aNewCenter(myCamStartOpCenter.XYZ() - myDefaultViewAxis.XYZ() * theLength);
   aCamera->SetCenter(aNewCenter);
 
   ImmediateUpdate();
@@ -3504,8 +3504,8 @@ Graphic3d_Vertex V3d_View::Compute(const Graphic3d_Vertex& theVertex) const
   const gp_Vec aProjection =
     aCamera->IsOrthographic()
       ? gp_Vec(aCamera->Direction())
-      : gp_Vec(aCamera->Eye(), gp_Pnt(theVertex.X(), theVertex.Y(), theVertex.Z())).Normalized();
-  const gp_Vec aPointOrigin = gp_Vec(gp_Pnt(theVertex.X(), theVertex.Y(), theVertex.Z()), aPnt0);
+      : gp_Vec(aCamera->Eye(), Point3d(theVertex.X(), theVertex.Y(), theVertex.Z())).Normalized();
+  const gp_Vec aPointOrigin = gp_Vec(Point3d(theVertex.X(), theVertex.Y(), theVertex.Z()), aPnt0);
   const Standard_Real aT =
     aPointOrigin.Dot(MyPlane.Direction()) / aProjection.Dot(MyPlane.Direction());
   const gp_XYZ aPointOnPlane =

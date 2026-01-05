@@ -217,7 +217,7 @@ void IVtkOCC_ShapeMesher::addVertex(const TopoDS_Vertex& theVertex,
     return;
   }
 
-  gp_Pnt aPnt3d = BRep_Tool::Pnt(theVertex);
+  Point3d aPnt3d = BRep_Tool::Pnt(theVertex);
 
   IVtk_PointId anId = myShapeData->InsertCoordinate(aPnt3d);
   myShapeData->InsertVertex(theShapeId, anId, theMeshType);
@@ -249,7 +249,7 @@ void IVtkOCC_ShapeMesher::addEdge(const TopoDS_Edge&  theEdge,
     for (Standard_Integer aJ = 0; aJ < aNbNodes; aJ++)
     {
       const Standard_Integer aPntId = aPolyOnTriangulation->Node(aJ + 1);
-      gp_Pnt                 aPoint = aTriangulation->Node(aPntId);
+      Point3d                 aPoint = aTriangulation->Node(aPntId);
       gp_Dir aNorm = aTriangulation->HasNormals() ? aTriangulation->Normal(aPntId) : gp::DZ();
       if (hasTransform)
       {
@@ -278,7 +278,7 @@ void IVtkOCC_ShapeMesher::addEdge(const TopoDS_Edge&  theEdge,
   IVtk_PointIdList aPolyPointIds;
   for (Standard_Integer aNodeIter = 1; aNodeIter <= aPoly3d->NbNodes(); ++aNodeIter)
   {
-    gp_Pnt aPnt = aPoly3d->Nodes().Value(aNodeIter);
+    Point3d aPnt = aPoly3d->Nodes().Value(aNodeIter);
     if (!noTransform)
     {
       aPnt.Transform(anEdgeTransf);
@@ -333,7 +333,7 @@ void IVtkOCC_ShapeMesher::addWFFace(const TopoDS_Face&  theFace,
     IVtk_PointIdList aPolyPointIds;
     for (TColgp_HSequenceOfPnt::Iterator aNodeIter(*aPoints); aNodeIter.More(); aNodeIter.Next())
     {
-      const gp_Pnt&      aPnt = aNodeIter.Value();
+      const Point3d&      aPnt = aNodeIter.Value();
       const IVtk_PointId anId = myShapeData->InsertCoordinate(aPnt);
       aPolyPointIds.Append(anId);
     }
@@ -371,7 +371,7 @@ void IVtkOCC_ShapeMesher::addShadedFace(const TopoDS_Face& theFace, const IVtk_I
   IVtk_PointId                     anId;
   for (Standard_Integer anI = 1; anI <= aNbPoints; anI++)
   {
-    gp_Pnt aPoint = anOcctTriangulation->Node(anI);
+    Point3d aPoint = anOcctTriangulation->Node(anI);
     gp_Dir aNorm  = anOcctTriangulation->HasNormals() ? anOcctTriangulation->Normal(anI) : gp::DZ();
     if ((theFace.Orientation() == TopAbs_REVERSED) ^ isMirrored)
     {

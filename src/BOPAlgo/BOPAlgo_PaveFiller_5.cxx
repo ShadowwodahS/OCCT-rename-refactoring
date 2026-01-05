@@ -456,7 +456,7 @@ void BOPAlgo_PaveFiller::PerformEF(const Message_ProgressRange& theRange)
             // If it is an intersection point, update the existing vertex to cover the
             // intersection point.
             GeomAPI_ProjectPointOnSurf& aProjPS = myContext->ProjPS(aF);
-            const gp_Pnt                aPnew   = BRep_Tool::Pnt(aVnew);
+            const Point3d                aPnew   = BRep_Tool::Pnt(aVnew);
             aProjPS.Perform(aPnew);
             Standard_Real    aMinDistEF          = (aProjPS.IsDone() && aProjPS.NbPoints())
                                                      ? aProjPS.LowerDistance()
@@ -474,7 +474,7 @@ void BOPAlgo_PaveFiller::PerformEF(const Message_ProgressRange& theRange)
               if (bIsOnPave[j])
               {
                 const TopoDS_Vertex& aV       = TopoDS::Vertex(myDS->Shape(nV[j]));
-                const gp_Pnt         aP       = BRep_Tool::Pnt(aV);
+                const Point3d         aP       = BRep_Tool::Pnt(aV);
                 Standard_Real        aDistPP  = aP.Distance(aPnew);
                 Standard_Real        aTol     = BRep_Tool::Tolerance(aV);
                 Standard_Real        aMaxDist = 1.e4 * aTol;
@@ -508,7 +508,7 @@ void BOPAlgo_PaveFiller::PerformEF(const Message_ProgressRange& theRange)
             aTolVnew           = Max(aTolVnew, (aCR.Last() - aCR.First()) / 2.);
           }
           //
-          const gp_Pnt& aPnew = BRep_Tool::Pnt(aVnew);
+          const Point3d& aPnew = BRep_Tool::Pnt(aVnew);
           //
           if (!myContext->IsPointInFace(aPnew, aF, aTolVnew))
           {
@@ -962,7 +962,7 @@ void BOPAlgo_PaveFiller::ForceInterfEF(const BOPDS_IndexedMapOfPaveBlock& theMPB
       aPB->ShrunkData(aTS[0], aTS[1], aPBBox, isSplit);
 
       // Middle point
-      gp_Pnt aPOnE;
+      Point3d aPOnE;
       // Tangent vector in the middle point
       gp_Vec aVETgt;
       aBAC.D1(BOPTools_AlgoTools2D::IntermediatePoint(aTS[0], aTS[1]), aPOnE, aVETgt);
@@ -995,7 +995,7 @@ void BOPAlgo_PaveFiller::ForceInterfEF(const BOPDS_IndexedMapOfPaveBlock& theMPB
 
       if (aSurfAdaptor.GetType() != GeomAbs_Plane || aBAC.GetType() != GeomAbs_Line)
       {
-        gp_Pnt aPOnS = aProjPS.NearestPoint();
+        Point3d aPOnS = aProjPS.NearestPoint();
         gp_Vec aVFNorm(aPOnS, aPOnE);
         if (aVFNorm.SquareMagnitude() > gp::Resolution())
         {
@@ -1019,7 +1019,7 @@ void BOPAlgo_PaveFiller::ForceInterfEF(const BOPDS_IndexedMapOfPaveBlock& theMPB
 
         for (Standard_Integer iP = 0; iP < 2; ++iP)
         {
-          gp_Pnt aP = aBAC.Value(aTS[iP]);
+          Point3d aP = aBAC.Value(aTS[iP]);
           aProjPS.Perform(aP);
           if (aProjPS.NbPoints())
           {

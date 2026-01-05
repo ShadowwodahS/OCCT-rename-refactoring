@@ -27,7 +27,7 @@ class StdFail_NotDone;
 class Adaptor3d_Curve;
 class Extrema_CurveTool;
 class Extrema_POnCurv;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 class Extrema_CCLocFOfLocECC;
 

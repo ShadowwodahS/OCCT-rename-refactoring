@@ -42,7 +42,7 @@ PrsDim_RadiusDimension::PrsDim_RadiusDimension(const gp_Circ& theCircle)
 //=================================================================================================
 
 PrsDim_RadiusDimension::PrsDim_RadiusDimension(const gp_Circ& theCircle,
-                                               const gp_Pnt&  theAttachPoint)
+                                               const Point3d&  theAttachPoint)
     : PrsDim_Dimension(PrsDim_KOD_RADIUS)
 {
   SetMeasuredGeometry(theCircle, theAttachPoint);
@@ -65,7 +65,7 @@ PrsDim_RadiusDimension::PrsDim_RadiusDimension(const TopoDS_Shape& theShape)
 //=================================================================================================
 
 void PrsDim_RadiusDimension::SetMeasuredGeometry(const gp_Circ&         theCircle,
-                                                 const gp_Pnt&          theAnchorPoint,
+                                                 const Point3d&          theAnchorPoint,
                                                  const Standard_Boolean theHasAnchor)
 {
   myCircle          = theCircle;
@@ -85,7 +85,7 @@ void PrsDim_RadiusDimension::SetMeasuredGeometry(const gp_Circ&         theCircl
 //=================================================================================================
 
 void PrsDim_RadiusDimension::SetMeasuredGeometry(const TopoDS_Shape&    theShape,
-                                                 const gp_Pnt&          theAnchorPoint,
+                                                 const Point3d&          theAnchorPoint,
                                                  const Standard_Boolean theHasAnchor)
 {
   Standard_Boolean isClosed = Standard_False;
@@ -200,7 +200,7 @@ Standard_Boolean PrsDim_RadiusDimension::IsValidCircle(const gp_Circ& theCircle)
 //=================================================================================================
 
 Standard_Boolean PrsDim_RadiusDimension::IsValidAnchor(const gp_Circ& theCircle,
-                                                       const gp_Pnt&  theAnchor) const
+                                                       const Point3d&  theAnchor) const
 {
   gp_Pln        aCirclePlane(theCircle.Location(), theCircle.Axis().Direction());
   Standard_Real anAnchorDist = theAnchor.Distance(theCircle.Location());
@@ -211,7 +211,7 @@ Standard_Boolean PrsDim_RadiusDimension::IsValidAnchor(const gp_Circ& theCircle,
 
 //=================================================================================================
 
-gp_Pnt PrsDim_RadiusDimension::GetTextPosition() const
+Point3d PrsDim_RadiusDimension::GetTextPosition() const
 {
   if (IsTextPositionCustom())
   {
@@ -224,7 +224,7 @@ gp_Pnt PrsDim_RadiusDimension::GetTextPosition() const
 
 //=================================================================================================
 
-void PrsDim_RadiusDimension::SetTextPosition(const gp_Pnt& theTextPos)
+void PrsDim_RadiusDimension::SetTextPosition(const Point3d& theTextPos)
 {
   if (!myIsGeometryValid)
   {

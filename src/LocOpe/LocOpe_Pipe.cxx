@@ -327,11 +327,11 @@ const TColGeom_SequenceOfCurve& LocOpe_Pipe::Curves(const TColgp_SequenceOfPnt& 
 
   Standard_Integer i, j, k, Nbpnt = Spt.Length();
   Standard_Real    p1, p2;
-  //  gp_Pnt ptbid;
+  //  Point3d ptbid;
 
   for (i = 1; i <= Nbpnt; i++)
   {
-    gp_Pnt                   P1     = Spt(i);
+    Point3d                   P1     = Spt(i);
     Standard_Integer         MaxDeg = 0;
     TColGeom_SequenceOfCurve seq;
     TopoDS_Wire              W = myPipe.PipeLine(P1);
@@ -445,20 +445,20 @@ Handle(Geom_Curve) LocOpe_Pipe::BarycCurve()
 {
   Standard_Integer j, k;
 
-  gp_Pnt               bar(0., 0., 0.);
+  Point3d               bar(0., 0., 0.);
   TColgp_SequenceOfPnt spt;
   TopoDS_Shape         Base = FirstShape();
   LocOpe::SampleEdges(Base, spt);
   for (Standard_Integer jj = 1; jj <= spt.Length(); jj++)
   {
-    const gp_Pnt& pvt = spt(jj);
+    const Point3d& pvt = spt(jj);
     bar.ChangeCoord() += pvt.XYZ();
   }
   bar.ChangeCoord().Divide(spt.Length());
 
   Standard_Real p1, p2;
-  //  gp_Pnt ptbid;
-  gp_Pnt P1 = bar;
+  //  Point3d ptbid;
+  Point3d P1 = bar;
 
   Standard_Integer         MaxDeg = 0;
   TColGeom_SequenceOfCurve seq;

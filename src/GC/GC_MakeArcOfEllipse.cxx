@@ -23,8 +23,8 @@
 #include <StdFail_NotDone.hxx>
 
 GC_MakeArcOfEllipse::GC_MakeArcOfEllipse(const gp_Elips&        Elips,
-                                         const gp_Pnt&          P1,
-                                         const gp_Pnt&          P2,
+                                         const Point3d&          P1,
+                                         const Point3d&          P2,
                                          const Standard_Boolean Sense)
 {
   Standard_Real        Alpha1 = ElCLib::Parameter(Elips, P1);
@@ -35,7 +35,7 @@ GC_MakeArcOfEllipse::GC_MakeArcOfEllipse(const gp_Elips&        Elips,
 }
 
 GC_MakeArcOfEllipse::GC_MakeArcOfEllipse(const gp_Elips&        Elips,
-                                         const gp_Pnt&          P,
+                                         const Point3d&          P,
                                          const Standard_Real    Alpha,
                                          const Standard_Boolean Sense)
 {

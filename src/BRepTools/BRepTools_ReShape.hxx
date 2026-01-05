@@ -140,7 +140,7 @@ public:
   //@param theNewPos - new position for vertex copy.
   //@param theTol - new tolerance of vertex.
   Standard_EXPORT TopoDS_Vertex CopyVertex(const TopoDS_Vertex& theV,
-                                           const gp_Pnt&        theNewPos,
+                                           const Point3d&        theNewPos,
                                            const Standard_Real  aTol);
 
   //! Checks if shape has been recorded by reshaper as a value

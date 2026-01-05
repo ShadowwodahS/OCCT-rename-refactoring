@@ -235,21 +235,21 @@ GeomAbs_Shape Geom_OffsetCurve::Continuity() const
 
 //=================================================================================================
 
-void Geom_OffsetCurve::D0(const Standard_Real U, gp_Pnt& P) const
+void Geom_OffsetCurve::D0(const Standard_Real U, Point3d& P) const
 {
   myEvaluator->D0(U, P);
 }
 
 //=================================================================================================
 
-void Geom_OffsetCurve::D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V1) const
+void Geom_OffsetCurve::D1(const Standard_Real U, Point3d& P, gp_Vec& V1) const
 {
   myEvaluator->D1(U, P, V1);
 }
 
 //=================================================================================================
 
-void Geom_OffsetCurve::D2(const Standard_Real U, gp_Pnt& P, gp_Vec& V1, gp_Vec& V2) const
+void Geom_OffsetCurve::D2(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2) const
 {
   myEvaluator->D2(U, P, V1, V2);
 }
@@ -257,7 +257,7 @@ void Geom_OffsetCurve::D2(const Standard_Real U, gp_Pnt& P, gp_Vec& V1, gp_Vec& 
 //=================================================================================================
 
 void Geom_OffsetCurve::D3(const Standard_Real theU,
-                          gp_Pnt&             theP,
+                          Point3d&             theP,
                           gp_Vec&             theV1,
                           gp_Vec&             theV2,
                           gp_Vec&             theV3) const
@@ -274,7 +274,7 @@ gp_Vec Geom_OffsetCurve::DN(const Standard_Real U, const Standard_Integer N) con
                                "Geom_OffsetCurve::DN(...). N<1.");
 
   gp_Vec VN, Vtemp;
-  gp_Pnt Ptemp;
+  Point3d Ptemp;
   switch (N)
   {
     case 1:
@@ -320,7 +320,7 @@ Standard_Real Geom_OffsetCurve::Offset() const
 
 Standard_Boolean Geom_OffsetCurve::IsClosed() const
 {
-  gp_Pnt PF, PL;
+  Point3d PF, PL;
   D0(FirstParameter(), PF);
   D0(LastParameter(), PL);
   return (PF.Distance(PL) <= gp::Resolution());

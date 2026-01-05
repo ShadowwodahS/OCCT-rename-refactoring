@@ -37,11 +37,11 @@ Prs3d_ToolCylinder::Prs3d_ToolCylinder(const Standard_Real    theBottomRad,
 
 //=================================================================================================
 
-gp_Pnt Prs3d_ToolCylinder::Vertex(const Standard_Real theU, const Standard_Real theV) const
+Point3d Prs3d_ToolCylinder::Vertex(const Standard_Real theU, const Standard_Real theV) const
 {
   const Standard_Real aU      = theU * M_PI * 2.0;
   const Standard_Real aRadius = myBottomRadius + (myTopRadius - myBottomRadius) * theV;
-  return gp_Pnt(Cos(aU) * aRadius, Sin(aU) * aRadius, theV * myHeight);
+  return Point3d(Cos(aU) * aRadius, Sin(aU) * aRadius, theV * myHeight);
 }
 
 //=================================================================================================

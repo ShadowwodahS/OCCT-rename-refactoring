@@ -93,7 +93,7 @@ static void InternalUpdateTolerances(const TopoDS_Shape&    theOldShape,
 //=======================================================================
 struct BRepLib_ComparePoints
 {
-  bool operator()(const gp_Pnt& theP1, const gp_Pnt& theP2)
+  bool operator()(const Point3d& theP1, const Point3d& theP2)
   {
     for (Standard_Integer i = 1; i <= 3; ++i)
     {
@@ -749,9 +749,9 @@ static void GetEdgeTol(const TopoDS_Edge& theEdge,
   {
     Standard_Real t     = unsurnn * i;
     Standard_Real u     = First * (1. - t) + Last * t;
-    gp_Pnt        Pc3d  = HC->Value(u);
+    Point3d        Pc3d  = HC->Value(u);
     gp_Pnt2d      p2d   = pc->Value(u);
-    gp_Pnt        Pcons = ElSLib::Value(p2d.X(), p2d.Y(), pln);
+    Point3d        Pcons = ElSLib::Value(p2d.X(), p2d.Y(), pln);
     Standard_Real eps   = Max(Pc3d.XYZ().SquareModulus(), Pcons.XYZ().SquareModulus());
     eps                 = Epsilon(eps);
     Standard_Real temp  = Pc3d.SquareDistance(Pcons);
@@ -981,7 +981,7 @@ static Standard_Boolean EvalTol(const Handle(Geom2d_Curve)& pc,
   Extrema_LocateExtPC Projector;
   Projector.Initialize(gac, f, l, tol);
   Standard_Real u, v;
-  gp_Pnt        p;
+  Point3d        p;
   tolbail = tol;
   for (Standard_Integer i = 1; i <= 5; i++)
   {
@@ -1027,7 +1027,7 @@ static Standard_Real ComputeTol(const Handle(Adaptor3d_Curve)&   c3d,
   {
     const Standard_Real t    = IntToReal(i) / IntToReal(nbp);
     const Standard_Real u    = first * (1. - t) + last * t;
-    gp_Pnt              Pc3d = c3d->Value(u);
+    Point3d              Pc3d = c3d->Value(u);
     gp_Pnt2d            Puv  = c2d->Value(u);
     if (!isUPeriodic)
     {
@@ -1055,7 +1055,7 @@ static Standard_Real ComputeTol(const Handle(Adaptor3d_Curve)&   c3d,
         continue;
       }
     }
-    gp_Pnt Pcons = surf->Value(Puv.X(), Puv.Y());
+    Point3d Pcons = surf->Value(Puv.X(), Puv.Y());
     if (Precision::IsInfinite(Pcons.X()) || Precision::IsInfinite(Pcons.Y())
         || Precision::IsInfinite(Pcons.Z()))
     {
@@ -1743,9 +1743,9 @@ static void InternalUpdateTolerances(const TopoDS_Shape&    theOldShape,
   {
     tol                           = 0;
     const TopoDS_Vertex& V        = TopoDS::Vertex(parents.FindKey(iCur));
-    gp_Pnt               aPV      = BRep_Tool::Pnt(V);
+    Point3d               aPV      = BRep_Tool::Pnt(V);
     Standard_Real        aMaxDist = 0.;
-    gp_Pnt               p3d;
+    Point3d               p3d;
     for (lConx.Initialize(parents(iCur)); lConx.More(); lConx.Next())
     {
       const TopoDS_Edge&   E     = TopoDS::Edge(lConx.Value());
@@ -1864,7 +1864,7 @@ void BRepLib::UpdateInnerTolerances(const TopoDS_Shape& aShape)
     Standard_Real fpar, lpar;
     BRep_Tool::Range(anEdge, fpar, lpar);
     Standard_Real             TolEdge = BRep_Tool::Tolerance(anEdge);
-    gp_Pnt                    Pnt1, Pnt2;
+    Point3d                    Pnt1, Pnt2;
     Handle(BRepAdaptor_Curve) anHCurve = new BRepAdaptor_Curve();
     anHCurve->Initialize(anEdge);
     if (!V1.IsNull())
@@ -1893,12 +1893,12 @@ void BRepLib::UpdateInnerTolerances(const TopoDS_Shape& aShape)
         for (Standard_Integer k = 0; k <= NbSamples; k++)
         {
           Standard_Real ParamOnCenter = (k == NbSamples) ? lpar : fpar + k * delta;
-          gp_Pnt        Center        = theRep(1)->Value(ParamOnCenter);
+          Point3d        Center        = theRep(1)->Value(ParamOnCenter);
           Standard_Real ParamOnCurve =
             (BRep_Tool::SameParameter(anEdge))
               ? ParamOnCenter
               : ((k == 0) ? theRep(j)->FirstParameter() : theRep(j)->LastParameter());
-          gp_Pnt        aPoint = theRep(j)->Value(ParamOnCurve);
+          Point3d        aPoint = theRep(j)->Value(ParamOnCurve);
           Standard_Real aDist  = Center.Distance(aPoint);
           // aDist *= 1.1;
           aDist += 2. * Epsilon(aDist);
@@ -1925,14 +1925,14 @@ void BRepLib::UpdateInnerTolerances(const TopoDS_Shape& aShape)
     TolEdge = BRep_Tool::Tolerance(anEdge);
     if (!V1.IsNull())
     {
-      gp_Pnt        End1  = anHCurve->Value(fpar);
+      Point3d        End1  = anHCurve->Value(fpar);
       Standard_Real dist1 = Pnt1.Distance(End1);
       dist1 += 2. * Epsilon(dist1);
       BB.UpdateVertex(V1, Max(dist1, TolEdge));
     }
     if (!V2.IsNull())
     {
-      gp_Pnt        End2  = anHCurve->Value(lpar);
+      Point3d        End2  = anHCurve->Value(lpar);
       Standard_Real dist2 = Pnt2.Distance(End2);
       dist2 += 2. * Epsilon(dist2);
       BB.UpdateVertex(V2, Max(dist2, TolEdge));
@@ -1981,7 +1981,7 @@ public:
   }
 
   // Returns point just calculated
-  gp_Pnt Value() { return mySurfaceProps.Value().Transformed(mySurfaceTrsf); }
+  Point3d Value() { return mySurfaceProps.Value().Transformed(mySurfaceTrsf); }
 
   // Calculate a derivative orthogonal to curve's tangent vector
   gp_Vec Derivative()
@@ -2539,9 +2539,9 @@ struct EvalDeflection
   }
 
   //! Evaluates deflection of the given 2d point from its 3d representation.
-  Standard_Real Eval(const gp_Pnt2d& thePoint2d, const gp_Pnt& thePoint3d)
+  Standard_Real Eval(const gp_Pnt2d& thePoint2d, const Point3d& thePoint3d)
   {
-    gp_Pnt aPnt;
+    Point3d aPnt;
     Surface.D0(thePoint2d.X(), thePoint2d.Y(), aPnt);
     return (thePoint3d.XYZ() - aPnt.XYZ()).SquareModulus();
   }
@@ -2649,7 +2649,7 @@ void BRepLib::UpdateDeflection(const TopoDS_Shape& theShape)
         continue;
       }
 
-      const gp_Pnt aP3d[3] = {aPT->Node(aNode[0]).Transformed(aTrsf),
+      const Point3d aP3d[3] = {aPT->Node(aNode[0]).Transformed(aTrsf),
                               aPT->Node(aNode[1]).Transformed(aTrsf),
                               aPT->Node(aNode[2]).Transformed(aTrsf)};
 
@@ -2658,7 +2658,7 @@ void BRepLib::UpdateDeflection(const TopoDS_Shape& theShape)
                                 aPT->UVNode(aNode[2])};
 
       // Check midpoint of triangle.
-      const gp_Pnt   aMid3d_t = (aP3d[0].XYZ() + aP3d[1].XYZ() + aP3d[2].XYZ()) / 3.;
+      const Point3d   aMid3d_t = (aP3d[0].XYZ() + aP3d[1].XYZ() + aP3d[2].XYZ()) / 3.;
       const gp_Pnt2d aMid2d_t = (aP2d[0].XY() + aP2d[1].XY() + aP2d[2].XY()) / 3.;
 
       aSqDeflection = Max(aSqDeflection, aTool.Eval(aMid2d_t, aMid3d_t));
@@ -2670,13 +2670,13 @@ void BRepLib::UpdateDeflection(const TopoDS_Shape& theShape)
         if (!aLinks.Add(aLink))
         {
           // Do not estimate boundary links due to high distortions at the edge.
-          const gp_Pnt& aP3d1 = aP3d[i];
-          const gp_Pnt& aP3d2 = aP3d[j];
+          const Point3d& aP3d1 = aP3d[i];
+          const Point3d& aP3d2 = aP3d[j];
 
           const gp_Pnt2d& aP2d1 = aP2d[i];
           const gp_Pnt2d& aP2d2 = aP2d[j];
 
-          const gp_Pnt   aMid3d_l = (aP3d1.XYZ() + aP3d2.XYZ()) / 2.;
+          const Point3d   aMid3d_l = (aP3d1.XYZ() + aP3d2.XYZ()) / 2.;
           const gp_Pnt2d aMid2d_l = (aP2d1.XY() + aP2d2.XY()) / 2.;
 
           aSqDeflection = Max(aSqDeflection, aTool.Eval(aMid2d_l, aMid3d_l));
@@ -2806,7 +2806,7 @@ void BRepLib::ReverseSortFaces(const TopoDS_Shape& Sh, TopTools_ListOfShape& LF)
 //=================================================================================================
 
 void BRepLib::BoundingVertex(const NCollection_List<TopoDS_Shape>& theLV,
-                             gp_Pnt&                               theNewCenter,
+                             Point3d&                               theNewCenter,
                              Standard_Real&                        theNewTol)
 {
   Standard_Integer aNb;
@@ -2822,7 +2822,7 @@ void BRepLib::BoundingVertex(const NCollection_List<TopoDS_Shape>& theLV,
     Standard_Integer m, n;
     Standard_Real    aR[2], dR, aD, aEps;
     TopoDS_Vertex    aV[2];
-    gp_Pnt           aP[2];
+    Point3d           aP[2];
     //
     aEps = RealEpsilon();
     for (m = 0; m < aNb; ++m)
@@ -2853,7 +2853,7 @@ void BRepLib::BoundingVertex(const NCollection_List<TopoDS_Shape>& theLV,
     {
       Standard_Real aRr;
       gp_XYZ        aXYZr;
-      gp_Pnt        aPr;
+      Point3d        aPr;
       //
       aRr   = 0.5 * (aR[m] + aR[n] + aD);
       aXYZr = 0.5 * (aP[m].XYZ() + aP[n].XYZ() - aVD.XYZ() * (dR / aD));
@@ -2873,12 +2873,12 @@ void BRepLib::BoundingVertex(const NCollection_List<TopoDS_Shape>& theLV,
     // issue 0027540 - sum of doubles may depend on the order
     // of addition, thus sort the coordinates for stable result
     Standard_Integer                         i;
-    NCollection_Array1<gp_Pnt>               aPoints(0, aNb - 1);
+    NCollection_Array1<Point3d>               aPoints(0, aNb - 1);
     NCollection_List<TopoDS_Shape>::Iterator aIt(theLV);
     for (i = 0; aIt.More(); aIt.Next(), ++i)
     {
       const TopoDS_Vertex& aVi = *((TopoDS_Vertex*)(&aIt.Value()));
-      gp_Pnt               aPi = BRep_Tool::Pnt(aVi);
+      Point3d               aPi = BRep_Tool::Pnt(aVi);
       aPoints(i)               = aPi;
     }
     //
@@ -2891,7 +2891,7 @@ void BRepLib::BoundingVertex(const NCollection_List<TopoDS_Shape>& theLV,
     }
     aXYZ.Divide((Standard_Real)aNb);
     //
-    gp_Pnt aP(aXYZ);
+    Point3d aP(aXYZ);
     //
     // compute the tolerance for the new vertex
     Standard_Real aTi, aDi, aDmax;
@@ -2901,7 +2901,7 @@ void BRepLib::BoundingVertex(const NCollection_List<TopoDS_Shape>& theLV,
     for (; aIt.More(); aIt.Next())
     {
       TopoDS_Vertex& aVi = *((TopoDS_Vertex*)(&aIt.Value()));
-      gp_Pnt         aPi = BRep_Tool::Pnt(aVi);
+      Point3d         aPi = BRep_Tool::Pnt(aVi);
       aTi                = BRep_Tool::Tolerance(aVi);
       aDi                = aP.SquareDistance(aPi);
       aDi                = sqrt(aDi);

@@ -36,19 +36,19 @@
 void DsgPrs_OffsetPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                     const Handle(Prs3d_Drawer)&       aDrawer,
                                     const TCollection_ExtendedString& aText,
-                                    const gp_Pnt&                     AttachmentPoint1,
-                                    const gp_Pnt&                     AttachmentPoint2,
+                                    const Point3d&                     AttachmentPoint1,
+                                    const Point3d&                     AttachmentPoint2,
                                     const gp_Dir&                     aDirection,
                                     const gp_Dir&                     aDirection2,
-                                    const gp_Pnt&                     OffsetPoint)
+                                    const Point3d&                     OffsetPoint)
 {
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
 
   gp_Lin           L1(AttachmentPoint1, aDirection);
   gp_Lin           L2(AttachmentPoint2, aDirection2);
-  gp_Pnt           Proj1 = ElCLib::Value(ElCLib::Parameter(L1, OffsetPoint), L1);
-  gp_Pnt           Proj2 = ElCLib::Value(ElCLib::Parameter(L2, OffsetPoint), L2);
+  Point3d           Proj1 = ElCLib::Value(ElCLib::Parameter(L1, OffsetPoint), L1);
+  Point3d           Proj2 = ElCLib::Value(ElCLib::Parameter(L2, OffsetPoint), L2);
   gp_Lin           L3, L4;
   Standard_Boolean DimNulle = Standard_False;
   if (!Proj1.IsEqual(Proj2, Precision::Confusion() * 100.))
@@ -74,7 +74,7 @@ void DsgPrs_OffsetPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
   if (parcur > parmax)
     parmax = parcur;
   parcur      = ElCLib::Parameter(L3, OffsetPoint);
-  gp_Pnt offp = ElCLib::Value(parcur, L3);
+  Point3d offp = ElCLib::Value(parcur, L3);
 
   Standard_Boolean outside = Standard_False;
   if (parcur < parmin)
@@ -88,8 +88,8 @@ void DsgPrs_OffsetPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
     outside = Standard_True;
   }
 
-  gp_Pnt PointMin = ElCLib::Value(parmin, L3);
-  gp_Pnt PointMax = ElCLib::Value(parmax, L3);
+  Point3d PointMin = ElCLib::Value(parmin, L3);
+  Point3d PointMax = ElCLib::Value(parmax, L3);
 
   // trait de cote : 1er groupe
   Handle(Graphic3d_ArrayOfSegments) aPrims = new Graphic3d_ArrayOfSegments(6);
@@ -162,17 +162,17 @@ void DsgPrs_OffsetPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
 void DsgPrs_OffsetPresentation::AddAxes(const Handle(Prs3d_Presentation)& aPresentation,
                                         const Handle(Prs3d_Drawer)&       aDrawer,
                                         const TCollection_ExtendedString& /*aText*/,
-                                        const gp_Pnt& AttachmentPoint1,
-                                        const gp_Pnt& AttachmentPoint2,
+                                        const Point3d& AttachmentPoint1,
+                                        const Point3d& AttachmentPoint2,
                                         const gp_Dir& aDirection,
                                         const gp_Dir& /*aDirection2*/,
-                                        const gp_Pnt& OffsetPoint)
+                                        const Point3d& OffsetPoint)
 {
   gp_Lin L1(AttachmentPoint1, aDirection);
-  gp_Pnt Proj1 = ElCLib::Value(ElCLib::Parameter(L1, OffsetPoint), L1);
+  Point3d Proj1 = ElCLib::Value(ElCLib::Parameter(L1, OffsetPoint), L1);
 
   gp_Lin L2(AttachmentPoint2, aDirection);
-  gp_Pnt Proj2 = ElCLib::Value(ElCLib::Parameter(L2, OffsetPoint), L2);
+  Point3d Proj2 = ElCLib::Value(ElCLib::Parameter(L2, OffsetPoint), L2);
 
   Handle(Prs3d_DimensionAspect) LA     = aDrawer->DimensionAspect();
   Quantity_Color                acolor = LA->LineAspect()->Aspect()->Color();

@@ -57,7 +57,7 @@ public:
   //! @param[in]  thePnt  point position
   //! @param[in]  theNorm point normal
   //! @return id of added point
-  Standard_EXPORT virtual IVtk_PointId InsertPoint(const gp_Pnt&                  thePnt,
+  Standard_EXPORT virtual IVtk_PointId InsertPoint(const Point3d&                  thePnt,
                                                    const NCollection_Vec3<float>& theNorm)
     Standard_OVERRIDE;
 

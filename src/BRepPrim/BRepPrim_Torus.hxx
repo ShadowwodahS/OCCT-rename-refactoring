@@ -23,7 +23,7 @@
 
 #include <BRepPrim_Revolution.hxx>
 class gp_Ax2;
-class gp_Pnt;
+class Point3d;
 class TopoDS_Face;
 
 //! Implements the torus primitive
@@ -46,7 +46,7 @@ public:
   Standard_EXPORT BRepPrim_Torus(const Standard_Real Major, const Standard_Real Minor);
 
   //! Torus at Center
-  Standard_EXPORT BRepPrim_Torus(const gp_Pnt&       Center,
+  Standard_EXPORT BRepPrim_Torus(const Point3d&       Center,
                                  const Standard_Real Major,
                                  const Standard_Real Minor);
 

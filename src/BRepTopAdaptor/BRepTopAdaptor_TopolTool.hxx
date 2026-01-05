@@ -29,7 +29,7 @@
 
 class Adaptor3d_HVertex;
 class gp_Pnt2d;
-class gp_Pnt;
+class Point3d;
 
 class BRepTopAdaptor_TopolTool;
 DEFINE_STANDARD_HANDLE(BRepTopAdaptor_TopolTool, Adaptor3d_TopolTool)
@@ -110,7 +110,7 @@ public:
     Standard_OVERRIDE;
 
   //! returns 3d point of the vertex V
-  Standard_EXPORT virtual gp_Pnt Pnt(const Handle(Adaptor3d_HVertex)& V) const Standard_OVERRIDE;
+  Standard_EXPORT virtual Point3d Pnt(const Handle(Adaptor3d_HVertex)& V) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual void ComputeSamplePoints() Standard_OVERRIDE;
 
@@ -125,7 +125,7 @@ public:
 
   Standard_EXPORT virtual void SamplePoint(const Standard_Integer Index,
                                            gp_Pnt2d&              P2d,
-                                           gp_Pnt&                P3d) Standard_OVERRIDE;
+                                           Point3d&                P3d) Standard_OVERRIDE;
 
   Standard_EXPORT virtual Standard_Boolean DomainIsInfinite() Standard_OVERRIDE;
 

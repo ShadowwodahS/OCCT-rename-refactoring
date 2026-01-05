@@ -22,7 +22,7 @@
 #include <Standard_Handle.hxx>
 
 class TopoDS_Shape;
-class gp_Pnt;
+class Point3d;
 class Geom_Curve;
 class TopoDS_Edge;
 class Geom_Surface;
@@ -41,7 +41,7 @@ public:
   Standard_EXPORT static Standard_Real Tolerance(const TopoDS_Shape& S);
 
   //! Returns 3D point of vertex <S>.
-  Standard_EXPORT static gp_Pnt Pnt(const TopoDS_Shape& S);
+  Standard_EXPORT static Point3d Pnt(const TopoDS_Shape& S);
 
   Standard_EXPORT static Handle(Geom_Curve) BASISCURVE(const Handle(Geom_Curve)& C);
 

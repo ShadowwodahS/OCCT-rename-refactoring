@@ -68,7 +68,7 @@ Standard_Boolean GeomFill_DraftTrihedron::D0(const Standard_Real Param,
                                              gp_Vec&             Normal,
                                              gp_Vec&             BiNormal)
 {
-  gp_Pnt P;
+  Point3d P;
   gp_Vec T;
   myTrimmed->D1(Param, P, T);
   T.Normalize();
@@ -111,7 +111,7 @@ Standard_Boolean GeomFill_DraftTrihedron::D1(const Standard_Real Param,
                                              gp_Vec&             BiNormal,
                                              gp_Vec&             DBiNormal)
 {
-  gp_Pnt P;
+  Point3d P;
   gp_Vec T, DT, aux;
 
   myTrimmed->D2(Param, P, T, aux);
@@ -168,7 +168,7 @@ Standard_Boolean GeomFill_DraftTrihedron::D2(const Standard_Real Param,
                                              gp_Vec&             DBiNormal,
                                              gp_Vec&             D2BiNormal)
 {
-  gp_Pnt        P;
+  Point3d        P;
   gp_Vec        T, DT, D2T, aux, aux2;
   Standard_Real dot;
 

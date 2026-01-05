@@ -42,7 +42,7 @@ GeomFill_BoundWithSurf::GeomFill_BoundWithSurf(const Adaptor3d_CurveOnSurface& C
 
 //=================================================================================================
 
-gp_Pnt GeomFill_BoundWithSurf::Value(const Standard_Real U) const
+Point3d GeomFill_BoundWithSurf::Value(const Standard_Real U) const
 {
   Standard_Real x = U;
   if (!myPar.IsNull())
@@ -52,7 +52,7 @@ gp_Pnt GeomFill_BoundWithSurf::Value(const Standard_Real U) const
 
 //=================================================================================================
 
-void GeomFill_BoundWithSurf::D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V) const
+void GeomFill_BoundWithSurf::D1(const Standard_Real U, Point3d& P, gp_Vec& V) const
 {
   Standard_Real x = U, dx = 1.;
   if (!myPar.IsNull())
@@ -83,7 +83,7 @@ gp_Vec GeomFill_BoundWithSurf::Norm(const Standard_Real U) const
   if (!myPar.IsNull())
     w = myPar->Value(U);
   myConS.GetCurve()->Value(w).Coord(x, y);
-  gp_Pnt P;
+  Point3d P;
   gp_Vec Su, Sv;
   myConS.GetSurface()->D1(x, y, P, Su, Sv);
   Su.Cross(Sv);
@@ -109,7 +109,7 @@ void GeomFill_BoundWithSurf::D1Norm(const Standard_Real U, gp_Vec& N, gp_Vec& DN
   P2d.Coord(x, y);
   V2d.Multiply(dw);
   V2d.Coord(dx, dy);
-  gp_Pnt P;
+  Point3d P;
   gp_Vec Su, Sv, Suu, Suv, Svv;
   myConS.GetSurface()->D2(x, y, P, Su, Sv, Suu, Svv, Suv);
   N = Su.Crossed(Sv);

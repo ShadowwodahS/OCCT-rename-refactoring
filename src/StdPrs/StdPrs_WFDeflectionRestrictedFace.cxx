@@ -51,7 +51,7 @@ static void FindLimits(const Adaptor3d_Curve& aCurve,
 
   if (firstInf || lastInf)
   {
-    gp_Pnt        P1, P2;
+    Point3d        P1, P2;
     Standard_Real delta = 1;
     if (firstInf && lastInf)
     {
@@ -121,7 +121,7 @@ void StdPrs_WFDeflectionRestrictedFace::Add(const Handle(Prs3d_Presentation)&  a
   // update min max for the hatcher.
   gp_Pnt2d               P1, P2;
   Standard_Real          U1, U2;
-  gp_Pnt                 dummypnt;
+  Point3d                 dummypnt;
   Standard_Real          ddefle = Max(UMax - UMin, VMax - VMin) * aDrawer->DeviationCoefficient();
   TColgp_SequenceOfPnt2d tabP;
   Standard_Real          aHatchingTol = 1.e100;
@@ -475,7 +475,7 @@ Standard_Boolean StdPrs_WFDeflectionRestrictedFace::Match(const Standard_Real X,
 
   // trim the isos
   gp_Pnt2d P1, P2;
-  gp_Pnt   dummypnt;
+  Point3d   dummypnt;
   for (ToolRst.Init(); ToolRst.More(); ToolRst.Next())
   {
     TopAbs_Orientation            Orient    = ToolRst.Orientation();

@@ -289,7 +289,7 @@ TopOpeBRepDS_Transition TopOpeBRep_FFTransitionTool::ProcessFaceTransition(
 // input : C2 : courbe, FC2,LC2 : bornes de C2
 // output : T2 = parametre de P1 sur C2
 // -------------------------------------------------
-static Standard_Boolean FUN_ProjectPoint(const gp_Pnt&             P1,
+static Standard_Boolean FUN_ProjectPoint(const Point3d&             P1,
                                          const Handle(Geom_Curve)& C2,
                                          const Standard_Real       FC2,
                                          const Standard_Real       LC2,
@@ -334,7 +334,7 @@ static Standard_Boolean FUN_GeomTrans(const Handle(Geom_Surface)& S1,
   }
 
   // P1 : D0(C1(T1), D1_C1 : D1(C1(T1))
-  gp_Pnt P1;
+  Point3d P1;
   gp_Vec D1_C1;
   C1->D1(T1, P1, D1_C1);
 
@@ -345,13 +345,13 @@ static Standard_Boolean FUN_GeomTrans(const Handle(Geom_Surface)& S1,
   {
     return Standard_False;
   }
-  gp_Pnt P2;
+  Point3d P2;
   gp_Vec D1_C2;
   C2->D1(T2, P2, D1_C2);
 
   // N1 : D1(S1(U1,V1))
   gp_Vec N1, D1U, D1V;
-  gp_Pnt PS;
+  Point3d PS;
   S1->D1(U1, V1, PS, D1U, D1V);
   D1U.Normalize();
   D1V.Normalize();

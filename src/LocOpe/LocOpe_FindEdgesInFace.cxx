@@ -159,7 +159,7 @@ void LocOpe_FindEdgesInFace::Set(const TopoDS_Shape& Sh, const TopoDS_Face& F)
     if (ToAdd)
     {
       // On classifie 3 points.
-      gp_Pnt        p[3];
+      Point3d        p[3];
       Standard_Real U, V;
       p[0] = C->Value(f);
       p[1] = C->Value(l);

@@ -329,8 +329,8 @@ Standard_Boolean TopOpeBRepDS_Check::OneVertexOnPnt()
       sdr2                   = myHDS->SameDomainReference(S2);
       tol1                   = TopOpeBRepTool_ShapeTool::Tolerance(S1);
       tol2                   = TopOpeBRepTool_ShapeTool::Tolerance(S2);
-      const gp_Pnt& P1       = TopOpeBRepTool_ShapeTool::Pnt(S1);
-      const gp_Pnt& P2       = TopOpeBRepTool_ShapeTool::Pnt(S2);
+      const Point3d& P1       = TopOpeBRepTool_ShapeTool::Pnt(S1);
+      const Point3d& P2       = TopOpeBRepTool_ShapeTool::Pnt(S2);
       Dist                   = P1.Distance(P2);
       if (Dist <= tol1 + tol2)
       {
@@ -348,10 +348,10 @@ Standard_Boolean TopOpeBRepDS_Check::OneVertexOnPnt()
     for (; PE.More(); PE.Next())
     {
       const TopOpeBRepDS_Point& dsPnt = PE.Point();
-      const gp_Pnt&             Pnt1  = dsPnt.Point();
+      const Point3d&             Pnt1  = dsPnt.Point();
       tol1                            = dsPnt.Tolerance();
       tol2                            = TopOpeBRepTool_ShapeTool::Tolerance(S1);
-      const gp_Pnt& Pnt2              = TopOpeBRepTool_ShapeTool::Pnt(S1);
+      const Point3d& Pnt2              = TopOpeBRepTool_ShapeTool::Pnt(S1);
       Dist                            = Pnt1.Distance(Pnt2);
       if (Dist <= tol1 + tol2)
       {

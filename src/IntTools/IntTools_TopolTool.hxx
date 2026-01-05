@@ -20,7 +20,7 @@
 #include <Adaptor3d_Surface.hxx>
 
 class gp_Pnt2d;
-class gp_Pnt;
+class Point3d;
 
 class IntTools_TopolTool;
 DEFINE_STANDARD_HANDLE(IntTools_TopolTool, Adaptor3d_TopolTool)
@@ -64,7 +64,7 @@ public:
   //! The index should be from 1 to NbSamples()
   Standard_EXPORT virtual void SamplePoint(const Standard_Integer Index,
                                            gp_Pnt2d&              P2d,
-                                           gp_Pnt&                P3d) Standard_OVERRIDE;
+                                           Point3d&                P3d) Standard_OVERRIDE;
 
   //! compute the sample-points for the intersections algorithms
   //! by adaptive algorithm for BSpline surfaces. For other surfaces algorithm

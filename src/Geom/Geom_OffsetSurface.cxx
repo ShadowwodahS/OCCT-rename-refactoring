@@ -300,7 +300,7 @@ GeomAbs_Shape Geom_OffsetSurface::Continuity() const
 
 //=================================================================================================
 
-void Geom_OffsetSurface::D0(const Standard_Real U, const Standard_Real V, gp_Pnt& P) const
+void Geom_OffsetSurface::D0(const Standard_Real U, const Standard_Real V, Point3d& P) const
 {
 #ifdef CHECK
   if (myBasisSurfContinuity == GeomAbs_C0)
@@ -316,7 +316,7 @@ void Geom_OffsetSurface::D0(const Standard_Real U, const Standard_Real V, gp_Pnt
 
 void Geom_OffsetSurface::D1(const Standard_Real U,
                             const Standard_Real V,
-                            gp_Pnt&             P,
+                            Point3d&             P,
                             gp_Vec&             D1U,
                             gp_Vec&             D1V) const
 {
@@ -334,7 +334,7 @@ void Geom_OffsetSurface::D1(const Standard_Real U,
 
 void Geom_OffsetSurface::D2(const Standard_Real U,
                             const Standard_Real V,
-                            gp_Pnt&             P,
+                            Point3d&             P,
                             gp_Vec&             D1U,
                             gp_Vec&             D1V,
                             gp_Vec&             D2U,
@@ -356,7 +356,7 @@ void Geom_OffsetSurface::D2(const Standard_Real U,
 
 void Geom_OffsetSurface::D3(const Standard_Real U,
                             const Standard_Real V,
-                            gp_Pnt&             P,
+                            Point3d&             P,
                             gp_Vec&             D1U,
                             gp_Vec&             D1V,
                             gp_Vec&             D2U,
@@ -436,7 +436,7 @@ void Geom_OffsetSurface_UIsoEvaluator::Evaluate(Standard_Integer*, /*Dimension*/
                                                 Standard_Real*    Result,
                                                 Standard_Integer* ReturnCode)
 {
-  gp_Pnt P;
+  Point3d P;
   if (*DerivativeRequest == 0)
   {
     P         = CurrentSurface.Value(IsoPar, *Parameter);
@@ -483,7 +483,7 @@ void Geom_OffsetSurface_VIsoEvaluator::Evaluate(Standard_Integer*, /*Dimension*/
                                                 Standard_Real*    Result,
                                                 Standard_Integer* ReturnCode)
 {
-  gp_Pnt P;
+  Point3d P;
   if (*DerivativeRequest == 0)
   {
     P         = CurrentSurface->Value(*Parameter, IsoPar);

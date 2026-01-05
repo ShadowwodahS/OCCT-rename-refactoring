@@ -49,7 +49,7 @@ inline Standard_Real ShapeAnalysis_Surface::Gap() const
 // purpose  :
 //=======================================================================
 
-inline gp_Pnt ShapeAnalysis_Surface::Value(const Standard_Real u, const Standard_Real v)
+inline Point3d ShapeAnalysis_Surface::Value(const Standard_Real u, const Standard_Real v)
 {
   return myAdSur->Value(u, v);
 }
@@ -59,7 +59,7 @@ inline gp_Pnt ShapeAnalysis_Surface::Value(const Standard_Real u, const Standard
 // purpose  :
 //=======================================================================
 
-inline gp_Pnt ShapeAnalysis_Surface::Value(const gp_Pnt2d& p2d)
+inline Point3d ShapeAnalysis_Surface::Value(const gp_Pnt2d& p2d)
 {
   return myAdSur->Value(p2d.X(), p2d.Y());
 }

@@ -25,7 +25,7 @@
 #include <IGESData_IGESEntity.hxx>
 #include <Standard_Integer.hxx>
 class gp_Pnt2d;
-class gp_Pnt;
+class Point3d;
 
 class IGESDimen_LeaderArrow;
 DEFINE_STANDARD_HANDLE(IGESDimen_LeaderArrow, IGESData_IGESEntity)
@@ -74,7 +74,7 @@ public:
   Standard_EXPORT gp_Pnt2d ArrowHead() const;
 
   //! returns ArrowHead coordinates after Transformation
-  Standard_EXPORT gp_Pnt TransformedArrowHead() const;
+  Standard_EXPORT Point3d TransformedArrowHead() const;
 
   //! returns segment tail coordinates.
   //! raises exception if Index <= 0 or Index > NbSegments
@@ -82,7 +82,7 @@ public:
 
   //! returns segment tail coordinates after Transformation.
   //! raises exception if Index <= 0 or Index > NbSegments
-  Standard_EXPORT gp_Pnt TransformedSegmentTail(const Standard_Integer Index) const;
+  Standard_EXPORT Point3d TransformedSegmentTail(const Standard_Integer Index) const;
 
   DEFINE_STANDARD_RTTIEXT(IGESDimen_LeaderArrow, IGESData_IGESEntity)
 

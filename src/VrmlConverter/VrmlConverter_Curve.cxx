@@ -37,7 +37,7 @@ static void FindLimits(const Adaptor3d_Curve& aCurve,
 
   if (firstInf || lastInf)
   {
-    gp_Pnt        P1, P2;
+    Point3d        P1, P2;
     Standard_Real delta = 1;
     if (firstInf && lastInf)
     {
@@ -99,7 +99,7 @@ static void DrawCurve(const Adaptor3d_Curve&              aCurve,
       gp_Vec V;
       HAV1 = new TColgp_HArray1OfVec(1, 2);
       // array of coordinates of line
-      gp_Pnt p = aCurve.Value(U1);
+      Point3d p = aCurve.Value(U1);
       V.SetX(p.X());
       V.SetY(p.Y());
       V.SetZ(p.Z());
@@ -131,7 +131,7 @@ static void DrawCurve(const Adaptor3d_Curve&              aCurve,
       //      HAI1 = new TColStd_HArray1OfInteger(1,(N/2*3+N%2));
       HAI1             = new TColStd_HArray1OfInteger(1, N + 1);
       Standard_Real DU = (U2 - U1) / (N - 1);
-      gp_Pnt        p;
+      Point3d        p;
 
       for (i = 1; i <= N; i++)
       {

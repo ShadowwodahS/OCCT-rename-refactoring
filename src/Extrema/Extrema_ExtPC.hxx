@@ -33,7 +33,7 @@ class Standard_TypeMismatch;
 class Adaptor3d_Curve;
 class Extrema_CurveTool;
 class Extrema_ExtPElC;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 class Extrema_POnCurv;
 class Extrema_EPCOfExtPC;
@@ -55,7 +55,7 @@ public:
   //! iterations according to the following condition:
   //! if n is the number of iterations,
   //! the algorithm stops when abs(F(Un)-F(Un-1)) < Tol.
-  Standard_EXPORT Extrema_ExtPC(const gp_Pnt&          P,
+  Standard_EXPORT Extrema_ExtPC(const Point3d&          P,
                                 const Adaptor3d_Curve& C,
                                 const Standard_Real    Uinf,
                                 const Standard_Real    Usup,
@@ -69,7 +69,7 @@ public:
   //! iterations according to the following condition:
   //! if n is the number of iterations,
   //! the algorithm stops when abs(F(Un)-F(Un-1)) < Tol.
-  Standard_EXPORT Extrema_ExtPC(const gp_Pnt&          P,
+  Standard_EXPORT Extrema_ExtPC(const Point3d&          P,
                                 const Adaptor3d_Curve& C,
                                 const Standard_Real    TolF = 1.0e-10);
 
@@ -81,7 +81,7 @@ public:
 
   //! An exception is raised if the fields have not been
   //! initialized.
-  Standard_EXPORT void Perform(const gp_Pnt& P);
+  Standard_EXPORT void Perform(const Point3d& P);
 
   //! True if the distances are found.
   Standard_EXPORT Standard_Boolean IsDone() const;
@@ -106,21 +106,21 @@ public:
   //! of parameter LastParameter <P2>.
   Standard_EXPORT void TrimmedSquareDistances(Standard_Real& dist1,
                                               Standard_Real& dist2,
-                                              gp_Pnt&        P1,
-                                              gp_Pnt&        P2) const;
+                                              Point3d&        P1,
+                                              Point3d&        P2) const;
 
 protected:
-  Standard_EXPORT void IntervalPerform(const gp_Pnt& P);
+  Standard_EXPORT void IntervalPerform(const Point3d& P);
 
   Standard_EXPORT void AddSol(const Standard_Real    theU,
-                              const gp_Pnt&          theP,
+                              const Point3d&          theP,
                               const Standard_Real    theSqDist,
                               const Standard_Boolean isMin);
 
 private:
   Standard_Address          myC;
-  gp_Pnt                    Pf;
-  gp_Pnt                    Pl;
+  Point3d                    Pf;
+  Point3d                    Pl;
   Extrema_ExtPElC           myExtPElC;
   Extrema_SequenceOfPOnCurv mypoint;
   Standard_Boolean          mydone;

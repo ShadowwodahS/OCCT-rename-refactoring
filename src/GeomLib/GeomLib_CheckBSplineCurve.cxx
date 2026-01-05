@@ -157,7 +157,7 @@ void GeomLib_CheckBSplineCurve::FixTangentOnCurve(Handle(Geom_BSplineCurve)& the
     for (Standard_Integer i = 2; i < myIndSecondPole; i++)
     {
       Standard_Real ii = i - 1;
-      gp_Pnt        aNewPole((1. - ii / NbSamples) * XYZ1 + ii / NbSamples * XYZ2);
+      Point3d        aNewPole((1. - ii / NbSamples) * XYZ1 + ii / NbSamples * XYZ2);
       theCurve->SetPole(i, aNewPole);
     }
   }
@@ -172,7 +172,7 @@ void GeomLib_CheckBSplineCurve::FixTangentOnCurve(Handle(Geom_BSplineCurve)& the
     for (Standard_Integer i = num_poles - 1; i > myIndPrelastPole; i--)
     {
       Standard_Real ii = num_poles - i;
-      gp_Pnt        aNewPole((1. - ii / NbSamples) * XYZ1 + ii / NbSamples * XYZ2);
+      Point3d        aNewPole((1. - ii / NbSamples) * XYZ1 + ii / NbSamples * XYZ2);
       theCurve->SetPole(i, aNewPole);
     }
   }

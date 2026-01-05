@@ -43,7 +43,7 @@ GeomLib_Interpolate::GeomLib_Interpolate(const Standard_Integer      Degree,
   }
   else
   {
-    gp_Pnt           null_point(0.0e0, 0.0e0, 0.0e0);
+    Point3d           null_point(0.0e0, 0.0e0, 0.0e0);
     Standard_Integer order = Degree + 1, half_order;
     if (order % 2)
     {

@@ -428,7 +428,7 @@ void TopOpeBRep_EdgesIntersector::Perform(const TopoDS_Shape&    E1,
     { // xpu210998 : cto900Q3
       TopExp_Explorer      exv(myEdge2, TopAbs_VERTEX);
       const TopoDS_Vertex& v2  = TopoDS::Vertex(exv.Current());
-      gp_Pnt               pt2 = BRep_Tool::Pnt(v2);
+      Point3d               pt2 = BRep_Tool::Pnt(v2);
       gp_Pnt2d             uv2;
       Standard_Real        d;
       Standard_Boolean     ok = FUN_tool_projPonF(pt2, myFace1, uv2, d);
@@ -441,7 +441,7 @@ void TopOpeBRep_EdgesIntersector::Perform(const TopoDS_Shape&    E1,
       {
         TopoDS_Vertex vf, vl;
         TopExp::Vertices(myEdge1, vf, vl);
-        gp_Pnt        ptf = BRep_Tool::Pnt(vf);
+        Point3d        ptf = BRep_Tool::Pnt(vf);
         Standard_Real df  = pt2.Distance(ptf);
 
         Standard_Real tolf = BRep_Tool::Tolerance(vf);
@@ -753,8 +753,8 @@ Standard_Boolean TopOpeBRep_EdgesIntersector::ComputeSameDomain()
   const gp_Pnt2d& p2 = c2.Location();
 
   const BRepAdaptor_Surface& BAS1 = Surface(1);
-  Standard_Real u1,v1; p1.Coord(u1,v1); gp_Pnt P1 = BAS1.Value(u1,v1);
-  Standard_Real u2,v2; p2.Coord(u2,v2); gp_Pnt P2 = BAS1.Value(u2,v2);// recall myCurve2=C2d(myEdge2,myFace1);
+  Standard_Real u1,v1; p1.Coord(u1,v1); Point3d P1 = BAS1.Value(u1,v1);
+  Standard_Real u2,v2; p2.Coord(u2,v2); Point3d P2 = BAS1.Value(u2,v2);// recall myCurve2=C2d(myEdge2,myFace1);
   // clang-format on
   Standard_Real    dpp  = P1.Distance(P2);
   Standard_Real    tol1 = BRep_Tool::Tolerance(TopoDS::Edge(Edge(1)));
@@ -859,9 +859,9 @@ Standard_Boolean TopOpeBRep_EdgesIntersector::ReduceSegment(TopOpeBRep_Point2d& 
     Tn2.After(Tpsb2.After(), Tpsb2.ShapeAfter());
     Pn.SetTransition(2, Tn2);
 
-    const gp_Pnt& P3Dpsa = psa.Value();
-    const gp_Pnt& P3Dpsb = psb.Value();
-    gp_Pnt        P3Dn((P3Dpsa.X() + P3Dpsb.X()) / 2,
+    const Point3d& P3Dpsa = psa.Value();
+    const Point3d& P3Dpsb = psb.Value();
+    Point3d        P3Dn((P3Dpsa.X() + P3Dpsb.X()) / 2,
                 (P3Dpsa.Y() + P3Dpsb.Y()) / 2,
                 (P3Dpsa.Z() + P3Dpsb.Z()) / 2);
     Pn.SetValue(P3Dn);

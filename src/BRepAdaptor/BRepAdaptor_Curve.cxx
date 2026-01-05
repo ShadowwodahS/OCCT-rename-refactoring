@@ -339,9 +339,9 @@ Standard_Real BRepAdaptor_Curve::Period() const
 
 //=================================================================================================
 
-gp_Pnt BRepAdaptor_Curve::Value(const Standard_Real U) const
+Point3d BRepAdaptor_Curve::Value(const Standard_Real U) const
 {
-  gp_Pnt P;
+  Point3d P;
   if (myConSurf.IsNull())
     P = myCurve.Value(U);
   else
@@ -352,7 +352,7 @@ gp_Pnt BRepAdaptor_Curve::Value(const Standard_Real U) const
 
 //=================================================================================================
 
-void BRepAdaptor_Curve::D0(const Standard_Real U, gp_Pnt& P) const
+void BRepAdaptor_Curve::D0(const Standard_Real U, Point3d& P) const
 {
   if (myConSurf.IsNull())
     myCurve.D0(U, P);
@@ -363,7 +363,7 @@ void BRepAdaptor_Curve::D0(const Standard_Real U, gp_Pnt& P) const
 
 //=================================================================================================
 
-void BRepAdaptor_Curve::D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V) const
+void BRepAdaptor_Curve::D1(const Standard_Real U, Point3d& P, gp_Vec& V) const
 {
   if (myConSurf.IsNull())
     myCurve.D1(U, P, V);
@@ -375,7 +375,7 @@ void BRepAdaptor_Curve::D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V) const
 
 //=================================================================================================
 
-void BRepAdaptor_Curve::D2(const Standard_Real U, gp_Pnt& P, gp_Vec& V1, gp_Vec& V2) const
+void BRepAdaptor_Curve::D2(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2) const
 {
   if (myConSurf.IsNull())
     myCurve.D2(U, P, V1, V2);
@@ -389,7 +389,7 @@ void BRepAdaptor_Curve::D2(const Standard_Real U, gp_Pnt& P, gp_Vec& V1, gp_Vec&
 //=================================================================================================
 
 void BRepAdaptor_Curve::D3(const Standard_Real U,
-                           gp_Pnt&             P,
+                           Point3d&             P,
                            gp_Vec&             V1,
                            gp_Vec&             V2,
                            gp_Vec&             V3) const

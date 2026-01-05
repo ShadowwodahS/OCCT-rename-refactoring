@@ -31,7 +31,7 @@ class TopoDS_Edge;
 class Geom_Curve;
 class Geom2d_Curve;
 class TopoDS_Vertex;
-class gp_Pnt;
+class Point3d;
 
 class ShapeCustom_BSplineRestriction;
 DEFINE_STANDARD_HANDLE(ShapeCustom_BSplineRestriction, ShapeCustom_Modification)
@@ -220,7 +220,7 @@ public:
   Standard_Real SurfaceError() const;
 
   Standard_EXPORT Standard_Boolean NewPoint(const TopoDS_Vertex& V,
-                                            gp_Pnt&              P,
+                                            Point3d&              P,
                                             Standard_Real&       Tol) Standard_OVERRIDE;
 
   Standard_EXPORT Standard_Boolean NewParameter(const TopoDS_Vertex& V,

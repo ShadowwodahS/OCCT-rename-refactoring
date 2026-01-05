@@ -126,7 +126,7 @@ void OpenGl_FrameStatsPrs::Update(const Handle(OpenGl_Workspace)& theWorkspace)
   Handle(Graphic3d_Text) aText = myCountersText.Text();
   aText->SetText(aStats->FormatStats(aRendParams.CollectedStats).ToCString());
   aText->SetHeight(aParams.Height());
-  aText->SetPosition(gp_Pnt());
+  aText->SetPosition(Point3d());
   aText->SetHorizontalAlignment(aParams.HorizontalAlignment());
   aText->SetVerticalAlignment(aParams.VerticalAlignment());
   myCountersText.Reset(aCtx);
@@ -266,10 +266,10 @@ void OpenGl_FrameStatsPrs::updateChart(const Handle(OpenGl_Workspace)& theWorksp
         isTopDown ? (anOffset.y() - aCurrY) : (anOffset.y() - aBinSize.y() + aCurrY);
       const Standard_Real aBinY2 =
         isTopDown ? (anOffset.y() - aCurrSizeY) : (anOffset.y() - aBinSize.y() + aCurrSizeY);
-      myChartArray->SetVertice(aVertLast + 0, gp_Pnt(aBinX1, aBinY2, 0.0));
-      myChartArray->SetVertice(aVertLast + 1, gp_Pnt(aBinX1, aBinY1, 0.0));
-      myChartArray->SetVertice(aVertLast + 2, gp_Pnt(aBinX2, aBinY1, 0.0));
-      myChartArray->SetVertice(aVertLast + 3, gp_Pnt(aBinX2, aBinY2, 0.0));
+      myChartArray->SetVertice(aVertLast + 0, Point3d(aBinX1, aBinY2, 0.0));
+      myChartArray->SetVertice(aVertLast + 1, Point3d(aBinX1, aBinY1, 0.0));
+      myChartArray->SetVertice(aVertLast + 2, Point3d(aBinX2, aBinY1, 0.0));
+      myChartArray->SetVertice(aVertLast + 3, Point3d(aBinX2, aBinY2, 0.0));
 
       if (toFillEdges)
       {
@@ -351,14 +351,14 @@ void OpenGl_FrameStatsPrs::updateChart(const Handle(OpenGl_Workspace)& theWorksp
                           : float(anOffset.x() + aCharSize.x());
 
     myChartLabels[0].Text()->SetText(aLabels[isTopDown ? 0 : 2].ToCString());
-    myChartLabels[0].Text()->SetPosition(gp_Pnt(aLabX, float(anOffset.y()), 0.0f));
+    myChartLabels[0].Text()->SetPosition(Point3d(aLabX, float(anOffset.y()), 0.0f));
 
     myChartLabels[1].Text()->SetText(aLabels[isTopDown ? 1 : 1].ToCString());
     myChartLabels[1].Text()->SetPosition(
-      gp_Pnt(aLabX, float(anOffset.y() - aBinSize.y() / 2), 0.0f));
+      Point3d(aLabX, float(anOffset.y() - aBinSize.y() / 2), 0.0f));
 
     myChartLabels[2].Text()->SetText(aLabels[isTopDown ? 2 : 0].ToCString());
-    myChartLabels[2].Text()->SetPosition(gp_Pnt(aLabX, float(anOffset.y() - aBinSize.y()), 0.0f));
+    myChartLabels[2].Text()->SetPosition(Point3d(aLabX, float(anOffset.y() - aBinSize.y()), 0.0f));
 
     for (int i = 0; i < 3; i++)
     {

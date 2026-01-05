@@ -20,7 +20,7 @@
 #include <Adaptor3d_Surface.hxx>
 #include <IntPatch_Line.hxx>
 
-class gp_Pnt;
+class Point3d;
 class gp_Pnt2d;
 class IntSurf_PntOn2S;
 class IntSurf_LineOn2S;
@@ -75,7 +75,7 @@ public:
   Standard_EXPORT virtual Standard_Boolean IsOutSurf2Box(const gp_Pnt2d& P2) const = 0;
 
   //! Returns TRUE if P is out of the box built from 3D-points.
-  Standard_EXPORT virtual Standard_Boolean IsOutBox(const gp_Pnt& P) const = 0;
+  Standard_EXPORT virtual Standard_Boolean IsOutBox(const Point3d& P) const = 0;
 
   //! Returns the radius of curvature of
   //! the intersection line in given point.

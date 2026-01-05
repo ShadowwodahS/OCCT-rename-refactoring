@@ -86,13 +86,13 @@ static Standard_Boolean PointOnSecondDom(const IntPatch_SequenceOfPathPointOfThe
                                          const Standard_Integer                            Index,
                                          const Standard_Real theToler);
 
-static Standard_Boolean SingleLine(const gp_Pnt&,
+static Standard_Boolean SingleLine(const Point3d&,
                                    const Handle(IntPatch_Line)&,
                                    const Standard_Real,
                                    Standard_Real&,
                                    gp_Vec&);
 
-static Standard_Boolean FindLine(gp_Pnt&                          Psurf,
+static Standard_Boolean FindLine(Point3d&                          Psurf,
                                  const IntPatch_SequenceOfLine&   slin,
                                  const Standard_Real              Tol,
                                  TColStd_ListOfReal&              theLParams,
@@ -101,7 +101,7 @@ static Standard_Boolean FindLine(gp_Pnt&                          Psurf,
                                  Standard_Integer                 OnlyThisLine,
                                  const Handle(Adaptor2d_Curve2d)& thearc,
                                  Standard_Real&                   theparameteronarc,
-                                 gp_Pnt&                          thepointonarc,
+                                 Point3d&                          thepointonarc,
                                  const IntSurf_Quadric&           QuadSurf1,
                                  const IntSurf_Quadric&           QuadSurf2,
                                  Standard_Real&                   theOutputToler);
@@ -120,12 +120,12 @@ static void ProcessRLine(IntPatch_SequenceOfLine&,
                          const Standard_Boolean theIsReqToKeepRLine);
 
 //-- le calcul de dist est completement faux ds la routine ci dessous a revoir (lbr le 18 nov 97)
-Standard_Boolean IntersectionWithAnArc(gp_Pnt&                          PSurf,
+Standard_Boolean IntersectionWithAnArc(Point3d&                          PSurf,
                                        const Handle(IntPatch_ALine)&    alin,
                                        Standard_Real&                   para,
                                        const Handle(Adaptor2d_Curve2d)& thearc,
                                        Standard_Real&                   _theparameteronarc,
-                                       gp_Pnt&                          thepointonarc,
+                                       Point3d&                          thepointonarc,
                                        const IntSurf_Quadric&           QuadSurf,
                                        const Standard_Real              u0alin,
                                        const Standard_Real              u1alin)
@@ -146,7 +146,7 @@ Standard_Boolean IntersectionWithAnArc(gp_Pnt&                          PSurf,
   Standard_Real theparameteronarc = _theparameteronarc;
   for (Standard_Real _theta = u0alin + dtheta; _theta <= u1alin - dtheta; _theta += dtheta)
   {
-    gp_Pnt        P = alin->Value(_theta);
+    Point3d        P = alin->Value(_theta);
     Standard_Real d = P.Distance(PSurf);
     if (d < distmin)
     {
@@ -159,7 +159,7 @@ Standard_Boolean IntersectionWithAnArc(gp_Pnt&                          PSurf,
 
   //-- Distance initiale
   {
-    gp_Pnt        pp0 = alin->Value(thetamin);
+    Point3d        pp0 = alin->Value(thetamin);
     Standard_Real ua0, va0;
     QuadSurf.Parameters(pp0, ua0, va0);
     gp_Pnt2d p2d;
@@ -182,8 +182,8 @@ Standard_Boolean IntersectionWithAnArc(gp_Pnt&                          PSurf,
     Standard_Real ua0, va0, ua1, va1;
     //-- alin->Curve().InternalUVValue(theta,ua0,va0,A,B,C,cost,sint,sign);
     //-- alin->Curve().InternalUVValue(theta+du,ua1,va1,A,B,C,cost,sint,sign);
-    gp_Pnt pp0 = alin->Value(theta);
-    gp_Pnt pp1 = alin->Value(theta + du);
+    Point3d pp0 = alin->Value(theta);
+    Point3d pp1 = alin->Value(theta + du);
     QuadSurf.Parameters(pp0, ua0, va0);
     QuadSurf.Parameters(pp1, ua1, va1);
 
@@ -450,7 +450,7 @@ void PutPointsOnLine(const Handle(Adaptor3d_Surface)&                  S1,
   Standard_Real    U1, V1, U2, V2;
   Standard_Boolean goon;
 
-  gp_Pnt Psurf, ptbid;
+  Point3d Psurf, ptbid;
   gp_Vec Normale, Vtgint, Vtgrst;
 
   gp_Vec   d1u, d1v;
@@ -542,7 +542,7 @@ void PutPointsOnLine(const Handle(Adaptor3d_Surface)&                  S1,
             } //
           }
           //  Modified by skv - Thu Jan 15 15:57:15 2004 OCC4455 End
-          gp_Pnt pointonarc;
+          Point3d pointonarc;
           Vtgint.SetCoord(0, 0, 0);
           Standard_Real      aVertTol = Tolarc;
           TColStd_ListOfReal aLParams;
@@ -733,7 +733,7 @@ Standard_Boolean MultiplePoint(const IntPatch_SequenceOfPathPointOfTheSOnBounds&
   Standard_Integer                    nbpnt             = listpnt.Length();
   IntPatch_ThePathPointOfTheSOnBounds currentpointonrst = listpnt.Value(Index);
   IntPatch_ThePathPointOfTheSOnBounds otherpt;
-  gp_Pnt                              Point = currentpointonrst.Value();
+  Point3d                              Point = currentpointonrst.Value();
   TColStd_Array1OfInteger             localdone(1, nbpnt);
   localdone.Init(0);
   for (ii = 1; ii <= nbpnt; ii++)
@@ -744,7 +744,7 @@ Standard_Boolean MultiplePoint(const IntPatch_SequenceOfPathPointOfTheSOnBounds&
   Standard_Real currentparameter;
   Standard_Real Paraint;
   gp_Vec        Vtgint, Vtgrst;
-  gp_Pnt        ptbid;
+  Point3d        ptbid;
 
   gp_Vec   d1u, d1v;
   gp_Pnt2d p2d;
@@ -920,7 +920,7 @@ Standard_Boolean PointOnSecondDom(const IntPatch_SequenceOfPathPointOfTheSOnBoun
   IntPatch_Point            intpt;
   Handle(Adaptor2d_Curve2d) currentarc;
   Handle(Adaptor3d_HVertex) vtx, vtxbis;
-  gp_Pnt                    ptbid;
+  Point3d                    ptbid;
   gp_Vec                    Vtgrst;
 
   gp_Vec   d1u, d1v;
@@ -1062,7 +1062,7 @@ Standard_Boolean PointOnSecondDom(const IntPatch_SequenceOfPathPointOfTheSOnBoun
   return Retvalue;
 }
 
-Standard_Boolean FindLine(gp_Pnt&                          Psurf,
+Standard_Boolean FindLine(Point3d&                          Psurf,
                           const IntPatch_SequenceOfLine&   slin,
                           const Standard_Real              Tol,
                           TColStd_ListOfReal&              theLParams,
@@ -1071,7 +1071,7 @@ Standard_Boolean FindLine(gp_Pnt&                          Psurf,
                           Standard_Integer                 OnlyThisLine,
                           const Handle(Adaptor2d_Curve2d)& thearc,
                           Standard_Real&                   theparameteronarc,
-                          gp_Pnt&                          thepointonarc,
+                          Point3d&                          thepointonarc,
                           const IntSurf_Quadric&           QuadSurf1,
                           const IntSurf_Quadric&           QuadSurf2,
                           Standard_Real&                   theOutputToler)
@@ -1087,7 +1087,7 @@ Standard_Boolean FindLine(gp_Pnt&                          Psurf,
   Standard_Real       aSqDistMin = RealLast();
   Standard_Real       aSqDist, para;
   Standard_Real       lower, upper;
-  gp_Pnt              pt;
+  Point3d              pt;
   Standard_Integer    i;
   IntPatch_IType      typarc;
 
@@ -1209,7 +1209,7 @@ Standard_Boolean FindLine(gp_Pnt&                          Psurf,
             pt      = ElCLib::Value(para, Parab);
             aSqDist = Psurf.SquareDistance(pt);
 
-            const gp_Pnt        ptbis   = ElCLib::Value(parabis, Parab);
+            const Point3d        ptbis   = ElCLib::Value(parabis, Parab);
             const Standard_Real distbis = Psurf.Distance(ptbis);
             const Standard_Real aDist   = Sqrt(aSqDist);
             const Standard_Real ddist   = distbis - aDist;
@@ -1292,7 +1292,7 @@ Standard_Boolean FindLine(gp_Pnt&                          Psurf,
           // #ifdef OCCT_DEBUG
           //	  Standard_Real anpara=para;
           // #endif
-          gp_Pnt           CopiePsurf    = Psurf;
+          Point3d           CopiePsurf    = Psurf;
           Standard_Boolean IntersectIsOk = IntersectionWithAnArc(CopiePsurf,
                                                                  alin,
                                                                  para,
@@ -1391,7 +1391,7 @@ Standard_Boolean FindLine(gp_Pnt&                          Psurf,
 //            La fonction renvoie False si le point projete est a une distance
 //            superieure a Tol du point a projeter.
 //=======================================================================
-Standard_Boolean SingleLine(const gp_Pnt&                Psurf,
+Standard_Boolean SingleLine(const Point3d&                Psurf,
                             const Handle(IntPatch_Line)& lin,
                             const Standard_Real          Tol,
                             Standard_Real&               Paraint,
@@ -1401,7 +1401,7 @@ Standard_Boolean SingleLine(const gp_Pnt&                Psurf,
 
   Standard_Real    parproj = 0.;
   gp_Vec           tgint;
-  gp_Pnt           ptproj;
+  Point3d           ptproj;
   Standard_Boolean retvalue;
 
   switch (typarc)
@@ -1434,7 +1434,7 @@ Standard_Boolean SingleLine(const gp_Pnt&                Psurf,
       {
         ptproj  = Psurf;
         parproj = aLParams.Last();
-        gp_Pnt aPtemp;
+        Point3d aPtemp;
         if (!alin->D1(parproj, aPtemp, tgint))
         {
           // Previously (before the fix #29807) this code tried to process case
@@ -1501,7 +1501,7 @@ void ProcessSegments(const IntPatch_SequenceOfSegmentOfTheSOnBounds& listedg,
   IntSurf_TypeTrans  trans1, trans2;
   IntSurf_Transition TRest, TArc;
   gp_Vec             tgline, norm1, norm2, tgarc;
-  gp_Pnt             valpt;
+  Point3d             valpt;
 
   gp_Vec   d1u, d1v;
   gp_Pnt2d p2d;
@@ -1876,20 +1876,20 @@ void ProcessSegments(const IntPatch_SequenceOfSegmentOfTheSOnBounds& listedg,
   }
 }
 
-inline const gp_Pnt& PointValue(const Handle(IntPatch_RLine) theRLine,
+inline const Point3d& PointValue(const Handle(IntPatch_RLine) theRLine,
                                 const Standard_Integer       theIndex)
 {
   return theRLine->Point(theIndex).Value();
 }
 
-inline const gp_Pnt& VertexValue(const Handle(IntPatch_RLine) theRLine,
+inline const Point3d& VertexValue(const Handle(IntPatch_RLine) theRLine,
                                  const Standard_Integer       theIndex)
 {
   return theRLine->Vertex(theIndex).Value();
 }
 
 static Standard_Real SquareDistance(const Handle(IntPatch_GLine)& theGLine,
-                                    const gp_Pnt&                 theP,
+                                    const Point3d&                 theP,
                                     Extrema_ExtPC&                theExtr)
 {
   Standard_Real aSQDist = RealLast();
@@ -1934,7 +1934,7 @@ static Standard_Boolean IsRLineGood(const IntSurf_Quadric&       Quad1,
   const IntPatch_IType aGType    = theGLine->ArcType();
   Standard_Integer     aNbPntsM1 = 0;
 
-  const gp_Pnt& (*Value)(const Handle(IntPatch_RLine), const Standard_Integer);
+  const Point3d& (*Value)(const Handle(IntPatch_RLine), const Standard_Integer);
 
   if (theRLine->HasPolygon())
   {
@@ -1970,7 +1970,7 @@ static Standard_Boolean IsRLineGood(const IntSurf_Quadric&       Quad1,
 
   if (aNbPntsM1 == 1)
   {
-    gp_Pnt aP1(Value(theRLine, 1)), aP2(Value(theRLine, 2));
+    Point3d aP1(Value(theRLine, 1)), aP2(Value(theRLine, 2));
 
     if (aP1.SquareDistance(aP2) < aSQTol)
     {
@@ -1978,7 +1978,7 @@ static Standard_Boolean IsRLineGood(const IntSurf_Quadric&       Quad1,
       return Standard_False;
     }
 
-    gp_Pnt aPMid;
+    Point3d aPMid;
     if (theRLine->IsArcOnS1())
     {
       const Handle(Adaptor2d_Curve2d)& anAC2d = theRLine->ArcOnS1();
@@ -2000,7 +2000,7 @@ static Standard_Boolean IsRLineGood(const IntSurf_Quadric&       Quad1,
 
   for (Standard_Integer i = 2; i <= aNbPntsM1; i++)
   {
-    const gp_Pnt        aP(Value(theRLine, i));
+    const Point3d        aP(Value(theRLine, i));
     const Standard_Real aSQDist = SquareDistance(theGLine, aP, anExtr);
 
     if (aSQDist > aSQTol)
@@ -2038,7 +2038,7 @@ void ProcessRLine(IntPatch_SequenceOfLine& slin,
   TColgp_SequenceOfPnt   seq_Pnt3d;
   TColStd_SequenceOfReal seq_Real;
 
-  gp_Pnt ptproj, toproj, valpt;
+  Point3d ptproj, toproj, valpt;
 
   gp_Pnt2d           p2d;
   gp_Vec2d           d2d;
@@ -2367,10 +2367,10 @@ static void ProcessBounds(const Handle(IntPatch_ALine)&,
                           const IntSurf_Quadric&,
                           const IntSurf_Quadric&,
                           Standard_Boolean&,
-                          const gp_Pnt&,
+                          const Point3d&,
                           const Standard_Real,
                           Standard_Boolean&,
-                          const gp_Pnt&,
+                          const Point3d&,
                           const Standard_Real,
                           Standard_Boolean&,
                           const Standard_Real);
@@ -2846,7 +2846,7 @@ void IntPatch_ImpImpIntersection::Perform(const Handle(Adaptor3d_Surface)&   S1,
       slin.Clear();
       spnt.Clear();
 
-      gp_Pnt Ptreference;
+      Point3d Ptreference;
 
       switch (typs1)
       {
@@ -2975,7 +2975,7 @@ void IntPatch_ImpImpIntersection::Perform(const Handle(Adaptor3d_Surface)&   S1,
   //-- contiennent pas.
   for (i = 1; i <= nblin; i++)
   {
-    gp_Pnt         P;
+    Point3d         P;
     IntPatch_Point point;
     Standard_Real  u1, v1, u2, v2;
     if (slin.Value(i)->ArcType() == IntPatch_Circle)
@@ -3066,7 +3066,7 @@ Standard_Integer SetQuad(const Handle(Adaptor3d_Surface)& theS,
   return iRet;
 }
 
-static void SeamPosition(const gp_Pnt& aPLoc, const gp_Ax3& aPos, gp_Ax2& aSeamPos);
+static void SeamPosition(const Point3d& aPLoc, const gp_Ax3& aPos, gp_Ax2& aSeamPos);
 static void AdjustToSeam(const gp_Cylinder& aQuad, gp_Circ& aCirc);
 static void AdjustToSeam(const gp_Sphere& aQuad, gp_Circ& aCirc, const Standard_Real aTolAng);
 static void AdjustToSeam(const gp_Cone& aQuad, gp_Circ& aCirc);
@@ -3175,7 +3175,7 @@ Standard_Boolean IntPCy(const IntSurf_Quadric&   Quad1,
 
     case IntAna_Line: {
       gp_Lin linsol = inter.Line(1);
-      gp_Pnt orig(linsol.Location());
+      Point3d orig(linsol.Location());
       if (NbSol == 1)
       { // ligne de tangence
         gp_Vec TestCurvature(orig, Cy.Location());
@@ -3268,7 +3268,7 @@ Standard_Boolean IntPCy(const IntSurf_Quadric&   Quad1,
       //
     case IntAna_Circle: {
       gp_Circ cirsol;
-      gp_Pnt  ptref;
+      Point3d  ptref;
       gp_Vec  Tgt;
       //
       cirsol = inter.Circle(1);
@@ -3294,7 +3294,7 @@ Standard_Boolean IntPCy(const IntSurf_Quadric&   Quad1,
       //
     case IntAna_Ellipse: {
       gp_Elips elipsol = inter.Ellipse(1);
-      gp_Pnt   ptref;
+      Point3d   ptref;
       gp_Vec   Tgt;
       ElCLib::D1(0., elipsol, ptref, Tgt);
 
@@ -3372,7 +3372,7 @@ Standard_Boolean IntPSp(const IntSurf_Quadric& Quad1,
     break;
       //
     case IntAna_Point: {
-      gp_Pnt        psol = inter.Point(1);
+      Point3d        psol = inter.Point(1);
       Standard_Real U1, V1, U2, V2;
       Quad1.Parameters(psol, U1, V1);
       Quad2.Parameters(psol, U2, V2);
@@ -3388,7 +3388,7 @@ Standard_Boolean IntPSp(const IntSurf_Quadric& Quad1,
       // modified by NIZNHY-PKV Thu Sep 15 11:30:03 2011f
       AdjustToSeam(Sp, cirsol, Tolang);
       // modified by NIZNHY-PKV Thu Sep 15 11:30:15 2011t
-      gp_Pnt ptref;
+      Point3d ptref;
       gp_Vec Tgt;
       ElCLib::D1(0., cirsol, ptref, Tgt);
 
@@ -3430,7 +3430,7 @@ Standard_Boolean IntPCo(const IntSurf_Quadric&    Quad1,
                         IntPatch_SequenceOfPoint& spnt)
 
 {
-  gp_Pnt apex;
+  Point3d apex;
 
   gp_Pln  Pl;
   gp_Cone Co;
@@ -3465,7 +3465,7 @@ Standard_Boolean IntPCo(const IntSurf_Quadric&    Quad1,
   switch (typint)
   {
     case IntAna_Point: {
-      gp_Pnt        psol = inter.Point(1);
+      Point3d        psol = inter.Point(1);
       Standard_Real U1, V1, U2, V2;
       Quad1.Parameters(psol, U1, V1);
       Quad2.Parameters(psol, U2, V2);
@@ -3483,7 +3483,7 @@ Standard_Boolean IntPCo(const IntSurf_Quadric&    Quad1,
         linsol.SetDirection(linsol.Direction().Reversed());
       }
       Standard_Real para = ElCLib::Parameter(linsol, apex);
-      gp_Pnt        ptbid(ElCLib::Value(para + 5., linsol));
+      Point3d        ptbid(ElCLib::Value(para + 5., linsol));
       Standard_Real U1, V1, U2, V2;
       Quad1.Parameters(apex, U1, V1);
       Quad2.Parameters(apex, U2, V2);
@@ -3494,7 +3494,7 @@ Standard_Boolean IntPCo(const IntSurf_Quadric&    Quad1,
         ptsol.SetValue(apex, TolTang, Standard_False);
         ptsol.SetParameters(U1, V1, U2, V2);
         ptsol.SetParameter(para);
-        gp_Pnt ptbid2(apex.XYZ() + 5. * Co.Axis().Direction().XYZ());
+        Point3d ptbid2(apex.XYZ() + 5. * Co.Axis().Direction().XYZ());
         gp_Vec TestCurvature(ptbid, ptbid2);
         gp_Vec Normp, Normco;
         if (!Reversed)
@@ -3658,7 +3658,7 @@ Standard_Boolean IntPCo(const IntSurf_Quadric&    Quad1,
       // modified by NIZNHY-PKV Thu Sep 15 11:34:04 2011f
       AdjustToSeam(Co, cirsol);
       // modified by NIZNHY-PKV Thu Sep 15 11:36:08 2011t
-      gp_Pnt ptref;
+      Point3d ptref;
       gp_Vec Tgt;
       ElCLib::D1(0., cirsol, ptref, Tgt);
 
@@ -3679,7 +3679,7 @@ Standard_Boolean IntPCo(const IntSurf_Quadric&    Quad1,
 
     case IntAna_Ellipse: {
       gp_Elips elipsol = inter.Ellipse(1);
-      gp_Pnt   ptref;
+      Point3d   ptref;
       gp_Vec   Tgt;
       ElCLib::D1(0., elipsol, ptref, Tgt);
 
@@ -3724,7 +3724,7 @@ Standard_Boolean IntPCo(const IntSurf_Quadric&    Quad1,
     break;
 
     case IntAna_Hyperbola: {
-      gp_Pnt tophypr;
+      Point3d tophypr;
       gp_Vec Tgttop;
 
       for (Standard_Integer i = 1; i <= 2; i++)
@@ -3794,7 +3794,7 @@ Standard_Boolean IntPTo(const IntSurf_Quadric&   theQuad1,
     case IntAna_Circle: {
       Standard_Integer  i;
       IntSurf_TypeTrans trans1, trans2;
-      gp_Pnt            ptref;
+      Point3d            ptref;
       gp_Vec            Tgt;
       //
       for (i = 1; i <= NbSol; ++i)
@@ -3840,7 +3840,7 @@ void AdjustToSeam(const gp_Cone& aQuad, gp_Circ& aCirc)
 {
   gp_Ax2 aAx2;
   //
-  const gp_Pnt& aPLoc = aCirc.Location();
+  const Point3d& aPLoc = aCirc.Location();
   const gp_Ax3& aAx3  = aQuad.Position();
   SeamPosition(aPLoc, aAx3, aAx2);
   aCirc.SetPosition(aAx2);
@@ -3860,7 +3860,7 @@ void AdjustToSeam(const gp_Sphere& aQuad, gp_Circ& aCirc, const Standard_Real aT
   const gp_Dir& aDirQ = aAx1Q.Direction();
   if (aDirC.IsParallel(aDirQ, aTolAng))
   {
-    const gp_Pnt& aPLoc = aCirc.Location();
+    const Point3d& aPLoc = aCirc.Location();
     SeamPosition(aPLoc, aAx3, aAx2);
     aCirc.SetPosition(aAx2);
   }
@@ -3872,7 +3872,7 @@ void AdjustToSeam(const gp_Cylinder& aQuad, gp_Circ& aCirc)
 {
   gp_Ax2 aAx2;
   //
-  const gp_Pnt& aPLoc = aCirc.Location();
+  const Point3d& aPLoc = aCirc.Location();
   const gp_Ax3& aAx3  = aQuad.Position();
   SeamPosition(aPLoc, aAx3, aAx2);
   aCirc.SetPosition(aAx2);
@@ -3884,7 +3884,7 @@ void AdjustToSeam(const gp_Torus& aQuad, gp_Circ& aCirc)
 {
   gp_Ax2 aAx2;
   //
-  const gp_Pnt& aPLoc = aCirc.Location();
+  const Point3d& aPLoc = aCirc.Location();
   const gp_Ax3& aAx3  = aQuad.Position();
   SeamPosition(aPLoc, aAx3, aAx2);
   aCirc.SetPosition(aAx2);
@@ -3892,7 +3892,7 @@ void AdjustToSeam(const gp_Torus& aQuad, gp_Circ& aCirc)
 
 //=================================================================================================
 
-void SeamPosition(const gp_Pnt& aPLoc, const gp_Ax3& aPos, gp_Ax2& aSeamPos)
+void SeamPosition(const Point3d& aPLoc, const gp_Ax3& aPos, gp_Ax2& aSeamPos)
 {
   const gp_Dir& aDZ = aPos.Direction();
   const gp_Dir& aDX = aPos.XDirection();
@@ -4653,10 +4653,10 @@ void ProcessBounds(const Handle(IntPatch_ALine)&  alig, //-- ligne courante
                    const IntSurf_Quadric&         Quad1,
                    const IntSurf_Quadric&         Quad2,
                    Standard_Boolean&              procf,
-                   const gp_Pnt&                  ptf,   //-- Debut Ligne Courante
+                   const Point3d&                  ptf,   //-- Debut Ligne Courante
                    const Standard_Real            first, //-- Paramf
                    Standard_Boolean&              procl,
-                   const gp_Pnt&                  ptl,  //-- Fin Ligne courante
+                   const Point3d&                  ptl,  //-- Fin Ligne courante
                    const Standard_Real            last, //-- Paraml
                    Standard_Boolean&              Multpoint,
                    const Standard_Real            Tol)
@@ -4851,7 +4851,7 @@ Standard_Boolean CyCyAnalyticalIntersect(const IntSurf_Quadric&    Quad1,
     break;
 
     case IntAna_Point: {
-      gp_Pnt psol(theInter.Point(1));
+      Point3d psol(theInter.Point(1));
       ptsol.SetValue(psol, Tol, Standard_True);
 
       Standard_Real U1, V1, U2, V2;
@@ -4864,7 +4864,7 @@ Standard_Boolean CyCyAnalyticalIntersect(const IntSurf_Quadric&    Quad1,
     break;
 
     case IntAna_Line: {
-      gp_Pnt ptref;
+      Point3d ptref;
       if (NbSol == 1)
       { // Cylinders are tangent to each other by line
         linsol = theInter.Line(1);
@@ -4986,13 +4986,13 @@ Standard_Boolean CyCyAnalyticalIntersect(const IntSurf_Quadric&    Quad1,
 
     case IntAna_Ellipse: {
       gp_Vec         Tgt;
-      gp_Pnt         ptref;
+      Point3d         ptref;
       IntPatch_Point pmult1, pmult2;
 
       elipsol = theInter.Ellipse(1);
 
-      gp_Pnt pttang1(ElCLib::Value(0.5 * M_PI, elipsol));
-      gp_Pnt pttang2(ElCLib::Value(1.5 * M_PI, elipsol));
+      Point3d pttang1(ElCLib::Value(0.5 * M_PI, elipsol));
+      Point3d pttang2(ElCLib::Value(1.5 * M_PI, elipsol));
 
       Multpoint = Standard_True;
       pmult1.SetValue(pttang1, Tol, Standard_True);
@@ -5039,7 +5039,7 @@ Standard_Boolean CyCyAnalyticalIntersect(const IntSurf_Quadric&    Quad1,
       {
         Standard_Real  aU1, aV1, aU2, aV2;
         IntPatch_Point aIP;
-        gp_Pnt         aP(ElCLib::Value(0., elipsol));
+        Point3d         aP(ElCLib::Value(0., elipsol));
         //
         aIP.SetValue(aP, Tol, Standard_False);
         aIP.SetMultiple(Standard_False);
@@ -5114,7 +5114,7 @@ Standard_Boolean CyCyAnalyticalIntersect(const IntSurf_Quadric&    Quad1,
       {
         Standard_Real  aU1, aV1, aU2, aV2;
         IntPatch_Point aIP;
-        gp_Pnt         aP(ElCLib::Value(0., elipsol));
+        Point3d         aP(ElCLib::Value(0., elipsol));
         //
         aIP.SetValue(aP, Tol, Standard_False);
         aIP.SetMultiple(Standard_False);
@@ -5712,7 +5712,7 @@ static Standard_Boolean AddPointIntoWL(const IntSurf_Quadric&                   
 {
   // Check if the point is in the domain or can be inscribed in the domain after adjusting.
 
-  gp_Pnt aPt1(theQuad1.Value(thePntOnSurf1.X(), thePntOnSurf1.Y())),
+  Point3d aPt1(theQuad1.Value(thePntOnSurf1.X(), thePntOnSurf1.Y())),
     aPt2(theQuad2.Value(thePntOnSurf2.X(), thePntOnSurf2.Y()));
 
   Standard_Real aU1par = thePntOnSurf1.X();
@@ -6110,8 +6110,8 @@ static void SeekAdditionalPoints(const IntSurf_Quadric&                   theQua
         continue;
       }
 
-      const gp_Pnt aP1(theQuad1.Value(U1prec, V1prec)), aP2(theQuad2.Value(U2prec, V2prec));
-      const gp_Pnt aPInt(0.5 * (aP1.XYZ() + aP2.XYZ()));
+      const Point3d aP1(theQuad1.Value(U1prec, V1prec)), aP2(theQuad2.Value(U2prec, V2prec));
+      const Point3d aPInt(0.5 * (aP1.XYZ() + aP2.XYZ()));
 
 #ifdef INTPATCH_IMPIMPINTERSECTION_DEBUG
       std::cout << "|P1Pi| = " << aP1.SquareDistance(aPInt)
@@ -7426,8 +7426,8 @@ static IntPatch_ImpImpIntersection::IntStatus CyCyNoGeometric(
                 const Standard_Integer anIdx1 = j ? aWLine[i]->NbPnts() - 1 : 2;
                 const Standard_Integer anIdx2 = j ? aWLine[i]->NbPnts() : 1;
 
-                const gp_Pnt& aP1 = aWLine[i]->Point(anIdx1).Value();
-                const gp_Pnt& aP2 = aWLine[i]->Point(anIdx2).Value();
+                const Point3d& aP1 = aWLine[i]->Point(anIdx1).Value();
+                const Point3d& aP2 = aWLine[i]->Point(anIdx2).Value();
 
                 const gp_Vec aDir(aP1, aP2);
 
@@ -8013,7 +8013,7 @@ Standard_Boolean IntCySp(const IntSurf_Quadric&    Quad1,
     break;
 
     case IntAna_Point: {
-      gp_Pnt        psol(inter.Point(1));
+      Point3d        psol(inter.Point(1));
       Standard_Real U1, V1, U2, V2;
       Quad1.Parameters(psol, U1, V1);
       Quad2.Parameters(psol, U2, V2);
@@ -8026,7 +8026,7 @@ Standard_Boolean IntCySp(const IntSurf_Quadric&    Quad1,
     case IntAna_Circle: {
       cirsol = inter.Circle(1);
       gp_Vec Tgt;
-      gp_Pnt ptref;
+      Point3d ptref;
       ElCLib::D1(0., cirsol, ptref, Tgt);
 
       if (NbSol == 1)
@@ -8121,7 +8121,7 @@ Standard_Boolean IntCySp(const IntSurf_Quadric&    Quad1,
     break;
 
     case IntAna_NoGeometricSolution: {
-      gp_Pnt             psol;
+      Point3d             psol;
       Standard_Real      U1, V1, U2, V2;
       IntAna_IntQuadQuad anaint(Cy, Sp, Tol);
       if (!anaint.IsDone())
@@ -8146,7 +8146,7 @@ Standard_Boolean IntCySp(const IntSurf_Quadric&    Quad1,
           spnt.Append(ptsol);
         }
 
-        gp_Pnt           ptvalid, ptf, ptl;
+        Point3d           ptvalid, ptf, ptl;
         gp_Vec           tgvalid;
         Standard_Real    first, last, para;
         IntAna_Curve     curvsol;
@@ -8281,7 +8281,7 @@ Standard_Boolean IntCyCo(const IntSurf_Quadric&    Quad1,
     break;
 
     case IntAna_Point: {
-      gp_Pnt        psol(inter.Point(1));
+      Point3d        psol(inter.Point(1));
       Standard_Real U1, V1, U2, V2;
       Quad1.Parameters(psol, U1, V1);
       Quad1.Parameters(psol, U2, V2);
@@ -8293,7 +8293,7 @@ Standard_Boolean IntCyCo(const IntSurf_Quadric&    Quad1,
 
     case IntAna_Circle: {
       gp_Vec           Tgt;
-      gp_Pnt           ptref;
+      Point3d           ptref;
       Standard_Integer j;
       Standard_Real    qwe;
       //
@@ -8323,7 +8323,7 @@ Standard_Boolean IntCyCo(const IntSurf_Quadric&    Quad1,
     break;
 
     case IntAna_NoGeometricSolution: {
-      gp_Pnt             psol;
+      Point3d             psol;
       Standard_Real      U1, V1, U2, V2;
       IntAna_IntQuadQuad anaint(Cy, Co, Tol);
       if (!anaint.IsDone())
@@ -8348,7 +8348,7 @@ Standard_Boolean IntCyCo(const IntSurf_Quadric&    Quad1,
           spnt.Append(ptsol);
         }
 
-        gp_Pnt ptvalid, ptf, ptl;
+        Point3d ptvalid, ptf, ptl;
         gp_Vec tgvalid;
         //
         Standard_Real    first, last, para;
@@ -8471,7 +8471,7 @@ Standard_Boolean ExploreCurve(const gp_Cone&      theCo,
                               IntAna_ListOfCurve& theLC)
 {
   const Standard_Real aSqTol = theTol * theTol;
-  const gp_Pnt        aPapx(theCo.Apex());
+  const Point3d        aPapx(theCo.Apex());
 
   Standard_Real aT1, aT2;
   theCrv.Domain(aT1, aT2);
@@ -8500,7 +8500,7 @@ Standard_Boolean ExploreCurve(const gp_Cone&      theCo,
       isLast = Standard_True;
     }
 
-    const gp_Pnt        aP   = theCrv.Value(aPrm);
+    const Point3d        aP   = theCrv.Value(aPrm);
     const Standard_Real aSqD = aP.SquareDistance(aPapx);
     if (aSqD < aSqTol)
     {
@@ -8576,7 +8576,7 @@ Standard_Boolean IntCoCo(const IntSurf_Quadric&    Quad1,
       // modified by NIZNHY-PKV Wed Nov 30 12:56:06 2005f
     case IntAna_Line: {
       Standard_Real          para, aDot;
-      gp_Pnt                 aPApex1, aPApex2, ptbid;
+      Point3d                 aPApex1, aPApex2, ptbid;
       gp_Lin                 linsol;
       gp_Vec                 NormC1, NormC2;
       IntPatch_Point         aPtsol;
@@ -8689,9 +8689,9 @@ Standard_Boolean IntCoCo(const IntSurf_Quadric&    Quad1,
       // modified by NIZNHY-PKV Wed Nov 30 12:56:10 2005t
 
     case IntAna_Point: {
-      gp_Pnt        ptcontact;
-      gp_Pnt        apex1(Co1.Apex());
-      gp_Pnt        apex2(Co2.Apex());
+      Point3d        ptcontact;
+      Point3d        apex1(Co1.Apex());
+      Point3d        apex2(Co2.Apex());
       Standard_Real param1, param2;
       Standard_Real paramapex1 = ElCLib::LineParameter(Co1.Axis(), apex1);
       Standard_Real paramapex2 = ElCLib::LineParameter(Co2.Axis(), apex2);
@@ -8725,7 +8725,7 @@ Standard_Boolean IntCoCo(const IntSurf_Quadric&    Quad1,
     case IntAna_Circle: {
       IntPatch_Point aPtsol;
       gp_Vec         Tgt;
-      gp_Pnt         ptref;
+      Point3d         ptref;
       for (i = 1; i <= NbSol; i++)
       {
         gp_Circ cirsol = inter.Circle(i);
@@ -8748,7 +8748,7 @@ Standard_Boolean IntCoCo(const IntSurf_Quadric&    Quad1,
         Handle(IntPatch_GLine) glig = new IntPatch_GLine(cirsol, Standard_False, trans1, trans2);
         if (inter.HasCommonGen())
         {
-          const gp_Pnt& aPChar = inter.PChar();
+          const Point3d& aPChar = inter.PChar();
           Quad1.Parameters(aPChar, U1, V1);
           Quad2.Parameters(aPChar, U2, V2);
           aPtsol.SetValue(aPChar, Tol, Standard_False);
@@ -8766,7 +8766,7 @@ Standard_Boolean IntCoCo(const IntSurf_Quadric&    Quad1,
       gp_Elips       elipsol = inter.Ellipse(1);
 
       gp_Vec Tgt;
-      gp_Pnt ptref;
+      Point3d ptref;
       ElCLib::D1(0., elipsol, ptref, Tgt);
 
       Standard_Real qwe = Tgt.DotCross(Quad2.Normale(ptref), Quad1.Normale(ptref));
@@ -8787,7 +8787,7 @@ Standard_Boolean IntCoCo(const IntSurf_Quadric&    Quad1,
       Handle(IntPatch_GLine) glig = new IntPatch_GLine(elipsol, Standard_False, trans1, trans2);
       if (inter.HasCommonGen())
       {
-        const gp_Pnt& aPChar = inter.PChar();
+        const Point3d& aPChar = inter.PChar();
         Quad1.Parameters(aPChar, U1, V1);
         Quad2.Parameters(aPChar, U2, V2);
         aPtsol.SetValue(aPChar, Tol, Standard_False);
@@ -8802,7 +8802,7 @@ Standard_Boolean IntCoCo(const IntSurf_Quadric&    Quad1,
     case IntAna_Hyperbola: {
       IntPatch_Point aPtsol;
       gp_Vec         Tgt;
-      gp_Pnt         ptref;
+      Point3d         ptref;
       for (i = 1; i <= 2; i++)
       {
         gp_Hypr hyprsol = inter.Hyperbola(i);
@@ -8825,7 +8825,7 @@ Standard_Boolean IntCoCo(const IntSurf_Quadric&    Quad1,
         Handle(IntPatch_GLine) glig = new IntPatch_GLine(hyprsol, Standard_False, trans1, trans2);
         if (inter.HasCommonGen())
         {
-          const gp_Pnt& aPChar = inter.PChar();
+          const Point3d& aPChar = inter.PChar();
           Quad1.Parameters(aPChar, U1, V1);
           Quad2.Parameters(aPChar, U2, V2);
           aPtsol.SetValue(aPChar, Tol, Standard_False);
@@ -8863,7 +8863,7 @@ Standard_Boolean IntCoCo(const IntSurf_Quadric&    Quad1,
       Handle(IntPatch_GLine) glig = new IntPatch_GLine(parabsol, Standard_False, trans1, trans2);
       if (inter.HasCommonGen())
       {
-        const gp_Pnt& aPChar = inter.PChar();
+        const Point3d& aPChar = inter.PChar();
         Quad1.Parameters(aPChar, U1, V1);
         Quad2.Parameters(aPChar, U2, V2);
         aPtsol.SetValue(aPChar, Tol, Standard_False);
@@ -8876,7 +8876,7 @@ Standard_Boolean IntCoCo(const IntSurf_Quadric&    Quad1,
     break;
 
     case IntAna_NoGeometricSolution: {
-      gp_Pnt             psol;
+      Point3d             psol;
       IntAna_IntQuadQuad anaint(Co1, Co2, Tol);
       if (!anaint.IsDone())
       {
@@ -8901,7 +8901,7 @@ Standard_Boolean IntCoCo(const IntSurf_Quadric&    Quad1,
           spnt.Append(ptsol);
         }
 
-        gp_Pnt ptvalid, ptf, ptl;
+        Point3d ptvalid, ptf, ptl;
         gp_Vec tgvalid;
 
         Standard_Real    first, last, para;
@@ -9006,7 +9006,7 @@ Standard_Boolean IntCoCo(const IntSurf_Quadric&    Quad1,
   {
     Standard_Real  para;
     IntPatch_Point aPtsol;
-    gp_Pnt         aPApex1, aPApex2;
+    Point3d         aPApex1, aPApex2;
     aPApex1 = Co1.Apex();
     aPApex2 = Co2.Apex();
     // common generatrix of cones
@@ -9015,7 +9015,7 @@ Standard_Boolean IntCoCo(const IntSurf_Quadric&    Quad1,
     Handle(IntPatch_GLine) glig =
       new IntPatch_GLine(linsol, Standard_True, IntSurf_Undecided, IntSurf_Undecided);
 
-    const gp_Pnt& aPChar = inter.PChar();
+    const Point3d& aPChar = inter.PChar();
     Quad1.Parameters(aPChar, U1, V1);
     Quad2.Parameters(aPChar, U2, V2);
     aPtsol.SetValue(aPChar, Tol, Standard_False);
@@ -9080,8 +9080,8 @@ Standard_Boolean IntCoSp(const IntSurf_Quadric&    Quad1,
     break;
 
     case IntAna_Point: {
-      gp_Pnt        ptcontact;
-      gp_Pnt        apex(Co.Apex());
+      Point3d        ptcontact;
+      Point3d        apex(Co.Apex());
       Standard_Real param;
       Standard_Real paramapex = ElCLib::LineParameter(Co.Axis(), apex);
       for (i = 1; i <= NbSol; i++)
@@ -9111,7 +9111,7 @@ Standard_Boolean IntCoSp(const IntSurf_Quadric&    Quad1,
 
     case IntAna_Circle: {
       gp_Vec Tgt;
-      gp_Pnt ptref;
+      Point3d ptref;
 
       for (i = 1; i <= NbSol; i++)
       {
@@ -9145,8 +9145,8 @@ Standard_Boolean IntCoSp(const IntSurf_Quadric&    Quad1,
 
     case IntAna_PointAndCircle: {
       gp_Vec        Tgt;
-      gp_Pnt        ptref;
-      gp_Pnt        apex(Co.Apex());
+      Point3d        ptref;
+      Point3d        apex(Co.Apex());
       Standard_Real param;
       Standard_Real paramapex = ElCLib::LineParameter(Co.Axis(), apex);
 
@@ -9203,7 +9203,7 @@ Standard_Boolean IntCoSp(const IntSurf_Quadric&    Quad1,
     break;
 
     case IntAna_NoGeometricSolution: {
-      gp_Pnt             psol;
+      Point3d             psol;
       IntAna_IntQuadQuad anaint(Co, Sp, Tol);
       if (!anaint.IsDone())
       {
@@ -9228,7 +9228,7 @@ Standard_Boolean IntCoSp(const IntSurf_Quadric&    Quad1,
           spnt.Append(ptsol);
         }
 
-        gp_Pnt           ptvalid, ptf, ptl;
+        Point3d           ptvalid, ptf, ptl;
         gp_Vec           tgvalid;
         Standard_Real    first, last, para;
         Standard_Boolean tgfound, firstp, lastp, kept;
@@ -9365,7 +9365,7 @@ Standard_Boolean IntSpSp(const IntSurf_Quadric&    Quad1,
     break;
 
     case IntAna_Point: {
-      gp_Pnt        psol(inter.Point(1));
+      Point3d        psol(inter.Point(1));
       Standard_Real U1, V1, U2, V2;
       Quad1.Parameters(psol, U1, V1);
       Quad2.Parameters(psol, U2, V2);
@@ -9378,7 +9378,7 @@ Standard_Boolean IntSpSp(const IntSurf_Quadric&    Quad1,
 
     case IntAna_Circle: {
       gp_Circ cirsol = inter.Circle(1);
-      gp_Pnt  ptref;
+      Point3d  ptref;
       gp_Vec  Tgt;
       ElCLib::D1(0., cirsol, ptref, Tgt);
 
@@ -9528,7 +9528,7 @@ static Standard_Boolean TreatResultTorus(const IntSurf_Quadric&    theQuad1,
       Standard_Integer  i;
       IntSurf_TypeTrans trans1, trans2;
       gp_Vec            Tgt;
-      gp_Pnt            ptref;
+      Point3d            ptref;
       //
       for (i = 1; i <= NbSol; ++i)
       {

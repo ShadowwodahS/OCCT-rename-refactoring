@@ -77,8 +77,8 @@ PrsDim_LengthDimension::PrsDim_LengthDimension(const TopoDS_Face& theFace,
 // function : Constructor
 // purpose  : Dimension between two points
 //=======================================================================
-PrsDim_LengthDimension::PrsDim_LengthDimension(const gp_Pnt& theFirstPoint,
-                                               const gp_Pnt& theSecondPoint,
+PrsDim_LengthDimension::PrsDim_LengthDimension(const Point3d& theFirstPoint,
+                                               const Point3d& theSecondPoint,
                                                const gp_Pln& thePlane)
     : PrsDim_Dimension(PrsDim_KOD_LENGTH),
       myHasCustomDirection(Standard_False)
@@ -116,8 +116,8 @@ PrsDim_LengthDimension::PrsDim_LengthDimension(const TopoDS_Edge& theEdge, const
 
 //=================================================================================================
 
-void PrsDim_LengthDimension::SetMeasuredGeometry(const gp_Pnt& theFirstPoint,
-                                                 const gp_Pnt& theSecondPoint,
+void PrsDim_LengthDimension::SetMeasuredGeometry(const Point3d& theFirstPoint,
+                                                 const Point3d& theSecondPoint,
                                                  const gp_Pln& thePlane)
 {
   myFirstPoint   = theFirstPoint;
@@ -215,7 +215,7 @@ gp_Pln PrsDim_LengthDimension::ComputePlane(const gp_Dir& theAttachDir) const
     return gp_Pln();
   }
 
-  gp_Pnt      aThirdPoint(myFirstPoint.Translated(gp_Vec(theAttachDir)));
+  Point3d      aThirdPoint(myFirstPoint.Translated(gp_Vec(theAttachDir)));
   gce_MakePln aPlaneConstrustor(myFirstPoint, mySecondPoint, aThirdPoint);
   return aPlaneConstrustor.Value();
 }
@@ -279,10 +279,10 @@ void PrsDim_LengthDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
 
 //=================================================================================================
 
-void PrsDim_LengthDimension::ComputeFlyoutLinePoints(const gp_Pnt& theFirstPoint,
-                                                     const gp_Pnt& theSecondPoint,
-                                                     gp_Pnt&       theLineBegPoint,
-                                                     gp_Pnt&       theLineEndPoint)
+void PrsDim_LengthDimension::ComputeFlyoutLinePoints(const Point3d& theFirstPoint,
+                                                     const Point3d& theSecondPoint,
+                                                     Point3d&       theLineBegPoint,
+                                                     Point3d&       theLineEndPoint)
 {
   if (!myHasCustomDirection)
   {
@@ -328,8 +328,8 @@ void PrsDim_LengthDimension::ComputeFlyoutSelection(
 
 //=================================================================================================
 
-Standard_Boolean PrsDim_LengthDimension::IsValidPoints(const gp_Pnt& theFirstPoint,
-                                                       const gp_Pnt& theSecondPoint) const
+Standard_Boolean PrsDim_LengthDimension::IsValidPoints(const Point3d& theFirstPoint,
+                                                       const Point3d& theSecondPoint) const
 {
   return theFirstPoint.Distance(theSecondPoint) > Precision::Confusion();
 }
@@ -343,7 +343,7 @@ Standard_Boolean PrsDim_LengthDimension::InitTwoEdgesLength(const TopoDS_Edge& t
                                                             gp_Dir&            theDirAttach)
 {
   Handle(Geom_Curve) aFirstCurve, aSecondCurve;
-  gp_Pnt             aPoint11, aPoint12, aPoint21, aPoint22;
+  Point3d             aPoint11, aPoint12, aPoint21, aPoint22;
   Standard_Boolean   isFirstInfinite  = Standard_False;
   Standard_Boolean   isSecondInfinite = Standard_False;
   if (!PrsDim::ComputeGeometry(theFirstEdge,
@@ -372,7 +372,7 @@ Standard_Boolean PrsDim_LengthDimension::InitTwoEdgesLength(const TopoDS_Edge& t
 
     theDirAttach = aFirstLine->Lin().Direction();
 
-    gp_Pnt aPoint;
+    Point3d aPoint;
     if (!isFirstInfinite)
     {
       if (PrsDim::Nearest(aSecondCurve, aPoint11, aPoint21, aPoint22, aPoint))
@@ -423,7 +423,7 @@ Standard_Boolean PrsDim_LengthDimension::InitTwoEdgesLength(const TopoDS_Edge& t
     Standard_Real aParam1 = 0.0, aParam2 = 0.0;
     anExtrema.LowerDistanceParameters(aParam1, aParam2);
     BRepAdaptor_Curve aCurveAdaptor(theFirstEdge);
-    gp_Pnt            aPoint;
+    Point3d            aPoint;
     gp_Vec            aDir;
     aCurveAdaptor.D1(aParam1, aPoint, aDir);
     if (aDir.SquareMagnitude() <= gp::Resolution())
@@ -445,7 +445,7 @@ Standard_Boolean PrsDim_LengthDimension::InitEdgeVertexLength(const TopoDS_Edge&
                                                               gp_Dir&              theEdgeDir,
                                                               Standard_Boolean     isInfinite)
 {
-  gp_Pnt             anEdgePoint1, anEdgePoint2;
+  Point3d             anEdgePoint1, anEdgePoint2;
   Handle(Geom_Curve) aCurve;
   if (!PrsDim::ComputeGeometry(theEdge, aCurve, anEdgePoint1, anEdgePoint2, isInfinite))
   {
@@ -478,7 +478,7 @@ Standard_Boolean PrsDim_LengthDimension::InitEdgeVertexLength(const TopoDS_Edge&
   }
 
   BRepAdaptor_Curve aCurveAdaptor(theEdge);
-  gp_Pnt            aPoint;
+  Point3d            aPoint;
   gp_Vec            aDir;
   aCurveAdaptor.D1(anExtrema.LowerDistanceParameter(), aPoint, aDir);
   if (aDir.SquareMagnitude() <= gp::Resolution())
@@ -521,7 +521,7 @@ Standard_Boolean PrsDim_LengthDimension::InitEdgeFaceLength(const TopoDS_Edge& t
       aCurveAdaptor.Value(aCurveAdaptor.LastParameter()).SquareDistance(myFirstPoint);
     aParam = (aD1 < aD2 ? aCurveAdaptor.FirstParameter() : aCurveAdaptor.LastParameter());
   }
-  gp_Pnt aP;
+  Point3d aP;
   gp_Vec aV;
   aCurveAdaptor.D1(aParam, aP, aV);
   if (aV.SquareMagnitude() > gp::Resolution())
@@ -808,7 +808,7 @@ Standard_Boolean PrsDim_LengthDimension::InitOneShapePoints(const TopoDS_Shape& 
 
 //=================================================================================================
 
-gp_Pnt PrsDim_LengthDimension::GetTextPosition() const
+Point3d PrsDim_LengthDimension::GetTextPosition() const
 {
   if (IsTextPositionCustom())
   {
@@ -821,7 +821,7 @@ gp_Pnt PrsDim_LengthDimension::GetTextPosition() const
 
 //=================================================================================================
 
-void PrsDim_LengthDimension::SetTextPosition(const gp_Pnt& theTextPos)
+void PrsDim_LengthDimension::SetTextPosition(const Point3d& theTextPos)
 {
   if (!IsValid())
   {

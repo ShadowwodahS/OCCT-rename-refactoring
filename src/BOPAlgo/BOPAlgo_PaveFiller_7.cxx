@@ -787,7 +787,7 @@ void UpdateVertices(const TopoDS_Edge& aE, const TopoDS_Face& aF)
 {
   Standard_Integer     j;
   Standard_Real        aT[2], aUx, aVx, aTolV2, aD2, aD;
-  gp_Pnt               aP3D, aP3Dx;
+  Point3d               aP3D, aP3Dx;
   gp_Pnt2d             aP2Dx;
   Handle(Geom_Surface) aS;
   Handle(Geom_Curve)   aC3D;

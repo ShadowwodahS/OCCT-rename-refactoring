@@ -51,7 +51,7 @@ AIS_Axis::AIS_Axis(const Handle(Geom_Line)& aComponent)
   SetInfiniteState();
 
   gp_Dir        thedir  = myComponent->Position().Direction();
-  gp_Pnt        loc     = myComponent->Position().Location();
+  Point3d        loc     = myComponent->Position().Location();
   Standard_Real aLength = UnitsAPI::AnyToLS(250000., "mm");
   myPfirst              = loc.XYZ() + aLength * thedir.XYZ();
   myPlast               = loc.XYZ() - aLength * thedir.XYZ();
@@ -97,7 +97,7 @@ AIS_Axis::AIS_Axis(const Handle(Geom_Axis1Placement)& anAxis)
   SetInfiniteState();
 
   gp_Dir        thedir  = myComponent->Position().Direction();
-  gp_Pnt        loc     = myComponent->Position().Location();
+  Point3d        loc     = myComponent->Position().Location();
   Standard_Real aLength = UnitsAPI::AnyToLS(250000., "mm");
   myPfirst              = loc.XYZ() + aLength * thedir.XYZ();
   myPlast               = loc.XYZ() - aLength * thedir.XYZ();
@@ -138,7 +138,7 @@ void AIS_Axis::SetComponent(const Handle(Geom_Line)& aComponent)
   SetInfiniteState();
 
   gp_Dir        thedir  = myComponent->Position().Direction();
-  gp_Pnt        loc     = myComponent->Position().Location();
+  Point3d        loc     = myComponent->Position().Location();
   Standard_Real aLength = UnitsAPI::AnyToLS(250000., "mm");
   myPfirst              = loc.XYZ() + aLength * thedir.XYZ();
   myPlast               = loc.XYZ() - aLength * thedir.XYZ();
@@ -247,7 +247,7 @@ void AIS_Axis::ComputeFields()
     // calcul de myPFirst,myPlast
     Handle(Prs3d_DatumAspect) DA     = myDrawer->DatumAspect();
     gp_Ax2                    anAxis = myAx2->Ax2();
-    const gp_Pnt&             Orig   = anAxis.Location();
+    const Point3d&             Orig   = anAxis.Location();
     const gp_Dir&             oX     = anAxis.XDirection();
     const gp_Dir&             oY     = anAxis.YDirection();
     const gp_Dir&             oZ     = anAxis.Direction();

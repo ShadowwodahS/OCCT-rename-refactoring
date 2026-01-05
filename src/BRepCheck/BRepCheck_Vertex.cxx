@@ -90,8 +90,8 @@ void BRepCheck_Vertex::InContext(const TopoDS_Shape& S)
   }
 
   Handle(BRep_TVertex)& TV   = *((Handle(BRep_TVertex)*)&myShape.TShape());
-  const gp_Pnt&         prep = TV->Pnt();
-  gp_Pnt                Controlp;
+  const Point3d&         prep = TV->Pnt();
+  Point3d                Controlp;
 
   TopAbs_ShapeEnum styp = S.ShapeType();
   switch (styp)
@@ -293,11 +293,11 @@ void BRepCheck_Vertex::Blind()
   //   lst.Clear(); // there was NoError...
 
   //   Handle(BRep_TVertex)& TV = *((Handle(BRep_TVertex)*) &myShape.TShape());
-  //   const gp_Pnt& prep = TV->Pnt();
+  //   const Point3d& prep = TV->Pnt();
   //   Standard_Real Tol  = BRep_Tool::Tolerance(TopoDS::Vertex(myShape));
   //   Tol *= Tol;
 
-  //   gp_Pnt Controlp;
+  //   Point3d Controlp;
   //   BRep_ListIteratorOfListOfPointRepresentation itpr(TV->Points());
   //   BRepCheck_Status stat=BRepCheck_NoError;
   //   while (itpr.More()) {
@@ -337,11 +337,11 @@ Standard_Real BRepCheck_Vertex::Tolerance()
 
   // Check all the representations  of the vertex. (i-e checks the TVertex
   Handle(BRep_TVertex)& TV   = *((Handle(BRep_TVertex)*)&myShape.TShape());
-  const gp_Pnt&         prep = TV->Pnt();
+  const Point3d&         prep = TV->Pnt();
   Standard_Real         Tol  = BRep_Tool::Tolerance(TopoDS::Vertex(myShape));
   Tol *= Tol;
 
-  gp_Pnt Controlp;
+  Point3d Controlp;
   Controlp = prep;
   BRep_ListIteratorOfListOfPointRepresentation itpr(TV->Points());
   while (itpr.More())

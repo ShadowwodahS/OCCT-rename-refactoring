@@ -320,7 +320,7 @@ Standard_Real BRepAdaptor_CompCurve::Period() const
   return (TLast - TFirst);
 }
 
-gp_Pnt BRepAdaptor_CompCurve::Value(const Standard_Real U) const
+Point3d BRepAdaptor_CompCurve::Value(const Standard_Real U) const
 {
   Standard_Real    u     = U, d;
   Standard_Integer index = CurIndex;
@@ -328,7 +328,7 @@ gp_Pnt BRepAdaptor_CompCurve::Value(const Standard_Real U) const
   return myCurves->Value(index).Value(u);
 }
 
-void BRepAdaptor_CompCurve::D0(const Standard_Real U, gp_Pnt& P) const
+void BRepAdaptor_CompCurve::D0(const Standard_Real U, Point3d& P) const
 {
   Standard_Real    u     = U, d;
   Standard_Integer index = CurIndex;
@@ -336,7 +336,7 @@ void BRepAdaptor_CompCurve::D0(const Standard_Real U, gp_Pnt& P) const
   myCurves->Value(index).D0(u, P);
 }
 
-void BRepAdaptor_CompCurve::D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V) const
+void BRepAdaptor_CompCurve::D1(const Standard_Real U, Point3d& P, gp_Vec& V) const
 {
   Standard_Real    u     = U, d;
   Standard_Integer index = CurIndex;
@@ -345,7 +345,7 @@ void BRepAdaptor_CompCurve::D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V) cons
   V *= d;
 }
 
-void BRepAdaptor_CompCurve::D2(const Standard_Real U, gp_Pnt& P, gp_Vec& V1, gp_Vec& V2) const
+void BRepAdaptor_CompCurve::D2(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2) const
 {
   Standard_Real    u     = U, d;
   Standard_Integer index = CurIndex;
@@ -356,7 +356,7 @@ void BRepAdaptor_CompCurve::D2(const Standard_Real U, gp_Pnt& P, gp_Vec& V1, gp_
 }
 
 void BRepAdaptor_CompCurve::D3(const Standard_Real U,
-                               gp_Pnt&             P,
+                               Point3d&             P,
                                gp_Vec&             V1,
                                gp_Vec&             V2,
                                gp_Vec&             V3) const

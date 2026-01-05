@@ -41,17 +41,17 @@ public:
   //! Value of surface
   Standard_EXPORT void D0(const Standard_Real theU,
                           const Standard_Real theV,
-                          gp_Pnt&             theValue) const Standard_OVERRIDE;
+                          Point3d&             theValue) const Standard_OVERRIDE;
   //! Value and first derivatives of surface
   Standard_EXPORT void D1(const Standard_Real theU,
                           const Standard_Real theV,
-                          gp_Pnt&             theValue,
+                          Point3d&             theValue,
                           gp_Vec&             theD1U,
                           gp_Vec&             theD1V) const Standard_OVERRIDE;
   //! Value, first and second derivatives of surface
   Standard_EXPORT void D2(const Standard_Real theU,
                           const Standard_Real theV,
-                          gp_Pnt&             theValue,
+                          Point3d&             theValue,
                           gp_Vec&             theD1U,
                           gp_Vec&             theD1V,
                           gp_Vec&             theD2U,
@@ -60,7 +60,7 @@ public:
   //! Value, first, second and third derivatives of surface
   Standard_EXPORT void D3(const Standard_Real theU,
                           const Standard_Real theV,
-                          gp_Pnt&             theValue,
+                          Point3d&             theValue,
                           gp_Vec&             theD1U,
                           gp_Vec&             theD1V,
                           gp_Vec&             theD2U,
@@ -92,13 +92,13 @@ private:
   //! Recalculate D1 values of base surface into D0 value of offset surface
   void CalculateD0(const Standard_Real theU,
                    const Standard_Real theV,
-                   gp_Pnt&             theValue,
+                   Point3d&             theValue,
                    const gp_Vec&       theD1U,
                    const gp_Vec&       theD1V) const;
   //! Recalculate D2 values of base surface into D1 values of offset surface
   void CalculateD1(const Standard_Real theU,
                    const Standard_Real theV,
-                   gp_Pnt&             theValue,
+                   Point3d&             theValue,
                    gp_Vec&             theD1U,
                    gp_Vec&             theD1V,
                    const gp_Vec&       theD2U,
@@ -107,7 +107,7 @@ private:
   //! Recalculate D3 values of base surface into D2 values of offset surface
   void CalculateD2(const Standard_Real theU,
                    const Standard_Real theV,
-                   gp_Pnt&             theValue,
+                   Point3d&             theValue,
                    gp_Vec&             theD1U,
                    gp_Vec&             theD1V,
                    gp_Vec&             theD2U,
@@ -120,7 +120,7 @@ private:
   //! Recalculate D3 values of base surface into D3 values of offset surface
   void CalculateD3(const Standard_Real theU,
                    const Standard_Real theV,
-                   gp_Pnt&             theValue,
+                   Point3d&             theValue,
                    gp_Vec&             theD1U,
                    gp_Vec&             theD1V,
                    gp_Vec&             theD2U,
@@ -139,17 +139,17 @@ private:
                      const gp_Vec&          theD1V) const;
 
   //! Calculate value of base surface/adaptor
-  void BaseD0(const Standard_Real theU, const Standard_Real theV, gp_Pnt& theValue) const;
+  void BaseD0(const Standard_Real theU, const Standard_Real theV, Point3d& theValue) const;
   //! Calculate value and first derivatives of base surface/adaptor
   void BaseD1(const Standard_Real theU,
               const Standard_Real theV,
-              gp_Pnt&             theValue,
+              Point3d&             theValue,
               gp_Vec&             theD1U,
               gp_Vec&             theD1V) const;
   //! Calculate value, first and second derivatives of base surface/adaptor
   void BaseD2(const Standard_Real theU,
               const Standard_Real theV,
-              gp_Pnt&             theValue,
+              Point3d&             theValue,
               gp_Vec&             theD1U,
               gp_Vec&             theD1V,
               gp_Vec&             theD2U,
@@ -158,7 +158,7 @@ private:
   //! Calculate value, first, second and third derivatives of base surface/adaptor
   void BaseD3(const Standard_Real theU,
               const Standard_Real theV,
-              gp_Pnt&             theValue,
+              Point3d&             theValue,
               gp_Vec&             theD1U,
               gp_Vec&             theD1V,
               gp_Vec&             theD2U,

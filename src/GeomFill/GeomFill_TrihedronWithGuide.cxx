@@ -27,7 +27,7 @@ Handle(Adaptor3d_Curve) GeomFill_TrihedronWithGuide::Guide() const
 
 //=================================================================================================
 
-gp_Pnt GeomFill_TrihedronWithGuide::CurrentPointOnGuide() const
+Point3d GeomFill_TrihedronWithGuide::CurrentPointOnGuide() const
 {
   return myCurPointOnGuide;
 }

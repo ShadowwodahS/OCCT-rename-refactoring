@@ -170,7 +170,7 @@ public:
   //! Returns the 3D point (intersection of picking axis with the object nearest to eye)
   //! for the object picked at specified position.
   //! @param theRank rank of detected object within range 1...NbPicked()
-  gp_Pnt PickedPoint(const Standard_Integer theRank) const { return PickedData(theRank).Point; }
+  Point3d PickedPoint(const Standard_Integer theRank) const { return PickedData(theRank).Point; }
 
   //! Remove picked entities associated with specified object.
   Standard_EXPORT Standard_Boolean
@@ -401,7 +401,7 @@ protected:
   SelectMgr_ToleranceMap                                    myTolerances;
   NCollection_DataMap<Graphic3d_ZLayerId, Standard_Integer> myZLayerOrderMap;
   Handle(Select3D_BVHBuilder3d)                             myEntitySetBuilder;
-  gp_Pnt                                                    myCameraEye;
+  Point3d                                                    myCameraEye;
   gp_Dir                                                    myCameraDir;
   Standard_Real                                             myCameraScale;
 

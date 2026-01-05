@@ -63,12 +63,12 @@ void gp_Cone::Coefficients(Standard_Real& A1,
   D                  = T14 * T14 + T24 * T24 - radius * radius - T34 * T34 - 2.0 * radius * T34;
 }
 
-void gp_Cone::Mirror(const gp_Pnt& P)
+void gp_Cone::Mirror(const Point3d& P)
 {
   pos.Mirror(P);
 }
 
-gp_Cone gp_Cone::Mirrored(const gp_Pnt& P) const
+gp_Cone gp_Cone::Mirrored(const Point3d& P) const
 {
   gp_Cone C = *this;
   C.pos.Mirror(P);

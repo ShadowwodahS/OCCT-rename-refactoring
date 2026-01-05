@@ -28,7 +28,7 @@ IMPLEMENT_STANDARD_RTTIEXT(GeomPlate_PointConstraint, RefObject)
 //---------------------------------------------------------
 //         Constructeurs avec un point
 //---------------------------------------------------------
-GeomPlate_PointConstraint::GeomPlate_PointConstraint(const gp_Pnt&          Pt,
+GeomPlate_PointConstraint::GeomPlate_PointConstraint(const Point3d&          Pt,
                                                      const Standard_Integer Order,
                                                      const Standard_Real    TolDist)
     : myOrder(Order),
@@ -73,7 +73,7 @@ GeomPlate_PointConstraint::GeomPlate_PointConstraint(const Standard_Real        
 //---------------------------------------------------------
 // Fonction : D0
 //---------------------------------------------------------
-void GeomPlate_PointConstraint::D0(gp_Pnt& P) const
+void GeomPlate_PointConstraint::D0(Point3d& P) const
 {
   P = myPoint;
 }
@@ -81,7 +81,7 @@ void GeomPlate_PointConstraint::D0(gp_Pnt& P) const
 //---------------------------------------------------------
 // Fonction : D1
 //---------------------------------------------------------
-void GeomPlate_PointConstraint::D1(gp_Pnt& P, gp_Vec& V1, gp_Vec& V2) const
+void GeomPlate_PointConstraint::D1(Point3d& P, gp_Vec& V1, gp_Vec& V2) const
 {
   P  = myPoint;
   V1 = myD11;
@@ -91,7 +91,7 @@ void GeomPlate_PointConstraint::D1(gp_Pnt& P, gp_Vec& V1, gp_Vec& V2) const
 //---------------------------------------------------------
 // Fonction : D2
 //---------------------------------------------------------
-void GeomPlate_PointConstraint::D2(gp_Pnt& P,
+void GeomPlate_PointConstraint::D2(Point3d& P,
                                    gp_Vec& V1,
                                    gp_Vec& V2,
                                    gp_Vec& V3,

@@ -146,7 +146,7 @@ public:
   //! Get    the   barycentre of   Surface.   An   very  poor
   //! estimation is sufficient. This information is useful
   //! to perform well conditioned rational approximation.
-  Standard_EXPORT virtual gp_Pnt BarycentreOfSurf() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Point3d BarycentreOfSurf() const Standard_OVERRIDE;
 
   //! Returns the   length of the maximum section. This
   //! information is useful to perform well conditioned rational
@@ -165,7 +165,7 @@ protected:
 private:
   Standard_EXPORT void Discret();
 
-  gp_Pnt                       myBary;
+  Point3d                       myBary;
   Standard_Real                myRadius;
   Standard_Real                maxang;
   Standard_Real                minang;

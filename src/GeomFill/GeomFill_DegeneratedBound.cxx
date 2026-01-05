@@ -23,7 +23,7 @@ IMPLEMENT_STANDARD_RTTIEXT(GeomFill_DegeneratedBound, GeomFill_Boundary)
 
 //=================================================================================================
 
-GeomFill_DegeneratedBound::GeomFill_DegeneratedBound(const gp_Pnt&       Point,
+GeomFill_DegeneratedBound::GeomFill_DegeneratedBound(const Point3d&       Point,
                                                      const Standard_Real First,
                                                      const Standard_Real Last,
                                                      const Standard_Real Tol3d,
@@ -37,8 +37,8 @@ GeomFill_DegeneratedBound::GeomFill_DegeneratedBound(const gp_Pnt&       Point,
 
 //=================================================================================================
 
-// gp_Pnt GeomFill_DegeneratedBound::Value(const Standard_Real U) const
-gp_Pnt GeomFill_DegeneratedBound::Value(const Standard_Real) const
+// Point3d GeomFill_DegeneratedBound::Value(const Standard_Real U) const
+Point3d GeomFill_DegeneratedBound::Value(const Standard_Real) const
 {
   return myPoint;
 }
@@ -46,7 +46,7 @@ gp_Pnt GeomFill_DegeneratedBound::Value(const Standard_Real) const
 //=================================================================================================
 
 // void GeomFill_DegeneratedBound::D1(const Standard_Real U,
-void GeomFill_DegeneratedBound::D1(const Standard_Real, gp_Pnt& P, gp_Vec& V) const
+void GeomFill_DegeneratedBound::D1(const Standard_Real, Point3d& P, gp_Vec& V) const
 {
   P = myPoint;
   V.SetCoord(0., 0., 0.);

@@ -47,7 +47,7 @@
 // function : Point
 // purpose  : make a 3d point on the current plane
 //=======================================================================
-static gp_Pnt Point(const gp_Pnt2d& P)
+static Point3d Point(const gp_Pnt2d& P)
 {
   return BRepLib::Plane()->Value(P.X(), P.Y());
 }
@@ -59,7 +59,7 @@ static gp_Pnt Point(const gp_Pnt2d& P)
 
 static gp_Pnt2d Project(const TopoDS_Vertex& Ve)
 {
-  gp_Pnt        P = BRep_Tool::Pnt(Ve);
+  Point3d        P = BRep_Tool::Pnt(Ve);
   Standard_Real U, V;
   ElSLib::Parameters(BRepLib::Plane()->Pln(), P, U, V);
   return gp_Pnt2d(U, V);
@@ -577,7 +577,7 @@ void BRepLib_MakeEdge2d::Init(const Handle(Geom2d_Curve)& CC,
     }
     else
     {
-      gp_Pnt P = Point(P1);
+      Point3d P = Point(P1);
       if (V1.IsNull())
       {
         B.MakeVertex(V1, P, preci);
@@ -601,7 +601,7 @@ void BRepLib_MakeEdge2d::Init(const Handle(Geom2d_Curve)& CC,
     }
     else
     {
-      gp_Pnt P = Point(P2);
+      Point3d P = Point(P2);
       if (V2.IsNull())
       {
         B.MakeVertex(V2, P, preci);

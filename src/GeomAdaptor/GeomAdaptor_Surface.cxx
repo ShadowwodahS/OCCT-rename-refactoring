@@ -723,16 +723,16 @@ void GeomAdaptor_Surface::RebuildCache(const Standard_Real theU, const Standard_
 
 //=================================================================================================
 
-gp_Pnt GeomAdaptor_Surface::Value(const Standard_Real U, const Standard_Real V) const
+Point3d GeomAdaptor_Surface::Value(const Standard_Real U, const Standard_Real V) const
 {
-  gp_Pnt aValue;
+  Point3d aValue;
   D0(U, V, aValue);
   return aValue;
 }
 
 //=================================================================================================
 
-void GeomAdaptor_Surface::D0(const Standard_Real U, const Standard_Real V, gp_Pnt& P) const
+void GeomAdaptor_Surface::D0(const Standard_Real U, const Standard_Real V, Point3d& P) const
 {
   switch (mySurfaceType)
   {
@@ -760,7 +760,7 @@ void GeomAdaptor_Surface::D0(const Standard_Real U, const Standard_Real V, gp_Pn
 
 void GeomAdaptor_Surface::D1(const Standard_Real U,
                              const Standard_Real V,
-                             gp_Pnt&             P,
+                             Point3d&             P,
                              gp_Vec&             D1U,
                              gp_Vec&             D1V) const
 {
@@ -820,7 +820,7 @@ void GeomAdaptor_Surface::D1(const Standard_Real U,
 
 void GeomAdaptor_Surface::D2(const Standard_Real U,
                              const Standard_Real V,
-                             gp_Pnt&             P,
+                             Point3d&             P,
                              gp_Vec&             D1U,
                              gp_Vec&             D1V,
                              gp_Vec&             D2U,
@@ -885,7 +885,7 @@ void GeomAdaptor_Surface::D2(const Standard_Real U,
 
 void GeomAdaptor_Surface::D3(const Standard_Real U,
                              const Standard_Real V,
-                             gp_Pnt&             P,
+                             Point3d&             P,
                              gp_Vec&             D1U,
                              gp_Vec&             D1V,
                              gp_Vec&             D2U,

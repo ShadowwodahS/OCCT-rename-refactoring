@@ -52,7 +52,7 @@ inline Standard_Integer BOPDS_Point::Index() const
 // function : SetPnt
 // purpose  :
 //=======================================================================
-inline void BOPDS_Point::SetPnt(const gp_Pnt& thePnt)
+inline void BOPDS_Point::SetPnt(const Point3d& thePnt)
 {
   myPnt = thePnt;
 }
@@ -61,7 +61,7 @@ inline void BOPDS_Point::SetPnt(const gp_Pnt& thePnt)
 // function : Pnt
 // purpose  :
 //=======================================================================
-inline const gp_Pnt& BOPDS_Point::Pnt() const
+inline const Point3d& BOPDS_Point::Pnt() const
 {
   return myPnt;
 }

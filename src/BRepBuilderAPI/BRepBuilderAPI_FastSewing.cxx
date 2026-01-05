@@ -380,7 +380,7 @@ void BRepBuilderAPI_FastSewing::FindVertexes(const Standard_Integer             
   Standard_Real              aUf = 0.0, aUl = 0.0, aVf = 0.0, aVl = 0.0;
   aSurf->Bounds(aUf, aUl, aVf, aVl);
 
-  const gp_Pnt aPnts[aNbPoints] = {aSurf->Value(aUf, aVf),
+  const Point3d aPnts[aNbPoints] = {aSurf->Value(aUf, aVf),
                                    aSurf->Value(aUl, aVf),
                                    aSurf->Value(aUl, aVl),
                                    aSurf->Value(aUf, aVl)};
@@ -542,7 +542,7 @@ Standard_Real BRepBuilderAPI_FastSewing::Compute3DRange()
 //=================================================================================================
 
 BRepBuilderAPI_FastSewing::NodeInspector::NodeInspector(const NCollection_Vector<FS_Vertex>& theVec,
-                                                        const gp_Pnt&                        thePnt,
+                                                        const Point3d&                        thePnt,
                                                         const Standard_Real                  theTol)
     : myVecOfVertexes(theVec),
       myPoint(thePnt),
@@ -556,7 +556,7 @@ BRepBuilderAPI_FastSewing::NodeInspector::NodeInspector(const NCollection_Vector
 
 NCollection_CellFilter_Action BRepBuilderAPI_FastSewing::NodeInspector::Inspect(const Target theID)
 {
-  const gp_Pnt&       aPt     = myVecOfVertexes.Value(theID).myPnt;
+  const Point3d&       aPt     = myVecOfVertexes.Value(theID).myPnt;
   const Standard_Real aSQDist = aPt.SquareDistance(myPoint);
   if (aSQDist < mySQToler)
   {
@@ -685,10 +685,10 @@ void BRepBuilderAPI_FastSewing::FS_Face::CreateTopologicalWire(
 
       const Handle(Geom_Curve) a3dCurv = BRep_Tool::Curve(anTopE, aFirstPar, aLastPar);
       Handle(Geom2d_Curve)     a2dCurv = Get2DCurve(anEdge, aUf, aUl, aVf, aVl);
-      const gp_Pnt             aPref(a3dCurv->Value(aFirstPar));
+      const Point3d             aPref(a3dCurv->Value(aFirstPar));
       const gp_Pnt2d           aP2df(a2dCurv->Value(aFirstPar)), aP2dl(a2dCurv->Value(aLastPar));
-      gp_Pnt                   aP3df(aSurf->Value(aP2df.X(), aP2df.Y()));
-      gp_Pnt                   aP3dl(aSurf->Value(aP2dl.X(), aP2dl.Y()));
+      Point3d                   aP3df(aSurf->Value(aP2df.X(), aP2df.Y()));
+      Point3d                   aP3dl(aSurf->Value(aP2dl.X(), aP2dl.Y()));
       aP3df.Transform(aLocation);
       aP3dl.Transform(aLocation);
       const Standard_Real aSqD1 = aP3df.SquareDistance(aPref);

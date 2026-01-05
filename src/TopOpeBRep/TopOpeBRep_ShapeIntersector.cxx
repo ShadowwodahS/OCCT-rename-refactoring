@@ -1213,7 +1213,7 @@ static TopoDS_Solid GetNewSolid(const TopoDS_Shape& S, TopoDS_Face& F)
   Standard_Real MidU = (MaxU + MinU) * 0.5;
   Standard_Real MidV = (MaxV + MinV) * 0.5;
 
-  gp_Pnt MidP;
+  Point3d MidP;
   gp_Vec SurfDU, SurfDV;
   ASurf.D1(MidU, MidV, MidP, SurfDU, SurfDV);
 
@@ -1229,7 +1229,7 @@ static TopoDS_Solid GetNewSolid(const TopoDS_Shape& S, TopoDS_Face& F)
   Standard_Real Pv1 = MinV + Abs((MaxV - MinV) / 4.);
   Standard_Real Pv2 = MinV + Abs((MaxV - MinV) / 4. * 3.);
 
-  gp_Pnt P1, P2, P3, P4;
+  Point3d P1, P2, P3, P4;
   ASurf.D0(Pu1, Pv1, P1);
   ASurf.D0(Pu1, Pv2, P2);
   ASurf.D0(Pu2, Pv1, P3);

@@ -103,7 +103,7 @@ void PrsDim_PerpendicularRelation::ComputeSelection(const Handle(SelectMgr_Selec
                                                     const Standard_Integer)
 {
   Handle(SelectMgr_EntityOwner)     own = new SelectMgr_EntityOwner(this, 7);
-  const gp_Pnt&                     pos = myPosition;
+  const Point3d&                     pos = myPosition;
   Handle(Select3D_SensitiveSegment) seg;
   Standard_Boolean                  ok1(Standard_False), ok2(Standard_False);
 
@@ -131,9 +131,9 @@ void PrsDim_PerpendicularRelation::ComputeSelection(const Handle(SelectMgr_Selec
     vec2 *= dist2;
     vec2 *= .2;
 
-    gp_Pnt pAx11  = pos.Translated(vec1);
-    gp_Pnt pAx22  = pos.Translated(vec2);
-    gp_Pnt p_symb = pAx22.Translated(vec1);
+    Point3d pAx11  = pos.Translated(vec1);
+    Point3d pAx22  = pos.Translated(vec2);
+    Point3d p_symb = pAx22.Translated(vec1);
     seg           = new Select3D_SensitiveSegment(own, pAx11, p_symb);
     aSelection->Add(seg);
     seg = new Select3D_SensitiveSegment(own, p_symb, pAx22);
@@ -155,7 +155,7 @@ void PrsDim_PerpendicularRelation::ComputeTwoEdgesPerpendicular(
 {
   // 3d lines
   Handle(Geom_Curve) geom1, geom2;
-  gp_Pnt             pint3d, p1, p2, pAx1, pAx2, ptat11, ptat12, ptat21, ptat22;
+  Point3d             pint3d, p1, p2, pAx1, pAx2, ptat11, ptat12, ptat21, ptat22;
   Standard_Boolean   isInfinite1, isInfinite2;
   Handle(Geom_Curve) extCurv;
   if (!PrsDim::ComputeGeometry(TopoDS::Edge(myFShape),
@@ -333,7 +333,7 @@ void PrsDim_PerpendicularRelation::ComputeTwoEdgesPerpendicular(
 
   if ((myExtShape != 0) && !extCurv.IsNull())
   {
-    gp_Pnt pf, pl;
+    Point3d pf, pl;
     if (myExtShape == 1)
     {
       if (!isInfinite1)

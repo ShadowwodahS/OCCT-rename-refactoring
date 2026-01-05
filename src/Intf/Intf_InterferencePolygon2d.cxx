@@ -522,7 +522,7 @@ void Intf_InterferencePolygon2d::Intersect(const Standard_Integer iObje1,
           {
             x = BegO.X() + (segO.X() * parO[nbpi + 1]);
             y = BegO.Y() + (segO.Y() * parO[nbpi + 1]);
-            if (thePi(1).Pnt().Distance(gp_Pnt(x, y, 0)) >= (Tolerance / 4.))
+            if (thePi(1).Pnt().Distance(Point3d(x, y, 0)) >= (Tolerance / 4.))
             {
               nbpi++;
               thePi.Append(Intf_SectionPoint(gp_Pnt2d(x, y),
@@ -643,8 +643,8 @@ void Intf_InterferencePolygon2d::Intersect(const Standard_Integer iObje1,
     suppr = Standard_False;
     for (Standard_Integer i = 2; suppr == Standard_False && i <= nbpi; i++)
     {
-      const gp_Pnt& Pim1 = thePi(i - 1).Pnt();
-      const gp_Pnt& Pi   = thePi(i).Pnt();
+      const Point3d& Pim1 = thePi(i - 1).Pnt();
+      const Point3d& Pi   = thePi(i).Pnt();
       Standard_Real d    = Pi.Distance(Pim1);
       d *= 50.0;
       if (d < lgT && d < lgO)

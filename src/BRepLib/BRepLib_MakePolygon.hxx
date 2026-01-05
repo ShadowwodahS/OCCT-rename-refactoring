@@ -23,7 +23,7 @@
 #include <TopoDS_Vertex.hxx>
 #include <TopoDS_Edge.hxx>
 #include <BRepLib_MakeShape.hxx>
-class gp_Pnt;
+class Point3d;
 class TopoDS_Wire;
 
 //! Class to build polygonal wires.
@@ -49,17 +49,17 @@ public:
   //! Creates an empty MakePolygon.
   Standard_EXPORT BRepLib_MakePolygon();
 
-  Standard_EXPORT BRepLib_MakePolygon(const gp_Pnt& P1, const gp_Pnt& P2);
+  Standard_EXPORT BRepLib_MakePolygon(const Point3d& P1, const Point3d& P2);
 
-  Standard_EXPORT BRepLib_MakePolygon(const gp_Pnt&          P1,
-                                      const gp_Pnt&          P2,
-                                      const gp_Pnt&          P3,
+  Standard_EXPORT BRepLib_MakePolygon(const Point3d&          P1,
+                                      const Point3d&          P2,
+                                      const Point3d&          P3,
                                       const Standard_Boolean Close = Standard_False);
 
-  Standard_EXPORT BRepLib_MakePolygon(const gp_Pnt&          P1,
-                                      const gp_Pnt&          P2,
-                                      const gp_Pnt&          P3,
-                                      const gp_Pnt&          P4,
+  Standard_EXPORT BRepLib_MakePolygon(const Point3d&          P1,
+                                      const Point3d&          P2,
+                                      const Point3d&          P3,
+                                      const Point3d&          P4,
                                       const Standard_Boolean Close = Standard_False);
 
   Standard_EXPORT BRepLib_MakePolygon(const TopoDS_Vertex& V1, const TopoDS_Vertex& V2);
@@ -75,7 +75,7 @@ public:
                                       const TopoDS_Vertex&   V4,
                                       const Standard_Boolean Close = Standard_False);
 
-  Standard_EXPORT void Add(const gp_Pnt& P);
+  Standard_EXPORT void Add(const Point3d& P);
 
   Standard_EXPORT void Add(const TopoDS_Vertex& V);
 

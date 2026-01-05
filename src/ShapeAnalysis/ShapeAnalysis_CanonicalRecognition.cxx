@@ -1140,7 +1140,7 @@ Standard_Boolean CompareSurfParams(const GeomAbs_SurfaceType   theTarget,
   //
   if (theTarget == GeomAbs_Sphere)
   {
-    gp_Pnt aRefLoc = theRefPos.Location(), aLoc = thePos.Location();
+    Point3d aRefLoc = theRefPos.Location(), aLoc = thePos.Location();
     if (aRefLoc.SquareDistance(aLoc) <= theTol * theTol)
     {
       return Standard_True;
@@ -1167,8 +1167,8 @@ Standard_Boolean CompareSurfParams(const GeomAbs_SurfaceType   theTarget,
   {
     gp_Cone aRefCone(theRefPos, theRefParams(1), theRefParams(2));
     gp_Cone aCone(thePos, theParams(1), theParams(2));
-    gp_Pnt  aRefApex = aRefCone.Apex();
-    gp_Pnt  anApex   = aCone.Apex();
+    Point3d  aRefApex = aRefCone.Apex();
+    Point3d  anApex   = aCone.Apex();
     if (aRefApex.SquareDistance(anApex) <= theTol * theTol)
     {
       return Standard_True;
@@ -1195,7 +1195,7 @@ Standard_Real DeviationSurfParams(const GeomAbs_SurfaceType   theTarget,
   //
   if (theTarget == GeomAbs_Sphere)
   {
-    gp_Pnt aRefLoc = theRefPos.Location(), aLoc = thePos.Location();
+    Point3d aRefLoc = theRefPos.Location(), aLoc = thePos.Location();
     aDevPars += aRefLoc.Distance(aLoc);
   }
   else
@@ -1252,7 +1252,7 @@ Standard_Boolean GetSamplePoints(const TopoDS_Wire&           theWire,
     for (j = 1; j <= aNbPoints; ++j)
     {
       Standard_Real t  = aPointGen.Parameter(j);
-      gp_Pnt        aP = aC.Value(t);
+      Point3d        aP = aC.Value(t);
       aPoints.Append(aP.XYZ());
     }
   }
@@ -1308,9 +1308,9 @@ static Standard_Real GetLSGap(const Handle(TColgp_HArray1OfXYZ)& thePoints,
     for (i = thePoints->Lower(); i <= thePoints->Upper(); ++i)
     {
       Standard_Real u, v;
-      gp_Pnt        aPi(thePoints->Value(i));
+      Point3d        aPi(thePoints->Value(i));
       ElSLib::ConeParameters(thePos, anR, anAng, aPi, u, v);
-      gp_Pnt aPp;
+      Point3d aPp;
       ElSLib::ConeD0(u, v, thePos, anR, anAng, aPp);
       aGap = Max(aGap, aPi.SquareDistance(aPp));
     }
@@ -1389,7 +1389,7 @@ void SetCanonicParameters(const GeomAbs_SurfaceType theTarget,
                           gp_Ax3&                   thePos,
                           TColStd_Array1OfReal&     theParams)
 {
-  gp_Pnt aLoc(theSol(1), theSol(2), theSol(3));
+  Point3d aLoc(theSol(1), theSol(2), theSol(3));
   thePos.SetLocation(aLoc);
   if (theTarget == GeomAbs_Sphere || theTarget == GeomAbs_Cylinder)
   {

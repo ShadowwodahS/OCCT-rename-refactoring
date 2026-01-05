@@ -37,20 +37,20 @@ public:
 
   Standard_EXPORT IntSurf_InteriorPoint();
 
-  Standard_EXPORT IntSurf_InteriorPoint(const gp_Pnt&       P,
+  Standard_EXPORT IntSurf_InteriorPoint(const Point3d&       P,
                                         const Standard_Real U,
                                         const Standard_Real V,
                                         const gp_Vec&       Direc,
                                         const gp_Vec2d&     Direc2d);
 
-  Standard_EXPORT void SetValue(const gp_Pnt&       P,
+  Standard_EXPORT void SetValue(const Point3d&       P,
                                 const Standard_Real U,
                                 const Standard_Real V,
                                 const gp_Vec&       Direc,
                                 const gp_Vec2d&     Direc2d);
 
   //! Returns the 3d coordinates of the interior point.
-  const gp_Pnt& Value() const;
+  const Point3d& Value() const;
 
   //! Returns the parameters of the interior point on the
   //! parametric surface.
@@ -74,7 +74,7 @@ public:
 
 protected:
 private:
-  gp_Pnt        point;
+  Point3d        point;
   Standard_Real paramu;
   Standard_Real paramv;
   gp_Vec        direc;

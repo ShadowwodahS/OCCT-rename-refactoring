@@ -42,8 +42,8 @@
 //=================================================================================================
 
 Standard_Boolean ShapeConstruct_Curve::AdjustCurve(const Handle(Geom_Curve)& C3D,
-                                                   const gp_Pnt&             P1,
-                                                   const gp_Pnt&             P2,
+                                                   const Point3d&             P1,
+                                                   const Point3d&             P2,
                                                    const Standard_Boolean    take1,
                                                    const Standard_Boolean    take2) const
 {
@@ -79,8 +79,8 @@ Standard_Boolean ShapeConstruct_Curve::AdjustCurve(const Handle(Geom_Curve)& C3D
 //=================================================================================================
 
 Standard_Boolean ShapeConstruct_Curve::AdjustCurveSegment(const Handle(Geom_Curve)& C3D,
-                                                          const gp_Pnt&             P1,
-                                                          const gp_Pnt&             P2,
+                                                          const Point3d&             P1,
+                                                          const Point3d&             P2,
                                                           const Standard_Real       U1,
                                                           const Standard_Real       U2) const
 {

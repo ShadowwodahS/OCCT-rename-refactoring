@@ -114,7 +114,7 @@ static Standard_Integer PointsByPick(Handle(AppDef_HArray1OfMultiPointConstraint
     return 0;
   if (id < 0)
     return 0;
-  gp_Pnt   P;
+  Point3d   P;
   gp_Pnt2d P2d;
 
   // Standard_Boolean newcurve;
@@ -219,9 +219,9 @@ static void PointsByFile(Handle(AppDef_HArray1OfMultiPointConstraint)&   MPC,
     {
       iFile >> x >> y >> z;
       AppDef_MultiPointConstraint mpc(1, 0);
-      mpc.SetPoint(1, gp_Pnt(x, y, z));
+      mpc.SetPoint(1, Point3d(x, y, z));
       MPC->SetValue(i, mpc);
-      mark = new Draw_Marker3D(gp_Pnt(x, y, z), Draw_X, Draw_orange);
+      mark = new Draw_Marker3D(Point3d(x, y, z), Draw_X, Draw_orange);
       dout << mark;
     }
     Standard_Boolean HasConstrainte = Standard_False;

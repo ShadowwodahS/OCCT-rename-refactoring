@@ -172,7 +172,7 @@ Handle(TColgp_HArray1OfPnt) Poly_Triangulation::MapNodeArray() const
   if (myNodes.IsDoublePrecision())
   {
     // wrap array
-    const gp_Pnt*               aPntArr  = &myNodes.First<gp_Pnt>();
+    const Point3d*               aPntArr  = &myNodes.First<Point3d>();
     Handle(TColgp_HArray1OfPnt) anHArray = new TColgp_HArray1OfPnt();
     TColgp_Array1OfPnt          anArray(*aPntArr, 1, NbNodes());
     anHArray->Move(anArray);
@@ -183,7 +183,7 @@ Handle(TColgp_HArray1OfPnt) Poly_Triangulation::MapNodeArray() const
   Handle(TColgp_HArray1OfPnt) anArray = new TColgp_HArray1OfPnt(1, NbNodes());
   for (Standard_Integer aNodeIter = 0; aNodeIter < NbNodes(); ++aNodeIter)
   {
-    const gp_Pnt aPnt = myNodes.Value(aNodeIter);
+    const Point3d aPnt = myNodes.Value(aNodeIter);
     anArray->SetValue(aNodeIter + 1, aPnt);
   }
   return anArray;
@@ -432,9 +432,9 @@ void Poly_Triangulation::ComputeNormals()
   for (Poly_Array1OfTriangle::Iterator aTriIter(myTriangles); aTriIter.More(); aTriIter.Next())
   {
     aTriIter.Value().Get(anElem[0], anElem[1], anElem[2]);
-    const gp_Pnt aNode0 = myNodes.Value(anElem[0] - 1);
-    const gp_Pnt aNode1 = myNodes.Value(anElem[1] - 1);
-    const gp_Pnt aNode2 = myNodes.Value(anElem[2] - 1);
+    const Point3d aNode0 = myNodes.Value(anElem[0] - 1);
+    const Point3d aNode1 = myNodes.Value(anElem[1] - 1);
+    const Point3d aNode2 = myNodes.Value(anElem[2] - 1);
 
     const gp_XYZ   aVec01   = aNode1.XYZ() - aNode0.XYZ();
     const gp_XYZ   aVec02   = aNode2.XYZ() - aNode0.XYZ();

@@ -23,7 +23,7 @@
 
 #include <BRepLib_MakePolygon.hxx>
 #include <BRepBuilderAPI_MakeShape.hxx>
-class gp_Pnt;
+class Point3d;
 class TopoDS_Vertex;
 class TopoDS_Edge;
 class TopoDS_Wire;
@@ -56,11 +56,11 @@ public:
   //! contains vertices, it can be consulted using the Wire function.
   Standard_EXPORT BRepBuilderAPI_MakePolygon();
 
-  Standard_EXPORT BRepBuilderAPI_MakePolygon(const gp_Pnt& P1, const gp_Pnt& P2);
+  Standard_EXPORT BRepBuilderAPI_MakePolygon(const Point3d& P1, const Point3d& P2);
 
-  Standard_EXPORT BRepBuilderAPI_MakePolygon(const gp_Pnt&          P1,
-                                             const gp_Pnt&          P2,
-                                             const gp_Pnt&          P3,
+  Standard_EXPORT BRepBuilderAPI_MakePolygon(const Point3d&          P1,
+                                             const Point3d&          P2,
+                                             const Point3d&          P3,
                                              const Standard_Boolean Close = Standard_False);
 
   //! Constructs a polygonal wire from 2, 3 or 4 points. Vertices are
@@ -78,10 +78,10 @@ public:
   //! sequence of points p1 - p2 - p1 is found among the arguments of the
   //! constructor, you will create a polygonal wire with two
   //! consecutive coincident edges.
-  Standard_EXPORT BRepBuilderAPI_MakePolygon(const gp_Pnt&          P1,
-                                             const gp_Pnt&          P2,
-                                             const gp_Pnt&          P3,
-                                             const gp_Pnt&          P4,
+  Standard_EXPORT BRepBuilderAPI_MakePolygon(const Point3d&          P1,
+                                             const Point3d&          P2,
+                                             const Point3d&          P3,
+                                             const Point3d&          P4,
                                              const Standard_Boolean Close = Standard_False);
 
   Standard_EXPORT BRepBuilderAPI_MakePolygon(const TopoDS_Vertex& V1, const TopoDS_Vertex& V2);
@@ -113,7 +113,7 @@ public:
                                              const TopoDS_Vertex&   V4,
                                              const Standard_Boolean Close = Standard_False);
 
-  Standard_EXPORT void Add(const gp_Pnt& P);
+  Standard_EXPORT void Add(const Point3d& P);
 
   //! Adds the point P or the vertex V at the end of the
   //! polygonal wire under construction. A vertex is

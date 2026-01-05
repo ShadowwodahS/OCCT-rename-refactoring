@@ -88,7 +88,7 @@ Handle(XCAFNoteObjects_NoteObject) XCAFDoc_Note::GetObject() const
   Handle(TDataXtd_Point) aPnt;
   if (Label().FindChild(ChildLab_Pnt).FindAttribute(TDataXtd_Point::GetID(), aPnt))
   {
-    gp_Pnt aP;
+    Point3d aP;
     if (TDataXtd_Geometry::Point(aPnt->Label(), aP))
     {
       anObj->SetPoint(aP);
@@ -108,7 +108,7 @@ Handle(XCAFNoteObjects_NoteObject) XCAFDoc_Note::GetObject() const
   Handle(TDataXtd_Point) aPntText;
   if (Label().FindChild(ChildLab_PntText).FindAttribute(TDataXtd_Point::GetID(), aPntText))
   {
-    gp_Pnt aP;
+    Point3d aP;
     if (TDataXtd_Geometry::Point(aPntText->Label(), aP))
     {
       anObj->SetPointText(aP);
@@ -142,7 +142,7 @@ void XCAFDoc_Note::SetObject(const Handle(XCAFNoteObjects_NoteObject)& theObject
 
   if (theObject->HasPoint())
   {
-    gp_Pnt aPnt1 = theObject->GetPoint();
+    Point3d aPnt1 = theObject->GetPoint();
     TDataXtd_Point::Set(Label().FindChild(ChildLab_Pnt), aPnt1);
   }
 
@@ -156,7 +156,7 @@ void XCAFDoc_Note::SetObject(const Handle(XCAFNoteObjects_NoteObject)& theObject
 
   if (theObject->HasPointText())
   {
-    gp_Pnt aPntText = theObject->GetPointText();
+    Point3d aPntText = theObject->GetPointText();
     TDataXtd_Point::Set(Label().FindChild(ChildLab_PntText), aPntText);
   }
 

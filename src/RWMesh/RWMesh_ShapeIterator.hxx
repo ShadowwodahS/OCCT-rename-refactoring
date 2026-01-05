@@ -74,16 +74,16 @@ public:
   Standard_EXPORT virtual Standard_Integer NodeUpper() const = 0;
 
   //! Return the node with specified index with applied transformation.
-  gp_Pnt NodeTransformed(const Standard_Integer theNode) const
+  Point3d NodeTransformed(const Standard_Integer theNode) const
   {
-    gp_Pnt aNode = node(theNode);
+    Point3d aNode = node(theNode);
     aNode.Transform(myTrsf);
     return aNode;
   }
 
 protected:
   //! Return the node with specified index with applied transformation.
-  virtual gp_Pnt node(const Standard_Integer theNode) const = 0;
+  virtual Point3d node(const Standard_Integer theNode) const = 0;
 
   //! Main constructor.
   RWMesh_ShapeIterator(const TDF_Label&       theLabel,

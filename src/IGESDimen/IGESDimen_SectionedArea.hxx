@@ -24,7 +24,7 @@
 #include <gp_XYZ.hxx>
 #include <IGESData_HArray1OfIGESEntity.hxx>
 #include <IGESData_IGESEntity.hxx>
-class gp_Pnt;
+class Point3d;
 
 class IGESDimen_SectionedArea;
 DEFINE_STANDARD_HANDLE(IGESDimen_SectionedArea, IGESData_IGESEntity)
@@ -69,10 +69,10 @@ public:
   Standard_EXPORT Standard_Integer Pattern() const;
 
   //! returns point thru which line should pass
-  Standard_EXPORT gp_Pnt PassingPoint() const;
+  Standard_EXPORT Point3d PassingPoint() const;
 
   //! returns point thru which line should pass after Transformation
-  Standard_EXPORT gp_Pnt TransformedPassingPoint() const;
+  Standard_EXPORT Point3d TransformedPassingPoint() const;
 
   //! returns the Z depth
   Standard_EXPORT Standard_Real ZDepth() const;

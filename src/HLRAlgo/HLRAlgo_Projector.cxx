@@ -170,7 +170,7 @@ void HLRAlgo_Projector::Scaled(const Standard_Boolean On)
 
 //=================================================================================================
 
-void HLRAlgo_Projector::Project(const gp_Pnt& P, gp_Pnt2d& Pout) const
+void HLRAlgo_Projector::Project(const Point3d& P, gp_Pnt2d& Pout) const
 {
   if (myType != -1)
   {
@@ -208,7 +208,7 @@ void HLRAlgo_Projector::Project(const gp_Pnt& P, gp_Pnt2d& Pout) const
         break;
       }
       default: {
-        gp_Pnt P2 = P;
+        Point3d P2 = P;
         Transform(P2);
         if (myPersp)
         {
@@ -223,7 +223,7 @@ void HLRAlgo_Projector::Project(const gp_Pnt& P, gp_Pnt2d& Pout) const
   }
   else
   {
-    gp_Pnt P2 = P;
+    Point3d P2 = P;
     Transform(P2);
     if (myPersp)
     {
@@ -257,7 +257,7 @@ void HLRAlgo_Projector::Project(const gp_Pnt& P, gp_Pnt2d& Pout) const
 (-0.5               , 0.5000000000000001, 0.7071067811865475)
 ( 0.4999999999999999, -0.5              , 0.7071067811865476)
 */
-void HLRAlgo_Projector::Project(const gp_Pnt&  P,
+void HLRAlgo_Projector::Project(const Point3d&  P,
                                 Standard_Real& X,
                                 Standard_Real& Y,
                                 Standard_Real& Z) const
@@ -296,7 +296,7 @@ void HLRAlgo_Projector::Project(const gp_Pnt&  P,
         break;
       }
       default: {
-        gp_Pnt P2 = P;
+        Point3d P2 = P;
         Transform(P2);
         P2.Coord(X, Y, Z);
         break;
@@ -305,7 +305,7 @@ void HLRAlgo_Projector::Project(const gp_Pnt&  P,
   }
   else
   {
-    gp_Pnt P2 = P;
+    Point3d P2 = P;
     Transform(P2);
     P2.Coord(X, Y, Z);
     if (myPersp)
@@ -319,12 +319,12 @@ void HLRAlgo_Projector::Project(const gp_Pnt&  P,
 
 //=================================================================================================
 
-void HLRAlgo_Projector::Project(const gp_Pnt& P,
+void HLRAlgo_Projector::Project(const Point3d& P,
                                 const gp_Vec& D1,
                                 gp_Pnt2d&     Pout,
                                 gp_Vec2d&     D1out) const
 {
-  gp_Pnt PP = P;
+  Point3d PP = P;
   PP.Transform(myTrsf);
   gp_Vec DD1 = D1;
   DD1.Transform(myTrsf);
@@ -349,11 +349,11 @@ gp_Lin HLRAlgo_Projector::Shoot(const Standard_Real X, const Standard_Real Y) co
   gp_Lin L;
   if (myPersp)
   {
-    L = gp_Lin(gp_Pnt(0, 0, myFocus), gp_Dir(X, Y, -myFocus));
+    L = gp_Lin(Point3d(0, 0, myFocus), gp_Dir(X, Y, -myFocus));
   }
   else
   {
-    L = gp_Lin(gp_Pnt(X, Y, 0), gp_Dir(0, 0, -1));
+    L = gp_Lin(Point3d(X, Y, 0), gp_Dir(0, 0, -1));
   }
   L.Transform(myInvTrsf);
   return L;

@@ -104,15 +104,15 @@ Standard_Boolean IGESGraph_TextDisplayTemplate::IsIncremental() const
   return (FormNumber() == 1);
 }
 
-gp_Pnt IGESGraph_TextDisplayTemplate::StartingCorner() const
+Point3d IGESGraph_TextDisplayTemplate::StartingCorner() const
 {
-  return (gp_Pnt(theCorner));
+  return (Point3d(theCorner));
 }
 
-gp_Pnt IGESGraph_TextDisplayTemplate::TransformedStartingCorner() const
+Point3d IGESGraph_TextDisplayTemplate::TransformedStartingCorner() const
 {
   gp_XYZ TempXYZ = theCorner;
   if (HasTransf())
     Location().Transforms(TempXYZ);
-  return (gp_Pnt(TempXYZ));
+  return (Point3d(TempXYZ));
 }

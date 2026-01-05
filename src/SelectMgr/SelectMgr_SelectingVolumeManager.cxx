@@ -319,7 +319,7 @@ Standard_Boolean SelectMgr_SelectingVolumeManager::OverlapsBox(const SelectMgr_V
 // purpose  : Intersection test between defined volume and given point
 //=======================================================================
 Standard_Boolean SelectMgr_SelectingVolumeManager::OverlapsPoint(
-  const gp_Pnt&            thePnt,
+  const Point3d&            thePnt,
   SelectBasics_PickResult& thePickResult) const
 {
   if (myActiveSelectingVolume.IsNull())
@@ -334,7 +334,7 @@ Standard_Boolean SelectMgr_SelectingVolumeManager::OverlapsPoint(
 // function : OverlapsPoint
 // purpose  : Intersection test between defined volume and given point
 //=======================================================================
-Standard_Boolean SelectMgr_SelectingVolumeManager::OverlapsPoint(const gp_Pnt& thePnt) const
+Standard_Boolean SelectMgr_SelectingVolumeManager::OverlapsPoint(const Point3d& thePnt) const
 {
   if (myActiveSelectingVolume.IsNull())
   {
@@ -372,8 +372,8 @@ Standard_Boolean SelectMgr_SelectingVolumeManager::OverlapsPolygon(
 // purpose  : Checks if line segment overlaps selecting volume
 //=======================================================================
 Standard_Boolean SelectMgr_SelectingVolumeManager::OverlapsSegment(
-  const gp_Pnt&            thePt1,
-  const gp_Pnt&            thePt2,
+  const Point3d&            thePt1,
+  const Point3d&            thePt2,
   SelectBasics_PickResult& thePickResult) const
 {
   if (myActiveSelectingVolume.IsNull())
@@ -392,9 +392,9 @@ Standard_Boolean SelectMgr_SelectingVolumeManager::OverlapsSegment(
 //            given sensitivity type
 //=======================================================================
 Standard_Boolean SelectMgr_SelectingVolumeManager::OverlapsTriangle(
-  const gp_Pnt&            thePt1,
-  const gp_Pnt&            thePt2,
-  const gp_Pnt&            thePt3,
+  const Point3d&            thePt1,
+  const Point3d&            thePt2,
+  const Point3d&            thePt3,
   Standard_Integer         theSensType,
   SelectBasics_PickResult& thePickResult) const
 {
@@ -414,7 +414,7 @@ Standard_Boolean SelectMgr_SelectingVolumeManager::OverlapsTriangle(
 //=================================================================================================
 
 Standard_Boolean SelectMgr_SelectingVolumeManager::OverlapsSphere(
-  const gp_Pnt&            theCenter,
+  const Point3d&            theCenter,
   const Standard_Real      theRadius,
   SelectBasics_PickResult& thePickResult) const
 {
@@ -430,7 +430,7 @@ Standard_Boolean SelectMgr_SelectingVolumeManager::OverlapsSphere(
 
 //=================================================================================================
 
-Standard_Boolean SelectMgr_SelectingVolumeManager::OverlapsSphere(const gp_Pnt&       theCenter,
+Standard_Boolean SelectMgr_SelectingVolumeManager::OverlapsSphere(const Point3d&       theCenter,
                                                                   const Standard_Real theRadius,
                                                                   Standard_Boolean* theInside) const
 {
@@ -521,7 +521,7 @@ Standard_Boolean SelectMgr_SelectingVolumeManager::OverlapsCircle(
 // purpose  : Measures distance between 3d projection of user-picked
 //            screen point and given point theCOG
 //=======================================================================
-Standard_Real SelectMgr_SelectingVolumeManager::DistToGeometryCenter(const gp_Pnt& theCOG) const
+Standard_Real SelectMgr_SelectingVolumeManager::DistToGeometryCenter(const Point3d& theCOG) const
 {
   if (myActiveSelectingVolume.IsNull())
   {
@@ -536,7 +536,7 @@ Standard_Real SelectMgr_SelectingVolumeManager::DistToGeometryCenter(const gp_Pn
 //            the run of selection algo by given depth. Is valid for point
 //            selection only
 // =======================================================================
-gp_Pnt SelectMgr_SelectingVolumeManager::DetectedPoint(const Standard_Real theDepth) const
+Point3d SelectMgr_SelectingVolumeManager::DetectedPoint(const Standard_Real theDepth) const
 {
   Standard_ASSERT_RAISE(!myActiveSelectingVolume.IsNull(),
                         "SelectMgr_SelectingVolumeManager::DetectedPoint() should be called after "
@@ -564,7 +564,7 @@ Standard_Boolean SelectMgr_SelectingVolumeManager::IsOverlapAllowed() const
 
 //=================================================================================================
 
-const gp_Pnt* SelectMgr_SelectingVolumeManager::GetVertices() const
+const Point3d* SelectMgr_SelectingVolumeManager::GetVertices() const
 {
   if (myActiveSelectingVolume.IsNull())
   {
@@ -581,22 +581,22 @@ const gp_Pnt* SelectMgr_SelectingVolumeManager::GetVertices() const
 
 //=================================================================================================
 
-gp_Pnt SelectMgr_SelectingVolumeManager::GetNearPickedPnt() const
+Point3d SelectMgr_SelectingVolumeManager::GetNearPickedPnt() const
 {
   if (myActiveSelectingVolume.IsNull())
   {
-    return gp_Pnt();
+    return Point3d();
   }
   return myActiveSelectingVolume->GetNearPnt();
 }
 
 //=================================================================================================
 
-gp_Pnt SelectMgr_SelectingVolumeManager::GetFarPickedPnt() const
+Point3d SelectMgr_SelectingVolumeManager::GetFarPickedPnt() const
 {
   if (myActiveSelectingVolume.IsNull())
   {
-    return gp_Pnt(RealLast(), RealLast(), RealLast());
+    return Point3d(RealLast(), RealLast(), RealLast());
   }
   return myActiveSelectingVolume->GetFarPnt();
 }

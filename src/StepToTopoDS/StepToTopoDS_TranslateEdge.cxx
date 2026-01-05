@@ -119,14 +119,14 @@ static void DecodeMakeEdgeError(const BRepLib_MakeEdge&           ME,
   std::cout << "Original Type   : " << orig->DynamicType() << std::endl;
   std::cout << "3D Curve Type   : " << myCurve->DynamicType() << std::endl;
   std::cout << "First Parameter : " << U1 << std::endl;
-  gp_Pnt p1 = BRep_Tool::Pnt(V1);
+  Point3d p1 = BRep_Tool::Pnt(V1);
   //  std::cout << "First Point     : ";
   std::cout << "First Vertex    : " << p1.X() << "  " << p1.Y() << "  " << p1.Z() << "  ";
   std::cout << "Distance Point - Vertex : ";
   Standard_Real d1 = p1.Distance(myCurve->Value(U1));
   std::cout << d1 << std::endl;
   std::cout << "Last  Parameter : " << U2 << std::endl;
-  gp_Pnt p2 = BRep_Tool::Pnt(V2);
+  Point3d p2 = BRep_Tool::Pnt(V2);
   //  std::cout << "Last  Point     : ";
   std::cout << "Last  Vertex    : " << p2.X() << "  " << p2.Y() << "  " << p2.Z() << "  ";
   std::cout << "Distance Point - Vertex : ";
@@ -372,8 +372,8 @@ void StepToTopoDS_TranslateEdge::Init(const Handle(StepShape_Edge)& aEdge,
 // auxiliary function
 //: e6 abv 16 Apr 98: ProSTEP TR8, r0601_sy.stp, #14907
 static void GetCartesianPoints(const Handle(StepShape_EdgeCurve)& EC,
-                               gp_Pnt&                            P1,
-                               gp_Pnt&                            P2,
+                               Point3d&                            P1,
+                               Point3d&                            P2,
                                const StepData_Factors&            theLocalFactors)
 {
   for (Standard_Integer i = 1; i <= 2; i++)
@@ -418,12 +418,12 @@ void StepToTopoDS_TranslateEdge::MakeFromCurve3D(const Handle(StepGeom_Curve)&  
   aTool.AddContinuity(C1);
   BRep_Builder  B;
   Standard_Real temp1, temp2, U1, U2;
-  gp_Pnt        pproj;
-  gp_Pnt        pv1 = BRep_Tool::Pnt(V1);
-  gp_Pnt        pv2 = BRep_Tool::Pnt(V2);
+  Point3d        pproj;
+  Point3d        pv1 = BRep_Tool::Pnt(V1);
+  Point3d        pv2 = BRep_Tool::Pnt(V2);
 
   //: e6 abv
-  gp_Pnt pnt1 = pv1, pnt2 = pv2;
+  Point3d pnt1 = pv1, pnt2 = pv2;
   if (V1.IsSame(V2))
     GetCartesianPoints(EC, pnt1, pnt2, theLocalFactors);
   ShapeAnalysis_Curve sac;
@@ -435,7 +435,7 @@ void StepToTopoDS_TranslateEdge::MakeFromCurve3D(const Handle(StepGeom_Curve)&  
 
   //: d5: instead of AdjustCurve above which is incorrect if U1 and U2 are not ends
   GeomAdaptor_Curve aCA(C1);
-  gp_Pnt            pU1 = aCA.Value(U1), pU2 = aCA.Value(U2);
+  Point3d            pU1 = aCA.Value(U1), pU2 = aCA.Value(U2);
   temp1 = pU1.Distance(pv1);
   temp2 = pU2.Distance(pv2);
   if (temp1 > preci || temp2 > preci)
@@ -448,7 +448,7 @@ void StepToTopoDS_TranslateEdge::MakeFromCurve3D(const Handle(StepGeom_Curve)&  
     {
       Handle(Geom_Line) aLine    = Handle(Geom_Line)::DownCast(C1);
       gp_Lin            aLin     = aLine->Lin();
-      gp_Pnt            anOrigin = pnt1.XYZ() - aLin.Position().Direction().XYZ() * U1;
+      Point3d            anOrigin = pnt1.XYZ() - aLin.Position().Direction().XYZ() * U1;
       aLin.SetLocation(anOrigin);
       C1 = new Geom_Line(aLin);
 
@@ -506,8 +506,8 @@ void StepToTopoDS_TranslateEdge::MakeFromCurve3D(const Handle(StepGeom_Curve)&  
         if (!V1.IsSame(V2))
         {
           TP->AddFail(EC, "This edge has null arc length");
-          gp_Pnt P1 = BRep_Tool::Pnt(V1);
-          gp_Pnt P2 = BRep_Tool::Pnt(V2);
+          Point3d P1 = BRep_Tool::Pnt(V1);
+          Point3d P2 = BRep_Tool::Pnt(V2);
           gp_Vec avec(P1, P2);
           gp_Dir adir(avec);
           gp_Lin alin(P1, adir);

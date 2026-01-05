@@ -23,7 +23,7 @@
 #include <gp_XY.hxx>
 #include <IGESData_IGESEntity.hxx>
 class gp_Pnt2d;
-class gp_Pnt;
+class Point3d;
 class gp_Dir;
 
 class IGESGeom_CircularArc;
@@ -58,13 +58,13 @@ public:
 
   //! returns the center of the circle of which arc forms a part
   //! after applying Transf. Matrix
-  Standard_EXPORT gp_Pnt TransformedCenter() const;
+  Standard_EXPORT Point3d TransformedCenter() const;
 
   //! returns the start point of the arc
   Standard_EXPORT gp_Pnt2d StartPoint() const;
 
   //! returns the start point of the arc after applying Transf. Matrix
-  Standard_EXPORT gp_Pnt TransformedStartPoint() const;
+  Standard_EXPORT Point3d TransformedStartPoint() const;
 
   //! returns the parallel displacement of the plane containing the
   //! arc from the XT, YT plane
@@ -74,7 +74,7 @@ public:
   Standard_EXPORT gp_Pnt2d EndPoint() const;
 
   //! returns the end point of the arc after applying Transf. Matrix
-  Standard_EXPORT gp_Pnt TransformedEndPoint() const;
+  Standard_EXPORT Point3d TransformedEndPoint() const;
 
   //! returns the radius of the circle of which arc forms a part
   Standard_EXPORT Standard_Real Radius() const;

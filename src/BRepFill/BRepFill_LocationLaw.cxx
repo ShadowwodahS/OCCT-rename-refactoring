@@ -344,7 +344,7 @@ void BRepFill_LocationLaw::PerformVertex(const Standard_Integer Index,
   BRep_Builder     B;
   Standard_Boolean IsBary = (ILoc == 0);
   Standard_Real    First, Last;
-  gp_Pnt           P;
+  Point3d           P;
   gp_Vec           V1, V2; //, V;
   gp_Mat           M1, M2;
 

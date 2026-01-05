@@ -95,7 +95,7 @@ void BinTools_ShapeWriter::WriteShape(BinTools_OStream& theStream, const TopoDS_
       case TopAbs_VERTEX: {
         TopoDS_Vertex aV = TopoDS::Vertex(aShape);
         theStream << BRep_Tool::Tolerance(aV);
-        gp_Pnt aP = BRep_Tool::Pnt(aV);
+        Point3d aP = BRep_Tool::Pnt(aV);
         theStream << aP;
         Handle(BRep_TVertex) aTV = Handle(BRep_TVertex)::DownCast(aShape.TShape());
         for (BRep_ListIteratorOfListOfPointRepresentation anIter(aTV->Points()); anIter.More();
@@ -469,7 +469,7 @@ void BinTools_ShapeWriter::WriteTriangulation(BinTools_OStream&                 
   // write the 3d nodes
   for (Standard_Integer aNodeIter = 1; aNodeIter <= aNbNodes; ++aNodeIter)
     theStream << theTriangulation->Node(aNodeIter);
-  // theStream.write ((char*)(theTriangulation->InternalNodes().value(0)) , sizeof (gp_Pnt) *
+  // theStream.write ((char*)(theTriangulation->InternalNodes().value(0)) , sizeof (Point3d) *
   // aNbNodes);
 
   if (theTriangulation->HasUVNodes())

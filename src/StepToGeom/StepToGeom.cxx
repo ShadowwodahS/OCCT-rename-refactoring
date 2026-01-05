@@ -170,7 +170,7 @@ Handle(Geom_Axis2Placement) StepToGeom::MakeAxis2Placement(
   Handle(Geom_CartesianPoint) P = MakeCartesianPoint(SA->Location(), theLocalFactors);
   if (!P.IsNull())
   {
-    const gp_Pnt Pgp = P->Pnt();
+    const Point3d Pgp = P->Pnt();
 
     // sln 22.10.2001. CTS23496: If problems with creation of direction occur default direction is
     // used (MakeLine(...) function)
@@ -225,7 +225,7 @@ Handle(Geom_Axis2Placement) StepToGeom::MakeAxis2Placement(
   Standard_Real aDirY = sin(theSP->Gamma()) * cos(theSP->Beta())
                         + cos(theSP->Gamma()) * cos(theSP->Alpha()) * sin(theSP->Beta());
   Standard_Real aDirZ = sin(theSP->Alpha()) * sin(theSP->Beta());
-  const gp_Pnt  Pgp(aLocX, aLocY, aLocZ);
+  const Point3d  Pgp(aLocX, aLocY, aLocZ);
   const gp_Dir  Ngp(anAsisX, anAxisY, anAxisZ);
   const gp_Dir  Vxgp(aDirX, aDirY, aDirZ);
   gp_Ax2        gpAx2 = gp_Ax2(Pgp, Ngp, Vxgp);
@@ -903,7 +903,7 @@ Handle(Geom_BSplineCurve) StepToGeom::MakeBSplineCurve(
   const Handle(StepGeom_BSplineCurve)& theStepGeom_BSplineCurve,
   const StepData_Factors&              theLocalFactors)
 {
-  return MakeBSplineCurveCommon<TColgp_Array1OfPnt, Geom_CartesianPoint, gp_Pnt, Geom_BSplineCurve>(
+  return MakeBSplineCurveCommon<TColgp_Array1OfPnt, Geom_CartesianPoint, Point3d, Geom_BSplineCurve>(
     theStepGeom_BSplineCurve,
     theLocalFactors,
     &Geom_CartesianPoint::Pnt,
@@ -1987,7 +1987,7 @@ Handle(Geom_SurfaceOfRevolution) StepToGeom::MakeSurfaceOfRevolution(
       if (C->IsKind(STANDARD_TYPE(Geom_Circle)) || C->IsKind(STANDARD_TYPE(Geom_Ellipse)))
       {
         const Handle(Geom_Conic) conic = Handle(Geom_Conic)::DownCast(C);
-        const gp_Pnt             pc    = conic->Location();
+        const Point3d             pc    = conic->Location();
         const gp_Lin             rl(A);
         if (rl.Distance(pc) < Precision::Confusion())
         { // pc lies on A2
@@ -2092,7 +2092,7 @@ Standard_Boolean StepToGeom::MakeTransformation3d(
   Handle(Geom_CartesianPoint) CP = MakeCartesianPoint(SCTO->LocalOrigin(), theLocalFactors);
   if (!CP.IsNull())
   {
-    const gp_Pnt Pgp = CP->Pnt();
+    const Point3d Pgp = CP->Pnt();
 
     // sln 23.10.2001. CTS23496: If problems with creation of direction occur default direction is
     // used
@@ -2167,19 +2167,19 @@ static Standard_Boolean ExtractParameter(const Handle(Geom_Curve)&              
       aPoint = theSel.CartesianPoint();
       Handle(Geom_CartesianPoint) theGeomPnt =
         StepToGeom::MakeCartesianPoint(aPoint, theLocalFactors);
-      gp_Pnt thegpPnt = theGeomPnt->Pnt();
+      Point3d thegpPnt = theGeomPnt->Pnt();
 
       //: S4136: use advanced algorithm
       ShapeAnalysis_Curve sac;
-      gp_Pnt              p;
+      Point3d              p;
       sac.Project(aGeomCurve, thegpPnt, Precision::Confusion(), p, aParam);
       /* //:S4136
             //Trim == natural boundary ?
             if(aGeomCurve->IsKind(STANDARD_TYPE(Geom_BoundedCurve))) {
           Standard_Real frstPar = aGeomCurve->FirstParameter();
           Standard_Real lstPar = aGeomCurve->LastParameter();
-          gp_Pnt frstPnt = aGeomCurve->Value(frstPar);
-          gp_Pnt lstPnt = aGeomCurve->Value(lstPar);
+          Point3d frstPnt = aGeomCurve->Value(frstPar);
+          Point3d lstPnt = aGeomCurve->Value(lstPar);
           if(frstPnt.IsEqual(thegpPnt,precBrep)) {
             aParam = frstPar;
             return Standard_True;
@@ -2222,10 +2222,10 @@ static Standard_Boolean ExtractParameter(const Handle(Geom_Curve)&              
       aPoint = theSel.CartesianPoint();
       Handle(Geom_CartesianPoint) theGeomPnt =
         StepToGeom::MakeCartesianPoint(aPoint, theLocalFactors);
-      gp_Pnt thegpPnt = theGeomPnt->Pnt();
+      Point3d thegpPnt = theGeomPnt->Pnt();
       // Project Point On Curve
       ShapeAnalysis_Curve sac;
-      gp_Pnt              p;
+      Point3d              p;
       sac.Project(aGeomCurve, thegpPnt, Precision::Confusion(), p, aParam);
       /*
             GeomAPI_ProjectPointOnCurve PPOC(thegpPnt, aGeomCurve);

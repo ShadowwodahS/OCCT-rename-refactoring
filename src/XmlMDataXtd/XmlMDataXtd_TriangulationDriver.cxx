@@ -160,7 +160,7 @@ void XmlMDataXtd_TriangulationDriver::Paste(const Handle(TDF_Attribute)& theSour
     // write the 3d nodes
     for (i = 1; i <= nbNodes; i++)
     {
-      const gp_Pnt aNode = PT->Node(i);
+      const Point3d aNode = PT->Node(i);
       stream << aNode.X() << " " << aNode.Y() << " " << aNode.Z() << " ";
     }
 

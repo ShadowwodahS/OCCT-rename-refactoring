@@ -156,7 +156,7 @@ AppDef_Variational::AppDef_Variational(
   TColgp_Array1OfPnt   TabP3d(1, Max(1, myNbP3d));
   TColgp_Array1OfPnt2d TabP2d(1, Max(1, myNbP2d));
   gp_Pnt2d             P2d;
-  gp_Pnt               P3d;
+  Point3d               P3d;
   index = 1;
 
   for (ipoint = myFirstPoint; ipoint <= myLastPoint; ipoint++)
@@ -483,7 +483,7 @@ void AppDef_Variational::Approximate()
   Standard_Real        debfin[2] = {-1., 1};
 
   gp_Pnt2d P2d;
-  gp_Pnt   P3d;
+  Point3d   P3d;
   {
     Handle(TColStd_HArray2OfReal) PolynomialIntervalsPtr =
       new TColStd_HArray2OfReal(1, NbElem, 1, 2);
@@ -727,9 +727,9 @@ void AppDef_Variational::Distance(math_Matrix& mat)
   Standard_Integer     j0 = mat.LowerCol() - myFirstPoint;
 
   gp_Pnt2d P2d;
-  gp_Pnt   P3d;
+  Point3d   P3d;
 
-  gp_Pnt   Pt3d;
+  Point3d   Pt3d;
   gp_Pnt2d Pt2d;
 
   for (ipoint = myFirstPoint; ipoint <= myLastPoint; ipoint++)

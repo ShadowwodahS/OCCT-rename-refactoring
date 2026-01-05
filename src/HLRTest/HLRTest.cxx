@@ -93,7 +93,7 @@ static Standard_Integer hprj(Draw_Interpretor&, Standard_Integer n, const char**
     Standard_Real dy1 = Draw::Atof(a[9]);
     Standard_Real dz1 = Draw::Atof(a[10]);
 
-    gp_Pnt anOrigin(x, y, z);
+    Point3d anOrigin(x, y, z);
     gp_Dir aNormal(dx, dy, dz);
     gp_Dir aDX(dx1, dy1, dz1);
     anAx2 = gp_Ax2(anOrigin, aNormal, aDX);
@@ -394,7 +394,7 @@ static Standard_Integer reflectlines(Draw_Interpretor&, Standard_Integer n, cons
   Standard_Real anAISViewProjY = atof(a[4]);
   Standard_Real anAISViewProjZ = atof(a[5]);
 
-  gp_Pnt anOrigin(0., 0., 0.);
+  Point3d anOrigin(0., 0., 0.);
   gp_Dir aNormal(anAISViewProjX, anAISViewProjY, anAISViewProjZ);
   gp_Ax2 theAxes(anOrigin, aNormal);
   gp_Dir aDX = theAxes.XDirection();
@@ -434,7 +434,7 @@ static Standard_Integer hlrin3d(Draw_Interpretor&, Standard_Integer n, const cha
   Standard_Real anAISViewProjY = atof(a[4]);
   Standard_Real anAISViewProjZ = atof(a[5]);
 
-  gp_Pnt anOrigin(0., 0., 0.);
+  Point3d anOrigin(0., 0., 0.);
   gp_Dir aNormal(anAISViewProjX, anAISViewProjY, anAISViewProjZ);
   gp_Ax2 theAxes(anOrigin, aNormal);
   gp_Dir aDX = theAxes.XDirection();
@@ -494,7 +494,7 @@ static Standard_Integer hlrin2d(Draw_Interpretor&, Standard_Integer n, const cha
   Standard_Real Eye_Y = atof(a[7]);
   Standard_Real Eye_Z = atof(a[8]);
 
-  gp_Pnt anOrigin(0., 0., 0.);
+  Point3d anOrigin(0., 0., 0.);
   gp_Dir aNormal(anAISViewProjX, anAISViewProjY, anAISViewProjZ);
   gp_Dir aDX(Eye_X, Eye_Y, Eye_Z);
 

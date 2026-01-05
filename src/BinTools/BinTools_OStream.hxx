@@ -52,7 +52,7 @@ public:
   //! Writes a extended character to the stream.
   Standard_EXPORT BinTools_OStream& operator<<(const Standard_ExtCharacter& theValue);
   //! Writes a 3D point to the stream.
-  Standard_EXPORT BinTools_OStream& operator<<(const gp_Pnt& theValue);
+  Standard_EXPORT BinTools_OStream& operator<<(const Point3d& theValue);
   //! Writes a 3D direction to the stream.
   Standard_EXPORT BinTools_OStream& operator<<(const gp_Dir& theValue);
   //! Writes a 2D point to the stream.

@@ -21,7 +21,7 @@ inline void Contap_ArcFunction::Set(const gp_Dir& Direction, const Standard_Real
   myCosAng = Cos(M_PI / 2. + Angle);
 }
 
-inline void Contap_ArcFunction::Set(const gp_Pnt& Eye, const Standard_Real Angle)
+inline void Contap_ArcFunction::Set(const Point3d& Eye, const Standard_Real Angle)
 {
   myType   = Contap_DraftPrs;
   myEye    = Eye;
@@ -34,7 +34,7 @@ inline void Contap_ArcFunction::Set(const gp_Dir& Direction)
   myDir  = Direction;
 }
 
-inline void Contap_ArcFunction::Set(const gp_Pnt& Eye)
+inline void Contap_ArcFunction::Set(const Point3d& Eye)
 {
   myType = Contap_ContourPrs;
   myEye  = Eye;
@@ -46,7 +46,7 @@ inline void Contap_ArcFunction::Set(const Handle(Adaptor2d_Curve2d)& A)
   seqpt.Clear();
 }
 
-inline const gp_Pnt& Contap_ArcFunction::Valpoint(const Standard_Integer Index) const
+inline const Point3d& Contap_ArcFunction::Valpoint(const Standard_Integer Index) const
 {
   return seqpt(Index);
 }
@@ -56,7 +56,7 @@ inline const Handle(Adaptor3d_Surface)& Contap_ArcFunction::Surface() const
   return (mySurf);
 }
 
-inline const gp_Pnt& Contap_ArcFunction::LastComputedPoint() const
+inline const Point3d& Contap_ArcFunction::LastComputedPoint() const
 {
   return solpt;
 }

@@ -19,8 +19,8 @@
 
 void GProp::HOperator(
 
-  const gp_Pnt&       G,
-  const gp_Pnt&       Q,
+  const Point3d&       G,
+  const Point3d&       Q,
   const Standard_Real Mass,
   gp_Mat&             Operator
 

@@ -25,7 +25,7 @@
 #include <gce_Root.hxx>
 class gp_Ax2;
 class gp_Ax1;
-class gp_Pnt;
+class Point3d;
 
 //! This class implements the following algorithms used to
 //! create Parab from gp.
@@ -77,7 +77,7 @@ public:
   //! point is the vertex of the parabola. The normal to the plane
   //! of the parabola is the cross product between the XAxis and the
   //! YAxis.
-  Standard_EXPORT gce_MakeParab(const gp_Ax1& D, const gp_Pnt& F);
+  Standard_EXPORT gce_MakeParab(const gp_Ax1& D, const Point3d& F);
 
   //! Returns the constructed parabola.
   //! Exceptions StdFail_NotDone if no parabola is constructed.

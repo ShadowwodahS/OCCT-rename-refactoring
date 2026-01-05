@@ -382,7 +382,7 @@ Standard_Boolean BRepBlend_SurfRstEvolRad::IsSolution(const math_Vector&  Sol,
   math_Matrix gradsol(1, 3, 1, 3);
 
   gp_Vec        dnplan, d1u1, d1v1, d1urst, d1vrst, d1, temp, ns, ns2, ncrossns, resul;
-  gp_Pnt        bid;
+  Point3d        bid;
   Standard_Real norm, ndotns, grosterme;
   Standard_Real Cosa, Sina, Angle;
 
@@ -501,14 +501,14 @@ Standard_Real BRepBlend_SurfRstEvolRad::GetMinimalDistance() const
 
 //=================================================================================================
 
-const gp_Pnt& BRepBlend_SurfRstEvolRad::PointOnS() const
+const Point3d& BRepBlend_SurfRstEvolRad::PointOnS() const
 {
   return pts;
 }
 
 //=================================================================================================
 
-const gp_Pnt& BRepBlend_SurfRstEvolRad::PointOnRst() const
+const Point3d& BRepBlend_SurfRstEvolRad::PointOnRst() const
 {
   return ptrst;
 }
@@ -592,7 +592,7 @@ Standard_Boolean BRepBlend_SurfRstEvolRad::Decroch(const math_Vector& Sol,
                                                    gp_Vec&            TgS) const
 {
   gp_Vec        TgRst, NRst, NRstInPlane, NSInPlane;
-  gp_Pnt        bid, Center;
+  Point3d        bid, Center;
   gp_Vec        d1u, d1v;
   Standard_Real norm, unsurnorm;
 
@@ -680,7 +680,7 @@ void BRepBlend_SurfRstEvolRad::Section(const Standard_Real Param,
   gp_Vec        d1u1, d1v1;
   gp_Vec        ns, np;
   Standard_Real norm;
-  gp_Pnt        Center;
+  Point3d        Center;
 
   tguide->D1(Param, ptgui, d1gui);
   np  = d1gui.Normalized();
@@ -851,7 +851,7 @@ Standard_Boolean BRepBlend_SurfRstEvolRad::Section(const Blend_Point&    P,
   gp_Vec ncrossns;
   gp_Vec resulu, resulv, temp, tgct, resul;
   gp_Vec d1urst, d1vrst;
-  gp_Pnt Center, bid;
+  Point3d Center, bid;
 
   Standard_Real norm, ndotns, grosterme, aDray;
 
@@ -1090,7 +1090,7 @@ void BRepBlend_SurfRstEvolRad::Section(const Blend_Point&    P,
 {
   gp_Vec d1u1, d1v1; //,d1;
   gp_Vec ns, ns2;    //,temp,np2;
-  gp_Pnt Center;
+  Point3d Center;
 
   Standard_Real norm, u1, v1, w;
 

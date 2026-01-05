@@ -83,12 +83,12 @@ public:
     Standard_OVERRIDE;
 
   Standard_EXPORT virtual Standard_Boolean OverlapsPoint(
-    const gp_Pnt&                  thePnt,
+    const Point3d&                  thePnt,
     const SelectMgr_ViewClipRange& theClipRange,
     SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
 
   //! Always returns FALSE (not applicable to this selector).
-  virtual Standard_Boolean OverlapsPoint(const gp_Pnt&) const Standard_OVERRIDE
+  virtual Standard_Boolean OverlapsPoint(const Point3d&) const Standard_OVERRIDE
   {
     return Standard_False;
   }
@@ -100,15 +100,15 @@ public:
     SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual Standard_Boolean OverlapsSegment(
-    const gp_Pnt&                  thePnt1,
-    const gp_Pnt&                  thePnt2,
+    const Point3d&                  thePnt1,
+    const Point3d&                  thePnt2,
     const SelectMgr_ViewClipRange& theClipRange,
     SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual Standard_Boolean OverlapsTriangle(
-    const gp_Pnt&                  thePnt1,
-    const gp_Pnt&                  thePnt2,
-    const gp_Pnt&                  thePnt3,
+    const Point3d&                  thePnt1,
+    const Point3d&                  thePnt2,
+    const Point3d&                  thePnt3,
     Select3D_TypeOfSensitivity     theSensType,
     const SelectMgr_ViewClipRange& theClipRange,
     SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
@@ -116,12 +116,12 @@ public:
 public:
   //! Calculates the point on a view ray that was detected during the run of selection algo by given
   //! depth
-  Standard_EXPORT virtual gp_Pnt DetectedPoint(const Standard_Real theDepth) const
+  Standard_EXPORT virtual Point3d DetectedPoint(const Standard_Real theDepth) const
     Standard_OVERRIDE;
 
   //! Returns true if selecting volume is overlapped by sphere with center theCenter
   //! and radius theRadius
-  Standard_EXPORT virtual Standard_Boolean OverlapsSphere(const gp_Pnt&       theCenter,
+  Standard_EXPORT virtual Standard_Boolean OverlapsSphere(const Point3d&       theCenter,
                                                           const Standard_Real theRadius,
                                                           Standard_Boolean* theInside = NULL) const
     Standard_OVERRIDE;
@@ -129,7 +129,7 @@ public:
   //! Returns true if selecting volume is overlapped by sphere with center theCenter
   //! and radius theRadius
   Standard_EXPORT virtual Standard_Boolean OverlapsSphere(
-    const gp_Pnt&                  theCenter,
+    const Point3d&                  theCenter,
     const Standard_Real            theRadius,
     const SelectMgr_ViewClipRange& theClipRange,
     SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
@@ -187,8 +187,8 @@ public:
 
 private:
   //! Checks whether the segment intersects with the boundary of the current volume selection
-  Standard_EXPORT Standard_Boolean isIntersectBoundary(const gp_Pnt& thePnt1,
-                                                       const gp_Pnt& thePnt2) const;
+  Standard_EXPORT Standard_Boolean isIntersectBoundary(const Point3d& thePnt1,
+                                                       const Point3d& thePnt2) const;
 
   //! Checks whether the circle intersects with the boundary of the current volume selection
   Standard_EXPORT Standard_Boolean isIntersectBoundary(const Standard_Real    theRadius,
@@ -196,21 +196,21 @@ private:
                                                        const Standard_Boolean theIsFilled) const;
 
   //! Checks whether the triangle intersects with a segment
-  Standard_EXPORT static Standard_Boolean segmentTriangleIntersection(const gp_Pnt& theOrig,
+  Standard_EXPORT static Standard_Boolean segmentTriangleIntersection(const Point3d& theOrig,
                                                                       const gp_Vec& theDir,
-                                                                      const gp_Pnt& theV1,
-                                                                      const gp_Pnt& theV2,
-                                                                      const gp_Pnt& theV3);
+                                                                      const Point3d& theV1,
+                                                                      const Point3d& theV2,
+                                                                      const Point3d& theV3);
 
-  Standard_EXPORT static Standard_Boolean segmentSegmentIntersection(const gp_Pnt& theStartPnt1,
-                                                                     const gp_Pnt& theEndPnt1,
-                                                                     const gp_Pnt& theStartPnt2,
-                                                                     const gp_Pnt& theEndPnt2);
+  Standard_EXPORT static Standard_Boolean segmentSegmentIntersection(const Point3d& theStartPnt1,
+                                                                     const Point3d& theEndPnt1,
+                                                                     const Point3d& theStartPnt2,
+                                                                     const Point3d& theEndPnt2);
 
-  Standard_EXPORT static Standard_Boolean pointInTriangle(const gp_Pnt& thePnt,
-                                                          const gp_Pnt& theV1,
-                                                          const gp_Pnt& theV2,
-                                                          const gp_Pnt& theV3);
+  Standard_EXPORT static Standard_Boolean pointInTriangle(const Point3d& thePnt,
+                                                          const Point3d& theV1,
+                                                          const Point3d& theV2,
+                                                          const Point3d& theV3);
 
 private:
   SelectMgr_TriangFrustums myFrustums; //!< set of triangular frustums

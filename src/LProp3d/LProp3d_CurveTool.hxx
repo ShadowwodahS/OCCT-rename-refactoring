@@ -23,7 +23,7 @@
 #include <Standard_Real.hxx>
 #include <Standard_Integer.hxx>
 
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 
 class LProp3d_CurveTool
@@ -34,20 +34,20 @@ public:
   //! Computes the point <P> of parameter <U> on the HCurve <C>.
   Standard_EXPORT static void Value(const Handle(Adaptor3d_Curve)& C,
                                     const Standard_Real            U,
-                                    gp_Pnt&                        P);
+                                    Point3d&                        P);
 
   //! Computes the point <P> and first derivative <V1> of
   //! parameter <U> on the HCurve <C>.
   Standard_EXPORT static void D1(const Handle(Adaptor3d_Curve)& C,
                                  const Standard_Real            U,
-                                 gp_Pnt&                        P,
+                                 Point3d&                        P,
                                  gp_Vec&                        V1);
 
   //! Computes the point <P>, the first derivative <V1> and second
   //! derivative <V2> of parameter <U> on the HCurve <C>.
   Standard_EXPORT static void D2(const Handle(Adaptor3d_Curve)& C,
                                  const Standard_Real            U,
-                                 gp_Pnt&                        P,
+                                 Point3d&                        P,
                                  gp_Vec&                        V1,
                                  gp_Vec&                        V2);
 
@@ -56,7 +56,7 @@ public:
   //! parameter <U> on the HCurve <C>.
   Standard_EXPORT static void D3(const Handle(Adaptor3d_Curve)& C,
                                  const Standard_Real            U,
-                                 gp_Pnt&                        P,
+                                 Point3d&                        P,
                                  gp_Vec&                        V1,
                                  gp_Vec&                        V2,
                                  gp_Vec&                        V3);

@@ -111,7 +111,7 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Compute(const Standard_Boolean Se
   {
     Handle(Geom_Plane) pln = Handle(Geom_Plane)::DownCast(mySurface);
     TColgp_Array2OfPnt poles(1, 2, 1, 2);
-    gp_Pnt             dp;
+    Point3d             dp;
     poles(1, 1) = dp = pln->Value(UFirst, VFirst);
     poles(1, 2) = dp = pln->Value(UFirst, VLast);
     poles(2, 1) = dp = pln->Value(ULast, VFirst);

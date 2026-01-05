@@ -35,8 +35,8 @@ public:
   Standard_EXPORT Blend_Point();
 
   //! Creates a point on 2 surfaces, with tangents.
-  Standard_EXPORT Blend_Point(const gp_Pnt&       Pt1,
-                              const gp_Pnt&       Pt2,
+  Standard_EXPORT Blend_Point(const Point3d&       Pt1,
+                              const Point3d&       Pt2,
                               const Standard_Real Param,
                               const Standard_Real U1,
                               const Standard_Real V1,
@@ -48,8 +48,8 @@ public:
                               const gp_Vec2d&     Tg22d);
 
   //! Creates a point on 2 surfaces, without tangents.
-  Standard_EXPORT Blend_Point(const gp_Pnt&       Pt1,
-                              const gp_Pnt&       Pt2,
+  Standard_EXPORT Blend_Point(const Point3d&       Pt1,
+                              const Point3d&       Pt2,
                               const Standard_Real Param,
                               const Standard_Real U1,
                               const Standard_Real V1,
@@ -57,8 +57,8 @@ public:
                               const Standard_Real V2);
 
   //! Creates a point on a surface and a curve, with tangents.
-  Standard_EXPORT Blend_Point(const gp_Pnt&       Pts,
-                              const gp_Pnt&       Ptc,
+  Standard_EXPORT Blend_Point(const Point3d&       Pts,
+                              const Point3d&       Ptc,
                               const Standard_Real Param,
                               const Standard_Real U,
                               const Standard_Real V,
@@ -68,8 +68,8 @@ public:
                               const gp_Vec2d&     Tg2d);
 
   //! Creates a point on a surface and a curve, without tangents.
-  Standard_EXPORT Blend_Point(const gp_Pnt&       Pts,
-                              const gp_Pnt&       Ptc,
+  Standard_EXPORT Blend_Point(const Point3d&       Pts,
+                              const Point3d&       Ptc,
                               const Standard_Real Param,
                               const Standard_Real U,
                               const Standard_Real V,
@@ -77,8 +77,8 @@ public:
 
   //! Creates a point on a surface and a curve on surface,
   //! with tangents.
-  Standard_EXPORT Blend_Point(const gp_Pnt&       Pt1,
-                              const gp_Pnt&       Pt2,
+  Standard_EXPORT Blend_Point(const Point3d&       Pt1,
+                              const Point3d&       Pt2,
                               const Standard_Real Param,
                               const Standard_Real U1,
                               const Standard_Real V1,
@@ -92,8 +92,8 @@ public:
 
   //! Creates a point on a surface and a curve on surface,
   //! without tangents.
-  Standard_EXPORT Blend_Point(const gp_Pnt&       Pt1,
-                              const gp_Pnt&       Pt2,
+  Standard_EXPORT Blend_Point(const Point3d&       Pt1,
+                              const Point3d&       Pt2,
                               const Standard_Real Param,
                               const Standard_Real U1,
                               const Standard_Real V1,
@@ -102,8 +102,8 @@ public:
                               const Standard_Real PC);
 
   //! Creates a point on two curves on surfaces, with tangents.
-  Standard_EXPORT Blend_Point(const gp_Pnt&       Pt1,
-                              const gp_Pnt&       Pt2,
+  Standard_EXPORT Blend_Point(const Point3d&       Pt1,
+                              const Point3d&       Pt2,
                               const Standard_Real Param,
                               const Standard_Real U1,
                               const Standard_Real V1,
@@ -117,8 +117,8 @@ public:
                               const gp_Vec2d&     Tg22d);
 
   //! Creates a point on two curves on surfaces, with tangents.
-  Standard_EXPORT Blend_Point(const gp_Pnt&       Pt1,
-                              const gp_Pnt&       Pt2,
+  Standard_EXPORT Blend_Point(const Point3d&       Pt1,
+                              const Point3d&       Pt2,
                               const Standard_Real Param,
                               const Standard_Real U1,
                               const Standard_Real V1,
@@ -128,8 +128,8 @@ public:
                               const Standard_Real PC2);
 
   //! Set the values for a point on 2 surfaces, with tangents.
-  Standard_EXPORT void SetValue(const gp_Pnt&       Pt1,
-                                const gp_Pnt&       Pt2,
+  Standard_EXPORT void SetValue(const Point3d&       Pt1,
+                                const Point3d&       Pt2,
                                 const Standard_Real Param,
                                 const Standard_Real U1,
                                 const Standard_Real V1,
@@ -141,8 +141,8 @@ public:
                                 const gp_Vec2d&     Tg22d);
 
   //! Set the values for a point on 2 surfaces, without tangents.
-  Standard_EXPORT void SetValue(const gp_Pnt&       Pt1,
-                                const gp_Pnt&       Pt2,
+  Standard_EXPORT void SetValue(const Point3d&       Pt1,
+                                const Point3d&       Pt2,
                                 const Standard_Real Param,
                                 const Standard_Real U1,
                                 const Standard_Real V1,
@@ -151,8 +151,8 @@ public:
 
   //! Set the values for a point on a surface and a curve,
   //! with tangents.
-  Standard_EXPORT void SetValue(const gp_Pnt&       Pts,
-                                const gp_Pnt&       Ptc,
+  Standard_EXPORT void SetValue(const Point3d&       Pts,
+                                const Point3d&       Ptc,
                                 const Standard_Real Param,
                                 const Standard_Real U,
                                 const Standard_Real V,
@@ -163,8 +163,8 @@ public:
 
   //! Set the values for a point on a surface and a curve,
   //! without tangents.
-  Standard_EXPORT void SetValue(const gp_Pnt&       Pts,
-                                const gp_Pnt&       Ptc,
+  Standard_EXPORT void SetValue(const Point3d&       Pts,
+                                const Point3d&       Ptc,
                                 const Standard_Real Param,
                                 const Standard_Real U,
                                 const Standard_Real V,
@@ -172,8 +172,8 @@ public:
 
   //! Creates a point on a surface and a curve on surface,
   //! with tangents.
-  Standard_EXPORT void SetValue(const gp_Pnt&       Pt1,
-                                const gp_Pnt&       Pt2,
+  Standard_EXPORT void SetValue(const Point3d&       Pt1,
+                                const Point3d&       Pt2,
                                 const Standard_Real Param,
                                 const Standard_Real U1,
                                 const Standard_Real V1,
@@ -187,8 +187,8 @@ public:
 
   //! Creates a point on a surface and a curve on surface,
   //! without tangents.
-  Standard_EXPORT void SetValue(const gp_Pnt&       Pt1,
-                                const gp_Pnt&       Pt2,
+  Standard_EXPORT void SetValue(const Point3d&       Pt1,
+                                const Point3d&       Pt2,
                                 const Standard_Real Param,
                                 const Standard_Real U1,
                                 const Standard_Real V1,
@@ -197,8 +197,8 @@ public:
                                 const Standard_Real PC);
 
   //! Creates a point on two curves on surfaces, with tangents.
-  Standard_EXPORT void SetValue(const gp_Pnt&       Pt1,
-                                const gp_Pnt&       Pt2,
+  Standard_EXPORT void SetValue(const Point3d&       Pt1,
+                                const Point3d&       Pt2,
                                 const Standard_Real Param,
                                 const Standard_Real U1,
                                 const Standard_Real V1,
@@ -212,8 +212,8 @@ public:
                                 const gp_Vec2d&     Tg22d);
 
   //! Creates a point on two curves on surfaces, without tangents.
-  Standard_EXPORT void SetValue(const gp_Pnt&       Pt1,
-                                const gp_Pnt&       Pt2,
+  Standard_EXPORT void SetValue(const Point3d&       Pt1,
+                                const Point3d&       Pt2,
                                 const Standard_Real Param,
                                 const Standard_Real U1,
                                 const Standard_Real V1,
@@ -223,8 +223,8 @@ public:
                                 const Standard_Real PC2);
 
   //! Creates a point on two curves.
-  Standard_EXPORT void SetValue(const gp_Pnt&       Pt1,
-                                const gp_Pnt&       Pt2,
+  Standard_EXPORT void SetValue(const Point3d&       Pt1,
+                                const Point3d&       Pt2,
                                 const Standard_Real Param,
                                 const Standard_Real PC1,
                                 const Standard_Real PC2);
@@ -238,9 +238,9 @@ public:
   //! the tangent vectors at PointOnS1 and/or PointOnS2.
   Standard_Boolean IsTangencyPoint() const;
 
-  const gp_Pnt& PointOnS1() const;
+  const Point3d& PointOnS1() const;
 
-  const gp_Pnt& PointOnS2() const;
+  const Point3d& PointOnS2() const;
 
   void ParametersOnS1(Standard_Real& U, Standard_Real& V) const;
 
@@ -254,9 +254,9 @@ public:
 
   gp_Vec2d Tangent2dOnS2() const;
 
-  const gp_Pnt& PointOnS() const;
+  const Point3d& PointOnS() const;
 
-  const gp_Pnt& PointOnC() const;
+  const Point3d& PointOnC() const;
 
   void ParametersOnS(Standard_Real& U, Standard_Real& V) const;
 
@@ -268,9 +268,9 @@ public:
 
   gp_Vec2d Tangent2d() const;
 
-  const gp_Pnt& PointOnC1() const;
+  const Point3d& PointOnC1() const;
 
-  const gp_Pnt& PointOnC2() const;
+  const Point3d& PointOnC2() const;
 
   Standard_Real ParameterOnC1() const;
 
@@ -282,8 +282,8 @@ public:
 
 protected:
 private:
-  gp_Pnt           pt1;
-  gp_Pnt           pt2;
+  Point3d           pt1;
+  Point3d           pt2;
   gp_Vec           tg1;
   gp_Vec           tg2;
   Standard_Real    prm;

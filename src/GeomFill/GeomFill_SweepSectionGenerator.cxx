@@ -254,9 +254,9 @@ void GeomFill_SweepSectionGenerator::Perform(const Standard_Boolean Polynomial)
   GCPnts_QuasiUniformDeflection Samp;
   // Calcul de la longueur approximative de la courbe
   GeomAdaptor_Curve AdpPath(myPath);
-  gp_Pnt            P1     = AdpPath.Value(U1);
-  gp_Pnt            P2     = AdpPath.Value((U1 + U2) / 2.);
-  gp_Pnt            P3     = AdpPath.Value(U2);
+  Point3d            P1     = AdpPath.Value(U1);
+  Point3d            P2     = AdpPath.Value((U1 + U2) / 2.);
+  Point3d            P3     = AdpPath.Value(U2);
   Standard_Real     Length = P1.Distance(P2) + P2.Distance(P3);
   Standard_Real     Fleche = 1.e-5 * Length;
   Samp.Initialize(AdpPath, Fleche);
@@ -283,7 +283,7 @@ void GeomFill_SweepSectionGenerator::Perform(const Standard_Boolean Polynomial)
   Parameters(myNbSections) = U2 - U1;
 
   gp_Vec  D1Ref, D1;
-  gp_Pnt  PRef, P;
+  Point3d  PRef, P;
   gp_Trsf TR, cumulTR, Trans;
 
   myPath->D1(U1, PRef, D1Ref);
@@ -471,7 +471,7 @@ Standard_Boolean GeomFill_SweepSectionGenerator::Section(const Standard_Integer 
     return Standard_False;
 
   gp_Vec D1, D2;
-  gp_Pnt Pt;
+  Point3d Pt;
 
   myPath->D2(U, Pt, D1, D2);
   Standard_Real l = D1.Magnitude();
@@ -495,7 +495,7 @@ Standard_Boolean GeomFill_SweepSectionGenerator::Section(const Standard_Integer 
   else
   {
     gp_Dir        N = D;
-    gp_Pnt        Q = Pt.Translated((1. / c) * gp_Vec(N));
+    Point3d        Q = Pt.Translated((1. / c) * gp_Vec(N));
     Standard_Real x, y;
     gp_Vec        V;
     for (Standard_Integer i = 1; i <= myFirstSect->NbPoles(); i++)
@@ -570,7 +570,7 @@ void GeomFill_SweepSectionGenerator::Section(const Standard_Integer P,
     Standard_Real Coef = (P - 1.) / (myNbSections - 1.);
     Standard_Real U = (1 - Coef) * myAdpPath->FirstParameter() + Coef * myAdpPath->LastParameter();
 
-    gp_Pnt PPath = myAdpPath->Value(U);
+    Point3d PPath = myAdpPath->Value(U);
 
     Standard_Real Alpha = U - myAdpPath->FirstParameter();
     Alpha /= myAdpPath->LastParameter() - myAdpPath->FirstParameter();
@@ -587,7 +587,7 @@ void GeomFill_SweepSectionGenerator::Section(const Standard_Integer P,
         U1           = ElCLib::Parameter(aLine, PPath);
       }
     }
-    gp_Pnt P1 = myAdpFirstSect->Value(U1);
+    Point3d P1 = myAdpFirstSect->Value(U1);
 
     Standard_Real U2 =
       (1 - Alpha) * myAdpLastSect->FirstParameter() + Alpha * myAdpLastSect->LastParameter();
@@ -601,7 +601,7 @@ void GeomFill_SweepSectionGenerator::Section(const Standard_Integer P,
         U2           = ElCLib::Parameter(aLine, PPath);
       }
     }
-    gp_Pnt P2 = myAdpLastSect->Value(U2);
+    Point3d P2 = myAdpLastSect->Value(U2);
 
     gp_Ax2        Axis;
     Standard_Real Angle;

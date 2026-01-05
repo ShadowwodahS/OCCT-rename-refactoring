@@ -259,8 +259,8 @@ Standard_Boolean TopOpeBRep_VPointInter::EqualpP(const TopOpeBRep_VPointInter& V
   Standard_Real    p1     = ParameterOnLine();
   Standard_Real    p2     = VP.ParameterOnLine();
   Standard_Boolean pequal = fabs(p1 - p2) < Precision::PConfusion();
-  gp_Pnt           P1     = Value();
-  gp_Pnt           P2     = VP.Value();
+  Point3d           P1     = Value();
+  Point3d           P2     = VP.Value();
   Standard_Real    Ptol1 = Tolerance(), Ptol2 = VP.Tolerance();
   Standard_Real    Ptol    = (Ptol1 > Ptol2) ? Ptol1 : Ptol2;
   Standard_Boolean Pequal  = P1.IsEqual(P2, Ptol);
@@ -362,7 +362,7 @@ Standard_OStream& TopOpeBRep_VPointInter::Dump(const TopoDS_Face& FF1,
   if (!myKeep)
     OS << " NOT kept";
   OS << std::endl;
-  const gp_Pnt& P = Value();
+  const Point3d& P = Value();
   OS << PRODINP << "P" << myIndex << " ";
   OS << P.X() << " " << P.Y() << " " << P.Z();
   OS << "; #draw" << std::endl;

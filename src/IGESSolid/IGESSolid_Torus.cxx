@@ -48,20 +48,20 @@ Standard_Real IGESSolid_Torus::DiscRadius() const
   return theR2;
 }
 
-gp_Pnt IGESSolid_Torus::AxisPoint() const
+Point3d IGESSolid_Torus::AxisPoint() const
 {
-  return gp_Pnt(thePoint);
+  return Point3d(thePoint);
 }
 
-gp_Pnt IGESSolid_Torus::TransformedAxisPoint() const
+Point3d IGESSolid_Torus::TransformedAxisPoint() const
 {
   if (!HasTransf())
-    return gp_Pnt(thePoint);
+    return Point3d(thePoint);
   else
   {
     gp_XYZ pnt = thePoint;
     Location().Transforms(pnt);
-    return gp_Pnt(pnt);
+    return Point3d(pnt);
   }
 }
 

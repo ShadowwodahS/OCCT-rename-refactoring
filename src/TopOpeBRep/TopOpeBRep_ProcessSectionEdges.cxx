@@ -189,10 +189,10 @@ Standard_Boolean TopOpeBRep_FacesFiller::KeepRLine(const TopOpeBRep_LineInter& L
       {
         Standard_Real tolvclo = BRep_Tool::Tolerance(vclo);
         //	Standard_Real tolvclo = BRep_Tool::Tolerance(TopoDS::Vertex(vclo));
-        gp_Pnt ptclo = BRep_Tool::Pnt(vclo);
-        //	gp_Pnt ptclo = BRep_Tool::Pnt(TopoDS::Vertex(vclo));
+        Point3d ptclo = BRep_Tool::Pnt(vclo);
+        //	Point3d ptclo = BRep_Tool::Pnt(TopoDS::Vertex(vclo));
         Standard_Real    tolf    = vpf.Tolerance();
-        gp_Pnt           ptf     = vpf.Value();
+        Point3d           ptf     = vpf.Value();
         Standard_Real    d       = ptf.Distance(ptclo);
         Standard_Boolean sameclo = (d < Max(tolvclo, tolf));
         if (!sameclo)
@@ -279,12 +279,12 @@ Standard_EXPORT Standard_Boolean FUN_brep_sdmRE(const TopoDS_Edge& E1, const Top
     Standard_Real tol4 = Max(tol1, Max(tol2, tol3));
     if (!ok)
     {
-      const gp_Pnt& P3 = BRep_Tool::Pnt(v3);
+      const Point3d& P3 = BRep_Tool::Pnt(v3);
       ok               = FUN_tool_PinC(P3, BAC, tol4);
     }
     if (!ok)
     {
-      const gp_Pnt& P4 = BRep_Tool::Pnt(v4);
+      const Point3d& P4 = BRep_Tool::Pnt(v4);
       ok               = FUN_tool_PinC(P4, BAC, tol4);
     }
   }
@@ -297,12 +297,12 @@ Standard_EXPORT Standard_Boolean FUN_brep_sdmRE(const TopoDS_Edge& E1, const Top
     Standard_Real tol4 = Max(tol1, Max(tol2, tol3));
     if (!ok)
     {
-      const gp_Pnt& P1 = BRep_Tool::Pnt(v1);
+      const Point3d& P1 = BRep_Tool::Pnt(v1);
       ok               = FUN_tool_PinC(P1, BAC, tol4);
     }
     if (!ok)
     {
-      const gp_Pnt& P2 = BRep_Tool::Pnt(v2);
+      const Point3d& P2 = BRep_Tool::Pnt(v2);
       ok               = FUN_tool_PinC(P2, BAC, tol4);
     }
   }

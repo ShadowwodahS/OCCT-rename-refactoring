@@ -127,7 +127,7 @@ public:
 
   //! Returns center of entity set. If location transformation
   //! is set, it will be applied
-  Standard_EXPORT virtual gp_Pnt CenterOfGeometry() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Point3d CenterOfGeometry() const Standard_OVERRIDE;
 
   //! Returns bounding box of sensitive entity with index theIdx
   Standard_EXPORT virtual Select3D_BndBox3d Box(const Standard_Integer theIdx) const
@@ -174,7 +174,7 @@ private:
   // clang-format off
   Standard_Boolean                     myMustMatchAll;       //!< Determines whether all entities in the group should be overlapped or not
   Standard_Boolean                     myToCheckOverlapAll;  //!< flag to check overlapping with all entities within rectangular/polygonal selection
-  gp_Pnt                               myCenter;             //!< Center of geometry of the group
+  Point3d                               myCenter;             //!< Center of geometry of the group
   mutable Select3D_BndBox3d            myBndBox;             //!< Bounding box of the group
   NCollection_Vector<Standard_Integer> myBVHPrimIndexes;     //!< Vector of sub-entities indexes for BVH tree build
   // clang-format on

@@ -41,10 +41,10 @@ public:
   Standard_EXPORT Contap_Point();
 
   //! Creates a point.
-  Standard_EXPORT Contap_Point(const gp_Pnt& Pt, const Standard_Real U, const Standard_Real V);
+  Standard_EXPORT Contap_Point(const Point3d& Pt, const Standard_Real U, const Standard_Real V);
 
   //! Sets the values for a point.
-  void SetValue(const gp_Pnt& Pt, const Standard_Real U, const Standard_Real V);
+  void SetValue(const Point3d& Pt, const Standard_Real U, const Standard_Real V);
 
   //! Set the value of the parameter on the intersection line.
   void SetParameter(const Standard_Real Para);
@@ -66,7 +66,7 @@ public:
   void SetInternal();
 
   //! Returns the intersection point (geometric information).
-  const gp_Pnt& Value() const;
+  const Point3d& Value() const;
 
   //! This method returns the parameter of the point
   //! on the intersection line.
@@ -116,7 +116,7 @@ public:
 
 protected:
 private:
-  gp_Pnt                    pt;
+  Point3d                    pt;
   Standard_Real             uparam;
   Standard_Real             vparam;
   Standard_Real             paraline;

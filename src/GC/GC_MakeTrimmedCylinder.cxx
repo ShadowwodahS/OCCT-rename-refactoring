@@ -29,7 +29,7 @@
 //   the height og the resulting cylinder is the distance from <P1> to <P2>.     +
 //   The radius is the distance from <P3> to axis <P1P2>.                 +
 //=========================================================================
-GC_MakeTrimmedCylinder::GC_MakeTrimmedCylinder(const gp_Pnt& P1, const gp_Pnt& P2, const gp_Pnt& P3)
+GC_MakeTrimmedCylinder::GC_MakeTrimmedCylinder(const Point3d& P1, const Point3d& P2, const Point3d& P3)
 {
   GC_MakeCylindricalSurface Cyl(P1, P2, P3);
   TheError = Cyl.Status();

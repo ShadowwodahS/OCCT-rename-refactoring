@@ -86,7 +86,7 @@ void TopoDSToStep_MakeStepVertex::Init(const TopoDS_Vertex&                  aVe
     return;
   }
 
-  gp_Pnt P;
+  Point3d P;
 
   P = BRep_Tool::Pnt(aVertex);
   GeomToStep_MakeCartesianPoint    MkPoint(P, theLocalFactors.LengthFactor());

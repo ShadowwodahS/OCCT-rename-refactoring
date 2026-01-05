@@ -74,19 +74,19 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
     Df.Reverse();
   }
 
-  gp_Pnt        Or = Con.Location();
+  Point3d        Or = Con.Location();
   Standard_Real u, v;
   ElSLib::PlaneParameters(PosPl, Or, u, v);
   gp_Pnt2d c2dPln(u, v);
   ElSLib::PlaneD0(u, v, PosPl, Or);
-  gp_Pnt cPln = Or;
+  Point3d cPln = Or;
   Or.SetCoord(Or.X() + Radius * Dp.X(), Or.Y() + Radius * Dp.Y(), Or.Z() + Radius * Dp.Z());
 
-  gp_Pnt PtSp;
+  Point3d PtSp;
   gp_Vec DSp;
   ElCLib::D1(First, Spine, PtSp, DSp);
   IntAna_QuadQuadGeo CInt(Pln, Con, Precision::Angular(), Precision::Confusion());
-  gp_Pnt             Pv;
+  Point3d             Pv;
   if (CInt.IsDone())
   {
     // The origin of the fillet is set at the start point on the
@@ -100,7 +100,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   gp_Dir Dx(gp_Vec(cPln, Pv));
   gp_Dir Dy(DSp);
   ElSLib::Parameters(Con, Pv, u, v);
-  gp_Pnt PtCon;
+  Point3d PtCon;
   gp_Vec Vu, Vv;
   ElSLib::D1(u, v, Con, PtCon, Vu, Vv);
   gp_Dir Dc(Vu.Crossed(Vv));
@@ -110,7 +110,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   }
   gp_Dir Dz = Dp;
 
-  gp_Pnt pp(Pv.X() + Dc.X(), Pv.Y() + Dc.Y(), Pv.Z() + Dc.Z());
+  Point3d pp(Pv.X() + Dc.X(), Pv.Y() + Dc.Y(), Pv.Z() + Dc.Z());
   ElSLib::PlaneParameters(PosPl, pp, u, v);
   ElSLib::PlaneD0(u, v, PosPl, pp);
   gp_Dir ddp(gp_Vec(Pv, pp));
@@ -171,7 +171,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
 
   // It is checked if the orientation of the fillet is the same
   // as of the faces.
-  gp_Pnt P, PP;
+  Point3d P, PP;
   gp_Vec deru, derv;
   P.SetCoord(cPln.X() + Rad * Dx.X(), cPln.Y() + Rad * Dx.Y(), cPln.Z() + Rad * Dx.Z());
   if (c1sphere)

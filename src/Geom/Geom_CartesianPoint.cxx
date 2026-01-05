@@ -30,7 +30,7 @@ typedef gp_Trsf             Trsf;
 
 //=================================================================================================
 
-Geom_CartesianPoint::Geom_CartesianPoint(const gp_Pnt& P)
+Geom_CartesianPoint::Geom_CartesianPoint(const Point3d& P)
     : gpPnt(P)
 {
 }
@@ -66,7 +66,7 @@ void Geom_CartesianPoint::SetCoord(const Standard_Real X,
 
 //=================================================================================================
 
-void Geom_CartesianPoint::SetPnt(const gp_Pnt& P)
+void Geom_CartesianPoint::SetPnt(const Point3d& P)
 {
   gpPnt = P;
 }
@@ -102,7 +102,7 @@ void Geom_CartesianPoint::Coord(Standard_Real& X, Standard_Real& Y, Standard_Rea
 
 //=================================================================================================
 
-gp_Pnt Geom_CartesianPoint::Pnt() const
+Point3d Geom_CartesianPoint::Pnt() const
 {
   return gpPnt;
 }

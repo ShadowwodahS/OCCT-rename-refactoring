@@ -37,7 +37,7 @@ class TopOpeBRep_Point2d;
 class IntRes2d_IntersectionSegment;
 class IntRes2d_IntersectionPoint;
 class TopOpeBRepDS_Transition;
-class gp_Pnt;
+class Point3d;
 
 //! Describes the intersection of two edges on the same surface
 class TopOpeBRep_EdgesIntersector
@@ -152,7 +152,7 @@ private:
 
   Standard_EXPORT const TopoDS_Shape& Vertex1(const Standard_Integer Index);
 
-  Standard_EXPORT gp_Pnt Value1() const;
+  Standard_EXPORT Point3d Value1() const;
 
   Standard_EXPORT Standard_Boolean IsPointOfSegment1() const;
 

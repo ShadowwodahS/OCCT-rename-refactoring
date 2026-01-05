@@ -284,7 +284,7 @@ void IntCurvesFace_Intersector::InternalCall(const IntCurveSurface_HInter& HICS,
           Standard_Real                     V          = HICSPointindex.V();
           Standard_Real                     W          = HICSW;
           IntCurveSurface_TransitionOnCurve transition = HICSPointindex.Transition();
-          gp_Pnt                            pnt        = HICSPointindex.Pnt();
+          Point3d                            pnt        = HICSPointindex.Pnt();
           //  Modified by skv - Wed Sep  3 16:14:10 2003 OCC578 Begin
           Standard_Integer anIntState = (currentstate == TopAbs_IN) ? 0 : 1;
           //  Modified by skv - Wed Sep  3 16:14:11 2003 OCC578 End

@@ -63,7 +63,7 @@ public:
   }
 
   //! Changes the center of the sphere.
-  void SetLocation(const gp_Pnt& theLoc) { pos.SetLocation(theLoc); }
+  void SetLocation(const Point3d& theLoc) { pos.SetLocation(theLoc); }
 
   //! Changes the local coordinate system of the sphere.
   void SetPosition(const gp_Ax3& theA3) { pos = theA3; }
@@ -113,7 +113,7 @@ public:
 
   //! --- Purpose ;
   //! Returns the center of the sphere.
-  const gp_Pnt& Location() const { return pos.Location(); }
+  const Point3d& Location() const { return pos.Location(); }
 
   //! Returns the local coordinates system of the sphere.
   const gp_Ax3& Position() const { return pos; }
@@ -130,12 +130,12 @@ public:
   //! Returns the axis Y of the sphere.
   gp_Ax1 YAxis() const { return gp_Ax1(pos.Location(), pos.YDirection()); }
 
-  Standard_EXPORT void Mirror(const gp_Pnt& theP);
+  Standard_EXPORT void Mirror(const Point3d& theP);
 
   //! Performs the symmetrical transformation of a sphere
   //! with respect to the point theP which is the center of the
   //! symmetry.
-  Standard_NODISCARD Standard_EXPORT gp_Sphere Mirrored(const gp_Pnt& theP) const;
+  Standard_NODISCARD Standard_EXPORT gp_Sphere Mirrored(const Point3d& theP) const;
 
   Standard_EXPORT void Mirror(const gp_Ax1& theA1);
 
@@ -162,11 +162,11 @@ public:
     return aC;
   }
 
-  void Scale(const gp_Pnt& theP, const Standard_Real theS);
+  void Scale(const Point3d& theP, const Standard_Real theS);
 
   //! Scales a sphere. theS is the scaling value.
   //! The absolute value of S is used to scale the sphere
-  Standard_NODISCARD gp_Sphere Scaled(const gp_Pnt& theP, const Standard_Real theS) const;
+  Standard_NODISCARD gp_Sphere Scaled(const Point3d& theP, const Standard_Real theS) const;
 
   void Transform(const gp_Trsf& theT);
 
@@ -184,10 +184,10 @@ public:
     return aC;
   }
 
-  void Translate(const gp_Pnt& theP1, const gp_Pnt& theP2) { pos.Translate(theP1, theP2); }
+  void Translate(const Point3d& theP1, const Point3d& theP2) { pos.Translate(theP1, theP2); }
 
   //! Translates a sphere from the point theP1 to the point theP2.
-  Standard_NODISCARD gp_Sphere Translated(const gp_Pnt& theP1, const gp_Pnt& theP2) const
+  Standard_NODISCARD gp_Sphere Translated(const Point3d& theP1, const Point3d& theP2) const
   {
     gp_Sphere aC = *this;
     aC.pos.Translate(theP1, theP2);
@@ -203,7 +203,7 @@ private:
 // function : Scale
 // purpose :
 //=======================================================================
-inline void gp_Sphere::Scale(const gp_Pnt& theP, const Standard_Real theS)
+inline void gp_Sphere::Scale(const Point3d& theP, const Standard_Real theS)
 {
   pos.Scale(theP, theS);
   radius *= theS;
@@ -217,7 +217,7 @@ inline void gp_Sphere::Scale(const gp_Pnt& theP, const Standard_Real theS)
 // function : Scaled
 // purpose :
 //=======================================================================
-inline gp_Sphere gp_Sphere::Scaled(const gp_Pnt& theP, const Standard_Real theS) const
+inline gp_Sphere gp_Sphere::Scaled(const Point3d& theP, const Standard_Real theS) const
 {
   gp_Sphere aC = *this;
   aC.pos.Scale(theP, theS);

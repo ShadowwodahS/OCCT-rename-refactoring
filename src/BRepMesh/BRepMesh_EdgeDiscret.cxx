@@ -239,7 +239,7 @@ void BRepMesh_EdgeDiscret::Tessellate3d(const IMeshData::IEdgeHandle&           
 
   if (theUpdateEnds)
   {
-    gp_Pnt        aPoint;
+    Point3d        aPoint;
     Standard_Real aParam;
     theTessellator->Value(1, aPoint, aParam);
     aCurve->AddPoint(BRep_Tool::Pnt(aFirstVertex), aParam);
@@ -249,7 +249,7 @@ void BRepMesh_EdgeDiscret::Tessellate3d(const IMeshData::IEdgeHandle&           
   {
     for (Standard_Integer i = 2; i < theTessellator->PointsNb(); ++i)
     {
-      gp_Pnt        aPoint;
+      Point3d        aPoint;
       Standard_Real aParam;
       if (!theTessellator->Value(i, aPoint, aParam))
         continue;
@@ -267,7 +267,7 @@ void BRepMesh_EdgeDiscret::Tessellate3d(const IMeshData::IEdgeHandle&           
 
   if (theUpdateEnds)
   {
-    gp_Pnt        aPoint;
+    Point3d        aPoint;
     Standard_Real aParam;
     theTessellator->Value(theTessellator->PointsNb(), aPoint, aParam);
     aCurve->AddPoint(BRep_Tool::Pnt(aLastVertex), aParam);

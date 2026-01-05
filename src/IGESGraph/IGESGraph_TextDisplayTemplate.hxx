@@ -24,7 +24,7 @@
 #include <gp_XYZ.hxx>
 #include <IGESData_IGESEntity.hxx>
 class IGESGraph_TextFontDef;
-class gp_Pnt;
+class Point3d;
 
 class IGESGraph_TextDisplayTemplate;
 DEFINE_STANDARD_HANDLE(IGESGraph_TextDisplayTemplate, IGESData_IGESEntity)
@@ -109,7 +109,7 @@ public:
   //! If IsIncremental() returns True,
   //! gets increments from X, Y, Z coordinates
   //! found in parent entity.
-  Standard_EXPORT gp_Pnt StartingCorner() const;
+  Standard_EXPORT Point3d StartingCorner() const;
 
   //! If IsIncremental() returns False,
   //! gets coordinates of lower left corner
@@ -117,7 +117,7 @@ public:
   //! If IsIncremental() returns True,
   //! gets increments from X, Y, Z coordinates
   //! found in parent entity.
-  Standard_EXPORT gp_Pnt TransformedStartingCorner() const;
+  Standard_EXPORT Point3d TransformedStartingCorner() const;
 
   DEFINE_STANDARD_RTTIEXT(IGESGraph_TextDisplayTemplate, IGESData_IGESEntity)
 

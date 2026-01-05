@@ -19,7 +19,7 @@
 
 #include <Adaptor3d_Surface.hxx>
 
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 
 //! Internal tool used  to compute the  normal and its
@@ -34,7 +34,7 @@ public:
   Standard_EXPORT static void Normale(const Handle(Adaptor3d_Surface)& S,
                                       const Standard_Real              U,
                                       const Standard_Real              V,
-                                      gp_Pnt&                          P,
+                                      Point3d&                          P,
                                       gp_Vec&                          N);
 
   //! Computes  the point <P>, and  normal vector <N> on
@@ -42,7 +42,7 @@ public:
   Standard_EXPORT static void DerivAndNorm(const Handle(Adaptor3d_Surface)& S,
                                            const Standard_Real              U,
                                            const Standard_Real              V,
-                                           gp_Pnt&                          P,
+                                           Point3d&                          P,
                                            gp_Vec&                          d1u,
                                            gp_Vec&                          d1v,
                                            gp_Vec&                          N);
@@ -52,7 +52,7 @@ public:
   Standard_EXPORT static void NormAndDn(const Handle(Adaptor3d_Surface)& S,
                                         const Standard_Real              U,
                                         const Standard_Real              V,
-                                        gp_Pnt&                          P,
+                                        Point3d&                          P,
                                         gp_Vec&                          N,
                                         gp_Vec&                          Dnu,
                                         gp_Vec&                          Dnv);

@@ -94,7 +94,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
     Dpl.Reverse();
 
   // compute the origin of the conical chamfer PtPl
-  gp_Pnt        Or = Con.Location();
+  Point3d        Or = Con.Location();
   Standard_Real u, v;
   ElSLib::PlaneParameters(PosPl, Or, u, v);
 #ifdef OCCT_DEBUG
@@ -102,7 +102,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
 #endif
   ElSLib::PlaneD0(u, v, PosPl, Or);
 
-  gp_Pnt PtSp;
+  Point3d PtSp;
   gp_Vec DSp;
   ElCLib::D1(First, Spine, PtSp, DSp);
 #ifdef OCCT_DEBUG
@@ -110,7 +110,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
 #endif
   // compute the normal to the cone in PtSp
   gp_Vec deru, derv;
-  gp_Pnt PtCon;
+  Point3d PtCon;
   ElSLib::Parameters(Con, PtSp, u, v);
   ElSLib::D1(u, v, Con, PtCon, deru, derv);
   gp_Dir Dcon(deru.Crossed(derv));
@@ -166,21 +166,21 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
   if ( Or1 == TopAbs_REVERSED ) Dpl.Reverse();
 
     // compute the origin of the conical chamfer PtPl
-  gp_Pnt Or = Con.Location();
+  Point3d Or = Con.Location();
   Standard_Real u,v;
   ElSLib::PlaneParameters(PosPl,Or,u,v);
   gp_Pnt2d pt2dPln(u,v);
   ElSLib::PlaneD0(u,v,PosPl,Or);
-  gp_Pnt PtPl = Or;
+  Point3d PtPl = Or;
 
-  gp_Pnt PtSp;
+  Point3d PtSp;
   gp_Vec DSp;
   ElCLib::D1(First,Spine,PtSp,DSp);
   gp_Dir Dx(gp_Vec(PtPl,PtSp));
 
     //compute the normal to the cone in PtSp
   gp_Vec deru,derv;
-  gp_Pnt PtCon;
+  Point3d PtCon;
   ElSLib::Parameters(Con,PtSp,u,v);
   ElSLib::D1(u,v,Con,PtCon ,deru,derv);
   gp_Dir Dcon( deru.Crossed(derv) );
@@ -203,7 +203,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
   else
     Dis = Dis1 - Dis2*Abs(Sin(angle));
 
-  gp_Pnt Pt(Or.X()+Dis*PosPl.XDirection().X(),
+  Point3d Pt(Or.X()+Dis*PosPl.XDirection().X(),
         Or.Y()+Dis*PosPl.XDirection().Y(),
         Or.Z()+Dis*PosPl.XDirection().Z());
   gp_Dir Vec2( Pt.X()-PtPl.X(), Pt.Y()-PtPl.Y(), Pt.Z()-PtPl.Z());
@@ -256,7 +256,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
   // of the faces
 
     //search the normal to the conical chamfer
-  gp_Pnt P;
+  Point3d P;
   u=0.;
   if (plandab)
     v = sqrt(Dis*Dis + move*move);

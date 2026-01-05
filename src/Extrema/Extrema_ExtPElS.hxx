@@ -22,7 +22,7 @@
 
 #include <Standard_Integer.hxx>
 #include <Extrema_POnSurf.hxx>
-class gp_Pnt;
+class Point3d;
 class gp_Cylinder;
 class gp_Pln;
 class gp_Cone;
@@ -42,38 +42,38 @@ public:
   //! It calculates all the distances between a point
   //! and a cylinder from gp.
   //! Tol is used to test if the point is on the axis.
-  Standard_EXPORT Extrema_ExtPElS(const gp_Pnt& P, const gp_Cylinder& S, const Standard_Real Tol);
+  Standard_EXPORT Extrema_ExtPElS(const Point3d& P, const gp_Cylinder& S, const Standard_Real Tol);
 
-  Standard_EXPORT void Perform(const gp_Pnt& P, const gp_Cylinder& S, const Standard_Real Tol);
+  Standard_EXPORT void Perform(const Point3d& P, const gp_Cylinder& S, const Standard_Real Tol);
 
   //! It calculates all the distances between a point
   //! and a plane from gp.
   //! Tol is used to test if the point is on the plane.
-  Standard_EXPORT Extrema_ExtPElS(const gp_Pnt& P, const gp_Pln& S, const Standard_Real Tol);
+  Standard_EXPORT Extrema_ExtPElS(const Point3d& P, const gp_Pln& S, const Standard_Real Tol);
 
-  Standard_EXPORT void Perform(const gp_Pnt& P, const gp_Pln& S, const Standard_Real Tol);
+  Standard_EXPORT void Perform(const Point3d& P, const gp_Pln& S, const Standard_Real Tol);
 
   //! It calculates all the distances between a point
   //! and a cone from gp.
   //! Tol is used to test if the point is at the apex or
   //! on the axis.
-  Standard_EXPORT Extrema_ExtPElS(const gp_Pnt& P, const gp_Cone& S, const Standard_Real Tol);
+  Standard_EXPORT Extrema_ExtPElS(const Point3d& P, const gp_Cone& S, const Standard_Real Tol);
 
-  Standard_EXPORT void Perform(const gp_Pnt& P, const gp_Cone& S, const Standard_Real Tol);
+  Standard_EXPORT void Perform(const Point3d& P, const gp_Cone& S, const Standard_Real Tol);
 
   //! It calculates all the distances between a point
   //! and a torus from gp.
   //! Tol is used to test if the point is on the axis.
-  Standard_EXPORT Extrema_ExtPElS(const gp_Pnt& P, const gp_Torus& S, const Standard_Real Tol);
+  Standard_EXPORT Extrema_ExtPElS(const Point3d& P, const gp_Torus& S, const Standard_Real Tol);
 
-  Standard_EXPORT void Perform(const gp_Pnt& P, const gp_Torus& S, const Standard_Real Tol);
+  Standard_EXPORT void Perform(const Point3d& P, const gp_Torus& S, const Standard_Real Tol);
 
   //! It calculates all the distances between a point
   //! and a sphere from gp.
   //! Tol is used to test if the point is at the center.
-  Standard_EXPORT Extrema_ExtPElS(const gp_Pnt& P, const gp_Sphere& S, const Standard_Real Tol);
+  Standard_EXPORT Extrema_ExtPElS(const Point3d& P, const gp_Sphere& S, const Standard_Real Tol);
 
-  Standard_EXPORT void Perform(const gp_Pnt& P, const gp_Sphere& S, const Standard_Real Tol);
+  Standard_EXPORT void Perform(const Point3d& P, const gp_Sphere& S, const Standard_Real Tol);
 
   //! Returns True if the distances are found.
   Standard_EXPORT Standard_Boolean IsDone() const;

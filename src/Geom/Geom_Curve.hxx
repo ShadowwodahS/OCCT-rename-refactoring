@@ -25,7 +25,7 @@
 #include <GeomAbs_Shape.hxx>
 #include <Standard_Integer.hxx>
 class gp_Trsf;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 
 class Geom_Curve;
@@ -177,17 +177,17 @@ public:
   //! compute the current point. For example when the first
   //! derivative on the basis curve and the offset direction
   //! are parallel.
-  Standard_EXPORT virtual void D0(const Standard_Real U, gp_Pnt& P) const = 0;
+  Standard_EXPORT virtual void D0(const Standard_Real U, Point3d& P) const = 0;
 
   //! Returns the point P of parameter U and the first derivative V1.
   //! Raised if the continuity of the curve is not C1.
-  Standard_EXPORT virtual void D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V1) const = 0;
+  Standard_EXPORT virtual void D1(const Standard_Real U, Point3d& P, gp_Vec& V1) const = 0;
 
   //! Returns the point P of parameter U, the first and second
   //! derivatives V1 and V2.
   //! Raised if the continuity of the curve is not C2.
   Standard_EXPORT virtual void D2(const Standard_Real U,
-                                  gp_Pnt&             P,
+                                  Point3d&             P,
                                   gp_Vec&             V1,
                                   gp_Vec&             V2) const = 0;
 
@@ -195,7 +195,7 @@ public:
   //! and the third derivative.
   //! Raised if the continuity of the curve is not C3.
   Standard_EXPORT virtual void D3(const Standard_Real U,
-                                  gp_Pnt&             P,
+                                  Point3d&             P,
                                   gp_Vec&             V1,
                                   gp_Vec&             V2,
                                   gp_Vec&             V3) const = 0;
@@ -218,7 +218,7 @@ public:
   //! Raised only for the "OffsetCurve" if it is not possible to
   //! compute the current point. For example when the first
   //! derivative on the basis curve and the offset direction are parallel.
-  Standard_EXPORT gp_Pnt Value(const Standard_Real U) const;
+  Standard_EXPORT Point3d Value(const Standard_Real U) const;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,

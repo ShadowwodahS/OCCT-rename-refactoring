@@ -22,8 +22,8 @@ IMPLEMENT_STANDARD_RTTIEXT(MeshVS_SensitiveSegment, Select3D_SensitiveSegment)
 // Purpose :
 //=======================================================================
 MeshVS_SensitiveSegment::MeshVS_SensitiveSegment(const Handle(SelectMgr_EntityOwner)& theOwnerId,
-                                                 const gp_Pnt&                        theFirstPnt,
-                                                 const gp_Pnt&                        theLastPnt)
+                                                 const Point3d&                        theFirstPnt,
+                                                 const Point3d&                        theLastPnt)
     : Select3D_SensitiveSegment(theOwnerId, theFirstPnt, theLastPnt)
 {
 }

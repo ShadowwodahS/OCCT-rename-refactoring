@@ -152,8 +152,8 @@ void BRepFeat_MakeRevolutionForm::Init(const TopoDS_Shape&       Sbase,
     {
       L = extr.LowerDistance();
     }
-    gp_Pnt                      p1 = c->Value(f);
-    gp_Pnt                      p2 = c->Value(l);
+    Point3d                      p1 = c->Value(f);
+    Point3d                      p2 = c->Value(l);
     GeomAPI_ProjectPointOnCurve proj1(p1, Line);
     GeomAPI_ProjectPointOnCurve proj2(p2, Line);
     if (proj1.NbPoints() < 1 || proj2.NbPoints() < 1)
@@ -245,7 +245,7 @@ void BRepFeat_MakeRevolutionForm::Init(const TopoDS_Shape&       Sbase,
 
   TopoDS_Shape U;
   U.Nullify();
-  gp_Pnt        FirstCorner, LastCorner;
+  Point3d        FirstCorner, LastCorner;
   Standard_Real bnd = HeightMax(mySbase, U, FirstCorner, LastCorner);
   myBnd             = bnd;
 
@@ -305,7 +305,7 @@ void BRepFeat_MakeRevolutionForm::Init(const TopoDS_Shape&       Sbase,
   }
 
   // ---Proofing Point for the side of the wire to be filled - material side
-  gp_Pnt CheckPnt = CheckPoint(FirstEdge, bnd / 10., myPln);
+  Point3d CheckPnt = CheckPoint(FirstEdge, bnd / 10., myPln);
 
   //  Standard_Real f, l;
 
@@ -355,7 +355,7 @@ void BRepFeat_MakeRevolutionForm::Init(const TopoDS_Shape&       Sbase,
   // Control only start and end points no control at the middle to improve
   // If make a control between Surface and segment 2 points limited
   // -> too expensive - to improve
-  // gp_Pnt FirstCenter, LastCenter;
+  // Point3d FirstCenter, LastCenter;
   gp_Circ            FirstCircle, LastCircle;
   Handle(Geom_Curve) FirstCrv, LastCrv;
 
@@ -373,7 +373,7 @@ void BRepFeat_MakeRevolutionForm::Init(const TopoDS_Shape&       Sbase,
       return;
     }
     Standard_Real FirstRayon  = proj.Distance(1);
-    gp_Pnt        FirstCenter = proj.Point(1);
+    Point3d        FirstCenter = proj.Point(1);
 
     GeomAPI_ProjectPointOnCurve proj1(myLastPnt, Line);
     if (proj.NbPoints() < 1)
@@ -387,7 +387,7 @@ void BRepFeat_MakeRevolutionForm::Init(const TopoDS_Shape&       Sbase,
       return;
     }
     Standard_Real LastRayon  = proj1.Distance(1);
-    gp_Pnt        LastCenter = proj1.Point(1);
+    Point3d        LastCenter = proj1.Point(1);
 
     gp_Vec  axv(myAxe.Direction());
     gp_Ax2  ax2(FirstCenter, axv);
@@ -395,10 +395,10 @@ void BRepFeat_MakeRevolutionForm::Init(const TopoDS_Shape&       Sbase,
     gp_Circ theFC(ax2, FirstRayon);
     gp_Circ theLC(ax2p, LastRayon);
 
-    gp_Pnt RFirstPnt1 = myFirstPnt.Rotated(myAxe, myAngle1);
-    gp_Pnt RLastPnt1  = myLastPnt.Rotated(myAxe, myAngle1);
-    gp_Pnt RFirstPnt2 = myFirstPnt.Rotated(myAxe, -myAngle2);
-    gp_Pnt RLastPnt2  = myLastPnt.Rotated(myAxe, -myAngle2);
+    Point3d RFirstPnt1 = myFirstPnt.Rotated(myAxe, myAngle1);
+    Point3d RLastPnt1  = myLastPnt.Rotated(myAxe, myAngle1);
+    Point3d RFirstPnt2 = myFirstPnt.Rotated(myAxe, -myAngle2);
+    Point3d RLastPnt2  = myLastPnt.Rotated(myAxe, -myAngle2);
 
     BRep_Builder  Bu;
     TopoDS_Vertex v1, v2, v3, v4;
@@ -564,7 +564,7 @@ void BRepFeat_MakeRevolutionForm::Init(const TopoDS_Shape&       Sbase,
       {
         Standard_Real      f, l;
         Handle(Geom_Curve) cc = BRep_Tool::Curve(E, f, l);
-        gp_Pnt             pt;
+        Point3d             pt;
         if (!FirstEdge.IsSame(LastEdge))
         {
           pt = BRep_Tool::Pnt(TopExp::LastVertex(E, Standard_True));
@@ -652,8 +652,8 @@ void BRepFeat_MakeRevolutionForm::Init(const TopoDS_Shape&       Sbase,
         else
         {
           Handle(Geom_Curve) cc = BRep_Tool::Curve(E, f, l);
-          gp_Pnt             pf = BRep_Tool::Pnt(TopExp::FirstVertex(E, Standard_True));
-          gp_Pnt             pl = myLastPnt;
+          Point3d             pf = BRep_Tool::Pnt(TopExp::FirstVertex(E, Standard_True));
+          Point3d             pl = myLastPnt;
           TopoDS_Edge        ee;
           if (thePreviousEdge.IsNull())
           {
@@ -685,7 +685,7 @@ void BRepFeat_MakeRevolutionForm::Init(const TopoDS_Shape&       Sbase,
     Standard_Boolean                   FirstOK = Standard_False;
     Standard_Boolean                   LastOK  = Standard_False;
 
-    gp_Pnt               theLastPnt = myLastPnt;
+    Point3d               theLastPnt = myLastPnt;
     Standard_Integer     sens       = 0;
     TopoDS_Edge          theEdge, theLEdge, theFEdge;
     Standard_Integer     counter1 = counter;
@@ -694,7 +694,7 @@ void BRepFeat_MakeRevolutionForm::Init(const TopoDS_Shape&       Sbase,
     while (!FirstOK)
     {
       const TopoDS_Edge&        edg = TopoDS::Edge(it.Value());
-      gp_Pnt                    fp, lp;
+      Point3d                    fp, lp;
       Standard_Real             f, l;
       Handle(Geom_Curve)        ccc = BRep_Tool::Curve(edg, f, l);
       Handle(Geom_TrimmedCurve) cc  = new Geom_TrimmedCurve(ccc, f, l);
@@ -918,7 +918,7 @@ void BRepFeat_MakeRevolutionForm::Init(const TopoDS_Shape&       Sbase,
       if (intcc.NbPoints() > 0)
       {
         gp_Pnt2d P = intcc.Point(1);
-        gp_Pnt   point;
+        Point3d   point;
         myPln->D0(P.X(), P.Y(), point);
         Standard_Real par = IntPar(ln, point);
         if (f <= par && l >= par)
@@ -1135,7 +1135,7 @@ void BRepFeat_MakeRevolutionForm::Perform()
     return;
   }
 
-  gp_Pnt Pt;
+  Point3d Pt;
 
   TopExp_Explorer exx(myPbase, TopAbs_VERTEX);
   for (; exx.More(); exx.Next())
@@ -1378,8 +1378,8 @@ void BRepFeat_MakeRevolutionForm::Perform()
 
 Standard_Boolean BRepFeat_MakeRevolutionForm::Propagate(TopTools_ListOfShape& SliList,
                                                         const TopoDS_Face&    fac,
-                                                        const gp_Pnt&         Firstpnt,
-                                                        const gp_Pnt&         Lastpnt,
+                                                        const Point3d&         Firstpnt,
+                                                        const Point3d&         Lastpnt,
                                                         Standard_Boolean&     falseside)
 {
 #ifdef OCCT_DEBUG
@@ -1387,8 +1387,8 @@ Standard_Boolean BRepFeat_MakeRevolutionForm::Propagate(TopTools_ListOfShape& Sl
   if (trc)
     std::cout << "BRepFeat_MakeRevolutionForm::Propagate" << std::endl;
 #endif
-  gp_Pnt Firstpoint = Firstpnt;
-  gp_Pnt Lastpoint  = Lastpnt;
+  Point3d Firstpoint = Firstpnt;
+  Point3d Lastpoint  = Lastpnt;
 
   Standard_Boolean result = Standard_True;
   TopoDS_Face      CurrentFace, saveFace;
@@ -1402,7 +1402,7 @@ Standard_Boolean BRepFeat_MakeRevolutionForm::Propagate(TopTools_ListOfShape& Sl
   sect.Build();
   TopExp_Explorer  Ex;
   TopoDS_Edge      e, e1;
-  gp_Pnt           FP, LP;
+  Point3d           FP, LP;
   Standard_Integer ii = 0;
   for (Ex.Init(sect.Shape(), TopAbs_EDGE); Ex.More(); Ex.Next())
   {
@@ -1479,7 +1479,7 @@ Standard_Boolean BRepFeat_MakeRevolutionForm::Propagate(TopTools_ListOfShape& Sl
     v2 = TopExp::LastVertex(e, Standard_True);
     v3 = TopExp::FirstVertex(e1, Standard_True);
     v4 = TopExp::LastVertex(e1, Standard_True);
-    gp_Pnt p1, p2, p3, p4;
+    Point3d p1, p2, p3, p4;
     p1 = BRep_Tool::Pnt(v1);
     FP = p1;
     p2 = BRep_Tool::Pnt(v2);
@@ -1605,13 +1605,13 @@ Standard_Boolean BRepFeat_MakeRevolutionForm::Propagate(TopTools_ListOfShape& Sl
   while (!FirstOK)
   {
     // find edge connected to v1:
-    gp_Pnt pt;
+    Point3d pt;
     if (!v1.IsNull())
       pt = BRep_Tool::Pnt(v1);
-    gp_Pnt ptprev;
+    Point3d ptprev;
     if (!Vprevious.IsNull())
       ptprev = BRep_Tool::Pnt(Vprevious);
-    gp_Pnt ptpreprev;
+    Point3d ptpreprev;
     if (!Vpreprevious.IsNull())
       ptpreprev = BRep_Tool::Pnt(Vpreprevious);
 
@@ -1672,8 +1672,8 @@ Standard_Boolean BRepFeat_MakeRevolutionForm::Propagate(TopTools_ListOfShape& Sl
     for (Ex.Init(sectf.Shape(), TopAbs_EDGE); Ex.More(); Ex.Next())
     {
       edg1        = TopoDS::Edge(Ex.Current());
-      gp_Pnt ppp1 = BRep_Tool::Pnt(TopExp::FirstVertex(edg1, Standard_True));
-      gp_Pnt ppp2 = BRep_Tool::Pnt(TopExp::LastVertex(edg1, Standard_True));
+      Point3d ppp1 = BRep_Tool::Pnt(TopExp::FirstVertex(edg1, Standard_True));
+      Point3d ppp2 = BRep_Tool::Pnt(TopExp::LastVertex(edg1, Standard_True));
       if (ppp1.Distance(BRep_Tool::Pnt(v1)) <= BRep_Tool::Tolerance(v1)
           || ppp2.Distance(BRep_Tool::Pnt(v1)) <= BRep_Tool::Tolerance(v1))
         break;
@@ -1690,7 +1690,7 @@ Standard_Boolean BRepFeat_MakeRevolutionForm::Propagate(TopTools_ListOfShape& Sl
       return Standard_False;
 
     Vert               = TopExp::FirstVertex(edg1, Standard_True);
-    gp_Pnt PP          = BRep_Tool::Pnt(Vert);
+    Point3d PP          = BRep_Tool::Pnt(Vert);
     FP                 = BRep_Tool::Pnt(v1);
     Standard_Real tol  = BRep_Tool::Tolerance(edg1);
     Standard_Real tol1 = BRep_Tool::Tolerance(v1);
@@ -1726,13 +1726,13 @@ Standard_Boolean BRepFeat_MakeRevolutionForm::Propagate(TopTools_ListOfShape& Sl
   while (!LastOK)
   {
     // find edge connected to v2:
-    gp_Pnt pt;
+    Point3d pt;
     if (!v2.IsNull())
       pt = BRep_Tool::Pnt(v2);
-    gp_Pnt ptprev;
+    Point3d ptprev;
     if (!Vprevious.IsNull())
       ptprev = BRep_Tool::Pnt(Vprevious);
-    gp_Pnt ptpreprev;
+    Point3d ptpreprev;
     if (!Vpreprevious.IsNull())
       ptpreprev = BRep_Tool::Pnt(Vpreprevious);
 
@@ -1794,8 +1794,8 @@ Standard_Boolean BRepFeat_MakeRevolutionForm::Propagate(TopTools_ListOfShape& Sl
     for (Ex.Init(sectf.Shape(), TopAbs_EDGE); Ex.More(); Ex.Next())
     {
       edg2        = TopoDS::Edge(Ex.Current());
-      gp_Pnt ppp1 = BRep_Tool::Pnt(TopExp::FirstVertex(edg2, Standard_True));
-      gp_Pnt ppp2 = BRep_Tool::Pnt(TopExp::LastVertex(edg2, Standard_True));
+      Point3d ppp1 = BRep_Tool::Pnt(TopExp::FirstVertex(edg2, Standard_True));
+      Point3d ppp2 = BRep_Tool::Pnt(TopExp::LastVertex(edg2, Standard_True));
       if (ppp1.Distance(BRep_Tool::Pnt(v2)) <= BRep_Tool::Tolerance(v2)
           || ppp2.Distance(BRep_Tool::Pnt(v2)) <= BRep_Tool::Tolerance(v2))
         break;
@@ -1811,7 +1811,7 @@ Standard_Boolean BRepFeat_MakeRevolutionForm::Propagate(TopTools_ListOfShape& Sl
       return Standard_False;
 
     Vert      = TopExp::FirstVertex(edg2, Standard_True);
-    gp_Pnt PP = BRep_Tool::Pnt(Vert);
+    Point3d PP = BRep_Tool::Pnt(Vert);
     FP        = BRep_Tool::Pnt(v2);
     if (PP.Distance(FP) <= BRep_Tool::Tolerance(v2))
     {

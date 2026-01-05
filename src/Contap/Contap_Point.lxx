@@ -16,7 +16,7 @@
 
 #include <Standard_DomainError.hxx>
 
-inline void Contap_Point::SetValue(const gp_Pnt& Pt, const Standard_Real U, const Standard_Real V)
+inline void Contap_Point::SetValue(const Point3d& Pt, const Standard_Real U, const Standard_Real V)
 {
   pt         = Pt;
   uparam     = U;
@@ -73,7 +73,7 @@ inline Standard_Boolean Contap_Point::IsInternal() const
   return myInternal;
 }
 
-inline const gp_Pnt& Contap_Point::Value() const
+inline const Point3d& Contap_Point::Value() const
 {
 
   return pt;

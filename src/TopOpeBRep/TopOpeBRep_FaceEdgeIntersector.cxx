@@ -196,10 +196,10 @@ void TopOpeBRep_FaceEdgeIntersector::NextPoint()
 
 //=================================================================================================
 
-gp_Pnt TopOpeBRep_FaceEdgeIntersector::Value() const
+Point3d TopOpeBRep_FaceEdgeIntersector::Value() const
 {
   const IntCurveSurface_IntersectionPoint& IP = mySequenceOfPnt(myPointIndex);
-  const gp_Pnt&                            P  = IP.Pnt();
+  const Point3d&                            P  = IP.Pnt();
   return P;
 }
 
@@ -307,7 +307,7 @@ TopOpeBRepDS_Transition TopOpeBRep_FaceEdgeIntersector::Transition(
 //=================================================================================================
 
 Standard_Boolean TopOpeBRep_FaceEdgeIntersector::IsVertex(const TopoDS_Shape& S,
-                                                          const gp_Pnt&       P,
+                                                          const Point3d&       P,
                                                           const Standard_Real Tol,
                                                           TopoDS_Vertex&      VR)
 {
@@ -319,7 +319,7 @@ Standard_Boolean TopOpeBRep_FaceEdgeIntersector::IsVertex(const TopoDS_Shape& S,
   {
     const TopoDS_Shape&  SS = myVertexExplorer.Current();
     const TopoDS_Vertex& VV = TopoDS::Vertex(SS);
-    gp_Pnt               PV = BRep_Tool::Pnt(VV);
+    Point3d               PV = BRep_Tool::Pnt(VV);
     isv                     = P.SquareDistance(PV) < Tol2;
     if (isv)
     {
@@ -336,7 +336,7 @@ Standard_Boolean TopOpeBRep_FaceEdgeIntersector::IsVertex(const Standard_Integer
                                                           TopoDS_Vertex&         VR)
 {
   Standard_Boolean isv = Standard_False;
-  gp_Pnt           P   = Value();
+  Point3d           P   = Value();
   if (I == 1)
     isv = IsVertex(myFace, P, myTol, VR);
   else if (I == 2)

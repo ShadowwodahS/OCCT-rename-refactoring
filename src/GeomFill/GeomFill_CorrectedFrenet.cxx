@@ -101,7 +101,7 @@ static Standard_Real ComputeTorsion(const Standard_Real            Param,
 {
   Standard_Real Torsion;
 
-  gp_Pnt aPoint;
+  Point3d aPoint;
   gp_Vec DC1, DC2, DC3;
   aCurve->D3(Param, aPoint, DC1, DC2, DC3);
   gp_Vec        DC1crossDC2      = DC1 ^ DC2;
@@ -513,7 +513,7 @@ Standard_Boolean GeomFill_CorrectedFrenet::InitInterval(const Standard_Real     
   Standard_Real          Param  = First, LengthMin, L, norm;
   Standard_Boolean       isZero = Standard_True, isConst = Standard_True;
   Standard_Integer       i;
-  gp_Pnt                 PonC;
+  Point3d                 PonC;
   gp_Vec                 D1;
 
   frenet->SetInterval(First, Last); // To have right evaluation at bounds

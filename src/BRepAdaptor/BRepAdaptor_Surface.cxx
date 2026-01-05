@@ -160,14 +160,14 @@ Handle(Adaptor3d_Surface) BRepAdaptor_Surface::VTrim(const Standard_Real First,
 
 //=================================================================================================
 
-gp_Pnt BRepAdaptor_Surface::Value(const Standard_Real U, const Standard_Real V) const
+Point3d BRepAdaptor_Surface::Value(const Standard_Real U, const Standard_Real V) const
 {
   return mySurf.Value(U, V).Transformed(myTrsf);
 }
 
 //=================================================================================================
 
-void BRepAdaptor_Surface::D0(const Standard_Real U, const Standard_Real V, gp_Pnt& P) const
+void BRepAdaptor_Surface::D0(const Standard_Real U, const Standard_Real V, Point3d& P) const
 {
   mySurf.D0(U, V, P);
   P.Transform(myTrsf);
@@ -177,7 +177,7 @@ void BRepAdaptor_Surface::D0(const Standard_Real U, const Standard_Real V, gp_Pn
 
 void BRepAdaptor_Surface::D1(const Standard_Real U,
                              const Standard_Real V,
-                             gp_Pnt&             P,
+                             Point3d&             P,
                              gp_Vec&             D1U,
                              gp_Vec&             D1V) const
 {
@@ -191,7 +191,7 @@ void BRepAdaptor_Surface::D1(const Standard_Real U,
 
 void BRepAdaptor_Surface::D2(const Standard_Real U,
                              const Standard_Real V,
-                             gp_Pnt&             P,
+                             Point3d&             P,
                              gp_Vec&             D1U,
                              gp_Vec&             D1V,
                              gp_Vec&             D2U,
@@ -211,7 +211,7 @@ void BRepAdaptor_Surface::D2(const Standard_Real U,
 
 void BRepAdaptor_Surface::D3(const Standard_Real U,
                              const Standard_Real V,
-                             gp_Pnt&             P,
+                             Point3d&             P,
                              gp_Vec&             D1U,
                              gp_Vec&             D1V,
                              gp_Vec&             D2U,

@@ -142,7 +142,7 @@ inline void TopOpeBRep_VPointInter::ParametersOnS2(Standard_Real& u, Standard_Re
 // purpose  :
 //=======================================================================
 
-inline const gp_Pnt& TopOpeBRep_VPointInter::Value() const
+inline const Point3d& TopOpeBRep_VPointInter::Value() const
 {
   return myPPOI->Value();
 }

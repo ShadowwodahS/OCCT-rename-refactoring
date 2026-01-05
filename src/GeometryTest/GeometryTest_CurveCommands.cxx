@@ -431,7 +431,7 @@ static Standard_Integer project(Draw_Interpretor& di, Standard_Integer n, const 
       di << " n must be positive\n";
       return 0;
     }
-    gp_Pnt   P1, P2;
+    Point3d   P1, P2;
     gp_Pnt2d P2d;
 
     Standard_Real U, dU;
@@ -1156,8 +1156,8 @@ static Standard_Integer EllipsUniformAbscissa(Draw_Interpretor& di,
 
   try
   {
-    gp_Pnt location;
-    location = gp_Pnt(0.0, 0.0, 0.0);
+    Point3d location;
+    location = Point3d(0.0, 0.0, 0.0);
     gp_Dir main_direction(0.0, 0.0, 1.0);
 
     gp_Dir x_direction(1.0, 0.0, 0.0);
@@ -1365,11 +1365,11 @@ static Standard_Integer mypoints(Draw_Interpretor& di, Standard_Integer /*n*/, c
   while (j < nbsu - 1 && bCont)
   {
     t2        = anUPars(j);
-    gp_Pnt p1 = aBS->Value(t2);
+    Point3d p1 = aBS->Value(t2);
     for (k = j + 2; k <= nbsu; ++k)
     {
       t2                  = anUPars(k);
-      gp_Pnt           p2 = aBS->Value(t2);
+      Point3d           p2 = aBS->Value(t2);
       gce_MakeLin      MkLin(p1, p2);
       const gp_Lin&    lin = MkLin.Value();
       Standard_Boolean ok  = Standard_True;
@@ -1377,7 +1377,7 @@ static Standard_Integer mypoints(Draw_Interpretor& di, Standard_Integer /*n*/, c
       {
         if (anUFlg(l))
           continue;
-        gp_Pnt        pp = aBS->Value(anUPars(l));
+        Point3d        pp = aBS->Value(anUPars(l));
         Standard_Real d  = lin.SquareDistance(pp);
 
         if (d <= defl)
@@ -1532,7 +1532,7 @@ static Standard_Integer intersection(Draw_Interpretor& di, Standard_Integer n, c
 
   //
   Handle(Geom_Curve) Result;
-  gp_Pnt             Point;
+  Point3d             Point;
 
   //
   if (GC1.IsNull())

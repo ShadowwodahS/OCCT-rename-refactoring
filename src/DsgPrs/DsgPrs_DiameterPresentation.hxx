@@ -25,7 +25,7 @@
 #include <Prs3d_Presentation.hxx>
 
 class TCollection_ExtendedString;
-class gp_Pnt;
+class Point3d;
 class gp_Circ;
 
 //! A framework for displaying diameters in shapes.
@@ -45,7 +45,7 @@ public:
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Handle(Prs3d_Drawer)&       aDrawer,
                                   const TCollection_ExtendedString& aText,
-                                  const gp_Pnt&                     AttachmentPoint,
+                                  const Point3d&                     AttachmentPoint,
                                   const gp_Circ&                    aCircle,
                                   const DsgPrs_ArrowSide            ArrowSide,
                                   const Standard_Boolean            IsDiamSymbol);
@@ -62,7 +62,7 @@ public:
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Handle(Prs3d_Drawer)&       aDrawer,
                                   const TCollection_ExtendedString& aText,
-                                  const gp_Pnt&                     AttachmentPoint,
+                                  const Point3d&                     AttachmentPoint,
                                   const gp_Circ&                    aCircle,
                                   const Standard_Real               uFirst,
                                   const Standard_Real               uLast,

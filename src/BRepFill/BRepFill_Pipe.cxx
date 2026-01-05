@@ -119,8 +119,8 @@ static void UpdateTolFromTopOrBottomPCurve(const TopoDS_Face& aFace, TopoDS_Edge
   for (Standard_Integer i = 0; i <= NCONTROL; i++)
   {
     Standard_Real par    = fpar + i * delta;
-    gp_Pnt        pnt    = aCurve->Value(par);
-    gp_Pnt        prj    = ConS.Value(par);
+    Point3d        pnt    = aCurve->Value(par);
+    Point3d        prj    = ConS.Value(par);
     Standard_Real sqdist = pnt.SquareDistance(prj);
     if (sqdist > TolTol)
       TolTol = sqdist;
@@ -472,10 +472,10 @@ TopoDS_Shape BRepFill_Pipe::Section(const TopoDS_Vertex& VSpine) const
 // purpose  : Construct a wire by sweeping of a point
 //=======================================================================
 
-TopoDS_Wire BRepFill_Pipe::PipeLine(const gp_Pnt& Point)
+TopoDS_Wire BRepFill_Pipe::PipeLine(const Point3d& Point)
 {
   // Positioning
-  gp_Pnt P;
+  Point3d P;
   P = Point;
   P.Transform(myTrsf);
 

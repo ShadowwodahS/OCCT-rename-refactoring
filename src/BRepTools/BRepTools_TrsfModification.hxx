@@ -29,7 +29,7 @@ class TopLoc_Location;
 class TopoDS_Edge;
 class Geom_Curve;
 class TopoDS_Vertex;
-class gp_Pnt;
+class Point3d;
 class Geom2d_Curve;
 
 class BRepTools_TrsfModification;
@@ -105,7 +105,7 @@ public:
   //! If the vertex has not been modified this function
   //! returns false, and the values of P and Tol are not significant.
   Standard_EXPORT Standard_Boolean NewPoint(const TopoDS_Vertex& V,
-                                            gp_Pnt&              P,
+                                            Point3d&              P,
                                             Standard_Real&       Tol) Standard_OVERRIDE;
 
   //! Returns true if the edge E has a new curve on surface on the face F.

@@ -65,17 +65,17 @@ void SelectMgr_BaseIntersector::SetViewport(const Standard_Real,
 
 //=================================================================================================
 
-const gp_Pnt& SelectMgr_BaseIntersector::GetNearPnt() const
+const Point3d& SelectMgr_BaseIntersector::GetNearPnt() const
 {
-  static const gp_Pnt anEmptyPnt;
+  static const Point3d anEmptyPnt;
   return anEmptyPnt;
 }
 
 //=================================================================================================
 
-const gp_Pnt& SelectMgr_BaseIntersector::GetFarPnt() const
+const Point3d& SelectMgr_BaseIntersector::GetFarPnt() const
 {
-  static const gp_Pnt anEmptyPnt(RealLast(), RealLast(), RealLast());
+  static const Point3d anEmptyPnt(RealLast(), RealLast(), RealLast());
   return anEmptyPnt;
 }
 
@@ -97,9 +97,9 @@ const gp_Pnt2d& SelectMgr_BaseIntersector::GetMousePosition() const
 
 //=================================================================================================
 
-Standard_Boolean SelectMgr_BaseIntersector::RaySphereIntersection(const gp_Pnt&       theCenter,
+Standard_Boolean SelectMgr_BaseIntersector::RaySphereIntersection(const Point3d&       theCenter,
                                                                   const Standard_Real theRadius,
-                                                                  const gp_Pnt&       theLoc,
+                                                                  const Point3d&       theLoc,
                                                                   const gp_Dir&       theRayDir,
                                                                   Standard_Real&      theTimeEnter,
                                                                   Standard_Real& theTimeLeave) const
@@ -143,7 +143,7 @@ Standard_Boolean SelectMgr_BaseIntersector::RayCylinderIntersection(
   const Standard_Real    theBottomRadius,
   const Standard_Real    theTopRadius,
   const Standard_Real    theHeight,
-  const gp_Pnt&          theLoc,
+  const Point3d&          theLoc,
   const gp_Dir&          theRayDir,
   const Standard_Boolean theIsHollow,
   Standard_Real&         theTimeEnter,
@@ -179,17 +179,17 @@ Standard_Boolean SelectMgr_BaseIntersector::RayCylinderIntersection(
     gp_Ax3 aSystem;
     if (theBottomRadius > theTopRadius)
     {
-      aSystem.SetLocation(gp_Pnt(0, 0, theHeight + aTriangleHeight));
+      aSystem.SetLocation(Point3d(0, 0, theHeight + aTriangleHeight));
       aSystem.SetDirection(-gp::DZ());
     }
     else
     {
-      aSystem.SetLocation(gp_Pnt(0, 0, -aTriangleHeight));
+      aSystem.SetLocation(Point3d(0, 0, -aTriangleHeight));
       aSystem.SetDirection(gp::DZ());
     }
     gp_Trsf aTrsfCone;
     aTrsfCone.SetTransformation(gp_Ax3(), aSystem);
-    const gp_Pnt        aPnt(theLoc.Transformed(aTrsfCone));
+    const Point3d        aPnt(theLoc.Transformed(aTrsfCone));
     const gp_Dir        aDir(theRayDir.Transformed(aTrsfCone));
     const Standard_Real aMaxRad     = Max(theBottomRadius, theTopRadius);
     const Standard_Real aConeHeight = theHeight + aTriangleHeight;
@@ -266,7 +266,7 @@ Standard_Boolean SelectMgr_BaseIntersector::RayCylinderIntersection(
 
 Standard_Boolean SelectMgr_BaseIntersector::RayCircleIntersection(
   const Standard_Real    theRadius,
-  const gp_Pnt&          theLoc,
+  const Point3d&          theLoc,
   const gp_Dir&          theRayDir,
   const Standard_Boolean theIsFilled,
   Standard_Real&         theTime) const
@@ -290,16 +290,16 @@ Standard_Boolean SelectMgr_BaseIntersector::RayCircleIntersection(
 
 //=================================================================================================
 
-Standard_Real SelectMgr_BaseIntersector::DistToGeometryCenter(const gp_Pnt&) const
+Standard_Real SelectMgr_BaseIntersector::DistToGeometryCenter(const Point3d&) const
 {
   return RealLast();
 }
 
 //=================================================================================================
 
-gp_Pnt SelectMgr_BaseIntersector::DetectedPoint(const Standard_Real) const
+Point3d SelectMgr_BaseIntersector::DetectedPoint(const Standard_Real) const
 {
-  return gp_Pnt(RealLast(), RealLast(), RealLast());
+  return Point3d(RealLast(), RealLast(), RealLast());
 }
 
 //=================================================================================================

@@ -26,7 +26,7 @@
 #include <TopoDS_Shape.hxx>
 #include <IntSurf_Transition.hxx>
 #include <Standard_OStream.hxx>
-class gp_Pnt;
+class Point3d;
 class gp_Pnt2d;
 class TopoDS_Edge;
 class TopoDS_Face;
@@ -60,7 +60,7 @@ public:
 
   void ParametersOnS2(Standard_Real& u, Standard_Real& v) const;
 
-  const gp_Pnt& Value() const;
+  const Point3d& Value() const;
 
   Standard_Real Tolerance() const;
 

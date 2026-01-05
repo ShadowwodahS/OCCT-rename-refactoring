@@ -172,11 +172,11 @@ Standard_Real ShapeAnalysis_TransferParametersProj::PreformSegment(const Standar
   Standard_Real linDev, projDev;
 
   ShapeAnalysis_Curve sac;
-  gp_Pnt              pproj;
+  Point3d              pproj;
   Standard_Real       ppar;
   if (To2d)
   {
-    gp_Pnt                      p1   = myCurve->Value(Param).Transformed(myLocation.Inverted());
+    Point3d                      p1   = myCurve->Value(Param).Transformed(myLocation.Inverted());
     Handle(Adaptor3d_Surface)   AdS  = myAC3d.GetSurface();
     Handle(Geom2dAdaptor_Curve) AC2d = new Geom2dAdaptor_Curve(myCurve2d, First, Last);
     Adaptor3d_CurveOnSurface    Ad1(AC2d, AdS);
@@ -185,7 +185,7 @@ Standard_Real ShapeAnalysis_TransferParametersProj::PreformSegment(const Standar
   }
   else
   {
-    gp_Pnt p1 = myAC3d.Value(Param).Transformed(myLocation);
+    Point3d p1 = myAC3d.Value(Param).Transformed(myLocation);
     projDev   = sac.Project(myCurve, p1, myPrecision, pproj, ppar, First, Last, Standard_False);
     linDev    = p1.Distance(myCurve->Value(linPar));
   }
@@ -265,8 +265,8 @@ void ShapeAnalysis_TransferParametersProj::TransferRange(TopoDS_Edge&           
   Standard_Boolean samerange = Standard_True;
   ShapeBuild_Edge  sbe;
   sbe.CopyRanges(newEdge, myEdge);
-  gp_Pnt                  p1;
-  gp_Pnt                  p2;
+  Point3d                  p1;
+  Point3d                  p2;
   Standard_Real           alpha = 0, beta = 1;
   constexpr Standard_Real preci = Precision::PConfusion();
   Standard_Real           firstPar, lastPar;
@@ -330,7 +330,7 @@ void ShapeAnalysis_TransferParametersProj::TransferRange(TopoDS_Edge&           
   const Standard_Boolean          useLinearLast  = (1 - beta < preci);
   TopLoc_Location                 EdgeLoc        = myEdge.Location();
   ShapeAnalysis_Curve             sac;
-  gp_Pnt                          pproj;
+  Point3d                          pproj;
   Standard_Real                   ppar1, ppar2;
   BRep_ListOfCurveRepresentation& tolist =
     (*((Handle(BRep_TEdge)*)&newEdge.TShape()))->ChangeCurves();
@@ -356,8 +356,8 @@ void ShapeAnalysis_TransferParametersProj::TransferRange(TopoDS_Edge&           
         Standard_Real     first = toGC->First();
         Standard_Real     last  = toGC->Last();
         Standard_Real     len   = last - first;
-        gp_Pnt            ploc1 = p1.Transformed(loc);
-        gp_Pnt            ploc2 = p2.Transformed(loc);
+        Point3d            ploc1 = p1.Transformed(loc);
+        Point3d            ploc2 = p2.Transformed(loc);
         GeomAdaptor_Curve GAC(C3d, first, last);
         // CATIA bplseitli.model FAC1155 - Copy: protection for degenerated edges(3d case for
         // symmetry)
@@ -367,8 +367,8 @@ void ShapeAnalysis_TransferParametersProj::TransferRange(TopoDS_Edge&           
         Standard_Real    dist2 = sac.NextProject(linLast, GAC, ploc2, myPrecision, pproj, ppar2);
         Standard_Boolean useLinear = Abs(ppar1 - ppar2) < preci;
 
-        gp_Pnt        pos1 = C3d->Value(linFirst);
-        gp_Pnt        pos2 = C3d->Value(linLast);
+        Point3d        pos1 = C3d->Value(linFirst);
+        Point3d        pos2 = C3d->Value(linLast);
         Standard_Real d01  = pos1.Distance(ploc1);
         Standard_Real d02  = pos2.Distance(ploc2);
         if (useLinearFirst || useLinear || d01 <= dist1 || (d01 < myPrecision && d01 <= 2 * dist1))
@@ -414,10 +414,10 @@ void ShapeAnalysis_TransferParametersProj::TransferRange(TopoDS_Edge&           
       Adaptor3d_CurveOnSurface    Ad1(AC2d, AdS);
       ShapeAnalysis_Curve         sac1;
 
-      // gp_Pnt p1 = Ad1.Value(prevPar);
-      // gp_Pnt p2 = Ad1.Value(currPar);
-      gp_Pnt ploc1 = p1.Transformed(loc);
-      gp_Pnt ploc2 = p2.Transformed(loc);
+      // Point3d p1 = Ad1.Value(prevPar);
+      // Point3d p2 = Ad1.Value(currPar);
+      Point3d ploc1 = p1.Transformed(loc);
+      Point3d ploc2 = p2.Transformed(loc);
       // CATIA bplseitli.model FAC1155 - Copy: protection for degenerated edges
       Standard_Real linFirst = first + alpha * len;
       Standard_Real linLast  = first + beta * len;
@@ -432,8 +432,8 @@ void ShapeAnalysis_TransferParametersProj::TransferRange(TopoDS_Edge&           
       if (isLastOnEnd && !localLinearLast)
         localLinearLast = Standard_True;
 
-      gp_Pnt        pos1 = Ad1.Value(linFirst);
-      gp_Pnt        pos2 = Ad1.Value(linLast);
+      Point3d        pos1 = Ad1.Value(linFirst);
+      Point3d        pos2 = Ad1.Value(linLast);
       Standard_Real d01  = pos1.Distance(ploc1);
       Standard_Real d02  = pos2.Distance(ploc2);
       if (localLinearFirst || useLinear || d01 <= dist1 || (d01 < myPrecision && d01 <= 2 * dist1))
@@ -509,7 +509,7 @@ TopoDS_Vertex ShapeAnalysis_TransferParametersProj::CopyNMVertex(const TopoDS_Ve
   Handle(Geom_Curve) C2 = BRep_Tool::Curve(toedge, f2, l2);
 
   anewV      = TopoDS::Vertex(theV.EmptyCopied());
-  gp_Pnt apv = BRep_Tool::Pnt(anewV);
+  Point3d apv = BRep_Tool::Pnt(anewV);
 
   BRep_ListOfPointRepresentation& alistrep =
     (*((Handle(BRep_TVertex)*)&anewV.TShape()))->ChangePoints();
@@ -587,7 +587,7 @@ TopoDS_Vertex ShapeAnalysis_TransferParametersProj::CopyNMVertex(const TopoDS_Ve
   if (!hasRepr
       || (fabs(f1 - f2) > Precision::PConfusion() || fabs(l1 - l2) > Precision::PConfusion()))
   {
-    gp_Pnt              projP;
+    Point3d              projP;
     ShapeAnalysis_Curve sae;
     Standard_Real       adist = sae.Project(C2, apv, Precision::Confusion(), projP, apar);
     if (aTol < adist)
@@ -598,7 +598,7 @@ TopoDS_Vertex ShapeAnalysis_TransferParametersProj::CopyNMVertex(const TopoDS_Ve
 
   // update tolerance
   Standard_Boolean       needUpdate = Standard_False;
-  gp_Pnt                 aPV        = (*((Handle(BRep_TVertex)*)&anewV.TShape()))->Pnt();
+  Point3d                 aPV        = (*((Handle(BRep_TVertex)*)&anewV.TShape()))->Pnt();
   const TopLoc_Location& toLoc      = toedge.Location();
   BRep_ListIteratorOfListOfCurveRepresentation toitcr(
     (*((Handle(BRep_TEdge)*)&toedge.TShape()))->ChangeCurves());
@@ -614,7 +614,7 @@ TopoDS_Vertex ShapeAnalysis_TransferParametersProj::CopyNMVertex(const TopoDS_Ve
     Handle(Geom_Surface) surface1 = toGC->Surface();
     Handle(Geom2d_Curve) ac2d1    = toGC->PCurve();
     gp_Pnt2d             aP2d     = ac2d1->Value(apar);
-    gp_Pnt               aP3d     = surface1->Value(aP2d.X(), aP2d.Y());
+    Point3d               aP3d     = surface1->Value(aP2d.X(), aP2d.Y());
     aP3d.Transform(aL.Transformation());
     Standard_Real adist = aPV.Distance(aP3d);
     if (adist > aTol)
@@ -645,7 +645,7 @@ TopoDS_Vertex ShapeAnalysis_TransferParametersProj::CopyNMVertex(const TopoDS_Ve
   fromLoc                       = fromLoc.Predivided(theV.Location());
 
   anewV      = TopoDS::Vertex(theV.EmptyCopied());
-  gp_Pnt apv = BRep_Tool::Pnt(anewV);
+  Point3d apv = BRep_Tool::Pnt(anewV);
 
   BRep_ListOfPointRepresentation& alistrep =
     (*((Handle(BRep_TVertex)*)&anewV.TShape()))->ChangePoints();

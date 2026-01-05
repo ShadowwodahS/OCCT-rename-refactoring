@@ -166,7 +166,7 @@ GeomPlate_BuildAveragePlane::GeomPlate_BuildAveragePlane(const TColgp_SequenceOf
 
         Cross1 = Normals(i) ^ Normals(j);
         Cross2 = Vec ^ Cross1;
-        gp_Ax1 Axe(gp_Pnt(0, 0, 0), Cross2);
+        gp_Ax1 Axe(Point3d(0, 0, 0), Cross2);
 
         Vec1 = Vec.Rotated(Axe, -MaxAngle);
         // Vec2 = Vec.Rotated( Axe, MaxAngle );
@@ -272,7 +272,7 @@ void GeomPlate_BuildAveragePlane::MinMaxBox(Standard_Real& Umin,
 gp_Vec GeomPlate_BuildAveragePlane::DefPlan(const Standard_Integer NOption)
 {
 
-  gp_Pnt           GB;
+  Point3d           GB;
   gp_Vec           A, B, C, D;
   gp_Vec           OZ;
   Standard_Integer i, nb = myPts->Length();

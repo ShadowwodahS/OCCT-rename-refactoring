@@ -24,9 +24,9 @@ inline Standard_Real IntImp_ZerParFunc::Root() const
   return f[0] * f[0] + f[1] * f[1] + f[2] * f[2];
 }
 
-inline gp_Pnt IntImp_ZerParFunc::Point() const
+inline Point3d IntImp_ZerParFunc::Point() const
 {
-  return gp_Pnt((pntsol1.XYZ() + pntsol2.XYZ()) / 2.);
+  return Point3d((pntsol1.XYZ() + pntsol2.XYZ()) / 2.);
 }
 
 inline gp_Dir IntImp_ZerParFunc::Direction() const

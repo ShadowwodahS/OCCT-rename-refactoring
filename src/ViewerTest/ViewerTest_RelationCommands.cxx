@@ -91,7 +91,7 @@ extern Handle(AIS_InteractiveContext)& TheAISContext();
 // purpose  : Calculates the 3D points corresponding to the mouse position
 //           in the plane of the view
 //=======================================================================
-static gp_Pnt Get3DPointAtMousePosition()
+static Point3d Get3DPointAtMousePosition()
 {
   Handle(V3d_View) aView = ViewerTest::CurrentView();
 
@@ -99,14 +99,14 @@ static gp_Pnt Get3DPointAtMousePosition()
   aView->Proj(xv, yv, zv);
   Standard_Real xat, yat, zat;
   aView->At(xat, yat, zat);
-  gp_Pln aPlane(gp_Pnt(xat, yat, zat), gp_Dir(xv, yv, zv));
+  gp_Pln aPlane(Point3d(xat, yat, zat), gp_Dir(xv, yv, zv));
 
   Standard_Integer aPixX, aPixY;
   Standard_Real    aX, aY, aZ, aDX, aDY, aDZ;
 
   ViewerTest::GetMousePosition(aPixX, aPixY);
   aView->ConvertWithProj(aPixX, aPixY, aX, aY, aZ, aDX, aDY, aDZ);
-  gp_Lin aLine(gp_Pnt(aX, aY, aZ), gp_Dir(aDX, aDY, aDZ));
+  gp_Lin aLine(Point3d(aX, aY, aZ), gp_Dir(aDX, aDY, aDZ));
 
   // Compute intersection
   Handle(Geom_Line)  aGeomLine  = new Geom_Line(aLine);
@@ -124,9 +124,9 @@ static gp_Pnt Get3DPointAtMousePosition()
 // purpose  : Calculates the 3D points corresponding to the mouse position
 //           in the plane of the view
 //=======================================================================
-static Standard_Boolean Get3DPointAtMousePosition(const gp_Pnt& theFirstPoint,
-                                                  const gp_Pnt& theSecondPoint,
-                                                  gp_Pnt&       theOutputPoint)
+static Standard_Boolean Get3DPointAtMousePosition(const Point3d& theFirstPoint,
+                                                  const Point3d& theSecondPoint,
+                                                  Point3d&       theOutputPoint)
 {
   theOutputPoint = gp::Origin();
 
@@ -138,7 +138,7 @@ static Standard_Boolean Get3DPointAtMousePosition(const gp_Pnt& theFirstPoint,
   // Get 3D point in view coordinates and projection vector from the pixel point.
   ViewerTest::GetMousePosition(aPixX, aPixY);
   aView->ConvertWithProj(aPixX, aPixY, aX, aY, aZ, aDx, aDy, aDz);
-  gp_Lin aProjLin(gp_Pnt(aX, aY, aZ), gp_Dir(aDx, aDy, aDz));
+  gp_Lin aProjLin(Point3d(aX, aY, aZ), gp_Dir(aDx, aDy, aDz));
 
   // Get plane
   gp_Vec aDimVec(theFirstPoint, theSecondPoint);
@@ -856,7 +856,7 @@ static int VDimBuilder(Draw_Interpretor& /*theDi*/,
           break;
         }
         case 3: {
-          gp_Pnt           aPnts[3];
+          Point3d           aPnts[3];
           Standard_Integer aPntIndex = 0;
           for (NCollection_List<Handle(AIS_InteractiveObject)>::Iterator aPntIter(aShapes);
                aPntIter.More();
@@ -883,7 +883,7 @@ static int VDimBuilder(Draw_Interpretor& /*theDi*/,
     }
     case PrsDim_KOD_RADIUS: // radius of the circle
     {
-      gp_Pnt anAnchor;
+      Point3d anAnchor;
       bool   hasAnchor = false;
       for (NCollection_List<Handle(AIS_InteractiveObject)>::Iterator aShapeIter(aShapes);
            aShapeIter.More();
@@ -1081,9 +1081,9 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
 
       BRepAdaptor_Curve aCurve1(TopoDS::Edge(aShape1));
       gp_Circ           aCircle1 = aCurve1.Circle();
-      gp_Pnt            aCenter1 = aCircle1.Location();
-      gp_Pnt            B        = aCurve1.Value(0.25);
-      gp_Pnt            C        = aCurve1.Value(0.75);
+      Point3d            aCenter1 = aCircle1.Location();
+      Point3d            B        = aCurve1.Value(0.25);
+      Point3d            C        = aCurve1.Value(0.75);
       GC_MakePlane      aMkPlane(aCenter1, B, C);
 
       aRelation = new PrsDim_ConcentricRelation(aShape1, aShape2, aMkPlane.Value());
@@ -1113,7 +1113,7 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
         return 1;
       }
 
-      gp_Pnt A, B, C;
+      Point3d A, B, C;
       if (aSelectedShapes[0].ShapeType() == TopAbs_EDGE)
       {
         TopoDS_Vertex Va, Vb;
@@ -1179,9 +1179,9 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
       TopoDS_Edge       anEdge1 = TopoDS::Edge(aShape1);
       TopoDS_Edge       anEdge2 = TopoDS::Edge(aShape2);
       BRepAdaptor_Curve aCurve1(anEdge1);
-      gp_Pnt            A = aCurve1.Value(0.1);
-      gp_Pnt            B = aCurve1.Value(0.5);
-      gp_Pnt            C = aCurve1.Value(0.9);
+      Point3d            A = aCurve1.Value(0.1);
+      Point3d            B = aCurve1.Value(0.5);
+      Point3d            C = aCurve1.Value(0.9);
       GC_MakePlane      aMkPlane(A, B, C);
 
       aRelation = new PrsDim_EqualRadiusRelation(anEdge1, anEdge2, aMkPlane.Value());
@@ -1203,10 +1203,10 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
 
       TopoDS_Edge       anEdge = TopoDS::Edge(aShape);
       BRepAdaptor_Curve aCurve(anEdge);
-      gp_Pnt            A = aCurve.Value(0.1);
-      gp_Pnt            B = aCurve.Value(0.5);
-      gp_Pnt            D = aCurve.Value(0.9);
-      gp_Pnt            C(B.X() + 5.0, B.Y() + 5.0, B.Z() + 5.0);
+      Point3d            A = aCurve.Value(0.1);
+      Point3d            B = aCurve.Value(0.5);
+      Point3d            D = aCurve.Value(0.9);
+      Point3d            C(B.X() + 5.0, B.Y() + 5.0, B.Z() + 5.0);
       GC_MakePlane      aMkPlane(A, D, C);
 
       aRelation = new PrsDim_FixRelation(anEdge, aMkPlane.Value());
@@ -1222,7 +1222,7 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
       const TopoDS_Shape& aShapeA = aShapes.First();
       const TopoDS_Shape& aShapeB = aShapes.Last();
 
-      gp_Pnt A, B, C;
+      Point3d A, B, C;
       if (aShapeA.ShapeType() == TopAbs_EDGE)
       {
         TopoDS_Edge       anEdgeA = TopoDS::Edge(aShapeA);
@@ -1336,9 +1336,9 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
         BRepAdaptor_Curve aCurveA(anEdgeA);
         BRepAdaptor_Curve aCurveB(anEdgeB);
 
-        gp_Pnt A = aCurveA.Value(0.1);
-        gp_Pnt B = aCurveA.Value(0.9);
-        gp_Pnt C = aCurveB.Value(0.5);
+        Point3d A = aCurveA.Value(0.1);
+        Point3d B = aCurveA.Value(0.9);
+        Point3d C = aCurveB.Value(0.5);
 
         GC_MakePlane aMkPlane(A, B, C);
 
@@ -1364,9 +1364,9 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
 
         BRepAdaptor_Curve aCurveA(anEdgeA);
         BRepAdaptor_Curve aCurveB(anEdgeB);
-        gp_Pnt            A = aCurveA.Value(0.1);
-        gp_Pnt            B = aCurveA.Value(0.9);
-        gp_Pnt            C = aCurveB.Value(0.5);
+        Point3d            A = aCurveA.Value(0.1);
+        Point3d            B = aCurveA.Value(0.9);
+        Point3d            C = aCurveB.Value(0.5);
 
         GC_MakePlane aMkPlane(A, B, C);
 
@@ -1392,9 +1392,9 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
         BRepAdaptor_Curve aCurveA(anEdgeA);
         BRepAdaptor_Curve aCurveB(anEdgeB);
 
-        gp_Pnt A = aCurveA.Value(0.1);
-        gp_Pnt B = aCurveA.Value(0.9);
-        gp_Pnt C = aCurveB.Value(0.5);
+        Point3d A = aCurveA.Value(0.1);
+        Point3d B = aCurveA.Value(0.9);
+        Point3d C = aCurveB.Value(0.5);
 
         GC_MakePlane aMkPlane(A, B, C);
 
@@ -1414,9 +1414,9 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
         BRepAdaptor_Curve aCurveA(anEdgeA);
         BRepAdaptor_Curve aCurveB(anEdgeB);
 
-        gp_Pnt A = aCurveA.Value(0.1);
-        gp_Pnt B = aCurveA.Value(0.9);
-        gp_Pnt C = aCurveB.Value(0.5);
+        Point3d A = aCurveA.Value(0.1);
+        Point3d B = aCurveA.Value(0.9);
+        Point3d C = aCurveB.Value(0.5);
 
         GC_MakePlane aMkPlane(A, B, C);
 
@@ -1443,9 +1443,9 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
         BRepAdaptor_Curve aCurveA(anEdgeA);
         BRepAdaptor_Curve aCurveB(anEdgeB);
 
-        gp_Pnt A = aCurveA.Value(0.1);
-        gp_Pnt B = aCurveA.Value(0.9);
-        gp_Pnt C = aCurveB.Value(0.5);
+        Point3d A = aCurveA.Value(0.1);
+        Point3d B = aCurveA.Value(0.9);
+        Point3d C = aCurveB.Value(0.5);
 
         GC_MakePlane aMkPlane(A, B, C);
 
@@ -1465,9 +1465,9 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
         BRepAdaptor_Curve aCurveA(anEdgeA);
         BRepAdaptor_Curve aCurveB(anEdgeB);
 
-        gp_Pnt A = aCurveA.Value(0.1);
-        gp_Pnt B = aCurveA.Value(0.9);
-        gp_Pnt C = aCurveB.Value(0.5);
+        Point3d A = aCurveA.Value(0.1);
+        Point3d B = aCurveA.Value(0.9);
+        Point3d C = aCurveB.Value(0.5);
 
         GC_MakePlane aMkPlane(A, B, C);
 
@@ -1514,9 +1514,9 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
         TopoDS_Vertex Va, Vb, Vc, Vd;
         TopExp::Vertices(anEdgeB, Va, Vb);
         TopExp::Vertices(anEdgeC, Vc, Vd);
-        gp_Pnt A = BRep_Tool::Pnt(Va);
-        gp_Pnt B = BRep_Tool::Pnt(Vc);
-        gp_Pnt C = Get3DPointAtMousePosition();
+        Point3d A = BRep_Tool::Pnt(Va);
+        Point3d B = BRep_Tool::Pnt(Vc);
+        Point3d C = Get3DPointAtMousePosition();
 
         GC_MakePlane aMkPlane(A, B, C);
 
@@ -1528,12 +1528,12 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
         TopoDS_Vertex aVertexB = TopoDS::Vertex(aSelectedShapes[1]);
         TopoDS_Vertex aVertexC = TopoDS::Vertex(aSelectedShapes[2]);
 
-        gp_Pnt B = BRep_Tool::Pnt(aVertexB);
-        gp_Pnt C = BRep_Tool::Pnt(aVertexC);
+        Point3d B = BRep_Tool::Pnt(aVertexB);
+        Point3d C = BRep_Tool::Pnt(aVertexC);
 
         TopoDS_Vertex Va, Vb;
         TopExp::Vertices(anEdgeA, Va, Vb);
-        gp_Pnt A = BRep_Tool::Pnt(Va);
+        Point3d A = BRep_Tool::Pnt(Va);
 
         GC_MakePlane aMkPlane(A, B, C);
         aRelation = new PrsDim_SymmetricRelation(anEdgeA, aVertexB, aVertexC, aMkPlane.Value());
@@ -1789,7 +1789,7 @@ static int VMoveDim(Draw_Interpretor& theDi, Standard_Integer theArgNum, const c
   Standard_Boolean isPointSet = (theArgNum == 4 || theArgNum == 5);
 
   Handle(AIS_InteractiveObject) aPickedObj;
-  gp_Pnt                        aPoint(gp::Origin());
+  Point3d                        aPoint(gp::Origin());
   Standard_Integer              aMaxPickNum = 5;
 
   // Find object
@@ -1849,8 +1849,8 @@ static int VMoveDim(Draw_Interpretor& theDi, Standard_Integer theArgNum, const c
   // Find point
   if (isPointSet)
   {
-    aPoint = theArgNum == 4 ? gp_Pnt(atoi(theArgVec[1]), atoi(theArgVec[2]), atoi(theArgVec[3]))
-                            : gp_Pnt(atoi(theArgVec[2]), atoi(theArgVec[3]), atoi(theArgVec[4]));
+    aPoint = theArgNum == 4 ? Point3d(atoi(theArgVec[1]), atoi(theArgVec[2]), atoi(theArgVec[3]))
+                            : Point3d(atoi(theArgVec[2]), atoi(theArgVec[3]), atoi(theArgVec[4]));
   }
   else // Pick the point
   {
@@ -1873,7 +1873,7 @@ static int VMoveDim(Draw_Interpretor& theDi, Standard_Integer theArgNum, const c
     else
     {
       Handle(PrsDim_Dimension) aDim = Handle(PrsDim_Dimension)::DownCast(aPickedObj);
-      gp_Pnt                   aFirstPoint, aSecondPoint;
+      Point3d                   aFirstPoint, aSecondPoint;
       if (aDim->KindOfDimension() == PrsDim_KOD_PLANEANGLE)
       {
         Handle(PrsDim_AngleDimension) anAngleDim = Handle(PrsDim_AngleDimension)::DownCast(aDim);

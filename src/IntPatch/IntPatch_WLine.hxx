@@ -30,7 +30,7 @@
 class IntPatch_Point;
 class IntSurf_PntOn2S;
 class gp_Pnt2d;
-class gp_Pnt;
+class Point3d;
 
 class IntPatch_WLine;
 DEFINE_STANDARD_HANDLE(IntPatch_WLine, IntPatch_PointLine)
@@ -150,7 +150,7 @@ public:
   }
 
   //! Returns TRUE if theP is out of the box built from 3D-points.
-  Standard_Boolean IsOutBox(const gp_Pnt& theP) const Standard_OVERRIDE
+  Standard_Boolean IsOutBox(const Point3d& theP) const Standard_OVERRIDE
   {
     return curv->IsOutBox(theP);
   }

@@ -427,7 +427,7 @@ BRepFeat_StatusError BRepFeat_RibSlot::CurrentStatusError() const
 // purpose  : Proofing point material side (side of extrusion)
 //=======================================================================
 
-gp_Pnt BRepFeat_RibSlot::CheckPoint(const TopoDS_Edge& e,
+Point3d BRepFeat_RibSlot::CheckPoint(const TopoDS_Edge& e,
                                     const Standard_Real, // bnd,
                                     const Handle(Geom_Plane)& Pln)
 
@@ -444,7 +444,7 @@ gp_Pnt BRepFeat_RibSlot::CheckPoint(const TopoDS_Edge& e,
   Handle(Geom_Curve) cc = BRep_Tool::Curve(e, f, l);
 
   gp_Vec        tgt;
-  gp_Pnt        pp;
+  Point3d        pp;
   Standard_Real par = (f + l) / 2.;
 
   cc->D1(par, pp, tgt);
@@ -463,7 +463,7 @@ gp_Pnt BRepFeat_RibSlot::CheckPoint(const TopoDS_Edge& e,
 // purpose  : calculate the normal to a face in a point
 //=======================================================================
 
-gp_Dir BRepFeat_RibSlot::Normal(const TopoDS_Face& F, const gp_Pnt& P)
+gp_Dir BRepFeat_RibSlot::Normal(const TopoDS_Face& F, const Point3d& P)
 
 {
 #ifdef OCCT_DEBUG
@@ -472,7 +472,7 @@ gp_Dir BRepFeat_RibSlot::Normal(const TopoDS_Face& F, const gp_Pnt& P)
     std::cout << "BRepFeat_RibSlot::Normal" << std::endl;
 #endif
   Standard_Real U, V;
-  gp_Pnt        pt;
+  Point3d        pt;
 
   BRepAdaptor_Surface AS(F, Standard_True);
 
@@ -516,7 +516,7 @@ gp_Dir BRepFeat_RibSlot::Normal(const TopoDS_Face& F, const gp_Pnt& P)
 // purpose  : calculate the parameter of a point on a curve
 //=======================================================================
 
-Standard_Real BRepFeat_RibSlot::IntPar(const Handle(Geom_Curve)& C, const gp_Pnt& P)
+Standard_Real BRepFeat_RibSlot::IntPar(const Handle(Geom_Curve)& C, const Point3d& P)
 
 {
   if (C.IsNull())
@@ -595,8 +595,8 @@ void BRepFeat_RibSlot::EdgeExtention(TopoDS_Edge&           e,
   else
   {
     Handle(Geom_Line) ln;
-    gp_Pnt            Pt;
-    gp_Pnt            pnt;
+    Point3d            Pt;
+    Point3d            pnt;
     gp_Vec            vct;
     if (FirstLast)
     {
@@ -639,7 +639,7 @@ TopoDS_Face BRepFeat_RibSlot::ChoiceOfFaces(TopTools_ListOfShape&     faces,
 #endif
   TopoDS_Face FFF;
 
-  gp_Pnt pp;
+  Point3d pp;
   gp_Vec tgt;
 
   cc->D1(par, pp, tgt);
@@ -691,8 +691,8 @@ TopoDS_Face BRepFeat_RibSlot::ChoiceOfFaces(TopTools_ListOfShape&     faces,
 
 Standard_Real BRepFeat_RibSlot::HeightMax(const TopoDS_Shape& theSbase,
                                           const TopoDS_Shape& theSUntil,
-                                          gp_Pnt&             p1,
-                                          gp_Pnt&             p2)
+                                          Point3d&             p1,
+                                          Point3d&             p2)
 {
 #ifdef OCCT_DEBUG
   Standard_Boolean trc = BRepFeat_GettraceFEATRIB();
@@ -778,13 +778,13 @@ Standard_Boolean BRepFeat_RibSlot::ExtremeFaces(const Standard_Boolean    RevolR
 #endif
     exp.ReInit();
     Standard_Real f, l; //, f1, l1, temp;
-    gp_Pnt        firstpoint, lastpoint;
+    Point3d        firstpoint, lastpoint;
 
     // Points limit the unique edge
     const TopoDS_Edge& E  = TopoDS::Edge(exp.Current());
     Handle(Geom_Curve) cc = BRep_Tool::Curve(E, f, l);
-    gp_Pnt             p1 = BRep_Tool::Pnt(TopExp::FirstVertex(E, Standard_True));
-    gp_Pnt             p2 = BRep_Tool::Pnt(TopExp::LastVertex(E, Standard_True));
+    Point3d             p1 = BRep_Tool::Pnt(TopExp::FirstVertex(E, Standard_True));
+    Point3d             p2 = BRep_Tool::Pnt(TopExp::LastVertex(E, Standard_True));
 
     Standard_Real FirstPar = f;
     Standard_Real LastPar  = l;
@@ -1075,10 +1075,10 @@ Standard_Boolean BRepFeat_RibSlot::ExtremeFaces(const Standard_Boolean    RevolR
       Handle(Geom_TrimmedCurve) curve;
       curve = new Geom_TrimmedCurve(Cur, f, l, Standard_True);
 #ifdef OCCT_DEBUG
-      gp_Pnt P1 = BRep_Tool::Pnt(TopExp::FirstVertex(E, Standard_True));
+      Point3d P1 = BRep_Tool::Pnt(TopExp::FirstVertex(E, Standard_True));
       (void)P1;
 #endif
-      gp_Pnt P2 = BRep_Tool::Pnt(TopExp::LastVertex(E, Standard_True));
+      Point3d P2 = BRep_Tool::Pnt(TopExp::LastVertex(E, Standard_True));
       ex1.Init(mySbase, TopAbs_FACE);
       TopoDS_Vertex    theVertex;
       TopoDS_Edge      theEdge;
@@ -1097,10 +1097,10 @@ Standard_Boolean BRepFeat_RibSlot::ExtremeFaces(const Standard_Boolean    RevolR
           continue;
         for (; inter.More(); inter.Next())
         {
-          gp_Pnt thePoint = inter.Pnt();
+          Point3d thePoint = inter.Pnt();
           if (!FirstVertex.IsNull())
           {
-            gp_Pnt point = BRep_Tool::Pnt(FirstVertex);
+            Point3d point = BRep_Tool::Pnt(FirstVertex);
             if (point.Distance(thePoint) <= BRep_Tool::Tolerance(aCurFace))
             {
               continue;
@@ -1267,10 +1267,10 @@ Standard_Boolean BRepFeat_RibSlot::ExtremeFaces(const Standard_Boolean    RevolR
     if (FirstOK && LastOK)
     {
       Data       = Standard_True;
-      gp_Pnt PP1 = BRep_Tool::Pnt(TopExp::FirstVertex(FirstEdge, Standard_True));
-      gp_Pnt PP2 = BRep_Tool::Pnt(TopExp::LastVertex(LastEdge, Standard_True));
-      gp_Pnt p1  = BRep_Tool::Pnt(FirstVertex);
-      gp_Pnt p2  = BRep_Tool::Pnt(LastVertex);
+      Point3d PP1 = BRep_Tool::Pnt(TopExp::FirstVertex(FirstEdge, Standard_True));
+      Point3d PP2 = BRep_Tool::Pnt(TopExp::LastVertex(LastEdge, Standard_True));
+      Point3d p1  = BRep_Tool::Pnt(FirstVertex);
+      Point3d p2  = BRep_Tool::Pnt(LastVertex);
       if (p1.Distance(PP1) <= BRep_Tool::Tolerance(FirstFace))
       {
         OnFirstFace = Standard_True;
@@ -1300,7 +1300,7 @@ Standard_Boolean BRepFeat_RibSlot::ExtremeFaces(const Standard_Boolean    RevolR
 
 void BRepFeat_RibSlot::PtOnEdgeVertex(const Standard_Boolean RevolRib,
                                       const TopoDS_Shape&    shape,
-                                      const gp_Pnt&          point,
+                                      const Point3d&          point,
                                       const TopoDS_Vertex&, // FirstVertex,
                                       const TopoDS_Vertex&, // LastVertex,
                                       Standard_Boolean& PtOnEdge,
@@ -1357,8 +1357,8 @@ void BRepFeat_RibSlot::PtOnEdgeVertex(const Standard_Boolean RevolRib,
       OnEdge            = e;
       TopoDS_Vertex ev1 = TopExp::FirstVertex(e, Standard_True);
       TopoDS_Vertex ev2 = TopExp::LastVertex(e, Standard_True);
-      gp_Pnt        ep1 = BRep_Tool::Pnt(ev1);
-      gp_Pnt        ep2 = BRep_Tool::Pnt(ev2);
+      Point3d        ep1 = BRep_Tool::Pnt(ev1);
+      Point3d        ep2 = BRep_Tool::Pnt(ev2);
       if (point.Distance(ep1) <= BRep_Tool::Tolerance(ev1))
       {
         PtOnVertex = Standard_True;
@@ -1387,7 +1387,7 @@ Standard_Boolean BRepFeat_RibSlot::SlidingProfile(TopoDS_Face&              Prof
                                                   Standard_Integer&         Concavite,
                                                   const Handle(Geom_Plane)& myPln,
                                                   const TopoDS_Face&        BndFace,
-                                                  const gp_Pnt&             CheckPnt,
+                                                  const Point3d&             CheckPnt,
                                                   const TopoDS_Face&        FirstFace,
                                                   const TopoDS_Face&        LastFace,
                                                   const TopoDS_Vertex&, // FirstVertex,
@@ -1422,7 +1422,7 @@ Standard_Boolean BRepFeat_RibSlot::SlidingProfile(TopoDS_Face&              Prof
   }
 
   Handle(Geom_Line) ln1, ln2;
-  gp_Pnt            Pt; //,p1, p2;
+  Point3d            Pt; //,p1, p2;
 
   ln2 = new Geom_Line(myFirstPnt, FN);
   ln1 = new Geom_Line(myLastPnt, LN);
@@ -1483,7 +1483,7 @@ Standard_Boolean BRepFeat_RibSlot::SlidingProfile(TopoDS_Face&              Prof
     // BndEdge : edges of intersection with the bounding box
     TopoDS_Edge BndEdge1, BndEdge2;
     // Points of intersection with the bounding box / Find Profile
-    gp_Pnt          BndPnt1, BndPnt2, LastPnt;
+    Point3d          BndPnt1, BndPnt2, LastPnt;
     TopExp_Explorer expl;
     expl.Init(BndFace, TopAbs_WIRE);
     BRepTools_WireExplorer explo;
@@ -1499,7 +1499,7 @@ Standard_Boolean BRepFeat_RibSlot::SlidingProfile(TopoDS_Face&              Prof
       if (intcln1.NbPoints() > 0)
       {
         gp_Pnt2d p2d = intcln1.Point(1);
-        gp_Pnt   p;
+        Point3d   p;
         myPln->D0(p2d.X(), p2d.Y(), p);
         Standard_Real parl = IntPar(ln1, p);
         Standard_Real parc = IntPar(c, p);
@@ -1514,7 +1514,7 @@ Standard_Boolean BRepFeat_RibSlot::SlidingProfile(TopoDS_Face&              Prof
       if (intcln2.NbPoints() > 0)
       {
         gp_Pnt2d p2d = intcln2.Point(1);
-        gp_Pnt   p;
+        Point3d   p;
         myPln->D0(p2d.X(), p2d.Y(), p);
         Standard_Real parl = IntPar(ln2, p);
         Standard_Real parc = IntPar(c, p);
@@ -1557,14 +1557,14 @@ Standard_Boolean BRepFeat_RibSlot::SlidingProfile(TopoDS_Face&              Prof
         const TopoDS_Edge& e = TopoDS::Edge(explo.Current());
         if (e.IsSame(BndEdge1))
         {
-          gp_Pnt pp;
+          Point3d pp;
           pp = BRep_Tool::Pnt(TopExp::LastVertex(e, Standard_True));
           if (pp.Distance(BndPnt1) >= BRep_Tool::Tolerance(e))
           {
             LastPnt = pp;
           }
           //            else {         //LinearForm
-          //              gp_Pnt ppp = BRep_Tool::Pnt(TopExp::FirstVertex(e,Standard_True));
+          //              Point3d ppp = BRep_Tool::Pnt(TopExp::FirstVertex(e,Standard_True));
           //              LastPnt = ppp;
           //            }
           BRepLib_MakeEdge e2(BndPnt1, LastPnt);
@@ -1591,7 +1591,7 @@ Standard_Boolean BRepFeat_RibSlot::SlidingProfile(TopoDS_Face&              Prof
         const TopoDS_Edge& e = TopoDS::Edge(explo.Current());
         if (!e.IsSame(BndEdge2))
         {
-          gp_Pnt pp;
+          Point3d pp;
           pp = BRep_Tool::Pnt(TopExp::LastVertex(e, Standard_True));
           BRepLib_MakeEdge ee(LastPnt, pp);
           WW.Add(ee);
@@ -1635,7 +1635,7 @@ Standard_Boolean BRepFeat_RibSlot::SlidingProfile(TopoDS_Face&              Prof
   if (!FirstEdge.IsSame(LastEdge))
   {
     TopoDS_Vertex    FLVert = TopExp::LastVertex(FirstEdge, Standard_True);
-    gp_Pnt           FLPnt  = BRep_Tool::Pnt(FLVert);
+    Point3d           FLPnt  = BRep_Tool::Pnt(FLVert);
     BRepLib_MakeEdge ef(FirstCurve, myFirstPnt, FLPnt);
     WW.Add(ef);
     for (; EX.More(); EX.Next())
@@ -1657,7 +1657,7 @@ Standard_Boolean BRepFeat_RibSlot::SlidingProfile(TopoDS_Face&              Prof
     }
     Handle(Geom_Curve) LastCurve = BRep_Tool::Curve(LastEdge, ff, ll);
     TopoDS_Vertex      LFVert    = TopExp::FirstVertex(LastEdge, Standard_True);
-    gp_Pnt             LFPnt     = BRep_Tool::Pnt(LFVert);
+    Point3d             LFPnt     = BRep_Tool::Pnt(LFVert);
     BRepLib_MakeEdge   el(LastCurve, LFPnt, myLastPnt);
     WW.Add(el);
   }
@@ -1743,7 +1743,7 @@ Standard_Boolean BRepFeat_RibSlot::NoSlidingProfile(TopoDS_Face&              Pr
                                                     const Handle(Geom_Plane)& myPln,
                                                     const Standard_Real       bnd,
                                                     const TopoDS_Face&        BndFace,
-                                                    const gp_Pnt&             CheckPnt,
+                                                    const Point3d&             CheckPnt,
                                                     const TopoDS_Face&,   // FirstFace,
                                                     const TopoDS_Face&,   // LastFace,
                                                     const TopoDS_Vertex&, // FirstVertex,
@@ -1764,15 +1764,15 @@ Standard_Boolean BRepFeat_RibSlot::NoSlidingProfile(TopoDS_Face&              Pr
   Standard_Real l1, f1, f2, l2; //, p;
   TopoDS_Vertex theFV;
   theFV.Nullify();
-  gp_Pnt      theFirstpoint;
+  Point3d      theFirstpoint;
   TopoDS_Edge theLastEdge;
   theLastEdge.Nullify();
-  gp_Pnt       firstpoint, lastpoint; //, pp1, pp2;
+  Point3d       firstpoint, lastpoint; //, pp1, pp2;
   gp_Vec       firstvect, lastvect;
   TopoDS_Wire  w;
   BRep_Builder BB;
   BB.MakeWire(w);
-  // gp_Pnt p1, p3;
+  // Point3d p1, p3;
   TopoDS_Edge FalseFirstEdge, FalseLastEdge, FalseOnlyOne;
 
   Handle(Geom_Curve) FirstCurve = BRep_Tool::Curve(FirstEdge, f1, l1);
@@ -1784,7 +1784,7 @@ Standard_Boolean BRepFeat_RibSlot::NoSlidingProfile(TopoDS_Face&              Pr
   LastCurve->D1(l2, lastpoint, lastvect);
   firstln = new Geom_Line(lastpoint, lastvect);
 
-  gp_Pnt Pt;
+  Point3d Pt;
 
   Handle(Geom2d_Curve) ln2d1 = GeomAPI::To2d(firstln, myPln->Pln());
   Handle(Geom2d_Curve) ln2d2 = GeomAPI::To2d(lastln, myPln->Pln());
@@ -1868,7 +1868,7 @@ Standard_Boolean BRepFeat_RibSlot::NoSlidingProfile(TopoDS_Face&              Pr
     }
 
     TopoDS_Edge     BndEdge1, BndEdge2;
-    gp_Pnt          BndPnt1, BndPnt2, LastPnt;
+    Point3d          BndPnt1, BndPnt2, LastPnt;
     TopExp_Explorer expl;
     expl.Init(BndFace, TopAbs_WIRE);
     BRepTools_WireExplorer explo;
@@ -1884,7 +1884,7 @@ Standard_Boolean BRepFeat_RibSlot::NoSlidingProfile(TopoDS_Face&              Pr
       if (intcln1.NbPoints() > 0)
       {
         gp_Pnt2d p2d = intcln1.Point(1);
-        gp_Pnt   p;
+        Point3d   p;
         myPln->D0(p2d.X(), p2d.Y(), p);
         Standard_Real parl = IntPar(firstln, p);
         Standard_Real parc = IntPar(c, p);
@@ -1899,7 +1899,7 @@ Standard_Boolean BRepFeat_RibSlot::NoSlidingProfile(TopoDS_Face&              Pr
       if (intcln2.NbPoints() > 0)
       {
         gp_Pnt2d p2d = intcln2.Point(1);
-        gp_Pnt   p;
+        Point3d   p;
         myPln->D0(p2d.X(), p2d.Y(), p);
         Standard_Real parl = IntPar(lastln, p);
         Standard_Real parc = IntPar(c, p);
@@ -1994,7 +1994,7 @@ Standard_Boolean BRepFeat_RibSlot::NoSlidingProfile(TopoDS_Face&              Pr
         const TopoDS_Edge& e = TopoDS::Edge(explo.Current());
         if (e.IsSame(BndEdge1))
         {
-          gp_Pnt pp;
+          Point3d pp;
           pp = BRep_Tool::Pnt(TopExp::LastVertex(e, Standard_True));
           if (pp.Distance(BndPnt1) > BRep_Tool::Tolerance(e))
           {
@@ -2038,7 +2038,7 @@ Standard_Boolean BRepFeat_RibSlot::NoSlidingProfile(TopoDS_Face&              Pr
         const TopoDS_Edge& e = TopoDS::Edge(explo.Current());
         if (!e.IsSame(BndEdge2))
         {
-          gp_Pnt pp;
+          Point3d pp;
           pp = BRep_Tool::Pnt(TopExp::LastVertex(e, Standard_True));
           TopoDS_Edge eee1;
           if (theLastEdge.IsNull())
@@ -2162,7 +2162,7 @@ Standard_Boolean BRepFeat_RibSlot::NoSlidingProfile(TopoDS_Face&              Pr
       {
         const TopoDS_Vertex& v1 = TopExp::LastVertex(theLastEdge, Standard_True);
         TopoDS_Vertex        v2;
-        const gp_Pnt&        pp = BRep_Tool::Pnt(TopExp::LastVertex(FalseOnlyOne, Standard_True));
+        const Point3d&        pp = BRep_Tool::Pnt(TopExp::LastVertex(FalseOnlyOne, Standard_True));
         if (!theFV.IsNull() && theFirstpoint.Distance(pp) <= myTol)
         {
           v2 = theFV;
@@ -2176,7 +2176,7 @@ Standard_Boolean BRepFeat_RibSlot::NoSlidingProfile(TopoDS_Face&              Pr
       {
         const TopoDS_Vertex& v1 = TopExp::FirstVertex(FalseOnlyOne, Standard_True);
         TopoDS_Vertex        v2;
-        const gp_Pnt&        pp = BRep_Tool::Pnt(TopExp::LastVertex(FalseOnlyOne, Standard_True));
+        const Point3d&        pp = BRep_Tool::Pnt(TopExp::LastVertex(FalseOnlyOne, Standard_True));
         if (!theFV.IsNull() && theFirstpoint.Distance(pp) <= myTol)
         {
           v2 = theFV;
@@ -2202,7 +2202,7 @@ Standard_Boolean BRepFeat_RibSlot::NoSlidingProfile(TopoDS_Face&              Pr
         const TopoDS_Vertex& v1 = TopExp::LastVertex(theLastEdge, Standard_True);
         TopoDS_Vertex        v2;
         // Attention case Wire Reversed -> LastVertex without Standard_True
-        const gp_Pnt& pp = BRep_Tool::Pnt(TopExp::LastVertex(FirstEdge));
+        const Point3d& pp = BRep_Tool::Pnt(TopExp::LastVertex(FirstEdge));
         if (!theFV.IsNull() && theFirstpoint.Distance(pp) <= myTol)
         {
           v2 = theFV;
@@ -2216,7 +2216,7 @@ Standard_Boolean BRepFeat_RibSlot::NoSlidingProfile(TopoDS_Face&              Pr
       {
         const TopoDS_Vertex& v1 = TopExp::FirstVertex(FirstEdge, Standard_True);
         TopoDS_Vertex        v2;
-        const gp_Pnt&        pp = BRep_Tool::Pnt(TopExp::LastVertex(FirstEdge, Standard_True));
+        const Point3d&        pp = BRep_Tool::Pnt(TopExp::LastVertex(FirstEdge, Standard_True));
         if (!theFV.IsNull() && theFirstpoint.Distance(pp) <= myTol)
         {
           v2 = theFV;
@@ -2346,7 +2346,7 @@ Standard_Boolean BRepFeat_RibSlot::NoSlidingProfile(TopoDS_Face&              Pr
         {
           const TopoDS_Vertex& v1 = TopExp::LastVertex(theLastEdge, Standard_True);
           TopoDS_Vertex        v2;
-          const gp_Pnt&        pp = BRep_Tool::Pnt(TopExp::LastVertex(edg, Standard_True));
+          const Point3d&        pp = BRep_Tool::Pnt(TopExp::LastVertex(edg, Standard_True));
           if (!theFV.IsNull() && theFirstpoint.Distance(pp) <= myTol)
           {
             v2 = theFV;
@@ -2360,7 +2360,7 @@ Standard_Boolean BRepFeat_RibSlot::NoSlidingProfile(TopoDS_Face&              Pr
         {
           const TopoDS_Vertex& v1 = TopExp::FirstVertex(edg, Standard_True);
           TopoDS_Vertex        v2;
-          const gp_Pnt&        pp = BRep_Tool::Pnt(TopExp::LastVertex(edg, Standard_True));
+          const Point3d&        pp = BRep_Tool::Pnt(TopExp::LastVertex(edg, Standard_True));
           if (!theFV.IsNull() && theFirstpoint.Distance(pp) <= myTol)
           {
             v2 = theFV;
@@ -2390,7 +2390,7 @@ Standard_Boolean BRepFeat_RibSlot::NoSlidingProfile(TopoDS_Face&              Pr
         {
           const TopoDS_Vertex& v1 = TopExp::LastVertex(theLastEdge, Standard_True);
           TopoDS_Vertex        v2;
-          const gp_Pnt&        pp = BRep_Tool::Pnt(TopExp::LastVertex(FalseOnlyOne, Standard_True));
+          const Point3d&        pp = BRep_Tool::Pnt(TopExp::LastVertex(FalseOnlyOne, Standard_True));
           if (!theFV.IsNull() && theFirstpoint.Distance(pp) <= myTol)
           {
             v2 = theFV;
@@ -2404,7 +2404,7 @@ Standard_Boolean BRepFeat_RibSlot::NoSlidingProfile(TopoDS_Face&              Pr
         {
           const TopoDS_Vertex& v1 = TopExp::FirstVertex(FalseOnlyOne, Standard_True);
           TopoDS_Vertex        v2;
-          const gp_Pnt&        pp = BRep_Tool::Pnt(TopExp::LastVertex(FalseOnlyOne, Standard_True));
+          const Point3d&        pp = BRep_Tool::Pnt(TopExp::LastVertex(FalseOnlyOne, Standard_True));
           if (!theFV.IsNull() && theFirstpoint.Distance(pp) <= myTol)
           {
             v2 = theFV;
@@ -2435,7 +2435,7 @@ Standard_Boolean BRepFeat_RibSlot::NoSlidingProfile(TopoDS_Face&              Pr
       {
         const TopoDS_Vertex& v1 = TopExp::LastVertex(theLastEdge, Standard_True);
         TopoDS_Vertex        v2;
-        const gp_Pnt&        pp = BRep_Tool::Pnt(TopExp::LastVertex(FalseLastEdge, Standard_True));
+        const Point3d&        pp = BRep_Tool::Pnt(TopExp::LastVertex(FalseLastEdge, Standard_True));
         if (!theFV.IsNull() && theFirstpoint.Distance(pp) <= myTol)
         {
           v2 = theFV;
@@ -2449,7 +2449,7 @@ Standard_Boolean BRepFeat_RibSlot::NoSlidingProfile(TopoDS_Face&              Pr
       {
         const TopoDS_Vertex& v1 = TopExp::FirstVertex(FalseLastEdge, Standard_True);
         TopoDS_Vertex        v2;
-        const gp_Pnt&        pp = BRep_Tool::Pnt(TopExp::LastVertex(FalseLastEdge, Standard_True));
+        const Point3d&        pp = BRep_Tool::Pnt(TopExp::LastVertex(FalseLastEdge, Standard_True));
         if (!theFV.IsNull() && theFirstpoint.Distance(pp) <= myTol)
         {
           v2 = theFV;

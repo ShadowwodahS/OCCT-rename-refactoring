@@ -252,7 +252,7 @@ public:
   Standard_Integer NbSolutions() const;
 
   //! Returns the point solution of range Num.
-  Standard_EXPORT gp_Pnt Point(const Standard_Integer Num) const;
+  Standard_EXPORT Point3d Point(const Standard_Integer Num) const;
 
   //! Returns the line solution of range Num.
   Standard_EXPORT gp_Lin Line(const Standard_Integer Num) const;
@@ -271,7 +271,7 @@ public:
 
   Standard_EXPORT Standard_Boolean HasCommonGen() const;
 
-  Standard_EXPORT const gp_Pnt& PChar() const;
+  Standard_EXPORT const Point3d& PChar() const;
 
 protected:
   //! Initialize the values of inner tolerances.
@@ -280,10 +280,10 @@ protected:
   Standard_Boolean  done;
   Standard_Integer  nbint;
   IntAna_ResultType typeres;
-  gp_Pnt            pt1;
-  gp_Pnt            pt2;
-  gp_Pnt            pt3;
-  gp_Pnt            pt4;
+  Point3d            pt1;
+  Point3d            pt2;
+  Point3d            pt3;
+  Point3d            pt4;
   gp_Dir            dir1;
   gp_Dir            dir2;
   gp_Dir            dir3;
@@ -301,7 +301,7 @@ protected:
   Standard_Real     myEPSILON_CYLINDER_DELTA_DISTANCE;
   Standard_Real     myEPSILON_AXES_PARA;
   Standard_Boolean  myCommonGen;
-  gp_Pnt            myPChar;
+  Point3d            myPChar;
 
 private:
 };

@@ -156,11 +156,11 @@ Standard_Integer FUN_AnalyzemapVon1E(const TopTools_IndexedDataMapOfShapeShape& 
     for (Standard_Integer i = 1; i <= nV; i++)
     {
       const TopoDS_Vertex& vi = TopoDS::Vertex(mapVon1E.FindKey(i));
-      gp_Pnt               pi = BRep_Tool::Pnt(vi);
+      Point3d               pi = BRep_Tool::Pnt(vi);
       for (Standard_Integer j = i + 1; j <= nV; j++)
       {
         const TopoDS_Vertex& vj   = TopoDS::Vertex(mapVon1E.FindKey(j));
-        gp_Pnt               pj   = BRep_Tool::Pnt(vj);
+        Point3d               pj   = BRep_Tool::Pnt(vj);
         Standard_Boolean     same = pi.IsEqual(pj, tol);
         if (same)
         {

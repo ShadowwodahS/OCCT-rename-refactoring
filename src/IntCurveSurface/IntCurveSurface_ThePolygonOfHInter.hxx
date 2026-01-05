@@ -25,7 +25,7 @@
 class Standard_OutOfRange;
 class IntCurveSurface_TheHCurveTool;
 class Bnd_Box;
-class gp_Pnt;
+class Point3d;
 
 class IntCurveSurface_ThePolygonOfHInter
 {
@@ -65,10 +65,10 @@ public:
   Standard_Integer NbSegments() const { return NbPntIn - 1; }
 
   //! Give the point of range Index in the Polygon.
-  const gp_Pnt& BeginOfSeg(const Standard_Integer theIndex) const { return ThePnts(theIndex); }
+  const Point3d& BeginOfSeg(const Standard_Integer theIndex) const { return ThePnts(theIndex); }
 
   //! Give the point of range Index in the Polygon.
-  const gp_Pnt& EndOfSeg(const Standard_Integer theIndex) const { return ThePnts(theIndex + 1); }
+  const Point3d& EndOfSeg(const Standard_Integer theIndex) const { return ThePnts(theIndex + 1); }
 
   //! Returns the parameter (On the curve)
   //! of the first point of the Polygon

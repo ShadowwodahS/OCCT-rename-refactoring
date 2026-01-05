@@ -136,7 +136,7 @@ void GeomFill_LocationDraft::Prepare()
 
   Standard_Integer                  ii, jj;
   Standard_Real                     f, l, t;
-  gp_Pnt                            P;
+  Point3d                            P;
   gp_Vec                            D, T, N, B;
   Handle(Geom_Line)                 L;
   IntCurveSurface_IntersectionPoint P1, P2;
@@ -199,7 +199,7 @@ Standard_Boolean GeomFill_LocationDraft::D0(const Standard_Real Param, gp_Mat& M
 {
   Standard_Boolean Ok;
   gp_Vec           T, N, B;
-  gp_Pnt           P;
+  Point3d           P;
 
   myTrimmed->D0(Param, P);
   V.SetXYZ(P.XYZ());
@@ -229,7 +229,7 @@ Standard_Boolean GeomFill_LocationDraft::D0(const Standard_Real   Param,
   Standard_Boolean Ok;
   //  gp_Vec D,T,N,B,DT,DN,DB;
   gp_Vec D, T, N, B;
-  gp_Pnt P;
+  Point3d P;
 
   myCurve->D0(Param, P);
   V.SetXYZ(P.XYZ());
@@ -341,7 +341,7 @@ Standard_Boolean GeomFill_LocationDraft::D1(const Standard_Real   Param,
 {
   Standard_Boolean Ok;
   gp_Vec           D, T, N, B, DT, DN, DB;
-  gp_Pnt           P;
+  Point3d           P;
 
   myCurve->D1(Param, P, DV);
   V.SetXYZ(P.XYZ());
@@ -476,7 +476,7 @@ Standard_Boolean GeomFill_LocationDraft::D2(const Standard_Real   Param,
 {
   Standard_Boolean Ok;
   gp_Vec           D, T, N, B, DT, DN, DB, D2T, D2N, D2B;
-  gp_Pnt           P;
+  Point3d           P;
 
   myCurve->D2(Param, P, DV, D2V);
   V.SetXYZ(P.XYZ());
@@ -763,7 +763,7 @@ Standard_Boolean GeomFill_LocationDraft::IsRotation(Standard_Real& Error) const
 
 //=================================================================================================
 
-void GeomFill_LocationDraft::Rotation(gp_Pnt& Centre) const
+void GeomFill_LocationDraft::Rotation(Point3d& Centre) const
 {
   Centre = myCurve->Circle().Location();
 }

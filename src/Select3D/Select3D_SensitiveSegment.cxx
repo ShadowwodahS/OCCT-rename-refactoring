@@ -24,8 +24,8 @@ IMPLEMENT_STANDARD_RTTIEXT(Select3D_SensitiveSegment, Select3D_SensitiveEntity)
 
 Select3D_SensitiveSegment::Select3D_SensitiveSegment(
   const Handle(SelectMgr_EntityOwner)& theOwnerId,
-  const gp_Pnt&                        theFirstPnt,
-  const gp_Pnt&                        theLastPnt)
+  const Point3d&                        theFirstPnt,
+  const Point3d&                        theLastPnt)
     : Select3D_SensitiveEntity(theOwnerId)
 {
   mySFactor = 3;
@@ -74,7 +74,7 @@ Handle(Select3D_SensitiveEntity) Select3D_SensitiveSegment::GetConnected()
 // purpose  : Returns center of the segment. If location transformation
 //            is set, it will be applied
 //=======================================================================
-gp_Pnt Select3D_SensitiveSegment::CenterOfGeometry() const
+Point3d Select3D_SensitiveSegment::CenterOfGeometry() const
 {
   return (myStart.XYZ() + myEnd.XYZ()) * 0.5;
 }

@@ -153,7 +153,7 @@ void GeomFill_Frenet::Init()
   myCurve->Intervals(myC2Disc->ChangeArray1(), GeomAbs_C2);
   Standard_Integer NbControl = 10;
   Standard_Real    Step, Average = 0, modulus;
-  gp_Pnt           C, C1;
+  Point3d           C, C1;
   for (i = 1; i <= NbIntC2; i++)
   {
     Step                    = (myC2Disc->Value(i + 1) - myC2Disc->Value(i)) / NbControl;
@@ -188,7 +188,7 @@ void GeomFill_Frenet::Init()
   //  Standard_Real Value2, preValue=1.e200, t;
   Standard_Real Value2, t;
   Extrema_ExtPC Ext;
-  gp_Pnt        Origin(0, 0, 0);
+  Point3d        Origin(0, 0, 0);
 
   for (i = 1; i <= NbIntC2; i++)
   {
@@ -470,7 +470,7 @@ Standard_Boolean GeomFill_Frenet::D0(const Standard_Real theParam,
       else
         u = theParam - aDelta;
 
-      gp_Pnt P1, P2;
+      Point3d P1, P2;
       myTrimmed->D0(Min(theParam, u), P1);
       myTrimmed->D0(Max(theParam, u), P2);
 
@@ -484,8 +484,8 @@ Standard_Boolean GeomFill_Frenet::D0(const Standard_Real theParam,
     {
       // Derivative is approximated by three points
 
-      gp_Pnt           Ptemp(0.0, 0.0, 0.0); //(0,0,0)-coordinate
-      gp_Pnt           P1, P2, P3;
+      Point3d           Ptemp(0.0, 0.0, 0.0); //(0,0,0)-coordinate
+      Point3d           P1, P2, P3;
       Standard_Boolean IsParameterGrown;
 
       if (theParam - anUinfium < 2 * aDelta)
@@ -511,7 +511,7 @@ Standard_Boolean GeomFill_Frenet::D0(const Standard_Real theParam,
         aTn = V1 - 4 * V2 + 3 * V3;
     } // else of "if(IsDeriveFound)" condition
     Ndu                = aTn.Magnitude();
-    gp_Pnt        Pt   = P;
+    Point3d        Pt   = P;
     Standard_Real dPar = 10.0 * aDelta;
 
     // Recursive calling is used for determine of trihedron for
@@ -544,7 +544,7 @@ Standard_Boolean GeomFill_Frenet::D0(const Standard_Real theParam,
     norm     = BiNormal.Magnitude();
     if (norm <= gp::Resolution())
     {
-      gp_Ax2 Axe(gp_Pnt(0, 0, 0), Tangent);
+      gp_Ax2 Axe(Point3d(0, 0, 0), Tangent);
       BiNormal.SetXYZ(Axe.YDirection().XYZ());
     }
     else
@@ -582,7 +582,7 @@ Standard_Boolean GeomFill_Frenet::D1(const Standard_Real Param,
   // if (DC2.Magnitude() <= NullTol || Tangent.Crossed(DC2).Magnitude() <= NullTol) {
   if (Tangent.Crossed(DC2).Magnitude() <= gp::Resolution())
   {
-    gp_Ax2 Axe(gp_Pnt(0, 0, 0), Tangent);
+    gp_Ax2 Axe(Point3d(0, 0, 0), Tangent);
     Normal.SetXYZ(Axe.XDirection().XYZ());
     BiNormal.SetXYZ(Axe.YDirection().XYZ());
     DTangent.SetCoord(0, 0, 0);
@@ -647,7 +647,7 @@ Standard_Boolean GeomFill_Frenet::D2(const Standard_Real Param,
   // if (DC2.Magnitude() <= NullTol || Tangent.Crossed(DC2).Magnitude() <= NullTol) {
   if (Tangent.Crossed(DC2).Magnitude() <= gp::Resolution())
   {
-    gp_Ax2 Axe(gp_Pnt(0, 0, 0), Tangent);
+    gp_Ax2 Axe(Point3d(0, 0, 0), Tangent);
     Normal.SetXYZ(Axe.XDirection().XYZ());
     BiNormal.SetXYZ(Axe.YDirection().XYZ());
     DTangent.SetCoord(0, 0, 0);

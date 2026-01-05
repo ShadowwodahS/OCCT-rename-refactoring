@@ -354,9 +354,9 @@ void ApproxInt_ImpPrmSvSurfaces::Pnt(const Standard_Real u1,
                                      const Standard_Real v1,
                                      const Standard_Real u2,
                                      const Standard_Real v2,
-                                     gp_Pnt&             P)
+                                     Point3d&             P)
 {
-  gp_Pnt        aP;
+  Point3d        aP;
   gp_Vec        aT;
   gp_Vec2d      aTS1, aTS2;
   Standard_Real tu1 = u1;
@@ -375,7 +375,7 @@ Standard_Boolean ApproxInt_ImpPrmSvSurfaces::Tangency(const Standard_Real u1,
                                                       const Standard_Real v2,
                                                       gp_Vec&             T)
 {
-  gp_Pnt           aP;
+  Point3d           aP;
   gp_Vec           aT;
   gp_Vec2d         aTS1, aTS2;
   Standard_Real    tu1 = u1;
@@ -395,7 +395,7 @@ Standard_Boolean ApproxInt_ImpPrmSvSurfaces::TangencyOnSurf1(const Standard_Real
                                                              const Standard_Real v2,
                                                              gp_Vec2d&           T)
 {
-  gp_Pnt           aP;
+  Point3d           aP;
   gp_Vec           aT;
   gp_Vec2d         aTS1, aTS2;
   Standard_Real    tu1 = u1;
@@ -415,7 +415,7 @@ Standard_Boolean ApproxInt_ImpPrmSvSurfaces::TangencyOnSurf2(const Standard_Real
                                                              const Standard_Real v2,
                                                              gp_Vec2d&           T)
 {
-  gp_Pnt           aP;
+  Point3d           aP;
   gp_Vec           aT;
   gp_Vec2d         aTS1, aTS2;
   Standard_Real    tu1 = u1;
@@ -437,7 +437,7 @@ Standard_Boolean ApproxInt_ImpPrmSvSurfaces::Compute(Standard_Real& u1,
                                                      Standard_Real& v1,
                                                      Standard_Real& u2,
                                                      Standard_Real& v2,
-                                                     gp_Pnt&        P,
+                                                     Point3d&        P,
                                                      gp_Vec&        Tg,
                                                      gp_Vec2d&      Tguv1,
                                                      gp_Vec2d&      Tguv2)
@@ -485,7 +485,7 @@ Standard_Boolean ApproxInt_ImpPrmSvSurfaces::Compute(Standard_Real& u1,
       gp_Vec           TV(MyTg);
       gp_Vec2d         TV1(MyTguv1);
       gp_Vec2d         TV2(MyTguv2);
-      gp_Pnt           TP(MyPnt);
+      Point3d           TP(MyPnt);
       gp_Pnt2d         TP1(MyParOnS1);
       gp_Pnt2d         TP2(MyParOnS2);
       Standard_Boolean TB = MyIsTangent;
@@ -585,7 +585,7 @@ Standard_Boolean ApproxInt_ImpPrmSvSurfaces::Compute(Standard_Real& u1,
         MyParOnS1.SetCoord(tu1, tv1);
         MyParOnS2.SetCoord(tu2, tv2);
 
-        gp_Pnt aP2;
+        Point3d aP2;
 
         ThePSurfaceTool::D1(aPSurf, X(1), X(2), P, aD1uPrm, aD1vPrm);
         aQSurf.D1(u1, v1, aP2, aD1uQuad, aD1vQuad);
@@ -609,7 +609,7 @@ Standard_Boolean ApproxInt_ImpPrmSvSurfaces::Compute(Standard_Real& u1,
         MyParOnS1.SetCoord(tu1, tv1);
         MyParOnS2.SetCoord(tu2, tu2);
 
-        gp_Pnt aP2;
+        Point3d aP2;
         ThePSurfaceTool::D1(aPSurf, X(1), X(2), P, aD1uPrm, aD1vPrm);
 
         aQSurf.D1(u2, v2, aP2, aD1uQuad, aD1vQuad);
@@ -779,7 +779,7 @@ Standard_Boolean ApproxInt_ImpPrmSvSurfaces::SeekPoint(const Standard_Real u1,
                                                        const Standard_Real v2,
                                                        IntSurf_PntOn2S&    Point)
 {
-  gp_Pnt                 aP;
+  Point3d                 aP;
   gp_Vec                 aT;
   gp_Vec2d               aTS1, aTS2;
   const IntSurf_Quadric& aQSurf = MyZerImpFunc.ISurface();

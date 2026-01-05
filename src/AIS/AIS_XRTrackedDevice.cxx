@@ -130,8 +130,8 @@ void AIS_XRTrackedDevice::computeLaserRay()
 
   Handle(Graphic3d_ArrayOfPrimitives) aLines =
     new Graphic3d_ArrayOfSegments(2, 0, Graphic3d_ArrayFlags_VertexColor);
-  aLines->AddVertex(gp_Pnt(0.0, 0.0, 0.0), myLaserColor);
-  aLines->AddVertex(gp_Pnt(0.0, 0.0, -myLaserLength), myLaserColor);
+  aLines->AddVertex(Point3d(0.0, 0.0, 0.0), myLaserColor);
+  aLines->AddVertex(Point3d(0.0, 0.0, -myLaserLength), myLaserColor);
   myRayGroup->SetGroupPrimitivesAspect(myDrawer->LineAspect()->Aspect());
   myRayGroup->AddPrimitiveArray(aLines, false); // do not extend camera frustum by ray
 }
@@ -161,12 +161,12 @@ void AIS_XRTrackedDevice::Compute(const Handle(PrsMgr_PresentationManager)&,
     aGroup->SetGroupPrimitivesAspect(myDrawer->LineAspect()->Aspect());
     Handle(Graphic3d_ArrayOfPrimitives) aLines =
       new Graphic3d_ArrayOfSegments(6, 0, Graphic3d_ArrayFlags_VertexColor);
-    aLines->AddVertex(gp_Pnt(0.0, 0.0, 0.0), Quantity_Color(Quantity_NOC_RED));
-    aLines->AddVertex(gp_Pnt(aSize, 0.0, 0.0), Quantity_Color(Quantity_NOC_RED));
-    aLines->AddVertex(gp_Pnt(0.0, 0.0, 0.0), Quantity_Color(Quantity_NOC_GREEN));
-    aLines->AddVertex(gp_Pnt(0.0, aSize, 0.0), Quantity_Color(Quantity_NOC_GREEN));
-    aLines->AddVertex(gp_Pnt(0.0, 0.0, 0.0), Quantity_Color(Quantity_NOC_BLUE));
-    aLines->AddVertex(gp_Pnt(0.0, 0.0, aSize), Quantity_Color(Quantity_NOC_BLUE));
+    aLines->AddVertex(Point3d(0.0, 0.0, 0.0), Quantity_Color(Quantity_NOC_RED));
+    aLines->AddVertex(Point3d(aSize, 0.0, 0.0), Quantity_Color(Quantity_NOC_RED));
+    aLines->AddVertex(Point3d(0.0, 0.0, 0.0), Quantity_Color(Quantity_NOC_GREEN));
+    aLines->AddVertex(Point3d(0.0, aSize, 0.0), Quantity_Color(Quantity_NOC_GREEN));
+    aLines->AddVertex(Point3d(0.0, 0.0, 0.0), Quantity_Color(Quantity_NOC_BLUE));
+    aLines->AddVertex(Point3d(0.0, 0.0, aSize), Quantity_Color(Quantity_NOC_BLUE));
     aGroup->AddPrimitiveArray(aLines);
   }
 

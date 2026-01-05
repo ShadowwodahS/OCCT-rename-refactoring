@@ -73,7 +73,7 @@ static gp_Pnt2d Function_Value(const Standard_Real              U,
 {
   Standard_Real S = 0., T = 0.;
 
-  gp_Pnt              P3d   = myCurve->Value(U);
+  Point3d              P3d   = myCurve->Value(U);
   GeomAbs_SurfaceType SType = mySurface->GetType();
 
   switch (SType)
@@ -149,7 +149,7 @@ static Standard_Boolean Function_D1(const Standard_Real              U,
                                     const Standard_Boolean           UCouture,
                                     const Standard_Boolean           VCouture)
 {
-  gp_Pnt        P3d;
+  Point3d        P3d;
   Standard_Real dU, dV;
 
   P = Function_Value(U, myCurve, mySurface, U1, U2, V1, V2, UCouture, VCouture);
@@ -225,7 +225,7 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
                                  const Handle(Adaptor3d_Surface)& mySurface)
 {
   Standard_Real W1, W2, W;
-  gp_Pnt        P1, P2, P;
+  Point3d        P1, P2, P;
   //
   W1 = myCurve->FirstParameter();
   W2 = myCurve->LastParameter();
@@ -247,7 +247,7 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
       VCouture                     = Standard_False;
       // Calculation of cone parameters for P == ConeApex often produces wrong
       // values of U
-      gp_Pnt ConeApex = Cone.Apex();
+      Point3d ConeApex = Cone.Apex();
       if (ConeApex.XYZ().IsEqual(P1.XYZ(), tol))
       {
         W1 += ptol;
@@ -434,7 +434,7 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
         {
           gp_Vec D1U, D1V;
           gp_Vec T;
-          gp_Pnt P3d;
+          Point3d P3d;
           myCurve->D1(W1, P3d, T);
           mySurface->D1(U1, U2, P3d, D1U, D1V);
           Standard_Real dU = T.Dot(D1U);
@@ -600,7 +600,7 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
         if (Abs(U1) < eps)
         {
           // May be U1 must be equal 2*PI?
-          gp_Pnt        Pd = myCurve->Value(W1 + dt);
+          Point3d        Pd = myCurve->Value(W1 + dt);
           Standard_Real ud, vd;
           ElSLib::Parameters(SP, Pd, ud, vd);
           if (Abs(U1 - ud) > M_PI)
@@ -611,7 +611,7 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
         else if (Abs(2. * M_PI - U1) < eps)
         {
           // maybe U1 = 0.?
-          gp_Pnt        Pd = myCurve->Value(W1 + dt);
+          Point3d        Pd = myCurve->Value(W1 + dt);
           Standard_Real ud, vd;
           ElSLib::Parameters(SP, Pd, ud, vd);
           if (Abs(U1 - ud) > M_PI)
@@ -624,7 +624,7 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
         if (Abs(U2) < eps)
         {
           // May be U2 must be equal 2*PI?
-          gp_Pnt        Pd = myCurve->Value(W2 - dt);
+          Point3d        Pd = myCurve->Value(W2 - dt);
           Standard_Real ud, vd;
           ElSLib::Parameters(SP, Pd, ud, vd);
           if (Abs(U2 - ud) > M_PI)
@@ -635,7 +635,7 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
         else if (Abs(2. * M_PI - U2) < eps)
         {
           // maybe U2 = 0.?
-          gp_Pnt        Pd = myCurve->Value(W2 - dt);
+          Point3d        Pd = myCurve->Value(W2 - dt);
           Standard_Real ud, vd;
           ElSLib::Parameters(SP, Pd, ud, vd);
           if (Abs(U2 - ud) > M_PI)
@@ -685,7 +685,7 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
         }
         else
         { // 0 ou 2 solutions
-          gp_Pnt        Center = Circle.Location();
+          Point3d        Center = Circle.Location();
           Standard_Real U, V;
           ElSLib::SphereParameters(gp_Ax3(gp::XOY()), 1, Center, U, V);
           myU1 = U - M_PI;
@@ -714,11 +714,11 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
           }
 
           // si P1.Z() vaut +/- R on est sur le sommet : pas significatif.
-          gp_Pnt pp = P1.Transformed(Trsf);
+          Point3d pp = P1.Transformed(Trsf);
 
           if (Abs(pp.X() * pp.X() + pp.Y() * pp.Y() + pp.Z() * pp.Z() - R * R) < Tol)
           {
-            gp_Pnt        Center = Circle.Location();
+            Point3d        Center = Circle.Location();
             Standard_Real U, V;
             ElSLib::SphereParameters(gp_Ax3(gp::XOY()), 1, Center, U, V);
             myU1     = U - M_PI;
@@ -735,7 +735,7 @@ static void Function_SetUVBounds(Standard_Real&                   myU1,
         //+It has been deleted on April, 03 2015.
         // Standard_Real UU1 = myU1, UU2 = myU2;
         // if((Abs(UU1) <= (2.*M_PI) && Abs(UU2) <= (2.*M_PI)) && NbSolutions == 1 && reCalc) {
-        //  gp_Pnt Center = Circle.Location();
+        //  Point3d Center = Circle.Location();
         //  Standard_Real U,V;
         //  ElSLib::SphereParameters(gp_Ax3(gp::XOY()),1,Center, U, V);
         //  myU1 = U-M_PI;
@@ -998,7 +998,7 @@ public:
 
   Standard_Boolean Value(const Standard_Real           theT,
                          NCollection_Array1<gp_Pnt2d>& thePnt2d,
-                         NCollection_Array1<gp_Pnt>& /*thePnt*/) const
+                         NCollection_Array1<Point3d>& /*thePnt*/) const
   {
     thePnt2d(1) =
       Function_Value(theT, myCurve, mySurface, myU1, myU2, myV1, myV2, UCouture, VCouture);
@@ -1344,7 +1344,7 @@ void ProjLib_ComputeApprox::Perform(const Handle(Adaptor3d_Curve)&   C,
     Standard_Real UFirst = F.FirstParameter();
     Standard_Real ULast  = F.LastParameter();
     Standard_Real Umid   = (UFirst + ULast) / 2;
-    gp_Pnt        P3d    = C->Value(Umid);
+    Point3d        P3d    = C->Value(Umid);
     Standard_Real u = 0., v = 0.;
     switch (SType)
     {

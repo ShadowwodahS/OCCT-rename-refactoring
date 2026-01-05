@@ -808,7 +808,7 @@ void LocOpe_Generator::Perform(const Handle(LocOpe_GeneratedShape)& G)
 
                 if (it1.More())
                 {
-                  gp_Pnt        ptbid;
+                  Point3d        ptbid;
                   Standard_Real prmvt = BRep_Tool::Parameter(TopoDS::Vertex(it1.Value()), newedg);
                   C->D1(prmvt, ptbid, dir1);
 
@@ -1370,7 +1370,7 @@ Standard_Real NewParameter(const TopoDS_Edge&   Edg,
   Handle(TypeInfo) typC;
   Standard_Real         f, l;
 
-  gp_Pnt P = BRep_Tool::Pnt(NewVtx);
+  Point3d P = BRep_Tool::Pnt(NewVtx);
 
   C = BRep_Tool::Curve(Edg, loc, f, l);
   if (!loc.IsIdentity())

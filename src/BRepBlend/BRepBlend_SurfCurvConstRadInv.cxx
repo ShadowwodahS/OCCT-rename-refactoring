@@ -65,15 +65,15 @@ Standard_Integer BRepBlend_SurfCurvConstRadInv::NbEquations() const
 
 Standard_Boolean BRepBlend_SurfCurvConstRadInv::Value(const math_Vector& X, math_Vector& F)
 {
-  gp_Pnt ptgui;
+  Point3d ptgui;
   gp_Vec d1gui;
   guide->D1(X(1), ptgui, d1gui);
   gp_Vec        nplan = d1gui.Normalized();
   Standard_Real theD  = -(nplan.XYZ().Dot(ptgui.XYZ()));
-  gp_Pnt        ptcur = curv->Value(X(2));
+  Point3d        ptcur = curv->Value(X(2));
   F(1)                = nplan.XYZ().Dot(ptcur.XYZ()) + theD;
   gp_Pnt2d p2drst     = rst->Value(X(3));
-  gp_Pnt   pts;
+  Point3d   pts;
   gp_Vec   du, dv;
   surf->D1(p2drst.X(), p2drst.Y(), pts, du, dv);
   F(2)                    = nplan.XYZ().Dot(pts.XYZ()) + theD;
@@ -92,7 +92,7 @@ Standard_Boolean BRepBlend_SurfCurvConstRadInv::Value(const math_Vector& X, math
 
 Standard_Boolean BRepBlend_SurfCurvConstRadInv::Derivatives(const math_Vector& X, math_Matrix& D)
 {
-  gp_Pnt ptgui;
+  Point3d ptgui;
   gp_Vec d1gui, d2gui;
   guide->D2(X(1), ptgui, d1gui, d2gui);
   Standard_Real normd1gui      = d1gui.Magnitude();
@@ -102,7 +102,7 @@ Standard_Boolean BRepBlend_SurfCurvConstRadInv::Derivatives(const math_Vector& X
   dnplan.SetLinearForm(-nplan.Dot(d2gui), nplan, d2gui);
   dnplan.Multiply(unsurnormd1gui);
   Standard_Real dtheD = -nplan.XYZ().Dot(d1gui.XYZ()) - dnplan.XYZ().Dot(ptgui.XYZ());
-  gp_Pnt        ptcur;
+  Point3d        ptcur;
   gp_Vec        d1cur;
   curv->D1(X(2), ptcur, d1cur);
   D(1, 1) = dnplan.XYZ().Dot(ptcur.XYZ()) + dtheD;
@@ -112,7 +112,7 @@ Standard_Boolean BRepBlend_SurfCurvConstRadInv::Derivatives(const math_Vector& X
   gp_Pnt2d p2drst;
   gp_Vec2d d1rst;
   rst->D1(X(3), p2drst, d1rst);
-  gp_Pnt pts;
+  Point3d pts;
   gp_Vec d1u, d1v, d2u, d2v, duv;
   surf->D2(p2drst.X(), p2drst.Y(), pts, d1u, d1v, d2u, d2v, duv);
   D(2, 1) = dnplan.XYZ().Dot(pts.XYZ()) + dtheD;
@@ -169,7 +169,7 @@ Standard_Boolean BRepBlend_SurfCurvConstRadInv::Values(const math_Vector& X,
                                                        math_Vector&       F,
                                                        math_Matrix&       D)
 {
-  gp_Pnt ptgui;
+  Point3d ptgui;
   gp_Vec d1gui(0., 0., 0.), d2gui(0., 0., 0.);
   guide->D2(X(1), ptgui, d1gui, d2gui);
   Standard_Real normd1gui      = d1gui.Magnitude();
@@ -180,7 +180,7 @@ Standard_Boolean BRepBlend_SurfCurvConstRadInv::Values(const math_Vector& X,
   dnplan.SetLinearForm(-nplan.Dot(d2gui), nplan, d2gui);
   dnplan.Multiply(unsurnormd1gui);
   Standard_Real dtheD = -nplan.XYZ().Dot(d1gui.XYZ()) - dnplan.XYZ().Dot(ptgui.XYZ());
-  gp_Pnt        ptcur;
+  Point3d        ptcur;
   gp_Vec        d1cur;
   curv->D1(X(2), ptcur, d1cur);
   F(1)    = nplan.XYZ().Dot(ptcur.XYZ()) + theD;
@@ -191,7 +191,7 @@ Standard_Boolean BRepBlend_SurfCurvConstRadInv::Values(const math_Vector& X,
   gp_Pnt2d p2drst;
   gp_Vec2d d1rst;
   rst->D1(X(3), p2drst, d1rst);
-  gp_Pnt pts;
+  Point3d pts;
   gp_Vec d1u, d1v, d2u, d2v, duv;
   surf->D2(p2drst.X(), p2drst.Y(), pts, d1u, d1v, d2u, d2v, duv);
   F(2)    = nplan.XYZ().Dot(pts.XYZ()) + theD;

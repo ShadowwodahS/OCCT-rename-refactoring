@@ -342,7 +342,7 @@ public:
   Standard_EXPORT static GeomAbs_Shape MaxContinuity(const TopoDS_Edge& theEdge);
 
   //! Returns the 3d point.
-  Standard_EXPORT static gp_Pnt Pnt(const TopoDS_Vertex& V);
+  Standard_EXPORT static Point3d Pnt(const TopoDS_Vertex& V);
 
   //! Returns the tolerance.
   Standard_EXPORT static Standard_Real Tolerance(const TopoDS_Vertex& V);

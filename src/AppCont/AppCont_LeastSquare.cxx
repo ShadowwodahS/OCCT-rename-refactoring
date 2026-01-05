@@ -32,10 +32,10 @@ void AppCont_LeastSquare::FixSingleBorderPoint(const AppCont_Function&       the
                                                const Standard_Real           theU0,
                                                const Standard_Real           theU1,
                                                NCollection_Array1<gp_Pnt2d>& theFix2d,
-                                               NCollection_Array1<gp_Pnt>&   theFix)
+                                               NCollection_Array1<Point3d>&   theFix)
 {
   Standard_Integer             aMaxIter = 15;
-  NCollection_Array1<gp_Pnt>   aTabP(1, Max(myNbP, 1)), aPrevP(1, Max(myNbP, 1));
+  NCollection_Array1<Point3d>   aTabP(1, Max(myNbP, 1)), aPrevP(1, Max(myNbP, 1));
   NCollection_Array1<gp_Pnt2d> aTabP2d(1, Max(myNbP2d, 1)), aPrevP2d(1, Max(myNbP2d, 1));
   Standard_Real                aMult       = ((theU - theU0) > (theU1 - theU)) ? 1.0 : -1.0;
   Standard_Real                aStartParam = theU, aCurrParam, aPrevDist = 1.0, aCurrDist = 1.0;
@@ -113,7 +113,7 @@ AppCont_LeastSquare::AppCont_LeastSquare(const AppCont_Function&       SSP,
 
   Standard_Integer i2plus1, i2plus2;
   myNbdiscret = myNbPoints;
-  NCollection_Array1<gp_Pnt>   aTabP(1, Max(myNbP, 1));
+  NCollection_Array1<Point3d>   aTabP(1, Max(myNbP, 1));
   NCollection_Array1<gp_Pnt2d> aTabP2d(1, Max(myNbP2d, 1));
   NCollection_Array1<gp_Vec>   aTabV(1, Max(myNbP, 1));
   NCollection_Array1<gp_Vec2d> aTabV2d(1, Max(myNbP2d, 1));
@@ -257,7 +257,7 @@ AppCont_LeastSquare::AppCont_LeastSquare(const AppCont_Function&       SSP,
     math_Matrix M(1, classe, 1, classe);
     MMatrix(classe, M);
     NCollection_Array1<gp_Pnt2d> aFixP2d(1, Max(myNbP2d, 1));
-    NCollection_Array1<gp_Pnt>   aFixP(1, Max(myNbP, 1));
+    NCollection_Array1<Point3d>   aFixP(1, Max(myNbP, 1));
 
     if (myFirstC == AppParCurves_PassPoint || myFirstC == AppParCurves_TangencyPoint)
     {
@@ -494,7 +494,7 @@ const AppParCurves_MultiCurve& AppCont_LeastSquare::Value()
 {
 
   Standard_Integer i, j, j2;
-  gp_Pnt           Pt;
+  Point3d           Pt;
   gp_Pnt2d         Pt2d;
   Standard_Integer ideb = 1, ifin = myDegre + 1;
 

@@ -25,7 +25,7 @@
 #include <Prs3d_Presentation.hxx>
 
 class TCollection_ExtendedString;
-class gp_Pnt;
+class Point3d;
 class gp_Elips;
 class Geom_OffsetCurve;
 
@@ -40,9 +40,9 @@ public:
                                   const Handle(Prs3d_Drawer)&       aDrawer,
                                   const Standard_Real               theval,
                                   const TCollection_ExtendedString& aText,
-                                  const gp_Pnt&                     AttachmentPoint,
-                                  const gp_Pnt&                     anEndOfArrow,
-                                  const gp_Pnt&                     aCenter,
+                                  const Point3d&                     AttachmentPoint,
+                                  const Point3d&                     anEndOfArrow,
+                                  const Point3d&                     aCenter,
                                   const Standard_Boolean            IsMaxRadius,
                                   const DsgPrs_ArrowSide            ArrowSide);
 
@@ -53,9 +53,9 @@ public:
                                   const Standard_Real               theval,
                                   const TCollection_ExtendedString& aText,
                                   const gp_Elips&                   anEllipse,
-                                  const gp_Pnt&                     AttachmentPoint,
-                                  const gp_Pnt&                     anEndOfArrow,
-                                  const gp_Pnt&                     aCenter,
+                                  const Point3d&                     AttachmentPoint,
+                                  const Point3d&                     anEndOfArrow,
+                                  const Point3d&                     aCenter,
                                   const Standard_Real               uFirst,
                                   const Standard_Boolean            IsInDomain,
                                   const Standard_Boolean            IsMaxRadius,
@@ -68,9 +68,9 @@ public:
                                   const Standard_Real               theval,
                                   const TCollection_ExtendedString& aText,
                                   const Handle(Geom_OffsetCurve)&   aCurve,
-                                  const gp_Pnt&                     AttachmentPoint,
-                                  const gp_Pnt&                     anEndOfArrow,
-                                  const gp_Pnt&                     aCenter,
+                                  const Point3d&                     AttachmentPoint,
+                                  const Point3d&                     anEndOfArrow,
+                                  const Point3d&                     aCenter,
                                   const Standard_Real               uFirst,
                                   const Standard_Boolean            IsInDomain,
                                   const Standard_Boolean            IsMaxRadius,

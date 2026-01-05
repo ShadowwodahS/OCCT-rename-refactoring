@@ -127,8 +127,8 @@ void TopOpeBRep_EdgesFiller::Insert(const TopoDS_Shape&                        E
 #ifdef OCCT_DEBUG
     if (isvertex1 && isvertex2)
     {
-      gp_Pnt        P3D1 = BRep_Tool::Pnt(V1);
-      gp_Pnt        P3D2 = BRep_Tool::Pnt(V2);
+      Point3d        P3D1 = BRep_Tool::Pnt(V1);
+      Point3d        P3D2 = BRep_Tool::Pnt(V2);
       Standard_Real tol1 = BRep_Tool::Tolerance(V1);
       Standard_Real tol2 = BRep_Tool::Tolerance(V2);
       Standard_Real dpp  = P3D1.Distance(P3D2);

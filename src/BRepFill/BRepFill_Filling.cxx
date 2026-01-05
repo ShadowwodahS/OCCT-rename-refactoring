@@ -266,7 +266,7 @@ Standard_Integer BRepFill_Filling::Add(const TopoDS_Face& Support, const GeomAbs
 // function : Add
 // purpose  : adds a point constraint
 //======================================================================
-Standard_Integer BRepFill_Filling::Add(const gp_Pnt& Point)
+Standard_Integer BRepFill_Filling::Add(const Point3d& Point)
 {
   Handle(GeomPlate_PointConstraint) aPC = new GeomPlate_PointConstraint(Point, GeomAbs_C0, myTol3d);
   myPoints.Append(aPC);
@@ -428,7 +428,7 @@ void BRepFill_Filling::BuildWires(TopTools_ListOfShape& EdgeList, TopTools_ListO
       }
       if (!found) // try to find geometric coincidence
       {
-        gp_Pnt P_wire[2];
+        Point3d P_wire[2];
         P_wire[0] = BRep_Tool::Pnt(V_wire[0]);
         P_wire[1] = BRep_Tool::Pnt(V_wire[1]);
         for (Itl.Initialize(EdgeList); Itl.More(); Itl.Next())
@@ -602,7 +602,7 @@ void BRepFill_Filling::Build()
       const TopoDS_Vertex& FirstVtx = TopoDS::Vertex(VerSeq(i));
       const TopoDS_Vertex& LastVtx  = TopoDS::Vertex(VerSeq(i + 1));
 
-      gp_Pnt FirstPnt = BRep_Tool::Pnt(FirstVtx);
+      Point3d FirstPnt = BRep_Tool::Pnt(FirstVtx);
       Projector.Init(FirstPnt, CurSurface);
       if (Projector.LowerDistance() > Precision::Confusion())
         continue;
@@ -614,7 +614,7 @@ void BRepFill_Filling::Build()
       Standard_False)); if (State == TopAbs_OUT || State == TopAbs_UNKNOWN) continue;
       */
 
-      gp_Pnt LastPnt = BRep_Tool::Pnt(LastVtx);
+      Point3d LastPnt = BRep_Tool::Pnt(LastVtx);
       Projector.Init(LastPnt, CurSurface);
       if (Projector.LowerDistance() > Precision::Confusion())
         continue;
@@ -717,7 +717,7 @@ void BRepFill_Filling::Build()
       NewV1 = TopoDS::Vertex(myOldNewMap(V1));
     else
     {
-      gp_Pnt aPnt = BRep_Tool::Pnt(V1);
+      Point3d aPnt = BRep_Tool::Pnt(V1);
       NewV1       = BRepLib_MakeVertex(aPnt);
       BB.UpdateVertex(NewV1, dmax);
       myOldNewMap.Bind(V1.Oriented(TopAbs_FORWARD), NewV1);
@@ -727,7 +727,7 @@ void BRepFill_Filling::Build()
       NewV2 = TopoDS::Vertex(myOldNewMap(V2));
     else
     {
-      gp_Pnt aPnt = BRep_Tool::Pnt(V2);
+      Point3d aPnt = BRep_Tool::Pnt(V2);
       NewV2       = BRepLib_MakeVertex(aPnt);
       BB.UpdateVertex(NewV2, dmax);
       myOldNewMap.Bind(V2.Oriented(TopAbs_FORWARD), NewV2);

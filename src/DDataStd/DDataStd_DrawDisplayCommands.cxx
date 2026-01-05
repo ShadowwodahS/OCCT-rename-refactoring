@@ -50,7 +50,7 @@ static Standard_Integer DDataStd_PNT(Draw_Interpretor& di, Standard_Integer nb, 
     Standard_Real x = Draw::Atof(arg[3]);
     Standard_Real y = Draw::Atof(arg[4]);
     Standard_Real z = Draw::Atof(arg[5]);
-    TDataXtd_Point::Set(L, gp_Pnt(x, y, z));
+    TDataXtd_Point::Set(L, Point3d(x, y, z));
     return 0;
   }
   di << "DDataStd_PNT : Error : not done\n";

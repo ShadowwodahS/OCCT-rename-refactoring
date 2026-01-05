@@ -32,7 +32,7 @@ inline Standard_Integer IntCurvesFace_Intersector::NbPnt() const
 }
 
 //============================================================================
-inline const gp_Pnt& IntCurvesFace_Intersector::Pnt(const Standard_Integer i) const
+inline const Point3d& IntCurvesFace_Intersector::Pnt(const Standard_Integer i) const
 {
   return (SeqPnt.Value(i).Pnt());
 }

@@ -348,8 +348,8 @@ static void BuildPCurves(const TopoDS_Edge& E, const TopoDS_Face& F)
     typS = Handle(Geom_OffsetSurface)::DownCast(theSurf)->BasisSurface()->DynamicType();
   if (typS == STANDARD_TYPE(Geom_BezierSurface) || typS == STANDARD_TYPE(Geom_BSplineSurface))
   {
-    gp_Pnt          fpoint  = AC.Value(AC.FirstParameter());
-    gp_Pnt          lpoint  = AC.Value(AC.LastParameter());
+    Point3d          fpoint  = AC.Value(AC.FirstParameter());
+    Point3d          lpoint  = AC.Value(AC.LastParameter());
     TopoDS_Face     theFace = BRepLib_MakeFace(theSurf, Precision::Confusion());
     Standard_Real   U1 = 0., U2 = 0., TolProj = 1.e-4; // 1.e-5;
     TopoDS_Edge     theEdge;
@@ -507,7 +507,7 @@ void BRepOffset_Tool::OrientSection(const TopoDS_Edge&  E,
   }
 
   gp_Pnt2d P = C1->Value(ParOnC);
-  gp_Pnt   P3;
+  Point3d   P3;
   gp_Vec   D1U, D1V;
 
   S1->D1(P.X(), P.Y(), P3, D1U, D1V);
@@ -603,9 +603,9 @@ static Standard_Boolean ToSmall(const Handle(Geom_Curve)& C)
 {
   constexpr Standard_Real Tol = 10 * Precision::Confusion();
   Standard_Real           m   = (C->FirstParameter() * 0.668 + C->LastParameter() * 0.332);
-  gp_Pnt                  P1  = C->Value(C->FirstParameter());
-  gp_Pnt                  P2  = C->Value(C->LastParameter());
-  gp_Pnt                  P3  = C->Value(m);
+  Point3d                  P1  = C->Value(C->FirstParameter());
+  Point3d                  P2  = C->Value(C->LastParameter());
+  Point3d                  P3  = C->Value(m);
   if (P1.Distance(P2) > Tol)
     return Standard_False;
   if (P2.Distance(P3) > Tol)
@@ -626,7 +626,7 @@ static Standard_Boolean IsOnSurface(const Handle(Geom_Curve)&   C,
   Standard_Real    du = (f - l) / (n - 1);
   TolReached          = 0.;
 
-  gp_Pnt        P;
+  Point3d        P;
   Standard_Real U, V;
 
   GeomAdaptor_Surface AS(S);
@@ -949,7 +949,7 @@ static Standard_Boolean BSplineEdges(const TopoDS_Edge&     E1,
   Param1 = (par1 == 0) ? first1 : last1;
   Param2 = (par2 == 0) ? first2 : last2;
 
-  gp_Pnt Pnt1, Pnt2;
+  Point3d Pnt1, Pnt2;
   gp_Vec Der1, Der2;
   C1->D1(Param1, Pnt1, Der1);
   C2->D1(Param2, Pnt2, Der2);
@@ -1267,7 +1267,7 @@ static void CheckIntersFF(const BOPDS_PDS&            pDS,
   else
   {
     BRepAdaptor_Curve BAcurve(RefEdge);
-    gp_Pnt        Pref    = BAcurve.Value((BAcurve.FirstParameter() + BAcurve.LastParameter()) / 2);
+    Point3d        Pref    = BAcurve.Value((BAcurve.FirstParameter() + BAcurve.LastParameter()) / 2);
     TopoDS_Vertex Vref    = BRepLib_MakeVertex(Pref);
     Standard_Real MinDist = RealLast();
     TopTools_ListIteratorOfListOfShape itl(CompList);
@@ -1580,7 +1580,7 @@ void BRepOffset_Tool::Inter3D(const TopoDS_Face&    F1,
         TopoDS_Edge       MinAngleEdge;
         Standard_Real     MinAngle = Precision::Infinite();
         BRepAdaptor_Curve aRefBAcurve(RefEdge);
-        gp_Pnt            aRefPnt =
+        Point3d            aRefPnt =
           aRefBAcurve.Value((aRefBAcurve.FirstParameter() + aRefBAcurve.LastParameter()) / 2);
 
         TopTools_ListIteratorOfListOfShape itl(L1);
@@ -1589,7 +1589,7 @@ void BRepOffset_Tool::Inter3D(const TopoDS_Face&    F1,
           const TopoDS_Edge& anEdge = TopoDS::Edge(itl.Value());
 
           BRepAdaptor_Curve aBAcurve(anEdge);
-          gp_Pnt            aMidPntOnEdge =
+          Point3d            aMidPntOnEdge =
             aBAcurve.Value((aBAcurve.FirstParameter() + aBAcurve.LastParameter()) / 2);
           gp_Vec RefToMid(aRefPnt, aMidPntOnEdge);
 
@@ -1609,7 +1609,7 @@ void BRepOffset_Tool::Inter3D(const TopoDS_Face&    F1,
             }
             if (imin != 0)
             {
-              gp_Pnt        aProjectionOnEdge = aProjector.Point(imin).Value();
+              Point3d        aProjectionOnEdge = aProjector.Point(imin).Value();
               gp_Vec        RefToProj(aRefPnt, aProjectionOnEdge);
               Standard_Real anAngle = RefToProj.Angle(RefToMid);
               if (anAngle < MinAngle)
@@ -2073,8 +2073,8 @@ static void ExtentEdge(const TopoDS_Face& F,
   gp_Pnt2d PL2d(P.X() + Tang.X(), P.Y() + Tang.Y());
 
   Handle(Geom_Curve) CC = GeomAPI::To3d(C2d, gp_Pln(gp::XOY()));
-  gp_Pnt             PF(PF2d.X(), PF2d.Y(), 0.);
-  gp_Pnt             PL(PL2d.X(), PL2d.Y(), 0.);
+  Point3d             PF(PF2d.X(), PF2d.Y(), 0.);
+  Point3d             PL(PL2d.X(), PL2d.Y(), 0.);
 
   Handle(Geom_BoundedCurve) ExtC = Handle(Geom_BoundedCurve)::DownCast(CC);
   if (ExtC.IsNull())
@@ -2125,7 +2125,7 @@ static Standard_Boolean ProjectVertexOnEdge(TopoDS_Vertex&     V,
   TopLoc_Location  L;
   Standard_Boolean found = Standard_False;
 
-  gp_Pnt            P = BRep_Tool::Pnt(V);
+  Point3d            P = BRep_Tool::Pnt(V);
   BRepAdaptor_Curve C = BRepAdaptor_Curve(E);
   f                   = C.FirstParameter();
   l                   = C.LastParameter();
@@ -2134,7 +2134,7 @@ static Standard_Boolean ProjectVertexOnEdge(TopoDS_Vertex&     V,
   {
     if (Abs(f) < Precision::Infinite())
     {
-      gp_Pnt PF = C.Value(f);
+      Point3d PF = C.Value(f);
       if (PF.IsEqual(P, TolConf))
       {
         U     = f;
@@ -2146,7 +2146,7 @@ static Standard_Boolean ProjectVertexOnEdge(TopoDS_Vertex&     V,
   {
     if (!found && Abs(l) < Precision::Infinite())
     {
-      gp_Pnt PL = C.Value(l);
+      Point3d PL = C.Value(l);
       if (PL.IsEqual(P, TolConf))
       {
         U     = l;
@@ -2431,7 +2431,7 @@ void BRepOffset_Tool::Inter2d(const TopoDS_Face&    F,
         }
         if (aCurrentFind)
         {
-          gp_Pnt        P = S->Value(P2d.X(), P2d.Y());
+          Point3d        P = S->Value(P2d.X(), P2d.Y());
           TopoDS_Vertex V = BRepLib_MakeVertex(P);
           V.Orientation(TopAbs_INTERNAL);
           TopoDS_Shape aLocalEdgeOrientedE1 = E1.Oriented(TopAbs_FORWARD);
@@ -2512,8 +2512,8 @@ static void SelectEdge(const TopoDS_Face& /*F*/,
   BRep_Tool::Range(E, Fst, Lst);
   BRepAdaptor_Curve Ad1(E);
 
-  gp_Pnt PFirst = Ad1.Value(Fst);
-  gp_Pnt PLast  = Ad1.Value(Lst);
+  Point3d PFirst = Ad1.Value(Fst);
+  Point3d PLast  = Ad1.Value(Lst);
 
   //----------------------------------------------------------------------
   // Selection de l edge qui couvre le plus le domaine de l edge initiale.
@@ -2524,8 +2524,8 @@ static void SelectEdge(const TopoDS_Face& /*F*/,
 
     BRep_Tool::Range(EI, Fst, Lst);
     BRepAdaptor_Curve Ad2(EI);
-    gp_Pnt            P1 = Ad2.Value(Fst);
-    gp_Pnt            P2 = Ad2.Value(Lst);
+    Point3d            P1 = Ad2.Value(Fst);
+    Point3d            P2 = Ad2.Value(Lst);
 
     tmp = P1.Distance(PFirst) + P2.Distance(PLast);
     if (tmp <= dU)
@@ -2571,7 +2571,7 @@ static void MakeFace(const Handle(Geom_Surface)& S,
   {
     Handle(Geom_ConicalSurface) ConicalS = Handle(Geom_ConicalSurface)::DownCast(theSurf);
     gp_Cone                     theCone  = ConicalS->Cone();
-    gp_Pnt                      theApex  = theCone.Apex();
+    Point3d                      theApex  = theCone.Apex();
     Standard_Real               Uapex, Vapex;
     ElSLib::Parameters(theCone, theApex, Uapex, Vapex);
     if (Abs(VMin - Vapex) <= Precision::Confusion())
@@ -3373,7 +3373,7 @@ Standard_Boolean BRepOffset_Tool::EnLargeFace(const TopoDS_Face&     F,
   {
     Handle(Geom_ConicalSurface) ConicalS = Handle(Geom_ConicalSurface)::DownCast(theSurf);
     gp_Cone                     theCone  = ConicalS->Cone();
-    gp_Pnt                      theApex  = theCone.Apex();
+    Point3d                      theApex  = theCone.Apex();
     Standard_Real               Uapex, Vapex;
     ElSLib::Parameters(theCone, theApex, Uapex, Vapex);
     if (VV1 < Vapex && Vapex < VV2)
@@ -3453,7 +3453,7 @@ static Standard_Boolean TryParameter(const TopoDS_Edge& OE,
   Standard_Real     Nf = NC.FirstParameter();
   Standard_Real     Nl = NC.LastParameter();
   Standard_Real     U  = 0.;
-  gp_Pnt            P  = BRep_Tool::Pnt(V);
+  Point3d            P  = BRep_Tool::Pnt(V);
   Standard_Boolean  OK = Standard_False;
 
   if (P.Distance(OC.Value(Of)) < TolConf)
@@ -4332,7 +4332,7 @@ void PerformPlanes(const TopoDS_Face&    theFace1,
     aBB.MakeEdge(aE, aC3D, aIC.Tolerance());
     // Get bounds of the curve
     Standard_Real aTF, aTL;
-    gp_Pnt        aPF, aPL;
+    Point3d        aPF, aPL;
     aIC.Bounds(aTF, aTL, aPF, aPL);
     // Make the bounding vertices
     TopoDS_Vertex aVF, aVL;
@@ -4384,7 +4384,7 @@ static void UpdateVertexTolerances(const TopoDS_Face& theFace)
   {
     const TopoDS_Vertex&               aVertex = TopoDS::Vertex(VEmap.FindKey(i));
     const TopTools_ListOfShape&        Elist   = VEmap(i);
-    gp_Pnt                             PntVtx  = BRep_Tool::Pnt(aVertex);
+    Point3d                             PntVtx  = BRep_Tool::Pnt(aVertex);
     TopTools_ListIteratorOfListOfShape itl(Elist);
     for (; itl.More(); itl.Next())
     {
@@ -4397,7 +4397,7 @@ static void UpdateVertexTolerances(const TopoDS_Face& theFace)
       if (!BRep_Tool::Degenerated(anEdge))
       {
         BRepAdaptor_Curve BAcurve(anEdge);
-        gp_Pnt            aPnt  = BAcurve.Value(aParam);
+        Point3d            aPnt  = BAcurve.Value(aParam);
         Standard_Real     aDist = PntVtx.Distance(aPnt);
         BB.UpdateVertex(aVertex, aDist);
         if (V1.IsSame(V2))
@@ -4408,7 +4408,7 @@ static void UpdateVertexTolerances(const TopoDS_Face& theFace)
         }
       }
       BRepAdaptor_Curve BAcurveonsurf(anEdge, theFace);
-      gp_Pnt            aPnt  = BAcurveonsurf.Value(aParam);
+      Point3d            aPnt  = BAcurveonsurf.Value(aParam);
       Standard_Real     aDist = PntVtx.Distance(aPnt);
       BB.UpdateVertex(aVertex, aDist);
       if (V1.IsSame(V2))

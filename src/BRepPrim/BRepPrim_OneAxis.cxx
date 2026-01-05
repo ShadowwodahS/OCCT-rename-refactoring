@@ -894,7 +894,7 @@ const TopoDS_Edge& BRepPrim_OneAxis::StartTopEdge()
     // build the empty Edge
     gp_Vec V = myAxes.Direction();
     V.Multiply(MeridianValue(myVMax).Y());
-    gp_Pnt P = myAxes.Location().Translated(V);
+    Point3d P = myAxes.Location().Translated(V);
     myBuilder.MakeEdge(myEdges[ETOPSTART], gp_Lin(P, myAxes.XDirection()));
 
     myBuilder.AddEdgeVertex(myEdges[ETOPSTART], AxisTopVertex(), 0., Standard_True);
@@ -924,7 +924,7 @@ const TopoDS_Edge& BRepPrim_OneAxis::StartBottomEdge()
     // build the empty Edge
     gp_Vec V = myAxes.Direction();
     V.Multiply(MeridianValue(myVMin).Y());
-    gp_Pnt P = myAxes.Location().Translated(V);
+    Point3d P = myAxes.Location().Translated(V);
     myBuilder.MakeEdge(myEdges[EBOTSTART], gp_Lin(P, myAxes.XDirection()));
 
     myBuilder.AddEdgeVertex(myEdges[EBOTSTART],
@@ -954,7 +954,7 @@ const TopoDS_Edge& BRepPrim_OneAxis::EndTopEdge()
     // build the empty Edge
     gp_Vec V = myAxes.Direction();
     V.Multiply(MeridianValue(myVMax).Y());
-    gp_Pnt P = myAxes.Location().Translated(V);
+    Point3d P = myAxes.Location().Translated(V);
     gp_Lin L(P, myAxes.XDirection());
     L.Rotate(myAxes.Axis(), myAngle);
     myBuilder.MakeEdge(myEdges[ETOPEND], L);
@@ -986,7 +986,7 @@ const TopoDS_Edge& BRepPrim_OneAxis::EndBottomEdge()
     // build the empty Edge
     gp_Vec V = myAxes.Direction();
     V.Multiply(MeridianValue(myVMin).Y());
-    gp_Pnt P = myAxes.Location().Translated(V);
+    Point3d P = myAxes.Location().Translated(V);
     gp_Lin L(P, myAxes.XDirection());
     L.Rotate(myAxes.Axis(), myAngle);
     myBuilder.MakeEdge(myEdges[EBOTEND], L);
@@ -1027,7 +1027,7 @@ const TopoDS_Edge& BRepPrim_OneAxis::TopEdge()
         gp_Pnt2d mp = MeridianValue(myVMax);
         gp_Vec   V  = myAxes.Direction();
         V.Multiply(mp.Y());
-        gp_Pnt  P = myAxes.Location().Translated(V);
+        Point3d  P = myAxes.Location().Translated(V);
         gp_Circ C(gp_Ax2(P, myAxes.Direction(), myAxes.XDirection()), mp.X());
         myBuilder.MakeEdge(myEdges[ETOP], C);
       }
@@ -1077,7 +1077,7 @@ const TopoDS_Edge& BRepPrim_OneAxis::BottomEdge()
         gp_Pnt2d mp = MeridianValue(myVMin);
         gp_Vec   V  = myAxes.Direction();
         V.Multiply(mp.Y());
-        gp_Pnt  P = myAxes.Location().Translated(V);
+        Point3d  P = myAxes.Location().Translated(V);
         gp_Circ C(gp_Ax2(P, myAxes.Direction(), myAxes.XDirection()), mp.X());
         myBuilder.MakeEdge(myEdges[EBOTTOM], C);
       }
@@ -1125,7 +1125,7 @@ const TopoDS_Vertex& BRepPrim_OneAxis::AxisTopVertex()
 
       gp_Vec V = myAxes.Direction();
       V.Multiply(MeridianValue(myVMax).Y());
-      gp_Pnt P = myAxes.Location().Translated(V);
+      Point3d P = myAxes.Location().Translated(V);
       myBuilder.MakeVertex(myVertices[VAXISTOP], P);
     }
 
@@ -1157,7 +1157,7 @@ const TopoDS_Vertex& BRepPrim_OneAxis::AxisBottomVertex()
 
       gp_Vec V = myAxes.Direction();
       V.Multiply(MeridianValue(myVMin).Y());
-      gp_Pnt P = myAxes.Location().Translated(V);
+      Point3d P = myAxes.Location().Translated(V);
       myBuilder.MakeVertex(myVertices[VAXISBOT], P);
     }
 
@@ -1190,7 +1190,7 @@ const TopoDS_Vertex& BRepPrim_OneAxis::TopStartVertex()
       gp_Pnt2d mp = MeridianValue(myVMax);
       gp_Vec   V  = myAxes.Direction();
       V.Multiply(mp.Y());
-      gp_Pnt P = myAxes.Location().Translated(V);
+      Point3d P = myAxes.Location().Translated(V);
       V        = myAxes.XDirection();
       V.Multiply(mp.X());
       P.Translate(V);
@@ -1226,7 +1226,7 @@ const TopoDS_Vertex& BRepPrim_OneAxis::TopEndVertex()
       gp_Pnt2d mp = MeridianValue(myVMax);
       gp_Vec   V  = myAxes.Direction();
       V.Multiply(mp.Y());
-      gp_Pnt P = myAxes.Location().Translated(V);
+      Point3d P = myAxes.Location().Translated(V);
       V        = myAxes.XDirection();
       V.Multiply(mp.X());
       P.Translate(V);
@@ -1263,7 +1263,7 @@ const TopoDS_Vertex& BRepPrim_OneAxis::BottomStartVertex()
       gp_Pnt2d mp = MeridianValue(myVMin);
       gp_Vec   V  = myAxes.Direction();
       V.Multiply(mp.Y());
-      gp_Pnt P = myAxes.Location().Translated(V);
+      Point3d P = myAxes.Location().Translated(V);
       V        = myAxes.XDirection();
       V.Multiply(mp.X());
       P.Translate(V);
@@ -1299,7 +1299,7 @@ const TopoDS_Vertex& BRepPrim_OneAxis::BottomEndVertex()
       gp_Pnt2d mp = MeridianValue(myVMin);
       gp_Vec   V  = myAxes.Direction();
       V.Multiply(mp.Y());
-      gp_Pnt P = myAxes.Location().Translated(V);
+      Point3d P = myAxes.Location().Translated(V);
       V        = myAxes.XDirection();
       V.Multiply(mp.X());
       P.Translate(V);

@@ -23,7 +23,7 @@
 #include <Draw_Color.hxx>
 #include <Standard_Integer.hxx>
 #include <Draw_Drawable3D.hxx>
-class gp_Pnt;
+class Point3d;
 class Draw_Display;
 
 class Draw_Axis3D;
@@ -35,7 +35,7 @@ class Draw_Axis3D : public Draw_Drawable3D
 public:
   Standard_EXPORT Draw_Axis3D(const Draw_Color& col, const Standard_Integer Size = 5);
 
-  Standard_EXPORT Draw_Axis3D(const gp_Pnt&          p,
+  Standard_EXPORT Draw_Axis3D(const Point3d&          p,
                               const Draw_Color&      col,
                               const Standard_Integer Size = 5);
 

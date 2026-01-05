@@ -668,7 +668,7 @@ void Approx_CurvilinearParameter::ToleranceComputation(const Handle(Adaptor2d_Cu
   Standard_Real FirstU = C2D->FirstParameter(), LastU = C2D->LastParameter();
   //  Standard_Real parU, Max_dS_dv=1.,Max_dS_dw=1.;
   Standard_Real Max_dS_dv = 1., Max_dS_dw = 1.;
-  gp_Pnt        P;
+  Point3d        P;
   gp_Pnt2d      pntVW;
   gp_Vec        dS_dv, dS_dw;
 

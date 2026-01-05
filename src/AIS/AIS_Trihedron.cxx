@@ -474,7 +474,7 @@ void AIS_Trihedron::computePresentation(const Handle(PrsMgr_PresentationManager)
   if (anAspect->ToDrawLabels())
   {
     Handle(Geom_Axis2Placement) aComponent = myComponent;
-    const gp_Pnt                anOrigin   = aComponent->Location();
+    const Point3d                anOrigin   = aComponent->Location();
     for (Standard_Integer anAxisIter = Prs3d_DatumParts_XAxis; anAxisIter <= Prs3d_DatumParts_ZAxis;
          ++anAxisIter)
     {
@@ -502,7 +502,7 @@ void AIS_Trihedron::computePresentation(const Handle(PrsMgr_PresentationManager)
           break;
       }
       Handle(Graphic3d_Group) aLabelGroup = thePrs->NewGroup();
-      const gp_Pnt            aPoint      = anOrigin.XYZ() + aDir.XYZ() * anAxisLength;
+      const Point3d            aPoint      = anOrigin.XYZ() + aDir.XYZ() * anAxisLength;
       Prs3d_Text::Draw(aLabelGroup, anAspect->TextAspect(aPart), aLabel, aPoint);
     }
   }
@@ -706,9 +706,9 @@ Handle(Select3D_SensitiveEntity) AIS_Trihedron::createSensitiveEntity(
 
   if (thePart >= Prs3d_DatumParts_XOYAxis && thePart <= Prs3d_DatumParts_XOZAxis)
   { // plane
-    const gp_Pnt anXYZ1 = aPrimitives->Vertice(1);
-    const gp_Pnt anXYZ2 = aPrimitives->Vertice(2);
-    const gp_Pnt anXYZ3 = aPrimitives->Vertice(3);
+    const Point3d anXYZ1 = aPrimitives->Vertice(1);
+    const Point3d anXYZ2 = aPrimitives->Vertice(2);
+    const Point3d anXYZ3 = aPrimitives->Vertice(3);
     return new Select3D_SensitiveTriangle(theOwner, anXYZ1, anXYZ2, anXYZ3);
   }
 
@@ -725,14 +725,14 @@ Handle(Select3D_SensitiveEntity) AIS_Trihedron::createSensitiveEntity(
   if (Handle(Graphic3d_ArrayOfPoints) aPoints =
         Handle(Graphic3d_ArrayOfPoints)::DownCast(aPrimitives))
   {
-    const gp_Pnt anXYZ1 = aPoints->Vertice(1);
+    const Point3d anXYZ1 = aPoints->Vertice(1);
     return new Select3D_SensitivePoint(theOwner, anXYZ1);
   }
   else if (Handle(Graphic3d_ArrayOfSegments) aSegments =
              Handle(Graphic3d_ArrayOfSegments)::DownCast(aPrimitives))
   {
-    const gp_Pnt anXYZ1 = aSegments->Vertice(1);
-    const gp_Pnt anXYZ2 = aSegments->Vertice(2);
+    const Point3d anXYZ1 = aSegments->Vertice(1);
+    const Point3d anXYZ2 = aSegments->Vertice(2);
     return new Select3D_SensitiveSegment(theOwner, anXYZ1, anXYZ2);
   }
   return Handle(Select3D_SensitiveEntity)();
@@ -742,7 +742,7 @@ Handle(Select3D_SensitiveEntity) AIS_Trihedron::createSensitiveEntity(
 
 void AIS_Trihedron::updatePrimitives(const Handle(Prs3d_DatumAspect)& theAspect,
                                      Prs3d_DatumMode                  theMode,
-                                     const gp_Pnt&                    theOrigin,
+                                     const Point3d&                    theOrigin,
                                      const gp_Dir&                    theXDirection,
                                      const gp_Dir&                    theYDirection,
                                      const gp_Dir&                    theZDirection)
@@ -757,14 +757,14 @@ void AIS_Trihedron::updatePrimitives(const Handle(Prs3d_DatumAspect)& theAspect,
   anAxisDirs.Bind(Prs3d_DatumParts_YAxis, theYDirection);
   anAxisDirs.Bind(Prs3d_DatumParts_ZAxis, theZDirection);
 
-  NCollection_DataMap<Prs3d_DatumParts, gp_Pnt> anAxisPoints;
+  NCollection_DataMap<Prs3d_DatumParts, Point3d> anAxisPoints;
   gp_XYZ                                        anXYZOrigin = theOrigin.XYZ();
   for (int anAxisIter = Prs3d_DatumParts_XAxis; anAxisIter <= Prs3d_DatumParts_ZAxis; ++anAxisIter)
   {
     Prs3d_DatumParts aPart = (Prs3d_DatumParts)anAxisIter;
     anAxisPoints.Bind(
       aPart,
-      gp_Pnt(anXYZOrigin + anAxisDirs.Find(aPart).XYZ() * theAspect->AxisLength(aPart)));
+      Point3d(anXYZOrigin + anAxisDirs.Find(aPart).XYZ() * theAspect->AxisLength(aPart)));
   }
 
   if (theMode == Prs3d_DM_WireFrame)

@@ -87,7 +87,7 @@ void AIS_LightSourceOwner::HilightWithColor(const Handle(PrsMgr_PresentationMana
       aPrs->SetZLayer(aZLayer);
     }
     Handle(Graphic3d_ArrayOfPoints) aPoints = new Graphic3d_ArrayOfPoints(1);
-    const gp_Pnt                    aDetPnt = aLightSource->mySensSphere->LastDetectedPoint();
+    const Point3d                    aDetPnt = aLightSource->mySensSphere->LastDetectedPoint();
     if (aDetPnt.X() == RealLast())
     {
       return;
@@ -259,17 +259,17 @@ Standard_Boolean AIS_LightSource::ProcessDragging(const Handle(AIS_InteractiveCo
       mySensSphere->ResetLastDetectedPoint();
       SetLocalTransformation(myLocTrsfStart);
       theCtx->MainSelector()->Pick(theDragFrom.x(), theDragFrom.y(), theView);
-      gp_Pnt aStartPosition = mySensSphere->LastDetectedPoint();
+      Point3d aStartPosition = mySensSphere->LastDetectedPoint();
 
       mySensSphere->ResetLastDetectedPoint();
       theCtx->MainSelector()->Pick(theDragTo.x(), theDragTo.y(), theView);
-      gp_Pnt aCurrPosition = mySensSphere->LastDetectedPoint();
+      Point3d aCurrPosition = mySensSphere->LastDetectedPoint();
       if (aCurrPosition.X() != RealLast()
           && aStartPosition.Distance(aCurrPosition) > Precision::Confusion())
       {
         gp_Quaternion aQRot;
-        aQRot.SetRotation(gp_Vec(gp_Pnt(0, 0, 0), aStartPosition),
-                          gp_Vec(gp_Pnt(0, 0, 0), aCurrPosition));
+        aQRot.SetRotation(gp_Vec(Point3d(0, 0, 0), aStartPosition),
+                          gp_Vec(Point3d(0, 0, 0), aCurrPosition));
         gp_Trsf aTrsf;
         aTrsf.SetRotation(aQRot);
         SetLocalTransformation(myLocTrsfStart * aTrsf);
@@ -428,7 +428,7 @@ void AIS_LightSource::updateLightLocalTransformation()
       break;
     }
     case Graphic3d_TypeOfLightSource_Directional: {
-      const gp_Pnt aLightPos = (myIsZoomable && !myLightSource->IsHeadlight())
+      const Point3d aLightPos = (myIsZoomable && !myLightSource->IsHeadlight())
                                  ? myLightSource->DisplayPosition()
                                  : gp::Origin();
       gp_Trsf      aTrsf;
@@ -473,18 +473,18 @@ void AIS_LightSource::setLocalTransformation(const Handle(TopLoc_Datum3D)& theTr
       myLightSource->SetDirection(aNewDir);
       if (myIsZoomable)
       {
-        gp_Pnt aNewPos = gp::Origin().Transformed(aTrsf);
+        Point3d aNewPos = gp::Origin().Transformed(aTrsf);
         myLightSource->SetDisplayPosition(aNewPos);
       }
       break;
     }
     case Graphic3d_TypeOfLightSource_Positional: {
-      gp_Pnt aNewPos = gp::Origin().Transformed(aTrsf);
+      Point3d aNewPos = gp::Origin().Transformed(aTrsf);
       myLightSource->SetPosition(aNewPos);
       break;
     }
     case Graphic3d_TypeOfLightSource_Spot: {
-      gp_Pnt aNewPos = gp::Origin().Transformed(aTrsf);
+      Point3d aNewPos = gp::Origin().Transformed(aTrsf);
       myLightSource->SetPosition(aNewPos);
 
       gp_Dir aNewDir = (-gp::DZ()).Transformed(aTrsf);
@@ -690,7 +690,7 @@ void AIS_LightSource::computeDirectional(const Handle(Prs3d_Presentation)& thePr
   Handle(Graphic3d_ArrayOfSegments) aLineArray = new Graphic3d_ArrayOfSegments(aNbArrows * 2);
   for (Standard_Integer aPntIter = aPoints.Lower(); aPntIter <= aPoints.Upper(); ++aPntIter)
   {
-    const gp_Pnt aPnt = aPoints.Value(aPntIter);
+    const Point3d aPnt = aPoints.Value(aPntIter);
     if (!aPntArray.IsNull())
     {
       aPntArray->AddVertex(aPnt);
@@ -698,7 +698,7 @@ void AIS_LightSource::computeDirectional(const Handle(Prs3d_Presentation)& thePr
     if (!aLineArray.IsNull())
     {
       aLineArray->AddVertex(aPnt);
-      aLineArray->AddVertex(gp_Pnt(aPnt.XYZ() + aLightDir.XYZ() * aDistance));
+      aLineArray->AddVertex(Point3d(aPnt.XYZ() + aLightDir.XYZ() * aDistance));
     }
     if (!aTrisArray.IsNull())
     {
@@ -792,7 +792,7 @@ void AIS_LightSource::computeSpot(const Handle(Prs3d_Presentation)& thePrs,
   {
     Handle(Graphic3d_ArrayOfSegments) aDirArray = new Graphic3d_ArrayOfSegments(2);
     aDirArray->AddVertex(aLightPos);
-    aDirArray->AddVertex(gp_Pnt(aLightPos + aLightDir.XYZ() * aDistance));
+    aDirArray->AddVertex(Point3d(aLightPos + aLightDir.XYZ() * aDistance));
 
     Handle(Graphic3d_Group) aDirGroupShadow = thePrs->NewGroup();
     aDirGroupShadow->SetClosed(true);

@@ -22,7 +22,7 @@ IMPLEMENT_STANDARD_RTTIEXT(BRepMeshData_Curve, IMeshData_Curve)
 //=================================================================================================
 
 BRepMeshData_Curve::BRepMeshData_Curve(const Handle(NCollection_IncAllocator)& theAllocator)
-    : myPoints(NCollection_OccAllocator<gp_Pnt>(theAllocator)),
+    : myPoints(NCollection_OccAllocator<Point3d>(theAllocator)),
       myParameters(NCollection_OccAllocator<Standard_Real>(theAllocator))
 {
 }
@@ -34,7 +34,7 @@ BRepMeshData_Curve::~BRepMeshData_Curve() {}
 //=================================================================================================
 
 void BRepMeshData_Curve::InsertPoint(const Standard_Integer thePosition,
-                                     const gp_Pnt&          thePoint,
+                                     const Point3d&          thePoint,
                                      const Standard_Real    theParamOnPCurve)
 {
   myPoints.insert(myPoints.begin() + thePosition, thePoint);
@@ -43,7 +43,7 @@ void BRepMeshData_Curve::InsertPoint(const Standard_Integer thePosition,
 
 //=================================================================================================
 
-void BRepMeshData_Curve::AddPoint(const gp_Pnt& thePoint, const Standard_Real theParamOnPCurve)
+void BRepMeshData_Curve::AddPoint(const Point3d& thePoint, const Standard_Real theParamOnPCurve)
 {
   myPoints.push_back(thePoint);
   myParameters.push_back(theParamOnPCurve);
@@ -51,7 +51,7 @@ void BRepMeshData_Curve::AddPoint(const gp_Pnt& thePoint, const Standard_Real th
 
 //=================================================================================================
 
-gp_Pnt& BRepMeshData_Curve::GetPoint(const Standard_Integer theIndex)
+Point3d& BRepMeshData_Curve::GetPoint(const Standard_Integer theIndex)
 {
   return myPoints[theIndex];
 }

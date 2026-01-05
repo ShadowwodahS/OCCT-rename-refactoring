@@ -57,13 +57,13 @@ void DrawDim_PlanarRadius::DrawOn(Draw_Display& dis) const
     if (curve->IsKind(STANDARD_TYPE(Geom_Circle)))
     {
       gp_Circ       circle = Handle(Geom_Circle)::DownCast(curve)->Circ();
-      const gp_Pnt& first  = circle.Location();
+      const Point3d& first  = circle.Location();
       TopoDS_Vertex vf, vl;
       TopExp::Vertices(TopoDS::Edge(myCircle), vf, vl);
-      const gp_Pnt last = BRep_Tool::Pnt(vf);
+      const Point3d last = BRep_Tool::Pnt(vf);
       //
       dis.Draw(first, last);
-      gp_Pnt p((first.X() + last.X()) / 2, (first.Y() + last.Y()) / 2, (first.Z() + last.Z()) / 2);
+      Point3d p((first.X() + last.X()) / 2, (first.Y() + last.Y()) / 2, (first.Z() + last.Z()) / 2);
       DrawText(p, dis);
       return;
     }

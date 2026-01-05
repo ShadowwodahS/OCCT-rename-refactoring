@@ -26,7 +26,7 @@
 
 class gp_Hypr;
 class gp_Ax2;
-class gp_Pnt;
+class Point3d;
 
 //! This class implements construction algorithms for a hyperbola in
 //! 3D space. The result is a Geom_Hyperbola hyperbola.
@@ -79,7 +79,7 @@ public:
   //! -   its major axis is defined by Center and S1,
   //! -   its major radius is the distance between Center and S1, and
   //! -   its minor radius is the distance between S2 and the major axis;
-  Standard_EXPORT GC_MakeHyperbola(const gp_Pnt& S1, const gp_Pnt& S2, const gp_Pnt& Center);
+  Standard_EXPORT GC_MakeHyperbola(const Point3d& S1, const Point3d& S2, const Point3d& Center);
 
   //! Returns the constructed hyperbola.
   //! Exceptions StdFail_NotDone if no hyperbola is constructed.

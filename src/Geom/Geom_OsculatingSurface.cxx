@@ -701,7 +701,7 @@ Standard_Boolean Geom_OsculatingSurface::IsQPunctual(const Handle(Geom_Surface)&
   Standard_Boolean Along = Standard_True;
   S->Bounds(U1, U2, V1, V2);
   gp_Vec        D1U, D1V;
-  gp_Pnt        P;
+  Point3d        P;
   Standard_Real Step, D1NormMax;
   if (IT == GeomAbs_IsoV)
   {

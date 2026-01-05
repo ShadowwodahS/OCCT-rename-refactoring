@@ -18,7 +18,7 @@
 #include <Standard_Transient.hxx>
 #include <Standard_Type.hxx>
 
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 
 //! Interface for calculation of values and derivatives for different kinds of curves in 3D.
@@ -29,17 +29,17 @@ public:
   GeomEvaluator_Curve() {}
 
   //! Value of 3D curve
-  virtual void D0(const Standard_Real theU, gp_Pnt& theValue) const = 0;
+  virtual void D0(const Standard_Real theU, Point3d& theValue) const = 0;
   //! Value and first derivatives of curve
-  virtual void D1(const Standard_Real theU, gp_Pnt& theValue, gp_Vec& theD1) const = 0;
+  virtual void D1(const Standard_Real theU, Point3d& theValue, gp_Vec& theD1) const = 0;
   //! Value, first and second derivatives of curve
   virtual void D2(const Standard_Real theU,
-                  gp_Pnt&             theValue,
+                  Point3d&             theValue,
                   gp_Vec&             theD1,
                   gp_Vec&             theD2) const = 0;
   //! Value, first, second and third derivatives of curve
   virtual void D3(const Standard_Real theU,
-                  gp_Pnt&             theValue,
+                  Point3d&             theValue,
                   gp_Vec&             theD1,
                   gp_Vec&             theD2,
                   gp_Vec&             theD3) const = 0;

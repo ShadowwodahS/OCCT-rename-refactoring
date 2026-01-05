@@ -146,7 +146,7 @@ Standard_Boolean BlendFunc_ChamfInv::Derivatives(const math_Vector& X, math_Matr
   Standard_Integer i, j;
   gp_Pnt2d         p2d;
   gp_Vec2d         v2d, df1, df2;
-  gp_Pnt           pts, ptgui;
+  Point3d           pts, ptgui;
   gp_Vec           temp, d1u, d1v, nplan;
   math_Vector      x1(1, 2), x2(1, 2);
   math_Matrix      d1(1, 2, 1, 2), d2(1, 2, 1, 2);

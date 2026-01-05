@@ -158,7 +158,7 @@ Standard_Integer ApproxInt_MultiLine::NbP2d() const {
 void ApproxInt_MultiLine::Value(const Standard_Integer  Index,
                                 TColgp_Array1OfPnt&     TabPnt)  const
 {
-  const gp_Pnt aP = myLine->Point(Index).Value();
+  const Point3d aP = myLine->Point(Index).Value();
   TabPnt(1).SetCoord(aP.X()+Xo, aP.Y()+Yo, aP.Z()+Zo);
 }
 
@@ -333,7 +333,7 @@ ApproxInt_MultiLine
 
   gp_Vec T;
   gp_Vec2d TS1,TS2;
-  gp_Pnt P;
+  Point3d P;
   
   //-----------------------l-------------------------------------------
   //--  Indice     :   Low       Low+1     I    I+1         High    --
@@ -631,8 +631,8 @@ Standard_Boolean
 
   //Insert new point between (theIndbad-1) and theIndbad
   //Using <thePtrSVSurf> for Rsnld: it may be ImpPrm or PrmPrm
-  gp_Pnt PrevPnt = myLine->Point(theIndbad-1).Value();
-  gp_Pnt CurPnt  = myLine->Point(theIndbad).Value();
+  Point3d PrevPnt = myLine->Point(theIndbad-1).Value();
+  Point3d CurPnt  = myLine->Point(theIndbad).Value();
   Standard_Real uprev1, vprev1, uprev2, vprev2, ucur1, vcur1, ucur2, vcur2;
   myLine->Point(theIndbad-1).Parameters(uprev1, vprev1, uprev2, vprev2);
   myLine->Point(theIndbad).Parameters(ucur1, vcur1, ucur2, vcur2);
@@ -657,7 +657,7 @@ Standard_Boolean
         ((TheSvSurfaces *)PtrOnmySvSurfaces)->SeekPoint(umid1, vmid1, umid2, vmid2,
                                                         MidPoint))
     {
-      const gp_Pnt& NewPnt = MidPoint.Value();
+      const Point3d& NewPnt = MidPoint.Value();
       Standard_Real SqDistNewPrev = NewPnt.SquareDistance(PrevPnt);
       Standard_Real SqDistNewCur  = NewPnt.SquareDistance(CurPnt);
       IsNewPointInvalid = (SqDistNewPrev <= SqTol3d ||
@@ -707,7 +707,7 @@ Standard_Boolean
   for (Standard_Integer i = 1; i <= ResultPntOn2SLine->NbPoints(); i++)
   {
     const IntSurf_PntOn2S& thePoint = ResultPntOn2SLine->Value(i);
-    gp_Pnt curPnt = thePoint.Value();
+    Point3d curPnt = thePoint.Value();
     sprintf(name, "p%d_%d", indc, i);
     DrawTrSurf::Set(name, curPnt);
     gp_Pnt2d curPnt2d = thePoint.ValueOnSurface(onfirst);

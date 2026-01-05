@@ -71,8 +71,8 @@ AppParCurves_Gradient::
   Standard_Integer nbP2d = ToolLine::NbP2d(SSP);
   Standard_Integer mynbP3d=nbP3d, mynbP2d=nbP2d;
   Standard_Integer nbP = nbP3d + nbP2d;
-//  gp_Pnt Pt, P1, P2;
-  gp_Pnt Pt;
+//  Point3d Pt, P1, P2;
+  Point3d Pt;
 //  gp_Pnt2d Pt2d, P12d, P22d;
   gp_Pnt2d Pt2d;
 //  gp_Vec V1, V2, MyV;

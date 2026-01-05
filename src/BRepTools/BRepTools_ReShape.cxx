@@ -503,7 +503,7 @@ TopoDS_Vertex BRepTools_ReShape::CopyVertex(const TopoDS_Vertex& theV, const Sta
 //=================================================================================================
 
 TopoDS_Vertex BRepTools_ReShape::CopyVertex(const TopoDS_Vertex& theV,
-                                            const gp_Pnt&        theNewPos,
+                                            const Point3d&        theNewPos,
                                             const Standard_Real  theTol)
 {
   TopoDS_Vertex    aVertexCopy;

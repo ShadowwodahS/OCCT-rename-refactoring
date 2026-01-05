@@ -72,7 +72,7 @@ static void ConvertBndToShape(const Bnd_OBB& theBox, const char* const theName)
     return;
   }
 
-  const gp_Pnt& aBaryCenter = theBox.Center();
+  const Point3d& aBaryCenter = theBox.Center();
   const gp_XYZ &aXDir = theBox.XDirection(), &aYDir = theBox.YDirection(),
                &aZDir  = theBox.ZDirection();
   Standard_Real aHalfX = theBox.XHSize(), aHalfY = theBox.YHSize(), aHalfZ = theBox.ZHSize();
@@ -171,7 +171,7 @@ static Standard_Integer transform(Draw_Interpretor&, Standard_Integer n, const c
       if (n < 9)
         return 1;
       T.SetRotation(
-        gp_Ax1(gp_Pnt(Draw::Atof(a[n - 7]), Draw::Atof(a[n - 6]), Draw::Atof(a[n - 5])),
+        gp_Ax1(Point3d(Draw::Atof(a[n - 7]), Draw::Atof(a[n - 6]), Draw::Atof(a[n - 5])),
                gp_Vec(Draw::Atof(a[n - 4]), Draw::Atof(a[n - 3]), Draw::Atof(a[n - 2]))),
         Draw::Atof(a[n - 1]) * (M_PI / 180.0));
       last = n - 7;
@@ -180,7 +180,7 @@ static Standard_Integer transform(Draw_Interpretor&, Standard_Integer n, const c
     {
       if (n < 8)
         return 1;
-      T.SetMirror(gp_Ax2(gp_Pnt(Draw::Atof(a[n - 6]), Draw::Atof(a[n - 5]), Draw::Atof(a[n - 4])),
+      T.SetMirror(gp_Ax2(Point3d(Draw::Atof(a[n - 6]), Draw::Atof(a[n - 5]), Draw::Atof(a[n - 4])),
                          gp_Vec(Draw::Atof(a[n - 3]), Draw::Atof(a[n - 2]), Draw::Atof(a[n - 1]))));
 
       last = n - 6;
@@ -189,7 +189,7 @@ static Standard_Integer transform(Draw_Interpretor&, Standard_Integer n, const c
     {
       if (n < 6)
         return 1;
-      T.SetScale(gp_Pnt(Draw::Atof(a[n - 4]), Draw::Atof(a[n - 3]), Draw::Atof(a[n - 2])),
+      T.SetScale(Point3d(Draw::Atof(a[n - 4]), Draw::Atof(a[n - 3]), Draw::Atof(a[n - 2])),
                  Draw::Atof(a[n - 1]));
       last = n - 4;
     }
@@ -518,7 +518,7 @@ static Standard_Integer getcoords(Draw_Interpretor& di, Standard_Integer n, cons
     if (aShape.ShapeType() == TopAbs_VERTEX)
     {
       const TopoDS_Vertex& aVertex = TopoDS::Vertex(aShape);
-      gp_Pnt               aPnt    = BRep_Tool::Pnt(aVertex);
+      Point3d               aPnt    = BRep_Tool::Pnt(aVertex);
 
       di << a[i] << " (x,y,z) : " << aPnt.X() << " " << aPnt.Y() << " " << aPnt.Z() << "\n";
     }
@@ -538,8 +538,8 @@ static Standard_Boolean parseMinMax(const char** theArgVec, Bnd_Box& theBox)
     return Standard_False;
   }
 
-  const gp_Pnt aPntMin(aMin[0].RealValue(), aMin[1].RealValue(), aMin[2].RealValue());
-  const gp_Pnt aPntMax(aMax[0].RealValue(), aMax[1].RealValue(), aMax[2].RealValue());
+  const Point3d aPntMin(aMin[0].RealValue(), aMin[1].RealValue(), aMin[2].RealValue());
+  const Point3d aPntMax(aMax[0].RealValue(), aMax[1].RealValue(), aMax[2].RealValue());
   theBox.SetVoid();
   theBox.Add(aPntMin);
   theBox.Add(aPntMax);
@@ -675,7 +675,7 @@ static Standard_Integer BoundBox(Draw_Interpretor& theDI,
     }
     else if (doPrint)
     {
-      const gp_Pnt& aBaryCenter = anOBB.Center();
+      const Point3d& aBaryCenter = anOBB.Center();
       const gp_XYZ &aXDir = anOBB.XDirection(), &aYDir = anOBB.YDirection(),
                    &aZDir = anOBB.ZDirection();
       theDI << "Oriented bounding box\n";
@@ -733,8 +733,8 @@ static Standard_Integer BoundBox(Draw_Interpretor& theDI,
       {
         anAABB = anAABB.FinitePart();
       }
-      const gp_Pnt aMin = anAABB.CornerMin();
-      const gp_Pnt aMax = anAABB.CornerMax();
+      const Point3d aMin = anAABB.CornerMin();
+      const Point3d aMax = anAABB.CornerMax();
 
       // print to DRAW
       if (doPrint)
@@ -753,8 +753,8 @@ static Standard_Integer BoundBox(Draw_Interpretor& theDI,
           if (anAABB.IsOpen() && anAABB.HasFinitePart())
           {
             Bnd_Box      aFinitAabb = anAABB.FinitePart();
-            const gp_Pnt aFinMin    = aFinitAabb.CornerMin();
-            const gp_Pnt aFinMax    = aFinitAabb.CornerMax();
+            const Point3d aFinMin    = aFinitAabb.CornerMin();
+            const Point3d aFinMax    = aFinitAabb.CornerMax();
             theDI << "Finite part\n";
             theDI << "X-range: " << aFinMin.X() << " " << aFinMax.X() << "\n"
                   << "Y-range: " << aFinMin.Y() << " " << aFinMax.Y() << "\n"
@@ -1018,7 +1018,7 @@ static Standard_Integer reperageshape(Draw_Interpretor& di, Standard_Integer nar
   di << "Pick positions with button \n";
   Standard_Integer id, X, Y, b;
   gp_Trsf          T;
-  gp_Pnt           P1, P2;
+  Point3d           P1, P2;
   dout.Select(id, X, Y, b);
 
   dout.GetTrsf(id, T);
@@ -1053,7 +1053,7 @@ static Standard_Integer reperageshape(Draw_Interpretor& di, Standard_Integer nar
           continue;
         }
       }
-      const gp_Pnt& P    = Inter.Pnt(i);
+      const Point3d& P    = Inter.Pnt(i);
       Standard_Real PMin = Inter.WParameter(i);
       if (details)
       {
@@ -1185,7 +1185,7 @@ static Standard_Integer vecdc(Draw_Interpretor& di, Standard_Integer, const char
 
   Standard_Integer id, X, Y, b;
   gp_Trsf          T;
-  gp_Pnt           P1, P2, PP1, PP2;
+  Point3d           P1, P2, PP1, PP2;
 
   //-----------------------------------------------------------
   dout.Select(id, X, Y, b);
@@ -1217,7 +1217,7 @@ static Standard_Integer vecdc(Draw_Interpretor& di, Standard_Integer, const char
     za = P2.Z();
   P1.SetCoord(xa, ya, za);
   Handle(Draw_Marker3D) D0 =
-    new Draw_Marker3D(gp_Pnt(P1.X(), P1.Y(), P1.Z()), Draw_Square, Draw_blanc, 1);
+    new Draw_Marker3D(Point3d(P1.X(), P1.Y(), P1.Z()), Draw_Square, Draw_blanc, 1);
 
   dout << D0;
   dout.Flush();

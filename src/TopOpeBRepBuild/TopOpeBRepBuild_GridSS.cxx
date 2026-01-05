@@ -91,7 +91,7 @@ Standard_EXPORT void                 TopOpeBRepDS_SetThePCurve(const BRep_Builde
 //(const TopoDS_Face& fF,const TopoDS_Edge& E,Standard_Real& splitpar);
 
 //---------------------------------------------
-static Standard_Integer FUN_getG(const gp_Pnt&                              P,
+static Standard_Integer FUN_getG(const Point3d&                              P,
                                  const TopOpeBRepDS_ListOfInterference&     LI,
                                  const Handle(TopOpeBRepDS_HDataStructure)& HDS,
                                  Standard_Integer&                          iEinterf)
@@ -108,7 +108,7 @@ static Standard_Integer FUN_getG(const gp_Pnt&                              P,
     Standard_Integer GI             = SSI->Geometry();
     iEinterf                        = SSI->Support();
     const TopOpeBRepDS_Point& DSP   = HDS->Point(GI);
-    const gp_Pnt&             P3d   = DSP.Point();
+    const Point3d&             P3d   = DSP.Point();
     Standard_Real             tolp  = DSP.Tolerance();
     Standard_Boolean          sameP = P3d.IsEqual(P, tolp);
     if (sameP)
@@ -154,7 +154,7 @@ static Standard_Boolean FUN_EPIforEvisoONperiodicF(const TopoDS_Edge&           
   if (recadre != SPLITEDGE)
     return Standard_False;
 
-  gp_Pnt           p3d;
+  Point3d           p3d;
   Standard_Boolean ok = FUN_tool_value(parone, E, p3d);
   if (!ok)
     return Standard_False; // nyi FUN_Raise
@@ -1381,7 +1381,7 @@ void TopOpeBRepBuild_Builder::AddONPatchesSFS(const TopOpeBRepBuild_GTopo&  G1,
       Standard_Real par = aBAC1.FirstParameter() * (1. - PAR_T) + aBAC1.LastParameter() * PAR_T;
       aBAC1.D0(par, aP2d);
       BRepAdaptor_Surface aBAS1(aFace1);
-      gp_Pnt              aPbid;
+      Point3d              aPbid;
       gp_Vec              aN1, aDU, aDV;
       aBAS1.D1(aP2d.X(), aP2d.Y(), aPbid, aDU, aDV);
       aN1                = aDU ^ aDV;
@@ -1590,7 +1590,7 @@ static Standard_Boolean AreFacesCoincideInArea(const TopoDS_Shape&         theBa
   // create a point in the area and get the normal to aBaseFace at it
   gp_Pnt2d            aP2d = ElCLib::Value(pLinMin * T, aLin);
   BRepAdaptor_Surface aBAS(aBaseFace);
-  gp_Pnt              aPnt;
+  Point3d              aPnt;
   gp_Vec              d1u, d1v;
   aBAS.D1(aP2d.X(), aP2d.Y(), aPnt, d1u, d1v);
   gp_Vec        aNormBase = d1u ^ d1v;

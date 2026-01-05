@@ -59,12 +59,12 @@ void gp_Sphere::Coefficients(Standard_Real& A1,
   D                 = T14 * T14 + T24 * T24 + T34 * T34 - radius * radius;
 }
 
-void gp_Sphere::Mirror(const gp_Pnt& P)
+void gp_Sphere::Mirror(const Point3d& P)
 {
   pos.Mirror(P);
 }
 
-gp_Sphere gp_Sphere::Mirrored(const gp_Pnt& P) const
+gp_Sphere gp_Sphere::Mirrored(const Point3d& P) const
 {
   gp_Sphere C = *this;
   C.pos.Mirror(P);

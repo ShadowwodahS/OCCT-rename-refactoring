@@ -210,7 +210,7 @@ static Standard_Integer AddNode(Draw_Interpretor& theDI,
     Handle(Poly_Polygon3D) aPoly3d = DrawTrSurf::GetPolygon3D(theArgVal[1]);
     TColgp_Array1OfPnt     aNodes(aPoly3d->Nodes().Lower(), aPoly3d->Nodes().Upper() + 1);
     AddNode(aPoly3d,
-            gp_Pnt(Draw::Atof(theArgVal[2]), Draw::Atof(theArgVal[3]), Draw::Atof(theArgVal[4])),
+            Point3d(Draw::Atof(theArgVal[2]), Draw::Atof(theArgVal[3]), Draw::Atof(theArgVal[4])),
             aNodes);
     aPoly3d.Nullify();
     aPoly3d = new Poly_Polygon3D(aNodes);

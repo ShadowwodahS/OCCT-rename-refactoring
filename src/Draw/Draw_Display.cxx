@@ -26,7 +26,7 @@ extern Standard_Boolean Draw_Bounds;
 
 //=================================================================================================
 
-void Draw_Display::DrawMarker(const gp_Pnt&          pt,
+void Draw_Display::DrawMarker(const Point3d&          pt,
                               const Draw_MarkerShape S,
                               const Standard_Integer Size)
 {
@@ -108,7 +108,7 @@ void Draw_Display::DrawMarker(const gp_Pnt2d&        pt,
 
 //=================================================================================================
 
-void Draw_Display::DrawMarker(const gp_Pnt& pt, const Draw_MarkerShape S, const Standard_Real Size)
+void Draw_Display::DrawMarker(const Point3d& pt, const Draw_MarkerShape S, const Standard_Real Size)
 {
   gp_Pnt2d p;
   Project(pt, p);
@@ -184,8 +184,8 @@ void Draw_Display::Draw(const gp_Circ&         C,
     Cloc.SetRadius(ISize);
   }
 
-  gp_Pnt PC = Cloc.Location();
-  gp_Pnt P  = ElCLib::Value(A1, Cloc);
+  Point3d PC = Cloc.Location();
+  Point3d P  = ElCLib::Value(A1, Cloc);
   MoveTo(P);
   gp_Vec V1(PC, P);
   P = ElCLib::Value(A1 + angle, Cloc);
@@ -260,7 +260,7 @@ void Draw_Display::Draw(const gp_Circ2d&       C,
 
 //=================================================================================================
 
-gp_Pnt2d Draw_Display::Project(const gp_Pnt& p) const
+gp_Pnt2d Draw_Display::Project(const Point3d& p) const
 {
   gp_Pnt2d pt;
   Project(p, pt);

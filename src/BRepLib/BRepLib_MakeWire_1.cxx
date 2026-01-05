@@ -142,7 +142,7 @@ Standard_Boolean BRepLib_MakeWire::BRepLib_BndBoxVertexSelector::Accept(
   if (theObj == myVInd)
     return Standard_False;
 
-  gp_Pnt aVPnt = BRep_Tool::Pnt(aV);
+  Point3d aVPnt = BRep_Tool::Pnt(aV);
 
   Standard_Real aTolV = BRep_Tool::Tolerance(aV);
 
@@ -161,7 +161,7 @@ Standard_Boolean BRepLib_MakeWire::BRepLib_BndBoxVertexSelector::Accept(
 
 //=================================================================================================
 
-void BRepLib_MakeWire::BRepLib_BndBoxVertexSelector::SetCurrentVertex(const gp_Pnt&    theP,
+void BRepLib_MakeWire::BRepLib_BndBoxVertexSelector::SetCurrentVertex(const Point3d&    theP,
                                                                       Standard_Real    theTol,
                                                                       Standard_Integer theVInd)
 {
@@ -304,7 +304,7 @@ void BRepLib_MakeWire::CreateNewVertices(
     const NCollection_List<TopoDS_Vertex>& aVal = itLLV.Value();
     itLV.Initialize(aVal);
     Standard_Real aNewTol = 0;
-    gp_Pnt        aNewC;
+    Point3d        aNewC;
     for (; itLV.More(); itLV.Next())
     {
       const TopoDS_Vertex& aVV = itLV.Value();
@@ -323,7 +323,7 @@ void BRepLib_MakeWire::CreateNewVertices(
     }
     else
       // update already existing vertex
-      aBB.UpdateVertex(aNewV, gp_Pnt(aNewC), aNewTol);
+      aBB.UpdateVertex(aNewV, Point3d(aNewC), aNewTol);
 
     // fill the map of old->new vertices
     itLV.Initialize(aVal);

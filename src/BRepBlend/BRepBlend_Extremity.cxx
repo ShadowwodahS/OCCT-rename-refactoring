@@ -22,7 +22,7 @@
 #include <IntSurf_Transition.hxx>
 
 BRepBlend_Extremity::BRepBlend_Extremity()
-    : pt(gp_Pnt(0, 0, 0)),
+    : pt(Point3d(0, 0, 0)),
       tang(gp_Vec(0, 0, 0)),
       param(0.0),
       u(0.0),
@@ -33,7 +33,7 @@ BRepBlend_Extremity::BRepBlend_Extremity()
 {
 }
 
-BRepBlend_Extremity::BRepBlend_Extremity(const gp_Pnt&       P,
+BRepBlend_Extremity::BRepBlend_Extremity(const Point3d&       P,
                                          const Standard_Real U,
                                          const Standard_Real V,
                                          const Standard_Real Param,
@@ -49,7 +49,7 @@ BRepBlend_Extremity::BRepBlend_Extremity(const gp_Pnt&       P,
 {
 }
 
-BRepBlend_Extremity::BRepBlend_Extremity(const gp_Pnt&                    P,
+BRepBlend_Extremity::BRepBlend_Extremity(const Point3d&                    P,
                                          const Standard_Real              U,
                                          const Standard_Real              V,
                                          const Standard_Real              Param,
@@ -67,7 +67,7 @@ BRepBlend_Extremity::BRepBlend_Extremity(const gp_Pnt&                    P,
 {
 }
 
-BRepBlend_Extremity::BRepBlend_Extremity(const gp_Pnt&       P,
+BRepBlend_Extremity::BRepBlend_Extremity(const Point3d&       P,
                                          const Standard_Real W,
                                          const Standard_Real Param,
                                          const Standard_Real Tol)
@@ -82,7 +82,7 @@ BRepBlend_Extremity::BRepBlend_Extremity(const gp_Pnt&       P,
 {
 }
 
-void BRepBlend_Extremity::SetValue(const gp_Pnt&       P,
+void BRepBlend_Extremity::SetValue(const Point3d&       P,
                                    const Standard_Real U,
                                    const Standard_Real V,
                                    const Standard_Real Param,
@@ -97,7 +97,7 @@ void BRepBlend_Extremity::SetValue(const gp_Pnt&       P,
   seqpt.Clear();
 }
 
-void BRepBlend_Extremity::SetValue(const gp_Pnt&                    P,
+void BRepBlend_Extremity::SetValue(const Point3d&                    P,
                                    const Standard_Real              U,
                                    const Standard_Real              V,
                                    const Standard_Real              Param,
@@ -114,7 +114,7 @@ void BRepBlend_Extremity::SetValue(const gp_Pnt&                    P,
   seqpt.Clear();
 }
 
-void BRepBlend_Extremity::SetValue(const gp_Pnt&       P,
+void BRepBlend_Extremity::SetValue(const Point3d&       P,
                                    const Standard_Real W,
                                    const Standard_Real Param,
                                    const Standard_Real Tol)

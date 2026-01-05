@@ -75,7 +75,7 @@ Standard_Real BRepExtrema_ExtCC::ParameterOnE1(const Standard_Integer N) const
 
 //=================================================================================================
 
-gp_Pnt BRepExtrema_ExtCC::PointOnE1(const Standard_Integer N) const
+Point3d BRepExtrema_ExtCC::PointOnE1(const Standard_Integer N) const
 {
   Extrema_POnCurv POnE1, POnE2;
   myExtCC.Points(N, POnE1, POnE2);
@@ -93,7 +93,7 @@ Standard_Real BRepExtrema_ExtCC::ParameterOnE2(const Standard_Integer N) const
 
 //=================================================================================================
 
-gp_Pnt BRepExtrema_ExtCC::PointOnE2(const Standard_Integer N) const
+Point3d BRepExtrema_ExtCC::PointOnE2(const Standard_Integer N) const
 {
   Extrema_POnCurv POnE1, POnE2;
   myExtCC.Points(N, POnE1, POnE2);
@@ -106,10 +106,10 @@ void BRepExtrema_ExtCC::TrimmedSquareDistances(Standard_Real& dist11,
                                                Standard_Real& dist12,
                                                Standard_Real& dist21,
                                                Standard_Real& dist22,
-                                               gp_Pnt&        pnt11,
-                                               gp_Pnt&        pnt12,
-                                               gp_Pnt&        pnt21,
-                                               gp_Pnt&        pnt22) const
+                                               Point3d&        pnt11,
+                                               Point3d&        pnt12,
+                                               Point3d&        pnt21,
+                                               Point3d&        pnt22) const
 {
   myExtCC.TrimmedSquareDistances(dist11, dist12, dist21, dist22, pnt11, pnt12, pnt21, pnt22);
 }

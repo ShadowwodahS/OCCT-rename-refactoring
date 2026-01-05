@@ -492,7 +492,7 @@ void IntPatch_InterferencePolyhedron::Intersect(const Standard_Integer     Tri1,
     }
 
     // Singularite EDGE EDGE
-    gp_Pnt        piO;
+    Point3d        piO;
     gp_XYZ        piT;
     Standard_Real lg;
     for (iObj = 0; iObj < 3; iObj++)
@@ -1055,7 +1055,7 @@ Standard_Boolean IntPatch_InterferencePolyhedron::TangentZoneValue(
           {
             parO[nbpInt] = dpOeT[nob][nou] / (dpOeT[nob][nou] - dpOeT[nob2][nou]);
             parT[nbpInt] = deOpT[nob][nou] / (deOpT[nob][nou] - deOpT[nob][nou2]);
-            gp_Pnt lepi  = IntPatch_PolyhedronTool::Point(SeconPol, TI[nou])
+            Point3d lepi  = IntPatch_PolyhedronTool::Point(SeconPol, TI[nou])
                             .Translated(gp_Vec(vtt[nou] * parT[nbpInt]));
             if (OI[nob] > OI[nob2])
               parO[nbpInt] = 1. - parO[nbpInt];

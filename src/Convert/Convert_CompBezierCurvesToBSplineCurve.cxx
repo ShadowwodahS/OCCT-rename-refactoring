@@ -38,7 +38,7 @@ void Convert_CompBezierCurvesToBSplineCurve::AddCurve(const TColgp_Array1OfPnt& 
 {
   if (!mySequence.IsEmpty())
   {
-    gp_Pnt P1, P2;
+    Point3d P1, P2;
     P1 = mySequence.Last()->Value(mySequence.Last()->Upper());
     P2 = Poles(Poles.Lower());
 
@@ -127,7 +127,7 @@ void Convert_CompBezierCurvesToBSplineCurve::Perform()
   }
 
   Standard_Real      Det = 0;
-  gp_Pnt             P1, P2, P3;
+  Point3d             P1, P2, P3;
   Standard_Integer   Deg, Inc, MaxDegree = myDegree;
   TColgp_Array1OfPnt Points(1, myDegree + 1);
 

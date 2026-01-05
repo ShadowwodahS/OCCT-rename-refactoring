@@ -174,7 +174,7 @@ void Extrema_ExtCS::Perform(const Adaptor3d_Curve& C,
             aSurfBox.Get(xmin, ymin, zmin, xmax, ymax, zmax);
             gp_Lin        aLin = C.Line();
             Standard_Real aParOnLin;
-            gp_Pnt        aLimPntArray[8];
+            Point3d        aLimPntArray[8];
 
             aLimPntArray[0].SetCoord(xmin, ymin, zmin);
             aLimPntArray[1].SetCoord(xmax, ymin, zmin);
@@ -203,7 +203,7 @@ void Extrema_ExtCS::Perform(const Adaptor3d_Curve& C,
           if (clast - cfirst <= Precision::Confusion())
           {
             Standard_Real aCPar = (cfirst + clast) / 2.;
-            gp_Pnt        aPm   = C.Value(aCPar);
+            Point3d        aPm   = C.Value(aCPar);
             Extrema_ExtPS
               anExtPS(aPm, *myS, ufirst, ulast, vfirst, vlast, mytolS, mytolS, Extrema_ExtFlag_MIN);
             myDone = anExtPS.IsDone();
@@ -320,7 +320,7 @@ void Extrema_ExtCS::Perform(const Adaptor3d_Curve& C,
         {
           // Analytical extrema seem to be out of curve/surface boundaries.
           // Try extremity points of curve.
-          gp_Pnt        aPOnC[2], aPOnS[2];
+          Point3d        aPOnC[2], aPOnS[2];
           Standard_Real aT[2]    = {myucinf, myucsup}, U[2], V[2];
           Standard_Real aDist[2] = {-1, -1};
           for (i = 0; i < 2; ++i)
@@ -452,7 +452,7 @@ void Extrema_ExtCS::Perform(const Adaptor3d_Curve& C,
     for (i = 2; i < SharpPoints.Upper(); ++i)
     {
       T           = SharpPoints(i);
-      gp_Pnt aPnt = C.Value(T);
+      Point3d aPnt = C.Value(T);
       aProjPS.Perform(aPnt);
       if (!aProjPS.IsDone())
         continue;
@@ -555,8 +555,8 @@ Standard_Boolean Extrema_ExtCS::AddSolution(const Adaptor3d_Curve& theCurve,
                                             const Standard_Real    aT,
                                             const Standard_Real    aU,
                                             const Standard_Real    aV,
-                                            const gp_Pnt&          PointOnCurve,
-                                            const gp_Pnt&          PointOnSurf,
+                                            const Point3d&          PointOnCurve,
+                                            const Point3d&          PointOnSurf,
                                             const Standard_Real    SquareDist)
 {
   Standard_Boolean Added = Standard_False;

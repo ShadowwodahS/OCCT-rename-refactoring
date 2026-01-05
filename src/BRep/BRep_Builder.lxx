@@ -203,7 +203,7 @@ inline void BRep_Builder::MakeVertex(TopoDS_Vertex& V) const
 //=======================================================================
 
 inline void BRep_Builder::MakeVertex(TopoDS_Vertex&      V,
-                                     const gp_Pnt&       P,
+                                     const Point3d&       P,
                                      const Standard_Real Tol) const
 {
   MakeVertex(V);

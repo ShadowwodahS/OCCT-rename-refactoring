@@ -23,7 +23,7 @@
 //=========================================================================
 //   Creation d une symetrie  de gp par rapport a un point.             +
 //=========================================================================
-gce_MakeMirror::gce_MakeMirror(const gp_Pnt& Point)
+gce_MakeMirror::gce_MakeMirror(const Point3d& Point)
 {
   TheMirror.SetMirror(Point);
 }
@@ -51,7 +51,7 @@ gce_MakeMirror::gce_MakeMirror(const gp_Lin& Line)
 //   par un point et une direction.                                       +
 //=========================================================================
 
-gce_MakeMirror::gce_MakeMirror(const gp_Pnt& Point, const gp_Dir& Direc)
+gce_MakeMirror::gce_MakeMirror(const Point3d& Point, const gp_Dir& Direc)
 {
   TheMirror.SetMirror(gp_Ax1(Point, Direc));
 }

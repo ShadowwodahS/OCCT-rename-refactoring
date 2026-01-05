@@ -86,11 +86,11 @@ public: //! @name public API
   //! @param[out] theOutGravityCenter - garvity center of region;
   //! @param[out] theOutInertia - matrix of inertia;
   Standard_EXPORT void Compute(const BRepGProp_Face&  theSurface,
-                               const gp_Pnt&          theLocation,
+                               const Point3d&          theLocation,
                                const Standard_Real    theCoeff[],
                                const Standard_Boolean theIsByPoint,
                                Standard_Real&         theOutMass,
-                               gp_Pnt&                theOutGravityCenter,
+                               Point3d&                theOutGravityCenter,
                                gp_Mat&                theOutInertia);
 
   //! Computes the global properties of a surface. Surface can be closed.
@@ -104,9 +104,9 @@ public: //! @name public API
   //! @param[out] theOutGravityCenter - garvity center of region;
   //! @param[out] theOutInertia - matrix of inertia;
   Standard_EXPORT void Compute(const BRepGProp_Face& theSurface,
-                               const gp_Pnt&         theLocation,
+                               const Point3d&         theLocation,
                                Standard_Real&        theOutMass,
-                               gp_Pnt&               theOutGravityCenter,
+                               Point3d&               theOutGravityCenter,
                                gp_Mat&               theOutInertia);
 
   //! Computes the global properties of a region of 3D space which can be
@@ -125,11 +125,11 @@ public: //! @name public API
   //! @param[out] theOutInertia - matrix of inertia;
   Standard_EXPORT void Compute(BRepGProp_Face&        theSurface,
                                BRepGProp_Domain&      theDomain,
-                               const gp_Pnt&          theLocation,
+                               const Point3d&          theLocation,
                                const Standard_Real    theCoeff[],
                                const Standard_Boolean theIsByPoint,
                                Standard_Real&         theOutMass,
-                               gp_Pnt&                theOutGravityCenter,
+                               Point3d&                theOutGravityCenter,
                                gp_Mat&                theOutInertia);
 
   //! Computes the global properties of a surface. Surface can be closed.
@@ -145,9 +145,9 @@ public: //! @name public API
   //! @param[out] theOutInertia - matrix of inertia;
   Standard_EXPORT void Compute(BRepGProp_Face&   theSurface,
                                BRepGProp_Domain& theDomain,
-                               const gp_Pnt&     theLocation,
+                               const Point3d&     theLocation,
                                Standard_Real&    theOutMass,
-                               gp_Pnt&           theOutGravityCenter,
+                               Point3d&           theOutGravityCenter,
                                gp_Mat&           theOutInertia);
 
   //! Computes the global properties of the region of 3D space which can be
@@ -168,12 +168,12 @@ public: //! @name public API
   //! for two successive steps of adaptive integration.
   Standard_EXPORT Standard_Real Compute(BRepGProp_Face&        theSurface,
                                         BRepGProp_Domain&      theDomain,
-                                        const gp_Pnt&          theLocation,
+                                        const Point3d&          theLocation,
                                         const Standard_Real    theEps,
                                         const Standard_Real    theCoeff[],
                                         const Standard_Boolean theByPoint,
                                         Standard_Real&         theOutMass,
-                                        gp_Pnt&                theOutGravityCenter,
+                                        Point3d&                theOutGravityCenter,
                                         gp_Mat&                theOutInertia);
 
   //! Computes the global properties of the face. Adaptive 2D Gauss integration is used.
@@ -190,27 +190,27 @@ public: //! @name public API
   //! for two successive steps of adaptive integration.
   Standard_EXPORT Standard_Real Compute(BRepGProp_Face&     theSurface,
                                         BRepGProp_Domain&   theDomain,
-                                        const gp_Pnt&       theLocation,
+                                        const Point3d&       theLocation,
                                         const Standard_Real theEps,
                                         Standard_Real&      theOutMass,
-                                        gp_Pnt&             theOutGravityCenter,
+                                        Point3d&             theOutGravityCenter,
                                         gp_Mat&             theOutInertia);
 
 private: //! @name private methods
   BRepGProp_Gauss(BRepGProp_Gauss const&);
   BRepGProp_Gauss& operator=(BRepGProp_Gauss const&);
 
-  void computeVInertiaOfElementaryPart(const gp_Pnt&             thePoint,
+  void computeVInertiaOfElementaryPart(const Point3d&             thePoint,
                                        const gp_Vec&             theNormal,
-                                       const gp_Pnt&             theLocation,
+                                       const Point3d&             theLocation,
                                        const Standard_Real       theWeight,
                                        const Standard_Real       theCoeff[],
                                        const Standard_Boolean    theIsByPoint,
                                        BRepGProp_Gauss::Inertia& theOutInertia);
 
-  void computeSInertiaOfElementaryPart(const gp_Pnt&             thePoint,
+  void computeSInertiaOfElementaryPart(const Point3d&             thePoint,
                                        const gp_Vec&             theNormal,
-                                       const gp_Pnt&             theLocation,
+                                       const Point3d&             theLocation,
                                        const Standard_Real       theWeight,
                                        BRepGProp_Gauss::Inertia& theOutInertia);
 
@@ -225,14 +225,14 @@ private: //! @name private methods
   void multAndRestoreInertia(const Standard_Real theValue, BRepGProp_Gauss::Inertia& theInertia);
 
   void convert(const BRepGProp_Gauss::Inertia& theInertia,
-               gp_Pnt&                         theOutGravityCenter,
+               Point3d&                         theOutGravityCenter,
                gp_Mat&                         theOutMatrixOfInertia,
                Standard_Real&                  theOutMass);
 
   void convert(const BRepGProp_Gauss::Inertia& theInertia,
                const Standard_Real             theCoeff[],
                const Standard_Boolean          theIsByPoint,
-               gp_Pnt&                         theOutGravityCenter,
+               Point3d&                         theOutGravityCenter,
                gp_Mat&                         theOutMatrixOfInertia,
                Standard_Real&                  theOutMass);
 

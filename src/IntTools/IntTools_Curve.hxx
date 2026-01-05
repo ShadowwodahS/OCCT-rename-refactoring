@@ -25,7 +25,7 @@
 #include <GeomAbs_CurveType.hxx>
 class Geom_Curve;
 class Geom2d_Curve;
-class gp_Pnt;
+class Point3d;
 
 //! The class is a container of one 3D curve, two 2D curves and two Tolerance values.<br>
 //! It is used in the Face/Face intersection algorithm to store the results
@@ -105,14 +105,14 @@ public:
   //! and the output parameters will stay untouched.
   Standard_EXPORT Standard_Boolean Bounds(Standard_Real& theFirst,
                                           Standard_Real& theLast,
-                                          gp_Pnt&        theFirstPnt,
-                                          gp_Pnt&        theLastPnt) const;
+                                          Point3d&        theFirstPnt,
+                                          Point3d&        theLastPnt) const;
 
   //! Computes 3d point corresponded to the given parameter if this
   //! parameter is inside the boundaries of the curve.
   //! Returns TRUE in this case. <br>
   //! Otherwise, the point will not be computed and the method will return FALSE.
-  Standard_EXPORT Standard_Boolean D0(const Standard_Real& thePar, gp_Pnt& thePnt) const;
+  Standard_EXPORT Standard_Boolean D0(const Standard_Real& thePar, Point3d& thePnt) const;
 
   //! Returns the type of the 3d curve
   Standard_EXPORT GeomAbs_CurveType Type() const;

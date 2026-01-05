@@ -26,7 +26,7 @@
 class Standard_OutOfRange;
 class IntCurveSurface_ThePolyhedronOfHInter;
 class Bnd_Box;
-class gp_Pnt;
+class Point3d;
 
 class IntCurveSurface_ThePolyhedronToolOfHInter
 {
@@ -57,7 +57,7 @@ public:
                        Standard_Integer&                            P3);
 
   //! Give the point of index i in the polyhedral surface.
-  static const gp_Pnt& Point(const IntCurveSurface_ThePolyhedronOfHInter& thePolyh,
+  static const Point3d& Point(const IntCurveSurface_ThePolyhedronOfHInter& thePolyh,
                              const Standard_Integer                       Index);
 
   //! Give the  address Tricon of   the triangle connexe to

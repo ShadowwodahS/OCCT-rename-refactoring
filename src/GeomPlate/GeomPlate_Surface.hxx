@@ -28,7 +28,7 @@
 class gp_Trsf;
 class gp_GTrsf2d;
 class Geom_Curve;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 class Geom_Geometry;
 
@@ -206,14 +206,14 @@ public:
   //! compute the current point.
   Standard_EXPORT void D0(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P) const Standard_OVERRIDE;
+                          Point3d&             P) const Standard_OVERRIDE;
 
   //! Computes the point P and the first derivatives in the
   //! directions U and V at this point.
   //! Raised if the continuity of the surface is not C1.
   Standard_EXPORT void D1(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V) const Standard_OVERRIDE;
 
@@ -222,7 +222,7 @@ public:
   //! Raised if the continuity of the surface is not C2.
   Standard_EXPORT void D2(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V,
                           gp_Vec&             D2U,
@@ -234,7 +234,7 @@ public:
   //! Raised if the continuity of the surface is not C2.
   Standard_EXPORT void D3(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V,
                           gp_Vec&             D2U,

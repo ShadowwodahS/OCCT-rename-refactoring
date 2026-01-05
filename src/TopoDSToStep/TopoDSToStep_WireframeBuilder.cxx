@@ -181,7 +181,7 @@ Standard_Boolean TopoDSToStep_WireframeBuilder::GetTrimmedCurveFromEdge(
   for (TopExp_Explorer anExp(anEdge, TopAbs_VERTEX); anExp.More(); anExp.Next())
   {
     TopoDS_Vertex aVertex = TopoDS::Vertex(anExp.Value());
-    gp_Pnt        aGpP    = BRep_Tool::Pnt(aVertex);
+    Point3d        aGpP    = BRep_Tool::Pnt(aVertex);
     if (aVertex.Orientation() == TopAbs_FORWARD)
     {
       aVFirst = aVertex;
@@ -274,7 +274,7 @@ Standard_Boolean TopoDSToStep_WireframeBuilder::GetTrimmedCurveFromEdge(
     // these are computed after ! (U1 and U2) -> cf and cl instead
     if (aIPlan)
     {
-      gp_Pnt        aPnt1 = aCA.Value(aCA.FirstParameter()), aPnt2 = aCA.Value(aCA.LastParameter());
+      Point3d        aPnt1 = aCA.Value(aCA.FirstParameter()), aPnt2 = aCA.Value(aCA.LastParameter());
       gp_Vec        aV(aPnt1, aPnt2);
       Standard_Real aLength = aV.Magnitude();
       if (aLength >= Precision::Confusion())
@@ -301,7 +301,7 @@ Standard_Boolean TopoDSToStep_WireframeBuilder::GetTrimmedCurveFromEdge(
       for (Standard_Integer i = 1; i <= Nbpt; i++)
       {
         Standard_Real aU = aU1 + (i - 1) * (aU2 - aU1) / (Nbpt - 1);
-        gp_Pnt        aP = aCA.Value(aU);
+        Point3d        aP = aCA.Value(aU);
         aPoints.SetValue(i, aP);
         aKnots.SetValue(i, aU);
         aMult.SetValue(i, 1);

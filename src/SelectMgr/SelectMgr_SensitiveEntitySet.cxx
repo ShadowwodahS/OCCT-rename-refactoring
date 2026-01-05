@@ -144,7 +144,7 @@ Standard_Real SelectMgr_SensitiveEntitySet::Center(const Standard_Integer theInd
                                                    const Standard_Integer theAxis) const
 {
   const Handle(Select3D_SensitiveEntity)& aSensitive = GetSensitiveById(theIndex)->BaseSensitive();
-  const gp_Pnt                            aCenter    = aSensitive->CenterOfGeometry();
+  const Point3d                            aCenter    = aSensitive->CenterOfGeometry();
   Standard_Real                           aCenterCoord = 0.0;
   aCenterCoord = theAxis == 0 ? aCenter.X() : (theAxis == 1 ? aCenter.Y() : aCenter.Z());
 

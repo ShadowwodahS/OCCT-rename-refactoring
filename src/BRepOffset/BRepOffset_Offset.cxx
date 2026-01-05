@@ -86,20 +86,20 @@ static Standard_Integer NbOFFSET = 0;
 #include <stdio.h>
 #include <Geom_BSplineSurface.hxx>
 
-static gp_Pnt GetFarestCorner(const TopoDS_Wire& aWire)
+static Point3d GetFarestCorner(const TopoDS_Wire& aWire)
 {
   TopTools_IndexedMapOfShape Vertices;
   TopExp::MapShapes(aWire, TopAbs_VERTEX, Vertices);
 
   Standard_Real MaxDist = 0.;
-  gp_Pnt        thePoint;
+  Point3d        thePoint;
   for (Standard_Integer i = 1; i <= Vertices.Extent(); i++)
     for (Standard_Integer j = 1; j <= Vertices.Extent(); j++)
     {
       const TopoDS_Vertex& V1    = TopoDS::Vertex(Vertices(i));
       const TopoDS_Vertex& V2    = TopoDS::Vertex(Vertices(j));
-      gp_Pnt               P1    = BRep_Tool::Pnt(V1);
-      gp_Pnt               P2    = BRep_Tool::Pnt(V2);
+      Point3d               P1    = BRep_Tool::Pnt(V1);
+      Point3d               P2    = BRep_Tool::Pnt(V2);
       Standard_Real        aDist = P1.SquareDistance(P2);
       if (aDist > MaxDist)
       {
@@ -473,7 +473,7 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
   if (!Co.IsNull())
   {
     Standard_Real Uc, Vc;
-    gp_Pnt        Apex = Co->Apex();
+    Point3d        Apex = Co->Apex();
     ElSLib::Parameters(Co->Cone(), Apex, Uc, Vc);
     Standard_Real UU1, UU2, VV1, VV2;
     BRepTools::UVBounds(Face, UU1, UU2, VV1, VV2);
@@ -493,7 +493,7 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
   Standard_Boolean VminDegen = Standard_False;
   Standard_Boolean VmaxDegen = Standard_False;
   Standard_Boolean UisoDegen = Standard_False;
-  gp_Pnt           MinApex, MaxApex;
+  Point3d           MinApex, MaxApex;
   Standard_Boolean HasSingularity = Standard_False;
   Standard_Real    uf1, uf2, vf1, vf2, fpar, lpar;
   BRepTools::UVBounds(Face, uf1, uf2, vf1, vf2);
@@ -514,7 +514,7 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
 
         gp_Pnt2d aFPnt2d = c2d->Value(aF), aLPnt2d = c2d->Value(aL);
 
-        gp_Pnt aFPnt = S->Value(aFPnt2d.X(), aFPnt2d.Y()),
+        Point3d aFPnt = S->Value(aFPnt2d.X(), aFPnt2d.Y()),
                aLPnt = S->Value(aLPnt2d.X(), aLPnt2d.Y());
 
         //  aFPnt.SquareDistance(aLPnt) > Precision::SquareConfusion() -
@@ -570,7 +570,7 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
       if (TheSurf->DynamicType() == STANDARD_TYPE(Geom_ConicalSurface))
       {
         gp_Cone       theCone = Handle(Geom_ConicalSurface)::DownCast(TheSurf)->Cone();
-        gp_Pnt        apex    = theCone.Apex();
+        Point3d        apex    = theCone.Apex();
         Standard_Real Uapex, Vapex;
         ElSLib::Parameters(theCone, apex, Uapex, Vapex);
         if (VminDegen)
@@ -595,7 +595,7 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
           {
             Handle(Geom_Surface) BasisSurf =
               Handle(Geom_OffsetSurface)::DownCast(TheSurf)->BasisSurface();
-            gp_Pnt Papex, Pfirst, Pquart, Pmid;
+            Point3d Papex, Pfirst, Pquart, Pmid;
             Papex                                   = BasisSurf->Value(uf1, vf1);
             Pfirst                                  = TheSurf->Value(uf1, vf1);
             Pquart                                  = TheSurf->Value(uf1, 0.75 * vf1 + 0.25 * vf2);
@@ -605,7 +605,7 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
             gp_Vec                    DirGeneratrix = BasisSurf->DN(uf1, vf1, 1, 0);
             Handle(Geom_Line)         LineGeneratrix = new Geom_Line(Pfirst, DirGeneratrix);
             GeomAPI_ExtremaCurveCurve theExtrema(LineGeneratrix, LineApex);
-            gp_Pnt                    Pint1, Pint2;
+            Point3d                    Pint1, Pint2;
             theExtrema.NearestPoints(Pint1, Pint2);
             Standard_Real length = Pfirst.Distance(Pint1);
             if (OffsetOutside)
@@ -636,7 +636,7 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
           {
             Handle(Geom_Surface) BasisSurf =
               Handle(Geom_OffsetSurface)::DownCast(TheSurf)->BasisSurface();
-            gp_Pnt Papex, Pfirst, Pquart, Pmid;
+            Point3d Papex, Pfirst, Pquart, Pmid;
             Papex                                   = BasisSurf->Value(uf2, vf1);
             Pfirst                                  = TheSurf->Value(uf2, vf1);
             Pquart                                  = TheSurf->Value(uf2, 0.75 * vf1 + 0.25 * vf2);
@@ -646,7 +646,7 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
             gp_Vec                    DirGeneratrix = BasisSurf->DN(uf2, vf1, 1, 0);
             Handle(Geom_Line)         LineGeneratrix = new Geom_Line(Pfirst, DirGeneratrix);
             GeomAPI_ExtremaCurveCurve theExtrema(LineGeneratrix, LineApex);
-            gp_Pnt                    Pint1, Pint2;
+            Point3d                    Pint1, Pint2;
             theExtrema.NearestPoints(Pint1, Pint2);
             Standard_Real length = Pfirst.Distance(Pint1);
             if (OffsetOutside)
@@ -677,7 +677,7 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
           {
             Handle(Geom_Surface) BasisSurf =
               Handle(Geom_OffsetSurface)::DownCast(TheSurf)->BasisSurface();
-            gp_Pnt Papex, Pfirst, Pquart, Pmid;
+            Point3d Papex, Pfirst, Pquart, Pmid;
             Papex                                   = BasisSurf->Value(uf1, vf1);
             Pfirst                                  = TheSurf->Value(uf1, vf1);
             Pquart                                  = TheSurf->Value(0.75 * uf1 + 0.25 * uf2, vf1);
@@ -687,7 +687,7 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
             gp_Vec                    DirGeneratrix = BasisSurf->DN(uf1, vf1, 0, 1);
             Handle(Geom_Line)         LineGeneratrix = new Geom_Line(Pfirst, DirGeneratrix);
             GeomAPI_ExtremaCurveCurve theExtrema(LineGeneratrix, LineApex);
-            gp_Pnt                    Pint1, Pint2;
+            Point3d                    Pint1, Pint2;
             theExtrema.NearestPoints(Pint1, Pint2);
             Standard_Real length = Pfirst.Distance(Pint1);
             if (OffsetOutside)
@@ -720,7 +720,7 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
           {
             Handle(Geom_Surface) BasisSurf =
               Handle(Geom_OffsetSurface)::DownCast(TheSurf)->BasisSurface();
-            gp_Pnt Papex, Pfirst, Pquart, Pmid;
+            Point3d Papex, Pfirst, Pquart, Pmid;
             Papex                                   = BasisSurf->Value(uf1, vf2);
             Pfirst                                  = TheSurf->Value(uf1, vf2);
             Pquart                                  = TheSurf->Value(0.75 * uf1 + 0.25 * uf2, vf2);
@@ -730,7 +730,7 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
             gp_Vec                    DirGeneratrix = BasisSurf->DN(uf1, vf2, 0, 1);
             Handle(Geom_Line)         LineGeneratrix = new Geom_Line(Pfirst, DirGeneratrix);
             GeomAPI_ExtremaCurveCurve theExtrema(LineGeneratrix, LineApex);
-            gp_Pnt                    Pint1, Pint2;
+            Point3d                    Pint1, Pint2;
             theExtrema.NearestPoints(Pint1, Pint2);
             Standard_Real length = Pfirst.Distance(Pint1);
             if (OffsetOutside)
@@ -822,7 +822,7 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
       TopoDS_Vertex      V1, V2;
       TopExp::Vertices(E, V1, V2);
       gp_Pnt2d             P2d1, P2d2;
-      gp_Pnt               P1, P2;
+      Point3d               P1, P2;
       Standard_Real        vstart, vend;
       Standard_Real        f, l;
       Handle(Geom2d_Curve) C2d = BRep_Tool::CurveOnSurface(E, CurFace, f, l);
@@ -925,7 +925,7 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
             myBuilder.Degenerated(OE, Standard_True);
             /*
     #ifdef OCCT_DEBUG
-            gp_Pnt        P1,P2;
+            Point3d        P1,P2;
             gp_Pnt2d      P2d;
             P2d = C2d->Value(f); TheSurf->D0(P2d.X(),P2d.Y(),P1);
             P2d = C2d->Value(l); TheSurf->D0(P2d.X(),P2d.Y(),P2);
@@ -1445,7 +1445,7 @@ void BRepOffset_Offset::Init(const TopoDS_Vertex&        Vertex,
   // evaluate the Ax3 of the Sphere
   // find 3 different vertices in LEdge
   TopTools_ListIteratorOfListOfShape it;
-  gp_Pnt                             P, P1, P2, P3;
+  Point3d                             P, P1, P2, P3;
   TopoDS_Vertex                      V1, V2, V3, V4;
 
 #ifdef OCCT_DEBUG
@@ -1470,7 +1470,7 @@ void BRepOffset_Offset::Init(const TopoDS_Vertex&        Vertex,
   }
 #endif
 
-  gp_Pnt Origin = BRep_Tool::Pnt(Vertex);
+  Point3d Origin = BRep_Tool::Pnt(Vertex);
 
   //// Find the axis of the sphere to exclude
   //// degenerated and seam edges from the face under construction
@@ -1484,10 +1484,10 @@ void BRepOffset_Offset::Init(const TopoDS_Vertex&        Vertex,
 
   GProp_GProps GlobalProps;
   BRepGProp::LinearProperties(theWire, GlobalProps);
-  gp_Pnt BaryCenter = GlobalProps.CentreOfMass();
+  Point3d BaryCenter = GlobalProps.CentreOfMass();
   gp_Vec Xdir(BaryCenter, Origin);
 
-  gp_Pnt FarestCorner = GetFarestCorner(theWire);
+  Point3d FarestCorner = GetFarestCorner(theWire);
   gp_Pln thePlane     = gce_MakePln(Origin, BaryCenter, FarestCorner);
   gp_Dir Vdir         = thePlane.Axis().Direction();
 

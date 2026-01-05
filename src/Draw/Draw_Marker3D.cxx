@@ -23,7 +23,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Draw_Marker3D, Draw_Drawable3D)
 
 //=================================================================================================
 
-Draw_Marker3D::Draw_Marker3D(const gp_Pnt&          P,
+Draw_Marker3D::Draw_Marker3D(const Point3d&          P,
                              const Draw_MarkerShape T,
                              const Draw_Color&      C,
                              const Standard_Integer S)
@@ -38,7 +38,7 @@ Draw_Marker3D::Draw_Marker3D(const gp_Pnt&          P,
 
 //=================================================================================================
 
-Draw_Marker3D::Draw_Marker3D(const gp_Pnt&          P,
+Draw_Marker3D::Draw_Marker3D(const Point3d&          P,
                              const Draw_MarkerShape T,
                              const Draw_Color&      C,
                              const Standard_Real    RSize)
@@ -64,7 +64,7 @@ void Draw_Marker3D::DrawOn(Draw_Display& D) const
 
 //=================================================================================================
 
-gp_Pnt& Draw_Marker3D::ChangePos()
+Point3d& Draw_Marker3D::ChangePos()
 {
   return myPos;
 }

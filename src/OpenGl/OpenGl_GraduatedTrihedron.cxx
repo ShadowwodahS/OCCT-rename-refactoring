@@ -396,7 +396,7 @@ void OpenGl_GraduatedTrihedron::renderAxis(const Handle(OpenGl_Workspace)& theWo
   OpenGl_Vec3 anArrowVec = myMin + anAxis.Direction * (myMax - myMin);
 
   Graphic3d_TransformPers aTransMode(Graphic3d_TMF_ZoomPers,
-                                     gp_Pnt(Standard_Real(anArrowVec.x()),
+                                     Point3d(Standard_Real(anArrowVec.x()),
                                             Standard_Real(anArrowVec.y()),
                                             Standard_Real(anArrowVec.z())));
   const OpenGl_Mat4&      aProjection = aContext->ProjectionState.Current();
@@ -520,7 +520,7 @@ void OpenGl_GraduatedTrihedron::renderTickmarkLabels(const Handle(OpenGl_Workspa
 
     myAspectLabels.Aspect()->SetColor(anAxis.NameColor);
     theWorkspace->SetAspects(&myAspectLabels);
-    anAxis.Label.Text()->SetPosition(gp_Pnt(aMiddle.x(), aMiddle.y(), aMiddle.z()));
+    anAxis.Label.Text()->SetPosition(Point3d(aMiddle.x(), aMiddle.y(), aMiddle.z()));
     anAxis.Label.Render(theWorkspace);
   }
 
@@ -539,7 +539,7 @@ void OpenGl_GraduatedTrihedron::renderTickmarkLabels(const Handle(OpenGl_Workspa
 
       Handle(Graphic3d_Text) aText = myLabelValues.Text();
       aText->SetText(aTextValue);
-      aText->SetPosition(gp_Pnt(aPos.x(), aPos.y(), aPos.z()));
+      aText->SetPosition(Point3d(aPos.x(), aPos.y(), aPos.z()));
 
       myLabelValues.Reset(theWorkspace->GetGlContext());
       myLabelValues.Render(theWorkspace);
@@ -724,7 +724,7 @@ OpenGl_GraduatedTrihedron::Axis::Axis(const Graphic3d_GraduatedTrihedron::AxisAs
 {
   Handle(Graphic3d_Text) aText = new Graphic3d_Text(THE_LABEL_HEIGHT);
   aText->SetText((Standard_Utf16Char*)theAspect.Name().ToExtString());
-  aText->SetPosition(gp_Pnt(theDirection.x(), theDirection.y(), theDirection.z()));
+  aText->SetPosition(Point3d(theDirection.x(), theDirection.y(), theDirection.z()));
   aText->SetHorizontalAlignment(THE_LABEL_HALIGH);
   aText->SetVerticalAlignment(THE_LABEL_VALIGH);
   Label     = OpenGl_Text(aText);

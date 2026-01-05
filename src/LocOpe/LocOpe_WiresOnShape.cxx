@@ -482,7 +482,7 @@ Standard_Boolean Project(const TopoDS_Vertex& V,
 
   if (theEdge.IsNull())
   {
-    gp_Pnt toproj(BRep_Tool::Pnt(V));
+    Point3d toproj(BRep_Tool::Pnt(V));
     for (TopExp_Explorer exp(F.Oriented(TopAbs_FORWARD), TopAbs_EDGE); exp.More(); exp.Next())
     {
       const TopoDS_Edge& edg = TopoDS::Edge(exp.Current());
@@ -495,7 +495,7 @@ Standard_Boolean Project(const TopoDS_Vertex& V,
         aCurPar = Project(V, edg);
         if (Precision::IsInfinite(aCurPar))
           continue;
-        gp_Pnt aCurPBound;
+        Point3d aCurPBound;
         C->D0(aCurPar, aCurPBound);
         aCurDist = aCurPBound.SquareDistance(toproj);
       }
@@ -513,7 +513,7 @@ Standard_Boolean Project(const TopoDS_Vertex& V,
         Handle(Geom2d_Curve) PC = BRep_Tool::CurveOnSurface(edg, F, f, l);
         gp_Pnt2d             aPProj;
         PC->D0(aCurPar, aPProj);
-        gp_Pnt aCurPBound;
+        Point3d aCurPBound;
         aSurf->D0(aPProj.X(), aPProj.Y(), aCurPBound);
         aCurDist = aCurPBound.SquareDistance(toproj);
       }
@@ -617,9 +617,9 @@ Standard_Boolean Project(const TopoDS_Vertex& V,
       }
 
       // added check by 3D the same as in the BRepCheck_Wire::SelfIntersect
-      gp_Pnt aPBound;
+      Point3d aPBound;
       aSurf->D0(aPBound2d.X(), aPBound2d.Y(), aPBound);
-      gp_Pnt aPV2d;
+      Point3d aPV2d;
       aSurf->D0(p2d.X(), p2d.Y(), aPV2d);
       Standard_Real aDistPoints_3D = aPV2d.SquareDistance(aPBound);
       Standard_Real aMaxDist       = Max(aDistPoints_3D, aDist3d * aDist3d);
@@ -651,7 +651,7 @@ Standard_Real Project(const TopoDS_Vertex& V, const TopoDS_Edge& theEdge)
   TopLoc_Location    Loc;
   Standard_Real      f, l;
 
-  gp_Pnt                      toproj(BRep_Tool::Pnt(V));
+  Point3d                      toproj(BRep_Tool::Pnt(V));
   GeomAPI_ProjectPointOnCurve proj;
 
   C = BRep_Tool::Curve(theEdge, Loc, f, l);
@@ -763,7 +763,7 @@ void PutPCurve(const TopoDS_Edge& Edg, const TopoDS_Face& Fac)
 
   gp_Pnt2d pf(C2d->Value(f));
   gp_Pnt2d pl(C2d->Value(l));
-  gp_Pnt   PF, PL;
+  Point3d   PF, PL;
   S->D0(pf.X(), pf.Y(), PF);
   S->D0(pl.X(), pl.Y(), PL);
   if (Edg.Orientation() == TopAbs_REVERSED)
@@ -790,8 +790,8 @@ void PutPCurve(const TopoDS_Edge& Edg, const TopoDS_Face& Fac)
     // Handling of internal vertices
     Standard_Real old1 = BRep_Tool::Tolerance(V1);
     Standard_Real old2 = BRep_Tool::Tolerance(V2);
-    gp_Pnt        pnt1 = BRep_Tool::Pnt(V1);
-    gp_Pnt        pnt2 = BRep_Tool::Pnt(V2);
+    Point3d        pnt1 = BRep_Tool::Pnt(V1);
+    Point3d        pnt2 = BRep_Tool::Pnt(V2);
     Standard_Real tol1 = pnt1.Distance(PF);
     Standard_Real tol2 = pnt2.Distance(PL);
     B.UpdateVertex(V1, Max(old1, tol1));
@@ -1112,7 +1112,7 @@ void PutPCurves(const TopoDS_Edge& Efrom, const TopoDS_Edge& Eto, const TopoDS_S
       C                        = Handle(Geom_Curve)::DownCast(GG);
     }
 
-    gp_Pnt pt;
+    Point3d pt;
     gp_Vec d1f, d1t;
 
     C->D1(f, pt, d1f);
@@ -1266,7 +1266,7 @@ void FindInternalIntersections(const TopoDS_Edge&                         theEdg
 
   TopoDS_Vertex theVertices[2];
   TopExp::Vertices(theEdge, theVertices[0], theVertices[1]);
-  gp_Pnt thePnt[2];
+  Point3d thePnt[2];
   thePnt[0] = BRep_Tool::Pnt(theVertices[0]);
   thePnt[1] = BRep_Tool::Pnt(theVertices[1]);
   Standard_Real aTolV[2];
@@ -1318,7 +1318,7 @@ void FindInternalIntersections(const TopoDS_Edge&                         theEdg
     }
     // Check extremity distances
     Standard_Real dists[4];
-    gp_Pnt        aP11, aP12, aP21, aP22;
+    Point3d        aP11, aP12, aP21, aP22;
     anExtrema
       .TrimmedSquareDistances(dists[0], dists[1], dists[2], dists[3], aP11, aP12, aP21, aP22);
     for (i = 0; i < 4; ++i)
@@ -1351,8 +1351,8 @@ void FindInternalIntersections(const TopoDS_Edge&                         theEdg
       // intersection found in the middle of the edge
       if (j >= 2) // intersection is inside "theEdge" => split
       {
-        gp_Pnt aPoint    = aCurve->Value(anIntPar);
-        gp_Pnt aPointInt = theCurve->Value(theIntPar);
+        Point3d aPoint    = aCurve->Value(anIntPar);
+        Point3d aPointInt = theCurve->Value(theIntPar);
 
         if (aPointInt.SquareDistance(thePnt[0]) > aTolVExt[0]
             && aPointInt.SquareDistance(thePnt[1]) > aTolVExt[1]
@@ -1383,8 +1383,8 @@ void FindInternalIntersections(const TopoDS_Edge&                         theEdg
   i = 1;
   while (i < SplitPars.Length())
   {
-    gp_Pnt Pnt1 = theCurve->Value(SplitPars(i));
-    gp_Pnt Pnt2 = theCurve->Value(SplitPars(i + 1));
+    Point3d Pnt1 = theCurve->Value(SplitPars(i));
+    Point3d Pnt2 = theCurve->Value(SplitPars(i + 1));
     if (Pnt1.SquareDistance(Pnt2) <= Precision::Confusion() * Precision::Confusion())
       SplitPars.Remove(i + 1);
     else
@@ -1403,7 +1403,7 @@ void FindInternalIntersections(const TopoDS_Edge&                         theEdg
     if (i <= SplitPars.Length())
     {
       LastPar          = SplitPars(i);
-      gp_Pnt LastPoint = theCurve->Value(LastPar);
+      Point3d LastPoint = theCurve->Value(LastPar);
       LastVertex       = BRepLib_MakeVertex(LastPoint);
       BRep_Builder aB;
       aB.UpdateVertex(LastVertex, sqrt(aDistMax));
@@ -1500,7 +1500,7 @@ Standard_Boolean LocOpe_WiresOnShape::Add(const TopTools_SequenceOfShape& theEdg
         anUsedEdges.Add(i);
         continue;
       }
-      gp_Pnt        aP = aC->Value((aF + aL) * 0.5);
+      Point3d        aP = aC->Value((aF + aL) * 0.5);
       Extrema_ExtPS anExtr(aP, anAdF, Precision::Confusion(), Precision::Confusion());
 
       if (!anExtr.IsDone() || !anExtr.NbExt())

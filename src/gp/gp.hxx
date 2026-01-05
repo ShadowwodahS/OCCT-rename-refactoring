@@ -22,7 +22,7 @@
 #include <Standard_Handle.hxx>
 #include <Standard_Real.hxx>
 
-class gp_Pnt;
+class Point3d;
 class gp_Dir;
 class gp_Ax1;
 class gp_Ax2;
@@ -55,7 +55,7 @@ public:
   static Standard_Real Resolution() { return RealSmall(); }
 
   //! Identifies a Cartesian point with coordinates X = Y = Z = 0.0.0
-  Standard_EXPORT static const gp_Pnt& Origin();
+  Standard_EXPORT static const Point3d& Origin();
 
   //! Returns a unit vector with the combination (1,0,0)
   Standard_EXPORT static const gp_Dir& DX();

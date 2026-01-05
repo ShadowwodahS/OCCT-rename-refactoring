@@ -137,7 +137,7 @@ void BlendFunc_ChAsymInv::GetBounds(math_Vector& InfBound, math_Vector& SupBound
 Standard_Boolean BlendFunc_ChAsymInv::IsSolution(const math_Vector& Sol, const Standard_Real Tol)
 {
   math_Vector valsol(1, 4);
-  gp_Pnt      pts1, pts2, ptgui;
+  Point3d      pts1, pts2, ptgui;
   gp_Vec      nplan, d1gui, Nsurf1, tsurf1;
   gp_Vec      d1u1, d1v1;
 
@@ -189,7 +189,7 @@ Standard_Boolean BlendFunc_ChAsymInv::ComputeValues(const math_Vector&     X,
 
   gp_Vec        nplan, dnplan, d1gui, d2gui, d1u1, d1v1, d2u1, d2v1, d2uv1, d1u2, d1v2;
   gp_Vec        Nsurf1, tsurf1;
-  gp_Pnt        pts1, pts2, ptgui;
+  Point3d        pts1, pts2, ptgui;
   Standard_Real PScaInv, F4;
   Standard_Real Normg = 0.;
   gp_Pnt2d      pt2d;

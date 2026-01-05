@@ -95,7 +95,7 @@ static IntPatch_SpecPntType IsSeamOrPole(const Handle(Adaptor3d_Surface)& theQSu
   Standard_Real aUQRef, aVQRef, aUPRef, aVPRef;
   Standard_Real aUQNext, aVQNext, aUPNext, aVPNext;
 
-  const gp_Pnt& aP3d = theLine->Value(theRefIndex + 1).Value();
+  const Point3d& aP3d = theLine->Value(theRefIndex + 1).Value();
 
   if (IsReversed)
   {
@@ -118,7 +118,7 @@ static IntPatch_SpecPntType IsSeamOrPole(const Handle(Adaptor3d_Surface)& theQSu
   else if (aType == GeomAbs_Sphere)
   {
     const Standard_Real aSqTol = theTol3D * theTol3D;
-    gp_Pnt              aP(ElSLib::Value(0.0, M_PI_2, theQSurf->Sphere()));
+    Point3d              aP(ElSLib::Value(0.0, M_PI_2, theQSurf->Sphere()));
     if (aP.SquareDistance(aP3d) < aSqTol)
     {
       return IntPatch_SPntPoleSeamU;
@@ -224,7 +224,7 @@ void ComputeTangency(const IntPatch_TheSOnBounds&       solrst,
   IntSurf_PathPoint                   PPoint;
   gp_Vec                              vectg;
   gp_Dir2d                            dirtg;
-  gp_Pnt                              ptbid;
+  Point3d                              ptbid;
   gp_Vec                              d1u, d1v, v1, v2;
   gp_Pnt2d                            p2d;
   gp_Vec2d                            d2d;
@@ -609,7 +609,7 @@ void IntPatch_ImpPrmIntersection::Perform(const Handle(Adaptor3d_Surface)&   Sur
   IntPatch_IType     typ;
   IntSurf_Transition TLine, TArc;
   IntSurf_TypeTrans  trans1, trans2;
-  gp_Pnt             valpt, ptbid;
+  Point3d             valpt, ptbid;
   gp_Vec             tgline, tgrst, norm1, norm2, d1u, d1v;
   gp_Dir             DirNormale;
   gp_Vec             VecNormale;
@@ -754,7 +754,7 @@ void IntPatch_ImpPrmIntersection::Perform(const Handle(Adaptor3d_Surface)&   Sur
     Standard_Integer aNbSamples = 0;
     aNbSamples                  = T->NbSamples();
     gp_Pnt2d      s2d;
-    gp_Pnt        s3d;
+    Point3d        s3d;
     Standard_Real aValf[1], aUVap[2];
     math_Vector   Valf(aValf, 1, 1), UVap(aUVap, 1, 2);
     T->SamplePoint(1, s2d, s3d);
@@ -1092,7 +1092,7 @@ void IntPatch_ImpPrmIntersection::Perform(const Handle(Adaptor3d_Surface)&   Sur
         }
         else if (iwline->IsTangentAtBegining())
         {
-          gp_Pnt psol = thelin->Value(1).Value();
+          Point3d psol = thelin->Value(1).Value();
           thelin->Value(1).ParametersOnS1(U1, V1);
           thelin->Value(1).ParametersOnS2(U2, V2);
           ptdeb.SetValue(psol, TolArc, Standard_True);
@@ -1103,7 +1103,7 @@ void IntPatch_ImpPrmIntersection::Perform(const Handle(Adaptor3d_Surface)&   Sur
         }
         else
         {
-          gp_Pnt psol = thelin->Value(1).Value();
+          Point3d psol = thelin->Value(1).Value();
           thelin->Value(1).ParametersOnS1(U1, V1);
           thelin->Value(1).ParametersOnS2(U2, V2);
           ptdeb.SetValue(psol, TolArc, Standard_False);
@@ -1190,7 +1190,7 @@ void IntPatch_ImpPrmIntersection::Perform(const Handle(Adaptor3d_Surface)&   Sur
         }
         else if (iwline->IsTangentAtEnd())
         {
-          gp_Pnt psol = thelin->Value(Nbpts).Value();
+          Point3d psol = thelin->Value(Nbpts).Value();
           thelin->Value(Nbpts).ParametersOnS1(U1, V1);
           thelin->Value(Nbpts).ParametersOnS2(U2, V2);
           ptfin.SetValue(psol, TolArc, Standard_True);
@@ -1201,7 +1201,7 @@ void IntPatch_ImpPrmIntersection::Perform(const Handle(Adaptor3d_Surface)&   Sur
         }
         else
         {
-          gp_Pnt psol = thelin->Value(Nbpts).Value();
+          Point3d psol = thelin->Value(Nbpts).Value();
           thelin->Value(Nbpts).ParametersOnS1(U1, V1);
           thelin->Value(Nbpts).ParametersOnS2(U2, V2);
           ptfin.SetValue(psol, TolArc, Standard_False);
@@ -1331,15 +1331,15 @@ void IntPatch_ImpPrmIntersection::Perform(const Handle(Adaptor3d_Surface)&   Sur
       {
         Standard_Real tol2 = Precision::Confusion();
         tol2 *= tol2;
-        const gp_Pnt& aPf = thesegm.FirstPoint().Value();
-        const gp_Pnt& aPl = thesegm.LastPoint().Value();
+        const Point3d& aPf = thesegm.FirstPoint().Value();
+        const Point3d& aPl = thesegm.LastPoint().Value();
         if (aPf.SquareDistance(aPl) <= tol2)
         {
           // segment can be degenerated - check inner point
           paramf        = thesegm.FirstPoint().Parameter();
           paraml        = thesegm.LastPoint().Parameter();
           gp_Pnt2d _p2d = thesegm.Curve()->Value(.57735 * paramf + 0.42265 * paraml);
-          gp_Pnt   aPm;
+          Point3d   aPm;
           if (reversed)
           {
             Surf1->D0(_p2d.X(), _p2d.Y(), aPm);
@@ -1387,7 +1387,7 @@ void IntPatch_ImpPrmIntersection::Perform(const Handle(Adaptor3d_Surface)&   Sur
         Handle(Adaptor3d_HVertex) _vtx;
         if (PStartf.IsNew() == Standard_False)
           _vtx = PStartf.Vertex();
-        const gp_Pnt& _Pp = PStartf.Value();
+        const Point3d& _Pp = PStartf.Value();
         _thepointAtBeg.SetValue(_Pp, PStartf.Tolerance(), Standard_False);
         if (!reversed)
         { //-- typeS1 = Pln || Cyl || Sph || Cone
@@ -1452,7 +1452,7 @@ void IntPatch_ImpPrmIntersection::Perform(const Handle(Adaptor3d_Surface)&   Sur
         Handle(Adaptor3d_HVertex) _vtx;
         if (PStartl.IsNew() == Standard_False)
           _vtx = PStartl.Vertex();
-        const gp_Pnt&  _Pp = PStartl.Value();
+        const Point3d&  _Pp = PStartl.Value();
         IntPatch_Point _thepoint;
         _thepointAtEnd.SetValue(_Pp, PStartl.Tolerance(), Standard_False);
         if (!reversed)
@@ -1552,7 +1552,7 @@ void IntPatch_ImpPrmIntersection::Perform(const Handle(Adaptor3d_Surface)&   Sur
       if (dofirst && dolast)
       {
         Standard_Real                    prm;
-        gp_Pnt                           ptpoly;
+        Point3d                           ptpoly;
         IntSurf_PntOn2S                  p2s;
         Handle(IntSurf_LineOn2S)         Thelin   = new IntSurf_LineOn2S();
         const Handle(Adaptor2d_Curve2d)& arcsegm  = thesegm.Curve();
@@ -2644,7 +2644,7 @@ static void PutIntVertices(const Handle(IntPatch_PointLine)& Line,
   const Handle(IntPatch_RLine) aRLine = Handle(IntPatch_RLine)::DownCast(Line);
 
   Standard_Integer ip = 0, iv = 0;
-  gp_Pnt           aPnt;
+  Point3d           aPnt;
   IntPatch_Point   thePnt;
   Standard_Real    U1 = 0., V1 = 0., U2 = 0., V2 = 0.;
 
@@ -2741,7 +2741,7 @@ static Handle(IntPatch_WLine) MakeSplitWLine(Handle(IntPatch_WLine)& WLine,
   Handle(IntPatch_WLine) wline = new IntPatch_WLine(sline, Tang, Trans1, Trans2);
   wline->SetCreatingWayInfo(IntPatch_WLine::IntPatch_WLImpPrm);
 
-  gp_Pnt         aSPnt;
+  Point3d         aSPnt;
   IntPatch_Point TPntF, TPntL;
   Standard_Real  uu1 = 0., vv1 = 0., uu2 = 0., vv2 = 0.;
 
@@ -3349,7 +3349,7 @@ static Standard_Boolean DecomposeResult(const Handle(IntPatch_PointLine)&  theLi
       wline->SetCreatingWayInfo(IntPatch_WLine::IntPatch_WLImpPrm);
 
       Standard_Real aU1 = 0.0, aV1 = 0.0, aU2 = 0.0, aV2 = 0.0;
-      gp_Pnt        aSPnt(sline->Value(1).Value());
+      Point3d        aSPnt(sline->Value(1).Value());
       sline->Value(1).Parameters(aU1, aV1, aU2, aV2);
       aTPntF.SetValue(aSPnt, theArcTol, Standard_False);
       aTPntF.SetParameters(aU1, aV1, aU2, aV2);
@@ -3401,7 +3401,7 @@ static Standard_Boolean DecomposeResult(const Handle(IntPatch_PointLine)&  theLi
 
       IntPatch_Point aTPnt;
       gp_Pnt2d       aPSurf;
-      gp_Pnt         aSPnt;
+      Point3d         aSPnt;
 
       Handle(IntPatch_RLine) aRLine =
         new IntPatch_RLine(*Handle(IntPatch_RLine)::DownCast(theLine));

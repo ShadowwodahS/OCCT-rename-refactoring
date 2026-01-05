@@ -132,18 +132,18 @@ Standard_Integer IGESDimen_GeneralNote::RotateFlag(const Standard_Integer Index)
   return theRotateFlags->Value(Index);
 }
 
-gp_Pnt IGESDimen_GeneralNote::StartPoint(const Standard_Integer Index) const
+Point3d IGESDimen_GeneralNote::StartPoint(const Standard_Integer Index) const
 {
-  gp_Pnt point(theStartPoints->Value(Index));
+  Point3d point(theStartPoints->Value(Index));
   return point;
 }
 
-gp_Pnt IGESDimen_GeneralNote::TransformedStartPoint(const Standard_Integer Index) const
+Point3d IGESDimen_GeneralNote::TransformedStartPoint(const Standard_Integer Index) const
 {
   gp_XYZ point = (theStartPoints->Value(Index));
   if (HasTransf())
     Location().Transforms(point);
-  return gp_Pnt(point);
+  return Point3d(point);
 }
 
 Standard_Real IGESDimen_GeneralNote::ZDepthStartPoint(const Standard_Integer Index) const

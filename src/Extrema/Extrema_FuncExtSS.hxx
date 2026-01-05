@@ -77,8 +77,8 @@ public:
 private:
   const Adaptor3d_Surface*  myS1;
   const Adaptor3d_Surface*  myS2;
-  gp_Pnt                    myP1;
-  gp_Pnt                    myP2;
+  Point3d                    myP1;
+  Point3d                    myP2;
   Standard_Real             myU1;
   Standard_Real             myV1;
   Standard_Real             myU2;

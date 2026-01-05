@@ -31,7 +31,7 @@
 GeomToStep_MakePolyline::GeomToStep_MakePolyline(const TColgp_Array1OfPnt& P,
                                                  const StepData_Factors&   theLocalFactors)
 {
-  gp_Pnt P1;
+  Point3d P1;
 #include "GeomToStep_MakePolyline_gen.pxx"
 }
 

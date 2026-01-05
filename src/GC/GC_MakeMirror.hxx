@@ -22,7 +22,7 @@
 #include <Standard_Handle.hxx>
 
 class Geom_Transformation;
-class gp_Pnt;
+class Point3d;
 class gp_Ax1;
 class gp_Lin;
 class gp_Dir;
@@ -41,7 +41,7 @@ class GC_MakeMirror
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT GC_MakeMirror(const gp_Pnt& Point);
+  Standard_EXPORT GC_MakeMirror(const Point3d& Point);
 
   Standard_EXPORT GC_MakeMirror(const gp_Ax1& Axis);
 
@@ -49,7 +49,7 @@ public:
 
   //! Make a symmetry transformation af axis defined by
   //! <Point> and <Direc>.
-  Standard_EXPORT GC_MakeMirror(const gp_Pnt& Point, const gp_Dir& Direc);
+  Standard_EXPORT GC_MakeMirror(const Point3d& Point, const gp_Dir& Direc);
 
   //! Make a symmetry transformation of plane <Plane>.
   Standard_EXPORT GC_MakeMirror(const gp_Pln& Plane);

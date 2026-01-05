@@ -117,7 +117,7 @@ BRepFill_MultiLine::BRepFill_MultiLine(const TopoDS_Face&          Face1,
   Standard_Real   Umin = 0., Vmin = 0., Umax = 0., Vmax = 0., U, V;
   gp_Pnt2d        P1, P2;
   gp_Vec          DZ;
-  gp_Pnt          P;
+  Point3d          P;
 
   // Result on Face1
   Standard_Boolean First = Standard_True;
@@ -493,7 +493,7 @@ void BRepFill_MultiLine::Curves(Handle(Geom_Curve)&   Curve,
     // eval the 3d curve corresponding to the bissectrice.
     gp_Pnt2d          P    = myBis.Line().Location();
     gp_Dir2d          D    = myBis.Line().Direction();
-    Handle(Geom_Line) Line = new Geom_Line(gp_Pnt(P.X(), P.Y(), 0.), gp_Dir(D.X(), D.Y(), 0.));
+    Handle(Geom_Line) Line = new Geom_Line(Point3d(P.X(), P.Y(), 0.), gp_Dir(D.X(), D.Y(), 0.));
     Handle(Geom_TrimmedCurve) TLine =
       new Geom_TrimmedCurve(Line, myBis.FirstParameter(), myBis.LastParameter());
     Curve = GeomProjLib::ProjectOnPlane(TLine, Plane, gp::DZ(), Standard_False);
@@ -542,7 +542,7 @@ Standard_Real BRepFill_MultiLine::LastParameter() const
 
 //=================================================================================================
 
-gp_Pnt BRepFill_MultiLine::Value(const Standard_Real U) const
+Point3d BRepFill_MultiLine::Value(const Standard_Real U) const
 {
   Handle(Geom_Surface) S;
   TopLoc_Location      L;
@@ -551,7 +551,7 @@ gp_Pnt BRepFill_MultiLine::Value(const Standard_Real U) const
 
   gp_Pnt2d P2d = ValueOnF1(U);
 
-  gp_Pnt P3d = S->Value(P2d.X(), P2d.Y());
+  Point3d P3d = S->Value(P2d.X(), P2d.Y());
   P3d.Transform(L.Transformation());
 
   return P3d;
@@ -729,7 +729,7 @@ gp_Pnt2d BRepFill_MultiLine::ValueOnF2(const Standard_Real U) const
 //=================================================================================================
 
 void BRepFill_MultiLine::Value3dOnF1OnF2(const Standard_Real U,
-                                         gp_Pnt&             P3d,
+                                         Point3d&             P3d,
                                          gp_Pnt2d&           PF1,
                                          gp_Pnt2d&           PF2) const
 {
@@ -755,7 +755,7 @@ GeomAbs_Shape BRepFill_MultiLine::Continuity() const
 
 Standard_Boolean BRepFill_MultiLine::Value(const Standard_Real           theT,
                                            NCollection_Array1<gp_Pnt2d>& thePnt2d,
-                                           NCollection_Array1<gp_Pnt>&   thePnt) const
+                                           NCollection_Array1<Point3d>&   thePnt) const
 {
   thePnt(1)   = Value(theT);
   thePnt2d(1) = ValueOnF1(theT);

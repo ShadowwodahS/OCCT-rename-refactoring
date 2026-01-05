@@ -101,7 +101,7 @@ Standard_Boolean BRepTools_GTrsfModification::NewSurface(const TopoDS_Face&    F
       {
         gp_XYZ coor(S2->Pole(i, j).Coord());
         gtrsf.Transforms(coor);
-        gp_Pnt P(coor);
+        Point3d P(coor);
         S2->SetPole(i, j, P);
       }
   }
@@ -113,7 +113,7 @@ Standard_Boolean BRepTools_GTrsfModification::NewSurface(const TopoDS_Face&    F
       {
         gp_XYZ coor(S2->Pole(i, j).Coord());
         gtrsf.Transforms(coor);
-        gp_Pnt P(coor);
+        Point3d P(coor);
         S2->SetPole(i, j, P);
       }
   }
@@ -151,7 +151,7 @@ Standard_Boolean BRepTools_GTrsfModification::NewCurve(const TopoDS_Edge&  E,
       {
         gp_XYZ coor(C2->Pole(i).Coord());
         gtrsf.Transforms(coor);
-        gp_Pnt P(coor);
+        Point3d P(coor);
         C2->SetPole(i, P);
       }
     }
@@ -162,7 +162,7 @@ Standard_Boolean BRepTools_GTrsfModification::NewCurve(const TopoDS_Edge&  E,
       {
         gp_XYZ coor(C2->Pole(i).Coord());
         gtrsf.Transforms(coor);
-        gp_Pnt P(coor);
+        Point3d P(coor);
         C2->SetPole(i, P);
       }
     }
@@ -179,10 +179,10 @@ Standard_Boolean BRepTools_GTrsfModification::NewCurve(const TopoDS_Edge&  E,
 //=================================================================================================
 
 Standard_Boolean BRepTools_GTrsfModification::NewPoint(const TopoDS_Vertex& V,
-                                                       gp_Pnt&              P,
+                                                       Point3d&              P,
                                                        Standard_Real&       Tol)
 {
-  gp_Pnt Pnt = BRep_Tool::Pnt(V);
+  Point3d Pnt = BRep_Tool::Pnt(V);
   Tol        = BRep_Tool::Tolerance(V);
   Tol *= myGScale;
   gp_XYZ coor(Pnt.Coord());
@@ -264,7 +264,7 @@ Standard_Boolean BRepTools_GTrsfModification::NewTriangulation(
   // apply transformation to 3D nodes
   for (Standard_Integer anInd = 1; anInd <= theTriangulation->NbNodes(); ++anInd)
   {
-    gp_Pnt aP = theTriangulation->Node(anInd);
+    Point3d aP = theTriangulation->Node(anInd);
     aGTrsf.Transforms(aP.ChangeCoord());
     theTriangulation->SetNode(anInd, aP);
   }
@@ -322,7 +322,7 @@ Standard_Boolean BRepTools_GTrsfModification::NewPolygon(const TopoDS_Edge&     
   TColgp_Array1OfPnt& aNodesArray = thePoly->ChangeNodes();
   for (Standard_Integer anId = aNodesArray.Lower(); anId <= aNodesArray.Upper(); ++anId)
   {
-    gp_Pnt& aP = aNodesArray.ChangeValue(anId);
+    Point3d& aP = aNodesArray.ChangeValue(anId);
     aGTrsf.Transforms(aP.ChangeCoord());
   }
   return Standard_True;

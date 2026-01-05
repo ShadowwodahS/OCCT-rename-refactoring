@@ -47,7 +47,7 @@ void BRepExtrema_ExtPC::Perform(const TopoDS_Vertex& V)
 {
   if (!myHC.IsNull())
   {
-    gp_Pnt P = BRep_Tool::Pnt(V);
+    Point3d P = BRep_Tool::Pnt(V);
     myExtPC.Perform(P);
   }
 }

@@ -183,27 +183,27 @@ Standard_Real Adaptor3d_Surface::VPeriod() const
 
 //=================================================================================================
 
-// gp_Pnt Adaptor3d_Surface::Value(const Standard_Real U, const Standard_Real V) const
-gp_Pnt Adaptor3d_Surface::Value(const Standard_Real, const Standard_Real) const
+// Point3d Adaptor3d_Surface::Value(const Standard_Real U, const Standard_Real V) const
+Point3d Adaptor3d_Surface::Value(const Standard_Real, const Standard_Real) const
 {
   throw Standard_NotImplemented("Adaptor3d_Surface::Value");
 }
 
 //=================================================================================================
 
-// void Adaptor3d_Surface::D0(const Standard_Real U, const Standard_Real V, gp_Pnt& P) const
-void Adaptor3d_Surface::D0(const Standard_Real, const Standard_Real, gp_Pnt&) const
+// void Adaptor3d_Surface::D0(const Standard_Real U, const Standard_Real V, Point3d& P) const
+void Adaptor3d_Surface::D0(const Standard_Real, const Standard_Real, Point3d&) const
 {
   throw Standard_NotImplemented("Adaptor3d_Surface::D0");
 }
 
 //=================================================================================================
 
-// void Adaptor3d_Surface::D1(const Standard_Real U, const Standard_Real V, gp_Pnt& P, gp_Vec& D1U,
+// void Adaptor3d_Surface::D1(const Standard_Real U, const Standard_Real V, Point3d& P, gp_Vec& D1U,
 // gp_Vec& D1V) const
 void Adaptor3d_Surface::D1(const Standard_Real,
                            const Standard_Real,
-                           gp_Pnt&,
+                           Point3d&,
                            gp_Vec&,
                            gp_Vec&) const
 {
@@ -212,11 +212,11 @@ void Adaptor3d_Surface::D1(const Standard_Real,
 
 //=================================================================================================
 
-// void Adaptor3d_Surface::D2(const Standard_Real U, const Standard_Real V, gp_Pnt& P, gp_Vec& D1U,
+// void Adaptor3d_Surface::D2(const Standard_Real U, const Standard_Real V, Point3d& P, gp_Vec& D1U,
 // gp_Vec& D1V, gp_Vec& D2U, gp_Vec& D2V, gp_Vec& D2UV) const
 void Adaptor3d_Surface::D2(const Standard_Real,
                            const Standard_Real,
-                           gp_Pnt&,
+                           Point3d&,
                            gp_Vec&,
                            gp_Vec&,
                            gp_Vec&,
@@ -228,12 +228,12 @@ void Adaptor3d_Surface::D2(const Standard_Real,
 
 //=================================================================================================
 
-// void Adaptor3d_Surface::D3(const Standard_Real U, const Standard_Real V, gp_Pnt& P, gp_Vec& D1U,
+// void Adaptor3d_Surface::D3(const Standard_Real U, const Standard_Real V, Point3d& P, gp_Vec& D1U,
 // gp_Vec& D1V, gp_Vec& D2U, gp_Vec& D2V, gp_Vec& D2UV, gp_Vec& D3U, gp_Vec& D3V, gp_Vec& D3UUV,
 // gp_Vec& D3UVV) const
 void Adaptor3d_Surface::D3(const Standard_Real,
                            const Standard_Real,
-                           gp_Pnt&,
+                           Point3d&,
                            gp_Vec&,
                            gp_Vec&,
                            gp_Vec&,

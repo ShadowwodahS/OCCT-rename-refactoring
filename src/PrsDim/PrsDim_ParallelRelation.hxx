@@ -44,7 +44,7 @@ public:
   Standard_EXPORT PrsDim_ParallelRelation(const TopoDS_Shape&       aFShape,
                                           const TopoDS_Shape&       aSShape,
                                           const Handle(Geom_Plane)& aPlane,
-                                          const gp_Pnt&             aPosition,
+                                          const Point3d&             aPosition,
                                           const DsgPrs_ArrowSide    aSymbolPrs,
                                           const Standard_Real       anArrowSize = 0.01);
 
@@ -64,8 +64,8 @@ private:
   Standard_EXPORT void ComputeTwoEdgesParallel(const Handle(Prs3d_Presentation)& aPresentation);
 
 private:
-  gp_Pnt myFAttach;
-  gp_Pnt mySAttach;
+  Point3d myFAttach;
+  Point3d mySAttach;
   gp_Dir myDirAttach;
 };
 

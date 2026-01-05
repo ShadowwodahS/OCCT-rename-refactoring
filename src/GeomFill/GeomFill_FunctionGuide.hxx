@@ -31,7 +31,7 @@ class Adaptor3d_Curve;
 class GeomFill_SectionLaw;
 class Geom_Curve;
 class Geom_Surface;
-class gp_Pnt;
+class Point3d;
 class math_Matrix;
 class gp_Vec;
 
@@ -45,7 +45,7 @@ public:
                                          const Standard_Real                ParamOnLaw = 0.0);
 
   Standard_EXPORT void SetParam(const Standard_Real Param,
-                                const gp_Pnt&       Centre,
+                                const Point3d&       Centre,
                                 const gp_XYZ&       Dir,
                                 const gp_XYZ&       XDir);
 

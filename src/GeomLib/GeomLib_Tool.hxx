@@ -28,7 +28,7 @@ class Geom_Surface;
 class Geom2d_Curve;
 class Geom2dAdaptor_Curve;
 class gp_Lin2d;
-class gp_Pnt;
+class Point3d;
 class gp_Pnt2d;
 class gp_Vec2d;
 
@@ -49,14 +49,14 @@ public:
   //! Extracts the parameter of a 3D point lying on a 3D curve
   //! or at a distance less than the MaxDist value.
   Standard_EXPORT static Standard_Boolean Parameter(const Handle(Geom_Curve)& Curve,
-                                                    const gp_Pnt&             Point,
+                                                    const Point3d&             Point,
                                                     const Standard_Real       MaxDist,
                                                     Standard_Real&            U);
 
   //! Extracts the parameter of a 3D point lying on a surface
   //! or at a distance less than the MaxDist value.
   Standard_EXPORT static Standard_Boolean Parameters(const Handle(Geom_Surface)& Surface,
-                                                     const gp_Pnt&               Point,
+                                                     const Point3d&               Point,
                                                      const Standard_Real         MaxDist,
                                                      Standard_Real&              U,
                                                      Standard_Real&              V);

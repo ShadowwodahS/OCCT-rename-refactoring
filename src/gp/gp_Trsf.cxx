@@ -158,7 +158,7 @@ void gp_Trsf::SetRotationPart(const gp_Quaternion& theR)
 
 //=================================================================================================
 
-void gp_Trsf::SetScale(const gp_Pnt& P, const Standard_Real S)
+void gp_Trsf::SetScale(const Point3d& P, const Standard_Real S)
 {
   shape            = gp_Scale;
   scale            = S;

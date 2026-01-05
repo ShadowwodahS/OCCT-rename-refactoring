@@ -272,7 +272,7 @@ else {
   {
     Handle(TColgp_HArray1OfVec) HAV = new TColgp_HArray1OfVec(1, qnt);
     gp_Vec                      V;
-    gp_Pnt                      P;
+    Point3d                      P;
     Standard_Integer            i = 0;
 
     for (Tool.InitVertex(); Tool.MoreVertex(); Tool.NextVertex())

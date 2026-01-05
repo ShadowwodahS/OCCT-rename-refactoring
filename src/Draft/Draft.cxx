@@ -85,7 +85,7 @@ Standard_Real Draft::Angle(const TopoDS_Face& F, const gp_Dir& D)
     }
     Standard_Real umin, umax, vmin, vmax;
     BRepTools::UVBounds(F, umin, umax, vmin, vmax);
-    gp_Pnt ptbid;
+    Point3d ptbid;
     gp_Vec d1u, d1v;
     ElSLib::D1(umin + umax / 2., vmin + vmax / 2., Co, ptbid, d1u, d1v);
     d1u.Cross(d1v);

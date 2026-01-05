@@ -27,7 +27,7 @@
 #include <Standard_Real.hxx>
 #include <Standard_OStream.hxx>
 class RefObject;
-class gp_Pnt;
+class Point3d;
 class gp_Pnt2d;
 
 //! This class describes Points composing a MultiPoint.
@@ -72,12 +72,12 @@ public:
   //! set to <Point>.
   //! An exception is raised if Index < 0 or
   //! Index > number of 3d Points.
-  Standard_EXPORT void SetPoint(const Standard_Integer Index, const gp_Pnt& Point);
+  Standard_EXPORT void SetPoint(const Standard_Integer Index, const Point3d& Point);
 
   //! returns the 3d Point of range Index.
   //! An exception is raised if Index < 0 or
   //! Index < number of 3d Points.
-  Standard_EXPORT const gp_Pnt& Point(const Standard_Integer Index) const;
+  Standard_EXPORT const Point3d& Point(const Standard_Integer Index) const;
 
   //! The 2d Point of range Index is set to <Point>.
   //! An exception is raised if Index > 3d Points or

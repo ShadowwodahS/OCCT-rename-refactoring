@@ -246,13 +246,13 @@ void IntPatch_Intersection::Perform(const Handle(Adaptor3d_Surface)&   S1,
 //===============================================================
 // function: FUN_GetMinMaxXYZPnt
 //===============================================================
-static void FUN_GetMinMaxXYZPnt(const Handle(Adaptor3d_Surface)& S, gp_Pnt& pMin, gp_Pnt& pMax)
+static void FUN_GetMinMaxXYZPnt(const Handle(Adaptor3d_Surface)& S, Point3d& pMin, Point3d& pMax)
 {
   const Standard_Real DU      = 0.25 * Abs(S->LastUParameter() - S->FirstUParameter());
   const Standard_Real DV      = 0.25 * Abs(S->LastVParameter() - S->FirstVParameter());
   Standard_Real       tMinXYZ = RealLast();
   Standard_Real       tMaxXYZ = -tMinXYZ;
-  gp_Pnt              PUV, ptMax, ptMin;
+  Point3d              PUV, ptMax, ptMin;
   for (Standard_Real U = S->FirstUParameter(); U <= S->LastUParameter(); U += DU)
   {
     for (Standard_Real V = S->FirstVParameter(); V <= S->LastVParameter(); V += DV)
@@ -278,8 +278,8 @@ static void FUN_GetMinMaxXYZPnt(const Handle(Adaptor3d_Surface)& S, gp_Pnt& pMin
 //==========================================================================
 // function: FUN_TrimInfSurf
 //==========================================================================
-static void FUN_TrimInfSurf(const gp_Pnt&                    Pmin,
-                            const gp_Pnt&                    Pmax,
+static void FUN_TrimInfSurf(const Point3d&                    Pmin,
+                            const Point3d&                    Pmax,
                             const Handle(Adaptor3d_Surface)& InfSurf,
                             const Standard_Real&             AlternativeTrimPrm,
                             Handle(Adaptor3d_Surface)&       TrimS)
@@ -658,7 +658,7 @@ static void FUN_PL_Intersection(const Handle(Adaptor3d_Surface)& S1,
     return;
   }
   // 2. Check: Uiso lines of both surfaces are collinear.
-  gp_Pnt puvS1, puvS2;
+  Point3d puvS1, puvS2;
   gp_Vec derS1[2], derS2[2];
   S1->D1(MS1[0], MS1[1], puvS1, derS1[0], derS1[1]);
   S2->D1(MS2[0], MS2[1], puvS2, derS2[0], derS2[1]);
@@ -768,7 +768,7 @@ static void FUN_PL_Intersection(const Handle(Adaptor3d_Surface)& S1,
     for (Standard_Integer ip = 1; ip <= ICC.NbPoints(); ip++)
     {
       gp_Pnt2d P   = ICC.Point(ip);
-      gp_Pnt   P3d = ElCLib::To3d(gp_Ax2(puvS1, gp_Dir(DV)), P);
+      Point3d   P3d = ElCLib::To3d(gp_Ax2(puvS1, gp_Dir(DV)), P);
       SP.Append(P3d);
     }
   }
@@ -1002,7 +1002,7 @@ void IntPatch_Intersection::Perform(const Handle(Adaptor3d_Surface)&   theS1,
           const gp_Ax1 A1 = aCon1.Axis(), A2 = aCon2.Axis();
           if (A1.IsParallel(A2, Precision::Angular()))
           {
-            const gp_Pnt Apex1 = aCon1.Apex(), Apex2 = aCon2.Apex();
+            const Point3d Apex1 = aCon1.Apex(), Apex2 = aCon2.Apex();
             const gp_Pln Plan1(Apex1, A1.Direction());
             if (Plan1.Distance(Apex2) <= Precision::Confusion())
             {
@@ -1295,7 +1295,7 @@ void IntPatch_Intersection::Perform(const Handle(Adaptor3d_Surface)&   theS1,
           const gp_Ax1 A1 = aCon1.Axis(), A2 = aCon2.Axis();
           if (A1.IsParallel(A2, Precision::Angular()))
           {
-            const gp_Pnt Apex1 = aCon1.Apex(), Apex2 = aCon2.Apex();
+            const Point3d Apex1 = aCon1.Apex(), Apex2 = aCon2.Apex();
             const gp_Pln Plan1(Apex1, A1.Direction());
             if (Plan1.Distance(Apex2) <= Precision::Confusion())
             {
@@ -1527,7 +1527,7 @@ void IntPatch_Intersection::ParamParamPerfom(const Handle(Adaptor3d_Surface)&   
   }
   else if ((theD1->DomainIsInfinite()) ^ (theD2->DomainIsInfinite()))
   {
-    gp_Pnt pMaxXYZ, pMinXYZ;
+    Point3d pMaxXYZ, pMinXYZ;
     if (theD1->DomainIsInfinite())
     {
       FUN_GetMinMaxXYZPnt(theS2, pMinXYZ, pMaxXYZ);
@@ -1705,7 +1705,7 @@ void IntPatch_Intersection::GeomGeomPerfom(const Handle(Adaptor3d_Surface)&   th
                                             theS2->IsUPeriodic() ? theS2->UPeriod() : 0.0,
                                             theS2->IsVPeriodic() ? theS2->VPeriod() : 0.0};
 
-    NCollection_List<gp_Pnt> aListOfCriticalPoints;
+    NCollection_List<Point3d> aListOfCriticalPoints;
 
     if (theS1->GetType() == GeomAbs_Cone)
     {
@@ -2128,7 +2128,7 @@ Standard_Boolean IntPatch_Intersection::CheckSingularPoints(
       isU = Standard_True;
     else
       isU = Standard_False;
-    gp_Pnt           aPP1;
+    Point3d           aPP1;
     gp_Vec           aDU, aDV;
     Standard_Real    aD1NormMax = 0.;
     gp_XYZ           aPmid(0., 0., 0.);

@@ -35,28 +35,28 @@ public:
   Standard_EXPORT IntCurveSurface_IntersectionPoint();
 
   //! Create an IntersectionPoint.
-  Standard_EXPORT IntCurveSurface_IntersectionPoint(const gp_Pnt&                           P,
+  Standard_EXPORT IntCurveSurface_IntersectionPoint(const Point3d&                           P,
                                                     const Standard_Real                     USurf,
                                                     const Standard_Real                     VSurf,
                                                     const Standard_Real                     UCurv,
                                                     const IntCurveSurface_TransitionOnCurve TrCurv);
 
   //! Set the fields of the current IntersectionPoint.
-  Standard_EXPORT void SetValues(const gp_Pnt&                           P,
+  Standard_EXPORT void SetValues(const Point3d&                           P,
                                  const Standard_Real                     USurf,
                                  const Standard_Real                     VSurf,
                                  const Standard_Real                     UCurv,
                                  const IntCurveSurface_TransitionOnCurve TrCurv);
 
   //! Get the fields of the current IntersectionPoint.
-  Standard_EXPORT void Values(gp_Pnt&                            P,
+  Standard_EXPORT void Values(Point3d&                            P,
                               Standard_Real&                     USurf,
                               Standard_Real&                     VSurf,
                               Standard_Real&                     UCurv,
                               IntCurveSurface_TransitionOnCurve& TrCurv) const;
 
   //! returns the geometric point.
-  const gp_Pnt& Pnt() const;
+  const Point3d& Pnt() const;
 
   //! returns the U parameter on the surface.
   Standard_Real U() const;
@@ -75,7 +75,7 @@ public:
 
 protected:
 private:
-  gp_Pnt                            myP;
+  Point3d                            myP;
   Standard_Real                     myUSurf;
   Standard_Real                     myVSurf;
   Standard_Real                     myUCurv;

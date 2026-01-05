@@ -52,8 +52,8 @@ public:
       const Standard_Integer anIndX = theX.Lower(), anIndF = theF.Lower();
       Standard_Real          aUV[] = {myIsoParameter, myIsoParameter};
       aUV[mySeamCoordInd]          = theX(anIndX + 2);
-      const gp_Pnt aP1(myPSurf->Value(theX(anIndX), theX(anIndX + 1)));
-      const gp_Pnt aP2(myQSurf->Value(aUV[0], aUV[1]));
+      const Point3d aP1(myPSurf->Value(theX(anIndX), theX(anIndX + 1)));
+      const Point3d aP2(myQSurf->Value(aUV[0], aUV[1]));
 
       (aP1.XYZ() - aP2.XYZ()).Coord(theF(anIndF), theF(anIndF + 1), theF(anIndF + 2));
     }
@@ -74,7 +74,7 @@ public:
       Standard_Real aUV[]            = {myIsoParameter, myIsoParameter};
       aUV[mySeamCoordInd]            = theX(anIndX + 2);
 
-      gp_Pnt aPt;
+      Point3d aPt;
 
       // 0 for U-coordinate, 1 - for V one
       gp_Vec aD1[2], aD2[2];
@@ -151,9 +151,9 @@ static inline void GetTangent(const Standard_Real theConeSemiAngle,
 //           on theSurf.
 //=======================================================================
 static Standard_Boolean IsPointOnSurface(const Handle(Adaptor3d_Surface)& theSurf,
-                                         const gp_Pnt&                    thePt,
+                                         const Point3d&                    thePt,
                                          const Standard_Real              theTol,
-                                         gp_Pnt&                          theProjPt,
+                                         Point3d&                          theProjPt,
                                          Standard_Real&                   theUpar,
                                          Standard_Real&                   theVpar)
 {
@@ -242,7 +242,7 @@ Standard_Boolean IntPatch_SpecialPoints::AddCrossUVIsoPoint(
                      theIsReversed ? theQSurf : thePSurf,
                      anArrOfPeriod);
 
-  gp_Pnt aPQuad;
+  Point3d aPQuad;
 
   // Not quadric point
   Standard_Real aU0 = 0.0, aV0 = 0.0;
@@ -270,7 +270,7 @@ Standard_Boolean IntPatch_SpecialPoints::AddCrossUVIsoPoint(
   }
 
   anExtr.Point().Parameter(aU0, aV0);
-  gp_Pnt aP0(anExtr.Point().Value());
+  Point3d aP0(anExtr.Point().Value());
 
   if (theIsReversed)
     theAddedPoint.SetValue(0.5 * (aP0.XYZ() + aPQuad.XYZ()), aU0, aV0, aUquad, aVquad);
@@ -324,8 +324,8 @@ Standard_Boolean IntPatch_SpecialPoints::AddPointOnUorVIso(
   // On quadric
   Standard_Real aUquad = theIsU ? 0.0 : aRoots(3);
   Standard_Real aVquad = theIsU ? aRoots(3) : 0.0;
-  const gp_Pnt  aPQuad(theQSurf->Value(aUquad, aVquad));
-  const gp_Pnt  aP0(thePSurf->Value(aU0, aV0));
+  const Point3d  aPQuad(theQSurf->Value(aUquad, aVquad));
+  const Point3d  aP0(thePSurf->Value(aU0, aV0));
 
   if (theIsReversed)
     theAddedPoint.SetValue(0.5 * (aP0.XYZ() + aPQuad.XYZ()), aU0, aV0, aUquad, aVquad);
@@ -783,7 +783,7 @@ Standard_Boolean IntPatch_SpecialPoints::AddSingularPole(const Handle(Adaptor3d_
   // On parametric
   Standard_Real aU0 = 0.0, aV0 = 0.0;
   // aPQuad is Pole
-  gp_Pnt        aPQuad, aP0;
+  Point3d        aPQuad, aP0;
   Standard_Real aUquad = 0.0, aVquad = 0.0;
   if (theIsReversed)
     theVertex.Parameters(aU0, aV0, aUquad, aVquad);
@@ -846,7 +846,7 @@ Standard_Boolean IntPatch_SpecialPoints::AddSingularPole(const Handle(Adaptor3d_
   // Therefore, for improving performance, transformation of these vectors is enough
   //(there is no point in transformation of full surface).
 
-  gp_Pnt aPtemp;
+  Point3d aPtemp;
   gp_Vec aVecDu, aVecDv;
   thePSurf->D1(aU0, aV0, aPtemp, aVecDu, aVecDv);
 
@@ -977,7 +977,7 @@ Standard_Boolean IntPatch_SpecialPoints::ContinueAfterSpecialPoint(
     else
       theNewPoint.Parameters(aUquad, aVquad, aU0, aV0);
 
-    gp_Pnt aPtemp;
+    Point3d aPtemp;
     gp_Vec aVecDu, aVecDv;
     thePSurf->D1(aU0, aV0, aPtemp, aVecDu, aVecDv);
 

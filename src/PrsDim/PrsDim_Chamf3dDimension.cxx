@@ -59,7 +59,7 @@ PrsDim_Chamf3dDimension::PrsDim_Chamf3dDimension(const TopoDS_Shape&            
 PrsDim_Chamf3dDimension::PrsDim_Chamf3dDimension(const TopoDS_Shape&               aFShape,
                                                  const Standard_Real               aVal,
                                                  const TCollection_ExtendedString& aText,
-                                                 const gp_Pnt&                     aPosition,
+                                                 const Point3d&                     aPosition,
                                                  const DsgPrs_ArrowSide            aSymbolPrs,
                                                  const Standard_Real               anArrowSize)
     : PrsDim_Relation()
@@ -90,7 +90,7 @@ void PrsDim_Chamf3dDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
   vLast              = surfAlgo.LastVParameter();
   Standard_Real uMoy = (uFirst + uLast) / 2;
   Standard_Real vMoy = (vFirst + vLast) / 2;
-  gp_Pnt        apos;
+  Point3d        apos;
   gp_Vec        d1u, d1v;
   surfAlgo.D1(uMoy, vMoy, apos, d1u, d1v);
   myPntAttach = apos;
@@ -101,7 +101,7 @@ void PrsDim_Chamf3dDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
   //--------------------------------------------
   // Calcul du point de positionnement du texte
   //--------------------------------------------
-  gp_Pnt curpos;
+  Point3d curpos;
   if (myAutomaticPosition)
   {
     gp_Vec transVec(myDir);

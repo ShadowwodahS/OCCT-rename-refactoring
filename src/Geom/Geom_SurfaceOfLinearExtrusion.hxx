@@ -25,7 +25,7 @@
 #include <Standard_Integer.hxx>
 class Geom_Curve;
 class gp_Dir;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 class gp_Trsf;
 class gp_GTrsf2d;
@@ -174,14 +174,14 @@ public:
   //! extrusion. If the point is on the extruded curve, V = 0.0
   Standard_EXPORT void D0(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P) const Standard_OVERRIDE;
+                          Point3d&             P) const Standard_OVERRIDE;
 
   //! Computes the current point and the first derivatives in the
   //! directions U and V.
   //! Raises UndefinedDerivative if the continuity of the surface is not C1.
   Standard_EXPORT void D1(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V) const Standard_OVERRIDE;
 
@@ -191,7 +191,7 @@ public:
   //! Raises UndefinedDerivative if the continuity of the surface is not C2.
   Standard_EXPORT void D2(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V,
                           gp_Vec&             D2U,
@@ -203,7 +203,7 @@ public:
   //! Raises UndefinedDerivative if the continuity of the surface is not C3.
   Standard_EXPORT void D3(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V,
                           gp_Vec&             D2U,

@@ -86,9 +86,9 @@ public:
 
   Standard_Integer Index() const;
 
-  void SetValue(const gp_Pnt& P);
+  void SetValue(const Point3d& P);
 
-  const gp_Pnt& Value() const;
+  const Point3d& Value() const;
 
   void SetValue2d(const gp_Pnt2d& P);
 
@@ -134,7 +134,7 @@ private:
   Standard_Boolean            myhasancestors;
   TopOpeBRep_P2Dstatus        mystatus;
   Standard_Integer            myindex;
-  gp_Pnt                      mypnt;
+  Point3d                      mypnt;
   gp_Pnt2d                    mypnt2d;
   Standard_Boolean            mykeep;
   TopOpeBRepDS_Config         myedgesconfig;

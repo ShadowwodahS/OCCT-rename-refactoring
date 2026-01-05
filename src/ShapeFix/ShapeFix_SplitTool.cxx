@@ -59,7 +59,7 @@ Standard_Boolean ShapeFix_SplitTool::SplitEdge(const TopoDS_Edge&   edge,
   if (Abs(a - param) < tol2d || Abs(b - param) < tol2d)
     return Standard_False;
   // check distance between edge and new vertex
-  gp_Pnt          P1;
+  Point3d          P1;
   TopLoc_Location L;
   if (BRep_Tool::SameParameter(edge))
   {
@@ -79,7 +79,7 @@ Standard_Boolean ShapeFix_SplitTool::SplitEdge(const TopoDS_Edge&   edge,
     if (!L.IsIdentity())
       P1 = P1.Transformed(L.Transformation());
   }
-  gp_Pnt P2 = BRep_Tool::Pnt(vert);
+  Point3d P2 = BRep_Tool::Pnt(vert);
   if (P1.Distance(P2) > tol3d)
   {
     // return Standard_False;
@@ -310,10 +310,10 @@ Standard_Boolean ShapeFix_SplitTool::SplitEdge(const TopoDS_Edge&               
   Standard_Real tolVL = BRep_Tool::Tolerance(VL);
   Standard_Real tolV1 = BRep_Tool::Tolerance(V1);
   Standard_Real tolV2 = BRep_Tool::Tolerance(V2);
-  gp_Pnt        PVF   = BRep_Tool::Pnt(VF);
-  gp_Pnt        PVL   = BRep_Tool::Pnt(VL);
-  gp_Pnt        PV1   = BRep_Tool::Pnt(V1);
-  gp_Pnt        PV2   = BRep_Tool::Pnt(V2);
+  Point3d        PVF   = BRep_Tool::Pnt(VF);
+  Point3d        PVL   = BRep_Tool::Pnt(VL);
+  Point3d        PV1   = BRep_Tool::Pnt(V1);
+  Point3d        PV2   = BRep_Tool::Pnt(V2);
 
   Standard_Real    par1, par2;
   Standard_Boolean IsReverse = Standard_False;

@@ -106,11 +106,11 @@ public:
 
   //! Returns near point of intersector.
   //! This method returns zero point for the base class.
-  Standard_EXPORT virtual const gp_Pnt& GetNearPnt() const;
+  Standard_EXPORT virtual const Point3d& GetNearPnt() const;
 
   //! Returns far point of intersector.
   //! This method returns zero point for the base class.
-  Standard_EXPORT virtual const gp_Pnt& GetFarPnt() const;
+  Standard_EXPORT virtual const Point3d& GetFarPnt() const;
 
   //! Returns direction ray of intersector.
   //! This method returns zero direction for the base class.
@@ -142,7 +142,7 @@ public:
                                        Standard_Boolean*     theInside = NULL) const = 0;
 
   //! Intersection test between defined volume and given point
-  virtual Standard_Boolean OverlapsPoint(const gp_Pnt&                  thePnt,
+  virtual Standard_Boolean OverlapsPoint(const Point3d&                  thePnt,
                                          const SelectMgr_ViewClipRange& theClipRange,
                                          SelectBasics_PickResult&       thePickResult) const = 0;
 
@@ -150,7 +150,7 @@ public:
   //! Does not perform depth calculation, so this method is defined as helper function for inclusion
   //! test. Therefore, its implementation makes sense only for rectangular frustum with box
   //! selection mode activated.
-  virtual Standard_Boolean OverlapsPoint(const gp_Pnt& thePnt) const = 0;
+  virtual Standard_Boolean OverlapsPoint(const Point3d& thePnt) const = 0;
 
   //! SAT intersection test between defined volume and given ordered set of points,
   //! representing line segments. The test may be considered of interior part or
@@ -161,17 +161,17 @@ public:
                                            SelectBasics_PickResult&       thePickResult) const = 0;
 
   //! Checks if line segment overlaps selecting frustum
-  virtual Standard_Boolean OverlapsSegment(const gp_Pnt&                  thePnt1,
-                                           const gp_Pnt&                  thePnt2,
+  virtual Standard_Boolean OverlapsSegment(const Point3d&                  thePnt1,
+                                           const Point3d&                  thePnt2,
                                            const SelectMgr_ViewClipRange& theClipRange,
                                            SelectBasics_PickResult&       thePickResult) const = 0;
 
   //! SAT intersection test between defined volume and given triangle. The test may
   //! be considered of interior part or boundary line defined by triangle vertices
   //! depending on given sensitivity type
-  virtual Standard_Boolean OverlapsTriangle(const gp_Pnt&                  thePnt1,
-                                            const gp_Pnt&                  thePnt2,
-                                            const gp_Pnt&                  thePnt3,
+  virtual Standard_Boolean OverlapsTriangle(const Point3d&                  thePnt1,
+                                            const Point3d&                  thePnt2,
+                                            const Point3d&                  thePnt3,
                                             Select3D_TypeOfSensitivity     theSensType,
                                             const SelectMgr_ViewClipRange& theClipRange,
                                             SelectBasics_PickResult&       thePickResult) const = 0;
@@ -179,14 +179,14 @@ public:
   //! Returns true if selecting volume is overlapped by sphere with center theCenter
   //! and radius theRadius
   Standard_EXPORT virtual Standard_Boolean OverlapsSphere(
-    const gp_Pnt&       theCenter,
+    const Point3d&       theCenter,
     const Standard_Real theRadius,
     Standard_Boolean*   theInside = NULL) const = 0;
 
   //! Returns true if selecting volume is overlapped by sphere with center theCenter
   //! and radius theRadius
   Standard_EXPORT virtual Standard_Boolean OverlapsSphere(
-    const gp_Pnt&                  theCenter,
+    const Point3d&                  theCenter,
     const Standard_Real            theRadius,
     const SelectMgr_ViewClipRange& theClipRange,
     SelectBasics_PickResult&       thePickResult) const = 0;
@@ -234,12 +234,12 @@ public:
   //! screen point and given point theCOG.
   //! It makes sense only for intersectors built on a single point.
   //! This method returns infinite value for the base class.
-  Standard_EXPORT virtual Standard_Real DistToGeometryCenter(const gp_Pnt& theCOG) const;
+  Standard_EXPORT virtual Standard_Real DistToGeometryCenter(const Point3d& theCOG) const;
 
   //! Calculates the point on a view ray that was detected during the run of selection algo by given
   //! depth. It makes sense only for intersectors built on a single point. This method returns
   //! infinite point for the base class.
-  Standard_EXPORT virtual gp_Pnt DetectedPoint(const Standard_Real theDepth) const;
+  Standard_EXPORT virtual Point3d DetectedPoint(const Standard_Real theDepth) const;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
@@ -247,9 +247,9 @@ public:
 
   //! Checks whether the ray that starts at the point theLoc and directs with the direction
   //! theRayDir intersects with the sphere with center at theCenter and radius TheRadius
-  Standard_EXPORT virtual Standard_Boolean RaySphereIntersection(const gp_Pnt&       theCenter,
+  Standard_EXPORT virtual Standard_Boolean RaySphereIntersection(const Point3d&       theCenter,
                                                                  const Standard_Real theRadius,
-                                                                 const gp_Pnt&       theLoc,
+                                                                 const Point3d&       theLoc,
                                                                  const gp_Dir&       theRayDir,
                                                                  Standard_Real&      theTimeEnter,
                                                                  Standard_Real& theTimeLeave) const;
@@ -268,7 +268,7 @@ public:
     const Standard_Real    theBottomRadius,
     const Standard_Real    theTopRadius,
     const Standard_Real    theHeight,
-    const gp_Pnt&          theLoc,
+    const Point3d&          theLoc,
     const gp_Dir&          theRayDir,
     const Standard_Boolean theIsHollow,
     Standard_Real&         theTimeEnter,
@@ -282,7 +282,7 @@ public:
   //! @param[in]  theIsFilled true if it's a circle, false if it's a circle outline
   //! @param[out] theTime     the intersection
   Standard_EXPORT virtual Standard_Boolean RayCircleIntersection(const Standard_Real    theRadius,
-                                                                 const gp_Pnt&          theLoc,
+                                                                 const Point3d&          theLoc,
                                                                  const gp_Dir&          theRayDir,
                                                                  const Standard_Boolean theIsFilled,
                                                                  Standard_Real& theTime) const;

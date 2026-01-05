@@ -410,8 +410,8 @@ BRepCheck_Status BRepCheck_Wire::Closed(const Standard_Boolean Update)
 // purpose  : Return Standard_True if distance between thePnt_f and
 //           thePnt_l is not more, than aTol3d
 //=======================================================================
-Standard_Boolean IsDistanceIn3DTolerance(const gp_Pnt&       thePnt_f,
-                                         const gp_Pnt&       thePnt_l,
+Standard_Boolean IsDistanceIn3DTolerance(const Point3d&       thePnt_f,
+                                         const Point3d&       thePnt_l,
                                          const Standard_Real aTol3d)
 {
   Standard_Real Dist = thePnt_f.Distance(thePnt_l);
@@ -475,7 +475,7 @@ static Standard_Boolean IsDistanceIn2DTolerance(
 #endif
   dumax = aFaceSurface.UResolution(aTol3d);
   dvmax = aFaceSurface.VResolution(aTol3d);
-  gp_Pnt        aP;
+  Point3d        aP;
   gp_Vec        aDU, aDV;
   Standard_Real um = (thePnt.X() + thePntRef.X()) / 2.;
   Standard_Real vm = (thePnt.Y() + thePntRef.Y()) / 2.;
@@ -696,8 +696,8 @@ BRepCheck_Status BRepCheck_Wire::Closed2d(const TopoDS_Face& theFace, const Stan
   Standard_Real aTol3d =
     Max(BRep_Tool::Tolerance(aFirstVertex), BRep_Tool::Tolerance(aWireExp.CurrentVertex()));
 
-  gp_Pnt aPntRef = BRep_Tool::Pnt(aFirstVertex);
-  gp_Pnt aPnt    = BRep_Tool::Pnt(aWireExp.CurrentVertex());
+  Point3d aPntRef = BRep_Tool::Pnt(aFirstVertex);
+  Point3d aPnt    = BRep_Tool::Pnt(aWireExp.CurrentVertex());
 
   if (!(IsDistanceIn2DTolerance(aFaceSurface, aP_first, aP_last, aTol3d)))
     aClosedStat = BRepCheck_NotClosed;
@@ -1067,7 +1067,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoDS_Face&     F,
   Standard_Integer                   i, j, Nbedges;
   Standard_Real                      first1, last1, first2, last2, tolint;
   gp_Pnt2d                           pfirst1, plast1, pfirst2, plast2;
-  gp_Pnt                             P3d, P3d2;
+  Point3d                             P3d, P3d2;
   Handle(BRepAdaptor_Surface)        HS;
   Geom2dAdaptor_Curve                C1, C2;
   Geom2dInt_GInter                   Inter;
@@ -1184,7 +1184,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoDS_Face&     F,
           for (ExplVtx.Init(E1, TopAbs_VERTEX); localok == Standard_False && ExplVtx.More();
                ExplVtx.Next())
           {
-            gp_Pnt        p3dvtt;
+            Point3d        p3dvtt;
             Standard_Real tolvtt, p3dvttDistanceP3d;
             //
             const TopoDS_Vertex& vtt = TopoDS::Vertex(ExplVtx.Current());
@@ -1362,7 +1362,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoDS_Face&     F,
             for (; itl.More(); itl.Next())
             {
               Standard_Real p3dvttDistanceP3d, p3dvttDistanceP3d2;
-              gp_Pnt        p3dvtt;
+              Point3d        p3dvtt;
               //
               const TopoDS_Vertex& vtt = TopoDS::Vertex(itl.Value());
               p3dvtt                   = BRep_Tool::Pnt(vtt);
@@ -1394,7 +1394,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoDS_Face&     F,
 
 #endif
               Standard_Real distauvtxleplusproche, VParaOnEdge1, VParaOnEdge2;
-              gp_Pnt        VertexLePlusProche;
+              Point3d        VertexLePlusProche;
               //
               VParaOnEdge1          = 0.;
               VParaOnEdge2          = 0.;
@@ -1404,7 +1404,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoDS_Face&     F,
               for (; itl.More(); itl.Next())
               {
                 Standard_Real disptvtx;
-                gp_Pnt        p3dvtt;
+                Point3d        p3dvtt;
                 //
                 const TopoDS_Vertex& vtt = TopoDS::Vertex(itl.Value());
                 p3dvtt                   = BRep_Tool::Pnt(vtt);
@@ -1453,7 +1453,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoDS_Face&     F,
                 for (k = 2; localok && k < 9; k++)
                 {
                   Standard_Real u = VParaOnEdge1 + k * du1; // check if it works
-                  gp_Pnt        P1;
+                  Point3d        P1;
                   //  Modified by Sergey KHROMOV - Mon Apr 15 12:34:22 2002 Begin
                   if (!ConS.IsNull())
                   {
@@ -1486,7 +1486,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoDS_Face&     F,
                 for (k = 2; localok && k < 9; k++)
                 {
                   Standard_Real u = VParaOnEdge2 + k * du2; // check if it works
-                  gp_Pnt        P2;
+                  Point3d        P2;
                   //  Modified by Sergey KHROMOV - Mon Apr 15 12:34:22 2002 Begin
                   if (!ConS2.IsNull())
                   {
@@ -1663,7 +1663,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoDS_Face&     F,
               for (; itl.More(); itl.Next())
               {
                 Standard_Real p3dvttDistanceP3d, p3dvttDistanceP3d2;
-                gp_Pnt        p3dvtt;
+                Point3d        p3dvtt;
                 //
                 const TopoDS_Vertex& vtt = TopoDS::Vertex(itl.Value());
                 p3dvtt                   = BRep_Tool::Pnt(vtt);
@@ -1920,8 +1920,8 @@ void ChoixUV(const TopoDS_Vertex&  theVertex,
         // IsDistanceIn3DTolerance
         BRepAdaptor_Curve bcEdg(theEdge, theFace);
         BRepAdaptor_Curve bcEvois(anEFound, theFace);
-        gp_Pnt            pEdg    = bcEdg.Value(aParPiv);
-        gp_Pnt            pEFound = bcEvois.Value(aParam);
+        Point3d            pEdg    = bcEdg.Value(aParPiv);
+        Point3d            pEFound = bcEvois.Value(aParam);
 
         if (!IsDistanceIn3DTolerance(pEdg, pEFound, aTol3d))
           IsFound = Standard_False;

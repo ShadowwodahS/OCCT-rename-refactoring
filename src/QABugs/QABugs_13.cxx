@@ -85,9 +85,9 @@ static Standard_Integer OCC332bug(Draw_Interpretor& di, Standard_Integer argc, c
 
   // SUPPORT:
   // 1. There is no need to normalize the direction - it's done automatically
-  // gp_Ax2 origin(gp_Pnt(5000.0,-300.0, 1000.0),
+  // gp_Ax2 origin(Point3d(5000.0,-300.0, 1000.0),
   // gp_Dir(0.0, -1.0/sqrt(2.0), -1.0/sqrt(2.0)));
-  gp_Ax2 origin(gp_Pnt(5000.0, -300.0, 1000.0), gp_Dir(0.0, -1.0, -1.0));
+  gp_Ax2 origin(Point3d(5000.0, -300.0, 1000.0), gp_Dir(0.0, -1.0, -1.0));
 
   TopoDS_Face  myFace;
   TopoDS_Shape myShape, gasSolid;
@@ -100,12 +100,12 @@ static Standard_Integer OCC332bug(Draw_Interpretor& di, Standard_Integer argc, c
 
   // Construct center for a circle to be the spine of
   // revolution, on the xz-plane at x=major_radius
-  gp_Pnt circ_center = origin.Location().Translated(major_radius * origin.XDirection());
+  Point3d circ_center = origin.Location().Translated(major_radius * origin.XDirection());
 
   // This point will be the center of the second face.
   // SUPPORT:
   // - There is no need in this point - we'll use angle instead.
-  // gp_Pnt endPoint = origin.Location();
+  // Point3d endPoint = origin.Location();
   // endPoint.Translate(major_radius*(1.0-cos(bend_angle))*origin.XDirection()) ;
   // endPoint.Translate((-major_radius*sin(bend_angle))*origin.Direction());
 
@@ -441,7 +441,7 @@ static Standard_Integer OCC544(Draw_Interpretor& di, Standard_Integer argc, cons
   }
   di << "creating the shape for a bent tube\n";
 
-  gp_Ax2 origin(gp_Pnt(500.0, -300.0, 100.0), gp_Dir(0.0, -1.0 / sqrt(2.0), -1.0 / sqrt(2.0)));
+  gp_Ax2 origin(Point3d(500.0, -300.0, 100.0), gp_Dir(0.0, -1.0 / sqrt(2.0), -1.0 / sqrt(2.0)));
 
   TopoDS_Face  firstFace, lastFace;
   TopoDS_Solid wallSolid, myShape;
@@ -452,10 +452,10 @@ static Standard_Integer OCC544(Draw_Interpretor& di, Standard_Integer argc, cons
 
   // Construct center for a circle to be the spine of
   // revolution, on the xz-plane at x=major_rad
-  gp_Pnt circ_center = origin.Location().Translated(major_rad * origin.XDirection());
+  Point3d circ_center = origin.Location().Translated(major_rad * origin.XDirection());
 
   // This point will be the center of the second face.
-  gp_Pnt endPoint = origin.Location();
+  Point3d endPoint = origin.Location();
   endPoint.Translate(major_rad * (1.0 - cos(bend_angle)) * origin.XDirection());
   endPoint.Translate((-major_rad * sin(bend_angle)) * origin.Direction());
 
@@ -805,7 +805,7 @@ static Standard_Integer OCC817(Draw_Interpretor& di, Standard_Integer argc, cons
   }
 
   // Create outer box solid
-  gp_Pnt       P(0, 0, 0);
+  Point3d       P(0, 0, 0);
   TopoDS_Solid fullSolid = BRepPrimAPI_MakeBox(P, 30.0, 30.0, 30.0).Solid();
 
   // Create inner box solid

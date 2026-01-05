@@ -29,7 +29,7 @@
 #define Curve_hxx <Adaptor3d_Curve.hxx>
 #define Vec gp_Vec
 #define Vec_hxx <gp_Vec.hxx>
-#define Pnt gp_Pnt
+#define Pnt Point3d
 #define Pnt_hxx <gp_Pnt.hxx>
 #define Dir gp_Dir
 #define Dir_hxx <gp_Dir.hxx>

@@ -18,12 +18,12 @@
 #include <gp_Ax2.hxx>
 #include <gp_Pnt.hxx>
 
-void gp_Circ::Mirror(const gp_Pnt& P)
+void gp_Circ::Mirror(const Point3d& P)
 {
   pos.Mirror(P);
 }
 
-gp_Circ gp_Circ::Mirrored(const gp_Pnt& P) const
+gp_Circ gp_Circ::Mirrored(const Point3d& P) const
 {
   gp_Circ C = *this;
   C.pos.Mirror(P);

@@ -397,7 +397,7 @@ Standard_Boolean GeomFill_NSections::D1(const Standard_Real   V,
     Standard_Boolean     ok1, ok2;
     TColStd_Array1OfReal W1(1, L), W2(1, L);
     TColgp_Array1OfPnt   P1(1, L), P2(1, L);
-    gp_Pnt               nul(0., 0., 0.);
+    Point3d               nul(0., 0., 0.);
     W1.Init(0.);
     W2.Init(0.);
     P1.Init(nul);
@@ -508,7 +508,7 @@ Standard_Boolean GeomFill_NSections::D2(const Standard_Real   V,
     TColStd_Array1OfReal W1(1, L), W2(1, L), DW1(1, L), DW2(1, L);
     TColgp_Array1OfPnt   P1(1, L), P2(1, L);
     TColgp_Array1OfVec   DP1(1, L), DP2(1, L);
-    gp_Pnt               nul(0., 0., 0.);
+    Point3d               nul(0., 0., 0.);
     gp_Vec               Vnul(0., 0., 0.);
     W1.Init(0.);
     W2.Init(0.);
@@ -831,9 +831,9 @@ void GeomFill_NSections::GetTolerance(
 //=======================================================
 // Purpose : BarycentreOfSurf
 //=======================================================
-gp_Pnt GeomFill_NSections::BarycentreOfSurf() const
+Point3d GeomFill_NSections::BarycentreOfSurf() const
 {
-  gp_Pnt P, Bary;
+  Point3d P, Bary;
   Bary.SetCoord(0., 0., 0.);
 
   if (mySurface.IsNull())
@@ -947,7 +947,7 @@ Standard_Boolean GeomFill_NSections::IsConstant(Standard_Real& Error) const
         Standard_Real    Tol = 1.e-7;
         Standard_Boolean samedir, samelength, samepos;
         samedir    = (L1.Direction().IsParallel(L2.Direction(), 1.e-4));
-        gp_Pnt P11 = AC1.Value(AC1.FirstParameter()), P12 = AC1.Value(AC1.LastParameter()),
+        Point3d P11 = AC1.Value(AC1.FirstParameter()), P12 = AC1.Value(AC1.LastParameter()),
                P21 = AC2.Value(AC2.FirstParameter()), P22 = AC2.Value(AC2.LastParameter());
         samelength = (Abs(P11.Distance(P12) - P21.Distance(P22)) < Tol);
         // l'ecart entre les 2 sections ne compte pas

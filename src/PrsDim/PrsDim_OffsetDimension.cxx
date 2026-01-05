@@ -112,13 +112,13 @@ void PrsDim_OffsetDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
   {
     // myDirAttach : oriente de myFShape vers mySShape
     gp_Pln aPln = surf1.Plane();
-    gp_Pnt aPnt = aPln.Location();
+    Point3d aPnt = aPln.Location();
 
     gp_Pln bPln = surf2.Plane();
 
     Standard_Real uPnt, vPnt;
     ElSLib::Parameters(bPln, aPnt, uPnt, vPnt);
-    gp_Pnt bPnt = ElSLib::Value(uPnt, vPnt, bPln);
+    Point3d bPnt = ElSLib::Value(uPnt, vPnt, bPln);
     if (aPnt.IsEqual(bPnt, Precision::Confusion()))
     {
       gp_Ax1 aAx1 = aPln.Axis();
@@ -146,16 +146,16 @@ void PrsDim_OffsetDimension::ComputeSelection(const Handle(SelectMgr_Selection)&
     myArrowSize = 15.;
   // std::cout<<"PrsDim_OffsetDimension::PrsDim_OffsetDimension " <<  myArrowSize << "
   // myArrowSize"<<std::endl;
-  gp_Pnt myTFAttach    = myFAttach.Transformed(myRelativePos);
-  gp_Pnt myTSAttach    = mySAttach.Transformed(myRelativePos);
+  Point3d myTFAttach    = myFAttach.Transformed(myRelativePos);
+  Point3d myTSAttach    = mySAttach.Transformed(myRelativePos);
   gp_Dir myTDirAttach  = myDirAttach.Transformed(myRelativePos);
   gp_Dir myTDirAttach2 = myDirAttach2.Transformed(myRelativePos);
-  gp_Pnt Tcurpos       = myPosition.Transformed(myRelativePos);
+  Point3d Tcurpos       = myPosition.Transformed(myRelativePos);
 
   gp_Lin L1(myTFAttach, myTDirAttach);
   gp_Lin L2(myTSAttach, myTDirAttach2);
-  gp_Pnt Proj1 = ElCLib::Value(ElCLib::Parameter(L1, Tcurpos), L1);
-  gp_Pnt Proj2 = ElCLib::Value(ElCLib::Parameter(L2, Tcurpos), L2);
+  Point3d Proj1 = ElCLib::Value(ElCLib::Parameter(L1, Tcurpos), L1);
+  Point3d Proj2 = ElCLib::Value(ElCLib::Parameter(L2, Tcurpos), L2);
   gp_Lin L3;
 
   Handle(SelectMgr_EntityOwner) own = new SelectMgr_EntityOwner(this, 7);
@@ -201,8 +201,8 @@ void PrsDim_OffsetDimension::ComputeSelection(const Handle(SelectMgr_Selection)&
   parmin = Min(parmin, parcur);
   parmax = Max(parmax, parcur);
 
-  gp_Pnt PointMin = ElCLib::Value(parmin, L3);
-  gp_Pnt PointMax = ElCLib::Value(parmax, L3);
+  Point3d PointMin = ElCLib::Value(parmin, L3);
+  Point3d PointMax = ElCLib::Value(parmax, L3);
 
   Handle(Select3D_SensitiveSegment) seg;
   if (!PointMin.IsEqual(PointMax, Precision::Confusion()))
@@ -251,8 +251,8 @@ void PrsDim_OffsetDimension::ComputeTwoAxesOffset(const Handle(Prs3d_Presentatio
   Standard_Real FirstUParam = surf1.FirstUParameter();
   Standard_Real FirstVParam = surf1.FirstVParameter();
   Standard_Real LastVParam  = surf1.LastVParameter();
-  gp_Pnt        P1First     = surf1.Value(FirstUParam, FirstVParam);
-  gp_Pnt        P1Last      = surf1.Value(FirstUParam, LastVParam);
+  Point3d        P1First     = surf1.Value(FirstUParam, FirstVParam);
+  Point3d        P1Last      = surf1.Value(FirstUParam, LastVParam);
 
   if (surf2.GetType() == GeomAbs_Cylinder)
   {
@@ -272,14 +272,14 @@ void PrsDim_OffsetDimension::ComputeTwoAxesOffset(const Handle(Prs3d_Presentatio
   FirstUParam    = surf2.FirstUParameter();
   FirstVParam    = surf2.FirstVParameter();
   LastVParam     = surf2.LastVParameter();
-  gp_Pnt P2First = surf2.Value(FirstUParam, FirstVParam);
-  gp_Pnt P2Last  = surf2.Value(FirstUParam, LastVParam);
+  Point3d P2First = surf2.Value(FirstUParam, FirstVParam);
+  Point3d P2Last  = surf2.Value(FirstUParam, LastVParam);
 
   myFAttach    = Ax1Surf1.Location();
   mySAttach    = Ax1Surf2.Location();
   myDirAttach  = Ax1Surf1.Direction();
   myDirAttach2 = myDirAttach;
-  gp_Pnt curpos;
+  Point3d curpos;
   gp_Lin aProjLine = gce_MakeLin(myFAttach, myDirAttach);
 
   if (myAutomaticPosition)
@@ -299,15 +299,15 @@ void PrsDim_OffsetDimension::ComputeTwoAxesOffset(const Handle(Prs3d_Presentatio
   curpos = ElCLib::Value(ElCLib::Parameter(aProjLine, curpos), aProjLine);
   // on projette pour la presentation
 
-  gp_Pnt P1FirstProj = ElCLib::Value(ElCLib::Parameter(aProjLine, P1First), aProjLine);
-  gp_Pnt P1LastProj  = ElCLib::Value(ElCLib::Parameter(aProjLine, P1Last), aProjLine);
+  Point3d P1FirstProj = ElCLib::Value(ElCLib::Parameter(aProjLine, P1First), aProjLine);
+  Point3d P1LastProj  = ElCLib::Value(ElCLib::Parameter(aProjLine, P1Last), aProjLine);
   if (P1FirstProj.Distance(curpos) > P1LastProj.Distance(curpos))
     myFAttach = P1FirstProj;
   else
     myFAttach = P1LastProj;
 
-  gp_Pnt P2FirstProj = ElCLib::Value(ElCLib::Parameter(aProjLine, P2First), aProjLine);
-  gp_Pnt P2LastProj  = ElCLib::Value(ElCLib::Parameter(aProjLine, P2Last), aProjLine);
+  Point3d P2FirstProj = ElCLib::Value(ElCLib::Parameter(aProjLine, P2First), aProjLine);
+  Point3d P2LastProj  = ElCLib::Value(ElCLib::Parameter(aProjLine, P2Last), aProjLine);
   if (P2FirstProj.Distance(curpos) > P2LastProj.Distance(curpos))
     mySAttach = P2FirstProj;
   else
@@ -321,11 +321,11 @@ void PrsDim_OffsetDimension::ComputeTwoAxesOffset(const Handle(Prs3d_Presentatio
   arr = la->ArrowAspect();
   arr->SetLength(myArrowSize);
 
-  gp_Pnt myTFAttach    = myFAttach.Transformed(aTrsf);
-  gp_Pnt myTSAttach    = mySAttach.Transformed(aTrsf);
+  Point3d myTFAttach    = myFAttach.Transformed(aTrsf);
+  Point3d myTSAttach    = mySAttach.Transformed(aTrsf);
   gp_Dir myTDirAttach  = myDirAttach.Transformed(aTrsf);
   gp_Dir myTDirAttach2 = myTDirAttach;
-  gp_Pnt Tcurpos       = curpos.Transformed(aTrsf);
+  Point3d Tcurpos       = curpos.Transformed(aTrsf);
 
   if (myIsSetBndBox)
     Tcurpos = PrsDim::TranslatePointToBound(Tcurpos, myDirAttach, myBndBox);
@@ -354,7 +354,7 @@ void PrsDim_OffsetDimension::ComputeTwoFacesOffset(const Handle(Prs3d_Presentati
                                                    const gp_Trsf&                    aTrsf)
 {
   gp_Dir norm1 = myDirAttach;
-  gp_Pnt curpos;
+  Point3d curpos;
   gp_Ax2 myax2;
   if (myAutomaticPosition && !myIsSetBndBox)
   {
@@ -414,7 +414,7 @@ void PrsDim_OffsetDimension::ComputeTwoFacesOffset(const Handle(Prs3d_Presentati
   gp_Ax3 anax3(myax2);
   gp_Pln apln(anax3);
 
-  // gp_Pnt proj2;
+  // Point3d proj2;
   Standard_Real u2, v2, uatt, vatt;
   ElSLib::Parameters(apln, mySAttach, uatt, vatt);
   ElSLib::Parameters(apln, curpos, u2, v2);
@@ -437,11 +437,11 @@ void PrsDim_OffsetDimension::ComputeTwoFacesOffset(const Handle(Prs3d_Presentati
   arr = la->ArrowAspect();
   arr->SetLength(myArrowSize);
 
-  gp_Pnt myTFAttach    = myFAttach.Transformed(aTrsf);
-  gp_Pnt myTSAttach    = mySAttach.Transformed(aTrsf);
+  Point3d myTFAttach    = myFAttach.Transformed(aTrsf);
+  Point3d myTSAttach    = mySAttach.Transformed(aTrsf);
   gp_Dir myTDirAttach  = myDirAttach.Transformed(aTrsf);
   gp_Dir myTDirAttach2 = myDirAttach2.Transformed(aTrsf);
-  gp_Pnt Tcurpos       = curpos.Transformed(aTrsf);
+  Point3d Tcurpos       = curpos.Transformed(aTrsf);
 
   /*
     if (myIsSetBndBox)

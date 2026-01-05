@@ -51,7 +51,7 @@ void StdPrs_ShadedSurface::Add(const Handle(Prs3d_Presentation)& thePrs,
 
   Standard_Real U1, U2, V1, V2, DU, DV;
 
-  gp_Pnt P1, P2;
+  Point3d P1, P2;
   gp_Vec D1U, D1V, D1, D2;
 
   for (Standard_Integer NU = 1; NU <= aNBUintv; ++NU)

@@ -36,14 +36,14 @@ static Standard_Boolean Controle(const TColgp_Array1OfPnt&   Poles,
 {
   Standard_Boolean        IsPlan = Standard_False;
   Standard_Real           gx, gy, gz;
-  gp_Pnt                  Bary;
+  Point3d                  Bary;
   gp_Dir                  DX, DY;
   constexpr Standard_Real aTolSingular = Precision::Confusion();
 
   GeomLib::Inertia(Poles, Bary, DX, DY, gx, gy, gz);
   if (gz < Tol && gy > aTolSingular)
   {
-    gp_Pnt        P;
+    Point3d        P;
     gp_Vec        DU, DV;
     Standard_Real umin, umax, vmin, vmax;
     S->Bounds(umin, umax, vmin, vmax);
@@ -159,7 +159,7 @@ GeomLib_IsPlanarSurface::GeomLib_IsPlanarSurface(const Handle(Geom_Surface)& S,
 
     case GeomAbs_SurfaceOfRevolution: {
       Standard_Boolean Essai = Standard_True;
-      gp_Pnt           P;
+      Point3d           P;
       gp_Vec           DU, DV, Dn;
       gp_Dir           Dir = AS.AxeOfRevolution().Direction();
       Standard_Real    Umin, Umax, Vmin, Vmax;
@@ -203,7 +203,7 @@ GeomLib_IsPlanarSurface::GeomLib_IsPlanarSurface(const Handle(Geom_Surface)& S,
       Standard_Real    Umin, Umax, Vmin, Vmax;
       Standard_Real    norm;
       gp_Vec           Du, Dv, Dn;
-      gp_Pnt           P;
+      Point3d           P;
 
       S->Bounds(Umin, Umax, Vmin, Vmax);
       S->D1((Umin + Umax) / 2, (Vmin + Vmax) / 2, P, Du, Dv);

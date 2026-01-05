@@ -210,14 +210,14 @@ TopoDS_Edge HLRBRep::MakeEdge3d(const HLRBRep_Curve& ec,
     V1new = V1;
   else
   {
-    gp_Pnt aPnt = BAcurve.Value(U1);
+    Point3d aPnt = BAcurve.Value(U1);
     V1new       = BRepLib_MakeVertex(aPnt);
   }
   if (Abs(lpar - U2) <= Tol)
     V2new = V2;
   else
   {
-    gp_Pnt aPnt = BAcurve.Value(U2);
+    Point3d aPnt = BAcurve.Value(U2);
     V2new       = BRepLib_MakeVertex(aPnt);
   }
 

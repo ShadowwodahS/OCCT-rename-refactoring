@@ -28,7 +28,7 @@
 //=================================================================================================
 
 void Prs3d_Arrow::Draw(const Handle(Graphic3d_Group)& theGroup,
-                       const gp_Pnt&                  theLocation,
+                       const Point3d&                  theLocation,
                        const gp_Dir&                  theDirection,
                        const Standard_Real            theAngle,
                        const Standard_Real            theLength)
@@ -40,7 +40,7 @@ void Prs3d_Arrow::Draw(const Handle(Graphic3d_Group)& theGroup,
 
 //=================================================================================================
 
-Handle(Graphic3d_ArrayOfSegments) Prs3d_Arrow::DrawSegments(const gp_Pnt&          theLocation,
+Handle(Graphic3d_ArrayOfSegments) Prs3d_Arrow::DrawSegments(const Point3d&          theLocation,
                                                             const gp_Dir&          theDir,
                                                             const Standard_Real    theAngle,
                                                             const Standard_Real    theLength,
@@ -77,7 +77,7 @@ Handle(Graphic3d_ArrayOfSegments) Prs3d_Arrow::DrawSegments(const gp_Pnt&       
     const Standard_Real aCos = Cos(2.0 * M_PI / theNbSegments * (aVertIter - 1));
     const Standard_Real aSin = Sin(2.0 * M_PI / theNbSegments * (aVertIter - 1));
 
-    const gp_Pnt pp(aC.X() + (aCos * anXYZi.X() + aSin * anXYZj.X()) * theLength * Tg,
+    const Point3d pp(aC.X() + (aCos * anXYZi.X() + aSin * anXYZj.X()) * theLength * Tg,
                     aC.Y() + (aCos * anXYZi.Y() + aSin * anXYZj.Y()) * theLength * Tg,
                     aC.Z() + (aCos * anXYZi.Z() + aSin * anXYZj.Z()) * theLength * Tg);
 
@@ -152,7 +152,7 @@ Handle(Graphic3d_ArrayOfTriangles) Prs3d_Arrow::DrawShaded(const gp_Ax1&        
 
   if (aNbTrisCone != 0)
   {
-    gp_Pnt aConeOrigin =
+    Point3d aConeOrigin =
       theAxis.Location().Translated(gp_Vec(theAxis.Direction().X() * aTubeLength,
                                            theAxis.Direction().Y() * aTubeLength,
                                            theAxis.Direction().Z() * aTubeLength));

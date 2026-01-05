@@ -22,7 +22,7 @@
 #include <Standard_Handle.hxx>
 
 #include <Standard_Real.hxx>
-class gp_Pnt;
+class Point3d;
 class gp_Mat;
 
 //! This package defines algorithms to compute the global properties
@@ -58,8 +58,8 @@ public:
   //! where Inertia/G is the matrix of inertia of the
   //! system relative to its center of mass as returned by
   //! the function MatrixOfInertia on any GProp_GProps object.
-  Standard_EXPORT static void HOperator(const gp_Pnt&       G,
-                                        const gp_Pnt&       Q,
+  Standard_EXPORT static void HOperator(const Point3d&       G,
+                                        const Point3d&       Q,
                                         const Standard_Real Mass,
                                         gp_Mat&             Operator);
 };

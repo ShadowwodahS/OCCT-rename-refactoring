@@ -105,11 +105,11 @@ public:
   void SetValue(const Standard_Real theVal) { myVal = theVal; }
 
   //! Returns the position set using SetPosition.
-  const gp_Pnt& Position() const { return myPosition; }
+  const Point3d& Position() const { return myPosition; }
 
   //! Allows you to provide the objects in the relation with
   //! settings for a non-default position.
-  void SetPosition(const gp_Pnt& thePosition)
+  void SetPosition(const Point3d& thePosition)
   {
     myPosition          = thePosition;
     myAutomaticPosition = Standard_False;
@@ -195,8 +195,8 @@ protected:
     const Handle(Prs3d_Presentation)& aPres,
     const TopoDS_Edge&                anEdge,
     const Handle(Geom_Curve)&         ProjCurve,
-    const gp_Pnt&                     FirstP,
-    const gp_Pnt&                     LastP,
+    const Point3d&                     FirstP,
+    const Point3d&                     LastP,
     const Quantity_NameOfColor        aColor   = Quantity_NOC_PURPLE,
     const Standard_Real               aWidth   = 2,
     const Aspect_TypeOfLine           aProjTOL = Aspect_TOL_DASH,
@@ -209,7 +209,7 @@ protected:
   Standard_EXPORT void ComputeProjVertexPresentation(
     const Handle(Prs3d_Presentation)& aPres,
     const TopoDS_Vertex&              aVertex,
-    const gp_Pnt&                     ProjPoint,
+    const Point3d&                     ProjPoint,
     const Quantity_NameOfColor        aColor   = Quantity_NOC_PURPLE,
     const Standard_Real               aWidth   = 2,
     const Aspect_TypeOfMarker         aProjTOM = Aspect_TOM_PLUS,
@@ -220,7 +220,7 @@ protected:
   TopoDS_Shape               mySShape;
   Handle(Geom_Plane)         myPlane;
   Standard_Real              myVal;
-  gp_Pnt                     myPosition;
+  Point3d                     myPosition;
   TCollection_ExtendedString myText;
   Standard_Real              myArrowSize;
   Standard_Boolean           myAutomaticPosition;

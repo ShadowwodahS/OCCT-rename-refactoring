@@ -25,7 +25,7 @@
 #include <TColStd_HArray1OfInteger.hxx>
 #include <TColgp_HArray1OfXYZ.hxx>
 #include <IGESData_IGESEntity.hxx>
-class gp_Pnt;
+class Point3d;
 
 class IGESDimen_NewDimensionedGeometry;
 DEFINE_STANDARD_HANDLE(IGESDimen_NewDimensionedGeometry, IGESData_IGESEntity)
@@ -86,11 +86,11 @@ public:
 
   //! coordinate of point on Index'th geometry entity
   //! raises exception if Index <= 0 or Index > NbGeometries()
-  Standard_EXPORT gp_Pnt Point(const Standard_Integer Index) const;
+  Standard_EXPORT Point3d Point(const Standard_Integer Index) const;
 
   //! coordinate of point on Index'th geometry entity after Transformation
   //! raises exception if Index <= 0 or Index > NbGeometries()
-  Standard_EXPORT gp_Pnt TransformedPoint(const Standard_Integer Index) const;
+  Standard_EXPORT Point3d TransformedPoint(const Standard_Integer Index) const;
 
   DEFINE_STANDARD_RTTIEXT(IGESDimen_NewDimensionedGeometry, IGESData_IGESEntity)
 

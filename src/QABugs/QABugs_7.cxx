@@ -260,7 +260,7 @@ static Standard_Integer OCC862(Draw_Interpretor& di, Standard_Integer argc, cons
   // Fill array of poles
   TColgp_Array1OfPnt aPoles(1, Glob_NbPoles);
   for (i = 0; i < Glob_NbPoles; i++)
-    aPoles.SetValue(i + 1, gp_Pnt(Glob_Poles[i][0], Glob_Poles[i][1], Glob_Poles[i][2]));
+    aPoles.SetValue(i + 1, Point3d(Glob_Poles[i][0], Glob_Poles[i][1], Glob_Poles[i][2]));
   // Fill array of knots
   TColStd_Array1OfReal aKnots(1, Glob_NbKnots);
   for (i = 0; i < Glob_NbKnots; i++)
@@ -276,7 +276,7 @@ static Standard_Integer OCC862(Draw_Interpretor& di, Standard_Integer argc, cons
   // Create trimmed line
   gp_XYZ                    p1(60000, -7504.83, 6000);
   gp_XYZ                    p2(60000, 7504.83, 6000);
-  Handle(Geom_Line)         L  = new Geom_Line(gp_Pnt(p1), gp_Dir(p2 - p1));
+  Handle(Geom_Line)         L  = new Geom_Line(Point3d(p1), gp_Dir(p2 - p1));
   Handle(Geom_TrimmedCurve) C2 = new Geom_TrimmedCurve(L, 0.0, (p2 - p1).Modulus());
 
   DrawTrSurf::Set(argv[1], C1);
@@ -296,7 +296,7 @@ static Standard_Integer OCC862(Draw_Interpretor& di, Standard_Integer argc, cons
     if (nbEx)
     {
       // Get minimal distance data
-      gp_Pnt P1, P2;
+      Point3d P1, P2;
       Ex.NearestPoints(P1, P2);
       Standard_Real U1, U2;
       Ex.LowerDistanceParameters(U1, U2);

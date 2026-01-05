@@ -64,7 +64,7 @@ static Standard_Integer DDataStd_SetPoint(Draw_Interpretor& di,
   }
   else if (nb == 4)
   {
-    gp_Pnt p;
+    Point3d p;
     if (DrawTrSurf::GetPoint(arg[3], p))
     {
       TDataXtd_Point::Set(L, p);
@@ -160,7 +160,7 @@ static Standard_Integer DDataStd_GetPoint(Draw_Interpretor&, Standard_Integer nb
   if (!DDF::GetDF(arg[1], DF))
     return 1;
   Handle(TDataXtd_Point) A;
-  gp_Pnt                 P;
+  Point3d                 P;
   if (!DDF::Find(DF, arg[2], TDataXtd_Point::GetID(), A))
     return 1;
   if (TDataXtd_Geometry::Point(A->Label(), P))

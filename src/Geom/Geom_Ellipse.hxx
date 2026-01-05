@@ -25,7 +25,7 @@
 class gp_Elips;
 class gp_Ax2;
 class gp_Ax1;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 class gp_Trsf;
 class Geom_Geometry;
@@ -143,11 +143,11 @@ public:
 
   //! Returns the first focus of the ellipse. This focus is on the
   //! positive side of the "XAxis" of the ellipse.
-  Standard_EXPORT gp_Pnt Focus1() const;
+  Standard_EXPORT Point3d Focus1() const;
 
   //! Returns the second focus of the ellipse. This focus is on
   //! the negative side of the "XAxis" of the ellipse.
-  Standard_EXPORT gp_Pnt Focus2() const;
+  Standard_EXPORT Point3d Focus2() const;
 
   //! Returns the major  radius of this ellipse.
   Standard_EXPORT Standard_Real MajorRadius() const;
@@ -182,21 +182,21 @@ public:
   //! P = C + MajorRadius * Cos (U) * XDir + MinorRadius * Sin (U) * YDir
   //! where C is the center of the ellipse , XDir the direction of
   //! the "XAxis" and "YDir" the "YAxis" of the ellipse.
-  Standard_EXPORT void D0(const Standard_Real U, gp_Pnt& P) const Standard_OVERRIDE;
+  Standard_EXPORT void D0(const Standard_Real U, Point3d& P) const Standard_OVERRIDE;
 
-  Standard_EXPORT void D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V1) const Standard_OVERRIDE;
+  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, gp_Vec& V1) const Standard_OVERRIDE;
 
   //! Returns the point P of parameter U. The vectors V1 and V2
   //! are the first and second derivatives at this point.
   Standard_EXPORT void D2(const Standard_Real U,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             V1,
                           gp_Vec&             V2) const Standard_OVERRIDE;
 
   //! Returns the point P of parameter U, the first second and
   //! third derivatives V1 V2 and V3.
   Standard_EXPORT void D3(const Standard_Real U,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             V1,
                           gp_Vec&             V2,
                           gp_Vec&             V3) const Standard_OVERRIDE;

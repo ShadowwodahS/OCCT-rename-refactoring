@@ -70,8 +70,8 @@ private:
                                             const gp_Trsf&                    aTrsf);
 
 private:
-  gp_Pnt  myFAttach;
-  gp_Pnt  mySAttach;
+  Point3d  myFAttach;
+  Point3d  mySAttach;
   gp_Dir  myDirAttach;
   gp_Dir  myDirAttach2;
   gp_Trsf myRelativePos;

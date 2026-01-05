@@ -237,7 +237,7 @@ static void PlotIso(Draw_Display&        dis,
 
   ++PlotCount;
 
-  gp_Pnt Pl, Pr, Pm;
+  Point3d Pl, Pr, Pm;
 
   if (T == GeomAbs_IsoU)
   {
@@ -300,7 +300,7 @@ static void PlotEdge(Draw_Display&          dis,
 
   ++PlotCount;
 
-  gp_Pnt Pl, Pr, Pm;
+  Point3d Pl, Pr, Pm;
 
   C.D0(f, Pl);
   C.D0(f + step / 2., Pm);
@@ -347,7 +347,7 @@ void DBRep_DrawableShape::DrawOn(Draw_Display& dis) const
   if (myShape.IsNull())
   {
     dis.SetColor(myConnCol);
-    dis.DrawString(gp_Pnt(0, 0, 0), "Null Shape");
+    dis.DrawString(Point3d(0, 0, 0), "Null Shape");
     return;
   }
 
@@ -365,8 +365,8 @@ void DBRep_DrawableShape::DrawOn(Draw_Display& dis) const
   GeomAbs_IsoType T;
   Standard_Real   Par, T1, T2;
   Standard_Real   U1, U2, V1, V2, stepU = 0., stepV = 0.;
-  //  gp_Pnt P, P1;
-  gp_Pnt           P;
+  //  Point3d P, P1;
+  Point3d           P;
   Standard_Integer i, j;
 
   // Faces
@@ -778,7 +778,7 @@ void DBRep_DrawableShape::DrawOn(Draw_Display& dis) const
       if (myDispOr)
       {
         // display an arrow at the end
-        gp_Pnt aPnt;
+        Point3d aPnt;
         gp_Vec V;
         C.D1(l, aPnt, V);
         gp_Pnt2d p1, p2;
@@ -1197,7 +1197,7 @@ void DBRep_DrawableShape::display(const Handle(Poly_Triangulation)& T,
 //=================================================================================================
 
 Standard_Boolean DBRep_DrawableShape::addMeshNormals(
-  NCollection_Vector<std::pair<gp_Pnt, gp_Pnt>>& theNormals,
+  NCollection_Vector<std::pair<Point3d, Point3d>>& theNormals,
   const TopoDS_Face&                             theFace,
   const Standard_Real                            theLength)
 {
@@ -1212,7 +1212,7 @@ Standard_Boolean DBRep_DrawableShape::addMeshNormals(
   BRepAdaptor_Surface aSurface(theFace);
   for (Standard_Integer aNodeIter = 1; aNodeIter <= aTriangulation->NbNodes(); ++aNodeIter)
   {
-    gp_Pnt aP1 = aTriangulation->Node(aNodeIter);
+    Point3d aP1 = aTriangulation->Node(aNodeIter);
     if (!aLoc.IsIdentity())
     {
       aP1.Transform(aLoc.Transformation());
@@ -1226,7 +1226,7 @@ Standard_Boolean DBRep_DrawableShape::addMeshNormals(
     else
     {
       const gp_Pnt2d& aUVNode = aTriangulation->UVNode(aNodeIter);
-      gp_Pnt          aDummyPnt;
+      Point3d          aDummyPnt;
       gp_Vec          aV1, aV2;
       aSurface.D1(aUVNode.X(), aUVNode.Y(), aDummyPnt, aV1, aV2);
       aNormal = aV1.Crossed(aV2);
@@ -1244,8 +1244,8 @@ Standard_Boolean DBRep_DrawableShape::addMeshNormals(
                 << ", Z = " << aP1.Z() << "\n";
     }
 
-    const gp_Pnt aP2 = aP1.Translated(aNormal);
-    theNormals.Append(std::pair<gp_Pnt, gp_Pnt>(aP1, aP2));
+    const Point3d aP2 = aP1.Translated(aNormal);
+    theNormals.Append(std::pair<Point3d, Point3d>(aP1, aP2));
   }
   return Standard_True;
 }
@@ -1253,7 +1253,7 @@ Standard_Boolean DBRep_DrawableShape::addMeshNormals(
 //=================================================================================================
 
 void DBRep_DrawableShape::addMeshNormals(
-  NCollection_DataMap<TopoDS_Face, NCollection_Vector<std::pair<gp_Pnt, gp_Pnt>>>& theNormals,
+  NCollection_DataMap<TopoDS_Face, NCollection_Vector<std::pair<Point3d, Point3d>>>& theNormals,
   const TopoDS_Shape&                                                              theShape,
   const Standard_Real                                                              theLength)
 {
@@ -1261,10 +1261,10 @@ void DBRep_DrawableShape::addMeshNormals(
   for (TopExp_Explorer aFaceIt(theShape, TopAbs_FACE); aFaceIt.More(); aFaceIt.Next())
   {
     const TopoDS_Face&                             aFace        = TopoDS::Face(aFaceIt.Current());
-    NCollection_Vector<std::pair<gp_Pnt, gp_Pnt>>* aFaceNormals = theNormals.ChangeSeek(aFace);
+    NCollection_Vector<std::pair<Point3d, Point3d>>* aFaceNormals = theNormals.ChangeSeek(aFace);
     if (aFaceNormals == NULL)
     {
-      aFaceNormals = theNormals.Bound(aFace, NCollection_Vector<std::pair<gp_Pnt, gp_Pnt>>());
+      aFaceNormals = theNormals.Bound(aFace, NCollection_Vector<std::pair<Point3d, Point3d>>());
     }
 
     addMeshNormals(*aFaceNormals, aFace, theLength);
@@ -1274,7 +1274,7 @@ void DBRep_DrawableShape::addMeshNormals(
 //=================================================================================================
 
 Standard_Boolean DBRep_DrawableShape::addSurfaceNormals(
-  NCollection_Vector<std::pair<gp_Pnt, gp_Pnt>>& theNormals,
+  NCollection_Vector<std::pair<Point3d, Point3d>>& theNormals,
   const TopoDS_Face&                             theFace,
   const Standard_Real                            theLength,
   const Standard_Integer                         theNbAlongU,
@@ -1304,7 +1304,7 @@ Standard_Boolean DBRep_DrawableShape::addSurfaceNormals(
     {
       const Standard_Real aV = aVmin + (isUseMidV ? 1 : aVIter) * aDV;
 
-      gp_Pnt aP1;
+      Point3d aP1;
       gp_Vec aV1, aV2;
       aSurface.D1(aU, aV, aP1, aV1, aV2);
 
@@ -1320,8 +1320,8 @@ Standard_Boolean DBRep_DrawableShape::addSurfaceNormals(
         std::cout << "Null normal at U = " << aU << ", V = " << aV << "\n";
       }
 
-      const gp_Pnt aP2 = aP1.Translated(aVec);
-      theNormals.Append(std::pair<gp_Pnt, gp_Pnt>(aP1, aP2));
+      const Point3d aP2 = aP1.Translated(aVec);
+      theNormals.Append(std::pair<Point3d, Point3d>(aP1, aP2));
     }
   }
   return Standard_True;
@@ -1330,7 +1330,7 @@ Standard_Boolean DBRep_DrawableShape::addSurfaceNormals(
 //=================================================================================================
 
 void DBRep_DrawableShape::addSurfaceNormals(
-  NCollection_DataMap<TopoDS_Face, NCollection_Vector<std::pair<gp_Pnt, gp_Pnt>>>& theNormals,
+  NCollection_DataMap<TopoDS_Face, NCollection_Vector<std::pair<Point3d, Point3d>>>& theNormals,
   const TopoDS_Shape&                                                              theShape,
   const Standard_Real                                                              theLength,
   const Standard_Integer                                                           theNbAlongU,
@@ -1339,10 +1339,10 @@ void DBRep_DrawableShape::addSurfaceNormals(
   for (TopExp_Explorer aFaceIt(theShape, TopAbs_FACE); aFaceIt.More(); aFaceIt.Next())
   {
     const TopoDS_Face&                             aFace        = TopoDS::Face(aFaceIt.Current());
-    NCollection_Vector<std::pair<gp_Pnt, gp_Pnt>>* aFaceNormals = theNormals.ChangeSeek(aFace);
+    NCollection_Vector<std::pair<Point3d, Point3d>>* aFaceNormals = theNormals.ChangeSeek(aFace);
     if (aFaceNormals == NULL)
     {
-      aFaceNormals = theNormals.Bound(aFace, NCollection_Vector<std::pair<gp_Pnt, gp_Pnt>>());
+      aFaceNormals = theNormals.Bound(aFace, NCollection_Vector<std::pair<Point3d, Point3d>>());
     }
     addSurfaceNormals(*aFaceNormals, aFace, theLength, theNbAlongU, theNbAlongV);
   }

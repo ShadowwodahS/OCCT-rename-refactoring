@@ -107,10 +107,10 @@ static Standard_Integer NbBISSEC    = 0;
 static void QuasiFleche(const Adaptor3d_Curve&  C,
                         const Standard_Real     Deflection2,
                         const Standard_Real     Udeb,
-                        const gp_Pnt&           Pdeb,
+                        const Point3d&           Pdeb,
                         const gp_Vec&           Vdeb,
                         const Standard_Real     Ufin,
-                        const gp_Pnt&           Pfin,
+                        const Point3d&           Pfin,
                         const gp_Vec&           Vfin,
                         const Standard_Integer  Nbmin,
                         const Standard_Real     Eps,
@@ -505,7 +505,7 @@ void BRepFill_OffsetWire::Perform(const Standard_Real Offset, const Standard_Rea
           Standard_Integer np;
           for (np = 2; np < NPnts; np++)
           {
-            gp_Pnt LP = Points(np);
+            Point3d LP = Points(np);
             LV        = BRepLib_MakeVertex(LP);
             newE      = BRepLib_MakeEdge(FV, LV);
             aL.Append(newE);
@@ -912,7 +912,7 @@ void BRepFill_OffsetWire::PerformWithBiLo(const TopoDS_Face&              Spine,
       TopoDS_Vertex VC;
       myBuilder.MakeVertex(VC);
       gp_Pnt2d P2 = Bisec.Value()->Value(Params.Value(s).X());
-      gp_Pnt   PVC(P2.X(), P2.Y(), 0.);
+      Point3d   PVC(P2.X(), P2.Y(), 0.);
 
       myBuilder.UpdateVertex(VC, PVC, Precision::Confusion());
       Vertices.Append(VC);
@@ -1065,8 +1065,8 @@ void BRepFill_OffsetWire::PerformWithBiLo(const TopoDS_Face&              Spine,
   {
     TopoDS_Vertex OldV = TopoDS::Vertex(MapVV.FindKey(ind));
     TopoDS_Vertex NewV = TopoDS::Vertex(MapVV(ind));
-    gp_Pnt        P1   = BRep_Tool::Pnt(OldV);
-    gp_Pnt        P2   = BRep_Tool::Pnt(NewV);
+    Point3d        P1   = BRep_Tool::Pnt(OldV);
+    Point3d        P2   = BRep_Tool::Pnt(NewV);
     myBuilder.UpdateVertex(NewV, P1.Distance(P2));
     TopTools_ListOfShape LV;
     LV.Append(NewV.Oriented(TopAbs_FORWARD));
@@ -1101,7 +1101,7 @@ void BRepFill_OffsetWire::PerformWithBiLo(const TopoDS_Face&              Spine,
     TopoDS_Vertex V = TopoDS::Vertex(exp.Current());
     if (MapVertex.Add(V))
     {
-      gp_Pnt P = BRep_Tool::Pnt(V);
+      Point3d P = BRep_Tool::Pnt(V);
       P        = RefPlane->Value(P.X(), P.Y());
       myBuilder.UpdateVertex(V, P, Precision::Confusion());
     }
@@ -1124,8 +1124,8 @@ void BRepFill_OffsetWire::PerformWithBiLo(const TopoDS_Face&              Spine,
     Handle(Geom_Curve) theCurve = BRep_Tool::Curve(anEdge, loc, f, l);
     theCurve                    = Handle(Geom_Curve)::DownCast(theCurve->Copy());
     theCurve->Transform(loc.Transformation());
-    gp_Pnt f3d = theCurve->Value(f);
-    gp_Pnt l3d = theCurve->Value(l);
+    Point3d f3d = theCurve->Value(f);
+    Point3d l3d = theCurve->Value(l);
 
     Standard_Real dist1, dist2;
     dist1 = f3d.Distance(TV1->Pnt());
@@ -1592,7 +1592,7 @@ void BRepFill_OffsetWire::FixHoles()
     {
       throw ExceptionBase("BRepFill_OffsetWire::FixHoles(): Wrong wire.");
     }
-    gp_Pnt Pf, Pl;
+    Point3d Pf, Pl;
     Pf                     = BRep_Tool::Pnt(Vf);
     Pl                     = BRep_Tool::Pnt(Vl);
     Standard_Real    DistF = RealLast(), DistL = RealLast();
@@ -1609,7 +1609,7 @@ void BRepFill_OffsetWire::FixHoles()
         throw ExceptionBase("BRepFill_OffsetWire::FixHoles(): Wrong wire.");
       }
 
-      gp_Pnt P1, P2;
+      Point3d P1, P2;
       P1                 = BRep_Tool::Pnt(V1);
       P2                 = BRep_Tool::Pnt(V2);
       Standard_Real dist = Pf.Distance(P1);
@@ -1943,7 +1943,7 @@ Standard_Integer CutEdge(const TopoDS_Edge&    E,
     else
     {
       //  Modified by Sergey KHROMOV - Wed Mar  6 17:38:02 2002 Begin
-      gp_Pnt P = aC->Value(CC->LastParameter());
+      Point3d P = aC->Value(CC->LastParameter());
 
       VL = BRepLib_MakeVertex(P);
       B.UpdateVertex(VL, aTol);
@@ -2214,7 +2214,7 @@ Standard_Boolean VertexFromNode(const Handle(MAT_Node)&      aNode,
     }
     else
     {
-      gp_Pnt P(PN.X(), PN.Y(), 0.);
+      Point3d P(PN.X(), PN.Y(), 0.);
       B.MakeVertex(VN);
       B.UpdateVertex(VN, P, Precision::Confusion());
       MapNodeVertex.Bind(aNode, VN);
@@ -2365,7 +2365,7 @@ void TrimEdge(const TopoDS_Edge&                   E,
         {
           fpar             = TrPar1;
           gp_Pnt2d TrPnt2d = PCurve->Value(fpar);
-          gp_Pnt   TrPnt(TrPnt2d.X(), TrPnt2d.Y(), 0.);
+          Point3d   TrPnt(TrPnt2d.X(), TrPnt2d.Y(), 0.);
           V1 = BRepLib_MakeVertex(TrPnt);
         }
         TheBuilder.Add(NewEdge, V1.Oriented(TopAbs_FORWARD));
@@ -2378,7 +2378,7 @@ void TrimEdge(const TopoDS_Edge&                   E,
         {
           lpar             = TrPar2;
           gp_Pnt2d TrPnt2d = PCurve->Value(lpar);
-          gp_Pnt   TrPnt(TrPnt2d.X(), TrPnt2d.Y(), 0.);
+          Point3d   TrPnt(TrPnt2d.X(), TrPnt2d.Y(), 0.);
           V2 = BRepLib_MakeVertex(TrPnt);
         }
         TheBuilder.Add(NewEdge, TheVer.First().Oriented(TopAbs_REVERSED));
@@ -2394,7 +2394,7 @@ void TrimEdge(const TopoDS_Edge&                   E,
         {
           lpar             = TrPar2;
           gp_Pnt2d TrPnt2d = PCurve->Value(lpar);
-          gp_Pnt   TrPnt(TrPnt2d.X(), TrPnt2d.Y(), 0.);
+          Point3d   TrPnt(TrPnt2d.X(), TrPnt2d.Y(), 0.);
           V2 = BRepLib_MakeVertex(TrPnt);
         }
         TheBuilder.Add(NewEdge, TheVer.First().Oriented(TopAbs_FORWARD));
@@ -2407,7 +2407,7 @@ void TrimEdge(const TopoDS_Edge&                   E,
         {
           fpar             = TrPar1;
           gp_Pnt2d TrPnt2d = PCurve->Value(fpar);
-          gp_Pnt   TrPnt(TrPnt2d.X(), TrPnt2d.Y(), 0.);
+          Point3d   TrPnt(TrPnt2d.X(), TrPnt2d.Y(), 0.);
           V1 = BRepLib_MakeVertex(TrPnt);
         }
         TheBuilder.Add(NewEdge, V1.Oriented(TopAbs_REVERSED));
@@ -2520,7 +2520,7 @@ Standard_Boolean DoubleOrNotInside(const TopTools_ListOfShape& LV, const TopoDS_
 
 Standard_Boolean IsSmallClosedEdge(const TopoDS_Edge& anEdge, const TopoDS_Vertex& aVertex)
 {
-  gp_Pnt   PV = BRep_Tool::Pnt(aVertex);
+  Point3d   PV = BRep_Tool::Pnt(aVertex);
   gp_Pnt2d PV2d, Pfirst, Plast, Pmid;
   PV2d.SetCoord(PV.X(), PV.Y());
 
@@ -2678,7 +2678,7 @@ static Standard_Boolean PerformCurve(TColStd_SequenceOfReal& Parameters,
   Standard_Real UU1 = Min(U1, U2);
   Standard_Real UU2 = Max(U1, U2);
 
-  gp_Pnt Pdeb, Pfin;
+  Point3d Pdeb, Pfin;
   gp_Vec Ddeb, Dfin;
   C.D1(UU1, Pdeb, Ddeb);
   Parameters.Append(UU1);
@@ -2715,10 +2715,10 @@ static void QuasiFleche(const Adaptor3d_Curve& C,
 
                         const Standard_Real     Deflection2,
                         const Standard_Real     Udeb,
-                        const gp_Pnt&           Pdeb,
+                        const Point3d&           Pdeb,
                         const gp_Vec&           Vdeb,
                         const Standard_Real     Ufin,
-                        const gp_Pnt&           Pfin,
+                        const Point3d&           Pfin,
                         const gp_Vec&           Vfin,
                         const Standard_Integer  Nbmin,
                         const Standard_Real     Eps,
@@ -2727,7 +2727,7 @@ static void QuasiFleche(const Adaptor3d_Curve& C,
 {
   Standard_Integer Ptslength = Points.Length();
   Standard_Real    Udelta    = Ufin - Udeb;
-  gp_Pnt           Pdelta;
+  Point3d           Pdelta;
   gp_Vec           Vdelta;
   if (Nbmin > 2)
   {
@@ -2763,8 +2763,8 @@ static void QuasiFleche(const Adaptor3d_Curve& C,
   }
   if (!flecheok)
   {
-    gp_Pnt Pmid((Pdeb.XYZ() + Pdelta.XYZ()) / 2.);
-    gp_Pnt Pverif(C.Value(Udeb + Udelta / 2.));
+    Point3d Pmid((Pdeb.XYZ() + Pdelta.XYZ()) / 2.);
+    Point3d Pverif(C.Value(Udeb + Udelta / 2.));
     theFleche = Pmid.SquareDistance(Pverif);
   }
 

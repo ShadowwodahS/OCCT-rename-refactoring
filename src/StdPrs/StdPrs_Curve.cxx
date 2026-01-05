@@ -47,7 +47,7 @@ static void FindLimits(const Adaptor3d_Curve& aCurve,
 
   if (firstInf || lastInf)
   {
-    gp_Pnt        P1, P2;
+    Point3d        P1, P2;
     Standard_Real delta = 1;
     if (firstInf && lastInf)
     {
@@ -104,8 +104,8 @@ static void DrawCurve(const Adaptor3d_Curve&         aCurve,
   switch (aCurve.GetType())
   {
     case GeomAbs_Line: {
-      gp_Pnt p1 = aCurve.Value(U1);
-      gp_Pnt p2 = aCurve.Value(U2);
+      Point3d p1 = aCurve.Value(U1);
+      Point3d p2 = aCurve.Value(U2);
       Points.Append(p1);
       Points.Append(p2);
       if (drawCurve)
@@ -120,7 +120,7 @@ static void DrawCurve(const Adaptor3d_Curve&         aCurve,
     default: {
       const Standard_Integer N  = Max(2, NbP * nbintervals);
       const Standard_Real    DU = (U2 - U1) / (N - 1);
-      gp_Pnt                 p;
+      Point3d                 p;
 
       Handle(Graphic3d_ArrayOfPolylines) aPrims;
       if (drawCurve)
@@ -155,10 +155,10 @@ static Standard_Boolean MatchCurve(const Standard_Real    X,
   switch (aCurve.GetType())
   {
     case GeomAbs_Line: {
-      gp_Pnt p1 = aCurve.Value(U1);
+      Point3d p1 = aCurve.Value(U1);
       if (Abs(X - p1.X()) + Abs(Y - p1.Y()) + Abs(Z - p1.Z()) <= aDistance)
         return Standard_True;
-      gp_Pnt p2 = aCurve.Value(U2);
+      Point3d p2 = aCurve.Value(U2);
       if (Abs(X - p2.X()) + Abs(Y - p2.Y()) + Abs(Z - p2.Z()) <= aDistance)
         return Standard_True;
       return Prs3d::MatchSegment(X, Y, Z, aDistance, p1, p2, retdist);
@@ -170,7 +170,7 @@ static Standard_Boolean MatchCurve(const Standard_Real    X,
       const Standard_Integer N      = Max(2, (Standard_Integer)IntegerPart(Er));
       if (N > 0)
       {
-        gp_Pnt p1, p2;
+        Point3d p1, p2;
         for (Standard_Integer Index = 1; Index <= N + 1; Index++)
         {
           p2 = aCurve.Value(U1 + (Index - 1) * DU);
@@ -189,7 +189,7 @@ static Standard_Boolean MatchCurve(const Standard_Real    X,
     }
     default: {
       const Standard_Real DU = (U2 - U1) / (NbP - 1);
-      gp_Pnt              p1, p2;
+      Point3d              p1, p2;
       for (Standard_Integer i = 1; i <= NbP; i++)
       {
         p2 = aCurve.Value(U1 + (i - 1) * DU);
@@ -225,7 +225,7 @@ void StdPrs_Curve::Add(const Handle(Prs3d_Presentation)& aPresentation,
 
   if (aDrawer->LineArrowDraw())
   {
-    gp_Pnt Location;
+    Point3d Location;
     gp_Vec Direction;
     aCurve.D1(aCurve.LastParameter(), Location, Direction);
     Prs3d_Arrow::Draw(aPresentation->CurrentGroup(),
@@ -289,7 +289,7 @@ void StdPrs_Curve::Add(const Handle(Prs3d_Presentation)& aPresentation,
 
   if (aDrawer->LineArrowDraw())
   {
-    gp_Pnt Location;
+    Point3d Location;
     gp_Vec Direction;
     aCurve.D1(aCurve.LastParameter(), Location, Direction);
     Prs3d_Arrow::Draw(aPresentation->CurrentGroup(),

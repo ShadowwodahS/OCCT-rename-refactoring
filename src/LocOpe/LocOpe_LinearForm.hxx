@@ -37,25 +37,25 @@ public:
 
   LocOpe_LinearForm(const TopoDS_Shape& Base,
                     const gp_Vec&       V,
-                    const gp_Pnt&       Pnt1,
-                    const gp_Pnt&       Pnt2);
+                    const Point3d&       Pnt1,
+                    const Point3d&       Pnt2);
 
   LocOpe_LinearForm(const TopoDS_Shape& Base,
                     const gp_Vec&       V,
                     const gp_Vec&       Vectra,
-                    const gp_Pnt&       Pnt1,
-                    const gp_Pnt&       Pnt2);
+                    const Point3d&       Pnt1,
+                    const Point3d&       Pnt2);
 
   Standard_EXPORT void Perform(const TopoDS_Shape& Base,
                                const gp_Vec&       V,
-                               const gp_Pnt&       Pnt1,
-                               const gp_Pnt&       Pnt2);
+                               const Point3d&       Pnt1,
+                               const Point3d&       Pnt2);
 
   Standard_EXPORT void Perform(const TopoDS_Shape& Base,
                                const gp_Vec&       V,
                                const gp_Vec&       Vectra,
-                               const gp_Pnt&       Pnt1,
-                               const gp_Pnt&       Pnt2);
+                               const Point3d&       Pnt1,
+                               const Point3d&       Pnt2);
 
   Standard_EXPORT const TopoDS_Shape& FirstShape() const;
 
@@ -78,8 +78,8 @@ private:
   TopoDS_Shape                       myFirstShape;
   TopoDS_Shape                       myLastShape;
   TopTools_DataMapOfShapeListOfShape myMap;
-  gp_Pnt                             myPnt1;
-  gp_Pnt                             myPnt2;
+  Point3d                             myPnt1;
+  Point3d                             myPnt2;
 };
 
 #include <LocOpe_LinearForm.lxx>

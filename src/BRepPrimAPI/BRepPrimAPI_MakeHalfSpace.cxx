@@ -123,9 +123,9 @@ static Standard_Boolean getNormalFromVertex(const TopoDS_Shape&  theShape,
 //             - theMinPnt : The solution point
 //             - theNormal : The normal direction to the shape at projection point
 //=======================================================================
-static Standard_Boolean FindExtrema(const gp_Pnt&       thePnt,
+static Standard_Boolean FindExtrema(const Point3d&       thePnt,
                                     const TopoDS_Shape& theShape,
-                                    gp_Pnt&             theMinPnt,
+                                    Point3d&             theMinPnt,
                                     gp_Dir&             theNormal)
 {
   TopoDS_Vertex aRefVertex = BRepBuilderAPI_MakeVertex(thePnt);
@@ -176,8 +176,8 @@ static Standard_Boolean FindExtrema(const gp_Pnt&       thePnt,
 
 //=================================================================================================
 
-static Standard_Boolean isOutside(const gp_Pnt& thePnt,
-                                  const gp_Pnt& thePonF,
+static Standard_Boolean isOutside(const Point3d& thePnt,
+                                  const Point3d& thePonF,
                                   const gp_Dir& theNormal)
 {
   gp_Dir        anOppRef(thePnt.XYZ() - thePonF.XYZ());
@@ -189,14 +189,14 @@ static Standard_Boolean isOutside(const gp_Pnt& thePnt,
 //=================================================================================================
 
 BRepPrimAPI_MakeHalfSpace::BRepPrimAPI_MakeHalfSpace(const TopoDS_Face& theFace,
-                                                     const gp_Pnt&      theRefPnt)
+                                                     const Point3d&      theRefPnt)
 {
   // Set the flag is <IsDone> to False.
   NotDone();
 
   TopoDS_Shell aShell;
 
-  gp_Pnt aMinPnt;
+  Point3d aMinPnt;
   gp_Dir aNormal;
   if (FindExtrema(theRefPnt, theFace, aMinPnt, aNormal))
   {
@@ -219,13 +219,13 @@ BRepPrimAPI_MakeHalfSpace::BRepPrimAPI_MakeHalfSpace(const TopoDS_Face& theFace,
 //=================================================================================================
 
 BRepPrimAPI_MakeHalfSpace::BRepPrimAPI_MakeHalfSpace(const TopoDS_Shell& theShell,
-                                                     const gp_Pnt&       theRefPnt)
+                                                     const Point3d&       theRefPnt)
 {
   // Set the flag is <IsDone> to False.
   NotDone();
 
   // Find the point of the skin closest to the reference point.
-  gp_Pnt aMinPnt;
+  Point3d aMinPnt;
   gp_Dir aNormal;
   if (FindExtrema(theRefPnt, theShell, aMinPnt, aNormal))
   {

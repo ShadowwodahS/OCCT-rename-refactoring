@@ -101,7 +101,7 @@ Standard_Boolean ShapeCustom_ConvertToRevolution::NewSurface(const TopoDS_Face& 
   */
 
   gp_Ax3 Ax3 = ES->Position();
-  gp_Pnt pos = Ax3.Location();
+  Point3d pos = Ax3.Location();
   gp_Dir dir = Ax3.Direction();
   gp_Dir X   = Ax3.XDirection();
 
@@ -215,7 +215,7 @@ Standard_Boolean ShapeCustom_ConvertToRevolution::NewCurve(const TopoDS_Edge&  E
 //=================================================================================================
 
 Standard_Boolean ShapeCustom_ConvertToRevolution::NewPoint(const TopoDS_Vertex& /*V*/,
-                                                           gp_Pnt& /*P*/,
+                                                           Point3d& /*P*/,
                                                            Standard_Real& /*Tol*/)
 {
   // 3d points are never modified

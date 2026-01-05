@@ -21,7 +21,7 @@
 #include <HLRBRep_ThePolygonOfInterCSurf.hxx>
 #include <Bnd_Box.hxx>
 
-#define ThePoint gp_Pnt
+#define ThePoint Point3d
 #define ThePoint_hxx <gp_Pnt.hxx>
 #define ThePolygon HLRBRep_ThePolygonOfInterCSurf
 #define ThePolygon_hxx <HLRBRep_ThePolygonOfInterCSurf.hxx>

@@ -32,15 +32,15 @@ class Draw_Text3D : public Draw_Drawable3D
 {
 
 public:
-  Standard_EXPORT Draw_Text3D(const gp_Pnt& p, const Standard_CString T, const Draw_Color& col);
+  Standard_EXPORT Draw_Text3D(const Point3d& p, const Standard_CString T, const Draw_Color& col);
 
-  Standard_EXPORT Draw_Text3D(const gp_Pnt&          p,
+  Standard_EXPORT Draw_Text3D(const Point3d&          p,
                               const Standard_CString T,
                               const Draw_Color&      col,
                               const Standard_Real    moveX,
                               const Standard_Real    moveY);
 
-  Standard_EXPORT void SetPnt(const gp_Pnt& p);
+  Standard_EXPORT void SetPnt(const Point3d& p);
 
   Standard_EXPORT void DrawOn(Draw_Display& dis) const Standard_OVERRIDE;
 
@@ -48,7 +48,7 @@ public:
 
 protected:
 private:
-  gp_Pnt                  myPoint;
+  Point3d                  myPoint;
   Draw_Color              myColor;
   TCollection_AsciiString myText;
   Standard_Real           mymoveX;

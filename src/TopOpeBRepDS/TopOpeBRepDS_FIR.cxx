@@ -28,7 +28,7 @@
 #define MDSke TopOpeBRepDS_EDGE
 #define MDSkf TopOpeBRepDS_FACE
 
-Standard_EXPORT Standard_Boolean FUN_Parameters(const gp_Pnt&       Pnt,
+Standard_EXPORT Standard_Boolean FUN_Parameters(const Point3d&       Pnt,
                                                 const TopoDS_Shape& F,
                                                 Standard_Real&      u,
                                                 Standard_Real&      v);
@@ -36,7 +36,7 @@ Standard_EXPORT Standard_Boolean FUN_edgeofface(const TopoDS_Shape& E, const Top
 
 //------------------------------------------------------
 Standard_Boolean FUN_isPonF(const TopOpeBRepDS_ListOfInterference& LIF,
-                            const gp_Pnt&                          P,
+                            const Point3d&                          P,
                             const TopOpeBRepDS_DataStructure&      BDS,
                             const TopoDS_Edge&                     E)
 {
@@ -70,7 +70,7 @@ Standard_Boolean FUN_isPonF(const TopOpeBRepDS_ListOfInterference& LIF,
 Standard_Boolean FUN_findPonF(const TopoDS_Edge&                     E,
                               const TopOpeBRepDS_DataStructure&      BDS,
                               const TopOpeBRepDS_ListOfInterference& LIF,
-                              gp_Pnt&                                P,
+                              Point3d&                                P,
                               Standard_Real&                         par)
 {
   Standard_Boolean                              Pok = Standard_False;
@@ -188,7 +188,7 @@ void FUN_reduceEDGEgeometry1(TopOpeBRepDS_ListOfInterference&  LI,
 
   TopOpeBRepDS_PDataStructure       pbds = (TopOpeBRepDS_PDataStructure)(void*)&BDS;
   TopOpeBRepDS_FaceInterferenceTool FITool(pbds);
-  gp_Pnt                            Pok;
+  Point3d                            Pok;
   Standard_Boolean                  isPok = Standard_False;
   Standard_Real                     parPok;
   if (LI.Extent() >= 2)
@@ -317,7 +317,7 @@ void FUN_GmapS(TopOpeBRepDS_ListOfInterference&  LI,
 }
 
 //------------------------------------------------------
-TopAbs_State FUN_stateedgeface(const TopoDS_Shape& E, const TopoDS_Shape& F, gp_Pnt& P)
+TopAbs_State FUN_stateedgeface(const TopoDS_Shape& E, const TopoDS_Shape& F, Point3d& P)
 {
   TopAbs_State  state = TopAbs_UNKNOWN;
   Standard_Real par;
@@ -419,7 +419,7 @@ void FUN_reduceEDGEgeometry(TopOpeBRepDS_ListOfInterference&                    
             if (kS == MDSkf)
             {
               const TopoDS_Shape& SFILIEG = BDS.Shape(iS);
-              gp_Pnt              P;
+              Point3d              P;
               TopAbs_State        staef = FUN_stateedgeface(EGsp, SFILIEG, P);
 
               Standard_Boolean Pok = M_IN(staef);

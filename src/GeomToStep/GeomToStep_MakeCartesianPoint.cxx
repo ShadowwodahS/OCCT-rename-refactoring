@@ -28,7 +28,7 @@
 //=============================================================================
 // Creation d' un cartesian_point de prostep a partir d' un point3d de gp
 //=============================================================================
-GeomToStep_MakeCartesianPoint::GeomToStep_MakeCartesianPoint(const gp_Pnt&       P,
+GeomToStep_MakeCartesianPoint::GeomToStep_MakeCartesianPoint(const Point3d&       P,
                                                              const Standard_Real aFactor)
 {
   Handle(StepGeom_CartesianPoint) Pstep = new StepGeom_CartesianPoint;

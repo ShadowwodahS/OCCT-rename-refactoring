@@ -39,7 +39,7 @@ Standard_Integer GeomConvert_FuncConeLSDist::NbVariables() const
 
 Standard_Boolean GeomConvert_FuncConeLSDist::Value(const math_Vector& X, Standard_Real& F)
 {
-  gp_Pnt        aLoc(X(1), X(2), X(3));
+  Point3d        aLoc(X(1), X(2), X(3));
   Standard_Real aSemiAngle = X(4), anR = X(5);
   gp_Ax3        aPos(aLoc, myDir);
 
@@ -48,9 +48,9 @@ Standard_Boolean GeomConvert_FuncConeLSDist::Value(const math_Vector& X, Standar
   for (i = myPoints->Lower(); i <= myPoints->Upper(); ++i)
   {
     Standard_Real u, v;
-    gp_Pnt        aPi(myPoints->Value(i));
+    Point3d        aPi(myPoints->Value(i));
     ElSLib::ConeParameters(aPos, anR, aSemiAngle, aPi, u, v);
-    gp_Pnt aPp;
+    Point3d aPp;
     ElSLib::ConeD0(u, v, aPos, anR, aSemiAngle, aPp);
     F += aPi.SquareDistance(aPp);
   }

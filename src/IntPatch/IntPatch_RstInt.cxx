@@ -124,7 +124,7 @@ inline Standard_Real Tol3d(const Handle(Adaptor2d_Curve2d)&   arc,
   return (Domain->Has3d() ? Domain->Tol3d(arc) : tolDef < Confusion ? Confusion : tolDef);
 }
 
-static Standard_Boolean CoincideOnArc(const gp_Pnt&                      Ptsommet,
+static Standard_Boolean CoincideOnArc(const Point3d&                      Ptsommet,
                                       const Handle(Adaptor2d_Curve2d)&   A,
                                       const Handle(Adaptor3d_Surface)&   Surf,
                                       const Standard_Real                Toler,
@@ -141,7 +141,7 @@ static Standard_Boolean CoincideOnArc(const gp_Pnt&                      Ptsomme
     Handle(Adaptor3d_HVertex) vtx1  = Domain->Vertex();
     Standard_Real             prm   = IntPatch_HInterTool::Parameter(vtx1, A);
     gp_Pnt2d                  p2d   = A->Value(prm);
-    gp_Pnt                    point = Surf->Value(p2d.X(), p2d.Y());
+    Point3d                    point = Surf->Value(p2d.X(), p2d.Y());
     const Standard_Real       dist  = point.Distance(Ptsommet);
     Standard_Real             tol   = Max(tolarc, Tol3d(vtx1, Domain));
 
@@ -253,7 +253,7 @@ static void GetLinePoint2d(const Handle(IntPatch_Line)& L,
 static Standard_Boolean FindParameter(const Handle(IntPatch_Line)&     L,
                                       const Handle(Adaptor3d_Surface)& OtherSurf,
                                       const Standard_Real              Tol,
-                                      const gp_Pnt&                    Ptsom,
+                                      const Point3d&                    Ptsom,
                                       const gp_Pnt2d&                  Ptsom2d,
                                       Standard_Real&                   Param,
                                       gp_Vec&                          Tgl,
@@ -275,7 +275,7 @@ static Standard_Boolean FindParameter(const Handle(IntPatch_Line)&     L,
   Handle(IntPatch_RLine) rlin (Handle(IntPatch_RLine)::DownCast (L)); //-- aucune verification n est
   // clang-format on
   Handle(IntPatch_WLine) wlin(Handle(IntPatch_WLine)::DownCast(L)); //-- faite au cast.
-  gp_Pnt                 ptbid;
+  Point3d                 ptbid;
   gp_Vec                 d1u, d1v;
   gp_Pnt2d               p2d;
   gp_Vec2d               d2d;
@@ -349,7 +349,7 @@ static Standard_Boolean FindParameter(const Handle(IntPatch_Line)&     L,
     for (is = 0; is < 3 && !found; is++)
     {
       gp_Vec v1, v2;
-      gp_Pnt p1, p2;
+      Point3d p1, p2;
       p1                       = wlin->Point(inf[is]).Value();
       v1                       = gp_Vec(Ptsom, p1);
       norm1                    = v1.SquareMagnitude();
@@ -439,7 +439,7 @@ void IntPatch_RstInt::PutVertexOnLine(const Handle(IntPatch_Line)&       L,
 
   Standard_Real    PFirst, PLast;
   Standard_Integer NbEchant;
-  gp_Pnt           ptsommet, ptbid;
+  Point3d           ptsommet, ptbid;
   gp_Vec           tgline, tgrst, d1u, d1v, normsurf;
 
   gp_Pnt2d p2d;
@@ -700,7 +700,7 @@ void IntPatch_RstInt::PutVertexOnLine(const Handle(IntPatch_Line)&       L,
           {
             ptsommet = IntCS.Point();
             IntCS.ParameterOnSurface(U2, V2);
-            gp_Pnt anOldPnt, aNewPnt;
+            Point3d anOldPnt, aNewPnt;
             OtherSurf->D0(U, V, anOldPnt);
             OtherSurf->D0(U2, V2, aNewPnt);
             // if (anOldPnt.SquareDistance(aNewPnt) < Precision::SquareConfusion())

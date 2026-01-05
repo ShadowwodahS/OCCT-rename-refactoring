@@ -414,11 +414,11 @@ void ChFi3d_FilBuilder::PerformThreeCorner(const Standard_Integer Jndex)
   }
 
   Standard_Real Rdeb, Rfin, Rdp, Rfp;
-  gp_Pnt        Pdeb, Pfin, Pdp, Pfp;
+  Point3d        Pdeb, Pfin, Pdp, Pfp;
   gp_Vec        Vdeb, Vfin, Vdp, Vfp;
   if (c1pointu)
   {
-    gp_Pnt        pbid;
+    Point3d        pbid;
     gp_Vec        qv[3];
     Standard_Real qr[3];
     for (ii = 0; ii <= 2; ii++)
@@ -489,7 +489,7 @@ void ChFi3d_FilBuilder::PerformThreeCorner(const Standard_Integer Jndex)
   // too close, which can stop the work.
   if (!pivdif)
   {
-    gp_Pnt        ptestdeb, ptestfin;
+    Point3d        ptestdeb, ptestfin;
     gp_Vec        bidvec;
     Standard_Real bidr;
     ChFi3d_ExtrSpineCarac(DStr,
@@ -909,7 +909,7 @@ void ChFi3d_FilBuilder::PerformThreeCorner(const Standard_Integer Jndex)
                               tolapp3d,
                               2.e-4);
       Standard_Integer kkk;
-      gp_Pnt           ppbid;
+      Point3d           ppbid;
       gp_Vec           vp1, vp2;
       kkk =
         CD[deb]->SetOfSurfData()->Value(i[deb][pivot])->Interference(jf[deb][pivot]).LineIndex();

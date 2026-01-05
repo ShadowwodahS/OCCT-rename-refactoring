@@ -22,15 +22,15 @@
 
 static const Standard_Integer MyMaxQuasiFleshe = 2000;
 
-// mask the return of a Adaptor2d_Curve2d as a gp_Pnt
-static gp_Pnt Value(const Adaptor3d_Curve& theC, const Standard_Real theParameter)
+// mask the return of a Adaptor2d_Curve2d as a Point3d
+static Point3d Value(const Adaptor3d_Curve& theC, const Standard_Real theParameter)
 {
   return theC.Value(theParameter);
 }
 
-static gp_Pnt Value(const Adaptor2d_Curve2d& theC, const Standard_Real theParameter)
+static Point3d Value(const Adaptor2d_Curve2d& theC, const Standard_Real theParameter)
 {
-  gp_Pnt   aPoint;
+  Point3d   aPoint;
   gp_Pnt2d a2dPoint(theC.Value(theParameter));
   aPoint.SetCoord(a2dPoint.X(), a2dPoint.Y(), 0.0);
   return aPoint;
@@ -38,7 +38,7 @@ static gp_Pnt Value(const Adaptor2d_Curve2d& theC, const Standard_Real theParame
 
 static void D1(const Adaptor3d_Curve& theC,
                const Standard_Real    theParameter,
-               gp_Pnt&                theP,
+               Point3d&                theP,
                gp_Vec&                theV)
 {
   theC.D1(theParameter, theP, theV);
@@ -46,7 +46,7 @@ static void D1(const Adaptor3d_Curve& theC,
 
 static void D1(const Adaptor2d_Curve2d& theC,
                const Standard_Real      theParameter,
-               gp_Pnt&                  theP,
+               Point3d&                  theP,
                gp_Vec&                  theV)
 {
   gp_Pnt2d a2dPoint;
@@ -62,10 +62,10 @@ template <class TheCurve>
 static void QuasiFleche(const TheCurve&         theC,
                         const Standard_Real     theDeflection2,
                         const Standard_Real     theUdeb,
-                        const gp_Pnt&           thePdeb,
+                        const Point3d&           thePdeb,
                         const gp_Vec&           theVdeb,
                         const Standard_Real     theUfin,
-                        const gp_Pnt&           thePfin,
+                        const Point3d&           thePfin,
                         const gp_Vec&           theVfin,
                         const Standard_Integer  theNbmin,
                         const Standard_Real     theEps,
@@ -86,7 +86,7 @@ static void QuasiFleche(const TheCurve&         theC,
   }
 
   Standard_Real aUdelta = theUfin - theUdeb;
-  gp_Pnt        aPdelta;
+  Point3d        aPdelta;
   gp_Vec        aVdelta;
   if (theNbmin > 2)
   {
@@ -125,8 +125,8 @@ static void QuasiFleche(const TheCurve&         theC,
     }
   }
 
-  gp_Pnt        aPmid((thePdeb.XYZ() + aPdelta.XYZ()) * 0.5);
-  gp_Pnt        aPverif(Value(theC, theUdeb + aUdelta * 0.5));
+  Point3d        aPmid((thePdeb.XYZ() + aPdelta.XYZ()) * 0.5);
+  Point3d        aPverif(Value(theC, theUdeb + aUdelta * 0.5));
   Standard_Real aFlecheMidMid = aPmid.SquareDistance(aPverif);
 
   if (isFlecheOk)
@@ -198,9 +198,9 @@ template <class TheCurve>
 static void QuasiFleche(const TheCurve&         theC,
                         const Standard_Real     theDeflection2,
                         const Standard_Real     theUdeb,
-                        const gp_Pnt&           thePdeb,
+                        const Point3d&           thePdeb,
                         const Standard_Real     theUfin,
-                        const gp_Pnt&           thePfin,
+                        const Point3d&           thePfin,
                         const Standard_Integer  theNbmin,
                         TColStd_SequenceOfReal& theParameters,
                         TColgp_SequenceOfPnt&   thePoints,
@@ -218,7 +218,7 @@ static void QuasiFleche(const TheCurve&         theC,
   }
 
   Standard_Real aUdelta = theUfin - theUdeb;
-  gp_Pnt        aPdelta;
+  Point3d        aPdelta;
   if (theNbmin > 2)
   {
     aUdelta /= (theNbmin - 1);
@@ -229,8 +229,8 @@ static void QuasiFleche(const TheCurve&         theC,
     aPdelta = thePfin;
   }
 
-  const gp_Pnt        aPmid((thePdeb.XYZ() + aPdelta.XYZ()) * 0.5);
-  const gp_Pnt        aPverif(Value(theC, theUdeb + aUdelta * 0.5));
+  const Point3d        aPmid((thePdeb.XYZ() + aPdelta.XYZ()) * 0.5);
+  const Point3d        aPverif(Value(theC, theUdeb + aUdelta * 0.5));
   const Standard_Real aFleche = aPmid.SquareDistance(aPverif);
   if (aFleche < theDeflection2)
   {
@@ -288,7 +288,7 @@ static Standard_Boolean PerformLinear(const TheCurve&         theC,
                                       const Standard_Real     theU2)
 {
   theParameters.Append(theU1);
-  gp_Pnt aPoint = Value(theC, theU1);
+  Point3d aPoint = Value(theC, theU1);
   thePoints.Append(aPoint);
 
   theParameters.Append(theU2);
@@ -316,7 +316,7 @@ static Standard_Boolean PerformCircular(const TheCurve&         theC,
   for (Standard_Integer i = 1; i <= aNbPoints; ++i)
   {
     theParameters.Append(U);
-    const gp_Pnt aPoint = Value(theC, U);
+    const Point3d aPoint = Value(theC, U);
     thePoints.Append(aPoint);
     U += anAngle;
   }
@@ -369,14 +369,14 @@ static Standard_Boolean PerformCurve(TColStd_SequenceOfReal& theParameters,
   Standard_Integer aNbmin    = 2;
   Standard_Integer aNbCallQF = 0;
 
-  gp_Pnt aPdeb;
+  Point3d aPdeb;
   if (theContinuity <= GeomAbs_G1)
   {
     aPdeb = Value(theC, theU1);
     theParameters.Append(theU1);
     thePoints.Append(aPdeb);
 
-    gp_Pnt aPfin(Value(theC, theU2));
+    Point3d aPfin(Value(theC, theU2));
     QuasiFleche(theC,
                 theDeflection * theDeflection,
                 theU1,
@@ -390,7 +390,7 @@ static Standard_Boolean PerformCurve(TColStd_SequenceOfReal& theParameters,
   }
   else
   {
-    gp_Pnt aPfin;
+    Point3d aPfin;
     gp_Vec aDdeb, aDfin;
     D1(theC, theU1, aPdeb, aDdeb);
     theParameters.Append(theU1);
@@ -470,7 +470,7 @@ static Standard_Boolean PerformComposite(TColStd_SequenceOfReal& theParameters,
 
 //=================================================================================================
 
-gp_Pnt GCPnts_QuasiUniformDeflection::Value(const Standard_Integer theIndex) const
+Point3d GCPnts_QuasiUniformDeflection::Value(const Standard_Integer theIndex) const
 {
   StdFail_NotDone_Raise_if(!myDone, "GCPnts_QuasiUniformAbscissa::Parameter()");
   return myPoints.Value(theIndex);

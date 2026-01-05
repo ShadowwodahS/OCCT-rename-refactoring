@@ -68,7 +68,7 @@ public:
 
   //! Returns center of the box. If location
   //! transformation is set, it will be applied
-  Standard_EXPORT virtual gp_Pnt CenterOfGeometry() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Point3d CenterOfGeometry() const Standard_OVERRIDE;
 
   //! Returns coordinates of the box. If location
   //! transformation is set, it will be applied
@@ -83,7 +83,7 @@ public:
 
 private:
   Select3D_BndBox3d myBox;      //!< 3d coordinates of box corners
-  gp_Pnt            myCenter3d; //!< 3d coordinate of box's center
+  Point3d            myCenter3d; //!< 3d coordinate of box's center
 };
 
 DEFINE_STANDARD_HANDLE(Select3D_SensitiveBox, Select3D_SensitiveEntity)

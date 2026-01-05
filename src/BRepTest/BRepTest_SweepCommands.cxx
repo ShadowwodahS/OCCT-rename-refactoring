@@ -123,7 +123,7 @@ static Standard_Integer revol(Draw_Interpretor& di, Standard_Integer n, const ch
   if (base.IsNull())
     return 1;
 
-  gp_Pnt P(Draw::Atof(a[3]), Draw::Atof(a[4]), Draw::Atof(a[5]));
+  Point3d P(Draw::Atof(a[3]), Draw::Atof(a[4]), Draw::Atof(a[5]));
   gp_Dir D(Draw::Atof(a[6]), Draw::Atof(a[7]), Draw::Atof(a[8]));
   gp_Ax1 A(P, D);
 
@@ -229,7 +229,7 @@ static Standard_Integer geompipe(Draw_Interpretor&, Standard_Integer n, const ch
   Standard_Boolean          ByACR       = Standard_False;
   Standard_Boolean          rotate      = Standard_False;
   Standard_Real             Radius      = Draw::Atof(a[4]);
-  gp_Pnt                    ctr;
+  Point3d                    ctr;
   gp_Vec                    norm;
   ProfileCurve->D1(aSpFirst, ctr, norm);
   gp_Vec              xAxisStart(ctr, SpineCurve->Value(aSpFirst));
@@ -691,12 +691,12 @@ static Standard_Integer setsweep(Draw_Interpretor& di, Standard_Integer n, const
     if (n == 8)
     {
       gp_Dir DN(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7]));
-      gp_Ax2 Axe(gp_Pnt(0., 0., 0.), D, DN);
+      gp_Ax2 Axe(Point3d(0., 0., 0.), D, DN);
       Sweep->SetMode(Axe);
     }
     else
     {
-      gp_Ax2 Axe(gp_Pnt(0., 0., 0.), D);
+      gp_Ax2 Axe(Point3d(0., 0., 0.), D);
       Sweep->SetMode(Axe);
     }
   }

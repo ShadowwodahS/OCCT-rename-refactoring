@@ -482,7 +482,7 @@ Standard_Boolean STEPConstruct_ValidationProps::AddArea(const TopoDS_Shape& Shap
 //=================================================================================================
 
 Standard_Boolean STEPConstruct_ValidationProps::AddCentroid(const TopoDS_Shape&    Shape,
-                                                            const gp_Pnt&          Pnt,
+                                                            const Point3d&          Pnt,
                                                             const Standard_Boolean instance)
 {
   Handle(TCollection_HAsciiString) CPName = new TCollection_HAsciiString("centre point");
@@ -723,7 +723,7 @@ Standard_Boolean STEPConstruct_ValidationProps::GetPropReal(
 Standard_Boolean STEPConstruct_ValidationProps::GetPropPnt(
   const Handle(StepRepr_RepresentationItem)&    item,
   const Handle(StepRepr_RepresentationContext)& Context,
-  gp_Pnt&                                       Pnt,
+  Point3d&                                       Pnt,
   const StepData_Factors&                       theLocalFactors) const
 {
   // centroid
@@ -740,7 +740,7 @@ Standard_Boolean STEPConstruct_ValidationProps::GetPropPnt(
     return Standard_False;
   }
 
-  gp_Pnt pos(P->CoordinatesValue(1), P->CoordinatesValue(2), P->CoordinatesValue(3));
+  Point3d pos(P->CoordinatesValue(1), P->CoordinatesValue(2), P->CoordinatesValue(3));
 
   // scale according to units
   if (!Context.IsNull())
@@ -766,7 +766,7 @@ Standard_Boolean STEPConstruct_ValidationProps::GetPropPnt(
     {
       STEPConstruct_UnitContext UnitTool;
       UnitTool.ComputeFactors(theGUAC, theLocalFactors);
-      gp_Pnt zero(0, 0, 0);
+      Point3d zero(0, 0, 0);
       pos.Scale(zero, UnitTool.LengthFactor());
     }
   }

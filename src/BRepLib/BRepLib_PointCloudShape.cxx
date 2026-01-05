@@ -213,7 +213,7 @@ Standard_Boolean BRepLib_PointCloudShape::addDensityPoints(const TopoDS_Shape& t
 
     nbCurPnts++;
 
-    gp_Pnt aP1;
+    Point3d aP1;
     gp_Vec dU, dV;
     aSurf->D1(aU, aV, aP1, dU, dV);
 
@@ -263,7 +263,7 @@ Standard_Boolean BRepLib_PointCloudShape::addTriangulationPoints(const TopoDS_Sh
   Standard_Boolean aHasUVNode = aTriangulation->HasUVNodes();
   for (Standard_Integer aNodeIter = 1; aNodeIter <= aTriangulation->NbNodes(); ++aNodeIter)
   {
-    gp_Pnt aP1     = aTriangulation->Node(aNodeIter);
+    Point3d aP1     = aTriangulation->Node(aNodeIter);
     gp_Dir aNormal = aTriangulation->Normal(aNodeIter);
     if (!aLoc.IsIdentity())
     {

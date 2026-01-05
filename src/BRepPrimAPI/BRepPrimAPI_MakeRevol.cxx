@@ -246,7 +246,7 @@ static Standard_Boolean IsIntersect(const Handle(Adaptor3d_Curve)& theC, const g
   if (theC->GetType() == GeomAbs_Circle)
   {
     gp_Circ       aCirc  = theC->Circle();
-    const gp_Pnt& aCentr = aCirc.Location();
+    const Point3d& aCentr = aCirc.Location();
     Standard_Real anR2   = aCirc.Radius();
     anR2 -= Precision::Confusion();
     anR2 *= anR2;
@@ -312,7 +312,7 @@ Standard_Boolean BRepPrimAPI_MakeRevol::CheckValidity(const TopoDS_Shape& theSha
     // This code is taken directly from GeomAdaptor_SurfaceOfRevolution
     Standard_Integer Ratio = 1;
     Standard_Real    Dist;
-    gp_Pnt           PP;
+    Point3d           PP;
     do
     {
       PP   = HC->Value(First + (Last - First) / Ratio);

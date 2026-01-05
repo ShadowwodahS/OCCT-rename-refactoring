@@ -115,7 +115,7 @@ void AppParCurves_MultiCurve::Curve(const Standard_Integer CuIndex,
   }
 }
 
-const gp_Pnt& AppParCurves_MultiCurve::Pole(const Standard_Integer CuIndex,
+const Point3d& AppParCurves_MultiCurve::Pole(const Standard_Integer CuIndex,
                                             const Standard_Integer Nieme) const
 {
   if ((CuIndex <= 0) && Nieme <= 0)
@@ -178,7 +178,7 @@ void AppParCurves_MultiCurve::Transform2d(const Standard_Integer CuIndex,
 
 void AppParCurves_MultiCurve::Value(const Standard_Integer CuIndex,
                                     const Standard_Real    U,
-                                    gp_Pnt&                Pt) const
+                                    Point3d&                Pt) const
 {
 
   if (Dimension(CuIndex) != 3)
@@ -215,7 +215,7 @@ void AppParCurves_MultiCurve::Value(const Standard_Integer CuIndex,
 
 void AppParCurves_MultiCurve::D1(const Standard_Integer CuIndex,
                                  const Standard_Real    U,
-                                 gp_Pnt&                Pt,
+                                 Point3d&                Pt,
                                  gp_Vec&                V1) const
 {
 
@@ -236,7 +236,7 @@ void AppParCurves_MultiCurve::D1(const Standard_Integer CuIndex,
 
 void AppParCurves_MultiCurve::D2(const Standard_Integer CuIndex,
                                  const Standard_Real    U,
-                                 gp_Pnt&                Pt,
+                                 Point3d&                Pt,
                                  gp_Vec&                V1,
                                  gp_Vec&                V2) const
 {

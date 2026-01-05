@@ -175,7 +175,7 @@ Handle(Law_BSpline) Law::Reparametrize(const Adaptor3d_Curve& Curve,
     DDLast = -DLast;
   TColStd_Array1OfReal cumdist(1, 2 * NbPoints);
   TColStd_Array1OfReal ucourbe(1, 2 * NbPoints);
-  gp_Pnt               P1, P2;
+  Point3d               P1, P2;
   Standard_Real        U1 = Curve.FirstParameter();
   Standard_Real        U2 = Curve.LastParameter();
   Standard_Real        U, DU, Length = 0.;

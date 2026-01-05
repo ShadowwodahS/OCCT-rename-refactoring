@@ -50,7 +50,7 @@ void VrmlConverter_ShadedShape::Add(Standard_OStream&                   anOStrea
   Standard_Integer           i, j, k, decal, nnv, EI;
 
   Standard_Integer t[3], n[3];
-  gp_Pnt           p;
+  Point3d           p;
   TopExp_Explorer  ex;
 
   // counting phase. This phase will count the valid triangle
@@ -81,9 +81,9 @@ void VrmlConverter_ShadedShape::Add(Standard_OStream&                   anOStrea
       else
         T->Triangle(nt).Get(n1, n2, n3);
 
-      const gp_Pnt P1 = T->Node(n1);
-      const gp_Pnt P2 = T->Node(n2);
-      const gp_Pnt P3 = T->Node(n3);
+      const Point3d P1 = T->Node(n1);
+      const Point3d P2 = T->Node(n2);
+      const Point3d P3 = T->Node(n3);
       // controlling whether the triangle correct from a 3d point of
       // view: (the triangle may exist in the UV space but the
       // in the 3d space a dimension is null for example)
@@ -188,9 +188,9 @@ void VrmlConverter_ShadedShape::Add(Standard_OStream&                   anOStrea
             T->Triangle(i).Get(n[0], n[2], n[1]);
           else
             T->Triangle(i).Get(n[0], n[1], n[2]);
-          const gp_Pnt P1 = T->Node(n[0]);
-          const gp_Pnt P2 = T->Node(n[1]);
-          const gp_Pnt P3 = T->Node(n[2]);
+          const Point3d P1 = T->Node(n[0]);
+          const Point3d P2 = T->Node(n[1]);
+          const Point3d P3 = T->Node(n[2]);
           gp_Vec       V1(P1, P2);
           if (V1.SquareMagnitude() > 1.e-10)
           {
@@ -386,7 +386,7 @@ void VrmlConverter_ShadedShape::ComputeNormal(const TopoDS_Face&  aFace,
     Standard_Boolean       OK = Standard_True;
     gp_Vec                 D1U, D1V;
     gp_Vec                 D2U, D2V, D2UV;
-    gp_Pnt                 P;
+    Point3d                 P;
     Standard_Real          U, V;
     CSLib_DerivativeStatus aStatus;
     CSLib_NormalStatus     NStat;

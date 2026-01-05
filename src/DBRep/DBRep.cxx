@@ -695,7 +695,7 @@ static Standard_Integer nexplode(Draw_Interpretor& di, Standard_Integer n, const
   }
   //
   TColStd_Array1OfInteger OrderInd(1, MaxShapes);
-  gp_Pnt                  GPoint;
+  Point3d                  GPoint;
   GProp_GProps            GPr;
   Standard_Integer        aTemp;
   TColStd_Array1OfReal    MidXYZ(1, MaxShapes); // X,Y,Z;
@@ -1371,7 +1371,7 @@ static Standard_Integer normals(Draw_Interpretor& theDI,
 
   DBRep_WriteColorOrientation();
 
-  NCollection_DataMap<TopoDS_Face, NCollection_Vector<std::pair<gp_Pnt, gp_Pnt>>> aNormals;
+  NCollection_DataMap<TopoDS_Face, NCollection_Vector<std::pair<Point3d, Point3d>>> aNormals;
   if (toUseMesh)
   {
     DBRep_DrawableShape::addMeshNormals(aNormals, aShape, aLength);
@@ -1381,7 +1381,7 @@ static Standard_Integer normals(Draw_Interpretor& theDI,
     DBRep_DrawableShape::addSurfaceNormals(aNormals, aShape, aLength, aNbAlongU, aNbAlongV);
   }
 
-  for (NCollection_DataMap<TopoDS_Face, NCollection_Vector<std::pair<gp_Pnt, gp_Pnt>>>::Iterator
+  for (NCollection_DataMap<TopoDS_Face, NCollection_Vector<std::pair<Point3d, Point3d>>>::Iterator
          aFaceIt(aNormals);
        aFaceIt.More();
        aFaceIt.Next())
@@ -1392,11 +1392,11 @@ static Standard_Integer normals(Draw_Interpretor& theDI,
     if (aFaceOri == TopAbs_REVERSED)
       bReverse = Standard_True;
 
-    for (NCollection_Vector<std::pair<gp_Pnt, gp_Pnt>>::Iterator aNormalsIt(aFaceIt.Value());
+    for (NCollection_Vector<std::pair<Point3d, Point3d>>::Iterator aNormalsIt(aFaceIt.Value());
          aNormalsIt.More();
          aNormalsIt.Next())
     {
-      const std::pair<gp_Pnt, gp_Pnt>& aVec = aNormalsIt.Value();
+      const std::pair<Point3d, Point3d>& aVec = aNormalsIt.Value();
       Handle(Draw_Segment3D)           aSeg = new Draw_Segment3D(aVec.first, aVec.second, aColor);
       dout << aSeg;
       if (bPrint)

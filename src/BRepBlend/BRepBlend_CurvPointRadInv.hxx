@@ -70,7 +70,7 @@ public:
   Standard_EXPORT Standard_Boolean Values(const math_Vector& X, math_Vector& F, math_Matrix& D);
 
   //! Set the Point on which a solution has to be found.
-  Standard_EXPORT void Set(const gp_Pnt& P);
+  Standard_EXPORT void Set(const Point3d& P);
 
   //! Returns in the vector Tolerance the parametric tolerance
   //! for each of the 3 variables;
@@ -91,7 +91,7 @@ protected:
 private:
   Handle(Adaptor3d_Curve) curv1;
   Handle(Adaptor3d_Curve) curv2;
-  gp_Pnt                  point;
+  Point3d                  point;
   Standard_Integer        choix;
 };
 

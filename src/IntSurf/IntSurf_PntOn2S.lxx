@@ -12,13 +12,13 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-inline void IntSurf_PntOn2S::SetValue(const gp_Pnt& Pt)
+inline void IntSurf_PntOn2S::SetValue(const Point3d& Pt)
 {
 
   pt = Pt;
 }
 
-inline void IntSurf_PntOn2S::SetValue(const gp_Pnt&       Pt,
+inline void IntSurf_PntOn2S::SetValue(const Point3d&       Pt,
                                       const Standard_Real U1,
                                       const Standard_Real V1,
                                       const Standard_Real U2,
@@ -43,7 +43,7 @@ inline void IntSurf_PntOn2S::SetValue(const Standard_Real U1,
   v2 = V2;
 }
 
-inline const gp_Pnt& IntSurf_PntOn2S::Value() const
+inline const Point3d& IntSurf_PntOn2S::Value() const
 {
 
   return pt;

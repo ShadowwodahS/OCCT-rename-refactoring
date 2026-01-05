@@ -43,7 +43,7 @@ GC_MakeCircle::GC_MakeCircle(const gp_Ax2& A2, const Standard_Real Radius)
   }
 }
 
-GC_MakeCircle::GC_MakeCircle(const gp_Circ& Circ, const gp_Pnt& Point)
+GC_MakeCircle::GC_MakeCircle(const gp_Circ& Circ, const Point3d& Point)
 {
   gp_Circ C = gce_MakeCirc(Circ, Point);
   TheCircle = new Geom_Circle(C);
@@ -60,7 +60,7 @@ GC_MakeCircle::GC_MakeCircle(const gp_Circ& Circ, const Standard_Real Dist)
   }
 }
 
-GC_MakeCircle::GC_MakeCircle(const gp_Pnt& P1, const gp_Pnt& P2, const gp_Pnt& P3)
+GC_MakeCircle::GC_MakeCircle(const Point3d& P1, const Point3d& P2, const Point3d& P3)
 {
   gce_MakeCirc C = gce_MakeCirc(P1, P2, P3);
   TheError       = C.Status();
@@ -70,7 +70,7 @@ GC_MakeCircle::GC_MakeCircle(const gp_Pnt& P1, const gp_Pnt& P2, const gp_Pnt& P
   }
 }
 
-GC_MakeCircle::GC_MakeCircle(const gp_Pnt& Point, const gp_Dir& Norm, const Standard_Real Radius)
+GC_MakeCircle::GC_MakeCircle(const Point3d& Point, const gp_Dir& Norm, const Standard_Real Radius)
 {
   gce_MakeCirc C = gce_MakeCirc(Point, Norm, Radius);
   TheError       = C.Status();
@@ -80,7 +80,7 @@ GC_MakeCircle::GC_MakeCircle(const gp_Pnt& Point, const gp_Dir& Norm, const Stan
   }
 }
 
-GC_MakeCircle::GC_MakeCircle(const gp_Pnt& Point, const gp_Pnt& PtAxis, const Standard_Real Radius)
+GC_MakeCircle::GC_MakeCircle(const Point3d& Point, const Point3d& PtAxis, const Standard_Real Radius)
 {
   gce_MakeCirc C = gce_MakeCirc(Point, PtAxis, Radius);
   TheError       = C.Status();

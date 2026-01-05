@@ -158,7 +158,7 @@ Standard_Boolean BlendFunc_ConstRadInv::IsSolution(const math_Vector& Sol, const
 
 Standard_Boolean BlendFunc_ConstRadInv::Value(const math_Vector& X, math_Vector& F)
 {
-  gp_Pnt ptcur;
+  Point3d ptcur;
   gp_Vec d1cur;
   curv->D1(X(2), ptcur, d1cur);
 
@@ -167,7 +167,7 @@ Standard_Boolean BlendFunc_ConstRadInv::Value(const math_Vector& X, math_Vector&
 
   const gp_Pnt2d pt2d(csurf->Value(X(1)));
 
-  gp_Pnt pts1, pts2;
+  Point3d pts1, pts2;
   gp_Vec d1u1, d1v1, d1u2, d1v2;
   if (first)
   {
@@ -237,7 +237,7 @@ Standard_Boolean BlendFunc_ConstRadInv::Derivatives(const math_Vector& X, math_M
   gp_Vec        d2u1, d2v1, d2uv1, d2u2, d2v2, d2uv2;
   gp_Vec        d1cur, d2cur;
   gp_Vec        ns1, ns2, nplan, dnplan, ncrossns1, ncrossns2, resul1, resul2, temp;
-  gp_Pnt        pts1, pts2, ptcur;
+  Point3d        pts1, pts2, ptcur;
   gp_Pnt2d      p2d;
   gp_Vec2d      v2d;
   Standard_Real norm1, norm2, ndotns1, ndotns2, normtgcur;
@@ -432,7 +432,7 @@ Standard_Boolean BlendFunc_ConstRadInv::Values(const math_Vector& X, math_Vector
   gp_Vec        d1u1, d1v1, d1u2, d1v2, d1cur;
   gp_Vec        d2u1, d2v1, d2uv1, d2u2, d2v2, d2uv2, d2cur;
   gp_Vec        ns1, ns2, nplan, dnplan, ncrossns1, ncrossns2, resul1, resul2, temp;
-  gp_Pnt        ptcur, pts1, pts2;
+  Point3d        ptcur, pts1, pts2;
   gp_Pnt2d      p2d;
   gp_Vec2d      v2d;
   Standard_Real norm1, norm2, ndotns1, ndotns2, normtgcur;

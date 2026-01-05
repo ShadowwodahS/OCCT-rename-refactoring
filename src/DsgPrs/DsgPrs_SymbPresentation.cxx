@@ -28,7 +28,7 @@
 void DsgPrs_SymbPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Handle(Prs3d_Drawer)&       aDrawer,
                                   const TCollection_ExtendedString& aText,
-                                  const gp_Pnt&                     OffsetPoint)
+                                  const Point3d&                     OffsetPoint)
 {
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
   Handle(Prs3d_TextAspect)      TA = LA->TextAspect();

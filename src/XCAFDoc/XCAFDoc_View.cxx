@@ -91,11 +91,11 @@ void XCAFDoc_View::SetObject(const Handle(XCAFView_Object)& theObject)
   TDataXtd_Point::Set(Label().FindChild(ChildLab_ProjectionPoint), theObject->ProjectionPoint());
 
   // View direction
-  gp_Ax1 aViewDir(gp_Pnt(), theObject->ViewDirection());
+  gp_Ax1 aViewDir(Point3d(), theObject->ViewDirection());
   TDataXtd_Axis::Set(Label().FindChild(ChildLab_ViewDirection), aViewDir);
 
   // Up direction
-  gp_Ax1 anUpDir(gp_Pnt(), theObject->UpDirection());
+  gp_Ax1 anUpDir(Point3d(), theObject->UpDirection());
   TDataXtd_Axis::Set(Label().FindChild(ChildLab_UpDirection), anUpDir);
 
   // Zoom factor
@@ -169,7 +169,7 @@ Handle(XCAFView_Object) XCAFDoc_View::GetObject() const
         .FindChild(ChildLab_ProjectionPoint)
         .FindAttribute(TDataXtd_Point::GetID(), aPointAttr))
   {
-    gp_Pnt aPoint;
+    Point3d aPoint;
     TDataXtd_Geometry::Point(aPointAttr->Label(), aPoint);
     anObj->SetProjectionPoint(aPoint);
   }
@@ -277,7 +277,7 @@ Handle(XCAFView_Object) XCAFDoc_View::GetObject() const
       for (Standard_Integer aLabelIndex = 1, aPointIndex = 1; aLabelIndex <= aNbChildren;
            aLabelIndex++)
       {
-        gp_Pnt aPoint;
+        Point3d aPoint;
         if (aPointsLabel.FindChild(aLabelIndex)
               .FindAttribute(TDataXtd_Point::GetID(), aGDTPointAttr))
         {

@@ -31,7 +31,7 @@
 #include <TColStd_Array1OfInteger.hxx>
 #include <GeomAbs_Shape.hxx>
 class Geom_BSplineSurface;
-class gp_Pnt;
+class Point3d;
 class Geom_Curve;
 
 class GeomFill_NSections;
@@ -183,7 +183,7 @@ public:
   //! This information is useful to perform well
   //! conditioned rational approximation.
   //! Warning: Used only if <me> IsRational
-  Standard_EXPORT virtual gp_Pnt BarycentreOfSurf() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Point3d BarycentreOfSurf() const Standard_OVERRIDE;
 
   //! Returns the   length of the greater section. This
   //! information is useful to G1's control.

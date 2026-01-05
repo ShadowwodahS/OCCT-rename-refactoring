@@ -166,7 +166,7 @@ void IntPolyh_Tools::FillArrayOfPointNormal(const Handle(Adaptor3d_Surface)& the
     {
       Standard_Real aV = theVPars(j);
       // Compute the point
-      gp_Pnt aP;
+      Point3d aP;
       gp_Vec aDU, aDV;
       theSurf->D1(aU, aV, aP, aDU, aDV);
       // Compute normal

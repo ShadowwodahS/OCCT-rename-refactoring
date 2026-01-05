@@ -32,7 +32,7 @@
 #include <gp_Dir.hxx>
 
 class BRepAdaptor_Surface;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 class Geom_BezierSurface;
 class Geom_BSplineSurface;
@@ -86,24 +86,24 @@ public:
 
   static Standard_Real VPeriod(const BRepAdaptor_Surface& S);
 
-  static gp_Pnt Value(const BRepAdaptor_Surface& S, const Standard_Real u, const Standard_Real v);
+  static Point3d Value(const BRepAdaptor_Surface& S, const Standard_Real u, const Standard_Real v);
 
   static void D0(const BRepAdaptor_Surface& S,
                  const Standard_Real        u,
                  const Standard_Real        v,
-                 gp_Pnt&                    P);
+                 Point3d&                    P);
 
   static void D1(const BRepAdaptor_Surface& S,
                  const Standard_Real        u,
                  const Standard_Real        v,
-                 gp_Pnt&                    P,
+                 Point3d&                    P,
                  gp_Vec&                    D1u,
                  gp_Vec&                    D1v);
 
   static void D2(const BRepAdaptor_Surface& S,
                  const Standard_Real        u,
                  const Standard_Real        v,
-                 gp_Pnt&                    P,
+                 Point3d&                    P,
                  gp_Vec&                    D1U,
                  gp_Vec&                    D1V,
                  gp_Vec&                    D2U,
@@ -113,7 +113,7 @@ public:
   static void D3(const BRepAdaptor_Surface& S,
                  const Standard_Real        u,
                  const Standard_Real        v,
-                 gp_Pnt&                    P,
+                 Point3d&                    P,
                  gp_Vec&                    D1U,
                  gp_Vec&                    D1V,
                  gp_Vec&                    D2U,

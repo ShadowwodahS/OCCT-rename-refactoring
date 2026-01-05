@@ -100,7 +100,7 @@ static Standard_Boolean CheckSense(const TColGeom_SequenceOfCurve& Seq1,
       u = l;
   }
   gp_Ax2           AxeRef, Axe;
-  gp_Pnt           Pos;
+  Point3d           Pos;
   Standard_Boolean sing;
   GeomLib::AxeOfInertia(Tab, AxeRef, sing);
 
@@ -110,7 +110,7 @@ static Standard_Boolean CheckSense(const TColGeom_SequenceOfCurve& Seq1,
 
   Pos = AxeRef.Location();
   Standard_Real alpha1, alpha2, alpha3;
-  gp_Pnt        P1, P2;
+  Point3d        P1, P2;
   u = (f + l - h) / 2 - h;
   C1->D0(u, P1);
   u += h;
@@ -495,7 +495,7 @@ void GeomFill_Pipe::Init(const Handle(Geom_Curve)& Path,
         }
         else
         {
-          gp_Pnt P0(0., 0., 0.);
+          Point3d P0(0., 0., 0.);
           gp_Ax2 Axe(P0, D);
           D = Axe.XDirection();
           V2.SetXYZ(D.XYZ());
@@ -529,7 +529,7 @@ void GeomFill_Pipe::Init(const Handle(Geom_Curve)& Path,
         }
         else
         {
-          gp_Pnt P0(0., 0., 0.);
+          Point3d P0(0., 0., 0.);
           gp_Ax2 Axe(P0, D);
           D = Axe.XDirection();
           V.SetXYZ(D.XYZ());
@@ -918,9 +918,9 @@ Standard_Boolean GeomFill_Pipe::KPartT4()
     }
 
     // the first points must be normal to the path.
-    gp_Pnt P0 = myAdpPath->Value(myAdpPath->FirstParameter());
-    gp_Pnt P1 = myAdpFirstSect->Value(myAdpFirstSect->FirstParameter());
-    gp_Pnt P2 = myAdpLastSect->Value(myAdpLastSect->FirstParameter());
+    Point3d P0 = myAdpPath->Value(myAdpPath->FirstParameter());
+    Point3d P1 = myAdpFirstSect->Value(myAdpFirstSect->FirstParameter());
+    Point3d P2 = myAdpLastSect->Value(myAdpLastSect->FirstParameter());
     gp_Dir V1(gp_Vec(P0, P1));
     gp_Dir V2(gp_Vec(P0, P2));
     if (Abs(V1.Dot(D0)) > Precision::Confusion() || Abs(V2.Dot(D0)) > Precision::Confusion())
@@ -966,9 +966,9 @@ Standard_Boolean GeomFill_Pipe::KPartT4()
     gp_Dir D0 = A0.Direction();
     gp_Dir D1 = A1.Direction();
     gp_Dir D2 = A2.Direction();
-    gp_Pnt P0 = myAdpPath->Value(myAdpPath->FirstParameter());
-    gp_Pnt P1 = myAdpFirstSect->Value(myAdpFirstSect->FirstParameter());
-    gp_Pnt P2 = myAdpLastSect->Value(myAdpLastSect->FirstParameter());
+    Point3d P0 = myAdpPath->Value(myAdpPath->FirstParameter());
+    Point3d P1 = myAdpFirstSect->Value(myAdpFirstSect->FirstParameter());
+    Point3d P2 = myAdpLastSect->Value(myAdpLastSect->FirstParameter());
 
     // les 3 directions doivent etre egales.
     if (!D0.IsEqual(D1, Precision::Angular()) || !D1.IsEqual(D2, Precision::Angular()))

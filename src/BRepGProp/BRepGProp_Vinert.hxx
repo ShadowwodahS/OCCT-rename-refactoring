@@ -22,7 +22,7 @@
 
 #include <GProp_GProps.hxx>
 class BRepGProp_Face;
-class gp_Pnt;
+class Point3d;
 class gp_Pln;
 class BRepGProp_Domain;
 
@@ -52,7 +52,7 @@ public:
   //! Non-adaptive 2D Gauss integration with predefined numbers of Gauss points
   //! is used. Numbers of points depend on types of surfaces and  curves.
   //! Error of the computation is not calculated.
-  Standard_EXPORT BRepGProp_Vinert(const BRepGProp_Face& S, const gp_Pnt& VLocation);
+  Standard_EXPORT BRepGProp_Vinert(const BRepGProp_Face& S, const Point3d& VLocation);
 
   //! Computes the global properties of a region of 3D space
   //! delimited with the surface <S> and the point VLocation. S can be closed
@@ -61,7 +61,7 @@ public:
   //! Error is calculated as Abs((M(i+1)-M(i))/M(i+1)), M(i+1) and M(i) are values
   //! for two successive steps of adaptive integration.
   Standard_EXPORT BRepGProp_Vinert(BRepGProp_Face&     S,
-                                   const gp_Pnt&       VLocation,
+                                   const Point3d&       VLocation,
                                    const Standard_Real Eps);
 
   //! Computes the global properties of the region of 3D space
@@ -72,8 +72,8 @@ public:
   //! is used. Numbers of points depend on types of surfaces and  curves.
   //! Error of the computation is not calculated.
   Standard_EXPORT BRepGProp_Vinert(const BRepGProp_Face& S,
-                                   const gp_Pnt&         O,
-                                   const gp_Pnt&         VLocation);
+                                   const Point3d&         O,
+                                   const Point3d&         VLocation);
 
   //! Computes the global properties of the region of 3D space
   //! delimited with the surface <S> and the point VLocation.
@@ -83,8 +83,8 @@ public:
   //! for two successive steps of adaptive integration.
   //! WARNING: if Eps > 0.001 algorithm performs non-adaptive integration.
   Standard_EXPORT BRepGProp_Vinert(BRepGProp_Face&     S,
-                                   const gp_Pnt&       O,
-                                   const gp_Pnt&       VLocation,
+                                   const Point3d&       O,
+                                   const Point3d&       VLocation,
                                    const Standard_Real Eps);
 
   //! Computes the global properties of the region of 3D space
@@ -96,7 +96,7 @@ public:
   //! Error of the computation is not calculated.
   Standard_EXPORT BRepGProp_Vinert(const BRepGProp_Face& S,
                                    const gp_Pln&         Pl,
-                                   const gp_Pnt&         VLocation);
+                                   const Point3d&         VLocation);
 
   //! Computes the global properties of the region of 3D space
   //! delimited with the surface <S> and the plane Pln.
@@ -107,7 +107,7 @@ public:
   //! WARNING: if Eps > 0.001 algorithm performs non-adaptive integration.
   Standard_EXPORT BRepGProp_Vinert(BRepGProp_Face&     S,
                                    const gp_Pln&       Pl,
-                                   const gp_Pnt&       VLocation,
+                                   const Point3d&       VLocation,
                                    const Standard_Real Eps);
 
   //! Computes the global properties of a region of 3D space
@@ -117,7 +117,7 @@ public:
   //! Non-adaptive 2D Gauss integration with predefined numbers of Gauss points
   //! is used. Numbers of points depend on types of surfaces and  curves.
   //! Error of the computation is not calculated.
-  Standard_EXPORT BRepGProp_Vinert(BRepGProp_Face& S, BRepGProp_Domain& D, const gp_Pnt& VLocation);
+  Standard_EXPORT BRepGProp_Vinert(BRepGProp_Face& S, BRepGProp_Domain& D, const Point3d& VLocation);
 
   //! Computes the global properties of a region of 3D space
   //! delimited with the surface <S> and the point VLocation. S can be closed
@@ -127,7 +127,7 @@ public:
   //! for two successive steps of adaptive integration.
   Standard_EXPORT BRepGProp_Vinert(BRepGProp_Face&     S,
                                    BRepGProp_Domain&   D,
-                                   const gp_Pnt&       VLocation,
+                                   const Point3d&       VLocation,
                                    const Standard_Real Eps);
 
   //! Computes the global properties of the region of 3D space
@@ -139,8 +139,8 @@ public:
   //! Error of the computation is not calculated.
   Standard_EXPORT BRepGProp_Vinert(BRepGProp_Face&   S,
                                    BRepGProp_Domain& D,
-                                   const gp_Pnt&     O,
-                                   const gp_Pnt&     VLocation);
+                                   const Point3d&     O,
+                                   const Point3d&     VLocation);
 
   //! Computes the global properties of the region of 3D space
   //! delimited with the surface <S> and the point VLocation.
@@ -151,8 +151,8 @@ public:
   //! WARNING: if Eps > 0.001 algorithm performs non-adaptive integration.
   Standard_EXPORT BRepGProp_Vinert(BRepGProp_Face&     S,
                                    BRepGProp_Domain&   D,
-                                   const gp_Pnt&       O,
-                                   const gp_Pnt&       VLocation,
+                                   const Point3d&       O,
+                                   const Point3d&       VLocation,
                                    const Standard_Real Eps);
 
   //! Computes the global properties of the region of 3D space
@@ -165,7 +165,7 @@ public:
   Standard_EXPORT BRepGProp_Vinert(BRepGProp_Face&   S,
                                    BRepGProp_Domain& D,
                                    const gp_Pln&     Pl,
-                                   const gp_Pnt&     VLocation);
+                                   const Point3d&     VLocation);
 
   //! Computes the global properties of the region of 3D space
   //! delimited with the surface <S> and the plane Pln.
@@ -177,19 +177,19 @@ public:
   Standard_EXPORT BRepGProp_Vinert(BRepGProp_Face&     S,
                                    BRepGProp_Domain&   D,
                                    const gp_Pln&       Pl,
-                                   const gp_Pnt&       VLocation,
+                                   const Point3d&       VLocation,
                                    const Standard_Real Eps);
 
-  Standard_EXPORT void SetLocation(const gp_Pnt& VLocation);
+  Standard_EXPORT void SetLocation(const Point3d& VLocation);
 
   Standard_EXPORT void Perform(const BRepGProp_Face& S);
 
   Standard_EXPORT Standard_Real Perform(BRepGProp_Face& S, const Standard_Real Eps);
 
-  Standard_EXPORT void Perform(const BRepGProp_Face& S, const gp_Pnt& O);
+  Standard_EXPORT void Perform(const BRepGProp_Face& S, const Point3d& O);
 
   Standard_EXPORT Standard_Real Perform(BRepGProp_Face&     S,
-                                        const gp_Pnt&       O,
+                                        const Point3d&       O,
                                         const Standard_Real Eps);
 
   Standard_EXPORT void Perform(const BRepGProp_Face& S, const gp_Pln& Pl);
@@ -204,11 +204,11 @@ public:
                                         BRepGProp_Domain&   D,
                                         const Standard_Real Eps);
 
-  Standard_EXPORT void Perform(BRepGProp_Face& S, BRepGProp_Domain& D, const gp_Pnt& O);
+  Standard_EXPORT void Perform(BRepGProp_Face& S, BRepGProp_Domain& D, const Point3d& O);
 
   Standard_EXPORT Standard_Real Perform(BRepGProp_Face&     S,
                                         BRepGProp_Domain&   D,
-                                        const gp_Pnt&       O,
+                                        const Point3d&       O,
                                         const Standard_Real Eps);
 
   Standard_EXPORT void Perform(BRepGProp_Face& S, BRepGProp_Domain& D, const gp_Pln& Pl);

@@ -89,22 +89,22 @@ public:
 
   //! Set the value of a field of the double array of
   //! points.
-  Standard_EXPORT void Point(const gp_Pnt&          thePnt,
+  Standard_EXPORT void Point(const Point3d&          thePnt,
                              const Standard_Integer lig,
                              const Standard_Integer col,
                              const Standard_Real    U,
                              const Standard_Real    V);
 
   //! Give the point of index i in the MaTriangle.
-  Standard_EXPORT const gp_Pnt& Point(const Standard_Integer Index,
+  Standard_EXPORT const Point3d& Point(const Standard_Integer Index,
                                       Standard_Real&         U,
                                       Standard_Real&         V) const;
 
   //! Give the point of index i in the MaTriangle.
-  Standard_EXPORT const gp_Pnt& Point(const Standard_Integer Index) const;
+  Standard_EXPORT const Point3d& Point(const Standard_Integer Index) const;
 
   //! Give the point of index i in the MaTriangle.
-  Standard_EXPORT void Point(const Standard_Integer Index, gp_Pnt& P) const;
+  Standard_EXPORT void Point(const Standard_Integer Index, Point3d& P) const;
 
   //! Give the bounding box of the MaTriangle.
   Standard_EXPORT const Bnd_Box& Bounding() const;
@@ -134,7 +134,7 @@ public:
 
   //! Give the plane equation of the triangle of address Triang.
   Standard_EXPORT Standard_Boolean Contain(const Standard_Integer Triang,
-                                           const gp_Pnt&          ThePnt) const;
+                                           const Point3d&          ThePnt) const;
 
   Standard_EXPORT void Parameters(const Standard_Integer Index,
                                   Standard_Real&         U,

@@ -84,7 +84,7 @@ public:
 
 protected:
   //! Redefine this method to generate vertex at given parameters.
-  virtual gp_Pnt Vertex(const Standard_Real theU, const Standard_Real theV) const = 0;
+  virtual Point3d Vertex(const Standard_Real theU, const Standard_Real theV) const = 0;
 
   //! Redefine this method to generate normal at given parameters.
   virtual gp_Dir Normal(const Standard_Real theU, const Standard_Real theV) const = 0;

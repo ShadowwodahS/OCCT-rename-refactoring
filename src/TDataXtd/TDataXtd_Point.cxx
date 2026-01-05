@@ -53,7 +53,7 @@ Handle(TDataXtd_Point) TDataXtd_Point::Set(const TDF_Label& L)
 
 //=================================================================================================
 
-Handle(TDataXtd_Point) TDataXtd_Point::Set(const TDF_Label& L, const gp_Pnt& P)
+Handle(TDataXtd_Point) TDataXtd_Point::Set(const TDF_Label& L, const Point3d& P)
 {
   Handle(TDataXtd_Point) A = Set(L);
 
@@ -63,7 +63,7 @@ Handle(TDataXtd_Point) TDataXtd_Point::Set(const TDF_Label& L, const gp_Pnt& P)
     if (!aNS->Get().IsNull())
       if (aNS->Get().ShapeType() == TopAbs_VERTEX)
       {
-        gp_Pnt anOldPnt = BRep_Tool::Pnt(TopoDS::Vertex(aNS->Get()));
+        Point3d anOldPnt = BRep_Tool::Pnt(TopoDS::Vertex(aNS->Get()));
         if (anOldPnt.X() == P.X() && anOldPnt.Y() == P.Y() && anOldPnt.Z() == P.Z())
           return A;
       }

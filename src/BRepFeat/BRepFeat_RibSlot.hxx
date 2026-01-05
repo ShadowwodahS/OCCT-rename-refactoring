@@ -100,7 +100,7 @@ public:
   //! the edge must subsequently be removed if you want to add a fillet.
   Standard_EXPORT const TopTools_ListOfShape& TgtEdges() const;
 
-  Standard_EXPORT static Standard_Real IntPar(const Handle(Geom_Curve)& C, const gp_Pnt& P);
+  Standard_EXPORT static Standard_Real IntPar(const Handle(Geom_Curve)& C, const Point3d& P);
 
   Standard_EXPORT static TopoDS_Face ChoiceOfFaces(TopTools_ListOfShape&     faces,
                                                    const Handle(Geom_Curve)& cc,
@@ -117,11 +117,11 @@ protected:
   //! General perform method...
   Standard_EXPORT void LFPerform();
 
-  Standard_EXPORT gp_Pnt CheckPoint(const TopoDS_Edge&        e,
+  Standard_EXPORT Point3d CheckPoint(const TopoDS_Edge&        e,
                                     const Standard_Real       bnd,
                                     const Handle(Geom_Plane)& Pln);
 
-  Standard_EXPORT gp_Dir Normal(const TopoDS_Face& F, const gp_Pnt& P);
+  Standard_EXPORT gp_Dir Normal(const TopoDS_Face& F, const Point3d& P);
 
   Standard_EXPORT void EdgeExtention(TopoDS_Edge&           e,
                                      const Standard_Real    bnd,
@@ -129,8 +129,8 @@ protected:
 
   Standard_EXPORT Standard_Real HeightMax(const TopoDS_Shape& theSbase,
                                           const TopoDS_Shape& theSUntil,
-                                          gp_Pnt&             p1,
-                                          gp_Pnt&             p2);
+                                          Point3d&             p1,
+                                          Point3d&             p2);
 
   Standard_EXPORT Standard_Boolean ExtremeFaces(const Standard_Boolean    RevolRib,
                                                 const Standard_Real       bnd,
@@ -150,7 +150,7 @@ protected:
 
   Standard_EXPORT void PtOnEdgeVertex(const Standard_Boolean RevolRib,
                                       const TopoDS_Shape&    shape,
-                                      const gp_Pnt&          point,
+                                      const Point3d&          point,
                                       const TopoDS_Vertex&   FirstVertex,
                                       const TopoDS_Vertex&   LastVertex,
                                       Standard_Boolean&      PtOnEdge,
@@ -164,7 +164,7 @@ protected:
                                                   Standard_Integer&         Concavite,
                                                   const Handle(Geom_Plane)& myPln,
                                                   const TopoDS_Face&        BndFace,
-                                                  const gp_Pnt&             CheckPnt,
+                                                  const Point3d&             CheckPnt,
                                                   const TopoDS_Face&        FirstFace,
                                                   const TopoDS_Face&        LastFace,
                                                   const TopoDS_Vertex&      FirstVertex,
@@ -179,7 +179,7 @@ protected:
                                                     const Handle(Geom_Plane)& myPln,
                                                     const Standard_Real       bnd,
                                                     const TopoDS_Face&        BndFace,
-                                                    const gp_Pnt&             CheckPnt,
+                                                    const Point3d&             CheckPnt,
                                                     const TopoDS_Face&        FirstFace,
                                                     const TopoDS_Face&        LastFace,
                                                     const TopoDS_Vertex&      FirstVertex,
@@ -198,8 +198,8 @@ protected:
                                          const TopoDS_Shape&                 SResult,
                                          const Standard_Boolean SkipFace = Standard_False);
 
-  gp_Pnt                             myFirstPnt;
-  gp_Pnt                             myLastPnt;
+  Point3d                             myFirstPnt;
+  Point3d                             myLastPnt;
   Standard_Boolean                   myFuse;
   Standard_Boolean                   mySliding;
   TopTools_DataMapOfShapeListOfShape myMap;

@@ -483,8 +483,8 @@ Standard_Boolean GeomAdaptor_Curve::IsClosed() const
 {
   if (!Precision::IsPositiveInfinite(myLast) && !Precision::IsNegativeInfinite(myFirst))
   {
-    const gp_Pnt Pd = Value(myFirst);
-    const gp_Pnt Pf = Value(myLast);
+    const Point3d Pd = Value(myFirst);
+    const Point3d Pf = Value(myLast);
     return (Pd.Distance(Pf) <= Precision::Confusion());
   }
   return Standard_False;
@@ -569,16 +569,16 @@ Standard_Boolean GeomAdaptor_Curve::IsBoundary(const Standard_Real theU,
 
 //=================================================================================================
 
-gp_Pnt GeomAdaptor_Curve::Value(const Standard_Real U) const
+Point3d GeomAdaptor_Curve::Value(const Standard_Real U) const
 {
-  gp_Pnt aValue;
+  Point3d aValue;
   D0(U, aValue);
   return aValue;
 }
 
 //=================================================================================================
 
-void GeomAdaptor_Curve::D0(const Standard_Real U, gp_Pnt& P) const
+void GeomAdaptor_Curve::D0(const Standard_Real U, Point3d& P) const
 {
   switch (myTypeCurve)
   {
@@ -610,7 +610,7 @@ void GeomAdaptor_Curve::D0(const Standard_Real U, gp_Pnt& P) const
 
 //=================================================================================================
 
-void GeomAdaptor_Curve::D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V) const
+void GeomAdaptor_Curve::D1(const Standard_Real U, Point3d& P, gp_Vec& V) const
 {
   switch (myTypeCurve)
   {
@@ -642,7 +642,7 @@ void GeomAdaptor_Curve::D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V) const
 
 //=================================================================================================
 
-void GeomAdaptor_Curve::D2(const Standard_Real U, gp_Pnt& P, gp_Vec& V1, gp_Vec& V2) const
+void GeomAdaptor_Curve::D2(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2) const
 {
   switch (myTypeCurve)
   {
@@ -675,7 +675,7 @@ void GeomAdaptor_Curve::D2(const Standard_Real U, gp_Pnt& P, gp_Vec& V1, gp_Vec&
 //=================================================================================================
 
 void GeomAdaptor_Curve::D3(const Standard_Real U,
-                           gp_Pnt&             P,
+                           Point3d&             P,
                            gp_Vec&             V1,
                            gp_Vec&             V2,
                            gp_Vec&             V3) const

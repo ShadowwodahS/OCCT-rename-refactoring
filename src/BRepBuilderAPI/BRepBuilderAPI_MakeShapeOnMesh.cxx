@@ -105,7 +105,7 @@ void BRepBuilderAPI_MakeShapeOnMesh::Build(const Message_ProgressRange& theRange
     if (aPS.UserBreak())
       return;
 
-    const gp_Pnt        aP = myMesh->Node(i);
+    const Point3d        aP = myMesh->Node(i);
     const TopoDS_Vertex aV = BRepBuilderAPI_MakeVertex(aP);
     aPnt2VertexMap.Add(i, aV);
   }
@@ -126,9 +126,9 @@ void BRepBuilderAPI_MakeShapeOnMesh::Build(const Message_ProgressRange& theRange
     if (anIdx[0] == anIdx[1] || anIdx[0] == anIdx[2] || anIdx[1] == anIdx[2])
       continue;
 
-    const gp_Pnt        aP1 = myMesh->Node(anIdx[0]);
-    const gp_Pnt        aP2 = myMesh->Node(anIdx[1]);
-    const gp_Pnt        aP3 = myMesh->Node(anIdx[2]);
+    const Point3d        aP1 = myMesh->Node(anIdx[0]);
+    const Point3d        aP2 = myMesh->Node(anIdx[1]);
+    const Point3d        aP3 = myMesh->Node(anIdx[2]);
     const Standard_Real aD1 = aP1.SquareDistance(aP2);
     const Standard_Real aD2 = aP1.SquareDistance(aP3);
     const Standard_Real aD3 = aP2.SquareDistance(aP3);

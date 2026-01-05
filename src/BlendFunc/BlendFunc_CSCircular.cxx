@@ -100,7 +100,7 @@ void BlendFunc_CSCircular::Set(const BlendFunc_SectionShape TypeSection)
 
 void BlendFunc_CSCircular::Set(const Standard_Real Param)
 {
-  gp_Pnt ptgui;
+  Point3d ptgui;
   guide->D2(Param, ptgui, d1gui, d2gui);
   law->D1(Param, prmc, dprmc);
 
@@ -395,14 +395,14 @@ Standard_Boolean BlendFunc_CSCircular::Values(const math_Vector& X, math_Vector&
 
 //=================================================================================================
 
-const gp_Pnt& BlendFunc_CSCircular::PointOnS() const
+const Point3d& BlendFunc_CSCircular::PointOnS() const
 {
   return pts;
 }
 
 //=================================================================================================
 
-const gp_Pnt& BlendFunc_CSCircular::PointOnC() const
+const Point3d& BlendFunc_CSCircular::PointOnC() const
 {
   return ptc;
 }
@@ -462,7 +462,7 @@ void BlendFunc_CSCircular::Tangent(const Standard_Real U,
                                    gp_Vec&             TgS,
                                    gp_Vec&             NmS) const
 {
-  gp_Pnt bid;
+  Point3d bid;
   gp_Vec d1u, d1v, ns;
   surf->D1(U, V, bid, d1u, d1v);
   NmS = ns = d1u.Crossed(d1v);
@@ -489,8 +489,8 @@ void BlendFunc_CSCircular::Section(const Standard_Real Param,
   gp_Vec        d1u1, d1v1;
   gp_Vec        ns; //,temp;
   Standard_Real norm;
-  gp_Pnt        Center;
-  gp_Pnt        ptgui;
+  Point3d        Center;
+  Point3d        ptgui;
 
   guide->D1(Param, ptgui, d1gui);
   nplan = d1gui.Normalized();
@@ -784,7 +784,7 @@ void BlendFunc_CSCircular::Section(const Blend_Point&    P,
 {
   gp_Vec d1u1, d1v1; //,d1;
   gp_Vec ns, ns2;    //,temp,np2;
-  gp_Pnt Center;
+  Point3d Center;
 
   Standard_Real norm, u1, v1;
 
@@ -844,7 +844,7 @@ Standard_Boolean BlendFunc_CSCircular::Section(const Blend_Point&    P,
   gp_Vec ncrossns;
   gp_Vec resulu, resulv, temp, tgct, resul;
 
-  gp_Pnt Center;
+  Point3d Center;
 
   Standard_Real norm, ndotns, grosterme;
 

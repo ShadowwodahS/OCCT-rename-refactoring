@@ -65,7 +65,7 @@ static void AdjustFaceBox(const BRepAdaptor_Surface& BS,
 //
 static Standard_Boolean IsModifySize(const BRepAdaptor_Surface&     theBS,
                                      const gp_Pln&                  thePln,
-                                     const gp_Pnt&                  theP,
+                                     const Point3d&                  theP,
                                      const Standard_Real            umin,
                                      const Standard_Real            umax,
                                      const Standard_Real            vmin,
@@ -673,7 +673,7 @@ inline void Reorder(Standard_Real& a, Standard_Real& b)
 
 Standard_Boolean IsModifySize(const BRepAdaptor_Surface&     theBS,
                               const gp_Pln&                  thePln,
-                              const gp_Pnt&                  theP,
+                              const Point3d&                  theP,
                               const Standard_Real            umin,
                               const Standard_Real            umax,
                               const Standard_Real            vmin,
@@ -768,8 +768,8 @@ void AdjustFaceBox(const BRepAdaptor_Surface& BS,
   if (exmin > fxmin)
   {
     //
-    gp_Pln pl(gp_Ax3(gp_Pnt(fxmin, fymin, fzmin), gp::DX()));
-    gp_Pnt aP(fxmin, fymax, fzmax);
+    gp_Pln pl(gp_Ax3(Point3d(fxmin, fymin, fzmin), gp::DX()));
+    Point3d aP(fxmin, fymax, fzmax);
     if (IsModifySize(BS, pl, aP, umin, umax, vmin, vmax, FClass, TolU, TolV))
     {
       fxmin      = exmin;
@@ -779,8 +779,8 @@ void AdjustFaceBox(const BRepAdaptor_Surface& BS,
   if (exmax < fxmax)
   {
     //
-    gp_Pln pl(gp_Ax3(gp_Pnt(fxmax, fymax, fzmax), gp::DX()));
-    gp_Pnt aP(fxmax, fymin, fzmin);
+    gp_Pln pl(gp_Ax3(Point3d(fxmax, fymax, fzmax), gp::DX()));
+    Point3d aP(fxmax, fymin, fzmin);
     if (IsModifySize(BS, pl, aP, umin, umax, vmin, vmax, FClass, TolU, TolV))
     {
       fxmax      = exmax;
@@ -791,8 +791,8 @@ void AdjustFaceBox(const BRepAdaptor_Surface& BS,
   if (eymin > fymin)
   {
     //
-    gp_Pln pl(gp_Ax3(gp_Pnt(fxmin, fymin, fzmin), gp::DY()));
-    gp_Pnt aP(fxmax, fymin, fzmax);
+    gp_Pln pl(gp_Ax3(Point3d(fxmin, fymin, fzmin), gp::DY()));
+    Point3d aP(fxmax, fymin, fzmax);
     if (IsModifySize(BS, pl, aP, umin, umax, vmin, vmax, FClass, TolU, TolV))
     {
       fymin      = eymin;
@@ -802,8 +802,8 @@ void AdjustFaceBox(const BRepAdaptor_Surface& BS,
   if (eymax < fymax)
   {
     //
-    gp_Pln pl(gp_Ax3(gp_Pnt(fxmax, fymax, fzmax), gp::DY()));
-    gp_Pnt aP(fxmin, fymax, fzmin);
+    gp_Pln pl(gp_Ax3(Point3d(fxmax, fymax, fzmax), gp::DY()));
+    Point3d aP(fxmin, fymax, fzmin);
     if (IsModifySize(BS, pl, aP, umin, umax, vmin, vmax, FClass, TolU, TolV))
     {
       fymax      = eymax;
@@ -814,8 +814,8 @@ void AdjustFaceBox(const BRepAdaptor_Surface& BS,
   if (ezmin > fzmin)
   {
     //
-    gp_Pln pl(gp_Ax3(gp_Pnt(fxmin, fymin, fzmin), gp::DZ()));
-    gp_Pnt aP(fxmax, fymax, fzmin);
+    gp_Pln pl(gp_Ax3(Point3d(fxmin, fymin, fzmin), gp::DZ()));
+    Point3d aP(fxmax, fymax, fzmin);
     if (IsModifySize(BS, pl, aP, umin, umax, vmin, vmax, FClass, TolU, TolV))
     {
       fzmin      = ezmin;
@@ -825,8 +825,8 @@ void AdjustFaceBox(const BRepAdaptor_Surface& BS,
   if (ezmax < fzmax)
   {
     //
-    gp_Pln pl(gp_Ax3(gp_Pnt(fxmax, fymax, fzmax), gp::DZ()));
-    gp_Pnt aP(fxmin, fymin, fzmax);
+    gp_Pln pl(gp_Ax3(Point3d(fxmax, fymax, fzmax), gp::DZ()));
+    Point3d aP(fxmin, fymin, fzmax);
     if (IsModifySize(BS, pl, aP, umin, umax, vmin, vmax, FClass, TolU, TolV))
     {
       fzmax      = ezmax;

@@ -52,7 +52,7 @@ public:
 
   //! Sets <G> in the variable <Name>.  Overwrite the
   //! variable if already set.
-  Standard_EXPORT static void Set(const Standard_CString Name, const gp_Pnt& G);
+  Standard_EXPORT static void Set(const Standard_CString Name, const Point3d& G);
 
   //! Sets <G> in the variable <Name>.  Overwrite the
   //! variable if already set.
@@ -110,7 +110,7 @@ public:
 
   //! Gets the variable. Returns False if none and print
   //! a warning message.
-  Standard_EXPORT static Standard_Boolean GetPoint(Standard_CString& Name, gp_Pnt& P);
+  Standard_EXPORT static Standard_Boolean GetPoint(Standard_CString& Name, Point3d& P);
 
   //! Gets the variable. Returns False if none and print
   //! a warning message.

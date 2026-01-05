@@ -27,7 +27,7 @@
 #include <Adaptor3d_CurveOnSurface.hxx>
 #include <Geom2dAdaptor_Curve.hxx>
 
-class gp_Pnt;
+class Point3d;
 class TopoDS_Edge;
 class TopoDS_Face;
 
@@ -107,7 +107,7 @@ public:
   //! If SameParameter is TRUE returns value from parameters w/o changes,
   //! elsewhere scales initial parameter and tries to determine resulting
   //! value using projection of the corresponded 3D point on PCurve.
-  Standard_Real Parameter(const Standard_Integer theIndex, const gp_Pnt& thePoint3d) const
+  Standard_Real Parameter(const Standard_Integer theIndex, const Point3d& thePoint3d) const
   {
     if (myIsSameParam)
     {

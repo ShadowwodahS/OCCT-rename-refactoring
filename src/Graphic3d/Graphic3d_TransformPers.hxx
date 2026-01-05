@@ -82,7 +82,7 @@ public:
   {
     if (IsZoomOrRotate(theMode) || IsAxial(theMode))
     {
-      SetPersistence(theMode, gp_Pnt(0.0, 0.0, 0.0));
+      SetPersistence(theMode, Point3d(0.0, 0.0, 0.0));
     }
     else if (IsTrihedronOr2d(theMode))
     {
@@ -103,7 +103,7 @@ public:
   //! Anchor point defines the origin of Local Coordinate system within World Coordinate system.
   //! Throws an exception if persistence mode is not Graphic3d_TMF_ZoomPers,
   //! Graphic3d_TMF_ZoomRotatePers or Graphic3d_TMF_RotatePers.
-  Graphic3d_TransformPers(const Graphic3d_TransModeFlags theMode, const gp_Pnt& thePnt)
+  Graphic3d_TransformPers(const Graphic3d_TransModeFlags theMode, const Point3d& thePnt)
       : myMode(Graphic3d_TMF_None)
   {
     SetPersistence(theMode, thePnt);
@@ -144,7 +144,7 @@ public:
   //! Set Zoom/Rotate transformation persistence with an anchor 3D point.
   //! Throws an exception if persistence mode is not Graphic3d_TMF_ZoomPers,
   //! Graphic3d_TMF_ZoomRotatePers or Graphic3d_TMF_RotatePers.
-  void SetPersistence(const Graphic3d_TransModeFlags theMode, const gp_Pnt& thePnt)
+  void SetPersistence(const Graphic3d_TransModeFlags theMode, const Point3d& thePnt)
   {
     if (!IsZoomOrRotate(theMode) && !IsAxial(theMode))
     {
@@ -178,7 +178,7 @@ public:
 
 public:
   //! Return the anchor point for zoom/rotate transformation persistence.
-  gp_Pnt AnchorPoint() const
+  Point3d AnchorPoint() const
   {
     if (!IsZoomOrRotate() && !IsAxial())
     {
@@ -186,11 +186,11 @@ public:
         "Graphic3d_TransformPers::AnchorPoint(), wrong persistence mode.");
     }
 
-    return gp_Pnt(myParams.Params3d.PntX, myParams.Params3d.PntY, myParams.Params3d.PntZ);
+    return Point3d(myParams.Params3d.PntX, myParams.Params3d.PntY, myParams.Params3d.PntZ);
   }
 
   //! Set the anchor point for zoom/rotate transformation persistence.
-  void SetAnchorPoint(const gp_Pnt& thePnt)
+  void SetAnchorPoint(const Point3d& thePnt)
   {
     if (!IsZoomOrRotate() && !IsAxial())
     {
@@ -267,7 +267,7 @@ public:
     gp_Vec aVecToEye(theCamera->Direction());
     gp_Vec aVecToObj(
       theCamera->Eye(),
-      gp_Pnt(myParams.Params3d.PntX, myParams.Params3d.PntY, myParams.Params3d.PntZ));
+      Point3d(myParams.Params3d.PntX, myParams.Params3d.PntY, myParams.Params3d.PntZ));
     const Standard_Real aFocus   = aVecToObj.Dot(aVecToEye);
     const gp_XYZ        aViewDim = theCamera->ViewDimensions(aFocus);
     return Abs(aViewDim.Y()) / Standard_Real(aVPSizeY);
@@ -356,7 +356,7 @@ public:
              NCollection_Mat4<T>&            theWorldView,
              const Standard_Integer          theViewportWidth,
              const Standard_Integer          theViewportHeight,
-             const gp_Pnt*                   theAnchor          = NULL,
+             const Point3d*                   theAnchor          = NULL,
              const Standard_Boolean          theToApplyProjPers = true) const;
 
   //! Perform computations for applying transformation persistence on specified matrices.
@@ -367,7 +367,7 @@ public:
   virtual NCollection_Mat4<Standard_Real> ComputeApply(Handle(Graphic3d_Camera)& theCamera,
                                                        const Standard_Integer    theViewportWidth,
                                                        const Standard_Integer    theViewportHeight,
-                                                       const gp_Pnt* theAnchor = NULL) const
+                                                       const Point3d* theAnchor = NULL) const
   {
     (void)theViewportWidth;
     Handle(Graphic3d_Camera) aProxyCamera = theCamera;
@@ -583,7 +583,7 @@ void Graphic3d_TransformPers::Apply(const Handle(Graphic3d_Camera)& theCamera,
                                     NCollection_Mat4<T>&            theWorldView,
                                     const Standard_Integer          theViewportWidth,
                                     const Standard_Integer          theViewportHeight,
-                                    const gp_Pnt*                   theAnchor,
+                                    const Point3d*                   theAnchor,
                                     const Standard_Boolean          theToApplyProjPers) const
 {
   (void)theViewportWidth;

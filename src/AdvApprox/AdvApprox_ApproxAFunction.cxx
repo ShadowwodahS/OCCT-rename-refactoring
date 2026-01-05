@@ -937,7 +937,7 @@ void AdvApprox_ApproxAFunction::Perform(const Standard_Integer   Num1DSS,
 
       if (myNumSubSpaces[2] > 0)
       {
-        gp_Pnt Point;
+        Point3d Point;
         my3DPoles        = new TColgp_HArray2OfPnt(1, PolesPtr->ColLength(), 1, myNumSubSpaces[2]);
         my3DMaxError     = new TColStd_HArray1OfReal(1, myNumSubSpaces[2]);
         my3DAverageError = new TColStd_HArray1OfReal(1, myNumSubSpaces[2]);

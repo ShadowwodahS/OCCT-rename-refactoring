@@ -74,9 +74,9 @@ BOPTest_DrawableShape::BOPTest_DrawableShape(const TopoDS_Shape&    aShape,
 
 //=================================================================================================
 
-gp_Pnt BOPTest_DrawableShape::Pnt() const
+Point3d BOPTest_DrawableShape::Pnt() const
 {
-  gp_Pnt          P(0, 0, 0);
+  Point3d          P(0, 0, 0);
   Standard_Real   u, v, u1, u2, v1, v2, p;
   TopExp_Explorer ex;
 

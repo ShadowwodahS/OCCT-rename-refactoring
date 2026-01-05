@@ -354,7 +354,7 @@ void TopOpeBRepTool_ShapeClassifier::Perform()
   {
     if (tR <= TopAbs_SOLID)
     {
-      gp_Pnt P3D = BRep_Tool::Pnt(TopoDS::Vertex(myS));
+      Point3d P3D = BRep_Tool::Pnt(TopoDS::Vertex(myS));
       StateP3DReference(P3D);
     }
   }
@@ -455,7 +455,7 @@ void TopOpeBRepTool_ShapeClassifier::StateEdgeReference()
     return;
 
   Handle(Geom_Curve) C3D;
-  gp_Pnt             P3D;
+  Point3d             P3D;
   Standard_Real      f3d, l3d;
 
   Handle(Geom2d_Curve) C2D;
@@ -581,7 +581,7 @@ void TopOpeBRepTool_ShapeClassifier::StateP2DReference(const gp_Pnt2d& P2D)
 
 //=================================================================================================
 
-void TopOpeBRepTool_ShapeClassifier::StateP3DReference(const gp_Pnt& P3D)
+void TopOpeBRepTool_ShapeClassifier::StateP3DReference(const Point3d& P3D)
 {
   myState = TopAbs_UNKNOWN;
   if (myRef.IsNull())
@@ -630,7 +630,7 @@ TopAbs_State TopOpeBRepTool_ShapeClassifier::State() const
 
 //=================================================================================================
 
-const gp_Pnt& TopOpeBRepTool_ShapeClassifier::P3D() const
+const Point3d& TopOpeBRepTool_ShapeClassifier::P3D() const
 {
   if (myP3Ddef)
   {
@@ -692,7 +692,7 @@ void TopOpeBRepTool_ShapeClassifier::FindEdge(const TopoDS_Shape& S)
 }
 
 static Standard_Boolean FindAPointInTheFace
-(const TopoDS_Face& _face,gp_Pnt& APoint,Standard_Real& u,Standard_Real& v) 
+(const TopoDS_Face& _face,Point3d& APoint,Standard_Real& u,Standard_Real& v) 
 { 
   TopoDS_Face face=_face;
   face.Orientation(TopAbs_FORWARD);

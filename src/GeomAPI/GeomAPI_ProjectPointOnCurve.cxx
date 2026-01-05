@@ -30,7 +30,7 @@ GeomAPI_ProjectPointOnCurve::GeomAPI_ProjectPointOnCurve()
 
 //=================================================================================================
 
-GeomAPI_ProjectPointOnCurve::GeomAPI_ProjectPointOnCurve(const gp_Pnt&             P,
+GeomAPI_ProjectPointOnCurve::GeomAPI_ProjectPointOnCurve(const Point3d&             P,
                                                          const Handle(Geom_Curve)& Curve)
 {
   Init(P, Curve);
@@ -38,7 +38,7 @@ GeomAPI_ProjectPointOnCurve::GeomAPI_ProjectPointOnCurve(const gp_Pnt&          
 
 //=================================================================================================
 
-GeomAPI_ProjectPointOnCurve::GeomAPI_ProjectPointOnCurve(const gp_Pnt&             P,
+GeomAPI_ProjectPointOnCurve::GeomAPI_ProjectPointOnCurve(const Point3d&             P,
                                                          const Handle(Geom_Curve)& Curve,
                                                          const Standard_Real       Umin,
                                                          const Standard_Real       Usup)
@@ -48,7 +48,7 @@ GeomAPI_ProjectPointOnCurve::GeomAPI_ProjectPointOnCurve(const gp_Pnt&          
 
 //=================================================================================================
 
-void GeomAPI_ProjectPointOnCurve::Init(const gp_Pnt& P, const Handle(Geom_Curve)& Curve)
+void GeomAPI_ProjectPointOnCurve::Init(const Point3d& P, const Handle(Geom_Curve)& Curve)
 {
   myC.Load(Curve);
   /*
@@ -82,7 +82,7 @@ void GeomAPI_ProjectPointOnCurve::Init(const gp_Pnt& P, const Handle(Geom_Curve)
 
 //=================================================================================================
 
-void GeomAPI_ProjectPointOnCurve::Init(const gp_Pnt&             P,
+void GeomAPI_ProjectPointOnCurve::Init(const Point3d&             P,
                                        const Handle(Geom_Curve)& Curve,
                                        const Standard_Real       Umin,
                                        const Standard_Real       Usup)
@@ -132,7 +132,7 @@ void GeomAPI_ProjectPointOnCurve::Init(const Handle(Geom_Curve)& Curve,
 
 //=================================================================================================
 
-void GeomAPI_ProjectPointOnCurve::Perform(const gp_Pnt& aP3D)
+void GeomAPI_ProjectPointOnCurve::Perform(const Point3d& aP3D)
 {
   myExtPC.Perform(aP3D);
 
@@ -168,7 +168,7 @@ Standard_Integer GeomAPI_ProjectPointOnCurve::NbPoints() const
 
 //=================================================================================================
 
-gp_Pnt GeomAPI_ProjectPointOnCurve::Point(const Standard_Integer Index) const
+Point3d GeomAPI_ProjectPointOnCurve::Point(const Standard_Integer Index) const
 {
   Standard_OutOfRange_Raise_if(Index < 1 || Index > NbPoints(),
                                "GeomAPI_ProjectPointOnCurve::Point");
@@ -204,7 +204,7 @@ Standard_Real GeomAPI_ProjectPointOnCurve::Distance(const Standard_Integer Index
 
 //=================================================================================================
 
-gp_Pnt GeomAPI_ProjectPointOnCurve::NearestPoint() const
+Point3d GeomAPI_ProjectPointOnCurve::NearestPoint() const
 {
   StdFail_NotDone_Raise_if(!myIsDone, "GeomAPI_ProjectPointOnCurve::NearestPoint");
 
@@ -220,7 +220,7 @@ GeomAPI_ProjectPointOnCurve::operator Standard_Integer() const
 
 //=================================================================================================
 
-GeomAPI_ProjectPointOnCurve::operator gp_Pnt() const
+GeomAPI_ProjectPointOnCurve::operator Point3d() const
 {
   return NearestPoint();
 }

@@ -69,7 +69,7 @@ static Standard_Integer OCC6001(Draw_Interpretor& di, Standard_Integer argc, con
   {
     const IntCurveSurface_IntersectionPoint& int_pnt = inter.Point(i);
     double                                   par     = int_pnt.W();
-    gp_Pnt                                   p       = int_pnt.Pnt();
+    Point3d                                   p       = int_pnt.Pnt();
     di << "inter " << i << ": W = " << par << "\n"
        << "\tpnt = " << p.X() << " " << p.Y() << " " << p.Z() << "\n";
     char n[20], *pname = n;
@@ -87,7 +87,7 @@ static Standard_Integer OCC5696(Draw_Interpretor& di, Standard_Integer argc, con
     di << "Usage : " << argv[0] << "\n";
     return 1;
   }
-  TopoDS_Edge           edge = BRepBuilderAPI_MakeEdge(gp_Pnt(0, 0, 0), gp_Pnt(2, 0, 0));
+  TopoDS_Edge           edge = BRepBuilderAPI_MakeEdge(Point3d(0, 0, 0), Point3d(2, 0, 0));
   TopoDS_Wire           wire = BRepBuilderAPI_MakeWire(edge);
   BRepAdaptor_CompCurve curve(wire);
   Standard_Real         first = curve.FirstParameter();

@@ -666,7 +666,7 @@ void BRepFill::Axe(const TopoDS_Shape& Spine,
                    Standard_Boolean&   ProfOnSpine,
                    const Standard_Real Tol)
 {
-  gp_Pnt Loc, Loc1, Loc2;
+  Point3d Loc, Loc1, Loc2;
   gp_Vec Tang, Tang1, Tang2, Normal;
 
   Handle(Geom_Surface) S;
@@ -716,7 +716,7 @@ void BRepFill::Axe(const TopoDS_Shape& Spine,
   BRepExtrema_ExtPC BE;
   Standard_Real     Par = 0., f, l;
   //  Standard_Real     D1,D2;
-  gp_Pnt P1, P2;
+  Point3d P1, P2;
 
   // First check if there is contact Vertex Vertex.
   Standard_Boolean IsOnVertex = Standard_False;
@@ -857,7 +857,7 @@ void BRepFill::Axe(const TopoDS_Shape& Spine,
 //=======================================================================
 
 void BRepFill::SearchOrigin(TopoDS_Wire&        W,
-                            const gp_Pnt&       P,
+                            const Point3d&       P,
                             const gp_Vec&       Dir,
                             const Standard_Real Tol)
 {
@@ -972,7 +972,7 @@ void BRepFill::SearchOrigin(TopoDS_Wire&        W,
     theparam = BRep_Tool::Parameter(V, E);
   }
   BRepAdaptor_Curve AC(E);
-  gp_Pnt            Pe;
+  Point3d            Pe;
   gp_Vec            Ve;
   AC.D1(theparam, Pe, Ve);
   if (E.Orientation() == TopAbs_REVERSED)

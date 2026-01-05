@@ -26,7 +26,7 @@ BRepBuilderAPI_MakePolygon::BRepBuilderAPI_MakePolygon() {}
 
 //=================================================================================================
 
-BRepBuilderAPI_MakePolygon::BRepBuilderAPI_MakePolygon(const gp_Pnt& P1, const gp_Pnt& P2)
+BRepBuilderAPI_MakePolygon::BRepBuilderAPI_MakePolygon(const Point3d& P1, const Point3d& P2)
     : myMakePolygon(P1, P2)
 {
   if (myMakePolygon.IsDone())
@@ -38,9 +38,9 @@ BRepBuilderAPI_MakePolygon::BRepBuilderAPI_MakePolygon(const gp_Pnt& P1, const g
 
 //=================================================================================================
 
-BRepBuilderAPI_MakePolygon::BRepBuilderAPI_MakePolygon(const gp_Pnt&          P1,
-                                                       const gp_Pnt&          P2,
-                                                       const gp_Pnt&          P3,
+BRepBuilderAPI_MakePolygon::BRepBuilderAPI_MakePolygon(const Point3d&          P1,
+                                                       const Point3d&          P2,
+                                                       const Point3d&          P3,
                                                        const Standard_Boolean Cl)
     : myMakePolygon(P1, P2, P3, Cl)
 {
@@ -53,10 +53,10 @@ BRepBuilderAPI_MakePolygon::BRepBuilderAPI_MakePolygon(const gp_Pnt&          P1
 
 //=================================================================================================
 
-BRepBuilderAPI_MakePolygon::BRepBuilderAPI_MakePolygon(const gp_Pnt&          P1,
-                                                       const gp_Pnt&          P2,
-                                                       const gp_Pnt&          P3,
-                                                       const gp_Pnt&          P4,
+BRepBuilderAPI_MakePolygon::BRepBuilderAPI_MakePolygon(const Point3d&          P1,
+                                                       const Point3d&          P2,
+                                                       const Point3d&          P3,
+                                                       const Point3d&          P4,
                                                        const Standard_Boolean Cl)
     : myMakePolygon(P1, P2, P3, P4, Cl)
 {
@@ -113,7 +113,7 @@ BRepBuilderAPI_MakePolygon::BRepBuilderAPI_MakePolygon(const TopoDS_Vertex&   V1
 
 //=================================================================================================
 
-void BRepBuilderAPI_MakePolygon::Add(const gp_Pnt& P)
+void BRepBuilderAPI_MakePolygon::Add(const Point3d& P)
 {
   myMakePolygon.Add(P);
   if (myMakePolygon.IsDone())

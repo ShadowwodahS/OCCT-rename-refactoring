@@ -45,7 +45,7 @@ inline void IntCurveSurface_PolyhedronTool::Triangle(const ThePolyhedron&   theP
   thePolyh.Triangle(Index, P1, P2, P3);
 }
 
-inline const gp_Pnt& IntCurveSurface_PolyhedronTool::Point(const ThePolyhedron&   thePolyh,
+inline const Point3d& IntCurveSurface_PolyhedronTool::Point(const ThePolyhedron&   thePolyh,
                                                            const Standard_Integer Index)
 {
   return thePolyh.Point(Index);

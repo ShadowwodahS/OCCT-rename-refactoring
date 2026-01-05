@@ -50,7 +50,7 @@ public:
   //! @param[in] theCircle  the circle to measure.
   //! @param[in] theAnchorPoint  the point to define the position
   //!        of the dimension attachment on the circle.
-  Standard_EXPORT PrsDim_RadiusDimension(const gp_Circ& theCircle, const gp_Pnt& theAnchorPoint);
+  Standard_EXPORT PrsDim_RadiusDimension(const gp_Circ& theCircle, const Point3d& theAnchorPoint);
 
   //! Create radius dimension for the arbitrary shape (if possible).
   //! @param[in] theShape  the shape to measure.
@@ -61,7 +61,7 @@ public:
   const gp_Circ& Circle() const { return myCircle; }
 
   //! @return anchor point on circle for radius dimension.
-  const gp_Pnt& AnchorPoint() const { return myAnchorPoint; }
+  const Point3d& AnchorPoint() const { return myAnchorPoint; }
 
   //! @return the measured shape.
   const TopoDS_Shape& Shape() const { return myShape; }
@@ -73,7 +73,7 @@ public:
   //! @param[in] theCircle  the circle to measure.
   void SetMeasuredGeometry(const gp_Circ& theCircle)
   {
-    SetMeasuredGeometry(theCircle, gp_Pnt(), Standard_False);
+    SetMeasuredGeometry(theCircle, Point3d(), Standard_False);
   }
 
   //! Measure radius of the circle and orient the dimension so
@@ -84,7 +84,7 @@ public:
   //! @param[in] theAnchorPoint  the point to attach the dimension lines, should be on the circle
   //! @param[in] theHasAnchor    should be set TRUE if theAnchorPoint should be used
   Standard_EXPORT void SetMeasuredGeometry(const gp_Circ&         theCircle,
-                                           const gp_Pnt&          theAnchorPoint,
+                                           const Point3d&          theAnchorPoint,
                                            const Standard_Boolean theHasAnchor = Standard_True);
 
   //! Measure radius on the passed shape, if applicable.
@@ -93,7 +93,7 @@ public:
   //! @param[in] theShape  the shape to measure.
   void SetMeasuredGeometry(const TopoDS_Shape& theShape)
   {
-    SetMeasuredGeometry(theShape, gp_Pnt(), Standard_False);
+    SetMeasuredGeometry(theShape, Point3d(), Standard_False);
   }
 
   //! Measure radius on the passed shape, if applicable.
@@ -103,7 +103,7 @@ public:
   //! @param[in] theAnchorPoint  the point to attach the dimension lines, should be on the circle
   //! @param[in] theHasAnchor    should be set TRUE if theAnchorPoint should be used
   Standard_EXPORT void SetMeasuredGeometry(const TopoDS_Shape&    theShape,
-                                           const gp_Pnt&          theAnchorPoint,
+                                           const Point3d&          theAnchorPoint,
                                            const Standard_Boolean theHasAnchor = Standard_True);
 
   //! @return the display units string.
@@ -118,9 +118,9 @@ public:
   Standard_EXPORT virtual void SetModelUnits(const TCollection_AsciiString& theUnits)
     Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void SetTextPosition(const gp_Pnt& theTextPos) Standard_OVERRIDE;
+  Standard_EXPORT virtual void SetTextPosition(const Point3d& theTextPos) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual gp_Pnt GetTextPosition() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Point3d GetTextPosition() const Standard_OVERRIDE;
 
 protected:
   Standard_EXPORT virtual void ComputePlane();
@@ -139,11 +139,11 @@ protected:
   Standard_EXPORT Standard_Boolean IsValidCircle(const gp_Circ& theCircle) const;
 
   Standard_EXPORT Standard_Boolean IsValidAnchor(const gp_Circ& theCircle,
-                                                 const gp_Pnt&  thePnt) const;
+                                                 const Point3d&  thePnt) const;
 
 private:
   gp_Circ      myCircle;
-  gp_Pnt       myAnchorPoint;
+  Point3d       myAnchorPoint;
   TopoDS_Shape myShape;
 };
 

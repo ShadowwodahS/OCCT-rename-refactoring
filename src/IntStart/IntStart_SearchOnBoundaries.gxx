@@ -90,7 +90,7 @@ static void BoundedArc (const TheArc& A,
                         Standard_Boolean& Arcsol,
                         const Standard_Boolean RecheckOnRegularity);
                  
-static void PointProcess (const gp_Pnt&,
+static void PointProcess (const Point3d&,
                           const Standard_Real,
                           const TheArc&,
                           const Handle(TheTopolTool)&,
@@ -272,7 +272,7 @@ void BoundedArc (const TheArc& A,
 
   Standard_Integer i, Nbi = 0, Nbp = 0;
 
-  gp_Pnt ptdeb,ptfin;
+  Point3d ptdeb,ptfin;
   Standard_Real pardeb = 0., parfin = 0.;
   Standard_Integer ideb,ifin,range,ranged,rangef;
 
@@ -702,7 +702,7 @@ void BoundedArc (const TheArc& A,
             }
           }
 
-          gp_Pnt aPnt(anIndx < 0 ? Func.LastComputedPoint() : Func.Valpoint(anIndx));
+          Point3d aPnt(anIndx < 0 ? Func.LastComputedPoint() : Func.Valpoint(anIndx));
 
           if (dist > 0.1*Precision::Confusion())
           {
@@ -865,7 +865,7 @@ void ComputeBoundsfromInfinite(TheFunction& Func,
 //function : PointProcess
 //purpose  : 
 //=======================================================================
-void PointProcess (const gp_Pnt& Pt,
+void PointProcess (const Point3d& Pt,
                    const Standard_Real Para,
                    const TheArc& A,
                    const Handle(TheTopolTool)& Domain,
@@ -1059,7 +1059,7 @@ Standard_Integer TreatLC (const TheArc& A,
     return anExitCode;
   }
 
-  gp_Pnt P1,PEdge;
+  Point3d P1,PEdge;
   Extrema_POnCurv PC1, PC2;
   
   anExtCC.Points(1, PC1, PC2);
@@ -1123,7 +1123,7 @@ IntStart_SearchOnBoundaries::IntStart_SearchOnBoundaries ()
   Standard_Boolean Arcsol;
   Standard_Real PDeb,PFin, prm, tol;
   Standard_Integer i, nbknown, nbfound,index;
-  gp_Pnt pt;
+  Point3d pt;
   
   Domain->Init();
 

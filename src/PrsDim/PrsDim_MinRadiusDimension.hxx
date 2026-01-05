@@ -40,7 +40,7 @@ public:
   Standard_EXPORT PrsDim_MinRadiusDimension(const TopoDS_Shape&               aShape,
                                             const Standard_Real               aVal,
                                             const TCollection_ExtendedString& aText,
-                                            const gp_Pnt&                     aPosition,
+                                            const Point3d&                     aPosition,
                                             const DsgPrs_ArrowSide            aSymbolPrs,
                                             const Standard_Real               anArrowSize = 0.0);
 
@@ -57,9 +57,9 @@ private:
   Standard_EXPORT void ComputeArcOfEllipse(const Handle(Prs3d_Presentation)& aPresentation);
 
 private:
-  gp_Pnt myApexP;
-  gp_Pnt myApexN;
-  gp_Pnt myEndOfArrow;
+  Point3d myApexP;
+  Point3d myApexN;
+  Point3d myEndOfArrow;
 };
 
 #endif // _PrsDim_MinRadiusDimension_HeaderFile

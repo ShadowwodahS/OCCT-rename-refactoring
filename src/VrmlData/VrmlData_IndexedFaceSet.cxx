@@ -208,7 +208,7 @@ const Handle(TopoDS_TShape)& VrmlData_IndexedFaceSet::TShape()
   // Copy the triangulation vertices
   for (i = 0; i < aNodes.Length(); i++)
   {
-    aTriangulation->SetNode(i + 1, gp_Pnt(aNodes(i)));
+    aTriangulation->SetNode(i + 1, Point3d(aNodes(i)));
   }
   // Copy the triangles.
   NCollection_List<Poly_Triangle>::Iterator itT(aTriangles);

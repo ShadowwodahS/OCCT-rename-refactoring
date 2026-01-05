@@ -217,12 +217,12 @@ void LocOpe_SplitDrafts::Perform(const TopoDS_Face&     F,
         {
           const IntCurveSurface_IntersectionPoint& P1 = intcs.Segment(1).FirstPoint();
           const IntCurveSurface_IntersectionPoint& P2 = intcs.Segment(1).SecondPoint();
-          const gp_Pnt&                            pf = P1.Pnt();
-          const gp_Pnt&                            pl = P2.Pnt();
+          const Point3d&                            pf = P1.Pnt();
+          const Point3d&                            pl = P2.Pnt();
           TopoDS_Vertex                            Vf, Vl;
           TopExp::Vertices(edg, Vf, Vl);
-          gp_Pnt        Pf   = BRep_Tool::Pnt(Vf);
-          gp_Pnt        Pl   = BRep_Tool::Pnt(Vl);
+          Point3d        Pf   = BRep_Tool::Pnt(Vf);
+          Point3d        Pl   = BRep_Tool::Pnt(Vl);
           Standard_Real Tolf = BRep_Tool::Tolerance(Vf);
           Standard_Real Toll = BRep_Tool::Tolerance(Vl);
           Tolf *= Tolf;
@@ -258,8 +258,8 @@ void LocOpe_SplitDrafts::Perform(const TopoDS_Face&     F,
         {
           TopoDS_Vertex Vf, Vl;
           TopExp::Vertices(edg, Vf, Vl);
-          gp_Pnt        Pf   = BRep_Tool::Pnt(Vf);
-          gp_Pnt        Pl   = BRep_Tool::Pnt(Vl);
+          Point3d        Pf   = BRep_Tool::Pnt(Vf);
+          Point3d        Pl   = BRep_Tool::Pnt(Vl);
           Standard_Real Tolf = BRep_Tool::Tolerance(Vf);
           Standard_Real Toll = BRep_Tool::Tolerance(Vl);
           Tolf *= Tolf;
@@ -268,7 +268,7 @@ void LocOpe_SplitDrafts::Perform(const TopoDS_Face&     F,
           for (Standard_Integer i = 1; i <= intcs.NbPoints(); i++)
           {
             const IntCurveSurface_IntersectionPoint& Pi  = intcs.Point(i);
-            const gp_Pnt&                            pi  = Pi.Pnt();
+            const Point3d&                            pi  = Pi.Pnt();
             Standard_Real                            dif = pi.SquareDistance(Pf);
             Standard_Real                            dil = pi.SquareDistance(Pl);
             if (dif <= Tolf)
@@ -617,7 +617,7 @@ void LocOpe_SplitDrafts::Perform(const TopoDS_Face&     F,
           GeomAdaptor_Curve TheCurve;
 
           Standard_Integer i, imin, k;
-          gp_Pnt           pv = BRep_Tool::Pnt(vtx);
+          Point3d           pv = BRep_Tool::Pnt(vtx);
           imin                = 0;
           for (i = 1; i <= i2s.NbLines(); i++)
           {
@@ -626,7 +626,7 @@ void LocOpe_SplitDrafts::Perform(const TopoDS_Face&     F,
 
             if (myExtPC.IsDone())
             {
-              gp_Pnt        p1b, p2b;
+              Point3d        p1b, p2b;
               Standard_Real thepmin = TheCurve.FirstParameter();
               myExtPC.TrimmedSquareDistances(Dist2Min, Dist2, p1b, p2b);
               if (Dist2 < Dist2Min)
@@ -1033,8 +1033,8 @@ void LocOpe_SplitDrafts::Perform(const TopoDS_Face&     F,
       Handle(Geom_Curve) Cd   = BRep_Tool::Curve(NewEdgd, fd, ld);
       Standard_Real      prmg = (fg + lg) / 2.;
       Standard_Real      prmd = (fd + ld) / 2.;
-      gp_Pnt             pg   = Cg->Value(prmg);
-      gp_Pnt             pd   = Cd->Value(prmd);
+      Point3d             pg   = Cg->Value(prmg);
+      Point3d             pd   = Cd->Value(prmd);
       Standard_Real      Tol  = Max(BRep_Tool::Tolerance(NewEdgg), BRep_Tool::Tolerance(NewEdgg));
       if (pg.SquareDistance(pd) <= Tol * Tol)
       {
@@ -1744,8 +1744,8 @@ static TopoDS_Edge NewEdge(const TopoDS_Edge&          edg,
   GeomAdaptor_Curve TheCurve;
 
   Standard_Integer i, k;
-  gp_Pnt           pvf = BRep_Tool::Pnt(V1);
-  gp_Pnt           pvl = BRep_Tool::Pnt(V2);
+  Point3d           pvf = BRep_Tool::Pnt(V1);
+  Point3d           pvl = BRep_Tool::Pnt(V2);
   for (i = 1; i <= i2s.NbLines(); i++)
   {
     TheCurve.Load(i2s.Line(i));
@@ -1753,7 +1753,7 @@ static TopoDS_Edge NewEdge(const TopoDS_Edge&          edg,
 
     if (myExtPC.IsDone())
     {
-      gp_Pnt        p1b, p2b;
+      Point3d        p1b, p2b;
       Standard_Real thepmin = TheCurve.FirstParameter();
       myExtPC.TrimmedSquareDistances(Dist2Min, Dist2, p1b, p2b);
       if (Dist2 < Dist2Min && !TheCurve.IsPeriodic())

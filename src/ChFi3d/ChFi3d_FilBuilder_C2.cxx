@@ -156,7 +156,7 @@ void ChFi3d_FilBuilder::PerformTwoCorner(const Standard_Integer Index)
   TopoDS_Face               FaCo;
   TopoDS_Edge               E1, E2, E;
   TopoDS_Vertex             V1, V2;
-  //  gp_Pnt P1,P2;
+  //  Point3d P1,P2;
   Standard_Integer nbsurf1, nbsurf2, deb1, fin1, deb2, fin2;
   Standard_Real    parE1, parE2;
   // Necessary information on fillets is extracted
@@ -369,8 +369,8 @@ void ChFi3d_FilBuilder::PerformTwoCorner(const Standard_Integer Index)
     Hpivot      = new BRepAdaptor_Curve(pivot);
     parCP1      = CP1.ParameterOnArc();
     parCP2      = CP2.ParameterOnArc();
-    gp_Pnt tst1 = Hpivot->Value(parCP1);
-    gp_Pnt tst2 = Hpivot->Value(parCP2);
+    Point3d tst1 = Hpivot->Value(parCP1);
+    Point3d tst2 = Hpivot->Value(parCP2);
     sameparam   = tst1.Distance(tst2) <= tolapp3d;
   }
   Handle(BRepAdaptor_Surface) HFaCo = new BRepAdaptor_Surface();
@@ -575,7 +575,7 @@ void ChFi3d_FilBuilder::PerformTwoCorner(const Standard_Integer Index)
           fil.Init(Bfac, B2, Bpiv, B1, 1);
           BRepAdaptor_Curve2d pcpivot;
           gp_Vec              dArc, dcf;
-          gp_Pnt              bidon;
+          Point3d              bidon;
           Hpivot->D1(parCP1, bidon, dArc);
           Standard_Real fb1, lb1;
           B1->Bounds(fb1, lb1);
@@ -655,7 +655,7 @@ void ChFi3d_FilBuilder::PerformTwoCorner(const Standard_Integer Index)
         // ----------------------------------------
         if (resetcp1)
         {
-          gp_Pnt        pjyl   = CP1.Point();
+          Point3d        pjyl   = CP1.Point();
           Standard_Real tolsav = CP1.Tolerance();
           CP1.Reset();
           CP1.SetPoint(pjyl);
@@ -663,7 +663,7 @@ void ChFi3d_FilBuilder::PerformTwoCorner(const Standard_Integer Index)
         }
         else if (resetcp2)
         {
-          gp_Pnt        pjyl   = CP2.Point();
+          Point3d        pjyl   = CP2.Point();
           Standard_Real tolsav = CP2.Tolerance();
           CP2.Reset();
           CP2.SetPoint(pjyl);
@@ -900,7 +900,7 @@ void ChFi3d_FilBuilder::PerformTwoCorner(const Standard_Integer Index)
       Handle(Geom2d_Curve)        pcsurfdif;
       Bdif = ChFi3d_mkbound(Hsurfdif, pcsurfdif, ppcodif, ppopdif, tolapp3d, 2.e-4);
       gp_Pnt2d ppfacsam, ppfacdif;
-      gp_Pnt   PPfacsam, PPfacdif;
+      Point3d   PPfacsam, PPfacdif;
       gp_Vec   VVfacsam, VVfacdif;
       sdsam->Interference(ifaopsam).PCurveOnFace()->D0(uintpcsam, ppfacsam);
       const Handle(Geom_Curve)& curvopsam =

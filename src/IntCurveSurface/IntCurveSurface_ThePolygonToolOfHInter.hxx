@@ -22,7 +22,7 @@
 
 #include <Standard_Integer.hxx>
 class Standard_OutOfRange;
-class gp_Pnt;
+class Point3d;
 class IntCurveSurface_ThePolygonOfHInter;
 class Bnd_Box;
 
@@ -42,11 +42,11 @@ public:
   static Standard_Integer NbSegments(const IntCurveSurface_ThePolygonOfHInter& thePolygon);
 
   //! Give the point of range Index in the Polygon.
-  static const gp_Pnt& BeginOfSeg(const IntCurveSurface_ThePolygonOfHInter& thePolygon,
+  static const Point3d& BeginOfSeg(const IntCurveSurface_ThePolygonOfHInter& thePolygon,
                                   const Standard_Integer                    Index);
 
   //! Give the point of range Index in the Polygon.
-  static const gp_Pnt& EndOfSeg(const IntCurveSurface_ThePolygonOfHInter& thePolygon,
+  static const Point3d& EndOfSeg(const IntCurveSurface_ThePolygonOfHInter& thePolygon,
                                 const Standard_Integer                    Index);
 
   Standard_EXPORT static void Dump(const IntCurveSurface_ThePolygonOfHInter& thePolygon);
@@ -55,7 +55,7 @@ protected:
 private:
 };
 
-#define ThePoint gp_Pnt
+#define ThePoint Point3d
 #define ThePoint_hxx <gp_Pnt.hxx>
 #define ThePolygon IntCurveSurface_ThePolygonOfHInter
 #define ThePolygon_hxx <IntCurveSurface_ThePolygonOfHInter.hxx>

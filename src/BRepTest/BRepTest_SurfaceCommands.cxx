@@ -705,7 +705,7 @@ static Standard_Integer projponf(Draw_Interpretor& di, Standard_Integer n, const
   const TopoDS_Face& aFace = *(TopoDS_Face*)&aS;
   //
   // get point
-  gp_Pnt aP;
+  Point3d aP;
   DrawTrSurf::GetPoint(a[2], aP);
   //
   // get projection options
@@ -764,7 +764,7 @@ static Standard_Integer projponf(Draw_Interpretor& di, Standard_Integer n, const
     Standard_Real U, V;
     aProjPS.LowerDistanceParameters(U, V);
     // nearest point
-    gp_Pnt aPProj = aProjPS.NearestPoint();
+    Point3d aPProj = aProjPS.NearestPoint();
     // translate projection point to face location
     aPProj.Transform(aLoc.Transformation());
     //

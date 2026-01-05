@@ -26,7 +26,7 @@ public:
   //! Constructs a sensitive sphere object defined by the owner theOwnerId,
   //! the center of the sphere and it's radius.
   Standard_EXPORT Select3D_SensitiveSphere(const Handle(SelectMgr_EntityOwner)& theOwnerId,
-                                           const gp_Pnt&                        theCenter,
+                                           const Point3d&                        theCenter,
                                            const Standard_Real                  theRadius);
 
   //! Returns the radius of the sphere
@@ -52,20 +52,20 @@ public:
   virtual Standard_Integer NbSubElements() const Standard_OVERRIDE { return 1; }
 
   //! Returns center of the sphere with transformation applied
-  virtual gp_Pnt CenterOfGeometry() const Standard_OVERRIDE { return myCenter; };
+  virtual Point3d CenterOfGeometry() const Standard_OVERRIDE { return myCenter; };
 
   //! Returns the position of detected point on the sphere.
-  const gp_Pnt& LastDetectedPoint() const { return myLastDetectedPoint; }
+  const Point3d& LastDetectedPoint() const { return myLastDetectedPoint; }
 
   //! Invalidate the position of detected point on the sphere.
   void ResetLastDetectedPoint()
   {
-    myLastDetectedPoint = gp_Pnt(RealLast(), RealLast(), RealLast());
+    myLastDetectedPoint = Point3d(RealLast(), RealLast(), RealLast());
   }
 
 protected:
-  gp_Pnt        myCenter;
-  gp_Pnt        myLastDetectedPoint;
+  Point3d        myCenter;
+  Point3d        myLastDetectedPoint;
   Standard_Real myRadius;
 };
 

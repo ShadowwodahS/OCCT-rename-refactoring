@@ -23,7 +23,7 @@
 void LProp3d_SurfaceTool::Value(const Handle(Adaptor3d_Surface)& S,
                                 const Standard_Real              U,
                                 const Standard_Real              V,
-                                gp_Pnt&                          P)
+                                Point3d&                          P)
 {
   P = S->Value(U, V);
 }
@@ -33,7 +33,7 @@ void LProp3d_SurfaceTool::Value(const Handle(Adaptor3d_Surface)& S,
 void LProp3d_SurfaceTool::D1(const Handle(Adaptor3d_Surface)& S,
                              const Standard_Real              U,
                              const Standard_Real              V,
-                             gp_Pnt&                          P,
+                             Point3d&                          P,
                              gp_Vec&                          D1U,
                              gp_Vec&                          D1V)
 {
@@ -45,7 +45,7 @@ void LProp3d_SurfaceTool::D1(const Handle(Adaptor3d_Surface)& S,
 void LProp3d_SurfaceTool::D2(const Handle(Adaptor3d_Surface)& S,
                              const Standard_Real              U,
                              const Standard_Real              V,
-                             gp_Pnt&                          P,
+                             Point3d&                          P,
                              gp_Vec&                          D1U,
                              gp_Vec&                          D1V,
                              gp_Vec&                          D2U,

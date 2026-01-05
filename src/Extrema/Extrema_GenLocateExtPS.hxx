@@ -22,7 +22,7 @@
 
 #include <Standard_Boolean.hxx>
 #include <Extrema_POnSurf.hxx>
-class gp_Pnt;
+class Point3d;
 class Adaptor3d_Surface;
 
 //! With a close point, it calculates the distance
@@ -43,7 +43,7 @@ public:
   //! Type of the algorithm depends on the isDistanceCriteria flag.
   //! If flag value is false - normal projection criteria will be used.
   //! If flag value is true - distance criteria will be used.
-  Standard_EXPORT void Perform(const gp_Pnt&          theP,
+  Standard_EXPORT void Perform(const Point3d&          theP,
                                const Standard_Real    theU0,
                                const Standard_Real    theV0,
                                const Standard_Boolean isDistanceCriteria = Standard_False);
@@ -59,7 +59,7 @@ public:
 
   //! Returns True if UV point theU0, theV0 is point of local minimum of square distance between
   //! point theP and points theS(U, V), U, V are in small area around theU0, theV0
-  Standard_EXPORT static Standard_Boolean IsMinDist(const gp_Pnt&            theP,
+  Standard_EXPORT static Standard_Boolean IsMinDist(const Point3d&            theP,
                                                     const Adaptor3d_Surface& theS,
                                                     const Standard_Real      theU0,
                                                     const Standard_Real      theV0);

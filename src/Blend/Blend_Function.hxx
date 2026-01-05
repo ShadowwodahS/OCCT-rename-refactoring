@@ -28,7 +28,7 @@
 #include <TColgp_Array1OfVec.hxx>
 #include <TColgp_Array1OfPnt2d.hxx>
 #include <TColgp_Array1OfVec2d.hxx>
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 class gp_Vec2d;
 class Blend_Point;
@@ -48,20 +48,20 @@ public:
   Standard_EXPORT Standard_Integer NbVariables() const Standard_OVERRIDE;
 
   //! Returns the point on the first support.
-  Standard_EXPORT const gp_Pnt& Pnt1() const Standard_OVERRIDE;
+  Standard_EXPORT const Point3d& Pnt1() const Standard_OVERRIDE;
 
   //! Returns the point on the seconde support.
-  Standard_EXPORT const gp_Pnt& Pnt2() const Standard_OVERRIDE;
+  Standard_EXPORT const Point3d& Pnt2() const Standard_OVERRIDE;
 
   //! Returns the point on the first surface, at parameter
   //! Sol(1),Sol(2) (Sol is the vector used in the call of
   //! IsSolution.
-  Standard_EXPORT virtual const gp_Pnt& PointOnS1() const = 0;
+  Standard_EXPORT virtual const Point3d& PointOnS1() const = 0;
 
   //! Returns the point on the second surface, at parameter
   //! Sol(3),Sol(4) (Sol is the vector used in the call of
   //! IsSolution.
-  Standard_EXPORT virtual const gp_Pnt& PointOnS2() const = 0;
+  Standard_EXPORT virtual const Point3d& PointOnS2() const = 0;
 
   //! Returns True when it is not possible to compute
   //! the tangent vectors at PointOnS1 and/or PointOnS2.

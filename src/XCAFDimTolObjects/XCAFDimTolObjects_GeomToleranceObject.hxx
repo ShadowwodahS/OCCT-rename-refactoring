@@ -121,24 +121,24 @@ public:
   const gp_Ax2& GetPlane() const { return myPlane; }
 
   //! Sets reference point.
-  void SetPoint(const gp_Pnt& thePnt)
+  void SetPoint(const Point3d& thePnt)
   {
     myPnt    = thePnt;
     myHasPnt = Standard_True;
   }
 
   //! Returns reference point.
-  const gp_Pnt& GetPoint() const { return myPnt; }
+  const Point3d& GetPoint() const { return myPnt; }
 
   //! Sets text position.
-  void SetPointTextAttach(const gp_Pnt& thePntText)
+  void SetPointTextAttach(const Point3d& thePntText)
   {
     myPntText    = thePntText;
     myHasPntText = Standard_True;
   }
 
   //! Returns the text position.
-  const gp_Pnt& GetPointTextAttach() const { return myPntText; }
+  const Point3d& GetPointTextAttach() const { return myPntText; }
 
   //! Returns True if the object has annotation plane.
   Standard_Boolean HasPlane() const { return myHasPlane; }
@@ -212,8 +212,8 @@ private:
   gp_Ax2                                           myAxis;
   Standard_Boolean                                 myHasAxis;
   gp_Ax2                                           myPlane;
-  gp_Pnt                                           myPnt;
-  gp_Pnt                                           myPntText;
+  Point3d                                           myPnt;
+  Point3d                                           myPntText;
   Standard_Boolean                                 myHasPlane;
   Standard_Boolean                                 myHasPnt;
   Standard_Boolean                                 myHasPntText;

@@ -138,7 +138,7 @@ static Standard_Boolean FindPointOnFace(const TopoDS_Face& face, gp_Pnt2d& pt2d)
 //=================================================================================================
 
 static Standard_Boolean ComputeDir(const TopoDS_Shape&    shape,
-                                   gp_Pnt&                pt,
+                                   Point3d&                pt,
                                    gp_Dir&                dir,
                                    const Standard_Integer mode)
 {
@@ -199,7 +199,7 @@ void DsgPrs_ShapeDirPresentation::Add(const Handle(Prs3d_Presentation)& prs,
     return;
 
   gp_Dir  dir;
-  gp_Pnt  pt;
+  Point3d  pt;
   Bnd_Box box;
 
   if (shape.ShapeType() == TopAbs_EDGE)
@@ -259,13 +259,13 @@ void DsgPrs_ShapeDirPresentation::Add(const Handle(Prs3d_Presentation)& prs,
   Standard_Real c[6];
   box.Get(c[0], c[1], c[2], c[3], c[4], c[5]);
 
-  gp_Pnt        ptmin(c[0], c[1], c[2]), ptmax(c[3], c[4], c[5]);
+  Point3d        ptmin(c[0], c[1], c[2]), ptmax(c[3], c[4], c[5]);
   Standard_Real leng = ptmin.Distance(ptmax) / 3.;
   // mei 19/09/96 extrusion infinie -> taille fixe
   if (leng >= 20000.)
     leng = 50;
 
-  gp_Pnt pt2(pt.XYZ() + leng * dir.XYZ());
+  Point3d pt2(pt.XYZ() + leng * dir.XYZ());
 
   prs->CurrentGroup()->SetPrimitivesAspect(drawer->LineAspect()->Aspect());
 

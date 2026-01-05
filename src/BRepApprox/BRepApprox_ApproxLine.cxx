@@ -68,7 +68,7 @@ IntSurf_PntOn2S BRepApprox_ApproxLine::Point(const Standard_Integer Index)
     }
   }
   gp_Pnt2d P1, P2;
-  gp_Pnt   P;
+  Point3d   P;
   if (!myCurveXYZ.IsNull())
     P = myCurveXYZ->Pole(Index);
   if (!myCurveUV1.IsNull())

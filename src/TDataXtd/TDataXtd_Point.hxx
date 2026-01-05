@@ -18,7 +18,7 @@
 
 #include <TDataStd_GenericEmpty.hxx>
 class TDF_Label;
-class gp_Pnt;
+class Point3d;
 
 class TDataXtd_Point;
 DEFINE_STANDARD_HANDLE(TDataXtd_Point, TDataStd_GenericEmpty)
@@ -28,7 +28,7 @@ DEFINE_STANDARD_HANDLE(TDataXtd_Point, TDataStd_GenericEmpty)
 //! You use this class to create reference points in a design.
 //!
 //! Warning:  Use TDataXtd_Geometry  attribute  to retrieve the
-//! gp_Pnt of the Point attribute
+//! Point3d of the Point attribute
 class TDataXtd_Point : public TDataStd_GenericEmpty
 {
 
@@ -47,7 +47,7 @@ public:
   //! If no object is found, a point attribute is created.
   //! Point methods
   //! =============
-  Standard_EXPORT static Handle(TDataXtd_Point) Set(const TDF_Label& label, const gp_Pnt& P);
+  Standard_EXPORT static Handle(TDataXtd_Point) Set(const TDF_Label& label, const Point3d& P);
 
   Standard_EXPORT TDataXtd_Point();
 

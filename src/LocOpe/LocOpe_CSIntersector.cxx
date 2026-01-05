@@ -513,7 +513,7 @@ static void AddPoints(IntCurvesFace_Intersector& theInt,
   Standard_Real    param, paramu, paramv;
   for (Standard_Integer j = 1; j <= newpnt; j++)
   {
-    const gp_Pnt& thept = theInt.Pnt(j);
+    const Point3d& thept = theInt.Pnt(j);
     param               = theInt.WParameter(j);
     paramu              = theInt.UParameter(j);
     paramv              = theInt.VParameter(j);

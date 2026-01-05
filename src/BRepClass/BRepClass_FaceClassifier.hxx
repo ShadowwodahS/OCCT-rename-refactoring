@@ -25,7 +25,7 @@
 class BRepClass_FaceExplorer;
 class gp_Pnt2d;
 class TopoDS_Face;
-class gp_Pnt;
+class Point3d;
 
 //! Provides Constructors with a Face.
 class BRepClass_FaceClassifier : public BRepClass_FClassifier
@@ -67,7 +67,7 @@ public:
   //! Recommended to use Bnd_Box if the number of edges > 10
   //! and the geometry is mostly spline
   Standard_EXPORT BRepClass_FaceClassifier(const TopoDS_Face&     theF,
-                                           const gp_Pnt&          theP,
+                                           const Point3d&          theP,
                                            const Standard_Real    theTol,
                                            const Standard_Boolean theUseBndBox   = Standard_False,
                                            const Standard_Real    theGapCheckTol = 0.1);
@@ -77,7 +77,7 @@ public:
   //! Recommended to use Bnd_Box if the number of edges > 10
   //! and the geometry is mostly spline
   Standard_EXPORT void Perform(const TopoDS_Face&     theF,
-                               const gp_Pnt&          theP,
+                               const Point3d&          theP,
                                const Standard_Real    theTol,
                                const Standard_Boolean theUseBndBox   = Standard_False,
                                const Standard_Real    theGapCheckTol = 0.1);

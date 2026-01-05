@@ -21,7 +21,7 @@ inline Standard_Real IntSurf_QuadricTool::Value(const IntSurf_Quadric& Quad,
                                                 const Standard_Real    Z)
 {
 
-  return Quad.Distance(gp_Pnt(X, Y, Z));
+  return Quad.Distance(Point3d(X, Y, Z));
 }
 
 inline void IntSurf_QuadricTool::Gradient(const IntSurf_Quadric& Quad,
@@ -31,7 +31,7 @@ inline void IntSurf_QuadricTool::Gradient(const IntSurf_Quadric& Quad,
                                           gp_Vec&                V)
 {
 
-  V = Quad.Gradient(gp_Pnt(X, Y, Z));
+  V = Quad.Gradient(Point3d(X, Y, Z));
 }
 
 inline void IntSurf_QuadricTool::ValueAndGradient(const IntSurf_Quadric& Quad,
@@ -42,5 +42,5 @@ inline void IntSurf_QuadricTool::ValueAndGradient(const IntSurf_Quadric& Quad,
                                                   gp_Vec&                V)
 {
 
-  Quad.ValAndGrad(gp_Pnt(X, Y, Z), Val, V);
+  Quad.ValAndGrad(Point3d(X, Y, Z), Val, V);
 }

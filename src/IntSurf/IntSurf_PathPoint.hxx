@@ -34,9 +34,9 @@ public:
 
   Standard_EXPORT IntSurf_PathPoint();
 
-  Standard_EXPORT IntSurf_PathPoint(const gp_Pnt& P, const Standard_Real U, const Standard_Real V);
+  Standard_EXPORT IntSurf_PathPoint(const Point3d& P, const Standard_Real U, const Standard_Real V);
 
-  Standard_EXPORT void SetValue(const gp_Pnt& P, const Standard_Real U, const Standard_Real V);
+  Standard_EXPORT void SetValue(const Point3d& P, const Standard_Real U, const Standard_Real V);
 
   void AddUV(const Standard_Real U, const Standard_Real V);
 
@@ -46,7 +46,7 @@ public:
 
   void SetPassing(const Standard_Boolean Pass);
 
-  const gp_Pnt& Value() const;
+  const Point3d& Value() const;
 
   void Value2d(Standard_Real& U, Standard_Real& V) const;
 
@@ -64,7 +64,7 @@ public:
 
 protected:
 private:
-  gp_Pnt                       pt;
+  Point3d                       pt;
   Standard_Boolean             ispass;
   Standard_Boolean             istgt;
   gp_Vec                       vectg;

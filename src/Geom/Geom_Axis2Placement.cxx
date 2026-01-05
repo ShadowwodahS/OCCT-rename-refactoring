@@ -27,7 +27,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Geom_Axis2Placement, Geom_AxisPlacement)
 typedef Geom_Axis2Placement Axis2Placement;
 typedef gp_Ax1              Ax1;
 typedef gp_Dir              Dir;
-typedef gp_Pnt              Pnt;
+typedef Point3d              Pnt;
 typedef gp_Trsf             Trsf;
 typedef gp_Vec              Vec;
 
@@ -55,7 +55,7 @@ Geom_Axis2Placement::Geom_Axis2Placement(const gp_Ax2& A2)
 
 Geom_Axis2Placement::Geom_Axis2Placement(
 
-  const gp_Pnt& P,
+  const Point3d& P,
   const gp_Dir& N,
   const gp_Dir& Vx)
 {
@@ -69,7 +69,7 @@ Geom_Axis2Placement::Geom_Axis2Placement(
 
 Geom_Axis2Placement::Geom_Axis2Placement(
 
-  const gp_Pnt& P,
+  const Point3d& P,
   const gp_Dir& Vz,
   const gp_Dir& Vx,
   const gp_Dir& Vy

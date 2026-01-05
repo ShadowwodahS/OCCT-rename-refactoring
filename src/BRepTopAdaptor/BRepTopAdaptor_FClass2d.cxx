@@ -127,7 +127,7 @@ BRepTopAdaptor_FClass2d::BRepTopAdaptor_FClass2d(const TopoDS_Face&  aFace,
       NbEdges++;
     aNbE = NbEdges;
 
-    gp_Pnt           Ancienpnt3d(0, 0, 0);
+    Point3d           Ancienpnt3d(0, 0, 0);
     Standard_Boolean Ancienpnt3dinitialise = Standard_False;
 
     for (WireExplorer.Init(TopoDS::Wire(FaceExplorer.Current()), Face); WireExplorer.More();
@@ -177,13 +177,13 @@ BRepTopAdaptor_FClass2d::BRepTopAdaptor_FClass2d(const TopoDS_Face&  aFace,
           C3d.Initialize(edge, Face);
           du          = (plbid - pfbid) * 0.1;
           u           = pfbid + du;
-          gp_Pnt P3da = C3d.Value(u);
+          Point3d P3da = C3d.Value(u);
           degenerated = Standard_True;
           u += du;
           do
           {
 
-            gp_Pnt P3db = C3d.Value(u);
+            Point3d P3db = C3d.Value(u);
             // 		      if(P3da.SquareDistance(P3db)) { degenerated=Standard_False; break; }
             if (P3da.SquareDistance(P3db) > Precision::Confusion())
             {
@@ -248,7 +248,7 @@ BRepTopAdaptor_FClass2d::BRepTopAdaptor_FClass2d(const TopoDS_Face&  aFace,
             Vmax = P2d.Y();
 
           Standard_Real dist3dptcourant_ancienpnt = 1e+20; // RealLast();
-          gp_Pnt        P3d;
+          Point3d        P3d;
           if (degenerated == Standard_False)
           {
             P3d = C3d.Value(u);
@@ -258,7 +258,7 @@ BRepTopAdaptor_FClass2d::BRepTopAdaptor_FClass2d(const TopoDS_Face&  aFace,
           Standard_Boolean IsRealCurve3d = Standard_True; // patch
           if (dist3dptcourant_ancienpnt < Precision::Confusion())
           {
-            gp_Pnt MidP3d = C3d.Value(u - du / 2.);
+            Point3d MidP3d = C3d.Value(u - du / 2.);
             if (P3d.Distance(MidP3d) < Precision::Confusion())
               IsRealCurve3d = Standard_False;
           }

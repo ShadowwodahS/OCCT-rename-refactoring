@@ -98,7 +98,7 @@ TopoDS_Shape BRepSweep_Translation::MakeEmptyVertex(const TopoDS_Shape&   aGenV,
 {
   // Only called when the option of construction is with copy.
   Standard_ConstructionError_Raise_if(!myCopy, "BRepSweep_Translation::MakeEmptyVertex");
-  gp_Pnt P = BRep_Tool::Pnt(TopoDS::Vertex(aGenV));
+  Point3d P = BRep_Tool::Pnt(TopoDS::Vertex(aGenV));
   if (aDirV.Index() == 2)
     P.Transform(myLocation.Transformation());
   TopoDS_Vertex V;
@@ -114,7 +114,7 @@ TopoDS_Shape BRepSweep_Translation::MakeEmptyVertex(const TopoDS_Shape&   aGenV,
 TopoDS_Shape BRepSweep_Translation::MakeEmptyDirectingEdge(const TopoDS_Shape& aGenV,
                                                            const Sweep_NumShape&)
 {
-  gp_Pnt            P = BRep_Tool::Pnt(TopoDS::Vertex(aGenV));
+  Point3d            P = BRep_Tool::Pnt(TopoDS::Vertex(aGenV));
   gp_Lin            L(P, myVec);
   Handle(Geom_Line) GL = new Geom_Line(L);
   TopoDS_Edge       E;
@@ -334,7 +334,7 @@ void BRepSweep_Translation::SetGeneratingPCurve(const TopoDS_Shape& aNewFace,
         gp_Lin gl = BRAC.Line();
 
         if(aDirV.Index()==2) gl.Translate(myVec);
-        gp_Pnt pnt = gl.Location();
+        Point3d pnt = gl.Location();
         gp_Dir dir = gl.Direction();
         Standard_Real u,v;
         ElSLib::PlaneParameters(ax3,pnt,u,v);
@@ -379,7 +379,7 @@ void BRepSweep_Translation::SetDirectingPCurve(const TopoDS_Shape& aNewFace,
 
         gp_Pln pln = AS.Plane();
         gp_Ax3 ax3 = pln.Position();
-        gp_Pnt pv = BRep_Tool::Pnt(TopoDS::Vertex(aGenV));
+        Point3d pv = BRep_Tool::Pnt(TopoDS::Vertex(aGenV));
         gp_Dir dir(myVec);
         Standard_Real u,v;
         ElSLib::PlaneParameters(ax3,pv,u,v);
@@ -402,7 +402,7 @@ TopAbs_Orientation BRepSweep_Translation::DirectSolid(const TopoDS_Shape& aGenS,
 {
   // compare the face normal and the direction
   BRepAdaptor_Surface surf(TopoDS::Face(aGenS));
-  gp_Pnt              P;
+  Point3d              P;
   gp_Vec              du, dv;
   surf.D1((surf.FirstUParameter() + surf.LastUParameter()) / 2.,
           (surf.FirstVParameter() + surf.LastVParameter()) / 2.,

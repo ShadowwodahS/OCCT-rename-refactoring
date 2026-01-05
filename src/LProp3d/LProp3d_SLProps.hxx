@@ -60,7 +60,7 @@ public:
   Standard_EXPORT void SetParameters(const Standard_Real U, const Standard_Real V);
 
   //! Returns the point.
-  Standard_EXPORT const gp_Pnt& Value() const;
+  Standard_EXPORT const Point3d& Value() const;
 
   //! Returns the first U derivative.
   //! The derivative is computed if it has not been yet.
@@ -134,7 +134,7 @@ private:
   Standard_Integer          myDerOrder;
   Standard_Integer          myCN;
   Standard_Real             myLinTol;
-  gp_Pnt                    myPnt;
+  Point3d                    myPnt;
   gp_Vec                    myD1u;
   gp_Vec                    myD1v;
   gp_Vec                    myD2u;

@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 class gp_Ax3;
 class gp_Pln;
-class gp_Pnt;
+class Point3d;
 class gp_Dir;
 class gp_Trsf;
 class gp_GTrsf2d;
@@ -77,7 +77,7 @@ public:
 
   //! P is the "Location" point or origin of the plane.
   //! V is the direction normal to the plane.
-  Standard_EXPORT Geom_Plane(const gp_Pnt& P, const gp_Dir& V);
+  Standard_EXPORT Geom_Plane(const Point3d& P, const gp_Dir& V);
 
   //! Creates a plane from its cartesian equation:
   //! @code
@@ -198,12 +198,12 @@ public:
   //! "XDirection" and YDir the "YDirection" of the plane's local coordinate system.
   Standard_EXPORT void D0(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P) const Standard_OVERRIDE;
+                          Point3d&             P) const Standard_OVERRIDE;
 
   //! Computes the current point and the first derivatives in the directions U and V.
   Standard_EXPORT void D1(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V) const Standard_OVERRIDE;
 
@@ -211,7 +211,7 @@ public:
   //! derivatives in the directions U and V.
   Standard_EXPORT void D2(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V,
                           gp_Vec&             D2U,
@@ -222,7 +222,7 @@ public:
   //! third derivatives in the directions U and V.
   Standard_EXPORT void D3(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V,
                           gp_Vec&             D2U,

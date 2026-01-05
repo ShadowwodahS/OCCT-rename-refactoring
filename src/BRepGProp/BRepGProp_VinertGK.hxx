@@ -65,7 +65,7 @@ public:
   //! 3D space delimited with the naturally restricted surface
   //! and the point VLocation.
   Standard_EXPORT BRepGProp_VinertGK(BRepGProp_Face&        theSurface,
-                                     const gp_Pnt&          theLocation,
+                                     const Point3d&          theLocation,
                                      const Standard_Real    theTolerance = 0.001,
                                      const Standard_Boolean theCGFlag    = Standard_False,
                                      const Standard_Boolean theIFlag     = Standard_False);
@@ -75,8 +75,8 @@ public:
   //! and the point VLocation. The inertia is computed with
   //! respect to thePoint.
   Standard_EXPORT BRepGProp_VinertGK(BRepGProp_Face&        theSurface,
-                                     const gp_Pnt&          thePoint,
-                                     const gp_Pnt&          theLocation,
+                                     const Point3d&          thePoint,
+                                     const Point3d&          theLocation,
                                      const Standard_Real    theTolerance = 0.001,
                                      const Standard_Boolean theCGFlag    = Standard_False,
                                      const Standard_Boolean theIFlag     = Standard_False);
@@ -86,7 +86,7 @@ public:
   //! and the point VLocation.
   Standard_EXPORT BRepGProp_VinertGK(BRepGProp_Face&        theSurface,
                                      BRepGProp_Domain&      theDomain,
-                                     const gp_Pnt&          theLocation,
+                                     const Point3d&          theLocation,
                                      const Standard_Real    theTolerance = 0.001,
                                      const Standard_Boolean theCGFlag    = Standard_False,
                                      const Standard_Boolean theIFlag     = Standard_False);
@@ -97,8 +97,8 @@ public:
   //! respect to thePoint.
   Standard_EXPORT BRepGProp_VinertGK(BRepGProp_Face&        theSurface,
                                      BRepGProp_Domain&      theDomain,
-                                     const gp_Pnt&          thePoint,
-                                     const gp_Pnt&          theLocation,
+                                     const Point3d&          thePoint,
+                                     const Point3d&          theLocation,
                                      const Standard_Real    theTolerance = 0.001,
                                      const Standard_Boolean theCGFlag    = Standard_False,
                                      const Standard_Boolean theIFlag     = Standard_False);
@@ -108,7 +108,7 @@ public:
   //! and the plane.
   Standard_EXPORT BRepGProp_VinertGK(BRepGProp_Face&        theSurface,
                                      const gp_Pln&          thePlane,
-                                     const gp_Pnt&          theLocation,
+                                     const Point3d&          theLocation,
                                      const Standard_Real    theTolerance = 0.001,
                                      const Standard_Boolean theCGFlag    = Standard_False,
                                      const Standard_Boolean theIFlag     = Standard_False);
@@ -119,13 +119,13 @@ public:
   Standard_EXPORT BRepGProp_VinertGK(BRepGProp_Face&        theSurface,
                                      BRepGProp_Domain&      theDomain,
                                      const gp_Pln&          thePlane,
-                                     const gp_Pnt&          theLocation,
+                                     const Point3d&          theLocation,
                                      const Standard_Real    theTolerance = 0.001,
                                      const Standard_Boolean theCGFlag    = Standard_False,
                                      const Standard_Boolean theIFlag     = Standard_False);
 
   //! Sets the vertex that delimit 3D closed region of space.
-  void SetLocation(const gp_Pnt& theLocation) { loc = theLocation; }
+  void SetLocation(const Point3d& theLocation) { loc = theLocation; }
 
   //! Computes the global properties of a region of 3D space
   //! delimited with the naturally restricted surface and the
@@ -140,7 +140,7 @@ public:
   //! point VLocation. The inertia is computed with respect to
   //! thePoint.
   Standard_EXPORT Standard_Real Perform(BRepGProp_Face&        theSurface,
-                                        const gp_Pnt&          thePoint,
+                                        const Point3d&          thePoint,
                                         const Standard_Real    theTolerance = 0.001,
                                         const Standard_Boolean theCGFlag    = Standard_False,
                                         const Standard_Boolean theIFlag     = Standard_False);
@@ -160,7 +160,7 @@ public:
   //! thePoint.
   Standard_EXPORT Standard_Real Perform(BRepGProp_Face&        theSurface,
                                         BRepGProp_Domain&      theDomain,
-                                        const gp_Pnt&          thePoint,
+                                        const Point3d&          thePoint,
                                         const Standard_Real    theTolerance = 0.001,
                                         const Standard_Boolean theCGFlag    = Standard_False,
                                         const Standard_Boolean theIFlag     = Standard_False);

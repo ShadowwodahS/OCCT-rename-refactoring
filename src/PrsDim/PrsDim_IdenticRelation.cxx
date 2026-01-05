@@ -79,11 +79,11 @@ static Standard_Boolean IsEqual2PI(const Standard_Real angle1,
 // purpose  : sort an array of parameters <tab1> in increasing order
 //           updates <tab2> and <tab3> according to <tab1>
 //=======================================================================
-static void PrsDim_Sort(Standard_Real tab1[4], gp_Pnt tab2[4], Standard_Integer tab3[4])
+static void PrsDim_Sort(Standard_Real tab1[4], Point3d tab2[4], Standard_Integer tab3[4])
 {
   Standard_Boolean found = Standard_True;
   Standard_Real    cur;
-  gp_Pnt           cur1;
+  Point3d           cur1;
   Standard_Integer cur2;
 
   while (found)
@@ -178,16 +178,16 @@ static Standard_Boolean ConnectedEdges(const TopoDS_Wire&   WIRE,
 //           The <aPosition> parameter is in/out.
 //=======================================================================
 static Standard_Boolean ComputeAttach(const gp_Circ& thecirc,
-                                      const gp_Pnt&  aFAttach,
-                                      const gp_Pnt&  aSAttach,
-                                      gp_Pnt&        aPosition)
+                                      const Point3d&  aFAttach,
+                                      const Point3d&  aSAttach,
+                                      Point3d&        aPosition)
 {
-  gp_Pnt curpos = aPosition;
+  Point3d curpos = aPosition;
 
   // Case of confusion between the current position and the center
   // of the circle -> we move the current position
   constexpr Standard_Real confusion(Precision::Confusion());
-  gp_Pnt                  aCenter = thecirc.Location();
+  Point3d                  aCenter = thecirc.Location();
   if (aCenter.Distance(curpos) <= confusion)
   {
     gp_Vec vprec(aCenter, aFAttach);
@@ -246,16 +246,16 @@ static Standard_Boolean ComputeAttach(const gp_Circ& thecirc,
 //           The <aPosition> parameter is in/out.
 //=======================================================================
 static Standard_Boolean ComputeAttach(const gp_Elips& theEll,
-                                      const gp_Pnt&   aFAttach,
-                                      const gp_Pnt&   aSAttach,
-                                      gp_Pnt&         aPosition)
+                                      const Point3d&   aFAttach,
+                                      const Point3d&   aSAttach,
+                                      Point3d&         aPosition)
 {
-  gp_Pnt curpos = aPosition;
+  Point3d curpos = aPosition;
 
   // Case of confusion between the current position and the center
   // of the circle -> we move the current position
   constexpr Standard_Real confusion(Precision::Confusion());
-  gp_Pnt                  aCenter = theEll.Location();
+  Point3d                  aCenter = theEll.Location();
   if (aCenter.Distance(curpos) <= confusion)
   {
     gp_Vec vprec(aCenter, aFAttach);
@@ -387,7 +387,7 @@ void PrsDim_IdenticRelation::ComputeSelection(const Handle(SelectMgr_Selection)&
 
   Handle(Select3D_SensitiveSegment) seg;
   // attachment point of the segment linking position to the curve
-  gp_Pnt                  attach;
+  Point3d                  attach;
   constexpr Standard_Real confusion(Precision::Confusion());
 
   if (myFAttach.IsEqual(mySAttach, confusion))
@@ -400,7 +400,7 @@ void PrsDim_IdenticRelation::ComputeSelection(const Handle(SelectMgr_Selection)&
     if (myFShape.ShapeType() == TopAbs_EDGE)
     {
       Handle(Geom_Curve) curv1, curv2;
-      gp_Pnt             firstp1, lastp1, firstp2, lastp2;
+      Point3d             firstp1, lastp1, firstp2, lastp2;
       Standard_Boolean   isInfinite1, isInfinite2;
       Handle(Geom_Curve) extCurv;
       if (!PrsDim::ComputeGeometry(TopoDS::Edge(myFShape),
@@ -486,7 +486,7 @@ void PrsDim_IdenticRelation::ComputeSelection(const Handle(SelectMgr_Selection)&
 void PrsDim_IdenticRelation::ComputeTwoEdgesPresentation(const Handle(Prs3d_Presentation)& aPrs)
 {
   Handle(Geom_Curve) curv1, curv2;
-  gp_Pnt             firstp1, lastp1, firstp2, lastp2;
+  Point3d             firstp1, lastp1, firstp2, lastp2;
   Standard_Boolean   isInfinite1, isInfinite2;
 
   Handle(Geom_Curve) extCurv;
@@ -531,7 +531,7 @@ void PrsDim_IdenticRelation::ComputeTwoEdgesPresentation(const Handle(Prs3d_Pres
   else if (curv1->IsInstance(STANDARD_TYPE(Geom_Circle))
            && curv2->IsInstance(STANDARD_TYPE(Geom_Circle)))
   {
-    // gp_Pnt curpos;
+    // Point3d curpos;
     isCircle = Standard_True; // useful for ComputeSelection
     Handle(Geom_Circle) thecirc(Handle(Geom_Circle)::DownCast(curv1));
     ComputeTwoCirclesPresentation(aPrs, thecirc, firstp1, lastp1, firstp2, lastp2);
@@ -571,10 +571,10 @@ void PrsDim_IdenticRelation::ComputeTwoEdgesPresentation(const Handle(Prs3d_Pres
 //=======================================================================
 void PrsDim_IdenticRelation::ComputeTwoLinesPresentation(const Handle(Prs3d_Presentation)& aPrs,
                                                          const Handle(Geom_Line)&          thelin,
-                                                         gp_Pnt&                           firstp1,
-                                                         gp_Pnt&                           lastp1,
-                                                         gp_Pnt&                           firstp2,
-                                                         gp_Pnt&                           lastp2,
+                                                         Point3d&                           firstp1,
+                                                         Point3d&                           lastp1,
+                                                         Point3d&                           firstp2,
+                                                         Point3d&                           lastp2,
                                                          const Standard_Boolean isInfinite1,
                                                          const Standard_Boolean isInfinite2)
 {
@@ -583,7 +583,7 @@ void PrsDim_IdenticRelation::ComputeTwoLinesPresentation(const Handle(Prs3d_Pres
     if (myAutomaticPosition)
     {
       myFAttach = mySAttach = thelin->Lin().Location();
-      gp_Pnt curpos;
+      Point3d curpos;
       gp_Pln pln(myPlane->Pln());
       gp_Dir dir(pln.XAxis().Direction());
       gp_Vec transvec     = gp_Vec(dir) * myArrowSize;
@@ -628,7 +628,7 @@ void PrsDim_IdenticRelation::ComputeTwoLinesPresentation(const Handle(Prs3d_Pres
     Standard_Real tabRang1[4]; // array that contains the parameters of the 4 points
     // ordered by increasing abscisses.
 
-    gp_Pnt tabRang2[4]; // array containing the points corresponding to the
+    Point3d tabRang2[4]; // array containing the points corresponding to the
     // parameters in tabRang1
 
     Standard_Integer tabRang3[4]; // array containing the number of the curve( 1 or 2)
@@ -653,8 +653,8 @@ void PrsDim_IdenticRelation::ComputeTwoLinesPresentation(const Handle(Prs3d_Pres
 
     // Computation of myFAttach and mySAttach according to the
     // position of the 2 linear edges
-    gp_Pnt curpos;
-    gp_Pnt middle;
+    Point3d curpos;
+    Point3d middle;
 
     if ((tabRang1[0] == tabRang1[1]) && (tabRang1[2] == tabRang1[3]))
     {
@@ -717,7 +717,7 @@ void PrsDim_IdenticRelation::ComputeTwoLinesPresentation(const Handle(Prs3d_Pres
       curpos                          = myPosition;
       Standard_Real           pcurpos = ElCLib::Parameter(thelin->Lin(), curpos);
       Standard_Real           dist    = thelin->Lin().Distance(curpos);
-      gp_Pnt                  proj    = ElCLib::Value(pcurpos, thelin->Lin());
+      Point3d                  proj    = ElCLib::Value(pcurpos, thelin->Lin());
       gp_Vec                  trans;
       constexpr Standard_Real confusion(Precision::Confusion());
       if (dist >= confusion)
@@ -763,10 +763,10 @@ void PrsDim_IdenticRelation::ComputeTwoLinesPresentation(const Handle(Prs3d_Pres
 //=======================================================================
 void PrsDim_IdenticRelation::ComputeTwoCirclesPresentation(const Handle(Prs3d_Presentation)& aPrs,
                                                            const Handle(Geom_Circle)& thecirc,
-                                                           const gp_Pnt&              firstp1,
-                                                           const gp_Pnt&              lastp1,
-                                                           const gp_Pnt&              firstp2,
-                                                           const gp_Pnt&              lastp2)
+                                                           const Point3d&              firstp1,
+                                                           const Point3d&              lastp1,
+                                                           const Point3d&              firstp2,
+                                                           const Point3d&              lastp2)
 {
   constexpr Standard_Real confusion(Precision::Confusion());
 
@@ -787,7 +787,7 @@ void PrsDim_IdenticRelation::ComputeTwoCirclesPresentation(const Handle(Prs3d_Pr
       myFAttach             = ElCLib::Value(Modulo2PI(pfirst1 - rad), thecirc->Circ());
       mySAttach             = ElCLib::Value(Modulo2PI(pfirst1 + rad), thecirc->Circ());
 
-      gp_Pnt curpos = ElCLib::Value(pfirst1, thecirc->Circ());
+      Point3d curpos = ElCLib::Value(pfirst1, thecirc->Circ());
       gp_Vec vtrans(myCenter, curpos);
       vtrans.Normalize();
       vtrans *= aSegSize;
@@ -801,7 +801,7 @@ void PrsDim_IdenticRelation::ComputeTwoCirclesPresentation(const Handle(Prs3d_Pr
   // II. Case of one complete circle and one arc
   else if ((circ1complete && !circ2complete) || (!circ1complete && circ2complete))
   {
-    gp_Pnt firstp, lastp;
+    Point3d firstp, lastp;
     if (circ1complete && !circ2complete)
     {
       firstp = firstp2;
@@ -837,7 +837,7 @@ void PrsDim_IdenticRelation::ComputeTwoCirclesPresentation(const Handle(Prs3d_Pr
     // III.1. First of one and last of another
     if (IsEqual2PI(pl1, pf2, confusion) || IsEqual2PI(pf1, pl2, confusion))
     {
-      gp_Pnt        curpos(0., 0., 0.);
+      Point3d        curpos(0., 0., 0.);
       Standard_Real att = 0.;
       if (IsEqual2PI(pl1, pf2, confusion))
       {
@@ -870,7 +870,7 @@ void PrsDim_IdenticRelation::ComputeTwoCirclesPresentation(const Handle(Prs3d_Pr
     {
       Standard_Real l1 = Modulo2PI(pl1 - pf1);
       Standard_Real l2 = Modulo2PI(pl2 - pf2);
-      gp_Pnt        firstp, lastp;
+      Point3d        firstp, lastp;
       if (l1 < l2)
       {
         firstp = firstp1;
@@ -906,7 +906,7 @@ void PrsDim_IdenticRelation::ComputeTwoCirclesPresentation(const Handle(Prs3d_Pr
       // 3b - second arc contains the first one
       // 4 - two intersections
 
-      gp_Pnt firstp, lastp;
+      Point3d firstp, lastp;
 
       if (pl1m < pf2m) // 1 or 2b or 3b
       {
@@ -993,7 +993,7 @@ void PrsDim_IdenticRelation::ComputeTwoCirclesPresentation(const Handle(Prs3d_Pr
 
   // Display of the presentation
   TCollection_ExtendedString vals(" ==");
-  gp_Pnt                     attach = myPosition;
+  Point3d                     attach = myPosition;
   ComputeAttach(thecirc->Circ(), myFAttach, mySAttach, attach);
   DsgPrs_IdenticPresentation::Add(aPrs,
                                   myDrawer,
@@ -1012,8 +1012,8 @@ void PrsDim_IdenticRelation::ComputeTwoCirclesPresentation(const Handle(Prs3d_Pr
 //           not in the case of dragging.
 //=======================================================================
 void PrsDim_IdenticRelation::ComputeAutoArcPresentation(const Handle(Geom_Circle)& thecirc,
-                                                        const gp_Pnt&              firstp,
-                                                        const gp_Pnt&              lastp,
+                                                        const Point3d&              firstp,
+                                                        const Point3d&              lastp,
                                                         const Standard_Boolean     isstatic)
 {
   Standard_Real aSegSize = thecirc->Radius() / 5.0;
@@ -1030,7 +1030,7 @@ void PrsDim_IdenticRelation::ComputeAutoArcPresentation(const Handle(Geom_Circle
   myFAttach = ElCLib::Value(Modulo2PI(pmiddle - rad), thecirc->Circ());
   mySAttach = ElCLib::Value(Modulo2PI(pmiddle + rad), thecirc->Circ());
 
-  gp_Pnt curpos = ElCLib::Value(pmiddle, thecirc->Circ());
+  Point3d curpos = ElCLib::Value(pmiddle, thecirc->Circ());
   gp_Vec vtrans(myCenter, curpos);
   vtrans.Normalize();
   vtrans *= aSegSize;
@@ -1047,7 +1047,7 @@ void PrsDim_IdenticRelation::ComputeAutoArcPresentation(const Handle(Geom_Circle
 //=======================================================================
 void PrsDim_IdenticRelation::ComputeNotAutoCircPresentation(const Handle(Geom_Circle)& thecirc)
 {
-  gp_Pnt curpos = myPosition;
+  Point3d curpos = myPosition;
 
   Handle(Geom_Circle) cirNotAuto = new Geom_Circle(thecirc->Circ());
 
@@ -1078,10 +1078,10 @@ void PrsDim_IdenticRelation::ComputeNotAutoCircPresentation(const Handle(Geom_Ci
 //           and mySAttach.
 //=======================================================================
 void PrsDim_IdenticRelation::ComputeNotAutoArcPresentation(const Handle(Geom_Circle)& thecirc,
-                                                           const gp_Pnt&              pntfirst,
-                                                           const gp_Pnt&              pntlast)
+                                                           const Point3d&              pntfirst,
+                                                           const Point3d&              pntlast)
 {
-  gp_Pnt curpos = myPosition;
+  Point3d curpos = myPosition;
 
   gp_Circ cirNotAuto = thecirc->Circ();
 
@@ -1097,8 +1097,8 @@ void PrsDim_IdenticRelation::ComputeNotAutoArcPresentation(const Handle(Geom_Cir
   }
   else
   {
-    gp_Pnt aFPnt = ElCLib::Value(Modulo2PI(pFPnt + rad), cirNotAuto);
-    gp_Pnt aSPnt = ElCLib::Value(Modulo2PI(pSPnt - rad), cirNotAuto);
+    Point3d aFPnt = ElCLib::Value(Modulo2PI(pFPnt + rad), cirNotAuto);
+    Point3d aSPnt = ElCLib::Value(Modulo2PI(pSPnt - rad), cirNotAuto);
 
     ComputeAttach(cirNotAuto, aFPnt, aSPnt, curpos);
 
@@ -1123,10 +1123,10 @@ void PrsDim_IdenticRelation::ComputeNotAutoArcPresentation(const Handle(Geom_Cir
 //=======================================================================
 void PrsDim_IdenticRelation::ComputeTwoEllipsesPresentation(const Handle(Prs3d_Presentation)& aPrs,
                                                             const Handle(Geom_Ellipse)& theEll,
-                                                            const gp_Pnt&               firstp1,
-                                                            const gp_Pnt&               lastp1,
-                                                            const gp_Pnt&               firstp2,
-                                                            const gp_Pnt&               lastp2)
+                                                            const Point3d&               firstp1,
+                                                            const Point3d&               lastp1,
+                                                            const Point3d&               firstp2,
+                                                            const Point3d&               lastp2)
 {
   constexpr Standard_Real confusion(Precision::Confusion());
 
@@ -1147,7 +1147,7 @@ void PrsDim_IdenticRelation::ComputeTwoEllipsesPresentation(const Handle(Prs3d_P
       myFAttach             = ElCLib::Value(Modulo2PI(pfirst1 - rad), theEll->Elips());
       mySAttach             = ElCLib::Value(Modulo2PI(pfirst1 + rad), theEll->Elips());
 
-      gp_Pnt curpos = ElCLib::Value(pfirst1, theEll->Elips());
+      Point3d curpos = ElCLib::Value(pfirst1, theEll->Elips());
       gp_Vec vtrans(myCenter, curpos);
       vtrans.Normalize();
       vtrans *= aSegSize;
@@ -1161,7 +1161,7 @@ void PrsDim_IdenticRelation::ComputeTwoEllipsesPresentation(const Handle(Prs3d_P
   // II. Case of one complete circle and one arc
   else if ((circ1complete && !circ2complete) || (!circ1complete && circ2complete))
   {
-    gp_Pnt firstp, lastp;
+    Point3d firstp, lastp;
     if (circ1complete && !circ2complete)
     {
       firstp = firstp2;
@@ -1197,7 +1197,7 @@ void PrsDim_IdenticRelation::ComputeTwoEllipsesPresentation(const Handle(Prs3d_P
     // III.1. First of one and last of another
     if (IsEqual2PI(pl1, pf2, confusion) || IsEqual2PI(pf1, pl2, confusion))
     {
-      gp_Pnt        curpos;
+      Point3d        curpos;
       Standard_Real att = 0.;
       if (IsEqual2PI(pl1, pf2, confusion))
       {
@@ -1230,7 +1230,7 @@ void PrsDim_IdenticRelation::ComputeTwoEllipsesPresentation(const Handle(Prs3d_P
     {
       Standard_Real l1 = Modulo2PI(pl1 - pf1);
       Standard_Real l2 = Modulo2PI(pl2 - pf2);
-      gp_Pnt        firstp, lastp;
+      Point3d        firstp, lastp;
       if (l1 < l2)
       {
         firstp = firstp1;
@@ -1266,7 +1266,7 @@ void PrsDim_IdenticRelation::ComputeTwoEllipsesPresentation(const Handle(Prs3d_P
       // 3b - second arc contains the first one
       // 4 - two intersections
 
-      gp_Pnt firstp, lastp;
+      Point3d firstp, lastp;
 
       if (pl1m < pf2m) // 1 or 2b or 3b
       {
@@ -1353,7 +1353,7 @@ void PrsDim_IdenticRelation::ComputeTwoEllipsesPresentation(const Handle(Prs3d_P
 
   // Display of the presentation
   TCollection_ExtendedString vals(" ==");
-  gp_Pnt                     attach = myPosition;
+  Point3d                     attach = myPosition;
   ComputeAttach(theEll->Elips(), myFAttach, mySAttach, attach);
   DsgPrs_IdenticPresentation::Add(aPrs,
                                   myDrawer,
@@ -1371,8 +1371,8 @@ void PrsDim_IdenticRelation::ComputeTwoEllipsesPresentation(const Handle(Prs3d_P
 //           not in the case of dragging.
 //=======================================================================
 void PrsDim_IdenticRelation::ComputeAutoArcPresentation(const Handle(Geom_Ellipse)& theEll,
-                                                        const gp_Pnt&               firstp,
-                                                        const gp_Pnt&               lastp,
+                                                        const Point3d&               firstp,
+                                                        const Point3d&               lastp,
                                                         const Standard_Boolean      isstatic)
 {
   Standard_Real aSegSize = theEll->MajorRadius() / 5.0;
@@ -1391,7 +1391,7 @@ void PrsDim_IdenticRelation::ComputeAutoArcPresentation(const Handle(Geom_Ellips
   myFAttach = ElCLib::Value(Modulo2PI(pmiddle - rad), anEll);
   mySAttach = ElCLib::Value(Modulo2PI(pmiddle + rad), anEll);
 
-  gp_Pnt curpos = ElCLib::Value(pmiddle, anEll);
+  Point3d curpos = ElCLib::Value(pmiddle, anEll);
   gp_Vec vtrans(myCenter, curpos);
   vtrans.Normalize();
   vtrans *= aSegSize;
@@ -1408,7 +1408,7 @@ void PrsDim_IdenticRelation::ComputeAutoArcPresentation(const Handle(Geom_Ellips
 //=======================================================================
 void PrsDim_IdenticRelation::ComputeNotAutoElipsPresentation(const Handle(Geom_Ellipse)& theEll)
 {
-  gp_Pnt curpos = myPosition;
+  Point3d curpos = myPosition;
 
   gp_Elips anEll = theEll->Elips();
 
@@ -1442,10 +1442,10 @@ void PrsDim_IdenticRelation::ComputeNotAutoElipsPresentation(const Handle(Geom_E
 //           and mySAttach.
 //=======================================================================
 void PrsDim_IdenticRelation::ComputeNotAutoArcPresentation(const Handle(Geom_Ellipse)& theEll,
-                                                           const gp_Pnt&               pntfirst,
-                                                           const gp_Pnt&               pntlast)
+                                                           const Point3d&               pntfirst,
+                                                           const Point3d&               pntlast)
 {
-  gp_Pnt curpos = myPosition;
+  Point3d curpos = myPosition;
 
   gp_Elips anEll = theEll->Elips();
 
@@ -1461,8 +1461,8 @@ void PrsDim_IdenticRelation::ComputeNotAutoArcPresentation(const Handle(Geom_Ell
   }
   else
   {
-    gp_Pnt aFPnt = ElCLib::Value(Modulo2PI(pFPnt + rad), anEll);
-    gp_Pnt aSPnt = ElCLib::Value(Modulo2PI(pSPnt - rad), anEll);
+    Point3d aFPnt = ElCLib::Value(Modulo2PI(pFPnt + rad), anEll);
+    Point3d aSPnt = ElCLib::Value(Modulo2PI(pSPnt - rad), anEll);
 
     ComputeAttach(anEll, aFPnt, aSPnt, curpos);
 
@@ -1502,7 +1502,7 @@ void PrsDim_IdenticRelation::ComputeTwoVerticesPresentation(const Handle(Prs3d_P
   myFAttach = BRep_Tool::Pnt(FVertex);
   mySAttach = myFAttach;
 
-  gp_Pnt curpos;
+  Point3d curpos;
   if (myAutomaticPosition)
   {
     // Computation of the size of the symbol
@@ -1601,7 +1601,7 @@ Standard_Boolean PrsDim_IdenticRelation::ComputeDirection(const TopoDS_Wire&   a
   }
 
   Handle(Geom_Curve) curv1, curv2;
-  gp_Pnt             firstp1, lastp1, firstp2, lastp2;
+  Point3d             firstp1, lastp1, firstp2, lastp2;
 
   // Case with 2 edges connected to the vertex <VERT>
   if (!edg1.IsNull() && !edg2.IsNull())
@@ -1679,7 +1679,7 @@ Standard_Boolean PrsDim_IdenticRelation::ComputeDirection(const TopoDS_Wire&   a
 //=================================================================================================
 
 gp_Dir PrsDim_IdenticRelation::ComputeLineDirection(const Handle(Geom_Line)& lin,
-                                                    const gp_Pnt&            firstP) const
+                                                    const Point3d&            firstP) const
 {
   gp_Dir dir;
   dir = lin->Lin().Direction();
@@ -1718,7 +1718,7 @@ void PrsDim_IdenticRelation::ComputeOneEdgeOVertexPresentation(
     E       = TopoDS::Edge(myFShape);
     numedge = 1; // edge = 1st shape
   }
-  gp_Pnt             ptonedge1, ptonedge2;
+  Point3d             ptonedge1, ptonedge2;
   Handle(Geom_Curve) aCurve;
   Handle(Geom_Curve) extCurv;
   Standard_Boolean   isInfinite;
@@ -1757,7 +1757,7 @@ void PrsDim_IdenticRelation::ComputeOneEdgeOVertexPresentation(
   myFAttach = BRep_Tool::Pnt(V);
   mySAttach = myFAttach;
 
-  gp_Pnt curpos;
+  Point3d curpos;
   if (myAutomaticPosition)
   {
     // Computation of the size of the symbol

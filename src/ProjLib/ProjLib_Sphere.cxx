@@ -102,7 +102,7 @@ static gp_Pnt2d EvalPnt2d(const gp_Vec& P, const gp_Sphere& Sp)
 
 void ProjLib_Sphere::Project(const gp_Circ& C)
 {
-  gp_Pnt O;          // O Location of Sp;
+  Point3d O;          // O Location of Sp;
   gp_Dir Xc, Yc, Zc; // X Y Z Direction of C;
   gp_Dir Xs, Ys, Zs; // X Y Z Direction of Sp;
 

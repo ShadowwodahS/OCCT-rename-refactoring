@@ -185,11 +185,11 @@ struct VertexFunctor
       aScope.Next();
 
       const TopoDS_Vertex& aVertex1 = TopoDS::Vertex(Map1->FindKey(anIdx1));
-      const gp_Pnt         aPoint1  = BRep_Tool::Pnt(aVertex1);
+      const Point3d         aPoint1  = BRep_Tool::Pnt(aVertex1);
       for (Standard_Integer anIdx2 = 1; anIdx2 <= aCount2; ++anIdx2)
       {
         const TopoDS_Vertex& aVertex2 = TopoDS::Vertex(Map2->FindKey(anIdx2));
-        const gp_Pnt         aPoint2  = BRep_Tool::Pnt(aVertex2);
+        const Point3d         aPoint2  = BRep_Tool::Pnt(aVertex2);
         const Standard_Real  aDist    = aPoint1.Distance(aPoint2);
         {
           if (aDist < Solution.Dist[theIndex] - Eps)
@@ -735,7 +735,7 @@ struct TreatmentFunctor
       }
 
       const TopoDS_Vertex& aVertex = TopoDS::Vertex(ArrayOfArrays->Value(theIndex).Value(i));
-      const gp_Pnt         aPnt    = BRep_Tool::Pnt(aVertex);
+      const Point3d         aPnt    = BRep_Tool::Pnt(aVertex);
       aClassifier.Perform(aPnt, aTolerance);
       if (aClassifier.State() == TopAbs_IN)
       {

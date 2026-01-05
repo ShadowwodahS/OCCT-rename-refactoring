@@ -75,7 +75,7 @@ static Handle(Geom_BSplineCurve) BSplineCurveBuilder(const Handle(Geom_Conic)&  
   TColStd_Array1OfInteger   Mults(1, NbKnots);
   Standard_Integer          i;
   gp_Pnt2d                  P2d;
-  gp_Pnt                    P3d;
+  Point3d                    P3d;
   for (i = 1; i <= NbPoles; i++)
   {
     P2d = Convert.Pole(i);
@@ -188,8 +188,8 @@ Handle(Geom_BSplineCurve) GeomConvert::CurveToBSplineCurve(
 
     if (Curv->IsKind(STANDARD_TYPE(Geom_Line)))
     {
-      gp_Pnt             Pdeb = Ctrim->StartPoint();
-      gp_Pnt             Pfin = Ctrim->EndPoint();
+      Point3d             Pdeb = Ctrim->StartPoint();
+      Point3d             Pfin = Ctrim->EndPoint();
       TColgp_Array1OfPnt Poles(1, 2);
       Poles(1) = Pdeb;
       Poles(2) = Pfin;
@@ -645,7 +645,7 @@ static Standard_Boolean Need2DegRepara(const TColGeom_Array1OfBSplineCurve& tab)
 {
   Standard_Integer i;
   gp_Vec           Vec1, Vec2;
-  gp_Pnt           Pint;
+  Point3d           Pint;
   Standard_Real    Rapport = 1.0e0;
 
   for (i = 0; i <= tab.Length() - 2; i++)
@@ -783,7 +783,7 @@ void GeomConvert::ConcatG1(TColGeom_Array1OfBSplineCurve&          ArrayOfCurves
   Standard_Real             PreLast = 0.;
   GeomAbs_Shape             Cont;
   gp_Vec                    Vec1, Vec2; // consecutive tangential vectors
-  gp_Pnt                    Pint;
+  Point3d                    Pint;
   Handle(Geom_BSplineCurve) Curve1, Curve2;
   // clang-format off
  TColStd_Array1OfBoolean      tabG1(0,nb_curve-2);         //array of the G1 continuity at the intersections
@@ -1020,7 +1020,7 @@ void GeomConvert::ConcatC1(TColGeom_Array1OfBSplineCurve&          ArrayOfCurves
 
   GeomAbs_Shape             Cont;
   gp_Vec                    Vec1, Vec2; // consecutive tangential vectors
-  gp_Pnt                    Pint;
+  Point3d                    Pint;
   Handle(Geom_BSplineCurve) Curve1, Curve2;
   // clang-format off
  TColStd_Array1OfBoolean      tabG1(0,nb_curve-2);         //array of the G1 continuity at the intersections
@@ -1300,7 +1300,7 @@ void GeomConvert::C0BSplineToArrayOfC1BSplineCurve(const Handle(Geom_BSplineCurv
   Standard_Integer        i, j, nbcurveC1 = 1;
   Standard_Real           U1, U2;
   Standard_Boolean        closed_flag = Standard_False;
-  gp_Pnt                  point;
+  Point3d                  point;
   gp_Vec                  V1, V2;
   // Standard_Boolean                 fusion;
 

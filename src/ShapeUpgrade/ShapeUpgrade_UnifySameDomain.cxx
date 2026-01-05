@@ -130,8 +130,8 @@ static Standard_Boolean IsLinear(const BRepAdaptor_Curve& theBAcurve, gp_Dir& th
 
   if ((aType == GeomAbs_BezierCurve || aType == GeomAbs_BSplineCurve) && theBAcurve.NbPoles() == 2)
   {
-    gp_Pnt aFirstPnt = theBAcurve.Value(theBAcurve.FirstParameter());
-    gp_Pnt aLastPnt  = theBAcurve.Value(theBAcurve.LastParameter());
+    Point3d aFirstPnt = theBAcurve.Value(theBAcurve.FirstParameter());
+    Point3d aLastPnt  = theBAcurve.Value(theBAcurve.LastParameter());
     theDir           = gp_Vec(aFirstPnt, aLastPnt);
     return Standard_True;
   }
@@ -948,8 +948,8 @@ static Standard_Boolean SameSurf(const Handle(Geom_Surface)& theS1,
     for (j = 0; j < 2; ++j)
     {
       v          = vf1 + aCoefs[j] * dv;
-      gp_Pnt aP1 = theS1->Value(u, v);
-      gp_Pnt aP2 = theS2->Value(u, v);
+      Point3d aP1 = theS1->Value(u, v);
+      Point3d aP2 = theS2->Value(u, v);
       if (!aP1.IsEqual(aP2, aPTol))
       {
         return Standard_False;
@@ -989,7 +989,7 @@ static void TransformPCurves(const TopoDS_Face&   theRefFace,
     gp_Ax3 AxisOfSurfFace = ElemSurfFace->Position();
     gp_Ax3 AxisOfRefSurf  = ElemRefSurf->Position();
 
-    gp_Pnt OriginRefSurf = AxisOfRefSurf.Location();
+    Point3d OriginRefSurf = AxisOfRefSurf.Location();
 
     Standard_Real aParam = ElCLib::LineParameter(AxisOfSurfFace.Axis(), OriginRefSurf);
 
@@ -1248,7 +1248,7 @@ static Standard_Boolean getCylinder(Handle(Geom_Surface)& theInSurface, gp_Cylin
       if (aBasisDir.IsParallel(aDir, Precision::Angular()))
       {
         // basis line is parallel to the revolution axis: it is a cylinder
-        gp_Pnt        aLoc = aRS->Location();
+        Point3d        aLoc = aRS->Location();
         Standard_Real aR   = aBasisLine->Lin().Distance(aLoc);
         gp_Ax3        aCylAx(aLoc, aDir);
 
@@ -1277,7 +1277,7 @@ static Standard_Boolean getCylinder(Handle(Geom_Surface)& theInSurface, gp_Cylin
       if (aBasisDir.IsParallel(aDir, Precision::Angular()))
       {
         // basis circle is normal to the extrusion axis: it is a cylinder
-        gp_Pnt        aLoc = aBasisCircle->Location();
+        Point3d        aLoc = aBasisCircle->Location();
         Standard_Real aR   = aBasisCircle->Radius();
         gp_Ax3        aCylAx(aLoc, aDir);
 
@@ -1354,7 +1354,7 @@ static Standard_Boolean GetNormalToSurface(const TopoDS_Face&  theFace,
   //
   // get D1
   gp_Vec                      aDU, aDV;
-  gp_Pnt                      aP3d;
+  Point3d                      aP3d;
   TopLoc_Location             aLoc;
   const Handle(Geom_Surface)& aS = BRep_Tool::Surface(theFace, aLoc);
   aS->D1(aP2d.X(), aP2d.Y(), aP3d, aDU, aDV);
@@ -1479,8 +1479,8 @@ static Standard_Boolean IsSameDomain(
         gp_Dir aDir2 = aCyl2.Position().Direction();
         if (aDir1.IsParallel(aDir2, Precision::Angular()))
         {
-          gp_Pnt aLoc1 = aCyl1.Location();
-          gp_Pnt aLoc2 = aCyl2.Location();
+          Point3d aLoc1 = aCyl1.Location();
+          Point3d aLoc2 = aCyl2.Location();
           gp_Vec aVec12(aLoc1, aLoc2);
           if (aVec12.SquareMagnitude() < theLinTol * theLinTol
               || aVec12.IsParallel(aDir1, Precision::Angular()))
@@ -2159,8 +2159,8 @@ Standard_Boolean ShapeUpgrade_UnifySameDomain::MergeSubSeq(
     {
       Handle(Geom_Circle) C1  = Handle(Geom_Circle)::DownCast(c3d1);
       Handle(Geom_Circle) C2  = Handle(Geom_Circle)::DownCast(c3d2);
-      gp_Pnt              P01 = C1->Location();
-      gp_Pnt              P02 = C2->Location();
+      Point3d              P01 = C1->Location();
+      Point3d              P02 = C2->Location();
       if (P01.Distance(P02) > Precision::Confusion())
         IsUnionOfCirclesPossible = Standard_False;
     }
@@ -2175,9 +2175,9 @@ Standard_Boolean ShapeUpgrade_UnifySameDomain::MergeSubSeq(
   {
     TopoDS_Vertex V[2];
     V[0]       = sae.FirstVertex(TopoDS::Edge(theChain.First()));
-    gp_Pnt PV1 = BRep_Tool::Pnt(V[0]);
+    Point3d PV1 = BRep_Tool::Pnt(V[0]);
     V[1]       = sae.LastVertex(TopoDS::Edge(theChain.Last()));
-    gp_Pnt PV2 = BRep_Tool::Pnt(V[1]);
+    Point3d PV2 = BRep_Tool::Pnt(V[1]);
     gp_Vec Vec(PV1, PV2);
     if (mySafeInputMode)
     {
@@ -2228,8 +2228,8 @@ Standard_Boolean ShapeUpgrade_UnifySameDomain::MergeSubSeq(
     {
       // additionally check the points for equality to make a final decision about closedness of the
       // result curve
-      gp_Pnt        aP0  = BRep_Tool::Pnt(V[0]);
-      gp_Pnt        aP1  = BRep_Tool::Pnt(V[1]);
+      Point3d        aP0  = BRep_Tool::Pnt(V[0]);
+      Point3d        aP1  = BRep_Tool::Pnt(V[1]);
       Standard_Real aTol = Max(BRep_Tool::Tolerance(V[0]), BRep_Tool::Tolerance(V[1]));
       if (aP0.SquareDistance(aP1) < aTol * aTol)
       {
@@ -2295,18 +2295,18 @@ Standard_Boolean ShapeUpgrade_UnifySameDomain::MergeSubSeq(
         }
       }
 
-      gp_Pnt PointFirst = BRep_Tool::Pnt(V[0]);
+      Point3d PointFirst = BRep_Tool::Pnt(V[0]);
       while (Abs(ParamLast - ParamFirst) > 7 * M_PI / 8)
         ParamLast = (ParamFirst + ParamLast) / 2;
       BRepAdaptor_Curve   BAcurveFE(FE);
-      gp_Pnt              PointLast = BAcurveFE.Value(ParamLast);
-      gp_Pnt              Origin    = Cir->Circ().Location();
+      Point3d              PointLast = BAcurveFE.Value(ParamLast);
+      Point3d              Origin    = Cir->Circ().Location();
       gp_Dir              Dir1      = gp_Vec(Origin, PointFirst);
       gp_Dir              Dir2      = gp_Vec(Origin, PointLast);
       gp_Dir              Vdir      = Dir1 ^ Dir2;
       gp_Ax2              anAx2(Origin, Vdir, Dir1);
       Handle(Geom_Circle) aNewCircle       = new Geom_Circle(anAx2, Cir->Radius());
-      gp_Pnt              PointLastInChain = BRep_Tool::Pnt(V[1]);
+      Point3d              PointLastInChain = BRep_Tool::Pnt(V[1]);
       gp_Dir              DirLastInChain   = gp_Vec(Origin, PointLastInChain);
       Standard_Real       lpar             = Dir1.AngleWithRef(DirLastInChain, Vdir);
       if (lpar < 0.)
@@ -2381,7 +2381,7 @@ static Standard_Boolean IsMergingPossible(const TopoDS_Edge&         edge1,
                                           double                     theLinTol,
                                           const TopTools_MapOfShape& AvoidEdgeVrt,
                                           const bool                 theLineDirectionOk,
-                                          const gp_Pnt&              theFirstPoint,
+                                          const Point3d&              theFirstPoint,
                                           const gp_Vec&              theDirectionVec,
                                           const TopTools_IndexedDataMapOfShapeListOfShape& theVFmap)
 {
@@ -2441,7 +2441,7 @@ static Standard_Boolean IsMergingPossible(const TopoDS_Edge&         edge1,
     return Standard_False;
 
   gp_Vec Diff1, Diff2;
-  gp_Pnt P1, P2;
+  Point3d P1, P2;
   if (edge1.Orientation() == TopAbs_FORWARD)
     ade1.D1(ade1.LastParameter(), P1, Diff1);
   else
@@ -2485,7 +2485,7 @@ static Standard_Boolean IsMergingPossible(const TopoDS_Edge&         edge1,
 //=================================================================================================
 
 static Standard_Boolean GetLineEdgePoints(const TopoDS_Edge& theInpEdge,
-                                          gp_Pnt&            theFirstPoint,
+                                          Point3d&            theFirstPoint,
                                           gp_Vec&            theDirectionVec)
 {
   double             f, l;
@@ -2507,7 +2507,7 @@ static Standard_Boolean GetLineEdgePoints(const TopoDS_Edge& theInpEdge,
     l                 = tmp;
   }
   theFirstPoint   = aCur->Value(f);
-  gp_Pnt aLP      = aCur->Value(l);
+  Point3d aLP      = aCur->Value(l);
   theDirectionVec = aLP.XYZ().Subtracted(theFirstPoint.XYZ());
   theDirectionVec.Normalize();
   return Standard_True;
@@ -2538,7 +2538,7 @@ void ShapeUpgrade_UnifySameDomain::generateSubSeq(
   SubSeq.SeqsEdges.Append(RefEdge);
   SeqOfSubSeqOfEdges.Append(SubSeq);
 
-  gp_Pnt           aFirstPoint;
+  Point3d           aFirstPoint;
   gp_Vec           aDirectionVec;
   Standard_Boolean isLineDirectionOk = GetLineEdgePoints(RefEdge, aFirstPoint, aDirectionVec);
 

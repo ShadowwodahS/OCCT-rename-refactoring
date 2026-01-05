@@ -22,7 +22,7 @@
 
 #include <gp_XYZ.hxx>
 #include <IGESData_IGESEntity.hxx>
-class gp_Pnt;
+class Point3d;
 
 class IGESSolid_Sphere;
 DEFINE_STANDARD_HANDLE(IGESSolid_Sphere, IGESData_IGESEntity)
@@ -45,11 +45,11 @@ public:
   Standard_EXPORT Standard_Real Radius() const;
 
   //! returns the center of the sphere
-  Standard_EXPORT gp_Pnt Center() const;
+  Standard_EXPORT Point3d Center() const;
 
   //! returns the center of the sphere after applying
   //! TransformationMatrix
-  Standard_EXPORT gp_Pnt TransformedCenter() const;
+  Standard_EXPORT Point3d TransformedCenter() const;
 
   DEFINE_STANDARD_RTTIEXT(IGESSolid_Sphere, IGESData_IGESEntity)
 

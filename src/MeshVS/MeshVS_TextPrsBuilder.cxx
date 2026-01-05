@@ -233,7 +233,7 @@ void MeshVS_TextPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
 
         Handle(Graphic3d_Text) aText = new Graphic3d_Text((Standard_ShortReal)aHeight);
         aText->SetText(aStr);
-        aText->SetPosition(gp_Pnt(X, Y, Z));
+        aText->SetPosition(Point3d(X, Y, Z));
         aTextGroup->AddText(aText);
       }
     }

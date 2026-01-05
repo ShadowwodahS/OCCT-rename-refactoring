@@ -754,15 +754,15 @@ static void FUN_processCPI(TopOpeBRep_FacesFiller&                  FF,
 
 static Standard_Boolean FUN_onedge(const TopOpeBRepDS_Point& PDS, const TopoDS_Edge& E)
 {
-  gp_Pnt        P    = PDS.Point();
+  Point3d        P    = PDS.Point();
   Standard_Real tolP = PDS.Tolerance();
   Standard_Real tolE = BRep_Tool::Tolerance(E);
   Standard_Real tol  = Max(tolP, tolE);
   TopoDS_Vertex vf, vl;
   TopExp::Vertices(E, vf, vl);
-  gp_Pnt           pf    = BRep_Tool::Pnt(vf);
+  Point3d           pf    = BRep_Tool::Pnt(vf);
   Standard_Boolean isonf = P.IsEqual(pf, tol);
-  gp_Pnt           pl    = BRep_Tool::Pnt(vl);
+  Point3d           pl    = BRep_Tool::Pnt(vl);
   Standard_Boolean isonl = P.IsEqual(pl, tol);
   return isonf || isonl;
 }

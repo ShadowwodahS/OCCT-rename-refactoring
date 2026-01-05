@@ -177,7 +177,7 @@ void BSplCLib_Cache::D0(const Standard_Real& theParameter, gp_Pnt2d& thePoint) c
     thePoint.ChangeCoord().Divide(aPoint[2]);
 }
 
-void BSplCLib_Cache::D0(const Standard_Real& theParameter, gp_Pnt& thePoint) const
+void BSplCLib_Cache::D0(const Standard_Real& theParameter, Point3d& thePoint) const
 {
   Standard_Real aNewParameter = myParams.PeriodicNormalization(theParameter);
   aNewParameter               = (aNewParameter - myParams.SpanStart) / myParams.SpanLength;
@@ -214,7 +214,7 @@ void BSplCLib_Cache::D1(const Standard_Real& theParameter,
 }
 
 void BSplCLib_Cache::D1(const Standard_Real& theParameter,
-                        gp_Pnt&              thePoint,
+                        Point3d&              thePoint,
                         gp_Vec&              theTangent) const
 {
   Standard_Integer aDimension = myPolesWeights->RowLength(); // number of columns
@@ -246,7 +246,7 @@ void BSplCLib_Cache::D2(const Standard_Real& theParameter,
 }
 
 void BSplCLib_Cache::D2(const Standard_Real& theParameter,
-                        gp_Pnt&              thePoint,
+                        Point3d&              thePoint,
                         gp_Vec&              theTangent,
                         gp_Vec&              theCurvature) const
 {
@@ -286,7 +286,7 @@ void BSplCLib_Cache::D3(const Standard_Real& theParameter,
 }
 
 void BSplCLib_Cache::D3(const Standard_Real& theParameter,
-                        gp_Pnt&              thePoint,
+                        Point3d&              thePoint,
                         gp_Vec&              theTangent,
                         gp_Vec&              theCurvature,
                         gp_Vec&              theTorsion) const

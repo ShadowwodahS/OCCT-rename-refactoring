@@ -312,7 +312,7 @@ void Approx_SweepApproximation::Approximation(const Handle(TColStd_HArray1OfReal
     if (Num1DSS == Num3DSS)
     {
       Standard_Real wpoid;
-      gp_Pnt        P;
+      Point3d        P;
       for (ii = 1; ii <= Num3DSS; ii++)
       {
         for (jj = 1; jj <= Approx.NbPoles(); jj++)

@@ -21,7 +21,7 @@
 
 //=================================================================================================
 
-void LProp3d_CurveTool::Value(const Handle(Adaptor3d_Curve)& C, const Standard_Real U, gp_Pnt& P)
+void LProp3d_CurveTool::Value(const Handle(Adaptor3d_Curve)& C, const Standard_Real U, Point3d& P)
 {
   P = C->Value(U);
 }
@@ -30,7 +30,7 @@ void LProp3d_CurveTool::Value(const Handle(Adaptor3d_Curve)& C, const Standard_R
 
 void LProp3d_CurveTool::D1(const Handle(Adaptor3d_Curve)& C,
                            const Standard_Real            U,
-                           gp_Pnt&                        P,
+                           Point3d&                        P,
                            gp_Vec&                        V1)
 {
   C->D1(U, P, V1);
@@ -40,7 +40,7 @@ void LProp3d_CurveTool::D1(const Handle(Adaptor3d_Curve)& C,
 
 void LProp3d_CurveTool::D2(const Handle(Adaptor3d_Curve)& C,
                            const Standard_Real            U,
-                           gp_Pnt&                        P,
+                           Point3d&                        P,
                            gp_Vec&                        V1,
                            gp_Vec&                        V2)
 {
@@ -51,7 +51,7 @@ void LProp3d_CurveTool::D2(const Handle(Adaptor3d_Curve)& C,
 
 void LProp3d_CurveTool::D3(const Handle(Adaptor3d_Curve)& C,
                            const Standard_Real            U,
-                           gp_Pnt&                        P,
+                           Point3d&                        P,
                            gp_Vec&                        V1,
                            gp_Vec&                        V2,
                            gp_Vec&                        V3)

@@ -39,7 +39,7 @@ static Standard_Integer xdistcc(Draw_Interpretor&, Standard_Integer n, const cha
 
   Standard_Integer      i, aNbP, iSize;
   Standard_Real         aD, aT, aT1, aT2, dT;
-  gp_Pnt                aP1, aP2;
+  Point3d                aP1, aP2;
   Handle(Geom_Curve)    aC1, aC2;
   Handle(Draw_Marker3D) aMr;
   Draw_Color            aColor(Draw_rouge);
@@ -114,7 +114,7 @@ static Standard_Integer xdistc2dc2dss(Draw_Interpretor&, Standard_Integer n, con
 
   Standard_Integer      i, aNbP, iSize;
   Standard_Real         aD, aT, aT1, aT2, dT;
-  gp_Pnt                aP1, aP2;
+  Point3d                aP1, aP2;
   gp_Pnt2d              aP2d1, aP2d2;
   Handle(Geom2d_Curve)  aC2d1, aC2d2;
   Handle(Geom_Surface)  aS1, aS2;
@@ -208,7 +208,7 @@ static Standard_Integer xdistcc2ds(Draw_Interpretor&, Standard_Integer n, const 
 
   Standard_Integer      i, aNbP, iSize;
   Standard_Real         aD, aT, aT1, aT2, dT;
-  gp_Pnt                aP, aPOnS;
+  Point3d                aP, aPOnS;
   gp_Pnt2d              aP2d;
   Handle(Geom_Curve)    aC;
   Handle(Geom2d_Curve)  aC2d;
@@ -302,7 +302,7 @@ static Standard_Integer xdistcs(Draw_Interpretor& di, Standard_Integer n, const 
   Standard_Boolean           bRet;
   Standard_Integer           i, aNbP, iSize;
   Standard_Real              aTol, aD, aT, aT1, aT2, dT;
-  gp_Pnt                     aP;
+  Point3d                     aP;
   Handle(Geom_Curve)         aC;
   Handle(Geom_Surface)       aS;
   GeomAPI_ProjectPointOnSurf aPPS;

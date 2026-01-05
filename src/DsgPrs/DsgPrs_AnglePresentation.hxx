@@ -27,7 +27,7 @@
 
 class TCollection_ExtendedString;
 class gp_Circ;
-class gp_Pnt;
+class Point3d;
 class gp_Dir;
 class gp_Ax1;
 
@@ -46,8 +46,8 @@ public:
                                   const Standard_Real               aVal,
                                   const TCollection_ExtendedString& aText,
                                   const gp_Circ&                    aCircle,
-                                  const gp_Pnt&                     aPosition,
-                                  const gp_Pnt&                     Apex,
+                                  const Point3d&                     aPosition,
+                                  const Point3d&                     Apex,
                                   const gp_Circ&                    VminCircle,
                                   const gp_Circ&                    VmaxCircle,
                                   const Standard_Real               aArrowSize);
@@ -59,12 +59,12 @@ public:
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Handle(Prs3d_Drawer)&       aDrawer,
                                   const Standard_Real               theval,
-                                  const gp_Pnt&                     CenterPoint,
-                                  const gp_Pnt&                     AttachmentPoint1,
-                                  const gp_Pnt&                     AttachmentPoint2,
+                                  const Point3d&                     CenterPoint,
+                                  const Point3d&                     AttachmentPoint1,
+                                  const Point3d&                     AttachmentPoint2,
                                   const gp_Dir&                     dir1,
                                   const gp_Dir&                     dir2,
-                                  const gp_Pnt&                     OffsetPoint);
+                                  const Point3d&                     OffsetPoint);
 
   //! Same  as above, but <thevalstring> contains conversion
   //! in Session units....
@@ -72,12 +72,12 @@ public:
                                   const Handle(Prs3d_Drawer)&       aDrawer,
                                   const Standard_Real               theval,
                                   const TCollection_ExtendedString& thevalstring,
-                                  const gp_Pnt&                     CenterPoint,
-                                  const gp_Pnt&                     AttachmentPoint1,
-                                  const gp_Pnt&                     AttachmentPoint2,
+                                  const Point3d&                     CenterPoint,
+                                  const Point3d&                     AttachmentPoint1,
+                                  const Point3d&                     AttachmentPoint2,
                                   const gp_Dir&                     dir1,
                                   const gp_Dir&                     dir2,
-                                  const gp_Pnt&                     OffsetPoint);
+                                  const Point3d&                     OffsetPoint);
 
   //! Same  as above, may add one  or
   //! two Arrows  according to  <ArrowSide>  value
@@ -85,12 +85,12 @@ public:
                                   const Handle(Prs3d_Drawer)&       aDrawer,
                                   const Standard_Real               theval,
                                   const TCollection_ExtendedString& thevalstring,
-                                  const gp_Pnt&                     CenterPoint,
-                                  const gp_Pnt&                     AttachmentPoint1,
-                                  const gp_Pnt&                     AttachmentPoint2,
+                                  const Point3d&                     CenterPoint,
+                                  const Point3d&                     AttachmentPoint1,
+                                  const Point3d&                     AttachmentPoint2,
                                   const gp_Dir&                     dir1,
                                   const gp_Dir&                     dir2,
-                                  const gp_Pnt&                     OffsetPoint,
+                                  const Point3d&                     OffsetPoint,
                                   const DsgPrs_ArrowSide            ArrowSide);
 
   //! Same  as above, but axisdir contains the axis direction
@@ -99,13 +99,13 @@ public:
                                   const Handle(Prs3d_Drawer)&       aDrawer,
                                   const Standard_Real               theval,
                                   const TCollection_ExtendedString& thevalstring,
-                                  const gp_Pnt&                     CenterPoint,
-                                  const gp_Pnt&                     AttachmentPoint1,
-                                  const gp_Pnt&                     AttachmentPoint2,
+                                  const Point3d&                     CenterPoint,
+                                  const Point3d&                     AttachmentPoint1,
+                                  const Point3d&                     AttachmentPoint2,
                                   const gp_Dir&                     dir1,
                                   const gp_Dir&                     dir2,
                                   const gp_Dir&                     axisdir,
-                                  const gp_Pnt&                     OffsetPoint);
+                                  const Point3d&                     OffsetPoint);
 
   //! Same  as above,may add one  or
   //! two Arrows  according to  <ArrowSide>  value
@@ -113,15 +113,15 @@ public:
                                   const Handle(Prs3d_Drawer)&       aDrawer,
                                   const Standard_Real               theval,
                                   const TCollection_ExtendedString& thevalstring,
-                                  const gp_Pnt&                     CenterPoint,
-                                  const gp_Pnt&                     AttachmentPoint1,
-                                  const gp_Pnt&                     AttachmentPoint2,
+                                  const Point3d&                     CenterPoint,
+                                  const Point3d&                     AttachmentPoint1,
+                                  const Point3d&                     AttachmentPoint2,
                                   const gp_Dir&                     dir1,
                                   const gp_Dir&                     dir2,
                                   const gp_Dir&                     axisdir,
                                   const Standard_Boolean            isPlane,
                                   const gp_Ax1&                     AxisOfSurf,
-                                  const gp_Pnt&                     OffsetPoint,
+                                  const Point3d&                     OffsetPoint,
                                   const DsgPrs_ArrowSide            ArrowSide);
 
   //! simple representation of a poor lonesome angle dimension
@@ -132,8 +132,8 @@ public:
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Handle(Prs3d_Drawer)&       aDrawer,
                                   const Standard_Real               theval,
-                                  const gp_Pnt&                     theCenter,
-                                  const gp_Pnt&                     AttachmentPoint1,
+                                  const Point3d&                     theCenter,
+                                  const Point3d&                     AttachmentPoint1,
                                   const gp_Ax1&                     theAxe,
                                   const DsgPrs_ArrowSide            ArrowSide);
 

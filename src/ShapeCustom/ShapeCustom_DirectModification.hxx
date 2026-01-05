@@ -28,7 +28,7 @@ class TopLoc_Location;
 class TopoDS_Edge;
 class Geom_Curve;
 class TopoDS_Vertex;
-class gp_Pnt;
+class Point3d;
 class Geom2d_Curve;
 
 class ShapeCustom_DirectModification;
@@ -73,7 +73,7 @@ public:
   //! Otherwise, returns Standard_False, and <P>,  <Tol>
   //! are not significant.
   Standard_EXPORT Standard_Boolean NewPoint(const TopoDS_Vertex& V,
-                                            gp_Pnt&              P,
+                                            Point3d&              P,
                                             Standard_Real&       Tol) Standard_OVERRIDE;
 
   //! Returns Standard_True if  the edge  <E> has a  new

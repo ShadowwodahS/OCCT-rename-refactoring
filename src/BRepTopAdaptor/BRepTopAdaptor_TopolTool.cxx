@@ -247,18 +247,18 @@ void Analyse(const TColgp_Array2OfPnt& array2,
   {
     for (i = 2; i < nbup; i++)
     {
-      const gp_Pnt& A = array2.Value(i, 1);
-      const gp_Pnt& B = array2.Value(i, 2);
-      const gp_Pnt& C = array2.Value(i, 3);
+      const Point3d& A = array2.Value(i, 1);
+      const Point3d& B = array2.Value(i, 2);
+      const Point3d& C = array2.Value(i, 3);
       Vi.SetCoord(C.X() - B.X() - B.X() + A.X(),
                   C.Y() - B.Y() - B.Y() + A.Y(),
                   C.Z() - B.Z() - B.Z() + A.Z());
       Standard_Integer locnbch = 0;
       for (j = 3; j < nbvp; j++)
       { //-- test
-        const gp_Pnt& Ax = array2.Value(i, j - 1);
-        const gp_Pnt& Bx = array2.Value(i, j);
-        const gp_Pnt& Cx = array2.Value(i, j + 1);
+        const Point3d& Ax = array2.Value(i, j - 1);
+        const Point3d& Bx = array2.Value(i, j);
+        const Point3d& Cx = array2.Value(i, j + 1);
         Vip1.SetCoord(Cx.X() - Bx.X() - Bx.X() + Ax.X(),
                       Cx.Y() - Bx.Y() - Bx.Y() + Ax.Y(),
                       Cx.Z() - Bx.Z() - Bx.Z() + Ax.Z());
@@ -297,18 +297,18 @@ void Analyse(const TColgp_Array2OfPnt& array2,
   {
     for (j = 2; j < nbvp; j++)
     {
-      const gp_Pnt& A = array2.Value(1, j);
-      const gp_Pnt& B = array2.Value(2, j);
-      const gp_Pnt& C = array2.Value(3, j);
+      const Point3d& A = array2.Value(1, j);
+      const Point3d& B = array2.Value(2, j);
+      const Point3d& C = array2.Value(3, j);
       Vi.SetCoord(C.X() - B.X() - B.X() + A.X(),
                   C.Y() - B.Y() - B.Y() + A.Y(),
                   C.Z() - B.Z() - B.Z() + A.Z());
       Standard_Integer locnbch = 0;
       for (i = 3; i < nbup; i++)
       { //-- test
-        const gp_Pnt& Ax = array2.Value(i - 1, j);
-        const gp_Pnt& Bx = array2.Value(i, j);
-        const gp_Pnt& Cx = array2.Value(i + 1, j);
+        const Point3d& Ax = array2.Value(i - 1, j);
+        const Point3d& Bx = array2.Value(i, j);
+        const Point3d& Cx = array2.Value(i + 1, j);
         Vip1.SetCoord(Cx.X() - Bx.X() - Bx.X() + Ax.X(),
                       Cx.Y() - Bx.Y() - Bx.Y() + Ax.Y(),
                       Cx.Z() - Bx.Z() - Bx.Z() + Ax.Z());
@@ -538,7 +538,7 @@ Standard_Integer BRepTopAdaptor_TopolTool::NbSamples()
 
 //=================================================================================================
 
-void BRepTopAdaptor_TopolTool::SamplePoint(const Standard_Integer i, gp_Pnt2d& P2d, gp_Pnt& P3d)
+void BRepTopAdaptor_TopolTool::SamplePoint(const Standard_Integer i, gp_Pnt2d& P2d, Point3d& P3d)
 {
   Standard_Integer iv = 1 + i / myNbSamplesU;
   Standard_Integer iu = 1 + i - (iv - 1) * myNbSamplesU;
@@ -606,7 +606,7 @@ Standard_Real BRepTopAdaptor_TopolTool::Tol3d(const Handle(Adaptor3d_HVertex)& V
 
 //=================================================================================================
 
-gp_Pnt BRepTopAdaptor_TopolTool::Pnt(const Handle(Adaptor3d_HVertex)& V) const
+Point3d BRepTopAdaptor_TopolTool::Pnt(const Handle(Adaptor3d_HVertex)& V) const
 {
   Handle(BRepTopAdaptor_HVertex) brhv = Handle(BRepTopAdaptor_HVertex)::DownCast(V);
   if (brhv.IsNull())

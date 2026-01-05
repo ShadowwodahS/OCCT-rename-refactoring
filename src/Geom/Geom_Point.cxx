@@ -25,15 +25,15 @@ typedef Geom_Point Point;
 Standard_Real Geom_Point::Distance(const Handle(Geom_Point)& Other) const
 {
 
-  gp_Pnt P1 = this->Pnt();
-  gp_Pnt P2 = Other->Pnt();
+  Point3d P1 = this->Pnt();
+  Point3d P2 = Other->Pnt();
   return P1.Distance(P2);
 }
 
 Standard_Real Geom_Point::SquareDistance(const Handle(Geom_Point)& Other) const
 {
 
-  gp_Pnt P1 = this->Pnt();
-  gp_Pnt P2 = Other->Pnt();
+  Point3d P1 = this->Pnt();
+  Point3d P2 = Other->Pnt();
   return P1.SquareDistance(P2);
 }

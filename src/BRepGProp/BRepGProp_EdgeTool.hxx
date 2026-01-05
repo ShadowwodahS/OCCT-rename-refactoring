@@ -24,7 +24,7 @@
 #include <GeomAbs_Shape.hxx>
 #include <TColStd_Array1OfReal.hxx>
 class BRepAdaptor_Curve;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 
 //! Provides  the required  methods    to instantiate
@@ -52,13 +52,13 @@ public:
   Standard_EXPORT static Standard_Integer IntegrationOrder(const BRepAdaptor_Curve& C);
 
   //! Returns the point of parameter U on the loaded curve.
-  Standard_EXPORT static gp_Pnt Value(const BRepAdaptor_Curve& C, const Standard_Real U);
+  Standard_EXPORT static Point3d Value(const BRepAdaptor_Curve& C, const Standard_Real U);
 
   //! Returns the point of parameter U and the first derivative
   //! at this point.
   Standard_EXPORT static void D1(const BRepAdaptor_Curve& C,
                                  const Standard_Real      U,
-                                 gp_Pnt&                  P,
+                                 Point3d&                  P,
                                  gp_Vec&                  V1);
 
   //! Returns  the number  of  intervals for  continuity

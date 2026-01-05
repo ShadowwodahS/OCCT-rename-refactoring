@@ -60,7 +60,7 @@ typedef TColStd_Array1OfInteger Array1OfInteger;
 typedef TColStd_Array2OfInteger Array2OfInteger;
 typedef TColgp_Array2OfPnt      Array2OfPnt;
 typedef TColgp_Array1OfPnt      Array1OfPnt;
-typedef gp_Pnt                  Pnt;
+typedef Point3d                  Pnt;
 
 //=================================================================================================
 

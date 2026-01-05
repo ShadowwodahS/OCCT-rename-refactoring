@@ -469,14 +469,14 @@ static Standard_Integer transform(Draw_Interpretor& di, Standard_Integer n, cons
     last--;
     if (last < 4)
       return 1;
-    gp_Pnt P(Draw::Atof(a[last - 2]), Draw::Atof(a[last - 1]), Draw::Atof(a[last]));
+    Point3d P(Draw::Atof(a[last - 2]), Draw::Atof(a[last - 1]), Draw::Atof(a[last]));
     T.SetScale(P, s);
   }
   else if (!strcmp(a[0] + 1, "mirror"))
   {
     if (last < 4)
       return 1;
-    gp_Pnt P(Draw::Atof(a[last - 2]), Draw::Atof(a[last - 1]), Draw::Atof(a[last]));
+    Point3d P(Draw::Atof(a[last - 2]), Draw::Atof(a[last - 1]), Draw::Atof(a[last]));
     if (*a[0] == 'p')
     {
       T.SetMirror(P);
@@ -486,7 +486,7 @@ static Standard_Integer transform(Draw_Interpretor& di, Standard_Integer n, cons
       last -= 3;
       if (last < 4)
         return 1;
-      gp_Pnt O(Draw::Atof(a[last - 2]), Draw::Atof(a[last - 1]), Draw::Atof(a[last]));
+      Point3d O(Draw::Atof(a[last - 2]), Draw::Atof(a[last - 1]), Draw::Atof(a[last]));
       last -= 3;
       gp_Dir D(P.X(), P.Y(), P.Z());
       if (*a[0] == 'l')
@@ -518,7 +518,7 @@ static Standard_Integer transform(Draw_Interpretor& di, Standard_Integer n, cons
     last--;
     gp_Dir D(Draw::Atof(a[last - 2]), Draw::Atof(a[last - 1]), Draw::Atof(a[last]));
     last -= 3;
-    gp_Pnt P(Draw::Atof(a[last - 2]), Draw::Atof(a[last - 1]), Draw::Atof(a[last]));
+    Point3d P(Draw::Atof(a[last - 2]), Draw::Atof(a[last - 1]), Draw::Atof(a[last]));
     last -= 3;
     T.SetRotation(gp_Ax1(P, D), ang);
   }
@@ -533,7 +533,7 @@ static Standard_Integer transform(Draw_Interpretor& di, Standard_Integer n, cons
     }
     else
     {
-      gp_Pnt P;
+      Point3d P;
       if (DrawTrSurf::GetPoint(a[i], P))
       {
         P.Transform(T);
@@ -627,7 +627,7 @@ static Standard_Integer d2transform(Draw_Interpretor& di, Standard_Integer n, co
 
 //=================================================================================================
 
-void DrawTrSurf::Set(const Standard_CString theName, const gp_Pnt& thePoint)
+void DrawTrSurf::Set(const Standard_CString theName, const Point3d& thePoint)
 {
   DrawTrSurf_Params&       aParams = DrawTrSurf::Parameters();
   Handle(DrawTrSurf_Point) aDrawPoint =
@@ -835,7 +835,7 @@ Handle(Geom_Geometry) DrawTrSurf::Get(Standard_CString& Name)
 
 //=================================================================================================
 
-Standard_Boolean DrawTrSurf::GetPoint(Standard_CString& Name, gp_Pnt& P)
+Standard_Boolean DrawTrSurf::GetPoint(Standard_CString& Name, Point3d& P)
 {
   Handle(DrawTrSurf_Point) D = Handle(DrawTrSurf_Point)::DownCast(Draw::Get(Name));
   if (D.IsNull())

@@ -124,7 +124,7 @@ static void GetQuadric(const Handle(GeomAdaptor_Surface)& HS1, IntSurf_Quadric& 
 
 static void Parameters(const Handle(GeomAdaptor_Surface)& HS1,
                        const Handle(GeomAdaptor_Surface)& HS2,
-                       const gp_Pnt&                      Ptref,
+                       const Point3d&                      Ptref,
                        Standard_Real&                     U1,
                        Standard_Real&                     V1,
                        Standard_Real&                     U2,
@@ -236,7 +236,7 @@ static Standard_Boolean isDegenerated(const Handle(GeomAdaptor_Surface)& theGAHS
 {
   constexpr Standard_Real aSqTol = Precision::Confusion() * Precision::Confusion();
   gp_Pnt2d                aP2d;
-  gp_Pnt                  aP1, aP2;
+  Point3d                  aP1, aP2;
 
   theAHC2d->D0(theFirstPar, aP2d);
   theGAHS->D0(aP2d.X(), aP2d.Y(), aP1);
@@ -401,7 +401,7 @@ void GeomInt_IntSS::MakeCurve(const Standard_Integer             Index,
             aTestPrm = fprm + dT;
           }
           //
-          gp_Pnt ptref(newc->Value(aTestPrm));
+          Point3d ptref(newc->Value(aTestPrm));
           //
           TolX = Precision::Confusion();
           Parameters(myHS1, myHS2, ptref, u1, v1, u2, v2);
@@ -541,7 +541,7 @@ void GeomInt_IntSS::MakeCurve(const Standard_Integer             Index,
           //
           for (j = 0; j <= 17; j++)
           {
-            gp_Pnt ptref(newc->Value(j * aTwoPIdiv17));
+            Point3d ptref(newc->Value(j * aTwoPIdiv17));
             TolX = Precision::Confusion();
 
             Parameters(myHS1, myHS2, ptref, u1, v1, u2, v2);
@@ -931,7 +931,7 @@ void GeomInt_IntSS::MakeCurve(const Standard_Integer             Index,
                   if (!BS->IsClosed() && !BS->IsPeriodic())
                   {
                     // force Closed()
-                    gp_Pnt aPm((BS->Pole(1).XYZ() + BS->Pole(BS->NbPoles()).XYZ()) / 2.);
+                    Point3d aPm((BS->Pole(1).XYZ() + BS->Pole(BS->NbPoles()).XYZ()) / 2.);
                     BS->SetPole(1, aPm);
                     BS->SetPole(BS->NbPoles(), aPm);
                   }
@@ -1201,8 +1201,8 @@ void GeomInt_IntSS::BuildPCurves(const Standard_Real         theFirst,
       GeomAdaptor_Surface anAS;
       anAS.Load(theSurface);
       Extrema_ExtPS anExtr;
-      const gp_Pnt  aP3d1 = theCurve->Value(theFirst);
-      const gp_Pnt  aP3d2 = theCurve->Value(theLast);
+      const Point3d  aP3d1 = theCurve->Value(theFirst);
+      const Point3d  aP3d2 = theCurve->Value(theLast);
 
       anExtr.SetAlgo(Extrema_ExtAlgo_Grad);
       anExtr.Initialize(anAS,
@@ -1238,9 +1238,9 @@ void GeomInt_IntSS::BuildPCurves(const Standard_Real         theFirst,
             theCurve2d = new Geom2d_BSplineCurve(poles, knots, mults, 1);
 
             // Check same parameter in middle point .begin
-            const gp_Pnt        PMid(theCurve->Value(0.5 * (theFirst + theLast)));
+            const Point3d        PMid(theCurve->Value(0.5 * (theFirst + theLast)));
             const gp_Pnt2d      pmidcurve2d(0.5 * (aP2d1.XY() + aP2d2.XY()));
-            const gp_Pnt        aPC(anAS.Value(pmidcurve2d.X(), pmidcurve2d.Y()));
+            const Point3d        aPC(anAS.Value(pmidcurve2d.X(), pmidcurve2d.Y()));
             const Standard_Real aDist = PMid.Distance(aPC);
             theTol                    = Max(aDist, theTol);
             // Check same parameter in middle point .end

@@ -27,7 +27,7 @@ inline Standard_Boolean BRepClass3d_Intersector3d::HasAPoint() const
 }
 
 //============================================================================
-inline const gp_Pnt& BRepClass3d_Intersector3d::Pnt() const
+inline const Point3d& BRepClass3d_Intersector3d::Pnt() const
 {
   return (pnt);
 }

@@ -118,7 +118,7 @@ static void derivatives(Standard_Integer                   theMaxOrder,
                         TColgp_Array2OfVec&                theDerSurf)
 {
   Standard_Integer i, j;
-  gp_Pnt           P;
+  Point3d           P;
   gp_Vec           DL1U, DL1V, DL2U, DL2V, DL2UV, DL3U, DL3UUV, DL3UVV, DL3V;
 
   if (theAlongU || theAlongV)
@@ -264,7 +264,7 @@ GeomEvaluator_OffsetSurface::GeomEvaluator_OffsetSurface(
 
 void GeomEvaluator_OffsetSurface::D0(const Standard_Real theU,
                                      const Standard_Real theV,
-                                     gp_Pnt&             theValue) const
+                                     Point3d&             theValue) const
 {
   Standard_Real aU = theU, aV = theV;
   for (;;)
@@ -292,7 +292,7 @@ void GeomEvaluator_OffsetSurface::D0(const Standard_Real theU,
 
 void GeomEvaluator_OffsetSurface::D1(const Standard_Real theU,
                                      const Standard_Real theV,
-                                     gp_Pnt&             theValue,
+                                     Point3d&             theValue,
                                      gp_Vec&             theD1U,
                                      gp_Vec&             theD1V) const
 {
@@ -322,7 +322,7 @@ void GeomEvaluator_OffsetSurface::D1(const Standard_Real theU,
 
 void GeomEvaluator_OffsetSurface::D2(const Standard_Real theU,
                                      const Standard_Real theV,
-                                     gp_Pnt&             theValue,
+                                     Point3d&             theValue,
                                      gp_Vec&             theD1U,
                                      gp_Vec&             theD1V,
                                      gp_Vec&             theD2U,
@@ -366,7 +366,7 @@ void GeomEvaluator_OffsetSurface::D2(const Standard_Real theU,
 
 void GeomEvaluator_OffsetSurface::D3(const Standard_Real theU,
                                      const Standard_Real theV,
-                                     gp_Pnt&             theValue,
+                                     Point3d&             theValue,
                                      gp_Vec&             theD1U,
                                      gp_Vec&             theD1V,
                                      gp_Vec&             theD2U,
@@ -435,7 +435,7 @@ gp_Vec GeomEvaluator_OffsetSurface::DN(const Standard_Real    theU,
   Standard_Real aU = theU, aV = theV;
   for (;;)
   {
-    gp_Pnt aP;
+    Point3d aP;
     gp_Vec aD1U, aD1V;
     BaseD1(aU, aV, aP, aD1U, aD1V);
 
@@ -476,7 +476,7 @@ Handle(GeomEvaluator_Surface) GeomEvaluator_OffsetSurface::ShallowCopy() const
 
 void GeomEvaluator_OffsetSurface::BaseD0(const Standard_Real theU,
                                          const Standard_Real theV,
-                                         gp_Pnt&             theValue) const
+                                         Point3d&             theValue) const
 {
   if (!myBaseAdaptor.IsNull())
     myBaseAdaptor->D0(theU, theV, theValue);
@@ -486,7 +486,7 @@ void GeomEvaluator_OffsetSurface::BaseD0(const Standard_Real theU,
 
 void GeomEvaluator_OffsetSurface::BaseD1(const Standard_Real theU,
                                          const Standard_Real theV,
-                                         gp_Pnt&             theValue,
+                                         Point3d&             theValue,
                                          gp_Vec&             theD1U,
                                          gp_Vec&             theD1V) const
 {
@@ -498,7 +498,7 @@ void GeomEvaluator_OffsetSurface::BaseD1(const Standard_Real theU,
 
 void GeomEvaluator_OffsetSurface::BaseD2(const Standard_Real theU,
                                          const Standard_Real theV,
-                                         gp_Pnt&             theValue,
+                                         Point3d&             theValue,
                                          gp_Vec&             theD1U,
                                          gp_Vec&             theD1V,
                                          gp_Vec&             theD2U,
@@ -513,7 +513,7 @@ void GeomEvaluator_OffsetSurface::BaseD2(const Standard_Real theU,
 
 void GeomEvaluator_OffsetSurface::BaseD3(const Standard_Real theU,
                                          const Standard_Real theV,
-                                         gp_Pnt&             theValue,
+                                         Point3d&             theValue,
                                          gp_Vec&             theD1U,
                                          gp_Vec&             theD1V,
                                          gp_Vec&             theD2U,
@@ -554,7 +554,7 @@ void GeomEvaluator_OffsetSurface::BaseD3(const Standard_Real theU,
 
 void GeomEvaluator_OffsetSurface::CalculateD0(const Standard_Real theU,
                                               const Standard_Real theV,
-                                              gp_Pnt&             theValue,
+                                              Point3d&             theValue,
                                               const gp_Vec&       theD1U,
                                               const gp_Vec&       theD1V) const
 {
@@ -639,7 +639,7 @@ void GeomEvaluator_OffsetSurface::CalculateD0(const Standard_Real theU,
 
 void GeomEvaluator_OffsetSurface::CalculateD1(const Standard_Real theU,
                                               const Standard_Real theV,
-                                              gp_Pnt&             theValue,
+                                              Point3d&             theValue,
                                               gp_Vec&             theD1U,
                                               gp_Vec&             theD1V,
                                               const gp_Vec&       theD2U,
@@ -801,7 +801,7 @@ void GeomEvaluator_OffsetSurface::CalculateD1(const Standard_Real theU,
 
 void GeomEvaluator_OffsetSurface::CalculateD2(const Standard_Real theU,
                                               const Standard_Real theV,
-                                              gp_Pnt&             theValue,
+                                              Point3d&             theValue,
                                               gp_Vec&             theD1U,
                                               gp_Vec&             theD1V,
                                               gp_Vec&             theD2U,
@@ -893,7 +893,7 @@ void GeomEvaluator_OffsetSurface::CalculateD2(const Standard_Real theU,
 
 void GeomEvaluator_OffsetSurface::CalculateD3(const Standard_Real theU,
                                               const Standard_Real theV,
-                                              gp_Pnt&             theValue,
+                                              Point3d&             theValue,
                                               gp_Vec&             theD1U,
                                               gp_Vec&             theD1V,
                                               gp_Vec&             theD2U,
@@ -1134,7 +1134,7 @@ Standard_Boolean GeomEvaluator_OffsetSurface::ReplaceDerivative(
         aStep = (aVMax - aVMin) / 100.;
     }
 
-    gp_Pnt aP;
+    Point3d aP;
     gp_Vec aDU, aDV;
     // Step away from current parametric coordinates and calculate derivatives once again.
     // Replace zero derivative by the obtained.

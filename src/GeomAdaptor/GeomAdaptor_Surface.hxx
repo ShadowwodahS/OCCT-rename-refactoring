@@ -167,13 +167,13 @@ public:
   Standard_EXPORT Standard_Real VPeriod() const Standard_OVERRIDE;
 
   //! Computes the point of parameters U,V on the surface.
-  Standard_EXPORT gp_Pnt Value(const Standard_Real U,
+  Standard_EXPORT Point3d Value(const Standard_Real U,
                                const Standard_Real V) const Standard_OVERRIDE;
 
   //! Computes the point of parameters U,V on the surface.
   Standard_EXPORT void D0(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P) const Standard_OVERRIDE;
+                          Point3d&             P) const Standard_OVERRIDE;
 
   //! Computes the point  and the first derivatives on
   //! the surface.
@@ -184,7 +184,7 @@ public:
   //! else the derivatives are computed on the basis surface.
   Standard_EXPORT void D1(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V) const Standard_OVERRIDE;
 
@@ -197,7 +197,7 @@ public:
   //! else the derivatives are computed on the basis surface.
   Standard_EXPORT void D2(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V,
                           gp_Vec&             D2U,
@@ -213,7 +213,7 @@ public:
   //! else the derivatives are computed on the basis surface.
   Standard_EXPORT void D3(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V,
                           gp_Vec&             D2U,

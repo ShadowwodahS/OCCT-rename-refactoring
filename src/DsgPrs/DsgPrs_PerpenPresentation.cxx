@@ -28,11 +28,11 @@
 
 void DsgPrs_PerpenPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                     const Handle(Prs3d_Drawer)&       aDrawer,
-                                    const gp_Pnt&                     pAx1,
-                                    const gp_Pnt&                     pAx2,
-                                    const gp_Pnt&                     pnt1,
-                                    const gp_Pnt&                     pnt2,
-                                    const gp_Pnt&                     OffsetPoint,
+                                    const Point3d&                     pAx1,
+                                    const Point3d&                     pAx2,
+                                    const Point3d&                     pnt1,
+                                    const Point3d&                     pnt2,
+                                    const Point3d&                     OffsetPoint,
                                     const Standard_Boolean            intOut1,
                                     const Standard_Boolean            intOut2)
 {
@@ -54,9 +54,9 @@ void DsgPrs_PerpenPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
   vec1 *= .2 * OffsetPoint.Distance(pAx1);
   vec2 *= .2 * OffsetPoint.Distance(pAx2);
 
-  gp_Pnt pAx11  = OffsetPoint.Translated(vec1);
-  gp_Pnt pAx22  = OffsetPoint.Translated(vec2);
-  gp_Pnt p_symb = pAx22.Translated(vec1);
+  Point3d pAx11  = OffsetPoint.Translated(vec1);
+  Point3d pAx22  = OffsetPoint.Translated(vec2);
+  Point3d p_symb = pAx22.Translated(vec1);
 
   aPrims->AddBound(3);
   aPrims->AddVertex(pAx11);

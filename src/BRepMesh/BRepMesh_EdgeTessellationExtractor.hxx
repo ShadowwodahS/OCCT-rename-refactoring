@@ -42,7 +42,7 @@ public:
   //! @param thePoint tessellation point.
   //! @return True in case of valid result, false elewhere.
   Standard_EXPORT virtual Standard_Boolean Value(const Standard_Integer theIndex,
-                                                 gp_Pnt&                thePoint,
+                                                 Point3d&                thePoint,
                                                  Standard_Real&         theParameter) const
     Standard_OVERRIDE;
 

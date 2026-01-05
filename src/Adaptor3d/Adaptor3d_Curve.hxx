@@ -28,7 +28,7 @@
 #include <TColStd_Array1OfReal.hxx>
 #include <GeomAbs_CurveType.hxx>
 
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 class Geom_BezierCurve;
 class Geom_BSplineCurve;
@@ -88,29 +88,29 @@ public:
   Standard_EXPORT virtual Standard_Real Period() const;
 
   //! Computes the point of parameter U on the curve.
-  Standard_EXPORT virtual gp_Pnt Value(const Standard_Real U) const;
+  Standard_EXPORT virtual Point3d Value(const Standard_Real U) const;
 
   //! Computes the point of parameter U on the curve.
-  Standard_EXPORT virtual void D0(const Standard_Real U, gp_Pnt& P) const;
+  Standard_EXPORT virtual void D0(const Standard_Real U, Point3d& P) const;
 
   //! Computes the point of parameter U on the curve with its
   //! first derivative.
   //! Raised if the continuity of the current interval
   //! is not C1.
-  Standard_EXPORT virtual void D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V) const;
+  Standard_EXPORT virtual void D1(const Standard_Real U, Point3d& P, gp_Vec& V) const;
 
   //! Returns the point P of parameter U, the first and second
   //! derivatives V1 and V2.
   //! Raised if the continuity of the current interval
   //! is not C2.
-  Standard_EXPORT virtual void D2(const Standard_Real U, gp_Pnt& P, gp_Vec& V1, gp_Vec& V2) const;
+  Standard_EXPORT virtual void D2(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2) const;
 
   //! Returns the point P of parameter U, the first, the second
   //! and the third derivative.
   //! Raised if the continuity of the current interval
   //! is not C3.
   Standard_EXPORT virtual void D3(const Standard_Real U,
-                                  gp_Pnt&             P,
+                                  Point3d&             P,
                                   gp_Vec&             V1,
                                   gp_Vec&             V2,
                                   gp_Vec&             V3) const;

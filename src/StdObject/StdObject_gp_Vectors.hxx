@@ -116,7 +116,7 @@ inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const 
   return theWriteData;
 }
 
-inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, gp_Pnt& thePnt)
+inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, Point3d& thePnt)
 {
   StdObjMgt_ReadData::ObjectSentry aSentry(theReadData);
 
@@ -126,7 +126,7 @@ inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, gp_Pnt& t
   return theReadData;
 }
 
-inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const gp_Pnt& thePnt)
+inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const Point3d& thePnt)
 {
   StdObjMgt_WriteData::ObjectSentry aSentry(theWriteData);
 

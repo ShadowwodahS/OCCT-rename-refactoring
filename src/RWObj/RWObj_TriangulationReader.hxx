@@ -65,13 +65,13 @@ protected:
     Standard_OVERRIDE;
 
   //! Retrieve sub-mesh node position.
-  virtual gp_Pnt getNode(Standard_Integer theIndex) const Standard_OVERRIDE
+  virtual Point3d getNode(Standard_Integer theIndex) const Standard_OVERRIDE
   {
     return myNodes.Value(theIndex - 1);
   }
 
   //! Add new node.
-  virtual Standard_Integer addNode(const gp_Pnt& thePnt) Standard_OVERRIDE
+  virtual Standard_Integer addNode(const Point3d& thePnt) Standard_OVERRIDE
   {
     myNodes.Append(thePnt);
     return myNodes.Size();
@@ -111,7 +111,7 @@ protected:
                                                const Standard_Boolean theToExpandCompound);
 
 protected:
-  NCollection_Vector<gp_Pnt>         myNodes;     //!< nodes   of currently filled triangulation
+  NCollection_Vector<Point3d>         myNodes;     //!< nodes   of currently filled triangulation
   NCollection_Vector<Graphic3d_Vec3> myNormals;   //!< normals of currently filled triangulation
   NCollection_Vector<Graphic3d_Vec2> myNodesUV;   //!< UVs     of currently filled triangulation
   NCollection_Vector<Poly_Triangle>  myTriangles; //!< indexes of currently filled triangulation

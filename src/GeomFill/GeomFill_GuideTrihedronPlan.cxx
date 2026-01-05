@@ -98,7 +98,7 @@ GeomFill_GuideTrihedronPlan::GeomFill_GuideTrihedronPlan(const Handle(Adaptor3d_
 void GeomFill_GuideTrihedronPlan::Init()
 {
   myStatus = GeomFill_PipeOk;
-  gp_Pnt P;
+  Point3d P;
   //  Bnd_Box2d Box;
   //  Box.Update(-0.1, -0.1, 0.1, 0.1); // Taille minimal
   gp_Vec           Tangent, Normal, BiNormal;
@@ -153,7 +153,7 @@ void GeomFill_GuideTrihedronPlan::Init()
     }
     else
     {
-      gp_Pnt Pmin;
+      Point3d Pmin;
       PInt               = Int.Point(1);
       Pmin               = PInt.Pnt();
       Standard_Real Dmin = P.Distance(Pmin);
@@ -227,7 +227,7 @@ Standard_Boolean GeomFill_GuideTrihedronPlan::D0(const Standard_Real Param,
                                                  gp_Vec&             Normal,
                                                  gp_Vec&             BiNormal)
 {
-  gp_Pnt P, Pprime;
+  Point3d P, Pprime;
   //  gp_Vec To;
 
   myCurve->D0(Param, P);
@@ -285,7 +285,7 @@ Standard_Boolean GeomFill_GuideTrihedronPlan::D1(const Standard_Real Param,
                                                  gp_Vec&             DBiNormal)
 {
   //  return Standard_False;
-  gp_Pnt P, PG;
+  Point3d P, PG;
   gp_Vec To, TG;
 
   // triedre de frenet sur la trajectoire
@@ -330,7 +330,7 @@ Standard_Boolean GeomFill_GuideTrihedronPlan::D1(const Standard_Real Param,
           if ( Abs( (etg-e)/h - dedx) > 1.e-4) {
         std::cout << "err :" <<  (etg-e)/h - dedx << std::endl;
           }
-          gp_Pnt pdbg;
+          Point3d pdbg;
           gp_Vec td, nb, bnb;
           myCurve->D0(Param+h, pdbg);
           frenet->D0(Param+h,td, nb, bnb);
@@ -377,8 +377,8 @@ Standard_Boolean GeomFill_GuideTrihedronPlan::D2(const Standard_Real Param,
                                                  gp_Vec&             DBiNormal,
                                                  gp_Vec&             D2BiNormal)
 {
-  //  gp_Pnt P, PG;
-  gp_Pnt P;
+  //  Point3d P, PG;
+  Point3d P;
   //  gp_Vec To,DTo,TG,DTG;
   gp_Vec To, DTo;
 

@@ -28,8 +28,8 @@
 
 void DsgPrs_Chamf2dPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                      const Handle(Prs3d_Drawer)&       aDrawer,
-                                     const gp_Pnt&                     aPntAttach,
-                                     const gp_Pnt&                     aPntEnd,
+                                     const Point3d&                     aPntAttach,
+                                     const Point3d&                     aPntEnd,
                                      const TCollection_ExtendedString& aText)
 {
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
@@ -58,8 +58,8 @@ void DsgPrs_Chamf2dPresentation::Add(const Handle(Prs3d_Presentation)& aPresenta
 
 void DsgPrs_Chamf2dPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                      const Handle(Prs3d_Drawer)&       aDrawer,
-                                     const gp_Pnt&                     aPntAttach,
-                                     const gp_Pnt&                     aPntEnd,
+                                     const Point3d&                     aPntAttach,
+                                     const Point3d&                     aPntEnd,
                                      const TCollection_ExtendedString& aText,
                                      const DsgPrs_ArrowSide            ArrowPrs)
 {

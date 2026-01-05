@@ -60,15 +60,15 @@ protected:
   Standard_Real sign1;
   Standard_Real sign2;
 
-  gp_Pnt        ptgui;
+  Point3d        ptgui;
   gp_Vec        nplan;
   Standard_Real normtg;
   Standard_Real theD;
   gp_Vec        d1gui;
   gp_Vec        d2gui;
 
-  gp_Pnt pts1;
-  gp_Pnt pts2;
+  Point3d pts1;
+  Point3d pts2;
   gp_Vec d1u1;
   gp_Vec d1v1;
   gp_Vec d1u2;

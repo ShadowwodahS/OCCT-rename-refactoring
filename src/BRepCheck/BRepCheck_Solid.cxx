@@ -86,7 +86,7 @@ public:
   Standard_Boolean IsHole() const { return myIsHole; };
 
   //
-  const gp_Pnt& InnerPoint() { return myPnt; }
+  const Point3d& InnerPoint() { return myPnt; }
 
   //
   Standard_Real CheckTol() const { return myPntTol; };
@@ -145,7 +145,7 @@ public:
   //
 protected:
   Standard_Boolean      myIsHole;
-  gp_Pnt                myPnt;
+  Point3d                myPnt;
   Standard_Real         myPntTol;
   TopoDS_Solid          mySolid;
   Handle(BRepCheck_HSC) myHSC;

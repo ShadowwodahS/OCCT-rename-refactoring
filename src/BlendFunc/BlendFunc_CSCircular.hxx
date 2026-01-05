@@ -97,9 +97,9 @@ public:
   Standard_EXPORT Standard_Boolean IsSolution(const math_Vector&  Sol,
                                               const Standard_Real Tol) Standard_OVERRIDE;
 
-  Standard_EXPORT const gp_Pnt& PointOnS() const Standard_OVERRIDE;
+  Standard_EXPORT const Point3d& PointOnS() const Standard_OVERRIDE;
 
-  Standard_EXPORT const gp_Pnt& PointOnC() const Standard_OVERRIDE;
+  Standard_EXPORT const Point3d& PointOnC() const Standard_OVERRIDE;
 
   //! Returns U,V coordinates of the point on the surface.
   Standard_EXPORT const gp_Pnt2d& Pnt2d() const Standard_OVERRIDE;
@@ -229,8 +229,8 @@ private:
   Handle(Adaptor3d_Curve)      curv;
   Handle(Adaptor3d_Curve)      guide;
   Handle(Law_Function)         law;
-  gp_Pnt                       pts;
-  gp_Pnt                       ptc;
+  Point3d                       pts;
+  Point3d                       ptc;
   gp_Pnt2d                     pt2d;
   Standard_Real                prmc;
   Standard_Real                dprmc;

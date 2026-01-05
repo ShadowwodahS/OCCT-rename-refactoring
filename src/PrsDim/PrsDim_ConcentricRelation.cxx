@@ -98,14 +98,14 @@ void PrsDim_ConcentricRelation::ComputeEdgeVertexConcentric(
     E = TopoDS::Edge(mySShape);
     V = TopoDS::Vertex(myFShape);
   }
-  gp_Pnt             p1, p2;
+  Point3d             p1, p2;
   Handle(Geom_Curve) C;
   Handle(Geom_Curve) extCurv;
   Standard_Boolean   isInfinite;
   Standard_Boolean   isOnPlanEdge, isOnPlanVertex;
   if (!PrsDim::ComputeGeometry(E, C, p1, p2, extCurv, isInfinite, isOnPlanEdge, myPlane))
     return;
-  gp_Pnt P;
+  Point3d P;
   PrsDim::ComputeGeometry(V, P, myPlane, isOnPlanVertex);
 
   Handle(Geom_Circle) CIRCLE(Handle(Geom_Circle)::DownCast(C));
@@ -130,7 +130,7 @@ void PrsDim_ConcentricRelation::ComputeTwoVerticesConcentric(
   V1 = TopoDS::Vertex(myFShape);
   V2 = TopoDS::Vertex(myFShape);
   Standard_Boolean isOnPlanVertex1(Standard_True), isOnPlanVertex2(Standard_True);
-  gp_Pnt           P1, P2;
+  Point3d           P1, P2;
   PrsDim::ComputeGeometry(V1, P1, myPlane, isOnPlanVertex1);
   PrsDim::ComputeGeometry(V2, P2, myPlane, isOnPlanVertex2);
   myCenter = P1;
@@ -153,7 +153,7 @@ void PrsDim_ConcentricRelation::ComputeTwoEdgesConcentric(
   BRepAdaptor_Curve curv1(TopoDS::Edge(myFShape));
   BRepAdaptor_Curve curv2(TopoDS::Edge(mySShape));
 
-  gp_Pnt             ptat11, ptat12, ptat21, ptat22;
+  Point3d             ptat11, ptat12, ptat21, ptat22;
   Handle(Geom_Curve) geom1, geom2;
   Standard_Boolean   isInfinite1, isInfinite2;
   Handle(Geom_Curve) extCurv;
@@ -196,7 +196,7 @@ void PrsDim_ConcentricRelation::ComputeTwoEdgesConcentric(
   DsgPrs_ConcentricPresentation::Add(aPresentation, myDrawer, myCenter, myRad, myDir, myPnt);
   if ((myExtShape != 0) && !extCurv.IsNull())
   {
-    gp_Pnt pf, pl;
+    Point3d pf, pl;
     if (myExtShape == 1)
     {
       if (!isInfinite1)
@@ -240,13 +240,13 @@ void PrsDim_ConcentricRelation::ComputeSelection(const Handle(SelectMgr_Selectio
 
   // Creation of 2 segments sensitive for the cross
   Handle(Select3D_SensitiveSegment) seg;
-  gp_Pnt                            otherPnt = myPnt.Mirrored(myCenter);
+  Point3d                            otherPnt = myPnt.Mirrored(myCenter);
   seg = new Select3D_SensitiveSegment(anOwner, otherPnt, myPnt);
   aSelection->Add(seg);
 
   gp_Ax1 RotateAxis(myCenter, myDir);
-  gp_Pnt FPnt = myCenter.Rotated(RotateAxis, M_PI_2);
-  gp_Pnt SPnt = myCenter.Rotated(RotateAxis, -M_PI_2);
+  Point3d FPnt = myCenter.Rotated(RotateAxis, M_PI_2);
+  Point3d SPnt = myCenter.Rotated(RotateAxis, -M_PI_2);
   seg         = new Select3D_SensitiveSegment(anOwner, FPnt, SPnt);
   aSelection->Add(seg);
 }

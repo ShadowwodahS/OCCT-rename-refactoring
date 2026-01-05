@@ -25,7 +25,7 @@
 //=========================================================================
 //   Creation d une direction 3d (Dir) de gp a partir de 2 Pnt de gp.     +
 //=========================================================================
-gce_MakeDir::gce_MakeDir(const gp_Pnt& P1, const gp_Pnt& P2)
+gce_MakeDir::gce_MakeDir(const Point3d& P1, const Point3d& P2)
 {
   if (P1.Distance(P2) <= gp::Resolution())
   {

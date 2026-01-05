@@ -328,9 +328,9 @@ void GeomFill_SweepFunction::SetTolerance(const Standard_Real Tol3d, const Stand
 
 //=================================================================================================
 
-gp_Pnt GeomFill_SweepFunction::BarycentreOfSurf() const
+Point3d GeomFill_SweepFunction::BarycentreOfSurf() const
 {
-  gp_Pnt Bary;
+  Point3d Bary;
   gp_Vec Translate;
   gp_Mat aM;
 

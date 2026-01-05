@@ -239,36 +239,36 @@ public:
 
   //! Get camera Eye position.
   //! @return camera eye location.
-  const gp_Pnt& Eye() const { return myEye; }
+  const Point3d& Eye() const { return myEye; }
 
   //! Sets camera Eye position.
   //! Unlike SetEye(), this method only changes Eye point and preserves camera direction.
   //! @param[in] theEye  the location of camera's Eye.
   //! @sa SetEye()
-  Standard_EXPORT void MoveEyeTo(const gp_Pnt& theEye);
+  Standard_EXPORT void MoveEyeTo(const Point3d& theEye);
 
   //! Sets camera Eye and Center positions.
   //! @param[in] theEye     the location of camera's Eye
   //! @param[in] theCenter  the location of camera's Center
-  Standard_EXPORT void SetEyeAndCenter(const gp_Pnt& theEye, const gp_Pnt& theCenter);
+  Standard_EXPORT void SetEyeAndCenter(const Point3d& theEye, const Point3d& theCenter);
 
   //! Sets camera Eye position.
   //! WARNING! For backward compatibility reasons, this method also changes view direction,
   //! so that the new direction is computed from new Eye position to old Center position.
   //! @param[in] theEye  the location of camera's Eye.
   //! @sa MoveEyeTo(), SetEyeAndCenter()
-  Standard_EXPORT void SetEye(const gp_Pnt& theEye);
+  Standard_EXPORT void SetEye(const Point3d& theEye);
 
   //! Get Center of the camera, e.g. the point where camera looks at.
   //! This point is computed as Eye() translated along Direction() at Distance().
   //! @return the point where the camera looks at.
-  gp_Pnt Center() const { return myEye.XYZ() + myDirection.XYZ() * myDistance; }
+  Point3d Center() const { return myEye.XYZ() + myDirection.XYZ() * myDistance; }
 
   //! Sets Center of the camera, e.g. the point where camera looks at.
   //! This methods changes camera direction, so that the new direction is computed
   //! from current Eye position to specified Center position.
   //! @param[in] theCenter  the point where the camera looks at.
-  Standard_EXPORT void SetCenter(const gp_Pnt& theCenter);
+  Standard_EXPORT void SetCenter(const Point3d& theCenter);
 
   //! Get distance of Eye from camera Center.
   //! @return the distance.
@@ -469,13 +469,13 @@ public:
 
   //! Calculate view plane size at center (target) point
   //! and distance between ZFar and ZNear planes.
-  //! @return values in form of gp_Pnt (Width, Height, Depth).
+  //! @return values in form of Point3d (Width, Height, Depth).
   gp_XYZ ViewDimensions() const { return ViewDimensions(Distance()); }
 
   //! Calculate view plane size at center point with specified Z offset
   //! and distance between ZFar and ZNear planes.
   //! @param[in] theZValue  the distance from the eye in eye-to-center direction
-  //! @return values in form of gp_Pnt (Width, Height, Depth).
+  //! @return values in form of Point3d (Width, Height, Depth).
   Standard_EXPORT gp_XYZ ViewDimensions(const Standard_Real theZValue) const;
 
   //! Return offset to the view corner in NDC space within dimension X for 2d on-screen elements,
@@ -511,37 +511,37 @@ public:
   //! normalized device coordinates (mapping).
   //! @param[in] thePnt  the 3D point in WCS.
   //! @return mapped point in NDC.
-  Standard_EXPORT gp_Pnt Project(const gp_Pnt& thePnt) const;
+  Standard_EXPORT Point3d Project(const Point3d& thePnt) const;
 
   //! Unproject point from normalized device coordinates
   //! to world coordinate space.
   //! @param[in] thePnt  the NDC point.
   //! @return 3D point in WCS.
-  Standard_EXPORT gp_Pnt UnProject(const gp_Pnt& thePnt) const;
+  Standard_EXPORT Point3d UnProject(const Point3d& thePnt) const;
 
   //! Convert point from view coordinate space to
   //! projection coordinate space.
   //! @param[in] thePnt  the point in VCS.
   //! @return point in NDC.
-  Standard_EXPORT gp_Pnt ConvertView2Proj(const gp_Pnt& thePnt) const;
+  Standard_EXPORT Point3d ConvertView2Proj(const Point3d& thePnt) const;
 
   //! Convert point from projection coordinate space
   //! to view coordinate space.
   //! @param[in] thePnt  the point in NDC.
   //! @return point in VCS.
-  Standard_EXPORT gp_Pnt ConvertProj2View(const gp_Pnt& thePnt) const;
+  Standard_EXPORT Point3d ConvertProj2View(const Point3d& thePnt) const;
 
   //! Convert point from world coordinate space to
   //! view coordinate space.
   //! @param[in] thePnt  the 3D point in WCS.
   //! @return point in VCS.
-  Standard_EXPORT gp_Pnt ConvertWorld2View(const gp_Pnt& thePnt) const;
+  Standard_EXPORT Point3d ConvertWorld2View(const Point3d& thePnt) const;
 
   //! Convert point from view coordinate space to
   //! world coordinates.
   //! @param[in] thePnt  the 3D point in VCS.
   //! @return point in WCS.
-  Standard_EXPORT gp_Pnt ConvertView2World(const gp_Pnt& thePnt) const;
+  Standard_EXPORT Point3d ConvertView2World(const Point3d& thePnt) const;
 
   //! @name Camera modification state
 public:
@@ -779,7 +779,7 @@ public:
 private:
   gp_Dir        myUp;        //!< Camera up direction vector
   gp_Dir        myDirection; //!< Camera view direction (from eye)
-  gp_Pnt        myEye;       //!< Camera eye position
+  Point3d        myEye;       //!< Camera eye position
   Standard_Real myDistance;  //!< distance from Eye to Center
 
   gp_XYZ myAxialScale; //!< World axial scale.

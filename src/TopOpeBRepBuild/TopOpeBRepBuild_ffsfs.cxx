@@ -92,7 +92,7 @@ static Standard_Integer FUN_getAncestorFsp(TopOpeBRepBuild_Builder&        B,
                                            const TopTools_ListOfShape&     LF,
                                            const TopoDS_Shape&             fsp,
                                            Standard_Boolean&               p3ddef,
-                                           gp_Pnt&                         p3d);
+                                           Point3d&                         p3d);
 static Standard_Integer FUN_getAncestorFsp(TopOpeBRepBuild_Builder&        B,
                                            TopOpeBRepTool_ShapeClassifier& SC,
                                            const TopTools_ListOfShape&     LF1,
@@ -111,7 +111,7 @@ static Standard_Integer FUN_getAncestorFsp(TopOpeBRepBuild_Builder&        B,
                                            const TopTools_ListOfShape&     LF,
                                            const TopoDS_Shape&             fsp,
                                            Standard_Boolean&               p3ddef,
-                                           gp_Pnt&                         p3d)
+                                           Point3d&                         p3d)
 {
   const TopOpeBRepDS_DataStructure& BDS = B.DataStructure()->DS(); // How to do static <--> const
 
@@ -174,7 +174,7 @@ static Standard_Integer FUN_getAncestorFsp(TopOpeBRepBuild_Builder&        B,
   Standard_Integer rkf1   = BDS.AncestorRank(LF1.First());
   Standard_Integer rkf2   = BDS.AncestorRank(LF2.First());
   Standard_Boolean p3ddef = Standard_False;
-  gp_Pnt           p3d;
+  Point3d           p3d;
 
   Standard_Boolean ison1 = (rkf1 == rkfsp);
   Standard_Boolean ison2 = (rkf2 == rkfsp);

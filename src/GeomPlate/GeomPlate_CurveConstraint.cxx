@@ -164,7 +164,7 @@ Standard_Real GeomPlate_CurveConstraint ::Length() const
 //---------------------------------------------------------
 // Fonction : D0
 //---------------------------------------------------------
-void GeomPlate_CurveConstraint ::D0(const Standard_Real U, gp_Pnt& P) const
+void GeomPlate_CurveConstraint ::D0(const Standard_Real U, Point3d& P) const
 {
   gp_Pnt2d P2d;
 
@@ -180,7 +180,7 @@ void GeomPlate_CurveConstraint ::D0(const Standard_Real U, gp_Pnt& P) const
 //---------------------------------------------------------
 // Fonction : D1
 //---------------------------------------------------------
-void GeomPlate_CurveConstraint ::D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V1, gp_Vec& V2) const
+void GeomPlate_CurveConstraint ::D1(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2) const
 {
   gp_Pnt2d P2d;
   if (!my3dCurve.IsNull())
@@ -194,7 +194,7 @@ void GeomPlate_CurveConstraint ::D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V1
 // Fonction : D2
 //---------------------------------------------------------
 void GeomPlate_CurveConstraint ::D2(const Standard_Real U,
-                                    gp_Pnt&             P,
+                                    Point3d&             P,
                                     gp_Vec&             V1,
                                     gp_Vec&             V2,
                                     gp_Vec&             V3,

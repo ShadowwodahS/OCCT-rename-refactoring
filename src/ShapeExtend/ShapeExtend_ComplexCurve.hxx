@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 #include <GeomAbs_Shape.hxx>
 class gp_Trsf;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 
 class ShapeExtend_ComplexCurve;
@@ -78,19 +78,19 @@ public:
 
   //! Returns point at parameter U.
   //! Finds appropriate curve and local parameter on it.
-  Standard_EXPORT virtual void D0(const Standard_Real U, gp_Pnt& P) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void D0(const Standard_Real U, Point3d& P) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual void D1(const Standard_Real U,
-                                  gp_Pnt&             P,
+                                  Point3d&             P,
                                   gp_Vec&             V1) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual void D2(const Standard_Real U,
-                                  gp_Pnt&             P,
+                                  Point3d&             P,
                                   gp_Vec&             V1,
                                   gp_Vec&             V2) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual void D3(const Standard_Real U,
-                                  gp_Pnt&             P,
+                                  Point3d&             P,
                                   gp_Vec&             V1,
                                   gp_Vec&             V2,
                                   gp_Vec&             V3) const Standard_OVERRIDE;

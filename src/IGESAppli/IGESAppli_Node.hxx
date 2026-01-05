@@ -24,7 +24,7 @@
 #include <IGESData_IGESEntity.hxx>
 #include <Standard_Integer.hxx>
 class IGESGeom_TransformationMatrix;
-class gp_Pnt;
+class Point3d;
 class IGESData_TransfEntity;
 
 class IGESAppli_Node;
@@ -48,7 +48,7 @@ public:
                             const Handle(IGESGeom_TransformationMatrix)& aCoordSystem);
 
   //! returns the nodal coordinates
-  Standard_EXPORT gp_Pnt Coord() const;
+  Standard_EXPORT Point3d Coord() const;
 
   //! returns TransfEntity if a Nodal Displacement Coordinate
   //! System Entity is defined
@@ -60,7 +60,7 @@ public:
   Standard_EXPORT Standard_Integer SystemType() const;
 
   //! returns the Nodal coordinates after transformation
-  Standard_EXPORT gp_Pnt TransformedNodalCoord() const;
+  Standard_EXPORT Point3d TransformedNodalCoord() const;
 
   DEFINE_STANDARD_RTTIEXT(IGESAppli_Node, IGESData_IGESEntity)
 

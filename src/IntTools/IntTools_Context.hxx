@@ -36,7 +36,7 @@ class IntTools_SurfaceRangeLocalizeData;
 class BRepClass3d_SolidClassifier;
 class TopoDS_Solid;
 class Geom2dHatch_Hatcher;
-class gp_Pnt;
+class Point3d;
 class TopoDS_Vertex;
 class gp_Pnt2d;
 class IntTools_Curve;
@@ -107,7 +107,7 @@ public:
   //! 1. the edge is degenerated (-1)
   //! 2. the edge does not contain 3d curve and pcurves (-2)
   //! 3. projection algorithm failed (-3)
-  Standard_EXPORT Standard_Integer ComputePE(const gp_Pnt&       theP,
+  Standard_EXPORT Standard_Integer ComputePE(const Point3d&       theP,
                                              const Standard_Real theTolP,
                                              const TopoDS_Edge&  theE,
                                              Standard_Real&      theT,
@@ -157,7 +157,7 @@ public:
   //! Returns true if the point aP2D is
   //! inside the boundaries of the face aF,
   //! otherwise returns false
-  Standard_EXPORT Standard_Boolean IsPointInFace(const gp_Pnt&       aP3D,
+  Standard_EXPORT Standard_Boolean IsPointInFace(const Point3d&       aP3D,
                                                  const TopoDS_Face&  aF,
                                                  const Standard_Real aTol);
 
@@ -169,13 +169,13 @@ public:
   //! and face aF is less or equal to tolerance aTol
   //! and projection point is inside or on the boundaries
   //! of the face aF
-  Standard_EXPORT Standard_Boolean IsValidPointForFace(const gp_Pnt&       aP3D,
+  Standard_EXPORT Standard_Boolean IsValidPointForFace(const Point3d&       aP3D,
                                                        const TopoDS_Face&  aF,
                                                        const Standard_Real aTol);
 
   //! Returns true if IsValidPointForFace returns true
   //! for both face aF1 and aF2
-  Standard_EXPORT Standard_Boolean IsValidPointForFaces(const gp_Pnt&       aP3D,
+  Standard_EXPORT Standard_Boolean IsValidPointForFaces(const Point3d&       aP3D,
                                                         const TopoDS_Face&  aF1,
                                                         const TopoDS_Face&  aF2,
                                                         const Standard_Real aTol);
@@ -225,7 +225,7 @@ public:
   //! the edge aE.
   //! Returns false if projection algorithm failed
   //! other wiese returns true.
-  Standard_EXPORT Standard_Boolean ProjectPointOnEdge(const gp_Pnt&      aP,
+  Standard_EXPORT Standard_Boolean ProjectPointOnEdge(const Point3d&      aP,
                                                       const TopoDS_Edge& aE,
                                                       Standard_Real&     aT);
 

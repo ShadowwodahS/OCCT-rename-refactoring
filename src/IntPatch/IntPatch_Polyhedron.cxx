@@ -51,7 +51,7 @@ static Standard_Integer NbPOnV(const Handle(Adaptor3d_Surface)& S)
 
 void IntPatch_Polyhedron::Destroy()
 {
-  gp_Pnt* CMyPnts = (gp_Pnt*)C_MyPnts;
+  Point3d* CMyPnts = (Point3d*)C_MyPnts;
   if (C_MyPnts)
     delete[] CMyPnts;
   Standard_Real* CMyU = (Standard_Real*)C_MyU;
@@ -78,7 +78,7 @@ IntPatch_Polyhedron::IntPatch_Polyhedron(const Handle(Adaptor3d_Surface)& Surfac
       VMaxSingular(IntPatch_HInterTool::SingularOnVMin(Surface))
 {
   const Standard_Integer t       = (nbdeltaU + 1) * (nbdeltaV + 1) + 1;
-  gp_Pnt*                CMyPnts = new gp_Pnt[t];
+  Point3d*                CMyPnts = new Point3d[t];
   Standard_Real*         CMyU    = new Standard_Real[t];
   Standard_Real*         CMyV    = new Standard_Real[t];
   C_MyPnts                       = CMyPnts;
@@ -93,7 +93,7 @@ IntPatch_Polyhedron::IntPatch_Polyhedron(const Handle(Adaptor3d_Surface)& Surfac
   const Standard_Real U1mU0sNbdeltaU = (u1 - u0) / (Standard_Real)nbdeltaU;
   const Standard_Real V1mV0sNbdeltaV = (v1 - v0) / (Standard_Real)nbdeltaV;
 
-  gp_Pnt           TP;
+  Point3d           TP;
   Standard_Real    U, V;
   Standard_Integer i1, i2, Index = 1;
   for (i1 = 0, U = u0; i1 <= nbdeltaU; i1++, U += U1mU0sNbdeltaU)
@@ -141,7 +141,7 @@ IntPatch_Polyhedron::IntPatch_Polyhedron(const Handle(Adaptor3d_Surface)& Surfac
       VMaxSingular(IntPatch_HInterTool::SingularOnVMin(Surface))
 {
   const Standard_Integer t       = (nbdeltaU + 1) * (nbdeltaV + 1) + 1;
-  gp_Pnt*                CMyPnts = new gp_Pnt[t];
+  Point3d*                CMyPnts = new Point3d[t];
   Standard_Real*         CMyU    = new Standard_Real[t];
   Standard_Real*         CMyV    = new Standard_Real[t];
   C_MyPnts                       = CMyPnts;
@@ -156,7 +156,7 @@ IntPatch_Polyhedron::IntPatch_Polyhedron(const Handle(Adaptor3d_Surface)& Surfac
   const Standard_Real U1mU0sNbdeltaU = (u1 - u0) / (Standard_Real)nbdeltaU;
   const Standard_Real V1mV0sNbdeltaV = (v1 - v0) / (Standard_Real)nbdeltaV;
 
-  gp_Pnt           TP;
+  Point3d           TP;
   Standard_Real    U, V;
   Standard_Integer i1, i2, Index = 1;
   for (i1 = 0, U = u0; i1 <= nbdeltaU; i1++, U += U1mU0sNbdeltaU)
@@ -197,7 +197,7 @@ Standard_Real IntPatch_Polyhedron::DeflectionOnTriangle(const Handle(Adaptor3d_S
   Triangle(Triang, i1, i2, i3);
   //-- Calcul de l eqution du plan
   Standard_Real u1, v1, u2, v2, u3, v3;
-  gp_Pnt        P1, P2, P3;
+  Point3d        P1, P2, P3;
   P1 = Point(i1, u1, v1);
   P2 = Point(i2, u2, v2);
   P3 = Point(i3, u3, v3);
@@ -277,9 +277,9 @@ void IntPatch_Polyhedron::FillBounding()
   {
     Triangle(iTri, p1, p2, p3);
     Boite.SetVoid();
-    const gp_Pnt& P1 = Point(p1);
-    const gp_Pnt& P2 = Point(p2);
-    const gp_Pnt& P3 = Point(p3);
+    const Point3d& P1 = Point(p1);
+    const Point3d& P2 = Point(p2);
+    const Point3d& P3 = Point(p3);
     if (P1.SquareDistance(P2) > LONGUEUR_MINI_EDGE_TRIANGLE)
     {
       if (P1.SquareDistance(P3) > LONGUEUR_MINI_EDGE_TRIANGLE)
@@ -630,7 +630,7 @@ void IntPatch_Polyhedron::PlaneEquation(const Standard_Integer Triang,
 //=================================================================================================
 
 Standard_Boolean IntPatch_Polyhedron::Contain(const Standard_Integer Triang,
-                                              const gp_Pnt&          ThePnt) const
+                                              const Point3d&          ThePnt) const
 {
   Standard_Integer i1, i2, i3;
   Triangle(Triang, i1, i2, i3);
@@ -686,11 +686,11 @@ void IntPatch_Polyhedron::Triangle(const Standard_Integer Index,
 //=======================================================================
 // function : Point
 //=======================================================================
-const gp_Pnt& IntPatch_Polyhedron::Point(const Standard_Integer Index,
+const Point3d& IntPatch_Polyhedron::Point(const Standard_Integer Index,
                                          Standard_Real&         U,
                                          Standard_Real&         V) const
 {
-  gp_Pnt*        CMyPnts = (gp_Pnt*)C_MyPnts;
+  Point3d*        CMyPnts = (Point3d*)C_MyPnts;
   Standard_Real* CMyU    = (Standard_Real*)C_MyU;
   Standard_Real* CMyV    = (Standard_Real*)C_MyV;
   U                      = CMyU[Index];
@@ -701,16 +701,16 @@ const gp_Pnt& IntPatch_Polyhedron::Point(const Standard_Integer Index,
 //=======================================================================
 // function : Point
 //=======================================================================
-const gp_Pnt& IntPatch_Polyhedron::Point(const Standard_Integer Index) const
+const Point3d& IntPatch_Polyhedron::Point(const Standard_Integer Index) const
 {
-  gp_Pnt* CMyPnts = (gp_Pnt*)C_MyPnts;
+  Point3d* CMyPnts = (Point3d*)C_MyPnts;
   return CMyPnts[Index];
 }
 
 //=======================================================================
 // function : Point
 //=======================================================================
-void IntPatch_Polyhedron::Point(const gp_Pnt& /*p*/,
+void IntPatch_Polyhedron::Point(const Point3d& /*p*/,
                                 const Standard_Integer /*lig*/,
                                 const Standard_Integer /*col*/,
                                 const Standard_Real /*u*/,
@@ -722,9 +722,9 @@ void IntPatch_Polyhedron::Point(const gp_Pnt& /*p*/,
 //=======================================================================
 // function : Point
 //=======================================================================
-void IntPatch_Polyhedron::Point(const Standard_Integer Index, gp_Pnt& P) const
+void IntPatch_Polyhedron::Point(const Standard_Integer Index, Point3d& P) const
 {
-  gp_Pnt* CMyPnts = (gp_Pnt*)C_MyPnts;
+  Point3d* CMyPnts = (Point3d*)C_MyPnts;
   P               = CMyPnts[Index];
 }
 

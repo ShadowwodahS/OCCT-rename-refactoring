@@ -82,7 +82,7 @@ static Standard_Boolean FindLimits(const Adaptor3d_Curve& aCurve,
 
   if (firstInf || lastInf)
   {
-    gp_Pnt           P1, P2;
+    Point3d           P1, P2;
     Standard_Real    delta = 1;
     Standard_Integer count = 0;
     if (firstInf && lastInf)
@@ -139,8 +139,8 @@ static void drawCurve(Adaptor3d_Curve&               aCurve,
   switch (aCurve.GetType())
   {
     case GeomAbs_Line: {
-      gp_Pnt p1 = aCurve.Value(U1);
-      gp_Pnt p2 = aCurve.Value(U2);
+      Point3d p1 = aCurve.Value(U1);
+      Point3d p2 = aCurve.Value(U2);
       Points.Append(p1);
       Points.Append(p2);
       if (!aGroup.IsNull())
@@ -187,7 +187,7 @@ static void drawCurve(Adaptor3d_Curve&               aCurve,
 
       for (i = 1; i <= SeqP.Length(); i++)
       {
-        const gp_Pnt& p = SeqP.Value(i);
+        const Point3d& p = SeqP.Value(i);
         Points.Append(p);
         if (!aGroup.IsNull())
         {
@@ -218,10 +218,10 @@ static Standard_Boolean MatchCurve(const Standard_Real    X,
   switch (aCurve.GetType())
   {
     case GeomAbs_Line: {
-      gp_Pnt p1 = aCurve.Value(U1);
+      Point3d p1 = aCurve.Value(U1);
       if (Abs(X - p1.X()) + Abs(Y - p1.Y()) + Abs(Z - p1.Z()) <= aDistance)
         return Standard_True;
-      gp_Pnt p2 = aCurve.Value(U2);
+      Point3d p2 = aCurve.Value(U2);
       if (Abs(X - p2.X()) + Abs(Y - p2.Y()) + Abs(Z - p2.Z()) <= aDistance)
         return Standard_True;
       return Prs3d::MatchSegment(X, Y, Z, aDistance, p1, p2, retdist);
@@ -235,7 +235,7 @@ static Standard_Boolean MatchCurve(const Standard_Real    X,
         const Standard_Integer N  = Max(2, (Standard_Integer)IntegerPart(Er));
         if (N > 0)
         {
-          gp_Pnt p1, p2;
+          Point3d p1, p2;
           for (Standard_Integer Index = 1; Index <= N + 1; Index++)
           {
             p2 = aCurve.Value(U1 + (Index - 1) * DU);
@@ -258,7 +258,7 @@ static Standard_Boolean MatchCurve(const Standard_Real    X,
       const Standard_Integer      NumberOfPoints = Algo.NbPoints();
       if (NumberOfPoints > 0)
       {
-        gp_Pnt p1, p2;
+        Point3d p1, p2;
         for (Standard_Integer i = 1; i <= NumberOfPoints; i++)
         {
           p2 = Algo.Value(i);
@@ -305,7 +305,7 @@ void StdPrs_DeflectionCurve::Add(const Handle(Prs3d_Presentation)& aPresentation
 
     if (aDrawer->LineArrowDraw() && !aGroup.IsNull())
     {
-      gp_Pnt Location;
+      Point3d Location;
       gp_Vec Direction;
       aCurve.D1(V2, Location, Direction);
       Prs3d_Arrow::Draw(aGroup,
@@ -352,7 +352,7 @@ void StdPrs_DeflectionCurve::Add(const Handle(Prs3d_Presentation)& aPresentation
 
   if (aDrawer->LineArrowDraw() && !aGroup.IsNull())
   {
-    gp_Pnt Location;
+    Point3d Location;
     gp_Vec Direction;
     aCurve.D1(V2, Location, Direction);
     Prs3d_Arrow::Draw(aGroup,

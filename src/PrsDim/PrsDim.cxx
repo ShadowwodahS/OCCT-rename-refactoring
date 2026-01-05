@@ -77,12 +77,12 @@ const Standard_Real SquareTolerance = Precision::SquareConfusion();
 
 //=================================================================================================
 
-gp_Pnt PrsDim::Nearest(const TopoDS_Shape& ashape, const gp_Pnt& apoint)
+Point3d PrsDim::Nearest(const TopoDS_Shape& ashape, const Point3d& apoint)
 {
   Standard_Real   dist2 = RealLast();
   Standard_Real   curdist2;
-  gp_Pnt          result(0.0, 0.0, 0.0);
-  gp_Pnt          curpnt(0.0, 0.0, 0.0);
+  Point3d          result(0.0, 0.0, 0.0);
+  Point3d          curpnt(0.0, 0.0, 0.0);
   TopExp_Explorer explo(ashape, TopAbs_VERTEX);
   while (explo.More())
   {
@@ -102,7 +102,7 @@ gp_Pnt PrsDim::Nearest(const TopoDS_Shape& ashape, const gp_Pnt& apoint)
 // function : Nearest
 // purpose  : For <thePoint> finds the nearest point on <theLine>.
 //=======================================================================
-gp_Pnt PrsDim::Nearest(const gp_Lin& theLine, const gp_Pnt& thePoint)
+Point3d PrsDim::Nearest(const gp_Lin& theLine, const Point3d& thePoint)
 {
   Handle(Geom_Line) aLine = new Geom_Line(theLine);
 
@@ -117,10 +117,10 @@ gp_Pnt PrsDim::Nearest(const gp_Lin& theLine, const gp_Pnt& thePoint)
 //              and FALSE otherwise.
 //=======================================================================
 Standard_Boolean PrsDim::Nearest(const Handle(Geom_Curve)& theCurve,
-                                 const gp_Pnt&             thePoint,
-                                 const gp_Pnt&             theFirstPoint,
-                                 const gp_Pnt&             theLastPoint,
-                                 gp_Pnt&                   theNearestPoint)
+                                 const Point3d&             thePoint,
+                                 const Point3d&             theFirstPoint,
+                                 const Point3d&             theLastPoint,
+                                 Point3d&                   theNearestPoint)
 {
   GeomAPI_ProjectPointOnCurve aPointProj(thePoint, theCurve);
   theNearestPoint = theCurve->Value(aPointProj.LowerDistanceParameter());
@@ -137,11 +137,11 @@ Standard_Boolean PrsDim::Nearest(const Handle(Geom_Curve)& theCurve,
 
 //=================================================================================================
 
-gp_Pnt PrsDim::Farest(const TopoDS_Shape& aShape, const gp_Pnt& aPoint)
+Point3d PrsDim::Farest(const TopoDS_Shape& aShape, const Point3d& aPoint)
 {
   Standard_Real   MaxDist2 = 0.0e0, curdist2;
-  gp_Pnt          Result(0.0, 0.0, 0.0);
-  gp_Pnt          curpnt(0.0, 0.0, 0.0);
+  Point3d          Result(0.0, 0.0, 0.0);
+  Point3d          curpnt(0.0, 0.0, 0.0);
   TopExp_Explorer Explo(aShape, TopAbs_VERTEX);
   for (; Explo.More(); Explo.Next())
   {
@@ -162,8 +162,8 @@ gp_Pnt PrsDim::Farest(const TopoDS_Shape& aShape, const gp_Pnt& aPoint)
 //=======================================================================
 Standard_Boolean PrsDim::ComputeGeometry(const TopoDS_Edge&  theEdge,
                                          Handle(Geom_Curve)& theCurve,
-                                         gp_Pnt&             theFirstPnt,
-                                         gp_Pnt&             theLastPnt)
+                                         Point3d&             theFirstPnt,
+                                         Point3d&             theLastPnt)
 {
   TopLoc_Location anEdgeLoc;
   Standard_Real   aFirst, aLast;
@@ -217,8 +217,8 @@ Standard_Boolean PrsDim::ComputeGeometry(const TopoDS_Edge&  theEdge,
 //=======================================================================
 Standard_Boolean PrsDim::ComputeGeometry(const TopoDS_Edge&  theEdge,
                                          Handle(Geom_Curve)& theCurve,
-                                         gp_Pnt&             theFirstPnt,
-                                         gp_Pnt&             theLastPnt,
+                                         Point3d&             theFirstPnt,
+                                         Point3d&             theLastPnt,
                                          Standard_Boolean&   theIsInfinite)
 {
   BRepAdaptor_Curve anAdaptor(theEdge);
@@ -255,8 +255,8 @@ Standard_Boolean PrsDim::ComputeGeometry(const TopoDS_Edge&  theEdge,
 
 Standard_Boolean PrsDim::ComputeGeometry(const TopoDS_Edge&        theEdge,
                                          Handle(Geom_Curve)&       theCurve,
-                                         gp_Pnt&                   theFirstPnt,
-                                         gp_Pnt&                   theLastPnt,
+                                         Point3d&                   theFirstPnt,
+                                         Point3d&                   theLastPnt,
                                          Handle(Geom_Curve)&       theExtCurve,
                                          Standard_Boolean&         theIsInfinite,
                                          Standard_Boolean&         theIsOnPlane,
@@ -341,10 +341,10 @@ Standard_Boolean PrsDim::ComputeGeometry(const TopoDS_Edge&        theFirstEdge,
                                          const TopoDS_Edge&        theSecondEdge,
                                          Handle(Geom_Curve)&       theFirstCurve,
                                          Handle(Geom_Curve)&       theSecondCurve,
-                                         gp_Pnt&                   theFirstPnt1,
-                                         gp_Pnt&                   theLastPnt1,
-                                         gp_Pnt&                   theFirstPnt2,
-                                         gp_Pnt&                   theLastPnt2,
+                                         Point3d&                   theFirstPnt1,
+                                         Point3d&                   theLastPnt1,
+                                         Point3d&                   theFirstPnt2,
+                                         Point3d&                   theLastPnt2,
                                          const Handle(Geom_Plane)& thePlane)
 {
   if (thePlane.IsNull())
@@ -435,10 +435,10 @@ Standard_Boolean PrsDim::ComputeGeometry(const TopoDS_Edge&  theFirstEdge,
                                          const TopoDS_Edge&  theSecondEdge,
                                          Handle(Geom_Curve)& theFirstCurve,
                                          Handle(Geom_Curve)& theSecondCurve,
-                                         gp_Pnt&             theFirstPnt1,
-                                         gp_Pnt&             theLastPnt1,
-                                         gp_Pnt&             theFirstPnt2,
-                                         gp_Pnt&             theLastPnt2,
+                                         Point3d&             theFirstPnt1,
+                                         Point3d&             theLastPnt1,
+                                         Point3d&             theFirstPnt2,
+                                         Point3d&             theLastPnt2,
                                          Standard_Boolean&   theIsInfinite1,
                                          Standard_Boolean&   theIsInfinite2)
 {
@@ -526,10 +526,10 @@ Standard_Boolean PrsDim::ComputeGeometry(const TopoDS_Edge&        theFirstEdge,
                                          Standard_Integer&         theExtIndex,
                                          Handle(Geom_Curve)&       theFirstCurve,
                                          Handle(Geom_Curve)&       theSecondCurve,
-                                         gp_Pnt&                   theFirstPnt1,
-                                         gp_Pnt&                   theLastPnt1,
-                                         gp_Pnt&                   theFirstPnt2,
-                                         gp_Pnt&                   theLastPnt2,
+                                         Point3d&                   theFirstPnt1,
+                                         Point3d&                   theLastPnt1,
+                                         Point3d&                   theFirstPnt2,
+                                         Point3d&                   theLastPnt2,
                                          Handle(Geom_Curve)&       theExtCurve,
                                          Standard_Boolean&         theIsInfinite1,
                                          Standard_Boolean&         theIsInfinite2,
@@ -666,8 +666,8 @@ Standard_Boolean PrsDim::ComputeGeometry(const TopoDS_Edge&        theFirstEdge,
 Standard_Boolean PrsDim::ComputeGeomCurve(Handle(Geom_Curve)&       aCurve,
                                           const Standard_Real       first1,
                                           const Standard_Real       last1,
-                                          gp_Pnt&                   FirstPnt1,
-                                          gp_Pnt&                   LastPnt1,
+                                          Point3d&                   FirstPnt1,
+                                          Point3d&                   LastPnt1,
                                           const Handle(Geom_Plane)& aPlane,
                                           Standard_Boolean&         isOnPlane)
 {
@@ -679,7 +679,7 @@ Standard_Boolean PrsDim::ComputeGeomCurve(Handle(Geom_Curve)&       aCurve,
     Delta = last1 - first1;
   }
 
-  gp_Pnt        CurPnt(0.0, 0.0, 0.0);
+  Point3d        CurPnt(0.0, 0.0, 0.0);
   Standard_Real CurPar = first1;
   for (Standard_Integer i = 1; i <= NodeNumber; i++)
   {
@@ -724,7 +724,7 @@ Standard_Boolean PrsDim::ComputeGeomCurve(Handle(Geom_Curve)&       aCurve,
 //           <point> is the projected vertex in the plane.
 //=======================================================================
 Standard_Boolean PrsDim::ComputeGeometry(const TopoDS_Vertex&      aVertex,
-                                         gp_Pnt&                   point,
+                                         Point3d&                   point,
                                          const Handle(Geom_Plane)& aPlane,
                                          Standard_Boolean&         isOnPlane)
 {
@@ -782,7 +782,7 @@ Standard_Boolean PrsDim::GetPlaneFromFace(const TopoDS_Face&    aFace,
     {
       gp_Lin BasisLine = BasisCurve->Line();
       gp_Dir LineDir   = BasisLine.Direction();
-      gp_Pnt LinePos   = BasisLine.Location();
+      Point3d LinePos   = BasisLine.Location();
       gp_Pln thePlane(LinePos, LineDir ^ ExtrusionDir);
       aPlane    = thePlane;
       aSurfType = PrsDim_KOS_Plane;
@@ -834,7 +834,7 @@ Standard_Boolean PrsDim::GetPlaneFromFace(const TopoDS_Face&    aFace,
 
 //=================================================================================================
 
-gp_Pnt PrsDim::ProjectPointOnPlane(const gp_Pnt& aPoint, const gp_Pln& aPlane)
+Point3d PrsDim::ProjectPointOnPlane(const Point3d& aPoint, const gp_Pln& aPlane)
 {
   gp_Vec aVec(aPlane.Location(), aPoint);
   gp_Vec Normal = aPlane.Axis().Direction();
@@ -845,12 +845,12 @@ gp_Pnt PrsDim::ProjectPointOnPlane(const gp_Pnt& aPoint, const gp_Pln& aPlane)
 
 //=================================================================================================
 
-gp_Pnt PrsDim::ProjectPointOnLine(const gp_Pnt& aPoint, const gp_Lin& aLine)
+Point3d PrsDim::ProjectPointOnLine(const Point3d& aPoint, const gp_Lin& aLine)
 {
   gp_XYZ        LinLoc    = aLine.Location().XYZ();
   gp_XYZ        LinDir    = aLine.Direction().XYZ();
   Standard_Real Parameter = (aPoint.XYZ() - LinLoc) * LinDir;
-  gp_Pnt        Result(LinLoc + Parameter * LinDir);
+  Point3d        Result(LinLoc + Parameter * LinDir);
   return Result;
 }
 
@@ -874,9 +874,9 @@ void PrsDim::InitFaceLength(const TopoDS_Face&    theFace,
 
 Standard_Boolean PrsDim::InitAngleBetweenPlanarFaces(const TopoDS_Face&     theFirstFace,
                                                      const TopoDS_Face&     theSecondFace,
-                                                     gp_Pnt&                theCenter,
-                                                     gp_Pnt&                theFirstAttach,
-                                                     gp_Pnt&                theSecondAttach,
+                                                     Point3d&                theCenter,
+                                                     Point3d&                theFirstAttach,
+                                                     Point3d&                theSecondAttach,
                                                      const Standard_Boolean theIsFirstPointSet)
 {
   Handle(Geom_Plane) aFirstPlane  = Handle(Geom_Plane)::DownCast(BRep_Tool::Surface(theFirstFace));
@@ -907,7 +907,7 @@ Standard_Boolean PrsDim::InitAngleBetweenPlanarFaces(const TopoDS_Face&     theF
 
   gp_Lin anIntersectLin = anIntersectLine->Lin();
 
-  gp_Pnt        aFirstCenter, aSecondCenter;
+  Point3d        aFirstCenter, aSecondCenter;
   Standard_Real anU1Min, anU1Max, aV1Min, aV1Max;
   Standard_Real anU2Min, anU2Max, aV2Min, aV2Max;
 
@@ -959,9 +959,9 @@ Standard_Boolean PrsDim::InitAngleBetweenCurvilinearFaces(
   const TopoDS_Face&         theSecondFace,
   const PrsDim_KindOfSurface theFirstSurfType,
   const PrsDim_KindOfSurface theSecondSurfType,
-  gp_Pnt&                    theCenter,
-  gp_Pnt&                    theFirstAttach,
-  gp_Pnt&                    theSecondAttach,
+  Point3d&                    theCenter,
+  Point3d&                    theFirstAttach,
+  Point3d&                    theSecondAttach,
   const Standard_Boolean     theIsFirstPointSet)
 {
   Handle(Geom_Surface) aFirstSurf  = BRep_Tool::Surface(theFirstFace);
@@ -1107,8 +1107,8 @@ void PrsDim::InitLengthBetweenCurvilinearFaces(const TopoDS_Face&    theFirstFac
                                                const TopoDS_Face&    theSecondFace,
                                                Handle(Geom_Surface)& theFirstSurf,
                                                Handle(Geom_Surface)& theSecondSurf,
-                                               gp_Pnt&               theFirstAttach,
-                                               gp_Pnt&               theSecondAttach,
+                                               Point3d&               theFirstAttach,
+                                               Point3d&               theSecondAttach,
                                                gp_Dir&               theDirOnPlane)
 {
   GeomAPI_ProjectPointOnSurf aProjector;
@@ -1188,7 +1188,7 @@ void PrsDim::InitLengthBetweenCurvilinearFaces(const TopoDS_Face&    theFirstFac
   }
 }
 
-gp_Pnt PrsDim::TranslatePointToBound(const gp_Pnt&  aPoint,
+Point3d PrsDim::TranslatePointToBound(const Point3d&  aPoint,
                                      const gp_Dir&  aDir,
                                      const Bnd_Box& aBndBox)
 {
@@ -1196,7 +1196,7 @@ gp_Pnt PrsDim::TranslatePointToBound(const gp_Pnt&  aPoint,
     return aPoint;
   else
   {
-    gp_Pnt               Result(0.0, 0.0, 0.0);
+    Point3d               Result(0.0, 0.0, 0.0);
     TColStd_Array2OfReal Bound(1, 3, 1, 2);
     TColStd_Array1OfReal Origin(1, 3);
     TColStd_Array1OfReal Dir(1, 3);
@@ -1270,7 +1270,7 @@ Standard_Boolean PrsDim::InDomain(const Standard_Real fpar,
 //=======================================================================
 
 Standard_Real PrsDim::DistanceFromApex(const gp_Elips&     elips,
-                                       const gp_Pnt&       Apex,
+                                       const Point3d&       Apex,
                                        const Standard_Real par)
 {
   Standard_Real dist;
@@ -1314,15 +1314,15 @@ Standard_Real PrsDim::DistanceFromApex(const gp_Elips&     elips,
 
 //=================================================================================================
 
-gp_Pnt PrsDim::NearestApex(const gp_Elips&     elips,
-                           const gp_Pnt&       pApex,
-                           const gp_Pnt&       nApex,
+Point3d PrsDim::NearestApex(const gp_Elips&     elips,
+                           const Point3d&       pApex,
+                           const Point3d&       nApex,
                            const Standard_Real fpara,
                            const Standard_Real lpara,
                            Standard_Boolean&   IsInDomain)
 {
   Standard_Real parP, parN;
-  gp_Pnt        EndOfArrow(0.0, 0.0, 0.0);
+  Point3d        EndOfArrow(0.0, 0.0, 0.0);
   IsInDomain = Standard_True;
   parP       = ElCLib::Parameter(elips, pApex);
   if (InDomain(fpara, lpara, parP))
@@ -1354,8 +1354,8 @@ void PrsDim::ComputeProjEdgePresentation(const Handle(Prs3d_Presentation)& aPres
                                          const Handle(Prs3d_Drawer)&       aDrawer,
                                          const TopoDS_Edge&                anEdge,
                                          const Handle(Geom_Curve)&         ProjCurve,
-                                         const gp_Pnt&                     FirstP,
-                                         const gp_Pnt&                     LastP,
+                                         const Point3d&                     FirstP,
+                                         const Point3d&                     LastP,
                                          const Quantity_NameOfColor        aColor,
                                          const Standard_Real               aWidth,
                                          const Aspect_TypeOfLine           aProjTOL,
@@ -1422,7 +1422,7 @@ void PrsDim::ComputeProjEdgePresentation(const Handle(Prs3d_Presentation)& aPres
   aDrawer->WireAspect()->SetTypeOfLine(aCallTOL);
   if (!isInfinite)
   {
-    gp_Pnt ppf(0.0, 0.0, 0.0), ppl(0.0, 0.0, 0.0);
+    Point3d ppf(0.0, 0.0, 0.0), ppl(0.0, 0.0, 0.0);
     ppf = BRep_Tool::Pnt(TopExp::FirstVertex(TopoDS::Edge(anEdge)));
     ppl = BRep_Tool::Pnt(TopExp::LastVertex(TopoDS::Edge(anEdge)));
 
@@ -1461,7 +1461,7 @@ void PrsDim::ComputeProjEdgePresentation(const Handle(Prs3d_Presentation)& aPres
 void PrsDim::ComputeProjVertexPresentation(const Handle(Prs3d_Presentation)& aPresentation,
                                            const Handle(Prs3d_Drawer)&       aDrawer,
                                            const TopoDS_Vertex&              aVertex,
-                                           const gp_Pnt&                     ProjPoint,
+                                           const Point3d&                     ProjPoint,
                                            const Quantity_NameOfColor        aColor,
                                            const Standard_Real               aWidth,
                                            const Aspect_TypeOfMarker         aProjTOM,

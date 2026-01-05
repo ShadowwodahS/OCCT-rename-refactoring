@@ -401,7 +401,7 @@ void BRepOffsetAPI_DraftAngle::CorrectWires()
           {
             const IntRes2d_IntersectionPoint& aP2DInt = aGInter.Point(k);
             const gp_Pnt2d&                   aP2D    = aP2DInt.Value();
-            gp_Pnt                            aP3D    = aSurf->Value(aP2D.X(), aP2D.Y());
+            Point3d                            aP3D    = aSurf->Value(aP2D.X(), aP2D.Y());
             //
             // Check if the intersection point is new
             Standard_Integer ied = 0;
@@ -546,7 +546,7 @@ void BRepOffsetAPI_DraftAngle::CorrectWires()
       else
       {
         BRepAdaptor_Curve bcur(NewE);
-        gp_Pnt            Point = bcur.Value(par);
+        Point3d            Point = bcur.Value(par);
         NewV                    = BRepLib_MakeVertex(Point);
         BB.UpdateVertex(NewV, par, NewE, 10. * Precision::Confusion());
       }
@@ -935,7 +935,7 @@ void BRepOffsetAPI_DraftAngle::CorrectVertexTol()
           if (aVTol < anETol)
           {
             TopoDS_Vertex aNewVtx;
-            gp_Pnt        aVPnt = BRep_Tool::Pnt(aVtx);
+            Point3d        aVPnt = BRep_Tool::Pnt(aVtx);
             aBB.MakeVertex(aNewVtx, aVPnt, anETol + Epsilon(anETol));
             aNewVtx.Orientation(aVtx.Orientation());
             myVtxToReplace.Bind(aVtx, aNewVtx);

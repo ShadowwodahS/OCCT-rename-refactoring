@@ -202,7 +202,7 @@ Standard_Boolean BRepMesh_Triangulator::prepareMeshStructure()
       const TColStd_SequenceOfInteger& aW = itW.Value();
       for (Standard_Integer nn = 1; nn <= aW.Length(); ++nn, ++aNumNode)
       {
-        const gp_Pnt2d         aP2d = ProjLib::Project(myPlane, gp_Pnt(myXYZs(aW(nn))));
+        const gp_Pnt2d         aP2d = ProjLib::Project(myPlane, Point3d(myXYZs(aW(nn))));
         const BRepMesh_Vertex  aVertex(aP2d.XY(), aNumNode, BRepMesh_Frontier);
         const Standard_Integer nnn = myMeshStructure->AddNode(aVertex);
         myIndices->SetValue(aNumNode, nnn);

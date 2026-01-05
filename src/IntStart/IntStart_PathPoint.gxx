@@ -19,7 +19,7 @@ IntStart_PathPoint::IntStart_PathPoint ()
 {
 }
 
-IntStart_PathPoint::IntStart_PathPoint (const gp_Pnt& P,
+IntStart_PathPoint::IntStart_PathPoint (const Point3d& P,
 					const Standard_Real Tol,
 					const TheVertex& V,
 					const TheArc& A,
@@ -28,7 +28,7 @@ IntStart_PathPoint::IntStart_PathPoint (const gp_Pnt& P,
   point(P),tol(Tol),isnew(Standard_False),vtx(V),arc(A),param(Parameter)
 {}
 
-IntStart_PathPoint::IntStart_PathPoint (const gp_Pnt& P,
+IntStart_PathPoint::IntStart_PathPoint (const Point3d& P,
 					const Standard_Real Tol,
 					const TheArc& A,
 					const Standard_Real Parameter):

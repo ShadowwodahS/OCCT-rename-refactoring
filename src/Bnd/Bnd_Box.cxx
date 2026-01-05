@@ -46,7 +46,7 @@ Bnd_Box::Bnd_Box()
 
 //=================================================================================================
 
-Bnd_Box::Bnd_Box(const gp_Pnt& theMin, const gp_Pnt& theMax)
+Bnd_Box::Bnd_Box(const Point3d& theMin, const Point3d& theMax)
     // Equal to Update(theMin.X(), theMin.Y(), theMin.Z(), theMax.X(), theMax.Y(), theMax.Z());
     : Xmin(theMin.X()),
       Xmax(theMax.X()),
@@ -61,7 +61,7 @@ Bnd_Box::Bnd_Box(const gp_Pnt& theMin, const gp_Pnt& theMax)
 
 //=================================================================================================
 
-void Bnd_Box::Set(const gp_Pnt& P)
+void Bnd_Box::Set(const Point3d& P)
 {
   SetVoid();
   Add(P);
@@ -69,7 +69,7 @@ void Bnd_Box::Set(const gp_Pnt& P)
 
 //=================================================================================================
 
-void Bnd_Box::Set(const gp_Pnt& P, const gp_Dir& D)
+void Bnd_Box::Set(const Point3d& P, const gp_Dir& D)
 {
   SetVoid();
   Add(P, D);
@@ -205,9 +205,9 @@ void Bnd_Box::Get(Standard_Real& theXmin,
 
 //=================================================================================================
 
-gp_Pnt Bnd_Box::CornerMin() const
+Point3d Bnd_Box::CornerMin() const
 {
-  gp_Pnt aCornerMin;
+  Point3d aCornerMin;
   if (IsVoid())
   {
     throw Standard_ConstructionError("Bnd_Box is void");
@@ -229,9 +229,9 @@ gp_Pnt Bnd_Box::CornerMin() const
 
 //=================================================================================================
 
-gp_Pnt Bnd_Box::CornerMax() const
+Point3d Bnd_Box::CornerMax() const
 {
-  gp_Pnt aCornerMax;
+  Point3d aCornerMax;
   if (IsVoid())
   {
     throw Standard_ConstructionError("Bnd_Box is void");
@@ -348,15 +348,15 @@ Bnd_Box Bnd_Box::Transformed(const gp_Trsf& T) const
   Bnd_Box aNewBox;
   if (HasFinitePart())
   {
-    gp_Pnt aCorners[8] = {
-      gp_Pnt(Xmin, Ymin, Zmin),
-      gp_Pnt(Xmax, Ymin, Zmin),
-      gp_Pnt(Xmin, Ymax, Zmin),
-      gp_Pnt(Xmax, Ymax, Zmin),
-      gp_Pnt(Xmin, Ymin, Zmax),
-      gp_Pnt(Xmax, Ymin, Zmax),
-      gp_Pnt(Xmin, Ymax, Zmax),
-      gp_Pnt(Xmax, Ymax, Zmax),
+    Point3d aCorners[8] = {
+      Point3d(Xmin, Ymin, Zmin),
+      Point3d(Xmax, Ymin, Zmin),
+      Point3d(Xmin, Ymax, Zmin),
+      Point3d(Xmax, Ymax, Zmin),
+      Point3d(Xmin, Ymin, Zmax),
+      Point3d(Xmax, Ymin, Zmax),
+      Point3d(Xmin, Ymax, Zmax),
+      Point3d(Xmax, Ymax, Zmax),
     };
     for (Standard_Integer aCornerIter = 0; aCornerIter < 8; ++aCornerIter)
     {
@@ -460,7 +460,7 @@ void Bnd_Box::Add(const Bnd_Box& Other)
 
 //=================================================================================================
 
-void Bnd_Box::Add(const gp_Pnt& P)
+void Bnd_Box::Add(const Point3d& P)
 {
   Standard_Real X, Y, Z;
   P.Coord(X, Y, Z);
@@ -469,7 +469,7 @@ void Bnd_Box::Add(const gp_Pnt& P)
 
 //=================================================================================================
 
-void Bnd_Box::Add(const gp_Pnt& P, const gp_Dir& D)
+void Bnd_Box::Add(const Point3d& P, const gp_Dir& D)
 {
   Add(P);
   Add(D);
@@ -500,7 +500,7 @@ void Bnd_Box::Add(const gp_Dir& D)
 
 //=================================================================================================
 
-Standard_Boolean Bnd_Box::IsOut(const gp_Pnt& P) const
+Standard_Boolean Bnd_Box::IsOut(const Point3d& P) const
 {
   if (IsWhole())
     return Standard_False;
@@ -785,7 +785,7 @@ static Standard_Boolean IsSegmentOut(Standard_Real x1,
   return Standard_False;
 }
 
-Standard_Boolean Bnd_Box::IsOut(const gp_Pnt& P1, const gp_Pnt& P2, const gp_Dir& D) const
+Standard_Boolean Bnd_Box::IsOut(const Point3d& P1, const Point3d& P2, const gp_Dir& D) const
 {
 
   if (IsWhole())

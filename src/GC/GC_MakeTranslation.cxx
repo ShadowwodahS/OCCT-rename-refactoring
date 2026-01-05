@@ -34,7 +34,7 @@ GC_MakeTranslation::GC_MakeTranslation(const gp_Vec& Vec)
 //    Point1 and Point2.                                     +
 //=========================================================================
 
-GC_MakeTranslation::GC_MakeTranslation(const gp_Pnt& Point1, const gp_Pnt& Point2)
+GC_MakeTranslation::GC_MakeTranslation(const Point3d& Point1, const Point3d& Point2)
 {
   TheTranslation = new Geom_Transformation();
   TheTranslation->SetTranslation(Point1, Point2);

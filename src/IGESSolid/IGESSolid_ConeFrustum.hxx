@@ -22,7 +22,7 @@
 
 #include <gp_XYZ.hxx>
 #include <IGESData_IGESEntity.hxx>
-class gp_Pnt;
+class Point3d;
 class gp_Dir;
 
 class IGESSolid_ConeFrustum;
@@ -64,11 +64,11 @@ public:
   Standard_EXPORT Standard_Real SmallerRadius() const;
 
   //! returns the center of the larger face of the cone frustum
-  Standard_EXPORT gp_Pnt FaceCenter() const;
+  Standard_EXPORT Point3d FaceCenter() const;
 
   //! returns the center of the larger face of the cone frustum
   //! after applying TransformationMatrix
-  Standard_EXPORT gp_Pnt TransformedFaceCenter() const;
+  Standard_EXPORT Point3d TransformedFaceCenter() const;
 
   //! returns the direction of the axis of the cone frustum
   Standard_EXPORT gp_Dir Axis() const;

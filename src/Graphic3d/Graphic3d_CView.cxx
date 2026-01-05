@@ -1327,7 +1327,7 @@ void Graphic3d_CView::ComputeXRPosedCameraFromBase(Graphic3d_Camera& theCam,
   const gp_Trsf aTrsf    = aTrsfToEye * aTrsfToCamera;
   const gp_Dir  anUpNew  = myBaseXRCamera->Up().Transformed(aTrsf);
   const gp_Dir  aDirNew  = myBaseXRCamera->Direction().Transformed(aTrsf);
-  const gp_Pnt  anEyeNew = gp::Origin().Translated(aTrsf.TranslationPart());
+  const Point3d  anEyeNew = gp::Origin().Translated(aTrsf.TranslationPart());
   theCam.SetUp(anUpNew);
   theCam.SetDirectionFromEye(aDirNew);
   theCam.MoveEyeTo(anEyeNew);
@@ -1370,7 +1370,7 @@ void Graphic3d_CView::ComputeXRBaseCameraFromPosed(const Graphic3d_Camera& theCa
   const gp_Trsf aTrsfCamToHead = aTrsfToCamera.Inverted();
   const gp_Dir  anUpNew        = theCamPosed.Up().Transformed(aTrsfCamToHead);
   const gp_Dir  aDirNew        = theCamPosed.Direction().Transformed(aTrsfCamToHead);
-  const gp_Pnt  anEyeNew = theCamPosed.Eye().Translated(aTrsfToCamera.TranslationPart().Reversed());
+  const Point3d  anEyeNew = theCamPosed.Eye().Translated(aTrsfToCamera.TranslationPart().Reversed());
   myBaseXRCamera->SetUp(anUpNew);
   myBaseXRCamera->SetDirectionFromEye(aDirNew);
   myBaseXRCamera->MoveEyeTo(anEyeNew);
@@ -1384,7 +1384,7 @@ void Graphic3d_CView::TurnViewXRCamera(const gp_Trsf& theTrsfTurn)
   const Handle(Graphic3d_Camera)& aCamBase = myBaseXRCamera;
   gp_Trsf                         aHeadTrsfLocal;
   aHeadTrsfLocal.SetTranslationPart(myXRSession->HeadPose().TranslationPart());
-  const gp_Pnt anEyeAnchor = PoseXRToWorld(aHeadTrsfLocal).TranslationPart();
+  const Point3d anEyeAnchor = PoseXRToWorld(aHeadTrsfLocal).TranslationPart();
 
   // turn the view
   aCamBase->SetDirectionFromEye(aCamBase->Direction().Transformed(theTrsfTurn));
@@ -1395,7 +1395,7 @@ void Graphic3d_CView::TurnViewXRCamera(const gp_Trsf& theTrsfTurn)
   gp_Trsf      aTrsfCS;
   aTrsfCS.SetTransformation(aCameraCS, anAxVr);
   const gp_Trsf aTrsfToCamera = aTrsfCS * aHeadTrsfLocal * aTrsfCS.Inverted();
-  const gp_Pnt  anEyeNew      = anEyeAnchor.Translated(aTrsfToCamera.TranslationPart().Reversed());
+  const Point3d  anEyeNew      = anEyeAnchor.Translated(aTrsfToCamera.TranslationPart().Reversed());
   aCamBase->MoveEyeTo(anEyeNew);
 
   SynchronizeXRBaseToPosedCamera();

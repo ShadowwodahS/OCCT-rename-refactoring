@@ -60,7 +60,7 @@ static void BuildParameters(const AppDef_MultiLine&          theLine,
       dist = 0.0;
       for (j = 1; j <= nbP3d; j++)
       {
-        const gp_Pnt &aP1 = aMPC.Point(j), &aP2 = aMPC1.Point(j);
+        const Point3d &aP1 = aMPC.Point(j), &aP2 = aMPC1.Point(j);
         dist += aP2.SquareDistance(aP1);
       }
 
@@ -127,7 +127,7 @@ static void BuildPeriodicTangent(const AppDef_MultiLine&     theLine,
   U                                 = 0.0;
   Standard_Integer j, nbP3d = theLine.NbPoints();
 
-  gp_Pnt aP;
+  Point3d aP;
   gp_Vec aV;
   j = 1;
   for (i = 1; i <= nbP3d; i++)

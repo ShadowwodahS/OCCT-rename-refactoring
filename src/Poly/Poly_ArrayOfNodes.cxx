@@ -51,7 +51,7 @@ Poly_ArrayOfNodes& Poly_ArrayOfNodes::Assign(const Poly_ArrayOfNodes& theOther)
   }
   for (int anIter = 0; anIter < mySize; ++anIter)
   {
-    const gp_Pnt aPnt = theOther.Value(anIter);
+    const Point3d aPnt = theOther.Value(anIter);
     SetValue(anIter, aPnt);
   }
   return *this;

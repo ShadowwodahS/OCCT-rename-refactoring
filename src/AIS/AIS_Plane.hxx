@@ -43,7 +43,7 @@ public:
   //! initialized. aCurrentMode equals true, the drawing
   //! tool, "Drawer" is not initialized.
   Standard_EXPORT AIS_Plane(const Handle(Geom_Plane)& aComponent,
-                            const gp_Pnt&             aCenter,
+                            const Point3d&             aCenter,
                             const Standard_Boolean    aCurrentMode = Standard_False);
 
   //! initializes the plane aComponent, the
@@ -51,9 +51,9 @@ public:
   //! points, aPmin and aPmax. If the mode
   //! aCurrentMode equals true, the drawing tool, "Drawer" is not initialized.
   Standard_EXPORT AIS_Plane(const Handle(Geom_Plane)& aComponent,
-                            const gp_Pnt&             aCenter,
-                            const gp_Pnt&             aPmin,
-                            const gp_Pnt&             aPmax,
+                            const Point3d&             aCenter,
+                            const Point3d&             aPmin,
+                            const Point3d&             aPmax,
                             const Standard_Boolean    aCurrentMode = Standard_False);
 
   Standard_EXPORT AIS_Plane(const Handle(Geom_Axis2Placement)& aComponent,
@@ -99,23 +99,23 @@ public:
   //! aComponent, provided in SetPlaneAttributes.
   //! These include the points aCenter, aPmin, and aPmax
   Standard_EXPORT Standard_Boolean PlaneAttributes(Handle(Geom_Plane)& aComponent,
-                                                   gp_Pnt&             aCenter,
-                                                   gp_Pnt&             aPmin,
-                                                   gp_Pnt&             aPmax);
+                                                   Point3d&             aCenter,
+                                                   Point3d&             aPmin,
+                                                   Point3d&             aPmax);
 
   //! Allows you to provide settings other than default ones
   //! for the selected plane. These include: center point
   //! aCenter, maximum aPmax and minimum aPmin.
   Standard_EXPORT void SetPlaneAttributes(const Handle(Geom_Plane)& aComponent,
-                                          const gp_Pnt&             aCenter,
-                                          const gp_Pnt&             aPmin,
-                                          const gp_Pnt&             aPmax);
+                                          const Point3d&             aCenter,
+                                          const Point3d&             aPmin,
+                                          const Point3d&             aPmax);
 
   //! Returns the coordinates of the center point.
-  const gp_Pnt& Center() const { return myCenter; }
+  const Point3d& Center() const { return myCenter; }
 
   //! Provides settings for the center theCenter other than (0, 0, 0).
-  void SetCenter(const gp_Pnt& theCenter) { myCenter = theCenter; }
+  void SetCenter(const Point3d& theCenter) { myCenter = theCenter; }
 
   //! Allows you to provide settings for the position and
   //! direction of one of the plane's axes, aComponent, in
@@ -184,9 +184,9 @@ private:
 private:
   Handle(Geom_Plane)          myComponent;
   Handle(Geom_Axis2Placement) myAx2;
-  gp_Pnt                      myCenter;
-  gp_Pnt                      myPmin;
-  gp_Pnt                      myPmax;
+  Point3d                      myCenter;
+  Point3d                      myPmin;
+  Point3d                      myPmax;
   Standard_Boolean            myCurrentMode;
   Standard_Boolean            myAutomaticPosition;
   AIS_TypeOfPlane             myTypeOfPlane;

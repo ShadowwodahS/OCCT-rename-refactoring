@@ -29,7 +29,7 @@
 #include <IntTools_SequenceOfCommonPrts.hxx>
 #include <IntTools_Range.hxx>
 class IntTools_Context;
-class gp_Pnt;
+class Point3d;
 class IntTools_CommonPrt;
 
 //! The class provides Edge/Face intersection algorithm to determine
@@ -126,7 +126,7 @@ public: //! @name Obtaining results
   Standard_Real MinimalDistance() const { return myMinDistance; }
 
 protected: //! @name Protected methods performing the intersection
-  Standard_EXPORT static Standard_Boolean IsEqDistance(const gp_Pnt&              aP,
+  Standard_EXPORT static Standard_Boolean IsEqDistance(const Point3d&              aP,
                                                        const BRepAdaptor_Surface& aS,
                                                        const Standard_Real        aT,
                                                        Standard_Real&             aD);

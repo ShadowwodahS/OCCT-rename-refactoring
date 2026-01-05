@@ -73,9 +73,9 @@ public:
   //! @param[in] theFirstPoint  the first point (point on first angle flyout).
   //! @param[in] theSecondPoint  the center point of angle dimension.
   //! @param[in] theThirdPoint  the second point (point on second angle flyout).
-  Standard_EXPORT PrsDim_AngleDimension(const gp_Pnt& theFirstPoint,
-                                        const gp_Pnt& theSecondPoint,
-                                        const gp_Pnt& theThirdPoint);
+  Standard_EXPORT PrsDim_AngleDimension(const Point3d& theFirstPoint,
+                                        const Point3d& theSecondPoint,
+                                        const Point3d& theThirdPoint);
 
   //! Constructs the angle display object defined by three vertices.
   //! @param[in] theFirstVertex  the first vertex (vertex for first angle flyout).
@@ -102,17 +102,17 @@ public:
   //! This point can lay on the one of the faces or not.
   Standard_EXPORT PrsDim_AngleDimension(const TopoDS_Face& theFirstFace,
                                         const TopoDS_Face& theSecondFace,
-                                        const gp_Pnt&      thePoint);
+                                        const Point3d&      thePoint);
 
 public:
   //! @return first point forming the angle.
-  const gp_Pnt& FirstPoint() const { return myFirstPoint; }
+  const Point3d& FirstPoint() const { return myFirstPoint; }
 
   //! @return second point forming the angle.
-  const gp_Pnt& SecondPoint() const { return mySecondPoint; }
+  const Point3d& SecondPoint() const { return mySecondPoint; }
 
   //! @return center point forming the angle.
-  const gp_Pnt& CenterPoint() const { return myCenterPoint; }
+  const Point3d& CenterPoint() const { return myCenterPoint; }
 
   //! @return first argument shape.
   const TopoDS_Shape& FirstShape() const { return myFirstShape; }
@@ -135,9 +135,9 @@ public:
   //! @param[in] theFirstPoint  the first point (point on first angle flyout).
   //! @param[in] theSecondPoint  the center point of angle dimension.
   //! @param[in] theThirdPoint  the second point (point on second angle flyout).
-  Standard_EXPORT void SetMeasuredGeometry(const gp_Pnt& theFirstPoint,
-                                           const gp_Pnt& theSecondPoint,
-                                           const gp_Pnt& theThridPoint);
+  Standard_EXPORT void SetMeasuredGeometry(const Point3d& theFirstPoint,
+                                           const Point3d& theSecondPoint,
+                                           const Point3d& theThridPoint);
 
   //! Measures angle defined by three vertices.
   //! @param[in] theFirstVertex  the first vertex (vertex for first angle flyout).
@@ -164,7 +164,7 @@ public:
   //! This point can lay on the one of the faces or not.
   Standard_EXPORT void SetMeasuredGeometry(const TopoDS_Face& theFirstFace,
                                            const TopoDS_Face& theSecondFace,
-                                           const gp_Pnt&      thePoint);
+                                           const Point3d&      thePoint);
 
   //! @return the display units string.
   Standard_EXPORT virtual const TCollection_AsciiString& GetDisplayUnits() const Standard_OVERRIDE;
@@ -184,9 +184,9 @@ public:
   //! - if aTextPos is not between attach points but in this half -> Left or Right + positive flyout
   //! - if aTextPos is between reflections of attach points -> Center + negative flyout
   //! - if aTextPos is not between reflections of attach points -> Left or Right + negative flyout
-  Standard_EXPORT virtual void SetTextPosition(const gp_Pnt& theTextPos) Standard_OVERRIDE;
+  Standard_EXPORT virtual void SetTextPosition(const Point3d& theTextPos) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual gp_Pnt GetTextPosition() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Point3d GetTextPosition() const Standard_OVERRIDE;
 
   //! Sets angle type.
   //! @param[in] theType  the type value.
@@ -218,9 +218,9 @@ protected:
   //! @param[in] theSecondAttach  the second attachment point.
   //! @param[in] theCenter  the center point (center point of the angle).
   //! @return the center of the dimension arc (the main dimension line in case of angle).
-  Standard_EXPORT gp_Pnt GetCenterOnArc(const gp_Pnt& theFirstAttach,
-                                        const gp_Pnt& theSecondAttach,
-                                        const gp_Pnt& theCenter) const;
+  Standard_EXPORT Point3d GetCenterOnArc(const Point3d& theFirstAttach,
+                                        const Point3d& theSecondAttach,
+                                        const Point3d& theCenter) const;
 
   //! Draws main dimension line (arc).
   //! @param[in] thePresentation  the dimension presentation.
@@ -230,9 +230,9 @@ protected:
   //! @param[in] theRadius  the radius of the dimension arc.
   //! @param[in] theMode  the display mode.
   Standard_EXPORT void DrawArc(const Handle(Prs3d_Presentation)& thePresentation,
-                               const gp_Pnt&                     theFirstAttach,
-                               const gp_Pnt&                     theSecondAttach,
-                               const gp_Pnt&                     theCenter,
+                               const Point3d&                     theFirstAttach,
+                               const Point3d&                     theSecondAttach,
+                               const Point3d&                     theCenter,
                                const Standard_Real               theRadius,
                                const Standard_Integer            theMode);
 
@@ -247,9 +247,9 @@ protected:
   //! @param[in] theLabelPosition  the text label vertical and horizontal positioning option
   //! respectively to the main dimension line.
   Standard_EXPORT void DrawArcWithText(const Handle(Prs3d_Presentation)& thePresentation,
-                                       const gp_Pnt&                     theFirstAttach,
-                                       const gp_Pnt&                     theSecondAttach,
-                                       const gp_Pnt&                     theCenter,
+                                       const Point3d&                     theFirstAttach,
+                                       const Point3d&                     theSecondAttach,
+                                       const Point3d&                     theCenter,
                                        const TCollection_ExtendedString& theText,
                                        const Standard_Real               theTextWidth,
                                        const Standard_Integer            theMode,
@@ -275,7 +275,7 @@ protected:
   //! @param[out] theExtensionSize  the adjusted extension size.
   //! @param[out] theAlignment  the horizontal label alignment.
   //! @param[out] theFlyout  the adjusted value of flyout.
-  Standard_EXPORT void AdjustParameters(const gp_Pnt&                          theTextPos,
+  Standard_EXPORT void AdjustParameters(const Point3d&                          theTextPos,
                                         Standard_Real&                         theExtensionSize,
                                         Prs3d_DimensionTextHorizontalPosition& theAlignment,
                                         Standard_Real&                         theFlyout) const;
@@ -318,7 +318,7 @@ protected:
   //! It defines some kind of dimension positioning over the faces.
   //! @return TRUE if the angular dimension can be constructed
   //!         for the passed faces.
-  Standard_EXPORT Standard_Boolean InitTwoFacesAngle(const gp_Pnt& thePointOnFirstFace);
+  Standard_EXPORT Standard_Boolean InitTwoFacesAngle(const Point3d& thePointOnFirstFace);
 
   //! Init angular dimension to measure cone face.
   //! @return TRUE if the angular dimension can be constructed
@@ -329,9 +329,9 @@ protected:
   //! @return TRUE if the points met the following requirements:
   //!         The (P1, Center), (P2, Center) can be built.
   //!         The angle between the vectors > Precision::Angular().
-  Standard_EXPORT Standard_Boolean IsValidPoints(const gp_Pnt& theFirstPoint,
-                                                 const gp_Pnt& theCenterPoint,
-                                                 const gp_Pnt& theSecondPoint) const;
+  Standard_EXPORT Standard_Boolean IsValidPoints(const Point3d& theFirstPoint,
+                                                 const Point3d& theCenterPoint,
+                                                 const Point3d& theSecondPoint) const;
 
   //! Returns true if the arrow should be visible
   //! @param theArrowType an arrow type
@@ -343,9 +343,9 @@ private:
   PrsDim_TypeOfAngle                myType;             //!< type of angle
   PrsDim_TypeOfAngleArrowVisibility myArrowsVisibility; //!< type of arrows visibility
 
-  gp_Pnt       myFirstPoint;
-  gp_Pnt       mySecondPoint;
-  gp_Pnt       myCenterPoint;
+  Point3d       myFirstPoint;
+  Point3d       mySecondPoint;
+  Point3d       myCenterPoint;
   TopoDS_Shape myFirstShape;
   TopoDS_Shape mySecondShape;
   TopoDS_Shape myThirdShape;

@@ -506,7 +506,7 @@ Standard_Boolean ShapeExtend_CompositeSurface::IsVClosed() const
 
 //=================================================================================================
 
-void ShapeExtend_CompositeSurface::D0(const Standard_Real U, const Standard_Real V, gp_Pnt& P) const
+void ShapeExtend_CompositeSurface::D0(const Standard_Real U, const Standard_Real V, Point3d& P) const
 {
   Standard_Integer i  = LocateUParameter(U);
   Standard_Integer j  = LocateVParameter(V);
@@ -518,7 +518,7 @@ void ShapeExtend_CompositeSurface::D0(const Standard_Real U, const Standard_Real
 
 void ShapeExtend_CompositeSurface::D1(const Standard_Real U,
                                       const Standard_Real V,
-                                      gp_Pnt&             P,
+                                      Point3d&             P,
                                       gp_Vec&             D1U,
                                       gp_Vec&             D1V) const
 {
@@ -532,7 +532,7 @@ void ShapeExtend_CompositeSurface::D1(const Standard_Real U,
 
 void ShapeExtend_CompositeSurface::D2(const Standard_Real U,
                                       const Standard_Real V,
-                                      gp_Pnt&             P,
+                                      Point3d&             P,
                                       gp_Vec&             D1U,
                                       gp_Vec&             D1V,
                                       gp_Vec&             D2U,
@@ -549,7 +549,7 @@ void ShapeExtend_CompositeSurface::D2(const Standard_Real U,
 
 void ShapeExtend_CompositeSurface::D3(const Standard_Real U,
                                       const Standard_Real V,
-                                      gp_Pnt&             P,
+                                      Point3d&             P,
                                       gp_Vec&             D1U,
                                       gp_Vec&             D1V,
                                       gp_Vec&             D2U,
@@ -581,12 +581,12 @@ gp_Vec ShapeExtend_CompositeSurface::DN(const Standard_Real    U,
 
 //=================================================================================================
 
-gp_Pnt ShapeExtend_CompositeSurface::Value(const gp_Pnt2d& pnt) const
+Point3d ShapeExtend_CompositeSurface::Value(const gp_Pnt2d& pnt) const
 {
   Standard_Integer i  = LocateUParameter(pnt.X());
   Standard_Integer j  = LocateVParameter(pnt.Y());
   gp_Pnt2d         uv = GlobalToLocal(i, j, pnt);
-  gp_Pnt           point;
+  Point3d           point;
   myPatches->Value(i, j)->D0(uv.X(), uv.Y(), point);
   return point;
 }

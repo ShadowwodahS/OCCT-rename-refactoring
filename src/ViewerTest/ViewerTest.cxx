@@ -3923,8 +3923,8 @@ inline void bndPresentation(Draw_Interpretor&                         theDI,
 
         aBox = aPrsIter.Value()->MinMaxValues();
       }
-      gp_Pnt aMin = aBox.CornerMin();
-      gp_Pnt aMax = aBox.CornerMax();
+      Point3d aMin = aBox.CornerMin();
+      Point3d aMax = aBox.CornerMax();
       theDI << theName << "\n"
             << aMin.X() << " " << aMin.Y() << " " << aMin.Z() << " " << aMax.X() << " " << aMax.Y()
             << " " << aMax.Z() << "\n";
@@ -4909,7 +4909,7 @@ static int VDisplay2(Draw_Interpretor& theDI, Standard_Integer theArgNb, const c
       }
       else if (aTrsfPersFlags != Graphic3d_TMF_None)
       {
-        aTrsfPers = new Graphic3d_TransformPers(aTrsfPersFlags, gp_Pnt());
+        aTrsfPers = new Graphic3d_TransformPers(aTrsfPersFlags, Point3d());
       }
     }
     else if (aNameCase == "-trsfperspos" || aNameCase == "-perspos")
@@ -4940,7 +4940,7 @@ static int VDisplay2(Draw_Interpretor& theDI, Standard_Integer theArgNb, const c
 
       if (aTrsfPers->IsZoomOrRotate())
       {
-        aTrsfPers->SetAnchorPoint(gp_Pnt(aX.RealValue(), aY.RealValue(), aZ.RealValue()));
+        aTrsfPers->SetAnchorPoint(Point3d(aX.RealValue(), aY.RealValue(), aZ.RealValue()));
       }
       else if (aTrsfPers->IsTrihedronOr2d())
       {

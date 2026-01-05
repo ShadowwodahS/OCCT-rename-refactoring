@@ -485,7 +485,7 @@ static gp_Vec GetAverageTangent(const TopoDS_Shape& theS, const Standard_Integer
     Standard_Real             aT1, aT2;
     const Handle(Geom_Curve)& aC = BRep_Tool::Curve(aE, aT1, aT2);
     //
-    gp_Pnt        aP;
+    Point3d        aP;
     gp_Vec        aV, aVSum;
     Standard_Real aT  = aT1;
     Standard_Real aDt = (aT2 - aT1) / theNbP;
@@ -2985,7 +2985,7 @@ void BRepOffset_BuildOffsetFaces::FindFacesInsideHoleWires(
     const TopoDS_Face& aFIm = TopoDS::Face(aItLF.Value());
     TopExp::MapShapesAndAncestors(aFIm, TopAbs_EDGE, TopAbs_FACE, anEFSplitsMap);
     // get the point inside the face and classify it relatively hole faces
-    gp_Pnt           aP3D;
+    Point3d           aP3D;
     gp_Pnt2d         aP2D;
     Standard_Integer iErr = BOPTools_AlgoTools3D::PointInFace(aFIm, aP3D, aP2D, myContext);
     if (iErr)
@@ -3110,9 +3110,9 @@ Standard_Boolean BRepOffset_BuildOffsetFaces::CheckInverted(
       aVW2 = *(TopoDS_Vertex*)&aLVAlone.Last();
       //
       // check distances
-      const gp_Pnt& aPI1 = BRep_Tool::Pnt(aVI1);
-      const gp_Pnt& aPW1 = BRep_Tool::Pnt(aVW1);
-      const gp_Pnt& aPW2 = BRep_Tool::Pnt(aVW2);
+      const Point3d& aPI1 = BRep_Tool::Pnt(aVI1);
+      const Point3d& aPW1 = BRep_Tool::Pnt(aVW1);
+      const Point3d& aPW2 = BRep_Tool::Pnt(aVW2);
       //
       Standard_Real aDist1 = aPI1.SquareDistance(aPW1);
       Standard_Real aDist2 = aPI1.SquareDistance(aPW2);
@@ -3213,10 +3213,10 @@ Standard_Boolean BRepOffset_BuildOffsetFaces::CheckInverted(
   }
   //
   // check positions of the offset and original vertices
-  const gp_Pnt& aPI1 = BRep_Tool::Pnt(aVI1);
-  const gp_Pnt& aPI2 = BRep_Tool::Pnt(aVI2);
-  const gp_Pnt& aPO1 = BRep_Tool::Pnt(aVO1);
-  const gp_Pnt& aPO2 = BRep_Tool::Pnt(aVO2);
+  const Point3d& aPI1 = BRep_Tool::Pnt(aVI1);
+  const Point3d& aPI2 = BRep_Tool::Pnt(aVI2);
+  const Point3d& aPO1 = BRep_Tool::Pnt(aVO1);
+  const Point3d& aPO2 = BRep_Tool::Pnt(aVO2);
   //
   gp_Vec aVI(aPI1, aPI2);
   gp_Vec aVO(aPO1, aPO2);
@@ -8414,7 +8414,7 @@ void BRepOffset_BuildOffsetFaces::GetInvalidEdgesByBounds(
     {
       // the vertex is invalid for all faces
       // check the same vertex for the solids
-      const gp_Pnt& aP    = BRep_Tool::Pnt(aV);
+      const Point3d& aP    = BRep_Tool::Pnt(aV);
       Standard_Real aTolV = BRep_Tool::Tolerance(aV);
       //
       TopExp_Explorer aExpS(mySolids, TopAbs_SOLID);

@@ -58,7 +58,7 @@
 // --------------------- VolumeFix Begin ---
 //=================================================================================================
 
-static double TetraVol(gp_Pnt RefPoint, gp_Pnt Som1, gp_Pnt Som2, gp_Pnt Som3)
+static double TetraVol(Point3d RefPoint, Point3d Som1, Point3d Som2, Point3d Som3)
 {
   double curVolume = 0;
   gp_Dir Line12;
@@ -97,10 +97,10 @@ static double TetraVol(gp_Pnt RefPoint, gp_Pnt Som1, gp_Pnt Som2, gp_Pnt Som3)
 
 //=================================================================================================
 
-static gp_XYZ TetraCen(const gp_Pnt& RefPoint,
-                       const gp_Pnt& Som1,
-                       const gp_Pnt& Som2,
-                       const gp_Pnt& Som3)
+static gp_XYZ TetraCen(const Point3d& RefPoint,
+                       const Point3d& Som1,
+                       const Point3d& Som2,
+                       const Point3d& Som3)
 {
   gp_XYZ curCentr, plnPnt;
   plnPnt   = (Som1.XYZ() + Som2.XYZ() + Som3.XYZ()) / 3;
@@ -111,7 +111,7 @@ static gp_XYZ TetraCen(const gp_Pnt& RefPoint,
 //=================================================================================================
 
 static Standard_Real CalculVolume(const TopoDS_Shape& So,
-                                  gp_Pnt&             aRefPoint,
+                                  Point3d&             aRefPoint,
                                   Standard_Real       tol,
                                   Standard_Boolean    withForce,
                                   Draw_Interpretor&   di)
@@ -230,7 +230,7 @@ static Standard_Integer SetProps(Draw_Interpretor& di, Standard_Integer argc, co
       aLabel.AddAttribute(aVolume);
     aVolume->Set(Vres);
 
-    gp_Pnt                   aPoint    = G.CentreOfMass();
+    Point3d                   aPoint    = G.CentreOfMass();
     Handle(XCAFDoc_Centroid) aCentroid = new XCAFDoc_Centroid;
     if (!aLabel.FindAttribute(XCAFDoc_Centroid::GetID(), aCentroid))
       aLabel.AddAttribute(aCentroid);
@@ -351,7 +351,7 @@ static Standard_Integer SetCentroid(Draw_Interpretor& di, Standard_Integer argc,
     return 1;
   }
 
-  gp_Pnt aPoint;
+  Point3d aPoint;
 
   TDF_Label aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
@@ -475,7 +475,7 @@ static Standard_Integer GetCentroid(Draw_Interpretor& di, Standard_Integer argc,
     return 1;
   }
 
-  gp_Pnt aPoint;
+  Point3d aPoint;
 
   TDF_Label aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
@@ -648,7 +648,7 @@ static Standard_Integer CheckProps(Draw_Interpretor& di, Standard_Integer argc, 
         OCC_CATCH_SIGNALS
         // Added for check Volume. PTV 08 Nov 2000.
         Standard_Real localVolume;
-        gp_Pnt        pcg(0, 0, 0);
+        Point3d        pcg(0, 0, 0);
         if (withVolFix)
         {
           Standard_Real    tol       = Draw::Atof(argv[2]);
@@ -694,7 +694,7 @@ static Standard_Integer CheckProps(Draw_Interpretor& di, Standard_Integer argc, 
 
         if (!aCentroid.IsNull())
         {
-          gp_Pnt p = aCentroid->Get();
+          Point3d p = aCentroid->Get();
           char   string7[260];
           if (wholeDoc)
           {
@@ -774,7 +774,7 @@ static Standard_Integer ShapeVolume(Draw_Interpretor& di, Standard_Integer argc,
   TopoDS_Shape aShape = DBRep::Get(argv[1]);
   if (aShape.IsNull())
     return 1;
-  gp_Pnt           aPoint(0, 0, 0);
+  Point3d           aPoint(0, 0, 0);
   Standard_Real    localVolume;
   Standard_Real    tol       = Draw::Atof(argv[2]);
   Standard_Boolean withForce = Standard_False;
@@ -1059,7 +1059,7 @@ static Standard_Integer GetValidationProps(Draw_Interpretor& di,
     aProp[0] = 0.;
     aProp[1] = 0.;
 
-    gp_Pnt aP(Precision::Infinite(), Precision::Infinite(), Precision::Infinite());
+    Point3d aP(Precision::Infinite(), Precision::Infinite(), Precision::Infinite());
     XCAFDoc_Volume::Get(aLabel, aProp[Vol]);
     XCAFDoc_Area::Get(aLabel, aProp[Area]);
 

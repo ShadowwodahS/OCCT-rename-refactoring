@@ -60,7 +60,7 @@ public:
     myStatus  = ShapeExtend::EncodeStatus(ShapeExtend_OK);
   }
 
-  void DefinePnt(const gp_Pnt& theFPnt, const gp_Pnt& theLPnt)
+  void DefinePnt(const Point3d& theFPnt, const Point3d& theLPnt)
   {
     myFPnt   = theFPnt;
     myLPnt   = theLPnt;
@@ -100,8 +100,8 @@ private:
   Standard_Integer                myNb;
   TopoDS_Vertex                   myFVertex;
   TopoDS_Vertex                   myLVertex;
-  gp_Pnt                          myFPnt;
-  gp_Pnt                          myLPnt;
+  Point3d                          myFPnt;
+  Point3d                          myLPnt;
   TColStd_MapOfInteger            myList;
   Standard_Real                   myTol;
   Standard_Real                   myMin3d;

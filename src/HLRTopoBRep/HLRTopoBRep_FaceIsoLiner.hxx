@@ -26,7 +26,7 @@ class TopoDS_Face;
 class HLRTopoBRep_Data;
 class TopoDS_Vertex;
 class TopoDS_Edge;
-class gp_Pnt;
+class Point3d;
 class Geom2d_Line;
 
 class HLRTopoBRep_FaceIsoLiner
@@ -40,7 +40,7 @@ public:
                                       const Standard_Integer nbIsos);
 
   Standard_EXPORT static TopoDS_Vertex MakeVertex(const TopoDS_Edge&  E,
-                                                  const gp_Pnt&       P,
+                                                  const Point3d&       P,
                                                   const Standard_Real Par,
                                                   const Standard_Real Tol,
                                                   HLRTopoBRep_Data&   DS);

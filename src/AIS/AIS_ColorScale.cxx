@@ -45,10 +45,10 @@ static void addColoredQuad(const Handle(Graphic3d_ArrayOfTriangles)& theTris,
                            const Quantity_Color&                     theColorTop)
 {
   const Standard_Integer aVertIndex = theTris->VertexNumber() + 1;
-  theTris->AddVertex(gp_Pnt(theXLeft, theYBottom, 0.0), theColorBottom);
-  theTris->AddVertex(gp_Pnt(theXLeft + theSizeX, theYBottom, 0.0), theColorBottom);
-  theTris->AddVertex(gp_Pnt(theXLeft, theYBottom + theSizeY, 0.0), theColorTop);
-  theTris->AddVertex(gp_Pnt(theXLeft + theSizeX, theYBottom + theSizeY, 0.0), theColorTop);
+  theTris->AddVertex(Point3d(theXLeft, theYBottom, 0.0), theColorBottom);
+  theTris->AddVertex(Point3d(theXLeft + theSizeX, theYBottom, 0.0), theColorBottom);
+  theTris->AddVertex(Point3d(theXLeft, theYBottom + theSizeY, 0.0), theColorTop);
+  theTris->AddVertex(Point3d(theXLeft + theSizeX, theYBottom + theSizeY, 0.0), theColorTop);
   theTris->AddEdges(aVertIndex, aVertIndex + 1, aVertIndex + 2);
   theTris->AddEdges(aVertIndex + 1, aVertIndex + 2, aVertIndex + 3);
 }
@@ -872,7 +872,7 @@ void AIS_ColorScale::drawText(const Handle(Graphic3d_Group)&        theGroup,
 
   Handle(Graphic3d_Text) aText = new Graphic3d_Text((Standard_ShortReal)anAspect->Height());
   aText->SetText(theText.ToExtString());
-  aText->SetOrientation(gp_Ax2(gp_Pnt(theX, theY, 0.0), gp::DZ()));
+  aText->SetOrientation(gp_Ax2(Point3d(theX, theY, 0.0), gp::DZ()));
   aText->SetOwnAnchorPoint(Standard_False);
   aText->SetVerticalAlignment(theVertAlignment);
 

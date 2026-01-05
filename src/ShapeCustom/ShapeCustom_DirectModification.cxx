@@ -159,7 +159,7 @@ Standard_Boolean ShapeCustom_DirectModification::NewCurve(const TopoDS_Edge&  E,
 //=================================================================================================
 
 Standard_Boolean ShapeCustom_DirectModification::NewPoint(const TopoDS_Vertex& /*V*/,
-                                                          gp_Pnt& /*P*/,
+                                                          Point3d& /*P*/,
                                                           Standard_Real& /*Tol*/)
 {
   // 3d points are never modified

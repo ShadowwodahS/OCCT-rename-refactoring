@@ -53,9 +53,9 @@ public:
   Standard_EXPORT Standard_Boolean IsSolution(const math_Vector&  Sol,
                                               const Standard_Real Tol) Standard_OVERRIDE;
 
-  Standard_EXPORT const gp_Pnt& PointOnS1() const Standard_OVERRIDE;
+  Standard_EXPORT const Point3d& PointOnS1() const Standard_OVERRIDE;
 
-  Standard_EXPORT const gp_Pnt& PointOnS2() const Standard_OVERRIDE;
+  Standard_EXPORT const Point3d& PointOnS2() const Standard_OVERRIDE;
 
   Standard_EXPORT Standard_Boolean IsTangencyPoint() const Standard_OVERRIDE;
 
@@ -89,8 +89,8 @@ public:
   Standard_EXPORT Standard_Real GetSectionSize() const Standard_OVERRIDE;
 
 protected:
-  gp_Pnt           pts1;
-  gp_Pnt           pts2;
+  Point3d           pts1;
+  Point3d           pts2;
   gp_Vec           d1u1;
   gp_Vec           d1v1;
   gp_Vec           d1u2;
@@ -103,7 +103,7 @@ protected:
   Standard_Real    param;
   Standard_Real    Throat;
 
-  gp_Pnt        ptgui;
+  Point3d        ptgui;
   gp_Vec        nplan;
   Standard_Real normtg;
   Standard_Real theD;

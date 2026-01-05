@@ -428,7 +428,7 @@ void CheckEdge(const TopoDS_Edge&                Ed,
     const TopoDS_Vertex& aV = TopoDS::Vertex(aItS.Value());
     //
     Handle(BRep_TVertex)& TV  = *((Handle(BRep_TVertex)*)&aV.TShape());
-    const gp_Pnt&         aPV = TV->Pnt();
+    const Point3d&         aPV = TV->Pnt();
     //
     Standard_Real aTol = BRep_Tool::Tolerance(aV);
     aTol               = Max(aTol, aTolE);
@@ -452,7 +452,7 @@ void CheckEdge(const TopoDS_Edge&                Ed,
             const Handle(BRep_PointRepresentation)& aPR = aItPR.Value();
             if (aPR->IsPointOnCurve(aC, L))
             {
-              gp_Pnt aPC = aC->Value(aPR->Parameter());
+              Point3d aPC = aC->Value(aPR->Parameter());
               aPC.Transform(L.Transformation());
               Standard_Real aD2 = aPV.SquareDistance(aPC);
               if (aD2 > aTol)
@@ -469,7 +469,7 @@ void CheckEdge(const TopoDS_Edge&                Ed,
           if (aOrV == TopAbs_FORWARD || aOrV == TopAbs_REVERSED)
           {
             Handle(BRep_GCurve) aGC(Handle(BRep_GCurve)::DownCast(aCR));
-            gp_Pnt              aPC;
+            Point3d              aPC;
             if (aOrV == TopAbs_FORWARD)
             {
               aPC = aC->Value(aGC->First());
@@ -576,7 +576,7 @@ static Standard_Real IntersectCurves2d(
   //
   Standard_Real                                aT1, aT2, aTint1, aTint2, aHalfR1, aHalfR2, aDist;
   Standard_Integer                             i, aNb;
-  gp_Pnt                                       aP, aPV;
+  Point3d                                       aP, aPV;
   gp_Pnt2d                                     aP2d;
   NCollection_List<IntRes2d_IntersectionPoint> aLP;
   NCollection_List<IntRes2d_IntersectionPoint>::Iterator aItLP;
@@ -650,7 +650,7 @@ void CorrectWires(const TopoDS_Face& aFx, const TopTools_IndexedMapOfShape& aMap
 {
   Standard_Integer                          i, aNbV;
   Standard_Real                             aTol, aTol2, aD2, aD2max, aT1, aT2;
-  gp_Pnt                                    aP, aPV;
+  Point3d                                    aP, aPV;
   gp_Pnt2d                                  aP2D;
   TopoDS_Face                               aF;
   TopTools_IndexedDataMapOfShapeListOfShape aMVE;

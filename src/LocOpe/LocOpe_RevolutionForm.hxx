@@ -68,8 +68,8 @@ private:
   TopoDS_Shape                       myFirstShape;
   TopoDS_Shape                       myLastShape;
   TopTools_DataMapOfShapeListOfShape myMap;
-  gp_Pnt                             myPnt1;
-  gp_Pnt                             myPnt2;
+  Point3d                             myPnt1;
+  Point3d                             myPnt2;
 };
 
 #endif // _LocOpe_RevolutionForm_HeaderFile

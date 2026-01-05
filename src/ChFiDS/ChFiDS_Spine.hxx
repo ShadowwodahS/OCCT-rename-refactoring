@@ -168,13 +168,13 @@ public:
                                  Standard_Real&         U,
                                  const Standard_Boolean Oriented = Standard_True);
 
-  Standard_EXPORT gp_Pnt Value(const Standard_Real AbsC);
+  Standard_EXPORT Point3d Value(const Standard_Real AbsC);
 
-  Standard_EXPORT void D0(const Standard_Real AbsC, gp_Pnt& P);
+  Standard_EXPORT void D0(const Standard_Real AbsC, Point3d& P);
 
-  Standard_EXPORT void D1(const Standard_Real AbsC, gp_Pnt& P, gp_Vec& V1);
+  Standard_EXPORT void D1(const Standard_Real AbsC, Point3d& P, gp_Vec& V1);
 
-  Standard_EXPORT void D2(const Standard_Real AbsC, gp_Pnt& P, gp_Vec& V1, gp_Vec& V2);
+  Standard_EXPORT void D2(const Standard_Real AbsC, Point3d& P, gp_Vec& V1, gp_Vec& V2);
 
   Standard_EXPORT void SetCurrent(const Standard_Integer Index);
 
@@ -283,8 +283,8 @@ private:
   Standard_Real                 lasttgtpar;
   Standard_Boolean              hasfirsttgt;
   Standard_Boolean              haslasttgt;
-  gp_Pnt                        firstori;
-  gp_Pnt                        lastori;
+  Point3d                        firstori;
+  Point3d                        lastori;
   gp_Vec                        firsttgt;
   gp_Vec                        lasttgt;
   Standard_Real                 valref;

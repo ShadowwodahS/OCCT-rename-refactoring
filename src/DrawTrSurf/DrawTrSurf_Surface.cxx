@@ -80,7 +80,7 @@ void DrawTrSurf_Surface::DrawOn(Draw_Display& dis, const Standard_Boolean Iso) c
 
   if (UfirstInf || UlastInf)
   {
-    gp_Pnt        P1, P2;
+    Point3d        P1, P2;
     Standard_Real v;
     if (VfirstInf && VlastInf)
       v = 0;
@@ -128,7 +128,7 @@ void DrawTrSurf_Surface::DrawOn(Draw_Display& dis, const Standard_Boolean Iso) c
 
   if (VfirstInf || VlastInf)
   {
-    gp_Pnt        P1, P2;
+    Point3d        P1, P2;
     Standard_Real u = (UFirst + ULast) / 2;
 
     Standard_Real delta = 1.;

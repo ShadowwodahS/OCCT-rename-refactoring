@@ -62,14 +62,14 @@ BRepPrimAPI_MakeSphere::BRepPrimAPI_MakeSphere(const Standard_Real R,
 
 //=================================================================================================
 
-BRepPrimAPI_MakeSphere::BRepPrimAPI_MakeSphere(const gp_Pnt& Center, const Standard_Real R)
+BRepPrimAPI_MakeSphere::BRepPrimAPI_MakeSphere(const Point3d& Center, const Standard_Real R)
     : mySphere(gp_Ax2(Center, gp_Dir(0, 0, 1), gp_Dir(1, 0, 0)), R)
 {
 }
 
 //=================================================================================================
 
-BRepPrimAPI_MakeSphere::BRepPrimAPI_MakeSphere(const gp_Pnt&       Center,
+BRepPrimAPI_MakeSphere::BRepPrimAPI_MakeSphere(const Point3d&       Center,
                                                const Standard_Real R,
                                                const Standard_Real angle)
     : mySphere(gp_Ax2(Center, gp_Dir(0, 0, 1), gp_Dir(1, 0, 0)), R)
@@ -79,7 +79,7 @@ BRepPrimAPI_MakeSphere::BRepPrimAPI_MakeSphere(const gp_Pnt&       Center,
 
 //=================================================================================================
 
-BRepPrimAPI_MakeSphere::BRepPrimAPI_MakeSphere(const gp_Pnt&       Center,
+BRepPrimAPI_MakeSphere::BRepPrimAPI_MakeSphere(const Point3d&       Center,
                                                const Standard_Real R,
                                                const Standard_Real angle1,
                                                const Standard_Real angle2)
@@ -91,7 +91,7 @@ BRepPrimAPI_MakeSphere::BRepPrimAPI_MakeSphere(const gp_Pnt&       Center,
 
 //=================================================================================================
 
-BRepPrimAPI_MakeSphere::BRepPrimAPI_MakeSphere(const gp_Pnt&       Center,
+BRepPrimAPI_MakeSphere::BRepPrimAPI_MakeSphere(const Point3d&       Center,
                                                const Standard_Real R,
                                                const Standard_Real angle1,
                                                const Standard_Real angle2,

@@ -63,7 +63,7 @@ public:
   //! the function is considered null.
   Standard_Real Tolerance() const;
 
-  const gp_Pnt& Point() const;
+  const Point3d& Point() const;
 
   Standard_EXPORT Standard_Boolean IsTangent();
 
@@ -82,7 +82,7 @@ private:
   Standard_Real    u;
   Standard_Real    v;
   Standard_Real    tol;
-  gp_Pnt           pntsol;
+  Point3d           pntsol;
   Standard_Real    valf;
   Standard_Boolean computed;
   Standard_Boolean tangent;

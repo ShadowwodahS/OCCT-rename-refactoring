@@ -23,9 +23,9 @@
 
 //=================================================================================================
 
-const gp_Pnt& gp::Origin()
+const Point3d& gp::Origin()
 {
-  static gp_Pnt gp_Origin(0, 0, 0);
+  static Point3d gp_Origin(0, 0, 0);
   return gp_Origin;
 }
 
@@ -57,7 +57,7 @@ const gp_Dir& gp::DZ()
 
 const gp_Ax1& gp::OX()
 {
-  static gp_Ax1 gp_OX(gp_Pnt(0, 0, 0), gp_Dir(1, 0, 0));
+  static gp_Ax1 gp_OX(Point3d(0, 0, 0), gp_Dir(1, 0, 0));
   return gp_OX;
 }
 
@@ -65,7 +65,7 @@ const gp_Ax1& gp::OX()
 
 const gp_Ax1& gp::OY()
 {
-  static gp_Ax1 gp_OY(gp_Pnt(0, 0, 0), gp_Dir(0, 1, 0));
+  static gp_Ax1 gp_OY(Point3d(0, 0, 0), gp_Dir(0, 1, 0));
   return gp_OY;
 }
 
@@ -73,7 +73,7 @@ const gp_Ax1& gp::OY()
 
 const gp_Ax1& gp::OZ()
 {
-  static gp_Ax1 gp_OZ(gp_Pnt(0, 0, 0), gp_Dir(0, 0, 1));
+  static gp_Ax1 gp_OZ(Point3d(0, 0, 0), gp_Dir(0, 0, 1));
   return gp_OZ;
 }
 
@@ -81,7 +81,7 @@ const gp_Ax1& gp::OZ()
 
 const gp_Ax2& gp::XOY()
 {
-  static gp_Ax2 gp_XOY(gp_Pnt(0, 0, 0), gp_Dir(0, 0, 1), gp_Dir(1, 0, 0));
+  static gp_Ax2 gp_XOY(Point3d(0, 0, 0), gp_Dir(0, 0, 1), gp_Dir(1, 0, 0));
   return gp_XOY;
 }
 
@@ -89,7 +89,7 @@ const gp_Ax2& gp::XOY()
 
 const gp_Ax2& gp::ZOX()
 {
-  static gp_Ax2 gp_ZOX(gp_Pnt(0, 0, 0), gp_Dir(0, 1, 0), gp_Dir(0, 0, 1));
+  static gp_Ax2 gp_ZOX(Point3d(0, 0, 0), gp_Dir(0, 1, 0), gp_Dir(0, 0, 1));
   return gp_ZOX;
 }
 
@@ -97,7 +97,7 @@ const gp_Ax2& gp::ZOX()
 
 const gp_Ax2& gp::YOZ()
 {
-  static gp_Ax2 gp_YOZ(gp_Pnt(0, 0, 0), gp_Dir(1, 0, 0), gp_Dir(0, 1, 0));
+  static gp_Ax2 gp_YOZ(Point3d(0, 0, 0), gp_Dir(1, 0, 0), gp_Dir(0, 1, 0));
   return gp_YOZ;
 }
 

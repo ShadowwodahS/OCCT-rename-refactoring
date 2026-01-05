@@ -17,7 +17,7 @@
 #include <gp_Vec.hxx>
 #include <gp_Dir2d.hxx>
 
-inline gp_Pnt IntSurf_InteriorPointTool::Value3d(const IntSurf_InteriorPoint& PStart)
+inline Point3d IntSurf_InteriorPointTool::Value3d(const IntSurf_InteriorPoint& PStart)
 {
 
   return PStart.Value();

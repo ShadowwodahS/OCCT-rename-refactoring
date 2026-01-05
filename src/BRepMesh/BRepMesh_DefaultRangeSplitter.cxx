@@ -143,7 +143,7 @@ void BRepMesh_DefaultRangeSplitter::computeDelta(const Standard_Real theLengthU,
 Standard_Real BRepMesh_DefaultRangeSplitter::computeLengthU()
 {
   Standard_Real longu = 0.0;
-  gp_Pnt        P11, P12, P21, P22, P31, P32;
+  Point3d        P11, P12, P21, P22, P31, P32;
 
   Standard_Real    du     = 0.05 * (myRangeU.second - myRangeU.first);
   Standard_Real    dfvave = 0.5 * (myRangeV.second + myRangeV.first);
@@ -173,7 +173,7 @@ Standard_Real BRepMesh_DefaultRangeSplitter::computeLengthU()
 Standard_Real BRepMesh_DefaultRangeSplitter::computeLengthV()
 {
   Standard_Real longv = 0.0;
-  gp_Pnt        P11, P12, P21, P22, P31, P32;
+  Point3d        P11, P12, P21, P22, P31, P32;
 
   Standard_Real    dv     = 0.05 * (myRangeV.second - myRangeV.first);
   Standard_Real    dfuave = 0.5 * (myRangeU.second + myRangeU.first);

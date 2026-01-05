@@ -60,12 +60,12 @@ void gp_Cylinder::Coefficients(Standard_Real& A1,
   D  = T14 * T14 + T24 * T24 - radius * radius;
 }
 
-void gp_Cylinder::Mirror(const gp_Pnt& P)
+void gp_Cylinder::Mirror(const Point3d& P)
 {
   pos.Mirror(P);
 }
 
-gp_Cylinder gp_Cylinder::Mirrored(const gp_Pnt& P) const
+gp_Cylinder gp_Cylinder::Mirrored(const Point3d& P) const
 {
   gp_Cylinder C = *this;
   C.pos.Mirror(P);

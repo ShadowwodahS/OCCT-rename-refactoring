@@ -96,7 +96,7 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
             continue;
           lsubs.Clear();
           TopoDS_Vertex vsub = TopoDS::Vertex(vtx.Oriented(TopAbs_FORWARD));
-          gp_Pnt        p1 = BRep_Tool::Pnt(vsub), p2 = BRep_Tool::Pnt(Vb);
+          Point3d        p1 = BRep_Tool::Pnt(vsub), p2 = BRep_Tool::Pnt(Vb);
           Standard_Real d = p1.Distance(p2);
           d               = d + BRep_Tool::Tolerance(Vb);
           BB.UpdateVertex(vsub, d);
@@ -277,7 +277,7 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
         { // tout au meme point
           TopLoc_Location    Loc;
           Standard_Real      f, l;
-          gp_Pnt             pbid;
+          Point3d             pbid;
           gp_Vec             v1, v2;
           Handle(Geom_Curve) C = BRep_Tool::Curve(e1, Loc, f, l);
           C->D1(f, pbid, v1);
@@ -626,7 +626,7 @@ static void Select(const TopoDS_Edge& Ebase, TopTools_ListOfShape& lsubs)
     Handle(Geom_Geometry) GG = C->Transformed(Loc.Transformation());
     C                        = Handle(Geom_Curve)::DownCast(GG);
   }
-  gp_Pnt Pt(C->Value((f + l) / 2.));
+  Point3d Pt(C->Value((f + l) / 2.));
 
   GeomAPI_ProjectPointOnCurve proj;
   //  for (TopTools_ListIteratorOfListOfShape itl(lsubs);

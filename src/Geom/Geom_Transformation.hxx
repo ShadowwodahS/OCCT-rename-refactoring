@@ -73,7 +73,7 @@ public:
   //! Makes the transformation into a symmetrical transformation
   //! with respect to a point P.
   //! P is the center of the symmetry.
-  void SetMirror(const gp_Pnt& thePnt) { gpTrsf.SetMirror(thePnt); }
+  void SetMirror(const Point3d& thePnt) { gpTrsf.SetMirror(thePnt); }
 
   //! Makes the transformation into a symmetrical transformation
   //! with respect to an axis A1.
@@ -96,7 +96,7 @@ public:
 
   //! Makes the transformation into a scale. P is the center of
   //! the scale and S is the scaling value.
-  void SetScale(const gp_Pnt& thePnt, const Standard_Real theScale)
+  void SetScale(const Point3d& thePnt, const Standard_Real theScale)
   {
     gpTrsf.SetScale(thePnt, theScale);
   }
@@ -109,10 +109,10 @@ public:
   //! // local system FromSystem1
   //! Real x2, y2, z2;  // are the coordinates of a point in the
   //! // local system ToSystem2
-  //! gp_Pnt P1 (x1, y1, z1)
+  //! Point3d P1 (x1, y1, z1)
   //! Geom_Transformation T;
   //! T.SetTransformation (FromSystem1, ToSystem2);
-  //! gp_Pnt P2 = P1.Transformed (T);
+  //! Point3d P2 = P1.Transformed (T);
   //! P2.Coord (x2, y2, z2);
   void SetTransformation(const gp_Ax3& theFromSystem1, const gp_Ax3& theToSystem2)
   {
@@ -133,7 +133,7 @@ public:
 
   //! Makes the transformation into a translation from the point
   //! P1 to the point P2.
-  void SetTranslation(const gp_Pnt& P1, const gp_Pnt& P2) { gpTrsf.SetTranslation(P1, P2); }
+  void SetTranslation(const Point3d& P1, const Point3d& P2) { gpTrsf.SetTranslation(P1, P2); }
 
   //! Converts the gp_Trsf transformation T into this transformation.
   void SetTrsf(const gp_Trsf& theTrsf) { gpTrsf = theTrsf; }

@@ -37,7 +37,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Extrema_ExtPExtS, RefObject)
 static gp_Ax2 GetPosition(const Handle(Adaptor3d_Curve)& C);
 
 static void PerformExtPElC(Extrema_ExtPElC&               E,
-                           const gp_Pnt&                  P,
+                           const Point3d&                  P,
                            const Handle(Adaptor3d_Curve)& C,
                            const Standard_Real            Tol);
 
@@ -45,26 +45,26 @@ static Standard_Boolean IsCaseAnalyticallyComputable(const GeomAbs_CurveType& th
                                                      const gp_Ax2&            theCurvePos,
                                                      const gp_Dir&            theSurfaceDirection);
 
-static gp_Pnt GetValue(const Standard_Real U, const Handle(Adaptor3d_Curve)& C);
+static Point3d GetValue(const Standard_Real U, const Handle(Adaptor3d_Curve)& C);
 
 //=======================================================================
 // function : Project
 // purpose  : Returns the projection of a point <Point> on a plane
 //           <ThePlane>  along a direction <TheDir>.
 //=======================================================================
-static gp_Pnt ProjectPnt(const gp_Ax2& ThePlane, const gp_Dir& TheDir, const gp_Pnt& Point)
+static Point3d ProjectPnt(const gp_Ax2& ThePlane, const gp_Dir& TheDir, const Point3d& Point)
 {
   gp_Vec        PO(Point, ThePlane.Location());
   Standard_Real Alpha = PO * gp_Vec(ThePlane.Direction());
   Alpha /= TheDir * ThePlane.Direction();
-  gp_Pnt P;
+  Point3d P;
   P.SetXYZ(Point.XYZ() + Alpha * TheDir.XYZ());
   return P;
 }
 
 //=================================================================================================
 
-static Standard_Boolean IsOriginalPnt(const gp_Pnt&          P,
+static Standard_Boolean IsOriginalPnt(const Point3d&          P,
                                       const Extrema_POnSurf* Points,
                                       const Standard_Integer NbPoints)
 {
@@ -81,7 +81,7 @@ static Standard_Boolean IsOriginalPnt(const gp_Pnt&          P,
 //=================================================================================================
 
 void Extrema_ExtPExtS::MakePreciser(Standard_Real&         U,
-                                    const gp_Pnt&          P,
+                                    const Point3d&          P,
                                     const Standard_Boolean isMin,
                                     const gp_Ax2&          OrtogSection) const
 {
@@ -97,7 +97,7 @@ void Extrema_ExtPExtS::MakePreciser(Standard_Real&         U,
   {
 
     Standard_Real step = (myusup - myuinf) / 30, D2e, D2next, D2prev;
-    gp_Pnt        Pe   = ProjectPnt(OrtogSection, myDirection, GetValue(U, myC)),
+    Point3d        Pe   = ProjectPnt(OrtogSection, myDirection, GetValue(U, myC)),
            Pprev       = ProjectPnt(OrtogSection, myDirection, GetValue(U - step, myC)),
            Pnext       = ProjectPnt(OrtogSection, myDirection, GetValue(U + step, myC));
     D2e = P.SquareDistance(Pe), D2next = P.SquareDistance(Pnext), D2prev = P.SquareDistance(Pprev);
@@ -159,7 +159,7 @@ Extrema_ExtPExtS::Extrema_ExtPExtS()
 
 //=============================================================================
 
-Extrema_ExtPExtS::Extrema_ExtPExtS(const gp_Pnt&                                       theP,
+Extrema_ExtPExtS::Extrema_ExtPExtS(const Point3d&                                       theP,
                                    const Handle(GeomAdaptor_SurfaceOfLinearExtrusion)& theS,
                                    const Standard_Real                                 theUmin,
                                    const Standard_Real                                 theUsup,
@@ -189,7 +189,7 @@ Extrema_ExtPExtS::Extrema_ExtPExtS(const gp_Pnt&                                
 
 //=============================================================================
 
-Extrema_ExtPExtS::Extrema_ExtPExtS(const gp_Pnt&                                       theP,
+Extrema_ExtPExtS::Extrema_ExtPExtS(const Point3d&                                       theP,
                                    const Handle(GeomAdaptor_SurfaceOfLinearExtrusion)& theS,
                                    const Standard_Real                                 theTolU,
                                    const Standard_Real                                 theTolV)
@@ -259,7 +259,7 @@ void Extrema_ExtPExtS::Initialize(const Handle(GeomAdaptor_SurfaceOfLinearExtrus
 
 //=================================================================================================
 
-void Extrema_ExtPExtS::Perform(const gp_Pnt& P)
+void Extrema_ExtPExtS::Perform(const Point3d& P)
 {
   const Standard_Integer NbExtMax = 4; // dimension of arrays
                                        // myPoint[] and mySqDist[]
@@ -277,7 +277,7 @@ void Extrema_ExtPExtS::Perform(const gp_Pnt& P)
     return;
   }
 
-  gp_Pnt          Pe, Pp = ProjectPnt(myPosition, myDirection, P);
+  Point3d          Pe, Pp = ProjectPnt(myPosition, myDirection, P);
   Extrema_ExtPElC anExt;
   PerformExtPElC(anExt, Pp, myC, mytolu);
   if (!anExt.IsDone())
@@ -307,7 +307,7 @@ void Extrema_ExtPExtS::Perform(const gp_Pnt& P)
       ElCLib::AdjustPeriodic(myuinf, myuinf + 2. * M_PI, Precision::PConfusion(), U, U2);
     }
     //////////////////////////////////////////////////
-    gp_Pnt E = POC.Value();
+    Point3d E = POC.Value();
     Pe       = ProjectPnt(anOrtogSection, myDirection, E);
 
     if (isSimpleCase)
@@ -520,7 +520,7 @@ static gp_Ax2 GetPosition(const Handle(Adaptor3d_Curve)& C)
 //=============================================================================
 
 static void PerformExtPElC(Extrema_ExtPElC&               E,
-                           const gp_Pnt&                  P,
+                           const Point3d&                  P,
                            const Handle(Adaptor3d_Curve)& C,
                            const Standard_Real            Tol)
 {
@@ -573,7 +573,7 @@ static Standard_Boolean IsCaseAnalyticallyComputable(const GeomAbs_CurveType& th
 
 //=================================================================================================
 
-static gp_Pnt GetValue(const Standard_Real U, const Handle(Adaptor3d_Curve)& C)
+static Point3d GetValue(const Standard_Real U, const Handle(Adaptor3d_Curve)& C)
 {
   switch (C->GetType())
   {
@@ -588,7 +588,7 @@ static gp_Pnt GetValue(const Standard_Real U, const Handle(Adaptor3d_Curve)& C)
     case GeomAbs_Parabola:
       return ElCLib::Value(U, C->Parabola());
     default:
-      return gp_Pnt();
+      return Point3d();
   }
 }
 
@@ -596,7 +596,7 @@ static gp_Pnt GetValue(const Standard_Real U, const Handle(Adaptor3d_Curve)& C)
 
 // #ifdef OCCT_DEBUG
 // static Standard_Real GetU(const gp_Vec& vec,
-//			  const gp_Pnt& P,
+//			  const Point3d& P,
 //			  const Handle(Adaptor3d_Curve)& C)
 //{
 //  switch (C->GetType()) {

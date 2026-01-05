@@ -102,7 +102,7 @@ static Standard_Integer BUC60828(Draw_Interpretor& di,
                                  Standard_Integer /*argc*/,
                                  const char** /*argv*/)
 {
-  TopoDS_Edge      anEdge = BRepBuilderAPI_MakeEdge(gp_Pnt(0., 0., 0.), gp_Pnt(0., 0., 1.));
+  TopoDS_Edge      anEdge = BRepBuilderAPI_MakeEdge(Point3d(0., 0., 0.), Point3d(0., 0., 1.));
   Standard_Boolean aValue;
   aValue = anEdge.Infinite();
   di << "Initial flag : " << (Standard_Integer)aValue << "\n";
@@ -139,7 +139,7 @@ static Standard_Integer BUC60814(Draw_Interpretor& di, Standard_Integer argc, co
   myAISContext->Display(aTrihedron, Standard_False);
 
   // Circle
-  gp_Pnt P(10, 10, 10);
+  Point3d P(10, 10, 10);
   gp_Dir V(1, 0, 0);
   gp_Ax2 aAx2(P, V);
 
@@ -240,7 +240,7 @@ static Standard_Integer BUC60972(Draw_Interpretor& di, Standard_Integer argc, co
   if (aPlane.IsNull())
     return 1;
 
-  di << aPlane->Pln().SquareDistance(gp_Pnt(0, 0, 0)) << "\n";
+  di << aPlane->Pln().SquareDistance(Point3d(0, 0, 0)) << "\n";
 
   TCollection_ExtendedString aText(argv[5]);
   // Standard_ExtString ExtString_aText = aText.ToExtString();
@@ -312,7 +312,7 @@ static Standard_Integer OCC218bug(Draw_Interpretor& di, Standard_Integer argc, c
 
     TopoDS_Edge EdgeB = TopoDS::Edge(FaceExpB.Current());
     // declarations
-    gp_Pnt A, B, C;
+    Point3d A, B, C;
 
     // si il y a plusieurs edges
     if (FaceExpB.More())
@@ -373,7 +373,7 @@ static Standard_Integer OCC295(Draw_Interpretor& di, Standard_Integer argc, cons
   Handle(Geom_BSplineCurve) bsplc2 = Handle(Geom_BSplineCurve)::DownCast(ac2);
   if (bsplc1.IsNull() || bsplc2.IsNull())
     return 1;
-  gp_Pnt pmid = 0.5 * (bsplc1->Pole(bsplc1->NbPoles()).XYZ() + bsplc2->Pole(1).XYZ());
+  Point3d pmid = 0.5 * (bsplc1->Pole(bsplc1->NbPoles()).XYZ() + bsplc2->Pole(1).XYZ());
   bsplc1->SetPole(bsplc1->NbPoles(), pmid);
   bsplc2->SetPole(1, pmid);
   GeomConvert_CompCurveToBSplineCurve connect3d(bsplc1);
@@ -529,7 +529,7 @@ static Standard_Integer OCC405(Draw_Interpretor& di, Standard_Integer argc, cons
     aBstmp->Segment(f2, l2);
     bsplc2 = aBstmp;
   }
-  gp_Pnt pmid = 0.5 * (bsplc1->Pole(bsplc1->NbPoles()).XYZ() + bsplc2->Pole(1).XYZ());
+  Point3d pmid = 0.5 * (bsplc1->Pole(bsplc1->NbPoles()).XYZ() + bsplc2->Pole(1).XYZ());
   bsplc1->SetPole(bsplc1->NbPoles(), pmid);
   bsplc2->SetPole(1, pmid);
   GeomConvert_CompCurveToBSplineCurve connect3d(bsplc1);
@@ -585,7 +585,7 @@ static Standard_Integer OCC395(Draw_Interpretor& di, Standard_Integer argc, cons
   Handle(Geom_BSplineCurve) bsplc2 = Handle(Geom_BSplineCurve)::DownCast(ac2);
   if (bsplc1.IsNull() || bsplc2.IsNull())
     return 1;
-  gp_Pnt pmid = 0.5 * (bsplc1->Pole(bsplc1->NbPoles()).XYZ() + bsplc2->Pole(1).XYZ());
+  Point3d pmid = 0.5 * (bsplc1->Pole(bsplc1->NbPoles()).XYZ() + bsplc2->Pole(1).XYZ());
   bsplc1->SetPole(bsplc1->NbPoles(), pmid);
   bsplc2->SetPole(1, pmid);
   GeomConvert_CompCurveToBSplineCurve connect3d(bsplc1);
@@ -665,9 +665,9 @@ static Standard_Integer OCC301(Draw_Interpretor& di, Standard_Integer argc, cons
   Standard_Real aRadius     = Draw::Atof(argv[1]);
   Standard_Real anArrowSize = Draw::Atof(argv[2]);
 
-  gp_Pnt p1 = gp_Pnt(10., 10., 0.);
-  gp_Pnt p2 = gp_Pnt(50., 10., 0.);
-  gp_Pnt p3 = gp_Pnt(50., 50., 0.);
+  Point3d p1 = Point3d(10., 10., 0.);
+  Point3d p2 = Point3d(50., 10., 0.);
+  Point3d p3 = Point3d(50., 50., 0.);
 
   TopoDS_Edge E1 = BRepBuilderAPI_MakeEdge(p1, p2);
   TopoDS_Edge E2 = BRepBuilderAPI_MakeEdge(p2, p3);
@@ -675,7 +675,7 @@ static Standard_Integer OCC301(Draw_Interpretor& di, Standard_Integer argc, cons
   context->Display(new AIS_Shape(E1), Standard_False);
   context->Display(new AIS_Shape(E2), Standard_True);
 
-  gp_Pnt             plnpt(0, 0, 0);
+  Point3d             plnpt(0, 0, 0);
   gp_Dir             plndir(0, 0, 1);
   Handle(Geom_Plane) pln = new Geom_Plane(plnpt, plndir);
 

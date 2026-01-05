@@ -25,7 +25,7 @@
 #include <IGESData_IGESEntity.hxx>
 #include <Standard_Integer.hxx>
 class IGESDimen_GeneralNote;
-class gp_Pnt;
+class Point3d;
 class IGESDimen_LeaderArrow;
 
 class IGESDimen_FlagNote;
@@ -52,11 +52,11 @@ public:
                             const Handle(IGESDimen_HArray1OfLeaderArrow)& someLeaders);
 
   //! returns Lower Left coordinate of Flag as Pnt from package gp
-  Standard_EXPORT gp_Pnt LowerLeftCorner() const;
+  Standard_EXPORT Point3d LowerLeftCorner() const;
 
   //! returns Lower Left coordinate of Flag as Pnt from package gp
   //! after Transformation.
-  Standard_EXPORT gp_Pnt TransformedLowerLeftCorner() const;
+  Standard_EXPORT Point3d TransformedLowerLeftCorner() const;
 
   //! returns Rotation angle in radians
   Standard_EXPORT Standard_Real Angle() const;

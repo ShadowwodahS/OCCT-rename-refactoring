@@ -278,11 +278,11 @@ public:
   //! according to it. Updates presentation if the text position is valid.
   //! ATTENTION! It does not change vertical text alignment.
   //! @param[in] theTextPos  the point of text position.
-  virtual void SetTextPosition(const gp_Pnt& /*theTextPos*/) {}
+  virtual void SetTextPosition(const Point3d& /*theTextPos*/) {}
 
   //! Computes absolute text position from dimension parameters
   //! (flyout, plane and text alignment).
-  virtual gp_Pnt GetTextPosition() const { return gp_Pnt(); }
+  virtual Point3d GetTextPosition() const { return Point3d(); }
 
 public:
   //! Gets the dimension aspect from AIS object drawer.
@@ -372,7 +372,7 @@ protected:
   //! @param[in] theLocation  the location of the arrow tip.
   //! @param[in] theDirection  the direction from the tip to the bottom of the arrow.
   Standard_EXPORT void DrawArrow(const Handle(Prs3d_Presentation)& thePresentation,
-                                 const gp_Pnt&                     theLocation,
+                                 const Point3d&                     theLocation,
                                  const gp_Dir&                     theDirection);
 
   //! Performs drawing of 2d or 3d text on the working plane
@@ -384,7 +384,7 @@ protected:
   //! @return text width relative to the dimension working plane. For 2d text this value will be
   //! zero.
   Standard_EXPORT void drawText(const Handle(Prs3d_Presentation)& thePresentation,
-                                const gp_Pnt&                     theTextPos,
+                                const Point3d&                     theTextPos,
                                 const gp_Dir&                     theTextDir,
                                 const TCollection_ExtendedString& theText,
                                 const Standard_Integer            theLabelPosition);
@@ -400,7 +400,7 @@ protected:
   //! @param[in] theLabelPosition  position flags for the text label.
   Standard_EXPORT void DrawExtension(const Handle(Prs3d_Presentation)& thePresentation,
                                      const Standard_Real               theExtensionSize,
-                                     const gp_Pnt&                     theExtensionStart,
+                                     const Point3d&                     theExtensionStart,
                                      const gp_Dir&                     theExtensionDir,
                                      const TCollection_ExtendedString& theLabelString,
                                      const Standard_Real               theLabelWidth,
@@ -417,8 +417,8 @@ protected:
   //! @param[in] theIsOneSide  specifies whether the dimension has only one flyout line.
   Standard_EXPORT void DrawLinearDimension(const Handle(Prs3d_Presentation)& thePresentation,
                                            const Standard_Integer            theMode,
-                                           const gp_Pnt&                     theFirstPoint,
-                                           const gp_Pnt&                     theSecondPoint,
+                                           const Point3d&                     theFirstPoint,
+                                           const Point3d&                     theSecondPoint,
                                            const Standard_Boolean theIsOneSide = Standard_False);
 
   //! Computes points bounded the flyout line for linear dimension.
@@ -426,10 +426,10 @@ protected:
   //! @param[in] theSecondPoint  the second attach point of linear dimension.
   //! @param[out] theLineBegPoint  the first attach point of linear dimension.
   //! @param[out] theLineEndPoint  the second attach point of linear dimension.
-  Standard_EXPORT virtual void ComputeFlyoutLinePoints(const gp_Pnt& theFirstPoint,
-                                                       const gp_Pnt& theSecondPoint,
-                                                       gp_Pnt&       theLineBegPoint,
-                                                       gp_Pnt&       theLineEndPoint);
+  Standard_EXPORT virtual void ComputeFlyoutLinePoints(const Point3d& theFirstPoint,
+                                                       const Point3d& theSecondPoint,
+                                                       Point3d&       theLineBegPoint,
+                                                       Point3d&       theLineEndPoint);
 
   //! Compute selection sensitives for linear dimension flyout lines (length, diameter, radius).
   //! Please note that this method uses base dimension properties: working plane and flyout length.
@@ -439,8 +439,8 @@ protected:
   //! @param[in] theSecondPoint  the second attach point of linear dimension.
   Standard_EXPORT void ComputeLinearFlyouts(const Handle(SelectMgr_Selection)&   theSelection,
                                             const Handle(SelectMgr_EntityOwner)& theOwner,
-                                            const gp_Pnt&                        theFirstPoint,
-                                            const gp_Pnt&                        theSecondPoint);
+                                            const Point3d&                        theFirstPoint,
+                                            const Point3d&                        theSecondPoint);
 
   //! Performs initialization of circle and middle arc point from the passed
   //! shape which is assumed to contain circular geometry.
@@ -451,7 +451,7 @@ protected:
   //! @return TRUE if the circle is successfully returned from the input shape.
   Standard_EXPORT Standard_Boolean InitCircularDimension(const TopoDS_Shape& theShape,
                                                          gp_Circ&            theCircle,
-                                                         gp_Pnt&             theMiddleArcPoint,
+                                                         Point3d&             theMiddleArcPoint,
                                                          Standard_Boolean&   theIsClosed);
 
   //! Produce points for triangular arrow face.
@@ -462,19 +462,19 @@ protected:
   //! @param[in] theArrowAngle  the angle of arrow.
   //! @param[out] theSidePnt1  the first side point.
   //! @param[out] theSidePnt2  the second side point.
-  Standard_EXPORT void PointsForArrow(const gp_Pnt&       thePeakPnt,
+  Standard_EXPORT void PointsForArrow(const Point3d&       thePeakPnt,
                                       const gp_Dir&       theDirection,
                                       const gp_Dir&       thePlane,
                                       const Standard_Real theArrowLength,
                                       const Standard_Real theArrowAngle,
-                                      gp_Pnt&             theSidePnt1,
-                                      gp_Pnt&             theSidePnt2);
+                                      Point3d&             theSidePnt1,
+                                      Point3d&             theSidePnt2);
 
   //! Compute point of text position for dimension parameters
   //! for linear kinds of dimensions (length, radius, diameter).
-  Standard_EXPORT gp_Pnt
-    GetTextPositionForLinear(const gp_Pnt&          theFirstPoint,
-                             const gp_Pnt&          theSecondPoint,
+  Standard_EXPORT Point3d
+    GetTextPositionForLinear(const Point3d&          theFirstPoint,
+                             const Point3d&          theSecondPoint,
                              const Standard_Boolean theIsOneSide = Standard_False) const;
 
   //! Fits text alignment relatively to the dimension line.
@@ -488,8 +488,8 @@ protected:
   //! if arrow orientation in the dimension aspect is Prs3d_DAO_Fit, it fits arrow
   //! orientation automatically.
   Standard_EXPORT void FitTextAlignmentForLinear(
-    const gp_Pnt&                                theFirstPoint,
-    const gp_Pnt&                                theSecondPoint,
+    const Point3d&                                theFirstPoint,
+    const Point3d&                                theSecondPoint,
     const Standard_Boolean                       theIsOneSide,
     const Prs3d_DimensionTextHorizontalPosition& theHorizontalTextPos,
     Standard_Integer&                            theLabelPosition,
@@ -506,9 +506,9 @@ protected:
   //! @param[out] thePlane  the new plane that contains theTextPos and attachment points.
   //! @param[out] theIsPlaneOld  shows if new plane is computed.
   Standard_EXPORT Standard_Boolean
-    AdjustParametersForLinear(const gp_Pnt&                          theTextPos,
-                              const gp_Pnt&                          theFirstPoint,
-                              const gp_Pnt&                          theSecondPoint,
+    AdjustParametersForLinear(const Point3d&                          theTextPos,
+                              const Point3d&                          theFirstPoint,
+                              const Point3d&                          theSecondPoint,
                               Standard_Real&                         theExtensionSize,
                               Prs3d_DimensionTextHorizontalPosition& theAlignment,
                               Standard_Real&                         theFlyout,
@@ -524,8 +524,8 @@ protected: //! @name Static auxiliary methods for geometry extraction
   //! @return TRUE in case of successful circle extraction
   static Standard_Boolean CircleFromPlanarFace(const TopoDS_Face&  theFace,
                                                Handle(Geom_Curve)& theCurve,
-                                               gp_Pnt&             theFirstPoint,
-                                               gp_Pnt&             theLastPoint);
+                                               Point3d&             theFirstPoint,
+                                               Point3d&             theLastPoint);
 
   //! If it is possible extracts circle from the edge.
   //! @param[in] theEdge         input edge to extract circle from
@@ -535,8 +535,8 @@ protected: //! @name Static auxiliary methods for geometry extraction
   //! @return TRUE in case of successful circle extraction.
   static Standard_Boolean CircleFromEdge(const TopoDS_Edge& theEdge,
                                          gp_Circ&           theCircle,
-                                         gp_Pnt&            theFirstPoint,
-                                         gp_Pnt&            theLastPoint);
+                                         Point3d&            theFirstPoint,
+                                         Point3d&            theLastPoint);
 
 protected: //! @name Behavior to implement
   //! Override this method to check if user-defined plane
@@ -575,17 +575,17 @@ protected: //! @name Selection geometry
     //! Arrows are represented by directed triangles.
     struct Arrow
     {
-      gp_Pnt Position;
+      Point3d Position;
       gp_Dir Direction;
     };
 
-    typedef NCollection_Sequence<gp_Pnt> Curve;
+    typedef NCollection_Sequence<Point3d> Curve;
     typedef NCollection_Handle<Curve>    HCurve;
     typedef NCollection_Handle<Arrow>    HArrow;
     typedef NCollection_Sequence<HCurve> SeqOfCurves;
     typedef NCollection_Sequence<HArrow> SeqOfArrows;
 
-    gp_Pnt        TextPos;       //!< Center of text label.
+    Point3d        TextPos;       //!< Center of text label.
     gp_Dir        TextDir;       //!< Direction of text label.
     Standard_Real TextWidth;     //!< Width of text label.
     Standard_Real TextHeight;    //!< Height of text label.
@@ -645,7 +645,7 @@ protected:                     //! @name Value properties
   // clang-format on
 
 protected:                                //! @name Fixed text position properties
-  gp_Pnt           myFixedTextPosition;   //!< Stores text position fixed by user.
+  Point3d           myFixedTextPosition;   //!< Stores text position fixed by user.
   Standard_Boolean myIsTextPositionFixed; //!< Is the text label position fixed by user.
 
 protected:                                            //! @name Units properties

@@ -292,8 +292,8 @@ void TopOpeBRep_LineInter::SetIsVClosed()
     const TopOpeBRep_VPointInter& P1 = VPoint(imin);
     const TopOpeBRep_VPointInter& P2 = VPoint(imax);
 
-    const gp_Pnt& pp1 = P1.Value();
-    const gp_Pnt& pp2 = P2.Value();
+    const Point3d& pp1 = P1.Value();
+    const Point3d& pp2 = P2.Value();
 
     const Standard_Real tol1 = P1.Tolerance();
     const Standard_Real tol2 = P2.Tolerance();
@@ -618,7 +618,7 @@ void TopOpeBRep_LineInter::DumpVPoint
    const TCollection_AsciiString& s2) const
 {
   const TopOpeBRep_VPointInter& VP = VPoint(I);
-  const gp_Pnt&                 P  = VP.Value();
+  const Point3d&                 P  = VP.Value();
   std::cout << s1;
   std::cout << "L" << Index() << "P" << VP.Index();
   if (VP.Keep())

@@ -78,9 +78,9 @@ Plate_FreeGtoCConstraint::Plate_FreeGtoCConstraint(const gp_XY&           point2
     d.Normalize();
     gp_Dir  dir = gp_Dir(d);
     gp_Trsf rota;
-    gp_Ax1  Axe(gp_Pnt(0, 0, 0), dir);
+    gp_Ax1  Axe(Point3d(0, 0, 0), dir);
     rota.SetRotation(Axe, angle * (IncrementalLoad - 1.));
-    //      gp_Trsf rota = gce_MakeRotation(gp_Pnt(0,0,0), dir, angle*(IncrementalLoad-1.));
+    //      gp_Trsf rota = gce_MakeRotation(Point3d(0,0,0), dir, angle*(IncrementalLoad-1.));
     rota.Transforms(normale);
   }
 
@@ -154,9 +154,9 @@ Plate_FreeGtoCConstraint::Plate_FreeGtoCConstraint(const gp_XY&           point2
     d.Normalize();
     gp_Dir  dir = gp_Dir(d);
     gp_Trsf rota;
-    gp_Ax1  Axe(gp_Pnt(0, 0, 0), dir);
+    gp_Ax1  Axe(Point3d(0, 0, 0), dir);
     rota.SetRotation(Axe, angle * (IncrementalLoad - 1.));
-    //      gp_Trsf rota = gce_MakeRotation(gp_Pnt(0,0,0), dir, angle*(IncrementalLoad-1.));
+    //      gp_Trsf rota = gce_MakeRotation(Point3d(0,0,0), dir, angle*(IncrementalLoad-1.));
     rota.Transforms(normale);
     rota.Transforms(D1T.Du);
     rota.Transforms(D1T.Dv);
@@ -296,9 +296,9 @@ Plate_FreeGtoCConstraint::Plate_FreeGtoCConstraint(const gp_XY&           point2
     d.Normalize();
     gp_Dir  dir = gp_Dir(d);
     gp_Trsf rota;
-    gp_Ax1  Axe(gp_Pnt(0, 0, 0), dir);
+    gp_Ax1  Axe(Point3d(0, 0, 0), dir);
     rota.SetRotation(Axe, angle * (IncrementalLoad - 1.));
-    //      gp_Trsf rota = gce_MakeRotation(gp_Pnt(0,0,0), dir, angle*(IncrementalLoad-1.));
+    //      gp_Trsf rota = gce_MakeRotation(Point3d(0,0,0), dir, angle*(IncrementalLoad-1.));
     rota.Transforms(normale);
     rota.Transforms(D1T.Du);
     rota.Transforms(D1T.Dv);

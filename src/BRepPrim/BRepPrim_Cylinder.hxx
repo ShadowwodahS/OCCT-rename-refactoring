@@ -23,7 +23,7 @@
 
 #include <BRepPrim_Revolution.hxx>
 class gp_Ax2;
-class gp_Pnt;
+class Point3d;
 class TopoDS_Face;
 
 //! Cylinder primitive.
@@ -48,7 +48,7 @@ public:
   Standard_EXPORT BRepPrim_Cylinder(const Standard_Real Radius);
 
   //! infinite Cylinder at Center on Z negative
-  Standard_EXPORT BRepPrim_Cylinder(const gp_Pnt& Center, const Standard_Real Radius);
+  Standard_EXPORT BRepPrim_Cylinder(const Point3d& Center, const Standard_Real Radius);
 
   //! infinite Cylinder at Axes on Z negative
   Standard_EXPORT BRepPrim_Cylinder(const gp_Ax2& Axes, const Standard_Real Radius);
@@ -61,7 +61,7 @@ public:
   Standard_EXPORT BRepPrim_Cylinder(const Standard_Real R, const Standard_Real H);
 
   //! same as above but at a given point
-  Standard_EXPORT BRepPrim_Cylinder(const gp_Pnt&       Center,
+  Standard_EXPORT BRepPrim_Cylinder(const Point3d&       Center,
                                     const Standard_Real R,
                                     const Standard_Real H);
 

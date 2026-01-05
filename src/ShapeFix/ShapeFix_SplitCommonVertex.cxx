@@ -104,7 +104,7 @@ void ShapeFix_SplitCommonVertex::Perform()
               }
               else
               {
-                gp_Pnt        P   = BRep_Tool::Pnt(V2);
+                Point3d        P   = BRep_Tool::Pnt(V2);
                 Standard_Real tol = BRep_Tool::Tolerance(V2);
                 BRep_Builder  B;
                 B.MakeVertex(Vnew, P, tol);

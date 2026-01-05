@@ -63,7 +63,7 @@ GeomConvert_CompBezierSurfacesToBSplineSurface::GeomConvert_CompBezierSurfacesTo
   Standard_Boolean   Ok;
   gp_Vec             vec;
   Standard_Real      V1, V2, V3, Ratio, L1, L2, Tol, val;
-  gp_Pnt             P1, P2, P3;
+  Point3d             P1, P2, P3;
   Handle(Geom_Curve) FirstCurve, SecondCurve;
 
   myDone = Standard_True;

@@ -30,10 +30,10 @@ static Handle(Graphic3d_ArrayOfTriangles) createRectangleArray(const Graphic3d_V
                                                                Graphic3d_ArrayFlags   theFlags)
 {
   Handle(Graphic3d_ArrayOfTriangles) aRectTris = new Graphic3d_ArrayOfTriangles(4, 6, theFlags);
-  aRectTris->AddVertex(gp_Pnt(theLower.x(), theLower.y(), 0.0), gp_Pnt2d(0.0, 1.0));
-  aRectTris->AddVertex(gp_Pnt(theLower.x(), theUpper.y(), 0.0), gp_Pnt2d(0.0, 0.0));
-  aRectTris->AddVertex(gp_Pnt(theUpper.x(), theUpper.y(), 0.0), gp_Pnt2d(1.0, 0.0));
-  aRectTris->AddVertex(gp_Pnt(theUpper.x(), theLower.y(), 0.0), gp_Pnt2d(1.0, 1.0));
+  aRectTris->AddVertex(Point3d(theLower.x(), theLower.y(), 0.0), gp_Pnt2d(0.0, 1.0));
+  aRectTris->AddVertex(Point3d(theLower.x(), theUpper.y(), 0.0), gp_Pnt2d(0.0, 0.0));
+  aRectTris->AddVertex(Point3d(theUpper.x(), theUpper.y(), 0.0), gp_Pnt2d(1.0, 0.0));
+  aRectTris->AddVertex(Point3d(theUpper.x(), theLower.y(), 0.0), gp_Pnt2d(1.0, 1.0));
   aRectTris->AddEdges(1, 2, 3);
   aRectTris->AddEdges(1, 3, 4);
   return aRectTris;

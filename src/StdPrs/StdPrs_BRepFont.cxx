@@ -616,8 +616,8 @@ Standard_Boolean StdPrs_BRepFont::renderGlyph(const Standard_Utf32Char theChar,
 
       TopoDS_Vertex aFirstV, aLastV;
       TopExp::Vertices(aWireMaker.Wire(), aFirstV, aLastV);
-      gp_Pnt aFirstPoint = BRep_Tool::Pnt(aFirstV);
-      gp_Pnt aLastPoint  = BRep_Tool::Pnt(aLastV);
+      Point3d aFirstPoint = BRep_Tool::Pnt(aFirstV);
+      Point3d aLastPoint  = BRep_Tool::Pnt(aLastV);
       if (!myFTFont->IsSingleStrokeFont() && !aFirstPoint.IsEqual(aLastPoint, myPrecision))
       {
         aWireMaker.Add(BRepLib_MakeEdge(aFirstV, aLastV));

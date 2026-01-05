@@ -21,7 +21,7 @@
 #include <Standard_Type.hxx>
 
 #include <Geom_Curve.hxx>
-class gp_Pnt;
+class Point3d;
 
 class Geom_BoundedCurve;
 DEFINE_STANDARD_HANDLE(Geom_BoundedCurve, Geom_Curve)
@@ -46,10 +46,10 @@ class Geom_BoundedCurve : public Geom_Curve
 
 public:
   //! Returns the end point of the curve.
-  Standard_EXPORT virtual gp_Pnt EndPoint() const = 0;
+  Standard_EXPORT virtual Point3d EndPoint() const = 0;
 
   //! Returns the start point of the curve.
-  Standard_EXPORT virtual gp_Pnt StartPoint() const = 0;
+  Standard_EXPORT virtual Point3d StartPoint() const = 0;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,

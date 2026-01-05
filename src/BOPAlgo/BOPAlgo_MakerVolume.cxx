@@ -262,7 +262,7 @@ void BOPAlgo_MakerVolume::MakeBox(TopTools_MapOfShape& theBoxFaces)
   myBBox.Enlarge(anExt);
   myBBox.Get(aXmin, aYmin, aZmin, aXmax, aYmax, aZmax);
   //
-  gp_Pnt aPMin(aXmin, aYmin, aZmin), aPMax(aXmax, aYmax, aZmax);
+  Point3d aPMin(aXmin, aYmin, aZmin), aPMax(aXmax, aYmax, aZmax);
   //
   mySBox = BRepPrimAPI_MakeBox(aPMin, aPMax).Solid();
   //

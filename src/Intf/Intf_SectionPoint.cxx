@@ -21,7 +21,7 @@
 
 //=================================================================================================
 
-const gp_Pnt& Intf_SectionPoint::Pnt() const
+const Point3d& Intf_SectionPoint::Pnt() const
 {
   return myPnt;
 }
@@ -160,7 +160,7 @@ Intf_SectionPoint::Intf_SectionPoint()
 
 //=================================================================================================
 
-Intf_SectionPoint::Intf_SectionPoint(const gp_Pnt&          Where,
+Intf_SectionPoint::Intf_SectionPoint(const Point3d&          Where,
                                      const Intf_PIType      Dim1,
                                      const Standard_Integer Addr1,
                                      const Standard_Integer Addr2,

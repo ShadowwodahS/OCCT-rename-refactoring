@@ -63,7 +63,7 @@ void Draft_EdgeInfo::RootFace(const TopoDS_Face& F)
 
 //=================================================================================================
 
-void Draft_EdgeInfo::Tangent(const gp_Pnt& P)
+void Draft_EdgeInfo::Tangent(const Point3d& P)
 {
   myTgt = Standard_True;
   myPt  = P;
@@ -71,7 +71,7 @@ void Draft_EdgeInfo::Tangent(const gp_Pnt& P)
 
 //=================================================================================================
 
-Standard_Boolean Draft_EdgeInfo::IsTangent(gp_Pnt& P) const
+Standard_Boolean Draft_EdgeInfo::IsTangent(Point3d& P) const
 {
   P = myPt;
   return myTgt;

@@ -214,8 +214,8 @@ void AIS_Line::ComputeInfiniteLine(const Handle(Prs3d_Presentation)& aPresentati
 
 void AIS_Line::ComputeSegmentLine(const Handle(Prs3d_Presentation)& aPresentation)
 {
-  gp_Pnt P1 = myStartPoint->Pnt();
-  gp_Pnt P2 = myEndPoint->Pnt();
+  Point3d P1 = myStartPoint->Pnt();
+  Point3d P2 = myEndPoint->Pnt();
 
   myComponent = new Geom_Line(P1, gp_Dir(P2.XYZ() - P1.XYZ()));
 
@@ -231,17 +231,17 @@ void AIS_Line::ComputeInfiniteLineSelection(const Handle(SelectMgr_Selection)& a
 
   /*  // on calcule les points min max a partir desquels on cree un segment sensible...
     GeomAdaptor_Curve curv(myComponent);
-    gp_Pnt P1,P2;
+    Point3d P1,P2;
     FindLimits(curv,myDrawer->MaximalParameterValue(),P1,P2);
   */
   const gp_Dir& thedir  = myComponent->Position().Direction();
-  const gp_Pnt& loc     = myComponent->Position().Location();
+  const Point3d& loc     = myComponent->Position().Location();
   const gp_XYZ& dir_xyz = thedir.XYZ();
   const gp_XYZ& loc_xyz = loc.XYZ();
   // POP  Standard_Real aLength = UnitsAPI::CurrentToLS (250000. ,"LENGTH");
   Standard_Real                     aLength = UnitsAPI::AnyToLS(250000., "mm");
-  gp_Pnt                            P1      = loc_xyz + aLength * dir_xyz;
-  gp_Pnt                            P2      = loc_xyz - aLength * dir_xyz;
+  Point3d                            P1      = loc_xyz + aLength * dir_xyz;
+  Point3d                            P2      = loc_xyz - aLength * dir_xyz;
   Handle(SelectMgr_EntityOwner)     eown    = new SelectMgr_EntityOwner(this, 5);
   Handle(Select3D_SensitiveSegment) seg     = new Select3D_SensitiveSegment(eown, P1, P2);
   aSelection->Add(seg);

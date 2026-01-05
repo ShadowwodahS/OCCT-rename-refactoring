@@ -23,7 +23,7 @@ IMPLEMENT_STANDARD_RTTIEXT(GeomEvaluator_SurfaceOfRevolution, GeomEvaluator_Surf
 GeomEvaluator_SurfaceOfRevolution::GeomEvaluator_SurfaceOfRevolution(
   const Handle(Geom_Curve)& theBase,
   const gp_Dir&             theRevolDir,
-  const gp_Pnt&             theRevolLoc)
+  const Point3d&             theRevolLoc)
     : GeomEvaluator_Surface(),
       myBaseCurve(theBase),
       myRotAxis(theRevolLoc, theRevolDir)
@@ -33,7 +33,7 @@ GeomEvaluator_SurfaceOfRevolution::GeomEvaluator_SurfaceOfRevolution(
 GeomEvaluator_SurfaceOfRevolution::GeomEvaluator_SurfaceOfRevolution(
   const Handle(Adaptor3d_Curve)& theBase,
   const gp_Dir&                  theRevolDir,
-  const gp_Pnt&                  theRevolLoc)
+  const Point3d&                  theRevolLoc)
     : GeomEvaluator_Surface(),
       myBaseAdaptor(theBase),
       myRotAxis(theRevolLoc, theRevolDir)
@@ -42,7 +42,7 @@ GeomEvaluator_SurfaceOfRevolution::GeomEvaluator_SurfaceOfRevolution(
 
 void GeomEvaluator_SurfaceOfRevolution::D0(const Standard_Real theU,
                                            const Standard_Real theV,
-                                           gp_Pnt&             theValue) const
+                                           Point3d&             theValue) const
 {
   if (!myBaseAdaptor.IsNull())
     myBaseAdaptor->D0(theV, theValue);
@@ -56,7 +56,7 @@ void GeomEvaluator_SurfaceOfRevolution::D0(const Standard_Real theU,
 
 void GeomEvaluator_SurfaceOfRevolution::D1(const Standard_Real theU,
                                            const Standard_Real theV,
-                                           gp_Pnt&             theValue,
+                                           Point3d&             theValue,
                                            gp_Vec&             theD1U,
                                            gp_Vec&             theD1V) const
 {
@@ -82,7 +82,7 @@ void GeomEvaluator_SurfaceOfRevolution::D1(const Standard_Real theU,
 
 void GeomEvaluator_SurfaceOfRevolution::D2(const Standard_Real theU,
                                            const Standard_Real theV,
-                                           gp_Pnt&             theValue,
+                                           Point3d&             theValue,
                                            gp_Vec&             theD1U,
                                            gp_Vec&             theD1V,
                                            gp_Vec&             theD2U,
@@ -117,7 +117,7 @@ void GeomEvaluator_SurfaceOfRevolution::D2(const Standard_Real theU,
 
 void GeomEvaluator_SurfaceOfRevolution::D3(const Standard_Real theU,
                                            const Standard_Real theV,
-                                           gp_Pnt&             theValue,
+                                           Point3d&             theValue,
                                            gp_Vec&             theD1U,
                                            gp_Vec&             theD1V,
                                            gp_Vec&             theD2U,
@@ -174,7 +174,7 @@ gp_Vec GeomEvaluator_SurfaceOfRevolution::DN(const Standard_Real    theU,
   gp_Trsf aRotation;
   aRotation.SetRotation(myRotAxis, theU);
 
-  gp_Pnt aP;
+  Point3d aP;
   gp_Vec aDV;
   gp_Vec aResult;
   if (theDerU == 0)

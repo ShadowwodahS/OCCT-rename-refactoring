@@ -24,7 +24,7 @@
 #include <Prs3d_Presentation.hxx>
 
 class TCollection_ExtendedString;
-class gp_Pnt;
+class Point3d;
 
 //! A framework to define display of symbols.
 class DsgPrs_SymbPresentation
@@ -39,7 +39,7 @@ public:
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Handle(Prs3d_Drawer)&       aDrawer,
                                   const TCollection_ExtendedString& aText,
-                                  const gp_Pnt&                     OffsetPoint);
+                                  const Point3d&                     OffsetPoint);
 
 protected:
 private:

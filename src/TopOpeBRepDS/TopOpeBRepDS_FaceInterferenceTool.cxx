@@ -41,7 +41,7 @@ static void FUN_RaiseError()
 }
 
 //------------------------------------------------------
-Standard_EXPORT Standard_Boolean FUN_Parameters(const gp_Pnt&       Pnt,
+Standard_EXPORT Standard_Boolean FUN_Parameters(const Point3d&       Pnt,
                                                 const TopoDS_Shape& F,
                                                 Standard_Real&      u,
                                                 Standard_Real&      v)
@@ -118,8 +118,8 @@ Standard_EXPORT void FUN_ComputeGeomData(const TopoDS_Shape& F,
       Norm = FUN_tool_nggeomF(uv, TopoDS::Face(F));
     else if (sphere)
     {
-      gp_Pnt center = surf.Sphere().Location();
-      gp_Pnt value  = surf.Value(uu, vv);
+      Point3d center = surf.Sphere().Location();
+      Point3d value  = surf.Value(uu, vv);
       Norm = gp_Dir(gp_Vec(center, value)); // recall : input data for TopTrans_SurfaceTransition
                                             //          describes "direct" geometry
     }
@@ -391,7 +391,7 @@ void TopOpeBRepDS_FaceInterferenceTool::Transition(const Handle(TopOpeBRepDS_Int
 
 //=================================================================================================
 
-void TopOpeBRepDS_FaceInterferenceTool::SetEdgePntPar(const gp_Pnt& P, const Standard_Real p)
+void TopOpeBRepDS_FaceInterferenceTool::SetEdgePntPar(const Point3d& P, const Standard_Real p)
 {
   myPntOnEd = P;
   myParOnEd = p;
@@ -400,7 +400,7 @@ void TopOpeBRepDS_FaceInterferenceTool::SetEdgePntPar(const gp_Pnt& P, const Sta
 
 //=================================================================================================
 
-void TopOpeBRepDS_FaceInterferenceTool::GetEdgePntPar(gp_Pnt& P, Standard_Real& p) const
+void TopOpeBRepDS_FaceInterferenceTool::GetEdgePntPar(Point3d& P, Standard_Real& p) const
 {
   if (!myOnEdDef)
     throw Standard_ProgramError("GetEdgePntPar");

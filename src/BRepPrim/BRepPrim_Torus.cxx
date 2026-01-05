@@ -50,7 +50,7 @@ BRepPrim_Torus::BRepPrim_Torus(const Standard_Real Major, const Standard_Real Mi
 
 //=================================================================================================
 
-BRepPrim_Torus::BRepPrim_Torus(const gp_Pnt&       Center,
+BRepPrim_Torus::BRepPrim_Torus(const Point3d&       Center,
                                const Standard_Real Major,
                                const Standard_Real Minor)
     : BRepPrim_Revolution(gp_Ax2(Center, gp_Dir(0, 0, 1), gp_Dir(1, 0, 0)), 0, 2 * M_PI),

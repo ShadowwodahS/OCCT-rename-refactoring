@@ -39,7 +39,7 @@ class TopOpeBRep_VPointInterClassifier;
 class TopOpeBRep_VPointInterIterator;
 class TopOpeBRepDS_Interference;
 class TopOpeBRepDS_Point;
-class gp_Pnt;
+class Point3d;
 
 //! Fills a DataStructure from TopOpeBRepDS with the result
 //! of Face/Face intersection described by FacesIntersector from TopOpeBRep.
@@ -272,7 +272,7 @@ private:
   //! <VP> is of geometry <P>.
   //! Looks after a   VPoint on RESTRICTION <Lrest>  with
   //! geometric value  <P>. If true, updates states ON for <VP>.
-  Standard_EXPORT Standard_Boolean PequalVPonR(const gp_Pnt&           P3D,
+  Standard_EXPORT Standard_Boolean PequalVPonR(const Point3d&           P3D,
                                                const Standard_Integer  VPshapeindex,
                                                TopOpeBRep_VPointInter& VP,
                                                TopOpeBRep_LineInter&   Lrest) const;

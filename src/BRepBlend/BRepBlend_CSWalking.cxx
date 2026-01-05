@@ -280,7 +280,7 @@ Blend_Status BRepBlend_CSWalking::TestArret(Blend_CSFunction&      Function,
 //
 
 {
-  gp_Pnt            pt1, pt2;
+  Point3d            pt1, pt2;
   gp_Vec            V1, V2;
   gp_Vec            Tgp1, Nor1;
   gp_Vec2d          V12d;
@@ -412,7 +412,7 @@ Blend_Status BRepBlend_CSWalking::TestArret(Blend_CSFunction&      Function,
   }
 }
 
-Blend_Status BRepBlend_CSWalking::CheckDeflectionOnSurf(const gp_Pnt&   Psurf,
+Blend_Status BRepBlend_CSWalking::CheckDeflectionOnSurf(const Point3d&   Psurf,
                                                         const gp_Pnt2d& Ponsurf,
                                                         const gp_Vec&   Tgsurf,
                                                         const gp_Vec2d& Tgonsurf)
@@ -427,8 +427,8 @@ Blend_Status BRepBlend_CSWalking::CheckDeflectionOnSurf(const gp_Pnt&   Psurf,
   Standard_Real Du, Dv, Duv;
   Standard_Real paramu, paramv, tolu, tolv;
   //  TColgp_Array1OfPnt Poles(1,4);
-  //  gp_Pnt POnCurv,Milieu;
-  gp_Pnt   prevP;
+  //  Point3d POnCurv,Milieu;
+  Point3d   prevP;
   gp_Vec   prevTg;
   gp_Vec2d previousd2d;
 
@@ -522,7 +522,7 @@ if (FlecheCourante <= 0.5*fleche) {
   return Blend_OK;
 }
 
-Blend_Status BRepBlend_CSWalking::CheckDeflectionOnCurv(const gp_Pnt&       Pcurv,
+Blend_Status BRepBlend_CSWalking::CheckDeflectionOnCurv(const Point3d&       Pcurv,
                                                         const Standard_Real Param,
                                                         const gp_Vec&       Tgcurv)
 {
@@ -533,8 +533,8 @@ Blend_Status BRepBlend_CSWalking::CheckDeflectionOnCurv(const gp_Pnt&       Pcur
   Standard_Real FlecheCourante;
   Standard_Real Du, paramu, tolu;
   //  TColgp_Array1OfPnt Poles(1,4);
-  //  gp_Pnt POnCurv,Milieu;
-  gp_Pnt prevP;
+  //  Point3d POnCurv,Milieu;
+  Point3d prevP;
   gp_Vec prevTg;
 
   prevP  = previousP.PointOnC();
@@ -782,7 +782,7 @@ void BRepBlend_CSWalking::Transition(const Handle(Adaptor2d_Curve2d)& A,
   gp_Pnt2d p2d;
   gp_Vec2d dp2d;
 
-  gp_Pnt pbid;
+  Point3d pbid;
   gp_Vec d1u, d1v, normale, tgrst;
 
   BRepBlend_HCurve2dTool::D1(A, Param, p2d, dp2d);

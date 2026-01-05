@@ -33,8 +33,8 @@
 
 void DsgPrs_FixPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                  const Handle(Prs3d_Drawer)&       aDrawer,
-                                 const gp_Pnt&                     aPntAttach,
-                                 const gp_Pnt&                     aPntEnd,
+                                 const Point3d&                     aPntAttach,
+                                 const Point3d&                     aPntEnd,
                                  const gp_Dir&                     aNormPln,
                                  const Standard_Real               symbsize)
 {
@@ -54,8 +54,8 @@ void DsgPrs_FixPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation
   gp_Ax1 ax(aPntEnd, aNormPln);
   norac.Rotate(ax, M_PI / 8); // vecteur normal au seg. de raccord
   norac *= (symbsize / 2);
-  gp_Pnt P1 = aPntEnd.Translated(norac);
-  gp_Pnt P2 = aPntEnd.Translated(-norac);
+  Point3d P1 = aPntEnd.Translated(norac);
+  Point3d P2 = aPntEnd.Translated(-norac);
 
   aPrims->AddVertex(P1);
   aPrims->AddVertex(P2);
@@ -65,8 +65,8 @@ void DsgPrs_FixPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation
   P1 = aPntEnd.Translated(norac);
   P2 = aPntEnd.Translated(-norac);
   dirac *= (symbsize / 2);
-  gp_Pnt PF = P1;
-  gp_Pnt PL = PF.Translated(dirac);
+  Point3d PF = P1;
+  Point3d PL = PF.Translated(dirac);
   PL.Translate(norac);
 
   aPrims->AddVertex(PF);

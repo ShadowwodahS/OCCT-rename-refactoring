@@ -214,8 +214,8 @@ Standard_Boolean ShapeFix::SameParameter(const TopoDS_Shape&                    
         for (Standard_Integer i = 0; i < NCONTROL; i++)
         {
           Standard_Real par  = (f * (NCONTROL - 1 - i) + l * i) / (NCONTROL - 1);
-          gp_Pnt        pnt  = crv->Value(par);
-          gp_Pnt        prj  = ACS.Value(par);
+          Point3d        pnt  = crv->Value(par);
+          Point3d        prj  = ACS.Value(par);
           Standard_Real dist = pnt.SquareDistance(prj);
           if (tol2 < dist)
           {
@@ -293,7 +293,7 @@ TopoDS_Shape ShapeFix::RemoveSmallEdges(TopoDS_Shape&               Shape,
 // purpose  : auxiliary for FixVertexPosition
 //=======================================================================
 static TopoDS_Edge ReplaceVertex(const TopoDS_Edge&     theEdge,
-                                 const gp_Pnt&          theP,
+                                 const Point3d&          theP,
                                  const Standard_Boolean theFwd)
 {
   TopoDS_Vertex aNewVertex;
@@ -332,11 +332,11 @@ static Standard_Real getNearPoint(const TColgp_SequenceOfPnt& aSeq1,
   Standard_Real    mindist = RealLast();
   for (; i <= aSeq1.Length(); i++)
   {
-    gp_Pnt           p1 = aSeq1.Value(i);
+    Point3d           p1 = aSeq1.Value(i);
     Standard_Integer j  = 1;
     for (; j <= aSeq2.Length(); j++)
     {
-      gp_Pnt        p2 = aSeq2.Value(j);
+      Point3d        p2 = aSeq2.Value(j);
       Standard_Real d  = p1.Distance(p2);
       if (fabs(d - mindist) <= Precision::Confusion())
         continue;
@@ -379,8 +379,8 @@ static Standard_Boolean getNearestEdges(TopTools_ListOfShape&     theLEdges,
   aMapEdges.Add(aEdge1);
   Standard_Real      aFirst1, aLast1;
   Handle(Geom_Curve) aCurve1 = BRep_Tool::Curve(aEdge1, aFirst1, aLast1);
-  gp_Pnt             p11;
-  gp_Pnt             p12;
+  Point3d             p11;
+  Point3d             p12;
   Standard_Boolean   isFirst1 = theVert.IsSame(aVert11);
   Standard_Boolean   isSame1  = aVert11.IsSame(aVert12);
   if (!aCurve1.IsNull())
@@ -427,8 +427,8 @@ static Standard_Boolean getNearestEdges(TopTools_ListOfShape&     theLEdges,
     Handle(Geom_Curve) aCurve = BRep_Tool::Curve(aEdge, aFirst, aLast);
     if (!aCurve.IsNull())
     {
-      gp_Pnt p1;
-      gp_Pnt p2;
+      Point3d p1;
+      Point3d p2;
       if (isFirst)
         p1 = aCurve->Value(aFirst);
       else
@@ -549,7 +549,7 @@ Standard_Boolean ShapeFix::FixVertexPosition(TopoDS_Shape&                     t
 
     BRep_Builder aB1;
     aB1.UpdateVertex(aVert, theTolerance);
-    gp_Pnt aPvert = BRep_Tool::Pnt(aVert);
+    Point3d aPvert = BRep_Tool::Pnt(aVert);
     gp_XYZ acenter(aPvert.XYZ()), acenterreject(aPvert.XYZ());
 
     TopTools_SequenceOfShape aSuitEdges;
@@ -593,8 +593,8 @@ Standard_Boolean ShapeFix::FixVertexPosition(TopoDS_Shape&                     t
       aCurve = BRep_Tool::Curve(aEdge, aFirst, aLast);
       if (!aCurve.IsNull())
       {
-        gp_Pnt p1 = aCurve->Value(aFirst);
-        gp_Pnt p2 = aCurve->Value(aLast);
+        Point3d p1 = aCurve->Value(aFirst);
+        Point3d p2 = aCurve->Value(aLast);
 
         // if distance between ends of curve more than specified tolerance
         // but vertices are the same that one of the vertex will be replaced.
@@ -679,8 +679,8 @@ Standard_Boolean ShapeFix::FixVertexPosition(TopoDS_Shape&                     t
       aCurve = BRep_Tool::Curve(aEdge, aFirst, aLast);
       if (!aCurve.IsNull())
       {
-        gp_Pnt      p1 = aCurve->Value(aFirst);
-        gp_Pnt      p2 = aCurve->Value(aLast);
+        Point3d      p1 = aCurve->Value(aFirst);
+        Point3d      p2 = aCurve->Value(aLast);
         TopoDS_Edge enew;
         if (isFirst)
         {

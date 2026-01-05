@@ -296,7 +296,7 @@ static void BuildDomains(TopoDS_Face&               myFace,
       TopExp_Explorer exp(W, TopAbs_VERTEX);
       TopoDS_Vertex   V = TopoDS::Vertex(exp.Current());
       gp_Pnt2d        PV;
-      gp_Pnt          P3d = BRep_Tool::Pnt(V);
+      Point3d          P3d = BRep_Tool::Pnt(V);
       Extrema_ExtPS   ExtPS(P3d, S, Tol, Tol);
       Standard_Real   Dist2Min = Precision::Infinite();
       Standard_Real   Found    = Standard_False;

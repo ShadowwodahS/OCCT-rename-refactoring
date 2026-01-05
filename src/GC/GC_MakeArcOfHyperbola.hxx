@@ -25,7 +25,7 @@
 #include <Geom_TrimmedCurve.hxx>
 
 class gp_Hypr;
-class gp_Pnt;
+class Point3d;
 
 //! Implements construction algorithms for an arc
 //! of hyperbola in 3D space. The result is a Geom_TrimmedCurve curve.
@@ -51,7 +51,7 @@ public:
   //! a Hyperbola between point <P> and the parameter
   //! Alpha (given in radians).
   Standard_EXPORT GC_MakeArcOfHyperbola(const gp_Hypr&         Hypr,
-                                        const gp_Pnt&          P,
+                                        const Point3d&          P,
                                         const Standard_Real    Alpha,
                                         const Standard_Boolean Sense);
 
@@ -61,8 +61,8 @@ public:
   //! -   the sense of Hypr if Sense is true, or
   //! -   the opposite sense if Sense is false.
   Standard_EXPORT GC_MakeArcOfHyperbola(const gp_Hypr&         Hypr,
-                                        const gp_Pnt&          P1,
-                                        const gp_Pnt&          P2,
+                                        const Point3d&          P1,
+                                        const Point3d&          P2,
                                         const Standard_Boolean Sense);
 
   //! Returns the constructed arc of hyperbola.

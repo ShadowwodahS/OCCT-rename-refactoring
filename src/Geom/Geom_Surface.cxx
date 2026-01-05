@@ -82,9 +82,9 @@ Standard_Real Geom_Surface::VPeriod() const
 
 //=================================================================================================
 
-gp_Pnt Geom_Surface::Value(const Standard_Real U, const Standard_Real V) const
+Point3d Geom_Surface::Value(const Standard_Real U, const Standard_Real V) const
 {
-  gp_Pnt P;
+  Point3d P;
   D0(U, V, P);
   return P;
 }

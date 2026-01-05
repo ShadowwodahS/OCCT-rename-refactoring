@@ -185,7 +185,7 @@ static void DEBVerticesControl(const TopTools_IndexedMapOfShape& NewEdges,
   for (; it1.More(); it1.Next())
   {
     TopoDS_Shape                       V1      = it1.Value();
-    gp_Pnt                             P1      = BRep_Tool::Pnt(TopoDS::Vertex(V1));
+    Point3d                             P1      = BRep_Tool::Pnt(TopoDS::Vertex(V1));
     Standard_Real                      distmin = Precision::Infinite();
     TopTools_ListIteratorOfListOfShape it2(LVP);
     Standard_Integer                   j = 1;
@@ -195,7 +195,7 @@ static void DEBVerticesControl(const TopTools_IndexedMapOfShape& NewEdges,
       if (j > i)
       {
         TopoDS_Shape V2 = it2.Value();
-        gp_Pnt       P2 = BRep_Tool::Pnt(TopoDS::Vertex(V2));
+        Point3d       P2 = BRep_Tool::Pnt(TopoDS::Vertex(V2));
         if (!V1.IsSame(V2))
         {
           Standard_Real dist = P1.Distance(P2);
@@ -328,7 +328,7 @@ static void AppendToList(TopTools_ListOfShape& theL, const TopoDS_Shape& theS);
 static BRepOffset_Error checkSinglePoint(const Standard_Real               theUParam,
                                          const Standard_Real               theVParam,
                                          const Handle(Geom_Surface)&       theSurf,
-                                         const NCollection_Vector<gp_Pnt>& theBadPoints);
+                                         const NCollection_Vector<Point3d>& theBadPoints);
 
 //---------------------------------------------------------------------
 static void UpdateTolerance(TopoDS_Shape&                     theShape,
@@ -459,8 +459,8 @@ static Standard_Boolean FindParameter(const TopoDS_Vertex& V,
               U = pr->Parameter();
               return Standard_True;
             }
-            gp_Pnt        Pf  = C->Value(f).Transformed(L.Transformation());
-            gp_Pnt        Pl  = C->Value(l).Transformed(L.Transformation());
+            Point3d        Pf  = C->Value(f).Transformed(L.Transformation());
+            Point3d        Pl  = C->Value(l).Transformed(L.Transformation());
             Standard_Real tol = BRep_Tool::Tolerance(V);
             if (Pf.Distance(Pl) < tol)
             {
@@ -527,9 +527,9 @@ static Standard_Boolean FindParameter(const TopoDS_Vertex& V,
 //=======================================================================
 static void GetEdgePoints(const TopoDS_Edge& anEdge,
                           const TopoDS_Face& aFace,
-                          gp_Pnt&            fPnt,
-                          gp_Pnt&            mPnt,
-                          gp_Pnt&            lPnt)
+                          Point3d&            fPnt,
+                          Point3d&            mPnt,
+                          Point3d&            lPnt)
 {
   Standard_Real        f, l;
   Handle(Geom2d_Curve) theCurve = BRep_Tool::CurveOnSurface(anEdge, aFace, f, l);
@@ -2411,7 +2411,7 @@ void BRepOffset_MakeOffset::CorrectConicalFaces()
         {
           // Check if anEdge is a really degenerated edge or not
           BRepAdaptor_Curve BACurve(anEdge, aFace);
-          gp_Pnt            Pfirst, Plast, Pmid;
+          Point3d            Pfirst, Plast, Pmid;
           Pfirst = BACurve.Value(BACurve.FirstParameter());
           Plast  = BACurve.Value(BACurve.LastParameter());
           Pmid   = BACurve.Value((BACurve.FirstParameter() + BACurve.LastParameter()) / 2.);
@@ -2456,7 +2456,7 @@ void BRepOffset_MakeOffset::CorrectConicalFaces()
     const TopTools_ListOfShape&        Faces  = Cone.Value(); // FacesOfCone(anApex);
     TopTools_ListIteratorOfListOfShape itFaces(Faces);
     Standard_Boolean                   isFirstFace = Standard_True;
-    gp_Pnt                             FirstPoint;
+    Point3d                             FirstPoint;
     TopoDS_Vertex                      theFirstVertex, CurFirstVertex;
     for (; itFaces.More(); itFaces.Next())
     {
@@ -2478,7 +2478,7 @@ void BRepOffset_MakeOffset::CorrectConicalFaces()
       BB.Degenerated(CurEdge, Standard_False);
       BB.SameRange(CurEdge, Standard_False);
       BB.SameParameter(CurEdge, Standard_False);
-      gp_Pnt fPnt, lPnt, mPnt;
+      Point3d fPnt, lPnt, mPnt;
       GetEdgePoints(CurEdge, aFace, fPnt, mPnt, lPnt);
       Standard_Real f, l;
       BRep_Tool::Range(CurEdge, f, l);
@@ -2487,7 +2487,7 @@ void BRepOffset_MakeOffset::CorrectConicalFaces()
         gp_Vec aVec1(fPnt, mPnt);
         gp_Vec aVec2(fPnt, lPnt);
         gp_Vec aNorm   = aVec1.Crossed(aVec2);
-        gp_Pnt theApex = BRep_Tool::Pnt(anApex);
+        Point3d theApex = BRep_Tool::Pnt(anApex);
         gp_Vec ApexToFpnt(theApex, fPnt);
         gp_Vec Ydir = aNorm ^ ApexToFpnt;
         gp_Vec Xdir = Ydir ^ aNorm;
@@ -3142,8 +3142,8 @@ void BRepOffset_MakeOffset::MakeMissingWalls(const Message_ProgressRange& theRan
         OE.Orientation(TopAbs_FORWARD);
         Handle(Geom_Curve) anOEC = BRep_Tool::Curve(OE, anOEF, anOEL);
         BRep_Builder       aBB;
-        gp_Pnt             aP1 = anOEC->Value(aF);
-        gp_Pnt             aP2 = anOEC->Value(aL);
+        Point3d             aP1 = anOEC->Value(aF);
+        Point3d             aP2 = anOEC->Value(aL);
         TopoDS_Vertex      anOEV1, anOEV2;
         Standard_Real      aTol = Max(BRep_Tool::Tolerance(V1), BRep_Tool::Tolerance(V2));
         aBB.MakeVertex(anOEV1, aP1, aTol);
@@ -3158,8 +3158,8 @@ void BRepOffset_MakeOffset::MakeMissingWalls(const Message_ProgressRange& theRan
       }
       if (!aC.IsNull() && (!aC->IsClosed() && !aC->IsPeriodic()))
       {
-        gp_Pnt        aPntF  = BRep_Tool::Pnt(V1);
-        gp_Pnt        aPntL  = BRep_Tool::Pnt(V2);
+        Point3d        aPntF  = BRep_Tool::Pnt(V1);
+        Point3d        aPntL  = BRep_Tool::Pnt(V2);
         Standard_Real aDistE = aPntF.SquareDistance(aPntL);
         if (aDistE < Precision::SquareConfusion())
         {
@@ -3171,8 +3171,8 @@ void BRepOffset_MakeOffset::MakeMissingWalls(const Message_ProgressRange& theRan
         if (aDistE < anEdgeTol)
         {
           // Potential problems not detected via checkshape.
-          gp_Pnt aPntOF = BRep_Tool::Pnt(V4);
-          gp_Pnt aPntOL = BRep_Tool::Pnt(V3);
+          Point3d aPntOF = BRep_Tool::Pnt(V4);
+          Point3d aPntOL = BRep_Tool::Pnt(V3);
           if (aPntOF.SquareDistance(aPntOL) > gp::Resolution())
           {
             // To avoid computation of complex analytical continuation of Sin / ArcSin.
@@ -3255,8 +3255,8 @@ void BRepOffset_MakeOffset::MakeMissingWalls(const Message_ProgressRange& theRan
       BRepAdaptor_Curve    BAcurveOE(OE);
       Standard_Real        fpar      = BAcurve.FirstParameter();
       Standard_Real        lpar      = BAcurve.LastParameter();
-      gp_Pnt               PonE      = BAcurve.Value(fpar);
-      gp_Pnt               PonOE     = BAcurveOE.Value(fpar);
+      Point3d               PonE      = BAcurve.Value(fpar);
+      Point3d               PonOE     = BAcurveOE.Value(fpar);
       gp_Dir               OffsetDir = gce_MakeDir(PonE, PonOE);
       Handle(Geom2d_Line)  EdgeLine2d, OELine2d, aLine2d, aLine2d2;
       Standard_Boolean     IsPlanar = Standard_False;
@@ -3275,7 +3275,7 @@ void BRepOffset_MakeOffset::MakeMissingWalls(const Message_ProgressRange& theRan
           { // case of plane
             IsPlanar = Standard_True;
             //
-            gp_Pnt PonEL = BAcurve.Value(lpar);
+            Point3d PonEL = BAcurve.Value(lpar);
             if (PonEL.Distance(PonE) <= Precision::PConfusion())
             {
               Standard_Boolean   bIsHole;
@@ -4067,7 +4067,7 @@ Standard_Real ComputeMaxDist(const gp_Pln&             thePlane,
   Standard_Real    aMaxDist = 0.;
   Standard_Integer i, NCONTROL = 23;
   Standard_Real    aPrm, aDist2;
-  gp_Pnt           aP;
+  Point3d           aP;
   for (i = 0; i < NCONTROL; i++)
   {
     aPrm = ((NCONTROL - 1 - i) * theFirst + i * theLast) / (NCONTROL - 1);
@@ -4243,7 +4243,7 @@ void CorrectSolid(TopoDS_Solid& theSol, TopTools_ListOfShape& theSolList)
     {
       TopExp_Explorer      aVExp(aSh, TopAbs_VERTEX);
       const TopoDS_Vertex& aV = TopoDS::Vertex(aVExp.Current());
-      gp_Pnt               aP = BRep_Tool::Pnt(aV);
+      Point3d               aP = BRep_Tool::Pnt(aV);
       aSolClass.Perform(aP, BRep_Tool::Tolerance(aV));
       if (aSolClass.State() == TopAbs_IN)
       {
@@ -4345,7 +4345,7 @@ Standard_Boolean BRepOffset_MakeOffset::CheckInputData(const Message_ProgressRan
     }
 
     // Get degenerated points, to avoid check them.
-    NCollection_Vector<gp_Pnt> aBad3dPnts;
+    NCollection_Vector<Point3d> aBad3dPnts;
     TopExp_Explorer            anExpFE(aF, TopAbs_EDGE);
     for (; anExpFE.More(); anExpFE.Next())
     {
@@ -4470,9 +4470,9 @@ void BRepOffset_MakeOffset::RemoveInternalEdges()
 BRepOffset_Error checkSinglePoint(const Standard_Real               theUParam,
                                   const Standard_Real               theVParam,
                                   const Handle(Geom_Surface)&       theSurf,
-                                  const NCollection_Vector<gp_Pnt>& theBadPoints)
+                                  const NCollection_Vector<Point3d>& theBadPoints)
 {
-  gp_Pnt aPnt;
+  Point3d aPnt;
   gp_Vec aD1U, aD1V;
   theSurf->D1(theUParam, theVParam, aPnt, aD1U, aD1V);
 
@@ -4833,7 +4833,7 @@ Standard_Boolean TrimEdge(TopoDS_Edge&                  NE,
       {
         Standard_Real               f, l;
         Handle(Geom_Curve)          theCurve = BRep_Tool::Curve(NE, f, l);
-        gp_Pnt                      thePoint = BRep_Tool::Pnt(V);
+        Point3d                      thePoint = BRep_Tool::Pnt(V);
         GeomAPI_ProjectPointOnCurve Projector(thePoint, theCurve);
         if (Projector.NbPoints() == 0)
         {
@@ -5348,7 +5348,7 @@ Standard_Boolean BRepOffset_MakeOffset::IsPlanar()
         {
           vm = 0.;
         }
-        gp_Pnt aP;
+        Point3d aP;
         gp_Vec aD1, aD2;
         aBAS.D1(um, vm, aP, aD1, aD2);
         gp_Vec aNorm    = aD1.Crossed(aD2);

@@ -33,18 +33,18 @@ class Draw_Marker3D : public Draw_Drawable3D
 {
 
 public:
-  Standard_EXPORT Draw_Marker3D(const gp_Pnt&          P,
+  Standard_EXPORT Draw_Marker3D(const Point3d&          P,
                                 const Draw_MarkerShape T,
                                 const Draw_Color&      C,
                                 const Standard_Integer ISize = 5);
 
-  Standard_EXPORT Draw_Marker3D(const gp_Pnt&          P,
+  Standard_EXPORT Draw_Marker3D(const Point3d&          P,
                                 const Draw_MarkerShape T,
                                 const Draw_Color&      C,
                                 const Standard_Real    RSize);
 
   //! myPos field
-  Standard_EXPORT gp_Pnt& ChangePos();
+  Standard_EXPORT Point3d& ChangePos();
 
   Standard_EXPORT void DrawOn(Draw_Display& dis) const Standard_OVERRIDE;
 
@@ -58,7 +58,7 @@ public:
 
 protected:
 private:
-  gp_Pnt           myPos;
+  Point3d           myPos;
   Draw_Color       myCol;
   Draw_MarkerShape myTyp;
   Standard_Integer mySiz;

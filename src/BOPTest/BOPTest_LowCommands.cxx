@@ -178,7 +178,7 @@ Standard_Integer bclassify(Draw_Interpretor& theDI,
     return 1;
   }
 
-  gp_Pnt aP(8., 9., 10.);
+  Point3d aP(8., 9., 10.);
   DrawTrSurf::GetPoint(theArgVec[2], aP);
   const Standard_Real aTol = (theArgNb == 4) ? Draw::Atof(theArgVec[3]) : 1.e-7;
 

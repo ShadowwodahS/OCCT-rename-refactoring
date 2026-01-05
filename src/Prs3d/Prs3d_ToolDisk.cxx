@@ -36,11 +36,11 @@ Prs3d_ToolDisk::Prs3d_ToolDisk(const Standard_Real    theInnerRadius,
 
 //=================================================================================================
 
-gp_Pnt Prs3d_ToolDisk::Vertex(const Standard_Real theU, const Standard_Real theV) const
+Point3d Prs3d_ToolDisk::Vertex(const Standard_Real theU, const Standard_Real theV) const
 {
   const Standard_Real aU      = myStartAngle + theU * (myEndAngle - myStartAngle);
   const Standard_Real aRadius = myInnerRadius + (myOuterRadius - myInnerRadius) * theV;
-  return gp_Pnt(Cos(aU) * aRadius, Sin(aU) * aRadius, 0.0);
+  return Point3d(Cos(aU) * aRadius, Sin(aU) * aRadius, 0.0);
 }
 
 //=================================================================================================

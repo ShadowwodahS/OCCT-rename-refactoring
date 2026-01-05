@@ -354,7 +354,7 @@ void BRepTools_ShapeSet::DumpGeometry(const TopoDS_Shape& S, Standard_OStream& O
     // Dump the point geometry
     TopoDS_Vertex V = TopoDS::Vertex(S);
     OS << "    Tolerance : " << BRep_Tool::Tolerance(V) << "\n";
-    gp_Pnt p = BRep_Tool::Pnt(V);
+    Point3d p = BRep_Tool::Pnt(V);
     OS << "    - Point 3D : " << p.X() << ", " << p.Y() << ", " << p.Z() << "\n";
 
     Handle(BRep_TVertex)                         TV = Handle(BRep_TVertex)::DownCast(S.TShape());
@@ -531,7 +531,7 @@ void BRepTools_ShapeSet::WriteGeometry(const TopoDS_Shape& S, Standard_OStream& 
     // Write the point geometry
     TopoDS_Vertex V = TopoDS::Vertex(S);
     OS << BRep_Tool::Tolerance(V) << "\n";
-    gp_Pnt p = BRep_Tool::Pnt(V);
+    Point3d p = BRep_Tool::Pnt(V);
     OS << p.X() << " " << p.Y() << " " << p.Z() << "\n";
 
     Handle(BRep_TVertex)                         TV = Handle(BRep_TVertex)::DownCast(S.TShape());
@@ -795,7 +795,7 @@ void BRepTools_ShapeSet::ReadGeometry(const TopAbs_ShapeEnum T,
       GeomTools::GetReal(IS, X);
       GeomTools::GetReal(IS, Y);
       GeomTools::GetReal(IS, Z);
-      myBuilder.MakeVertex(V, gp_Pnt(X, Y, Z), tol);
+      myBuilder.MakeVertex(V, Point3d(X, Y, Z), tol);
       Handle(BRep_TVertex) TV = Handle(BRep_TVertex)::DownCast(V.TShape());
 
       BRep_ListOfPointRepresentation& lpr = TV->ChangePoints();
@@ -1489,7 +1489,7 @@ void BRepTools_ShapeSet::WriteTriangulation(Standard_OStream&            OS,
     nbNodes = T->NbNodes();
     for (j = 1; j <= nbNodes; j++)
     {
-      const gp_Pnt aNode = T->Node(j);
+      const Point3d aNode = T->Node(j);
       if (!Compact)
         OS << std::setw(10) << j << " : ";
       if (!Compact)
@@ -1624,7 +1624,7 @@ void BRepTools_ShapeSet::ReadTriangulation(Standard_IStream&            IS,
       GeomTools::GetReal(IS, x);
       GeomTools::GetReal(IS, y);
       GeomTools::GetReal(IS, z);
-      T->SetNode(j, gp_Pnt(x, y, z));
+      T->SetNode(j, Point3d(x, y, z));
     }
 
     if (hasUV)

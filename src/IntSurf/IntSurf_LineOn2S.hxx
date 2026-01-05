@@ -57,7 +57,7 @@ public:
   void Value(const Standard_Integer Index, const IntSurf_PntOn2S& P);
 
   //! Sets the 3D point of the Index-th PntOn2S
-  Standard_EXPORT void SetPoint(const Standard_Integer Index, const gp_Pnt& thePnt);
+  Standard_EXPORT void SetPoint(const Standard_Integer Index, const Point3d& thePnt);
 
   //! Sets the parametric coordinates on one of the surfaces
   //! of the point of range Index in the line.
@@ -81,7 +81,7 @@ public:
   Standard_EXPORT Standard_Boolean IsOutSurf2Box(const gp_Pnt2d& theP);
 
   //! Returns TRUE if theP is out of the box built from 3D-points.
-  Standard_EXPORT Standard_Boolean IsOutBox(const gp_Pnt& theP);
+  Standard_EXPORT Standard_Boolean IsOutBox(const Point3d& theP);
 
   DEFINE_STANDARD_RTTIEXT(IntSurf_LineOn2S, RefObject)
 

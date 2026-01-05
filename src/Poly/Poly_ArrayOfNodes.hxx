@@ -25,14 +25,14 @@ class Poly_ArrayOfNodes : public NCollection_AliasedArray<>
 public:
   //! Empty constructor of double-precision array.
   Poly_ArrayOfNodes()
-      : NCollection_AliasedArray((Standard_Integer)sizeof(gp_Pnt))
+      : NCollection_AliasedArray((Standard_Integer)sizeof(Point3d))
   {
     //
   }
 
   //! Constructor of double-precision array.
   Poly_ArrayOfNodes(Standard_Integer theLength)
-      : NCollection_AliasedArray((Standard_Integer)sizeof(gp_Pnt), theLength)
+      : NCollection_AliasedArray((Standard_Integer)sizeof(Point3d), theLength)
   {
     //
   }
@@ -41,7 +41,7 @@ public:
   Standard_EXPORT Poly_ArrayOfNodes(const Poly_ArrayOfNodes& theOther);
 
   //! Constructor wrapping pre-allocated C-array of values without copying them.
-  Poly_ArrayOfNodes(const gp_Pnt& theBegin, Standard_Integer theLength)
+  Poly_ArrayOfNodes(const Point3d& theBegin, Standard_Integer theLength)
       : NCollection_AliasedArray(theBegin, theLength)
   {
     //
@@ -58,7 +58,7 @@ public:
   Standard_EXPORT ~Poly_ArrayOfNodes();
 
   //! Returns TRUE if array defines nodes with double precision.
-  bool IsDoublePrecision() const { return myStride == (Standard_Integer)sizeof(gp_Pnt); }
+  bool IsDoublePrecision() const { return myStride == (Standard_Integer)sizeof(Point3d); }
 
   //! Sets if array should define nodes with double or single precision.
   //! Raises exception if array was already allocated.
@@ -69,7 +69,7 @@ public:
       throw Standard_ProgramError(
         "Poly_ArrayOfNodes::SetDoublePrecision() should be called before allocation");
     }
-    myStride = Standard_Integer(theIsDouble ? sizeof(gp_Pnt) : sizeof(gp_Vec3f));
+    myStride = Standard_Integer(theIsDouble ? sizeof(Point3d) : sizeof(gp_Vec3f));
   }
 
   //! Copies data of theOther array to this.
@@ -103,29 +103,29 @@ public:
 
 public:
   //! A generalized accessor to point.
-  inline gp_Pnt Value(Standard_Integer theIndex) const;
+  inline Point3d Value(Standard_Integer theIndex) const;
 
   //! A generalized setter for point.
-  inline void SetValue(Standard_Integer theIndex, const gp_Pnt& theValue);
+  inline void SetValue(Standard_Integer theIndex, const Point3d& theValue);
 
   //! operator[] - alias to Value
-  gp_Pnt operator[](Standard_Integer theIndex) const { return Value(theIndex); }
+  Point3d operator[](Standard_Integer theIndex) const { return Value(theIndex); }
 };
 
 // =======================================================================
 // function : Value
 // purpose  :
 // =======================================================================
-inline gp_Pnt Poly_ArrayOfNodes::Value(Standard_Integer theIndex) const
+inline Point3d Poly_ArrayOfNodes::Value(Standard_Integer theIndex) const
 {
-  if (myStride == (Standard_Integer)sizeof(gp_Pnt))
+  if (myStride == (Standard_Integer)sizeof(Point3d))
   {
-    return NCollection_AliasedArray::Value<gp_Pnt>(theIndex);
+    return NCollection_AliasedArray::Value<Point3d>(theIndex);
   }
   else
   {
     const gp_Vec3f& aVec3 = NCollection_AliasedArray::Value<gp_Vec3f>(theIndex);
-    return gp_Pnt(aVec3.x(), aVec3.y(), aVec3.z());
+    return Point3d(aVec3.x(), aVec3.y(), aVec3.z());
   }
 }
 
@@ -133,11 +133,11 @@ inline gp_Pnt Poly_ArrayOfNodes::Value(Standard_Integer theIndex) const
 // function : SetValue
 // purpose  :
 // =======================================================================
-inline void Poly_ArrayOfNodes::SetValue(Standard_Integer theIndex, const gp_Pnt& theValue)
+inline void Poly_ArrayOfNodes::SetValue(Standard_Integer theIndex, const Point3d& theValue)
 {
-  if (myStride == (Standard_Integer)sizeof(gp_Pnt))
+  if (myStride == (Standard_Integer)sizeof(Point3d))
   {
-    NCollection_AliasedArray::ChangeValue<gp_Pnt>(theIndex) = theValue;
+    NCollection_AliasedArray::ChangeValue<Point3d>(theIndex) = theValue;
   }
   else
   {

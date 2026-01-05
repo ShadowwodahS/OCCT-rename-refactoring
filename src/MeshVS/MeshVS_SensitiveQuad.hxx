@@ -31,10 +31,10 @@ public:
 
   //! Creates a new instance and initializes quadrangle vertices with the given points
   Standard_EXPORT MeshVS_SensitiveQuad(const Handle(SelectMgr_EntityOwner)& theOwner,
-                                       const gp_Pnt&                        thePnt1,
-                                       const gp_Pnt&                        thePnt2,
-                                       const gp_Pnt&                        thePnt3,
-                                       const gp_Pnt&                        thePnt4);
+                                       const Point3d&                        thePnt1,
+                                       const Point3d&                        thePnt2,
+                                       const Point3d&                        thePnt3,
+                                       const Point3d&                        thePnt4);
 
   //! Returns the amount of sub-entities in sensitive
   virtual Standard_Integer NbSubElements() const Standard_OVERRIDE { return 1; };
@@ -48,7 +48,7 @@ public:
     Standard_OVERRIDE;
 
   //! Returns center of the box
-  Standard_EXPORT virtual gp_Pnt CenterOfGeometry() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Point3d CenterOfGeometry() const Standard_OVERRIDE;
 
   //! Returns coordinates of the box
   Standard_EXPORT virtual Select3D_BndBox3d BoundingBox() Standard_OVERRIDE;
@@ -56,7 +56,7 @@ public:
   DEFINE_STANDARD_RTTIEXT(MeshVS_SensitiveQuad, Select3D_SensitiveEntity)
 
 private:
-  gp_Pnt myVertices[4]; //!< 3d coordinates of quad's corners
+  Point3d myVertices[4]; //!< 3d coordinates of quad's corners
 };
 
 DEFINE_STANDARD_HANDLE(MeshVS_SensitiveQuad, Select3D_SensitiveEntity)

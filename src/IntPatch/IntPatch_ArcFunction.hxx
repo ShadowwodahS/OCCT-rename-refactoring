@@ -49,7 +49,7 @@ public:
 
   Standard_EXPORT virtual Standard_Integer GetStateNumber() Standard_OVERRIDE;
 
-  const gp_Pnt& Valpoint(const Standard_Integer Index) const;
+  const Point3d& Valpoint(const Standard_Integer Index) const;
 
   const IntSurf_Quadric& Quadric() const;
 
@@ -59,14 +59,14 @@ public:
 
   //! Returns the point, which has been computed
   //! while the last calling Value() method
-  const gp_Pnt& LastComputedPoint() const;
+  const Point3d& LastComputedPoint() const;
 
 protected:
 private:
   Handle(Adaptor2d_Curve2d) myArc;
   Handle(Adaptor3d_Surface) mySurf;
   IntSurf_Quadric           myQuad;
-  gp_Pnt                    ptsol;
+  Point3d                    ptsol;
   TColgp_SequenceOfPnt      seqpt;
 };
 

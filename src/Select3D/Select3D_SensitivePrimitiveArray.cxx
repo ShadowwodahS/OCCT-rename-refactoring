@@ -24,15 +24,15 @@ namespace
 {
 
 //! Auxiliary converter.
-static inline gp_Pnt vecToPnt(const Graphic3d_Vec3& theVec)
+static inline Point3d vecToPnt(const Graphic3d_Vec3& theVec)
 {
-  return gp_Pnt(theVec.x(), theVec.y(), theVec.z());
+  return Point3d(theVec.x(), theVec.y(), theVec.z());
 }
 
 //! Auxiliary converter.
-static inline gp_Pnt vecToPnt(const Graphic3d_Vec2& theVec)
+static inline Point3d vecToPnt(const Graphic3d_Vec2& theVec)
 {
-  return gp_Pnt(theVec.x(), theVec.y(), 0.0);
+  return Point3d(theVec.x(), theVec.y(), 0.0);
 }
 
 //! Auxiliary function to find shared node between two triangles.
@@ -746,7 +746,7 @@ Standard_Real Select3D_SensitivePrimitiveArray::Center(const Standard_Integer th
   if (!myGroups.IsNull())
   {
     const Standard_Integer anElemIdx = myBvhIndices.Index(theIdx);
-    const gp_Pnt           aCenter   = myGroups->Value(anElemIdx)->CenterOfGeometry();
+    const Point3d           aCenter   = myGroups->Value(anElemIdx)->CenterOfGeometry();
     return theAxis == 0 ? aCenter.X() : (theAxis == 1 ? aCenter.Y() : aCenter.Z());
   }
 
@@ -842,7 +842,7 @@ Select3D_BndBox3d Select3D_SensitivePrimitiveArray::applyTransformation()
     {
       for (Standard_Integer aZ = 0; aZ <= 1; ++aZ)
       {
-        gp_Pnt aVertex = gp_Pnt(aX == 0 ? myBndBox.CornerMin().x() : myBndBox.CornerMax().x(),
+        Point3d aVertex = Point3d(aX == 0 ? myBndBox.CornerMin().x() : myBndBox.CornerMax().x(),
                                 aY == 0 ? myBndBox.CornerMin().y() : myBndBox.CornerMax().y(),
                                 aZ == 0 ? myBndBox.CornerMin().z() : myBndBox.CornerMax().z());
         aVertex.Transform(myInitLocation.Transformation());
@@ -956,7 +956,7 @@ Standard_Boolean Select3D_SensitivePrimitiveArray::overlapsElement(
         const Standard_Integer anIndexOffset = (anElemIdx + anElemIter);
         const Standard_Integer aPointIndex =
           !myIndices.IsNull() ? myIndices->Index(anIndexOffset) : anIndexOffset;
-        gp_Pnt aPoint;
+        Point3d aPoint;
         if (myIs3d)
         {
           aPoint = vecToPnt(getPosVec3(aPointIndex));
@@ -1000,7 +1000,7 @@ Standard_Boolean Select3D_SensitivePrimitiveArray::overlapsElement(
         const Standard_Integer aTriIndex     = anElemIdx + anElemIter;
         const Standard_Integer anIndexOffset = aTriIndex * 3;
         getTriIndices(myIndices, anIndexOffset, aTriNodes);
-        gp_Pnt aPnts[3];
+        Point3d aPnts[3];
         if (myIs3d)
         {
           aPnts[0] = vecToPnt(getPosVec3(aTriNodes[0]));
@@ -1118,7 +1118,7 @@ Standard_Boolean Select3D_SensitivePrimitiveArray::elementIsInside(
         const Standard_Integer anIndexOffset = (anElemIdx + anElemIter);
         const Standard_Integer aPointIndex =
           !myIndices.IsNull() ? myIndices->Index(anIndexOffset) : anIndexOffset;
-        gp_Pnt aPoint;
+        Point3d aPoint;
         if (myIs3d)
         {
           aPoint = vecToPnt(getPosVec3(aPointIndex));
@@ -1153,7 +1153,7 @@ Standard_Boolean Select3D_SensitivePrimitiveArray::elementIsInside(
         const Standard_Integer aTriIndex     = anElemIdx + anElemIter;
         const Standard_Integer anIndexOffset = aTriIndex * 3;
         getTriIndices(myIndices, anIndexOffset, aTriNodes);
-        gp_Pnt aPnts[3];
+        Point3d aPnts[3];
         if (myIs3d)
         {
           aPnts[0] = vecToPnt(getPosVec3(aTriNodes[0]));

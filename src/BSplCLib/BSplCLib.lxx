@@ -56,7 +56,7 @@ inline TColStd_Array1OfInteger* BSplCLib::NoMults()
 inline void BSplCLib::CoefsD0(const Standard_Real         U,
                               const TColgp_Array1OfPnt&   Poles,
                               const TColStd_Array1OfReal* Weights,
-                              gp_Pnt&                     P)
+                              Point3d&                     P)
 {
   BSplCLib::CacheD0(U, Poles.Length() - 1, 0., 1., Poles, Weights, P);
 }
@@ -82,7 +82,7 @@ inline void BSplCLib::CoefsD0(const Standard_Real         U,
 inline void BSplCLib::CoefsD1(const Standard_Real         U,
                               const TColgp_Array1OfPnt&   Poles,
                               const TColStd_Array1OfReal* Weights,
-                              gp_Pnt&                     P,
+                              Point3d&                     P,
                               gp_Vec&                     Vec)
 {
   BSplCLib::CacheD1(U, Poles.Length() - 1, 0., 1., Poles, Weights, P, Vec);
@@ -110,7 +110,7 @@ inline void BSplCLib::CoefsD1(const Standard_Real         U,
 inline void BSplCLib::CoefsD2(const Standard_Real         U,
                               const TColgp_Array1OfPnt&   Poles,
                               const TColStd_Array1OfReal* Weights,
-                              gp_Pnt&                     P,
+                              Point3d&                     P,
                               gp_Vec&                     Vec1,
                               gp_Vec&                     Vec2)
 {
@@ -140,7 +140,7 @@ inline void BSplCLib::CoefsD2(const Standard_Real         U,
 inline void BSplCLib::CoefsD3(const Standard_Real         U,
                               const TColgp_Array1OfPnt&   Poles,
                               const TColStd_Array1OfReal* Weights,
-                              gp_Pnt&                     P,
+                              Point3d&                     P,
                               gp_Vec&                     Vec1,
                               gp_Vec&                     Vec2,
                               gp_Vec&                     Vec3)

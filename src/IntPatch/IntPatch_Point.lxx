@@ -28,7 +28,7 @@ inline IntPatch_Point::IntPatch_Point()
 {
 }
 
-inline void IntPatch_Point::SetValue(const gp_Pnt& Pt)
+inline void IntPatch_Point::SetValue(const Point3d& Pt)
 {
   pt.SetValue(Pt);
 }
@@ -65,7 +65,7 @@ inline void IntPatch_Point::SetMultiple(const Standard_Boolean IsMult)
   mult = IsMult;
 }
 
-inline const gp_Pnt& IntPatch_Point::Value() const
+inline const Point3d& IntPatch_Point::Value() const
 {
   return pt.Value();
 }

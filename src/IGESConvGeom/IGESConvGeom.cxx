@@ -90,14 +90,14 @@ Standard_Integer IGESConvGeom::SplineCurveFromIGES(const Handle(IGESGeom_SplineC
     switch (degree)
     {
       case 3:
-        coeff.SetValue(coeff.Lower() + 3, gp_Pnt(DX * Di3, DY * Di3, DZ * Di3));
+        coeff.SetValue(coeff.Lower() + 3, Point3d(DX * Di3, DY * Di3, DZ * Di3));
         Standard_FALLTHROUGH
       case 2:
-        coeff.SetValue(coeff.Lower() + 2, gp_Pnt(CX * Di2, CY * Di2, CZ * Di2));
+        coeff.SetValue(coeff.Lower() + 2, Point3d(CX * Di2, CY * Di2, CZ * Di2));
         Standard_FALLTHROUGH
       case 1:
-        coeff.SetValue(coeff.Lower() + 1, gp_Pnt(BX * Di, BY * Di, BZ * Di));
-        coeff.SetValue(coeff.Lower() + 0, gp_Pnt(AX, AY, AZ));
+        coeff.SetValue(coeff.Lower() + 1, Point3d(BX * Di, BY * Di, BZ * Di));
+        coeff.SetValue(coeff.Lower() + 0, Point3d(AX, AY, AZ));
         break;
       default:
         break;
@@ -116,7 +116,7 @@ Standard_Integer IGESConvGeom::SplineCurveFromIGES(const Handle(IGESGeom_SplineC
         returned = 1;
         // Medium point computing.
         bspoles.SetValue(ibspole,
-                         gp_Pnt((bspoles.Value(ibspole).X() + bzpoles.Value(bzlow).X()) / 2.,
+                         Point3d((bspoles.Value(ibspole).X() + bzpoles.Value(bzlow).X()) / 2.,
                                 (bspoles.Value(ibspole).Y() + bzpoles.Value(bzlow).Y()) / 2.,
                                 (bspoles.Value(ibspole).Z() + bzpoles.Value(bzlow).Z()) / 2.));
       }
@@ -328,7 +328,7 @@ Standard_Integer IGESConvGeom::SplineSurfaceFromIGES(const Handle(IGESGeom_Splin
     for (j = 1; j <= DegreeV + 1; j++)
     {
       Standard_Integer PolyIndex = i + 4 * (j - 1);
-      gp_Pnt           aPoint(XPoly->Value(PolyIndex) * ParamU * ParamV,
+      Point3d           aPoint(XPoly->Value(PolyIndex) * ParamU * ParamV,
                     YPoly->Value(PolyIndex) * ParamU * ParamV,
                     ZPoly->Value(PolyIndex) * ParamU * ParamV);
       Coef.SetValue(i, j, aPoint);
@@ -367,7 +367,7 @@ Standard_Integer IGESConvGeom::SplineSurfaceFromIGES(const Handle(IGESGeom_Splin
       for (j = Coef.LowerCol(); j <= Coef.UpperCol(); j++)
       {
         Standard_Integer PolyIndex = i + 4 * (j - 1);
-        gp_Pnt           aPoint;
+        Point3d           aPoint;
         aPoint.SetCoord(XPoly->Value(PolyIndex) * ParamU * ParamV,
                         YPoly->Value(PolyIndex) * ParamU * ParamV,
                         ZPoly->Value(PolyIndex) * ParamU * ParamV);
@@ -387,7 +387,7 @@ Standard_Integer IGESConvGeom::SplineSurfaceFromIGES(const Handle(IGESGeom_Splin
       if (!BzPole.Value(iBz, jBz).IsEqual(BsPole.Value(iBsPole, jBsPole), epsgeom))
       {
         wasC0 = Standard_False;
-        gp_Pnt        MidPoint;
+        Point3d        MidPoint;
         Standard_Real XCoord =
           0.5 * (BzPole.Value(iBz, jBz).X() + BsPole.Value(iBsPole, jBsPole).X());
         Standard_Real YCoord =
@@ -431,7 +431,7 @@ Standard_Integer IGESConvGeom::SplineSurfaceFromIGES(const Handle(IGESGeom_Splin
       for (j = Coef.LowerCol(); j <= Coef.UpperCol(); j++)
       {
         Standard_Integer PolyIndex = i + 4 * (j - 1);
-        gp_Pnt           aPoint;
+        Point3d           aPoint;
         aPoint.SetCoord(XPoly->Value(PolyIndex) * ParamU * ParamV,
                         YPoly->Value(PolyIndex) * ParamU * ParamV,
                         ZPoly->Value(PolyIndex) * ParamU * ParamV);
@@ -451,7 +451,7 @@ Standard_Integer IGESConvGeom::SplineSurfaceFromIGES(const Handle(IGESGeom_Splin
       if (!BzPole.Value(iBz, jBz).IsEqual(BsPole.Value(iBs, jBs), epsgeom))
       {
         wasC0 = Standard_False;
-        gp_Pnt        MidPoint;
+        Point3d        MidPoint;
         Standard_Real XCoord = 0.5 * (BzPole.Value(iBz, jBz).X() + BsPole.Value(iBs, jBs).X());
         Standard_Real YCoord = 0.5 * (BzPole.Value(iBz, jBz).Y() + BsPole.Value(iBs, jBs).Y());
         Standard_Real ZCoord = 0.5 * (BzPole.Value(iBz, jBz).Z() + BsPole.Value(iBs, jBs).Z());
@@ -492,7 +492,7 @@ Standard_Integer IGESConvGeom::SplineSurfaceFromIGES(const Handle(IGESGeom_Splin
         for (j = Coef.LowerCol(); j <= Coef.UpperCol(); j++)
         {
           Standard_Integer PolyIndex = i + 4 * (j - 1);
-          gp_Pnt           aPoint;
+          Point3d           aPoint;
           aPoint.SetCoord(XPoly->Value(PolyIndex) * ParamU * ParamV,
                           YPoly->Value(PolyIndex) * ParamU * ParamV,
                           ZPoly->Value(PolyIndex) * ParamU * ParamV);
@@ -512,7 +512,7 @@ Standard_Integer IGESConvGeom::SplineSurfaceFromIGES(const Handle(IGESGeom_Splin
         if (!BzPole.Value(iBz, jBz).IsEqual(BsPole.Value(iBs, jBs), epsgeom))
         {
           wasC0 = Standard_False;
-          gp_Pnt        MidPoint;
+          Point3d        MidPoint;
           Standard_Real XCoord = 0.5 * (BzPole.Value(iBz, jBz).X() + BsPole.Value(iBs, jBs).X());
           Standard_Real YCoord = 0.5 * (BzPole.Value(iBz, jBz).Y() + BsPole.Value(iBs, jBs).Y());
           Standard_Real ZCoord = 0.5 * (BzPole.Value(iBz, jBz).Z() + BsPole.Value(iBs, jBs).Z());
@@ -531,7 +531,7 @@ Standard_Integer IGESConvGeom::SplineSurfaceFromIGES(const Handle(IGESGeom_Splin
         if (!BzPole.Value(iBz, jBz).IsEqual(BsPole.Value(iBs, jBs), epsgeom))
         {
           wasC0 = Standard_False;
-          gp_Pnt        MidPoint;
+          Point3d        MidPoint;
           Standard_Real XCoord = 0.5 * (BzPole.Value(iBz, jBz).X() + BsPole.Value(iBs, jBs).X());
           Standard_Real YCoord = 0.5 * (BzPole.Value(iBz, jBz).Y() + BsPole.Value(iBs, jBs).Y());
           Standard_Real ZCoord = 0.5 * (BzPole.Value(iBz, jBz).Z() + BsPole.Value(iBs, jBs).Z());

@@ -38,7 +38,7 @@ const Standard_GUID& XCAFDoc_Centroid::GetID()
 
 //=================================================================================================
 
-Handle(XCAFDoc_Centroid) XCAFDoc_Centroid::Set(const TDF_Label& L, const gp_Pnt& pnt)
+Handle(XCAFDoc_Centroid) XCAFDoc_Centroid::Set(const TDF_Label& L, const Point3d& pnt)
 {
   Handle(XCAFDoc_Centroid) A;
   if (!L.FindAttribute(XCAFDoc_Centroid::GetID(), A))
@@ -52,7 +52,7 @@ Handle(XCAFDoc_Centroid) XCAFDoc_Centroid::Set(const TDF_Label& L, const gp_Pnt&
 
 //=================================================================================================
 
-void XCAFDoc_Centroid::Set(const gp_Pnt& pnt)
+void XCAFDoc_Centroid::Set(const Point3d& pnt)
 {
   Backup();
   myCentroid = pnt;
@@ -60,14 +60,14 @@ void XCAFDoc_Centroid::Set(const gp_Pnt& pnt)
 
 //=================================================================================================
 
-gp_Pnt XCAFDoc_Centroid::Get() const
+Point3d XCAFDoc_Centroid::Get() const
 {
   return myCentroid;
 }
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_Centroid::Get(const TDF_Label& label, gp_Pnt& pnt)
+Standard_Boolean XCAFDoc_Centroid::Get(const TDF_Label& label, Point3d& pnt)
 {
   Handle(XCAFDoc_Centroid) aCentroid;
   if (!label.FindAttribute(XCAFDoc_Centroid::GetID(), aCentroid))

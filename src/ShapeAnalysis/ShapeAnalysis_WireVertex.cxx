@@ -104,16 +104,16 @@ void ShapeAnalysis_WireVertex::Analyze()
     TopoDS_Edge   E2   = myWire->Edge(j);
     TopoDS_Vertex V1   = EA.LastVertex(myWire->Edge(i));
     TopoDS_Vertex V2   = EA.FirstVertex(myWire->Edge(j));
-    gp_Pnt        PV1  = BRep_Tool::Pnt(V1);
-    gp_Pnt        PV2  = BRep_Tool::Pnt(V2);
+    Point3d        PV1  = BRep_Tool::Pnt(V1);
+    Point3d        PV2  = BRep_Tool::Pnt(V2);
     Standard_Real tol1 = BRep_Tool::Tolerance(V1);
     Standard_Real tol2 = BRep_Tool::Tolerance(V2);
     EA.Curve3d(myWire->Edge(i), c1, cf, upre);
     EA.Curve3d(myWire->Edge(j), c2, ufol, cl);
     if (c1.IsNull() || c2.IsNull())
       continue; // on ne peut rien faire ...
-    gp_Pnt P1 = c1->Value(upre);
-    gp_Pnt P2 = c2->Value(ufol);
+    Point3d P1 = c1->Value(upre);
+    Point3d P2 = c2->Value(ufol);
 
     //   Est-ce que le jeu de vertex convient ? (meme si V1 == V2, on verifie)
     Standard_Real d1 = PV1.Distance(P1);
@@ -138,7 +138,7 @@ void ShapeAnalysis_WireVertex::Analyze()
 
     //    Une edge se termine sur l autre : il faudra simplement relimiter
     //    Projection calculee sur une demi-edge (pour eviter les pbs de couture)
-    gp_Pnt        PJ1, PJ2;
+    Point3d        PJ1, PJ2;
     Standard_Real U1, U2;
     Standard_Real dj1 =
       ShapeAnalysis_Curve().Project(c1, P2, myPreci, PJ1, U1, (cf + upre) / 2, upre);

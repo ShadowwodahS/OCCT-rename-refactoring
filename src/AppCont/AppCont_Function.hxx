@@ -58,7 +58,7 @@ public:
   //! Returns the point at parameter <theU>.
   virtual Standard_Boolean Value(const Standard_Real           theU,
                                  NCollection_Array1<gp_Pnt2d>& thePnt2d,
-                                 NCollection_Array1<gp_Pnt>&   thePnt) const = 0;
+                                 NCollection_Array1<Point3d>&   thePnt) const = 0;
 
   //! Returns the derivative at parameter <theU>.
   virtual Standard_Boolean D1(const Standard_Real           theU,

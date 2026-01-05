@@ -75,7 +75,7 @@ public:
   virtual Select3D_BndBox3d BoundingBox() = 0;
 
   //! Returns center of a sensitive with transformation applied
-  virtual gp_Pnt CenterOfGeometry() const = 0;
+  virtual Point3d CenterOfGeometry() const = 0;
 
   //! Builds BVH tree for a sensitive if needed
   virtual void BVH() {}

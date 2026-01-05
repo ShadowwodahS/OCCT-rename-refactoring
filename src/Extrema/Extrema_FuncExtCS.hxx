@@ -89,8 +89,8 @@ public:
 private:
   const Adaptor3d_Curve*    myC;
   const Adaptor3d_Surface*  myS;
-  gp_Pnt                    myP1;
-  gp_Pnt                    myP2;
+  Point3d                    myP1;
+  Point3d                    myP2;
   Standard_Real             myt;
   Standard_Real             myU;
   Standard_Real             myV;

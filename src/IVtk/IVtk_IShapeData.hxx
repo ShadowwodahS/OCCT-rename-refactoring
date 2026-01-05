@@ -38,7 +38,7 @@ public:
   //! @param[in]  thePnt  point position
   //! @param[in]  theNorm point normal
   //! @return id of added point
-  virtual IVtk_PointId InsertPoint(const gp_Pnt&                  thePnt,
+  virtual IVtk_PointId InsertPoint(const Point3d&                  thePnt,
                                    const NCollection_Vec3<float>& theNorm) = 0;
 
   //! Insert a vertex.
@@ -87,13 +87,13 @@ public:
   //! @return id of added point
   virtual IVtk_PointId InsertCoordinate(double theX, double theY, double theZ)
   {
-    return InsertCoordinate(gp_Pnt(theX, theY, theZ));
+    return InsertCoordinate(Point3d(theX, theY, theZ));
   }
 
   //! Insert a coordinate
   //! @param[in]  thePnt point position
   //! @return id of added point
-  IVtk_PointId InsertCoordinate(const gp_Pnt& thePnt)
+  IVtk_PointId InsertCoordinate(const Point3d& thePnt)
   {
     return InsertPoint(thePnt, NCollection_Vec3<float>(0.0f, 0.0f, 1.0f));
   }

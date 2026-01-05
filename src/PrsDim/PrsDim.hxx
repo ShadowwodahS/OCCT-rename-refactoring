@@ -43,21 +43,21 @@ public:
 
   //! Returns the nearest point in a shape. This is used by
   //! several classes in calculation of dimensions.
-  Standard_EXPORT static gp_Pnt Nearest(const TopoDS_Shape& aShape, const gp_Pnt& aPoint);
+  Standard_EXPORT static Point3d Nearest(const TopoDS_Shape& aShape, const Point3d& aPoint);
 
   //! @return the nearest point on the line.
-  Standard_EXPORT static gp_Pnt Nearest(const gp_Lin& theLine, const gp_Pnt& thePoint);
+  Standard_EXPORT static Point3d Nearest(const gp_Lin& theLine, const Point3d& thePoint);
 
   //! For the given point finds nearest point on the curve,
   //! @return TRUE if found point is belongs to the curve
   //! and FALSE otherwise.
   Standard_EXPORT static Standard_Boolean Nearest(const Handle(Geom_Curve)& theCurve,
-                                                  const gp_Pnt&             thePoint,
-                                                  const gp_Pnt&             theFirstPoint,
-                                                  const gp_Pnt&             theLastPoint,
-                                                  gp_Pnt&                   theNearestPoint);
+                                                  const Point3d&             thePoint,
+                                                  const Point3d&             theFirstPoint,
+                                                  const Point3d&             theLastPoint,
+                                                  Point3d&                   theNearestPoint);
 
-  Standard_EXPORT static gp_Pnt Farest(const TopoDS_Shape& aShape, const gp_Pnt& aPoint);
+  Standard_EXPORT static Point3d Farest(const TopoDS_Shape& aShape, const Point3d& aPoint);
 
   //! Used by 2d Relation only
   //! Computes the 3d geometry of <anEdge> in the current WorkingPlane
@@ -65,16 +65,16 @@ public:
   //! Return TRUE if ok.
   Standard_EXPORT static Standard_Boolean ComputeGeometry(const TopoDS_Edge&  theEdge,
                                                           Handle(Geom_Curve)& theCurve,
-                                                          gp_Pnt&             theFirstPnt,
-                                                          gp_Pnt&             theLastPnt);
+                                                          Point3d&             theFirstPnt,
+                                                          Point3d&             theLastPnt);
 
   //! Used by dimensions only.
   //! Computes the 3d geometry of <anEdge>.
   //! Return TRUE if ok.
   Standard_EXPORT static Standard_Boolean ComputeGeometry(const TopoDS_Edge&  theEdge,
                                                           Handle(Geom_Curve)& theCurve,
-                                                          gp_Pnt&             theFirstPnt,
-                                                          gp_Pnt&             theLastPnt,
+                                                          Point3d&             theFirstPnt,
+                                                          Point3d&             theLastPnt,
                                                           Standard_Boolean&   theIsInfinite);
 
   //! Used by 2d Relation only
@@ -87,8 +87,8 @@ public:
   //! Return TRUE if ok.
   Standard_EXPORT static Standard_Boolean ComputeGeometry(const TopoDS_Edge&        theEdge,
                                                           Handle(Geom_Curve)&       theCurve,
-                                                          gp_Pnt&                   theFirstPnt,
-                                                          gp_Pnt&                   theLastPnt,
+                                                          Point3d&                   theFirstPnt,
+                                                          Point3d&                   theLastPnt,
                                                           Handle(Geom_Curve)&       theExtCurve,
                                                           Standard_Boolean&         theIsInfinite,
                                                           Standard_Boolean&         theIsOnPlane,
@@ -102,10 +102,10 @@ public:
                                                           const TopoDS_Edge&        theSecondEdge,
                                                           Handle(Geom_Curve)&       theFirstCurve,
                                                           Handle(Geom_Curve)&       theSecondCurve,
-                                                          gp_Pnt&                   theFirstPnt1,
-                                                          gp_Pnt&                   theLastPnt1,
-                                                          gp_Pnt&                   theFirstPnt2,
-                                                          gp_Pnt&                   theLastPnt2,
+                                                          Point3d&                   theFirstPnt1,
+                                                          Point3d&                   theLastPnt1,
+                                                          Point3d&                   theFirstPnt2,
+                                                          Point3d&                   theLastPnt2,
                                                           const Handle(Geom_Plane)& thePlane);
 
   //! Used  by  dimensions  only.Computes  the  3d geometry
@@ -114,10 +114,10 @@ public:
                                                           const TopoDS_Edge&  theSecondEdge,
                                                           Handle(Geom_Curve)& theFirstCurve,
                                                           Handle(Geom_Curve)& theSecondCurve,
-                                                          gp_Pnt&             theFirstPnt1,
-                                                          gp_Pnt&             theLastPnt1,
-                                                          gp_Pnt&             theFirstPnt2,
-                                                          gp_Pnt&             theLastPnt2,
+                                                          Point3d&             theFirstPnt1,
+                                                          Point3d&             theLastPnt1,
+                                                          Point3d&             theFirstPnt2,
+                                                          Point3d&             theLastPnt2,
                                                           Standard_Boolean&   theIsinfinite1,
                                                           Standard_Boolean&   theIsinfinite2);
 
@@ -135,10 +135,10 @@ public:
                                                           Standard_Integer&         theExtIndex,
                                                           Handle(Geom_Curve)&       theFirstCurve,
                                                           Handle(Geom_Curve)&       theSecondCurve,
-                                                          gp_Pnt&                   theFirstPnt1,
-                                                          gp_Pnt&                   theLastPnt1,
-                                                          gp_Pnt&                   theFirstPnt2,
-                                                          gp_Pnt&                   theLastPnt2,
+                                                          Point3d&                   theFirstPnt1,
+                                                          Point3d&                   theLastPnt1,
+                                                          Point3d&                   theFirstPnt2,
+                                                          Point3d&                   theLastPnt2,
                                                           Handle(Geom_Curve)&       theExtCurve,
                                                           Standard_Boolean&         theIsinfinite1,
                                                           Standard_Boolean&         theIsinfinite2,
@@ -150,13 +150,13 @@ public:
   Standard_EXPORT static Standard_Boolean ComputeGeomCurve(Handle(Geom_Curve)&       aCurve,
                                                            const Standard_Real       first1,
                                                            const Standard_Real       last1,
-                                                           gp_Pnt&                   FirstPnt1,
-                                                           gp_Pnt&                   LastPnt1,
+                                                           Point3d&                   FirstPnt1,
+                                                           Point3d&                   LastPnt1,
                                                            const Handle(Geom_Plane)& aPlane,
                                                            Standard_Boolean&         isOnPlane);
 
   Standard_EXPORT static Standard_Boolean ComputeGeometry(const TopoDS_Vertex&      aVertex,
-                                                          gp_Pnt&                   point,
+                                                          Point3d&                   point,
                                                           const Handle(Geom_Plane)& aPlane,
                                                           Standard_Boolean&         isOnPlane);
 
@@ -188,8 +188,8 @@ public:
                                                                 const TopoDS_Face&    theSecondFace,
                                                                 Handle(Geom_Surface)& theFirstSurf,
                                                                 Handle(Geom_Surface)& theSecondSurf,
-                                                                gp_Pnt& theFirstAttach,
-                                                                gp_Pnt& theSecondAttach,
+                                                                Point3d& theFirstAttach,
+                                                                Point3d& theSecondAttach,
                                                                 gp_Dir& theDirOnPlane);
 
   //! Finds three points for the angle dimension between
@@ -197,9 +197,9 @@ public:
   Standard_EXPORT static Standard_Boolean InitAngleBetweenPlanarFaces(
     const TopoDS_Face&     theFirstFace,
     const TopoDS_Face&     theSecondFace,
-    gp_Pnt&                theCenter,
-    gp_Pnt&                theFirstAttach,
-    gp_Pnt&                theSecondAttach,
+    Point3d&                theCenter,
+    Point3d&                theFirstAttach,
+    Point3d&                theSecondAttach,
     const Standard_Boolean theIsFirstPointSet = Standard_False);
 
   //! Finds three points for the angle dimension between
@@ -209,16 +209,16 @@ public:
     const TopoDS_Face&         theSecondFace,
     const PrsDim_KindOfSurface theFirstSurfType,
     const PrsDim_KindOfSurface theSecondSurfType,
-    gp_Pnt&                    theCenter,
-    gp_Pnt&                    theFirstAttach,
-    gp_Pnt&                    theSecondAttach,
+    Point3d&                    theCenter,
+    Point3d&                    theFirstAttach,
+    Point3d&                    theSecondAttach,
     const Standard_Boolean     theIsFirstPointSet = Standard_False);
 
-  Standard_EXPORT static gp_Pnt ProjectPointOnPlane(const gp_Pnt& aPoint, const gp_Pln& aPlane);
+  Standard_EXPORT static Point3d ProjectPointOnPlane(const Point3d& aPoint, const gp_Pln& aPlane);
 
-  Standard_EXPORT static gp_Pnt ProjectPointOnLine(const gp_Pnt& aPoint, const gp_Lin& aLine);
+  Standard_EXPORT static Point3d ProjectPointOnLine(const Point3d& aPoint, const gp_Lin& aLine);
 
-  Standard_EXPORT static gp_Pnt TranslatePointToBound(const gp_Pnt&  aPoint,
+  Standard_EXPORT static Point3d TranslatePointToBound(const Point3d&  aPoint,
                                                       const gp_Dir&  aDir,
                                                       const Bnd_Box& aBndBox);
 
@@ -229,16 +229,16 @@ public:
                                                    const Standard_Real anAttachPar);
 
   //! computes  nearest  to  ellipse  arc  apex
-  Standard_EXPORT static gp_Pnt NearestApex(const gp_Elips&     elips,
-                                            const gp_Pnt&       pApex,
-                                            const gp_Pnt&       nApex,
+  Standard_EXPORT static Point3d NearestApex(const gp_Elips&     elips,
+                                            const Point3d&       pApex,
+                                            const Point3d&       nApex,
                                             const Standard_Real fpara,
                                             const Standard_Real lpara,
                                             Standard_Boolean&   IsInDomain);
 
   //! computes  length  of  ellipse  arc  in  parametric  units
   Standard_EXPORT static Standard_Real DistanceFromApex(const gp_Elips&     elips,
-                                                        const gp_Pnt&       Apex,
+                                                        const Point3d&       Apex,
                                                         const Standard_Real par);
 
   Standard_EXPORT static void ComputeProjEdgePresentation(
@@ -246,8 +246,8 @@ public:
     const Handle(Prs3d_Drawer)&       aDrawer,
     const TopoDS_Edge&                anEdge,
     const Handle(Geom_Curve)&         ProjCurve,
-    const gp_Pnt&                     FirstP,
-    const gp_Pnt&                     LastP,
+    const Point3d&                     FirstP,
+    const Point3d&                     LastP,
     const Quantity_NameOfColor        aColor   = Quantity_NOC_PURPLE,
     const Standard_Real               aWidth   = 2,
     const Aspect_TypeOfLine           aProjTOL = Aspect_TOL_DASH,
@@ -257,7 +257,7 @@ public:
     const Handle(Prs3d_Presentation)& aPres,
     const Handle(Prs3d_Drawer)&       aDrawer,
     const TopoDS_Vertex&              aVertex,
-    const gp_Pnt&                     ProjPoint,
+    const Point3d&                     ProjPoint,
     const Quantity_NameOfColor        aColor   = Quantity_NOC_PURPLE,
     const Standard_Real               aWidth   = 2,
     const Aspect_TypeOfMarker         aProjTOM = Aspect_TOM_PLUS,

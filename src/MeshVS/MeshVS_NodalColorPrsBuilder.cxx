@@ -268,7 +268,7 @@ void MeshVS_NodalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
   Handle(Graphic3d_ArrayOfSegments) anEdgeSegments =
     new Graphic3d_ArrayOfSegments(aNbEdgePrimitives * 2);
 
-  gp_Pnt        P, Start;
+  Point3d        P, Start;
   Standard_Real aMin = gp::Resolution() * gp::Resolution();
   gp_Dir        aDefNorm(0., 0., 1.);
 
@@ -567,7 +567,7 @@ void MeshVS_NodalColorPrsBuilder::AddVolumePrs(
       {
         for (Standard_Integer aSubIdx = 0; aSubIdx < 3; ++aSubIdx) // generate sub-triangle
         {
-          gp_Pnt aPnt(aPolyNodes.Value(3 * (aSubIdx == 0 ? 0 : (aNodeIdx + aSubIdx)) + 1),
+          Point3d aPnt(aPolyNodes.Value(3 * (aSubIdx == 0 ? 0 : (aNodeIdx + aSubIdx)) + 1),
                       aPolyNodes.Value(3 * (aSubIdx == 0 ? 0 : (aNodeIdx + aSubIdx)) + 2),
                       aPolyNodes.Value(3 * (aSubIdx == 0 ? 0 : (aNodeIdx + aSubIdx)) + 3));
 

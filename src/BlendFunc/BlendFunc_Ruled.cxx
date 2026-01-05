@@ -402,7 +402,7 @@ void BlendFunc_Ruled::Tangent(const Standard_Real U1,
                               gp_Vec&             NmF,
                               gp_Vec&             NmL) const
 {
-  gp_Pnt bid;
+  Point3d bid;
   gp_Vec d1u, d1v;
   gp_Vec ns1;
 
@@ -415,12 +415,12 @@ void BlendFunc_Ruled::Tangent(const Standard_Real U1,
   TgF = TgL = gp_Vec(pts1, pts2);
 }
 
-const gp_Pnt& BlendFunc_Ruled::PointOnS1() const
+const Point3d& BlendFunc_Ruled::PointOnS1() const
 {
   return pts1;
 }
 
-const gp_Pnt& BlendFunc_Ruled::PointOnS2() const
+const Point3d& BlendFunc_Ruled::PointOnS2() const
 {
   return pts2;
 }
@@ -709,7 +709,7 @@ gp_Ax1 BlendFunc_Ruled::AxeRot(const Standard_Real Prm)
 {
   gp_Ax1 axrot;
   gp_Vec dirax, dnplan;
-  gp_Pnt oriax;
+  Point3d oriax;
 
   curv->D2(Prm, ptgui, d1gui, d2gui);
 

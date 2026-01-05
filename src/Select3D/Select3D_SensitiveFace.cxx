@@ -123,7 +123,7 @@ Select3D_BndBox3d Select3D_SensitiveFace::BoundingBox()
 // purpose  : Returns center of the face. If location transformation
 //            is set, it will be applied
 //=======================================================================
-gp_Pnt Select3D_SensitiveFace::CenterOfGeometry() const
+Point3d Select3D_SensitiveFace::CenterOfGeometry() const
 {
   return myFacePoints->CenterOfGeometry();
 }

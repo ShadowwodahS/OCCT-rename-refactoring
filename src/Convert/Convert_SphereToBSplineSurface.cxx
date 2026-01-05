@@ -66,18 +66,18 @@ static void ComputePoles(const Standard_Real R,
   Standard_Real UStart = U1;
   for (j = 0; j <= nbVP - 1; j++)
   {
-    Poles(1, j + 1) = gp_Pnt(x[j] * Cos(UStart), x[j] * Sin(UStart), z[j]);
+    Poles(1, j + 1) = Point3d(x[j] * Cos(UStart), x[j] * Sin(UStart), z[j]);
   }
 
   for (i = 1; i <= nbUSpans; i++)
   {
     for (j = 0; j <= nbVP - 1; j++)
     {
-      Poles(2 * i, j + 1) = gp_Pnt(x[j] * Cos(UStart + AlfaU) / Cos(AlfaU),
+      Poles(2 * i, j + 1) = Point3d(x[j] * Cos(UStart + AlfaU) / Cos(AlfaU),
                                    x[j] * Sin(UStart + AlfaU) / Cos(AlfaU),
                                    z[j]);
       Poles(2 * i + 1, j + 1) =
-        gp_Pnt(x[j] * Cos(UStart + 2 * AlfaU), x[j] * Sin(UStart + 2 * AlfaU), z[j]);
+        Point3d(x[j] * Cos(UStart + 2 * AlfaU), x[j] * Sin(UStart + 2 * AlfaU), z[j]);
     }
     UStart += 2 * AlfaU;
   }

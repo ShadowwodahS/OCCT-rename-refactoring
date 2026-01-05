@@ -34,7 +34,7 @@ class TDataXtd_Position : public TDF_Attribute
 
 public:
   //! Create if not found the TDataXtd_Position attribute set its position to <aPos>
-  Standard_EXPORT static void Set(const TDF_Label& aLabel, const gp_Pnt& aPos);
+  Standard_EXPORT static void Set(const TDF_Label& aLabel, const Point3d& aPos);
 
   //! Find an existing, or create an empty, Position.
   //! the Position attribute is returned.
@@ -42,7 +42,7 @@ public:
 
   //! Search label <aLabel) for the TDataXtd_Position attribute and get its position
   //! if found returns True
-  Standard_EXPORT static Standard_Boolean Get(const TDF_Label& aLabel, gp_Pnt& aPos);
+  Standard_EXPORT static Standard_Boolean Get(const TDF_Label& aLabel, Point3d& aPos);
 
   Standard_EXPORT TDataXtd_Position();
 
@@ -71,15 +71,15 @@ public:
                                      const Handle(TDF_RelocationTable)& aRelocTationable) const
     Standard_OVERRIDE;
 
-  Standard_EXPORT const gp_Pnt& GetPosition() const;
+  Standard_EXPORT const Point3d& GetPosition() const;
 
-  Standard_EXPORT void SetPosition(const gp_Pnt& aPos);
+  Standard_EXPORT void SetPosition(const Point3d& aPos);
 
   DEFINE_STANDARD_RTTIEXT(TDataXtd_Position, TDF_Attribute)
 
 protected:
 private:
-  gp_Pnt myPosition;
+  Point3d myPosition;
 };
 
 #endif // _TDataXtd_Position_HeaderFile

@@ -26,7 +26,7 @@
 
 class gp_Ax1;
 class gp_Lin;
-class gp_Pnt;
+class Point3d;
 class gp_Dir;
 
 //! This class implements the following algorithms used
@@ -52,11 +52,11 @@ public:
   Standard_EXPORT GC_MakeLine(const gp_Lin& L);
 
   //! P is the origin and V is the direction of the line.
-  Standard_EXPORT GC_MakeLine(const gp_Pnt& P, const gp_Dir& V);
+  Standard_EXPORT GC_MakeLine(const Point3d& P, const gp_Dir& V);
 
   //! Make a Line from Geom <TheLin> parallel to another
   //! Lin <Lin> and passing through a Pnt <Point>.
-  Standard_EXPORT GC_MakeLine(const gp_Lin& Lin, const gp_Pnt& Point);
+  Standard_EXPORT GC_MakeLine(const gp_Lin& Lin, const Point3d& Point);
 
   //! Make a Line from Geom <TheLin> passing through 2
   //! Pnt <P1>,<P2>.
@@ -64,7 +64,7 @@ public:
   //! Warning
   //! If the points P1 and P2 are coincident (that is, when
   //! IsDone returns false), the Status function returns gce_ConfusedPoints.
-  Standard_EXPORT GC_MakeLine(const gp_Pnt& P1, const gp_Pnt& P2);
+  Standard_EXPORT GC_MakeLine(const Point3d& P1, const Point3d& P2);
 
   //! Returns the constructed line.
   //! Exceptions StdFail_NotDone if no line is constructed.

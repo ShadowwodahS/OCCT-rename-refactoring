@@ -80,14 +80,14 @@ public:
   Standard_EXPORT BinTools_IStream& operator>>(Standard_Integer& theValue);
 
   //! Reads point coordinates value from the stream.
-  Standard_EXPORT gp_Pnt ReadPnt()
+  Standard_EXPORT Point3d ReadPnt()
   {
-    gp_Pnt aValue;
+    Point3d aValue;
     *this >> aValue;
     return aValue;
   }
 
-  Standard_EXPORT BinTools_IStream& operator>>(gp_Pnt& theValue);
+  Standard_EXPORT BinTools_IStream& operator>>(Point3d& theValue);
 
   //! Reads byte value from the stream.
   Standard_EXPORT Standard_Byte ReadByte()

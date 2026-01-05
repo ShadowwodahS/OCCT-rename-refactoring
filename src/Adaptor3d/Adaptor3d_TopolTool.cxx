@@ -656,18 +656,18 @@ static void Analyse(const TColgp_Array2OfPnt& array2,
   {
     for (i = 2; i < nbup; i++)
     {
-      const gp_Pnt& A = array2.Value(i, 1);
-      const gp_Pnt& B = array2.Value(i, 2);
-      const gp_Pnt& C = array2.Value(i, 3);
+      const Point3d& A = array2.Value(i, 1);
+      const Point3d& B = array2.Value(i, 2);
+      const Point3d& C = array2.Value(i, 3);
       Vi.SetCoord(C.X() - B.X() - B.X() + A.X(),
                   C.Y() - B.Y() - B.Y() + A.Y(),
                   C.Z() - B.Z() - B.Z() + A.Z());
       Standard_Integer locnbch = 0;
       for (j = 3; j < nbvp; j++)
       { //-- try
-        const gp_Pnt& A1 = array2.Value(i, j - 1);
-        const gp_Pnt& B1 = array2.Value(i, j);
-        const gp_Pnt& C1 = array2.Value(i, j + 1);
+        const Point3d& A1 = array2.Value(i, j - 1);
+        const Point3d& B1 = array2.Value(i, j);
+        const Point3d& C1 = array2.Value(i, j + 1);
         Vip1.SetCoord(C1.X() - B1.X() - B1.X() + A1.X(),
                       C1.Y() - B1.Y() - B1.Y() + A1.Y(),
                       C1.Z() - B1.Z() - B1.Z() + A1.Z());
@@ -706,18 +706,18 @@ static void Analyse(const TColgp_Array2OfPnt& array2,
   {
     for (j = 2; j < nbvp; j++)
     {
-      const gp_Pnt& A = array2.Value(1, j);
-      const gp_Pnt& B = array2.Value(2, j);
-      const gp_Pnt& C = array2.Value(3, j);
+      const Point3d& A = array2.Value(1, j);
+      const Point3d& B = array2.Value(2, j);
+      const Point3d& C = array2.Value(3, j);
       Vi.SetCoord(C.X() - B.X() - B.X() + A.X(),
                   C.Y() - B.Y() - B.Y() + A.Y(),
                   C.Z() - B.Z() - B.Z() + A.Z());
       Standard_Integer locnbch = 0;
       for (i = 3; i < nbup; i++)
       { //-- try
-        const gp_Pnt& A1 = array2.Value(i - 1, j);
-        const gp_Pnt& B1 = array2.Value(i, j);
-        const gp_Pnt& C1 = array2.Value(i + 1, j);
+        const Point3d& A1 = array2.Value(i - 1, j);
+        const Point3d& B1 = array2.Value(i, j);
+        const Point3d& C1 = array2.Value(i + 1, j);
         Vip1.SetCoord(C1.X() - B1.X() - B1.X() + A1.X(),
                       C1.Y() - B1.Y() - B1.Y() + A1.Y(),
                       C1.Z() - B1.Z() - B1.Z() + A1.Z());
@@ -930,7 +930,7 @@ void Adaptor3d_TopolTool::VParameters(TColStd_Array1OfReal& theArray) const
   theArray = myVPars->Array1();
 }
 
-void Adaptor3d_TopolTool::SamplePoint(const Standard_Integer i, gp_Pnt2d& P2d, gp_Pnt& P3d)
+void Adaptor3d_TopolTool::SamplePoint(const Standard_Integer i, gp_Pnt2d& P2d, Point3d& P3d)
 {
   Standard_Integer iu, iv;
   Standard_Real    u, v;
@@ -998,7 +998,7 @@ Standard_Real Adaptor3d_TopolTool::Tol3d(const Handle(Adaptor3d_HVertex)&) const
 
 //=================================================================================================
 
-gp_Pnt Adaptor3d_TopolTool::Pnt(const Handle(Adaptor3d_HVertex)&) const
+Point3d Adaptor3d_TopolTool::Pnt(const Handle(Adaptor3d_HVertex)&) const
 {
   throw Standard_DomainError("Adaptor3d_TopolTool: has no 3d representation");
 }
@@ -1340,11 +1340,11 @@ void Adaptor3d_TopolTool::BSplSamplePnts(const Standard_Real    theDefl,
       }
 
       t2        = anUPars(j);
-      gp_Pnt p1 = myS->Value(t2, t1);
+      Point3d p1 = myS->Value(t2, t1);
       for (k = j + 2; k <= nbsu; ++k)
       {
         t2        = anUPars(k);
-        gp_Pnt p2 = myS->Value(t2, t1);
+        Point3d p2 = myS->Value(t2, t1);
         // gce_MakeLin MkLin(p1, p2);
         // const gp_Lin& lin = MkLin.Value();
 
@@ -1362,7 +1362,7 @@ void Adaptor3d_TopolTool::BSplSamplePnts(const Standard_Real    theDefl,
             break;
           }
 
-          gp_Pnt        pp = myS->Value(anUPars(l), t1);
+          Point3d        pp = myS->Value(anUPars(l), t1);
           Standard_Real d  = lin.SquareDistance(pp);
 
           if (d <= aDefl2)
@@ -1439,11 +1439,11 @@ void Adaptor3d_TopolTool::BSplSamplePnts(const Standard_Real    theDefl,
       }
 
       t2        = aVPars(j);
-      gp_Pnt p1 = myS->Value(t1, t2);
+      Point3d p1 = myS->Value(t1, t2);
       for (k = j + 2; k <= nbsv; ++k)
       {
         t2        = aVPars(k);
-        gp_Pnt p2 = myS->Value(t1, t2);
+        Point3d p2 = myS->Value(t1, t2);
 
         if (p1.SquareDistance(p2) <= tol)
           continue;
@@ -1460,7 +1460,7 @@ void Adaptor3d_TopolTool::BSplSamplePnts(const Standard_Real    theDefl,
             break;
           }
 
-          gp_Pnt        pp = myS->Value(t1, aVPars(l));
+          Point3d        pp = myS->Value(t1, aVPars(l));
           Standard_Real d  = lin.SquareDistance(pp);
 
           if (d <= aDefl2)
@@ -1619,11 +1619,11 @@ void Adaptor3d_TopolTool::GetConeApexParam(const gp_Cone& theC,
   const gp_Ax3& Pos    = theC.Position();
   Standard_Real Radius = theC.RefRadius();
   Standard_Real SAngle = theC.SemiAngle();
-  const gp_Pnt& P      = theC.Apex();
+  const Point3d& P      = theC.Apex();
 
   gp_Trsf T;
   T.SetTransformation(Pos);
-  gp_Pnt Ploc = P.Transformed(T);
+  Point3d Ploc = P.Transformed(T);
 
   if (Ploc.X() == 0.0 && Ploc.Y() == 0.0)
   {

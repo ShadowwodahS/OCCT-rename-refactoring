@@ -1143,14 +1143,14 @@ Standard_Boolean ShapeFix_Face::FixOrientation(TopTools_DataMapOfShapeListOfShap
         ShapeAnalysis_Edge sae;
         if (sae.Curve3d(anEdge, c3d, First, Last))
         {
-          gp_Pnt pntIni = c3d->Value(First);
+          Point3d pntIni = c3d->Value(First);
           gp_XYZ prev;
           prev                       = pntIni.XYZ();
           Standard_Integer NbControl = 10;
           for (Standard_Integer j = 1; j < NbControl; j++)
           {
             Standard_Real prm     = ((NbControl - 1 - j) * First + j * Last) / (NbControl - 1);
-            gp_Pnt        pntCurr = c3d->Value(prm);
+            Point3d        pntCurr = c3d->Value(prm);
             gp_XYZ        curr    = pntCurr.XYZ();
             gp_XYZ        delta   = curr - prev;
             length += delta.Modulus();
@@ -1319,7 +1319,7 @@ Standard_Boolean ShapeFix_Face::FixOrientation(TopTools_DataMapOfShapeListOfShap
         if (aSh2.ShapeType() == TopAbs_VERTEX)
         {
           aWireIt--;
-          gp_Pnt   aP  = BRep_Tool::Pnt(TopoDS::Vertex(aSh2));
+          Point3d   aP  = BRep_Tool::Pnt(TopoDS::Vertex(aSh2));
           gp_Pnt2d p2d = mySurf->ValueOfUV(aP, Precision::Confusion());
           stb          = clas.Perform(p2d, Standard_False);
           if (stb == staout && (uclosed || vclosed))

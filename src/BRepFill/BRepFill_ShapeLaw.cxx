@@ -62,7 +62,7 @@ BRepFill_ShapeLaw::BRepFill_ShapeLaw(const TopoDS_Vertex& V, const Standard_Bool
   if (Build)
   {
     myLaws = new (GeomFill_HArray1OfSectionLaw)(1, 1);
-    //    gp_Pnt Origine;
+    //    Point3d Origine;
     gp_Dir                    D(1, 0, 0); // Following the normal
     Handle(Geom_Line)         L    = new (Geom_Line)(BRep_Tool::Pnt(V), D);
     Standard_Real             Last = 2 * BRep_Tool::Tolerance(V) + Precision::PConfusion();
@@ -269,7 +269,7 @@ TopoDS_Vertex BRepFill_ShapeLaw::Vertex(const Standard_Integer Index,
   if (!TheLaw.IsNull())
   {
     gp_Trsf T;
-    T.SetScale(gp_Pnt(0, 0, 0), TheLaw->Value(Param));
+    T.SetScale(Point3d(0, 0, 0), TheLaw->Value(Param));
     // TopLoc_Location L(T);
     // V.Move(L);
     V = TopoDS::Vertex(BRepBuilderAPI_Transform(V, T));
@@ -305,7 +305,7 @@ Standard_Real BRepFill_ShapeLaw::VertexTol(const Standard_Integer Index,
   Handle(TColStd_HArray1OfReal)    Knots, Weigth;
   Handle(TColStd_HArray1OfInteger) Mults;
   Handle(Geom_BSplineCurve)        BS;
-  gp_Pnt                           PFirst;
+  Point3d                           PFirst;
 
   Loi = myLaws->Value(I1);
   Loi->SectionShape(NbPoles, NbKnots, Degree);
@@ -466,7 +466,7 @@ void BRepFill_ShapeLaw::D0(const Standard_Real U, TopoDS_Shape& S)
   if (!TheLaw.IsNull())
   {
     gp_Trsf T;
-    T.SetScale(gp_Pnt(0, 0, 0), TheLaw->Value(U));
+    T.SetScale(Point3d(0, 0, 0), TheLaw->Value(U));
     // TopLoc_Location L(T);
     // S.Move(L);
     S = BRepBuilderAPI_Transform(S, T);

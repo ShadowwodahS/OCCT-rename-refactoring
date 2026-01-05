@@ -321,7 +321,7 @@ Standard_Integer brepintcs(Draw_Interpretor& di, Standard_Integer n, const char*
       tol = preci;
   }
   int             nbpi = 0;
-  gp_Pnt          curp;
+  Point3d          curp;
   TopoDS_Compound aComp;
   BRep_Builder    aB;
   aB.MakeCompound(aComp);
@@ -396,7 +396,7 @@ Standard_Integer MakeBoss(Draw_Interpretor&, Standard_Integer, const char** a)
   BRepFeat_MakeDPrism DPRISM(myS, basis, basis, ang, 1, Standard_True);
 
   TopoDS_Shape myFaceOnShape;
-  gp_Pnt       Pnt(0.0, 0.0, 50.0);
+  Point3d       Pnt(0.0, 0.0, 50.0);
   gp_Dir       Dir(-0.0, -0.0, -1.0);
   gp_Ax1       ax(Pnt, Dir);
 
@@ -568,7 +568,7 @@ TopoDS_Face NextFaceForPrism(const TopoDS_Shape& shape,
 
   for (Standard_Integer i = 1; i <= seqPnts.Length(); i++)
   {
-    const gp_Pnt& pt = seqPnts(i);
+    const Point3d& pt = seqPnts(i);
     // find a axis through a face
     gp_Dir dir = ax1.Direction();
     gp_Ax1 ax1b(pt, dir);

@@ -24,7 +24,7 @@
 
 class Adaptor3d_Curve;
 class Adaptor2d_Curve2d;
-class gp_Pnt;
+class Point3d;
 
 //! This class computes a distribution of points on a curve.
 //! The points may respect the deflection.
@@ -216,7 +216,7 @@ public:
   //! Exceptions
   //! StdFail_NotDone if this algorithm has not been
   //! initialized, or if the computation was not successful.
-  Standard_EXPORT gp_Pnt Value(const Standard_Integer Index) const;
+  Standard_EXPORT Point3d Value(const Standard_Integer Index) const;
 
   //! Returns the deflection between the curve and the
   //! polygon resulting from the points of the distribution

@@ -181,7 +181,7 @@ public:
   //! Auxiliary structure defining 3D point on isoline.
   struct PntOnIso
   {
-    gp_Pnt Pnt;   //!< 3D point
+    Point3d Pnt;   //!< 3D point
     double Param; //!< parameter along the line (for sorting)
   };
 
@@ -254,7 +254,7 @@ private:
     const Handle(Geom_Surface)& theSurface,
     const bool                  theIsU,
     const gp_Lin2d&             theIsoline,
-    const gp_Pnt*               theNodesXYZ,
+    const Point3d*               theNodesXYZ,
     const gp_Pnt2d*             theNodesUV,
     SegOnIso&                   theSegment);
 };

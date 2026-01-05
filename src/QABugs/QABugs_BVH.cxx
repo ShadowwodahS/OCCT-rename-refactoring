@@ -647,9 +647,9 @@ static Standard_Integer QABVH_PairDistance(Draw_Interpretor& theDI,
         Standard_Integer id1, id2, id3;
         aTriangle.Get(id1, id2, id3);
 
-        const gp_Pnt aP1 = aTriangulation->Node(id1).Transformed(aLoc.Transformation());
-        const gp_Pnt aP2 = aTriangulation->Node(id2).Transformed(aLoc.Transformation());
-        const gp_Pnt aP3 = aTriangulation->Node(id3).Transformed(aLoc.Transformation());
+        const Point3d aP1 = aTriangulation->Node(id1).Transformed(aLoc.Transformation());
+        const Point3d aP2 = aTriangulation->Node(id2).Transformed(aLoc.Transformation());
+        const Point3d aP3 = aTriangulation->Node(id3).Transformed(aLoc.Transformation());
 
         BVH_Vec3d aBVHP1(aP1.X(), aP1.Y(), aP1.Z());
         BVH_Vec3d aBVHP2(aP2.X(), aP2.Y(), aP2.Z());
@@ -707,9 +707,9 @@ public:
       Standard_Integer id1, id2, id3;
       aTriangle.Get(id1, id2, id3);
 
-      const gp_Pnt aP1 = aTriangulation->Node(id1).Transformed(aLoc.Transformation());
-      const gp_Pnt aP2 = aTriangulation->Node(id2).Transformed(aLoc.Transformation());
-      const gp_Pnt aP3 = aTriangulation->Node(id3).Transformed(aLoc.Transformation());
+      const Point3d aP1 = aTriangulation->Node(id1).Transformed(aLoc.Transformation());
+      const Point3d aP2 = aTriangulation->Node(id2).Transformed(aLoc.Transformation());
+      const Point3d aP3 = aTriangulation->Node(id3).Transformed(aLoc.Transformation());
 
       BVH_Vec3d aBVHP1(aP1.X(), aP1.Y(), aP1.Z());
       BVH_Vec3d aBVHP2(aP2.X(), aP2.Y(), aP2.Z());

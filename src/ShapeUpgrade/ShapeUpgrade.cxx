@@ -149,7 +149,7 @@ static Handle(Geom_BSplineCurve) BSplineCurve2dTo3d(const Handle(Geom2d_BSplineC
 
   TColgp_Array1OfPnt Poles3d(1, NbPoles);
   for (Standard_Integer i = 1; i <= NbPoles; i++)
-    Poles3d(i) = gp_Pnt(Poles2d(i).X(), Poles2d(i).Y(), 0);
+    Poles3d(i) = Point3d(Poles2d(i).X(), Poles2d(i).Y(), 0);
 
   Handle(Geom_BSplineCurve) BS3d =
     new Geom_BSplineCurve(Poles3d, Weights, Knots, Mults, deg, BS->IsPeriodic());

@@ -32,7 +32,7 @@ class GeomFill_PlanFunc : public math_FunctionWithDerivative
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT GeomFill_PlanFunc(const gp_Pnt&                  P,
+  Standard_EXPORT GeomFill_PlanFunc(const Point3d&                  P,
                                     const gp_Vec&                  V,
                                     const Handle(Adaptor3d_Curve)& C);
 
@@ -81,7 +81,7 @@ private:
   gp_XYZ                  myPnt;
   gp_XYZ                  myVec;
   gp_XYZ                  V;
-  gp_Pnt                  G;
+  Point3d                  G;
   Handle(Adaptor3d_Curve) myCurve;
 };
 

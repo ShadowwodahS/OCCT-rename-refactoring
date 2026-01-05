@@ -143,7 +143,7 @@ public:
   //! The default implementation is " returns False ".
   Standard_EXPORT virtual Standard_Boolean IsRotation(Standard_Real& Error) const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void Rotation(gp_Pnt& Center) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void Rotation(Point3d& Center) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(GeomFill_CurveAndTrihedron, GeomFill_LocationLaw)
 
@@ -153,7 +153,7 @@ private:
   Handle(GeomFill_TrihedronLaw) myLaw;
   Handle(Adaptor3d_Curve)       myCurve;
   Handle(Adaptor3d_Curve)       myTrimmed;
-  gp_Pnt                        Point;
+  Point3d                        Point;
   gp_Vec                        V1;
   gp_Vec                        V2;
   gp_Vec                        V3;

@@ -69,7 +69,7 @@ public:
 
   //! Returns the geometric point of the intersection
   //! between the line and the surface.
-  const gp_Pnt& Pnt() const;
+  const Point3d& Pnt() const;
 
   //! Returns the transition of the line on the surface.
   IntCurveSurface_TransitionOnCurve Transition() const;
@@ -87,7 +87,7 @@ public:
 
 protected:
 private:
-  gp_Pnt                            pnt;
+  Point3d                            pnt;
   Standard_Real                     U;
   Standard_Real                     V;
   Standard_Real                     W;

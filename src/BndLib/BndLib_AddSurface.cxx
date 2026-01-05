@@ -125,7 +125,7 @@ static Standard_Integer NbVSamples(const Adaptor3d_Surface& S)
 }
 
 //  Modified by skv - Fri Aug 27 12:29:04 2004 OCC6503 Begin
-static gp_Pnt BaryCenter(const gp_Pln&       aPlane,
+static Point3d BaryCenter(const gp_Pln&       aPlane,
                          const Standard_Real aUMin,
                          const Standard_Real aUMax,
                          const Standard_Real aVMin,
@@ -155,7 +155,7 @@ static gp_Pnt BaryCenter(const gp_Pln&       aPlane,
   else
     aV = (aVMin + aVMax) / 2.;
 
-  gp_Pnt aCenter = ElSLib::Value(aU, aV, aPlane);
+  Point3d aCenter = ElSLib::Value(aU, aV, aPlane);
 
   return aCenter;
 }
@@ -173,7 +173,7 @@ static void TreatInfinitePlane(const gp_Pln&       aPlane,
   constexpr Standard_Real anAngularTol = RealEpsilon();
 
   // Get location of the plane as its barycenter
-  gp_Pnt aLocation = BaryCenter(aPlane, aUMin, aUMax, aVMin, aVMax);
+  Point3d aLocation = BaryCenter(aPlane, aUMin, aUMax, aVMin, aVMax);
 
   if (aNorm.IsParallel(gp::DX(), anAngularTol))
   {
@@ -443,7 +443,7 @@ void BndLib_AddSurface::Add(const Adaptor3d_Surface& S,
     default: {
       Standard_Integer Nu = NbUSamples(S);
       Standard_Integer Nv = NbVSamples(S);
-      gp_Pnt           P;
+      Point3d           P;
       for (Standard_Integer i = 1; i <= Nu; i++)
       {
         Standard_Real U = UMin + ((UMax - UMin) * (i - 1) / (Nu - 1));
@@ -556,7 +556,7 @@ void BndLib_AddSurface::AddGenSurf(const Adaptor3d_Surface& S,
   NCollection_Array2<gp_XYZ> aPnts(1, Nu, 1, Nv);
   Standard_Real              u, v;
   Standard_Integer           i, j, k;
-  gp_Pnt                     P;
+  Point3d                     P;
   for (i = 1, u = UMin; i <= Nu; i++, u += du)
   {
     for (j = 1, v = VMin; j <= Nv; j++, v += dv)
@@ -673,8 +673,8 @@ void BndLib_AddSurface::AddGenSurf(const Adaptor3d_Surface& S,
     CoordMax[k] = CMax;
   }
 
-  B.Add(gp_Pnt(CoordMin[0], CoordMin[1], CoordMin[2]));
-  B.Add(gp_Pnt(CoordMax[0], CoordMax[1], CoordMax[2]));
+  B.Add(Point3d(CoordMin[0], CoordMin[1], CoordMin[2]));
+  B.Add(Point3d(CoordMax[0], CoordMax[1], CoordMax[2]));
   B.Enlarge(eps);
 }
 
@@ -722,7 +722,7 @@ public:
   {
     if (CheckInputData(X))
     {
-      gp_Pnt aP = mySurf.Value(X(1), X(2));
+      Point3d aP = mySurf.Value(X(1), X(2));
       F         = mySign * aP.Coord(myCoordIndx);
     }
     else
@@ -758,7 +758,7 @@ public:
         v0 = X(2);
       }
       //
-      gp_Pnt aP = mySurf.Value(u0, v0);
+      Point3d aP = mySurf.Value(u0, v0);
       F         = mySign * aP.Coord(myCoordIndx) + UPen + VPen;
     }
 

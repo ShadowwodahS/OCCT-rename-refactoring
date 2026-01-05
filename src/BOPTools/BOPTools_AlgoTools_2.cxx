@@ -37,8 +37,8 @@ void BOPTools_AlgoTools::UpdateVertex(const TopoDS_Vertex& aVF, const TopoDS_Ver
 {
   Standard_Real aTolVF, aTolNewVertex, aDist, aNewTol;
   //
-  gp_Pnt aPVF        = BRep_Tool::Pnt(aVF);
-  gp_Pnt aPNewVertex = BRep_Tool::Pnt(aNewVertex);
+  Point3d aPVF        = BRep_Tool::Pnt(aVF);
+  Point3d aPNewVertex = BRep_Tool::Pnt(aNewVertex);
   aTolVF             = BRep_Tool::Tolerance(aVF);
   aTolNewVertex      = BRep_Tool::Tolerance(aNewVertex);
 
@@ -59,9 +59,9 @@ void BOPTools_AlgoTools::UpdateVertex(const TopoDS_Edge&   aE,
                                       const TopoDS_Vertex& aV)
 {
   Standard_Real aTolV, aDist, aFirst, aLast;
-  gp_Pnt        aPc;
+  Point3d        aPc;
 
-  gp_Pnt aPv = BRep_Tool::Pnt(aV);
+  Point3d aPv = BRep_Tool::Pnt(aV);
   aTolV      = BRep_Tool::Tolerance(aV);
 
   GeomAdaptor_Curve aCA(BRep_Tool::Curve(aE, aFirst, aLast));
@@ -82,9 +82,9 @@ void BOPTools_AlgoTools::UpdateVertex(const IntTools_Curve& aC,
                                       const TopoDS_Vertex&  aV)
 {
   Standard_Real aTolV, aDist;
-  gp_Pnt        aPc;
+  Point3d        aPc;
 
-  gp_Pnt aPv = BRep_Tool::Pnt(aV);
+  Point3d aPv = BRep_Tool::Pnt(aV);
   aTolV      = BRep_Tool::Tolerance(aV);
 
   GeomAdaptor_Curve aCA(aC.Curve());
@@ -186,10 +186,10 @@ void BOPTools_AlgoTools::MakeNewVertex(const TopoDS_Vertex& aV1,
                                        const TopoDS_Vertex& aV2,
                                        TopoDS_Vertex&       aNewVertex)
 {
-  gp_Pnt        aPnt1 = BRep_Tool::Pnt(aV1);
+  Point3d        aPnt1 = BRep_Tool::Pnt(aV1);
   Standard_Real aTol1 = BRep_Tool::Tolerance(aV1);
 
-  gp_Pnt        aPnt2 = BRep_Tool::Pnt(aV2);
+  Point3d        aPnt2 = BRep_Tool::Pnt(aV2);
   Standard_Real aTol2 = BRep_Tool::Tolerance(aV2);
 
   Standard_Real aMaxTol, aDist;
@@ -202,14 +202,14 @@ void BOPTools_AlgoTools::MakeNewVertex(const TopoDS_Vertex& aV1,
   const gp_XYZ& aXYZ2   = aPnt2.XYZ();
   gp_XYZ        aNewXYZ = 0.5 * (aXYZ1 + aXYZ2);
 
-  gp_Pnt       aNewPnt(aNewXYZ);
+  Point3d       aNewPnt(aNewXYZ);
   BRep_Builder aBB;
   aBB.MakeVertex(aNewVertex, aNewPnt, aMaxTol);
 }
 
 //=================================================================================================
 
-void BOPTools_AlgoTools::MakeNewVertex(const gp_Pnt&       aP,
+void BOPTools_AlgoTools::MakeNewVertex(const Point3d&       aP,
                                        const Standard_Real aTol,
                                        TopoDS_Vertex&      aNewVertex)
 {
@@ -226,7 +226,7 @@ void BOPTools_AlgoTools::MakeNewVertex(const TopoDS_Edge&  aE1,
                                        TopoDS_Vertex&      aNewVertex)
 {
   Standard_Real aTol1, aTol2, aMaxTol, aDist;
-  gp_Pnt        aPnt1, aPnt2;
+  Point3d        aPnt1, aPnt2;
 
   PointOnEdge(aE1, aParm1, aPnt1);
   PointOnEdge(aE2, aParm2, aPnt2);
@@ -242,7 +242,7 @@ void BOPTools_AlgoTools::MakeNewVertex(const TopoDS_Edge&  aE1,
   const gp_XYZ& aXYZ2   = aPnt2.XYZ();
   gp_XYZ        aNewXYZ = 0.5 * (aXYZ1 + aXYZ2);
 
-  gp_Pnt       aNewPnt(aNewXYZ);
+  Point3d       aNewPnt(aNewXYZ);
   BRep_Builder aBB;
   aBB.MakeVertex(aNewVertex, aNewPnt, aMaxTol);
 }
@@ -255,7 +255,7 @@ void BOPTools_AlgoTools::MakeNewVertex(const TopoDS_Edge&  aE1,
                                        TopoDS_Vertex&      aNewVertex)
 {
   Standard_Real aTol1, aTol2, aMaxTol;
-  gp_Pnt        aPnt;
+  Point3d        aPnt;
 
   PointOnEdge(aE1, aParm1, aPnt);
 
@@ -270,7 +270,7 @@ void BOPTools_AlgoTools::MakeNewVertex(const TopoDS_Edge&  aE1,
 
 //=================================================================================================
 
-void BOPTools_AlgoTools::PointOnEdge(const TopoDS_Edge& aE, const Standard_Real aParm, gp_Pnt& aPnt)
+void BOPTools_AlgoTools::PointOnEdge(const TopoDS_Edge& aE, const Standard_Real aParm, Point3d& aPnt)
 {
   Standard_Real      f, l;
   Handle(Geom_Curve) C1 = BRep_Tool::Curve(aE, f, l);
@@ -288,7 +288,7 @@ void BOPTools_AlgoTools::CorrectRange(const TopoDS_Edge&    aE1,
   Standard_Real     aRes, aTolE1, aTolE2, aTF, aTL, dT;
   BRepAdaptor_Curve aBC;
   GeomAbs_CurveType aCT;
-  gp_Pnt            aP;
+  Point3d            aP;
   gp_Vec            aDer;
   //
   aNewSR = aSR;
@@ -368,7 +368,7 @@ void BOPTools_AlgoTools::CorrectRange(const TopoDS_Edge&    aE,
   Standard_Real     aRes, aTolF, aTF, aTL, dT;
   BRepAdaptor_Curve aBC;
   GeomAbs_CurveType aCT;
-  gp_Pnt            aP;
+  Point3d            aP;
   gp_Vec            aDer;
   //
   aNewSR = aSR;

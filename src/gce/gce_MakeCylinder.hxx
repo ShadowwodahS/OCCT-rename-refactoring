@@ -24,7 +24,7 @@
 #include <gp_Cylinder.hxx>
 #include <gce_Root.hxx>
 class gp_Ax2;
-class gp_Pnt;
+class Point3d;
 class gp_Ax1;
 class gp_Circ;
 
@@ -48,7 +48,7 @@ public:
 
   //! Makes a Cylinder from gp <TheCylinder> coaxial to another
   //! Cylinder <Cylinder> and passing through a Pnt <Point>.
-  Standard_EXPORT gce_MakeCylinder(const gp_Cylinder& Cyl, const gp_Pnt& Point);
+  Standard_EXPORT gce_MakeCylinder(const gp_Cylinder& Cyl, const Point3d& Point);
 
   //! Makes a Cylinder from gp <TheCylinder> coaxial to another
   //! Cylinder <Cylinder> at the distance <Dist> which can
@@ -61,7 +61,7 @@ public:
   //! <P1>,<P2>,<P3>.
   //! Its axis is <P1P2> and its radius is the distance
   //! between <P3> and <P1P2>
-  Standard_EXPORT gce_MakeCylinder(const gp_Pnt& P1, const gp_Pnt& P2, const gp_Pnt& P3);
+  Standard_EXPORT gce_MakeCylinder(const Point3d& P1, const Point3d& P2, const Point3d& P3);
 
   //! Makes a Cylinder by its axis <Axis> and radius <Radius>.
   Standard_EXPORT gce_MakeCylinder(const gp_Ax1& Axis, const Standard_Real Radius);

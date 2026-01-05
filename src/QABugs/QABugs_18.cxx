@@ -225,7 +225,7 @@ static Standard_Integer OCC367(Draw_Interpretor& di, Standard_Integer argc, cons
     for (Standard_Integer Index = 1; Index <= maxIndex; Index++)
     {
       Standard_Real t   = algo.Parameter(Index);
-      gp_Pnt        pt3 = curve.Value(t);
+      Point3d        pt3 = curve.Value(t);
       di << "Parameter t = " << t << "\n";
       di << "Value Pnt = " << pt3.X() << " " << pt3.Y() << " " << pt3.Z() << "\n";
       if (EdgeIndex == 1 && Index == maxIndex)

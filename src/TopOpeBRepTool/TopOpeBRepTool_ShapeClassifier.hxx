@@ -102,14 +102,14 @@ public:
   Standard_EXPORT void StateP2DReference(const gp_Pnt2d& P2D);
 
   //! classify point P3D with myRef
-  Standard_EXPORT void StateP3DReference(const gp_Pnt& P3D);
+  Standard_EXPORT void StateP3DReference(const Point3d& P3D);
 
   //! return field myState
   Standard_EXPORT TopAbs_State State() const;
 
   Standard_EXPORT const gp_Pnt2d& P2D() const;
 
-  Standard_EXPORT const gp_Pnt& P3D() const;
+  Standard_EXPORT const Point3d& P3D() const;
 
 protected:
 private:
@@ -140,7 +140,7 @@ private:
   TopoDS_Edge                    myEdge;
   TopoDS_Face                    myFace;
   Standard_Boolean               myP3Ddef;
-  gp_Pnt                         myP3D;
+  Point3d                         myP3D;
   Standard_Boolean               myP2Ddef;
   gp_Pnt2d                       myP2D;
   TopOpeBRepTool_SolidClassifier mySolidClassifier;

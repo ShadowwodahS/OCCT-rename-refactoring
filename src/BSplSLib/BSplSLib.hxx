@@ -26,7 +26,7 @@
 #include <TColStd_Array1OfReal.hxx>
 #include <TColStd_Array2OfReal.hxx>
 
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 
 //! BSplSLib   B-spline surface Library
@@ -195,7 +195,7 @@ public:
                                  const Standard_Boolean         VRat,
                                  const Standard_Boolean         UPer,
                                  const Standard_Boolean         VPer,
-                                 gp_Pnt&                        P);
+                                 Point3d&                        P);
 
   Standard_EXPORT static void D1(const Standard_Real            U,
                                  const Standard_Real            V,
@@ -213,7 +213,7 @@ public:
                                  const Standard_Boolean         VRat,
                                  const Standard_Boolean         UPer,
                                  const Standard_Boolean         VPer,
-                                 gp_Pnt&                        P,
+                                 Point3d&                        P,
                                  gp_Vec&                        Vu,
                                  gp_Vec&                        Vv);
 
@@ -233,7 +233,7 @@ public:
                                  const Standard_Boolean         VRat,
                                  const Standard_Boolean         UPer,
                                  const Standard_Boolean         VPer,
-                                 gp_Pnt&                        P,
+                                 Point3d&                        P,
                                  gp_Vec&                        Vu,
                                  gp_Vec&                        Vv,
                                  gp_Vec&                        Vuu,
@@ -256,7 +256,7 @@ public:
                                  const Standard_Boolean         VRat,
                                  const Standard_Boolean         UPer,
                                  const Standard_Boolean         VPer,
-                                 gp_Pnt&                        P,
+                                 Point3d&                        P,
                                  gp_Vec&                        Vu,
                                  gp_Vec&                        Vv,
                                  gp_Vec&                        Vuu,
@@ -335,7 +335,7 @@ public:
                                             const Standard_Boolean         UPer,
                                             const Standard_Boolean         VPer,
                                             Standard_Real&                 W,
-                                            gp_Pnt&                        P);
+                                            Point3d&                        P);
 
   //! Makes an homogeneous  evaluation of Poles and Weights
   //! any and returns in P the Numerator value and
@@ -357,7 +357,7 @@ public:
                                             const Standard_Boolean         VRat,
                                             const Standard_Boolean         UPer,
                                             const Standard_Boolean         VPer,
-                                            gp_Pnt&                        N,
+                                            Point3d&                        N,
                                             gp_Vec&                        Nu,
                                             gp_Vec&                        Nv,
                                             Standard_Real&                 D,
@@ -554,7 +554,7 @@ public:
                                       const Standard_Real         VSpanLength,
                                       const TColgp_Array2OfPnt&   Poles,
                                       const TColStd_Array2OfReal* Weights,
-                                      gp_Pnt&                     Point);
+                                      Point3d&                     Point);
 
   //! Calls CacheD0 for Bezier Surfaces Arrays computed with
   //! the method PolesCoefficients.
@@ -563,7 +563,7 @@ public:
                       const Standard_Real         V,
                       const TColgp_Array2OfPnt&   Poles,
                       const TColStd_Array2OfReal* Weights,
-                      gp_Pnt&                     Point);
+                      Point3d&                     Point);
 
   //! Perform the evaluation of the of the cache
   //! the parameter must be normalized between
@@ -586,7 +586,7 @@ public:
                                       const Standard_Real         VSpanLength,
                                       const TColgp_Array2OfPnt&   Poles,
                                       const TColStd_Array2OfReal* Weights,
-                                      gp_Pnt&                     Point,
+                                      Point3d&                     Point,
                                       gp_Vec&                     VecU,
                                       gp_Vec&                     VecV);
 
@@ -597,7 +597,7 @@ public:
                       const Standard_Real         V,
                       const TColgp_Array2OfPnt&   Poles,
                       const TColStd_Array2OfReal* Weights,
-                      gp_Pnt&                     Point,
+                      Point3d&                     Point,
                       gp_Vec&                     VecU,
                       gp_Vec&                     VecV);
 
@@ -622,7 +622,7 @@ public:
                                       const Standard_Real         VSpanLength,
                                       const TColgp_Array2OfPnt&   Poles,
                                       const TColStd_Array2OfReal* Weights,
-                                      gp_Pnt&                     Point,
+                                      Point3d&                     Point,
                                       gp_Vec&                     VecU,
                                       gp_Vec&                     VecV,
                                       gp_Vec&                     VecUU,
@@ -636,7 +636,7 @@ public:
                       const Standard_Real         V,
                       const TColgp_Array2OfPnt&   Poles,
                       const TColStd_Array2OfReal* Weights,
-                      gp_Pnt&                     Point,
+                      Point3d&                     Point,
                       gp_Vec&                     VecU,
                       gp_Vec&                     VecV,
                       gp_Vec&                     VecUU,

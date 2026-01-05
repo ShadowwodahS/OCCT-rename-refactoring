@@ -259,7 +259,7 @@ Standard_Boolean BRepExtrema_ProximityValueTool::getEdgeAdditionalVertices(
   for (Standard_Integer aVertIdx = 2; aVertIdx < aNbNodes; ++aVertIdx) // don't add extreme points
   {
     Standard_Real aPar = aGCPnts.Parameter(aVertIdx);
-    gp_Pnt        aP   = aBAC.Value(aPar);
+    Point3d        aP   = aBAC.Value(aPar);
 
     theAddVertices.push_back(BVH_Vec3d(aP.X(), aP.Y(), aP.Z()));
     theAddStatuses.Append(ProxPnt_Status::ProxPnt_Status_MIDDLE);
@@ -281,7 +281,7 @@ Standard_Boolean BRepExtrema_ProximityValueTool::getEdgeAdditionalVertices(
 //! from triangulation of which the input triangle is
 //=======================================================================
 void BRepExtrema_ProximityValueTool::doRecurTrgSplit(
-  const gp_Pnt (&theTrg)[3],
+  const Point3d (&theTrg)[3],
   const ProxPnt_Status (&theEdgesStatus)[3],
   const Standard_Real                 theTol,
   const Standard_Real                 theStep,
@@ -300,7 +300,7 @@ void BRepExtrema_ProximityValueTool::doRecurTrgSplit(
                          theTrg[2].Distance(theTrg[0])};
   Standard_Integer aBisectedEdgeIdx =
     aD[0] > aD[1] ? (aD[0] > aD[2] ? 0 : 2) : (aD[1] > aD[2] ? 1 : 2);
-  gp_Pnt aCenterOfMaxSide(theTrg[aBisectedEdgeIdx].Coord());
+  Point3d aCenterOfMaxSide(theTrg[aBisectedEdgeIdx].Coord());
   aCenterOfMaxSide.BaryCenter(0.5, theTrg[(aBisectedEdgeIdx + 1) % 3], 0.5);
 
   Bnd_Box aBox;
@@ -320,8 +320,8 @@ void BRepExtrema_ProximityValueTool::doRecurTrgSplit(
                 aBox.CornerMax().XYZ());
   }
 
-  gp_Pnt         aTrg1[3]         = {theTrg[0], theTrg[1], theTrg[2]};
-  gp_Pnt         aTrg2[3]         = {theTrg[0], theTrg[1], theTrg[2]};
+  Point3d         aTrg1[3]         = {theTrg[0], theTrg[1], theTrg[2]};
+  Point3d         aTrg2[3]         = {theTrg[0], theTrg[1], theTrg[2]};
   ProxPnt_Status aEdgesStatus1[3] = {theEdgesStatus[0], theEdgesStatus[1], theEdgesStatus[2]};
   ProxPnt_Status aEdgesStatus2[3] = {theEdgesStatus[0], theEdgesStatus[1], theEdgesStatus[2]};
   switch (aBisectedEdgeIdx)
@@ -361,7 +361,7 @@ static Standard_Real getModelRange(const TopLoc_Location&            theLocation
 static void getNodesOfTrg(const Standard_Integer            theTriIdx,
                           const TopLoc_Location&            theLocation,
                           const Handle(Poly_Triangulation)& theTr,
-                          gp_Pnt (&theTrg)[3])
+                          Point3d (&theTrg)[3])
 {
   Standard_Integer aVtxIdx1;
   Standard_Integer aVtxIdx2;
@@ -369,15 +369,15 @@ static void getNodesOfTrg(const Standard_Integer            theTriIdx,
 
   theTr->Triangle(theTriIdx).Get(aVtxIdx1, aVtxIdx2, aVtxIdx3);
 
-  gp_Pnt aVtx1 = theTr->Node(aVtxIdx1);
+  Point3d aVtx1 = theTr->Node(aVtxIdx1);
   aVtx1.Transform(theLocation);
   theTrg[0] = aVtx1;
 
-  gp_Pnt aVtx2 = theTr->Node(aVtxIdx2);
+  Point3d aVtx2 = theTr->Node(aVtxIdx2);
   aVtx2.Transform(theLocation);
   theTrg[1] = aVtx2;
 
-  gp_Pnt aVtx3 = theTr->Node(aVtxIdx3);
+  Point3d aVtx3 = theTr->Node(aVtxIdx3);
   aVtx3.Transform(theLocation);
   theTrg[2] = aVtx3;
 }
@@ -427,7 +427,7 @@ Standard_Boolean BRepExtrema_ProximityValueTool::getFaceAdditionalVertices(
 
   for (Standard_Integer aTriIdx = 1; aTriIdx <= aTr->NbTriangles(); ++aTriIdx)
   {
-    gp_Pnt         aTrg[3];
+    Point3d         aTrg[3];
     ProxPnt_Status aEdgesStatus[3];
     getNodesOfTrg(aTriIdx, aLocation, aTr, aTrg);
     getEdgesStatus(aTriIdx, aTr, aEdgesStatus);

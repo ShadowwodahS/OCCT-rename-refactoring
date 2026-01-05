@@ -32,7 +32,7 @@ class TopoDS_Shape;
 class TopoDS_Wire;
 class TopoDS_Edge;
 class TopoDS_Face;
-class gp_Pnt;
+class Point3d;
 
 //! Builds a rib or a groove along a developable, planar surface.
 //! The semantics of mechanical features is built around
@@ -113,8 +113,8 @@ public:
 
   Standard_EXPORT Standard_Boolean Propagate(TopTools_ListOfShape& L,
                                              const TopoDS_Face&    F,
-                                             const gp_Pnt&         FPoint,
-                                             const gp_Pnt&         LPoint,
+                                             const Point3d&         FPoint,
+                                             const Point3d&         LPoint,
                                              Standard_Boolean&     falseside);
 
 protected:

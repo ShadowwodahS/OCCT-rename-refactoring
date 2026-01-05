@@ -68,7 +68,7 @@ private:
   Standard_EXPORT void ComputeTwoEdgesTangent(const Handle(Prs3d_Presentation)& aPresentation);
 
 private:
-  gp_Pnt           myAttach;
+  Point3d           myAttach;
   gp_Dir           myDir;
   Standard_Real    myLength;
   Standard_Integer myExternRef;

@@ -143,7 +143,7 @@ Standard_Integer GeomAPI_ExtremaCurveCurve::NbExtrema() const
 
 //=================================================================================================
 
-void GeomAPI_ExtremaCurveCurve::Points(const Standard_Integer Index, gp_Pnt& P1, gp_Pnt& P2) const
+void GeomAPI_ExtremaCurveCurve::Points(const Standard_Integer Index, Point3d& P1, Point3d& P2) const
 {
   Standard_OutOfRange_Raise_if(Index < 1 || Index > NbExtrema(),
                                "GeomAPI_ExtremaCurveCurve::Points");
@@ -183,7 +183,7 @@ Standard_Real GeomAPI_ExtremaCurveCurve::Distance(const Standard_Integer Index) 
 
 //=================================================================================================
 
-void GeomAPI_ExtremaCurveCurve::NearestPoints(gp_Pnt& P1, gp_Pnt& P2) const
+void GeomAPI_ExtremaCurveCurve::NearestPoints(Point3d& P1, Point3d& P2) const
 {
   StdFail_NotDone_Raise_if(!myIsDone, "GeomAPI_ExtremaCurveCurve::NearestPoints");
 
@@ -222,7 +222,7 @@ GeomAPI_ExtremaCurveCurve::operator Standard_Integer() const
   return myExtCC.NbExt();
 }
 
-Standard_Boolean GeomAPI_ExtremaCurveCurve::TotalNearestPoints(gp_Pnt& P1, gp_Pnt& P2)
+Standard_Boolean GeomAPI_ExtremaCurveCurve::TotalNearestPoints(Point3d& P1, Point3d& P2)
 {
 
   if (!myTotalExt)
@@ -295,7 +295,7 @@ void GeomAPI_ExtremaCurveCurve::TotalPerform()
 
     // calculate distance between any suitable point on C1 and C2
 
-    gp_Pnt                      PonC1 = myC1.Value(0.);
+    Point3d                      PonC1 = myC1.Value(0.);
     GeomAPI_ProjectPointOnCurve proj(PonC1, myC2.Curve());
     myTotalDist = proj.LowerDistance();
 
@@ -315,7 +315,7 @@ void GeomAPI_ExtremaCurveCurve::TotalPerform()
       return;
   }
 
-  gp_Pnt        P11, P12, P21, P22;
+  Point3d        P11, P12, P21, P22;
   Standard_Real d11, d12, d21, d22;
   myExtCC.TrimmedSquareDistances(d11, d12, d21, d22, P11, P12, P21, P22);
 

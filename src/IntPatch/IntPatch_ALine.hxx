@@ -79,7 +79,7 @@ public:
 
   //! Returns the point of parameter U on the analytic
   //! intersection line.
-  gp_Pnt Value(const Standard_Real U);
+  Point3d Value(const Standard_Real U);
 
   //! Returns Standard_True when the derivative at parameter U
   //! is defined on the analytic intersection line.
@@ -88,14 +88,14 @@ public:
   //! evaluate the derivative.
   //! In both cases, P is the point at parameter U on the
   //! intersection.
-  Standard_Boolean D1(const Standard_Real U, gp_Pnt& P, gp_Vec& Du);
+  Standard_Boolean D1(const Standard_Real U, Point3d& P, gp_Vec& Du);
 
   //! Tries to find the parameters of the point P on the curve.
   //! If the method returns False, the "projection" is
   //! impossible.
   //! If the method returns True at least one parameter has been found.
   //! theParams is always sorted in ascending order.
-  void FindParameter(const gp_Pnt& P, TColStd_ListOfReal& theParams) const;
+  void FindParameter(const Point3d& P, TColStd_ListOfReal& theParams) const;
 
   //! Returns True if the line has a known First point.
   //! This point is given by the method FirstPoint().

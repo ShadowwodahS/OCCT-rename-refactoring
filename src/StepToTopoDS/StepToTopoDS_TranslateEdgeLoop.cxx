@@ -373,8 +373,8 @@ void StepToTopoDS_TranslateEdgeLoop::Init(const Handle(StepShape_FaceBound)& Fac
     if (myTranVertex2.IsDone())
     {
       V2        = TopoDS::Vertex(myTranVertex2.Value());
-      gp_Pnt p1 = BRep_Tool::Pnt(V1);
-      gp_Pnt p2 = BRep_Tool::Pnt(V2);
+      Point3d p1 = BRep_Tool::Pnt(V1);
+      Point3d p2 = BRep_Tool::Pnt(V2);
       if (p1.Distance(p2) <= Precision::Confusion())
       { //: S4136: preci) {
         Standard_Boolean Fixed = Standard_True;
@@ -432,8 +432,8 @@ void StepToTopoDS_TranslateEdgeLoop::Init(const Handle(StepShape_FaceBound)& Fac
     if (V1.IsSame(V2))
       continue; // OK
 
-    gp_Pnt           p1       = BRep_Tool::Pnt(V1);
-    gp_Pnt           p2       = BRep_Tool::Pnt(V2);
+    Point3d           p1       = BRep_Tool::Pnt(V1);
+    Point3d           p2       = BRep_Tool::Pnt(V2);
     Standard_Boolean locFixed = Standard_True;
     if (p1.Distance(p2) <= preci)
     {

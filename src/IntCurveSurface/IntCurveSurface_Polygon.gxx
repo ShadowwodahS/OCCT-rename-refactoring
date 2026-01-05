@@ -80,7 +80,7 @@ void IntCurveSurface_Polygon::Init(const TheCurve&        C) {
   Standard_Real u1=Bsup;
   Standard_Real du=(u1-u)/(Standard_Real)(NbPntIn-1);
   Standard_Integer i=1;
-  gp_Pnt P;
+  Point3d P;
   do {
     TheCurveTool::D0(C,u,P);
     TheBnd.Add(P);
@@ -103,9 +103,9 @@ void IntCurveSurface_Polygon::Init(const TheCurve&        C) {
     u+=du * 0.5;
     
     do {
-      gp_Pnt Pm=TheCurveTool::Value(C,u);
-      gp_Pnt P1=ThePnts.Value(i);
-      gp_Pnt P2=ThePnts.Value(i+1);
+      Point3d Pm=TheCurveTool::Value(C,u);
+      Point3d P1=ThePnts.Value(i);
+      Point3d P2=ThePnts.Value(i+1);
       gp_Lin L(P1,gp_Dir(gp_Vec(P1,P2)));
       Standard_Real t=L.Distance(Pm);
       
@@ -136,7 +136,7 @@ void IntCurveSurface_Polygon::Init(const TheCurve&        C,
   //ddout << "IntCurveSurface_Polygon::Init" << endl;
   Standard_Real u=Binf; 
   Standard_Integer i=1, i0 = Upars.Lower()-1;
-  gp_Pnt P;
+  Point3d P;
 
   myParams = new TColStd_HArray1OfReal(1, Upars.Length());
   do {
@@ -163,11 +163,11 @@ void IntCurveSurface_Polygon::Init(const TheCurve&        C,
     do {
       u = 0.5*(Upars(i0+i)+Upars(i0+i+1));
       //ddout << "===========Parameter : " << i << " " << u << endl;
-      gp_Pnt Pm=TheCurveTool::Value(C,u);
+      Point3d Pm=TheCurveTool::Value(C,u);
       //ddout << "Pm : " << Pm.X() << " " << Pm.Y() << " " << Pm.Z() << endl;
-      gp_Pnt P1=ThePnts.Value(i);
+      Point3d P1=ThePnts.Value(i);
       //ddout << "P1 : " << P1.X() << " " << P1.Y() << " " << P1.Z() << endl;
-      gp_Pnt P2=ThePnts.Value(i+1);
+      Point3d P2=ThePnts.Value(i+1);
       //ddout << "P2 : " << P2.X() << " " << P2.Y() << " " << P2.Z() << endl;
       gp_Lin L(P1,gp_Dir(gp_Vec(P1,P2)));
       Standard_Real t=L.Distance(Pm);
@@ -245,7 +245,7 @@ void IntCurveSurface_Polygon::Dump(void) const {
   }
   fprintf(fp,"\n#Discretisation de : %f ---> %f \n",Binf,Bsup);
   fprintf(fp,"\npol %d %d %f",Compteur,NbPntIn,TheDeflection);
-  gp_Pnt p1,p2;
+  Point3d p1,p2;
   for (Standard_Integer iObje=1; iObje<=NbSegments(); iObje++) {
     p1=BeginOfSeg(iObje);
     fprintf(fp,"\npnt %d %f %f",Compteur,p1.X(),p1.Y());

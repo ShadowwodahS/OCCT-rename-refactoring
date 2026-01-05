@@ -58,12 +58,12 @@
 //=================================================================================================
 
 static void ProjectOnSegments(const Adaptor3d_Curve& AC,
-                              const gp_Pnt&          P3D,
+                              const Point3d&          P3D,
                               const Standard_Integer nbseg,
                               Standard_Real&         uMin,
                               Standard_Real&         uMax,
                               Standard_Real&         distmin,
-                              gp_Pnt&                proj,
+                              Point3d&                proj,
                               Standard_Real&         param)
 {
   //  On considere <nbseg> points sur [uMin,uMax]
@@ -76,7 +76,7 @@ static void ProjectOnSegments(const Adaptor3d_Curve& AC,
   for (Standard_Integer i = 0; i <= nbseg; i++)
   {
     u         = uMin + (delta * i);
-    gp_Pnt PU = AC.Value(u);
+    Point3d PU = AC.Value(u);
     dist2     = PU.SquareDistance(P3D);
     if (dist2 < distmin2)
     {
@@ -100,9 +100,9 @@ static void ProjectOnSegments(const Adaptor3d_Curve& AC,
 //=================================================================================================
 
 Standard_Real ShapeAnalysis_Curve::Project(const Handle(Geom_Curve)& C3D,
-                                           const gp_Pnt&             P3D,
+                                           const Point3d&             P3D,
                                            const Standard_Real       preci,
-                                           gp_Pnt&                   proj,
+                                           Point3d&                   proj,
                                            Standard_Real&            param,
                                            const Standard_Boolean    AdjustToEnds) const
 {
@@ -117,9 +117,9 @@ Standard_Real ShapeAnalysis_Curve::Project(const Handle(Geom_Curve)& C3D,
 //=================================================================================================
 
 Standard_Real ShapeAnalysis_Curve::Project(const Handle(Geom_Curve)& C3D,
-                                           const gp_Pnt&             P3D,
+                                           const Point3d&             P3D,
                                            const Standard_Real       preci,
-                                           gp_Pnt&                   proj,
+                                           Point3d&                   proj,
                                            Standard_Real&            param,
                                            const Standard_Real       cf,
                                            const Standard_Real       cl,
@@ -135,8 +135,8 @@ Standard_Real ShapeAnalysis_Curve::Project(const Handle(Geom_Curve)& C3D,
     // clang-format off
     Standard_Real prec = ( AdjustToEnds ? preci : Precision::Confusion() ); //:j8 abv 10 Dec 98: tr10_r0501_db.stp #9423: protection against densing of points near one end
     // clang-format on
-    gp_Pnt LowBound = GAC.Value(uMin);
-    gp_Pnt HigBound = GAC.Value(uMax);
+    Point3d LowBound = GAC.Value(uMin);
+    Point3d HigBound = GAC.Value(uMax);
     distmin         = LowBound.Distance(P3D);
     if (distmin <= prec)
     {
@@ -175,9 +175,9 @@ Standard_Real ShapeAnalysis_Curve::Project(const Handle(Geom_Curve)& C3D,
 //=================================================================================================
 
 Standard_Real ShapeAnalysis_Curve::Project(const Adaptor3d_Curve& C3D,
-                                           const gp_Pnt&          P3D,
+                                           const Point3d&          P3D,
                                            const Standard_Real    preci,
-                                           gp_Pnt&                proj,
+                                           Point3d&                proj,
                                            Standard_Real&         param,
                                            const Standard_Boolean AdjustToEnds) const
 
@@ -193,8 +193,8 @@ Standard_Real ShapeAnalysis_Curve::Project(const Adaptor3d_Curve& C3D,
   // clang-format off
   Standard_Real prec = ( AdjustToEnds ? preci : Precision::Confusion() ); //:j8 abv 10 Dec 98: tr10_r0501_db.stp #9423: protection against densing of points near one end
   // clang-format on
-  gp_Pnt LowBound = C3D.Value(uMin);
-  gp_Pnt HigBound = C3D.Value(uMax);
+  Point3d LowBound = C3D.Value(uMin);
+  Point3d HigBound = C3D.Value(uMax);
   distmin_L       = LowBound.Distance(P3D);
   distmin_H       = HigBound.Distance(P3D);
 
@@ -231,9 +231,9 @@ Standard_Real ShapeAnalysis_Curve::Project(const Adaptor3d_Curve& C3D,
 //=================================================================================================
 
 Standard_Real ShapeAnalysis_Curve::ProjectAct(const Adaptor3d_Curve& C3D,
-                                              const gp_Pnt&          P3D,
+                                              const Point3d&          P3D,
                                               const Standard_Real    preci,
-                                              gp_Pnt&                proj,
+                                              Point3d&                proj,
                                               Standard_Real&         param) const
 
 {
@@ -290,7 +290,7 @@ Standard_Real ShapeAnalysis_Curve::ProjectAct(const Adaptor3d_Curve& C3D,
   // PTV 29.05.2002 remember the old solution, cause it could be better
   Standard_Real    anOldParam   = 0.;
   Standard_Boolean IsHaveOldSol = Standard_False;
-  gp_Pnt           anOldProj;
+  Point3d           anOldProj;
   if (OK)
   {
     IsHaveOldSol = Standard_True;
@@ -426,9 +426,9 @@ Standard_Real ShapeAnalysis_Curve::ProjectAct(const Adaptor3d_Curve& C3D,
 
 Standard_Real ShapeAnalysis_Curve::NextProject(const Standard_Real       paramPrev,
                                                const Handle(Geom_Curve)& C3D,
-                                               const gp_Pnt&             P3D,
+                                               const Point3d&             P3D,
                                                const Standard_Real       preci,
-                                               gp_Pnt&                   proj,
+                                               Point3d&                   proj,
                                                Standard_Real&            param,
                                                const Standard_Real       cf,
                                                const Standard_Real       cl,
@@ -443,8 +443,8 @@ Standard_Real ShapeAnalysis_Curve::NextProject(const Standard_Real       paramPr
     // clang-format off
     Standard_Real prec = ( AdjustToEnds ? preci : Precision::Confusion() ); //:j8 abv 10 Dec 98: tr10_r0501_db.stp #9423: protection against densing of points near one end
     // clang-format on
-    gp_Pnt LowBound = GAC.Value(uMin);
-    gp_Pnt HigBound = GAC.Value(uMax);
+    Point3d LowBound = GAC.Value(uMin);
+    Point3d HigBound = GAC.Value(uMax);
     distmin         = LowBound.Distance(P3D);
     if (distmin <= prec)
     {
@@ -483,9 +483,9 @@ Standard_Real ShapeAnalysis_Curve::NextProject(const Standard_Real       paramPr
 
 Standard_Real ShapeAnalysis_Curve::NextProject(const Standard_Real    paramPrev,
                                                const Adaptor3d_Curve& C3D,
-                                               const gp_Pnt&          P3D,
+                                               const Point3d&          P3D,
                                                const Standard_Real    preci,
-                                               gp_Pnt&                proj,
+                                               Point3d&                proj,
                                                Standard_Real&         param) const
 {
   Standard_Real uMin = C3D.FirstParameter();

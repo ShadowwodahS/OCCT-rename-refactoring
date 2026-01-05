@@ -41,7 +41,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Geom_RectangularTrimmedSurface, Geom_BoundedSurface)
 typedef Geom_RectangularTrimmedSurface RectangularTrimmedSurface;
 typedef gp_Ax1                         Ax1;
 typedef gp_Ax2                         Ax2;
-typedef gp_Pnt                         Pnt;
+typedef Point3d                         Pnt;
 typedef gp_Trsf                        Trsf;
 typedef gp_Vec                         Vec;
 

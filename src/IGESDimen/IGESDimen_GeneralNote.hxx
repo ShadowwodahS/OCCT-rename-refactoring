@@ -27,7 +27,7 @@
 #include <IGESData_IGESEntity.hxx>
 #include <Standard_Integer.hxx>
 class IGESGraph_TextFontDef;
-class gp_Pnt;
+class Point3d;
 class TCollection_HAsciiString;
 
 class IGESDimen_GeneralNote;
@@ -126,11 +126,11 @@ public:
 
   //! returns text start point of Index'th string
   //! raises exception if Index <= 0 or Index > NbStrings()
-  Standard_EXPORT gp_Pnt StartPoint(const Standard_Integer Index) const;
+  Standard_EXPORT Point3d StartPoint(const Standard_Integer Index) const;
 
   //! returns text start point of Index'th string after Transformation
   //! raises exception if Index <= 0 or Index > NbStrings()
-  Standard_EXPORT gp_Pnt TransformedStartPoint(const Standard_Integer Index) const;
+  Standard_EXPORT Point3d TransformedStartPoint(const Standard_Integer Index) const;
 
   //! returns distance from Start Point plane of string
   //! raises exception if Index <= 0 or Index > NbStrings()

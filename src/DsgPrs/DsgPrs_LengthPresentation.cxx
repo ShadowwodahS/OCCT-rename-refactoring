@@ -35,18 +35,18 @@
 void DsgPrs_LengthPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                     const Handle(Prs3d_Drawer)&       aDrawer,
                                     const TCollection_ExtendedString& aText,
-                                    const gp_Pnt&                     AttachmentPoint1,
-                                    const gp_Pnt&                     AttachmentPoint2,
+                                    const Point3d&                     AttachmentPoint1,
+                                    const Point3d&                     AttachmentPoint2,
                                     const gp_Dir&                     aDirection,
-                                    const gp_Pnt&                     OffsetPoint)
+                                    const Point3d&                     OffsetPoint)
 {
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
 
   gp_Lin        L1(AttachmentPoint1, aDirection);
   gp_Lin        L2(AttachmentPoint2, aDirection);
-  gp_Pnt        Proj1 = ElCLib::Value(ElCLib::Parameter(L1, OffsetPoint), L1);
-  gp_Pnt        Proj2 = ElCLib::Value(ElCLib::Parameter(L2, OffsetPoint), L2);
+  Point3d        Proj1 = ElCLib::Value(ElCLib::Parameter(L1, OffsetPoint), L1);
+  Point3d        Proj2 = ElCLib::Value(ElCLib::Parameter(L2, OffsetPoint), L2);
   gp_Lin        L3    = Proj1.IsEqual(Proj2, Precision::Confusion()) ? gp_Lin(Proj1, aDirection)
                                                                      : gce_MakeLin(Proj1, Proj2);
   Standard_Real parmin, parmax, parcur;
@@ -59,7 +59,7 @@ void DsgPrs_LengthPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
   if (parcur > parmax)
     parmax = parcur;
   parcur      = ElCLib::Parameter(L3, OffsetPoint);
-  gp_Pnt offp = ElCLib::Value(parcur, L3);
+  Point3d offp = ElCLib::Value(parcur, L3);
 
   Standard_Boolean outside = Standard_False;
   if (parcur < parmin)
@@ -73,8 +73,8 @@ void DsgPrs_LengthPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
     outside = Standard_True;
   }
 
-  gp_Pnt PointMin = ElCLib::Value(parmin, L3);
-  gp_Pnt PointMax = ElCLib::Value(parmax, L3);
+  Point3d PointMin = ElCLib::Value(parmin, L3);
+  Point3d PointMax = ElCLib::Value(parmax, L3);
 
   // face processing : 1st group
   Handle(Graphic3d_ArrayOfSegments) aPrims = new Graphic3d_ArrayOfSegments(6);
@@ -131,17 +131,17 @@ void DsgPrs_LengthPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
 void DsgPrs_LengthPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                     const Handle(Prs3d_Drawer)&       aDrawer,
                                     const TCollection_ExtendedString& aText,
-                                    const gp_Pnt&                     AttachmentPoint1,
-                                    const gp_Pnt&                     AttachmentPoint2,
+                                    const Point3d&                     AttachmentPoint1,
+                                    const Point3d&                     AttachmentPoint2,
                                     const gp_Pln&                     PlaneOfFaces,
                                     const gp_Dir&                     aDirection,
-                                    const gp_Pnt&                     OffsetPoint,
+                                    const Point3d&                     OffsetPoint,
                                     const DsgPrs_ArrowSide            ArrowPrs)
 {
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
 
-  gp_Pnt EndOfArrow1, EndOfArrow2;
+  Point3d EndOfArrow1, EndOfArrow2;
   gp_Dir DirOfArrow1;
 
   DsgPrs::ComputePlanarFacesLengthPresentation(LA->ArrowAspect()->Length(),
@@ -159,7 +159,7 @@ void DsgPrs_LengthPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
   gp_Lin        LengthLine(OffsetPoint, DirOfArrow1);
   Standard_Real Par1 = ElCLib::Parameter(LengthLine, EndOfArrow1);
   Standard_Real Par2 = ElCLib::Parameter(LengthLine, EndOfArrow2);
-  gp_Pnt        FirstPoint, LastPoint;
+  Point3d        FirstPoint, LastPoint;
   if ((Par1 > 0.0 && Par2 > 0.0) || (Par1 < 0.0 && Par2 < 0.0))
   {
     FirstPoint = OffsetPoint;
@@ -208,10 +208,10 @@ void DsgPrs_LengthPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
 void DsgPrs_LengthPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                     const Handle(Prs3d_Drawer)&       aDrawer,
                                     const TCollection_ExtendedString& aText,
-                                    const gp_Pnt&                     AttachmentPoint1,
-                                    const gp_Pnt&                     AttachmentPoint2,
+                                    const Point3d&                     AttachmentPoint1,
+                                    const Point3d&                     AttachmentPoint2,
                                     const gp_Dir&                     aDirection,
-                                    const gp_Pnt&                     OffsetPoint,
+                                    const Point3d&                     OffsetPoint,
                                     const DsgPrs_ArrowSide            ArrowPrs)
 {
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
@@ -219,8 +219,8 @@ void DsgPrs_LengthPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
 
   gp_Lin        L1(AttachmentPoint1, aDirection);
   gp_Lin        L2(AttachmentPoint2, aDirection);
-  gp_Pnt        Proj1 = ElCLib::Value(ElCLib::Parameter(L1, OffsetPoint), L1);
-  gp_Pnt        Proj2 = ElCLib::Value(ElCLib::Parameter(L2, OffsetPoint), L2);
+  Point3d        Proj1 = ElCLib::Value(ElCLib::Parameter(L1, OffsetPoint), L1);
+  Point3d        Proj2 = ElCLib::Value(ElCLib::Parameter(L2, OffsetPoint), L2);
   gp_Lin        L3    = Proj1.IsEqual(Proj2, Precision::Confusion()) ? gp_Lin(Proj1, aDirection)
                                                                      : gce_MakeLin(Proj1, Proj2);
   Standard_Real parmin, parmax, parcur;
@@ -233,7 +233,7 @@ void DsgPrs_LengthPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
   if (parcur > parmax)
     parmax = parcur;
   parcur      = ElCLib::Parameter(L3, OffsetPoint);
-  gp_Pnt offp = ElCLib::Value(parcur, L3);
+  Point3d offp = ElCLib::Value(parcur, L3);
 
   Standard_Boolean outside = Standard_False;
   if (parcur < parmin)
@@ -247,8 +247,8 @@ void DsgPrs_LengthPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
     outside = Standard_True;
   }
 
-  gp_Pnt PointMin = ElCLib::Value(parmin, L3);
-  gp_Pnt PointMax = ElCLib::Value(parmax, L3);
+  Point3d PointMin = ElCLib::Value(parmin, L3);
+  Point3d PointMax = ElCLib::Value(parmax, L3);
 
   // processing of face
   Handle(Graphic3d_ArrayOfSegments) aPrims = new Graphic3d_ArrayOfSegments(6);
@@ -289,16 +289,16 @@ void DsgPrs_LengthPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
                                     const Handle(Prs3d_Drawer)&       aDrawer,
                                     const TCollection_ExtendedString& aText,
                                     const Handle(Geom_Surface)&       SecondSurf,
-                                    const gp_Pnt&                     AttachmentPoint1,
-                                    const gp_Pnt&                     AttachmentPoint2,
+                                    const Point3d&                     AttachmentPoint1,
+                                    const Point3d&                     AttachmentPoint2,
                                     const gp_Dir&                     aDirection,
-                                    const gp_Pnt&                     OffsetPoint,
+                                    const Point3d&                     OffsetPoint,
                                     const DsgPrs_ArrowSide            ArrowPrs)
 {
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
 
-  gp_Pnt             EndOfArrow2;
+  Point3d             EndOfArrow2;
   gp_Dir             DirOfArrow1;
   Handle(Geom_Curve) VCurve, UCurve;
   Standard_Real      FirstU, deltaU = 0.0e0, FirstV, deltaV = 0.0e0;
@@ -321,7 +321,7 @@ void DsgPrs_LengthPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
   gp_Lin        LengthLine(OffsetPoint, DirOfArrow1);
   Standard_Real Par1 = ElCLib::Parameter(LengthLine, AttachmentPoint1);
   Standard_Real Par2 = ElCLib::Parameter(LengthLine, EndOfArrow2);
-  gp_Pnt        FirstPoint, LastPoint;
+  Point3d        FirstPoint, LastPoint;
   if ((Par1 > 0.0 && Par2 > 0.0) || (Par1 < 0.0 && Par2 < 0.0))
   {
     FirstPoint = OffsetPoint;
@@ -384,8 +384,8 @@ void DsgPrs_LengthPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
 
 void DsgPrs_LengthPresentation::Add(const Handle(Prs3d_Presentation)& aPrs,
                                     const Handle(Prs3d_Drawer)&       aDrawer,
-                                    const gp_Pnt&                     Pt1,
-                                    const gp_Pnt&                     Pt2,
+                                    const Point3d&                     Pt1,
+                                    const Point3d&                     Pt2,
                                     const DsgPrs_ArrowSide            ArrowPrs)
 {
   Handle(Graphic3d_ArrayOfSegments) aPrims = new Graphic3d_ArrayOfSegments(2);

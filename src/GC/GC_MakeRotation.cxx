@@ -47,7 +47,7 @@ GC_MakeRotation::GC_MakeRotation(const gp_Ax1& Axis, const Standard_Real Angle)
 //   droite issue du point Point et de direction Direc.                   +
 //=========================================================================
 
-GC_MakeRotation::GC_MakeRotation(const gp_Pnt&       Point,
+GC_MakeRotation::GC_MakeRotation(const Point3d&       Point,
                                  const gp_Dir&       Direc,
                                  const Standard_Real Angle)
 {

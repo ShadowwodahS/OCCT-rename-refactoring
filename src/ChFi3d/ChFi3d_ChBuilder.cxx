@@ -112,7 +112,7 @@ void ExtentSpineOnCommonFace(Handle(ChFiDS_Spine)&  Spine1,
   Standard_Real tga1, tga2;
   Standard_Real d1plus = 0., d2plus = 0.;
 
-  gp_Pnt tmp;
+  Point3d tmp;
   gp_Vec tg1, tg2;
   Spine1->D1(Spine1->Absc(V), tmp, tg1);
   Spine2->D1(Spine2->Absc(V), tmp, tg2);
@@ -734,7 +734,7 @@ Standard_Boolean ChFi3d_ChBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           
   Standard_Real longueur    = la - fi;
   Standard_Real MaxStep     = longueur * 0.05;
   Standard_Real radiusspine = 0, locfleche, w;
-  gp_Pnt        Pbid;
+  Point3d        Pbid;
   gp_Vec        d1, d2;
   // As ElSpine is parameterized by a curvilinear quasi-abscissa,
   // the min radius is estimated as 1/D2 max;
@@ -1326,7 +1326,7 @@ Standard_Boolean ChFi3d_ChBuilder::PerformFirstSection(const Handle(ChFiDS_Spine
 
     // calculate an approximate starting solution
     gp_Vec TgF, TgL, tmp1, tmp2, d1gui;
-    gp_Pnt pt1, pt2, ptgui;
+    Point3d pt1, pt2, ptgui;
     gp_XYZ temp;
 
     HGuide->D1(Par, ptgui, d1gui);
@@ -1415,7 +1415,7 @@ Standard_Boolean ChFi3d_ChBuilder::PerformFirstSection(const Handle(ChFiDS_Spine
 
     // calculate an approximate starting solution
     gp_Vec TgF, TgL, tmp1, tmp2, d1gui;
-    gp_Pnt pt1, pt2, ptgui;
+    Point3d pt1, pt2, ptgui;
     gp_XYZ temp;
 
     HGuide->D1(Par, ptgui, d1gui);
@@ -1497,7 +1497,7 @@ Standard_Boolean ChFi3d_ChBuilder::PerformFirstSection(const Handle(ChFiDS_Spine
 
     // calculate an approximate starting solution
     gp_Vec TgF, TgL, tmp1, tmp2, d1gui;
-    gp_Pnt pt1, pt2, ptgui;
+    Point3d pt1, pt2, ptgui;
     gp_XYZ temp;
 
     HGuide->D1(Par, ptgui, d1gui);
@@ -1929,7 +1929,7 @@ void ChFi3d_ChBuilder::ExtentOneCorner(const TopoDS_Vertex& V, const Handle(ChFi
     }
 
     gp_Vec tg1, tg2, tgsp;
-    gp_Pnt tmp, ptgui;
+    Point3d tmp, ptgui;
     Spine->D1(Spine->Absc(V),ptgui,tgsp);
     if (isfirst)
       tgsp.Reverse();
@@ -2218,7 +2218,7 @@ void ChFi3d_ChBuilder::SetRegul()
   BRepAdaptor_Surface                S;
   BRepAdaptor_Curve2d                PC;
   Standard_Real                      u, v, t;
-  gp_Pnt                             p;
+  Point3d                             p;
   gp_Vec                             n1, n2, du, dv;
   BRep_Builder                       B;
   Standard_Real                      Seuil  = M_PI / 360.;

@@ -62,7 +62,7 @@ public:
   //! If the vertex has not been modified this function
   //! returns false, and the values of thePnt and theTol are not significant.
   Standard_EXPORT Standard_Boolean NewPoint(const TopoDS_Vertex& theVertex,
-                                            gp_Pnt&              thePnt,
+                                            Point3d&              thePnt,
                                             Standard_Real&       theTol) Standard_OVERRIDE;
 
   //! Returns true if theEdge has a new curve on surface on theFace.

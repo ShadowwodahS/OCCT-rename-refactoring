@@ -356,11 +356,11 @@ void BRepFill_PipeShell::Set(const TopoDS_Wire&           AuxiliarySpine,
     // Case guide closed : Determination of the origin
     // & reorientation of the guide
     gp_Vec Dir;
-    gp_Pnt SpOr;
+    Point3d SpOr;
     if (!SpClose)
     {
       TopoDS_Vertex Vf, Vl;
-      gp_Pnt        P;
+      Point3d        P;
       TopExp::Vertices(mySpine, Vf, Vl);
       SpOr = BRep_Tool::Pnt(Vf);
       P    = BRep_Tool::Pnt(Vl);
@@ -474,7 +474,7 @@ void BRepFill_PipeShell::Add(const TopoDS_Shape&    Profile,
     // Compuite initial width of section (this will be 1.)
     GProp_GProps GlobalProps;
     BRepGProp::LinearProperties(Profile, GlobalProps);
-    gp_Pnt BaryCenter = GlobalProps.CentreOfMass();
+    Point3d BaryCenter = GlobalProps.CentreOfMass();
 
     TopoDS_Face ProfileFace = BRepLib_MakeFace(TopoDS::Wire(Profile), Standard_True); // only plane
     Handle(Geom_Surface)        thePlane = BRep_Tool::Surface(ProfileFace);
@@ -483,7 +483,7 @@ void BRepFill_PipeShell::Add(const TopoDS_Shape&    Profile,
     Handle(Adaptor3d_Curve)     aHCurve[2];
     aHCurve[0] = Loc->GetCurve();
     aHCurve[1] = Loc->Guide();
-    gp_Pnt           PointsOnSpines[2];
+    Point3d           PointsOnSpines[2];
     Standard_Integer i, j;
 
     for (i = 0; i < 2; i++)
@@ -492,7 +492,7 @@ void BRepFill_PipeShell::Add(const TopoDS_Shape&    Profile,
       Standard_Real MinDist = RealLast();
       for (j = 1; j <= Intersector.NbPoints(); j++)
       {
-        gp_Pnt        aPint = Intersector.Point(j).Pnt();
+        Point3d        aPint = Intersector.Point(j).Pnt();
         Standard_Real aDist = BaryCenter.Distance(aPint);
         if (aDist < MinDist)
         {

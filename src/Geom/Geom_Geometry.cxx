@@ -28,7 +28,7 @@
 IMPLEMENT_STANDARD_RTTIEXT(Geom_Geometry, RefObject)
 
 typedef Geom_Geometry Geometry;
-typedef gp_Pnt        Pnt;
+typedef Point3d        Pnt;
 typedef gp_Vec        Vec;
 typedef gp_Ax1        Ax1;
 typedef gp_Ax2        Ax2;
@@ -41,7 +41,7 @@ Handle(Geom_Geometry) Geom_Geometry::Copy() const
   throw Standard_ConstructionError();
 }
 
-void Geom_Geometry::Mirror(const gp_Pnt& P)
+void Geom_Geometry::Mirror(const Point3d& P)
 {
 
   Trsf T;
@@ -73,7 +73,7 @@ void Geom_Geometry::Rotate(const gp_Ax1& A1, const Standard_Real Ang)
   Transform(T);
 }
 
-void Geom_Geometry::Scale(const gp_Pnt& P, const Standard_Real S)
+void Geom_Geometry::Scale(const Point3d& P, const Standard_Real S)
 {
 
   Trsf T;
@@ -89,14 +89,14 @@ void Geom_Geometry::Translate(const gp_Vec& V)
   Transform(T);
 }
 
-void Geom_Geometry::Translate(const gp_Pnt& P1, const gp_Pnt& P2)
+void Geom_Geometry::Translate(const Point3d& P1, const Point3d& P2)
 {
 
   Vec V(P1, P2);
   Translate(V);
 }
 
-Handle(Geom_Geometry) Geom_Geometry::Mirrored(const gp_Pnt& P) const
+Handle(Geom_Geometry) Geom_Geometry::Mirrored(const Point3d& P) const
 {
   Handle(Geom_Geometry) G = Copy();
   G->Mirror(P);
@@ -124,7 +124,7 @@ Handle(Geom_Geometry) Geom_Geometry::Rotated(const gp_Ax1& A1, const Standard_Re
   return G;
 }
 
-Handle(Geom_Geometry) Geom_Geometry::Scaled(const gp_Pnt& P, const Standard_Real S) const
+Handle(Geom_Geometry) Geom_Geometry::Scaled(const Point3d& P, const Standard_Real S) const
 {
   Handle(Geom_Geometry) G = Copy();
   G->Scale(P, S);
@@ -145,7 +145,7 @@ Handle(Geom_Geometry) Geom_Geometry::Translated(const gp_Vec& V) const
   return G;
 }
 
-Handle(Geom_Geometry) Geom_Geometry::Translated(const gp_Pnt& P1, const gp_Pnt& P2) const
+Handle(Geom_Geometry) Geom_Geometry::Translated(const Point3d& P1, const Point3d& P2) const
 {
   Handle(Geom_Geometry) G = Copy();
   G->Translate(P1, P2);

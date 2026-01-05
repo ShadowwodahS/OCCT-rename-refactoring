@@ -397,7 +397,7 @@ void IntTools_BeanFaceIntersector::Result(IntTools_SequenceOfRanges& theResults)
 
 Standard_Real IntTools_BeanFaceIntersector::Distance(const Standard_Real theArg)
 {
-  gp_Pnt aPoint = myCurve.Value(theArg);
+  Point3d aPoint = myCurve.Value(theArg);
 
   GeomAPI_ProjectPointOnSurf& aProjector = myContext->ProjPS(mySurface.Face());
   aProjector.Perform(aPoint);
@@ -417,11 +417,11 @@ Standard_Real IntTools_BeanFaceIntersector::Distance(const Standard_Real theArg)
     Standard_Real aMinParameter = (i < 2) ? myVMinParameter : myUMinParameter;
     Standard_Real aMaxParameter = (i < 2) ? myVMaxParameter : myUMaxParameter;
     Standard_Real aMidParameter = (aMinParameter + aMaxParameter) * 0.5;
-    gp_Pnt        aPointMin     = (i < 2) ? mySurface.Value(anIsoParameter, aMinParameter)
+    Point3d        aPointMin     = (i < 2) ? mySurface.Value(anIsoParameter, aMinParameter)
                                           : mySurface.Value(aMinParameter, anIsoParameter);
-    gp_Pnt        aPointMax     = (i < 2) ? mySurface.Value(anIsoParameter, aMaxParameter)
+    Point3d        aPointMax     = (i < 2) ? mySurface.Value(anIsoParameter, aMaxParameter)
                                           : mySurface.Value(aMaxParameter, anIsoParameter);
-    gp_Pnt        aPointMid     = (i < 2) ? mySurface.Value(anIsoParameter, aMidParameter)
+    Point3d        aPointMid     = (i < 2) ? mySurface.Value(anIsoParameter, aMidParameter)
                                           : mySurface.Value(aMidParameter, anIsoParameter);
 
     Standard_Boolean useMinMaxPoints = Standard_True;
@@ -465,7 +465,7 @@ Standard_Real IntTools_BeanFaceIntersector::Distance(const Standard_Real theArg,
                                                      Standard_Real&      theUParameter,
                                                      Standard_Real&      theVParameter)
 {
-  gp_Pnt aPoint = myCurve.Value(theArg);
+  Point3d aPoint = myCurve.Value(theArg);
 
   theUParameter = myUMinParameter;
   theVParameter = myVMinParameter;
@@ -494,11 +494,11 @@ Standard_Real IntTools_BeanFaceIntersector::Distance(const Standard_Real theArg,
       Standard_Real aMinParameter = (i < 2) ? myVMinParameter : myUMinParameter;
       Standard_Real aMaxParameter = (i < 2) ? myVMaxParameter : myUMaxParameter;
       Standard_Real aMidParameter = (aMinParameter + aMaxParameter) * 0.5;
-      gp_Pnt        aPointMin     = (i < 2) ? mySurface.Value(anIsoParameter, aMinParameter)
+      Point3d        aPointMin     = (i < 2) ? mySurface.Value(anIsoParameter, aMinParameter)
                                             : mySurface.Value(aMinParameter, anIsoParameter);
-      gp_Pnt        aPointMax     = (i < 2) ? mySurface.Value(anIsoParameter, aMaxParameter)
+      Point3d        aPointMax     = (i < 2) ? mySurface.Value(anIsoParameter, aMaxParameter)
                                             : mySurface.Value(aMaxParameter, anIsoParameter);
-      gp_Pnt        aPointMid     = (i < 2) ? mySurface.Value(anIsoParameter, aMidParameter)
+      Point3d        aPointMid     = (i < 2) ? mySurface.Value(anIsoParameter, aMidParameter)
                                             : mySurface.Value(aMidParameter, anIsoParameter);
 
       Standard_Boolean useMinMaxPoints = Standard_True;
@@ -711,7 +711,7 @@ Standard_Boolean IntTools_BeanFaceIntersector::FastComputeAnalytic()
     gp_Pln surfPlane = mySurface.Plane();
 
     gp_Dir aDir;
-    gp_Pnt aPLoc;
+    Point3d aPLoc;
     switch (aCT)
     {
       case GeomAbs_Circle: {
@@ -790,7 +790,7 @@ Standard_Boolean IntTools_BeanFaceIntersector::FastComputeAnalytic()
   else if (aST == GeomAbs_Sphere)
   {
     gp_Sphere aSph    = mySurface.Sphere();
-    gp_Pnt    aSphLoc = aSph.Location();
+    Point3d    aSphLoc = aSph.Location();
     if (aCT == GeomAbs_Line)
     {
       gp_Lin        aLin  = myCurve.Line();
@@ -823,7 +823,7 @@ void IntTools_BeanFaceIntersector::ComputeLinePlane()
   Standard_Real Dis, Direc;
 
   P.Coefficients(A, B, C, D);
-  gp_Pnt Orig(L.Location());
+  Point3d Orig(L.Location());
   L.Direction().Coord(Al, Bl, Cl);
 
   Direc = A * Al + B * Bl + C * Cl;
@@ -844,8 +844,8 @@ void IntTools_BeanFaceIntersector::ComputeLinePlane()
   }
   else
   {
-    gp_Pnt        p1 = ElCLib::Value(myFirstParameter, L);
-    gp_Pnt        p2 = ElCLib::Value(myLastParameter, L);
+    Point3d        p1 = ElCLib::Value(myFirstParameter, L);
+    Point3d        p2 = ElCLib::Value(myLastParameter, L);
     Standard_Real d1 = A * p1.X() + B * p1.Y() + C * p1.Z() + D;
     if (d1 < 0)
       d1 = -d1;
@@ -876,7 +876,7 @@ void IntTools_BeanFaceIntersector::ComputeLinePlane()
     return;
   }
 
-  gp_Pnt pint(Orig.X() + t * Al, Orig.Y() + t * Bl, Orig.Z() + t * Cl);
+  Point3d pint(Orig.X() + t * Al, Orig.Y() + t * Bl, Orig.Z() + t * Cl);
 
   Standard_Real u, v;
   ElSLib::Parameters(P, pint, u, v);
@@ -1218,7 +1218,7 @@ void IntTools_BeanFaceIntersector::ComputeRangeFromStartPoint(
     Standard_Boolean pointfound = Standard_False;
 
     //
-    gp_Pnt                 aPoint = myCurve.Value(aCurPar);
+    Point3d                 aPoint = myCurve.Value(aCurPar);
     Extrema_GenLocateExtPS anExtrema(mySurface, 1.e-10, 1.e-10);
     anExtrema.Perform(aPoint, U, V);
 
@@ -1386,7 +1386,7 @@ static Standard_Boolean SetEmptyResultRange(const Standard_Real      theParamete
 //   Standard_Integer i = 0;
 //   Standard_Real tolE = theCurve.Tolerance(), tolF = theSurface.Tolerance();
 //   Standard_Real tolT = tolE + tolF, tolU = 1.e-9, tolV = 1.e-9;
-//   gp_Pnt aP;
+//   Point3d aP;
 
 //   theCurve.D0(cfp,aP);
 //   Extrema_ExtPS eps(aP,theSurface,tolU,tolV);
@@ -2364,7 +2364,7 @@ void ComputeGridPoints(const Handle(Geom_BSplineSurface)& theSurf,
   }
 
   // Compute of grid points.
-  gp_Pnt           aPnt;
+  Point3d           aPnt;
   Standard_Real    aParU;
   Standard_Real    aParV;
   gp_Vec           aDU, aDV;
@@ -2479,7 +2479,7 @@ void BuildBox(const Handle(Geom_BSplineSurface)& theSurf,
   Standard_Integer aNbUPnts;
   Standard_Integer aNbVPnts;
   Standard_Real    aParam;
-  gp_Pnt           aPnt;
+  Point3d           aPnt;
 
   theSurfaceData.SetFrame(theFirstU, theLastU, theFirstV, theLastV);
   aNbUPnts = theSurfaceData.GetNBUPointsInFrame();
@@ -2507,7 +2507,7 @@ void BuildBox(const Handle(Geom_BSplineSurface)& theSurf,
     // Add internal points.
     for (j = 1; j <= aNbVPnts; j++)
     {
-      const gp_Pnt& aGridPnt = theSurfaceData.GetPointInFrame(i, j);
+      const Point3d& aGridPnt = theSurfaceData.GetPointInFrame(i, j);
 
       theBox.Add(aGridPnt);
     }

@@ -92,7 +92,7 @@ static Standard_Boolean IsoIsDeg(const Adaptor3d_Surface& S,
   V1                     = S.FirstVParameter();
   V2                     = S.LastVParameter();
   gp_Vec        D1U, D1V;
-  gp_Pnt        P;
+  Point3d        P;
   Standard_Real Step, D1NormMax;
   if (IT == GeomAbs_IsoV)
   {
@@ -128,7 +128,7 @@ static Standard_Boolean IsoIsDeg(const Adaptor3d_Surface& S,
 static void TrimC3d(Handle(Adaptor3d_Curve)& myCurve,
                     Standard_Boolean*        IsTrimmed,
                     const Standard_Real      dt,
-                    const gp_Pnt&            Pole,
+                    const Point3d&            Pole,
                     Standard_Integer*        SingularCase,
                     const Standard_Integer   NumberOfSingularCase,
                     const Standard_Real      TolConf)
@@ -136,7 +136,7 @@ static void TrimC3d(Handle(Adaptor3d_Curve)& myCurve,
   Standard_Real f = myCurve->FirstParameter();
   Standard_Real l = myCurve->LastParameter();
 
-  gp_Pnt P = myCurve->Value(f);
+  Point3d P = myCurve->Value(f);
 
   if (P.Distance(Pole) <= TolConf)
   {
@@ -426,14 +426,14 @@ void ProjLib_ProjectedCurve::Perform(const Handle(Adaptor3d_Curve)& C)
         Standard_Real       f      = myCurve->FirstParameter();
         Standard_Real       l      = myCurve->LastParameter();
 
-        gp_Pnt        Pf      = myCurve->Value(f);
-        gp_Pnt        Pl      = myCurve->Value(l);
-        gp_Pnt        aLoc    = aSph.Position().Location();
+        Point3d        Pf      = myCurve->Value(f);
+        Point3d        Pl      = myCurve->Value(l);
+        Point3d        aLoc    = aSph.Position().Location();
         Standard_Real maxdist = Max(Pf.Distance(aLoc), Pl.Distance(aLoc));
         TolConf               = Max(anR * minang, Abs(anR - maxdist));
 
         // Surface has pole at V = Vmin and Vmax
-        gp_Pnt Pole = mySurface->Value(U1, Vmin);
+        Point3d Pole = mySurface->Value(U1, Vmin);
         TrimC3d(myCurve, IsTrimmed, dt, Pole, SingularCase, 3, TolConf);
         Pole = mySurface->Value(U1, Vmax);
         TrimC3d(myCurve, IsTrimmed, dt, Pole, SingularCase, 4, TolConf);
@@ -466,28 +466,28 @@ void ProjLib_ProjectedCurve::Perform(const Handle(Adaptor3d_Curve)& C)
       if (IsoIsDeg(S, U1, GeomAbs_IsoU, 0., myTolerance))
       {
         // Surface has pole at U = Umin
-        gp_Pnt Pole = mySurface->Value(U1, V1);
+        Point3d Pole = mySurface->Value(U1, V1);
         TrimC3d(myCurve, IsTrimmed, dt, Pole, SingularCase, 1, TolConf);
       }
 
       if (IsoIsDeg(S, U2, GeomAbs_IsoU, 0., myTolerance))
       {
         // Surface has pole at U = Umax
-        gp_Pnt Pole = mySurface->Value(U2, V1);
+        Point3d Pole = mySurface->Value(U2, V1);
         TrimC3d(myCurve, IsTrimmed, dt, Pole, SingularCase, 2, TolConf);
       }
 
       if (IsoIsDeg(S, V1, GeomAbs_IsoV, 0., myTolerance))
       {
         // Surface has pole at V = Vmin
-        gp_Pnt Pole = mySurface->Value(U1, V1);
+        Point3d Pole = mySurface->Value(U1, V1);
         TrimC3d(myCurve, IsTrimmed, dt, Pole, SingularCase, 3, TolConf);
       }
 
       if (IsoIsDeg(S, V2, GeomAbs_IsoV, 0., myTolerance))
       {
         // Surface has pole at V = Vmax
-        gp_Pnt Pole = mySurface->Value(U1, V2);
+        Point3d Pole = mySurface->Value(U1, V2);
         TrimC3d(myCurve, IsTrimmed, dt, Pole, SingularCase, 4, TolConf);
       }
 
@@ -545,7 +545,7 @@ void ProjLib_ProjectedCurve::Perform(const Handle(Adaptor3d_Curve)& C)
       {
         // Check possible singularity
 
-        gp_Pnt P = mySurface->AxeOfRevolution().Location();
+        Point3d P = mySurface->AxeOfRevolution().Location();
         gp_Dir N = mySurface->AxeOfRevolution().Direction();
 
         gp_Lin L(P, N);

@@ -80,24 +80,24 @@ inline Standard_Real HLRBRep_LineTool::Period(const gp_Lin&)
   return 0.;
 }
 
-inline gp_Pnt HLRBRep_LineTool::Value(const gp_Lin& C, const Standard_Real U)
+inline Point3d HLRBRep_LineTool::Value(const gp_Lin& C, const Standard_Real U)
 {
   return ElCLib::Value(U, C);
 }
 
-inline void HLRBRep_LineTool::D0(const gp_Lin& C, const Standard_Real U, gp_Pnt& P)
+inline void HLRBRep_LineTool::D0(const gp_Lin& C, const Standard_Real U, Point3d& P)
 {
   P = ElCLib::Value(U, C);
 }
 
-inline void HLRBRep_LineTool::D1(const gp_Lin& C, const Standard_Real U, gp_Pnt& P, gp_Vec& V)
+inline void HLRBRep_LineTool::D1(const gp_Lin& C, const Standard_Real U, Point3d& P, gp_Vec& V)
 {
   ElCLib::D1(U, C, P, V);
 }
 
 inline void HLRBRep_LineTool::D2(const gp_Lin&       C,
                                  const Standard_Real U,
-                                 gp_Pnt&             P,
+                                 Point3d&             P,
                                  gp_Vec&             V1,
                                  gp_Vec&             V2)
 {
@@ -107,7 +107,7 @@ inline void HLRBRep_LineTool::D2(const gp_Lin&       C,
 
 inline void HLRBRep_LineTool::D3(const gp_Lin&       C,
                                  const Standard_Real U,
-                                 gp_Pnt&             P,
+                                 Point3d&             P,
                                  gp_Vec&             V1,
                                  gp_Vec&             V2,
                                  gp_Vec&             V3)

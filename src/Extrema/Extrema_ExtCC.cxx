@@ -349,10 +349,10 @@ void Extrema_ExtCC::TrimmedSquareDistances(Standard_Real& dist11,
                                            Standard_Real& dist12,
                                            Standard_Real& dist21,
                                            Standard_Real& dist22,
-                                           gp_Pnt&        P11,
-                                           gp_Pnt&        P12,
-                                           gp_Pnt&        P21,
-                                           gp_Pnt&        P22) const
+                                           Point3d&        P11,
+                                           Point3d&        P12,
+                                           Point3d&        P21,
+                                           Point3d&        P22) const
 {
 
   dist11 = mydist11;
@@ -393,7 +393,7 @@ void Extrema_ExtCC::PrepareParallelResult(const Standard_Real theUt11,
   {
     // The projection of the circle's location to the trimmed line must exist.
     const Standard_Boolean isReversed = (aType1 != GeomAbs_Circle);
-    const gp_Pnt           aPonC      = !isReversed ? Extrema_CurveTool::Value(*myC[0], theUt11)
+    const Point3d           aPonC      = !isReversed ? Extrema_CurveTool::Value(*myC[0], theUt11)
                                                     : Extrema_CurveTool::Value(*myC[1], theUt21);
 
     const gp_Lin          aL = myC[!isReversed ? 1 : 0]->Line();
@@ -454,7 +454,7 @@ void Extrema_ExtCC::PrepareParallelResult(const Standard_Real theUt11,
       }
       else
       {
-        const gp_Pnt        aPonC1 = ElCLib::Value(theUt11, aLin1);
+        const Point3d        aPonC1 = ElCLib::Value(theUt11, aLin1);
         const Standard_Real aPar   = ElCLib::Parameter(aLin2, aPonC1);
         aProjRng12.Add(aPar);
       }
@@ -468,7 +468,7 @@ void Extrema_ExtCC::PrepareParallelResult(const Standard_Real theUt11,
       }
       else
       {
-        const gp_Pnt        aPonC1 = ElCLib::Value(theUt12, aLin1);
+        const Point3d        aPonC1 = ElCLib::Value(theUt12, aLin1);
         const Standard_Real aPar   = ElCLib::Parameter(aLin2, aPonC1);
         aProjRng12.Add(aPar);
       }
@@ -493,7 +493,7 @@ void Extrema_ExtCC::PrepareParallelResult(const Standard_Real theUt11,
         Standard_Real aPar1 = 0.0, aPar2 = 0.0;
         aRange2.GetBounds(aPar1, aPar2);
         aPar2                    = 0.5 * (aPar1 + aPar2);
-        gp_Pnt                aP = ElCLib::Value(aPar2, aLin2);
+        Point3d                aP = ElCLib::Value(aPar2, aLin2);
         const Extrema_POnCurv aP2(aPar2, aP);
         aPar1 = ElCLib::Parameter(aLin1, aP);
         aP    = ElCLib::Value(aPar1, aLin1);
@@ -566,8 +566,8 @@ void Extrema_ExtCC::PrepareParallelResult(const Standard_Real theUt11,
     const gp_Circ       aWorkCirc = myC[1]->Circle();
     const Standard_Real aPeriod   = M_PI + M_PI;
     gp_Vec              aVTg1;
-    gp_Pnt              aP11;
-    const gp_Pnt        aP12 = Extrema_CurveTool::Value(*myC[0], theUt12);
+    Point3d              aP11;
+    const Point3d        aP12 = Extrema_CurveTool::Value(*myC[0], theUt12);
     Extrema_CurveTool::D1(*myC[0], theUt11, aP11, aVTg1);
 
     const Bnd_Range aRange(theUt21, theUt22);
@@ -640,7 +640,7 @@ void Extrema_ExtCC::PrepareParallelResult(const Standard_Real theUt11,
       {
         Standard_Real aPar = 0.0;
         aRng.GetIntermediatePoint(0.5, aPar);
-        const gp_Pnt    aPCirc2 = ElCLib::Value(aPar, aWorkCirc);
+        const Point3d    aPCirc2 = ElCLib::Value(aPar, aWorkCirc);
         Extrema_ExtPElC ExtPCir(aPCirc2,
                                 Extrema_CurveTool::Circle(*myC[0]),
                                 Precision::Confusion(),
@@ -694,7 +694,7 @@ void Extrema_ExtCC::PrepareParallelResult(const Standard_Real theUt11,
 
         Standard_Real aPar = 0.0;
         aRng.GetIntermediatePoint(0.5, aPar);
-        const gp_Pnt          aPCirc2 = ElCLib::Value(aPar, aWorkCirc);
+        const Point3d          aPCirc2 = ElCLib::Value(aPar, aWorkCirc);
         const Extrema_POnCurv aP2(aPar, aPCirc2);
 
         Extrema_ExtPElC ExtPCir(aPCirc2,

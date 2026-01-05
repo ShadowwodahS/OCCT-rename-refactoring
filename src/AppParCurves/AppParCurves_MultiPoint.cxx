@@ -112,7 +112,7 @@ void AppParCurves_MultiPoint::Transform(const Standard_Integer CuIndex,
   if (Dimension(CuIndex) != 3)
     throw Standard_OutOfRange();
 
-  gp_Pnt P, newP;
+  Point3d P, newP;
   P = Point(CuIndex);
   newP.SetCoord(x + P.X() * dx, y + P.Y() * dy, z + P.Z() * dz);
   tabPoint->SetValue(CuIndex, newP);
@@ -133,14 +133,14 @@ void AppParCurves_MultiPoint::Transform2d(const Standard_Integer CuIndex,
   SetPoint2d(CuIndex, newP);
 }
 
-void AppParCurves_MultiPoint::SetPoint(const Standard_Integer Index, const gp_Pnt& Point)
+void AppParCurves_MultiPoint::SetPoint(const Standard_Integer Index, const Point3d& Point)
 {
   Standard_OutOfRange_Raise_if((Index <= 0) || (Index > nbP),
                                "AppParCurves_MultiPoint::SetPoint() - wrong index");
   tabPoint->SetValue(Index, Point);
 }
 
-const gp_Pnt& AppParCurves_MultiPoint::Point(const Standard_Integer Index) const
+const Point3d& AppParCurves_MultiPoint::Point(const Standard_Integer Index) const
 {
   Standard_OutOfRange_Raise_if((Index <= 0) || (Index > nbP),
                                "AppParCurves_MultiPoint::Point() - wrong index");

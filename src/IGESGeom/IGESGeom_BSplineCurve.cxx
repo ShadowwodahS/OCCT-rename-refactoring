@@ -137,19 +137,19 @@ Standard_Real IGESGeom_BSplineCurve::Weight(const Standard_Integer anIndex) cons
   return theWeights->Value(anIndex);
 }
 
-gp_Pnt IGESGeom_BSplineCurve::Pole(const Standard_Integer anIndex) const
+Point3d IGESGeom_BSplineCurve::Pole(const Standard_Integer anIndex) const
 {
   gp_XYZ tempXYZ = thePoles->Value(anIndex);
-  gp_Pnt Pole(tempXYZ);
+  Point3d Pole(tempXYZ);
   return Pole;
 }
 
-gp_Pnt IGESGeom_BSplineCurve::TransformedPole(const Standard_Integer anIndex) const
+Point3d IGESGeom_BSplineCurve::TransformedPole(const Standard_Integer anIndex) const
 {
   gp_XYZ tempXYZ = thePoles->Value(anIndex);
   if (HasTransf())
     Location().Transforms(tempXYZ);
-  gp_Pnt Pole(tempXYZ);
+  Point3d Pole(tempXYZ);
   return Pole;
 }
 

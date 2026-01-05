@@ -26,7 +26,7 @@ class gp_Ax3;
 class gp_Cone;
 class gp_Trsf;
 class gp_GTrsf2d;
-class gp_Pnt;
+class Point3d;
 class Geom_Curve;
 class gp_Vec;
 class Geom_Geometry;
@@ -173,7 +173,7 @@ public:
   //! side of the axis of revolution of this cone if the
   //! half-angle at the apex is positive, and on the positive
   //! side of the "main Axis" if the half-angle is negative.
-  Standard_EXPORT gp_Pnt Apex() const;
+  Standard_EXPORT Point3d Apex() const;
 
   //! The conical surface is infinite in the V direction so
   //! V1 = Realfirst from Standard and V2 = RealLast.
@@ -254,19 +254,19 @@ public:
   //! XDir is the direction of the XAxis and YDir the direction of the YAxis.
   Standard_EXPORT void D0(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P) const Standard_OVERRIDE;
+                          Point3d&             P) const Standard_OVERRIDE;
 
   //! Computes the current point and the first derivatives in the directions U and V.
   Standard_EXPORT void D1(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V) const Standard_OVERRIDE;
 
   //! Computes the current point, the first and the second derivatives in the directions U and V.
   Standard_EXPORT void D2(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V,
                           gp_Vec&             D2U,
@@ -277,7 +277,7 @@ public:
   //! derivatives in the directions U and V.
   Standard_EXPORT void D3(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V,
                           gp_Vec&             D2U,

@@ -248,7 +248,7 @@ Standard_Real BOPAlgo_Tools::ComputeToleranceOfCB(const Handle(BOPDS_CommonBlock
   //
   const Standard_Integer aNbPnt = 11;
   Standard_Real          aTol, aT, aT1, aT2, aDt;
-  gp_Pnt                 aP;
+  Point3d                 aP;
   //
   const Handle(Geom_Curve)& aC3D = BRep_Tool::Curve(aEOr, aT1, aT2);
   //
@@ -867,7 +867,7 @@ Standard_Boolean FindEdgeTangent(const BRepAdaptor_Curve& theCurve, gp_Vec& theT
   //
   for (aT = aT1 + aDt; aT <= aT2; aT += aDt)
   {
-    gp_Pnt aP;
+    Point3d aP;
     theCurve.D1(aT, aP, theTangent);
     if (theTangent.Magnitude() > Precision::Confusion())
     {
@@ -916,13 +916,13 @@ Standard_Boolean FindPlane(const BRepAdaptor_Curve& theCurve, gp_Pln& thePlane)
       const Standard_Real    aDt  = (aT2 - aT1) / aNbP;
       //
       aT = aT1;
-      gp_Pnt aP1;
+      Point3d aP1;
       gp_Vec aV1;
       theCurve.D1(aT, aP1, aV1);
       //
       for (aT = aT1 + aDt; aT <= aT2; aT += aDt)
       {
-        gp_Pnt aP2;
+        Point3d aP2;
         gp_Vec aV2;
         theCurve.D1(aT, aP2, aV2);
         //
@@ -1053,14 +1053,14 @@ public:
       Standard_Real          aTolV1 = BRep_Tool::Tolerance(aV1);
       if (aTolV1 < myVertices->FindFromIndex(anID1))
         aTolV1 = myVertices->FindFromIndex(anID1);
-      gp_Pnt aP1 = BRep_Tool::Pnt(aV1);
+      Point3d aP1 = BRep_Tool::Pnt(aV1);
 
       const Standard_Integer anID2  = this->myBVHSet1->Element(theID2);
       const TopoDS_Vertex&   aV2    = TopoDS::Vertex(myVertices->FindKey(anID2));
       Standard_Real          aTolV2 = BRep_Tool::Tolerance(aV2);
       if (aTolV2 < myVertices->FindFromIndex(anID2))
         aTolV2 = myVertices->FindFromIndex(anID2);
-      gp_Pnt aP2 = BRep_Tool::Pnt(aV2);
+      Point3d aP2 = BRep_Tool::Pnt(aV2);
 
       Standard_Real aTolSum2 = aTolV1 + aTolV2 + myFuzzyValue;
       aTolSum2 *= aTolSum2;
@@ -1791,7 +1791,7 @@ void BOPAlgo_Tools::FillInternals(const TopTools_ListOfShape&               theS
 Standard_Boolean BOPAlgo_Tools::TrsfToPoint(const Bnd_Box&      theBox1,
                                             const Bnd_Box&      theBox2,
                                             gp_Trsf&            theTrsf,
-                                            const gp_Pnt&       thePoint,
+                                            const Point3d&       thePoint,
                                             const Standard_Real theCriteria)
 {
   // Unify two boxes

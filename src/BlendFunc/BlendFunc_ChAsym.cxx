@@ -115,7 +115,7 @@ Standard_Boolean BlendFunc_ChAsym::IsSolution(const math_Vector& Sol, const Stan
   math_Vector valsol(1, 4), secmember(1, 4);
   math_Matrix gradsol(1, 4, 1, 4);
 
-  gp_Pnt        ptgui;
+  Point3d        ptgui;
   gp_Vec        np, dnp, d1gui, d2gui, Nsurf1, dwtsurf1;
   gp_Vec        d1u1, d1v1, d1u2, d1v2;
   Standard_Real Normg;
@@ -219,7 +219,7 @@ Standard_Boolean BlendFunc_ChAsym::ComputeValues(const math_Vector&     X,
     return Standard_False;
 
   gp_Vec        np, d1gui, d1u1, d1v1, d2u1, d2v1, d2uv1, d1u2, d1v2, Nsurf1;
-  gp_Pnt        ptgui;
+  Point3d        ptgui;
   Standard_Real PScaInv, F4;
 
   tcurv->D1(param, ptgui, d1gui);
@@ -330,14 +330,14 @@ Standard_Boolean BlendFunc_ChAsym::Values(const math_Vector& X, math_Vector& F, 
 
 //=================================================================================================
 
-const gp_Pnt& BlendFunc_ChAsym::PointOnS1() const
+const Point3d& BlendFunc_ChAsym::PointOnS1() const
 {
   return pt1;
 }
 
 //=================================================================================================
 
-const gp_Pnt& BlendFunc_ChAsym::PointOnS2() const
+const Point3d& BlendFunc_ChAsym::PointOnS2() const
 {
   return pt2;
 }
@@ -418,7 +418,7 @@ void BlendFunc_ChAsym::Tangent(const Standard_Real U1,
                                gp_Vec&             NmF,
                                gp_Vec&             NmL) const
 {
-  gp_Pnt           Pt1, Pt2, ptgui;
+  Point3d           Pt1, Pt2, ptgui;
   gp_Vec           d1u1, d1v1, d1u2, d1v2;
   gp_Vec           np, d1gui;
   Standard_Boolean revF = Standard_False;
@@ -465,8 +465,8 @@ void BlendFunc_ChAsym::Section(const Standard_Real /*Param*/,
                                Standard_Real&      Pfin,
                                gp_Lin&             C)
 {
-  const gp_Pnt Pt1 = surf1->Value(U1, V1);
-  const gp_Pnt Pt2 = surf2->Value(U2, V2);
+  const Point3d Pt1 = surf1->Value(U1, V1);
+  const Point3d Pt2 = surf2->Value(U2, V2);
   const gp_Dir dir(gp_Vec(Pt1, Pt2));
 
   C.SetLocation(Pt1);
@@ -609,7 +609,7 @@ Standard_Boolean BlendFunc_ChAsym::Section(const Blend_Point&    P,
   Weights(low) = 1.0;
   Weights(upp) = 1.0;
 
-  gp_Pnt        ptgui;
+  Point3d        ptgui;
   gp_Vec        np, dnp, d1gui, d2gui, Nsurf1, dwtsurf1;
   gp_Vec        d1u1, d1v1, d1u2, d1v2;
   Standard_Real Normg;

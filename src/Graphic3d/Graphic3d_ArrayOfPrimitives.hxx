@@ -122,7 +122,7 @@ public:
 
   //! Adds a vertice in the array.
   //! @return the actual vertex number
-  Standard_Integer AddVertex(const gp_Pnt& theVertex)
+  Standard_Integer AddVertex(const Point3d& theVertex)
   {
     return AddVertex(theVertex.X(), theVertex.Y(), theVertex.Z());
   }
@@ -157,7 +157,7 @@ public:
   //! Adds a vertice and vertex color in the vertex array.
   //! Warning: theColor is ignored when the hasVColors constructor parameter is FALSE
   //! @return the actual vertex number
-  Standard_Integer AddVertex(const gp_Pnt& theVertex, const Quantity_Color& theColor)
+  Standard_Integer AddVertex(const Point3d& theVertex, const Quantity_Color& theColor)
   {
     const Standard_Integer anIndex = AddVertex(theVertex);
     SetVertexColor(anIndex, theColor.Red(), theColor.Green(), theColor.Blue());
@@ -170,7 +170,7 @@ public:
   //!   theColor32 = Alpha << 24 + Blue << 16 + Green << 8 + Red
   //! @endcode
   //! @return the actual vertex number
-  Standard_Integer AddVertex(const gp_Pnt& theVertex, const Standard_Integer theColor32)
+  Standard_Integer AddVertex(const Point3d& theVertex, const Standard_Integer theColor32)
   {
     const Standard_Integer anIndex = AddVertex(theVertex);
     SetVertexColor(anIndex, theColor32);
@@ -180,7 +180,7 @@ public:
   //! Adds a vertice and vertex color in the vertex array.
   //! Warning: theColor is ignored when the hasVColors constructor parameter is FALSE
   //! @return the actual vertex number
-  Standard_Integer AddVertex(const gp_Pnt& theVertex, const Graphic3d_Vec4ub& theColor)
+  Standard_Integer AddVertex(const Point3d& theVertex, const Graphic3d_Vec4ub& theColor)
   {
     const Standard_Integer anIndex = AddVertex(theVertex);
     SetVertexColor(anIndex, theColor);
@@ -190,7 +190,7 @@ public:
   //! Adds a vertice and vertex normal in the vertex array.
   //! Warning: theNormal is ignored when the hasVNormals constructor parameter is FALSE.
   //! @return the actual vertex number
-  Standard_Integer AddVertex(const gp_Pnt& theVertex, const gp_Dir& theNormal)
+  Standard_Integer AddVertex(const Point3d& theVertex, const gp_Dir& theNormal)
   {
     return AddVertex(theVertex.X(),
                      theVertex.Y(),
@@ -238,7 +238,7 @@ public:
   //! Warning: theNormal is ignored when the hasVNormals constructor parameter is FALSE
   //! and      theColor  is ignored when the hasVColors  constructor parameter is FALSE.
   //! @return the actual vertex number
-  Standard_Integer AddVertex(const gp_Pnt&         theVertex,
+  Standard_Integer AddVertex(const Point3d&         theVertex,
                              const gp_Dir&         theNormal,
                              const Quantity_Color& theColor)
   {
@@ -254,7 +254,7 @@ public:
   //!   theColor32 = Alpha << 24 + Blue << 16 + Green << 8 + Red
   //! @endcode
   //! @return the actual vertex number
-  Standard_Integer AddVertex(const gp_Pnt&          theVertex,
+  Standard_Integer AddVertex(const Point3d&          theVertex,
                              const gp_Dir&          theNormal,
                              const Standard_Integer theColor32)
   {
@@ -266,7 +266,7 @@ public:
   //! Adds a vertice and vertex texture in the vertex array.
   //! theTexel is ignored when the hasVTexels constructor parameter is FALSE.
   //! @return the actual vertex number
-  Standard_Integer AddVertex(const gp_Pnt& theVertex, const gp_Pnt2d& theTexel)
+  Standard_Integer AddVertex(const Point3d& theVertex, const gp_Pnt2d& theTexel)
   {
     return AddVertex(theVertex.X(), theVertex.Y(), theVertex.Z(), theTexel.X(), theTexel.Y());
   }
@@ -306,7 +306,7 @@ public:
   //! Warning: theNormal is ignored when the hasVNormals constructor parameter is FALSE
   //! and      theTexel  is ignored when the hasVTexels  constructor parameter is FALSE.
   //! @return the actual vertex number
-  Standard_Integer AddVertex(const gp_Pnt&   theVertex,
+  Standard_Integer AddVertex(const Point3d&   theVertex,
                              const gp_Dir&   theNormal,
                              const gp_Pnt2d& theTexel)
   {
@@ -366,7 +366,7 @@ public:
   //! Change the vertice of rank theIndex in the array.
   //! @param[in] theIndex  node index within [1, VertexNumberAllocated()] range
   //! @param[in] theVertex 3D coordinates
-  void SetVertice(const Standard_Integer theIndex, const gp_Pnt& theVertex)
+  void SetVertice(const Standard_Integer theIndex, const Point3d& theVertex)
   {
     SetVertice(theIndex,
                Standard_ShortReal(theVertex.X()),
@@ -524,11 +524,11 @@ public:
   //! Returns the vertice from the vertex table if defined.
   //! @param[in] theRank node index within [1, VertexNumber()] range
   //! @return node 3D coordinates
-  gp_Pnt Vertice(const Standard_Integer theRank) const
+  Point3d Vertice(const Standard_Integer theRank) const
   {
     Standard_Real anXYZ[3];
     Vertice(theRank, anXYZ[0], anXYZ[1], anXYZ[2]);
-    return gp_Pnt(anXYZ[0], anXYZ[1], anXYZ[2]);
+    return Point3d(anXYZ[0], anXYZ[1], anXYZ[2]);
   }
 
   //! Returns the vertice coordinates at rank theRank from the vertex table if defined.

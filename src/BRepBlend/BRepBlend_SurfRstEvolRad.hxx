@@ -104,9 +104,9 @@ public:
   //! extremities of calculated sections.
   Standard_EXPORT virtual Standard_Real GetMinimalDistance() const Standard_OVERRIDE;
 
-  Standard_EXPORT const gp_Pnt& PointOnS() const Standard_OVERRIDE;
+  Standard_EXPORT const Point3d& PointOnS() const Standard_OVERRIDE;
 
-  Standard_EXPORT const gp_Pnt& PointOnRst() const Standard_OVERRIDE;
+  Standard_EXPORT const Point3d& PointOnRst() const Standard_OVERRIDE;
 
   //! Returns U,V coordinates of the point on the surface.
   Standard_EXPORT const gp_Pnt2d& Pnt2dOnS() const Standard_OVERRIDE;
@@ -230,8 +230,8 @@ private:
   Adaptor3d_CurveOnSurface     cons;
   Handle(Adaptor3d_Curve)      guide;
   Handle(Adaptor3d_Curve)      tguide;
-  gp_Pnt                       pts;
-  gp_Pnt                       ptrst;
+  Point3d                       pts;
+  Point3d                       ptrst;
   gp_Pnt2d                     pt2ds;
   gp_Pnt2d                     pt2drst;
   Standard_Real                prmrst;
@@ -243,7 +243,7 @@ private:
   Standard_Real                ray;
   Standard_Real                dray;
   Standard_Integer             choix;
-  gp_Pnt                       ptgui;
+  Point3d                       ptgui;
   gp_Vec                       d1gui;
   gp_Vec                       d2gui;
   gp_Vec                       nplan;

@@ -79,12 +79,12 @@ public: //! @name SAT Tests for different objects
 
   //! Intersection test between defined volume and given point
   Standard_EXPORT virtual Standard_Boolean OverlapsPoint(
-    const gp_Pnt&                  thePnt,
+    const Point3d&                  thePnt,
     const SelectMgr_ViewClipRange& theClipRange,
     SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
 
   //! Always returns FALSE (not applicable to this selector).
-  virtual Standard_Boolean OverlapsPoint(const gp_Pnt&) const Standard_OVERRIDE
+  virtual Standard_Boolean OverlapsPoint(const Point3d&) const Standard_OVERRIDE
   {
     return Standard_False;
   }
@@ -100,8 +100,8 @@ public: //! @name SAT Tests for different objects
 
   //! Checks if line segment overlaps selecting frustum
   Standard_EXPORT virtual Standard_Boolean OverlapsSegment(
-    const gp_Pnt&                  thePnt1,
-    const gp_Pnt&                  thePnt2,
+    const Point3d&                  thePnt1,
+    const Point3d&                  thePnt2,
     const SelectMgr_ViewClipRange& theClipRange,
     SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
 
@@ -109,16 +109,16 @@ public: //! @name SAT Tests for different objects
   //! be considered of interior part or boundary line defined by triangle vertices
   //! depending on given sensitivity type
   Standard_EXPORT virtual Standard_Boolean OverlapsTriangle(
-    const gp_Pnt&                  thePnt1,
-    const gp_Pnt&                  thePnt2,
-    const gp_Pnt&                  thePnt3,
+    const Point3d&                  thePnt1,
+    const Point3d&                  thePnt2,
+    const Point3d&                  thePnt3,
     Select3D_TypeOfSensitivity     theSensType,
     const SelectMgr_ViewClipRange& theClipRange,
     SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;
 
   //! Returns true if selecting volume is overlapped by sphere with center theCenter
   //! and radius theRadius
-  Standard_EXPORT virtual Standard_Boolean OverlapsSphere(const gp_Pnt&       theCenter,
+  Standard_EXPORT virtual Standard_Boolean OverlapsSphere(const Point3d&       theCenter,
                                                           const Standard_Real theRadius,
                                                           Standard_Boolean* theInside = NULL) const
     Standard_OVERRIDE;
@@ -126,7 +126,7 @@ public: //! @name SAT Tests for different objects
   //! Returns true if selecting volume is overlapped by sphere with center theCenter
   //! and radius theRadius
   Standard_EXPORT virtual Standard_Boolean OverlapsSphere(
-    const gp_Pnt&                  theCenter,
+    const Point3d&                  theCenter,
     const Standard_Real            theRadius,
     const SelectMgr_ViewClipRange& theClipRange,
     SelectBasics_PickResult&       thePickResult) const Standard_OVERRIDE;

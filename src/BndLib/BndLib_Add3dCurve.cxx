@@ -111,7 +111,7 @@ static Standard_Real FillBox(Bnd_Box&               B,
                              const Standard_Real    last,
                              const Standard_Integer N)
 {
-  gp_Pnt P1, P2, P3;
+  Point3d P1, P2, P3;
   C.D0(first, P1);
   B.Add(P1);
   Standard_Real p = first, dp = last - first, tol = 0.;
@@ -127,7 +127,7 @@ static Standard_Real FillBox(Bnd_Box&               B,
       p += dp;
       C.D0(p, P3);
       B.Add(P3);
-      gp_Pnt Pc((P1.XYZ() + P3.XYZ()) / 2.0);
+      Point3d Pc((P1.XYZ() + P3.XYZ()) / 2.0);
       tol = Max(tol, Pc.Distance(P2));
       P1  = P3;
     }
@@ -315,7 +315,7 @@ void BndLib_Add3dCurve::AddGenCurv(const Adaptor3d_Curve& C,
   Standard_Real CoordMax[3] = {-RealLast(), -RealLast(), -RealLast()};
   Standard_Real DeflMax[3]  = {-RealLast(), -RealLast(), -RealLast()};
   //
-  gp_Pnt                     P;
+  Point3d                     P;
   Standard_Integer           i, k;
   Standard_Real              du = (UMax - UMin) / (Nu - 1), du2 = du / 2.;
   NCollection_Array1<gp_XYZ> aPnts(1, Nu);
@@ -401,8 +401,8 @@ void BndLib_Add3dCurve::AddGenCurv(const Adaptor3d_Curve& C,
     CoordMax[k] = CMax;
   }
 
-  B.Add(gp_Pnt(CoordMin[0], CoordMin[1], CoordMin[2]));
-  B.Add(gp_Pnt(CoordMax[0], CoordMax[1], CoordMax[2]));
+  B.Add(Point3d(CoordMin[0], CoordMin[1], CoordMin[2]));
+  B.Add(Point3d(CoordMax[0], CoordMax[1], CoordMax[2]));
   B.Enlarge(eps);
 }
 
@@ -429,7 +429,7 @@ public:
     {
       return Standard_False;
     }
-    gp_Pnt aP = myCurve.Value(X(1));
+    Point3d aP = myCurve.Value(X(1));
 
     F = mySign * aP.Coord(myCoordIndx);
 
@@ -478,7 +478,7 @@ public:
     {
       return Standard_False;
     }
-    gp_Pnt aP = myCurve.Value(X);
+    Point3d aP = myCurve.Value(X);
 
     F = mySign * aP.Coord(myCoordIndx);
 

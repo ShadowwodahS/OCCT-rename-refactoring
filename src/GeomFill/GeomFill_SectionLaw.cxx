@@ -56,7 +56,7 @@ void GeomFill_SectionLaw::SetTolerance(const Standard_Real, const Standard_Real)
   // Ne fait Rien
 }
 
-gp_Pnt GeomFill_SectionLaw::BarycentreOfSurf() const
+Point3d GeomFill_SectionLaw::BarycentreOfSurf() const
 {
 
   throw Standard_NotImplemented("GeomFill_SectionLaw::BarycentreOfSurf");

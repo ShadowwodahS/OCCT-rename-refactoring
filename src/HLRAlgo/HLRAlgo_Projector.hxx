@@ -25,7 +25,7 @@
 #include <gp_Vec2d.hxx>
 class gp_Ax2;
 class gp_Vec;
-class gp_Pnt;
+class Point3d;
 class gp_Pnt2d;
 class gp_Lin;
 
@@ -95,19 +95,19 @@ public:
 
   void Transform(gp_Vec& D) const;
 
-  void Transform(gp_Pnt& Pnt) const;
+  void Transform(Point3d& Pnt) const;
 
   //! Transform and apply perspective if needed.
-  Standard_EXPORT void Project(const gp_Pnt& P, gp_Pnt2d& Pout) const;
+  Standard_EXPORT void Project(const Point3d& P, gp_Pnt2d& Pout) const;
 
   //! Transform and apply perspective if needed.
-  Standard_EXPORT void Project(const gp_Pnt&  P,
+  Standard_EXPORT void Project(const Point3d&  P,
                                Standard_Real& X,
                                Standard_Real& Y,
                                Standard_Real& Z) const;
 
   //! Transform and apply perspective if needed.
-  Standard_EXPORT void Project(const gp_Pnt& P,
+  Standard_EXPORT void Project(const Point3d& P,
                                const gp_Vec& D1,
                                gp_Pnt2d&     Pout,
                                gp_Vec2d&     D1out) const;

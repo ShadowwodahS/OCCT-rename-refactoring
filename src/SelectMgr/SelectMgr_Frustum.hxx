@@ -72,10 +72,10 @@ protected:
                                  Standard_Boolean*     theInside = NULL) const;
 
   //! SAT intersection test between defined volume and given point
-  Standard_Boolean hasPointOverlap(const gp_Pnt& thePnt) const;
+  Standard_Boolean hasPointOverlap(const Point3d& thePnt) const;
 
   //! SAT intersection test between defined volume and given segment
-  Standard_Boolean hasSegmentOverlap(const gp_Pnt& thePnt1, const gp_Pnt& thePnt2) const;
+  Standard_Boolean hasSegmentOverlap(const Point3d& thePnt1, const Point3d& thePnt2) const;
 
   //! SAT intersection test between frustum given and planar convex polygon represented as ordered
   //! point set
@@ -83,13 +83,13 @@ protected:
                                      gp_Vec&                   theNormal) const;
 
   //! SAT intersection test between defined volume and given triangle
-  Standard_Boolean hasTriangleOverlap(const gp_Pnt& thePnt1,
-                                      const gp_Pnt& thePnt2,
-                                      const gp_Pnt& thePnt3,
+  Standard_Boolean hasTriangleOverlap(const Point3d& thePnt1,
+                                      const Point3d& thePnt2,
+                                      const Point3d& thePnt3,
                                       gp_Vec&       theNormal) const;
 
   //! Intersection test between defined volume and given sphere
-  Standard_Boolean hasSphereOverlap(const gp_Pnt&       thePnt1,
+  Standard_Boolean hasSphereOverlap(const Point3d&       thePnt1,
                                     const Standard_Real theRadius,
                                     Standard_Boolean*   theInside = NULL) const;
 
@@ -117,20 +117,20 @@ protected:
 
   //! Checking whether the point thePnt is inside the shape with borders theVertices.
   //! thePnt and theVertices lie in the same plane.
-  Standard_Boolean isDotInside(const gp_Pnt& thePnt, const TColgp_Array1OfPnt& theVertices) const;
+  Standard_Boolean isDotInside(const Point3d& thePnt, const TColgp_Array1OfPnt& theVertices) const;
 
 private:
   //! Return true if one segment enclosed between the points thePnt1Seg1 and thePnt2Seg1
   //! intersects another segment that enclosed between thePnt1Seg2 and thePnt2Seg2.
-  Standard_Boolean isSegmentsIntersect(const gp_Pnt& thePnt1Seg1,
-                                       const gp_Pnt& thePnt2Seg1,
-                                       const gp_Pnt& thePnt1Seg2,
-                                       const gp_Pnt& thePnt2Seg2) const;
+  Standard_Boolean isSegmentsIntersect(const Point3d& thePnt1Seg1,
+                                       const Point3d& thePnt2Seg1,
+                                       const Point3d& thePnt1Seg2,
+                                       const Point3d& thePnt2Seg2) const;
 
   //! Checking whether the borders theVertices of the shape intersect
   //! the cylinder (or cone) end face with the center theCenter and radius theRadius
   Standard_Boolean isIntersectCircle(const Standard_Real       theRadius,
-                                     const gp_Pnt&             theCenter,
+                                     const Point3d&             theCenter,
                                      const gp_Trsf&            theTrsf,
                                      const TColgp_Array1OfPnt& theVertices) const;
 
@@ -141,14 +141,14 @@ private:
                                Standard_Boolean*     theInside) const;
 
   //! Checks if triangle and frustum are separated along the given axis
-  Standard_Boolean isSeparated(const gp_Pnt& thePnt1,
-                               const gp_Pnt& thePnt2,
-                               const gp_Pnt& thePnt3,
+  Standard_Boolean isSeparated(const Point3d& thePnt1,
+                               const Point3d& thePnt2,
+                               const Point3d& thePnt3,
                                const gp_XYZ& theAxis) const;
 
 protected:
   gp_Vec myPlanes[N + 2];   //!< Plane equations
-  gp_Pnt myVertices[N * 2]; //!< Vertices coordinates
+  Point3d myVertices[N * 2]; //!< Vertices coordinates
 
   // clang-format off
   Standard_Real myMaxVertsProjections[N + 2];      //!< Cached projections of vertices onto frustum plane directions

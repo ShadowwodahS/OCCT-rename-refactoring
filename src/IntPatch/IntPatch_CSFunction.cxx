@@ -53,21 +53,21 @@ Standard_Integer IntPatch_CSFunction::NbEquations() const
 Standard_Boolean IntPatch_CSFunction::Value(const math_Vector& X, math_Vector& F)
 {
 
-  gp_Pnt   Psurf(Adaptor3d_HSurfaceTool::Value(SURFACE1, X(1), X(2)));
+  Point3d   Psurf(Adaptor3d_HSurfaceTool::Value(SURFACE1, X(1), X(2)));
   gp_Pnt2d p2d(IntPatch_HCurve2dTool::Value(CURVE, X(3)));
-  gp_Pnt   Pcurv(Adaptor3d_HSurfaceTool::Value(SURFACE2, p2d.X(), p2d.Y()));
+  Point3d   Pcurv(Adaptor3d_HSurfaceTool::Value(SURFACE2, p2d.X(), p2d.Y()));
 
   F(1) = Psurf.X() - Pcurv.X();
   F(2) = Psurf.Y() - Pcurv.Y();
   F(3) = Psurf.Z() - Pcurv.Z();
   f    = F(1) * F(1) + F(2) * F(2) + F(3) * F(3);
-  p    = gp_Pnt((Psurf.XYZ() + Pcurv.XYZ()) / 2.);
+  p    = Point3d((Psurf.XYZ() + Pcurv.XYZ()) / 2.);
   return Standard_True;
 }
 
 Standard_Boolean IntPatch_CSFunction::Derivatives(const math_Vector& X, math_Matrix& D)
 {
-  gp_Pnt   Psurf, Pcurv;
+  Point3d   Psurf, Pcurv;
   gp_Vec   D1u, D1v, D1w;
   gp_Pnt2d p2d;
   gp_Vec2d d2d;
@@ -92,7 +92,7 @@ Standard_Boolean IntPatch_CSFunction::Derivatives(const math_Vector& X, math_Mat
 
 Standard_Boolean IntPatch_CSFunction::Values(const math_Vector& X, math_Vector& F, math_Matrix& D)
 {
-  gp_Pnt Psurf, Pcurv;
+  Point3d Psurf, Pcurv;
   gp_Vec D1u, D1v, D1w;
 
   gp_Pnt2d p2d;
@@ -117,11 +117,11 @@ Standard_Boolean IntPatch_CSFunction::Values(const math_Vector& X, math_Vector& 
   F(2)    = Psurf.Y() - Pcurv.Y();
   F(3)    = Psurf.Z() - Pcurv.Z();
   f       = F(1) * F(1) + F(2) * F(2) + F(3) * F(3);
-  p       = gp_Pnt((Psurf.XYZ() + Pcurv.XYZ()) / 2.);
+  p       = Point3d((Psurf.XYZ() + Pcurv.XYZ()) / 2.);
   return Standard_True;
 }
 
-const gp_Pnt& IntPatch_CSFunction::Point() const
+const Point3d& IntPatch_CSFunction::Point() const
 {
   return p;
 }

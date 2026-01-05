@@ -24,7 +24,7 @@
 #include <GeomAbs_Shape.hxx>
 #include <Standard_Integer.hxx>
 class Geom_Curve;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 class gp_Trsf;
 class Geom_Geometry;
@@ -155,7 +155,7 @@ public:
 
   //! Returns the end point of <me>. This point is the
   //! evaluation of the curve for the "LastParameter".
-  Standard_EXPORT gp_Pnt EndPoint() const Standard_OVERRIDE;
+  Standard_EXPORT Point3d EndPoint() const Standard_OVERRIDE;
 
   //! Returns the value of the first parameter of <me>.
   //! The first parameter is the parameter of the "StartPoint"
@@ -187,27 +187,27 @@ public:
   //! The returned derivatives have the same orientation as the
   //! derivatives of the basis curve even if the trimmed curve
   //! has not the same orientation as the basis curve.
-  Standard_EXPORT gp_Pnt StartPoint() const Standard_OVERRIDE;
+  Standard_EXPORT Point3d StartPoint() const Standard_OVERRIDE;
 
   //! Returns in P the point of parameter U.
   //!
   //! If the basis curve is an OffsetCurve sometimes it is not
   //! possible to do the evaluation of the curve at the parameter
   //! U (see class OffsetCurve).
-  Standard_EXPORT void D0(const Standard_Real U, gp_Pnt& P) const Standard_OVERRIDE;
+  Standard_EXPORT void D0(const Standard_Real U, Point3d& P) const Standard_OVERRIDE;
 
   //! Raised if the continuity of the curve is not C1.
-  Standard_EXPORT void D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V1) const Standard_OVERRIDE;
+  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, gp_Vec& V1) const Standard_OVERRIDE;
 
   //! Raised if the continuity of the curve is not C2.
   Standard_EXPORT void D2(const Standard_Real U,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             V1,
                           gp_Vec&             V2) const Standard_OVERRIDE;
 
   //! Raised if the continuity of the curve is not C3.
   Standard_EXPORT void D3(const Standard_Real U,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             V1,
                           gp_Vec&             V2,
                           gp_Vec&             V3) const Standard_OVERRIDE;

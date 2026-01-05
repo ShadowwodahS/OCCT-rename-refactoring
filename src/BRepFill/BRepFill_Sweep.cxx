@@ -267,8 +267,8 @@ static Standard_Boolean CheckSameParameter(const Handle(Adaptor3d_Curve)&   C3d,
     t = step * i;
     t = (1 - t) * f + t * l;
     Pcurv->Value(t).Coord(u, v);
-    gp_Pnt        pS = S->Value(u, v);
-    gp_Pnt        pC = C3d->Value(t);
+    Point3d        pS = S->Value(u, v);
+    Point3d        pC = C3d->Value(t);
     Standard_Real d2 = pS.SquareDistance(pC);
     tolreached       = Max(tolreached, d2);
   }
@@ -421,11 +421,11 @@ static void CorrectSameParameter(TopoDS_Edge&       theEdge,
   for (Standard_Integer i = 0; i <= NCONTROL; i++)
   {
     Standard_Real aParam = fpar + i * delta;
-    gp_Pnt        aPnt   = aCurve->Value(aParam);
+    Point3d        aPnt   = aCurve->Value(aParam);
     for (Standard_Integer j = 0; j < 2; j++)
       if (PCurveExists[j])
       {
-        gp_Pnt        aPntFromFace = BAcurve[j].Value(aParam);
+        Point3d        aPntFromFace = BAcurve[j].Value(aParam);
         Standard_Real aSqDist      = aPnt.SquareDistance(aPntFromFace);
         if (aSqDist > MaxSqDist)
           MaxSqDist = aSqDist;
@@ -665,7 +665,7 @@ static void BuildFace(const Handle(Geom_Surface)&   S,
     // and construct face Plane
 
     // BRepLib_MakeFace MkF(IsP.Plan(), WW);
-    gp_Pnt        aPnt;
+    Point3d        aPnt;
     gp_Vec        DU, DV, NS, NP;
     Standard_Real Ufirst, Ulast, Vfirst, Vlast;
     S->Bounds(Ufirst, Ulast, Vfirst, Vlast);
@@ -738,7 +738,7 @@ static TopoDS_Edge BuildEdge(Handle(Geom_Curve)&   C3d,
                              const Standard_Real   l,
                              const Standard_Real   Tol3d)
 {
-  gp_Pnt        P;
+  Point3d        P;
   Standard_Real Tol1, Tol2, Tol, d;
   // Class BRep_Tool without fields and without Constructor :
   //  BRep_Tool BT;
@@ -746,11 +746,11 @@ static TopoDS_Edge BuildEdge(Handle(Geom_Curve)&   C3d,
   TopoDS_Edge  E;
 
   //  P1  = BT.Pnt(VF);
-  const gp_Pnt P1 = BRep_Tool::Pnt(VF);
+  const Point3d P1 = BRep_Tool::Pnt(VF);
   //  Tol1 = BT.Tolerance(VF);
   Tol1 = BRep_Tool::Tolerance(VF);
   //  P2  = BT.Pnt(VL);
-  const gp_Pnt P2 = BRep_Tool::Pnt(VL);
+  const Point3d P2 = BRep_Tool::Pnt(VL);
   //  Tol2 = BT.Tolerance(VF);
   Tol2 = BRep_Tool::Tolerance(VL);
   Tol  = Max(Tol1, Tol2);
@@ -917,7 +917,7 @@ static Standard_Boolean Filling(const TopoDS_Shape&           EF,
   // Prof1's param domain may equals to Prof2's param domain *(-1), which means EF.Orientation() ==
   // EL.Orientation()
   Standard_Boolean bSameCurveDomain = EF.Orientation() != EL.Orientation();
-  gp_Pnt           P1, P2, P;
+  Point3d           P1, P2, P;
 
   // Choose the angle of opening
   gp_Trsf aTf;
@@ -926,7 +926,7 @@ static Standard_Boolean Filling(const TopoDS_Shape&           EF,
   // Choose the furthest point from the "center of revolution"
   // to provide correct angle measurement.
   const Standard_Real aPrm[] = {f1, 0.5 * (f1 + l1), l1};
-  const gp_Pnt        aP1[]  = {Prof1->Value(aPrm[0]).Transformed(aTf),
+  const Point3d        aP1[]  = {Prof1->Value(aPrm[0]).Transformed(aTf),
                                 Prof1->Value(aPrm[1]).Transformed(aTf),
                                 Prof1->Value(aPrm[2]).Transformed(aTf)};
 
@@ -943,7 +943,7 @@ static Standard_Boolean Filling(const TopoDS_Shape&           EF,
   }
 
   const Standard_Real aPrm2[] = {f2, 0.5 * (f2 + l2), l2};
-  const gp_Pnt aP2 = Prof2->Value(aPrm2[bSameCurveDomain ? aMaxIdx : 2 - aMaxIdx]).Transformed(aTf);
+  const Point3d aP2 = Prof2->Value(aPrm2[bSameCurveDomain ? aMaxIdx : 2 - aMaxIdx]).Transformed(aTf);
   const gp_Vec2d aV1(aP1[aMaxIdx].Z(), aP1[aMaxIdx].X());
   const gp_Vec2d aV2(aP2.Z(), aP2.X());
   if (aV1.SquareMagnitude() <= gp::Resolution() || aV2.SquareMagnitude() <= gp::Resolution())
@@ -1472,7 +1472,7 @@ static TopoDS_Edge BuildEdge(const Handle(Geom_Surface)& S,
 
   if (VFirst.IsSame(VLast))
   { // Singular case ?
-    gp_Pnt P;
+    Point3d P;
     // Class BRep_Tool without fields and without Constructor :
     //    BRep_Tool BT;
     const TopoDS_Vertex& V = TopoDS::Vertex(VFirst);
@@ -1504,7 +1504,7 @@ static TopoDS_Edge BuildEdge(const Handle(Geom_Surface)& S,
     // Construction Via 3d
     //    if (isUiso) {
     //      Iso = S->UIso(ValIso);
-    gp_Pnt           P1, P2;
+    Point3d           P1, P2;
     Standard_Real    p1, p2, p11, p12, p21, p22;
     Standard_Boolean fwd = Standard_False;
     p1                   = Iso->FirstParameter();
@@ -1655,7 +1655,7 @@ static void UpdateEdge(TopoDS_Edge&                E,
   TopExp::Vertices(E, Vf, Vl);
   if (Vf.IsSame(Vl))
   { // Singular case ?
-    gp_Pnt        Pmid;
+    Point3d        Pmid;
     Standard_Real tol = BRep_Tool::Tolerance(Vf);
     Iso->D0((Iso->FirstParameter() + Iso->LastParameter()) / 2, Pmid);
     if (Pmid.Distance(BRep_Tool::Pnt(Vf)) < tol)
@@ -1689,7 +1689,7 @@ static void UpdateEdge(TopoDS_Edge&                E,
 
   // Class BRep_Tool without fields and without Constructor :
   //  BRep_Tool BT;
-  gp_Pnt   POnS;
+  Point3d   POnS;
   gp_Pnt2d P2d;
   //  BT.Range(E, First, Last);
   BRep_Tool::Range(E, First, Last);
@@ -1793,7 +1793,7 @@ static Standard_Boolean IsDegen(const Handle(Geom_Surface)& S, const Standard_Re
   Standard_Real        Umax, Umin, Vmax, Vmin, t, dt, l;
   Standard_Integer     ii;
   Handle(Geom_Curve)   Iso;
-  gp_Pnt               P1, P2, P3;
+  Point3d               P1, P2, P3;
   GCPnts_AbscissaPoint GC;
 
   S->Bounds(Umin, Umax, Vmin, Vmax);
@@ -2028,7 +2028,7 @@ Standard_Boolean BRepFill_Sweep::CorrectApproxParameters()
 Standard_Boolean BRepFill_Sweep::BuildWire(const BRepFill_TransitionStyle /*Transition*/)
 {
   Standard_Integer ipath, isec = 1;
-  gp_Pnt           P1; //, P2;
+  Point3d           P1; //, P2;
 
   BRep_Builder B;
   // Class BRep_Tool without fields and without Constructor :
@@ -2745,8 +2745,8 @@ Standard_Boolean BRepFill_Sweep::BuildShell(const BRepFill_TransitionStyle /*Tra
         {
           if (!Vertex(1, ipath).IsSame(Vertex(1, ipath + 1)))
           {
-            gp_Pnt P1 = BRep_Tool::Pnt(TopoDS::Vertex(Vertex(1, ipath)));
-            gp_Pnt P2 = BRep_Tool::Pnt(TopoDS::Vertex(Vertex(1, ipath + 1)));
+            Point3d P1 = BRep_Tool::Pnt(TopoDS::Vertex(Vertex(1, ipath)));
+            Point3d P2 = BRep_Tool::Pnt(TopoDS::Vertex(Vertex(1, ipath + 1)));
             if (P1.Distance(P2) <= myTol3d)
               Vertex(1, ipath + 1) = Vertex(1, ipath);
           }
@@ -3398,7 +3398,7 @@ Standard_Boolean BRepFill_Sweep::PerformCorner(const Standard_Integer           
   Standard_Boolean         isTangent     = Standard_False;
   Standard_Real            F, L;
   Standard_Integer         I1, I2, ii; //, jj;
-  gp_Pnt                   P1, P2;
+  Point3d                   P1, P2;
   gp_Vec                   T1, T2, Tang, Sortant;
   //  gp_Mat M;
   // Handle(TopTools_HArray1OfShape) TheShape =
@@ -3796,7 +3796,7 @@ void BRepFill_Sweep::UpdateVertex(const Standard_Integer ipath,
                        vv);
   // Class BRep_Tool without fields and without Constructor :
   //  BRep_Tool BT;
-  gp_Pnt P1, P2;
+  Point3d P1, P2;
   //  P1 = BT.Pnt(vv);
   P1 = BRep_Tool::Pnt(vv);
   //  P2 = BT.Pnt(TheV);
@@ -3845,8 +3845,8 @@ void BRepFill_Sweep::RebuildTopOrBottomEdge(const TopoDS_Edge&   aNewEdge,
           ToReverse = Standard_True;
         else
         {
-          gp_Pnt        Pnt1    = BRep_Tool::Pnt(V1);
-          gp_Pnt        NewPnt1 = BRep_Tool::Pnt(NewV1);
+          Point3d        Pnt1    = BRep_Tool::Pnt(V1);
+          Point3d        NewPnt1 = BRep_Tool::Pnt(NewV1);
           Standard_Real TolSum  = BRep_Tool::Tolerance(V1) + BRep_Tool::Tolerance(NewV1);
           if (!Pnt1.IsEqual(NewPnt1, TolSum))
             ToReverse = Standard_True;
@@ -3858,7 +3858,7 @@ void BRepFill_Sweep::RebuildTopOrBottomEdge(const TopoDS_Edge&   aNewEdge,
       Standard_Real      OldFirst, OldLast;
       Handle(Geom_Curve) OldCurve = BRep_Tool::Curve(anEdge, OldFirst, OldLast);
       gp_Vec             OldD1, NewD1;
-      gp_Pnt             MidPnt;
+      Point3d             MidPnt;
       OldCurve->D1(0.5 * (OldFirst + OldLast), MidPnt, OldD1);
       aNewCurve->D1(0.5 * (fpar + lpar), MidPnt, NewD1);
       if (OldD1 * NewD1 < 0.)

@@ -22,7 +22,7 @@
 #include <Standard_Handle.hxx>
 
 #include <Standard_Real.hxx>
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 
 class HLRBRep_SLPropsATool
@@ -35,14 +35,14 @@ public:
   static void Value(const Standard_Address A,
                     const Standard_Real    U,
                     const Standard_Real    V,
-                    gp_Pnt&                P);
+                    Point3d&                P);
 
   //! Computes the point <P>  and first derivative <D1*>
   //! of parameter <U> and <V> on the Surface <A>.
   static void D1(const Standard_Address A,
                  const Standard_Real    U,
                  const Standard_Real    V,
-                 gp_Pnt&                P,
+                 Point3d&                P,
                  gp_Vec&                D1U,
                  gp_Vec&                D1V);
 
@@ -52,7 +52,7 @@ public:
   static void D2(const Standard_Address A,
                  const Standard_Real    U,
                  const Standard_Real    V,
-                 gp_Pnt&                P,
+                 Point3d&                P,
                  gp_Vec&                D1U,
                  gp_Vec&                D1V,
                  gp_Vec&                D2U,

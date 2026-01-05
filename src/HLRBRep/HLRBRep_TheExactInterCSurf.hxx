@@ -30,7 +30,7 @@ class gp_Lin;
 class HLRBRep_LineTool;
 class HLRBRep_TheCSFunctionOfInterCSurf;
 class math_FunctionSetRoot;
-class gp_Pnt;
+class Point3d;
 
 class HLRBRep_TheExactInterCSurf
 {
@@ -92,7 +92,7 @@ public:
   //! returns the intersection point
   //! The exception NotDone is raised if IsDone is false.
   //! The exception DomainError is raised if IsEmpty is true.
-  Standard_EXPORT const gp_Pnt& Point() const;
+  Standard_EXPORT const Point3d& Point() const;
 
   Standard_EXPORT Standard_Real ParameterOnCurve() const;
 

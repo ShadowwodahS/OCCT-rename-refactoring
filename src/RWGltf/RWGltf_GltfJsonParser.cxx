@@ -2106,7 +2106,7 @@ bool RWGltf_GltfJsonParser::gltfParseAccessor(
       else
       {
         bool   isValidMinMax = true;
-        gp_Pnt aMinPnt, aMaxPnt;
+        Point3d aMinPnt, aMaxPnt;
         for (int anIter = 0; anIter < 3; ++anIter)
         {
           const RWGltf_JsonValue& aMinVal = (*aMin)[anIter];

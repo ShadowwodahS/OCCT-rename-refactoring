@@ -535,7 +535,7 @@ void TopOpeBRepBuild_WireEdgeSet::LocalD1(const TopoDS_Shape& SF,
   Handle(Geom_Curve) CE = BRep_Tool::Curve(E, Loc, fiE, laE);
   CE                    = Handle(Geom_Curve)::DownCast(CE->Transformed(Loc.Transformation()));
 
-  gp_Pnt p3dE;
+  Point3d p3dE;
   gp_Vec d3dE;
   CE->D1(parE, p3dE, d3dE);
 
@@ -544,7 +544,7 @@ void TopOpeBRepBuild_WireEdgeSet::LocalD1(const TopoDS_Shape& SF,
   Standard_Real              u, v;
   proj.LowerDistanceParameters(u, v);
   pE.SetCoord(u, v);
-  gp_Pnt bid;
+  Point3d bid;
   gp_Vec d1u, d1v;
   S->D1(u, v, bid, d1u, d1v);
   u = d3dE.Dot(d1u);

@@ -1026,7 +1026,7 @@ void Geom_BezierSurface::Segment(const Standard_Real U1,
 
 void Geom_BezierSurface::SetPole(const Standard_Integer UIndex,
                                  const Standard_Integer VIndex,
-                                 const gp_Pnt&          P)
+                                 const Point3d&          P)
 {
   TColgp_Array2OfPnt& Poles = poles->ChangeArray2();
   if (UIndex < 1 || UIndex > Poles.ColLength() || VIndex < 1 || VIndex > Poles.RowLength())
@@ -1039,7 +1039,7 @@ void Geom_BezierSurface::SetPole(const Standard_Integer UIndex,
 
 void Geom_BezierSurface::SetPole(const Standard_Integer UIndex,
                                  const Standard_Integer VIndex,
-                                 const gp_Pnt&          P,
+                                 const Point3d&          P,
                                  const Standard_Real    Weight)
 {
 
@@ -1264,7 +1264,7 @@ void Geom_BezierSurface::SetWeightRow(const Standard_Integer      UIndex,
 
 void Geom_BezierSurface::UReverse()
 {
-  gp_Pnt              Pol;
+  Point3d              Pol;
   Standard_Integer    Row, Col;
   TColgp_Array2OfPnt& Poles = poles->ChangeArray2();
   if (urational || vrational)
@@ -1309,7 +1309,7 @@ Standard_Real Geom_BezierSurface::UReversedParameter(const Standard_Real U) cons
 
 void Geom_BezierSurface::VReverse()
 {
-  gp_Pnt              Pol;
+  Point3d              Pol;
   Standard_Integer    Row, Col;
   TColgp_Array2OfPnt& Poles = poles->ChangeArray2();
   if (urational || vrational)
@@ -1372,7 +1372,7 @@ GeomAbs_Shape Geom_BezierSurface::Continuity() const
 
 //=================================================================================================
 
-void Geom_BezierSurface::D0(const Standard_Real U, const Standard_Real V, gp_Pnt& P) const
+void Geom_BezierSurface::D0(const Standard_Real U, const Standard_Real V, Point3d& P) const
 {
   Standard_Real           array_u[2] = {0.0, 1.0};
   Standard_Real           array_v[2] = {0.0, 1.0};
@@ -1429,7 +1429,7 @@ void Geom_BezierSurface::D0(const Standard_Real U, const Standard_Real V, gp_Pnt
 
 void Geom_BezierSurface::D1(const Standard_Real U,
                             const Standard_Real V,
-                            gp_Pnt&             P,
+                            Point3d&             P,
                             gp_Vec&             D1U,
                             gp_Vec&             D1V) const
 {
@@ -1491,7 +1491,7 @@ void Geom_BezierSurface::D1(const Standard_Real U,
 
 void Geom_BezierSurface::D2(const Standard_Real U,
                             const Standard_Real V,
-                            gp_Pnt&             P,
+                            Point3d&             P,
                             gp_Vec&             D1U,
                             gp_Vec&             D1V,
                             gp_Vec&             D2U,
@@ -1564,7 +1564,7 @@ void Geom_BezierSurface::D2(const Standard_Real U,
 
 void Geom_BezierSurface::D3(const Standard_Real U,
                             const Standard_Real V,
-                            gp_Pnt&             P,
+                            Point3d&             P,
                             gp_Vec&             D1U,
                             gp_Vec&             D1V,
                             gp_Vec&             D2U,
@@ -1727,7 +1727,7 @@ Standard_Integer Geom_BezierSurface::NbVPoles() const
 
 //=================================================================================================
 
-const gp_Pnt& Geom_BezierSurface::Pole(const Standard_Integer UIndex,
+const Point3d& Geom_BezierSurface::Pole(const Standard_Integer UIndex,
                                        const Standard_Integer VIndex) const
 {
   Standard_OutOfRange_Raise_if(UIndex < 1 || UIndex > poles->ColLength() || VIndex < 1

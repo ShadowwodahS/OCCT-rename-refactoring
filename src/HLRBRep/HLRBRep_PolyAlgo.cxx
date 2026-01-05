@@ -498,7 +498,7 @@ void HLRBRep_PolyAlgo::StoreShell(const TopoDS_Shape&                           
 
           for (Standard_Integer aNodeIter = 1; aNodeIter <= aNbNodes; ++aNodeIter)
           {
-            const gp_Pnt&                           aPnt         = aTr->Node(aNodeIter);
+            const Point3d&                           aPnt         = aTr->Node(aNodeIter);
             const Handle(HLRAlgo_PolyInternalNode)& aPolyINode   = aPINod.ChangeValue(aNodeIter);
             HLRAlgo_PolyInternalNode::NodeData&     aNod1RValues = aPolyINode->Data();
             HLRAlgo_PolyInternalNode::NodeIndices&  aNodIndices  = aPolyINode->Indices();
@@ -650,7 +650,7 @@ Standard_Boolean HLRBRep_PolyAlgo::Normal(const Standard_Integer                
   if (theNod1RValues.Normal.SquareModulus() < Precision::Confusion())
   {
     gp_Vec                 aD1U, aD1V;
-    gp_Pnt                 aPnt;
+    Point3d                 aPnt;
     CSLib_DerivativeStatus aStatus = CSLib_D1IsNull;
     myBSurf.D1(theNod1RValues.UV.X(), theNod1RValues.UV.Y(), aPnt, aD1U, aD1V);
     gp_Dir aNorm;
@@ -1418,7 +1418,7 @@ void HLRBRep_PolyAlgo::Interpolation(HLRAlgo_ListOfBPoint&                   the
   Standard_Boolean mP3P1 = false;
   Standard_Real    X3 = 0.0, Y3 = 0.0, Z3 = 0.0, XTI3 = 0.0, YTI3 = 0.0, ZTI3 = 0.0, coef3 = 0.0,
                 U3 = 0.0;
-  //  gp_Pnt P3, PT3;
+  //  Point3d P3, PT3;
   Standard_Boolean insP3 = Interpolation(theU1,
                                          theU2,
                                          theNod11RValues,
@@ -1519,7 +1519,7 @@ void HLRBRep_PolyAlgo::Interpolation(HLRAlgo_ListOfBPoint&                   the
                 U3 = 0.0;
   Standard_Real X4 = 0.0, Y4 = 0.0, Z4 = 0.0, XTI4 = 0.0, YTI4 = 0.0, ZTI4 = 0.0, coef4 = 0.0,
                 U4 = 0.0;
-  //  gp_Pnt P3, PT3, P4, PT4;
+  //  Point3d P3, PT3, P4, PT4;
   Standard_Integer flag = 0;
   if (theRg >= GeomAbs_G1)
   {
@@ -1883,7 +1883,7 @@ Standard_Boolean HLRBRep_PolyAlgo::Interpolation(const Standard_Real            
   if (NewNode(theNod1RValues, theNod2RValues, theCoef3, themP3P1))
   {
     theU3             = theU1 + (theU2 - theU1) * theCoef3;
-    const gp_Pnt& aP3 = myBCurv.Value(theU3);
+    const Point3d& aP3 = myBCurv.Value(theU3);
     theXTI3 = theX3 = aP3.X();
     theYTI3 = theY3 = aP3.Y();
     theZTI3 = theZ3 = aP3.Z();
@@ -3072,7 +3072,7 @@ void HLRBRep_PolyAlgo::InsertOnOutLine(NCollection_Array1<Handle(HLRAlgo_PolyInt
             UVNode(aNod1RValues, aNod2RValues, aCoef3, aU3, aV3);
             if (!myGSurf.IsNull())
             {
-              const gp_Pnt aPT3 = myGSurf->Value(aU3, aV3);
+              const Point3d aPT3 = myGSurf->Value(aU3, aV3);
               X3                = aPT3.X();
               Y3                = aPT3.Y();
               Z3                = aPT3.Z();
@@ -3081,7 +3081,7 @@ void HLRBRep_PolyAlgo::InsertOnOutLine(NCollection_Array1<Handle(HLRAlgo_PolyInt
             {
               // simple averaging - this could be improved
               const Standard_Real aCoef2 = 1.0 - aCoef3;
-              const gp_Pnt        aPT3 = aCoef2 * aNod1RValues.Point + aCoef3 * aNod2RValues.Point;
+              const Point3d        aPT3 = aCoef2 * aNod1RValues.Point + aCoef3 * aNod2RValues.Point;
               X3                       = aPT3.X();
               Y3                       = aPT3.Y();
               Z3                       = aPT3.Z();

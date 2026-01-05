@@ -28,7 +28,7 @@
 #include <IGESData_LabelDisplayEntity.hxx>
 #include <Standard_Integer.hxx>
 class IGESData_ViewKindEntity;
-class gp_Pnt;
+class Point3d;
 class IGESDimen_LeaderArrow;
 class IGESData_IGESEntity;
 
@@ -72,7 +72,7 @@ public:
   //! returns the 3d-Point coordinates of the text location, in the
   //! view indicated by ViewIndex
   //! raises an exception if ViewIndex <= 0 or ViewIndex > NbLabels().
-  Standard_EXPORT gp_Pnt TextLocation(const Standard_Integer ViewIndex) const;
+  Standard_EXPORT Point3d TextLocation(const Standard_Integer ViewIndex) const;
 
   //! returns the Leader entity in the view indicated by ViewIndex
   //! raises an exception if ViewIndex <= 0 or ViewIndex > NbLabels().
@@ -92,7 +92,7 @@ public:
   //! returns the transformed 3d-Point coordinates of the text
   //! location, in the view indicated by ViewIndex
   //! raises an exception if ViewIndex <= 0 or ViewIndex > NbLabels().
-  Standard_EXPORT gp_Pnt TransformedTextLocation(const Standard_Integer ViewIndex) const;
+  Standard_EXPORT Point3d TransformedTextLocation(const Standard_Integer ViewIndex) const;
 
   DEFINE_STANDARD_RTTIEXT(IGESDraw_LabelDisplay, IGESData_LabelDisplayEntity)
 

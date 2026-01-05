@@ -37,7 +37,7 @@
 namespace
 {
 //! Compute polyline of shrunk triangle.
-static Handle(TColgp_HSequenceOfPnt) shrunkTriangle(const gp_Pnt* thePnts, const gp_XYZ& theCenter)
+static Handle(TColgp_HSequenceOfPnt) shrunkTriangle(const Point3d* thePnts, const gp_XYZ& theCenter)
 {
   const gp_XYZ                  aV1     = theCenter + (thePnts[0].XYZ() - theCenter) * 0.9;
   const gp_XYZ                  aV2     = theCenter + (thePnts[1].XYZ() - theCenter) * 0.9;
@@ -65,7 +65,7 @@ static void addTriangulation(Prs3d_NListOfSequenceOfPnt&                    theS
   for (Standard_Integer aTriIter = 1; aTriIter <= aPolyTri->NbTriangles(); ++aTriIter)
   {
     const Poly_Triangle& aTri     = aPolyTri->Triangle(aTriIter);
-    const gp_Pnt         aPnts[3] = {aPolyTri->Node(aTri(1)).Transformed(aTrsf),
+    const Point3d         aPnts[3] = {aPolyTri->Node(aTri(1)).Transformed(aTrsf),
                                      aPolyTri->Node(aTri(2)).Transformed(aTrsf),
                                      aPolyTri->Node(aTri(3)).Transformed(aTrsf)};
     const gp_XYZ         aCenter  = (aPnts[0].XYZ() + aPnts[1].XYZ() + aPnts[2].XYZ()) / 3.0;
@@ -87,14 +87,14 @@ static void addBoundingBox(Prs3d_NListOfSequenceOfPnt&          theSeqLines,
 {
   Graphic3d_Vec3d aMin, aMax;
   theSensBox->Box().Get(aMin.x(), aMin.y(), aMin.z(), aMax.x(), aMax.y(), aMax.z());
-  gp_Pnt aPnts[8] = {gp_Pnt(aMin.x(), aMin.y(), aMin.z()),
-                     gp_Pnt(aMax.x(), aMin.y(), aMin.z()),
-                     gp_Pnt(aMax.x(), aMax.y(), aMin.z()),
-                     gp_Pnt(aMin.x(), aMax.y(), aMin.z()),
-                     gp_Pnt(aMin.x(), aMin.y(), aMax.z()),
-                     gp_Pnt(aMax.x(), aMin.y(), aMax.z()),
-                     gp_Pnt(aMax.x(), aMax.y(), aMax.z()),
-                     gp_Pnt(aMin.x(), aMax.y(), aMax.z())};
+  Point3d aPnts[8] = {Point3d(aMin.x(), aMin.y(), aMin.z()),
+                     Point3d(aMax.x(), aMin.y(), aMin.z()),
+                     Point3d(aMax.x(), aMax.y(), aMin.z()),
+                     Point3d(aMin.x(), aMax.y(), aMin.z()),
+                     Point3d(aMin.x(), aMin.y(), aMax.z()),
+                     Point3d(aMax.x(), aMin.y(), aMax.z()),
+                     Point3d(aMax.x(), aMax.y(), aMax.z()),
+                     Point3d(aMin.x(), aMax.y(), aMax.z())};
   for (Standard_Integer aPntIter = 0; aPntIter <= 7; ++aPntIter)
   {
     aPnts[aPntIter].Transform(theLoc);
@@ -140,7 +140,7 @@ static void addCircle(Prs3d_NListOfSequenceOfPnt& theSeqLines,
   Geom_Circle                   aGeom(gp_Ax2(), theRadius);
   for (Standard_Real anU = 0.0f; anU < (2.0 * M_PI + anUStep); anU += anUStep)
   {
-    gp_Pnt aCircPnt = aGeom.Value(anU).Coord() + aVec;
+    Point3d aCircPnt = aGeom.Value(anU).Coord() + aVec;
     aCircPnt.Transform(theTrsf);
     aPoints->Append(aCircPnt);
   }
@@ -166,8 +166,8 @@ static void addCylinder(Prs3d_NListOfSequenceOfPnt&               theSeqLines,
 
     if (aCircNum != 1)
     {
-      aVertLine1->Append(gp_Pnt(gp_XYZ(aRadius, 0, 0) + aVec).Transformed(aTrsf));
-      aVertLine2->Append(gp_Pnt(gp_XYZ(-aRadius, 0, 0) + aVec).Transformed(aTrsf));
+      aVertLine1->Append(Point3d(gp_XYZ(aRadius, 0, 0) + aVec).Transformed(aTrsf));
+      aVertLine2->Append(Point3d(gp_XYZ(-aRadius, 0, 0) + aVec).Transformed(aTrsf));
     }
 
     if (aRadius > Precision::Confusion())
@@ -285,7 +285,7 @@ void SelectMgr::ComputeSensitivePrs(const Handle(Graphic3d_Structure)&     thePr
     else if (Handle(Select3D_SensitiveTriangle) aSensTri1 =
                Handle(Select3D_SensitiveTriangle)::DownCast(anEnt))
     {
-      gp_Pnt aPnts[3];
+      Point3d aPnts[3];
       aSensTri1->Points3D(aPnts[0], aPnts[1], aPnts[2]);
       aPnts[0].Transform(theLoc);
       aPnts[1].Transform(theLoc);

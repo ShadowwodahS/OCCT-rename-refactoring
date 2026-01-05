@@ -32,9 +32,9 @@ public:
   //! owner theOwnerId, the points P1, P2, P3, and the type of sensitivity Sensitivity.
   Standard_EXPORT Select3D_SensitiveTriangle(
     const Handle(SelectMgr_EntityOwner)& theOwnerId,
-    const gp_Pnt&                        thePnt0,
-    const gp_Pnt&                        thePnt1,
-    const gp_Pnt&                        thePnt2,
+    const Point3d&                        thePnt0,
+    const Point3d&                        thePnt1,
+    const Point3d&                        thePnt2,
     const Select3D_TypeOfSensitivity     theType = Select3D_TOS_INTERIOR);
 
   //! Checks whether the triangle overlaps current selecting volume
@@ -43,7 +43,7 @@ public:
     Standard_OVERRIDE;
 
   //! Returns the 3D points P1, P2, P3 used at the time of construction.
-  void Points3D(gp_Pnt& thePnt0, gp_Pnt& thePnt1, gp_Pnt& thePnt2) const
+  void Points3D(Point3d& thePnt0, Point3d& thePnt1, Point3d& thePnt2) const
   {
     thePnt0 = myPoints[0];
     thePnt1 = myPoints[1];
@@ -51,7 +51,7 @@ public:
   }
 
   //! Returns the center point of the sensitive triangle created at construction time.
-  gp_Pnt Center3D() const { return myCentroid; }
+  Point3d Center3D() const { return myCentroid; }
 
   //! Returns the copy of this
   Standard_EXPORT virtual Handle(Select3D_SensitiveEntity) GetConnected() Standard_OVERRIDE;
@@ -66,7 +66,7 @@ public:
   //! Returns the amount of points
   virtual Standard_Integer NbSubElements() const Standard_OVERRIDE { return 3; }
 
-  virtual gp_Pnt CenterOfGeometry() const Standard_OVERRIDE { return myCentroid; }
+  virtual Point3d CenterOfGeometry() const Standard_OVERRIDE { return myCentroid; }
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
@@ -76,8 +76,8 @@ public:
 
 private:
   Select3D_TypeOfSensitivity mySensType; //!< Type of sensitivity: boundary or interior
-  gp_Pnt                     myCentroid; //!< Center of triangle
-  gp_Pnt                     myPoints[3];
+  Point3d                     myCentroid; //!< Center of triangle
+  Point3d                     myPoints[3];
 };
 
 DEFINE_STANDARD_HANDLE(Select3D_SensitiveTriangle, Select3D_SensitiveEntity)

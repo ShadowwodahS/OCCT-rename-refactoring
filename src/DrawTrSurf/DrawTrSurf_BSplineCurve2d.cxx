@@ -103,7 +103,7 @@ void DrawTrSurf_BSplineCurve2d::FindPole(const Standard_Real X,
   gp_Pnt2d                    p1(X / D.Zoom(), Y / D.Zoom());
   Index++;
   Standard_Integer NbPoles = bc->NbPoles();
-  gp_Pnt           P;
+  Point3d           P;
   gp_Pnt2d         P2d;
   while (Index <= NbPoles)
   {
@@ -126,7 +126,7 @@ void DrawTrSurf_BSplineCurve2d::FindKnot(const Standard_Real X,
 {
   Handle(Geom2d_BSplineCurve) bc = Handle(Geom2d_BSplineCurve)::DownCast(curv);
   gp_Pnt2d                    P2d;
-  gp_Pnt                      P;
+  Point3d                      P;
   gp_Pnt2d                    p1(X, Y);
   Index++;
   Standard_Integer NbKnots = bc->NbKnots();

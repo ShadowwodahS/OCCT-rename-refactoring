@@ -554,7 +554,7 @@ Standard_Boolean BRepFill_TrimShellCorner::MakeFacesNonSec(const Standard_Intege
       aNewEdge.Orientation(TopAbs_FORWARD);
 
       // Refer to BrepFill_Sweep.cxx BuildEdge Construct an edge via an iso
-      gp_Pnt        P1, P2;
+      Point3d        P1, P2;
       Standard_Real p11, p12, p21, p22;
       P1 = BRep_Tool::Pnt(TopExp::FirstVertex(TopoDS::Edge(aNewEdge)));
       P2 = BRep_Tool::Pnt(TopExp::LastVertex(TopoDS::Edge(aNewEdge)));
@@ -1032,9 +1032,9 @@ Standard_Boolean BRepFill_TrimShellCorner::ChooseSection(const TopoDS_Shape&  Co
             Standard_Real aMinDist         = sqrt(Extrema.SquareDistance(imin));
             Standard_Real ParamOnFirstEdge = Extrema.ParameterOnE1(imin);
             Standard_Real ParamOnLastEdge  = Extrema.ParameterOnE2(imin);
-            gp_Pnt        PointOnFirstEdge = Extrema.PointOnE1(imin);
-            gp_Pnt        PointOnLastEdge  = Extrema.PointOnE2(imin);
-            gp_Pnt        MidPnt((PointOnFirstEdge.XYZ() + PointOnLastEdge.XYZ()) / 2);
+            Point3d        PointOnFirstEdge = Extrema.PointOnE1(imin);
+            Point3d        PointOnLastEdge  = Extrema.PointOnE2(imin);
+            Point3d        MidPnt((PointOnFirstEdge.XYZ() + PointOnLastEdge.XYZ()) / 2);
             aCommonVertex = BRepLib_MakeVertex(MidPnt);
             BB.UpdateVertex(aCommonVertex, 1.001 * aMinDist / 2);
 
@@ -1369,7 +1369,7 @@ Standard_Boolean FindCommonVertex(const BOPDS_PDS&       theDS,
         else
           IntTools_Tools::VertexParameters(aCP, theParamOnE2, theParamOnE1);
 
-        gp_Pnt aPt;
+        Point3d aPt;
         gp_Vec aDirOnE1, aDirOnE2;
         gp_Dir aIntersectPointCrossDir;
 
@@ -2594,8 +2594,8 @@ static TopoDS_Edge FindEdgeCloseToBisectorPlane(const TopoDS_Vertex& theVertex,
       {
         //<anAngle> is angle between <anEdge> and its projection on bisector plane
         BRepAdaptor_Curve BAcurve(anEdge);
-        gp_Pnt            FirstPnt = BAcurve.Value(BAcurve.FirstParameter());
-        gp_Pnt            LastPnt  = BAcurve.Value(BAcurve.LastParameter());
+        Point3d            FirstPnt = BAcurve.Value(BAcurve.FirstParameter());
+        Point3d            LastPnt  = BAcurve.Value(BAcurve.LastParameter());
         gp_Vec            EdgeVec(FirstPnt, LastPnt);
         gp_Ax1            EdgeAxis(FirstPnt, EdgeVec);
         anAngle = EdgeAxis.Direction().Angle(theAxis.Direction());

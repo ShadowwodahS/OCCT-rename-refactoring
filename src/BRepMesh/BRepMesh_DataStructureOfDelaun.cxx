@@ -467,7 +467,7 @@ Standard_CString BRepMesh_Dump(void* theMeshHandlePtr, Standard_CString theFileN
       for (Standard_Integer i = 1; i <= aNodesNb; ++i)
       {
         const gp_XY& aNode = aMeshData->GetNode(i).Coord();
-        gp_Pnt       aPnt(aNode.X(), aNode.Y(), 0.);
+        Point3d       aPnt(aNode.X(), aNode.Y(), 0.);
         aBuilder.Add(aMesh, BRepBuilderAPI_MakeVertex(aPnt));
       }
     }
@@ -477,13 +477,13 @@ Standard_CString BRepMesh_Dump(void* theMeshHandlePtr, Standard_CString theFileN
       for (; aLinksIt.More(); aLinksIt.Next())
       {
         const BRepMesh_Edge& aLink = aMeshData->GetLink(aLinksIt.Key());
-        gp_Pnt               aPnt[2];
+        Point3d               aPnt[2];
         for (Standard_Integer i = 0; i < 2; ++i)
         {
           const Standard_Integer aNodeId = (i == 0) ? aLink.FirstNode() : aLink.LastNode();
 
           const gp_XY& aNode = aMeshData->GetNode(aNodeId).Coord();
-          aPnt[i]            = gp_Pnt(aNode.X(), aNode.Y(), 0.);
+          aPnt[i]            = Point3d(aNode.X(), aNode.Y(), 0.);
         }
 
         if (aPnt[0].SquareDistance(aPnt[1]) < Precision::SquareConfusion())

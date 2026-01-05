@@ -26,7 +26,7 @@
 #include <TopoDS_Shape.hxx>
 #include <TopTools_IndexedMapOfShape.hxx>
 
-class gp_Pnt;
+class Point3d;
 class TopoDS_Face;
 class gp_Vec;
 class TopoDS_Shell;
@@ -49,23 +49,23 @@ public:
   Standard_EXPORT void InitShape(const TopoDS_Shape& S);
 
   //! Should return True if P outside of bounding vol. of the shape
-  Standard_EXPORT virtual Standard_Boolean Reject(const gp_Pnt& P) const;
+  Standard_EXPORT virtual Standard_Boolean Reject(const Point3d& P) const;
 
   //! compute a point P in the face  F. Param is a Real in
   //! ]0,1[ and   is  used to  initialise  the algorithm. For
   //! different values , different points are returned.
   Standard_EXPORT static Standard_Boolean FindAPointInTheFace(const TopoDS_Face& F,
-                                                              gp_Pnt&            P,
+                                                              Point3d&            P,
                                                               Standard_Real&     Param);
 
   Standard_EXPORT static Standard_Boolean FindAPointInTheFace(const TopoDS_Face& F,
-                                                              gp_Pnt&            P,
+                                                              Point3d&            P,
                                                               Standard_Real&     u,
                                                               Standard_Real&     v,
                                                               Standard_Real&     Param);
 
   Standard_EXPORT static Standard_Boolean FindAPointInTheFace(const TopoDS_Face& F,
-                                                              gp_Pnt&            P,
+                                                              Point3d&            P,
                                                               Standard_Real&     u,
                                                               Standard_Real&     v,
                                                               Standard_Real&     Param,
@@ -73,25 +73,25 @@ public:
                                                               gp_Vec&            theVecD1V);
 
   Standard_EXPORT static Standard_Boolean FindAPointInTheFace(const TopoDS_Face& F,
-                                                              gp_Pnt&            P,
+                                                              Point3d&            P,
                                                               Standard_Real&     u,
                                                               Standard_Real&     v);
 
-  Standard_EXPORT static Standard_Boolean FindAPointInTheFace(const TopoDS_Face& F, gp_Pnt& P);
+  Standard_EXPORT static Standard_Boolean FindAPointInTheFace(const TopoDS_Face& F, Point3d& P);
 
   Standard_EXPORT static Standard_Boolean FindAPointInTheFace(const TopoDS_Face& F,
                                                               Standard_Real&     u,
                                                               Standard_Real&     v);
 
   Standard_EXPORT Standard_Boolean PointInTheFace(const TopoDS_Face& F,
-                                                  gp_Pnt&            P,
+                                                  Point3d&            P,
                                                   Standard_Real&     u,
                                                   Standard_Real&     v,
                                                   Standard_Real&     Param,
                                                   Standard_Integer&  Index) const;
 
   Standard_EXPORT Standard_Boolean PointInTheFace(const TopoDS_Face&                 F,
-                                                  gp_Pnt&                            P,
+                                                  Point3d&                            P,
                                                   Standard_Real&                     u,
                                                   Standard_Real&                     v,
                                                   Standard_Real&                     Param,
@@ -105,7 +105,7 @@ public:
   //! <Index> gives point index  to  search from and returns
   //! point index of succeseful search
   Standard_EXPORT Standard_Boolean PointInTheFace(const TopoDS_Face&                 F,
-                                                  gp_Pnt&                            P,
+                                                  Point3d&                            P,
                                                   Standard_Real&                     u,
                                                   Standard_Real&                     v,
                                                   Standard_Real&                     Param,
@@ -151,7 +151,7 @@ public:
   //! Returns  in <L>, <Par>  a segment having at least
   //! one  intersection  with  the  shape  boundary  to
   //! compute  intersections.
-  Standard_EXPORT Standard_Integer Segment(const gp_Pnt& P, gp_Lin& L, Standard_Real& Par);
+  Standard_EXPORT Standard_Integer Segment(const Point3d& P, gp_Lin& L, Standard_Real& Par);
 
   //! Returns  in <L>, <Par>  a segment having at least
   //! one  intersection  with  the  shape  boundary  to
@@ -161,13 +161,13 @@ public:
   //! point to a point of the first face of the shape.
   //! The Second Call provide a line to the second face
   //! and so on.
-  Standard_EXPORT Standard_Integer OtherSegment(const gp_Pnt& P, gp_Lin& L, Standard_Real& Par);
+  Standard_EXPORT Standard_Integer OtherSegment(const Point3d& P, gp_Lin& L, Standard_Real& Par);
 
   //! Returns the index of face for which
   //! last segment is calculated.
   Standard_EXPORT Standard_Integer GetFaceSegmentIndex() const;
 
-  Standard_EXPORT virtual void DumpSegment(const gp_Pnt&       P,
+  Standard_EXPORT virtual void DumpSegment(const Point3d&       P,
                                            const gp_Lin&       L,
                                            const Standard_Real Par,
                                            const TopAbs_State  S) const;

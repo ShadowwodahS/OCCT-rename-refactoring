@@ -36,7 +36,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Geom_TrimmedCurve, Geom_BoundedCurve)
 typedef Geom_TrimmedCurve TrimmedCurve;
 typedef gp_Ax1            Ax1;
 typedef gp_Ax2            Ax2;
-typedef gp_Pnt            Pnt;
+typedef Point3d            Pnt;
 typedef gp_Trsf           Trsf;
 typedef gp_Vec            Vec;
 

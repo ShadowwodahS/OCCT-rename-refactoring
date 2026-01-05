@@ -138,7 +138,7 @@ void IntCurveSurface_Intersection::Append(const IntCurveSurface_IntersectionPoin
   Standard_Integer                  i, ni;
   Standard_Real                     anu, anv, anw, u, v, w;
   IntCurveSurface_TransitionOnCurve TrOnCurve, anTrOnCurve;
-  gp_Pnt                            P, anP;
+  Point3d                            P, anP;
   ni = lpnt.Length();
   for (i = 1; i <= ni; i++)
   {

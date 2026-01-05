@@ -121,11 +121,11 @@ public:
 
   //! Returns the point on the 1st shape, which could be used as a reference point
   //! for the value of the proximity.
-  const gp_Pnt& ProximityPoint1() const { return myProxPoint1; }
+  const Point3d& ProximityPoint1() const { return myProxPoint1; }
 
   //! Returns the point on the 2nd shape, which could be used as a reference point
   //! for the value of the proximity.
-  const gp_Pnt& ProximityPoint2() const { return myProxPoint2; }
+  const Point3d& ProximityPoint2() const { return myProxPoint2; }
 
   //! Returns the status of point on the 1st shape, which could be used as a reference point
   //! for the value of the proximity.
@@ -162,9 +162,9 @@ private:
   Standard_Integer myNbSamples2;
 
   //! Reference point of the proximity value on the 1st shape.
-  gp_Pnt myProxPoint1;
+  Point3d myProxPoint1;
   //! Reference point of the proximity value on the 2nd shape.
-  gp_Pnt myProxPoint2;
+  Point3d myProxPoint2;
 
   //! Status of reference points of the proximity value.
   ProxPnt_Status myProxPntStatus1, myProxPntStatus2;

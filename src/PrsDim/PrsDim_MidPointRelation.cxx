@@ -67,7 +67,7 @@ void PrsDim_MidPointRelation::Compute(const Handle(PrsMgr_PresentationManager)&,
 {
   if (myTool.ShapeType() == TopAbs_VERTEX)
   {
-    gp_Pnt           pp;
+    Point3d           pp;
     Standard_Boolean isonplane;
     if (PrsDim::ComputeGeometry(TopoDS::Vertex(myTool), pp, myPlane, isonplane))
     {
@@ -153,7 +153,7 @@ void PrsDim_MidPointRelation::ComputeSelection(const Handle(SelectMgr_Selection)
   aSel->Add(scurv);
 
   Handle(Geom_Curve) curv;
-  gp_Pnt             firstp, lastp;
+  Point3d             firstp, lastp;
   Standard_Boolean   isInfinite, isOnPlane;
   Handle(Geom_Curve) extCurv;
 
@@ -249,7 +249,7 @@ void PrsDim_MidPointRelation::ComputeEdgeFromPnt(const Handle(Prs3d_Presentation
     E = TopoDS::Edge(mySShape);
 
   Handle(Geom_Curve) geom;
-  gp_Pnt             ptat1, ptat2;
+  Point3d             ptat1, ptat2;
   Handle(Geom_Curve) extCurv;
   Standard_Boolean   isInfinite, isOnPlane;
   if (!PrsDim::ComputeGeometry(E, geom, ptat1, ptat2, extCurv, isInfinite, isOnPlane, myPlane))
@@ -378,7 +378,7 @@ void PrsDim_MidPointRelation::ComputeVertexFromPnt(const Handle(Prs3d_Presentati
 void PrsDim_MidPointRelation::ComputePointsOnLine(const gp_Lin& aLin, const Standard_Boolean first)
 {
   Standard_Real ppar     = ElCLib::Parameter(aLin, myMidPoint);
-  gp_Pnt        anAttach = ElCLib::Value(ppar, aLin);
+  Point3d        anAttach = ElCLib::Value(ppar, aLin);
 
   Standard_Real dist = anAttach.Distance(myMidPoint) / 10.0;
   if (dist < Precision::Confusion())
@@ -387,8 +387,8 @@ void PrsDim_MidPointRelation::ComputePointsOnLine(const gp_Lin& aLin, const Stan
   Standard_Real fpar = ppar + dist;
   Standard_Real spar = ppar - dist;
 
-  gp_Pnt aPnt1 = ElCLib::Value(fpar, aLin);
-  gp_Pnt aPnt2 = ElCLib::Value(spar, aLin);
+  Point3d aPnt1 = ElCLib::Value(fpar, aLin);
+  Point3d aPnt2 = ElCLib::Value(spar, aLin);
 
   if (first)
   {
@@ -406,8 +406,8 @@ void PrsDim_MidPointRelation::ComputePointsOnLine(const gp_Lin& aLin, const Stan
 
 //=================================================================================================
 
-void PrsDim_MidPointRelation::ComputePointsOnLine(const gp_Pnt&          pnt1,
-                                                  const gp_Pnt&          pnt2,
+void PrsDim_MidPointRelation::ComputePointsOnLine(const Point3d&          pnt1,
+                                                  const Point3d&          pnt2,
                                                   const Standard_Boolean first)
 {
   gp_Vec aVec(pnt1, pnt2);
@@ -417,14 +417,14 @@ void PrsDim_MidPointRelation::ComputePointsOnLine(const gp_Pnt&          pnt1,
   Standard_Real spar = ElCLib::Parameter(aLin, pnt2);
   Standard_Real ppar = ElCLib::Parameter(aLin, myMidPoint);
 
-  gp_Pnt        aProjPnt = ElCLib::Value(ppar, aLin);
+  Point3d        aProjPnt = ElCLib::Value(ppar, aLin);
   Standard_Real dist     = myMidPoint.Distance(aProjPnt);
   Standard_Real ll       = pnt1.Distance(pnt2);
   Standard_Real segm     = Min(dist, ll) * 0.75;
   if (dist < Precision::Confusion())
     segm = ll * 0.75;
 
-  gp_Pnt anAttach, aPnt1, aPnt2;
+  Point3d anAttach, aPnt1, aPnt2;
   anAttach = aProjPnt;
   gp_Vec aVecTr;
   if (ppar <= fpar)
@@ -474,16 +474,16 @@ void PrsDim_MidPointRelation::ComputePointsOnLine(const gp_Pnt&          pnt1,
 //=================================================================================================
 
 void PrsDim_MidPointRelation::ComputePointsOnCirc(const gp_Circ&         aCirc,
-                                                  const gp_Pnt&          pnt1,
-                                                  const gp_Pnt&          pnt2,
+                                                  const Point3d&          pnt1,
+                                                  const Point3d&          pnt2,
                                                   const Standard_Boolean first)
 {
-  gp_Pnt curpos = myMidPoint;
+  Point3d curpos = myMidPoint;
 
   // Case of confusion between the current position and the center
   // of the circle -> we move the current position
   constexpr Standard_Real confusion(Precision::Confusion());
-  gp_Pnt                  aCenter = aCirc.Location();
+  Point3d                  aCenter = aCirc.Location();
   if (aCenter.Distance(curpos) <= confusion)
   {
     gp_Vec vprec(aCenter, pnt1);
@@ -600,16 +600,16 @@ void PrsDim_MidPointRelation::ComputePointsOnCirc(const gp_Circ&         aCirc,
 //=================================================================================================
 
 void PrsDim_MidPointRelation::ComputePointsOnElips(const gp_Elips&        anEll,
-                                                   const gp_Pnt&          pnt1,
-                                                   const gp_Pnt&          pnt2,
+                                                   const Point3d&          pnt1,
+                                                   const Point3d&          pnt2,
                                                    const Standard_Boolean first)
 {
-  gp_Pnt curpos = myMidPoint;
+  Point3d curpos = myMidPoint;
 
   // Case of confusion between the current position and the center
   // of the circle -> we move the current position
   constexpr Standard_Real confusion(Precision::Confusion());
-  gp_Pnt                  aCenter = anEll.Location();
+  Point3d                  aCenter = anEll.Location();
   if (aCenter.Distance(curpos) <= confusion)
   {
     gp_Vec vprec(aCenter, pnt1);

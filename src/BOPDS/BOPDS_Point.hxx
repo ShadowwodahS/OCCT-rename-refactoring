@@ -21,7 +21,7 @@
 #include <gp_Pnt.hxx>
 #include <gp_Pnt2d.hxx>
 #include <Standard_Integer.hxx>
-class gp_Pnt;
+class Point3d;
 class gp_Pnt2d;
 
 //! The class BOPDS_Point is to store
@@ -37,11 +37,11 @@ public:
 
   //! Modifier
   //! Sets 3D point <thePnt>
-  void SetPnt(const gp_Pnt& thePnt);
+  void SetPnt(const Point3d& thePnt);
 
   //! Selector
   //! Returns 3D point
-  const gp_Pnt& Pnt() const;
+  const Point3d& Pnt() const;
 
   //! Modifier
   //! Sets 2D point on the first face <thePnt>
@@ -68,7 +68,7 @@ public:
   Standard_Integer Index() const;
 
 protected:
-  gp_Pnt           myPnt;
+  Point3d           myPnt;
   gp_Pnt2d         myPnt2D1;
   gp_Pnt2d         myPnt2D2;
   Standard_Integer myIndex;

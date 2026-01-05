@@ -97,40 +97,40 @@ Standard_Real GeomFill_SnglrFunc::Period() const
   return myHCurve->Period();
 }
 
-gp_Pnt GeomFill_SnglrFunc::Value(const Standard_Real U) const
+Point3d GeomFill_SnglrFunc::Value(const Standard_Real U) const
 {
-  gp_Pnt C;
+  Point3d C;
   gp_Vec DC, D2C;
   myHCurve->D2(U, C, DC, D2C);
   DC *= ratio;
-  return gp_Pnt(DC.Crossed(D2C).XYZ());
+  return Point3d(DC.Crossed(D2C).XYZ());
 }
 
-void GeomFill_SnglrFunc::D0(const Standard_Real U, gp_Pnt& P) const
+void GeomFill_SnglrFunc::D0(const Standard_Real U, Point3d& P) const
 {
-  gp_Pnt C;
+  Point3d C;
   gp_Vec DC, D2C;
   myHCurve->D2(U, C, DC, D2C);
   DC *= ratio;
-  P = gp_Pnt(DC.Crossed(D2C).XYZ());
+  P = Point3d(DC.Crossed(D2C).XYZ());
 }
 
-void GeomFill_SnglrFunc::D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V) const
+void GeomFill_SnglrFunc::D1(const Standard_Real U, Point3d& P, gp_Vec& V) const
 {
-  gp_Pnt C;
+  Point3d C;
   gp_Vec DC, D2C, D3C;
   myHCurve->D3(U, C, DC, D2C, D3C);
   DC *= ratio;
-  P = gp_Pnt(DC.Crossed(D2C).XYZ());
+  P = Point3d(DC.Crossed(D2C).XYZ());
   V = DC.Crossed(D3C);
 }
 
-void GeomFill_SnglrFunc::D2(const Standard_Real U, gp_Pnt& P, gp_Vec& V1, gp_Vec& V2) const
+void GeomFill_SnglrFunc::D2(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2) const
 {
-  gp_Pnt C;
+  Point3d C;
   gp_Vec DC, D2C, D3C, D4C;
   myHCurve->D3(U, C, DC, D2C, D3C);
-  P   = gp_Pnt(DC.Crossed(D2C).XYZ());
+  P   = Point3d(DC.Crossed(D2C).XYZ());
   V1  = DC.Crossed(D3C);
   D4C = myHCurve->DN(U, 4);
   V2  = D2C.Crossed(D3C) + DC.Crossed(D4C);
@@ -141,7 +141,7 @@ void GeomFill_SnglrFunc::D2(const Standard_Real U, gp_Pnt& P, gp_Vec& V1, gp_Vec
 }
 
 void GeomFill_SnglrFunc::D3(const Standard_Real U,
-                            gp_Pnt&             P,
+                            Point3d&             P,
                             gp_Vec&             V1,
                             gp_Vec&             V2,
                             gp_Vec&             V3) const
@@ -150,7 +150,7 @@ void GeomFill_SnglrFunc::D3(const Standard_Real U,
   myHCurve->D3(U, P, DC, D2C, D3C);
   D4C = myHCurve->DN(U, 4);
   D5C = myHCurve->DN(U, 5);
-  P   = gp_Pnt(DC.Crossed(D2C).XYZ()).ChangeCoord() * ratio;
+  P   = Point3d(DC.Crossed(D2C).XYZ()).ChangeCoord() * ratio;
   V1  = DC.Crossed(D3C) * ratio;
   V2  = (D2C.Crossed(D3C) + DC.Crossed(D4C)) * ratio;
   V3  = (DC.Crossed(D5C) + D2C.Crossed(D4C) * 2) * ratio;
@@ -161,7 +161,7 @@ gp_Vec GeomFill_SnglrFunc::DN(const Standard_Real U, const Standard_Integer N) c
   Standard_RangeError_Raise_if(N < 1, "Exception: Geom2d_OffsetCurve::DN(). N<1.");
 
   gp_Vec D1C, D2C, D3C;
-  gp_Pnt C;
+  Point3d C;
 
   switch (N)
   {

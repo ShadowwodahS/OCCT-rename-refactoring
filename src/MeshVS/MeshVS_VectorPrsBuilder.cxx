@@ -272,8 +272,8 @@ void MeshVS_VectorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
           continue;
         }
 
-        aTrsf.SetDisplacement(gp_Ax3(gp_Pnt(0, 0, 0), gp_Dir(0, 0, 1)),
-                              gp_Ax3(gp_Pnt(X, Y, Z), aVec));
+        aTrsf.SetDisplacement(gp_Ax3(Point3d(0, 0, 0), gp_Dir(0, 0, 1)),
+                              gp_Ax3(Point3d(X, Y, Z), aVec));
 
         DrawVector(aTrsf,
                    Max(k * fabs(aValue) + b, aMinLength),
@@ -338,7 +338,7 @@ void MeshVS_VectorPrsBuilder::DrawVector(
   const Standard_Real aLocalLength =
     (!myIsSimplePrs || theLength > aMinLength ? theLength : aMinLength);
   // draw line
-  gp_Pnt aLinePnt[2] = {gp_Pnt(0, 0, 0), gp_Pnt(0, 0, aLocalLength)};
+  Point3d aLinePnt[2] = {Point3d(0, 0, 0), Point3d(0, 0, aLocalLength)};
   theTrsf.Transforms(aLinePnt[0].ChangeCoord());
   theTrsf.Transforms(aLinePnt[1].ChangeCoord());
 
@@ -381,7 +381,7 @@ void MeshVS_VectorPrsBuilder::DrawVector(
   {
     const Standard_Real aEndPos      = aLocalLength - theMaxLength * (1 - mySimpleEndPrm);
     const Standard_Real aArrowLength = theMaxLength * (mySimpleEndPrm - mySimpleStartPrm);
-    gp_Pnt aArrowPnt[2] = {gp_Pnt(0, 0, aEndPos - aArrowLength), gp_Pnt(0, 0, aEndPos)};
+    Point3d aArrowPnt[2] = {Point3d(0, 0, aEndPos - aArrowLength), Point3d(0, 0, aEndPos)};
     theTrsf.Transforms(aArrowPnt[0].ChangeCoord());
     theTrsf.Transforms(aArrowPnt[1].ChangeCoord());
 
@@ -402,14 +402,14 @@ Standard_Real MeshVS_VectorPrsBuilder::calculateArrow(TColgp_Array1OfPnt& Points
   Standard_Real w = h / 5.;
 
   Standard_Integer f = Points.Lower();
-  Points(f)          = gp_Pnt(0, 0, 0);
-  Points(f + 1)      = gp_Pnt(0, -w, -h);
-  Points(f + 2)      = gp_Pnt(w * 0.866, -w * 0.5, -h);
-  Points(f + 3)      = gp_Pnt(w * 0.866, w * 0.5, -h);
-  Points(f + 4)      = gp_Pnt(0, w, -h);
-  Points(f + 5)      = gp_Pnt(-w * 0.866, w * 0.5, -h);
-  Points(f + 6)      = gp_Pnt(-w * 0.866, -w * 0.5, -h);
-  Points(f + 7)      = gp_Pnt(0, -w, -h);
+  Points(f)          = Point3d(0, 0, 0);
+  Points(f + 1)      = Point3d(0, -w, -h);
+  Points(f + 2)      = Point3d(w * 0.866, -w * 0.5, -h);
+  Points(f + 3)      = Point3d(w * 0.866, w * 0.5, -h);
+  Points(f + 4)      = Point3d(0, w, -h);
+  Points(f + 5)      = Point3d(-w * 0.866, w * 0.5, -h);
+  Points(f + 6)      = Point3d(-w * 0.866, -w * 0.5, -h);
+  Points(f + 7)      = Point3d(0, -w, -h);
 
   return h;
 }

@@ -208,10 +208,10 @@ void BRepMesh_CurveTessellator::addInternalVertices()
 //=================================================================================================
 
 Standard_Boolean BRepMesh_CurveTessellator::isInToleranceOfVertex(
-  const gp_Pnt&        thePoint,
+  const Point3d&        thePoint,
   const TopoDS_Vertex& theVertex) const
 {
-  const gp_Pnt        aPoint     = BRep_Tool::Pnt(theVertex);
+  const Point3d        aPoint     = BRep_Tool::Pnt(theVertex);
   const Standard_Real aTolerance = BRep_Tool::Tolerance(theVertex);
 
   return (thePoint.SquareDistance(aPoint) < aTolerance * aTolerance);
@@ -220,7 +220,7 @@ Standard_Boolean BRepMesh_CurveTessellator::isInToleranceOfVertex(
 //=================================================================================================
 
 Standard_Boolean BRepMesh_CurveTessellator::Value(const Standard_Integer theIndex,
-                                                  gp_Pnt&                thePoint,
+                                                  Point3d&                thePoint,
                                                   Standard_Real&         theParameter) const
 {
   thePoint     = myDiscretTool.Value(theIndex);
@@ -259,7 +259,7 @@ Standard_Boolean BRepMesh_CurveTessellator::Value(const Standard_Integer theInde
     return Standard_True;
   }
 
-  gp_Pnt aPntOnSurf;
+  Point3d aPntOnSurf;
   aSurface->D0(aUV.X(), aUV.Y(), aPntOnSurf);
 
   return (thePoint.SquareDistance(aPntOnSurf) < myEdgeSqTol);
@@ -283,7 +283,7 @@ void BRepMesh_CurveTessellator::splitSegment(const Handle(Geom_Surface)& theSurf
   }
 
   gp_Pnt2d      uvf, uvl, uvm;
-  gp_Pnt        P3dF, P3dL, midP3d, midP3dFromSurf;
+  Point3d        P3dF, P3dL, midP3d, midP3dFromSurf;
   Standard_Real midpar;
 
   if (Abs(theLast - theFirst) < 2 * Precision::PConfusion())

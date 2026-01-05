@@ -90,7 +90,7 @@ void BRepBuilderAPI_NurbsConvert::CorrectVertexTol()
           if (aVTol < anETol)
           {
             TopoDS_Vertex aNewVtx;
-            gp_Pnt        aVPnt = BRep_Tool::Pnt(aVtx);
+            Point3d        aVPnt = BRep_Tool::Pnt(aVtx);
             aBB.MakeVertex(aNewVtx, aVPnt, anETol + Epsilon(anETol));
             aNewVtx.Orientation(aVtx.Orientation());
             myVtxToReplace.Bind(aVtx, aNewVtx);

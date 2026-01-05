@@ -37,7 +37,7 @@ public:
 
   //! It calculates all the distances between a point
   //! from gp and a Surface.
-  Standard_EXPORT Extrema_ExtPExtS(const gp_Pnt&                                       P,
+  Standard_EXPORT Extrema_ExtPExtS(const Point3d&                                       P,
                                    const Handle(GeomAdaptor_SurfaceOfLinearExtrusion)& S,
                                    const Standard_Real                                 Umin,
                                    const Standard_Real                                 Usup,
@@ -48,7 +48,7 @@ public:
 
   //! It calculates all the distances between a point
   //! from gp and a Surface.
-  Standard_EXPORT Extrema_ExtPExtS(const gp_Pnt&                                       P,
+  Standard_EXPORT Extrema_ExtPExtS(const Point3d&                                       P,
                                    const Handle(GeomAdaptor_SurfaceOfLinearExtrusion)& S,
                                    const Standard_Real                                 TolU,
                                    const Standard_Real                                 TolV);
@@ -62,7 +62,7 @@ public:
                                   const Standard_Real                                 TolU,
                                   const Standard_Real                                 TolV);
 
-  Standard_EXPORT void Perform(const gp_Pnt& P);
+  Standard_EXPORT void Perform(const Point3d& P);
 
   //! Returns True if the distances are found.
   Standard_EXPORT Standard_Boolean IsDone() const;
@@ -81,7 +81,7 @@ public:
 protected:
 private:
   Standard_EXPORT void MakePreciser(Standard_Real&         U,
-                                    const gp_Pnt&          P,
+                                    const Point3d&          P,
                                     const Standard_Boolean isMin,
                                     const gp_Ax2&          OrtogSection) const;
 

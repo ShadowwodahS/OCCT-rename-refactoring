@@ -50,7 +50,7 @@ public:
                                           const Handle(Geom_Plane)&         aPlane,
                                           const Standard_Real               aVal,
                                           const TCollection_ExtendedString& aText,
-                                          const gp_Pnt&                     aPosition,
+                                          const Point3d&                     aPosition,
                                           const DsgPrs_ArrowSide            aSymbolPrs,
                                           const Standard_Real               anArrowSize = 0.0);
 
@@ -72,7 +72,7 @@ private:
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
 private:
-  gp_Pnt myPntAttach;
+  Point3d myPntAttach;
   gp_Dir myDir;
 };
 

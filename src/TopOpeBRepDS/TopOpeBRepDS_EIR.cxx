@@ -1101,14 +1101,14 @@ static Standard_Boolean CheckInterferenceIsValid(const Handle(TopOpeBRepDS_Inter
   if (!ok)
     return ok;
 
-  gp_Pnt        P3d1 = BC.Value(pref);
+  Point3d        P3d1 = BC.Value(pref);
   Standard_Real dist, paronSupportE;
   ok = FUN_tool_projPonE(P3d1, theSupportEdge, paronSupportE, dist);
 
   if (!ok)
     return ok;
   BRepAdaptor_Curve BCtmp(theSupportEdge);
-  gp_Pnt            P3d2  = BCtmp.Value(paronSupportE);
+  Point3d            P3d2  = BCtmp.Value(paronSupportE);
   Standard_Real Tolerance = (BRep_Tool::Tolerance(theEdge) > BRep_Tool::Tolerance(theSupportEdge))
                               ? BRep_Tool::Tolerance(theEdge)
                               : BRep_Tool::Tolerance(theSupportEdge);

@@ -94,11 +94,11 @@ public:
 
   //! Returns a 3D point specified by parameters in surface
   //! parametrical space
-  gp_Pnt Value(const Standard_Real u, const Standard_Real v);
+  Point3d Value(const Standard_Real u, const Standard_Real v);
 
   //! Returns a 3d point specified by a point in surface
   //! parametrical space
-  gp_Pnt Value(const gp_Pnt2d& p2d);
+  Point3d Value(const gp_Pnt2d& p2d);
 
   //! Returns True if the surface has singularities for the given
   //! precision (i.e. if there are surface singularities with sizes
@@ -129,7 +129,7 @@ public:
   //! Returns False if <num> is out of range, else returns True.
   Standard_EXPORT Standard_Boolean Singularity(const Standard_Integer num,
                                                Standard_Real&         preci,
-                                               gp_Pnt&                P3d,
+                                               Point3d&                P3d,
                                                gp_Pnt2d&              firstP2d,
                                                gp_Pnt2d&              lastP2d,
                                                Standard_Real&         firstpar,
@@ -140,7 +140,7 @@ public:
   //! is considered as degenerated with <preci> and distance
   //! between P3d and corresponding singular point is less than
   //! <preci>
-  Standard_EXPORT Standard_Boolean IsDegenerated(const gp_Pnt& P3d, const Standard_Real preci);
+  Standard_EXPORT Standard_Boolean IsDegenerated(const Point3d& P3d, const Standard_Real preci);
 
   //! Returns True if there is at least one surface iso-line which
   //! is considered as degenerated with <preci> and distance
@@ -149,7 +149,7 @@ public:
   //! Returns characteristics of the first found boundary matching
   //! those criteria.
   Standard_EXPORT Standard_Boolean
-    DegeneratedValues(const gp_Pnt&          P3d,
+    DegeneratedValues(const Point3d&          P3d,
                       const Standard_Real    preci,
                       gp_Pnt2d&              firstP2d,
                       gp_Pnt2d&              lastP2d,
@@ -169,7 +169,7 @@ public:
   //! resolution (computed from <preci> by Geom_Adaptor).
   //! Then sets not yet computed <result>'s coordinate taking it
   //! from <neighbour> and returns True.
-  Standard_EXPORT Standard_Boolean ProjectDegenerated(const gp_Pnt&       P3d,
+  Standard_EXPORT Standard_Boolean ProjectDegenerated(const Point3d&       P3d,
                                                       const Standard_Real preci,
                                                       const gp_Pnt2d&     neighbour,
                                                       gp_Pnt2d&           result);
@@ -263,7 +263,7 @@ public:
   //! tool GeomAPI_ProjectPointOnSurface by treatment of cases when
   //! the projected point is near to the surface boundaries and
   //! when this standard tool fails.
-  Standard_EXPORT gp_Pnt2d ValueOfUV(const gp_Pnt& P3D, const Standard_Real preci);
+  Standard_EXPORT gp_Pnt2d ValueOfUV(const Point3d& P3D, const Standard_Real preci);
 
   //! Projects a point P3D on the surface.
   //! Does the same thing as ValueOfUV but tries to optimize
@@ -274,7 +274,7 @@ public:
   //! as bad, and ValueOfUV() is used.
   //! If not succeeded, calls ValueOfUV()
   Standard_EXPORT gp_Pnt2d NextValueOfUV(const gp_Pnt2d&     p2dPrev,
-                                         const gp_Pnt&       P3D,
+                                         const Point3d&       P3D,
                                          const Standard_Real preci,
                                          const Standard_Real maxpreci = -1.0);
 
@@ -287,7 +287,7 @@ public:
   //! direction)
   //! Returns the best resulting distance between P3D and Value(U,V)
   //! in the case of success. Else, returns a very great value
-  Standard_EXPORT Standard_Real UVFromIso(const gp_Pnt&       P3D,
+  Standard_EXPORT Standard_Real UVFromIso(const Point3d&       P3D,
                                           const Standard_Real preci,
                                           Standard_Real&      U,
                                           Standard_Real&      V);
@@ -315,7 +315,7 @@ protected:
   Standard_Boolean            myExtOK;
   Standard_Integer            myNbDeg;
   Standard_Real               myPreci[4];
-  gp_Pnt                      myP3d[4];
+  Point3d                      myP3d[4];
   gp_Pnt2d                    myFirstP2d[4];
   gp_Pnt2d                    myLastP2d[4];
   Standard_Real               myFirstPar[4];
@@ -364,7 +364,7 @@ private:
 
   //! @return 0, 1 or 2.
   Standard_EXPORT Standard_Integer SurfaceNewton(const gp_Pnt2d&     p2dPrev,
-                                                 const gp_Pnt&       P3D,
+                                                 const Point3d&       P3D,
                                                  const Standard_Real preci,
                                                  gp_Pnt2d&           sol);
 

@@ -25,7 +25,7 @@
 
 class Prs3d_LineAspect;
 class gp_Dir;
-class gp_Pnt;
+class Point3d;
 class Prs3d_ArrowAspect;
 class Prs3d_TextAspect;
 
@@ -49,8 +49,8 @@ public:
                                   const gp_Dir&                     aDir,
                                   const Standard_Real               aVal,
                                   const Standard_CString            aText,
-                                  const gp_Pnt&                     aPfirst,
-                                  const gp_Pnt&                     aPlast);
+                                  const Point3d&                     aPfirst,
+                                  const Point3d&                     aPlast);
 
   //! draws the presentation X ,Y ,Z axis
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
@@ -60,8 +60,8 @@ public:
                                   const gp_Dir&                     aDir,
                                   const Standard_Real               aVal,
                                   const Standard_CString            aText,
-                                  const gp_Pnt&                     aPfirst,
-                                  const gp_Pnt&                     aPlast);
+                                  const Point3d&                     aPfirst,
+                                  const Point3d&                     aPlast);
 
 protected:
 private:

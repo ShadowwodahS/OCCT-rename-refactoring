@@ -34,7 +34,7 @@
 #include <gp_Hypr.hxx>
 #include <gp_Parab.hxx>
 class Adaptor3d_Curve;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 class Geom_BezierCurve;
 class Geom_BSplineCurve;
@@ -74,21 +74,21 @@ public:
 
   static GeomAbs_CurveType GetType(const Adaptor3d_Curve& C);
 
-  static gp_Pnt Value(const Adaptor3d_Curve& C, const Standard_Real U);
+  static Point3d Value(const Adaptor3d_Curve& C, const Standard_Real U);
 
-  static void D0(const Adaptor3d_Curve& C, const Standard_Real U, gp_Pnt& P);
+  static void D0(const Adaptor3d_Curve& C, const Standard_Real U, Point3d& P);
 
-  static void D1(const Adaptor3d_Curve& C, const Standard_Real U, gp_Pnt& P, gp_Vec& V);
+  static void D1(const Adaptor3d_Curve& C, const Standard_Real U, Point3d& P, gp_Vec& V);
 
   static void D2(const Adaptor3d_Curve& C,
                  const Standard_Real    U,
-                 gp_Pnt&                P,
+                 Point3d&                P,
                  gp_Vec&                V1,
                  gp_Vec&                V2);
 
   static void D3(const Adaptor3d_Curve& C,
                  const Standard_Real    U,
-                 gp_Pnt&                P,
+                 Point3d&                P,
                  gp_Vec&                V1,
                  gp_Vec&                V2,
                  gp_Vec&                V3);

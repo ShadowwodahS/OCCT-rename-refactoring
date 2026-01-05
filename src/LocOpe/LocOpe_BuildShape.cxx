@@ -441,7 +441,7 @@ static Standard_Boolean IsInside(const TopoDS_Shape& S1, const TopoDS_Shape& S2)
   {
     //  for (TopExp_Explorer exp(S1,TopAbs_VERTEX);exp.More(); exp.Next()) {
     const TopoDS_Vertex& vtx    = TopoDS::Vertex(exp.Current());
-    gp_Pnt               Pttest = BRep_Tool::Pnt(vtx);
+    Point3d               Pttest = BRep_Tool::Pnt(vtx);
     Standard_Real        Tol    = BRep_Tool::Tolerance(vtx);
     Class.Perform(Pttest, Tol);
     if (Class.State() == TopAbs_IN)

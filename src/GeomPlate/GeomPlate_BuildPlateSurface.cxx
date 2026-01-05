@@ -354,7 +354,7 @@ Handle(Adaptor2d_Curve2d) GeomPlate_BuildPlateSurface::ProjectedCurve(Handle(Ada
 //---------------------------------------------------------
 // Projects a point on the initial surface
 //---------------------------------------------------------
-gp_Pnt2d GeomPlate_BuildPlateSurface::ProjectPoint(const gp_Pnt& p3d)
+gp_Pnt2d GeomPlate_BuildPlateSurface::ProjectPoint(const Point3d& p3d)
 {
   Extrema_POnSurf P;
   myProj.Perform(p3d);
@@ -566,7 +566,7 @@ void GeomPlate_BuildPlateSurface::Perform(const Message_ProgressRange& theProgre
     { // Project the points
       for (Standard_Integer i = 1; i <= NTPntCont; i++)
       {
-        gp_Pnt P;
+        Point3d P;
         myPntCont->Value(i)->D0(P);
         myPntCont->ChangeValue(i)->SetPnt2dOnSurf(ProjectPoint(P));
       }
@@ -580,7 +580,7 @@ void GeomPlate_BuildPlateSurface::Perform(const Message_ProgressRange& theProgre
   {
     if (!myPntCont->Value(i)->HasPnt2dOnSurf())
     {
-      gp_Pnt P;
+      Point3d P;
       myPntCont->Value(i)->D0(P);
       myPntCont->ChangeValue(i)->SetPnt2dOnSurf(ProjectPoint(P));
     }
@@ -745,7 +745,7 @@ void GeomPlate_BuildPlateSurface::EcartContraintesMil(const Standard_Integer    
   else
     NbPt = myParCont->Value(c).Length();
   gp_Vec                            v1i, v1f, v2i, v2f, v3i, v3f;
-  gp_Pnt                            Pi, Pf;
+  Point3d                            Pi, Pf;
   gp_Pnt2d                          P2d;
   Standard_Integer                  i;
   Handle(GeomPlate_CurveConstraint) LinCont = myLinCont->Value(c);
@@ -841,7 +841,7 @@ void GeomPlate_BuildPlateSurface::Disc2dContour(const Standard_Integer /*nbp*/,
   Standard_Integer NTPntCont = myPntCont->Length();
   gp_Pnt2d         P2d;
   gp_XY            UV;
-  gp_Pnt           PP;
+  Point3d           PP;
   Standard_Real    u1, v1, u2, v2;
   Standard_Integer i;
 
@@ -987,7 +987,7 @@ void GeomPlate_BuildPlateSurface::Disc3dContour(const Standard_Integer /*nbp*/,
   Standard_Integer NTCurve   = myLinCont->Length();
   Standard_Integer NTPntCont = myPntCont->Length();
   //  gp_Pnt2d P2d;
-  gp_Pnt           P3d;
+  Point3d           P3d;
   gp_Vec           v1h, v2h, v3h;
   gp_XYZ           Pos;
   Standard_Integer i;
@@ -1265,7 +1265,7 @@ Standard_Boolean GeomPlate_BuildPlateSurface::CourbeJointive(const Standard_Real
   mySense                 = new TColStd_HArray1OfInteger(1, nbf, 0);
   Standard_Boolean result = Standard_True;
   Standard_Integer j      = 1, i;
-  gp_Pnt           P1, P2;
+  Point3d           P1, P2;
 
   while (j <= (myNbBounds - 1))
   {
@@ -1408,7 +1408,7 @@ void GeomPlate_BuildPlateSurface::ComputeSurfInit(const Message_ProgressRange& t
       Standard_Boolean ToReverse = Standard_False;
       if (i > 1 && Order >= GeomAbs_G1)
       {
-        gp_Pnt P;
+        Point3d P;
         myLinCont->Value(i)->D1(Uinit, P, Vec1, Vec2);
         Normal = Vec1 ^ Vec2;
         if (LastVec.IsOpposite(Normal, AngTol))
@@ -1581,14 +1581,14 @@ void GeomPlate_BuildPlateSurface::ComputeSurfInit(const Message_ProgressRange& t
       { // Number of points per curve = 20
         // Linear distribution
         Standard_Real Inter = j * Uif / (NbPoint);
-        gp_Pnt        P;
+        Point3d        P;
         myLinCont->Value(i)->D0(Uinit + Inter, P);
         Pts->SetValue(Np++, P);
       }
     }
     for (i = 1; i <= NTPntCont; i++)
     {
-      gp_Pnt P;
+      Point3d P;
       myPntCont->Value(i)->D0(P);
       Pts->SetValue(Np++, P);
     }
@@ -1626,7 +1626,7 @@ void GeomPlate_BuildPlateSurface::ComputeSurfInit(const Message_ProgressRange& t
     // clang-format on
     Handle(GeomAdaptor_Surface) hsur    = new GeomAdaptor_Surface(InitPlane);
     Standard_Integer            NbPoint = 20;
-    //      gp_Pnt P;
+    //      Point3d P;
     //      gp_Vec DerC, DerCproj, DU, DV;
     //      gp_Pnt2d P2d;
     //      gp_Vec2d DProj;
@@ -1642,7 +1642,7 @@ void GeomPlate_BuildPlateSurface::ComputeSurfInit(const Message_ProgressRange& t
         new ProjLib_HCompProjectedCurve(hsur, Curve, myTol3d, myTol3d);
       Adaptor3d_CurveOnSurface AProj(ProjCurve, hsur);
 
-      gp_Pnt P;
+      Point3d P;
       gp_Vec DerC, DerCproj;
       for (Standard_Integer j = 1; j < NbPoint && myIsLinear; j++)
       {
@@ -1705,7 +1705,7 @@ void GeomPlate_BuildPlateSurface::ComputeSurfInit(const Message_ProgressRange& t
     //======================================================================
     for (i = 1; i <= NTPntCont; i++)
     {
-      gp_Pnt P;
+      Point3d P;
       myPntCont->Value(i)->D0(P);
       if (!myPntCont->Value(i)->HasPnt2dOnSurf())
         myPntCont->ChangeValue(i)->SetPnt2dOnSurf(ProjectPoint(P));
@@ -1797,7 +1797,7 @@ void GeomPlate_BuildPlateSurface::Intersect(Handle(GeomPlate_HArray1OfSequenceOf
   Geom2dInt_GInter           Intersection;
   Geom2dAdaptor_Curve        Ci, Cj;
   IntRes2d_IntersectionPoint int2d;
-  gp_Pnt                     P1, P2;
+  Point3d                     P1, P2;
   gp_Pnt2d                   P2d;
   gp_Vec2d                   V2d;
   //  if (!mySurfInitIsGive)
@@ -2144,7 +2144,7 @@ void GeomPlate_BuildPlateSurface::Discretise(
                   {
                     k = NbPtG1G1 + 2; // to leave the loop
                     // Add points of constraint G0
-                    gp_Pnt   P3d, PP, Pdif;
+                    Point3d   P3d, PP, Pdif;
                     gp_Pnt2d P2d;
 
                     AC2d.D0(Inter, P2d);
@@ -2185,7 +2185,7 @@ void GeomPlate_BuildPlateSurface::Discretise(
             {
               k = NbPtG1G1 + 2; // to leave the loop
               // Add points of constraint G0
-              gp_Pnt   P3d, PP, Pdif;
+              Point3d   P3d, PP, Pdif;
               gp_Pnt2d P2d;
 
               AC2d.D0(Inter, P2d);
@@ -2265,7 +2265,7 @@ void GeomPlate_BuildPlateSurface::CalculNbPtsInit()
 void GeomPlate_BuildPlateSurface::LoadCurve(const Standard_Integer NbBoucle,
                                             const Standard_Integer OrderMax)
 {
-  gp_Pnt           P3d, Pdif, PP;
+  Point3d           P3d, Pdif, PP;
   gp_Pnt2d         P2d;
   Standard_Integer NTLinCont = myLinCont->Length(), i, j;
   Standard_Integer Tang, Nt;
@@ -2371,7 +2371,7 @@ void GeomPlate_BuildPlateSurface::LoadCurve(const Standard_Integer NbBoucle,
 // void GeomPlate_BuildPlateSurface::LoadPoint(const Standard_Integer NbBoucle,
 void GeomPlate_BuildPlateSurface::LoadPoint(const Standard_Integer, const Standard_Integer OrderMax)
 {
-  gp_Pnt           P3d, Pdif, PP;
+  Point3d           P3d, Pdif, PP;
   gp_Pnt2d         P2d;
   Standard_Integer NTPntCont = myPntCont->Length();
   Standard_Integer Tang, i;
@@ -2495,7 +2495,7 @@ Standard_Boolean GeomPlate_BuildPlateSurface::VerifSurface(const Standard_Intege
 #ifdef DRAW
           if ((Affich) && (NbBoucle == myNbIter))
           {
-            gp_Pnt   P;
+            Point3d   P;
             gp_Pnt2d P2d;
             LinCont->D0(U, P);
             Handle(Draw_Marker3D) mark = new (Draw_Marker3D)(P, Draw_X, Draw_orange);
@@ -2527,7 +2527,7 @@ Standard_Boolean GeomPlate_BuildPlateSurface::VerifSurface(const Standard_Intege
 #ifdef DRAW
           if ((Affich) && (NbBoucle == myNbIter))
           {
-            gp_Pnt P;
+            Point3d P;
             LinCont->D0(U, P);
             Handle(Draw_Marker3D) mark = new Draw_Marker3D(P, Draw_X, Draw_or);
             char                  name[256];
@@ -2589,7 +2589,7 @@ void GeomPlate_BuildPlateSurface::VerifPoints(Standard_Real& Dist,
                                               Standard_Real& Curv) const
 {
   Standard_Integer NTPntCont = myPntCont->Length();
-  gp_Pnt           Pi, Pf;
+  Point3d           Pi, Pf;
   gp_Pnt2d         P2d;
   gp_Vec           v1i, v1f, v2i, v2f, v3i, v3f;
   Ang  = 0;

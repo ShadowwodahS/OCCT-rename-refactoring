@@ -22,7 +22,7 @@
 #include <Prs3d_Presentation.hxx>
 
 class gp_Ax1;
-class gp_Pnt;
+class Point3d;
 class gp_Dir;
 
 //! Provides class methods to draw an arrow at a given location, along a given direction and using a
@@ -54,7 +54,7 @@ public:
   //! @param theLength     length of the arrow (from the tip)
   //! @param theNbSegments count of points on polyline where location is connected
   Standard_EXPORT static Handle(Graphic3d_ArrayOfSegments) DrawSegments(
-    const gp_Pnt&          theLocation,
+    const Point3d&          theLocation,
     const gp_Dir&          theDir,
     const Standard_Real    theAngle,
     const Standard_Real    theLength,
@@ -68,7 +68,7 @@ public:
   //! @param theAngle     angle of opening of the arrow head
   //! @param theLength    length of the arrow (from the tip)
   Standard_EXPORT static void Draw(const Handle(Graphic3d_Group)& theGroup,
-                                   const gp_Pnt&                  theLocation,
+                                   const Point3d&                  theLocation,
                                    const gp_Dir&                  theDirection,
                                    const Standard_Real            theAngle,
                                    const Standard_Real            theLength);

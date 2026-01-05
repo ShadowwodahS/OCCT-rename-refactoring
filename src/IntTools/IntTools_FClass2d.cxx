@@ -89,7 +89,7 @@ void IntTools_FClass2d::Init(const TopoDS_Face& aFace, const Standard_Real TolUV
   BRepTools_WireExplorer          aWExp;
   TopExp_Explorer                 aExpF, aExp;
   Handle(Geom2d_Curve)            aC2D;
-  gp_Pnt                          Ancienpnt3d;
+  Point3d                          Ancienpnt3d;
   TColgp_SequenceOfPnt2d          SeqPnt2d;
   TColStd_DataMapOfIntegerInteger anIndexMap;
   TColgp_SequenceOfVec2d          aD1Prev;
@@ -200,7 +200,7 @@ void IntTools_FClass2d::Init(const TopoDS_Face& aFace, const Standard_Real TolUV
         // check that whole curve is located in vicinity of its middle point
         // (within sphere of Precision::Confusion() diameter)
         C3d.Initialize(edge, Face);
-        gp_Pnt P3da           = C3d.Value(0.5 * (pfbid + plbid));
+        Point3d P3da           = C3d.Value(0.5 * (pfbid + plbid));
         du                    = plbid - pfbid;
         const int     NBSTEPS = 10;
         Standard_Real aPrec2  = 0.25 * Precision::Confusion() * Precision::Confusion();
@@ -208,7 +208,7 @@ void IntTools_FClass2d::Init(const TopoDS_Face& aFace, const Standard_Real TolUV
         for (Standard_Integer i = 0; i <= NBSTEPS; i++)
         {
           Standard_Real U    = pfbid + i * du / NBSTEPS;
-          gp_Pnt        P3db = C3d.Value(U);
+          Point3d        P3db = C3d.Value(U);
           Standard_Real aR2  = P3da.SquareDistance(P3db);
           if (aR2 > aPrec2)
           {
@@ -280,7 +280,7 @@ void IntTools_FClass2d::Init(const TopoDS_Face& aFace, const Standard_Real TolUV
         Standard_Integer ii;
         Standard_Real    aDstX;
         gp_Pnt2d         P2d;
-        gp_Pnt           P3d;
+        Point3d           P3d;
         //
         u   = aPrms(iX);
         P2d = C.Value(u);
@@ -312,7 +312,7 @@ void IntTools_FClass2d::Init(const TopoDS_Face& aFace, const Standard_Real TolUV
           if (iX > 1)
           {
             Standard_Real aDstX1;
-            gp_Pnt        MidP3d;
+            Point3d        MidP3d;
             //
             MidP3d = C3d.Value(0.5 * (u + aPrms(iX - 1)));
             aDstX1 = P3d.SquareDistance(MidP3d);

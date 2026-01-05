@@ -246,7 +246,7 @@ Standard_Boolean IntTools_CommonPrt::AllNullFlag() const
 //
 //=================================================================================================
 
-void IntTools_CommonPrt::SetBoundingPoints(const gp_Pnt& aP1, const gp_Pnt& aP2)
+void IntTools_CommonPrt::SetBoundingPoints(const Point3d& aP1, const Point3d& aP2)
 {
   myPnt1 = aP1;
   myPnt2 = aP2;
@@ -254,7 +254,7 @@ void IntTools_CommonPrt::SetBoundingPoints(const gp_Pnt& aP1, const gp_Pnt& aP2)
 
 //=================================================================================================
 
-void IntTools_CommonPrt::BoundingPoints(gp_Pnt& aP1, gp_Pnt& aP2) const
+void IntTools_CommonPrt::BoundingPoints(Point3d& aP1, Point3d& aP2) const
 {
   aP1 = myPnt1;
   aP2 = myPnt2;

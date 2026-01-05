@@ -725,8 +725,8 @@ void BOPAlgo_ArgumentAnalyzer::TestMergeSubShapes(const TopAbs_ShapeEnum theType
 
         const TopoDS_Vertex& aV1   = *(TopoDS_Vertex*)&(aS1);
         const TopoDS_Vertex& aV2   = *(TopoDS_Vertex*)&(aS2);
-        gp_Pnt               aP1   = BRep_Tool::Pnt(aV1);
-        gp_Pnt               aP2   = BRep_Tool::Pnt(aV2);
+        Point3d               aP1   = BRep_Tool::Pnt(aV1);
+        Point3d               aP2   = BRep_Tool::Pnt(aV2);
         Standard_Real        aDist = aP1.Distance(aP2);
 
         if (aDist <= (BRep_Tool::Tolerance(aV1) + BRep_Tool::Tolerance(aV2)))

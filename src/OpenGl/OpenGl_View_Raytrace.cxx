@@ -2186,7 +2186,7 @@ void OpenGl_View::updatePerspCameraPT(const OpenGl_Mat4&           theOrientatio
                     : static_cast<float>(myCamera->ZFocus());
 
   // get camera view vectors
-  const gp_Pnt anOrig = myCamera->Eye();
+  const Point3d anOrig = myCamera->Eye();
 
   myEyeOrig = OpenGl_Vec3(static_cast<float>(anOrig.X()),
                           static_cast<float>(anOrig.Y()),

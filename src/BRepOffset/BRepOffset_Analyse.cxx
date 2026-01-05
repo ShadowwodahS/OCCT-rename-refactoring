@@ -596,10 +596,10 @@ void BRepOffset_Analyse::TreatTangentFaces(const TopTools_ListOfShape&  theLE,
           }
 
           gp_Pnt2d                  aP2d;
-          gp_Pnt                    aPInF;
+          Point3d                    aPInF;
           Standard_Real             f, l;
           const Handle(Geom_Curve)& aC3D  = BRep_Tool::Curve(aEInF, f, l);
-          gp_Pnt                    aPOnE = aC3D->Value((f + l) / 2.);
+          Point3d                    aPOnE = aC3D->Value((f + l) / 2.);
           BOPTools_AlgoTools3D::PointNearEdge(aEInF,
                                               TopoDS::Face(aFOpposite),
                                               (f + l) / 2.,

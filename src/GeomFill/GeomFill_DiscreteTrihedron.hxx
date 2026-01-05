@@ -115,7 +115,7 @@ public:
 
 protected:
 private:
-  gp_Pnt                          myPoint;
+  Point3d                          myPoint;
   Handle(GeomFill_HSequenceOfAx2) myTrihedrons;
   Handle(TColStd_HSequenceOfReal) myKnots;
   Handle(GeomFill_Frenet)         myFrenet;

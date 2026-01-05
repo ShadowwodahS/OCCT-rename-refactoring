@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 #include <TColStd_HArray1OfInteger.hxx>
 #include <IGESData_IGESEntity.hxx>
-class gp_Pnt;
+class Point3d;
 
 class IGESDraw_RectArraySubfigure;
 DEFINE_STANDARD_HANDLE(IGESDraw_RectArraySubfigure, IGESData_IGESEntity)
@@ -71,10 +71,10 @@ public:
   Standard_EXPORT Standard_Real ScaleFactor() const;
 
   //! returns coordinates of lower left hand corner for the entire array
-  Standard_EXPORT gp_Pnt LowerLeftCorner() const;
+  Standard_EXPORT Point3d LowerLeftCorner() const;
 
   //! returns Transformed coordinates of lower left corner for the array
-  Standard_EXPORT gp_Pnt TransformedLowerLeftCorner() const;
+  Standard_EXPORT Point3d TransformedLowerLeftCorner() const;
 
   //! returns number of columns in the array
   Standard_EXPORT Standard_Integer NbColumns() const;

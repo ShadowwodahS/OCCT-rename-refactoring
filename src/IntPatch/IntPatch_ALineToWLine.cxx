@@ -277,7 +277,7 @@ void IntPatch_ALineToWLine::CorrectEndPoint(Handle(IntSurf_LineOn2S)& theLine,
     if (aQuad.TypeQuadric() == GeomAbs_Cone)
     {
       const gp_Cone aCone  = aQuad.Cone();
-      const gp_Pnt  anApex = aCone.Apex();
+      const Point3d  anApex = aCone.Apex();
       if (anApex.SquareDistance(aPntOn2S.Value()) > aSqTol)
         continue;
     }
@@ -309,7 +309,7 @@ void IntPatch_ALineToWLine::CorrectEndPoint(Handle(IntSurf_LineOn2S)& theLine,
 
 //=================================================================================================
 
-Standard_Real IntPatch_ALineToWLine::GetSectionRadius(const gp_Pnt& thePnt3d) const
+Standard_Real IntPatch_ALineToWLine::GetSectionRadius(const Point3d& thePnt3d) const
 {
   Standard_Real aRetVal = RealLast();
   for (Standard_Integer i = 0; i < 2; i++)
@@ -397,7 +397,7 @@ void IntPatch_ALineToWLine::MakeWLine(const Handle(IntPatch_ALine)& theALine,
       for (Standard_Integer ii = 0; ii <= NbSamples; ii++)
       {
         Standard_Real aPrm = theFPar + ii * aStep;
-        const gp_Pnt aPP(theALine->Value(aPrm));
+        const Point3d aPP(theALine->Value(aPrm));
         std::cout << "vertex v" << ii << " " << aPP.X() << " " << aPP.Y() << " " << aPP.Z() << std::endl;
 
         sprintf(name, "p%d_%d", ii, ind);
@@ -536,7 +536,7 @@ void IntPatch_ALineToWLine::MakeWLine(const Handle(IntPatch_ALine)& theALine,
       Standard_Boolean isPointValid = Standard_False;
       Standard_Real    aTgMagn      = 0.0;
       {
-        gp_Pnt aPnt3d;
+        Point3d aPnt3d;
         gp_Vec aTg;
         theALine->D1(aParameter, aPnt3d, aTg);
         if (GetSectionRadius(aPnt3d) < 5.0e-6)
@@ -585,7 +585,7 @@ void IntPatch_ALineToWLine::MakeWLine(const Handle(IntPatch_ALine)& theALine,
 
             if ((aParam - aPrevParam) < aPrmTol)
             {
-              const gp_Pnt aPnt3d(theALine->Value(aParam));
+              const Point3d aPnt3d(theALine->Value(aParam));
               if (aPOn2S.Value().SquareDistance(aPnt3d) < Precision::SquareConfusion())
               {
                 // i-th vertex is the same as a Pole/Apex.
@@ -598,7 +598,7 @@ void IntPatch_ALineToWLine::MakeWLine(const Handle(IntPatch_ALine)& theALine,
             break;
           }
 
-          const gp_Pnt  aPnt3d(theALine->Value(aPrt));
+          const Point3d  aPnt3d(theALine->Value(aPrt));
           Standard_Real u1, v1, u2, v2;
           myQuad1.Parameters(aPnt3d, u1, v1);
           myQuad2.Parameters(aPnt3d, u2, v2);
@@ -637,7 +637,7 @@ void IntPatch_ALineToWLine::MakeWLine(const Handle(IntPatch_ALine)& theALine,
         else if (aParameter + aStep < theLPar)
         {
           // Prediction of the next point
-          gp_Pnt aPnt3dNext;
+          Point3d aPnt3dNext;
           gp_Vec aTg;
           theALine->D1(aParameter + aStep, aPnt3dNext, aTg);
           Standard_Real anU1 = 0.0, aV1 = 0.0, anU2 = 0.0, aV2 = 0.0;
@@ -747,7 +747,7 @@ void IntPatch_ALineToWLine::MakeWLine(const Handle(IntPatch_ALine)& theALine,
           if ((aParam - aVertexParams(aVertexNumber)) > Precision::PConfusion())
           {
             const Standard_Real aPrm = 0.5 * (aParam + aVertexParams(aVertexNumber));
-            const gp_Pnt        aPnt3d(theALine->Value(aPrm));
+            const Point3d        aPnt3d(theALine->Value(aPrm));
             Standard_Real       u1 = 0.0, v1 = 0.0, u2 = 0.0, v2 = 0.0;
             myQuad1.Parameters(aPnt3d, u1, v1);
             myQuad2.Parameters(aPnt3d, u2, v2);
@@ -807,7 +807,7 @@ void IntPatch_ALineToWLine::MakeWLine(const Handle(IntPatch_ALine)& theALine,
       {
         Standard_Boolean       isFound = Standard_False;
         const Standard_Real    aSqTol  = aTol * aTol;
-        const gp_Pnt           aP1(theALine->Value(aCurVertParam));
+        const Point3d           aP1(theALine->Value(aCurVertParam));
         const IntSurf_PntOn2S& aVertP2S   = aVtx.PntOn2S();
         const Standard_Real    aVertToler = aVtx.Tolerance();
 
@@ -816,7 +816,7 @@ void IntPatch_ALineToWLine::MakeWLine(const Handle(IntPatch_ALine)& theALine,
           if (hasVertexBeenChecked(i))
             continue;
 
-          const gp_Pnt aP2(theALine->Value(aVertexParams(i)));
+          const Point3d aP2(theALine->Value(aVertexParams(i)));
 
           if (aP1.SquareDistance(aP2) < aSqTol)
           {
@@ -911,7 +911,7 @@ void IntPatch_ALineToWLine::MakeWLine(const Handle(IntPatch_ALine)& theALine,
     {
       // Computation of transitions of the line on two surfaces    ---
       const Standard_Integer indice1 = Max(aLinOn2S->NbPoints() / 3, 2);
-      const gp_Pnt &         aPP0    = aLinOn2S->Value(indice1 - 1).Value(),
+      const Point3d &         aPP0    = aLinOn2S->Value(indice1 - 1).Value(),
                    &aPP1             = aLinOn2S->Value(indice1).Value();
       const gp_Vec tgvalid(aPP0, aPP1);
       const gp_Vec aNQ1(myQuad1.Normale(aPP0)), aNQ2(myQuad2.Normale(aPP0));

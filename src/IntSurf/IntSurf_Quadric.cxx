@@ -158,7 +158,7 @@ void IntSurf_Quadric::SetValue(const gp_Torus& T)
 }
 
 // ============================================================
-Standard_Real IntSurf_Quadric::Distance(const gp_Pnt& P) const
+Standard_Real IntSurf_Quadric::Distance(const Point3d& P) const
 {
   switch (typ)
   {
@@ -173,14 +173,14 @@ Standard_Real IntSurf_Quadric::Distance(const gp_Pnt& P) const
       Standard_Real dist = lin.Distance(P);
       Standard_Real U, V;
       ElSLib::ConeParameters(ax3, prm1, prm2, P, U, V);
-      gp_Pnt        Pp    = ElSLib::ConeValue(U, V, ax3, prm1, prm2);
+      Point3d        Pp    = ElSLib::ConeValue(U, V, ax3, prm1, prm2);
       Standard_Real distp = lin.Distance(Pp);
       dist                = (dist - distp) / prm3;
       return (dist);
     }
     case GeomAbs_Torus: // torus
     {
-      gp_Pnt O, Pp, PT;
+      Point3d O, Pp, PT;
       //
       O = ax3.Location();
       gp_Vec OZ(ax3.Direction());
@@ -200,7 +200,7 @@ Standard_Real IntSurf_Quadric::Distance(const gp_Pnt& P) const
 }
 
 // ============================================================
-gp_Vec IntSurf_Quadric::Gradient(const gp_Pnt& P) const
+gp_Vec IntSurf_Quadric::Gradient(const Point3d& P) const
 {
   gp_Vec grad;
   switch (typ)
@@ -243,7 +243,7 @@ gp_Vec IntSurf_Quadric::Gradient(const gp_Pnt& P) const
     {
       Standard_Real U, V;
       ElSLib::ConeParameters(ax3, prm1, prm2, P, U, V);
-      gp_Pnt Pp = ElSLib::ConeValue(U, V, ax3, prm1, prm2);
+      Point3d Pp = ElSLib::ConeValue(U, V, ax3, prm1, prm2);
       gp_Vec D1u, D1v;
       ElSLib::ConeD1(U, V, ax3, prm1, prm2, Pp, D1u, D1v);
       grad = D1u.Crossed(D1v);
@@ -256,7 +256,7 @@ gp_Vec IntSurf_Quadric::Gradient(const gp_Pnt& P) const
     break;
     case GeomAbs_Torus: // torus
     {
-      gp_Pnt O, Pp, PT;
+      Point3d O, Pp, PT;
       //
       O = ax3.Location();
       gp_Vec OZ(ax3.Direction());
@@ -285,7 +285,7 @@ gp_Vec IntSurf_Quadric::Gradient(const gp_Pnt& P) const
 }
 
 // ============================================================
-void IntSurf_Quadric::ValAndGrad(const gp_Pnt& P, Standard_Real& Dist, gp_Vec& Grad) const
+void IntSurf_Quadric::ValAndGrad(const Point3d& P, Standard_Real& Dist, gp_Vec& Grad) const
 {
 
   switch (typ)
@@ -330,7 +330,7 @@ void IntSurf_Quadric::ValAndGrad(const gp_Pnt& P, Standard_Real& Dist, gp_Vec& G
       Standard_Real dist = lin.Distance(P);
       Standard_Real U, V;
       gp_Vec        D1u, D1v;
-      gp_Pnt        Pp;
+      Point3d        Pp;
       ElSLib::ConeParameters(ax3, prm1, prm2, P, U, V);
       ElSLib::ConeD1(U, V, ax3, prm1, prm2, Pp, D1u, D1v);
       Standard_Real distp = lin.Distance(Pp);
@@ -352,7 +352,7 @@ void IntSurf_Quadric::ValAndGrad(const gp_Pnt& P, Standard_Real& Dist, gp_Vec& G
     }
     break;
     case GeomAbs_Torus: {
-      gp_Pnt O, Pp, PT;
+      Point3d O, Pp, PT;
       //
       O = ax3.Location();
       gp_Vec OZ(ax3.Direction());
@@ -382,7 +382,7 @@ void IntSurf_Quadric::ValAndGrad(const gp_Pnt& P, Standard_Real& Dist, gp_Vec& G
 }
 
 // ============================================================
-gp_Pnt IntSurf_Quadric::Value(const Standard_Real U, const Standard_Real V) const
+Point3d IntSurf_Quadric::Value(const Standard_Real U, const Standard_Real V) const
 {
   switch (typ)
   {
@@ -398,19 +398,19 @@ gp_Pnt IntSurf_Quadric::Value(const Standard_Real U, const Standard_Real V) cons
     case GeomAbs_Torus:
       return ElSLib::TorusValue(U, V, ax3, prm1, prm2);
     default: {
-      gp_Pnt p(0, 0, 0);
+      Point3d p(0, 0, 0);
       return (p);
     }
       // break;
   }
   // pop : pour NT
-  //  return gp_Pnt(0,0,0);
+  //  return Point3d(0,0,0);
 }
 
 // ============================================================
 void IntSurf_Quadric::D1(const Standard_Real U,
                          const Standard_Real V,
-                         gp_Pnt&             P,
+                         Point3d&             P,
                          gp_Vec&             D1U,
                          gp_Vec&             D1V) const
 {
@@ -480,7 +480,7 @@ gp_Vec IntSurf_Quadric::Normale(const Standard_Real U, const Standard_Real V) co
     case GeomAbs_Sphere:
       return Normale(Value(U, V));
     case GeomAbs_Cone: {
-      gp_Pnt P;
+      Point3d P;
       gp_Vec D1u, D1v;
       ElSLib::ConeD1(U, V, ax3, prm1, prm2, P, D1u, D1v);
       if (D1u.Magnitude() < 0.0000001)
@@ -503,7 +503,7 @@ gp_Vec IntSurf_Quadric::Normale(const Standard_Real U, const Standard_Real V) co
 }
 
 // ============================================================
-gp_Vec IntSurf_Quadric::Normale(const gp_Pnt& P) const
+gp_Vec IntSurf_Quadric::Normale(const Point3d& P) const
 {
   switch (typ)
   {
@@ -542,7 +542,7 @@ gp_Vec IntSurf_Quadric::Normale(const gp_Pnt& P) const
       return Normale(U, V);
     }
     case GeomAbs_Torus: {
-      gp_Pnt O, Pp, PT;
+      Point3d O, Pp, PT;
       //
       O = ax3.Location();
       gp_Vec OZ(ax3.Direction());
@@ -565,7 +565,7 @@ gp_Vec IntSurf_Quadric::Normale(const gp_Pnt& P) const
 }
 
 // ============================================================
-void IntSurf_Quadric::Parameters(const gp_Pnt& P, Standard_Real& U, Standard_Real& V) const
+void IntSurf_Quadric::Parameters(const Point3d& P, Standard_Real& U, Standard_Real& V) const
 {
   switch (typ)
   {

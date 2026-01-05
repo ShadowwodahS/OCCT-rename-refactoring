@@ -23,7 +23,7 @@
 #include <Standard_Integer.hxx>
 #include <TColStd_HArray1OfReal.hxx>
 #include <IGESData_IGESEntity.hxx>
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 
 class IGESGeom_CopiousData;
@@ -87,12 +87,12 @@ public:
 
   //! returns the coordinates of the point specified by the anIndex
   //! raises exception if anIndex <= 0 or anIndex > NbPoints()
-  Standard_EXPORT gp_Pnt Point(const Standard_Integer anIndex) const;
+  Standard_EXPORT Point3d Point(const Standard_Integer anIndex) const;
 
   //! returns the coordinates of the point specified by the anIndex
   //! after applying Transf. Matrix
   //! raises exception if anIndex <= 0 or anIndex > NbPoints()
-  Standard_EXPORT gp_Pnt TransformedPoint(const Standard_Integer anIndex) const;
+  Standard_EXPORT Point3d TransformedPoint(const Standard_Integer anIndex) const;
 
   //! returns i, j, k values if 3-tuple else returns (0, 0, 0)
   //! raises exception if anIndex <= 0 or anIndex > NbPoints()

@@ -149,7 +149,7 @@ static Standard_Integer OCC136(Draw_Interpretor& di, Standard_Integer argc, cons
   // create some primitives:
   //  Two basic points:
   Standard_Real Size = 100;
-  gp_Pnt        P0(0, 0, 0), P1(Size, Size, Size);
+  Point3d        P0(0, 0, 0), P1(Size, Size, Size);
   // box
   TopoDS_Solid aBox = BRepPrimAPI_MakeBox(P0, P1);
   // sphere
@@ -158,7 +158,7 @@ static Standard_Integer OCC136(Draw_Interpretor& di, Standard_Integer argc, cons
   gp_Ax2       anAx2(P1, gp_Dir(1, 1, 1));
   TopoDS_Solid aCone = BRepPrimAPI_MakeCone(anAx2, Size * 0.7, Size * 0.3, Size);
   // cylinder
-  anAx2.SetLocation(gp_Pnt(Size, 0, 0));
+  anAx2.SetLocation(Point3d(Size, 0, 0));
   anAx2.SetDirection(gp_Dir(-1, -1, 1));
   TopoDS_Solid aCyl = BRepPrimAPI_MakeCylinder(anAx2, Size * 0.5, Size);
 
@@ -321,7 +321,7 @@ static int OCC105(Draw_Interpretor& di, Standard_Integer argc, const char** argv
     for (Standard_Integer Index = 1; Index <= algo.NbPoints(); Index++)
     {
       Standard_Real t   = algo.Parameter(Index);
-      gp_Pnt        pt3 = curve.Value(t);
+      Point3d        pt3 = curve.Value(t);
       di << "Parameter t = " << t << "\n";
       di << "Value Pnt = " << pt3.X() << " " << pt3.Y() << " " << pt3.Z() << "\n";
     }
@@ -520,13 +520,13 @@ Standard_Integer OCC165(Draw_Interpretor& di, Standard_Integer n, const char** a
                 yD = 200.0, zA = 0.0, zB = 0.0, zC = 0.0, zD = 0.0;
 
   BRepBuilderAPI_MakePolygon theSquare;
-  TopoDS_Vertex              theA = BRepBuilderAPI_MakeVertex(gp_Pnt(xA, yA, zA));
+  TopoDS_Vertex              theA = BRepBuilderAPI_MakeVertex(Point3d(xA, yA, zA));
   theSquare.Add(theA);
-  TopoDS_Vertex theB = BRepBuilderAPI_MakeVertex(gp_Pnt(xB, yB, zB));
+  TopoDS_Vertex theB = BRepBuilderAPI_MakeVertex(Point3d(xB, yB, zB));
   theSquare.Add(theB);
-  TopoDS_Vertex theC = BRepBuilderAPI_MakeVertex(gp_Pnt(xC, yC, zC));
+  TopoDS_Vertex theC = BRepBuilderAPI_MakeVertex(Point3d(xC, yC, zC));
   theSquare.Add(theC);
-  TopoDS_Vertex theD = BRepBuilderAPI_MakeVertex(gp_Pnt(xD, yD, zD));
+  TopoDS_Vertex theD = BRepBuilderAPI_MakeVertex(Point3d(xD, yD, zD));
   theSquare.Add(theD);
 
   theSquare.Close();
@@ -573,10 +573,10 @@ static Standard_Integer OCC297(Draw_Interpretor& di, Standard_Integer /*argc*/, 
     return -1;
   }
 
-  gp_Pnt                  pt1_(250., 250., 0.);
-  gp_Pnt                  pt2_(-250., 250., 0.);
-  gp_Pnt                  pt3_(-250., -250., 0.);
-  gp_Pnt                  pt4_(250., -250., 0.);
+  Point3d                  pt1_(250., 250., 0.);
+  Point3d                  pt2_(-250., 250., 0.);
+  Point3d                  pt3_(-250., -250., 0.);
+  Point3d                  pt4_(250., -250., 0.);
   BRepBuilderAPI_MakeEdge edg1_(pt1_, pt2_);
   BRepBuilderAPI_MakeEdge edg2_(pt2_, pt3_);
   BRepBuilderAPI_MakeEdge edg3_(pt3_, pt4_);
@@ -588,11 +588,11 @@ static Standard_Integer OCC297(Draw_Interpretor& di, Standard_Integer /*argc*/, 
 
   int up = 1;
 
-  gp_Pnt g_pnt;
+  Point3d g_pnt;
   if (up)
-    g_pnt = gp_Pnt(0, 0, -100);
+    g_pnt = Point3d(0, 0, -100);
   else
-    g_pnt = gp_Pnt(0, 0, 100);
+    g_pnt = Point3d(0, 0, 100);
 
   myAISContext->EraseAll(Standard_False);
   Handle(Geom_CartesianPoint) GEOMPoint = new Geom_CartesianPoint(g_pnt);
@@ -604,11 +604,11 @@ static Standard_Integer OCC297(Draw_Interpretor& di, Standard_Integer /*argc*/, 
 
   DBRep::Set("Face", sol1_);
 
-  gp_Ax1 ax1_(gp_Pnt(0., 0., -100.), gp_Dir(0., 0., 1.));
+  gp_Ax1 ax1_(Point3d(0., 0., -100.), gp_Dir(0., 0., 1.));
 
   Standard_Real x = 0., y = 0., z = -80.;
 
-  BRepPrimAPI_MakeBox box(gp_Pnt(x, y, z), gp_Pnt(x + 150, y + 200, z + 200));
+  BRepPrimAPI_MakeBox box(Point3d(x, y, z), Point3d(x + 150, y + 200, z + 200));
 
   DBRep::Set("Box", box.Shape());
 
@@ -812,7 +812,7 @@ Standard_Integer OCC299bug(Draw_Interpretor& theDi,
     return 1;
   }
 
-  gp_Pnt aP(8., 9., 10.);
+  Point3d aP(8., 9., 10.);
   if (!DrawTrSurf::GetPoint(theArgVec[2], aP))
   {
     theDi << " Null Point is not allowed here\n";
@@ -888,7 +888,7 @@ static Standard_Integer OCC277bug(Draw_Interpretor& di, Standard_Integer nb, con
   }
 
   BRepPrimAPI_MakeBox box1(100, 100, 100);
-  BRepPrimAPI_MakeBox box2(gp_Pnt(50, 50, 50), 200, 200, 200);
+  BRepPrimAPI_MakeBox box2(Point3d(50, 50, 50), 200, 200, 200);
 
   TopoDS_Shape shape1 = box1.Shape();
   TopoDS_Shape shape2 = box2.Shape();
@@ -980,7 +980,7 @@ static Standard_Integer OCC363(Draw_Interpretor& di, Standard_Integer argc, cons
 //     BRepTools::Read(Ref, argv[1], B);
 //
 //     // 3. Calculate location of aP3d in relation to the solid
-//     gp_Pnt aP3d(6311.4862583184, -2841.3092756034, 16.461053497188);
+//     Point3d aP3d(6311.4862583184, -2841.3092756034, 16.461053497188);
 //     BRepClass3d_SolidClassifier SC(Ref);
 //     SC.Perform(aP3d, 1e-7);
 //
@@ -1408,7 +1408,7 @@ static Standard_Integer OCC578(Draw_Interpretor& di, Standard_Integer argc, cons
     return 1;
   }
 
-  gp_Pnt P0(0, 0, 0.0);
+  Point3d P0(0, 0, 0.0);
   double xperiod   = 1.0;
   double yperiod   = 1.0;
   double sub_thick = 0.5;
@@ -1424,9 +1424,9 @@ static Standard_Integer OCC578(Draw_Interpretor& di, Standard_Integer argc, cons
   //				      0.1,  0.1  , 0.4, 0.4 );
   TopoDS_Shape wedge1 = BRepPrimAPI_MakeWedge(0.5, 0.05, 0.5, 0.1, 0.1, 0.4, 0.4).Shape();
 
-  gp_Trsf rotate = gce_MakeRotation(gp_Pnt(0.0, 0.0, 0.0), gp_Dir(1.0, 0.0, 0.0), 1.570795);
+  gp_Trsf rotate = gce_MakeRotation(Point3d(0.0, 0.0, 0.0), gp_Dir(1.0, 0.0, 0.0), 1.570795);
 
-  gp_Trsf translate = gce_MakeTranslation(gp_Pnt(0.0, -0.5, 0.0), gp_Pnt(0.25, 0.25, 0.5));
+  gp_Trsf translate = gce_MakeTranslation(Point3d(0.0, -0.5, 0.0), Point3d(0.25, 0.25, 0.5));
 
   rotate.PreMultiply(translate);
 
@@ -1446,9 +1446,9 @@ static Standard_Integer OCC578(Draw_Interpretor& di, Standard_Integer argc, cons
   //				      0.1,  0.1  , 0.4, 0.4 );
   TopoDS_Shape wedge2 = BRepPrimAPI_MakeWedge(0.5, 0.3, 0.5, 0.1, 0.1, 0.4, 0.4).Shape();
 
-  gp_Trsf rotate2 = gce_MakeRotation(gp_Pnt(0.0, 0.0, 0.0), gp_Dir(1.0, 0.0, 0.0), 1.570795 * 3.0);
+  gp_Trsf rotate2 = gce_MakeRotation(Point3d(0.0, 0.0, 0.0), gp_Dir(1.0, 0.0, 0.0), 1.570795 * 3.0);
 
-  gp_Trsf translate2 = gce_MakeTranslation(gp_Pnt(0.0, 0.0, 0.0), gp_Pnt(0.25, 0.25, 0.5));
+  gp_Trsf translate2 = gce_MakeTranslation(Point3d(0.0, 0.0, 0.0), Point3d(0.25, 0.25, 0.5));
 
   rotate2.PreMultiply(translate2);
 
@@ -1637,7 +1637,7 @@ static Standard_Integer OCC867(Draw_Interpretor& di, Standard_Integer argc, cons
     return 1;
   }
 
-  gp_Pnt aPoint3d;
+  Point3d aPoint3d;
   DrawTrSurf::GetPoint(argv[1], aPoint3d);
   Handle(Geom_Surface) aSurface = DrawTrSurf::GetSurface(argv[2]);
   Standard_Real        Umin     = Draw::Atof(argv[3]);
@@ -1974,9 +1974,9 @@ static Standard_Integer OCC1487(Draw_Interpretor& di, Standard_Integer argc, con
 
   Standard_Integer CaseNumber = Draw::Atoi(argv[1]);
 
-  // BRepPrimAPI_MakeCylinder o_mc1 (gp_Ax2 (gp_Pnt(0,-50,140), gp_Dir(1,0,0)), 50,1000);
+  // BRepPrimAPI_MakeCylinder o_mc1 (gp_Ax2 (Point3d(0,-50,140), gp_Dir(1,0,0)), 50,1000);
   gp_Dir                   myDir(1, 0, 0);
-  gp_Pnt                   myPnt(0, -50, 140);
+  Point3d                   myPnt(0, -50, 140);
   gp_Ax2                   myAx2(myPnt, myDir);
   BRepPrimAPI_MakeCylinder o_mc1(myAx2, 50, 1000);
 
@@ -1986,10 +1986,10 @@ static Standard_Integer OCC1487(Draw_Interpretor& di, Standard_Integer argc, con
   TopoDS_Shape o_cut_shape;
   if (CaseNumber == 1)
   {
-    // BRepPrimAPI_MakeCylinder o_mc2 (gp_Ax2 (gp_Pnt(21.65064, -50.0, 127.5),gp_Dir(-sin(M_PI/3),
+    // BRepPrimAPI_MakeCylinder o_mc2 (gp_Ax2 (Point3d(21.65064, -50.0, 127.5),gp_Dir(-sin(M_PI/3),
     // 0.0, 0.5)), 5, 150);
     gp_Dir                   myDir_mc2(-sin(M_PI / 3), 0.0, 0.5);
-    gp_Pnt                   myPnt_mc2(21.65064, -50.0, 127.5);
+    Point3d                   myPnt_mc2(21.65064, -50.0, 127.5);
     gp_Ax2                   myAx2_mc2(myPnt_mc2, myDir_mc2);
     BRepPrimAPI_MakeCylinder o_mc2(myAx2_mc2, 5, 150);
 
@@ -1999,10 +1999,10 @@ static Standard_Integer OCC1487(Draw_Interpretor& di, Standard_Integer argc, con
   }
   else
   {
-    // BRepPrimAPI_MakeCylinder o_mc2 (gp_Ax2 (gp_Pnt(978.34936, -50.0, 127.5),gp_Dir(sin(M_PI/3),
+    // BRepPrimAPI_MakeCylinder o_mc2 (gp_Ax2 (Point3d(978.34936, -50.0, 127.5),gp_Dir(sin(M_PI/3),
     // 0.0, 0.5)), 5, 150);
     gp_Dir                   myDir_mc2(sin(M_PI / 3), 0.0, 0.5);
-    gp_Pnt                   myPnt_mc2(978.34936, -50.0, 127.5);
+    Point3d                   myPnt_mc2(978.34936, -50.0, 127.5);
     gp_Ax2                   myAx2_mc2(myPnt_mc2, myDir_mc2);
     BRepPrimAPI_MakeCylinder o_mc2(myAx2_mc2, 5, 150);
 
@@ -2088,16 +2088,16 @@ TopoDS_Shape OCC1077_cut_blend(const TopoDS_Shape& aShapeToCut,
 
 TopoDS_Shape OCC1077_Bug()
 {
-  TopoDS_Shape theBox    = BRepPrimAPI_MakeBox(gp_Pnt(-5, -5, -5), 10, 10, 10).Shape();
+  TopoDS_Shape theBox    = BRepPrimAPI_MakeBox(Point3d(-5, -5, -5), 10, 10, 10).Shape();
   TopoDS_Shape theSphere = BRepPrimAPI_MakeSphere(7).Shape();
 
   TopoDS_Shape theCommon = BRepAlgoAPI_Common(theBox, theSphere);
   TopoDS_Shape theCylinder1 =
-    BRepPrimAPI_MakeCylinder(gp_Ax2(gp_Pnt(0, 0, -10), gp_Dir(0, 0, 1)), 3, 20).Shape();
+    BRepPrimAPI_MakeCylinder(gp_Ax2(Point3d(0, 0, -10), gp_Dir(0, 0, 1)), 3, 20).Shape();
   TopoDS_Shape theCylinder2 =
-    BRepPrimAPI_MakeCylinder(gp_Ax2(gp_Pnt(-10, 0, 0), gp_Dir(1, 0, 0)), 3, 20).Shape();
+    BRepPrimAPI_MakeCylinder(gp_Ax2(Point3d(-10, 0, 0), gp_Dir(1, 0, 0)), 3, 20).Shape();
   TopoDS_Shape theCylinder3 =
-    BRepPrimAPI_MakeCylinder(gp_Ax2(gp_Pnt(0, -10, 0), gp_Dir(0, 1, 0)), 3, 20).Shape();
+    BRepPrimAPI_MakeCylinder(gp_Ax2(Point3d(0, -10, 0), gp_Dir(0, 1, 0)), 3, 20).Shape();
   TopoDS_Shape           theTmp1 = OCC1077_cut_blend(theCommon, theCylinder1, 0.7);
   Handle(ShapeFix_Shape) fixer   = new ShapeFix_Shape(theTmp1);
   fixer->Perform();
@@ -2170,7 +2170,7 @@ static Standard_Integer OCC5739_UniAbs(Draw_Interpretor& di,
     for (i = 0; i < np; i++)
     {
       double par = aUni.Parameter(i + 1);
-      gp_Pnt p   = adapCurve->Value(par);
+      Point3d p   = adapCurve->Value(par);
       char   n[20], *pname = n;
       Sprintf(n, "%s_%d", name, i + 1);
       DrawTrSurf::Set(pname, p);
@@ -2241,12 +2241,12 @@ static Standard_Integer OCC5698(Draw_Interpretor& di, Standard_Integer argc, con
   BRepAdaptor_CompCurve curve(wire, Standard_True);
   Standard_Real         length      = curve.LastParameter();
   Standard_Real         need_length = length / 2;
-  gp_Pnt                pnt;
+  Point3d                pnt;
   curve.D0(need_length, pnt);
   // create check_curve parameterised in a general way
   BRepAdaptor_CompCurve check_curve(wire);
   Standard_Real         check_par = GCPnts_AbscissaPoint(check_curve, need_length, 0).Parameter();
-  gp_Pnt                check_pnt;
+  Point3d                check_pnt;
   check_curve.D0(check_par, check_pnt);
   // check that points are coinciding
   Standard_Real error_dist = pnt.Distance(check_pnt);
@@ -3177,7 +3177,7 @@ static Standard_Integer OCC8797(Draw_Interpretor& di, Standard_Integer argc, con
     return 1;
   }
 
-  gp_Pnt point(0.0, 0.0, 0.0);
+  Point3d point(0.0, 0.0, 0.0);
 
   TColgp_Array1OfPnt poles(0, 6);
   poles(0) = point;
@@ -3294,7 +3294,7 @@ static Standard_Integer OCC11457(Draw_Interpretor& di, Standard_Integer argc, co
   j = 3;
   for (i = 1; i <= np; i++)
   {
-    W.Add(gp_Pnt(Draw::Atof(argv[j]), Draw::Atof(argv[j + 1]), Draw::Atof(argv[j + 2])));
+    W.Add(Point3d(Draw::Atof(argv[j]), Draw::Atof(argv[j + 1]), Draw::Atof(argv[j + 2])));
     j += 3;
   }
   W.Close();
@@ -3310,7 +3310,7 @@ static Standard_Integer OCC13963(Draw_Interpretor& di, Standard_Integer argc, co
     di << "Usage : " << argv[0] << " ratio origin_x origin_y origin_z\n";
     return 1;
   }
-  gp_Ax2   aPln(gp_Pnt(0., 0., 0.), gp_Dir(1., -1., 0.));
+  gp_Ax2   aPln(Point3d(0., 0., 0.), gp_Dir(1., -1., 0.));
   gp_GTrsf aTrf;
   aTrf.SetAffinity(aPln, Draw::Atof(argv[4]));
   gp_XYZ aOrigin(Draw::Atof(argv[1]), Draw::Atof(argv[2]), Draw::Atof(argv[3]));
@@ -4765,10 +4765,10 @@ static Standard_Integer OCC20627(Draw_Interpretor& di, Standard_Integer argc, co
 
   for (Standard_Integer i = 0; i < aMaxNbr; i++)
   {
-    BRepBuilderAPI_MakePolygon w(gp_Pnt(0, 0, 0),
-                                 gp_Pnt(0, 100, 0),
-                                 gp_Pnt(20, 100, 0),
-                                 gp_Pnt(20, 0, 0));
+    BRepBuilderAPI_MakePolygon w(Point3d(0, 0, 0),
+                                 Point3d(0, 100, 0),
+                                 Point3d(20, 100, 0),
+                                 Point3d(20, 0, 0));
     w.Close();
     TopoDS_Wire              wireShape(w.Wire());
     BRepBuilderAPI_MakeFace  faceBuilder(wireShape);
@@ -4811,7 +4811,7 @@ Standard_Integer OCC17424(Draw_Interpretor& di, Standard_Integer argc, const cha
   IntCurvesFace_ShapeIntersector intersector;
   intersector.Load(shape, Precision::Intersection());
 
-  gp_Pnt origin(X_Pnt, Y_Pnt, Z_Pnt);
+  Point3d origin(X_Pnt, Y_Pnt, Z_Pnt);
   gp_Dir dir(X_Dir, Y_Dir, Z_Dir);
   gp_Lin ray(origin, dir);
 
@@ -4911,7 +4911,7 @@ Standard_Integer OCC22558(Draw_Interpretor& di, Standard_Integer argc, const cha
 
   gp_Dir toSym(X_vec, Y_vec, Z_vec);
   gp_Dir dir(X_dir, Y_dir, Z_dir);
-  gp_Pnt loc(X_pnt, Y_pnt, Z_pnt);
+  Point3d loc(X_pnt, Y_pnt, Z_pnt);
   gp_Ax2 symObj(loc, dir);
   toSym.Mirror(symObj);
 

@@ -327,7 +327,7 @@ Standard_Boolean GeomFill_CurveAndTrihedron::IsRotation(Standard_Real& Error) co
 
 //=================================================================================================
 
-void GeomFill_CurveAndTrihedron::Rotation(gp_Pnt& Centre) const
+void GeomFill_CurveAndTrihedron::Rotation(Point3d& Centre) const
 {
   //  GeomAbs_CurveType Type;
   //  Type = myCurve->GetType();

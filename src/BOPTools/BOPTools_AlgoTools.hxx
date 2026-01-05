@@ -37,7 +37,7 @@
 #include <TopTools_ListOfShape.hxx>
 #include <Precision.hxx>
 class TopoDS_Vertex;
-class gp_Pnt;
+class Point3d;
 class IntTools_Curve;
 class TopoDS_Edge;
 class TopoDS_Face;
@@ -74,7 +74,7 @@ public: //! @name Intersection of the vertices
   //! - 0 - no error, meaning that the vertex intersects the point;
   //! - 1 - the distance between vertex and point is grater than the sum of tolerances.
   Standard_EXPORT static Standard_Integer ComputeVV(const TopoDS_Vertex& theV,
-                                                    const gp_Pnt&        theP,
+                                                    const Point3d&        theP,
                                                     const Standard_Real  theTolP);
 
   //! Intersects the given vertices with given fuzzy value.
@@ -92,7 +92,7 @@ public: //! @name Vertices construction
   Standard_EXPORT static void MakeVertex(const TopTools_ListOfShape& theLV, TopoDS_Vertex& theV);
 
   //! Make a vertex using 3D-point <aP1> and 3D-tolerance value <aTol>
-  Standard_EXPORT static void MakeNewVertex(const gp_Pnt&       aP1,
+  Standard_EXPORT static void MakeNewVertex(const Point3d&       aP1,
                                             const Standard_Real aTol,
                                             TopoDS_Vertex&      aNewVertex);
 
@@ -173,7 +173,7 @@ public: //! @name Point/Edge/Face classification relatively solid
   //! theTol - value of precision of computation
   //! theContext- cached geometrical tools
   //! Returns 3-D state.
-  Standard_EXPORT static TopAbs_State ComputeState(const gp_Pnt&                   thePoint,
+  Standard_EXPORT static TopAbs_State ComputeState(const Point3d&                   thePoint,
                                                    const TopoDS_Solid&             theSolid,
                                                    const Standard_Real             theTol,
                                                    const Handle(IntTools_Context)& theContext);
@@ -536,7 +536,7 @@ public: //! @name Other methods
   //! Compute a 3D-point on the edge <aEdge> at parameter <aPrm>
   Standard_EXPORT static void PointOnEdge(const TopoDS_Edge&  aEdge,
                                           const Standard_Real aPrm,
-                                          gp_Pnt&             aP);
+                                          Point3d&             aP);
 
   //! Returns TRUE if PaveBlock <aPB> lays on the face <aF>, i.e
   //! the <PB> is IN or ON in 2D of <aF>

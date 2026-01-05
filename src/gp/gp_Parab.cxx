@@ -20,12 +20,12 @@
 #include <gp_Ax2.hxx>
 #include <gp_Pnt.hxx>
 
-void gp_Parab::Mirror(const gp_Pnt& P)
+void gp_Parab::Mirror(const Point3d& P)
 {
   pos.Mirror(P);
 }
 
-gp_Parab gp_Parab::Mirrored(const gp_Pnt& P) const
+gp_Parab gp_Parab::Mirrored(const Point3d& P) const
 {
   gp_Parab Prb = *this;
   Prb.pos.Mirror(P);

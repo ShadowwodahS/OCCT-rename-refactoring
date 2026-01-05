@@ -85,7 +85,7 @@ public:
       if (!CheckParameter(theX))
         return Standard_False;
 
-      const gp_Pnt aP1(myCurve1.Value(theX)), aP2(myCurve2.Value(theX));
+      const Point3d aP1(myCurve1.Value(theX)), aP2(myCurve2.Value(theX));
 
       theFVal = -1.0 * aP1.SquareDistance(aP2);
     }
@@ -121,7 +121,7 @@ public:
         return Standard_False;
       }
       //
-      gp_Pnt aP1, aP2;
+      Point3d aP1, aP2;
       gp_Vec aDC1, aDC2, aDCC1, aDCC2;
       //
       if (!theDeriv2)

@@ -79,7 +79,7 @@ public:
     const Standard_Real* const       theArrPeriods,
     const Bnd_Box2d&                 theBoxS1,
     const Bnd_Box2d&                 theBoxS2,
-    const NCollection_List<gp_Pnt>&  theListOfCriticalPoints);
+    const NCollection_List<Point3d>&  theListOfCriticalPoints);
 
   //! Max angle to concatenate two WLines to avoid result with C0-continuity
   static const Standard_Real myMaxConcatAngle;

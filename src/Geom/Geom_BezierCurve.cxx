@@ -185,7 +185,7 @@ Standard_Integer Geom_BezierCurve::MaxDegree()
 
 //=================================================================================================
 
-void Geom_BezierCurve::InsertPoleAfter(const Standard_Integer Index, const gp_Pnt& P)
+void Geom_BezierCurve::InsertPoleAfter(const Standard_Integer Index, const Point3d& P)
 {
   InsertPoleAfter(Index, P, 1.);
 }
@@ -193,7 +193,7 @@ void Geom_BezierCurve::InsertPoleAfter(const Standard_Integer Index, const gp_Pn
 //=================================================================================================
 
 void Geom_BezierCurve::InsertPoleAfter(const Standard_Integer Index,
-                                       const gp_Pnt&          P,
+                                       const Point3d&          P,
                                        const Standard_Real    Weight)
 {
   Standard_Integer nbpoles = NbPoles();
@@ -249,7 +249,7 @@ void Geom_BezierCurve::InsertPoleAfter(const Standard_Integer Index,
 
 //=================================================================================================
 
-void Geom_BezierCurve::InsertPoleBefore(const Standard_Integer Index, const gp_Pnt& P)
+void Geom_BezierCurve::InsertPoleBefore(const Standard_Integer Index, const Point3d& P)
 {
   InsertPoleAfter(Index - 1, P);
 }
@@ -257,7 +257,7 @@ void Geom_BezierCurve::InsertPoleBefore(const Standard_Integer Index, const gp_P
 //=================================================================================================
 
 void Geom_BezierCurve::InsertPoleBefore(const Standard_Integer Index,
-                                        const gp_Pnt&          P,
+                                        const Point3d&          P,
                                         const Standard_Real    Weight)
 {
   InsertPoleAfter(Index - 1, P, Weight);
@@ -312,7 +312,7 @@ void Geom_BezierCurve::RemovePole(const Standard_Integer Index)
 
 void Geom_BezierCurve::Reverse()
 {
-  gp_Pnt              P;
+  Point3d              P;
   Standard_Integer    i, nbpoles = NbPoles();
   TColgp_Array1OfPnt& cpoles = poles->ChangeArray1();
 
@@ -386,7 +386,7 @@ void Geom_BezierCurve::Segment(const Standard_Real U1, const Standard_Real U2)
 
 //=================================================================================================
 
-void Geom_BezierCurve::SetPole(const Standard_Integer Index, const gp_Pnt& P)
+void Geom_BezierCurve::SetPole(const Standard_Integer Index, const Point3d& P)
 {
   if (Index < 1 || Index > NbPoles())
     throw Standard_OutOfRange("Geom_BezierCurve::SetPole");
@@ -403,7 +403,7 @@ void Geom_BezierCurve::SetPole(const Standard_Integer Index, const gp_Pnt& P)
 //=================================================================================================
 
 void Geom_BezierCurve::SetPole(const Standard_Integer Index,
-                               const gp_Pnt&          P,
+                               const Point3d&          P,
                                const Standard_Real    Weight)
 {
   SetPole(Index, P);
@@ -486,21 +486,21 @@ Standard_Integer Geom_BezierCurve::Degree() const
 
 //=================================================================================================
 
-void Geom_BezierCurve::D0(const Standard_Real U, gp_Pnt& P) const
+void Geom_BezierCurve::D0(const Standard_Real U, Point3d& P) const
 {
   BSplCLib::D0(U, Poles(), Weights(), P);
 }
 
 //=================================================================================================
 
-void Geom_BezierCurve::D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V1) const
+void Geom_BezierCurve::D1(const Standard_Real U, Point3d& P, gp_Vec& V1) const
 {
   BSplCLib::D1(U, Poles(), Weights(), P, V1);
 }
 
 //=================================================================================================
 
-void Geom_BezierCurve::D2(const Standard_Real U, gp_Pnt& P, gp_Vec& V1, gp_Vec& V2) const
+void Geom_BezierCurve::D2(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2) const
 {
   BSplCLib::D2(U, Poles(), Weights(), P, V1, V2);
 }
@@ -508,7 +508,7 @@ void Geom_BezierCurve::D2(const Standard_Real U, gp_Pnt& P, gp_Vec& V1, gp_Vec& 
 //=================================================================================================
 
 void Geom_BezierCurve::D3(const Standard_Real U,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             V1,
                           gp_Vec&             V2,
                           gp_Vec&             V3) const
@@ -559,14 +559,14 @@ gp_Vec Geom_BezierCurve::DN(const Standard_Real U, const Standard_Integer N) con
 
 //=================================================================================================
 
-gp_Pnt Geom_BezierCurve::StartPoint() const
+Point3d Geom_BezierCurve::StartPoint() const
 {
   return poles->Value(1);
 }
 
 //=================================================================================================
 
-gp_Pnt Geom_BezierCurve::EndPoint() const
+Point3d Geom_BezierCurve::EndPoint() const
 {
   return poles->Value(poles->Upper());
 }
@@ -594,7 +594,7 @@ Standard_Integer Geom_BezierCurve::NbPoles() const
 
 //=================================================================================================
 
-const gp_Pnt& Geom_BezierCurve::Pole(const Standard_Integer Index) const
+const Point3d& Geom_BezierCurve::Pole(const Standard_Integer Index) const
 {
   if (Index < 1 || Index > poles->Length())
     throw Standard_OutOfRange("Geom_BezierCurve::Pole");

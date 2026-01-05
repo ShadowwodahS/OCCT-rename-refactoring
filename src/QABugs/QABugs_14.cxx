@@ -121,7 +121,7 @@ static Standard_Integer BUC60889(Draw_Interpretor& di, Standard_Integer argc, co
   }
   else
   {
-    gp_Pnt p1, p2;
+    Point3d p1, p2;
     if (!(DrawTrSurf::GetPoint(argv[1], p1)) || !(DrawTrSurf::GetPoint(argv[2], p2)))
     {
       di << "Need two points to define a band\n";
@@ -340,7 +340,7 @@ static Standard_Integer BUC60870(Draw_Interpretor& di, Standard_Integer argc, co
     di << named << " ";
     for (i1 = 1; i1 <= dst.NbSolution(); i1++)
     {
-      gp_Pnt P1, P2;
+      Point3d P1, P2;
       P1 = (dst.PointOnShape1(i1));
       P2 = (dst.PointOnShape2(i1));
       if (dst.Value() <= 1.e-9)
@@ -389,7 +389,7 @@ static Standard_Integer BUC60902(Draw_Interpretor& di,
                                  const char** /*argv*/)
 {
   Handle(TColgp_HArray1OfPnt) aPnts = new TColgp_HArray1OfPnt(1, 5);
-  gp_Pnt                      aP(0., 0., 0.);
+  Point3d                      aP(0., 0., 0.);
   for (Standard_Integer i = 1; i <= 5; i++)
   {
     aP.SetX((i - 1) * 1.57);
@@ -1177,7 +1177,7 @@ static Standard_Integer OCC16485(Draw_Interpretor& di, Standard_Integer argc, co
   Bnd_Box       Box;
   for (int i = 0; i <= nbstep; i++)
   {
-    gp_Pnt  p(i, 0., 0.);
+    Point3d  p(i, 0., 0.);
     Bnd_Box B;
     B.Add(p);
     B.Enlarge(tol);

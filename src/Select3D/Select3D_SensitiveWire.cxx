@@ -82,7 +82,7 @@ Standard_Real Select3D_SensitiveWire::Center(const Standard_Integer theIdx,
                                              const Standard_Integer theAxis) const
 {
   const Standard_Integer aSensitiveIdx = myEntityIndexes.Value(theIdx);
-  const gp_Pnt&          aCenter       = myEntities.Value(aSensitiveIdx)->CenterOfGeometry();
+  const Point3d&          aCenter       = myEntities.Value(aSensitiveIdx)->CenterOfGeometry();
   Standard_Real          aCenterCoord  = 0.0;
   aCenterCoord = theAxis == 0 ? aCenter.X() : (theAxis == 1 ? aCenter.Y() : aCenter.Z());
 
@@ -209,7 +209,7 @@ Select3D_BndBox3d Select3D_SensitiveWire::BoundingBox()
 // purpose  : Returns center of the wire. If location transformation
 //            is set, it will be applied
 //=======================================================================
-gp_Pnt Select3D_SensitiveWire::CenterOfGeometry() const
+Point3d Select3D_SensitiveWire::CenterOfGeometry() const
 {
   return myCenter;
 }

@@ -79,7 +79,7 @@ Standard_Integer DNaming_PointDriver::Execute(Handle(TFunction_Logbook)& theLog)
   {
     aLocation = aPrevPnt->Get().Location();
   }
-  gp_Pnt aPoint;
+  Point3d aPoint;
   if (aFunction->GetDriverGUID() == PNTRLT_GUID)
   {
     Handle(TDataStd_UAttribute) aRefPnt   = DNaming::GetObjectArg(aFunction, PNTRLT_REF);
@@ -100,7 +100,7 @@ Standard_Integer DNaming_PointDriver::Execute(Handle(TFunction_Logbook)& theLog)
     aPoint.SetZ(aPoint.Z() + aDZ);
   }
   else
-    aPoint = gp_Pnt(aDX, aDY, aDZ);
+    aPoint = Point3d(aDX, aDY, aDZ);
 
   BRepBuilderAPI_MakeVertex aMakeVertex(aPoint);
 

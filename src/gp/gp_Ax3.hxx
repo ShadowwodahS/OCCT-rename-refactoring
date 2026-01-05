@@ -80,7 +80,7 @@ public:
   //! "Location" point theP and  two directions, theN gives the
   //! "Direction" and theVx gives the "XDirection".
   //! Raises ConstructionError if theN and theVx are parallel (same or opposite orientation).
-  gp_Ax3(const gp_Pnt& theP, const gp_Dir& theN, const gp_Dir& theVx)
+  gp_Ax3(const Point3d& theP, const gp_Dir& theN, const gp_Dir& theVx)
       : axis(theP, theN),
         vydir(theN),
         vxdir(theN)
@@ -91,7 +91,7 @@ public:
 
   //! Creates an axis placement with the "Location" point <theP>
   //! and the normal direction <theV>.
-  Standard_EXPORT gp_Ax3(const gp_Pnt& theP, const gp_Dir& theV);
+  Standard_EXPORT gp_Ax3(const Point3d& theP, const gp_Dir& theV);
 
   //! Reverses the X direction of <me>.
   void XReverse() { vxdir.Reverse(); }
@@ -128,7 +128,7 @@ public:
   void SetDirection(const gp_Dir& theV);
 
   //! Changes the "Location" point (origin) of <me>.
-  void SetLocation(const gp_Pnt& theP) { axis.SetLocation(theP); }
+  void SetLocation(const Point3d& theP) { axis.SetLocation(theP); }
 
   //! Changes the "Xdirection" of <me>. The main direction
   //! "Direction" is not modified, the "Ydirection" is modified.
@@ -167,7 +167,7 @@ public:
   const gp_Dir& Direction() const { return axis.Direction(); }
 
   //! Returns the "Location" point (origin) of <me>.
-  const gp_Pnt& Location() const { return axis.Location(); }
+  const Point3d& Location() const { return axis.Location(); }
 
   //! Returns the "XDirection" of <me>.
   const gp_Dir& XDirection() const { return vxdir; }
@@ -200,7 +200,7 @@ public:
                               const Standard_Real theLinearTolerance,
                               const Standard_Real theAngularTolerance) const;
 
-  Standard_EXPORT void Mirror(const gp_Pnt& theP);
+  Standard_EXPORT void Mirror(const Point3d& theP);
 
   //! Performs the symmetrical transformation of an axis
   //! placement with respect to the point theP which is the
@@ -209,7 +209,7 @@ public:
   //! The main direction of the axis placement is not changed.
   //! The "XDirection" and the "YDirection" are reversed.
   //! So the axis placement stay right handed.
-  Standard_NODISCARD Standard_EXPORT gp_Ax3 Mirrored(const gp_Pnt& theP) const;
+  Standard_NODISCARD Standard_EXPORT gp_Ax3 Mirrored(const Point3d& theP) const;
 
   Standard_EXPORT void Mirror(const gp_Ax1& theA1);
 
@@ -251,7 +251,7 @@ public:
     return aTemp;
   }
 
-  void Scale(const gp_Pnt& theP, const Standard_Real theS)
+  void Scale(const Point3d& theP, const Standard_Real theS)
   {
     axis.Scale(theP, theS);
     if (theS < 0.)
@@ -268,7 +268,7 @@ public:
   //! . the main direction of the axis placement is not changed.
   //! . The "XDirection" and the "YDirection" are reversed.
   //! So the axis placement stay right handed.
-  Standard_NODISCARD gp_Ax3 Scaled(const gp_Pnt& theP, const Standard_Real theS) const
+  Standard_NODISCARD gp_Ax3 Scaled(const Point3d& theP, const Standard_Real theS) const
   {
     gp_Ax3 aTemp = *this;
     aTemp.Scale(theP, theS);
@@ -305,11 +305,11 @@ public:
     return aTemp;
   }
 
-  void Translate(const gp_Pnt& theP1, const gp_Pnt& theP2) { Translate(gp_Vec(theP1, theP2)); }
+  void Translate(const Point3d& theP1, const Point3d& theP2) { Translate(gp_Vec(theP1, theP2)); }
 
   //! Translates an axis placement from the point <theP1> to the
   //! point <theP2>.
-  Standard_NODISCARD gp_Ax3 Translated(const gp_Pnt& theP1, const gp_Pnt& theP2) const
+  Standard_NODISCARD gp_Ax3 Translated(const Point3d& theP1, const Point3d& theP2) const
   {
     return Translated(gp_Vec(theP1, theP2));
   }

@@ -363,7 +363,7 @@ static void Perform(BRepIntCurveSurface_Inter& theInt, LocOpe_SequenceOfPntFace&
 
   while (theInt.More())
   {
-    const gp_Pnt&      thept   = theInt.Pnt();
+    const Point3d&      thept   = theInt.Pnt();
     const TopoDS_Face& theface = theInt.Face();
     orface                     = theface.Orientation();
     param                      = theInt.W();

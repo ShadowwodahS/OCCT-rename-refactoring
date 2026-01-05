@@ -249,7 +249,7 @@ static Standard_Integer OCC10bug(Draw_Interpretor& di, Standard_Integer argc, co
 
     TopoDS_Edge EdgeB = TopoDS::Edge(FaceExpB.Current());
     // declarations
-    gp_Pnt A, B, C;
+    Point3d A, B, C;
 
     // si il y a plusieurs edges
     if (FaceExpB.More())
@@ -390,7 +390,7 @@ static Standard_Integer OCC361bug(Draw_Interpretor& di, Standard_Integer nb, con
     return 1;
   }
 
-  BRepPrimAPI_MakeBox aBox(gp_Pnt(0, 0, 0), 100, 100, 100);
+  BRepPrimAPI_MakeBox aBox(Point3d(0, 0, 0), 100, 100, 100);
   TopoDS_Shape        aTBox = aBox.Shape();
   aTBox.Orientation(TopAbs_FORWARD);
 

@@ -26,7 +26,7 @@
 
 //=================================================================================================
 
-gp_Ax3::gp_Ax3(const gp_Pnt& P, const gp_Dir& V)
+gp_Ax3::gp_Ax3(const Point3d& P, const gp_Dir& V)
     : axis(P, V)
 {
   Standard_Real A    = V.X();
@@ -73,14 +73,14 @@ gp_Ax3::gp_Ax3(const gp_Pnt& P, const gp_Dir& V)
   vydir = V.Crossed(vxdir);
 }
 
-void gp_Ax3::Mirror(const gp_Pnt& P)
+void gp_Ax3::Mirror(const Point3d& P)
 {
   axis.Mirror(P);
   vxdir.Reverse();
   vydir.Reverse();
 }
 
-gp_Ax3 gp_Ax3::Mirrored(const gp_Pnt& P) const
+gp_Ax3 gp_Ax3::Mirrored(const Point3d& P) const
 {
   gp_Ax3 Temp = *this;
   Temp.Mirror(P);

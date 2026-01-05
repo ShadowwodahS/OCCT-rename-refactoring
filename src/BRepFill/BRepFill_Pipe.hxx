@@ -34,7 +34,7 @@ class BRepFill_LocationLaw;
 class TopoDS_Face;
 class TopoDS_Edge;
 class TopoDS_Vertex;
-class gp_Pnt;
+class Point3d;
 class BRepFill_Sweep;
 
 //! Create a  shape by sweeping a shape  (the profile)
@@ -94,7 +94,7 @@ public:
 
   //! Create a Wire by sweeping the Point along the <spine>
   //! if the <Spine> is undefined
-  Standard_EXPORT TopoDS_Wire PipeLine(const gp_Pnt& Point);
+  Standard_EXPORT TopoDS_Wire PipeLine(const Point3d& Point);
 
 protected:
 private:

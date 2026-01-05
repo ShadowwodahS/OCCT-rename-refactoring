@@ -1404,7 +1404,7 @@ TopAbs_State ClassifyEdgeToSolidByOnePoint(const TopoDS_Edge& E, const TopoDS_Sh
   Standard_Real       f2 = 0., l2 = 0., par = 0.;
 
   Handle(Geom_Curve) C3D = BRep_Tool::Curve(E, f2, l2);
-  gp_Pnt             aP3d;
+  Point3d             aP3d;
 
   if (C3D.IsNull())
   {

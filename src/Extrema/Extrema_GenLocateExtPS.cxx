@@ -60,7 +60,7 @@ static void CorrectTol(const Standard_Real theU0, const Standard_Real theV0, mat
 
 //=================================================================================================
 
-Standard_Boolean Extrema_GenLocateExtPS::IsMinDist(const gp_Pnt&            theP,
+Standard_Boolean Extrema_GenLocateExtPS::IsMinDist(const Point3d&            theP,
                                                    const Adaptor3d_Surface& theS,
                                                    const Standard_Real      theU0,
                                                    const Standard_Real      theV0)
@@ -70,7 +70,7 @@ Standard_Boolean Extrema_GenLocateExtPS::IsMinDist(const gp_Pnt&            theP
   Standard_Real dv =
     Max(theS.VResolution(10. * Precision::Confusion()), 10. * Precision::PConfusion());
   Standard_Real    u, v;
-  gp_Pnt           aP0 = theS.Value(theU0, theV0);
+  Point3d           aP0 = theS.Value(theU0, theV0);
   Standard_Real    d0  = theP.SquareDistance(aP0);
   Standard_Integer iu, iv;
   for (iu = -1; iu <= 1; ++iu)
@@ -115,7 +115,7 @@ Extrema_GenLocateExtPS::Extrema_GenLocateExtPS(const Adaptor3d_Surface& theS,
 
 //=================================================================================================
 
-void Extrema_GenLocateExtPS::Perform(const gp_Pnt&          theP,
+void Extrema_GenLocateExtPS::Perform(const Point3d&          theP,
                                      const Standard_Real    theU0,
                                      const Standard_Real    theV0,
                                      const Standard_Boolean isDistanceCriteria)

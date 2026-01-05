@@ -21,7 +21,7 @@
 
 //=================================================================================================
 
-Extrema_FuncPSDist::Extrema_FuncPSDist(const Adaptor3d_Surface& theS, const gp_Pnt& theP)
+Extrema_FuncPSDist::Extrema_FuncPSDist(const Adaptor3d_Surface& theS, const Point3d& theP)
     : mySurf(theS),
       myP(theP)
 {
@@ -54,7 +54,7 @@ Standard_Boolean Extrema_FuncPSDist::Gradient(const math_Vector& X, math_Vector&
   if (!IsInside(X))
     return Standard_False;
 
-  gp_Pnt aP;
+  Point3d aP;
   gp_Vec Du1s, Dv1s;
   mySurf.D1(X(1), X(2), aP, Du1s, Dv1s);
 
@@ -73,7 +73,7 @@ Standard_Boolean Extrema_FuncPSDist::Values(const math_Vector& X, Standard_Real&
   if (!IsInside(X))
     return Standard_False;
 
-  gp_Pnt aP;
+  Point3d aP;
   gp_Vec Du1s, Dv1s;
   mySurf.D1(X(1), X(2), aP, Du1s, Dv1s);
 

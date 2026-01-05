@@ -34,7 +34,7 @@ gce_MakeParab::gce_MakeParab(const gp_Ax2& A2, const Standard_Real Focal)
   }
 }
 
-gce_MakeParab::gce_MakeParab(const gp_Ax1& D, const gp_Pnt& F)
+gce_MakeParab::gce_MakeParab(const gp_Ax1& D, const Point3d& F)
 {
   TheParab = gp_Parab(D, F);
   TheError = gce_Done;

@@ -86,22 +86,22 @@ Standard_Boolean IGESGeom_Plane::HasSymbolAttach() const
   return (theSize > 0);
 }
 
-gp_Pnt IGESGeom_Plane::SymbolAttach() const
+Point3d IGESGeom_Plane::SymbolAttach() const
 {
-  gp_Pnt attach(theAttach);
+  Point3d attach(theAttach);
   return attach;
 }
 
-gp_Pnt IGESGeom_Plane::TransformedSymbolAttach() const
+Point3d IGESGeom_Plane::TransformedSymbolAttach() const
 {
   if (theSize > 0 && HasTransf())
   {
     gp_XYZ Symbol = theAttach;
     Location().Transforms(Symbol);
-    return gp_Pnt(Symbol);
+    return Point3d(Symbol);
   }
   else
-    return gp_Pnt(0, 0, 0);
+    return Point3d(0, 0, 0);
 }
 
 Standard_Real IGESGeom_Plane::SymbolSize() const

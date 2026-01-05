@@ -23,7 +23,7 @@
 
 #include <BRepPrim_Revolution.hxx>
 class gp_Ax2;
-class gp_Pnt;
+class Point3d;
 class TopoDS_Face;
 
 //! Implement the cone primitive.
@@ -52,7 +52,7 @@ public:
   Standard_EXPORT BRepPrim_Cone(const Standard_Real Angle);
 
   //! infinite cone at Apex on Z negative
-  Standard_EXPORT BRepPrim_Cone(const Standard_Real Angle, const gp_Pnt& Apex);
+  Standard_EXPORT BRepPrim_Cone(const Standard_Real Angle, const Point3d& Apex);
 
   //! infinite cone with Axes
   Standard_EXPORT BRepPrim_Cone(const Standard_Real Angle, const gp_Ax2& Axes);
@@ -72,7 +72,7 @@ public:
                                 const Standard_Real H);
 
   //! same as above but at a given point
-  Standard_EXPORT BRepPrim_Cone(const gp_Pnt&       Center,
+  Standard_EXPORT BRepPrim_Cone(const Point3d&       Center,
                                 const Standard_Real R1,
                                 const Standard_Real R2,
                                 const Standard_Real H);

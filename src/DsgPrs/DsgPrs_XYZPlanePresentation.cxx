@@ -25,9 +25,9 @@
 
 void DsgPrs_XYZPlanePresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                       const Handle(Prs3d_Drawer)&       aDrawer,
-                                      const gp_Pnt&                     aPt1,
-                                      const gp_Pnt&                     aPt2,
-                                      const gp_Pnt&                     aPt3)
+                                      const Point3d&                     aPt1,
+                                      const Point3d&                     aPt2,
+                                      const Point3d&                     aPt3)
 {
   Handle(Graphic3d_Group) TheGroup = aPresentation->CurrentGroup();
   TheGroup->SetPrimitivesAspect(aDrawer->PlaneAspect()->EdgesAspect()->Aspect());

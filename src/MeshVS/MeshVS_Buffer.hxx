@@ -66,8 +66,8 @@ public:
     return *(myDynData ? (Standard_Integer*)myDynData : (Standard_Integer*)myAutoData);
   }
 
-  //! Interpret the buffer as a reference to gp_Pnt
-  operator gp_Pnt&() { return *(myDynData ? (gp_Pnt*)myDynData : (gp_Pnt*)myAutoData); }
+  //! Interpret the buffer as a reference to Point3d
+  operator Point3d&() { return *(myDynData ? (Point3d*)myDynData : (Point3d*)myAutoData); }
 
 private:
   //! Deprecate copy constructor

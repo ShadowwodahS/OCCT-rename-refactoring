@@ -121,10 +121,10 @@ public:
 
   //! Computes the point of parameters U,V on the surface.
   //! Tip: use GeomLib::NormEstim() to calculate surface normal at specified (U, V) point.
-  Standard_EXPORT virtual gp_Pnt Value(const Standard_Real U, const Standard_Real V) const;
+  Standard_EXPORT virtual Point3d Value(const Standard_Real U, const Standard_Real V) const;
 
   //! Computes the point of parameters U,V on the surface.
-  Standard_EXPORT virtual void D0(const Standard_Real U, const Standard_Real V, gp_Pnt& P) const;
+  Standard_EXPORT virtual void D0(const Standard_Real U, const Standard_Real V, Point3d& P) const;
 
   //! Computes the point  and the first derivatives on the surface.
   //! Raised if the continuity of the current intervals is not C1.
@@ -132,7 +132,7 @@ public:
   //! Tip: use GeomLib::NormEstim() to calculate surface normal at specified (U, V) point.
   Standard_EXPORT virtual void D1(const Standard_Real U,
                                   const Standard_Real V,
-                                  gp_Pnt&             P,
+                                  Point3d&             P,
                                   gp_Vec&             D1U,
                                   gp_Vec&             D1V) const;
 
@@ -142,7 +142,7 @@ public:
   //! intervals is not C2.
   Standard_EXPORT virtual void D2(const Standard_Real U,
                                   const Standard_Real V,
-                                  gp_Pnt&             P,
+                                  Point3d&             P,
                                   gp_Vec&             D1U,
                                   gp_Vec&             D1V,
                                   gp_Vec&             D2U,
@@ -155,7 +155,7 @@ public:
   //! intervals is not C3.
   Standard_EXPORT virtual void D3(const Standard_Real U,
                                   const Standard_Real V,
-                                  gp_Pnt&             P,
+                                  Point3d&             P,
                                   gp_Vec&             D1U,
                                   gp_Vec&             D1V,
                                   gp_Vec&             D2U,

@@ -1076,8 +1076,8 @@ void IntWalk_IWalking::FillPntsInHoles(TheIWFunction&                   sp,
       PointAlone2 = Line2->Value(Line2->NbPoints());
     else
       PointAlone2 = Line2->Value(1);
-    gp_Pnt Pnt1               = PointAlone1.Value();
-    gp_Pnt Pnt2               = PointAlone2.Value();
+    Point3d Pnt1               = PointAlone1.Value();
+    Point3d Pnt2               = PointAlone2.Value();
     P2d2                      = PointAlone2.ValueOnSurface(reversed);
     Standard_Real MinSqDist3d = Pnt1.SquareDistance(Pnt2);
     if (MinSqDist3d <= epsilon
@@ -2767,7 +2767,7 @@ IntWalk_StatusDeflection IntWalk_IWalking::TestDeflection(TheIWFunction&        
       /*
         Standard_Real Dist = Sqrt(Norme)/3.;
         TColgp_Array1OfPnt Poles(1,4);
-        gp_Pnt POnCurv,Milieu;
+        Point3d POnCurv,Milieu;
         Poles(1) = previousPoint.Value();
         Poles(4) = sp.Point();
         Poles(2) = Poles(1).XYZ() + 
@@ -3018,7 +3018,7 @@ Standard_Boolean IntWalk_IWalking::IsPointOnLine(const IntSurf_PntOn2S& thePOn2S
                                                  TheIWFunction&         theFunc)
 {
   const Standard_Real eps  = Epsilon(1.);
-  const gp_Pnt&       aP3d = thePOn2S.Value();
+  const Point3d&       aP3d = thePOn2S.Value();
 
   for (Standard_Integer aLIdx = 1; aLIdx <= lines.Length(); aLIdx++)
   {
@@ -3032,8 +3032,8 @@ Standard_Boolean IntWalk_IWalking::IsPointOnLine(const IntSurf_PntOn2S& thePOn2S
     Standard_Real aMinSqDist = RealLast();
     for (Standard_Integer aPtIdx = 1; aPtIdx < aL->NbPoints(); aPtIdx++)
     {
-      const gp_Pnt& aP1 = aL->Value(aPtIdx).Value();
-      const gp_Pnt& aP2 = aL->Value(aPtIdx + 1).Value();
+      const Point3d& aP1 = aL->Value(aPtIdx).Value();
+      const Point3d& aP2 = aL->Value(aPtIdx + 1).Value();
 
       const gp_XYZ aP1P(aP3d.XYZ() - aP1.XYZ());
       const gp_XYZ aP1P2(aP2.XYZ() - aP1.XYZ());
@@ -3092,7 +3092,7 @@ Standard_Boolean IntWalk_IWalking::IsPointOnLine(const IntSurf_PntOn2S& thePOn2S
 
     theSolver.Root(aVecPrms);
 
-    const gp_Pnt        aPa(theFunc.PSurface()->Value(aUMin, aVMin)), aPb(theFunc.PSurface()->Value(aVecPrms(1), aVecPrms(2)));
+    const Point3d        aPa(theFunc.PSurface()->Value(aUMin, aVMin)), aPb(theFunc.PSurface()->Value(aVecPrms(1), aVecPrms(2)));
     const Standard_Real aSqD1 = aPb.SquareDistance(aP3d);
     const Standard_Real aSqD2 = aPa.SquareDistance(aPb);
 

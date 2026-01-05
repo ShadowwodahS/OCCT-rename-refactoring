@@ -26,7 +26,7 @@
 #include <TColgp_Array2OfPnt.hxx>
 #include <TColStd_Array1OfReal.hxx>
 #include <TColStd_Array2OfReal.hxx>
-class gp_Pnt;
+class Point3d;
 
 //! A framework for computing the global properties of a
 //! set of points.
@@ -75,13 +75,13 @@ public:
   //! the point Pnt. Pnt may be the first point of the current system.
   //! A point mass is attached to the point Pnt, it is either
   //! equal to 1. or to Density.
-  Standard_EXPORT void AddPoint(const gp_Pnt& P);
+  Standard_EXPORT void AddPoint(const Point3d& P);
 
   //! Adds a new point P with its density in the system of points
   //! Exceptions
   //! Standard_DomainError if the mass value Density
   //! is less than gp::Resolution().
-  Standard_EXPORT void AddPoint(const gp_Pnt& P, const Standard_Real Density);
+  Standard_EXPORT void AddPoint(const Point3d& P, const Standard_Real Density);
 
   //! computes the global properties of the system of points Pnts.
   //! The density of the points are defaulted to all being 1
@@ -115,11 +115,11 @@ public:
 
   //! Computes the barycentre of a set of points. The density of the
   //! points is defaulted to 1.
-  Standard_EXPORT static gp_Pnt Barycentre(const TColgp_Array1OfPnt& Pnts);
+  Standard_EXPORT static Point3d Barycentre(const TColgp_Array1OfPnt& Pnts);
 
   //! Computes the barycentre of a set of points. The density of the
   //! points is defaulted to 1.
-  Standard_EXPORT static gp_Pnt Barycentre(const TColgp_Array2OfPnt& Pnts);
+  Standard_EXPORT static Point3d Barycentre(const TColgp_Array2OfPnt& Pnts);
 
   //! Computes the barycentre of a set of points. A density is associated
   //! with each point.
@@ -132,7 +132,7 @@ public:
   Standard_EXPORT static void Barycentre(const TColgp_Array1OfPnt&   Pnts,
                                          const TColStd_Array1OfReal& Density,
                                          Standard_Real&              Mass,
-                                         gp_Pnt&                     G);
+                                         Point3d&                     G);
 
   //! Computes the barycentre of a set of points. A density is associated
   //! with each point.
@@ -145,7 +145,7 @@ public:
   Standard_EXPORT static void Barycentre(const TColgp_Array2OfPnt&   Pnts,
                                          const TColStd_Array2OfReal& Density,
                                          Standard_Real&              Mass,
-                                         gp_Pnt&                     G);
+                                         Point3d&                     G);
 
 protected:
 private:

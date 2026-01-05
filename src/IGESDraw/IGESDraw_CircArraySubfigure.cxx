@@ -60,18 +60,18 @@ Standard_Integer IGESDraw_CircArraySubfigure::NbLocations() const
   return theNbLocations;
 }
 
-gp_Pnt IGESDraw_CircArraySubfigure::CenterPoint() const
+Point3d IGESDraw_CircArraySubfigure::CenterPoint() const
 {
-  gp_Pnt tempCenterPoint(theCenter);
+  Point3d tempCenterPoint(theCenter);
   return tempCenterPoint;
 }
 
-gp_Pnt IGESDraw_CircArraySubfigure::TransformedCenterPoint() const
+Point3d IGESDraw_CircArraySubfigure::TransformedCenterPoint() const
 {
   gp_XYZ tempCenterPoint = theCenter;
   if (HasTransf())
     Location().Transforms(tempCenterPoint);
-  gp_Pnt tempRes(tempCenterPoint);
+  Point3d tempRes(tempCenterPoint);
 
   return tempRes;
 }

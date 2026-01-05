@@ -170,7 +170,7 @@ static Standard_Integer DrawDim_CENTER(Draw_Interpretor& di, Standard_Integer nb
     if (curve->IsKind(STANDARD_TYPE(Geom_Circle)))
     {
       gp_Circ circle = Handle(Geom_Circle)::DownCast(curve)->Circ();
-      gp_Pnt  center = circle.Location();
+      Point3d  center = circle.Location();
       //: abv: avoid dependence on TKTopAlgo
       TopoDS_Vertex vc;
       //      = BRepBuilderAPI_MakeVertex (center);

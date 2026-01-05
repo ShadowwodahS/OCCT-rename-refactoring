@@ -141,8 +141,8 @@ Standard_Boolean GeomConvert_CurveToAnaCurve::IsLinear(const TColgp_Array1OfPnt&
 
 //=================================================================================================
 
-gp_Lin GeomConvert_CurveToAnaCurve::GetLine(const gp_Pnt&  P1,
-                                            const gp_Pnt&  P2,
+gp_Lin GeomConvert_CurveToAnaCurve::GetLine(const Point3d&  P1,
+                                            const Point3d&  P2,
                                             Standard_Real& cf,
                                             Standard_Real& cl)
 {
@@ -176,8 +176,8 @@ Handle(Geom_Line) GeomConvert_CurveToAnaCurve::ComputeLine(const Handle(Geom_Cur
     return line;
   }
 
-  gp_Pnt P1 = curve->Value(c1);
-  gp_Pnt P2 = curve->Value(c2);
+  Point3d P1 = curve->Value(c1);
+  Point3d P2 = curve->Value(c2);
   if (P1.SquareDistance(P2) < Precision::SquareConfusion())
     return line;
   cf = c1;
@@ -225,9 +225,9 @@ Handle(Geom_Line) GeomConvert_CurveToAnaCurve::ComputeLine(const Handle(Geom_Cur
 //=================================================================================================
 
 Standard_Boolean GeomConvert_CurveToAnaCurve::GetCircle(gp_Circ&      crc,
-                                                        const gp_Pnt& P0,
-                                                        const gp_Pnt& P1,
-                                                        const gp_Pnt& P2)
+                                                        const Point3d& P0,
+                                                        const Point3d& P1,
+                                                        const Point3d& P2)
 {
   //  Control if points are not aligned (should be done by MakeCirc
   Standard_Real aMaxCoord = Sqrt(Precision::Infinite());
@@ -246,7 +246,7 @@ Standard_Boolean GeomConvert_CurveToAnaCurve::GetCircle(gp_Circ&      crc,
   if (crc.Radius() < gp::Resolution())
     return Standard_False;
   //  Recalage sur P0
-  gp_Pnt PC  = crc.Location();
+  Point3d PC  = crc.Location();
   gp_Ax2 axe = crc.Position();
   gp_Vec VX(PC, P0);
   axe.SetXDirection(VX);
@@ -274,7 +274,7 @@ Handle(Geom_Curve) GeomConvert_CurveToAnaCurve::ComputeCircle(const Handle(Geom_
   }
 
   Handle(Geom_Circle) circ;
-  gp_Pnt              P0, P1, P2;
+  Point3d              P0, P1, P2;
   Standard_Real       ca = (c1 + c1 + c2) / 3;
   Standard_Real       cb = (c1 + c2 + c2) / 3;
   P0                     = c3d->Value(c1);
@@ -292,7 +292,7 @@ Handle(Geom_Curve) GeomConvert_CurveToAnaCurve::ComputeCircle(const Handle(Geom_
   for (i = 0; i <= 20; i++)
   {
     Standard_Real u    = c1 + (du * i);
-    gp_Pnt        PP   = c3d->Value(u);
+    Point3d        PP   = c3d->Value(u);
     Standard_Real dist = crc.Distance(PP);
     if (dist > tol)
       return circ; // not done
@@ -335,9 +335,9 @@ static Standard_Boolean IsArrayPntPlanar(const Handle(TColgp_HArray1OfPnt)& HAP,
   Standard_Integer size = HAP->Length();
   if (size < 3)
     return Standard_False;
-  gp_Pnt        P1    = HAP->Value(1);
-  gp_Pnt        P2    = HAP->Value(2);
-  gp_Pnt        P3    = HAP->Value(3);
+  Point3d        P1    = HAP->Value(1);
+  Point3d        P2    = HAP->Value(2);
+  Point3d        P3    = HAP->Value(3);
   Standard_Real dist1 = P1.Distance(P2);
   Standard_Real dist2 = P1.Distance(P3);
   if (dist1 < prec || dist2 < prec)
@@ -362,7 +362,7 @@ static Standard_Boolean IsArrayPntPlanar(const Handle(TColgp_HArray1OfPnt)& HAP,
   {
     for (i = 4; i <= size; i++)
     {
-      gp_Pnt PN = HAP->Value(i);
+      Point3d PN = HAP->Value(i);
       dist1     = P1.Distance(PN);
       if (dist1 < prec || Precision::IsInfinite(dist1))
       {
@@ -387,7 +387,7 @@ static Standard_Boolean ConicDefinition(const Standard_Real    a,
                                         const Standard_Real    f,
                                         const Standard_Boolean IsParab,
                                         const Standard_Boolean IsEllip,
-                                        gp_Pnt&                Center,
+                                        Point3d&                Center,
                                         gp_Dir&                MainAxis,
                                         Standard_Real&         Rmin,
                                         Standard_Real&         Rmax)
@@ -515,8 +515,8 @@ Handle(Geom_Curve) GeomConvert_CurveToAnaCurve::ComputeEllipse(const Handle(Geom
   Standard_Real    AF, BF, CF, DF, EF, Q1, Q2, Q3, c2n;
   Standard_Integer i;
 
-  gp_Pnt PStart = c3d->Value(c1);
-  gp_Pnt PEnd   = c3d->Value(c2);
+  Point3d PStart = c3d->Value(c1);
+  Point3d PEnd   = c3d->Value(c2);
 
   const Standard_Boolean IsClos = PStart.Distance(PEnd) < prec;
   if (IsClos)
@@ -533,7 +533,7 @@ Handle(Geom_Curve) GeomConvert_CurveToAnaCurve::ComputeEllipse(const Handle(Geom
   Standard_Real dc = (c2n - c1) / 4;
   for (i = 1; i < 5; i++)
   {
-    gp_Pnt aP = c3d->Value(c1 + dc * i);
+    Point3d aP = c3d->Value(c1 + dc * i);
     AP->SetValue(i + 1, aP);
     aBC += aP.XYZ();
   }
@@ -552,7 +552,7 @@ Handle(Geom_Curve) GeomConvert_CurveToAnaCurve::ComputeEllipse(const Handle(Geom
       && Abs(ndir.Z()) < gp::Resolution())
     return res;
 
-  gp_Ax3  AX(gp_Pnt(0, 0, 0), ndir);
+  gp_Ax3  AX(Point3d(0, 0, 0), ndir);
   gp_Trsf Tr;
   Tr.SetTransformation(AX);
   gp_Trsf Tr2 = Tr.Inverted();
@@ -561,7 +561,7 @@ Handle(Geom_Curve) GeomConvert_CurveToAnaCurve::ComputeEllipse(const Handle(Geom
   math_Vector F(1, 5), Sl(1, 5);
 
   Standard_Real XN, YN, ZN = 0.;
-  gp_Pnt        PT, PP;
+  Point3d        PT, PP;
   for (i = 1; i <= 5; i++)
   {
     PT = AP->Value(i).Transformed(Tr);
@@ -591,7 +591,7 @@ Handle(Geom_Curve) GeomConvert_CurveToAnaCurve::ComputeEllipse(const Handle(Geom
   Q3 = AF + CF;
 
   Standard_Real    Rmax, Rmin;
-  gp_Pnt           Center;
+  Point3d           Center;
   gp_Dir           MainAxis;
   Standard_Boolean IsParab = Standard_False, IsEllip = Standard_False;
 
@@ -608,11 +608,11 @@ Handle(Geom_Curve) GeomConvert_CurveToAnaCurve::ComputeEllipse(const Handle(Geom
       }
       aTrans *= -1;
       Center.SetZ(ZN);
-      gp_Pnt NewCenter = Center.Transformed(Tr2);
-      gp_Pnt Ptmp(Center.X() + MainAxis.X() * 10,
+      Point3d NewCenter = Center.Transformed(Tr2);
+      Point3d Ptmp(Center.X() + MainAxis.X() * 10,
                   Center.Y() + MainAxis.Y() * 10,
                   Center.Z() + MainAxis.Z() * 10);
-      gp_Pnt NewPtmp = Ptmp.Transformed(Tr2);
+      Point3d NewPtmp = Ptmp.Transformed(Tr2);
       gp_Dir NewMainAxis(NewPtmp.X() - NewCenter.X(),
                          NewPtmp.Y() - NewCenter.Y(),
                          NewPtmp.Z() - NewCenter.Z());
@@ -686,9 +686,9 @@ Handle(Geom_Curve) GeomConvert_CurveToAnaCurve::ComputeCurve(const Handle(Geom_C
   Handle(Geom_Curve)                c3d    = theC3d;
   if (c3d.IsNull())
     return c3d;
-  gp_Pnt                       P1 = c3d->Value(c1);
-  gp_Pnt                       P2 = c3d->Value(c2);
-  gp_Pnt                       P3 = c3d->Value(c1 + (c2 - c1) / 2);
+  Point3d                       P1 = c3d->Value(c1);
+  Point3d                       P2 = c3d->Value(c2);
+  Point3d                       P3 = c3d->Value(c1 + (c2 - c1) / 2);
   std::array<Standard_Real, 3> d  = {RealLast(), RealLast(), RealLast()};
   std::array<Standard_Real, 3> fp = {};
   std::array<Standard_Real, 3> lp = {};

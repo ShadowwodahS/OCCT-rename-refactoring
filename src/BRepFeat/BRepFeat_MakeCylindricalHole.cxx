@@ -34,7 +34,7 @@
 #include <BRepAdaptor_Surface.hxx>
 #include <CSLib.hxx>
 
-static void Baryc(const TopoDS_Shape&, gp_Pnt&);
+static void Baryc(const TopoDS_Shape&, Point3d&);
 
 static void BoxParameters(const TopoDS_Shape&, const gp_Ax1&, Standard_Real&, Standard_Real&);
 
@@ -77,7 +77,7 @@ void BRepFeat_MakeCylindricalHole::Perform(const Standard_Real Radius)
   Standard_Real Heigth  = 2. * (PMax - PMin);
   gp_XYZ        theOrig = myAxis.Location().XYZ();
   theOrig += ((3. * PMin - PMax) / 2.) * myAxis.Direction().XYZ();
-  gp_Pnt            p1_ao1(theOrig);
+  Point3d            p1_ao1(theOrig);
   gp_Ax2            a1_ao1(p1_ao1, myAxis.Direction());
   BRepPrim_Cylinder theCylinder(a1_ao1, Radius, Heigth);
 
@@ -203,7 +203,7 @@ void BRepFeat_MakeCylindricalHole::PerformThruNext(const Standard_Real    Radius
     Standard_Real Last  = PntInfoLast.Parameter();
     TopoDS_Shape  tokeep;
     Standard_Real parbar, parmin = Last;
-    gp_Pnt        Barycentre;
+    Point3d        Barycentre;
     for (its.Initialize(parts); its.More(); its.Next())
     {
       Baryc(its.Value(), Barycentre);
@@ -340,7 +340,7 @@ void BRepFeat_MakeCylindricalHole::PerformUntilEnd(const Standard_Real    Radius
   if (nbparts >= 2)
   { // preserve everything above the First
     Standard_Real parbar;
-    gp_Pnt        Barycentre;
+    Point3d        Barycentre;
     for (its.Initialize(parts); its.More(); its.Next())
     {
       Baryc(its.Value(), Barycentre);
@@ -458,7 +458,7 @@ void BRepFeat_MakeCylindricalHole::Perform(const Standard_Real    Radius,
 
     TopoDS_Shape  tokeep;
     Standard_Real parbar;
-    gp_Pnt        Barycentre;
+    Point3d        Barycentre;
     for (its.Initialize(parts); its.More(); its.Next())
     {
       Baryc(its.Value(), Barycentre);
@@ -551,7 +551,7 @@ void BRepFeat_MakeCylindricalHole::PerformBlind(const Standard_Real    Radius,
   Standard_Real Heigth  = 3. * (Length - PMin) / 2.;
   gp_XYZ        theOrig = myAxis.Location().XYZ();
   theOrig += ((3. * PMin - Length) / 2.) * myAxis.Direction().XYZ();
-  gp_Pnt            p5_ao1(theOrig);
+  Point3d            p5_ao1(theOrig);
   gp_Ax2            a5_ao1(p5_ao1, myAxis.Direction());
   BRepPrim_Cylinder theCylinder(a5_ao1, Radius, Heigth);
 
@@ -589,7 +589,7 @@ void BRepFeat_MakeCylindricalHole::PerformBlind(const Standard_Real    Radius,
   { // preserve the smallest as parameter along the axis
     TopoDS_Shape  tokeep;
     Standard_Real parbar, parmin = RealLast();
-    gp_Pnt        Barycentre;
+    Point3d        Barycentre;
     for (its.Initialize(parts); its.More(); its.Next())
     {
       Baryc(its.Value(), Barycentre);
@@ -689,7 +689,7 @@ BRepFeat_Status BRepFeat_MakeCylindricalHole::Validate()
   return thestat;
 }
 
-void Baryc(const TopoDS_Shape& S, gp_Pnt& B)
+void Baryc(const TopoDS_Shape& S, Point3d& B)
 {
   TopExp_Explorer    exp(S, TopAbs_EDGE);
   gp_XYZ             Bar(0., 0., 0.);
@@ -729,7 +729,7 @@ void BoxParameters(const TopoDS_Shape& S,
   BRepBndLib::Add(S, B);
   Standard_Real c[6];
   B.Get(c[0], c[2], c[4], c[1], c[3], c[5]);
-  gp_Pnt           P;
+  Point3d           P;
   Standard_Integer i, j, k;
   parmin = RealLast();
   parmax = RealFirst();
@@ -761,7 +761,7 @@ Standard_Boolean GetOffset(const LocOpe_PntFace& PntInfo,
 
   Standard_Real Up = PntInfo.UParameter();
   Standard_Real Vp = PntInfo.VParameter();
-  gp_Pnt        PP;
+  Point3d        PP;
   gp_Vec        D1U, D1V;
   FFA.D1(Up, Vp, PP, D1U, D1V);
   gp_Dir             NormF;
@@ -798,7 +798,7 @@ void CreateCyl(const LocOpe_PntFace& PntInfoFirst,
   // create cylinder along the axis (myAxis);
   // from 'First - offF' to 'Last + offL' params
   gp_XYZ            theOrig = PntInfoFirst.Pnt().XYZ() - offF * Axis.Direction().XYZ();
-  gp_Pnt            p2_ao1(theOrig);
+  Point3d            p2_ao1(theOrig);
   gp_Ax2            a2_ao1(p2_ao1, Axis.Direction());
   BRepPrim_Cylinder theCylinder(a2_ao1, Radius, Heigth + offF + offL);
   Cyl      = theCylinder.Shell();

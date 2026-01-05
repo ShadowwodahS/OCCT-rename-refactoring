@@ -39,9 +39,9 @@ public:
 
   Standard_EXPORT void RootFace(const TopoDS_Face& F);
 
-  Standard_EXPORT void Tangent(const gp_Pnt& P);
+  Standard_EXPORT void Tangent(const Point3d& P);
 
-  Standard_EXPORT Standard_Boolean IsTangent(gp_Pnt& P) const;
+  Standard_EXPORT Standard_Boolean IsTangent(Point3d& P) const;
 
   Standard_EXPORT Standard_Boolean NewGeometry() const;
 
@@ -79,7 +79,7 @@ private:
   Handle(Geom2d_Curve) mySeconPC;
   TopoDS_Face          myRootFace;
   Standard_Boolean     myTgt;
-  gp_Pnt               myPt;
+  Point3d               myPt;
   Standard_Real        myTol;
 };
 

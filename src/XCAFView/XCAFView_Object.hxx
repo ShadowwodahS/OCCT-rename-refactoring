@@ -45,9 +45,9 @@ public:
 
   XCAFView_ProjectionType Type() { return myType; }
 
-  void SetProjectionPoint(const gp_Pnt& thePoint) { myProjectionPoint = thePoint; }
+  void SetProjectionPoint(const Point3d& thePoint) { myProjectionPoint = thePoint; }
 
-  gp_Pnt ProjectionPoint() { return myProjectionPoint; }
+  Point3d ProjectionPoint() { return myProjectionPoint; }
 
   void SetViewDirection(const gp_Dir& theDirection) { myViewDirection = theDirection; }
 
@@ -122,7 +122,7 @@ public:
     return myGDTPoints->Length();
   }
 
-  void SetGDTPoint(const Standard_Integer theIndex, const gp_Pnt& thePoint)
+  void SetGDTPoint(const Standard_Integer theIndex, const Point3d& thePoint)
   {
     if (myGDTPoints.IsNull())
       return;
@@ -130,14 +130,14 @@ public:
       myGDTPoints->SetValue(theIndex, thePoint);
   }
 
-  gp_Pnt GDTPoint(const Standard_Integer theIndex)
+  Point3d GDTPoint(const Standard_Integer theIndex)
   {
     if (myGDTPoints.IsNull())
-      return gp_Pnt();
+      return Point3d();
     if (theIndex > 0 && theIndex <= myGDTPoints->Length())
       return myGDTPoints->Value(theIndex);
     else
-      return gp_Pnt();
+      return Point3d();
   }
 
   DEFINE_STANDARD_RTTIEXT(XCAFView_Object, RefObject)
@@ -145,7 +145,7 @@ public:
 private:
   Handle(TCollection_HAsciiString) myName;
   XCAFView_ProjectionType          myType;
-  gp_Pnt                           myProjectionPoint;
+  Point3d                           myProjectionPoint;
   gp_Dir                           myViewDirection;
   gp_Dir                           myUpDirection;
   Standard_Real                    myZoomFactor;

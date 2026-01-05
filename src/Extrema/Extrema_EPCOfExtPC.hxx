@@ -28,7 +28,7 @@ class Standard_TypeMismatch;
 class Adaptor3d_Curve;
 class Extrema_CurveTool;
 class Extrema_POnCurv;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 class Extrema_PCFOfEPCOfExtPC;
 
@@ -49,7 +49,7 @@ public:
   //! iterations according to the following condition:
   //! if n is the number of iterations,
   //! abs(Un-Un-1) < TolU and abs(F(Un)-F(Un-1)) < Tol.
-  Standard_EXPORT Extrema_EPCOfExtPC(const gp_Pnt&          P,
+  Standard_EXPORT Extrema_EPCOfExtPC(const Point3d&          P,
                                      const Adaptor3d_Curve& C,
                                      const Standard_Integer NbU,
                                      const Standard_Real    TolU,
@@ -66,7 +66,7 @@ public:
   //! iterations according to the following condition:
   //! if n is the number of iterations,
   //! abs(Un-Un-1) < TolU and abs(F(Un)-F(Un-1)) < Tol.
-  Standard_EXPORT Extrema_EPCOfExtPC(const gp_Pnt&          P,
+  Standard_EXPORT Extrema_EPCOfExtPC(const Point3d&          P,
                                      const Adaptor3d_Curve& C,
                                      const Standard_Integer NbU,
                                      const Standard_Real    Umin,
@@ -101,7 +101,7 @@ public:
   //! the algorithm is done with the point P.
   //! An exception is raised if the fields have not
   //! been initialized.
-  Standard_EXPORT void Perform(const gp_Pnt& P);
+  Standard_EXPORT void Perform(const Point3d& P);
 
   //! True if the distances are found.
   Standard_EXPORT Standard_Boolean IsDone() const;

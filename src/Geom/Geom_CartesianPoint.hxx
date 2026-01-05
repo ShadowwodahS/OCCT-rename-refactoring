@@ -29,14 +29,14 @@ class Geom_CartesianPoint;
 DEFINE_STANDARD_HANDLE(Geom_CartesianPoint, Geom_Point)
 
 //! Describes a point in 3D space. A
-//! Geom_CartesianPoint is defined by a gp_Pnt point,
+//! Geom_CartesianPoint is defined by a Point3d point,
 //! with its three Cartesian coordinates X, Y and Z.
 class Geom_CartesianPoint : public Geom_Point
 {
 
 public:
   //! Returns a transient copy of P.
-  Standard_EXPORT Geom_CartesianPoint(const gp_Pnt& P);
+  Standard_EXPORT Geom_CartesianPoint(const Point3d& P);
 
   //! Constructs a point defined by its three Cartesian coordinates X, Y and Z.
   Standard_EXPORT Geom_CartesianPoint(const Standard_Real X,
@@ -49,7 +49,7 @@ public:
                                 const Standard_Real Z);
 
   //! Set <me> to P.X(), P.Y(), P.Z() coordinates.
-  Standard_EXPORT void SetPnt(const gp_Pnt& P);
+  Standard_EXPORT void SetPnt(const Point3d& P);
 
   //! Changes the X coordinate of me.
   Standard_EXPORT void SetX(const Standard_Real X);
@@ -67,7 +67,7 @@ public:
 
   //! Returns a non transient cartesian point with
   //! the same coordinates as <me>.
-  Standard_EXPORT gp_Pnt Pnt() const Standard_OVERRIDE;
+  Standard_EXPORT Point3d Pnt() const Standard_OVERRIDE;
 
   //! Returns the X coordinate of <me>.
   Standard_EXPORT Standard_Real X() const Standard_OVERRIDE;
@@ -88,7 +88,7 @@ public:
 
 protected:
 private:
-  gp_Pnt gpPnt;
+  Point3d gpPnt;
 };
 
 #endif // _Geom_CartesianPoint_HeaderFile

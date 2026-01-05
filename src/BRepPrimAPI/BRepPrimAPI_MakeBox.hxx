@@ -22,7 +22,7 @@
 
 #include <BRepPrim_Wedge.hxx>
 #include <BRepBuilderAPI_MakeShape.hxx>
-class gp_Pnt;
+class Point3d;
 class gp_Ax2;
 class TopoDS_Shell;
 class TopoDS_Solid;
@@ -61,13 +61,13 @@ public:
                                       const Standard_Real dz);
 
   //! Make a box with a corner at P and size dx, dy, dz.
-  Standard_EXPORT BRepPrimAPI_MakeBox(const gp_Pnt&       P,
+  Standard_EXPORT BRepPrimAPI_MakeBox(const Point3d&       P,
                                       const Standard_Real dx,
                                       const Standard_Real dy,
                                       const Standard_Real dz);
 
   //! Make a box with corners P1,P2.
-  Standard_EXPORT BRepPrimAPI_MakeBox(const gp_Pnt& P1, const gp_Pnt& P2);
+  Standard_EXPORT BRepPrimAPI_MakeBox(const Point3d& P1, const Point3d& P2);
 
   //! Make a box with Ax2 (the left corner and the axis) and size dx, dy, dz.
   Standard_EXPORT BRepPrimAPI_MakeBox(const gp_Ax2&       Axes,
@@ -81,13 +81,13 @@ public:
                             const Standard_Real theDZ);
 
   //! Init a box with a corner at thePnt and size theDX, theDY, theDZ.
-  Standard_EXPORT void Init(const gp_Pnt&       thePnt,
+  Standard_EXPORT void Init(const Point3d&       thePnt,
                             const Standard_Real theDX,
                             const Standard_Real theDY,
                             const Standard_Real theDZ);
 
   //! Init a box with corners thePnt1, thePnt2.
-  Standard_EXPORT void Init(const gp_Pnt& thePnt1, const gp_Pnt& thePnt2);
+  Standard_EXPORT void Init(const Point3d& thePnt1, const Point3d& thePnt2);
 
   //! Init a box with Ax2 (the left corner and the theAxes) and size theDX, theDY, theDZ.
   Standard_EXPORT void Init(const gp_Ax2&       theAxes,

@@ -55,7 +55,7 @@ Geom_Line::Geom_Line(const gp_Lin& L)
 
 //=================================================================================================
 
-Geom_Line::Geom_Line(const gp_Pnt& P, const gp_Dir& V)
+Geom_Line::Geom_Line(const Point3d& P, const gp_Dir& V)
     : pos(P, V)
 {
 }
@@ -90,7 +90,7 @@ void Geom_Line::SetLin(const gp_Lin& L)
 
 //=================================================================================================
 
-void Geom_Line::SetLocation(const gp_Pnt& P)
+void Geom_Line::SetLocation(const Point3d& P)
 {
   pos.SetLocation(P);
 }
@@ -167,14 +167,14 @@ void Geom_Line::Transform(const gp_Trsf& T)
 
 //=================================================================================================
 
-void Geom_Line::D0(const Standard_Real U, gp_Pnt& P) const
+void Geom_Line::D0(const Standard_Real U, Point3d& P) const
 {
   P = ElCLib::LineValue(U, pos);
 }
 
 //=================================================================================================
 
-void Geom_Line::D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V1) const
+void Geom_Line::D1(const Standard_Real U, Point3d& P, gp_Vec& V1) const
 {
 
   ElCLib::LineD1(U, pos, P, V1);
@@ -182,7 +182,7 @@ void Geom_Line::D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V1) const
 
 //=================================================================================================
 
-void Geom_Line::D2(const Standard_Real U, gp_Pnt& P, gp_Vec& V1, gp_Vec& V2) const
+void Geom_Line::D2(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2) const
 {
 
   ElCLib::LineD1(U, pos, P, V1);
@@ -191,7 +191,7 @@ void Geom_Line::D2(const Standard_Real U, gp_Pnt& P, gp_Vec& V1, gp_Vec& V2) con
 
 //=================================================================================================
 
-void Geom_Line::D3(const Standard_Real U, gp_Pnt& P, gp_Vec& V1, gp_Vec& V2, gp_Vec& V3) const
+void Geom_Line::D3(const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2, gp_Vec& V3) const
 {
 
   ElCLib::LineD1(U, pos, P, V1);

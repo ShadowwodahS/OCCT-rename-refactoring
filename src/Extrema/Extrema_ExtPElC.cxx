@@ -44,7 +44,7 @@ Extrema_ExtPElC::Extrema_ExtPElC()
 
 //=================================================================================================
 
-Extrema_ExtPElC::Extrema_ExtPElC(const gp_Pnt&       P,
+Extrema_ExtPElC::Extrema_ExtPElC(const Point3d&       P,
                                  const gp_Lin&       L,
                                  const Standard_Real Tol,
                                  const Standard_Real Uinf,
@@ -55,7 +55,7 @@ Extrema_ExtPElC::Extrema_ExtPElC(const gp_Pnt&       P,
 
 //=================================================================================================
 
-void Extrema_ExtPElC::Perform(const gp_Pnt&       P,
+void Extrema_ExtPElC::Perform(const Point3d&       P,
                               const gp_Lin&       L,
                               const Standard_Real Tol,
                               const Standard_Real Uinf,
@@ -64,13 +64,13 @@ void Extrema_ExtPElC::Perform(const gp_Pnt&       P,
   myDone  = Standard_False;
   myNbExt = 0;
   gp_Vec        V1(L.Direction());
-  gp_Pnt        OR = L.Location();
+  Point3d        OR = L.Location();
   gp_Vec        V(OR, P);
   Standard_Real Mydist = V1.Dot(V);
   if ((Mydist >= Uinf - Tol) && (Mydist <= Usup + Tol))
   {
 
-    gp_Pnt          MyP = OR.Translated(Mydist * V1);
+    Point3d          MyP = OR.Translated(Mydist * V1);
     Extrema_POnCurv MyPOnCurve(Mydist, MyP);
     mySqDist[0] = P.SquareDistance(MyP);
     myPoint[0]  = MyPOnCurve;
@@ -80,7 +80,7 @@ void Extrema_ExtPElC::Perform(const gp_Pnt&       P,
   }
 }
 
-Extrema_ExtPElC::Extrema_ExtPElC(const gp_Pnt&       P,
+Extrema_ExtPElC::Extrema_ExtPElC(const Point3d&       P,
                                  const gp_Circ&      C,
                                  const Standard_Real Tol,
                                  const Standard_Real Uinf,
@@ -89,7 +89,7 @@ Extrema_ExtPElC::Extrema_ExtPElC(const gp_Pnt&       P,
   Perform(P, C, Tol, Uinf, Usup);
 }
 
-void Extrema_ExtPElC::Perform(const gp_Pnt&       P,
+void Extrema_ExtPElC::Perform(const Point3d&       P,
                               const gp_Circ&      C,
                               const Standard_Real Tol,
                               const Standard_Real Uinf,
@@ -122,10 +122,10 @@ Method:
 
   // 1- Projection of the point P in the plane of circle -> Pp ...
 
-  gp_Pnt O = C.Location();
+  Point3d O = C.Location();
   gp_Vec Axe(C.Axis().Direction());
   gp_Vec Trsl = Axe.Multiplied(-(gp_Vec(O, P).Dot(Axe)));
-  gp_Pnt Pp   = P.Translated(Trsl);
+  Point3d Pp   = P.Translated(Trsl);
 
   // 2- Calculate u solutions in [0.,2.*PI] ...
 
@@ -164,7 +164,7 @@ Method:
 
   // 3- Calculate extrema in [Umin,Umax] ...
 
-  gp_Pnt        Cu;
+  Point3d        Cu;
   Standard_Real Us;
   for (Standard_Integer NoSol = 0; NoSol <= 1; NoSol++)
   {
@@ -183,7 +183,7 @@ Method:
 
 //=============================================================================
 
-Extrema_ExtPElC::Extrema_ExtPElC(const gp_Pnt&       P,
+Extrema_ExtPElC::Extrema_ExtPElC(const Point3d&       P,
                                  const gp_Elips&     C,
                                  const Standard_Real Tol,
                                  const Standard_Real Uinf,
@@ -192,7 +192,7 @@ Extrema_ExtPElC::Extrema_ExtPElC(const gp_Pnt&       P,
   Perform(P, C, Tol, Uinf, Usup);
 }
 
-void Extrema_ExtPElC::Perform(const gp_Pnt&       P,
+void Extrema_ExtPElC::Perform(const Point3d&       P,
                               const gp_Elips&     C,
                               const Standard_Real Tol,
                               const Standard_Real Uinf,
@@ -221,10 +221,10 @@ Method:
 
   // 1- Projection of point P in the plane of the ellipse -> Pp ...
 
-  gp_Pnt O = C.Location();
+  Point3d O = C.Location();
   gp_Vec Axe(C.Axis().Direction());
   gp_Vec Trsl = Axe.Multiplied(-(gp_Vec(O, P).Dot(Axe)));
-  gp_Pnt Pp   = P.Translated(Trsl);
+  Point3d Pp   = P.Translated(Trsl);
 
   // 2- Calculation of solutions ...
 
@@ -255,7 +255,7 @@ Method:
   {
     return;
   }
-  gp_Pnt        Cu;
+  Point3d        Cu;
   Standard_Real Us;
   NbSol = Sol.NbSolutions();
   for (NoSol = 1; NoSol <= NbSol; NoSol++)
@@ -273,7 +273,7 @@ Method:
 
 //=============================================================================
 
-Extrema_ExtPElC::Extrema_ExtPElC(const gp_Pnt&       P,
+Extrema_ExtPElC::Extrema_ExtPElC(const Point3d&       P,
                                  const gp_Hypr&      C,
                                  const Standard_Real Tol,
                                  const Standard_Real Uinf,
@@ -282,7 +282,7 @@ Extrema_ExtPElC::Extrema_ExtPElC(const gp_Pnt&       P,
   Perform(P, C, Tol, Uinf, Usup);
 }
 
-void Extrema_ExtPElC::Perform(const gp_Pnt&       P,
+void Extrema_ExtPElC::Perform(const Point3d&       P,
                               const gp_Hypr&      C,
                               const Standard_Real Tol,
                               const Standard_Real Uinf,
@@ -321,10 +321,10 @@ Method:
 
   // 1- Projection of point P in the plane of hyperbola -> Pp ...
 
-  gp_Pnt O = C.Location();
+  Point3d O = C.Location();
   gp_Vec Axe(C.Axis().Direction());
   gp_Vec Trsl = Axe.Multiplied(-(gp_Vec(O, P).Dot(Axe)));
-  gp_Pnt Pp   = P.Translated(Trsl);
+  Point3d Pp   = P.Translated(Trsl);
 
   // 2- Calculation of solutions ...
 
@@ -341,12 +341,12 @@ Method:
   {
     return;
   }
-  gp_Pnt           Cu;
+  Point3d           Cu;
   Standard_Real    Us, Vs;
   Standard_Integer NbSol = Sol.NbSolutions();
   Standard_Boolean DejaEnr;
   Standard_Integer NoExt;
-  gp_Pnt           TbExt[4];
+  Point3d           TbExt[4];
   for (Standard_Integer NoSol = 1; NoSol <= NbSol; NoSol++)
   {
     Vs = Sol.Value(NoSol);
@@ -381,7 +381,7 @@ Method:
 
 //=============================================================================
 
-Extrema_ExtPElC::Extrema_ExtPElC(const gp_Pnt&       P,
+Extrema_ExtPElC::Extrema_ExtPElC(const Point3d&       P,
                                  const gp_Parab&     C,
                                  const Standard_Real Tol,
                                  const Standard_Real Uinf,
@@ -390,7 +390,7 @@ Extrema_ExtPElC::Extrema_ExtPElC(const gp_Pnt&       P,
   Perform(P, C, Tol, Uinf, Usup);
 }
 
-void Extrema_ExtPElC::Perform(const gp_Pnt&   P,
+void Extrema_ExtPElC::Perform(const Point3d&   P,
                               const gp_Parab& C,
                               //			      const Standard_Real Tol,
                               const Standard_Real,
@@ -420,10 +420,10 @@ Method:
 
   // 1- Projection of point P in the plane of the parabola -> Pp ...
 
-  gp_Pnt O = C.Location();
+  Point3d O = C.Location();
   gp_Vec Axe(C.Axis().Direction());
   gp_Vec Trsl = Axe.Multiplied(-(gp_Vec(O, P).Dot(Axe)));
-  gp_Pnt Pp   = P.Translated(Trsl);
+  Point3d Pp   = P.Translated(Trsl);
 
   // 2- Calculation of solutions ...
 
@@ -437,12 +437,12 @@ Method:
   {
     return;
   }
-  gp_Pnt           Cu;
+  Point3d           Cu;
   Standard_Real    Us;
   Standard_Integer NbSol = Sol.NbSolutions();
   Standard_Boolean DejaEnr;
   Standard_Integer NoExt;
-  gp_Pnt           TbExt[3];
+  Point3d           TbExt[3];
   for (Standard_Integer NoSol = 1; NoSol <= NbSol; NoSol++)
   {
     Us = Sol.Value(NoSol);

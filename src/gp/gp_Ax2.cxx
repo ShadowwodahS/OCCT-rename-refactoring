@@ -28,7 +28,7 @@
 #include <Standard_ConstructionError.hxx>
 #include <Standard_Dump.hxx>
 
-gp_Ax2::gp_Ax2(const gp_Pnt& P, const gp_Dir& V)
+gp_Ax2::gp_Ax2(const Point3d& P, const gp_Dir& V)
     : axis(P, V)
 {
   Standard_Real A    = V.X();
@@ -74,16 +74,16 @@ gp_Ax2::gp_Ax2(const gp_Pnt& P, const gp_Dir& V)
   SetXDirection(D);
 }
 
-void gp_Ax2::Mirror(const gp_Pnt& P)
+void gp_Ax2::Mirror(const Point3d& P)
 {
-  gp_Pnt Temp = axis.Location();
+  Point3d Temp = axis.Location();
   Temp.Mirror(P);
   axis.SetLocation(Temp);
   vxdir.Reverse();
   vydir.Reverse();
 }
 
-gp_Ax2 gp_Ax2::Mirrored(const gp_Pnt& P) const
+gp_Ax2 gp_Ax2::Mirrored(const Point3d& P) const
 {
   gp_Ax2 Temp = *this;
   Temp.Mirror(P);
@@ -94,7 +94,7 @@ void gp_Ax2::Mirror(const gp_Ax1& A1)
 {
   vydir.Mirror(A1);
   vxdir.Mirror(A1);
-  gp_Pnt Temp = axis.Location();
+  Point3d Temp = axis.Location();
   Temp.Mirror(A1);
   axis.SetLocation(Temp);
   axis.SetDirection(vxdir.Crossed(vydir));
@@ -111,7 +111,7 @@ void gp_Ax2::Mirror(const gp_Ax2& A2)
 {
   vydir.Mirror(A2);
   vxdir.Mirror(A2);
-  gp_Pnt Temp = axis.Location();
+  Point3d Temp = axis.Location();
   Temp.Mirror(A2);
   axis.SetLocation(Temp);
   axis.SetDirection(vxdir.Crossed(vydir));

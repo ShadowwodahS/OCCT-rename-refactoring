@@ -46,9 +46,9 @@ public:
   //! current  tolerance.
   void UpdateTolerance(const Standard_Real T);
 
-  const gp_Pnt& Pnt() const;
+  const Point3d& Pnt() const;
 
-  void Pnt(const gp_Pnt& P);
+  void Pnt(const Point3d& P);
 
   const BRep_ListOfPointRepresentation& Points() const;
 
@@ -65,7 +65,7 @@ public:
 
 protected:
 private:
-  gp_Pnt                         myPnt;
+  Point3d                         myPnt;
   Standard_Real                  myTolerance;
   BRep_ListOfPointRepresentation myPoints;
 };

@@ -68,7 +68,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_IsUViso(const Handle(Geom2d_Curve)& PC
 // ----------------------------------------------------------------------
 Standard_EXPORT gp_Dir FUN_tool_dirC(const Standard_Real par, const Handle(Geom_Curve)& C)
 {
-  gp_Pnt p;
+  Point3d p;
   gp_Vec tgE;
   C->D1(par, p, tgE);
   gp_Dir dirC(tgE);
@@ -86,8 +86,8 @@ Standard_EXPORT Standard_Boolean FUN_tool_onapex(const gp_Pnt2d& p2d, const Hand
   if (ST == GeomAbs_Cone)
   {
     gp_Cone       co   = GS.Cone();
-    gp_Pnt        apex = co.Apex();
-    gp_Pnt        pnt  = GS.Value(p2d.X(), p2d.Y());
+    Point3d        apex = co.Apex();
+    Point3d        pnt  = GS.Value(p2d.X(), p2d.Y());
     Standard_Real dist = pnt.Distance(apex);
     isapex             = (dist < tol);
   }
@@ -108,7 +108,7 @@ Standard_EXPORT gp_Dir FUN_tool_ngS(const gp_Pnt2d& p2d, const Handle(Geom_Surfa
   // ###############################
   // nyi : all geometries are direct
   // ###############################
-  gp_Pnt p;
+  Point3d p;
   gp_Vec d1u, d1v;
   S->D1(p2d.X(), p2d.Y(), p, d1u, d1v);
 
@@ -162,8 +162,8 @@ Standard_EXPORT gp_Dir FUN_tool_ngS(const gp_Pnt2d& p2d, const Handle(Geom_Surfa
       Standard_Boolean apex         = vpisur2 || vmoinspisur2;
       if (apex)
       {
-        gp_Pnt center = GS.Sphere().Location();
-        gp_Pnt value  = GS.Value(u, v);
+        Point3d center = GS.Sphere().Location();
+        Point3d value  = GS.Value(u, v);
         gp_Vec ng(center, value);
         //	ng.Reverse();
         return ng;

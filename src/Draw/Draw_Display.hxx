@@ -23,7 +23,7 @@
 #include <Standard_Integer.hxx>
 #include <Draw_MarkerShape.hxx>
 class Draw_Color;
-class gp_Pnt;
+class Point3d;
 class gp_Pnt2d;
 class gp_Circ;
 class gp_Circ2d;
@@ -52,15 +52,15 @@ public:
 
   Standard_EXPORT void Flush() const;
 
-  Standard_EXPORT void MoveTo(const gp_Pnt& pt);
+  Standard_EXPORT void MoveTo(const Point3d& pt);
 
-  Standard_EXPORT void DrawTo(const gp_Pnt& pt);
+  Standard_EXPORT void DrawTo(const Point3d& pt);
 
   Standard_EXPORT void MoveTo(const gp_Pnt2d& pt);
 
   Standard_EXPORT void DrawTo(const gp_Pnt2d& pt);
 
-  Standard_EXPORT void Draw(const gp_Pnt& p1, const gp_Pnt& p2);
+  Standard_EXPORT void Draw(const Point3d& p1, const Point3d& p2);
 
   Standard_EXPORT void Draw(const gp_Pnt2d& p1, const gp_Pnt2d& p2);
 
@@ -80,7 +80,7 @@ public:
                             const Standard_Real    A2,
                             const Standard_Boolean ModifyWithZoom = Standard_True);
 
-  Standard_EXPORT void DrawMarker(const gp_Pnt&          pt,
+  Standard_EXPORT void DrawMarker(const Point3d&          pt,
                                   const Draw_MarkerShape S,
                                   const Standard_Integer Size = 5);
 
@@ -88,7 +88,7 @@ public:
                                   const Draw_MarkerShape S,
                                   const Standard_Integer Size = 5);
 
-  Standard_EXPORT void DrawMarker(const gp_Pnt&          pt,
+  Standard_EXPORT void DrawMarker(const Point3d&          pt,
                                   const Draw_MarkerShape S,
                                   const Standard_Real    Size);
 
@@ -96,11 +96,11 @@ public:
                                   const Draw_MarkerShape S,
                                   const Standard_Real    Size);
 
-  Standard_EXPORT void DrawString(const gp_Pnt& pt, const Standard_CString S);
+  Standard_EXPORT void DrawString(const Point3d& pt, const Standard_CString S);
 
   Standard_EXPORT void DrawString(const gp_Pnt2d& pt, const Standard_CString S);
 
-  Standard_EXPORT void DrawString(const gp_Pnt&          pt,
+  Standard_EXPORT void DrawString(const Point3d&          pt,
                                   const Standard_CString S,
                                   const Standard_Real    moveX,
                                   const Standard_Real    moveY);
@@ -111,10 +111,10 @@ public:
                                   const Standard_Real    moveY);
 
   //! Returns the 2D projection of a 3D point.
-  Standard_EXPORT gp_Pnt2d Project(const gp_Pnt& pt) const;
+  Standard_EXPORT gp_Pnt2d Project(const Point3d& pt) const;
 
   //! Returns the 2D projection of a 3D point.
-  Standard_EXPORT void Project(const gp_Pnt& pt, gp_Pnt2d& pt2d) const;
+  Standard_EXPORT void Project(const Point3d& pt, gp_Pnt2d& pt2d) const;
 
   //! Returns the current Zoom value.
   Standard_EXPORT Standard_Real Zoom() const;

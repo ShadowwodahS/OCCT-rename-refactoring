@@ -32,7 +32,7 @@ static Standard_Boolean findNearestValidPoint(const Adaptor3d_Curve& theCurve,
                                               const Standard_Real    theFirst,
                                               const Standard_Real    theLast,
                                               const Standard_Boolean isFirst,
-                                              const gp_Pnt&          theVertPnt,
+                                              const Point3d&          theVertPnt,
                                               const Standard_Real    theTol,
                                               const Standard_Real    theEps,
                                               Standard_Real&         thePar)
@@ -43,7 +43,7 @@ static Standard_Boolean findNearestValidPoint(const Adaptor3d_Curve& theCurve,
   Standard_Real anEndU  = theLast;
   if (!isFirst)
     std::swap(aStartU, anEndU);
-  gp_Pnt              aP     = theCurve.Value(aStartU);
+  Point3d              aP     = theCurve.Value(aStartU);
   const Standard_Real aSqTol = theTol * theTol;
   if (aP.SquareDistance(theVertPnt) > aSqTol)
     // the vertex does not cover the corresponding to this vertex end of the curve
@@ -153,10 +153,10 @@ static Standard_Boolean findNearestValidPoint(const Adaptor3d_Curve& theCurve,
 Standard_Boolean BRepLib::FindValidRange(const Adaptor3d_Curve& theCurve,
                                          const Standard_Real    theTolE,
                                          const Standard_Real    theParV1,
-                                         const gp_Pnt&          thePntV1,
+                                         const Point3d&          thePntV1,
                                          const Standard_Real    theTolV1,
                                          const Standard_Real    theParV2,
-                                         const gp_Pnt&          thePntV2,
+                                         const Point3d&          thePntV2,
                                          const Standard_Real    theTolV2,
                                          Standard_Real&         theFirst,
                                          Standard_Real&         theLast)
@@ -243,7 +243,7 @@ Standard_Boolean BRepLib::FindValidRange(const TopoDS_Edge& theEdge,
   // to have correspondence with intersection precision
   // the tolerances of vertices are increased on Precision::Confusion()
   Standard_Real aTolV[2] = {Precision::Confusion(), Precision::Confusion()};
-  gp_Pnt        aPntV[2];
+  Point3d        aPntV[2];
   for (Standard_Integer i = 0; i < 2; i++)
   {
     if (!aV[i].IsNull())

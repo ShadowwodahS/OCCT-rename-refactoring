@@ -120,7 +120,7 @@ public:
   //! @param[in] theLength    normal length
   //! @return FALSE if normals can not be computed
   Standard_EXPORT static Standard_Boolean addMeshNormals(
-    NCollection_Vector<std::pair<gp_Pnt, gp_Pnt>>& theNormals,
+    NCollection_Vector<std::pair<Point3d, Point3d>>& theNormals,
     const TopoDS_Face&                             theFace,
     const Standard_Real                            theLength);
 
@@ -129,7 +129,7 @@ public:
   //! @param[in] theShape     input shape which will be exploded into Faces
   //! @param[in] theLength    normal length
   Standard_EXPORT static void addMeshNormals(
-    NCollection_DataMap<TopoDS_Face, NCollection_Vector<std::pair<gp_Pnt, gp_Pnt>>>& theNormals,
+    NCollection_DataMap<TopoDS_Face, NCollection_Vector<std::pair<Point3d, Point3d>>>& theNormals,
     const TopoDS_Shape&                                                              theShape,
     const Standard_Real                                                              theLength);
 
@@ -142,7 +142,7 @@ public:
   //! @param[in] theNbAlongV   number along V
   //! @return FALSE if normals can not be computed
   Standard_EXPORT static Standard_Boolean addSurfaceNormals(
-    NCollection_Vector<std::pair<gp_Pnt, gp_Pnt>>& theNormals,
+    NCollection_Vector<std::pair<Point3d, Point3d>>& theNormals,
     const TopoDS_Face&                             theFace,
     const Standard_Real                            theLength,
     const Standard_Integer                         theNbAlongU,
@@ -157,7 +157,7 @@ public:
   //! @param[in] theNbAlongV   number along V
   //! @return FALSE if normals can not be computed
   Standard_EXPORT static void addSurfaceNormals(
-    NCollection_DataMap<TopoDS_Face, NCollection_Vector<std::pair<gp_Pnt, gp_Pnt>>>& theNormals,
+    NCollection_DataMap<TopoDS_Face, NCollection_Vector<std::pair<Point3d, Point3d>>>& theNormals,
     const TopoDS_Shape&                                                              theShape,
     const Standard_Real                                                              theLength,
     const Standard_Integer                                                           theNbAlongU,

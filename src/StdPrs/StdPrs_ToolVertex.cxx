@@ -23,7 +23,7 @@ void StdPrs_ToolVertex::Coord(const TopoDS_Vertex& aVertex,
                               Standard_Real&       Y,
                               Standard_Real&       Z)
 {
-  gp_Pnt P = BRep_Tool::Pnt(aVertex);
+  Point3d P = BRep_Tool::Pnt(aVertex);
   X        = P.X();
   Y        = P.Y();
   Z        = P.Z();

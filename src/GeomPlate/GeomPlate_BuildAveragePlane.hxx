@@ -101,7 +101,7 @@ private:
   Handle(Geom_Line)           myLine;
   gp_Vec                      myOX;
   gp_Vec                      myOY;
-  gp_Pnt                      myG;
+  Point3d                      myG;
   Standard_Integer            myNbBoundPoints;
 };
 

@@ -164,7 +164,7 @@ public:
   }
 
   //! Returns TRUE if theP is out of the box built from 3D-points.
-  virtual Standard_Boolean IsOutBox(const gp_Pnt& theP) const Standard_OVERRIDE
+  virtual Standard_Boolean IsOutBox(const Point3d& theP) const Standard_OVERRIDE
   {
     return curv->IsOutBox(theP);
   }

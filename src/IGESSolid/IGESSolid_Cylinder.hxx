@@ -22,7 +22,7 @@
 
 #include <gp_XYZ.hxx>
 #include <IGESData_IGESEntity.hxx>
-class gp_Pnt;
+class Point3d;
 class gp_Dir;
 
 class IGESSolid_Cylinder;
@@ -55,10 +55,10 @@ public:
   Standard_EXPORT Standard_Real Radius() const;
 
   //! returns the first face center coordinates.
-  Standard_EXPORT gp_Pnt FaceCenter() const;
+  Standard_EXPORT Point3d FaceCenter() const;
 
   //! returns the first face center after applying TransformationMatrix
-  Standard_EXPORT gp_Pnt TransformedFaceCenter() const;
+  Standard_EXPORT Point3d TransformedFaceCenter() const;
 
   //! returns the vector in axis direction
   Standard_EXPORT gp_Dir Axis() const;

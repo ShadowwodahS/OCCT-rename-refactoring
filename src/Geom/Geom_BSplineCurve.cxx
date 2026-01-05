@@ -926,7 +926,7 @@ void Geom_BSplineCurve::SetNotPeriodic()
 
 //=================================================================================================
 
-void Geom_BSplineCurve::SetPole(const Standard_Integer Index, const gp_Pnt& P)
+void Geom_BSplineCurve::SetPole(const Standard_Integer Index, const Point3d& P)
 {
   if (Index < 1 || Index > poles->Length())
     throw Standard_OutOfRange("BSpline curve: SetPole: index and #pole mismatch");
@@ -937,7 +937,7 @@ void Geom_BSplineCurve::SetPole(const Standard_Integer Index, const gp_Pnt& P)
 //=================================================================================================
 
 void Geom_BSplineCurve::SetPole(const Standard_Integer Index,
-                                const gp_Pnt&          P,
+                                const Point3d&          P,
                                 const Standard_Real    W)
 {
   SetPole(Index, P);
@@ -981,7 +981,7 @@ void Geom_BSplineCurve::SetWeight(const Standard_Integer Index, const Standard_R
 //=================================================================================================
 
 void Geom_BSplineCurve::MovePoint(const Standard_Real    U,
-                                  const gp_Pnt&          P,
+                                  const Point3d&          P,
                                   const Standard_Integer Index1,
                                   const Standard_Integer Index2,
                                   Standard_Integer&      FirstModifiedPole,
@@ -993,7 +993,7 @@ void Geom_BSplineCurve::MovePoint(const Standard_Real    U,
     throw Standard_OutOfRange("BSpline curve: MovePoint: Index and #pole mismatch");
   }
   TColgp_Array1OfPnt npoles(1, poles->Length());
-  gp_Pnt             P0;
+  Point3d             P0;
   D0(U, P0);
   gp_Vec Displ(P0, P);
   BSplCLib::MovePoint(U,
@@ -1017,7 +1017,7 @@ void Geom_BSplineCurve::MovePoint(const Standard_Real    U,
 //=================================================================================================
 
 void Geom_BSplineCurve::MovePointAndTangent(const Standard_Real    U,
-                                            const gp_Pnt&          P,
+                                            const Point3d&          P,
                                             const gp_Vec&          Tangent,
                                             const Standard_Real    Tolerance,
                                             const Standard_Integer StartingCondition,
@@ -1033,7 +1033,7 @@ void Geom_BSplineCurve::MovePointAndTangent(const Standard_Real    U,
     SetNotPeriodic();
   }
   TColgp_Array1OfPnt new_poles(1, poles->Length());
-  gp_Pnt             P0;
+  Point3d             P0;
 
   gp_Vec delta_derivative;
   D1(U, P0, delta_derivative);

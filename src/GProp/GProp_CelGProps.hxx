@@ -22,7 +22,7 @@
 
 #include <GProp_GProps.hxx>
 class gp_Circ;
-class gp_Pnt;
+class Point3d;
 class gp_Lin;
 
 //! Computes the  global properties of bounded curves
@@ -36,19 +36,19 @@ public:
 
   Standard_EXPORT GProp_CelGProps();
 
-  Standard_EXPORT GProp_CelGProps(const gp_Circ& C, const gp_Pnt& CLocation);
+  Standard_EXPORT GProp_CelGProps(const gp_Circ& C, const Point3d& CLocation);
 
   Standard_EXPORT GProp_CelGProps(const gp_Circ&      C,
                                   const Standard_Real U1,
                                   const Standard_Real U2,
-                                  const gp_Pnt&       CLocation);
+                                  const Point3d&       CLocation);
 
   Standard_EXPORT GProp_CelGProps(const gp_Lin&       C,
                                   const Standard_Real U1,
                                   const Standard_Real U2,
-                                  const gp_Pnt&       CLocation);
+                                  const Point3d&       CLocation);
 
-  Standard_EXPORT void SetLocation(const gp_Pnt& CLocation);
+  Standard_EXPORT void SetLocation(const Point3d& CLocation);
 
   Standard_EXPORT void Perform(const gp_Circ& C, const Standard_Real U1, const Standard_Real U2);
 

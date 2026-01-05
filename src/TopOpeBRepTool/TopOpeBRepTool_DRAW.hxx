@@ -28,19 +28,19 @@
   #include <Geom2d_Curve.hxx>
   #include <TopOpeBRepTool_define.hxx>
 
-Standard_EXPORT void           TopOpeBRepTool_DrawPoint(const gp_Pnt&          P,
+Standard_EXPORT void           TopOpeBRepTool_DrawPoint(const Point3d&          P,
                                                         const Draw_MarkerShape T,
                                                         const Draw_ColorKind   C);
-Standard_EXPORT void           TopOpeBRepTool_DrawSegment(const gp_Pnt&        P1,
-                                                          const gp_Pnt&        P2,
+Standard_EXPORT void           TopOpeBRepTool_DrawSegment(const Point3d&        P1,
+                                                          const Point3d&        P2,
                                                           const Draw_ColorKind C);
-Standard_EXPORT void           TopOpeBRepTool_DrawSegment(const gp_Pnt& P1, const gp_Pnt& P2);
-Standard_EXPORT void           TopOpeBRepTool_DrawSegment(const gp_Pnt& P,
+Standard_EXPORT void           TopOpeBRepTool_DrawSegment(const Point3d& P1, const Point3d& P2);
+Standard_EXPORT void           TopOpeBRepTool_DrawSegment(const Point3d& P,
                                                           const gp_Lin&,
                                                           const Standard_Real  Par,
                                                           const Draw_ColorKind C);
 Standard_EXPORT Draw_ColorKind TopOpeBRepTool_ColorOnState(const TopAbs_State S);
-Standard_EXPORT void           TopOpeBRepTool_DrawSegment(const gp_Pnt&       P,
+Standard_EXPORT void           TopOpeBRepTool_DrawSegment(const Point3d&       P,
                                                           const gp_Lin&       L,
                                                           const Standard_Real Par,
                                                           const TopAbs_State  S);
@@ -57,14 +57,14 @@ Standard_EXPORT void           FDRAW_DINLOE(const TCollection_AsciiString pref,
                                             const TCollection_AsciiString str1,
                                             const TCollection_AsciiString str2);
 Standard_EXPORT void           FUN_tool_draw(const TCollection_AsciiString& aa,
-                                             const gp_Pnt&                  p,
+                                             const Point3d&                  p,
                                              const gp_Dir&                  d);
 Standard_EXPORT void           FUN_tool_draw(const TCollection_AsciiString& aa,
                                              const gp_Pnt2d&                p,
                                              const gp_Dir2d&                d,
                                              const Standard_Integer&        i);
 Standard_EXPORT void           FUN_tool_draw(const TCollection_AsciiString aa, const gp_Pnt2d& p2d);
-Standard_EXPORT void           FUN_tool_draw(const TCollection_AsciiString aa, const gp_Pnt& p);
+Standard_EXPORT void           FUN_tool_draw(const TCollection_AsciiString aa, const Point3d& p);
 Standard_EXPORT void           FUN_tool_draw(const TCollection_AsciiString aa,
                                              const Handle(Geom2d_Curve)    c2d);
 Standard_EXPORT void           FUN_tool_draw(const TCollection_AsciiString aa,

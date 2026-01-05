@@ -2610,7 +2610,7 @@ void STEPCAFControl_Writer::writePresentation(const Handle(XSControl_WorkSession
                                               const Standard_Boolean            theHasSemantic,
                                               const Standard_Boolean            theHasPlane,
                                               const gp_Ax2&                     theAnnotationPlane,
-                                              const gp_Pnt&                     theTextPosition,
+                                              const Point3d&                     theTextPosition,
                                               const Handle(RefObject)& theDimension,
                                               const StepData_Factors&           theLocalFactors)
 {
@@ -3178,7 +3178,7 @@ static void WriteDimValues(const Handle(XSControl_WorkSession)&             theW
     Handle(StepGeom_Axis2Placement3d) anOrientation = new StepGeom_Axis2Placement3d();
     gp_Dir                            aDir;
     theObject->GetDirection(aDir);
-    GeomToStep_MakeCartesianPoint          MkPoint(gp_Pnt(0, 0, 0), theLocalFactors.LengthFactor());
+    GeomToStep_MakeCartesianPoint          MkPoint(Point3d(0, 0, 0), theLocalFactors.LengthFactor());
     const Handle(StepGeom_CartesianPoint)& aLoc    = MkPoint.Value();
     Handle(StepGeom_Direction)             anAxis  = new StepGeom_Direction();
     Handle(TColStd_HArray1OfReal)          aCoords = new TColStd_HArray1OfReal(1, 3);

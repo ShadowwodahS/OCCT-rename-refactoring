@@ -649,7 +649,7 @@ TopoDS_Vertex BRepFill_NSections::Vertex(const Standard_Integer Index,
   BRep_Builder  B;
   TopoDS_Vertex V;
   B.MakeVertex(V);
-  gp_Pnt P;
+  Point3d P;
 
   if (Index <= myEdges->ColLength())
   {
@@ -699,7 +699,7 @@ Standard_Real BRepFill_NSections::VertexTol(const Standard_Integer Index,
   Handle(TColStd_HArray1OfReal)    Knots, Weigth;
   Handle(TColStd_HArray1OfInteger) Mults;
   Handle(Geom_BSplineCurve)        BS;
-  gp_Pnt                           PFirst;
+  Point3d                           PFirst;
 
   Loi = myLaws->Value(I1);
   Loi->SectionShape(NbPoles, NbKnots, Degree);

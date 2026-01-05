@@ -40,7 +40,7 @@ inline void IntSurf_PathPoint::SetPassing(const Standard_Boolean Pass)
   ispass = Pass;
 }
 
-inline const gp_Pnt& IntSurf_PathPoint::Value() const
+inline const Point3d& IntSurf_PathPoint::Value() const
 {
   return pt;
 }

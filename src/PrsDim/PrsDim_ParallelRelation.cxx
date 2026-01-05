@@ -63,7 +63,7 @@ PrsDim_ParallelRelation::PrsDim_ParallelRelation(const TopoDS_Shape&       aFSha
 PrsDim_ParallelRelation::PrsDim_ParallelRelation(const TopoDS_Shape&       aFShape,
                                                  const TopoDS_Shape&       aSShape,
                                                  const Handle(Geom_Plane)& aPlane,
-                                                 const gp_Pnt&             aPosition,
+                                                 const Point3d&             aPosition,
                                                  const DsgPrs_ArrowSide    aSymbolPrs,
                                                  const Standard_Real       anArrowSize)
 {
@@ -106,8 +106,8 @@ void PrsDim_ParallelRelation::ComputeSelection(const Handle(SelectMgr_Selection)
 {
   gp_Lin L1(myFAttach, myDirAttach);
   gp_Lin L2(mySAttach, myDirAttach);
-  gp_Pnt Proj1 = ElCLib::Value(ElCLib::Parameter(L1, myPosition), L1);
-  gp_Pnt Proj2 = ElCLib::Value(ElCLib::Parameter(L2, myPosition), L2);
+  Point3d Proj1 = ElCLib::Value(ElCLib::Parameter(L1, myPosition), L1);
+  Point3d Proj2 = ElCLib::Value(ElCLib::Parameter(L2, myPosition), L2);
 
   gp_Lin                        L3;
   Handle(SelectMgr_EntityOwner) own = new SelectMgr_EntityOwner(this, 7);
@@ -141,8 +141,8 @@ void PrsDim_ParallelRelation::ComputeSelection(const Handle(SelectMgr_Selection)
   parmin = Min(parmin, parcur);
   parmax = Max(parmax, parcur);
 
-  gp_Pnt PointMin = ElCLib::Value(parmin, L3);
-  gp_Pnt PointMax = ElCLib::Value(parmax, L3);
+  Point3d PointMin = ElCLib::Value(parmin, L3);
+  Point3d PointMax = ElCLib::Value(parmax, L3);
 
   Handle(Select3D_SensitiveSegment) seg;
 
@@ -178,7 +178,7 @@ void PrsDim_ParallelRelation::ComputeTwoEdgesParallel(
   TopoDS_Edge E1 = TopoDS::Edge(myFShape);
   TopoDS_Edge E2 = TopoDS::Edge(mySShape);
 
-  gp_Pnt             ptat11, ptat12, ptat21, ptat22; //,pint3d;
+  Point3d             ptat11, ptat12, ptat21, ptat22; //,pint3d;
   Handle(Geom_Curve) geom1, geom2;
   Standard_Boolean   isInfinite1, isInfinite2;
   Handle(Geom_Curve) extCurv;
@@ -263,15 +263,15 @@ void PrsDim_ParallelRelation::ComputeTwoEdgesParallel(
 
   if (myAutomaticPosition)
   {
-    gp_Pnt curpos;
+    Point3d curpos;
     if (!isInfinite1)
     {
-      gp_Pnt p2 = ElCLib::Value(ElCLib::Parameter(l2, ptat11), l2);
+      Point3d p2 = ElCLib::Value(ElCLib::Parameter(l2, ptat11), l2);
       curpos.SetXYZ((ptat11.XYZ() + p2.XYZ()) / 2.);
     }
     else if (!isInfinite2)
     {
-      gp_Pnt p2 = ElCLib::Value(ElCLib::Parameter(l1, ptat21), l1);
+      Point3d p2 = ElCLib::Value(ElCLib::Parameter(l1, ptat21), l1);
       curpos.SetXYZ((ptat21.XYZ() + p2.XYZ()) / 2.);
     }
     else
@@ -355,7 +355,7 @@ void PrsDim_ParallelRelation::ComputeTwoEdgesParallel(
                                  mySymbolPrs);
   if ((myExtShape != 0) && !extCurv.IsNull())
   {
-    gp_Pnt pf, pl;
+    Point3d pf, pl;
     if (myExtShape == 1)
     {
       if (!isInfinite1)

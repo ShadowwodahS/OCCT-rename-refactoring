@@ -50,7 +50,7 @@ MeshVS_CommonSensitiveEntity::MeshVS_CommonSensitiveEntity(
       const Standard_Integer aNodeIdx = aNodesIter.Key();
       if (theParentMesh->IsSelectableNode(aNodeIdx))
       {
-        const gp_Pnt aVertex = getVertexByIndex(aNodeIdx);
+        const Point3d aVertex = getVertexByIndex(aNodeIdx);
         aCenter += aVertex.XYZ();
         myBndBox.Add(SelectMgr_Vec3(aVertex.X(), aVertex.Y(), aVertex.Z()));
         ++aNbSelectableNodes;
@@ -69,7 +69,7 @@ MeshVS_CommonSensitiveEntity::MeshVS_CommonSensitiveEntity(
          aNodesIter.Next())
     {
       const Standard_Integer aNodeIdx = aNodesIter.Key();
-      const gp_Pnt           aVertex  = getVertexByIndex(aNodeIdx);
+      const Point3d           aVertex  = getVertexByIndex(aNodeIdx);
       aCenter += aVertex.XYZ();
       myBndBox.Add(SelectMgr_Vec3(aVertex.X(), aVertex.Y(), aVertex.Z()));
     }
@@ -129,7 +129,7 @@ Standard_Integer MeshVS_CommonSensitiveEntity::Size() const
 
 //=================================================================================================
 
-gp_Pnt MeshVS_CommonSensitiveEntity::getVertexByIndex(const Standard_Integer theNodeIdx) const
+Point3d MeshVS_CommonSensitiveEntity::getVertexByIndex(const Standard_Integer theNodeIdx) const
 {
   Standard_Real        aCoordsBuf[3] = {};
   TColStd_Array1OfReal aCoords(aCoordsBuf[0], 1, 3);
@@ -137,9 +137,9 @@ gp_Pnt MeshVS_CommonSensitiveEntity::getVertexByIndex(const Standard_Integer the
   MeshVS_EntityType    aType    = MeshVS_ET_NONE;
   if (!myDataSource->GetGeom(theNodeIdx, Standard_False, aCoords, aNbNodes, aType))
   {
-    return gp_Pnt();
+    return Point3d();
   }
-  return gp_Pnt(aCoords.Value(1), aCoords.Value(2), aCoords.Value(3));
+  return Point3d(aCoords.Value(1), aCoords.Value(2), aCoords.Value(3));
 }
 
 //=================================================================================================
@@ -176,7 +176,7 @@ Select3D_BndBox3d MeshVS_CommonSensitiveEntity::Box(const Standard_Integer theId
   }
   else if (mySelMethod == MeshVS_MSM_NODES)
   {
-    const gp_Pnt aVert = getVertexByIndex(anItemIdx);
+    const Point3d aVert = getVertexByIndex(anItemIdx);
     aBox.Add(SelectMgr_Vec3(aVert.X(), aVert.Y(), aVert.Z()));
   }
 
@@ -238,9 +238,9 @@ Standard_Boolean MeshVS_CommonSensitiveEntity::overlapsElement(
     }
     if (aNbNodes == 3)
     {
-      return theMgr.OverlapsTriangle(gp_Pnt(aCoords(1), aCoords(2), aCoords(3)),
-                                     gp_Pnt(aCoords(4), aCoords(5), aCoords(6)),
-                                     gp_Pnt(aCoords(7), aCoords(8), aCoords(9)),
+      return theMgr.OverlapsTriangle(Point3d(aCoords(1), aCoords(2), aCoords(3)),
+                                     Point3d(aCoords(4), aCoords(5), aCoords(6)),
+                                     Point3d(aCoords(7), aCoords(8), aCoords(9)),
                                      Select3D_TOS_INTERIOR,
                                      thePickResult);
     }
@@ -251,13 +251,13 @@ Standard_Boolean MeshVS_CommonSensitiveEntity::overlapsElement(
     {
       aFacePnts.SetValue(
         aNodeIdx,
-        gp_Pnt(aCoords(3 * aNodeIdx - 2), aCoords(3 * aNodeIdx - 1), aCoords(3 * aNodeIdx)));
+        Point3d(aCoords(3 * aNodeIdx - 2), aCoords(3 * aNodeIdx - 1), aCoords(3 * aNodeIdx)));
     }
     return theMgr.OverlapsPolygon(aFacePnts, Select3D_TOS_INTERIOR, thePickResult);
   }
   else if (mySelMethod == MeshVS_MSM_NODES)
   {
-    const gp_Pnt aVert = getVertexByIndex(anItemIdx);
+    const Point3d aVert = getVertexByIndex(anItemIdx);
     return theMgr.OverlapsPoint(aVert, thePickResult);
   }
   return Standard_False;
@@ -298,7 +298,7 @@ Standard_Boolean MeshVS_CommonSensitiveEntity::elementIsInside(
     TColgp_Array1OfPnt aFacePnts(aFacePntsBuf, 1, aNbNodes);
     for (Standard_Integer aNodeIdx = 1; aNodeIdx <= aNbNodes; ++aNodeIdx)
     {
-      const gp_Pnt aPnt(aCoords(3 * aNodeIdx - 2),
+      const Point3d aPnt(aCoords(3 * aNodeIdx - 2),
                         aCoords(3 * aNodeIdx - 1),
                         aCoords(3 * aNodeIdx));
       if (!theMgr.OverlapsPoint(aPnt))
@@ -310,7 +310,7 @@ Standard_Boolean MeshVS_CommonSensitiveEntity::elementIsInside(
   }
   else if (mySelMethod == MeshVS_MSM_NODES)
   {
-    const gp_Pnt aVert = getVertexByIndex(anItemIdx);
+    const Point3d aVert = getVertexByIndex(anItemIdx);
     return theMgr.OverlapsPoint(aVert);
   }
   return Standard_False;
@@ -333,7 +333,7 @@ Select3D_BndBox3d MeshVS_CommonSensitiveEntity::BoundingBox()
 
 //=================================================================================================
 
-gp_Pnt MeshVS_CommonSensitiveEntity::CenterOfGeometry() const
+Point3d MeshVS_CommonSensitiveEntity::CenterOfGeometry() const
 {
   return myCOG;
 }

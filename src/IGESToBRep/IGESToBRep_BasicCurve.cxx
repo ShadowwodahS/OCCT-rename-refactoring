@@ -221,7 +221,7 @@ Handle(Geom_Curve) IGESToBRep_BasicCurve::TransferBasicCurve(
     // The more specific function have ever add a fail message for this entity
   }
   else
-    res->Scale(gp_Pnt(0, 0, 0), GetUnitFactor());
+    res->Scale(Point3d(0, 0, 0), GetUnitFactor());
   return res;
 }
 
@@ -320,7 +320,7 @@ Handle(Geom_Curve) IGESToBRep_BasicCurve::TransferConicArc(const Handle(IGESGeom
 
   ZT = st->ZPlane();
 
-  gp_Pnt        center, startPoint, endPoint;
+  Point3d        center, startPoint, endPoint;
   gp_Dir        mainAxis, normAxis;
   Standard_Real minorRadius, majorRadius;
 
@@ -494,7 +494,7 @@ Handle(Geom2d_Curve) IGESToBRep_BasicCurve::Transfer2dConicArc(const Handle(IGES
   // Conic = ax2+bxy+cy2+dx+ey+f=0.
   st->Equation(a, b, c, d, e, f);
 
-  gp_Pnt        center3d;
+  Point3d        center3d;
   gp_Dir        mainAxis3d;
   gp_Pnt2d      startPoint, endPoint;
   Standard_Real minorRadius, majorRadius;
@@ -679,7 +679,7 @@ Handle(Geom_Curve) IGESToBRep_BasicCurve::TransferCircularArc(
 
   gp_Dir tNormAxis, tMainAxis;
   gp_Ax2 frame;
-  gp_Pnt startPoint, endPoint;
+  Point3d startPoint, endPoint;
 
   if (!GetModeTransfer() && st->HasTransf())
   {
@@ -705,7 +705,7 @@ Handle(Geom_Curve) IGESToBRep_BasicCurve::TransferCircularArc(
     Standard_Real ZT = st->ZPlane();
     startPoint.SetCoord(st->StartPoint().X(), st->StartPoint().Y(), ZT);
     endPoint.SetCoord(st->EndPoint().X(), st->EndPoint().Y(), ZT);
-    gp_Pnt centerPoint(st->Center().X(), st->Center().Y(), ZT);
+    Point3d centerPoint(st->Center().X(), st->Center().Y(), ZT);
 
     frame = gp_Ax2(centerPoint, tNormAxis, tMainAxis);
   }
@@ -1304,7 +1304,7 @@ Handle(Geom_Curve) IGESToBRep_BasicCurve::TransferLine(const Handle(IGESGeom_Lin
     return res;
   }
 
-  gp_Pnt Ps, Pe;
+  Point3d Ps, Pe;
 
   if (!GetModeTransfer() && start->HasTransf())
   {
@@ -1463,7 +1463,7 @@ Handle(Geom_BSplineCurve) IGESToBRep_BasicCurve::TransferCopiousData(
   Standard_Integer i; // svv Jan 10 2000 : porting on DEC
   for (i = 2; i <= NbPoints; i++)
   {
-    gp_Pnt aPole;
+    Point3d aPole;
     if (!GetModeTransfer() && start->HasTransf())
       aPole = start->TransformedPoint(i);
     else
@@ -1501,8 +1501,8 @@ Handle(Geom_BSplineCurve) IGESToBRep_BasicCurve::TransferCopiousData(
 
   for (i = Knot.Lower() + 1; i <= Knot.Upper(); i++)
   {
-    gp_Pnt        Pole1    = Pole.Value(i);
-    gp_Pnt        Pole2    = Pole.Value(i - 1);
+    Point3d        Pole1    = Pole.Value(i);
+    Point3d        Pole2    = Pole.Value(i - 1);
     Standard_Real KnotDist = Pole1.Distance(Pole2);
     Knot.SetValue(i, Knot.Value(i - 1) + KnotDist);
   }

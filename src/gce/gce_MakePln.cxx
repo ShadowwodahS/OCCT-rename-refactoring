@@ -30,13 +30,13 @@ gce_MakePln::gce_MakePln(const gp_Ax2& A2)
   TheError = gce_Done;
 }
 
-gce_MakePln::gce_MakePln(const gp_Pnt& P, const gp_Dir& V)
+gce_MakePln::gce_MakePln(const Point3d& P, const gp_Dir& V)
 {
   ThePln   = gp_Pln(P, V);
   TheError = gce_Done;
 }
 
-gce_MakePln::gce_MakePln(const gp_Pnt& P1, const gp_Pnt& P2)
+gce_MakePln::gce_MakePln(const Point3d& P1, const Point3d& P2)
 {
   if (P1.Distance(P2) <= gp::Resolution())
   {
@@ -70,7 +70,7 @@ gce_MakePln::gce_MakePln(const Standard_Real A,
 //   Creation d un gp_pln passant par trois points.                       +
 //=========================================================================
 
-gce_MakePln::gce_MakePln(const gp_Pnt& P1, const gp_Pnt& P2, const gp_Pnt& P3)
+gce_MakePln::gce_MakePln(const Point3d& P1, const Point3d& P2, const Point3d& P3)
 {
   gp_XYZ V1(P2.XYZ() - P1.XYZ());
   gp_XYZ V2(P3.XYZ() - P1.XYZ());
@@ -94,7 +94,7 @@ gce_MakePln::gce_MakePln(const gp_Pnt& P1, const gp_Pnt& P2, const gp_Pnt& P3)
 
 gce_MakePln::gce_MakePln(const gp_Pln& Pl, const Standard_Real Dist)
 {
-  gp_Pnt Center(Pl.Location().XYZ() + Dist * gp_XYZ(Pl.Axis().Direction().XYZ()));
+  Point3d Center(Pl.Location().XYZ() + Dist * gp_XYZ(Pl.Axis().Direction().XYZ()));
   ThePln   = gp_Pln(gp_Ax3(Center, Pl.Axis().Direction(), Pl.XAxis().Direction()));
   TheError = gce_Done;
 }
@@ -104,7 +104,7 @@ gce_MakePln::gce_MakePln(const gp_Pln& Pl, const Standard_Real Dist)
 //   <Point1>.                                                            +
 //=========================================================================
 
-gce_MakePln::gce_MakePln(const gp_Pln& Pl, const gp_Pnt& Point)
+gce_MakePln::gce_MakePln(const gp_Pln& Pl, const Point3d& Point)
 {
   ThePln   = gp_Pln(gp_Ax3(Point, Pl.Axis().Direction(), Pl.XAxis().Direction()));
   TheError = gce_Done;

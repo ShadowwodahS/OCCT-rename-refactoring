@@ -166,7 +166,7 @@ static Standard_Boolean FUN_onboundsper(const TopoDS_Edge& E, const TopoDS_Face&
 }
 
 //-----------------------------------------------------------------------
-static Standard_Boolean FUN_PinC(const gp_Pnt&             P,
+static Standard_Boolean FUN_PinC(const Point3d&             P,
                                  const Handle(Geom_Curve)& C,
                                  const Standard_Real       pmin,
                                  const Standard_Real       pmax,
@@ -188,7 +188,7 @@ static Standard_Boolean FUN_PinC(const gp_Pnt&             P,
 }
 
 //-----------------------------------------------------------------------
-static Standard_Boolean FUN_PinE(const gp_Pnt& P, const TopoDS_Edge& E)
+static Standard_Boolean FUN_PinE(const Point3d& P, const TopoDS_Edge& E)
 //-----------------------------------------------------------------------
 {
   Standard_Boolean   PinE = Standard_False;
@@ -223,7 +223,7 @@ static Standard_Boolean FUN_EstaEE(const TopoDS_Edge& E,
   Handle(Geom_Curve) CE = BRep_Tool::Curve(E, f, l);
   Standard_Real      t  = 0.417789; // Oi blya... ???
   Standard_Real      p  = (1 - t) * f + t * l;
-  gp_Pnt             P  = CE->Value(p);
+  Point3d             P  = CE->Value(p);
   EinEE                 = FUN_PinE(P, EE);
   if (sta == TopAbs_IN)
     return EinEE;

@@ -384,7 +384,7 @@ public:
 
   Standard_Boolean Value(const Standard_Real theT,
                          NCollection_Array1<gp_Pnt2d>& /*thePnt2d*/,
-                         NCollection_Array1<gp_Pnt>& thePnt) const
+                         NCollection_Array1<Point3d>& thePnt) const
   {
     thePnt(1) = myCurve.Value(theT);
     return Standard_True;
@@ -485,7 +485,7 @@ static void Touched(const BRepOffset_Analyse&,
 
 //=================================================================================================
 
-static TopoDS_Vertex FindVertex(const gp_Pnt&              P,
+static TopoDS_Vertex FindVertex(const Point3d&              P,
                                 const TopTools_MapOfShape& Map,
                                 const Standard_Real        Tol)
 {
@@ -507,7 +507,7 @@ static TopoDS_Vertex FindVertex(const gp_Pnt&              P,
         // if OK la Tolerance du Vertex
         Tol2 = BRep_Tool::Tolerance(VV[i]);
         Tol2 *= Tol2;
-        gp_Pnt P1 = BRep_Tool::Pnt(VV[i]);
+        Point3d P1 = BRep_Tool::Pnt(VV[i]);
         Dist      = P.SquareDistance(P1);
         if (Dist <= Tol2)
           return VV[i];
@@ -546,7 +546,7 @@ static TopoDS_Edge MakeDegeneratedEdge(const Handle(Geom_Curve)& CC, const TopoD
   TopoDS_Vertex V1, V2;
   if (VfOnE.IsNull())
   {
-    gp_Pnt P = C->Value(C->FirstParameter());
+    Point3d P = C->Value(C->FirstParameter());
     B.MakeVertex(V1, P, Tol);
     V2 = V1;
   }
@@ -2010,8 +2010,8 @@ void BiTgte_Blend::ComputeSurfaces()
       {
         BiTgte_CurveOnEdge ConE(CurCutE, OE1);
         Handle(Geom_Curve) C  = MakeCurve(ConE);
-        gp_Pnt             P1 = C->Value(C->FirstParameter());
-        gp_Pnt             P2 = C->Value(C->LastParameter());
+        Point3d             P1 = C->Value(C->FirstParameter());
+        Point3d             P2 = C->Value(C->LastParameter());
         VfOnE1                = FindVertex(P1, MapOnV1f, myTol);
         if (VfOnE1.IsNull())
           VfOnE1 = FindVertex(P1, MapOnV1l, myTol);
@@ -2033,9 +2033,9 @@ void BiTgte_Blend::ComputeSurfaces()
       {
         gp_Pnt2d P2d;
         P2d       = PC1->Value(f1);
-        gp_Pnt P1 = GS1->Value(P2d.X(), P2d.Y());
+        Point3d P1 = GS1->Value(P2d.X(), P2d.Y());
         P2d       = PC1->Value(l1);
-        gp_Pnt P2 = GS1->Value(P2d.X(), P2d.Y());
+        Point3d P2 = GS1->Value(P2d.X(), P2d.Y());
         VfOnE1    = FindVertex(P1, MapOnV1f, myTol);
         VlOnE1    = FindVertex(P2, MapOnV1l, myTol);
         BRepLib_MakeEdge MKE(PC1, GS1, VfOnE1, VlOnE1, f1, l1);
@@ -2054,8 +2054,8 @@ void BiTgte_Blend::ComputeSurfaces()
       {
         BiTgte_CurveOnEdge ConE(CurCutE, OE2);
         Handle(Geom_Curve) C  = MakeCurve(ConE);
-        gp_Pnt             P1 = C->Value(C->FirstParameter());
-        gp_Pnt             P2 = C->Value(C->LastParameter());
+        Point3d             P1 = C->Value(C->FirstParameter());
+        Point3d             P2 = C->Value(C->LastParameter());
         VfOnE2                = FindVertex(P1, MapOnV1f, myTol);
         if (VfOnE2.IsNull())
           VfOnE2 = FindVertex(P1, MapOnV1l, myTol);
@@ -2077,9 +2077,9 @@ void BiTgte_Blend::ComputeSurfaces()
       {
         gp_Pnt2d P2d;
         P2d       = PC2->Value(f2);
-        gp_Pnt P1 = GS2->Value(P2d.X(), P2d.Y());
+        Point3d P1 = GS2->Value(P2d.X(), P2d.Y());
         P2d       = PC2->Value(l2);
-        gp_Pnt P2 = GS2->Value(P2d.X(), P2d.Y());
+        Point3d P2 = GS2->Value(P2d.X(), P2d.Y());
         VfOnE2    = FindVertex(P1, MapOnV1f, myTol);
         VlOnE2    = FindVertex(P2, MapOnV1l, myTol);
         BRepLib_MakeEdge MKE(PC2, GS2, VfOnE2, VlOnE2, f2, l2);
@@ -2171,11 +2171,11 @@ void BiTgte_Blend::ComputeSurfaces()
           const TopoDS_Edge& EOnF1 = TopoDS::Edge(exp.Current());
           TopExp::Vertices(EOnF1, V1, V2);
 
-          gp_Pnt P1 = BRep_Tool::Pnt(V1);
+          Point3d P1 = BRep_Tool::Pnt(V1);
           Projector.Init(P1, GC1);
           Standard_Real U1 = Projector.LowerDistanceParameter();
 
-          gp_Pnt P2 = BRep_Tool::Pnt(V2);
+          Point3d P2 = BRep_Tool::Pnt(V2);
           Projector.Init(P2, GC1);
           Standard_Real U2 = Projector.LowerDistanceParameter();
 
@@ -2203,11 +2203,11 @@ void BiTgte_Blend::ComputeSurfaces()
           const TopoDS_Edge& EOnF2 = TopoDS::Edge(exp.Current());
           TopExp::Vertices(EOnF2, V1, V2);
 
-          gp_Pnt P1 = BRep_Tool::Pnt(V1);
+          Point3d P1 = BRep_Tool::Pnt(V1);
           Projector.Init(P1, GC2);
           Standard_Real U1 = Projector.LowerDistanceParameter();
 
-          gp_Pnt P2 = BRep_Tool::Pnt(V2);
+          Point3d P2 = BRep_Tool::Pnt(V2);
           Projector.Init(P2, GC2);
           Standard_Real U2 = Projector.LowerDistanceParameter();
 
@@ -2500,7 +2500,7 @@ void BiTgte_Blend::ComputeShape()
                 {
                   B.MakeVertex(OV1);
                   gp_Pnt2d P2d = C2d->Value(BRep_Tool::Parameter(V1, E, Face));
-                  gp_Pnt   P;
+                  Point3d   P;
                   S->D0(P2d.X(), P2d.Y(), P);
                   P.Transform(L.Transformation());
                   B.UpdateVertex(OV1, P, BRep_Tool::Tolerance(V1));
@@ -2516,7 +2516,7 @@ void BiTgte_Blend::ComputeShape()
                 {
                   B.MakeVertex(OV2);
                   gp_Pnt2d P2d = C2d->Value(BRep_Tool::Parameter(V2, E, Face));
-                  gp_Pnt   P;
+                  Point3d   P;
                   S->D0(P2d.X(), P2d.Y(), P);
                   P.Transform(L.Transformation());
                   B.UpdateVertex(OV2, P, BRep_Tool::Tolerance(V2));

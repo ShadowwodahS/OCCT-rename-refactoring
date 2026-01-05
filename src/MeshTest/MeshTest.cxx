@@ -403,7 +403,7 @@ static Standard_Integer tessellate(Draw_Interpretor& /*di*/,
     for (int iV = 0; iV <= aNbV; iV++)
     {
       double aV = aVMin + iV * aDV;
-      gp_Pnt aP = anAdSurf.Value(aU, aV);
+      Point3d aP = anAdSurf.Value(aU, aV);
       aTriangulation->SetNode(iShift + iV, aP);
     }
   }
@@ -481,10 +481,10 @@ static Standard_Integer MemLeakTest(Draw_Interpretor&,
 {
   for (int i = 0; i < 10000; i++)
   {
-    BRepBuilderAPI_MakePolygon w(gp_Pnt(0, 0, 0),
-                                 gp_Pnt(0, 100, 0),
-                                 gp_Pnt(20, 100, 0),
-                                 gp_Pnt(20, 0, 0));
+    BRepBuilderAPI_MakePolygon w(Point3d(0, 0, 0),
+                                 Point3d(0, 100, 0),
+                                 Point3d(20, 100, 0),
+                                 Point3d(20, 0, 0));
     w.Close();
     TopoDS_Wire              wireShape(w.Wire());
     BRepBuilderAPI_MakeFace  faceBuilder(wireShape);
@@ -1096,7 +1096,7 @@ static Standard_Integer veriftriangles(Draw_Interpretor& di, Standard_Integer n,
   Standard_Real        dipo, dv, d1, d2, d3, defle;
   Handle(Geom_Surface) S;
   Standard_Integer     nbface = 0;
-  gp_Pnt               PP;
+  Point3d               PP;
 
   for (ex.Init(Sh, TopAbs_FACE); ex.More(); ex.Next())
   {
@@ -1338,7 +1338,7 @@ static Standard_Integer wavefront(Draw_Interpretor&, Standard_Integer nbarg, con
   gp_Vec                 D1U, D1V;
   gp_Vec                 D2U, D2V, D2UV;
   gp_Dir                 Nor;
-  gp_Pnt                 P;
+  Point3d                 P;
   Standard_Real          U, V;
   CSLib_DerivativeStatus aStatus;
   CSLib_NormalStatus     NStat;
@@ -1373,7 +1373,7 @@ static Standard_Integer wavefront(Draw_Interpretor&, Standard_Integer nbarg, con
       // les noeuds.
       for (i = 1; i <= nbNodes; i++)
       {
-        gp_Pnt Pnt = Tr->Node(i).Transformed(L.Transformation());
+        Point3d Pnt = Tr->Node(i).Transformed(L.Transformation());
         x          = Pnt.X();
         y          = Pnt.Y();
         z          = Pnt.Z();
@@ -1493,7 +1493,7 @@ static Standard_Integer triedgepoints(Draw_Interpretor& di,
 
       for (Standard_Integer j = 1; j <= nbnodes; j++)
       {
-        gp_Pnt P3d = aT->Node(Indices[j]);
+        Point3d P3d = aT->Node(Indices[j]);
         if (!aLoc.IsIdentity())
           P3d.Transform(aLoc.Transformation());
 

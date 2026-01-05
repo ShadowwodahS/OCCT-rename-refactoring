@@ -50,7 +50,7 @@ public:
     Standard_EXPORT virtual void ImportAttribute();
   };
 
-  class Position : public StdObjMgt_Attribute<TDataXtd_Position>::Simple<gp_Pnt>
+  class Position : public StdObjMgt_Attribute<TDataXtd_Position>::Simple<Point3d>
   {
   public:
     //! Import transient attribute from the persistent data.
@@ -98,7 +98,7 @@ inline Standard_CString StdObjMgt_Attribute<TDataXtd_Geometry>::Simple<Standard_
 
 template <>
 template <>
-inline Standard_CString StdObjMgt_Attribute<TDataXtd_Position>::Simple<gp_Pnt>::PName() const
+inline Standard_CString StdObjMgt_Attribute<TDataXtd_Position>::Simple<Point3d>::PName() const
 {
   return "PDataXtd_Position";
 }

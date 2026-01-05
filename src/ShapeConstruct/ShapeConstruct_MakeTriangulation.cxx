@@ -66,7 +66,7 @@ Standard_Boolean IsRightContour(const TColgp_SequenceOfPnt& pts, const Standard_
       for (i = 1; i <= len; i++)
         center += thePts(i).XYZ();
       center /= len;
-      gp_Pnt             pc(center);
+      Point3d             pc(center);
       gp_Dir             pd(Norm);
       gp_Pln             pl(pc, pd);
       Handle(Geom_Plane) thePlane = new Geom_Plane(pl);

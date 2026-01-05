@@ -72,7 +72,7 @@ public:
   //! \param[out] thePoint  the result of calculation (the point on the surface)
   Standard_EXPORT void D0(const Standard_Real& theU,
                           const Standard_Real& theV,
-                          gp_Pnt&              thePoint) const;
+                          Point3d&              thePoint) const;
 
   //! Calculates the point on the surface and its first derivative
   //! \param[in]  theU         first parameter of calculation of the value
@@ -82,7 +82,7 @@ public:
   //! \param[out] theTangentV  tangent vector along V axis in the calculated point
   Standard_EXPORT void D1(const Standard_Real& theU,
                           const Standard_Real& theV,
-                          gp_Pnt&              thePoint,
+                          Point3d&              thePoint,
                           gp_Vec&              theTangentU,
                           gp_Vec&              theTangentV) const;
 
@@ -97,7 +97,7 @@ public:
   //! \param[out] theCurvatureUV  2nd mixed derivative on U anv V
   Standard_EXPORT void D2(const Standard_Real& theU,
                           const Standard_Real& theV,
-                          gp_Pnt&              thePoint,
+                          Point3d&              thePoint,
                           gp_Vec&              theTangentU,
                           gp_Vec&              theTangentV,
                           gp_Vec&              theCurvatureU,

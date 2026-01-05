@@ -25,7 +25,7 @@
 void Contap_SurfProps::Normale(const Handle(Adaptor3d_Surface)& S,
                                const Standard_Real              U,
                                const Standard_Real              V,
-                               gp_Pnt&                          P,
+                               Point3d&                          P,
                                gp_Vec&                          Norm)
 {
 
@@ -131,7 +131,7 @@ void Contap_SurfProps::Normale(const Handle(Adaptor3d_Surface)& S,
 void Contap_SurfProps::DerivAndNorm(const Handle(Adaptor3d_Surface)& S,
                                     const Standard_Real              U,
                                     const Standard_Real              V,
-                                    gp_Pnt&                          P,
+                                    Point3d&                          P,
                                     gp_Vec&                          d1u,
                                     gp_Vec&                          d1v,
                                     gp_Vec&                          Norm)
@@ -236,7 +236,7 @@ void Contap_SurfProps::DerivAndNorm(const Handle(Adaptor3d_Surface)& S,
 void Contap_SurfProps::NormAndDn(const Handle(Adaptor3d_Surface)& S,
                                  const Standard_Real              U,
                                  const Standard_Real              V,
-                                 gp_Pnt&                          P,
+                                 Point3d&                          P,
                                  gp_Vec&                          Norm,
                                  gp_Vec&                          Dnu,
                                  gp_Vec&                          Dnv)

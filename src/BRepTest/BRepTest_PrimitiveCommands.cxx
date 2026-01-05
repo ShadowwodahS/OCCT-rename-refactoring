@@ -37,7 +37,7 @@
 
 static Standard_Integer box(Draw_Interpretor&, Standard_Integer n, const char** a)
 {
-  gp_Pnt           anOrigin;
+  Point3d           anOrigin;
   gp_XYZ           aParams;
   gp_Dir           aDir;
   gp_Dir           aXDir;
@@ -194,11 +194,11 @@ static Standard_Integer wedge(Draw_Interpretor&, Standard_Integer n, const char*
   //  Standard_Integer i = 0;
   if (n == 15 || n == 18)
   {
-    gp_Pnt LocalP(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4]));
+    Point3d LocalP(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4]));
     gp_Dir LocalN(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7]));
     gp_Dir LocalVx(Draw::Atof(a[8]), Draw::Atof(a[9]), Draw::Atof(a[10]));
     gp_Ax2 Axis(LocalP, LocalN, LocalVx);
-    //    gp_Ax2 Axis(gp_Pnt(Draw::Atof(a[2]),Draw::Atof(a[3]),Draw::Atof(a[4])),
+    //    gp_Ax2 Axis(Point3d(Draw::Atof(a[2]),Draw::Atof(a[3]),Draw::Atof(a[4])),
     //		gp_Dir(Draw::Atof(a[5]),Draw::Atof(a[6]),Draw::Atof(a[7])),
     //		gp_Dir(Draw::Atof(a[8]),Draw::Atof(a[9]),Draw::Atof(a[10])));
     if (n == 15)

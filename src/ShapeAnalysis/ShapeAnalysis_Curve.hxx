@@ -26,7 +26,7 @@
 #include <TColgp_SequenceOfPnt2d.hxx>
 #include <TColgp_SequenceOfPnt.hxx>
 class Geom_Curve;
-class gp_Pnt;
+class Point3d;
 class Adaptor3d_Curve;
 class Geom2d_Curve;
 class Bnd_Box2d;
@@ -50,9 +50,9 @@ public:
   //! Returned value is the distance between the given point and
   //! computed one.
   Standard_EXPORT Standard_Real Project(const Handle(Geom_Curve)& C3D,
-                                        const gp_Pnt&             P3D,
+                                        const Point3d&             P3D,
                                         const Standard_Real       preci,
-                                        gp_Pnt&                   proj,
+                                        Point3d&                   proj,
                                         Standard_Real&            param,
                                         const Standard_Boolean AdjustToEnds = Standard_True) const;
 
@@ -65,9 +65,9 @@ public:
   //! Returned value is the distance between the given point and
   //! computed one.
   Standard_EXPORT Standard_Real Project(const Adaptor3d_Curve& C3D,
-                                        const gp_Pnt&          P3D,
+                                        const Point3d&          P3D,
                                         const Standard_Real    preci,
-                                        gp_Pnt&                proj,
+                                        Point3d&                proj,
                                         Standard_Real&         param,
                                         const Standard_Boolean AdjustToEnds = Standard_True) const;
 
@@ -78,18 +78,18 @@ public:
   //! If AdjustToEnds is True, point will be adjusted to the end
   //! of the curve if distance is less than <preci>
   Standard_EXPORT Standard_Real Project(const Handle(Geom_Curve)& C3D,
-                                        const gp_Pnt&             P3D,
+                                        const Point3d&             P3D,
                                         const Standard_Real       preci,
-                                        gp_Pnt&                   proj,
+                                        Point3d&                   proj,
                                         Standard_Real&            param,
                                         const Standard_Real       cf,
                                         const Standard_Real       cl,
                                         const Standard_Boolean AdjustToEnds = Standard_True) const;
 
   Standard_EXPORT Standard_Real ProjectAct(const Adaptor3d_Curve& C3D,
-                                           const gp_Pnt&          P3D,
+                                           const Point3d&          P3D,
                                            const Standard_Real    preci,
-                                           gp_Pnt&                proj,
+                                           Point3d&                proj,
                                            Standard_Real&         param) const;
 
   //! Projects a Point on a Curve using Newton method.
@@ -100,9 +100,9 @@ public:
   Standard_EXPORT Standard_Real
     NextProject(const Standard_Real       paramPrev,
                 const Handle(Geom_Curve)& C3D,
-                const gp_Pnt&             P3D,
+                const Point3d&             P3D,
                 const Standard_Real       preci,
-                gp_Pnt&                   proj,
+                Point3d&                   proj,
                 Standard_Real&            param,
                 const Standard_Real       cf,
                 const Standard_Real       cl,
@@ -113,9 +113,9 @@ public:
   //! If Newton algorithm fails the method Project() is used.
   Standard_EXPORT Standard_Real NextProject(const Standard_Real    paramPrev,
                                             const Adaptor3d_Curve& C3D,
-                                            const gp_Pnt&          P3D,
+                                            const Point3d&          P3D,
                                             const Standard_Real    preci,
-                                            gp_Pnt&                proj,
+                                            Point3d&                proj,
                                             Standard_Real&         param) const;
 
   //! Validate parameters First and Last for the given curve

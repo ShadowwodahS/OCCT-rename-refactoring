@@ -75,9 +75,9 @@ GC_MakeCylindricalSurface::GC_MakeCylindricalSurface(const gp_Circ& Circ)
 //   The third gives the radius.                                         +
 //=========================================================================
 
-GC_MakeCylindricalSurface::GC_MakeCylindricalSurface(const gp_Pnt& P1,
-                                                     const gp_Pnt& P2,
-                                                     const gp_Pnt& P3)
+GC_MakeCylindricalSurface::GC_MakeCylindricalSurface(const Point3d& P1,
+                                                     const Point3d& P2,
+                                                     const Point3d& P3)
 {
   gce_MakeCylinder Cyl = gce_MakeCylinder(P1, P2, P3);
   TheError             = Cyl.Status();
@@ -96,7 +96,7 @@ GC_MakeCylindricalSurface::GC_MakeCylindricalSurface(const gp_Cylinder&  Cyl,
   TheCylinder->SetRadius(R);
 }
 
-GC_MakeCylindricalSurface::GC_MakeCylindricalSurface(const gp_Cylinder& Cyl, const gp_Pnt& Point)
+GC_MakeCylindricalSurface::GC_MakeCylindricalSurface(const gp_Cylinder& Cyl, const Point3d& Point)
 {
   TheError = gce_Done;
   gp_Cylinder   C(Cyl);

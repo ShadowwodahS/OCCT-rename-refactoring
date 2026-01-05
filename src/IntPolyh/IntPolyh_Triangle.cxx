@@ -86,7 +86,7 @@ Standard_Real IntPolyh_Triangle::ComputeDeflection(const Handle(Adaptor3d_Surfac
   // Compute point on the surface
   Standard_Real Gu    = (P1.U() + P2.U() + P3.U()) / 3.0;
   Standard_Real Gv    = (P1.V() + P2.V() + P3.V()) / 3.0;
-  gp_Pnt        PtXYZ = theSurface->Value(Gu, Gv);
+  Point3d        PtXYZ = theSurface->Value(Gu, Gv);
   // Point on the surface
   IntPolyh_Point BarycentreReel(PtXYZ.X(), PtXYZ.Y(), PtXYZ.Z(), Gu, Gv);
   // compute distance to plane
@@ -640,9 +640,9 @@ const Bnd_Box& IntPolyh_Triangle::BoundingBox(const IntPolyh_ArrayOfPoints& theP
     const IntPolyh_Point& aP1 = thePoints[myPoints[0]];
     const IntPolyh_Point& aP2 = thePoints[myPoints[1]];
     const IntPolyh_Point& aP3 = thePoints[myPoints[2]];
-    myBox.Add(gp_Pnt(aP1.X(), aP1.Y(), aP1.Z()));
-    myBox.Add(gp_Pnt(aP2.X(), aP2.Y(), aP2.Z()));
-    myBox.Add(gp_Pnt(aP3.X(), aP3.Y(), aP3.Z()));
+    myBox.Add(Point3d(aP1.X(), aP1.Y(), aP1.Z()));
+    myBox.Add(Point3d(aP2.X(), aP2.Y(), aP2.Z()));
+    myBox.Add(Point3d(aP3.X(), aP3.Y(), aP3.Z()));
     myBox.SetGap(myDeflection + Precision::Confusion());
   }
   return myBox;

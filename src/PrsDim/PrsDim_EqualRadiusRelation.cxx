@@ -63,7 +63,7 @@ void PrsDim_EqualRadiusRelation::Compute(const Handle(PrsMgr_PresentationManager
 
   Handle(Geom_Curve) FirstProjCurve  = FirstCurve.Curve().Curve(),
                      SecondProjCurve = SecondCurve.Curve().Curve();
-  gp_Pnt           FirstPoint1, LastPoint1, FirstPoint2, LastPoint2;
+  Point3d           FirstPoint1, LastPoint1, FirstPoint2, LastPoint2;
   Standard_Boolean isFirstOnPlane, isSecondOnPlane;
 
   PrsDim::ComputeGeomCurve(FirstProjCurve,
@@ -186,7 +186,7 @@ void PrsDim_EqualRadiusRelation::ComputeSelection(const Handle(SelectMgr_Selecti
   aSelection->Add(seg);
 
   // Two small lines
-  gp_Pnt Middle((myFirstCenter.XYZ() + mySecondCenter.XYZ()) * 0.5);
+  Point3d Middle((myFirstCenter.XYZ() + mySecondCenter.XYZ()) * 0.5);
 
   Standard_Real SmallDist = .001;
   // Should be changed as the domain of small lines could be changed.
@@ -208,7 +208,7 @@ void PrsDim_EqualRadiusRelation::ComputeRadiusPosition()
       || mySecondCenter.Distance(myPosition) < Precision::Confusion())
     return;
 
-  gp_Pnt aPosition;
+  Point3d aPosition;
 
   // project myPosition to the plane of constraint
   GeomAPI_ProjectPointOnSurf aProj(myPosition, myPlane);

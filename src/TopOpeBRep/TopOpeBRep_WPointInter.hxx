@@ -22,7 +22,7 @@
 
 #include <TopOpeBRep_PPntOn2S.hxx>
 class gp_Pnt2d;
-class gp_Pnt;
+class Point3d;
 
 class TopOpeBRep_WPointInter
 {
@@ -46,7 +46,7 @@ public:
 
   Standard_EXPORT gp_Pnt2d ValueOnS2() const;
 
-  Standard_EXPORT const gp_Pnt& Value() const;
+  Standard_EXPORT const Point3d& Value() const;
 
   Standard_EXPORT TopOpeBRep_PPntOn2S PPntOn2SDummy() const;
 

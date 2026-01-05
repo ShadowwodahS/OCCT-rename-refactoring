@@ -46,9 +46,9 @@ Standard_Real Geom_Curve::Period() const
 
 //=================================================================================================
 
-gp_Pnt Geom_Curve::Value(const Standard_Real U) const
+Point3d Geom_Curve::Value(const Standard_Real U) const
 {
-  gp_Pnt P;
+  Point3d P;
   D0(U, P);
   return P;
 }

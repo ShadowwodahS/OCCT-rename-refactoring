@@ -32,11 +32,11 @@ Prs3d_ToolSector::Prs3d_ToolSector(const Standard_Real    theRadius,
 
 //=================================================================================================
 
-gp_Pnt Prs3d_ToolSector::Vertex(const Standard_Real theU, const Standard_Real theV) const
+Point3d Prs3d_ToolSector::Vertex(const Standard_Real theU, const Standard_Real theV) const
 {
   const Standard_Real aU      = theU * M_PI / 2.0;
   const Standard_Real aRadius = myRadius * theV;
-  return gp_Pnt(Cos(aU) * aRadius, Sin(aU) * aRadius, 0.0);
+  return Point3d(Cos(aU) * aRadius, Sin(aU) * aRadius, 0.0);
 }
 
 //=================================================================================================

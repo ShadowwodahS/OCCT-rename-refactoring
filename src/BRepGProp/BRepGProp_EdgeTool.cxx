@@ -64,14 +64,14 @@ Standard_Integer BRepGProp_EdgeTool::IntegrationOrder(const BRepAdaptor_Curve& B
   }
 }
 
-gp_Pnt BRepGProp_EdgeTool::Value(const BRepAdaptor_Curve& C, const Standard_Real U)
+Point3d BRepGProp_EdgeTool::Value(const BRepAdaptor_Curve& C, const Standard_Real U)
 {
   return C.Value(U);
 }
 
 void BRepGProp_EdgeTool::D1(const BRepAdaptor_Curve& C,
                             const Standard_Real      U,
-                            gp_Pnt&                  P,
+                            Point3d&                  P,
                             gp_Vec&                  V1)
 {
   C.D1(U, P, V1);

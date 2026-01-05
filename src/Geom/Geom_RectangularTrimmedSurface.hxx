@@ -25,7 +25,7 @@
 #include <Standard_Integer.hxx>
 class Geom_Surface;
 class Geom_Curve;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 class gp_Trsf;
 class gp_GTrsf2d;
@@ -239,7 +239,7 @@ public:
   //! Can be raised if the basis surface is an OffsetSurface.
   Standard_EXPORT void D0(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P) const Standard_OVERRIDE;
+                          Point3d&             P) const Standard_OVERRIDE;
 
   //! The returned derivatives have the same orientation as the
   //! derivatives of the basis surface even if the trimmed surface
@@ -247,7 +247,7 @@ public:
   //! Warning!  UndefinedDerivative  raised if the continuity of the surface is not C1.
   Standard_EXPORT void D1(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V) const Standard_OVERRIDE;
 
@@ -257,7 +257,7 @@ public:
   //! Warning! UndefinedDerivative raised if the continuity of the surface is not C2.
   Standard_EXPORT void D2(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V,
                           gp_Vec&             D2U,
@@ -270,7 +270,7 @@ public:
   //! Warning UndefinedDerivative raised if the continuity of the surface is not C3.
   Standard_EXPORT void D3(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V,
                           gp_Vec&             D2U,

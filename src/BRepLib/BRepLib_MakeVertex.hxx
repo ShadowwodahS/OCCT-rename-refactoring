@@ -21,7 +21,7 @@
 #include <Standard_DefineAlloc.hxx>
 
 #include <BRepLib_MakeShape.hxx>
-class gp_Pnt;
+class Point3d;
 class TopoDS_Vertex;
 
 //! Provides methods to build vertices.
@@ -30,7 +30,7 @@ class BRepLib_MakeVertex : public BRepLib_MakeShape
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT BRepLib_MakeVertex(const gp_Pnt& P);
+  Standard_EXPORT BRepLib_MakeVertex(const Point3d& P);
 
   Standard_EXPORT const TopoDS_Vertex& Vertex();
   Standard_EXPORT                      operator TopoDS_Vertex();

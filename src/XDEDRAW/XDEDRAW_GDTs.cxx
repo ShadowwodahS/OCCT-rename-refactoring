@@ -3078,7 +3078,7 @@ static Standard_Integer addGDTPosition(Draw_Interpretor& di,
     return 1;
   }
 
-  gp_Pnt aPoint(Draw::Atof(argv[3]), Draw::Atof(argv[4]), Draw::Atof(argv[5]));
+  Point3d aPoint(Draw::Atof(argv[3]), Draw::Atof(argv[4]), Draw::Atof(argv[5]));
   gp_Dir aNormal(Draw::Atof(argv[6]), Draw::Atof(argv[7]), Draw::Atof(argv[8]));
   gp_Dir aDir(Draw::Atof(argv[9]), Draw::Atof(argv[10]), Draw::Atof(argv[11]));
   gp_Ax2 aPlane(aPoint, aNormal, aDir);
@@ -3136,7 +3136,7 @@ static Standard_Integer getGDTPosition(Draw_Interpretor& di,
     di << "GDT " << argv[2] << " is absent in " << argv[1] << "\n";
     return 1;
   }
-  gp_Pnt aPoint;
+  Point3d aPoint;
   gp_Dir aNormal, aDir;
   // Dimension
   Handle(XCAFDoc_Dimension) aDimension;

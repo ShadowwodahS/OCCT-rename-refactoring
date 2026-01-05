@@ -22,7 +22,7 @@
 
 #include <Standard_Real.hxx>
 #include <Standard_Transient.hxx>
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 
 class GeomFill_Boundary;
@@ -40,9 +40,9 @@ class GeomFill_Boundary : public RefObject
 {
 
 public:
-  Standard_EXPORT virtual gp_Pnt Value(const Standard_Real U) const = 0;
+  Standard_EXPORT virtual Point3d Value(const Standard_Real U) const = 0;
 
-  Standard_EXPORT virtual void D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V) const = 0;
+  Standard_EXPORT virtual void D1(const Standard_Real U, Point3d& P, gp_Vec& V) const = 0;
 
   Standard_EXPORT virtual Standard_Boolean HasNormals() const;
 
@@ -58,7 +58,7 @@ public:
                                              const Standard_Real    DL,
                                              const Standard_Boolean Rev) = 0;
 
-  Standard_EXPORT void Points(gp_Pnt& PFirst, gp_Pnt& PLast) const;
+  Standard_EXPORT void Points(Point3d& PFirst, Point3d& PLast) const;
 
   Standard_EXPORT virtual void Bounds(Standard_Real& First, Standard_Real& Last) const = 0;
 

@@ -34,17 +34,17 @@ void IGESGeom_Point::Init(const gp_XYZ& aPoint, const Handle(IGESBasic_Subfigure
   InitTypeAndForm(116, 0);
 }
 
-gp_Pnt IGESGeom_Point::Value() const
+Point3d IGESGeom_Point::Value() const
 {
-  return gp_Pnt(thePoint);
+  return Point3d(thePoint);
 }
 
-gp_Pnt IGESGeom_Point::TransformedValue() const
+Point3d IGESGeom_Point::TransformedValue() const
 {
   gp_XYZ Val = thePoint;
   if (HasTransf())
     Location().Transforms(Val);
-  gp_Pnt transVal(Val);
+  Point3d transVal(Val);
   return transVal;
 }
 

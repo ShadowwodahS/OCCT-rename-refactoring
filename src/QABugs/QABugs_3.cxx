@@ -84,8 +84,8 @@ static Standard_Integer BUC60632(Draw_Interpretor& di, Standard_Integer /*n*/, c
   }
   myAIScontext->EraseAll(Standard_False);
 
-  TopoDS_Vertex V1 = BRepBuilderAPI_MakeVertex(gp_Pnt(0, 0, 0));
-  TopoDS_Vertex V2 = BRepBuilderAPI_MakeVertex(gp_Pnt(10, 10, 0));
+  TopoDS_Vertex V1 = BRepBuilderAPI_MakeVertex(Point3d(0, 0, 0));
+  TopoDS_Vertex V2 = BRepBuilderAPI_MakeVertex(Point3d(10, 10, 0));
 
   Handle(AIS_Shape) Ve1 = new AIS_Shape(V1);
   Handle(AIS_Shape) Ve2 = new AIS_Shape(V2);
@@ -93,7 +93,7 @@ static Standard_Integer BUC60632(Draw_Interpretor& di, Standard_Integer /*n*/, c
   myAIScontext->Display(Ve1, Standard_False);
   myAIScontext->Display(Ve2, Standard_False);
 
-  Handle(Geom_Plane)             Plane1 = new Geom_Plane(gp_Pnt(0, 0, 0), gp_Dir(0, 0, 1));
+  Handle(Geom_Plane)             Plane1 = new Geom_Plane(Point3d(0, 0, 0), gp_Dir(0, 0, 1));
   TCollection_ExtendedString     Ext1("Dim1");
   Handle(PrsDim_LengthDimension) Dim1 = new PrsDim_LengthDimension(V1, V2, Plane1->Pln());
   Dim1->SetCustomValue(Draw::Atof(a[2]));
@@ -214,11 +214,11 @@ static Standard_Integer BUC60792(Draw_Interpretor& di, Standard_Integer /*argc*/
     return -1;
   }
 
-  gp_Pnt               pt3d(0, 20, 150);
-  gp_Ax2               anAx2(gp_Pnt(0, 0, 0), gp_Dir(1, 0, 0), gp_Dir(0, 0, 1));
+  Point3d               pt3d(0, 20, 150);
+  gp_Ax2               anAx2(Point3d(0, 0, 0), gp_Dir(1, 0, 0), gp_Dir(0, 0, 1));
   gp_Circ              circ(anAx2, 50.0);
   Handle(Geom_Circle)  gcir  = new Geom_Circle(circ);
-  Handle(Geom_Plane)   pln   = new Geom_Plane(gp_Ax3(gp_Pnt(0, 0, 0), gp_Dir(1, 0, 0)));
+  Handle(Geom_Plane)   pln   = new Geom_Plane(gp_Ax3(Point3d(0, 0, 0), gp_Dir(1, 0, 0)));
   Handle(Geom2d_Curve) gcir1 = GeomAPI::To2d(gcir, pln->Pln());
   TopoDS_Shape         sh1   = BRepBuilderAPI_MakeEdge(gcir1, pln).Shape();
   Handle(AIS_Shape)    ais1  = new AIS_Shape(sh1);
@@ -305,15 +305,15 @@ static Standard_Integer BUC60811(Draw_Interpretor& di, Standard_Integer argc, co
   Handle(AIS_Shape)          ais2;
   Handle(Geom_BezierSurface) BZ1;
   TColgp_Array2OfPnt         array1(1, 3, 1, 3);
-  array1.SetValue(1, 1, gp_Pnt(0, 100, 0));
-  array1.SetValue(1, 2, gp_Pnt(200, 100, 0));
-  array1.SetValue(1, 3, gp_Pnt(400, 100, 0));
-  array1.SetValue(2, 1, gp_Pnt(0, 200, 100));
-  array1.SetValue(2, 2, gp_Pnt(200, 200, 100));
-  array1.SetValue(2, 3, gp_Pnt(400, 200, 100));
-  array1.SetValue(3, 1, gp_Pnt(0, 300, 0));
-  array1.SetValue(3, 2, gp_Pnt(200, 300, 0));
-  array1.SetValue(3, 3, gp_Pnt(400, 300, 0));
+  array1.SetValue(1, 1, Point3d(0, 100, 0));
+  array1.SetValue(1, 2, Point3d(200, 100, 0));
+  array1.SetValue(1, 3, Point3d(400, 100, 0));
+  array1.SetValue(2, 1, Point3d(0, 200, 100));
+  array1.SetValue(2, 2, Point3d(200, 200, 100));
+  array1.SetValue(2, 3, Point3d(400, 200, 100));
+  array1.SetValue(3, 1, Point3d(0, 300, 0));
+  array1.SetValue(3, 2, Point3d(200, 300, 0));
+  array1.SetValue(3, 3, Point3d(400, 300, 0));
   BZ1 = new Geom_BezierSurface(array1);
   BRepBuilderAPI_MakeFace bzf1(BZ1, Precision::Confusion());
   TopoDS_Face             F1 = bzf1.Face();
@@ -330,28 +330,28 @@ static Standard_Integer BUC60811(Draw_Interpretor& di, Standard_Integer argc, co
   B.Add(solid, shell);
   gp_Dir                   D(0, 0, 1.0f);
   BRepBuilderAPI_MakeWire  mkw;
-  gp_Pnt                   p1 = gp_Pnt(150., 150.0, 260.);
-  gp_Pnt                   p2 = gp_Pnt(350., 150., 260.);
+  Point3d                   p1 = Point3d(150., 150.0, 260.);
+  Point3d                   p2 = Point3d(350., 150., 260.);
   BRepBuilderAPI_MakeEdge* E1 = new BRepBuilderAPI_MakeEdge(p1, p2);
   mkw.Add(*E1);
-  p1                          = gp_Pnt(350., 150., 260.);
-  p2                          = gp_Pnt(350., 250., 260.);
+  p1                          = Point3d(350., 150., 260.);
+  p2                          = Point3d(350., 250., 260.);
   BRepBuilderAPI_MakeEdge* E2 = new BRepBuilderAPI_MakeEdge(p1, p2);
   mkw.Add(*E2);
-  p1                          = gp_Pnt(350., 250., 260.);
-  p2                          = gp_Pnt(300., 250.0, 260.);
+  p1                          = Point3d(350., 250., 260.);
+  p2                          = Point3d(300., 250.0, 260.);
   BRepBuilderAPI_MakeEdge* E3 = new BRepBuilderAPI_MakeEdge(p1, p2);
   mkw.Add(*E3);
-  p1                          = gp_Pnt(300., 250.0, 260.);
-  p2                          = gp_Pnt(200., 200.0, 260.);
+  p1                          = Point3d(300., 250.0, 260.);
+  p2                          = Point3d(200., 200.0, 260.);
   BRepBuilderAPI_MakeEdge* E4 = new BRepBuilderAPI_MakeEdge(p1, p2);
   mkw.Add(*E4);
-  p1                          = gp_Pnt(200., 200.0, 260.);
-  p2                          = gp_Pnt(150., 200.0, 260.);
+  p1                          = Point3d(200., 200.0, 260.);
+  p2                          = Point3d(150., 200.0, 260.);
   BRepBuilderAPI_MakeEdge* E5 = new BRepBuilderAPI_MakeEdge(p1, p2);
   mkw.Add(*E5);
-  p1                          = gp_Pnt(150., 200.0, 260.);
-  p2                          = gp_Pnt(150., 150.0, 260.);
+  p1                          = Point3d(150., 200.0, 260.);
+  p2                          = Point3d(150., 150.0, 260.);
   BRepBuilderAPI_MakeEdge* E6 = new BRepBuilderAPI_MakeEdge(p1, p2);
   mkw.Add(*E6);
   FP   = BRepBuilderAPI_MakeFace(mkw.Wire());
@@ -453,7 +453,7 @@ static int OCC10006(Draw_Interpretor& di, Standard_Integer argc, const char** ar
   double bottompoints2[12] = {0, 0, 10.00, 100, 0, 10.00, 100, -100, 10.00, 0, -100, 10.00};
   double toppoints2[12]    = {0, 0, 250, 100, 0, 250, 100, -100, 250, 0, -100, 250};
   BRepBuilderAPI_MakePolygon bottompolygon1, toppolygon1, bottompolygon2, toppolygon2;
-  gp_Pnt                     tmppnt;
+  Point3d                     tmppnt;
   for (int i = 0; i < 4; i++)
   {
     tmppnt.SetCoord(bottompoints1[3 * i], bottompoints1[3 * i + 1], bottompoints1[3 * i + 2]);
@@ -506,7 +506,7 @@ static Standard_Integer BUC60856(Draw_Interpretor& di, Standard_Integer /*argc*/
 
   gp_Ax2                                 Cone_Ax;
   double                                 R1 = 8, R2 = 16;
-  gp_Pnt                                 P0(0, 0, 0), P1(0, 0, 20), P2(0, 0, 45);
+  Point3d                                 P0(0, 0, 0), P1(0, 0, 20), P2(0, 0, 45);
   Handle(Geom_RectangularTrimmedSurface) S = GC_MakeTrimmedCone(P1, P2, R1, R2).Value();
   TopoDS_Shape      myshape = BRepBuilderAPI_MakeFace(S, Precision::Confusion()).Shape();
   Handle(AIS_Shape) ais1    = new AIS_Shape(myshape);
@@ -545,7 +545,7 @@ static Standard_Integer coordload(Draw_Interpretor& theDi,
   memset(aLine, 0, 40);
   aFile.getline(aLine, 80);
 
-  gp_Pnt aPnt(0.0, 0.0, 0.0);
+  Point3d aPnt(0.0, 0.0, 0.0);
   aLine[40] = '\0';
   aPnt.SetY(Draw::Atof(&aLine[20]));
   aLine[20] = '\0';
@@ -647,7 +647,7 @@ static int TestCMD(Draw_Interpretor& di, Standard_Integer argc, const char** arg
   Standard_Real z12    = 38.931416;
   Standard_Real radius = 10.0;
 
-  gp_Pnt        base1(x11, y11, z11);
+  Point3d        base1(x11, y11, z11);
   gp_Dir        vect1(x12 - x11, y12 - y11, z12 - z11);
   gp_Ax2        axis1(base1, vect1);
   Standard_Real height1 =
@@ -667,7 +667,7 @@ static int TestCMD(Draw_Interpretor& di, Standard_Integer argc, const char** arg
   Standard_Real radius1 = 6.0;
   Standard_Real radius2 = 3.0;
 
-  gp_Pnt        base2(x21, y21, z21);
+  Point3d        base2(x21, y21, z21);
   gp_Dir        vect2(x22 - x21, y22 - y21, z22 - z21);
   gp_Ax2        axis2(base2, vect2);
   Standard_Real height2 =
@@ -798,17 +798,17 @@ static Standard_Integer BUC60841(Draw_Interpretor& di, Standard_Integer argc, co
     return 1;
   }
 
-  gp_Ax2                   Ax2 = gp_Ax2(gp_Pnt(0, 621, 78), gp_Dir(0, 1, 0));
+  gp_Ax2                   Ax2 = gp_Ax2(Point3d(0, 621, 78), gp_Dir(0, 1, 0));
   BRepPrimAPI_MakeCylinder cyl(Ax2, 260, 150);
-  // BRepPrimAPI_MakeCylinder cyl(gp_Ax2(gp_Pnt(0, 621, 78), gp_Dir(0, 1,0)), 260, 150);
+  // BRepPrimAPI_MakeCylinder cyl(gp_Ax2(Point3d(0, 621, 78), gp_Dir(0, 1,0)), 260, 150);
 
   TopoDS_Shape sh1 = cyl.Shape();
   DBRep::Set("sh1", sh1);
   gp_Trsf trsf1, trsf2;
-  trsf1.SetTranslation(gp_Pnt(0.000000, 700.000000, -170.000000),
-                       gp_Pnt(0.000000, 700.000000, -95.000000));
+  trsf1.SetTranslation(Point3d(0.000000, 700.000000, -170.000000),
+                       Point3d(0.000000, 700.000000, -95.000000));
   trsf2.SetRotation(
-    gp_Ax1(gp_Pnt(0.000000, 700.000000, -170.000000), gp_Dir(0.000000, 0.000000, 1.000000)),
+    gp_Ax1(Point3d(0.000000, 700.000000, -170.000000), gp_Dir(0.000000, 0.000000, 1.000000)),
     0.436111);
   BRepBuilderAPI_Transform trans1(sh1, trsf1);
   TopoDS_Shape             sh2 = trans1.Shape();
@@ -1396,9 +1396,9 @@ static Standard_Integer BUC60951_(Draw_Interpretor& di, Standard_Integer argc, c
   }
   shell.Closed(BRep_Tool::IsClosed(shell));
 
-  BRepPrimAPI_MakeHalfSpace half(shell, gp_Pnt(0, 0, 20));
+  BRepPrimAPI_MakeHalfSpace half(shell, Point3d(0, 0, 20));
   const TopoDS_Solid&       sol = half.Solid();
-  gp_Ax2                    anAx2(gp_Pnt(-800.0, 0.0, 0), gp_Dir(0, 0, -1));
+  gp_Ax2                    anAx2(Point3d(-800.0, 0.0, 0), gp_Dir(0, 0, -1));
   BRepPrimAPI_MakeCylinder  cyl(anAx2, 50, 300);
   TopoDS_Shape              sh = cyl.Shape();
 

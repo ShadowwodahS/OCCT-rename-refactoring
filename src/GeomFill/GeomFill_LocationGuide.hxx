@@ -33,7 +33,7 @@
 class GeomFill_TrihedronWithGuide;
 class GeomFill_SectionLaw;
 class gp_Vec;
-class gp_Pnt;
+class Point3d;
 class Geom_Curve;
 
 class GeomFill_LocationGuide;
@@ -185,7 +185,7 @@ public:
   //! The default implementation is " returns False ".
   Standard_EXPORT virtual Standard_Boolean IsRotation(Standard_Real& Error) const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void Rotation(gp_Pnt& Center) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void Rotation(Point3d& Center) const Standard_OVERRIDE;
 
   Standard_EXPORT Handle(Geom_Curve) Section() const;
 

@@ -24,7 +24,7 @@
 #include <gp_XYZ.hxx>
 #include <TColStd_HArray1OfInteger.hxx>
 #include <IGESData_IGESEntity.hxx>
-class gp_Pnt;
+class Point3d;
 
 class IGESDraw_CircArraySubfigure;
 DEFINE_STANDARD_HANDLE(IGESDraw_CircArraySubfigure, IGESData_IGESEntity)
@@ -68,10 +68,10 @@ public:
   Standard_EXPORT Standard_Integer NbLocations() const;
 
   //! returns the center of the imaginary circle
-  Standard_EXPORT gp_Pnt CenterPoint() const;
+  Standard_EXPORT Point3d CenterPoint() const;
 
   //! returns the Transformed center of the imaginary circle
-  Standard_EXPORT gp_Pnt TransformedCenterPoint() const;
+  Standard_EXPORT Point3d TransformedCenterPoint() const;
 
   //! returns the radius of the imaginary circle
   Standard_EXPORT Standard_Real CircleRadius() const;

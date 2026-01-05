@@ -31,7 +31,7 @@
 #include <TColgp_Array1OfPnt2d.hxx>
 #include <TColgp_Array1OfVec2d.hxx>
 class math_Matrix;
-class gp_Pnt;
+class Point3d;
 class gp_Pnt2d;
 class gp_Vec;
 class gp_Vec2d;
@@ -114,16 +114,16 @@ public:
   Standard_EXPORT virtual Standard_Real GetMinimalDistance() const Standard_OVERRIDE;
 
   //! Returns the point on the first support.
-  Standard_EXPORT const gp_Pnt& Pnt1() const Standard_OVERRIDE;
+  Standard_EXPORT const Point3d& Pnt1() const Standard_OVERRIDE;
 
   //! Returns the point on the seconde support.
-  Standard_EXPORT const gp_Pnt& Pnt2() const Standard_OVERRIDE;
+  Standard_EXPORT const Point3d& Pnt2() const Standard_OVERRIDE;
 
   //! Returns the point on the surface.
-  Standard_EXPORT virtual const gp_Pnt& PointOnS() const = 0;
+  Standard_EXPORT virtual const Point3d& PointOnS() const = 0;
 
   //! Returns the point on the curve.
-  Standard_EXPORT virtual const gp_Pnt& PointOnC() const = 0;
+  Standard_EXPORT virtual const Point3d& PointOnC() const = 0;
 
   //! Returns U,V coordinates of the point on the surface.
   Standard_EXPORT virtual const gp_Pnt2d& Pnt2d() const = 0;

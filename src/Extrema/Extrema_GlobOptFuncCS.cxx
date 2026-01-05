@@ -40,7 +40,7 @@ void Extrema_GlobOptFuncCS::gradient(Standard_Real cu,
                                      Standard_Real sv,
                                      math_Vector&  G)
 {
-  gp_Pnt CD0, SD0;
+  Point3d CD0, SD0;
   gp_Vec CD1, SD1U, SD1V;
 
   myC->D1(cu, CD0, CD1);
@@ -61,7 +61,7 @@ void Extrema_GlobOptFuncCS::hessian(Standard_Real cu,
                                     Standard_Real sv,
                                     math_Matrix&  H)
 {
-  gp_Pnt CD0, SD0;
+  Point3d CD0, SD0;
   gp_Vec CD1, SD1U, SD1V, CD2, SD2UU, SD2UV, SD2VV;
 
   myC->D2(cu, CD0, CD1, CD2);

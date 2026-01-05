@@ -150,7 +150,7 @@ void GeomFill_CircularBlendFunc::Discret()
   Standard_Integer        ii;
   Standard_Real           L1, L2, L;
   Handle(Adaptor3d_Curve) C;
-  gp_Pnt                  P1, P2, P3, Center;
+  Point3d                  P1, P2, P3, Center;
   gp_Vec                  DCenter;
 
   P1 = myCurve1->Value(TFirst);
@@ -263,7 +263,7 @@ Standard_Boolean GeomFill_CircularBlendFunc::D0(const Standard_Real Param,
                                                 TColgp_Array1OfPnt2d&,
                                                 TColStd_Array1OfReal& Weigths)
 {
-  gp_Pnt P1, P2, Center;
+  Point3d P1, P2, Center;
   gp_Vec ns1, ns2, nplan;
   gp_XYZ temp;
 
@@ -317,7 +317,7 @@ Standard_Boolean GeomFill_CircularBlendFunc::D1(
   TColStd_Array1OfReal& Weigths,
   TColStd_Array1OfReal& DWeigths)
 {
-  gp_Pnt        P1, P2, Center;
+  Point3d        P1, P2, Center;
   Standard_Real invnorm1, invnorm2, invnormp;
   //  gp_Vec DCenter, D2Center, nplan, dnplan, DP1, DP2;
   gp_Vec DCenter, nplan, dnplan, DP1, DP2;
@@ -413,7 +413,7 @@ Standard_Boolean GeomFill_CircularBlendFunc::D2(
   TColStd_Array1OfReal& DWeigths,
   TColStd_Array1OfReal& D2Weigths)
 {
-  gp_Pnt        P1, P2, Center;
+  Point3d        P1, P2, Center;
   Standard_Real invnorm1, invnorm2, invnormp, sc;
   gp_Vec        DCenter, D2Center, DP1, DP2, D2P1, D2P2;
   gp_Vec        nplan, dnplan, d2nplan;
@@ -650,7 +650,7 @@ void GeomFill_CircularBlendFunc::SetTolerance(const Standard_Real, const Standar
   // y rien a faire !
 }
 
-gp_Pnt GeomFill_CircularBlendFunc::BarycentreOfSurf() const
+Point3d GeomFill_CircularBlendFunc::BarycentreOfSurf() const
 {
   return myBary;
 }

@@ -20,7 +20,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_TransformPers, RefObject)
 void Graphic3d_TransformPers::PersParams3d::DumpJson(Standard_OStream& theOStream,
                                                      Standard_Integer  theDepth) const
 {
-  gp_Pnt anAttachPoint(PntX, PntY, PntZ);
+  Point3d anAttachPoint(PntX, PntY, PntZ);
   OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, &anAttachPoint)
 }
 

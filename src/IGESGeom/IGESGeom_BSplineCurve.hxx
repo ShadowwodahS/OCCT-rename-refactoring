@@ -25,7 +25,7 @@
 #include <TColgp_HArray1OfXYZ.hxx>
 #include <gp_XYZ.hxx>
 #include <IGESData_IGESEntity.hxx>
-class gp_Pnt;
+class Point3d;
 
 class IGESGeom_BSplineCurve;
 DEFINE_STANDARD_HANDLE(IGESGeom_BSplineCurve, IGESData_IGESEntity)
@@ -113,11 +113,11 @@ public:
 
   //! returns the pole referred to by anIndex, in [0,UpperIndex]
   //! raises exception if anIndex < 0 or anIndex > UpperIndex()
-  Standard_EXPORT gp_Pnt Pole(const Standard_Integer anIndex) const;
+  Standard_EXPORT Point3d Pole(const Standard_Integer anIndex) const;
 
   //! returns the anIndex'th pole after applying Transf. Matrix
   //! raises exception if an Index < 0 or an Index > UpperIndex()
-  Standard_EXPORT gp_Pnt TransformedPole(const Standard_Integer anIndex) const;
+  Standard_EXPORT Point3d TransformedPole(const Standard_Integer anIndex) const;
 
   //! returns starting parameter value
   Standard_EXPORT Standard_Real UMin() const;

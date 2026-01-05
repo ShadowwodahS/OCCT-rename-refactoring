@@ -63,7 +63,7 @@ public:
   const TopoDS_Shape& Shape() const Standard_OVERRIDE { return myVertex; }
 
   //! Return current vertex data.
-  const gp_Pnt& Point() const { return myPoint; }
+  const Point3d& Point() const { return myPoint; }
 
   //! Return true if geometry data is defined.
   bool IsEmpty() const Standard_OVERRIDE { return myVertex.IsNull(); }
@@ -87,7 +87,7 @@ public:
 
 public:
   //! Return the node with specified index with applied transformation.
-  gp_Pnt node(const Standard_Integer /*theNode*/) const Standard_OVERRIDE { return myPoint; }
+  Point3d node(const Standard_Integer /*theNode*/) const Standard_OVERRIDE { return myPoint; }
 
 private:
   //! Reset information for current vertex.
@@ -102,7 +102,7 @@ private:
 
 private:
   TopoDS_Vertex myVertex; //!< current vertex
-  gp_Pnt        myPoint;  //!< geometry of current vertex
+  Point3d        myPoint;  //!< geometry of current vertex
 };
 
 #endif // _RWMesh_VertexIterator_HeaderFile

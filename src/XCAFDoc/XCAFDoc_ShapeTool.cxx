@@ -585,7 +585,7 @@ static Standard_Boolean prepareAssembly(const TopoDS_Shape& theShape, TopoDS_Sha
       {
         // create an "empty" location
         gp_Trsf aTrsf;
-        aTrsf.SetScale(gp_Pnt(0, 0, 0), 1);
+        aTrsf.SetScale(Point3d(0, 0, 0), 1);
         aLoc = TopLoc_Location(aTrsf);
         aNewScomp.Location(aLoc, Standard_False);
       }

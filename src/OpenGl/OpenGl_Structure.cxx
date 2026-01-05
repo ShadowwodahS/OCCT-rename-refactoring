@@ -506,7 +506,7 @@ void OpenGl_Structure::Render(const Handle(OpenGl_Workspace)& theWorkspace) cons
         // into local space of transformation persistence object.
         // As more simple alternative - just clip entire object by its anchor point defined in the
         // world space.
-        const gp_Pnt anAnchor = myTrsfPers->AnchorPoint();
+        const Point3d anAnchor = myTrsfPers->AnchorPoint();
         for (OpenGl_ClippingIterator aPlaneIt(aCtx->Clipping());
              aPlaneIt.More() && aPlaneIt.IsGlobal();
              aPlaneIt.Next())
@@ -672,7 +672,7 @@ void OpenGl_Structure::applyPersistence(const Handle(OpenGl_Context)&          t
     // move anchor point to presentation location
     theCtx->ModelWorldState.Push();
     OpenGl_Mat4&   aModelWorld   = theCtx->ModelWorldState.ChangeCurrent();
-    gp_Pnt         aStartPnt     = theTrsfPers->AnchorPoint();
+    Point3d         aStartPnt     = theTrsfPers->AnchorPoint();
     Graphic3d_Vec4 anAnchorPoint = aModelWorld
                                    * Graphic3d_Vec4((Standard_ShortReal)aStartPnt.X(),
                                                     (Standard_ShortReal)aStartPnt.Y(),

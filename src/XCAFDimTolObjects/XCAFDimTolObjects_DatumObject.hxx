@@ -135,24 +135,24 @@ public:
   const gp_Ax2& GetPlane() const { return myPlane; }
 
   //! Sets a point on the datum target shape.
-  void SetPoint(const gp_Pnt& thePnt)
+  void SetPoint(const Point3d& thePnt)
   {
     myPnt    = thePnt;
     myHasPnt = Standard_True;
   }
 
   //! Gets point on the datum shape.
-  const gp_Pnt& GetPoint() const { return myPnt; }
+  const Point3d& GetPoint() const { return myPnt; }
 
   //! Sets a position of the datum text.
-  void SetPointTextAttach(const gp_Pnt& thePntText)
+  void SetPointTextAttach(const Point3d& thePntText)
   {
     myPntText    = thePntText;
     myHasPntText = Standard_True;
   }
 
   //! Gets datum text position.
-  const gp_Pnt& GetPointTextAttach() const { return myPntText; }
+  const Point3d& GetPointTextAttach() const { return myPntText; }
 
   //! Returns True if the datum has annotation plane.
   Standard_Boolean HasPlane() const { return myHasPlane; }
@@ -201,8 +201,8 @@ private:
   Standard_Integer                         myDatumTargetNumber;
   gp_Ax2                                   myAxis;
   gp_Ax2                                   myPlane;
-  gp_Pnt                                   myPnt;
-  gp_Pnt                                   myPntText;
+  Point3d                                   myPnt;
+  Point3d                                   myPntText;
   Standard_Boolean                         myHasPlane;
   Standard_Boolean                         myHasPnt;
   Standard_Boolean                         myHasPntText;

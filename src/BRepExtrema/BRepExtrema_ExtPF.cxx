@@ -68,7 +68,7 @@ void BRepExtrema_ExtPF::Perform(const TopoDS_Vertex& TheVertex, const TopoDS_Fac
   mySqDist.Clear();
   myPoints.Clear();
 
-  const gp_Pnt P = BRep_Tool::Pnt(TheVertex);
+  const Point3d P = BRep_Tool::Pnt(TheVertex);
   if (mySurf.GetType() == GeomAbs_OtherSurface)
     return; // protect against non-geometric type (e.g. triangulation)
 

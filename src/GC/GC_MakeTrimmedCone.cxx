@@ -30,10 +30,10 @@
 //   The third gives the base radius.                              +
 //   the third and the fourth demi-angle.                          +
 //=========================================================================
-GC_MakeTrimmedCone::GC_MakeTrimmedCone(const gp_Pnt& P1,
-                                       const gp_Pnt& P2,
-                                       const gp_Pnt& P3,
-                                       const gp_Pnt& P4)
+GC_MakeTrimmedCone::GC_MakeTrimmedCone(const Point3d& P1,
+                                       const Point3d& P2,
+                                       const Point3d& P3,
+                                       const Point3d& P4)
 {
   GC_MakeConicalSurface Cone(P1, P2, P3, P4);
   TheError = Cone.Status();
@@ -43,8 +43,8 @@ GC_MakeTrimmedCone::GC_MakeTrimmedCone(const gp_Pnt& P1,
     gp_Lin          L1(P1, D1);
     Extrema_ExtPElC ext1(P3, L1, 1.0e-7, -2.0e+100, +2.0e+100);
     Extrema_ExtPElC ext2(P4, L1, 1.0e-7, -2.0e+100, +2.0e+100);
-    gp_Pnt          P5 = ext1.Point(1).Value();
-    gp_Pnt          P6 = ext2.Point(1).Value();
+    Point3d          P5 = ext1.Point(1).Value();
+    Point3d          P6 = ext2.Point(1).Value();
     Standard_Real   D  = P6.Distance(P5) / cos((Cone.Value())->SemiAngle());
     TheCone            = new Geom_RectangularTrimmedSurface(Cone.Value(),
                                                  0.,
@@ -59,8 +59,8 @@ GC_MakeTrimmedCone::GC_MakeTrimmedCone(const gp_Pnt& P1,
 //=========================================================================
 //=========================================================================
 
-GC_MakeTrimmedCone::GC_MakeTrimmedCone(const gp_Pnt&       P1,
-                                       const gp_Pnt&       P2,
+GC_MakeTrimmedCone::GC_MakeTrimmedCone(const Point3d&       P1,
+                                       const Point3d&       P2,
                                        const Standard_Real R1,
                                        const Standard_Real R2)
 {

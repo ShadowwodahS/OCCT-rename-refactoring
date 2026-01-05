@@ -168,16 +168,16 @@ Standard_Real BiTgte_CurveOnEdge::Period() const
 
 //=================================================================================================
 
-gp_Pnt BiTgte_CurveOnEdge::Value(const Standard_Real U) const
+Point3d BiTgte_CurveOnEdge::Value(const Standard_Real U) const
 {
-  gp_Pnt P;
+  Point3d P;
   D0(U, P);
   return P;
 }
 
 //=================================================================================================
 
-void BiTgte_CurveOnEdge::D0(const Standard_Real U, gp_Pnt& P) const
+void BiTgte_CurveOnEdge::D0(const Standard_Real U, Point3d& P) const
 {
   GeomAPI_ProjectPointOnCurve Projector;
   P = myConF->Value(U);
@@ -187,21 +187,21 @@ void BiTgte_CurveOnEdge::D0(const Standard_Real U, gp_Pnt& P) const
 
 //=================================================================================================
 
-void BiTgte_CurveOnEdge::D1(const Standard_Real, gp_Pnt&, gp_Vec&) const
+void BiTgte_CurveOnEdge::D1(const Standard_Real, Point3d&, gp_Vec&) const
 {
   throw Standard_NotImplemented("BiTgte_CurveOnEdge");
 }
 
 //=================================================================================================
 
-void BiTgte_CurveOnEdge::D2(const Standard_Real, gp_Pnt&, gp_Vec&, gp_Vec&) const
+void BiTgte_CurveOnEdge::D2(const Standard_Real, Point3d&, gp_Vec&, gp_Vec&) const
 {
   throw Standard_NotImplemented("BiTgte_CurveOnEdge");
 }
 
 //=================================================================================================
 
-void BiTgte_CurveOnEdge::D3(const Standard_Real, gp_Pnt&, gp_Vec&, gp_Vec&, gp_Vec&) const
+void BiTgte_CurveOnEdge::D3(const Standard_Real, Point3d&, gp_Vec&, gp_Vec&, gp_Vec&) const
 {
   throw Standard_NotImplemented("BiTgte_CurveOnEdge");
 }

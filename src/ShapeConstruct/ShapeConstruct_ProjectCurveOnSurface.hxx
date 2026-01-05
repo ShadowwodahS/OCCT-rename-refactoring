@@ -156,7 +156,7 @@ protected:
   Standard_Integer              myStatus;
   Standard_Integer              myAdjustOverDegen;
   Standard_Integer              myNbCashe;
-  gp_Pnt                        myCashe3d[2];
+  Point3d                        myCashe3d[2];
   gp_Pnt2d                      myCashe2d[2];
 
 private:

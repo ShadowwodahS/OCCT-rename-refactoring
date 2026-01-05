@@ -60,13 +60,13 @@ private:
 
   Standard_EXPORT void ComputePointsOnLine(const gp_Lin& aLin, const Standard_Boolean first);
 
-  Standard_EXPORT void ComputePointsOnLine(const gp_Pnt&          pnt1,
-                                           const gp_Pnt&          pnt2,
+  Standard_EXPORT void ComputePointsOnLine(const Point3d&          pnt1,
+                                           const Point3d&          pnt2,
                                            const Standard_Boolean first);
 
   Standard_EXPORT void ComputePointsOnCirc(const gp_Circ&         aCirc,
-                                           const gp_Pnt&          pnt1,
-                                           const gp_Pnt&          pnt2,
+                                           const Point3d&          pnt1,
+                                           const Point3d&          pnt2,
                                            const Standard_Boolean first);
 
   //! ComputePointsOn... methods set myFAttach, myFirstPnt and myLastPnt
@@ -82,19 +82,19 @@ private:
   //! \   arc  /          . myMidPoint
   //! .______. myFirstPnt
   Standard_EXPORT void ComputePointsOnElips(const gp_Elips&        anEll,
-                                            const gp_Pnt&          pnt1,
-                                            const gp_Pnt&          pnt2,
+                                            const Point3d&          pnt1,
+                                            const Point3d&          pnt2,
                                             const Standard_Boolean first);
 
 private:
   TopoDS_Shape myTool;
-  gp_Pnt       myMidPoint;
-  gp_Pnt       myFAttach;
-  gp_Pnt       myFirstPnt1;
-  gp_Pnt       myFirstPnt2;
-  gp_Pnt       mySAttach;
-  gp_Pnt       mySecondPnt1;
-  gp_Pnt       mySecondPnt2;
+  Point3d       myMidPoint;
+  Point3d       myFAttach;
+  Point3d       myFirstPnt1;
+  Point3d       myFirstPnt2;
+  Point3d       mySAttach;
+  Point3d       mySecondPnt1;
+  Point3d       mySecondPnt2;
 };
 
 #endif // _AIS_MidPointRelation_HeaderFile

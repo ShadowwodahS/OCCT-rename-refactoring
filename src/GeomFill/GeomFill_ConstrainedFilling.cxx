@@ -123,8 +123,8 @@ static void sortbounds(const Standard_Integer     nb,
   Standard_Integer          i, j;
   Handle(GeomFill_Boundary) temp;
   rev[0] = 0;
-  gp_Pnt pf, pl;
-  gp_Pnt qf, ql;
+  Point3d pf, pl;
+  Point3d qf, ql;
   for (i = 0; i < nb - 1; i++)
   {
     if (!rev[i])
@@ -171,7 +171,7 @@ static void sortbounds(const Standard_Integer     nb,
 
   // flaguer les angles entre tangentes au coins et entre les normales au
   // coins pour les bords contraints.
-  gp_Pnt        pbid;
+  Point3d        pbid;
   gp_Vec        tgi, nori, tgn, norn;
   Standard_Real fi, fn, li, ln;
   for (i = 0; i < nb; i++)
@@ -235,7 +235,7 @@ static void coonscnd(const Standard_Integer     nb,
         Standard_Real fact = 0.5 * 27. / 4;
         tolang *= (Min(mintg[ip], mintg[i]) * fact * fact_normalization);
         gp_Vec        tgp, dnorp, tgi, dnori, vbid;
-        gp_Pnt        pbid;
+        Point3d        pbid;
         Standard_Real fp, lp, fi, li;
         if (!rev[ip])
           bound[ip]->Bounds(fp, lp);
@@ -405,9 +405,9 @@ void GeomFill_ConstrainedFilling::Init(const Handle(GeomFill_Boundary)& B1,
   // On cree le carreau algorithmique (u,(1-u)) et les champs tangents
   // 1er jus.
   // On cree donc le bord manquant.
-  gp_Pnt                            p1 = bound[1]->Value(1.);
-  gp_Pnt                            p2 = bound[2]->Value(1.);
-  gp_Pnt                            ppp(0.5 * (p1.XYZ() + p2.XYZ()));
+  Point3d                            p1 = bound[1]->Value(1.);
+  Point3d                            p2 = bound[2]->Value(1.);
+  Point3d                            ppp(0.5 * (p1.XYZ() + p2.XYZ()));
   Standard_Real                     t3 = Max(bound[1]->Tol3d(), bound[2]->Tol3d());
   Handle(GeomFill_DegeneratedBound) DB = new GeomFill_DegeneratedBound(ppp, 0., 1., t3, 10.);
 
@@ -695,7 +695,7 @@ void GeomFill_ConstrainedFilling::PerformApprox()
       }
       else
       {
-        gp_Pnt ppp = ptch->Bound(ibound[ii])->Value(0.5 * (f + l));
+        Point3d ppp = ptch->Bound(ibound[ii])->Value(0.5 * (f + l));
         for (Standard_Integer ij = 1; ij <= nbpol; ij++)
         {
           cp(ij) = ppp;
@@ -1333,7 +1333,7 @@ Standard_Boolean GeomFill_ConstrainedFilling::CheckTgte(const Standard_Integer I
   for (Standard_Integer iu = 0; iu < 13; iu++)
   {
     Standard_Real uu = iu * ll;
-    gp_Pnt        pbid;
+    Point3d        pbid;
     gp_Vec        tgte;
     bou->D1(uu, pbid, tgte);
     gp_Vec norm   = bou->Norm(uu);
@@ -1398,7 +1398,7 @@ Standard_Integer GeomFill_ConstrainedFilling::Eval(const Standard_Real    W,
       }
       break;
     case 1:
-      gp_Pnt pt;
+      Point3d pt;
       gp_Vec vt;
       if (ctr[0])
       {
@@ -1460,7 +1460,7 @@ void GeomFill_ConstrainedFilling::CheckCoonsAlgPatch(const Standard_Integer I)
       enu       = Standard_True;
       break;
   }
-  gp_Pnt                    pbound;
+  Point3d                    pbound;
   gp_Vec                    vptch;
   Handle(GeomFill_Boundary) bou = ptch->Bound(I);
   for (Standard_Integer k = 0; k <= nbp; k++)
@@ -1471,7 +1471,7 @@ void GeomFill_ConstrainedFilling::CheckCoonsAlgPatch(const Standard_Integer I)
     else
       vptch = ptch->D1V(uu, vv);
 #ifdef DRAW
-    gp_Pnt                 pp;
+    Point3d                 pp;
     Handle(Draw_Segment3D) seg;
     pp  = pbound.Translated(vptch);
     seg = new Draw_Segment3D(pbound, pp, Draw_jaune);
@@ -1490,9 +1490,9 @@ void GeomFill_ConstrainedFilling::CheckTgteField(const Standard_Integer I)
   if (tgalg[I].IsNull())
     return;
 #ifdef DRAW
-  gp_Pnt p1, p2;
+  Point3d p1, p2;
 #else
-  gp_Pnt p1;
+  Point3d p1;
 #endif
   gp_Vec                    d1;
   Standard_Boolean          caplisse = 0;
@@ -1545,7 +1545,7 @@ void GeomFill_ConstrainedFilling::CheckApprox(const Standard_Integer I)
   Standard_Boolean          donor  = !tgalg[I].IsNull();
   Standard_Integer          nbp    = 30;
   Standard_Real             maxang = 0., maxdist = 0.;
-  gp_Pnt                    pbound, papp, pbid;
+  Point3d                    pbound, papp, pbid;
   gp_Vec                    vbound, vapp;
   Handle(GeomFill_Boundary) bou = ptch->Bound(I);
   for (Standard_Integer iu = 0; iu <= nbp; iu++)
@@ -1583,7 +1583,7 @@ void GeomFill_ConstrainedFilling::CheckApprox(const Standard_Integer I)
       }
 #ifdef DRAW
       Handle(Draw_Segment3D) seg;
-      gp_Pnt                 pp;
+      Point3d                 pp;
       pp  = pbound.Translated(vbound);
       seg = new Draw_Segment3D(pbound, pp, Draw_blanc);
       dout << seg;
@@ -1639,7 +1639,7 @@ void GeomFill_ConstrainedFilling::CheckResult(const Standard_Integer I)
       duu       = 0.;
       break;
   }
-  gp_Pnt pbound[31], pres[31];
+  Point3d pbound[31], pres[31];
   gp_Vec vbound[31], vres[31];
 #ifdef DRAW
   Standard_Real    ang[31];
@@ -1693,7 +1693,7 @@ void GeomFill_ConstrainedFilling::CheckResult(const Standard_Integer I)
   {
     if (hasang[k])
     {
-      gp_Pnt                 pp;
+      Point3d                 pp;
       Handle(Draw_Segment3D) seg;
       vbound[k].Normalize();
       if (scale)

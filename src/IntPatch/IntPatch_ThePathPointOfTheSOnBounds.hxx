@@ -22,7 +22,7 @@
 
 class Adaptor3d_HVertex;
 class Standard_DomainError;
-class gp_Pnt;
+class Point3d;
 
 class IntPatch_ThePathPointOfTheSOnBounds
 {
@@ -31,29 +31,29 @@ public:
 
   Standard_EXPORT IntPatch_ThePathPointOfTheSOnBounds();
 
-  Standard_EXPORT IntPatch_ThePathPointOfTheSOnBounds(const gp_Pnt&                    P,
+  Standard_EXPORT IntPatch_ThePathPointOfTheSOnBounds(const Point3d&                    P,
                                                       const Standard_Real              Tol,
                                                       const Handle(Adaptor3d_HVertex)& V,
                                                       const Handle(Adaptor2d_Curve2d)& A,
                                                       const Standard_Real              Parameter);
 
-  Standard_EXPORT IntPatch_ThePathPointOfTheSOnBounds(const gp_Pnt&                    P,
+  Standard_EXPORT IntPatch_ThePathPointOfTheSOnBounds(const Point3d&                    P,
                                                       const Standard_Real              Tol,
                                                       const Handle(Adaptor2d_Curve2d)& A,
                                                       const Standard_Real              Parameter);
 
-  void SetValue(const gp_Pnt&                    P,
+  void SetValue(const Point3d&                    P,
                 const Standard_Real              Tol,
                 const Handle(Adaptor3d_HVertex)& V,
                 const Handle(Adaptor2d_Curve2d)& A,
                 const Standard_Real              Parameter);
 
-  void SetValue(const gp_Pnt&                    P,
+  void SetValue(const Point3d&                    P,
                 const Standard_Real              Tol,
                 const Handle(Adaptor2d_Curve2d)& A,
                 const Standard_Real              Parameter);
 
-  const gp_Pnt& Value() const;
+  const Point3d& Value() const;
 
   Standard_Real Tolerance() const;
 
@@ -67,7 +67,7 @@ public:
 
 protected:
 private:
-  gp_Pnt                    point;
+  Point3d                    point;
   Standard_Real             tol;
   Standard_Boolean          isnew;
   Handle(Adaptor3d_HVertex) vtx;

@@ -147,7 +147,7 @@ static void BCSmoothing(Handle(Geom_BSplineCurve)& theC,
 }
 
 static void MakeClosedCurve(Handle(Geom_Curve)& C,
-                            const gp_Pnt&       PF,
+                            const Point3d&       PF,
                             Standard_Real&      f,
                             Standard_Real&      l)
 {
@@ -164,7 +164,7 @@ static void MakeClosedCurve(Handle(Geom_Curve)& C,
   Standard_Real dmin = 1.e100, pmin = f;
   for (k = fk; k <= lk; k++)
   {
-    gp_Pnt        aP = aBC->Value(aBC->Knot(k));
+    Point3d        aP = aBC->Value(aBC->Knot(k));
     Standard_Real d  = PF.SquareDistance(aP);
     if (PF.SquareDistance(aP) > eps)
     {
@@ -489,13 +489,13 @@ void BRepLib_FuseEdges::BuildListResultEdges()
         // closed edge
         f          = C->FirstParameter();
         l          = C->LastParameter();
-        gp_Pnt aPf = C->Value(f);
-        gp_Pnt aPl = C->Value(l);
+        Point3d aPf = C->Value(f);
+        Point3d aPl = C->Value(l);
         if (aPf.Distance(aPl) > Precision::Confusion())
         {
           throw Standard_ConstructionError("FuseEdges : Curve must be closed");
         }
-        gp_Pnt PF = BRep_Tool::Pnt(VF);
+        Point3d PF = BRep_Tool::Pnt(VF);
         if (PF.Distance(aPf) > Precision::Confusion())
         {
           MakeClosedCurve(C, PF, f, l);
@@ -522,8 +522,8 @@ void BRepLib_FuseEdges::BuildListResultEdges()
         Handle(Geom_BoundedCurve) ExtC = Handle(Geom_BoundedCurve)::DownCast(C->Copy());
         if (!ExtC.IsNull())
         {
-          gp_Pnt PF = BRep_Tool::Pnt(VF);
-          gp_Pnt PL = BRep_Tool::Pnt(VL);
+          Point3d PF = BRep_Tool::Pnt(VF);
+          Point3d PL = BRep_Tool::Pnt(VL);
           GeomLib::ExtendCurveToPoint(ExtC, PF, 1, 0);
           GeomLib::ExtendCurveToPoint(ExtC, PL, 1, 1);
 
@@ -837,10 +837,10 @@ Standard_Boolean BRepLib_FuseEdges::SameSupport(const TopoDS_Edge& E1, const Top
     {
       // on verifie que l'on n'a pas de cas degenere. Par exemple E1 et E2 connexes
       // mais bouclant l'un sur l'autre (cas tres rare)
-      gp_Pnt pf1 = BRep_Tool::Pnt(TopExp::FirstVertex(E1, Standard_True));
-      gp_Pnt pl1 = BRep_Tool::Pnt(TopExp::LastVertex(E1, Standard_True));
-      gp_Pnt pf2 = BRep_Tool::Pnt(TopExp::FirstVertex(E2, Standard_True));
-      gp_Pnt pl2 = BRep_Tool::Pnt(TopExp::LastVertex(E2, Standard_True));
+      Point3d pf1 = BRep_Tool::Pnt(TopExp::FirstVertex(E1, Standard_True));
+      Point3d pl1 = BRep_Tool::Pnt(TopExp::LastVertex(E1, Standard_True));
+      Point3d pf2 = BRep_Tool::Pnt(TopExp::FirstVertex(E2, Standard_True));
+      Point3d pl2 = BRep_Tool::Pnt(TopExp::LastVertex(E2, Standard_True));
       if (pl1.Distance(pf2) < tollin && pl2.Distance(pf1) < tollin)
         return Standard_False;
       else
@@ -882,7 +882,7 @@ Standard_Boolean BRepLib_FuseEdges::SameSupport(const TopoDS_Edge& E1, const Top
     if (myConcatBSpl)
     {
       // Check G1 continuity
-      gp_Pnt aPf1, aPl1, aPf2, aPl2;
+      Point3d aPf1, aPl1, aPf2, aPl2;
       gp_Vec aDf1, aDl1, aDf2, aDl2;
 
       C1->D1(f1, aPf1, aDf1);

@@ -856,7 +856,7 @@ Handle(StepVisual_Colour) STEPConstruct_Styles::EncodeColor(
   else
   {
     Handle(StepVisual_ColourRgb) ColRGB;
-    gp_Pnt                       P;
+    Point3d                       P;
     C.Values(P.ChangeCoord().ChangeData()[0],
              P.ChangeCoord().ChangeData()[1],
              P.ChangeCoord().ChangeData()[2],

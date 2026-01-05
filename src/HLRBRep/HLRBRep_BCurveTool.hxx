@@ -34,7 +34,7 @@
 #include <gp_Parab.hxx>
 #include <TColgp_Array1OfPnt.hxx>
 class BRepAdaptor_Curve;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 class Geom_BezierCurve;
 class Geom_BSplineCurve;
@@ -68,16 +68,16 @@ public:
   static Standard_Real Period(const BRepAdaptor_Curve& C);
 
   //! Computes the point of parameter U on the curve.
-  static gp_Pnt Value(const BRepAdaptor_Curve& C, const Standard_Real U);
+  static Point3d Value(const BRepAdaptor_Curve& C, const Standard_Real U);
 
   //! Computes the point of parameter U on the curve.
-  static void D0(const BRepAdaptor_Curve& C, const Standard_Real U, gp_Pnt& P);
+  static void D0(const BRepAdaptor_Curve& C, const Standard_Real U, Point3d& P);
 
   //! Computes the point of parameter U on the curve with its
   //! first derivative.
   //! Raised if the continuity of the current interval
   //! is not C1.
-  static void D1(const BRepAdaptor_Curve& C, const Standard_Real U, gp_Pnt& P, gp_Vec& V);
+  static void D1(const BRepAdaptor_Curve& C, const Standard_Real U, Point3d& P, gp_Vec& V);
 
   //! Returns the point P of parameter U, the first and second
   //! derivatives V1 and V2.
@@ -85,7 +85,7 @@ public:
   //! is not C2.
   static void D2(const BRepAdaptor_Curve& C,
                  const Standard_Real      U,
-                 gp_Pnt&                  P,
+                 Point3d&                  P,
                  gp_Vec&                  V1,
                  gp_Vec&                  V2);
 
@@ -95,7 +95,7 @@ public:
   //! is not C3.
   static void D3(const BRepAdaptor_Curve& C,
                  const Standard_Real      U,
-                 gp_Pnt&                  P,
+                 Point3d&                  P,
                  gp_Vec&                  V1,
                  gp_Vec&                  V2,
                  gp_Vec&                  V3);

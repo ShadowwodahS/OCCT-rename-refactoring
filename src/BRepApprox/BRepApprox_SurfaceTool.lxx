@@ -120,7 +120,7 @@ inline Standard_Real BRepApprox_SurfaceTool::VPeriod(const BRepAdaptor_Surface& 
   return S.VPeriod();
 }
 
-inline gp_Pnt BRepApprox_SurfaceTool::Value(const BRepAdaptor_Surface& S,
+inline Point3d BRepApprox_SurfaceTool::Value(const BRepAdaptor_Surface& S,
                                             const Standard_Real        U,
                                             const Standard_Real        V)
 {
@@ -130,7 +130,7 @@ inline gp_Pnt BRepApprox_SurfaceTool::Value(const BRepAdaptor_Surface& S,
 inline void BRepApprox_SurfaceTool::D0(const BRepAdaptor_Surface& S,
                                        const Standard_Real        U,
                                        const Standard_Real        V,
-                                       gp_Pnt&                    P)
+                                       Point3d&                    P)
 {
   S.D0(U, V, P);
 }
@@ -138,7 +138,7 @@ inline void BRepApprox_SurfaceTool::D0(const BRepAdaptor_Surface& S,
 inline void BRepApprox_SurfaceTool::D1(const BRepAdaptor_Surface& S,
                                        const Standard_Real        U,
                                        const Standard_Real        V,
-                                       gp_Pnt&                    P,
+                                       Point3d&                    P,
                                        gp_Vec&                    D1U,
                                        gp_Vec&                    D1V)
 {
@@ -148,7 +148,7 @@ inline void BRepApprox_SurfaceTool::D1(const BRepAdaptor_Surface& S,
 inline void BRepApprox_SurfaceTool::D2(const BRepAdaptor_Surface& S,
                                        const Standard_Real        U,
                                        const Standard_Real        V,
-                                       gp_Pnt&                    P,
+                                       Point3d&                    P,
                                        gp_Vec&                    D1U,
                                        gp_Vec&                    D1V,
                                        gp_Vec&                    D2U,
@@ -161,7 +161,7 @@ inline void BRepApprox_SurfaceTool::D2(const BRepAdaptor_Surface& S,
 inline void BRepApprox_SurfaceTool::D3(const BRepAdaptor_Surface& S,
                                        const Standard_Real        U,
                                        const Standard_Real        V,
-                                       gp_Pnt&                    P,
+                                       Point3d&                    P,
                                        gp_Vec&                    D1U,
                                        gp_Vec&                    D1V,
                                        gp_Vec&                    D2U,

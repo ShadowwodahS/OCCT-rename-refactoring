@@ -19,7 +19,7 @@
 #include <gp_Pnt.hxx>
 #include <gp_Vec.hxx>
 
-GeomFill_PlanFunc::GeomFill_PlanFunc(const gp_Pnt&                  theP,
+GeomFill_PlanFunc::GeomFill_PlanFunc(const Point3d&                  theP,
                                      const gp_Vec&                  theV,
                                      const Handle(Adaptor3d_Curve)& theC)
     : myCurve(theC)

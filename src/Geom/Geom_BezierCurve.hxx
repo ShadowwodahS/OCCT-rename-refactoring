@@ -27,7 +27,7 @@
 #include <GeomAbs_Shape.hxx>
 #include <BSplCLib.hxx>
 
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 class gp_Trsf;
 class Geom_Geometry;
@@ -41,7 +41,7 @@ DEFINE_STANDARD_HANDLE(Geom_BezierCurve, Geom_BoundedCurve)
 //! - a rational Bezier curve is defined by a table of
 //! poles with varying weights.
 //! These data are manipulated by two parallel arrays:
-//! - the poles table, which is an array of gp_Pnt points, and
+//! - the poles table, which is an array of Point3d points, and
 //! - the weights table, which is an array of reals.
 //! The bounds of these arrays are 1 and "the number of "poles" of the curve.
 //! The poles of the curve are "control points" used to deform the curve.
@@ -117,7 +117,7 @@ public:
   //!
   //! raised if the resulting number of poles is greater than
   //! MaxDegree + 1.
-  Standard_EXPORT void InsertPoleAfter(const Standard_Integer Index, const gp_Pnt& P);
+  Standard_EXPORT void InsertPoleAfter(const Standard_Integer Index, const Point3d& P);
 
   //! Inserts a pole with its weight in the set of poles after the
   //! pole of range Index. If the curve was non rational it can
@@ -128,7 +128,7 @@ public:
   //! MaxDegree + 1.
   //! Raised if Weight is lower or equal to Resolution from package gp.
   Standard_EXPORT void InsertPoleAfter(const Standard_Integer Index,
-                                       const gp_Pnt&          P,
+                                       const Point3d&          P,
                                        const Standard_Real    Weight);
 
   //! Inserts a pole P before the pole of range Index.
@@ -138,7 +138,7 @@ public:
   //!
   //! Raised if the resulting number of poles is greater than
   //! MaxDegree + 1.
-  Standard_EXPORT void InsertPoleBefore(const Standard_Integer Index, const gp_Pnt& P);
+  Standard_EXPORT void InsertPoleBefore(const Standard_Integer Index, const Point3d& P);
 
   //! Inserts a pole with its weight in the set of poles after
   //! the pole of range Index. If the curve was non rational it
@@ -150,7 +150,7 @@ public:
   //! Raised if Weight is lower or equal to Resolution from
   //! package gp.
   Standard_EXPORT void InsertPoleBefore(const Standard_Integer Index,
-                                        const gp_Pnt&          P,
+                                        const Point3d&          P,
                                         const Standard_Real    Weight);
 
   //! Removes the pole of range Index.
@@ -186,7 +186,7 @@ public:
   //! If the curve <me> is rational the weight of range Index
   //! is not modified.
   //! raiseD if Index is not in the range [1, NbPoles]
-  Standard_EXPORT void SetPole(const Standard_Integer Index, const gp_Pnt& P);
+  Standard_EXPORT void SetPole(const Standard_Integer Index, const Point3d& P);
 
   //! Substitutes the pole and the weights of range Index.
   //! If the curve <me> is not rational it can become rational
@@ -196,7 +196,7 @@ public:
   //! Raised if Index is not in the range [1, NbPoles]
   //! Raised if Weight <= Resolution from package gp
   Standard_EXPORT void SetPole(const Standard_Integer Index,
-                               const gp_Pnt&          P,
+                               const Point3d&          P,
                                const Standard_Real    Weight);
 
   //! Changes the weight of the pole of range Index.
@@ -234,12 +234,12 @@ public:
   //! parameter U can be out of the bounds of the curve.
   Standard_EXPORT Standard_Integer Degree() const;
 
-  Standard_EXPORT void D0(const Standard_Real U, gp_Pnt& P) const Standard_OVERRIDE;
+  Standard_EXPORT void D0(const Standard_Real U, Point3d& P) const Standard_OVERRIDE;
 
-  Standard_EXPORT void D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V1) const Standard_OVERRIDE;
+  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, gp_Vec& V1) const Standard_OVERRIDE;
 
   Standard_EXPORT void D2(const Standard_Real U,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             V1,
                           gp_Vec&             V2) const Standard_OVERRIDE;
 
@@ -251,7 +251,7 @@ public:
   //! - V3, the third derivative vector.
   //! Note: the parameter U can be outside the bounds of the curve.
   Standard_EXPORT void D3(const Standard_Real U,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             V1,
                           gp_Vec&             V2,
                           gp_Vec&             V3) const Standard_OVERRIDE;
@@ -264,10 +264,10 @@ public:
                             const Standard_Integer N) const Standard_OVERRIDE;
 
   //! Returns Value (U=0.), it is the first control point of the curve.
-  Standard_EXPORT gp_Pnt StartPoint() const Standard_OVERRIDE;
+  Standard_EXPORT Point3d StartPoint() const Standard_OVERRIDE;
 
   //! Returns Value (U=1.), it is the last control point of the Bezier curve.
-  Standard_EXPORT gp_Pnt EndPoint() const Standard_OVERRIDE;
+  Standard_EXPORT Point3d EndPoint() const Standard_OVERRIDE;
 
   //! Returns the value of the first  parameter of this
   //! Bezier curve. This is 0.0, which gives the start point of this Bezier curve
@@ -282,7 +282,7 @@ public:
 
   //! Returns the pole of range Index.
   //! Raised if Index is not in the range [1, NbPoles]
-  Standard_EXPORT const gp_Pnt& Pole(const Standard_Integer Index) const;
+  Standard_EXPORT const Point3d& Pole(const Standard_Integer Index) const;
 
   //! Returns all the poles of the curve.
   //!

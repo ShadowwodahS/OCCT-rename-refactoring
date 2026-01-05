@@ -141,7 +141,7 @@ static Standard_Integer wzoom(Draw_Interpretor& di, Standard_Integer argc, const
     dout.Select(id, X1, Y1, b);
 
     gp_Trsf T;
-    gp_Pnt  P0(0, 0, 0);
+    Point3d  P0(0, 0, 0);
     dout.GetTrsf(id, T);
     T.Invert();
     P0.Transform(T);
@@ -962,7 +962,7 @@ static Standard_Integer dflush(Draw_Interpretor&, Standard_Integer, const char**
 
 static Standard_Integer dtext(Draw_Interpretor& di, Standard_Integer n, const char** a)
 {
-  gp_Pnt           P;
+  Point3d           P;
   Standard_Boolean is3d;
   if (n == 2)
   {

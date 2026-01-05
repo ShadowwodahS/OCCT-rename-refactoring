@@ -79,12 +79,12 @@ gp_Pnt2d IGESDimen_LeaderArrow::ArrowHead() const
   return AHPnt2d;
 }
 
-gp_Pnt IGESDimen_LeaderArrow::TransformedArrowHead() const
+Point3d IGESDimen_LeaderArrow::TransformedArrowHead() const
 {
   gp_XYZ point(theArrowHead.X(), theArrowHead.Y(), ZDepth());
   if (HasTransf())
     Location().Transforms(point);
-  return gp_Pnt(point);
+  return Point3d(point);
 }
 
 gp_Pnt2d IGESDimen_LeaderArrow::SegmentTail(const Standard_Integer Index) const
@@ -93,11 +93,11 @@ gp_Pnt2d IGESDimen_LeaderArrow::SegmentTail(const Standard_Integer Index) const
   return STPnt2d;
 }
 
-gp_Pnt IGESDimen_LeaderArrow::TransformedSegmentTail(const Standard_Integer Index) const
+Point3d IGESDimen_LeaderArrow::TransformedSegmentTail(const Standard_Integer Index) const
 {
   gp_XY  point2d = theSegmentTails->Value(Index);
   gp_XYZ point(point2d.X(), point2d.Y(), ZDepth());
   if (HasTransf())
     Location().Transforms(point);
-  return gp_Pnt(point);
+  return Point3d(point);
 }

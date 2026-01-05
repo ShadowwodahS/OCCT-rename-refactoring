@@ -70,12 +70,12 @@ gp_Pnt2d IGESDimen_RadiusDimension::Center() const
   return g;
 }
 
-gp_Pnt IGESDimen_RadiusDimension::TransformedCenter() const
+Point3d IGESDimen_RadiusDimension::TransformedCenter() const
 {
   gp_XYZ tmpXYZ(theCenter.X(), theCenter.Y(), theLeaderArrow->ZDepth());
   if (HasTransf())
     Location().Transforms(tmpXYZ);
-  return gp_Pnt(tmpXYZ);
+  return Point3d(tmpXYZ);
 }
 
 Handle(IGESDimen_LeaderArrow) IGESDimen_RadiusDimension::Leader2() const

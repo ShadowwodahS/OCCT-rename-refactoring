@@ -101,14 +101,14 @@ static Handle(IntPatch_WLine) MakeNewWLine(const Handle(IntPatch_WLine)&        
   Handle(IntPatch_WLine)   aLocalWLine     = new IntPatch_WLine(aPurgedLineOn2S, Standard_False);
   aLocalWLine->SetCreatingWayInfo(theWLine->GetCreatingWay());
   Standard_Integer anOldLineIdx = 1, aVertexIdx = 1, anIndexPrev = -1, anIdxOld = -1;
-  gp_Pnt           aPPrev, aPOld;
+  Point3d           aPPrev, aPOld;
   for (i = 1; i <= thePointsHash.Upper(); i++)
   {
     if (thePointsHash(i) == 0)
     {
       // Point has to be added
 
-      const gp_Pnt        aP          = theWLine->Point(i).Value();
+      const Point3d        aP          = theWLine->Point(i).Value();
       const Standard_Real aSqDistPrev = aPPrev.SquareDistance(aPOld);
       const Standard_Real aSqDist     = aPPrev.SquareDistance(aP);
 
@@ -359,9 +359,9 @@ static Standard_Boolean IsInsideIn2d(const gp_Pnt2d&     aBasePnt,
 // purpose  : Check if aNextPnt lies inside of tube build on aBasePnt and aBaseVec.
 //            In 3d space. Static subfunction in DeleteByTube.
 //=========================================================================
-static Standard_Boolean IsInsideIn3d(const gp_Pnt&       aBasePnt,
+static Standard_Boolean IsInsideIn3d(const Point3d&       aBasePnt,
                                      const gp_Vec&       aBaseVec,
-                                     const gp_Pnt&       aNextPnt,
+                                     const Point3d&       aNextPnt,
                                      const Standard_Real aSquareMaxDist)
 {
   gp_Vec aVec(aBasePnt, aNextPnt);
@@ -430,7 +430,7 @@ static Handle(IntPatch_WLine) DeleteByTube(const Handle(IntPatch_WLine)&    theW
   gp_Pnt2d      aBase2dPnt2(UonS2[0], VonS2[0]);
   gp_Vec2d      aBase2dVec1(UonS1[1] - UonS1[0], VonS1[1] - VonS1[0]);
   gp_Vec2d      aBase2dVec2(UonS2[1] - UonS2[0], VonS2[1] - VonS2[0]);
-  gp_Pnt        aBase3dPnt = theWLine->Point(1).Value();
+  Point3d        aBase3dPnt = theWLine->Point(1).Value();
   gp_Vec        aBase3dVec(theWLine->Point(1).Value(), theWLine->Point(2).Value());
   Standard_Real aPrevStep = aBase3dVec.SquareMagnitude();
 
@@ -455,7 +455,7 @@ static Handle(IntPatch_WLine) DeleteByTube(const Handle(IntPatch_WLine)&    theW
     theWLine->Point(i).ParametersOnS2(UonS2[2], VonS2[2]);
     gp_Pnt2d      aPnt2dOnS1(UonS1[2], VonS1[2]);
     gp_Pnt2d      aPnt2dOnS2(UonS2[2], VonS2[2]);
-    const gp_Pnt& aPnt3d = theWLine->Point(i).Value();
+    const Point3d& aPnt3d = theWLine->Point(i).Value();
 
     if (aNewPointsHash(i - 1) != -1 && IsInsideIn2d(aBase2dPnt1, aBase2dVec1, aPnt2dOnS1, aTol1)
         && IsInsideIn2d(aBase2dPnt2, aBase2dVec2, aPnt2dOnS2, aTol2)
@@ -680,7 +680,7 @@ static Standard_Boolean IsSeamOrBound(const IntSurf_PntOn2S& thePtf,
 //           In this case, parameters of thePmid on every quadric
 //            will be recomputed and returned.
 //=======================================================================
-static Standard_Boolean IsIntersectionPoint(const gp_Pnt&                    thePmid,
+static Standard_Boolean IsIntersectionPoint(const Point3d&                    thePmid,
                                             const Handle(Adaptor3d_Surface)& theS1,
                                             const Handle(Adaptor3d_Surface)& theS2,
                                             const IntSurf_PntOn2S&           theRefPt,
@@ -746,8 +746,8 @@ static Standard_Boolean IsIntersectionPoint(const gp_Pnt&                    the
 
   IntPatch_SpecialPoints::AdjustPointAndVertex(theRefPt, theArrPeriods, theNewPt);
 
-  const gp_Pnt aP1(theS1->Value(aU1, aV1));
-  const gp_Pnt aP2(theS2->Value(aU2, aV2));
+  const Point3d aP1(theS1->Value(aU1, aV1));
+  const Point3d aP2(theS2->Value(aU2, aV2));
 
   return (aP1.SquareDistance(aP2) <= theTol * theTol);
 }
@@ -891,7 +891,7 @@ static IntPatchWT_WLsConnectionType CheckArgumentsToExtend(const Handle(Adaptor3
     return aRetVal;
   }
 
-  const gp_Pnt aPmid(0.5 * (thePtWL1.Value().XYZ() + thePtWL2.Value().XYZ()));
+  const Point3d aPmid(0.5 * (thePtWL1.Value().XYZ() + thePtWL2.Value().XYZ()));
 
   Standard_Real aNewPar[4] = {0.0, 0.0, 0.0, 0.0};
 
@@ -1016,9 +1016,9 @@ static IntPatchWT_WLsConnectionType CheckArgumentsToExtend(const Handle(Adaptor3
 Standard_Boolean CheckArgumentsToJoin(const Handle(Adaptor3d_Surface)& theS1,
                                       const Handle(Adaptor3d_Surface)& theS2,
                                       const IntSurf_PntOn2S&           thePnt,
-                                      const gp_Pnt&                    theP1,
-                                      const gp_Pnt&                    theP2,
-                                      const gp_Pnt&                    theP3,
+                                      const Point3d&                    theP1,
+                                      const Point3d&                    theP2,
+                                      const Point3d&                    theP3,
                                       const Standard_Real              theMinRad)
 {
   const Standard_Real aRad = IntPatch_PointLine::CurvatureRadiusOfIntersLine(theS1, theS2, thePnt);
@@ -1763,7 +1763,7 @@ void IntPatch_WLineTool::ExtendTwoWLines(IntPatch_SequenceOfLine&         theSli
                                          const Standard_Real* const       theArrPeriods,
                                          const Bnd_Box2d&                 theBoxS1,
                                          const Bnd_Box2d&                 theBoxS2,
-                                         const NCollection_List<gp_Pnt>&  theListOfCriticalPoints)
+                                         const NCollection_List<Point3d>&  theListOfCriticalPoints)
 {
   if (theSlin.Length() < 2)
     return;
@@ -1846,10 +1846,10 @@ void IntPatch_WLineTool::ExtendTwoWLines(IntPatch_SequenceOfLine&         theSli
 
       if (!theListOfCriticalPoints.IsEmpty())
       {
-        for (NCollection_List<gp_Pnt>::Iterator anItr(theListOfCriticalPoints); anItr.More();
+        for (NCollection_List<Point3d>::Iterator anItr(theListOfCriticalPoints); anItr.More();
              anItr.Next())
         {
-          const gp_Pnt& aPt = anItr.Value();
+          const Point3d& aPt = anItr.Value();
           if (!(aCheckResult & (IntPatchWT_DisFirstFirst | IntPatchWT_DisFirstLast)))
           {
             if (aPt.SquareDistance(aPntFWL1.Value()) < Precision::Confusion())

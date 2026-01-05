@@ -25,7 +25,7 @@ class TopoDS_Face;
 class gp_Dir;
 class Geom_Surface;
 class Geom2d_Curve;
-class gp_Pnt;
+class Point3d;
 class IntTools_Context;
 class gp_Pnt2d;
 class TopoDS_Shape;
@@ -98,7 +98,7 @@ public:
     const TopoDS_Edge&              aE,
     const TopoDS_Face&              aF,
     const Standard_Real             aT,
-    gp_Pnt&                         aPx,
+    Point3d&                         aPx,
     gp_Dir&                         aD,
     const Handle(IntTools_Context)& theContext);
 
@@ -118,7 +118,7 @@ public:
   Standard_EXPORT static Standard_Boolean GetApproxNormalToFaceOnEdge(const TopoDS_Edge&  theE,
                                                                       const TopoDS_Face&  theF,
                                                                       const Standard_Real aT,
-                                                                      gp_Pnt&             aP,
+                                                                      Point3d&             aP,
                                                                       gp_Dir&             aDNF,
                                                                       const Standard_Real aDt2D);
 
@@ -141,7 +141,7 @@ public:
     const TopoDS_Face&              theF,
     const Standard_Real             aT,
     const Standard_Real             aDt2D,
-    gp_Pnt&                         aP,
+    Point3d&                         aP,
     gp_Dir&                         aDNF,
     const Handle(IntTools_Context)& theContext);
 
@@ -160,7 +160,7 @@ public:
                                                         const Standard_Real             aT,
                                                         const Standard_Real             aDt2D,
                                                         gp_Pnt2d&                       aP2D,
-                                                        gp_Pnt&                         aPx,
+                                                        Point3d&                         aPx,
                                                         const Handle(IntTools_Context)& theContext);
 
   //! Compute the point <aPx>,  (<aP2D>)  that is near to
@@ -175,7 +175,7 @@ public:
                                                         const Standard_Real aT,
                                                         const Standard_Real aDt2D,
                                                         gp_Pnt2d&           aP2D,
-                                                        gp_Pnt&             aPx);
+                                                        Point3d&             aPx);
 
   //! Computes the point <aPx>,  (<aP2D>)  that is near to
   //! the edge <aE>   at parameter <aT>  towards to the
@@ -191,7 +191,7 @@ public:
                                                         const TopoDS_Face&              aF,
                                                         const Standard_Real             aT,
                                                         gp_Pnt2d&                       aP2D,
-                                                        gp_Pnt&                         aPx,
+                                                        Point3d&                         aPx,
                                                         const Handle(IntTools_Context)& theContext);
 
   //! Compute the point <aPx>,  (<aP2D>)  that is near to
@@ -207,7 +207,7 @@ public:
   Standard_EXPORT static Standard_Integer PointNearEdge(const TopoDS_Edge&              aE,
                                                         const TopoDS_Face&              aF,
                                                         gp_Pnt2d&                       aP2D,
-                                                        gp_Pnt&                         aPx,
+                                                        Point3d&                         aPx,
                                                         const Handle(IntTools_Context)& theContext);
 
   //! Returns simple step value that is used in 2D-computations
@@ -229,7 +229,7 @@ public:
   //! on the surface of <theF><br>
   //! Returns 0 in case of success.
   Standard_EXPORT static Standard_Integer PointInFace(const TopoDS_Face&              theF,
-                                                      gp_Pnt&                         theP,
+                                                      Point3d&                         theP,
                                                       gp_Pnt2d&                       theP2D,
                                                       const Handle(IntTools_Context)& theContext);
 
@@ -246,7 +246,7 @@ public:
                                                       const TopoDS_Edge&              theE,
                                                       const Standard_Real             theT,
                                                       const Standard_Real             theDt2D,
-                                                      gp_Pnt&                         theP,
+                                                      Point3d&                         theP,
                                                       gp_Pnt2d&                       theP2D,
                                                       const Handle(IntTools_Context)& theContext);
 
@@ -257,7 +257,7 @@ public:
   //! Returns 0 in case of success.
   Standard_EXPORT static Standard_Integer PointInFace(const TopoDS_Face&              theF,
                                                       const Handle(Geom2d_Curve)&     theL,
-                                                      gp_Pnt&                         theP,
+                                                      Point3d&                         theP,
                                                       gp_Pnt2d&                       theP2D,
                                                       const Handle(IntTools_Context)& theContext,
                                                       const Standard_Real theDt2D = 0.0);

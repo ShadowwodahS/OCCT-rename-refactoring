@@ -67,7 +67,7 @@ Standard_Boolean GeomFill_GuideTrihedronAC::D0(const Standard_Real Param,
   Standard_Real OrigG = Orig1 + s * (Orig2 - Orig1); // abscisse curv sur le guide (cas multi-edges)
   Standard_Real tG    = myGuideAC->GetUParameter(*myGuide, OrigG, 1); // param <=> s sur theGuide
 
-  gp_Pnt P, PG;
+  Point3d P, PG;
   gp_Vec To, B;
   myTrimmed->D1(Param, P, To); // point et derivee au parametre Param sur myCurve
   myTrimG->D0(tG, PG);         // point au parametre tG sur myGuide
@@ -105,7 +105,7 @@ Standard_Boolean GeomFill_GuideTrihedronAC::D1(const Standard_Real Param,
   // parametre <=> s sur  theGuide
   tG = myGuideAC->GetUParameter(*myGuide, OrigG, 1);
 
-  gp_Pnt P, PG;
+  Point3d P, PG;
   gp_Vec To, DTo, TG, B, BPrim;
 
   myTrimmed->D2(Param, P, To, DTo);
@@ -173,7 +173,7 @@ Standard_Boolean GeomFill_GuideTrihedronAC::D2(const Standard_Real Param,
   Standard_Real OrigG = Orig1 + s * (Orig2 - Orig1);
   Standard_Real tG    = myGuideAC->GetUParameter(*myGuide, OrigG, 1);
 
-  gp_Pnt P, PG;
+  Point3d P, PG;
   gp_Vec TG, DTG;
   //  gp_Vec To,DTo,D2To,B;
   gp_Vec To, DTo, D2To;

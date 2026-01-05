@@ -519,7 +519,7 @@ void HLRBRep_Intersector::Perform(const gp_Lin& L, const Standard_Real P)
       Standard_Real x0, y0, z0, x1, y1, z1, pmin, pmax; //,pp;
       myPolyhedron->Bounding().Get(x0, y0, z0, x1, y1, z1);
 #if 0
-      pmax = pmin = ElCLib::Parameter(L, gp_Pnt((x1+x0)*0.5,
+      pmax = pmin = ElCLib::Parameter(L, Point3d((x1+x0)*0.5,
 						(y1+y0)*0.5,
 						(z1+z0)*0.5));
       Standard_Real d = (x1-x0) + (y1-y0) + (z1-z0);
@@ -535,42 +535,42 @@ void HLRBRep_Intersector::Perform(const gp_Lin& L, const Standard_Real P)
 #else
       //-- On va rejeter tous les points de parametres > P
       Standard_Real p;
-      p    = ElCLib::Parameter(L, gp_Pnt(x0, y0, z0));
+      p    = ElCLib::Parameter(L, Point3d(x0, y0, z0));
       pmin = pmax = p;
-      p           = ElCLib::Parameter(L, gp_Pnt(x0, y0, z1));
+      p           = ElCLib::Parameter(L, Point3d(x0, y0, z1));
       if (pmin > p)
         pmin = p;
       if (pmax < p)
         pmax = p;
 
-      p = ElCLib::Parameter(L, gp_Pnt(x1, y0, z0));
+      p = ElCLib::Parameter(L, Point3d(x1, y0, z0));
       if (pmin > p)
         pmin = p;
       if (pmax < p)
         pmax = p;
-      p = ElCLib::Parameter(L, gp_Pnt(x1, y0, z1));
-      if (pmin > p)
-        pmin = p;
-      if (pmax < p)
-        pmax = p;
-
-      p = ElCLib::Parameter(L, gp_Pnt(x0, y1, z0));
-      if (pmin > p)
-        pmin = p;
-      if (pmax < p)
-        pmax = p;
-      p = ElCLib::Parameter(L, gp_Pnt(x0, y1, z1));
+      p = ElCLib::Parameter(L, Point3d(x1, y0, z1));
       if (pmin > p)
         pmin = p;
       if (pmax < p)
         pmax = p;
 
-      p = ElCLib::Parameter(L, gp_Pnt(x1, y1, z0));
+      p = ElCLib::Parameter(L, Point3d(x0, y1, z0));
       if (pmin > p)
         pmin = p;
       if (pmax < p)
         pmax = p;
-      p = ElCLib::Parameter(L, gp_Pnt(x1, y1, z1));
+      p = ElCLib::Parameter(L, Point3d(x0, y1, z1));
+      if (pmin > p)
+        pmin = p;
+      if (pmax < p)
+        pmax = p;
+
+      p = ElCLib::Parameter(L, Point3d(x1, y1, z0));
+      if (pmin > p)
+        pmin = p;
+      if (pmax < p)
+        pmax = p;
+      p = ElCLib::Parameter(L, Point3d(x1, y1, z1));
       if (pmin > p)
         pmin = p;
       if (pmax < p)

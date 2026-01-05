@@ -42,7 +42,7 @@ void Select3D_SensitiveEntity::DumpJson(Standard_OStream& theOStream,
 
   OCCT_DUMP_FIELD_VALUE_NUMERICAL(theOStream, NbSubElements());
 
-  gp_Pnt aCenterOfGeometry = CenterOfGeometry();
+  Point3d aCenterOfGeometry = CenterOfGeometry();
   OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, &aCenterOfGeometry)
 
   Standard_Boolean aHasInitLocation = HasInitLocation();

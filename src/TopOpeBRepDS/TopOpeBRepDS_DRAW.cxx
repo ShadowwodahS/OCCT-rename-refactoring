@@ -43,7 +43,7 @@ Standard_EXPORT void FUN_draw(const TopoDS_Shape& s)
   DBRep::Set(nnn, s);
 }
 
-Standard_EXPORT void FUN_draw(const gp_Pnt& p)
+Standard_EXPORT void FUN_draw(const Point3d& p)
 {
   char* nnn = TCollection_AsciiString("name").ToCString();
   DrawTrSurf::Set(nnn, p);
@@ -67,19 +67,19 @@ Standard_EXPORT void FUN_draw(const Handle(Geom2d_Curve) c, const Standard_Real 
   DrawTrSurf::Set(nnn, tC);
 }
 
-Standard_EXPORT void FUN_draw(const gp_Pnt& p, const gp_Dir& d)
+Standard_EXPORT void FUN_draw(const Point3d& p, const gp_Dir& d)
 {
   TCollection_AsciiString aa("dir");
   FUN_tool_draw(aa, p, d);
 }
 
-Standard_EXPORT void FUN_brep_draw(const TCollection_AsciiString& aa, const gp_Pnt& p)
+Standard_EXPORT void FUN_brep_draw(const TCollection_AsciiString& aa, const Point3d& p)
 {
   FUN_tool_draw(aa, p);
 }
 
 Standard_EXPORT void FUN_brep_draw(const TCollection_AsciiString& aa,
-                                   const gp_Pnt&                  p,
+                                   const Point3d&                  p,
                                    const gp_Dir&                  d)
 {
   FUN_tool_draw(aa, p, d);
@@ -223,7 +223,7 @@ Standard_EXPORT void FUN_draw2d(const Standard_Real& par,
   {
     Standard_Real      f, l;
     Handle(Geom_Curve) C3d = BRep_Tool::Curve(Eref, f, l);
-    gp_Pnt             P;
+    Point3d             P;
     C3d->D0(par, P);
     Handle(Geom_Surface)       S = BRep_Tool::Surface(Fref);
     GeomAPI_ProjectPointOnSurf PonS(P, S);

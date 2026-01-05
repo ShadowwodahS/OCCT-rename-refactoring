@@ -22,7 +22,7 @@
 
 #include <stdio.h>
 
-void IntPatch_Point::SetValue(const gp_Pnt&          Pt,
+void IntPatch_Point::SetValue(const Point3d&          Pt,
                               const Standard_Real    Tol,
                               const Standard_Boolean Tangent)
 {

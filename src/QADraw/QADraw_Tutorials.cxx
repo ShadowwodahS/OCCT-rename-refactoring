@@ -72,7 +72,7 @@ public:
 
 protected:
   Handle(AIS_Animation) myAnim;
-  gp_Pnt                myDragPntFrom;
+  Point3d                myDragPntFrom;
 };
 
 MyAisObject::MyAisObject()
@@ -111,7 +111,7 @@ void MyAisObject::Compute(const Handle(PrsMgr_PresentationManager)& thePrsMgr,
     aDisk.FillArray(aTris, gp_Trsf());
 
     gp_Trsf aDisk2Trsf;
-    aDisk2Trsf.SetTransformation(gp_Ax3(gp_Pnt(0.0, 0.0, aHeight), -gp::DZ(), gp::DX()), gp::XOY());
+    aDisk2Trsf.SetTransformation(gp_Ax3(Point3d(0.0, 0.0, aHeight), -gp::DZ(), gp::DX()), gp::XOY());
     aDisk.FillArray(aTris, aDisk2Trsf);
 
     Handle(Graphic3d_Group) aGroupTris = thePrs->NewGroup();
@@ -122,11 +122,11 @@ void MyAisObject::Compute(const Handle(PrsMgr_PresentationManager)& thePrsMgr,
     // manually tessellated disk
     /*Handle(Graphic3d_ArrayOfTriangles) aTris2 =
       new Graphic3d_ArrayOfTriangles (aNbSlices + 1, aNbSlices * 3,
-    Graphic3d_ArrayFlags_VertexNormal); aTris2->AddVertex (gp_Pnt (0.0, 0.0, aHeight), gp::DZ());
+    Graphic3d_ArrayFlags_VertexNormal); aTris2->AddVertex (Point3d (0.0, 0.0, aHeight), gp::DZ());
     for (int aSliceIter = 0; aSliceIter < aNbSlices; ++aSliceIter)
     {
       double anAngle = M_PI * 2.0 * double(aSliceIter) / double(aNbSlices);
-      aTris2->AddVertex (gp_Pnt (Cos (anAngle) * aRadius, Sin (anAngle) * aRadius, aHeight),
+      aTris2->AddVertex (Point3d (Cos (anAngle) * aRadius, Sin (anAngle) * aRadius, aHeight),
     gp::DZ());
     }
     for (int aSliceIter = 0; aSliceIter < aNbSlices; ++aSliceIter)
@@ -138,10 +138,10 @@ void MyAisObject::Compute(const Handle(PrsMgr_PresentationManager)& thePrsMgr,
     // manually tessellate cylinder section as a polyline
     Handle(Graphic3d_ArrayOfSegments) aSegs =
       new Graphic3d_ArrayOfSegments(4, 4 * 2, Graphic3d_ArrayFlags_None);
-    aSegs->AddVertex(gp_Pnt(0.0, -aRadius, 0.0));
-    aSegs->AddVertex(gp_Pnt(0.0, -aRadius, aHeight));
-    aSegs->AddVertex(gp_Pnt(0.0, aRadius, aHeight));
-    aSegs->AddVertex(gp_Pnt(0.0, aRadius, 0.0));
+    aSegs->AddVertex(Point3d(0.0, -aRadius, 0.0));
+    aSegs->AddVertex(Point3d(0.0, -aRadius, aHeight));
+    aSegs->AddVertex(Point3d(0.0, aRadius, aHeight));
+    aSegs->AddVertex(Point3d(0.0, aRadius, 0.0));
     aSegs->AddEdges(1, 2);
     aSegs->AddEdges(2, 3);
     aSegs->AddEdges(3, 4);

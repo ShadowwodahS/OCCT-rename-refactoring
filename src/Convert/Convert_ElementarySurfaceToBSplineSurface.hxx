@@ -26,7 +26,7 @@
 #include <TColStd_Array1OfReal.hxx>
 #include <TColStd_Array1OfInteger.hxx>
 #include <Standard_Boolean.hxx>
-class gp_Pnt;
+class Point3d;
 
 //! Root class for algorithms which convert an elementary
 //! surface (cylinder, cone, sphere or torus) into a BSpline
@@ -95,7 +95,7 @@ public:
   //! parametric direction, or
   //! -   VIndex is outside the bounds of the poles table in the v
   //! parametric direction.
-  Standard_EXPORT gp_Pnt Pole(const Standard_Integer UIndex, const Standard_Integer VIndex) const;
+  Standard_EXPORT Point3d Pole(const Standard_Integer UIndex, const Standard_Integer VIndex) const;
 
   //! Returns the weight of the pole of index (UIndex,VIndex) to
   //! the poles table of the BSpline surface whose data is computed in this framework.

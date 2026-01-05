@@ -25,7 +25,7 @@
 #include <TColStd_HArray2OfReal.hxx>
 #include <TColgp_HArray2OfXYZ.hxx>
 #include <IGESData_IGESEntity.hxx>
-class gp_Pnt;
+class Point3d;
 
 class IGESGeom_BSplineSurface;
 DEFINE_STANDARD_HANDLE(IGESGeom_BSplineSurface, IGESData_IGESEntity)
@@ -144,14 +144,14 @@ public:
   //! returns the control point referenced by anIndex1, anIndex2
   //! raises exception if anIndex1 <= 0 or anIndex1 > NbPolesU()
   //! or if anIndex2 <= 0 or anIndex2 > NbPolesV()
-  Standard_EXPORT gp_Pnt Pole(const Standard_Integer anIndex1,
+  Standard_EXPORT Point3d Pole(const Standard_Integer anIndex1,
                               const Standard_Integer anIndex2) const;
 
   //! returns the control point referenced by anIndex1, anIndex2
   //! after applying the Transf.Matrix
   //! raises exception if anIndex1 <= 0 or anIndex1 > NbPolesU()
   //! or if anIndex2 <= 0 or anIndex2 > NbPolesV()
-  Standard_EXPORT gp_Pnt TransformedPole(const Standard_Integer anIndex1,
+  Standard_EXPORT Point3d TransformedPole(const Standard_Integer anIndex1,
                                          const Standard_Integer anIndex2) const;
 
   //! returns starting value in the U direction

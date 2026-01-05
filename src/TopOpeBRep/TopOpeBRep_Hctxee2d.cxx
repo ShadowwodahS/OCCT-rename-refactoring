@@ -115,7 +115,7 @@ void TopOpeBRep_Hctxee2d::SetEdges(const TopoDS_Edge&         E1,
     { // xpu210998 : cto900Q3
       TopExp_Explorer      exv(myEdge2, TopAbs_VERTEX);
       const TopoDS_Vertex& v2  = TopoDS::Vertex(exv.Current());
-      gp_Pnt               pt2 = BRep_Tool::Pnt(v2);
+      Point3d               pt2 = BRep_Tool::Pnt(v2);
       gp_Pnt2d             uv2;
       Standard_Real        d;
       Standard_Boolean     ok = FUN_tool_projPonF(pt2, F1, uv2, d);
@@ -127,7 +127,7 @@ void TopOpeBRep_Hctxee2d::SetEdges(const TopoDS_Edge&         E1,
       {
         TopoDS_Vertex vf, vl;
         TopExp::Vertices(myEdge1, vf, vl);
-        gp_Pnt                                    ptf  = BRep_Tool::Pnt(vf);
+        Point3d                                    ptf  = BRep_Tool::Pnt(vf);
         Standard_Real                             df   = pt2.Distance(ptf);
         Standard_Real                             tolf = BRep_Tool::Tolerance(vf);
         Standard_Boolean                          onf  = (df < tolf);

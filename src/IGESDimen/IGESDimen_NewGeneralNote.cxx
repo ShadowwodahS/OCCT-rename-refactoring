@@ -122,18 +122,18 @@ Standard_Integer IGESDimen_NewGeneralNote::JustifyCode() const
   return theJustifyCode;
 }
 
-gp_Pnt IGESDimen_NewGeneralNote::AreaLocation() const
+Point3d IGESDimen_NewGeneralNote::AreaLocation() const
 {
-  gp_Pnt loc(theAreaLoc);
+  Point3d loc(theAreaLoc);
   return loc;
 }
 
-gp_Pnt IGESDimen_NewGeneralNote::TransformedAreaLocation() const
+Point3d IGESDimen_NewGeneralNote::TransformedAreaLocation() const
 {
   gp_XYZ tempXYZ = theAreaLoc;
   if (HasTransf())
     Location().Transforms(tempXYZ);
-  return gp_Pnt(tempXYZ);
+  return Point3d(tempXYZ);
 }
 
 Standard_Real IGESDimen_NewGeneralNote::ZDepthAreaLocation() const
@@ -146,18 +146,18 @@ Standard_Real IGESDimen_NewGeneralNote::AreaRotationAngle() const
   return theAreaRotationAngle;
 }
 
-gp_Pnt IGESDimen_NewGeneralNote::BaseLinePosition() const
+Point3d IGESDimen_NewGeneralNote::BaseLinePosition() const
 {
-  gp_Pnt pos(theBaseLinePos);
+  Point3d pos(theBaseLinePos);
   return pos;
 }
 
-gp_Pnt IGESDimen_NewGeneralNote::TransformedBaseLinePosition() const
+Point3d IGESDimen_NewGeneralNote::TransformedBaseLinePosition() const
 {
   gp_XYZ tempXYZ = theBaseLinePos;
   if (HasTransf())
     Location().Transforms(tempXYZ);
-  return gp_Pnt(tempXYZ);
+  return Point3d(tempXYZ);
 }
 
 Standard_Real IGESDimen_NewGeneralNote::ZDepthBaseLinePosition() const
@@ -277,17 +277,17 @@ Standard_Integer IGESDimen_NewGeneralNote::RotateFlag(const Standard_Integer Ind
   return theRotateFlags->Value(Index);
 }
 
-gp_Pnt IGESDimen_NewGeneralNote::StartPoint(const Standard_Integer Index) const
+Point3d IGESDimen_NewGeneralNote::StartPoint(const Standard_Integer Index) const
 {
-  return gp_Pnt(theStartPoints->Value(Index));
+  return Point3d(theStartPoints->Value(Index));
 }
 
-gp_Pnt IGESDimen_NewGeneralNote::TransformedStartPoint(const Standard_Integer Index) const
+Point3d IGESDimen_NewGeneralNote::TransformedStartPoint(const Standard_Integer Index) const
 {
   gp_XYZ tempXYZ = theStartPoints->Value(Index);
   if (HasTransf())
     Location().Transforms(tempXYZ);
-  return gp_Pnt(tempXYZ);
+  return Point3d(tempXYZ);
 }
 
 Standard_Real IGESDimen_NewGeneralNote::ZDepthStartPoint(const Standard_Integer Index) const

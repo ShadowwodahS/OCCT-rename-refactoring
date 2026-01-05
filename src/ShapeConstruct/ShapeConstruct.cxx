@@ -520,11 +520,11 @@ Standard_Boolean ShapeConstruct::JoinCurves(const Handle(Geom_Curve)& ac3d1,
   SegmentCurve(bsplc2, first2, last2);
 
   // regression on file 866026_M-f276-f311.brep bug OCC482
-  gp_Pnt pp11 = bsplc1->Pole(1);
-  gp_Pnt pp12 = bsplc1->Pole(bsplc1->NbPoles());
+  Point3d pp11 = bsplc1->Pole(1);
+  Point3d pp12 = bsplc1->Pole(bsplc1->NbPoles());
 
-  gp_Pnt pp21 = bsplc2->Pole(1);
-  gp_Pnt pp22 = bsplc2->Pole(bsplc2->NbPoles());
+  Point3d pp21 = bsplc2->Pole(1);
+  Point3d pp22 = bsplc2->Pole(bsplc2->NbPoles());
 
   GetReversedParameters(pp11, pp12, pp21, pp22, isRev1, isRev2);
 
@@ -535,7 +535,7 @@ Standard_Boolean ShapeConstruct::JoinCurves(const Handle(Geom_Curve)& ac3d1,
   if (isRev2)
     bsplc2->Reverse();
 
-  gp_Pnt pmid = 0.5 * (bsplc1->Pole(bsplc1->NbPoles()).XYZ() + bsplc2->Pole(1).XYZ());
+  Point3d pmid = 0.5 * (bsplc1->Pole(bsplc1->NbPoles()).XYZ() + bsplc2->Pole(1).XYZ());
   bsplc1->SetPole(bsplc1->NbPoles(), pmid);
   bsplc2->SetPole(1, pmid);
   GeomConvert_CompCurveToBSplineCurve connect3d(bsplc1);
@@ -617,7 +617,7 @@ Standard_Boolean ShapeConstruct::JoinCurves(const Handle(Geom2d_Curve)& aC2d1,
   // second curve before merging; this is quite not suitable
   // Use 3d tool instead
   //      Geom2dConvert_CompCurveToBSplineCurve connect2d(bsplc12d);
-  gp_Pnt                    vPnt(0, 0, 0);
+  Point3d                    vPnt(0, 0, 0);
   gp_Vec                    vDir(0, 0, 1);
   gp_Pln                    vPln(vPnt, vDir);
   Handle(Geom_BSplineCurve) bspl1 =

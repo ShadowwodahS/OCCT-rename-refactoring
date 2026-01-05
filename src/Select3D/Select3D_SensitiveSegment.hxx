@@ -29,20 +29,20 @@ public:
   //! Constructs the sensitive segment object defined by
   //! the owner theOwnerId, the points theFirstPnt, theLastPnt
   Standard_EXPORT Select3D_SensitiveSegment(const Handle(SelectMgr_EntityOwner)& theOwnerId,
-                                            const gp_Pnt&                        theFirstPnt,
-                                            const gp_Pnt&                        theLastPnt);
+                                            const Point3d&                        theFirstPnt,
+                                            const Point3d&                        theLastPnt);
 
   //! changes the start Point of the Segment;
-  void SetStartPoint(const gp_Pnt& thePnt) { myStart = thePnt; }
+  void SetStartPoint(const Point3d& thePnt) { myStart = thePnt; }
 
   //! changes the end point of the segment
-  void SetEndPoint(const gp_Pnt& thePnt) { myEnd = thePnt; }
+  void SetEndPoint(const Point3d& thePnt) { myEnd = thePnt; }
 
   //! gives the 3D start Point of the Segment
-  const gp_Pnt& StartPoint() const { return myStart; }
+  const Point3d& StartPoint() const { return myStart; }
 
   //! gives the 3D End Point of the Segment
-  const gp_Pnt& EndPoint() const { return myEnd; }
+  const Point3d& EndPoint() const { return myEnd; }
 
   //! Returns the amount of points
   Standard_EXPORT virtual Standard_Integer NbSubElements() const Standard_OVERRIDE;
@@ -56,7 +56,7 @@ public:
 
   //! Returns center of the segment. If location transformation
   //! is set, it will be applied
-  Standard_EXPORT virtual gp_Pnt CenterOfGeometry() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Point3d CenterOfGeometry() const Standard_OVERRIDE;
 
   //! Returns bounding box of the segment. If location
   //! transformation is set, it will be applied
@@ -67,18 +67,18 @@ public:
 
 public:
   //! changes the start Point of the Segment;
-  void StartPoint(const gp_Pnt& thePnt) { myStart = thePnt; }
+  void StartPoint(const Point3d& thePnt) { myStart = thePnt; }
 
   //! changes the end point of the segment
-  void EndPoint(const gp_Pnt& thePnt) { myEnd = thePnt; }
+  void EndPoint(const Point3d& thePnt) { myEnd = thePnt; }
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const Standard_OVERRIDE;
 
 private:
-  gp_Pnt myStart; //!< Start point
-  gp_Pnt myEnd;   //!< End point
+  Point3d myStart; //!< Start point
+  Point3d myEnd;   //!< End point
 };
 
 DEFINE_STANDARD_HANDLE(Select3D_SensitiveSegment, Select3D_SensitiveEntity)

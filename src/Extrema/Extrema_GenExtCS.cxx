@@ -573,7 +573,7 @@ void Extrema_GenExtCS::GlobMinConicS(const Adaptor3d_Curve& theC,
 
   Standard_Boolean isBadSol = Standard_False;
   gp_Vec           aDU, aDV, aDT;
-  gp_Pnt           aPOnS, aPOnC;
+  Point3d           aPOnS, aPOnC;
   myS->D1(anUV(1), anUV(2), aPOnS, aDU, aDV);
   theC.D1(aCT, aPOnC, aDT);
   Standard_Real aSqDist = aPOnC.SquareDistance(aPOnS);

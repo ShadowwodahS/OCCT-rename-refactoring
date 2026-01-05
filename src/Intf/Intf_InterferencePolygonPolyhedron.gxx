@@ -323,13 +323,13 @@ void Intf_InterferencePolygonPolyhedron::Interference
     TColStd_ListIteratorOfListOfInteger clt(maliste);
     for (; clt.More(); clt.Next()) {
       indTri=clt.Value();
-      gp_Pnt p1 = ToolPolygon3d::BeginOfSeg(thePolyg, iLin);
-      gp_Pnt p2 = ToolPolygon3d::EndOfSeg(thePolyg, iLin);
+      Point3d p1 = ToolPolygon3d::BeginOfSeg(thePolyg, iLin);
+      Point3d p2 = ToolPolygon3d::EndOfSeg(thePolyg, iLin);
       Standard_Integer pTri0, pTri1, pTri2;
       ToolPolyh::Triangle(thePolyh, indTri, pTri0, pTri1, pTri2);
-      gp_Pnt Pa=ToolPolyh::Point(thePolyh, pTri0);
-      gp_Pnt Pb=ToolPolyh::Point(thePolyh, pTri1);
-      gp_Pnt Pc=ToolPolyh::Point(thePolyh, pTri2);
+      Point3d Pa=ToolPolyh::Point(thePolyh, pTri0);
+      Point3d Pb=ToolPolyh::Point(thePolyh, pTri1);
+      Point3d Pc=ToolPolyh::Point(thePolyh, pTri2);
       gp_Vec PaPb(Pa,Pb);
       gp_Vec PaPc(Pa,Pc);
       gp_Vec Normale = PaPb.Crossed(PaPc);
@@ -337,10 +337,10 @@ void Intf_InterferencePolygonPolyhedron::Interference
       if(Norm_Normale<1e-14)
 	continue;
       Normale.Multiply(defPh/Norm_Normale);
-      gp_Pnt p1m = p1.Translated(-Normale);
-      gp_Pnt p1p = p1.Translated( Normale);
-      gp_Pnt p2m = p2.Translated(-Normale);
-      gp_Pnt p2p = p2.Translated( Normale);
+      Point3d p1m = p1.Translated(-Normale);
+      Point3d p1p = p1.Translated( Normale);
+      Point3d p2m = p2.Translated(-Normale);
+      Point3d p2p = p2.Translated( Normale);
       Intersect(p1m, 
 		p2p,
 		Standard_False, indTri, thePolyh);
@@ -577,8 +577,8 @@ void Intf_InterferencePolygonPolyhedron::Interference
     maliste = PolyhGrid.Compare(bofSeg);
     TColStd_ListIteratorOfListOfInteger clt(maliste);
     //  Modified by MKK - Thu Oct  25 12:40:11 2007 Begin
-    gp_Pnt p1, Beg0;
-    gp_Pnt p2, End0;
+    Point3d p1, Beg0;
+    Point3d p2, End0;
     if ( !maliste.IsEmpty() ) {
       p1 = ToolPolygon3d::BeginOfSeg(thePolyg, iLin);
       p2 = ToolPolygon3d::EndOfSeg(thePolyg, iLin);
@@ -647,14 +647,14 @@ void Intf_InterferencePolygonPolyhedron::Interference
 //=======================================================================
 #if 0 
 void Intf_InterferencePolygonPolyhedron::Intersect 
-(const gp_Pnt& BegO, const gp_Pnt& EndO, const Standard_Boolean Infinite,
+(const Point3d& BegO, const Point3d& EndO, const Standard_Boolean Infinite,
  const Standard_Integer TTri, const Polyhedron& thePolyh)
 {
   Standard_Integer pTri0,pTri1,pTri2;
   ToolPolyh::Triangle(thePolyh, TTri, pTri0, pTri1, pTri2);
-  gp_Pnt Pa=ToolPolyh::Point(thePolyh, pTri0);
-  gp_Pnt Pb=ToolPolyh::Point(thePolyh, pTri1);
-  gp_Pnt Pc=ToolPolyh::Point(thePolyh, pTri2);
+  Point3d Pa=ToolPolyh::Point(thePolyh, pTri0);
+  Point3d Pb=ToolPolyh::Point(thePolyh, pTri1);
+  Point3d Pc=ToolPolyh::Point(thePolyh, pTri2);
   gp_Vec PaPb(Pa,Pb);
   gp_Vec PaPc(Pa,Pc);
   gp_Vec Normale = PaPb.Crossed(PaPc);
@@ -694,7 +694,7 @@ void Intf_InterferencePolygonPolyhedron::Intersect
   }
   //-- On a une intersection droite plan 
   //-- On teste si c est dans le triangle 
-  gp_Pnt PRes(BegO.X()+t*Lx,BegO.Y()+t*Ly,BegO.Z()+t*Lz);
+  Point3d PRes(BegO.X()+t*Lx,BegO.Y()+t*Ly,BegO.Z()+t*Lz);
   
   Standard_Real AbsA=A; if(AbsA<0) AbsA=-AbsA;
   Standard_Real AbsB=B; if(AbsB<0) AbsB=-AbsB;
@@ -758,7 +758,7 @@ void Intf_InterferencePolygonPolyhedron::Intersect
 }
 #else 
 void Intf_InterferencePolygonPolyhedron::Intersect 
-  (const gp_Pnt& BegO, const gp_Pnt& EndO, const Standard_Boolean Infinite,
+  (const Point3d& BegO, const Point3d& EndO, const Standard_Boolean Infinite,
    const Standard_Integer TTri, const Polyhedron& thePolyh)
 {
   Intf_PIType typOnG=Intf_EDGE;
@@ -945,12 +945,12 @@ void Intf_InterferencePolygonPolyhedron::Intersect
 	if (ToolPolyh::IsOnBound(thePolyh, indP1, indP2)) {
 	  // For boundary line it is necessary to check the border deflection.
 	  Standard_Real  Deflection = ToolPolyh::GetBorderDeflection(thePolyh);
-	  const gp_Pnt  &BegP       = ToolPolyh::Point(thePolyh, indP1);
-	  const gp_Pnt  &EndP       = ToolPolyh::Point(thePolyh, indP2);
+	  const Point3d  &BegP       = ToolPolyh::Point(thePolyh, indP1);
+	  const Point3d  &EndP       = ToolPolyh::Point(thePolyh, indP2);
 	  gp_Vec         VecTri(BegP,EndP);
 	  gp_Dir         DirTri(VecTri);
 	  gp_Lin         LinTri(BegP,DirTri);
-	  gp_Pnt         aPOnE(spLieu);
+	  Point3d         aPOnE(spLieu);
 	  Standard_Real  aDist = LinTri.Distance(aPOnE);
 
 	  if (aDist <= Deflection) {
@@ -990,8 +990,8 @@ void Intf_InterferencePolygonPolyhedron::Intersect
     for (Standard_Integer i=0; i<3; i++) {
       Standard_Integer pTri_ip1pc3 = pTri[Pourcent3[i+1]];
       Standard_Integer pTri_i      = pTri[i];
-      const gp_Pnt& BegT = ToolPolyh::Point(thePolyh, pTri_ip1pc3);
-      const gp_Pnt& EndT = ToolPolyh::Point(thePolyh, pTri_i);
+      const Point3d& BegT = ToolPolyh::Point(thePolyh, pTri_ip1pc3);
+      const Point3d& EndT = ToolPolyh::Point(thePolyh, pTri_i);
       gp_Vec  VecTri(BegT,EndT);
       Standard_Real NVecTri = VecTri.Magnitude();
       gp_Dir  DirTri(VecTri);
@@ -1004,8 +1004,8 @@ void Intf_InterferencePolygonPolyhedron::Intersect
 	    if(dist2<=Tolerance * Tolerance) {
 	      Extrema_POnCurv POnC1,POnC2;
 	      Extrema.Points(1,POnC1,POnC2);
-	      const gp_Pnt& PO = POnC1.Value();
-	      const gp_Pnt& PT = POnC2.Value();
+	      const Point3d& PO = POnC1.Value();
+	      const Point3d& PT = POnC2.Value();
 	      //--cout<<" ** Nouveau "<<dist2<<endl;
 	      if(IsInSegment(VecPol,gp_Vec(BegO,PO),NVecPol,ParamOnO,Tolerance)) {
 		if(IsInSegment(VecTri,gp_Vec(BegT,PT),NVecTri,ParamOnT,Tolerance)) {
@@ -1037,8 +1037,8 @@ void Intf_InterferencePolygonPolyhedron::Intersect
 
 #endif
 
-void Intf_InterferencePolygonPolyhedron::Intersect (const gp_Pnt& BegO, 
-                                                    const gp_Pnt& EndO, 
+void Intf_InterferencePolygonPolyhedron::Intersect (const Point3d& BegO, 
+                                                    const Point3d& EndO, 
                                                     const Standard_Boolean Infinite,
                                                     const Standard_Integer TTri, 
                                                     const Polyhedron& thePolyh, 
@@ -1225,12 +1225,12 @@ void Intf_InterferencePolygonPolyhedron::Intersect (const gp_Pnt& BegO,
 	if (ToolPolyh::IsOnBound(thePolyh, indP1, indP2)) {
 	  // For boundary line it is necessary to check the border deflection.
 	  Standard_Real  Deflection = ToolPolyh::GetBorderDeflection(thePolyh);
-	  const gp_Pnt  &BegP       = ToolPolyh::Point(thePolyh, indP1);
-	  const gp_Pnt  &EndP       = ToolPolyh::Point(thePolyh, indP2);
+	  const Point3d  &BegP       = ToolPolyh::Point(thePolyh, indP1);
+	  const Point3d  &EndP       = ToolPolyh::Point(thePolyh, indP2);
 	  gp_Vec         VecTri(BegP,EndP);
 	  gp_Dir         DirTri(VecTri);
 	  gp_Lin         LinTri(BegP,DirTri);
-	  gp_Pnt         aPOnE(spLieu);
+	  Point3d         aPOnE(spLieu);
 	  Standard_Real  aDist = LinTri.Distance(aPOnE);
 
 	  if (aDist <= Deflection) {
@@ -1270,8 +1270,8 @@ void Intf_InterferencePolygonPolyhedron::Intersect (const gp_Pnt& BegO,
     for (Standard_Integer i=0; i<3; i++) {
       Standard_Integer pTri_ip1pc3 = pTri[Pourcent3[i+1]];
       Standard_Integer pTri_i      = pTri[i];
-      const gp_Pnt& BegT = ToolPolyh::Point(thePolyh, pTri_ip1pc3);
-      const gp_Pnt& EndT = ToolPolyh::Point(thePolyh, pTri_i);
+      const Point3d& BegT = ToolPolyh::Point(thePolyh, pTri_ip1pc3);
+      const Point3d& EndT = ToolPolyh::Point(thePolyh, pTri_i);
       gp_Vec  VecTri(BegT,EndT);
       Standard_Real NVecTri = VecTri.Magnitude();
       gp_Dir  DirTri(VecTri);
@@ -1284,8 +1284,8 @@ void Intf_InterferencePolygonPolyhedron::Intersect (const gp_Pnt& BegO,
 	    if(dist2<=Tolerance * Tolerance) {
 	      Extrema_POnCurv POnC1,POnC2;
 	      Extrema.Points(1,POnC1,POnC2);
-	      const gp_Pnt& PO = POnC1.Value();
-	      const gp_Pnt& PT = POnC2.Value();
+	      const Point3d& PO = POnC1.Value();
+	      const Point3d& PT = POnC2.Value();
 	      //--cout<<" ** Nouveau "<<dist2<<endl;
 	      if(IsInSegment(VecPol,gp_Vec(BegO,PO),NVecPol,ParamOnO,Tolerance)) {
 		if(IsInSegment(VecTri,gp_Vec(BegT,PT),NVecTri,ParamOnT,Tolerance)) {

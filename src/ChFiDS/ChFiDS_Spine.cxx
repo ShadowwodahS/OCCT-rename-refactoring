@@ -649,7 +649,7 @@ void ChFiDS_Spine::Prepare(Standard_Real& L, Standard_Integer& Ind) const
 
 //=================================================================================================
 
-gp_Pnt ChFiDS_Spine::Value(const Standard_Real AbsC)
+Point3d ChFiDS_Spine::Value(const Standard_Real AbsC)
 {
 
   Standard_Integer Index;
@@ -659,7 +659,7 @@ gp_Pnt ChFiDS_Spine::Value(const Standard_Real AbsC)
 
   if (Index == -1)
   {
-    gp_Pnt Pp = firstori;
+    Point3d Pp = firstori;
     gp_Vec Vp = firsttgt;
     Vp.Multiply(L);
     Pp.Translate(Vp);
@@ -667,7 +667,7 @@ gp_Pnt ChFiDS_Spine::Value(const Standard_Real AbsC)
   }
   else if (Index == (abscissa->Length() + 1))
   {
-    gp_Pnt Pp = lastori;
+    Point3d Pp = lastori;
     gp_Vec Vp = lasttgt;
     Vp.Multiply(L);
     Pp.Translate(Vp);
@@ -689,14 +689,14 @@ gp_Pnt ChFiDS_Spine::Value(const Standard_Real AbsC)
 
 //=================================================================================================
 
-void ChFiDS_Spine::D0(const Standard_Real AbsC, gp_Pnt& P)
+void ChFiDS_Spine::D0(const Standard_Real AbsC, Point3d& P)
 {
   P = Value(AbsC);
 }
 
 //=================================================================================================
 
-void ChFiDS_Spine::D1(const Standard_Real AbsC, gp_Pnt& P, gp_Vec& V1)
+void ChFiDS_Spine::D1(const Standard_Real AbsC, Point3d& P, gp_Vec& V1)
 {
   Standard_Integer Index;
   Standard_Real    L = AbsC;
@@ -742,7 +742,7 @@ void ChFiDS_Spine::D1(const Standard_Real AbsC, gp_Pnt& P, gp_Vec& V1)
 
 //=================================================================================================
 
-void ChFiDS_Spine::D2(const Standard_Real AbsC, gp_Pnt& P, gp_Vec& V1, gp_Vec& V2)
+void ChFiDS_Spine::D2(const Standard_Real AbsC, Point3d& P, gp_Vec& V1, gp_Vec& V2)
 {
 
   Standard_Integer Index;

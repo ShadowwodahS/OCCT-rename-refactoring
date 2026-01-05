@@ -66,7 +66,7 @@ ShapeAnalysis_CheckSmallFace::ShapeAnalysis_CheckSmallFace()
   myStatusSplitVert = ShapeExtend::EncodeStatus(ShapeExtend_OK);
 }
 
-static void MinMaxPnt(const gp_Pnt&     p,
+static void MinMaxPnt(const Point3d&     p,
                       Standard_Integer& nb,
                       Standard_Real&    minx,
                       Standard_Real&    miny,
@@ -122,7 +122,7 @@ static Standard_Boolean MinMaxSmall(const Standard_Real minx,
 //=================================================================================================
 
 Standard_Integer ShapeAnalysis_CheckSmallFace::IsSpotFace(const TopoDS_Face&  F,
-                                                          gp_Pnt&             spot,
+                                                          Point3d&             spot,
                                                           Standard_Real&      spotol,
                                                           const Standard_Real tol) const
 {
@@ -164,7 +164,7 @@ Standard_Integer ShapeAnalysis_CheckSmallFace::IsSpotFace(const TopoDS_Face&  F,
         same = Standard_False;
     }
 
-    gp_Pnt pnt = BRep_Tool::Pnt(V);
+    Point3d pnt = BRep_Tool::Pnt(V);
     // Standard_Real x,y,z;
     MinMaxPnt(pnt, nbv, minx, miny, minz, maxx, maxy, maxz);
 
@@ -190,8 +190,8 @@ Standard_Integer ShapeAnalysis_CheckSmallFace::IsSpotFace(const TopoDS_Face&  F,
     Handle(Geom_Curve) C3D = BRep_Tool::Curve(E, cf, cl);
     if (C3D.IsNull())
       continue;
-    gp_Pnt debut  = C3D->Value(cf);
-    gp_Pnt milieu = C3D->Value((cf + cl) / 2);
+    Point3d debut  = C3D->Value(cf);
+    Point3d milieu = C3D->Value((cf + cl) / 2);
     if (debut.SquareDistance(milieu) > toler * toler)
       return 0;
   }
@@ -210,7 +210,7 @@ Standard_Integer ShapeAnalysis_CheckSmallFace::IsSpotFace(const TopoDS_Face&  F,
 Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckSpotFace(const TopoDS_Face&  F,
                                                              const Standard_Real tol)
 {
-  gp_Pnt           spot;
+  Point3d           spot;
   Standard_Real    spotol;
   Standard_Integer stat = IsSpotFace(F, spot, spotol, tol);
   if (!stat)
@@ -274,7 +274,7 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::IsStripSupport(const TopoDS_Face&
       Standard_Integer nb = 0;
       for (iv = 1; iv <= nbv; iv++)
       {
-        gp_Pnt unp = (cbz ? bz->Pole(iu, iv) : bs->Pole(iu, iv));
+        Point3d unp = (cbz ? bz->Pole(iu, iv) : bs->Pole(iu, iv));
         MinMaxPnt(unp, nb, minx, miny, minz, maxx, maxy, maxz);
       }
       if (!MinMaxSmall(minx, miny, minz, maxx, maxy, maxz, toler))
@@ -295,7 +295,7 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::IsStripSupport(const TopoDS_Face&
       Standard_Integer nb = 0;
       for (iu = 1; iu <= nbu; iu++)
       {
-        gp_Pnt unp = (cbz ? bz->Pole(iu, iv) : bs->Pole(iu, iv));
+        Point3d unp = (cbz ? bz->Pole(iu, iv) : bs->Pole(iu, iv));
         MinMaxPnt(unp, nb, minx, miny, minz, maxx, maxy, maxz);
       }
       if (!MinMaxSmall(minx, miny, minz, maxx, maxy, maxz, toler))
@@ -376,7 +376,7 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckStripEdges(const TopoDS_Edge
     }
     for (int nump = 0; nump <= nbint; nump++)
     {
-      gp_Pnt        p2, p1 = C1T->Value(u);
+      Point3d        p2, p1 = C1T->Value(u);
       Standard_Real para;
       // pdn Adaptor curve is used to avoid of enhancing of domain.
       GeomAdaptor_Curve GAC(C2T);
@@ -412,7 +412,7 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::FindStripEdges(const TopoDS_Face&
       continue; // ignore seam edge
     TopoDS_Vertex V1, V2;
     TopExp::Vertices(E, V1, V2);
-    gp_Pnt p1, p2;
+    Point3d p1, p2;
     p1                  = BRep_Tool::Pnt(V1);
     p2                  = BRep_Tool::Pnt(V2);
     Standard_Real toler = tol;
@@ -428,7 +428,7 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::FindStripEdges(const TopoDS_Face&
     Standard_Boolean isNullLength = Standard_True;
     if (!CC.IsNull())
     {
-      gp_Pnt pp = CC->Value((cf + cl) / 2.);
+      Point3d pp = CC->Value((cf + cl) / 2.);
       if (pp.Distance(p1) < toler && pp.Distance(p2) < toler)
         continue;
       isNullLength = Standard_False;
@@ -517,11 +517,11 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckSingleStrip(const TopoDS_Fac
       if (C3D.IsNull())
         continue; // DGNR
       Standard_Integer np  = 0;
-      gp_Pnt           deb = C3D->Value(cf);
+      Point3d           deb = C3D->Value(cf);
       MinMaxPnt(deb, np, minx, miny, minz, maxx, maxy, maxz);
-      gp_Pnt fin = C3D->Value(cl);
+      Point3d fin = C3D->Value(cl);
       MinMaxPnt(fin, np, minx, miny, minz, maxx, maxy, maxz);
-      gp_Pnt mid = C3D->Value((cf + cl) / 2.);
+      Point3d mid = C3D->Value((cf + cl) / 2.);
       MinMaxPnt(mid, np, minx, miny, minz, maxx, maxy, maxz);
       if (!MinMaxSmall(minx, miny, minz, maxx, maxy, maxz, toler))
         return Standard_False;
@@ -623,7 +623,7 @@ Standard_Integer ShapeAnalysis_CheckSmallFace::CheckSplittingVertices(
     nbp++;
     TopoDS_Vertex unv = TopoDS::Vertex(itv.Current());
     vtx.SetValue(nbp, unv);
-    gp_Pnt unp = BRep_Tool::Pnt(unv);
+    Point3d unp = BRep_Tool::Pnt(unv);
     vtp.SetValue(nbp, unp);
     Standard_Real unt = myPrecision;
     if (unt < 0)
@@ -652,9 +652,9 @@ Standard_Integer ShapeAnalysis_CheckSmallFace::CheckSplittingVertices(
         continue;
       if (V.IsSame(V1) || V.IsSame(V2))
         continue;
-      gp_Pnt        unp = vtp.Value(iv);
+      Point3d        unp = vtp.Value(iv);
       Standard_Real unt = vto.Value(iv);
-      gp_Pnt        proj;
+      Point3d        proj;
       Standard_Real param;
       Standard_Real dist = SAC.Project(C3D, unp, unt * 10., proj, param, cf, cl);
       if (dist == 0.0)
@@ -878,7 +878,7 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckTwisted(const TopoDS_Face& F
     {
       //      GLS.SetParameters (u,v);
       //      if (GLS.IsNormalDefined()) norm = GLS.Normal();
-      gp_Pnt curp;
+      Point3d curp;
       gp_Vec V1, V2, VXnorm;
       GAS.D1(u, v, curp, V1, V2);
       VXnorm = V1.Crossed(V2);
@@ -966,7 +966,7 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckPinFace(const TopoDS_Face&  
   for (TopExp_Explorer exp_e(F, TopAbs_EDGE); exp_e.More(); exp_e.Next())
   {
     TopoDS_Vertex V1, V2;
-    gp_Pnt        p1, p2;
+    Point3d        p1, p2;
     if (i == 1)
     {
       theFirstEdge = TopoDS::Edge(exp_e.Current());
@@ -1050,7 +1050,7 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckPinEdges(const TopoDS_Edge& 
   Handle(Geom_Curve) C1, C2, C3;
   C1 = BRep_Tool::Curve(theFirstEdge, cf1, cl1);
   C2 = BRep_Tool::Curve(theSecondEdge, cf2, cl2);
-  gp_Pnt        p1, p2, pp1, pp2, pv;
+  Point3d        p1, p2, pp1, pp2, pv;
   Standard_Real d1 = (cf1 - cl1) / coef1;
   Standard_Real d2 = (cf2 - cl2) / coef2;
   // Standard_Real d1 = cf1-cl1/30; //10; gka
@@ -1077,7 +1077,7 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckPinEdges(const TopoDS_Edge& 
     paramc2 = cl2;
   // Computing first derivative vectors and compare angle
   //   gp_Vec V11, V12, V21, V22;
-  //   gp_Pnt tmp;
+  //   Point3d tmp;
   //   C1->D2(paramc1, tmp, V11, V21);
   //   C2->D2(paramc2, tmp, V12, V22);
   //   Standard_Real angle1, angle2;
@@ -1093,7 +1093,7 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckPinEdges(const TopoDS_Edge& 
   //   std::cout << "angle1 "   << angle1<< std::endl;
   //   std::cout << "angle2 "   << angle2<< std::endl;
   //   if (angle1<=0.0001) return Standard_True;
-  gp_Pnt proj;
+  Point3d proj;
   if (p1.Distance(p2) < pp1.Distance(pp2))
   {
     C3 = C1;
@@ -1118,7 +1118,7 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckPinEdges(const TopoDS_Edge& 
   GeomAdaptor_Curve   GAC(C3);
   Standard_Real       f = C3->FirstParameter();
   Standard_Real       l = C3->LastParameter();
-  gp_Pnt              result;
+  Point3d              result;
   ShapeAnalysis_Curve SAC;
   Standard_Real       dist = SAC.Project(GAC, proj, tol, result, param);
   // pdn check if parameter of projection is in the domain of the edge.
@@ -1130,7 +1130,7 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckPinEdges(const TopoDS_Edge& 
   {
     // Computing first derivative vectors and compare angle
     gp_Vec V11, V12, V21, V22;
-    gp_Pnt tmp;
+    Point3d tmp;
     C1->D2(paramc1, tmp, V11, V21);
     C2->D2(paramc2, tmp, V12, V22);
     Standard_Real angle1 = 0, angle2 = 0;

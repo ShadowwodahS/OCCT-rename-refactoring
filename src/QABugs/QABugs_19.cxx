@@ -108,7 +108,7 @@ static Standard_Integer OCC23361(Draw_Interpretor& di,
                                  Standard_Integer /*argc*/,
                                  const char** /*argv*/)
 {
-  gp_Pnt p(0, 0, 2);
+  Point3d p(0, 0, 2);
 
   gp_Trsf t1, t2;
   t1.SetRotation(gp_Ax1(p, gp_Dir(0, 1, 0)), -0.49328285294022267);
@@ -116,9 +116,9 @@ static Standard_Integer OCC23361(Draw_Interpretor& di,
 
   gp_Trsf tComp = t2 * t1;
 
-  gp_Pnt p1(10, 3, 4);
-  gp_Pnt p2 = p1.Transformed(tComp);
-  gp_Pnt p3 = p1.Transformed(t1);
+  Point3d p1(10, 3, 4);
+  Point3d p2 = p1.Transformed(tComp);
+  Point3d p3 = p1.Transformed(t1);
   p3.Transform(t2);
 
   // points must be equal
@@ -734,7 +734,7 @@ static Standard_Integer OCC23945(Draw_Interpretor& /*di*/, Standard_Integer n, c
   if (DrawPoint)
     n--;
 
-  gp_Pnt P;
+  Point3d P;
   if (n >= 13)
   {
     gp_Vec DU, DV;
@@ -1268,11 +1268,11 @@ static Standard_Integer OCC24005(Draw_Interpretor& theDI,
   }
 
   Handle(Geom_Plane)              plane(new Geom_Plane(
-    gp_Ax3(gp_Pnt(-72.948737453424499, 754.30437716359393, 259.52151854671678),
+    gp_Ax3(Point3d(-72.948737453424499, 754.30437716359393, 259.52151854671678),
            gp_Dir(6.2471473085930200e-007, -0.99999999999980493, 0.00000000000000000),
            gp_Dir(0.99999999999980493, 6.2471473085930200e-007, 0.00000000000000000))));
   Handle(Geom_CylindricalSurface) cylinder(new Geom_CylindricalSurface(
-    gp_Ax3(gp_Pnt(-6.4812490053250649, 753.39408794522092, 279.16400974257465),
+    gp_Ax3(Point3d(-6.4812490053250649, 753.39408794522092, 279.16400974257465),
            gp_Dir(1.0000000000000000, 0.0, 0.00000000000000000),
            gp_Dir(0.0, 1.0000000000000000, 0.00000000000000000)),
     19.712534607908712));
@@ -1298,7 +1298,7 @@ static Standard_Integer OCC24005(Draw_Interpretor& theDI,
   }
 
   // Handle(Geom_Curve) aResult;
-  // gp_Pnt             aPoint;
+  // Point3d             aPoint;
 
   const IntTools_SequenceOfCurves&      aCvsX  = anInters.Lines();
   const IntTools_SequenceOfPntOn2Faces& aPntsX = anInters.Points();
@@ -1333,7 +1333,7 @@ static Standard_Integer OCC24005(Draw_Interpretor& theDI,
   for (Standard_Integer i = 1; i <= aNbPoints; ++i)
   {
     const IntTools_PntOn2Faces& aPi = aPntsX(i);
-    const gp_Pnt&               aP  = aPi.P1().Pnt();
+    const Point3d&               aP  = aPi.P1().Pnt();
 
     Sprintf(buf, "%s_p_%d", theArgv[1], i);
     theDI << buf << " ";
@@ -1402,19 +1402,19 @@ static Standard_Integer OCC24945(Draw_Interpretor& di, Standard_Integer argc, co
     return 1;
   }
 
-  gp_Pnt              aP3D(-1725.97, 843.257, -4.22741e-013);
-  gp_Ax2              aAxis(gp_Pnt(0, 843.257, 0), gp_Dir(0, -1, 0), gp::DX());
+  Point3d              aP3D(-1725.97, 843.257, -4.22741e-013);
+  gp_Ax2              aAxis(Point3d(0, 843.257, 0), gp_Dir(0, -1, 0), gp::DX());
   Handle(Geom_Circle) aCircle = new Geom_Circle(aAxis, 1725.9708621929999);
   GeomAdaptor_Curve   aC3D(aCircle);
 
   Extrema_ExtPC aExtPC(aP3D, aC3D);
   // Standard_Real aParam = (aExtPC.Point(1)).Parameter();
-  gp_Pnt aProj = (aExtPC.Point(1)).Value();
+  Point3d aProj = (aExtPC.Point(1)).Value();
   di << "Projected point: X = " << aProj.X() << "; Y = " << aProj.Y() << "; Z = " << aProj.Z()
      << "\n";
 
   // Result of deviation
-  gp_Ax2      aCylAxis(gp_Pnt(0, 2103.87, 0), -gp::DY(), -gp::DX());
+  gp_Ax2      aCylAxis(Point3d(0, 2103.87, 0), -gp::DY(), -gp::DX());
   gp_Cylinder aCylinder(aCylAxis, 1890.);
 
   Standard_Real aU = 0., aV = 0.;
@@ -1461,7 +1461,7 @@ static Standard_Integer OCC24137(Draw_Interpretor& theDI,
   const TopoDS_Vertex aVert = TopoDS::Vertex(aShapeV);
   GeomAdaptor_Surface aSurf(BRep_Tool::Surface(aFace));
 
-  gp_Pnt aPnt = BRep_Tool::Pnt(aVert), aRes;
+  Point3d aPnt = BRep_Tool::Pnt(aVert), aRes;
 
   Extrema_FuncPSNorm   anExtFunc;
   math_FunctionSetRoot aRoot(anExtFunc, aNbIts);
@@ -1597,7 +1597,7 @@ static Standard_Integer OCC24271(Draw_Interpretor& di,
 
 namespace
 {
-static Handle(Geom_ConicalSurface) CreateCone(const gp_Pnt&       theLoc,
+static Handle(Geom_ConicalSurface) CreateCone(const Point3d&       theLoc,
                                               const gp_Dir&       theDir,
                                               const gp_Dir&       theXDir,
                                               const Standard_Real theRad,
@@ -1621,14 +1621,14 @@ static Standard_Integer OCC23972(Draw_Interpretor& /*theDI*/,
   // process specific cones, cannot read them from files because
   // due to rounding the original error in math_FunctionRoots gets hidden
   const Handle(Geom_Surface) aS1 =
-    CreateCone(gp_Pnt(123.694345356663, 789.9, 68.15),
+    CreateCone(Point3d(123.694345356663, 789.9, 68.15),
                gp_Dir(-1, 3.48029791472957e-016, -8.41302743359754e-017),
                gp_Dir(-3.48029791472957e-016, -1, -3.17572289932207e-016),
                3.28206830417112,
                0.780868809443031,
                0.624695047554424);
   const Handle(Geom_Surface) aS2 =
-    CreateCone(gp_Pnt(123.694345356663, 784.9, 68.15),
+    CreateCone(Point3d(123.694345356663, 784.9, 68.15),
                gp_Dir(-1, -2.5209507537117e-016, -1.49772808948866e-016),
                gp_Dir(1.49772808948866e-016, 3.17572289932207e-016, -1),
                3.28206830417112,
@@ -1822,7 +1822,7 @@ static Standard_Integer OCC23950(Draw_Interpretor& di, Standard_Integer argc, co
   }
 
   Handle(TDocStd_Document) aDoc = new TDocStd_Document("dummy");
-  TopoDS_Shape             s6   = BRepBuilderAPI_MakeVertex(gp_Pnt(75, 0, 0));
+  TopoDS_Shape             s6   = BRepBuilderAPI_MakeVertex(Point3d(75, 0, 0));
   gp_Trsf                  t0;
   TopLoc_Location          location0(t0);
 
@@ -3022,7 +3022,7 @@ static Standard_Integer OCC25413(Draw_Interpretor& di, Standard_Integer narg, co
   for (Standard_Real x = xMin; x <= xMax; x += xStep)
     for (Standard_Real z = zMin; z <= zMax; z += zStep)
     {
-      gp_Pnt aPoint(x, 0.0, z);
+      Point3d aPoint(x, 0.0, z);
       gp_Lin aLine(aPoint, aDir);
       Inter.PerformNearest(aLine, -100., 100.);
     }
@@ -3176,7 +3176,7 @@ struct OCC25545_Functor
     if (!myIsRaceDetected)
     {
       const TopoDS_Vertex& aV = TopoDS::Vertex(myShapeVec->at(i));
-      gp_Pnt               aP = BRep_Tool::Pnt(aV);
+      Point3d               aP = BRep_Tool::Pnt(aV);
       if (aP.X() != static_cast<double>(i))
       {
         Standard_Atomic_Increment(&myIsRaceDetected);
@@ -3254,7 +3254,7 @@ static Standard_Integer OCC25547(Draw_Interpretor& theDI,
   BRepAdaptor_Surface         aSurf(aFace);
   Handle(BRepAdaptor_Surface) aHSurf = new BRepAdaptor_Surface(aSurf);
 
-  gp_Pnt aPnt;
+  Point3d aPnt;
   gp_Dir aNormal;
   if (!BRepMesh_GeomTool::Normal(aHSurf, 10., 10., aPnt, aNormal))
   {
@@ -3346,7 +3346,7 @@ static Standard_Integer OCC26139(Draw_Interpretor& theDI, Standard_Integer argc,
       {
         for (Standard_Integer aBoxGridY = 0; aBoxGridY < aBoxGridSize; ++aBoxGridY)
         {
-          BRepPrimAPI_MakeBox aBox(gp_Pnt(aBoxGridX * aBoxSize, aBoxGridY * aBoxSize, 0.0),
+          BRepPrimAPI_MakeBox aBox(Point3d(aBoxGridX * aBoxSize, aBoxGridY * aBoxSize, 0.0),
                                    aBoxSize,
                                    aBoxSize,
                                    aBoxSize);
@@ -3568,12 +3568,12 @@ static Standard_Integer OCC26284(Draw_Interpretor& theDI,
     return 1;
   }
 
-  BRepPrimAPI_MakeSphere aSphereBuilder(gp_Pnt(0.0, 0.0, 0.0), 1.0);
+  BRepPrimAPI_MakeSphere aSphereBuilder(Point3d(0.0, 0.0, 0.0), 1.0);
   Handle(AIS_Shape)      aSphere = new AIS_Shape(aSphereBuilder.Shape());
   anAISContext->Display(aSphere, Standard_False);
   for (Standard_Integer aChildIdx = 0; aChildIdx < 5; ++aChildIdx)
   {
-    BRepPrimAPI_MakeSphere aBuilder(gp_Pnt(1.0 + aChildIdx, 1.0 + aChildIdx, 1.0 + aChildIdx), 1.0);
+    BRepPrimAPI_MakeSphere aBuilder(Point3d(1.0 + aChildIdx, 1.0 + aChildIdx, 1.0 + aChildIdx), 1.0);
     Handle(AIS_Shape)      aChild = new AIS_Shape(aBuilder.Shape());
     aSphere->AddChild(aChild);
     anAISContext->Display(aChild, Standard_False);
@@ -3598,7 +3598,7 @@ Standard_Integer xprojponf(Draw_Interpretor& di, Standard_Integer n, const char*
     return 0;
   }
   //
-  gp_Pnt                   aP, aPS;
+  Point3d                   aP, aPS;
   TopoDS_Shape             aS;
   TopoDS_Face              aF;
   Handle(IntTools_Context) aCtx;
@@ -3912,7 +3912,7 @@ static Standard_Integer OCC25574(Draw_Interpretor& theDI,
     const gp_Quaternion rotationX(rotRotX, gamma);
     const gp_Vec        rotRotZ = rotationX.Multiply(rotZ);
 
-    gp_Ax2 result(gp_Pnt(0.0, 0.0, 0.0), rotRotZ, rotRotX);
+    gp_Ax2 result(Point3d(0.0, 0.0, 0.0), rotRotZ, rotRotX);
 
     // Now compute the Euler angles
     gp_Trsf transformation;
@@ -4053,21 +4053,21 @@ static Standard_Integer OCC26407(Draw_Interpretor& theDI,
   // Construct vertices.
   std::vector<TopoDS_Vertex> wire_vertices;
   wire_vertices.push_back(
-    BRepBuilderAPI_MakeVertex(gp_Pnt(587.90000000000009094947, 40.6758179230516248026106, 88.5)));
+    BRepBuilderAPI_MakeVertex(Point3d(587.90000000000009094947, 40.6758179230516248026106, 88.5)));
   wire_vertices.push_back(
-    BRepBuilderAPI_MakeVertex(gp_Pnt(807.824182076948432040808, 260.599999999999965893949, 88.5)));
+    BRepBuilderAPI_MakeVertex(Point3d(807.824182076948432040808, 260.599999999999965893949, 88.5)));
   wire_vertices.push_back(BRepBuilderAPI_MakeVertex(
-    gp_Pnt(644.174182076948454778176, 424.249999999999943156581, 88.5000000000000142108547)));
+    Point3d(644.174182076948454778176, 424.249999999999943156581, 88.5000000000000142108547)));
   wire_vertices.push_back(
-    BRepBuilderAPI_MakeVertex(gp_Pnt(629.978025792618950617907, 424.25, 88.5)));
+    BRepBuilderAPI_MakeVertex(Point3d(629.978025792618950617907, 424.25, 88.5)));
   wire_vertices.push_back(
-    BRepBuilderAPI_MakeVertex(gp_Pnt(793.628025792618700506864, 260.599999999999852207111, 88.5)));
+    BRepBuilderAPI_MakeVertex(Point3d(793.628025792618700506864, 260.599999999999852207111, 88.5)));
   wire_vertices.push_back(
-    BRepBuilderAPI_MakeVertex(gp_Pnt(587.900000000000204636308, 54.8719742073813492311274, 88.5)));
+    BRepBuilderAPI_MakeVertex(Point3d(587.900000000000204636308, 54.8719742073813492311274, 88.5)));
   wire_vertices.push_back(
-    BRepBuilderAPI_MakeVertex(gp_Pnt(218.521974207381418864315, 424.250000000000056843419, 88.5)));
+    BRepBuilderAPI_MakeVertex(Point3d(218.521974207381418864315, 424.250000000000056843419, 88.5)));
   wire_vertices.push_back(
-    BRepBuilderAPI_MakeVertex(gp_Pnt(204.325817923051886282337, 424.249999999999943156581, 88.5)));
+    BRepBuilderAPI_MakeVertex(Point3d(204.325817923051886282337, 424.249999999999943156581, 88.5)));
 
   // Construct wire.
   BRepBuilderAPI_MakeWire wire_builder;
@@ -4081,9 +4081,9 @@ static Standard_Integer OCC26407(Draw_Interpretor& theDI,
 
   // Create face and triangulate it.
   // Construct face.
-  gp_Pnt v0 = BRep_Tool::Pnt(wire_vertices[0]);
-  gp_Pnt v1 = BRep_Tool::Pnt(wire_vertices[1]);
-  gp_Pnt v2 = BRep_Tool::Pnt(wire_vertices[wire_vertices.size() - 1]);
+  Point3d v0 = BRep_Tool::Pnt(wire_vertices[0]);
+  Point3d v1 = BRep_Tool::Pnt(wire_vertices[1]);
+  Point3d v2 = BRep_Tool::Pnt(wire_vertices[wire_vertices.size() - 1]);
 
   gp_Vec face_normal = gp_Vec(v0, v1).Crossed(gp_Vec(v0, v2));
 
@@ -4150,7 +4150,7 @@ static Standard_Integer OCC26485(Draw_Interpretor& theDI,
     // Get each vertex index, checking common vertexes between shapes
     for (int i = 0; i < aVertexNb; i++)
     {
-      gp_Pnt       aPoint  = aT->Node(i + 1);
+      Point3d       aPoint  = aT->Node(i + 1);
       const gp_Dir aNormal = aT->Normal(i + 1);
 
       if (aNormal.X() == 0 && aNormal.Y() == 0 && aNormal.Z() == 1)
@@ -4193,7 +4193,7 @@ static Standard_Integer OCC26553(Draw_Interpretor& theDI,
     return 1;
   }
 
-  TopoDS_Edge aPipeEdge = BRepBuilderAPI_MakeEdge(gp_Pnt(0, 0, 0), gp_Pnt(0, 0, 10));
+  TopoDS_Edge aPipeEdge = BRepBuilderAPI_MakeEdge(Point3d(0, 0, 0), Point3d(0, 0, 10));
   TopoDS_Wire aPipeWire = BRepBuilderAPI_MakeWire(aPipeEdge).Wire();
 
   BRepOffsetAPI_MakePipe aPipeBuilder(aPipeWire, aShell);
@@ -4274,32 +4274,32 @@ static Standard_Integer OCC26195(Draw_Interpretor& theDI,
   aMgr->SetWindowSize(aWidth, aHeight);
   aMgr->BuildSelectingVolume();
 
-  const gp_Pnt*              aVerts = aMgr->GetVertices();
+  const Point3d*              aVerts = aMgr->GetVertices();
   BRepBuilderAPI_MakePolygon aWireBldrs[4];
 
-  aWireBldrs[0].Add(gp_Pnt(aVerts[0].X(), aVerts[0].Y(), aVerts[0].Z()));
-  aWireBldrs[0].Add(gp_Pnt(aVerts[4].X(), aVerts[4].Y(), aVerts[4].Z()));
-  aWireBldrs[0].Add(gp_Pnt(aVerts[6].X(), aVerts[6].Y(), aVerts[6].Z()));
-  aWireBldrs[0].Add(gp_Pnt(aVerts[2].X(), aVerts[2].Y(), aVerts[2].Z()));
-  aWireBldrs[0].Add(gp_Pnt(aVerts[0].X(), aVerts[0].Y(), aVerts[0].Z()));
+  aWireBldrs[0].Add(Point3d(aVerts[0].X(), aVerts[0].Y(), aVerts[0].Z()));
+  aWireBldrs[0].Add(Point3d(aVerts[4].X(), aVerts[4].Y(), aVerts[4].Z()));
+  aWireBldrs[0].Add(Point3d(aVerts[6].X(), aVerts[6].Y(), aVerts[6].Z()));
+  aWireBldrs[0].Add(Point3d(aVerts[2].X(), aVerts[2].Y(), aVerts[2].Z()));
+  aWireBldrs[0].Add(Point3d(aVerts[0].X(), aVerts[0].Y(), aVerts[0].Z()));
 
-  aWireBldrs[1].Add(gp_Pnt(aVerts[4].X(), aVerts[4].Y(), aVerts[4].Z()));
-  aWireBldrs[1].Add(gp_Pnt(aVerts[5].X(), aVerts[5].Y(), aVerts[5].Z()));
-  aWireBldrs[1].Add(gp_Pnt(aVerts[7].X(), aVerts[7].Y(), aVerts[7].Z()));
-  aWireBldrs[1].Add(gp_Pnt(aVerts[6].X(), aVerts[6].Y(), aVerts[6].Z()));
-  aWireBldrs[1].Add(gp_Pnt(aVerts[4].X(), aVerts[4].Y(), aVerts[4].Z()));
+  aWireBldrs[1].Add(Point3d(aVerts[4].X(), aVerts[4].Y(), aVerts[4].Z()));
+  aWireBldrs[1].Add(Point3d(aVerts[5].X(), aVerts[5].Y(), aVerts[5].Z()));
+  aWireBldrs[1].Add(Point3d(aVerts[7].X(), aVerts[7].Y(), aVerts[7].Z()));
+  aWireBldrs[1].Add(Point3d(aVerts[6].X(), aVerts[6].Y(), aVerts[6].Z()));
+  aWireBldrs[1].Add(Point3d(aVerts[4].X(), aVerts[4].Y(), aVerts[4].Z()));
 
-  aWireBldrs[2].Add(gp_Pnt(aVerts[1].X(), aVerts[1].Y(), aVerts[1].Z()));
-  aWireBldrs[2].Add(gp_Pnt(aVerts[5].X(), aVerts[5].Y(), aVerts[5].Z()));
-  aWireBldrs[2].Add(gp_Pnt(aVerts[7].X(), aVerts[7].Y(), aVerts[7].Z()));
-  aWireBldrs[2].Add(gp_Pnt(aVerts[3].X(), aVerts[3].Y(), aVerts[3].Z()));
-  aWireBldrs[2].Add(gp_Pnt(aVerts[1].X(), aVerts[1].Y(), aVerts[1].Z()));
+  aWireBldrs[2].Add(Point3d(aVerts[1].X(), aVerts[1].Y(), aVerts[1].Z()));
+  aWireBldrs[2].Add(Point3d(aVerts[5].X(), aVerts[5].Y(), aVerts[5].Z()));
+  aWireBldrs[2].Add(Point3d(aVerts[7].X(), aVerts[7].Y(), aVerts[7].Z()));
+  aWireBldrs[2].Add(Point3d(aVerts[3].X(), aVerts[3].Y(), aVerts[3].Z()));
+  aWireBldrs[2].Add(Point3d(aVerts[1].X(), aVerts[1].Y(), aVerts[1].Z()));
 
-  aWireBldrs[3].Add(gp_Pnt(aVerts[0].X(), aVerts[0].Y(), aVerts[0].Z()));
-  aWireBldrs[3].Add(gp_Pnt(aVerts[1].X(), aVerts[1].Y(), aVerts[1].Z()));
-  aWireBldrs[3].Add(gp_Pnt(aVerts[3].X(), aVerts[3].Y(), aVerts[3].Z()));
-  aWireBldrs[3].Add(gp_Pnt(aVerts[2].X(), aVerts[2].Y(), aVerts[2].Z()));
-  aWireBldrs[3].Add(gp_Pnt(aVerts[0].X(), aVerts[0].Y(), aVerts[0].Z()));
+  aWireBldrs[3].Add(Point3d(aVerts[0].X(), aVerts[0].Y(), aVerts[0].Z()));
+  aWireBldrs[3].Add(Point3d(aVerts[1].X(), aVerts[1].Y(), aVerts[1].Z()));
+  aWireBldrs[3].Add(Point3d(aVerts[3].X(), aVerts[3].Y(), aVerts[3].Z()));
+  aWireBldrs[3].Add(Point3d(aVerts[2].X(), aVerts[2].Y(), aVerts[2].Z()));
+  aWireBldrs[3].Add(Point3d(aVerts[0].X(), aVerts[0].Y(), aVerts[0].Z()));
 
   TopoDS_Compound aComp;
   BRep_Builder    aCompBuilder;
@@ -4314,8 +4314,8 @@ static Standard_Integer OCC26195(Draw_Interpretor& theDI,
   aCmp->SetColor(Quantity_NOC_GREEN);
   ViewerTest::Display("c", aCmp, Standard_True, Standard_True);
 
-  gp_Pnt aNearPnt = aMgr->GetNearPickedPnt();
-  gp_Pnt aFarPnt  = aMgr->GetFarPickedPnt();
+  Point3d aNearPnt = aMgr->GetNearPickedPnt();
+  Point3d aFarPnt  = aMgr->GetFarPickedPnt();
   if (Precision::IsInfinite(aFarPnt.X()) || Precision::IsInfinite(aFarPnt.Y())
       || Precision::IsInfinite(aFarPnt.Z()))
   {
@@ -4351,7 +4351,7 @@ static Standard_Integer OCC26462(Draw_Interpretor& theDI,
     return 1;
   }
 
-  BRepPrimAPI_MakeBox           aBuilder1(gp_Pnt(10.0, 10.0, 0.0), 10.0, 10.0, 10.0);
+  BRepPrimAPI_MakeBox           aBuilder1(Point3d(10.0, 10.0, 0.0), 10.0, 10.0, 10.0);
   BRepPrimAPI_MakeBox           aBuilder2(10.0, 10.0, 10.0);
   Handle(AIS_InteractiveObject) aBox1 = new AIS_Shape(aBuilder1.Shape());
   Handle(AIS_InteractiveObject) aBox2 = new AIS_Shape(aBuilder2.Shape());
@@ -4481,7 +4481,7 @@ Standard_Integer OCC26525(Draw_Interpretor& di, Standard_Integer n, const char**
   Standard_Boolean                  bIsDone;
   Standard_Integer                  i, aNbPoints;
   Standard_Real                     aU, aV, aT;
-  gp_Pnt                            aP;
+  Point3d                            aP;
   BRepAdaptor_Curve                 aBAC;
   BRepAdaptor_Surface               aBAS;
   IntCurveSurface_TransitionOnCurve aTC;
@@ -4767,7 +4767,7 @@ static TopoDS_Shape taper(const TopoDS_Shape& shape,
                           Standard_Real       angle)
 {
   // Use maximum face-to-taper z-offset.
-  const gp_Pln neutral_plane(gp_Ax3(gp_Pnt(0.0, 0.0, 140.0), gp_Dir(0.0, 0.0, 1.0)));
+  const gp_Pln neutral_plane(gp_Ax3(Point3d(0.0, 0.0, 140.0), gp_Dir(0.0, 0.0, 1.0)));
 
   // Draft angle needs to be in radians, and flipped to adhere to our own (arbitrary) draft
   // angle definition.
@@ -4790,7 +4790,7 @@ static void dumpShapeVertices(const TopoDS_Shape& shape, std::vector<Standard_Re
 
   for (Standard_Integer i = 1; i <= shape_vertices.Extent(); i++)
   {
-    gp_Pnt p = BRep_Tool::Pnt(TopoDS::Vertex(shape_vertices(i)));
+    Point3d p = BRep_Tool::Pnt(TopoDS::Vertex(shape_vertices(i)));
     coords.push_back(p.X());
     coords.push_back(p.Y());
     coords.push_back(p.Z());
@@ -4920,7 +4920,7 @@ static Standard_Integer OCC26746(Draw_Interpretor& theDI,
   {
     for (Standard_Integer aVind = 0; aVind <= aNbPntsMax; aVind++)
     {
-      const gp_Pnt        aPt(aGtor->Value(aUpar, aVpar));
+      const Point3d        aPt(aGtor->Value(aUpar, aVpar));
       const Standard_Real aX1 = aPt.X();
       const Standard_Real aX2 = aX1 * aX1;
       const Standard_Real aX3 = aX2 * aX1;
@@ -5064,8 +5064,8 @@ static Standard_Integer OCC27523(Draw_Interpretor& theDI,
     return 1;
   }
 
-  gp_Pnt                        aStart(100, 100, 100);
-  gp_Pnt                        anEnd(300, 400, 600);
+  Point3d                        aStart(100, 100, 100);
+  Point3d                        anEnd(300, 400, 600);
   BRepBuilderAPI_MakeEdge       anEdgeBuilder(aStart, anEnd);
   TopoDS_Edge                   anEdge        = anEdgeBuilder.Edge();
   Handle(AIS_InteractiveObject) aTestAISShape = new AIS_Shape(anEdge);
@@ -5086,7 +5086,7 @@ static Standard_Integer OCC27523(Draw_Interpretor& theDI,
     anAISContext->Activate(aTestAISShape, aModes(anIt));
   }
 
-  TopoDS_Shape     aVertexShape     = BRepBuilderAPI_MakeVertex(gp_Pnt(75, 0, 0));
+  TopoDS_Shape     aVertexShape     = BRepBuilderAPI_MakeVertex(Point3d(75, 0, 0));
   TopAbs_ShapeEnum aVertexShapeType = aVertexShape.ShapeType();
   Handle(AIS_Shape)::DownCast(aTestAISShape)->Set(aVertexShape);
   aTestAISShape->Redisplay();
@@ -5130,10 +5130,10 @@ public:
                        const Standard_Integer) Standard_OVERRIDE
   {
     Handle(Graphic3d_ArrayOfTriangles) aFrame = new Graphic3d_ArrayOfTriangles(6, 6);
-    aFrame->AddVertex(gp_Pnt(-1, 0, 0));
-    aFrame->AddVertex(gp_Pnt(-1, 1, 0));
-    aFrame->AddVertex(gp_Pnt(3, 1, 0));
-    aFrame->AddVertex(gp_Pnt(3, 0, 0));
+    aFrame->AddVertex(Point3d(-1, 0, 0));
+    aFrame->AddVertex(Point3d(-1, 1, 0));
+    aFrame->AddVertex(Point3d(3, 1, 0));
+    aFrame->AddVertex(Point3d(3, 0, 0));
 
     aFrame->AddEdge(1);
     aFrame->AddEdge(2);
@@ -5339,7 +5339,7 @@ static Standard_Integer OCC29412(Draw_Interpretor& /*theDI*/,
   int       aProgressPrev = -1;
   for (int m_loopIndex = 0; m_loopIndex < aNbIters; m_loopIndex++)
   {
-    gp_Pnt pos;
+    Point3d pos;
     gp_Vec dir(0, 0, 1);
 
     gp_Ax2            center(pos, dir);

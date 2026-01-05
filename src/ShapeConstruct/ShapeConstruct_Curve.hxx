@@ -24,7 +24,7 @@
 #include <TColStd_HArray1OfReal.hxx>
 #include <TColStd_Array1OfReal.hxx>
 class Geom_Curve;
-class gp_Pnt;
+class Point3d;
 class Geom2d_Curve;
 class gp_Pnt2d;
 class Geom_BSplineCurve;
@@ -46,8 +46,8 @@ public:
   //!
   //! Warning : Does not check if curve should be reversed
   Standard_EXPORT Standard_Boolean AdjustCurve(const Handle(Geom_Curve)& C3D,
-                                               const gp_Pnt&             P1,
-                                               const gp_Pnt&             P2,
+                                               const Point3d&             P1,
+                                               const Point3d&             P2,
                                                const Standard_Boolean    take1 = Standard_True,
                                                const Standard_Boolean take2 = Standard_True) const;
 
@@ -58,8 +58,8 @@ public:
   //! For lines works as previous method, B-Splines are segmented
   //! at the given values and then are adjusted to the points.
   Standard_EXPORT Standard_Boolean AdjustCurveSegment(const Handle(Geom_Curve)& C3D,
-                                                      const gp_Pnt&             P1,
-                                                      const gp_Pnt&             P2,
+                                                      const Point3d&             P1,
+                                                      const Point3d&             P2,
                                                       const Standard_Real       U1,
                                                       const Standard_Real       U2) const;
 

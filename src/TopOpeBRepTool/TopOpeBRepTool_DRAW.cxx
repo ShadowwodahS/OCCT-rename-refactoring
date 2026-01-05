@@ -47,25 +47,25 @@ static Standard_Integer MARKER3DSIZE  = 1;
 static Draw_ColorKind   SEGMENTCOLOR  = Draw_vert;
 
 //===========================================================================
-void TopOpeBRepTool_DrawPoint(const gp_Pnt& P, const Draw_MarkerShape T, const Draw_ColorKind C)
+void TopOpeBRepTool_DrawPoint(const Point3d& P, const Draw_MarkerShape T, const Draw_ColorKind C)
 //===========================================================================
 {
   dout << new Draw_Marker3D(P, T, C, MARKER3DSIZE);
   dout.Flush();
 }
 
-void TopOpeBRepTool_DrawPoint(const gp_Pnt& P, const Draw_ColorKind C)
+void TopOpeBRepTool_DrawPoint(const Point3d& P, const Draw_ColorKind C)
 {
   TopOpeBRepTool_DrawPoint(P, MARKER3DSHAPE, C);
 }
 
-void TopOpeBRepTool_DrawPoint(const gp_Pnt& P)
+void TopOpeBRepTool_DrawPoint(const Point3d& P)
 {
   TopOpeBRepTool_DrawPoint(P, MARKER3DSHAPE, MARKER3DCOLOR);
 }
 
 //===========================================================================
-void TopOpeBRepTool_DrawSegment(const gp_Pnt& P1, const gp_Pnt& P2, const Draw_ColorKind C)
+void TopOpeBRepTool_DrawSegment(const Point3d& P1, const Point3d& P2, const Draw_ColorKind C)
 //===========================================================================
 {
   dout << new Draw_Segment3D(P1, P2, C);
@@ -73,13 +73,13 @@ void TopOpeBRepTool_DrawSegment(const gp_Pnt& P1, const gp_Pnt& P2, const Draw_C
   TopOpeBRepTool_DrawPoint(P2);
 }
 
-void TopOpeBRepTool_DrawSegment(const gp_Pnt& P1, const gp_Pnt& P2)
+void TopOpeBRepTool_DrawSegment(const Point3d& P1, const Point3d& P2)
 {
   TopOpeBRepTool_DrawSegment(P1, P2, SEGMENTCOLOR);
 }
 
 //===========================================================================
-void TopOpeBRepTool_DrawSegment(const gp_Pnt&        P,
+void TopOpeBRepTool_DrawSegment(const Point3d&        P,
                                 const gp_Lin&        L,
                                 const Standard_Real  Par,
                                 const Draw_ColorKind C)
@@ -112,7 +112,7 @@ Draw_ColorKind TopOpeBRepTool_ColorOnState(const TopAbs_State S)
 }
 
 //===========================================================================
-void TopOpeBRepTool_DrawSegment(const gp_Pnt&       P,
+void TopOpeBRepTool_DrawSegment(const Point3d&       P,
                                 const gp_Lin&       L,
                                 const Standard_Real Par,
                                 const TopAbs_State  S)
@@ -121,7 +121,7 @@ void TopOpeBRepTool_DrawSegment(const gp_Pnt&       P,
   TopOpeBRepTool_DrawSegment(P, L, Par, TopOpeBRepTool_ColorOnState(S));
 }
 
-void TopOpeBRepTool_DrawSegment(const gp_Pnt& P, const gp_Lin& L, const Standard_Real Par)
+void TopOpeBRepTool_DrawSegment(const Point3d& P, const gp_Lin& L, const Standard_Real Par)
 {
   TopOpeBRepTool_DrawSegment(P, L, Par, SEGMENTCOLOR);
 }
@@ -201,7 +201,7 @@ Standard_EXPORT void FDRAW_DINLOE(const TCollection_AsciiString pref,
 }
 
 Standard_EXPORT void FUN_tool_draw(const TCollection_AsciiString& aa,
-                                   const gp_Pnt&                  p,
+                                   const Point3d&                  p,
                                    const gp_Dir&                  d)
 {
   char*                     aaa = aa.ToCString();
@@ -229,7 +229,7 @@ Standard_EXPORT void FUN_tool_draw(const TCollection_AsciiString aa, const gp_Pn
   DrawTrSurf::Set(aaa, p2d);
 }
 
-Standard_EXPORT void FUN_tool_draw(const TCollection_AsciiString aa, const gp_Pnt& p)
+Standard_EXPORT void FUN_tool_draw(const TCollection_AsciiString aa, const Point3d& p)
 {
   char* aaa = aa.ToCString();
   DrawTrSurf::Set(aaa, p);

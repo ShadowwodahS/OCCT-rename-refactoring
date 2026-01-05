@@ -23,7 +23,7 @@
 #include <DrawDim_PlanarDimension.hxx>
 class TopoDS_Face;
 class Draw_Display;
-class gp_Pnt;
+class Point3d;
 class TopoDS_Edge;
 
 class DrawDim_PlanarDistance;
@@ -49,7 +49,7 @@ public:
 
 protected:
 private:
-  Standard_EXPORT void Draw(const gp_Pnt& p, const TopoDS_Edge& e, Draw_Display& d) const;
+  Standard_EXPORT void Draw(const Point3d& p, const TopoDS_Edge& e, Draw_Display& d) const;
 
   TopoDS_Shape myGeom1;
   TopoDS_Shape myGeom2;

@@ -64,7 +64,7 @@ Standard_Integer GeomFill_FunctionDraft::NbEquations() const
 //*******************************************************
 Standard_Boolean GeomFill_FunctionDraft::Value(const math_Vector& X, math_Vector& F)
 {
-  gp_Pnt P, P1;
+  Point3d P, P1;
   TheCurve->D0(X(1), P);
   TheSurface->D0(X(2), X(3), P1);
 
@@ -82,7 +82,7 @@ Standard_Boolean GeomFill_FunctionDraft::Value(const math_Vector& X, math_Vector
 Standard_Boolean GeomFill_FunctionDraft::Derivatives(const math_Vector& X, math_Matrix& D)
 {
   Standard_Integer i;
-  gp_Pnt           P, P1;
+  Point3d           P, P1;
   gp_Vec           DP, DP1U, DP1V;
   TheCurve->D1(X(1), P, DP);
   TheSurface->D1(X(2), X(3), P1, DP1U, DP1V);
@@ -105,7 +105,7 @@ Standard_Boolean GeomFill_FunctionDraft::Values(const math_Vector& X,
                                                 math_Matrix&       D)
 {
   Standard_Integer i;
-  gp_Pnt           P, P1;
+  Point3d           P, P1;
   gp_Vec           DP, DP1U, DP1V;
   TheCurve->D1(X(1), P, DP);                  // derivee de la generatrice
   TheSurface->D1(X(2), X(3), P1, DP1U, DP1V); // derivee de la new surface
@@ -134,7 +134,7 @@ Standard_Boolean GeomFill_FunctionDraft::DerivT(const Handle(Adaptor3d_Curve)& C
                                                 math_Vector&                   F)
 
 {
-  gp_Pnt P;
+  Point3d P;
   gp_Vec DP;
 
   C->D1(Param, P, DP); // derivee de la section
@@ -157,7 +157,7 @@ Standard_Boolean GeomFill_FunctionDraft::Deriv2T(const Handle(Adaptor3d_Curve)& 
                                                  const Standard_Real            teta,
                                                  math_Vector&                   F)
 {
-  gp_Pnt P;
+  Point3d P;
   gp_Vec DP, D2P;
 
   C->D2(Param, P, DP, D2P); // derivee de la section
@@ -177,7 +177,7 @@ Standard_Boolean GeomFill_FunctionDraft::DerivTX(const gp_Vec&       dN,
                                                  const Standard_Real teta,
                                                  math_Matrix&        D)
 {
-  //  gp_Pnt P;
+  //  Point3d P;
   //  gp_Vec DP,D2P;
 
   Standard_Integer i;
@@ -197,7 +197,7 @@ Standard_Boolean GeomFill_FunctionDraft::DerivTX(const gp_Vec&       dN,
 //*******************************************************
 Standard_Boolean GeomFill_FunctionDraft::Deriv2X(const math_Vector& X, GeomFill_Tensor& T)
 {
-  gp_Pnt           P;
+  Point3d           P;
   gp_Vec           DPu, DPv;
   gp_Vec           D2Pu, D2Pv, D2Puv;
   Standard_Integer i;

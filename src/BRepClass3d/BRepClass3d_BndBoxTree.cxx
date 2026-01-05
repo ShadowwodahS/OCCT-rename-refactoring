@@ -53,7 +53,7 @@ Standard_Boolean BRepClass3d_BndBoxTreeSelectorPoint::Accept(const Standard_Inte
   else if (sht == TopAbs_VERTEX)
   {
     const TopoDS_Vertex& V       = TopoDS::Vertex(shp);
-    gp_Pnt               VPnt    = BRep_Tool::Pnt(V);
+    Point3d               VPnt    = BRep_Tool::Pnt(V);
     Standard_Real        VertTSq = BRep_Tool::Tolerance(V);
     VertTSq *= VertTSq;
     // Vertex-Point interference.

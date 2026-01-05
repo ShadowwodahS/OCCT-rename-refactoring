@@ -24,7 +24,7 @@
 #include <gp_Pnt.hxx>
 #include <Standard_Real.hxx>
 #include <Standard_Boolean.hxx>
-class gp_Pnt;
+class Point3d;
 class gp_Dir;
 class gp_Trsf;
 class gp_Lin;
@@ -68,7 +68,7 @@ public:
   //! Creates a bounding box, it contains:
   //! -   minimum/maximum point of bounding box,
   //! The constructed box is qualified Void. Its gap is null.
-  Standard_EXPORT Bnd_Box(const gp_Pnt& theMin, const gp_Pnt& theMax);
+  Standard_EXPORT Bnd_Box(const Point3d& theMin, const Point3d& theMax);
 
   //! Sets this bounding box so that it covers the whole of 3D space.
   //! It is infinitely long in all directions.
@@ -90,14 +90,14 @@ public:
   //! Sets this bounding box so that it bounds
   //! -   the point P. This involves first setting this bounding box
   //! to be void and then adding the point P.
-  Standard_EXPORT void Set(const gp_Pnt& P);
+  Standard_EXPORT void Set(const Point3d& P);
 
   //! Sets this bounding box so that it bounds
   //! the half-line defined by point P and direction D, i.e. all
   //! points M defined by M=P+u*D, where u is greater than
   //! or equal to 0, are inside the bounding volume. This
   //! involves first setting this box to be void and then adding   the half-line.
-  Standard_EXPORT void Set(const gp_Pnt& P, const gp_Dir& D);
+  Standard_EXPORT void Set(const Point3d& P, const gp_Dir& D);
 
   //! Enlarges this bounding box, if required, so that it
   //! contains at least:
@@ -145,14 +145,14 @@ public:
   //! may be equal to +/- Precision::Infinite().
   //! Standard_ConstructionError exception will be thrown if the box is void.
   //! if IsVoid()
-  Standard_EXPORT gp_Pnt CornerMin() const;
+  Standard_EXPORT Point3d CornerMin() const;
 
   //! Returns the upper corner of this bounding box. The gap is included.
   //! If this bounding box is infinite (i.e. "open"), returned values
   //! may be equal to +/- Precision::Infinite().
   //! Standard_ConstructionError exception will be thrown if the box is void.
   //! if IsVoid()
-  Standard_EXPORT gp_Pnt CornerMax() const;
+  Standard_EXPORT Point3d CornerMax() const;
 
   //! The   Box will be   infinitely   long  in the Xmin
   //! direction.
@@ -230,10 +230,10 @@ public:
   Standard_EXPORT void Add(const Bnd_Box& Other);
 
   //! Adds a Pnt to the box.
-  Standard_EXPORT void Add(const gp_Pnt& P);
+  Standard_EXPORT void Add(const Point3d& P);
 
   //! Extends  <me> from the Pnt <P> in the direction <D>.
-  Standard_EXPORT void Add(const gp_Pnt& P, const gp_Dir& D);
+  Standard_EXPORT void Add(const Point3d& P, const gp_Dir& D);
 
   //! Extends the Box  in the given Direction, i.e. adds
   //! an  half-line. The   box  may become   infinite in
@@ -241,7 +241,7 @@ public:
   Standard_EXPORT void Add(const gp_Dir& D);
 
   //! Returns True if the Pnt is out the box.
-  Standard_EXPORT Standard_Boolean IsOut(const gp_Pnt& P) const;
+  Standard_EXPORT Standard_Boolean IsOut(const Point3d& P) const;
 
   //! Returns False if the line intersects the box.
   Standard_EXPORT Standard_Boolean IsOut(const gp_Lin& L) const;
@@ -265,7 +265,7 @@ public:
   //! Returns False  if the flat band lying between two parallel
   //! lines represented by their reference points <P1>, <P2> and
   //! direction <D> intersects the box.
-  Standard_EXPORT Standard_Boolean IsOut(const gp_Pnt& P1, const gp_Pnt& P2, const gp_Dir& D) const;
+  Standard_EXPORT Standard_Boolean IsOut(const Point3d& P1, const Point3d& P2, const gp_Dir& D) const;
 
   //! Computes the minimum distance between two boxes.
   Standard_EXPORT Standard_Real Distance(const Bnd_Box& Other) const;

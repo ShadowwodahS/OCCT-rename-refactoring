@@ -142,7 +142,7 @@ Standard_Boolean BlendFunc_ConstRad::ComputeValues(const math_Vector&     X,
 
   static gp_Vec        d3u1, d3v1, d3uuv1, d3uvv1, d3u2, d3v2, d3uuv2, d3uvv2;
   static gp_Vec        d1gui, d2gui, d3gui;
-  static gp_Pnt        ptgui;
+  static Point3d        ptgui;
   static Standard_Real invnormtg, dinvnormtg;
   Standard_Real        T = Param, aux;
 
@@ -983,14 +983,14 @@ Standard_Boolean BlendFunc_ConstRad::Values(const math_Vector& X, math_Vector& F
 
 //=================================================================================================
 
-const gp_Pnt& BlendFunc_ConstRad::PointOnS1() const
+const Point3d& BlendFunc_ConstRad::PointOnS1() const
 {
   return pts1;
 }
 
 //=================================================================================================
 
-const gp_Pnt& BlendFunc_ConstRad::PointOnS2() const
+const Point3d& BlendFunc_ConstRad::PointOnS2() const
 {
   return pts2;
 }
@@ -1049,14 +1049,14 @@ void BlendFunc_ConstRad::Tangent(const Standard_Real U1,
                                  gp_Vec&             NmF,
                                  gp_Vec&             NmL) const
 {
-  gp_Pnt        Center;
+  Point3d        Center;
   gp_Vec        ns1;
   Standard_Real invnorm1;
 
   if ((U1 != xval(1)) || (V1 != xval(2)) || (U2 != xval(3)) || (V2 != xval(4)))
   {
     gp_Vec d1u, d1v;
-    gp_Pnt bid;
+    Point3d bid;
     surf1->D1(U1, V1, bid, d1u, d1v);
     NmF = ns1 = d1u.Crossed(d1v);
     surf2->D1(U2, V2, bid, d1u, d1v);
@@ -1115,7 +1115,7 @@ void BlendFunc_ConstRad::Section(const Standard_Real Param,
                                  Standard_Real&      Pfin,
                                  gp_Circ&            C)
 {
-  gp_Pnt Center;
+  Point3d Center;
   gp_Vec ns1, np;
 
   math_Vector X(1, 4);
@@ -1251,7 +1251,7 @@ void BlendFunc_ConstRad::Section(const Blend_Point&    P,
                                  TColgp_Array1OfPnt2d& Poles2d,
                                  TColStd_Array1OfReal& Weights)
 {
-  gp_Pnt Center;
+  Point3d Center;
   gp_Vec ns1, ns2, np;
 
   math_Vector   X(1, 4);
@@ -1332,7 +1332,7 @@ Standard_Boolean BlendFunc_ConstRad::Section(const Blend_Point&    P,
   gp_Vec        ns1, ns2, np, dnp, dnorm1w, dnorm2w, tgc;
   Standard_Real norm1, norm2;
 
-  gp_Pnt      Center;
+  Point3d      Center;
   math_Vector sol(1, 4), secmember(1, 4);
 
   Standard_Real    prm   = P.Parameter();
@@ -1509,7 +1509,7 @@ Standard_Boolean BlendFunc_ConstRad::Section(const Blend_Point&    P,
   gp_Vec        tgc, dtgc, dtg1, dtg2, temp, tempbis;
   Standard_Real norm1, norm2;
 
-  gp_Pnt      Center;
+  Point3d      Center;
   math_Vector X(1, 4), sol(1, 4), secmember(1, 4);
   math_Matrix D2DXdSdt(1, 4, 1, 4);
 
@@ -1869,7 +1869,7 @@ gp_Ax1 BlendFunc_ConstRad::AxeRot(const Standard_Real Prm)
 {
   gp_Ax1 axrot;
   gp_Vec dirax, d1gui, d2gui, np, dnp;
-  gp_Pnt oriax, ptgui;
+  Point3d oriax, ptgui;
 
   curv->D2(Prm, ptgui, d1gui, d2gui);
 

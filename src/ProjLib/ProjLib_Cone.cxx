@@ -66,7 +66,7 @@ void ProjLib_Cone::Init(const gp_Cone& Co)
 
 void ProjLib_Cone::Project(const gp_Lin& L)
 {
-  gp_Pnt aPnt = L.Location(), anApex = myCone.Apex();
+  Point3d aPnt = L.Location(), anApex = myCone.Apex();
 
   Standard_Real aDeltaV = 0.0;
 
@@ -80,7 +80,7 @@ void ProjLib_Cone::Project(const gp_Lin& L)
 
   ElSLib::ConeParameters(myCone.Position(), myCone.RefRadius(), myCone.SemiAngle(), aPnt, U, V);
   //
-  gp_Pnt P;
+  Point3d P;
   gp_Vec Vu, Vv;
 
   ElSLib::ConeD1(U, V, myCone.Position(), myCone.RefRadius(), myCone.SemiAngle(), P, Vu, Vv);

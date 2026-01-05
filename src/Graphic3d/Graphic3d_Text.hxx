@@ -66,10 +66,10 @@ public:
 
   //! The 3D point of attachment is projected.
   //! If the orientation is defined, the text is written in the plane of projection.
-  const gp_Pnt& Position() const { return myOrientation.Location(); }
+  const Point3d& Position() const { return myOrientation.Location(); }
 
   //! Sets text point.
-  void SetPosition(const gp_Pnt& thePoint) { myOrientation.SetLocation(thePoint); }
+  void SetPosition(const Point3d& thePoint) { myOrientation.SetLocation(thePoint); }
 
   //! Returns text orientation in 3D space.
   const gp_Ax2& Orientation() const { return myOrientation; }

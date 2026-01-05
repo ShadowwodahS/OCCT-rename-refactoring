@@ -48,7 +48,7 @@ Standard_Boolean ShapeUpgrade_ClosedEdgeDivide::Compute(const TopoDS_Edge& anEdg
   if (V1.IsSame(V2) && !BRep_Tool::Degenerated(anEdge))
   {
     const Standard_Integer nbPoints = 23;
-    gp_Pnt                 pntV     = BRep_Tool::Pnt(V1);
+    Point3d                 pntV     = BRep_Tool::Pnt(V1);
     Standard_Real          TolV1    = LimitTolerance(BRep_Tool::Tolerance(V1));
     TolV1                           = TolV1 * TolV1;
     Standard_Real      f, l;
@@ -69,7 +69,7 @@ Standard_Boolean ShapeUpgrade_ClosedEdgeDivide::Compute(const TopoDS_Edge& anEdg
       Standard_Real param = f + step;
       for (Standard_Integer i = 1; i < 23; i++, param += step)
       {
-        gp_Pnt        curPnt = curve3d->Value(param);
+        Point3d        curPnt = curve3d->Value(param);
         Standard_Real dist   = pntV.SquareDistance(curPnt);
         if (dist > dMax)
         {
@@ -108,7 +108,7 @@ Standard_Boolean ShapeUpgrade_ClosedEdgeDivide::Compute(const TopoDS_Edge& anEdg
       for (Standard_Integer i = 1; i < 23; i++, param += step)
       {
         gp_Pnt2d      p2d    = pcurve1->Value(param);
-        gp_Pnt        curPnt = surf->Value(p2d.X(), p2d.Y());
+        Point3d        curPnt = surf->Value(p2d.X(), p2d.Y());
         Standard_Real dist   = pntV.SquareDistance(curPnt);
         if (dist > dMax)
         {

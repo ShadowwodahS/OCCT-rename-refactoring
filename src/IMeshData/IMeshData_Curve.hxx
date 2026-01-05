@@ -19,7 +19,7 @@
 #include <IMeshData_ParametersList.hxx>
 #include <Standard_Type.hxx>
 
-class gp_Pnt;
+class Point3d;
 
 //! Interface class representing discrete 3d curve of edge.
 //! Indexation of points starts from zero.
@@ -31,15 +31,15 @@ public:
 
   //! Inserts new discretization point at the given position.
   Standard_EXPORT virtual void InsertPoint(const Standard_Integer thePosition,
-                                           const gp_Pnt&          thePoint,
+                                           const Point3d&          thePoint,
                                            const Standard_Real    theParamOnPCurve) = 0;
 
   //! Adds new discretization point to curve.
-  Standard_EXPORT virtual void AddPoint(const gp_Pnt&       thePoint,
+  Standard_EXPORT virtual void AddPoint(const Point3d&       thePoint,
                                         const Standard_Real theParamOnCurve) = 0;
 
   //! Returns discretization point with the given index.
-  Standard_EXPORT virtual gp_Pnt& GetPoint(const Standard_Integer theIndex) = 0;
+  Standard_EXPORT virtual Point3d& GetPoint(const Standard_Integer theIndex) = 0;
 
   //! Removes point with the given index.
   Standard_EXPORT virtual void RemovePoint(const Standard_Integer theIndex) = 0;

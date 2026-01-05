@@ -102,7 +102,7 @@ class ShapePersistent_Geom_Surface : private ShapePersistent_Geom
     virtual Handle(Geom_Surface) Import() const;
 
   private:
-    gp_Pnt myLocation;
+    Point3d myLocation;
   };
 
   typedef pBase pBounded;

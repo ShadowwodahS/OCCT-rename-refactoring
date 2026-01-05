@@ -41,7 +41,7 @@ static void ComputeTrsf3d(const Handle(TheWLine)& theline,
   Standard_Real          aXmin = RealLast(), aYmin = RealLast(), aZmin = RealLast();
   for (Standard_Integer i = 1; i <= aNbPnts; i++)
   {
-    const gp_Pnt P = theline->Point(i).Value();
+    const Point3d P = theline->Point(i).Value();
     aXmin          = Min(P.X(), aXmin);
     aYmin          = Min(P.Y(), aYmin);
     aZmin          = Min(P.Z(), aZmin);
@@ -129,7 +129,7 @@ void ApproxInt_Approx::Parameters(const ApproxInt_TheMultiLine&    Line,
       dist = 0;
       for (j = 1; j <= nbP3d; j++)
       {
-        const gp_Pnt &aP1 = tabP(j), &aP2 = tabPP(j);
+        const Point3d &aP1 = tabP(j), &aP2 = tabPP(j);
         dist += aP2.SquareDistance(aP1);
       }
       for (j = 1; j <= nbP2d; j++)

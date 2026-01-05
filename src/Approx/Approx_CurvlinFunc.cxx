@@ -104,7 +104,7 @@ static void findfourpoints(const Standard_Real,
 /*static Standard_Real curvature(const Standard_Real U, const Adaptor3d_Curve& C)
 {
   Standard_Real k, tau, mod1, mod2, OMEGA;
-  gp_Pnt P;
+  Point3d P;
   gp_Vec D1, D2, D3;
   C.D3(U, P, D1, D2, D3);
   mod1 = D1.Magnitude();
@@ -569,7 +569,7 @@ Standard_Boolean Approx_CurvlinFunc::EvalCase1(const Standard_Real    S,
   if (myCase != 1)
     throw Standard_ConstructionError("Approx_CurvlinFunc::EvalCase1");
 
-  gp_Pnt        C;
+  Point3d        C;
   gp_Vec        dC_dU, dC_dS, d2C_dU2, d2C_dS2;
   Standard_Real U, Mag, dU_dS, d2U_dS2;
 
@@ -688,7 +688,7 @@ Standard_Boolean Approx_CurvlinFunc::EvalCurOnSur(const Standard_Real    S,
 
   Standard_Real Mag, dU_dS, d2U_dS2, dV_dU, dW_dU, dV_dS, dW_dS, d2V_dS2, d2W_dS2, d2V_dU2, d2W_dU2;
   gp_Pnt2d      C2D;
-  gp_Pnt        C;
+  Point3d        C;
   gp_Vec2d      dC2D_dU, d2C2D_dU2;
   gp_Vec        dC_dU, d2C_dU2, dC_dS, d2C_dS2, dS_dV, dS_dW, d2S_dV2, d2S_dW2, d2S_dVdW;
 

@@ -28,14 +28,14 @@ public:
   Standard_EXPORT static void Value(const Handle(Adaptor3d_Surface)& S,
                                     const Standard_Real              U,
                                     const Standard_Real              V,
-                                    gp_Pnt&                          P);
+                                    Point3d&                          P);
 
   //! Computes the point <P> and first derivative <D1*> of
   //! parameter <U> and <V> on the HSurface <S>.
   Standard_EXPORT static void D1(const Handle(Adaptor3d_Surface)& S,
                                  const Standard_Real              U,
                                  const Standard_Real              V,
-                                 gp_Pnt&                          P,
+                                 Point3d&                          P,
                                  gp_Vec&                          D1U,
                                  gp_Vec&                          D1V);
 
@@ -44,7 +44,7 @@ public:
   Standard_EXPORT static void D2(const Handle(Adaptor3d_Surface)& S,
                                  const Standard_Real              U,
                                  const Standard_Real              V,
-                                 gp_Pnt&                          P,
+                                 Point3d&                          P,
                                  gp_Vec&                          D1U,
                                  gp_Vec&                          D1V,
                                  gp_Vec&                          D2U,

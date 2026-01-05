@@ -507,7 +507,7 @@ void ChFi2d_FilletAlgo::PerformNewton(FilletPoint* theLeft, FilletPoint* theRigh
 }
 
 // returns number of possible solutions.
-int ChFi2d_FilletAlgo::NbResults(const gp_Pnt& thePoint)
+int ChFi2d_FilletAlgo::NbResults(const Point3d& thePoint)
 {
   Standard_Real aX, aY;
   gp_Pnt2d      aTargetPoint2d;
@@ -532,7 +532,7 @@ int ChFi2d_FilletAlgo::NbResults(const gp_Pnt& thePoint)
 
 // returns result (fillet edge, modified edge1, modified edge2), nearest to the given point
 // <thePoint>
-TopoDS_Edge ChFi2d_FilletAlgo::Result(const gp_Pnt& thePoint,
+TopoDS_Edge ChFi2d_FilletAlgo::Result(const Point3d& thePoint,
                                       TopoDS_Edge&  theEdge1,
                                       TopoDS_Edge&  theEdge2,
                                       const int     iSolution)
@@ -585,7 +585,7 @@ TopoDS_Edge ChFi2d_FilletAlgo::Result(const gp_Pnt& thePoint,
     return aResult;
 
   // create circle edge
-  gp_Pnt              aCenter = ElSLib::PlaneValue(aNearest->getCenter().X(),
+  Point3d              aCenter = ElSLib::PlaneValue(aNearest->getCenter().X(),
                                       aNearest->getCenter().Y(),
                                       myPlane->Pln().Position());
   Handle(Geom_Circle) aCircle =
@@ -593,16 +593,16 @@ TopoDS_Edge ChFi2d_FilletAlgo::Result(const gp_Pnt& thePoint,
   gp_Pnt2d aPoint2d1, aPoint2d2;
   myCurve1->D0(aNearest->getParam(), aPoint2d1);
   myCurve2->D0(aNearest->getParam2(), aPoint2d2);
-  gp_Pnt aPoint1 = ElSLib::PlaneValue(aPoint2d1.X(), aPoint2d1.Y(), myPlane->Pln().Position());
-  gp_Pnt aPoint2 = ElSLib::PlaneValue(aPoint2d2.X(), aPoint2d2.Y(), myPlane->Pln().Position());
+  Point3d aPoint1 = ElSLib::PlaneValue(aPoint2d1.X(), aPoint2d1.Y(), myPlane->Pln().Position());
+  Point3d aPoint2 = ElSLib::PlaneValue(aPoint2d2.X(), aPoint2d2.Y(), myPlane->Pln().Position());
 
   GeomAPI_ProjectPointOnCurve aProj(thePoint, aCircle);
   Standard_Real               aTargetParam   = aProj.LowerDistanceParameter();
-  gp_Pnt                      aPointOnCircle = aProj.NearestPoint();
+  Point3d                      aPointOnCircle = aProj.NearestPoint();
 
   // There is a bug in Open CASCADE in calculation of nearest point to a circle near the parameter
   // 0.0 Therefore I check this extrema point manually:
-  gp_Pnt p0 = ElCLib::Value(0.0, aCircle->Circ());
+  Point3d p0 = ElCLib::Value(0.0, aCircle->Circ());
   if (p0.Distance(thePoint) < aPointOnCircle.Distance(thePoint))
   {
     aTargetParam   = 0.0;

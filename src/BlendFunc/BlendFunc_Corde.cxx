@@ -92,14 +92,14 @@ Standard_Boolean BlendFunc_Corde::Derivatives(const math_Vector& X, math_Matrix&
 
 //=================================================================================================
 
-const gp_Pnt& BlendFunc_Corde::PointOnS() const
+const Point3d& BlendFunc_Corde::PointOnS() const
 {
   return pts;
 }
 
 //=================================================================================================
 
-const gp_Pnt& BlendFunc_Corde::PointOnGuide() const
+const Point3d& BlendFunc_Corde::PointOnGuide() const
 {
   return ptgui;
 }

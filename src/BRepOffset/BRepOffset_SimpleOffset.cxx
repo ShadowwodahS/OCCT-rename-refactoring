@@ -91,7 +91,7 @@ Standard_Boolean BRepOffset_SimpleOffset::NewCurve(const TopoDS_Edge&  E,
 //=================================================================================================
 
 Standard_Boolean BRepOffset_SimpleOffset::NewPoint(const TopoDS_Vertex& V,
-                                                   gp_Pnt&              P,
+                                                   Point3d&              P,
                                                    Standard_Real&       Tol)
 {
   if (!myVertexInfo.IsBound(V))
@@ -306,7 +306,7 @@ void BRepOffset_SimpleOffset::FillVertexData(
   // Get offset points for founded end.
   // Set result vertex position as barycenter of founded points.
 
-  gp_Pnt aCurrPnt = BRep_Tool::Pnt(theVertex);
+  Point3d aCurrPnt = BRep_Tool::Pnt(theVertex);
 
   const TopTools_ListOfShape& aEdgesList = theVertexEdgeMap(theIdx);
 
@@ -314,7 +314,7 @@ void BRepOffset_SimpleOffset::FillVertexData(
     return; // Free verices are skipped.
 
   // Array to store offset points.
-  NCollection_Vector<gp_Pnt> anOffsetPointVec;
+  NCollection_Vector<Point3d> anOffsetPointVec;
 
   Standard_Real aMaxEdgeTol = 0.0;
 
@@ -335,8 +335,8 @@ void BRepOffset_SimpleOffset::FillVertexData(
     if (aC3d.IsNull())
       continue;
 
-    const gp_Pnt aPntF = aC3d->Value(aF);
-    const gp_Pnt aPntL = aC3d->Value(aL);
+    const Point3d aPntF = aC3d->Value(aF);
+    const Point3d aPntL = aC3d->Value(aL);
 
     const Standard_Real aSqDistF = aPntF.SquareDistance(aCurrPnt);
     const Standard_Real aSqDistL = aPntL.SquareDistance(aCurrPnt);
@@ -352,7 +352,7 @@ void BRepOffset_SimpleOffset::FillVertexData(
     // Compute point on offset edge.
     const NewEdgeData&        aNED          = myEdgeInfo.Find(aCurrEdge);
     const Handle(Geom_Curve)& anOffsetCurve = aNED.myOffsetC;
-    const gp_Pnt              anOffsetPoint = anOffsetCurve->Value(aMinParam);
+    const Point3d              anOffsetPoint = anOffsetCurve->Value(aMinParam);
     anOffsetPointVec.Append(anOffsetPoint);
 
     // Handle situation when edge is closed.
@@ -360,7 +360,7 @@ void BRepOffset_SimpleOffset::FillVertexData(
     TopExp::Vertices(aCurrEdge, aV1, aV2);
     if (aV1.IsSame(aV2))
     {
-      const gp_Pnt anOffsetPointLast = anOffsetCurve->Value(aMaxParam);
+      const Point3d anOffsetPointLast = anOffsetCurve->Value(aMaxParam);
       anOffsetPointVec.Append(anOffsetPointLast);
     }
 
@@ -369,7 +369,7 @@ void BRepOffset_SimpleOffset::FillVertexData(
 
   // NCollection_Vector starts from 0 by default.
   // It's better to use lower() and upper() in this case instead of direct indexes range.
-  gp_Pnt aCenter(0.0, 0.0, 0.0);
+  Point3d aCenter(0.0, 0.0, 0.0);
   for (Standard_Integer i = anOffsetPointVec.Lower(); i <= anOffsetPointVec.Upper(); ++i)
   {
     aCenter.SetXYZ(aCenter.XYZ() + anOffsetPointVec.Value(i).XYZ());

@@ -83,7 +83,7 @@ static Standard_Boolean FUN_hasparam(const Handle(TopOpeBRepDS_Interference)& I,
 static Standard_Boolean FUN_paronOOE(const TopoDS_Edge&     OOE,
                                      const Standard_Integer IsVertex,
                                      const TopoDS_Shape&    VonOO,
-                                     const gp_Pnt&          P3d,
+                                     const Point3d&          P3d,
                                      Standard_Real&         paronOOE)
 {
   Standard_Boolean ok       = Standard_False;

@@ -122,7 +122,7 @@ Standard_Integer AppParCurves_MultiBSpCurve::Degree() const
 
 void AppParCurves_MultiBSpCurve::Value(const Standard_Integer CuIndex,
                                        const Standard_Real    U,
-                                       gp_Pnt&                Pt) const
+                                       Point3d&                Pt) const
 {
 
   if (Dimension(CuIndex) != 3)
@@ -174,7 +174,7 @@ void AppParCurves_MultiBSpCurve::Value(const Standard_Integer CuIndex,
 
 void AppParCurves_MultiBSpCurve::D1(const Standard_Integer CuIndex,
                                     const Standard_Real    U,
-                                    gp_Pnt&                Pt,
+                                    Point3d&                Pt,
                                     gp_Vec&                V1) const
 {
   if (Dimension(CuIndex) != 3)
@@ -201,7 +201,7 @@ void AppParCurves_MultiBSpCurve::D1(const Standard_Integer CuIndex,
 
 void AppParCurves_MultiBSpCurve::D2(const Standard_Integer CuIndex,
                                     const Standard_Real    U,
-                                    gp_Pnt&                Pt,
+                                    Point3d&                Pt,
                                     gp_Vec&                V1,
                                     gp_Vec&                V2) const
 {

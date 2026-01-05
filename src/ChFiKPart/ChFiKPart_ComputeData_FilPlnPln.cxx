@@ -67,7 +67,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
     D2.Reverse();
   }
   IntAna_QuadQuadGeo LInt(Pl1, Pl2, Precision::Angular(), Precision::Confusion());
-  gp_Pnt             Pv;
+  Point3d             Pv;
   if (LInt.IsDone())
   {
     // On met l origine du cylindre au point de depart fourni sur la
@@ -82,7 +82,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   Standard_Real Ang          = D1.Angle(D2);
   gp_Vec        V            = gp_Vec(D1) + gp_Vec(D2);
   gp_Dir        S(V);
-  gp_Pnt        C;
+  Point3d        C;
   Standard_Real Fac = Radius / Cos(Ang / 2.);
   C.SetCoord(Pv.X() + Fac * S.X(), Pv.Y() + Fac * S.Y(), Pv.Z() + Fac * S.Z());
   gp_Dir xdir = D1.Reversed();
@@ -96,7 +96,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
 
   // On regarde si l orientation du cylindre est la meme que celle
   // des faces.
-  gp_Pnt P;
+  Point3d P;
   gp_Vec deru, derv;
   ElSLib::CylinderD1(0., 0., CylAx3, Radius, P, deru, derv);
   gp_Dir norcyl(deru.Crossed(derv));

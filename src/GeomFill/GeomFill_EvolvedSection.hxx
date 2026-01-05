@@ -31,7 +31,7 @@ class Geom_Curve;
 class Law_Function;
 class Geom_BSplineCurve;
 class Geom_BSplineSurface;
-class gp_Pnt;
+class Point3d;
 
 class GeomFill_EvolvedSection;
 DEFINE_STANDARD_HANDLE(GeomFill_EvolvedSection, GeomFill_SectionLaw)
@@ -142,7 +142,7 @@ public:
   //! This information is useful to perform well
   //! conditioned rational approximation.
   //! Warning: Used only if <me> IsRational
-  Standard_EXPORT virtual gp_Pnt BarycentreOfSurf() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Point3d BarycentreOfSurf() const Standard_OVERRIDE;
 
   //! Returns the   length of the greater section. This
   //! information is useful to G1's control.

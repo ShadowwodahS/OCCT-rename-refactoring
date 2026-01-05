@@ -62,7 +62,7 @@ public:
   void SetAxis(const gp_Ax1& theA1) { pos.SetAxis(theA1); }
 
   //! Changes the location of the surface.
-  void SetLocation(const gp_Pnt& theLoc) { pos.SetLocation(theLoc); }
+  void SetLocation(const Point3d& theLoc) { pos.SetLocation(theLoc); }
 
   //! Change the local coordinate system of the surface.
   void SetPosition(const gp_Ax3& theA3) { pos = theA3; }
@@ -108,7 +108,7 @@ public:
                                     Standard_Real& theD) const;
 
   //! Returns the "Location" point of the cylinder.
-  const gp_Pnt& Location() const { return pos.Location(); }
+  const Point3d& Location() const { return pos.Location(); }
 
   //! Returns the local coordinate system of the cylinder.
   const gp_Ax3& Position() const { return pos; }
@@ -122,12 +122,12 @@ public:
   //! Returns the axis Y of the cylinder.
   gp_Ax1 YAxis() const { return gp_Ax1(pos.Location(), pos.YDirection()); }
 
-  Standard_EXPORT void Mirror(const gp_Pnt& theP);
+  Standard_EXPORT void Mirror(const Point3d& theP);
 
   //! Performs the symmetrical transformation of a cylinder
   //! with respect to the point theP which is the center of the
   //! symmetry.
-  Standard_NODISCARD Standard_EXPORT gp_Cylinder Mirrored(const gp_Pnt& theP) const;
+  Standard_NODISCARD Standard_EXPORT gp_Cylinder Mirrored(const Point3d& theP) const;
 
   Standard_EXPORT void Mirror(const gp_Ax1& theA1);
 
@@ -154,11 +154,11 @@ public:
     return aCyl;
   }
 
-  void Scale(const gp_Pnt& theP, const Standard_Real theS);
+  void Scale(const Point3d& theP, const Standard_Real theS);
 
   //! Scales a cylinder. theS is the scaling value.
   //! The absolute value of theS is used to scale the cylinder
-  Standard_NODISCARD gp_Cylinder Scaled(const gp_Pnt& theP, const Standard_Real theS) const;
+  Standard_NODISCARD gp_Cylinder Scaled(const Point3d& theP, const Standard_Real theS) const;
 
   void Transform(const gp_Trsf& theT);
 
@@ -176,10 +176,10 @@ public:
     return aCyl;
   }
 
-  void Translate(const gp_Pnt& theP1, const gp_Pnt& theP2) { pos.Translate(theP1, theP2); }
+  void Translate(const Point3d& theP1, const Point3d& theP2) { pos.Translate(theP1, theP2); }
 
   //! Translates a cylinder from the point theP1 to the point theP2.
-  Standard_NODISCARD gp_Cylinder Translated(const gp_Pnt& theP1, const gp_Pnt& theP2) const
+  Standard_NODISCARD gp_Cylinder Translated(const Point3d& theP1, const Point3d& theP2) const
   {
     gp_Cylinder aCyl = *this;
     aCyl.pos.Translate(theP1, theP2);
@@ -195,7 +195,7 @@ private:
 // function : Scale
 // purpose  :
 // =======================================================================
-inline void gp_Cylinder::Scale(const gp_Pnt& theP, const Standard_Real theS)
+inline void gp_Cylinder::Scale(const Point3d& theP, const Standard_Real theS)
 {
   pos.Scale(theP, theS);
   radius *= theS;
@@ -209,7 +209,7 @@ inline void gp_Cylinder::Scale(const gp_Pnt& theP, const Standard_Real theS)
 // function : Scaled
 // purpose  :
 // =======================================================================
-inline gp_Cylinder gp_Cylinder::Scaled(const gp_Pnt& theP, const Standard_Real theS) const
+inline gp_Cylinder gp_Cylinder::Scaled(const Point3d& theP, const Standard_Real theS) const
 {
   gp_Cylinder aCyl = *this;
   aCyl.pos.Scale(theP, theS);

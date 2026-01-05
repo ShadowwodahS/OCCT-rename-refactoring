@@ -34,7 +34,7 @@ class gp_Cylinder;
 class gp_Sphere;
 class gp_Cone;
 class gp_Torus;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 
 class IntSurf_Quadric
@@ -64,11 +64,11 @@ public:
 
   Standard_EXPORT void SetValue(const gp_Torus& T);
 
-  Standard_EXPORT Standard_Real Distance(const gp_Pnt& P) const;
+  Standard_EXPORT Standard_Real Distance(const Point3d& P) const;
 
-  Standard_EXPORT gp_Vec Gradient(const gp_Pnt& P) const;
+  Standard_EXPORT gp_Vec Gradient(const Point3d& P) const;
 
-  Standard_EXPORT void ValAndGrad(const gp_Pnt& P, Standard_Real& Dist, gp_Vec& Grad) const;
+  Standard_EXPORT void ValAndGrad(const Point3d& P, Standard_Real& Dist, gp_Vec& Grad) const;
 
   GeomAbs_SurfaceType TypeQuadric() const;
 
@@ -82,11 +82,11 @@ public:
 
   gp_Torus Torus() const;
 
-  Standard_EXPORT gp_Pnt Value(const Standard_Real U, const Standard_Real V) const;
+  Standard_EXPORT Point3d Value(const Standard_Real U, const Standard_Real V) const;
 
   Standard_EXPORT void D1(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V) const;
 
@@ -97,9 +97,9 @@ public:
 
   Standard_EXPORT gp_Vec Normale(const Standard_Real U, const Standard_Real V) const;
 
-  Standard_EXPORT void Parameters(const gp_Pnt& P, Standard_Real& U, Standard_Real& V) const;
+  Standard_EXPORT void Parameters(const Point3d& P, Standard_Real& U, Standard_Real& V) const;
 
-  Standard_EXPORT gp_Vec Normale(const gp_Pnt& P) const;
+  Standard_EXPORT gp_Vec Normale(const Point3d& P) const;
 
 protected:
 private:

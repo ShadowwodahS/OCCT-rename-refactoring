@@ -37,8 +37,8 @@ static char                      blank[2]  = "";
 static Standard_Real             xmin, xmax, ymin, ymax;
 static Standard_Boolean          found = Standard_False;
 static Standard_Integer          xpick, ypick, precpick;
-static gp_Pnt                    lastPickP1;
-static gp_Pnt                    lastPickP2;
+static Point3d                    lastPickP1;
+static Point3d                    lastPickP2;
 static Standard_Real             lastPickParam;
 static Draw_Color                highlightcol;
 static Draw_Color                currentcolor;
@@ -229,7 +229,7 @@ void Draw_Viewer::RotateView(const Standard_Integer id, const gp_Dir2d& D, const
     gp_Trsf T = myViews[id]->GetMatrix();
 
     T.Invert();
-    gp_Pnt PP(0, 0, 0);
+    Point3d PP(0, 0, 0);
     gp_Dir DD(D.X(), D.Y(), 0);
     PP.Transform(T);
     DD.Transform(T);
@@ -240,7 +240,7 @@ void Draw_Viewer::RotateView(const Standard_Integer id, const gp_Dir2d& D, const
 //=================================================================================================
 
 void Draw_Viewer::RotateView(const Standard_Integer id,
-                             const gp_Pnt&          P,
+                             const Point3d&          P,
                              const gp_Dir&          D,
                              const Standard_Real    A)
 {
@@ -1142,7 +1142,7 @@ Standard_Integer Draw_Viewer::Pick(const Standard_Integer   id,
 
 //=================================================================================================
 
-void Draw_Viewer::LastPick(gp_Pnt& P1, gp_Pnt& P2, Standard_Real& Param)
+void Draw_Viewer::LastPick(Point3d& P1, Point3d& P2, Standard_Real& Param)
 {
   if (Draw_Batch)
     return;
@@ -1333,7 +1333,7 @@ void Draw_Display::DrawString(const gp_Pnt2d& ppt, const Standard_CString S)
 
 //=================================================================================================
 
-void Draw_Display::DrawString(const gp_Pnt&          pt,
+void Draw_Display::DrawString(const Point3d&          pt,
                               const Standard_CString S,
                               const Standard_Real    moveX,
                               const Standard_Real    moveY)
@@ -1345,7 +1345,7 @@ void Draw_Display::DrawString(const gp_Pnt&          pt,
 
 //=================================================================================================
 
-void Draw_Display::DrawString(const gp_Pnt& pt, const Standard_CString S)
+void Draw_Display::DrawString(const Point3d& pt, const Standard_CString S)
 {
   if (Draw_Batch)
     return;
@@ -1356,15 +1356,15 @@ void Draw_Display::DrawString(const gp_Pnt& pt, const Standard_CString S)
 // Drawing data static variables
 // *******************************************************************
 static gp_Pnt2d PtCur;  // current 2D point
-static gp_Pnt   PtPers; // current 3D point for Pers
+static Point3d   PtPers; // current 3D point for Pers
 
 //=================================================================================================
 
-void Draw_Display::Project(const gp_Pnt& p, gp_Pnt2d& p2d) const
+void Draw_Display::Project(const Point3d& p, gp_Pnt2d& p2d) const
 {
   if (Draw_Batch)
     return;
-  gp_Pnt pt = p;
+  Point3d pt = p;
   pt.Transform(curview->GetMatrix());
   Standard_Real xp, yp, zp;
   pt.Coord(xp, yp, zp);
@@ -1726,7 +1726,7 @@ void Draw_Display::DrawTo(const gp_Pnt2d& pp2)
 
 //=================================================================================================
 
-void Draw_Display::MoveTo(const gp_Pnt& pt)
+void Draw_Display::MoveTo(const Point3d& pt)
 {
   if (Draw_Batch)
     return;
@@ -1756,14 +1756,14 @@ void Draw_Display::MoveTo(const gp_Pnt& pt)
 
 //=================================================================================================
 
-void Draw_Display::DrawTo(const gp_Pnt& pt)
+void Draw_Display::DrawTo(const Point3d& pt)
 {
   if (Draw_Batch)
     return;
   if ((CurrentMode == PICK) && found)
     return;
 
-  gp_Pnt        pt2 = pt.Transformed(curview->GetMatrix());
+  Point3d        pt2 = pt.Transformed(curview->GetMatrix());
   Standard_Real xp2 = pt2.X();
   Standard_Real yp2 = pt2.Y();
 
@@ -1811,7 +1811,7 @@ void Draw_Display::DrawTo(const gp_Pnt& pt)
 
 //=================================================================================================
 
-void Draw_Display::Draw(const gp_Pnt& p1, const gp_Pnt& p2)
+void Draw_Display::Draw(const Point3d& p1, const Point3d& p2)
 {
   if (Draw_Batch)
     return;

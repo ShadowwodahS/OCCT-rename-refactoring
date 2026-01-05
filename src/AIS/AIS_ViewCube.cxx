@@ -345,7 +345,7 @@ void AIS_ViewCube::createRoundRectangleTriangles(const Handle(Graphic3d_ArrayOfT
       return;
     }
 
-    theTris->AddVertex(gp_Pnt(0.0, 0.0, 0.0).Transformed(theTrsf));
+    theTris->AddVertex(Point3d(0.0, 0.0, 0.0).Transformed(theTrsf));
     for (Standard_Integer aNodeIter = 0; aNodeIter <= THE_NB_ROUND_SPLITS; ++aNodeIter)
     {
       const Standard_Real anAngle = NCollection_Lerp<Standard_Real>::Interpolate(
@@ -353,7 +353,7 @@ void AIS_ViewCube::createRoundRectangleTriangles(const Handle(Graphic3d_ArrayOfT
         0.0,
         Standard_Real(aNodeIter) / Standard_Real(THE_NB_ROUND_SPLITS));
       theTris->AddVertex(
-        gp_Pnt(aHSize.X() + aRadius * Cos(anAngle), aHSize.Y() + aRadius * Sin(anAngle), 0.0)
+        Point3d(aHSize.X() + aRadius * Cos(anAngle), aHSize.Y() + aRadius * Sin(anAngle), 0.0)
           .Transformed(theTrsf));
     }
     for (Standard_Integer aNodeIter = 0; aNodeIter <= THE_NB_ROUND_SPLITS; ++aNodeIter)
@@ -363,7 +363,7 @@ void AIS_ViewCube::createRoundRectangleTriangles(const Handle(Graphic3d_ArrayOfT
         -M_PI * 0.5,
         Standard_Real(aNodeIter) / Standard_Real(THE_NB_ROUND_SPLITS));
       theTris->AddVertex(
-        gp_Pnt(aHSize.X() + aRadius * Cos(anAngle), -aHSize.Y() + aRadius * Sin(anAngle), 0.0)
+        Point3d(aHSize.X() + aRadius * Cos(anAngle), -aHSize.Y() + aRadius * Sin(anAngle), 0.0)
           .Transformed(theTrsf));
     }
     for (Standard_Integer aNodeIter = 0; aNodeIter <= THE_NB_ROUND_SPLITS; ++aNodeIter)
@@ -373,7 +373,7 @@ void AIS_ViewCube::createRoundRectangleTriangles(const Handle(Graphic3d_ArrayOfT
         -M_PI,
         Standard_Real(aNodeIter) / Standard_Real(THE_NB_ROUND_SPLITS));
       theTris->AddVertex(
-        gp_Pnt(-aHSize.X() + aRadius * Cos(anAngle), -aHSize.Y() + aRadius * Sin(anAngle), 0.0)
+        Point3d(-aHSize.X() + aRadius * Cos(anAngle), -aHSize.Y() + aRadius * Sin(anAngle), 0.0)
           .Transformed(theTrsf));
     }
     for (Standard_Integer aNodeIter = 0; aNodeIter <= THE_NB_ROUND_SPLITS; ++aNodeIter)
@@ -383,7 +383,7 @@ void AIS_ViewCube::createRoundRectangleTriangles(const Handle(Graphic3d_ArrayOfT
         -M_PI * 1.5,
         Standard_Real(aNodeIter) / Standard_Real(THE_NB_ROUND_SPLITS));
       theTris->AddVertex(
-        gp_Pnt(-aHSize.X() + aRadius * Cos(anAngle), aHSize.Y() + aRadius * Sin(anAngle), 0.0)
+        Point3d(-aHSize.X() + aRadius * Cos(anAngle), aHSize.Y() + aRadius * Sin(anAngle), 0.0)
           .Transformed(theTrsf));
     }
 
@@ -399,10 +399,10 @@ void AIS_ViewCube::createRoundRectangleTriangles(const Handle(Graphic3d_ArrayOfT
       return;
     }
 
-    theTris->AddVertex(gp_Pnt(-aHSize.X(), -aHSize.Y(), 0.0).Transformed(theTrsf));
-    theTris->AddVertex(gp_Pnt(-aHSize.X(), aHSize.Y(), 0.0).Transformed(theTrsf));
-    theTris->AddVertex(gp_Pnt(aHSize.X(), aHSize.Y(), 0.0).Transformed(theTrsf));
-    theTris->AddVertex(gp_Pnt(aHSize.X(), -aHSize.Y(), 0.0).Transformed(theTrsf));
+    theTris->AddVertex(Point3d(-aHSize.X(), -aHSize.Y(), 0.0).Transformed(theTrsf));
+    theTris->AddVertex(Point3d(-aHSize.X(), aHSize.Y(), 0.0).Transformed(theTrsf));
+    theTris->AddVertex(Point3d(aHSize.X(), aHSize.Y(), 0.0).Transformed(theTrsf));
+    theTris->AddVertex(Point3d(aHSize.X(), -aHSize.Y(), 0.0).Transformed(theTrsf));
     theTris->AddQuadTriangleEdges(aVertFirst + 1, aVertFirst + 2, aVertFirst + 3, aVertFirst + 4);
   }
 
@@ -442,7 +442,7 @@ void AIS_ViewCube::createBoxSideTriangles(const Handle(Graphic3d_ArrayOfTriangle
                                           V3d_TypeOfOrientation theDirection) const
 {
   const gp_Dir aDir = V3d::GetProjAxis(theDirection);
-  const gp_Pnt aPos = aDir.XYZ() * (mySize * 0.5 + myBoxFacetExtension);
+  const Point3d aPos = aDir.XYZ() * (mySize * 0.5 + myBoxFacetExtension);
   const gp_Ax2 aPosition(aPos, aDir.Reversed());
 
   gp_Ax3  aSystem(aPosition);
@@ -468,7 +468,7 @@ void AIS_ViewCube::createBoxEdgeTriangles(const Handle(Graphic3d_ArrayOfTriangle
     Max(myBoxFacetExtension * gp_XY(1.0, 1.0).Modulus() - myBoxEdgeGap, myBoxEdgeMinSize);
 
   const gp_Dir aDir = V3d::GetProjAxis(theDirection);
-  const gp_Pnt aPos =
+  const Point3d aPos =
     aDir.XYZ() * (mySize * 0.5 * gp_XY(1.0, 1.0).Modulus() + myBoxFacetExtension * Cos(M_PI_4));
   const gp_Ax2 aPosition(aPos, aDir.Reversed());
 
@@ -506,14 +506,14 @@ void AIS_ViewCube::createBoxCornerTriangles(const Handle(Graphic3d_ArrayOfTriang
 
     const Standard_Real anEdgeHWidth = myBoxFacetExtension * gp_XY(1.0, 1.0).Modulus() * 0.5;
     const Standard_Real aHeight      = anEdgeHWidth * Sqrt(2.0 / 3.0); // tetrahedron height
-    const gp_Pnt        aPos = aDir.XYZ() * (aHSize * gp_Vec(1.0, 1.0, 1.0).Magnitude() + aHeight);
+    const Point3d        aPos = aDir.XYZ() * (aHSize * gp_Vec(1.0, 1.0, 1.0).Magnitude() + aHeight);
     const gp_Ax2        aPosition(aPos, aDir.Reversed());
     gp_Ax3              aSystem(aPosition);
     gp_Trsf             aTrsf;
     aTrsf.SetTransformation(aSystem, gp_Ax3());
     const Standard_Real aRadius = Max(myBoxFacetExtension * 0.5 / Cos(M_PI_4), myCornerMinSize);
 
-    theTris->AddVertex(gp_Pnt(0.0, 0.0, 0.0).Transformed(aTrsf));
+    theTris->AddVertex(Point3d(0.0, 0.0, 0.0).Transformed(aTrsf));
     for (Standard_Integer aNodeIter = 0; aNodeIter < THE_NB_DISK_SLICES; ++aNodeIter)
     {
       const Standard_Real anAngle = NCollection_Lerp<Standard_Real>::Interpolate(
@@ -521,7 +521,7 @@ void AIS_ViewCube::createBoxCornerTriangles(const Handle(Graphic3d_ArrayOfTriang
         0.0,
         Standard_Real(aNodeIter) / Standard_Real(THE_NB_DISK_SLICES));
       theTris->AddVertex(
-        gp_Pnt(aRadius * Cos(anAngle), aRadius * Sin(anAngle), 0.0).Transformed(aTrsf));
+        Point3d(aRadius * Cos(anAngle), aRadius * Sin(anAngle), 0.0).Transformed(aTrsf));
     }
     theTris->AddTriangleFanEdges(aVertFirst + 1, theTris->VertexNumber(), true);
   }
@@ -571,7 +571,7 @@ void AIS_ViewCube::Compute(const Handle(PrsMgr_PresentationManager)&,
     return;
   }
 
-  const gp_Pnt aLocation =
+  const Point3d aLocation =
     (mySize * 0.5 + myBoxFacetExtension + myAxesPadding) * gp_XYZ(-1.0, -1.0, -1.0);
 
   // Display axes
@@ -623,7 +623,7 @@ void AIS_ViewCube::Compute(const Handle(PrsMgr_PresentationManager)&,
           && !anAxisLabel.IsEmpty())
       {
         Handle(Graphic3d_Group) anAxisLabelGroup = thePrs->NewGroup();
-        gp_Pnt                  aTextOrigin =
+        Point3d                  aTextOrigin =
           anAx1.Location().Translated(gp_Vec(anAx1.Direction().X() * (anAxisSize + anArrowLength),
                                              anAx1.Direction().Y() * (anAxisSize + anArrowLength),
                                              anAx1.Direction().Z() * (anAxisSize + anArrowLength)));
@@ -745,7 +745,7 @@ void AIS_ViewCube::Compute(const Handle(PrsMgr_PresentationManager)&,
       }
 
       const Standard_Real anOffset = 2.0; // extra offset to avoid overlapping with triangulation
-      const gp_Pnt        aPos     = aDir.XYZ() * (mySize * 0.5 + myBoxFacetExtension + anOffset);
+      const Point3d        aPos     = aDir.XYZ() * (mySize * 0.5 + myBoxFacetExtension + anOffset);
       const gp_Ax2        aPosition(aPos, aDir, anUp.Crossed(aDir));
 
       Handle(Graphic3d_Text) aText =

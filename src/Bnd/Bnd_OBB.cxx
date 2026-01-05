@@ -419,7 +419,7 @@ OBBTool::OBBTool(const TColgp_Array1OfPnt&   theL,
     // Add the points into Set
     for (Standard_Integer iP = theL.Lower(); iP <= theL.Upper(); ++iP)
     {
-      const gp_Pnt&             aP   = theL(iP);
+      const Point3d&             aP   = theL(iP);
       Standard_Real             aTol = theLT ? theLT->Value(iP) : Precision::Confusion();
       BVH_Box<Standard_Real, 3> aBox(BVH_Vec3d(aP.X() - aTol, aP.Y() - aTol, aP.Z() - aTol),
                                      BVH_Vec3d(aP.X() + aTol, aP.Y() + aTol, aP.Z() + aTol));
@@ -484,7 +484,7 @@ void OBBTool::ComputeExtremePoints()
     Standard_Real aMaxSqDist = -1.0;
     for (Standard_Integer aPrmInd = 0; aPrmInd < myNbExtremalPoints; aPrmInd += 2)
     {
-      const gp_Pnt &      aP1 = myLExtremalPoints[aPrmInd], &aP2 = myLExtremalPoints[aPrmInd + 1];
+      const Point3d &      aP1 = myLExtremalPoints[aPrmInd], &aP2 = myLExtremalPoints[aPrmInd + 1];
       const Standard_Real aSqDist = aP1.SquareDistance(aP2);
       if (aSqDist > aMaxSqDist)
       {
@@ -919,7 +919,7 @@ Standard_Boolean Bnd_OBB::IsOut(const Bnd_OBB& theOther) const
 
 //=================================================================================================
 
-Standard_Boolean Bnd_OBB::IsOut(const gp_Pnt& theP) const
+Standard_Boolean Bnd_OBB::IsOut(const Point3d& theP) const
 {
   // 1. Project the point to myAxes[i] (i=0...2).
   // 2. Check, whether the absolute value of the correspond
@@ -941,7 +941,7 @@ Standard_Boolean Bnd_OBB::IsCompletelyInside(const Bnd_OBB& theOther) const
   if (IsVoid() || theOther.IsVoid())
     return Standard_False;
 
-  gp_Pnt aVert[8];
+  Point3d aVert[8];
   theOther.GetVertex(aVert);
   for (Standard_Integer i = 0; i < 8; i++)
   {
@@ -954,7 +954,7 @@ Standard_Boolean Bnd_OBB::IsCompletelyInside(const Bnd_OBB& theOther) const
 
 //=================================================================================================
 
-void Bnd_OBB::Add(const gp_Pnt& theP)
+void Bnd_OBB::Add(const Point3d& theP)
 {
   if (IsVoid())
   {
@@ -969,7 +969,7 @@ void Bnd_OBB::Add(const gp_Pnt& theP)
   }
   else
   {
-    gp_Pnt aList[9];
+    Point3d aList[9];
     GetVertex(aList);
     aList[8] = theP;
     ReBuild(TColgp_Array1OfPnt(aList[0], 0, 8));
@@ -995,7 +995,7 @@ void Bnd_OBB::Add(const Bnd_OBB& theOther)
     }
     else
     {
-      gp_Pnt aList[16];
+      Point3d aList[16];
       GetVertex(&aList[0]);
       theOther.GetVertex(&aList[8]);
       ReBuild(TColgp_Array1OfPnt(aList[0], 0, 15));

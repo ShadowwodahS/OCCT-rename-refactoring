@@ -37,7 +37,7 @@ GeomFill_SimpleBound::GeomFill_SimpleBound(const Handle(Adaptor3d_Curve)& Curve,
 
 //=================================================================================================
 
-gp_Pnt GeomFill_SimpleBound::Value(const Standard_Real U) const
+Point3d GeomFill_SimpleBound::Value(const Standard_Real U) const
 {
   Standard_Real x = U;
   if (!myPar.IsNull())
@@ -47,7 +47,7 @@ gp_Pnt GeomFill_SimpleBound::Value(const Standard_Real U) const
 
 //=================================================================================================
 
-void GeomFill_SimpleBound::D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V) const
+void GeomFill_SimpleBound::D1(const Standard_Real U, Point3d& P, gp_Vec& V) const
 {
   Standard_Real x = U, dx = 1.;
   if (!myPar.IsNull())

@@ -21,7 +21,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Select3D_SensitivePoint, Select3D_SensitiveEntity)
 //=================================================================================================
 
 Select3D_SensitivePoint::Select3D_SensitivePoint(const Handle(SelectMgr_EntityOwner)& theOwner,
-                                                 const gp_Pnt&                        thePoint)
+                                                 const Point3d&                        thePoint)
     : Select3D_SensitiveEntity(theOwner)
 {
   SetSensitivityFactor(12);
@@ -55,7 +55,7 @@ Handle(Select3D_SensitiveEntity) Select3D_SensitivePoint::GetConnected()
 // purpose  : Returns center of point. If location transformation
 //            is set, it will be applied
 //=======================================================================
-gp_Pnt Select3D_SensitivePoint::CenterOfGeometry() const
+Point3d Select3D_SensitivePoint::CenterOfGeometry() const
 {
   return myPoint;
 }

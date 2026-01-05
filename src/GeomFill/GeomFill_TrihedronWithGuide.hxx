@@ -36,14 +36,14 @@ public:
 
   //! Returns the current point on guide
   //! found by D0, D1 or D2.
-  Standard_EXPORT gp_Pnt CurrentPointOnGuide() const;
+  Standard_EXPORT Point3d CurrentPointOnGuide() const;
 
   DEFINE_STANDARD_RTTIEXT(GeomFill_TrihedronWithGuide, GeomFill_TrihedronLaw)
 
 protected:
   Handle(Adaptor3d_Curve) myGuide;
   Handle(Adaptor3d_Curve) myTrimG;
-  gp_Pnt                  myCurPointOnGuide;
+  Point3d                  myCurPointOnGuide;
 
 private:
 };

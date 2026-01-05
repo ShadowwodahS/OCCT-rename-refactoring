@@ -37,7 +37,7 @@ static void             BndBuildBox(const BRepAdaptor_Curve& theBAC,
                                     const Standard_Real      aT2,
                                     const Standard_Real      theTol,
                                     Bnd_Box&                 theBox);
-static Standard_Real    PointBoxDistance(const Bnd_Box& aB, const gp_Pnt& aP);
+static Standard_Real    PointBoxDistance(const Bnd_Box& aB, const Point3d& aP);
 static Standard_Integer SplitRangeOnSegments(const Standard_Real        aT1,
                                              const Standard_Real        aT2,
                                              const Standard_Real        theResolution,
@@ -251,7 +251,7 @@ Standard_Boolean IntTools_EdgeEdge::IsCoincident()
   Standard_Real               dT, aT1, aCoeff, aTresh, aD;
   Standard_Real               aT11, aT12, aT21, aT22;
   GeomAPI_ProjectPointOnCurve aProjPC;
-  gp_Pnt                      aP1;
+  Point3d                      aP1;
   //
   aTresh = 0.5;
   aNbSeg = 23;
@@ -306,7 +306,7 @@ void IntTools_EdgeEdge::FindSolutions(IntTools_SequenceOfRanges& theRanges1,
   {
     BndBuildBox(myCurve1, aT11, aT12, myTol1, aB1);
     //
-    gp_Pnt aP  = myGeom2->Value(aT21);
+    Point3d aP  = myGeom2->Value(aT21);
     bIsClosed2 = !aB1.IsOut(aP);
   }
   //
@@ -481,7 +481,7 @@ void IntTools_EdgeEdge::FindSolutions(const IntTools_Range&      theR1,
       // check intermediate points
       Standard_Boolean            bSol;
       Standard_Real               aT1;
-      gp_Pnt                      aP1;
+      Point3d                      aP1;
       GeomAPI_ProjectPointOnCurve aProjPC;
       //
       aT1 = (aT11 + aT12) * .5;
@@ -497,7 +497,7 @@ void IntTools_EdgeEdge::FindSolutions(const IntTools_Range&      theR1,
       else
       {
         Standard_Real aT2;
-        gp_Pnt        aP2;
+        Point3d        aP2;
         //
         aT2 = (aT21 + aT22) * .5;
         myGeom2->D0(aT2, aP2);
@@ -562,7 +562,7 @@ Standard_Boolean IntTools_EdgeEdge::FindParameters(const BRepAdaptor_Curve& theB
   Standard_Integer aC, i;
   Standard_Real    aCf, aDiff, aDt, aT, aTB, aTOut, aTIn;
   Standard_Real    aDist, aDistP;
-  gp_Pnt           aP;
+  Point3d           aP;
   Bnd_Box          aCBx;
   //
   bRet = Standard_False;
@@ -925,12 +925,12 @@ void IntTools_EdgeEdge::ComputeLineLine()
   myRange1.Range(aT11, aT12);
   myRange2.Range(aT21, aT22);
 
-  gp_Pnt aP11 = ElCLib::Value(aT11, aL1);
-  gp_Pnt aP12 = ElCLib::Value(aT12, aL1);
+  Point3d aP11 = ElCLib::Value(aT11, aL1);
+  Point3d aP12 = ElCLib::Value(aT12, aL1);
 
   if (!IsCoincide)
   {
-    gp_Pnt O2(aL2.Location());
+    Point3d O2(aL2.Location());
     if (!Precision::IsInfinite(aT21) && !Precision::IsInfinite(aT22))
       O2 = ElCLib::Value((aT21 + aT22) / 2., aL2);
 
@@ -1013,14 +1013,14 @@ void IntTools_EdgeEdge::ComputeLineLine()
     // out of range
     return;
 
-  gp_Pnt        aP2 = ElCLib::Value(aT2, aL2);
+  Point3d        aP2 = ElCLib::Value(aT2, aL2);
   Standard_Real aT1 = gp_Vec(aL1.Location(), aP2).Dot(aD1);
 
   if (aT1 < aT11 || aT1 > aT12)
     // out of range
     return;
 
-  gp_Pnt        aP1   = ElCLib::Value(aT1, aL1);
+  Point3d        aP1   = ElCLib::Value(aT1, aL1);
   Standard_Real aDist = aP1.SquareDistance(aP2);
 
   if (aDist > aTol)
@@ -1047,7 +1047,7 @@ Standard_Boolean IntTools_EdgeEdge::IsIntersection(const Standard_Real aT11,
                                                    const Standard_Real aT22)
 {
   Standard_Boolean bRet;
-  gp_Pnt           aP11, aP12, aP21, aP22;
+  Point3d           aP11, aP12, aP21, aP22;
   gp_Vec           aV11, aV12, aV21, aV22;
   Standard_Real    aD11_21, aD11_22, aD12_21, aD12_22, aCriteria, aCoef;
   Standard_Boolean bSmall_11_21, bSmall_11_22, bSmall_12_21, bSmall_12_22;
@@ -1323,7 +1323,7 @@ Standard_Integer DistPC(const Standard_Real          aT1,
                         const Standard_Integer       iC)
 {
   Standard_Integer iErr, aNbP2;
-  gp_Pnt           aP1;
+  Point3d           aP1;
   //
   iErr = 0;
   theC1->D0(aT1, aP1);
@@ -1405,7 +1405,7 @@ void BndBuildBox(const BRepAdaptor_Curve& theBAC,
 
 //=================================================================================================
 
-Standard_Real PointBoxDistance(const Bnd_Box& aB, const gp_Pnt& aP)
+Standard_Real PointBoxDistance(const Bnd_Box& aB, const Point3d& aP)
 {
   Standard_Real    aPCoord[3];
   Standard_Real    aBMinCoord[3], aBMaxCoord[3];
@@ -1509,7 +1509,7 @@ Standard_Real ResolutionCoeff(const BRepAdaptor_Curve& theBAC, const IntTools_Ra
     case GeomAbs_OtherCurve: {
       Standard_Real    k, kMin, aDist, aDt, aT1, aT2, aT;
       Standard_Integer aNbP, i;
-      gp_Pnt           aP1, aP2;
+      Point3d           aP1, aP2;
       //
       aNbP = 30;
       theRange.Range(aT1, aT2);
@@ -1598,7 +1598,7 @@ Standard_Real CurveDeflection(const BRepAdaptor_Curve& theBAC, const IntTools_Ra
   Standard_Real    aDt, aT, aT1, aT2, aDefl;
   Standard_Integer i, aNbP;
   gp_Vec           aV1, aV2;
-  gp_Pnt           aP;
+  Point3d           aP;
   //
   aDefl = 0;
   aNbP  = 10;
@@ -1635,7 +1635,7 @@ Standard_Boolean IsClosed(const Handle(Geom_Curve)& theCurve,
     return Standard_False;
   }
 
-  gp_Pnt aP1, aP2;
+  Point3d aP1, aP2;
   theCurve->D0(aT1, aP1);
   theCurve->D0(aT2, aP2);
   //

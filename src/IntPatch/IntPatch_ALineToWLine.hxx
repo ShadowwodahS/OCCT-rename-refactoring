@@ -88,7 +88,7 @@ protected:
   //! goes through thePnt3d perpendicular to the quadric axis. This radius is computed
   //! for both quadrics and minimal value is returned.
   //! This check is made for cone and sphere only.
-  Standard_EXPORT Standard_Real GetSectionRadius(const gp_Pnt& thePnt3d) const;
+  Standard_EXPORT Standard_Real GetSectionRadius(const Point3d& thePnt3d) const;
 
   //! Corrects the U-parameter of an end point (first or last) of the line
   //! if this end point is a pole.

@@ -42,14 +42,14 @@ IntAna_IntLinTorus::IntAna_IntLinTorus(const gp_Lin& L, const gp_Torus& T)
 
 void IntAna_IntLinTorus::Perform(const gp_Lin& L, const gp_Torus& T)
 {
-  gp_Pnt PL = L.Location();
+  Point3d PL = L.Location();
   gp_Dir DL = L.Direction();
 
   // Reparametrize the line:
   // set its location as nearest to the location of torus
-  gp_Pnt        TorLoc       = T.Location();
+  Point3d        TorLoc       = T.Location();
   Standard_Real ParamOfNewPL = gp_Vec(PL, TorLoc).Dot(gp_Vec(DL));
-  gp_Pnt        NewPL(PL.XYZ() + ParamOfNewPL * DL.XYZ());
+  Point3d        NewPL(PL.XYZ() + ParamOfNewPL * DL.XYZ());
 
   //--------------------------------------------------------------
   //-- Coefficients de la ligne dans le repere du cone
@@ -95,9 +95,9 @@ void IntAna_IntLinTorus::Perform(const gp_Lin& L, const gp_Torus& T)
     {
       Standard_Real t = mdpr.Value(i);
       t += ParamOfNewPL;
-      gp_Pnt PSolL(ElCLib::Value(t, L));
+      Point3d PSolL(ElCLib::Value(t, L));
       ElSLib::Parameters(T, PSolL, u, v);
-      gp_Pnt PSolT(ElSLib::Value(u, v, T));
+      Point3d PSolT(ElSLib::Value(u, v, T));
       a0 = PSolT.SquareDistance(PSolL);
 
       if (a0 > 0.0000000001)
@@ -192,7 +192,7 @@ static void MULT_A2_B1(Standard_Real& c3,
 void IntAna_IntLinTorus::Perform (const gp_Lin& L, const gp_Torus& T) {
   TColStd_Array1OfReal C(1,31);
   T.Coefficients(C);
-  const gp_Pnt& PL=L.Location();
+  const Point3d& PL=L.Location();
   const gp_Dir& DL=L.Direction();
 
   //----------------------------------------------------------------
@@ -383,9 +383,9 @@ void IntAna_IntLinTorus::Perform (const gp_Lin& L, const gp_Torus& T) {
      Standard_Integer n = mdpr.NbSolutions();
      for(Standard_Integer i = 1; i<=n ; i++) { 
 	Standard_Real t = mdpr.Value(i);
-        gp_Pnt PSolL(ax0+ax1*t, ay0+ay1*t, az0+az1*t);
+        Point3d PSolL(ax0+ax1*t, ay0+ay1*t, az0+az1*t);
         ElSLib::Parameters(T,PSolL,u,v);
-	gp_Pnt PSolT(ElSLib::Value(u,v,T));
+	Point3d PSolT(ElSLib::Value(u,v,T));
         
         a0 = PSolT.SquareDistance(PSolL); 
 	if(a0>0.0000000001) { 

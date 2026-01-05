@@ -67,14 +67,14 @@ public:
   //! <thePoint> chooses a particular fillet in case of several fillets
   //! may be constructed (for example, a circle intersecting a segment in 2 points).
   //! Put the intersecting (or common) point of the edges.
-  Standard_EXPORT Standard_Integer NbResults(const gp_Pnt& thePoint);
+  Standard_EXPORT Standard_Integer NbResults(const Point3d& thePoint);
 
   //! Returns result (fillet edge, modified edge1, modified edge2),
   //! nearest to the given point <thePoint> if iSolution == -1
   //! <thePoint> chooses a particular fillet in case of several fillets
   //! may be constructed (for example, a circle intersecting a segment in 2 points).
   //! Put the intersecting (or common) point of the edges.
-  Standard_EXPORT TopoDS_Edge Result(const gp_Pnt&          thePoint,
+  Standard_EXPORT TopoDS_Edge Result(const Point3d&          thePoint,
                                      TopoDS_Edge&           theEdge1,
                                      TopoDS_Edge&           theEdge2,
                                      const Standard_Integer iSolution = -1);

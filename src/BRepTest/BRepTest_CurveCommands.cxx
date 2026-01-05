@@ -79,7 +79,7 @@ static Standard_Integer vertex(Draw_Interpretor&, Standard_Integer n, const char
   {
     DBRep::Set(
       a[1],
-      BRepBuilderAPI_MakeVertex(gp_Pnt(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4]))));
+      BRepBuilderAPI_MakeVertex(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4]))));
   }
   else if (n == 4)
   {
@@ -89,7 +89,7 @@ static Standard_Integer vertex(Draw_Interpretor&, Standard_Integer n, const char
     if (S.ShapeType() != TopAbs_EDGE)
       return 0;
     BRepAdaptor_Curve C(TopoDS::Edge(S));
-    gp_Pnt            P;
+    Point3d            P;
     C.D0(Draw::Atof(a[2]), P);
     DBRep::Set(a[1], BRepBuilderAPI_MakeVertex(P));
   }
@@ -205,7 +205,7 @@ static Standard_Integer polyline(Draw_Interpretor&, Standard_Integer n, const ch
   j = 2;
   for (i = 1; i <= np; i++)
   {
-    W.Add(gp_Pnt(Draw::Atof(a[j]), Draw::Atof(a[j + 1]), Draw::Atof(a[j + 2])));
+    W.Add(Point3d(Draw::Atof(a[j]), Draw::Atof(a[j + 1]), Draw::Atof(a[j + 2])));
     j += 3;
   }
   DBRep::Set(a[1], W.Wire());
@@ -451,7 +451,7 @@ static Standard_Integer mkpoint(Draw_Interpretor&, Standard_Integer n, const cha
 
   TopoDS_Vertex V = TopoDS::Vertex(S);
 
-  gp_Pnt P = BRep_Tool::Pnt(V);
+  Point3d P = BRep_Tool::Pnt(V);
   DrawTrSurf::Set(a[1], P);
 
   return 0;
@@ -737,7 +737,7 @@ static Standard_Integer profile(Draw_Interpretor& di, Standard_Integer n, const 
         i += 3;
         if (i >= n)
           goto badargs;
-        P.SetLocation(gp_Pnt(Draw::Atof(a[i - 2]), Draw::Atof(a[i - 1]), Draw::Atof(a[i])));
+        P.SetLocation(Point3d(Draw::Atof(a[i - 2]), Draw::Atof(a[i - 1]), Draw::Atof(a[i])));
         stayfirst = Standard_True;
         break;
 
@@ -1883,7 +1883,7 @@ Standard_Integer edgeintersector(Draw_Interpretor& di, Standard_Integer n, const
   for (; EInter.MorePoint(); EInter.NextPoint())
   {
     const TopOpeBRep_Point2d& P2D = EInter.Point();
-    gp_Pnt                    P   = P2D.Value();
+    Point3d                    P   = P2D.Value();
     TopoDS_Vertex             V   = BRepLib_MakeVertex(P);
     NbV++;
     Sprintf(name, "%s_%d", a[1], NbV);

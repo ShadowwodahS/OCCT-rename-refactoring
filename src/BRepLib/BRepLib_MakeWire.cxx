@@ -203,12 +203,12 @@ void BRepLib_MakeWire::Add(const TopoDS_Edge& E, Standard_Boolean IsCheckGeometr
       else if (IsCheckGeometryProximity)
       {
         // search if there is a similar vertex in the edge
-        gp_Pnt PE = BRep_Tool::Pnt(VE);
+        Point3d PE = BRep_Tool::Pnt(VE);
 
         for (Standard_Integer i = 1; i <= myVertices.Extent(); i++)
         {
           const TopoDS_Vertex& VW = TopoDS::Vertex(myVertices.FindKey(i));
-          gp_Pnt               PW = BRep_Tool::Pnt(VW);
+          Point3d               PW = BRep_Tool::Pnt(VW);
           Standard_Real        l  = PE.Distance(PW);
 
           if ((l < BRep_Tool::Tolerance(VE)) || (l < BRep_Tool::Tolerance(VW)))
@@ -277,13 +277,13 @@ void BRepLib_MakeWire::Add(const TopoDS_Edge& E, Standard_Boolean IsCheckGeometr
         {
 
           const TopoDS_Vertex& VE = TopoDS::Vertex(it.Value());
-          gp_Pnt               PE = BRep_Tool::Pnt(VE);
+          Point3d               PE = BRep_Tool::Pnt(VE);
 
           Standard_Boolean newvertex = Standard_False;
           for (Standard_Integer i = 1; i <= myVertices.Extent(); i++)
           {
             const TopoDS_Vertex& VW = TopoDS::Vertex(myVertices.FindKey(i));
-            gp_Pnt               PW = BRep_Tool::Pnt(VW);
+            Point3d               PW = BRep_Tool::Pnt(VW);
             Standard_Real        l  = PE.Distance(PW), tolE, tolW;
             tolW                    = BRep_Tool::Tolerance(VW);
             tolE                    = BRep_Tool::Tolerance(VE);
@@ -310,7 +310,7 @@ void BRepLib_MakeWire::Add(const TopoDS_Edge& E, Standard_Boolean IsCheckGeometr
                 cE     = 0.;
               }
 
-              gp_Pnt PC(cW * PW.X() + cE * PE.X(),
+              Point3d PC(cW * PW.X() + cE * PE.X(),
                         cW * PW.Y() + cE * PE.Y(),
                         cW * PW.Z() + cE * PE.Z());
 

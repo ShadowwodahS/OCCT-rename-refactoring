@@ -48,20 +48,20 @@ Standard_Real IGESSolid_Cylinder::Radius() const
   return theRadius;
 }
 
-gp_Pnt IGESSolid_Cylinder::FaceCenter() const
+Point3d IGESSolid_Cylinder::FaceCenter() const
 {
-  return gp_Pnt(theFaceCenter);
+  return Point3d(theFaceCenter);
 }
 
-gp_Pnt IGESSolid_Cylinder::TransformedFaceCenter() const
+Point3d IGESSolid_Cylinder::TransformedFaceCenter() const
 {
   if (!HasTransf())
-    return gp_Pnt(theFaceCenter);
+    return Point3d(theFaceCenter);
   else
   {
     gp_XYZ tmp = theFaceCenter;
     Location().Transforms(tmp);
-    return gp_Pnt(tmp);
+    return Point3d(tmp);
   }
 }
 

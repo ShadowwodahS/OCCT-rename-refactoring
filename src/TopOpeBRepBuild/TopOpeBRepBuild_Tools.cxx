@@ -434,7 +434,7 @@ void TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(const TopoDS_Face& aFObj,
   gp_Pnt2d aUV1;
   C2D->D0(par, aUV1);
 
-  gp_Pnt              aP;
+  Point3d              aP;
   gp_Vec              aTg1, aTg2;
   BRepAdaptor_Surface aSA1(aFS);
   aSA1.D1(aUV1.X(), aUV1.Y(), aP, aTg1, aTg2);
@@ -471,7 +471,7 @@ void TopOpeBRepBuild_Tools::GetNormalInNearestPoint(const TopoDS_Face& F,
   Standard_Real newU = aNorm2d.X();
   Standard_Real newV = aNorm2d.Y();
   gp_Vec        aTg1, aTg2;
-  gp_Pnt        aP1;
+  Point3d        aP1;
 
   BRepAdaptor_Surface BS(F);
   BS.D1(newU, newV, aP1, aTg1, aTg2);
@@ -525,12 +525,12 @@ Standard_Boolean TopOpeBRepBuild_Tools::GetTangentToEdgeEdge(const TopoDS_Face&,
 
   par = f * PAR_T + (1 - PAR_T) * l;
 
-  gp_Pnt aP;
+  Point3d aP;
   gp_Vec aTgPiece;
   aCA.D1(par, aP, aTgPiece);
   aTangent = aTgPiece;
 
-  gp_Pnt aPOri;
+  Point3d aPOri;
   gp_Vec aTgOri;
   /////
   Handle(Geom_Curve) GCOri      = aCAOri.Curve().Curve();
@@ -545,7 +545,7 @@ Standard_Boolean TopOpeBRepBuild_Tools::GetTangentToEdgeEdge(const TopoDS_Face&,
                                   aCopyCurve->FirstParameter(),
                                   aCopyCurve->LastParameter());
 #ifdef OCCT_DEBUG
-//  gp_Pnt aNP = aPP.NearestPoint();
+//  Point3d aNP = aPP.NearestPoint();
 #endif
   parOri = aPP.LowerDistanceParameter();
 
@@ -578,7 +578,7 @@ Standard_Boolean TopOpeBRepBuild_Tools::GetTangentToEdge(const TopoDS_Edge& anEd
   l = aCA.LastParameter();
 
   par = f * PAR_T + (1 - PAR_T) * l;
-  gp_Pnt aP;
+  Point3d aP;
   aCA.D1(par, aP, aTangent);
 
   return Standard_True;

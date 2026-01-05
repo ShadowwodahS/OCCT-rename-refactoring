@@ -48,7 +48,7 @@ void XCAFNoteObjects_NoteObject::SetPlane(const gp_Ax2& thePlane)
 
 //=================================================================================================
 
-void XCAFNoteObjects_NoteObject::SetPoint(const gp_Pnt& thePnt)
+void XCAFNoteObjects_NoteObject::SetPoint(const Point3d& thePnt)
 {
   myPnt    = thePnt;
   myHasPnt = Standard_True;
@@ -56,7 +56,7 @@ void XCAFNoteObjects_NoteObject::SetPoint(const gp_Pnt& thePnt)
 
 //=================================================================================================
 
-void XCAFNoteObjects_NoteObject::SetPointText(const gp_Pnt& thePnt)
+void XCAFNoteObjects_NoteObject::SetPointText(const Point3d& thePnt)
 {
   myPntTxt    = thePnt;
   myHasPntTxt = Standard_True;

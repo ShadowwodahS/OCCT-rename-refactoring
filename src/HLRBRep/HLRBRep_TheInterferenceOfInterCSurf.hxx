@@ -30,7 +30,7 @@ class HLRBRep_ThePolyhedronOfInterCSurf;
 class HLRBRep_ThePolyhedronToolOfInterCSurf;
 class gp_Lin;
 class Bnd_BoundSortBox;
-class gp_Pnt;
+class Point3d;
 class gp_XYZ;
 
 class HLRBRep_TheInterferenceOfInterCSurf : public Intf_Interference
@@ -129,16 +129,16 @@ protected:
 private:
   //! Computes the intersection between  the segment <BegO><EndO>
   //! and the triangle <TTri> of <thePolyh>.
-  Standard_EXPORT void Intersect(const gp_Pnt&                            BegO,
-                                 const gp_Pnt&                            EndO,
+  Standard_EXPORT void Intersect(const Point3d&                            BegO,
+                                 const Point3d&                            EndO,
                                  const Standard_Boolean                   Infinite,
                                  const Standard_Integer                   TTri,
                                  const HLRBRep_ThePolyhedronOfInterCSurf& thePolyh);
 
   //! Computes the intersection between  the segment <BegO><EndO>
   //! and the triangle <TTri> of <thePolyh>.
-  Standard_EXPORT void Intersect(const gp_Pnt&                            BegO,
-                                 const gp_Pnt&                            EndO,
+  Standard_EXPORT void Intersect(const Point3d&                            BegO,
+                                 const Point3d&                            EndO,
                                  const Standard_Boolean                   Infinite,
                                  const Standard_Integer                   TTri,
                                  const HLRBRep_ThePolyhedronOfInterCSurf& thePolyh,

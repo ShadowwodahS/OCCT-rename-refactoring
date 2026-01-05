@@ -86,7 +86,7 @@ Standard_Boolean BOPTools_AlgoTools2D::EdgeTangent(const TopoDS_Edge&  anEdge,
   }
 
   Handle(Geom_Curve) aC = BRep_Tool::Curve(anEdge, first, last);
-  gp_Pnt             aP;
+  Point3d             aP;
   aC->D1(aT, aP, aTau);
   Standard_Real mod = aTau.Magnitude();
   if (mod > gp::Resolution())

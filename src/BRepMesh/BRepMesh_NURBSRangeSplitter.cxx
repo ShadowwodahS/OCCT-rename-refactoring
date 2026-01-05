@@ -95,7 +95,7 @@ private:
     myIso->D1(myCurrControlParam, myCurrControlPnt, myCurrControlVec);
 
     const Standard_Real aMidParam = 0.5 * (myPrevControlParam + myCurrControlParam);
-    const gp_Pnt        aMidPnt   = myIso->Value(aMidParam);
+    const Point3d        aMidPnt   = myIso->Value(aMidParam);
 
     const Standard_Real aSqDist =
       BRepMesh_GeomTool::SquareDeflectionOfSegment(myPrevControlPnt, myCurrControlPnt, aMidPnt);
@@ -147,12 +147,12 @@ private:
   //! Checks whether the given param suits specified deflection. Updates cache.
   Standard_Boolean checkParameterForDeflectionAndUpdateCache(const Standard_Real theParam)
   {
-    gp_Pnt aTmpPnt;
+    Point3d aTmpPnt;
     gp_Vec aTmpVec;
     myIso->D1(theParam, aTmpPnt, aTmpVec);
 
     const Standard_Real aTmpMidParam = 0.5 * (myPrevControlParam + theParam);
-    const gp_Pnt        aTmpMidPnt   = myIso->Value(aTmpMidParam);
+    const Point3d        aTmpMidPnt   = myIso->Value(aTmpMidParam);
 
     // Lets check next parameter.
     // If it also fits deflection, we can remove previous parameter.
@@ -204,11 +204,11 @@ private:
   Standard_Real myCurrParam;
 
   Standard_Real myCurrControlParam;
-  gp_Pnt        myCurrControlPnt;
+  Point3d        myCurrControlPnt;
   gp_Vec        myCurrControlVec;
 
   Standard_Real myPrevControlParam;
-  gp_Pnt        myPrevControlPnt;
+  Point3d        myPrevControlPnt;
   gp_Vec        myPrevControlVec;
 };
 

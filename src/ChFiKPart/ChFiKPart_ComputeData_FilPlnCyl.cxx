@@ -96,16 +96,16 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   // intersection of the parallel plane and of the parallel cylinder.
   gp_Cylinder        CylOffset(Cyl.Position(), ROff);
   IntAna_QuadQuadGeo LInt(PlanOffset, CylOffset, Precision::Angular(), Precision::Confusion());
-  gp_Pnt             OrSpine = ElCLib::Value(First, Spine);
-  gp_Pnt             OrFillet;
+  Point3d             OrSpine = ElCLib::Value(First, Spine);
+  Point3d             OrFillet;
   gp_Dir             DirFillet;
   if (LInt.IsDone())
   {
     DirFillet = LInt.Line(1).Direction();
-    gp_Pnt P1 = ElCLib::Value(ElCLib::Parameter(LInt.Line(1), OrSpine), LInt.Line(1));
+    Point3d P1 = ElCLib::Value(ElCLib::Parameter(LInt.Line(1), OrSpine), LInt.Line(1));
     if (LInt.NbSolutions() == 2)
     {
-      gp_Pnt P2 = ElCLib::Value(ElCLib::Parameter(LInt.Line(2), OrSpine), LInt.Line(2));
+      Point3d P2 = ElCLib::Value(ElCLib::Parameter(LInt.Line(2), OrSpine), LInt.Line(2));
       if (P1.SquareDistance(OrSpine) < P2.SquareDistance(OrSpine))
       {
         OrFillet = P1;
@@ -165,7 +165,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   gp_Pnt2d PPln2d(UOnPln, VOnPln);
   gp_Dir2d VPln2d(DirFillet.Dot(AxPln.XDirection()), DirFillet.Dot(AxPln.YDirection()));
   gp_Lin2d Lin2dPln(PPln2d, VPln2d);
-  gp_Pnt   POnPln = ElSLib::Value(UOnPln, VOnPln, Pln);
+  Point3d   POnPln = ElSLib::Value(UOnPln, VOnPln, Pln);
   gp_Lin   C3d(POnPln, DirFillet);
 
   Standard_Real UOnFillet, V;
@@ -177,7 +177,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   Handle(Geom_Line)   L3d  = new Geom_Line(C3d);
   Handle(Geom2d_Line) LFac = new Geom2d_Line(Lin2dPln);
   Handle(Geom2d_Line) LFil = new Geom2d_Line(LOnFillet);
-  gp_Pnt              P;
+  Point3d              P;
   gp_Vec              deru, derv;
   ElSLib::CylinderD1(UOnFillet, V, AxFil, Radius, P, deru, derv);
   gp_Dir           NorFil(deru.Crossed(derv));
@@ -218,7 +218,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   if (DirFillet.Dot(AxCyl.Direction()) < 0.)
     DPC.Reverse();
   gp_Lin2d Lin2dCyl(PCyl2d, DPC);
-  gp_Pnt   POnCyl = ElSLib::Value(UOnCyl, VOnCyl, Cyl);
+  Point3d   POnCyl = ElSLib::Value(UOnCyl, VOnCyl, Cyl);
   C3d             = gp_Lin(POnCyl, DirFillet);
   ElSLib::CylinderParameters(AxFil, Radius, POnCyl, UOnFillet, V);
   if (UOnFillet > M_PI)
@@ -290,17 +290,17 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
     Df.Reverse();
   }
 
-  gp_Pnt        Or = Cyl.Location();
+  Point3d        Or = Cyl.Location();
   Standard_Real u, v;
   ElSLib::PlaneParameters(PosPl, Or, u, v);
   gp_Pnt2d c2dPln(u, v);
   ElSLib::PlaneD0(u, v, PosPl, Or);
-  gp_Pnt cPln = Or;
+  Point3d cPln = Or;
   Or.SetCoord(Or.X() + Radius * Dp.X(), Or.Y() + Radius * Dp.Y(), Or.Z() + Radius * Dp.Z());
-  gp_Pnt PtSp;
+  Point3d PtSp;
   gp_Vec DSp;
   // Modification for the PtSp found at the wrong side of the sewing edge.
-  gp_Pnt        PtSp2;
+  Point3d        PtSp2;
   gp_Vec        DSp2;
   Standard_Real acote = 1e-7;
   ElCLib::D1(First, Spine, PtSp, DSp);
@@ -323,7 +323,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   gp_Dir Dx(gp_Vec(Or, PtSp));
   Dx = Dp.Crossed(Dx.Crossed(Dp));
   gp_Dir Dy(DSp);
-  gp_Pnt PtCyl;
+  Point3d PtCyl;
   gp_Vec Vu, Vv;
   ElSLib::D1(u, v, Cyl, PtCyl, Vu, Vv);
   gp_Dir Dc(Vu.Crossed(Vv));
@@ -379,7 +379,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   }
 
   // It is checked if the orientation of the fillet is the same as of faces.
-  gp_Pnt P, PP;
+  Point3d P, PP;
   gp_Vec deru, derv;
   P.SetCoord(cPln.X() + Rad * Dx.X(), cPln.Y() + Rad * Dx.Y(), cPln.Z() + Rad * Dx.Z());
   u = 0.;

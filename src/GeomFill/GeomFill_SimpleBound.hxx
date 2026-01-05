@@ -23,7 +23,7 @@
 #include <GeomFill_Boundary.hxx>
 
 class Law_Function;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 
 class GeomFill_SimpleBound;
@@ -73,9 +73,9 @@ public:
                                        const Standard_Real            Tol3d,
                                        const Standard_Real            Tolang);
 
-  Standard_EXPORT gp_Pnt Value(const Standard_Real U) const Standard_OVERRIDE;
+  Standard_EXPORT Point3d Value(const Standard_Real U) const Standard_OVERRIDE;
 
-  Standard_EXPORT void D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V) const Standard_OVERRIDE;
+  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, gp_Vec& V) const Standard_OVERRIDE;
 
   Standard_EXPORT void Reparametrize(const Standard_Real    First,
                                      const Standard_Real    Last,

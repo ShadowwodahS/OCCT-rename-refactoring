@@ -556,11 +556,11 @@ static Standard_Boolean IsSweepParallelSpine(const Handle(GeomFill_LocationLaw)&
   // Get and transform the last section
   Handle(Geom_Curve) aLastSection    = aSurf->VIso(Vmax);
   Standard_Real      aFirstParameter = aLastSection->FirstParameter();
-  gp_Pnt             aPntLastSec     = aLastSection->Value(aFirstParameter);
+  Point3d             aPntLastSec     = aLastSection->Value(aFirstParameter);
 
   aPntLastSec.Transform(TfEnd);
 
-  gp_Pnt aPntFirstSec = ElCLib::Value(UFirst, L);
+  Point3d aPntFirstSec = ElCLib::Value(UFirst, L);
   gp_Vec aVecSec(aPntFirstSec, aPntLastSec);
   gp_Vec aVecSpine = VEnd - VBegin;
 
@@ -711,7 +711,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
     else if (mySec->IsConicalLaw(error))
     {
 
-      gp_Pnt             P1, P2, Centre0, Centre1, Centre2;
+      Point3d             P1, P2, Centre0, Centre1, Centre2;
       gp_Vec             dsection;
       Handle(Geom_Curve) Section;
       GeomAdaptor_Curve  AC;
@@ -767,7 +767,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
         UFirst = AC.FirstParameter();
         ULast  = AC.LastParameter();
         gp_Vec diso;
-        gp_Pnt pbis;
+        Point3d pbis;
         S->VIso(VLast)->D1(0, pbis, diso);
         if (diso.Magnitude() > 1.e-9 && dsection.Magnitude() > 1.e-9)
           isUReversed = diso.IsOpposite(dsection, 0.1);
@@ -793,7 +793,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
     if (mySec->IsConstant(error))
     {
       // La trajectoire
-      gp_Pnt Centre;
+      Point3d Centre;
       isVPeriodic = (Abs(Last - First - 2 * M_PI) < 1.e-15);
       Standard_Real RotRadius;
       gp_Vec        DP, DS, DN;
@@ -892,8 +892,8 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
             Standard_Real      lpar       = AC.LastParameter();
             Handle(Geom_Curve) theSection = new Geom_TrimmedCurve(Section, fpar, lpar);
             theSection->Transform(Tf2);
-            gp_Pnt        FirstPoint = theSection->Value(theSection->FirstParameter());
-            gp_Pnt        LastPoint  = theSection->Value(theSection->LastParameter());
+            Point3d        FirstPoint = theSection->Value(theSection->FirstParameter());
+            Point3d        LastPoint  = theSection->Value(theSection->LastParameter());
             Standard_Real UfirstOnSec, VfirstOnSec, UlastOnSec, VlastOnSec;
             ElSLib::Parameters(theSphere, FirstPoint, UfirstOnSec, VfirstOnSec);
             ElSLib::Parameters(theSphere, LastPoint, UlastOnSec, VlastOnSec);
@@ -993,7 +993,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
           reverse = (aux < 0); // On choisit ici le sens de parametrisation
 
           // Calcul du centre du vecteur supportant la "XDirection"
-          gp_Pnt CentreOfSurf;
+          Point3d CentreOfSurf;
           gp_Vec O1O2(Centre, L.Location()), trans;
           trans = DN;
           trans *= DN.Dot(O1O2);

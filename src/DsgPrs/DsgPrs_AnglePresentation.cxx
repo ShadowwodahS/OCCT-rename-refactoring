@@ -67,8 +67,8 @@ void DsgPrs_AnglePresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
                                    const Standard_Real /*aVal*/,
                                    const TCollection_ExtendedString& aText,
                                    const gp_Circ&                    aCircle,
-                                   const gp_Pnt&                     aPosition,
-                                   const gp_Pnt&                     Apex,
+                                   const Point3d&                     aPosition,
+                                   const Point3d&                     Apex,
                                    const gp_Circ&                    VminCircle,
                                    const gp_Circ&                    VmaxCircle,
                                    const Standard_Real               aArrowSize)
@@ -91,8 +91,8 @@ void DsgPrs_AnglePresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
       myCircle = VminCircle;
   }
 
-  gp_Pnt P1 = ElCLib::Value(0., myCircle);
-  gp_Pnt P2 = ElCLib::Value(M_PI, myCircle);
+  Point3d P1 = ElCLib::Value(0., myCircle);
+  Point3d P2 = ElCLib::Value(M_PI, myCircle);
 
   // clang-format off
   gce_MakePln mkPln(P1, P2, Apex); // create a plane which defines plane for projection aPosition on it
@@ -102,12 +102,12 @@ void DsgPrs_AnglePresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
   gp_Vec Normal = mkPln.Value().Axis().Direction();
   Normal        = (aVector * Normal) * Normal;
 
-  gp_Pnt aPnt = aPosition;
+  Point3d aPnt = aPosition;
   aPnt        = aPnt.Translated(-Normal);
 
-  gp_Pnt tmpPnt = aPnt;
+  Point3d tmpPnt = aPnt;
 
-  gp_Pnt AttachmentPnt, OppositePnt;
+  Point3d AttachmentPnt, OppositePnt;
   if (aPnt.Distance(P1) < aPnt.Distance(P2))
   {
     AttachmentPnt = P1;
@@ -220,8 +220,8 @@ void DsgPrs_AnglePresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
     if (AboveInBelowCone(VmaxCircle, VminCircle, myCircle) == 0)
       return;
 
-    gp_Pnt P11 = ElCLib::Value(0., VmaxCircle);
-    gp_Pnt P12 = ElCLib::Value(M_PI, VmaxCircle);
+    Point3d P11 = ElCLib::Value(0., VmaxCircle);
+    Point3d P12 = ElCLib::Value(M_PI, VmaxCircle);
 
     aPrims = new Graphic3d_ArrayOfSegments(4);
     aPrims->AddVertex(AttachmentPnt);
@@ -242,13 +242,13 @@ void DsgPrs_AnglePresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
                                    const Handle(Prs3d_Drawer)&       aDrawer,
                                    const Standard_Real               theval,
                                    const TCollection_ExtendedString& aText,
-                                   const gp_Pnt&                     CenterPoint,
-                                   const gp_Pnt&                     AttachmentPoint1,
-                                   const gp_Pnt&                     AttachmentPoint2,
+                                   const Point3d&                     CenterPoint,
+                                   const Point3d&                     AttachmentPoint1,
+                                   const Point3d&                     AttachmentPoint2,
                                    const gp_Dir&                     dir1,
                                    const gp_Dir&                     dir2,
                                    const gp_Dir&                     axisdir,
-                                   const gp_Pnt&                     OffsetPoint)
+                                   const Point3d&                     OffsetPoint)
 {
   char valcar[80];
   sprintf(valcar, "%5.2f", theval);
@@ -263,7 +263,7 @@ void DsgPrs_AnglePresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
   vec1 *= cer.Radius();
   gp_Vec vec2(dir2);
   vec2 *= cer.Radius();
-  gp_Pnt p2 = CenterPoint.Translated(vec2);
+  Point3d p2 = CenterPoint.Translated(vec2);
 
   Standard_Real uc1 = 0.;
   Standard_Real uc2 = ElCLib::Parameter(cer, p2);
@@ -315,16 +315,16 @@ void DsgPrs_AnglePresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
     length = 1.e-04;
 
   gp_Vec vecarr;
-  gp_Pnt ptarr;
+  Point3d ptarr;
   ElCLib::D1(uc1, cer, ptarr, vecarr);
 
   gp_Ax1 ax1(ptarr, axisdir);
   gp_Dir dirarr(-vecarr);
 
   // calculate angle of rotation
-  gp_Pnt              ptarr2(ptarr.XYZ() + length * dirarr.XYZ());
+  Point3d              ptarr2(ptarr.XYZ() + length * dirarr.XYZ());
   const Standard_Real parcir = ElCLib::Parameter(cer, ptarr2);
-  gp_Pnt              ptarr3 = ElCLib::Value(parcir, cer);
+  Point3d              ptarr3 = ElCLib::Value(parcir, cer);
   gp_Vec              v1(ptarr, ptarr2);
   gp_Vec              v2(ptarr, ptarr3);
   const Standard_Real beta = v1.Angle(v2);
@@ -358,15 +358,15 @@ void DsgPrs_AnglePresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
                                    const Handle(Prs3d_Drawer)&       aDrawer,
                                    const Standard_Real               theval,
                                    const TCollection_ExtendedString& aText,
-                                   const gp_Pnt&                     CenterPoint,
-                                   const gp_Pnt&                     AttachmentPoint1,
-                                   const gp_Pnt&                     AttachmentPoint2,
+                                   const Point3d&                     CenterPoint,
+                                   const Point3d&                     AttachmentPoint1,
+                                   const Point3d&                     AttachmentPoint2,
                                    const gp_Dir&                     dir1,
                                    const gp_Dir&                     dir2,
                                    const gp_Dir&                     axisdir,
                                    const Standard_Boolean            isPlane,
                                    const gp_Ax1&                     AxisOfSurf,
-                                   const gp_Pnt&                     OffsetPoint,
+                                   const Point3d&                     OffsetPoint,
                                    const DsgPrs_ArrowSide            ArrowPrs)
 {
   char valcar[80];
@@ -377,7 +377,7 @@ void DsgPrs_AnglePresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
 
   gp_Circ       AngleCirc, AttachCirc;
   Standard_Real FirstParAngleCirc, LastParAngleCirc, FirstParAttachCirc, LastParAttachCirc;
-  gp_Pnt        EndOfArrow1, EndOfArrow2, ProjAttachPoint2;
+  Point3d        EndOfArrow1, EndOfArrow2, ProjAttachPoint2;
   gp_Dir        DirOfArrow1, DirOfArrow2;
   DsgPrs::ComputeFacesAnglePresentation(LA->ArrowAspect()->Length(),
                                         theval,
@@ -481,12 +481,12 @@ void DsgPrs_AnglePresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
                                    const Handle(Prs3d_Drawer)&       aDrawer,
                                    const Standard_Real               theval,
                                    const TCollection_ExtendedString& aText,
-                                   const gp_Pnt&                     CenterPoint,
-                                   const gp_Pnt&                     AttachmentPoint1,
-                                   const gp_Pnt&                     AttachmentPoint2,
+                                   const Point3d&                     CenterPoint,
+                                   const Point3d&                     AttachmentPoint1,
+                                   const Point3d&                     AttachmentPoint2,
                                    const gp_Dir&                     dir1,
                                    const gp_Dir&                     dir2,
-                                   const gp_Pnt&                     OffsetPoint)
+                                   const Point3d&                     OffsetPoint)
 {
   char valcar[80];
   sprintf(valcar, "%5.2f", theval);
@@ -514,7 +514,7 @@ void DsgPrs_AnglePresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
   vec1 *= cer.Radius();
   gp_Vec vec2(dir2);
   vec2 *= cer.Radius();
-  gp_Pnt p2 = CenterPoint.Translated(vec2);
+  Point3d p2 = CenterPoint.Translated(vec2);
 
   Standard_Real uc1 = 0.;
   Standard_Real uc2 = ElCLib::Parameter(cer, p2);
@@ -566,15 +566,15 @@ void DsgPrs_AnglePresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
     length = 1.e-04;
 
   gp_Vec vecarr;
-  gp_Pnt ptarr;
+  Point3d ptarr;
   ElCLib::D1(uc1, cer, ptarr, vecarr);
 
   gp_Ax1 ax1(ptarr, Norm);
   gp_Dir dirarr(-vecarr);
   // calculate the angle of rotation
-  gp_Pnt              ptarr2(ptarr.XYZ() + length * dirarr.XYZ());
+  Point3d              ptarr2(ptarr.XYZ() + length * dirarr.XYZ());
   const Standard_Real parcir = ElCLib::Parameter(cer, ptarr2);
-  gp_Pnt              ptarr3 = ElCLib::Value(parcir, cer);
+  Point3d              ptarr3 = ElCLib::Value(parcir, cer);
   gp_Vec              v1(ptarr, ptarr2);
   gp_Vec              v2(ptarr, ptarr3);
   const Standard_Real beta = v1.Angle(v2);
@@ -616,12 +616,12 @@ void DsgPrs_AnglePresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
                                    const Handle(Prs3d_Drawer)&       aDrawer,
                                    const Standard_Real               theval,
                                    const TCollection_ExtendedString& aText,
-                                   const gp_Pnt&                     CenterPoint,
-                                   const gp_Pnt&                     AttachmentPoint1,
-                                   const gp_Pnt&                     AttachmentPoint2,
+                                   const Point3d&                     CenterPoint,
+                                   const Point3d&                     AttachmentPoint1,
+                                   const Point3d&                     AttachmentPoint2,
                                    const gp_Dir&                     dir1,
                                    const gp_Dir&                     dir2,
-                                   const gp_Pnt&                     OffsetPoint,
+                                   const Point3d&                     OffsetPoint,
                                    const DsgPrs_ArrowSide            ArrowPrs)
 {
   char valcar[80];
@@ -640,7 +640,7 @@ void DsgPrs_AnglePresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
   vec1 *= cer.Radius();
   gp_Vec vec2(dir2);
   vec2 *= cer.Radius();
-  gp_Pnt p2 = CenterPoint.Translated(vec2);
+  Point3d p2 = CenterPoint.Translated(vec2);
 
   Standard_Real uc1 = 0.;
   Standard_Real uc2 = ElCLib::Parameter(cer, p2);
@@ -693,15 +693,15 @@ void DsgPrs_AnglePresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
 
   // Lines of recall
   gp_Vec vecarr;
-  gp_Pnt ptarr;
+  Point3d ptarr;
   ElCLib::D1(uc1, cer, ptarr, vecarr);
 
   gp_Ax1 ax1(ptarr, Norm);
   gp_Dir dirarr(-vecarr);
   // calculate angle of rotation
-  gp_Pnt              ptarr2(ptarr.XYZ() + length * dirarr.XYZ());
+  Point3d              ptarr2(ptarr.XYZ() + length * dirarr.XYZ());
   const Standard_Real parcir = ElCLib::Parameter(cer, ptarr2);
-  gp_Pnt              ptarr3 = ElCLib::Value(parcir, cer);
+  Point3d              ptarr3 = ElCLib::Value(parcir, cer);
   gp_Vec              v1(ptarr, ptarr2);
   gp_Vec              v2(ptarr, ptarr3);
   const Standard_Real beta = v1.Angle(v2);
@@ -712,7 +712,7 @@ void DsgPrs_AnglePresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
   aPrims->AddVertex(ptarr);
 
   gp_Vec vecarr1;
-  gp_Pnt ptarr1;
+  Point3d ptarr1;
   ElCLib::D1(uc2, cer, ptarr1, vecarr1);
   ax1.SetLocation(ptarr1);
   gp_Dir dirarr2(vecarr1);
@@ -737,12 +737,12 @@ void DsgPrs_AnglePresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
 void DsgPrs_AnglePresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                    const Handle(Prs3d_Drawer)&       aDrawer,
                                    const Standard_Real               theval,
-                                   const gp_Pnt&                     CenterPoint,
-                                   const gp_Pnt&                     AttachmentPoint1,
-                                   const gp_Pnt&                     AttachmentPoint2,
+                                   const Point3d&                     CenterPoint,
+                                   const Point3d&                     AttachmentPoint1,
+                                   const Point3d&                     AttachmentPoint2,
                                    const gp_Dir&                     dir1,
                                    const gp_Dir&                     dir2,
-                                   const gp_Pnt&                     OffsetPoint)
+                                   const Point3d&                     OffsetPoint)
 {
   char valcar[80];
   sprintf(valcar, "%5.2f", theval);
@@ -763,7 +763,7 @@ void DsgPrs_AnglePresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
   vec1 *= cer.Radius();
   gp_Vec vec2(dir2);
   vec2 *= cer.Radius();
-  gp_Pnt p2 = CenterPoint.Translated(vec2);
+  Point3d p2 = CenterPoint.Translated(vec2);
 
   Standard_Real uc1 = 0.;
   Standard_Real uc2 = ElCLib::Parameter(cer, p2);
@@ -815,15 +815,15 @@ void DsgPrs_AnglePresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
     length = 1.e-04;
 
   gp_Vec vecarr;
-  gp_Pnt ptarr;
+  Point3d ptarr;
   ElCLib::D1(uc1, cer, ptarr, vecarr);
 
   gp_Ax1 ax1(ptarr, Norm);
   gp_Dir dirarr(-vecarr);
   // calculate the angle of rotation
-  gp_Pnt              ptarr2(ptarr.XYZ() + length * dirarr.XYZ());
+  Point3d              ptarr2(ptarr.XYZ() + length * dirarr.XYZ());
   const Standard_Real parcir = ElCLib::Parameter(cer, ptarr2);
-  gp_Pnt              ptarr3 = ElCLib::Value(parcir, cer);
+  Point3d              ptarr3 = ElCLib::Value(parcir, cer);
   gp_Vec              v1(ptarr, ptarr2);
   gp_Vec              v2(ptarr, ptarr3);
   const Standard_Real beta = v1.Angle(v2);
@@ -860,8 +860,8 @@ void DsgPrs_AnglePresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
 void DsgPrs_AnglePresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                    const Handle(Prs3d_Drawer)&       aDrawer,
                                    const Standard_Real               theval,
-                                   const gp_Pnt&                     CenterPoint,
-                                   const gp_Pnt&                     AttachmentPoint1,
+                                   const Point3d&                     CenterPoint,
+                                   const Point3d&                     AttachmentPoint1,
                                    const gp_Ax1&                     theAxe,
                                    const DsgPrs_ArrowSide            ArrowSide)
 {
@@ -888,7 +888,7 @@ void DsgPrs_AnglePresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
     length = 1.e-04;
 
   gp_Vec vecarr;
-  gp_Pnt ptarr;
+  Point3d ptarr;
   switch (ArrowSide)
   {
     case DsgPrs_AS_FIRSTAR: {

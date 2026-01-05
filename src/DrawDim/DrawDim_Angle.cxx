@@ -83,10 +83,10 @@ void DrawDim_Angle::DrawOn(Draw_Display&) const
   gp_Ax1        myAxis;
 
   // output
-  gp_Pnt           myFAttach;
-  gp_Pnt           mySAttach;
-  gp_Pnt           myPosition(0., 0., 0.);
-  gp_Pnt           myCenter;
+  Point3d           myFAttach;
+  Point3d           mySAttach;
+  Point3d           myPosition(0., 0., 0.);
+  Point3d           myCenter;
   gp_Dir           myFDir;
   gp_Dir           mySDir;
   Standard_Boolean myAutomaticPosition = Standard_True;
@@ -101,7 +101,7 @@ void DrawDim_Angle::DrawOn(Draw_Display&) const
   if (!ip.IsDone())
     return;
 
-  gp_Pnt curpos;
+  Point3d curpos;
   gp_Ax1 AxePos     = myAxis;
   gp_Dir theAxisDir = AxePos.Direction();
   gp_Lin theaxis    = gp_Lin(myAxis);
@@ -113,7 +113,7 @@ void DrawDim_Angle::DrawOn(Draw_Display&) const
     while (explo1.More())
     {
       TopoDS_Vertex vertref = TopoDS::Vertex(explo1.Current());
-      gp_Pnt        curpt   = BRep_Tool::Pnt(vertref);
+      Point3d        curpt   = BRep_Tool::Pnt(vertref);
       if (theaxis.Distance(curpt) > curdist)
       {
         curdist   = theaxis.Distance(curpt);
@@ -138,12 +138,12 @@ void DrawDim_Angle::DrawOn(Draw_Display&) const
     // point on the axis)
     Standard_Real   dist = RealLast();
     TopExp_Explorer explo1(myFShape, TopAbs_VERTEX);
-    gp_Pnt          AxePosition = AxePos.Location();
+    Point3d          AxePosition = AxePos.Location();
     gp_Vec          AxeVector(theAxisDir);
     gp_XYZ          AxeXYZ = AxeVector.XYZ();
     while (explo1.More())
     {
-      gp_Pnt curpt = BRep_Tool::Pnt(TopoDS::Vertex(explo1.Current()));
+      Point3d curpt = BRep_Tool::Pnt(TopoDS::Vertex(explo1.Current()));
       gp_Vec curvec(AxePosition, curpt);
       gp_XYZ curXYZ = curvec.XYZ();
       gp_XYZ Norm(curXYZ.Crossed(AxeXYZ));

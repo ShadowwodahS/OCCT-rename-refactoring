@@ -38,7 +38,7 @@ class BRepBlend_Extremity;
 class Blend_Point;
 class Blend_Function;
 class Blend_FuncInv;
-class gp_Pnt;
+class Point3d;
 class gp_Pnt2d;
 class IntSurf_Transition;
 
@@ -136,10 +136,10 @@ private:
                                                             const Standard_Real    theU,
                                                             const Standard_Real    theV,
                                                             const Standard_Real    theParam,
-                                                            const gp_Pnt&          thePntOnRst,
+                                                            const Point3d&          thePntOnRst,
                                                             Standard_Real&         NewU,
                                                             Standard_Real&         NewV,
-                                                            gp_Pnt&                NewPoint,
+                                                            Point3d&                NewPoint,
                                                             Standard_Real&         NewParam) const;
 
   Standard_EXPORT Standard_Integer ArcToRecadre(const Standard_Boolean OnFirst,

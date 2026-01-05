@@ -18,7 +18,7 @@
 #include <QANCollection_Common.hxx>
 #include <stdio.h>
 
-void PrintItem(const gp_Pnt& thePnt)
+void PrintItem(const Point3d& thePnt)
 {
   printf("   (%5.1f %5.1f %5.1f)\n", thePnt.X(), thePnt.Y(), thePnt.Z());
 }
@@ -44,7 +44,7 @@ void Random(Standard_Integer& theValue, const Standard_Integer theMax)
   theValue = RealToInt(theMax * dfR);
 }
 
-void Random(gp_Pnt& thePnt)
+void Random(Point3d& thePnt)
 {
   // thePnt.SetCoord(drand48(),drand48(),drand48());
   Standard_Real dfX, dfY, dfZ;

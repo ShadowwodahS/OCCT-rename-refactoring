@@ -43,11 +43,11 @@ Handle(TColStd_HArray1OfReal) Extrema_CurveTool::DeflCurvIntervals(const Adaptor
   Standard_Integer              nbpnts = 23, i;
   Standard_Real                 L      = 0.;
   Standard_Real                 tf = C.FirstParameter(), tl = C.LastParameter();
-  gp_Pnt                        aP = C.Value(tf);
+  Point3d                        aP = C.Value(tf);
   for (i = 2; i <= nbpnts; ++i)
   {
     Standard_Real t   = (tf * (nbpnts - i) + (i - 1) * tl) / (nbpnts - 1);
-    gp_Pnt        aP1 = C.Value(t);
+    Point3d        aP1 = C.Value(t);
     L += aP.Distance(aP1);
   }
   //

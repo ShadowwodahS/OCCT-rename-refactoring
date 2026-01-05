@@ -243,8 +243,8 @@ void ShapeAnalysis_WireOrder::Perform(const Standard_Boolean /*closed*/)
 
   // take the first edge to the constructed chain
   isEdgeUsed(1)        = Standard_True;
-  gp_Pnt   aFirstPnt3D = aBegins3D(1);
-  gp_Pnt   aLastPnt3D  = anEnds3D(1);
+  Point3d   aFirstPnt3D = aBegins3D(1);
+  Point3d   aLastPnt3D  = anEnds3D(1);
   gp_Pnt2d aFirstPnt2D;
   gp_Pnt2d aLastPnt2D;
   if (myMode == ModeBoth)
@@ -556,8 +556,8 @@ void ShapeAnalysis_WireOrder::Perform(const Standard_Boolean /*closed*/)
           Standard_Integer aPrevEdgeIt  = aCurEdgeIt == 1 ? aCurLoopLength : aCurEdgeIt - 1;
           Standard_Integer aCurEdgeIdx  = aCurLoop->Value(aCurEdgeIt);
           Standard_Integer aPrevEdgeIdx = aCurLoop->Value(aPrevEdgeIt);
-          gp_Pnt aCurLoopFirst = aCurEdgeIdx > 0 ? aBegins3D(aCurEdgeIdx) : anEnds3D(-aCurEdgeIdx);
-          gp_Pnt aCurLoopLast =
+          Point3d aCurLoopFirst = aCurEdgeIdx > 0 ? aBegins3D(aCurEdgeIdx) : anEnds3D(-aCurEdgeIdx);
+          Point3d aCurLoopLast =
             aPrevEdgeIdx > 0 ? anEnds3D(aPrevEdgeIdx) : aBegins3D(-aPrevEdgeIdx);
           // iterate over all gaps between edges in main loop
           Standard_Real    aMinDist3       = RealLast();
@@ -573,9 +573,9 @@ void ShapeAnalysis_WireOrder::Perform(const Standard_Boolean /*closed*/)
             Standard_Integer aNextEdgeIt2  = aCurEdgeIt2 == aMainLoopLength ? 1 : aCurEdgeIt2 + 1;
             Standard_Integer aCurEdgeIdx2  = aMainLoop->Value(aCurEdgeIt2);
             Standard_Integer aNextEdgeIdx2 = aMainLoop->Value(aNextEdgeIt2);
-            gp_Pnt           aMainLoopFirst =
+            Point3d           aMainLoopFirst =
               (aCurEdgeIdx2 > 0 ? anEnds3D(aCurEdgeIdx2) : aBegins3D(-aCurEdgeIdx2));
-            gp_Pnt aMainLoopLast =
+            Point3d aMainLoopLast =
               (aNextEdgeIdx2 > 0 ? aBegins3D(aNextEdgeIdx2) : anEnds3D(-aNextEdgeIdx2));
             // getting the sum of square distances if we try to sew the current loop with the main
             // loop in current positions

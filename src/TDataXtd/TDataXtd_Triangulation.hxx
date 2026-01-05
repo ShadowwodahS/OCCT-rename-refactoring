@@ -95,12 +95,12 @@ public:
 
   //! @return node at the given index.
   //! Raises Standard_OutOfRange exception if theIndex is less than 1 or greater than NbNodes.
-  Standard_EXPORT gp_Pnt Node(const Standard_Integer theIndex) const;
+  Standard_EXPORT Point3d Node(const Standard_Integer theIndex) const;
 
   //! The method differs from Poly_Triangulation!
   //! Sets a node at the given index.
   //! Raises Standard_OutOfRange exception if theIndex is less than 1 or greater than NbNodes.
-  Standard_EXPORT void SetNode(const Standard_Integer theIndex, const gp_Pnt& theNode);
+  Standard_EXPORT void SetNode(const Standard_Integer theIndex, const Point3d& theNode);
 
   //! @return UVNode at the given index.
   //! Raises Standard_OutOfRange exception if theIndex is less than 1 or greater than NbNodes.

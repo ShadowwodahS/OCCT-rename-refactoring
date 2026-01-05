@@ -39,7 +39,7 @@ public:
   Standard_EXPORT BRepBlend_Extremity();
 
   //! Creates an extremity on a surface
-  Standard_EXPORT BRepBlend_Extremity(const gp_Pnt&       P,
+  Standard_EXPORT BRepBlend_Extremity(const Point3d&       P,
                                       const Standard_Real U,
                                       const Standard_Real V,
                                       const Standard_Real Param,
@@ -47,7 +47,7 @@ public:
 
   //! Creates an extremity on a surface. This extremity matches
   //! the vertex <Vtx>.
-  Standard_EXPORT BRepBlend_Extremity(const gp_Pnt&                    P,
+  Standard_EXPORT BRepBlend_Extremity(const Point3d&                    P,
                                       const Standard_Real              U,
                                       const Standard_Real              V,
                                       const Standard_Real              Param,
@@ -55,13 +55,13 @@ public:
                                       const Handle(Adaptor3d_HVertex)& Vtx);
 
   //! Creates an extremity on a curve
-  Standard_EXPORT BRepBlend_Extremity(const gp_Pnt&       P,
+  Standard_EXPORT BRepBlend_Extremity(const Point3d&       P,
                                       const Standard_Real W,
                                       const Standard_Real Param,
                                       const Standard_Real Tol);
 
   //! Set the values for an extremity on a surface.
-  Standard_EXPORT void SetValue(const gp_Pnt&       P,
+  Standard_EXPORT void SetValue(const Point3d&       P,
                                 const Standard_Real U,
                                 const Standard_Real V,
                                 const Standard_Real Param,
@@ -69,7 +69,7 @@ public:
 
   //! Set the values for an extremity on a surface.This
   //! extremity matches the vertex <Vtx>.
-  Standard_EXPORT void SetValue(const gp_Pnt&                    P,
+  Standard_EXPORT void SetValue(const Point3d&                    P,
                                 const Standard_Real              U,
                                 const Standard_Real              V,
                                 const Standard_Real              Param,
@@ -77,13 +77,13 @@ public:
                                 const Handle(Adaptor3d_HVertex)& Vtx);
 
   //! Set the values for an extremity on curve.
-  Standard_EXPORT void SetValue(const gp_Pnt&       P,
+  Standard_EXPORT void SetValue(const Point3d&       P,
                                 const Standard_Real W,
                                 const Standard_Real Param,
                                 const Standard_Real Tol);
 
   //! This method returns the value of the point in 3d space.
-  const gp_Pnt& Value() const;
+  const Point3d& Value() const;
 
   //! Set the tangent   vector  for an extremity on  a
   //! surface.
@@ -140,7 +140,7 @@ protected:
 private:
   Handle(Adaptor3d_HVertex)      vtx;
   BRepBlend_SequenceOfPointOnRst seqpt;
-  gp_Pnt                         pt;
+  Point3d                         pt;
   gp_Vec                         tang;
   Standard_Real                  param;
   Standard_Real                  u;

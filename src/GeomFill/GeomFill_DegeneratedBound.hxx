@@ -36,15 +36,15 @@ class GeomFill_DegeneratedBound : public GeomFill_Boundary
 {
 
 public:
-  Standard_EXPORT GeomFill_DegeneratedBound(const gp_Pnt&       Point,
+  Standard_EXPORT GeomFill_DegeneratedBound(const Point3d&       Point,
                                             const Standard_Real First,
                                             const Standard_Real Last,
                                             const Standard_Real Tol3d,
                                             const Standard_Real Tolang);
 
-  Standard_EXPORT gp_Pnt Value(const Standard_Real U) const Standard_OVERRIDE;
+  Standard_EXPORT Point3d Value(const Standard_Real U) const Standard_OVERRIDE;
 
-  Standard_EXPORT void D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V) const Standard_OVERRIDE;
+  Standard_EXPORT void D1(const Standard_Real U, Point3d& P, gp_Vec& V) const Standard_OVERRIDE;
 
   Standard_EXPORT void Reparametrize(const Standard_Real    First,
                                      const Standard_Real    Last,
@@ -62,7 +62,7 @@ public:
 
 protected:
 private:
-  gp_Pnt        myPoint;
+  Point3d        myPoint;
   Standard_Real myFirst;
   Standard_Real myLast;
 };

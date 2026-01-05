@@ -24,7 +24,7 @@
 #include <Standard_OStream.hxx>
 class TDF_Label;
 class TNaming_NamedShape;
-class gp_Pnt;
+class Point3d;
 class gp_Ax1;
 class gp_Lin;
 class gp_Circ;
@@ -66,10 +66,10 @@ public:
   Standard_EXPORT static TDataXtd_GeometryEnum Type(const Handle(TNaming_NamedShape)& S);
 
   //! Returns the point attribute defined by the label L and the point G.
-  Standard_EXPORT static Standard_Boolean Point(const TDF_Label& L, gp_Pnt& G);
+  Standard_EXPORT static Standard_Boolean Point(const TDF_Label& L, Point3d& G);
 
   //! Returns the point attribute defined by the topological attribute S and the point G.
-  Standard_EXPORT static Standard_Boolean Point(const Handle(TNaming_NamedShape)& S, gp_Pnt& G);
+  Standard_EXPORT static Standard_Boolean Point(const Handle(TNaming_NamedShape)& S, Point3d& G);
 
   //! Returns the axis attribute defined by the label L and the axis G.
   Standard_EXPORT static Standard_Boolean Axis(const TDF_Label& L, gp_Ax1& G);

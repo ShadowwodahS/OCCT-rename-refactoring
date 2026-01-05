@@ -745,14 +745,14 @@ static Standard_Boolean local_FindVertex(
   const TopTools_IndexedDataMapOfShapeListOfShape& theMapOfVertexEdges,
   TopoDS_Vertex&                                   theVertex)
 {
-  gp_Pnt           aVPPoint     = theVP.Value();
+  Point3d           aVPPoint     = theVP.Value();
   Standard_Real    aVPTolerance = theVP.Tolerance();
   Standard_Boolean vertexfound  = Standard_False;
   for (Standard_Integer itVertex = 1; !vertexfound && itVertex <= theMapOfVertexEdges.Extent();
        itVertex++)
   {
     theVertex     = TopoDS::Vertex(theMapOfVertexEdges.FindKey(itVertex));
-    gp_Pnt aPoint = BRep_Tool::Pnt(theVertex);
+    Point3d aPoint = BRep_Tool::Pnt(theVertex);
     if (aVPPoint.IsEqual(aPoint, aVPTolerance))
     {
       vertexfound = Standard_True;

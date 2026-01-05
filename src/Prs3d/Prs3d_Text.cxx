@@ -28,7 +28,7 @@
 Handle(Graphic3d_Text) Prs3d_Text::Draw(const Handle(Graphic3d_Group)&    theGroup,
                                         const Handle(Prs3d_TextAspect)&   theAspect,
                                         const TCollection_ExtendedString& theText,
-                                        const gp_Pnt&                     theAttachmentPoint)
+                                        const Point3d&                     theAttachmentPoint)
 {
   theGroup->SetPrimitivesAspect(theAspect->Aspect());
 

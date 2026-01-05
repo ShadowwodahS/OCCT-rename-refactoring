@@ -166,8 +166,8 @@ static void addBox3dToBndBox(Bnd_Box& theResBox, const Graphic3d_BndBox3d& theBo
   // skip too big boxes to prevent float overflow at camera parameters calculation
   if (theBox.IsValid() && !isInfiniteBndBox(theBox))
   {
-    theResBox.Add(gp_Pnt(theBox.CornerMin().x(), theBox.CornerMin().y(), theBox.CornerMin().z()));
-    theResBox.Add(gp_Pnt(theBox.CornerMax().x(), theBox.CornerMax().y(), theBox.CornerMax().z()));
+    theResBox.Add(Point3d(theBox.CornerMin().x(), theBox.CornerMin().y(), theBox.CornerMin().z()));
+    theResBox.Add(Point3d(theBox.CornerMax().x(), theBox.CornerMax().y(), theBox.CornerMax().z()));
   }
 }
 
@@ -210,7 +210,7 @@ Bnd_Box Graphic3d_Layer::BoundingBox(Standard_Integer                theViewId,
         {
           if (!theToIncludeAuxiliary && aStructure->TransformPersistence()->IsZoomOrRotate())
           {
-            const gp_Pnt anAnchor = aStructure->TransformPersistence()->AnchorPoint();
+            const Point3d anAnchor = aStructure->TransformPersistence()->AnchorPoint();
             myBoundingBox[aBoxId].Add(anAnchor);
             continue;
           }
@@ -233,7 +233,7 @@ Bnd_Box Graphic3d_Layer::BoundingBox(Standard_Integer                theViewId,
             if (!aGroup->TransformPersistence().IsNull()
                 && aGroup->TransformPersistence()->IsZoomOrRotate())
             {
-              const gp_Pnt anAnchor = aGroup->TransformPersistence()->AnchorPoint();
+              const Point3d anAnchor = aGroup->TransformPersistence()->AnchorPoint();
               myBoundingBox[aBoxId].Add(anAnchor);
             }
           }
@@ -371,15 +371,15 @@ Standard_Real Graphic3d_Layer::considerZoomPersistenceObjects(
       const BVH_Vec3d&       aCornerMin  = aBox.CornerMin();
       const BVH_Vec3d&       aCornerMax  = aBox.CornerMax();
       const Standard_Integer aNbOfPoints = 8;
-      const gp_Pnt  aPoints[aNbOfPoints] = {gp_Pnt(aCornerMin.x(), aCornerMin.y(), aCornerMin.z()),
-                                            gp_Pnt(aCornerMin.x(), aCornerMin.y(), aCornerMax.z()),
-                                            gp_Pnt(aCornerMin.x(), aCornerMax.y(), aCornerMin.z()),
-                                            gp_Pnt(aCornerMin.x(), aCornerMax.y(), aCornerMax.z()),
-                                            gp_Pnt(aCornerMax.x(), aCornerMin.y(), aCornerMin.z()),
-                                            gp_Pnt(aCornerMax.x(), aCornerMin.y(), aCornerMax.z()),
-                                            gp_Pnt(aCornerMax.x(), aCornerMax.y(), aCornerMin.z()),
-                                            gp_Pnt(aCornerMax.x(), aCornerMax.y(), aCornerMax.z())};
-      gp_Pnt        aConvertedPoints[aNbOfPoints];
+      const Point3d  aPoints[aNbOfPoints] = {Point3d(aCornerMin.x(), aCornerMin.y(), aCornerMin.z()),
+                                            Point3d(aCornerMin.x(), aCornerMin.y(), aCornerMax.z()),
+                                            Point3d(aCornerMin.x(), aCornerMax.y(), aCornerMin.z()),
+                                            Point3d(aCornerMin.x(), aCornerMax.y(), aCornerMax.z()),
+                                            Point3d(aCornerMax.x(), aCornerMin.y(), aCornerMin.z()),
+                                            Point3d(aCornerMax.x(), aCornerMin.y(), aCornerMax.z()),
+                                            Point3d(aCornerMax.x(), aCornerMax.y(), aCornerMin.z()),
+                                            Point3d(aCornerMax.x(), aCornerMax.y(), aCornerMax.z())};
+      Point3d        aConvertedPoints[aNbOfPoints];
       Standard_Real aConvertedMinX = std::numeric_limits<double>::max();
       Standard_Real aConvertedMaxX = -std::numeric_limits<double>::max();
       Standard_Real aConvertedMinY = std::numeric_limits<double>::max();
@@ -410,8 +410,8 @@ Standard_Real Graphic3d_Layer::considerZoomPersistenceObjects(
         continue;
       }
 
-      const gp_Pnt aTPPoint          = aStructure->TransformPersistence()->AnchorPoint();
-      gp_Pnt       aConvertedTPPoint = theCamera->Project(aTPPoint);
+      const Point3d aTPPoint          = aStructure->TransformPersistence()->AnchorPoint();
+      Point3d       aConvertedTPPoint = theCamera->Project(aTPPoint);
       aConvertedTPPoint.SetZ(0.0);
 
       if (aConvertedTPPoint.Coord().Modulus() < Precision::Confusion())

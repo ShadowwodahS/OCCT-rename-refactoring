@@ -334,7 +334,7 @@ void ChFi3d_CheckSurfData(const TopOpeBRepDS_DataStructure& DStr,
     B.Add(E2, V3);
     B.UpdateVertex(V3, pp3.Distance(pp2), E2, 0.);
 
-    gp_Pnt pw1, pw2, ppp;
+    Point3d pw1, pw2, ppp;
     ppp = surf->Value(pp1.X(), pp1.Y());
     pw1 = surf->Value(0.9 * pp1.X() + 0.1 * pp2.X(), 0.9 * pp1.Y() + 0.1 * pp2.Y());
     pw2 = surf->Value(0.9 * pp1.X() + 0.1 * pp4.X(), 0.9 * pp1.Y() + 0.1 * pp4.Y());

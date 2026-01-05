@@ -70,7 +70,7 @@ void Select3D_SensitiveGroup::Add(Select3D_EntitySequence& theEntities)
     return;
   }
 
-  gp_Pnt aCent(0.0, 0.0, 0.0);
+  Point3d aCent(0.0, 0.0, 0.0);
   myEntities.ReSize(myEntities.Extent() + theEntities.Size());
   for (Select3D_EntitySequenceIter anIter(theEntities); anIter.More(); anIter.Next())
   {
@@ -118,7 +118,7 @@ void Select3D_SensitiveGroup::Remove(const Handle(Select3D_SensitiveEntity)& the
   }
 
   myBndBox.Clear();
-  myCenter = gp_Pnt(0.0, 0.0, 0.0);
+  myCenter = Point3d(0.0, 0.0, 0.0);
   myBVHPrimIndexes.Clear();
   for (Standard_Integer anIdx = 1; anIdx <= myEntities.Size(); ++anIdx)
   {
@@ -144,7 +144,7 @@ void Select3D_SensitiveGroup::Clear()
 {
   myEntities.Clear();
   myBndBox.Clear();
-  myCenter = gp_Pnt(0.0, 0.0, 0.0);
+  myCenter = Point3d(0.0, 0.0, 0.0);
   myBVHPrimIndexes.Clear();
 }
 
@@ -256,7 +256,7 @@ Select3D_BndBox3d Select3D_SensitiveGroup::BoundingBox()
 // purpose  : Returns center of group. If location transformation
 //            is set, it will be applied
 //=======================================================================
-gp_Pnt Select3D_SensitiveGroup::CenterOfGeometry() const
+Point3d Select3D_SensitiveGroup::CenterOfGeometry() const
 {
   return myCenter;
 }
@@ -280,7 +280,7 @@ Standard_Real Select3D_SensitiveGroup::Center(const Standard_Integer theIdx,
                                               const Standard_Integer theAxis) const
 {
   const Standard_Integer anElemIdx = myBVHPrimIndexes.Value(theIdx);
-  const gp_Pnt           aCenter   = myEntities.FindKey(anElemIdx)->CenterOfGeometry();
+  const Point3d           aCenter   = myEntities.FindKey(anElemIdx)->CenterOfGeometry();
   return theAxis == 0 ? aCenter.X() : (theAxis == 1 ? aCenter.Y() : aCenter.Z());
 }
 

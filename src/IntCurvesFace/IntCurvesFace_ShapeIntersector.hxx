@@ -34,7 +34,7 @@
 class Adaptor3d_Curve;
 class TopoDS_Shape;
 class gp_Lin;
-class gp_Pnt;
+class Point3d;
 class TopoDS_Face;
 
 class IntCurvesFace_ShapeIntersector
@@ -106,7 +106,7 @@ public:
 
   //! Returns the geometric point of the ith intersection
   //! between the line and the surface.
-  const gp_Pnt& Pnt(const Standard_Integer I) const
+  const Point3d& Pnt(const Standard_Integer I) const
   {
     Handle(IntCurvesFace_Intersector) anIntAdaptor = myIntersector(myIndexFace(myIndexPt(I)));
     return anIntAdaptor->Pnt(myIndexIntPnt(myIndexPt(I)));

@@ -21,7 +21,7 @@
 
 #include <Geom_AxisPlacement.hxx>
 class gp_Ax2;
-class gp_Pnt;
+class Point3d;
 class gp_Trsf;
 class Geom_Geometry;
 
@@ -66,7 +66,7 @@ public:
   //! "XDirection" is computed as follow :
   //! XDirection = N ^ (Vx ^ N).
   //! Raised if N and Vx are parallel.
-  Standard_EXPORT Geom_Axis2Placement(const gp_Pnt& P, const gp_Dir& N, const gp_Dir& Vx);
+  Standard_EXPORT Geom_Axis2Placement(const Point3d& P, const gp_Dir& N, const gp_Dir& Vx);
 
   //! Assigns the origin and the three unit vectors of A2 to
   //! this coordinate system.
@@ -121,7 +121,7 @@ public:
 
 protected:
 private:
-  Standard_EXPORT Geom_Axis2Placement(const gp_Pnt& P,
+  Standard_EXPORT Geom_Axis2Placement(const Point3d& P,
                                       const gp_Dir& Vz,
                                       const gp_Dir& Vx,
                                       const gp_Dir& Vy);

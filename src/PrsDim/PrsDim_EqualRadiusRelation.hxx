@@ -45,10 +45,10 @@ private:
   Standard_EXPORT void ComputeRadiusPosition();
 
 private:
-  gp_Pnt myFirstCenter;
-  gp_Pnt mySecondCenter;
-  gp_Pnt myFirstPoint;
-  gp_Pnt mySecondPoint;
+  Point3d myFirstCenter;
+  Point3d mySecondCenter;
+  Point3d myFirstPoint;
+  Point3d mySecondPoint;
 };
 
 #endif // _PrsDim_EqualRadiusRelation_HeaderFile

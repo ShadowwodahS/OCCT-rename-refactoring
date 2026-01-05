@@ -263,7 +263,7 @@ Standard_Boolean IGESData_ToolLocation::ConvertLocation(const Standard_Real prec
   // Ici, Orthogonale et memes normes. En plus on l a Normee
   // Restent les autres caracteristiques :
   if (Abs(mm - 1.) > prec)
-    result.SetScale(gp_Pnt(0, 0, 0), mm);
+    result.SetScale(Point3d(0, 0, 0), mm);
   gp_XYZ tp = loc.TranslationPart();
   if (unit != 1.)
     tp.Multiply(unit);
@@ -277,7 +277,7 @@ Standard_Boolean IGESData_ToolLocation::ConvertLocation(const Standard_Real prec
     gp_Dir d1(v1);
     gp_Dir d2(v2);
     gp_Dir d3(v3);
-    gp_Ax3 axes(gp_Pnt(0, 0, 0), d3, d1);
+    gp_Ax3 axes(Point3d(0, 0, 0), d3, d1);
     d3.Cross(d1);
     if (d3.Dot(d2) < 0)
       axes.YReverse();

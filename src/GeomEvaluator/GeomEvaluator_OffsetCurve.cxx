@@ -39,14 +39,14 @@ GeomEvaluator_OffsetCurve::GeomEvaluator_OffsetCurve(const Handle(GeomAdaptor_Cu
 {
 }
 
-void GeomEvaluator_OffsetCurve::D0(const Standard_Real theU, gp_Pnt& theValue) const
+void GeomEvaluator_OffsetCurve::D0(const Standard_Real theU, Point3d& theValue) const
 {
   gp_Vec aD1;
   BaseD1(theU, theValue, aD1);
   CalculateD0(theValue, aD1);
 }
 
-void GeomEvaluator_OffsetCurve::D1(const Standard_Real theU, gp_Pnt& theValue, gp_Vec& theD1) const
+void GeomEvaluator_OffsetCurve::D1(const Standard_Real theU, Point3d& theValue, gp_Vec& theD1) const
 {
   gp_Vec aD2;
   BaseD2(theU, theValue, theD1, aD2);
@@ -54,7 +54,7 @@ void GeomEvaluator_OffsetCurve::D1(const Standard_Real theU, gp_Pnt& theValue, g
 }
 
 void GeomEvaluator_OffsetCurve::D2(const Standard_Real theU,
-                                   gp_Pnt&             theValue,
+                                   Point3d&             theValue,
                                    gp_Vec&             theD1,
                                    gp_Vec&             theD2) const
 {
@@ -72,7 +72,7 @@ void GeomEvaluator_OffsetCurve::D2(const Standard_Real theU,
 }
 
 void GeomEvaluator_OffsetCurve::D3(const Standard_Real theU,
-                                   gp_Pnt&             theValue,
+                                   Point3d&             theValue,
                                    gp_Vec&             theD1,
                                    gp_Vec&             theD2,
                                    gp_Vec&             theD3) const
@@ -92,7 +92,7 @@ gp_Vec GeomEvaluator_OffsetCurve::DN(const Standard_Real    theU,
 {
   Standard_RangeError_Raise_if(theDeriv < 1, "GeomEvaluator_OffsetCurve::DN(): theDeriv < 1");
 
-  gp_Pnt aPnt;
+  Point3d aPnt;
   gp_Vec aDummy, aDN;
   switch (theDeriv)
   {
@@ -128,7 +128,7 @@ Handle(GeomEvaluator_Curve) GeomEvaluator_OffsetCurve::ShallowCopy() const
   return aCopy;
 }
 
-void GeomEvaluator_OffsetCurve::BaseD0(const Standard_Real theU, gp_Pnt& theValue) const
+void GeomEvaluator_OffsetCurve::BaseD0(const Standard_Real theU, Point3d& theValue) const
 {
   if (!myBaseAdaptor.IsNull())
     myBaseAdaptor->D0(theU, theValue);
@@ -137,7 +137,7 @@ void GeomEvaluator_OffsetCurve::BaseD0(const Standard_Real theU, gp_Pnt& theValu
 }
 
 void GeomEvaluator_OffsetCurve::BaseD1(const Standard_Real theU,
-                                       gp_Pnt&             theValue,
+                                       Point3d&             theValue,
                                        gp_Vec&             theD1) const
 {
   if (!myBaseAdaptor.IsNull())
@@ -147,7 +147,7 @@ void GeomEvaluator_OffsetCurve::BaseD1(const Standard_Real theU,
 }
 
 void GeomEvaluator_OffsetCurve::BaseD2(const Standard_Real theU,
-                                       gp_Pnt&             theValue,
+                                       Point3d&             theValue,
                                        gp_Vec&             theD1,
                                        gp_Vec&             theD2) const
 {
@@ -158,7 +158,7 @@ void GeomEvaluator_OffsetCurve::BaseD2(const Standard_Real theU,
 }
 
 void GeomEvaluator_OffsetCurve::BaseD3(const Standard_Real theU,
-                                       gp_Pnt&             theValue,
+                                       Point3d&             theValue,
                                        gp_Vec&             theD1,
                                        gp_Vec&             theD2,
                                        gp_Vec&             theD3) const
@@ -170,7 +170,7 @@ void GeomEvaluator_OffsetCurve::BaseD3(const Standard_Real theU,
 }
 
 void GeomEvaluator_OffsetCurve::BaseD4(const Standard_Real theU,
-                                       gp_Pnt&             theValue,
+                                       Point3d&             theValue,
                                        gp_Vec&             theD1,
                                        gp_Vec&             theD2,
                                        gp_Vec&             theD3,
@@ -196,7 +196,7 @@ gp_Vec GeomEvaluator_OffsetCurve::BaseDN(const Standard_Real    theU,
   return myBaseCurve->DN(theU, theDeriv);
 }
 
-void GeomEvaluator_OffsetCurve::CalculateD0(gp_Pnt& theValue, const gp_Vec& theD1) const
+void GeomEvaluator_OffsetCurve::CalculateD0(Point3d& theValue, const gp_Vec& theD1) const
 {
   gp_XYZ        Ndir = (theD1.XYZ()).Crossed(myOffsetDir.XYZ());
   Standard_Real R    = Ndir.Modulus();
@@ -208,7 +208,7 @@ void GeomEvaluator_OffsetCurve::CalculateD0(gp_Pnt& theValue, const gp_Vec& theD
   theValue.ChangeCoord().Add(Ndir);
 }
 
-void GeomEvaluator_OffsetCurve::CalculateD1(gp_Pnt&       theValue,
+void GeomEvaluator_OffsetCurve::CalculateD1(Point3d&       theValue,
                                             gp_Vec&       theD1,
                                             const gp_Vec& theD2) const
 {
@@ -246,7 +246,7 @@ void GeomEvaluator_OffsetCurve::CalculateD1(gp_Pnt&       theValue,
   theD1.Add(gp_Vec(DNdir));
 }
 
-void GeomEvaluator_OffsetCurve::CalculateD2(gp_Pnt&                theValue,
+void GeomEvaluator_OffsetCurve::CalculateD2(Point3d&                theValue,
                                             gp_Vec&                theD1,
                                             gp_Vec&                theD2,
                                             const gp_Vec&          theD3,
@@ -312,7 +312,7 @@ void GeomEvaluator_OffsetCurve::CalculateD2(gp_Pnt&                theValue,
   theD2.Add(gp_Vec(D2Ndir));
 }
 
-void GeomEvaluator_OffsetCurve::CalculateD3(gp_Pnt&                theValue,
+void GeomEvaluator_OffsetCurve::CalculateD3(Point3d&                theValue,
                                             gp_Vec&                theD1,
                                             gp_Vec&                theD2,
                                             gp_Vec&                theD3,
@@ -449,7 +449,7 @@ Standard_Boolean GeomEvaluator_OffsetCurve::AdjustDerivative(
   else
     u = theU - aDelta;
 
-  gp_Pnt P1, P2;
+  Point3d P1, P2;
   BaseD0(Min(theU, u), P1);
   BaseD0(Max(theU, u), P2);
 

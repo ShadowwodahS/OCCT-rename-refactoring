@@ -49,7 +49,7 @@ static Standard_Boolean DsgPrs_InDomain(const Standard_Real fpar,
 void DsgPrs_RadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                     const Handle(Prs3d_Drawer)&       aDrawer,
                                     const TCollection_ExtendedString& aText,
-                                    const gp_Pnt&                     AttachmentPoint,
+                                    const Point3d&                     AttachmentPoint,
                                     const gp_Circ&                    aCircle,
                                     const Standard_Real               firstparam,
                                     const Standard_Real               lastparam,
@@ -67,7 +67,7 @@ void DsgPrs_RadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
 
   Standard_Real    parat     = ElCLib::Parameter(aCircle, AttachmentPoint);
-  gp_Pnt           attpoint  = AttachmentPoint;
+  Point3d           attpoint  = AttachmentPoint;
   Standard_Boolean otherside = Standard_False;
   if (!DsgPrs_InDomain(fpara, lpara, parat))
   {
@@ -92,16 +92,16 @@ void DsgPrs_RadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
         otherside = Standard_True;
         parat     = (otherpar < fpara) ? fpara : lpara;
       }
-      gp_Pnt              ptdir = ElCLib::Value(parat, aCircle);
+      Point3d              ptdir = ElCLib::Value(parat, aCircle);
       gp_Lin              lsup(aCircle.Location(), gp_Dir(ptdir.XYZ() - aCircle.Location().XYZ()));
       const Standard_Real parpos = ElCLib::Parameter(lsup, AttachmentPoint);
       attpoint                   = ElCLib::Value(parpos, lsup);
     }
   }
-  gp_Pnt ptoncirc = ElCLib::Value(parat, aCircle);
+  Point3d ptoncirc = ElCLib::Value(parat, aCircle);
   gp_Lin L(aCircle.Location(), gp_Dir(attpoint.XYZ() - aCircle.Location().XYZ()));
-  gp_Pnt firstpoint  = attpoint;
-  gp_Pnt drawtopoint = ptoncirc;
+  Point3d firstpoint  = attpoint;
+  Point3d drawtopoint = ptoncirc;
   if (drawFromCenter && !otherside)
   {
     const Standard_Real uatt = ElCLib::Parameter(L, attpoint);
@@ -141,9 +141,9 @@ void DsgPrs_RadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
 void DsgPrs_RadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                     const Handle(Prs3d_Drawer)&       aDrawer,
                                     const TCollection_ExtendedString& aText,
-                                    const gp_Pnt&                     AttachmentPoint,
-                                    const gp_Pnt&                     Center,
-                                    const gp_Pnt&                     EndOfArrow,
+                                    const Point3d&                     AttachmentPoint,
+                                    const Point3d&                     Center,
+                                    const Point3d&                     EndOfArrow,
                                     const DsgPrs_ArrowSide            ArrowPrs,
                                     const Standard_Boolean            drawFromCenter,
                                     const Standard_Boolean            reverseArrow)
@@ -151,7 +151,7 @@ void DsgPrs_RadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
 
-  gp_Pnt LineOrigin, LineEnd;
+  Point3d LineOrigin, LineEnd;
   DsgPrs::ComputeRadiusLine(Center,
                             EndOfArrow,
                             AttachmentPoint,

@@ -25,7 +25,7 @@
 #include <TColgp_Array1OfPnt.hxx>
 #include <TColStd_Array1OfReal.hxx>
 #include <TColgp_Array1OfVec.hxx>
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 
 //! To convert circular section in QuasiAngular Bezier
@@ -42,16 +42,16 @@ public:
 
   Standard_EXPORT void Init();
 
-  Standard_EXPORT void Section(const gp_Pnt&         FirstPnt,
-                               const gp_Pnt&         Center,
+  Standard_EXPORT void Section(const Point3d&         FirstPnt,
+                               const Point3d&         Center,
                                const gp_Vec&         Dir,
                                const Standard_Real   Angle,
                                TColgp_Array1OfPnt&   Poles,
                                TColStd_Array1OfReal& Weights);
 
-  Standard_EXPORT void Section(const gp_Pnt&         FirstPnt,
+  Standard_EXPORT void Section(const Point3d&         FirstPnt,
                                const gp_Vec&         DFirstPnt,
-                               const gp_Pnt&         Center,
+                               const Point3d&         Center,
                                const gp_Vec&         DCenter,
                                const gp_Vec&         Dir,
                                const gp_Vec&         DDir,
@@ -62,10 +62,10 @@ public:
                                TColStd_Array1OfReal& Weights,
                                TColStd_Array1OfReal& DWeights);
 
-  Standard_EXPORT void Section(const gp_Pnt&         FirstPnt,
+  Standard_EXPORT void Section(const Point3d&         FirstPnt,
                                const gp_Vec&         DFirstPnt,
                                const gp_Vec&         D2FirstPnt,
-                               const gp_Pnt&         Center,
+                               const Point3d&         Center,
                                const gp_Vec&         DCenter,
                                const gp_Vec&         D2Center,
                                const gp_Vec&         Dir,

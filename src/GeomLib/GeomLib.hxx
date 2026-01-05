@@ -30,7 +30,7 @@ class Geom2d_Curve;
 class gp_GTrsf2d;
 class Adaptor3d_CurveOnSurface;
 class Geom_BoundedCurve;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 class Geom_BoundedSurface;
 class gp_Dir;
@@ -93,8 +93,8 @@ public:
                                            const Standard_Integer    MaxSegment = 30);
 
   Standard_EXPORT static void AdjustExtremity(Handle(Geom_BoundedCurve)& Curve,
-                                              const gp_Pnt&              P1,
-                                              const gp_Pnt&              P2,
+                                              const Point3d&              P1,
+                                              const Point3d&              P2,
                                               const gp_Vec&              T1,
                                               const gp_Vec&              T2);
 
@@ -113,7 +113,7 @@ public:
   //! curve Curve: Point must not be located too far from
   //! one of the extremities of Curve.
   Standard_EXPORT static void ExtendCurveToPoint(Handle(Geom_BoundedCurve)& Curve,
-                                                 const gp_Pnt&              Point,
+                                                 const Point3d&              Point,
                                                  const Standard_Integer     Cont,
                                                  const Standard_Boolean     After);
 
@@ -156,7 +156,7 @@ public:
   //! Compute principale axes  of  inertia, and dispersion
   //! value  of some  points.
   Standard_EXPORT static void Inertia(const TColgp_Array1OfPnt& Points,
-                                      gp_Pnt&                   Bary,
+                                      Point3d&                   Bary,
                                       gp_Dir&                   XDir,
                                       gp_Dir&                   YDir,
                                       Standard_Real&            Xgap,

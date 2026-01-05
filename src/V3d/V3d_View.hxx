@@ -1097,7 +1097,7 @@ public:
   Standard_EXPORT void StatisticInformation(TColStd_IndexedDataMapOfStringString& theDict) const;
 
   //! Returns the Objects number and the gravity center of ALL viewable points in the view
-  Standard_EXPORT gp_Pnt GravityPoint() const;
+  Standard_EXPORT Point3d GravityPoint() const;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT void DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth = -1) const;
@@ -1205,8 +1205,8 @@ protected:
   Standard_Real            myOldMouseY;
   gp_Dir                   myCamStartOpUp;
   gp_Dir                   myCamStartOpDir;
-  gp_Pnt                   myCamStartOpEye;
-  gp_Pnt                   myCamStartOpCenter;
+  Point3d                   myCamStartOpEye;
+  Point3d                   myCamStartOpCenter;
   Handle(Graphic3d_Camera) myDefaultCamera;
   Handle(Graphic3d_CView)  myView;
   Standard_Boolean         myImmediateUpdate;
@@ -1220,14 +1220,14 @@ private:
 
   V3d_ListOfLight             myActiveLights;
   gp_Dir                      myDefaultViewAxis;
-  gp_Pnt                      myDefaultViewPoint;
+  Point3d                      myDefaultViewPoint;
   Handle(Aspect_Window)       MyWindow;
   V3d_ListOfLight::Iterator   myActiveLightsIterator;
   Standard_Integer            sx;
   Standard_Integer            sy;
   Standard_Real               rx;
   Standard_Real               ry;
-  gp_Pnt                      myRotateGravity;
+  Point3d                      myRotateGravity;
   Standard_Boolean            myComputedMode;
   Standard_Boolean            SwitchSetFront;
   Standard_Boolean            myZRotation;

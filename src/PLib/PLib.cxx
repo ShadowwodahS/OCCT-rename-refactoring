@@ -117,7 +117,7 @@ void PLib::SetPoles(const TColgp_Array1OfPnt& Poles, TColStd_Array1OfReal& FP)
 
   for (Standard_Integer i = PLower; i <= PUpper; i++)
   {
-    const gp_Pnt& P = Poles(i);
+    const Point3d& P = Poles(i);
     FP(j)           = P.Coord(1);
     j++;
     FP(j) = P.Coord(2);
@@ -140,7 +140,7 @@ void PLib::SetPoles(const TColgp_Array1OfPnt&   Poles,
   for (Standard_Integer i = PLower; i <= PUpper; i++)
   {
     Standard_Real w = Weights(i);
-    const gp_Pnt& P = Poles(i);
+    const Point3d& P = Poles(i);
     FP(j)           = P.Coord(1) * w;
     j++;
     FP(j) = P.Coord(2) * w;
@@ -162,7 +162,7 @@ void PLib::GetPoles(const TColStd_Array1OfReal& FP, TColgp_Array1OfPnt& Poles)
 
   for (Standard_Integer i = PLower; i <= PUpper; i++)
   {
-    gp_Pnt& P = Poles(i);
+    Point3d& P = Poles(i);
     P.SetCoord(1, FP(j));
     j++;
     P.SetCoord(2, FP(j));
@@ -186,7 +186,7 @@ void PLib::GetPoles(const TColStd_Array1OfReal& FP,
   {
     Standard_Real w = FP(j + 3);
     Weights(i)      = w;
-    gp_Pnt& P       = Poles(i);
+    Point3d& P       = Poles(i);
     P.SetCoord(1, FP(j) / w);
     j++;
     P.SetCoord(2, FP(j) / w);

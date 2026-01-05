@@ -132,14 +132,14 @@ Standard_Boolean BlendFunc_Chamfer::Derivatives(const math_Vector& X, math_Matri
 
 //=================================================================================================
 
-const gp_Pnt& BlendFunc_Chamfer::PointOnS1() const
+const Point3d& BlendFunc_Chamfer::PointOnS1() const
 {
   return corde1.PointOnS();
 }
 
 //=================================================================================================
 
-const gp_Pnt& BlendFunc_Chamfer::PointOnS2() const
+const Point3d& BlendFunc_Chamfer::PointOnS2() const
 {
   return corde2.PointOnS();
 }
@@ -194,7 +194,7 @@ void BlendFunc_Chamfer::Tangent(const Standard_Real U1,
                                 gp_Vec&             NmF,
                                 gp_Vec&             NmL) const
 {
-  gp_Pnt           pt1, pt2, ptgui;
+  Point3d           pt1, pt2, ptgui;
   gp_Vec           d1u1, d1v1, d1u2, d1v2;
   gp_Vec           nplan;
   Standard_Boolean revF = Standard_False;

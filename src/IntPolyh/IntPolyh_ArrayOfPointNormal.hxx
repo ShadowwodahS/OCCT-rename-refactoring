@@ -23,7 +23,7 @@
 //! normal vector in this point on the surface.
 struct IntPolyh_PointNormal
 {
-  gp_Pnt Point;
+  Point3d Point;
   gp_Vec Normal;
 };
 

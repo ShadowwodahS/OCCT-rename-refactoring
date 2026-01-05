@@ -24,7 +24,7 @@
 //=========================================================================
 //   Creation d une symetrie de Geom par rapport a un point.              +
 //=========================================================================
-GC_MakeMirror::GC_MakeMirror(const gp_Pnt& Point)
+GC_MakeMirror::GC_MakeMirror(const Point3d& Point)
 {
   TheMirror = new Geom_Transformation();
   TheMirror->SetMirror(Point);
@@ -55,7 +55,7 @@ GC_MakeMirror::GC_MakeMirror(const gp_Lin& Line)
 //   par un point et une direction.                                       +
 //=========================================================================
 
-GC_MakeMirror::GC_MakeMirror(const gp_Pnt& Point, const gp_Dir& Direc)
+GC_MakeMirror::GC_MakeMirror(const Point3d& Point, const gp_Dir& Direc)
 {
   TheMirror = new Geom_Transformation();
   TheMirror->SetMirror(gp_Ax1(Point, Direc));

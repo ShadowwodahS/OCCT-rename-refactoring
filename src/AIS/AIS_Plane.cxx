@@ -52,7 +52,7 @@ IMPLEMENT_STANDARD_RTTIEXT(AIS_Plane, AIS_InteractiveObject)
 
 AIS_Plane::AIS_Plane(const Handle(Geom_Plane)& aComponent, const Standard_Boolean aCurrentMode)
     : myComponent(aComponent),
-      myCenter(gp_Pnt(0., 0., 0.)),
+      myCenter(Point3d(0., 0., 0.)),
       myCurrentMode(aCurrentMode),
       myAutomaticPosition(Standard_True),
       myTypeOfPlane(AIS_TOPL_Unknown),
@@ -67,7 +67,7 @@ AIS_Plane::AIS_Plane(const Handle(Geom_Plane)& aComponent, const Standard_Boolea
 // purpose  : avec une position
 //=======================================================================
 AIS_Plane::AIS_Plane(const Handle(Geom_Plane)& aComponent,
-                     const gp_Pnt&             aCenter,
+                     const Point3d&             aCenter,
                      const Standard_Boolean    aCurrentMode)
     : myComponent(aComponent),
       myCenter(aCenter),
@@ -83,9 +83,9 @@ AIS_Plane::AIS_Plane(const Handle(Geom_Plane)& aComponent,
 //=================================================================================================
 
 AIS_Plane::AIS_Plane(const Handle(Geom_Plane)& aComponent,
-                     const gp_Pnt&             aCenter,
-                     const gp_Pnt&             aPmin,
-                     const gp_Pnt&             aPmax,
+                     const Point3d&             aCenter,
+                     const Point3d&             aPmin,
+                     const Point3d&             aPmax,
                      const Standard_Boolean    aCurrentMode)
     : myComponent(aComponent),
       myCenter(aCenter),
@@ -125,7 +125,7 @@ void AIS_Plane::SetComponent(const Handle(Geom_Plane)& aComponent)
   myComponent   = aComponent;
   myTypeOfPlane = AIS_TOPL_Unknown;
   myIsXYZPlane  = Standard_False;
-  // myCenter = gp_Pnt(0.,0.,0.);
+  // myCenter = Point3d(0.,0.,0.);
   myAutomaticPosition = Standard_True;
 }
 
@@ -152,9 +152,9 @@ void AIS_Plane::SetAxis2Placement(const Handle(Geom_Axis2Placement)& aComponent,
 //=================================================================================================
 
 Standard_Boolean AIS_Plane::PlaneAttributes(Handle(Geom_Plane)& aComponent,
-                                            gp_Pnt&             aCenter,
-                                            gp_Pnt&             aPmin,
-                                            gp_Pnt&             aPmax)
+                                            Point3d&             aCenter,
+                                            Point3d&             aPmin,
+                                            Point3d&             aPmax)
 {
   Standard_Boolean aStatus(Standard_False);
   if (!myAutomaticPosition)
@@ -171,9 +171,9 @@ Standard_Boolean AIS_Plane::PlaneAttributes(Handle(Geom_Plane)& aComponent,
 //=================================================================================================
 
 void AIS_Plane::SetPlaneAttributes(const Handle(Geom_Plane)& aComponent,
-                                   const gp_Pnt&             aCenter,
-                                   const gp_Pnt&             aPmin,
-                                   const gp_Pnt&             aPmax)
+                                   const Point3d&             aCenter,
+                                   const Point3d&             aPmin,
+                                   const Point3d&             aPmax)
 {
   myAutomaticPosition = Standard_False;
   myComponent         = aComponent;
@@ -219,7 +219,7 @@ void AIS_Plane::Compute(const Handle(PrsMgr_PresentationManager)&,
         Handle(Prs3d_PlaneAspect) anAspect = myDrawer->PlaneAspect();
         Handle(Graphic3d_Group)   aGroup   = thePrs->CurrentGroup();
         aGroup->SetPrimitivesAspect(myDrawer->ShadingAspect()->Aspect());
-        gp_Pnt              p1;
+        Point3d              p1;
         const Standard_Real Xmax = 0.5 * Standard_Real(anAspect->PlaneXLength());
         const Standard_Real Ymax = 0.5 * Standard_Real(anAspect->PlaneYLength());
 
@@ -518,7 +518,7 @@ void AIS_Plane::ComputeFields()
   {
     Handle(Prs3d_DatumAspect) DA = myDrawer->DatumAspect();
 
-    gp_Pnt Orig = myAx2->Ax2().Location();
+    Point3d Orig = myAx2->Ax2().Location();
     gp_Dir oX   = myAx2->Ax2().XDirection();
     gp_Dir oY   = myAx2->Ax2().YDirection();
     gp_Dir oZ   = myAx2->Ax2().Direction();
@@ -532,7 +532,7 @@ void AIS_Plane::ComputeFields()
     Standard_Real DS1 = DA->AxisLength(Prs3d_DatumParts_XAxis);
     Standard_Real DS2 = DA->AxisLength(Prs3d_DatumParts_YAxis);
     Standard_Real DS3 = DA->AxisLength(Prs3d_DatumParts_ZAxis);
-    //    gp_Pnt aPt2,aPt3;
+    //    Point3d aPt2,aPt3;
 
     switch (myTypeOfPlane)
     {

@@ -206,7 +206,7 @@ void BRepTools::AddUVBounds(const TopoDS_Face& aF, const TopoDS_Edge& aE, Bnd_Bo
     {
       constexpr Standard_Real aTol2 = 100 * Precision::Confusion() * Precision::Confusion();
       isUPeriodic                   = Standard_True;
-      gp_Pnt P1, P2;
+      Point3d P1, P2;
       // 1. Verify that the surface is U-closed
       if (!aS->IsUClosed())
       {
@@ -287,7 +287,7 @@ void BRepTools::AddUVBounds(const TopoDS_Face& aF, const TopoDS_Edge& aE, Bnd_Bo
     {
       constexpr Standard_Real aTol2 = 100 * Precision::Confusion() * Precision::Confusion();
       isVPeriodic                   = Standard_True;
-      gp_Pnt P1, P2;
+      Point3d P1, P2;
       // 1. Verify that the surface is V-closed
       if (!aS->IsVClosed())
       {
@@ -521,8 +521,8 @@ Standard_Boolean BRepTools::Compare(const TopoDS_Vertex& V1, const TopoDS_Vertex
 {
   if (V1.IsSame(V2))
     return Standard_True;
-  gp_Pnt        p1 = BRep_Tool::Pnt(V1);
-  gp_Pnt        p2 = BRep_Tool::Pnt(V2);
+  Point3d        p1 = BRep_Tool::Pnt(V1);
+  Point3d        p2 = BRep_Tool::Pnt(V2);
   Standard_Real l  = p1.Distance(p2);
   if (l <= BRep_Tool::Tolerance(V1))
     return Standard_True;
@@ -1260,7 +1260,7 @@ Standard_Real BRepTools::EvalAndUpdateTol(const TopoDS_Edge&          theE,
       dt                     = Max(dt, Precision::Confusion());
       Standard_Real    d, dmax = 0.;
       gp_Pnt2d         aP2d;
-      gp_Pnt           aPC, aPS;
+      Point3d           aPC, aPS;
       Standard_Integer cnt = 0;
       Standard_Real    t   = first;
       for (; t <= last; t += dt)

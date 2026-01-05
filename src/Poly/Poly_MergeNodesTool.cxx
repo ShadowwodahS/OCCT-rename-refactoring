@@ -435,7 +435,7 @@ void Poly_MergeNodesTool::AddTriangulation(const Handle(Poly_Triangulation)& the
     }
     for (int aTriNodeIter = 0; aTriNodeIter < 3; ++aTriNodeIter)
     {
-      const gp_Pnt aNode     = theTris->Node(anElem.Value(aTriNodeIter + 1)).Transformed(theTrsf);
+      const Point3d aNode     = theTris->Node(anElem.Value(aTriNodeIter + 1)).Transformed(theTrsf);
       myPlaces[aTriNodeIter] = aNode.XYZ();
     }
     PushLastTriangle();

@@ -86,7 +86,7 @@ Standard_Integer GeomTools_CurveSet::Index(const Handle(Geom_Curve)& S) const
 
 //=================================================================================================
 
-static void Print(const gp_Pnt& P, Standard_OStream& OS, const Standard_Boolean compact)
+static void Print(const Point3d& P, Standard_OStream& OS, const Standard_Boolean compact)
 {
   OS << P.X();
   if (!compact)
@@ -520,7 +520,7 @@ void GeomTools_CurveSet::Write(Standard_OStream& OS, const Message_ProgressRange
 
 //=================================================================================================
 
-static Standard_IStream& operator>>(Standard_IStream& IS, gp_Pnt& P)
+static Standard_IStream& operator>>(Standard_IStream& IS, Point3d& P)
 {
   Standard_Real X = 0., Y = 0., Z = 0.;
   GeomTools::GetReal(IS, X);
@@ -546,7 +546,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, gp_Dir& D)
 
 static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_Line)& L)
 {
-  gp_Pnt P(0., 0., 0.);
+  Point3d P(0., 0., 0.);
   gp_Dir AX(1., 0., 0.);
   IS >> P >> AX;
   L = new Geom_Line(P, AX);
@@ -557,7 +557,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_Line)& L)
 
 static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_Circle)& C)
 {
-  gp_Pnt        P(0., 0., 0.);
+  Point3d        P(0., 0., 0.);
   gp_Dir        A(1., 0., 0.), AX(1., 0., 0.), AY(1., 0., 0.);
   Standard_Real R = 0.;
   IS >> P >> A >> AX >> AY;
@@ -570,7 +570,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_Circle)& C
 
 static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_Ellipse)& E)
 {
-  gp_Pnt        P(0., 0., 0.);
+  Point3d        P(0., 0., 0.);
   gp_Dir        A(1., 0., 0.), AX(1., 0., 0.), AY(1., 0., 0.);
   Standard_Real R1 = 0., R2 = 0.;
   IS >> P >> A >> AX >> AY;
@@ -584,7 +584,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_Ellipse)& 
 
 static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_Parabola)& C)
 {
-  gp_Pnt        P(0., 0., 0.);
+  Point3d        P(0., 0., 0.);
   gp_Dir        A(1., 0., 0.), AX(1., 0., 0.), AY(1., 0., 0.);
   Standard_Real R1 = 0.;
   IS >> P >> A >> AX >> AY;
@@ -597,7 +597,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_Parabola)&
 
 static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_Hyperbola)& H)
 {
-  gp_Pnt        P(0., 0., 0.);
+  Point3d        P(0., 0., 0.);
   gp_Dir        A(1., 0., 0.), AX(1., 0., 0.), AY(1., 0., 0.);
   Standard_Real R1 = 0., R2 = 0.;
   IS >> P >> A >> AX >> AY;

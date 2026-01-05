@@ -24,7 +24,7 @@
 #include <TColStd_Array1OfReal.hxx>
 #include <TopoDS_Face.hxx>
 
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 class gp_Pln;
 class gp_Cylinder;
@@ -161,13 +161,13 @@ public:
 
   //! Computes the point of parameters U,V on the surface.
   //! Tip: use GeomLib::NormEstim() to calculate surface normal at specified (U, V) point.
-  Standard_EXPORT gp_Pnt Value(const Standard_Real U,
+  Standard_EXPORT Point3d Value(const Standard_Real U,
                                const Standard_Real V) const Standard_OVERRIDE;
 
   //! Computes the point of parameters U,V on the surface.
   Standard_EXPORT void D0(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P) const Standard_OVERRIDE;
+                          Point3d&             P) const Standard_OVERRIDE;
 
   //! Computes the point  and the first derivatives on the surface.
   //! Raised if the continuity of the current intervals is not C1.
@@ -175,7 +175,7 @@ public:
   //! Tip: use GeomLib::NormEstim() to calculate surface normal at specified (U, V) point.
   Standard_EXPORT void D1(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V) const Standard_OVERRIDE;
 
@@ -185,7 +185,7 @@ public:
   //! intervals is not C2.
   Standard_EXPORT void D2(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V,
                           gp_Vec&             D2U,
@@ -198,7 +198,7 @@ public:
   //! intervals is not C3.
   Standard_EXPORT void D3(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V,
                           gp_Vec&             D2U,

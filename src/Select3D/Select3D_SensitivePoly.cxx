@@ -56,7 +56,7 @@ static void initCircle(Select3D_PointData&    thePolygon,
   const Standard_Real aRadius = theCircle.Radius();
   Standard_Integer    aPntIdx = 0;
   Standard_Real       aCurU   = theU1;
-  gp_Pnt              aP1;
+  Point3d              aP1;
   gp_Vec              aV1;
 
   const Standard_Boolean isSector = Abs(theU2 - theU1 - 2.0 * M_PI) > gp::Resolution();
@@ -72,7 +72,7 @@ static void initCircle(Select3D_PointData&    thePolygon,
     thePolygon.SetPnt(aPntIdx++, aP1);
 
     aV1.Normalize();
-    const gp_Pnt aP2 = aP1.XYZ() + aV1.XYZ() * Tan(aStep * 0.5) * aRadius;
+    const Point3d aP2 = aP1.XYZ() + aV1.XYZ() * Tan(aStep * 0.5) * aRadius;
     thePolygon.SetPnt(aPntIdx++, aP2);
   }
   aP1 = ElCLib::CircleValue(theU2, theCircle.Position(), theCircle.Radius());
@@ -182,7 +182,7 @@ Select3D_SensitivePoly::Select3D_SensitivePoly(const Handle(SelectMgr_EntityOwne
       mySegmentIndexes->SetValue(aIdx, aIdx);
     }
   }
-  myCOG        = gp_Pnt(RealLast(), RealLast(), RealLast());
+  myCOG        = Point3d(RealLast(), RealLast(), RealLast());
   myIsComputed = Standard_False;
 }
 
@@ -305,8 +305,8 @@ Select3D_BndBox3d Select3D_SensitivePoly::Box(const Standard_Integer theIdx) con
     return Select3D_BndBox3d(SelectMgr_Vec3(RealLast()));
 
   const Standard_Integer aSegmentIdx = mySegmentIndexes->Value(theIdx);
-  gp_Pnt                 aPnt1       = myPolyg.Pnt3d(aSegmentIdx);
-  gp_Pnt                 aPnt2       = myPolyg.Pnt3d(aSegmentIdx + 1);
+  Point3d                 aPnt1       = myPolyg.Pnt3d(aSegmentIdx);
+  Point3d                 aPnt2       = myPolyg.Pnt3d(aSegmentIdx + 1);
 
   const SelectMgr_Vec3 aMinPnt(Min(aPnt1.X(), aPnt2.X()),
                                Min(aPnt1.Y(), aPnt2.Y()),
@@ -373,8 +373,8 @@ Standard_Boolean Select3D_SensitivePoly::overlapsElement(
   }
 
   const Standard_Integer aSegmentIdx = mySegmentIndexes->Value(theElemIdx);
-  gp_Pnt                 aPnt1       = myPolyg.Pnt3d(aSegmentIdx);
-  gp_Pnt                 aPnt2       = myPolyg.Pnt3d(aSegmentIdx + 1);
+  Point3d                 aPnt1       = myPolyg.Pnt3d(aSegmentIdx);
+  Point3d                 aPnt2       = myPolyg.Pnt3d(aSegmentIdx + 1);
   return theMgr.OverlapsSegment(aPnt1, aPnt2, thePickResult);
 }
 
@@ -439,7 +439,7 @@ Standard_Integer Select3D_SensitivePoly::NbSubElements() const
 //           location transformation is set, it will
 //           be applied
 //==================================================
-gp_Pnt Select3D_SensitivePoly::CenterOfGeometry() const
+Point3d Select3D_SensitivePoly::CenterOfGeometry() const
 {
   if (!myIsComputed)
   {

@@ -61,11 +61,11 @@ Standard_Integer GeomAPI_IntCS::NbPoints() const
 }
 
 //=======================================================================
-// function : gp_Pnt&
+// function : Point3d&
 // purpose  :
 //=======================================================================
 
-const gp_Pnt& GeomAPI_IntCS::Point(const Standard_Integer Index) const
+const Point3d& GeomAPI_IntCS::Point(const Standard_Integer Index) const
 {
   return myIntCS.Point(Index).Pnt();
 }

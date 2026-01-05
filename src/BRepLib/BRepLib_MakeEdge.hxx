@@ -24,7 +24,7 @@
 #include <BRepLib_EdgeError.hxx>
 #include <TopoDS_Vertex.hxx>
 #include <BRepLib_MakeShape.hxx>
-class gp_Pnt;
+class Point3d;
 class gp_Lin;
 class gp_Circ;
 class gp_Elips;
@@ -75,13 +75,13 @@ public:
 
   Standard_EXPORT BRepLib_MakeEdge(const TopoDS_Vertex& V1, const TopoDS_Vertex& V2);
 
-  Standard_EXPORT BRepLib_MakeEdge(const gp_Pnt& P1, const gp_Pnt& P2);
+  Standard_EXPORT BRepLib_MakeEdge(const Point3d& P1, const Point3d& P2);
 
   Standard_EXPORT BRepLib_MakeEdge(const gp_Lin& L);
 
   Standard_EXPORT BRepLib_MakeEdge(const gp_Lin& L, const Standard_Real p1, const Standard_Real p2);
 
-  Standard_EXPORT BRepLib_MakeEdge(const gp_Lin& L, const gp_Pnt& P1, const gp_Pnt& P2);
+  Standard_EXPORT BRepLib_MakeEdge(const gp_Lin& L, const Point3d& P1, const Point3d& P2);
 
   Standard_EXPORT BRepLib_MakeEdge(const gp_Lin&        L,
                                    const TopoDS_Vertex& V1,
@@ -93,7 +93,7 @@ public:
                                    const Standard_Real p1,
                                    const Standard_Real p2);
 
-  Standard_EXPORT BRepLib_MakeEdge(const gp_Circ& L, const gp_Pnt& P1, const gp_Pnt& P2);
+  Standard_EXPORT BRepLib_MakeEdge(const gp_Circ& L, const Point3d& P1, const Point3d& P2);
 
   Standard_EXPORT BRepLib_MakeEdge(const gp_Circ&       L,
                                    const TopoDS_Vertex& V1,
@@ -105,7 +105,7 @@ public:
                                    const Standard_Real p1,
                                    const Standard_Real p2);
 
-  Standard_EXPORT BRepLib_MakeEdge(const gp_Elips& L, const gp_Pnt& P1, const gp_Pnt& P2);
+  Standard_EXPORT BRepLib_MakeEdge(const gp_Elips& L, const Point3d& P1, const Point3d& P2);
 
   Standard_EXPORT BRepLib_MakeEdge(const gp_Elips&      L,
                                    const TopoDS_Vertex& V1,
@@ -117,7 +117,7 @@ public:
                                    const Standard_Real p1,
                                    const Standard_Real p2);
 
-  Standard_EXPORT BRepLib_MakeEdge(const gp_Hypr& L, const gp_Pnt& P1, const gp_Pnt& P2);
+  Standard_EXPORT BRepLib_MakeEdge(const gp_Hypr& L, const Point3d& P1, const Point3d& P2);
 
   Standard_EXPORT BRepLib_MakeEdge(const gp_Hypr&       L,
                                    const TopoDS_Vertex& V1,
@@ -129,7 +129,7 @@ public:
                                    const Standard_Real p1,
                                    const Standard_Real p2);
 
-  Standard_EXPORT BRepLib_MakeEdge(const gp_Parab& L, const gp_Pnt& P1, const gp_Pnt& P2);
+  Standard_EXPORT BRepLib_MakeEdge(const gp_Parab& L, const Point3d& P1, const Point3d& P2);
 
   Standard_EXPORT BRepLib_MakeEdge(const gp_Parab&      L,
                                    const TopoDS_Vertex& V1,
@@ -141,15 +141,15 @@ public:
                                    const Standard_Real       p1,
                                    const Standard_Real       p2);
 
-  Standard_EXPORT BRepLib_MakeEdge(const Handle(Geom_Curve)& L, const gp_Pnt& P1, const gp_Pnt& P2);
+  Standard_EXPORT BRepLib_MakeEdge(const Handle(Geom_Curve)& L, const Point3d& P1, const Point3d& P2);
 
   Standard_EXPORT BRepLib_MakeEdge(const Handle(Geom_Curve)& L,
                                    const TopoDS_Vertex&      V1,
                                    const TopoDS_Vertex&      V2);
 
   Standard_EXPORT BRepLib_MakeEdge(const Handle(Geom_Curve)& L,
-                                   const gp_Pnt&             P1,
-                                   const gp_Pnt&             P2,
+                                   const Point3d&             P1,
+                                   const Point3d&             P2,
                                    const Standard_Real       p1,
                                    const Standard_Real       p2);
 
@@ -168,8 +168,8 @@ public:
 
   Standard_EXPORT BRepLib_MakeEdge(const Handle(Geom2d_Curve)& L,
                                    const Handle(Geom_Surface)& S,
-                                   const gp_Pnt&               P1,
-                                   const gp_Pnt&               P2);
+                                   const Point3d&               P1,
+                                   const Point3d&               P2);
 
   Standard_EXPORT BRepLib_MakeEdge(const Handle(Geom2d_Curve)& L,
                                    const Handle(Geom_Surface)& S,
@@ -178,8 +178,8 @@ public:
 
   Standard_EXPORT BRepLib_MakeEdge(const Handle(Geom2d_Curve)& L,
                                    const Handle(Geom_Surface)& S,
-                                   const gp_Pnt&               P1,
-                                   const gp_Pnt&               P2,
+                                   const Point3d&               P1,
+                                   const Point3d&               P2,
                                    const Standard_Real         p1,
                                    const Standard_Real         p2);
 
@@ -196,15 +196,15 @@ public:
                             const Standard_Real       p1,
                             const Standard_Real       p2);
 
-  Standard_EXPORT void Init(const Handle(Geom_Curve)& C, const gp_Pnt& P1, const gp_Pnt& P2);
+  Standard_EXPORT void Init(const Handle(Geom_Curve)& C, const Point3d& P1, const Point3d& P2);
 
   Standard_EXPORT void Init(const Handle(Geom_Curve)& C,
                             const TopoDS_Vertex&      V1,
                             const TopoDS_Vertex&      V2);
 
   Standard_EXPORT void Init(const Handle(Geom_Curve)& C,
-                            const gp_Pnt&             P1,
-                            const gp_Pnt&             P2,
+                            const Point3d&             P1,
+                            const Point3d&             P2,
                             const Standard_Real       p1,
                             const Standard_Real       p2);
 
@@ -223,8 +223,8 @@ public:
 
   Standard_EXPORT void Init(const Handle(Geom2d_Curve)& C,
                             const Handle(Geom_Surface)& S,
-                            const gp_Pnt&               P1,
-                            const gp_Pnt&               P2);
+                            const Point3d&               P1,
+                            const Point3d&               P2);
 
   Standard_EXPORT void Init(const Handle(Geom2d_Curve)& C,
                             const Handle(Geom_Surface)& S,
@@ -233,8 +233,8 @@ public:
 
   Standard_EXPORT void Init(const Handle(Geom2d_Curve)& C,
                             const Handle(Geom_Surface)& S,
-                            const gp_Pnt&               P1,
-                            const gp_Pnt&               P2,
+                            const Point3d&               P1,
+                            const Point3d&               P2,
                             const Standard_Real         p1,
                             const Standard_Real         p2);
 

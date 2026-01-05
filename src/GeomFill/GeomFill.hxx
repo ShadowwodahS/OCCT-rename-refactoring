@@ -32,7 +32,7 @@
 class Geom_Surface;
 class Geom_Curve;
 class gp_Vec;
-class gp_Pnt;
+class Point3d;
 
 //! Tools and Data to filling Surface and Sweep Surfaces
 class GeomFill
@@ -48,10 +48,10 @@ public:
                                         const gp_Vec&                      ns1,
                                         const gp_Vec&                      ns2,
                                         const gp_Vec&                      nplan,
-                                        const gp_Pnt&                      pt1,
-                                        const gp_Pnt&                      pt2,
+                                        const Point3d&                      pt1,
+                                        const Point3d&                      pt2,
                                         const Standard_Real                Rayon,
-                                        const gp_Pnt&                      Center,
+                                        const Point3d&                      Center,
                                         TColgp_Array1OfPnt&                Poles,
                                         TColStd_Array1OfReal&              Weigths);
 
@@ -62,13 +62,13 @@ public:
                                                     const gp_Vec&                      dn2w,
                                                     const gp_Vec&                      nplan,
                                                     const gp_Vec&                      dnplan,
-                                                    const gp_Pnt&                      pts1,
-                                                    const gp_Pnt&                      pts2,
+                                                    const Point3d&                      pts1,
+                                                    const Point3d&                      pts2,
                                                     const gp_Vec&                      tang1,
                                                     const gp_Vec&                      tang2,
                                                     const Standard_Real                Rayon,
                                                     const Standard_Real                DRayon,
-                                                    const gp_Pnt&                      Center,
+                                                    const Point3d&                      Center,
                                                     const gp_Vec&                      DCenter,
                                                     TColgp_Array1OfPnt&                Poles,
                                                     TColgp_Array1OfVec&                DPoles,
@@ -85,8 +85,8 @@ public:
                                                     const gp_Vec&                      nplan,
                                                     const gp_Vec&                      dnplan,
                                                     const gp_Vec&                      d2nplan,
-                                                    const gp_Pnt&                      pts1,
-                                                    const gp_Pnt&                      pts2,
+                                                    const Point3d&                      pts1,
+                                                    const Point3d&                      pts2,
                                                     const gp_Vec&                      tang1,
                                                     const gp_Vec&                      tang2,
                                                     const gp_Vec&                      Dtang1,
@@ -94,7 +94,7 @@ public:
                                                     const Standard_Real                Rayon,
                                                     const Standard_Real                DRayon,
                                                     const Standard_Real                D2Rayon,
-                                                    const gp_Pnt&                      Center,
+                                                    const Point3d&                      Center,
                                                     const gp_Vec&                      DCenter,
                                                     const gp_Vec&                      D2Center,
                                                     TColgp_Array1OfPnt&                Poles,

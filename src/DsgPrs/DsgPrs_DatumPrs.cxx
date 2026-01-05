@@ -31,7 +31,7 @@ void DsgPrs_DatumPrs::Add(const Handle(Prs3d_Presentation)& thePresentation,
   Handle(Graphic3d_Group)   aGroup       = thePresentation->CurrentGroup();
 
   gp_Ax2 anAxis(theDatum);
-  gp_Pnt anOrigin = anAxis.Location();
+  Point3d anOrigin = anAxis.Location();
   gp_Dir aXDir    = anAxis.XDirection();
   gp_Dir aYDir    = anAxis.YDirection();
   gp_Dir aZDir    = anAxis.Direction();
@@ -46,7 +46,7 @@ void DsgPrs_DatumPrs::Add(const Handle(Prs3d_Presentation)& thePresentation,
   if ((anAxes & Prs3d_DatumAxes_XAxis) != 0)
   {
     anAxisLength = aDatumAspect->Attribute(Prs3d_DatumAttribute_XAxisLength);
-    const gp_Pnt aPoint1(anOrigin.XYZ() + aXDir.XYZ() * anAxisLength);
+    const Point3d aPoint1(anOrigin.XYZ() + aXDir.XYZ() * anAxisLength);
     DsgPrs_XYZAxisPresentation::Add(thePresentation,
                                     aDatumAspect->LineAspect(Prs3d_DatumParts_XAxis),
                                     anArrowAspect,
@@ -61,7 +61,7 @@ void DsgPrs_DatumPrs::Add(const Handle(Prs3d_Presentation)& thePresentation,
   if ((anAxes & Prs3d_DatumAxes_YAxis) != 0)
   {
     anAxisLength = aDatumAspect->Attribute(Prs3d_DatumAttribute_YAxisLength);
-    const gp_Pnt aPoint2(anOrigin.XYZ() + aYDir.XYZ() * anAxisLength);
+    const Point3d aPoint2(anOrigin.XYZ() + aYDir.XYZ() * anAxisLength);
     DsgPrs_XYZAxisPresentation::Add(thePresentation,
                                     aDatumAspect->LineAspect(Prs3d_DatumParts_YAxis),
                                     anArrowAspect,
@@ -76,7 +76,7 @@ void DsgPrs_DatumPrs::Add(const Handle(Prs3d_Presentation)& thePresentation,
   if ((anAxes & Prs3d_DatumAxes_ZAxis) != 0)
   {
     anAxisLength = aDatumAspect->Attribute(Prs3d_DatumAttribute_ZAxisLength);
-    const gp_Pnt aPoint3(anOrigin.XYZ() + aZDir.XYZ() * anAxisLength);
+    const Point3d aPoint3(anOrigin.XYZ() + aZDir.XYZ() * anAxisLength);
     DsgPrs_XYZAxisPresentation::Add(thePresentation,
                                     aDatumAspect->LineAspect(Prs3d_DatumParts_ZAxis),
                                     anArrowAspect,

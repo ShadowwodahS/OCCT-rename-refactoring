@@ -105,7 +105,7 @@ void GeomFill_DiscreteTrihedron::Init()
   }
   myKnots->Append(Knots(NbIntervals + 1));
 
-  gp_Pnt        Origin(0., 0., 0.), Pnt, SubPnt;
+  Point3d        Origin(0., 0., 0.), Pnt, SubPnt;
   gp_Vec        Tangent;
   gp_Dir        TangDir;
   Standard_Real norm;
@@ -180,7 +180,7 @@ Standard_Boolean GeomFill_DiscreteTrihedron::D0(const Standard_Real Param,
     constexpr Standard_Real TolPar = Precision::PConfusion();
     // Standard_Real TolConf = Precision::Confusion();
     Standard_Integer NbSamples = 10;
-    gp_Pnt           Origin(0., 0., 0.);
+    Point3d           Origin(0., 0., 0.);
 
     Standard_Integer i;
     // gp_Ax2 PrevAxis;
@@ -217,7 +217,7 @@ Standard_Boolean GeomFill_DiscreteTrihedron::D0(const Standard_Real Param,
         Standard_Real subdelta = (myKnots->Value(Index + 1) - Param) / NbSamples;
         if (subdelta < Precision::PConfusion())
           subdelta = myKnots->Value(Index + 1) - Param;
-        gp_Pnt SubPnt = myTrimmed->Value(Param + subdelta);
+        Point3d SubPnt = myTrimmed->Value(Param + subdelta);
         Tangent.SetXYZ(SubPnt.XYZ() - myPoint.XYZ());
       }
       // Tangent.Normalize();

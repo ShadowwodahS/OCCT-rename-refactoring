@@ -588,7 +588,7 @@ TopoDS_Edge ChFi2d_Builder::BuildNewEdge(const TopoDS_Edge&   E1,
   IsDegenerated = Standard_False;
   TopoDS_Vertex firstVertex, lastVertex;
   TopExp::Vertices(E1, firstVertex, lastVertex);
-  gp_Pnt           Pnew         = BRep_Tool::Pnt(NewExtr);
+  Point3d           Pnew         = BRep_Tool::Pnt(NewExtr);
   Standard_Boolean PonctualEdge = Standard_False;
   Standard_Real    Tol          = Precision::Confusion();
   //  syntax wrong on NT
@@ -598,13 +598,13 @@ TopoDS_Edge ChFi2d_Builder::BuildNewEdge(const TopoDS_Edge&   E1,
   if (firstVertex.IsSame(OldExtr))
   {
     makeEdge.Init(curve, NewExtr, lastVertex);
-    gp_Pnt PV    = BRep_Tool::Pnt(lastVertex);
+    Point3d PV    = BRep_Tool::Pnt(lastVertex);
     PonctualEdge = (Pnew.Distance(PV) < Tol);
   }
   else
   {
     makeEdge.Init(curve, firstVertex, NewExtr);
-    gp_Pnt PV    = BRep_Tool::Pnt(firstVertex);
+    Point3d PV    = BRep_Tool::Pnt(firstVertex);
     PonctualEdge = (Pnew.Distance(PV) < Tol);
   }
   TopoDS_Edge       anEdge;
@@ -1019,8 +1019,8 @@ TopoDS_Edge ChFi2d_Builder::BuildFilletEdge(const TopoDS_Vertex& V,
       return filletEdge;
     }
 
-    gp_Pnt p1 = Adaptor3dSurface.Value(Ptg1.X(), Ptg1.Y());
-    gp_Pnt p2 = Adaptor3dSurface.Value(Ptg2.X(), Ptg2.Y());
+    Point3d p1 = Adaptor3dSurface.Value(Ptg1.X(), Ptg1.Y());
+    Point3d p2 = Adaptor3dSurface.Value(Ptg2.X(), Ptg2.Y());
     B.MakeVertex(Vertex1, p1, Tol);
     NewExtr1 = Vertex1;
     if (Abs(U2 - ufirst1) <= Precision::PConfusion())
@@ -1046,12 +1046,12 @@ TopoDS_Edge ChFi2d_Builder::BuildFilletEdge(const TopoDS_Vertex& V,
     //=======================================================================
     //   Update tops of the fillet.                                  +
     //=======================================================================
-    gp_Pnt   Pntbid;
+    Point3d   Pntbid;
     gp_Pnt2d sommet;
     Pntbid = BRep_Tool::Pnt(V);
     sommet = gp_Pnt2d(Pntbid.X(), Pntbid.Y());
 
-    gp_Pnt   pntBid;
+    Point3d   pntBid;
     gp_Pnt2d somBid;
     if (V1.IsSame(V))
     {

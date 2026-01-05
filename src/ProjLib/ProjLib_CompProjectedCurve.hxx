@@ -238,7 +238,7 @@ public:
 
   //! Returns the resulting 3d-point of projecting
   //! of the curve interval with number Index.
-  Standard_EXPORT gp_Pnt GetResult3dP(const Standard_Integer theIndex) const;
+  Standard_EXPORT Point3d GetResult3dP(const Standard_Integer theIndex) const;
 
   //! Returns the parameter, which defines necessity of only 2d results.
   Standard_Boolean GetProj2d() const { return myProj2d; }
@@ -249,7 +249,7 @@ public:
 private:
   //! This method performs check possibility of optimization traps and tries to go out from them.
   //@return thePoint - input / corrected point.
-  Standard_EXPORT void UpdateTripleByTrapCriteria(gp_Pnt& thePoint) const;
+  Standard_EXPORT void UpdateTripleByTrapCriteria(Point3d& thePoint) const;
 
   Standard_EXPORT void BuildIntervals(const GeomAbs_Shape S) const;
 

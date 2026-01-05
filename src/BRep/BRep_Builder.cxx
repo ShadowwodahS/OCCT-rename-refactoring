@@ -1173,7 +1173,7 @@ void BRep_Builder::Transfert(const TopoDS_Edge& Ein, const TopoDS_Edge& Eout) co
 //=======================================================================
 
 void BRep_Builder::UpdateVertex(const TopoDS_Vertex& V,
-                                const gp_Pnt&        P,
+                                const Point3d&        P,
                                 const Standard_Real  Tol) const
 {
   const Handle(BRep_TVertex)& TV = *((Handle(BRep_TVertex)*)&V.TShape());

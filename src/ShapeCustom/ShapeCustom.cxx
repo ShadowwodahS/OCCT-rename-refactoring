@@ -213,7 +213,7 @@ TopoDS_Shape ShapeCustom::ScaleShape(const TopoDS_Shape& S, const Standard_Real 
 {
   // Create a modification description
   gp_Trsf T;
-  T.SetScale(gp_Pnt(0, 0, 0), scale);
+  T.SetScale(Point3d(0, 0, 0), scale);
   Handle(ShapeCustom_TrsfModification) TM = new ShapeCustom_TrsfModification(T);
   TopTools_DataMapOfShapeShape         context;
   BRepTools_Modifier                   MD;

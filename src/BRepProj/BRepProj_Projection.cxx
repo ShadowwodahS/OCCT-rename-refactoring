@@ -193,7 +193,7 @@ BRepProj_Projection::BRepProj_Projection(const TopoDS_Shape& Wire,
 
 BRepProj_Projection::BRepProj_Projection(const TopoDS_Shape& Wire,
                                          const TopoDS_Shape& Shape,
-                                         const gp_Pnt&       P)
+                                         const Point3d&       P)
     : myIsDone(Standard_False),
       myItr(0)
 {
@@ -221,7 +221,7 @@ BRepProj_Projection::BRepProj_Projection(const TopoDS_Shape& Wire,
   ExpWire.Init(aWire, TopAbs_VERTEX);
 
   // get the first Point of the first sub-shape os the Wire
-  gp_Pnt PC = BRep_Tool::Pnt(TopoDS::Vertex(ExpWire.Current()));
+  Point3d PC = BRep_Tool::Pnt(TopoDS::Vertex(ExpWire.Current()));
 
   // compute the ratio of the scale transformation
   Standard_Real Scale = PC.Distance(P);

@@ -53,7 +53,7 @@ Standard_Boolean BinMDataXtd_PositionDriver::Paste(const BinObjMgt_Persistent&  
   Standard_Boolean          ok = theSource >> aValue;
   if (!ok)
     return ok;
-  gp_Pnt aPosition(0., 0., 0.);
+  Point3d aPosition(0., 0., 0.);
   aPosition.SetX(aValue);
 
   ok = theSource >> aValue;

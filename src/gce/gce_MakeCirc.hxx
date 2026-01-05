@@ -23,7 +23,7 @@
 #include <gp_Circ.hxx>
 #include <gce_Root.hxx>
 class gp_Ax2;
-class gp_Pnt;
+class Point3d;
 class gp_Dir;
 class gp_Pln;
 class gp_Ax1;
@@ -64,31 +64,31 @@ public:
 
   //! Makes a Circ from gp <TheCirc> coaxial to another
   //! Circ <Circ> and passing through a Pnt2d <Point>.
-  Standard_EXPORT gce_MakeCirc(const gp_Circ& Circ, const gp_Pnt& Point);
+  Standard_EXPORT gce_MakeCirc(const gp_Circ& Circ, const Point3d& Point);
 
   //! Makes a Circ from gp <TheCirc> passing through 3
   //! Pnt2d <P1>,<P2>,<P3>.
-  Standard_EXPORT gce_MakeCirc(const gp_Pnt& P1, const gp_Pnt& P2, const gp_Pnt& P3);
+  Standard_EXPORT gce_MakeCirc(const Point3d& P1, const Point3d& P2, const Point3d& P3);
 
   //! Makes a Circ from gp <TheCirc> with its center
   //! <Center> and the normal of its plane <Norm> and
   //! its radius <Radius>.
-  Standard_EXPORT gce_MakeCirc(const gp_Pnt&       Center,
+  Standard_EXPORT gce_MakeCirc(const Point3d&       Center,
                                const gp_Dir&       Norm,
                                const Standard_Real Radius);
 
   //! Makes a Circ from gp <TheCirc> with its center
   //! <Center> and the normal of its plane <Plane> and
   //! its radius <Radius>.
-  Standard_EXPORT gce_MakeCirc(const gp_Pnt&       Center,
+  Standard_EXPORT gce_MakeCirc(const Point3d&       Center,
                                const gp_Pln&       Plane,
                                const Standard_Real Radius);
 
   //! Makes a Circ from gp <TheCirc> with its center
   //! <Center> and a point <Ptaxis> giving the normal
   //! of its plane <Plane> and its radius <Radius>.
-  Standard_EXPORT gce_MakeCirc(const gp_Pnt&       Center,
-                               const gp_Pnt&       Ptaxis,
+  Standard_EXPORT gce_MakeCirc(const Point3d&       Center,
+                               const Point3d&       Ptaxis,
                                const Standard_Real Radius);
 
   //! Makes a Circ from gp <TheCirc> with its center

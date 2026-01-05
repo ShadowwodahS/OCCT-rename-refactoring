@@ -2155,7 +2155,7 @@ void AIS_InteractiveContext::SetTransformPersistence(
 
 //=================================================================================================
 
-gp_Pnt AIS_InteractiveContext::GravityPoint(const Handle(V3d_View)& theView) const
+Point3d AIS_InteractiveContext::GravityPoint(const Handle(V3d_View)& theView) const
 {
   return theView->GravityPoint();
 }

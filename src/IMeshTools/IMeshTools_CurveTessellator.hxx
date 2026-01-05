@@ -19,7 +19,7 @@
 #include <Standard_Transient.hxx>
 #include <Standard_Type.hxx>
 
-class gp_Pnt;
+class Point3d;
 
 //! Interface class providing API for edge tessellation tools.
 class IMeshTools_CurveTessellator : public RefObject
@@ -37,7 +37,7 @@ public:
   //! @param theParameter parameters on PCurve corresponded to the solution.
   //! @return True in case of valid result, false elewhere.
   Standard_EXPORT virtual Standard_Boolean Value(const Standard_Integer theIndex,
-                                                 gp_Pnt&                thePoint,
+                                                 Point3d&                thePoint,
                                                  Standard_Real&         theParameter) const = 0;
 
   DEFINE_STANDARD_RTTIEXT(IMeshTools_CurveTessellator, RefObject)

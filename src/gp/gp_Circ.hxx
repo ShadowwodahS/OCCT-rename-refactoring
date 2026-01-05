@@ -78,7 +78,7 @@ public:
   void SetAxis(const gp_Ax1& theA1) { pos.SetAxis(theA1); }
 
   //! Changes the "Location" point (center) of the circle.
-  void SetLocation(const gp_Pnt& theP) { pos.SetLocation(theP); }
+  void SetLocation(const Point3d& theP) { pos.SetLocation(theP); }
 
   //! Changes the position of the circle.
   void SetPosition(const gp_Ax2& theA2) { pos = theA2; }
@@ -108,7 +108,7 @@ public:
   //! Returns the center of the circle. It is the
   //! "Location" point of the local coordinate system
   //! of the circle
-  const gp_Pnt& Location() const { return pos.Location(); }
+  const Point3d& Location() const { return pos.Location(); }
 
   //! Returns the position of the circle.
   //! It is the local coordinate system of the circle.
@@ -129,10 +129,10 @@ public:
 
   //! Computes the minimum of distance between the point theP and
   //! any point on the circumference of the circle.
-  Standard_Real Distance(const gp_Pnt& theP) const { return sqrt(SquareDistance(theP)); }
+  Standard_Real Distance(const Point3d& theP) const { return sqrt(SquareDistance(theP)); }
 
   //! Computes the square distance between <me> and the point theP.
-  Standard_Real SquareDistance(const gp_Pnt& theP) const
+  Standard_Real SquareDistance(const Point3d& theP) const
   {
     gp_Vec        aV(Location(), theP);
     Standard_Real aX  = aV.Dot(pos.XDirection());
@@ -145,17 +145,17 @@ public:
   //! Returns True if the point theP is on the circumference.
   //! The distance between <me> and <theP> must be lower or
   //! equal to theLinearTolerance.
-  Standard_Boolean Contains(const gp_Pnt& theP, const Standard_Real theLinearTolerance) const
+  Standard_Boolean Contains(const Point3d& theP, const Standard_Real theLinearTolerance) const
   {
     return Distance(theP) <= theLinearTolerance;
   }
 
-  Standard_EXPORT void Mirror(const gp_Pnt& theP);
+  Standard_EXPORT void Mirror(const Point3d& theP);
 
   //! Performs the symmetrical transformation of a circle
   //! with respect to the point theP which is the center of the
   //! symmetry.
-  Standard_NODISCARD Standard_EXPORT gp_Circ Mirrored(const gp_Pnt& theP) const;
+  Standard_NODISCARD Standard_EXPORT gp_Circ Mirrored(const Point3d& theP) const;
 
   Standard_EXPORT void Mirror(const gp_Ax1& theA1);
 
@@ -182,14 +182,14 @@ public:
     return aC;
   }
 
-  void Scale(const gp_Pnt& theP, const Standard_Real theS);
+  void Scale(const Point3d& theP, const Standard_Real theS);
 
   //! Scales a circle. theS is the scaling value.
   //! Warnings :
   //! If theS is negative the radius stay positive but
   //! the "XAxis" and the "YAxis" are  reversed as for
   //! an ellipse.
-  Standard_NODISCARD gp_Circ Scaled(const gp_Pnt& theP, const Standard_Real theS) const;
+  Standard_NODISCARD gp_Circ Scaled(const Point3d& theP, const Standard_Real theS) const;
 
   void Transform(const gp_Trsf& theT);
 
@@ -207,10 +207,10 @@ public:
     return aC;
   }
 
-  void Translate(const gp_Pnt& theP1, const gp_Pnt& theP2) { pos.Translate(theP1, theP2); }
+  void Translate(const Point3d& theP1, const Point3d& theP2) { pos.Translate(theP1, theP2); }
 
   //! Translates a circle from the point theP1 to the point theP2.
-  Standard_NODISCARD gp_Circ Translated(const gp_Pnt& theP1, const gp_Pnt& theP2) const
+  Standard_NODISCARD gp_Circ Translated(const Point3d& theP1, const Point3d& theP2) const
   {
     gp_Circ aC = *this;
     aC.pos.Translate(theP1, theP2);
@@ -226,7 +226,7 @@ private:
 // function : Scale
 // purpose  :
 // =======================================================================
-inline void gp_Circ::Scale(const gp_Pnt& theP, const Standard_Real theS)
+inline void gp_Circ::Scale(const Point3d& theP, const Standard_Real theS)
 {
   radius *= theS;
   if (radius < 0)
@@ -240,7 +240,7 @@ inline void gp_Circ::Scale(const gp_Pnt& theP, const Standard_Real theS)
 // function : Scaled
 // purpose  :
 // =======================================================================
-inline gp_Circ gp_Circ::Scaled(const gp_Pnt& theP, const Standard_Real theS) const
+inline gp_Circ gp_Circ::Scaled(const Point3d& theP, const Standard_Real theS) const
 {
   gp_Circ aC = *this;
   aC.radius *= theS;

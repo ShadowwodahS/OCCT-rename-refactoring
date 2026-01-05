@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 #include <Extrema_ExtPC.hxx>
 #include <GeomAdaptor_Curve.hxx>
-class gp_Pnt;
+class Point3d;
 class Geom_Curve;
 
 //! This class implements methods for  computing all the orthogonal
@@ -40,22 +40,22 @@ public:
 
   //! Create the projection  of a  point  <P> on a curve
   //! <Curve>
-  Standard_EXPORT GeomAPI_ProjectPointOnCurve(const gp_Pnt& P, const Handle(Geom_Curve)& Curve);
+  Standard_EXPORT GeomAPI_ProjectPointOnCurve(const Point3d& P, const Handle(Geom_Curve)& Curve);
 
   //! Create  the projection  of a point <P>  on a curve
   //! <Curve> limited by the two points of parameter Umin and Usup.
-  Standard_EXPORT GeomAPI_ProjectPointOnCurve(const gp_Pnt&             P,
+  Standard_EXPORT GeomAPI_ProjectPointOnCurve(const Point3d&             P,
                                               const Handle(Geom_Curve)& Curve,
                                               const Standard_Real       Umin,
                                               const Standard_Real       Usup);
 
   //! Init the projection  of a  point  <P> on a curve
   //! <Curve>
-  Standard_EXPORT void Init(const gp_Pnt& P, const Handle(Geom_Curve)& Curve);
+  Standard_EXPORT void Init(const Point3d& P, const Handle(Geom_Curve)& Curve);
 
   //! Init  the  projection  of a  point <P>  on a curve
   //! <Curve> limited by the two points of parameter Umin and Usup.
-  Standard_EXPORT void Init(const gp_Pnt&             P,
+  Standard_EXPORT void Init(const Point3d&             P,
                             const Handle(Geom_Curve)& Curve,
                             const Standard_Real       Umin,
                             const Standard_Real       Usup);
@@ -67,7 +67,7 @@ public:
                             const Standard_Real       Usup);
 
   //! Performs the projection of a point on the current curve.
-  Standard_EXPORT void Perform(const gp_Pnt& P);
+  Standard_EXPORT void Perform(const Point3d& P);
 
   //! Returns the number of computed
   //! orthogonal projection points.
@@ -80,7 +80,7 @@ public:
   //! Exceptions
   //! Standard_OutOfRange if Index is not in the range [ 1,NbPoints ], where
   //! NbPoints is the number of solution points.
-  Standard_EXPORT gp_Pnt Point(const Standard_Integer Index) const;
+  Standard_EXPORT Point3d Point(const Standard_Integer Index) const;
 
   //! Returns the parameter on the curve
   //! of the point, which is the orthogonal projection. Index is a
@@ -108,8 +108,8 @@ public:
   //! Returns the nearest orthogonal
   //! projection of the point on the curve.
   //! Exceptions: StdFail_NotDone if this algorithm fails.
-  Standard_EXPORT gp_Pnt NearestPoint() const;
-  Standard_EXPORT        operator gp_Pnt() const;
+  Standard_EXPORT Point3d NearestPoint() const;
+  Standard_EXPORT        operator Point3d() const;
 
   //! Returns the parameter on the curve
   //! of the nearest orthogonal projection of the point.

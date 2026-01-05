@@ -109,7 +109,7 @@ public:
   //! Standard_OutOfRange if Index is not in the range [
   //! 1,NbExtrema ], where NbExtrema is the
   //! number of extrema computed by this algorithm.
-  Standard_EXPORT void Points(const Standard_Integer Index, gp_Pnt& P1, gp_Pnt& P2) const;
+  Standard_EXPORT void Points(const Standard_Integer Index, Point3d& P1, Point3d& P2) const;
 
   //! Returns the parameters U1 of the point on the first
   //! curve and U2 of the point on the second curve, which
@@ -137,7 +137,7 @@ public:
   //! the second curve, which are the ends of the shortest
   //! extremum computed by this algorithm.
   //! Exceptions StdFail_NotDone if this algorithm fails.
-  Standard_EXPORT void NearestPoints(gp_Pnt& P1, gp_Pnt& P2) const;
+  Standard_EXPORT void NearestPoints(Point3d& P1, Point3d& P2) const;
 
   //! Returns the parameters U1 of the point on the first
   //! curve and U2 of the point on the second curve, which
@@ -157,7 +157,7 @@ public:
   //! set  in  <P1>  and <P2> the couple solution points
   //! such a the distance [P1,P2] is the minimum. taking  in  account
   //! extremity  points  of  curves.
-  Standard_EXPORT Standard_Boolean TotalNearestPoints(gp_Pnt& P1, gp_Pnt& P2);
+  Standard_EXPORT Standard_Boolean TotalNearestPoints(Point3d& P1, Point3d& P2);
 
   //! set  in <U1> and <U2> the parameters of the couple
   //! solution   points  which  represents  the  total  nearest
@@ -181,7 +181,7 @@ private:
   Standard_Boolean  myTotalExt;
   Standard_Boolean  myIsInfinite;
   Standard_Real     myTotalDist;
-  gp_Pnt            myTotalPoints[2];
+  Point3d            myTotalPoints[2];
   Standard_Real     myTotalPars[2];
 };
 

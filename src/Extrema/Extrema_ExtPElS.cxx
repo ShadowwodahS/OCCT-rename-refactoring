@@ -41,7 +41,7 @@ Extrema_ExtPElS::Extrema_ExtPElS()
 
 //=============================================================================
 
-Extrema_ExtPElS::Extrema_ExtPElS(const gp_Pnt& P, const gp_Cylinder& S, const Standard_Real Tol)
+Extrema_ExtPElS::Extrema_ExtPElS(const Point3d& P, const gp_Cylinder& S, const Standard_Real Tol)
 {
 
   Perform(P, S, Tol);
@@ -64,17 +64,17 @@ Method:
      and  (U2,V) corresponds to the max distance.
 -----------------------------------------------------------------------------*/
 
-void Extrema_ExtPElS::Perform(const gp_Pnt& P, const gp_Cylinder& S, const Standard_Real Tol)
+void Extrema_ExtPElS::Perform(const Point3d& P, const gp_Cylinder& S, const Standard_Real Tol)
 {
   myDone  = Standard_False;
   myNbExt = 0;
 
   // Projection of point P in plane XOY of the cylinder ...
   gp_Ax3        Pos = S.Position();
-  gp_Pnt        O   = Pos.Location();
+  Point3d        O   = Pos.Location();
   gp_Vec        OZ(Pos.Direction());
   Standard_Real V  = gp_Vec(O, P).Dot(OZ);
-  gp_Pnt        Pp = P.Translated(OZ.Multiplied(-V));
+  Point3d        Pp = P.Translated(OZ.Multiplied(-V));
 
   // Calculation of extrema
   gp_Vec OPp(O, Pp);
@@ -94,7 +94,7 @@ void Extrema_ExtPElS::Perform(const gp_Pnt& P, const gp_Cylinder& S, const Stand
     U1 += 2. * M_PI;
   }
 
-  gp_Pnt Ps;
+  Point3d Ps;
   Ps          = ElSLib::Value(U1, V, S);
   mySqDist[0] = Ps.SquareDistance(P);
   myPoint[0]  = Extrema_POnSurf(U1, V, Ps);
@@ -108,7 +108,7 @@ void Extrema_ExtPElS::Perform(const gp_Pnt& P, const gp_Cylinder& S, const Stand
 
 //=============================================================================
 
-Extrema_ExtPElS::Extrema_ExtPElS(const gp_Pnt& P, const gp_Cone& S, const Standard_Real Tol)
+Extrema_ExtPElS::Extrema_ExtPElS(const Point3d& P, const gp_Cone& S, const Standard_Real Tol)
 {
   Perform(P, S, Tol);
 }
@@ -143,14 +143,14 @@ Method:
        then (U1,V1) and (U2,V2) correspond to min distances.
 -----------------------------------------------------------------------------*/
 
-void Extrema_ExtPElS::Perform(const gp_Pnt& P, const gp_Cone& S, const Standard_Real Tol)
+void Extrema_ExtPElS::Perform(const Point3d& P, const gp_Cone& S, const Standard_Real Tol)
 {
   myDone  = Standard_False;
   myNbExt = 0;
 
-  gp_Pnt        M   = S.Apex();
+  Point3d        M   = S.Apex();
   gp_Ax3        Pos = S.Position();
-  gp_Pnt        O   = Pos.Location();
+  Point3d        O   = Pos.Location();
   Standard_Real A   = S.SemiAngle();
   gp_Vec        OZ(Pos.Direction());
   gp_Vec        myZ = Pos.XDirection() ^ Pos.YDirection();
@@ -179,7 +179,7 @@ void Extrema_ExtPElS::Perform(const gp_Pnt& P, const gp_Cone& S, const Standard_
   // Projection of P in the reference plane of the cone ...
   Standard_Real Zp = gp_Vec(O, P).Dot(OZ);
 
-  gp_Pnt Pp = P.Translated(OZ.Multiplied(-Zp));
+  Point3d Pp = P.Translated(OZ.Multiplied(-Zp));
   gp_Vec OPp(O, Pp);
   if (OPp.SquareMagnitude() < Tol * Tol)
     return;
@@ -223,7 +223,7 @@ void Extrema_ExtPElS::Perform(const gp_Pnt& P, const gp_Cone& S, const Standard_
   V1 += Vm;
   V2 += Vm;
 
-  gp_Pnt Ps;
+  Point3d Ps;
   Ps          = ElSLib::Value(U1, V1, S);
   mySqDist[0] = Ps.SquareDistance(P);
   myPoint[0]  = Extrema_POnSurf(U1, V1, Ps);
@@ -237,7 +237,7 @@ void Extrema_ExtPElS::Perform(const gp_Pnt& P, const gp_Cone& S, const Standard_
 
 //=============================================================================
 
-Extrema_ExtPElS::Extrema_ExtPElS(const gp_Pnt& P, const gp_Sphere& S, const Standard_Real Tol)
+Extrema_ExtPElS::Extrema_ExtPElS(const Point3d& P, const gp_Sphere& S, const Standard_Real Tol)
 {
   Perform(P, S, Tol);
 }
@@ -264,7 +264,7 @@ Method:
     and  (U2,-V1) corresponds to the max distance.
 -----------------------------------------------------------------------------*/
 
-void Extrema_ExtPElS::Perform(const gp_Pnt& P, const gp_Sphere& S, const Standard_Real Tol)
+void Extrema_ExtPElS::Perform(const Point3d& P, const gp_Sphere& S, const Standard_Real Tol)
 {
   myDone  = Standard_False;
   myNbExt = 0;
@@ -279,10 +279,10 @@ void Extrema_ExtPElS::Perform(const gp_Pnt& P, const gp_Sphere& S, const Standar
   }
 
   // Projection if P in plane XOY of the sphere ...
-  gp_Pnt        O = Pos.Location();
+  Point3d        O = Pos.Location();
   gp_Vec        OZ(Pos.Direction());
   Standard_Real Zp = OP.Dot(OZ);
-  gp_Pnt        Pp = P.Translated(OZ.Multiplied(-Zp));
+  Point3d        Pp = P.Translated(OZ.Multiplied(-Zp));
 
   // Calculation of extrema ...
   gp_Vec        OPp(O, Pp);
@@ -320,7 +320,7 @@ void Extrema_ExtPElS::Perform(const gp_Pnt& P, const gp_Sphere& S, const Standar
     }
   }
 
-  gp_Pnt Ps;
+  Point3d Ps;
   Ps          = ElSLib::Value(U1, V, S);
   mySqDist[0] = Ps.SquareDistance(P);
   myPoint[0]  = Extrema_POnSurf(U1, V, Ps);
@@ -334,7 +334,7 @@ void Extrema_ExtPElS::Perform(const gp_Pnt& P, const gp_Sphere& S, const Standar
 
 //=============================================================================
 
-Extrema_ExtPElS::Extrema_ExtPElS(const gp_Pnt& P, const gp_Torus& S, const Standard_Real Tol)
+Extrema_ExtPElS::Extrema_ExtPElS(const Point3d& P, const gp_Torus& S, const Standard_Real Tol)
 {
   Perform(P, S, Tol);
 }
@@ -358,7 +358,7 @@ Function:
      then (U1,V1) corresponds to the min distance
      and  (U2,V2) corresponds to the max distance.
 -----------------------------------------------------------------------------*/
-void Extrema_ExtPElS::Perform(const gp_Pnt& P, const gp_Torus& S, const Standard_Real Tol)
+void Extrema_ExtPElS::Perform(const Point3d& P, const gp_Torus& S, const Standard_Real Tol)
 {
   const Standard_Real tol2 = Tol * Tol;
   myDone                   = Standard_False;
@@ -366,9 +366,9 @@ void Extrema_ExtPElS::Perform(const gp_Pnt& P, const gp_Torus& S, const Standard
 
   // Projection of P in plane XOY ...
   gp_Ax3 Pos = S.Position();
-  gp_Pnt O   = Pos.Location();
+  Point3d O   = Pos.Location();
   gp_Vec OZ(Pos.Direction());
-  gp_Pnt Pp = P.Translated(OZ.Multiplied(-(gp_Vec(O, P).Dot(Pos.Direction()))));
+  Point3d Pp = P.Translated(OZ.Multiplied(-(gp_Vec(O, P).Dot(Pos.Direction()))));
 
   // Calculation of extrema ...
   gp_Vec        OPp(O, Pp);
@@ -392,8 +392,8 @@ void Extrema_ExtPElS::Perform(const gp_Pnt& P, const gp_Torus& S, const Standard
   Standard_Real R   = sqrt(R2);
   gp_Vec        OO1 = OPp.Divided(R).Multiplied(S.MajorRadius());
   gp_Vec        OO2 = OO1.Multiplied(-1.);
-  gp_Pnt        O1  = O.Translated(OO1);
-  gp_Pnt        O2  = O.Translated(OO2);
+  Point3d        O1  = O.Translated(OO1);
+  Point3d        O2  = O.Translated(OO2);
 
   if (O1.SquareDistance(P) < tol2)
   {
@@ -425,7 +425,7 @@ void Extrema_ExtPElS::Perform(const gp_Pnt& P, const gp_Torus& S, const Standard
     V2 += 2. * M_PI;
   }
 
-  gp_Pnt Ps;
+  Point3d Ps;
   Ps          = ElSLib::Value(U1, V1, S);
   mySqDist[0] = Ps.SquareDistance(P);
   myPoint[0]  = Extrema_POnSurf(U1, V1, Ps);
@@ -446,12 +446,12 @@ void Extrema_ExtPElS::Perform(const gp_Pnt& P, const gp_Torus& S, const Standard
   myDone  = Standard_True;
 }
 
-Extrema_ExtPElS::Extrema_ExtPElS(const gp_Pnt& P, const gp_Pln& S, const Standard_Real Tol)
+Extrema_ExtPElS::Extrema_ExtPElS(const Point3d& P, const gp_Pln& S, const Standard_Real Tol)
 {
   Perform(P, S, Tol);
 }
 
-void Extrema_ExtPElS::Perform(const gp_Pnt& P,
+void Extrema_ExtPElS::Perform(const Point3d& P,
                               const gp_Pln& S,
                               //			       const Standard_Real Tol)
                               const Standard_Real)
@@ -460,10 +460,10 @@ void Extrema_ExtPElS::Perform(const gp_Pnt& P,
   myNbExt = 0;
 
   // Projection of point P in plane XOY of the cylinder ...
-  gp_Pnt        O = S.Location();
+  Point3d        O = S.Location();
   gp_Vec        OZ(S.Axis().Direction());
   Standard_Real U, V = gp_Vec(O, P).Dot(OZ);
-  gp_Pnt        Pp = P.Translated(OZ.Multiplied(-V));
+  Point3d        Pp = P.Translated(OZ.Multiplied(-V));
 
   ElSLib::Parameters(S, P, U, V);
   mySqDist[0] = Pp.SquareDistance(P);

@@ -180,13 +180,13 @@ Standard_Real HLRBRep_Curve::Update(Standard_Real TotMin[16], Standard_Real TotM
     }
     else
     { // bezier degree 1
-      gp_Pnt PL;
+      Point3d PL;
       gp_Vec VL;
       HLRBRep_BCurveTool::D1(myCurve, 0, PL, VL);
       L   = gp_Lin(PL, VL);
       l3d = PL.Distance(HLRBRep_BCurveTool::Value(myCurve, 1.));
     }
-    gp_Pnt P = L.Location();
+    Point3d P = L.Location();
     gp_Vec V = L.Direction();
     P.Transform(((HLRAlgo_Projector*)myProj)->Transformation());
     V.Transform(((HLRAlgo_Projector*)myProj)->Transformation());
@@ -278,7 +278,7 @@ Standard_Real HLRBRep_Curve::UpdateMinMax(Standard_Real TotMin[16], Standard_Rea
 
 Standard_Real HLRBRep_Curve::Z(const Standard_Real U) const
 {
-  gp_Pnt P3d;
+  Point3d P3d;
   HLRBRep_BCurveTool::D0(myCurve, U, P3d);
   P3d.Transform(((HLRAlgo_Projector*)myProj)->Transformation());
   return P3d.Z();
@@ -304,7 +304,7 @@ void HLRBRep_Curve::Tangent(const Standard_Boolean AtStart, gp_Pnt2d& P, gp_Dir2
 
 void HLRBRep_Curve::D0(const Standard_Real U, gp_Pnt2d& P) const
 {
-  /* gp_Pnt P3d;
+  /* Point3d P3d;
   HLRBRep_BCurveTool::D0(myCurve,U,P3d);
   P3d.Transform(((HLRAlgo_Projector*) myProj)->Transformation());
   if (((HLRAlgo_Projector*) myProj)->Perspective()) {
@@ -312,7 +312,7 @@ void HLRBRep_Curve::D0(const Standard_Real U, gp_Pnt2d& P) const
     P.SetCoord(P3d.X()/R,P3d.Y()/R);
   }
   else P.SetCoord(P3d.X(),P3d.Y()); */
-  gp_Pnt P3d;
+  Point3d P3d;
   HLRBRep_BCurveTool::D0(myCurve, U, P3d);
   ((HLRAlgo_Projector*)myProj)->Project(P3d, P);
 }
@@ -329,7 +329,7 @@ void HLRBRep_Curve::D1(const Standard_Real U, gp_Pnt2d& P, gp_Vec2d& V) const
   //       1 - ----   f (1 - ----)
   //            f             f
 
-  gp_Pnt P3D;
+  Point3d P3D;
   gp_Vec V13D;
   HLRBRep_BCurveTool::D1(myCurve, U, P3D, V13D);
   if (myProj->Perspective())
@@ -363,7 +363,7 @@ void HLRBRep_Curve::D2(const Standard_Real U, gp_Pnt2d& P, gp_Vec2d& V1, gp_Vec2
   //       f (1 - ----)    f  (1 - ----)    1 - ----   f (1 - ----)
   //               f                f            f             f
 
-  gp_Pnt P3D;
+  Point3d P3D;
   gp_Vec V13D, V23D;
   HLRBRep_BCurveTool::D2(myCurve, U, P3D, V13D, V23D);
   P3D.Transform(myProj->Transformation());

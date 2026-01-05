@@ -73,7 +73,7 @@ void FEINT_DUMPPOINTS(TopOpeBRep_FaceEdgeIntersector& FEINT, const TopOpeBRepDS_
 
     std::cout << std::endl;
     std::cout << "P" << ip << " : ";
-    gp_Pnt P3D = FEINT.Value();
+    Point3d P3D = FEINT.Value();
     std::cout << "\t" << P3D.X() << " " << P3D.Y() << " " << P3D.Z() << std::endl;
 
     std::cout << "\t";

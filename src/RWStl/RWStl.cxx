@@ -315,9 +315,9 @@ Standard_Boolean RWStl::writeASCII(const Handle(Poly_Triangulation)& theMesh,
     const Poly_Triangle aTriangle = theMesh->Triangle(aTriIter);
     aTriangle.Get(anElem[0], anElem[1], anElem[2]);
 
-    const gp_Pnt aP1 = theMesh->Node(anElem[0]);
-    const gp_Pnt aP2 = theMesh->Node(anElem[1]);
-    const gp_Pnt aP3 = theMesh->Node(anElem[2]);
+    const Point3d aP1 = theMesh->Node(anElem[0]);
+    const Point3d aP2 = theMesh->Node(anElem[1]);
+    const Point3d aP3 = theMesh->Node(anElem[2]);
 
     const gp_Vec aVec1(aP1, aP2);
     const gp_Vec aVec2(aP1, aP3);
@@ -408,9 +408,9 @@ Standard_Boolean RWStl::writeBinary(const Handle(Poly_Triangulation)& theMesh,
     const Poly_Triangle aTriangle = theMesh->Triangle(aTriIter);
     aTriangle.Get(id[0], id[1], id[2]);
 
-    const gp_Pnt aP1 = theMesh->Node(id[0]);
-    const gp_Pnt aP2 = theMesh->Node(id[1]);
-    const gp_Pnt aP3 = theMesh->Node(id[2]);
+    const Point3d aP1 = theMesh->Node(id[0]);
+    const Point3d aP2 = theMesh->Node(id[1]);
+    const Point3d aP3 = theMesh->Node(id[2]);
 
     gp_Vec aVec1(aP1, aP2);
     gp_Vec aVec2(aP1, aP3);

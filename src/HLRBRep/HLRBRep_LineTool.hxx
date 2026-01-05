@@ -38,7 +38,7 @@
 class Standard_OutOfRange;
 class Standard_NoSuchObject;
 class Standard_DomainError;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 class Geom_BezierCurve;
 class Geom_BSplineCurve;
@@ -81,22 +81,22 @@ public:
   static Standard_Real Period(const gp_Lin& C);
 
   //! Computes the point of parameter U on the line.
-  static gp_Pnt Value(const gp_Lin& C, const Standard_Real U);
+  static Point3d Value(const gp_Lin& C, const Standard_Real U);
 
   //! Computes the point of parameter U on the line.
-  static void D0(const gp_Lin& C, const Standard_Real U, gp_Pnt& P);
+  static void D0(const gp_Lin& C, const Standard_Real U, Point3d& P);
 
   //! Computes the point of parameter U on the line with its
   //! first derivative.
   //! Raised if the continuity of the current interval
   //! is not C1.
-  static void D1(const gp_Lin& C, const Standard_Real U, gp_Pnt& P, gp_Vec& V);
+  static void D1(const gp_Lin& C, const Standard_Real U, Point3d& P, gp_Vec& V);
 
   //! Returns the point P of parameter U, the first and second
   //! derivatives V1 and V2.
   //! Raised if the continuity of the current interval
   //! is not C2.
-  static void D2(const gp_Lin& C, const Standard_Real U, gp_Pnt& P, gp_Vec& V1, gp_Vec& V2);
+  static void D2(const gp_Lin& C, const Standard_Real U, Point3d& P, gp_Vec& V1, gp_Vec& V2);
 
   //! Returns the point P of parameter U, the first, the second
   //! and the third derivative.
@@ -104,7 +104,7 @@ public:
   //! is not C3.
   static void D3(const gp_Lin&       C,
                  const Standard_Real U,
-                 gp_Pnt&             P,
+                 Point3d&             P,
                  gp_Vec&             V1,
                  gp_Vec&             V2,
                  gp_Vec&             V3);

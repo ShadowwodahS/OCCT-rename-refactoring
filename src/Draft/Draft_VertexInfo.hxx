@@ -36,7 +36,7 @@ public:
 
   Standard_EXPORT void Add(const TopoDS_Edge& E);
 
-  Standard_EXPORT const gp_Pnt& Geometry() const;
+  Standard_EXPORT const Point3d& Geometry() const;
 
   Standard_EXPORT Standard_Real Parameter(const TopoDS_Edge& E);
 
@@ -48,13 +48,13 @@ public:
 
   Standard_EXPORT Standard_Boolean MoreEdge() const;
 
-  Standard_EXPORT gp_Pnt& ChangeGeometry();
+  Standard_EXPORT Point3d& ChangeGeometry();
 
   Standard_EXPORT Standard_Real& ChangeParameter(const TopoDS_Edge& E);
 
 protected:
 private:
-  gp_Pnt                             myGeom;
+  Point3d                             myGeom;
   TopTools_ListOfShape               myEdges;
   TColStd_ListOfReal                 myParams;
   TopTools_ListIteratorOfListOfShape myItEd;

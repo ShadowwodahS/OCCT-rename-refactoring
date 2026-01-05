@@ -93,7 +93,7 @@ void BSplSLib_Cache::BuildCache(const Standard_Real&        theParameterU,
 
 void BSplSLib_Cache::D0(const Standard_Real& theU,
                         const Standard_Real& theV,
-                        gp_Pnt&              thePoint) const
+                        Point3d&              thePoint) const
 {
   Standard_Real aNewU = myParamsU.PeriodicNormalization(theU);
   Standard_Real aNewV = myParamsV.PeriodicNormalization(theV);
@@ -155,7 +155,7 @@ void BSplSLib_Cache::D0(const Standard_Real& theU,
 
 void BSplSLib_Cache::D1(const Standard_Real& theU,
                         const Standard_Real& theV,
-                        gp_Pnt&              thePoint,
+                        Point3d&              thePoint,
                         gp_Vec&              theTangentU,
                         gp_Vec&              theTangentV) const
 {
@@ -254,7 +254,7 @@ void BSplSLib_Cache::D1(const Standard_Real& theU,
 
 void BSplSLib_Cache::D2(const Standard_Real& theU,
                         const Standard_Real& theV,
-                        gp_Pnt&              thePoint,
+                        Point3d&              thePoint,
                         gp_Vec&              theTangentU,
                         gp_Vec&              theTangentV,
                         gp_Vec&              theCurvatureU,

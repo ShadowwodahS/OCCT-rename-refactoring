@@ -34,7 +34,7 @@
 #include <TColStd_Array1OfInteger.hxx>
 #include <TColStd_Array2OfReal.hxx>
 #include <TColgp_Array1OfPnt.hxx>
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 class Geom_Curve;
 class gp_Trsf;
@@ -59,7 +59,7 @@ DEFINE_STANDARD_HANDLE(Geom_BSplineSurface, Geom_BoundedSurface)
 //! system. This value is returned by the function MaxDegree.
 //! Poles and Weights
 //! Poles and Weights are manipulated using two associative double arrays:
-//! - the poles table, which is a double array of gp_Pnt points, and
+//! - the poles table, which is a double array of Point3d points, and
 //! - the weights table, which is a double array of reals.
 //! The bounds of the poles and weights arrays are:
 //! - 1 and NbUPoles for the row bounds (provided
@@ -718,7 +718,7 @@ public:
   //! VIndex > NbVPoles.
   Standard_EXPORT void SetPole(const Standard_Integer UIndex,
                                const Standard_Integer VIndex,
-                               const gp_Pnt&          P);
+                               const Point3d&          P);
 
   //! Substitutes the pole and the weight of range (UIndex, VIndex)
   //! with P and W.
@@ -728,7 +728,7 @@ public:
   //! Raised if Weight <= Resolution from package gp.
   Standard_EXPORT void SetPole(const Standard_Integer UIndex,
                                const Standard_Integer VIndex,
-                               const gp_Pnt&          P,
+                               const Point3d&          P,
                                const Standard_Real    Weight);
 
   //! Changes a column of poles or a part of this column.
@@ -825,7 +825,7 @@ public:
   //! characteristics of the surface
   Standard_EXPORT void MovePoint(const Standard_Real    U,
                                  const Standard_Real    V,
-                                 const gp_Pnt&          P,
+                                 const Point3d&          P,
                                  const Standard_Integer UIndex1,
                                  const Standard_Integer UIndex2,
                                  const Standard_Integer VIndex1,
@@ -949,7 +949,7 @@ public:
   //!
   //! Raised if UIndex < 1 or UIndex > NbUPoles or VIndex < 1 or
   //! VIndex > NbVPoles.
-  Standard_EXPORT const gp_Pnt& Pole(const Standard_Integer UIndex,
+  Standard_EXPORT const Point3d& Pole(const Standard_Integer UIndex,
                                      const Standard_Integer VIndex) const;
 
   //! Returns the poles of the B-spline surface.
@@ -1104,19 +1104,19 @@ public:
 
   Standard_EXPORT void D0(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P) const Standard_OVERRIDE;
+                          Point3d&             P) const Standard_OVERRIDE;
 
   //! Raised if the continuity of the surface is not C1.
   Standard_EXPORT void D1(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V) const Standard_OVERRIDE;
 
   //! Raised if the continuity of the surface is not C2.
   Standard_EXPORT void D2(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V,
                           gp_Vec&             D2U,
@@ -1126,7 +1126,7 @@ public:
   //! Raised if the continuity of the surface is not C3.
   Standard_EXPORT void D3(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V,
                           gp_Vec&             D2U,
@@ -1170,7 +1170,7 @@ public:
                                const Standard_Integer ToUK2,
                                const Standard_Integer FromVK1,
                                const Standard_Integer ToVK2,
-                               gp_Pnt&                P) const;
+                               Point3d&                P) const;
 
   //! Raised if the local continuity of the surface is not C1
   //! between the knots FromUK1, ToUK2 and FromVK1, ToVK2.
@@ -1181,7 +1181,7 @@ public:
                                const Standard_Integer ToUK2,
                                const Standard_Integer FromVK1,
                                const Standard_Integer ToVK2,
-                               gp_Pnt&                P,
+                               Point3d&                P,
                                gp_Vec&                D1U,
                                gp_Vec&                D1V) const;
 
@@ -1194,7 +1194,7 @@ public:
                                const Standard_Integer ToUK2,
                                const Standard_Integer FromVK1,
                                const Standard_Integer ToVK2,
-                               gp_Pnt&                P,
+                               Point3d&                P,
                                gp_Vec&                D1U,
                                gp_Vec&                D1V,
                                gp_Vec&                D2U,
@@ -1210,7 +1210,7 @@ public:
                                const Standard_Integer ToUK2,
                                const Standard_Integer FromVK1,
                                const Standard_Integer ToVK2,
-                               gp_Pnt&                P,
+                               Point3d&                P,
                                gp_Vec&                D1U,
                                gp_Vec&                D1V,
                                gp_Vec&                D2U,
@@ -1240,7 +1240,7 @@ public:
   //! [Knot VK1, Knot VK2]  but for the computation we only use the
   //! definition of the surface between these knot values.
   //! Raises if FromUK1 = ToUK2 or FromVK1 = ToVK2.
-  Standard_EXPORT gp_Pnt LocalValue(const Standard_Real    U,
+  Standard_EXPORT Point3d LocalValue(const Standard_Real    U,
                                     const Standard_Real    V,
                                     const Standard_Integer FromUK1,
                                     const Standard_Integer ToUK2,

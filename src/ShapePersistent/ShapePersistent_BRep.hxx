@@ -400,7 +400,7 @@ private:
 
   private:
     Standard_Real               myTolerance;
-    gp_Pnt                      myPnt;
+    Point3d                      myPnt;
     Handle(PointRepresentation) myPoints;
   };
 

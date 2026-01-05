@@ -23,7 +23,7 @@
 #include <Standard_Integer.hxx>
 class Draw_Text3D;
 class TopoDS_Shape;
-class gp_Pnt;
+class Point3d;
 class Draw_Display;
 
 class BOPTest_DrawableShape;
@@ -54,7 +54,7 @@ public:
 
 protected:
 private:
-  Standard_EXPORT gp_Pnt Pnt() const;
+  Standard_EXPORT Point3d Pnt() const;
 
   Handle(Draw_Text3D) myText;
   Draw_Color          myTextColor;

@@ -84,7 +84,7 @@ void ShapeFix_Solid::Init(const TopoDS_Solid& solid)
 #ifdef OCCT_DEBUG_GET_MIDDLE_POINT
 //=================================================================================================
 
-static void GetMiddlePoint(const TopoDS_Shape& aShape, gp_Pnt& pmid)
+static void GetMiddlePoint(const TopoDS_Shape& aShape, Point3d& pmid)
 {
   TopExp_Explorer  aExp(aShape, TopAbs_EDGE);
   gp_XYZ           center(0.0, 0.0, 0.0);
@@ -99,7 +99,7 @@ static void GetMiddlePoint(const TopoDS_Shape& aShape, gp_Pnt& pmid)
       for (Standard_Integer i = 1; i <= 5; i++)
       {
         Standard_Real param = f + (l - f) / 4 * (i - 1);
-        gp_Pnt        pt;
+        Point3d        pt;
         numpoints++;
         c3d->D0(param, pt);
         center += pt.XYZ();
@@ -190,7 +190,7 @@ static void CollectSolids(const TopTools_SequenceOfShape&            aSeqShells,
              k++)
         {
           TopoDS_Vertex aV  = TopoDS::Vertex(amapVert.FindKey(k));
-          gp_Pnt        aPf = BRep_Tool::Pnt(aV);
+          Point3d        aPf = BRep_Tool::Pnt(aV);
           bsc3d.Perform(aPf, Precision::Confusion());
           pointstatus = bsc3d.State();
           if (pointstatus == TopAbs_ON)
@@ -200,7 +200,7 @@ static void CollectSolids(const TopTools_SequenceOfShape&            aSeqShells,
         if (numon == 3 && pointstatus == TopAbs_ON)
         {
 #ifdef OCCT_DEBUG_GET_MIDDLE_POINT
-          gp_Pnt pmid;
+          Point3d pmid;
           GetMiddlePoint(aShell2, pmid);
           bsc3d.Perform(pmid, Precision::Confusion());
 #endif

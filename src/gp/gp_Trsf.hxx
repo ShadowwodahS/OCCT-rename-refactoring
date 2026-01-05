@@ -23,7 +23,7 @@
 #include <Standard_OutOfRange.hxx>
 #include <Standard_SStream.hxx>
 
-class gp_Pnt;
+class Point3d;
 class gp_Trsf2d;
 class gp_Ax1;
 class gp_Ax2;
@@ -83,7 +83,7 @@ public:
 
   //! Makes the transformation into a symmetrical transformation.
   //! theP is the center of the symmetry.
-  void SetMirror(const gp_Pnt& theP);
+  void SetMirror(const Point3d& theP);
 
   //! Makes the transformation into a symmetrical transformation.
   //! theA1 is the center of the axial symmetry.
@@ -111,7 +111,7 @@ public:
   //! Changes the transformation into a scale.
   //! theP is the center of the scale and theS is the scaling value.
   //! Raises ConstructionError  If <theS> is null.
-  Standard_EXPORT void SetScale(const gp_Pnt& theP, const Standard_Real theS);
+  Standard_EXPORT void SetScale(const Point3d& theP, const Standard_Real theS);
 
   //! Modifies this transformation so that it transforms the
   //! coordinate system defined by theFromSystem1 into the
@@ -147,10 +147,10 @@ public:
   //! gp_Ax3 theFromSystem1, theToSystem2;
   //! double x1, y1, z1;  // are the coordinates of a point in the local system theFromSystem1
   //! double x2, y2, z2;  // are the coordinates of a point in the local system theToSystem2
-  //! gp_Pnt P1 (x1, y1, z1)
+  //! Point3d P1 (x1, y1, z1)
   //! gp_Trsf T;
   //! T.SetTransformation (theFromSystem1, theToSystem2);
-  //! gp_Pnt P2 = P1.Transformed (T);
+  //! Point3d P2 = P1.Transformed (T);
   //! P2.Coord (x2, y2, z2);
   //! @endcode
   Standard_EXPORT void SetTransformation(const gp_Ax3& theFromSystem1, const gp_Ax3& theToSystem2);
@@ -178,7 +178,7 @@ public:
 
   //! Makes the transformation into a translation where the translation vector
   //! is the vector (theP1, theP2) defined from point theP1 to point theP2.
-  void SetTranslation(const gp_Pnt& theP1, const gp_Pnt& theP2);
+  void SetTranslation(const Point3d& theP1, const Point3d& theP2);
 
   //! Replaces the translation vector with the vector theV.
   Standard_EXPORT void SetTranslationPart(const gp_Vec& theV);
@@ -271,9 +271,9 @@ public:
   //! @code
   //! gp_Trsf T1, T2, Tcomp; ...............
   //! Tcomp = T2.Multiplied(T1);         // or   (Tcomp = T2 * T1)
-  //! gp_Pnt P1(10.,3.,4.);
-  //! gp_Pnt P2 = P1.Transformed(Tcomp); // using Tcomp
-  //! gp_Pnt P3 = P1.Transformed(T1);    // using T1 then T2
+  //! Point3d P1(10.,3.,4.);
+  //! Point3d P2 = P1.Transformed(Tcomp); // using Tcomp
+  //! Point3d P3 = P1.Transformed(T1);    // using T1 then T2
   //! P3.Transform(T2);                  // P3 = P2 !!!
   //! @endcode
   Standard_NODISCARD gp_Trsf Inverted() const
@@ -391,7 +391,7 @@ inline gp_Trsf::gp_Trsf()
 // function : SetMirror
 // purpose :
 //=======================================================================
-inline void gp_Trsf::SetMirror(const gp_Pnt& theP)
+inline void gp_Trsf::SetMirror(const Point3d& theP)
 {
   shape = gp_PntMirror;
   scale = -1.0;
@@ -416,7 +416,7 @@ inline void gp_Trsf::SetTranslation(const gp_Vec& theV)
 // function : SetTranslation
 // purpose :
 //=======================================================================
-inline void gp_Trsf::SetTranslation(const gp_Pnt& theP1, const gp_Pnt& theP2)
+inline void gp_Trsf::SetTranslation(const Point3d& theP1, const Point3d& theP2)
 {
   shape = gp_Translation;
   scale = 1.0;

@@ -59,10 +59,10 @@
 //           la distance de PntD par rapport au plan passant par les trois
 //           points PntA, PntB, PntC
 //=======================================================================
-static Standard_Boolean CoPlanar(const gp_Pnt& PntA,
-                                 const gp_Pnt& PntB,
-                                 const gp_Pnt& PntC,
-                                 const gp_Pnt& PntD)
+static Standard_Boolean CoPlanar(const Point3d& PntA,
+                                 const Point3d& PntB,
+                                 const Point3d& PntC,
+                                 const Point3d& PntD)
 {
   gp_Vec vecAB(PntA, PntB);
   gp_Vec vecAC(PntA, PntC);
@@ -132,9 +132,9 @@ static Handle(GeomAdaptor_Surface) BoundSurf(const Handle(Geom_Surface)& S,
 static Standard_Boolean ComputeIntersection(TopOpeBRepDS_DataStructure&    DStr,
                                             const Handle(ChFiDS_SurfData)& SD,
                                             const Handle(ChFiDS_SurfData)& SDCoin,
-                                            const gp_Pnt&                  pdeb,
+                                            const Point3d&                  pdeb,
                                             const gp_Pnt2d&                p2ddeb,
-                                            const gp_Pnt&                  pfin,
+                                            const Point3d&                  pfin,
                                             const gp_Pnt2d&                p2dfin,
                                             Handle(Geom_Curve)&            gc,
                                             Handle(Geom2d_Curve)&          pc1,
@@ -159,7 +159,7 @@ static Standard_Boolean ComputeIntersection(TopOpeBRepDS_DataStructure&    DStr,
   // compute pardeb
   TColStd_Array1OfReal Pardeb(1, 4), Parfin(1, 4);
   Standard_Real        u, v;
-  gp_Pnt               Pbidon;
+  Point3d               Pbidon;
   u = p2ddeb.X();
   v = p2ddeb.Y();
   gSD->D1(u, v, Pbidon, derudeb, dervdeb);
@@ -444,7 +444,7 @@ void ChFi3d_ChBuilder::PerformThreeCorner(const Standard_Integer Jndex)
     new GeomAdaptor_Surface(GeomAdaptor_Surface(DStr.Surface(fdpiv->Surf()).Surface()));
 
   gp_Pnt2d p2d[4];
-  gp_Pnt   p3d[4], PSom;
+  Point3d   p3d[4], PSom;
 
   ChFi3d_ComputesIntPC(fdpiv->Interference(jf[pivot][deb]),
                        fddeb->Interference(jf[deb][pivot]),
@@ -502,7 +502,7 @@ void ChFi3d_ChBuilder::PerformThreeCorner(const Standard_Integer Jndex)
   p2d[fin] = fdpiv->Interference(jf[pivot][deb]).PCurveOnSurf()->Value(p[pivot][deb]);
   p2d[deb] = fdpiv->Interference(jf[pivot][fin]).PCurveOnSurf()->Value(p[pivot][fin]);
 
-  //  gp_Pnt pnt;
+  //  Point3d pnt;
   gp_Vec deru, derv;
 
   //  p3d[fin] = HSpiv->Value(p2d[fin].X(),p2d[fin].Y());
@@ -631,7 +631,7 @@ void ChFi3d_ChBuilder::PerformThreeCorner(const Standard_Integer Jndex)
 
     // intersection coin-fin
     Standard_Real tolrcoinfin;
-    gp_Pnt        p3dface;
+    Point3d        p3dface;
     if (c1triangle)
     {
       p3dface = p3d[pivot];
@@ -755,7 +755,7 @@ void ChFi3d_ChBuilder::PerformThreeCorner(const Standard_Integer Jndex)
     Handle(GeomFill_Boundary) Bdeb, Bfin, Bpiv, Bfac;
     Standard_Integer          ind1 = fddeb->Interference(jf[deb][pivot]).LineIndex();
     Standard_Integer          ind2 = fdfin->Interference(jf[fin][pivot]).LineIndex();
-    gp_Pnt                    Pfin, Pdeb;
+    Point3d                    Pfin, Pdeb;
     gp_Vec                    vpfin, vpdeb;
 
     DStr.Curve(ind1).Curve()->D1(p[deb][pivot], Pfin, vpfin);

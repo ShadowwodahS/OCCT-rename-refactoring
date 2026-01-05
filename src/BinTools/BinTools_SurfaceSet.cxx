@@ -398,7 +398,7 @@ void BinTools_SurfaceSet::Write(Standard_OStream& OS, const Message_ProgressRang
 
 //=================================================================================================
 
-static Standard_IStream& operator>>(Standard_IStream& IS, gp_Pnt& P)
+static Standard_IStream& operator>>(Standard_IStream& IS, Point3d& P)
 {
   Standard_Real X = 0., Y = 0., Z = 0.;
   BinTools::GetReal(IS, X);
@@ -424,7 +424,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, gp_Dir& D)
 
 static Standard_IStream& operator>>(Standard_IStream& IS, gp_Ax3& A3)
 {
-  gp_Pnt P(0., 0., 0.);
+  Point3d P(0., 0., 0.);
   gp_Dir A(1., 0., 0.), AX(1., 0., 0.), AY(1., 0., 0.);
   IS >> P >> A >> AX >> AY;
   gp_Ax3 ax3(P, A, AX);
@@ -531,7 +531,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_SurfaceOfL
 
 static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_SurfaceOfRevolution)& S)
 {
-  gp_Pnt             P(0., 0., 0.);
+  Point3d             P(0., 0., 0.);
   gp_Dir             D(1., 0., 0.);
   Handle(Geom_Curve) C;
   IS >> P >> D;

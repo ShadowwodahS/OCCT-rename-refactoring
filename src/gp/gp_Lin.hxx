@@ -54,7 +54,7 @@ public:
   //! Creates a line passing through point theP and parallel to
   //! vector theV (theP and theV are, respectively, the origin and
   //! the unit vector of the positioning axis of the line).
-  gp_Lin(const gp_Pnt& theP, const gp_Dir& theV)
+  gp_Lin(const Point3d& theP, const gp_Dir& theV)
       : pos(theP, theV)
   {
   }
@@ -76,7 +76,7 @@ public:
   void SetDirection(const gp_Dir& theV) { pos.SetDirection(theV); }
 
   //! Changes the location point (origin) of the line.
-  void SetLocation(const gp_Pnt& theP) { pos.SetLocation(theP); }
+  void SetLocation(const Point3d& theP) { pos.SetLocation(theP); }
 
   //! Complete redefinition of the line.
   //! The "Location" point of <theA1> is the origin of the line.
@@ -87,7 +87,7 @@ public:
   const gp_Dir& Direction() const { return pos.Direction(); }
 
   //! Returns the location point (origin) of the line.
-  const gp_Pnt& Location() const { return pos.Location(); }
+  const Point3d& Location() const { return pos.Location(); }
 
   //! Returns the axis placement one axis with the same
   //! location and direction as <me>.
@@ -102,19 +102,19 @@ public:
   //! Returns true if this line contains the point theP, that is, if the
   //! distance between point theP and this line is less than or
   //! equal to theLinearTolerance..
-  Standard_Boolean Contains(const gp_Pnt& theP, const Standard_Real theLinearTolerance) const
+  Standard_Boolean Contains(const Point3d& theP, const Standard_Real theLinearTolerance) const
   {
     return Distance(theP) <= theLinearTolerance;
   }
 
   //! Computes the distance between <me> and the point theP.
-  Standard_Real Distance(const gp_Pnt& theP) const;
+  Standard_Real Distance(const Point3d& theP) const;
 
   //! Computes the distance between two lines.
   Standard_EXPORT Standard_Real Distance(const gp_Lin& theOther) const;
 
   //! Computes the square distance between <me> and the point theP.
-  Standard_Real SquareDistance(const gp_Pnt& theP) const;
+  Standard_Real SquareDistance(const Point3d& theP) const;
 
   //! Computes the square distance between two lines.
   Standard_Real SquareDistance(const gp_Lin& theOther) const
@@ -128,14 +128,14 @@ public:
   //! if the distance between <me> and the point theP is lower
   //! or equal to Resolution from gp because there is an infinity of
   //! solutions in 3D space.
-  gp_Lin Normal(const gp_Pnt& theP) const;
+  gp_Lin Normal(const Point3d& theP) const;
 
-  Standard_EXPORT void Mirror(const gp_Pnt& theP);
+  Standard_EXPORT void Mirror(const Point3d& theP);
 
   //! Performs the symmetrical transformation of a line
   //! with respect to the point theP which is the center of
   //! the symmetry.
-  Standard_NODISCARD Standard_EXPORT gp_Lin Mirrored(const gp_Pnt& theP) const;
+  Standard_NODISCARD Standard_EXPORT gp_Lin Mirrored(const Point3d& theP) const;
 
   Standard_EXPORT void Mirror(const gp_Ax1& theA1);
 
@@ -163,12 +163,12 @@ public:
     return aL;
   }
 
-  void Scale(const gp_Pnt& theP, const Standard_Real theS) { pos.Scale(theP, theS); }
+  void Scale(const Point3d& theP, const Standard_Real theS) { pos.Scale(theP, theS); }
 
   //! Scales a line. theS is the scaling value.
   //! The "Location" point (origin) of the line is modified.
   //! The "Direction" is reversed if the scale is negative.
-  Standard_NODISCARD gp_Lin Scaled(const gp_Pnt& theP, const Standard_Real theS) const
+  Standard_NODISCARD gp_Lin Scaled(const Point3d& theP, const Standard_Real theS) const
   {
     gp_Lin aL = *this;
     aL.pos.Scale(theP, theS);
@@ -196,10 +196,10 @@ public:
     return aL;
   }
 
-  void Translate(const gp_Pnt& theP1, const gp_Pnt& theP2) { pos.Translate(theP1, theP2); }
+  void Translate(const Point3d& theP1, const Point3d& theP2) { pos.Translate(theP1, theP2); }
 
   //! Translates a line from the point theP1 to the point theP2.
-  Standard_NODISCARD gp_Lin Translated(const gp_Pnt& theP1, const gp_Pnt& theP2) const
+  Standard_NODISCARD gp_Lin Translated(const Point3d& theP1, const Point3d& theP2) const
   {
     gp_Lin aL = *this;
     aL.pos.Translate(gp_Vec(theP1, theP2));
@@ -214,7 +214,7 @@ private:
 // function : Distance
 // purpose :
 //=======================================================================
-inline Standard_Real gp_Lin::Distance(const gp_Pnt& theP) const
+inline Standard_Real gp_Lin::Distance(const Point3d& theP) const
 {
   gp_XYZ aCoord = theP.XYZ();
   aCoord.Subtract((pos.Location()).XYZ());
@@ -226,9 +226,9 @@ inline Standard_Real gp_Lin::Distance(const gp_Pnt& theP) const
 // function : SquareDistance
 // purpose :
 //=======================================================================
-inline Standard_Real gp_Lin::SquareDistance(const gp_Pnt& theP) const
+inline Standard_Real gp_Lin::SquareDistance(const Point3d& theP) const
 {
-  const gp_Pnt& aLoc = pos.Location();
+  const Point3d& aLoc = pos.Location();
   gp_Vec        aV(theP.X() - aLoc.X(), theP.Y() - aLoc.Y(), theP.Z() - aLoc.Z());
   aV.Cross(pos.Direction());
   return aV.SquareMagnitude();
@@ -238,9 +238,9 @@ inline Standard_Real gp_Lin::SquareDistance(const gp_Pnt& theP) const
 // function : Normal
 // purpose :
 //=======================================================================
-inline gp_Lin gp_Lin::Normal(const gp_Pnt& theP) const
+inline gp_Lin gp_Lin::Normal(const Point3d& theP) const
 {
-  const gp_Pnt& aLoc = pos.Location();
+  const Point3d& aLoc = pos.Location();
   gp_Dir        aV(theP.X() - aLoc.X(), theP.Y() - aLoc.Y(), theP.Z() - aLoc.Z());
   aV = pos.Direction().CrossCrossed(aV, pos.Direction());
   return gp_Lin(theP, aV);

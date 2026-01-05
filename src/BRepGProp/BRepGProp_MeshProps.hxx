@@ -45,7 +45,7 @@ public:
   }
 
   //! Sets the point relative which the calculation is to be done
-  void SetLocation(const gp_Pnt& theLocation) { loc = theLocation; }
+  void SetLocation(const Point3d& theLocation) { loc = theLocation; }
 
   //! Computes the global properties of a surface mesh of 3D space.
   //! Calculation of surface properties is performed by numerical integration
@@ -63,10 +63,10 @@ public:
   //! point Apex
   //! If isVolume = true, volume properties are calculated
   //! otherwise - surface ones
-  Standard_EXPORT static void CalculateProps(const gp_Pnt&          p1,
-                                             const gp_Pnt&          p2,
-                                             const gp_Pnt&          p3,
-                                             const gp_Pnt&          Apex,
+  Standard_EXPORT static void CalculateProps(const Point3d&          p1,
+                                             const Point3d&          p2,
+                                             const Point3d&          p3,
+                                             const Point3d&          Apex,
                                              const Standard_Boolean isVolume,
                                              Standard_Real          GProps[10],
                                              const Standard_Integer NbGaussPoints,

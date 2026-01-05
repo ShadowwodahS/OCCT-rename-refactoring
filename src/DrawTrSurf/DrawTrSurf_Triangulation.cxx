@@ -133,7 +133,7 @@ void DrawTrSurf_Triangulation::DrawOn(Draw_Display& dis) const
     for (i = 1; i <= n; i++)
     {
       myTriangulation->Triangle(i).Get(t[0], t[1], t[2]);
-      gp_Pnt  P(0, 0, 0);
+      Point3d  P(0, 0, 0);
       gp_XYZ& bary = P.ChangeCoord();
       for (j = 0; j < 3; j++)
         bary.Add(myTriangulation->Node(t[j]).Coord());

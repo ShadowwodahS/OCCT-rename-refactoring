@@ -61,7 +61,7 @@ public:
   }
 
   //! Returns the Point of the <N>th extremum distance. <br>
-  gp_Pnt Point(const Standard_Integer N) const { return myPoints.Value(N).Value(); }
+  Point3d Point(const Standard_Integer N) const { return myPoints.Value(N).Value(); }
 
   void SetFlag(const Extrema_ExtFlag F) { myExtPS.SetFlag(F); }
 

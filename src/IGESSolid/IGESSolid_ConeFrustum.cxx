@@ -55,20 +55,20 @@ Standard_Real IGESSolid_ConeFrustum::SmallerRadius() const
   return theR2;
 }
 
-gp_Pnt IGESSolid_ConeFrustum::FaceCenter() const
+Point3d IGESSolid_ConeFrustum::FaceCenter() const
 {
-  return gp_Pnt(theFaceCenter);
+  return Point3d(theFaceCenter);
 }
 
-gp_Pnt IGESSolid_ConeFrustum::TransformedFaceCenter() const
+Point3d IGESSolid_ConeFrustum::TransformedFaceCenter() const
 {
   if (!HasTransf())
-    return gp_Pnt(theFaceCenter);
+    return Point3d(theFaceCenter);
   else
   {
     gp_XYZ tmp = theFaceCenter;
     Location().Transforms(tmp);
-    return gp_Pnt(tmp);
+    return Point3d(tmp);
   }
 }
 

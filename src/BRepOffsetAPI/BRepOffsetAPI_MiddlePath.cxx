@@ -64,7 +64,7 @@ static Standard_Boolean IsLinear(const TopoDS_Edge& anEdge, gp_Lin& aLine)
   if (aCurve->IsInstance(STANDARD_TYPE(Geom_TrimmedCurve)))
     aCurve = Handle(Geom_TrimmedCurve)::DownCast(aCurve)->BasisCurve();
 
-  gp_Pnt Pnt1, Pnt2;
+  Point3d Pnt1, Pnt2;
   if (aCurve->IsKind(STANDARD_TYPE(Geom_Line)))
   {
     aLine = Handle(Geom_Line)::DownCast(aCurve)->Lin();
@@ -119,7 +119,7 @@ static gp_Vec TangentOfEdge(const TopoDS_Shape& aShape, const Standard_Boolean O
   else
     thePar = (anOr == TopAbs_FORWARD) ? lpar : fpar;
 
-  gp_Pnt thePoint;
+  Point3d thePoint;
   gp_Vec theTangent;
   aCurve->D1(thePar, thePoint, theTangent);
   if (anOr == TopAbs_REVERSED)
@@ -801,7 +801,7 @@ void BRepOffsetAPI_MiddlePath::Build(const Message_ProgressRange& /*theRange*/)
   TopTools_Array1OfShape MidEdges(1, NbSecFaces - 1);
   Standard_Real          LinTol = 1.e-5;
   Standard_Real          AngTol = 1.e-7;
-  gp_Pnt                 Pnt1, Pnt2;
+  Point3d                 Pnt1, Pnt2;
   for (i = 1; i < NbSecFaces; i++)
   {
     GeomAbs_CurveType TypeOfMidEdge = GeomAbs_OtherCurve;
@@ -881,7 +881,7 @@ void BRepOffsetAPI_MiddlePath::Build(const Message_ProgressRange& /*theRange*/)
         gp_XYZ        AxisLoc   = theAxis.Location().XYZ();
         gp_XYZ        AxisDir   = theAxis.Direction().XYZ();
         Standard_Real Parameter = (Centers(i).XYZ() - AxisLoc) * AxisDir;
-        gp_Pnt        theCenterOfCirc(AxisLoc + Parameter * AxisDir);
+        Point3d        theCenterOfCirc(AxisLoc + Parameter * AxisDir);
 
         gp_Vec Vec1(theCenterOfCirc, Centers(i));
         gp_Vec Vec2(theCenterOfCirc, Centers(i + 1));
@@ -958,13 +958,13 @@ void BRepOffsetAPI_MiddlePath::Build(const Message_ProgressRange& /*theRange*/)
             aTangent        = Tangent1 + Tangent2;
           }
           aTangent.Normalize();
-          gp_Pnt aPnt(aTangent.XYZ());
+          Point3d aPnt(aTangent.XYZ());
           PntSeq.Append(aPnt);
         }
         TColgp_Array1OfPnt PntArray(1, PntSeq.Length());
         for (Standard_Integer ip = 1; ip <= PntSeq.Length(); ip++)
           PntArray(ip) = PntSeq(ip);
-        gp_Pnt        theBary;
+        Point3d        theBary;
         gp_Dir        xdir, ydir;
         Standard_Real xgap, ygap, zgap;
         GeomLib::Inertia(PntArray, theBary, xdir, ydir, xgap, ygap, zgap);

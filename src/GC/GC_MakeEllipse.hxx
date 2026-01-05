@@ -26,7 +26,7 @@
 
 class gp_Elips;
 class gp_Ax2;
-class gp_Pnt;
+class Point3d;
 
 //! This class implements construction algorithms for an ellipse in
 //! 3D space. The result is a Geom_Ellipse ellipse.
@@ -69,7 +69,7 @@ public:
   //! -   its major axis is defined by Center and S1,
   //! -   its major radius is the distance between Center and S1, and
   //! -   its minor radius is the distance between S2 and the major axis.
-  Standard_EXPORT GC_MakeEllipse(const gp_Pnt& S1, const gp_Pnt& S2, const gp_Pnt& Center);
+  Standard_EXPORT GC_MakeEllipse(const Point3d& S1, const Point3d& S2, const Point3d& Center);
 
   //! Returns the constructed ellipse.
   //! Exceptions StdFail_NotDone if no ellipse is constructed.

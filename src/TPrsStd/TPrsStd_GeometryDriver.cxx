@@ -69,7 +69,7 @@ Standard_Boolean TPrsStd_GeometryDriver::Update(const TDF_Label&               a
   switch (GeomType)
   {
     case TDataXtd_POINT: {
-      gp_Pnt pt;
+      Point3d pt;
       if (!TDataXtd_Geometry::Point(aLabel, pt))
         return Standard_False;
       Handle(Geom_Point) apt = new Geom_CartesianPoint(pt);

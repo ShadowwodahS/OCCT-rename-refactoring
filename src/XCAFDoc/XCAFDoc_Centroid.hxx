@@ -44,15 +44,15 @@ public:
   //! the Location attribute is returned.
   //! Location methods
   //! ===============
-  Standard_EXPORT static Handle(XCAFDoc_Centroid) Set(const TDF_Label& label, const gp_Pnt& pnt);
+  Standard_EXPORT static Handle(XCAFDoc_Centroid) Set(const TDF_Label& label, const Point3d& pnt);
 
-  Standard_EXPORT void Set(const gp_Pnt& pnt);
+  Standard_EXPORT void Set(const Point3d& pnt);
 
-  Standard_EXPORT gp_Pnt Get() const;
+  Standard_EXPORT Point3d Get() const;
 
   //! Returns point as argument
   //! returns false if no such attribute at the <label>
-  Standard_EXPORT static Standard_Boolean Get(const TDF_Label& label, gp_Pnt& pnt);
+  Standard_EXPORT static Standard_Boolean Get(const TDF_Label& label, Point3d& pnt);
 
   Standard_EXPORT const Standard_GUID& ID() const Standard_OVERRIDE;
 
@@ -73,7 +73,7 @@ public:
 
 protected:
 private:
-  gp_Pnt myCentroid;
+  Point3d myCentroid;
 };
 
 #endif // _XCAFDoc_Centroid_HeaderFile

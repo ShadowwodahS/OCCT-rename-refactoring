@@ -35,7 +35,7 @@ Draw_Box::Draw_Box(const Bnd_OBB& theOBB, const Draw_Color& theColor)
 void Draw_Box::ToWCS(const Standard_Real theX,
                      const Standard_Real theY,
                      const Standard_Real theZ,
-                     gp_Pnt&             theP) const
+                     Point3d&             theP) const
 {
   const gp_XYZ& aC    = myOBB.Center();
   const gp_XYZ  aXDir = myOBB.XDirection(), aYDir = myOBB.YDirection(), aZDir = myOBB.ZDirection();
@@ -45,7 +45,7 @@ void Draw_Box::ToWCS(const Standard_Real theX,
 
 //=================================================================================================
 
-void Draw_Box::MoveX(const Standard_Real theShift, gp_Pnt& thePt) const
+void Draw_Box::MoveX(const Standard_Real theShift, Point3d& thePt) const
 {
   const gp_XYZ aXDir = myOBB.XDirection();
   thePt.SetXYZ(thePt.XYZ() + theShift * aXDir);
@@ -53,7 +53,7 @@ void Draw_Box::MoveX(const Standard_Real theShift, gp_Pnt& thePt) const
 
 //=================================================================================================
 
-void Draw_Box::MoveY(const Standard_Real theShift, gp_Pnt& thePt) const
+void Draw_Box::MoveY(const Standard_Real theShift, Point3d& thePt) const
 {
   const gp_XYZ aYDir = myOBB.YDirection();
   thePt.SetXYZ(thePt.XYZ() + theShift * aYDir);
@@ -61,7 +61,7 @@ void Draw_Box::MoveY(const Standard_Real theShift, gp_Pnt& thePt) const
 
 //=================================================================================================
 
-void Draw_Box::MoveZ(const Standard_Real theShift, gp_Pnt& thePt) const
+void Draw_Box::MoveZ(const Standard_Real theShift, Point3d& thePt) const
 {
   const gp_XYZ aZDir = myOBB.ZDirection();
   thePt.SetXYZ(thePt.XYZ() + theShift * aZDir);
@@ -80,7 +80,7 @@ void Draw_Box::DrawOn(Draw_Display& theDIS) const
 
   const Standard_Real aHx = myOBB.XHSize(), aHy = myOBB.YHSize(), aHz = myOBB.ZHSize();
 
-  gp_Pnt aP;
+  Point3d aP;
   ToWCS(-aHx, -aHy, -aHz, aP);
   theDIS.MoveTo(aP);
 

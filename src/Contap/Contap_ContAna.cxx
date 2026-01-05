@@ -76,7 +76,7 @@ void Contap_ContAna::Perform(const gp_Sphere& S, const gp_Dir& D, const Standard
   done  = Standard_True;
 }
 
-void Contap_ContAna::Perform(const gp_Sphere& S, const gp_Pnt& Eye)
+void Contap_ContAna::Perform(const gp_Sphere& S, const Point3d& Eye)
 {
   done = Standard_False;
 
@@ -197,7 +197,7 @@ void Contap_ContAna::Perform(const gp_Cylinder& C, const gp_Dir& D, const Standa
   done = Standard_True;
 }
 
-void Contap_ContAna::Perform(const gp_Cylinder& C, const gp_Pnt& Eye)
+void Contap_ContAna::Perform(const gp_Cylinder& C, const Point3d& Eye)
 {
   done = Standard_False;
 
@@ -390,7 +390,7 @@ void Contap_ContAna::Perform(const gp_Cone& C, const gp_Dir& D, const Standard_R
   done = Standard_True;
 }
 
-void Contap_ContAna::Perform(const gp_Cone& C, const gp_Pnt& Eye)
+void Contap_ContAna::Perform(const gp_Cone& C, const Point3d& Eye)
 {
   done = Standard_False;
 

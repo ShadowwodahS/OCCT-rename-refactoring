@@ -234,8 +234,8 @@ static Standard_Boolean IsVertical(const TopoDS_Edge& E)
 {
   TopoDS_Vertex V1, V2;
   TopExp::Vertices(E, V1, V2);
-  gp_Pnt P1 = BRep_Tool::Pnt(V1);
-  gp_Pnt P2 = BRep_Tool::Pnt(V2);
+  Point3d P1 = BRep_Tool::Pnt(V1);
+  Point3d P2 = BRep_Tool::Pnt(V2);
 
   if (Abs(P1.Y() - P2.Y()) < BRepFill_Confusion())
   {
@@ -255,8 +255,8 @@ static Standard_Boolean IsPlanar(const TopoDS_Edge& E)
 {
   TopoDS_Vertex V1, V2;
   TopExp::Vertices(E, V1, V2);
-  gp_Pnt P1 = BRep_Tool::Pnt(V1);
-  gp_Pnt P2 = BRep_Tool::Pnt(V2);
+  Point3d P1 = BRep_Tool::Pnt(V1);
+  Point3d P2 = BRep_Tool::Pnt(V2);
 
   if (Abs(P1.Z() - P2.Z()) < BRepFill_Confusion())
   {
@@ -292,8 +292,8 @@ static Standard_Integer Side(const TopoDS_Wire& Profil, const Standard_Real Tol)
   const TopoDS_Edge& E = TopoDS::Edge(Explo.Current());
 
   TopExp::Vertices(E, V1, V2);
-  gp_Pnt P1 = BRep_Tool::Pnt(V1);
-  gp_Pnt P2 = BRep_Tool::Pnt(V2);
+  Point3d P1 = BRep_Tool::Pnt(V1);
+  Point3d P2 = BRep_Tool::Pnt(V2);
 
   if (P1.Y() < -Tol || P2.Y() < -Tol)
     TheSide = 4;
@@ -547,7 +547,7 @@ static void IsInversed(const TopoDS_Shape& S,
   if (S.ShapeType() != TopAbs_EDGE)
     return;
 
-  gp_Pnt            P;
+  Point3d            P;
   gp_Vec            DS, DC1, DC2;
   BRepAdaptor_Curve CS(TopoDS::Edge(S));
   if (S.Orientation() == TopAbs_FORWARD)
@@ -682,7 +682,7 @@ void BRepFill_Evolved::ElementaryPerform(const TopoDS_Face&              Sp,
   TColStd_SequenceOfReal       EmptySeqOfReal;
 
   // mark of the profile.
-  gp_Ax3 AxeRef(gp_Pnt(0., 0., 0.), gp_Dir(0., 0., 1.), gp_Dir(1., 0., 0.));
+  gp_Ax3 AxeRef(Point3d(0., 0., 0.), gp_Dir(0., 0., 1.), gp_Dir(1., 0., 0.));
 
   //---------------------------------------------------------------
   // Construction of revolutions and tubes.
@@ -1854,9 +1854,9 @@ static TopAbs_Orientation Compare(const TopoDS_Edge& E1, const TopoDS_Edge& E2)
   TopoDS_Vertex      V1[2], V2[2];
   TopExp::Vertices(E1, V1[0], V1[1]);
   TopExp::Vertices(E2, V2[0], V2[1]);
-  gp_Pnt P1 = BRep_Tool::Pnt(V1[0]);
-  gp_Pnt P2 = BRep_Tool::Pnt(V2[0]);
-  gp_Pnt P3 = BRep_Tool::Pnt(V2[1]);
+  Point3d P1 = BRep_Tool::Pnt(V1[0]);
+  Point3d P2 = BRep_Tool::Pnt(V2[0]);
+  Point3d P3 = BRep_Tool::Pnt(V2[1]);
   if (P1.Distance(P3) < P1.Distance(P2))
     OO = TopAbs_REVERSED;
 
@@ -2116,7 +2116,7 @@ void BRepFill_Evolved::AddTopAndBottom(BRepTools_Quilt& Glue)
           BRep_Tool::Range(ES, fs, ls);
           Standard_Real u  = 0.3 * f + 0.7 * l;
           Standard_Real us = 0.3 * fs + 0.7 * ls;
-          gp_Pnt        P;
+          Point3d        P;
           gp_Vec        V1, V2;
           C1.D1(us, P, V1);
           C2.D1(u, P, V2);
@@ -2133,7 +2133,7 @@ void BRepFill_Evolved::AddTopAndBottom(BRepTools_Quilt& Glue)
       }
     }
 
-    gp_Pnt           PV    = BRep_Tool::Pnt(V[i]);
+    Point3d           PV    = BRep_Tool::Pnt(V[i]);
     Standard_Boolean IsOut = PV.Y() < 0;
 
     for (ExpSpine.Init(mySpine, TopAbs_VERTEX); ExpSpine.More(); ExpSpine.Next())
@@ -2153,8 +2153,8 @@ void BRepFill_Evolved::AddTopAndBottom(BRepTools_Quilt& Glue)
             Standard_Real     f, l;
             BRep_Tool::Range(E, f, l);
             Standard_Real u = 0.3 * f + 0.7 * l;
-            gp_Pnt        P = BRep_Tool::Pnt(ES);
-            gp_Pnt        PC;
+            Point3d        P = BRep_Tool::Pnt(ES);
+            Point3d        PC;
             gp_Vec        VC;
             C.D1(u, PC, VC);
             gp_Vec aPPC(P, PC);
@@ -2446,7 +2446,7 @@ TopLoc_Location BRepFill_Evolved::FindLocation(const TopoDS_Face& Face) const
   gp_Ax3             Axis = P->Position();
 
   gp_Trsf T;
-  gp_Ax3  AxeRef(gp_Pnt(0., 0., 0.), gp_Dir(0., 0., 1.), gp_Dir(1., 0., 0.));
+  gp_Ax3  AxeRef(Point3d(0., 0., 0.), gp_Dir(0., 0., 1.), gp_Dir(1., 0., 0.));
   T.SetTransformation(AxeRef, Axis);
 
   return TopLoc_Location(T);
@@ -2775,7 +2775,7 @@ const TopoDS_Wire PutProfilAt(const TopoDS_Wire&     ProfRef,
     else
       C2d->D1(First, P, D1);
   }
-  gp_Pnt P3d(P.X(), P.Y(), 0.);
+  Point3d P3d(P.X(), P.Y(), 0.);
   gp_Vec V3d(D1.X(), D1.Y(), 0.);
 
   gp_Ax3  Ax(P3d, gp::DZ(), V3d);
@@ -3091,7 +3091,7 @@ Standard_Boolean DoubleOrNotInFace(const TopTools_SequenceOfShape& EC, const Top
 
 Standard_Real DistanceToOZ(const TopoDS_Vertex& V)
 {
-  gp_Pnt PV3d = BRep_Tool::Pnt(V);
+  Point3d PV3d = BRep_Tool::Pnt(V);
   return Abs(PV3d.Y());
 }
 
@@ -3099,7 +3099,7 @@ Standard_Real DistanceToOZ(const TopoDS_Vertex& V)
 
 Standard_Real Altitud(const TopoDS_Vertex& V)
 {
-  gp_Pnt PV3d = BRep_Tool::Pnt(V);
+  Point3d PV3d = BRep_Tool::Pnt(V);
   return PV3d.Z();
 }
 
@@ -3294,8 +3294,8 @@ void CutEdge(const TopoDS_Edge& E, const TopoDS_Face& F, TopTools_ListOfShape& C
     gp_Pnt2d      P1 = CT2d->Value(m1);
     gp_Pnt2d      P2 = CT2d->Value(m2);
 
-    TopoDS_Vertex VL1          = BRepLib_MakeVertex(gp_Pnt(P1.X(), P1.Y(), 0.));
-    TopoDS_Vertex VL2          = BRepLib_MakeVertex(gp_Pnt(P2.X(), P2.Y(), 0.));
+    TopoDS_Vertex VL1          = BRepLib_MakeVertex(Point3d(P1.X(), P1.Y(), 0.));
+    TopoDS_Vertex VL2          = BRepLib_MakeVertex(Point3d(P2.X(), P2.Y(), 0.));
     TopoDS_Shape  aLocalShape1 = E.EmptyCopied();
     TopoDS_Shape  aLocalShape2 = E.EmptyCopied();
     TopoDS_Shape  aLocalShape3 = E.EmptyCopied();
@@ -3360,7 +3360,7 @@ void CutEdge(const TopoDS_Edge& E, const TopoDS_Face& F, TopTools_ListOfShape& C
       else
       {
         gp_Pnt2d P = CC->Value(CC->LastParameter());
-        VL         = BRepLib_MakeVertex(gp_Pnt(P.X(), P.Y(), 0.));
+        VL         = BRepLib_MakeVertex(Point3d(P.X(), P.Y(), 0.));
       }
       TopoDS_Shape aLocalShape = E.EmptyCopied();
       TopoDS_Edge  NE          = TopoDS::Edge(aLocalShape);

@@ -52,7 +52,7 @@ void GeomFill_Boundary::D1Norm(const Standard_Real, gp_Vec&, gp_Vec&) const
 
 //=================================================================================================
 
-void GeomFill_Boundary::Points(gp_Pnt& PFirst, gp_Pnt& PLast) const
+void GeomFill_Boundary::Points(Point3d& PFirst, Point3d& PLast) const
 {
   Standard_Real f, l;
   Bounds(f, l);

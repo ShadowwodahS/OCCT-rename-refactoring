@@ -387,7 +387,7 @@ Standard_Integer IntTools_TopolTool::NbSamples()
 
 //=================================================================================================
 
-void IntTools_TopolTool::SamplePoint(const Standard_Integer Index, gp_Pnt2d& P2d, gp_Pnt& P3d)
+void IntTools_TopolTool::SamplePoint(const Standard_Integer Index, gp_Pnt2d& P2d, Point3d& P3d)
 {
   if (myUPars.IsNull())
   {
@@ -424,9 +424,9 @@ void Analyse(const TColgp_Array2OfPnt& array2,
 
     for (i = array2.LowerRow(); i <= array2.UpperRow(); i++)
     {
-      const gp_Pnt& A = array2.Value(i, 1);
-      const gp_Pnt& B = array2.Value(i, 2);
-      const gp_Pnt& C = array2.Value(i, 3);
+      const Point3d& A = array2.Value(i, 1);
+      const Point3d& B = array2.Value(i, 2);
+      const Point3d& C = array2.Value(i, 3);
       Vi.SetCoord(C.X() - B.X() - B.X() + A.X(),
                   C.Y() - B.Y() - B.Y() + A.Y(),
                   C.Z() - B.Z() - B.Z() + A.Z());
@@ -434,9 +434,9 @@ void Analyse(const TColgp_Array2OfPnt& array2,
 
       for (j = array2.LowerCol() + 2; j < array2.UpperCol(); j++)
       { //-- essai
-        const gp_Pnt& Ax = array2.Value(i, j - 1);
-        const gp_Pnt& Bx = array2.Value(i, j);
-        const gp_Pnt& Cx = array2.Value(i, j + 1);
+        const Point3d& Ax = array2.Value(i, j - 1);
+        const Point3d& Bx = array2.Value(i, j);
+        const Point3d& Cx = array2.Value(i, j + 1);
         Vip1.SetCoord(Cx.X() - Bx.X() - Bx.X() + Ax.X(),
                       Cx.Y() - Bx.Y() - Bx.Y() + Ax.Y(),
                       Cx.Z() - Bx.Z() - Bx.Z() + Ax.Z());
@@ -475,9 +475,9 @@ void Analyse(const TColgp_Array2OfPnt& array2,
   {
     for (j = array2.LowerCol(); j <= array2.UpperCol(); j++)
     {
-      const gp_Pnt& A = array2.Value(array2.LowerRow(), j);
-      const gp_Pnt& B = array2.Value(array2.LowerRow() + 1, j);
-      const gp_Pnt& C = array2.Value(array2.LowerRow() + 2, j);
+      const Point3d& A = array2.Value(array2.LowerRow(), j);
+      const Point3d& B = array2.Value(array2.LowerRow() + 1, j);
+      const Point3d& C = array2.Value(array2.LowerRow() + 2, j);
       Vi.SetCoord(C.X() - B.X() - B.X() + A.X(),
                   C.Y() - B.Y() - B.Y() + A.Y(),
                   C.Z() - B.Z() - B.Z() + A.Z());
@@ -485,9 +485,9 @@ void Analyse(const TColgp_Array2OfPnt& array2,
 
       for (i = array2.LowerRow() + 2; i < array2.UpperRow(); i++)
       { //-- essai
-        const gp_Pnt& Ax = array2.Value(i - 1, j);
-        const gp_Pnt& Bx = array2.Value(i, j);
-        const gp_Pnt& Cx = array2.Value(i + 1, j);
+        const Point3d& Ax = array2.Value(i - 1, j);
+        const Point3d& Bx = array2.Value(i, j);
+        const Point3d& Cx = array2.Value(i + 1, j);
         Vip1.SetCoord(Cx.X() - Bx.X() - Bx.X() + Ax.X(),
                       Cx.Y() - Bx.Y() - Bx.Y() + Ax.Y(),
                       Cx.Z() - Bx.Z() - Bx.Z() + Ax.Z());

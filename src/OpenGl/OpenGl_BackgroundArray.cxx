@@ -518,7 +518,7 @@ void OpenGl_BackgroundArray::Render(const Handle(OpenGl_Workspace)& theWorkspace
     aCamera.SetZRange(0.01, 1.0); // is needed to avoid perspective camera exception
 
     // cancel translation
-    aCamera.MoveEyeTo(gp_Pnt(0.0, 0.0, 0.0));
+    aCamera.MoveEyeTo(Point3d(0.0, 0.0, 0.0));
 
     // Handle projection matrix:
     // - Cancel any head-to-eye translation for HMD display;

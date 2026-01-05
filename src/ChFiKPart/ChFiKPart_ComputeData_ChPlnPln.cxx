@@ -83,7 +83,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
   // compute the intersection line of Pl1 and Pl2
   IntAna_QuadQuadGeo LInt(Pl1, Pl2, Precision::Angular(), Precision::Confusion());
 
-  gp_Pnt        P;
+  Point3d        P;
   Standard_Real Fint;
   if (LInt.IsDone())
   {
@@ -124,21 +124,21 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
   }
 
   // Compute a point on the plane Pl1 and on the chamfer
-  gp_Pnt P1(P.X() + Dis1 * VecTransl1.X(),
+  Point3d P1(P.X() + Dis1 * VecTransl1.X(),
             P.Y() + Dis1 * VecTransl1.Y(),
             P.Z() + Dis1 * VecTransl1.Z());
 
   // Point on the plane Pl2 and on the chamfer
-  gp_Pnt P2(P.X() + Dis2 * VecTransl2.X(),
+  Point3d P2(P.X() + Dis2 * VecTransl2.X(),
             P.Y() + Dis2 * VecTransl2.Y(),
             P.Z() + Dis2 * VecTransl2.Z());
 
   // the middle point of P1 P2 is the origin of the chamfer
-  gp_Pnt Po((P1.X() + P2.X()) / 2., (P1.Y() + P2.Y()) / 2., (P1.Z() + P2.Z()) / 2.);
+  Point3d Po((P1.X() + P2.X()) / 2., (P1.Y() + P2.Y()) / 2., (P1.Z() + P2.Z()) / 2.);
 
   // compute a second point on the plane Pl2
-  gp_Pnt Pp = ElCLib::Value(Fint + 10., LInt.Line(1));
-  gp_Pnt P22(Pp.X() + Dis2 * VecTransl2.X(),
+  Point3d Pp = ElCLib::Value(Fint + 10., LInt.Line(1));
+  Point3d P22(Pp.X() + Dis2 * VecTransl2.X(),
              Pp.Y() + Dis2 * VecTransl2.Y(),
              Pp.Z() + Dis2 * VecTransl2.Z());
 

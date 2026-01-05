@@ -55,7 +55,7 @@ public:
   Standard_EXPORT void SetText(const TCollection_ExtendedString& theText);
 
   //! Setup position.
-  Standard_EXPORT void SetPosition(const gp_Pnt& thePosition);
+  Standard_EXPORT void SetPosition(const Point3d& thePosition);
 
   //! Setup horizontal justification.
   Standard_EXPORT void SetHJustification(const Graphic3d_HorizontalTextAlignment theHJust);
@@ -85,7 +85,7 @@ public:
   Standard_EXPORT void UnsetOrientation3D();
 
   //! Returns position.
-  Standard_EXPORT const gp_Pnt& Position() const;
+  Standard_EXPORT const Point3d& Position() const;
 
   //! Returns the label text.
   const TCollection_ExtendedString& Text() const { return myText; }
@@ -149,14 +149,14 @@ protected:
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
   //! Calculate label center, width and height
-  Standard_EXPORT Standard_Boolean calculateLabelParams(const gp_Pnt&  thePosition,
-                                                        gp_Pnt&        theCenterOfLabel,
+  Standard_EXPORT Standard_Boolean calculateLabelParams(const Point3d&  thePosition,
+                                                        Point3d&        theCenterOfLabel,
                                                         Standard_Real& theWidth,
                                                         Standard_Real& theHeight) const;
 
   //! Calculate label transformation
-  Standard_EXPORT gp_Trsf calculateLabelTrsf(const gp_Pnt& thePosition,
-                                             gp_Pnt&       theCenterOfLabel) const;
+  Standard_EXPORT gp_Trsf calculateLabelTrsf(const Point3d& thePosition,
+                                             Point3d&       theCenterOfLabel) const;
 
 protected:
   Handle(Font_TextFormatter) myFormatter;

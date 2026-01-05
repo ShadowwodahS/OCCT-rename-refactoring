@@ -148,7 +148,7 @@ static void d1(const Standard_Real              t,
                const Handle(Adaptor3d_Curve)&   Curve,
                const Handle(Adaptor3d_Surface)& Surface)
 {
-  gp_Pnt S, C;
+  Point3d S, C;
   gp_Vec DS1_u, DS1_v, DS2_u, DS2_uv, DS2_v, DC1_t;
   Surface->D2(u, v, S, DS1_u, DS1_v, DS2_u, DS2_v, DS2_uv);
   Curve->D1(t, C, DC1_t);
@@ -180,7 +180,7 @@ static void d2(const Standard_Real              t,
                const Handle(Adaptor3d_Curve)&   Curve,
                const Handle(Adaptor3d_Surface)& Surface)
 {
-  gp_Pnt S, C;
+  Point3d S, C;
   gp_Vec DS1_u, DS1_v, DS2_u, DS2_uv, DS2_v, DS3_u, DS3_v, DS3_uuv, DS3_uvv, DC1_t, DC2_t;
   Surface->D3(u, v, S, DS1_u, DS1_v, DS2_u, DS2_v, DS2_uv, DS3_u, DS3_v, DS3_uuv, DS3_uvv);
   Curve->D2(t, C, DC1_t, DC2_t);
@@ -246,7 +246,7 @@ static void d1CurvOnSurf(const Standard_Real t,
   const Handle(Adaptor3d_Curve)& Curve, 
   const Handle(Adaptor3d_Surface)& Surface)
 {
-  gp_Pnt S, C;
+  Point3d S, C;
   gp_Vec2d V2d;
   gp_Vec DS1_u, DS1_v, DS2_u, DS2_uv, DS2_v, DC1_t;
   Surface->D2(u, v, S, DS1_u, DS1_v, DS2_u, DS2_v, DS2_uv);
@@ -285,7 +285,7 @@ static void d2CurvOnSurf(const Standard_Real              t,
                          const Handle(Adaptor3d_Curve)&   Curve,
                          const Handle(Adaptor3d_Surface)& Surface)
 {
-  gp_Pnt   S, C;
+  Point3d   S, C;
   gp_Vec2d V12d, V22d;
   gp_Vec   DS1_u, DS1_v, DS2_u, DS2_uv, DS2_v, DS3_u, DS3_v, DS3_uuv, DS3_uvv, DC1_t, DC2_t;
   Surface->D3(u, v, S, DS1_u, DS1_v, DS2_u, DS2_v, DS2_uv, DS3_u, DS3_v, DS3_uuv, DS3_uvv);
@@ -349,7 +349,7 @@ static void d2CurvOnSurf(const Standard_Real              t,
 // purpose  : computes exact boundary point
 //=======================================================================
 
-static Standard_Boolean ExactBound(gp_Pnt&                          Sol,
+static Standard_Boolean ExactBound(Point3d&                          Sol,
                                    const Standard_Real              NotSol,
                                    const Standard_Real              Tol,
                                    const Standard_Real              TolU,
@@ -394,10 +394,10 @@ static Standard_Boolean ExactBound(gp_Pnt&                          Sol,
     RV2 = gp_Pnt2d(U0, V0).Distance(gp_Pnt2d(U0 + (LastV - V0) * D2d.X() / D2d.Y(), LastV));
   }
   TColgp_SequenceOfPnt Seq;
-  Seq.Append(gp_Pnt(FirstU, RU1, 2));
-  Seq.Append(gp_Pnt(LastU, RU2, 2));
-  Seq.Append(gp_Pnt(FirstV, RV1, 3));
-  Seq.Append(gp_Pnt(LastV, RV2, 3));
+  Seq.Append(Point3d(FirstU, RU1, 2));
+  Seq.Append(Point3d(LastU, RU2, 2));
+  Seq.Append(Point3d(FirstV, RV1, 3));
+  Seq.Append(Point3d(LastV, RV2, 3));
   Standard_Integer i, j;
   for (i = 1; i <= 3; i++)
   {
@@ -405,7 +405,7 @@ static Standard_Boolean ExactBound(gp_Pnt&                          Sol,
     {
       if (Seq(j).Y() < Seq(j + 1).Y())
       {
-        gp_Pnt swp;
+        Point3d swp;
         swp                    = Seq.Value(j + 1);
         Seq.ChangeValue(j + 1) = Seq.Value(j);
         Seq.ChangeValue(j)     = swp;
@@ -420,7 +420,7 @@ static Standard_Boolean ExactBound(gp_Pnt&                          Sol,
   Standard_Boolean isDone = Standard_False;
   while (!Seq.IsEmpty())
   {
-    gp_Pnt P;
+    Point3d P;
     P = Seq.Last();
     Seq.Remove(Seq.Length());
     ProjLib_PrjResolve aPrjPS(*Curve, *Surface, Standard_Integer(P.Z()));
@@ -436,7 +436,7 @@ static Standard_Boolean ExactBound(gp_Pnt&                          Sol,
       if (!aPrjPS.IsDone())
         continue;
       POnS   = aPrjPS.Solution();
-      Sol    = gp_Pnt(POnS.X(), P.X(), POnS.Y());
+      Sol    = Point3d(POnS.X(), P.X(), POnS.Y());
       isDone = Standard_True;
       break;
     }
@@ -452,7 +452,7 @@ static Standard_Boolean ExactBound(gp_Pnt&                          Sol,
       if (!aPrjPS.IsDone())
         continue;
       POnS   = aPrjPS.Solution();
-      Sol    = gp_Pnt(POnS.X(), POnS.Y(), P.X());
+      Sol    = Point3d(POnS.X(), POnS.Y(), P.X());
       isDone = Standard_True;
       break;
     }
@@ -466,7 +466,7 @@ static Standard_Boolean ExactBound(gp_Pnt&                          Sol,
 // purpose  : computes exact boundary point
 //=======================================================================
 
-static void DichExactBound(gp_Pnt&                          Sol,
+static void DichExactBound(Point3d&                          Sol,
                            const Standard_Real              NotSol,
                            const Standard_Real              Tol,
                            const Standard_Real              TolU,
@@ -500,7 +500,7 @@ static void DichExactBound(gp_Pnt&                          Sol,
     if (aPrjPS.IsDone())
     {
       POnS = aPrjPS.Solution();
-      Sol  = gp_Pnt(t, POnS.X(), POnS.Y());
+      Sol  = Point3d(t, POnS.X(), POnS.Y());
       U0   = Sol.Y();
       V0   = Sol.Z();
     }
@@ -515,7 +515,7 @@ static void DichExactBound(gp_Pnt&                          Sol,
 
 //=================================================================================================
 
-static Standard_Boolean InitialPoint(const gp_Pnt&                    Point,
+static Standard_Boolean InitialPoint(const Point3d&                    Point,
                                      const Standard_Real              t,
                                      const Handle(Adaptor3d_Curve)&   C,
                                      const Handle(Adaptor3d_Surface)& S,
@@ -745,7 +745,7 @@ void ProjLib_CompProjectedCurve::Init()
   Standard_Real    prevDeb = 0.;
   Standard_Boolean SameDeb = Standard_False;
 
-  gp_Pnt Triple, prevTriple;
+  Point3d Triple, prevTriple;
 
   // Basic loop
   while (t <= LastU)
@@ -762,7 +762,7 @@ void ProjLib_CompProjectedCurve::Init()
         FromLastU = Standard_True;
       Standard_Boolean initpoint = Standard_False;
       Standard_Real    U = 0., V = 0.;
-      gp_Pnt           CPoint;
+      Point3d           CPoint;
       Standard_Real    ParT, ParU, ParV;
 
       // Search an initial point in the list of Extrema Curve-Surface
@@ -851,7 +851,7 @@ void ProjLib_CompProjectedCurve::Init()
         {
           // Here we are going to stop if the distance between projection and
           // corresponding curve point is greater than myMaxDist
-          gp_Pnt        POnS;
+          Point3d        POnS;
           Standard_Real d;
           mySurface->D0(U, V, POnS);
           d = CPoint.Distance(POnS);
@@ -862,7 +862,7 @@ void ProjLib_CompProjectedCurve::Init()
             return;
           }
         }
-        Triple = gp_Pnt(t, U, V);
+        Triple = Point3d(t, U, V);
         if (t != FirstU)
         {
           // Search for exact boundary point
@@ -994,7 +994,7 @@ void ProjLib_CompProjectedCurve::Init()
       {
         prevTriple = Triple;
         prevStep   = Step;
-        Triple     = gp_Pnt(t, aPrjPS.Solution().X(), aPrjPS.Solution().Y());
+        Triple     = Point3d(t, aPrjPS.Solution().X(), aPrjPS.Solution().Y());
 
         // Check for possible local traps.
         UpdateTripleByTrapCriteria(Triple);
@@ -1117,7 +1117,7 @@ void ProjLib_CompProjectedCurve::Init()
   {
     for (j = 1; j <= mySequence->Value(i)->Length(); j++)
     {
-      gp_Pnt        POnC, POnS, aTriple;
+      Point3d        POnC, POnS, aTriple;
       Standard_Real Distance;
       aTriple = mySequence->Value(i)->Value(j);
       myCurve->D0(aTriple.X(), POnC);
@@ -1227,7 +1227,7 @@ void ProjLib_CompProjectedCurve::Perform()
   Standard_Boolean          approx3d = myProj3d;
   Standard_Real             Udeb, Ufin, UIso, VIso;
   gp_Pnt2d                  P2d, Pdeb, Pfin;
-  gp_Pnt                    P;
+  Point3d                    P;
   Handle(Adaptor2d_Curve2d) HPCur;
   Handle(Adaptor3d_Surface) HS = mySurface->ShallowCopy(); // For expand bounds of surface
   Handle(Geom2d_Curve)      PCur2d;                        // Only for isoparametric projection
@@ -1638,7 +1638,7 @@ void ProjLib_CompProjectedCurve::D0(const Standard_Real U, gp_Pnt2d& P) const
     P = aPrjPS.Solution();
   else
   {
-    gp_Pnt        thePoint = myCurve->Value(U);
+    Point3d        thePoint = myCurve->Value(U);
     Extrema_ExtPS aExtPS(thePoint, *mySurface, myTolU, myTolV);
     if (aExtPS.IsDone() && aExtPS.NbExt())
     {
@@ -1854,7 +1854,7 @@ void ProjLib_CompProjectedCurve::BuildIntervals(const GeomAbs_Shape S) const
           ProjLib_PrjResolve Solver(*myCurve, *mySurface, 2);
 
           gp_Vec2d D;
-          gp_Pnt   Triple;
+          Point3d   Triple;
           Triple = mySequence->Value(i)->Value(j);
           d1(Triple.X(), Triple.Y(), Triple.Z(), D, myCurve, mySurface);
           if (Abs(D.X()) < Precision::Confusion())
@@ -1922,7 +1922,7 @@ void ProjLib_CompProjectedCurve::BuildIntervals(const GeomAbs_Shape S) const
           ProjLib_PrjResolve Solver(*myCurve, *mySurface, 3);
 
           gp_Vec2d D;
-          gp_Pnt   Triple;
+          Point3d   Triple;
           Triple = mySequence->Value(i)->Value(j);
           d1(Triple.X(), Triple.Y(), Triple.Z(), D, myCurve, mySurface);
           if (Abs(D.Y()) < Precision::Confusion())
@@ -2093,7 +2093,7 @@ gp_Pnt2d ProjLib_CompProjectedCurve::GetResult2dP(const Standard_Integer theInde
 
 //=================================================================================================
 
-gp_Pnt ProjLib_CompProjectedCurve::GetResult3dP(const Standard_Integer theIndex) const
+Point3d ProjLib_CompProjectedCurve::GetResult3dP(const Standard_Integer theIndex) const
 {
   Standard_TypeMismatch_Raise_if(!myResultIsPoint->Value(theIndex),
                                  "ProjLib_CompProjectedCurve : result is not a point 3d");
@@ -2102,7 +2102,7 @@ gp_Pnt ProjLib_CompProjectedCurve::GetResult3dP(const Standard_Integer theIndex)
 
 //=================================================================================================
 
-void ProjLib_CompProjectedCurve::UpdateTripleByTrapCriteria(gp_Pnt& thePoint) const
+void ProjLib_CompProjectedCurve::UpdateTripleByTrapCriteria(Point3d& thePoint) const
 {
   Standard_Boolean isProblemsPossible = Standard_False;
   // Check possible traps cases:

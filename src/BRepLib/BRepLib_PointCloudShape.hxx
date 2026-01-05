@@ -97,7 +97,7 @@ protected:
   //! @param[in] theNorm  surface normal at this point
   //! @param[in] theUV    surface UV parameters
   //! @param[in] theFace  surface (face) definition
-  Standard_EXPORT virtual void addPoint(const gp_Pnt&       thePoint,
+  Standard_EXPORT virtual void addPoint(const Point3d&       thePoint,
                                         const gp_Vec&       theNorm,
                                         const gp_Pnt2d&     theUV,
                                         const TopoDS_Shape& theFace) = 0;

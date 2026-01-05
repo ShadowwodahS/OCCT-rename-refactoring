@@ -51,7 +51,7 @@ gce_MakeElips::gce_MakeElips(const gp_Ax2&       A2,
 //   <S1> donne le grand rayon et <S2> le petit rayon.                    +
 //=========================================================================
 
-gce_MakeElips::gce_MakeElips(const gp_Pnt& S1, const gp_Pnt& S2, const gp_Pnt& Center)
+gce_MakeElips::gce_MakeElips(const Point3d& S1, const Point3d& S2, const Point3d& Center)
 {
   Standard_Real D1 = S1.Distance(Center);
   if (D1 < gp::Resolution())

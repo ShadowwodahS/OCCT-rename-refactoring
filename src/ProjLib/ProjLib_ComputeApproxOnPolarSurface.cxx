@@ -152,7 +152,7 @@ static void computePeriodicity(const Handle(Adaptor3d_Surface)& theSurf,
 // function : aFuncValue
 // purpose  : compute functional value in (theU,theV) point
 //=======================================================================
-static Standard_Real anOrthogSqValue(const gp_Pnt&                    aBasePnt,
+static Standard_Real anOrthogSqValue(const Point3d&                    aBasePnt,
                                      const Handle(Adaptor3d_Surface)& Surf,
                                      const Standard_Real              theU,
                                      const Standard_Real              theV)
@@ -161,7 +161,7 @@ static Standard_Real anOrthogSqValue(const gp_Pnt&                    aBasePnt,
   // F1 = Dot(S_U, Vec(aBasePnt, aProjPnt))
   // F2 = Dot(S_V, Vec(aBasePnt, aProjPnt))
 
-  gp_Pnt aProjPnt;
+  Point3d aProjPnt;
   gp_Vec aSu, aSv;
 
   Surf->D1(theU, theV, aProjPnt, aSu, aSv);
@@ -186,8 +186,8 @@ static Standard_Real anOrthogSqValue(const gp_Pnt&                    aBasePnt,
 static gp_Pnt2d Function_Value(const Standard_Real theU, const aFuncStruct& theData)
 {
   gp_Pnt2d      p2d          = theData.myInitCurve2d->Value(theU);
-  gp_Pnt        p            = theData.myCurve->Value(theU);
-  gp_Pnt        aSurfPnt     = theData.mySurf->Value(p2d.X(), p2d.Y());
+  Point3d        p            = theData.myCurve->Value(theU);
+  Point3d        aSurfPnt     = theData.mySurf->Value(p2d.X(), p2d.Y());
   Standard_Real aSurfPntDist = aSurfPnt.SquareDistance(p);
 
   Standard_Real Uinf, Usup, Vinf, Vsup;
@@ -201,7 +201,7 @@ static gp_Pnt2d Function_Value(const Standard_Real theU, const aFuncStruct& theD
       || Abs(p2d.X() - Usup) < Precision::PConfusion())
   {
     // V isoline.
-    gp_Pnt aPnt;
+    Point3d aPnt;
     theData.mySurf->D0(p2d.X(), theU, aPnt);
     if (aPnt.SquareDistance(p) < aSurfPntDist)
       p2d.SetY(theU);
@@ -211,7 +211,7 @@ static gp_Pnt2d Function_Value(const Standard_Real theU, const aFuncStruct& theD
       || Abs(p2d.Y() - Vsup) < Precision::PConfusion())
   {
     // U isoline.
-    gp_Pnt aPnt;
+    Point3d aPnt;
     theData.mySurf->D0(theU, p2d.Y(), aPnt);
     if (aPnt.SquareDistance(p) < aSurfPntDist)
       p2d.SetX(theU);
@@ -463,7 +463,7 @@ public:
 
   Standard_Boolean Value(const Standard_Real           theT,
                          NCollection_Array1<gp_Pnt2d>& thePnt2d,
-                         NCollection_Array1<gp_Pnt>& /*thePnt*/) const
+                         NCollection_Array1<Point3d>& /*thePnt*/) const
   {
     thePnt2d(1) = Function_Value(theT, myStruct);
     return Standard_True;
@@ -786,7 +786,7 @@ Handle(Geom2d_BSplineCurve) ProjLib_ComputeApproxOnPolarSurface::Perform(
             break;
         }
         gp_Pnt2d fp2d = G2dC->Value(firstinter), lp2d = G2dC->Value(secondinter);
-        gp_Pnt   fps, lps, fpc, lpc;
+        Point3d   fps, lps, fpc, lpc;
         S->D0(fp2d.X(), fp2d.Y(), fps);
         S->D0(lp2d.X(), lp2d.Y(), lps);
         Curve->D0(firstinter, fpc);
@@ -841,7 +841,7 @@ Handle(Geom2d_BSplineCurve) ProjLib_ComputeApproxOnPolarSurface::Perform(
         else
         {
           gp_Pnt2d fp2d = G2dC->Value(iinter), lp2d = G2dC->Value(ip1inter);
-          gp_Pnt   fps, lps, fpc, lpc;
+          Point3d   fps, lps, fpc, lpc;
           S->D0(fp2d.X(), fp2d.Y(), fps);
           S->D0(lp2d.X(), lp2d.Y(), lps);
           Curve->D0(iinter, fpc);
@@ -1119,7 +1119,7 @@ Handle(Adaptor2d_Curve2d) ProjLib_ComputeApproxOnPolarSurface::BuildInitialCurve
     myProjIsDone           = Standard_False;
     Standard_Real Dist2Min = 1.e+200, u = 0., v = 0.;
     myDist = 0.;
-    gp_Pnt pntproj;
+    Point3d pntproj;
 
     TColgp_SequenceOfPnt2d Sols;
     Standard_Boolean       areManyZeros = Standard_False;
@@ -1743,10 +1743,10 @@ Handle(Geom2d_BSplineCurve) ProjLib_ComputeApproxOnPolarSurface::ProjectUsingIni
     Handle(Geom_BSplineSurface) BSS = Surf->BSpline();
     if ((BSS->MaxDegree() == 1) && (BSS->NbUPoles() == 2) && (BSS->NbVPoles() == 2))
     {
-      gp_Pnt p11 = BSS->Pole(1, 1);
-      gp_Pnt p12 = BSS->Pole(1, 2);
-      gp_Pnt p21 = BSS->Pole(2, 1);
-      gp_Pnt p22 = BSS->Pole(2, 2);
+      Point3d p11 = BSS->Pole(1, 1);
+      Point3d p12 = BSS->Pole(1, 2);
+      Point3d p21 = BSS->Pole(2, 1);
+      Point3d p22 = BSS->Pole(2, 2);
       gp_Vec V1(p11, p12);
       gp_Vec V2(p21, p22);
       if (V1.IsEqual(V2, Tol3d, Tol3d / (p11.Distance(p12) * 180 / M_PI)))
@@ -1863,10 +1863,10 @@ Handle(Geom2d_BSplineCurve) ProjLib_ComputeApproxOnPolarSurface::ProjectUsingIni
     Handle(Geom_BezierSurface) BS = Surf->Bezier();
     if ((BS->MaxDegree() == 1) && (BS->NbUPoles() == 2) && (BS->NbVPoles() == 2))
     {
-      gp_Pnt p11 = BS->Pole(1, 1);
-      gp_Pnt p12 = BS->Pole(1, 2);
-      gp_Pnt p21 = BS->Pole(2, 1);
-      gp_Pnt p22 = BS->Pole(2, 2);
+      Point3d p11 = BS->Pole(1, 1);
+      Point3d p12 = BS->Pole(1, 2);
+      Point3d p21 = BS->Pole(2, 1);
+      Point3d p22 = BS->Pole(2, 2);
       gp_Vec V1(p11, p12);
       gp_Vec V2(p21, p22);
       if (V1.IsEqual(V2, Tol3d, Tol3d / (p11.Distance(p12) * 180 / M_PI)))
@@ -1874,7 +1874,7 @@ Handle(Geom2d_BSplineCurve) ProjLib_ComputeApproxOnPolarSurface::ProjectUsingIni
         Standard_Integer Dist2Min = IntegerLast();
         Standard_Real    u, v;
 
-        //	gp_Pnt pntproj;
+        //	Point3d pntproj;
         if (TheTypeC == GeomAbs_BSplineCurve)
         {
           myTolReached                  = Tol3d;

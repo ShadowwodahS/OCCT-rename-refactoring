@@ -30,7 +30,7 @@ class TopoDS_Face;
 class gp_Pnt2d;
 class TopoDS_Edge;
 class IntTools_CommonPrt;
-class gp_Pnt;
+class Point3d;
 class IntTools_Curve;
 class gp_Dir;
 class Geom_Curve;
@@ -97,7 +97,7 @@ public:
   //! Returns True if the distance between point aP and
   //! vertex aV is less or equal to sum of aTolPV and
   //! vertex tolerance, otherwise returns False
-  Standard_EXPORT static Standard_Boolean IsVertex(const gp_Pnt&        aP,
+  Standard_EXPORT static Standard_Boolean IsVertex(const Point3d&        aP,
                                                    const Standard_Real  aTolPV,
                                                    const TopoDS_Vertex& aV);
 
@@ -166,7 +166,7 @@ public:
                                                  const Standard_Real theTolLin,
                                                  const gp_Pln&       thePln,
                                                  const Standard_Real theTolPln,
-                                                 gp_Pnt&             theP,
+                                                 Point3d&             theP,
                                                  Standard_Real&      theT,
                                                  Standard_Real&      theTolP,
                                                  Standard_Real&      theTmin,

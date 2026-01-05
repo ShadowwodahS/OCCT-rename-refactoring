@@ -39,9 +39,9 @@ public:
 
   void Set(const gp_Dir& Direction, const Standard_Real Angle);
 
-  void Set(const gp_Pnt& Eye);
+  void Set(const Point3d& Eye);
 
-  void Set(const gp_Pnt& Eye, const Standard_Real Angle);
+  void Set(const Point3d& Eye, const Standard_Real Angle);
 
   void Set(const Handle(Adaptor2d_Curve2d)& A);
 
@@ -58,7 +58,7 @@ public:
 
   Standard_EXPORT virtual Standard_Integer GetStateNumber() Standard_OVERRIDE;
 
-  const gp_Pnt& Valpoint(const Standard_Integer Index) const;
+  const Point3d& Valpoint(const Standard_Integer Index) const;
 
   Standard_EXPORT const IntSurf_Quadric& Quadric() const;
 
@@ -67,7 +67,7 @@ public:
 
   //! Returns the point, which has been computed
   //! while the last calling Value() method
-  const gp_Pnt& LastComputedPoint() const;
+  const Point3d& LastComputedPoint() const;
 
 protected:
 private:
@@ -77,8 +77,8 @@ private:
   Contap_TFunction          myType;
   gp_Dir                    myDir;
   Standard_Real             myCosAng;
-  gp_Pnt                    myEye;
-  gp_Pnt                    solpt;
+  Point3d                    myEye;
+  Point3d                    solpt;
   TColgp_SequenceOfPnt      seqpt;
   IntSurf_Quadric           myQuad;
 };

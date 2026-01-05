@@ -40,7 +40,7 @@ BRepPrim_Sphere::BRepPrim_Sphere(const Standard_Real Radius)
 
 //=================================================================================================
 
-BRepPrim_Sphere::BRepPrim_Sphere(const gp_Pnt& Center, const Standard_Real Radius)
+BRepPrim_Sphere::BRepPrim_Sphere(const Point3d& Center, const Standard_Real Radius)
     : BRepPrim_Revolution(gp_Ax2(Center, gp_Dir(0, 0, 1), gp_Dir(1, 0, 0)), PMIN, PMAX),
       myRadius(Radius)
 {

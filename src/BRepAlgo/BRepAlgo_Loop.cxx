@@ -161,7 +161,7 @@ void BRepAlgo_Loop::SetImageVV(const BRepAlgo_Image& theImageVV)
 static TopoDS_Vertex UpdateClosedEdge(const TopoDS_Edge& E, TopTools_SequenceOfShape& SV)
 {
   TopoDS_Vertex    VB[2], V1, V2, VRes;
-  gp_Pnt           P, PC;
+  Point3d           P, PC;
   Standard_Boolean OnStart = 0, OnEnd = 0;
   //// modified by jgv, 13.04.04 for OCC5634 ////
   TopExp::Vertices(E, V1, V2);
@@ -453,7 +453,7 @@ static void StoreInMVE(const TopoDS_Face&                         F,
   TopoDS_Vertex        V1, V2, V;
   TopTools_ListOfShape Empty;
 
-  gp_Pnt       P1, P;
+  Point3d       P1, P;
   BRep_Builder BB;
   for (Standard_Integer iV = 1; iV <= MVE.Extent(); iV++)
   {
@@ -1040,14 +1040,14 @@ void BRepAlgo_Loop::UpdateVEmap(TopTools_IndexedDataMapOfShapeListOfShape& theVE
       const TopoDS_Vertex& aVertex = TopoDS::Vertex(itl.Value());
       Standard_Real        aTol    = BRep_Tool::Tolerance(aVertex);
       aMaxTol                      = Max(aMaxTol, aTol);
-      gp_Pnt aPnt                  = BRep_Tool::Pnt(aVertex);
+      Point3d aPnt                  = BRep_Tool::Pnt(aVertex);
       Points(++jj)                 = aPnt;
     }
 
     gp_Ax2           anAxis;
     Standard_Boolean IsSingular;
     GeomLib::AxeOfInertia(Points, anAxis, IsSingular);
-    gp_Pnt        aCentre  = anAxis.Location();
+    Point3d        aCentre  = anAxis.Location();
     Standard_Real aMaxDist = 0.;
     for (jj = 1; jj <= Points.Upper(); jj++)
     {

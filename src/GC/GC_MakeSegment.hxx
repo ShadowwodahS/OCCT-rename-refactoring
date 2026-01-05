@@ -24,7 +24,7 @@
 #include <GC_Root.hxx>
 #include <Geom_TrimmedCurve.hxx>
 
-class gp_Pnt;
+class Point3d;
 class gp_Lin;
 
 //! Implements construction algorithms for a line
@@ -43,7 +43,7 @@ public:
 
   //! Make a segment of Line from the 2 points <P1> and <P2>.
   //! It returns NullObject if <P1> and <P2> are confused.
-  Standard_EXPORT GC_MakeSegment(const gp_Pnt& P1, const gp_Pnt& P2);
+  Standard_EXPORT GC_MakeSegment(const Point3d& P1, const Point3d& P2);
 
   //! Make a segment of Line from the line <Line1>
   //! between the two parameters U1 and U2.
@@ -56,13 +56,13 @@ public:
   //! between the point <Point> and the parameter Ulast.
   //! It returns NullObject if <U1> is equal <U2>.
   Standard_EXPORT GC_MakeSegment(const gp_Lin&       Line,
-                                 const gp_Pnt&       Point,
+                                 const Point3d&       Point,
                                  const Standard_Real Ulast);
 
   //! Make a segment of Line from the line <Line1>
   //! between the two points <P1> and <P2>.
   //! It returns NullObject if <U1> is equal <U2>.
-  Standard_EXPORT GC_MakeSegment(const gp_Lin& Line, const gp_Pnt& P1, const gp_Pnt& P2);
+  Standard_EXPORT GC_MakeSegment(const gp_Lin& Line, const Point3d& P1, const Point3d& P2);
 
   //! Returns the constructed line segment.
   Standard_EXPORT const Handle(Geom_TrimmedCurve)& Value() const;

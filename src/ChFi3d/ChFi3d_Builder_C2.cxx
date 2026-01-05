@@ -264,8 +264,8 @@ Standard_Boolean ChFi3d_Builder::PerformTwoCornerbyInter(const Standard_Integer 
       parCP2 = ext.Point(1).Parameter();
     }
   }
-  gp_Pnt        psp1      = Hpivot->Value(parCP1);
-  gp_Pnt        psp2      = Hpivot->Value(parCP2);
+  Point3d        psp1      = Hpivot->Value(parCP1);
+  Point3d        psp2      = Hpivot->Value(parCP2);
   Standard_Real sameparam = (psp1.Distance(psp2) < 10.0 * tolapp3d);
 
   TopoDS_Face                        FF1 = TopoDS::Face(DStr.Shape(Fd1->Index(IFaArc1)));
@@ -318,7 +318,7 @@ Standard_Boolean ChFi3d_Builder::PerformTwoCornerbyInter(const Standard_Integer 
     UV           = Fd2->Interference(IFaCo2).PCurveOnSurf()->Value(UIntPC2);
     Pardeb(3)    = UV.X();
     Pardeb(4)    = UV.Y();
-    gp_Pnt PFaCo = HS1->Value(Pardeb(1), Pardeb(2));
+    Point3d PFaCo = HS1->Value(Pardeb(1), Pardeb(2));
 
     // Side arc, calculation of Parfin.
     Standard_Real UIntArc1 = Fd1->Interference(IFaArc1).Parameter(isfirst1);
@@ -508,7 +508,7 @@ Standard_Boolean ChFi3d_Builder::PerformTwoCornerbyInter(const Standard_Integer 
     UVi          = SmaFD->Interference(IFaCoSma).PCurveOnSurf()->Value(UIntPCSma);
     Pardeb(1)    = UVi.X();
     Pardeb(2)    = UVi.Y();
-    gp_Pnt PFaCo = SmaHS->Value(UVi.X(), UVi.Y());
+    Point3d PFaCo = SmaHS->Value(UVi.X(), UVi.Y());
 
     // Parfin (parameters of point PMil)
     const ChFiDS_FaceInterference& FiArcSma = SmaFD->Interference(IFaArcSma);
@@ -549,7 +549,7 @@ Standard_Boolean ChFi3d_Builder::PerformTwoCornerbyInter(const Standard_Integer 
     UVi         = FiArcSma.PCurveOnSurf()->Value(wi);
     Parfin(1)   = UVi.X();
     Parfin(2)   = UVi.Y();
-    gp_Pnt PMil = SmaHS->Value(Parfin(1), Parfin(2));
+    Point3d PMil = SmaHS->Value(Parfin(1), Parfin(2));
 
     Standard_Real tolreached;
     if (!ChFi3d_ComputeCurves(SmaHS,

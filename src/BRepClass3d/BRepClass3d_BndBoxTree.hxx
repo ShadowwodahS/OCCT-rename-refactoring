@@ -44,7 +44,7 @@ public:
   Standard_Boolean Accept(const Standard_Integer& theObj);
 
   // Sets current point for boxes-point collisions.
-  void SetCurrentPoint(const gp_Pnt& theP) { myP = theP; }
+  void SetCurrentPoint(const Point3d& theP) { myP = theP; }
 
 private:
   BRepClass3d_BndBoxTreeSelectorPoint(const BRepClass3d_BndBoxTreeSelectorPoint&);
@@ -52,7 +52,7 @@ private:
 
 private:
   const TopTools_IndexedMapOfShape& myMapOfShape; // shapes (vertices + edges)
-  gp_Pnt                            myP;
+  Point3d                            myP;
 };
 
 // Class representing tree selector for line object.

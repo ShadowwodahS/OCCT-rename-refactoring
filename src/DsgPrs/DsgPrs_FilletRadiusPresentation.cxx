@@ -39,16 +39,16 @@ void DsgPrs_FilletRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPre
                                           const Handle(Prs3d_Drawer)&       aDrawer,
                                           const Standard_Real               theval,
                                           const TCollection_ExtendedString& aText,
-                                          const gp_Pnt&                     aPosition,
+                                          const Point3d&                     aPosition,
                                           const gp_Dir&                     aNormalDir,
-                                          const gp_Pnt&                     aBasePnt,
-                                          const gp_Pnt&                     aFirstPoint,
-                                          const gp_Pnt&                     aSecondPoint,
-                                          const gp_Pnt&                     aCenter,
+                                          const Point3d&                     aBasePnt,
+                                          const Point3d&                     aFirstPoint,
+                                          const Point3d&                     aSecondPoint,
+                                          const Point3d&                     aCenter,
                                           const DsgPrs_ArrowSide            ArrowPrs,
                                           const Standard_Boolean            drawRevers,
-                                          gp_Pnt&                           DrawPosition,
-                                          gp_Pnt&                           EndOfArrow,
+                                          Point3d&                           DrawPosition,
+                                          Point3d&                           EndOfArrow,
                                           Handle(Geom_TrimmedCurve)&        TrimCurve,
                                           Standard_Boolean&                 HasCircle)
 {
@@ -59,7 +59,7 @@ void DsgPrs_FilletRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPre
   Standard_Boolean SpecCase;
   gp_Dir           DirOfArrow;
   gp_Circ          FilletCirc;
-  //  gp_Pnt NewPosition, EndOfArrow;
+  //  Point3d NewPosition, EndOfArrow;
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
 

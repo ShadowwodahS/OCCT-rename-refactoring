@@ -170,7 +170,7 @@ Standard_Integer UpdateClosedPCurve(const TopoDS_Edge&              aEold,
   Standard_Real               aT1, aT2, aTol;
   gp_Pnt2d                    aP2DS1, aP2DS2, aP2D;
   gp_Vec2d                    aV2DT, aV2D, aV2DS1, aV2DS2;
-  gp_Pnt                      aP;
+  Point3d                      aP;
   Handle(Geom2d_Curve)        aC2D, aC2DS1, aC2DS2, aC2Dnew, aC2DoldCT;
   Handle(Geom2d_Curve)        aC2Dold;
   Handle(Geom2d_TrimmedCurve) aC2DTnew;

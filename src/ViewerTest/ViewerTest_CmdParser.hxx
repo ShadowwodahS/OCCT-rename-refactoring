@@ -24,7 +24,7 @@
 #include <string>
 
 class gp_Vec;
-class gp_Pnt;
+class Point3d;
 
 //! A key for a command line option used for a ViewerTest_CmdParser work
 typedef std::size_t ViewerTest_CommandOptionKey;
@@ -164,7 +164,7 @@ public:
 
   // Interprets arguments of option 'theOptionName' as gp vector starting with index
   // 'theArgumentIndex'.
-  gp_Pnt ArgPnt(const std::string&     theOptionName,
+  Point3d ArgPnt(const std::string&     theOptionName,
                 const Standard_Integer theArgumentIndex = 0) const;
 
   // Interprets arguments of option 'theOptionName' as double at index 'theArgumentIndex'.

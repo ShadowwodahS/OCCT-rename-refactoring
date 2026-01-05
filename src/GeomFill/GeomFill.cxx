@@ -240,7 +240,7 @@ void GeomFill::GetMinimalWeights(const Convert_ParameterisationType TConv,
     Weights.Init(1);
   else
   {
-    gp_Ax2                    popAx2(gp_Pnt(0, 0, 0), gp_Dir(0, 0, 1));
+    gp_Ax2                    popAx2(Point3d(0, 0, 0), gp_Dir(0, 0, 1));
     gp_Circ                   C(popAx2, 1);
     Handle(Geom_TrimmedCurve) Sect1   = new Geom_TrimmedCurve(new Geom_Circle(C), 0., MaxAng);
     Handle(Geom_BSplineCurve) CtoBspl = GeomConvert::CurveToBSplineCurve(Sect1, TConv);
@@ -326,7 +326,7 @@ Standard_Real GeomFill::GetTolerance(const Convert_ParameterisationType TConv,
                                      const Standard_Real                AngularTol,
                                      const Standard_Real                SpatialTol)
 {
-  gp_Ax2                    popAx2(gp_Pnt(0, 0, 0), gp_Dir(0, 0, 1));
+  gp_Ax2                    popAx2(Point3d(0, 0, 0), gp_Dir(0, 0, 1));
   gp_Circ                   C(popAx2, Radius);
   Handle(Geom_Circle)       popCircle = new Geom_Circle(C);
   Handle(Geom_TrimmedCurve) Sect      = new Geom_TrimmedCurve(popCircle, 0., Max(AngleMin, 0.02));
@@ -350,10 +350,10 @@ void GeomFill::GetCircle(const Convert_ParameterisationType TConv,
                          const gp_Vec&         ns1,   // Normal rentrente au premier point
                          const gp_Vec&         ns2,   // Normal rentrente au second point
                          const gp_Vec&         nplan, // Normal au plan
-                         const gp_Pnt&         pts1,
-                         const gp_Pnt&         pts2,
+                         const Point3d&         pts1,
+                         const Point3d&         pts2,
                          const Standard_Real   Rayon, // Rayon (doit etre positif)
-                         const gp_Pnt&         Center,
+                         const Point3d&         Center,
                          TColgp_Array1OfPnt&   Poles,
                          TColStd_Array1OfReal& Weights)
 {
@@ -446,13 +446,13 @@ Standard_Boolean GeomFill::GetCircle(const Convert_ParameterisationType TConv,
                                      const gp_Vec&                      dn2w,
                                      const gp_Vec&                      nplan,
                                      const gp_Vec&                      dnplan,
-                                     const gp_Pnt&                      pts1,
-                                     const gp_Pnt&                      pts2,
+                                     const Point3d&                      pts1,
+                                     const Point3d&                      pts2,
                                      const gp_Vec&                      tang1,
                                      const gp_Vec&                      tang2,
                                      const Standard_Real                Rayon,
                                      const Standard_Real                DRayon,
-                                     const gp_Pnt&                      Center,
+                                     const Point3d&                      Center,
                                      const gp_Vec&                      DCenter,
                                      TColgp_Array1OfPnt&                Poles,
                                      TColgp_Array1OfVec&                DPoles,
@@ -603,8 +603,8 @@ Standard_Boolean GeomFill::GetCircle(const Convert_ParameterisationType TConv,
                                      const gp_Vec&                      nplan,
                                      const gp_Vec&                      dnplan,
                                      const gp_Vec&                      d2nplan,
-                                     const gp_Pnt&                      pts1,
-                                     const gp_Pnt&                      pts2,
+                                     const Point3d&                      pts1,
+                                     const Point3d&                      pts2,
                                      const gp_Vec&                      tang1,
                                      const gp_Vec&                      tang2,
                                      const gp_Vec&                      Dtang1,
@@ -612,7 +612,7 @@ Standard_Boolean GeomFill::GetCircle(const Convert_ParameterisationType TConv,
                                      const Standard_Real                Rayon,
                                      const Standard_Real                DRayon,
                                      const Standard_Real                D2Rayon,
-                                     const gp_Pnt&                      Center,
+                                     const Point3d&                      Center,
                                      const gp_Vec&                      DCenter,
                                      const gp_Vec&                      D2Center,
                                      TColgp_Array1OfPnt&                Poles,

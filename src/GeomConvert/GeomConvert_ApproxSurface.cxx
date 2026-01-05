@@ -122,7 +122,7 @@ void GeomConvert_ApproxSurface_Eval::Evaluate(Standard_Integer* Dimension,
     }*/
 
   Standard_Integer Order = *UOrder + *VOrder;
-  gp_Pnt           pnt;
+  Point3d           pnt;
   gp_Vec           vect, v1, v2, v3, v4, v5, v6, v7, v8, v9;
 
   if (*FavorIso == 1)

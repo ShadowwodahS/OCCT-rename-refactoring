@@ -20,6 +20,6 @@
 #include <gp_Pnt.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<gp_Pnt> TColgp_Array1OfPnt;
+typedef NCollection_Array1<Point3d> TColgp_Array1OfPnt;
 
 #endif

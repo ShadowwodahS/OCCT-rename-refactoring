@@ -32,7 +32,7 @@ class Geom2d_Curve;
 class gp_Pnt2d;
 class TopoDS_Vertex;
 class gp_Vec2d;
-class gp_Pnt;
+class Point3d;
 
 // resolve name collisions with X11 headers
 #ifdef Status
@@ -249,10 +249,10 @@ private:
   //! (preci1 and preci2).
   //! P1 are the points either from 3d curve or from vertices,
   //! P2 are the points from pcurve
-  Standard_EXPORT Standard_Boolean CheckPoints(const gp_Pnt&       P1A,
-                                               const gp_Pnt&       P1B,
-                                               const gp_Pnt&       P2A,
-                                               const gp_Pnt&       P2B,
+  Standard_EXPORT Standard_Boolean CheckPoints(const Point3d&       P1A,
+                                               const Point3d&       P1B,
+                                               const Point3d&       P2A,
+                                               const Point3d&       P2B,
                                                const Standard_Real preci1,
                                                const Standard_Real preci2);
 };

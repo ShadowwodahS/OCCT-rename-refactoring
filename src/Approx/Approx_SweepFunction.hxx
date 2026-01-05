@@ -29,7 +29,7 @@
 #include <TColgp_Array1OfPnt2d.hxx>
 #include <TColgp_Array1OfVec.hxx>
 #include <TColgp_Array1OfVec2d.hxx>
-class gp_Pnt;
+class Point3d;
 
 class Approx_SweepFunction;
 DEFINE_STANDARD_HANDLE(Approx_SweepFunction, RefObject)
@@ -138,7 +138,7 @@ public:
   //! An very poor estimation is sufficient.
   //! This information is useful to perform well conditioned rational approximation.
   //! Warning: Used only if <me> IsRational
-  Standard_EXPORT virtual gp_Pnt BarycentreOfSurf() const;
+  Standard_EXPORT virtual Point3d BarycentreOfSurf() const;
 
   //! Returns the length of the greater section.
   //!  Thisinformation is useful to G1's control.

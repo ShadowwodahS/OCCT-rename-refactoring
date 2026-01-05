@@ -483,7 +483,7 @@ Standard_EXPORT Standard_Boolean FDS_Config3d(const TopoDS_Shape&  E1,
 {
   Standard_Boolean same = Standard_True;
 
-  gp_Pnt           PE1;
+  Point3d           PE1;
   Standard_Real    pE1;
   Standard_Boolean ok1 = FUN_tool_findPinE(TopoDS::Edge(E1), PE1, pE1);
   gp_Vec           VE1;
@@ -976,7 +976,7 @@ Standard_EXPORT void FUN_ds_completeforSE2(const Handle(TopOpeBRepDS_HDataStruct
         Standard_Real OOpar = 0.;
         if (point)
         {
-          gp_Pnt           p3d = BDS.Point(G).Point();
+          Point3d           p3d = BDS.Point(G).Point();
           Standard_Real    t1  = BDS.Point(G).Tolerance();
           Standard_Real    t2  = FUN_tool_maxtol(ES);
           Standard_Real    t   = (t1 > t2) ? t1 : t2;
@@ -1017,7 +1017,7 @@ Standard_EXPORT void FUN_ds_completeforSE2(const Handle(TopOpeBRepDS_HDataStruct
               Standard_Real    t1 = BRep_Tool::Tolerance(vG);
               Standard_Real    t2 = FUN_tool_maxtol(ES);
               Standard_Real    t  = (t1 > t2) ? t1 : t2;
-              gp_Pnt           p  = BRep_Tool::Pnt(vG);
+              Point3d           p  = BRep_Tool::Pnt(vG);
               Standard_Real    parES, dd = 1.e1;
               Standard_Boolean ok = FUN_tool_projPonE(p, ES, parES, dd);
               if (!ok)
@@ -1277,7 +1277,7 @@ Standard_EXPORT Standard_Boolean FUN_ds_shareG(const Handle(TopOpeBRepDS_HDataSt
   FUN_tool_bounds(Esp, f, l);
   Standard_Real    x   = 0.45678;
   Standard_Real    par = (1 - x) * f + x * l;
-  gp_Pnt           P;
+  Point3d           P;
   Standard_Boolean ok = FUN_tool_value(par, Esp, P);
   if (!ok)
     return Standard_False;
@@ -1372,7 +1372,7 @@ Standard_EXPORT Standard_Boolean FUN_ds_mkTonFsdm(const Handle(TopOpeBRepDS_HDat
   // beafter :
   // ---------
   Standard_Boolean ok = Standard_False;
-  gp_Pnt           P;
+  Point3d           P;
   Standard_Real    parEG = 0.0;
   if (pardef)
     parEG = paronEG;
@@ -2534,13 +2534,13 @@ Standard_EXPORT void FUN_ds_PointToVertex(const Handle(TopOpeBRepDS_HDataStructu
       if (Gfaulty)
       {
         // in DS : pG --> vG
-        gp_Pnt             pG   = BDS.Point(G).Point();
+        Point3d             pG   = BDS.Point(G).Point();
         Standard_Integer   rkES = BDS.AncestorRank(Scur);
         const TopoDS_Edge& ES   = TopoDS::Edge(BDS.Shape(Scur));
         TopoDS_Vertex      vf, vl;
         TopExp::Vertices(ES, vf, vl);
-        gp_Pnt        pf = BRep_Tool::Pnt(vf);
-        gp_Pnt        pl = BRep_Tool::Pnt(vl);
+        Point3d        pf = BRep_Tool::Pnt(vf);
+        Point3d        pl = BRep_Tool::Pnt(vl);
         Standard_Real df = pf.Distance(pG);
         Standard_Real dl = pl.Distance(pG);
         TopoDS_Vertex vG;
@@ -2874,7 +2874,7 @@ Standard_EXPORT Standard_Boolean FUN_ds_ONesd(const TopOpeBRepDS_DataStructure& 
   FUN_tool_bounds(TopoDS::Edge(EspON), f, l);
   Standard_Real    x   = 0.456789;
   Standard_Real    par = (1 - x) * f + x * l;
-  gp_Pnt           p3d;
+  Point3d           p3d;
   Standard_Boolean ok = FUN_tool_value(par, TopoDS::Edge(EspON), p3d);
   if (!ok)
     return Standard_False;
@@ -3136,9 +3136,9 @@ Standard_EXPORT Standard_Boolean FDS_stateEwithF2d(const TopOpeBRepDS_DataStruct
     return Standard_False;
   Standard_Real t1 = 0.0, t2 = 0.0;
   ok = FDS_parbefaft(BDS, E, pE, pbef, paft, isonper, t1, t2);
-  gp_Pnt           P1;
+  Point3d           P1;
   Standard_Boolean ok1 = FUN_tool_value(t1, E, P1);
-  gp_Pnt           P2;
+  Point3d           P2;
   Standard_Boolean ok2 = FUN_tool_value(t2, E, P2);
   if (!ok1 || !ok2)
     return Standard_False;

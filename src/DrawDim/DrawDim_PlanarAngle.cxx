@@ -155,7 +155,7 @@ void DrawDim_PlanarAngle::DrawOn(Draw_Display& dis) const
   // affichage
   dis.Draw(circle, p1, p2);
   Standard_Real ptext   = (p1 + p2) / 2;
-  gp_Pnt        pnttext = ElCLib::Value(ptext, circle);
+  Point3d        pnttext = ElCLib::Value(ptext, circle);
   //
   DrawText(pnttext, dis);
 }

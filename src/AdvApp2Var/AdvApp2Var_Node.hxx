@@ -53,13 +53,13 @@ public:
   Standard_Integer VOrder() const { return myOrdInV; }
 
   //! affects the value F(U,V) or its derivates on the node (U,V)
-  void SetPoint(const Standard_Integer iu, const Standard_Integer iv, const gp_Pnt& Pt)
+  void SetPoint(const Standard_Integer iu, const Standard_Integer iv, const Point3d& Pt)
   {
     myTruePoints.SetValue(iu, iv, Pt);
   }
 
   //! returns the value F(U,V) or its derivates on the node (U,V)
-  const gp_Pnt& Point(const Standard_Integer iu, const Standard_Integer iv) const
+  const Point3d& Point(const Standard_Integer iu, const Standard_Integer iv) const
   {
     return myTruePoints.Value(iu, iv);
   }

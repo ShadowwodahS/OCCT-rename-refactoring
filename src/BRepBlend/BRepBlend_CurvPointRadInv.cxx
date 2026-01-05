@@ -48,7 +48,7 @@ Standard_Integer BRepBlend_CurvPointRadInv::NbEquations() const
 Standard_Boolean BRepBlend_CurvPointRadInv::Value(const math_Vector& X, math_Vector& F)
 {
   Standard_Real theD;
-  gp_Pnt        ptcur1, ptcur2;
+  Point3d        ptcur1, ptcur2;
   gp_Vec        d1cur1, d1cur2;
   gp_XYZ        nplan; //, ref;
   curv1->D1(X(1), ptcur1, d1cur1);
@@ -64,7 +64,7 @@ Standard_Boolean BRepBlend_CurvPointRadInv::Value(const math_Vector& X, math_Vec
 
 Standard_Boolean BRepBlend_CurvPointRadInv::Derivatives(const math_Vector& X, math_Matrix& D)
 {
-  gp_Pnt        ptcur1, ptcur2;
+  Point3d        ptcur1, ptcur2;
   gp_Vec        d1cur1, d2cur1, d1cur2, nplan, dnplan;
   Standard_Real dtheD, normd1cur1, unsurnormd1cur1;
 
@@ -99,7 +99,7 @@ Standard_Boolean BRepBlend_CurvPointRadInv::Values(const math_Vector& X,
 
 //=================================================================================================
 
-void BRepBlend_CurvPointRadInv::Set(const gp_Pnt& P)
+void BRepBlend_CurvPointRadInv::Set(const Point3d& P)
 {
   point = P;
 }

@@ -50,7 +50,7 @@ inline void BRep_TVertex::UpdateTolerance(const Standard_Real T)
 // purpose  :
 //=======================================================================
 
-inline const gp_Pnt& BRep_TVertex::Pnt() const
+inline const Point3d& BRep_TVertex::Pnt() const
 {
   return myPnt;
 }
@@ -60,7 +60,7 @@ inline const gp_Pnt& BRep_TVertex::Pnt() const
 // purpose  :
 //=======================================================================
 
-inline void BRep_TVertex::Pnt(const gp_Pnt& P)
+inline void BRep_TVertex::Pnt(const Point3d& P)
 {
   myPnt = P;
 }

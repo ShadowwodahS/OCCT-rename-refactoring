@@ -21,7 +21,7 @@ void SelectMgr_ViewClipRange::AddClippingPlanes(const Graphic3d_SequenceOfHClipP
                                                 const gp_Ax1&                         thePickRay)
 {
   const gp_Dir& aViewRayDir = thePickRay.Direction();
-  const gp_Pnt& aNearPnt    = thePickRay.Location();
+  const Point3d& aNearPnt    = thePickRay.Location();
 
   Graphic3d_Vec4d aPlaneABCD;
   for (Graphic3d_SequenceOfHClipPlane::Iterator aPlaneIt(thePlanes); aPlaneIt.More();
@@ -60,7 +60,7 @@ void SelectMgr_ViewClipRange::AddClippingPlanes(const Graphic3d_SequenceOfHClipP
         // compute distance to point of pick line intersection with the plane
         const Standard_Real aParam = aDistance / aDotProduct;
 
-        const gp_Pnt anIntersectionPnt = aNearPnt.XYZ() + aViewRayDir.XYZ() * aParam;
+        const Point3d anIntersectionPnt = aNearPnt.XYZ() + aViewRayDir.XYZ() * aParam;
         aDistToPln                     = anIntersectionPnt.Distance(aNearPnt);
         if (aParam < 0.0)
         {

@@ -32,7 +32,7 @@
 #include <BRepPrim_Direction.hxx>
 class gp_Pln;
 class gp_Lin;
-class gp_Pnt;
+class Point3d;
 
 //! A wedge is defined by:
 //!
@@ -204,7 +204,7 @@ public:
 
   //! Returns the point of the Vertex of <me> located in
   //! <d1><d2><d3> direction.
-  Standard_EXPORT gp_Pnt Point(const BRepPrim_Direction d1,
+  Standard_EXPORT Point3d Point(const BRepPrim_Direction d1,
                                const BRepPrim_Direction d2,
                                const BRepPrim_Direction d3);
 

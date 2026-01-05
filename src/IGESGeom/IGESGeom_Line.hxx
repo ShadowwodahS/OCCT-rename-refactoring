@@ -23,7 +23,7 @@
 #include <gp_XYZ.hxx>
 #include <IGESData_IGESEntity.hxx>
 #include <Standard_Integer.hxx>
-class gp_Pnt;
+class Point3d;
 
 class IGESGeom_Line;
 DEFINE_STANDARD_HANDLE(IGESGeom_Line, IGESData_IGESEntity)
@@ -57,16 +57,16 @@ public:
   Standard_EXPORT void SetInfinite(const Standard_Integer status);
 
   //! returns the start point of the line
-  Standard_EXPORT gp_Pnt StartPoint() const;
+  Standard_EXPORT Point3d StartPoint() const;
 
   //! returns the start point of the line after applying Transf. Matrix
-  Standard_EXPORT gp_Pnt TransformedStartPoint() const;
+  Standard_EXPORT Point3d TransformedStartPoint() const;
 
   //! returns the end point of the line
-  Standard_EXPORT gp_Pnt EndPoint() const;
+  Standard_EXPORT Point3d EndPoint() const;
 
   //! returns the end point of the line after applying Transf. Matrix
-  Standard_EXPORT gp_Pnt TransformedEndPoint() const;
+  Standard_EXPORT Point3d TransformedEndPoint() const;
 
   DEFINE_STANDARD_RTTIEXT(IGESGeom_Line, IGESData_IGESEntity)
 

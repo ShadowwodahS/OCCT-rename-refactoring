@@ -31,7 +31,7 @@ class Standard_TypeMismatch;
 class Adaptor3d_Curve;
 class Extrema_CurveTool;
 class Extrema_POnCurv;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 
 class Extrema_PCLocFOfLocEPCOfLocateExtPC : public math_FunctionWithDerivative
@@ -41,13 +41,13 @@ public:
 
   Standard_EXPORT Extrema_PCLocFOfLocEPCOfLocateExtPC();
 
-  Standard_EXPORT Extrema_PCLocFOfLocEPCOfLocateExtPC(const gp_Pnt& P, const Adaptor3d_Curve& C);
+  Standard_EXPORT Extrema_PCLocFOfLocEPCOfLocateExtPC(const Point3d& P, const Adaptor3d_Curve& C);
 
   //! sets the field mycurve of the function.
   Standard_EXPORT void Initialize(const Adaptor3d_Curve& C);
 
   //! sets the field P of the function.
-  Standard_EXPORT void SetPoint(const gp_Pnt& P);
+  Standard_EXPORT void SetPoint(const Point3d& P);
 
   //! Calculation of F(U).
   Standard_EXPORT Standard_Boolean Value(const Standard_Real U, Standard_Real& F) Standard_OVERRIDE;
@@ -86,10 +86,10 @@ public:
 
 protected:
 private:
-  gp_Pnt                    myP;
+  Point3d                    myP;
   Standard_Address          myC;
   Standard_Real             myU;
-  gp_Pnt                    myPc;
+  Point3d                    myPc;
   Standard_Real             myD1f;
   TColStd_SequenceOfReal    mySqDist;
   TColStd_SequenceOfInteger myIsMin;

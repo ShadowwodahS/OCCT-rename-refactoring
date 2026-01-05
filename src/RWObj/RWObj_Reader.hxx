@@ -161,12 +161,12 @@ protected:
                                    const RWObj_SubMeshReason theReason) = 0;
 
   //! Retrieve sub-mesh node position, added by addNode().
-  virtual gp_Pnt getNode(Standard_Integer theIndex) const = 0;
+  virtual Point3d getNode(Standard_Integer theIndex) const = 0;
 
   //! Callback function to be implemented in descendant.
   //! Should create new node with specified coordinates in the target model, and return its ID as
   //! integer.
-  virtual Standard_Integer addNode(const gp_Pnt& thePnt) = 0;
+  virtual Standard_Integer addNode(const Point3d& thePnt) = 0;
 
   //! Callback function to be implemented in descendant.
   //! Should set normal coordinates for specified node.
@@ -194,11 +194,11 @@ private:
   void pushVertex(const char* theXYZ)
   {
     char*  aNext = NULL;
-    gp_Pnt anXYZ;
+    Point3d anXYZ;
     RWObj_Tools::ReadVec3(theXYZ, aNext, anXYZ.ChangeCoord());
     myCSTrsf.TransformPosition(anXYZ.ChangeCoord());
 
-    myMemEstim += myObjVerts.IsSinglePrecision() ? sizeof(Graphic3d_Vec3) : sizeof(gp_Pnt);
+    myMemEstim += myObjVerts.IsSinglePrecision() ? sizeof(Graphic3d_Vec3) : sizeof(Point3d);
     myObjVerts.Append(anXYZ);
   }
 
@@ -315,7 +315,7 @@ protected:
       }
       else
       {
-        myPntVec = new NCollection_Shared<NCollection_Vector<gp_Pnt>>();
+        myPntVec = new NCollection_Shared<NCollection_Vector<Point3d>>();
       }
     }
 
@@ -329,12 +329,12 @@ protected:
     }
 
     //! Return point with the given index.
-    gp_Pnt Value(Standard_Integer theIndex) const
+    Point3d Value(Standard_Integer theIndex) const
     {
       if (myIsSinglePrecision)
       {
         const Graphic3d_Vec3& aPnt = myVec3Vec->Value(theIndex);
-        return gp_Pnt(aPnt.x(), aPnt.y(), aPnt.z());
+        return Point3d(aPnt.x(), aPnt.y(), aPnt.z());
       }
       else
       {
@@ -343,7 +343,7 @@ protected:
     }
 
     //! Append new point.
-    void Append(const gp_Pnt& thePnt)
+    void Append(const Point3d& thePnt)
     {
       if (myIsSinglePrecision)
       {
@@ -356,7 +356,7 @@ protected:
     }
 
   private:
-    Handle(NCollection_Shared<NCollection_Vector<gp_Pnt>>)         myPntVec;
+    Handle(NCollection_Shared<NCollection_Vector<Point3d>>)         myPntVec;
     Handle(NCollection_Shared<NCollection_Vector<Graphic3d_Vec3>>) myVec3Vec;
     Standard_Boolean                                               myIsSinglePrecision;
   };

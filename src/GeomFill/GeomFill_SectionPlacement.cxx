@@ -52,7 +52,7 @@
 
 static void Tangente(const Adaptor3d_Curve& Path,
                      const Standard_Real    Param,
-                     gp_Pnt&                P,
+                     Point3d&                P,
                      gp_Vec&                Tang)
 {
   Path.D1(Param, P, Tang);
@@ -111,7 +111,7 @@ static void DistMini(const Extrema_ExtPC&   Ext,
 {
   Standard_Real    dist1, dist2;
   Standard_Integer ii;
-  gp_Pnt           P1, P2;
+  Point3d           P1, P2;
   Standard_Real    Dist2 = RealLast();
 
   Ext.TrimmedSquareDistances(dist1, dist2, P1, P2);
@@ -192,7 +192,7 @@ GeomFill_SectionPlacement::GeomFill_SectionPlacement(const Handle(GeomFill_Locat
   // Initialisation de TheAxe pour les cas singulier
   if (!myIsPoint)
   {
-    gp_Pnt P;
+    Point3d P;
     gp_Vec V;
     Tangente(myAdpSection,
              (myAdpSection.FirstParameter() + myAdpSection.LastParameter()) / 2,
@@ -387,7 +387,7 @@ void GeomFill_SectionPlacement::Perform(const Handle(Adaptor3d_Curve)& Path,
     SecParam  = myAdpSection.FirstParameter();
 
     Standard_Real distaux, taux = 0.0, alpha;
-    gp_Pnt        PonPath, PonSec, P;
+    Point3d        PonPath, PonSec, P;
     gp_Vec        VRef, dp1;
     VRef.SetXYZ(TheAxe.Direction().XYZ());
 
@@ -419,7 +419,7 @@ void GeomFill_SectionPlacement::Perform(const Handle(Adaptor3d_Curve)& Path,
       if (DistPlan <= IntTol)
         DistCenter = V1.Magnitude();
 
-      gp_Pnt Plast = Path->Value(Path->LastParameter());
+      Point3d Plast = Path->Value(Path->LastParameter());
       V1.SetXYZ(TheAxe.Location().XYZ() - Plast.XYZ());
       DistPlan = Abs(V1.Dot(VRef));
       if (DistPlan <= IntTol)
@@ -460,8 +460,8 @@ void GeomFill_SectionPlacement::Perform(const Handle(Adaptor3d_Curve)& Path,
       {
         // Comparing the distances from the path's endpoints to the best matching plane of the
         // profile.
-        const gp_Pnt  firstPoint    = Path->Value(Path->FirstParameter());
-        const gp_Pnt  lastPoint     = Path->Value(Path->LastParameter());
+        const Point3d  firstPoint    = Path->Value(Path->FirstParameter());
+        const Point3d  lastPoint     = Path->Value(Path->LastParameter());
         const gp_Pln  plane         = plan->Pln();
         Standard_Real firstDistance = plane.SquareDistance(firstPoint);
         Standard_Real lastDistance  = plane.SquareDistance(lastPoint);
@@ -499,7 +499,7 @@ void GeomFill_SectionPlacement::Perform(const Handle(Adaptor3d_Curve)& Path,
          DistPlan = Abs(V1.Dot(VRef));
 
          // On examine l'autre extremite
-         gp_Pnt P;
+         Point3d P;
          Tangente(Path->Curve(), Path->LastParameter(), P, dp1);
          V1.SetXYZ(TheAxe.Location().XYZ()-P.XYZ());
          if  (Abs(V1.Dot(VRef)) <= DistPlan ) { // On prend l'autre extremite
@@ -686,7 +686,7 @@ void GeomFill_SectionPlacement::Perform(const Standard_Real Param, const Standar
   PathParam = Param;
   if (myIsPoint)
   {
-    gp_Pnt PonPath = Path->Value(PathParam);
+    Point3d PonPath = Path->Value(PathParam);
     Dist           = PonPath.Distance(myPoint);
     AngleMax       = M_PI / 2;
   }
@@ -695,8 +695,8 @@ void GeomFill_SectionPlacement::Perform(const Standard_Real Param, const Standar
     SecParam = myAdpSection.FirstParameter();
 
     //  Standard_Real distaux, taux, alpha;
-    //  gp_Pnt PonPath, PonSec, P;
-    gp_Pnt PonPath, PonSec;
+    //  Point3d PonPath, PonSec, P;
+    Point3d PonPath, PonSec;
     gp_Vec VRef, dp1;
     VRef.SetXYZ(TheAxe.Direction().XYZ());
 
@@ -764,7 +764,7 @@ gp_Trsf GeomFill_SectionPlacement::Transformation(const Standard_Boolean WithTra
   gp_Mat M;
   gp_Dir DT, DN, D;
   // modified by NIZHNY-MKK  Fri Oct 17 15:27:07 2003
-  gp_Pnt P(0., 0., 0.), PSection(0., 0., 0.);
+  Point3d P(0., 0., 0.), PSection(0., 0., 0.);
 
   // Calcul des reperes
   myLaw->D0(PathParam, M, V);

@@ -77,13 +77,13 @@ Handle(Geom_Surface) XSDRAW_Vars::GetSurface(Standard_CString& name) const
   return DrawTrSurf::GetSurface(name);
 }
 
-void XSDRAW_Vars::SetPoint(const Standard_CString name, const gp_Pnt& val)
+void XSDRAW_Vars::SetPoint(const Standard_CString name, const Point3d& val)
 {
   // char* nam = name;
   DrawTrSurf::Set(name, val);
 }
 
-Standard_Boolean XSDRAW_Vars::GetPoint(Standard_CString& name, gp_Pnt& pnt) const
+Standard_Boolean XSDRAW_Vars::GetPoint(Standard_CString& name, Point3d& pnt) const
 { // char* nam = name;
   return DrawTrSurf::GetPoint(name, pnt);
 }

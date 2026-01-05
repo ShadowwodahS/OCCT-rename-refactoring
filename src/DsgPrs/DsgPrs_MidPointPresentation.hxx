@@ -23,7 +23,7 @@
 #include <Prs3d_Presentation.hxx>
 
 class gp_Ax2;
-class gp_Pnt;
+class Point3d;
 class gp_Circ;
 class gp_Elips;
 
@@ -37,9 +37,9 @@ public:
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Handle(Prs3d_Drawer)&       aDrawer,
                                   const gp_Ax2&                     theAxe,
-                                  const gp_Pnt&                     MidPoint,
-                                  const gp_Pnt&                     Position,
-                                  const gp_Pnt&                     AttachPoint,
+                                  const Point3d&                     MidPoint,
+                                  const Point3d&                     Position,
+                                  const Point3d&                     AttachPoint,
                                   const Standard_Boolean            first);
 
   //! draws the representation of a MidPoint between
@@ -47,11 +47,11 @@ public:
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Handle(Prs3d_Drawer)&       aDrawer,
                                   const gp_Ax2&                     theAxe,
-                                  const gp_Pnt&                     MidPoint,
-                                  const gp_Pnt&                     Position,
-                                  const gp_Pnt&                     AttachPoint,
-                                  const gp_Pnt&                     Point1,
-                                  const gp_Pnt&                     Point2,
+                                  const Point3d&                     MidPoint,
+                                  const Point3d&                     Position,
+                                  const Point3d&                     AttachPoint,
+                                  const Point3d&                     Point1,
+                                  const Point3d&                     Point2,
                                   const Standard_Boolean            first);
 
   //! draws the representation of a MidPoint between
@@ -59,11 +59,11 @@ public:
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Handle(Prs3d_Drawer)&       aDrawer,
                                   const gp_Circ&                    aCircle,
-                                  const gp_Pnt&                     MidPoint,
-                                  const gp_Pnt&                     Position,
-                                  const gp_Pnt&                     AttachPoint,
-                                  const gp_Pnt&                     Point1,
-                                  const gp_Pnt&                     Point2,
+                                  const Point3d&                     MidPoint,
+                                  const Point3d&                     Position,
+                                  const Point3d&                     AttachPoint,
+                                  const Point3d&                     Point1,
+                                  const Point3d&                     Point2,
                                   const Standard_Boolean            first);
 
   //! draws the representation of a MidPoint between
@@ -71,11 +71,11 @@ public:
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Handle(Prs3d_Drawer)&       aDrawer,
                                   const gp_Elips&                   anElips,
-                                  const gp_Pnt&                     MidPoint,
-                                  const gp_Pnt&                     Position,
-                                  const gp_Pnt&                     AttachPoint,
-                                  const gp_Pnt&                     Point1,
-                                  const gp_Pnt&                     Point2,
+                                  const Point3d&                     MidPoint,
+                                  const Point3d&                     Position,
+                                  const Point3d&                     AttachPoint,
+                                  const Point3d&                     Point1,
+                                  const Point3d&                     Point2,
                                   const Standard_Boolean            first);
 
 protected:

@@ -18,7 +18,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_TransformPersScaledAbove, Graphic3d_Transfo
 //=================================================================================================
 
 Graphic3d_TransformPersScaledAbove::Graphic3d_TransformPersScaledAbove(const Standard_Real theScale,
-                                                                       const gp_Pnt&       thePnt)
+                                                                       const Point3d&       thePnt)
     : Graphic3d_TransformPers(Graphic3d_TMF_ZoomPers, thePnt),
       myScale(theScale)
 {

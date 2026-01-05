@@ -84,7 +84,7 @@ VrmlConverter_Projector::VrmlConverter_Projector(const TopTools_Array1OfShape&  
   //  std::cout << " target: " << std::endl;
   //  std::cout << " X: " << Xtarget << " Y: " << Ytarget  << " Z: " << Ztarget  <<  std::endl;
 
-  //  gp_Pnt Target(Xtarget, Ytarget, Ztarget);
+  //  Point3d Target(Xtarget, Ytarget, Ztarget);
   //  gp_Vec VTarget(Target.X(),Target.Y(),Target.Z());
 
   gp_Dir Zpers(DX, DY, DZ);
@@ -94,7 +94,7 @@ VrmlConverter_Projector::VrmlConverter_Projector(const TopTools_Array1OfShape&  
 
   gp_Vec aVec = V.Multiplied(0.5 * diagonal + TolMin + Focus);
 
-  gp_Pnt Source;
+  Point3d Source;
   Source.SetX(Xtarget + aVec.X());
   Source.SetY(Ytarget + aVec.Y());
   Source.SetZ(Ztarget + aVec.Z());
@@ -194,7 +194,7 @@ VrmlConverter_Projector::VrmlConverter_Projector(const TopTools_Array1OfShape&  
     }
 */
 
-    gp_Pnt             CurP;
+    Point3d             CurP;
     TColgp_Array1OfPnt ArrP(1, 8);
 
     CurP.SetCoord(Xmin, Ymin, Zmin);
@@ -217,7 +217,7 @@ VrmlConverter_Projector::VrmlConverter_Projector(const TopTools_Array1OfShape&  
 
     //
     gp_Vec V1, V2;
-    gp_Pnt P1, P2;
+    Point3d P1, P2;
 
     MaxHeight = TolMin;
     MaxAngle  = TolMin;

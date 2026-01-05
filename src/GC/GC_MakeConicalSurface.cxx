@@ -57,10 +57,10 @@ GC_MakeConicalSurface::GC_MakeConicalSurface(const gp_Cone& C)
 //   the third and the fourth the half-angle.                          +
 //=========================================================================
 
-GC_MakeConicalSurface::GC_MakeConicalSurface(const gp_Pnt& P1,
-                                             const gp_Pnt& P2,
-                                             const gp_Pnt& P3,
-                                             const gp_Pnt& P4)
+GC_MakeConicalSurface::GC_MakeConicalSurface(const Point3d& P1,
+                                             const Point3d& P2,
+                                             const Point3d& P3,
+                                             const Point3d& P4)
 {
   gce_MakeCone C = gce_MakeCone(P1, P2, P3, P4);
   TheError       = C.Status();
@@ -73,8 +73,8 @@ GC_MakeConicalSurface::GC_MakeConicalSurface(const gp_Pnt& P1,
 //=========================================================================
 //=========================================================================
 
-GC_MakeConicalSurface::GC_MakeConicalSurface(const gp_Pnt&       P1,
-                                             const gp_Pnt&       P2,
+GC_MakeConicalSurface::GC_MakeConicalSurface(const Point3d&       P1,
+                                             const Point3d&       P2,
                                              const Standard_Real R1,
                                              const Standard_Real R2)
 {

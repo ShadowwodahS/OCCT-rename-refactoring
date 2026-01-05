@@ -26,7 +26,7 @@
 #include <TColStd_Array1OfReal.hxx>
 #include <IntWalk_StatusDeflection.hxx>
 
-class gp_Pnt;
+class Point3d;
 
 //! This class implements an algorithm to determine the
 //! intersection between 2 parametrized surfaces, marching from
@@ -208,7 +208,7 @@ protected:
   //! order: {U-parameter, V-parameter}
   Standard_EXPORT Standard_Boolean
     DistanceMinimizeByExtrema(const Handle(Adaptor3d_Surface)& theASurf,
-                              const gp_Pnt&                    theP0,
+                              const Point3d&                    theP0,
                               Standard_Real&                   theU0,
                               Standard_Real&                   theV0,
                               const Standard_Real*             theStep0 = 0);

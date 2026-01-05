@@ -423,7 +423,7 @@ TopoDS_Shell ShapeFix_FaceConnect::Build(const TopoDS_Shell& shell,
     // Replace old edges by resulting ones
     TopoDS_Wire   theNewW;
     TopoDS_Vertex theOldV1, theOldV2, theNewV1, theNewV2, theNewV;
-    gp_Pnt        theOldP1, theOldP2;
+    Point3d        theOldP1, theOldP2;
     Standard_Real dist1, dist2, curdist1, curdist2;
     for (TopTools_DataMapIteratorOfDataMapOfShapeListOfShape theOEIter(myOriFreeEdges);
          theOEIter.More();
@@ -474,7 +474,7 @@ TopoDS_Shell ShapeFix_FaceConnect::Build(const TopoDS_Shell& shell,
           for (TopExp_Explorer expv(theNewW, TopAbs_VERTEX); expv.More(); expv.Next())
           {
             TopoDS_Vertex theNewVtx = TopoDS::Vertex(expv.Current());
-            gp_Pnt        theNewPt  = BRep_Tool::Pnt(theNewVtx);
+            Point3d        theNewPt  = BRep_Tool::Pnt(theNewVtx);
             curdist1                = theOldP1.Distance(theNewPt);
             curdist2                = theOldP2.Distance(theNewPt);
             if (dist1 < 0 || curdist1 < dist1)
@@ -690,7 +690,7 @@ TopoDS_Shell ShapeFix_FaceConnect::Build(const TopoDS_Shell& shell,
           {
             theNewVert = TopoDS::Vertex(theRV2Iter.Key());
             // Calculate the vertex position
-            gp_Pnt theLBound, theRBound, thePosition;
+            Point3d theLBound, theRBound, thePosition;
             theLBound = theRBound = BRep_Tool::Pnt(theNewVert);
             TopTools_ListIteratorOfListOfShape theN2Iter;
             for (theN2Iter.Initialize(theRV2Iter.Value()); theN2Iter.More(); theN2Iter.Next())
@@ -712,7 +712,7 @@ TopoDS_Shell ShapeFix_FaceConnect::Build(const TopoDS_Shell& shell,
               else if (val > theRBound.Z())
                 theRBound.SetZ(val);
             }
-            thePosition                = gp_Pnt((theLBound.XYZ() + theRBound.XYZ()) / 2.);
+            thePosition                = Point3d((theLBound.XYZ() + theRBound.XYZ()) / 2.);
             Standard_Real theTolerance = 0., curtoler;
             // Calculate the vertex tolerance
             for (theN2Iter.Initialize(theRV2Iter.Value()); theN2Iter.More(); theN2Iter.Next())

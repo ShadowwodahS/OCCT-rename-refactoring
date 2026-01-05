@@ -58,10 +58,10 @@ private:
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
 private:
-  gp_Pnt        myCenter;
+  Point3d        myCenter;
   Standard_Real myRad;
   gp_Dir        myDir;
-  gp_Pnt        myPnt;
+  Point3d        myPnt;
 };
 
 #endif // _PrsDim_ConcentricRelation_HeaderFile

@@ -37,7 +37,7 @@
 void DsgPrs_DiameterPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                       const Handle(Prs3d_Drawer)&       aDrawer,
                                       const TCollection_ExtendedString& aText,
-                                      const gp_Pnt&                     AttachmentPoint,
+                                      const Point3d&                     AttachmentPoint,
                                       const gp_Circ&                    aCircle,
                                       const DsgPrs_ArrowSide            ArrowPrs,
                                       const Standard_Boolean            IsDiamSymbol)
@@ -46,17 +46,17 @@ void DsgPrs_DiameterPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
 
   Standard_Real parat    = ElCLib::Parameter(aCircle, AttachmentPoint);
-  gp_Pnt        ptoncirc = ElCLib::Value(parat, aCircle);
+  Point3d        ptoncirc = ElCLib::Value(parat, aCircle);
 
   // sideline
-  gp_Pnt center = aCircle.Location();
+  Point3d center = aCircle.Location();
   gp_Vec vecrap(ptoncirc, center);
 
   Standard_Real    dist    = center.Distance(AttachmentPoint);
   Standard_Real    aRadius = aCircle.Radius();
   Standard_Boolean inside  = (dist < aRadius);
 
-  gp_Pnt pt1 = AttachmentPoint;
+  Point3d pt1 = AttachmentPoint;
   if (inside)
   {
     pt1  = ptoncirc;
@@ -64,7 +64,7 @@ void DsgPrs_DiameterPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
   }
   vecrap.Normalize();
   vecrap *= (dist + aRadius);
-  gp_Pnt OppositePoint = pt1.Translated(vecrap);
+  Point3d OppositePoint = pt1.Translated(vecrap);
 
   Handle(Graphic3d_ArrayOfSegments) aPrims = new Graphic3d_ArrayOfSegments(2);
   aPrims->AddVertex(pt1);
@@ -83,7 +83,7 @@ void DsgPrs_DiameterPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
     arrdir.Reverse();
 
   gp_Vec vecrap2   = vecrap;
-  gp_Pnt ptoncirc2 = ptoncirc;
+  Point3d ptoncirc2 = ptoncirc;
   gp_Dir arrdir2   = arrdir;
   vecrap2.Normalize();
   vecrap2 *= (aCircle.Radius() * 2.);
@@ -130,7 +130,7 @@ static Standard_Boolean DsgPrs_InDomain(const Standard_Real fpar,
 void DsgPrs_DiameterPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                       const Handle(Prs3d_Drawer)&       aDrawer,
                                       const TCollection_ExtendedString& aText,
-                                      const gp_Pnt&                     AttachmentPoint,
+                                      const Point3d&                     AttachmentPoint,
                                       const gp_Circ&                    aCircle,
                                       const Standard_Real               uFirst,
                                       const Standard_Real               uLast,
@@ -148,12 +148,12 @@ void DsgPrs_DiameterPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
   Standard_Real parEndOfArrow = ElCLib::Parameter(aCircle, AttachmentPoint);
-  gp_Pnt        EndOfArrow;
-  gp_Pnt        DrawPosition = AttachmentPoint; // point of attachment
+  Point3d        EndOfArrow;
+  Point3d        DrawPosition = AttachmentPoint; // point of attachment
 
-  gp_Pnt Center      = aCircle.Location();
-  gp_Pnt FirstPoint  = ElCLib::Value(uFirst, aCircle);
-  gp_Pnt SecondPoint = ElCLib::Value(uLast, aCircle);
+  Point3d Center      = aCircle.Location();
+  Point3d FirstPoint  = ElCLib::Value(uFirst, aCircle);
+  Point3d SecondPoint = ElCLib::Value(uLast, aCircle);
 
   if (!DsgPrs_InDomain(fpara, lpara, parEndOfArrow))
   {

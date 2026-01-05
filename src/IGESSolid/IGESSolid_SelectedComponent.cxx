@@ -40,19 +40,19 @@ Handle(IGESSolid_BooleanTree) IGESSolid_SelectedComponent::Component() const
   return theEntity;
 }
 
-gp_Pnt IGESSolid_SelectedComponent::SelectPoint() const
+Point3d IGESSolid_SelectedComponent::SelectPoint() const
 {
-  return gp_Pnt(theSelectPoint);
+  return Point3d(theSelectPoint);
 }
 
-gp_Pnt IGESSolid_SelectedComponent::TransformedSelectPoint() const
+Point3d IGESSolid_SelectedComponent::TransformedSelectPoint() const
 {
   if (!HasTransf())
-    return gp_Pnt(theSelectPoint);
+    return Point3d(theSelectPoint);
   else
   {
     gp_XYZ tmp = theSelectPoint;
     Location().Transforms(tmp);
-    return gp_Pnt(tmp);
+    return Point3d(tmp);
   }
 }

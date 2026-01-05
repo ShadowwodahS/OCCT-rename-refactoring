@@ -83,7 +83,7 @@ public:
   Standard_Integer NbPnt() const;
 
   //! Returns the point of range N.
-  Standard_EXPORT const gp_Pnt& Point(const Standard_Integer N) const;
+  Standard_EXPORT const Point3d& Point(const Standard_Integer N) const;
 
   //! Returns the parameters on the "explicit quadric"
   //! (i.e  the cylinder or the  cone, the first argument given to the constructor) of the point of
@@ -134,7 +134,7 @@ protected:
   Standard_Integer nextcurve[12];
   Standard_Integer NbCurves;
   Standard_Integer Nbpoints;
-  gp_Pnt           Thepoints[2];
+  Point3d           Thepoints[2];
   Standard_Integer myNbMaxCurves;
   Standard_Real    myEpsilon;
   Standard_Real    myEpsilonCoeffPolyNull;

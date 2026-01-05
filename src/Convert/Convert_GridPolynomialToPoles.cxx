@@ -227,7 +227,7 @@ void Convert_GridPolynomialToPoles::Perform(
                          Coeffs[0],
                          Digit[0]);
 
-      myPoles->SetValue(ii, jj, gp_Pnt(Digit[0], Digit[1], Digit[2]));
+      myPoles->SetValue(ii, jj, Point3d(Digit[0], Digit[1], Digit[2]));
     }
   }
 

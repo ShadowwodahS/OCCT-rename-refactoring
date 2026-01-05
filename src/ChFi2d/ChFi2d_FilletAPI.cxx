@@ -84,14 +84,14 @@ Standard_Boolean ChFi2d_FilletAPI::Perform(const Standard_Real theRadius)
 }
 
 // Returns number of possible solutions.
-Standard_Integer ChFi2d_FilletAPI::NbResults(const gp_Pnt& thePoint)
+Standard_Integer ChFi2d_FilletAPI::NbResults(const Point3d& thePoint)
 {
   return myIsAnalytical ? 1 : myFilletAlgo.NbResults(thePoint);
 }
 
 // Returns result (fillet edge, modified edge1, modified edge2),
 // nearest to the given point <thePoint> if iSolution == -1
-TopoDS_Edge ChFi2d_FilletAPI::Result(const gp_Pnt&          thePoint,
+TopoDS_Edge ChFi2d_FilletAPI::Result(const Point3d&          thePoint,
                                      TopoDS_Edge&           theEdge1,
                                      TopoDS_Edge&           theEdge2,
                                      const Standard_Integer iSolution)
@@ -113,10 +113,10 @@ Standard_Boolean ChFi2d_FilletAPI::IsAnalytical(const TopoDS_Edge& theEdge1,
   {
     // The edges are lines or arcs of circle.
     // Now check whether they have a common point.
-    gp_Pnt p11 = AC1.Value(AC1.FirstParameter());
-    gp_Pnt p12 = AC1.Value(AC1.LastParameter());
-    gp_Pnt p21 = AC2.Value(AC2.FirstParameter());
-    gp_Pnt p22 = AC2.Value(AC2.LastParameter());
+    Point3d p11 = AC1.Value(AC1.FirstParameter());
+    Point3d p12 = AC1.Value(AC1.LastParameter());
+    Point3d p21 = AC2.Value(AC2.FirstParameter());
+    Point3d p22 = AC2.Value(AC2.LastParameter());
     if (p11.SquareDistance(p21) < Precision::SquareConfusion()
         || p11.SquareDistance(p22) < Precision::SquareConfusion()
         || p12.SquareDistance(p21) < Precision::SquareConfusion()

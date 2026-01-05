@@ -26,7 +26,7 @@
 class IGESDimen_GeneralNote;
 class IGESDimen_LeaderArrow;
 class gp_Pnt2d;
-class gp_Pnt;
+class Point3d;
 
 class IGESDimen_RadiusDimension;
 DEFINE_STANDARD_HANDLE(IGESDimen_RadiusDimension, IGESData_IGESEntity)
@@ -63,7 +63,7 @@ public:
 
   //! returns the coordinates of the Arc Center after Transformation
   //! (Z coord taken from ZDepth of Leader Entity)
-  Standard_EXPORT gp_Pnt TransformedCenter() const;
+  Standard_EXPORT Point3d TransformedCenter() const;
 
   //! returns True if form is 1, False if 0
   Standard_EXPORT Standard_Boolean HasLeader2() const;

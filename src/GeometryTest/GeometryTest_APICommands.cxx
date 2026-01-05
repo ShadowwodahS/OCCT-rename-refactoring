@@ -47,8 +47,8 @@ Standard_IMPORT Draw_Viewer dout;
 
 static void showProjSolution(Draw_Interpretor&      di,
                              const Standard_Integer i,
-                             const gp_Pnt&          P,
-                             const gp_Pnt&          P1,
+                             const Point3d&          P,
+                             const Point3d&          P1,
                              const Standard_Real    U,
                              const Standard_Real    V,
                              const Standard_Boolean isSurface)
@@ -87,7 +87,7 @@ static Standard_Integer proj(Draw_Interpretor& di, Standard_Integer n, const cha
     return 1;
   }
 
-  gp_Pnt P(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4]));
+  Point3d P(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4]));
 
   Handle(Geom_Curve)   GC = DrawTrSurf::GetCurve(a[1]);
   Handle(Geom_Surface) GS;
@@ -118,7 +118,7 @@ static Standard_Integer proj(Draw_Interpretor& di, Standard_Integer n, const cha
       Standard_Real UU, VV;
       for (Standard_Integer i = 1; i <= proj.NbPoints(); i++)
       {
-        gp_Pnt P1 = proj.Point(i);
+        Point3d P1 = proj.Point(i);
         proj.Parameters(i, UU, VV);
         showProjSolution(di, i, P, P1, UU, VV, Standard_True);
       }
@@ -153,7 +153,7 @@ static Standard_Integer proj(Draw_Interpretor& di, Standard_Integer n, const cha
 
     for (Standard_Integer i = 1; i <= proj.NbPoints(); i++)
     {
-      gp_Pnt        P1 = proj.Point(i);
+      Point3d        P1 = proj.Point(i);
       Standard_Real UU = proj.Parameter(i);
       showProjSolution(di, i, P, P1, UU, UU, Standard_False);
     }
@@ -200,7 +200,7 @@ static Standard_Integer appro(Draw_Interpretor& di, Standard_Integer n, const ch
     dout.Select(id, XX, YY, b);
     Standard_Real zoom = dout.Zoom(id);
 
-    Points(1) = gp_Pnt(((Standard_Real)XX) / zoom, ((Standard_Real)YY) / zoom, 0.);
+    Points(1) = Point3d(((Standard_Real)XX) / zoom, ((Standard_Real)YY) / zoom, 0.);
 
     mark = new Draw_Marker3D(Points(1), Draw_X, Draw_vert);
 
@@ -209,7 +209,7 @@ static Standard_Integer appro(Draw_Interpretor& di, Standard_Integer n, const ch
     for (Standard_Integer i = 2; i <= Nb; i++)
     {
       dout.Select(id, XX, YY, b);
-      Points(i) = gp_Pnt(((Standard_Real)XX) / zoom, ((Standard_Real)YY) / zoom, 0.);
+      Points(i) = Point3d(((Standard_Real)XX) / zoom, ((Standard_Real)YY) / zoom, 0.);
       mark      = new Draw_Marker3D(Points(i), Draw_X, Draw_vert);
       dout << mark;
     }
@@ -326,7 +326,7 @@ static Standard_Integer surfapp(Draw_Interpretor& di, Standard_Integer n, const 
         if (Count > n)
           return 1;
         Points(i, j) =
-          gp_Pnt(Draw::Atof(a[Count]), Draw::Atof(a[Count + 1]), Draw::Atof(a[Count + 2]));
+          Point3d(Draw::Atof(a[Count]), Draw::Atof(a[Count + 1]), Draw::Atof(a[Count + 2]));
         Count += 3;
       }
     }
@@ -508,7 +508,7 @@ static Standard_Integer extrema(Draw_Interpretor& di, Standard_Integer n, const 
     U2l = GC2->LastParameter();
   }
 
-  NCollection_Vector<gp_Pnt>        aPnts1, aPnts2;
+  NCollection_Vector<Point3d>        aPnts1, aPnts2;
   NCollection_Vector<Standard_Real> aPrms[4];
   if (!GC1.IsNull() && !GC2.IsNull())
   {
@@ -524,7 +524,7 @@ static Standard_Integer extrema(Draw_Interpretor& di, Standard_Integer n, const 
     {
       for (Standard_Integer aJ = 1; aJ <= Ex.NbExtrema(); ++aJ)
       {
-        gp_Pnt aP1, aP2;
+        Point3d aP1, aP2;
         Ex.Points(aJ, aP1, aP2);
         aPnts1.Append(aP1);
         aPnts2.Append(aP2);
@@ -549,7 +549,7 @@ static Standard_Integer extrema(Draw_Interpretor& di, Standard_Integer n, const 
     {
       for (Standard_Integer aJ = 1; aJ <= Ex.NbExtrema(); ++aJ)
       {
-        gp_Pnt aP1, aP2;
+        Point3d aP1, aP2;
         Ex.Points(aJ, aP1, aP2);
         aPnts1.Append(aP1);
         aPnts2.Append(aP2);
@@ -575,7 +575,7 @@ static Standard_Integer extrema(Draw_Interpretor& di, Standard_Integer n, const 
     {
       for (Standard_Integer aJ = 1; aJ <= Ex.NbExtrema(); ++aJ)
       {
-        gp_Pnt aP2, aP1;
+        Point3d aP2, aP1;
         Ex.Points(aJ, aP2, aP1);
         aPnts1.Append(aP1);
         aPnts2.Append(aP2);
@@ -601,7 +601,7 @@ static Standard_Integer extrema(Draw_Interpretor& di, Standard_Integer n, const 
     {
       for (Standard_Integer aJ = 1; aJ <= Ex.NbExtrema(); ++aJ)
       {
-        gp_Pnt aP1, aP2;
+        Point3d aP1, aP2;
         Ex.Points(aJ, aP1, aP2);
         aPnts1.Append(aP1);
         aPnts2.Append(aP2);
@@ -632,7 +632,7 @@ static Standard_Integer extrema(Draw_Interpretor& di, Standard_Integer n, const 
   }
   for (Standard_Integer aJ = 1; aJ <= aPntCount; aJ++)
   {
-    gp_Pnt aP1 = aPnts1(aJ - 1), aP2 = aPnts2(aJ - 1);
+    Point3d aP1 = aPnts1(aJ - 1), aP2 = aPnts2(aJ - 1);
 
     if (aP1.Distance(aP2) < 1.e-16)
     {
@@ -653,7 +653,7 @@ static Standard_Integer extrema(Draw_Interpretor& di, Standard_Integer n, const 
     // Output points.
     for (Standard_Integer aJ = 1; aJ <= aPntCount; aJ++)
     {
-      gp_Pnt aP1 = aPnts1(aJ - 1), aP2 = aPnts2(aJ - 1);
+      Point3d aP1 = aPnts1(aJ - 1), aP2 = aPnts2(aJ - 1);
       Sprintf(aName, "%s%d%s", "ext_", aJ, "_2");
       DrawTrSurf::Set(aName2, aP1);
       di << aName << " ";
@@ -713,7 +713,7 @@ static Standard_Integer totalextcc(Draw_Interpretor& di, Standard_Integer n, con
 
   char                      name[100];
   GeomAPI_ExtremaCurveCurve Ex(GC1, GC2, U1f, U1l, U2f, U2l);
-  gp_Pnt                    P1, P2;
+  Point3d                    P1, P2;
   if (Ex.TotalNearestPoints(P1, P2))
   {
     if (P1.Distance(P2) < 1.e-16)

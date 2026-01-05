@@ -339,7 +339,7 @@ void BOPTools_AlgoTools3D::GetNormalToFaceOnEdge(const TopoDS_Edge&             
 {
   Standard_Real U, V, aTolPC;
   gp_Pnt2d      aP2D;
-  gp_Pnt        aP;
+  Point3d        aP;
   gp_Vec        aD1U, aD1V;
 
   Handle(Geom_Surface) aS1 = BRep_Tool::Surface(aF1);
@@ -391,7 +391,7 @@ Standard_Boolean BOPTools_AlgoTools3D::GetNormalToSurface(const Handle(Geom_Surf
                                                           const Standard_Real         V,
                                                           gp_Dir&                     aDNS)
 {
-  gp_Pnt aP;
+  Point3d aP;
   gp_Vec aD1U, aD1V;
 
   aS->D1(U, V, aP, aD1U, aD1V);
@@ -420,7 +420,7 @@ Standard_Boolean BOPTools_AlgoTools3D::GetNormalToSurface(const Handle(Geom_Surf
 Standard_Boolean BOPTools_AlgoTools3D::GetApproxNormalToFaceOnEdge(const TopoDS_Edge&  aE,
                                                                    const TopoDS_Face&  aF,
                                                                    const Standard_Real aT,
-                                                                   gp_Pnt&             aPNear,
+                                                                   Point3d&             aPNear,
                                                                    gp_Dir&             aDNF,
                                                                    Standard_Real       aDt2D)
 {
@@ -447,7 +447,7 @@ Standard_Boolean BOPTools_AlgoTools3D::GetApproxNormalToFaceOnEdge(
   const TopoDS_Edge&              aE,
   const TopoDS_Face&              aF,
   const Standard_Real             aT,
-  gp_Pnt&                         aPNear,
+  Point3d&                         aPNear,
   gp_Dir&                         aDNF,
   const Handle(IntTools_Context)& theContext)
 {
@@ -476,7 +476,7 @@ Standard_Boolean BOPTools_AlgoTools3D::GetApproxNormalToFaceOnEdge(
   const TopoDS_Face&              aF,
   const Standard_Real             aT,
   const Standard_Real             theStep,
-  gp_Pnt&                         aPNear,
+  Point3d&                         aPNear,
   gp_Dir&                         aDNF,
   const Handle(IntTools_Context)& theContext)
 {
@@ -505,7 +505,7 @@ Standard_Integer BOPTools_AlgoTools3D::PointNearEdge(const TopoDS_Edge&  aE,
                                                      const Standard_Real aT,
                                                      const Standard_Real aDt2D,
                                                      gp_Pnt2d&           aPx2DNear,
-                                                     gp_Pnt&             aPxNear)
+                                                     Point3d&             aPxNear)
 {
   Standard_Real        aFirst, aLast, aETol, aFTol, transVal;
   GeomAbs_SurfaceType  aTS;
@@ -595,7 +595,7 @@ Standard_Integer BOPTools_AlgoTools3D::PointNearEdge(const TopoDS_Edge&         
                                                      const TopoDS_Face&              aF,
                                                      const Standard_Real             aT,
                                                      gp_Pnt2d&                       aPx2DNear,
-                                                     gp_Pnt&                         aPxNear,
+                                                     Point3d&                         aPxNear,
                                                      const Handle(IntTools_Context)& theContext)
 {
   Standard_Real        aTolE, aTolF, dTx, dT2D;
@@ -622,7 +622,7 @@ Standard_Integer BOPTools_AlgoTools3D::PointNearEdge(const TopoDS_Edge&         
   Standard_Integer iErr = BOPTools_AlgoTools3D::PointNearEdge(aE, aF, aT, dT2D, aPx2DNear, aPxNear);
   if ((iErr != 1) && !theContext->IsPointInOnFace(aF, aPx2DNear))
   {
-    gp_Pnt   aP;
+    Point3d   aP;
     gp_Pnt2d aP2d;
     //
     iErr = BOPTools_AlgoTools3D::PointInFace(aF, aE, aT, dT2D, aP, aP2d, theContext);
@@ -647,14 +647,14 @@ Standard_Integer BOPTools_AlgoTools3D::PointNearEdge(const TopoDS_Edge&         
                                                      const Standard_Real             aT,
                                                      const Standard_Real             theStep,
                                                      gp_Pnt2d&                       aPx2DNear,
-                                                     gp_Pnt&                         aPxNear,
+                                                     Point3d&                         aPxNear,
                                                      const Handle(IntTools_Context)& theContext)
 {
   Standard_Integer iErr =
     BOPTools_AlgoTools3D::PointNearEdge(aE, aF, aT, theStep, aPx2DNear, aPxNear);
   if ((iErr != 1) && !theContext->IsPointInOnFace(aF, aPx2DNear))
   {
-    gp_Pnt   aP;
+    Point3d   aP;
     gp_Pnt2d aP2d;
     //
     iErr = BOPTools_AlgoTools3D::PointInFace(aF, aE, aT, theStep, aP, aP2d, theContext);
@@ -677,7 +677,7 @@ Standard_Integer BOPTools_AlgoTools3D::PointNearEdge(const TopoDS_Edge&         
 Standard_Integer BOPTools_AlgoTools3D::PointNearEdge(const TopoDS_Edge&              aE,
                                                      const TopoDS_Face&              aF,
                                                      gp_Pnt2d&                       aPInFace2D,
-                                                     gp_Pnt&                         aPInFace,
+                                                     Point3d&                         aPInFace,
                                                      const Handle(IntTools_Context)& theContext)
 {
   Standard_Real aT, aT1, aT2;
@@ -883,7 +883,7 @@ void BOPTools_AlgoTools3D::OrientEdgeOnFace(const TopoDS_Edge& aE,
 //=================================================================================================
 
 Standard_Integer BOPTools_AlgoTools3D::PointInFace(const TopoDS_Face&              theF,
-                                                   gp_Pnt&                         theP,
+                                                   Point3d&                         theP,
                                                    gp_Pnt2d&                       theP2D,
                                                    const Handle(IntTools_Context)& theContext)
 {
@@ -922,7 +922,7 @@ Standard_Integer BOPTools_AlgoTools3D::PointInFace(const TopoDS_Face&           
                                                    const TopoDS_Edge&              theE,
                                                    const Standard_Real             theT,
                                                    const Standard_Real             theDt2D,
-                                                   gp_Pnt&                         theP,
+                                                   Point3d&                         theP,
                                                    gp_Pnt2d&                       theP2D,
                                                    const Handle(IntTools_Context)& theContext)
 {
@@ -969,7 +969,7 @@ Standard_Integer BOPTools_AlgoTools3D::PointInFace(const TopoDS_Face&           
 
 Standard_Integer BOPTools_AlgoTools3D::PointInFace(const TopoDS_Face&              theF,
                                                    const Handle(Geom2d_Curve)&     theL2D,
-                                                   gp_Pnt&                         theP,
+                                                   Point3d&                         theP,
                                                    gp_Pnt2d&                       theP2D,
                                                    const Handle(IntTools_Context)& theContext,
                                                    const Standard_Real             theDt2D)

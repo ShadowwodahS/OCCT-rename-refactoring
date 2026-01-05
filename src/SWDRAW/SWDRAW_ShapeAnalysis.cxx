@@ -217,7 +217,7 @@ static Standard_Integer projface(Draw_Interpretor& di, Standard_Integer argc, co
   if (argc > 4)
   {
     Z = Draw::Atof(argv[4]);
-    gp_Pnt P3D(X, Y, Z);
+    Point3d P3D(X, Y, Z);
     di << " Point 3D X = " << X << "  Y = " << Y << "  Z = " << Z << "\n";
     Standard_Real uf, ul, vf, vl;
     thesurf->Bounds(uf, ul, vf, vl);
@@ -279,7 +279,7 @@ static Standard_Integer projface(Draw_Interpretor& di, Standard_Integer argc, co
       di << "does not belong to the face" << "\n";
     else
     {
-      gp_Pnt P3D = thesurf->Value(U, V);
+      Point3d P3D = thesurf->Value(U, V);
       di << " => proj  X = " << P3D.X() << "  Y = " << P3D.Y() << "  Z = " << P3D.Z() << "\n";
     }
   }
@@ -341,8 +341,8 @@ static Standard_Integer projcurve(Draw_Interpretor& di, Standard_Integer argc, c
   di << "Precision (BRepBuilderAPI) : " << BRepBuilderAPI::Precision() << "  Projection : " << X
      << "  " << Y << "  " << Z << "\n";
 
-  gp_Pnt        P3D(X, Y, Z);
-  gp_Pnt        res;
+  Point3d        P3D(X, Y, Z);
+  Point3d        res;
   Standard_Real param, dist;
 
   dist = ShapeAnalysis_Curve().Project(C, P3D, BRepBuilderAPI::Precision(), res, param, cf, cl);
@@ -380,7 +380,7 @@ static Standard_Integer projpcurve(Draw_Interpretor& di, Standard_Integer argc, 
   Standard_Real Y = Draw::Atof(argv[5]);
   Standard_Real Z = Draw::Atof(argv[6]);
 
-  gp_Pnt aP3D(X, Y, Z);
+  Point3d aP3D(X, Y, Z);
 
   Standard_Boolean IsStartPoint = Standard_False;
   Standard_Real    startpar     = 0.;
@@ -394,7 +394,7 @@ static Standard_Integer projpcurve(Draw_Interpretor& di, Standard_Integer argc, 
     Adaptor3d_CurveOnSurface(new BRepAdaptor_Curve2d(BRepAdaptor_Curve2d(aEdge, aFace)),
                              new BRepAdaptor_Surface(BRepAdaptor_Surface(aFace, Standard_False)));
 
-  gp_Pnt              aPnt;
+  Point3d              aPnt;
   Standard_Real       aParam;
   ShapeAnalysis_Curve aTool;
   Standard_Real       aDist = RealLast();
@@ -465,7 +465,7 @@ static Standard_Integer anaface(Draw_Interpretor& di, Standard_Integer argc, con
       di << " (FWD)\n";
     else
       di << " (REV)\n";
-    gp_Pnt           fin, debut;
+    Point3d           fin, debut;
     gp_Pnt2d         finuv, debuv;
     gp_XY            baseuv;
     TopoDS_Vertex    fv, lv;
@@ -519,9 +519,9 @@ static Standard_Integer anaface(Draw_Interpretor& di, Standard_Integer argc, con
         if (ia2d)
           BRep_Tool::UVPoints(Edge, Face, luv, fuv);
       }
-      gp_Pnt fp = BRep_Tool::Pnt(fv);
-      gp_Pnt lp = BRep_Tool::Pnt(lv);
-      gp_Pnt fxyz, lxyz;
+      Point3d fp = BRep_Tool::Pnt(fv);
+      Point3d lp = BRep_Tool::Pnt(lv);
+      Point3d fxyz, lxyz;
       if (ia2d)
       {
         surface->D0(fuv.X(), fuv.Y(), fxyz);

@@ -34,7 +34,7 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Returns the 3d coordinates of the starting point.
-  static gp_Pnt Value3d(const IntSurf_PathPoint& PStart);
+  static Point3d Value3d(const IntSurf_PathPoint& PStart);
 
   //! Returns the <U, V> parameters which are associated
   //! with <P>

@@ -20,12 +20,12 @@ inline void Blend_Point::SetParameter(const Standard_Real Param)
   prm = Param;
 }
 
-inline const gp_Pnt& Blend_Point::PointOnS1() const
+inline const Point3d& Blend_Point::PointOnS1() const
 {
   return pt1;
 }
 
-inline const gp_Pnt& Blend_Point::PointOnS2() const
+inline const Point3d& Blend_Point::PointOnS2() const
 {
   return pt2;
 }
@@ -96,12 +96,12 @@ inline gp_Vec2d Blend_Point::Tangent2dOnS2() const
   return gp_Vec2d(utg22d, vtg22d);
 }
 
-inline const gp_Pnt& Blend_Point::PointOnS() const
+inline const Point3d& Blend_Point::PointOnS() const
 {
   return pt1;
 }
 
-inline const gp_Pnt& Blend_Point::PointOnC() const
+inline const Point3d& Blend_Point::PointOnC() const
 {
   return pt2;
 }
@@ -152,12 +152,12 @@ inline gp_Vec2d Blend_Point::Tangent2d() const
   return gp_Vec2d(utg12d, vtg12d);
 }
 
-inline const gp_Pnt& Blend_Point::PointOnC1() const
+inline const Point3d& Blend_Point::PointOnC1() const
 {
   return pt1;
 }
 
-inline const gp_Pnt& Blend_Point::PointOnC2() const
+inline const Point3d& Blend_Point::PointOnC2() const
 {
   return pt2;
 }

@@ -120,7 +120,7 @@ static Standard_Integer PointsForOBB(const TopoDS_Shape&    theS,
     const TopoDS_Vertex& aVert = TopoDS::Vertex(anExpF.Current());
     if (thePts)
     {
-      const gp_Pnt aP    = BRep_Tool::Pnt(aVert);
+      const Point3d aP    = BRep_Tool::Pnt(aVert);
       (*thePts)(aRetVal) = aP;
     }
 
@@ -187,7 +187,7 @@ static Standard_Integer PointsForOBB(const TopoDS_Shape&    theS,
     {
       if (thePts != NULL)
       {
-        const gp_Pnt aP =
+        const Point3d aP =
           aTrsf.Form() == gp_Identity ? aTrng->Node(i) : aTrng->Node(i).Transformed(aTrsf);
         (*thePts)(aRetVal) = aP;
       }
@@ -230,7 +230,7 @@ static Standard_Integer PointsForOBB(const TopoDS_Shape&    theS,
     {
       if (thePts)
       {
-        const gp_Pnt aP    = aLoc.IsIdentity() ? aNodesArr[i] : aNodesArr[i].Transformed(aLoc);
+        const Point3d aP    = aLoc.IsIdentity() ? aNodesArr[i] : aNodesArr[i].Transformed(aLoc);
         (*thePts)(aRetVal) = aP;
       }
 
@@ -309,7 +309,7 @@ static Standard_Boolean CheckPoints(const TopoDS_Shape&    theS,
 #if 0
   for(Standard_Integer i = anArrPnts.Lower(); i <= anArrPnts.Upper(); i++)
   {
-    const gp_Pnt &aP = anArrPnts(i);
+    const Point3d &aP = anArrPnts(i);
     std::cout << "point p" << i << " " << aP.X() << ", " << 
                                           aP.Y() << ", " << 
                                           aP.Z() << ", "<< std::endl;
@@ -403,8 +403,8 @@ static void ComputePCA(const TopoDS_Shape&    theS,
     return;
   }
 
-  gp_Pnt aPMin = aShapeBox.CornerMin();
-  gp_Pnt aPMax = aShapeBox.CornerMax();
+  Point3d aPMin = aShapeBox.CornerMin();
+  Point3d aPMax = aShapeBox.CornerMax();
 
   gp_XYZ aXDir(1, 0, 0);
   gp_XYZ aYDir(0, 1, 0);

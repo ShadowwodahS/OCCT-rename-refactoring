@@ -22,7 +22,7 @@
 
 #include <GProp_GProps.hxx>
 class gp_Cylinder;
-class gp_Pnt;
+class Point3d;
 class gp_Cone;
 class gp_Sphere;
 class gp_Torus;
@@ -41,30 +41,30 @@ public:
                                   const Standard_Real Alpha2,
                                   const Standard_Real Z1,
                                   const Standard_Real Z2,
-                                  const gp_Pnt&       SLocation);
+                                  const Point3d&       SLocation);
 
   Standard_EXPORT GProp_SelGProps(const gp_Cone&      S,
                                   const Standard_Real Alpha1,
                                   const Standard_Real Alpha2,
                                   const Standard_Real Z1,
                                   const Standard_Real Z2,
-                                  const gp_Pnt&       SLocation);
+                                  const Point3d&       SLocation);
 
   Standard_EXPORT GProp_SelGProps(const gp_Sphere&    S,
                                   const Standard_Real Teta1,
                                   const Standard_Real Teta2,
                                   const Standard_Real Alpha1,
                                   const Standard_Real Alpha2,
-                                  const gp_Pnt&       SLocation);
+                                  const Point3d&       SLocation);
 
   Standard_EXPORT GProp_SelGProps(const gp_Torus&     S,
                                   const Standard_Real Teta1,
                                   const Standard_Real Teta2,
                                   const Standard_Real Alpha1,
                                   const Standard_Real Alpha2,
-                                  const gp_Pnt&       SLocation);
+                                  const Point3d&       SLocation);
 
-  Standard_EXPORT void SetLocation(const gp_Pnt& SLocation);
+  Standard_EXPORT void SetLocation(const Point3d& SLocation);
 
   Standard_EXPORT void Perform(const gp_Cylinder&  S,
                                const Standard_Real Alpha1,

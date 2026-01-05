@@ -144,7 +144,7 @@ inline Standard_Integer GeomInt_IntSS::NbPoints() const
 // function : Point
 // purpose  :
 //=======================================================================
-inline gp_Pnt GeomInt_IntSS::Point(const Standard_Integer Index) const
+inline Point3d GeomInt_IntSS::Point(const Standard_Integer Index) const
 {
   return myIntersector.Point(Index).Value();
 }

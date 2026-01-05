@@ -62,7 +62,7 @@ public:
 
   //! Returns center of the face. If location transformation
   //! is set, it will be applied
-  Standard_EXPORT virtual gp_Pnt CenterOfGeometry() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Point3d CenterOfGeometry() const Standard_OVERRIDE;
 
   //! Builds BVH tree for the face
   Standard_EXPORT virtual void BVH() Standard_OVERRIDE;

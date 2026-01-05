@@ -38,7 +38,7 @@ class BRepAdaptor_Curve;
 class gp_Vec2d;
 class gp_Dir;
 class Geom2d_Curve;
-class gp_Pnt;
+class Point3d;
 
 class TopOpeBRepTool_TOOL
 {
@@ -243,7 +243,7 @@ public:
                                                      const TopoDS_Edge& e,
                                                      Standard_Real&     Ang);
 
-  Standard_EXPORT static Standard_Boolean Getstp3dF(const gp_Pnt&      p,
+  Standard_EXPORT static Standard_Boolean Getstp3dF(const Point3d&      p,
                                                     const TopoDS_Face& f,
                                                     gp_Pnt2d&          uv,
                                                     TopAbs_State&      st);

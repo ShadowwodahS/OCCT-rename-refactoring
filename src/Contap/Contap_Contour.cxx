@@ -71,7 +71,7 @@ Contap_Contour::Contap_Contour(const gp_Vec& Direction, const Standard_Real Angl
   myAFunc.Set(Direction, Angle);
 }
 
-Contap_Contour::Contap_Contour(const gp_Pnt& Eye)
+Contap_Contour::Contap_Contour(const Point3d& Eye)
     :
 
       done(Standard_False),
@@ -106,7 +106,7 @@ Contap_Contour::Contap_Contour(const Handle(Adaptor3d_Surface)&   Surf,
 
 Contap_Contour::Contap_Contour(const Handle(Adaptor3d_Surface)&   Surf,
                                const Handle(Adaptor3d_TopolTool)& Domain,
-                               const gp_Pnt&                      Eye)
+                               const Point3d&                      Eye)
     :
 
       done(Standard_False),
@@ -132,7 +132,7 @@ void Contap_Contour::Init(const gp_Vec& Direction, const Standard_Real Angle)
   myAFunc.Set(Direction, Angle);
 }
 
-void Contap_Contour::Init(const gp_Pnt& Eye)
+void Contap_Contour::Init(const Point3d& Eye)
 {
   done    = Standard_False;
   modeset = Standard_True;
@@ -157,12 +157,12 @@ void Contap_Contour::Perform(const Handle(Adaptor3d_Surface)&   Surf,
     case GeomAbs_Sphere:
     case GeomAbs_Cylinder:
     case GeomAbs_Cone: {
-      PerformAna(Domain); // Surf,Domain,Direction,0.,gp_Pnt(0.,0.,0.),1);
+      PerformAna(Domain); // Surf,Domain,Direction,0.,Point3d(0.,0.,0.),1);
     }
     break;
 
     default: {
-      Perform(Domain); // Surf,Domain,Direction,0.,gp_Pnt(0.,0.,0.),1);
+      Perform(Domain); // Surf,Domain,Direction,0.,Point3d(0.,0.,0.),1);
     }
     break;
   }
@@ -189,7 +189,7 @@ void Contap_Contour::Perform(const Handle(Adaptor3d_Surface)&   Surf,
 
 void Contap_Contour::Perform(const Handle(Adaptor3d_Surface)&   Surf,
                              const Handle(Adaptor3d_TopolTool)& Domain,
-                             const gp_Pnt&                      Eye)
+                             const Point3d&                      Eye)
 
 {
   Init(Eye);
@@ -349,7 +349,7 @@ static void LineConstructor(Contap_TheSequenceOfLine&          slin,
       if (firstp != lastp)
       {
         Standard_Real pmid = (firstp + lastp) * 0.5;
-        gp_Pnt        Pmid = ElCLib::Value(pmid, L.Line());
+        Point3d        Pmid = ElCLib::Value(pmid, L.Line());
         if (Adaptor3d_HSurfaceTool::GetType(Surf) == GeomAbs_Cylinder)
         {
           ElSLib::Parameters(Adaptor3d_HSurfaceTool::Cylinder(Surf), Pmid, u2, v2);
@@ -404,7 +404,7 @@ static void LineConstructor(Contap_TheSequenceOfLine&          slin,
       if (Abs(firstp - lastp) > 0.000000001)
       {
         Standard_Real pmid = (firstp + lastp) * 0.5;
-        gp_Pnt        Pmid = ElCLib::Value(pmid, L.Circle());
+        Point3d        Pmid = ElCLib::Value(pmid, L.Circle());
         if (Adaptor3d_HSurfaceTool::GetType(Surf) == GeomAbs_Cylinder)
         {
           ElSLib::Parameters(Adaptor3d_HSurfaceTool::Cylinder(Surf), Pmid, u2, v2);
@@ -453,7 +453,7 @@ static void LineConstructor(Contap_TheSequenceOfLine&          slin,
       if (Abs(firstp - lastp) > 0.0000000001)
       {
         Standard_Real pmid = (firstp + lastp) * 0.5;
-        gp_Pnt        Pmid = ElCLib::Value(pmid, L.Circle());
+        Point3d        Pmid = ElCLib::Value(pmid, L.Circle());
         if (Adaptor3d_HSurfaceTool::GetType(Surf) == GeomAbs_Cylinder)
         {
           ElSLib::Parameters(Adaptor3d_HSurfaceTool::Cylinder(Surf), Pmid, u2, v2);
@@ -530,7 +530,7 @@ static void KeepInsidePoints(const Contap_TheSearchInside&    solins,
       projok = Contap_HContTool::Project(thearc, toproj, paramproj, Ptproj);
       if (projok)
       {
-        gp_Pnt pprojete = Adaptor3d_HSurfaceTool::Value(Surf, Ptproj.X(), Ptproj.Y());
+        Point3d pprojete = Adaptor3d_HSurfaceTool::Value(Surf, Ptproj.X(), Ptproj.Y());
         if (pti.Value().Distance(pprojete) <= Precision::Confusion())
         {
           tokeep = Standard_False;
@@ -596,9 +596,9 @@ static void ComputeTangency(const Contap_TheSearch&            solrst,
         Standard_Boolean projok = Contap_HContTool::Project(thearcsol, Ptoproj, paramproj, pproj);
         if (projok)
         {
-          // gp_Pnt pprojete = Adaptor3d_HSurfaceTool::Value(Surf,Ptoproj.X(),Ptoproj.Y());
+          // Point3d pprojete = Adaptor3d_HSurfaceTool::Value(Surf,Ptoproj.X(),Ptoproj.Y());
           // IFV - begin
-          gp_Pnt pprojete = Adaptor3d_HSurfaceTool::Value(Surf, pproj.X(), pproj.Y());
+          Point3d pprojete = Adaptor3d_HSurfaceTool::Value(Surf, pproj.X(), pproj.Y());
           // IFV - end
           if ((PStart.Value()).Distance(pprojete) <= Precision::Confusion())
           {
@@ -660,7 +660,7 @@ static void ComputeTangency(const Contap_TheSearch&            solrst,
           vectg = Func.Direction3d();
           dirtg = Func.Direction2d();
 
-          gp_Pnt ptbid;
+          Point3d ptbid;
           //	Adaptor3d_HSurfaceTool::D1(Surf,X(1),X(2),ptbid,v1,v2);
           Contap_SurfProps::DerivAndNorm(Surf, X(1), X(2), ptbid, v1, v2, normale);
           tg3drst = tg2drst.X() * v1 + tg2drst.Y() * v2;
@@ -889,7 +889,7 @@ IntSurf_TypeTrans ComputeTransitionOnLine(Contap_SurfFunction& SFunc,
                                           const gp_Vec&        tgline)
 {
   gp_Vec d1u, d1v;
-  gp_Pnt pntbid;
+  Point3d pntbid;
   // gp_Vec tglineuv;
 
   Adaptor3d_HSurfaceTool::D1(SFunc.Surface(), u, v, pntbid, d1u, d1v);
@@ -969,7 +969,7 @@ void ProcessSegments(const Contap_TheSearch&            solrst,
   Contap_Line      theline;
 
   gp_Vec tgline; //,norm1,norm2;
-  gp_Pnt valpt;
+  Point3d valpt;
 
   gp_Vec   d1u, d1v;
   gp_Pnt2d p2d;
@@ -1122,7 +1122,7 @@ void ComputeInternalPointsOnRstr(Contap_Line&         Line,
 
   Standard_Integer indexinf, indexsup, i;
   gp_Vec           tgt, vecref, vectest, vtestb, vecregard, d1u, d1v;
-  gp_Pnt           pcour;
+  Point3d           pcour;
   gp_Pnt2d         p2d;
   gp_Vec2d         d2d;
   Standard_Boolean found, ok = Standard_False, toutvu, solution;
@@ -1289,7 +1289,7 @@ void ComputeInternalPoints(Contap_Line&         Line,
 
   Standard_Integer indexinf, indexsup, index;
   gp_Vec           tgt, vecref, vectest, vtestb, vecregard;
-  // gp_Pnt pprec,pcour;
+  // Point3d pprec,pcour;
   Standard_Boolean found, ok = Standard_False, toutvu, solution;
   Standard_Real    paramp = 0., U, V;
 
@@ -1543,7 +1543,7 @@ void Contap_Contour::Perform(const Handle(Adaptor3d_TopolTool)& Domain)
   Standard_Real      U, V;
   gp_Pnt2d           pt2d;
   gp_Vec2d           d2d;
-  gp_Pnt             ptonsurf;
+  Point3d             ptonsurf;
   gp_Vec             d1u, d1v, normale, tgtrst, tgline;
   Standard_Real      currentparam;
   IntSurf_Transition TLine, TArc;
@@ -1612,7 +1612,7 @@ void Contap_Contour::Perform(const Handle(Adaptor3d_TopolTool)& Domain)
   TolArc *= dx;
   //-- ********************************************************************************
 
-  // gp_Pnt valpt;
+  // Point3d valpt;
 
   // jag 940616  SFunc.Set(1.e-8); // tolerance sur la fonction
   mySFunc.Set(Precision::Confusion()); // tolerance sur la fonction
@@ -1832,7 +1832,7 @@ void Contap_Contour::Perform(const Handle(Adaptor3d_TopolTool)& Domain)
       {
         if (!theli.Vertex(ivt1).IsOnArc())
         {
-          const gp_Pnt& pttg1 = theli.Vertex(ivt1).Value();
+          const Point3d& pttg1 = theli.Vertex(ivt1).Value();
 
           for (k = j + 1; k <= Nblines; k++)
           {
@@ -1842,7 +1842,7 @@ void Contap_Contour::Perform(const Handle(Adaptor3d_TopolTool)& Domain)
             {
               if (!theli2.Vertex(ivt2).IsOnArc())
               {
-                const gp_Pnt& pttg2 = theli2.Vertex(ivt2).Value();
+                const Point3d& pttg2 = theli2.Vertex(ivt2).Value();
 
                 if (pttg1.Distance(pttg2) <= TolArc)
                 {
@@ -1960,13 +1960,13 @@ void Contap_Contour::Perform(const Handle(Adaptor3d_TopolTool)& Domain)
 static Standard_Boolean FindLine(Contap_Line&                     Line,
                                  const Handle(Adaptor3d_Surface)& Surf,
                                  const gp_Pnt2d&                  Pt2d,
-                                 gp_Pnt&                          Ptref,
+                                 Point3d&                          Ptref,
                                  Standard_Real&                   Paramin,
                                  gp_Vec&                          Tgmin,
                                  gp_Vec&                          Norm)
 {
   //  Standard_Integer i;
-  gp_Pnt        pt, ptmin;
+  Point3d        pt, ptmin;
   gp_Vec        tg;
   Standard_Real para, dist;
   Standard_Real dismin = RealLast();
@@ -2020,7 +2020,7 @@ static void PutPointsOnLine(const Contap_TheSearch&          solrst,
   gp_Pnt2d pt2d;
   gp_Vec2d d2d;
 
-  gp_Pnt        ptonsurf;
+  Point3d        ptonsurf;
   gp_Vec        vectg, normale, tgtrst;
   Standard_Real paramlin = 0.0;
 
@@ -2043,7 +2043,7 @@ static void PutPointsOnLine(const Contap_TheSearch&          solrst,
       if (goon)
       {
         gp_Vec d1u, d1v;
-        gp_Pnt bidpt;
+        Point3d bidpt;
         Adaptor3d_HSurfaceTool::D1(Surf, pt2d.X(), pt2d.Y(), bidpt, d1u, d1v);
         PPoint.SetValue(ptonsurf, pt2d.X(), pt2d.Y());
         if (normale.Magnitude() < RealEpsilon())
@@ -2093,7 +2093,7 @@ IntSurf_TypeTrans ComputeTransitionOngpLine(Contap_SurfFunction& SFunc, const gp
 {
   const Handle(Adaptor3d_Surface)& Surf = SFunc.Surface();
   GeomAbs_SurfaceType              typS = Adaptor3d_HSurfaceTool::GetType(Surf);
-  gp_Pnt                           P;
+  Point3d                           P;
   gp_Vec                           T;
   ElCLib::D1(0.0, L, P, T);
   Standard_Real u = 0., v = 0.;
@@ -2121,7 +2121,7 @@ IntSurf_TypeTrans ComputeTransitionOngpCircle(Contap_SurfFunction& SFunc, const 
 {
   const Handle(Adaptor3d_Surface)& Surf = SFunc.Surface();
   GeomAbs_SurfaceType              typS = Adaptor3d_HSurfaceTool::GetType(Surf);
-  gp_Pnt                           P;
+  Point3d                           P;
   gp_Vec                           T;
   ElCLib::D1(0.0, C, P, T);
   Standard_Real u = 0., v = 0.;
@@ -2181,7 +2181,7 @@ void Contap_Contour::PerformAna(const Handle(Adaptor3d_TopolTool)& Domain)
         }
         break;
         case Contap_ContourPrs: {
-          gp_Pnt Eye(mySFunc.Eye());
+          Point3d Eye(mySFunc.Eye());
           if (pl.Distance(Eye) > Precision::Confusion())
           {
             // Aucun point du plan n`est solution, en particulier aucun point

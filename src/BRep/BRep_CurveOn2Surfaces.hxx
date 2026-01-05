@@ -22,7 +22,7 @@
 #include <BRep_CurveRepresentation.hxx>
 #include <Standard_Real.hxx>
 class Geom_Surface;
-class gp_Pnt;
+class Point3d;
 
 class BRep_CurveOn2Surfaces;
 DEFINE_STANDARD_HANDLE(BRep_CurveOn2Surfaces, BRep_CurveRepresentation)
@@ -49,7 +49,7 @@ public:
     Standard_OVERRIDE;
 
   //! Raises an error.
-  Standard_EXPORT void D0(const Standard_Real U, gp_Pnt& P) const;
+  Standard_EXPORT void D0(const Standard_Real U, Point3d& P) const;
 
   Standard_EXPORT virtual const Handle(Geom_Surface)& Surface() const Standard_OVERRIDE;
 

@@ -23,7 +23,7 @@
 #include <TColgp_HArray1OfXYZ.hxx>
 #include <IGESData_IGESEntity.hxx>
 #include <Standard_Integer.hxx>
-class gp_Pnt;
+class Point3d;
 
 class IGESSolid_VertexList;
 DEFINE_STANDARD_HANDLE(IGESSolid_VertexList, IGESData_IGESEntity)
@@ -49,7 +49,7 @@ public:
 
   //! returns the num'th vertex in the list
   //! raises exception if num  <= 0 or num > NbVertices()
-  Standard_EXPORT gp_Pnt Vertex(const Standard_Integer num) const;
+  Standard_EXPORT Point3d Vertex(const Standard_Integer num) const;
 
   DEFINE_STANDARD_RTTIEXT(IGESSolid_VertexList, IGESData_IGESEntity)
 

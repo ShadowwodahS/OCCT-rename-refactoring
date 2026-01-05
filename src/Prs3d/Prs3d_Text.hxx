@@ -22,7 +22,7 @@
 #include <Prs3d_TextAspect.hxx>
 
 class TCollection_ExtendedString;
-class gp_Pnt;
+class Point3d;
 
 //! A framework to define the display of texts.
 class Prs3d_Text
@@ -39,7 +39,7 @@ public:
   Standard_EXPORT static Handle(Graphic3d_Text) Draw(const Handle(Graphic3d_Group)&    theGroup,
                                                      const Handle(Prs3d_TextAspect)&   theAspect,
                                                      const TCollection_ExtendedString& theText,
-                                                     const gp_Pnt& theAttachmentPoint);
+                                                     const Point3d& theAttachmentPoint);
 
   //! Draws the text label.
   //! @param theGroup       group to add primitives

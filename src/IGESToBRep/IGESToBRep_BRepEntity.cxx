@@ -147,8 +147,8 @@ TopoDS_Vertex IGESToBRep_BRepEntity::TransferVertex(const Handle(IGESSolid_Verte
     BRep_Builder B;
     for (Standard_Integer inum = 1; inum <= start->NbVertices(); inum++)
     {
-      gp_Pnt point = start->Vertex(inum);
-      point.Scale(gp_Pnt(0, 0, 0), GetUnitFactor());
+      Point3d point = start->Vertex(inum);
+      point.Scale(Point3d(0, 0, 0), GetUnitFactor());
       TopoDS_Vertex V;
       // pdn 12.03.99 S4135 Constructing vertex with minimal tolerance
       B.MakeVertex(V, point, Precision::Confusion());
@@ -236,10 +236,10 @@ TopoDS_Shape IGESToBRep_BRepEntity::TransferEdge(const Handle(IGESSolid_EdgeList
               newC3d = Crv;
             }
             B.UpdateEdge(E, newC3d, loc, 0.); // S4054:GetEpsGeom()*GetUnitFactor()
-            gp_Pnt        p1     = BRep_Tool::Pnt(V1);
-            gp_Pnt        p2     = BRep_Tool::Pnt(V2);
-            gp_Pnt        pf     = BRep_Tool::Pnt(Vf);
-            gp_Pnt        pl     = BRep_Tool::Pnt(Vl);
+            Point3d        p1     = BRep_Tool::Pnt(V1);
+            Point3d        p2     = BRep_Tool::Pnt(V2);
+            Point3d        pf     = BRep_Tool::Pnt(Vf);
+            Point3d        pl     = BRep_Tool::Pnt(Vl);
             Standard_Real dist1f = p1.Distance(pf);
             Standard_Real dist2f = p2.Distance(pf);
             Standard_Real dist1l = p1.Distance(pl);

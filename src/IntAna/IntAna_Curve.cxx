@@ -373,7 +373,7 @@ void IntAna_Curve::InternalUVValue(const Standard_Real theta,
 
 //=================================================================================================
 
-gp_Pnt IntAna_Curve::Value(const Standard_Real theta)
+Point3d IntAna_Curve::Value(const Standard_Real theta)
 {
   Standard_Real A, B, C, U, V, sint, cost, SigneSqrtDis;
   //
@@ -392,7 +392,7 @@ gp_Pnt IntAna_Curve::Value(const Standard_Real theta)
 
 //=================================================================================================
 
-Standard_Boolean IntAna_Curve::D1u(const Standard_Real theta, gp_Pnt& Pt, gp_Vec& Vec)
+Standard_Boolean IntAna_Curve::D1u(const Standard_Real theta, Point3d& Pt, gp_Vec& Vec)
 {
   //-- Pour detecter le cas ou le calcul est impossible
   Standard_Real A, B, C, U, V, sint, cost, SigneSqrtDis;
@@ -419,7 +419,7 @@ Standard_Boolean IntAna_Curve::D1u(const Standard_Real theta, gp_Pnt& Pt, gp_Vec
     dtheta = -dtheta;
     theta2 = theta + dtheta;
   }
-  gp_Pnt P2 = Value(theta2);
+  Point3d P2 = Value(theta2);
   dtheta    = 1.0 / dtheta;
   Vec.SetCoord((P2.X() - Pt.X()) * dtheta, (P2.Y() - Pt.Y()) * dtheta, (P2.Z() - Pt.Z()) * dtheta);
 
@@ -433,7 +433,7 @@ Standard_Boolean IntAna_Curve::D1u(const Standard_Real theta, gp_Pnt& Pt, gp_Vec
 //           Sometimes aline can be self-intersected line (see bug #29807 where
 //            ALine goes through the cone apex).
 //=======================================================================
-void IntAna_Curve::FindParameter(const gp_Pnt& theP, TColStd_ListOfReal& theParams) const
+void IntAna_Curve::FindParameter(const Point3d& theP, TColStd_ListOfReal& theParams) const
 {
   const Standard_Real aPIpPI = M_PI + M_PI, anEpsAng = 1.e-8,
                       InternalPrecision =
@@ -503,7 +503,7 @@ void IntAna_Curve::FindParameter(const gp_Pnt& theP, TColStd_ListOfReal& thePara
     Standard_Real U = 0.0, V = 0.0, A = 0.0, B = 0.0, C = 0.0, sint = 0.0, cost = 0.0,
                   SigneSqrtDis = 0.0;
     InternalUVValue(aParams[i], U, V, A, B, C, cost, sint, SigneSqrtDis);
-    const gp_Pnt aP(InternalValue(U, V));
+    const Point3d aP(InternalValue(U, V));
 
     Standard_Real aSqTol;
     if (aParams[i] == aTheta || (TwoCurves && aParams[i] == DomainSup + DomainSup - aTheta))
@@ -520,7 +520,7 @@ void IntAna_Curve::FindParameter(const gp_Pnt& theP, TColStd_ListOfReal& thePara
 
 //=================================================================================================
 
-gp_Pnt IntAna_Curve::InternalValue(const Standard_Real U, const Standard_Real _V) const
+Point3d IntAna_Curve::InternalValue(const Standard_Real U, const Standard_Real _V) const
 {
   //-- std::cout<<" ["<<U<<","<<V<<"]";
   Standard_Real V = _V;
@@ -551,7 +551,7 @@ gp_Pnt IntAna_Curve::InternalValue(const Standard_Real U, const Standard_Real _V
     case GeomAbs_Sphere:
       return (ElSLib::SphereValue(U, V, Ax3, RCyl));
     default:
-      return (gp_Pnt(0.0, 0.0, 0.0));
+      return (Point3d(0.0, 0.0, 0.0));
   }
 }
 

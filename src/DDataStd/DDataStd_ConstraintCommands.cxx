@@ -457,7 +457,7 @@ static Standard_Integer DDataStd_SetPosition(Draw_Interpretor& di,
     DDF::AddLabel(DF, arg[2], L);
 
     Standard_Real X = Draw::Atof(arg[3]), Y = Draw::Atof(arg[4]), Z = Draw::Atof(arg[5]);
-    gp_Pnt        aPos(X, Y, Z);
+    Point3d        aPos(X, Y, Z);
 
     TDataXtd_Position::Set(L, aPos);
     return 0;
@@ -482,7 +482,7 @@ static Standard_Integer DDataStd_GetPosition(Draw_Interpretor& di,
     TDF_Label L;
     DDF::AddLabel(DF, arg[2], L);
 
-    gp_Pnt aPos;
+    Point3d aPos;
     if (!TDataXtd_Position::Get(L, aPos))
     {
       di << "There is no TDataStd_Position attribute on this label\n";

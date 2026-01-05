@@ -81,7 +81,7 @@ public:
   {
     if (!theBox.IsVoid())
     {
-      gp_Pnt aXYZ[8];
+      Point3d aXYZ[8];
       theBox.GetVertex(aXYZ);
       fillSegments(theSegments, aXYZ);
     }
@@ -96,17 +96,17 @@ public:
   {
     if (!theBox.IsVoid())
     {
-      const gp_Pnt aMin    = theBox.CornerMin();
-      const gp_Pnt aMax    = theBox.CornerMax();
-      const gp_Pnt aXYZ[8] = {
-        gp_Pnt(aMin.X(), aMin.Y(), aMin.Z()),
-        gp_Pnt(aMax.X(), aMin.Y(), aMin.Z()),
-        gp_Pnt(aMin.X(), aMax.Y(), aMin.Z()),
-        gp_Pnt(aMax.X(), aMax.Y(), aMin.Z()),
-        gp_Pnt(aMin.X(), aMin.Y(), aMax.Z()),
-        gp_Pnt(aMax.X(), aMin.Y(), aMax.Z()),
-        gp_Pnt(aMin.X(), aMax.Y(), aMax.Z()),
-        gp_Pnt(aMax.X(), aMax.Y(), aMax.Z()),
+      const Point3d aMin    = theBox.CornerMin();
+      const Point3d aMax    = theBox.CornerMax();
+      const Point3d aXYZ[8] = {
+        Point3d(aMin.X(), aMin.Y(), aMin.Z()),
+        Point3d(aMax.X(), aMin.Y(), aMin.Z()),
+        Point3d(aMin.X(), aMax.Y(), aMin.Z()),
+        Point3d(aMax.X(), aMax.Y(), aMin.Z()),
+        Point3d(aMin.X(), aMin.Y(), aMax.Z()),
+        Point3d(aMax.X(), aMin.Y(), aMax.Z()),
+        Point3d(aMin.X(), aMax.Y(), aMax.Z()),
+        Point3d(aMax.X(), aMax.Y(), aMax.Z()),
       };
       fillSegments(theSegments, aXYZ);
     }
@@ -118,7 +118,7 @@ public:
   //!                               should be at least 8 nodes and 24 edges in size
   //! @param[in] theBox  the box to add
   static void fillSegments(const Handle(Graphic3d_ArrayOfSegments)& theSegments,
-                           const gp_Pnt*                            theBox)
+                           const Point3d*                            theBox)
   {
     const Standard_Integer aFrom = theSegments->VertexNumber();
     for (int aVertIter = 0; aVertIter < 8; ++aVertIter)

@@ -585,7 +585,7 @@ void BndLib::Add(const gp_Circ&      C,
   }
   else
   {
-    gp_Pnt P = ElCLib::CircleValue(utrim1, pos, R);
+    Point3d P = ElCLib::CircleValue(utrim1, pos, R);
     B.Add(P);
     P = ElCLib::CircleValue(utrim2, pos, R);
     B.Add(P);
@@ -778,7 +778,7 @@ void BndLib::Add(const gp_Elips&     C,
   }
   else
   {
-    gp_Pnt P = ElCLib::EllipseValue(utrim1, pos, MajR, MinR);
+    Point3d P = ElCLib::EllipseValue(utrim1, pos, MajR, MinR);
     B.Add(P);
     P = ElCLib::EllipseValue(utrim2, pos, MajR, MinR);
     B.Add(P);
@@ -1342,7 +1342,7 @@ static void ComputeSphere(const gp_Sphere&    Sphere,
                           const Standard_Real VMax,
                           Bnd_Box&            B)
 {
-  gp_Pnt        P = Sphere.Location();
+  Point3d        P = Sphere.Location();
   Standard_Real R = Sphere.Radius();
   Standard_Real xmin, ymin, zmin, xmax, ymax, zmax;
   xmin = P.X() - R;
@@ -1364,7 +1364,7 @@ static void ComputeSphere(const gp_Sphere&    Sphere,
     Standard_Real u, v;
     Standard_Real umax = UMin + 2. * M_PI;
     const gp_Ax3& Pos  = Sphere.Position();
-    gp_Pnt        PExt = P;
+    Point3d        PExt = P;
     PExt.SetX(xmin);
     ElSLib::SphereParameters(Pos, R, PExt, u, v);
     u = ElCLib::InPeriod(u, UMin, umax);
@@ -1441,7 +1441,7 @@ static void computeDegeneratedTorus(const gp_Torus&     theTorus,
                                     const Standard_Real theVMax,
                                     Bnd_Box&            theB)
 {
-  gp_Pnt        aP  = theTorus.Location();
+  Point3d        aP  = theTorus.Location();
   Standard_Real aRa = theTorus.MajorRadius();
   Standard_Real aRi = theTorus.MinorRadius();
   Standard_Real aXmin, anYmin, aZmin, aXmax, anYmax, aZmax;
@@ -1466,7 +1466,7 @@ static void computeDegeneratedTorus(const gp_Torus&     theTorus,
   Standard_Real anU, aV;
   Standard_Real anUmax = theUMin + 2. * M_PI;
   const gp_Ax3& aPos   = theTorus.Position();
-  gp_Pnt        aPExt  = aP;
+  Point3d        aPExt  = aP;
   aPExt.SetX(aXmin);
   ElSLib::TorusParameters(aPos, aRa, aRi, aPExt, anU, aV);
   anU = ElCLib::InPeriod(anU, theUMin, anUmax);
@@ -1544,7 +1544,7 @@ void BndLib::Add(const gp_Sphere&    S,
 
 void BndLib::Add(const gp_Sphere& S, const Standard_Real Tol, Bnd_Box& B)
 {
-  gp_Pnt        P = S.Location();
+  Point3d        P = S.Location();
   Standard_Real R = S.Radius();
   Standard_Real xmin, ymin, zmin, xmax, ymax, zmax;
   xmin = P.X() - R;
@@ -1599,8 +1599,8 @@ void BndLib::Add(const gp_Torus&     S,
            UMax,                                                                                   \
            Ra + Ri,                                                                                \
            Ra + Ri,                                                                                \
-           gp_Pnt(S.XAxis().Direction().XYZ()),                                                    \
-           gp_Pnt(S.YAxis().Direction().XYZ()),                                                    \
+           Point3d(S.XAxis().Direction().XYZ()),                                                    \
+           Point3d(S.YAxis().Direction().XYZ()),                                                    \
            S.Location(),                                                                           \
            B))
 #define addP1                                                                                      \
@@ -1608,35 +1608,35 @@ void BndLib::Add(const gp_Torus&     S,
            UMax,                                                                                   \
            Ra + Ri * SC,                                                                           \
            Ra + Ri * SC,                                                                           \
-           gp_Pnt(S.XAxis().Direction().XYZ()),                                                    \
-           gp_Pnt(S.YAxis().Direction().XYZ()),                                                    \
-           gp_Pnt(S.Location().XYZ() + (Ri * SC) * S.Axis().Direction().XYZ()),                    \
+           Point3d(S.XAxis().Direction().XYZ()),                                                    \
+           Point3d(S.YAxis().Direction().XYZ()),                                                    \
+           Point3d(S.Location().XYZ() + (Ri * SC) * S.Axis().Direction().XYZ()),                    \
            B))
 #define addP2                                                                                      \
   (Compute(UMin,                                                                                   \
            UMax,                                                                                   \
            Ra,                                                                                     \
            Ra,                                                                                     \
-           gp_Pnt(S.XAxis().Direction().XYZ()),                                                    \
-           gp_Pnt(S.YAxis().Direction().XYZ()),                                                    \
-           gp_Pnt(S.Location().XYZ() + Ri * S.Axis().Direction().XYZ()),                           \
+           Point3d(S.XAxis().Direction().XYZ()),                                                    \
+           Point3d(S.YAxis().Direction().XYZ()),                                                    \
+           Point3d(S.Location().XYZ() + Ri * S.Axis().Direction().XYZ()),                           \
            B))
 #define addP3                                                                                      \
   (Compute(UMin,                                                                                   \
            UMax,                                                                                   \
            Ra - Ri * SC,                                                                           \
            Ra - Ri * SC,                                                                           \
-           gp_Pnt(S.XAxis().Direction().XYZ()),                                                    \
-           gp_Pnt(S.YAxis().Direction().XYZ()),                                                    \
-           gp_Pnt(S.Location().XYZ() + (Ri * SC) * S.Axis().Direction().XYZ()),                    \
+           Point3d(S.XAxis().Direction().XYZ()),                                                    \
+           Point3d(S.YAxis().Direction().XYZ()),                                                    \
+           Point3d(S.Location().XYZ() + (Ri * SC) * S.Axis().Direction().XYZ()),                    \
            B))
 #define addP4                                                                                      \
   (Compute(UMin,                                                                                   \
            UMax,                                                                                   \
            Ra - Ri,                                                                                \
            Ra - Ri,                                                                                \
-           gp_Pnt(S.XAxis().Direction().XYZ()),                                                    \
-           gp_Pnt(S.YAxis().Direction().XYZ()),                                                    \
+           Point3d(S.XAxis().Direction().XYZ()),                                                    \
+           Point3d(S.YAxis().Direction().XYZ()),                                                    \
            S.Location(),                                                                           \
            B))
 #define addP5                                                                                      \
@@ -1644,27 +1644,27 @@ void BndLib::Add(const gp_Torus&     S,
            UMax,                                                                                   \
            Ra - Ri * SC,                                                                           \
            Ra - Ri * SC,                                                                           \
-           gp_Pnt(S.XAxis().Direction().XYZ()),                                                    \
-           gp_Pnt(S.YAxis().Direction().XYZ()),                                                    \
-           gp_Pnt(S.Location().XYZ() - (Ri * SC) * S.Axis().Direction().XYZ()),                    \
+           Point3d(S.XAxis().Direction().XYZ()),                                                    \
+           Point3d(S.YAxis().Direction().XYZ()),                                                    \
+           Point3d(S.Location().XYZ() - (Ri * SC) * S.Axis().Direction().XYZ()),                    \
            B))
 #define addP6                                                                                      \
   (Compute(UMin,                                                                                   \
            UMax,                                                                                   \
            Ra,                                                                                     \
            Ra,                                                                                     \
-           gp_Pnt(S.XAxis().Direction().XYZ()),                                                    \
-           gp_Pnt(S.YAxis().Direction().XYZ()),                                                    \
-           gp_Pnt(S.Location().XYZ() - Ri * S.Axis().Direction().XYZ()),                           \
+           Point3d(S.XAxis().Direction().XYZ()),                                                    \
+           Point3d(S.YAxis().Direction().XYZ()),                                                    \
+           Point3d(S.Location().XYZ() - Ri * S.Axis().Direction().XYZ()),                           \
            B))
 #define addP7                                                                                      \
   (Compute(UMin,                                                                                   \
            UMax,                                                                                   \
            Ra + Ri * SC,                                                                           \
            Ra + Ri * SC,                                                                           \
-           gp_Pnt(S.XAxis().Direction().XYZ()),                                                    \
-           gp_Pnt(S.YAxis().Direction().XYZ()),                                                    \
-           gp_Pnt(S.Location().XYZ() - (Ri * SC) * S.Axis().Direction().XYZ()),                    \
+           Point3d(S.XAxis().Direction().XYZ()),                                                    \
+           Point3d(S.YAxis().Direction().XYZ()),                                                    \
+           Point3d(S.Location().XYZ() - (Ri * SC) * S.Axis().Direction().XYZ()),                    \
            B))
 
   switch (Fi1)
@@ -1760,14 +1760,14 @@ void BndLib::Add(const gp_Torus& S, const Standard_Real Tol, Bnd_Box& B)
   gp_XYZ        Xd  = S.XAxis().Direction().XYZ();
   gp_XYZ        Yd  = S.YAxis().Direction().XYZ();
   gp_XYZ        Zd  = S.Axis().Direction().XYZ();
-  B.Add(gp_Pnt(O - (RMa + Rmi) * Xd - (RMa + Rmi) * Yd + Rmi * Zd));
-  B.Add(gp_Pnt(O - (RMa + Rmi) * Xd - (RMa + Rmi) * Yd - Rmi * Zd));
-  B.Add(gp_Pnt(O + (RMa + Rmi) * Xd - (RMa + Rmi) * Yd + Rmi * Zd));
-  B.Add(gp_Pnt(O + (RMa + Rmi) * Xd - (RMa + Rmi) * Yd - Rmi * Zd));
-  B.Add(gp_Pnt(O - (RMa + Rmi) * Xd + (RMa + Rmi) * Yd + Rmi * Zd));
-  B.Add(gp_Pnt(O - (RMa + Rmi) * Xd + (RMa + Rmi) * Yd - Rmi * Zd));
-  B.Add(gp_Pnt(O + (RMa + Rmi) * Xd + (RMa + Rmi) * Yd + Rmi * Zd));
-  B.Add(gp_Pnt(O + (RMa + Rmi) * Xd + (RMa + Rmi) * Yd - Rmi * Zd));
+  B.Add(Point3d(O - (RMa + Rmi) * Xd - (RMa + Rmi) * Yd + Rmi * Zd));
+  B.Add(Point3d(O - (RMa + Rmi) * Xd - (RMa + Rmi) * Yd - Rmi * Zd));
+  B.Add(Point3d(O + (RMa + Rmi) * Xd - (RMa + Rmi) * Yd + Rmi * Zd));
+  B.Add(Point3d(O + (RMa + Rmi) * Xd - (RMa + Rmi) * Yd - Rmi * Zd));
+  B.Add(Point3d(O - (RMa + Rmi) * Xd + (RMa + Rmi) * Yd + Rmi * Zd));
+  B.Add(Point3d(O - (RMa + Rmi) * Xd + (RMa + Rmi) * Yd - Rmi * Zd));
+  B.Add(Point3d(O + (RMa + Rmi) * Xd + (RMa + Rmi) * Yd + Rmi * Zd));
+  B.Add(Point3d(O + (RMa + Rmi) * Xd + (RMa + Rmi) * Yd - Rmi * Zd));
   B.Enlarge(Tol);
 }
 
@@ -1780,7 +1780,7 @@ Standard_Integer ComputeBox(const gp_Hypr&      aHypr,
 {
   Standard_Integer i, iErr;
   Standard_Real    aRmaj, aRmin, aA, aB, aABP, aBAM, aT3, aCf, aEps;
-  gp_Pnt           aP1, aP2, aP3, aP0;
+  Point3d           aP1, aP2, aP3, aP0;
   //
   //
   aP1 = ElCLib::Value(aT1, aHypr);

@@ -258,7 +258,7 @@ void IntPatch_ALine::ComputeVertexParameters(const Standard_Real Tol)
     Standard_Real   pmpimpi = p - M_PI - M_PI;
     if (pmpimpi >= ParamMinOnLine)
     {
-      gp_Pnt        P1 = Value(pmpimpi);
+      Point3d        P1 = Value(pmpimpi);
       Standard_Real d1 = P1.Distance(VTX.Value());
       if (d1 < Tol)
       {
@@ -270,7 +270,7 @@ void IntPatch_ALine::ComputeVertexParameters(const Standard_Real Tol)
     pmpimpi = p + M_PI + M_PI;
     if (pmpimpi <= ParamMaxOnLine)
     {
-      gp_Pnt        P1 = Value(pmpimpi);
+      Point3d        P1 = Value(pmpimpi);
       Standard_Real d1 = P1.Distance(VTX.Value());
       if (d1 < Tol)
       {
@@ -592,7 +592,7 @@ void IntPatch_ALine::ComputeVertexParameters(const Standard_Real Tol)
     {
       if (VTXN.ParameterOnLine() != ParamMaxOnLine)
       {
-        gp_Pnt        PN = Value(ParamMaxOnLine);
+        Point3d        PN = Value(ParamMaxOnLine);
         Standard_Real d  = PN.Distance(VTX0.Value());
         if (d <= Tol)
         {
@@ -607,7 +607,7 @@ void IntPatch_ALine::ComputeVertexParameters(const Standard_Real Tol)
         {
           if (VTX0.ParameterOnLine() != ParamMinOnLine)
           {
-            gp_Pnt        P0 = Value(ParamMinOnLine);
+            Point3d        P0 = Value(ParamMinOnLine);
             Standard_Real d  = P0.Distance(VTX0.Value());
             if (d <= Tol)
             {

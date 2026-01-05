@@ -80,7 +80,7 @@ PrsDim_DiameterDimension::PrsDim_DiameterDimension(const TopoDS_Shape& theShape,
 
 //=================================================================================================
 
-gp_Pnt PrsDim_DiameterDimension::AnchorPoint()
+Point3d PrsDim_DiameterDimension::AnchorPoint()
 {
   if (!IsValid())
   {
@@ -117,7 +117,7 @@ void PrsDim_DiameterDimension::SetMeasuredGeometry(const gp_Circ& theCircle)
 
 void PrsDim_DiameterDimension::SetMeasuredGeometry(const TopoDS_Shape& theShape)
 {
-  gp_Pnt           aDummyPnt(gp::Origin());
+  Point3d           aDummyPnt(gp::Origin());
   Standard_Boolean isClosed = Standard_False;
 
   myGeometryType    = GeometryType_UndefShapes;
@@ -186,8 +186,8 @@ void PrsDim_DiameterDimension::ComputeAnchorPoint()
     return;
   }
 
-  gp_Pnt aFirstPoint  = anIntersector.Point(1);
-  gp_Pnt aSecondPoint = anIntersector.Point(2);
+  Point3d aFirstPoint  = anIntersector.Point(1);
+  Point3d aSecondPoint = anIntersector.Point(2);
 
   // Choose one of two intersection points that stands with
   // positive direction of flyout.
@@ -251,8 +251,8 @@ void PrsDim_DiameterDimension::Compute(const Handle(PrsMgr_PresentationManager)&
     return;
   }
 
-  gp_Pnt aFirstPnt(gp::Origin());
-  gp_Pnt aSecondPnt(gp::Origin());
+  Point3d aFirstPnt(gp::Origin());
+  Point3d aSecondPnt(gp::Origin());
   ComputeSidePoints(myCircle, aFirstPnt, aSecondPnt);
 
   DrawLinearDimension(thePresentation, theMode, aFirstPnt, aSecondPnt);
@@ -269,8 +269,8 @@ void PrsDim_DiameterDimension::ComputeFlyoutSelection(
     return;
   }
 
-  gp_Pnt aFirstPnt(gp::Origin());
-  gp_Pnt aSecondPnt(gp::Origin());
+  Point3d aFirstPnt(gp::Origin());
+  Point3d aSecondPnt(gp::Origin());
   ComputeSidePoints(myCircle, aFirstPnt, aSecondPnt);
 
   ComputeLinearFlyouts(theSelection, theEntityOwner, aFirstPnt, aSecondPnt);
@@ -279,8 +279,8 @@ void PrsDim_DiameterDimension::ComputeFlyoutSelection(
 //=================================================================================================
 
 void PrsDim_DiameterDimension::ComputeSidePoints(const gp_Circ& theCircle,
-                                                 gp_Pnt&        theFirstPnt,
-                                                 gp_Pnt&        theSecondPnt)
+                                                 Point3d&        theFirstPnt,
+                                                 Point3d&        theSecondPnt)
 {
   theFirstPnt = AnchorPoint();
 
@@ -298,7 +298,7 @@ Standard_Boolean PrsDim_DiameterDimension::IsValidCircle(const gp_Circ& theCircl
 //=================================================================================================
 
 Standard_Boolean PrsDim_DiameterDimension::IsValidAnchor(const gp_Circ& theCircle,
-                                                         const gp_Pnt&  theAnchor) const
+                                                         const Point3d&  theAnchor) const
 {
   gp_Pln        aCirclePlane(theCircle.Location(), theCircle.Axis().Direction());
   Standard_Real anAnchorDist = theAnchor.Distance(theCircle.Location());
@@ -310,7 +310,7 @@ Standard_Boolean PrsDim_DiameterDimension::IsValidAnchor(const gp_Circ& theCircl
 
 //=================================================================================================
 
-gp_Pnt PrsDim_DiameterDimension::GetTextPosition() const
+Point3d PrsDim_DiameterDimension::GetTextPosition() const
 {
   if (IsTextPositionCustom())
   {
@@ -323,7 +323,7 @@ gp_Pnt PrsDim_DiameterDimension::GetTextPosition() const
 
 //=================================================================================================
 
-void PrsDim_DiameterDimension::SetTextPosition(const gp_Pnt& theTextPos)
+void PrsDim_DiameterDimension::SetTextPosition(const Point3d& theTextPos)
 {
   if (!IsValid())
   {

@@ -972,7 +972,7 @@ public: //! @name common properties
     const PrsMgr_DisplayStatus theStatus = PrsMgr_DisplayStatus_None) const;
 
   //! Return rotation gravity point.
-  Standard_EXPORT virtual gp_Pnt GravityPoint(const Handle(V3d_View)& theView) const;
+  Standard_EXPORT virtual Point3d GravityPoint(const Handle(V3d_View)& theView) const;
 
 public: //! @name debug visualization
   //! Visualization of sensitives - for debugging purposes!

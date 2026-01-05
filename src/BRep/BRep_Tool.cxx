@@ -998,7 +998,7 @@ void BRep_Tool::UVPoints(const TopoDS_Edge&          E,
     u = v = 0.;
     if (!Vf.IsNull())
     {
-      gp_Pnt PF = BRep_Tool::Pnt(Vf);
+      Point3d PF = BRep_Tool::Pnt(Vf);
       ElSLib::Parameters(pln, PF, u, v);
     }
     PFirst.SetCoord(u, v);
@@ -1006,7 +1006,7 @@ void BRep_Tool::UVPoints(const TopoDS_Edge&          E,
     u = v = 0.;
     if (!Vl.IsNull())
     {
-      gp_Pnt PL = BRep_Tool::Pnt(Vl);
+      Point3d PL = BRep_Tool::Pnt(Vl);
       ElSLib::Parameters(pln, PL, u, v);
     }
     PLast.SetCoord(u, v);
@@ -1229,16 +1229,16 @@ GeomAbs_Shape BRep_Tool::MaxContinuity(const TopoDS_Edge& theEdge)
 // purpose  : Returns the 3d point.
 //=======================================================================
 
-gp_Pnt BRep_Tool::Pnt(const TopoDS_Vertex& V)
+Point3d BRep_Tool::Pnt(const TopoDS_Vertex& V)
 {
   const BRep_TVertex* TV = static_cast<const BRep_TVertex*>(V.TShape().get());
 
   if (TV == 0)
   {
-    throw Standard_NullObject("BRep_Tool:: TopoDS_Vertex hasn't gp_Pnt");
+    throw Standard_NullObject("BRep_Tool:: TopoDS_Vertex hasn't Point3d");
   }
 
-  const gp_Pnt& P = TV->Pnt();
+  const Point3d& P = TV->Pnt();
   if (V.Location().IsIdentity())
   {
     return P;
@@ -1258,7 +1258,7 @@ Standard_Real BRep_Tool::Tolerance(const TopoDS_Vertex& V)
 
   if (aTVert == 0)
   {
-    throw Standard_NullObject("BRep_Tool:: TopoDS_Vertex hasn't gp_Pnt");
+    throw Standard_NullObject("BRep_Tool:: TopoDS_Vertex hasn't Point3d");
   }
 
   Standard_Real           p    = aTVert->Tolerance();
@@ -1365,8 +1365,8 @@ Standard_Boolean BRep_Tool::Parameter(const TopoDS_Vertex& theV,
               theParam = pr->Parameter(); // p;
               return Standard_True;
             }
-            gp_Pnt        Pf  = C->Value(f).Transformed(L.Transformation());
-            gp_Pnt        Pl  = C->Value(l).Transformed(L.Transformation());
+            Point3d        Pf  = C->Value(f).Transformed(L.Transformation());
+            Point3d        Pl  = C->Value(l).Transformed(L.Transformation());
             Standard_Real tol = BRep_Tool::Tolerance(theV);
             if (Pf.Distance(Pl) < tol)
             {
@@ -1541,8 +1541,8 @@ Standard_Real BRep_Tool::Parameter(const TopoDS_Vertex&        V,
             return res;
           if (Precision::IsPositiveInfinite(l))
             return res;
-          gp_Pnt        Pf  = C->Value(f).Transformed(L1.Transformation());
-          gp_Pnt        Pl  = C->Value(l).Transformed(L1.Transformation());
+          Point3d        Pf  = C->Value(f).Transformed(L1.Transformation());
+          Point3d        Pl  = C->Value(l).Transformed(L1.Transformation());
           Standard_Real tol = BRep_Tool::Tolerance(V);
           if (Pf.Distance(Pl) < tol)
           {

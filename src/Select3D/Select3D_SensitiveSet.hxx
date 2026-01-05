@@ -90,7 +90,7 @@ public:
 
   //! Returns center of the whole set.
   //! This method should be redefined in Select3D_SensitiveSet descendants
-  Standard_EXPORT virtual gp_Pnt CenterOfGeometry() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Point3d CenterOfGeometry() const Standard_OVERRIDE;
 
   //! Destroys cross-reference to avoid memory leak
   Standard_EXPORT virtual void Clear() Standard_OVERRIDE;

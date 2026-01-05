@@ -44,9 +44,9 @@ public:
     mypolyg3d[theIndex] = theValue;
   }
 
-  // Sets gp_Pnt to internal array
+  // Sets Point3d to internal array
   // of 3D points if theIndex is valid
-  void SetPnt(const Standard_Integer theIndex, const gp_Pnt& theValue)
+  void SetPnt(const Standard_Integer theIndex, const Point3d& theValue)
   {
     if (theIndex < 0 || theIndex >= mynbpoints)
       throw Standard_OutOfRange("Select3D_PointData::SetPnt");
@@ -64,7 +64,7 @@ public:
 
   // Returns 3D point from internal array
   // if theIndex is valid
-  gp_Pnt Pnt3d(const Standard_Integer theIndex) const
+  Point3d Pnt3d(const Standard_Integer theIndex) const
   {
     if (theIndex < 0 || theIndex >= mynbpoints)
       throw Standard_OutOfRange("Select3D_PointData::Pnt");

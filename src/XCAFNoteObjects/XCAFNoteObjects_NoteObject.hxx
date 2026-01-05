@@ -45,19 +45,19 @@ public:
   Standard_Boolean HasPoint() const { return myHasPnt; }
 
   //! Returns the attachment point on the annotated object
-  const gp_Pnt& GetPoint() const { return myPnt; }
+  const Point3d& GetPoint() const { return myPnt; }
 
   //! Sets the anchor point on the annotated object
-  Standard_EXPORT void SetPoint(const gp_Pnt& thePnt);
+  Standard_EXPORT void SetPoint(const Point3d& thePnt);
 
   //! Returns True if the text position is specified
   Standard_Boolean HasPointText() const { return myHasPntTxt; }
 
   //! Returns the text position
-  const gp_Pnt& GetPointText() const { return myPntTxt; }
+  const Point3d& GetPointText() const { return myPntTxt; }
 
   //! Sets the text position
-  Standard_EXPORT void SetPointText(const gp_Pnt& thePnt);
+  Standard_EXPORT void SetPointText(const Point3d& thePnt);
 
   //! Returns a tessellated annotation if specified
   const TopoDS_Shape& GetPresentation() const { return myPresentation; }
@@ -70,8 +70,8 @@ public:
 
 private:
   gp_Ax2           myPlane;
-  gp_Pnt           myPnt;
-  gp_Pnt           myPntTxt;
+  Point3d           myPnt;
+  Point3d           myPntTxt;
   TopoDS_Shape     myPresentation;
   Standard_Boolean myHasPlane;
   Standard_Boolean myHasPnt;

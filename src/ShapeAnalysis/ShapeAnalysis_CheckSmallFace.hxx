@@ -27,7 +27,7 @@
 #include <TopTools_DataMapOfShapeShape.hxx>
 #include <ShapeExtend_Status.hxx>
 class TopoDS_Face;
-class gp_Pnt;
+class Point3d;
 class TopoDS_Edge;
 class TopoDS_Compound;
 
@@ -64,7 +64,7 @@ public:
   //! <spotol> returns an equivalent tolerance, which is computed as
   //! half of max dimension of min-max box of the face
   Standard_EXPORT Standard_Integer IsSpotFace(const TopoDS_Face&  F,
-                                              gp_Pnt&             spot,
+                                              Point3d&             spot,
                                               Standard_Real&      spotol,
                                               const Standard_Real tol = -1.0) const;
 

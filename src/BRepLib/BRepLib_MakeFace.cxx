@@ -407,7 +407,7 @@ Standard_Boolean BRepLib_MakeFace::IsDegenerated(const Handle(Geom_Curve)& theCu
     Handle(Geom_BSplineCurve) BS            = AC.BSpline();
     Standard_Integer          NbPoles       = BS->NbPoles();
     Standard_Real             aMaxPoleDist2 = 0.0, aMaxTol2 = theMaxTol * theMaxTol;
-    gp_Pnt                    P1, P2;
+    Point3d                    P1, P2;
     P1 = BS->Pole(1);
     for (Standard_Integer i = 2; i <= NbPoles; i++)
     {
@@ -426,7 +426,7 @@ Standard_Boolean BRepLib_MakeFace::IsDegenerated(const Handle(Geom_Curve)& theCu
     Handle(Geom_BezierCurve) BZ            = AC.Bezier();
     Standard_Integer         NbPoles       = BZ->NbPoles();
     Standard_Real            aMaxPoleDist2 = 0.0, aMaxTol2 = theMaxTol * theMaxTol;
-    gp_Pnt                   P1, P2;
+    Point3d                   P1, P2;
     P1 = BZ->Pole(1);
     for (Standard_Integer i = 2; i <= NbPoles; i++)
     {

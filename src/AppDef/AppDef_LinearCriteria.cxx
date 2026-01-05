@@ -443,7 +443,7 @@ void AppDef_LinearCriteria::ErrorValues(Standard_Real& MaxError,
   TColgp_Array1OfPnt2d TabP2d(1, Max(1, myNbP2d));
   TColStd_Array1OfReal BasePoint(1, NbDim);
   gp_Pnt2d             P2d;
-  gp_Pnt               P3d;
+  Point3d               P3d;
 
   Standard_Integer i, ipnt, c0 = 0;
   Standard_Real    SqrDist, Dist;

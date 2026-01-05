@@ -150,7 +150,7 @@ bool OpenGl_ShadowMap::UpdateCamera(const Graphic3d_CView& theView, const gp_XYZ
       myShadowCamera->SetZeroToOneDepth(theView.Camera()->IsZeroToOneDepth());
       myShadowCamera->SetProjectionType(Graphic3d_Camera::Projection_Perspective);
 
-      const gp_Pnt& aLightPos = myShadowLight->Position();
+      const Point3d& aLightPos = myShadowLight->Position();
       Standard_Real aDistance(aMinMaxBox.Distance(Bnd_Box(aLightPos, aLightPos))
                               + aMinMaxBox.CornerMin().Distance(aMinMaxBox.CornerMax()));
       myShadowCamera->SetDistance(aDistance);

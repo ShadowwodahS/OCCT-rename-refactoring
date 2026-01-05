@@ -138,7 +138,7 @@ Standard_Boolean IntImp_IntCS::IsEmpty()const {
   return empty;
 }
 
-const gp_Pnt& IntImp_IntCS::Point() const
+const Point3d& IntImp_IntCS::Point() const
 { 
   if (!done) throw StdFail_NotDone();
   if (empty) throw Standard_DomainError();

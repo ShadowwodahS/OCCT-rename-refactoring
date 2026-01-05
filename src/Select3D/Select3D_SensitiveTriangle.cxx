@@ -24,9 +24,9 @@ IMPLEMENT_STANDARD_RTTIEXT(Select3D_SensitiveTriangle, Select3D_SensitiveEntity)
 
 Select3D_SensitiveTriangle::Select3D_SensitiveTriangle(
   const Handle(SelectMgr_EntityOwner)& theOwnerId,
-  const gp_Pnt&                        thePnt0,
-  const gp_Pnt&                        thePnt1,
-  const gp_Pnt&                        thePnt2,
+  const Point3d&                        thePnt0,
+  const Point3d&                        thePnt1,
+  const Point3d&                        thePnt2,
   const Select3D_TypeOfSensitivity     theType)
     : Select3D_SensitiveEntity(theOwnerId),
       mySensType(theType)

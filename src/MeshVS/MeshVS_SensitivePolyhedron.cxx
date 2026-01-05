@@ -47,7 +47,7 @@ MeshVS_SensitivePolyhedron::MeshVS_SensitivePolyhedron(
     for (Standard_Integer aVertIdx = 1; aVertIdx <= aVertNb; ++aVertIdx)
     {
       Standard_Integer aNodeIdx = theTopo->Value(aPlaneIdx).Value(aVertIdx);
-      const gp_Pnt&    aVert    = theNodes.Value(aNodeIdx + aNodesLowerIdx);
+      const Point3d&    aVert    = theNodes.Value(aNodeIdx + aNodesLowerIdx);
       aVertArray->SetValue(aVertIdx - 1, aVert);
       myNodes->SetValue(aNodeIdx + aNodesLowerIdx, aVert);
       myBndBox.Add(SelectMgr_Vec3(aVert.X(), aVert.Y(), aVert.Z()));
@@ -110,7 +110,7 @@ Select3D_BndBox3d MeshVS_SensitivePolyhedron::BoundingBox()
 
 //=================================================================================================
 
-gp_Pnt MeshVS_SensitivePolyhedron::CenterOfGeometry() const
+Point3d MeshVS_SensitivePolyhedron::CenterOfGeometry() const
 {
   return myCenter;
 }

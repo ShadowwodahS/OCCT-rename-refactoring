@@ -32,7 +32,7 @@ class gp_Trsf2d;
 class gp_Trsf;
 class Geom_Geometry;
 class Geom_Curve;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 
 class ShapeExtend_CompositeSurface;
@@ -289,13 +289,13 @@ public:
   //! Computes the point of parameter U,V on the grid.
   Standard_EXPORT virtual void D0(const Standard_Real U,
                                   const Standard_Real V,
-                                  gp_Pnt&             P) const Standard_OVERRIDE;
+                                  Point3d&             P) const Standard_OVERRIDE;
 
   //! Computes the point P and the first derivatives in the
   //! directions U and V at this point.
   Standard_EXPORT virtual void D1(const Standard_Real U,
                                   const Standard_Real V,
-                                  gp_Pnt&             P,
+                                  Point3d&             P,
                                   gp_Vec&             D1U,
                                   gp_Vec&             D1V) const Standard_OVERRIDE;
 
@@ -303,7 +303,7 @@ public:
   //! the directions U and V at this point.
   Standard_EXPORT virtual void D2(const Standard_Real U,
                                   const Standard_Real V,
-                                  gp_Pnt&             P,
+                                  Point3d&             P,
                                   gp_Vec&             D1U,
                                   gp_Vec&             D1V,
                                   gp_Vec&             D2U,
@@ -314,7 +314,7 @@ public:
   //! derivatives in the directions U and V at this point.
   Standard_EXPORT virtual void D3(const Standard_Real U,
                                   const Standard_Real V,
-                                  gp_Pnt&             P,
+                                  Point3d&             P,
                                   gp_Vec&             D1U,
                                   gp_Vec&             D1V,
                                   gp_Vec&             D2U,
@@ -333,7 +333,7 @@ public:
                                     const Standard_Integer Nv) const Standard_OVERRIDE;
 
   //! Computes the point of parameter pnt on the grid.
-  Standard_EXPORT gp_Pnt Value(const gp_Pnt2d& pnt) const;
+  Standard_EXPORT Point3d Value(const gp_Pnt2d& pnt) const;
 
   //! Computes Joint values according to parameter
   Standard_EXPORT void ComputeJointValues(

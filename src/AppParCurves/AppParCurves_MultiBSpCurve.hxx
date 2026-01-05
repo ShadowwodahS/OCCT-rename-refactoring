@@ -29,7 +29,7 @@
 #include <TColStd_Array1OfReal.hxx>
 #include <TColStd_Array1OfInteger.hxx>
 #include <Standard_OStream.hxx>
-class gp_Pnt;
+class Point3d;
 class gp_Pnt2d;
 class gp_Vec;
 class gp_Vec2d;
@@ -107,7 +107,7 @@ public:
   //! An exception is raised if the curve dimension is 2d.
   Standard_EXPORT virtual void Value(const Standard_Integer CuIndex,
                                      const Standard_Real    U,
-                                     gp_Pnt&                Pt) const Standard_OVERRIDE;
+                                     Point3d&                Pt) const Standard_OVERRIDE;
 
   //! returns the value of the point with a parameter U
   //! on the BSpline curve number CuIndex.
@@ -123,7 +123,7 @@ public:
   //! An exception is raised if the curve dimension is 3d.
   Standard_EXPORT virtual void D1(const Standard_Integer CuIndex,
                                   const Standard_Real    U,
-                                  gp_Pnt&                Pt,
+                                  Point3d&                Pt,
                                   gp_Vec&                V1) const Standard_OVERRIDE;
 
   //! returns the value of the point with a parameter U
@@ -141,7 +141,7 @@ public:
   //! An exception is raised if the curve dimension is 3d.
   Standard_EXPORT virtual void D2(const Standard_Integer CuIndex,
                                   const Standard_Real    U,
-                                  gp_Pnt&                Pt,
+                                  Point3d&                Pt,
                                   gp_Vec&                V1,
                                   gp_Vec&                V2) const Standard_OVERRIDE;
 

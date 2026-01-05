@@ -97,13 +97,13 @@ public:
   Standard_Boolean InnerSolution() const { return myInnerSol; }
 
   //! Returns the Point corresponding to the <N>th solution on the first Shape <br>
-  const gp_Pnt& PointOnShape1(const Standard_Integer N) const
+  const Point3d& PointOnShape1(const Standard_Integer N) const
   {
     return mySolutionsShape1.Value(N).Point();
   }
 
   //! Returns the Point corresponding to the <N>th solution on the second Shape <br>
-  const gp_Pnt& PointOnShape2(const Standard_Integer N) const
+  const Point3d& PointOnShape2(const Standard_Integer N) const
   {
     return mySolutionsShape2.Value(N).Point();
   }

@@ -92,7 +92,7 @@ gce_MakeCylinder::gce_MakeCylinder(const gp_Circ& Circ)
 //  le rayon du cylindre.                                                 +
 //=========================================================================
 
-gce_MakeCylinder::gce_MakeCylinder(const gp_Pnt& P1, const gp_Pnt& P2, const gp_Pnt& P3)
+gce_MakeCylinder::gce_MakeCylinder(const Point3d& P1, const Point3d& P2, const Point3d& P3)
 {
   if (P1.Distance(P2) < gp::Resolution())
   {
@@ -147,7 +147,7 @@ gce_MakeCylinder::gce_MakeCylinder(const gp_Cylinder& Cyl, const Standard_Real D
 //  gp passant par le point P.                                            +
 //=========================================================================
 
-gce_MakeCylinder::gce_MakeCylinder(const gp_Cylinder& Cyl, const gp_Pnt& P)
+gce_MakeCylinder::gce_MakeCylinder(const gp_Cylinder& Cyl, const Point3d& P)
 {
   gp_Lin        L(Cyl.Axis());
   Standard_Real Rad = L.Distance(P);

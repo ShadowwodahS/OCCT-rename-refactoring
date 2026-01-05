@@ -269,7 +269,7 @@ public:
 
   //! Returns center of triangulation. If location transformation
   //! is set, it will be applied
-  virtual gp_Pnt CenterOfGeometry() const Standard_OVERRIDE { return myCDG3D; }
+  virtual Point3d CenterOfGeometry() const Standard_OVERRIDE { return myCDG3D; }
 
   //! Returns true if the shape corresponding to the entity has init location
   virtual Standard_Boolean HasInitLocation() const Standard_OVERRIDE
@@ -347,7 +347,7 @@ private:
   float                               myPatchDistance;      //!< distance between elements in patch
   bool                                myIs3d;               //!< flag indicating that position attribute has 3 components
   TopLoc_Location                     myInitLocation;
-  gp_Pnt                              myCDG3D;              //!< Center of the whole triangulation
+  Point3d                              myCDG3D;              //!< Center of the whole triangulation
   Select3D_BVHIndexBuffer             myBvhIndices;         //!< Indexes of edges or triangles for BVH tree
   mutable Select3D_BndBox3d           myBndBox;             //!< Bounding box of the whole triangulation
   gp_GTrsf                            myInvInitLocation;

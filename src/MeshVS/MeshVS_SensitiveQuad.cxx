@@ -33,10 +33,10 @@ MeshVS_SensitiveQuad::MeshVS_SensitiveQuad(const Handle(SelectMgr_EntityOwner)& 
 //=================================================================================================
 
 MeshVS_SensitiveQuad::MeshVS_SensitiveQuad(const Handle(SelectMgr_EntityOwner)& theOwner,
-                                           const gp_Pnt&                        thePnt1,
-                                           const gp_Pnt&                        thePnt2,
-                                           const gp_Pnt&                        thePnt3,
-                                           const gp_Pnt&                        thePnt4)
+                                           const Point3d&                        thePnt1,
+                                           const Point3d&                        thePnt2,
+                                           const Point3d&                        thePnt3,
+                                           const Point3d&                        thePnt4)
     : Select3D_SensitiveEntity(theOwner)
 {
   myVertices[0] = thePnt1;
@@ -111,7 +111,7 @@ Standard_Boolean MeshVS_SensitiveQuad::Matches(SelectBasics_SelectingVolumeManag
 
 //=================================================================================================
 
-gp_Pnt MeshVS_SensitiveQuad::CenterOfGeometry() const
+Point3d MeshVS_SensitiveQuad::CenterOfGeometry() const
 {
   gp_XYZ aSum(0.0, 0.0, 0.0);
   for (Standard_Integer aPntIdx = 0; aPntIdx < 4; ++aPntIdx)

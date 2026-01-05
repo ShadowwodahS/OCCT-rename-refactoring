@@ -64,7 +64,7 @@ public:
   //! returns somme des fi*fi
   Standard_Real Root() const;
 
-  gp_Pnt Point() const;
+  Point3d Point() const;
 
   Standard_EXPORT Standard_Boolean IsTangent(const math_Vector&         UVap,
                                              TColStd_Array1OfReal&      Param,
@@ -84,8 +84,8 @@ protected:
 private:
   Standard_Address          surf1;
   Standard_Address          surf2;
-  gp_Pnt                    pntsol1;
-  gp_Pnt                    pntsol2;
+  Point3d                    pntsol1;
+  Point3d                    pntsol2;
   Standard_Real             f[3];
   Standard_Boolean          compute;
   Standard_Boolean          tangent;

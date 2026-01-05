@@ -487,8 +487,8 @@ void GeomLib::EvalMaxParametricDistance(const Adaptor3d_Curve& ACurve,
     local_distance_squared;
 
   //  tolerance_squared = Tolerance * Tolerance ;
-  gp_Pnt Point1;
-  gp_Pnt Point2;
+  Point3d Point1;
+  Point3d Point2;
   for (ii = Parameters.Lower(); ii <= Parameters.Upper(); ii++)
   {
     ACurve.D0(Parameters(ii), Point1);
@@ -517,8 +517,8 @@ void GeomLib::EvalMaxDistanceAlongParameter(const Adaptor3d_Curve&      ACurve,
   Standard_Integer ii;
   Standard_Real    max_squared = 0.0e0, tolerance_squared = Tolerance * Tolerance, other_parameter,
                 para_tolerance, local_distance_squared;
-  gp_Pnt Point1;
-  gp_Pnt Point2;
+  Point3d Point1;
+  Point3d Point2;
 
   para_tolerance  = AReferenceCurve.Resolution(Tolerance);
   other_parameter = Parameters(Parameters.Lower());
@@ -1028,7 +1028,7 @@ void GeomLib_CurveOnSurfaceEvaluator::Evaluate(Standard_Integer*, /*Dimension*/
                                                Standard_Real*    Result, // [Dimension]
                                                Standard_Integer* ReturnCode)
 {
-  gp_Pnt Point;
+  Point3d Point;
 
   // Gestion des positionnements gauche / droite
   if ((DebutFin[0] != FirstParam) || (DebutFin[1] != LastParam))
@@ -1184,8 +1184,8 @@ void GeomLib::BuildCurve3d(const Standard_Real       Tolerance,
 //=================================================================================================
 
 void GeomLib::AdjustExtremity(Handle(Geom_BoundedCurve)& Curve,
-                              const gp_Pnt&              P1,
-                              const gp_Pnt&              P2,
+                              const Point3d&              P1,
+                              const Point3d&              P2,
                               const gp_Vec&              T1,
                               const gp_Vec&              T2)
 {
@@ -1194,7 +1194,7 @@ void GeomLib::AdjustExtremity(Handle(Geom_BoundedCurve)& Curve,
   aIn = GeomConvert::CurveToBSplineCurve(Curve, Convert_QuasiAngular);
 
   Standard_Integer        ii, jj;
-  gp_Pnt                  P;
+  Point3d                  P;
   gp_Vec                  V, Vtan, DV;
   TColgp_Array1OfPnt      PolesDef(1, 4), Coeffs(1, 4);
   TColStd_Array1OfReal    FK(1, 8);
@@ -1276,7 +1276,7 @@ void GeomLib::AdjustExtremity(Handle(Geom_BoundedCurve)& Curve,
 //=================================================================================================
 
 void GeomLib::ExtendCurveToPoint(Handle(Geom_BoundedCurve)& Curve,
-                                 const gp_Pnt&              Point,
+                                 const Point3d&              Point,
                                  const Standard_Integer     Continuity,
                                  const Standard_Boolean     After)
 {
@@ -1288,7 +1288,7 @@ void GeomLib::ExtendCurveToPoint(Handle(Geom_BoundedCurve)& Curve,
   Standard_Real    Lambda, L1;
   Standard_Integer ii, jj;
   gp_Vec           d1, d2, d3;
-  gp_Pnt           p0;
+  Point3d           p0;
   // il faut Convertir l'entree (en preservant si possible le parametrage)
   GeomConvert_CompCurveToBSplineCurve Concat(Curve, Convert_QuasiAngular);
 
@@ -1324,7 +1324,7 @@ void GeomLib::ExtendCurveToPoint(Handle(Geom_BoundedCurve)& Curve,
     // On essai d'avoir sur le prolongement la vitesse moyenne que l'on
     // a sur la courbe.
     gp_Vec        daux;
-    gp_Pnt        pp;
+    Point3d        pp;
     Standard_Real f = Curve->FirstParameter(), t, dt, norm;
     dt              = (Curve->LastParameter() - f) / 9;
     norm            = d1.Magnitude();
@@ -1386,7 +1386,7 @@ void GeomLib::ExtendCurveToPoint(Handle(Geom_BoundedCurve)& Curve,
   TColgp_Array1OfPnt ExtrapPoles(1, size);
   TColgp_Array1OfPnt ExtraCoeffs(1, size);
 
-  gp_Pnt PNull(0., 0., 0.);
+  Point3d PNull(0., 0., 0.);
   ExtraCoeffs.Init(PNull);
   for (ii = 1; ii <= size; ii++)
   {
@@ -1929,7 +1929,7 @@ void GeomLib::ExtendSurfByLength(Handle(Geom_BoundedSurface)& Surface,
 //=================================================================================================
 
 void GeomLib::Inertia(const TColgp_Array1OfPnt& Points,
-                      gp_Pnt&                   Bary,
+                      Point3d&                   Bary,
                       gp_Dir&                   XDir,
                       gp_Dir&                   YDir,
                       Standard_Real&            Xgap,
@@ -2051,7 +2051,7 @@ void GeomLib::AxeOfInertia(const TColgp_Array1OfPnt& Points,
                            Standard_Boolean&         IsSingular,
                            const Standard_Real       Tol)
 {
-  gp_Pnt        Bary;
+  Point3d        Bary;
   gp_Dir        OX, OY, OZ;
   Standard_Real gx, gy, gz;
 
@@ -2521,7 +2521,7 @@ Standard_Integer GeomLib::NormEstim(const Handle(Geom_Surface)& theSurf,
   const Standard_Real aTol2 = Square(theTol);
 
   gp_Vec DU, DV;
-  gp_Pnt aDummyPnt;
+  Point3d aDummyPnt;
   theSurf->D1(theUV.X(), theUV.Y(), aDummyPnt, DU, DV);
 
   const Standard_Real MDU = DU.SquareMagnitude(), MDV = DV.SquareMagnitude();
@@ -2678,8 +2678,8 @@ void GeomLib::IsClosed(const Handle(Geom_Surface)& S,
     case GeomAbs_Cylinder: {
       if (Precision::IsInfinite(v1))
         v1 = 0.;
-      gp_Pnt p1 = aGAS.Value(u1, v1);
-      gp_Pnt p2 = aGAS.Value(u2, v1);
+      Point3d p1 = aGAS.Value(u1, v1);
+      Point3d p2 = aGAS.Value(u2, v1);
       isUClosed = p1.SquareDistance(p2) <= Tol2;
       return;
     }
@@ -2688,9 +2688,9 @@ void GeomLib::IsClosed(const Handle(Geom_Surface)& S,
       if (!(Precision::IsInfinite(v1) || Precision::IsInfinite(v2)))
       {
         gp_Cone aCone  = aGAS.Cone();
-        gp_Pnt  anApex = aCone.Apex();
-        gp_Pnt  P1     = aGAS.Value(u1, v1);
-        gp_Pnt  P2     = aGAS.Value(u1, v2);
+        Point3d  anApex = aCone.Apex();
+        Point3d  P1     = aGAS.Value(u1, v1);
+        Point3d  P2     = aGAS.Value(u1, v2);
         if (P2.SquareDistance(anApex) > P1.SquareDistance(anApex))
         {
           v1 = v2;
@@ -2700,8 +2700,8 @@ void GeomLib::IsClosed(const Handle(Geom_Surface)& S,
       {
         v1 = 0.;
       }
-      gp_Pnt p1 = aGAS.Value(u1, v1);
-      gp_Pnt p2 = aGAS.Value(u2, v1);
+      Point3d p1 = aGAS.Value(u1, v1);
+      Point3d p2 = aGAS.Value(u2, v1);
       isUClosed = p1.SquareDistance(p2) <= Tol2;
       return;
     }
@@ -2718,8 +2718,8 @@ void GeomLib::IsClosed(const Handle(Geom_Surface)& S,
           v1 = v2;
         }
       }
-      gp_Pnt p1 = aGAS.Value(u1, v1);
-      gp_Pnt p2 = aGAS.Value(u2, v1);
+      Point3d p1 = aGAS.Value(u1, v1);
+      Point3d p2 = aGAS.Value(u2, v1);
       isUClosed = p1.SquareDistance(p2) <= Tol2;
       return;
     }
@@ -2781,8 +2781,8 @@ void GeomLib::IsClosed(const Handle(Geom_Surface)& S,
       for (i = 0; i < nbp; ++i)
       {
         t         = (i == nbp - 1 ? v2 : v1 + i * dt);
-        gp_Pnt p1 = aGAS.Value(u1, t);
-        gp_Pnt p2 = aGAS.Value(u2, t);
+        Point3d p1 = aGAS.Value(u1, t);
+        Point3d p2 = aGAS.Value(u2, t);
         if (p1.SquareDistance(p2) > Tol2)
         {
           isUClosed = Standard_False;
@@ -2803,8 +2803,8 @@ void GeomLib::IsClosed(const Handle(Geom_Surface)& S,
       for (i = 0; i < nbp; ++i)
       {
         t         = (i == nbp - 1 ? u2 : u1 + i * dt);
-        gp_Pnt p1 = aGAS.Value(t, v1);
-        gp_Pnt p2 = aGAS.Value(t, v2);
+        Point3d p1 = aGAS.Value(t, v1);
+        Point3d p2 = aGAS.Value(t, v2);
         if (p1.SquareDistance(p2) > Tol2)
         {
           isVClosed = Standard_False;
@@ -3126,8 +3126,8 @@ Handle(Geom_Curve) GeomLib::buildC3dOnIsoLine(const Handle(Adaptor2d_Curve2d)& t
 
     const gp_Pnt2d aPnt2d = theC2D->Value(aPar);
 
-    const gp_Pnt aPntC3D = aCurve3d->Value(aPar);
-    const gp_Pnt aPntC2D = theSurf->Value(aPnt2d.X(), aPnt2d.Y());
+    const Point3d aPntC3D = aCurve3d->Value(aPar);
+    const Point3d aPntC2D = theSurf->Value(aPnt2d.X(), aPnt2d.Y());
 
     const Standard_Real aSqDeviation = aPntC3D.SquareDistance(aPntC2D);
     anError3d                        = Max(aSqDeviation, anError3d);

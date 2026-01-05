@@ -52,7 +52,7 @@ DrawTrSurf_Drawable::DrawTrSurf_Drawable(
 
 void DrawTrSurf_Drawable::DrawCurve2dOn(Adaptor2d_Curve2d& C, Draw_Display& aDisplay) const
 {
-  gp_Pnt P;
+  Point3d P;
 
   gp_Pnt2d aPoint2d, *aPoint2dPtr;
   if (myDrawMode == 1)
@@ -106,11 +106,11 @@ static void PlotCurve(Draw_Display&          aDisplay,
                       const Adaptor3d_Curve& C,
                       Standard_Real&         theFirstParam,
                       Standard_Real          theHalfStep,
-                      const gp_Pnt&          theFirstPnt,
-                      const gp_Pnt&          theLastPnt)
+                      const Point3d&          theFirstPnt,
+                      const Point3d&          theLastPnt)
 {
   Standard_Real IsoRatio = 1.001;
-  gp_Pnt        Pm;
+  Point3d        Pm;
 
   C.D0(theFirstParam + theHalfStep, Pm);
 
@@ -135,7 +135,7 @@ static void PlotCurve(Draw_Display&          aDisplay,
 
 void DrawTrSurf_Drawable::DrawCurveOn(Adaptor3d_Curve& C, Draw_Display& aDisplay) const
 {
-  gp_Pnt P;
+  Point3d P;
   if (myDrawMode == 1)
   {
     Standard_Real            Fleche = myDeflection / aDisplay.Zoom();
@@ -158,7 +158,7 @@ void DrawTrSurf_Drawable::DrawCurveOn(Adaptor3d_Curve& C, Draw_Display& aDisplay
     C.D0(C.FirstParameter(), P);
     aDisplay.MoveTo(P);
     GeomAbs_CurveType CurvType = C.GetType();
-    gp_Pnt            aPPnt    = P, aNPnt;
+    Point3d            aPPnt    = P, aNPnt;
 
     for (intrv = 1; intrv <= nbintv; intrv++)
     {

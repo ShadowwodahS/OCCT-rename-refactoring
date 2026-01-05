@@ -76,7 +76,7 @@ static void TraceRevol(const Standard_Real                        t,
 
 {
   gp_Vec T, N, B;
-  gp_Pnt P;
+  Point3d P;
   gp_Ax3 Rep(gp::Origin(), gp::DZ(), gp::DX());
 
   Curve->D0(t, P);
@@ -213,8 +213,8 @@ void GeomFill_LocationGuide::SetRotation(const Standard_Real PrecAngle, Standard
 
   // repere fixe
   gp_Ax3 Rep(gp::Origin(), gp::DZ(), gp::DX());
-  //  gp_Pnt P,P1,P2;
-  gp_Pnt                            P;
+  //  Point3d P,P1,P2;
+  Point3d                            P;
   gp_Vec                            T, N, B;
   Standard_Integer                  ii, Deg;
   Standard_Boolean                  isconst, israt = Standard_False;
@@ -588,7 +588,7 @@ Standard_Boolean GeomFill_LocationGuide::D0(const Standard_Real Param, gp_Mat& M
 {
   Standard_Boolean Ok;
   gp_Vec           T, N, B;
-  gp_Pnt           P;
+  Point3d           P;
 
   myCurve->D0(Param, P);
   V.SetXYZ(P.XYZ());
@@ -663,7 +663,7 @@ Standard_Boolean GeomFill_LocationGuide::D0(const Standard_Real Param,
                                             TColgp_Array1OfPnt2d&)
 {
   gp_Vec           T, N, B;
-  gp_Pnt           P;
+  Point3d           P;
   Standard_Boolean Ok;
 
   myCurve->D0(Param, P);
@@ -746,8 +746,8 @@ Standard_Boolean GeomFill_LocationGuide::D1(const Standard_Real Param,
 {
   //  gp_Vec T, N, B, DT, DN, DB, T0, N0, B0;
   gp_Vec T, N, B, DT, DN, DB;
-  //  gp_Pnt P, P0;
-  gp_Pnt           P;
+  //  Point3d P, P0;
+  Point3d           P;
   Standard_Boolean Ok;
 
   myCurve->D1(Param, P, DV);
@@ -916,8 +916,8 @@ Standard_Boolean GeomFill_LocationGuide::D2(
 {
   gp_Vec T, N, B, DT, DN, DB, D2T, D2N, D2B;
   //  gp_Vec T0, N0, B0, T1, N1, B1;
-  //  gp_Pnt P, P0, P1;
-  gp_Pnt           P;
+  //  Point3d P, P0, P1;
+  Point3d           P;
   Standard_Boolean Ok;
 
   myCurve->D2(Param, P, DV, D2V);
@@ -1024,7 +1024,7 @@ Standard_Boolean GeomFill_LocationGuide::D2(
     //------------------------------------------
 
           gp_Trsf Tr;
-          gp_Pnt Q (0, 0 ,0);
+          Point3d Q (0, 0 ,0);
           gp_Ax1 Axe (Q, D);
           Tr.SetRotation(Axe, R(2));
 
@@ -1337,8 +1337,8 @@ Standard_Boolean GeomFill_LocationGuide::IsRotation(Standard_Real&) const
 
 //=================================================================================================
 
-// void GeomFill_LocationGuide::Rotation(gp_Pnt& Centre)  const
-void GeomFill_LocationGuide::Rotation(gp_Pnt&) const
+// void GeomFill_LocationGuide::Rotation(Point3d& Centre)  const
+void GeomFill_LocationGuide::Rotation(Point3d&) const
 {
   throw Standard_NotImplemented("GeomFill_LocationGuide::Rotation");
 }
@@ -1445,7 +1445,7 @@ void GeomFill_LocationGuide::SetOrigine(const Standard_Real Param1, const Standa
 GeomFill_PipeError GeomFill_LocationGuide::ComputeAutomaticLaw(
   Handle(TColgp_HArray1OfPnt2d)& ParAndRad) const
 {
-  gp_Pnt           P;
+  Point3d           P;
   gp_Vec           T, N, B;
   Standard_Integer ii;
   Standard_Real    t;
@@ -1467,7 +1467,7 @@ GeomFill_PipeError GeomFill_LocationGuide::ComputeAutomaticLaw(
       theStatus = myLaw->ErrorStatus();
       return theStatus;
     }
-    gp_Pnt        PointOnGuide = myLaw->CurrentPointOnGuide();
+    Point3d        PointOnGuide = myLaw->CurrentPointOnGuide();
     Standard_Real CurWidth     = P.Distance(PointOnGuide);
 
     gp_Pnt2d aParamWithRadius(t, CurWidth);

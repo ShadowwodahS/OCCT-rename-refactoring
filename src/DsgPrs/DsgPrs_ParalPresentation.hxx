@@ -22,7 +22,7 @@
 #include <Prs3d_Presentation.hxx>
 
 class TCollection_ExtendedString;
-class gp_Pnt;
+class Point3d;
 class gp_Dir;
 
 //! A framework to define display of relations of parallelism between shapes.
@@ -42,10 +42,10 @@ public:
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Handle(Prs3d_Drawer)&       aDrawer,
                                   const TCollection_ExtendedString& aText,
-                                  const gp_Pnt&                     AttachmentPoint1,
-                                  const gp_Pnt&                     AttachmentPoint2,
+                                  const Point3d&                     AttachmentPoint1,
+                                  const Point3d&                     AttachmentPoint2,
                                   const gp_Dir&                     aDirection,
-                                  const gp_Pnt&                     OffsetPoint);
+                                  const Point3d&                     OffsetPoint);
 
   //! Defines the display of elements showing relations of
   //! parallelism between shapes.
@@ -59,10 +59,10 @@ public:
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Handle(Prs3d_Drawer)&       aDrawer,
                                   const TCollection_ExtendedString& aText,
-                                  const gp_Pnt&                     AttachmentPoint1,
-                                  const gp_Pnt&                     AttachmentPoint2,
+                                  const Point3d&                     AttachmentPoint1,
+                                  const Point3d&                     AttachmentPoint2,
                                   const gp_Dir&                     aDirection,
-                                  const gp_Pnt&                     OffsetPoint,
+                                  const Point3d&                     OffsetPoint,
                                   const DsgPrs_ArrowSide            ArrowSide);
 
 protected:

@@ -140,7 +140,7 @@ void LProp_SLProps::SetParameters (const Standard_Real U,
   myCurvatureStatus = LProp_Undecided;
 }
 
-const gp_Pnt& LProp_SLProps::Value() const
+const Point3d& LProp_SLProps::Value() const
 {
   return myPnt;
 }
@@ -243,7 +243,7 @@ void LProp_SLProps::TangentU (gp_Dir& D)
     else
       u = myU-aDeltaU;
     
-    gp_Pnt P1, P2;
+    Point3d P1, P2;
     Tool::Value(mySurf, Min(myU, u),myV,P1);
     Tool::Value(mySurf, Max(myU, u),myV,P2);
     
@@ -301,7 +301,7 @@ void LProp_SLProps::TangentV (gp_Dir& D)
     else
       v = myV-aDeltaV;
     
-    gp_Pnt P1, P2;
+    Point3d P1, P2;
     Tool::Value(mySurf, myU, Min(myV, v),P1);
     Tool::Value(mySurf, myU, Max(myV, v),P2);
     

@@ -24,7 +24,7 @@
 #include <IGESData_IGESEntity.hxx>
 #include <Standard_Integer.hxx>
 class gp_Pnt2d;
-class gp_Pnt;
+class Point3d;
 
 class IGESGeom_Flash;
 DEFINE_STANDARD_HANDLE(IGESGeom_Flash, IGESData_IGESEntity)
@@ -67,7 +67,7 @@ public:
   Standard_EXPORT gp_Pnt2d ReferencePoint() const;
 
   //! returns the referenced point after applying Transf. Matrix
-  Standard_EXPORT gp_Pnt TransformedReferencePoint() const;
+  Standard_EXPORT Point3d TransformedReferencePoint() const;
 
   //! returns first flash sizing parameter
   Standard_EXPORT Standard_Real Dimension1() const;

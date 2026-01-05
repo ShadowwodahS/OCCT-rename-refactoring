@@ -23,8 +23,8 @@
 #include <StdFail_NotDone.hxx>
 
 GC_MakeArcOfParabola::GC_MakeArcOfParabola(const gp_Parab&        Parab,
-                                           const gp_Pnt&          P1,
-                                           const gp_Pnt&          P2,
+                                           const Point3d&          P1,
+                                           const Point3d&          P2,
                                            const Standard_Boolean Sense)
 {
   Standard_Real         Alpha1 = ElCLib::Parameter(Parab, P1);
@@ -35,7 +35,7 @@ GC_MakeArcOfParabola::GC_MakeArcOfParabola(const gp_Parab&        Parab,
 }
 
 GC_MakeArcOfParabola::GC_MakeArcOfParabola(const gp_Parab&        Parab,
-                                           const gp_Pnt&          P,
+                                           const Point3d&          P,
                                            const Standard_Real    Alpha,
                                            const Standard_Boolean Sense)
 {

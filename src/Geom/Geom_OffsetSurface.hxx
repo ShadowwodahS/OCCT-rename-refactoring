@@ -25,7 +25,7 @@
 #include <Standard_Integer.hxx>
 #include <GeomEvaluator_OffsetSurface.hxx>
 class Geom_Curve;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 class Geom_BSplineSurface;
 class gp_Trsf;
@@ -252,19 +252,19 @@ public:
   //! normal direction is greater than the second order.
   Standard_EXPORT void D0(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P) const Standard_OVERRIDE;
+                          Point3d&             P) const Standard_OVERRIDE;
 
   //! Raised if the continuity of the basis surface is not C2.
   Standard_EXPORT void D1(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V) const Standard_OVERRIDE;
 
   //! Raised if the continuity of the basis surface is not C3.
   Standard_EXPORT void D2(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V,
                           gp_Vec&             D2U,
@@ -274,7 +274,7 @@ public:
   //! Raised if the continuity of the basis surface is not C4.
   Standard_EXPORT void D3(const Standard_Real U,
                           const Standard_Real V,
-                          gp_Pnt&             P,
+                          Point3d&             P,
                           gp_Vec&             D1U,
                           gp_Vec&             D1V,
                           gp_Vec&             D2U,

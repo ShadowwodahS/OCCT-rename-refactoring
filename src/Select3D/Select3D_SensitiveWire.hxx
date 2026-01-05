@@ -51,7 +51,7 @@ public:
 
   //! Returns center of the wire. If location transformation
   //! is set, it will be applied
-  Standard_EXPORT virtual gp_Pnt CenterOfGeometry() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Point3d CenterOfGeometry() const Standard_OVERRIDE;
 
   //! Returns the length of vector of sensitive entities
   Standard_EXPORT virtual Standard_Integer Size() const Standard_OVERRIDE;
@@ -99,7 +99,7 @@ private:
   // clang-format off
   NCollection_Vector<Handle(Select3D_SensitiveEntity)> myEntities;          //!< Vector of sub-entities
   NCollection_Vector<Standard_Integer>                 myEntityIndexes;     //!< Indexes of entities for BVH build
-  gp_Pnt                                               myCenter;            //!< Center of the whole wire
+  Point3d                                               myCenter;            //!< Center of the whole wire
   mutable Select3D_BndBox3d                            myBndBox;            //!< Bounding box of the whole wire
   // clang-format on
 };

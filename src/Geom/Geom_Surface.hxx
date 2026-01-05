@@ -21,7 +21,7 @@
 
 class gp_Trsf;
 class gp_GTrsf2d;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 
 class Geom_Surface;
@@ -219,7 +219,7 @@ public:
   //! compute the current point.
   Standard_EXPORT virtual void D0(const Standard_Real U,
                                   const Standard_Real V,
-                                  gp_Pnt&             P) const = 0;
+                                  Point3d&             P) const = 0;
 
   //! Computes the point P and the first derivatives in the directions U and V at this point.
   //! Raised if the continuity of the surface is not C1.
@@ -227,7 +227,7 @@ public:
   //! Tip: use GeomLib::NormEstim() to calculate surface normal at specified (U, V) point.
   Standard_EXPORT virtual void D1(const Standard_Real U,
                                   const Standard_Real V,
-                                  gp_Pnt&             P,
+                                  Point3d&             P,
                                   gp_Vec&             D1U,
                                   gp_Vec&             D1V) const = 0;
 
@@ -236,7 +236,7 @@ public:
   //! Raised if the continuity of the surface is not C2.
   Standard_EXPORT virtual void D2(const Standard_Real U,
                                   const Standard_Real V,
-                                  gp_Pnt&             P,
+                                  Point3d&             P,
                                   gp_Vec&             D1U,
                                   gp_Vec&             D1V,
                                   gp_Vec&             D2U,
@@ -248,7 +248,7 @@ public:
   //! Raised if the continuity of the surface is not C2.
   Standard_EXPORT virtual void D3(const Standard_Real U,
                                   const Standard_Real V,
-                                  gp_Pnt&             P,
+                                  Point3d&             P,
                                   gp_Vec&             D1U,
                                   gp_Vec&             D1V,
                                   gp_Vec&             D2U,
@@ -275,7 +275,7 @@ public:
   //! Tip: use GeomLib::NormEstim() to calculate surface normal at specified (U, V) point.
   //!
   //! Raised only for an "OffsetSurface" if it is not possible to compute the current point.
-  Standard_EXPORT gp_Pnt Value(const Standard_Real U, const Standard_Real V) const;
+  Standard_EXPORT Point3d Value(const Standard_Real U, const Standard_Real V) const;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,

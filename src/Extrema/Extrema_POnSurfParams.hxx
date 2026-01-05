@@ -22,7 +22,7 @@
 #include <Extrema_ElementType.hxx>
 #include <Standard_Integer.hxx>
 #include <Extrema_POnSurf.hxx>
-class gp_Pnt;
+class Point3d;
 
 //! Data container for point on surface parameters. These parameters
 //! are required to compute an initial approximation for extrema
@@ -37,7 +37,7 @@ public:
 
   //! Creation of a point on surface with parameter
   //! values on the surface and a Pnt from gp.
-  Extrema_POnSurfParams(const Standard_Real theU, const Standard_Real theV, const gp_Pnt& thePnt);
+  Extrema_POnSurfParams(const Standard_Real theU, const Standard_Real theV, const Point3d& thePnt);
 
   //! Sets the square distance from this point to another one
   //! (e.g. to the point to be projected).

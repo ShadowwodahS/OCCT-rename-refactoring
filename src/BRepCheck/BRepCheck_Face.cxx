@@ -621,7 +621,7 @@ static Standard_Boolean Intersect(const TopoDS_Wire&         wir1,
   {
     TopoDS_Vertex V   = TopoDS::Vertex(CommonVertices(i));
     gp_Pnt2d      P2d = BRep_Tool::Parameters(V, F);
-    gp_Pnt        P   = Surf.Value(P2d.X(), P2d.Y());
+    Point3d        P   = Surf.Value(P2d.X(), P2d.Y());
     PntSeq.Append(P);
   }
 
@@ -696,8 +696,8 @@ static Standard_Boolean Intersect(const TopoDS_Wire&         wir1,
                   return Standard_True;
                 gp_Pnt2d FirstP2d = Inter.Segment(i).FirstPoint().Value();
                 gp_Pnt2d LastP2d  = Inter.Segment(i).LastPoint().Value();
-                gp_Pnt   FirstP   = Surf.Value(FirstP2d.X(), FirstP2d.Y());
-                gp_Pnt   LastP    = Surf.Value(LastP2d.X(), LastP2d.Y());
+                Point3d   FirstP   = Surf.Value(FirstP2d.X(), FirstP2d.Y());
+                Point3d   LastP    = Surf.Value(LastP2d.X(), LastP2d.Y());
                 for (Standard_Integer j = 1; j <= PntSeq.Length(); j++)
                 {
                   Standard_Real tolv = BRep_Tool::Tolerance(TopoDS::Vertex(CommonVertices(j)));
@@ -723,7 +723,7 @@ static Standard_Boolean Intersect(const TopoDS_Wire&         wir1,
               for (i = 1; i <= Inter.NbPoints(); i++)
               {
                 gp_Pnt2d P2d = Inter.Point(i).Value();
-                gp_Pnt   P   = Surf.Value(P2d.X(), P2d.Y());
+                Point3d   P   = Surf.Value(P2d.X(), P2d.Y());
                 for (Standard_Integer j = 1; j <= PntSeq.Length(); j++)
                 {
                   Standard_Real tolv = BRep_Tool::Tolerance(TopoDS::Vertex(CommonVertices(j)));
@@ -782,7 +782,7 @@ static Standard_Boolean IsInside(const TopoDS_Wire&             theWire,
         continue;
       }
 
-      gp_Pnt aPoints[2];
+      Point3d aPoints[2];
       // Compute start point of edge
       aCurve->D0(aFirst, aPoints[0]);
       // Compute middle point of edge

@@ -32,7 +32,7 @@ gce_MakeTranslation::gce_MakeTranslation(const gp_Vec& Vec)
 //   vecteur reliant Point1 a Point2.                                     +
 //=========================================================================
 
-gce_MakeTranslation::gce_MakeTranslation(const gp_Pnt& Point1, const gp_Pnt& Point2)
+gce_MakeTranslation::gce_MakeTranslation(const Point3d& Point1, const Point3d& Point2)
 {
   TheTranslation.SetTranslation(gp_Vec(Point1, Point2));
 }

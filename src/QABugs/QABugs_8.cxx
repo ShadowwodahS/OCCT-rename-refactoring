@@ -94,9 +94,9 @@ static Standard_Integer OCC204(Draw_Interpretor& di, Standard_Integer argc, cons
   }
 
   Standard_Integer    deltaY = -500;
-  BRepPrimAPI_MakeBox box1(gp_Pnt(0, 0 + deltaY, 0), gp_Pnt(100, 100 + deltaY, 100));
-  BRepPrimAPI_MakeBox box2(gp_Pnt(120, 120 + deltaY, 120), gp_Pnt(300, 300 + deltaY, 300));
-  BRepPrimAPI_MakeBox box3(gp_Pnt(320, 320 + deltaY, 320), gp_Pnt(500, 500 + deltaY, 500));
+  BRepPrimAPI_MakeBox box1(Point3d(0, 0 + deltaY, 0), Point3d(100, 100 + deltaY, 100));
+  BRepPrimAPI_MakeBox box2(Point3d(120, 120 + deltaY, 120), Point3d(300, 300 + deltaY, 300));
+  BRepPrimAPI_MakeBox box3(Point3d(320, 320 + deltaY, 320), Point3d(500, 500 + deltaY, 500));
 
   Handle(AIS_InteractiveObject) ais1 = new AIS_Shape(box1.Shape());
   Handle(AIS_InteractiveObject) ais2 = new AIS_Shape(box2.Shape());
@@ -144,14 +144,14 @@ static Standard_Integer OCC1651(Draw_Interpretor& di, Standard_Integer argc, con
   if (aShape.IsNull())
     return 0;
 
-  gp_Pnt                    aP1(Draw::Atof(argv[2]), Draw::Atof(argv[3]), Draw::Atof(argv[4]));
+  Point3d                    aP1(Draw::Atof(argv[2]), Draw::Atof(argv[3]), Draw::Atof(argv[4]));
   gp_Dir                    aD1(Draw::Atof(argv[5]), Draw::Atof(argv[6]), Draw::Atof(argv[7]));
   gp_Lin                    aL1(aP1, aD1);
   BRepClass3d_Intersector3d aI1;
   aI1.Perform(aL1, -250, 1e-7, TopoDS::Face(aShape));
   if (aI1.IsDone() && aI1.HasAPoint())
   {
-    gp_Pnt aR1 = aI1.Pnt();
+    Point3d aR1 = aI1.Pnt();
     di << aR1.X() << " " << aR1.Y() << " " << aR1.Z() << "\n";
   }
 

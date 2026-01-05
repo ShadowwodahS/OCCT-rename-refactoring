@@ -58,7 +58,7 @@ IVtkVTK_ShapeData::~IVtkVTK_ShapeData() {}
 
 //=================================================================================================
 
-IVtk_PointId IVtkVTK_ShapeData::InsertPoint(const gp_Pnt&                  thePnt,
+IVtk_PointId IVtkVTK_ShapeData::InsertPoint(const Point3d&                  thePnt,
                                             const NCollection_Vec3<float>& theNorm)
 {
   IVtk_PointId aPointId =

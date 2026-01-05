@@ -114,8 +114,8 @@ static void drawline(const Handle(BRepBlend_Line)& lin, const Standard_Boolean i
   for (Standard_Integer i = 1; i <= lin->NbPoints(); i++)
   {
     const Blend_Point& pt    = lin->Point(i);
-    gp_Pnt             point = pt.PointOnS1();
-    gp_Pnt             extr  = point.Translated(pt.TangentOnS1());
+    Point3d             point = pt.PointOnS1();
+    Point3d             extr  = point.Translated(pt.TangentOnS1());
     p3d                      = new Draw_Marker3D(point, Draw_Square, Draw_rouge);
     dout << p3d;
     tg3d = new Draw_Segment3D(point, extr, Draw_rouge);
@@ -360,7 +360,7 @@ static Standard_Boolean CompBlendPoint(const TopoDS_Vertex& V,
                                        Blend_Point&         BP)
 {
   gp_Pnt2d             P1, P2;
-  gp_Pnt               P3d;
+  Point3d               P3d;
   Standard_Real        param, f, l;
   Handle(Geom2d_Curve) pc;
 
@@ -480,7 +480,7 @@ Standard_Boolean ChFi3d_Builder::CompleteData(Handle(ChFiDS_SurfData)&         D
   Handle(Geom2d_Curve) PCurveOnSurf = new Geom2d_Line(lfil1);
   TopAbs_Orientation   tra1 = TopAbs_FORWARD, orsurf = Or;
   Standard_Real        x, y, w = 0.5 * (UFirst + ULast);
-  gp_Pnt               p;
+  Point3d               p;
   gp_Vec               du, dv;
   Handle(Geom2d_Curve) c2dtrim;
   Standard_Real        tolreached = 1.e-5;
@@ -716,7 +716,7 @@ Standard_Boolean ChFi3d_Builder::StoreData(Handle(ChFiDS_SurfData)&         Data
   Standard_Real               eps = Max(tolget3d, 2. * Precision::Confusion());
   if (length1 > eps)
   {
-    gp_Pnt P11, P21;
+    Point3d P11, P21;
     P11 = Surf->Pole(1, 1);
     P21 = Surf->Pole(Surf->NbUPoles(), 1);
     if (P11.Distance(P21) > eps)
@@ -728,7 +728,7 @@ Standard_Boolean ChFi3d_Builder::StoreData(Handle(ChFiDS_SurfData)&         Data
   }
   if (length2 > eps)
   {
-    gp_Pnt P12, P22;
+    Point3d P12, P22;
     P12 = Surf->Pole(1, Surf->NbVPoles());
     P22 = Surf->Pole(Surf->NbUPoles(), Surf->NbVPoles());
     if (P12.Distance(P22) > eps)
@@ -743,7 +743,7 @@ Standard_Boolean ChFi3d_Builder::StoreData(Handle(ChFiDS_SurfData)&         Data
   // Correction of surface on extremities
   if (!ext1)
   {
-    gp_Pnt P11, P21;
+    Point3d P11, P21;
     P11 = lin->StartPointOnFirst().Value();
     P21 = lin->StartPointOnSecond().Value();
     Surf->SetPole(1, 1, P11);
@@ -751,7 +751,7 @@ Standard_Boolean ChFi3d_Builder::StoreData(Handle(ChFiDS_SurfData)&         Data
   }
   if (!ext2)
   {
-    gp_Pnt P12, P22;
+    Point3d P12, P22;
     P12 = lin->EndPointOnFirst().Value();
     P22 = lin->EndPointOnSecond().Value();
     Surf->SetPole(1, Surf->NbVPoles(), P12);
@@ -933,7 +933,7 @@ Standard_Boolean ChFi3d_Builder::StoreData(Handle(ChFiDS_SurfData)&         Data
 
   //  Modified by skv - Wed Jun  9 17:16:26 2004 OCC5898 Begin
   //   gp_Pnt2d PUV = PCurveOnFace->Value((VFirst+VLast)/2.);
-  //   gp_Pnt P;
+  //   Point3d P;
   //   gp_Vec Du1,Du2,Dv1,Dv2;
   //   Sref->D1(PUV.X(),PUV.Y(),P,Du1,Dv1);
   //   Du1.Cross(Dv1);
@@ -951,7 +951,7 @@ Standard_Boolean ChFi3d_Builder::StoreData(Handle(ChFiDS_SurfData)&         Data
     Standard_Real aDeltav = aDelta / aDenom;
     Standard_Real aParam  = VFirst + aDeltav;
     gp_Pnt2d      PUV     = PCurveOnFace->Value(aParam);
-    gp_Pnt        P;
+    Point3d        P;
     gp_Vec        Du1, Du2, Dv1, Dv2;
 
     Sref->D1(PUV.X(), PUV.Y(), P, Du1, Dv1);

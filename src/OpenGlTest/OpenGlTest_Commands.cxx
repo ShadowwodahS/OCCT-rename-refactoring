@@ -158,11 +158,11 @@ void VUserDrawObj::ComputeSelection(const Handle(SelectMgr_Selection)& theSelect
   }
   Handle(SelectMgr_EntityOwner) anEntityOwner = new SelectMgr_EntityOwner(this);
   Handle(TColgp_HArray1OfPnt)   aPnts         = new TColgp_HArray1OfPnt(1, 5);
-  aPnts->SetValue(1, gp_Pnt(myCoords[0], myCoords[1], myCoords[2]));
-  aPnts->SetValue(2, gp_Pnt(myCoords[3], myCoords[4], myCoords[2]));
-  aPnts->SetValue(3, gp_Pnt(myCoords[3], myCoords[4], myCoords[5]));
-  aPnts->SetValue(4, gp_Pnt(myCoords[0], myCoords[1], myCoords[5]));
-  aPnts->SetValue(5, gp_Pnt(myCoords[0], myCoords[1], myCoords[2]));
+  aPnts->SetValue(1, Point3d(myCoords[0], myCoords[1], myCoords[2]));
+  aPnts->SetValue(2, Point3d(myCoords[3], myCoords[4], myCoords[2]));
+  aPnts->SetValue(3, Point3d(myCoords[3], myCoords[4], myCoords[5]));
+  aPnts->SetValue(4, Point3d(myCoords[0], myCoords[1], myCoords[5]));
+  aPnts->SetValue(5, Point3d(myCoords[0], myCoords[1], myCoords[2]));
   Handle(Select3D_SensitiveCurve) aSensitive = new Select3D_SensitiveCurve(anEntityOwner, aPnts);
   theSelection->Add(aSensitive);
 }

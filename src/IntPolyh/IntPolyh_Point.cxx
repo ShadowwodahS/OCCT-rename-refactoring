@@ -27,7 +27,7 @@ void IntPolyh_Point::Middle(const Handle(Adaptor3d_Surface)& MySurface,
   myU = (Point1.U() + Point2.U()) * 0.5;
   myV = (Point1.V() + Point2.V()) * 0.5;
 
-  gp_Pnt PtXYZ = (MySurface)->Value(myU, myV);
+  Point3d PtXYZ = (MySurface)->Value(myU, myV);
 
   myX = PtXYZ.X();
   myY = PtXYZ.Y();

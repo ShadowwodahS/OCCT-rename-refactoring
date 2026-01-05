@@ -24,7 +24,7 @@
 void BRepLProp_SurfaceTool::Value(const BRepAdaptor_Surface& S,
                                   const Standard_Real        U,
                                   const Standard_Real        V,
-                                  gp_Pnt&                    P)
+                                  Point3d&                    P)
 {
   P = S.Value(U, V);
 }
@@ -34,7 +34,7 @@ void BRepLProp_SurfaceTool::Value(const BRepAdaptor_Surface& S,
 void BRepLProp_SurfaceTool::D1(const BRepAdaptor_Surface& S,
                                const Standard_Real        U,
                                const Standard_Real        V,
-                               gp_Pnt&                    P,
+                               Point3d&                    P,
                                gp_Vec&                    D1U,
                                gp_Vec&                    D1V)
 {
@@ -46,7 +46,7 @@ void BRepLProp_SurfaceTool::D1(const BRepAdaptor_Surface& S,
 void BRepLProp_SurfaceTool::D2(const BRepAdaptor_Surface& S,
                                const Standard_Real        U,
                                const Standard_Real        V,
-                               gp_Pnt&                    P,
+                               Point3d&                    P,
                                gp_Vec&                    D1U,
                                gp_Vec&                    D1V,
                                gp_Vec&                    D2U,

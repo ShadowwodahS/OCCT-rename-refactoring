@@ -226,7 +226,7 @@ void TopOpeBRepBuild_Builder::End()
       {
         const TopoDS_Edge& E  = TopoDS::Edge(iloe.Value());
         Standard_Real      pv = BRep_Tool::Parameter(V, E);
-        gp_Pnt             Pv;
+        Point3d             Pv;
         Standard_Real      f, l;
         Handle(Geom_Curve) C3D = BRep_Tool::Curve(E, f, l);
         if (!C3D.IsNull())
@@ -281,17 +281,17 @@ void TopOpeBRepBuild_Builder::End()
 
       Standard_Real newtol = BRep_Tool::Tolerance(V);
       Bnd_Box       BOX;
-      gp_Pnt        Pv = BRep_Tool::Pnt(V);
+      Point3d        Pv = BRep_Tool::Pnt(V);
       BOX.Set(Pv);
       for (Standard_Integer i = 1; i <= nP2; i++)
       {
-        const gp_Pnt& Pi = TP(i);
+        const Point3d& Pi = TP(i);
         BOX.Update(Pi.X(), Pi.Y(), Pi.Z());
       }
       Standard_Real aXmin, aYmin, aZmin, aXmax, aYmax, aZmax;
       BOX.Get(aXmin, aYmin, aZmin, aXmax, aYmax, aZmax);
-      gp_Pnt        P1(aXmin, aYmin, aZmin);
-      gp_Pnt        P2(aXmax, aYmax, aZmax);
+      Point3d        P1(aXmin, aYmin, aZmin);
+      Point3d        P2(aXmax, aYmax, aZmax);
       Standard_Real d = P1.Distance(P2);
       if (d > newtol)
       {

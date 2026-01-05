@@ -139,7 +139,7 @@ Standard_Integer GeomAPI_ExtremaCurveSurface::NbExtrema() const
 
 //=================================================================================================
 
-void GeomAPI_ExtremaCurveSurface::Points(const Standard_Integer Index, gp_Pnt& P1, gp_Pnt& P2) const
+void GeomAPI_ExtremaCurveSurface::Points(const Standard_Integer Index, Point3d& P1, Point3d& P2) const
 {
   Standard_OutOfRange_Raise_if(Index < 1 || Index > NbExtrema(),
                                "GeomAPI_ExtremaCurveCurve::Points");
@@ -182,7 +182,7 @@ Standard_Real GeomAPI_ExtremaCurveSurface::Distance(const Standard_Integer Index
 
 //=================================================================================================
 
-void GeomAPI_ExtremaCurveSurface::NearestPoints(gp_Pnt& PC, gp_Pnt& PS) const
+void GeomAPI_ExtremaCurveSurface::NearestPoints(Point3d& PC, Point3d& PS) const
 {
   StdFail_NotDone_Raise_if(!myIsDone, "GeomAPI_ExtremaCurveSurface::NearestPoints");
 

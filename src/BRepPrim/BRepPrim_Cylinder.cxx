@@ -47,7 +47,7 @@ BRepPrim_Cylinder::BRepPrim_Cylinder(const Standard_Real Radius)
 
 //=================================================================================================
 
-BRepPrim_Cylinder::BRepPrim_Cylinder(const gp_Pnt& Center, const Standard_Real Radius)
+BRepPrim_Cylinder::BRepPrim_Cylinder(const Point3d& Center, const Standard_Real Radius)
     : BRepPrim_Revolution(gp_Ax2(Center, gp_Dir(0, 0, 1), gp_Dir(1, 0, 0)),
                           RealFirst(),
                           RealLast()),
@@ -76,7 +76,7 @@ BRepPrim_Cylinder::BRepPrim_Cylinder(const Standard_Real R, const Standard_Real 
 
 //=================================================================================================
 
-BRepPrim_Cylinder::BRepPrim_Cylinder(const gp_Pnt&       Center,
+BRepPrim_Cylinder::BRepPrim_Cylinder(const Point3d&       Center,
                                      const Standard_Real R,
                                      const Standard_Real H)
     : BRepPrim_Revolution(gp_Ax2(Center, gp_Dir(0, 0, 1), gp_Dir(1, 0, 0)), 0, H),

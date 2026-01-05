@@ -41,7 +41,7 @@ typedef gp_Ax2               Ax2;
 typedef gp_Ax3               Ax3;
 typedef gp_Circ              Circ;
 typedef gp_Dir               Dir;
-typedef gp_Pnt               Pnt;
+typedef Point3d               Pnt;
 typedef gp_Trsf              Trsf;
 typedef gp_Vec               Vec;
 typedef gp_XYZ               XYZ;

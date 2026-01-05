@@ -504,7 +504,7 @@ void DBRep_IsoBuilder::FillGaps(const TopoDS_Face& theFace, DataMapOfEdgePCurve&
 
       // Check if the vertex covers these bounding points by its tolerance
       Standard_Real aTolV2 = BRep_Tool::Tolerance(aCVOnPrev);
-      gp_Pnt        aPV    = BRep_Tool::Pnt(aCVOnPrev);
+      Point3d        aPV    = BRep_Tool::Pnt(aCVOnPrev);
       // There is no need to check the distance if the tolerance
       // of vertex is infinite (like in the test case sewing/tol_1/R2)
       if (aTolV2 < Precision::Infinite())
@@ -512,14 +512,14 @@ void DBRep_IsoBuilder::FillGaps(const TopoDS_Face& theFace, DataMapOfEdgePCurve&
         aTolV2 *= aTolV2;
 
         // Convert bounding point on previous edge into 3D
-        gp_Pnt aPrevPS = aBASurf.Value(aPrevP2d.X(), aPrevP2d.Y());
+        Point3d aPrevPS = aBASurf.Value(aPrevP2d.X(), aPrevP2d.Y());
 
         // Check if the vertex closes the gap
         if (aPV.SquareDistance(aPrevPS) > aTolV2)
           continue;
 
         // Convert bounding point on current edge into 3D
-        gp_Pnt aCurrPS = aBASurf.Value(aCurrP2d.X(), aCurrP2d.Y());
+        Point3d aCurrPS = aBASurf.Value(aCurrP2d.X(), aCurrP2d.Y());
 
         // Check if the vertex closes the gap
         if (aPV.SquareDistance(aCurrPS) > aTolV2)
@@ -623,7 +623,7 @@ void DBRep_IsoBuilder::FillGaps(const TopoDS_Face& theFace, DataMapOfEdgePCurve&
             {
               // Check that the intersection point is covered by vertex tolerance
               gp_Pnt2d     aPInt = aPrevC2d->Value(aTPrevClosest);
-              const gp_Pnt aPOnS = aBASurf.Value(aPInt.X(), aPInt.Y());
+              const Point3d aPOnS = aBASurf.Value(aPInt.X(), aPInt.Y());
               if (aTolV2 > Precision::Infinite() || aPOnS.SquareDistance(aPV) < aTolV2)
               {
                 Standard_Real f, l;

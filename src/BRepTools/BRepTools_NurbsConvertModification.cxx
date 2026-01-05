@@ -123,7 +123,7 @@ static Handle(Geom_Surface) newSurface(const TColStd_IndexedDataMapOfTransientTr
   return aNewSurf;
 }
 
-static Standard_Boolean newParameter(const gp_Pnt&             thePoint,
+static Standard_Boolean newParameter(const Point3d&             thePoint,
                                      const Handle(Geom_Curve)& theCurve,
                                      const Standard_Real       theFirst,
                                      const Standard_Real       theLast,
@@ -193,7 +193,7 @@ static Standard_Boolean newParameter(const gp_Pnt2d&             theUV,
   return Standard_False;
 }
 
-static Standard_Boolean newUV(const gp_Pnt&               thePoint,
+static Standard_Boolean newUV(const Point3d&               thePoint,
                               const Handle(Geom_Surface)& theSurf,
                               const Standard_Real         theTol,
                               gp_Pnt2d&                   theUV)
@@ -405,7 +405,7 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewTriangulation(
       for (Standard_Integer anInd = 1; anInd <= theTri->NbNodes(); ++anInd)
       {
         gp_Pnt2d aUV    = theTri->UVNode(anInd);
-        gp_Pnt   aPoint = aSurf->Value(aUV.X(), aUV.Y());
+        Point3d   aPoint = aSurf->Value(aUV.X(), aUV.Y());
         if (newUV(aPoint, aNewSurf, aTol, aUV))
           theTri->SetUVNode(anInd, aUV);
       }
@@ -523,7 +523,7 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewPolygon(const TopoDS_Edg
     for (Standard_Integer anInd = aParams.Lower(); anInd <= aParams.Upper(); ++anInd)
     {
       Standard_Real& aParam = aParams(anInd);
-      gp_Pnt         aPoint = aCurve->Value(aParam);
+      Point3d         aPoint = aCurve->Value(aParam);
       newParameter(aPoint, aNewCurve, aFirst, aLast, aTol, aParam);
     }
   }
@@ -533,7 +533,7 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewPolygon(const TopoDS_Edg
 //=================================================================================================
 
 Standard_Boolean BRepTools_NurbsConvertModification::NewPoint(const TopoDS_Vertex&,
-                                                              gp_Pnt&,
+                                                              Point3d&,
                                                               Standard_Real&)
 {
   return Standard_False;
@@ -954,7 +954,7 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewPolygonOnTriangulation(
       {
         Standard_Real aParam = thePoly->Parameter(anInd);
         gp_Pnt2d      aUV    = aC2d->Value(aParam);
-        gp_Pnt        aPoint = aSurf->Value(aUV.X(), aUV.Y());
+        Point3d        aPoint = aSurf->Value(aUV.X(), aUV.Y());
         if (newUV(aPoint, aNewSurf, aTol, aUV)
             && newParameter(aUV, aNewC2d, aFirst, aLast, aTol2D, aParam))
         {
@@ -977,7 +977,7 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewParameter(const TopoDS_V
   if (BRep_Tool::Degenerated(E))
     return Standard_False;
 
-  gp_Pnt pnt = BRep_Tool::Pnt(V);
+  Point3d pnt = BRep_Tool::Pnt(V);
   P          = BRep_Tool::Parameter(V, E);
   Standard_Real      aFirst, aLast;
   Handle(Geom_Curve) aNewCurve = newCurve(myMap, E, aFirst, aLast);

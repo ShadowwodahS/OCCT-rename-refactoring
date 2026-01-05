@@ -33,7 +33,7 @@
 #include <GeomAbs_Shape.hxx>
 class GeomFill_LocationLaw;
 class GeomFill_SectionLaw;
-class gp_Pnt;
+class Point3d;
 
 class GeomFill_SweepFunction;
 DEFINE_STANDARD_HANDLE(GeomFill_SweepFunction, Approx_SweepFunction)
@@ -150,7 +150,7 @@ public:
   //! estimation is sufficient. This information is useful
   //! to perform well conditioned rational approximation.
   //! Warning: Used only if <me> IsRational
-  Standard_EXPORT virtual gp_Pnt BarycentreOfSurf() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Point3d BarycentreOfSurf() const Standard_OVERRIDE;
 
   //! Returns the   length of the maximum section. This
   //! information is useful to perform well conditioned rational

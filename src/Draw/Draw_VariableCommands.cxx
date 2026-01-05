@@ -620,7 +620,7 @@ static Standard_Integer pick(Draw_Interpretor&, Standard_Integer n, const char**
     id = Draw::Atoi(a[1]);
   dout.Select(id, X, Y, b, wait);
   Standard_Real z = dout.Zoom(id);
-  gp_Pnt        P((Standard_Real)X / z, (Standard_Real)Y / z, 0);
+  Point3d        P((Standard_Real)X / z, (Standard_Real)Y / z, 0);
   gp_Trsf       T;
   dout.GetTrsf(id, T);
   T.Invert();
@@ -649,7 +649,7 @@ static Standard_Integer lastrep(Draw_Interpretor& di, Standard_Integer n, const 
   else if (n == 6)
   {
     Standard_Real z = dout.Zoom(p_id);
-    gp_Pnt        P((Standard_Real)p_X / z, (Standard_Real)p_Y / z, 0);
+    Point3d        P((Standard_Real)p_X / z, (Standard_Real)p_Y / z, 0);
     gp_Trsf       T;
     dout.GetTrsf(p_id, T);
     T.Invert();
@@ -1251,7 +1251,7 @@ void Draw::VariableCommands(Draw_Interpretor& theCommandsArg)
 
   // set up some variables
   const char*         n;
-  Handle(Draw_Axis3D) theAxes3d = new Draw_Axis3D(gp_Pnt(0, 0, 0), Draw_bleu, 20);
+  Handle(Draw_Axis3D) theAxes3d = new Draw_Axis3D(Point3d(0, 0, 0), Draw_bleu, 20);
   n                             = "axes";
   Draw::Set(n, theAxes3d);
   theAxes3d->Protected(Standard_True);

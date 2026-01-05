@@ -23,7 +23,7 @@
 #include <gp_XYZ.hxx>
 #include <IGESData_IGESEntity.hxx>
 class IGESBasic_SubfigureDef;
-class gp_Pnt;
+class Point3d;
 
 class IGESGeom_Point;
 DEFINE_STANDARD_HANDLE(IGESGeom_Point, IGESData_IGESEntity)
@@ -43,10 +43,10 @@ public:
   Standard_EXPORT void Init(const gp_XYZ& aPoint, const Handle(IGESBasic_SubfigureDef)& aSymbol);
 
   //! returns coordinates of the point
-  Standard_EXPORT gp_Pnt Value() const;
+  Standard_EXPORT Point3d Value() const;
 
   //! returns coordinates of the point after applying Transf. Matrix
-  Standard_EXPORT gp_Pnt TransformedValue() const;
+  Standard_EXPORT Point3d TransformedValue() const;
 
   //! returns True if symbol exists
   Standard_EXPORT Standard_Boolean HasDisplaySymbol() const;

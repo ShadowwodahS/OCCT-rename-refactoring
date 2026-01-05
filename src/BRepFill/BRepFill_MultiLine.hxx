@@ -33,7 +33,7 @@
 class TopoDS_Edge;
 class Geom2d_Curve;
 class Geom_Curve;
-class gp_Pnt;
+class Point3d;
 class gp_Pnt2d;
 
 //! Class used to compute the 3d curve and the
@@ -80,7 +80,7 @@ public:
   Standard_EXPORT virtual Standard_Real LastParameter() const;
 
   //! Returns the current point on the 3d curve
-  Standard_EXPORT gp_Pnt Value(const Standard_Real U) const;
+  Standard_EXPORT Point3d Value(const Standard_Real U) const;
 
   //! returns the current point on the PCurve of the
   //! first face
@@ -91,14 +91,14 @@ public:
   Standard_EXPORT gp_Pnt2d ValueOnF2(const Standard_Real U) const;
 
   Standard_EXPORT void Value3dOnF1OnF2(const Standard_Real U,
-                                       gp_Pnt&             P3d,
+                                       Point3d&             P3d,
                                        gp_Pnt2d&           PF1,
                                        gp_Pnt2d&           PF2) const;
 
   //! Returns the point at parameter <theU>.
   Standard_EXPORT virtual Standard_Boolean Value(const Standard_Real           theU,
                                                  NCollection_Array1<gp_Pnt2d>& thePnt2d,
-                                                 NCollection_Array1<gp_Pnt>&   thePnt) const;
+                                                 NCollection_Array1<Point3d>&   thePnt) const;
 
   //! Returns the derivative at parameter <theU>.
   Standard_EXPORT virtual Standard_Boolean D1(const Standard_Real           theU,

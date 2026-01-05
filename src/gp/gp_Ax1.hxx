@@ -48,7 +48,7 @@ public:
   }
 
   //! P is the location point and V is the direction of <me>.
-  gp_Ax1(const gp_Pnt& theP, const gp_Dir& theV)
+  gp_Ax1(const Point3d& theP, const gp_Dir& theV)
       : loc(theP),
         vdir(theV)
   {
@@ -58,13 +58,13 @@ public:
   void SetDirection(const gp_Dir& theV) { vdir = theV; }
 
   //! Assigns  P as the origin of this axis.
-  void SetLocation(const gp_Pnt& theP) { loc = theP; }
+  void SetLocation(const Point3d& theP) { loc = theP; }
 
   //! Returns the direction of <me>.
   const gp_Dir& Direction() const { return vdir; }
 
   //! Returns the location point of <me>.
-  const gp_Pnt& Location() const { return loc; }
+  const Point3d& Location() const { return loc; }
 
   //! Returns True if  :
   //! . the angle between <me> and <Other> is lower or equal
@@ -118,12 +118,12 @@ public:
   //! Performs the symmetrical transformation of an axis
   //! placement with respect to the point P which is the
   //! center of the symmetry and assigns the result to this axis.
-  Standard_EXPORT void Mirror(const gp_Pnt& P);
+  Standard_EXPORT void Mirror(const Point3d& P);
 
   //! Performs the symmetrical transformation of an axis
   //! placement with respect to the point P which is the
   //! center of the symmetry and creates a new axis.
-  Standard_NODISCARD Standard_EXPORT gp_Ax1 Mirrored(const gp_Pnt& P) const;
+  Standard_NODISCARD Standard_EXPORT gp_Ax1 Mirrored(const Point3d& P) const;
 
   //! Performs the symmetrical transformation of an axis
   //! placement with respect to an axis placement which
@@ -167,7 +167,7 @@ public:
   //! Applies a scaling transformation to this axis with:
   //! - scale factor theS, and
   //! - center theP and assigns the result to this axis.
-  void Scale(const gp_Pnt& theP, const Standard_Real theS)
+  void Scale(const Point3d& theP, const Standard_Real theS)
   {
     loc.Scale(theP, theS);
     if (theS < 0.0)
@@ -179,7 +179,7 @@ public:
   //! Applies a scaling transformation to this axis with:
   //! - scale factor theS, and
   //! - center theP and creates a new axis.
-  Standard_NODISCARD gp_Ax1 Scaled(const gp_Pnt& theP, const Standard_Real theS) const
+  Standard_NODISCARD gp_Ax1 Scaled(const Point3d& theP, const Standard_Real theS) const
   {
     gp_Ax1 A1 = *this;
     A1.Scale(theP, theS);
@@ -219,12 +219,12 @@ public:
   //! Translates this axis by:
   //! the vector (theP1, theP2) defined from point theP1 to point theP2.
   //! and assigns the result to this axis.
-  void Translate(const gp_Pnt& theP1, const gp_Pnt& theP2) { loc.Translate(theP1, theP2); }
+  void Translate(const Point3d& theP1, const Point3d& theP2) { loc.Translate(theP1, theP2); }
 
   //! Translates this axis by:
   //! the vector (theP1, theP2) defined from point theP1 to point theP2.
   //! and creates a new one.
-  Standard_NODISCARD gp_Ax1 Translated(const gp_Pnt& theP1, const gp_Pnt& theP2) const
+  Standard_NODISCARD gp_Ax1 Translated(const Point3d& theP1, const Point3d& theP2) const
   {
     gp_Ax1 A1 = *this;
     (A1.loc).Translate(theP1, theP2);
@@ -239,7 +239,7 @@ public:
                                                 Standard_Integer&       theStreamPos);
 
 private:
-  gp_Pnt loc;
+  Point3d loc;
   gp_Dir vdir;
 };
 

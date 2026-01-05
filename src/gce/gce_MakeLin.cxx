@@ -36,7 +36,7 @@ gce_MakeLin::gce_MakeLin(const gp_Ax1& A1)
 //   et d une direction V (Dir de gp).                                    +
 //=========================================================================
 
-gce_MakeLin::gce_MakeLin(const gp_Pnt& P, const gp_Dir& V)
+gce_MakeLin::gce_MakeLin(const Point3d& P, const gp_Dir& V)
 {
   TheLin   = gp_Lin(P, V);
   TheError = gce_Done;
@@ -47,7 +47,7 @@ gce_MakeLin::gce_MakeLin(const gp_Pnt& P, const gp_Dir& V)
 //   <P2>.                                                                +
 //=========================================================================
 
-gce_MakeLin::gce_MakeLin(const gp_Pnt& P1, const gp_Pnt& P2)
+gce_MakeLin::gce_MakeLin(const Point3d& P1, const Point3d& P2)
 {
   if (P1.Distance(P2) >= gp::Resolution())
   {
@@ -65,7 +65,7 @@ gce_MakeLin::gce_MakeLin(const gp_Pnt& P1, const gp_Pnt& P2)
 //   par le point <P>.                                                    +
 //=========================================================================
 
-gce_MakeLin::gce_MakeLin(const gp_Lin& Lin, const gp_Pnt& P)
+gce_MakeLin::gce_MakeLin(const gp_Lin& Lin, const Point3d& P)
 {
   TheLin   = gp_Lin(P, Lin.Direction());
   TheError = gce_Done;

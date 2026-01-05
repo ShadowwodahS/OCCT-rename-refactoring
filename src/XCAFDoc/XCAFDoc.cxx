@@ -397,7 +397,7 @@ TCollection_AsciiString XCAFDoc::AttributeInfo(const Handle(TDF_Attribute)& theA
   else if (theAtt->IsKind(STANDARD_TYPE(XCAFDoc_Centroid)))
   {
     Handle(XCAFDoc_Centroid) val        = Handle(XCAFDoc_Centroid)::DownCast(theAtt);
-    gp_Pnt                   myCentroid = val->Get();
+    Point3d                   myCentroid = val->Get();
     anInfo                              = "(";
     anInfo += TCollection_AsciiString(myCentroid.X());
     anInfo += TCollection_AsciiString(" , ");

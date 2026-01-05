@@ -23,7 +23,7 @@
 void GeomLProp_SurfaceTool::Value(const Handle(Geom_Surface)& S,
                                   const Standard_Real         U,
                                   const Standard_Real         V,
-                                  gp_Pnt&                     P)
+                                  Point3d&                     P)
 {
   P = S->Value(U, V);
 }
@@ -31,7 +31,7 @@ void GeomLProp_SurfaceTool::Value(const Handle(Geom_Surface)& S,
 void GeomLProp_SurfaceTool::D1(const Handle(Geom_Surface)& S,
                                const Standard_Real         U,
                                const Standard_Real         V,
-                               gp_Pnt&                     P,
+                               Point3d&                     P,
                                gp_Vec&                     D1U,
                                gp_Vec&                     D1V)
 {
@@ -41,7 +41,7 @@ void GeomLProp_SurfaceTool::D1(const Handle(Geom_Surface)& S,
 void GeomLProp_SurfaceTool::D2(const Handle(Geom_Surface)& S,
                                const Standard_Real         U,
                                const Standard_Real         V,
-                               gp_Pnt&                     P,
+                               Point3d&                     P,
                                gp_Vec&                     D1U,
                                gp_Vec&                     D1V,
                                gp_Vec&                     D2U,

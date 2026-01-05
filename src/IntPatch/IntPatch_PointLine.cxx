@@ -57,7 +57,7 @@ Standard_Real IntPatch_PointLine::CurvatureRadiusOfIntersLine(
 
   Standard_Real aU1 = 0.0, aV1 = 0.0, aU2 = 0.0, aV2 = 0.0;
   theUVPoint.Parameters(aU1, aV1, aU2, aV2);
-  gp_Pnt aPt;
+  Point3d aPt;
   gp_Vec aDU1, aDV1, aDUU1, aDUV1, aDVV1;
   gp_Vec aDU2, aDV2, aDUU2, aDUV2, aDVV2;
 

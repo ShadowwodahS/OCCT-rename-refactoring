@@ -32,8 +32,8 @@ void DsgPrs_XYZAxisPresentation::Add(const Handle(Prs3d_Presentation)& aPresenta
                                      const gp_Dir&                     aDir,
                                      const Standard_Real               aVal,
                                      const Standard_CString            theText,
-                                     const gp_Pnt&                     aPfirst,
-                                     const gp_Pnt&                     aPlast)
+                                     const Point3d&                     aPfirst,
+                                     const Point3d&                     aPlast)
 {
   Handle(Graphic3d_Group) G = aPresentation->CurrentGroup();
   G->SetPrimitivesAspect(aLineAspect->Aspect());
@@ -61,8 +61,8 @@ void DsgPrs_XYZAxisPresentation::Add(const Handle(Prs3d_Presentation)& aPresenta
                                      const gp_Dir&                     aDir,
                                      const Standard_Real               aVal,
                                      const Standard_CString            theText,
-                                     const gp_Pnt&                     aPfirst,
-                                     const gp_Pnt&                     aPlast)
+                                     const Point3d&                     aPfirst,
+                                     const Point3d&                     aPlast)
 {
   Handle(Graphic3d_Group) G = aPresentation->CurrentGroup();
   G->SetPrimitivesAspect(aLineAspect->Aspect());

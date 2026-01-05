@@ -136,7 +136,7 @@ Standard_Boolean BRepTools_CopyModification::NewPolygonOnTriangulation(
 //=================================================================================================
 
 Standard_Boolean BRepTools_CopyModification::NewPoint(const TopoDS_Vertex& theVertex,
-                                                      gp_Pnt&              thePnt,
+                                                      Point3d&              thePnt,
                                                       Standard_Real&       theTol)
 {
   thePnt = BRep_Tool::Pnt(theVertex);

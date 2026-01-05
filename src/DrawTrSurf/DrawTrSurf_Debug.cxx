@@ -66,7 +66,7 @@ Standard_EXPORT const char* DrawTrSurf_SetPnt(const char* theNameStr, void* theP
   }
   try
   {
-    const gp_Pnt& aP = *(gp_Pnt*)thePntPtr;
+    const Point3d& aP = *(Point3d*)thePntPtr;
     static char   buff[256];
     sprintf(buff,
             "Point (%.16g, %.16g, %.16g) set to DRAW variable %.80s",
@@ -115,7 +115,7 @@ Standard_EXPORT const char* DrawTrSurf_Set(const char* name, const Handle(RefObj
   return DrawTrSurf_Set(name, (void*)&G);
 }
 
-Standard_EXPORT const char* DrawTrSurf_Set(const char* theName, const gp_Pnt& thePnt)
+Standard_EXPORT const char* DrawTrSurf_Set(const char* theName, const Point3d& thePnt)
 {
   return DrawTrSurf_SetPnt(theName, (void*)&thePnt);
 }

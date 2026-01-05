@@ -1533,7 +1533,7 @@ Standard_Boolean ChoixUV(const TopoDS_Edge&                Last,
 {
   gp_Pnt2d p2d;
   gp_Vec2d v2d;
-  gp_Pnt   aPCur, aPlst;
+  Point3d   aPCur, aPlst;
 
   BRepAdaptor_Surface surf(F, Standard_False); // no restriction
   surf.D0(plst.X(), plst.Y(), aPlst);

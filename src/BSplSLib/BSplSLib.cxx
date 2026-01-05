@@ -420,7 +420,7 @@ static Standard_Boolean PrepareEval(const Standard_Real            U,
 
         for (j = 0; j <= d2; j++)
         {
-          const gp_Pnt& P = Poles.Value(ip, jp);
+          const Point3d& P = Poles.Value(ip, jp);
           pole[3] = w = Weights->Value(ip, jp);
           pole[0]     = P.X() * w;
           pole[1]     = P.Y() * w;
@@ -449,7 +449,7 @@ static Standard_Boolean PrepareEval(const Standard_Real            U,
 
         for (j = 0; j <= d2; j++)
         {
-          const gp_Pnt& P = Poles.Value(ip, jp);
+          const Point3d& P = Poles.Value(ip, jp);
           pole[0]         = P.X();
           pole[1]         = P.Y();
           pole[2]         = P.Z();
@@ -571,7 +571,7 @@ static Standard_Boolean PrepareEval(const Standard_Real            U,
 
         for (j = 0; j <= d2; j++)
         {
-          const gp_Pnt& P = Poles.Value(ip, jp);
+          const Point3d& P = Poles.Value(ip, jp);
           pole[3] = w = Weights->Value(ip, jp);
           pole[0]     = P.X() * w;
           pole[1]     = P.Y() * w;
@@ -603,7 +603,7 @@ static Standard_Boolean PrepareEval(const Standard_Real            U,
 
         for (j = 0; j <= d2; j++)
         {
-          const gp_Pnt& P = Poles.Value(ip, jp);
+          const Point3d& P = Poles.Value(ip, jp);
           pole[0]         = P.X();
           pole[1]         = P.Y();
           pole[2]         = P.Z();
@@ -643,7 +643,7 @@ void BSplSLib::D0(const Standard_Real            U,
                   const Standard_Boolean         VRat,
                   const Standard_Boolean         UPer,
                   const Standard_Boolean         VPer,
-                  gp_Pnt&                        P)
+                  Point3d&                        P)
 {
   //  Standard_Integer k ;
   Standard_Real W;
@@ -689,7 +689,7 @@ void BSplSLib::HomogeneousD0(const Standard_Real            U,
                              const Standard_Boolean         UPer,
                              const Standard_Boolean         VPer,
                              Standard_Real&                 W,
-                             gp_Pnt&                        P)
+                             Point3d&                        P)
 {
   Standard_Boolean rational;
   //  Standard_Integer k,dim;
@@ -760,7 +760,7 @@ void BSplSLib::D1(const Standard_Real            U,
                   const Standard_Boolean         VRat,
                   const Standard_Boolean         UPer,
                   const Standard_Boolean         VPer,
-                  gp_Pnt&                        P,
+                  Point3d&                        P,
                   gp_Vec&                        Vu,
                   gp_Vec&                        Vv)
 {
@@ -878,7 +878,7 @@ void BSplSLib::HomogeneousD1(const Standard_Real            U,
                              const Standard_Boolean         VRat,
                              const Standard_Boolean         UPer,
                              const Standard_Boolean         VPer,
-                             gp_Pnt&                        N,
+                             Point3d&                        N,
                              gp_Vec&                        Nu,
                              gp_Vec&                        Nv,
                              Standard_Real&                 D,
@@ -966,7 +966,7 @@ void BSplSLib::D2(const Standard_Real            U,
                   const Standard_Boolean         VRat,
                   const Standard_Boolean         UPer,
                   const Standard_Boolean         VPer,
-                  gp_Pnt&                        P,
+                  Point3d&                        P,
                   gp_Vec&                        Vu,
                   gp_Vec&                        Vv,
                   gp_Vec&                        Vuu,
@@ -1128,7 +1128,7 @@ void BSplSLib::D3(const Standard_Real            U,
                   const Standard_Boolean         VRat,
                   const Standard_Boolean         UPer,
                   const Standard_Boolean         VPer,
-                  gp_Pnt&                        P,
+                  Point3d&                        P,
                   gp_Vec&                        Vu,
                   gp_Vec&                        Vv,
                   gp_Vec&                        Vuu,
@@ -1499,7 +1499,7 @@ void BSplSLib::Iso(const Standard_Real            Param,
     for (j = f2; j <= l2; j++)
     {
 
-      const gp_Pnt& P = IsU ? Poles(index, j) : Poles(j, index);
+      const Point3d& P = IsU ? Poles(index, j) : Poles(j, index);
       if (rational)
       {
         pole[3] = w = IsU ? (*Weights)(index, j) : (*Weights)(j, index);
@@ -1528,7 +1528,7 @@ void BSplSLib::Iso(const Standard_Real            Param,
 
   for (i = CPoles.Lower(); i <= CPoles.Upper(); i++)
   {
-    gp_Pnt& P = CPoles(i);
+    Point3d& P = CPoles(i);
     if (rational)
     {
       (*CWeights)(i) = w = pole[3];
@@ -1745,7 +1745,7 @@ void BSplSLib::SetPoles(const TColgp_Array2OfPnt& Poles,
 
       for (j = PLowerCol; j <= PUpperCol; j++)
       {
-        const gp_Pnt& P = Poles.Value(i, j);
+        const Point3d& P = Poles.Value(i, j);
         FP(l)           = P.X();
         l++;
         FP(l) = P.Y();
@@ -1763,7 +1763,7 @@ void BSplSLib::SetPoles(const TColgp_Array2OfPnt& Poles,
 
       for (i = PLowerRow; i <= PUpperRow; i++)
       {
-        const gp_Pnt& P = Poles.Value(i, j);
+        const Point3d& P = Poles.Value(i, j);
         FP(l)           = P.X();
         l++;
         FP(l) = P.Y();
@@ -1795,7 +1795,7 @@ void BSplSLib::SetPoles(const TColgp_Array2OfPnt&   Poles,
 
       for (j = PLowerCol; j <= PUpperCol; j++)
       {
-        const gp_Pnt& P = Poles.Value(i, j);
+        const Point3d& P = Poles.Value(i, j);
         Standard_Real w = Weights.Value(i, j);
         FP(l)           = P.X() * w;
         l++;
@@ -1816,7 +1816,7 @@ void BSplSLib::SetPoles(const TColgp_Array2OfPnt&   Poles,
 
       for (i = PLowerRow; i <= PUpperRow; i++)
       {
-        const gp_Pnt& P = Poles.Value(i, j);
+        const Point3d& P = Poles.Value(i, j);
         Standard_Real w = Weights.Value(i, j);
         FP(l)           = P.X() * w;
         l++;
@@ -1850,7 +1850,7 @@ void BSplSLib::GetPoles(const TColStd_Array1OfReal& FP,
 
       for (j = PLowerCol; j <= PUpperCol; j++)
       {
-        gp_Pnt& P = Poles.ChangeValue(i, j);
+        Point3d& P = Poles.ChangeValue(i, j);
         P.SetX(FP(l));
         l++;
         P.SetY(FP(l));
@@ -1868,7 +1868,7 @@ void BSplSLib::GetPoles(const TColStd_Array1OfReal& FP,
 
       for (i = PLowerRow; i <= PUpperRow; i++)
       {
-        gp_Pnt& P = Poles.ChangeValue(i, j);
+        Point3d& P = Poles.ChangeValue(i, j);
         P.SetX(FP(l));
         l++;
         P.SetY(FP(l));
@@ -1902,7 +1902,7 @@ void BSplSLib::GetPoles(const TColStd_Array1OfReal& FP,
       {
         Standard_Real w = FP(l + 3);
         Weights(i, j)   = w;
-        gp_Pnt& P       = Poles.ChangeValue(i, j);
+        Point3d& P       = Poles.ChangeValue(i, j);
         P.SetX(FP(l) / w);
         l++;
         P.SetY(FP(l) / w);
@@ -1923,7 +1923,7 @@ void BSplSLib::GetPoles(const TColStd_Array1OfReal& FP,
       {
         Standard_Real w = FP(l + 3);
         Weights(i, j)   = w;
-        gp_Pnt& P       = Poles.ChangeValue(i, j);
+        Point3d& P       = Poles.ChangeValue(i, j);
         P.SetX(FP(l) / w);
         l++;
         P.SetY(FP(l) / w);
@@ -2236,7 +2236,7 @@ void BSplSLib::BuildCache(const Standard_Real         U,
         jjj       = jj + 1;
         Index     = jj * d2p1 + ii;
         Index     = Index << 2;
-        gp_Pnt& P = CachePoles(iii, jjj);
+        Point3d& P = CachePoles(iii, jjj);
         f         = factor[0] * factor[1];
         P.SetX(f * dc.poles[Index]);
         Index++;
@@ -2278,7 +2278,7 @@ void BSplSLib::BuildCache(const Standard_Real         U,
         jjj       = jj + 1;
         Index     = jj * d2p1 + ii;
         Index     = (Index << 1) + Index;
-        gp_Pnt& P = CachePoles(iii, jjj);
+        Point3d& P = CachePoles(iii, jjj);
         f         = factor[0] * factor[1];
         P.SetX(f * dc.poles[Index]);
         Index++;
@@ -2438,7 +2438,7 @@ void BSplSLib::CacheD0(const Standard_Real         UParameter,
                        const Standard_Real         VSpanLenght,
                        const TColgp_Array2OfPnt&   PolesArray,
                        const TColStd_Array2OfReal* WeightsArray,
-                       gp_Pnt&                     aPoint)
+                       Point3d&                     aPoint)
 {
   //
   // the CacheParameter is where the cache polynomial was evaluated in homogeneous
@@ -2529,7 +2529,7 @@ void BSplSLib::CacheD1(const Standard_Real         UParameter,
                        const Standard_Real         VSpanLenght,
                        const TColgp_Array2OfPnt&   PolesArray,
                        const TColStd_Array2OfReal* WeightsArray,
-                       gp_Pnt&                     aPoint,
+                       Point3d&                     aPoint,
                        gp_Vec&                     aVecU,
                        gp_Vec&                     aVecV)
 {
@@ -2715,7 +2715,7 @@ void BSplSLib::CacheD2(const Standard_Real         UParameter,
                        const Standard_Real         VSpanLenght,
                        const TColgp_Array2OfPnt&   PolesArray,
                        const TColStd_Array2OfReal* WeightsArray,
-                       gp_Pnt&                     aPoint,
+                       Point3d&                     aPoint,
                        gp_Vec&                     aVecU,
                        gp_Vec&                     aVecV,
                        gp_Vec&                     aVecUU,
@@ -3358,9 +3358,9 @@ void BSplSLib::Resolution(const TColgp_Array2OfPnt&      Poles,
         upper[1] = jj + VD2 + 1;
         if (upper[1] > num_poles[1])
           upper[1] = num_poles[1];
-        const gp_Pnt& Pij = Poles.Value(ii_index, jj_index);
+        const Point3d& Pij = Poles.Value(ii_index, jj_index);
         Wij               = Weights->Value(ii_index, jj_index);
-        const gp_Pnt& Pmj = Poles.Value(ii_minus, jj_index);
+        const Point3d& Pmj = Poles.Value(ii_minus, jj_index);
         Wmj               = Weights->Value(ii_minus, jj_index);
         Xij               = Pij.X();
         Yij               = Pij.Y();
@@ -3377,7 +3377,7 @@ void BSplSLib::Resolution(const TColgp_Array2OfPnt&      Poles,
           {
             value             = 0.0e0;
             qq_index          = (qq - 1) % poles_length[1] + 1;
-            const gp_Pnt& Ppq = Poles.Value(pp_index, qq_index);
+            const Point3d& Ppq = Poles.Value(pp_index, qq_index);
             Xpq               = Ppq.X();
             Ypq               = Ppq.Y();
             Zpq               = Ppq.Z();
@@ -3419,8 +3419,8 @@ void BSplSLib::Resolution(const TColgp_Array2OfPnt&      Poles,
       {
         jj_index          = (jj - 1) % poles_length[1] + 1;
         value             = 0.0e0;
-        const gp_Pnt& Pij = Poles.Value(ii_index, jj_index);
-        const gp_Pnt& Pmj = Poles.Value(ii_minus, jj_index);
+        const Point3d& Pij = Poles.Value(ii_index, jj_index);
+        const Point3d& Pmj = Poles.Value(ii_minus, jj_index);
         factor            = Pij.X() - Pmj.X();
         if (factor < 0)
           factor = -factor;
@@ -3467,9 +3467,9 @@ void BSplSLib::Resolution(const TColgp_Array2OfPnt&      Poles,
         upper[1] = jj + UD2 + 1;
         if (upper[1] > num_poles[0])
           upper[1] = num_poles[0];
-        const gp_Pnt& Pji = Poles.Value(jj_index, ii_index);
+        const Point3d& Pji = Poles.Value(jj_index, ii_index);
         Wji               = Weights->Value(jj_index, ii_index);
-        const gp_Pnt& Pjm = Poles.Value(jj_index, ii_minus);
+        const Point3d& Pjm = Poles.Value(jj_index, ii_minus);
         Wjm               = Weights->Value(jj_index, ii_minus);
         Xji               = Pji.X();
         Yji               = Pji.Y();
@@ -3486,7 +3486,7 @@ void BSplSLib::Resolution(const TColgp_Array2OfPnt&      Poles,
           {
             value             = 0.0e0;
             qq_index          = (qq - 1) % poles_length[0] + 1;
-            const gp_Pnt& Pqp = Poles.Value(qq_index, pp_index);
+            const Point3d& Pqp = Poles.Value(qq_index, pp_index);
             Xqp               = Pqp.X();
             Yqp               = Pqp.Y();
             Zqp               = Pqp.Z();
@@ -3528,8 +3528,8 @@ void BSplSLib::Resolution(const TColgp_Array2OfPnt&      Poles,
       {
         jj_index          = (jj - 1) % poles_length[0] + 1;
         value             = 0.0e0;
-        const gp_Pnt& Pji = Poles.Value(jj_index, ii_index);
-        const gp_Pnt& Pjm = Poles.Value(jj_index, ii_minus);
+        const Point3d& Pji = Poles.Value(jj_index, ii_index);
+        const Point3d& Pjm = Poles.Value(jj_index, ii_minus);
         factor            = Pji.X() - Pjm.X();
         if (factor < 0)
           factor = -factor;
@@ -3649,7 +3649,7 @@ void BSplSLib::Interpolate(const Standard_Integer      UDegree,
 
     for (jj = 1, ll = 1; jj <= VLength; jj++, ll += 4)
     {
-      gp_Pnt Pnt(IsoPoles(ii, ll), IsoPoles(ii, ll + 1), IsoPoles(ii, ll + 2));
+      Point3d Pnt(IsoPoles(ii, ll), IsoPoles(ii, ll + 1), IsoPoles(ii, ll + 2));
       Poles.SetValue(ii, jj, Pnt);
       Weights.SetValue(ii, jj, IsoPoles(ii, ll + 3));
     }
@@ -3737,7 +3737,7 @@ void BSplSLib::Interpolate(const Standard_Integer      UDegree,
 
     for (jj = 1, ll = 1; jj <= VLength; jj++, ll += 3)
     {
-      gp_Pnt Pnt(IsoPoles(ii, ll), IsoPoles(ii, ll + 1), IsoPoles(ii, ll + 2));
+      Point3d Pnt(IsoPoles(ii, ll), IsoPoles(ii, ll + 1), IsoPoles(ii, ll + 2));
       Poles.SetValue(ii, jj, Pnt);
     }
   }
@@ -3810,7 +3810,7 @@ void BSplSLib::FunctionMultiply(const BSplSLib_EvaluatorFunction& Function,
         {
           throw Standard_ConstructionError();
         }
-        gp_Pnt& P = NewNumerator(ii, jj);
+        Point3d& P = NewNumerator(ii, jj);
         P.SetX(P.X() * result);
         P.SetY(P.Y() * result);
         P.SetZ(P.Z() * result);

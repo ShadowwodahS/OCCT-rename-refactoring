@@ -38,7 +38,7 @@
 #include <TopOpeBRepTool_SC.hxx>
 
 // #include <BRepAdaptor_Curve2d.hxx>
-Standard_EXPORT Standard_Boolean FUN_projPonL(const gp_Pnt&                 P,
+Standard_EXPORT Standard_Boolean FUN_projPonL(const Point3d&                 P,
                                               const TopOpeBRep_LineInter&   L,
                                               const TopOpeBRep_FacesFiller& FF,
                                               Standard_Real&                paramL)
@@ -398,7 +398,7 @@ void TopOpeBRep_FacesFiller::VP_PositionOnL(TopOpeBRep_LineInter& L)
   {
     TopOpeBRep_VPointInter& VP   = VPI.ChangeCurrentVP();
     Standard_Integer        VPsi = VP.ShapeIndex();
-    const gp_Pnt&           P3D  = VP.Value();
+    const Point3d&           P3D  = VP.Value();
 
     Standard_Boolean             VPequalVPONRESTRICTION = Standard_False;
     TopOpeBRep_FacesIntersector& FI  = *((TopOpeBRep_FacesIntersector*)((void*)myFacesIntersector));
@@ -465,7 +465,7 @@ void TopOpeBRep_FacesFiller::VP_PositionOnR(TopOpeBRep_LineInter& L)
       continue;
     }
 
-    const gp_Pnt&    P        = VP.Value();
+    const Point3d&    P        = VP.Value();
     Standard_Boolean arcisE   = L.ArcIsEdge(Esi);
     Standard_Boolean arcisOOE = L.ArcIsEdge(OOEsi);
 
@@ -554,7 +554,7 @@ void TopOpeBRep_FacesFiller::VP_Position(TopOpeBRep_VPointInter&           VP,
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRep_FacesFiller::PequalVPonR(const gp_Pnt&           P3D,
+Standard_Boolean TopOpeBRep_FacesFiller::PequalVPonR(const Point3d&           P3D,
                                                      const Standard_Integer  VPsi,
                                                      TopOpeBRep_VPointInter& VP,
                                                      TopOpeBRep_LineInter&   Lrest) const
@@ -587,7 +587,7 @@ Standard_Boolean TopOpeBRep_FacesFiller::PequalVPonR(const gp_Pnt&           P3D
     if (stateEsi != TopAbs_ON)
       continue;
 
-    const gp_Pnt& P3DOL    = VPOL.Value();
+    const Point3d& P3DOL    = VPOL.Value();
     Standard_Real tolE     = BRep_Tool::Tolerance(EOL);
     VPequalVPONRESTRICTION = P3DOL.IsEqual(P3D, tolE);
 

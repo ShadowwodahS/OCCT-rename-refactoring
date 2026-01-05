@@ -384,7 +384,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(
   Handle(TColgp_HArray1OfXYZ) Poles = new TColgp_HArray1OfXYZ(0, Index);
   for (Poleindex = P.Lower(); Poleindex <= P.Upper(); Poleindex++)
   {
-    gp_Pnt ptampon = P.Value(Poleindex);
+    Point3d ptampon = P.Value(Poleindex);
     ptampon.Coord(Xpt, Ypt, Zpt);
     gp_XYZ xyztampon = gp_XYZ(Xpt / GetUnit(), Ypt / GetUnit(), Zpt / GetUnit());
     Poles->SetValue(itampon, xyztampon);
@@ -536,7 +536,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
   // --------------------------------
   Standard_Real xloc, yloc, zloc;
   start->Circ().Location().Coord(xloc, yloc, zloc);
-  gp_Pnt Loc;
+  Point3d Loc;
   Loc.SetCoord(xloc, yloc, zloc);
   gp_Ax3 Pos = gp_Ax3(start->Circ().Position());
   // unusable  Standard_Boolean IsDirect = Pos.Direct();
@@ -547,7 +547,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
   Standard_Real Xs, Ys, Zs;
   Standard_Real Xe, Ye, Ze;
   // gka BUG 6542 1.09.04 BSpline curve was written in the IGES instead circle.
-  gp_Pnt pfirst, plast;
+  Point3d pfirst, plast;
   start->D0(U1, pfirst);
   if (Abs(Ufin - Udeb - 2 * M_PI) <= Precision::PConfusion())
     plast = pfirst;
@@ -629,7 +629,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
 
   Standard_Real xloc, yloc, zloc;
   start->Elips().Location().Coord(xloc, yloc, zloc);
-  gp_Pnt Loc;
+  Point3d Loc;
   Loc.SetCoord(xloc, yloc, zloc);
   gp_Ax3 Pos = gp_Ax3(start->Elips().Position());
   Pos.SetLocation(Loc);
@@ -698,7 +698,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
   // -----------------------------
   Standard_Real xloc, yloc, zloc;
   start->Hypr().Location().Coord(xloc, yloc, zloc);
-  gp_Pnt Loc;
+  Point3d Loc;
   Loc.SetCoord(xloc, yloc, zloc);
   gp_Ax3 Pos = gp_Ax3(start->Hypr().Position());
   Pos.SetLocation(Loc);
@@ -766,7 +766,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
   // -----------------------------
   Standard_Real xloc, yloc, zloc;
   start->Parab().Location().Coord(xloc, yloc, zloc);
-  gp_Pnt Loc;
+  Point3d Loc;
   Loc.SetCoord(xloc, yloc, zloc);
   gp_Ax3 Pos = gp_Ax3(start->Parab().Position());
   Pos.SetLocation(Loc);

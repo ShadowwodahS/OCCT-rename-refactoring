@@ -55,12 +55,12 @@ gp_Pnt2d IGESGeom_Flash::ReferencePoint() const
   return (gp_Pnt2d(thePoint));
 }
 
-gp_Pnt IGESGeom_Flash::TransformedReferencePoint() const
+Point3d IGESGeom_Flash::TransformedReferencePoint() const
 {
   gp_XYZ Point(thePoint.X(), thePoint.Y(), 0.0);
   if (HasTransf())
     Location().Transforms(Point);
-  return gp_Pnt(Point);
+  return Point3d(Point);
 }
 
 Standard_Real IGESGeom_Flash::Dimension1() const

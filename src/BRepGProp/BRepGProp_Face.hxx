@@ -29,7 +29,7 @@
 #include <GeomAbs_IsoType.hxx>
 #include <TColStd_HArray1OfReal.hxx>
 class TopoDS_Face;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 class TopoDS_Edge;
 class gp_Pnt2d;
@@ -97,7 +97,7 @@ public:
   //! the normal to the face at this point.
   Standard_EXPORT void Normal(const Standard_Real U,
                               const Standard_Real V,
-                              gp_Pnt&             P,
+                              Point3d&             P,
                               gp_Vec&             VNor) const;
 
   //! Loading the boundary arc.

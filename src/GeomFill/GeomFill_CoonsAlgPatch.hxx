@@ -54,7 +54,7 @@ public:
 
   //! Computes  the  value   on the  algorithmic    patch at
   //! parameters U and V.
-  Standard_EXPORT gp_Pnt Value(const Standard_Real U, const Standard_Real V) const;
+  Standard_EXPORT Point3d Value(const Standard_Real U, const Standard_Real V) const;
 
   //! Computes   the  d/dU   partial   derivative  on    the
   //! algorithmic patch at parameters U and V.
@@ -69,7 +69,7 @@ public:
   //! at parameter U and V.
   Standard_EXPORT gp_Vec DUV(const Standard_Real U, const Standard_Real V) const;
 
-  Standard_EXPORT const gp_Pnt& Corner(const Standard_Integer I) const;
+  Standard_EXPORT const Point3d& Corner(const Standard_Integer I) const;
 
   Standard_EXPORT const Handle(GeomFill_Boundary)& Bound(const Standard_Integer I) const;
 
@@ -80,7 +80,7 @@ public:
 protected:
 private:
   Handle(GeomFill_Boundary) bound[4];
-  gp_Pnt                    c[4];
+  Point3d                    c[4];
   Handle(Law_Function)      a[2];
 };
 

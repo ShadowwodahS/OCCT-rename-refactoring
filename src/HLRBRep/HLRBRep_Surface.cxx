@@ -137,7 +137,7 @@ Standard_Boolean HLRBRep_Surface::SideRowsOfPoles(const Standard_Real    tol,
 
 Standard_Boolean HLRBRep_Surface::IsSide(const Standard_Real tolF, const Standard_Real toler) const
 {
-  gp_Pnt        Pt;
+  Point3d        Pt;
   gp_Vec        D;
   Standard_Real r;
 
@@ -176,7 +176,7 @@ Standard_Boolean HLRBRep_Surface::IsSide(const Standard_Real tolF, const Standar
     Pt          = Con.Apex();
     Pt.Transform(myProj->Transformation());
     Standard_Real tol = 0.001;
-    return Pt.IsEqual(gp_Pnt(0, 0, myProj->Focus()), tol);
+    return Pt.IsEqual(Point3d(0, 0, myProj->Focus()), tol);
   }
   else if (myType == GeomAbs_BezierSurface)
   {
@@ -217,7 +217,7 @@ Standard_Boolean HLRBRep_Surface::IsAbove(const Standard_Boolean back,
     Standard_Real a, b, c, d;
     Pl.Coefficients(a, b, c, d);
     Standard_Real u, u1, u2, dd, x, y, z;
-    gp_Pnt        P;
+    Point3d        P;
     u1 = A->Parameter3d(A->FirstParameter());
     u2 = A->Parameter3d(A->LastParameter());
     u  = u1;
@@ -260,9 +260,9 @@ Standard_Boolean HLRBRep_Surface::IsAbove(const Standard_Boolean back,
 
 //=================================================================================================
 
-gp_Pnt HLRBRep_Surface::Value(const Standard_Real U, const Standard_Real V) const
+Point3d HLRBRep_Surface::Value(const Standard_Real U, const Standard_Real V) const
 {
-  gp_Pnt P;
+  Point3d P;
   D0(U, V, P);
   return P;
 }
@@ -275,7 +275,7 @@ gp_Pln HLRBRep_Surface::Plane() const
   switch (typ)
   {
     case GeomAbs_BezierSurface: {
-      gp_Pnt P;
+      Point3d P;
       gp_Vec D1U;
       gp_Vec D1V;
       D1(0.5, 0.5, P, D1U, D1V);

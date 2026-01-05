@@ -24,7 +24,7 @@
 #include <gp_Elips.hxx>
 #include <gce_Root.hxx>
 class gp_Ax2;
-class gp_Pnt;
+class Point3d;
 
 //! This class implements the following algorithms used to
 //! create an ellipse from gp.
@@ -62,7 +62,7 @@ public:
   //! -   the major radius computed with Center and S1
   //! is less than the minor radius computed with Center, S1 and S2, or
   //! -   Center, S1 and S2 are collinear.
-  Standard_EXPORT gce_MakeElips(const gp_Pnt& S1, const gp_Pnt& S2, const gp_Pnt& Center);
+  Standard_EXPORT gce_MakeElips(const Point3d& S1, const Point3d& S2, const Point3d& Center);
 
   //! Returns the constructed ellipse.
   //! Exceptions StdFail_NotDone if no ellipse is constructed.

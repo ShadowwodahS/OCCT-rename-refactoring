@@ -44,7 +44,7 @@ void HLRAppli_ReflectLines::SetAxes(const Standard_Real Nx,
   // Prs3d_Projector aPrs3dProjector(IsPerspective, aFocus, Nx, Ny, Nz, XAt, YAt, ZAt, XUp, YUp,
   // ZUp);
 
-  gp_Pnt  At(XAt, YAt, ZAt);
+  Point3d  At(XAt, YAt, ZAt);
   gp_Dir  Zpers(Nx, Ny, Nz);
   gp_Dir  Ypers(XUp, YUp, ZUp);
   gp_Dir  Xpers = Ypers.Crossed(Zpers);

@@ -33,21 +33,21 @@ namespace
 {
 static const Standard_Real Us3 = 0.3333333333333333333333333333;
 
-inline static void D0(const Adaptor3d_Curve& C, const Standard_Real U, gp_Pnt& P)
+inline static void D0(const Adaptor3d_Curve& C, const Standard_Real U, Point3d& P)
 {
   C.D0(U, P);
 }
 
 inline static void D2(const Adaptor3d_Curve& C,
                       const Standard_Real    U,
-                      gp_Pnt&                P,
+                      Point3d&                P,
                       gp_Vec&                V1,
                       gp_Vec&                V2)
 {
   C.D2(U, P, V1, V2);
 }
 
-static void D0(const Adaptor2d_Curve2d& C, const Standard_Real U, gp_Pnt& PP)
+static void D0(const Adaptor2d_Curve2d& C, const Standard_Real U, Point3d& PP)
 {
   Standard_Real X, Y;
   gp_Pnt2d      P;
@@ -58,7 +58,7 @@ static void D0(const Adaptor2d_Curve2d& C, const Standard_Real U, gp_Pnt& PP)
 
 static void D2(const Adaptor2d_Curve2d& C,
                const Standard_Real      U,
-               gp_Pnt&                  PP,
+               Point3d&                  PP,
                gp_Vec&                  VV1,
                gp_Vec&                  VV2)
 {
@@ -74,7 +74,7 @@ static void D2(const Adaptor2d_Curve2d& C,
   VV2.SetCoord(X, Y, 0.0);
 }
 
-static Standard_Real EstimAngl(const gp_Pnt& P1, const gp_Pnt& Pm, const gp_Pnt& P2)
+static Standard_Real EstimAngl(const Point3d& P1, const Point3d& Pm, const Point3d& P2)
 {
   gp_Vec        V1(P1, Pm), V2(Pm, P2);
   Standard_Real L = V1.Magnitude() * V2.Magnitude();
@@ -309,7 +309,7 @@ void GCPnts_TangentialDeflection::Initialize(const Adaptor2d_Curve2d& theC,
 template <class TheCurve>
 void GCPnts_TangentialDeflection::EvaluateDu(const TheCurve&     theC,
                                              const Standard_Real theU,
-                                             gp_Pnt&             theP,
+                                             Point3d&             theP,
                                              Standard_Real&      theDu,
                                              Standard_Boolean&   theNotDone) const
 {
@@ -334,7 +334,7 @@ void GCPnts_TangentialDeflection::EvaluateDu(const TheCurve&     theC,
 template <class TheCurve>
 void GCPnts_TangentialDeflection::PerformLinear(const TheCurve& theC)
 {
-  gp_Pnt P;
+  Point3d P;
   D0(theC, myFirstu, P);
   myParameters.Append(myFirstu);
   myPoints.Append(P);
@@ -373,7 +373,7 @@ void GCPnts_TangentialDeflection::PerformCircular(const TheCurve& theC)
   NbPoints                  = Max(NbPoints, myMinNbPnts - 1);
   Du                        = aDiff / NbPoints;
 
-  gp_Pnt        P;
+  Point3d        P;
   Standard_Real U = myFirstu;
   for (Standard_Integer i = 1; i <= NbPoints; i++)
   {
@@ -455,7 +455,7 @@ void GCPnts_TangentialDeflection::initialize(const TheCurve&        theC,
 
 //=================================================================================================
 
-Standard_Integer GCPnts_TangentialDeflection::AddPoint(const gp_Pnt&          thePnt,
+Standard_Integer GCPnts_TangentialDeflection::AddPoint(const Point3d&          thePnt,
                                                        const Standard_Real    theParam,
                                                        const Standard_Boolean theIsReplace)
 {
@@ -522,7 +522,7 @@ void GCPnts_TangentialDeflection::PerformCurve(const TheCurve& theC)
 {
   Standard_Integer i, j;
   gp_XYZ           V1, V2;
-  gp_Pnt           MiddlePoint, CurrentPoint, LastPoint;
+  Point3d           MiddlePoint, CurrentPoint, LastPoint;
   Standard_Real    Du, Dusave, MiddleU, L1, L2;
 
   Standard_Real           U1   = myFirstu;
@@ -670,7 +670,7 @@ void GCPnts_TangentialDeflection::PerformCurve(const TheCurve& theC)
   // Indexes of intervals of U1 and U2, used to handle non-uniform case.
   Standard_Integer aIdx[2]       = {Intervs.Lower(), Intervs.Lower()};
   Standard_Boolean isNeedToCheck = Standard_False;
-  gp_Pnt           aPrevPoint    = myPoints.Last();
+  Point3d           aPrevPoint    = myPoints.Last();
 
   while (MorePoints)
   {
@@ -918,8 +918,8 @@ void GCPnts_TangentialDeflection::PerformCurve(const TheCurve& theC)
     Standard_Real umax = 0.;
     Standard_Real amax = 0.;
     EstimDefl(theC, U1, U2, dmax, umax);
-    const gp_Pnt& P1 = myPoints(i);
-    const gp_Pnt& P2 = myPoints(i + 1);
+    const Point3d& P1 = myPoints(i);
+    const Point3d& P2 = myPoints(i + 1);
     D0(theC, umax, MiddlePoint);
     amax = EstimAngl(P1, MiddlePoint, P2);
     if (dmax > myCurvatureDeflection || amax > AngleMax)

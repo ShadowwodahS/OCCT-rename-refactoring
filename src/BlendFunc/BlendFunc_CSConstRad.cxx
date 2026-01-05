@@ -375,14 +375,14 @@ Standard_Boolean BlendFunc_CSConstRad::Values(const math_Vector& X, math_Vector&
 
 //=================================================================================================
 
-const gp_Pnt& BlendFunc_CSConstRad::PointOnS() const
+const Point3d& BlendFunc_CSConstRad::PointOnS() const
 {
   return pts;
 }
 
 //=================================================================================================
 
-const gp_Pnt& BlendFunc_CSConstRad::PointOnC() const
+const Point3d& BlendFunc_CSConstRad::PointOnC() const
 {
   return ptc;
 }
@@ -442,7 +442,7 @@ void BlendFunc_CSConstRad::Tangent(const Standard_Real U,
                                    gp_Vec&             TgS,
                                    gp_Vec&             NmS) const
 {
-  gp_Pnt bid;
+  Point3d bid;
   gp_Vec d1u, d1v;
   surf->D1(U, V, bid, d1u, d1v);
 
@@ -452,7 +452,7 @@ void BlendFunc_CSConstRad::Tangent(const Standard_Real U,
   const Standard_Real norm = nplan.Crossed(ns).Magnitude();
   ns.SetLinearForm(nplan.Dot(ns) / norm, nplan, -1. / norm, ns);
 
-  gp_Pnt Center(bid.XYZ() + ray * ns.XYZ());
+  Point3d Center(bid.XYZ() + ray * ns.XYZ());
   TgS = nplan.Crossed(gp_Vec(Center, bid));
   if (choix % 2 == 1)
     TgS.Reverse();
@@ -471,7 +471,7 @@ void BlendFunc_CSConstRad::Section(const Standard_Real Param,
   gp_Vec        d1u1, d1v1;
   gp_Vec        ns;
   Standard_Real norm;
-  gp_Pnt        Center;
+  Point3d        Center;
 
   guide->D1(Param, ptgui, d1gui);
   nplan = d1gui.Normalized();
@@ -752,7 +752,7 @@ void BlendFunc_CSConstRad::Section(const Blend_Point&    P,
 {
   gp_Vec d1u1, d1v1; //,d1;
   gp_Vec ns, ns2;    //,temp,np2;
-  gp_Pnt Center;
+  Point3d Center;
 
   Standard_Real norm, u1, v1, w;
 
@@ -814,7 +814,7 @@ Standard_Boolean BlendFunc_CSConstRad::Section(const Blend_Point&    P,
   gp_Vec ncrossns;
   gp_Vec resulu, resulv, temp, tgct, resul;
 
-  gp_Pnt Center;
+  Point3d Center;
 
   Standard_Real norm, ndotns, grosterme;
 

@@ -237,7 +237,7 @@ void V3d_CircularGrid::DefineLines()
   myGroup->SetGroupPrimitivesAspect(
     new Graphic3d_AspectLine3d(myTenthColor, Aspect_TOL_SOLID, 1.0));
   Handle(Graphic3d_ArrayOfSegments) aPrims1 = new Graphic3d_ArrayOfSegments(2 * nbpnts);
-  const gp_Pnt                      p0(0., 0., -myOffSet);
+  const Point3d                      p0(0., 0., -myOffSet);
   for (Standard_Integer i = 1; i <= nbpnts; i++)
   {
     aPrims1->AddVertex(p0);
@@ -255,7 +255,7 @@ void V3d_CircularGrid::DefineLines()
     const Standard_Boolean isTenth = (Modulus(nblines, 10) == 0);
     for (Standard_Integer i = 0; i < nbpnts; i++)
     {
-      const gp_Pnt pt(Cos(alpha * i) * r, Sin(alpha * i) * r, -myOffSet);
+      const Point3d pt(Cos(alpha * i) * r, Sin(alpha * i) * r, -myOffSet);
       (isTenth ? aSeqTenth : aSeqLines).Append(pt);
     }
   }
@@ -328,11 +328,11 @@ void V3d_CircularGrid::DefinePoints()
 
   // diameters
   TColgp_SequenceOfPnt aSeqPnts;
-  aSeqPnts.Append(gp_Pnt(0.0, 0.0, -myOffSet));
+  aSeqPnts.Append(Point3d(0.0, 0.0, -myOffSet));
   for (r = aStep; r <= myRadius; r += aStep)
   {
     for (Standard_Integer i = 0; i < nbpnts; i++)
-      aSeqPnts.Append(gp_Pnt(Cos(alpha * i) * r, Sin(alpha * i) * r, -myOffSet));
+      aSeqPnts.Append(Point3d(Cos(alpha * i) * r, Sin(alpha * i) * r, -myOffSet));
   }
   myGroup->SetGroupPrimitivesAspect(MarkerAttrib);
   if (aSeqPnts.Length())

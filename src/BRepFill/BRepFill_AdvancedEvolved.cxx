@@ -109,7 +109,7 @@ void BRepFill_AdvancedEvolved::GetSpineAndProfile(const TopoDS_Wire& theSpine,
   TopExp::MapShapesAndAncestors(theProfile, TopAbs_VERTEX, TopAbs_EDGE, aMVEP);
 
   gp_Vec aN2;
-  gp_Pnt aLoc;
+  Point3d aLoc;
 
   for (Standard_Integer i = 1; i <= aMVEP.Size(); i++)
   {
@@ -128,7 +128,7 @@ void BRepFill_AdvancedEvolved::GetSpineAndProfile(const TopoDS_Wire& theSpine,
     const Standard_Real aPar1 = BRep_Tool::Parameter(aVC, anE1);
     const Standard_Real aPar2 = BRep_Tool::Parameter(aVC, anE2);
 
-    gp_Pnt aP;
+    Point3d aP;
     gp_Vec aT1, aT2;
 
     anAC1.D1(aPar1, aP, aT1);
@@ -206,7 +206,7 @@ void BRepFill_AdvancedEvolved::GetSpineAndProfile(const TopoDS_Wire& theSpine,
         const Standard_Real aPar1 = BRep_Tool::Parameter(aV, anE1);
         const Standard_Real aPar2 = BRep_Tool::Parameter(aV, anE2);
 
-        gp_Pnt aP;
+        Point3d aP;
         gp_Vec aT1, aT2;
 
         anAC1.D1(aPar1, aP, aT1);
@@ -241,7 +241,7 @@ void BRepFill_AdvancedEvolved::GetSpineAndProfile(const TopoDS_Wire& theSpine,
         Standard_Real           aPar;
         anExtr.ParOnEdgeS1(anIdxMin, aPar);
 
-        gp_Pnt aP;
+        Point3d aP;
         gp_Vec aT1;
         anAC.D1(aPar, aP, aT1);
 
@@ -280,7 +280,7 @@ void BRepFill_AdvancedEvolved::GetSpineAndProfile(const TopoDS_Wire& theSpine,
         const Standard_Real aPar1 = BRep_Tool::Parameter(aV, anE1);
         const Standard_Real aPar2 = BRep_Tool::Parameter(aV, anE2);
 
-        gp_Pnt aP;
+        Point3d aP;
         gp_Vec aT1, aT2;
 
         anAC1.D1(aPar1, aP, aT1);
@@ -316,12 +316,12 @@ void BRepFill_AdvancedEvolved::GetSpineAndProfile(const TopoDS_Wire& theSpine,
         Standard_Real           aPar;
         anExtr.ParOnEdgeS2(anIdxMin, aPar);
 
-        gp_Pnt aP;
+        Point3d aP;
         anAC.D1(aPar, aP, aTanV);
       }
 
       // The point in the profile, which is the nearest to the spine
-      const gp_Pnt& aPnear = anExtr.PointOnShape2(anIdxMin);
+      const Point3d& aPnear = anExtr.PointOnShape2(anIdxMin);
 
       BRepClass_FaceClassifier aFClass(aFSpine, aPnear, Precision::Confusion());
       if (aFClass.State() != TopAbs_OUT)
@@ -531,7 +531,7 @@ void BRepFill_AdvancedEvolved::GetLids()
 
   TopTools_ListOfShape aLE;
 
-  gp_Pnt aPtmp;
+  Point3d aPtmp;
   gp_Vec aTan;
 
   Standard_Real aDPMax = 0.;
@@ -1116,7 +1116,7 @@ public:
     return myCOnS.LastParameter();
   }
 
-  gp_Pnt GetPoint(const Standard_Real theX)
+  Point3d GetPoint(const Standard_Real theX)
   {
     const Handle(Adaptor2d_Curve2d) &aC = myCOnS.GetCurve();
     const Handle(Adaptor3d_Surface) &aS = myCOnS.GetSurface();
@@ -1147,7 +1147,7 @@ Standard_Boolean NormalFunc::Value(const math_Vector& theX, Standard_Real& theF)
   const Handle(Adaptor3d_Surface) &aS = myCOnS.GetSurface();
 
   const gp_Pnt2d aP2d(aC->Value(theX(1)));
-  gp_Pnt aP3d;
+  Point3d aP3d;
   gp_Vec aD1u, aD1v;
   aS->D1(aP2d.X(), aP2d.Y(), aP3d, aD1u, aD1v);
 
@@ -1189,7 +1189,7 @@ Standard_Boolean NormalFunc::Gradient(const math_Vector& theX, math_Vector& theG
   gp_Vec2d aDc;
   aC->D1(theX(1), aP2d, aDc);
 
-  gp_Pnt aP3d;
+  Point3d aP3d;
   gp_Vec aD1u, aD1v, aD2u, aD2v, aD2uv;
   aS->D2(aP2d.X(), aP2d.Y(), aP3d, aD1u, aD1v, aD2u, aD2v, aD2uv);
 
@@ -1826,7 +1826,7 @@ void ProcessVertex(const TopoDS_Vertex&        aV,
                    const TopTools_ListOfShape& aLF)
 {
   Standard_Real      aTol, aD2, aTolMax2, aTolE, aParam;
-  gp_Pnt             aPC3D;
+  Point3d             aPC3D;
   gp_Pnt2d           aPC2D;
   TopAbs_Orientation anOrV;
 
@@ -1838,7 +1838,7 @@ void ProcessVertex(const TopoDS_Vertex&        aV,
   aTolMax2 = -1.e6;
   //
   Handle(BRep_TVertex)& TV    = *((Handle(BRep_TVertex)*)&aV.TShape());
-  const gp_Pnt&         aPV3D = TV->Pnt();
+  const Point3d&         aPV3D = TV->Pnt();
   aTol                        = BRep_Tool::Tolerance(aV);
   //
   anIt.Initialize(aLE);

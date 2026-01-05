@@ -116,7 +116,7 @@ void TopoDSToStep_MakeStepEdge::Init(const TopoDS_Edge&                    aEdge
 #define Nbpt 21
   Standard_Integer i;
   Standard_Real    U, U1, U2;
-  gp_Pnt           P;
+  Point3d           P;
 
   Standard_Boolean isSeam = BRep_Tool::IsClosed(aEdge, aTool.CurrentFace());
 
@@ -208,9 +208,9 @@ void TopoDSToStep_MakeStepEdge::Init(const TopoDS_Edge&                    aEdge
       // if range obtained from projection of vertices contradicts with range
       // of the edge tnen vertices are swapped to keep results correct after import
       // (see test de step_5 A1)
-      gp_Pnt              aP1 = BRep_Tool::Pnt(Vfirst);
-      gp_Pnt              aP2 = BRep_Tool::Pnt(Vlast);
-      gp_Pnt              pproj;
+      Point3d              aP1 = BRep_Tool::Pnt(Vfirst);
+      Point3d              aP2 = BRep_Tool::Pnt(Vlast);
+      Point3d              pproj;
       ShapeAnalysis_Curve sac;
       sac.Project(C, aP1, Tolerance(), pproj, U1, Standard_False);
       sac.Project(C, aP2, Tolerance(), pproj, U2, Standard_False);
@@ -233,9 +233,9 @@ void TopoDSToStep_MakeStepEdge::Init(const TopoDS_Edge&                    aEdge
       {
         Standard_Real    aTolV1       = BRep_Tool::Tolerance(Vfirst);
         Standard_Real    aTolV2       = BRep_Tool::Tolerance(Vlast);
-        gp_Pnt           aP11         = CA.Value(CA.FirstParameter());
-        gp_Pnt           aP12         = CA.Value(CA.LastParameter());
-        gp_Pnt           aPm          = CA.Value((CA.FirstParameter() + CA.LastParameter()) * 0.5);
+        Point3d           aP11         = CA.Value(CA.FirstParameter());
+        Point3d           aP12         = CA.Value(CA.LastParameter());
+        Point3d           aPm          = CA.Value((CA.FirstParameter() + CA.LastParameter()) * 0.5);
         Standard_Real    aDist11      = aP11.Distance(aP12);
         Standard_Real    aDist1m      = aP11.Distance(aPm);
         Standard_Real    aDist2m      = aP12.Distance(aPm);

@@ -80,7 +80,7 @@ ChFiDS_TypeOfConcavity ChFi3d::DefineConnectType(const TopoDS_Edge&     E,
     T1.Reverse();
 
   gp_Pnt2d P = C1->Value(ParOnC);
-  gp_Pnt   P3;
+  Point3d   P3;
   gp_Vec   D1U, D1V;
 
   if (CorrectPoint)
@@ -279,7 +279,7 @@ Standard_Integer ChFi3d::ConcaveSide(const BRepAdaptor_Surface& S1,
   Standard_Real     last  = CE.LastParameter();
   Standard_Real     par   = 0.691254 * first + 0.308746 * last;
 
-  gp_Pnt             pt, pt1, pt2;
+  Point3d             pt, pt1, pt2;
   gp_Vec             tgE, tgE1, tgE2, ns1, ns2, dint1, dint2;
   const TopoDS_Face& F1 = S1.Face();
   const TopoDS_Face& F2 = S2.Face();

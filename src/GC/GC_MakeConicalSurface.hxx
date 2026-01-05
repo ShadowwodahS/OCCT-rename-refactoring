@@ -26,7 +26,7 @@
 
 class gp_Ax2;
 class gp_Cone;
-class gp_Pnt;
+class Point3d;
 
 //! This class implements the following algorithms used
 //! to create a ConicalSurface from Geom.
@@ -90,18 +90,18 @@ public:
   //! An error iss raised if <P1>,<P2>,<P3>,<P4> are
   //! colinear or if <P3P4> is perpendicular to <P1P2> or
   //! <P3P4> is colinear to <P1P2>.
-  Standard_EXPORT GC_MakeConicalSurface(const gp_Pnt& P1,
-                                        const gp_Pnt& P2,
-                                        const gp_Pnt& P3,
-                                        const gp_Pnt& P4);
+  Standard_EXPORT GC_MakeConicalSurface(const Point3d& P1,
+                                        const Point3d& P2,
+                                        const Point3d& P3,
+                                        const Point3d& P4);
 
   //! Make a ConicalSurface with two points and two radius.
   //! The axis of the solution is the line passing through
   //! <P1> and <P2>.
   //! <R1> is the radius of the section passing through <P1>
   //! and <R2> the radius of the section passing through <P2>.
-  Standard_EXPORT GC_MakeConicalSurface(const gp_Pnt&       P1,
-                                        const gp_Pnt&       P2,
+  Standard_EXPORT GC_MakeConicalSurface(const Point3d&       P1,
+                                        const Point3d&       P2,
                                         const Standard_Real R1,
                                         const Standard_Real R2);
 

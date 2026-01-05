@@ -103,7 +103,7 @@ public:
   Standard_EXPORT virtual Standard_Real Tol3d(const Handle(Adaptor3d_HVertex)& V) const;
 
   //! returns 3d point of the vertex V
-  Standard_EXPORT virtual gp_Pnt Pnt(const Handle(Adaptor3d_HVertex)& V) const;
+  Standard_EXPORT virtual Point3d Pnt(const Handle(Adaptor3d_HVertex)& V) const;
 
   Standard_EXPORT virtual void ComputeSamplePoints();
 
@@ -126,7 +126,7 @@ public:
 
   Standard_EXPORT virtual void SamplePoint(const Standard_Integer Index,
                                            gp_Pnt2d&              P2d,
-                                           gp_Pnt&                P3d);
+                                           Point3d&                P3d);
 
   Standard_EXPORT virtual Standard_Boolean DomainIsInfinite();
 

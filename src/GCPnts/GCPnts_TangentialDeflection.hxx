@@ -56,7 +56,7 @@
 //! for (int i = 1; i <= aPointsOnCurve.NbPoints(); ++i)
 //! {
 //!   double aU   = aPointsOnCurve.Parameter (i);
-//!   gp_Pnt aPnt = aPointsOnCurve.Value (i);
+//!   Point3d aPnt = aPointsOnCurve.Value (i);
 //! }
 //! @endcode
 class GCPnts_TangentialDeflection
@@ -199,7 +199,7 @@ public:
   //! Add point to already calculated points (or replace existing)
   //! Returns index of new added point
   //! or founded with parametric tolerance (replaced if theIsReplace is true)
-  Standard_EXPORT Standard_Integer AddPoint(const gp_Pnt&          thePnt,
+  Standard_EXPORT Standard_Integer AddPoint(const Point3d&          thePnt,
                                             const Standard_Real    theParam,
                                             const Standard_Boolean theIsReplace = Standard_True);
 
@@ -207,7 +207,7 @@ public:
 
   Standard_Real Parameter(const Standard_Integer I) const { return myParameters.Value(I); }
 
-  gp_Pnt Value(const Standard_Integer I) const { return myPoints.Value(I); }
+  Point3d Value(const Standard_Integer I) const { return myPoints.Value(I); }
 
   //! Computes angular step for the arc using the given parameters.
   Standard_EXPORT static Standard_Real ArcAngularStep(const Standard_Real theRadius,
@@ -240,7 +240,7 @@ private:
   template <class TheCurve>
   void EvaluateDu(const TheCurve&     theC,
                   const Standard_Real theU,
-                  gp_Pnt&             theP,
+                  Point3d&             theP,
                   Standard_Real&      theDu,
                   Standard_Boolean&   theNotDone) const;
 

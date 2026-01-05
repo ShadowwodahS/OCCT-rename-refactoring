@@ -20,6 +20,6 @@
 #include <gp_Pnt.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<gp_Pnt> TColgp_SequenceOfPnt;
+typedef NCollection_Sequence<Point3d> TColgp_SequenceOfPnt;
 
 #endif

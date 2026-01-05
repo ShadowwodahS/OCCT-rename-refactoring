@@ -86,15 +86,15 @@ Standard_Integer IGESDimen_NewDimensionedGeometry::DimensionLocationFlag(
   return theDimensionLocationFlags->Value(Index);
 }
 
-gp_Pnt IGESDimen_NewDimensionedGeometry::Point(const Standard_Integer Index) const
+Point3d IGESDimen_NewDimensionedGeometry::Point(const Standard_Integer Index) const
 {
-  return gp_Pnt(thePoints->Value(Index));
+  return Point3d(thePoints->Value(Index));
 }
 
-gp_Pnt IGESDimen_NewDimensionedGeometry::TransformedPoint(const Standard_Integer Index) const
+Point3d IGESDimen_NewDimensionedGeometry::TransformedPoint(const Standard_Integer Index) const
 {
   gp_XYZ point = thePoints->Value(Index);
   if (HasTransf())
     Location().Transforms(point);
-  return gp_Pnt(point);
+  return Point3d(point);
 }

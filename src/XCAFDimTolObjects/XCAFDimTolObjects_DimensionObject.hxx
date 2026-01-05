@@ -188,14 +188,14 @@ public:
   Standard_EXPORT Standard_Boolean SetDirection(const gp_Dir& theDir);
 
   //! Sets position of the dimension text.
-  void SetPointTextAttach(const gp_Pnt& thePntText)
+  void SetPointTextAttach(const Point3d& thePntText)
   {
     myPntText    = thePntText;
     myHasPntText = Standard_True;
   }
 
   //! Returns position of the dimension text.
-  const gp_Pnt& GetPointTextAttach() const { return myPntText; }
+  const Point3d& GetPointTextAttach() const { return myPntText; }
 
   //! Returns True if the position of dimension text is specified.
   Standard_Boolean HasTextPoint() const { return myHasPntText; }
@@ -222,14 +222,14 @@ public:
 
   //! Set connection point (for dimensional_size),
   //! Set connection point for the first shape (for dimensional_location).
-  void SetPoint(const gp_Pnt& thePnt)
+  void SetPoint(const Point3d& thePnt)
   {
     myPnt1      = thePnt;
     myHasPoint1 = Standard_True;
   }
 
   // Set connection point for the second shape (for dimensional_location only).
-  void SetPoint2(const gp_Pnt& thePnt)
+  void SetPoint2(const Point3d& thePnt)
   {
     myPnt2      = thePnt;
     myHasPoint2 = Standard_True;
@@ -237,10 +237,10 @@ public:
 
   //! Get connection point (for dimensional_size),
   //! Get connection point for the first shape (for dimensional_location).
-  gp_Pnt GetPoint() const { return myPnt1; }
+  Point3d GetPoint() const { return myPnt1; }
 
   // Get connection point for the second shape (for dimensional_location only).
-  gp_Pnt GetPoint2() const { return myPnt2; }
+  Point3d GetPoint2() const { return myPnt2; }
 
   //! Set graphical presentation for the object.
   void SetPresentation(const TopoDS_Shape&                     thePresentation,
@@ -310,12 +310,12 @@ private:
   XCAFDimTolObjects_DimensionModifiersSequence         myModifiers;
   TopoDS_Edge                                          myPath;
   gp_Dir                                               myDir;
-  gp_Pnt                                               myPnt1, myPnt2;
+  Point3d                                               myPnt1, myPnt2;
   Standard_Boolean                                     myHasPoint1, myHasPoint2;
   gp_Ax2                                               myPlane;
   Standard_Boolean                                     myHasPlane;
   Standard_Boolean                                     myHasPntText;
-  gp_Pnt                                               myPntText;
+  Point3d                                               myPntText;
   TopoDS_Shape                                         myPresentation;
   Handle(TCollection_HAsciiString)                     mySemanticName;
   Handle(TCollection_HAsciiString)                     myPresentationName;

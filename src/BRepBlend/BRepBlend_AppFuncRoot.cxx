@@ -255,7 +255,7 @@ void BRepBlend_AppFuncRoot::SetTolerance(const Standard_Real Tol3d, const Standa
   }
 }
 
-gp_Pnt BRepBlend_AppFuncRoot::BarycentreOfSurf() const
+Point3d BRepBlend_AppFuncRoot::BarycentreOfSurf() const
 {
   return myBary;
 }

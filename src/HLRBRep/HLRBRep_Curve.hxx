@@ -30,7 +30,7 @@
 #include <TColStd_Array1OfReal.hxx>
 
 class TopoDS_Edge;
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 class gp_Pnt2d;
 class gp_Dir2d;
@@ -85,15 +85,15 @@ public:
 
   //! Computes the 3D point   of parameter U  on the
   //! curve.
-  gp_Pnt Value3D(const Standard_Real U) const;
+  Point3d Value3D(const Standard_Real U) const;
 
   //! Computes the 3D point   of parameter U  on the
   //! curve.
-  void D0(const Standard_Real U, gp_Pnt& P) const;
+  void D0(const Standard_Real U, Point3d& P) const;
 
   //! Computes the point of parameter  U on the curve
   //! with its first derivative.
-  void D1(const Standard_Real U, gp_Pnt& P, gp_Vec& V) const;
+  void D1(const Standard_Real U, Point3d& P, gp_Vec& V) const;
 
   //! Depending on <AtStart> computes the 2D point and
   //! tangent on the curve  at sart (or at  end).  If the  first

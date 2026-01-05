@@ -27,7 +27,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Geom_Axis1Placement, Geom_AxisPlacement)
 typedef Geom_Axis1Placement Axis1Placement;
 typedef gp_Ax2              Ax2;
 typedef gp_Dir              Dir;
-typedef gp_Pnt              Pnt;
+typedef Point3d              Pnt;
 typedef gp_Trsf             Trsf;
 typedef gp_Vec              Vec;
 

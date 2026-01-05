@@ -61,7 +61,7 @@ public:
 
   //! Returns center of the point set. If location
   //! transformation is set, it will be applied
-  Standard_EXPORT virtual gp_Pnt CenterOfGeometry() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Point3d CenterOfGeometry() const Standard_OVERRIDE;
 
   //! Returns the amount of points in set
   Standard_EXPORT virtual Standard_Integer NbSubElements() const Standard_OVERRIDE;
@@ -95,7 +95,7 @@ protected:
 protected:
   Select3D_VectorOfHPoly           myPlanarPolygons; //!< Vector of planar polygons
   Handle(TColStd_HArray1OfInteger) myPolygonsIdxs;   //!< Indexes array for BVH calculation
-  gp_Pnt                           myCOG;            //!< Center of the point set
+  Point3d                           myCOG;            //!< Center of the point set
   Select3D_BndBox3d                myBndBox;         //!< Bounding box of the point set
 };
 

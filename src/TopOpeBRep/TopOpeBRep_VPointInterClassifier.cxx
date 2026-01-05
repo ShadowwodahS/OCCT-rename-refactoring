@@ -31,7 +31,7 @@
 // modified by NIZHNY-MKK  Fri Jun 16 15:04:09 2000.BEGIN
 // modified by NIZHNY-MKK  Fri Jun 16 15:04:09 2000.END
 // modified by NIZHNY-MKK  Mon Jun 19 11:47:48 2000.BEGIN
-static TopAbs_State SlowClassifyOnBoundary(const gp_Pnt&             thePointToClassify,
+static TopAbs_State SlowClassifyOnBoundary(const Point3d&             thePointToClassify,
                                            const gp_Pnt2d&           thePoint2dToClassify,
                                            BRepClass_FaceClassifier& theSlowClassifier,
                                            const TopoDS_Face&        theFace);
@@ -209,7 +209,7 @@ Standard_Real TopOpeBRep_VPointInterClassifier::EdgeParameter() const
 // static function : SlowClassifyOnBoundary
 // purpose  :
 //=======================================================================
-static TopAbs_State SlowClassifyOnBoundary(const gp_Pnt&             thePointToClassify,
+static TopAbs_State SlowClassifyOnBoundary(const Point3d&             thePointToClassify,
                                            const gp_Pnt2d&           thePoint2dToClassify,
                                            BRepClass_FaceClassifier& theSlowClassifier,
                                            const TopoDS_Face&        theFace)
@@ -231,7 +231,7 @@ static TopAbs_State SlowClassifyOnBoundary(const gp_Pnt&             thePointToC
     {
       TopoDS_Vertex aVertex           = TopoDS::Vertex(anExp.Current());
       Standard_Real aVertexTolerance  = BRep_Tool::Tolerance(aVertex);
-      gp_Pnt        anEdgeVertexPoint = BRep_Tool::Pnt(aVertex);
+      Point3d        anEdgeVertexPoint = BRep_Tool::Pnt(aVertex);
       if (thePointToClassify.IsEqual(anEdgeVertexPoint, aVertexTolerance))
         samewithvertex = Standard_True;
     }

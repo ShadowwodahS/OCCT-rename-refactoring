@@ -323,7 +323,7 @@ bool RWGltf_TriangulationReader::readDracoBuffer(
             return false;
           }
 
-          gp_Pnt anXYZ(aVec3->x(), aVec3->y(), aVec3->z());
+          Point3d anXYZ(aVec3->x(), aVec3->y(), aVec3->z());
           myCoordSysConverter.TransformPosition(anXYZ.ChangeCoord());
           setNodePosition(theDestMesh, THE_LOWER_NODE_INDEX + aVertIter, anXYZ);
         }
@@ -850,7 +850,7 @@ bool RWGltf_TriangulationReader::readBuffer(
             return false;
           }
 
-          gp_Pnt anXYZ(aVec3->x(), aVec3->y(), aVec3->z());
+          Point3d anXYZ(aVec3->x(), aVec3->y(), aVec3->z());
           myCoordSysConverter.TransformPosition(anXYZ.ChangeCoord());
           setNodePosition(theDestMesh, THE_LOWER_NODE_INDEX + aVertIter, anXYZ);
         }
@@ -867,7 +867,7 @@ bool RWGltf_TriangulationReader::readBuffer(
           }
           setNodePosition(theDestMesh,
                           THE_LOWER_NODE_INDEX + aVertIter,
-                          gp_Pnt(aVec3->x(), aVec3->y(), aVec3->z()));
+                          Point3d(aVec3->x(), aVec3->y(), aVec3->z()));
         }
       }
       break;

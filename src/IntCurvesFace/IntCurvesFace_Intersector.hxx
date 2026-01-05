@@ -32,7 +32,7 @@
 
 class BRepTopAdaptor_TopolTool;
 class gp_Lin;
-class gp_Pnt;
+class Point3d;
 class IntCurveSurface_HInter;
 class gp_Pnt2d;
 class Bnd_Box;
@@ -102,7 +102,7 @@ public:
 
   //! Returns the geometric point of the ith intersection
   //! between the line and the surface.
-  const gp_Pnt& Pnt(const Standard_Integer I) const;
+  const Point3d& Pnt(const Standard_Integer I) const;
 
   //! Returns the ith transition of the line on the surface.
   IntCurveSurface_TransitionOnCurve Transition(const Standard_Integer I) const;

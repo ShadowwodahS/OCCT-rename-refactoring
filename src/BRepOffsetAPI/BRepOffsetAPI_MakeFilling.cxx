@@ -117,7 +117,7 @@ Standard_Integer BRepOffsetAPI_MakeFilling::Add(const TopoDS_Face&  Support,
 // function : Add
 // purpose  : adds a point constraint
 //======================================================================
-Standard_Integer BRepOffsetAPI_MakeFilling::Add(const gp_Pnt& Point)
+Standard_Integer BRepOffsetAPI_MakeFilling::Add(const Point3d& Point)
 {
   return myFilling.Add(Point);
 }

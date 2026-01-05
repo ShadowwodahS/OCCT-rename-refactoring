@@ -17,7 +17,7 @@
 #include <Standard.hxx>
 
 class TopoDS_Shape;
-class gp_Pnt;
+class Point3d;
 
 class BRepExtrema_Poly
 {
@@ -25,8 +25,8 @@ public:
   //! returns Standard_True if OK.
   Standard_EXPORT static Standard_Boolean Distance(const TopoDS_Shape& S1,
                                                    const TopoDS_Shape& S2,
-                                                   gp_Pnt&             P1,
-                                                   gp_Pnt&             P2,
+                                                   Point3d&             P1,
+                                                   Point3d&             P2,
                                                    Standard_Real&      dist);
 };
 

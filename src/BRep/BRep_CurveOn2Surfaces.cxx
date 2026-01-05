@@ -41,7 +41,7 @@ BRep_CurveOn2Surfaces::BRep_CurveOn2Surfaces(const Handle(Geom_Surface)& S1,
 
 //=================================================================================================
 
-void BRep_CurveOn2Surfaces::D0(const Standard_Real, gp_Pnt&) const
+void BRep_CurveOn2Surfaces::D0(const Standard_Real, Point3d&) const
 {
   throw Standard_NullObject("BRep_CurveOn2Surfaces::D0");
 }

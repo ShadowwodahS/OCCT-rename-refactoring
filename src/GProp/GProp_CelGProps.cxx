@@ -25,7 +25,7 @@
 
 GProp_CelGProps::GProp_CelGProps() {}
 
-void GProp_CelGProps::SetLocation(const gp_Pnt& CLocation)
+void GProp_CelGProps::SetLocation(const Point3d& CLocation)
 {
   loc = CLocation;
 }
@@ -86,9 +86,9 @@ void GProp_CelGProps::Perform(const gp_Circ& C, const Standard_Real U1, const St
 void GProp_CelGProps::Perform(const gp_Lin& C, const Standard_Real U1, const Standard_Real U2)
 {
   gp_Ax1 Pos = C.Position();
-  gp_Pnt P1  = ElCLib::LineValue(U1, Pos);
+  Point3d P1  = ElCLib::LineValue(U1, Pos);
   dim        = Abs(U2 - U1);
-  gp_Pnt P2  = ElCLib::LineValue(U2, Pos);
+  Point3d P2  = ElCLib::LineValue(U2, Pos);
   g.SetCoord((P1.X() + P2.X()) / 2., (P1.Y() + P2.Y()) / 2., (P1.Z() + P2.Z()) / 2.);
   Standard_Real Vx, Vy, Vz, X0, Y0, Z0;
   Pos.Direction().Coord(Vx, Vy, Vz);
@@ -127,7 +127,7 @@ void GProp_CelGProps::Perform(const gp_Lin& C, const Standard_Real U1, const Sta
   inertia = gp_Mat(gp_XYZ(Ixx, -Ixy, -Ixz), gp_XYZ(-Ixy, Iyy, -Iyz), gp_XYZ(-Ixz, -Iyz, Izz));
 }
 
-GProp_CelGProps::GProp_CelGProps(const gp_Circ& C, const gp_Pnt& CLocation)
+GProp_CelGProps::GProp_CelGProps(const gp_Circ& C, const Point3d& CLocation)
 {
   SetLocation(CLocation);
   Perform(C, 0., 2. * M_PI);
@@ -136,7 +136,7 @@ GProp_CelGProps::GProp_CelGProps(const gp_Circ& C, const gp_Pnt& CLocation)
 GProp_CelGProps::GProp_CelGProps(const gp_Circ&      C,
                                  const Standard_Real U1,
                                  const Standard_Real U2,
-                                 const gp_Pnt&       CLocation)
+                                 const Point3d&       CLocation)
 {
   SetLocation(CLocation);
   Perform(C, U1, U2);
@@ -145,7 +145,7 @@ GProp_CelGProps::GProp_CelGProps(const gp_Circ&      C,
 GProp_CelGProps::GProp_CelGProps(const gp_Lin&       C,
                                  const Standard_Real U1,
                                  const Standard_Real U2,
-                                 const gp_Pnt&       CLocation)
+                                 const Point3d&       CLocation)
 {
   SetLocation(CLocation);
   Perform(C, U1, U2);

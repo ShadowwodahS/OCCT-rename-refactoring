@@ -54,7 +54,7 @@ gce_MakeCone::gce_MakeCone(const gp_Ax2& A2, const Standard_Real Ang, const Stan
 //  rayon du cone pour la section passant par P4.                         +
 //=========================================================================
 
-gce_MakeCone::gce_MakeCone(const gp_Pnt& P1, const gp_Pnt& P2, const gp_Pnt& P3, const gp_Pnt& P4)
+gce_MakeCone::gce_MakeCone(const Point3d& P1, const Point3d& P2, const Point3d& P3, const Point3d& P4)
 {
   if (P1.Distance(P2) < RealEpsilon() || P3.Distance(P4) < RealEpsilon())
   {
@@ -65,10 +65,10 @@ gce_MakeCone::gce_MakeCone(const gp_Pnt& P1, const gp_Pnt& P2, const gp_Pnt& P3,
   gp_Dir        D1(P2.XYZ() - P1.XYZ());
   Standard_Real cos  = D1.Dot(gp_Dir(P4.XYZ() - P1.XYZ()));
   Standard_Real dist = P1.Distance(P4);
-  gp_Pnt        PP4(P1.XYZ() + cos * dist * D1.XYZ());
+  Point3d        PP4(P1.XYZ() + cos * dist * D1.XYZ());
   cos  = D1.Dot(gp_Dir(P3.XYZ() - P1.XYZ()));
   dist = P1.Distance(P3);
-  gp_Pnt PP3(P1.XYZ() + cos * dist * D1.XYZ());
+  Point3d PP3(P1.XYZ() + cos * dist * D1.XYZ());
 
   Standard_Real Dist13 = PP3.Distance(P1);
   Standard_Real Dist14 = PP4.Distance(P1);
@@ -126,10 +126,10 @@ gce_MakeCone::gce_MakeCone(const gp_Pnt& P1, const gp_Pnt& P2, const gp_Pnt& P3,
 //  par P2.                                                               +
 //=========================================================================
 
-gce_MakeCone::gce_MakeCone(const gp_Ax1& Axis, const gp_Pnt& P1, const gp_Pnt& P2)
+gce_MakeCone::gce_MakeCone(const gp_Ax1& Axis, const Point3d& P1, const Point3d& P2)
 {
-  gp_Pnt       P3(Axis.Location());
-  gp_Pnt       P4(P3.XYZ() + Axis.Direction().XYZ());
+  Point3d       P3(Axis.Location());
+  Point3d       P4(P3.XYZ() + Axis.Direction().XYZ());
   gce_MakeCone Cone(P3, P4, P1, P2);
   if (Cone.IsDone())
   {
@@ -148,8 +148,8 @@ gce_MakeCone::gce_MakeCone(const gp_Ax1& Axis, const gp_Pnt& P1, const gp_Pnt& P
 //=========================================================================
 
 // gce_MakeCone::gce_MakeCone(const gp_Cone&  cone ,
-//			   const gp_Pnt&   P    )
-gce_MakeCone::gce_MakeCone(const gp_Cone&, const gp_Pnt&)
+//			   const Point3d&   P    )
+gce_MakeCone::gce_MakeCone(const gp_Cone&, const Point3d&)
 {
   TheError = gce_ConfusedPoints;
 }
@@ -173,10 +173,10 @@ gce_MakeCone::gce_MakeCone(const gp_Cone&, const Standard_Real)
 //  par P2.                                                               +
 //=========================================================================
 
-gce_MakeCone::gce_MakeCone(const gp_Lin& Axis, const gp_Pnt& P1, const gp_Pnt& P2)
+gce_MakeCone::gce_MakeCone(const gp_Lin& Axis, const Point3d& P1, const Point3d& P2)
 {
-  gp_Pnt       P3(Axis.Location());
-  gp_Pnt       P4(P3.XYZ() + Axis.Direction().XYZ());
+  Point3d       P3(Axis.Location());
+  Point3d       P4(P3.XYZ() + Axis.Direction().XYZ());
   gce_MakeCone Cone(P3, P4, P1, P2);
   if (Cone.IsDone())
   {
@@ -194,8 +194,8 @@ gce_MakeCone::gce_MakeCone(const gp_Lin& Axis, const gp_Pnt& P1, const gp_Pnt& P
 //  sections passant par chacun de ces points).                           +
 //=========================================================================
 
-gce_MakeCone::gce_MakeCone(const gp_Pnt&       P1,
-                           const gp_Pnt&       P2,
+gce_MakeCone::gce_MakeCone(const Point3d&       P1,
+                           const Point3d&       P2,
                            const Standard_Real R1,
                            const Standard_Real R2)
 {

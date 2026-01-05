@@ -56,7 +56,7 @@ public:
   void SetAxis(const gp_Ax1& theA1) { pos.SetAxis(theA1); }
 
   //! changes the location point of the conic.
-  void SetLocation(const gp_Pnt& theP) { pos.SetLocation(theP); }
+  void SetLocation(const Point3d& theP) { pos.SetLocation(theP); }
 
   //! changes the local coordinate system of the conic.
   void SetPosition(const gp_Ax2& theA2) { pos = theA2; }
@@ -68,7 +68,7 @@ public:
   //! Returns the location point of the conic.
   //! For the circle, the ellipse and the hyperbola it is the center of
   //! the conic. For the parabola it is the Apex of the parabola.
-  const gp_Pnt& Location() const { return pos.Location(); }
+  const Point3d& Location() const { return pos.Location(); }
 
   //! Returns the local coordinates system of the conic.
   //! The main direction of the Axis2Placement is normal to the

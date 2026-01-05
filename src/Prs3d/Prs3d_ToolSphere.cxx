@@ -32,11 +32,11 @@ Prs3d_ToolSphere::Prs3d_ToolSphere(const Standard_Real    theRadius,
 
 //=================================================================================================
 
-gp_Pnt Prs3d_ToolSphere::Vertex(const Standard_Real theU, const Standard_Real theV) const
+Point3d Prs3d_ToolSphere::Vertex(const Standard_Real theU, const Standard_Real theV) const
 {
   const Standard_Real aU = theU * M_PI * 2.0;
   const Standard_Real aV = theV * M_PI;
-  return gp_Pnt(myRadius * Cos(aU) * Sin(aV), -myRadius * Sin(aU) * Sin(aV), myRadius * Cos(aV));
+  return Point3d(myRadius * Cos(aU) * Sin(aV), -myRadius * Sin(aU) * Sin(aV), myRadius * Cos(aV));
 }
 
 //=================================================================================================

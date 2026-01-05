@@ -38,7 +38,7 @@ GeomEvaluator_SurfaceOfExtrusion::GeomEvaluator_SurfaceOfExtrusion(
 
 void GeomEvaluator_SurfaceOfExtrusion::D0(const Standard_Real theU,
                                           const Standard_Real theV,
-                                          gp_Pnt&             theValue) const
+                                          Point3d&             theValue) const
 {
   if (!myBaseAdaptor.IsNull())
     myBaseAdaptor->D0(theU, theValue);
@@ -50,7 +50,7 @@ void GeomEvaluator_SurfaceOfExtrusion::D0(const Standard_Real theU,
 
 void GeomEvaluator_SurfaceOfExtrusion::D1(const Standard_Real theU,
                                           const Standard_Real theV,
-                                          gp_Pnt&             theValue,
+                                          Point3d&             theValue,
                                           gp_Vec&             theD1U,
                                           gp_Vec&             theD1V) const
 {
@@ -65,7 +65,7 @@ void GeomEvaluator_SurfaceOfExtrusion::D1(const Standard_Real theU,
 
 void GeomEvaluator_SurfaceOfExtrusion::D2(const Standard_Real theU,
                                           const Standard_Real theV,
-                                          gp_Pnt&             theValue,
+                                          Point3d&             theValue,
                                           gp_Vec&             theD1U,
                                           gp_Vec&             theD1V,
                                           gp_Vec&             theD2U,
@@ -86,7 +86,7 @@ void GeomEvaluator_SurfaceOfExtrusion::D2(const Standard_Real theU,
 
 void GeomEvaluator_SurfaceOfExtrusion::D3(const Standard_Real theU,
                                           const Standard_Real theV,
-                                          gp_Pnt&             theValue,
+                                          Point3d&             theValue,
                                           gp_Vec&             theD1U,
                                           gp_Vec&             theD1V,
                                           gp_Vec&             theD2U,

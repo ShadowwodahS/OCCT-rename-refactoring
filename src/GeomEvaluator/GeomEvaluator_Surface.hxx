@@ -18,7 +18,7 @@
 #include <Standard_Transient.hxx>
 #include <Standard_Type.hxx>
 
-class gp_Pnt;
+class Point3d;
 class gp_Vec;
 
 //! Interface for calculation of values and derivatives for different kinds of surfaces.
@@ -29,17 +29,17 @@ public:
   GeomEvaluator_Surface() {}
 
   //! Value of surface
-  virtual void D0(const Standard_Real theU, const Standard_Real theV, gp_Pnt& theValue) const = 0;
+  virtual void D0(const Standard_Real theU, const Standard_Real theV, Point3d& theValue) const = 0;
   //! Value and first derivatives of surface
   virtual void D1(const Standard_Real theU,
                   const Standard_Real theV,
-                  gp_Pnt&             theValue,
+                  Point3d&             theValue,
                   gp_Vec&             theD1U,
                   gp_Vec&             theD1V) const = 0;
   //! Value, first and second derivatives of surface
   virtual void D2(const Standard_Real theU,
                   const Standard_Real theV,
-                  gp_Pnt&             theValue,
+                  Point3d&             theValue,
                   gp_Vec&             theD1U,
                   gp_Vec&             theD1V,
                   gp_Vec&             theD2U,
@@ -48,7 +48,7 @@ public:
   //! Value, first, second and third derivatives of surface
   virtual void D3(const Standard_Real theU,
                   const Standard_Real theV,
-                  gp_Pnt&             theValue,
+                  Point3d&             theValue,
                   gp_Vec&             theD1U,
                   gp_Vec&             theD1V,
                   gp_Vec&             theD2U,

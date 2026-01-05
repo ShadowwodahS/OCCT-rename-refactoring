@@ -109,7 +109,7 @@ void GeomFill_Curved::Init(const TColgp_Array1OfPnt& P1,
       PU1 = 1 - PU;
       PU /= 2.;
       PU1 /= 2.;
-      gp_Pnt P;
+      Point3d P;
       for (k = 1; k <= 3; k++)
       {
         P.SetCoord(k,

@@ -93,10 +93,10 @@ static void CalculateElVProps(const Standard_Real x,
 //           or volume properties of pyramid, based on triangle
 //           p1, p2, p3 with apex Apex by Gauss integration over triangle area.
 //=======================================================================
-void BRepGProp_MeshProps::CalculateProps(const gp_Pnt&          p1,
-                                         const gp_Pnt&          p2,
-                                         const gp_Pnt&          p3,
-                                         const gp_Pnt&          Apex,
+void BRepGProp_MeshProps::CalculateProps(const Point3d&          p1,
+                                         const Point3d&          p2,
+                                         const Point3d&          p3,
+                                         const Point3d&          Apex,
                                          const Standard_Boolean isVolume,
                                          Standard_Real          GProps[10],
                                          const Standard_Integer NbGaussPoints,
@@ -120,7 +120,7 @@ void BRepGProp_MeshProps::CalculateProps(const gp_Pnt&          p1,
     return;
   }
   gp_XYZ aCenter = (p1.XYZ() + p2.XYZ() + p3.XYZ()) / 3.;
-  gp_Pnt aPC(aCenter);
+  Point3d aPC(aCenter);
   gp_Dir aDN(aNorm);
   gp_Ax3 aPosPln(aPC, aDN);
   // Coordinates of nodes on plane
@@ -142,7 +142,7 @@ void BRepGProp_MeshProps::CalculateProps(const gp_Pnt&          p1,
     w *= aDet;
     x         = l1 * (x1 - x3) + l2 * (x2 - x3) + x3;
     y         = l1 * (y1 - y3) + l2 * (y2 - y3) + y3;
-    gp_Pnt aP = ElSLib::PlaneValue(x, y, aPosPln);
+    Point3d aP = ElSLib::PlaneValue(x, y, aPosPln);
     x         = aP.X() - Apex.X();
     y         = aP.Y() - Apex.Y();
     z         = aP.Z() - Apex.Z();
@@ -201,12 +201,12 @@ void BRepGProp_MeshProps::Perform(const Handle(Poly_Triangulation)& theMesh,
     }
     //
     gp_Trsf aTrInv   = aTr.Inverted();
-    gp_Pnt  loc_save = loc;
+    Point3d  loc_save = loc;
     loc.Transform(aTrInv);
     Perform(theMesh, theOri);
     // Computes the inertia tensor at mesh gravity center
     gp_Mat HMat, inertia0;
-    gp_Pnt g0 = g;
+    Point3d g0 = g;
     g.SetXYZ(g.XYZ() + loc.XYZ());
     if (g0.XYZ().Modulus() > gp::Resolution())
     {
@@ -277,9 +277,9 @@ void BRepGProp_MeshProps::Perform(const Handle(Poly_Triangulation)& theMesh,
       std::swap(n2, n3);
     }
     // Calculate properties of a pyramid built on face and apex
-    const gp_Pnt p1 = theMesh->Node(n1);
-    const gp_Pnt p2 = theMesh->Node(n2);
-    const gp_Pnt p3 = theMesh->Node(n3);
+    const Point3d p1 = theMesh->Node(n1);
+    const Point3d p2 = theMesh->Node(n2);
+    const Point3d p3 = theMesh->Node(n3);
     CalculateProps(p1, p2, p3, loc, isVolume, aGProps, aNbGaussPoints, GPtsWg);
   }
 

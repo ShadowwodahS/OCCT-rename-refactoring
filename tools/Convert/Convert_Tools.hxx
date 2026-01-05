@@ -84,8 +84,8 @@ public:
   //! \param thePntMin minimum point on the bounding box
   //! \param thePntMax maximum point on the bounding box
   //! \return created shape
-  Standard_EXPORT static Standard_Boolean CreateBoxShape(const gp_Pnt& thePntMin,
-                                                         const gp_Pnt& thePntMax,
+  Standard_EXPORT static Standard_Boolean CreateBoxShape(const Point3d& thePntMin,
+                                                         const Point3d& thePntMax,
                                                          TopoDS_Shape& theShape);
 
   //! Creates presentation AIS_Line

@@ -57,7 +57,7 @@ public:
   //! Projects 2d screen point onto view frustum plane:
   //! theZ = 0 - near plane,
   //! theZ = 1 - far plane
-  Standard_EXPORT gp_Pnt ProjectPntOnViewPlane(const Standard_Real& theX,
+  Standard_EXPORT Point3d ProjectPntOnViewPlane(const Standard_Real& theX,
                                                const Standard_Real& theY,
                                                const Standard_Real& theZ) const;
 

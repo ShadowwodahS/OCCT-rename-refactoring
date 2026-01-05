@@ -24,7 +24,7 @@
 #include <gp_Pln.hxx>
 #include <gce_Root.hxx>
 class gp_Ax2;
-class gp_Pnt;
+class Point3d;
 class gp_Dir;
 class gp_Ax1;
 
@@ -60,7 +60,7 @@ public:
 
   //! Creates a plane with the  "Location" point <P>
   //! and the normal direction <V>.
-  Standard_EXPORT gce_MakePln(const gp_Pnt& P, const gp_Dir& V);
+  Standard_EXPORT gce_MakePln(const Point3d& P, const gp_Dir& V);
 
   //! Creates a plane from its cartesian equation :
   //! A * X + B * Y + C * Z + D = 0.0
@@ -74,7 +74,7 @@ public:
 
   //! Make a Pln from gp <ThePln> parallel to another
   //! Pln <Pln> and passing through a Pnt <Point>.
-  Standard_EXPORT gce_MakePln(const gp_Pln& Pln, const gp_Pnt& Point);
+  Standard_EXPORT gce_MakePln(const gp_Pln& Pln, const Point3d& Point);
 
   //! Make a Pln from gp <ThePln> parallel to another
   //! Pln <Pln> at the distance <Dist> which can be greater
@@ -88,12 +88,12 @@ public:
   //! Make a Pln from gp <ThePln> passing through 3
   //! Pnt <P1>,<P2>,<P3>.
   //! It returns false if <P1> <P2> <P3> are confused.
-  Standard_EXPORT gce_MakePln(const gp_Pnt& P1, const gp_Pnt& P2, const gp_Pnt& P3);
+  Standard_EXPORT gce_MakePln(const Point3d& P1, const Point3d& P2, const Point3d& P3);
 
   //! Make a Pln from gp <ThePln> perpendicular to the line
   //! passing through <P1>,<P2>.
   //! The status is "ConfusedPoints" if <P1> <P2> are confused.
-  Standard_EXPORT gce_MakePln(const gp_Pnt& P1, const gp_Pnt& P2);
+  Standard_EXPORT gce_MakePln(const Point3d& P1, const Point3d& P2);
 
   //! Make a pln  passing through the location of <Axis>and
   //! normal to the Direction of <Axis>.

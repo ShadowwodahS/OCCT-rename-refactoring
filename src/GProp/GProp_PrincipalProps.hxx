@@ -165,7 +165,7 @@ private:
                                        const gp_Vec&       Vxx,
                                        const gp_Vec&       Vyy,
                                        const gp_Vec&       Vzz,
-                                       const gp_Pnt&       G);
+                                       const Point3d&       G);
 
   Standard_Real i1;
   Standard_Real i2;
@@ -176,7 +176,7 @@ private:
   gp_Vec        v1;
   gp_Vec        v2;
   gp_Vec        v3;
-  gp_Pnt        g;
+  Point3d        g;
 };
 
 #endif // _GProp_PrincipalProps_HeaderFile

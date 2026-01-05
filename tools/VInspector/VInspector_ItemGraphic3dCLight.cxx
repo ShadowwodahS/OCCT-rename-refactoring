@@ -160,7 +160,7 @@ void VInspector_ItemGraphic3dCLight::StoreItemProperties(const int       theRow,
     }
 
     // "Position"
-    gp_Pnt aPnt;
+    Point3d aPnt;
     if (aPnt.InitFromJson(aStream, aStartPos))
     {
       myLight->SetPosition(aPnt);

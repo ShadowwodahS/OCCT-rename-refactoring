@@ -68,7 +68,7 @@ BRepClass3d_SClassifier::BRepClass3d_SClassifier()
 //=================================================================================================
 
 BRepClass3d_SClassifier::BRepClass3d_SClassifier(BRepClass3d_SolidExplorer& S,
-                                                 const gp_Pnt&              P,
+                                                 const Point3d&              P,
                                                  const Standard_Real        Tol)
 {
   if (S.Reject(P))
@@ -97,7 +97,7 @@ void BRepClass3d_SClassifier::PerformInfinitePoint(BRepClass3d_SolidExplorer& aS
   // else take the next random point inside the min.par.-intersected face
   // and continue
 
-  if (aSE.Reject(gp_Pnt(0, 0, 0)))
+  if (aSE.Reject(Point3d(0, 0, 0)))
   {
     myState = 3; //-- in ds solid case without face
     return;
@@ -107,7 +107,7 @@ void BRepClass3d_SClassifier::PerformInfinitePoint(BRepClass3d_SolidExplorer& aS
   // 1
   Standard_Boolean bFound;
   Standard_Real    aParam, aU = 0., aV = 0.;
-  gp_Pnt           aPoint;
+  Point3d           aPoint;
   gp_Dir           aDN;
 
   math_BullardGenerator aRandomGenerator;
@@ -197,7 +197,7 @@ void BRepClass3d_SClassifier::PerformInfinitePoint(BRepClass3d_SolidExplorer& aS
 //=================================================================================================
 
 void BRepClass3d_SClassifier::Perform(BRepClass3d_SolidExplorer& SolidExplorer,
-                                      const gp_Pnt&              P,
+                                      const Point3d&              P,
                                       const Standard_Real        Tol)
 {
   if (SolidExplorer.Reject(P))
@@ -548,7 +548,7 @@ Standard_Real GetAddToParam(const gp_Lin& L, const Standard_Real P, const Bnd_Bo
         Standard_Real Z = fabs(z[k] - L.Location().Z());
         if (X < 1.e+20 && Y < 1.e+20 && Z < 1.e+20)
         {
-          gp_Pnt        aP(x[i], y[j], z[k]);
+          Point3d        aP(x[i], y[j], z[k]);
           Standard_Real par = ElCLib::Parameter(L, aP);
           if (par > Par)
             Par = par;
@@ -568,7 +568,7 @@ Standard_Boolean FaceNormal(const TopoDS_Face&  aF,
                             const Standard_Real V,
                             gp_Dir&             aDN)
 {
-  gp_Pnt               aPnt;
+  Point3d               aPnt;
   gp_Vec               aD1U, aD1V, aN;
   Handle(Geom_Surface) aS;
 

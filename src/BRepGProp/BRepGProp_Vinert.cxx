@@ -29,7 +29,7 @@ BRepGProp_Vinert::BRepGProp_Vinert()
 //=================================================================================================
 
 BRepGProp_Vinert::BRepGProp_Vinert(BRepGProp_Face&     theSurface,
-                                   const gp_Pnt&       theLocation,
+                                   const Point3d&       theLocation,
                                    const Standard_Real theEps)
 {
   SetLocation(theLocation);
@@ -40,7 +40,7 @@ BRepGProp_Vinert::BRepGProp_Vinert(BRepGProp_Face&     theSurface,
 
 BRepGProp_Vinert::BRepGProp_Vinert(BRepGProp_Face&     theSurface,
                                    BRepGProp_Domain&   theDomain,
-                                   const gp_Pnt&       theLocation,
+                                   const Point3d&       theLocation,
                                    const Standard_Real theEps)
 {
   SetLocation(theLocation);
@@ -51,7 +51,7 @@ BRepGProp_Vinert::BRepGProp_Vinert(BRepGProp_Face&     theSurface,
 
 BRepGProp_Vinert::BRepGProp_Vinert(BRepGProp_Face&   theSurface,
                                    BRepGProp_Domain& theDomain,
-                                   const gp_Pnt&     theLocation)
+                                   const Point3d&     theLocation)
 {
   SetLocation(theLocation);
   Perform(theSurface, theDomain);
@@ -59,7 +59,7 @@ BRepGProp_Vinert::BRepGProp_Vinert(BRepGProp_Face&   theSurface,
 
 //=================================================================================================
 
-BRepGProp_Vinert::BRepGProp_Vinert(const BRepGProp_Face& theSurface, const gp_Pnt& theLocation)
+BRepGProp_Vinert::BRepGProp_Vinert(const BRepGProp_Face& theSurface, const Point3d& theLocation)
 {
   SetLocation(theLocation);
   Perform(theSurface);
@@ -68,8 +68,8 @@ BRepGProp_Vinert::BRepGProp_Vinert(const BRepGProp_Face& theSurface, const gp_Pn
 //=================================================================================================
 
 BRepGProp_Vinert::BRepGProp_Vinert(BRepGProp_Face&     theSurface,
-                                   const gp_Pnt&       theOrigin,
-                                   const gp_Pnt&       theLocation,
+                                   const Point3d&       theOrigin,
+                                   const Point3d&       theLocation,
                                    const Standard_Real theEps)
 {
   SetLocation(theLocation);
@@ -80,8 +80,8 @@ BRepGProp_Vinert::BRepGProp_Vinert(BRepGProp_Face&     theSurface,
 
 BRepGProp_Vinert::BRepGProp_Vinert(BRepGProp_Face&     theSurface,
                                    BRepGProp_Domain&   theDomain,
-                                   const gp_Pnt&       theOrigin,
-                                   const gp_Pnt&       theLocation,
+                                   const Point3d&       theOrigin,
+                                   const Point3d&       theLocation,
                                    const Standard_Real theEps)
 {
   SetLocation(theLocation);
@@ -91,8 +91,8 @@ BRepGProp_Vinert::BRepGProp_Vinert(BRepGProp_Face&     theSurface,
 //=================================================================================================
 
 BRepGProp_Vinert::BRepGProp_Vinert(const BRepGProp_Face& theSurface,
-                                   const gp_Pnt&         theOrigin,
-                                   const gp_Pnt&         theLocation)
+                                   const Point3d&         theOrigin,
+                                   const Point3d&         theLocation)
 {
   SetLocation(theLocation);
   Perform(theSurface, theOrigin);
@@ -102,8 +102,8 @@ BRepGProp_Vinert::BRepGProp_Vinert(const BRepGProp_Face& theSurface,
 
 BRepGProp_Vinert::BRepGProp_Vinert(BRepGProp_Face&   theSurface,
                                    BRepGProp_Domain& theDomain,
-                                   const gp_Pnt&     theOrigin,
-                                   const gp_Pnt&     theLocation)
+                                   const Point3d&     theOrigin,
+                                   const Point3d&     theLocation)
 {
   SetLocation(theLocation);
   Perform(theSurface, theDomain, theOrigin);
@@ -113,7 +113,7 @@ BRepGProp_Vinert::BRepGProp_Vinert(BRepGProp_Face&   theSurface,
 
 BRepGProp_Vinert::BRepGProp_Vinert(BRepGProp_Face&     theSurface,
                                    const gp_Pln&       thePlane,
-                                   const gp_Pnt&       theLocation,
+                                   const Point3d&       theLocation,
                                    const Standard_Real theEps)
 {
   SetLocation(theLocation);
@@ -125,7 +125,7 @@ BRepGProp_Vinert::BRepGProp_Vinert(BRepGProp_Face&     theSurface,
 BRepGProp_Vinert::BRepGProp_Vinert(BRepGProp_Face&     theSurface,
                                    BRepGProp_Domain&   theDomain,
                                    const gp_Pln&       thePlane,
-                                   const gp_Pnt&       theLocation,
+                                   const Point3d&       theLocation,
                                    const Standard_Real theEps)
 {
   SetLocation(theLocation);
@@ -136,7 +136,7 @@ BRepGProp_Vinert::BRepGProp_Vinert(BRepGProp_Face&     theSurface,
 
 BRepGProp_Vinert::BRepGProp_Vinert(const BRepGProp_Face& theSurface,
                                    const gp_Pln&         thePlane,
-                                   const gp_Pnt&         theLocation)
+                                   const Point3d&         theLocation)
 {
   SetLocation(theLocation);
   Perform(theSurface, thePlane);
@@ -147,7 +147,7 @@ BRepGProp_Vinert::BRepGProp_Vinert(const BRepGProp_Face& theSurface,
 BRepGProp_Vinert::BRepGProp_Vinert(BRepGProp_Face&   theSurface,
                                    BRepGProp_Domain& theDomain,
                                    const gp_Pln&     thePlane,
-                                   const gp_Pnt&     theLocation)
+                                   const Point3d&     theLocation)
 {
   SetLocation(theLocation);
   Perform(theSurface, theDomain, thePlane);
@@ -155,7 +155,7 @@ BRepGProp_Vinert::BRepGProp_Vinert(BRepGProp_Face&   theSurface,
 
 //=================================================================================================
 
-void BRepGProp_Vinert::SetLocation(const gp_Pnt& theLocation)
+void BRepGProp_Vinert::SetLocation(const Point3d& theLocation)
 {
   loc = theLocation;
 }
@@ -207,7 +207,7 @@ void BRepGProp_Vinert::Perform(BRepGProp_Face& theSurface, BRepGProp_Domain& the
 //=================================================================================================
 
 Standard_Real BRepGProp_Vinert::Perform(BRepGProp_Face&     theSurface,
-                                        const gp_Pnt&       theOrigin,
+                                        const Point3d&       theOrigin,
                                         const Standard_Real theEps)
 {
   BRepGProp_Domain anEmptyDomain;
@@ -218,7 +218,7 @@ Standard_Real BRepGProp_Vinert::Perform(BRepGProp_Face&     theSurface,
 
 Standard_Real BRepGProp_Vinert::Perform(BRepGProp_Face&     theSurface,
                                         BRepGProp_Domain&   theDomain,
-                                        const gp_Pnt&       theOrigin,
+                                        const Point3d&       theOrigin,
                                         const Standard_Real theEps)
 {
   const Standard_Real aCoeff[] = {theOrigin.X() - loc.X(),
@@ -234,7 +234,7 @@ Standard_Real BRepGProp_Vinert::Perform(BRepGProp_Face&     theSurface,
 
 //=================================================================================================
 
-void BRepGProp_Vinert::Perform(const BRepGProp_Face& theSurface, const gp_Pnt& theOrigin)
+void BRepGProp_Vinert::Perform(const BRepGProp_Face& theSurface, const Point3d& theOrigin)
 {
   BRepGProp_Gauss     aGauss(BRepGProp_Gauss::Vinert);
   const Standard_Real aCoeff[] = {theOrigin.X() - loc.X(),
@@ -249,7 +249,7 @@ void BRepGProp_Vinert::Perform(const BRepGProp_Face& theSurface, const gp_Pnt& t
 
 void BRepGProp_Vinert::Perform(BRepGProp_Face&   theSurface,
                                BRepGProp_Domain& theDomain,
-                               const gp_Pnt&     theOrigin)
+                               const Point3d&     theOrigin)
 {
   BRepGProp_Gauss     aGauss(BRepGProp_Gauss::Vinert);
   const Standard_Real aCoeff[] = {theOrigin.X() - loc.X(),

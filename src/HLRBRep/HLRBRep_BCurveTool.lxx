@@ -112,7 +112,7 @@ inline Standard_Real HLRBRep_BCurveTool::Period(const BRepAdaptor_Curve& C)
 // purpose  :
 //=======================================================================
 
-inline gp_Pnt HLRBRep_BCurveTool::Value(const BRepAdaptor_Curve& C, const Standard_Real U)
+inline Point3d HLRBRep_BCurveTool::Value(const BRepAdaptor_Curve& C, const Standard_Real U)
 {
   return (C.Value(U));
 }
@@ -122,7 +122,7 @@ inline gp_Pnt HLRBRep_BCurveTool::Value(const BRepAdaptor_Curve& C, const Standa
 // purpose  :
 //=======================================================================
 
-inline void HLRBRep_BCurveTool::D0(const BRepAdaptor_Curve& C, const Standard_Real U, gp_Pnt& P)
+inline void HLRBRep_BCurveTool::D0(const BRepAdaptor_Curve& C, const Standard_Real U, Point3d& P)
 {
   C.D0(U, P);
 }
@@ -134,7 +134,7 @@ inline void HLRBRep_BCurveTool::D0(const BRepAdaptor_Curve& C, const Standard_Re
 
 inline void HLRBRep_BCurveTool::D1(const BRepAdaptor_Curve& C,
                                    const Standard_Real      U,
-                                   gp_Pnt&                  P,
+                                   Point3d&                  P,
                                    gp_Vec&                  T)
 {
   C.D1(U, P, T);
@@ -142,7 +142,7 @@ inline void HLRBRep_BCurveTool::D1(const BRepAdaptor_Curve& C,
 
 inline void HLRBRep_BCurveTool::D2(const BRepAdaptor_Curve& C,
                                    const Standard_Real      U,
-                                   gp_Pnt&                  P,
+                                   Point3d&                  P,
                                    gp_Vec&                  T,
                                    gp_Vec&                  N)
 {
@@ -156,7 +156,7 @@ inline void HLRBRep_BCurveTool::D2(const BRepAdaptor_Curve& C,
 
 inline void HLRBRep_BCurveTool::D3(const BRepAdaptor_Curve& C,
                                    const Standard_Real      U,
-                                   gp_Pnt&                  P,
+                                   Point3d&                  P,
                                    gp_Vec&                  V1,
                                    gp_Vec&                  V2,
                                    gp_Vec&                  V3)

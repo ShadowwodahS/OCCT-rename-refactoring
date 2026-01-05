@@ -45,7 +45,7 @@ Standard_EXPORT void FUN_UNKFstasta(const TopoDS_Face&              FF,
 #define MDShfei Handle(TopOpeBRepDS_FaceEdgeInterference)
 #define MAKEFEI(IJKLM) (Handle(TopOpeBRepDS_FaceEdgeInterference)::DownCast(IJKLM))
 
-Standard_EXPORT Standard_Boolean FUN_Parameters(const gp_Pnt&       Pnt,
+Standard_EXPORT Standard_Boolean FUN_Parameters(const Point3d&       Pnt,
                                                 const TopoDS_Shape& F,
                                                 Standard_Real&      u,
                                                 Standard_Real&      v);

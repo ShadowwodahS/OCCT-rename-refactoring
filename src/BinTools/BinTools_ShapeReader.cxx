@@ -97,7 +97,7 @@ TopoDS_Shape BinTools_ShapeReader::ReadShape(BinTools_IStream& theStream)
         TopoDS_Vertex& aV = TopoDS::Vertex(aResult);
         // Read the point geometry
         theStream >> aTol;
-        gp_Pnt aPnt = theStream.ReadPnt();
+        Point3d aPnt = theStream.ReadPnt();
         aBuilder.MakeVertex(aV, aPnt, aTol);
         Handle(BRep_TVertex)            aTV  = Handle(BRep_TVertex)::DownCast(aV.TShape());
         BRep_ListOfPointRepresentation& aLpr = aTV->ChangePoints();

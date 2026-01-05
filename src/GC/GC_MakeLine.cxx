@@ -26,7 +26,7 @@
 //=========================================================================
 //   Constructions of 3d geometrical elements from Geom.
 //=========================================================================
-GC_MakeLine::GC_MakeLine(const gp_Pnt& P, const gp_Dir& V)
+GC_MakeLine::GC_MakeLine(const Point3d& P, const gp_Dir& V)
 {
   TheError = gce_Done;
   TheLine  = new Geom_Line(P, V);
@@ -44,7 +44,7 @@ GC_MakeLine::GC_MakeLine(const gp_Lin& L)
   TheLine  = new Geom_Line(L);
 }
 
-GC_MakeLine::GC_MakeLine(const gp_Pnt& P1, const gp_Pnt& P2)
+GC_MakeLine::GC_MakeLine(const Point3d& P1, const Point3d& P2)
 {
   gce_MakeLin L(P1, P2);
   TheError = L.Status();
@@ -54,7 +54,7 @@ GC_MakeLine::GC_MakeLine(const gp_Pnt& P1, const gp_Pnt& P2)
   }
 }
 
-GC_MakeLine::GC_MakeLine(const gp_Lin& Lin, const gp_Pnt& Point)
+GC_MakeLine::GC_MakeLine(const gp_Lin& Lin, const Point3d& Point)
 {
   gce_MakeLin L(Lin, Point);
   TheError = L.Status();

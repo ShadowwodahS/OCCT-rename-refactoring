@@ -30,7 +30,7 @@
 #include <memory>
 
 class TopoDS_Edge;
-class gp_Pnt;
+class Point3d;
 
 //! N-Side Filling
 //! This algorithm avoids to build a face from:
@@ -160,7 +160,7 @@ public:
   Standard_EXPORT Standard_Integer Add(const TopoDS_Face& Support, const GeomAbs_Shape Order);
 
   //! Adds a punctual constraint
-  Standard_EXPORT Standard_Integer Add(const gp_Pnt& Point);
+  Standard_EXPORT Standard_Integer Add(const Point3d& Point);
 
   //! Adds a punctual constraint.
   Standard_EXPORT Standard_Integer Add(const Standard_Real U,

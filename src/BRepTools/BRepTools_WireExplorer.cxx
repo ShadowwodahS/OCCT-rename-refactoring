@@ -160,7 +160,7 @@ void BRepTools_WireExplorer::Init(const TopoDS_Wire&  W,
     // uresolution for cone with infinite vmin vmax is too small.
     if (aGAS.GetType() == GeomAbs_Cone)
     {
-      gp_Pnt aP;
+      Point3d aP;
       gp_Vec aD1U, aD1V;
       aGAS.D1(UMin, VMin, aP, aD1U, aD1V);
       Standard_Real tol1, tol2, maxtol = .0005 * (UMax - UMin);
@@ -184,7 +184,7 @@ void BRepTools_WireExplorer::Init(const TopoDS_Wire&  W,
     if (aGAS.GetType() == GeomAbs_BSplineSurface || aGAS.GetType() == GeomAbs_BezierSurface)
     {
       Standard_Real maxTol = Max(myTolU, myTolV);
-      gp_Pnt        aP;
+      Point3d        aP;
       gp_Vec        aDU, aDV;
       aGAS.D1((UMax - UMin) / 2., (VMax - VMin) / 2., aP, aDU, aDV);
       Standard_Real mod = Sqrt(aDU * aDU + aDV * aDV);

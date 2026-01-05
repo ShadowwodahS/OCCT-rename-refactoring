@@ -282,7 +282,7 @@ void AdvApp2Var_Iso::MakeApprox(const AdvApp2Var_Context&           Conditions,
     Standard_Integer ider, jpos = HCONTR1->Lower();
     for (ider = 0; ider <= IORDRE; ider++)
     {
-      gp_Pnt pt(HCONTR1->Value(jpos), HCONTR1->Value(jpos + 1), HCONTR1->Value(jpos + 2));
+      Point3d pt(HCONTR1->Value(jpos), HCONTR1->Value(jpos + 1), HCONTR1->Value(jpos + 2));
       if (ISOFAV == 2)
       {
         NodeBegin.SetPoint(ider, iapp, pt);
@@ -296,7 +296,7 @@ void AdvApp2Var_Iso::MakeApprox(const AdvApp2Var_Context&           Conditions,
     jpos = HCONTR2->Lower();
     for (ider = 0; ider <= IORDRE; ider++)
     {
-      gp_Pnt pt(HCONTR2->Value(jpos), HCONTR2->Value(jpos + 1), HCONTR2->Value(jpos + 2));
+      Point3d pt(HCONTR2->Value(jpos), HCONTR2->Value(jpos + 1), HCONTR2->Value(jpos + 2));
       if (ISOFAV == 2)
       {
         NodeEnd.SetPoint(ider, iapp, pt);

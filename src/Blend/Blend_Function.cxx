@@ -21,12 +21,12 @@ Standard_Integer Blend_Function::NbVariables() const
   return 4;
 }
 
-const gp_Pnt& Blend_Function::Pnt1() const
+const Point3d& Blend_Function::Pnt1() const
 {
   return PointOnS1();
 }
 
-const gp_Pnt& Blend_Function::Pnt2() const
+const Point3d& Blend_Function::Pnt2() const
 {
   return PointOnS2();
 }

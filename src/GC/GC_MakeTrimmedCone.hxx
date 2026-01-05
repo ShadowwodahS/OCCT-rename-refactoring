@@ -24,7 +24,7 @@
 #include <GC_Root.hxx>
 #include <Geom_RectangularTrimmedSurface.hxx>
 
-class gp_Pnt;
+class Point3d;
 
 //! Implements construction algorithms for a trimmed
 //! cone limited by two planes orthogonal to its axis. The
@@ -48,10 +48,10 @@ public:
   //! An error iss raised if <P1>,<P2>,<P3>,<P4> are
   //! colinear or if <P3P4> is perpendicular to <P1P2> or
   //! <P3P4> is colinear to <P1P2>.
-  Standard_EXPORT GC_MakeTrimmedCone(const gp_Pnt& P1,
-                                     const gp_Pnt& P2,
-                                     const gp_Pnt& P3,
-                                     const gp_Pnt& P4);
+  Standard_EXPORT GC_MakeTrimmedCone(const Point3d& P1,
+                                     const Point3d& P2,
+                                     const Point3d& P3,
+                                     const Point3d& P4);
 
   //! Make a RectangularTrimmedSurface from Geom <TheCone>
   //! from a cone and trimmed by two points P1 and P2 and
@@ -69,8 +69,8 @@ public:
   //! -   the points P1, P2, P3 and P4 are collinear;
   //! -   gce_NegativeRadius if R1 or R2 is negative; or
   //! -   gce_NullAxis if points P1 and P2 are coincident (2nd syntax only).
-  Standard_EXPORT GC_MakeTrimmedCone(const gp_Pnt&       P1,
-                                     const gp_Pnt&       P2,
+  Standard_EXPORT GC_MakeTrimmedCone(const Point3d&       P1,
+                                     const Point3d&       P2,
                                      const Standard_Real R1,
                                      const Standard_Real R2);
 

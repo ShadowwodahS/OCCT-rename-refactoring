@@ -57,8 +57,8 @@ static Standard_Boolean BBPP(const Standard_Real   param,
 {
   if (!Func.IsSolution(sol, tol))
     return 0;
-  gp_Pnt        pntrst1 = Func.PointOnRst1();
-  gp_Pnt        pntrst2 = Func.PointOnRst2();
+  Point3d        pntrst1 = Func.PointOnRst1();
+  Point3d        pntrst2 = Func.PointOnRst2();
   gp_Pnt2d      p2drst1 = Func.Pnt2dOnRst1();
   gp_Pnt2d      p2drst2 = Func.Pnt2dOnRst2();
   Standard_Real w1      = Func.ParameterOnRst1();
@@ -131,8 +131,8 @@ static void tracederiv(Blend_RstRstFunction& Func, const Blend_Point& BP1, const
 //-----------------------------------------------------
 static void Drawsect(const Standard_Real param, Blend_RstRstFunction& Func)
 {
-  gp_Pnt        pntrst1 = Func.PointOnRst1();
-  gp_Pnt        pntrst2 = Func.PointOnRst2();
+  Point3d        pntrst1 = Func.PointOnRst1();
+  Point3d        pntrst2 = Func.PointOnRst2();
   gp_Pnt2d      p2drst1 = Func.Pnt2dOnRst1();
   gp_Pnt2d      p2drst2 = Func.Pnt2dOnRst2();
   Standard_Real u       = Func.ParameterOnRst1();
@@ -1335,7 +1335,7 @@ Standard_Boolean BRepBlend_RstRstLineBuilder::Recadre1(Blend_CurvPointFuncInv&  
   if ((sol(1) - firstrst1) > (lastrst1 - sol(1)))
     upoint = lastrst1;
   p2drst1         = rst1->Value(upoint);
-  gp_Pnt thepoint = surf1->Value(p2drst1.X(), p2drst1.Y());
+  Point3d thepoint = surf1->Value(p2drst1.X(), p2drst1.Y());
 
   FinvP.Set(thepoint);
   math_Vector toler(1, 2), infb(1, 2), supb(1, 2);
@@ -1409,7 +1409,7 @@ Standard_Boolean BRepBlend_RstRstLineBuilder::Recadre2(Blend_CurvPointFuncInv&  
   if ((sol(2) - firstrst2) > (lastrst2 - sol(2)))
     vpoint = lastrst2;
   p2drst2         = rst2->Value(vpoint);
-  gp_Pnt thepoint = surf2->Value(p2drst2.X(), p2drst2.Y());
+  Point3d thepoint = surf2->Value(p2drst2.X(), p2drst2.Y());
 
   FinvP.Set(thepoint);
   math_Vector toler(1, 2), infb(1, 2), supb(1, 2);
@@ -1492,7 +1492,7 @@ void BRepBlend_RstRstLineBuilder::Transition(const Standard_Boolean           On
   gp_Pnt2d p2d;
   gp_Vec2d dp2d;
 
-  gp_Pnt pbid;
+  Point3d pbid;
   gp_Vec d1u, d1v, normale, tgrst;
 
   Arc->D1(Param, p2d, dp2d);
@@ -1598,13 +1598,13 @@ Blend_Status BRepBlend_RstRstLineBuilder::CheckDeflectionOnRst1(const Blend_Poin
   Standard_Boolean    curpointistangent  = CurPoint.IsTangencyPoint();
   Standard_Boolean    prevpointistangent = previousP.IsTangencyPoint();
 
-  gp_Pnt Psurf = CurPoint.PointOnC1();
+  Point3d Psurf = CurPoint.PointOnC1();
   gp_Vec Tgsurf;
   if (!curpointistangent)
   {
     Tgsurf = CurPoint.TangentOnC1();
   }
-  gp_Pnt prevP = previousP.PointOnC1();
+  Point3d prevP = previousP.PointOnC1();
   gp_Vec prevTg;
   if (!prevpointistangent)
   {
@@ -1684,14 +1684,14 @@ Blend_Status BRepBlend_RstRstLineBuilder::CheckDeflectionOnRst2(const Blend_Poin
   Standard_Boolean    curpointistangent  = CurPoint.IsTangencyPoint();
   Standard_Boolean    prevpointistangent = previousP.IsTangencyPoint();
 
-  gp_Pnt Psurf = CurPoint.PointOnC2();
+  Point3d Psurf = CurPoint.PointOnC2();
   gp_Vec Tgsurf;
 
   if (!curpointistangent)
   {
     Tgsurf = CurPoint.TangentOnC2();
   }
-  gp_Pnt prevP = previousP.PointOnC2();
+  Point3d prevP = previousP.PointOnC2();
   gp_Vec prevTg;
   if (!prevpointistangent)
   {
@@ -1772,7 +1772,7 @@ Blend_Status BRepBlend_RstRstLineBuilder::TestArret(Blend_RstRstFunction&  Func,
                                                     const Standard_Boolean TestDeflection,
                                                     const Blend_Status     State)
 {
-  gp_Pnt            ptrst1, ptrst2;
+  Point3d            ptrst1, ptrst2;
   gp_Pnt2d          pt2drst1, pt2drst2;
   gp_Vec            tgrst1, tgrst2;
   gp_Vec2d          tg2drst1, tg2drst2;

@@ -276,9 +276,9 @@ void MeshVS_Mesh::ComputeSelection(const Handle(SelectMgr_Selection)& theSelecti
 
   // Make two array aliases pointing to the same memory:
   // - TColStd_Array1OfReal for getting values from MeshVS_DataSource interface
-  // - array of gp_Pnt for convenient work with array of points
+  // - array of Point3d for convenient work with array of points
   MeshVS_Buffer              aCoordsBuf(3 * aMaxFaceNodes * sizeof(Standard_Real));
-  NCollection_Array1<gp_Pnt> aPntArray(aCoordsBuf, 1, aMaxFaceNodes);
+  NCollection_Array1<Point3d> aPntArray(aCoordsBuf, 1, aMaxFaceNodes);
   TColStd_Array1OfReal       aPntArrayAsCoordArray(aCoordsBuf, 1, 3 * aMaxFaceNodes);
 
   const TColStd_PackedMapOfInteger& anAllNodesMap    = aSource->GetAllNodes();

@@ -625,8 +625,8 @@ Bnd_Box Graphic3d_Structure::MinMaxValues(const Standard_Boolean theToIgnoreInfi
 
   constexpr Standard_Real aLimMin = ShortRealFirst() + 1.0;
   constexpr Standard_Real aLimMax = ShortRealLast() - 1.0;
-  gp_Pnt                  aMin    = aResult.CornerMin();
-  gp_Pnt                  aMax    = aResult.CornerMax();
+  Point3d                  aMin    = aResult.CornerMin();
+  Point3d                  aMax    = aResult.CornerMax();
   if (aMin.X() < aLimMin && aMin.Y() < aLimMin && aMin.Z() < aLimMin && aMax.X() > aLimMax
       && aMax.Y() > aLimMax && aMax.Z() > aLimMax)
   {

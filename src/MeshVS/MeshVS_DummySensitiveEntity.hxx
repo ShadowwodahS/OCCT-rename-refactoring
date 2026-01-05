@@ -48,7 +48,7 @@ public:
 
   Standard_EXPORT virtual gp_GTrsf InvInitLocation() const Standard_OVERRIDE;
 
-  virtual gp_Pnt CenterOfGeometry() const Standard_OVERRIDE { return gp_Pnt(); }
+  virtual Point3d CenterOfGeometry() const Standard_OVERRIDE { return Point3d(); }
 
   DEFINE_STANDARD_RTTIEXT(MeshVS_DummySensitiveEntity, Select3D_SensitiveEntity)
 };

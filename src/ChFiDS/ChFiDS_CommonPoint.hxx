@@ -63,7 +63,7 @@ public:
 
   //! Set the 3d point for a commonpoint that is not
   //! a vertex or on an arc.
-  void SetPoint(const gp_Pnt& thePoint) { point = thePoint; }
+  void SetPoint(const Point3d& thePoint) { point = thePoint; }
 
   //! Set the output 3d  vector
   void SetVector(const gp_Vec& theVector)
@@ -121,7 +121,7 @@ public:
   Standard_EXPORT Standard_Real Parameter() const;
 
   //! Returns the 3d point
-  const gp_Pnt& Point() const { return point; }
+  const Point3d& Point() const { return point; }
 
   //! Returns TRUE if the output vector is  stored.
   Standard_Boolean HasVector() const { return hasvector; }
@@ -139,7 +139,7 @@ public:
 private:
   TopoDS_Edge        arc;
   TopoDS_Vertex      vtx;
-  gp_Pnt             point;
+  Point3d             point;
   gp_Vec             vector;
   Standard_Real      tol;
   Standard_Real      prmarc;

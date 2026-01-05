@@ -246,7 +246,7 @@ static void tgtfaces(const TopoDS_Edge&     Ed,
   f += eps; // to avoid calculations on
   l -= eps; // points of pointed squares.
   gp_Pnt2d      p;
-  gp_Pnt        pp1, pp2; //,PP;
+  Point3d        pp1, pp2; //,PP;
   gp_Vec        du1, dv1;
   gp_Vec        du2, dv2;
   gp_Vec        d1, d2;

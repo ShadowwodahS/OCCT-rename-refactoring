@@ -26,7 +26,7 @@
 
 class gp_Mat;
 class gp_Vec;
-class gp_Pnt;
+class Point3d;
 
 class GeomFill_LocationLaw;
 DEFINE_STANDARD_HANDLE(GeomFill_LocationLaw, RefObject)
@@ -163,7 +163,7 @@ public:
   //! The default implementation is " returns False ".
   Standard_EXPORT virtual Standard_Boolean IsRotation(Standard_Real& Error) const;
 
-  Standard_EXPORT virtual void Rotation(gp_Pnt& Center) const;
+  Standard_EXPORT virtual void Rotation(Point3d& Center) const;
 
   DEFINE_STANDARD_RTTIEXT(GeomFill_LocationLaw, RefObject)
 

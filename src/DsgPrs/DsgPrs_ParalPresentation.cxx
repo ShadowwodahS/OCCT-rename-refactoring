@@ -32,17 +32,17 @@
 void DsgPrs_ParalPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                    const Handle(Prs3d_Drawer)&       aDrawer,
                                    const TCollection_ExtendedString& aText,
-                                   const gp_Pnt&                     AttachmentPoint1,
-                                   const gp_Pnt&                     AttachmentPoint2,
+                                   const Point3d&                     AttachmentPoint1,
+                                   const Point3d&                     AttachmentPoint2,
                                    const gp_Dir&                     aDirection,
-                                   const gp_Pnt&                     OffsetPoint)
+                                   const Point3d&                     OffsetPoint)
 {
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
   gp_Lin        L1(AttachmentPoint1, aDirection);
   gp_Lin        L2(AttachmentPoint2, aDirection);
-  gp_Pnt        Proj1 = ElCLib::Value(ElCLib::Parameter(L1, OffsetPoint), L1);
-  gp_Pnt        Proj2 = ElCLib::Value(ElCLib::Parameter(L2, OffsetPoint), L2);
+  Point3d        Proj1 = ElCLib::Value(ElCLib::Parameter(L1, OffsetPoint), L1);
+  Point3d        Proj2 = ElCLib::Value(ElCLib::Parameter(L2, OffsetPoint), L2);
   gp_Lin        L3    = gce_MakeLin(Proj1, Proj2);
   Standard_Real parmin, parmax, parcur;
   parmin             = ElCLib::Parameter(L3, Proj1);
@@ -54,7 +54,7 @@ void DsgPrs_ParalPresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
   if (parcur > parmax)
     parmax = parcur;
   parcur      = ElCLib::Parameter(L3, OffsetPoint);
-  gp_Pnt offp = ElCLib::Value(parcur, L3);
+  Point3d offp = ElCLib::Value(parcur, L3);
 
   Standard_Boolean outside = Standard_False;
   if (parcur < parmin)
@@ -68,8 +68,8 @@ void DsgPrs_ParalPresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
     outside = Standard_True;
   }
 
-  gp_Pnt PointMin = ElCLib::Value(parmin, L3);
-  gp_Pnt PointMax = ElCLib::Value(parmax, L3);
+  Point3d PointMin = ElCLib::Value(parmin, L3);
+  Point3d PointMax = ElCLib::Value(parmax, L3);
 
   // processing of side : 1st group
   Handle(Graphic3d_ArrayOfSegments) aPrims = new Graphic3d_ArrayOfSegments(6);
@@ -127,10 +127,10 @@ void DsgPrs_ParalPresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
 void DsgPrs_ParalPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                    const Handle(Prs3d_Drawer)&       aDrawer,
                                    const TCollection_ExtendedString& aText,
-                                   const gp_Pnt&                     AttachmentPoint1,
-                                   const gp_Pnt&                     AttachmentPoint2,
+                                   const Point3d&                     AttachmentPoint1,
+                                   const Point3d&                     AttachmentPoint2,
                                    const gp_Dir&                     aDirection,
-                                   const gp_Pnt&                     OffsetPoint,
+                                   const Point3d&                     OffsetPoint,
                                    const DsgPrs_ArrowSide            ArrowPrs)
 {
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
@@ -138,8 +138,8 @@ void DsgPrs_ParalPresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
 
   gp_Lin        L1(AttachmentPoint1, aDirection);
   gp_Lin        L2(AttachmentPoint2, aDirection);
-  gp_Pnt        Proj1 = ElCLib::Value(ElCLib::Parameter(L1, OffsetPoint), L1);
-  gp_Pnt        Proj2 = ElCLib::Value(ElCLib::Parameter(L2, OffsetPoint), L2);
+  Point3d        Proj1 = ElCLib::Value(ElCLib::Parameter(L1, OffsetPoint), L1);
+  Point3d        Proj2 = ElCLib::Value(ElCLib::Parameter(L2, OffsetPoint), L2);
   gp_Lin        L3    = gce_MakeLin(Proj1, Proj2);
   Standard_Real parmin, parmax, parcur;
   parmin             = ElCLib::Parameter(L3, Proj1);
@@ -151,7 +151,7 @@ void DsgPrs_ParalPresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
   if (parcur > parmax)
     parmax = parcur;
   parcur      = ElCLib::Parameter(L3, OffsetPoint);
-  gp_Pnt offp = ElCLib::Value(parcur, L3);
+  Point3d offp = ElCLib::Value(parcur, L3);
 
   Standard_Boolean outside = Standard_False;
   if (parcur < parmin)
@@ -165,8 +165,8 @@ void DsgPrs_ParalPresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
     outside = Standard_True;
   }
 
-  gp_Pnt PointMin = ElCLib::Value(parmin, L3);
-  gp_Pnt PointMax = ElCLib::Value(parmax, L3);
+  Point3d PointMin = ElCLib::Value(parmin, L3);
+  Point3d PointMax = ElCLib::Value(parmax, L3);
 
   // processing of face
   Handle(Graphic3d_ArrayOfSegments) aPrims = new Graphic3d_ArrayOfSegments(6);

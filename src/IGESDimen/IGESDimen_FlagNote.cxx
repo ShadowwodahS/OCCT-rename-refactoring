@@ -44,18 +44,18 @@ void IGESDimen_FlagNote::Init(const gp_XYZ&                                 left
   InitTypeAndForm(208, 0);
 }
 
-gp_Pnt IGESDimen_FlagNote::LowerLeftCorner() const
+Point3d IGESDimen_FlagNote::LowerLeftCorner() const
 {
-  gp_Pnt lowerleft(theLowerLeftcorner);
+  Point3d lowerleft(theLowerLeftcorner);
   return lowerleft;
 }
 
-gp_Pnt IGESDimen_FlagNote::TransformedLowerLeftCorner() const
+Point3d IGESDimen_FlagNote::TransformedLowerLeftCorner() const
 {
   gp_XYZ tempXYZ = theLowerLeftcorner;
   if (HasTransf())
     Location().Transforms(tempXYZ);
-  return gp_Pnt(tempXYZ);
+  return Point3d(tempXYZ);
 }
 
 Standard_Real IGESDimen_FlagNote::Angle() const

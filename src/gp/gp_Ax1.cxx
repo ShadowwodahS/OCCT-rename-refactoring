@@ -43,13 +43,13 @@ Standard_Boolean gp_Ax1::IsCoaxial(const gp_Ax1&       Other,
           && D2 <= LinearTolerance);
 }
 
-void gp_Ax1::Mirror(const gp_Pnt& P)
+void gp_Ax1::Mirror(const Point3d& P)
 {
   loc.Mirror(P);
   vdir.Reverse();
 }
 
-gp_Ax1 gp_Ax1::Mirrored(const gp_Pnt& P) const
+gp_Ax1 gp_Ax1::Mirrored(const Point3d& P) const
 {
   gp_Ax1 A1 = *this;
   A1.Mirror(P);
