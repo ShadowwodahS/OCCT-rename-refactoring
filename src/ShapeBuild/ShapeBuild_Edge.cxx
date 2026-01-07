@@ -586,7 +586,7 @@ Handle(GeomCurve2d) ShapeBuild_Edge::TransformPCurve(const Handle(GeomCurve2d)& 
     if (result->IsKind(STANDARD_TYPE(Geom2d_Conic)))
     {
       // gp_Pln pln(Point3d(0,0,0),Dir3d(0,0,1));
-      // Handle(GeomCurve3d) curve = GeomAPI::To3d(result,pln);
+      // Handle(GeomCurve3d) curve = GeomAPI1::To3d(result,pln);
       // clang-format off
       Handle(GeomCurve2d) tcurve = new Geom2d_TrimmedCurve(result,aFirst,aLast); //protection against parabols ets
       // clang-format on

@@ -1191,7 +1191,7 @@ void Bisector_BisecAna::Perform(const Handle(Geom2d_Point)& afirstpoint,
   Standard_Real    parameter;
   gp_Vec2d         VecRef(0., 0.);
 
-  GccAna_Pnt2dBisec    bisector(afirstpoint->Pnt2d(), asecondpoint->Pnt2d());
+  Point2dBisector    bisector(afirstpoint->Pnt2d(), asecondpoint->Pnt2d());
   gp_Lin2d             line     = bisector.ThisSolution();
   Handle(GccInt_Bisec) solution = new GccInt_BLine(line);
 
@@ -1244,8 +1244,8 @@ void Bisector_BisecAna::SetTrim(const Handle(GeomCurve2d)&)
     gp_Pnt2d                    P, PFirst, PLast, FirstPointBisector, Center;
     gp_Vec2d                    TanFirst, TanLast;
 
-    IntRes2d_Domain             FirstDomain;
-    IntRes2d_Domain             LastDomain ;
+    Domain2             FirstDomain;
+    Domain2             LastDomain ;
 
     Standard_Real   UFirst, ULast, UB1, UB2;
     Standard_Real   UBisInt1, UBisInt2, Utrim;
@@ -1362,7 +1362,7 @@ void Bisector_BisecAna::SetTrim(const Handle(GeomCurve2d)&)
       }
     }
 
-    IntRes2d_Domain DomainBisector(thebisector->Value(UB1), UB1, Tolerance,
+    Domain2 DomainBisector(thebisector->Value(UB1), UB1, Tolerance,
                    thebisector->Value(UB2), UB2, Tolerance);
 
     if (thebisector->BasisCurve()->IsPeriodic()) {

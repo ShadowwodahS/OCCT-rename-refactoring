@@ -26,11 +26,11 @@
 void Determine_Transition_LC(const IntRes2d_Position Pos1,
                              gp_Vec2d&               Tan1,
                              const gp_Vec2d&         Norm1,
-                             IntRes2d_Transition&    T1,
+                             Transition3&    T1,
                              const IntRes2d_Position Pos2,
                              gp_Vec2d&               Tan2,
                              const gp_Vec2d&         Norm2,
-                             IntRes2d_Transition&    T2,
+                             Transition3&    T2,
                              const Standard_Real)
 {
 
@@ -93,7 +93,7 @@ void Determine_Transition_LC(const IntRes2d_Position Pos1,
 }
 
 //----------------------------------------------------------------------
-Standard_Real NormalizeOnCircleDomain(const Standard_Real _Param, const IntRes2d_Domain& TheDomain)
+Standard_Real NormalizeOnCircleDomain(const Standard_Real _Param, const Domain2& TheDomain)
 {
   Standard_Real Param = _Param;
   while (Param < TheDomain.FirstParameter())
@@ -108,20 +108,20 @@ Standard_Real NormalizeOnCircleDomain(const Standard_Real _Param, const IntRes2d
 }
 
 //----------------------------------------------------------------------
-PeriodicInterval PeriodicInterval::FirstIntersection(PeriodicInterval& PInter)
+PeriodicInterval1 PeriodicInterval1::FirstIntersection(PeriodicInterval1& PInter)
 {
   Standard_Real a, b;
   if (PInter.isnull || isnull)
   {
-    PeriodicInterval PourSGI;
+    PeriodicInterval1 PourSGI;
     return (PourSGI);
   }
   else
   {
     if (Length() >= PIpPI)
-      return (PeriodicInterval(PInter.Binf, PInter.Bsup));
+      return (PeriodicInterval1(PInter.Binf, PInter.Bsup));
     if (PInter.Length() >= PIpPI)
-      return (PeriodicInterval(Binf, Bsup));
+      return (PeriodicInterval1(Binf, Bsup));
     if (PInter.Bsup <= Binf)
     {
       while (PInter.Binf <= Binf && PInter.Bsup <= Binf)
@@ -140,7 +140,7 @@ PeriodicInterval PeriodicInterval::FirstIntersection(PeriodicInterval& PInter)
     }
     if ((PInter.Bsup < Binf) || (PInter.Binf > Bsup))
     {
-      PeriodicInterval PourSGI;
+      PeriodicInterval1 PourSGI;
       return (PourSGI);
     }
   }
@@ -148,17 +148,17 @@ PeriodicInterval PeriodicInterval::FirstIntersection(PeriodicInterval& PInter)
   a = (PInter.Binf > Binf) ? PInter.Binf : Binf;
   b = (PInter.Bsup < Bsup) ? PInter.Bsup : Bsup;
 
-  return (PeriodicInterval(a, b));
+  return (PeriodicInterval1(a, b));
 }
 
 //----------------------------------------------------------------------
-PeriodicInterval PeriodicInterval::SecondIntersection(PeriodicInterval& PInter)
+PeriodicInterval1 PeriodicInterval1::SecondIntersection(PeriodicInterval1& PInter)
 {
   Standard_Real a, b;
 
   if (PInter.isnull || isnull || this->Length() >= PIpPI || PInter.Length() >= PIpPI)
   {
-    PeriodicInterval PourSGI;
+    PeriodicInterval1 PourSGI;
     return (PourSGI);
   }
 
@@ -171,7 +171,7 @@ PeriodicInterval PeriodicInterval::SecondIntersection(PeriodicInterval& PInter)
   }
   if ((PInter_sup < Binf) || (PInter_inf > Bsup))
   {
-    PeriodicInterval PourSGI;
+    PeriodicInterval1 PourSGI;
     return (PourSGI);
   }
   else
@@ -179,11 +179,11 @@ PeriodicInterval PeriodicInterval::SecondIntersection(PeriodicInterval& PInter)
     a = (PInter_inf > Binf) ? PInter_inf : Binf;
     b = (PInter_sup < Bsup) ? PInter_sup : Bsup;
   }
-  return (PeriodicInterval(a, b));
+  return (PeriodicInterval1(a, b));
 }
 
 //----------------------------------------------------------------------
-Interval::Interval()
+Interval1::Interval1()
     : Binf(0.),
       Bsup(0.),
       HasFirstBound(Standard_False),
@@ -192,7 +192,7 @@ Interval::Interval()
   IsNull = Standard_True;
 }
 
-Interval::Interval(const Standard_Real a, const Standard_Real b)
+Interval1::Interval1(const Standard_Real a, const Standard_Real b)
 {
   HasFirstBound = HasLastBound = Standard_True;
   if (a < b)
@@ -208,7 +208,7 @@ Interval::Interval(const Standard_Real a, const Standard_Real b)
   IsNull = Standard_False;
 }
 
-Interval::Interval(const IntRes2d_Domain& Domain)
+Interval1::Interval1(const Domain2& Domain)
     : Binf(0.0),
       Bsup(0.0)
 {
@@ -229,7 +229,7 @@ Interval::Interval(const IntRes2d_Domain& Domain)
     HasLastBound = Standard_False;
 }
 
-Interval::Interval(const Standard_Real    a,
+Interval1::Interval1(const Standard_Real    a,
                    const Standard_Boolean hf,
                    const Standard_Real    b,
                    const Standard_Boolean hl)
@@ -241,26 +241,26 @@ Interval::Interval(const Standard_Real    a,
   HasLastBound  = hl;
 }
 
-Standard_Real Interval::Length()
+Standard_Real Interval1::Length()
 {
   return ((IsNull) ? -1.0 : Abs(Bsup - Binf));
 }
 
-Interval Interval::IntersectionWithBounded(const Interval& Inter)
+Interval1 Interval1::IntersectionWithBounded(const Interval1& Inter)
 {
   if (IsNull || Inter.IsNull)
   {
-    Interval PourSGI;
+    Interval1 PourSGI;
     return (PourSGI);
   }
   if (!(HasFirstBound || HasLastBound))
-    return (Interval(Inter.Binf, Inter.Bsup));
+    return (Interval1(Inter.Binf, Inter.Bsup));
   Standard_Real a, b;
   if (HasFirstBound)
   {
     if (Inter.Bsup < Binf)
     {
-      Interval PourSGI;
+      Interval1 PourSGI;
       return (PourSGI);
     }
     a = (Inter.Binf < Binf) ? Binf : Inter.Binf;
@@ -274,7 +274,7 @@ Interval Interval::IntersectionWithBounded(const Interval& Inter)
   {
     if (Inter.Binf > Bsup)
     {
-      Interval PourSGI;
+      Interval1 PourSGI;
       return (PourSGI);
     }
     b = (Inter.Bsup > Bsup) ? Bsup : Inter.Bsup;
@@ -283,5 +283,5 @@ Interval Interval::IntersectionWithBounded(const Interval& Inter)
   {
     b = Inter.Bsup;
   }
-  return (Interval(a, b));
+  return (Interval1(a, b));
 }

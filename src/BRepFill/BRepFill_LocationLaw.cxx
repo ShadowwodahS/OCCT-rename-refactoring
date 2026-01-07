@@ -286,7 +286,7 @@ Standard_Integer BRepFill_LocationLaw::NbLaw() const
 
 //=================================================================================================
 
-const Handle(GeomFill_LocationLaw)& BRepFill_LocationLaw::Law(const Standard_Integer Index) const
+const Handle(GeomFill_LocationLaw)& BRepFill_LocationLaw::Law1(const Standard_Integer Index) const
 {
   return myLaws->Value(Index);
 }
@@ -590,8 +590,8 @@ void BRepFill_LocationLaw::Parameter(const Standard_Real Abcissa,
   if (Trouve)
   {
     Standard_Real                       f, l;
-    const Handle(GeomFill_LocationLaw)& Law = myLaws->Value(iedge);
-    Law->GetDomain(f, l);
+    const Handle(GeomFill_LocationLaw)& Law1 = myLaws->Value(iedge);
+    Law1->GetDomain(f, l);
 
     if (Abcissa == myLength->Value(iedge + 1))
     {

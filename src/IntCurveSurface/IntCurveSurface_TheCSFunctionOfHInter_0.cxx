@@ -29,7 +29,7 @@
 #define ThePSurfaceTool_hxx <Adaptor3d_HSurfaceTool.hxx>
 #define TheCurve Handle(Adaptor3d_Curve)
 #define TheCurve_hxx <Adaptor3d_Curve.hxx>
-#define TheCurveTool IntCurveSurface_TheHCurveTool
+#define TheCurveTool HCurveTool2
 #define TheCurveTool_hxx <IntCurveSurface_TheHCurveTool.hxx>
 #define IntImp_ZerCSParFunc IntCurveSurface_TheCSFunctionOfHInter
 #define IntImp_ZerCSParFunc_hxx <IntCurveSurface_TheCSFunctionOfHInter.hxx>

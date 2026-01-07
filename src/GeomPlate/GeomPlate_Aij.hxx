@@ -24,14 +24,14 @@
 #include <gp_Vec.hxx>
 
 //! A structure containing indexes of two normals and its cross product
-class GeomPlate_Aij
+class AijMatrix
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT GeomPlate_Aij();
+  Standard_EXPORT AijMatrix();
 
-  Standard_EXPORT GeomPlate_Aij(const Standard_Integer anInd1,
+  Standard_EXPORT AijMatrix(const Standard_Integer anInd1,
                                 const Standard_Integer anInd2,
                                 const Vector3d&          aVec);
 

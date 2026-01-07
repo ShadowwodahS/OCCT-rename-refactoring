@@ -20,12 +20,12 @@
 #include <Standard.hxx>
 #include <Standard_DefineAlloc.hxx>
 
-class IntCurve_PConic;
+class ParametricConic;
 class gp_Pnt2d;
 
 //! This class provides a tool which computes the parameter
 //! of a point near a parametric conic.
-class IntCurve_ProjectOnPConicTool
+class ProjectOnPConicTool
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -40,7 +40,7 @@ public:
   //! no bounds are given.  The research  of the right parameter
   //! has to  be  made  on the natural  parametric domain of the
   //! curve.
-  Standard_EXPORT static Standard_Real FindParameter(const IntCurve_PConic& C,
+  Standard_EXPORT static Standard_Real FindParameter(const ParametricConic& C,
                                                      const gp_Pnt2d&        Pnt,
                                                      const Standard_Real    Tol);
 
@@ -56,7 +56,7 @@ public:
   //! given to implement a  more efficient  algorithm. So,  it is
   //! not necessary to check   that the returned value  verifies
   //! LowParameter <= Value <= HighParameter.
-  Standard_EXPORT static Standard_Real FindParameter(const IntCurve_PConic& C,
+  Standard_EXPORT static Standard_Real FindParameter(const ParametricConic& C,
                                                      const gp_Pnt2d&        Pnt,
                                                      const Standard_Real    LowParameter,
                                                      const Standard_Real    HighParameter,

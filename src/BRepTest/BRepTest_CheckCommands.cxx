@@ -1178,7 +1178,7 @@ static Standard_Integer shapeG1continuity(DrawInterpreter& di, Standard_Integer 
   {
     if (nb == nbeval)
     {
-      LocalAnalysis_SurfaceContinuity res(curv1,
+      SurfaceContinuity res(curv1,
                                           curv2,
                                           Uf,
                                           surf1,
@@ -1209,7 +1209,7 @@ static Standard_Integer shapeG1continuity(DrawInterpreter& di, Standard_Integer 
 
     else
     {
-      LocalAnalysis_SurfaceContinuity res(curv1,
+      SurfaceContinuity res(curv1,
                                           curv2,
                                           (U + nb * deltaU),
                                           surf1,
@@ -1374,7 +1374,7 @@ static Standard_Integer shapeG0continuity(DrawInterpreter& di, Standard_Integer 
   {
     if (nb == nbeval)
     {
-      LocalAnalysis_SurfaceContinuity res(curv1,
+      SurfaceContinuity res(curv1,
                                           curv2,
                                           Uf,
                                           surf1,
@@ -1401,7 +1401,7 @@ static Standard_Integer shapeG0continuity(DrawInterpreter& di, Standard_Integer 
 
     else
     {
-      LocalAnalysis_SurfaceContinuity res(curv1,
+      SurfaceContinuity res(curv1,
                                           curv2,
                                           (U + nb * deltaU),
                                           surf1,
@@ -1572,7 +1572,7 @@ static Standard_Integer shapeG2continuity(DrawInterpreter& di, Standard_Integer 
   {
     if (nb == nbeval)
     {
-      LocalAnalysis_SurfaceContinuity res(curv1,
+      SurfaceContinuity res(curv1,
                                           curv2,
                                           Uf,
                                           surf1,
@@ -1605,7 +1605,7 @@ static Standard_Integer shapeG2continuity(DrawInterpreter& di, Standard_Integer 
 
     else
     {
-      LocalAnalysis_SurfaceContinuity res(curv1,
+      SurfaceContinuity res(curv1,
                                           curv2,
                                           (U + nb * deltaU),
                                           surf1,

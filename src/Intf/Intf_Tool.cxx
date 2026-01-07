@@ -35,7 +35,7 @@
 
 //=================================================================================================
 
-Intf_Tool::Intf_Tool()
+Tool1::Tool1()
     : nbSeg(0)
 {
   memset(beginOnCurve, 0, sizeof(beginOnCurve));
@@ -48,7 +48,7 @@ Intf_Tool::Intf_Tool()
 
 //=================================================================================================
 
-void Intf_Tool::Lin2dBox(const gp_Lin2d& L2d, const Bnd_Box2d& domain, Bnd_Box2d& boxLin)
+void Tool1::Lin2dBox(const gp_Lin2d& L2d, const Bnd_Box2d& domain, Bnd_Box2d& boxLin)
 {
   nbSeg = 0;
   boxLin.SetVoid();
@@ -168,7 +168,7 @@ void Intf_Tool::Lin2dBox(const gp_Lin2d& L2d, const Bnd_Box2d& domain, Bnd_Box2d
 
 //=================================================================================================
 
-void Intf_Tool::Hypr2dBox(const gp_Hypr2d& theHypr2d, const Bnd_Box2d& domain, Bnd_Box2d& boxHypr2d)
+void Tool1::Hypr2dBox(const gp_Hypr2d& theHypr2d, const Bnd_Box2d& domain, Bnd_Box2d& boxHypr2d)
 {
   nbSeg = 0;
   boxHypr2d.SetVoid();
@@ -303,7 +303,7 @@ void Intf_Tool::Hypr2dBox(const gp_Hypr2d& theHypr2d, const Bnd_Box2d& domain, B
 
 //=================================================================================================
 
-Standard_Integer Intf_Tool::Inters2d(const gp_Hypr2d& theCurv, const Bnd_Box2d& Domain)
+Standard_Integer Tool1::Inters2d(const gp_Hypr2d& theCurv, const Bnd_Box2d& Domain)
 {
   Standard_Integer nbpi = 0;
   Standard_Integer npi;
@@ -407,7 +407,7 @@ Standard_Integer Intf_Tool::Inters2d(const gp_Hypr2d& theCurv, const Bnd_Box2d& 
 
 //=================================================================================================
 
-void Intf_Tool::Parab2dBox(const gp_Parab2d& theParab2d,
+void Tool1::Parab2dBox(const gp_Parab2d& theParab2d,
                            const Bnd_Box2d&  domain,
                            Bnd_Box2d&        boxParab2d)
 {
@@ -544,7 +544,7 @@ void Intf_Tool::Parab2dBox(const gp_Parab2d& theParab2d,
 
 //=================================================================================================
 
-Standard_Integer Intf_Tool::Inters2d(const gp_Parab2d& theCurv, const Bnd_Box2d& Domain)
+Standard_Integer Tool1::Inters2d(const gp_Parab2d& theCurv, const Bnd_Box2d& Domain)
 {
   Standard_Integer nbpi = 0;
   Standard_Integer npi;
@@ -648,7 +648,7 @@ Standard_Integer Intf_Tool::Inters2d(const gp_Parab2d& theCurv, const Bnd_Box2d&
 
 //=================================================================================================
 
-void Intf_Tool::LinBox(const gp_Lin& L, const Bnd_Box& domain, Bnd_Box& boxLin)
+void Tool1::LinBox(const gp_Lin& L, const Bnd_Box& domain, Bnd_Box& boxLin)
 {
   nbSeg = 0;
   boxLin.SetVoid();
@@ -813,7 +813,7 @@ void Intf_Tool::LinBox(const gp_Lin& L, const Bnd_Box& domain, Bnd_Box& boxLin)
 
 //=================================================================================================
 
-void Intf_Tool::HyprBox(const gp_Hypr& theHypr, const Bnd_Box& domain, Bnd_Box& boxHypr)
+void Tool1::HyprBox(const gp_Hypr& theHypr, const Bnd_Box& domain, Bnd_Box& boxHypr)
 {
   nbSeg = 0;
   boxHypr.SetVoid();
@@ -969,7 +969,7 @@ void Intf_Tool::HyprBox(const gp_Hypr& theHypr, const Bnd_Box& domain, Bnd_Box& 
 
 //=================================================================================================
 
-Standard_Integer Intf_Tool::Inters3d(const gp_Hypr& theCurv, const Bnd_Box& Domain)
+Standard_Integer Tool1::Inters3d(const gp_Hypr& theCurv, const Bnd_Box& Domain)
 {
   Standard_Integer nbpi = 0;
   Standard_Integer npi;
@@ -1152,7 +1152,7 @@ Standard_Integer Intf_Tool::Inters3d(const gp_Hypr& theCurv, const Bnd_Box& Doma
 
 //=================================================================================================
 
-Standard_Integer Intf_Tool::Inters3d(const gp_Parab& theCurv, const Bnd_Box& Domain)
+Standard_Integer Tool1::Inters3d(const gp_Parab& theCurv, const Bnd_Box& Domain)
 {
   Standard_Integer nbpi = 0;
   Standard_Integer npi;
@@ -1335,7 +1335,7 @@ Standard_Integer Intf_Tool::Inters3d(const gp_Parab& theCurv, const Bnd_Box& Dom
 
 //=================================================================================================
 
-void Intf_Tool::ParabBox(const gp_Parab& theParab, const Bnd_Box& domain, Bnd_Box& boxParab)
+void Tool1::ParabBox(const gp_Parab& theParab, const Bnd_Box& domain, Bnd_Box& boxParab)
 {
   nbSeg = 0;
   boxParab.SetVoid();
@@ -1456,23 +1456,23 @@ void Intf_Tool::ParabBox(const gp_Parab& theParab, const Bnd_Box& domain, Bnd_Bo
 
 //=================================================================================================
 
-Standard_Integer Intf_Tool::NbSegments() const
+Standard_Integer Tool1::NbSegments() const
 {
   return nbSeg;
 }
 
 //=================================================================================================
 
-Standard_Real Intf_Tool::BeginParam(const Standard_Integer SegmentNum) const
+Standard_Real Tool1::BeginParam(const Standard_Integer SegmentNum) const
 {
-  Standard_OutOfRange_Raise_if(SegmentNum < 1 || SegmentNum > nbSeg, "Intf_Tool::BeginParam");
+  Standard_OutOfRange_Raise_if(SegmentNum < 1 || SegmentNum > nbSeg, "Tool1::BeginParam");
   return beginOnCurve[SegmentNum - 1];
 }
 
 //=================================================================================================
 
-Standard_Real Intf_Tool::EndParam(const Standard_Integer SegmentNum) const
+Standard_Real Tool1::EndParam(const Standard_Integer SegmentNum) const
 {
-  Standard_OutOfRange_Raise_if(SegmentNum < 1 || SegmentNum > nbSeg, "Intf_Tool::EndParam");
+  Standard_OutOfRange_Raise_if(SegmentNum < 1 || SegmentNum > nbSeg, "Tool1::EndParam");
   return endOnCurve[SegmentNum - 1];
 }

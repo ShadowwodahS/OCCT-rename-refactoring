@@ -22,17 +22,17 @@
 
 class HSurfaceTool;
 class Adaptor3d_TopolTool;
-class IntPatch_HInterTool;
+class HInterTool;
 class IntPatch_TheSurfFunction;
 
-class IntPatch_TheSearchInside
+class SearchInside
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT IntPatch_TheSearchInside();
+  Standard_EXPORT SearchInside();
 
-  Standard_EXPORT IntPatch_TheSearchInside(IntPatch_TheSurfFunction&          F,
+  Standard_EXPORT SearchInside(IntPatch_TheSurfFunction&          F,
                                            const Handle(Adaptor3d_Surface)&   Surf,
                                            const Handle(Adaptor3d_TopolTool)& T,
                                            const Standard_Real                Epsilon);
@@ -59,7 +59,7 @@ public:
   //! returns False.
   //! The exception OutOfRange if raised if
   //! Index <= 0 or Index > NbPoints.
-  const IntSurf_InteriorPoint& Value(const Standard_Integer Index) const;
+  const InteriorPoint& Value(const Standard_Integer Index) const;
 
 protected:
 private:
@@ -74,11 +74,11 @@ private:
 #define Handle_TheTopolTool Handle(Adaptor3d_TopolTool)
 #define TheTopolTool Adaptor3d_TopolTool
 #define TheTopolTool_hxx <Adaptor3d_TopolTool.hxx>
-#define TheSITool IntPatch_HInterTool
+#define TheSITool HInterTool
 #define TheSITool_hxx <IntPatch_HInterTool.hxx>
 #define TheFunction IntPatch_TheSurfFunction
 #define TheFunction_hxx <IntPatch_TheSurfFunction.hxx>
-#define IntStart_SearchInside IntPatch_TheSearchInside
+#define IntStart_SearchInside SearchInside
 #define IntStart_SearchInside_hxx <IntPatch_TheSearchInside.hxx>
 
 #include <IntStart_SearchInside.lxx>

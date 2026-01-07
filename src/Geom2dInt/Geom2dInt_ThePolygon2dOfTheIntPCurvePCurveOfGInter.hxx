@@ -28,8 +28,8 @@
 #include <Intf_Polygon2d.hxx>
 class Standard_OutOfRange;
 class Adaptor2d_Curve2d;
-class Geom2dInt_Geom2dCurveTool;
-class IntRes2d_Domain;
+class Geom2dCurveTool;
+class Domain2;
 class Bnd_Box2d;
 class gp_Pnt2d;
 
@@ -41,7 +41,7 @@ public:
   //! Compute a polygon on the domain of the curve.
   Standard_EXPORT Geom2dInt_ThePolygon2dOfTheIntPCurvePCurveOfGInter(const Adaptor2d_Curve2d& Curve,
                                                                      const Standard_Integer   NbPnt,
-                                                                     const IntRes2d_Domain& Domain,
+                                                                     const Domain2& Domain,
                                                                      const Standard_Real    Tol);
 
   //! The current polygon is modified if most
@@ -107,7 +107,7 @@ private:
 
 #define TheCurve Adaptor2d_Curve2d
 #define TheCurve_hxx <Adaptor2d_Curve2d.hxx>
-#define TheCurveTool Geom2dInt_Geom2dCurveTool
+#define TheCurveTool Geom2dCurveTool
 #define TheCurveTool_hxx <Geom2dInt_Geom2dCurveTool.hxx>
 #define IntCurve_Polygon2dGen Geom2dInt_ThePolygon2dOfTheIntPCurvePCurveOfGInter
 #define IntCurve_Polygon2dGen_hxx <Geom2dInt_ThePolygon2dOfTheIntPCurvePCurveOfGInter.hxx>

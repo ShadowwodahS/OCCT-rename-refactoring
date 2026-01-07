@@ -28,19 +28,19 @@
 //! Definition of the transition at the intersection
 //! between an intersection line and a restriction curve
 //! on a surface.
-class IntSurf_Transition
+class Transition2
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty constructor. Creates an UNDECIDED transition.
-  Standard_EXPORT IntSurf_Transition();
+  Standard_EXPORT Transition2();
 
   //! Create a IN or OUT transition
-  Standard_EXPORT IntSurf_Transition(const Standard_Boolean Tangent, const IntSurf_TypeTrans Type);
+  Standard_EXPORT Transition2(const Standard_Boolean Tangent, const IntSurf_TypeTrans Type);
 
   //! Create a TOUCH transition.
-  Standard_EXPORT IntSurf_Transition(const Standard_Boolean  Tangent,
+  Standard_EXPORT Transition2(const Standard_Boolean  Tangent,
                                      const IntSurf_Situation Situ,
                                      const Standard_Boolean  Oppos);
 

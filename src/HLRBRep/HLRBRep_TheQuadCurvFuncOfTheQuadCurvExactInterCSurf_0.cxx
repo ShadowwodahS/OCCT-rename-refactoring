@@ -20,7 +20,7 @@
 #include <gp_Lin.hxx>
 #include <HLRBRep_LineTool.hxx>
 
-#define TheQuadric IntSurf_Quadric
+#define TheQuadric Quadric1
 #define TheQuadric_hxx <IntSurf_Quadric.hxx>
 #define TheCurve gp_Lin
 #define TheCurve_hxx <gp_Lin.hxx>

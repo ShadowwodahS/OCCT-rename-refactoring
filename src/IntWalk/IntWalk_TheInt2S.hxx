@@ -78,7 +78,7 @@ public:
   Standard_Boolean IsEmpty() const;
 
   //! Returns the intersection point.
-  const IntSurf_PntOn2S& Point() const;
+  const PointOn2Surfaces& Point() const;
 
   //! Returns True if the surfaces are tangent at the
   //! intersection point.
@@ -101,13 +101,13 @@ public:
 
   //! return the intersection point which is
   //! enable for changing.
-  IntSurf_PntOn2S& ChangePoint();
+  PointOn2Surfaces& ChangePoint();
 
 protected:
 private:
   Standard_Boolean              done;
   Standard_Boolean              empty;
-  IntSurf_PntOn2S               pint;
+  PointOn2Surfaces               pint;
   Standard_Boolean              tangent;
   Dir3d                        d3d;
   gp_Dir2d                      d2d1;

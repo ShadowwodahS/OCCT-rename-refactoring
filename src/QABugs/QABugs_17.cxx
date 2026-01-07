@@ -84,30 +84,30 @@ static Standard_Integer BUC60842(DrawInterpreter& di,
   Handle(VisualContext) aContext = ViewerTest::GetAISContext();
 
   gp_Pln               pln     = plne->Pln();
-  Handle(GeomCurve2d) curve2d = GeomAPI::To2d(ell, pln);
+  Handle(GeomCurve2d) curve2d = GeomAPI1::To2d(ell, pln);
   Sprintf(abuf, "ell");
   DrawTrSurf1::Set(st, curve2d);
   if (!aContext.IsNull())
   {
     Handle(VisualShape) aisp =
-      new VisualShape(EdgeMaker(GeomAPI::To3d(curve2d, pln)).Edge());
+      new VisualShape(EdgeMaker(GeomAPI1::To3d(curve2d, pln)).Edge());
     aContext->Display(aisp, Standard_False);
   }
 
-  Handle(GeomCurve2d) fromcurve2d = GeomAPI::To2d(cir, pln);
+  Handle(GeomCurve2d) fromcurve2d = GeomAPI1::To2d(cir, pln);
   Sprintf(abuf, "cil");
   DrawTrSurf1::Set(st, fromcurve2d);
   if (!aContext.IsNull())
   {
     Handle(VisualShape) aisp =
-      new VisualShape(EdgeMaker(GeomAPI::To3d(fromcurve2d, pln)).Edge());
+      new VisualShape(EdgeMaker(GeomAPI1::To3d(fromcurve2d, pln)).Edge());
     aContext->Display(aisp, Standard_False);
   }
 
   Geom2dAdaptor_Curve      acur(curve2d), afromcur(fromcurve2d);
   Geom2dGcc_QualifiedCurve qcur(acur, GccEnt_outside);
   Geom2dGcc_QualifiedCurve qfromcur(afromcur, GccEnt_outside);
-  Geom2dGcc_Lin2d2Tan      lintan(qcur, qfromcur, 0.1, 0.0, 0.0);
+  Lin2d2Tan1      lintan(qcur, qfromcur, 0.1, 0.0, 0.0);
   Standard_Integer         i = 0;
   for (i = 0; i < lintan.NbSolutions(); i++)
   {
@@ -117,7 +117,7 @@ static Standard_Integer BUC60842(DrawInterpreter& di,
     if (!aContext.IsNull())
     {
       Handle(VisualShape) aisp =
-        new VisualShape(EdgeMaker(GeomAPI::To3d(glin, pln)).Edge());
+        new VisualShape(EdgeMaker(GeomAPI1::To3d(glin, pln)).Edge());
       aContext->Display(aisp, Standard_False);
     }
   }
@@ -161,8 +161,8 @@ static Standard_Integer BUC60843(DrawInterpreter& di, Standard_Integer argc, con
   {
     Geom2dAdaptor_Curve     acur(aCur2d2);
     Geom2dGcc_QCurve        qcur(acur, GccEnt_unqualified);
-    GccEnt_QualifiedCirc    qfromcur(aCir2d->Circ2d(), GccEnt_unqualified);
-    Geom2dGcc_Lin2d2TanIter lintan(qfromcur, qcur, par1, tol);
+    QualifiedCircle    qfromcur(aCir2d->Circ2d(), GccEnt_unqualified);
+    Line2dTwoTangentIter lintan(qfromcur, qcur, par1, tol);
     if (lintan.IsDone())
     {
       gp_Lin2d            lin  = lintan.ThisSolution();
@@ -180,7 +180,7 @@ static Standard_Integer BUC60843(DrawInterpreter& di, Standard_Integer argc, con
     Geom2dAdaptor_Curve     acur2(aCur2d2);
     Geom2dGcc_QCurve        qcur1(acur1, GccEnt_unqualified);
     Geom2dGcc_QCurve        qcur2(acur2, GccEnt_unqualified);
-    Geom2dGcc_Lin2d2TanIter lintan(qcur1, qcur2, par1, par2, tol);
+    Line2dTwoTangentIter lintan(qcur1, qcur2, par1, par2, tol);
     if (lintan.IsDone())
     {
       gp_Lin2d            lin  = lintan.ThisSolution();
@@ -423,8 +423,8 @@ static Standard_Integer OCC353(DrawInterpreter& di, Standard_Integer, const char
   Handle(GeomCircle) h_cir2 = new GeomCircle(ax22, 25);
 
   gp_Pln               refpln(Point3d(0, 0, 0), Dir3d(0, 0, 1));
-  Handle(GeomCurve2d) cir2d1 = GeomAPI::To2d(h_cir1, refpln);
-  Handle(GeomCurve2d) cir2d2 = GeomAPI::To2d(h_cir2, refpln);
+  Handle(GeomCurve2d) cir2d1 = GeomAPI1::To2d(h_cir1, refpln);
+  Handle(GeomCurve2d) cir2d2 = GeomAPI1::To2d(h_cir2, refpln);
 
   Geom2dAdaptor_Curve adop1(cir2d1);
   Geom2dAdaptor_Curve adop2(cir2d2);
@@ -447,7 +447,7 @@ static Standard_Integer OCC353(DrawInterpreter& di, Standard_Integer, const char
   DrawTrSurf1::Set(st, pt2d);
 
   Handle(Geom2d_CartesianPoint) pt = new Geom2d_CartesianPoint(pt2d);
-  Geom2dGcc_Circ2d3Tan          sol(qcur1, qcur2, pt, 0.001, 0.0, 0.0);
+  Circ2d3Tan1          sol(qcur1, qcur2, pt, 0.001, 0.0, 0.0);
 
   int                res = 0;
   Standard_Character buf[10];
@@ -829,7 +829,7 @@ static Standard_Integer OCC813(DrawInterpreter& di, Standard_Integer argc, const
   str = "OCC813_pnt";
   DrawTrSurf1::Set(str, pt2d);
 
-  Handle(GeomCurve2d)     curve2d = GeomAPI::To2d(ell, pln);
+  Handle(GeomCurve2d)     curve2d = GeomAPI1::To2d(ell, pln);
   Geom2dAdaptor_Curve      acur(curve2d);
   Geom2dGcc_QualifiedCurve qcur(acur, GccEnt_outside);
 
@@ -838,12 +838,12 @@ static Standard_Integer OCC813(DrawInterpreter& di, Standard_Integer argc, const
   if (!aContext.IsNull())
   {
     Handle(VisualShape) aisp =
-      new VisualShape(EdgeMaker(GeomAPI::To3d(curve2d, pln)).Edge());
+      new VisualShape(EdgeMaker(GeomAPI1::To3d(curve2d, pln)).Edge());
     aContext->Display(aisp, Standard_False);
   }
 
   // This does not give any solutions.
-  Geom2dGcc_Lin2d2Tan lintan(qcur, pt2d, 0.1);
+  Lin2d2Tan1 lintan(qcur, pt2d, 0.1);
   di << "OCC813 nb of solutions = " << lintan.NbSolutions() << "\n";
 
   Standard_Character abuf[16];
@@ -858,7 +858,7 @@ static Standard_Integer OCC813(DrawInterpreter& di, Standard_Integer argc, const
     if (!aContext.IsNull())
     {
       Handle(VisualShape) aisp =
-        new VisualShape(EdgeMaker(GeomAPI::To3d(glin, pln)).Edge());
+        new VisualShape(EdgeMaker(GeomAPI1::To3d(glin, pln)).Edge());
       aContext->Display(aisp, Standard_False);
     }
   }
@@ -902,8 +902,8 @@ static Standard_Integer OCC814(DrawInterpreter& di, Standard_Integer argc, const
   Handle(VisualContext) aContext = ViewerTest::GetAISContext();
 
   gp_Pln               pln         = plne->Pln();
-  Handle(GeomCurve2d) curve2d     = GeomAPI::To2d(ell, pln);
-  Handle(GeomCurve2d) fromcurve2d = GeomAPI::To2d(cir, pln);
+  Handle(GeomCurve2d) curve2d     = GeomAPI1::To2d(ell, pln);
+  Handle(GeomCurve2d) fromcurve2d = GeomAPI1::To2d(cir, pln);
 
   str = "OCC814_cir";
   DrawTrSurf1::Set(str, curve2d);
@@ -912,13 +912,13 @@ static Standard_Integer OCC814(DrawInterpreter& di, Standard_Integer argc, const
   if (!aContext.IsNull())
   {
     Handle(VisualShape) aisp =
-      new VisualShape(EdgeMaker(GeomAPI::To3d(curve2d, pln)).Edge());
+      new VisualShape(EdgeMaker(GeomAPI1::To3d(curve2d, pln)).Edge());
     aContext->Display(aisp, Standard_False);
   }
   if (!aContext.IsNull())
   {
     Handle(VisualShape) aisp =
-      new VisualShape(EdgeMaker(GeomAPI::To3d(fromcurve2d, pln)).Edge());
+      new VisualShape(EdgeMaker(GeomAPI1::To3d(fromcurve2d, pln)).Edge());
     aContext->Display(aisp, Standard_False);
   }
 
@@ -928,7 +928,7 @@ static Standard_Integer OCC814(DrawInterpreter& di, Standard_Integer argc, const
   Geom2dGcc_QualifiedCurve qfromcur(afromcur, GccEnt_outside);
 
   // This does not give any solutions.
-  Geom2dGcc_Lin2d2Tan lintan(qcur, qfromcur, 0.1);
+  Lin2d2Tan1 lintan(qcur, qfromcur, 0.1);
   di << "OCC814 nb of solutions = " << lintan.NbSolutions() << "\n";
 
   Standard_Character abuf[16];
@@ -943,7 +943,7 @@ static Standard_Integer OCC814(DrawInterpreter& di, Standard_Integer argc, const
     if (!aContext.IsNull())
     {
       Handle(VisualShape) aisp =
-        new VisualShape(EdgeMaker(GeomAPI::To3d(glin, pln)).Edge());
+        new VisualShape(EdgeMaker(GeomAPI1::To3d(glin, pln)).Edge());
       aContext->Display(aisp, Standard_False);
     }
   }

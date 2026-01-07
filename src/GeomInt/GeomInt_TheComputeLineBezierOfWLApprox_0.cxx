@@ -28,7 +28,7 @@
 
 #define MultiLine GeomInt_TheMultiLineOfWLApprox
 #define MultiLine_hxx <GeomInt_TheMultiLineOfWLApprox.hxx>
-#define LineTool GeomInt_TheMultiLineToolOfWLApprox
+#define LineTool MultiLineToolWLApprox
 #define LineTool_hxx <GeomInt_TheMultiLineToolOfWLApprox.hxx>
 #define Approx_MyGradient GeomInt_MyGradientOfTheComputeLineBezierOfWLApprox
 #define Approx_MyGradient_hxx <GeomInt_MyGradientOfTheComputeLineBezierOfWLApprox.hxx>
@@ -37,7 +37,7 @@
 #define Approx_ParLeastSquareOfMyGradient_hxx                                                      \
   <GeomInt_ParLeastSquareOfMyGradientOfTheComputeLineBezierOfWLApprox.hxx>
 #define Approx_ResConstraintOfMyGradient                                                           \
-  GeomInt_ResConstraintOfMyGradientOfTheComputeLineBezierOfWLApprox
+  ResConstraintGradientLineBezier
 #define Approx_ResConstraintOfMyGradient_hxx                                                       \
   <GeomInt_ResConstraintOfMyGradientOfTheComputeLineBezierOfWLApprox.hxx>
 #define Approx_ParFunctionOfMyGradient                                                             \
@@ -53,7 +53,7 @@
 #define Approx_ParLeastSquareOfMyGradient_hxx                                                      \
   <GeomInt_ParLeastSquareOfMyGradientOfTheComputeLineBezierOfWLApprox.hxx>
 #define Approx_ResConstraintOfMyGradient                                                           \
-  GeomInt_ResConstraintOfMyGradientOfTheComputeLineBezierOfWLApprox
+  ResConstraintGradientLineBezier
 #define Approx_ResConstraintOfMyGradient_hxx                                                       \
   <GeomInt_ResConstraintOfMyGradientOfTheComputeLineBezierOfWLApprox.hxx>
 #define Approx_ParFunctionOfMyGradient                                                             \

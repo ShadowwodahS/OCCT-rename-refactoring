@@ -31,7 +31,7 @@
 class Geom2dGcc_QualifiedCurve;
 class Geom2d_Point;
 class Circle2dTwoTangentRadius;
-class Geom2dGcc_Circ2d2TanRadGeo;
+class Circle2dTwoTangentRadiusGeo;
 class gp_Circ2d;
 class gp_Pnt2d;
 
@@ -56,17 +56,17 @@ class gp_Pnt2d;
 //! with Tolerance we will give a solution if the
 //! lowest distance between C1 and Cu2 is lower than or
 //! equal Tolerance.
-class Geom2dGcc_Circ2d2TanRad
+class Circ2d2TanRad1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Geom2dGcc_Circ2d2TanRad(const Geom2dGcc_QualifiedCurve& Qualified1,
+  Standard_EXPORT Circ2d2TanRad1(const Geom2dGcc_QualifiedCurve& Qualified1,
                                           const Geom2dGcc_QualifiedCurve& Qualified2,
                                           const Standard_Real             Radius,
                                           const Standard_Real             Tolerance);
 
-  Standard_EXPORT Geom2dGcc_Circ2d2TanRad(const Geom2dGcc_QualifiedCurve& Qualified1,
+  Standard_EXPORT Circ2d2TanRad1(const Geom2dGcc_QualifiedCurve& Qualified1,
                                           const Handle(Geom2d_Point)&     Point,
                                           const Standard_Real             Radius,
                                           const Standard_Real             Tolerance);
@@ -94,14 +94,14 @@ public:
   //! GccEnt_BadQualifier if a qualifier is inconsistent with
   //! the argument it qualifies (for example, enclosing for a line).
   //! Standard_NegativeValue if Radius is negative.
-  Standard_EXPORT Geom2dGcc_Circ2d2TanRad(const Handle(Geom2d_Point)& Point1,
+  Standard_EXPORT Circ2d2TanRad1(const Handle(Geom2d_Point)& Point1,
                                           const Handle(Geom2d_Point)& Point2,
                                           const Standard_Real         Radius,
                                           const Standard_Real         Tolerance);
 
   Standard_EXPORT void Results(const Circle2dTwoTangentRadius& Circ);
 
-  Standard_EXPORT void Results(const Geom2dGcc_Circ2d2TanRadGeo& Circ);
+  Standard_EXPORT void Results(const Circle2dTwoTangentRadiusGeo& Circ);
 
   //! This method returns True if the algorithm succeeded.
   //! Note: IsDone protects against a failure arising from a

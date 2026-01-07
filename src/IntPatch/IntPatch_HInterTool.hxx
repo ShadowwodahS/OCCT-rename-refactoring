@@ -26,12 +26,12 @@ class Point3d;
 
 //! Tool for the intersection between 2 surfaces.
 //! Regroupe pour l instant les methodes hors Adaptor3d...
-class IntPatch_HInterTool
+class HInterTool
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT IntPatch_HInterTool();
+  Standard_EXPORT HInterTool();
 
   static Standard_Boolean SingularOnUMin(const Handle(Adaptor3d_Surface)& S);
 

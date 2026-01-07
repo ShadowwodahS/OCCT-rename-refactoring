@@ -1427,8 +1427,8 @@ Standard_Boolean BRepFeat_RibSlot::SlidingProfile(TopoFace&              Prof,
   ln2 = new GeomLine(myFirstPnt, FN);
   ln1 = new GeomLine(myLastPnt, LN);
 
-  Handle(GeomCurve2d) ln2d1 = GeomAPI::To2d(ln1, myPln->Pln());
-  Handle(GeomCurve2d) ln2d2 = GeomAPI::To2d(ln2, myPln->Pln());
+  Handle(GeomCurve2d) ln2d1 = GeomAPI1::To2d(ln1, myPln->Pln());
+  Handle(GeomCurve2d) ln2d2 = GeomAPI1::To2d(ln2, myPln->Pln());
 
   Geom2dAPI_InterCurveCurve inter(ln2d1, ln2d2, Precision::Confusion());
 
@@ -1494,7 +1494,7 @@ Standard_Boolean BRepFeat_RibSlot::SlidingProfile(TopoFace&              Prof,
       const TopoEdge&        e = TopoDS::Edge(explo.Current());
       Standard_Real             first, last;
       Handle(GeomCurve3d)        c   = BRepInspector::Curve(e, first, last);
-      Handle(GeomCurve2d)      c2d = GeomAPI::To2d(c, myPln->Pln());
+      Handle(GeomCurve2d)      c2d = GeomAPI1::To2d(c, myPln->Pln());
       Geom2dAPI_InterCurveCurve intcln1(ln2d1, c2d, Precision::Confusion());
       if (intcln1.NbPoints() > 0)
       {
@@ -1786,8 +1786,8 @@ Standard_Boolean BRepFeat_RibSlot::NoSlidingProfile(TopoFace&              Prof,
 
   Point3d Pt;
 
-  Handle(GeomCurve2d) ln2d1 = GeomAPI::To2d(firstln, myPln->Pln());
-  Handle(GeomCurve2d) ln2d2 = GeomAPI::To2d(lastln, myPln->Pln());
+  Handle(GeomCurve2d) ln2d1 = GeomAPI1::To2d(firstln, myPln->Pln());
+  Handle(GeomCurve2d) ln2d2 = GeomAPI1::To2d(lastln, myPln->Pln());
 
   Geom2dAPI_InterCurveCurve inter(ln2d1, ln2d2, Precision::Confusion());
 
@@ -1838,7 +1838,7 @@ Standard_Boolean BRepFeat_RibSlot::NoSlidingProfile(TopoFace&              Prof,
       lastln = new GeomLine(firstpoint, -firstvect);
       if (FirstEdge.IsSame(LastEdge))
         FalseOnlyOne = FalseFirstEdge;
-      ln2d2 = GeomAPI::To2d(lastln, myPln->Pln());
+      ln2d2 = GeomAPI1::To2d(lastln, myPln->Pln());
     }
     if (OnLastFace)
     {
@@ -1864,7 +1864,7 @@ Standard_Boolean BRepFeat_RibSlot::NoSlidingProfile(TopoFace&              Prof,
       cc->D1(l, lastpoint, lastvect);
       lastpoint = BRepInspector::Pnt(vv2);
       firstln   = new GeomLine(lastpoint, lastvect);
-      ln2d1     = GeomAPI::To2d(firstln, myPln->Pln());
+      ln2d1     = GeomAPI1::To2d(firstln, myPln->Pln());
     }
 
     TopoEdge     BndEdge1, BndEdge2;
@@ -1879,7 +1879,7 @@ Standard_Boolean BRepFeat_RibSlot::NoSlidingProfile(TopoFace&              Prof,
       const TopoEdge&        e = TopoDS::Edge(explo.Current());
       Standard_Real             first, last;
       Handle(GeomCurve3d)        c   = BRepInspector::Curve(e, first, last);
-      Handle(GeomCurve2d)      c2d = GeomAPI::To2d(c, myPln->Pln());
+      Handle(GeomCurve2d)      c2d = GeomAPI1::To2d(c, myPln->Pln());
       Geom2dAPI_InterCurveCurve intcln1(ln2d1, c2d, Precision::Confusion());
       if (intcln1.NbPoints() > 0)
       {

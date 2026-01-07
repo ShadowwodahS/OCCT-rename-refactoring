@@ -18,7 +18,7 @@
 
 //=================================================================================================
 
-GeomFill_CornerState::GeomFill_CornerState()
+CornerState::CornerState()
     : gap(RealLast()),
       tgtang(0.0),
       isconstrained(0),
@@ -30,63 +30,63 @@ GeomFill_CornerState::GeomFill_CornerState()
 
 //=================================================================================================
 
-Standard_Real GeomFill_CornerState::Gap() const
+Standard_Real CornerState::Gap() const
 {
   return gap;
 }
 
 //=================================================================================================
 
-void GeomFill_CornerState::Gap(const Standard_Real G)
+void CornerState::Gap(const Standard_Real G)
 {
   gap = G;
 }
 
 //=================================================================================================
 
-Standard_Real GeomFill_CornerState::TgtAng() const
+Standard_Real CornerState::TgtAng() const
 {
   return tgtang;
 }
 
 //=================================================================================================
 
-void GeomFill_CornerState::TgtAng(const Standard_Real Ang)
+void CornerState::TgtAng(const Standard_Real Ang)
 {
   tgtang = Ang;
 }
 
 //=================================================================================================
 
-Standard_Boolean GeomFill_CornerState::HasConstraint() const
+Standard_Boolean CornerState::HasConstraint() const
 {
   return isconstrained;
 }
 
 //=================================================================================================
 
-void GeomFill_CornerState::Constraint()
+void CornerState::Constraint()
 {
   isconstrained = 1;
 }
 
 //=================================================================================================
 
-Standard_Real GeomFill_CornerState::NorAng() const
+Standard_Real CornerState::NorAng() const
 {
   return norang;
 }
 
 //=================================================================================================
 
-void GeomFill_CornerState::NorAng(const Standard_Real Ang)
+void CornerState::NorAng(const Standard_Real Ang)
 {
   norang = Ang;
 }
 
 //=================================================================================================
 
-Standard_Boolean GeomFill_CornerState::IsToKill(Standard_Real& Scal) const
+Standard_Boolean CornerState::IsToKill(Standard_Real& Scal) const
 {
   Scal = scal;
   if (!isconstrained)
@@ -96,7 +96,7 @@ Standard_Boolean GeomFill_CornerState::IsToKill(Standard_Real& Scal) const
 
 //=================================================================================================
 
-void GeomFill_CornerState::DoKill(const Standard_Real Scal)
+void CornerState::DoKill(const Standard_Real Scal)
 {
   scal     = Scal;
   coonscnd = 0;

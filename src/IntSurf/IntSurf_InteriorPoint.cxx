@@ -16,13 +16,13 @@
 #include <gp_Vec2d.hxx>
 #include <IntSurf_InteriorPoint.hxx>
 
-IntSurf_InteriorPoint::IntSurf_InteriorPoint()
+InteriorPoint::InteriorPoint()
     : paramu(0.0),
       paramv(0.0)
 {
 }
 
-IntSurf_InteriorPoint::IntSurf_InteriorPoint(const Point3d&       P,
+InteriorPoint::InteriorPoint(const Point3d&       P,
                                              const Standard_Real U,
                                              const Standard_Real V,
                                              const Vector3d&       Direc,
@@ -36,7 +36,7 @@ IntSurf_InteriorPoint::IntSurf_InteriorPoint(const Point3d&       P,
 {
 }
 
-void IntSurf_InteriorPoint::SetValue(const Point3d&       P,
+void InteriorPoint::SetValue(const Point3d&       P,
                                      const Standard_Real U,
                                      const Standard_Real V,
                                      const Vector3d&       Direc,

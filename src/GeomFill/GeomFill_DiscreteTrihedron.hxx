@@ -31,7 +31,7 @@ class Vector3d;
 class GeomFill_DiscreteTrihedron;
 DEFINE_STANDARD_HANDLE(GeomFill_DiscreteTrihedron, GeomFill_TrihedronLaw)
 
-//! Defined Discrete Trihedron Law.
+//! Defined Discrete Trihedron Law1.
 //! The requirement for path curve is only G1.
 //! The result is C0-continuous surface
 //! that can be later approximated to C1.

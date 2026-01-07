@@ -208,7 +208,7 @@ void GeomFill_SweepSectionGenerator::Init(const Handle(GeomCurve3d)& Path,
 
   // JAG
 
-  GeomFill_Profiler Profil;
+  Profiler Profil;
   Profil.AddCurve(myFirstSect);
   Profil.AddCurve(myLastSect);
   Profil.Perform(Precision::Confusion());

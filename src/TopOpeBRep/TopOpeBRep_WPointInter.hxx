@@ -31,7 +31,7 @@ public:
 
   Standard_EXPORT WPointIntersection();
 
-  Standard_EXPORT void Set(const IntSurf_PntOn2S& P);
+  Standard_EXPORT void Set(const PointOn2Surfaces& P);
 
   Standard_EXPORT void ParametersOnS1(Standard_Real& U, Standard_Real& V) const;
 

@@ -1538,8 +1538,8 @@ Standard_Boolean BRepBlend_Walking::Recadre(Blend_FuncInv&             FuncInv,
 void BRepBlend_Walking::Transition(const Standard_Boolean           OnFirst,
                                    const Handle(Adaptor2d_Curve2d)& A,
                                    const Standard_Real              Param,
-                                   IntSurf_Transition&              TLine,
-                                   IntSurf_Transition&              TArc)
+                                   Transition2&              TLine,
+                                   Transition2&              TArc)
 {
   Standard_Boolean computetranstionaveclacorde = 0;
   Vector3d           tgline;
@@ -1631,7 +1631,7 @@ void BRepBlend_Walking::Transition(const Standard_Boolean           OnFirst,
 #endif
   }
 
-  IntSurf::MakeTransition(tgline, tgrst, normale, TLine, TArc);
+  IntSurf1::MakeTransition(tgline, tgrst, normale, TLine, TArc);
 }
 
 void BRepBlend_Walking::MakeExtremity(BRepBlend_Extremity&             Extrem,
@@ -1641,7 +1641,7 @@ void BRepBlend_Walking::MakeExtremity(BRepBlend_Extremity&             Extrem,
                                       const Standard_Boolean           IsVtx,
                                       const Handle(Adaptor3d_HVertex)& Vtx)
 {
-  IntSurf_Transition          Tline, Tarc;
+  Transition2          Tline, Tarc;
   Standard_Integer            nbarc;
   Handle(Adaptor3d_TopolTool) Iter;
 
@@ -1679,7 +1679,7 @@ void BRepBlend_Walking::MakeSingularExtremity(BRepBlend_Extremity&             E
                                               const Standard_Boolean           OnFirst,
                                               const Handle(Adaptor3d_HVertex)& Vtx)
 {
-  IntSurf_Transition          Tline, Tarc;
+  Transition2          Tline, Tarc;
   Handle(Adaptor3d_TopolTool) Iter;
   Standard_Real               prm;
 
@@ -1840,7 +1840,7 @@ void BRepBlend_Walking::InternalPerform(Blend_Function&     Func,
   Handle(Adaptor3d_HVertex) Vtx1, Vtx2;
   BRepBlend_Extremity       Ext1, Ext2;
 
-  // IntSurf_Transition Tline,Tarc;
+  // Transition2 Tline,Tarc;
 
   Func.GetTolerance(tolerance, tolpoint3d);
   Func.GetBounds(infbound, supbound);

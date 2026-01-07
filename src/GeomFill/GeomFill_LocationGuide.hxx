@@ -117,7 +117,7 @@ public:
   //! Returns 1 (default implementation)
   Standard_EXPORT virtual Standard_Integer TraceNumber() const Standard_OVERRIDE;
 
-  //! Give a status to the Law
+  //! Give a status to the Law1
   //! Returns PipeOk (default implementation)
   Standard_EXPORT virtual GeomFill_PipeError ErrorStatus() const Standard_OVERRIDE;
 
@@ -176,12 +176,12 @@ public:
   //! make fast approximation of rational  surfaces.
   Standard_EXPORT virtual void GetAverageLaw(gp_Mat& AM, Vector3d& AV) Standard_OVERRIDE;
 
-  //! Say if the Location  Law, is an translation of  Location
+  //! Say if the Location  Law1, is an translation of  Location
   //! The default implementation is " returns False ".
   Standard_EXPORT virtual Standard_Boolean IsTranslation(Standard_Real& Error) const
     Standard_OVERRIDE;
 
-  //! Say if the Location  Law, is a rotation of Location
+  //! Say if the Location  Law1, is a rotation of Location
   //! The default implementation is " returns False ".
   Standard_EXPORT virtual Standard_Boolean IsRotation(Standard_Real& Error) const Standard_OVERRIDE;
 

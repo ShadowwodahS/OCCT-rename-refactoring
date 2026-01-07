@@ -32,22 +32,22 @@ class gp_Lin2d;
 //! This class represents a conic from gp as a
 //! parametric curve ( in order to be used by the
 //! class PConicTool from IntCurve).
-class IntCurve_PConic
+class ParametricConic
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT IntCurve_PConic(const IntCurve_PConic& PC);
+  Standard_EXPORT ParametricConic(const ParametricConic& PC);
 
-  Standard_EXPORT IntCurve_PConic(const gp_Elips2d& E);
+  Standard_EXPORT ParametricConic(const gp_Elips2d& E);
 
-  Standard_EXPORT IntCurve_PConic(const gp_Circ2d& C);
+  Standard_EXPORT ParametricConic(const gp_Circ2d& C);
 
-  Standard_EXPORT IntCurve_PConic(const gp_Parab2d& P);
+  Standard_EXPORT ParametricConic(const gp_Parab2d& P);
 
-  Standard_EXPORT IntCurve_PConic(const gp_Hypr2d& H);
+  Standard_EXPORT ParametricConic(const gp_Hypr2d& H);
 
-  Standard_EXPORT IntCurve_PConic(const gp_Lin2d& L);
+  Standard_EXPORT ParametricConic(const gp_Lin2d& L);
 
   //! EpsX is a internal tolerance used in math
   //! algorithms, usually about 1e-10

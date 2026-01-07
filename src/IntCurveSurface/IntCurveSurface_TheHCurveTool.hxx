@@ -38,7 +38,7 @@ class Vector3d;
 class BezierCurve3d;
 class BSplineCurve3d;
 
-class IntCurveSurface_TheHCurveTool
+class HCurveTool2
 {
 public:
   DEFINE_STANDARD_ALLOC

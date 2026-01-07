@@ -29,13 +29,13 @@ class gp_Pnt2d;
 //! for an intersection point between 2 surfaces :
 //! The coordinates ( Pnt from gp ), and two
 //! parametric coordinates.
-class IntSurf_PntOn2S
+class PointOn2Surfaces
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty constructor.
-  Standard_EXPORT IntSurf_PntOn2S();
+  Standard_EXPORT PointOn2Surfaces();
 
   //! Sets the value of the point in 3d space.
   void SetValue(const Point3d& Pt);
@@ -92,7 +92,7 @@ public:
   //! Returns TRUE if 2D- and 3D-coordinates of theOterPoint are equal to
   //! corresponding coordinates of me (with given tolerance).
   //! If theTol2D < 0.0 we will compare 3D-points only.
-  Standard_EXPORT Standard_Boolean IsSame(const IntSurf_PntOn2S& theOtherPoint,
+  Standard_EXPORT Standard_Boolean IsSame(const PointOn2Surfaces& theOtherPoint,
                                           const Standard_Real    theTol3D = 0.0,
                                           const Standard_Real    theTol2D = -1.0) const;
 

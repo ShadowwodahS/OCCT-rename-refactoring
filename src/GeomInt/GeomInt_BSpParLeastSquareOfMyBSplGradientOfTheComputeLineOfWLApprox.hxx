@@ -37,7 +37,7 @@ class Standard_OutOfRange;
 class Standard_DimensionError;
 class Standard_NoSuchObject;
 class GeomInt_TheMultiLineOfWLApprox;
-class GeomInt_TheMultiLineToolOfWLApprox;
+class MultiLineToolWLApprox;
 class AppParCurves_MultiCurve;
 class AppParCurves_MultiBSpCurve;
 class math_Matrix;

@@ -23,9 +23,9 @@
 #include <gp_Circ2d.hxx>
 #include <GccEnt_Position.hxx>
 #include <gp_Pnt2d.hxx>
-class GccEnt_QualifiedCirc;
+class QualifiedCircle;
 class Geom2dGcc_QCurve;
-class GccEnt_QualifiedLin;
+class QualifiedLine;
 
 //! This class implements the algorithms used to
 //! create 2d circles tangent to 3 points/lines/circles/
@@ -35,15 +35,15 @@ class GccEnt_QualifiedLin;
 //! tangency constrains (QualifiedCirc, QualifiedLine,
 //! Qualifiedcurv, Points).
 //! - A parameter for each QualifiedCurv.
-class Geom2dGcc_Circ2d3TanIter
+class Circle2dThreeTangentIter
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! This method implements the algorithms used to
   //! create 2d circles tangent to 2 circles and a curve.
-  Standard_EXPORT Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedCirc& Qualified1,
-                                           const GccEnt_QualifiedCirc& Qualified2,
+  Standard_EXPORT Circle2dThreeTangentIter(const QualifiedCircle& Qualified1,
+                                           const QualifiedCircle& Qualified2,
                                            const Geom2dGcc_QCurve&     Qualified3,
                                            const Standard_Real         Param1,
                                            const Standard_Real         Param2,
@@ -52,7 +52,7 @@ public:
 
   //! This method implements the algorithms used to
   //! create 2d circles tangent to a circle and 2 curves.
-  Standard_EXPORT Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedCirc& Qualified1,
+  Standard_EXPORT Circle2dThreeTangentIter(const QualifiedCircle& Qualified1,
                                            const Geom2dGcc_QCurve&     Qualified2,
                                            const Geom2dGcc_QCurve&     Qualified3,
                                            const Standard_Real         Param1,
@@ -63,8 +63,8 @@ public:
   //! This method implements the algorithms used to
   //! create 2d circles tangent to a circle and a line and
   //! a curve.
-  Standard_EXPORT Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedCirc& Qualified1,
-                                           const GccEnt_QualifiedLin&  Qualified2,
+  Standard_EXPORT Circle2dThreeTangentIter(const QualifiedCircle& Qualified1,
+                                           const QualifiedLine&  Qualified2,
                                            const Geom2dGcc_QCurve&     Qualified3,
                                            const Standard_Real         Param1,
                                            const Standard_Real         Param2,
@@ -74,7 +74,7 @@ public:
   //! This method implements the algorithms used to
   //! create 2d circles tangent to a circle and a point and
   //! a curve.
-  Standard_EXPORT Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedCirc& Qualified1,
+  Standard_EXPORT Circle2dThreeTangentIter(const QualifiedCircle& Qualified1,
                                            const Geom2dGcc_QCurve&     Qualified2,
                                            const gp_Pnt2d&             Point3,
                                            const Standard_Real         Param1,
@@ -83,8 +83,8 @@ public:
 
   //! This method implements the algorithms used to
   //! create 2d circles tangent to 2 lines and a curve.
-  Standard_EXPORT Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedLin& Qualified1,
-                                           const GccEnt_QualifiedLin& Qualified2,
+  Standard_EXPORT Circle2dThreeTangentIter(const QualifiedLine& Qualified1,
+                                           const QualifiedLine& Qualified2,
                                            const Geom2dGcc_QCurve&    Qualified3,
                                            const Standard_Real        Param1,
                                            const Standard_Real        Param2,
@@ -93,7 +93,7 @@ public:
 
   //! This method implements the algorithms used to
   //! create 2d circles tangent to a line and 2 curves.
-  Standard_EXPORT Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedLin& Qualified1,
+  Standard_EXPORT Circle2dThreeTangentIter(const QualifiedLine& Qualified1,
                                            const Geom2dGcc_QCurve&    Qualified2,
                                            const Geom2dGcc_QCurve&    Qualified3,
                                            const Standard_Real        Param1,
@@ -104,7 +104,7 @@ public:
   //! This method implements the algorithms used to
   //! create 2d circles tangent to a line and a curve
   //! and a point.
-  Standard_EXPORT Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedLin& Qualified1,
+  Standard_EXPORT Circle2dThreeTangentIter(const QualifiedLine& Qualified1,
                                            const Geom2dGcc_QCurve&    Qualified2,
                                            const gp_Pnt2d&            Point3,
                                            const Standard_Real        Param1,
@@ -113,7 +113,7 @@ public:
 
   //! This method implements the algorithms used to
   //! create 2d circles tangent to a curve and 2 points.
-  Standard_EXPORT Geom2dGcc_Circ2d3TanIter(const Geom2dGcc_QCurve& Qualified1,
+  Standard_EXPORT Circle2dThreeTangentIter(const Geom2dGcc_QCurve& Qualified1,
                                            const gp_Pnt2d&         Point1,
                                            const gp_Pnt2d&         Point2,
                                            const Standard_Real     Param1,
@@ -121,7 +121,7 @@ public:
 
   //! This method implements the algorithms used to
   //! create 2d circles tangent to 2 curves and a point.
-  Standard_EXPORT Geom2dGcc_Circ2d3TanIter(const Geom2dGcc_QCurve& Qualified1,
+  Standard_EXPORT Circle2dThreeTangentIter(const Geom2dGcc_QCurve& Qualified1,
                                            const Geom2dGcc_QCurve& Qualified2,
                                            const gp_Pnt2d&         Point2,
                                            const Standard_Real     Param1,
@@ -130,7 +130,7 @@ public:
 
   //! This method implements the algorithms used to
   //! create 2d circles tangent to 3 curves.
-  Standard_EXPORT Geom2dGcc_Circ2d3TanIter(const Geom2dGcc_QCurve& Qualified1,
+  Standard_EXPORT Circle2dThreeTangentIter(const Geom2dGcc_QCurve& Qualified1,
                                            const Geom2dGcc_QCurve& Qualified2,
                                            const Geom2dGcc_QCurve& Qualified3,
                                            const Standard_Real     Param1,

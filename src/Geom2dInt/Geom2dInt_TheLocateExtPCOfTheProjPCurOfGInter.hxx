@@ -27,7 +27,7 @@ class Standard_DomainError;
 class Standard_TypeMismatch;
 class StdFail_NotDone;
 class Adaptor2d_Curve2d;
-class Geom2dInt_Geom2dCurveTool;
+class Geom2dCurveTool;
 class Extrema_POnCurv2d;
 class gp_Pnt2d;
 class gp_Vec2d;

@@ -250,7 +250,7 @@ void IntTools1::FindRootStates(IntTools_SequenceOfRoots& mySequenceOfRoots,
   {
     IntersectionRoot& aR = mySequenceOfRoots.ChangeValue(j);
 
-    aR.Interval(t1, t2, f1, f2);
+    aR.Interval1(t1, t2, f1, f2);
 
     aType = aR.Type();
     switch (aType)

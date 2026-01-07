@@ -27,9 +27,9 @@
 #include <TColgp_Array1OfPnt2d.hxx>
 #include <TColStd_Array1OfReal.hxx>
 #include <GccEnt_Position.hxx>
-class GccEnt_QualifiedCirc;
+class QualifiedCircle;
 class Geom2dAdaptor_Curve;
-class GccEnt_QualifiedLin;
+class QualifiedLine;
 class gp_Pnt2d;
 class gp_Circ2d;
 
@@ -44,7 +44,7 @@ class gp_Circ2d;
 //! - The parameter for each tangency argument which
 //! is a curve.
 //! - The tolerance.
-class Geom2dGcc_Circ2d2TanOnGeo
+class Circle2dTwoTangentOnGeo
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -52,23 +52,23 @@ public:
   //! This method implements the algorithms used to
   //! create 2d circles TANgent to two 2d circles and
   //! having the center ON a curve.
-  Standard_EXPORT Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedCirc& Qualified1,
-                                            const GccEnt_QualifiedCirc& Qualified2,
+  Standard_EXPORT Circle2dTwoTangentOnGeo(const QualifiedCircle& Qualified1,
+                                            const QualifiedCircle& Qualified2,
                                             const Geom2dAdaptor_Curve&  OnCurv,
                                             const Standard_Real         Tolerance);
 
   //! This method implements the algorithms used to
   //! create 2d circles TANgent to a 2d circle and a 2d line
   //! having the center ON a curve.
-  Standard_EXPORT Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedCirc& Qualified1,
-                                            const GccEnt_QualifiedLin&  Qualified2,
+  Standard_EXPORT Circle2dTwoTangentOnGeo(const QualifiedCircle& Qualified1,
+                                            const QualifiedLine&  Qualified2,
                                             const Geom2dAdaptor_Curve&  OnCurv,
                                             const Standard_Real         Tolerance);
 
   //! This method implements the algorithms used to
   //! create 2d circles TANgent to a 2d circle and a point
   //! having the center ON a curve.
-  Standard_EXPORT Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedCirc& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentOnGeo(const QualifiedCircle& Qualified1,
                                             const gp_Pnt2d&             Point2,
                                             const Geom2dAdaptor_Curve&  OnCurv,
                                             const Standard_Real         Tolerance);
@@ -76,15 +76,15 @@ public:
   //! This method implements the algorithms used to
   //! create 2d circles TANgent to two 2d lines
   //! having the center ON a curve.
-  Standard_EXPORT Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedLin& Qualified1,
-                                            const GccEnt_QualifiedLin& Qualified2,
+  Standard_EXPORT Circle2dTwoTangentOnGeo(const QualifiedLine& Qualified1,
+                                            const QualifiedLine& Qualified2,
                                             const Geom2dAdaptor_Curve& OnCurv,
                                             const Standard_Real        Tolerance);
 
   //! This method implements the algorithms used to
   //! create 2d circles TANgent to a 2d line and a point
   //! having the center ON a 2d line.
-  Standard_EXPORT Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedLin& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentOnGeo(const QualifiedLine& Qualified1,
                                             const gp_Pnt2d&            Qualified2,
                                             const Geom2dAdaptor_Curve& OnCurv,
                                             const Standard_Real        Tolerance);
@@ -92,7 +92,7 @@ public:
   //! This method implements the algorithms used to
   //! create 2d circles TANgent to two points
   //! having the center ON a 2d line.
-  Standard_EXPORT Geom2dGcc_Circ2d2TanOnGeo(const gp_Pnt2d&            Point1,
+  Standard_EXPORT Circle2dTwoTangentOnGeo(const gp_Pnt2d&            Point1,
                                             const gp_Pnt2d&            Point2,
                                             const Geom2dAdaptor_Curve& OnCurv,
                                             const Standard_Real        Tolerance);

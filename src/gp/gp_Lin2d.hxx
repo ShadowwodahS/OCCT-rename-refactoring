@@ -27,7 +27,7 @@
 //! addition, however, a line has specific functions for
 //! computing distances and positions.
 //! See Also
-//! GccAna and Geom2dGcc packages which provide
+//! GccAna and Geom2dGcc1 packages which provide
 //! functions for constructing lines defined by geometric
 //! constraints
 //! gce_MakeLin2d which provides functions for more

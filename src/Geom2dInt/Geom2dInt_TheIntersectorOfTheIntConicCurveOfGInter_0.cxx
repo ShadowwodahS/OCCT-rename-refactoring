@@ -25,13 +25,13 @@
 #include <IntRes2d_Domain.hxx>
 #include <gp_Pnt2d.hxx>
 
-#define ImpTool IntCurve_IConicTool
+#define ImpTool ConicTool
 #define ImpTool_hxx <IntCurve_IConicTool.hxx>
 #define ParCurve Adaptor2d_Curve2d
 #define ParCurve_hxx <Adaptor2d_Curve2d.hxx>
-#define ParTool Geom2dInt_Geom2dCurveTool
+#define ParTool Geom2dCurveTool
 #define ParTool_hxx <Geom2dInt_Geom2dCurveTool.hxx>
-#define ProjectOnPCurveTool Geom2dInt_TheProjPCurOfGInter
+#define ProjectOnPCurveTool ProjPCurOfGInter
 #define ProjectOnPCurveTool_hxx <Geom2dInt_TheProjPCurOfGInter.hxx>
 #define IntImpParGen_MyImpParTool Geom2dInt_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfGInter
 #define IntImpParGen_MyImpParTool_hxx                                                              \

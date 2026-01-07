@@ -49,7 +49,7 @@ inline Standard_Integer IntPatch_WLine::NbPnts() const
   return curv->NbPoints();
 }
 
-inline const IntSurf_PntOn2S& IntPatch_WLine::Point(const Standard_Integer Index) const
+inline const PointOn2Surfaces& IntPatch_WLine::Point(const Standard_Integer Index) const
 {
   return curv->Value(Index);
 }

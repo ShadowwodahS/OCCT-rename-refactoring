@@ -67,7 +67,7 @@ static Standard_Integer OCC6001(DrawInterpreter& di, Standard_Integer argc, cons
   }
   for (int i = 1; i <= nb; i++)
   {
-    const IntCurveSurface_IntersectionPoint& int_pnt = inter.Point(i);
+    const IntersectionPoint1& int_pnt = inter.Point(i);
     double                                   par     = int_pnt.W();
     Point3d                                   p       = int_pnt.Pnt();
     di << "inter " << i << ": W = " << par << "\n"

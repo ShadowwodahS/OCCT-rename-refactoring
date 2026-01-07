@@ -173,7 +173,7 @@ StateTransition TopOpeBRep_EdgesIntersector::Transition1(
   pextremity = Standard_False; // JYL290998 corr regr cto100K1 fex6 fex4 : 5eme inters E/E
 
   const IntRes2d_IntersectionPoint& IP = Point1();
-  const IntRes2d_Transition& T = (Index == 1) ? IP.TransitionOfFirst() : IP.TransitionOfSecond();
+  const Transition3& T = (Index == 1) ? IP.TransitionOfFirst() : IP.TransitionOfSecond();
 
   switch (T.TransitionType())
   {

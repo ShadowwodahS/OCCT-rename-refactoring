@@ -139,7 +139,7 @@ void GeomFill_LocationDraft::Prepare()
   Point3d                            P;
   Vector3d                            D, T, N, B;
   Handle(GeomLine)                 L;
-  IntCurveSurface_IntersectionPoint P1, P2;
+  IntersectionPoint1 P1, P2;
   f = myCurve->FirstParameter();
   l = myCurve->LastParameter();
 
@@ -589,7 +589,7 @@ Standard_Boolean GeomFill_LocationDraft::D2(const Standard_Real   Param,
       } // if
 
       // deuxieme derivee
-      GeomFill_Tensor D2EDX2(3, 3, 3);
+      Tensor1 D2EDX2(3, 3, 3);
       E.Deriv2X(R, D2EDX2); // d2E/dx2
 
       math_Vector D2EDT2(1, 3, 0);

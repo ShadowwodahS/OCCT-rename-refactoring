@@ -25,7 +25,7 @@
 #include <gp_Lin.hxx>
 #include <math_FunctionWithDerivative.hxx>
 #include <Standard_Boolean.hxx>
-class IntSurf_Quadric;
+class Quadric1;
 class gp_Lin;
 class HLRBRep_LineTool;
 
@@ -35,7 +35,7 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Create the function.
-  Standard_EXPORT HLRBRep_TheQuadCurvFuncOfTheQuadCurvExactInterCSurf(const IntSurf_Quadric& Q,
+  Standard_EXPORT HLRBRep_TheQuadCurvFuncOfTheQuadCurvExactInterCSurf(const Quadric1& Q,
                                                                       const gp_Lin&          C);
 
   //! Computes the value of the signed  distance between
@@ -59,7 +59,7 @@ public:
 
 protected:
 private:
-  IntSurf_Quadric myQuadric;
+  Quadric1 myQuadric;
   gp_Lin          myCurve;
 };
 

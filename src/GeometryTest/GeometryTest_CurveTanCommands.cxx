@@ -86,7 +86,7 @@ static Standard_Integer qcurve(DrawInterpreter&,
   if (!aPositionType.IsEmpty())
   {
     GccEnt_Position aParameterPosition;
-    if (GccEnt::PositionFromString(aPositionType.ToCString(), aParameterPosition))
+    if (GccEnt1::PositionFromString(aPositionType.ToCString(), aParameterPosition))
       aKindOfPosition = aParameterPosition;
   }
 
@@ -118,8 +118,8 @@ static Standard_Integer solutions(DrawInterpreter&  theDI,
     DrawTrSurf1::Set(aSolIdName.ToCString(), aCircle);
     theCirTan3.WhichQualifier(aSolId, aQualifier1, aQualifier2, aQualifier3);
     theDI << "circle: " << aSolIdName.ToCString() << ", "
-          << "qualifiers: " << GccEnt::PositionToString(aQualifier1) << ", "
-          << GccEnt::PositionToString(aQualifier2) << ", " << GccEnt::PositionToString(aQualifier3)
+          << "qualifiers: " << GccEnt1::PositionToString(aQualifier1) << ", "
+          << GccEnt1::PositionToString(aQualifier2) << ", " << GccEnt1::PositionToString(aQualifier3)
           << "\n";
 
     theDI << "  tangent points: point (parameter on solution, parameter on argument)\n";
@@ -213,13 +213,13 @@ static Standard_Integer circ2d3Tan(DrawInterpreter& theDI,
     Geom2dAdaptor_Curve anAdaptorCurve1(aQCurve1->GetCurve());
     if (anAdaptorCurve1.GetType() == GeomAbs_Circle)
     {
-      GccEnt_QualifiedCirc aQualifiedCircle1(anAdaptorCurve1.Circle(), aQCurve1->GetPosition());
+      QualifiedCircle aQualifiedCircle1(anAdaptorCurve1.Circle(), aQCurve1->GetPosition());
       Circle2dThreeTangent    aCircBuilder(aQualifiedCircle1, aPoint2, aPoint3, aTolerance);
       return solutions(theDI, aCircBuilder, theArgVec[1]);
     }
     else if (anAdaptorCurve1.GetType() == GeomAbs_Line)
     {
-      GccEnt_QualifiedLin aQualifiedLin1(anAdaptorCurve1.Line(), aQCurve1->GetPosition());
+      QualifiedLine aQualifiedLin1(anAdaptorCurve1.Line(), aQCurve1->GetPosition());
       Circle2dThreeTangent   aCircBuilder(aQualifiedLin1, aPoint2, aPoint3, aTolerance);
       return solutions(theDI, aCircBuilder, theArgVec[1]);
     }
@@ -240,23 +240,23 @@ static Standard_Integer circ2d3Tan(DrawInterpreter& theDI,
     Geom2dAdaptor_Curve anAdaptorCurve2(aQCurve2->GetCurve());
     if (anAdaptorCurve1.GetType() == GeomAbs_Circle && anAdaptorCurve2.GetType() == GeomAbs_Circle)
     {
-      GccEnt_QualifiedCirc aQualifiedCircle1(anAdaptorCurve1.Circle(), aQCurve1->GetPosition());
-      GccEnt_QualifiedCirc aQualifiedCircle2(anAdaptorCurve2.Circle(), aQCurve2->GetPosition());
+      QualifiedCircle aQualifiedCircle1(anAdaptorCurve1.Circle(), aQCurve1->GetPosition());
+      QualifiedCircle aQualifiedCircle2(anAdaptorCurve2.Circle(), aQCurve2->GetPosition());
       Circle2dThreeTangent    aCircBuilder(aQualifiedCircle1, aQualifiedCircle2, aPoint3, aTolerance);
       return solutions(theDI, aCircBuilder, theArgVec[1]);
     }
     else if (anAdaptorCurve1.GetType() == GeomAbs_Circle
              && anAdaptorCurve2.GetType() == GeomAbs_Line)
     {
-      GccEnt_QualifiedCirc aQualifiedCircle1(anAdaptorCurve1.Circle(), aQCurve1->GetPosition());
-      GccEnt_QualifiedLin  aQualifiedLin2(anAdaptorCurve2.Line(), aQCurve2->GetPosition());
+      QualifiedCircle aQualifiedCircle1(anAdaptorCurve1.Circle(), aQCurve1->GetPosition());
+      QualifiedLine  aQualifiedLin2(anAdaptorCurve2.Line(), aQCurve2->GetPosition());
       Circle2dThreeTangent    aCircBuilder(aQualifiedCircle1, aQualifiedLin2, aPoint3, aTolerance);
       return solutions(theDI, aCircBuilder, theArgVec[1]);
     }
     else if (anAdaptorCurve1.GetType() == GeomAbs_Line && anAdaptorCurve2.GetType() == GeomAbs_Line)
     {
-      GccEnt_QualifiedLin aQualifiedLin1(anAdaptorCurve1.Line(), aQCurve1->GetPosition());
-      GccEnt_QualifiedLin aQualifiedLin2(anAdaptorCurve2.Line(), aQCurve2->GetPosition());
+      QualifiedLine aQualifiedLin1(anAdaptorCurve1.Line(), aQCurve1->GetPosition());
+      QualifiedLine aQualifiedLin2(anAdaptorCurve2.Line(), aQCurve2->GetPosition());
       Circle2dThreeTangent   aCircBuilder(aQualifiedLin1, aQualifiedLin2, aPoint3, aTolerance);
       return solutions(theDI, aCircBuilder, theArgVec[1]);
     }
@@ -273,9 +273,9 @@ static Standard_Integer circ2d3Tan(DrawInterpreter& theDI,
   if (anAdaptorCurve1.GetType() == GeomAbs_Circle && anAdaptorCurve2.GetType() == GeomAbs_Circle
       && anAdaptorCurve3.GetType() == GeomAbs_Circle)
   {
-    GccEnt_QualifiedCirc aQualifiedCircle1(anAdaptorCurve1.Circle(), aQCurve1->GetPosition());
-    GccEnt_QualifiedCirc aQualifiedCircle2(anAdaptorCurve2.Circle(), aQCurve2->GetPosition());
-    GccEnt_QualifiedCirc aQualifiedCircle3(anAdaptorCurve3.Circle(), aQCurve3->GetPosition());
+    QualifiedCircle aQualifiedCircle1(anAdaptorCurve1.Circle(), aQCurve1->GetPosition());
+    QualifiedCircle aQualifiedCircle2(anAdaptorCurve2.Circle(), aQCurve2->GetPosition());
+    QualifiedCircle aQualifiedCircle3(anAdaptorCurve3.Circle(), aQCurve3->GetPosition());
     Circle2dThreeTangent    aCircBuilder(aQualifiedCircle1,
                                    aQualifiedCircle2,
                                    aQualifiedCircle3,
@@ -285,9 +285,9 @@ static Standard_Integer circ2d3Tan(DrawInterpreter& theDI,
   if (anAdaptorCurve1.GetType() == GeomAbs_Circle && anAdaptorCurve2.GetType() == GeomAbs_Circle
       && anAdaptorCurve3.GetType() == GeomAbs_Line)
   {
-    GccEnt_QualifiedCirc aQualifiedCircle1(anAdaptorCurve1.Circle(), aQCurve1->GetPosition());
-    GccEnt_QualifiedCirc aQualifiedCircle2(anAdaptorCurve2.Circle(), aQCurve2->GetPosition());
-    GccEnt_QualifiedLin  aQualifiedLin3(anAdaptorCurve3.Line(), aQCurve3->GetPosition());
+    QualifiedCircle aQualifiedCircle1(anAdaptorCurve1.Circle(), aQCurve1->GetPosition());
+    QualifiedCircle aQualifiedCircle2(anAdaptorCurve2.Circle(), aQCurve2->GetPosition());
+    QualifiedLine  aQualifiedLin3(anAdaptorCurve3.Line(), aQCurve3->GetPosition());
     Circle2dThreeTangent    aCircBuilder(aQualifiedCircle1,
                                    aQualifiedCircle2,
                                    aQualifiedLin3,
@@ -297,18 +297,18 @@ static Standard_Integer circ2d3Tan(DrawInterpreter& theDI,
   if (anAdaptorCurve1.GetType() == GeomAbs_Circle && anAdaptorCurve2.GetType() == GeomAbs_Line
       && anAdaptorCurve3.GetType() == GeomAbs_Line)
   {
-    GccEnt_QualifiedCirc aQualifiedCircle1(anAdaptorCurve1.Circle(), aQCurve1->GetPosition());
-    GccEnt_QualifiedLin  aQualifiedLin2(anAdaptorCurve2.Line(), aQCurve2->GetPosition());
-    GccEnt_QualifiedLin  aQualifiedLin3(anAdaptorCurve3.Line(), aQCurve3->GetPosition());
+    QualifiedCircle aQualifiedCircle1(anAdaptorCurve1.Circle(), aQCurve1->GetPosition());
+    QualifiedLine  aQualifiedLin2(anAdaptorCurve2.Line(), aQCurve2->GetPosition());
+    QualifiedLine  aQualifiedLin3(anAdaptorCurve3.Line(), aQCurve3->GetPosition());
     Circle2dThreeTangent aCircBuilder(aQualifiedCircle1, aQualifiedLin2, aQualifiedLin3, aTolerance);
     return solutions(theDI, aCircBuilder, theArgVec[1]);
   }
   if (anAdaptorCurve1.GetType() == GeomAbs_Line && anAdaptorCurve2.GetType() == GeomAbs_Line
       && anAdaptorCurve3.GetType() == GeomAbs_Line)
   {
-    GccEnt_QualifiedLin aQualifiedLin1(anAdaptorCurve1.Line(), aQCurve1->GetPosition());
-    GccEnt_QualifiedLin aQualifiedLin2(anAdaptorCurve2.Line(), aQCurve2->GetPosition());
-    GccEnt_QualifiedLin aQualifiedLin3(anAdaptorCurve3.Line(), aQCurve3->GetPosition());
+    QualifiedLine aQualifiedLin1(anAdaptorCurve1.Line(), aQCurve1->GetPosition());
+    QualifiedLine aQualifiedLin2(anAdaptorCurve2.Line(), aQCurve2->GetPosition());
+    QualifiedLine aQualifiedLin3(anAdaptorCurve3.Line(), aQCurve3->GetPosition());
     Circle2dThreeTangent   aCircBuilder(aQualifiedLin1, aQualifiedLin2, aQualifiedLin3, aTolerance);
     return solutions(theDI, aCircBuilder, theArgVec[1]);
   }

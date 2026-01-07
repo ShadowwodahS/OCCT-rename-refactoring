@@ -63,7 +63,7 @@ void StdPrs_WFRestrictedFace::Add(const Handle(Prs3d_Presentation)&  thePresenta
   }
 
   // Load the isos
-  Hatch_Hatcher    anIsoBuild(1.e-5, aToolRst.IsOriented());
+  Hatcher    anIsoBuild(1.e-5, aToolRst.IsOriented());
   Standard_Boolean isFaceUClosed = theFace->IsUClosed();
   Standard_Boolean isFaceVClosed = theFace->IsVClosed();
 
@@ -287,7 +287,7 @@ Standard_Boolean StdPrs_WFRestrictedFace::Match(const Standard_Real             
   }
 
   // Load the isos
-  Hatch_Hatcher    anIsoBuild(1.e-5, aToolRst.IsOriented());
+  Hatcher    anIsoBuild(1.e-5, aToolRst.IsOriented());
   Standard_Boolean anUClosed = theFace->IsUClosed();
   Standard_Boolean aVClosed  = theFace->IsVClosed();
 

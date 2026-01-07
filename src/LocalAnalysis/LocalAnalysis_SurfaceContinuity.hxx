@@ -29,7 +29,7 @@ class GeomLProp_SLProps;
 
 //! This class gives tools to check local continuity C0
 //! C1 C2 G1 G2 between  two points situated on two surfaces
-class LocalAnalysis_SurfaceContinuity
+class SurfaceContinuity
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -117,7 +117,7 @@ public:
   //! -------
   //! - the maximum  normal curvature gap between the two
   //! points
-  Standard_EXPORT LocalAnalysis_SurfaceContinuity(const Handle(GeomSurface)& Surf1,
+  Standard_EXPORT SurfaceContinuity(const Handle(GeomSurface)& Surf1,
                                                   const Standard_Real         u1,
                                                   const Standard_Real         v1,
                                                   const Handle(GeomSurface)& Surf2,
@@ -132,7 +132,7 @@ public:
                                                   const Standard_Real         Percent = 0.01,
                                                   const Standard_Real         Maxlen  = 10000);
 
-  Standard_EXPORT LocalAnalysis_SurfaceContinuity(const Handle(GeomCurve2d)& curv1,
+  Standard_EXPORT SurfaceContinuity(const Handle(GeomCurve2d)& curv1,
                                                   const Handle(GeomCurve2d)& curv2,
                                                   const Standard_Real         U,
                                                   const Handle(GeomSurface)& Surf1,
@@ -148,7 +148,7 @@ public:
 
   //! This  constructor  is  used  when  we  want  to compute  many  analysis.
   //! After  we  use  the  method  ComputeAnalysis
-  Standard_EXPORT LocalAnalysis_SurfaceContinuity(const Standard_Real EpsNul  = 0.001,
+  Standard_EXPORT SurfaceContinuity(const Standard_Real EpsNul  = 0.001,
                                                   const Standard_Real EpsC0   = 0.001,
                                                   const Standard_Real EpsC1   = 0.001,
                                                   const Standard_Real EpsC2   = 0.001,

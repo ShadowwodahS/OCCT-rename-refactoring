@@ -347,7 +347,7 @@ Standard_Real BRepFill_ShapeLaw::VertexTol(const Standard_Integer Index,
 
 Handle(GeomFill_SectionLaw) BRepFill_ShapeLaw::ConcatenedLaw() const
 {
-  Handle(GeomFill_SectionLaw) Law;
+  Handle(GeomFill_SectionLaw) Law1;
   if (myLaws->Length() == 1)
     return myLaws->Value(1);
   else
@@ -390,15 +390,15 @@ Handle(GeomFill_SectionLaw) BRepFill_ShapeLaw::ConcatenedLaw() const
 
       if (TheLaw.IsNull())
       {
-        Law = new (GeomFill_UniformSection)(Composite);
+        Law1 = new (GeomFill_UniformSection)(Composite);
       }
       else
       {
-        Law = new (GeomFill_EvolvedSection)(Composite, TheLaw);
+        Law1 = new (GeomFill_EvolvedSection)(Composite, TheLaw);
       }
     }
   }
-  return Law;
+  return Law1;
 }
 
 //=================================================================================================

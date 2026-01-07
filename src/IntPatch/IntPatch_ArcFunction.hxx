@@ -30,7 +30,7 @@ public:
 
   Standard_EXPORT IntPatch_ArcFunction();
 
-  void SetQuadric(const IntSurf_Quadric& Q);
+  void SetQuadric(const Quadric1& Q);
 
   void Set(const Handle(Adaptor2d_Curve2d)& A);
 
@@ -51,7 +51,7 @@ public:
 
   const Point3d& Valpoint(const Standard_Integer Index) const;
 
-  const IntSurf_Quadric& Quadric() const;
+  const Quadric1& Quadric() const;
 
   const Handle(Adaptor2d_Curve2d)& Arc() const;
 
@@ -65,7 +65,7 @@ protected:
 private:
   Handle(Adaptor2d_Curve2d) myArc;
   Handle(Adaptor3d_Surface) mySurf;
-  IntSurf_Quadric           myQuad;
+  Quadric1           myQuad;
   Point3d                    ptsol;
   TColgp_SequenceOfPnt      seqpt;
 };

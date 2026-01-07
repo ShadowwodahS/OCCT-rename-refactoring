@@ -450,8 +450,8 @@ public:
                        Standard_Integer                  i1,
                        const IntRes2d_IntersectionPoint& IP)
   {
-    const IntRes2d_Transition& T1 = IP.TransitionOfFirst();
-    const IntRes2d_Transition& T2 = IP.TransitionOfSecond();
+    const Transition3& T1 = IP.TransitionOfFirst();
+    const Transition3& T2 = IP.TransitionOfSecond();
     if (T1.PositionOnCurve() == IntRes2d_Middle)
     {
       if (T2.PositionOnCurve() == IntRes2d_Middle)
@@ -2137,9 +2137,9 @@ q1,(q2>32768)? (32768-q2) : q2,q&0x80008000);
         {
           Standard_Real aDummyShift;
           if (PeriodU > 0.)
-            GeomInt::AdjustPeriodic(u, UMin, UMax, PeriodU, u, aDummyShift);
+            GeomInt1::AdjustPeriodic(u, UMin, UMax, PeriodU, u, aDummyShift);
           if (PeriodV > 0.)
-            GeomInt::AdjustPeriodic(v, VMin, VMax, PeriodV, v, aDummyShift);
+            GeomInt1::AdjustPeriodic(v, VMin, VMax, PeriodV, v, aDummyShift);
 
           gp_Pnt2d pnt2d(u, v);
           if (myClassifier->Classify(pnt2d, Precision::PConfusion()) != TopAbs_OUT)
@@ -2230,8 +2230,8 @@ Standard_Boolean HLRBRep_Data::RejectedPoint(const IntRes2d_IntersectionPoint& P
   TopAbs_Orientation         Orie     = TopAbs_FORWARD;
   TopAbs_Orientation         Or2      = TopAbs_INTERNAL;
   Standard_Boolean           inverted = Standard_False;
-  const IntRes2d_Transition* Tr1;
-  const IntRes2d_Transition* Tr2;
+  const Transition3* Tr1;
+  const Transition3* Tr2;
   Standard_Real              TolZ = myBigSize * 0.00001;
 
   p1 = ((HLRBRep_Curve*)myLEGeom)->Parameter3d(PInter.ParamOnFirst());

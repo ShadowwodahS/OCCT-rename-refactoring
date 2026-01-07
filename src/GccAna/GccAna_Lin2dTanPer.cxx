@@ -37,7 +37,7 @@
 //   Create the straight line of origin     : ThePoint                           +
 //                  and direction  : TheLin.Direction() turned by 90   +
 //=========================================================================
-GccAna_Lin2dTanPer::GccAna_Lin2dTanPer(const gp_Pnt2d& ThePnt, const gp_Lin2d& TheLin)
+Line2dTangentPerpendicular::Line2dTangentPerpendicular(const gp_Pnt2d& ThePnt, const gp_Lin2d& TheLin)
     : linsol(1, 1),
       qualifier1(1, 1),
       pnttg1sol(1, 1),
@@ -80,7 +80,7 @@ GccAna_Lin2dTanPer::GccAna_Lin2dTanPer(const gp_Pnt2d& ThePnt, const gp_Lin2d& T
 //                  and direction        : (TheCircle.Location(),ThePnt).     +
 //=========================================================================
 
-GccAna_Lin2dTanPer::GccAna_Lin2dTanPer(const gp_Pnt2d& ThePnt, const gp_Circ2d& TheCircle)
+Line2dTangentPerpendicular::Line2dTangentPerpendicular(const gp_Pnt2d& ThePnt, const gp_Circ2d& TheCircle)
     : linsol(1, 1),
       qualifier1(1, 1),
       pnttg1sol(1, 1),
@@ -126,7 +126,7 @@ GccAna_Lin2dTanPer::GccAna_Lin2dTanPer(const gp_Pnt2d& ThePnt, const gp_Circ2d& 
 //                  and direction        : TheLin.Direction() turned by 90`   +
 //=========================================================================
 
-GccAna_Lin2dTanPer::GccAna_Lin2dTanPer(const GccEnt_QualifiedCirc& Qualified1,
+Line2dTangentPerpendicular::Line2dTangentPerpendicular(const QualifiedCircle& Qualified1,
                                        const gp_Lin2d&             TheLin)
     : linsol(1, 2),
       qualifier1(1, 2),
@@ -205,7 +205,7 @@ GccAna_Lin2dTanPer::GccAna_Lin2dTanPer(const GccEnt_QualifiedCirc& Qualified1,
 //                  and direction        : TheLin.Direction() turned by 90`   +
 //=========================================================================
 
-GccAna_Lin2dTanPer::GccAna_Lin2dTanPer(const GccEnt_QualifiedCirc& Qualified1,
+Line2dTangentPerpendicular::Line2dTangentPerpendicular(const QualifiedCircle& Qualified1,
                                        const gp_Circ2d&            TheCircle)
     : linsol(1, 2),
       qualifier1(1, 2),
@@ -280,12 +280,12 @@ GccAna_Lin2dTanPer::GccAna_Lin2dTanPer(const GccEnt_QualifiedCirc& Qualified1,
   }
 }
 
-Standard_Boolean GccAna_Lin2dTanPer::IsDone() const
+Standard_Boolean Line2dTangentPerpendicular::IsDone() const
 {
   return WellDone;
 }
 
-Standard_Integer GccAna_Lin2dTanPer::NbSolutions() const
+Standard_Integer Line2dTangentPerpendicular::NbSolutions() const
 {
   if (!WellDone)
   {
@@ -294,7 +294,7 @@ Standard_Integer GccAna_Lin2dTanPer::NbSolutions() const
   return NbrSol;
 }
 
-gp_Lin2d GccAna_Lin2dTanPer::ThisSolution(const Standard_Integer Index) const
+gp_Lin2d Line2dTangentPerpendicular::ThisSolution(const Standard_Integer Index) const
 {
   if (!WellDone)
   {
@@ -307,7 +307,7 @@ gp_Lin2d GccAna_Lin2dTanPer::ThisSolution(const Standard_Integer Index) const
   return linsol(Index);
 }
 
-void GccAna_Lin2dTanPer::WhichQualifier(const Standard_Integer Index,
+void Line2dTangentPerpendicular::WhichQualifier(const Standard_Integer Index,
                                         GccEnt_Position&       Qualif1) const
 {
   if (!WellDone)
@@ -324,7 +324,7 @@ void GccAna_Lin2dTanPer::WhichQualifier(const Standard_Integer Index,
   }
 }
 
-void GccAna_Lin2dTanPer::Tangency1(const Standard_Integer Index,
+void Line2dTangentPerpendicular::Tangency1(const Standard_Integer Index,
                                    Standard_Real&         ParSol,
                                    Standard_Real&         ParArg,
                                    gp_Pnt2d&              Pnt) const
@@ -345,7 +345,7 @@ void GccAna_Lin2dTanPer::Tangency1(const Standard_Integer Index,
   }
 }
 
-void GccAna_Lin2dTanPer::Intersection2(const Standard_Integer Index,
+void Line2dTangentPerpendicular::Intersection2(const Standard_Integer Index,
                                        Standard_Real&         ParSol,
                                        Standard_Real&         ParArg,
                                        gp_Pnt2d&              PntSol) const

@@ -47,7 +47,7 @@ class gp_Circ2d;
 //! outside C1.
 //! With Tolerance we will give a solution if the distance
 //! between C1 and Pcenter is lower than or equal Tolerance/2.
-class Geom2dGcc_Circ2dTanCenGeo
+class Circle2dTangentCenterGeo
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -55,7 +55,7 @@ public:
   //! This method implements the algorithms used to
   //! create 2d circles tangent to a circle and
   //! centered on a point.
-  Standard_EXPORT Geom2dGcc_Circ2dTanCenGeo(const Geom2dGcc_QCurve& Qualified1,
+  Standard_EXPORT Circle2dTangentCenterGeo(const Geom2dGcc_QCurve& Qualified1,
                                             const gp_Pnt2d&         Pcenter,
                                             const Standard_Real     Tolerance);
 

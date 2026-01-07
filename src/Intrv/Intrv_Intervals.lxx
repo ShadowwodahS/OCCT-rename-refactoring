@@ -29,7 +29,7 @@ inline Standard_Integer Intrv_Intervals::NbIntervals() const
 
 //=======================================================================
 // function : Value
-// purpose  : returns the Interval of rank Index
+// purpose  : returns the Interval1 of rank Index
 //=======================================================================
 
 inline const Intrv_Interval& Intrv_Intervals::Value(const Standard_Integer Index) const

@@ -33,7 +33,7 @@
 
 //=================================================================================================
 
-Handle(GeomCurve2d) GeomAPI::To2d(const Handle(GeomCurve3d)& C, const gp_Pln& P)
+Handle(GeomCurve2d) GeomAPI1::To2d(const Handle(GeomCurve3d)& C, const gp_Pln& P)
 {
   Handle(GeomCurve2d)        result;
   Handle(GeomAdaptor_Curve)   HC    = new GeomAdaptor_Curve(C);
@@ -52,7 +52,7 @@ Handle(GeomCurve2d) GeomAPI::To2d(const Handle(GeomCurve3d)& C, const gp_Pln& P)
 
 //=================================================================================================
 
-Handle(GeomCurve3d) GeomAPI::To3d(const Handle(GeomCurve2d)& C, const gp_Pln& P)
+Handle(GeomCurve3d) GeomAPI1::To3d(const Handle(GeomCurve2d)& C, const gp_Pln& P)
 {
   Handle(Geom2dAdaptor_Curve) AHC = new Geom2dAdaptor_Curve(C);
 

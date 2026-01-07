@@ -94,7 +94,7 @@ static Standard_Real MaxRad(const Handle(ChFiDS_FilSpine)& fsp,
   //#else
   // Standard_Real radiussect;
   //#endif
-   Handle(Law_Composite) lc = fsp->Law(HGuide);
+   Handle(Law_Composite) lc = fsp->Law1(HGuide);
    for(Standard_Integer i = 0; i <= 5; i++){
      w = fi + i*longueur*0.2;
      temp = lc->Value(w);
@@ -121,7 +121,7 @@ static void SimulParams(const Handle(ChFiDS_ElSpine)&  HGuide,
   else
   {
     radiussect               = 0.;
-    Handle(Law_Composite) lc = fsp->Law(HGuide);
+    Handle(Law_Composite) lc = fsp->Law1(HGuide);
     for (Standard_Integer i = 0; i <= 5; i++)
     {
       w                  = fi + i * longueur * 0.2;
@@ -650,8 +650,8 @@ Standard_Boolean ChFi3d_FilBuilder::SimulSurf(Handle(ChFiDS_SurfData)&          
   }
   else
   {
-    BRepBlend_EvolRad    Func(S1, S2, HGuide, fsp->Law(HGuide));
-    BRepBlend_EvolRadInv FInv(S1, S2, HGuide, fsp->Law(HGuide));
+    BRepBlend_EvolRad    Func(S1, S2, HGuide, fsp->Law1(HGuide));
+    BRepBlend_EvolRadInv FInv(S1, S2, HGuide, fsp->Law1(HGuide));
     Func.Set(Choix);
     FInv.Set(Choix);
     Func.Set(myShape);
@@ -891,12 +891,12 @@ void ChFi3d_FilBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           Data,
   }
   else
   {
-    BRepBlend_SurfRstEvolRad         func(HS2, HS1, PC1, HGuide, fsp->Law(HGuide));
+    BRepBlend_SurfRstEvolRad         func(HS2, HS1, PC1, HGuide, fsp->Law1(HGuide));
     Handle(Adaptor3d_CurveOnSurface) HC = new Adaptor3d_CurveOnSurface();
     HC->Load(PC1, HS1);
-    BRepBlend_SurfCurvEvolRadInv  finvc(HS2, HC, HGuide, fsp->Law(HGuide));
-    BRepBlend_SurfPointEvolRadInv finvp(HS2, HGuide, fsp->Law(HGuide));
-    BRepBlend_EvolRadInv          finv(HS2, HSref1, HGuide, fsp->Law(HGuide));
+    BRepBlend_SurfCurvEvolRadInv  finvc(HS2, HC, HGuide, fsp->Law1(HGuide));
+    BRepBlend_SurfPointEvolRadInv finvp(HS2, HGuide, fsp->Law1(HGuide));
+    BRepBlend_EvolRadInv          finv(HS2, HSref1, HGuide, fsp->Law1(HGuide));
     finv.Set(Standard_False, PCref1);
     Standard_Integer petitchoix = 1;
     if (Or2 == TopAbs_REVERSED)
@@ -1109,12 +1109,12 @@ void ChFi3d_FilBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           Data,
   }
   else
   {
-    BRepBlend_SurfRstEvolRad         func(HS1, HS2, PC2, HGuide, fsp->Law(HGuide));
+    BRepBlend_SurfRstEvolRad         func(HS1, HS2, PC2, HGuide, fsp->Law1(HGuide));
     Handle(Adaptor3d_CurveOnSurface) HC = new Adaptor3d_CurveOnSurface();
     HC->Load(PC2, HS2);
-    BRepBlend_SurfCurvEvolRadInv  finvc(HS1, HC, HGuide, fsp->Law(HGuide));
-    BRepBlend_SurfPointEvolRadInv finvp(HS1, HGuide, fsp->Law(HGuide));
-    BRepBlend_EvolRadInv          finv(HS1, HSref2, HGuide, fsp->Law(HGuide));
+    BRepBlend_SurfCurvEvolRadInv  finvc(HS1, HC, HGuide, fsp->Law1(HGuide));
+    BRepBlend_SurfPointEvolRadInv finvp(HS1, HGuide, fsp->Law1(HGuide));
+    BRepBlend_EvolRadInv          finv(HS1, HSref2, HGuide, fsp->Law1(HGuide));
     finv.Set(Standard_False, PCref2);
     Standard_Integer petitchoix = 1;
     if (Or1 == TopAbs_REVERSED)
@@ -1335,16 +1335,16 @@ void ChFi3d_FilBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           Data,
   }
   else
   {
-    BRepBlend_RstRstEvolRad func(HS1, PC1, HS2, PC2, HGuide, fsp->Law(HGuide));
+    BRepBlend_RstRstEvolRad func(HS1, PC1, HS2, PC2, HGuide, fsp->Law1(HGuide));
     func.Set(HSref1, PCref1, HSref2, PCref2);
     Handle(Adaptor3d_CurveOnSurface) HC1 = new Adaptor3d_CurveOnSurface();
     HC1->Load(PC1, HS1);
     Handle(Adaptor3d_CurveOnSurface) HC2 = new Adaptor3d_CurveOnSurface();
     HC2->Load(PC2, HS2);
 
-    BRepBlend_SurfCurvEvolRadInv finv1(HSref1, HC2, HGuide, fsp->Law(HGuide));
+    BRepBlend_SurfCurvEvolRadInv finv1(HSref1, HC2, HGuide, fsp->Law1(HGuide));
     BRepBlend_CurvPointRadInv    finvp1(HGuide, HC2);
-    BRepBlend_SurfCurvEvolRadInv finv2(HSref2, HC1, HGuide, fsp->Law(HGuide));
+    BRepBlend_SurfCurvEvolRadInv finv2(HSref2, HC1, HGuide, fsp->Law1(HGuide));
     BRepBlend_CurvPointRadInv    finvp2(HGuide, HC1);
 
     finv1.Set(PCref1);
@@ -1469,7 +1469,7 @@ Standard_Boolean ChFi3d_FilBuilder::PerformFirstSection(const Handle(ChFiDS_Spin
   }
   else
   {
-    BRepBlend_EvolRad Func(S1, S2, HGuide, fsp->Law(HGuide));
+    BRepBlend_EvolRad Func(S1, S2, HGuide, fsp->Law1(HGuide));
     Func.Set(Choix);
     Func.Set(myShape);
     BRepBlend_Walking TheWalk(S1, S2, I1, I2, HGuide);
@@ -1580,8 +1580,8 @@ Standard_Boolean ChFi3d_FilBuilder::PerformSurf(ChFiDS_SequenceOfSurfData&      
   }
   else
   {
-    BRepBlend_EvolRad    Func(S1, S2, HGuide, fsp->Law(HGuide));
-    BRepBlend_EvolRadInv FInv(S1, S2, HGuide, fsp->Law(HGuide));
+    BRepBlend_EvolRad    Func(S1, S2, HGuide, fsp->Law1(HGuide));
+    BRepBlend_EvolRadInv FInv(S1, S2, HGuide, fsp->Law1(HGuide));
     Func.Set(Choix);
     FInv.Set(Choix);
     Func.Set(myShape);
@@ -1742,13 +1742,13 @@ void ChFi3d_FilBuilder::PerformSurf(ChFiDS_SequenceOfSurfData&         SeqData,
   }
   else
   {
-    BRepBlend_SurfRstEvolRad func(HS2, HS1, PC1, HGuide, fsp->Law(HGuide));
+    BRepBlend_SurfRstEvolRad func(HS2, HS1, PC1, HGuide, fsp->Law1(HGuide));
     func.Set(HSref1, PCref1);
     Handle(Adaptor3d_CurveOnSurface) HC = new Adaptor3d_CurveOnSurface();
     HC->Load(PC1, HS1);
-    BRepBlend_SurfCurvEvolRadInv  finvc(HS2, HC, HGuide, fsp->Law(HGuide));
-    BRepBlend_SurfPointEvolRadInv finvp(HS2, HGuide, fsp->Law(HGuide));
-    BRepBlend_EvolRadInv          finv(HS2, HSref1, HGuide, fsp->Law(HGuide));
+    BRepBlend_SurfCurvEvolRadInv  finvc(HS2, HC, HGuide, fsp->Law1(HGuide));
+    BRepBlend_SurfPointEvolRadInv finvp(HS2, HGuide, fsp->Law1(HGuide));
+    BRepBlend_EvolRadInv          finv(HS2, HSref1, HGuide, fsp->Law1(HGuide));
     finv.Set(Standard_False, PCref1);
     Standard_Integer petitchoix = 1;
     if (Or2 == TopAbs_REVERSED)
@@ -1899,13 +1899,13 @@ void ChFi3d_FilBuilder::PerformSurf(ChFiDS_SequenceOfSurfData&         SeqData,
   }
   else
   {
-    BRepBlend_SurfRstEvolRad func(HS1, HS2, PC2, HGuide, fsp->Law(HGuide));
+    BRepBlend_SurfRstEvolRad func(HS1, HS2, PC2, HGuide, fsp->Law1(HGuide));
     func.Set(HSref2, PCref2);
     Handle(Adaptor3d_CurveOnSurface) HC = new Adaptor3d_CurveOnSurface();
     HC->Load(PC2, HS2);
-    BRepBlend_SurfCurvEvolRadInv  finvc(HS1, HC, HGuide, fsp->Law(HGuide));
-    BRepBlend_SurfPointEvolRadInv finvp(HS1, HGuide, fsp->Law(HGuide));
-    BRepBlend_EvolRadInv          finv(HS1, HSref2, HGuide, fsp->Law(HGuide));
+    BRepBlend_SurfCurvEvolRadInv  finvc(HS1, HC, HGuide, fsp->Law1(HGuide));
+    BRepBlend_SurfPointEvolRadInv finvp(HS1, HGuide, fsp->Law1(HGuide));
+    BRepBlend_EvolRadInv          finv(HS1, HSref2, HGuide, fsp->Law1(HGuide));
     finv.Set(Standard_False, PCref2);
     Standard_Integer petitchoix = 1;
     if (Or1 == TopAbs_REVERSED)
@@ -2074,16 +2074,16 @@ void ChFi3d_FilBuilder::PerformSurf(ChFiDS_SequenceOfSurfData&         SeqData,
   }
   else
   {
-    BRepBlend_RstRstEvolRad func(HS1, PC1, HS2, PC2, HGuide, fsp->Law(HGuide));
+    BRepBlend_RstRstEvolRad func(HS1, PC1, HS2, PC2, HGuide, fsp->Law1(HGuide));
     func.Set(HSref1, PCref1, HSref2, PCref2);
     Handle(Adaptor3d_CurveOnSurface) HC1 = new Adaptor3d_CurveOnSurface();
     HC1->Load(PC1, HS1);
     Handle(Adaptor3d_CurveOnSurface) HC2 = new Adaptor3d_CurveOnSurface();
     HC2->Load(PC2, HS2);
 
-    BRepBlend_SurfCurvEvolRadInv finv1(HSref1, HC2, HGuide, fsp->Law(HGuide));
+    BRepBlend_SurfCurvEvolRadInv finv1(HSref1, HC2, HGuide, fsp->Law1(HGuide));
     BRepBlend_CurvPointRadInv    finvp1(HGuide, HC2);
-    BRepBlend_SurfCurvEvolRadInv finv2(HSref2, HC1, HGuide, fsp->Law(HGuide));
+    BRepBlend_SurfCurvEvolRadInv finv2(HSref2, HC1, HGuide, fsp->Law1(HGuide));
     BRepBlend_CurvPointRadInv    finvp2(HGuide, HC1);
 
     finv1.Set(PCref1);

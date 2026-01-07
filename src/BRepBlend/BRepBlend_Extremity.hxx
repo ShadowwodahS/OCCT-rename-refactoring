@@ -28,7 +28,7 @@
 #include <Standard_Boolean.hxx>
 #include <Standard_Integer.hxx>
 class Adaptor3d_HVertex;
-class IntSurf_Transition;
+class Transition2;
 class BRepBlend_PointOnRst;
 
 class BRepBlend_Extremity
@@ -107,8 +107,8 @@ public:
   //! A, at parameter Param.
   Standard_EXPORT void AddArc(const Handle(Adaptor2d_Curve2d)& A,
                               const Standard_Real              Param,
-                              const IntSurf_Transition&        TLine,
-                              const IntSurf_Transition&        TArc);
+                              const Transition2&        TLine,
+                              const Transition2&        TArc);
 
   //! This method returns the parameters of the point
   //! on the concerned surface.

@@ -24,10 +24,10 @@
 #include <math_BFGS.hxx>
 #include <math_Vector.hxx>
 class GeomInt_TheMultiLineOfWLApprox;
-class GeomInt_TheMultiLineToolOfWLApprox;
+class MultiLineToolWLApprox;
 class GeomInt_MyGradientbisOfTheComputeLineOfWLApprox;
 class GeomInt_ParLeastSquareOfMyGradientbisOfTheComputeLineOfWLApprox;
-class GeomInt_ResConstraintOfMyGradientbisOfTheComputeLineOfWLApprox;
+class ResConstraintGradientbisLine;
 class GeomInt_ParFunctionOfMyGradientbisOfTheComputeLineOfWLApprox;
 class math_MultipleVarFunctionWithGradient;
 

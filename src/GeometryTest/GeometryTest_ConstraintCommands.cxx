@@ -58,7 +58,7 @@ Standard_IMPORT DrawViewer dout;
 Standard_IMPORT DrawColor DrawTrSurf_CurveColor(const DrawColor);
 
 static Standard_Integer solutions(DrawInterpreter&        di,
-                                  Geom2dGcc_Circ2d2TanRad& ct3,
+                                  Circ2d2TanRad1& ct3,
                                   const char*              name)
 {
   char solname[200];
@@ -84,7 +84,7 @@ static Standard_Integer solutions(DrawInterpreter&        di,
   }
 }
 
-static Standard_Integer solutions(DrawInterpreter& di, Geom2dGcc_Circ2d3Tan& ct3, const char* name)
+static Standard_Integer solutions(DrawInterpreter& di, Circ2d3Tan1& ct3, const char* name)
 {
   char solname[200];
 
@@ -112,7 +112,7 @@ static Standard_Integer solutions(DrawInterpreter& di, Geom2dGcc_Circ2d3Tan& ct3
 //=================================================================================================
 
 static Standard_Integer solutions(DrawInterpreter&       theDI,
-                                  Geom2dGcc_Circ2dTanCen& theCt2,
+                                  Circ2dTanCen1& theCt2,
                                   const char*             theName)
 {
   char solname[200];
@@ -216,9 +216,9 @@ static Standard_Integer Cirtang(DrawInterpreter& theDI,
   if (aNbCurves == 3)
   {
     // C-C-C
-    Geom2dGcc_Circ2d3Tan aCt3(Geom2dGcc::Unqualified(aC[0]),
-                              Geom2dGcc::Unqualified(aC[1]),
-                              Geom2dGcc::Unqualified(aC[2]),
+    Circ2d3Tan1 aCt3(Geom2dGcc1::Unqualified(aC[0]),
+                              Geom2dGcc1::Unqualified(aC[1]),
+                              Geom2dGcc1::Unqualified(aC[2]),
                               aTol,
                               0,
                               0,
@@ -231,8 +231,8 @@ static Standard_Integer Cirtang(DrawInterpreter& theDI,
     if (aNbPnts >= 1)
     {
       // C-C-P
-      Geom2dGcc_Circ2d3Tan aCt3(Geom2dGcc::Unqualified(aC[0]),
-                                Geom2dGcc::Unqualified(aC[1]),
+      Circ2d3Tan1 aCt3(Geom2dGcc1::Unqualified(aC[0]),
+                                Geom2dGcc1::Unqualified(aC[1]),
                                 new Geom2d_CartesianPoint(aP[0]),
                                 aTol,
                                 0,
@@ -243,8 +243,8 @@ static Standard_Integer Cirtang(DrawInterpreter& theDI,
     else if (aRadius > 0)
     {
       // C-C-R
-      Geom2dGcc_Circ2d2TanRad aCt3(Geom2dGcc::Unqualified(aC[0]),
-                                   Geom2dGcc::Unqualified(aC[1]),
+      Circ2d2TanRad1 aCt3(Geom2dGcc1::Unqualified(aC[0]),
+                                   Geom2dGcc1::Unqualified(aC[1]),
                                    aRadius,
                                    aTol);
       theDI << "Solution of type C-C-R is: ";
@@ -259,7 +259,7 @@ static Standard_Integer Cirtang(DrawInterpreter& theDI,
     if (aNbPnts == 2)
     {
       // C-P-P
-      Geom2dGcc_Circ2d3Tan aCt3(Geom2dGcc::Unqualified(aC[0]),
+      Circ2d3Tan1 aCt3(Geom2dGcc1::Unqualified(aC[0]),
                                 new Geom2d_CartesianPoint(aP[0]),
                                 new Geom2d_CartesianPoint(aP[1]),
                                 aTol,
@@ -272,7 +272,7 @@ static Standard_Integer Cirtang(DrawInterpreter& theDI,
       if (aRadius > 0.0)
       {
         // C-P-R
-        Geom2dGcc_Circ2d2TanRad aCt3(Geom2dGcc::Unqualified(aC[0]),
+        Circ2d2TanRad1 aCt3(Geom2dGcc1::Unqualified(aC[0]),
                                      new Geom2d_CartesianPoint(aP[0]),
                                      aRadius,
                                      aTol);
@@ -282,7 +282,7 @@ static Standard_Integer Cirtang(DrawInterpreter& theDI,
       else
       {
         // C-P
-        Geom2dGcc_Circ2dTanCen aCt2(Geom2dGcc::Unqualified(aC[0]),
+        Circ2dTanCen1 aCt2(Geom2dGcc1::Unqualified(aC[0]),
                                     new Geom2d_CartesianPoint(aP[0]),
                                     aTol);
         theDI << "Solution of type C-P is: ";
@@ -298,7 +298,7 @@ static Standard_Integer Cirtang(DrawInterpreter& theDI,
     if (aNbPnts == 3)
     {
       // P-P-P
-      Geom2dGcc_Circ2d3Tan aCt3(new Geom2d_CartesianPoint(aP[0]),
+      Circ2d3Tan1 aCt3(new Geom2d_CartesianPoint(aP[0]),
                                 new Geom2d_CartesianPoint(aP[1]),
                                 new Geom2d_CartesianPoint(aP[2]),
                                 aTol);
@@ -308,7 +308,7 @@ static Standard_Integer Cirtang(DrawInterpreter& theDI,
     else if (aRadius > 0)
     {
       // P-P-R
-      Geom2dGcc_Circ2d2TanRad aCt3(new Geom2d_CartesianPoint(aP[0]),
+      Circ2d2TanRad1 aCt3(new Geom2d_CartesianPoint(aP[0]),
                                    new Geom2d_CartesianPoint(aP[1]),
                                    aRadius,
                                    aTol);
@@ -350,7 +350,7 @@ static Standard_Integer lintang(DrawInterpreter& di, Standard_Integer n, const c
       return 1;
     }
     Standard_Real         ang = Draw1::Atof(a[4]) * (M_PI / 180.0);
-    Geom2dGcc_Lin2dTanObl ct3(Geom2dGcc::Unqualified(C1),
+    Lin2dTanObl1 ct3(Geom2dGcc1::Unqualified(C1),
                               L->Lin2d(),
                               Precision::Angular(),
                               (C1->FirstParameter() + C1->LastParameter()) / 2.,
@@ -371,8 +371,8 @@ static Standard_Integer lintang(DrawInterpreter& di, Standard_Integer n, const c
   }
   else
   {
-    Geom2dGcc_Lin2d2Tan ct3(Geom2dGcc::Unqualified(C1),
-                            Geom2dGcc::Unqualified(C2),
+    Lin2d2Tan1 ct3(Geom2dGcc1::Unqualified(C1),
+                            Geom2dGcc1::Unqualified(C2),
                             Precision::Angular(),
                             (C1->FirstParameter() + C1->LastParameter()) / 2.,
                             (C2->FirstParameter() + C2->LastParameter()) / 2.);

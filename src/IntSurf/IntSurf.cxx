@@ -20,16 +20,16 @@
 #include <gp_Vec.hxx>
 
 //--------------------------------------------------------------
-//-- IntSurf::MakeTransition(Vtgint,Vtgrst,Normale,Transline,Transarc);
+//-- IntSurf1::MakeTransition(Vtgint,Vtgrst,Normale,Transline,Transarc);
 //--
 //-- tgFirst   = Tangente Ligne Intersection
 //-- tgSecond  = Tangenet Restriction
 //-- Normale   = Normale a la surface
-void IntSurf::MakeTransition(const Vector3d&       TgFirst,
+void IntSurf1::MakeTransition(const Vector3d&       TgFirst,
                              const Vector3d&       TgSecond,
                              const Dir3d&       Normale,
-                             IntSurf_Transition& TFirst,
-                             IntSurf_Transition& TSecond)
+                             Transition2& TFirst,
+                             Transition2& TSecond)
 
 {
 
@@ -100,7 +100,7 @@ void IntSurf::MakeTransition(const Vector3d&       TgFirst,
 
 //=================================================================================================
 
-void IntSurf::SetPeriod(const Handle(Adaptor3d_Surface)& theFirstSurf,
+void IntSurf1::SetPeriod(const Handle(Adaptor3d_Surface)& theFirstSurf,
                         const Handle(Adaptor3d_Surface)& theSecondSurf,
                         Standard_Real                    theArrOfPeriod[4])
 {

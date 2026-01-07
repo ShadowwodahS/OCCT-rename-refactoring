@@ -24,10 +24,10 @@
 #include <Standard_Boolean.hxx>
 #include <IntCurveSurface_SequenceOfPnt.hxx>
 #include <IntCurveSurface_SequenceOfSeg.hxx>
-class IntCurveSurface_IntersectionPoint;
+class IntersectionPoint1;
 class IntCurveSurface_IntersectionSegment;
 
-class IntCurveSurface_Intersection
+class CurveSurfaceIntersection1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -44,7 +44,7 @@ public:
   //! raises NotDone if the computation has failed or if
   //! the computation has not been done
   //! raises OutOfRange if Index is not in the range <1..NbPoints>
-  Standard_EXPORT const IntCurveSurface_IntersectionPoint& Point(
+  Standard_EXPORT const IntersectionPoint1& Point(
     const Standard_Integer Index) const;
 
   //! returns the number of IntersectionSegment
@@ -69,25 +69,25 @@ public:
 
 protected:
   //! Empty Constructor;
-  Standard_EXPORT IntCurveSurface_Intersection();
+  Standard_EXPORT CurveSurfaceIntersection1();
 
   //! Destructor is protected, for safe inheritance
-  ~IntCurveSurface_Intersection() {}
+  ~CurveSurfaceIntersection1() {}
 
   //! Internal method
   //! copy the <Inter> fields to <me>
-  Standard_EXPORT void SetValues(const IntCurveSurface_Intersection& Inter);
+  Standard_EXPORT void SetValues(const CurveSurfaceIntersection1& Inter);
 
   //! Internal method
   //! Append the IntersectionPoints and
   //! IntersectionSegments of <Inter> to <me>.
-  Standard_EXPORT void Append(const IntCurveSurface_Intersection& Inter,
+  Standard_EXPORT void Append(const CurveSurfaceIntersection1& Inter,
                               const Standard_Real                 FirstParamOnCurve,
                               const Standard_Real                 LastParamOnCurve);
 
   //! Internal method
   //! Append the IntersectionPoints of <Inter> to <me>
-  Standard_EXPORT void Append(const IntCurveSurface_IntersectionPoint& Pt);
+  Standard_EXPORT void Append(const IntersectionPoint1& Pt);
 
   //! Internal method
   //! Append the IntersectionPoints of <Inter> to <me>

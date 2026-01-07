@@ -27,12 +27,12 @@ class Point3d;
 class Vector3d;
 
 //! To convert circular section in polynome
-class GeomFill_PolynomialConvertor
+class PolynomialConverter
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT GeomFill_PolynomialConvertor();
+  Standard_EXPORT PolynomialConverter();
 
   //! say if <me> is Initialized
   Standard_EXPORT Standard_Boolean Initialized() const;

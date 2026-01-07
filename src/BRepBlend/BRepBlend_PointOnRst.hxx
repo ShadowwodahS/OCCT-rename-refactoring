@@ -37,15 +37,15 @@ public:
   //! TArc on the arc A.
   Standard_EXPORT BRepBlend_PointOnRst(const Handle(Adaptor2d_Curve2d)& A,
                                        const Standard_Real              Param,
-                                       const IntSurf_Transition&        TLine,
-                                       const IntSurf_Transition&        TArc);
+                                       const Transition2&        TLine,
+                                       const Transition2&        TArc);
 
   //! Sets the values of a point which is on the arc
   //! A, at parameter Param.
   Standard_EXPORT void SetArc(const Handle(Adaptor2d_Curve2d)& A,
                               const Standard_Real              Param,
-                              const IntSurf_Transition&        TLine,
-                              const IntSurf_Transition&        TArc);
+                              const Transition2&        TLine,
+                              const Transition2&        TArc);
 
   //! Returns the arc of restriction containing the
   //! vertex.
@@ -53,11 +53,11 @@ public:
 
   //! Returns the transition of the point on the
   //! line on surface.
-  const IntSurf_Transition& TransitionOnLine() const;
+  const Transition2& TransitionOnLine() const;
 
   //! Returns the transition of the point on the arc
   //! returned by Arc().
-  const IntSurf_Transition& TransitionOnArc() const;
+  const Transition2& TransitionOnArc() const;
 
   //! Returns the parameter of the point on the
   //! arc returned by the method Arc().
@@ -66,8 +66,8 @@ public:
 protected:
 private:
   Handle(Adaptor2d_Curve2d) arc;
-  IntSurf_Transition        traline;
-  IntSurf_Transition        traarc;
+  Transition2        traline;
+  Transition2        traarc;
   Standard_Real             prm;
 };
 

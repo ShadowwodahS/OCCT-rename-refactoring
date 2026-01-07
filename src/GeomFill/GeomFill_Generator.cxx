@@ -33,7 +33,7 @@ GeomFill_Generator::GeomFill_Generator() {}
 void GeomFill_Generator::Perform(const Standard_Real PTol)
 {
   // Perform the profile of the sections.
-  GeomFill_Profiler::Perform(PTol);
+  Profiler::Perform(PTol);
 
   // Create the surface.
 

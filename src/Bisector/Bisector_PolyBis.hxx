@@ -45,7 +45,7 @@ public:
 
   Standard_EXPORT const Bisector_PointOnBis& Last() const;
 
-  Standard_EXPORT Standard_Integer Interval(const Standard_Real U) const;
+  Standard_EXPORT Standard_Integer Interval1(const Standard_Real U) const;
 
   Standard_EXPORT void Transform(const gp_Trsf2d& T);
 

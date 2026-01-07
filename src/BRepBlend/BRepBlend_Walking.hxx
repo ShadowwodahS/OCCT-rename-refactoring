@@ -40,7 +40,7 @@ class Blend_Function;
 class Blend_FuncInv;
 class Point3d;
 class gp_Pnt2d;
-class IntSurf_Transition;
+class Transition2;
 
 class BRepBlend_Walking
 {
@@ -161,8 +161,8 @@ private:
   Standard_EXPORT void Transition(const Standard_Boolean           OnFirst,
                                   const Handle(Adaptor2d_Curve2d)& A,
                                   const Standard_Real              Param,
-                                  IntSurf_Transition&              TLine,
-                                  IntSurf_Transition&              TArc);
+                                  Transition2&              TLine,
+                                  Transition2&              TArc);
 
   Standard_EXPORT void MakeExtremity(BRepBlend_Extremity&             Extrem,
                                      const Standard_Boolean           OnFirst,

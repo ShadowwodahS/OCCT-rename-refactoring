@@ -49,7 +49,7 @@ public:
                                         const Handle(TColgp_HArray1OfPnt2d)& Poles,
                                         const Standard_Integer               ContrOrder1,
                                         const Standard_Integer               ContrOrder2,
-                                        const FairCurve_BattenLaw&           Law,
+                                        const FairCurve_BattenLaw&           Law1,
                                         const Standard_Real                  PhysicalRatio,
                                         const Standard_Real                  LengthSliding,
                                         const Standard_Boolean FreeSliding = Standard_True,

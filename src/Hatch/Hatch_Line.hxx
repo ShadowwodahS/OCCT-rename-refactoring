@@ -33,14 +33,14 @@
 //!
 //! * A sorted List  of Parameters, the  intersections
 //! on the line.
-class Hatch_Line
+class HatchLine
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Hatch_Line();
+  Standard_EXPORT HatchLine();
 
-  Standard_EXPORT Hatch_Line(const gp_Lin2d& L, const Hatch_LineForm T);
+  Standard_EXPORT HatchLine(const gp_Lin2d& L, const Hatch_LineForm T);
 
   //! Insert a new intersection in the sorted list.
   Standard_EXPORT void AddIntersection(const Standard_Real    Par1,
@@ -49,7 +49,7 @@ public:
                                        const Standard_Real    Par2,
                                        const Standard_Real    theToler);
 
-  friend class Hatch_Hatcher;
+  friend class Hatcher;
 
 protected:
 private:

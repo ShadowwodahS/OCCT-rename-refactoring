@@ -24,7 +24,7 @@
 #include <IntRes2d_Domain.hxx>
 #include <gp_Pnt2d.hxx>
 
-#define ImpTool IntCurve_IConicTool
+#define ImpTool ConicTool
 #define ImpTool_hxx <IntCurve_IConicTool.hxx>
 #define ParCurve Standard_Address
 #define ParCurve_hxx <Standard_Address.hxx>

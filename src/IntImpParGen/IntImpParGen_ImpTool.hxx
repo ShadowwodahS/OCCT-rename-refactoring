@@ -26,7 +26,7 @@ class gp_Pnt2d;
 class gp_Vec2d;
 
 //! Template class for an implicit curve.
-class IntImpParGen_ImpTool
+class ImpTool
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -41,7 +41,7 @@
 #include <math_FunctionSetRoot.hxx>
 #include <StdFail_NotDone.hxx>
 
-Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const Geom2dGcc_QCurve& Qualified1,
+Circle2dThreeTangentIter::Circle2dThreeTangentIter(const Geom2dGcc_QCurve& Qualified1,
                                                    const Geom2dGcc_QCurve& Qualified2,
                                                    const Geom2dGcc_QCurve& Qualified3,
                                                    const Standard_Real     Param1,
@@ -83,18 +83,18 @@ Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const Geom2dGcc_QCurve& Quali
   math_Vector                 Umax(1, 3);
   math_Vector                 Ufirst(1, 3);
   math_Vector                 tol(1, 3);
-  Umin(1)   = Geom2dGcc_CurveTool::FirstParameter(Cu1);
-  Umin(2)   = Geom2dGcc_CurveTool::FirstParameter(Cu2);
-  Umin(3)   = Geom2dGcc_CurveTool::FirstParameter(Cu3);
-  Umax(1)   = Geom2dGcc_CurveTool::LastParameter(Cu1);
-  Umax(2)   = Geom2dGcc_CurveTool::LastParameter(Cu2);
-  Umax(3)   = Geom2dGcc_CurveTool::LastParameter(Cu3);
+  Umin(1)   = CurveTool3::FirstParameter(Cu1);
+  Umin(2)   = CurveTool3::FirstParameter(Cu2);
+  Umin(3)   = CurveTool3::FirstParameter(Cu3);
+  Umax(1)   = CurveTool3::LastParameter(Cu1);
+  Umax(2)   = CurveTool3::LastParameter(Cu2);
+  Umax(3)   = CurveTool3::LastParameter(Cu3);
   Ufirst(1) = Param1;
   Ufirst(2) = Param2;
   Ufirst(3) = Param3;
-  tol(1)    = Geom2dGcc_CurveTool::EpsX(Cu1, Abs(Tolerance));
-  tol(2)    = Geom2dGcc_CurveTool::EpsX(Cu2, Abs(Tolerance));
-  tol(3)    = Geom2dGcc_CurveTool::EpsX(Cu3, Abs(Tolerance));
+  tol(1)    = CurveTool3::EpsX(Cu1, Abs(Tolerance));
+  tol(2)    = CurveTool3::EpsX(Cu2, Abs(Tolerance));
+  tol(3)    = CurveTool3::EpsX(Cu3, Abs(Tolerance));
   math_FunctionSetRoot Root(Func, tol);
   Root.Perform(Func, Ufirst, Umin, Umax);
   if (Root.IsDone())
@@ -103,9 +103,9 @@ Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const Geom2dGcc_QCurve& Quali
     Func.Value(Ufirst, Umin);
     gp_Pnt2d point1, point2, point3;
     gp_Vec2d Tan1, Tan2, Tan3;
-    Geom2dGcc_CurveTool::D1(Cu1, Ufirst(1), point1, Tan1);
-    Geom2dGcc_CurveTool::D1(Cu2, Ufirst(2), point2, Tan2);
-    Geom2dGcc_CurveTool::D1(Cu3, Ufirst(3), point3, Tan3);
+    CurveTool3::D1(Cu1, Ufirst(1), point1, Tan1);
+    CurveTool3::D1(Cu2, Ufirst(2), point2, Tan2);
+    CurveTool3::D1(Cu3, Ufirst(3), point3, Tan3);
     Circle2dThreeTangent circ(point1, point2, point3, Tol);
     if (circ.IsDone())
     {
@@ -184,7 +184,7 @@ Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const Geom2dGcc_QCurve& Quali
   }
 }
 
-Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedCirc& Qualified1,
+Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedCircle& Qualified1,
                                                    const Geom2dGcc_QCurve&     Qualified2,
                                                    const Geom2dGcc_QCurve&     Qualified3,
                                                    const Standard_Real         Param1,
@@ -227,17 +227,17 @@ Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedCirc& Q
   math_Vector                 Ufirst(1, 3);
   math_Vector                 tol(1, 3);
   Umin(1)   = 0.;
-  Umin(2)   = Geom2dGcc_CurveTool::FirstParameter(Cu2);
-  Umin(3)   = Geom2dGcc_CurveTool::FirstParameter(Cu3);
+  Umin(2)   = CurveTool3::FirstParameter(Cu2);
+  Umin(3)   = CurveTool3::FirstParameter(Cu3);
   Umax(1)   = 2 * M_PI;
-  Umax(2)   = Geom2dGcc_CurveTool::LastParameter(Cu2);
-  Umax(3)   = Geom2dGcc_CurveTool::LastParameter(Cu3);
+  Umax(2)   = CurveTool3::LastParameter(Cu2);
+  Umax(3)   = CurveTool3::LastParameter(Cu3);
   Ufirst(1) = Param1;
   Ufirst(2) = Param2;
   Ufirst(3) = Param3;
   tol(1)    = 2.e-15 * M_PI;
-  tol(2)    = Geom2dGcc_CurveTool::EpsX(Cu2, Abs(Tolerance));
-  tol(3)    = Geom2dGcc_CurveTool::EpsX(Cu3, Abs(Tolerance));
+  tol(2)    = CurveTool3::EpsX(Cu2, Abs(Tolerance));
+  tol(3)    = CurveTool3::EpsX(Cu3, Abs(Tolerance));
   math_FunctionSetRoot Root(Func, tol);
   Root.Perform(Func, Ufirst, Umin, Umax);
   if (Root.IsDone())
@@ -251,8 +251,8 @@ Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedCirc& Q
     gp_Pnt2d      point2, point3;
     //     gp_Vec2d Tan2,Tan3,Nor2,Nor3;
     gp_Vec2d Tan2, Tan3;
-    Geom2dGcc_CurveTool::D1(Cu2, Ufirst(2), point2, Tan2);
-    Geom2dGcc_CurveTool::D1(Cu3, Ufirst(3), point3, Tan3);
+    CurveTool3::D1(Cu2, Ufirst(2), point2, Tan2);
+    CurveTool3::D1(Cu3, Ufirst(3), point3, Tan3);
     Circle2dThreeTangent circ(point1, point2, point3, Tol);
     if (circ.IsDone())
     {
@@ -332,8 +332,8 @@ Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedCirc& Q
   }
 }
 
-Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedCirc& Qualified1,
-                                                   const GccEnt_QualifiedCirc& Qualified2,
+Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedCircle& Qualified1,
+                                                   const QualifiedCircle& Qualified2,
                                                    const Geom2dGcc_QCurve&     Qualified3,
                                                    const Standard_Real         Param1,
                                                    const Standard_Real         Param2,
@@ -376,16 +376,16 @@ Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedCirc& Q
   math_Vector                 tol(1, 3);
   Umin(1)   = 0.;
   Umin(2)   = 0.;
-  Umin(3)   = Geom2dGcc_CurveTool::FirstParameter(Cu3);
+  Umin(3)   = CurveTool3::FirstParameter(Cu3);
   Umax(1)   = 2 * M_PI;
   Umax(2)   = 2 * M_PI;
-  Umax(3)   = Geom2dGcc_CurveTool::LastParameter(Cu3);
+  Umax(3)   = CurveTool3::LastParameter(Cu3);
   Ufirst(1) = Param1;
   Ufirst(2) = Param2;
   Ufirst(3) = Param3;
   tol(1)    = 2.e-15 * M_PI;
   tol(2)    = 2.e-15 * M_PI;
-  tol(3)    = Geom2dGcc_CurveTool::EpsX(Cu3, Abs(Tolerance));
+  tol(3)    = CurveTool3::EpsX(Cu3, Abs(Tolerance));
   math_FunctionSetRoot Root(Func, tol);
   Root.Perform(Func, Ufirst, Umin, Umax);
   if (Root.IsDone())
@@ -402,7 +402,7 @@ Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedCirc& Q
     gp_Vec2d      Tan2(Coords2d(-Sin(Ufirst(2)), Cos(Ufirst(2))));
     gp_Pnt2d      point3;
     gp_Vec2d      Tan3;
-    Geom2dGcc_CurveTool::D1(Cu3, Ufirst(3), point3, Tan3);
+    CurveTool3::D1(Cu3, Ufirst(3), point3, Tan3);
     Circle2dThreeTangent circ(point1, point2, point3, Tol);
     if (circ.IsDone())
     {
@@ -483,7 +483,7 @@ Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedCirc& Q
   }
 }
 
-Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedLin& Qualified1,
+Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedLine& Qualified1,
                                                    const Geom2dGcc_QCurve&    Qualified2,
                                                    const Geom2dGcc_QCurve&    Qualified3,
                                                    const Standard_Real        Param1,
@@ -525,17 +525,17 @@ Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedLin& Qu
   math_Vector                 Ufirst(1, 3);
   math_Vector                 tol(1, 3);
   Umin(1)   = RealFirst();
-  Umin(2)   = Geom2dGcc_CurveTool::FirstParameter(Cu2);
-  Umin(3)   = Geom2dGcc_CurveTool::FirstParameter(Cu3);
+  Umin(2)   = CurveTool3::FirstParameter(Cu2);
+  Umin(3)   = CurveTool3::FirstParameter(Cu3);
   Umax(1)   = RealLast();
-  Umax(2)   = Geom2dGcc_CurveTool::LastParameter(Cu2);
-  Umax(3)   = Geom2dGcc_CurveTool::LastParameter(Cu3);
+  Umax(2)   = CurveTool3::LastParameter(Cu2);
+  Umax(3)   = CurveTool3::LastParameter(Cu3);
   Ufirst(1) = Param1;
   Ufirst(2) = Param2;
   Ufirst(3) = Param3;
   tol(1)    = 1.e-15;
-  tol(2)    = Geom2dGcc_CurveTool::EpsX(Cu2, Abs(Tolerance));
-  tol(3)    = Geom2dGcc_CurveTool::EpsX(Cu3, Abs(Tolerance));
+  tol(2)    = CurveTool3::EpsX(Cu2, Abs(Tolerance));
+  tol(3)    = CurveTool3::EpsX(Cu3, Abs(Tolerance));
   math_FunctionSetRoot Root(Func, tol);
   Root.Perform(Func, Ufirst, Umin, Umax);
   if (Root.IsDone())
@@ -546,8 +546,8 @@ Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedLin& Qu
     gp_Pnt2d point1(centre1.XY() + Ufirst(1) * L1.Direction().XY());
     gp_Pnt2d point2, point3;
     gp_Vec2d Tan2, Tan3;
-    Geom2dGcc_CurveTool::D1(Cu2, Ufirst(2), point2, Tan2);
-    Geom2dGcc_CurveTool::D1(Cu3, Ufirst(3), point3, Tan3);
+    CurveTool3::D1(Cu2, Ufirst(2), point2, Tan2);
+    CurveTool3::D1(Cu3, Ufirst(3), point3, Tan3);
     Circle2dThreeTangent circ(point1, point2, point3, Tol);
     if (circ.IsDone())
     {
@@ -633,8 +633,8 @@ Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedLin& Qu
   }
 }
 
-Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedLin& Qualified1,
-                                                   const GccEnt_QualifiedLin& Qualified2,
+Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedLine& Qualified1,
+                                                   const QualifiedLine& Qualified2,
                                                    const Geom2dGcc_QCurve&    Qualified3,
                                                    const Standard_Real        Param1,
                                                    const Standard_Real        Param2,
@@ -675,16 +675,16 @@ Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedLin& Qu
   math_Vector                 tol(1, 3);
   Umin(1)   = RealFirst();
   Umin(2)   = RealFirst();
-  Umin(3)   = Geom2dGcc_CurveTool::FirstParameter(Cu3);
+  Umin(3)   = CurveTool3::FirstParameter(Cu3);
   Umax(1)   = RealLast();
   Umax(2)   = RealLast();
-  Umax(3)   = Geom2dGcc_CurveTool::LastParameter(Cu3);
+  Umax(3)   = CurveTool3::LastParameter(Cu3);
   Ufirst(1) = Param1;
   Ufirst(2) = Param2;
   Ufirst(3) = Param3;
   tol(1)    = 1.e-15;
   tol(2)    = 1.e-15;
-  tol(3)    = Geom2dGcc_CurveTool::EpsX(Cu3, Abs(Tolerance));
+  tol(3)    = CurveTool3::EpsX(Cu3, Abs(Tolerance));
   math_FunctionSetRoot Root(Func, tol);
   Root.Perform(Func, Ufirst, Umin, Umax);
   if (Root.IsDone())
@@ -697,7 +697,7 @@ Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedLin& Qu
     gp_Pnt2d point2(centre2.XY() + Ufirst(2) * L2.Direction().XY());
     gp_Pnt2d point3;
     gp_Vec2d Tan3;
-    Geom2dGcc_CurveTool::D1(Cu3, Ufirst(3), point3, Tan3);
+    CurveTool3::D1(Cu3, Ufirst(3), point3, Tan3);
     Circle2dThreeTangent circ(point1, point2, point3, Tol);
     if (circ.IsDone())
     {
@@ -775,7 +775,7 @@ Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedLin& Qu
   }
 }
 
-Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const Geom2dGcc_QCurve& Qualified1,
+Circle2dThreeTangentIter::Circle2dThreeTangentIter(const Geom2dGcc_QCurve& Qualified1,
                                                    const Geom2dGcc_QCurve& Qualified2,
                                                    const gp_Pnt2d&         Point3,
                                                    const Standard_Real     Param1,
@@ -815,17 +815,17 @@ Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const Geom2dGcc_QCurve& Quali
   math_Vector                 Ufirst(1, 3);
   math_Vector                 tol(1, 3);
   Umin(1)   = 0.;
-  Umin(2)   = Geom2dGcc_CurveTool::FirstParameter(Cu1);
-  Umin(3)   = Geom2dGcc_CurveTool::FirstParameter(Cu2);
+  Umin(2)   = CurveTool3::FirstParameter(Cu1);
+  Umin(3)   = CurveTool3::FirstParameter(Cu2);
   Umax(1)   = 2 * M_PI;
-  Umax(2)   = Geom2dGcc_CurveTool::LastParameter(Cu1);
-  Umax(3)   = Geom2dGcc_CurveTool::LastParameter(Cu2);
+  Umax(2)   = CurveTool3::LastParameter(Cu1);
+  Umax(3)   = CurveTool3::LastParameter(Cu2);
   Ufirst(1) = M_PI;
   Ufirst(2) = Param1;
   Ufirst(3) = Param2;
   tol(1)    = 2.e-15 * M_PI;
-  tol(2)    = Geom2dGcc_CurveTool::EpsX(Cu1, Abs(Tolerance));
-  tol(3)    = Geom2dGcc_CurveTool::EpsX(Cu2, Abs(Tolerance));
+  tol(2)    = CurveTool3::EpsX(Cu1, Abs(Tolerance));
+  tol(3)    = CurveTool3::EpsX(Cu2, Abs(Tolerance));
   math_FunctionSetRoot Root(Func, tol);
   Root.Perform(Func, Ufirst, Umin, Umax);
   if (Root.IsDone())
@@ -835,8 +835,8 @@ Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const Geom2dGcc_QCurve& Quali
     gp_Pnt2d point1, point2;
     //     gp_Vec2d Tan1,Tan2,Nor1,Nor2;
     gp_Vec2d Tan1, Tan2;
-    Geom2dGcc_CurveTool::D1(Cu1, Ufirst(2), point1, Tan1);
-    Geom2dGcc_CurveTool::D1(Cu2, Ufirst(3), point2, Tan2);
+    CurveTool3::D1(Cu1, Ufirst(2), point1, Tan1);
+    CurveTool3::D1(Cu2, Ufirst(3), point2, Tan2);
     Circle2dThreeTangent circ(Point3, point1, point2, Tol);
     if (circ.IsDone())
     {
@@ -909,7 +909,7 @@ Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const Geom2dGcc_QCurve& Quali
   }
 }
 
-Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const Geom2dGcc_QCurve& Qualified1,
+Circle2dThreeTangentIter::Circle2dThreeTangentIter(const Geom2dGcc_QCurve& Qualified1,
                                                    const gp_Pnt2d&         Point2,
                                                    const gp_Pnt2d&         Point3,
                                                    const Standard_Real     Param1,
@@ -948,16 +948,16 @@ Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const Geom2dGcc_QCurve& Quali
   math_Vector                 tol(1, 3);
   Umin(1)   = 0.;
   Umin(2)   = 0.;
-  Umin(3)   = Geom2dGcc_CurveTool::FirstParameter(Cu1);
+  Umin(3)   = CurveTool3::FirstParameter(Cu1);
   Umax(1)   = 2 * M_PI;
   Umax(2)   = 2 * M_PI;
-  Umax(3)   = Geom2dGcc_CurveTool::LastParameter(Cu1);
+  Umax(3)   = CurveTool3::LastParameter(Cu1);
   Ufirst(1) = M_PI;
   Ufirst(2) = M_PI;
   Ufirst(3) = Param1;
   tol(1)    = 2.e-15 * M_PI;
   tol(2)    = 2.e-15 * M_PI;
-  tol(3)    = Geom2dGcc_CurveTool::EpsX(Cu1, Abs(Tolerance));
+  tol(3)    = CurveTool3::EpsX(Cu1, Abs(Tolerance));
   math_FunctionSetRoot Root(Func, tol);
   Root.Perform(Func, Ufirst, Umin, Umax);
   if (Root.IsDone())
@@ -967,7 +967,7 @@ Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const Geom2dGcc_QCurve& Quali
     gp_Pnt2d point3;
     //     gp_Vec2d Tan3,Nor3;
     gp_Vec2d Tan3;
-    Geom2dGcc_CurveTool::D1(Cu1, Ufirst(3), point3, Tan3);
+    CurveTool3::D1(Cu1, Ufirst(3), point3, Tan3);
     Circle2dThreeTangent circ(Point2, Point3, point3, Tol);
     if (circ.IsDone())
     {
@@ -1035,7 +1035,7 @@ Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const Geom2dGcc_QCurve& Quali
   }
 }
 
-Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedLin& Qualified1,
+Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedLine& Qualified1,
                                                    const Geom2dGcc_QCurve&    Qualified2,
                                                    const gp_Pnt2d&            Point3,
                                                    const Standard_Real        Param1,
@@ -1075,17 +1075,17 @@ Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedLin& Qu
   math_Vector                 Ufirst(1, 3);
   math_Vector                 tol(1, 3);
   Umin(2)   = RealFirst();
-  Umin(3)   = Geom2dGcc_CurveTool::FirstParameter(Cu2);
+  Umin(3)   = CurveTool3::FirstParameter(Cu2);
   Umin(1)   = 0.;
   Umax(2)   = RealLast();
-  Umax(3)   = Geom2dGcc_CurveTool::LastParameter(Cu2);
+  Umax(3)   = CurveTool3::LastParameter(Cu2);
   Umax(1)   = 2 * M_PI;
   Ufirst(2) = Param1;
   Ufirst(3) = Param2;
   Ufirst(1) = M_PI;
   tol(1)    = 2.e-15;
   tol(2)    = 1.e-15;
-  tol(3)    = Geom2dGcc_CurveTool::EpsX(Cu2, Abs(Tolerance));
+  tol(3)    = CurveTool3::EpsX(Cu2, Abs(Tolerance));
   math_FunctionSetRoot Root(Func, tol);
   Root.Perform(Func, Ufirst, Umin, Umax);
   if (Root.IsDone())
@@ -1096,7 +1096,7 @@ Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedLin& Qu
     gp_Pnt2d point1(centre1.XY() + Ufirst(2) * L1.Direction().XY());
     gp_Pnt2d point2;
     gp_Vec2d Tan2;
-    Geom2dGcc_CurveTool::D1(Cu2, Ufirst(2), point2, Tan2);
+    CurveTool3::D1(Cu2, Ufirst(2), point2, Tan2);
     Circle2dThreeTangent circ(point1, point2, Point3, Tol);
     if (circ.IsDone())
     {
@@ -1170,8 +1170,8 @@ Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedLin& Qu
   }
 }
 
-Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedCirc& Qualified1,
-                                                   const GccEnt_QualifiedLin&  Qualified2,
+Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedCircle& Qualified1,
+                                                   const QualifiedLine&  Qualified2,
                                                    const Geom2dGcc_QCurve&     Qualified3,
                                                    const Standard_Real         Param1,
                                                    const Standard_Real         Param2,
@@ -1213,16 +1213,16 @@ Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedCirc& Q
   math_Vector                 tol(1, 3);
   Umin(1)   = 0.;
   Umin(2)   = RealFirst();
-  Umin(3)   = Geom2dGcc_CurveTool::FirstParameter(Cu3);
+  Umin(3)   = CurveTool3::FirstParameter(Cu3);
   Umax(1)   = 2 * M_PI;
   Umax(2)   = RealLast();
-  Umax(3)   = Geom2dGcc_CurveTool::LastParameter(Cu3);
+  Umax(3)   = CurveTool3::LastParameter(Cu3);
   Ufirst(1) = Param1;
   Ufirst(2) = Param2;
   Ufirst(3) = Param3;
   tol(1)    = 2.e-15 * M_PI;
   tol(2)    = 1.e-15;
-  tol(3)    = Geom2dGcc_CurveTool::EpsX(Cu3, Abs(Tolerance));
+  tol(3)    = CurveTool3::EpsX(Cu3, Abs(Tolerance));
   math_FunctionSetRoot Root(Func, tol);
   Root.Perform(Func, Ufirst, Umin, Umax);
   if (Root.IsDone())
@@ -1236,7 +1236,7 @@ Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedCirc& Q
     gp_Pnt2d      point2(centre2.XY() + Ufirst(2) * L2.Direction().XY());
     gp_Pnt2d      point3;
     gp_Vec2d      Tan3;
-    Geom2dGcc_CurveTool::D1(Cu3, Ufirst(3), point3, Tan3);
+    CurveTool3::D1(Cu3, Ufirst(3), point3, Tan3);
     Circle2dThreeTangent circ(point1, point2, point3, Tol);
     if (circ.IsDone())
     {
@@ -1317,7 +1317,7 @@ Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedCirc& Q
   }
 }
 
-Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedCirc& Qualified1,
+Circle2dThreeTangentIter::Circle2dThreeTangentIter(const QualifiedCircle& Qualified1,
                                                    const Geom2dGcc_QCurve&     Qualified2,
                                                    const gp_Pnt2d&             Point3,
                                                    const Standard_Real         Param1,
@@ -1358,17 +1358,17 @@ Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedCirc& Q
   math_Vector                 Ufirst(1, 3);
   math_Vector                 tol(1, 3);
   Umin(1)   = 0.;
-  Umin(3)   = Geom2dGcc_CurveTool::FirstParameter(Cu2);
+  Umin(3)   = CurveTool3::FirstParameter(Cu2);
   Umin(2)   = 0.;
   Umax(1)   = 2 * M_PI;
-  Umax(3)   = Geom2dGcc_CurveTool::LastParameter(Cu2);
+  Umax(3)   = CurveTool3::LastParameter(Cu2);
   Umax(2)   = 2 * M_PI;
   Ufirst(1) = Param1;
   Ufirst(2) = M_PI;
   Ufirst(3) = Param2;
   tol(1)    = 2.e-15 * M_PI;
   tol(2)    = 2.e-15 * M_PI;
-  tol(3)    = Geom2dGcc_CurveTool::EpsX(Cu2, Abs(Tolerance));
+  tol(3)    = CurveTool3::EpsX(Cu2, Abs(Tolerance));
   math_FunctionSetRoot Root(Func, tol);
   Root.Perform(Func, Ufirst, Umin, Umax);
   if (Root.IsDone())
@@ -1381,7 +1381,7 @@ Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedCirc& Q
     gp_Pnt2d      point2;
     //     gp_Vec2d Tan2,Nor2;
     gp_Vec2d Tan2;
-    Geom2dGcc_CurveTool::D1(Cu2, Ufirst(2), point2, Tan2);
+    CurveTool3::D1(Cu2, Ufirst(2), point2, Tan2);
     Circle2dThreeTangent circ(point1, point2, Point3, Tol);
     if (circ.IsDone())
     {
@@ -1455,17 +1455,17 @@ Geom2dGcc_Circ2d3TanIter::Geom2dGcc_Circ2d3TanIter(const GccEnt_QualifiedCirc& Q
   }
 }
 
-Standard_Boolean Geom2dGcc_Circ2d3TanIter::IsDone() const
+Standard_Boolean Circle2dThreeTangentIter::IsDone() const
 {
   return WellDone;
 }
 
-gp_Circ2d Geom2dGcc_Circ2d3TanIter::ThisSolution() const
+gp_Circ2d Circle2dThreeTangentIter::ThisSolution() const
 {
   return cirsol;
 }
 
-void Geom2dGcc_Circ2d3TanIter::WhichQualifier(GccEnt_Position& Qualif1,
+void Circle2dThreeTangentIter::WhichQualifier(GccEnt_Position& Qualif1,
                                               GccEnt_Position& Qualif2,
                                               GccEnt_Position& Qualif3) const
 {
@@ -1481,7 +1481,7 @@ void Geom2dGcc_Circ2d3TanIter::WhichQualifier(GccEnt_Position& Qualif1,
   }
 }
 
-void Geom2dGcc_Circ2d3TanIter::Tangency1(Standard_Real& ParSol,
+void Circle2dThreeTangentIter::Tangency1(Standard_Real& ParSol,
                                          Standard_Real& ParArg,
                                          gp_Pnt2d&      PntSol) const
 {
@@ -1504,7 +1504,7 @@ void Geom2dGcc_Circ2d3TanIter::Tangency1(Standard_Real& ParSol,
   }
 }
 
-void Geom2dGcc_Circ2d3TanIter::Tangency2(Standard_Real& ParSol,
+void Circle2dThreeTangentIter::Tangency2(Standard_Real& ParSol,
                                          Standard_Real& ParArg,
                                          gp_Pnt2d&      PntSol) const
 {
@@ -1520,7 +1520,7 @@ void Geom2dGcc_Circ2d3TanIter::Tangency2(Standard_Real& ParSol,
   }
 }
 
-void Geom2dGcc_Circ2d3TanIter::Tangency3(Standard_Real& ParSol,
+void Circle2dThreeTangentIter::Tangency3(Standard_Real& ParSol,
                                          Standard_Real& ParArg,
                                          gp_Pnt2d&      PntSol) const
 {
@@ -1536,7 +1536,7 @@ void Geom2dGcc_Circ2d3TanIter::Tangency3(Standard_Real& ParSol,
   }
 }
 
-Standard_Boolean Geom2dGcc_Circ2d3TanIter::IsTheSame1() const
+Standard_Boolean Circle2dThreeTangentIter::IsTheSame1() const
 {
   if (!WellDone)
     throw StdFail_NotDone();
@@ -1547,7 +1547,7 @@ Standard_Boolean Geom2dGcc_Circ2d3TanIter::IsTheSame1() const
   return Standard_True;
 }
 
-Standard_Boolean Geom2dGcc_Circ2d3TanIter::IsTheSame2() const
+Standard_Boolean Circle2dThreeTangentIter::IsTheSame2() const
 {
   if (!WellDone)
     throw StdFail_NotDone();
@@ -1558,7 +1558,7 @@ Standard_Boolean Geom2dGcc_Circ2d3TanIter::IsTheSame2() const
   return Standard_True;
 }
 
-Standard_Boolean Geom2dGcc_Circ2d3TanIter::IsTheSame3() const
+Standard_Boolean Circle2dThreeTangentIter::IsTheSame3() const
 {
   if (!WellDone)
     throw StdFail_NotDone();

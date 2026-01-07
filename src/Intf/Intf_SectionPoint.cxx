@@ -21,14 +21,14 @@
 
 //=================================================================================================
 
-const Point3d& Intf_SectionPoint::Pnt() const
+const Point3d& SectionPoint::Pnt() const
 {
   return myPnt;
 }
 
 //=================================================================================================
 
-void Intf_SectionPoint::InfoFirst(Intf_PIType&      Dim,
+void SectionPoint::InfoFirst(Intf_PIType&      Dim,
                                   Standard_Integer& Add1,
                                   Standard_Integer& Add2,
                                   Standard_Real&    Param) const
@@ -41,7 +41,7 @@ void Intf_SectionPoint::InfoFirst(Intf_PIType&      Dim,
 
 //=================================================================================================
 
-void Intf_SectionPoint::InfoFirst(Intf_PIType&      Dim,
+void SectionPoint::InfoFirst(Intf_PIType&      Dim,
                                   Standard_Integer& Add,
                                   Standard_Real&    Param) const
 {
@@ -52,7 +52,7 @@ void Intf_SectionPoint::InfoFirst(Intf_PIType&      Dim,
 
 //=================================================================================================
 
-void Intf_SectionPoint::InfoSecond(Intf_PIType&      Dim,
+void SectionPoint::InfoSecond(Intf_PIType&      Dim,
                                    Standard_Integer& Add1,
                                    Standard_Integer& Add2,
                                    Standard_Real&    Param) const
@@ -65,7 +65,7 @@ void Intf_SectionPoint::InfoSecond(Intf_PIType&      Dim,
 
 //=================================================================================================
 
-void Intf_SectionPoint::InfoSecond(Intf_PIType&      Dim,
+void SectionPoint::InfoSecond(Intf_PIType&      Dim,
                                    Standard_Integer& Add,
                                    Standard_Real&    Param) const
 {
@@ -76,14 +76,14 @@ void Intf_SectionPoint::InfoSecond(Intf_PIType&      Dim,
 
 //=================================================================================================
 
-Standard_Real Intf_SectionPoint::Incidence() const
+Standard_Real SectionPoint::Incidence() const
 {
   return Incide;
 }
 
 //=================================================================================================
 
-Standard_Boolean Intf_SectionPoint::IsOnSameEdge(const Intf_SectionPoint& Other) const
+Standard_Boolean SectionPoint::IsOnSameEdge(const SectionPoint& Other) const
 {
   Standard_Boolean isOn = Standard_False;
   if (DimenObje == Intf_EDGE)
@@ -144,7 +144,7 @@ Standard_Boolean Intf_SectionPoint::IsOnSameEdge(const Intf_SectionPoint& Other)
 
 //=================================================================================================
 
-Intf_SectionPoint::Intf_SectionPoint()
+SectionPoint::SectionPoint()
     : myPnt(0., 0., 0.),
       DimenObje(Intf_EXTERNAL),
       IndexO1(0),
@@ -160,7 +160,7 @@ Intf_SectionPoint::Intf_SectionPoint()
 
 //=================================================================================================
 
-Intf_SectionPoint::Intf_SectionPoint(const Point3d&          Where,
+SectionPoint::SectionPoint(const Point3d&          Where,
                                      const Intf_PIType      Dim1,
                                      const Standard_Integer Addr1,
                                      const Standard_Integer Addr2,
@@ -185,7 +185,7 @@ Intf_SectionPoint::Intf_SectionPoint(const Point3d&          Where,
 
 //=================================================================================================
 
-Intf_SectionPoint::Intf_SectionPoint(const gp_Pnt2d&        Where,
+SectionPoint::SectionPoint(const gp_Pnt2d&        Where,
                                      const Intf_PIType      Dim1,
                                      const Standard_Integer Addr1,
                                      const Standard_Real    Param1,
@@ -208,7 +208,7 @@ Intf_SectionPoint::Intf_SectionPoint(const gp_Pnt2d&        Where,
 
 //=================================================================================================
 
-void Intf_SectionPoint::Merge(Intf_SectionPoint& Other)
+void SectionPoint::Merge(SectionPoint& Other)
 {
   Other.myPnt = myPnt;
   if (DimenObje >= Other.DimenObje)
@@ -243,7 +243,7 @@ void Intf_SectionPoint::Merge(Intf_SectionPoint& Other)
 
 //=================================================================================================
 
-void Intf_SectionPoint::Dump(const Standard_Integer
+void SectionPoint::Dump(const Standard_Integer
 #if DEBUG_INTFSECTIONPOINT
                                Indent
 #endif

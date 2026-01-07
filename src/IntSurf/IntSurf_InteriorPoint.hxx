@@ -30,14 +30,14 @@
 //! passing points on the intersection lines,
 //! or starting points for the closed lines
 //! on the parametrised surface.
-class IntSurf_InteriorPoint
+class InteriorPoint
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT IntSurf_InteriorPoint();
+  Standard_EXPORT InteriorPoint();
 
-  Standard_EXPORT IntSurf_InteriorPoint(const Point3d&       P,
+  Standard_EXPORT InteriorPoint(const Point3d&       P,
                                         const Standard_Real U,
                                         const Standard_Real V,
                                         const Vector3d&       Direc,

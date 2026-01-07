@@ -35,13 +35,13 @@
 #include <Bnd_Range.hxx>
 
 class IntSurf_PathPoint;
-class IntSurf_PathPointTool;
-class IntSurf_InteriorPoint;
-class IntSurf_InteriorPointTool;
+class PathPointTool;
+class InteriorPoint;
+class InteriorPointTool;
 class HSurfaceTool;
 class IntPatch_TheSurfFunction;
 class IntPatch_TheIWLineOfTheIWalking;
-class IntSurf_PntOn2S;
+class PointOn2Surfaces;
 class math_FunctionSetRoot;
 
 class IntPatch_TheIWalking
@@ -134,7 +134,7 @@ protected:
   Standard_EXPORT Standard_Boolean TestArretAjout(IntPatch_TheSurfFunction& Section,
                                                   math_Vector&              UV,
                                                   Standard_Integer&         Irang,
-                                                  IntSurf_PntOn2S&          PSol);
+                                                  PointOn2Surfaces&          PSol);
 
   Standard_EXPORT void FillPntsInHoles(IntPatch_TheSurfFunction&        Section,
                                        TColStd_SequenceOfInteger&       CopySeqAlone,
@@ -163,7 +163,7 @@ protected:
                                        Standard_Boolean&                  Rajout);
 
   Standard_EXPORT void OpenLine(const Standard_Integer                         N,
-                                const IntSurf_PntOn2S&                         Psol,
+                                const PointOn2Surfaces&                         Psol,
                                 const IntSurf_SequenceOfPathPoint&             Pnts1,
                                 IntPatch_TheSurfFunction&                      Section,
                                 const Handle(IntPatch_TheIWLineOfTheIWalking)& Line);
@@ -192,13 +192,13 @@ protected:
                                         const Standard_Real       U,
                                         const Standard_Real       V,
                                         IntPatch_TheSurfFunction& Section,
-                                        IntSurf_PntOn2S&          Psol);
+                                        PointOn2Surfaces&          Psol);
 
   //! Clears up internal containers
   Standard_EXPORT void Clear();
 
   //! Returns TRUE if thePOn2S is in one of existing lines.
-  Standard_EXPORT Standard_Boolean IsPointOnLine(const IntSurf_PntOn2S&    thePOn2S,
+  Standard_EXPORT Standard_Boolean IsPointOnLine(const PointOn2Surfaces&    thePOn2S,
                                                  const math_Vector&        theInfBounds,
                                                  const math_Vector&        theSupBounds,
                                                  math_FunctionSetRoot&     theSolver,
@@ -221,7 +221,7 @@ private:
   Standard_Real                          UM;
   Standard_Real                          Vm;
   Standard_Real                          VM;
-  IntSurf_PntOn2S                        previousPoint;
+  PointOn2Surfaces                        previousPoint;
   Vector3d                                 previousd3d;
   gp_Dir2d                               previousd2d;
   TColStd_SequenceOfInteger              seqAjout;
@@ -233,13 +233,13 @@ private:
 
 #define ThePointOfPath IntSurf_PathPoint
 #define ThePointOfPath_hxx <IntSurf_PathPoint.hxx>
-#define ThePointOfPathTool IntSurf_PathPointTool
+#define ThePointOfPathTool PathPointTool
 #define ThePointOfPathTool_hxx <IntSurf_PathPointTool.hxx>
 #define ThePOPIterator IntSurf_SequenceOfPathPoint
 #define ThePOPIterator_hxx <IntSurf_SequenceOfPathPoint.hxx>
-#define ThePointOfLoop IntSurf_InteriorPoint
+#define ThePointOfLoop InteriorPoint
 #define ThePointOfLoop_hxx <IntSurf_InteriorPoint.hxx>
-#define ThePointOfLoopTool IntSurf_InteriorPointTool
+#define ThePointOfLoopTool InteriorPointTool
 #define ThePointOfLoopTool_hxx <IntSurf_InteriorPointTool.hxx>
 #define ThePOLIterator IntSurf_SequenceOfInteriorPoint
 #define ThePOLIterator_hxx <IntSurf_SequenceOfInteriorPoint.hxx>

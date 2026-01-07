@@ -17,7 +17,7 @@
 #include <GeomFill_Tensor.hxx>
 #include <math_Matrix.hxx>
 
-GeomFill_Tensor::GeomFill_Tensor(const Standard_Integer NbRow,
+Tensor1::Tensor1(const Standard_Integer NbRow,
                                  const Standard_Integer NbCol,
                                  const Standard_Integer NbMat)
     : Tab(1, NbRow * NbMat * NbCol),
@@ -28,14 +28,14 @@ GeomFill_Tensor::GeomFill_Tensor(const Standard_Integer NbRow,
 {
 }
 
-void GeomFill_Tensor::Init(const Standard_Real InitialValue)
+void Tensor1::Init(const Standard_Real InitialValue)
 {
   // Standard_Integer I, T = nbrow * nbcol *  nbmat;
   // for (I=1; I<=T; I++) {Tab(I) = InitialValue;}
   Tab.Init(InitialValue);
 }
 
-void GeomFill_Tensor::Multiply(const math_Vector& Right, math_Matrix& M) const
+void Tensor1::Multiply(const math_Vector& Right, math_Matrix& M) const
 {
   Standard_Integer i, j, k;
   Standard_Real    Somme;

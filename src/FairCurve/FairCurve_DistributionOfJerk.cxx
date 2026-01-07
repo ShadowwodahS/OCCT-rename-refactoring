@@ -33,10 +33,10 @@ FairCurve_DistributionOfJerk::FairCurve_DistributionOfJerk(
   const Handle(TColStd_HArray1OfReal)& FlatKnots,
   const Handle(TColgp_HArray1OfPnt2d)& Poles,
   const Standard_Integer               DerivativeOrder,
-  const FairCurve_BattenLaw&           Law,
+  const FairCurve_BattenLaw&           Law1,
   const Standard_Integer               NbValAux)
     : FairCurve_DistributionOfEnergy(BSplOrder, FlatKnots, Poles, DerivativeOrder, NbValAux),
-      MyLaw(Law)
+      MyLaw(Law1)
 {
 }
 

@@ -19,7 +19,7 @@
 #include <IntCurve_PConic.hxx>
 #include <IntCurve_ProjectOnPConicTool.hxx>
 
-Standard_Real IntCurve_ProjectOnPConicTool::FindParameter(const IntCurve_PConic& ThePConic,
+Standard_Real ProjectOnPConicTool::FindParameter(const ParametricConic& ThePConic,
                                                           const gp_Pnt2d&        P,
                                                           const Standard_Real    LowParameter,
                                                           const Standard_Real    HighParameter,
@@ -85,7 +85,7 @@ Standard_Real IntCurve_ProjectOnPConicTool::FindParameter(const IntCurve_PConic&
   return (Param);
 }
 
-Standard_Real IntCurve_ProjectOnPConicTool::FindParameter(const IntCurve_PConic& ThePConic,
+Standard_Real ProjectOnPConicTool::FindParameter(const ParametricConic& ThePConic,
                                                           const gp_Pnt2d&        P,
                                                           const Standard_Real)
 {

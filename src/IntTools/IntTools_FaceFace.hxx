@@ -102,7 +102,7 @@ protected:
 
 protected:
   Standard_Boolean               myIsDone;
-  IntPatch_Intersection          myIntersector;
+  Intersection1          myIntersector;
   GeomInt_LineConstructor        myLConstruct;
   Handle(GeomAdaptor_Surface)    myHS1;
   Handle(GeomAdaptor_Surface)    myHS2;

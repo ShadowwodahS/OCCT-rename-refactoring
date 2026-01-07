@@ -269,7 +269,7 @@ static Standard_Integer ruled(DrawInterpreter& di, Standard_Integer n, const cha
     return 1;
   }
 
-  Handle(GeomSurface) S = GeomFill::Surface(C1, C2);
+  Handle(GeomSurface) S = GeomFill1::Surface(C1, C2);
   if (S.IsNull())
     return 1;
 

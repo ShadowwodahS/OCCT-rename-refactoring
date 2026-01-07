@@ -2056,10 +2056,10 @@ Standard_Boolean BRepFill_Sweep::BuildWire(const BRepFill_TransitionStyle /*Tran
   for (ipath = 1; ipath <= NbPath; ipath++)
   {
     // Curve by iso value
-    GeomFill_Sweep Sweep(myLoc->Law(ipath), KPart);
+    GeomFill_Sweep Sweep(myLoc->Law1(ipath), KPart);
     Sweep.SetTolerance(myTol3d, myBoundTol, myTol2d, myTolAngular);
     Sweep.SetForceApproxC1(myForceApproxC1);
-    Sweep.Build(mySec->Law(isec), myApproxStyle, myContinuity, myDegmax, mySegmax);
+    Sweep.Build(mySec->Law1(isec), myApproxStyle, myContinuity, myDegmax, mySegmax);
     if (!Sweep.IsDone())
       return Standard_False;
     S = Sweep.Surface();
@@ -2216,7 +2216,7 @@ Standard_Boolean BRepFill_Sweep::BuildShell(const BRepFill_TransitionStyle /*Tra
   //(Case of evolutionary sections)
   Standard_Real Length, SecDom, SecDeb;
   myLoc->CurvilinearBounds(myLoc->NbLaw(), SecDom, Length);
-  mySec->Law(1)->GetDomain(SecDeb, SecDom);
+  mySec->Law1(1)->GetDomain(SecDeb, SecDom);
   SecDom -= SecDeb;
   if (IFirst > 1)
   {
@@ -2241,7 +2241,7 @@ Standard_Boolean BRepFill_Sweep::BuildShell(const BRepFill_TransitionStyle /*Tra
   for (ipath = 1, IPath = IFirst; ipath <= NbPath; ipath++, IPath++)
   {
 
-    GeomFill_Sweep Sweep(myLoc->Law(IPath), KPart);
+    GeomFill_Sweep Sweep(myLoc->Law1(IPath), KPart);
     Sweep.SetTolerance(myTol3d, myBoundTol, myTol2d, myTolAngular);
     Sweep.SetForceApproxC1(myForceApproxC1);
 
@@ -2249,7 +2249,7 @@ Standard_Boolean BRepFill_Sweep::BuildShell(const BRepFill_TransitionStyle /*Tra
     if (!constSection)
     {
       Standard_Real lf, ll, Lf, Ll;
-      myLoc->Law(IPath)->GetDomain(lf, ll);
+      myLoc->Law1(IPath)->GetDomain(lf, ll);
       myLoc->CurvilinearBounds(IPath, Lf, Ll);
       Vi(ipath + 1) = SecDeb + (Ll / Length) * SecDom;
       Sweep.SetDomain(lf, ll, Vi(ipath), Vi(ipath + 1));
@@ -2257,14 +2257,14 @@ Standard_Boolean BRepFill_Sweep::BuildShell(const BRepFill_TransitionStyle /*Tra
     else // section is constant
     {
       Standard_Real lf, ll, Lf, Ll;
-      myLoc->Law(IPath)->GetDomain(lf, ll);
+      myLoc->Law1(IPath)->GetDomain(lf, ll);
       myLoc->CurvilinearBounds(IPath, Lf, Ll);
       Vi(ipath + 1) = SecDeb + (Ll / Length) * SecDom;
     }
 
     for (isec = 1; isec <= NbLaw; isec++)
     {
-      Sweep.Build(mySec->Law(isec), myApproxStyle, myContinuity, myDegmax, mySegmax);
+      Sweep.Build(mySec->Law1(isec), myApproxStyle, myContinuity, myDegmax, mySegmax);
       if (!Sweep.IsDone())
         return Standard_False;
       TabS(isec, ipath)     = Sweep.Surface();
@@ -3417,12 +3417,12 @@ Standard_Boolean BRepFill_Sweep::PerformCorner(const Standard_Integer           
   }
 
   // Construct an axis supported by the bissectrice
-  myLoc->Law(I1)->GetDomain(F, L);
-  myLoc->Law(I1)->GetCurve()->D1(L, P1, T1);
+  myLoc->Law1(I1)->GetDomain(F, L);
+  myLoc->Law1(I1)->GetCurve()->D1(L, P1, T1);
   T1.Normalize();
 
-  myLoc->Law(I2)->GetDomain(F, L);
-  myLoc->Law(I2)->GetCurve()->D1(F, P2, T2);
+  myLoc->Law1(I2)->GetDomain(F, L);
+  myLoc->Law1(I2)->GetCurve()->D1(F, P2, T2);
   T2.Normalize();
 
   if (T1.Angle(T2) < myAngMin)
@@ -3430,11 +3430,11 @@ Standard_Boolean BRepFill_Sweep::PerformCorner(const Standard_Integer           
     isTangent = Standard_True;
     Vector3d t1, t2, V;
     gp_Mat M;
-    myLoc->Law(I1)->GetDomain(F, L);
-    myLoc->Law(I1)->D0(L, M, V);
+    myLoc->Law1(I1)->GetDomain(F, L);
+    myLoc->Law1(I1)->D0(L, M, V);
     t1 = M.Column(3);
-    myLoc->Law(I2)->GetDomain(F, L);
-    myLoc->Law(I2)->D0(L, M, V);
+    myLoc->Law1(I2)->GetDomain(F, L);
+    myLoc->Law1(I2)->D0(L, M, V);
     t2 = M.Column(3);
 
     if (t1.Angle(t2) < myAngMin)
@@ -3711,11 +3711,11 @@ Standard_Real BRepFill_Sweep::EvalExtrapol(const Standard_Integer         Index,
     gp_Mat        M1, M2;
     Standard_Real Xmin, Ymin, Zmin, Xmax, Ymax, Zmax, R, f, l;
 
-    myLoc->Law(I1)->GetDomain(f, l);
-    myLoc->Law(I1)->D0(l, M1, V1);
+    myLoc->Law1(I1)->GetDomain(f, l);
+    myLoc->Law1(I1)->D0(l, M1, V1);
     T1.SetXYZ(M1.Column(3));
-    myLoc->Law(I2)->GetDomain(f, l);
-    myLoc->Law(I2)->D0(f, M2, V2);
+    myLoc->Law1(I2)->GetDomain(f, l);
+    myLoc->Law1(I2)->D0(f, M2, V2);
     T2.SetXYZ(M2.Column(3));
 
     Standard_Real alpha = T1.Angle(T2);
@@ -3732,7 +3732,7 @@ Standard_Real BRepFill_Sweep::EvalExtrapol(const Standard_Integer         Index,
     // Calculating parameter U
     Standard_Real U, Length, SecFirst, SecLen, Lf, Ll;
     myLoc->CurvilinearBounds(myLoc->NbLaw(), Lf, Length);
-    mySec->Law(1)->GetDomain(SecFirst, SecLen);
+    mySec->Law1(1)->GetDomain(SecFirst, SecLen);
     SecLen -= SecFirst;
     myLoc->CurvilinearBounds(I1, Lf, Ll);
     U = SecFirst + (Ll / Length) * SecLen;

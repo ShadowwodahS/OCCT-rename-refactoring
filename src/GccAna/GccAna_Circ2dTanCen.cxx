@@ -39,7 +39,7 @@
 //          dist-C1.Radius() if the qualifier is Outside.               +
 //          a mix of these values if the qualifier is Unqualified.  +
 //========================================================================
-Circle2dTangentCenter::Circle2dTangentCenter(const GccEnt_QualifiedCirc& Qualified1,
+Circle2dTangentCenter::Circle2dTangentCenter(const QualifiedCircle& Qualified1,
                                          const gp_Pnt2d&             Pcenter,
                                          const Standard_Real         Tolerance)
     :

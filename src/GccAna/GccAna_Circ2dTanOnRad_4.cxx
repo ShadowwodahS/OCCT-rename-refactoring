@@ -36,7 +36,7 @@
 //  center points of found solutions.                                     +
 //  Create solutions cirsol.                                              +
 //=========================================================================
-Circle2dTangentOnRadius::Circle2dTangentOnRadius(const GccEnt_QualifiedLin& Qualified1,
+Circle2dTangentOnRadius::Circle2dTangentOnRadius(const QualifiedLine& Qualified1,
                                              const gp_Circ2d&           OnCirc,
                                              const Standard_Real        Radius,
                                              const Standard_Real        Tolerance)

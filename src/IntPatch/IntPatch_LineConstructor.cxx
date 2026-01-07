@@ -160,7 +160,7 @@ static void Parameters(const Handle(Adaptor3d_Surface)& myHS1,
                        Standard_Real&                   U2,
                        Standard_Real&                   V2)
 {
-  IntSurf_Quadric     quad1, quad2;
+  Quadric1     quad1, quad2;
   GeomAbs_SurfaceType typs = myHS1->GetType();
   switch (typs)
   {
@@ -400,7 +400,7 @@ static Standard_Real ComputeParametricTolerance(const Standard_Real theTol3d,
 
 //=================================================================================================
 
-IntPatch_LineConstructor::IntPatch_LineConstructor(const Standard_Integer) {}
+LineConstructor::LineConstructor(const Standard_Integer) {}
 
 //=================================================================================================
 
@@ -806,7 +806,7 @@ static void AddLine(const Handle(IntPatch_Line)& L,
       break;
     }
     default: {
-      throw Standard_ConstructionError("IntPatch_LineConstructor::AddLine");
+      throw Standard_ConstructionError("LineConstructor::AddLine");
     }
     break;
   }
@@ -814,14 +814,14 @@ static void AddLine(const Handle(IntPatch_Line)& L,
 
 //=================================================================================================
 
-Handle(IntPatch_Line) IntPatch_LineConstructor::Line(const Standard_Integer l) const
+Handle(IntPatch_Line) LineConstructor::Line(const Standard_Integer l) const
 {
   return (slin.Value(l));
 }
 
 //=================================================================================================
 
-Standard_Integer IntPatch_LineConstructor::NbLines() const
+Standard_Integer LineConstructor::NbLines() const
 {
   return (slin.Length());
 }
@@ -885,8 +885,8 @@ static Standard_Boolean TestWLineIsARLine(const IntPatch_SequenceOfLine& slinref
   int indicepnt = nbpnt / 2;
   if (indicepnt < 1)
     return (Standard_False);
-  const IntSurf_PntOn2S& POn2S  = wlin->Point(indicepnt);
-  const IntSurf_PntOn2S& POn2S1 = wlin->Point(indicepnt + 1);
+  const PointOn2Surfaces& POn2S  = wlin->Point(indicepnt);
+  const PointOn2Surfaces& POn2S1 = wlin->Point(indicepnt + 1);
   Standard_Integer       lastl  = slinref.Length();
   for (int i = 1; i <= lastl; i++)
   {
@@ -919,7 +919,7 @@ static Standard_Boolean TestWLineIsARLine(const IntPatch_SequenceOfLine& slinref
           }
           const Adaptor2d_Curve2d& C2d = *arc;
           gp_Pnt2d                 PObt, P2d(u, v);
-          Standard_Real par = Geom2dInt_TheProjPCurOfGInter::FindParameter(C2d, P2d, 1e-7);
+          Standard_Real par = ProjPCurOfGInter::FindParameter(C2d, P2d, 1e-7);
           PObt              = C2d.Value(par);
           if (PObt.Distance(P2d) < tol2d)
           {
@@ -948,7 +948,7 @@ static Standard_Boolean TestIfWLineIsRestriction(const IntPatch_SequenceOfLine& 
   Standard_Real    tol2d1 = 0., tol2d2 = 0.;
   for (i = 1; i <= NbPnts; i++)
   {
-    const IntSurf_PntOn2S& Pmid = wlin->Point(i);
+    const PointOn2Surfaces& Pmid = wlin->Point(i);
     Standard_Real          u1, v1, u2, v2;
     Pmid.Parameters(u1, v1, u2, v2);
     //-- Estimation d un majorant de Toluv a partir de Tol
@@ -981,7 +981,7 @@ static Standard_Boolean TestIfWLineIsRestriction(const IntPatch_SequenceOfLine& 
   if (allon1 == NbPnts || allon2 == NbPnts)
   {
 #ifdef OCCT_DEBUG
-    std::cout << " IntPatch_LineConstructor.gxx :  CC**ONS" << (allon1 == NbPnts ? 1 : 2)
+    std::cout << " LineConstructor.gxx :  CC**ONS" << (allon1 == NbPnts ? 1 : 2)
               << "** Traitement WLIne + ARC CLASS " << std::endl;
 #endif
     Standard_Real tol2d = Max(tol2d1, tol2d2);
@@ -1006,7 +1006,7 @@ static Standard_Boolean ProjectOnArc(const Standard_Real              u,
   Standard_Real            tol2d = ComputeParametricTolerance(TolArc, ad1u, ad1v);
   const Adaptor2d_Curve2d& C2d   = *arc;
   gp_Pnt2d                 aP(u, v), aPprj;
-  par   = Geom2dInt_TheProjPCurOfGInter::FindParameter(C2d, aP, 1e-7);
+  par   = ProjPCurOfGInter::FindParameter(C2d, aP, 1e-7);
   aPprj = C2d.Value(par);
   dist  = aPprj.Distance(aP);
   return dist <= tol2d;
@@ -1048,7 +1048,7 @@ static void TestWLineToRLine(const IntPatch_SequenceOfLine&     slinref,
 
   Standard_Boolean isRLine = Standard_False;
 
-  typedef void (IntSurf_PntOn2S::*PiParOnS)(Standard_Real&, Standard_Real&) const;
+  typedef void (PointOn2Surfaces::*PiParOnS)(Standard_Real&, Standard_Real&) const;
   typedef Standard_Boolean (IntPatch_Point::*PQuery)() const;
   typedef const Handle(Adaptor2d_Curve2d)& (IntPatch_Point::*PArcOnS)() const;
   typedef Standard_Real (IntPatch_Point::*PParOnArc)() const;
@@ -1068,7 +1068,7 @@ static void TestWLineToRLine(const IntPatch_SequenceOfLine&     slinref,
       Handle(Adaptor3d_TopolTool) aDomain;
       if (onFirst)
       {
-        piParOnS  = &IntSurf_PntOn2S::ParametersOnS1;
+        piParOnS  = &PointOn2Surfaces::ParametersOnS1;
         pIsOnDomS = &IntPatch_Point::IsOnDomS1;
         pArcOnS   = &IntPatch_Point::ArcOnS1;
         pParOnArc = &IntPatch_Point::ParameterOnArc1;
@@ -1077,7 +1077,7 @@ static void TestWLineToRLine(const IntPatch_SequenceOfLine&     slinref,
       }
       else
       {
-        piParOnS  = &IntSurf_PntOn2S::ParametersOnS2;
+        piParOnS  = &PointOn2Surfaces::ParametersOnS2;
         pIsOnDomS = &IntPatch_Point::IsOnDomS2;
         pArcOnS   = &IntPatch_Point::ArcOnS2;
         pParOnArc = &IntPatch_Point::ParameterOnArc2;
@@ -1194,7 +1194,7 @@ static void TestWLineToRLine(const IntPatch_SequenceOfLine&     slinref,
         if (!ProjectOnArc(utst, vtst, arc, surf, TolArc, par, dist))
         {
 #ifdef OCCT_DEBUG
-          std::cout << " Pb en projection ds IntPatch_LineConstructor" << std::endl;
+          std::cout << " Pb en projection ds LineConstructor" << std::endl;
 #endif
           continue;
         }
@@ -1241,7 +1241,7 @@ static void TestWLineToRLine(const IntPatch_SequenceOfLine&     slinref,
           reverse  = Standard_True;
         }
         rlig->Add(LineOn2S);
-        IntSurf_Transition TransitionUndecided;
+        Transition2 TransitionUndecided;
         IntPatch_Point     VtxFirst = WLine->Vertex(ivmin);
         VtxFirst.SetParameter(parmin);
         if (!arcsResolved(ivmin).IsNull())
@@ -1300,7 +1300,7 @@ static void TestWLineToRLine(const IntPatch_SequenceOfLine&     slinref,
 
 //=================================================================================================
 
-void IntPatch_LineConstructor::Perform(const IntPatch_SequenceOfLine&     slinref,
+void LineConstructor::Perform(const IntPatch_SequenceOfLine&     slinref,
                                        const Handle(IntPatch_Line)&       L,
                                        const Handle(Adaptor3d_Surface)&   mySurf1,
                                        const Handle(Adaptor3d_TopolTool)& myDom1,
@@ -1410,7 +1410,7 @@ void IntPatch_LineConstructor::Perform(const IntPatch_SequenceOfLine&     slinre
         Standard_Integer int_firstp = (Standard_Integer)firstp;
         if (pmid == int_lastp)
           pmid = int_firstp;
-        const IntSurf_PntOn2S& Pmid = WLine->Point(pmid);
+        const PointOn2Surfaces& Pmid = WLine->Point(pmid);
         Pmid.Parameters(u1, v1, u2, v2);
         Recadre(mySurf1, mySurf2, u1, v1, u2, v2);
 
@@ -1446,8 +1446,8 @@ void IntPatch_LineConstructor::Perform(const IntPatch_SequenceOfLine&     slinre
         if (Abs(int_lastp - int_firstp) == 1)
         {
           Standard_Real          vFu1, vFv1, vFu2, vFv2, vLu1, vLv1, vLu2, vLv2;
-          const IntSurf_PntOn2S& vF = WLineVertex_i.PntOn2S();
-          const IntSurf_PntOn2S& vL = WLineVertex_ip1.PntOn2S();
+          const PointOn2Surfaces& vF = WLineVertex_i.PntOn2S();
+          const PointOn2Surfaces& vL = WLineVertex_ip1.PntOn2S();
           vF.Parameters(vFu1, vFv1, vFu2, vFv2);
           Recadre(mySurf1, mySurf2, vFu1, vFv1, vFu2, vFv2);
           vL.Parameters(vLu1, vLv1, vLu2, vLv2);
@@ -1502,11 +1502,11 @@ void IntPatch_LineConstructor::Perform(const IntPatch_SequenceOfLine&     slinre
         {
           Standard_Boolean       LignetropPetite = Standard_False;
           Standard_Real          u1a, v1a, u2a, v2a;
-          const IntSurf_PntOn2S& Pmid1 = WLine->Point((Standard_Integer)firstp);
+          const PointOn2Surfaces& Pmid1 = WLine->Point((Standard_Integer)firstp);
           Pmid1.Parameters(u1a, v1a, u2a, v2a);
           Recadre(mySurf1, mySurf2, u1a, v1a, u2a, v2a);
 
-          const IntSurf_PntOn2S& Pmid2 = WLine->Point((Standard_Integer)lastp);
+          const PointOn2Surfaces& Pmid2 = WLine->Point((Standard_Integer)lastp);
           Standard_Real          u1b, v1b, u2b, v2b;
           Pmid2.Parameters(u1b, v1b, u2b, v2b);
           Recadre(mySurf1, mySurf2, u1b, v1b, u2b, v2b);

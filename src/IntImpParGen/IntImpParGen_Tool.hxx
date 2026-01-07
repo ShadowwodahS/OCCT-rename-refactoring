@@ -21,21 +21,21 @@
 #include <IntRes2d_Transition.hxx>
 #include <gp_Pnt2d.hxx>
 
-Standard_Real NormalizeOnDomain(Standard_Real&, const IntRes2d_Domain&);
+Standard_Real NormalizeOnDomain(Standard_Real&, const Domain2&);
 
 void Determine_Position(IntRes2d_Position&,
-                        const IntRes2d_Domain&,
+                        const Domain2&,
                         const gp_Pnt2d&,
                         const Standard_Real);
 
 void Determine_Transition(const IntRes2d_Position Pos1,
                           gp_Vec2d&               Tan1,
                           const gp_Vec2d&         Norm1,
-                          IntRes2d_Transition&    Trans1,
+                          Transition3&    Trans1,
                           const IntRes2d_Position Pos2,
                           gp_Vec2d&               Tan2,
                           const gp_Vec2d&         Norm2,
-                          IntRes2d_Transition&    Trans2,
+                          Transition3&    Trans2,
                           const Standard_Real     ToleranceAng);
 
 #endif

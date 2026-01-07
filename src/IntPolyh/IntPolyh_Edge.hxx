@@ -23,13 +23,13 @@
 
 //! The class represents the edge built between the two IntPolyh points.<br>
 //! It is linked to two IntPolyh triangles.
-class IntPolyh_Edge
+class Edge
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Constructor
-  IntPolyh_Edge()
+  Edge()
       : myPoint1(-1),
         myPoint2(-1),
         myTriangle1(-1),
@@ -38,7 +38,7 @@ public:
   }
 
   //! Constructor
-  IntPolyh_Edge(const Standard_Integer thePoint1,
+  Edge(const Standard_Integer thePoint1,
                 const Standard_Integer thePoint2,
                 const Standard_Integer theTriangle1,
                 const Standard_Integer theTriangle2)

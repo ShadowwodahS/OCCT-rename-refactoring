@@ -21,7 +21,7 @@
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer Intf_SectionLine::NumberOfPoints() const
+inline Standard_Integer SectionLine1::NumberOfPoints() const
 {
   return myPoints.Length();
 }

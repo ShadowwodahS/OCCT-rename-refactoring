@@ -28,7 +28,7 @@
 #include <gp_Parab2d.hxx>
 #include <gp_Hypr2d.hxx>
 
-#define TheImpTool IntCurve_IConicTool
+#define TheImpTool ConicTool
 #define TheImpTool_hxx <IntCurve_IConicTool.hxx>
 #define ThePCurve Standard_Address
 #define ThePCurve_hxx <Standard_Address.hxx>

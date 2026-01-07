@@ -531,7 +531,7 @@ public:
   //! B-spline basis functions in this package.
   Standard_EXPORT static Standard_Integer MaxDegree();
 
-  //! Changes the value of the Law at parameter U to NewValue.
+  //! Changes the value of the Law1 at parameter U to NewValue.
   //! and makes its derivative at U be derivative.
   //! StartingCondition = -1 means first can move
   //! EndingCondition   = -1 means last point can move

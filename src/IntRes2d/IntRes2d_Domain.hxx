@@ -37,17 +37,17 @@
 //! Domains must be closed.
 //! So, SetEquivalentParameters(.,.) method must be called
 //! after initializing the first and the last bounds.
-class IntRes2d_Domain
+class Domain2
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates an infinite Domain (HasFirstPoint = False
   //! and HasLastPoint = False).
-  Standard_EXPORT IntRes2d_Domain();
+  Standard_EXPORT Domain2();
 
   //! Creates a bounded Domain.
-  Standard_EXPORT IntRes2d_Domain(const gp_Pnt2d&     Pnt1,
+  Standard_EXPORT Domain2(const gp_Pnt2d&     Pnt1,
                                   const Standard_Real Par1,
                                   const Standard_Real Tol1,
                                   const gp_Pnt2d&     Pnt2,
@@ -57,7 +57,7 @@ public:
   //! Creates a semi-infinite Domain. If First is set to
   //! True, the given point is the first point of the domain,
   //! otherwise it is the last point.
-  Standard_EXPORT IntRes2d_Domain(const gp_Pnt2d&        Pnt,
+  Standard_EXPORT Domain2(const gp_Pnt2d&        Pnt,
                                   const Standard_Real    Par,
                                   const Standard_Real    Tol,
                                   const Standard_Boolean First);

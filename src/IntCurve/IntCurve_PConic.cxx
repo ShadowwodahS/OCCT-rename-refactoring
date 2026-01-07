@@ -21,7 +21,7 @@
 #include <gp_Parab2d.hxx>
 #include <IntCurve_PConic.hxx>
 
-IntCurve_PConic::IntCurve_PConic(const IntCurve_PConic& PC)
+ParametricConic::ParametricConic(const ParametricConic& PC)
     : axe(PC.axe),
       prm1(PC.prm1),
       prm2(PC.prm2),
@@ -31,7 +31,7 @@ IntCurve_PConic::IntCurve_PConic(const IntCurve_PConic& PC)
 {
 }
 
-IntCurve_PConic::IntCurve_PConic(const gp_Elips2d& E)
+ParametricConic::ParametricConic(const gp_Elips2d& E)
     : axe(E.Axis()),
       prm1(E.MajorRadius()),
       prm2(E.MinorRadius()),
@@ -41,7 +41,7 @@ IntCurve_PConic::IntCurve_PConic(const gp_Elips2d& E)
 {
 }
 
-IntCurve_PConic::IntCurve_PConic(const gp_Hypr2d& H)
+ParametricConic::ParametricConic(const gp_Hypr2d& H)
     : axe(H.Axis()),
       prm1(H.MajorRadius()),
       prm2(H.MinorRadius()),
@@ -51,7 +51,7 @@ IntCurve_PConic::IntCurve_PConic(const gp_Hypr2d& H)
 {
 }
 
-IntCurve_PConic::IntCurve_PConic(const gp_Circ2d& C)
+ParametricConic::ParametricConic(const gp_Circ2d& C)
     : axe(C.Axis()),
       prm1(C.Radius()),
       prm2(0.0),
@@ -61,7 +61,7 @@ IntCurve_PConic::IntCurve_PConic(const gp_Circ2d& C)
 {
 }
 
-IntCurve_PConic::IntCurve_PConic(const gp_Parab2d& P)
+ParametricConic::ParametricConic(const gp_Parab2d& P)
     : axe(P.Axis()),
       prm1(P.Focal()),
       prm2(0.0),
@@ -71,7 +71,7 @@ IntCurve_PConic::IntCurve_PConic(const gp_Parab2d& P)
 {
 }
 
-IntCurve_PConic::IntCurve_PConic(const gp_Lin2d& L)
+ParametricConic::ParametricConic(const gp_Lin2d& L)
     : axe(gp_Ax22d(L.Position())),
       prm1(0.0),
       prm2(0.0),
@@ -81,12 +81,12 @@ IntCurve_PConic::IntCurve_PConic(const gp_Lin2d& L)
 {
 }
 
-void IntCurve_PConic::SetEpsX(const Standard_Real epsx)
+void ParametricConic::SetEpsX(const Standard_Real epsx)
 {
   TheEpsX = epsx;
 }
 
-void IntCurve_PConic::SetAccuracy(const Standard_Integer n)
+void ParametricConic::SetAccuracy(const Standard_Integer n)
 {
   TheAccuracy = n;
 }

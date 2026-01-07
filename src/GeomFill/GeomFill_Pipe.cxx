@@ -541,7 +541,7 @@ void GeomFill_Pipe::Init(const Handle(GeomCurve3d)& Path,
     }
 
     default: {
-      throw Standard_ConstructionError("GeomFill::Init : Unknown Option");
+      throw Standard_ConstructionError("GeomFill1::Init : Unknown Option");
     }
   }
 

@@ -26,7 +26,7 @@
 #include <IntPatch_HInterTool.hxx>
 #include <Standard_OutOfRange.hxx>
 
-IntPatch_HInterTool::IntPatch_HInterTool()
+HInterTool::HInterTool()
     : uinf(0.),
       vinf(0.),
       usup(0.),
@@ -34,7 +34,7 @@ IntPatch_HInterTool::IntPatch_HInterTool()
 {
 }
 
-Standard_Integer IntPatch_HInterTool::NbSamplesV(const Handle(Adaptor3d_Surface)& S,
+Standard_Integer HInterTool::NbSamplesV(const Handle(Adaptor3d_Surface)& S,
                                                  const Standard_Real,
                                                  const Standard_Real)
 {
@@ -69,7 +69,7 @@ Standard_Integer IntPatch_HInterTool::NbSamplesV(const Handle(Adaptor3d_Surface)
   return 10;
 }
 
-Standard_Integer IntPatch_HInterTool::NbSamplesU(const Handle(Adaptor3d_Surface)& S,
+Standard_Integer HInterTool::NbSamplesU(const Handle(Adaptor3d_Surface)& S,
                                                  const Standard_Real,
                                                  const Standard_Real)
 {
@@ -103,7 +103,7 @@ Standard_Integer IntPatch_HInterTool::NbSamplesU(const Handle(Adaptor3d_Surface)
   return 10;
 }
 
-Standard_Integer IntPatch_HInterTool::NbSamplePoints(const Handle(Adaptor3d_Surface)& S)
+Standard_Integer HInterTool::NbSamplePoints(const Handle(Adaptor3d_Surface)& S)
 {
   uinf = S->FirstUParameter();
   usup = S->LastUParameter();
@@ -154,7 +154,7 @@ Standard_Integer IntPatch_HInterTool::NbSamplePoints(const Handle(Adaptor3d_Surf
   return (m);
 }
 
-void IntPatch_HInterTool::SamplePoint(const Handle(Adaptor3d_Surface)& S,
+void HInterTool::SamplePoint(const Handle(Adaptor3d_Surface)& S,
                                       const Standard_Integer           Index,
                                       Standard_Real&                   U,
                                       Standard_Real&                   V) const
@@ -222,7 +222,7 @@ void IntPatch_HInterTool::SamplePoint(const Handle(Adaptor3d_Surface)& S,
   }
 }
 
-Standard_Integer IntPatch_HInterTool::NbSamplesOnArc(const Handle(Adaptor2d_Curve2d)& A)
+Standard_Integer HInterTool::NbSamplesOnArc(const Handle(Adaptor2d_Curve2d)& A)
 {
   GeomAbs_CurveType CurveType = A->GetType();
 
@@ -253,7 +253,7 @@ Standard_Integer IntPatch_HInterTool::NbSamplesOnArc(const Handle(Adaptor2d_Curv
   return (nbsOnC);
 }
 
-void IntPatch_HInterTool::Bounds(const Handle(Adaptor2d_Curve2d)& A,
+void HInterTool::Bounds(const Handle(Adaptor2d_Curve2d)& A,
                                  Standard_Real&                   Ufirst,
                                  Standard_Real&                   Ulast)
 {
@@ -261,7 +261,7 @@ void IntPatch_HInterTool::Bounds(const Handle(Adaptor2d_Curve2d)& A,
   Ulast  = A->LastParameter();
 }
 
-Standard_Boolean IntPatch_HInterTool::Project(const Handle(Adaptor2d_Curve2d)& C,
+Standard_Boolean HInterTool::Project(const Handle(Adaptor2d_Curve2d)& C,
                                               const gp_Pnt2d&                  P,
                                               Standard_Real&                   Paramproj,
                                               gp_Pnt2d&                        Ptproj)
@@ -296,29 +296,29 @@ Standard_Boolean IntPatch_HInterTool::Project(const Handle(Adaptor2d_Curve2d)& C
   return Standard_True;
 }
 
-Standard_Real IntPatch_HInterTool::Tolerance(const Handle(Adaptor3d_HVertex)& V,
+Standard_Real HInterTool::Tolerance(const Handle(Adaptor3d_HVertex)& V,
                                              const Handle(Adaptor2d_Curve2d)& C)
 {
   return V->Resolution(C);
 }
 
-Standard_Real IntPatch_HInterTool::Parameter(const Handle(Adaptor3d_HVertex)& V,
+Standard_Real HInterTool::Parameter(const Handle(Adaptor3d_HVertex)& V,
                                              const Handle(Adaptor2d_Curve2d)& C)
 {
   return V->Parameter(C);
 }
 
-Standard_Boolean IntPatch_HInterTool::HasBeenSeen(const Handle(Adaptor2d_Curve2d)&)
+Standard_Boolean HInterTool::HasBeenSeen(const Handle(Adaptor2d_Curve2d)&)
 {
   return Standard_False;
 }
 
-Standard_Integer IntPatch_HInterTool::NbPoints(const Handle(Adaptor2d_Curve2d)&)
+Standard_Integer HInterTool::NbPoints(const Handle(Adaptor2d_Curve2d)&)
 {
   return 0;
 }
 
-void IntPatch_HInterTool::Value(const Handle(Adaptor2d_Curve2d)&,
+void HInterTool::Value(const Handle(Adaptor2d_Curve2d)&,
                                 const Standard_Integer,
                                 Point3d&,
                                 Standard_Real&,
@@ -327,39 +327,39 @@ void IntPatch_HInterTool::Value(const Handle(Adaptor2d_Curve2d)&,
   throw Standard_OutOfRange();
 }
 
-Standard_Boolean IntPatch_HInterTool::IsVertex(const Handle(Adaptor2d_Curve2d)&,
+Standard_Boolean HInterTool::IsVertex(const Handle(Adaptor2d_Curve2d)&,
                                                const Standard_Integer)
 {
   return Standard_False;
 }
 
-void IntPatch_HInterTool::Vertex(const Handle(Adaptor2d_Curve2d)&,
+void HInterTool::Vertex(const Handle(Adaptor2d_Curve2d)&,
                                  const Standard_Integer,
                                  Handle(Adaptor3d_HVertex)&)
 {
   throw Standard_OutOfRange();
 }
 
-Standard_Integer IntPatch_HInterTool::NbSegments(const Handle(Adaptor2d_Curve2d)&)
+Standard_Integer HInterTool::NbSegments(const Handle(Adaptor2d_Curve2d)&)
 {
   return 0;
 }
 
-Standard_Boolean IntPatch_HInterTool::HasFirstPoint(const Handle(Adaptor2d_Curve2d)&,
+Standard_Boolean HInterTool::HasFirstPoint(const Handle(Adaptor2d_Curve2d)&,
                                                     const Standard_Integer,
                                                     Standard_Integer&)
 {
   throw Standard_OutOfRange();
 }
 
-Standard_Boolean IntPatch_HInterTool::HasLastPoint(const Handle(Adaptor2d_Curve2d)&,
+Standard_Boolean HInterTool::HasLastPoint(const Handle(Adaptor2d_Curve2d)&,
                                                    const Standard_Integer,
                                                    Standard_Integer&)
 {
   throw Standard_OutOfRange();
 }
 
-Standard_Boolean IntPatch_HInterTool::IsAllSolution(const Handle(Adaptor2d_Curve2d)&)
+Standard_Boolean HInterTool::IsAllSolution(const Handle(Adaptor2d_Curve2d)&)
 {
   return Standard_False;
 }

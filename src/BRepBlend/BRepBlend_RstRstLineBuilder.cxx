@@ -626,7 +626,7 @@ void BRepBlend_RstRstLineBuilder::InternalPerform(Blend_RstRstFunction&   Func,
   Standard_Boolean          IsVtxp1 = 0, IsVtxp2 = 0, IsVtxrst1 = 0, IsVtxrst2 = 0;
   BRepBlend_Extremity       Extrst1, Extrst2;
 
-  // IntSurf_Transition Tline, Tarc;
+  // Transition2 Tline, Tarc;
 
   Func.GetTolerance(tolerance, tolpoint3d);
   Func.GetBounds(infbound, supbound);
@@ -1468,8 +1468,8 @@ Standard_Boolean BRepBlend_RstRstLineBuilder::Recadre2(Blend_CurvPointFuncInv&  
 void BRepBlend_RstRstLineBuilder::Transition(const Standard_Boolean           OnFirst,
                                              const Handle(Adaptor2d_Curve2d)& Arc,
                                              const Standard_Real              Param,
-                                             IntSurf_Transition&              TLine,
-                                             IntSurf_Transition&              TArc)
+                                             Transition2&              TLine,
+                                             Transition2&              TArc)
 {
   Standard_Boolean computetranstionaveclacorde = 0;
   Vector3d           tgline;
@@ -1516,7 +1516,7 @@ void BRepBlend_RstRstLineBuilder::Transition(const Standard_Boolean           On
   tgrst.SetLinearForm(dp2d.X(), d1u, dp2d.Y(), d1v);
   normale = d1u.Crossed(d1v);
 
-  IntSurf::MakeTransition(tgline, tgrst, normale, TLine, TArc);
+  IntSurf1::MakeTransition(tgline, tgrst, normale, TLine, TArc);
 }
 
 //=======================================================================
@@ -1531,7 +1531,7 @@ void BRepBlend_RstRstLineBuilder::MakeExtremity(BRepBlend_Extremity&            
                                                 const Standard_Boolean           IsVtx,
                                                 const Handle(Adaptor3d_HVertex)& Vtx)
 {
-  IntSurf_Transition          Tline, Tarc;
+  Transition2          Tline, Tarc;
   Standard_Real               prm;
   Handle(Adaptor3d_TopolTool) Iter;
   if (OnFirst)

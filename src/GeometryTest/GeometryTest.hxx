@@ -48,7 +48,7 @@ public:
   //! defines constrained curves commands.
   Standard_EXPORT static void ConstraintCommands(DrawInterpreter& I);
 
-  //! defines commands to test the GeomAPI
+  //! defines commands to test the GeomAPI1
   //! - Intersection
   //! - Extrema
   //! - Projection

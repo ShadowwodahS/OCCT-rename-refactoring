@@ -80,7 +80,7 @@ static Standard_Boolean IntPlanEdge(Handle(BRepAdaptor_Curve)& Ed,
 
   IntCurveSurface_HInter            Intersection;
   Standard_Integer                  nbp, iip;
-  IntCurveSurface_IntersectionPoint IP;
+  IntersectionPoint1 IP;
   Standard_Real                     dist = RealLast();
 
   Intersection.Perform(Ed, Plan);

@@ -238,8 +238,8 @@ void BRepFill_Pipe::Perform(const TopoWire&  Spine,
   Vector3d        V;
   Transform3d       fila;
   Standard_Real first, last;
-  myLoc->Law(1)->GetDomain(first, last);
-  myLoc->Law(1)->D0(first, M, V);
+  myLoc->Law1(1)->GetDomain(first, last);
+  myLoc->Law1(1)->D0(first, M, V);
   fila.SetValues(M(1, 1),
                  M(1, 2),
                  M(1, 3),
@@ -267,8 +267,8 @@ void BRepFill_Pipe::Perform(const TopoWire&  Spine,
   RemLoc.Remove(myFirst);
   myFirst = RemLoc.GetResult();
 
-  myLoc->Law(myLoc->NbLaw())->GetDomain(first, last);
-  myLoc->Law(myLoc->NbLaw())->D0(last, M, V);
+  myLoc->Law1(myLoc->NbLaw())->GetDomain(first, last);
+  myLoc->Law1(myLoc->NbLaw())->D0(last, M, V);
   //    try { // Not good, but there are no other means to test SetValues
   fila.SetValues(M(1, 1),
                  M(1, 2),

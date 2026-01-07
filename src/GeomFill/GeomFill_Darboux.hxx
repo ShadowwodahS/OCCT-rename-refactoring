@@ -29,7 +29,7 @@ class Vector3d;
 class GeomFill_Darboux;
 DEFINE_STANDARD_HANDLE(GeomFill_Darboux, GeomFill_TrihedronLaw)
 
-//! Defines Darboux case of Frenet Trihedron Law
+//! Defines Darboux case of Frenet Trihedron Law1
 class GeomFill_Darboux : public GeomFill_TrihedronLaw
 {
 

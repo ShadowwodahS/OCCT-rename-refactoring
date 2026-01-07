@@ -118,7 +118,7 @@ void GeomInt_IntSS::InternalPerform(const Standard_Real    Tol,
                         Handle(GeomAdaptor_Surface)::DownCast(aHS1),
                         Handle(GeomAdaptor_Surface)::DownCast(aHS2));
 
-      Standard_Real UVMaxStep = IntPatch_Intersection::DefineUVMaxStep(aHS1, aDom1, aHS2, aDom2);
+      Standard_Real UVMaxStep = Intersection1::DefineUVMaxStep(aHS1, aDom1, aHS2, aDom2);
 
       myIntersector.SetTolerances(TolArc, TolTang, UVMaxStep, Deflection);
 

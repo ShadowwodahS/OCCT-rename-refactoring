@@ -17,7 +17,7 @@
 #include <IntCurveSurface_IntersectionPoint.hxx>
 
 //================================================================================
-IntCurveSurface_IntersectionPoint::IntCurveSurface_IntersectionPoint()
+IntersectionPoint1::IntersectionPoint1()
     : myUSurf(0.0),
       myVSurf(0.0),
       myUCurv(0.0)
@@ -25,7 +25,7 @@ IntCurveSurface_IntersectionPoint::IntCurveSurface_IntersectionPoint()
 }
 
 //================================================================================
-IntCurveSurface_IntersectionPoint::IntCurveSurface_IntersectionPoint(
+IntersectionPoint1::IntersectionPoint1(
   const Point3d&                           P,
   const Standard_Real                     USurf,
   const Standard_Real                     VSurf,
@@ -40,7 +40,7 @@ IntCurveSurface_IntersectionPoint::IntCurveSurface_IntersectionPoint(
 }
 
 //================================================================================
-void IntCurveSurface_IntersectionPoint::SetValues(const Point3d&                           P,
+void IntersectionPoint1::SetValues(const Point3d&                           P,
                                                   const Standard_Real                     USurf,
                                                   const Standard_Real                     VSurf,
                                                   const Standard_Real                     UCurv,
@@ -54,7 +54,7 @@ void IntCurveSurface_IntersectionPoint::SetValues(const Point3d&                
 }
 
 //================================================================================
-void IntCurveSurface_IntersectionPoint::Values(Point3d&                            P,
+void IntersectionPoint1::Values(Point3d&                            P,
                                                Standard_Real&                     USurf,
                                                Standard_Real&                     VSurf,
                                                Standard_Real&                     UCurv,
@@ -68,7 +68,7 @@ void IntCurveSurface_IntersectionPoint::Values(Point3d&                         
 }
 
 //================================================================================
-void IntCurveSurface_IntersectionPoint::Dump() const
+void IntersectionPoint1::Dump() const
 {
   std::cout << "IntersectionPoint: P(" << myP.X() << "," << myP.Y() << "," << myP.Z() << ")"
             << std::endl;

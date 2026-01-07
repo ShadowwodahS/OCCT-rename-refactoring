@@ -96,7 +96,7 @@ Line2dTangentObl::Line2dTangentObl(const gp_Pnt2d&     ThePoint,
 //   create the straight line passing by C1 of direction D1.                    +
 //=========================================================================
 
-Line2dTangentObl::Line2dTangentObl(const GccEnt_QualifiedCirc& Qualified1,
+Line2dTangentObl::Line2dTangentObl(const QualifiedCircle& Qualified1,
                                        const gp_Lin2d&             TheLine,
                                        const Standard_Real         TheAngle)
     : linsol(1, 2),

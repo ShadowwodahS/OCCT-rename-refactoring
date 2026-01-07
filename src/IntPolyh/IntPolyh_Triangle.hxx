@@ -213,7 +213,7 @@ public:
                                           const Standard_Integer       theEdge3);
 
   //! Sets the appropriate edge and orientation for the triangle.
-  Standard_EXPORT void SetEdgeAndOrientation(const IntPolyh_Edge&   theEdge,
+  Standard_EXPORT void SetEdgeAndOrientation(const Edge&   theEdge,
                                              const Standard_Integer theEdgeIndex);
 
   //! Returns the bounding box of the triangle.

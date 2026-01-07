@@ -30,7 +30,7 @@ class IntRes2d_IntersectionSegment;
 //! Defines  the root   class  of  all  the  Intersections
 //! between  two 2D-Curves, and  provides all  the methods
 //! about the results of the Intersections Algorithms.
-class IntRes2d_Intersection
+class Intersection2
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -71,12 +71,12 @@ public:
 
 protected:
   //! Empty constructor.
-  IntRes2d_Intersection();
+  Intersection2();
 
-  IntRes2d_Intersection(const IntRes2d_Intersection& Other);
+  Intersection2(const Intersection2& Other);
 
   //! Assignment
-  IntRes2d_Intersection& operator=(const IntRes2d_Intersection& theOther)
+  Intersection2& operator=(const Intersection2& theOther)
   {
     done    = theOther.done;
     reverse = theOther.reverse;
@@ -86,11 +86,11 @@ protected:
   }
 
   //! Destructor is protected, for safe inheritance
-  ~IntRes2d_Intersection() {}
+  ~Intersection2() {}
 
-  Standard_EXPORT void SetValues(const IntRes2d_Intersection& Inter);
+  Standard_EXPORT void SetValues(const Intersection2& Inter);
 
-  Standard_EXPORT void Append(const IntRes2d_Intersection& Inter,
+  Standard_EXPORT void Append(const Intersection2& Inter,
                               const Standard_Real          FirstParam1,
                               const Standard_Real          LastParam1,
                               const Standard_Real          FirstParam2,

@@ -31,12 +31,12 @@ FairCurve_DistributionOfTension::FairCurve_DistributionOfTension(
   const Handle(TColgp_HArray1OfPnt2d)& Poles,
   const Standard_Integer               DerivativeOrder,
   const Standard_Real                  LengthSliding,
-  const FairCurve_BattenLaw&           Law,
+  const FairCurve_BattenLaw&           Law1,
   const Standard_Integer               NbValAux,
   const Standard_Boolean               Uniform)
     : FairCurve_DistributionOfEnergy(BSplOrder, FlatKnots, Poles, DerivativeOrder, NbValAux),
       MyLengthSliding(LengthSliding),
-      MyLaw(Law)
+      MyLaw(Law1)
 {
   if (Uniform)
   {

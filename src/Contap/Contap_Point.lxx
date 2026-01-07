@@ -42,8 +42,8 @@ inline void Contap_Point::SetVertex(const Handle(Adaptor3d_HVertex)& V)
 
 inline void Contap_Point::SetArc(const Handle(Adaptor2d_Curve2d)& A,
                                  const Standard_Real              Param,
-                                 const IntSurf_Transition&        TLine,
-                                 const IntSurf_Transition&        TArc)
+                                 const Transition2&        TLine,
+                                 const Transition2&        TArc)
 {
 
   onarc   = Standard_True;
@@ -107,7 +107,7 @@ inline const Handle(Adaptor2d_Curve2d)& Contap_Point::Arc() const
   return arc;
 }
 
-inline const IntSurf_Transition& Contap_Point::TransitionOnLine() const
+inline const Transition2& Contap_Point::TransitionOnLine() const
 {
 
   if (!onarc)
@@ -117,7 +117,7 @@ inline const IntSurf_Transition& Contap_Point::TransitionOnLine() const
   return traline;
 }
 
-inline const IntSurf_Transition& Contap_Point::TransitionOnArc() const
+inline const Transition2& Contap_Point::TransitionOnArc() const
 {
 
   if (!onarc)

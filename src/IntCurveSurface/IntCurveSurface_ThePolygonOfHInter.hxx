@@ -23,7 +23,7 @@
 #include <TColStd_HArray1OfReal.hxx>
 #include <TColStd_Array1OfReal.hxx>
 class Standard_OutOfRange;
-class IntCurveSurface_TheHCurveTool;
+class HCurveTool2;
 class Bnd_Box;
 class Point3d;
 

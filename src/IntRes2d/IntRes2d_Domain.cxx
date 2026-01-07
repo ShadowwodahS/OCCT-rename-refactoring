@@ -32,7 +32,7 @@ static inline Standard_Real LimitInfinite(const Standard_Real Val)
 
 //=================================================================================================
 
-IntRes2d_Domain::IntRes2d_Domain()
+Domain2::Domain2()
     : status(0),
       first_param(0.0),
       last_param(0.0),
@@ -45,18 +45,18 @@ IntRes2d_Domain::IntRes2d_Domain()
 {
 }
 
-void IntRes2d_Domain::SetValues()
+void Domain2::SetValues()
 {
   status      = 0;
   periodfirst = periodlast = 0.0;
 }
 
 //=======================================================================
-// function : IntRes2d_Domain
+// function : Domain2
 // purpose  : Creates a bounded Domain.
 //=======================================================================
 
-IntRes2d_Domain::IntRes2d_Domain(const gp_Pnt2d&     Pnt1,
+Domain2::Domain2(const gp_Pnt2d&     Pnt1,
                                  const Standard_Real Par1,
                                  const Standard_Real Tol1,
                                  const gp_Pnt2d&     Pnt2,
@@ -72,7 +72,7 @@ IntRes2d_Domain::IntRes2d_Domain(const gp_Pnt2d&     Pnt1,
 // purpose  : Sets the values for a bounded domain.
 //=======================================================================
 
-void IntRes2d_Domain::SetValues(const gp_Pnt2d&     Pnt1,
+void Domain2::SetValues(const gp_Pnt2d&     Pnt1,
                                 const Standard_Real Par1,
                                 const Standard_Real Tol1,
                                 const gp_Pnt2d&     Pnt2,
@@ -92,7 +92,7 @@ void IntRes2d_Domain::SetValues(const gp_Pnt2d&     Pnt1,
   last_tol = Tol2;
 }
 
-IntRes2d_Domain::IntRes2d_Domain(const gp_Pnt2d&        Pnt,
+Domain2::Domain2(const gp_Pnt2d&        Pnt,
                                  const Standard_Real    Par,
                                  const Standard_Real    Tol,
                                  const Standard_Boolean First)
@@ -106,7 +106,7 @@ IntRes2d_Domain::IntRes2d_Domain(const gp_Pnt2d&        Pnt,
   SetValues(Pnt, Par, Tol, First);
 }
 
-void IntRes2d_Domain::SetValues(const gp_Pnt2d&        Pnt,
+void Domain2::SetValues(const gp_Pnt2d&        Pnt,
                                 const Standard_Real    Par,
                                 const Standard_Real    Tol,
                                 const Standard_Boolean First)

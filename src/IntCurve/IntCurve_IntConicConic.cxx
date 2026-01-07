@@ -49,12 +49,12 @@ static const Standard_Real PARAM_MAX_ON_PARABOLA  = 100000000.0;
 static const Standard_Real PARAM_MAX_ON_HYPERBOLA = 10000.0;
 static const Standard_Real TOL_EXACT_INTER        = 1.e-7;
 
-static inline Standard_Boolean BOUNDED_DOMAIN(const IntRes2d_Domain& domain)
+static inline Standard_Boolean BOUNDED_DOMAIN(const Domain2& domain)
 {
   return (domain.HasFirstPoint() && domain.HasLastPoint());
 }
 
-static Standard_Boolean SET_BOUNDED_DOMAIN(const IntRes2d_Domain& domain,
+static Standard_Boolean SET_BOUNDED_DOMAIN(const Domain2& domain,
                                            Standard_Real&         binf,
                                            Standard_Real&         tolinf,
                                            gp_Pnt2d&              Pntinf,
@@ -109,16 +109,16 @@ void SetBinfBsupFromIntAna2d(const IntAna2d_AnaIntersection& theIntAna2d,
 // purpose  : Line - Parabola
 //=======================================================================
 void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L,
-                                     const IntRes2d_Domain& DL,
+                                     const Domain2& DL,
                                      const gp_Parab2d&      P,
-                                     const IntRes2d_Domain& DP,
+                                     const Domain2& DP,
                                      const Standard_Real    TolConf,
                                      const Standard_Real    Tol)
 {
 
   this->ResetFields();
-  IntCurve_IConicTool ITool(L);
-  IntCurve_PConic     PCurve(P);
+  ConicTool ITool(L);
+  ParametricConic     PCurve(P);
 
   PCurve.SetAccuracy(20);
   Inter.SetReversedParameters(ReversedParameters());
@@ -168,7 +168,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L,
       Standard_Real tolsup = 0.0;
       if (SET_BOUNDED_DOMAIN(DP, binf, tolinf, Pntinf, bsup, tolsup, Pntsup))
       {
-        IntRes2d_Domain DPModif(Pntinf, binf, tolinf, Pntsup, bsup, tolsup);
+        Domain2 DPModif(Pntinf, binf, tolinf, Pntsup, bsup, tolsup);
         Inter.Perform(ITool, DL, PCurve, DPModif, TolConf, Tol);
       }
       else
@@ -202,7 +202,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L,
           return;
         }
       }
-      IntRes2d_Domain DPModif(Pntinf, binf, ft, Pntsup, bsup, lt);
+      Domain2 DPModif(Pntinf, binf, ft, Pntsup, bsup, lt);
       //      Inter.Perform(ITool,DL,PCurve,DPModif,TolConf,Tol);
       Inter.Perform(ITool, DL, PCurve, DPModif, TOL_EXACT_INTER, TOL_EXACT_INTER);
       this->SetValues(Inter);
@@ -228,15 +228,15 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L,
 // purpose  : Line - Hyperbola
 //=======================================================================
 void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L,
-                                     const IntRes2d_Domain& DL,
+                                     const Domain2& DL,
                                      const gp_Hypr2d&       H,
-                                     const IntRes2d_Domain& DH,
+                                     const Domain2& DH,
                                      const Standard_Real    TolConf,
                                      const Standard_Real    Tol)
 {
   this->ResetFields();
-  IntCurve_IConicTool ITool(L);
-  IntCurve_PConic     PCurve(H);
+  ConicTool ITool(L);
+  ParametricConic     PCurve(H);
   PCurve.SetAccuracy(20);
 
   Inter.SetReversedParameters(ReversedParameters());
@@ -281,7 +281,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L,
       Standard_Real tolsup = 0.0;
       if (SET_BOUNDED_DOMAIN(DH, binf, tolinf, Pntinf, bsup, tolsup, Pntsup))
       {
-        IntRes2d_Domain DHModif(Pntinf, binf, tolinf, Pntsup, bsup, tolsup);
+        Domain2 DHModif(Pntinf, binf, tolinf, Pntsup, bsup, tolsup);
         Inter.Perform(ITool, DL, PCurve, DHModif, TolConf, Tol);
       }
       else
@@ -315,7 +315,7 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L,
           return;
         }
       }
-      IntRes2d_Domain DHModif(Pntinf, binf, ft, Pntsup, bsup, lt);
+      Domain2 DHModif(Pntinf, binf, ft, Pntsup, bsup, lt);
       Inter.Perform(ITool, DL, PCurve, DHModif, TolConf, Tol);
     }
     this->SetValues(Inter);
@@ -331,19 +331,19 @@ void IntCurve_IntConicConic::Perform(const gp_Lin2d&        L,
 // purpose  : Circle - Parabola
 //=======================================================================
 void IntCurve_IntConicConic::Perform(const gp_Circ2d&       C,
-                                     const IntRes2d_Domain& DC,
+                                     const Domain2& DC,
                                      const gp_Parab2d&      P,
-                                     const IntRes2d_Domain& DP,
+                                     const Domain2& DP,
                                      const Standard_Real    TolConf,
                                      const Standard_Real    Tol)
 {
   this->ResetFields();
-  IntCurve_IConicTool ITool(C);
-  IntCurve_PConic     PCurve(P);
+  ConicTool ITool(C);
+  ParametricConic     PCurve(P);
   PCurve.SetAccuracy(20);
   Inter.SetReversedParameters(ReversedParameters());
 
-  IntRes2d_Domain D(DC);
+  Domain2 D(DC);
   if (!DC.IsClosed())
   {
     D.SetEquivalentParameters(DC.FirstParameter(), DC.FirstParameter() + M_PI + M_PI);
@@ -385,7 +385,7 @@ void IntCurve_IntConicConic::Perform(const gp_Circ2d&       C,
       Standard_Real tolsup = 0.0;
       if (SET_BOUNDED_DOMAIN(DP, binf, tolinf, Pntinf, bsup, tolsup, Pntsup))
       {
-        IntRes2d_Domain DPModif(Pntinf, binf, tolinf, Pntsup, bsup, tolsup);
+        Domain2 DPModif(Pntinf, binf, tolinf, Pntsup, bsup, tolsup);
         Inter.Perform(ITool, D, PCurve, DPModif, TolConf, Tol);
       }
       else
@@ -419,7 +419,7 @@ void IntCurve_IntConicConic::Perform(const gp_Circ2d&       C,
           return;
         }
       }
-      IntRes2d_Domain DPModif(Pntinf, binf, ft, Pntsup, bsup, lt);
+      Domain2 DPModif(Pntinf, binf, ft, Pntsup, bsup, lt);
       Inter.Perform(ITool, D, PCurve, DPModif, TolConf, Tol);
     }
     this->SetValues(Inter);
@@ -435,26 +435,26 @@ void IntCurve_IntConicConic::Perform(const gp_Circ2d&       C,
 // purpose  : Circle - Ellipse
 //=======================================================================
 void IntCurve_IntConicConic::Perform(const gp_Circ2d&       C,
-                                     const IntRes2d_Domain& DC,
+                                     const Domain2& DC,
                                      const gp_Elips2d&      E,
-                                     const IntRes2d_Domain& DE,
+                                     const Domain2& DE,
                                      const Standard_Real    TolConf,
                                      const Standard_Real    Tol)
 {
   this->ResetFields();
-  IntCurve_IConicTool ITool(C);
-  IntCurve_PConic     PCurve(E);
+  ConicTool ITool(C);
+  ParametricConic     PCurve(E);
   PCurve.SetAccuracy(20);
 
   Inter.SetReversedParameters(ReversedParameters());
 
   if (!DC.IsClosed())
   {
-    IntRes2d_Domain D1(DC);
+    Domain2 D1(DC);
     D1.SetEquivalentParameters(DC.FirstParameter(), DC.FirstParameter() + M_PI + M_PI);
     if (!DE.IsClosed())
     {
-      IntRes2d_Domain D2(DE);
+      Domain2 D2(DE);
       D2.SetEquivalentParameters(DE.FirstParameter(), DE.FirstParameter() + M_PI + M_PI);
       Inter.Perform(ITool, D1, PCurve, D2, TolConf, Tol);
     }
@@ -467,7 +467,7 @@ void IntCurve_IntConicConic::Perform(const gp_Circ2d&       C,
   {
     if (!DE.IsClosed())
     {
-      IntRes2d_Domain D2(DE);
+      Domain2 D2(DE);
       D2.SetEquivalentParameters(DE.FirstParameter(), DE.FirstParameter() + M_PI + M_PI);
       Inter.Perform(ITool, DC, PCurve, D2, TolConf, Tol);
     }
@@ -484,18 +484,18 @@ void IntCurve_IntConicConic::Perform(const gp_Circ2d&       C,
 // purpose  : Circle - Hyperbola
 //=======================================================================
 void IntCurve_IntConicConic::Perform(const gp_Circ2d&       C,
-                                     const IntRes2d_Domain& DC,
+                                     const Domain2& DC,
                                      const gp_Hypr2d&       H,
-                                     const IntRes2d_Domain& DH,
+                                     const Domain2& DH,
                                      const Standard_Real    TolConf,
                                      const Standard_Real    Tol)
 {
   this->ResetFields();
-  IntCurve_IConicTool ITool(C);
-  IntCurve_PConic     PCurve(H);
+  ConicTool ITool(C);
+  ParametricConic     PCurve(H);
   PCurve.SetAccuracy(20);
   Inter.SetReversedParameters(ReversedParameters());
-  IntRes2d_Domain D(DC);
+  Domain2 D(DC);
 
   if (!DC.IsClosed())
   {
@@ -535,7 +535,7 @@ void IntCurve_IntConicConic::Perform(const gp_Circ2d&       C,
       Standard_Real tolsup = 0.0;
       if (SET_BOUNDED_DOMAIN(DH, binf, tolinf, Pntinf, bsup, tolsup, Pntsup))
       {
-        IntRes2d_Domain DHModif(Pntinf, binf, tolinf, Pntsup, bsup, tolsup);
+        Domain2 DHModif(Pntinf, binf, tolinf, Pntsup, bsup, tolsup);
         Inter.Perform(ITool, D, PCurve, DHModif, TolConf, Tol);
       }
       else
@@ -569,7 +569,7 @@ void IntCurve_IntConicConic::Perform(const gp_Circ2d&       C,
           return;
         }
       }
-      IntRes2d_Domain DHModif(Pntinf, binf, ft, Pntsup, bsup, lt);
+      Domain2 DHModif(Pntinf, binf, ft, Pntsup, bsup, lt);
       Inter.Perform(ITool, D, PCurve, DHModif, TolConf, Tol);
     }
     this->SetValues(Inter);
@@ -585,15 +585,15 @@ void IntCurve_IntConicConic::Perform(const gp_Circ2d&       C,
 // purpose  : Parabola - Parabola
 //=======================================================================
 void IntCurve_IntConicConic::Perform(const gp_Parab2d&      P1,
-                                     const IntRes2d_Domain& DP1,
+                                     const Domain2& DP1,
                                      const gp_Parab2d&      P2,
-                                     const IntRes2d_Domain& DP2,
+                                     const Domain2& DP2,
                                      const Standard_Real    TolConf,
                                      const Standard_Real    Tol)
 {
   this->ResetFields();
-  IntCurve_IConicTool ITool(P1);
-  IntCurve_PConic     PCurve(P2);
+  ConicTool ITool(P1);
+  ParametricConic     PCurve(P2);
   PCurve.SetAccuracy(20);
   Inter.SetReversedParameters(ReversedParameters());
 
@@ -638,7 +638,7 @@ void IntCurve_IntConicConic::Perform(const gp_Parab2d&      P1,
       Standard_Real tolsup = 0.0;
       if (SET_BOUNDED_DOMAIN(DP2, binf, tolinf, Pntinf, bsup, tolsup, Pntsup))
       {
-        IntRes2d_Domain DPModif(Pntinf, binf, tolinf, Pntsup, bsup, tolsup);
+        Domain2 DPModif(Pntinf, binf, tolinf, Pntsup, bsup, tolsup);
         Inter.Perform(ITool, DP1, PCurve, DPModif, TolConf, Tol);
       }
       else
@@ -672,7 +672,7 @@ void IntCurve_IntConicConic::Perform(const gp_Parab2d&      P1,
           return;
         }
       }
-      IntRes2d_Domain DPModif(Pntinf, binf, ft, Pntsup, bsup, lt);
+      Domain2 DPModif(Pntinf, binf, ft, Pntsup, bsup, lt);
       Inter.Perform(ITool, DP1, PCurve, DPModif, TolConf, Tol);
     }
     this->SetValues(Inter);
@@ -688,19 +688,19 @@ void IntCurve_IntConicConic::Perform(const gp_Parab2d&      P1,
 // purpose  : Ellipse - Parabola
 //=======================================================================
 void IntCurve_IntConicConic::Perform(const gp_Elips2d&      E,
-                                     const IntRes2d_Domain& DE,
+                                     const Domain2& DE,
                                      const gp_Parab2d&      P,
-                                     const IntRes2d_Domain& DP,
+                                     const Domain2& DP,
                                      const Standard_Real    TolConf,
                                      const Standard_Real    Tol)
 {
   this->ResetFields();
-  IntCurve_IConicTool ITool(E);
-  IntCurve_PConic     PCurve(P);
+  ConicTool ITool(E);
+  ParametricConic     PCurve(P);
   PCurve.SetAccuracy(20);
   Inter.SetReversedParameters(ReversedParameters());
 
-  IntRes2d_Domain D(DE);
+  Domain2 D(DE);
   if (!DE.IsClosed())
   {
     D.SetEquivalentParameters(DE.FirstParameter(), DE.FirstParameter() + M_PI + M_PI);
@@ -752,7 +752,7 @@ void IntCurve_IntConicConic::Perform(const gp_Elips2d&      E,
       Standard_Real tolsup = 0.0;
       if (SET_BOUNDED_DOMAIN(DP, binf, tolinf, Pntinf, bsup, tolsup, Pntsup))
       {
-        IntRes2d_Domain DPModif(Pntinf, binf, tolinf, Pntsup, bsup, tolsup);
+        Domain2 DPModif(Pntinf, binf, tolinf, Pntsup, bsup, tolsup);
         Inter.Perform(ITool, D, PCurve, DPModif, TolConf, Tol);
       }
       else
@@ -788,7 +788,7 @@ void IntCurve_IntConicConic::Perform(const gp_Elips2d&      E,
       }
       //-- std::cout<<"BOUNDED  binf,bsup "<<binf<<" "<<bsup<<std::endl;
       //-- std::cout<<"Domain   "<<DP.FirstParameter()<<" "<<DP.LastParameter()<<std::endl;
-      IntRes2d_Domain DPModif(Pntinf, binf, ft, Pntsup, bsup, lt);
+      Domain2 DPModif(Pntinf, binf, ft, Pntsup, bsup, lt);
       Inter.Perform(ITool, D, PCurve, DPModif, TolConf, Tol);
     }
     this->SetValues(Inter);
@@ -804,15 +804,15 @@ void IntCurve_IntConicConic::Perform(const gp_Elips2d&      E,
 // purpose  : Parabola - Hyperbola
 //=======================================================================
 void IntCurve_IntConicConic::Perform(const gp_Parab2d&      P,
-                                     const IntRes2d_Domain& DP,
+                                     const Domain2& DP,
                                      const gp_Hypr2d&       H,
-                                     const IntRes2d_Domain& DH,
+                                     const Domain2& DH,
                                      const Standard_Real    TolConf,
                                      const Standard_Real    Tol)
 {
   this->ResetFields();
-  IntCurve_IConicTool ITool(P);
-  IntCurve_PConic     PCurve(H);
+  ConicTool ITool(P);
+  ParametricConic     PCurve(H);
   Inter.SetReversedParameters(ReversedParameters());
 
   Standard_Real binf = Precision::Infinite(), bsup = -Precision::Infinite(), maxtol;
@@ -855,7 +855,7 @@ void IntCurve_IntConicConic::Perform(const gp_Parab2d&      P,
       Standard_Real tolsup = 0.0;
       if (SET_BOUNDED_DOMAIN(DH, binf, tolinf, Pntinf, bsup, tolsup, Pntsup))
       {
-        IntRes2d_Domain DHModif(Pntinf, binf, tolinf, Pntsup, bsup, tolsup);
+        Domain2 DHModif(Pntinf, binf, tolinf, Pntsup, bsup, tolsup);
         Inter.Perform(ITool, DP, PCurve, DHModif, TolConf, Tol);
       }
       else
@@ -889,7 +889,7 @@ void IntCurve_IntConicConic::Perform(const gp_Parab2d&      P,
           return;
         }
       }
-      IntRes2d_Domain DHModif(Pntinf, binf, ft, Pntsup, bsup, lt);
+      Domain2 DHModif(Pntinf, binf, ft, Pntsup, bsup, lt);
       Inter.Perform(ITool, DP, PCurve, DHModif, TolConf, Tol);
     }
     this->SetValues(Inter);
@@ -906,26 +906,26 @@ void IntCurve_IntConicConic::Perform(const gp_Parab2d&      P,
 //=======================================================================
 
 void IntCurve_IntConicConic::Perform(const gp_Elips2d&      E1,
-                                     const IntRes2d_Domain& DE1,
+                                     const Domain2& DE1,
                                      const gp_Elips2d&      E2,
-                                     const IntRes2d_Domain& DE2,
+                                     const Domain2& DE2,
                                      const Standard_Real    TolConf,
                                      const Standard_Real    Tol)
 {
   this->ResetFields();
-  IntCurve_IConicTool ITool(E1);
-  IntCurve_PConic     PCurve(E2);
+  ConicTool ITool(E1);
+  ParametricConic     PCurve(E2);
   PCurve.SetAccuracy(20);
 
   Inter.SetReversedParameters(ReversedParameters());
 
   if (!DE1.IsClosed())
   {
-    IntRes2d_Domain D1(DE1);
+    Domain2 D1(DE1);
     D1.SetEquivalentParameters(DE1.FirstParameter(), DE1.FirstParameter() + M_PI + M_PI);
     if (!DE2.IsClosed())
     {
-      IntRes2d_Domain D2(DE2);
+      Domain2 D2(DE2);
       D2.SetEquivalentParameters(DE2.FirstParameter(), DE2.FirstParameter() + M_PI + M_PI);
       Inter.Perform(ITool, D1, PCurve, D2, TolConf, Tol);
     }
@@ -938,7 +938,7 @@ void IntCurve_IntConicConic::Perform(const gp_Elips2d&      E1,
   {
     if (!DE2.IsClosed())
     {
-      IntRes2d_Domain D2(DE2);
+      Domain2 D2(DE2);
       D2.SetEquivalentParameters(DE2.FirstParameter(), DE2.FirstParameter() + M_PI + M_PI);
       Inter.Perform(ITool, DE1, PCurve, D2, TolConf, Tol);
     }
@@ -955,18 +955,18 @@ void IntCurve_IntConicConic::Perform(const gp_Elips2d&      E1,
 // purpose  : Ellipse - Hyperbola
 //=======================================================================
 void IntCurve_IntConicConic::Perform(const gp_Elips2d&      E,
-                                     const IntRes2d_Domain& DE,
+                                     const Domain2& DE,
                                      const gp_Hypr2d&       H,
-                                     const IntRes2d_Domain& DH,
+                                     const Domain2& DH,
                                      const Standard_Real    TolConf,
                                      const Standard_Real    Tol)
 {
   this->ResetFields();
-  IntCurve_IConicTool ITool(E);
-  IntCurve_PConic     PCurve(H);
+  ConicTool ITool(E);
+  ParametricConic     PCurve(H);
   PCurve.SetAccuracy(20);
   Inter.SetReversedParameters(ReversedParameters());
-  IntRes2d_Domain DEModif(DE);
+  Domain2 DEModif(DE);
 
   if (!DE.IsClosed())
   {
@@ -1007,7 +1007,7 @@ void IntCurve_IntConicConic::Perform(const gp_Elips2d&      E,
       Standard_Real tolsup = 0.0;
       if (SET_BOUNDED_DOMAIN(DH, binf, tolinf, Pntinf, bsup, tolsup, Pntsup))
       {
-        IntRes2d_Domain DHModif(Pntinf, binf, tolinf, Pntsup, bsup, tolsup);
+        Domain2 DHModif(Pntinf, binf, tolinf, Pntsup, bsup, tolsup);
         Inter.Perform(ITool, DEModif, PCurve, DHModif, TolConf, Tol);
       }
       else
@@ -1046,7 +1046,7 @@ void IntCurve_IntConicConic::Perform(const gp_Elips2d&      E,
         done = Standard_True;
         return;
       }
-      IntRes2d_Domain DHModif(Pntinf, binf, ft, Pntsup, bsup, lt);
+      Domain2 DHModif(Pntinf, binf, ft, Pntsup, bsup, lt);
       Inter.Perform(ITool, DEModif, PCurve, DHModif, TolConf, Tol);
     }
     this->SetValues(Inter);
@@ -1063,15 +1063,15 @@ void IntCurve_IntConicConic::Perform(const gp_Elips2d&      E,
 //=======================================================================
 
 void IntCurve_IntConicConic::Perform(const gp_Hypr2d&       H1,
-                                     const IntRes2d_Domain& DH1,
+                                     const Domain2& DH1,
                                      const gp_Hypr2d&       H2,
-                                     const IntRes2d_Domain& DH2,
+                                     const Domain2& DH2,
                                      const Standard_Real    TolConf,
                                      const Standard_Real    Tol)
 {
   this->ResetFields();
-  IntCurve_IConicTool ITool(H1);
-  IntCurve_PConic     PCurve(H2);
+  ConicTool ITool(H1);
+  ParametricConic     PCurve(H2);
   PCurve.SetAccuracy(20);
 
   Inter.SetReversedParameters(ReversedParameters());
@@ -1116,7 +1116,7 @@ void IntCurve_IntConicConic::Perform(const gp_Hypr2d&       H1,
       Standard_Real tolsup = 0.0;
       if (SET_BOUNDED_DOMAIN(DH2, binf, tolinf, Pntinf, bsup, tolsup, Pntsup))
       {
-        IntRes2d_Domain DHModif(Pntinf, binf, tolinf, Pntsup, bsup, tolsup);
+        Domain2 DHModif(Pntinf, binf, tolinf, Pntsup, bsup, tolsup);
         Inter.Perform(ITool, DH1, PCurve, DHModif, TolConf, Tol);
       }
       else
@@ -1148,7 +1148,7 @@ void IntCurve_IntConicConic::Perform(const gp_Hypr2d&       H1,
         done = Standard_True;
         return;
       }
-      IntRes2d_Domain DHModif(Pntinf, binf, ft, Pntsup, bsup, lt);
+      Domain2 DHModif(Pntinf, binf, ft, Pntsup, bsup, lt);
       Inter.Perform(ITool, DH1, PCurve, DHModif, TolConf, Tol);
     }
     this->SetValues(Inter);

@@ -75,7 +75,7 @@ public:
   //! test for 3d points confusion.
   //! It is usfule to determines the derivatives
   //! in these values <First> and <Last> if
-  //! the Law is not Cn.
+  //! the Law1 is not Cn.
   Standard_EXPORT Handle(Law_Function) Trim(const Standard_Real PFirst,
                                             const Standard_Real PLast,
                                             const Standard_Real Tol) const Standard_OVERRIDE;

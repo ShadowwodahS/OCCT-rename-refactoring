@@ -33,7 +33,7 @@ IntCurveSurface_QuadricCurveExactInter::IntCurveSurface_QuadricCurveExactInter(c
      : nbpnts(-1),nbintv(-1)  
 { 
   GeomAbs_SurfaceType QuadricType = TheSurfaceTool::GetType(S);
-  IntSurf_Quadric Quadric;
+  Quadric1 Quadric;
   switch(QuadricType) { 
   case GeomAbs_Plane:     { Quadric.SetValue(TheSurfaceTool::Plane(S));     break; }  
   case GeomAbs_Cylinder:  { Quadric.SetValue(TheSurfaceTool::Cylinder(S));  break; }  

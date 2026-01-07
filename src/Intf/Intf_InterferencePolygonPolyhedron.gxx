@@ -128,7 +128,7 @@ Intf_InterferencePolygonPolyhedron::Intf_InterferencePolygonPolyhedron
   iLin=0;
 
   Bnd_Box bofLin;
-  Intf_Tool btoo;
+  Tool1 btoo;
   btoo.LinBox(theLin, ToolPolyh::Bounding(thePolyh), bofLin);
 
   TColStd_ListIteratorOfListOfInteger iCl(PolyhGrid.Compare(bofLin));
@@ -160,7 +160,7 @@ Intf_InterferencePolygonPolyhedron::Intf_InterferencePolygonPolyhedron
     Tolerance=Epsilon(1000.);
 
   Bnd_Box bofLin;
-  Intf_Tool bToo;
+  Tool1 bToo;
   BeginOfClosedPolygon=Standard_False;
 
   Bnd_BoundSortBox PolyhGrid;
@@ -233,7 +233,7 @@ void Intf_InterferencePolygonPolyhedron::Perform
   iLin=0;
 
   Bnd_Box bofLin;
-  Intf_Tool btoo;
+  Tool1 btoo;
   btoo.LinBox(theLin, ToolPolyh::Bounding(thePolyh), bofLin);
 
   TColStd_ListIteratorOfListOfInteger lCi(PolyhGrid.Compare(bofLin));
@@ -263,7 +263,7 @@ void Intf_InterferencePolygonPolyhedron::Perform
     Tolerance=Epsilon(1000.);
 
   Bnd_Box bofLin;
-  Intf_Tool Btoo;
+  Tool1 Btoo;
   BeginOfClosedPolygon=Standard_False;
 
   Bnd_BoundSortBox PolyhGrid;
@@ -396,7 +396,7 @@ Intf_InterferencePolygonPolyhedron::Intf_InterferencePolygonPolyhedron
   iLin=0;
 
   Bnd_Box bofLin;
-  Intf_Tool btoo;
+  Tool1 btoo;
   btoo.LinBox(theLin, ToolPolyh::Bounding(thePolyh), bofLin);
 
   TColStd_ListIteratorOfListOfInteger iCl(PolyhGrid.Compare(bofLin));
@@ -427,7 +427,7 @@ Intf_InterferencePolygonPolyhedron::Intf_InterferencePolygonPolyhedron
     Tolerance=Epsilon(1000.);
 
   Bnd_Box bofLin;
-  Intf_Tool bToo;
+  Tool1 bToo;
   BeginOfClosedPolygon=Standard_False;
 
   Standard_Integer indTri;
@@ -494,7 +494,7 @@ void Intf_InterferencePolygonPolyhedron::Perform
   iLin=0;
 
   Bnd_Box bofLin;
-  Intf_Tool btoo;
+  Tool1 btoo;
   btoo.LinBox(theLin, ToolPolyh::Bounding(thePolyh), bofLin);
 
   TColStd_ListIteratorOfListOfInteger lCi(PolyhGrid.Compare(bofLin));
@@ -525,7 +525,7 @@ void Intf_InterferencePolygonPolyhedron::Perform
     Tolerance=Epsilon(1000.);
 
   Bnd_Box bofLin;
-  Intf_Tool Btoo;
+  Tool1 Btoo;
   BeginOfClosedPolygon=Standard_False;
 
   Standard_Integer indTri;
@@ -747,7 +747,7 @@ void Intf_InterferencePolygonPolyhedron::Intersect
   if(t1<0) { if(t2>0) return; } else { if(t2<0) return; } 
 
 
-  Intf_SectionPoint SP(PRes,
+  SectionPoint SP(PRes,
 		       Intf_EDGE, 
 		       0, 
 		       iLin, //-- !!!!! VARIABLE STATIQUE 
@@ -904,7 +904,7 @@ void Intf_InterferencePolygonPolyhedron::Intersect
 //--	//-- if (triCon<TTri) return;
 //--	if (triCon==TTri) break;
 //--      }
-      Intf_SectionPoint SP(spLieu,
+      SectionPoint SP(spLieu,
 			   typOnG, 0, iLin, param, 
 			   Intf_VERTEX, pTri[is], 0, 0.,
 			   1.);
@@ -915,7 +915,7 @@ void Intf_InterferencePolygonPolyhedron::Intersect
 			   triCon, pedg);
       //-- if (triCon<=TTri) return; ???????????????????? LBR 
       // !!cout<<" sEdge "<<endl;
-      Intf_SectionPoint SP(spLieu,
+      SectionPoint SP(spLieu,
 			   typOnG, 0, iLin, param, 
 			   Intf_EDGE, Min(pTri[sEdge], pTri[Pourcent3[sEdge+1]]),
 			   Max(pTri[sEdge], pTri[Pourcent3[sEdge+1]]), 0.,
@@ -924,7 +924,7 @@ void Intf_InterferencePolygonPolyhedron::Intersect
     }
     else if (dPiE[0]>0. && dPiE[1]>0. && dPiE[2]>0.) {
       // !!cout<<" 3 Positifs "<<endl;
-      Intf_SectionPoint SP(spLieu,
+      SectionPoint SP(spLieu,
 			   typOnG, 0, iLin, param, 
 			   Intf_FACE, TTri, 0, 0.,
 			   1.);
@@ -960,7 +960,7 @@ void Intf_InterferencePolygonPolyhedron::Intersect
 	    Standard_Real aMaxPar = VecTri.Magnitude();
 
 	    if (aPar >= 0 && aPar <= aMaxPar) {
-	      Intf_SectionPoint SP(spLieu,
+	      SectionPoint SP(spLieu,
 				   typOnG, 0, iLin, param, 
 				   Intf_FACE, TTri, 0, 0.,
 				   1.);
@@ -1018,7 +1018,7 @@ void Intf_InterferencePolygonPolyhedron::Intersect
 		  else { 
 		    tmax=pTri_ip1pc3; tmin=pTri_i; 
 		  }
-		  Intf_SectionPoint SP(spLieu,
+		  SectionPoint SP(spLieu,
 				       typOnG, 0, iLin, ParamOnO, 
 				       Intf_EDGE, 
 				       tmin, 
@@ -1184,7 +1184,7 @@ void Intf_InterferencePolygonPolyhedron::Intersect (const Point3d& BegO,
 //--	//-- if (triCon<TTri) return;
 //--	if (triCon==TTri) break;
 //--      }
-      Intf_SectionPoint SP(spLieu,
+      SectionPoint SP(spLieu,
 			   typOnG, 0, iLin, param, 
 			   Intf_VERTEX, pTri[is], 0, 0.,
 			   1.);
@@ -1195,7 +1195,7 @@ void Intf_InterferencePolygonPolyhedron::Intersect (const Point3d& BegO,
 			   triCon, pedg);
       //-- if (triCon<=TTri) return; ???????????????????? LBR 
       // !!cout<<" sEdge "<<endl;
-      Intf_SectionPoint SP(spLieu,
+      SectionPoint SP(spLieu,
 			   typOnG, 0, iLin, param, 
 			   Intf_EDGE, Min(pTri[sEdge], pTri[Pourcent3[sEdge+1]]),
 			   Max(pTri[sEdge], pTri[Pourcent3[sEdge+1]]), 0.,
@@ -1204,7 +1204,7 @@ void Intf_InterferencePolygonPolyhedron::Intersect (const Point3d& BegO,
     }
     else if (dPiE[0]>0. && dPiE[1]>0. && dPiE[2]>0.) {
       // !!cout<<" 3 Positifs "<<endl;
-      Intf_SectionPoint SP(spLieu,
+      SectionPoint SP(spLieu,
 			   typOnG, 0, iLin, param, 
 			   Intf_FACE, TTri, 0, 0.,
 			   1.);
@@ -1240,7 +1240,7 @@ void Intf_InterferencePolygonPolyhedron::Intersect (const Point3d& BegO,
 	    Standard_Real aMaxPar = VecTri.Magnitude();
 
 	    if (aPar >= 0 && aPar <= aMaxPar) {
-	      Intf_SectionPoint SP(spLieu,
+	      SectionPoint SP(spLieu,
 				   typOnG, 0, iLin, param, 
 				   Intf_FACE, TTri, 0, 0.,
 				   1.);
@@ -1298,7 +1298,7 @@ void Intf_InterferencePolygonPolyhedron::Intersect (const Point3d& BegO,
 		  else { 
 		    tmax=pTri_ip1pc3; tmin=pTri_i; 
 		  }
-		  Intf_SectionPoint SP(spLieu,
+		  SectionPoint SP(spLieu,
 				       typOnG, 0, iLin, ParamOnO, 
 				       Intf_EDGE, 
 				       tmin, 

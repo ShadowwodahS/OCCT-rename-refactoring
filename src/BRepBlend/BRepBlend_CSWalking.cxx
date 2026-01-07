@@ -776,8 +776,8 @@ Standard_Boolean BRepBlend_CSWalking::Recadre(Blend_FuncInv& FuncInv,
 
 void BRepBlend_CSWalking::Transition(const Handle(Adaptor2d_Curve2d)& A,
                                      const Standard_Real              Param,
-                                     IntSurf_Transition&              TLine,
-                                     IntSurf_Transition&              TArc)
+                                     Transition2&              TLine,
+                                     Transition2&              TArc)
 {
   gp_Pnt2d p2d;
   gp_Vec2d dp2d;
@@ -791,7 +791,7 @@ void BRepBlend_CSWalking::Transition(const Handle(Adaptor2d_Curve2d)& A,
   tgrst.SetLinearForm(dp2d.X(), d1u, dp2d.Y(), d1v);
   normale = d1u.Crossed(d1v);
 
-  IntSurf::MakeTransition(previousP.TangentOnS(), tgrst, normale, TLine, TArc);
+  IntSurf1::MakeTransition(previousP.TangentOnS(), tgrst, normale, TLine, TArc);
 }
 
 void BRepBlend_CSWalking::MakeExtremity(BRepBlend_Extremity&             Extrem,
@@ -800,7 +800,7 @@ void BRepBlend_CSWalking::MakeExtremity(BRepBlend_Extremity&             Extrem,
                                         const Standard_Boolean           IsVtx,
                                         const Handle(Adaptor3d_HVertex)& Vtx)
 {
-  IntSurf_Transition          Tline, Tarc;
+  Transition2          Tline, Tarc;
   Standard_Real               prm, U, V;
   Standard_Integer            nbarc;
   Handle(Adaptor3d_TopolTool) Iter;
@@ -881,7 +881,7 @@ void BRepBlend_CSWalking::InternalPerform(Blend_CSFunction& Func,
   Handle(Adaptor3d_HVertex) Vtx;
   BRepBlend_Extremity       Exts, Extc;
 
-  // IntSurf_Transition Tline,Tarc;
+  // Transition2 Tline,Tarc;
 
   Func.GetTolerance(tolerance, tolpoint3d);
   Func.GetBounds(infbound, supbound);

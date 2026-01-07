@@ -21,37 +21,37 @@
 #define _BASEM1 127
 
 //======================================================================
-inline Standard_Integer IntPatch_PrmPrmIntersection::NbLines() const
+inline Standard_Integer ParameterParameterIntersection::NbLines() const
 {
   if (!done)
-    throw StdFail_NotDone(" IntPatch_PrmPrmIntersection ");
+    throw StdFail_NotDone(" ParameterParameterIntersection ");
   return (SLin.Length());
 }
 
 //======================================================================
-inline const Handle(IntPatch_Line)& IntPatch_PrmPrmIntersection::Line(
+inline const Handle(IntPatch_Line)& ParameterParameterIntersection::Line(
   const Standard_Integer n) const
 {
   if (!done)
-    throw StdFail_NotDone(" IntPatch_PrmPrmIntersection ");
+    throw StdFail_NotDone(" ParameterParameterIntersection ");
   return (SLin.Value(n));
 }
 
 //======================================================================
-inline Standard_Boolean IntPatch_PrmPrmIntersection::IsEmpty() const
+inline Standard_Boolean ParameterParameterIntersection::IsEmpty() const
 {
   if (!done)
-    throw StdFail_NotDone(" IntPatch_PrmPrmIntersection ");
+    throw StdFail_NotDone(" ParameterParameterIntersection ");
   return (empt);
 }
 
 //======================================================================
-inline Standard_Boolean IntPatch_PrmPrmIntersection::IsDone() const
+inline Standard_Boolean ParameterParameterIntersection::IsDone() const
 {
   return (done);
 }
 
-inline Standard_Integer IntPatch_PrmPrmIntersection::GrilleInteger(const Standard_Integer ix,
+inline Standard_Integer ParameterParameterIntersection::GrilleInteger(const Standard_Integer ix,
                                                                    const Standard_Integer iy,
                                                                    const Standard_Integer iz) const
 {
@@ -63,7 +63,7 @@ inline Standard_Integer IntPatch_PrmPrmIntersection::GrilleInteger(const Standar
   return (t);
 }
 
-inline void IntPatch_PrmPrmIntersection::IntegerGrille(const Standard_Integer tt,
+inline void ParameterParameterIntersection::IntegerGrille(const Standard_Integer tt,
                                                        Standard_Integer&      ix,
                                                        Standard_Integer&      iy,
                                                        Standard_Integer&      iz) const
@@ -76,7 +76,7 @@ inline void IntPatch_PrmPrmIntersection::IntegerGrille(const Standard_Integer tt
   iz = t;
 }
 
-inline Standard_Integer IntPatch_PrmPrmIntersection::DansGrille(const Standard_Integer t) const
+inline Standard_Integer ParameterParameterIntersection::DansGrille(const Standard_Integer t) const
 {
   if (t >= 0)
   {
@@ -88,12 +88,12 @@ inline Standard_Integer IntPatch_PrmPrmIntersection::DansGrille(const Standard_I
   return (0);
 }
 
-inline Standard_Integer IntPatch_PrmPrmIntersection::NbPointsGrille() const
+inline Standard_Integer ParameterParameterIntersection::NbPointsGrille() const
 {
   return (_BASE);
 }
 
-inline Standard_Integer IntPatch_PrmPrmIntersection::CodeReject(const Standard_Real x0,
+inline Standard_Integer ParameterParameterIntersection::CodeReject(const Standard_Real x0,
                                                                 const Standard_Real y0,
                                                                 const Standard_Real z0,
                                                                 const Standard_Real x1,

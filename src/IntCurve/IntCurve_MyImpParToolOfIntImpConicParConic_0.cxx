@@ -20,11 +20,11 @@
 #include <IntCurve_PConic.hxx>
 #include <IntCurve_PConicTool.hxx>
 
-#define ImpTool IntCurve_IConicTool
+#define ImpTool ConicTool
 #define ImpTool_hxx <IntCurve_IConicTool.hxx>
-#define ParCurve IntCurve_PConic
+#define ParCurve ParametricConic
 #define ParCurve_hxx <IntCurve_PConic.hxx>
-#define ParTool IntCurve_PConicTool
+#define ParTool ParametricConicTool
 #define ParTool_hxx <IntCurve_PConicTool.hxx>
 #define IntImpParGen_ImpParTool IntCurve_MyImpParToolOfIntImpConicParConic
 #define IntImpParGen_ImpParTool_hxx <IntCurve_MyImpParToolOfIntImpConicParConic.hxx>

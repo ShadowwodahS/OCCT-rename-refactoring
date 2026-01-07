@@ -20,6 +20,6 @@
 #include <IntSurf_InteriorPoint.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<IntSurf_InteriorPoint> IntSurf_SequenceOfInteriorPoint;
+typedef NCollection_Sequence<InteriorPoint> IntSurf_SequenceOfInteriorPoint;
 
 #endif

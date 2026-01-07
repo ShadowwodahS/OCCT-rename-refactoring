@@ -80,7 +80,7 @@ Line2dTwoTangent::Line2dTwoTangent(const gp_Pnt2d&     ThePoint1,
 //   passing by the center of the circle and ThePoint.                    +
 //=========================================================================
 
-Line2dTwoTangent::Line2dTwoTangent(const GccEnt_QualifiedCirc& Qualified1,
+Line2dTwoTangent::Line2dTwoTangent(const QualifiedCircle& Qualified1,
                                    const gp_Pnt2d&             ThePoint,
                                    const Standard_Real         Tolerance)
     : linsol(1, 2),
@@ -191,8 +191,8 @@ Line2dTwoTangent::Line2dTwoTangent(const GccEnt_QualifiedCirc& Qualified1,
 //   Then translate the straight line to make it tangent to C1.           +
 //=========================================================================
 
-Line2dTwoTangent::Line2dTwoTangent(const GccEnt_QualifiedCirc& Qualified1,
-                                   const GccEnt_QualifiedCirc& Qualified2,
+Line2dTwoTangent::Line2dTwoTangent(const QualifiedCircle& Qualified1,
+                                   const QualifiedCircle& Qualified2,
                                    const Standard_Real         Tolerance)
     : linsol(1, 4),
       qualifier1(1, 4),

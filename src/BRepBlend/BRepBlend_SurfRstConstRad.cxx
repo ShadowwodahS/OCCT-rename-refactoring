@@ -715,7 +715,7 @@ void BRepBlend_SurfRstConstRad::GetTolerance(const Standard_Real BoundTol,
 {
   Standard_Integer low = Tol3d.Lower(), up = Tol3d.Upper();
   Standard_Real    Tol;
-  Tol = GeomFill::GetTolerance(myTConv, minang, Abs(ray), AngleTol, SurfTol);
+  Tol = GeomFill1::GetTolerance(myTConv, minang, Abs(ray), AngleTol, SurfTol);
   Tol1d.Init(SurfTol);
   Tol3d.Init(SurfTol);
   Tol3d(low + 1) = Tol3d(up - 1) = Min(Tol, SurfTol);
@@ -726,14 +726,14 @@ void BRepBlend_SurfRstConstRad::GetTolerance(const Standard_Real BoundTol,
 
 void BRepBlend_SurfRstConstRad::Knots(TColStd_Array1OfReal& TKnots)
 {
-  GeomFill::Knots(myTConv, TKnots);
+  GeomFill1::Knots(myTConv, TKnots);
 }
 
 //=================================================================================================
 
 void BRepBlend_SurfRstConstRad::Mults(TColStd_Array1OfInteger& TMults)
 {
-  GeomFill::Mults(myTConv, TMults);
+  GeomFill1::Mults(myTConv, TMults);
 }
 
 //=================================================================================================
@@ -792,7 +792,7 @@ void BRepBlend_SurfRstConstRad::Section(const Point2&    P,
     nplan.Reverse();
   }
 
-  GeomFill::GetCircle(myTConv, ns, ns2, nplan, pts, ptrst, Abs(ray), Center, Poles, Weights);
+  GeomFill1::GetCircle(myTConv, ns, ns2, nplan, pts, ptrst, Abs(ray), Center, Poles, Weights);
 }
 
 //=================================================================================================
@@ -983,7 +983,7 @@ Standard_Boolean BRepBlend_SurfRstConstRad::Section(const Point2&    P,
   }
   if (!istgt)
   {
-    return GeomFill::GetCircle(myTConv,
+    return GeomFill1::GetCircle(myTConv,
                                ns,
                                ns2,
                                dnw,
@@ -1005,7 +1005,7 @@ Standard_Boolean BRepBlend_SurfRstConstRad::Section(const Point2&    P,
   }
   else
   {
-    GeomFill::GetCircle(myTConv, ns, ns2, nplan, pts, ptrst, Abs(ray), Center, Poles, Weights);
+    GeomFill1::GetCircle(myTConv, ns, ns2, nplan, pts, ptrst, Abs(ray), Center, Poles, Weights);
     return Standard_False;
   }
 }

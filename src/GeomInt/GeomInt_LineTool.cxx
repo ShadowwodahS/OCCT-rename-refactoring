@@ -267,7 +267,7 @@ static Standard_Boolean FindPoint(const gp_Pnt2d&     theFirstPoint,
 
 //=================================================================================================
 
-Standard_Integer GeomInt_LineTool::NbVertex(const Handle(IntPatch_Line)& L)
+Standard_Integer LineTool2::NbVertex(const Handle(IntPatch_Line)& L)
 {
   switch (L->ArcType())
   {
@@ -285,7 +285,7 @@ Standard_Integer GeomInt_LineTool::NbVertex(const Handle(IntPatch_Line)& L)
 
 //=================================================================================================
 
-const IntPatch_Point& GeomInt_LineTool::Vertex(const Handle(IntPatch_Line)& L,
+const IntPatch_Point& LineTool2::Vertex(const Handle(IntPatch_Line)& L,
                                                const Standard_Integer       I)
 {
   switch (L->ArcType())
@@ -304,7 +304,7 @@ const IntPatch_Point& GeomInt_LineTool::Vertex(const Handle(IntPatch_Line)& L,
 
 //=================================================================================================
 
-Standard_Real GeomInt_LineTool::FirstParameter(const Handle(IntPatch_Line)& L)
+Standard_Real LineTool2::FirstParameter(const Handle(IntPatch_Line)& L)
 {
   const IntPatch_IType typl = L->ArcType();
   switch (typl)
@@ -352,7 +352,7 @@ Standard_Real GeomInt_LineTool::FirstParameter(const Handle(IntPatch_Line)& L)
 
 //=================================================================================================
 
-Standard_Real GeomInt_LineTool::LastParameter(const Handle(IntPatch_Line)& L)
+Standard_Real LineTool2::LastParameter(const Handle(IntPatch_Line)& L)
 {
   const IntPatch_IType typl = L->ArcType();
   switch (typl)
@@ -403,7 +403,7 @@ Standard_Real GeomInt_LineTool::LastParameter(const Handle(IntPatch_Line)& L)
 
 //=================================================================================================
 
-Standard_Boolean GeomInt_LineTool::DecompositionOfWLine(
+Standard_Boolean LineTool2::DecompositionOfWLine(
   const Handle(IntPatch_WLine)&      theWLine,
   const Handle(GeomAdaptor_Surface)& theSurface1,
   const Handle(GeomAdaptor_Surface)& theSurface2,
@@ -463,7 +463,7 @@ Standard_Boolean GeomInt_LineTool::DecompositionOfWLine(
   bIsPrevPointOnBoundary = Standard_False;
   for (pit = 1; pit <= aNbPnts; pit++)
   {
-    const IntSurf_PntOn2S& aPoint = theWLine->Point(pit);
+    const PointOn2Surfaces& aPoint = theWLine->Point(pit);
     bIsCurrentPointOnBoundary     = Standard_False;
     //
     // whether aPoint is on boundary or not
@@ -595,10 +595,10 @@ Standard_Boolean GeomInt_LineTool::DecompositionOfWLine(
       //
       const ListOfInteger&   aNeighbour = anArrayOfLines[aneighbourindex];
       Standard_Integer       anIndex    = (!j) ? aNeighbour.Last() : aNeighbour.First();
-      const IntSurf_PntOn2S& aPoint     = theWLine->Point(anIndex);
+      const PointOn2Surfaces& aPoint     = theWLine->Point(anIndex);
       // check if need use derivative.begin .end [absence]
       //
-      IntSurf_PntOn2S  aNewP = aPoint;
+      PointOn2Surfaces  aNewP = aPoint;
       Standard_Integer surfit, parit;
       //
       for (surfit = 0; surfit < 2; ++surfit)
@@ -699,7 +699,7 @@ Standard_Boolean GeomInt_LineTool::DecompositionOfWLine(
             anotherPar += anoffset;
             Standard_Integer aneighbourpointindex =
               (j == 0) ? aListOfIndex.First() : aListOfIndex.Last();
-            const IntSurf_PntOn2S& aNeighbourPoint = theWLine->Point(aneighbourpointindex);
+            const PointOn2Surfaces& aNeighbourPoint = theWLine->Point(aneighbourpointindex);
             Standard_Real          nU1, nV1;
 
             if (surfit == 0)
@@ -747,7 +747,7 @@ Standard_Boolean GeomInt_LineTool::DecompositionOfWLine(
                      && (anindexother >= aListOfIndex.First()))
               {
                 anindexother = (j == 0) ? (anindexother + 1) : (anindexother - 1);
-                const IntSurf_PntOn2S& aPrevNeighbourPoint = theWLine->Point(anindexother);
+                const PointOn2Surfaces& aPrevNeighbourPoint = theWLine->Point(anindexother);
                 Standard_Real          nU2, nV2;
 
                 if (surfit == 0)
@@ -770,7 +770,7 @@ Standard_Boolean GeomInt_LineTool::DecompositionOfWLine(
                     if (bCheckAngle1)
                     {
                       Standard_Real   U1, U2, V1, V2;
-                      IntSurf_PntOn2S atmppoint = aNewP;
+                      PointOn2Surfaces atmppoint = aNewP;
                       atmppoint.SetValue((surfit == 0), anewU, anewV);
                       atmppoint.Parameters(U1, V1, U2, V2);
                       Point3d P1 = theSurface1->Value(U1, V1);
@@ -800,7 +800,7 @@ Standard_Boolean GeomInt_LineTool::DecompositionOfWLine(
         {
           Standard_Integer aneighbourpointindex1 =
             (j == 0) ? aListOfIndex.First() : aListOfIndex.Last();
-          const IntSurf_PntOn2S& aNeighbourPoint = theWLine->Point(aneighbourpointindex1);
+          const PointOn2Surfaces& aNeighbourPoint = theWLine->Point(aneighbourpointindex1);
           Standard_Real          nU1, nV1;
 
           if (surfit == 0)
@@ -816,7 +816,7 @@ Standard_Boolean GeomInt_LineTool::DecompositionOfWLine(
           {
             aneighbourpointindex2 =
               (j == 0) ? (aneighbourpointindex2 + 1) : (aneighbourpointindex2 - 1);
-            const IntSurf_PntOn2S& aPrevNeighbourPoint = theWLine->Point(aneighbourpointindex2);
+            const PointOn2Surfaces& aPrevNeighbourPoint = theWLine->Point(aneighbourpointindex2);
             Standard_Real          nU2, nV2;
 
             if (surfit == 0)
@@ -917,20 +917,20 @@ Standard_Boolean GeomInt_LineTool::DecompositionOfWLine(
           // append whole line, and boundaries if necessary
           if (bhasfirstpoint)
           {
-            const IntSurf_PntOn2S& aP = aSeqOfPntOn2S->Value(aListOfFLIndex.First());
+            const PointOn2Surfaces& aP = aSeqOfPntOn2S->Value(aListOfFLIndex.First());
             aLineOn2S->Add(aP);
           }
           ListOfInteger::Iterator anIt(aListOfIndex);
 
           for (; anIt.More(); anIt.Next())
           {
-            const IntSurf_PntOn2S& aP = theWLine->Point(anIt.Value());
+            const PointOn2Surfaces& aP = theWLine->Point(anIt.Value());
             aLineOn2S->Add(aP);
           }
 
           if (bhaslastpoint)
           {
-            const IntSurf_PntOn2S& aP = aSeqOfPntOn2S->Value(aListOfFLIndex.Last());
+            const PointOn2Surfaces& aP = aSeqOfPntOn2S->Value(aListOfFLIndex.Last());
             aLineOn2S->Add(aP);
           }
 
@@ -972,7 +972,7 @@ Standard_Boolean GeomInt_LineTool::DecompositionOfWLine(
         {
           if ((anIt.Value() < ifprm) || (anIt.Value() > ilprm))
             continue;
-          const IntSurf_PntOn2S& aP = theWLine->Point(anIt.Value());
+          const PointOn2Surfaces& aP = theWLine->Point(anIt.Value());
           aLineOn2S->Add(aP);
         }
       }
@@ -988,13 +988,13 @@ Standard_Boolean GeomInt_LineTool::DecompositionOfWLine(
           {
             if (anIt.Value() < ifprm)
               continue;
-            const IntSurf_PntOn2S& aP = theWLine->Point(anIt.Value());
+            const PointOn2Surfaces& aP = theWLine->Point(anIt.Value());
             aLineOn2S->Add(aP);
           }
 
           if (bhaslastpoint)
           {
-            const IntSurf_PntOn2S& aP = aSeqOfPntOn2S->Value(aListOfFLIndex.Last());
+            const PointOn2Surfaces& aP = aSeqOfPntOn2S->Value(aListOfFLIndex.Last());
             aLineOn2S->Add(aP);
           }
           // check end of split line (end is almost always)
@@ -1029,7 +1029,7 @@ Standard_Boolean GeomInt_LineTool::DecompositionOfWLine(
           // append points from first boundary point to ilprm
           if (bhasfirstpoint)
           {
-            const IntSurf_PntOn2S& aP = aSeqOfPntOn2S->Value(aListOfFLIndex.First());
+            const PointOn2Surfaces& aP = aSeqOfPntOn2S->Value(aListOfFLIndex.First());
             aLineOn2S->Add(aP);
           }
           ListOfInteger::Iterator anIt(aListOfIndex);
@@ -1038,7 +1038,7 @@ Standard_Boolean GeomInt_LineTool::DecompositionOfWLine(
           {
             if (anIt.Value() > ilprm)
               continue;
-            const IntSurf_PntOn2S& aP = theWLine->Point(anIt.Value());
+            const PointOn2Surfaces& aP = theWLine->Point(anIt.Value());
             aLineOn2S->Add(aP);
           }
         }
@@ -1085,8 +1085,8 @@ Standard_Boolean GeomInt_LineTool::DecompositionOfWLine(
           if (aIndex == ifprm || aIndex == ilprm)
           {
             Handle(IntSurf_LineOn2S) aLineOn2S = new IntSurf_LineOn2S();
-            const IntSurf_PntOn2S&   aP1       = theWLine->Point(ifprm);
-            const IntSurf_PntOn2S&   aP2       = theWLine->Point(ilprm);
+            const PointOn2Surfaces&   aP1       = theWLine->Point(ifprm);
+            const PointOn2Surfaces&   aP2       = theWLine->Point(ilprm);
             aLineOn2S->Add(aP1);
             aLineOn2S->Add(aP2);
             Handle(IntPatch_WLine) aNewWLine = new IntPatch_WLine(aLineOn2S, Standard_False);

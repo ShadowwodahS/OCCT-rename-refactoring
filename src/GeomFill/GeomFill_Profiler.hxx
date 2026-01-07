@@ -32,13 +32,13 @@ class GeomCurve3d;
 //! of curves  from Geom. All the curves will have the
 //! same  degree,  the same knot-vector, so  the  same
 //! number of poles.
-class GeomFill_Profiler
+class Profiler
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT GeomFill_Profiler();
-  Standard_EXPORT virtual ~GeomFill_Profiler();
+  Standard_EXPORT Profiler();
+  Standard_EXPORT virtual ~Profiler();
 
   Standard_EXPORT void AddCurve(const Handle(GeomCurve3d)& Curve);
 

@@ -37,8 +37,8 @@ static Standard_Integer MaxSol = 20;
 //   Creation of a circle tangent to two circles and a point.           +
 //=========================================================================
 
-Circle2dThreeTangent::Circle2dThreeTangent(const GccEnt_QualifiedCirc& Qualified1,
-                                     const GccEnt_QualifiedCirc& Qualified2,
+Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
+                                     const QualifiedCircle& Qualified2,
                                      const gp_Pnt2d&             Point3,
                                      const Standard_Real         Tolerance)
     :

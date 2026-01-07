@@ -32,7 +32,7 @@ public:
   Standard_EXPORT BlendFunc_EvolRadInv(const Handle(Adaptor3d_Surface)& S1,
                                        const Handle(Adaptor3d_Surface)& S2,
                                        const Handle(Adaptor3d_Curve)&   C,
-                                       const Handle(Law_Function)&      Law);
+                                       const Handle(Law_Function)&      Law1);
 
   Standard_EXPORT void Set(const Standard_Boolean           OnFirst,
                            const Handle(Adaptor2d_Curve2d)& COnSurf);

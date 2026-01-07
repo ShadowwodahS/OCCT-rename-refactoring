@@ -30,12 +30,12 @@ class Vector3d;
 
 //! To convert circular section in QuasiAngular Bezier
 //! form
-class GeomFill_QuasiAngularConvertor
+class QuasiAngularConverter
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT GeomFill_QuasiAngularConvertor();
+  Standard_EXPORT QuasiAngularConverter();
 
   //! say if <me> is Initialized
   Standard_EXPORT Standard_Boolean Initialized() const;

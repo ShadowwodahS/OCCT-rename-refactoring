@@ -20,8 +20,8 @@
 
 class Adaptor3d_TopolTool;
 
-//! IntPatch_WLineTool provides set of static methods related to walking lines.
-class IntPatch_WLineTool
+//! WLineTool1 provides set of static methods related to walking lines.
+class WLineTool1
 {
 public:
   DEFINE_STANDARD_ALLOC

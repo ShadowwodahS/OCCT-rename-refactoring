@@ -28,7 +28,7 @@
 #include <IntSurf_TypeTrans.hxx>
 
 class IntPatch_Point;
-class IntSurf_PntOn2S;
+class PointOn2Surfaces;
 
 class IntPatch_RLine;
 DEFINE_STANDARD_HANDLE(IntPatch_RLine, IntPatch_PointLine)
@@ -135,7 +135,7 @@ public:
   virtual Standard_Integer NbPnts() const Standard_OVERRIDE;
 
   //! Returns the intersection point of range Index.
-  virtual const IntSurf_PntOn2S& Point(const Standard_Integer Index) const Standard_OVERRIDE;
+  virtual const PointOn2Surfaces& Point(const Standard_Integer Index) const Standard_OVERRIDE;
 
   //! Set the Point of index <Index> in the LineOn2S
   Standard_EXPORT void SetPoint(const Standard_Integer Index, const IntPatch_Point& Pnt);

@@ -32,19 +32,19 @@ static Standard_Real PIpPI = M_PI + M_PI;
 void Determine_Transition_LC(const IntRes2d_Position,
                              gp_Vec2d&,
                              const gp_Vec2d&,
-                             IntRes2d_Transition&,
+                             Transition3&,
                              const IntRes2d_Position,
                              gp_Vec2d&,
                              const gp_Vec2d&,
-                             IntRes2d_Transition&,
+                             Transition3&,
                              const Standard_Real);
 //======================================================================
-Standard_Real NormalizeOnCircleDomain(const Standard_Real Param, const IntRes2d_Domain& Domain);
+Standard_Real NormalizeOnCircleDomain(const Standard_Real Param, const Domain2& Domain);
 
 //=====================================================================
 //====   C l a s s e     I n t e r v a l      !! Specifique !! ========
 //=====================================================================
-class Interval
+class Interval1
 {
 public:
   Standard_Real    Binf;
@@ -53,21 +53,21 @@ public:
   Standard_Boolean HasLastBound;
   Standard_Boolean IsNull;
 
-  Interval();
-  Interval(const Standard_Real a, const Standard_Real b);
-  Interval(const IntRes2d_Domain& Domain);
-  Interval(const Standard_Real    a,
+  Interval1();
+  Interval1(const Standard_Real a, const Standard_Real b);
+  Interval1(const Domain2& Domain);
+  Interval1(const Standard_Real    a,
            const Standard_Boolean hf,
            const Standard_Real    b,
            const Standard_Boolean hl);
   Standard_Real Length();
-  Interval      IntersectionWithBounded(const Interval& Inter);
+  Interval1      IntersectionWithBounded(const Interval1& Inter);
 };
 
 //======================================================================
 //==  C L A S S E    P E R I O D I C    I N T E R V A L  (Specifique)
 //======================================================================
-class PeriodicInterval
+class PeriodicInterval1
 {
 public:
   Standard_Real    Binf;
@@ -95,7 +95,7 @@ public:
 
   Standard_Real Length() { return ((isnull) ? -100.0 : Abs(Bsup - Binf)); }
 
-  PeriodicInterval(const IntRes2d_Domain& Domain)
+  PeriodicInterval1(const Domain2& Domain)
   {
     isnull = Standard_False;
     if (Domain.HasFirstPoint())
@@ -108,13 +108,13 @@ public:
       Bsup = 20.0;
   }
 
-  PeriodicInterval()
+  PeriodicInterval1()
   {
     isnull = Standard_True;
     Binf = Bsup = 0.0;
   }
 
-  PeriodicInterval(const Standard_Real a, const Standard_Real b)
+  PeriodicInterval1(const Standard_Real a, const Standard_Real b)
   {
     isnull = Standard_False;
     Binf   = a;
@@ -147,8 +147,8 @@ public:
     }
   }
 
-  PeriodicInterval FirstIntersection(PeriodicInterval& I1);
-  PeriodicInterval SecondIntersection(PeriodicInterval& I2);
+  PeriodicInterval1 FirstIntersection(PeriodicInterval1& I1);
+  PeriodicInterval1 SecondIntersection(PeriodicInterval1& I2);
 };
 
 #endif

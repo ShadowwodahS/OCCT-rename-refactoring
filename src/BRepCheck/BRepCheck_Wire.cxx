@@ -1071,7 +1071,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoFace&     F,
   Handle(BRepAdaptor_Surface)        HS;
   Geom2dAdaptor_Curve                C1, C2;
   Geom2dInt_GInter                   Inter;
-  IntRes2d_Domain                    myDomain1;
+  Domain2                    myDomain1;
   TopTools_IndexedMapOfOrientedShape EMap;
   TopTools_MapOfOrientedShape        auxmape;
   //
@@ -1099,7 +1099,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoFace&     F,
     return (BRepCheck_EmptyWire);
   }
   //
-  IntRes2d_Domain*         tabDom = new IntRes2d_Domain[Nbedges];
+  Domain2*         tabDom = new Domain2[Nbedges];
   TColGeom2d_Array1OfCurve tabCur(1, Nbedges);
   Bnd_Array1OfBox2d        boxes(1, Nbedges);
   //
@@ -1156,8 +1156,8 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoFace&     F,
       for (Standard_Integer p = 1; p <= nbp; p++)
       {
         const IntRes2d_IntersectionPoint& IP  = Inter.Point(p);
-        const IntRes2d_Transition&        Tr1 = IP.TransitionOfFirst();
-        const IntRes2d_Transition&        Tr2 = IP.TransitionOfSecond();
+        const Transition3&        Tr1 = IP.TransitionOfFirst();
+        const Transition3&        Tr2 = IP.TransitionOfSecond();
         if (Tr1.PositionOnCurve() == IntRes2d_Middle || Tr2.PositionOnCurve() == IntRes2d_Middle)
         {
           //-- Checking of points with true tolerances (ie Tol in 3d)
@@ -1283,7 +1283,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoFace&     F,
       {
         Standard_Integer                   nbp, nbs;
         Standard_Real                      IP_ParamOnFirst, IP_ParamOnSecond;
-        IntRes2d_Transition                Tr1, Tr2;
+        Transition3                Tr1, Tr2;
         ShapeList               CommonVertices;
         TopTools_ListIteratorOfListOfShape itl;
         TopTools_MapOfShape                Vmap;

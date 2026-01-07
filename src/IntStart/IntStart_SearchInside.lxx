@@ -30,7 +30,7 @@ inline Standard_Integer IntStart_SearchInside::NbPoints() const
   return list.Length();
 }
 
-inline const IntSurf_InteriorPoint& IntStart_SearchInside::Value(const Standard_Integer Index) const
+inline const InteriorPoint& IntStart_SearchInside::Value(const Standard_Integer Index) const
 
 {
   if (!done)

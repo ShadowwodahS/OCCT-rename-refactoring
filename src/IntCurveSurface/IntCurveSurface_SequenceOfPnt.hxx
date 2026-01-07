@@ -20,6 +20,6 @@
 #include <IntCurveSurface_IntersectionPoint.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<IntCurveSurface_IntersectionPoint> IntCurveSurface_SequenceOfPnt;
+typedef NCollection_Sequence<IntersectionPoint1> IntCurveSurface_SequenceOfPnt;
 
 #endif

@@ -242,7 +242,7 @@ static Standard_Boolean Update(const Handle(Adaptor3d_Surface)& fb,
     }
     if (!recadrebis)
     {
-      IntCurveSurface_IntersectionPoint pint = Intersection.Point(isol);
+      IntersectionPoint1 pint = Intersection.Point(isol);
       p2dbout.SetCoord(pint.U(), pint.V());
       w = pint.W();
       if (isperiodic)
@@ -252,13 +252,13 @@ static Standard_Boolean Update(const Handle(Adaptor3d_Surface)& fb,
     {
       if (dist > distbis)
       {
-        IntCurveSurface_IntersectionPoint pint = Intersection.Point(isolbis);
+        IntersectionPoint1 pint = Intersection.Point(isolbis);
         p2dbout.SetCoord(pint.U(), pint.V());
         w = wbis;
       }
       else
       {
-        IntCurveSurface_IntersectionPoint pint = Intersection.Point(isol);
+        IntersectionPoint1 pint = Intersection.Point(isol);
         p2dbout.SetCoord(pint.U(), pint.V());
         w = pint.W();
         w = ElCLib::InPeriod(w, uf, ul);
@@ -543,12 +543,12 @@ Standard_Boolean ChFi3d_SelectStripe(ChFiDS_ListIteratorOfListOfStripe& It,
 //             face at end,
 //           - concavity of 2 outgoing edges is opposite to the one of the fillet,
 //             if the face at end is ready for that, the same in  case 1 on extended face,
-//             otherwise a small cap is done with GeomFill,
+//             otherwise a small cap is done with GeomFill1,
 //           - only one outgoing edge has concavity opposed to the edge of the
 //             fillet and the third edge, the top of the corner is reread
 //             in the empty of the fillet and closed, either by extending the face
 //             at end if it is plane and orthogonal to the
-//             guiding edge, or by a cap of type GeomFill.
+//             guiding edge, or by a cap of type GeomFill1.
 //
 //           <thePrepareOnSame> means that only needed thing is redefinition
 //           of intersection pameter of OnSame-Stripe with <Arcprol>

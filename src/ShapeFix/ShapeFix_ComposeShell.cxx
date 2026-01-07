@@ -1463,7 +1463,7 @@ Standard_Boolean ShapeFix_ComposeShell::SplitByLine(ShapeFix_WireSegment&      w
     for (Standard_Integer iter = 1; iter <= nbIter; iter++)
     {
       // data for intersection
-      IntRes2d_Domain     iDom(pppf, f, TOLINT, pppl, l, TOLINT);
+      Domain2     iDom(pppf, f, TOLINT, pppl, l, TOLINT);
       Geom2dAdaptor_Curve iGAC(c2d);
 
       // intersection

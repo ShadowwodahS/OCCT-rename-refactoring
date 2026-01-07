@@ -26,7 +26,7 @@
 
 /*********************************************************************************/
 /*********************************************************************************/
-void LocalAnalysis_SurfaceContinuity::SurfC0(const GeomLProp_SLProps& Surf1,
+void SurfaceContinuity::SurfC0(const GeomLProp_SLProps& Surf1,
                                              const GeomLProp_SLProps& Surf2)
 {
   myContC0 = (Surf1.Value()).Distance(Surf2.Value());
@@ -34,7 +34,7 @@ void LocalAnalysis_SurfaceContinuity::SurfC0(const GeomLProp_SLProps& Surf1,
 
 /*********************************************************************************/
 
-void LocalAnalysis_SurfaceContinuity::SurfC1(GeomLProp_SLProps& Surf1, GeomLProp_SLProps& Surf2)
+void SurfaceContinuity::SurfC1(GeomLProp_SLProps& Surf1, GeomLProp_SLProps& Surf2)
 {
   Vector3d        V1u, V2u, V1v, V2v;
   Standard_Real norm1u, norm2u, norm1v, norm2v, angu, angv;
@@ -80,7 +80,7 @@ void LocalAnalysis_SurfaceContinuity::SurfC1(GeomLProp_SLProps& Surf1, GeomLProp
 
 /*********************************************************************************/
 
-void LocalAnalysis_SurfaceContinuity::SurfC2(GeomLProp_SLProps& Surf1, GeomLProp_SLProps& Surf2)
+void SurfaceContinuity::SurfC2(GeomLProp_SLProps& Surf1, GeomLProp_SLProps& Surf2)
 
 {
   Vector3d        V11u, V12u, V21u, V22u, V11v, V12v, V21v, V22v;
@@ -171,7 +171,7 @@ void LocalAnalysis_SurfaceContinuity::SurfC2(GeomLProp_SLProps& Surf1, GeomLProp
 }
 
 /*********************************************************************************/
-void LocalAnalysis_SurfaceContinuity::SurfG1(GeomLProp_SLProps& Surf1, GeomLProp_SLProps& Surf2)
+void SurfaceContinuity::SurfG1(GeomLProp_SLProps& Surf1, GeomLProp_SLProps& Surf2)
 {
   if (Surf1.IsNormalDefined() && Surf2.IsNormalDefined())
   {
@@ -192,7 +192,7 @@ void LocalAnalysis_SurfaceContinuity::SurfG1(GeomLProp_SLProps& Surf1, GeomLProp
 
 /*********************************************************************************/
 
-void LocalAnalysis_SurfaceContinuity::SurfG2(GeomLProp_SLProps& Surf1, GeomLProp_SLProps& Surf2)
+void SurfaceContinuity::SurfG2(GeomLProp_SLProps& Surf1, GeomLProp_SLProps& Surf2)
 {
   Dir3d        DMIN1, DMIN2, DMAX1, DMAX2;
   Standard_Real RMIN1, RMIN2, RMAX1, RMAX2;
@@ -234,7 +234,7 @@ void LocalAnalysis_SurfaceContinuity::SurfG2(GeomLProp_SLProps& Surf1, GeomLProp
   }
 }
 
-LocalAnalysis_SurfaceContinuity::LocalAnalysis_SurfaceContinuity(const Standard_Real EpsNul,
+SurfaceContinuity::SurfaceContinuity(const Standard_Real EpsNul,
                                                                  const Standard_Real EpsC0,
                                                                  const Standard_Real EpsC1,
                                                                  const Standard_Real EpsC2,
@@ -270,7 +270,7 @@ LocalAnalysis_SurfaceContinuity::LocalAnalysis_SurfaceContinuity(const Standard_
   myIsDone = Standard_True;
 }
 
-void LocalAnalysis_SurfaceContinuity::ComputeAnalysis(GeomLProp_SLProps&  Surf1,
+void SurfaceContinuity::ComputeAnalysis(GeomLProp_SLProps&  Surf1,
                                                       GeomLProp_SLProps&  Surf2,
                                                       const GeomAbs_Shape Order)
 {
@@ -310,7 +310,7 @@ void LocalAnalysis_SurfaceContinuity::ComputeAnalysis(GeomLProp_SLProps&  Surf1,
 
 /*********************************************************************************/
 
-LocalAnalysis_SurfaceContinuity::LocalAnalysis_SurfaceContinuity(const Handle(GeomSurface)& Surf1,
+SurfaceContinuity::SurfaceContinuity(const Handle(GeomSurface)& Surf1,
                                                                  const Standard_Real         u1,
                                                                  const Standard_Real         v1,
                                                                  const Handle(GeomSurface)& Surf2,
@@ -397,7 +397,7 @@ LocalAnalysis_SurfaceContinuity::LocalAnalysis_SurfaceContinuity(const Handle(Ge
 
 /*********************************************************************************/
 
-LocalAnalysis_SurfaceContinuity::LocalAnalysis_SurfaceContinuity(const Handle(GeomCurve2d)& curv1,
+SurfaceContinuity::SurfaceContinuity(const Handle(GeomCurve2d)& curv1,
                                                                  const Handle(GeomCurve2d)& curv2,
                                                                  const Standard_Real         U,
                                                                  const Handle(GeomSurface)& Surf1,
@@ -501,7 +501,7 @@ LocalAnalysis_SurfaceContinuity::LocalAnalysis_SurfaceContinuity(const Handle(Ge
 
 /*********************************************************************************/
 
-Standard_Boolean LocalAnalysis_SurfaceContinuity::IsC0() const
+Standard_Boolean SurfaceContinuity::IsC0() const
 {
   if (!myIsDone)
   {
@@ -515,7 +515,7 @@ Standard_Boolean LocalAnalysis_SurfaceContinuity::IsC0() const
 
 /*********************************************************************************/
 
-Standard_Boolean LocalAnalysis_SurfaceContinuity::IsC1() const
+Standard_Boolean SurfaceContinuity::IsC1() const
 {
   if (!myIsDone)
   {
@@ -529,7 +529,7 @@ Standard_Boolean LocalAnalysis_SurfaceContinuity::IsC1() const
 
 /*********************************************************************************/
 
-Standard_Boolean LocalAnalysis_SurfaceContinuity::IsC2() const
+Standard_Boolean SurfaceContinuity::IsC2() const
 {
   Standard_Real eps1u, eps1v, eps2u, eps2v;
 
@@ -562,7 +562,7 @@ Standard_Boolean LocalAnalysis_SurfaceContinuity::IsC2() const
 
 /*********************************************************************************/
 
-Standard_Boolean LocalAnalysis_SurfaceContinuity::IsG1() const
+Standard_Boolean SurfaceContinuity::IsG1() const
 {
   if (!myIsDone)
   {
@@ -576,7 +576,7 @@ Standard_Boolean LocalAnalysis_SurfaceContinuity::IsG1() const
 
 /*********************************************************************************/
 
-Standard_Boolean LocalAnalysis_SurfaceContinuity::IsG2() const
+Standard_Boolean SurfaceContinuity::IsG2() const
 {
   Standard_Real    EPSNL;
   Standard_Integer itype;
@@ -622,7 +622,7 @@ Standard_Boolean LocalAnalysis_SurfaceContinuity::IsG2() const
 
 /*********************************************************************************/
 
-GeomAbs_Shape LocalAnalysis_SurfaceContinuity::ContinuityStatus() const
+GeomAbs_Shape SurfaceContinuity::ContinuityStatus() const
 {
   if (!myIsDone)
   {
@@ -633,7 +633,7 @@ GeomAbs_Shape LocalAnalysis_SurfaceContinuity::ContinuityStatus() const
 
 /*********************************************************************************/
 
-Standard_Real LocalAnalysis_SurfaceContinuity::C0Value() const
+Standard_Real SurfaceContinuity::C0Value() const
 {
   if (!myIsDone)
   {
@@ -644,7 +644,7 @@ Standard_Real LocalAnalysis_SurfaceContinuity::C0Value() const
 
 /*********************************************************************************/
 
-Standard_Real LocalAnalysis_SurfaceContinuity::C1UAngle() const
+Standard_Real SurfaceContinuity::C1UAngle() const
 {
   if (!myIsDone)
   {
@@ -655,7 +655,7 @@ Standard_Real LocalAnalysis_SurfaceContinuity::C1UAngle() const
 
 /*********************************************************************************/
 
-Standard_Real LocalAnalysis_SurfaceContinuity::C1VAngle() const
+Standard_Real SurfaceContinuity::C1VAngle() const
 {
   if (!myIsDone)
   {
@@ -666,7 +666,7 @@ Standard_Real LocalAnalysis_SurfaceContinuity::C1VAngle() const
 
 /*********************************************************************************/
 
-Standard_Real LocalAnalysis_SurfaceContinuity::C2UAngle() const
+Standard_Real SurfaceContinuity::C2UAngle() const
 {
   if (!myIsDone)
   {
@@ -677,7 +677,7 @@ Standard_Real LocalAnalysis_SurfaceContinuity::C2UAngle() const
 
 /*********************************************************************************/
 
-Standard_Real LocalAnalysis_SurfaceContinuity::C2VAngle() const
+Standard_Real SurfaceContinuity::C2VAngle() const
 {
   if (!myIsDone)
   {
@@ -688,7 +688,7 @@ Standard_Real LocalAnalysis_SurfaceContinuity::C2VAngle() const
 
 /*********************************************************************************/
 
-Standard_Real LocalAnalysis_SurfaceContinuity::G1Angle() const
+Standard_Real SurfaceContinuity::G1Angle() const
 {
   if (!myIsDone)
   {
@@ -699,7 +699,7 @@ Standard_Real LocalAnalysis_SurfaceContinuity::G1Angle() const
 
 /*********************************************************************************/
 
-Standard_Real LocalAnalysis_SurfaceContinuity::C1URatio() const
+Standard_Real SurfaceContinuity::C1URatio() const
 {
   if (!myIsDone)
   {
@@ -710,7 +710,7 @@ Standard_Real LocalAnalysis_SurfaceContinuity::C1URatio() const
 
 /*********************************************************************************/
 
-Standard_Real LocalAnalysis_SurfaceContinuity::C2URatio() const
+Standard_Real SurfaceContinuity::C2URatio() const
 {
   if (!myIsDone)
   {
@@ -721,7 +721,7 @@ Standard_Real LocalAnalysis_SurfaceContinuity::C2URatio() const
 
 /*********************************************************************************/
 
-Standard_Real LocalAnalysis_SurfaceContinuity::C1VRatio() const
+Standard_Real SurfaceContinuity::C1VRatio() const
 {
   if (!myIsDone)
   {
@@ -732,7 +732,7 @@ Standard_Real LocalAnalysis_SurfaceContinuity::C1VRatio() const
 
 /*********************************************************************************/
 
-Standard_Real LocalAnalysis_SurfaceContinuity::C2VRatio() const
+Standard_Real SurfaceContinuity::C2VRatio() const
 {
   if (!myIsDone)
   {
@@ -743,7 +743,7 @@ Standard_Real LocalAnalysis_SurfaceContinuity::C2VRatio() const
 
 /*********************************************************************************/
 
-Standard_Real LocalAnalysis_SurfaceContinuity::G2CurvatureGap() const
+Standard_Real SurfaceContinuity::G2CurvatureGap() const
 {
   if (!myIsDone)
   {
@@ -754,13 +754,13 @@ Standard_Real LocalAnalysis_SurfaceContinuity::G2CurvatureGap() const
 
 /*********************************************************************************/
 
-Standard_Boolean LocalAnalysis_SurfaceContinuity::IsDone() const
+Standard_Boolean SurfaceContinuity::IsDone() const
 {
   return (myIsDone);
 }
 
 /*********************************************************************************/
-LocalAnalysis_StatusErrorType LocalAnalysis_SurfaceContinuity::StatusError() const
+LocalAnalysis_StatusErrorType SurfaceContinuity::StatusError() const
 {
   return myErrorStatus;
 }

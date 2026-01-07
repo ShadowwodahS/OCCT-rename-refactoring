@@ -514,7 +514,7 @@ static Standard_Integer extrema(DrawInterpreter& di, Standard_Integer n, const c
   {
     GeomAPI_ExtremaCurveCurve Ex(GC1, GC2, U1f, U1l, U2f, U2l);
 
-    // Since GeomAPI cannot provide access to flag directly.
+    // Since GeomAPI1 cannot provide access to flag directly.
     isInfinitySolutions = Ex.Extrema().IsParallel();
     if (isInfinitySolutions)
     {
@@ -591,7 +591,7 @@ static Standard_Integer extrema(DrawInterpreter& di, Standard_Integer n, const c
   else if (!GS1.IsNull() && !GS2.IsNull())
   {
     GeomAPI_ExtremaSurfaceSurface Ex(GS1, GS2, U1f, U1l, V1f, V1l, U2f, U2l, V2f, V2l);
-    // Since GeomAPI cannot provide access to flag directly.
+    // Since GeomAPI1 cannot provide access to flag directly.
     isInfinitySolutions = Ex.Extrema().IsParallel();
     if (isInfinitySolutions)
     {

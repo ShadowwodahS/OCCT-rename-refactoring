@@ -24,7 +24,7 @@
 #include <gp_XYZ.hxx>
 #include <Intf_Interference.hxx>
 class IntPatch_Polyhedron;
-class Intf_TangentZone;
+class TangentZone;
 
 //! Computes the  interference between two polyhedra or the
 //! self interference of a polyhedron. Points of intersection,
@@ -71,7 +71,7 @@ private:
 
   //! Computes the  zone of tangence between the  facet <Tri1> of
   //! <FirstPol> and the facet <Tri2> of <SecondPol>.
-  Standard_EXPORT Standard_Boolean TangentZoneValue(Intf_TangentZone&          TheTZ,
+  Standard_EXPORT Standard_Boolean TangentZoneValue(TangentZone&          TheTZ,
                                                     const IntPatch_Polyhedron& Obje1,
                                                     const Standard_Integer     Tri1,
                                                     const IntPatch_Polyhedron& Obje2,

@@ -215,8 +215,8 @@ void LocOpe_SplitDrafts::Perform(const TopoFace&     F,
 
         if (intcs.NbSegments() == 1)
         {
-          const IntCurveSurface_IntersectionPoint& P1 = intcs.Segment(1).FirstPoint();
-          const IntCurveSurface_IntersectionPoint& P2 = intcs.Segment(1).SecondPoint();
+          const IntersectionPoint1& P1 = intcs.Segment(1).FirstPoint();
+          const IntersectionPoint1& P2 = intcs.Segment(1).SecondPoint();
           const Point3d&                            pf = P1.Pnt();
           const Point3d&                            pl = P2.Pnt();
           TopoVertex                            Vf, Vl;
@@ -267,7 +267,7 @@ void LocOpe_SplitDrafts::Perform(const TopoFace&     F,
 
           for (Standard_Integer i = 1; i <= intcs.NbPoints(); i++)
           {
-            const IntCurveSurface_IntersectionPoint& Pi  = intcs.Point(i);
+            const IntersectionPoint1& Pi  = intcs.Point(i);
             const Point3d&                            pi  = Pi.Pnt();
             Standard_Real                            dif = pi.SquareDistance(Pf);
             Standard_Real                            dil = pi.SquareDistance(Pl);

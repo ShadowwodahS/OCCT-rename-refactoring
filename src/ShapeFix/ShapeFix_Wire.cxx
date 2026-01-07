@@ -2024,10 +2024,10 @@ static Standard_Boolean RemoveLoop(TopoEdge&                      E,
     Pln = aPlaneSurf->Pln();
   }
   else
-    pcurve3d = GeomAPI::To3d(c2d, Pln);
+    pcurve3d = GeomAPI1::To3d(c2d, Pln);
 
   // first segment
-  // Handle(GeomCurve3d) pcurve3d = GeomAPI::To3d ( c2d, Pln );
+  // Handle(GeomCurve3d) pcurve3d = GeomAPI1::To3d ( c2d, Pln );
   Handle(Geom_TrimmedCurve)           trim = new Geom_TrimmedCurve(pcurve3d, a, t1);
   GeomConvert_CompCurveToBSplineCurve connect(trim);
 
@@ -2056,7 +2056,7 @@ static Standard_Boolean RemoveLoop(TopoEdge&                      E,
   // keep created 3d curve
   Handle(GeomCurve3d) aNew3dCrv = connect.BSplineCurve();
 
-  Handle(GeomCurve2d) bs = GeomAPI::To2d(aNew3dCrv, Pln);
+  Handle(GeomCurve2d) bs = GeomAPI1::To2d(aNew3dCrv, Pln);
   if (bs.IsNull())
     return Standard_False;
 

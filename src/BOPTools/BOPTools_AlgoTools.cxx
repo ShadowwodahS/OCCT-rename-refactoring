@@ -1504,7 +1504,7 @@ Standard_Boolean AlgoTools::IsHole(const TopoShape& aW, const TopoShape& aFace)
     }
     //
     BRepAdaptor_Curve2d aBAC2D(aE, aFF);
-    aNbS = Geom2dInt_Geom2dCurveTool::NbSamples(aBAC2D);
+    aNbS = Geom2dCurveTool::NbSamples(aBAC2D);
     if (aNbS > 2)
     {
       aNbS *= 4;

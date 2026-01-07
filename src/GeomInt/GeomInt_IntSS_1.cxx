@@ -96,7 +96,7 @@ static void AdjustUPeriodic(const Handle(GeomSurface)& aS, const Handle(GeomCurv
 
 //=================================================================================================
 
-static void GetQuadric(const Handle(GeomAdaptor_Surface)& HS1, IntSurf_Quadric& quad1)
+static void GetQuadric(const Handle(GeomAdaptor_Surface)& HS1, Quadric1& quad1)
 {
   switch (HS1->GetType())
   {
@@ -130,7 +130,7 @@ static void Parameters(const Handle(GeomAdaptor_Surface)& HS1,
                        Standard_Real&                     U2,
                        Standard_Real&                     V2)
 {
-  IntSurf_Quadric quad1, quad2;
+  Quadric1 quad1, quad2;
   //
   GetQuadric(HS1, quad1);
   GetQuadric(HS2, quad2);
@@ -595,7 +595,7 @@ void GeomInt_IntSS::MakeCurve(const Standard_Integer             Index,
       //  Analytic
       // ########################################
     case IntPatch_Analytic:
-      // This case was processed earlier (in IntPatch_Intersection)
+      // This case was processed earlier (in Intersection1)
 
       break;
 
@@ -644,7 +644,7 @@ void GeomInt_IntSS::MakeCurve(const Standard_Integer             Index,
       {
         Standard_Boolean        bIsDecomposited;
         Standard_Integer        nbiter, aNbSeqOfL;
-        GeomInt_WLApprox        theapp3d;
+        WireLineApproximation        theapp3d;
         IntPatch_SequenceOfLine aSeqOfL;
         Standard_Real           tol2d, aTolSS;
         //
@@ -653,7 +653,7 @@ void GeomInt_IntSS::MakeCurve(const Standard_Integer             Index,
         theapp3d.SetParameters(myTolApprox, tol2d, 4, 8, 0, 30, myHS1 != myHS2);
         //
         bIsDecomposited =
-          GeomInt_LineTool::DecompositionOfWLine(WL, myHS1, myHS2, aTolSS, myLConstruct, aSeqOfL);
+          LineTool2::DecompositionOfWLine(WL, myHS1, myHS2, aTolSS, myLConstruct, aSeqOfL);
         //
         aNbParts  = myLConstruct.NbParts();
         aNbSeqOfL = aSeqOfL.Length();
@@ -1263,7 +1263,7 @@ void GeomInt_IntSS::BuildPCurves(const Standard_Real         theFirst,
     gp_Pnt2d pm = theCurve2d->Value(aTm);
     U0          = pm.X();
     //
-    bAdjust = GeomInt::AdjustPeriodic(U0, theUmin, theUmax, period, U0x, du, aEps);
+    bAdjust = GeomInt1::AdjustPeriodic(U0, theUmin, theUmax, period, U0x, du, aEps);
     if (bAdjust)
     {
       gp_Vec2d T1(du, 0.);

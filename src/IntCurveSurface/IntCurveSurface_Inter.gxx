@@ -124,7 +124,7 @@ static
 			Standard_Real& V2new);
 
 static
-  void SectionPointToParameters(const Intf_SectionPoint& Sp,
+  void SectionPointToParameters(const SectionPoint& Sp,
 				const IntCurveSurface_ThePolyhedron& Surf,
 				const IntCurveSurface_ThePolygon&    Curv,
 				Standard_Real& u,
@@ -570,7 +570,7 @@ void IntCurveSurface_Inter::InternalPerform(const TheCurve&       curve,
   
   Standard_Integer i,NbStartPoints=NbSectionPoints;
   for(i=1; i<= NbTangentZones; i++) {
-    const Intf_TangentZone& TZ = interference.ZoneValue(i);
+    const TangentZone& TZ = interference.ZoneValue(i);
     Standard_Integer nbpnts = TZ.NumberOfPoints();
     NbStartPoints+=nbpnts;
   }
@@ -582,7 +582,7 @@ void IntCurveSurface_Inter::InternalPerform(const TheCurve&       curve,
     Standard_Integer IndexPoint=0;
     
     for(i=1; i<= NbSectionPoints; i++) {
-      const Intf_SectionPoint& SP = interference.PntValue(i);
+      const SectionPoint& SP = interference.PntValue(i);
       SectionPointToParameters(SP,polyhedron,polygon,u,v,w);
       TabU[IndexPoint]=u;
       TabV[IndexPoint]=v;
@@ -590,10 +590,10 @@ void IntCurveSurface_Inter::InternalPerform(const TheCurve&       curve,
       IndexPoint++;
     }
     for(i=1; i<= NbTangentZones; i++) {
-      const Intf_TangentZone& TZ = interference.ZoneValue(i);
+      const TangentZone& TZ = interference.ZoneValue(i);
       Standard_Integer nbpnts = TZ.NumberOfPoints();
       for(Standard_Integer j=1; j<=nbpnts; j++) { 
-	const Intf_SectionPoint& SP = TZ.GetPoint(j);
+	const SectionPoint& SP = TZ.GetPoint(j);
 	SectionPointToParameters(SP,polyhedron,polygon,u,v,w);  
 	TabU[IndexPoint]=u;
 	TabV[IndexPoint]=v;
@@ -714,7 +714,7 @@ void IntCurveSurface_Inter::InternalPerform(const TheCurve&       curve,
   
   Standard_Integer i,NbStartPoints=NbSectionPoints;
   for(i=1; i<= NbTangentZones; i++) {
-    const Intf_TangentZone& TZ = interference.ZoneValue(i);
+    const TangentZone& TZ = interference.ZoneValue(i);
     Standard_Integer nbpnts = TZ.NumberOfPoints();
     NbStartPoints+=nbpnts;
   }
@@ -726,7 +726,7 @@ void IntCurveSurface_Inter::InternalPerform(const TheCurve&       curve,
     Standard_Integer IndexPoint=0;
     
     for(i=1; i<= NbSectionPoints; i++) {
-      const Intf_SectionPoint& SP = interference.PntValue(i);
+      const SectionPoint& SP = interference.PntValue(i);
       SectionPointToParameters(SP,polyhedron,polygon,u,v,w);
       TabU[IndexPoint]=u;
       TabV[IndexPoint]=v;
@@ -734,10 +734,10 @@ void IntCurveSurface_Inter::InternalPerform(const TheCurve&       curve,
       IndexPoint++;
     }
     for(i=1; i<= NbTangentZones; i++) {
-      const Intf_TangentZone& TZ = interference.ZoneValue(i);
+      const TangentZone& TZ = interference.ZoneValue(i);
       Standard_Integer nbpnts = TZ.NumberOfPoints();
       for(Standard_Integer j=1; j<=nbpnts; j++) { 
-	const Intf_SectionPoint& SP = TZ.GetPoint(j);
+	const SectionPoint& SP = TZ.GetPoint(j);
 	SectionPointToParameters(SP,polyhedron,polygon,u,v,w);  
 	TabU[IndexPoint]=u;
 	TabV[IndexPoint]=v;
@@ -1022,7 +1022,7 @@ void IntCurveSurface_Inter::PerformConicSurf(const gp_Lin&   Line,
     if(nbsv<20) nbsv=20;
     // modified by NIZHNY-OFV  Mon Aug 20 14:57:06 2001 (60963 end)
     IntCurveSurface_ThePolyhedron polyhedron(surface,nbsu,nbsv,U1new,V1new,U2new,V2new);
-    Intf_Tool                     bndTool;
+    Tool1                     bndTool;
     Bnd_Box                       boxLine;
     bndTool.LinBox(Line,polyhedron.Bounding(),boxLine);
     for(Standard_Integer nbseg=1; nbseg<= bndTool.NbSegments(); nbseg++) { 
@@ -1170,7 +1170,7 @@ void IntCurveSurface_Inter::PerformConicSurf(const gp_Parab&       Parab,
       if(nbsu>40) nbsu=40;
       if(nbsv>40) nbsv=40;
       IntCurveSurface_ThePolyhedron polyhedron(surface,nbsu,nbsv,U1,V1,U2,V2);
-      Intf_Tool                         bndTool;
+      Tool1                         bndTool;
       Bnd_Box                          boxParab;
       bndTool.ParabBox(Parab,polyhedron.Bounding(),boxParab);
       for(Standard_Integer nbseg=1; nbseg<= bndTool.NbSegments(); nbseg++) { 
@@ -1229,7 +1229,7 @@ void IntCurveSurface_Inter::PerformConicSurf(const gp_Hypr&        Hypr,
       if(nbsu>40) nbsu=40;
       if(nbsv>40) nbsv=40;
       IntCurveSurface_ThePolyhedron polyhedron(surface,nbsu,nbsv,U1,V1,U2,V2);
-      Intf_Tool                         bndTool;
+      Tool1                         bndTool;
       Bnd_Box                          boxHypr;
       bndTool.HyprBox(Hypr,polyhedron.Bounding(),boxHypr);
       for(Standard_Integer nbseg=1; nbseg<= bndTool.NbSegments(); nbseg++) { 
@@ -1321,8 +1321,8 @@ void IntCurveSurface_Inter::AppendPoint(const TheCurve& curve,
   IntCurveSurface_ComputeTransitions(curve,w,TransOnCurve,
 				     surface,u,v);
   Point3d P(TheCurveTool::Value(curve,w));
-  IntCurveSurface_IntersectionPoint IP(P,u,v,w,TransOnCurve);
-  Append(IP); //-- invoque la methode de IntCurveSurface_Intersection.
+  IntersectionPoint1 IP(P,u,v,w,TransOnCurve);
+  Append(IP); //-- invoque la methode de CurveSurfaceIntersection1.
   
 }
 
@@ -1343,7 +1343,7 @@ void IntCurveSurface_Inter::AppendSegment(const TheCurve& ,
 //purpose  : P o i n t   d   i n t e r f e r e n c e   - - >  
 //    U , V       e t   W 
 //=======================================================================
-void SectionPointToParameters(const Intf_SectionPoint&              Sp,
+void SectionPointToParameters(const SectionPoint&              Sp,
 			      const IntCurveSurface_ThePolyhedron&  Polyhedron,
 			      const IntCurveSurface_ThePolygon&     Polygon,
 			      Standard_Real& U,

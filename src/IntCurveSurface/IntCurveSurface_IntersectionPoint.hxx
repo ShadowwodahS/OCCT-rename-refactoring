@@ -26,16 +26,16 @@
 
 //! Definition of an interserction point between a
 //! curve and a surface.
-class IntCurveSurface_IntersectionPoint
+class IntersectionPoint1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty Constructor.
-  Standard_EXPORT IntCurveSurface_IntersectionPoint();
+  Standard_EXPORT IntersectionPoint1();
 
   //! Create an IntersectionPoint.
-  Standard_EXPORT IntCurveSurface_IntersectionPoint(const Point3d&                           P,
+  Standard_EXPORT IntersectionPoint1(const Point3d&                           P,
                                                     const Standard_Real                     USurf,
                                                     const Standard_Real                     VSurf,
                                                     const Standard_Real                     UCurv,

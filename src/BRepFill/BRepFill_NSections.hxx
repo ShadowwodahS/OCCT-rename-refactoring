@@ -35,7 +35,7 @@ class TopoShape;
 class BRepFill_NSections;
 DEFINE_STANDARD_HANDLE(BRepFill_NSections, BRepFill_SectionLaw)
 
-//! Build Section Law, with N Sections
+//! Build Section Law1, with N Sections
 class BRepFill_NSections : public BRepFill_SectionLaw
 {
 
@@ -55,7 +55,7 @@ public:
   //! Say if the input shape is a  vertex.
   Standard_EXPORT virtual Standard_Boolean IsVertex() const Standard_OVERRIDE;
 
-  //! Say if the Law is  Constant.
+  //! Say if the Law1 is  Constant.
   Standard_EXPORT virtual Standard_Boolean IsConstant() const Standard_OVERRIDE;
 
   //! Give the law build on a concatenated section

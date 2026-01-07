@@ -45,7 +45,7 @@
 //  gives us the points among which we'll choose the solutions.           +
 //  The choices are made using Qualifiers of C1 and C2.                   +
 //=========================================================================
-Circle2dTwoTangentOn::Circle2dTwoTangentOn(const GccEnt_QualifiedCirc& Qualified1,
+Circle2dTwoTangentOn::Circle2dTwoTangentOn(const QualifiedCircle& Qualified1,
                                          const gp_Pnt2d&             Point2,
                                          const gp_Lin2d&             OnLine,
                                          const Standard_Real         Tolerance)

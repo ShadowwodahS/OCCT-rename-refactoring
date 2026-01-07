@@ -224,7 +224,7 @@ Standard_Boolean ChFi3d1::IsTangentFaces(const TopoEdge&  theEdge,
     if (i == aNbSamples)
       aPar = aLast;
 
-    LocalAnalysis_SurfaceContinuity
+    SurfaceContinuity
       aCont(aC2d1, aC2d2, aPar, aSurf1, aSurf2, theOrder, 0.001, TolC0, 0.1, 0.1, 0.1);
     if (!aCont.IsDone())
     {

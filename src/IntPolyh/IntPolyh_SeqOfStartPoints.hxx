@@ -20,6 +20,6 @@
 #include <IntPolyh_StartPoint.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<IntPolyh_StartPoint> IntPolyh_SeqOfStartPoints;
+typedef NCollection_Sequence<StartPoint> IntPolyh_SeqOfStartPoints;
 
 #endif

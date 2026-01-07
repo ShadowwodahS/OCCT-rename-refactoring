@@ -20,6 +20,6 @@
 #include <Intf_SectionPoint.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<Intf_SectionPoint> Intf_SeqOfSectionPoint;
+typedef NCollection_Sequence<SectionPoint> Intf_SeqOfSectionPoint;
 
 #endif

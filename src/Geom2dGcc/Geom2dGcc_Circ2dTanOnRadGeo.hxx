@@ -30,9 +30,9 @@
 class Geom2dGcc_QCurve;
 class gp_Lin2d;
 class gp_Circ2d;
-class GccEnt_QualifiedCirc;
+class QualifiedCircle;
 class Geom2dAdaptor_Curve;
-class GccEnt_QualifiedLin;
+class QualifiedLine;
 class gp_Pnt2d;
 
 //! This class implements the algorithms used to
@@ -57,7 +57,7 @@ class gp_Pnt2d;
 //! With Tolerance we will give a solution if the
 //! distance between Cu1 and OnLine is lower than or
 //! equal Tolerance.
-class Geom2dGcc_Circ2dTanOnRadGeo
+class Circle2dTangentOnRadiusGeo
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -67,7 +67,7 @@ public:
   //! with a given radius.
   //! Tolerance is used to find solution in every limit cases.
   //! raises NegativeValue in case of NegativeRadius.
-  Standard_EXPORT Geom2dGcc_Circ2dTanOnRadGeo(const Geom2dGcc_QCurve& Qualified1,
+  Standard_EXPORT Circle2dTangentOnRadiusGeo(const Geom2dGcc_QCurve& Qualified1,
                                               const gp_Lin2d&         OnLine,
                                               const Standard_Real     Radius,
                                               const Standard_Real     Tolerance);
@@ -77,7 +77,7 @@ public:
   //! with a given radius.
   //! Tolerance is used to find solution in every limit cases.
   //! raises NegativeValue in case of NegativeRadius.
-  Standard_EXPORT Geom2dGcc_Circ2dTanOnRadGeo(const Geom2dGcc_QCurve& Qualified1,
+  Standard_EXPORT Circle2dTangentOnRadiusGeo(const Geom2dGcc_QCurve& Qualified1,
                                               const gp_Circ2d&        OnCirc,
                                               const Standard_Real     Radius,
                                               const Standard_Real     Tolerance);
@@ -87,7 +87,7 @@ public:
   //! with a given radius.
   //! Tolerance is used to find solution in every limit cases.
   //! raises NegativeValue in case of NegativeRadius.
-  Standard_EXPORT Geom2dGcc_Circ2dTanOnRadGeo(const GccEnt_QualifiedCirc& Qualified1,
+  Standard_EXPORT Circle2dTangentOnRadiusGeo(const QualifiedCircle& Qualified1,
                                               const Geom2dAdaptor_Curve&  OnCurv,
                                               const Standard_Real         Radius,
                                               const Standard_Real         Tolerance);
@@ -97,7 +97,7 @@ public:
   //! with a given radius.
   //! Tolerance is used to find solution in every limit cases.
   //! raises NegativeValue in case of NegativeRadius.
-  Standard_EXPORT Geom2dGcc_Circ2dTanOnRadGeo(const GccEnt_QualifiedLin& Qualified1,
+  Standard_EXPORT Circle2dTangentOnRadiusGeo(const QualifiedLine& Qualified1,
                                               const Geom2dAdaptor_Curve& OnCurv,
                                               const Standard_Real        Radius,
                                               const Standard_Real        Tolerance);
@@ -107,7 +107,7 @@ public:
   //! with a given radius.
   //! Tolerance is used to find solution in every limit cases.
   //! raises NegativeValue in case of NegativeRadius.
-  Standard_EXPORT Geom2dGcc_Circ2dTanOnRadGeo(const Geom2dGcc_QCurve&    Qualified1,
+  Standard_EXPORT Circle2dTangentOnRadiusGeo(const Geom2dGcc_QCurve&    Qualified1,
                                               const Geom2dAdaptor_Curve& OnCurv,
                                               const Standard_Real        Radius,
                                               const Standard_Real        Tolerance);
@@ -117,7 +117,7 @@ public:
   //! 2d curve with a given radius.
   //! Tolerance is used to find solution in every limit cases.
   //! raises NegativeValue in case of NegativeRadius.
-  Standard_EXPORT Geom2dGcc_Circ2dTanOnRadGeo(const gp_Pnt2d&            Point1,
+  Standard_EXPORT Circle2dTangentOnRadiusGeo(const gp_Pnt2d&            Point1,
                                               const Geom2dAdaptor_Curve& OnCurv,
                                               const Standard_Real        Radius,
                                               const Standard_Real        Tolerance);

@@ -346,7 +346,7 @@ static void ComputeCurve3d(const TopoEdge&          Edge,
   }
   else
   { // Cas Plan
-    Handle(GeomCurve3d) C3d = GeomAPI::To3d(Curve, S.Plane());
+    Handle(GeomCurve3d) C3d = GeomAPI1::To3d(Curve, S.Plane());
     UpdateEdge(Edge, C3d, Loc, Tol);
     IsComputed = Standard_True;
   }

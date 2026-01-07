@@ -34,20 +34,20 @@ class TopoEdge;
 class BRepFill_ShapeLaw;
 DEFINE_STANDARD_HANDLE(BRepFill_ShapeLaw, BRepFill_SectionLaw)
 
-//! Build Section Law, with an Vertex, or an Wire
+//! Build Section Law1, with an Vertex, or an Wire
 class BRepFill_ShapeLaw : public BRepFill_SectionLaw
 {
 
 public:
-  //! Construct an constant Law
+  //! Construct an constant Law1
   Standard_EXPORT BRepFill_ShapeLaw(const TopoVertex&   V,
                                     const Standard_Boolean Build = Standard_True);
 
-  //! Construct an constant Law
+  //! Construct an constant Law1
   Standard_EXPORT BRepFill_ShapeLaw(const TopoWire&     W,
                                     const Standard_Boolean Build = Standard_True);
 
-  //! Construct an evolutive Law
+  //! Construct an evolutive Law1
   Standard_EXPORT BRepFill_ShapeLaw(const TopoWire&          W,
                                     const Handle(Law_Function)& L,
                                     const Standard_Boolean      Build = Standard_True);
@@ -55,7 +55,7 @@ public:
   //! Say if the input shape is a  vertex.
   Standard_EXPORT virtual Standard_Boolean IsVertex() const Standard_OVERRIDE;
 
-  //! Say if the Law is  Constant.
+  //! Say if the Law1 is  Constant.
   Standard_EXPORT virtual Standard_Boolean IsConstant() const Standard_OVERRIDE;
 
   //! Give the law build on a concatenated section

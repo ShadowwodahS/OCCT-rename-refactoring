@@ -47,8 +47,8 @@
 
 static const Standard_Integer aNbSolMAX = 8;
 
-Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedCirc& Qualified1,
-                                                     const GccEnt_QualifiedCirc& Qualified2,
+Circle2dTwoTangentOnGeo::Circle2dTwoTangentOnGeo(const QualifiedCircle& Qualified1,
+                                                     const QualifiedCircle& Qualified2,
                                                      const Geom2dAdaptor_Curve&  OnCurv,
                                                      const Standard_Real         Tolerance)
     : cirsol(1, aNbSolMAX),
@@ -99,7 +99,7 @@ Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedCirc&
     Adaptor2d_OffsetCurve              Cu2(HCu2, 0.);
     firstparam = Max(Cu2.FirstParameter(), thefirst);
     lastparam  = Min(Cu2.LastParameter(), thelast);
-    IntRes2d_Domain D2(Cu2.Value(firstparam),
+    Domain2 D2(Cu2.Value(firstparam),
                        firstparam,
                        Tol,
                        Cu2.Value(lastparam),
@@ -115,7 +115,7 @@ Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedCirc&
       {
         case GccInt_Cir: {
           gp_Circ2d       Circ(Sol->Circle());
-          IntRes2d_Domain D1(ElCLib::Value(0., Circ),
+          Domain2 D1(ElCLib::Value(0., Circ),
                              0.,
                              Tol1,
                              ElCLib::Value(2. * M_PI, Circ),
@@ -127,7 +127,7 @@ Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedCirc&
         break;
         case GccInt_Ell: {
           gp_Elips2d      Elips(Sol->Ellipse());
-          IntRes2d_Domain D1(ElCLib::Value(0., Elips),
+          Domain2 D1(ElCLib::Value(0., Elips),
                              0.,
                              Tol1,
                              ElCLib::Value(2. * M_PI, Elips),
@@ -139,7 +139,7 @@ Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedCirc&
         break;
         case GccInt_Hpr: {
           gp_Hypr2d       Hypr(Sol->Hyperbola());
-          IntRes2d_Domain D1(ElCLib::Value(-4., Hypr),
+          Domain2 D1(ElCLib::Value(-4., Hypr),
                              -4.,
                              Tol1,
                              ElCLib::Value(4., Hypr),
@@ -150,7 +150,7 @@ Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedCirc&
         break;
         case GccInt_Lin: {
           gp_Lin2d        Line(Sol->Line());
-          IntRes2d_Domain D1;
+          Domain2 D1;
           Intp.Perform(Line, D1, Cu2, D2, Tol1, Tol2);
         }
         break;
@@ -320,8 +320,8 @@ Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedCirc&
 //  Les choix s effectuent a partir des Qualifieurs qualifiant C1 et L2.  +
 //=========================================================================
 
-Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedCirc& Qualified1,
-                                                     const GccEnt_QualifiedLin&  Qualified2,
+Circle2dTwoTangentOnGeo::Circle2dTwoTangentOnGeo(const QualifiedCircle& Qualified1,
+                                                     const QualifiedLine&  Qualified2,
                                                      const Geom2dAdaptor_Curve&  OnCurv,
                                                      const Standard_Real         Tolerance)
     : cirsol(1, aNbSolMAX),
@@ -374,7 +374,7 @@ Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedCirc&
     Adaptor2d_OffsetCurve              C2(HCu2, 0.);
     firstparam = Max(C2.FirstParameter(), thefirst);
     lastparam  = Min(C2.LastParameter(), thelast);
-    IntRes2d_Domain D2(C2.Value(firstparam), firstparam, Tol, C2.Value(lastparam), lastparam, Tol);
+    Domain2 D2(C2.Value(firstparam), firstparam, Tol, C2.Value(lastparam), lastparam, Tol);
     for (Standard_Integer i = 1; i <= nbsolution; i++)
     {
       Handle(GccInt_Bisec) Sol  = Bis.ThisSolution(i);
@@ -383,13 +383,13 @@ Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedCirc&
       {
         case GccInt_Lin: {
           gp_Lin2d        Line(Sol->Line());
-          IntRes2d_Domain D1;
+          Domain2 D1;
           Intp.Perform(Line, D1, C2, D2, Tol1, Tol2);
         }
         break;
         case GccInt_Par: {
           gp_Parab2d      Parab(Sol->Parabola());
-          IntRes2d_Domain D1(ElCLib::Value(-40, Parab),
+          Domain2 D1(ElCLib::Value(-40, Parab),
                              -40,
                              Tol1,
                              ElCLib::Value(40, Parab),
@@ -533,8 +533,8 @@ Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedCirc&
 //  Les choix s effectuent a partir des Qualifieurs qualifiant L1 et L2.  +
 //=========================================================================
 
-Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedLin& Qualified1,
-                                                     const GccEnt_QualifiedLin& Qualified2,
+Circle2dTwoTangentOnGeo::Circle2dTwoTangentOnGeo(const QualifiedLine& Qualified1,
+                                                     const QualifiedLine& Qualified2,
                                                      const Geom2dAdaptor_Curve& OnCurv,
                                                      const Standard_Real        Tolerance)
     : cirsol(1, aNbSolMAX),
@@ -586,8 +586,8 @@ Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedLin& 
     Adaptor2d_OffsetCurve              C2(HCu2, 0.);
     firstparam = Max(C2.FirstParameter(), thefirst);
     lastparam  = Min(C2.LastParameter(), thelast);
-    IntRes2d_Domain D2(C2.Value(firstparam), firstparam, Tol, C2.Value(lastparam), lastparam, Tol);
-    IntRes2d_Domain D1;
+    Domain2 D2(C2.Value(firstparam), firstparam, Tol, C2.Value(lastparam), lastparam, Tol);
+    Domain2 D1;
     for (Standard_Integer i = 1; i <= nbsolution; i++)
     {
       Intp.Perform(Bis.ThisSolution(i), D1, C2, D2, Tol1, Tol2);
@@ -715,7 +715,7 @@ Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedLin& 
 //  Les choix s effectuent a partir des Qualifieurs qualifiant C1.        +
 //=========================================================================
 
-Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedCirc& Qualified1,
+Circle2dTwoTangentOnGeo::Circle2dTwoTangentOnGeo(const QualifiedCircle& Qualified1,
                                                      const gp_Pnt2d&             Point2,
                                                      const Geom2dAdaptor_Curve&  OnCurv,
                                                      const Standard_Real         Tolerance)
@@ -763,7 +763,7 @@ Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedCirc&
     Adaptor2d_OffsetCurve              C2(HCu2, 0.);
     firstparam = Max(C2.FirstParameter(), thefirst);
     lastparam  = Min(C2.LastParameter(), thelast);
-    IntRes2d_Domain D2(C2.Value(firstparam), firstparam, Tol, C2.Value(lastparam), lastparam, Tol);
+    Domain2 D2(C2.Value(firstparam), firstparam, Tol, C2.Value(lastparam), lastparam, Tol);
     for (Standard_Integer i = 1; i <= nbsolution; i++)
     {
       Handle(GccInt_Bisec) Sol  = Bis.ThisSolution(i);
@@ -772,7 +772,7 @@ Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedCirc&
       {
         case GccInt_Cir: {
           gp_Circ2d       Circ(Sol->Circle());
-          IntRes2d_Domain D1(ElCLib::Value(0., Circ),
+          Domain2 D1(ElCLib::Value(0., Circ),
                              0.,
                              Tol1,
                              ElCLib::Value(2. * M_PI, Circ),
@@ -784,13 +784,13 @@ Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedCirc&
         break;
         case GccInt_Lin: {
           gp_Lin2d        Line(Sol->Line());
-          IntRes2d_Domain D1;
+          Domain2 D1;
           Intp.Perform(Line, D1, C2, D2, Tol1, Tol2);
         }
         break;
         case GccInt_Ell: {
           gp_Elips2d      Elips(Sol->Ellipse());
-          IntRes2d_Domain D1(ElCLib::Value(0., Elips),
+          Domain2 D1(ElCLib::Value(0., Elips),
                              0.,
                              Tol1,
                              ElCLib::Value(2. * M_PI, Elips),
@@ -802,7 +802,7 @@ Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedCirc&
         break;
         case GccInt_Hpr: {
           gp_Hypr2d       Hypr(Sol->Hyperbola());
-          IntRes2d_Domain D1(ElCLib::Value(-4., Hypr),
+          Domain2 D1(ElCLib::Value(-4., Hypr),
                              -4.,
                              Tol1,
                              ElCLib::Value(4., Hypr),
@@ -910,7 +910,7 @@ Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedCirc&
 //  Les choix s effectuent a partir des Qualifieurs qualifiant L1.        +
 //=========================================================================
 
-Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedLin& Qualified1,
+Circle2dTwoTangentOnGeo::Circle2dTwoTangentOnGeo(const QualifiedLine& Qualified1,
                                                      const gp_Pnt2d&            Point2,
                                                      const Geom2dAdaptor_Curve& OnCurv,
                                                      const Standard_Real        Tolerance)
@@ -956,20 +956,20 @@ Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedLin& 
     Adaptor2d_OffsetCurve              C2(HCu2, 0.);
     firstparam = Max(C2.FirstParameter(), thefirst);
     lastparam  = Min(C2.LastParameter(), thelast);
-    IntRes2d_Domain D2(C2.Value(firstparam), firstparam, Tol, C2.Value(lastparam), lastparam, Tol);
+    Domain2 D2(C2.Value(firstparam), firstparam, Tol, C2.Value(lastparam), lastparam, Tol);
     Handle(GccInt_Bisec) Sol  = Bis.ThisSolution();
     GccInt_IType         type = Sol->ArcType();
     switch (type)
     {
       case GccInt_Lin: {
         gp_Lin2d        Line(Sol->Line());
-        IntRes2d_Domain D1;
+        Domain2 D1;
         Intp.Perform(Line, D1, C2, D2, Tol1, Tol2);
       }
       break;
       case GccInt_Par: {
         gp_Parab2d      Parab(Sol->Parabola());
-        IntRes2d_Domain D1(ElCLib::Value(-40, Parab),
+        Domain2 D1(ElCLib::Value(-40, Parab),
                            -40,
                            Tol1,
                            ElCLib::Value(40, Parab),
@@ -1064,7 +1064,7 @@ Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedLin& 
 //  donne les points parmis lesquels nous allons choisir les solutions.   +
 //=========================================================================
 
-Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const gp_Pnt2d&            Point1,
+Circle2dTwoTangentOnGeo::Circle2dTwoTangentOnGeo(const gp_Pnt2d&            Point1,
                                                      const gp_Pnt2d&            Point2,
                                                      const Geom2dAdaptor_Curve& OnCurv,
                                                      const Standard_Real        Tolerance)
@@ -1091,7 +1091,7 @@ Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const gp_Pnt2d&            
   Standard_Real Tol = Abs(Tolerance);
   NbrSol            = 0;
   gp_Dir2d          dirx(1., 0.);
-  GccAna_Pnt2dBisec Bis(Point1, Point2);
+  Point2dBisector Bis(Point1, Point2);
   if (Bis.IsDone())
   {
     Standard_Real                      Tol1 = Abs(Tolerance);
@@ -1101,13 +1101,13 @@ Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const gp_Pnt2d&            
     Adaptor2d_OffsetCurve              Cu2(HCu2, 0.);
     firstparam = Max(Cu2.FirstParameter(), thefirst);
     lastparam  = Min(Cu2.LastParameter(), thelast);
-    IntRes2d_Domain D2(Cu2.Value(firstparam),
+    Domain2 D2(Cu2.Value(firstparam),
                        firstparam,
                        Tol,
                        Cu2.Value(lastparam),
                        lastparam,
                        Tol);
-    IntRes2d_Domain D1;
+    Domain2 D1;
     if (Bis.HasSolution())
     {
       Intp.Perform(Bis.ThisSolution(), D1, Cu2, D2, Tol1, Tol2);
@@ -1142,17 +1142,17 @@ Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const gp_Pnt2d&            
   }
 }
 
-Standard_Boolean Geom2dGcc_Circ2d2TanOnGeo::IsDone() const
+Standard_Boolean Circle2dTwoTangentOnGeo::IsDone() const
 {
   return WellDone;
 }
 
-Standard_Integer Geom2dGcc_Circ2d2TanOnGeo::NbSolutions() const
+Standard_Integer Circle2dTwoTangentOnGeo::NbSolutions() const
 {
   return NbrSol;
 }
 
-gp_Circ2d Geom2dGcc_Circ2d2TanOnGeo::ThisSolution(const Standard_Integer Index) const
+gp_Circ2d Circle2dTwoTangentOnGeo::ThisSolution(const Standard_Integer Index) const
 {
   if (!WellDone)
   {
@@ -1166,7 +1166,7 @@ gp_Circ2d Geom2dGcc_Circ2d2TanOnGeo::ThisSolution(const Standard_Integer Index) 
   return cirsol(Index);
 }
 
-void Geom2dGcc_Circ2d2TanOnGeo::WhichQualifier(const Standard_Integer Index,
+void Circle2dTwoTangentOnGeo::WhichQualifier(const Standard_Integer Index,
                                                GccEnt_Position&       Qualif1,
                                                GccEnt_Position&       Qualif2) const
 {
@@ -1185,7 +1185,7 @@ void Geom2dGcc_Circ2d2TanOnGeo::WhichQualifier(const Standard_Integer Index,
   }
 }
 
-void Geom2dGcc_Circ2d2TanOnGeo::Tangency1(const Standard_Integer Index,
+void Circle2dTwoTangentOnGeo::Tangency1(const Standard_Integer Index,
                                           Standard_Real&         ParSol,
                                           Standard_Real&         ParArg,
                                           gp_Pnt2d&              PntSol) const
@@ -1213,7 +1213,7 @@ void Geom2dGcc_Circ2d2TanOnGeo::Tangency1(const Standard_Integer Index,
   }
 }
 
-void Geom2dGcc_Circ2d2TanOnGeo::Tangency2(const Standard_Integer Index,
+void Circle2dTwoTangentOnGeo::Tangency2(const Standard_Integer Index,
                                           Standard_Real&         ParSol,
                                           Standard_Real&         ParArg,
                                           gp_Pnt2d&              PntSol) const
@@ -1241,7 +1241,7 @@ void Geom2dGcc_Circ2d2TanOnGeo::Tangency2(const Standard_Integer Index,
   }
 }
 
-void Geom2dGcc_Circ2d2TanOnGeo::CenterOn3(const Standard_Integer Index,
+void Circle2dTwoTangentOnGeo::CenterOn3(const Standard_Integer Index,
                                           Standard_Real&         ParArg,
                                           gp_Pnt2d&              PntSol) const
 {
@@ -1260,7 +1260,7 @@ void Geom2dGcc_Circ2d2TanOnGeo::CenterOn3(const Standard_Integer Index,
   }
 }
 
-Standard_Boolean Geom2dGcc_Circ2d2TanOnGeo::IsTheSame1(const Standard_Integer Index) const
+Standard_Boolean Circle2dTwoTangentOnGeo::IsTheSame1(const Standard_Integer Index) const
 {
   if (!WellDone)
     throw StdFail_NotDone();
@@ -1273,7 +1273,7 @@ Standard_Boolean Geom2dGcc_Circ2d2TanOnGeo::IsTheSame1(const Standard_Integer In
   return Standard_True;
 }
 
-Standard_Boolean Geom2dGcc_Circ2d2TanOnGeo::IsTheSame2(const Standard_Integer Index) const
+Standard_Boolean Circle2dTwoTangentOnGeo::IsTheSame2(const Standard_Integer Index) const
 {
   if (!WellDone)
     throw StdFail_NotDone();

@@ -27,7 +27,7 @@ class BRepTopAdaptor_TopolTool;
 class TopoShape;
 class GeomAdaptor_Curve;
 class gp_Lin;
-class IntCurveSurface_IntersectionPoint;
+class IntersectionPoint1;
 class Point3d;
 class TopoFace;
 
@@ -85,7 +85,7 @@ public:
   Standard_EXPORT void Next();
 
   //! returns the current Intersection point.
-  Standard_EXPORT IntCurveSurface_IntersectionPoint Point() const;
+  Standard_EXPORT IntersectionPoint1 Point() const;
 
   //! returns the current geometric Point
   Standard_EXPORT const Point3d& Pnt() const;

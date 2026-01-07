@@ -79,7 +79,7 @@ static Standard_Boolean AffichDist = Standard_False;
 //=====================================================================
 //  static functions
 //=====================================================================
-static IntRes2d_Domain Domain(const Handle(Geom2d_TrimmedCurve)& Bisector1,
+static Domain2 Domain(const Handle(Geom2d_TrimmedCurve)& Bisector1,
                               const Standard_Real                Tolerance);
 
 static Handle(TypeInfo) Type(const Handle(Geom2d_Geometry)& acurve);
@@ -849,8 +849,8 @@ Standard_Real MAT2d_Tool2d::IntersectBisector(const Handle(MAT_Bisector)& Bisect
   // -----------------------------------------
   // Construction des domaines d intersection.
   // -----------------------------------------
-  IntRes2d_Domain Domain1 = Domain(Bisector1, Tolerance);
-  IntRes2d_Domain Domain2 = Domain(Bisector2, Tolerance);
+  Domain2 Domain1 = Domain(Bisector1, Tolerance);
+  Domain2 Domain2 = Domain(Bisector2, Tolerance);
 
   if (Domain1.LastParameter() - Domain1.FirstParameter() < Tolerance)
     return Precision::Infinite();
@@ -1303,7 +1303,7 @@ static void SetTrim(Bisector_Bisec& Bis, const Handle(GeomCurve2d)& Line1)
   Standard_Real               Tolerance = MAT2d_TOLCONF;
   Handle(Geom2d_TrimmedCurve) Bisector  = Bis.ChangeValue();
 
-  IntRes2d_Domain Domain1 = Domain(Bisector, Tolerance);
+  Domain2 Domain1 = Domain(Bisector, Tolerance);
   Standard_Real   UB1     = Bisector->FirstParameter();
   Standard_Real   UB2     = Bisector->LastParameter();
 
@@ -1336,7 +1336,7 @@ static void SetTrim(Bisector_Bisec& Bis, const Handle(GeomCurve2d)& Line1)
 
 //=================================================================================================
 
-IntRes2d_Domain Domain(const Handle(Geom2d_TrimmedCurve)& Bisector1, const Standard_Real Tolerance)
+Domain2 Domain(const Handle(Geom2d_TrimmedCurve)& Bisector1, const Standard_Real Tolerance)
 {
   Standard_Real Param1 = Bisector1->FirstParameter();
   Standard_Real Param2 = Bisector1->LastParameter();
@@ -1375,7 +1375,7 @@ IntRes2d_Domain Domain(const Handle(Geom2d_TrimmedCurve)& Bisector1, const Stand
     }
   }
 
-  IntRes2d_Domain Domain1(Bisector1->Value(Param1),
+  Domain2 Domain1(Bisector1->Value(Param1),
                           Param1,
                           Tolerance,
                           Bisector1->Value(Param2),

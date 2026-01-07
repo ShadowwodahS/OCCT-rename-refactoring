@@ -31,7 +31,7 @@
 #include <Standard_OutOfRange.hxx>
 #include <StdFail_NotDone.hxx>
 
-Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Qualified1,
+Circ2d2TanOn1::Circ2d2TanOn1(const Geom2dGcc_QualifiedCurve& Qualified1,
                                                const Geom2dGcc_QualifiedCurve& Qualified2,
                                                const Geom2dAdaptor_Curve&      OnCurve,
                                                const Standard_Real             Tolerance,
@@ -77,7 +77,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
       {
         Handle(Geom2d_Circle) CCC1 = Handle(Geom2d_Circle)::DownCast(CC1);
         gp_Circ2d             c1(CCC1->Circ2d());
-        GccEnt_QualifiedCirc  Qc1 = GccEnt_QualifiedCirc(c1, Qualified1.Qualifier());
+        QualifiedCircle  Qc1 = QualifiedCircle(c1, Qualified1.Qualifier());
         if (Type2 == GeomAbs_Circle)
         {
           Handle(Geom2d_Circle) CCC2 = Handle(Geom2d_Circle)::DownCast(CC2);
@@ -86,7 +86,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
           {
             Handle(Geom2d_Circle) CCon = Handle(Geom2d_Circle)::DownCast(Con);
             Circle2dTwoTangentOn   CircAna(Qc1,
-                                        GccEnt_QualifiedCirc(c2, Qualified2.Qualifier()),
+                                        QualifiedCircle(c2, Qualified2.Qualifier()),
                                         CCon->Circ2d(),
                                         Tolerance);
             WellDone = CircAna.IsDone();
@@ -104,7 +104,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
           {
             Handle(Geom2d_Line) LLon = Handle(Geom2d_Line)::DownCast(Con);
             Circle2dTwoTangentOn CircAna(Qc1,
-                                        GccEnt_QualifiedCirc(c2, Qualified2.Qualifier()),
+                                        QualifiedCircle(c2, Qualified2.Qualifier()),
                                         LLon->Lin2d(),
                                         Tolerance);
             WellDone = CircAna.IsDone();
@@ -127,7 +127,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
           {
             Handle(Geom2d_Circle) CCon = Handle(Geom2d_Circle)::DownCast(Con);
             Circle2dTwoTangentOn   CircAna(Qc1,
-                                        GccEnt_QualifiedLin(l2, Qualified2.Qualifier()),
+                                        QualifiedLine(l2, Qualified2.Qualifier()),
                                         CCon->Circ2d(),
                                         Tolerance);
             WellDone = CircAna.IsDone();
@@ -145,7 +145,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
           {
             Handle(Geom2d_Line) LLon = Handle(Geom2d_Line)::DownCast(Con);
             Circle2dTwoTangentOn CircAna(Qc1,
-                                        GccEnt_QualifiedLin(l2, Qualified2.Qualifier()),
+                                        QualifiedLine(l2, Qualified2.Qualifier()),
                                         LLon->Lin2d(),
                                         Tolerance);
             WellDone = CircAna.IsDone();
@@ -165,7 +165,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
       {
         Handle(Geom2d_Line) LL1 = Handle(Geom2d_Line)::DownCast(CC1);
         gp_Lin2d            l1(LL1->Lin2d());
-        GccEnt_QualifiedLin Ql1 = GccEnt_QualifiedLin(l1, Qualified1.Qualifier());
+        QualifiedLine Ql1 = QualifiedLine(l1, Qualified1.Qualifier());
         if (Type2 == GeomAbs_Circle)
         {
           Handle(Geom2d_Circle) CCC2 = Handle(Geom2d_Circle)::DownCast(CC2);
@@ -173,7 +173,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
           if (Type3 == GeomAbs_Circle)
           {
             Handle(Geom2d_Circle) CCon = Handle(Geom2d_Circle)::DownCast(Con);
-            Circle2dTwoTangentOn   CircAna(GccEnt_QualifiedCirc(c2, Qualified2.Qualifier()),
+            Circle2dTwoTangentOn   CircAna(QualifiedCircle(c2, Qualified2.Qualifier()),
                                         Ql1,
                                         CCon->Circ2d(),
                                         Tolerance);
@@ -192,7 +192,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
           else
           {
             Handle(Geom2d_Line) LLon = Handle(Geom2d_Line)::DownCast(Con);
-            Circle2dTwoTangentOn CircAna(GccEnt_QualifiedCirc(c2, Qualified2.Qualifier()),
+            Circle2dTwoTangentOn CircAna(QualifiedCircle(c2, Qualified2.Qualifier()),
                                         Ql1,
                                         LLon->Lin2d(),
                                         Tolerance);
@@ -217,7 +217,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
           {
             Handle(Geom2d_Circle) CCon = Handle(Geom2d_Circle)::DownCast(Con);
             Circle2dTwoTangentOn   CircAna(Ql1,
-                                        GccEnt_QualifiedLin(l2, Qualified2.Qualifier()),
+                                        QualifiedLine(l2, Qualified2.Qualifier()),
                                         CCon->Circ2d(),
                                         Tolerance);
             WellDone = CircAna.IsDone();
@@ -235,7 +235,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
           {
             Handle(Geom2d_Line) LLon = Handle(Geom2d_Line)::DownCast(Con);
             Circle2dTwoTangentOn CircAna(Ql1,
-                                        GccEnt_QualifiedLin(l2, Qualified2.Qualifier()),
+                                        QualifiedLine(l2, Qualified2.Qualifier()),
                                         LLon->Lin2d(),
                                         Tolerance);
             WellDone = CircAna.IsDone();
@@ -263,13 +263,13 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
       {
         Handle(Geom2d_Circle) CCC1 = Handle(Geom2d_Circle)::DownCast(CC1);
         gp_Circ2d             c1(CCC1->Circ2d());
-        GccEnt_QualifiedCirc  Qc1 = GccEnt_QualifiedCirc(c1, Qualified1.Qualifier());
+        QualifiedCircle  Qc1 = QualifiedCircle(c1, Qualified1.Qualifier());
         if (Type2 == GeomAbs_Circle)
         {
           Handle(Geom2d_Circle)     CCC2 = Handle(Geom2d_Circle)::DownCast(CC2);
           gp_Circ2d                 c2(CCC2->Circ2d());
-          GccEnt_QualifiedCirc      Qc2 = GccEnt_QualifiedCirc(c2, Qualified2.Qualifier());
-          Geom2dGcc_Circ2d2TanOnGeo CircGeo(Qc1, Qc2, OnCurve, Tolerance);
+          QualifiedCircle      Qc2 = QualifiedCircle(c2, Qualified2.Qualifier());
+          Circle2dTwoTangentOnGeo CircGeo(Qc1, Qc2, OnCurve, Tolerance);
           WellDone = CircGeo.IsDone();
           if (WellDone)
           {
@@ -285,8 +285,8 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
         {
           Handle(Geom2d_Line)       LL2 = Handle(Geom2d_Line)::DownCast(CC2);
           gp_Lin2d                  l2(LL2->Lin2d());
-          GccEnt_QualifiedLin       Ql2 = GccEnt_QualifiedLin(l2, Qualified2.Qualifier());
-          Geom2dGcc_Circ2d2TanOnGeo CircGeo(Qc1, Ql2, OnCurve, Tolerance);
+          QualifiedLine       Ql2 = QualifiedLine(l2, Qualified2.Qualifier());
+          Circle2dTwoTangentOnGeo CircGeo(Qc1, Ql2, OnCurve, Tolerance);
           WellDone = CircGeo.IsDone();
           if (WellDone)
           {
@@ -303,13 +303,13 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
       {
         Handle(Geom2d_Line) LL1 = Handle(Geom2d_Line)::DownCast(CC1);
         gp_Lin2d            l1(LL1->Lin2d());
-        GccEnt_QualifiedLin Ql1 = GccEnt_QualifiedLin(l1, Qualified1.Qualifier());
+        QualifiedLine Ql1 = QualifiedLine(l1, Qualified1.Qualifier());
         if (Type2 == GeomAbs_Circle)
         {
           Handle(Geom2d_Circle)     CCC2 = Handle(Geom2d_Circle)::DownCast(CC2);
           gp_Circ2d                 c2(CCC2->Circ2d());
-          GccEnt_QualifiedCirc      Qc2 = GccEnt_QualifiedCirc(c2, Qualified2.Qualifier());
-          Geom2dGcc_Circ2d2TanOnGeo CircGeo(Qc2, Ql1, OnCurve, Tolerance);
+          QualifiedCircle      Qc2 = QualifiedCircle(c2, Qualified2.Qualifier());
+          Circle2dTwoTangentOnGeo CircGeo(Qc2, Ql1, OnCurve, Tolerance);
           WellDone = CircGeo.IsDone();
           if (WellDone)
           {
@@ -326,8 +326,8 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
         {
           Handle(Geom2d_Line)       LL2 = Handle(Geom2d_Line)::DownCast(CC2);
           gp_Lin2d                  l2(LL2->Lin2d());
-          GccEnt_QualifiedLin       Ql2 = GccEnt_QualifiedLin(l2, Qualified2.Qualifier());
-          Geom2dGcc_Circ2d2TanOnGeo CircGeo(Ql1, Ql2, OnCurve, Tolerance);
+          QualifiedLine       Ql2 = QualifiedLine(l2, Qualified2.Qualifier());
+          Circle2dTwoTangentOnGeo CircGeo(Ql1, Ql2, OnCurve, Tolerance);
           WellDone = CircGeo.IsDone();
           if (WellDone)
           {
@@ -351,7 +351,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
       if (Type3 == GeomAbs_Circle)
       {
         Handle(Geom2d_Circle) CCon = Handle(Geom2d_Circle)::DownCast(Con);
-        Geom2dGcc_Circ2d2TanOnIter
+        Circle2dTwoTangentOnIter
           Circ(Qc1, Qc2, CCon->Circ2d(), Param1, Param2, ParamOn, Tolerance);
         WellDone = Circ.IsDone();
         if (WellDone)
@@ -381,7 +381,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
       else
       {
         Handle(Geom2d_Line) LLon = Handle(Geom2d_Line)::DownCast(Con);
-        Geom2dGcc_Circ2d2TanOnIter
+        Circle2dTwoTangentOnIter
           Circ(Qc1, Qc2, LLon->Lin2d(), Param1, Param2, ParamOn, Tolerance);
         WellDone = Circ.IsDone();
         if (WellDone)
@@ -410,7 +410,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
         }
       }
     }
-    Geom2dGcc_Circ2d2TanOnIter Circ(Qc1, Qc2, OnCurve, Param1, Param2, ParamOn, Tolerance);
+    Circle2dTwoTangentOnIter Circ(Qc1, Qc2, OnCurve, Param1, Param2, ParamOn, Tolerance);
     WellDone = Circ.IsDone();
     if (WellDone)
     {
@@ -439,7 +439,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
   }
 }
 
-Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Qualified1,
+Circ2d2TanOn1::Circ2d2TanOn1(const Geom2dGcc_QualifiedCurve& Qualified1,
                                                const Handle(Geom2d_Point)&     Point,
                                                const Geom2dAdaptor_Curve&      OnCurve,
                                                const Standard_Real             Tolerance,
@@ -481,7 +481,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
       {
         Handle(Geom2d_Circle) CCC1 = Handle(Geom2d_Circle)::DownCast(CC1);
         gp_Circ2d             c1(CCC1->Circ2d());
-        GccEnt_QualifiedCirc  Qc1(c1, Qualified1.Qualifier());
+        QualifiedCircle  Qc1(c1, Qualified1.Qualifier());
         if (Type3 == GeomAbs_Circle)
         {
           Handle(Geom2d_Circle) CCon = Handle(Geom2d_Circle)::DownCast(Con);
@@ -517,7 +517,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
       {
         Handle(Geom2d_Line) LLL1 = Handle(Geom2d_Line)::DownCast(CC1);
         gp_Lin2d            l1(LLL1->Lin2d());
-        GccEnt_QualifiedLin Ql1(l1, Qualified1.Qualifier());
+        QualifiedLine Ql1(l1, Qualified1.Qualifier());
         if (Type3 == GeomAbs_Circle)
         {
           Handle(Geom2d_Circle) CCon = Handle(Geom2d_Circle)::DownCast(Con);
@@ -560,8 +560,8 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
       {
         Handle(Geom2d_Circle)     CCC1 = Handle(Geom2d_Circle)::DownCast(CC1);
         gp_Circ2d                 c1(CCC1->Circ2d());
-        GccEnt_QualifiedCirc      Qc1(c1, Qualified1.Qualifier());
-        Geom2dGcc_Circ2d2TanOnGeo CircGeo(Qc1, Point->Pnt2d(), OnCurve, Tolerance);
+        QualifiedCircle      Qc1(c1, Qualified1.Qualifier());
+        Circle2dTwoTangentOnGeo CircGeo(Qc1, Point->Pnt2d(), OnCurve, Tolerance);
         WellDone = CircGeo.IsDone();
         if (WellDone)
         {
@@ -577,8 +577,8 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
       {
         Handle(Geom2d_Line)       LLL1 = Handle(Geom2d_Line)::DownCast(CC1);
         gp_Lin2d                  l1(LLL1->Lin2d());
-        GccEnt_QualifiedLin       Ql1(l1, Qualified1.Qualifier());
-        Geom2dGcc_Circ2d2TanOnGeo CircGeo(Ql1, Point->Pnt2d(), OnCurve, Tolerance);
+        QualifiedLine       Ql1(l1, Qualified1.Qualifier());
+        Circle2dTwoTangentOnGeo CircGeo(Ql1, Point->Pnt2d(), OnCurve, Tolerance);
         WellDone = CircGeo.IsDone();
         if (WellDone)
         {
@@ -600,7 +600,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
       if (Type3 == GeomAbs_Circle)
       {
         Handle(Geom2d_Circle)      CCon = Handle(Geom2d_Circle)::DownCast(Con);
-        Geom2dGcc_Circ2d2TanOnIter Circ(Qc1,
+        Circle2dTwoTangentOnIter Circ(Qc1,
                                         Point->Pnt2d(),
                                         CCon->Circ2d(),
                                         Param1,
@@ -627,7 +627,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
       else
       {
         Handle(Geom2d_Line)        LLon = Handle(Geom2d_Line)::DownCast(Con);
-        Geom2dGcc_Circ2d2TanOnIter Circ(Qc1,
+        Circle2dTwoTangentOnIter Circ(Qc1,
                                         Point->Pnt2d(),
                                         LLon->Lin2d(),
                                         Param1,
@@ -654,7 +654,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
     }
     else
     {
-      Geom2dGcc_Circ2d2TanOnIter Circ(Qc1, Point->Pnt2d(), OnCurve, Param1, ParamOn, Tolerance);
+      Circle2dTwoTangentOnIter Circ(Qc1, Point->Pnt2d(), OnCurve, Param1, ParamOn, Tolerance);
       WellDone = Circ.IsDone();
       if (WellDone)
       {
@@ -684,7 +684,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
   }
 }
 
-Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Handle(Geom2d_Point)& Point1,
+Circ2d2TanOn1::Circ2d2TanOn1(const Handle(Geom2d_Point)& Point1,
                                                const Handle(Geom2d_Point)& Point2,
                                                const Geom2dAdaptor_Curve&  OnCurve,
                                                const Standard_Real         Tolerance)
@@ -754,7 +754,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Handle(Geom2d_Point)& Point
 
   else
   {
-    Geom2dGcc_Circ2d2TanOnGeo CircGeo(Point1->Pnt2d(), Point2->Pnt2d(), OnCurve, Tolerance);
+    Circle2dTwoTangentOnGeo CircGeo(Point1->Pnt2d(), Point2->Pnt2d(), OnCurve, Tolerance);
     WellDone = CircGeo.IsDone();
     if (WellDone)
     {
@@ -768,7 +768,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Handle(Geom2d_Point)& Point
   }
 }
 
-void Geom2dGcc_Circ2d2TanOn::Results(const Circle2dTwoTangentOn& Circ)
+void Circ2d2TanOn1::Results(const Circle2dTwoTangentOn& Circ)
 {
   for (Standard_Integer j = 1; j <= NbrSol; j++)
   {
@@ -796,7 +796,7 @@ void Geom2dGcc_Circ2d2TanOn::Results(const Circle2dTwoTangentOn& Circ)
   }
 }
 
-void Geom2dGcc_Circ2d2TanOn::Results(const Geom2dGcc_Circ2d2TanOnGeo& Circ)
+void Circ2d2TanOn1::Results(const Circle2dTwoTangentOnGeo& Circ)
 {
   for (Standard_Integer j = 1; j <= NbrSol; j++)
   {
@@ -824,17 +824,17 @@ void Geom2dGcc_Circ2d2TanOn::Results(const Geom2dGcc_Circ2d2TanOnGeo& Circ)
   }
 }
 
-Standard_Boolean Geom2dGcc_Circ2d2TanOn::IsDone() const
+Standard_Boolean Circ2d2TanOn1::IsDone() const
 {
   return WellDone;
 }
 
-Standard_Integer Geom2dGcc_Circ2d2TanOn::NbSolutions() const
+Standard_Integer Circ2d2TanOn1::NbSolutions() const
 {
   return NbrSol;
 }
 
-gp_Circ2d Geom2dGcc_Circ2d2TanOn::ThisSolution(const Standard_Integer Index) const
+gp_Circ2d Circ2d2TanOn1::ThisSolution(const Standard_Integer Index) const
 {
   if (!WellDone)
   {
@@ -847,7 +847,7 @@ gp_Circ2d Geom2dGcc_Circ2d2TanOn::ThisSolution(const Standard_Integer Index) con
   return cirsol(Index);
 }
 
-void Geom2dGcc_Circ2d2TanOn::WhichQualifier(const Standard_Integer Index,
+void Circ2d2TanOn1::WhichQualifier(const Standard_Integer Index,
                                             GccEnt_Position&       Qualif1,
                                             GccEnt_Position&       Qualif2) const
 {
@@ -874,7 +874,7 @@ void Geom2dGcc_Circ2d2TanOn::WhichQualifier(const Standard_Integer Index,
   }
 }
 
-void Geom2dGcc_Circ2d2TanOn::Tangency1(const Standard_Integer Index,
+void Circ2d2TanOn1::Tangency1(const Standard_Integer Index,
                                        Standard_Real&         ParSol,
                                        Standard_Real&         ParArg,
                                        gp_Pnt2d&              PntSol) const
@@ -918,7 +918,7 @@ void Geom2dGcc_Circ2d2TanOn::Tangency1(const Standard_Integer Index,
   }
 }
 
-void Geom2dGcc_Circ2d2TanOn::Tangency2(const Standard_Integer Index,
+void Circ2d2TanOn1::Tangency2(const Standard_Integer Index,
                                        Standard_Real&         ParSol,
                                        Standard_Real&         ParArg,
                                        gp_Pnt2d&              PntSol) const
@@ -962,7 +962,7 @@ void Geom2dGcc_Circ2d2TanOn::Tangency2(const Standard_Integer Index,
   }
 }
 
-void Geom2dGcc_Circ2d2TanOn::CenterOn3(const Standard_Integer Index,
+void Circ2d2TanOn1::CenterOn3(const Standard_Integer Index,
                                        Standard_Real&         ParArg,
                                        gp_Pnt2d&              PntSol) const
 {
@@ -981,7 +981,7 @@ void Geom2dGcc_Circ2d2TanOn::CenterOn3(const Standard_Integer Index,
   }
 }
 
-Standard_Boolean Geom2dGcc_Circ2d2TanOn::IsTheSame1(const Standard_Integer Index) const
+Standard_Boolean Circ2d2TanOn1::IsTheSame1(const Standard_Integer Index) const
 {
   if (!WellDone)
   {
@@ -1015,7 +1015,7 @@ Standard_Boolean Geom2dGcc_Circ2d2TanOn::IsTheSame1(const Standard_Integer Index
   }
 }
 
-Standard_Boolean Geom2dGcc_Circ2d2TanOn::IsTheSame2(const Standard_Integer Index) const
+Standard_Boolean Circ2d2TanOn1::IsTheSame2(const Standard_Integer Index) const
 {
   if (!WellDone)
   {

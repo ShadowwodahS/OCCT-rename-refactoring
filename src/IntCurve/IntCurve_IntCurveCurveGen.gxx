@@ -31,7 +31,7 @@
 void IntCurve_IntCurveCurveGen::Perform(const TheCurve& C,
 					const Standard_Real TolConf,
 					const Standard_Real Tol) { 
-  IntRes2d_Domain D1;
+  Domain2 D1;
   Standard_Real TolDomain = Tol;
   if(Tol<TolConf) TolDomain = TolConf;
   GeomAbs_CurveType typ = TheCurveTool::GetType(C);
@@ -92,7 +92,7 @@ void IntCurve_IntCurveCurveGen::Perform(const TheCurve& C,
 
 
 void IntCurve_IntCurveCurveGen::Perform(const TheCurve& C,
-					const IntRes2d_Domain& D,
+					const Domain2& D,
 					const Standard_Real TolConf,
 					const Standard_Real Tol) { 
   GeomAbs_CurveType typ = TheCurveTool::GetType(C);
@@ -121,9 +121,9 @@ void IntCurve_IntCurveCurveGen::Perform(const TheCurve& C,
 
 
 //----------------------------------------------------------------------
-IntRes2d_Domain IntCurve_IntCurveCurveGen::ComputeDomain(const TheCurve& C1,
+Domain2 IntCurve_IntCurveCurveGen::ComputeDomain(const TheCurve& C1,
 							 const Standard_Real TolDomain) const { 
-  IntRes2d_Domain D1;
+  Domain2 D1;
 
   GeomAbs_CurveType typ = TheCurveTool::GetType(C1);
   switch(typ) { 
@@ -183,9 +183,9 @@ IntRes2d_Domain IntCurve_IntCurveCurveGen::ComputeDomain(const TheCurve& C1,
 //-- Perform : Si Une des courbes est Composite Alors decompose les appels
 //----------------------------------------------------------------------
 void IntCurve_IntCurveCurveGen::Perform (const TheCurve& C1,
-					 const IntRes2d_Domain& D1,
+					 const Domain2& D1,
 					 const TheCurve& C2,
-					 const IntRes2d_Domain& D2,
+					 const Domain2& D2,
 					 const Standard_Real TolConf,
 					 const Standard_Real Tol) {
   this->ResetFields();
@@ -231,9 +231,9 @@ void IntCurve_IntCurveCurveGen::Perform (const TheCurve& C1,
 //--     Les Resultats sont Copies
 //----------------------------------------------------------------------
 void IntCurve_IntCurveCurveGen::InternalPerform (const TheCurve& C1,
-						 const IntRes2d_Domain& D1,
+						 const Domain2& D1,
 						 const TheCurve& C2,
-						 const IntRes2d_Domain& D2,
+						 const Domain2& D2,
 						 const Standard_Real TolConf,
 						 const Standard_Real Tol,
 						 const Standard_Boolean Composite)
@@ -973,12 +973,12 @@ void IntCurve_IntCurveCurveGen::InternalCompositePerform_noRecurs(
                                       const TheCurve& C1,
                                       const Standard_Integer NumInterC1,
                                       const TColStd_Array1OfReal& Tab1,
-                                      const IntRes2d_Domain& D1,
+                                      const Domain2& D1,
                                       const Standard_Integer NbInterC2,
                                       const TheCurve& C2,
                                       const Standard_Integer NumInterC2,
                                       const TColStd_Array1OfReal& Tab2,
-                                      const IntRes2d_Domain& D2,
+                                      const Domain2& D2,
                                       const Standard_Real TolConf,
                                       const Standard_Real Tol)
 {
@@ -988,8 +988,8 @@ void IntCurve_IntCurveCurveGen::InternalCompositePerform_noRecurs(
     return;
 
   
-  IntRes2d_Domain DomainC1NumInter;
-  IntRes2d_Domain DomainC2NumInter;
+  Domain2 DomainC1NumInter;
+  Domain2 DomainC2NumInter;
 
   //----------------------------------------------------------------------
   //-- Creation du domaine associe a la portion de C1
@@ -1072,12 +1072,12 @@ void IntCurve_IntCurveCurveGen::InternalCompositePerform_noRecurs(
 
 void 
 IntCurve_IntCurveCurveGen::InternalCompositePerform(const TheCurve& C1,
-						    const IntRes2d_Domain& D1,
+						    const Domain2& D1,
 						    const Standard_Integer XXXNumInterC1,
 						    const Standard_Integer NbInterC1,
 						    const TColStd_Array1OfReal& Tab1,
 						    const TheCurve& C2,
-						    const IntRes2d_Domain& D2,
+						    const Domain2& D2,
 						    const Standard_Integer XXXNumInterC2,
 						    const Standard_Integer NbInterC2,
 						    const TColStd_Array1OfReal& Tab2,

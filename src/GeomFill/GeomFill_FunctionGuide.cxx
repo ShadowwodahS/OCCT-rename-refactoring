@@ -334,7 +334,7 @@ void GeomFill_FunctionGuide::DSDT(const Standard_Real U,
 // Purpose : calcul of the second derivative from x
 //=========================================================
  Standard_Boolean GeomFill_FunctionGuide::Deriv2X(const math_Vector & X,
-                          GeomFill_Tensor& T)
+                          Tensor1& T)
 {
   Point3d P,P1;
   Vector3d DP,D2P,DPU,DPV;

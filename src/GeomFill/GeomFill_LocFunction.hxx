@@ -31,7 +31,7 @@ class GeomFill_LocFunction
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT GeomFill_LocFunction(const Handle(GeomFill_LocationLaw)& Law);
+  Standard_EXPORT GeomFill_LocFunction(const Handle(GeomFill_LocationLaw)& Law1);
 
   //! compute the section for v = param
   Standard_EXPORT Standard_Boolean D0(const Standard_Real Param,

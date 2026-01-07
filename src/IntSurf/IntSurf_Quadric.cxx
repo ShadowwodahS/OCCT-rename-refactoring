@@ -25,7 +25,7 @@
 #include <StdFail_NotDone.hxx>
 
 // ============================================================
-IntSurf_Quadric::IntSurf_Quadric()
+Quadric1::Quadric1()
     : typ(GeomAbs_OtherSurface),
       prm1(0.),
       prm2(0.),
@@ -36,7 +36,7 @@ IntSurf_Quadric::IntSurf_Quadric()
 }
 
 // ============================================================
-IntSurf_Quadric::IntSurf_Quadric(const gp_Pln& P)
+Quadric1::Quadric1(const gp_Pln& P)
     : ax3(P.Position()),
       typ(GeomAbs_Plane)
 {
@@ -45,7 +45,7 @@ IntSurf_Quadric::IntSurf_Quadric(const gp_Pln& P)
 }
 
 // ============================================================
-IntSurf_Quadric::IntSurf_Quadric(const gp_Cylinder& C)
+Quadric1::Quadric1(const gp_Cylinder& C)
     :
 
       ax3(C.Position()),
@@ -58,7 +58,7 @@ IntSurf_Quadric::IntSurf_Quadric(const gp_Cylinder& C)
 }
 
 // ============================================================
-IntSurf_Quadric::IntSurf_Quadric(const gp_Sphere& S)
+Quadric1::Quadric1(const gp_Sphere& S)
     :
 
       ax3(S.Position()),
@@ -71,7 +71,7 @@ IntSurf_Quadric::IntSurf_Quadric(const gp_Sphere& S)
 }
 
 // ============================================================
-IntSurf_Quadric::IntSurf_Quadric(const gp_Cone& C)
+Quadric1::Quadric1(const gp_Cone& C)
     :
 
       ax3(C.Position()),
@@ -86,7 +86,7 @@ IntSurf_Quadric::IntSurf_Quadric(const gp_Cone& C)
 }
 
 // ============================================================
-IntSurf_Quadric::IntSurf_Quadric(const gp_Torus& T)
+Quadric1::Quadric1(const gp_Torus& T)
     :
 
       ax3(T.Position()),
@@ -101,7 +101,7 @@ IntSurf_Quadric::IntSurf_Quadric(const gp_Torus& T)
 }
 
 // ============================================================
-void IntSurf_Quadric::SetValue(const gp_Pln& P)
+void Quadric1::SetValue(const gp_Pln& P)
 {
   typ      = GeomAbs_Plane;
   ax3      = P.Position();
@@ -110,7 +110,7 @@ void IntSurf_Quadric::SetValue(const gp_Pln& P)
 }
 
 // ============================================================
-void IntSurf_Quadric::SetValue(const gp_Cylinder& C)
+void Quadric1::SetValue(const gp_Cylinder& C)
 {
   typ      = GeomAbs_Cylinder;
   ax3      = C.Position();
@@ -121,7 +121,7 @@ void IntSurf_Quadric::SetValue(const gp_Cylinder& C)
 }
 
 // ============================================================
-void IntSurf_Quadric::SetValue(const gp_Sphere& S)
+void Quadric1::SetValue(const gp_Sphere& S)
 {
   typ      = GeomAbs_Sphere;
   ax3      = S.Position();
@@ -132,7 +132,7 @@ void IntSurf_Quadric::SetValue(const gp_Sphere& S)
 }
 
 // ============================================================
-void IntSurf_Quadric::SetValue(const gp_Cone& C)
+void Quadric1::SetValue(const gp_Cone& C)
 {
   typ      = GeomAbs_Cone;
   ax3      = C.Position();
@@ -145,7 +145,7 @@ void IntSurf_Quadric::SetValue(const gp_Cone& C)
 }
 
 // ============================================================
-void IntSurf_Quadric::SetValue(const gp_Torus& T)
+void Quadric1::SetValue(const gp_Torus& T)
 {
   typ      = GeomAbs_Torus;
   ax3      = T.Position();
@@ -158,7 +158,7 @@ void IntSurf_Quadric::SetValue(const gp_Torus& T)
 }
 
 // ============================================================
-Standard_Real IntSurf_Quadric::Distance(const Point3d& P) const
+Standard_Real Quadric1::Distance(const Point3d& P) const
 {
   switch (typ)
   {
@@ -200,7 +200,7 @@ Standard_Real IntSurf_Quadric::Distance(const Point3d& P) const
 }
 
 // ============================================================
-Vector3d IntSurf_Quadric::Gradient(const Point3d& P) const
+Vector3d Quadric1::Gradient(const Point3d& P) const
 {
   Vector3d grad;
   switch (typ)
@@ -285,7 +285,7 @@ Vector3d IntSurf_Quadric::Gradient(const Point3d& P) const
 }
 
 // ============================================================
-void IntSurf_Quadric::ValAndGrad(const Point3d& P, Standard_Real& Dist, Vector3d& Grad) const
+void Quadric1::ValAndGrad(const Point3d& P, Standard_Real& Dist, Vector3d& Grad) const
 {
 
   switch (typ)
@@ -382,7 +382,7 @@ void IntSurf_Quadric::ValAndGrad(const Point3d& P, Standard_Real& Dist, Vector3d
 }
 
 // ============================================================
-Point3d IntSurf_Quadric::Value(const Standard_Real U, const Standard_Real V) const
+Point3d Quadric1::Value(const Standard_Real U, const Standard_Real V) const
 {
   switch (typ)
   {
@@ -408,7 +408,7 @@ Point3d IntSurf_Quadric::Value(const Standard_Real U, const Standard_Real V) con
 }
 
 // ============================================================
-void IntSurf_Quadric::D1(const Standard_Real U,
+void Quadric1::D1(const Standard_Real U,
                          const Standard_Real V,
                          Point3d&             P,
                          Vector3d&             D1U,
@@ -438,7 +438,7 @@ void IntSurf_Quadric::D1(const Standard_Real U,
 }
 
 // ============================================================
-Vector3d IntSurf_Quadric::DN(const Standard_Real    U,
+Vector3d Quadric1::DN(const Standard_Real    U,
                            const Standard_Real    V,
                            const Standard_Integer Nu,
                            const Standard_Integer Nv) const
@@ -466,7 +466,7 @@ Vector3d IntSurf_Quadric::DN(const Standard_Real    U,
 }
 
 // ============================================================
-Vector3d IntSurf_Quadric::Normale(const Standard_Real U, const Standard_Real V) const
+Vector3d Quadric1::Normale(const Standard_Real U, const Standard_Real V) const
 {
   switch (typ)
   {
@@ -503,7 +503,7 @@ Vector3d IntSurf_Quadric::Normale(const Standard_Real U, const Standard_Real V) 
 }
 
 // ============================================================
-Vector3d IntSurf_Quadric::Normale(const Point3d& P) const
+Vector3d Quadric1::Normale(const Point3d& P) const
 {
   switch (typ)
   {
@@ -565,7 +565,7 @@ Vector3d IntSurf_Quadric::Normale(const Point3d& P) const
 }
 
 // ============================================================
-void IntSurf_Quadric::Parameters(const Point3d& P, Standard_Real& U, Standard_Real& V) const
+void Quadric1::Parameters(const Point3d& P, Standard_Real& U, Standard_Real& V) const
 {
   switch (typ)
   {

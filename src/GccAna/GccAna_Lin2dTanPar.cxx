@@ -63,7 +63,7 @@ Line2dTangentParallel::Line2dTangentParallel(const gp_Pnt2d& ThePoint, const gp_
 //          - with direction the direction of Lin1.                         +
 //========================================================================
 
-Line2dTangentParallel::Line2dTangentParallel(const GccEnt_QualifiedCirc& Qualified1, const gp_Lin2d& Lin1)
+Line2dTangentParallel::Line2dTangentParallel(const QualifiedCircle& Qualified1, const gp_Lin2d& Lin1)
     : linsol(1, 2),
       qualifier1(1, 2),
       pnttg1sol(1, 2),

@@ -30,7 +30,7 @@ class Blend_RstRstFunction;
 class Blend_SurfCurvFuncInv;
 class Blend_CurvPointFuncInv;
 class Adaptor3d_HVertex;
-class IntSurf_Transition;
+class Transition2;
 class BRepBlend_Extremity;
 
 //! This  class processes the  data  resulting from
@@ -158,8 +158,8 @@ private:
   Standard_EXPORT void Transition(const Standard_Boolean           OnFirst,
                                   const Handle(Adaptor2d_Curve2d)& Arc,
                                   const Standard_Real              Param,
-                                  IntSurf_Transition&              TLine,
-                                  IntSurf_Transition&              TArc);
+                                  Transition2&              TLine,
+                                  Transition2&              TArc);
 
   Standard_EXPORT void MakeExtremity(BRepBlend_Extremity&             Extrem,
                                      const Standard_Boolean           OnFirst,

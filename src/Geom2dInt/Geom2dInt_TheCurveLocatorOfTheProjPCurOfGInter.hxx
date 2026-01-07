@@ -23,11 +23,11 @@
 
 #include <Standard_Real.hxx>
 class Adaptor2d_Curve2d;
-class Geom2dInt_Geom2dCurveTool;
+class Geom2dCurveTool;
 class Extrema_POnCurv2d;
 class gp_Pnt2d;
 
-class Geom2dInt_TheCurveLocatorOfTheProjPCurOfGInter
+class Geom2dIntProjPCurCurveLocator
 {
 public:
   DEFINE_STANDARD_ALLOC

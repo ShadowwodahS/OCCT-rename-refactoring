@@ -44,13 +44,13 @@ public:
 
   void GetShapes(Standard_Integer& I1, Standard_Integer& I2) const;
 
-  IntSurf_Transition TransitionOnS1() const;
+  Transition2 TransitionOnS1() const;
 
-  IntSurf_Transition TransitionOnS2() const;
+  Transition2 TransitionOnS2() const;
 
-  IntSurf_Transition TransitionLineArc1() const;
+  Transition2 TransitionLineArc1() const;
 
-  IntSurf_Transition TransitionLineArc2() const;
+  Transition2 TransitionLineArc2() const;
 
   Standard_Boolean IsOnDomS1() const;
 

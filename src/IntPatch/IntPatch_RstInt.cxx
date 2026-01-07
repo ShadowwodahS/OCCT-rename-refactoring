@@ -139,7 +139,7 @@ static Standard_Boolean CoincideOnArc(const Point3d&                      Ptsomm
   while (Domain->MoreVertex())
   {
     Handle(Adaptor3d_HVertex) vtx1  = Domain->Vertex();
-    Standard_Real             prm   = IntPatch_HInterTool::Parameter(vtx1, A);
+    Standard_Real             prm   = HInterTool::Parameter(vtx1, A);
     gp_Pnt2d                  p2d   = A->Value(prm);
     Point3d                    point = Surf->Value(p2d.X(), p2d.Y());
     const Standard_Real       dist  = point.Distance(Ptsommet);
@@ -287,12 +287,12 @@ static Standard_Boolean FindParameter(const Handle(IntPatch_Line)&     L,
   {
     if (!OnFirst && rlin->IsArcOnS1())
     {
-      IntPatch_HInterTool::Project(rlin->ArcOnS1(), Ptsom2d, Param, p2d);
+      HInterTool::Project(rlin->ArcOnS1(), Ptsom2d, Param, p2d);
       rlin->ArcOnS1()->D1(Param, p2d, d2d);
     }
     else if (OnFirst && rlin->IsArcOnS2())
     {
-      IntPatch_HInterTool::Project(rlin->ArcOnS2(), Ptsom2d, Param, p2d);
+      HInterTool::Project(rlin->ArcOnS2(), Ptsom2d, Param, p2d);
       rlin->ArcOnS2()->D1(Param, p2d, d2d);
     }
     else
@@ -406,7 +406,7 @@ inline Standard_Boolean ArePnt2dEqual(const gp_Pnt2d&     p1,
 
 //=================================================================================================
 
-void IntPatch_RstInt::PutVertexOnLine(const Handle(IntPatch_Line)&       L,
+void RestrictedIntersection::PutVertexOnLine(const Handle(IntPatch_Line)&       L,
                                       const Handle(Adaptor3d_Surface)&   Surf,
                                       const Handle(Adaptor3d_TopolTool)& Domain,
                                       const Handle(Adaptor3d_Surface)&   OtherSurf,
@@ -449,7 +449,7 @@ void IntPatch_RstInt::PutVertexOnLine(const Handle(IntPatch_Line)&       L,
   Handle(Adaptor3d_HVertex) vtxarc, vtxline;
   Handle(Adaptor2d_Curve2d) arc;
   Standard_Boolean          VtxOnArc, duplicate, found;
-  IntSurf_Transition        transarc, transline;
+  Transition2        transarc, transline;
 
   IntPatch_IType typL = L->ArcType();
   if (typL == IntPatch_Walking)
@@ -521,14 +521,14 @@ void IntPatch_RstInt::PutVertexOnLine(const Handle(IntPatch_Line)&       L,
     // MSV Oct 15, 2001: use tolerance of this edge if possible
     Standard_Real edgeTol = Tol3d(arc, Domain, Tol);
 
-    IntPatch_HInterTool::Bounds(arc, PFirst, PLast);
+    HInterTool::Bounds(arc, PFirst, PLast);
     if (Precision::IsNegativeInfinite(PFirst))
       PFirst = -myInfinite;
     if (Precision::IsPositiveInfinite(PLast))
       PLast = myInfinite;
     // if (Precision::IsNegativeInfinite(PFirst) ||
     //  Precision::IsPositiveInfinite(PLast)) {
-    //  //-- std::cout<<" IntPatch_RstInt::PutVertexOnLine  ---> Restrictions Infinies
+    //  //-- std::cout<<" RestrictedIntersection::PutVertexOnLine  ---> Restrictions Infinies
     //  :"<<std::endl; return;
     //}
 
@@ -537,7 +537,7 @@ void IntPatch_RstInt::PutVertexOnLine(const Handle(IntPatch_Line)&       L,
     for (Domain->InitVertexIterator(); Domain->MoreVertex(); Domain->NextVertex())
     {
       Handle(Adaptor3d_HVertex) vtx = Domain->Vertex();
-      Standard_Real             prm = IntPatch_HInterTool::Parameter(vtx, arc);
+      Standard_Real             prm = HInterTool::Parameter(vtx, arc);
       if (Abs(prm - PFirst) < Precision::PConfusion())
       {
         arc->D0(PFirst, p2dFirst);
@@ -888,7 +888,7 @@ void IntPatch_RstInt::PutVertexOnLine(const Handle(IntPatch_Line)&       L,
                 transarc.SetValue(Standard_True, IntSurf_Undecided);
               }
               else
-                IntSurf::MakeTransition(tgline, tgrst, normsurf, transline, transarc);
+                IntSurf1::MakeTransition(tgline, tgrst, normsurf, transline, transarc);
 
               nbTreated++;
               if (!ivtx)

@@ -565,7 +565,7 @@ IntWalk_PWalking::IntWalk_PWalking(const Handle(Adaptor3d_Surface)& Caro1,
 //=================================================================================================
 
 Standard_Boolean IntWalk_PWalking::PerformFirstPoint(const TColStd_Array1OfReal& ParDep,
-                                                     IntSurf_PntOn2S&            FirstPoint)
+                                                     PointOn2Surfaces&            FirstPoint)
 {
   sensCheminement = 1;
   close           = Standard_False;
@@ -1457,7 +1457,7 @@ void IntWalk_PWalking::Perform(const TColStd_Array1OfReal& ParDep,
                     // save the last point
                     // to revert to it if the current point is out of bounds
 
-                    IntSurf_PntOn2S  previousPointSave = previousPoint;
+                    PointOn2Surfaces  previousPointSave = previousPoint;
                     Standard_Boolean previoustgSave    = previoustg;
                     Dir3d           previousdSave     = previousd;
                     gp_Dir2d         previousd1Save    = previousd1;
@@ -1504,7 +1504,7 @@ void IntWalk_PWalking::Perform(const TColStd_Array1OfReal& ParDep,
                       {
                         if (line->NbPoints() > 1)
                         {
-                          IntSurf_PntOn2S prevprevPoint = line->Value(line->NbPoints() - 1);
+                          PointOn2Surfaces prevprevPoint = line->Value(line->NbPoints() - 1);
                           Standard_Real   ppU1, ppV1, ppU2, ppV2;
                           prevprevPoint.Parameters(ppU1, ppV1, ppU2, ppV2);
                           Standard_Real pU1, pV1, pU2, pV2;
@@ -2645,7 +2645,7 @@ Standard_Boolean IntWalk_PWalking::SeekPointOnBoundary(const Handle(Adaptor3d_Su
   }
 
   // Found point is true intersection point
-  IntSurf_PntOn2S anIP;
+  PointOn2Surfaces anIP;
   anIP.SetValue(aPInt, aPnt(1), aPnt(2), aPnt(3), aPnt(4));
 
   // The main idea of checks below is to define if insertion of
@@ -3096,7 +3096,7 @@ Standard_Boolean IntWalk_PWalking::SeekAdditionalPoints(const Handle(Adaptor3d_S
 
         if ((aSQDist1 < aTol) && (aSQDist2 < aTol))
         {
-          IntSurf_PntOn2S anIP;
+          PointOn2Surfaces anIP;
           anIP.SetValue(aPInt, aPnt(1), aPnt(2), aPnt(3), aPnt(4));
           line->InsertBefore(lp, anIP);
 
@@ -3267,7 +3267,7 @@ IntWalk_StatusDeflection IntWalk_PWalking::TestDeflection(const IntImp_ConstIsop
   const Handle(Adaptor3d_Surface)& Caro1 = myIntersectionOn2S.Function().AuxillarSurface1();
   const Handle(Adaptor3d_Surface)& Caro2 = myIntersectionOn2S.Function().AuxillarSurface2();
 
-  const IntSurf_PntOn2S& CurrentPoint = myIntersectionOn2S.Point();
+  const PointOn2Surfaces& CurrentPoint = myIntersectionOn2S.Point();
   //==================================================================================
   //=========               S t o p   o n   p o i n t                 ============
   //==================================================================================
@@ -3862,7 +3862,7 @@ Standard_Boolean IntWalk_PWalking::TestArret(const Standard_Boolean     DejaRepa
     { // find if line closed
 
       Standard_Real          u, v;
-      const IntSurf_PntOn2S& POn2S1 = line->Value(1);
+      const PointOn2Surfaces& POn2S1 = line->Value(1);
       // On S1
       POn2S1.ParametersOnS1(u, v);
       gp_Pnt2d P1uvS1(u, v);

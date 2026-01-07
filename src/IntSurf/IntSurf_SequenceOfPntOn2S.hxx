@@ -17,6 +17,6 @@
 #include <IntSurf_PntOn2S.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<IntSurf_PntOn2S> IntSurf_SequenceOfPntOn2S;
+typedef NCollection_Sequence<PointOn2Surfaces> IntSurf_SequenceOfPntOn2S;
 
 #endif

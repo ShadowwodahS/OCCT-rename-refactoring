@@ -26,13 +26,13 @@
 
 #define MultiLine GeomInt_TheMultiLineOfWLApprox
 #define MultiLine_hxx <GeomInt_TheMultiLineOfWLApprox.hxx>
-#define ToolLine GeomInt_TheMultiLineToolOfWLApprox
+#define ToolLine MultiLineToolWLApprox
 #define ToolLine_hxx <GeomInt_TheMultiLineToolOfWLApprox.hxx>
 #define AppParCurves_ParLeastSquare                                                                \
   GeomInt_ParLeastSquareOfMyGradientOfTheComputeLineBezierOfWLApprox
 #define AppParCurves_ParLeastSquare_hxx                                                            \
   <GeomInt_ParLeastSquareOfMyGradientOfTheComputeLineBezierOfWLApprox.hxx>
-#define AppParCurves_ResConstraint GeomInt_ResConstraintOfMyGradientOfTheComputeLineBezierOfWLApprox
+#define AppParCurves_ResConstraint ResConstraintGradientLineBezier
 #define AppParCurves_ResConstraint_hxx                                                             \
   <GeomInt_ResConstraintOfMyGradientOfTheComputeLineBezierOfWLApprox.hxx>
 #define AppParCurves_ParFunction GeomInt_ParFunctionOfMyGradientOfTheComputeLineBezierOfWLApprox

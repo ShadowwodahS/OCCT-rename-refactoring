@@ -29,13 +29,13 @@
 //! characteristics such as analyzed flag and an angle.<br>
 //! In IntPolyh_MaillageAffinage algorithm the class is used as a
 //! couple of interfering triangles with the intersection angle.
-class IntPolyh_Couple
+class Couple
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Constructor
-  IntPolyh_Couple()
+  Couple()
       : myIndex1(-1),
         myIndex2(-1),
         myAnalyzed(0),
@@ -44,7 +44,7 @@ public:
   }
 
   //! Constructor
-  IntPolyh_Couple(const Standard_Integer theTriangle1,
+  Couple(const Standard_Integer theTriangle1,
                   const Standard_Integer theTriangle2,
                   const Standard_Real    theAngle = -2.0)
       : myIndex1(theTriangle1),
@@ -80,14 +80,14 @@ public:
   void SetAngle(const Standard_Real theAngle) { myAngle = theAngle; }
 
   //! Returns true if the Couple is equal to <theOther>
-  Standard_Boolean IsEqual(const IntPolyh_Couple& theOther) const
+  Standard_Boolean IsEqual(const Couple& theOther) const
   {
     return (myIndex1 == theOther.myIndex1 && myIndex2 == theOther.myIndex2)
            || (myIndex1 == theOther.myIndex2 && myIndex2 == theOther.myIndex1);
   }
 
   //! Returns true if the Couple is equal to <theOther>
-  bool operator==(const IntPolyh_Couple& theOther) const { return IsEqual(theOther); }
+  bool operator==(const Couple& theOther) const { return IsEqual(theOther); }
 
   // Dump
   Standard_EXPORT void Dump(const Standard_Integer v) const;
@@ -103,9 +103,9 @@ private:
 namespace std
 {
 template <>
-struct hash<IntPolyh_Couple>
+struct hash<Couple>
 {
-  size_t operator()(const IntPolyh_Couple& theCouple) const noexcept
+  size_t operator()(const Couple& theCouple) const noexcept
   {
     // Combine two int values into a single hash value.
     int aCombination[2]{theCouple.FirstValue(), theCouple.SecondValue()};

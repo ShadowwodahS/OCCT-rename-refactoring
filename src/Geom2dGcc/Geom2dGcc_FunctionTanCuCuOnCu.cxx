@@ -38,53 +38,53 @@ void Geom2dGcc_FunctionTanCuCuOnCu::InitDerivative(const math_Vector& X,
   switch (TheType)
   {
     case Geom2dGcc_CuCuOnCu: {
-      Geom2dGcc_CurveTool::D2(Curv1, X(1), Point1, Tan1, D21);
-      Geom2dGcc_CurveTool::D2(Curv2, X(2), Point2, Tan2, D22);
-      Geom2dGcc_CurveTool::D2(Curvon, X(3), Point3, Tan3, D23);
+      CurveTool3::D2(Curv1, X(1), Point1, Tan1, D21);
+      CurveTool3::D2(Curv2, X(2), Point2, Tan2, D22);
+      CurveTool3::D2(Curvon, X(3), Point3, Tan3, D23);
     }
     break;
     case Geom2dGcc_CiCuOnCu: {
       ElCLib::D2(X(1), Circ1, Point1, Tan1, D21);
-      Geom2dGcc_CurveTool::D2(Curv2, X(2), Point2, Tan2, D22);
-      Geom2dGcc_CurveTool::D2(Curvon, X(3), Point3, Tan3, D23);
+      CurveTool3::D2(Curv2, X(2), Point2, Tan2, D22);
+      CurveTool3::D2(Curvon, X(3), Point3, Tan3, D23);
     }
     break;
     case Geom2dGcc_LiCuOnCu: {
       ElCLib::D1(X(1), Lin1, Point1, Tan1);
       D21 = gp_Vec2d(0., 0.);
-      Geom2dGcc_CurveTool::D2(Curv2, X(2), Point2, Tan2, D22);
-      Geom2dGcc_CurveTool::D2(Curvon, X(3), Point3, Tan3, D23);
+      CurveTool3::D2(Curv2, X(2), Point2, Tan2, D22);
+      CurveTool3::D2(Curvon, X(3), Point3, Tan3, D23);
     }
     break;
     case Geom2dGcc_CuPtOnCu: {
-      Geom2dGcc_CurveTool::D2(Curv1, X(1), Point1, Tan1, D21);
-      Geom2dGcc_CurveTool::D2(Curvon, X(3), Point3, Tan3, D23);
+      CurveTool3::D2(Curv1, X(1), Point1, Tan1, D21);
+      CurveTool3::D2(Curvon, X(3), Point3, Tan3, D23);
       Point2 = Pnt2;
       Tan2   = gp_Vec2d(0., 0.);
       D22    = gp_Vec2d(0., 0.);
     }
     break;
     case Geom2dGcc_CuCuOnCi: {
-      Geom2dGcc_CurveTool::D2(Curv1, X(1), Point1, Tan1, D21);
-      Geom2dGcc_CurveTool::D2(Curv2, X(2), Point2, Tan2, D22);
+      CurveTool3::D2(Curv1, X(1), Point1, Tan1, D21);
+      CurveTool3::D2(Curv2, X(2), Point2, Tan2, D22);
       ElCLib::D2(X(3), Circon, Point3, Tan3, D23);
     }
     break;
     case Geom2dGcc_CiCuOnCi: {
       ElCLib::D2(X(1), Circ1, Point1, Tan1, D21);
-      Geom2dGcc_CurveTool::D2(Curv2, X(2), Point2, Tan2, D22);
+      CurveTool3::D2(Curv2, X(2), Point2, Tan2, D22);
       ElCLib::D2(X(3), Circon, Point3, Tan3, D23);
     }
     break;
     case Geom2dGcc_LiCuOnCi: {
       ElCLib::D1(X(1), Lin1, Point1, Tan1);
       D21 = gp_Vec2d(0., 0.);
-      Geom2dGcc_CurveTool::D2(Curv2, X(2), Point2, Tan2, D22);
+      CurveTool3::D2(Curv2, X(2), Point2, Tan2, D22);
       ElCLib::D2(X(3), Circon, Point3, Tan3, D23);
     }
     break;
     case Geom2dGcc_CuPtOnCi: {
-      Geom2dGcc_CurveTool::D2(Curv1, X(1), Point1, Tan1, D21);
+      CurveTool3::D2(Curv1, X(1), Point1, Tan1, D21);
       Point2 = Pnt2;
       Tan2   = gp_Vec2d(0., 0.);
       D22    = gp_Vec2d(0., 0.);
@@ -92,29 +92,29 @@ void Geom2dGcc_FunctionTanCuCuOnCu::InitDerivative(const math_Vector& X,
     }
     break;
     case Geom2dGcc_CuCuOnLi: {
-      Geom2dGcc_CurveTool::D2(Curv1, X(1), Point1, Tan1, D21);
-      Geom2dGcc_CurveTool::D2(Curv2, X(2), Point2, Tan2, D22);
+      CurveTool3::D2(Curv1, X(1), Point1, Tan1, D21);
+      CurveTool3::D2(Curv2, X(2), Point2, Tan2, D22);
       ElCLib::D1(X(3), Linon, Point3, Tan3);
       D23 = gp_Vec2d(0., 0.);
     }
     break;
     case Geom2dGcc_CiCuOnLi: {
       ElCLib::D2(X(1), Circ1, Point1, Tan1, D21);
-      Geom2dGcc_CurveTool::D2(Curv2, X(2), Point2, Tan2, D22);
+      CurveTool3::D2(Curv2, X(2), Point2, Tan2, D22);
       ElCLib::D1(X(3), Linon, Point3, Tan3);
       D23 = gp_Vec2d(0., 0.);
     }
     break;
     case Geom2dGcc_LiCuOnLi: {
       ElCLib::D1(X(1), Lin1, Point1, Tan1);
-      Geom2dGcc_CurveTool::D2(Curv2, X(2), Point2, Tan2, D22);
+      CurveTool3::D2(Curv2, X(2), Point2, Tan2, D22);
       D21 = gp_Vec2d(0., 0.);
       ElCLib::D1(X(3), Linon, Point3, Tan3);
       D23 = gp_Vec2d(0., 0.);
     }
     break;
     case Geom2dGcc_CuPtOnLi: {
-      Geom2dGcc_CurveTool::D2(Curv1, X(1), Point1, Tan1, D21);
+      CurveTool3::D2(Curv1, X(1), Point1, Tan1, D21);
       Point2 = Pnt2;
       Tan2   = gp_Vec2d(0., 0.);
       D22    = gp_Vec2d(0., 0.);

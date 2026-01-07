@@ -22,32 +22,32 @@
 #include <Standard_Handle.hxx>
 
 #include <IntPolyh_SeqOfStartPoints.hxx>
-class IntPolyh_StartPoint;
+class StartPoint;
 
-class IntPolyh_SectionLine
+class SectionLine
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT IntPolyh_SectionLine();
+  Standard_EXPORT SectionLine();
 
-  Standard_EXPORT IntPolyh_SectionLine(const Standard_Integer nn);
+  Standard_EXPORT SectionLine(const Standard_Integer nn);
 
-  IntPolyh_SectionLine(const IntPolyh_SectionLine& theOther) { Copy(theOther); }
+  SectionLine(const SectionLine& theOther) { Copy(theOther); }
 
   Standard_EXPORT void Init(const Standard_Integer nn);
 
-  Standard_EXPORT const IntPolyh_StartPoint& Value(const Standard_Integer nn) const;
+  Standard_EXPORT const StartPoint& Value(const Standard_Integer nn) const;
 
-  const IntPolyh_StartPoint& operator[](const Standard_Integer nn) const { return Value(nn); }
+  const StartPoint& operator[](const Standard_Integer nn) const { return Value(nn); }
 
-  Standard_EXPORT IntPolyh_StartPoint& ChangeValue(const Standard_Integer nn);
+  Standard_EXPORT StartPoint& ChangeValue(const Standard_Integer nn);
 
-  IntPolyh_StartPoint& operator[](const Standard_Integer nn) { return ChangeValue(nn); }
+  StartPoint& operator[](const Standard_Integer nn) { return ChangeValue(nn); }
 
-  Standard_EXPORT IntPolyh_SectionLine& Copy(const IntPolyh_SectionLine& Other);
+  Standard_EXPORT SectionLine& Copy(const SectionLine& Other);
 
-  IntPolyh_SectionLine& operator=(const IntPolyh_SectionLine& Other) { return Copy(Other); }
+  SectionLine& operator=(const SectionLine& Other) { return Copy(Other); }
 
   Standard_EXPORT Standard_Integer GetN() const;
 
@@ -57,11 +57,11 @@ public:
 
   Standard_EXPORT void Destroy();
 
-  ~IntPolyh_SectionLine() { Destroy(); }
+  ~SectionLine() { Destroy(); }
 
   Standard_EXPORT void Dump() const;
 
-  Standard_EXPORT void Prepend(const IntPolyh_StartPoint& SP);
+  Standard_EXPORT void Prepend(const StartPoint& SP);
 
 protected:
 private:

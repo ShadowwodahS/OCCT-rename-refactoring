@@ -108,7 +108,7 @@ static Standard_Integer OCC24303(DrawInterpreter& di, Standard_Integer n, const 
   const Geom2dGcc_QualifiedCurve qualifiedCurve1(AdaptedCurve1, curveQualif1);
   const Geom2dGcc_QualifiedCurve qualifiedCurve2(AdaptedCurve2, curveQualif2);
 
-  const Geom2dGcc_Circ2d2TanRad circCalc(qualifiedCurve1,
+  const Circ2d2TanRad1 circCalc(qualifiedCurve1,
                                          qualifiedCurve2,
                                          radius,
                                          /*Precision::Approximation()*/ 1.0e-9);

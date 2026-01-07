@@ -28,8 +28,8 @@
 class StdFail_UndefinedDerivative;
 class BRepAdaptor_Surface;
 class BRepApprox_SurfaceTool;
-class IntSurf_Quadric;
-class IntSurf_QuadricTool;
+class Quadric1;
+class QuadricTool;
 class math_Matrix;
 class Point3d;
 class Vector3d;
@@ -44,13 +44,13 @@ public:
 
   Standard_EXPORT BRepApprox_TheZerImpFuncOfTheImpPrmSvSurfacesOfApprox(
     const BRepAdaptor_Surface& PS,
-    const IntSurf_Quadric&     IS);
+    const Quadric1&     IS);
 
-  Standard_EXPORT BRepApprox_TheZerImpFuncOfTheImpPrmSvSurfacesOfApprox(const IntSurf_Quadric& IS);
+  Standard_EXPORT BRepApprox_TheZerImpFuncOfTheImpPrmSvSurfacesOfApprox(const Quadric1& IS);
 
   void Set(const BRepAdaptor_Surface& PS);
 
-  void SetImplicitSurface(const IntSurf_Quadric& IS);
+  void SetImplicitSurface(const Quadric1& IS);
 
   void Set(const Standard_Real Tolerance);
 
@@ -80,7 +80,7 @@ public:
 
   const BRepAdaptor_Surface& PSurface() const;
 
-  const IntSurf_Quadric& ISurface() const;
+  const Quadric1& ISurface() const;
 
 protected:
 private:
@@ -107,9 +107,9 @@ private:
 #define ThePSurface_hxx <BRepAdaptor_Surface.hxx>
 #define ThePSurfaceTool BRepApprox_SurfaceTool
 #define ThePSurfaceTool_hxx <BRepApprox_SurfaceTool.hxx>
-#define TheISurface IntSurf_Quadric
+#define TheISurface Quadric1
 #define TheISurface_hxx <IntSurf_Quadric.hxx>
-#define TheISurfaceTool IntSurf_QuadricTool
+#define TheISurfaceTool QuadricTool
 #define TheISurfaceTool_hxx <IntSurf_QuadricTool.hxx>
 #define IntImp_ZerImpFunc BRepApprox_TheZerImpFuncOfTheImpPrmSvSurfacesOfApprox
 #define IntImp_ZerImpFunc_hxx <BRepApprox_TheZerImpFuncOfTheImpPrmSvSurfacesOfApprox.hxx>

@@ -48,7 +48,7 @@ static const Standard_Integer aNbSolMAX = 16;
 // On remplit les champs.                                                +
 //========================================================================
 
-Geom2dGcc_Circ2d2TanRad::Geom2dGcc_Circ2d2TanRad(const Geom2dGcc_QualifiedCurve& Qualified1,
+Circ2d2TanRad1::Circ2d2TanRad1(const Geom2dGcc_QualifiedCurve& Qualified1,
                                                  const Geom2dGcc_QualifiedCurve& Qualified2,
                                                  const Standard_Real             Radius,
                                                  const Standard_Real             Tolerance)
@@ -90,13 +90,13 @@ Geom2dGcc_Circ2d2TanRad::Geom2dGcc_Circ2d2TanRad(const Geom2dGcc_QualifiedCurve&
       {
         Handle(Geom2d_Circle) CCC1 = Handle(Geom2d_Circle)::DownCast(CC1);
         gp_Circ2d             c1(CCC1->Circ2d());
-        GccEnt_QualifiedCirc  Qc1 = GccEnt_QualifiedCirc(c1, Qualified1.Qualifier());
+        QualifiedCircle  Qc1 = QualifiedCircle(c1, Qualified1.Qualifier());
         if (Type2 == GeomAbs_Circle)
         {
           Handle(Geom2d_Circle) CCC2 = Handle(Geom2d_Circle)::DownCast(CC2);
           gp_Circ2d             c2(CCC2->Circ2d());
           Circle2dTwoTangentRadius  CircAna(Qc1,
-                                       GccEnt_QualifiedCirc(c2, Qualified2.Qualifier()),
+                                       QualifiedCircle(c2, Qualified2.Qualifier()),
                                        Radius,
                                        Tolerance);
           WellDone = CircAna.IsDone();
@@ -114,7 +114,7 @@ Geom2dGcc_Circ2d2TanRad::Geom2dGcc_Circ2d2TanRad(const Geom2dGcc_QualifiedCurve&
           if (!Qualified2.IsEnclosing())
           {
             Circle2dTwoTangentRadius CircAna(Qc1,
-                                         GccEnt_QualifiedLin(l2, Qualified2.Qualifier()),
+                                         QualifiedLine(l2, Qualified2.Qualifier()),
                                          Radius,
                                          Tolerance);
             WellDone = CircAna.IsDone();
@@ -143,13 +143,13 @@ Geom2dGcc_Circ2d2TanRad::Geom2dGcc_Circ2d2TanRad(const Geom2dGcc_QualifiedCurve&
         }
         else
         {
-          GccEnt_QualifiedLin Ql1 = GccEnt_QualifiedLin(l1, Qualified1.Qualifier());
+          QualifiedLine Ql1 = QualifiedLine(l1, Qualified1.Qualifier());
           if (Type2 == GeomAbs_Circle)
           {
             Handle(Geom2d_Circle) CCC2 = Handle(Geom2d_Circle)::DownCast(CC2);
             gp_Circ2d             c2(CCC2->Circ2d());
             Invert = Standard_True;
-            Circle2dTwoTangentRadius CircAna(GccEnt_QualifiedCirc(c2, Qualified2.Qualifier()),
+            Circle2dTwoTangentRadius CircAna(QualifiedCircle(c2, Qualified2.Qualifier()),
                                          Ql1,
                                          Radius,
                                          Tolerance);
@@ -168,7 +168,7 @@ Geom2dGcc_Circ2d2TanRad::Geom2dGcc_Circ2d2TanRad(const Geom2dGcc_QualifiedCurve&
             if (!Qualified2.IsEnclosing())
             {
               Circle2dTwoTangentRadius CircAna(Ql1,
-                                           GccEnt_QualifiedLin(l2, Qualified2.Qualifier()),
+                                           QualifiedLine(l2, Qualified2.Qualifier()),
                                            Radius,
                                            Tolerance);
               WellDone = CircAna.IsDone();
@@ -204,9 +204,9 @@ Geom2dGcc_Circ2d2TanRad::Geom2dGcc_Circ2d2TanRad(const Geom2dGcc_QualifiedCurve&
         }
         else
         {
-          GccEnt_QualifiedLin        Ql1 = GccEnt_QualifiedLin(l1, Qualified1.Qualifier());
+          QualifiedLine        Ql1 = QualifiedLine(l1, Qualified1.Qualifier());
           Geom2dGcc_QCurve           Qc2(C2, Qualified2.Qualifier());
-          Geom2dGcc_Circ2d2TanRadGeo CircGeo(Ql1, Qc2, Radius, Tolerance);
+          Circle2dTwoTangentRadiusGeo CircGeo(Ql1, Qc2, Radius, Tolerance);
           WellDone = CircGeo.IsDone();
           NbrSol   = CircGeo.NbSolutions();
           for (Standard_Integer i = 1; i <= NbrSol; i++)
@@ -220,9 +220,9 @@ Geom2dGcc_Circ2d2TanRad::Geom2dGcc_Circ2d2TanRad(const Geom2dGcc_QualifiedCurve&
       {
         Handle(Geom2d_Circle)      CCC1 = Handle(Geom2d_Circle)::DownCast(CC1);
         gp_Circ2d                  c1(CCC1->Circ2d());
-        GccEnt_QualifiedCirc       Qc1 = GccEnt_QualifiedCirc(c1, Qualified1.Qualifier());
+        QualifiedCircle       Qc1 = QualifiedCircle(c1, Qualified1.Qualifier());
         Geom2dGcc_QCurve           Qc2(C2, Qualified2.Qualifier());
-        Geom2dGcc_Circ2d2TanRadGeo CircGeo(Qc1, Qc2, Radius, Tolerance);
+        Circle2dTwoTangentRadiusGeo CircGeo(Qc1, Qc2, Radius, Tolerance);
         WellDone = CircGeo.IsDone();
         NbrSol   = CircGeo.NbSolutions();
         for (Standard_Integer i = 1; i <= NbrSol; i++)
@@ -243,9 +243,9 @@ Geom2dGcc_Circ2d2TanRad::Geom2dGcc_Circ2d2TanRad(const Geom2dGcc_QualifiedCurve&
         }
         else
         {
-          GccEnt_QualifiedLin        Ql2 = GccEnt_QualifiedLin(l2, Qualified2.Qualifier());
+          QualifiedLine        Ql2 = QualifiedLine(l2, Qualified2.Qualifier());
           Geom2dGcc_QCurve           Qc1(C1, Qualified1.Qualifier());
-          Geom2dGcc_Circ2d2TanRadGeo CircGeo(Ql2, Qc1, Radius, Tolerance);
+          Circle2dTwoTangentRadiusGeo CircGeo(Ql2, Qc1, Radius, Tolerance);
           WellDone = CircGeo.IsDone();
           NbrSol   = CircGeo.NbSolutions();
           for (Standard_Integer i = 1; i <= NbrSol; i++)
@@ -260,9 +260,9 @@ Geom2dGcc_Circ2d2TanRad::Geom2dGcc_Circ2d2TanRad(const Geom2dGcc_QualifiedCurve&
         Invert                          = Standard_True;
         Handle(Geom2d_Circle)      CCC2 = Handle(Geom2d_Circle)::DownCast(CC2);
         gp_Circ2d                  c2(CCC2->Circ2d());
-        GccEnt_QualifiedCirc       Qc2 = GccEnt_QualifiedCirc(c2, Qualified2.Qualifier());
+        QualifiedCircle       Qc2 = QualifiedCircle(c2, Qualified2.Qualifier());
         Geom2dGcc_QCurve           Qc1(C1, Qualified1.Qualifier());
-        Geom2dGcc_Circ2d2TanRadGeo CircGeo(Qc2, Qc1, Radius, Tolerance);
+        Circle2dTwoTangentRadiusGeo CircGeo(Qc2, Qc1, Radius, Tolerance);
         WellDone = CircGeo.IsDone();
         NbrSol   = CircGeo.NbSolutions();
         for (Standard_Integer i = 1; i <= NbrSol; i++)
@@ -275,7 +275,7 @@ Geom2dGcc_Circ2d2TanRad::Geom2dGcc_Circ2d2TanRad(const Geom2dGcc_QualifiedCurve&
       {
         Geom2dGcc_QCurve           Qc1(C1, Qualified1.Qualifier());
         Geom2dGcc_QCurve           Qc2(C2, Qualified2.Qualifier());
-        Geom2dGcc_Circ2d2TanRadGeo CircGeo(Qc1, Qc2, Radius, Tolerance);
+        Circle2dTwoTangentRadiusGeo CircGeo(Qc1, Qc2, Radius, Tolerance);
         WellDone = CircGeo.IsDone();
         NbrSol   = CircGeo.NbSolutions();
         for (Standard_Integer i = 1; i <= NbrSol; i++)
@@ -288,7 +288,7 @@ Geom2dGcc_Circ2d2TanRad::Geom2dGcc_Circ2d2TanRad(const Geom2dGcc_QualifiedCurve&
   }
 }
 
-Geom2dGcc_Circ2d2TanRad::Geom2dGcc_Circ2d2TanRad(const Geom2dGcc_QualifiedCurve& Qualified1,
+Circ2d2TanRad1::Circ2d2TanRad1(const Geom2dGcc_QualifiedCurve& Qualified1,
                                                  const Handle(Geom2d_Point)&     Point,
                                                  const Standard_Real             Radius,
                                                  const Standard_Real             Tolerance)
@@ -326,7 +326,7 @@ Geom2dGcc_Circ2d2TanRad::Geom2dGcc_Circ2d2TanRad(const Geom2dGcc_QualifiedCurve&
       {
         Handle(Geom2d_Circle) CCC1 = Handle(Geom2d_Circle)::DownCast(CC1);
         gp_Circ2d             c1(CCC1->Circ2d());
-        GccEnt_QualifiedCirc  Qc1(c1, Qualified1.Qualifier());
+        QualifiedCircle  Qc1(c1, Qualified1.Qualifier());
         Circle2dTwoTangentRadius  CircAna(Qc1, Point->Pnt2d(), Radius, Tolerance);
         WellDone = CircAna.IsDone();
         NbrSol   = CircAna.NbSolutions();
@@ -340,7 +340,7 @@ Geom2dGcc_Circ2d2TanRad::Geom2dGcc_Circ2d2TanRad(const Geom2dGcc_QualifiedCurve&
       {
         Handle(Geom2d_Line)  LLL1 = Handle(Geom2d_Line)::DownCast(CC1);
         gp_Lin2d             l1(LLL1->Lin2d());
-        GccEnt_QualifiedLin  Ql1(l1, Qualified1.Qualifier());
+        QualifiedLine  Ql1(l1, Qualified1.Qualifier());
         Circle2dTwoTangentRadius CircAna(Ql1, Point->Pnt2d(), Radius, Tolerance);
         WellDone = CircAna.IsDone();
         NbrSol   = CircAna.NbSolutions();
@@ -357,7 +357,7 @@ Geom2dGcc_Circ2d2TanRad::Geom2dGcc_Circ2d2TanRad(const Geom2dGcc_QualifiedCurve&
     else
     {
       Geom2dGcc_QCurve           Qc1(C1, Qualified1.Qualifier());
-      Geom2dGcc_Circ2d2TanRadGeo CircGeo(Qc1, Point->Pnt2d(), Radius, Tolerance);
+      Circle2dTwoTangentRadiusGeo CircGeo(Qc1, Point->Pnt2d(), Radius, Tolerance);
       WellDone = CircGeo.IsDone();
       NbrSol   = CircGeo.NbSolutions();
       for (Standard_Integer i = 1; i <= NbrSol; i++)
@@ -369,7 +369,7 @@ Geom2dGcc_Circ2d2TanRad::Geom2dGcc_Circ2d2TanRad(const Geom2dGcc_QualifiedCurve&
   }
 }
 
-Geom2dGcc_Circ2d2TanRad::Geom2dGcc_Circ2d2TanRad(const Handle(Geom2d_Point)& Point1,
+Circ2d2TanRad1::Circ2d2TanRad1(const Handle(Geom2d_Point)& Point1,
                                                  const Handle(Geom2d_Point)& Point2,
                                                  const Standard_Real         Radius,
                                                  const Standard_Real         Tolerance)
@@ -409,7 +409,7 @@ Geom2dGcc_Circ2d2TanRad::Geom2dGcc_Circ2d2TanRad(const Handle(Geom2d_Point)& Poi
   }
 }
 
-void Geom2dGcc_Circ2d2TanRad::Results(const Circle2dTwoTangentRadius& Circ)
+void Circ2d2TanRad1::Results(const Circle2dTwoTangentRadius& Circ)
 {
   for (Standard_Integer j = 1; j <= NbrSol; j++)
   {
@@ -435,7 +435,7 @@ void Geom2dGcc_Circ2d2TanRad::Results(const Circle2dTwoTangentRadius& Circ)
   }
 }
 
-void Geom2dGcc_Circ2d2TanRad::Results(const Geom2dGcc_Circ2d2TanRadGeo& Circ)
+void Circ2d2TanRad1::Results(const Circle2dTwoTangentRadiusGeo& Circ)
 {
   for (Standard_Integer j = 1; j <= NbrSol; j++)
   {
@@ -461,17 +461,17 @@ void Geom2dGcc_Circ2d2TanRad::Results(const Geom2dGcc_Circ2d2TanRadGeo& Circ)
   }
 }
 
-Standard_Boolean Geom2dGcc_Circ2d2TanRad::IsDone() const
+Standard_Boolean Circ2d2TanRad1::IsDone() const
 {
   return WellDone;
 }
 
-Standard_Integer Geom2dGcc_Circ2d2TanRad::NbSolutions() const
+Standard_Integer Circ2d2TanRad1::NbSolutions() const
 {
   return NbrSol;
 }
 
-gp_Circ2d Geom2dGcc_Circ2d2TanRad::ThisSolution(const Standard_Integer Index) const
+gp_Circ2d Circ2d2TanRad1::ThisSolution(const Standard_Integer Index) const
 {
   if (!WellDone)
   {
@@ -484,7 +484,7 @@ gp_Circ2d Geom2dGcc_Circ2d2TanRad::ThisSolution(const Standard_Integer Index) co
   return cirsol(Index);
 }
 
-void Geom2dGcc_Circ2d2TanRad::WhichQualifier(const Standard_Integer Index,
+void Circ2d2TanRad1::WhichQualifier(const Standard_Integer Index,
                                              GccEnt_Position&       Qualif1,
                                              GccEnt_Position&       Qualif2) const
 {
@@ -511,7 +511,7 @@ void Geom2dGcc_Circ2d2TanRad::WhichQualifier(const Standard_Integer Index,
   }
 }
 
-void Geom2dGcc_Circ2d2TanRad::Tangency1(const Standard_Integer Index,
+void Circ2d2TanRad1::Tangency1(const Standard_Integer Index,
                                         Standard_Real&         ParSol,
                                         Standard_Real&         ParArg,
                                         gp_Pnt2d&              PntSol) const
@@ -555,7 +555,7 @@ void Geom2dGcc_Circ2d2TanRad::Tangency1(const Standard_Integer Index,
   }
 }
 
-void Geom2dGcc_Circ2d2TanRad::Tangency2(const Standard_Integer Index,
+void Circ2d2TanRad1::Tangency2(const Standard_Integer Index,
                                         Standard_Real&         ParSol,
                                         Standard_Real&         ParArg,
                                         gp_Pnt2d&              PntSol) const
@@ -599,7 +599,7 @@ void Geom2dGcc_Circ2d2TanRad::Tangency2(const Standard_Integer Index,
   }
 }
 
-Standard_Boolean Geom2dGcc_Circ2d2TanRad::IsTheSame1(const Standard_Integer Index) const
+Standard_Boolean Circ2d2TanRad1::IsTheSame1(const Standard_Integer Index) const
 {
   if (!WellDone)
   {
@@ -633,7 +633,7 @@ Standard_Boolean Geom2dGcc_Circ2d2TanRad::IsTheSame1(const Standard_Integer Inde
   }
 }
 
-Standard_Boolean Geom2dGcc_Circ2d2TanRad::IsTheSame2(const Standard_Integer Index) const
+Standard_Boolean Circ2d2TanRad1::IsTheSame2(const Standard_Integer Index) const
 {
   if (!WellDone)
   {

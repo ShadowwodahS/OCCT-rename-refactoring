@@ -28,7 +28,7 @@
 #include <Standard_OutOfRange.hxx>
 #include <StdFail_NotDone.hxx>
 
-Geom2dGcc_Lin2dTanObl::Geom2dGcc_Lin2dTanObl(const Geom2dGcc_QualifiedCurve& Qualified1,
+Lin2dTanObl1::Lin2dTanObl1(const Geom2dGcc_QualifiedCurve& Qualified1,
                                              const gp_Lin2d&                 TheLine,
                                              const Standard_Real             TolAng,
                                              const Standard_Real             Angle)
@@ -56,7 +56,7 @@ Geom2dGcc_Lin2dTanObl::Geom2dGcc_Lin2dTanObl(const Geom2dGcc_QualifiedCurve& Qua
   {
     Handle(Geom2d_Circle) CCC1 = Handle(Geom2d_Circle)::DownCast(CC1);
     gp_Circ2d             c1(CCC1->Circ2d());
-    GccEnt_QualifiedCirc  Qc1 = GccEnt_QualifiedCirc(c1, Qualified1.Qualifier());
+    QualifiedCircle  Qc1 = QualifiedCircle(c1, Qualified1.Qualifier());
     Line2dTangentObl    Lin(Qc1, TheLine, Angle);
     WellDone = Lin.IsDone();
     if (WellDone)
@@ -74,16 +74,16 @@ Geom2dGcc_Lin2dTanObl::Geom2dGcc_Lin2dTanObl(const Geom2dGcc_QualifiedCurve& Qua
   else
   {
     Geom2dGcc_QCurve Qc1(C1, Qualified1.Qualifier());
-    Standard_Real    aFirstPar  = Geom2dGcc_CurveTool::FirstParameter(C1);
-    Standard_Real    aLastPar   = Geom2dGcc_CurveTool::LastParameter(C1);
-    Standard_Integer aNbSamples = Geom2dGcc_CurveTool::NbSamples(C1);
+    Standard_Real    aFirstPar  = CurveTool3::FirstParameter(C1);
+    Standard_Real    aLastPar   = CurveTool3::LastParameter(C1);
+    Standard_Integer aNbSamples = CurveTool3::NbSamples(C1);
     Standard_Real    aStep      = (aLastPar - aFirstPar) / aNbSamples;
     Standard_Real    Param1     = aFirstPar;
     Standard_Integer i;
 
     for (i = 0; i <= aNbSamples && NbrSol < 2; i++)
     {
-      Geom2dGcc_Lin2dTanOblIter Lin(Qc1, TheLine, Param1, TolAng, Angle);
+      Line2dTangentOblIter Lin(Qc1, TheLine, Param1, TolAng, Angle);
 
       if (Lin.IsDone())
       {
@@ -98,7 +98,7 @@ Geom2dGcc_Lin2dTanObl::Geom2dGcc_Lin2dTanObl(const Geom2dGcc_QualifiedCurve& Qua
   }
 }
 
-Geom2dGcc_Lin2dTanObl::Geom2dGcc_Lin2dTanObl(const Geom2dGcc_QualifiedCurve& Qualified1,
+Lin2dTanObl1::Lin2dTanObl1(const Geom2dGcc_QualifiedCurve& Qualified1,
                                              const gp_Lin2d&                 TheLine,
                                              const Standard_Real             TolAng,
                                              const Standard_Real             Param1,
@@ -127,7 +127,7 @@ Geom2dGcc_Lin2dTanObl::Geom2dGcc_Lin2dTanObl(const Geom2dGcc_QualifiedCurve& Qua
   {
     Handle(Geom2d_Circle) CCC1 = Handle(Geom2d_Circle)::DownCast(CC1);
     gp_Circ2d             c1(CCC1->Circ2d());
-    GccEnt_QualifiedCirc  Qc1 = GccEnt_QualifiedCirc(c1, Qualified1.Qualifier());
+    QualifiedCircle  Qc1 = QualifiedCircle(c1, Qualified1.Qualifier());
     Line2dTangentObl    Lin(Qc1, TheLine, Angle);
     WellDone = Lin.IsDone();
     if (WellDone)
@@ -145,7 +145,7 @@ Geom2dGcc_Lin2dTanObl::Geom2dGcc_Lin2dTanObl(const Geom2dGcc_QualifiedCurve& Qua
   else
   {
     Geom2dGcc_QCurve          Qc1(C1, Qualified1.Qualifier());
-    Geom2dGcc_Lin2dTanOblIter Lin(Qc1, TheLine, TolAng, Param1, Angle);
+    Line2dTangentOblIter Lin(Qc1, TheLine, TolAng, Param1, Angle);
     WellDone = Lin.IsDone();
     if (WellDone)
     {
@@ -157,17 +157,17 @@ Geom2dGcc_Lin2dTanObl::Geom2dGcc_Lin2dTanObl(const Geom2dGcc_QualifiedCurve& Qua
   }
 }
 
-Standard_Boolean Geom2dGcc_Lin2dTanObl::IsDone() const
+Standard_Boolean Lin2dTanObl1::IsDone() const
 {
   return WellDone;
 }
 
-Standard_Integer Geom2dGcc_Lin2dTanObl::NbSolutions() const
+Standard_Integer Lin2dTanObl1::NbSolutions() const
 {
   return NbrSol;
 }
 
-gp_Lin2d Geom2dGcc_Lin2dTanObl::ThisSolution(const Standard_Integer Index) const
+gp_Lin2d Lin2dTanObl1::ThisSolution(const Standard_Integer Index) const
 {
 
   if (Index > NbrSol || Index <= 0)
@@ -177,7 +177,7 @@ gp_Lin2d Geom2dGcc_Lin2dTanObl::ThisSolution(const Standard_Integer Index) const
   return linsol(Index);
 }
 
-void Geom2dGcc_Lin2dTanObl::WhichQualifier(const Standard_Integer Index,
+void Lin2dTanObl1::WhichQualifier(const Standard_Integer Index,
                                            GccEnt_Position&       Qualif1) const
 {
   if (!WellDone)
@@ -194,7 +194,7 @@ void Geom2dGcc_Lin2dTanObl::WhichQualifier(const Standard_Integer Index,
   }
 }
 
-void Geom2dGcc_Lin2dTanObl::Tangency1(const Standard_Integer Index,
+void Lin2dTanObl1::Tangency1(const Standard_Integer Index,
                                       Standard_Real&         ParSol,
                                       Standard_Real&         ParArg,
                                       gp_Pnt2d&              PntSol) const
@@ -215,7 +215,7 @@ void Geom2dGcc_Lin2dTanObl::Tangency1(const Standard_Integer Index,
   }
 }
 
-void Geom2dGcc_Lin2dTanObl::Intersection2(const Standard_Integer Index,
+void Lin2dTanObl1::Intersection2(const Standard_Integer Index,
                                           Standard_Real&         ParSol,
                                           Standard_Real&         ParArg,
                                           gp_Pnt2d&              PntSol) const
@@ -236,8 +236,8 @@ void Geom2dGcc_Lin2dTanObl::Intersection2(const Standard_Integer Index,
   }
 }
 
-Standard_Boolean Geom2dGcc_Lin2dTanObl::Add(const Standard_Integer           theIndex,
-                                            const Geom2dGcc_Lin2dTanOblIter& theLin,
+Standard_Boolean Lin2dTanObl1::Add(const Standard_Integer           theIndex,
+                                            const Line2dTangentOblIter& theLin,
                                             const Standard_Real              theTol,
                                             const Geom2dAdaptor_Curve&       theC1)
 {
@@ -263,7 +263,7 @@ Standard_Boolean Geom2dGcc_Lin2dTanObl::Add(const Standard_Integer           the
   gp_Vec2d aVTan;
   gp_Pnt2d aPoint;
 
-  Geom2dGcc_CurveTool::D1(theC1, aPar1arg, aPoint, aVTan);
+  CurveTool3::D1(theC1, aPar1arg, aPoint, aVTan);
 
   if (Abs(aLinDir.Crossed(gp_Dir2d(aVTan))) > theTol)
     return Standard_False;

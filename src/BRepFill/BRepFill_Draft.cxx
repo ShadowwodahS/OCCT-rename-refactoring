@@ -146,7 +146,7 @@ static Standard_Real Longueur(const Bnd_Box& WBox, const Bnd_Box& SBox, Dir3d& D
 // purpose  : Check if the law is oriented to have an exterior skin
 //======================================================================
 static Standard_Boolean GoodOrientation(const Bnd_Box&                      B,
-                                        const Handle(BRepFill_LocationLaw)& Law,
+                                        const Handle(BRepFill_LocationLaw)& Law1,
                                         const Dir3d&                       D)
 {
   Standard_Real f, l, r, t;
@@ -156,7 +156,7 @@ static Standard_Boolean GoodOrientation(const Bnd_Box&                      B,
   Point3d P1(aXmin, aYmin, aZmin), P2(aXmax, aYmax, aZmax);
   Vector3d V(P1, P2);
 
-  Law->CurvilinearBounds(Law->NbLaw(), f, l);
+  Law1->CurvilinearBounds(Law1->NbLaw(), f, l);
   r = V.Magnitude() / l;
 
   Standard_Integer ii, Ind;
@@ -175,8 +175,8 @@ static Standard_Boolean GoodOrientation(const Bnd_Box&                      B,
 
   for (ii = 1; ii <= Nb; ii++)
   {
-    Law->Parameter((ii - 1) * r, Ind, t);
-    AC = Law->Law(Ind)->GetCurve();
+    Law1->Parameter((ii - 1) * r, Ind, t);
+    AC = Law1->Law1(Ind)->GetCurve();
     AC->D0(t, Pnts(ii));
     Bary += Pnts(ii).XYZ();
   }
@@ -457,11 +457,11 @@ void BRepFill_Draft::Init(const Handle(GeomSurface)&,
 
   // Control of the orientation
   Standard_Real f, l;
-  myLoc->Law(1)->GetDomain(f, l);
+  myLoc->Law1(1)->GetDomain(f, l);
   gp_Mat M;
 
   Vector3d Bid;
-  myLoc->Law(1)->D0((f + l) / 2, M, Bid);
+  myLoc->Law1(1)->D0((f + l) / 2, M, Bid);
   Dir3d BN(M.Column(2));
 
   Standard_Real ang = myDir.Angle(BN);

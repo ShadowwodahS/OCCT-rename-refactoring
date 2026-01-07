@@ -17,7 +17,7 @@
 #include <IntRes2d_Transition.hxx>
 #include <Standard_DomainError.hxx>
 
-IntRes2d_Transition::IntRes2d_Transition()
+Transition3::Transition3()
     : tangent(Standard_True),
       posit(IntRes2d_Middle),
       typetra(IntRes2d_Undecided),
@@ -26,7 +26,7 @@ IntRes2d_Transition::IntRes2d_Transition()
 {
 }
 
-std::ostream& operator<<(std::ostream& os, IntRes2d_Transition& Trans)
+std::ostream& operator<<(std::ostream& os, Transition3& Trans)
 {
 
   os << "   Position : ";

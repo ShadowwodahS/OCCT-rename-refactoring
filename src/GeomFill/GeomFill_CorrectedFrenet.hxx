@@ -35,7 +35,7 @@ class Law_Function;
 class GeomFill_CorrectedFrenet;
 DEFINE_STANDARD_HANDLE(GeomFill_CorrectedFrenet, GeomFill_TrihedronLaw)
 
-//! Defined an Corrected Frenet  Trihedron  Law It is
+//! Defined an Corrected Frenet  Trihedron  Law1 It is
 //! like Frenet with an Torsion's minimization
 class GeomFill_CorrectedFrenet : public GeomFill_TrihedronLaw
 {

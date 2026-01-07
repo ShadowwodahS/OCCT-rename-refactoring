@@ -22,33 +22,33 @@
 #include <Standard_Handle.hxx>
 
 #include <Standard_Real.hxx>
-class IntSurf_Quadric;
+class Quadric1;
 class Vector3d;
 
 //! This class provides a tool on a quadric that can be
 //! used to instantiates the Walking algorithms (see
-//! package IntWalk) with a Quadric from IntSurf
+//! package IntWalk) with a Quadric from IntSurf1
 //! as implicit surface.
-class IntSurf_QuadricTool
+class QuadricTool
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Returns the value of the function.
-  static Standard_Real Value(const IntSurf_Quadric& Quad,
+  static Standard_Real Value(const Quadric1& Quad,
                              const Standard_Real    X,
                              const Standard_Real    Y,
                              const Standard_Real    Z);
 
   //! Returns the gradient of the function.
-  static void Gradient(const IntSurf_Quadric& Quad,
+  static void Gradient(const Quadric1& Quad,
                        const Standard_Real    X,
                        const Standard_Real    Y,
                        const Standard_Real    Z,
                        Vector3d&                V);
 
   //! Returns the value and the gradient.
-  static void ValueAndGradient(const IntSurf_Quadric& Quad,
+  static void ValueAndGradient(const Quadric1& Quad,
                                const Standard_Real    X,
                                const Standard_Real    Y,
                                const Standard_Real    Z,
@@ -56,7 +56,7 @@ public:
                                Vector3d&                Grad);
 
   //! returns the tolerance of the zero of the implicit function
-  Standard_EXPORT static Standard_Real Tolerance(const IntSurf_Quadric& Quad);
+  Standard_EXPORT static Standard_Real Tolerance(const Quadric1& Quad);
 
 protected:
 private:

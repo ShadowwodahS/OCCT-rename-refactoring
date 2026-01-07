@@ -16,27 +16,27 @@
 
 //  --		<lbr@sdsun2>
 
-inline const Point3d& IntCurveSurface_IntersectionPoint::Pnt() const
+inline const Point3d& IntersectionPoint1::Pnt() const
 {
   return (myP);
 }
 
-inline Standard_Real IntCurveSurface_IntersectionPoint::U() const
+inline Standard_Real IntersectionPoint1::U() const
 {
   return (myUSurf);
 }
 
-inline Standard_Real IntCurveSurface_IntersectionPoint::V() const
+inline Standard_Real IntersectionPoint1::V() const
 {
   return (myVSurf);
 }
 
-inline Standard_Real IntCurveSurface_IntersectionPoint::W() const
+inline Standard_Real IntersectionPoint1::W() const
 {
   return (myUCurv);
 }
 
-inline IntCurveSurface_TransitionOnCurve IntCurveSurface_IntersectionPoint::Transition() const
+inline IntCurveSurface_TransitionOnCurve IntersectionPoint1::Transition() const
 {
   return (myTrOnCurv);
 }

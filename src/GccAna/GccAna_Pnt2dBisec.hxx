@@ -32,13 +32,13 @@ class gp_Pnt2d;
 //! A Pnt2dBisec object provides a framework for:
 //! -   defining the construction of the bisecting line,
 //! -   implementing the construction algorithm, and consulting the result.
-class GccAna_Pnt2dBisec
+class Point2dBisector
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Constructs a bisecting line between the points Point1 and Point2.
-  Standard_EXPORT GccAna_Pnt2dBisec(const gp_Pnt2d& Point1, const gp_Pnt2d& Point2);
+  Standard_EXPORT Point2dBisector(const gp_Pnt2d& Point1, const gp_Pnt2d& Point2);
 
   //! Returns true (this construction algorithm never fails).
   Standard_EXPORT Standard_Boolean IsDone() const;

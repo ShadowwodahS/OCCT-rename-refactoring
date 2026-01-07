@@ -20,6 +20,6 @@
 #include <GeomPlate_Aij.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<GeomPlate_Aij> GeomPlate_SequenceOfAij;
+typedef NCollection_Sequence<AijMatrix> GeomPlate_SequenceOfAij;
 
 #endif

@@ -31,7 +31,7 @@
 IMPLEMENT_STANDARD_RTTIEXT(BRepFill_Edge3DLaw, BRepFill_LocationLaw)
 
 BRepFill_Edge3DLaw::BRepFill_Edge3DLaw(const TopoWire&                  Path,
-                                       const Handle(GeomFill_LocationLaw)& Law)
+                                       const Handle(GeomFill_LocationLaw)& Law1)
 {
   Init(Path);
 
@@ -65,7 +65,7 @@ BRepFill_Edge3DLaw::BRepFill_Edge3DLaw(const TopoWire&                  Path,
       }
 
       AC = new (GeomAdaptor_Curve)(C, First, Last);
-      myLaws->SetValue(ipath, Law->Copy());
+      myLaws->SetValue(ipath, Law1->Copy());
       myLaws->ChangeValue(ipath)->SetCurve(AC);
     }
   }

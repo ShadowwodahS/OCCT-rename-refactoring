@@ -35,7 +35,7 @@ class Vector3d;
 class Point3d;
 
 //! Tools and Data to filling Surface and Sweep Surfaces
-class GeomFill
+class GeomFill1
 {
 public:
   DEFINE_STANDARD_ALLOC

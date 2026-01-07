@@ -36,15 +36,15 @@
 //======================================================================
 // function: SequenceOfLine
 //======================================================================
-const IntPatch_SequenceOfLine& IntPatch_Intersection::SequenceOfLine() const
+const IntPatch_SequenceOfLine& Intersection1::SequenceOfLine() const
 {
   return (slin);
 }
 
 //======================================================================
-// function: IntPatch_Intersection
+// function: Intersection1
 //======================================================================
-IntPatch_Intersection::IntPatch_Intersection()
+Intersection1::Intersection1()
     : done(Standard_False),
       empt(Standard_True),
       tgte(Standard_False),
@@ -62,9 +62,9 @@ IntPatch_Intersection::IntPatch_Intersection()
 }
 
 //======================================================================
-// function: IntPatch_Intersection
+// function: Intersection1
 //======================================================================
-IntPatch_Intersection::IntPatch_Intersection(const Handle(Adaptor3d_Surface)&   S1,
+Intersection1::Intersection1(const Handle(Adaptor3d_Surface)&   S1,
                                              const Handle(Adaptor3d_TopolTool)& D1,
                                              const Handle(Adaptor3d_Surface)&   S2,
                                              const Handle(Adaptor3d_TopolTool)& D2,
@@ -96,9 +96,9 @@ IntPatch_Intersection::IntPatch_Intersection(const Handle(Adaptor3d_Surface)&   
 }
 
 //======================================================================
-// function: IntPatch_Intersection
+// function: Intersection1
 //======================================================================
-IntPatch_Intersection::IntPatch_Intersection(const Handle(Adaptor3d_Surface)&   S1,
+Intersection1::Intersection1(const Handle(Adaptor3d_Surface)&   S1,
                                              const Handle(Adaptor3d_TopolTool)& D1,
                                              const Standard_Real                TolArc,
                                              const Standard_Real                TolTang)
@@ -122,7 +122,7 @@ IntPatch_Intersection::IntPatch_Intersection(const Handle(Adaptor3d_Surface)&   
 //======================================================================
 // function: SetTolerances
 //======================================================================
-void IntPatch_Intersection::SetTolerances(const Standard_Real TolArc,
+void Intersection1::SetTolerances(const Standard_Real TolArc,
                                           const Standard_Real TolTang,
                                           const Standard_Real UVMaxStep,
                                           const Standard_Real Fleche)
@@ -151,7 +151,7 @@ void IntPatch_Intersection::SetTolerances(const Standard_Real TolArc,
 //======================================================================
 // function: Perform
 //======================================================================
-void IntPatch_Intersection::Perform(const Handle(Adaptor3d_Surface)&   S1,
+void Intersection1::Perform(const Handle(Adaptor3d_Surface)&   S1,
                                     const Handle(Adaptor3d_TopolTool)& D1,
                                     const Standard_Real                TolArc,
                                     const Standard_Real                TolTang)
@@ -203,7 +203,7 @@ void IntPatch_Intersection::Perform(const Handle(Adaptor3d_Surface)&   S1,
     }
       Standard_FALLTHROUGH
     default: {
-      IntPatch_PrmPrmIntersection interpp;
+      ParameterParameterIntersection interpp;
       interpp.Perform(S1, D1, TolTang, TolArc, myFleche, myUVMaxStep);
       if (interpp.IsDone())
       {
@@ -939,7 +939,7 @@ static void FUN_TrimBothSurf(const Handle(Adaptor3d_Surface)& S1,
 
 //=================================================================================================
 
-void IntPatch_Intersection::Perform(const Handle(Adaptor3d_Surface)&   theS1,
+void Intersection1::Perform(const Handle(Adaptor3d_Surface)&   theS1,
                                     const Handle(Adaptor3d_TopolTool)& theD1,
                                     const Handle(Adaptor3d_Surface)&   theS2,
                                     const Handle(Adaptor3d_TopolTool)& theD2,
@@ -1220,7 +1220,7 @@ void IntPatch_Intersection::Perform(const Handle(Adaptor3d_Surface)&   theS1,
       continue;
 
     Handle(IntPatch_WLine) aRW =
-      IntPatch_WLineTool::ComputePurgedWLine(aWL, theS1, theS2, theD1, theD2);
+      WLineTool1::ComputePurgedWLine(aWL, theS1, theS2, theD1, theD2);
 
     if (aRW.IsNull())
       continue;
@@ -1232,7 +1232,7 @@ void IntPatch_Intersection::Perform(const Handle(Adaptor3d_Surface)&   theS1,
 
 //=================================================================================================
 
-void IntPatch_Intersection::Perform(const Handle(Adaptor3d_Surface)&   theS1,
+void Intersection1::Perform(const Handle(Adaptor3d_Surface)&   theS1,
                                     const Handle(Adaptor3d_TopolTool)& theD1,
                                     const Handle(Adaptor3d_Surface)&   theS2,
                                     const Handle(Adaptor3d_TopolTool)& theD2,
@@ -1490,7 +1490,7 @@ void IntPatch_Intersection::Perform(const Handle(Adaptor3d_Surface)&   theS1,
       continue;
 
     Handle(IntPatch_WLine) aRW =
-      IntPatch_WLineTool::ComputePurgedWLine(aWL, theS1, theS2, theD1, theD2);
+      WLineTool1::ComputePurgedWLine(aWL, theS1, theS2, theD1, theD2);
 
     if (aRW.IsNull())
       continue;
@@ -1502,7 +1502,7 @@ void IntPatch_Intersection::Perform(const Handle(Adaptor3d_Surface)&   theS1,
 
 //=================================================================================================
 
-void IntPatch_Intersection::ParamParamPerfom(const Handle(Adaptor3d_Surface)&   theS1,
+void Intersection1::ParamParamPerfom(const Handle(Adaptor3d_Surface)&   theS1,
                                              const Handle(Adaptor3d_TopolTool)& theD1,
                                              const Handle(Adaptor3d_Surface)&   theS2,
                                              const Handle(Adaptor3d_TopolTool)& theD2,
@@ -1512,7 +1512,7 @@ void IntPatch_Intersection::ParamParamPerfom(const Handle(Adaptor3d_Surface)&   
                                              const GeomAbs_SurfaceType          typs1,
                                              const GeomAbs_SurfaceType          typs2)
 {
-  IntPatch_PrmPrmIntersection interpp;
+  ParameterParameterIntersection interpp;
   //
   if (!theD1->DomainIsInfinite() && !theD2->DomainIsInfinite())
   {
@@ -1613,7 +1613,7 @@ void IntPatch_Intersection::ParamParamPerfom(const Handle(Adaptor3d_Surface)&   
 ////function : GeomGeomPerfom
 // purpose  :
 //=======================================================================
-void IntPatch_Intersection::GeomGeomPerfom(const Handle(Adaptor3d_Surface)&   theS1,
+void Intersection1::GeomGeomPerfom(const Handle(Adaptor3d_Surface)&   theS1,
                                            const Handle(Adaptor3d_TopolTool)& theD1,
                                            const Handle(Adaptor3d_Surface)&   theS2,
                                            const Handle(Adaptor3d_TopolTool)& theD2,
@@ -1678,7 +1678,7 @@ void IntPatch_Intersection::GeomGeomPerfom(const Handle(Adaptor3d_Surface)&   th
 
   if ((theTyps1 == GeomAbs_Cylinder) && (theTyps2 == GeomAbs_Cylinder))
   {
-    IntPatch_WLineTool::JoinWLines(slin, spnt, theS1, theS2, TolTang);
+    WLineTool1::JoinWLines(slin, spnt, theS1, theS2, TolTang);
   }
 
   if (isWLExist)
@@ -1727,7 +1727,7 @@ void IntPatch_Intersection::GeomGeomPerfom(const Handle(Adaptor3d_Surface)&   th
       aListOfCriticalPoints.Append(theS2->Value(0.0, -M_PI_2));
     }
 
-    IntPatch_WLineTool::ExtendTwoWLines(slin,
+    WLineTool1::ExtendTwoWLines(slin,
                                         theS1,
                                         theS2,
                                         TolTang,
@@ -1740,7 +1740,7 @@ void IntPatch_Intersection::GeomGeomPerfom(const Handle(Adaptor3d_Surface)&   th
 
 //=================================================================================================
 
-void IntPatch_Intersection::GeomParamPerfom(const Handle(Adaptor3d_Surface)&   theS1,
+void Intersection1::GeomParamPerfom(const Handle(Adaptor3d_Surface)&   theS1,
                                             const Handle(Adaptor3d_TopolTool)& theD1,
                                             const Handle(Adaptor3d_Surface)&   theS2,
                                             const Handle(Adaptor3d_TopolTool)& theD2,
@@ -1819,7 +1819,7 @@ void IntPatch_Intersection::GeomParamPerfom(const Handle(Adaptor3d_Surface)&   t
   }
 }
 
-void IntPatch_Intersection::Perform(const Handle(Adaptor3d_Surface)&   S1,
+void Intersection1::Perform(const Handle(Adaptor3d_Surface)&   S1,
                                     const Handle(Adaptor3d_TopolTool)& D1,
                                     const Handle(Adaptor3d_Surface)&   S2,
                                     const Handle(Adaptor3d_TopolTool)& D2,
@@ -1835,7 +1835,7 @@ void IntPatch_Intersection::Perform(const Handle(Adaptor3d_Surface)&   S1,
   if (myFleche == 0.0)
   {
 #ifdef OCCT_DEBUG
-    // std::cout<<" -- IntPatch_Intersection::myFleche fixe par defaut a 0.01 --"<<std::endl;
+    // std::cout<<" -- Intersection1::myFleche fixe par defaut a 0.01 --"<<std::endl;
     // std::cout<<" -- Utiliser la Methode SetTolerances( ... ) "<<std::endl;
 #endif
     myFleche = 0.01;
@@ -1843,7 +1843,7 @@ void IntPatch_Intersection::Perform(const Handle(Adaptor3d_Surface)&   S1,
   if (myUVMaxStep == 0.0)
   {
 #ifdef OCCT_DEBUG
-    // std::cout<<" -- IntPatch_Intersection::myUVMaxStep fixe par defaut a 0.01 --"<<std::endl;
+    // std::cout<<" -- Intersection1::myUVMaxStep fixe par defaut a 0.01 --"<<std::endl;
     // std::cout<<" -- Utiliser la Methode SetTolerances( ... ) "<<std::endl;
 #endif
     myUVMaxStep = 0.01;
@@ -1874,7 +1874,7 @@ void IntPatch_Intersection::Perform(const Handle(Adaptor3d_Surface)&   S1,
   }
   else
   {
-    IntPatch_PrmPrmIntersection interpp;
+    ParameterParameterIntersection interpp;
     interpp.Perform(S1, D1, S2, D2, U1, V1, U2, V2, TolTang, TolArc, myFleche, myUVMaxStep);
     if (interpp.IsDone())
     {
@@ -1898,7 +1898,7 @@ void IntPatch_Intersection::Perform(const Handle(Adaptor3d_Surface)&   S1,
     if (!aWL->IsPurgingAllowed())
       continue;
 
-    Handle(IntPatch_WLine) aRW = IntPatch_WLineTool::ComputePurgedWLine(aWL, S1, S2, D1, D2);
+    Handle(IntPatch_WLine) aRW = WLineTool1::ComputePurgedWLine(aWL, S1, S2, D1, D2);
 
     if (aRW.IsNull())
       continue;
@@ -1938,7 +1938,7 @@ void IntPatch_Intersection__MAJ_R(Handle(Adaptor2d_Curve2d)* R1,
 }
 #endif
 
-void IntPatch_Intersection::Dump(const Standard_Integer /*Mode*/,
+void Intersection1::Dump(const Standard_Integer /*Mode*/,
                                  const Handle(Adaptor3d_Surface)& /*S1*/,
                                  const Handle(Adaptor3d_TopolTool)& /*D1*/,
                                  const Handle(Adaptor3d_Surface)& /*S2*/,
@@ -2020,7 +2020,7 @@ void IntPatch_Intersection::Dump(const Standard_Integer /*Mode*/,
          nbgh,
          nbgp);
 
-  IntPatch_LineConstructor LineConstructor(2);
+  LineConstructor LineConstructor(2);
 
   Standard_Integer nbllc = 0;
   nbw = nbr = nbg = nba = 0;
@@ -2094,7 +2094,7 @@ void IntPatch_Intersection::Dump(const Standard_Integer /*Mode*/,
 
 //=================================================================================================
 
-Standard_Boolean IntPatch_Intersection::CheckSingularPoints(
+Standard_Boolean Intersection1::CheckSingularPoints(
   const Handle(Adaptor3d_Surface)&   theS1,
   const Handle(Adaptor3d_TopolTool)& theD1,
   const Handle(Adaptor3d_Surface)&   theS2,
@@ -2178,7 +2178,7 @@ Standard_Boolean IntPatch_Intersection::CheckSingularPoints(
 
 //=================================================================================================
 
-Standard_Real IntPatch_Intersection::DefineUVMaxStep(const Handle(Adaptor3d_Surface)&   theS1,
+Standard_Real Intersection1::DefineUVMaxStep(const Handle(Adaptor3d_Surface)&   theS1,
                                                      const Handle(Adaptor3d_TopolTool)& theD1,
                                                      const Handle(Adaptor3d_Surface)&   theS2,
                                                      const Handle(Adaptor3d_TopolTool)& theD2)
@@ -2227,7 +2227,7 @@ static void splitCone(const Handle(Adaptor3d_Surface)&               theS,
 {
   if (theS->GetType() != GeomAbs_Cone)
   {
-    throw Standard_NoSuchObject("IntPatch_Intersection : Surface is not Cone");
+    throw Standard_NoSuchObject("Intersection1 : Surface is not Cone");
   }
 
   gp_Cone aCone = theS->Cone();
@@ -2257,7 +2257,7 @@ static void splitCone(const Handle(Adaptor3d_Surface)&               theS,
 // function : PrepareSurfaces
 // purpose  : Prepares surfaces for intersection
 //=======================================================================
-void IntPatch_Intersection::PrepareSurfaces(
+void Intersection1::PrepareSurfaces(
   const Handle(Adaptor3d_Surface)&               theS1,
   const Handle(Adaptor3d_TopolTool)&             theD1,
   const Handle(Adaptor3d_Surface)&               theS2,

@@ -34,10 +34,10 @@
 #include <math_Vector.hxx>
 #include <TColStd_Array1OfReal.hxx>
 class GeomInt_TheMultiLineOfWLApprox;
-class GeomInt_TheMultiLineToolOfWLApprox;
+class MultiLineToolWLApprox;
 class GeomInt_MyGradientOfTheComputeLineBezierOfWLApprox;
 class GeomInt_ParLeastSquareOfMyGradientOfTheComputeLineBezierOfWLApprox;
-class GeomInt_ResConstraintOfMyGradientOfTheComputeLineBezierOfWLApprox;
+class ResConstraintGradientLineBezier;
 class GeomInt_ParFunctionOfMyGradientOfTheComputeLineBezierOfWLApprox;
 class GeomInt_Gradient_BFGSOfMyGradientOfTheComputeLineBezierOfWLApprox;
 class AppParCurves_MultiCurve;

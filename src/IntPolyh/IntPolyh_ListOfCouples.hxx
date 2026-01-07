@@ -19,7 +19,7 @@
 #include <NCollection_List.hxx>
 #include <IntPolyh_Couple.hxx>
 
-typedef NCollection_List<IntPolyh_Couple> IntPolyh_ListOfCouples;
+typedef NCollection_List<Couple> IntPolyh_ListOfCouples;
 typedef IntPolyh_ListOfCouples::Iterator  IntPolyh_ListIteratorOfListOfCouples;
 
 #endif

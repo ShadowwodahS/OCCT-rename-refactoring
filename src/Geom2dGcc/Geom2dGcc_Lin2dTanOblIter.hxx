@@ -29,7 +29,7 @@ class Geom2dGcc_QCurve;
 //! create 2d line tangent to a curve QualifiedCurv and
 //! doing an angle Angle with a line TheLin.
 //! The angle must be in Radian.
-class Geom2dGcc_Lin2dTanOblIter
+class Line2dTangentOblIter
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -40,7 +40,7 @@ public:
   //! Angle must be in Radian.
   //! Param2 is the initial guess on the curve QualifiedCurv.
   //! Tolang is the angular tolerance.
-  Standard_EXPORT Geom2dGcc_Lin2dTanOblIter(const Geom2dGcc_QCurve& Qualified1,
+  Standard_EXPORT Line2dTangentOblIter(const Geom2dGcc_QCurve& Qualified1,
                                             const gp_Lin2d&         TheLin,
                                             const Standard_Real     Param1,
                                             const Standard_Real     TolAng,

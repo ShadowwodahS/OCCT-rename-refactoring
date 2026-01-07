@@ -51,7 +51,7 @@
 //            gamma         3*(tang gamma - gamma)
 //     with gamma = alpha / 2
 
-GeomFill_QuasiAngularConvertor::GeomFill_QuasiAngularConvertor()
+QuasiAngularConverter::QuasiAngularConverter()
     : myinit(Standard_False),
       B(1, 7, 1, 7),
       Px(1, 7),
@@ -63,12 +63,12 @@ GeomFill_QuasiAngularConvertor::GeomFill_QuasiAngularConvertor()
 {
 }
 
-Standard_Boolean GeomFill_QuasiAngularConvertor::Initialized() const
+Standard_Boolean QuasiAngularConverter::Initialized() const
 {
   return myinit;
 }
 
-void GeomFill_QuasiAngularConvertor::Init()
+void QuasiAngularConverter::Init()
 {
   if (myinit)
     return; // On n'initialise qu'une fois
@@ -116,7 +116,7 @@ void GeomFill_QuasiAngularConvertor::Init()
   myinit = Standard_True;
 }
 
-void GeomFill_QuasiAngularConvertor::Section(const Point3d&         FirstPnt,
+void QuasiAngularConverter::Section(const Point3d&         FirstPnt,
                                              const Point3d&         Center,
                                              const Vector3d&         Dir,
                                              const Standard_Real   Angle,
@@ -200,7 +200,7 @@ void GeomFill_QuasiAngularConvertor::Section(const Point3d&         FirstPnt,
   }
 }
 
-void GeomFill_QuasiAngularConvertor::Section(const Point3d&         FirstPnt,
+void QuasiAngularConverter::Section(const Point3d&         FirstPnt,
                                              const Vector3d&         DFirstPnt,
                                              const Point3d&         Center,
                                              const Vector3d&         DCenter,
@@ -349,7 +349,7 @@ void GeomFill_QuasiAngularConvertor::Section(const Point3d&         FirstPnt,
   }
 }
 
-void GeomFill_QuasiAngularConvertor::Section(const Point3d&         FirstPnt,
+void QuasiAngularConverter::Section(const Point3d&         FirstPnt,
                                              const Vector3d&         DFirstPnt,
                                              const Vector3d&         D2FirstPnt,
                                              const Point3d&         Center,

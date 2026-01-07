@@ -34,7 +34,7 @@
 #include <math_FunctionRoot.hxx>
 #include <StdFail_NotDone.hxx>
 
-Geom2dGcc_Lin2dTanOblIter::Geom2dGcc_Lin2dTanOblIter(const Geom2dGcc_QCurve& Qualified1,
+Line2dTangentOblIter::Line2dTangentOblIter(const Geom2dGcc_QCurve& Qualified1,
                                                      const gp_Lin2d&         TheLin,
                                                      const Standard_Real     Param1,
                                                      const Standard_Real     TolAng,
@@ -54,8 +54,8 @@ Geom2dGcc_Lin2dTanOblIter::Geom2dGcc_Lin2dTanOblIter(const Geom2dGcc_QCurve& Qua
   }
   Paral2                  = Standard_False;
   Geom2dAdaptor_Curve Cu1 = Qualified1.Qualified();
-  Standard_Real       U1  = Geom2dGcc_CurveTool::FirstParameter(Cu1);
-  Standard_Real       U2  = Geom2dGcc_CurveTool::LastParameter(Cu1);
+  Standard_Real       U1  = CurveTool3::FirstParameter(Cu1);
+  Standard_Real       U2  = CurveTool3::LastParameter(Cu1);
   gp_Dir2d            Dir(TheLin.Direction());
   Standard_Real       A = Dir.X();
   Standard_Real       B = Dir.Y();
@@ -85,13 +85,13 @@ Geom2dGcc_Lin2dTanOblIter::Geom2dGcc_Lin2dTanOblIter(const Geom2dGcc_QCurve& Qua
     Paral2 = Standard_True;
   }
   Geom2dGcc_FunctionTanObl func(Cu1, TheDirection);
-  math_FunctionRoot sol(func, Param1, Geom2dGcc_CurveTool::EpsX(Cu1, Abs(TolAng)), U1, U2, 100);
+  math_FunctionRoot sol(func, Param1, CurveTool3::EpsX(Cu1, Abs(TolAng)), U1, U2, 100);
   if (sol.IsDone())
   {
     Standard_Real Usol = sol.Root();
     gp_Pnt2d      Origine;
     gp_Vec2d      Vect1, Vect2;
-    Geom2dGcc_CurveTool::D2(Cu1, Usol, Origine, Vect1, Vect2);
+    CurveTool3::D2(Cu1, Usol, Origine, Vect1, Vect2);
     Standard_Real sign1 = Vect1.XY().Dot(TheDirection.XY());
     Standard_Real sign2 = Vect2.XY().Crossed(TheDirection.XY());
     if (Qualified1.IsUnqualified() || (Qualified1.IsEnclosing() && sign2 <= 0.)
@@ -121,12 +121,12 @@ Geom2dGcc_Lin2dTanOblIter::Geom2dGcc_Lin2dTanOblIter(const Geom2dGcc_QCurve& Qua
   }
 }
 
-Standard_Boolean Geom2dGcc_Lin2dTanOblIter::IsDone() const
+Standard_Boolean Line2dTangentOblIter::IsDone() const
 {
   return WellDone;
 }
 
-gp_Lin2d Geom2dGcc_Lin2dTanOblIter::ThisSolution() const
+gp_Lin2d Line2dTangentOblIter::ThisSolution() const
 {
   if (!WellDone)
     throw StdFail_NotDone();
@@ -134,7 +134,7 @@ gp_Lin2d Geom2dGcc_Lin2dTanOblIter::ThisSolution() const
   return linsol;
 }
 
-void Geom2dGcc_Lin2dTanOblIter::WhichQualifier(GccEnt_Position& Qualif1) const
+void Line2dTangentOblIter::WhichQualifier(GccEnt_Position& Qualif1) const
 {
   if (!WellDone)
   {
@@ -146,12 +146,12 @@ void Geom2dGcc_Lin2dTanOblIter::WhichQualifier(GccEnt_Position& Qualif1) const
   }
 }
 
-Standard_Boolean Geom2dGcc_Lin2dTanOblIter::IsParallel2() const
+Standard_Boolean Line2dTangentOblIter::IsParallel2() const
 {
   return Paral2;
 }
 
-void Geom2dGcc_Lin2dTanOblIter::Tangency1(Standard_Real& ParSol,
+void Line2dTangentOblIter::Tangency1(Standard_Real& ParSol,
                                           Standard_Real& ParArg,
                                           gp_Pnt2d&      PntSol) const
 {
@@ -167,7 +167,7 @@ void Geom2dGcc_Lin2dTanOblIter::Tangency1(Standard_Real& ParSol,
   }
 }
 
-void Geom2dGcc_Lin2dTanOblIter::Intersection2(Standard_Real& ParSol,
+void Line2dTangentOblIter::Intersection2(Standard_Real& ParSol,
                                               Standard_Real& ParArg,
                                               gp_Pnt2d&      PntSol) const
 {

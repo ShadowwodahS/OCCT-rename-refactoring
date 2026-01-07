@@ -25,7 +25,7 @@ class Geom2dAdaptor_Curve;
 class gp_Pnt2d;
 class gp_Vec2d;
 
-class Geom2dGcc_CurveTool
+class CurveTool3
 {
 public:
   DEFINE_STANDARD_ALLOC

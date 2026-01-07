@@ -21,8 +21,8 @@
 #include <IntSurf_Quadric.hxx>
 #include <math_FunctionWithDerivative.hxx>
 
-class IntSurf_Quadric;
-class IntCurveSurface_TheHCurveTool;
+class Quadric1;
+class HCurveTool2;
 
 class IntCurveSurface_TheQuadCurvFuncOfTheQuadCurvExactHInter : public math_FunctionWithDerivative
 {
@@ -31,7 +31,7 @@ public:
 
   //! Create the function.
   Standard_EXPORT IntCurveSurface_TheQuadCurvFuncOfTheQuadCurvExactHInter(
-    const IntSurf_Quadric&         Q,
+    const Quadric1&         Q,
     const Handle(Adaptor3d_Curve)& C);
 
   //! Computes the value of the signed  distance between
@@ -55,7 +55,7 @@ public:
 
 protected:
 private:
-  IntSurf_Quadric         myQuadric;
+  Quadric1         myQuadric;
   Handle(Adaptor3d_Curve) myCurve;
 };
 

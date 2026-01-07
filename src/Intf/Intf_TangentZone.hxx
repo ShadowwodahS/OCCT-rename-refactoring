@@ -23,11 +23,11 @@
 
 #include <Intf_SeqOfSectionPoint.hxx>
 #include <Standard_Boolean.hxx>
-class Intf_SectionPoint;
+class SectionPoint;
 
 //! Describes   a  zone  of  tangence  between  polygons  or
 //! polyhedra as a sequence of points of intersection.
-class Intf_TangentZone
+class TangentZone
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -37,15 +37,15 @@ public:
 
   //! Gives   the   SectionPoint   of  address  <Index>  in  the
   //! TangentZone.
-  Standard_EXPORT const Intf_SectionPoint& GetPoint(const Standard_Integer Index) const;
+  Standard_EXPORT const SectionPoint& GetPoint(const Standard_Integer Index) const;
 
   //! Compares two TangentZones.
-  Standard_EXPORT Standard_Boolean IsEqual(const Intf_TangentZone& Other) const;
+  Standard_EXPORT Standard_Boolean IsEqual(const TangentZone& Other) const;
 
-  Standard_Boolean operator==(const Intf_TangentZone& Other) const { return IsEqual(Other); }
+  Standard_Boolean operator==(const TangentZone& Other) const { return IsEqual(Other); }
 
   //! Checks if <ThePI> is in TangentZone.
-  Standard_EXPORT Standard_Boolean Contains(const Intf_SectionPoint& ThePI) const;
+  Standard_EXPORT Standard_Boolean Contains(const SectionPoint& ThePI) const;
 
   //! Gives  the parameter range of the  TangentZone on the first
   //! argument of the Interference. (Usable only for polygon)
@@ -71,32 +71,32 @@ public:
 
   //! Returns True if  <ThePI>  is in the parameter  range of the
   //! TangentZone.
-  Standard_EXPORT Standard_Boolean RangeContains(const Intf_SectionPoint& ThePI) const;
+  Standard_EXPORT Standard_Boolean RangeContains(const SectionPoint& ThePI) const;
 
   //! Returns True if the TangentZone  <Other> has  a common part
   //! with <me>.
-  Standard_EXPORT Standard_Boolean HasCommonRange(const Intf_TangentZone& Other) const;
+  Standard_EXPORT Standard_Boolean HasCommonRange(const TangentZone& Other) const;
 
   //! Builds an empty tangent zone.
-  Standard_EXPORT Intf_TangentZone();
+  Standard_EXPORT TangentZone();
 
   //! Adds a SectionPoint to the TangentZone.
-  Standard_EXPORT void Append(const Intf_SectionPoint& Pi);
+  Standard_EXPORT void Append(const SectionPoint& Pi);
 
   //! Adds the TangentZone <Tzi> to <me>.
-  Standard_EXPORT void Append(const Intf_TangentZone& Tzi);
+  Standard_EXPORT void Append(const TangentZone& Tzi);
 
   //! Inserts a SectionPoint in the TangentZone.
-  Standard_EXPORT Standard_Boolean Insert(const Intf_SectionPoint& Pi);
+  Standard_EXPORT Standard_Boolean Insert(const SectionPoint& Pi);
 
   //! Inserts a point in the polygonal TangentZone.
-  Standard_EXPORT void PolygonInsert(const Intf_SectionPoint& Pi);
+  Standard_EXPORT void PolygonInsert(const SectionPoint& Pi);
 
   //! Inserts a SectionPoint before <Index> in the TangentZone.
-  Standard_EXPORT void InsertBefore(const Standard_Integer Index, const Intf_SectionPoint& Pi);
+  Standard_EXPORT void InsertBefore(const Standard_Integer Index, const SectionPoint& Pi);
 
   //! Inserts a SectionPoint after <Index> in the TangentZone.
-  Standard_EXPORT void InsertAfter(const Standard_Integer Index, const Intf_SectionPoint& Pi);
+  Standard_EXPORT void InsertAfter(const Standard_Integer Index, const SectionPoint& Pi);
 
   Standard_EXPORT void Dump(const Standard_Integer Indent) const;
 

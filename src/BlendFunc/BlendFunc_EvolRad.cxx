@@ -102,7 +102,7 @@ static void FusionneIntervalles(const TColStd_Array1OfReal& I1,
 BlendFunc_EvolRad::BlendFunc_EvolRad(const Handle(Adaptor3d_Surface)& S1,
                                      const Handle(Adaptor3d_Surface)& S2,
                                      const Handle(Adaptor3d_Curve)&   C,
-                                     const Handle(Law_Function)&      Law)
+                                     const Handle(Law_Function)&      Law1)
     : surf1(S1),
       surf2(S2),
       curv(C),
@@ -122,8 +122,8 @@ BlendFunc_EvolRad::BlendFunc_EvolRad(const Handle(Adaptor3d_Surface)& S1,
       distmin(RealLast()),
       mySShape(BlendFunc_Rational)
 {
-  fevol = Law;
-  tevol = Law;
+  fevol = Law1;
+  tevol = Law1;
 
   // Initialisaton of cash control variables.
   tval = -9.876e100;
@@ -1331,7 +1331,7 @@ void BlendFunc_EvolRad::GetTolerance(const Standard_Real BoundTol,
   Standard_Integer low = Tol3d.Lower(), up = Tol3d.Upper();
   Standard_Real    rayon = lengthmin / maxang; // a radius is subtracted
   Standard_Real    Tol;
-  Tol = GeomFill::GetTolerance(myTConv, maxang, rayon, AngleTol, SurfTol);
+  Tol = GeomFill1::GetTolerance(myTConv, maxang, rayon, AngleTol, SurfTol);
   Tol1d.Init(SurfTol);
   Tol3d.Init(SurfTol);
   Tol3d(low + 1) = Tol3d(up - 1) = Min(Tol, SurfTol);
@@ -1342,14 +1342,14 @@ void BlendFunc_EvolRad::GetTolerance(const Standard_Real BoundTol,
 
 void BlendFunc_EvolRad::Knots(TColStd_Array1OfReal& TKnots)
 {
-  GeomFill::Knots(myTConv, TKnots);
+  GeomFill1::Knots(myTConv, TKnots);
 }
 
 //=================================================================================================
 
 void BlendFunc_EvolRad::Mults(TColStd_Array1OfInteger& TMults)
 {
-  GeomFill::Mults(myTConv, TMults);
+  GeomFill1::Mults(myTConv, TMults);
 }
 
 //=================================================================================================
@@ -1431,7 +1431,7 @@ void BlendFunc_EvolRad::Section(const Point2&    P,
     np.Reverse();
   }
 
-  GeomFill::GetCircle(myTConv, ns1, ns2, np, pts1, pts2, Abs(ray), Center, Poles, Weights);
+  GeomFill1::GetCircle(myTConv, ns1, ns2, np, pts1, pts2, Abs(ray), Center, Poles, Weights);
 }
 
 //=================================================================================================
@@ -1587,7 +1587,7 @@ Standard_Boolean BlendFunc_EvolRad::Section(const Point2&    P,
 
   if (!istgt)
   {
-    return GeomFill::GetCircle(myTConv,
+    return GeomFill1::GetCircle(myTConv,
                                ns1,
                                ns2,
                                dnorm1w,
@@ -1609,7 +1609,7 @@ Standard_Boolean BlendFunc_EvolRad::Section(const Point2&    P,
   }
   else
   {
-    GeomFill::GetCircle(myTConv, ns1, ns2, np, pts1, pts2, Abs(ray), Center, Poles, Weights);
+    GeomFill1::GetCircle(myTConv, ns1, ns2, np, pts1, pts2, Abs(ray), Center, Poles, Weights);
     return Standard_False;
   }
 }
@@ -1955,7 +1955,7 @@ Standard_Boolean BlendFunc_EvolRad::Section(const Point2&    P,
 
   if (!istgt)
   {
-    return GeomFill::GetCircle(myTConv,
+    return GeomFill1::GetCircle(myTConv,
                                ns1,
                                ns2,
                                dnorm1w,
@@ -1986,7 +1986,7 @@ Standard_Boolean BlendFunc_EvolRad::Section(const Point2&    P,
   }
   else
   {
-    GeomFill::GetCircle(myTConv, ns1, ns2, nplan, pts1, pts2, Abs(ray), Center, Poles, Weights);
+    GeomFill1::GetCircle(myTConv, ns1, ns2, nplan, pts1, pts2, Abs(ray), Center, Poles, Weights);
     return Standard_False;
   }
 }

@@ -23,16 +23,16 @@
 #include <TColgp_Array2OfPnt.hxx>
 #include <TColStd_Array1OfReal.hxx>
 
-class IntCurveSurface_TheHCurveTool;
+class HCurveTool2;
 class HSurfaceTool;
 class IntCurveSurface_ThePolygonOfHInter;
-class IntCurveSurface_ThePolygonToolOfHInter;
+class PolygonToolHInter;
 class IntCurveSurface_ThePolyhedronOfHInter;
-class IntCurveSurface_ThePolyhedronToolOfHInter;
+class PolyhedronToolHInter;
 class IntCurveSurface_TheInterferenceOfHInter;
 class IntCurveSurface_TheCSFunctionOfHInter;
 class IntCurveSurface_TheExactHInter;
-class IntCurveSurface_TheQuadCurvExactHInter;
+class QuadCurvExactHInter;
 class IntCurveSurface_TheQuadCurvFuncOfTheQuadCurvExactHInter;
 class Bnd_BoundSortBox;
 class gp_Lin;
@@ -43,7 +43,7 @@ class gp_Hypr;
 class IntAna_IntConicQuad;
 class Bnd_Box;
 
-class IntCurveSurface_HInter : public IntCurveSurface_Intersection
+class IntCurveSurface_HInter : public CurveSurfaceIntersection1
 {
 public:
   DEFINE_STANDARD_ALLOC

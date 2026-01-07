@@ -1206,7 +1206,7 @@ Standard_Boolean ShapeAnalysis_Curve::GetSamplePoints(const Handle(GeomCurve2d)&
   //: abv 05.06.02: TUBE.stp
   // Use the same distribution of points as BRepTopAdaptor_FClass2d for consistency
   Geom2dAdaptor_Curve C(curve, first, last);
-  Standard_Integer    nbs = Geom2dInt_Geom2dCurveTool::NbSamples(C);
+  Standard_Integer    nbs = Geom2dCurveTool::NbSamples(C);
   //-- Attention aux bsplines rationnelles de degree 3. (bouts de cercles entre autres)
   if (nbs > 2)
     nbs *= 4;

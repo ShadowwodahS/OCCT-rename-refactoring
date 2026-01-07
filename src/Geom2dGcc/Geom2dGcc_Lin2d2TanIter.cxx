@@ -37,7 +37,7 @@
 #include <math_Vector.hxx>
 #include <StdFail_NotDone.hxx>
 
-Geom2dGcc_Lin2d2TanIter::Geom2dGcc_Lin2d2TanIter(const GccEnt_QualifiedCirc& Qualified1,
+Line2dTwoTangentIter::Line2dTwoTangentIter(const QualifiedCircle& Qualified1,
                                                  const Geom2dGcc_QCurve&     Qualified2,
                                                  const Standard_Real         Param2,
                                                  const Standard_Real         Tolang)
@@ -58,10 +58,10 @@ Geom2dGcc_Lin2d2TanIter::Geom2dGcc_Lin2d2TanIter(const GccEnt_QualifiedCirc& Qua
   }
   gp_Circ2d                  C1  = Qualified1.Qualified();
   Geom2dAdaptor_Curve        Cu2 = Qualified2.Qualified();
-  Standard_Real              U1  = Geom2dGcc_CurveTool::FirstParameter(Cu2);
-  Standard_Real              U2  = Geom2dGcc_CurveTool::LastParameter(Cu2);
+  Standard_Real              U1  = CurveTool3::FirstParameter(Cu2);
+  Standard_Real              U2  = CurveTool3::LastParameter(Cu2);
   Geom2dGcc_FunctionTanCirCu func(C1, Cu2);
-  math_FunctionRoot sol(func, Param2, Geom2dGcc_CurveTool::EpsX(Cu2, Abs(Tolang)), U1, U2, 100);
+  math_FunctionRoot sol(func, Param2, CurveTool3::EpsX(Cu2, Abs(Tolang)), U1, U2, 100);
   if (sol.IsDone())
   {
     Standard_Real Usol = sol.Root();
@@ -75,7 +75,7 @@ Geom2dGcc_Lin2d2TanIter::Geom2dGcc_Lin2d2TanIter(const GccEnt_QualifiedCirc& Qua
       gp_Pnt2d Origine;
       gp_Vec2d Vect1;
       gp_Vec2d Vect2;
-      Geom2dGcc_CurveTool::D2(Cu2, Usol, Origine, Vect1, Vect2);
+      CurveTool3::D2(Cu2, Usol, Origine, Vect1, Vect2);
       gp_Vec2d      Vdir(C1.Location().XY() - Origine.XY());
       Standard_Real sign1 = Vect1.Dot(Vdir);
       if (sign1 <= 0.)
@@ -129,7 +129,7 @@ Geom2dGcc_Lin2d2TanIter::Geom2dGcc_Lin2d2TanIter(const GccEnt_QualifiedCirc& Qua
   }
 }
 
-Geom2dGcc_Lin2d2TanIter::Geom2dGcc_Lin2d2TanIter(const Geom2dGcc_QCurve& Qualified1,
+Line2dTwoTangentIter::Line2dTwoTangentIter(const Geom2dGcc_QCurve& Qualified1,
                                                  const Geom2dGcc_QCurve& Qualified2,
                                                  const Standard_Real     Param1,
                                                  const Standard_Real     Param2,
@@ -157,14 +157,14 @@ Geom2dGcc_Lin2d2TanIter::Geom2dGcc_Lin2d2TanIter(const Geom2dGcc_QCurve& Qualifi
   math_Vector               Umax(1, 2);
   math_Vector               Ufirst(1, 2);
   math_Vector               tol(1, 2);
-  Umin(1)   = Geom2dGcc_CurveTool::FirstParameter(Cu1);
-  Umin(2)   = Geom2dGcc_CurveTool::FirstParameter(Cu2);
-  Umax(1)   = Geom2dGcc_CurveTool::LastParameter(Cu1);
-  Umax(2)   = Geom2dGcc_CurveTool::LastParameter(Cu2);
+  Umin(1)   = CurveTool3::FirstParameter(Cu1);
+  Umin(2)   = CurveTool3::FirstParameter(Cu2);
+  Umax(1)   = CurveTool3::LastParameter(Cu1);
+  Umax(2)   = CurveTool3::LastParameter(Cu2);
   Ufirst(1) = Param1;
   Ufirst(2) = Param2;
-  tol(1)    = Geom2dGcc_CurveTool::EpsX(Cu1, Abs(Tolang));
-  tol(2)    = Geom2dGcc_CurveTool::EpsX(Cu2, Abs(Tolang));
+  tol(1)    = CurveTool3::EpsX(Cu1, Abs(Tolang));
+  tol(2)    = CurveTool3::EpsX(Cu2, Abs(Tolang));
   math_FunctionSetRoot Root(Func, tol);
   Root.Perform(Func, Ufirst, Umin, Umax);
   if (Root.IsDone())
@@ -178,8 +178,8 @@ Geom2dGcc_Lin2d2TanIter::Geom2dGcc_Lin2d2TanIter(const Geom2dGcc_QCurve& Qualifi
       //  Modified by Sergey KHROMOV - Thu Apr  5 17:45:01 2001 End
       gp_Pnt2d point1, point2;
       gp_Vec2d Vect11, Vect12, Vect21, Vect22;
-      Geom2dGcc_CurveTool::D2(Cu1, Ufirst(1), point1, Vect11, Vect12);
-      Geom2dGcc_CurveTool::D2(Cu2, Ufirst(2), point2, Vect21, Vect22);
+      CurveTool3::D2(Cu1, Ufirst(1), point1, Vect11, Vect12);
+      CurveTool3::D2(Cu2, Ufirst(2), point2, Vect21, Vect22);
       gp_Vec2d      Vec(point1.XY(), point2.XY());
       Standard_Real Angle1 = Vec.Angle(Vect12);
       Standard_Real sign1  = Vect11.Dot(Vec);
@@ -210,7 +210,7 @@ Geom2dGcc_Lin2d2TanIter::Geom2dGcc_Lin2d2TanIter(const Geom2dGcc_QCurve& Qualifi
   }
 }
 
-Geom2dGcc_Lin2d2TanIter::Geom2dGcc_Lin2d2TanIter(const Geom2dGcc_QCurve& Qualified1,
+Line2dTwoTangentIter::Line2dTwoTangentIter(const Geom2dGcc_QCurve& Qualified1,
                                                  const gp_Pnt2d&         ThePoint,
                                                  const Standard_Real     Param1,
                                                  const Standard_Real     Tolang)
@@ -230,10 +230,10 @@ Geom2dGcc_Lin2d2TanIter::Geom2dGcc_Lin2d2TanIter(const Geom2dGcc_QCurve& Qualifi
     return;
   }
   Geom2dAdaptor_Curve        Cu1 = Qualified1.Qualified();
-  Standard_Real              U1  = Geom2dGcc_CurveTool::FirstParameter(Cu1);
-  Standard_Real              U2  = Geom2dGcc_CurveTool::LastParameter(Cu1);
+  Standard_Real              U1  = CurveTool3::FirstParameter(Cu1);
+  Standard_Real              U2  = CurveTool3::LastParameter(Cu1);
   Geom2dGcc_FunctionTanCuPnt func(Cu1, ThePoint);
-  math_FunctionRoot sol(func, Param1, Geom2dGcc_CurveTool::EpsX(Cu1, Abs(Tolang)), U1, U2, 100);
+  math_FunctionRoot sol(func, Param1, CurveTool3::EpsX(Cu1, Abs(Tolang)), U1, U2, 100);
   if (sol.IsDone())
   {
     Standard_Real Usol = sol.Root();
@@ -246,7 +246,7 @@ Geom2dGcc_Lin2d2TanIter::Geom2dGcc_Lin2d2TanIter(const Geom2dGcc_QCurve& Qualifi
       gp_Pnt2d Origine;
       gp_Vec2d Vect1;
       gp_Vec2d Vect2;
-      Geom2dGcc_CurveTool::D2(Cu1, Usol, Origine, Vect1, Vect2);
+      CurveTool3::D2(Cu1, Usol, Origine, Vect1, Vect2);
       gp_Vec2d      Vdir(ThePoint.XY() - Origine.XY());
       Standard_Real sign1 = Vect1.Dot(Vdir);
       Standard_Real sign2 = Vect2.Crossed(Vdir);
@@ -271,19 +271,19 @@ Geom2dGcc_Lin2d2TanIter::Geom2dGcc_Lin2d2TanIter(const Geom2dGcc_QCurve& Qualifi
   }
 }
 
-Standard_Boolean Geom2dGcc_Lin2d2TanIter::IsDone() const
+Standard_Boolean Line2dTwoTangentIter::IsDone() const
 {
   return WellDone;
 }
 
-gp_Lin2d Geom2dGcc_Lin2d2TanIter::ThisSolution() const
+gp_Lin2d Line2dTwoTangentIter::ThisSolution() const
 {
   if (!WellDone)
     throw StdFail_NotDone();
   return linsol;
 }
 
-void Geom2dGcc_Lin2d2TanIter::WhichQualifier(GccEnt_Position& Qualif1,
+void Line2dTwoTangentIter::WhichQualifier(GccEnt_Position& Qualif1,
                                              GccEnt_Position& Qualif2) const
 {
   if (!WellDone)
@@ -297,7 +297,7 @@ void Geom2dGcc_Lin2d2TanIter::WhichQualifier(GccEnt_Position& Qualif1,
   }
 }
 
-void Geom2dGcc_Lin2d2TanIter::Tangency1(Standard_Real& ParSol,
+void Line2dTwoTangentIter::Tangency1(Standard_Real& ParSol,
                                         Standard_Real& ParArg,
                                         gp_Pnt2d&      Pnt) const
 {
@@ -313,7 +313,7 @@ void Geom2dGcc_Lin2d2TanIter::Tangency1(Standard_Real& ParSol,
   }
 }
 
-void Geom2dGcc_Lin2d2TanIter::Tangency2(Standard_Real& ParSol,
+void Line2dTwoTangentIter::Tangency2(Standard_Real& ParSol,
                                         Standard_Real& ParArg,
                                         gp_Pnt2d&      Pnt) const
 {

@@ -621,13 +621,13 @@ Standard_Boolean ShapeConstruct::JoinCurves(const Handle(GeomCurve2d)& aC2d1,
   Vector3d                    vDir(0, 0, 1);
   gp_Pln                    vPln(vPnt, vDir);
   Handle(BSplineCurve3d) bspl1 =
-    Handle(BSplineCurve3d)::DownCast(GeomAPI::To3d(bsplc12d, vPln));
+    Handle(BSplineCurve3d)::DownCast(GeomAPI1::To3d(bsplc12d, vPln));
   Handle(BSplineCurve3d) bspl2 =
-    Handle(BSplineCurve3d)::DownCast(GeomAPI::To3d(bsplc22d, vPln));
+    Handle(BSplineCurve3d)::DownCast(GeomAPI1::To3d(bsplc22d, vPln));
   GeomConvert_CompCurveToBSplineCurve connect2d(bspl1);
   if (!connect2d.Add(bspl2, Precision::PConfusion(), After, Standard_False))
     return Standard_False;
-  C2dOut = GeomAPI::To2d(connect2d.BSplineCurve(), vPln);
+  C2dOut = GeomAPI1::To2d(connect2d.BSplineCurve(), vPln);
 
   return Standard_True;
 }

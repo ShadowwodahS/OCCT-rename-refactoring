@@ -27,7 +27,7 @@ inline Standard_Integer IntWalk_PWalking::NbPoints() const
   return line->NbPoints();
 }
 
-inline const IntSurf_PntOn2S& IntWalk_PWalking::Value(const Standard_Integer Index) const
+inline const PointOn2Surfaces& IntWalk_PWalking::Value(const Standard_Integer Index) const
 {
   if (!done)
     throw StdFail_NotDone();
@@ -73,7 +73,7 @@ inline const Dir3d& IntWalk_PWalking::TangentAtLine(Standard_Integer& theIndex) 
 
 #define REGLAGE 0
 
-inline void IntWalk_PWalking::AddAPoint(const IntSurf_PntOn2S& POn2S)
+inline void IntWalk_PWalking::AddAPoint(const PointOn2Surfaces& POn2S)
 {
 #if REGLAGE
   Standard_Integer n = line->NbPoints() + 1;

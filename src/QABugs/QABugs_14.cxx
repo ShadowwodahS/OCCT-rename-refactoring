@@ -83,7 +83,7 @@ static Standard_Integer BUC60897(DrawInterpreter& di,
   Geom2dAdaptor_Curve      aCCurve(aCurve);
   Geom2dGcc_QualifiedCurve aQualifCurve1(aCLine, GccEnt_outside);
   Geom2dGcc_QualifiedCurve aQualifCurve2(aCCurve, GccEnt_outside);
-  Geom2dGcc_Circ2d2TanRad  aGccCirc2d(aQualifCurve1, aQualifCurve2, 10, 1e-7);
+  Circ2d2TanRad1  aGccCirc2d(aQualifCurve1, aQualifCurve2, 10, 1e-7);
   if (!aGccCirc2d.IsDone())
   {
     di << "Faulty: can not create a circle.\n";

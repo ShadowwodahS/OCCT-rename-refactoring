@@ -225,7 +225,7 @@ void IntTools_FClass2d::Init(const TopoFace& aFace, const Standard_Real TolUV)
       }
       //
       // NbSamples +> nbs
-      nbs = Geom2dInt_Geom2dCurveTool::NbSamples(C);
+      nbs = Geom2dCurveTool::NbSamples(C);
       if (nbs > 2)
       {
         nbs *= 4;
@@ -630,12 +630,12 @@ TopAbs_State IntTools_FClass2d::Perform(const gp_Pnt2d&        _Puv,
     Standard_Real du, dv;
     if (IsUPer)
     {
-      GeomInt::AdjustPeriodic(uu, Umin, Umax, uperiod, uu, du);
+      GeomInt1::AdjustPeriodic(uu, Umin, Umax, uperiod, uu, du);
     } // if (IsUPer) {
     //
     if (IsVPer)
     {
-      GeomInt::AdjustPeriodic(vv, Vmin, Vmax, vperiod, vv, dv);
+      GeomInt1::AdjustPeriodic(vv, Vmin, Vmax, vperiod, vv, dv);
     } // if (IsVPer) {
   }
   //
@@ -791,12 +791,12 @@ TopAbs_State IntTools_FClass2d::TestOnRestriction(const gp_Pnt2d&        _Puv,
     Standard_Real du, dv;
     if (IsUPer)
     {
-      GeomInt::AdjustPeriodic(uu, Umin, Umax, uperiod, uu, du);
+      GeomInt1::AdjustPeriodic(uu, Umin, Umax, uperiod, uu, du);
     } // if (IsUPer) {
     //
     if (IsVPer)
     {
-      GeomInt::AdjustPeriodic(vv, Vmin, Vmax, vperiod, vv, dv);
+      GeomInt1::AdjustPeriodic(vv, Vmin, Vmax, vperiod, vv, dv);
     } // if (IsVPer) {
   }
   //

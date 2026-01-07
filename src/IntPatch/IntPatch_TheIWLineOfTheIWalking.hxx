@@ -30,7 +30,7 @@ class IntSurf_LineOn2S;
 class Standard_OutOfRange;
 class Standard_DomainError;
 class IntSurf_PathPoint;
-class IntSurf_PntOn2S;
+class PointOn2Surfaces;
 class Vector3d;
 
 class IntPatch_TheIWLineOfTheIWalking;
@@ -49,7 +49,7 @@ public:
   void Cut(const Standard_Integer Index);
 
   //! Add a point in the line.
-  void AddPoint(const IntSurf_PntOn2S& P);
+  void AddPoint(const PointOn2Surfaces& P);
 
   void AddStatusFirst(const Standard_Boolean Closed, const Standard_Boolean HasFirst);
 
@@ -84,7 +84,7 @@ public:
 
   //! Returns the point of range Index.
   //! If index <= 0 or Index > NbPoints, an exception is raised.
-  const IntSurf_PntOn2S& Value(const Standard_Integer Index) const;
+  const PointOn2Surfaces& Value(const Standard_Integer Index) const;
 
   //! Returns the LineOn2S contained in the walking line.
   const Handle(IntSurf_LineOn2S)& Line() const;

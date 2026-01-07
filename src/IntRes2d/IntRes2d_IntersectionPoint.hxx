@@ -44,8 +44,8 @@ public:
   IntRes2d_IntersectionPoint(const gp_Pnt2d&            P,
                              const Standard_Real        Uc1,
                              const Standard_Real        Uc2,
-                             const IntRes2d_Transition& Trans1,
-                             const IntRes2d_Transition& Trans2,
+                             const Transition3& Trans1,
+                             const Transition3& Trans2,
                              const Standard_Boolean     ReversedFlag);
 
   //! Sets the values for an existing intersection
@@ -54,8 +54,8 @@ public:
   void SetValues(const gp_Pnt2d&            P,
                  const Standard_Real        Uc1,
                  const Standard_Real        Uc2,
-                 const IntRes2d_Transition& Trans1,
-                 const IntRes2d_Transition& Trans2,
+                 const Transition3& Trans1,
+                 const Transition3& Trans2,
                  const Standard_Boolean     ReversedFlag);
 
   //! Returns the value of the coordinates of the
@@ -70,19 +70,19 @@ public:
 
   //! Returns the transition of the 1st curve compared to
   //! the 2nd one.
-  const IntRes2d_Transition& TransitionOfFirst() const;
+  const Transition3& TransitionOfFirst() const;
 
   //! returns the transition of the 2nd curve compared to
   //! the 1st one.
-  const IntRes2d_Transition& TransitionOfSecond() const;
+  const Transition3& TransitionOfSecond() const;
 
 protected:
 private:
   gp_Pnt2d            pt;
   Standard_Real       p1;
   Standard_Real       p2;
-  IntRes2d_Transition trans1;
-  IntRes2d_Transition trans2;
+  Transition3 trans1;
+  Transition3 trans2;
 };
 
 #include <IntRes2d_IntersectionPoint.lxx>

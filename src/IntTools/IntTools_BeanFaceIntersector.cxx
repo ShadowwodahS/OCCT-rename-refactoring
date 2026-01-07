@@ -584,7 +584,7 @@ void IntTools_BeanFaceIntersector::ComputeAroundExactIntersection()
 
     for (i = 1; i <= anExactIntersector.NbPoints(); i++)
     {
-      const IntCurveSurface_IntersectionPoint& aPoint = anExactIntersector.Point(i);
+      const IntersectionPoint1& aPoint = anExactIntersector.Point(i);
 
       if ((aPoint.W() >= myFirstParameter) && (aPoint.W() <= myLastParameter))
       {
@@ -612,7 +612,7 @@ void IntTools_BeanFaceIntersector::ComputeAroundExactIntersection()
               aUPeriod = mySurface.UPeriod();
               aEps     = Epsilon(aUPeriod);
               //
-              GeomInt::AdjustPeriodic(U,
+              GeomInt1::AdjustPeriodic(U,
                                       myUMinParameter,
                                       myUMaxParameter,
                                       aUPeriod,
@@ -636,7 +636,7 @@ void IntTools_BeanFaceIntersector::ComputeAroundExactIntersection()
               aVPeriod = mySurface.VPeriod();
               aEps     = Epsilon(aVPeriod);
               //
-              GeomInt::AdjustPeriodic(V,
+              GeomInt1::AdjustPeriodic(V,
                                       myVMinParameter,
                                       myVMaxParameter,
                                       aVPeriod,
@@ -671,7 +671,7 @@ void IntTools_BeanFaceIntersector::ComputeAroundExactIntersection()
     for (i = 1; i <= anExactIntersector.NbSegments(); i++)
     {
       const IntCurveSurface_IntersectionSegment& aSegment = anExactIntersector.Segment(i);
-      IntCurveSurface_IntersectionPoint          aPoint1, aPoint2;
+      IntersectionPoint1          aPoint1, aPoint2;
       aSegment.Values(aPoint1, aPoint2);
 
       Standard_Real aFirstParameter =

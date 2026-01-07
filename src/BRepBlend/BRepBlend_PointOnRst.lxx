@@ -19,12 +19,12 @@ inline const Handle(Adaptor2d_Curve2d)& BRepBlend_PointOnRst::Arc() const
   return arc;
 }
 
-inline const IntSurf_Transition& BRepBlend_PointOnRst::TransitionOnLine() const
+inline const Transition2& BRepBlend_PointOnRst::TransitionOnLine() const
 {
   return traline;
 }
 
-inline const IntSurf_Transition& BRepBlend_PointOnRst::TransitionOnArc() const
+inline const Transition2& BRepBlend_PointOnRst::TransitionOnArc() const
 {
   return traarc;
 }

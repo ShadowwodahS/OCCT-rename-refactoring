@@ -21,33 +21,33 @@
 #include <Standard_DefineAlloc.hxx>
 
 #include <Standard_Integer.hxx>
-class IntCurve_PConic;
+class ParametricConic;
 class gp_Pnt2d;
 class gp_Vec2d;
 
-//! Implementation of the ParTool from IntImpParGen
+//! Implementation of the ParTool from IntImpParGen1
 //! for conics of gp, using the class PConic from IntCurve.
-class IntCurve_PConicTool
+class ParametricConicTool
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT static Standard_Real EpsX(const IntCurve_PConic& C);
+  Standard_EXPORT static Standard_Real EpsX(const ParametricConic& C);
 
-  Standard_EXPORT static Standard_Integer NbSamples(const IntCurve_PConic& C);
+  Standard_EXPORT static Standard_Integer NbSamples(const ParametricConic& C);
 
-  Standard_EXPORT static Standard_Integer NbSamples(const IntCurve_PConic& C,
+  Standard_EXPORT static Standard_Integer NbSamples(const ParametricConic& C,
                                                     const Standard_Real    U0,
                                                     const Standard_Real    U1);
 
-  Standard_EXPORT static gp_Pnt2d Value(const IntCurve_PConic& C, const Standard_Real X);
+  Standard_EXPORT static gp_Pnt2d Value(const ParametricConic& C, const Standard_Real X);
 
-  Standard_EXPORT static void D1(const IntCurve_PConic& C,
+  Standard_EXPORT static void D1(const ParametricConic& C,
                                  const Standard_Real    U,
                                  gp_Pnt2d&              P,
                                  gp_Vec2d&              T);
 
-  Standard_EXPORT static void D2(const IntCurve_PConic& C,
+  Standard_EXPORT static void D2(const ParametricConic& C,
                                  const Standard_Real    U,
                                  gp_Pnt2d&              P,
                                  gp_Vec2d&              T,

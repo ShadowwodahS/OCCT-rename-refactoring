@@ -49,7 +49,7 @@ public:
 
   //! Intersects the curves C1 and C2.
   //! The results are retrieved by the usual methods
-  //! described in IntRes2d_Intersection.
+  //! described in Intersection2.
   //! Creates an intersector.
   void Intersect(const Geom2dAdaptor_Curve& C1, const Geom2dAdaptor_Curve& C2);
 

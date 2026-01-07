@@ -51,7 +51,7 @@ class gp_Pnt2d;
 //! -   defining the construction of 2D circles(s),
 //! -   implementing the construction algorithm, and
 //! -   consulting the result(s).
-class Geom2dGcc_Circ2d3Tan
+class Circ2d3Tan1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -66,7 +66,7 @@ public:
   //! iterative method to find the solution (i.e. if either
   //! Qualified1, Qualified2 or Qualified3 is more complex
   //! than a line or a circle).
-  Standard_EXPORT Geom2dGcc_Circ2d3Tan(const Geom2dGcc_QualifiedCurve& Qualified1,
+  Standard_EXPORT Circ2d3Tan1(const Geom2dGcc_QualifiedCurve& Qualified1,
                                        const Geom2dGcc_QualifiedCurve& Qualified2,
                                        const Geom2dGcc_QualifiedCurve& Qualified3,
                                        const Standard_Real             Tolerance,
@@ -84,7 +84,7 @@ public:
   //! chooses an iterative method to find the solution (i.e. if
   //! either Qualified1 or Qualified2 is more complex than
   //! a line or a circle).
-  Standard_EXPORT Geom2dGcc_Circ2d3Tan(const Geom2dGcc_QualifiedCurve& Qualified1,
+  Standard_EXPORT Circ2d3Tan1(const Geom2dGcc_QualifiedCurve& Qualified1,
                                        const Geom2dGcc_QualifiedCurve& Qualified2,
                                        const Handle(Geom2d_Point)&     Point,
                                        const Standard_Real             Tolerance,
@@ -98,7 +98,7 @@ public:
   //! argument and the solution sought, if the algorithm
   //! chooses an iterative method to find the solution (i.e. if
   //! Qualified1 is more complex than a line or a circle)
-  Standard_EXPORT Geom2dGcc_Circ2d3Tan(const Geom2dGcc_QualifiedCurve& Qualified1,
+  Standard_EXPORT Circ2d3Tan1(const Geom2dGcc_QualifiedCurve& Qualified1,
                                        const Handle(Geom2d_Point)&     Point1,
                                        const Handle(Geom2d_Point)&     Point2,
                                        const Standard_Real             Tolerance,
@@ -127,7 +127,7 @@ public:
   //! Exceptions
   //! GccEnt_BadQualifier if a qualifier is inconsistent with
   //! the argument it qualifies (for example, enclosing for a line).
-  Standard_EXPORT Geom2dGcc_Circ2d3Tan(const Handle(Geom2d_Point)& Point1,
+  Standard_EXPORT Circ2d3Tan1(const Handle(Geom2d_Point)& Point1,
                                        const Handle(Geom2d_Point)& Point2,
                                        const Handle(Geom2d_Point)& Point3,
                                        const Standard_Real         Tolerance);

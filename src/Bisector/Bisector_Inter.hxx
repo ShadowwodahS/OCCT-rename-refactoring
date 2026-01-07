@@ -23,13 +23,13 @@
 
 #include <IntRes2d_Intersection.hxx>
 class Bisector_Bisec;
-class IntRes2d_Domain;
+class Domain2;
 class GeomCurve2d;
 class Bisector_BisecCC;
 class Geom2d_Line;
 
 //! Intersection between two <Bisec> from Bisector.
-class Bisector_Inter : public IntRes2d_Intersection
+class Bisector_Inter : public Intersection2
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -43,9 +43,9 @@ public:
   //! Has to be True.
   //! It Permits an optimization of the computation.
   Standard_EXPORT Bisector_Inter(const Bisector_Bisec&  C1,
-                                 const IntRes2d_Domain& D1,
+                                 const Domain2& D1,
                                  const Bisector_Bisec&  C2,
-                                 const IntRes2d_Domain& D2,
+                                 const Domain2& D2,
                                  const Standard_Real    TolConf,
                                  const Standard_Real    Tol,
                                  const Standard_Boolean ComunElement);
@@ -57,9 +57,9 @@ public:
   //! Has to be True.
   //! It Permits an optimization of the computation.
   Standard_EXPORT void Perform(const Bisector_Bisec&  C1,
-                               const IntRes2d_Domain& D1,
+                               const Domain2& D1,
                                const Bisector_Bisec&  C2,
-                               const IntRes2d_Domain& D2,
+                               const Domain2& D2,
                                const Standard_Real    TolConf,
                                const Standard_Real    Tol,
                                const Standard_Boolean ComunElement);
@@ -68,23 +68,23 @@ protected:
 private:
   //! Intersection between 2 curves.
   Standard_EXPORT void SinglePerform(const Handle(GeomCurve2d)& C1,
-                                     const IntRes2d_Domain&      D1,
+                                     const Domain2&      D1,
                                      const Handle(GeomCurve2d)& C2,
-                                     const IntRes2d_Domain&      D2,
+                                     const Domain2&      D2,
                                      const Standard_Real         TolConf,
                                      const Standard_Real         Tol,
                                      const Standard_Boolean      ComunElement);
 
   Standard_EXPORT void NeighbourPerform(const Handle(Bisector_BisecCC)& C1,
-                                        const IntRes2d_Domain&          D1,
+                                        const Domain2&          D1,
                                         const Handle(Bisector_BisecCC)& C2,
-                                        const IntRes2d_Domain&          D2,
+                                        const Domain2&          D2,
                                         const Standard_Real             Tol);
 
   Standard_EXPORT void TestBound(const Handle(Geom2d_Line)&  C1,
-                                 const IntRes2d_Domain&      D1,
+                                 const Domain2&      D1,
                                  const Handle(GeomCurve2d)& C2,
-                                 const IntRes2d_Domain&      D2,
+                                 const Domain2&      D2,
                                  const Standard_Real         Tol,
                                  const Standard_Boolean      Reverse);
 };

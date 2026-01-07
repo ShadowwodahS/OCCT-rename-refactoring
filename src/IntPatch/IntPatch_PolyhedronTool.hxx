@@ -31,7 +31,7 @@ class Point3d;
 //! Describe the signature of a polyhedral surface with
 //! only triangular  facets and the necessary information
 //! to compute the interferences.
-class IntPatch_PolyhedronTool
+class PolyhedronTool
 {
 public:
   DEFINE_STANDARD_ALLOC

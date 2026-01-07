@@ -32,7 +32,7 @@ class Geom2dGcc_QualifiedCurve;
 class Geom2dAdaptor_Curve;
 class Geom2d_Point;
 class Circle2dTwoTangentOn;
-class Geom2dGcc_Circ2d2TanOnGeo;
+class Circle2dTwoTangentOnGeo;
 class gp_Circ2d;
 class gp_Pnt2d;
 
@@ -47,7 +47,7 @@ class gp_Pnt2d;
 //! - The parameter for each tangency argument which
 //! is a curve.
 //! - The tolerance.
-class Geom2dGcc_Circ2d2TanOn
+class Circ2d2TanOn1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -59,7 +59,7 @@ public:
   //! Param1 is the initial guess on the second curve QualifiedCurv.
   //! ParamOn is the initial guess on the center curve OnCurv.
   //! Tolerance is used for the limit cases.
-  Standard_EXPORT Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Qualified1,
+  Standard_EXPORT Circ2d2TanOn1(const Geom2dGcc_QualifiedCurve& Qualified1,
                                          const Geom2dGcc_QualifiedCurve& Qualified2,
                                          const Geom2dAdaptor_Curve&      OnCurve,
                                          const Standard_Real             Tolerance,
@@ -73,7 +73,7 @@ public:
   //! Param1 is the initial guess on the first curve QualifiedCurv.
   //! ParamOn is the initial guess on the center curve OnCurv.
   //! Tolerance is used for the limit cases.
-  Standard_EXPORT Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Qualified1,
+  Standard_EXPORT Circ2d2TanOn1(const Geom2dGcc_QualifiedCurve& Qualified1,
                                          const Handle(Geom2d_Point)&     Point,
                                          const Geom2dAdaptor_Curve&      OnCurve,
                                          const Standard_Real             Tolerance,
@@ -84,14 +84,14 @@ public:
   //! create 2d circles TANgent to two points and
   //! having the center ON a 2d curve.
   //! Tolerance is used for the limit cases.
-  Standard_EXPORT Geom2dGcc_Circ2d2TanOn(const Handle(Geom2d_Point)& Point1,
+  Standard_EXPORT Circ2d2TanOn1(const Handle(Geom2d_Point)& Point1,
                                          const Handle(Geom2d_Point)& Point2,
                                          const Geom2dAdaptor_Curve&  OnCurve,
                                          const Standard_Real         Tolerance);
 
   Standard_EXPORT void Results(const Circle2dTwoTangentOn& Circ);
 
-  Standard_EXPORT void Results(const Geom2dGcc_Circ2d2TanOnGeo& Circ);
+  Standard_EXPORT void Results(const Circle2dTwoTangentOnGeo& Circ);
 
   //! Returns true if the construction algorithm does not fail
   //! (even if it finds no solution).

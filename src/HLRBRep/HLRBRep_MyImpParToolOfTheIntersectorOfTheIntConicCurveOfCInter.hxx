@@ -24,7 +24,7 @@
 #include <IntCurve_IConicTool.hxx>
 #include <math_FunctionWithDerivative.hxx>
 #include <Standard_Boolean.hxx>
-class IntCurve_IConicTool;
+class ConicTool;
 class HLRBRep_CurveTool;
 
 class HLRBRep_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfCInter
@@ -35,7 +35,7 @@ public:
 
   //! Constructor of the class.
   Standard_EXPORT HLRBRep_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfCInter(
-    const IntCurve_IConicTool& IT,
+    const ConicTool& IT,
     const Standard_Address&    PC);
 
   //! Computes the value of the signed distance between
@@ -57,7 +57,7 @@ public:
 protected:
 private:
   Standard_Address    TheParCurve;
-  IntCurve_IConicTool TheImpTool;
+  ConicTool TheImpTool;
 };
 
 #endif // _HLRBRep_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfCInter_HeaderFile

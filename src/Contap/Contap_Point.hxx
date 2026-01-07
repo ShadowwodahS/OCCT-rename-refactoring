@@ -58,8 +58,8 @@ public:
   //! this arc of the point.
   void SetArc(const Handle(Adaptor2d_Curve2d)& A,
               const Standard_Real              Param,
-              const IntSurf_Transition&        TLine,
-              const IntSurf_Transition&        TArc);
+              const Transition2&        TLine,
+              const Transition2&        TArc);
 
   void SetMultiple();
 
@@ -90,10 +90,10 @@ public:
   Standard_Real ParameterOnArc() const;
 
   //! Returns the transition of the point on the contour.
-  const IntSurf_Transition& TransitionOnLine() const;
+  const Transition2& TransitionOnLine() const;
 
   //! Returns the transition of the point on the arc.
-  const IntSurf_Transition& TransitionOnArc() const;
+  const Transition2& TransitionOnArc() const;
 
   //! Returns TRUE if the point is a vertex on the initial
   //! restriction facet of the surface.
@@ -122,8 +122,8 @@ private:
   Standard_Real             paraline;
   Standard_Boolean          onarc;
   Handle(Adaptor2d_Curve2d) arc;
-  IntSurf_Transition        traline;
-  IntSurf_Transition        traarc;
+  Transition2        traline;
+  Transition2        traarc;
   Standard_Real             prmarc;
   Standard_Boolean          isvtx;
   Handle(Adaptor3d_HVertex) vtx;

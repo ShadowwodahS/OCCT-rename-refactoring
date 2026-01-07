@@ -25,7 +25,7 @@
 
 #define MultiLine GeomInt_TheMultiLineOfWLApprox
 #define MultiLine_hxx <GeomInt_TheMultiLineOfWLApprox.hxx>
-#define ToolLine GeomInt_TheMultiLineToolOfWLApprox
+#define ToolLine MultiLineToolWLApprox
 #define ToolLine_hxx <GeomInt_TheMultiLineToolOfWLApprox.hxx>
 #define AppParCurves_BSpParLeastSquare                                                             \
   GeomInt_BSpParLeastSquareOfMyBSplGradientOfTheComputeLineOfWLApprox

@@ -33,17 +33,17 @@
 
 #define TheCurve Adaptor2d_Curve2d
 #define TheCurve_hxx <Adaptor2d_Curve2d.hxx>
-#define TheCurveTool Geom2dInt_Geom2dCurveTool
+#define TheCurveTool Geom2dCurveTool
 #define TheCurveTool_hxx <Geom2dInt_Geom2dCurveTool.hxx>
-#define IntCurve_TheProjPCur Geom2dInt_TheProjPCurOfGInter
+#define IntCurve_TheProjPCur ProjPCurOfGInter
 #define IntCurve_TheProjPCur_hxx <Geom2dInt_TheProjPCurOfGInter.hxx>
-#define IntCurve_TheCurveLocatorOfTheProjPCur Geom2dInt_TheCurveLocatorOfTheProjPCurOfGInter
+#define IntCurve_TheCurveLocatorOfTheProjPCur Geom2dIntProjPCurCurveLocator
 #define IntCurve_TheCurveLocatorOfTheProjPCur_hxx                                                  \
   <Geom2dInt_TheCurveLocatorOfTheProjPCurOfGInter.hxx>
 #define IntCurve_TheLocateExtPCOfTheProjPCur Geom2dInt_TheLocateExtPCOfTheProjPCurOfGInter
 #define IntCurve_TheLocateExtPCOfTheProjPCur_hxx                                                   \
   <Geom2dInt_TheLocateExtPCOfTheProjPCurOfGInter.hxx>
-#define IntCurve_TheCurveLocatorOfTheProjPCur Geom2dInt_TheCurveLocatorOfTheProjPCurOfGInter
+#define IntCurve_TheCurveLocatorOfTheProjPCur Geom2dIntProjPCurCurveLocator
 #define IntCurve_TheCurveLocatorOfTheProjPCur_hxx                                                  \
   <Geom2dInt_TheCurveLocatorOfTheProjPCurOfGInter.hxx>
 #define IntCurve_TheLocateExtPCOfTheProjPCur Geom2dInt_TheLocateExtPCOfTheProjPCurOfGInter

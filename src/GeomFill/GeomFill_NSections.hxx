@@ -37,7 +37,7 @@ class GeomCurve3d;
 class GeomFill_NSections;
 DEFINE_STANDARD_HANDLE(GeomFill_NSections, GeomFill_SectionLaw)
 
-//! Define a Section Law by N Sections
+//! Define a Section Law1 by N Sections
 class GeomFill_NSections : public GeomFill_SectionLaw
 {
 
@@ -198,7 +198,7 @@ public:
   Standard_EXPORT virtual void GetMinimalWeight(TColStd_Array1OfReal& Weigths) const
     Standard_OVERRIDE;
 
-  //! return True If the Law isConstant
+  //! return True If the Law1 isConstant
   Standard_EXPORT virtual Standard_Boolean IsConstant(Standard_Real& Error) const Standard_OVERRIDE;
 
   //! Return the constant Section if <me>  IsConstant.

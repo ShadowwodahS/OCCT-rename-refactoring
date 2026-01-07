@@ -25,9 +25,9 @@
 #include <Intf_Interference.hxx>
 #include <Intf_Array1OfLin.hxx>
 class IntCurveSurface_ThePolygonOfHInter;
-class IntCurveSurface_ThePolygonToolOfHInter;
+class PolygonToolHInter;
 class IntCurveSurface_ThePolyhedronOfHInter;
-class IntCurveSurface_ThePolyhedronToolOfHInter;
+class PolyhedronToolHInter;
 class gp_Lin;
 class Bnd_BoundSortBox;
 class Point3d;

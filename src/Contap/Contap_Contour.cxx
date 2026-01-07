@@ -301,7 +301,7 @@ static void LineConstructor(Contap_TheSequenceOfLine&          slin,
       if (firstp != lastp)
       {
         Standard_Integer       pmid = (firstp + lastp) / 2; //-- entiers
-        const IntSurf_PntOn2S& Pmid = L.Point(pmid);
+        const PointOn2Surfaces& Pmid = L.Point(pmid);
         Pmid.Parameters(u1, v1, u2, v2);
         Recadre(Surf, u2, v2);
         TopAbs_State in2 = Domain->Classify(gp_Pnt2d(u2, v2), Tol);
@@ -521,7 +521,7 @@ static void KeepInsidePoints(const Contap_TheSearchInside&    solins,
   for (indp = 1; indp <= Nbp; indp++)
   {
     tokeep                           = Standard_True;
-    const IntSurf_InteriorPoint& pti = solins.Value(indp);
+    const InteriorPoint& pti = solins.Value(indp);
     pti.Parameters(U, V);
     toproj = gp_Pnt2d(U, V);
     for (inda = 1; inda <= Nba; inda++)
@@ -1467,7 +1467,7 @@ void ComputeInternalPoints(Contap_Line&         Line,
               {
                 // on est entre les 2 points
                 paramp = index;
-                IntSurf_PntOn2S pt2s;
+                PointOn2Surfaces pt2s;
                 pt2s.SetValue(SFunc.Point(), Standard_False, X(1), X(2));
                 Line.LineOn2S()->InsertBefore(index, pt2s);
 
@@ -1546,7 +1546,7 @@ void Contap_Contour::Perform(const Handle(Adaptor3d_TopolTool)& Domain)
   Point3d             ptonsurf;
   Vector3d             d1u, d1v, normale, tgtrst, tgline;
   Standard_Real      currentparam;
-  IntSurf_Transition TLine, TArc;
+  Transition2 TLine, TArc;
 
   Contap_Line                    theline;
   Contap_Point                   ptdeb, ptfin;
@@ -1668,7 +1668,7 @@ void Contap_Contour::Perform(const Handle(Adaptor3d_TopolTool)& Domain)
       Standard_Integer Nbp = solins.NbPoints(), indp;
       for (indp = 1; indp <= Nbp; indp++)
       {
-        const IntSurf_InteriorPoint& pti = solins.Value(indp);
+        const InteriorPoint& pti = solins.Value(indp);
         seqpins.Append(pti);
       }
     }
@@ -1734,7 +1734,7 @@ void Contap_Contour::Perform(const Handle(Adaptor3d_TopolTool)& Domain)
               tgtrst = d2d.X() * d1u;
               tgtrst.Add(d2d.Y() * d1v);
 
-              IntSurf::MakeTransition(PPoint.Direction3d(), tgtrst, normale, TLine, TArc);
+              IntSurf1::MakeTransition(PPoint.Direction3d(), tgtrst, normale, TLine, TArc);
             }
             else
             { // a voir. En effet, on a cheminer. Si on est sur un point
@@ -1786,7 +1786,7 @@ void Contap_Contour::Perform(const Handle(Adaptor3d_TopolTool)& Domain)
               Contap_SurfProps::DerivAndNorm(Surf, pt2d.X(), pt2d.Y(), ptonsurf, d1u, d1v, normale);
               tgtrst = d2d.X() * d1u;
               tgtrst.Add(d2d.Y() * d1v);
-              IntSurf::MakeTransition(PPoint.Direction3d().Reversed(),
+              IntSurf1::MakeTransition(PPoint.Direction3d().Reversed(),
                                       tgtrst,
                                       normale,
                                       TLine,
@@ -1925,7 +1925,7 @@ void Contap_Contour::Perform(const Handle(Adaptor3d_TopolTool)& Domain)
                     {
                       tgline = Vector3d(ptvt.Value(), theli.Point(Paraml + 1).Value());
                     }
-                    IntSurf::MakeTransition(tgline, tgtrst, normale, TLine, TArc);
+                    IntSurf1::MakeTransition(tgline, tgtrst, normale, TLine, TArc);
                     ptvt.SetArc(thearc, paramproj, TLine, TArc);
                     ptvt.SetMultiple();
                     ptdeb.SetValue(ptonsurf, Ptproj.X(), Ptproj.Y());
@@ -2014,7 +2014,7 @@ static void PutPointsOnLine(const Contap_TheSearch&          solrst,
 
   Standard_Real theparam;
 
-  IntSurf_Transition TLine, TArc;
+  Transition2 TLine, TArc;
   Standard_Boolean   goon;
 
   gp_Pnt2d pt2d;
@@ -2067,7 +2067,7 @@ static void PutPointsOnLine(const Contap_TheSearch&          solrst,
           {
             tgtrst.SetLinearForm(d2d.X(), d1u, d2d.Y(), d1v);
           }
-          IntSurf::MakeTransition(vectg, tgtrst, normale, TLine, TArc);
+          IntSurf1::MakeTransition(vectg, tgtrst, normale, TLine, TArc);
         }
 
         PPoint.SetArc(thearc, theparam, TLine, TArc);

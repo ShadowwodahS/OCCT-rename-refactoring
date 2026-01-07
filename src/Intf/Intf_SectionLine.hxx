@@ -23,11 +23,11 @@
 
 #include <Intf_SeqOfSectionPoint.hxx>
 #include <Standard_Boolean.hxx>
-class Intf_SectionPoint;
+class SectionPoint;
 
 //! Describe    a  polyline  of   intersection  between two
 //! polyhedra as a sequence of points of intersection.
-class Intf_SectionLine
+class SectionLine1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -37,31 +37,31 @@ public:
 
   //! Gives the point of intersection of  address <Index>  in the
   //! SectionLine.
-  Standard_EXPORT const Intf_SectionPoint& GetPoint(const Standard_Integer Index) const;
+  Standard_EXPORT const SectionPoint& GetPoint(const Standard_Integer Index) const;
 
   //! Returns True if the SectionLine is closed.
   Standard_EXPORT Standard_Boolean IsClosed() const;
 
   //! Returns True if ThePI is in the SectionLine <me>.
-  Standard_EXPORT Standard_Boolean Contains(const Intf_SectionPoint& ThePI) const;
+  Standard_EXPORT Standard_Boolean Contains(const SectionPoint& ThePI) const;
 
   //! Checks if <ThePI>  is an end of  the SectionLine. Returns 1
   //! for the beginning, 2 for the end, otherwise 0.
-  Standard_EXPORT Standard_Integer IsEnd(const Intf_SectionPoint& ThePI) const;
+  Standard_EXPORT Standard_Integer IsEnd(const SectionPoint& ThePI) const;
 
   //! Compares two SectionLines.
-  Standard_EXPORT Standard_Boolean IsEqual(const Intf_SectionLine& Other) const;
+  Standard_EXPORT Standard_Boolean IsEqual(const SectionLine1& Other) const;
 
-  Standard_Boolean operator==(const Intf_SectionLine& Other) const { return IsEqual(Other); }
+  Standard_Boolean operator==(const SectionLine1& Other) const { return IsEqual(Other); }
 
   //! Constructs an empty SectionLine.
-  Standard_EXPORT Intf_SectionLine();
+  Standard_EXPORT SectionLine1();
 
   //! Copies a SectionLine.
-  Standard_EXPORT Intf_SectionLine(const Intf_SectionLine& Other);
+  Standard_EXPORT SectionLine1(const SectionLine1& Other);
 
   //! Assignment
-  Intf_SectionLine& operator=(const Intf_SectionLine& theOther)
+  SectionLine1& operator=(const SectionLine1& theOther)
   {
     // closed = theOther.closed; // not copied as in copy constructor
     myPoints = theOther.myPoints;
@@ -69,18 +69,18 @@ public:
   }
 
   //! Adds a point at the end of the SectionLine.
-  Standard_EXPORT void Append(const Intf_SectionPoint& Pi);
+  Standard_EXPORT void Append(const SectionPoint& Pi);
 
   //! Concatenates   the SectionLine  <LS>  at  the  end  of  the
   //! SectionLine <me>.
-  Standard_EXPORT void Append(Intf_SectionLine& LS);
+  Standard_EXPORT void Append(SectionLine1& LS);
 
   //! Adds a point to the beginning of the SectionLine <me>.
-  Standard_EXPORT void Prepend(const Intf_SectionPoint& Pi);
+  Standard_EXPORT void Prepend(const SectionPoint& Pi);
 
   //! Concatenates a SectionLine  <LS>  at the  beginning  of the
   //! SectionLine <me>.
-  Standard_EXPORT void Prepend(Intf_SectionLine& LS);
+  Standard_EXPORT void Prepend(SectionLine1& LS);
 
   //! Reverses the order of the elements of the SectionLine.
   Standard_EXPORT void Reverse();

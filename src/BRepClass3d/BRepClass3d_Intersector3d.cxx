@@ -112,7 +112,7 @@ void BRepClass3d_Intersector3d::Perform(const gp_Lin& L,
       TopAbs_State currentstate = classifier2d.State();
       if (currentstate == TopAbs_IN || currentstate == TopAbs_ON)
       {
-        const IntCurveSurface_IntersectionPoint& HICSPoint = HICS.Point(index);
+        const IntersectionPoint1& HICSPoint = HICS.Point(index);
         Standard_Real                            HICSW     = HICSPoint.W();
         //  Modified by skv - Fri Mar  4 12:07:34 2005 OCC7966 Begin
         if ((W > HICSW) && (HICSW > -Tol))

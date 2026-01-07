@@ -37,7 +37,7 @@ class TopoShape;
 class BRepFill_LocationLaw;
 DEFINE_STANDARD_HANDLE(BRepFill_LocationLaw, RefObject)
 
-//! Location Law on a  Wire.
+//! Location Law1 on a  Wire.
 class BRepFill_LocationLaw : public RefObject
 {
 
@@ -58,14 +58,14 @@ public:
 
   Standard_EXPORT Standard_Integer NbHoles(const Standard_Real Tol = 1.0e-7);
 
-  Standard_EXPORT void Holes(TColStd_Array1OfInteger& Interval) const;
+  Standard_EXPORT void Holes(TColStd_Array1OfInteger& Interval1) const;
 
-  //! Return the number of elementary Law
+  //! Return the number of elementary Law1
   Standard_EXPORT Standard_Integer NbLaw() const;
 
-  //! Return the elementary Law of rank <Index>
+  //! Return the elementary Law1 of rank <Index>
   //! <Index> have to be in [1, NbLaw()]
-  Standard_EXPORT const Handle(GeomFill_LocationLaw)& Law(const Standard_Integer Index) const;
+  Standard_EXPORT const Handle(GeomFill_LocationLaw)& Law1(const Standard_Integer Index) const;
 
   //! return the path
   Standard_EXPORT const TopoWire& Wire() const;
@@ -92,14 +92,14 @@ public:
                                      TopoVertex&         OutputVertex,
                                      const Standard_Integer Location = 0) const;
 
-  //! Return the Curvilinear Bounds of the <Index> Law
+  //! Return the Curvilinear Bounds of the <Index> Law1
   Standard_EXPORT void CurvilinearBounds(const Standard_Integer Index,
                                          Standard_Real&         First,
                                          Standard_Real&         Last) const;
 
   Standard_EXPORT Standard_Boolean IsClosed() const;
 
-  //! Compute the Law's continuity between 2 edges of the path
+  //! Compute the Law1's continuity between 2 edges of the path
   //! The result can be :
   //! -1 : Case Not connex
   //! 0  : It is connex (G0)
@@ -108,10 +108,10 @@ public:
                                         const Standard_Real    SpatialTolerance = 1.0e-7,
                                         const Standard_Real    AngularTolerance = 1.0e-4) const;
 
-  //! Apply the Law to a shape, for a given Curvilinear abscissa
+  //! Apply the Law1 to a shape, for a given Curvilinear abscissa
   Standard_EXPORT void D0(const Standard_Real Abscissa, TopoShape& Section);
 
-  //! Find the index Law and the parameter, for a given Curvilinear abscissa
+  //! Find the index Law1 and the parameter, for a given Curvilinear abscissa
   Standard_EXPORT void Parameter(const Standard_Real Abscissa,
                                  Standard_Integer&   Index,
                                  Standard_Real&      Param);

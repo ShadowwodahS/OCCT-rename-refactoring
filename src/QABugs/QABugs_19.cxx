@@ -4506,7 +4506,7 @@ Standard_Integer OCC26525(DrawInterpreter& di, Standard_Integer n, const char** 
   di << buf << "\n";
   for (i = 1; i <= aNbPoints; ++i)
   {
-    const IntCurveSurface_IntersectionPoint& aIP = aHInter.Point(i);
+    const IntersectionPoint1& aIP = aHInter.Point(i);
     aIP.Values(aP, aU, aV, aT, aTC);
     //
     sprintf(buf, "point %s_%d %lg %lg %lg  ", a[1], i, aP.X(), aP.Y(), aP.Z());

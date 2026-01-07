@@ -26,7 +26,7 @@
 class Point3d;
 class Vector3d;
 class gp_Vec2d;
-class IntSurf_PntOn2S;
+class PointOn2Surfaces;
 
 //! This class is root class for classes dedicated to calculate
 //! 2d and 3d points and tangents of intersection lines of two surfaces of different types
@@ -69,7 +69,7 @@ public:
                                                      const Standard_Real v1,
                                                      const Standard_Real u2,
                                                      const Standard_Real v2,
-                                                     IntSurf_PntOn2S&    Point) = 0;
+                                                     PointOn2Surfaces&    Point) = 0;
 
   Standard_EXPORT virtual Standard_Boolean Tangency(const Standard_Real u1,
                                                     const Standard_Real v1,

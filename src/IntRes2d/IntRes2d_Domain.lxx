@@ -22,7 +22,7 @@
 //-- closed   <--> status & 4
 //-------------------------------------------------
 
-inline void IntRes2d_Domain::SetEquivalentParameters(const Standard_Real p_first,
+inline void Domain2::SetEquivalentParameters(const Standard_Real p_first,
                                                      const Standard_Real p_last)
 {
   if ((status & 3) != 3)
@@ -34,12 +34,12 @@ inline void IntRes2d_Domain::SetEquivalentParameters(const Standard_Real p_first
   periodlast  = p_last;
 }
 
-inline Standard_Boolean IntRes2d_Domain::HasFirstPoint() const
+inline Standard_Boolean Domain2::HasFirstPoint() const
 {
   return (status & 1) ? Standard_True : Standard_False;
 }
 
-inline Standard_Real IntRes2d_Domain::FirstParameter() const
+inline Standard_Real Domain2::FirstParameter() const
 {
   if (!(status & 1))
   {
@@ -48,7 +48,7 @@ inline Standard_Real IntRes2d_Domain::FirstParameter() const
   return (first_param);
 }
 
-inline const gp_Pnt2d& IntRes2d_Domain::FirstPoint() const
+inline const gp_Pnt2d& Domain2::FirstPoint() const
 {
   if (!(status & 1))
   {
@@ -57,7 +57,7 @@ inline const gp_Pnt2d& IntRes2d_Domain::FirstPoint() const
   return (first_point);
 }
 
-inline Standard_Real IntRes2d_Domain::FirstTolerance() const
+inline Standard_Real Domain2::FirstTolerance() const
 {
   if (!(status & 1))
   {
@@ -66,12 +66,12 @@ inline Standard_Real IntRes2d_Domain::FirstTolerance() const
   return (first_tol);
 }
 
-inline Standard_Boolean IntRes2d_Domain::HasLastPoint() const
+inline Standard_Boolean Domain2::HasLastPoint() const
 {
   return (status & 2) ? Standard_True : Standard_False;
 }
 
-inline Standard_Real IntRes2d_Domain::LastParameter() const
+inline Standard_Real Domain2::LastParameter() const
 {
   if (!(status & 2))
   {
@@ -80,7 +80,7 @@ inline Standard_Real IntRes2d_Domain::LastParameter() const
   return (last_param);
 }
 
-inline const gp_Pnt2d& IntRes2d_Domain::LastPoint() const
+inline const gp_Pnt2d& Domain2::LastPoint() const
 {
   if (!(status & 2))
   {
@@ -89,7 +89,7 @@ inline const gp_Pnt2d& IntRes2d_Domain::LastPoint() const
   return (last_point);
 }
 
-inline Standard_Real IntRes2d_Domain::LastTolerance() const
+inline Standard_Real Domain2::LastTolerance() const
 {
   if (!(status & 2))
   {
@@ -98,12 +98,12 @@ inline Standard_Real IntRes2d_Domain::LastTolerance() const
   return (last_tol);
 }
 
-inline Standard_Boolean IntRes2d_Domain::IsClosed() const
+inline Standard_Boolean Domain2::IsClosed() const
 {
   return (status & 4) ? Standard_True : Standard_False;
 }
 
-inline void IntRes2d_Domain::EquivalentParameters(Standard_Real& p_first,
+inline void Domain2::EquivalentParameters(Standard_Real& p_first,
                                                   Standard_Real& p_last) const
 {
   p_first = periodfirst;

@@ -29,7 +29,7 @@
 class Geom2dGcc_QualifiedCurve;
 class gp_Pnt2d;
 class gp_Lin2d;
-class Geom2dGcc_Lin2d2TanIter;
+class Line2dTwoTangentIter;
 class Geom2dAdaptor_Curve;
 
 //! This class implements the algorithms used to
@@ -46,7 +46,7 @@ class Geom2dAdaptor_Curve;
 //!
 //! Note: Some constructors may check the type of the qualified argument
 //! and raise BadQualifier Error in case of incorrect couple (qualifier, curv).
-class Geom2dGcc_Lin2d2Tan
+class Lin2d2Tan1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -54,14 +54,14 @@ public:
   //! This class implements the algorithms used to create 2d
   //! line tangent to two curves.
   //! Tolang is used to determine the tolerance for the tangency points.
-  Standard_EXPORT Geom2dGcc_Lin2d2Tan(const Geom2dGcc_QualifiedCurve& Qualified1,
+  Standard_EXPORT Lin2d2Tan1(const Geom2dGcc_QualifiedCurve& Qualified1,
                                       const Geom2dGcc_QualifiedCurve& Qualified2,
                                       const Standard_Real             Tolang);
 
   //! This class implements the algorithms used to create 2d
   //! lines passing through a point and tangent to a curve.
   //! Tolang is used to determine the tolerance for the tangency points.
-  Standard_EXPORT Geom2dGcc_Lin2d2Tan(const Geom2dGcc_QualifiedCurve& Qualified1,
+  Standard_EXPORT Lin2d2Tan1(const Geom2dGcc_QualifiedCurve& Qualified1,
                                       const gp_Pnt2d&                 ThePoint,
                                       const Standard_Real             Tolang);
 
@@ -70,7 +70,7 @@ public:
   //! Tolang is used to determine the tolerance for the tangency points.
   //! Param1 is used for the initial guess on the first curve.
   //! Param2 is used for the initial guess on the second curve.
-  Standard_EXPORT Geom2dGcc_Lin2d2Tan(const Geom2dGcc_QualifiedCurve& Qualified1,
+  Standard_EXPORT Lin2d2Tan1(const Geom2dGcc_QualifiedCurve& Qualified1,
                                       const Geom2dGcc_QualifiedCurve& Qualified2,
                                       const Standard_Real             Tolang,
                                       const Standard_Real             Param1,
@@ -80,7 +80,7 @@ public:
   //! lines passing through a point and tangent to a curve.
   //! Tolang is used to determine the tolerance for the tangency points.
   //! Param2 is used for the initial guess on the curve.
-  Standard_EXPORT Geom2dGcc_Lin2d2Tan(const Geom2dGcc_QualifiedCurve& Qualified1,
+  Standard_EXPORT Lin2d2Tan1(const Geom2dGcc_QualifiedCurve& Qualified1,
                                       const gp_Pnt2d&                 ThePoint,
                                       const Standard_Real             Tolang,
                                       const Standard_Real             Param1);
@@ -156,7 +156,7 @@ public:
 protected:
 private:
   Standard_EXPORT Standard_Boolean Add(const Standard_Integer         theIndex,
-                                       const Geom2dGcc_Lin2d2TanIter& theLin,
+                                       const Line2dTwoTangentIter& theLin,
                                        const Standard_Real            theTol,
                                        const Geom2dAdaptor_Curve&     theC1,
                                        const Geom2dAdaptor_Curve&     theC2);

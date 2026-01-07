@@ -26,7 +26,7 @@
 #include <IntSurf_Allocator.hxx>
 #include <Standard_Integer.hxx>
 #include <Standard_Real.hxx>
-class IntSurf_PntOn2S;
+class PointOn2Surfaces;
 
 class IntSurf_LineOn2S;
 DEFINE_STANDARD_HANDLE(IntSurf_LineOn2S, RefObject)
@@ -38,13 +38,13 @@ public:
   Standard_EXPORT IntSurf_LineOn2S(const IntSurf_Allocator& theAllocator = 0);
 
   //! Adds a point in the line.
-  Standard_EXPORT void Add(const IntSurf_PntOn2S& P);
+  Standard_EXPORT void Add(const PointOn2Surfaces& P);
 
   //! Returns the number of points in the line.
   Standard_Integer NbPoints() const;
 
   //! Returns the point of range Index in the line.
-  const IntSurf_PntOn2S& Value(const Standard_Integer Index) const;
+  const PointOn2Surfaces& Value(const Standard_Integer Index) const;
 
   //! Reverses the order of points of the line.
   void Reverse();
@@ -54,7 +54,7 @@ public:
   Standard_EXPORT Handle(IntSurf_LineOn2S) Split(const Standard_Integer Index);
 
   //! Replaces the point of range Index in the line.
-  void Value(const Standard_Integer Index, const IntSurf_PntOn2S& P);
+  void Value(const Standard_Integer Index, const PointOn2Surfaces& P);
 
   //! Sets the 3D point of the Index-th PntOn2S
   Standard_EXPORT void SetPoint(const Standard_Integer Index, const Point3d& thePnt);
@@ -68,7 +68,7 @@ public:
 
   void Clear();
 
-  Standard_EXPORT void InsertBefore(const Standard_Integer I, const IntSurf_PntOn2S& P);
+  Standard_EXPORT void InsertBefore(const Standard_Integer I, const PointOn2Surfaces& P);
 
   Standard_EXPORT void RemovePoint(const Standard_Integer I);
 

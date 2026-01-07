@@ -32,7 +32,7 @@ class Geom2dGcc_QualifiedCurve;
 class Geom2dAdaptor_Curve;
 class Geom2d_Point;
 class Circle2dTangentOnRadius;
-class Geom2dGcc_Circ2dTanOnRadGeo;
+class Circle2dTangentOnRadiusGeo;
 class gp_Circ2d;
 class gp_Pnt2d;
 
@@ -58,7 +58,7 @@ class gp_Pnt2d;
 //! With Tolerance we will give a solution if the
 //! distance between Cu1 and OnLine is lower than or
 //! equal Tolerance.
-class Geom2dGcc_Circ2dTanOnRad
+class Circ2dTanOnRad1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -66,7 +66,7 @@ public:
   //! Constructs one or more 2D circles of radius Radius,
   //! centered on the 2D curve OnCurv and:
   //! -   tangential to the curve Qualified1
-  Standard_EXPORT Geom2dGcc_Circ2dTanOnRad(const Geom2dGcc_QualifiedCurve& Qualified1,
+  Standard_EXPORT Circ2dTanOnRad1(const Geom2dGcc_QualifiedCurve& Qualified1,
                                            const Geom2dAdaptor_Curve&      OnCurv,
                                            const Standard_Real             Radius,
                                            const Standard_Real             Tolerance);
@@ -88,9 +88,9 @@ public:
   //! ;
   //! Geom2dAdaptor_Curve Adapted1 ( myCurve1 ) ;
   //! Geom2dGcc_QualifiedCurve
-  //! Qualified1 = Geom2dGcc::Outside(Adapted1);
+  //! Qualified1 = Geom2dGcc1::Outside(Adapted1);
   //! Standard_Real Radius = ... , Tolerance = ... ;
-  //! Geom2dGcc_Circ2dTanOnRad
+  //! Circ2dTanOnRad1
   //! myAlgo ( Qualified1 , OnCurv , Radius , Tolerance ) ;
   //! if ( myAlgo.IsDone() )
   //! { Standard_Integer Nbr = myAlgo.NbSolutions() ;
@@ -101,14 +101,14 @@ public:
   //! ...
   //! }
   //! }
-  Standard_EXPORT Geom2dGcc_Circ2dTanOnRad(const Handle(Geom2d_Point)& Point1,
+  Standard_EXPORT Circ2dTanOnRad1(const Handle(Geom2d_Point)& Point1,
                                            const Geom2dAdaptor_Curve&  OnCurv,
                                            const Standard_Real         Radius,
                                            const Standard_Real         Tolerance);
 
   Standard_EXPORT void Results(const Circle2dTangentOnRadius& Circ);
 
-  Standard_EXPORT void Results(const Geom2dGcc_Circ2dTanOnRadGeo& Circ);
+  Standard_EXPORT void Results(const Circle2dTangentOnRadiusGeo& Circ);
 
   //! Returns true if the construction algorithm does not fail
   //! (even if it finds no solution).

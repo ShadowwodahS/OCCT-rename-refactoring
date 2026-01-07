@@ -23,7 +23,7 @@
 
 class math_Matrix;
 class Vector3d;
-class GeomFill_Tensor;
+class Tensor1;
 
 class GeomFill_FunctionDraft : public math_FunctionSetWithDerivatives
 {
@@ -87,7 +87,7 @@ public:
 
   //! returns the values <T> of  the X2 derivatives for
   //! the parameter Param .
-  Standard_EXPORT Standard_Boolean Deriv2X(const math_Vector& X, GeomFill_Tensor& T);
+  Standard_EXPORT Standard_Boolean Deriv2X(const math_Vector& X, Tensor1& T);
 
 protected:
 private:

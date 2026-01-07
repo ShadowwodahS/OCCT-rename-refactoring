@@ -19,14 +19,14 @@
 
 #include <Adaptor3d_Surface.hxx>
 
-class IntSurf_Transition;
+class Transition2;
 class Dir3d;
 class Vector3d;
 
 //! This package provides resources for
 //! all the packages concerning the intersection
 //! between surfaces.
-class IntSurf
+class IntSurf1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -42,8 +42,8 @@ public:
   Standard_EXPORT static void MakeTransition(const Vector3d&       TgFirst,
                                              const Vector3d&       TgSecond,
                                              const Dir3d&       Normal,
-                                             IntSurf_Transition& TFirst,
-                                             IntSurf_Transition& TSecond);
+                                             Transition2& TFirst,
+                                             Transition2& TSecond);
 
   //! Fills theArrOfPeriod array by the period values of theFirstSurf and theSecondSurf.
   //! [0] = U-period of theFirstSurf,

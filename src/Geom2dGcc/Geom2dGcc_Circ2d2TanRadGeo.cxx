@@ -48,7 +48,7 @@ static const Standard_Integer aNbSolMAX = 16;
 // On remplit les champs.                                                +
 //========================================================================
 
-Geom2dGcc_Circ2d2TanRadGeo::Geom2dGcc_Circ2d2TanRadGeo(const GccEnt_QualifiedLin& Qualified1,
+Circle2dTwoTangentRadiusGeo::Circle2dTwoTangentRadiusGeo(const QualifiedLine& Qualified1,
                                                        const Geom2dGcc_QCurve&    Qualified2,
                                                        const Standard_Real        Radius,
                                                        const Standard_Real        Tolerance)
@@ -192,7 +192,7 @@ Geom2dGcc_Circ2d2TanRadGeo::Geom2dGcc_Circ2d2TanRadGeo(const GccEnt_QualifiedLin
     {
       gp_Pnt2d        Point(L1.Location().XY() + cote1(jcote1) * Dir.XY());
       gp_Lin2d        Line(Point, L1.Direction()); // ligne avec deport.
-      IntRes2d_Domain D1;
+      Domain2 D1;
       for (Standard_Integer jcote2 = 1; jcote2 <= nbrcote2 && NbrSol < aNbSolMAX; jcote2++)
       {
         Handle(Geom2dAdaptor_Curve) HCu2 = new Geom2dAdaptor_Curve(Cu2);
@@ -200,7 +200,7 @@ Geom2dGcc_Circ2d2TanRadGeo::Geom2dGcc_Circ2d2TanRadGeo(const GccEnt_QualifiedLin
         Adaptor2d_OffsetCurve C2(HCu2, -cote2(jcote2));
         firstparam = Max(C2.FirstParameter(), thefirst);
         lastparam  = Min(C2.LastParameter(), thelast);
-        IntRes2d_Domain                    D2(C2.Value(firstparam),
+        Domain2                    D2(C2.Value(firstparam),
                            firstparam,
                            Tol,
                            C2.Value(lastparam),
@@ -236,7 +236,7 @@ Geom2dGcc_Circ2d2TanRadGeo::Geom2dGcc_Circ2d2TanRadGeo(const GccEnt_QualifiedLin
               pararg1(NbrSol)   = Intp.Point(i).ParamOnFirst();
               pararg2(NbrSol)   = Intp.Point(i).ParamOnSecond();
               pnttg1sol(NbrSol) = ElCLib::Value(pararg1(NbrSol), L1);
-              pnttg2sol(NbrSol) = Geom2dGcc_CurveTool::Value(Cu2, pararg2(NbrSol));
+              pnttg2sol(NbrSol) = CurveTool3::Value(Cu2, pararg2(NbrSol));
               par1sol(NbrSol)   = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
               par2sol(NbrSol)   = ElCLib::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
             }
@@ -262,7 +262,7 @@ Geom2dGcc_Circ2d2TanRadGeo::Geom2dGcc_Circ2d2TanRadGeo(const GccEnt_QualifiedLin
 // On remplit les champs.                                                +
 //========================================================================
 
-Geom2dGcc_Circ2d2TanRadGeo::Geom2dGcc_Circ2d2TanRadGeo(const GccEnt_QualifiedCirc& Qualified1,
+Circle2dTwoTangentRadiusGeo::Circle2dTwoTangentRadiusGeo(const QualifiedCircle& Qualified1,
                                                        const Geom2dGcc_QCurve&     Qualified2,
                                                        const Standard_Real         Radius,
                                                        const Standard_Real         Tolerance)
@@ -401,7 +401,7 @@ Geom2dGcc_Circ2d2TanRadGeo::Geom2dGcc_Circ2d2TanRadGeo(const GccEnt_QualifiedCir
     for (Standard_Integer jcote1 = 1; jcote1 <= nbrcote1 && NbrSol < aNbSolMAX; jcote1++)
     {
       gp_Circ2d       Circ(C1.XAxis(), R1 + cote1(jcote1));
-      IntRes2d_Domain D1(ElCLib::Value(0., Circ),
+      Domain2 D1(ElCLib::Value(0., Circ),
                          0.,
                          Tol,
                          ElCLib::Value(2. * M_PI, Circ),
@@ -415,7 +415,7 @@ Geom2dGcc_Circ2d2TanRadGeo::Geom2dGcc_Circ2d2TanRadGeo(const GccEnt_QualifiedCir
         Adaptor2d_OffsetCurve C2(HCu2, -cote2(jcote2));
         firstparam = Max(C2.FirstParameter(), thefirst);
         lastparam  = Min(C2.LastParameter(), thelast);
-        IntRes2d_Domain D2(C2.Value(firstparam),
+        Domain2 D2(C2.Value(firstparam),
                            firstparam,
                            Tol,
                            C2.Value(lastparam),
@@ -461,7 +461,7 @@ Geom2dGcc_Circ2d2TanRadGeo::Geom2dGcc_Circ2d2TanRadGeo(const GccEnt_QualifiedCir
               pararg1(NbrSol)    = Intp.Point(i).ParamOnFirst();
               pararg2(NbrSol)    = Intp.Point(i).ParamOnSecond();
               pnttg1sol(NbrSol)  = ElCLib::Value(pararg1(NbrSol), C1);
-              pnttg2sol(NbrSol)  = Geom2dGcc_CurveTool::Value(Cu2, pararg2(NbrSol));
+              pnttg2sol(NbrSol)  = CurveTool3::Value(Cu2, pararg2(NbrSol));
               par1sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
               par2sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
             }
@@ -487,7 +487,7 @@ Geom2dGcc_Circ2d2TanRadGeo::Geom2dGcc_Circ2d2TanRadGeo(const GccEnt_QualifiedCir
 // On remplit les champs.                                                +
 //========================================================================
 
-Geom2dGcc_Circ2d2TanRadGeo::Geom2dGcc_Circ2d2TanRadGeo(const Geom2dGcc_QCurve& Qualified1,
+Circle2dTwoTangentRadiusGeo::Circle2dTwoTangentRadiusGeo(const Geom2dGcc_QCurve& Qualified1,
                                                        const gp_Pnt2d&         Point2,
                                                        const Standard_Real     Radius,
                                                        const Standard_Real     Tolerance)
@@ -557,7 +557,7 @@ Geom2dGcc_Circ2d2TanRadGeo::Geom2dGcc_Circ2d2TanRadGeo(const Geom2dGcc_QCurve& Q
       cote1(2) = -Radius;
     }
     gp_Circ2d       Circ(gp_Ax2d(Point2, gp_Dir2d(1., 0.)), Radius);
-    IntRes2d_Domain D1(ElCLib::Value(0., Circ),
+    Domain2 D1(ElCLib::Value(0., Circ),
                        0.,
                        Tol,
                        ElCLib::Value(M_PI + M_PI, Circ),
@@ -572,7 +572,7 @@ Geom2dGcc_Circ2d2TanRadGeo::Geom2dGcc_Circ2d2TanRadGeo(const Geom2dGcc_QCurve& Q
       Adaptor2d_OffsetCurve Cu2(HCu1, -cote1(jcote1));
       firstparam = Max(Cu2.FirstParameter(), thefirst);
       lastparam  = Min(Cu2.LastParameter(), thelast);
-      IntRes2d_Domain D2(Cu2.Value(firstparam),
+      Domain2 D2(Cu2.Value(firstparam),
                          firstparam,
                          Tol,
                          Cu2.Value(lastparam),
@@ -595,7 +595,7 @@ Geom2dGcc_Circ2d2TanRadGeo::Geom2dGcc_Circ2d2TanRadGeo(const Geom2dGcc_QCurve& Q
             TheSame2(NbrSol)   = 0;
             pararg1(NbrSol)    = Intp.Point(i).ParamOnSecond();
             pararg2(NbrSol)    = 0.;
-            pnttg1sol(NbrSol)  = Geom2dGcc_CurveTool::Value(Cu1, pararg1(NbrSol));
+            pnttg1sol(NbrSol)  = CurveTool3::Value(Cu1, pararg1(NbrSol));
             pnttg2sol(NbrSol)  = Point2;
             par1sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
             par2sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
@@ -780,7 +780,7 @@ static void PrecRoot(const Adaptor2d_OffsetCurve& theC1,
 // On cree la solution qu on ajoute aux solutions deja trouvees.         +
 // On remplit les champs.                                                +
 //========================================================================
-Geom2dGcc_Circ2d2TanRadGeo::Geom2dGcc_Circ2d2TanRadGeo(const Geom2dGcc_QCurve& Qualified1,
+Circle2dTwoTangentRadiusGeo::Circle2dTwoTangentRadiusGeo(const Geom2dGcc_QCurve& Qualified1,
                                                        const Geom2dGcc_QCurve& Qualified2,
                                                        const Standard_Real     Radius,
                                                        const Standard_Real     Tolerance)
@@ -922,7 +922,7 @@ Geom2dGcc_Circ2d2TanRadGeo::Geom2dGcc_Circ2d2TanRadGeo(const Geom2dGcc_QCurve& Q
 #ifdef OCCT_DEBUG
       Standard_Real   firstparam = Max(C1.FirstParameter(), thefirst);
       Standard_Real   lastparam  = Min(C1.LastParameter(), thelast);
-      IntRes2d_Domain D2C1(C1.Value(firstparam),
+      Domain2 D2C1(C1.Value(firstparam),
                            firstparam,
                            Tol,
                            C1.Value(lastparam),
@@ -937,7 +937,7 @@ Geom2dGcc_Circ2d2TanRadGeo::Geom2dGcc_Circ2d2TanRadGeo(const Geom2dGcc_QCurve& Q
 #ifdef OCCT_DEBUG
         firstparam = Max(C2.FirstParameter(), thefirst);
         lastparam  = Min(C2.LastParameter(), thelast);
-        IntRes2d_Domain D2C2(C2.Value(firstparam),
+        Domain2 D2C2(C2.Value(firstparam),
                              firstparam,
                              Tol,
                              C2.Value(lastparam),
@@ -989,8 +989,8 @@ Geom2dGcc_Circ2d2TanRadGeo::Geom2dGcc_Circ2d2TanRadGeo(const Geom2dGcc_QCurve& Q
               TheSame2(NbrSol)   = 0;
               pararg1(NbrSol)    = Intp.Point(i).ParamOnFirst();
               pararg2(NbrSol)    = Intp.Point(i).ParamOnSecond();
-              pnttg1sol(NbrSol)  = Geom2dGcc_CurveTool::Value(Cu1, pararg1(NbrSol));
-              pnttg2sol(NbrSol)  = Geom2dGcc_CurveTool::Value(Cu2, pararg2(NbrSol));
+              pnttg1sol(NbrSol)  = CurveTool3::Value(Cu1, pararg1(NbrSol));
+              pnttg2sol(NbrSol)  = CurveTool3::Value(Cu2, pararg2(NbrSol));
               par1sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
               par2sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
             }
@@ -1005,17 +1005,17 @@ Geom2dGcc_Circ2d2TanRadGeo::Geom2dGcc_Circ2d2TanRadGeo(const Geom2dGcc_QCurve& Q
 
 //=========================================================================
 
-Standard_Boolean Geom2dGcc_Circ2d2TanRadGeo::IsDone() const
+Standard_Boolean Circle2dTwoTangentRadiusGeo::IsDone() const
 {
   return WellDone;
 }
 
-Standard_Integer Geom2dGcc_Circ2d2TanRadGeo::NbSolutions() const
+Standard_Integer Circle2dTwoTangentRadiusGeo::NbSolutions() const
 {
   return NbrSol;
 }
 
-gp_Circ2d Geom2dGcc_Circ2d2TanRadGeo::ThisSolution(const Standard_Integer Index) const
+gp_Circ2d Circle2dTwoTangentRadiusGeo::ThisSolution(const Standard_Integer Index) const
 {
   if (!WellDone)
   {
@@ -1028,7 +1028,7 @@ gp_Circ2d Geom2dGcc_Circ2d2TanRadGeo::ThisSolution(const Standard_Integer Index)
   return cirsol(Index);
 }
 
-void Geom2dGcc_Circ2d2TanRadGeo::WhichQualifier(const Standard_Integer Index,
+void Circle2dTwoTangentRadiusGeo::WhichQualifier(const Standard_Integer Index,
                                                 GccEnt_Position&       Qualif1,
                                                 GccEnt_Position&       Qualif2) const
 {
@@ -1047,7 +1047,7 @@ void Geom2dGcc_Circ2d2TanRadGeo::WhichQualifier(const Standard_Integer Index,
   }
 }
 
-void Geom2dGcc_Circ2d2TanRadGeo::Tangency1(const Standard_Integer Index,
+void Circle2dTwoTangentRadiusGeo::Tangency1(const Standard_Integer Index,
                                            Standard_Real&         ParSol,
                                            Standard_Real&         ParArg,
                                            gp_Pnt2d&              PntSol) const
@@ -1075,7 +1075,7 @@ void Geom2dGcc_Circ2d2TanRadGeo::Tangency1(const Standard_Integer Index,
   }
 }
 
-void Geom2dGcc_Circ2d2TanRadGeo::Tangency2(const Standard_Integer Index,
+void Circle2dTwoTangentRadiusGeo::Tangency2(const Standard_Integer Index,
                                            Standard_Real&         ParSol,
                                            Standard_Real&         ParArg,
                                            gp_Pnt2d&              PntSol) const
@@ -1103,7 +1103,7 @@ void Geom2dGcc_Circ2d2TanRadGeo::Tangency2(const Standard_Integer Index,
   }
 }
 
-Standard_Boolean Geom2dGcc_Circ2d2TanRadGeo::IsTheSame1(const Standard_Integer Index) const
+Standard_Boolean Circle2dTwoTangentRadiusGeo::IsTheSame1(const Standard_Integer Index) const
 {
   if (!WellDone)
   {
@@ -1121,7 +1121,7 @@ Standard_Boolean Geom2dGcc_Circ2d2TanRadGeo::IsTheSame1(const Standard_Integer I
   return Standard_True;
 }
 
-Standard_Boolean Geom2dGcc_Circ2d2TanRadGeo::IsTheSame2(const Standard_Integer Index) const
+Standard_Boolean Circle2dTwoTangentRadiusGeo::IsTheSame2(const Standard_Integer Index) const
 {
   if (!WellDone)
   {

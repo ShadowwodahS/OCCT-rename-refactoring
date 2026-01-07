@@ -44,8 +44,8 @@
 //======================================================================
 void IntImpParGen_Intersector::And_Domaine_Objet1_Intersections(const ImpTool& TheImpTool,
   const ParCurve& TheParCurve,
-  const IntRes2d_Domain& TheImpCurveDomain,
-  const IntRes2d_Domain& TheParCurveDomain,
+  const Domain2& TheImpCurveDomain,
+  const Domain2& TheParCurveDomain,
   Standard_Integer& NbResultats,
   TColStd_Array1OfReal& Inter2_And_Domain2,
   TColStd_Array1OfReal& Inter1,
@@ -202,9 +202,9 @@ IntImpParGen_Intersector::IntImpParGen_Intersector() {
 //----------------------------------------------------------------------
 //--
 IntImpParGen_Intersector::IntImpParGen_Intersector(const ImpTool& TheImpTool,
-  const IntRes2d_Domain& TheImpCurveDomain,
+  const Domain2& TheImpCurveDomain,
   const ParCurve& TheParCurve,
-  const IntRes2d_Domain& TheParCurveDomain,
+  const Domain2& TheParCurveDomain,
   const Standard_Real TolConf,
   const Standard_Real Tol) {
   Perform(TheImpTool, TheImpCurveDomain, TheParCurve, TheParCurveDomain, TolConf, Tol);
@@ -212,9 +212,9 @@ IntImpParGen_Intersector::IntImpParGen_Intersector(const ImpTool& TheImpTool,
 //----------------------------------------------------------------------
 //--
 void IntImpParGen_Intersector::Perform(const ImpTool& TheImpTool,
-  const IntRes2d_Domain& TheImpCurveDomain,
+  const Domain2& TheImpCurveDomain,
   const ParCurve& TheParCurve,
-  const IntRes2d_Domain& TheParCurveDomain,
+  const Domain2& TheParCurveDomain,
   const Standard_Real TolConf,
   const Standard_Real Tol) {
 
@@ -222,7 +222,7 @@ void IntImpParGen_Intersector::Perform(const ImpTool& TheImpTool,
   Standard_Integer i, nb_segments_solution, nb_points_solution;
   Standard_Real param1, param2, EpsX, EpsNul, EpsDist;
 
-  IntRes2d_Transition Trans1, Trans2;
+  Transition3 Trans1, Trans2;
   gp_Pnt2d pt1, pt2;
   gp_Vec2d Tan1, Tan2, Norm1, Norm2;
   IntRes2d_Position Pos1, Pos2;
@@ -286,7 +286,7 @@ void IntImpParGen_Intersector::Perform(const ImpTool& TheImpTool,
     param1 = FindU(param2, Pt, TheParCurve, TheImpTool);
 
     if (TheImpCurveDomain.IsClosed()) {
-      param1 = IntImpParGen::NormalizeOnDomain(param1
+      param1 = IntImpParGen1::NormalizeOnDomain(param1
         , TheImpCurveDomain);
     }
 
@@ -312,15 +312,15 @@ void IntImpParGen_Intersector::Perform(const ImpTool& TheImpTool,
       TheImpTool.D2(param1, pt1, Tan1, Norm1);
       ParTool::D2(TheParCurve, param2, pt2, Tan2, Norm2);
 
-      IntImpParGen::DeterminePosition(Pos1, TheImpCurveDomain, pt1, param1);
-      IntImpParGen::DeterminePosition(Pos2, TheParCurveDomain, pt2, param2);
+      IntImpParGen1::DeterminePosition(Pos1, TheImpCurveDomain, pt1, param1);
+      IntImpParGen1::DeterminePosition(Pos2, TheParCurveDomain, pt2, param2);
 
       if (Pos1 == IntRes2d_End)  EndOnImp = Standard_True;
       else if (Pos1 == IntRes2d_Head) HeadOnImp = Standard_True;
       if (Pos2 == IntRes2d_End)  EndOnPar = Standard_True;
       else if (Pos2 == IntRes2d_Head) HeadOnPar = Standard_True;
 
-      IntImpParGen::DetermineTransition(Pos1, Tan1, Norm1, Trans1,
+      IntImpParGen1::DetermineTransition(Pos1, Tan1, Norm1, Trans1,
         Pos2, Tan2, Norm2, Trans2,
         Tolerance_Angulaire);
 
@@ -488,14 +488,14 @@ void IntImpParGen_Intersector::Perform(const ImpTool& TheImpTool,
         }
       }
 
-      Param1_on1 = IntImpParGen::NormalizeOnDomain(Param1_on1, TheImpCurveDomain);
-      Param1_on2 = IntImpParGen::NormalizeOnDomain(Param1_on2, TheParCurveDomain);
+      Param1_on1 = IntImpParGen1::NormalizeOnDomain(Param1_on1, TheImpCurveDomain);
+      Param1_on2 = IntImpParGen1::NormalizeOnDomain(Param1_on2, TheParCurveDomain);
 
       TheImpTool.D2(Param1_on1,Pt1_on1,Tan1,Norm1);
       ParTool::D2(TheParCurve,Param1_on2,Pt1_on2,Tan2,Norm2);
 
-      IntImpParGen::DeterminePosition(Pos1,TheImpCurveDomain,Pt1_on1,Param1_on1);
-      IntImpParGen::DeterminePosition(Pos2,TheParCurveDomain,Pt1_on2,Param1_on2);
+      IntImpParGen1::DeterminePosition(Pos1,TheImpCurveDomain,Pt1_on1,Param1_on1);
+      IntImpParGen1::DeterminePosition(Pos2,TheParCurveDomain,Pt1_on2,Param1_on2);
 
       if(Pos1==IntRes2d_End)  EndOnImp  = Standard_True;
       else if(Pos1==IntRes2d_Head) HeadOnImp = Standard_True;
@@ -503,7 +503,7 @@ void IntImpParGen_Intersector::Perform(const ImpTool& TheImpTool,
       else if(Pos2==IntRes2d_Head) HeadOnPar = Standard_True;
 
 
-      IntImpParGen::DetermineTransition(Pos1,Tan1,Norm1,Trans1,
+      IntImpParGen1::DetermineTransition(Pos1,Tan1,Norm1,Trans1,
 			   Pos2,Tan2,Norm2,Trans2,
 			   ToleranceAngulaireDistMini);
 
@@ -524,21 +524,21 @@ void IntImpParGen_Intersector::Perform(const ImpTool& TheImpTool,
       if(!OnlyOnePoint) {
         IntRes2d_IntersectionPoint new_p2;
 
-        Param2_on1 = IntImpParGen::NormalizeOnDomain(Param2_on1, TheImpCurveDomain);
-        Param2_on2 = IntImpParGen::NormalizeOnDomain(Param2_on2, TheParCurveDomain);
+        Param2_on1 = IntImpParGen1::NormalizeOnDomain(Param2_on1, TheImpCurveDomain);
+        Param2_on2 = IntImpParGen1::NormalizeOnDomain(Param2_on2, TheParCurveDomain);
 
 	TheImpTool.D2(Param2_on1,Pt2_on1,Tan1,Norm1);
 	ParTool::D2(TheParCurve,Param2_on2,Pt2_on2,Tan2,Norm2);
 
-	IntImpParGen::DeterminePosition(Pos1,TheImpCurveDomain,Pt2_on1,Param2_on1);
-	IntImpParGen::DeterminePosition(Pos2,TheParCurveDomain,Pt2_on2,Param2_on2);
+	IntImpParGen1::DeterminePosition(Pos1,TheImpCurveDomain,Pt2_on1,Param2_on1);
+	IntImpParGen1::DeterminePosition(Pos2,TheParCurveDomain,Pt2_on2,Param2_on2);
 
 	if(Pos1==IntRes2d_End)  EndOnImp  = Standard_True;
 	else if(Pos1==IntRes2d_Head) HeadOnImp = Standard_True;
 	if(Pos2==IntRes2d_End)  EndOnPar  = Standard_True;
 	else if(Pos2==IntRes2d_Head) HeadOnPar = Standard_True;
 
-	IntImpParGen::DetermineTransition(Pos1,Tan1,Norm1,Trans1,
+	IntImpParGen1::DetermineTransition(Pos1,Tan1,Norm1,Trans1,
 					  Pos2,Tan2,Norm2,Trans2,
 					  ToleranceAngulaireDistMini);
 
@@ -582,7 +582,7 @@ void IntImpParGen_Intersector::Perform(const ImpTool& TheImpTool,
         param2 = TheParCurveDomain.FirstParameter();
         TheImpTool.D2(param1, pt1, Tan1, Norm1);
         ParTool::D2(TheParCurve, param2, pt2, Tan2, Norm2);
-        IntImpParGen::DetermineTransition(IntRes2d_Head, Tan1, Norm1, Trans1,
+        IntImpParGen1::DetermineTransition(IntRes2d_Head, Tan1, Norm1, Trans1,
           IntRes2d_Head, Tan2, Norm2, Trans2,
           Tolerance_Angulaire);
         IntRes2d_IntersectionPoint IP(TheImpCurveDomain.FirstPoint(),
@@ -599,7 +599,7 @@ void IntImpParGen_Intersector::Perform(const ImpTool& TheImpTool,
         param2 = TheParCurveDomain.LastParameter();
         TheImpTool.D2(param1, pt1, Tan1, Norm1);
         ParTool::D2(TheParCurve, param2, pt2, Tan2, Norm2);
-        IntImpParGen::DetermineTransition(IntRes2d_Head, Tan1, Norm1, Trans1,
+        IntImpParGen1::DetermineTransition(IntRes2d_Head, Tan1, Norm1, Trans1,
           IntRes2d_End, Tan2, Norm2, Trans2,
           Tolerance_Angulaire);
         IntRes2d_IntersectionPoint IP(TheImpCurveDomain.FirstPoint(),
@@ -619,7 +619,7 @@ void IntImpParGen_Intersector::Perform(const ImpTool& TheImpTool,
         param2 = TheParCurveDomain.FirstParameter();
         TheImpTool.D2(param1, pt1, Tan1, Norm1);
         ParTool::D2(TheParCurve, param2, pt2, Tan2, Norm2);
-        IntImpParGen::DetermineTransition(IntRes2d_End, Tan1, Norm1, Trans1,
+        IntImpParGen1::DetermineTransition(IntRes2d_End, Tan1, Norm1, Trans1,
           IntRes2d_Head, Tan2, Norm2, Trans2,
           Tolerance_Angulaire);
         IntRes2d_IntersectionPoint IP(TheImpCurveDomain.LastPoint(),
@@ -636,7 +636,7 @@ void IntImpParGen_Intersector::Perform(const ImpTool& TheImpTool,
         param2 = TheParCurveDomain.LastParameter();
         TheImpTool.D2(param1, pt1, Tan1, Norm1);
         ParTool::D2(TheParCurve, param2, pt2, Tan2, Norm2);
-        IntImpParGen::DetermineTransition(IntRes2d_End, Tan1, Norm1, Trans1,
+        IntImpParGen1::DetermineTransition(IntRes2d_End, Tan1, Norm1, Trans1,
           IntRes2d_End, Tan2, Norm2, Trans2,
           Tolerance_Angulaire);
         IntRes2d_IntersectionPoint IP(TheImpCurveDomain.LastPoint(),
@@ -668,7 +668,7 @@ Standard_Real IntImpParGen_Intersector::FindV(const Standard_Real parameter
   , gp_Pnt2d& point
   , const ImpTool& TheImpTool
   , const ParCurve& TheParCurve
-  , const IntRes2d_Domain& TheParCurveDomain
+  , const Domain2& TheParCurveDomain
   , const Standard_Real V0
   , const Standard_Real V1
   , const Standard_Real Tolerance) const
@@ -678,7 +678,7 @@ Standard_Real IntImpParGen_Intersector::FindV(const Standard_Real parameter
     Standard_Real V = ProjectOnPCurveTool::FindParameter(TheParCurve,
       point,
       Tolerance);
-    return(IntImpParGen::NormalizeOnDomain(V, TheParCurveDomain));
+    return(IntImpParGen1::NormalizeOnDomain(V, TheParCurveDomain));
   }
   else {
     Standard_Real VV0 = V0;

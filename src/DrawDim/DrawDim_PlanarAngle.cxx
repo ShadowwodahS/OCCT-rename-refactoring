@@ -102,13 +102,13 @@ void DrawDim_PlanarAngle::DrawOn(DrawDisplay& dis) const
   Handle(GeomCurve3d) curve2 = BRepInspector::Curve(TopoDS::Edge(myLine2), s2, e2);
   if (!curve1->IsKind(STANDARD_TYPE(GeomLine)) || !curve2->IsKind(STANDARD_TYPE(GeomLine)))
     return;
-  Handle(Geom2d_Geometry) L1 = GeomAPI::To2d(curve1, plane);
+  Handle(Geom2d_Geometry) L1 = GeomAPI1::To2d(curve1, plane);
   if (L1->IsInstance(STANDARD_TYPE(Geom2d_TrimmedCurve)))
   {
     L1 = Handle(Geom2d_TrimmedCurve)::DownCast(L1)->BasisCurve();
   }
   gp_Lin2d                l1 = Handle(Geom2d_Line)::DownCast(L1)->Lin2d();
-  Handle(Geom2d_Geometry) L2 = GeomAPI::To2d(curve2, plane);
+  Handle(Geom2d_Geometry) L2 = GeomAPI1::To2d(curve2, plane);
   if (L2->IsInstance(STANDARD_TYPE(Geom2d_TrimmedCurve)))
   {
     L2 = Handle(Geom2d_TrimmedCurve)::DownCast(L2)->BasisCurve();
@@ -126,7 +126,7 @@ void DrawDim_PlanarAngle::DrawOn(DrawDisplay& dis) const
   gp_Circ2d c(gp_Ax2d(pinter, l1.Direction()), myPosition);
 
   // retour au plan
-  Handle(GeomCurve3d) C      = GeomAPI::To3d(new Geom2d_Circle(c), plane);
+  Handle(GeomCurve3d) C      = GeomAPI1::To3d(new Geom2d_Circle(c), plane);
   gp_Circ            circle = Handle(GeomCircle)::DownCast(C)->Circ();
   //
   Standard_Real p1 = 0., p2 = 0.;

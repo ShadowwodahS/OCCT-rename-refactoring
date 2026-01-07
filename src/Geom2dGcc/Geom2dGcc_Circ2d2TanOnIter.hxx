@@ -23,10 +23,10 @@
 #include <gp_Circ2d.hxx>
 #include <GccEnt_Position.hxx>
 #include <gp_Pnt2d.hxx>
-class GccEnt_QualifiedCirc;
+class QualifiedCircle;
 class Geom2dGcc_QCurve;
 class gp_Lin2d;
-class GccEnt_QualifiedLin;
+class QualifiedLine;
 class Geom2dAdaptor_Curve;
 
 //! This class implements the algorithms used to
@@ -40,7 +40,7 @@ class Geom2dAdaptor_Curve;
 //! - The parameter for each tangency argument which
 //! is a curve.
 //! - The tolerance.
-class Geom2dGcc_Circ2d2TanOnIter
+class Circle2dTwoTangentOnIter
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -50,7 +50,7 @@ public:
   //! having the center ON a 2d line.
   //! Param2 is the initial guess on the curve QualifiedCurv.
   //! Tolerance is used for the limit cases.
-  Standard_EXPORT Geom2dGcc_Circ2d2TanOnIter(const GccEnt_QualifiedCirc& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentOnIter(const QualifiedCircle& Qualified1,
                                              const Geom2dGcc_QCurve&     Qualified2,
                                              const gp_Lin2d&             OnLine,
                                              const Standard_Real         Param1,
@@ -63,7 +63,7 @@ public:
   //! having the center ON a 2d line.
   //! Param2 is the initial guess on the curve QualifiedCurv.
   //! Tolerance is used for the limit cases.
-  Standard_EXPORT Geom2dGcc_Circ2d2TanOnIter(const GccEnt_QualifiedLin& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentOnIter(const QualifiedLine& Qualified1,
                                              const Geom2dGcc_QCurve&    Qualified2,
                                              const gp_Lin2d&            OnLine,
                                              const Standard_Real        Param1,
@@ -77,7 +77,7 @@ public:
   //! Param1 is the initial guess on the first QualifiedCurv.
   //! Param2 is the initial guess on the first QualifiedCurv.
   //! Tolerance is used for the limit cases.
-  Standard_EXPORT Geom2dGcc_Circ2d2TanOnIter(const Geom2dGcc_QCurve& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentOnIter(const Geom2dGcc_QCurve& Qualified1,
                                              const Geom2dGcc_QCurve& Qualified2,
                                              const gp_Lin2d&         OnLine,
                                              const Standard_Real     Param1,
@@ -90,7 +90,7 @@ public:
   //! having the center ON a 2d line.
   //! Param2 is the initial guess on the curve QualifiedCurv.
   //! Tolerance is used for the limit cases.
-  Standard_EXPORT Geom2dGcc_Circ2d2TanOnIter(const Geom2dGcc_QCurve& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentOnIter(const Geom2dGcc_QCurve& Qualified1,
                                              const gp_Pnt2d&         Point2,
                                              const gp_Lin2d&         OnLine,
                                              const Standard_Real     Param1,
@@ -102,7 +102,7 @@ public:
   //! having the center ON a 2d circle.
   //! Param2 is the initial guess on the curve QualifiedCurv.
   //! Tolerance is used for the limit cases.
-  Standard_EXPORT Geom2dGcc_Circ2d2TanOnIter(const GccEnt_QualifiedCirc& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentOnIter(const QualifiedCircle& Qualified1,
                                              const Geom2dGcc_QCurve&     Qualified2,
                                              const gp_Circ2d&            OnCirc,
                                              const Standard_Real         Param1,
@@ -115,7 +115,7 @@ public:
   //! having the center ON a 2d circle.
   //! Param2 is the initial guess on the curve QualifiedCurv.
   //! Tolerance is used for the limit cases.
-  Standard_EXPORT Geom2dGcc_Circ2d2TanOnIter(const GccEnt_QualifiedLin& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentOnIter(const QualifiedLine& Qualified1,
                                              const Geom2dGcc_QCurve&    Qualified2,
                                              const gp_Circ2d&           OnCirc,
                                              const Standard_Real        Param1,
@@ -129,7 +129,7 @@ public:
   //! Param1 is the initial guess on the first QualifiedCurv.
   //! Param2 is the initial guess on the first QualifiedCurv.
   //! Tolerance is used for the limit cases.
-  Standard_EXPORT Geom2dGcc_Circ2d2TanOnIter(const Geom2dGcc_QCurve& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentOnIter(const Geom2dGcc_QCurve& Qualified1,
                                              const Geom2dGcc_QCurve& Qualified2,
                                              const gp_Circ2d&        OnCirc,
                                              const Standard_Real     Param1,
@@ -142,7 +142,7 @@ public:
   //! having the center ON a 2d circle.
   //! Param2 is the initial guess on the curve QualifiedCurv.
   //! Tolerance is used for the limit cases.
-  Standard_EXPORT Geom2dGcc_Circ2d2TanOnIter(const Geom2dGcc_QCurve& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentOnIter(const Geom2dGcc_QCurve& Qualified1,
                                              const gp_Pnt2d&         Point2,
                                              const gp_Circ2d&        OnCirc,
                                              const Standard_Real     Param1,
@@ -155,7 +155,7 @@ public:
   //! Param2 is the initial guess on the curve QualifiedCurv.
   //! ParamOn is the initial guess on the center curve OnCurv.
   //! Tolerance is used for the limit cases.
-  Standard_EXPORT Geom2dGcc_Circ2d2TanOnIter(const GccEnt_QualifiedCirc& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentOnIter(const QualifiedCircle& Qualified1,
                                              const Geom2dGcc_QCurve&     Qualified2,
                                              const Geom2dAdaptor_Curve&  OnCurv,
                                              const Standard_Real         Param1,
@@ -169,7 +169,7 @@ public:
   //! Param2 is the initial guess on the curve QualifiedCurv.
   //! ParamOn is the initial guess on the center curve OnCurv.
   //! Tolerance is used for the limit cases.
-  Standard_EXPORT Geom2dGcc_Circ2d2TanOnIter(const GccEnt_QualifiedLin& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentOnIter(const QualifiedLine& Qualified1,
                                              const Geom2dGcc_QCurve&    Qualified2,
                                              const Geom2dAdaptor_Curve& OnCurve,
                                              const Standard_Real        Param1,
@@ -183,7 +183,7 @@ public:
   //! Param1 is the initial guess on the curve QualifiedCurv.
   //! ParamOn is the initial guess on the center curve OnCurv.
   //! Tolerance is used for the limit cases.
-  Standard_EXPORT Geom2dGcc_Circ2d2TanOnIter(const Geom2dGcc_QCurve&    Qualified1,
+  Standard_EXPORT Circle2dTwoTangentOnIter(const Geom2dGcc_QCurve&    Qualified1,
                                              const gp_Pnt2d&            Point2,
                                              const Geom2dAdaptor_Curve& OnCurve,
                                              const Standard_Real        Param1,
@@ -197,7 +197,7 @@ public:
   //! Param1 is the initial guess on the second curve QualifiedCurv.
   //! ParamOn is the initial guess on the center curve OnCurv.
   //! Tolerance is used for the limit cases.
-  Standard_EXPORT Geom2dGcc_Circ2d2TanOnIter(const Geom2dGcc_QCurve&    Qualified1,
+  Standard_EXPORT Circle2dTwoTangentOnIter(const Geom2dGcc_QCurve&    Qualified1,
                                              const Geom2dGcc_QCurve&    Qualified2,
                                              const Geom2dAdaptor_Curve& OnCurve,
                                              const Standard_Real        Param1,

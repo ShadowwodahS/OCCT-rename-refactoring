@@ -27,9 +27,9 @@
 #include <TColgp_Array1OfPnt2d.hxx>
 #include <TColStd_Array1OfReal.hxx>
 #include <GccEnt_Position.hxx>
-class GccEnt_QualifiedCirc;
+class QualifiedCircle;
 class gp_Lin2d;
-class GccEnt_QualifiedLin;
+class QualifiedLine;
 class gp_Pnt2d;
 class gp_Circ2d;
 
@@ -68,7 +68,7 @@ public:
   //! between the line and the location of the circ, R1 is the
   //! radius of the circ) because there is no solution.
   //! raises NegativeValue in case of NegativeRadius.
-  Standard_EXPORT Circle2dTangentOnRadius(const GccEnt_QualifiedCirc& Qualified1,
+  Standard_EXPORT Circle2dTangentOnRadius(const QualifiedCircle& Qualified1,
                                         const gp_Lin2d&             OnLine,
                                         const Standard_Real         Radius,
                                         const Standard_Real         Tolerance);
@@ -78,7 +78,7 @@ public:
   //! with a given radius.
   //! Tolerance is used to find solution in every limit cases.
   //! raises NegativeValue in case of NegativeRadius.
-  Standard_EXPORT Circle2dTangentOnRadius(const GccEnt_QualifiedLin& Qualified1,
+  Standard_EXPORT Circle2dTangentOnRadius(const QualifiedLine& Qualified1,
                                         const gp_Lin2d&            OnLine,
                                         const Standard_Real        Radius,
                                         const Standard_Real        Tolerance);
@@ -97,7 +97,7 @@ public:
   //! with a given radius.
   //! Tolerance is used to find solution in every limit cases.
   //! raises NegativeValue in case of NegativeRadius.
-  Standard_EXPORT Circle2dTangentOnRadius(const GccEnt_QualifiedCirc& Qualified1,
+  Standard_EXPORT Circle2dTangentOnRadius(const QualifiedCircle& Qualified1,
                                         const gp_Circ2d&            OnCirc,
                                         const Standard_Real         Radius,
                                         const Standard_Real         Tolerance);
@@ -107,7 +107,7 @@ public:
   //! with a given radius.
   //! Tolerance is used to find solution in every limit cases.
   //! raises NegativeValue in case of NegativeRadius.
-  Standard_EXPORT Circle2dTangentOnRadius(const GccEnt_QualifiedLin& Qualified1,
+  Standard_EXPORT Circle2dTangentOnRadius(const QualifiedLine& Qualified1,
                                         const gp_Circ2d&           OnCirc,
                                         const Standard_Real        Radius,
                                         const Standard_Real        Tolerance);

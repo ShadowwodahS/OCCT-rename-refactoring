@@ -15,7 +15,7 @@
 // commercial license or contractual agreement.
 
 // Modified 10/09/1996 PMN Ajout de (Nb)Intervalles, IsRationnal
-//                        + Utilisation de GeomFill::GetCircle dans Section.
+//                        + Utilisation de GeomFill1::GetCircle dans Section.
 // Modified 23/06/1997 PMN : Pb de division par 0.
 
 #include <Adaptor3d_Curve.hxx>
@@ -754,7 +754,7 @@ void BlendFunc_CSCircular::GetTolerance(const Standard_Real BoundTol,
 {
   const Standard_Integer low = Tol3d.Lower();
   const Standard_Integer up  = Tol3d.Upper();
-  const Standard_Real    Tol = GeomFill::GetTolerance(myTConv, minang, ray, AngleTol, SurfTol);
+  const Standard_Real    Tol = GeomFill1::GetTolerance(myTConv, minang, ray, AngleTol, SurfTol);
   Tol1d.Init(SurfTol);
   Tol3d.Init(SurfTol);
   Tol3d(low + 1) = Tol3d(up - 1) = Min(Tol, SurfTol);
@@ -765,14 +765,14 @@ void BlendFunc_CSCircular::GetTolerance(const Standard_Real BoundTol,
 
 void BlendFunc_CSCircular::Knots(TColStd_Array1OfReal& TKnots)
 {
-  GeomFill::Knots(myTConv, TKnots);
+  GeomFill1::Knots(myTConv, TKnots);
 }
 
 //=================================================================================================
 
 void BlendFunc_CSCircular::Mults(TColStd_Array1OfInteger& TMults)
 {
-  GeomFill::Mults(myTConv, TMults);
+  GeomFill1::Mults(myTConv, TMults);
 }
 
 //=================================================================================================
@@ -826,7 +826,7 @@ void BlendFunc_CSCircular::Section(const Point2&    P,
     nplan.Reverse();
   }
 
-  GeomFill::GetCircle(myTConv, ns, ns2, nplan, pts, ptc, Abs(ray), Center, Poles, Weights);
+  GeomFill1::GetCircle(myTConv, ns, ns2, nplan, pts, ptc, Abs(ray), Center, Poles, Weights);
 }
 
 //=================================================================================================
@@ -984,7 +984,7 @@ Standard_Boolean BlendFunc_CSCircular::Section(const Point2&    P,
 
   if (!istgt)
   {
-    return GeomFill::GetCircle(myTConv,
+    return GeomFill1::GetCircle(myTConv,
                                ns,
                                ns2,
                                dnw,
@@ -1006,7 +1006,7 @@ Standard_Boolean BlendFunc_CSCircular::Section(const Point2&    P,
   }
   else
   {
-    GeomFill::GetCircle(myTConv, ns, ns2, nplan, pts, ptc, Abs(ray), Center, Poles, Weights);
+    GeomFill1::GetCircle(myTConv, ns, ns2, nplan, pts, ptc, Abs(ray), Center, Poles, Weights);
     return Standard_False;
   }
 }

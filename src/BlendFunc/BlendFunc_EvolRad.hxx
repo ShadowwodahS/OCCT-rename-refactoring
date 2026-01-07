@@ -46,7 +46,7 @@ public:
   Standard_EXPORT BlendFunc_EvolRad(const Handle(Adaptor3d_Surface)& S1,
                                     const Handle(Adaptor3d_Surface)& S2,
                                     const Handle(Adaptor3d_Curve)&   C,
-                                    const Handle(Law_Function)&      Law);
+                                    const Handle(Law_Function)&      Law1);
 
   //! returns the number of equations of the function.
   Standard_EXPORT Standard_Integer NbEquations() const Standard_OVERRIDE;

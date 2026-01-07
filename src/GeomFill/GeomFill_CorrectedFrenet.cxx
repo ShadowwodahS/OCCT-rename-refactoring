@@ -123,7 +123,7 @@ static Standard_Real ComputeTorsion(const Standard_Real            Param,
 // Function : smoothlaw
 // Purpose : to smooth a law : Reduce the number of knots
 //===============================================================
-static void smoothlaw(Handle(Law_BSpline)&                 Law,
+static void smoothlaw(Handle(Law_BSpline)&                 Law1,
                       const Handle(TColStd_HArray1OfReal)& Points,
                       const Handle(TColStd_HArray1OfReal)& Param,
                       const Standard_Real                  Tol)
@@ -131,7 +131,7 @@ static void smoothlaw(Handle(Law_BSpline)&                 Law,
   Standard_Real       tol, d;
   Standard_Integer    ii, Nbk;
   Standard_Boolean    B, Ok;
-  Handle(Law_BSpline) BS = Law->Copy();
+  Handle(Law_BSpline) BS = Law1->Copy();
 
   Nbk = BS->NbKnots();
   tol = Tol / 10;
@@ -170,7 +170,7 @@ static void smoothlaw(Handle(Law_BSpline)&                 Law,
   }
 
   if (Ok)
-    Law = BS;
+    Law1 = BS;
 
   Ok  = Standard_False; // Une deuxieme passe tolerance desserre
   Nbk = BS->NbKnots();
@@ -199,12 +199,12 @@ static void smoothlaw(Handle(Law_BSpline)&                 Law,
     }
   }
   if (Ok)
-    Law = BS;
+    Law1 = BS;
 
 #ifdef OCCT_DEBUG
   if (Affich)
   {
-    std::cout << "Knots Law : " << std::endl;
+    std::cout << "Knots Law1 : " << std::endl;
     for (ii = 1; ii <= BS->NbKnots(); ii++)
     {
       std::cout << ii << " : " << BS->Knot(ii) << std::endl;

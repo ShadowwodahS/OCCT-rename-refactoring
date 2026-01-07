@@ -155,7 +155,7 @@ void GeomFill_BoundWithSurf::Reparametrize(const Standard_Real    First,
                                            const Standard_Boolean Rev)
 {
   Handle(Law_BSpline) curve =
-    Law::Reparametrize(myConS, First, Last, HasDF, HasDL, DF, DL, Rev, 30);
+    Law1::Reparametrize(myConS, First, Last, HasDF, HasDL, DF, DL, Rev, 30);
   myPar = new Law_BSpFunc();
   Handle(Law_BSpFunc)::DownCast(myPar)->SetCurve(curve);
 }

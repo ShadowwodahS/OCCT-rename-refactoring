@@ -45,7 +45,7 @@ class gp_Pnt2d;
 //! in the "Results" category.
 //!
 //! The result is a set of parameter intervals  on the
-//! line. The first  parameter of an  Interval may  be
+//! line. The first  parameter of an  Interval1 may  be
 //! RealFirst() and the last may be RealLast().
 //!
 //! A line can be a line parallel to the axis (X  or Y
@@ -60,14 +60,14 @@ class gp_Pnt2d;
 //!
 //! *   The "UnOriented"  mode,  where  the  hatch are
 //! always finite.
-class Hatch_Hatcher
+class Hatcher
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Returns a empty  hatcher.  <Tol> is the  tolerance
   //! for intersections.
-  Standard_EXPORT Hatch_Hatcher(const Standard_Real    Tol,
+  Standard_EXPORT Hatcher(const Standard_Real    Tol,
                                 const Standard_Boolean Oriented = Standard_True);
 
   void Tolerance(const Standard_Real Tol);

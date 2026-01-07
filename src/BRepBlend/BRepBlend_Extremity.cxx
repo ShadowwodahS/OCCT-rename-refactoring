@@ -135,8 +135,8 @@ void BRepBlend_Extremity::SetVertex(const Handle(Adaptor3d_HVertex)& V)
 
 void BRepBlend_Extremity::AddArc(const Handle(Adaptor2d_Curve2d)& A,
                                  const Standard_Real              Param,
-                                 const IntSurf_Transition&        TLine,
-                                 const IntSurf_Transition&        TArc)
+                                 const Transition2&        TLine,
+                                 const Transition2&        TArc)
 {
   seqpt.Append(BRepBlend_PointOnRst(A, Param, TLine, TArc));
 }

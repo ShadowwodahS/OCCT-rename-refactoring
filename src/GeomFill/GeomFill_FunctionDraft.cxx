@@ -195,7 +195,7 @@ Standard_Boolean GeomFill_FunctionDraft::DerivTX(const Vector3d&       dN,
 // Function : Deriv2X
 // Purpose : calcul of the second derivative from x
 //*******************************************************
-Standard_Boolean GeomFill_FunctionDraft::Deriv2X(const math_Vector& X, GeomFill_Tensor& T)
+Standard_Boolean GeomFill_FunctionDraft::Deriv2X(const math_Vector& X, Tensor1& T)
 {
   Point3d           P;
   Vector3d           DPu, DPv;

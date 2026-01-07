@@ -35,14 +35,14 @@ class TopoEdge;
 class BRepFill_SectionLaw;
 DEFINE_STANDARD_HANDLE(BRepFill_SectionLaw, RefObject)
 
-//! Build Section Law, with an Vertex, or an Wire
+//! Build Section Law1, with an Vertex, or an Wire
 class BRepFill_SectionLaw : public RefObject
 {
 
 public:
   Standard_EXPORT Standard_Integer NbLaw() const;
 
-  Standard_EXPORT const Handle(GeomFill_SectionLaw)& Law(const Standard_Integer Index) const;
+  Standard_EXPORT const Handle(GeomFill_SectionLaw)& Law1(const Standard_Integer Index) const;
 
   Standard_EXPORT Standard_Integer IndexOfEdge(const TopoShape& anEdge) const;
 

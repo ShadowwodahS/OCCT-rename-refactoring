@@ -27,11 +27,11 @@
 
 #define Polygon3d IntCurveSurface_ThePolygonOfHInter
 #define Polygon3d_hxx <IntCurveSurface_ThePolygonOfHInter.hxx>
-#define ToolPolygon3d IntCurveSurface_ThePolygonToolOfHInter
+#define ToolPolygon3d PolygonToolHInter
 #define ToolPolygon3d_hxx <IntCurveSurface_ThePolygonToolOfHInter.hxx>
 #define Polyhedron IntCurveSurface_ThePolyhedronOfHInter
 #define Polyhedron_hxx <IntCurveSurface_ThePolyhedronOfHInter.hxx>
-#define ToolPolyh IntCurveSurface_ThePolyhedronToolOfHInter
+#define ToolPolyh PolyhedronToolHInter
 #define ToolPolyh_hxx <IntCurveSurface_ThePolyhedronToolOfHInter.hxx>
 #define Intf_InterferencePolygonPolyhedron IntCurveSurface_TheInterferenceOfHInter
 #define Intf_InterferencePolygonPolyhedron_hxx <IntCurveSurface_TheInterferenceOfHInter.hxx>

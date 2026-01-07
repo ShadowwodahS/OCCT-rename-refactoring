@@ -23,7 +23,7 @@
 
 class Adaptor3d_TopolTool;
 class IntPatch_Polyhedron;
-class IntPatch_PrmPrmIntersection_T3Bits;
+class T3Bits;
 class IntSurf_LineOn2S;
 
 //! Implementation of the Intersection between two bi-parametrised surfaces.
@@ -31,13 +31,13 @@ class IntSurf_LineOn2S;
 //! To avoid multiple constructions of the approximated
 //! polyhedron of the surfaces, the algorithm can be
 //! called with the two surfaces and their associated polyhedron.
-class IntPatch_PrmPrmIntersection
+class ParameterParameterIntersection
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty Constructor
-  Standard_EXPORT IntPatch_PrmPrmIntersection();
+  Standard_EXPORT ParameterParameterIntersection();
 
   //! Performs the intersection between <Caro1>  and
   //! <Caro2>.  Associated Polyhedrons <Polyhedron1>
@@ -196,7 +196,7 @@ public:
                                   const Standard_Integer              x2,
                                   const Standard_Integer              y2,
                                   const Standard_Integer              z2,
-                                  IntPatch_PrmPrmIntersection_T3Bits& Map) const;
+                                  T3Bits& Map) const;
 
   Standard_EXPORT void RemplitTri(const Standard_Integer              x1,
                                   const Standard_Integer              y1,
@@ -207,12 +207,12 @@ public:
                                   const Standard_Integer              x3,
                                   const Standard_Integer              y3,
                                   const Standard_Integer              z3,
-                                  IntPatch_PrmPrmIntersection_T3Bits& Map) const;
+                                  T3Bits& Map) const;
 
   Standard_EXPORT void Remplit(const Standard_Integer              a,
                                const Standard_Integer              b,
                                const Standard_Integer              c,
-                               IntPatch_PrmPrmIntersection_T3Bits& Map) const;
+                               T3Bits& Map) const;
 
   Standard_Integer CodeReject(const Standard_Real x1,
                               const Standard_Real y1,

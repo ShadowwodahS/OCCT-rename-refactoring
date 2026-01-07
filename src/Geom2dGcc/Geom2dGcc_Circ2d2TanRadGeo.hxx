@@ -27,9 +27,9 @@
 #include <TColgp_Array1OfPnt2d.hxx>
 #include <TColStd_Array1OfReal.hxx>
 #include <GccEnt_Position.hxx>
-class GccEnt_QualifiedCirc;
+class QualifiedCircle;
 class Geom2dGcc_QCurve;
-class GccEnt_QualifiedLin;
+class QualifiedLine;
 class gp_Pnt2d;
 class gp_Circ2d;
 
@@ -54,7 +54,7 @@ class gp_Circ2d;
 //! With Tolerance we will get a solution if the
 //! lowest distance between C1 and Cu2 is lower than or
 //! equal Tolerance.
-class Geom2dGcc_Circ2d2TanRadGeo
+class Circle2dTwoTangentRadiusGeo
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -63,7 +63,7 @@ public:
   //! create 2d circles TANgent to a 2d circle and a curve
   //! with a radius of Radius.
   //! It raises NegativeValue if Radius is lower than zero.
-  Standard_EXPORT Geom2dGcc_Circ2d2TanRadGeo(const GccEnt_QualifiedCirc& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentRadiusGeo(const QualifiedCircle& Qualified1,
                                              const Geom2dGcc_QCurve&     Qualified2,
                                              const Standard_Real         Radius,
                                              const Standard_Real         Tolerance);
@@ -72,7 +72,7 @@ public:
   //! create 2d circles TANgent to a 2d line and a curve
   //! with a radius of Radius.
   //! It raises NegativeValue if Radius is lower than zero.
-  Standard_EXPORT Geom2dGcc_Circ2d2TanRadGeo(const GccEnt_QualifiedLin& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentRadiusGeo(const QualifiedLine& Qualified1,
                                              const Geom2dGcc_QCurve&    Qualified2,
                                              const Standard_Real        Radius,
                                              const Standard_Real        Tolerance);
@@ -81,7 +81,7 @@ public:
   //! create 2d circles TANgent to two curves with
   //! a radius of Radius.
   //! It raises NegativeValue if Radius is lower than zero.
-  Standard_EXPORT Geom2dGcc_Circ2d2TanRadGeo(const Geom2dGcc_QCurve& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentRadiusGeo(const Geom2dGcc_QCurve& Qualified1,
                                              const Geom2dGcc_QCurve& Qualified2,
                                              const Standard_Real     Radius,
                                              const Standard_Real     Tolerance);
@@ -90,7 +90,7 @@ public:
   //! create 2d circles TANgent to a curve and a point
   //! with a radius of Radius.
   //! It raises NegativeValue if Radius is lower than zero.
-  Standard_EXPORT Geom2dGcc_Circ2d2TanRadGeo(const Geom2dGcc_QCurve& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentRadiusGeo(const Geom2dGcc_QCurve& Qualified1,
                                              const gp_Pnt2d&         Point2,
                                              const Standard_Real     Radius,
                                              const Standard_Real     Tolerance);

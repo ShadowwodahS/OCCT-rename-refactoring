@@ -27,18 +27,18 @@ static const Standard_Real Probing_Start = 0.123;
 static const Standard_Real Probing_End   = 0.8;
 static const Standard_Real Probing_Step  = 0.2111;
 
-Geom2dHatch_Elements::Geom2dHatch_Elements(const Geom2dHatch_Elements&)
+HatchElements::HatchElements(const HatchElements&)
     : NumWire(0),
       NumEdge(0),
       myCurEdge(0),
       myCurEdgePar(0.0)
 {
 #ifdef OCCT_DEBUG
-  std::cout << " Magic Constructor in Geom2dHatch_Elements:: " << std::endl;
+  std::cout << " Magic Constructor in HatchElements:: " << std::endl;
 #endif
 }
 
-Geom2dHatch_Elements::Geom2dHatch_Elements()
+HatchElements::HatchElements()
 {
   NumWire      = 0;
   NumEdge      = 0;
@@ -46,53 +46,53 @@ Geom2dHatch_Elements::Geom2dHatch_Elements()
   myCurEdgePar = Probing_Start;
 }
 
-void Geom2dHatch_Elements::Clear()
+void HatchElements::Clear()
 {
   myMap.Clear();
 }
 
-Standard_Boolean Geom2dHatch_Elements::IsBound(const Standard_Integer K) const
+Standard_Boolean HatchElements::IsBound(const Standard_Integer K) const
 {
   return (myMap.IsBound(K));
 }
 
-Standard_Boolean Geom2dHatch_Elements::UnBind(const Standard_Integer K)
+Standard_Boolean HatchElements::UnBind(const Standard_Integer K)
 {
   return (myMap.UnBind(K));
 }
 
-Standard_Boolean Geom2dHatch_Elements::Bind(const Standard_Integer K, const Geom2dHatch_Element& I)
+Standard_Boolean HatchElements::Bind(const Standard_Integer K, const Geom2dHatch_Element& I)
 {
   return (myMap.Bind(K, I));
 }
 
-const Geom2dHatch_Element& Geom2dHatch_Elements::Find(const Standard_Integer K) const
+const Geom2dHatch_Element& HatchElements::Find(const Standard_Integer K) const
 {
   return (myMap.Find(K));
 }
 
-Geom2dHatch_Element& Geom2dHatch_Elements::ChangeFind(const Standard_Integer K)
+Geom2dHatch_Element& HatchElements::ChangeFind(const Standard_Integer K)
 {
   return (myMap.ChangeFind(K));
 }
 
 //=================================================================================================
 
-Standard_Boolean Geom2dHatch_Elements::CheckPoint(gp_Pnt2d&)
+Standard_Boolean HatchElements::CheckPoint(gp_Pnt2d&)
 {
   return Standard_True;
 }
 
 //=================================================================================================
 
-Standard_Boolean Geom2dHatch_Elements::Reject(const gp_Pnt2d&) const
+Standard_Boolean HatchElements::Reject(const gp_Pnt2d&) const
 {
   return Standard_False;
 }
 
 //=================================================================================================
 
-Standard_Boolean Geom2dHatch_Elements::Segment(const gp_Pnt2d& P, gp_Lin2d& L, Standard_Real& Par)
+Standard_Boolean HatchElements::Segment(const gp_Pnt2d& P, gp_Lin2d& L, Standard_Real& Par)
 {
   myCurEdge    = 1;
   myCurEdgePar = Probing_Start;
@@ -101,7 +101,7 @@ Standard_Boolean Geom2dHatch_Elements::Segment(const gp_Pnt2d& P, gp_Lin2d& L, S
 
 //=================================================================================================
 
-Standard_Boolean Geom2dHatch_Elements::OtherSegment(const gp_Pnt2d& P,
+Standard_Boolean HatchElements::OtherSegment(const gp_Pnt2d& P,
                                                     gp_Lin2d&       L,
                                                     Standard_Real&  Par)
 {
@@ -191,21 +191,21 @@ Standard_Boolean Geom2dHatch_Elements::OtherSegment(const gp_Pnt2d& P,
 
 //=================================================================================================
 
-void Geom2dHatch_Elements::InitWires()
+void HatchElements::InitWires()
 {
   NumWire = 0;
 }
 
 //=================================================================================================
 
-Standard_Boolean Geom2dHatch_Elements::RejectWire(const gp_Lin2d&, const Standard_Real) const
+Standard_Boolean HatchElements::RejectWire(const gp_Lin2d&, const Standard_Real) const
 {
   return Standard_False;
 }
 
 //=================================================================================================
 
-void Geom2dHatch_Elements::InitEdges()
+void HatchElements::InitEdges()
 {
   NumEdge = 0;
   Iter.Initialize(myMap);
@@ -213,14 +213,14 @@ void Geom2dHatch_Elements::InitEdges()
 
 //=================================================================================================
 
-Standard_Boolean Geom2dHatch_Elements::RejectEdge(const gp_Lin2d&, const Standard_Real) const
+Standard_Boolean HatchElements::RejectEdge(const gp_Lin2d&, const Standard_Real) const
 {
   return Standard_False;
 }
 
 //=================================================================================================
 
-void Geom2dHatch_Elements::CurrentEdge(Geom2dAdaptor_Curve& E, TopAbs_Orientation& Or) const
+void HatchElements::CurrentEdge(Geom2dAdaptor_Curve& E, TopAbs_Orientation& Or) const
 {
   void*                ptrmyMap = (void*)(&myMap);
   Geom2dHatch_Element& Item     = ((Geom2dHatch_MapOfElements*)ptrmyMap)->ChangeFind(Iter.Key());
@@ -236,28 +236,28 @@ void Geom2dHatch_Elements::CurrentEdge(Geom2dAdaptor_Curve& E, TopAbs_Orientatio
 
 //=================================================================================================
 
-Standard_Boolean Geom2dHatch_Elements::MoreWires() const
+Standard_Boolean HatchElements::MoreWires() const
 {
   return (NumWire == 0);
 }
 
 //=================================================================================================
 
-void Geom2dHatch_Elements::NextWire()
+void HatchElements::NextWire()
 {
   NumWire++;
 }
 
 //=================================================================================================
 
-Standard_Boolean Geom2dHatch_Elements::MoreEdges() const
+Standard_Boolean HatchElements::MoreEdges() const
 {
   return (Iter.More());
 }
 
 //=================================================================================================
 
-void Geom2dHatch_Elements::NextEdge()
+void HatchElements::NextEdge()
 {
   Iter.Next();
 }

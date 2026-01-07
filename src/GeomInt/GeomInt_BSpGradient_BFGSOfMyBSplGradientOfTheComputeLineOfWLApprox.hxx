@@ -24,7 +24,7 @@
 #include <math_BFGS.hxx>
 #include <math_Vector.hxx>
 class GeomInt_TheMultiLineOfWLApprox;
-class GeomInt_TheMultiLineToolOfWLApprox;
+class MultiLineToolWLApprox;
 class GeomInt_MyBSplGradientOfTheComputeLineOfWLApprox;
 class GeomInt_BSpParLeastSquareOfMyBSplGradientOfTheComputeLineOfWLApprox;
 class GeomInt_BSpParFunctionOfMyBSplGradientOfTheComputeLineOfWLApprox;

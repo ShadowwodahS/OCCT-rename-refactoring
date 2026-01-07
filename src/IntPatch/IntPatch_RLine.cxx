@@ -473,7 +473,7 @@ void IntPatch_RLine::Dump(const Standard_Integer theMode) const
 
         if (pol >= 1 && pol <= aNbVertex)
         {
-          std::cout << "----> IntSurf_PntOn2S : " << polr << ", Pnt (" << Vertex(pol).Value().X()
+          std::cout << "----> PointOn2Surfaces : " << polr << ", Pnt (" << Vertex(pol).Value().X()
                     << "," << Vertex(pol).Value().Y() << "," << Vertex(pol).Value().Z() << ")"
                     << std::endl;
         }

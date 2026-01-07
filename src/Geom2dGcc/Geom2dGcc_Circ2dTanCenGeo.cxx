@@ -32,7 +32,7 @@
 //=========================================================================
 //   Creation d un cercle tangent a une courbe centre en un point.        +
 //=========================================================================
-Geom2dGcc_Circ2dTanCenGeo::Geom2dGcc_Circ2dTanCenGeo(const Geom2dGcc_QCurve& Qualified1,
+Circle2dTangentCenterGeo::Circle2dTangentCenterGeo(const Geom2dGcc_QCurve& Qualified1,
                                                      const gp_Pnt2d&         Pcenter,
                                                      const Standard_Real     Tolerance)
     :
@@ -62,8 +62,8 @@ Geom2dGcc_Circ2dTanCenGeo::Geom2dGcc_Circ2dTanCenGeo(const Geom2dGcc_QCurve& Qua
   Geom2dAdaptor_Curve curve = Qualified1.Qualified();
   Extrema_ExtPC2d     distmin(Pcenter,
                           curve,
-                          Geom2dGcc_CurveTool::FirstParameter(curve),
-                          Geom2dGcc_CurveTool::LastParameter(curve),
+                          CurveTool3::FirstParameter(curve),
+                          CurveTool3::LastParameter(curve),
                           Tol);
   if (!distmin.IsDone())
   {
@@ -103,7 +103,7 @@ Geom2dGcc_Circ2dTanCenGeo::Geom2dGcc_Circ2dTanCenGeo(const Geom2dGcc_QCurve& Qua
   {
     gp_Pnt2d point1;
     gp_Vec2d Tan1;
-    Geom2dGcc_CurveTool::D1(curve, theParam(i), point1, Tan1);
+    CurveTool3::D1(curve, theParam(i), point1, Tan1);
     Standard_Real normetan1 = Tan1.Magnitude();
     gp_Vec2d      Vec1(point1, Pcenter);
     Standard_Real normevec1 = Vec1.Magnitude();
@@ -137,17 +137,17 @@ Geom2dGcc_Circ2dTanCenGeo::Geom2dGcc_Circ2dTanCenGeo(const Geom2dGcc_QCurve& Qua
 
 //=========================================================================
 
-Standard_Boolean Geom2dGcc_Circ2dTanCenGeo::IsDone() const
+Standard_Boolean Circle2dTangentCenterGeo::IsDone() const
 {
   return WellDone;
 }
 
-Standard_Integer Geom2dGcc_Circ2dTanCenGeo::NbSolutions() const
+Standard_Integer Circle2dTangentCenterGeo::NbSolutions() const
 {
   return NbrSol;
 }
 
-gp_Circ2d Geom2dGcc_Circ2dTanCenGeo::ThisSolution(const Standard_Integer Index) const
+gp_Circ2d Circle2dTangentCenterGeo::ThisSolution(const Standard_Integer Index) const
 {
   if (Index > NbrSol || Index <= 0)
     throw Standard_OutOfRange();
@@ -155,7 +155,7 @@ gp_Circ2d Geom2dGcc_Circ2dTanCenGeo::ThisSolution(const Standard_Integer Index) 
   return cirsol(Index);
 }
 
-void Geom2dGcc_Circ2dTanCenGeo::WhichQualifier(const Standard_Integer Index,
+void Circle2dTangentCenterGeo::WhichQualifier(const Standard_Integer Index,
                                                GccEnt_Position&       Qualif1) const
 {
   if (!WellDone)
@@ -172,7 +172,7 @@ void Geom2dGcc_Circ2dTanCenGeo::WhichQualifier(const Standard_Integer Index,
   }
 }
 
-void Geom2dGcc_Circ2dTanCenGeo::Tangency1(const Standard_Integer Index,
+void Circle2dTangentCenterGeo::Tangency1(const Standard_Integer Index,
                                           Standard_Real&         ParSol,
                                           Standard_Real&         ParArg,
                                           gp_Pnt2d&              PntSol) const

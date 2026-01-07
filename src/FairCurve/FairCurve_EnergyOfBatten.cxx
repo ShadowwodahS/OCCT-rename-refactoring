@@ -30,7 +30,7 @@ FairCurve_EnergyOfBatten::FairCurve_EnergyOfBatten(const Standard_Integer       
                                                    const Handle(TColgp_HArray1OfPnt2d)& Poles,
                                                    const Standard_Integer               ContrOrder1,
                                                    const Standard_Integer               ContrOrder2,
-                                                   const FairCurve_BattenLaw&           Law,
+                                                   const FairCurve_BattenLaw&           Law1,
                                                    const Standard_Real    LengthSliding,
                                                    const Standard_Boolean FreeSliding,
                                                    const Standard_Real    Angle1,
@@ -39,9 +39,9 @@ FairCurve_EnergyOfBatten::FairCurve_EnergyOfBatten(const Standard_Integer       
     : FairCurve_Energy(Poles, ContrOrder1, ContrOrder2, FreeSliding, Angle1, Angle2),
       MyLengthSliding(LengthSliding),
       OriginalSliding(LengthSliding),
-      MyBattenLaw(Law),
-      MyTension(BSplOrder, FlatKnots, Poles, 1, LengthSliding, Law, FreeSliding),
-      MySagging(BSplOrder, FlatKnots, Poles, 1, Law, FreeSliding),
+      MyBattenLaw(Law1),
+      MyTension(BSplOrder, FlatKnots, Poles, 1, LengthSliding, Law1, FreeSliding),
+      MySagging(BSplOrder, FlatKnots, Poles, 1, Law1, FreeSliding),
       MyStatus(FairCurve_OK)
 {
 }

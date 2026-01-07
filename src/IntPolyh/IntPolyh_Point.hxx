@@ -21,13 +21,13 @@
 
 //! The class represents the point on the surface with
 //! both 3D and 2D points.
-class IntPolyh_Point
+class Point3
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Constructor
-  IntPolyh_Point()
+  Point3()
       : myX(0.),
         myY(0.),
         myZ(0.),
@@ -39,7 +39,7 @@ public:
   }
 
   //! Constructor
-  IntPolyh_Point(const Standard_Real x,
+  Point3(const Standard_Real x,
                  const Standard_Real y,
                  const Standard_Real z,
                  const Standard_Real u,
@@ -108,36 +108,36 @@ public:
 
   //! Creates middle point from P1 and P2 and stores it to this
   Standard_EXPORT void Middle(const Handle(Adaptor3d_Surface)& MySurface,
-                              const IntPolyh_Point&            P1,
-                              const IntPolyh_Point&            P2);
+                              const Point3&            P1,
+                              const Point3&            P2);
   //! Addition
-  Standard_EXPORT IntPolyh_Point Add(const IntPolyh_Point& P1) const;
+  Standard_EXPORT Point3 Add(const Point3& P1) const;
 
-  IntPolyh_Point operator+(const IntPolyh_Point& P1) const { return Add(P1); }
+  Point3 operator+(const Point3& P1) const { return Add(P1); }
 
   //! Subtraction
-  Standard_EXPORT IntPolyh_Point Sub(const IntPolyh_Point& P1) const;
+  Standard_EXPORT Point3 Sub(const Point3& P1) const;
 
-  IntPolyh_Point operator-(const IntPolyh_Point& P1) const { return Sub(P1); }
+  Point3 operator-(const Point3& P1) const { return Sub(P1); }
 
   //! Division
-  Standard_EXPORT IntPolyh_Point Divide(const Standard_Real rr) const;
+  Standard_EXPORT Point3 Divide(const Standard_Real rr) const;
 
-  IntPolyh_Point operator/(const Standard_Real rr) const { return Divide(rr); }
+  Point3 operator/(const Standard_Real rr) const { return Divide(rr); }
 
   //! Multiplication
-  Standard_EXPORT IntPolyh_Point Multiplication(const Standard_Real rr) const;
+  Standard_EXPORT Point3 Multiplication(const Standard_Real rr) const;
 
-  IntPolyh_Point operator*(const Standard_Real rr) const { return Multiplication(rr); }
+  Point3 operator*(const Standard_Real rr) const { return Multiplication(rr); }
 
   //! Square modulus
   Standard_EXPORT Standard_Real SquareModulus() const;
   //! Square distance to the other point
-  Standard_EXPORT Standard_Real SquareDistance(const IntPolyh_Point& P2) const;
+  Standard_EXPORT Standard_Real SquareDistance(const Point3& P2) const;
   //! Dot
-  Standard_EXPORT Standard_Real Dot(const IntPolyh_Point& P2) const;
+  Standard_EXPORT Standard_Real Dot(const Point3& P2) const;
   //! Cross
-  Standard_EXPORT void Cross(const IntPolyh_Point& P1, const IntPolyh_Point& P2);
+  Standard_EXPORT void Cross(const Point3& P1, const Point3& P2);
   //! Dump
   Standard_EXPORT void Dump() const;
   //! Dump

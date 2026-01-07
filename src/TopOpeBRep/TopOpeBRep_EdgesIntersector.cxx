@@ -221,8 +221,8 @@ void TopOpeBRep_EdgesIntersector::ForceTolerances(const Standard_Real Tol1,
 
 #include <IntRes2d_Transition.hxx>
 
-static Standard_Boolean TransitionEqualAndExtremity(const IntRes2d_Transition& T1,
-                                                    const IntRes2d_Transition& T2)
+static Standard_Boolean TransitionEqualAndExtremity(const Transition3& T1,
+                                                    const Transition3& T2)
 {
   if (T1.PositionOnCurve() == IntRes2d_Head || T1.PositionOnCurve() == IntRes2d_End)
   {
@@ -262,8 +262,8 @@ static Standard_Boolean IsTangentSegment(const IntRes2d_IntersectionPoint& P1,
 {
   const gp_Pnt2d&            aP2d1   = P1.Value();
   const gp_Pnt2d&            aP2d2   = P2.Value();
-  const IntRes2d_Transition& aTrans1 = P1.TransitionOfFirst();
-  const IntRes2d_Transition& aTrans2 = P2.TransitionOfFirst();
+  const Transition3& aTrans1 = P1.TransitionOfFirst();
+  const Transition3& aTrans2 = P2.TransitionOfFirst();
 
   if (aTrans1.TransitionType() == IntRes2d_Touch || aTrans2.TransitionType() == IntRes2d_Touch)
   {
@@ -599,7 +599,7 @@ void TopOpeBRep_EdgesIntersector::Perform(const TopoShape&    E1,
         //  Modified by Sergey KHROMOV - Fri Jan 11 10:31:38 2002 Begin
         else if (IsTangentSegment(P1, P2, myCurve1, myCurve2, Max(tol1, tol2)))
         {
-          const IntRes2d_Transition& aTrans = P2.TransitionOfFirst();
+          const Transition3& aTrans = P2.TransitionOfFirst();
 
           fin = Standard_False;
           if (aTrans.TransitionType() == IntRes2d_Touch)

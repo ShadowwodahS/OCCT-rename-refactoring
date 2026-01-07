@@ -211,7 +211,7 @@ const Geom2dAdaptor_Curve& TopOpeBRep_Hctxee2d::Curve(const Standard_Integer Ind
 
 //=================================================================================================
 
-const IntRes2d_Domain& TopOpeBRep_Hctxee2d::Domain(const Standard_Integer Index) const
+const Domain2& TopOpeBRep_Hctxee2d::Domain(const Standard_Integer Index) const
 {
   if (Index == 1)
     return myDomain1;

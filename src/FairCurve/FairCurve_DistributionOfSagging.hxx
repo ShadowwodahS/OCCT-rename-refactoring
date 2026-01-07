@@ -38,7 +38,7 @@ public:
                                                   const Handle(TColStd_HArray1OfReal)& FlatKnots,
                                                   const Handle(TColgp_HArray1OfPnt2d)& Poles,
                                                   const Standard_Integer     DerivativeOrder,
-                                                  const FairCurve_BattenLaw& Law,
+                                                  const FairCurve_BattenLaw& Law1,
                                                   const Standard_Integer     NbValAux = 0);
 
   //! computes the values <F> of the functions for the

@@ -40,7 +40,7 @@
 
 #define TheCurve Handle(Adaptor3d_Curve)
 #define TheCurve_hxx <Adaptor3d_Curve.hxx>
-#define TheCurveTool IntCurveSurface_TheHCurveTool
+#define TheCurveTool HCurveTool2
 #define TheCurveTool_hxx <IntCurveSurface_TheHCurveTool.hxx>
 #define TheSurface Handle(Adaptor3d_Surface)
 #define TheSurface_hxx <Adaptor3d_Surface.hxx>
@@ -48,11 +48,11 @@
 #define TheSurfaceTool_hxx <Adaptor3d_HSurfaceTool.hxx>
 #define IntCurveSurface_ThePolygon IntCurveSurface_ThePolygonOfHInter
 #define IntCurveSurface_ThePolygon_hxx <IntCurveSurface_ThePolygonOfHInter.hxx>
-#define IntCurveSurface_ThePolygonTool IntCurveSurface_ThePolygonToolOfHInter
+#define IntCurveSurface_ThePolygonTool PolygonToolHInter
 #define IntCurveSurface_ThePolygonTool_hxx <IntCurveSurface_ThePolygonToolOfHInter.hxx>
 #define IntCurveSurface_ThePolyhedron IntCurveSurface_ThePolyhedronOfHInter
 #define IntCurveSurface_ThePolyhedron_hxx <IntCurveSurface_ThePolyhedronOfHInter.hxx>
-#define IntCurveSurface_ThePolyhedronTool IntCurveSurface_ThePolyhedronToolOfHInter
+#define IntCurveSurface_ThePolyhedronTool PolyhedronToolHInter
 #define IntCurveSurface_ThePolyhedronTool_hxx <IntCurveSurface_ThePolyhedronToolOfHInter.hxx>
 #define IntCurveSurface_TheInterference IntCurveSurface_TheInterferenceOfHInter
 #define IntCurveSurface_TheInterference_hxx <IntCurveSurface_TheInterferenceOfHInter.hxx>
@@ -60,7 +60,7 @@
 #define IntCurveSurface_TheCSFunction_hxx <IntCurveSurface_TheCSFunctionOfHInter.hxx>
 #define IntCurveSurface_TheExactInter IntCurveSurface_TheExactHInter
 #define IntCurveSurface_TheExactInter_hxx <IntCurveSurface_TheExactHInter.hxx>
-#define IntCurveSurface_TheQuadCurvExactInter IntCurveSurface_TheQuadCurvExactHInter
+#define IntCurveSurface_TheQuadCurvExactInter QuadCurvExactHInter
 #define IntCurveSurface_TheQuadCurvExactInter_hxx <IntCurveSurface_TheQuadCurvExactHInter.hxx>
 #define IntCurveSurface_TheQuadCurvFuncOfTheQuadCurvExactInter                                     \
   IntCurveSurface_TheQuadCurvFuncOfTheQuadCurvExactHInter

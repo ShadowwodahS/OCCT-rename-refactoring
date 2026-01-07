@@ -24,7 +24,7 @@
 #include <HLRBRep_CInter.hxx>
 #include <HLRBRep_InterCSurf.hxx>
 class gp_Lin;
-class IntCurveSurface_IntersectionPoint;
+class IntersectionPoint1;
 class IntRes2d_IntersectionSegment;
 class IntCurveSurface_IntersectionSegment;
 
@@ -72,7 +72,7 @@ public:
 
   Standard_EXPORT const IntRes2d_IntersectionPoint& Point(const Standard_Integer N) const;
 
-  Standard_EXPORT const IntCurveSurface_IntersectionPoint& CSPoint(const Standard_Integer N) const;
+  Standard_EXPORT const IntersectionPoint1& CSPoint(const Standard_Integer N) const;
 
   Standard_EXPORT Standard_Integer NbSegments() const;
 

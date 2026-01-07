@@ -23,7 +23,7 @@
 #include <Geom2dHatch_FClass2dOfClassifier.hxx>
 #include <gp_Pnt2d.hxx>
 
-#define TheFaceExplorer Geom2dHatch_Elements
+#define TheFaceExplorer HatchElements
 #define TheFaceExplorer_hxx <Geom2dHatch_Elements.hxx>
 #define TheEdge Geom2dAdaptor_Curve
 #define TheEdge_hxx <Geom2dAdaptor_Curve.hxx>

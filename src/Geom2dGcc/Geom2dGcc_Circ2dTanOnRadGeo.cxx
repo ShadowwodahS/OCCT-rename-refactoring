@@ -59,7 +59,7 @@ static const Standard_Integer aNbSolMAX = 8;
 //                   - de centre Pntcen(xc,yc)                            +
 //                   - de rayon Radius.                                   +
 //=========================================================================
-Geom2dGcc_Circ2dTanOnRadGeo::Geom2dGcc_Circ2dTanOnRadGeo(const Geom2dGcc_QCurve& Qualified1,
+Circle2dTangentOnRadiusGeo::Circle2dTangentOnRadiusGeo(const Geom2dGcc_QCurve& Qualified1,
                                                          const gp_Lin2d&         OnLine,
                                                          const Standard_Real     Radius,
                                                          const Standard_Real     Tolerance)
@@ -126,7 +126,7 @@ Geom2dGcc_Circ2dTanOnRadGeo::Geom2dGcc_Circ2dTanOnRadGeo(const Geom2dGcc_QCurve&
       Coef(1)  = Radius;
       Coef(2)  = -Radius;
     }
-    IntRes2d_Domain                    D1;
+    Domain2                    D1;
     Geom2dInt_TheIntConicCurveOfGInter Intp;
     for (Standard_Integer jcote1 = 1; jcote1 <= nbrcote1; jcote1++)
     {
@@ -135,7 +135,7 @@ Geom2dGcc_Circ2dTanOnRadGeo::Geom2dGcc_Circ2dTanOnRadGeo(const Geom2dGcc_QCurve&
       Adaptor2d_OffsetCurve C2(HCu1, -Coef(jcote1));
       firstparam = Max(C2.FirstParameter(), thefirst);
       lastparam  = Min(C2.LastParameter(), thelast);
-      IntRes2d_Domain D2(C2.Value(firstparam),
+      Domain2 D2(C2.Value(firstparam),
                          firstparam,
                          Tol,
                          C2.Value(lastparam),
@@ -157,7 +157,7 @@ Geom2dGcc_Circ2dTanOnRadGeo::Geom2dGcc_Circ2dTanOnRadGeo(const Geom2dGcc_QCurve&
             pararg1(NbrSol)    = Intp.Point(i).ParamOnSecond();
             parcen3(NbrSol)    = Intp.Point(i).ParamOnFirst();
             par1sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
-            pnttg1sol(NbrSol)  = gp_Pnt2d(Geom2dGcc_CurveTool::Value(Cu1, pararg1(NbrSol)));
+            pnttg1sol(NbrSol)  = gp_Pnt2d(CurveTool3::Value(Cu1, pararg1(NbrSol)));
             pntcen3(NbrSol)    = Center;
           }
         }
@@ -184,7 +184,7 @@ Geom2dGcc_Circ2dTanOnRadGeo::Geom2dGcc_Circ2dTanOnRadGeo(const Geom2dGcc_QCurve&
 //                   - de rayon Radius.                                   +
 //=========================================================================
 
-Geom2dGcc_Circ2dTanOnRadGeo::Geom2dGcc_Circ2dTanOnRadGeo(const Geom2dGcc_QCurve& Qualified1,
+Circle2dTangentOnRadiusGeo::Circle2dTangentOnRadiusGeo(const Geom2dGcc_QCurve& Qualified1,
                                                          const gp_Circ2d&        OnCirc,
                                                          const Standard_Real     Radius,
                                                          const Standard_Real     Tolerance)
@@ -251,7 +251,7 @@ Geom2dGcc_Circ2dTanOnRadGeo::Geom2dGcc_Circ2dTanOnRadGeo(const Geom2dGcc_QCurve&
       cote1(1) = Radius;
       cote1(2) = -Radius;
     }
-    IntRes2d_Domain D1(ElCLib::Value(0., OnCirc),
+    Domain2 D1(ElCLib::Value(0., OnCirc),
                        0.,
                        Tol,
                        ElCLib::Value(2. * M_PI, OnCirc),
@@ -266,7 +266,7 @@ Geom2dGcc_Circ2dTanOnRadGeo::Geom2dGcc_Circ2dTanOnRadGeo(const Geom2dGcc_QCurve&
       Adaptor2d_OffsetCurve C2(HCu1, -cote1(jcote1));
       firstparam = Max(C2.FirstParameter(), thefirst);
       lastparam  = Min(C2.LastParameter(), thelast);
-      IntRes2d_Domain D2(C2.Value(firstparam),
+      Domain2 D2(C2.Value(firstparam),
                          firstparam,
                          Tol,
                          C2.Value(lastparam),
@@ -288,7 +288,7 @@ Geom2dGcc_Circ2dTanOnRadGeo::Geom2dGcc_Circ2dTanOnRadGeo(const Geom2dGcc_QCurve&
             pararg1(NbrSol)    = Intp.Point(i).ParamOnSecond();
             parcen3(NbrSol)    = Intp.Point(i).ParamOnFirst();
             par1sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
-            pnttg1sol(NbrSol)  = gp_Pnt2d(Geom2dGcc_CurveTool::Value(Cu1, pararg1(NbrSol)));
+            pnttg1sol(NbrSol)  = gp_Pnt2d(CurveTool3::Value(Cu1, pararg1(NbrSol)));
             pntcen3(NbrSol)    = Center;
           }
         }
@@ -315,7 +315,7 @@ Geom2dGcc_Circ2dTanOnRadGeo::Geom2dGcc_Circ2dTanOnRadGeo(const Geom2dGcc_QCurve&
 //                   - de rayon Radius.                                   +
 //=========================================================================
 
-Geom2dGcc_Circ2dTanOnRadGeo::Geom2dGcc_Circ2dTanOnRadGeo(const GccEnt_QualifiedCirc& Qualified1,
+Circle2dTangentOnRadiusGeo::Circle2dTangentOnRadiusGeo(const QualifiedCircle& Qualified1,
                                                          const Geom2dAdaptor_Curve&  OnCurv,
                                                          const Standard_Real         Radius,
                                                          const Standard_Real         Tolerance)
@@ -388,19 +388,19 @@ Geom2dGcc_Circ2dTanOnRadGeo::Geom2dGcc_Circ2dTanOnRadGeo(const GccEnt_QualifiedC
     for (Standard_Integer jcote1 = 1; jcote1 <= nbrcote1; jcote1++)
     {
       gp_Circ2d       Circ(C1.XAxis(), R1 + cote1(jcote1));
-      IntRes2d_Domain D1(ElCLib::Value(0., Circ),
+      Domain2 D1(ElCLib::Value(0., Circ),
                          0.,
                          Tol,
                          ElCLib::Value(2. * M_PI, Circ),
                          2. * M_PI,
                          Tol);
       D1.SetEquivalentParameters(0., 2. * M_PI);
-      firstparam = Max(Geom2dGcc_CurveTool::FirstParameter(OnCurv), thefirst);
-      lastparam  = Min(Geom2dGcc_CurveTool::LastParameter(OnCurv), thelast);
-      IntRes2d_Domain D2(Geom2dGcc_CurveTool::Value(OnCurv, firstparam),
+      firstparam = Max(CurveTool3::FirstParameter(OnCurv), thefirst);
+      lastparam  = Min(CurveTool3::LastParameter(OnCurv), thelast);
+      Domain2 D2(CurveTool3::Value(OnCurv, firstparam),
                          firstparam,
                          Tol,
-                         Geom2dGcc_CurveTool::Value(OnCurv, lastparam),
+                         CurveTool3::Value(OnCurv, lastparam),
                          lastparam,
                          Tol);
       Intp.Perform(Circ, D1, OnCurv, D2, Tol, Tol);
@@ -462,7 +462,7 @@ Geom2dGcc_Circ2dTanOnRadGeo::Geom2dGcc_Circ2dTanOnRadGeo(const GccEnt_QualifiedC
 //                   - de rayon Radius.                                   +
 //=========================================================================
 
-Geom2dGcc_Circ2dTanOnRadGeo::Geom2dGcc_Circ2dTanOnRadGeo(const GccEnt_QualifiedLin& Qualified1,
+Circle2dTangentOnRadiusGeo::Circle2dTangentOnRadiusGeo(const QualifiedLine& Qualified1,
                                                          const Geom2dAdaptor_Curve& OnCurv,
                                                          const Standard_Real        Radius,
                                                          const Standard_Real        Tolerance)
@@ -536,13 +536,13 @@ Geom2dGcc_Circ2dTanOnRadGeo::Geom2dGcc_Circ2dTanOnRadGeo(const GccEnt_QualifiedL
     {
       gp_Pnt2d        Point(dir1.XY() + cote1(jcote1) * norm1.XY());
       gp_Lin2d        Line(Point, dir1); // ligne avec deport.
-      IntRes2d_Domain D1;
-      firstparam = Max(Geom2dGcc_CurveTool::FirstParameter(OnCurv), thefirst);
-      lastparam  = Min(Geom2dGcc_CurveTool::LastParameter(OnCurv), thelast);
-      IntRes2d_Domain D2(Geom2dGcc_CurveTool::Value(OnCurv, firstparam),
+      Domain2 D1;
+      firstparam = Max(CurveTool3::FirstParameter(OnCurv), thefirst);
+      lastparam  = Min(CurveTool3::LastParameter(OnCurv), thelast);
+      Domain2 D2(CurveTool3::Value(OnCurv, firstparam),
                          firstparam,
                          Tol,
-                         Geom2dGcc_CurveTool::Value(OnCurv, lastparam),
+                         CurveTool3::Value(OnCurv, lastparam),
                          lastparam,
                          Tol);
       Intp.Perform(Line, D1, OnCurv, D2, Tol, Tol);
@@ -600,7 +600,7 @@ Geom2dGcc_Circ2dTanOnRadGeo::Geom2dGcc_Circ2dTanOnRadGeo(const GccEnt_QualifiedL
 //                   - de rayon Radius.                                   +
 //=========================================================================
 
-Geom2dGcc_Circ2dTanOnRadGeo::Geom2dGcc_Circ2dTanOnRadGeo(const Geom2dGcc_QCurve&    Qualified1,
+Circle2dTangentOnRadiusGeo::Circle2dTangentOnRadiusGeo(const Geom2dGcc_QCurve&    Qualified1,
                                                          const Geom2dAdaptor_Curve& OnCurv,
                                                          const Standard_Real        Radius,
                                                          const Standard_Real        Tolerance)
@@ -675,7 +675,7 @@ Geom2dGcc_Circ2dTanOnRadGeo::Geom2dGcc_Circ2dTanOnRadGeo(const Geom2dGcc_QCurve&
       Adaptor2d_OffsetCurve C1(HCu1, -cote1(jcote1));
       firstparam = Max(C1.FirstParameter(), thefirst);
       lastparam  = Min(C1.LastParameter(), thelast);
-      IntRes2d_Domain             D1(C1.Value(firstparam),
+      Domain2             D1(C1.Value(firstparam),
                          firstparam,
                          Tol,
                          C1.Value(lastparam),
@@ -685,7 +685,7 @@ Geom2dGcc_Circ2dTanOnRadGeo::Geom2dGcc_Circ2dTanOnRadGeo(const Geom2dGcc_QCurve&
       Adaptor2d_OffsetCurve       C2(HOnCurv);
       firstparam = Max(C2.FirstParameter(), thefirst);
       lastparam  = Min(C2.LastParameter(), thelast);
-      IntRes2d_Domain D2(C2.Value(firstparam),
+      Domain2 D2(C2.Value(firstparam),
                          firstparam,
                          Tol,
                          C2.Value(lastparam),
@@ -707,7 +707,7 @@ Geom2dGcc_Circ2dTanOnRadGeo::Geom2dGcc_Circ2dTanOnRadGeo(const Geom2dGcc_QCurve&
             pararg1(NbrSol)    = Intp.Point(i).ParamOnFirst();
             parcen3(NbrSol)    = Intp.Point(i).ParamOnSecond();
             par1sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
-            pnttg1sol(NbrSol)  = gp_Pnt2d(Geom2dGcc_CurveTool::Value(Cu1, pararg1(NbrSol)));
+            pnttg1sol(NbrSol)  = gp_Pnt2d(CurveTool3::Value(Cu1, pararg1(NbrSol)));
             pntcen3(NbrSol)    = Center;
           }
         }
@@ -734,7 +734,7 @@ Geom2dGcc_Circ2dTanOnRadGeo::Geom2dGcc_Circ2dTanOnRadGeo(const Geom2dGcc_QCurve&
 //                   - de rayon Radius.                                   +
 //=========================================================================
 
-Geom2dGcc_Circ2dTanOnRadGeo::Geom2dGcc_Circ2dTanOnRadGeo(const gp_Pnt2d&            Point1,
+Circle2dTangentOnRadiusGeo::Circle2dTangentOnRadiusGeo(const gp_Pnt2d&            Point1,
                                                          const Geom2dAdaptor_Curve& OnCurv,
                                                          const Standard_Real        Radius,
                                                          const Standard_Real        Tolerance)
@@ -775,19 +775,19 @@ Geom2dGcc_Circ2dTanOnRadGeo::Geom2dGcc_Circ2dTanOnRadGeo(const gp_Pnt2d&        
   {
     //     gp_Dir2d Dir(-y1dir,x1dir);
     gp_Circ2d       Circ(gp_Ax2d(Point1, gp_Dir2d(1., 0.)), Radius);
-    IntRes2d_Domain D1(ElCLib::Value(0., Circ),
+    Domain2 D1(ElCLib::Value(0., Circ),
                        0.,
                        Tol,
                        ElCLib::Value(2. * M_PI, Circ),
                        2 * M_PI,
                        Tol);
     D1.SetEquivalentParameters(0., 2. * M_PI);
-    firstparam = Max(Geom2dGcc_CurveTool::FirstParameter(OnCurv), thefirst);
-    lastparam  = Min(Geom2dGcc_CurveTool::LastParameter(OnCurv), thelast);
-    IntRes2d_Domain                    D2(Geom2dGcc_CurveTool::Value(OnCurv, firstparam),
+    firstparam = Max(CurveTool3::FirstParameter(OnCurv), thefirst);
+    lastparam  = Min(CurveTool3::LastParameter(OnCurv), thelast);
+    Domain2                    D2(CurveTool3::Value(OnCurv, firstparam),
                        firstparam,
                        Tol,
-                       Geom2dGcc_CurveTool::Value(OnCurv, lastparam),
+                       CurveTool3::Value(OnCurv, lastparam),
                        lastparam,
                        Tol);
     Geom2dInt_TheIntConicCurveOfGInter Intp(Circ, D1, OnCurv, D2, Tol, Tol);
@@ -817,17 +817,17 @@ Geom2dGcc_Circ2dTanOnRadGeo::Geom2dGcc_Circ2dTanOnRadGeo(const gp_Pnt2d&        
 
 //=========================================================================
 
-Standard_Boolean Geom2dGcc_Circ2dTanOnRadGeo::IsDone() const
+Standard_Boolean Circle2dTangentOnRadiusGeo::IsDone() const
 {
   return WellDone;
 }
 
-Standard_Integer Geom2dGcc_Circ2dTanOnRadGeo::NbSolutions() const
+Standard_Integer Circle2dTangentOnRadiusGeo::NbSolutions() const
 {
   return NbrSol;
 }
 
-gp_Circ2d Geom2dGcc_Circ2dTanOnRadGeo::ThisSolution(const Standard_Integer Index) const
+gp_Circ2d Circle2dTangentOnRadiusGeo::ThisSolution(const Standard_Integer Index) const
 {
 
   if (Index > NbrSol || Index <= 0)
@@ -836,7 +836,7 @@ gp_Circ2d Geom2dGcc_Circ2dTanOnRadGeo::ThisSolution(const Standard_Integer Index
   return cirsol(Index);
 }
 
-void Geom2dGcc_Circ2dTanOnRadGeo::WhichQualifier(const Standard_Integer Index,
+void Circle2dTangentOnRadiusGeo::WhichQualifier(const Standard_Integer Index,
                                                  GccEnt_Position&       Qualif1) const
 {
   if (!WellDone)
@@ -853,7 +853,7 @@ void Geom2dGcc_Circ2dTanOnRadGeo::WhichQualifier(const Standard_Integer Index,
   }
 }
 
-void Geom2dGcc_Circ2dTanOnRadGeo::Tangency1(const Standard_Integer Index,
+void Circle2dTangentOnRadiusGeo::Tangency1(const Standard_Integer Index,
                                             Standard_Real&         ParSol,
                                             Standard_Real&         ParArg,
                                             gp_Pnt2d&              PntSol) const
@@ -874,7 +874,7 @@ void Geom2dGcc_Circ2dTanOnRadGeo::Tangency1(const Standard_Integer Index,
   }
 }
 
-void Geom2dGcc_Circ2dTanOnRadGeo::CenterOn3(const Standard_Integer Index,
+void Circle2dTangentOnRadiusGeo::CenterOn3(const Standard_Integer Index,
                                             Standard_Real&         ParArg,
                                             gp_Pnt2d&              PntSol) const
 {
@@ -893,7 +893,7 @@ void Geom2dGcc_Circ2dTanOnRadGeo::CenterOn3(const Standard_Integer Index,
   }
 }
 
-Standard_Boolean Geom2dGcc_Circ2dTanOnRadGeo::IsTheSame1(const Standard_Integer Index) const
+Standard_Boolean Circle2dTangentOnRadiusGeo::IsTheSame1(const Standard_Integer Index) const
 {
   if (!WellDone)
     throw StdFail_NotDone();

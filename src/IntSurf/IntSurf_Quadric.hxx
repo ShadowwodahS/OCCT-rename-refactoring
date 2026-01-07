@@ -37,22 +37,22 @@ class gp_Torus;
 class Point3d;
 class Vector3d;
 
-class IntSurf_Quadric
+class Quadric1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT IntSurf_Quadric();
+  Standard_EXPORT Quadric1();
 
-  Standard_EXPORT IntSurf_Quadric(const gp_Pln& P);
+  Standard_EXPORT Quadric1(const gp_Pln& P);
 
-  Standard_EXPORT IntSurf_Quadric(const gp_Cylinder& C);
+  Standard_EXPORT Quadric1(const gp_Cylinder& C);
 
-  Standard_EXPORT IntSurf_Quadric(const gp_Sphere& S);
+  Standard_EXPORT Quadric1(const gp_Sphere& S);
 
-  Standard_EXPORT IntSurf_Quadric(const gp_Cone& C);
+  Standard_EXPORT Quadric1(const gp_Cone& C);
 
-  Standard_EXPORT IntSurf_Quadric(const gp_Torus& T);
+  Standard_EXPORT Quadric1(const gp_Torus& T);
 
   Standard_EXPORT void SetValue(const gp_Pln& P);
 

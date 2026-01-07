@@ -200,8 +200,8 @@ BRepTopAdaptor_FClass2d::BRepTopAdaptor_FClass2d(const TopoFace&  aFace,
         if (Tole > Tol)
           Tol = Tole;
 
-        // Standard_Integer nbs = 1 + Geom2dInt_Geom2dCurveTool::NbSamples(C);
-        Standard_Integer nbs = Geom2dInt_Geom2dCurveTool::NbSamples(C);
+        // Standard_Integer nbs = 1 + Geom2dCurveTool::NbSamples(C);
+        Standard_Integer nbs = Geom2dCurveTool::NbSamples(C);
         //-- Attention to rational bsplines of degree 3. (ends of circles among others)
         if (nbs > 2)
           nbs *= 4;

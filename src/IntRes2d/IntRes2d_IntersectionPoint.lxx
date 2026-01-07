@@ -17,8 +17,8 @@
 inline IntRes2d_IntersectionPoint::IntRes2d_IntersectionPoint(const gp_Pnt2d&            P,
                                                               const Standard_Real        Uc1,
                                                               const Standard_Real        Uc2,
-                                                              const IntRes2d_Transition& Trans1,
-                                                              const IntRes2d_Transition& Trans2,
+                                                              const Transition3& Trans1,
+                                                              const Transition3& Trans2,
                                                               const Standard_Boolean ReversedFlag)
     : pt(P),
       p1(Uc1),
@@ -38,8 +38,8 @@ inline IntRes2d_IntersectionPoint::IntRes2d_IntersectionPoint(const gp_Pnt2d&   
 inline void IntRes2d_IntersectionPoint::SetValues(const gp_Pnt2d&            P,
                                                   const Standard_Real        Uc1,
                                                   const Standard_Real        Uc2,
-                                                  const IntRes2d_Transition& Trans1,
-                                                  const IntRes2d_Transition& Trans2,
+                                                  const Transition3& Trans1,
+                                                  const Transition3& Trans2,
                                                   const Standard_Boolean     ReversedFlag)
 {
   pt = P;
@@ -74,12 +74,12 @@ inline Standard_Real IntRes2d_IntersectionPoint::ParamOnSecond() const
   return p2;
 }
 
-inline const IntRes2d_Transition& IntRes2d_IntersectionPoint::TransitionOfFirst() const
+inline const Transition3& IntRes2d_IntersectionPoint::TransitionOfFirst() const
 {
   return trans1;
 }
 
-inline const IntRes2d_Transition& IntRes2d_IntersectionPoint::TransitionOfSecond() const
+inline const Transition3& IntRes2d_IntersectionPoint::TransitionOfSecond() const
 {
   return trans2;
 }

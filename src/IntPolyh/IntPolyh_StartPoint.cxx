@@ -21,7 +21,7 @@
 // #include <Precision.hxx>
 #define MyConfusionPrecision 10.0e-12
 
-IntPolyh_StartPoint::IntPolyh_StartPoint()
+StartPoint::StartPoint()
     : x(0),
       y(0),
       z(0),
@@ -40,7 +40,7 @@ IntPolyh_StartPoint::IntPolyh_StartPoint()
 {
 }
 
-IntPolyh_StartPoint::IntPolyh_StartPoint(const Standard_Real    _x,
+StartPoint::StartPoint(const Standard_Real    _x,
                                          const Standard_Real    _y,
                                          const Standard_Real    _z,
                                          const Standard_Real    _u1,
@@ -72,82 +72,82 @@ IntPolyh_StartPoint::IntPolyh_StartPoint(const Standard_Real    _x,
   chainlist = _chainlist;
 }
 
-Standard_Real IntPolyh_StartPoint::X() const
+Standard_Real StartPoint::X() const
 {
   return (x);
 }
 
-Standard_Real IntPolyh_StartPoint::Y() const
+Standard_Real StartPoint::Y() const
 {
   return (y);
 }
 
-Standard_Real IntPolyh_StartPoint::Z() const
+Standard_Real StartPoint::Z() const
 {
   return (z);
 }
 
-Standard_Real IntPolyh_StartPoint::U1() const
+Standard_Real StartPoint::U1() const
 {
   return (u1);
 }
 
-Standard_Real IntPolyh_StartPoint::V1() const
+Standard_Real StartPoint::V1() const
 {
   return (v1);
 }
 
-Standard_Real IntPolyh_StartPoint::U2() const
+Standard_Real StartPoint::U2() const
 {
   return (u2);
 }
 
-Standard_Real IntPolyh_StartPoint::V2() const
+Standard_Real StartPoint::V2() const
 {
   return (v2);
 }
 
-Standard_Integer IntPolyh_StartPoint::T1() const
+Standard_Integer StartPoint::T1() const
 {
   return (t1);
 }
 
-Standard_Integer IntPolyh_StartPoint::E1() const
+Standard_Integer StartPoint::E1() const
 {
   return (e1);
 }
 
-Standard_Real IntPolyh_StartPoint::Lambda1() const
+Standard_Real StartPoint::Lambda1() const
 {
   return (lambda1);
 }
 
-Standard_Integer IntPolyh_StartPoint::T2() const
+Standard_Integer StartPoint::T2() const
 {
   return (t2);
 }
 
-Standard_Integer IntPolyh_StartPoint::E2() const
+Standard_Integer StartPoint::E2() const
 {
   return (e2);
 }
 
-Standard_Real IntPolyh_StartPoint::Lambda2() const
+Standard_Real StartPoint::Lambda2() const
 {
   return (lambda2);
 }
 
-Standard_Integer IntPolyh_StartPoint::ChainList() const
+Standard_Integer StartPoint::ChainList() const
 {
   return (chainlist);
 }
 
-Standard_Real IntPolyh_StartPoint::GetAngle() const
+Standard_Real StartPoint::GetAngle() const
 {
   return (angle);
 }
 
-Standard_Integer IntPolyh_StartPoint::GetEdgePoints(const IntPolyh_Triangle& Triangle,
+Standard_Integer StartPoint::GetEdgePoints(const IntPolyh_Triangle& Triangle,
                                                     Standard_Integer&        FirstEdgePoint,
                                                     Standard_Integer&        SecondEdgePoint,
                                                     Standard_Integer&        LastPoint) const
@@ -202,7 +202,7 @@ Standard_Integer IntPolyh_StartPoint::GetEdgePoints(const IntPolyh_Triangle& Tri
   return (SurfID);
 }
 
-void IntPolyh_StartPoint::SetXYZ(const Standard_Real XX,
+void StartPoint::SetXYZ(const Standard_Real XX,
                                  const Standard_Real YY,
                                  const Standard_Real ZZ)
 {
@@ -211,55 +211,55 @@ void IntPolyh_StartPoint::SetXYZ(const Standard_Real XX,
   z = ZZ;
 }
 
-void IntPolyh_StartPoint::SetUV1(const Standard_Real UU1, const Standard_Real VV1)
+void StartPoint::SetUV1(const Standard_Real UU1, const Standard_Real VV1)
 {
   u1 = UU1;
   v1 = VV1;
 }
 
-void IntPolyh_StartPoint::SetUV2(const Standard_Real UU2, const Standard_Real VV2)
+void StartPoint::SetUV2(const Standard_Real UU2, const Standard_Real VV2)
 {
   u2 = UU2;
   v2 = VV2;
 }
 
-void IntPolyh_StartPoint::SetEdge1(const Standard_Integer IE1)
+void StartPoint::SetEdge1(const Standard_Integer IE1)
 {
   e1 = IE1;
 }
 
-void IntPolyh_StartPoint::SetLambda1(const Standard_Real LAM1)
+void StartPoint::SetLambda1(const Standard_Real LAM1)
 {
   lambda1 = LAM1;
 }
 
-void IntPolyh_StartPoint::SetEdge2(const Standard_Integer IE2)
+void StartPoint::SetEdge2(const Standard_Integer IE2)
 {
   e2 = IE2;
 }
 
-void IntPolyh_StartPoint::SetLambda2(const Standard_Real LAM2)
+void StartPoint::SetLambda2(const Standard_Real LAM2)
 {
   lambda2 = LAM2;
 }
 
-void IntPolyh_StartPoint::SetCoupleValue(const Standard_Integer IT1, const Standard_Integer IT2)
+void StartPoint::SetCoupleValue(const Standard_Integer IT1, const Standard_Integer IT2)
 {
   t1 = IT1;
   t2 = IT2;
 }
 
-void IntPolyh_StartPoint::SetAngle(const Standard_Real Ang)
+void StartPoint::SetAngle(const Standard_Real Ang)
 {
   angle = Ang;
 }
 
-void IntPolyh_StartPoint::SetChainList(const Standard_Integer ChList)
+void StartPoint::SetChainList(const Standard_Integer ChList)
 {
   chainlist = ChList;
 }
 
-Standard_Integer IntPolyh_StartPoint::CheckSameSP(const IntPolyh_StartPoint& SP) const
+Standard_Integer StartPoint::CheckSameSP(const StartPoint& SP) const
 {
   /// Renvoit 1 si monSP==SP
   Standard_Integer Test = 0;
@@ -293,7 +293,7 @@ Standard_Integer IntPolyh_StartPoint::CheckSameSP(const IntPolyh_StartPoint& SP)
   return (Test);
 }
 
-void IntPolyh_StartPoint::Dump() const
+void StartPoint::Dump() const
 {
   printf("\nPoint : x=%+8.3eg y=%+8.3eg z=%+8.3eg u1=%+8.3eg v1=%+8.3eg u2=%+8.3eg v2=%+8.3eg\n",
          x,
@@ -313,7 +313,7 @@ void IntPolyh_StartPoint::Dump() const
   printf("Angle: %f List Number: %d\n", angle, chainlist);
 }
 
-void IntPolyh_StartPoint::Dump(const Standard_Integer i) const
+void StartPoint::Dump(const Standard_Integer i) const
 {
   printf(
     "\nPoint(%d) : x=%+8.3eg y=%+8.3eg z=%+8.3eg u1=%+8.3eg v1=%+8.3eg u2=%+8.3eg v2=%+8.3eg\n",

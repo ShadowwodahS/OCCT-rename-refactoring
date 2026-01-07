@@ -65,5 +65,5 @@ Handle(IGESData_IGESEntity) Geom2dToIGES_Geom2dCurve::Transfer2dCurve(
   GeomToIGES_GeomCurve GC;
   GC.SetModel(GetModel());
   GC.SetUnit(1.); // not scale 2D curves
-  return GC.TransferCurve(GeomAPI::To3d(start, gp_Pln(0, 0, 1, 0)), Udeb, Ufin);
+  return GC.TransferCurve(GeomAPI1::To3d(start, gp_Pln(0, 0, 1, 0)), Udeb, Ufin);
 }

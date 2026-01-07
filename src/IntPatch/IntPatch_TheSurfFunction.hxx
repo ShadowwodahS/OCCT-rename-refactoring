@@ -25,8 +25,8 @@
 #include <math_Vector.hxx>
 
 class HSurfaceTool;
-class IntSurf_Quadric;
-class IntSurf_QuadricTool;
+class Quadric1;
+class QuadricTool;
 class math_Matrix;
 
 class IntPatch_TheSurfFunction : public math_FunctionSetWithDerivatives
@@ -37,13 +37,13 @@ public:
   Standard_EXPORT IntPatch_TheSurfFunction();
 
   Standard_EXPORT IntPatch_TheSurfFunction(const Handle(Adaptor3d_Surface)& PS,
-                                           const IntSurf_Quadric&           IS);
+                                           const Quadric1&           IS);
 
-  Standard_EXPORT IntPatch_TheSurfFunction(const IntSurf_Quadric& IS);
+  Standard_EXPORT IntPatch_TheSurfFunction(const Quadric1& IS);
 
   void Set(const Handle(Adaptor3d_Surface)& PS);
 
-  void SetImplicitSurface(const IntSurf_Quadric& IS);
+  void SetImplicitSurface(const Quadric1& IS);
 
   void Set(const Standard_Real Tolerance);
 
@@ -73,7 +73,7 @@ public:
 
   const Handle(Adaptor3d_Surface)& PSurface() const;
 
-  const IntSurf_Quadric& ISurface() const;
+  const Quadric1& ISurface() const;
 
 protected:
 private:
@@ -100,9 +100,9 @@ private:
 #define ThePSurface_hxx <Adaptor3d_Surface.hxx>
 #define ThePSurfaceTool HSurfaceTool
 #define ThePSurfaceTool_hxx <Adaptor3d_HSurfaceTool.hxx>
-#define TheISurface IntSurf_Quadric
+#define TheISurface Quadric1
 #define TheISurface_hxx <IntSurf_Quadric.hxx>
-#define TheISurfaceTool IntSurf_QuadricTool
+#define TheISurfaceTool QuadricTool
 #define TheISurfaceTool_hxx <IntSurf_QuadricTool.hxx>
 #define IntImp_ZerImpFunc IntPatch_TheSurfFunction
 #define IntImp_ZerImpFunc_hxx <IntPatch_TheSurfFunction.hxx>

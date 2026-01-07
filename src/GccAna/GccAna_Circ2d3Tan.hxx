@@ -27,8 +27,8 @@
 #include <TColgp_Array1OfPnt2d.hxx>
 #include <TColStd_Array1OfReal.hxx>
 #include <GccEnt_Position.hxx>
-class GccEnt_QualifiedCirc;
-class GccEnt_QualifiedLin;
+class QualifiedCircle;
+class QualifiedLine;
 class gp_Pnt2d;
 class gp_Circ2d;
 
@@ -60,44 +60,44 @@ public:
   //! create 2d circles tangent to 3 circles.
   //! ConstructionError is raised if there is a problem during
   //! the computation.
-  Standard_EXPORT Circle2dThreeTangent(const GccEnt_QualifiedCirc& Qualified1,
-                                    const GccEnt_QualifiedCirc& Qualified2,
-                                    const GccEnt_QualifiedCirc& Qualified3,
+  Standard_EXPORT Circle2dThreeTangent(const QualifiedCircle& Qualified1,
+                                    const QualifiedCircle& Qualified2,
+                                    const QualifiedCircle& Qualified3,
                                     const Standard_Real         Tolerance);
 
   //! This method implements the algorithms used to
   //! create 2d circles tangent to 2 circles and 1 line.
   //! ConstructionError is raised if there is a problem during
   //! the computation.
-  Standard_EXPORT Circle2dThreeTangent(const GccEnt_QualifiedCirc& Qualified1,
-                                    const GccEnt_QualifiedCirc& Qualified2,
-                                    const GccEnt_QualifiedLin&  Qualified3,
+  Standard_EXPORT Circle2dThreeTangent(const QualifiedCircle& Qualified1,
+                                    const QualifiedCircle& Qualified2,
+                                    const QualifiedLine&  Qualified3,
                                     const Standard_Real         Tolerance);
 
   //! This method implements the algorithms used to
   //! create 2d circles tangent to 1 circle and 2 lines.
   //! ConstructionError is raised if there is a problem during
   //! the computation.
-  Standard_EXPORT Circle2dThreeTangent(const GccEnt_QualifiedCirc& Qualified1,
-                                    const GccEnt_QualifiedLin&  Qualified2,
-                                    const GccEnt_QualifiedLin&  Qualified3,
+  Standard_EXPORT Circle2dThreeTangent(const QualifiedCircle& Qualified1,
+                                    const QualifiedLine&  Qualified2,
+                                    const QualifiedLine&  Qualified3,
                                     const Standard_Real         Tolerance);
 
   //! This method implements the algorithms used to
   //! create 2d circles tangent to 3 lines.
   //! ConstructionError is raised if there is a problem during
   //! the computation.
-  Standard_EXPORT Circle2dThreeTangent(const GccEnt_QualifiedLin& Qualified1,
-                                    const GccEnt_QualifiedLin& Qualified2,
-                                    const GccEnt_QualifiedLin& Qualified3,
+  Standard_EXPORT Circle2dThreeTangent(const QualifiedLine& Qualified1,
+                                    const QualifiedLine& Qualified2,
+                                    const QualifiedLine& Qualified3,
                                     const Standard_Real        Tolerance);
 
   //! This method implements the algorithms used to
   //! create 2d circles tangent to 2 circles and 1 Point.
   //! ConstructionError is raised if there is a problem during
   //! the computation.
-  Standard_EXPORT Circle2dThreeTangent(const GccEnt_QualifiedCirc& Qualified1,
-                                    const GccEnt_QualifiedCirc& Qualified2,
+  Standard_EXPORT Circle2dThreeTangent(const QualifiedCircle& Qualified1,
+                                    const QualifiedCircle& Qualified2,
                                     const gp_Pnt2d&             Point3,
                                     const Standard_Real         Tolerance);
 
@@ -106,8 +106,8 @@ public:
   //! 1 Point.
   //! ConstructionError is raised if there is a problem during
   //! the computation.
-  Standard_EXPORT Circle2dThreeTangent(const GccEnt_QualifiedCirc& Qualified1,
-                                    const GccEnt_QualifiedLin&  Qualified2,
+  Standard_EXPORT Circle2dThreeTangent(const QualifiedCircle& Qualified1,
+                                    const QualifiedLine&  Qualified2,
                                     const gp_Pnt2d&             Point3,
                                     const Standard_Real         Tolerance);
 
@@ -115,8 +115,8 @@ public:
   //! create 2d circles tangent to 2 lines and 1 Point.
   //! ConstructionError is raised if there is a problem during
   //! the computation.
-  Standard_EXPORT Circle2dThreeTangent(const GccEnt_QualifiedLin& Qualified1,
-                                    const GccEnt_QualifiedLin& Qualified2,
+  Standard_EXPORT Circle2dThreeTangent(const QualifiedLine& Qualified1,
+                                    const QualifiedLine& Qualified2,
                                     const gp_Pnt2d&            Point3,
                                     const Standard_Real        Tolerance);
 
@@ -125,7 +125,7 @@ public:
   //! through 2 Points.
   //! ConstructionError is raised if there is a problem during
   //! the computation.
-  Standard_EXPORT Circle2dThreeTangent(const GccEnt_QualifiedCirc& Qualified1,
+  Standard_EXPORT Circle2dThreeTangent(const QualifiedCircle& Qualified1,
                                     const gp_Pnt2d&             Point2,
                                     const gp_Pnt2d&             Point3,
                                     const Standard_Real         Tolerance);
@@ -135,7 +135,7 @@ public:
   //! through 2 Points.
   //! ConstructionError is raised if there is a problem during
   //! the computation.
-  Standard_EXPORT Circle2dThreeTangent(const GccEnt_QualifiedLin& Qualified1,
+  Standard_EXPORT Circle2dThreeTangent(const QualifiedLine& Qualified1,
                                     const gp_Pnt2d&            Point2,
                                     const gp_Pnt2d&            Point3,
                                     const Standard_Real        Tolerance);

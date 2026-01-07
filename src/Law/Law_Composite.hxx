@@ -42,10 +42,10 @@ class Law_Composite : public Law_Function
 {
 
 public:
-  //! Construct an empty Law
+  //! Construct an empty Law1
   Standard_EXPORT Law_Composite();
 
-  //! Construct an empty, trimmed Law
+  //! Construct an empty, trimmed Law1
   Standard_EXPORT Law_Composite(const Standard_Real First,
                                 const Standard_Real Last,
                                 const Standard_Real Tol);
@@ -82,7 +82,7 @@ public:
   //! test for 3d points confusion.
   //! It is usfule to determines the derivatives
   //! in these values <First> and <Last> if
-  //! the Law is not Cn.
+  //! the Law1 is not Cn.
   Standard_EXPORT Handle(Law_Function) Trim(const Standard_Real PFirst,
                                             const Standard_Real PLast,
                                             const Standard_Real Tol) const Standard_OVERRIDE;

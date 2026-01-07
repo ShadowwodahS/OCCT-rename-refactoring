@@ -109,7 +109,7 @@ void GeomFill_GuideTrihedronPlan::Init()
 
   Handle(GeomPlane)                Plan;
   Handle(GeomAdaptor_Surface)       Pl;
-  IntCurveSurface_IntersectionPoint PInt;
+  IntersectionPoint1 PInt;
   IntCurveSurface_HInter            Int;
   frenet->SetCurve(myCurve);
   DeltaG = (myGuide->LastParameter() - myGuide->FirstParameter()) / 2;

@@ -21,7 +21,7 @@
 #include <IntCurveSurface_TheCSFunctionOfHInter.hxx>
 
 class HSurfaceTool;
-class IntCurveSurface_TheHCurveTool;
+class HCurveTool2;
 class IntCurveSurface_TheCSFunctionOfHInter;
 class math_FunctionSetRoot;
 

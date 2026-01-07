@@ -624,7 +624,7 @@ gp_Pnt2d Bisector_BisecCC::ValueAndDist(const Standard_Real U,
   //-------------------------------------------------------
   // Find start parameter by using <myPolygon>.
   //-------------------------------------------------------
-  Standard_Integer IntervalIndex = myPolygon.Interval(U);
+  Standard_Integer IntervalIndex = myPolygon.Interval1(U);
   Standard_Real    UMin          = myPolygon.Value(IntervalIndex).ParamOnBis();
   Standard_Real    UMax          = myPolygon.Value(IntervalIndex + 1).ParamOnBis();
   Standard_Real    VMin          = myPolygon.Value(IntervalIndex).ParamOnC2();
@@ -1564,10 +1564,10 @@ void Bisector_BisecCC::Dump(const Standard_Integer, const Standard_Integer Offse
   std::cout << "Number Of Intervals :" << startIntervals.Length() << std::endl;
   for (Standard_Integer i = 1; i <= startIntervals.Length(); i++)
   {
-    std::cout << "Interval number :" << i << "Start :" << startIntervals.Value(i)
+    std::cout << "Interval1 number :" << i << "Start :" << startIntervals.Value(i)
               << "  end :" << endIntervals.Value(i) << std::endl;
   }
-  std::cout << "Index Current Interval :" << currentInterval << std::endl;
+  std::cout << "Index Current Interval1 :" << currentInterval << std::endl;
 }
 
 //=================================================================================================

@@ -32,12 +32,12 @@ class gp_Parab;
 
 //! Provides services to create box for infinites
 //! lines in a given contexte.
-class Intf_Tool
+class Tool1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Intf_Tool();
+  Standard_EXPORT Tool1();
 
   Standard_EXPORT void Lin2dBox(const gp_Lin2d&  theLin2d,
                                 const Bnd_Box2d& bounding,

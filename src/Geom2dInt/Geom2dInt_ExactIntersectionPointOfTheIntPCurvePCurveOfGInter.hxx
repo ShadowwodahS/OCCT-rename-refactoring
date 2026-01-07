@@ -25,8 +25,8 @@
 #include <Geom2dInt_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfGInter.hxx>
 #include <math_Vector.hxx>
 class Adaptor2d_Curve2d;
-class Geom2dInt_Geom2dCurveTool;
-class Geom2dInt_TheProjPCurOfGInter;
+class Geom2dCurveTool;
+class ProjPCurOfGInter;
 class Geom2dInt_TheIntPCurvePCurveOfGInter;
 class Geom2dInt_ThePolygon2dOfTheIntPCurvePCurveOfGInter;
 class Geom2dInt_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfGInter;

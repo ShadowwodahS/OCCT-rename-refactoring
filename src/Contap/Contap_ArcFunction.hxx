@@ -60,7 +60,7 @@ public:
 
   const Point3d& Valpoint(const Standard_Integer Index) const;
 
-  Standard_EXPORT const IntSurf_Quadric& Quadric() const;
+  Standard_EXPORT const Quadric1& Quadric() const;
 
   //! Returns mySurf field
   const Handle(Adaptor3d_Surface)& Surface() const;
@@ -80,7 +80,7 @@ private:
   Point3d                    myEye;
   Point3d                    solpt;
   TColgp_SequenceOfPnt      seqpt;
-  IntSurf_Quadric           myQuad;
+  Quadric1           myQuad;
 };
 
 #include <Contap_ArcFunction.lxx>

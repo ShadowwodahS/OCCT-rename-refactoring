@@ -25,15 +25,15 @@
 #include <Approx_ParametrizationType.hxx>
 
 class HSurfaceTool;
-class IntSurf_Quadric;
-class IntSurf_QuadricTool;
+class Quadric1;
+class QuadricTool;
 class IntPatch_WLine;
 class GeomInt_ThePrmPrmSvSurfacesOfWLApprox;
 class GeomInt_TheInt2SOfThePrmPrmSvSurfacesOfWLApprox;
 class GeomInt_TheImpPrmSvSurfacesOfWLApprox;
 class GeomInt_TheZerImpFuncOfTheImpPrmSvSurfacesOfWLApprox;
 class GeomInt_TheMultiLineOfWLApprox;
-class GeomInt_TheMultiLineToolOfWLApprox;
+class MultiLineToolWLApprox;
 class GeomInt_TheComputeLineOfWLApprox;
 class GeomInt_MyBSplGradientOfTheComputeLineOfWLApprox;
 class GeomInt_MyGradientbisOfTheComputeLineOfWLApprox;
@@ -41,12 +41,12 @@ class GeomInt_TheComputeLineBezierOfWLApprox;
 class GeomInt_MyGradientOfTheComputeLineBezierOfWLApprox;
 class AppParCurves_MultiBSpCurve;
 
-class GeomInt_WLApprox
+class WireLineApproximation
 {
 private:
-  struct Approx_Data
+  struct Approx_Data1
   {
-    Approx_Data()
+    Approx_Data1()
         : myBezierApprox(Standard_True),
           Xo(0.0),
           Yo(0.0),
@@ -75,7 +75,7 @@ private:
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT GeomInt_WLApprox();
+  Standard_EXPORT WireLineApproximation();
 
   Standard_EXPORT void Perform(const Handle(Adaptor3d_Surface)& Surf1,
                                const Handle(Adaptor3d_Surface)& Surf2,
@@ -122,7 +122,7 @@ public:
 
 protected:
 private:
-  Standard_EXPORT void Perform(const IntSurf_Quadric&           Surf1,
+  Standard_EXPORT void Perform(const Quadric1&           Surf1,
                                const Handle(Adaptor3d_Surface)& Surf2,
                                const Handle(IntPatch_WLine)&    aLine,
                                const Standard_Boolean           ApproxXYZ,
@@ -163,7 +163,7 @@ private:
   Standard_Integer                       myNbIterMax;
   Standard_Real                          myTolReached3d;
   Standard_Real                          myTolReached2d;
-  Approx_Data                            myData;
+  Approx_Data1                            myData;
   NCollection_Vector<Standard_Integer>   myKnots;
 };
 

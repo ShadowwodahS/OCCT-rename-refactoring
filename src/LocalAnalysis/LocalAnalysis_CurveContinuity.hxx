@@ -28,7 +28,7 @@ class GeomLProp_CLProps;
 
 //! This class gives tools to check local continuity C0
 //! C1 C2 G1 G2 between  two points situated on two curves
-class LocalAnalysis_CurveContinuity
+class CurveContinuity
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -122,7 +122,7 @@ public:
   //!
   //! where curvat1 is the curvature at the first point
   //! and curvat2 the curvature at the second point
-  Standard_EXPORT LocalAnalysis_CurveContinuity(const Handle(GeomCurve3d)& Curv1,
+  Standard_EXPORT CurveContinuity(const Handle(GeomCurve3d)& Curv1,
                                                 const Standard_Real       u1,
                                                 const Handle(GeomCurve3d)& Curv2,
                                                 const Standard_Real       u2,

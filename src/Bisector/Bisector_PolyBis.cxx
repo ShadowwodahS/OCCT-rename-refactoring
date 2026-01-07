@@ -78,7 +78,7 @@ const Bisector_PointOnBis& Bisector_PolyBis::Last() const
 
 //=================================================================================================
 
-Standard_Integer Bisector_PolyBis::Interval(const Standard_Real U) const
+Standard_Integer Bisector_PolyBis::Interval1(const Standard_Real U) const
 {
   if (Last().ParamOnBis() - U < gp::Resolution())
   {

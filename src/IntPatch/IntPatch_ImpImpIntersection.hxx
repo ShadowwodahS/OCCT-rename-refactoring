@@ -121,7 +121,7 @@ private:
   Standard_Boolean         oppo;
   IntPatch_SequenceOfPoint spnt;
   IntPatch_SequenceOfLine  slin;
-  IntPatch_TheSOnBounds    solrst;
+  SOnBounds    solrst;
 };
 
 #include <IntPatch_ImpImpIntersection.lxx>

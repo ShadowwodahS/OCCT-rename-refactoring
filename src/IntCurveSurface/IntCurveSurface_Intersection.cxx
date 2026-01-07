@@ -23,26 +23,26 @@
 #define PARAMEQUAL(a, b) (Abs((a) - (b)) < (1e-8))
 
 //================================================================================
-IntCurveSurface_Intersection::IntCurveSurface_Intersection()
+CurveSurfaceIntersection1::CurveSurfaceIntersection1()
     : done(Standard_False),
       myIsParallel(Standard_False)
 {
 }
 
 //================================================================================
-Standard_Boolean IntCurveSurface_Intersection::IsDone() const
+Standard_Boolean CurveSurfaceIntersection1::IsDone() const
 {
   return (done);
 }
 
 //================================================================================
-Standard_Boolean IntCurveSurface_Intersection::IsParallel() const
+Standard_Boolean CurveSurfaceIntersection1::IsParallel() const
 {
   return (myIsParallel);
 }
 
 //================================================================================
-Standard_Integer IntCurveSurface_Intersection::NbPoints() const
+Standard_Integer CurveSurfaceIntersection1::NbPoints() const
 {
   if (!done)
   {
@@ -52,7 +52,7 @@ Standard_Integer IntCurveSurface_Intersection::NbPoints() const
 }
 
 //================================================================================
-Standard_Integer IntCurveSurface_Intersection::NbSegments() const
+Standard_Integer CurveSurfaceIntersection1::NbSegments() const
 {
   if (!done)
   {
@@ -62,7 +62,7 @@ Standard_Integer IntCurveSurface_Intersection::NbSegments() const
 }
 
 //================================================================================
-const IntCurveSurface_IntersectionPoint& IntCurveSurface_Intersection::Point(
+const IntersectionPoint1& CurveSurfaceIntersection1::Point(
   const Standard_Integer N) const
 {
   if (!done)
@@ -73,7 +73,7 @@ const IntCurveSurface_IntersectionPoint& IntCurveSurface_Intersection::Point(
 }
 
 //================================================================================
-const IntCurveSurface_IntersectionSegment& IntCurveSurface_Intersection::Segment(
+const IntCurveSurface_IntersectionSegment& CurveSurfaceIntersection1::Segment(
   const Standard_Integer N) const
 {
   if (!done)
@@ -84,7 +84,7 @@ const IntCurveSurface_IntersectionSegment& IntCurveSurface_Intersection::Segment
 }
 
 //================================================================================
-void IntCurveSurface_Intersection::SetValues(const IntCurveSurface_Intersection& Other)
+void CurveSurfaceIntersection1::SetValues(const CurveSurfaceIntersection1& Other)
 {
   if (Other.done)
   {
@@ -110,7 +110,7 @@ void IntCurveSurface_Intersection::SetValues(const IntCurveSurface_Intersection&
 }
 
 //================================================================================
-void IntCurveSurface_Intersection::Append(const IntCurveSurface_Intersection& Other,
+void CurveSurfaceIntersection1::Append(const CurveSurfaceIntersection1& Other,
                                           //					  const Standard_Real a,
                                           const Standard_Real,
                                           //					  const Standard_Real b)
@@ -133,7 +133,7 @@ void IntCurveSurface_Intersection::Append(const IntCurveSurface_Intersection& Ot
 }
 
 //================================================================================
-void IntCurveSurface_Intersection::Append(const IntCurveSurface_IntersectionPoint& OtherPoint)
+void CurveSurfaceIntersection1::Append(const IntersectionPoint1& OtherPoint)
 {
   Standard_Integer                  i, ni;
   Standard_Real                     anu, anv, anw, u, v, w;
@@ -162,13 +162,13 @@ void IntCurveSurface_Intersection::Append(const IntCurveSurface_IntersectionPoin
 }
 
 //================================================================================
-void IntCurveSurface_Intersection::Append(const IntCurveSurface_IntersectionSegment& OtherSegment)
+void CurveSurfaceIntersection1::Append(const IntCurveSurface_IntersectionSegment& OtherSegment)
 {
   lseg.Append(OtherSegment);
 }
 
 //================================================================================
-void IntCurveSurface_Intersection::ResetFields()
+void CurveSurfaceIntersection1::ResetFields()
 {
   if (done)
   {
@@ -180,7 +180,7 @@ void IntCurveSurface_Intersection::ResetFields()
 }
 
 //================================================================================
-void IntCurveSurface_Intersection::Dump() const
+void CurveSurfaceIntersection1::Dump() const
 {
   if (done)
   {

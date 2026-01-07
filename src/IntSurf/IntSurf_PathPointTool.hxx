@@ -28,7 +28,7 @@ class Standard_OutOfRange;
 class StdFail_UndefinedDerivative;
 class IntSurf_PathPoint;
 
-class IntSurf_PathPointTool
+class PathPointTool
 {
 public:
   DEFINE_STANDARD_ALLOC

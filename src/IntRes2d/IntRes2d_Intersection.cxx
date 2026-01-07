@@ -23,8 +23,8 @@
 
 #define PARAMEQUAL(a, b) (Abs((a) - (b)) < (1e-8))
 
-static void InternalVerifyPosition(IntRes2d_Transition& T1,
-                                   IntRes2d_Transition& T2,
+static void InternalVerifyPosition(Transition3& T1,
+                                   Transition3& T2,
                                    const Standard_Real  PParamOnFirst,
                                    const Standard_Real  PParamOnSecond,
                                    const Standard_Real  FirstParam1,
@@ -33,10 +33,10 @@ static void InternalVerifyPosition(IntRes2d_Transition& T1,
                                    const Standard_Real  LastParam2);
 
 //----------------------------------------------------------------------
-static Standard_Boolean TransitionEqual(const IntRes2d_Transition& T1,
-                                        const IntRes2d_Transition& T2);
+static Standard_Boolean TransitionEqual(const Transition3& T1,
+                                        const Transition3& T2);
 
-Standard_Boolean TransitionEqual(const IntRes2d_Transition& T1, const IntRes2d_Transition& T2)
+Standard_Boolean TransitionEqual(const Transition3& T1, const Transition3& T2)
 {
 
   if (T1.PositionOnCurve() == T2.PositionOnCurve())
@@ -65,7 +65,7 @@ Standard_Boolean TransitionEqual(const IntRes2d_Transition& T1, const IntRes2d_T
   return (Standard_False);
 }
 
-void IntRes2d_Intersection::Insert(const IntRes2d_IntersectionPoint& Pnt)
+void Intersection2::Insert(const IntRes2d_IntersectionPoint& Pnt)
 {
   Standard_Integer n = lpnt.Length();
   if (n == 0)
@@ -113,7 +113,7 @@ void IntRes2d_Intersection::Insert(const IntRes2d_IntersectionPoint& Pnt)
   }
 }
 
-void IntRes2d_Intersection::SetValues(const IntRes2d_Intersection& Other)
+void Intersection2::SetValues(const Intersection2& Other)
 {
   Standard_Integer i;
   if (Other.done)
@@ -180,7 +180,7 @@ void IntRes2d_Intersection::SetValues(const IntRes2d_Intersection& Other)
 //--  when the Parameters U et V are between FirstParam1, EndParam1
 //--  and FirstParam2, EndParam2
 //--
-void IntRes2d_Intersection::Append(const IntRes2d_Intersection& Other,
+void Intersection2::Append(const Intersection2& Other,
                                    const Standard_Real          FirstParam1,
                                    const Standard_Real          LastParam1,
                                    const Standard_Real          FirstParam2,
@@ -198,8 +198,8 @@ void IntRes2d_Intersection::Append(const IntRes2d_Intersection& Other,
       const IntRes2d_IntersectionPoint& P              = Other.lpnt(i);
       Standard_Real                     PParamOnFirst  = P.ParamOnFirst();
       Standard_Real                     PParamOnSecond = P.ParamOnSecond();
-      IntRes2d_Transition               T1             = P.TransitionOfFirst();
-      IntRes2d_Transition               T2             = P.TransitionOfSecond();
+      Transition3               T1             = P.TransitionOfFirst();
+      Transition3               T2             = P.TransitionOfSecond();
       gp_Pnt2d                          Pt             = P.Value();
 
       InternalVerifyPosition(T1,
@@ -231,8 +231,8 @@ void IntRes2d_Intersection::Append(const IntRes2d_Intersection& Other,
 
       Standard_Real       P1PParamOnFirst  = P1.ParamOnFirst();
       Standard_Real       P1PParamOnSecond = P1.ParamOnSecond();
-      IntRes2d_Transition P1T1             = P1.TransitionOfFirst();
-      IntRes2d_Transition P1T2             = P1.TransitionOfSecond();
+      Transition3 P1T1             = P1.TransitionOfFirst();
+      Transition3 P1T2             = P1.TransitionOfSecond();
       const gp_Pnt2d&     P1Pt             = P1.Value();
 
       InternalVerifyPosition(P1T1,
@@ -248,8 +248,8 @@ void IntRes2d_Intersection::Append(const IntRes2d_Intersection& Other,
 
       Standard_Real       P2PParamOnFirst  = P2.ParamOnFirst();
       Standard_Real       P2PParamOnSecond = P2.ParamOnSecond();
-      IntRes2d_Transition P2T1             = P2.TransitionOfFirst();
-      IntRes2d_Transition P2T2             = P2.TransitionOfSecond();
+      Transition3 P2T1             = P2.TransitionOfFirst();
+      Transition3 P2T2             = P2.TransitionOfSecond();
       const gp_Pnt2d&     P2Pt             = P2.Value();
 
       Standard_Boolean Opposite = Other.lseg(i).IsOpposite();
@@ -398,9 +398,9 @@ void IntRes2d_Intersection::Append(const IntRes2d_Intersection& Other,
 #define DEBUGPOSITION 0
 
 #if DEBUGPOSITION
-void AffPosition(IntRes2d_Transition& T, const Standard_Real u, const char* Texte);
+void AffPosition(Transition3& T, const Standard_Real u, const char* Texte);
 
-void AffPosition(IntRes2d_Transition& T, const Standard_Real u, const char* Texte)
+void AffPosition(Transition3& T, const Standard_Real u, const char* Texte)
 {
   if (T.PositionOnCurve() == IntRes2d_End)
   {
@@ -417,8 +417,8 @@ void AffPosition(IntRes2d_Transition& T, const Standard_Real u, const char* Text
 }
 #endif
 
-void InternalVerifyPosition(IntRes2d_Transition& T1,
-                            IntRes2d_Transition& T2,
+void InternalVerifyPosition(Transition3& T1,
+                            Transition3& T2,
                             const Standard_Real  PParamOnFirst,
                             const Standard_Real  PParamOnSecond,
                             const Standard_Real  FirstParam1,

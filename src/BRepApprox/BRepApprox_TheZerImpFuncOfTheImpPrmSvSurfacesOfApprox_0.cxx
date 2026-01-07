@@ -30,9 +30,9 @@
 #define ThePSurface_hxx <BRepAdaptor_Surface.hxx>
 #define ThePSurfaceTool BRepApprox_SurfaceTool
 #define ThePSurfaceTool_hxx <BRepApprox_SurfaceTool.hxx>
-#define TheISurface IntSurf_Quadric
+#define TheISurface Quadric1
 #define TheISurface_hxx <IntSurf_Quadric.hxx>
-#define TheISurfaceTool IntSurf_QuadricTool
+#define TheISurfaceTool QuadricTool
 #define TheISurfaceTool_hxx <IntSurf_QuadricTool.hxx>
 #define IntImp_ZerImpFunc BRepApprox_TheZerImpFuncOfTheImpPrmSvSurfacesOfApprox
 #define IntImp_ZerImpFunc_hxx <BRepApprox_TheZerImpFuncOfTheImpPrmSvSurfacesOfApprox.hxx>

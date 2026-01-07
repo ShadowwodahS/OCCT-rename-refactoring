@@ -524,7 +524,7 @@ void StdPrs_Isolines::addOnSurface(const Handle(BRepAdaptor_Surface)& theSurface
     aHatchingTolerance = Min(1.0E-5, aHatchingTolerance);
 
     // Load isolines into hatcher.
-    Hatch_Hatcher aHatcher(aHatchingTolerance, anEdgeTool.IsOriented());
+    Hatcher aHatcher(aHatchingTolerance, anEdgeTool.IsOriented());
 
     for (Standard_Integer anIso = 1; anIso <= theUIsoParams.Length(); ++anIso)
     {

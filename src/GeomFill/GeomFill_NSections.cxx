@@ -973,7 +973,7 @@ Standard_Boolean GeomFill_NSections::IsConstant(Standard_Real& Error) const
 Handle(GeomCurve3d) GeomFill_NSections::ConstantSection() const
 {
   //  Standard_Real Err;
-  //  if (!IsConstant(Err)) throw StdFail_NotDone("The Law is not Constant!");
+  //  if (!IsConstant(Err)) throw StdFail_NotDone("The Law1 is not Constant!");
   Handle(GeomCurve3d) C;
   C = Handle(GeomCurve3d)::DownCast(mySections(1)->Copy());
   return C;
@@ -1045,7 +1045,7 @@ Handle(GeomCurve3d) GeomFill_NSections::CirclSection(const Standard_Real V) cons
 {
   Standard_Real Err;
   if (!IsConicalLaw(Err))
-    throw StdFail_NotDone("The Law is not Conical!");
+    throw StdFail_NotDone("The Law1 is not Conical!");
 
   GeomAdaptor_Curve AC1(mySections(1));
   GeomAdaptor_Curve AC2(mySections(mySections.Length()));

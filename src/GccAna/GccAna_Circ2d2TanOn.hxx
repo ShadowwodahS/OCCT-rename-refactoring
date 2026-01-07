@@ -27,9 +27,9 @@
 #include <TColgp_Array1OfPnt2d.hxx>
 #include <TColStd_Array1OfReal.hxx>
 #include <GccEnt_Position.hxx>
-class GccEnt_QualifiedCirc;
+class QualifiedCircle;
 class gp_Lin2d;
-class GccEnt_QualifiedLin;
+class QualifiedLine;
 class gp_Pnt2d;
 class gp_Circ2d;
 
@@ -51,31 +51,31 @@ public:
   //! This method implements the algorithms used to
   //! create 2d circles TANgent to two 2d circles and
   //! having the center ON a 2d line.
-  Standard_EXPORT Circle2dTwoTangentOn(const GccEnt_QualifiedCirc& Qualified1,
-                                      const GccEnt_QualifiedCirc& Qualified2,
+  Standard_EXPORT Circle2dTwoTangentOn(const QualifiedCircle& Qualified1,
+                                      const QualifiedCircle& Qualified2,
                                       const gp_Lin2d&             OnLine,
                                       const Standard_Real         Tolerance);
 
   //! This method implements the algorithms used to
   //! create 2d circles TANgent to a 2d circle and a 2d line
   //! having the center ON a 2d line.
-  Standard_EXPORT Circle2dTwoTangentOn(const GccEnt_QualifiedCirc& Qualified1,
-                                      const GccEnt_QualifiedLin&  Qualified2,
+  Standard_EXPORT Circle2dTwoTangentOn(const QualifiedCircle& Qualified1,
+                                      const QualifiedLine&  Qualified2,
                                       const gp_Lin2d&             OnLine,
                                       const Standard_Real         Tolerance);
 
   //! This method implements the algorithms used to
   //! create 2d circles TANgent to two 2d lines
   //! having the center ON a 2d line.
-  Standard_EXPORT Circle2dTwoTangentOn(const GccEnt_QualifiedLin& Qualified1,
-                                      const GccEnt_QualifiedLin& Qualified2,
+  Standard_EXPORT Circle2dTwoTangentOn(const QualifiedLine& Qualified1,
+                                      const QualifiedLine& Qualified2,
                                       const gp_Lin2d&            OnLine,
                                       const Standard_Real        Tolerance);
 
   //! This method implements the algorithms used to
   //! create 2d circles TANgent to a 2d circle and a point
   //! having the center ON a 2d line.
-  Standard_EXPORT Circle2dTwoTangentOn(const GccEnt_QualifiedCirc& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentOn(const QualifiedCircle& Qualified1,
                                       const gp_Pnt2d&             Point2,
                                       const gp_Lin2d&             OnLine,
                                       const Standard_Real         Tolerance);
@@ -83,7 +83,7 @@ public:
   //! This method implements the algorithms used to
   //! create 2d circles TANgent to a 2d line and a point
   //! having the center ON a 2d line.
-  Standard_EXPORT Circle2dTwoTangentOn(const GccEnt_QualifiedLin& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentOn(const QualifiedLine& Qualified1,
                                       const gp_Pnt2d&            Point2,
                                       const gp_Lin2d&            OnLine,
                                       const Standard_Real        Tolerance);
@@ -99,23 +99,23 @@ public:
   //! This method implements the algorithms used to
   //! create 2d circles TANgent to two 2d circles and
   //! having the center ON a 2d circle.
-  Standard_EXPORT Circle2dTwoTangentOn(const GccEnt_QualifiedCirc& Qualified1,
-                                      const GccEnt_QualifiedCirc& Qualified2,
+  Standard_EXPORT Circle2dTwoTangentOn(const QualifiedCircle& Qualified1,
+                                      const QualifiedCircle& Qualified2,
                                       const gp_Circ2d&            OnCirc,
                                       const Standard_Real         Tolerance);
 
   //! This method implements the algorithms used to
   //! create 2d circles TANgent to a circle and a line
   //! having the center ON a 2d circle.
-  Standard_EXPORT Circle2dTwoTangentOn(const GccEnt_QualifiedCirc& Qualified1,
-                                      const GccEnt_QualifiedLin&  Qualified2,
+  Standard_EXPORT Circle2dTwoTangentOn(const QualifiedCircle& Qualified1,
+                                      const QualifiedLine&  Qualified2,
                                       const gp_Circ2d&            OnCirc,
                                       const Standard_Real         Tolerance);
 
   //! This method implements the algorithms used to
   //! create 2d circles TANgent to a circle and a point
   //! having the center ON a 2d circle.
-  Standard_EXPORT Circle2dTwoTangentOn(const GccEnt_QualifiedCirc& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentOn(const QualifiedCircle& Qualified1,
                                       const gp_Pnt2d&             Point2,
                                       const gp_Circ2d&            OnCirc,
                                       const Standard_Real         Tolerance);
@@ -123,15 +123,15 @@ public:
   //! This method implements the algorithms used to
   //! create 2d circles TANgent to two 2d lines
   //! having the center ON a 2d circle.
-  Standard_EXPORT Circle2dTwoTangentOn(const GccEnt_QualifiedLin& Qualified1,
-                                      const GccEnt_QualifiedLin& Qualified2,
+  Standard_EXPORT Circle2dTwoTangentOn(const QualifiedLine& Qualified1,
+                                      const QualifiedLine& Qualified2,
                                       const gp_Circ2d&           OnCirc,
                                       const Standard_Real        Tolerance);
 
   //! This method implements the algorithms used to
   //! create 2d circles TANgent to a line and a point
   //! having the center ON a 2d circle.
-  Standard_EXPORT Circle2dTwoTangentOn(const GccEnt_QualifiedLin& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentOn(const QualifiedLine& Qualified1,
                                       const gp_Pnt2d&            Point2,
                                       const gp_Circ2d&           OnCirc,
                                       const Standard_Real        Tolerance);

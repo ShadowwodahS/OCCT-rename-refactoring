@@ -26,19 +26,19 @@
 #include <TColStd_HArray2OfReal.hxx>
 #include <math_Vector.hxx>
 
-GeomFill_PolynomialConvertor::GeomFill_PolynomialConvertor()
+PolynomialConverter::PolynomialConverter()
     : Ordre(8),
       myinit(Standard_False),
       BH(1, Ordre, 1, Ordre)
 {
 }
 
-Standard_Boolean GeomFill_PolynomialConvertor::Initialized() const
+Standard_Boolean PolynomialConverter::Initialized() const
 {
   return myinit;
 }
 
-void GeomFill_PolynomialConvertor::Init()
+void PolynomialConverter::Init()
 {
   if (myinit)
     return; // On n'initialise qu'une fois
@@ -98,7 +98,7 @@ void GeomFill_PolynomialConvertor::Init()
   BH = B * H;
 }
 
-void GeomFill_PolynomialConvertor::Section(const Point3d&       FirstPnt,
+void PolynomialConverter::Section(const Point3d&       FirstPnt,
                                            const Point3d&       Center,
                                            const Vector3d&       Dir,
                                            const Standard_Real Angle,
@@ -149,7 +149,7 @@ void GeomFill_PolynomialConvertor::Section(const Point3d&       FirstPnt,
   }
 }
 
-void GeomFill_PolynomialConvertor::Section(const Point3d&       FirstPnt,
+void PolynomialConverter::Section(const Point3d&       FirstPnt,
                                            const Vector3d&       DFirstPnt,
                                            const Point3d&       Center,
                                            const Vector3d&       DCenter,
@@ -233,7 +233,7 @@ void GeomFill_PolynomialConvertor::Section(const Point3d&       FirstPnt,
   }
 }
 
-void GeomFill_PolynomialConvertor::Section(const Point3d&       FirstPnt,
+void PolynomialConverter::Section(const Point3d&       FirstPnt,
                                            const Vector3d&       DFirstPnt,
                                            const Vector3d&       D2FirstPnt,
                                            const Point3d&       Center,

@@ -20,7 +20,7 @@
 
 //=================================================================================================
 
-void IntPolyh_Tools::IsEnlargePossible(const Handle(Adaptor3d_Surface)& theSurf,
+void Tools4::IsEnlargePossible(const Handle(Adaptor3d_Surface)& theSurf,
                                        Standard_Boolean&                theUEnlarge,
                                        Standard_Boolean&                theVEnlarge)
 {
@@ -66,7 +66,7 @@ static void EnlargeZone(const Handle(Adaptor3d_Surface)& theSurf,
                         Standard_Real&                   v1)
 {
   Standard_Boolean isToEnlargeU, isToEnlargeV;
-  IntPolyh_Tools::IsEnlargePossible(theSurf, isToEnlargeU, isToEnlargeV);
+  Tools4::IsEnlargePossible(theSurf, isToEnlargeU, isToEnlargeV);
   // Enlarge U
   if (isToEnlargeU)
   {
@@ -85,7 +85,7 @@ static void EnlargeZone(const Handle(Adaptor3d_Surface)& theSurf,
 
 //=================================================================================================
 
-void IntPolyh_Tools::MakeSampling(const Handle(Adaptor3d_Surface)& theSurf,
+void Tools4::MakeSampling(const Handle(Adaptor3d_Surface)& theSurf,
                                   const Standard_Integer           theNbSU,
                                   const Standard_Integer           theNbSV,
                                   const Standard_Boolean           theEnlargeZone,
@@ -138,7 +138,7 @@ void IntPolyh_Tools::MakeSampling(const Handle(Adaptor3d_Surface)& theSurf,
 
 //=================================================================================================
 
-Standard_Real IntPolyh_Tools::ComputeDeflection(const Handle(Adaptor3d_Surface)& theSurf,
+Standard_Real Tools4::ComputeDeflection(const Handle(Adaptor3d_Surface)& theSurf,
                                                 const TColStd_Array1OfReal&      theUPars,
                                                 const TColStd_Array1OfReal&      theVPars)
 {
@@ -149,7 +149,7 @@ Standard_Real IntPolyh_Tools::ComputeDeflection(const Handle(Adaptor3d_Surface)&
 
 //=================================================================================================
 
-void IntPolyh_Tools::FillArrayOfPointNormal(const Handle(Adaptor3d_Surface)& theSurf,
+void Tools4::FillArrayOfPointNormal(const Handle(Adaptor3d_Surface)& theSurf,
                                             const TColStd_Array1OfReal&      theUPars,
                                             const TColStd_Array1OfReal&      theVPars,
                                             IntPolyh_ArrayOfPointNormal&     thePoints)
@@ -182,7 +182,7 @@ void IntPolyh_Tools::FillArrayOfPointNormal(const Handle(Adaptor3d_Surface)& the
       }
 
       // Save the pair
-      IntPolyh_PointNormal& aPN = thePoints[iCnt];
+      PointNormal& aPN = thePoints[iCnt];
       aPN.Point                 = aP;
       aPN.Normal                = aVNorm;
 

@@ -38,9 +38,9 @@ class HLRBRep_TheIntPCurvePCurveOfCInter;
 class HLRBRep_ThePolygon2dOfTheIntPCurvePCurveOfCInter;
 class HLRBRep_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfCInter;
 class HLRBRep_ExactIntersectionPointOfTheIntPCurvePCurveOfCInter;
-class IntRes2d_Domain;
+class Domain2;
 
-class HLRBRep_CInter : public IntRes2d_Intersection
+class HLRBRep_CInter : public Intersection2
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -53,7 +53,7 @@ public:
 
   //! Self Intersection of a curve with a domain.
   HLRBRep_CInter(const Standard_Address& C,
-                 const IntRes2d_Domain&  D,
+                 const Domain2&  D,
                  const Standard_Real     TolConf,
                  const Standard_Real     Tol);
 
@@ -65,7 +65,7 @@ public:
 
   //! Intersection between 2 curves.
   HLRBRep_CInter(const Standard_Address& C1,
-                 const IntRes2d_Domain&  D1,
+                 const Domain2&  D1,
                  const Standard_Address& C2,
                  const Standard_Real     TolConf,
                  const Standard_Real     Tol);
@@ -73,23 +73,23 @@ public:
   //! Intersection between 2 curves.
   HLRBRep_CInter(const Standard_Address& C1,
                  const Standard_Address& C2,
-                 const IntRes2d_Domain&  D2,
+                 const Domain2&  D2,
                  const Standard_Real     TolConf,
                  const Standard_Real     Tol);
 
   //! Intersection between 2 curves.
   HLRBRep_CInter(const Standard_Address& C1,
-                 const IntRes2d_Domain&  D1,
+                 const Domain2&  D1,
                  const Standard_Address& C2,
-                 const IntRes2d_Domain&  D2,
+                 const Domain2&  D2,
                  const Standard_Real     TolConf,
                  const Standard_Real     Tol);
 
   //! Intersection between 2 curves.
   Standard_EXPORT void Perform(const Standard_Address& C1,
-                               const IntRes2d_Domain&  D1,
+                               const Domain2&  D1,
                                const Standard_Address& C2,
-                               const IntRes2d_Domain&  D2,
+                               const Domain2&  D2,
                                const Standard_Real     TolConf,
                                const Standard_Real     Tol);
 
@@ -101,7 +101,7 @@ public:
 
   //! Intersection between 2 curves.
   Standard_EXPORT void Perform(const Standard_Address& C1,
-                               const IntRes2d_Domain&  D1,
+                               const Domain2&  D1,
                                const Standard_Real     TolConf,
                                const Standard_Real     Tol);
 
@@ -112,7 +112,7 @@ public:
 
   //! Intersection between 2 curves.
   void Perform(const Standard_Address& C1,
-               const IntRes2d_Domain&  D1,
+               const Domain2&  D1,
                const Standard_Address& C2,
                const Standard_Real     TolConf,
                const Standard_Real     Tol);
@@ -120,12 +120,12 @@ public:
   //! Intersection between 2 curves.
   void Perform(const Standard_Address& C1,
                const Standard_Address& C2,
-               const IntRes2d_Domain&  D2,
+               const Domain2&  D2,
                const Standard_Real     TolConf,
                const Standard_Real     Tol);
 
   //! Create a domain from a curve
-  Standard_EXPORT IntRes2d_Domain ComputeDomain(const Standard_Address& C1,
+  Standard_EXPORT Domain2 ComputeDomain(const Standard_Address& C1,
                                                 const Standard_Real     TolDomain) const;
 
   //! Set / get minimum number of points in polygon intersection.
@@ -136,9 +136,9 @@ protected:
 private:
   //! Intersection between 2 curves.
   Standard_EXPORT void InternalPerform(const Standard_Address& C1,
-                                       const IntRes2d_Domain&  D1,
+                                       const Domain2&  D1,
                                        const Standard_Address& C2,
-                                       const IntRes2d_Domain&  D2,
+                                       const Domain2&  D2,
                                        const Standard_Real     TolConf,
                                        const Standard_Real     Tol,
                                        const Standard_Boolean  Composite);
@@ -148,23 +148,23 @@ private:
                                                          const Standard_Address&     C1,
                                                          const Standard_Integer      NumInterC1,
                                                          const TColStd_Array1OfReal& Tab1,
-                                                         const IntRes2d_Domain&      D1,
+                                                         const Domain2&      D1,
                                                          const Standard_Integer      NbInterC2,
                                                          const Standard_Address&     C2,
                                                          const Standard_Integer      NumInterC2,
                                                          const TColStd_Array1OfReal& Tab2,
-                                                         const IntRes2d_Domain&      D2,
+                                                         const Domain2&      D2,
                                                          const Standard_Real         TolConf,
                                                          const Standard_Real         Tol);
 
   //! Intersection between 2 curves.
   Standard_EXPORT void InternalCompositePerform(const Standard_Address&     C1,
-                                                const IntRes2d_Domain&      D1,
+                                                const Domain2&      D1,
                                                 const Standard_Integer      N1,
                                                 const Standard_Integer      NB1,
                                                 const TColStd_Array1OfReal& Tab1,
                                                 const Standard_Address&     C2,
-                                                const IntRes2d_Domain&      D2,
+                                                const Domain2&      D2,
                                                 const Standard_Integer      N2,
                                                 const Standard_Integer      NB2,
                                                 const TColStd_Array1OfReal& Tab2,

@@ -112,7 +112,7 @@ void HLRBRep_Intersector::Perform(const Standard_Address A1,
   myC1->D0(b, pb);
   a = myC1->Parameter2d(a);
   b = myC1->Parameter2d(b);
-  IntRes2d_Domain D1(pa, a, (Standard_Real)ta, pb, b, (Standard_Real)tb);
+  Domain2 D1(pa, a, (Standard_Real)ta, pb, b, (Standard_Real)tb);
 
   // modified by jgv, 18.04.2016 for OCC27341
   // tol = (Standard_Real)(((HLRBRep_EdgeData*) A1)->Tolerance());
@@ -253,7 +253,7 @@ void HLRBRep_Intersector::Perform(const Standard_Integer /*nA*/,
     if (tb > tol)
       tb = (Standard_ShortReal)tol;
 
-    IntRes2d_Domain D1(pa1, a1, (Standard_Real)ta, pb1, b1, (Standard_Real)tb);
+    Domain2 D1(pa1, a1, (Standard_Real)ta, pb1, b1, (Standard_Real)tb);
 
     ((HLRBRep_EdgeData*)A2)->Status().Bounds(a2, ta, b2, tb);
     mtol = tol;
@@ -336,7 +336,7 @@ void HLRBRep_Intersector::Perform(const Standard_Integer /*nA*/,
     if (tb > tol)
       tb = (Standard_ShortReal)tol;
 
-    IntRes2d_Domain D2(pa2, a2, (Standard_Real)ta, pb2, b2, (Standard_Real)tb);
+    Domain2 D2(pa2, a2, (Standard_Real)ta, pb2, b2, (Standard_Real)tb);
 
     if (EnBout)
     {
@@ -467,11 +467,11 @@ void HLRBRep_Intersector::SimulateOnePoint(const Standard_Address A1,
   myC1->D1(u3, P13, T13);
   myC2->D1(v3, P23, T23);
 
-  IntRes2d_Transition Tr1, Tr2;
+  Transition3 Tr1, Tr2;
   IntRes2d_Position   Pos1, Pos2;
   Pos1 = Pos2 = IntRes2d_Middle;
 
-  IntImpParGen::DetermineTransition(Pos1, T13, Tr1, Pos2, T23, Tr2, 0.0);
+  IntImpParGen1::DetermineTransition(Pos1, T13, Tr1, Pos2, T23, Tr2, 0.0);
   myTypePerform = 0;
   mySinglePoint.SetValues(P13, u, v, Tr1, Tr2, Standard_False);
 }
@@ -646,7 +646,7 @@ const IntRes2d_IntersectionPoint& HLRBRep_Intersector::Point(const Standard_Inte
 
 //=================================================================================================
 
-const IntCurveSurface_IntersectionPoint& HLRBRep_Intersector::CSPoint(
+const IntersectionPoint1& HLRBRep_Intersector::CSPoint(
   const Standard_Integer N) const
 {
   return myCSIntersector.Point(N);
@@ -737,7 +737,7 @@ void  HLRBRep_Intersector::Perform (const Standard_Integer nA,
   if(tb>tol) tb=tol;
 
 
-  IntRes2d_Domain D1(pa,a,(Standard_Real)ta,pb,b,(Standard_Real)tb);
+  Domain2 D1(pa,a,(Standard_Real)ta,pb,b,(Standard_Real)tb);
 
   ((HLRBRep_EdgeData*) A2)->Status().Bounds(a,ta,b,tb);
   mtol = tol;
@@ -761,7 +761,7 @@ void  HLRBRep_Intersector::Perform (const Standard_Integer nA,
   if(tb>tol) tb=tol;
 
 
- IntRes2d_Domain D2(pa,a,(Standard_Real)ta,pb,b,(Standard_Real)tb);
+ Domain2 D2(pa,a,(Standard_Real)ta,pb,b,(Standard_Real)tb);
 
   myIntersector.Perform(myC1,D1,myC2,D2,tol,tol);
 

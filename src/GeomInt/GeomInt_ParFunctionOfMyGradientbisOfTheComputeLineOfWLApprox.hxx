@@ -30,9 +30,9 @@
 #include <math_MultipleVarFunctionWithGradient.hxx>
 #include <AppParCurves_Constraint.hxx>
 class GeomInt_TheMultiLineOfWLApprox;
-class GeomInt_TheMultiLineToolOfWLApprox;
+class MultiLineToolWLApprox;
 class GeomInt_ParLeastSquareOfMyGradientbisOfTheComputeLineOfWLApprox;
-class GeomInt_ResConstraintOfMyGradientbisOfTheComputeLineOfWLApprox;
+class ResConstraintGradientbisLine;
 class AppParCurves_MultiCurve;
 
 class GeomInt_ParFunctionOfMyGradientbisOfTheComputeLineOfWLApprox

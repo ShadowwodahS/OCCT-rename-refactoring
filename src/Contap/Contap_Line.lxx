@@ -29,7 +29,7 @@ inline const Handle(IntSurf_LineOn2S)& Contap_Line::LineOn2S() const
   return curv;
 }
 
-inline void Contap_Line::Add(const IntSurf_PntOn2S& POn2S)
+inline void Contap_Line::Add(const PointOn2Surfaces& POn2S)
 {
   curv->Add(POn2S);
 }
@@ -58,7 +58,7 @@ inline Standard_Integer Contap_Line::NbPnts() const
   return (curv->NbPoints());
 }
 
-inline const IntSurf_PntOn2S& Contap_Line::Point(const Standard_Integer Index) const
+inline const PointOn2Surfaces& Contap_Line::Point(const Standard_Integer Index) const
 {
   if (typL != Contap_Walking)
   {

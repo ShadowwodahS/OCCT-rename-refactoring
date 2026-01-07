@@ -26,12 +26,12 @@
 BlendFunc_EvolRadInv::BlendFunc_EvolRadInv(const Handle(Adaptor3d_Surface)& S1,
                                            const Handle(Adaptor3d_Surface)& S2,
                                            const Handle(Adaptor3d_Curve)&   C,
-                                           const Handle(Law_Function)&      Law)
+                                           const Handle(Law_Function)&      Law1)
     : surf1(S1),
       surf2(S2),
       curv(C)
 {
-  fevol = Law;
+  fevol = Law1;
 }
 
 void BlendFunc_EvolRadInv::Set(const Standard_Integer Choix)

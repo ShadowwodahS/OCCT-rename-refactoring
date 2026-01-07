@@ -32,7 +32,7 @@
 #define ThePSurfaceTool_hxx <Adaptor3d_HSurfaceTool.hxx>
 #define TheCurve Handle(Adaptor2d_Curve2d)
 #define TheCurve_hxx <Adaptor2d_Curve2d.hxx>
-#define TheCurveTool IntPatch_HCurve2dTool
+#define TheCurveTool HCurve2dTool1
 #define TheCurveTool_hxx <IntPatch_HCurve2dTool.hxx>
 #define TheFunction IntPatch_CSFunction
 #define TheFunction_hxx <IntPatch_CSFunction.hxx>

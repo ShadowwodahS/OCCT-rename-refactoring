@@ -629,7 +629,7 @@ static Standard_Boolean Intersect(const TopoWire&         wir1,
   gp_Pnt2d            pfirst1, plast1, pfirst2, plast2;
   Standard_Real       first1, last1, first2, last2;
   Geom2dInt_GInter    Inter;
-  IntRes2d_Domain     myDomain1, myDomain2;
+  Domain2     myDomain1, myDomain2;
   Bnd_Box2d           Box1, Box2;
 
   for (exp1.Init(wir1, TopAbs_EDGE); exp1.More(); exp1.Next())

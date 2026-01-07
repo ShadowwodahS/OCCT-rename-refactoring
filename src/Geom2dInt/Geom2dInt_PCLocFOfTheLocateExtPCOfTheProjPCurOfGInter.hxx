@@ -30,7 +30,7 @@
 class Standard_OutOfRange;
 class Standard_TypeMismatch;
 class Adaptor2d_Curve2d;
-class Geom2dInt_Geom2dCurveTool;
+class Geom2dCurveTool;
 class Extrema_POnCurv2d;
 class gp_Pnt2d;
 class gp_Vec2d;

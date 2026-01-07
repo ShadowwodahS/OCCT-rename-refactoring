@@ -24,14 +24,14 @@
 #include <Standard_Real.hxx>
 #include <TopAbs_Orientation.hxx>
 
-class GeomInt_ParameterAndOrientation
+class ParameterAndOrientation
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT GeomInt_ParameterAndOrientation();
+  Standard_EXPORT ParameterAndOrientation();
 
-  Standard_EXPORT GeomInt_ParameterAndOrientation(const Standard_Real      P,
+  Standard_EXPORT ParameterAndOrientation(const Standard_Real      P,
                                                   const TopAbs_Orientation Or1,
                                                   const TopAbs_Orientation Or2);
 

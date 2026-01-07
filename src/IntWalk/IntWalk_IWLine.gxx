@@ -30,7 +30,7 @@ void IntWalk_IWLine::Reverse()
   Standard_Integer N = line->NbPoints();
   Standard_Integer NbCouple = couple.Length();
   for (Standard_Integer i = 1; i <= NbCouple; i++) {
-    couple(i) = IntSurf_Couple(N - couple(i).First() + 1,
+    couple(i) = Couple1(N - couple(i).First() + 1,
 			       couple(i).Second());
   }
 }

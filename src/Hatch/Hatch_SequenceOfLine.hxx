@@ -20,6 +20,6 @@
 #include <Hatch_Line.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<Hatch_Line> Hatch_SequenceOfLine;
+typedef NCollection_Sequence<HatchLine> Hatch_SequenceOfLine;
 
 #endif

@@ -915,7 +915,7 @@ TopoEdge ChFi2d_Builder::BuildFilletEdge(const TopoVertex& V,
   } // else ...
 
   Standard_Real           Tol = Precision::Confusion();
-  Geom2dGcc_Circ2d2TanRad Fillet(Geom2dGcc_QualifiedCurve(basisC1, Qual1),
+  Circ2d2TanRad1 Fillet(Geom2dGcc_QualifiedCurve(basisC1, Qual1),
                                  Geom2dGcc_QualifiedCurve(basisC2, Qual2),
                                  Radius,
                                  Tol);

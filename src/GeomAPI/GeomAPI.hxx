@@ -26,7 +26,7 @@
 
 class gp_Pln;
 
-//! The   GeomAPI   package  provides  an  Application
+//! The   GeomAPI1   package  provides  an  Application
 //! Programming Interface for the Geometry.
 //!
 //! The API is a set of  classes and methods aiming to
@@ -60,7 +60,7 @@ class gp_Pln;
 //!
 //! GeomAPI_ProjectPointOnCurve PonC(P,C);
 //! D = PonC.LowerDistance();
-class GeomAPI
+class GeomAPI1
 {
 public:
   DEFINE_STANDARD_ALLOC

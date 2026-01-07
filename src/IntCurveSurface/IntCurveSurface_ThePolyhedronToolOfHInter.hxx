@@ -28,7 +28,7 @@ class IntCurveSurface_ThePolyhedronOfHInter;
 class Bnd_Box;
 class Point3d;
 
-class IntCurveSurface_ThePolyhedronToolOfHInter
+class PolyhedronToolHInter
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -92,7 +92,7 @@ private:
 
 #define ThePolyhedron IntCurveSurface_ThePolyhedronOfHInter
 #define ThePolyhedron_hxx <IntCurveSurface_ThePolyhedronOfHInter.hxx>
-#define IntCurveSurface_PolyhedronTool IntCurveSurface_ThePolyhedronToolOfHInter
+#define IntCurveSurface_PolyhedronTool PolyhedronToolHInter
 #define IntCurveSurface_PolyhedronTool_hxx <IntCurveSurface_ThePolyhedronToolOfHInter.hxx>
 
 #include <IntCurveSurface_PolyhedronTool.lxx>

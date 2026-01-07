@@ -27,8 +27,8 @@
 #include <IntAna2d_AnaIntersection.hxx>
 #include <IntAna2d_IntPoint.hxx>
 
-Circle2dTwoTangentOn::Circle2dTwoTangentOn(const GccEnt_QualifiedLin& Qualified1,
-                                         const GccEnt_QualifiedLin& Qualified2,
+Circle2dTwoTangentOn::Circle2dTwoTangentOn(const QualifiedLine& Qualified1,
+                                         const QualifiedLine& Qualified2,
                                          const gp_Lin2d&            OnLine,
                                          const Standard_Real        Tolerance)
     : cirsol(1, 2),

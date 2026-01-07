@@ -1138,13 +1138,13 @@ Standard_Boolean WireHealer::FixGap2d(const Standard_Integer num, const Standard
       Geom2dAdaptor_Curve AC1(pc1), AC2(pc2);
 
       // Try to find intersection points
-      IntRes2d_Domain dom1(pc1->Value(domfirst1),
+      Domain2 dom1(pc1->Value(domfirst1),
                            domfirst1,
                            tolint,
                            pc1->Value(domlast1),
                            domlast1,
                            tolint);
-      IntRes2d_Domain dom2(pc2->Value(domfirst2),
+      Domain2 dom2(pc2->Value(domfirst2),
                            domfirst2,
                            tolint,
                            pc2->Value(domlast2),
@@ -1498,7 +1498,7 @@ Standard_Boolean WireHealer::FixGap2d(const Standard_Integer num, const Standard
                 // Intersect pcurve with bounding line
                 Handle(Geom2d_Line) lin = new Geom2d_Line(P1, gp_Dir2d(gp_Vec2d(P1, P2)));
                 Geom2dAdaptor_Curve ACL(lin);
-                IntRes2d_Domain     dlin(P1, 0., tolint, P2, P1.Distance(P2), tolint);
+                Domain2     dlin(P1, 0., tolint, P2, P1.Distance(P2), tolint);
 
                 Handle(GeomCurve2d) pc;
                 Standard_Real        fpar, lpar;
@@ -1527,7 +1527,7 @@ Standard_Boolean WireHealer::FixGap2d(const Standard_Integer num, const Standard
                   pc = pc2;
                 }
                 Geom2dAdaptor_Curve ACC(pc);
-                IntRes2d_Domain domc(pc->Value(fpar), fpar, tolint, pc->Value(lpar), lpar, tolint);
+                Domain2 domc(pc->Value(fpar), fpar, tolint, pc->Value(lpar), lpar, tolint);
 
                 // Intersect line with the pcurve
                 Inter.Perform(ACL, dlin, ACC, domc, tolint, tolint);

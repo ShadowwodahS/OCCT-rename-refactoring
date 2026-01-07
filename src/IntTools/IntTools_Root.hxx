@@ -95,7 +95,7 @@ public:
   //! Returns the values of interval  from which the Root was
   //! found [t1,t2] and the  corresponding  values
   //! of  the  function  on  the  bounds f(t1), f(t2).
-  Standard_EXPORT void Interval(Standard_Real& t1,
+  Standard_EXPORT void Interval1(Standard_Real& t1,
                                 Standard_Real& t2,
                                 Standard_Real& f1,
                                 Standard_Real& f2) const;

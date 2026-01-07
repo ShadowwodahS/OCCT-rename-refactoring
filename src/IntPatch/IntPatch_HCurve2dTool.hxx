@@ -31,7 +31,7 @@ class gp_Vec2d;
 class Geom2d_BezierCurve;
 class Geom2d_BSplineCurve;
 
-class IntPatch_HCurve2dTool
+class HCurve2dTool1
 {
 public:
   DEFINE_STANDARD_ALLOC

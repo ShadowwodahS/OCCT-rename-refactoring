@@ -26,7 +26,7 @@ class Point3d;
 class IntCurveSurface_ThePolygonOfHInter;
 class Bnd_Box;
 
-class IntCurveSurface_ThePolygonToolOfHInter
+class PolygonToolHInter
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -61,7 +61,7 @@ private:
 #define ThePolygon_hxx <IntCurveSurface_ThePolygonOfHInter.hxx>
 #define TheBoundingBox Bnd_Box
 #define TheBoundingBox_hxx <Bnd_Box.hxx>
-#define IntCurveSurface_PolygonTool IntCurveSurface_ThePolygonToolOfHInter
+#define IntCurveSurface_PolygonTool PolygonToolHInter
 #define IntCurveSurface_PolygonTool_hxx <IntCurveSurface_ThePolygonToolOfHInter.hxx>
 
 #include <IntCurveSurface_PolygonTool.lxx>

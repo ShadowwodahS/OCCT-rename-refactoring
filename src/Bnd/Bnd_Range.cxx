@@ -95,7 +95,7 @@ Standard_Integer Bnd_Range::IsIntersected(const Standard_Real theVal,
   const Standard_Integer aPar1 = static_cast<Standard_Integer>(Floor(aVal1));
   const Standard_Integer aPar2 = static_cast<Standard_Integer>(Floor(aVal2));
   if (aPar1 != aPar2)
-  { // Interval (myFirst, myLast] intersects seam-edge
+  { // Interval1 (myFirst, myLast] intersects seam-edge
     if (IsEqual(aVal2, static_cast<Standard_Real>(aPar2)))
     { // aVal2 is an integer number => myLast lies ON the "seam-edge"
       return 2;

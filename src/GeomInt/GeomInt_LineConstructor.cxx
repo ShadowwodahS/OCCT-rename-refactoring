@@ -121,11 +121,11 @@ void GeomInt_LineConstructor::Perform(const Handle(IntPatch_Line)& L)
     Standard_Real          u1, v1, u2, v2;
     Handle(IntPatch_ALine) ALine(Handle(IntPatch_ALine)::DownCast(L));
     seqp.Clear();
-    nbvtx = GeomInt_LineTool::NbVertex(L);
+    nbvtx = LineTool2::NbVertex(L);
     for (i = 1; i < nbvtx; i++)
     {
-      firstp = GeomInt_LineTool::Vertex(L, i).ParameterOnLine();
-      lastp  = GeomInt_LineTool::Vertex(L, i + 1).ParameterOnLine();
+      firstp = LineTool2::Vertex(L, i).ParameterOnLine();
+      lastp  = LineTool2::Vertex(L, i + 1).ParameterOnLine();
       if (firstp != lastp)
       {
         const Standard_Real pmid = (firstp + lastp) * 0.5;
@@ -152,17 +152,17 @@ void GeomInt_LineConstructor::Perform(const Handle(IntPatch_Line)& L)
     Standard_Real          u1, v1, u2, v2;
     Handle(IntPatch_WLine) WLine(Handle(IntPatch_WLine)::DownCast(L));
     seqp.Clear();
-    nbvtx = GeomInt_LineTool::NbVertex(L);
+    nbvtx = LineTool2::NbVertex(L);
     for (i = 1; i < nbvtx; i++)
     {
-      firstp = GeomInt_LineTool::Vertex(L, i).ParameterOnLine();
-      lastp  = GeomInt_LineTool::Vertex(L, i + 1).ParameterOnLine();
+      firstp = LineTool2::Vertex(L, i).ParameterOnLine();
+      lastp  = LineTool2::Vertex(L, i + 1).ParameterOnLine();
       if (firstp != lastp)
       {
         if (lastp != firstp + 1)
         {
           const Standard_Integer pmid = (Standard_Integer)((firstp + lastp) / 2);
-          const IntSurf_PntOn2S& Pmid = WLine->Point(pmid);
+          const PointOn2Surfaces& Pmid = WLine->Point(pmid);
           Pmid.Parameters(u1, v1, u2, v2);
           AdjustPeriodic(myHS1, myHS2, u1, v1, u2, v2);
           const TopAbs_State in1 = myDom1->Classify(gp_Pnt2d(u1, v1), Tol);
@@ -198,8 +198,8 @@ void GeomInt_LineConstructor::Perform(const Handle(IntPatch_Line)& L)
             // applied in this case.
 
             Standard_Real          aU21, aV21, aU22, aV22;
-            const IntSurf_PntOn2S& aPfirst = WLine->Point((Standard_Integer)(firstp));
-            const IntSurf_PntOn2S& aPlast  = WLine->Point((Standard_Integer)(lastp));
+            const PointOn2Surfaces& aPfirst = WLine->Point((Standard_Integer)(firstp));
+            const PointOn2Surfaces& aPlast  = WLine->Point((Standard_Integer)(lastp));
             aPfirst.Parameters(u1, v1, u2, v2);
             AdjustPeriodic(myHS1, myHS2, u1, v1, u2, v2);
             aPlast.Parameters(aU21, aV21, aU22, aV22);
@@ -223,7 +223,7 @@ void GeomInt_LineConstructor::Perform(const Handle(IntPatch_Line)& L)
           }
           else
           {
-            const IntSurf_PntOn2S& Pfirst = WLine->Point((Standard_Integer)(firstp));
+            const PointOn2Surfaces& Pfirst = WLine->Point((Standard_Integer)(firstp));
             Pfirst.Parameters(u1, v1, u2, v2);
             AdjustPeriodic(myHS1, myHS2, u1, v1, u2, v2);
             TopAbs_State in1 = myDom1->Classify(gp_Pnt2d(u1, v1), Tol);
@@ -232,7 +232,7 @@ void GeomInt_LineConstructor::Perform(const Handle(IntPatch_Line)& L)
               TopAbs_State in2 = myDom2->Classify(gp_Pnt2d(u2, v2), Tol);
               if (in2 != TopAbs_OUT)
               {
-                const IntSurf_PntOn2S& Plast = WLine->Point((Standard_Integer)(lastp));
+                const PointOn2Surfaces& Plast = WLine->Point((Standard_Integer)(lastp));
                 Plast.Parameters(u1, v1, u2, v2);
                 AdjustPeriodic(myHS1, myHS2, u1, v1, u2, v2);
                 in1 = myDom1->Classify(gp_Pnt2d(u1, v1), Tol);
@@ -343,12 +343,12 @@ void GeomInt_LineConstructor::Perform(const Handle(IntPatch_Line)& L)
     Standard_Boolean intrvtested;
     Standard_Real    u1, v1, u2, v2;
     //
-    nbvtx       = GeomInt_LineTool::NbVertex(L);
+    nbvtx       = LineTool2::NbVertex(L);
     intrvtested = Standard_False;
     for (i = 1; i < nbvtx; ++i)
     {
-      firstp = GeomInt_LineTool::Vertex(L, i).ParameterOnLine();
-      lastp  = GeomInt_LineTool::Vertex(L, i + 1).ParameterOnLine();
+      firstp = LineTool2::Vertex(L, i).ParameterOnLine();
+      lastp  = LineTool2::Vertex(L, i + 1).ParameterOnLine();
       if (Abs(firstp - lastp) > Precision::PConfusion())
       {
         intrvtested              = Standard_True;
@@ -375,8 +375,8 @@ void GeomInt_LineConstructor::Perform(const Handle(IntPatch_Line)& L)
     {
       // Keep a priori. A point 2d on each
       // surface is required to make the decision. Will be done in the caller
-      seqp.Append(GeomInt_LineTool::FirstParameter(L));
-      seqp.Append(GeomInt_LineTool::LastParameter(L));
+      seqp.Append(LineTool2::FirstParameter(L));
+      seqp.Append(LineTool2::LastParameter(L));
     }
     //
     done = Standard_True;
@@ -385,12 +385,12 @@ void GeomInt_LineConstructor::Perform(const Handle(IntPatch_Line)& L)
 
   done = Standard_False;
   seqp.Clear();
-  nbvtx = GeomInt_LineTool::NbVertex(L);
+  nbvtx = LineTool2::NbVertex(L);
   if (nbvtx == 0)
   { // Keep a priori. Point 2d is required on each
     // surface to make the decision. Will be done in the caller
-    seqp.Append(GeomInt_LineTool::FirstParameter(L));
-    seqp.Append(GeomInt_LineTool::LastParameter(L));
+    seqp.Append(LineTool2::FirstParameter(L));
+    seqp.Append(LineTool2::LastParameter(L));
     done = Standard_True;
     return;
   }
@@ -400,7 +400,7 @@ void GeomInt_LineConstructor::Perform(const Handle(IntPatch_Line)& L)
 
   for (i = 1; i <= nbvtx; i++)
   {
-    const IntPatch_Point& thevtx = GeomInt_LineTool::Vertex(L, i);
+    const IntPatch_Point& thevtx = LineTool2::Vertex(L, i);
     const Standard_Real   prm    = thevtx.ParameterOnLine();
     if (thevtx.IsOnDomS1())
     {
@@ -455,7 +455,7 @@ void GeomInt_LineConstructor::Perform(const Handle(IntPatch_Line)& L)
       if (Abs(prm - seqpss(j).Parameter()) <= Tol)
       {
         // accumulate
-        GeomInt_ParameterAndOrientation& valj = seqpss.ChangeValue(j);
+        ParameterAndOrientation& valj = seqpss.ChangeValue(j);
         if (or1 != TopAbs_INTERNAL)
         {
           if (valj.Orientation1() != TopAbs_INTERNAL)
@@ -492,14 +492,14 @@ void GeomInt_LineConstructor::Perform(const Handle(IntPatch_Line)& L)
       if (prm < seqpss(j).Parameter() - Tol)
       {
         // insert before position j
-        seqpss.InsertBefore(j, GeomInt_ParameterAndOrientation(prm, or1, or2));
+        seqpss.InsertBefore(j, ParameterAndOrientation(prm, or1, or2));
         inserted = Standard_True;
         break;
       }
     }
     if (!inserted)
     {
-      seqpss.Append(GeomInt_ParameterAndOrientation(prm, or1, or2));
+      seqpss.Append(ParameterAndOrientation(prm, or1, or2));
     }
   }
 
@@ -523,11 +523,11 @@ void GeomInt_LineConstructor::Perform(const Handle(IntPatch_Line)& L)
   if (i > nbvtx)
   {
     Standard_Real U, V;
-    for (i = 1; i <= GeomInt_LineTool::NbVertex(L); i++)
+    for (i = 1; i <= LineTool2::NbVertex(L); i++)
     {
-      if (!GeomInt_LineTool::Vertex(L, i).IsOnDomS1())
+      if (!LineTool2::Vertex(L, i).IsOnDomS1())
       {
-        GeomInt_LineTool::Vertex(L, i).ParametersOnS1(U, V);
+        LineTool2::Vertex(L, i).ParametersOnS1(U, V);
         gp_Pnt2d PPCC(U, V);
         if (myDom1->Classify(PPCC, Tol) == TopAbs_OUT)
         {
@@ -554,11 +554,11 @@ void GeomInt_LineConstructor::Perform(const Handle(IntPatch_Line)& L)
   if (i > nbvtx)
   {
     Standard_Real U, V;
-    for (i = 1; i <= GeomInt_LineTool::NbVertex(L); i++)
+    for (i = 1; i <= LineTool2::NbVertex(L); i++)
     {
-      if (!GeomInt_LineTool::Vertex(L, i).IsOnDomS2())
+      if (!LineTool2::Vertex(L, i).IsOnDomS2())
       {
-        GeomInt_LineTool::Vertex(L, i).ParametersOnS2(U, V);
+        LineTool2::Vertex(L, i).ParametersOnS2(U, V);
         if (myDom2->Classify(gp_Pnt2d(U, V), Tol) == TopAbs_OUT)
         {
           done = Standard_True;
@@ -572,16 +572,16 @@ void GeomInt_LineConstructor::Perform(const Handle(IntPatch_Line)& L)
 
   if (!trim)
   { // necessarily dansS1 == dansS2 == Standard_True
-    seqp.Append(GeomInt_LineTool::FirstParameter(L));
-    seqp.Append(GeomInt_LineTool::LastParameter(L));
+    seqp.Append(LineTool2::FirstParameter(L));
+    seqp.Append(LineTool2::LastParameter(L));
     done = Standard_True;
     return;
   }
 
   // sequence seqpss is peeled to create valid ends
   // and store them in seqp(2*i+1) and seqp(2*i+2)
-  Standard_Real thefirst = GeomInt_LineTool::FirstParameter(L);
-  Standard_Real thelast  = GeomInt_LineTool::LastParameter(L);
+  Standard_Real thefirst = LineTool2::FirstParameter(L);
+  Standard_Real thelast  = LineTool2::LastParameter(L);
   firstp                 = thefirst;
 
   for (i = 1; i <= nbvtx; i++)
@@ -786,28 +786,28 @@ void AdjustPeriodic(const Handle(GeomAdaptor_Surface)& myHS1,
     const Standard_Real lmf = M_PI + M_PI; //-- myHS1->UPeriod();
     const Standard_Real f   = myHS1->FirstUParameter();
     const Standard_Real l   = myHS1->LastUParameter();
-    GeomInt::AdjustPeriodic(u1, f, l, lmf, u1, du);
+    GeomInt1::AdjustPeriodic(u1, f, l, lmf, u1, du);
   }
   if (myHS1IsVPeriodic)
   {
     const Standard_Real lmf = M_PI + M_PI; //-- myHS1->VPeriod();
     const Standard_Real f   = myHS1->FirstVParameter();
     const Standard_Real l   = myHS1->LastVParameter();
-    GeomInt::AdjustPeriodic(v1, f, l, lmf, v1, dv);
+    GeomInt1::AdjustPeriodic(v1, f, l, lmf, v1, dv);
   }
   if (myHS2IsUPeriodic)
   {
     const Standard_Real lmf = M_PI + M_PI; //-- myHS2->UPeriod();
     const Standard_Real f   = myHS2->FirstUParameter();
     const Standard_Real l   = myHS2->LastUParameter();
-    GeomInt::AdjustPeriodic(u2, f, l, lmf, u2, du);
+    GeomInt1::AdjustPeriodic(u2, f, l, lmf, u2, du);
   }
   if (myHS2IsVPeriodic)
   {
     const Standard_Real lmf = M_PI + M_PI; //-- myHS2->VPeriod();
     const Standard_Real f   = myHS2->FirstVParameter();
     const Standard_Real l   = myHS2->LastVParameter();
-    GeomInt::AdjustPeriodic(v2, f, l, lmf, v2, dv);
+    GeomInt1::AdjustPeriodic(v2, f, l, lmf, v2, dv);
   }
 }
 
@@ -832,7 +832,7 @@ void Parameters(const Handle(GeomAdaptor_Surface)& myHS1,
                 Standard_Real&                     U1,
                 Standard_Real&                     V1)
 {
-  IntSurf_Quadric quad1;
+  Quadric1 quad1;
   //
   switch (myHS1->GetType())
   {

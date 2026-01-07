@@ -29,7 +29,7 @@
 class Geom2dGcc_QualifiedCurve;
 class gp_Lin2d;
 class gp_Pnt2d;
-class Geom2dGcc_Lin2dTanOblIter;
+class Line2dTangentOblIter;
 class Geom2dAdaptor_Curve;
 
 //! This class implements the algorithms used to
@@ -42,7 +42,7 @@ class Geom2dAdaptor_Curve;
 //! -   defining the construction of 2D line(s),
 //! -   implementing the construction algorithm, and
 //! -   consulting the result(s).
-class Geom2dGcc_Lin2dTanObl
+class Lin2dTanObl1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -52,7 +52,7 @@ public:
   //! angle Angle with the line TheLin.
   //! Angle must be in Radian.
   //! Tolang is the angular tolerance.
-  Standard_EXPORT Geom2dGcc_Lin2dTanObl(const Geom2dGcc_QualifiedCurve& Qualified1,
+  Standard_EXPORT Lin2dTanObl1(const Geom2dGcc_QualifiedCurve& Qualified1,
                                         const gp_Lin2d&                 TheLin,
                                         const Standard_Real             TolAng,
                                         const Standard_Real             Angle);
@@ -70,7 +70,7 @@ public:
   //! Exceptions
   //! GccEnt_BadQualifier if a qualifier is inconsistent with
   //! the argument it qualifies (for example, enclosed for a circle).
-  Standard_EXPORT Geom2dGcc_Lin2dTanObl(const Geom2dGcc_QualifiedCurve& Qualified1,
+  Standard_EXPORT Lin2dTanObl1(const Geom2dGcc_QualifiedCurve& Qualified1,
                                         const gp_Lin2d&                 TheLin,
                                         const Standard_Real             TolAng,
                                         const Standard_Real             Param1,
@@ -146,7 +146,7 @@ public:
 protected:
 private:
   Standard_EXPORT Standard_Boolean Add(const Standard_Integer           theIndex,
-                                       const Geom2dGcc_Lin2dTanOblIter& theLin,
+                                       const Line2dTangentOblIter& theLin,
                                        const Standard_Real              theTol,
                                        const Geom2dAdaptor_Curve&       theC1);
 

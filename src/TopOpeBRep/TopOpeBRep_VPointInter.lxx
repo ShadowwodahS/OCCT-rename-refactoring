@@ -62,7 +62,7 @@ inline void TopOpeBRep_VPointInter::GetShapes(Standard_Integer& I1, Standard_Int
 // purpose  :
 //=======================================================================
 
-inline IntSurf_Transition TopOpeBRep_VPointInter::TransitionOnS1() const
+inline Transition2 TopOpeBRep_VPointInter::TransitionOnS1() const
 {
   return myPPOI->TransitionOnS1();
 }
@@ -72,7 +72,7 @@ inline IntSurf_Transition TopOpeBRep_VPointInter::TransitionOnS1() const
 // purpose  :
 //=======================================================================
 
-inline IntSurf_Transition TopOpeBRep_VPointInter::TransitionOnS2() const
+inline Transition2 TopOpeBRep_VPointInter::TransitionOnS2() const
 {
   return myPPOI->TransitionOnS2();
 }
@@ -82,7 +82,7 @@ inline IntSurf_Transition TopOpeBRep_VPointInter::TransitionOnS2() const
 // purpose  :
 //=======================================================================
 
-inline IntSurf_Transition TopOpeBRep_VPointInter::TransitionLineArc1() const
+inline Transition2 TopOpeBRep_VPointInter::TransitionLineArc1() const
 {
   return myPPOI->TransitionLineArc1();
 }
@@ -92,7 +92,7 @@ inline IntSurf_Transition TopOpeBRep_VPointInter::TransitionLineArc1() const
 // purpose  :
 //=======================================================================
 
-inline IntSurf_Transition TopOpeBRep_VPointInter::TransitionLineArc2() const
+inline Transition2 TopOpeBRep_VPointInter::TransitionLineArc2() const
 {
   return myPPOI->TransitionLineArc2();
 }

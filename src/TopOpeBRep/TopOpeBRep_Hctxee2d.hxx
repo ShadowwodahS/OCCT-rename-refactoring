@@ -46,7 +46,7 @@ public:
 
   Standard_EXPORT const Geom2dAdaptor_Curve& Curve(const Standard_Integer I) const;
 
-  Standard_EXPORT const IntRes2d_Domain& Domain(const Standard_Integer I) const;
+  Standard_EXPORT const Domain2& Domain(const Standard_Integer I) const;
 
   DEFINE_STANDARD_RTTIEXT(TopOpeBRep_Hctxee2d, RefObject)
 
@@ -54,10 +54,10 @@ protected:
 private:
   TopoEdge         myEdge1;
   Geom2dAdaptor_Curve myCurve1;
-  IntRes2d_Domain     myDomain1;
+  Domain2     myDomain1;
   TopoEdge         myEdge2;
   Geom2dAdaptor_Curve myCurve2;
-  IntRes2d_Domain     myDomain2;
+  Domain2     myDomain2;
 };
 
 #endif // _TopOpeBRep_Hctxee2d_HeaderFile

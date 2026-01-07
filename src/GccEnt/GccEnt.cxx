@@ -35,14 +35,14 @@ static Standard_CString GccEnt_Table_PrintPosition[5] = {"UNQUALIFIED",
 
 //=================================================================================================
 
-Standard_CString GccEnt::PositionToString(GccEnt_Position thePosition)
+Standard_CString GccEnt1::PositionToString(GccEnt_Position thePosition)
 {
   return GccEnt_Table_PrintPosition[thePosition];
 }
 
 //=================================================================================================
 
-Standard_Boolean GccEnt::PositionFromString(Standard_CString thePositionString,
+Standard_Boolean GccEnt1::PositionFromString(Standard_CString thePositionString,
                                             GccEnt_Position& thePosition)
 {
   AsciiString1 aName(thePositionString);
@@ -59,37 +59,37 @@ Standard_Boolean GccEnt::PositionFromString(Standard_CString thePositionString,
   return Standard_False;
 }
 
-GccEnt_QualifiedLin GccEnt::Unqualified(const gp_Lin2d& Line)
+QualifiedLine GccEnt1::Unqualified(const gp_Lin2d& Line)
 {
-  return GccEnt_QualifiedLin(Line, GccEnt_unqualified);
+  return QualifiedLine(Line, GccEnt_unqualified);
 }
 
-GccEnt_QualifiedCirc GccEnt::Unqualified(const gp_Circ2d& Circle)
+QualifiedCircle GccEnt1::Unqualified(const gp_Circ2d& Circle)
 {
-  return GccEnt_QualifiedCirc(Circle, GccEnt_unqualified);
+  return QualifiedCircle(Circle, GccEnt_unqualified);
 }
 
-GccEnt_QualifiedCirc GccEnt::Enclosing(const gp_Circ2d& Circle)
+QualifiedCircle GccEnt1::Enclosing(const gp_Circ2d& Circle)
 {
-  return GccEnt_QualifiedCirc(Circle, GccEnt_enclosing);
+  return QualifiedCircle(Circle, GccEnt_enclosing);
 }
 
-GccEnt_QualifiedLin GccEnt::Enclosed(const gp_Lin2d& Line)
+QualifiedLine GccEnt1::Enclosed(const gp_Lin2d& Line)
 {
-  return GccEnt_QualifiedLin(Line, GccEnt_enclosed);
+  return QualifiedLine(Line, GccEnt_enclosed);
 }
 
-GccEnt_QualifiedCirc GccEnt::Enclosed(const gp_Circ2d& Circle)
+QualifiedCircle GccEnt1::Enclosed(const gp_Circ2d& Circle)
 {
-  return GccEnt_QualifiedCirc(Circle, GccEnt_enclosed);
+  return QualifiedCircle(Circle, GccEnt_enclosed);
 }
 
-GccEnt_QualifiedCirc GccEnt::Outside(const gp_Circ2d& Circle)
+QualifiedCircle GccEnt1::Outside(const gp_Circ2d& Circle)
 {
-  return GccEnt_QualifiedCirc(Circle, GccEnt_outside);
+  return QualifiedCircle(Circle, GccEnt_outside);
 }
 
-GccEnt_QualifiedLin GccEnt::Outside(const gp_Lin2d& Line)
+QualifiedLine GccEnt1::Outside(const gp_Lin2d& Line)
 {
-  return GccEnt_QualifiedLin(Line, GccEnt_outside);
+  return QualifiedLine(Line, GccEnt_outside);
 }

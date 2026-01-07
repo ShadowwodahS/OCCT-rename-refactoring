@@ -27,7 +27,7 @@
 #include <TColStd_Array1OfReal.hxx>
 #include <GccEnt_Position.hxx>
 class gp_Pnt2d;
-class GccEnt_QualifiedCirc;
+class QualifiedCircle;
 class gp_Lin2d;
 
 //! This class implements the algorithms used to
@@ -66,7 +66,7 @@ public:
   //! Tolerance is used because there is no solution
   //! when the point is inside the solution according to
   //! the tolerance.
-  Standard_EXPORT Line2dTwoTangent(const GccEnt_QualifiedCirc& Qualified1,
+  Standard_EXPORT Line2dTwoTangent(const QualifiedCircle& Qualified1,
                                    const gp_Pnt2d&             ThePoint,
                                    const Standard_Real         Tolerance);
 
@@ -74,8 +74,8 @@ public:
   //! create 2d lines tangent to 2 circles.
   //! Exception BadQualifier is raised in the case of
   //! EnclosedCirc
-  Standard_EXPORT Line2dTwoTangent(const GccEnt_QualifiedCirc& Qualified1,
-                                   const GccEnt_QualifiedCirc& Qualified2,
+  Standard_EXPORT Line2dTwoTangent(const QualifiedCircle& Qualified1,
+                                   const QualifiedCircle& Qualified2,
                                    const Standard_Real         Tolerance);
 
   //! This method returns true when there is a solution

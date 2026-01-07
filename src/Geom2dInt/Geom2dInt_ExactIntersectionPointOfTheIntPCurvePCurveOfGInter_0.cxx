@@ -25,9 +25,9 @@
 
 #define TheCurve Adaptor2d_Curve2d
 #define TheCurve_hxx <Adaptor2d_Curve2d.hxx>
-#define TheCurveTool Geom2dInt_Geom2dCurveTool
+#define TheCurveTool Geom2dCurveTool
 #define TheCurveTool_hxx <Geom2dInt_Geom2dCurveTool.hxx>
-#define TheProjPCur Geom2dInt_TheProjPCurOfGInter
+#define TheProjPCur ProjPCurOfGInter
 #define TheProjPCur_hxx <Geom2dInt_TheProjPCurOfGInter.hxx>
 #define IntCurve_ThePolygon2d Geom2dInt_ThePolygon2dOfTheIntPCurvePCurveOfGInter
 #define IntCurve_ThePolygon2d_hxx <Geom2dInt_ThePolygon2dOfTheIntPCurvePCurveOfGInter.hxx>

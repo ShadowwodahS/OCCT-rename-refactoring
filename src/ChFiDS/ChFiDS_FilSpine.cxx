@@ -744,7 +744,7 @@ Handle(Law_Composite) ChFiDS_FilSpine::ComputeLaw(const Handle(ChFiDS_ElSpine)& 
 
 //=================================================================================================
 
-Handle(Law_Composite) ChFiDS_FilSpine::Law(const Handle(ChFiDS_ElSpine)& Els) const
+Handle(Law_Composite) ChFiDS_FilSpine::Law1(const Handle(ChFiDS_ElSpine)& Els) const
 {
   ChFiDS_ListIteratorOfListOfHElSpine Itsp(elspines);
   Law_ListIteratorOfLaws              Itl(laws);
@@ -773,7 +773,7 @@ Handle(Law_Function)& ChFiDS_FilSpine::ChangeLaw(const TopoEdge& E)
   }
   Handle(ChFiDS_ElSpine) hsp = ElSpine(IE);
   Standard_Real          w   = 0.5 * (FirstParameter(IE) + LastParameter(IE));
-  Handle(Law_Composite)  lc  = Law(hsp);
+  Handle(Law_Composite)  lc  = Law1(hsp);
   return lc->ChangeElementaryLaw(w);
 }
 

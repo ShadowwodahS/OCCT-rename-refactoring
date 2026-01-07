@@ -28,12 +28,12 @@
 //! information         about     continuity, normals
 //! parallelism,  coons conditions and bounds tangents
 //! angle on the corner of contour to be filled.
-class GeomFill_CornerState
+class CornerState
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT GeomFill_CornerState();
+  Standard_EXPORT CornerState();
 
   Standard_EXPORT Standard_Real Gap() const;
 

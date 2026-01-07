@@ -30,7 +30,7 @@ class Vector3d;
 class GeomFill_Frenet;
 DEFINE_STANDARD_HANDLE(GeomFill_Frenet, GeomFill_TrihedronLaw)
 
-//! Defined Frenet Trihedron  Law
+//! Defined Frenet Trihedron  Law1
 class GeomFill_Frenet : public GeomFill_TrihedronLaw
 {
 

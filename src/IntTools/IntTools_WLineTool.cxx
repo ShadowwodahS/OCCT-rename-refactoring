@@ -123,7 +123,7 @@ static Standard_Boolean IsDegeneratedZone(const gp_Pnt2d&             aP2d,
 // function : IsPointInDegeneratedZone
 // purpose  : static subfunction in NotUseSurfacesForApprox
 //=======================================================================
-static Standard_Boolean IsPointInDegeneratedZone(const IntSurf_PntOn2S& aP2S,
+static Standard_Boolean IsPointInDegeneratedZone(const PointOn2Surfaces& aP2S,
                                                  const TopoFace&     aF1,
                                                  const TopoFace&     aF2)
 
@@ -232,14 +232,14 @@ Standard_Boolean WireLineTool::NotUseSurfacesForApprox(const TopoFace&          
 
   Handle(IntSurf_LineOn2S) aLineOn2S = WL->Curve();
 
-  const IntSurf_PntOn2S& aP2Sfprm = aLineOn2S->Value(ifprm);
+  const PointOn2Surfaces& aP2Sfprm = aLineOn2S->Value(ifprm);
   bPInDZ                          = IsPointInDegeneratedZone(aP2Sfprm, aF1, aF2);
   if (bPInDZ)
   {
     return bPInDZ;
   }
 
-  const IntSurf_PntOn2S& aP2Slprm = aLineOn2S->Value(ilprm);
+  const PointOn2Surfaces& aP2Slprm = aLineOn2S->Value(ilprm);
   bPInDZ                          = IsPointInDegeneratedZone(aP2Slprm, aF1, aF2);
 
   return bPInDZ;
@@ -532,7 +532,7 @@ Standard_Boolean WireLineTool::DecompositionOfWLine(
     Standard_Real    umin, umax, vmin, vmax;
     //
     bIsCurrentPointOnBoundary     = Standard_False;
-    const IntSurf_PntOn2S& aPoint = theWLine->Point(pit);
+    const PointOn2Surfaces& aPoint = theWLine->Point(pit);
     //
     // Surface
     for (i = 0; i < 2; ++i)
@@ -573,7 +573,7 @@ Standard_Boolean WireLineTool::DecompositionOfWLine(
           aParameter     = V;
         }
 
-        GeomInt::AdjustPeriodic(aParameter,
+        GeomInt1::AdjustPeriodic(aParameter,
                                 alowerboundary,
                                 aupperboundary,
                                 aPeriod,
@@ -652,9 +652,9 @@ Standard_Boolean WireLineTool::DecompositionOfWLine(
         continue;
       const TColStd_ListOfInteger& aNeighbour = anArrayOfLines.Value(aneighbourindex);
       Standard_Integer             anIndex    = (j == 0) ? aNeighbour.Last() : aNeighbour.First();
-      const IntSurf_PntOn2S&       aPoint     = theWLine->Point(anIndex);
+      const PointOn2Surfaces&       aPoint     = theWLine->Point(anIndex);
 
-      IntSurf_PntOn2S aNewP = aPoint;
+      PointOn2Surfaces aNewP = aPoint;
       if (aListOfIndex.Extent() < 2)
       {
         aSeqOfPntOn2S->Add(aNewP);
@@ -715,7 +715,7 @@ Standard_Boolean WireLineTool::DecompositionOfWLine(
           {
             Standard_Real aPeriod = (parit == 0) ? aGASurface->UPeriod() : aGASurface->VPeriod();
             Standard_Real anoffset, anAdjustPar;
-            GeomInt::AdjustPeriodic(aParameter,
+            GeomInt1::AdjustPeriodic(aParameter,
                                     alowerboundary,
                                     aupperboundary,
                                     aPeriod,
@@ -769,7 +769,7 @@ Standard_Boolean WireLineTool::DecompositionOfWLine(
             Standard_Real aPeriod = (bIsUBoundary) ? aGASurface->UPeriod() : aGASurface->VPeriod();
             Standard_Real aParameter = (bIsUBoundary) ? U : V;
             Standard_Real anoffset, anAdjustPar;
-            GeomInt::AdjustPeriodic(aParameter,
+            GeomInt1::AdjustPeriodic(aParameter,
                                     alowerboundary,
                                     aupperboundary,
                                     aPeriod,
@@ -783,7 +783,7 @@ Standard_Boolean WireLineTool::DecompositionOfWLine(
             anotherPar += anoffset;
             Standard_Integer aneighbourpointindex =
               (j == 0) ? aListOfIndex.First() : aListOfIndex.Last();
-            const IntSurf_PntOn2S& aNeighbourPoint = theWLine->Point(aneighbourpointindex);
+            const PointOn2Surfaces& aNeighbourPoint = theWLine->Point(aneighbourpointindex);
             Standard_Real          nU1, nV1;
 
             if (surfit == 0)
@@ -830,7 +830,7 @@ Standard_Boolean WireLineTool::DecompositionOfWLine(
               while ((anindexother <= iLast) && (anindexother >= iFirst))
               {
                 anindexother = (j == 0) ? (anindexother + 1) : (anindexother - 1);
-                const IntSurf_PntOn2S& aPrevNeighbourPoint = theWLine->Point(anindexother);
+                const PointOn2Surfaces& aPrevNeighbourPoint = theWLine->Point(anindexother);
                 Standard_Real          nU2, nV2;
 
                 if (surfit == 0)
@@ -853,7 +853,7 @@ Standard_Boolean WireLineTool::DecompositionOfWLine(
                     if (bCheckAngle1)
                     {
                       Standard_Real   U1, U2, V1, V2;
-                      IntSurf_PntOn2S atmppoint = aNewP;
+                      PointOn2Surfaces atmppoint = aNewP;
                       atmppoint.SetValue((surfit == 0), anewU, anewV);
                       atmppoint.Parameters(U1, V1, U2, V2);
                       Point3d P1 = theSurface1->Value(U1, V1);
@@ -900,7 +900,7 @@ Standard_Boolean WireLineTool::DecompositionOfWLine(
               anewpoint = gp_Pnt2d(u2, v2);
 
             Standard_Integer       aneighbourpointindex1 = (j == 0) ? iFirst : iLast;
-            const IntSurf_PntOn2S& aNeighbourPoint       = theWLine->Point(aneighbourpointindex1);
+            const PointOn2Surfaces& aNeighbourPoint       = theWLine->Point(aneighbourpointindex1);
             Standard_Real          nU1, nV1;
 
             if (surfit == 0)
@@ -930,7 +930,7 @@ Standard_Boolean WireLineTool::DecompositionOfWLine(
           {
 
             Standard_Integer       aneighbourpointindex1 = (j == 0) ? iFirst : iLast;
-            const IntSurf_PntOn2S& aNeighbourPoint       = theWLine->Point(aneighbourpointindex1);
+            const PointOn2Surfaces& aNeighbourPoint       = theWLine->Point(aneighbourpointindex1);
             Standard_Real          nU1, nV1;
 
             if (surfit == 0)
@@ -945,7 +945,7 @@ Standard_Boolean WireLineTool::DecompositionOfWLine(
             {
               aneighbourpointindex2 =
                 (j == 0) ? (aneighbourpointindex2 + 1) : (aneighbourpointindex2 - 1);
-              const IntSurf_PntOn2S& aPrevNeighbourPoint = theWLine->Point(aneighbourpointindex2);
+              const PointOn2Surfaces& aPrevNeighbourPoint = theWLine->Point(aneighbourpointindex2);
               Standard_Real          nU2, nV2;
 
               if (surfit == 0)
@@ -986,7 +986,7 @@ Standard_Boolean WireLineTool::DecompositionOfWLine(
                 // Correction of projected coordinates. Begin
                 // Note, it may be shifted on a period
                 Standard_Integer       aneindex1       = (j == 0) ? iFirst : iLast;
-                const IntSurf_PntOn2S& aNeighbourPoint = theWLine->Point(aneindex1);
+                const PointOn2Surfaces& aNeighbourPoint = theWLine->Point(aneindex1);
                 Standard_Real          nUn, nVn;
 
                 if (surfit == 0)
@@ -1105,7 +1105,7 @@ Standard_Boolean WireLineTool::DecompositionOfWLine(
           if (bhasfirstpoint)
           {
             pit                       = aListOfFLIndex.First();
-            const IntSurf_PntOn2S& aP = aSeqOfPntOn2S->Value(pit);
+            const PointOn2Surfaces& aP = aSeqOfPntOn2S->Value(pit);
             aLineOn2S->Add(aP);
           }
           TColStd_ListIteratorOfListOfInteger anIt(aListOfIndex);
@@ -1113,14 +1113,14 @@ Standard_Boolean WireLineTool::DecompositionOfWLine(
           for (; anIt.More(); anIt.Next())
           {
             pit                       = anIt.Value();
-            const IntSurf_PntOn2S& aP = theWLine->Point(pit);
+            const PointOn2Surfaces& aP = theWLine->Point(pit);
             aLineOn2S->Add(aP);
           }
 
           if (bhaslastpoint)
           {
             pit                       = aListOfFLIndex.Last();
-            const IntSurf_PntOn2S& aP = aSeqOfPntOn2S->Value(pit);
+            const PointOn2Surfaces& aP = aSeqOfPntOn2S->Value(pit);
             aLineOn2S->Add(aP);
           }
 
@@ -1163,7 +1163,7 @@ Standard_Boolean WireLineTool::DecompositionOfWLine(
           pit = anIt.Value();
           if ((pit < ifprm) || (pit > ilprm))
             continue;
-          const IntSurf_PntOn2S& aP = theWLine->Point(pit);
+          const PointOn2Surfaces& aP = theWLine->Point(pit);
           aLineOn2S->Add(aP);
         }
       }
@@ -1180,14 +1180,14 @@ Standard_Boolean WireLineTool::DecompositionOfWLine(
             pit = anIt.Value();
             if (pit < ifprm)
               continue;
-            const IntSurf_PntOn2S& aP = theWLine->Point(pit);
+            const PointOn2Surfaces& aP = theWLine->Point(pit);
             aLineOn2S->Add(aP);
           }
 
           if (bhaslastpoint)
           {
             pit                       = aListOfFLIndex.Last();
-            const IntSurf_PntOn2S& aP = aSeqOfPntOn2S->Value(pit);
+            const PointOn2Surfaces& aP = aSeqOfPntOn2S->Value(pit);
             aLineOn2S->Add(aP);
           }
           // check end of split line (end is almost always)
@@ -1223,7 +1223,7 @@ Standard_Boolean WireLineTool::DecompositionOfWLine(
           if (bhasfirstpoint)
           {
             pit                       = aListOfFLIndex.First();
-            const IntSurf_PntOn2S& aP = aSeqOfPntOn2S->Value(pit);
+            const PointOn2Surfaces& aP = aSeqOfPntOn2S->Value(pit);
             aLineOn2S->Add(aP);
           }
           TColStd_ListIteratorOfListOfInteger anIt(aListOfIndex);
@@ -1233,7 +1233,7 @@ Standard_Boolean WireLineTool::DecompositionOfWLine(
             pit = anIt.Value();
             if (pit > ilprm)
               continue;
-            const IntSurf_PntOn2S& aP = theWLine->Point(pit);
+            const PointOn2Surfaces& aP = theWLine->Point(pit);
             aLineOn2S->Add(aP);
           }
         }

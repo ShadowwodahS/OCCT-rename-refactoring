@@ -20,6 +20,6 @@
 #include <Intf_TangentZone.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<Intf_TangentZone> Intf_SeqOfTangentZone;
+typedef NCollection_Sequence<TangentZone> Intf_SeqOfTangentZone;
 
 #endif

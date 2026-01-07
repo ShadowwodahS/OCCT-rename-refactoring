@@ -18,7 +18,7 @@
 
 //=================================================================================================
 
-GeomInt_ParameterAndOrientation::GeomInt_ParameterAndOrientation()
+ParameterAndOrientation::ParameterAndOrientation()
     : prm(0.0),
       or1(TopAbs_FORWARD),
       or2(TopAbs_FORWARD)
@@ -27,7 +27,7 @@ GeomInt_ParameterAndOrientation::GeomInt_ParameterAndOrientation()
 
 //=================================================================================================
 
-GeomInt_ParameterAndOrientation::GeomInt_ParameterAndOrientation(const Standard_Real      P,
+ParameterAndOrientation::ParameterAndOrientation(const Standard_Real      P,
                                                                  const TopAbs_Orientation Or1,
                                                                  const TopAbs_Orientation Or2)
     : prm(P),
@@ -38,35 +38,35 @@ GeomInt_ParameterAndOrientation::GeomInt_ParameterAndOrientation(const Standard_
 
 //=================================================================================================
 
-void GeomInt_ParameterAndOrientation::SetOrientation1(const TopAbs_Orientation Or1)
+void ParameterAndOrientation::SetOrientation1(const TopAbs_Orientation Or1)
 {
   or1 = Or1;
 }
 
 //=================================================================================================
 
-void GeomInt_ParameterAndOrientation::SetOrientation2(const TopAbs_Orientation Or2)
+void ParameterAndOrientation::SetOrientation2(const TopAbs_Orientation Or2)
 {
   or2 = Or2;
 }
 
 //=================================================================================================
 
-Standard_Real GeomInt_ParameterAndOrientation::Parameter() const
+Standard_Real ParameterAndOrientation::Parameter() const
 {
   return prm;
 }
 
 //=================================================================================================
 
-TopAbs_Orientation GeomInt_ParameterAndOrientation::Orientation1() const
+TopAbs_Orientation ParameterAndOrientation::Orientation1() const
 {
   return or1;
 }
 
 //=================================================================================================
 
-TopAbs_Orientation GeomInt_ParameterAndOrientation::Orientation2() const
+TopAbs_Orientation ParameterAndOrientation::Orientation2() const
 {
   return or2;
 }

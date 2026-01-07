@@ -27,7 +27,7 @@
 #include <TColgp_Array1OfPnt2d.hxx>
 #include <TColStd_Array1OfReal.hxx>
 #include <GccEnt_Position.hxx>
-class GccEnt_QualifiedCirc;
+class QualifiedCircle;
 class gp_Pnt2d;
 class gp_Lin2d;
 class gp_Circ2d;
@@ -57,7 +57,7 @@ public:
   //! This method implements the algorithms used to
   //! create 2d circles tangent to a circle and
   //! centered on a point.
-  Standard_EXPORT Circle2dTangentCenter(const GccEnt_QualifiedCirc& Qualified1,
+  Standard_EXPORT Circle2dTangentCenter(const QualifiedCircle& Qualified1,
                                       const gp_Pnt2d&             Pcenter,
                                       const Standard_Real         Tolerance);
 

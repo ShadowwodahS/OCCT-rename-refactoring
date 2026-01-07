@@ -144,8 +144,8 @@ static void RecadreMemePeriode(Standard_Real&      u1,
   }
 }
 
-static void RecadreMemePeriode(IntSurf_PntOn2S&       POn2S,
-                               const IntSurf_PntOn2S& RefPOn2S,
+static void RecadreMemePeriode(PointOn2Surfaces&       POn2S,
+                               const PointOn2Surfaces& RefPOn2S,
                                const Standard_Real    up1,
                                const Standard_Real    vp1,
                                const Standard_Real    up2,
@@ -350,7 +350,7 @@ void IntPatch_WLine::ComputeVertexParameters(const Standard_Real RTol)
     Standard_Real pol  = (Standard_Integer)polr;
     if (pol >= 1 && pol <= nbvtx)
     {
-      std::cout << "----> IntSurf_PntOn2S : " << polr << "  Pnt (" << Vertex(pol).Value().X() << ","
+      std::cout << "----> PointOn2Surfaces : " << polr << "  Pnt (" << Vertex(pol).Value().X() << ","
                 << Vertex(pol).Value().Y() << "," << Vertex(pol).Value().Z() << ")" << std::endl;
     }
   }
@@ -597,8 +597,8 @@ void IntPatch_WLine::ComputeVertexParameters(const Standard_Real RTol)
   constexpr Standard_Real dmini = Precision::SquareConfusion();
   for (i = 2; (i <= nbponline) && (nbponline > 2); i++)
   {
-    const IntSurf_PntOn2S& aPnt1 = curv->Value(i - 1);
-    const IntSurf_PntOn2S& aPnt2 = curv->Value(i);
+    const PointOn2Surfaces& aPnt1 = curv->Value(i - 1);
+    const PointOn2Surfaces& aPnt2 = curv->Value(i);
     Standard_Real          d     = (aPnt1.Value()).SquareDistance((aPnt2.Value()));
     if (d < dmini)
     {
@@ -643,7 +643,7 @@ void IntPatch_WLine::ComputeVertexParameters(const Standard_Real RTol)
         //-- et   vertex(i) prend pour parametre 1
         //-------------------------------------------------------
 
-        IntSurf_PntOn2S POn2S = svtx.Value(i).PntOn2S();
+        PointOn2Surfaces POn2S = svtx.Value(i).PntOn2S();
         RecadreMemePeriode(POn2S, curv->Value(1), U1Period(), V1Period(), U2Period(), V2Period());
         if (myCreationWay == IntPatch_WLImpImp)
         {
@@ -670,7 +670,7 @@ void IntPatch_WLine::ComputeVertexParameters(const Standard_Real RTol)
         //-- On insere le point de cheminement Vertex(i)
         //-- On recadre les parametres des autres vertex
         //-------------------------------------------------------
-        IntSurf_PntOn2S POn2S = svtx.Value(i).PntOn2S();
+        PointOn2Surfaces POn2S = svtx.Value(i).PntOn2S();
         RecadreMemePeriode(POn2S, curv->Value(1), U1Period(), V1Period(), U2Period(), V2Period());
         curv->InsertBefore(1, POn2S);
 
@@ -713,7 +713,7 @@ void IntPatch_WLine::ComputeVertexParameters(const Standard_Real RTol)
             //-- On remplace le point cheminement(k)
             //-- par vertex(i)  et vertex(i) prend pour parametre k
             //-------------------------------------------------------
-            IntSurf_PntOn2S POn2S = svtx.Value(i).PntOn2S();
+            PointOn2Surfaces POn2S = svtx.Value(i).PntOn2S();
             RecadreMemePeriode(POn2S,
                                curv->Value(k),
                                U1Period(),
@@ -783,7 +783,7 @@ void IntPatch_WLine::ComputeVertexParameters(const Standard_Real RTol)
         //-- On insere le point de cheminement Vertex(i)
         //-- On recadre les parametres des autres vertex
         //-------------------------------------------------------
-        IntSurf_PntOn2S POn2S = svtx.Value(i).PntOn2S();
+        PointOn2Surfaces POn2S = svtx.Value(i).PntOn2S();
         if (indicevertexonline >= nbponline)
         {
           RecadreMemePeriode(POn2S,
@@ -1062,8 +1062,8 @@ void IntPatch_WLine::ComputeVertexParameters(const Standard_Real RTol)
               {
                 if (VTXi.ArcOnS1() == VTXj.ArcOnS1())
                 {
-                  IntSurf_Transition t1 = VTXi.TransitionLineArc1();
-                  IntSurf_Transition t2 = VTXj.TransitionLineArc1();
+                  Transition2 t1 = VTXi.TransitionLineArc1();
+                  Transition2 t2 = VTXj.TransitionLineArc1();
                   if (t1.TransitionType() == t2.TransitionType())
                   {
                     if ((VTXj.ParameterOnLine() != 1) && (VTXj.ParameterOnLine() != NbPnts()))
@@ -1116,8 +1116,8 @@ void IntPatch_WLine::ComputeVertexParameters(const Standard_Real RTol)
               {
                 if (VTXi.ArcOnS2() == VTXj.ArcOnS2())
                 {
-                  IntSurf_Transition t1 = VTXi.TransitionLineArc2();
-                  IntSurf_Transition t2 = VTXj.TransitionLineArc2();
+                  Transition2 t1 = VTXi.TransitionLineArc2();
+                  Transition2 t2 = VTXj.TransitionLineArc2();
                   if (t1.TransitionType() == t2.TransitionType())
                   {
                     if ((VTXj.ParameterOnLine() != 1) && (VTXj.ParameterOnLine() != NbPnts()))
@@ -1187,7 +1187,7 @@ void IntPatch_WLine::ComputeVertexParameters(const Standard_Real RTol)
     Standard_Real pol  = (Standard_Integer)polr;
     if (pol >= 1 && pol <= nbvtx)
     {
-      std::cout << "----> IntSurf_PntOn2S : " << polr << "  Pnt (" << Vertex(pol).Value().X() << ","
+      std::cout << "----> PointOn2Surfaces : " << polr << "  Pnt (" << Vertex(pol).Value().X() << ","
                 << Vertex(pol).Value().Y() << "," << Vertex(pol).Value().Z() << ")" << std::endl;
     }
   }
@@ -1260,7 +1260,7 @@ void IntPatch_WLine::Dump(const Standard_Integer theMode) const
 
         if (pol >= 1 && pol <= aNbVertex)
         {
-          std::cout << "----> IntSurf_PntOn2S : " << polr << ", Pnt (" << Vertex(pol).Value().X()
+          std::cout << "----> PointOn2Surfaces : " << polr << ", Pnt (" << Vertex(pol).Value().X()
                     << "," << Vertex(pol).Value().Y() << "," << Vertex(pol).Value().Z() << ")"
                     << std::endl;
         }

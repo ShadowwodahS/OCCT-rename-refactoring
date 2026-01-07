@@ -39,13 +39,13 @@ void Geom2dHatch_Intersector::Perform(const gp_Lin2d&            L,
 {
 
   // Standard_Real pfbid,plbid;
-  IntRes2d_Domain DL;
+  Domain2 DL;
   if (P != RealLast())
     DL.SetValues(L.Location(), 0., Tol, ElCLib::Value(P, L), P, Tol);
   else
     DL.SetValues(L.Location(), 0., Tol, Standard_True);
 
-  IntRes2d_Domain DE(C.Value(C.FirstParameter()),
+  Domain2 DE(C.Value(C.FirstParameter()),
                      C.FirstParameter(),
                      Precision::PIntersection(),
                      C.Value(C.LastParameter()),

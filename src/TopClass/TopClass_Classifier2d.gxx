@@ -152,7 +152,7 @@ void TopClass_Classifier2d::Compare(const TheEdge& E,
   } 
   
   myParam = dMin;
-  const IntRes2d_Transition& T2 = PClosest->TransitionOfSecond();
+  const Transition3& T2 = PClosest->TransitionOfSecond();
 //  Modified by skv - Wed Jul 12 15:20:58 2006 OCC12627 Begin
 //   Standard_Boolean isHeadorEnd = (T2.PositionOnCurve() == IntRes2d_Head) ||
 //                                  (T2.PositionOnCurve() == IntRes2d_End);
@@ -164,7 +164,7 @@ void TopClass_Classifier2d::Compare(const TheEdge& E,
 
   TopAbs_Orientation SegTrans = TopAbs_FORWARD;
 
-  const IntRes2d_Transition& T1 = PClosest->TransitionOfFirst();
+  const Transition3& T1 = PClosest->TransitionOfFirst();
   switch (T1.TransitionType()) {
   case IntRes2d_In :
     if (Or == TopAbs_REVERSED)   SegTrans = TopAbs_REVERSED;
@@ -191,7 +191,7 @@ void TopClass_Classifier2d::Compare(const TheEdge& E,
   }
 
   // are we inside the Edge ?
-  //  const IntRes2d_Transition& T2 = PClosest->TransitionOfSecond();
+  //  const Transition3& T2 = PClosest->TransitionOfSecond();
   if ( ! myIsHeadOrEnd ) {
     // PClosest is inside the edge
     switch (SegTrans) {

@@ -21,14 +21,14 @@
 #include <Standard_DefineAlloc.hxx>
 #include <Standard_Handle.hxx>
 
-class IntPatch_PrmPrmIntersection_T3Bits
+class T3Bits
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT IntPatch_PrmPrmIntersection_T3Bits(const Standard_Integer size);
+  Standard_EXPORT T3Bits(const Standard_Integer size);
 
-  Standard_EXPORT ~IntPatch_PrmPrmIntersection_T3Bits();
+  Standard_EXPORT ~T3Bits();
 
   void Add(const Standard_Integer t) { p[t >> 5] |= (1 << (((unsigned int)t) & 31)); }
 
@@ -41,7 +41,7 @@ public:
 
   Standard_EXPORT void ResetAnd();
 
-  Standard_EXPORT Standard_Integer And(IntPatch_PrmPrmIntersection_T3Bits& Oth,
+  Standard_EXPORT Standard_Integer And(T3Bits& Oth,
                                        Standard_Integer&                   indiceprecedent);
 
 private:

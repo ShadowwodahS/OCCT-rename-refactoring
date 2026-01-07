@@ -20,6 +20,6 @@
 #include <IntSurf_Couple.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<IntSurf_Couple> IntSurf_SequenceOfCouple;
+typedef NCollection_Sequence<Couple1> IntSurf_SequenceOfCouple;
 
 #endif

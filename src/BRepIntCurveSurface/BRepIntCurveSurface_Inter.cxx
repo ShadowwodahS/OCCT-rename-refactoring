@@ -194,12 +194,12 @@ Standard_Boolean BRepIntCurveSurface_Inter::FindPoint()
 
 //=================================================================================================
 
-IntCurveSurface_IntersectionPoint BRepIntCurveSurface_Inter::Point() const
+IntersectionPoint1 BRepIntCurveSurface_Inter::Point() const
 {
   if (myCurrentindex == 0)
     throw StdFail_NotDone();
-  const IntCurveSurface_IntersectionPoint& ICPS = myIntcs.Point(myCurrentindex);
-  return (IntCurveSurface_IntersectionPoint(ICPS.Pnt(),
+  const IntersectionPoint1& ICPS = myIntcs.Point(myCurrentindex);
+  return (IntersectionPoint1(ICPS.Pnt(),
                                             myCurrentU, // ICPS.U(),
                                             myCurrentV, // ICPS.V(),
                                             ICPS.W(),

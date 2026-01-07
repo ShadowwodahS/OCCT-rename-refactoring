@@ -17,19 +17,19 @@
 #include <StdFail_NotDone.hxx>
 #include <Standard_OutOfRange.hxx>
 
-inline Standard_Boolean IntRes2d_Intersection::IsDone() const
+inline Standard_Boolean Intersection2::IsDone() const
 {
   return done;
 }
 
 //----------------------------------------------------------------------
-inline IntRes2d_Intersection::IntRes2d_Intersection()
+inline Intersection2::Intersection2()
 {
   done = reverse = Standard_False;
 }
 
 //----------------------------------------------------------------------
-inline IntRes2d_Intersection::IntRes2d_Intersection(const IntRes2d_Intersection& Other)
+inline Intersection2::Intersection2(const Intersection2& Other)
 {
   done = reverse = Standard_False;
   lpnt           = Other.lpnt;
@@ -37,7 +37,7 @@ inline IntRes2d_Intersection::IntRes2d_Intersection(const IntRes2d_Intersection&
 }
 
 //----------------------------------------------------------------------
-inline Standard_Boolean IntRes2d_Intersection::IsEmpty() const
+inline Standard_Boolean Intersection2::IsEmpty() const
 {
   if (!done)
   {
@@ -47,7 +47,7 @@ inline Standard_Boolean IntRes2d_Intersection::IsEmpty() const
 }
 
 //----------------------------------------------------------------------
-inline Standard_Integer IntRes2d_Intersection::NbPoints() const
+inline Standard_Integer Intersection2::NbPoints() const
 {
   if (!done)
   {
@@ -57,7 +57,7 @@ inline Standard_Integer IntRes2d_Intersection::NbPoints() const
 }
 
 //----------------------------------------------------------------------
-inline const IntRes2d_IntersectionPoint& IntRes2d_Intersection::Point(
+inline const IntRes2d_IntersectionPoint& Intersection2::Point(
   const Standard_Integer N) const
 {
   if (!done)
@@ -68,7 +68,7 @@ inline const IntRes2d_IntersectionPoint& IntRes2d_Intersection::Point(
 }
 
 //----------------------------------------------------------------------
-inline Standard_Integer IntRes2d_Intersection::NbSegments() const
+inline Standard_Integer Intersection2::NbSegments() const
 {
   if (!done)
   {
@@ -78,7 +78,7 @@ inline Standard_Integer IntRes2d_Intersection::NbSegments() const
 }
 
 //----------------------------------------------------------------------
-inline const IntRes2d_IntersectionSegment& IntRes2d_Intersection::Segment(
+inline const IntRes2d_IntersectionSegment& Intersection2::Segment(
   const Standard_Integer N) const
 {
   if (!done)
@@ -89,19 +89,19 @@ inline const IntRes2d_IntersectionSegment& IntRes2d_Intersection::Segment(
 }
 
 //----------------------------------------------------------------------
-inline void IntRes2d_Intersection::Append(const IntRes2d_IntersectionSegment& Seg)
+inline void Intersection2::Append(const IntRes2d_IntersectionSegment& Seg)
 {
   lseg.Append(Seg);
 }
 
 //----------------------------------------------------------------------
-inline void IntRes2d_Intersection::Append(const IntRes2d_IntersectionPoint& Pnt)
+inline void Intersection2::Append(const IntRes2d_IntersectionPoint& Pnt)
 {
   lpnt.Append(Pnt);
 }
 
 //----------------------------------------------------------------------
-inline void IntRes2d_Intersection::ResetFields()
+inline void Intersection2::ResetFields()
 {
   if (done)
   {
@@ -112,13 +112,13 @@ inline void IntRes2d_Intersection::ResetFields()
 }
 
 //----------------------------------------------------------------------
-inline void IntRes2d_Intersection::SetReversedParameters(const Standard_Boolean flag)
+inline void Intersection2::SetReversedParameters(const Standard_Boolean flag)
 {
   reverse = flag;
 }
 
 //----------------------------------------------------------------------
-inline Standard_Boolean IntRes2d_Intersection::ReversedParameters() const
+inline Standard_Boolean Intersection2::ReversedParameters() const
 {
   return (reverse);
 }

@@ -27,13 +27,13 @@ class gp_Cone;
 class Vector3d;
 class gp_XYZ;
 class IntPatch_Point;
-class IntSurf_PntOn2S;
+class PointOn2Surfaces;
 
 template <typename T>
 class math_VectorBase;
 using math_Vector = math_VectorBase<double>;
 
-class IntPatch_SpecialPoints
+class SpecialPoints
 {
 public:
   //! Adds the point defined as intersection
@@ -41,13 +41,13 @@ public:
   //! theRefPt is used to correct adjusting parameters.
   //! If theIsReversed is TRUE then theQSurf correspond to the
   //! second (otherwise, the first) surface while forming
-  //! intersection point IntSurf_PntOn2S.
+  //! intersection point PointOn2Surfaces.
   Standard_EXPORT static Standard_Boolean AddCrossUVIsoPoint(
     const Handle(Adaptor3d_Surface)& theQSurf,
     const Handle(Adaptor3d_Surface)& thePSurf,
-    const IntSurf_PntOn2S&           theRefPt,
+    const PointOn2Surfaces&           theRefPt,
     const Standard_Real              theTol3d,
-    IntSurf_PntOn2S&                 theAddedPoint,
+    PointOn2Surfaces&                 theAddedPoint,
     const Standard_Boolean           theIsReversed = Standard_False);
 
   //! Adds the point lain strictly in the isoline U = 0 or V = 0 of theQSurf,
@@ -55,7 +55,7 @@ public:
   //! theRefPt is used to correct adjusting parameters.
   //! If theIsReversed is TRUE then theQSurf corresponds to the
   //! second (otherwise, the first) surface while forming
-  //! intersection point IntSurf_PntOn2S.
+  //! intersection point PointOn2Surfaces.
   //! All math_Vector-objects must be filled as follows:
   //!   [1] - U-parameter of thePSurf;
   //!   [2] - V-parameter of thePSurf;
@@ -64,14 +64,14 @@ public:
   Standard_EXPORT static Standard_Boolean AddPointOnUorVIso(
     const Handle(Adaptor3d_Surface)& theQSurf,
     const Handle(Adaptor3d_Surface)& thePSurf,
-    const IntSurf_PntOn2S&           theRefPt,
+    const PointOn2Surfaces&           theRefPt,
     const Standard_Boolean           theIsU,
     const Standard_Real              theIsoParameter,
     const math_Vector&               theToler,
     const math_Vector&               theInitPoint,
     const math_Vector&               theInfBound,
     const math_Vector&               theSupBound,
-    IntSurf_PntOn2S&                 theAddedPoint,
+    PointOn2Surfaces&                 theAddedPoint,
     const Standard_Boolean           theIsReversed = Standard_False);
 
   //! Computes the pole of sphere to add it in the intersection line.
@@ -88,9 +88,9 @@ public:
   Standard_EXPORT static Standard_Boolean AddSingularPole(
     const Handle(Adaptor3d_Surface)& theQSurf,
     const Handle(Adaptor3d_Surface)& thePSurf,
-    const IntSurf_PntOn2S&           thePtIso,
+    const PointOn2Surfaces&           thePtIso,
     IntPatch_Point&                  theVertex,
-    IntSurf_PntOn2S&                 theAddedPoint,
+    PointOn2Surfaces&                 theAddedPoint,
     const Standard_Boolean           theIsReversed    = Standard_False,
     const Standard_Boolean           theIsReqRefCheck = Standard_False);
 
@@ -103,10 +103,10 @@ public:
   Standard_EXPORT static Standard_Boolean ContinueAfterSpecialPoint(
     const Handle(Adaptor3d_Surface)& theQSurf,
     const Handle(Adaptor3d_Surface)& thePSurf,
-    const IntSurf_PntOn2S&           theRefPt,
+    const PointOn2Surfaces&           theRefPt,
     const IntPatch_SpecPntType       theSPType,
     const Standard_Real              theTol2D,
-    IntSurf_PntOn2S&                 theNewPoint,
+    PointOn2Surfaces&                 theNewPoint,
     const Standard_Boolean           theIsReversed = Standard_False);
 
   //! Sets theNewPoint parameters in 2D-space the closest to
@@ -120,9 +120,9 @@ public:
   //! ATTENTION!!!
   //!   theNewPoint is not only Output parameter. It is Input/Output one. I.e.
   //! theNewPoint is reference point together with theRefPt.
-  Standard_EXPORT static void AdjustPointAndVertex(const IntSurf_PntOn2S& theRefPoint,
+  Standard_EXPORT static void AdjustPointAndVertex(const PointOn2Surfaces& theRefPoint,
                                                    const Standard_Real    theArrPeriods[4],
-                                                   IntSurf_PntOn2S&       theNewPoint,
+                                                   PointOn2Surfaces&       theNewPoint,
                                                    IntPatch_Point* const  theVertex = 0);
 
 protected:
@@ -130,7 +130,7 @@ protected:
   //! The parameter will be found in the range [0, 2*PI].
   //! Therefore it must be adjusted to valid range by
   //! the high-level algorithm
-  static Standard_EXPORT Standard_Boolean ProcessSphere(const IntSurf_PntOn2S& thePtIso,
+  static Standard_EXPORT Standard_Boolean ProcessSphere(const PointOn2Surfaces& thePtIso,
                                                         const Vector3d&          theDUofPSurf,
                                                         const Vector3d&          theDVofPSurf,
                                                         const Standard_Boolean theIsReversed,
@@ -142,7 +142,7 @@ protected:
   //! The parameter will be found in the range [0, 2*PI].
   //! Therefore it must be adjusted to valid range by
   //! the high-level algorithm.
-  static Standard_EXPORT Standard_Boolean ProcessCone(const IntSurf_PntOn2S& thePtIso,
+  static Standard_EXPORT Standard_Boolean ProcessCone(const PointOn2Surfaces& thePtIso,
                                                       const Vector3d&          theDUofPSurf,
                                                       const Vector3d&          theDVofPSurf,
                                                       const gp_Cone&         theCone,

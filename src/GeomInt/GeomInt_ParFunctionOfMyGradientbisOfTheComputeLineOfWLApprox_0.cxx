@@ -24,11 +24,11 @@
 
 #define MultiLine GeomInt_TheMultiLineOfWLApprox
 #define MultiLine_hxx <GeomInt_TheMultiLineOfWLApprox.hxx>
-#define ToolLine GeomInt_TheMultiLineToolOfWLApprox
+#define ToolLine MultiLineToolWLApprox
 #define ToolLine_hxx <GeomInt_TheMultiLineToolOfWLApprox.hxx>
 #define Squares GeomInt_ParLeastSquareOfMyGradientbisOfTheComputeLineOfWLApprox
 #define Squares_hxx <GeomInt_ParLeastSquareOfMyGradientbisOfTheComputeLineOfWLApprox.hxx>
-#define ResolCons GeomInt_ResConstraintOfMyGradientbisOfTheComputeLineOfWLApprox
+#define ResolCons ResConstraintGradientbisLine
 #define ResolCons_hxx <GeomInt_ResConstraintOfMyGradientbisOfTheComputeLineOfWLApprox.hxx>
 #define AppParCurves_Function GeomInt_ParFunctionOfMyGradientbisOfTheComputeLineOfWLApprox
 #define AppParCurves_Function_hxx                                                                  \

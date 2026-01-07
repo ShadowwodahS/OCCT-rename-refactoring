@@ -53,7 +53,7 @@ typedef math_DirectPolynomialRoots Roots;
 //                   - with radius Radius.                                +
 //=========================================================================
 
-Circle2dTangentOnRadius::Circle2dTangentOnRadius(const GccEnt_QualifiedCirc& Qualified1,
+Circle2dTangentOnRadius::Circle2dTangentOnRadius(const QualifiedCircle& Qualified1,
                                              const gp_Lin2d&             OnLine,
                                              const Standard_Real         Radius,
                                              const Standard_Real         Tolerance)

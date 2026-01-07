@@ -24,7 +24,7 @@ class Adaptor3d_TopolTool;
 
 //! trouver les points d intersection entre la ligne de
 //! cheminement et les arcs de restriction
-class IntPatch_RstInt
+class RestrictedIntersection
 {
 public:
   DEFINE_STANDARD_ALLOC

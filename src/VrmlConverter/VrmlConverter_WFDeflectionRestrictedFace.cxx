@@ -97,7 +97,7 @@ void WFDeflectionRestrictedFaceConverter::Add(Standard_OStream&                 
   VMax = VL;
 
   // load the isos
-  Hatch_Hatcher    isobuild(1.e-5, ToolRst.IsOriented());
+  Hatcher    isobuild(1.e-5, ToolRst.IsOriented());
   Standard_Boolean UClosed = aFace->IsUClosed();
   Standard_Boolean VClosed = aFace->IsVClosed();
 

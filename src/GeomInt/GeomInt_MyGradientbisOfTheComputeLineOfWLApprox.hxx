@@ -29,9 +29,9 @@
 class Standard_OutOfRange;
 class StdFail_NotDone;
 class GeomInt_TheMultiLineOfWLApprox;
-class GeomInt_TheMultiLineToolOfWLApprox;
+class MultiLineToolWLApprox;
 class GeomInt_ParLeastSquareOfMyGradientbisOfTheComputeLineOfWLApprox;
-class GeomInt_ResConstraintOfMyGradientbisOfTheComputeLineOfWLApprox;
+class ResConstraintGradientbisLine;
 class GeomInt_ParFunctionOfMyGradientbisOfTheComputeLineOfWLApprox;
 class GeomInt_Gradient_BFGSOfMyGradientbisOfTheComputeLineOfWLApprox;
 class AppParCurves_MultiCurve;

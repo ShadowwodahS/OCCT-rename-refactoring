@@ -39,7 +39,7 @@
 #include <Precision.hxx>
 #include <TColStd_Array1OfReal.hxx>
 
-Circle2dTwoTangentOn::Circle2dTwoTangentOn(const GccEnt_QualifiedCirc& Qualified1,
+Circle2dTwoTangentOn::Circle2dTwoTangentOn(const QualifiedCircle& Qualified1,
                                          const gp_Pnt2d&             Point2,
                                          const gp_Circ2d&            OnCirc,
                                          const Standard_Real         Tolerance)

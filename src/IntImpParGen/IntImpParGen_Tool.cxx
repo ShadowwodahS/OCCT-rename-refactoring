@@ -20,7 +20,7 @@
 #define TOLERANCE_ANGULAIRE 0.00000001
 
 //----------------------------------------------------------------------
-Standard_Real NormalizeOnDomain(Standard_Real& Param, const IntRes2d_Domain& TheDomain)
+Standard_Real NormalizeOnDomain(Standard_Real& Param, const Domain2& TheDomain)
 {
   Standard_Real modParam = Param;
   if (TheDomain.IsClosed())
@@ -48,7 +48,7 @@ Standard_Real NormalizeOnDomain(Standard_Real& Param, const IntRes2d_Domain& The
 
 //----------------------------------------------------------------------
 void Determine_Position(IntRes2d_Position&     Pos1,
-                        const IntRes2d_Domain& TheDomain,
+                        const Domain2& TheDomain,
                         const gp_Pnt2d&        Pnt1,
                         const Standard_Real    Param1)
 {
@@ -84,11 +84,11 @@ void Determine_Position(IntRes2d_Position&     Pos1,
 void Determine_Transition(const IntRes2d_Position Pos1,
                           gp_Vec2d&               Tan1,
                           const gp_Vec2d&         Norm1,
-                          IntRes2d_Transition&    T1,
+                          Transition3&    T1,
                           const IntRes2d_Position Pos2,
                           gp_Vec2d&               Tan2,
                           const gp_Vec2d&         Norm2,
-                          IntRes2d_Transition&    T2,
+                          Transition3&    T2,
                           //			  const Standard_Real        Tolerance_Angulaire) {
                           const Standard_Real)
 {

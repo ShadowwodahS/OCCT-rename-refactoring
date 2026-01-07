@@ -22,7 +22,7 @@
 
 class Point3d;
 class gp_Pnt2d;
-class IntSurf_PntOn2S;
+class PointOn2Surfaces;
 class IntSurf_LineOn2S;
 class IntPatch_Point;
 
@@ -49,7 +49,7 @@ public:
   Standard_EXPORT virtual Standard_Integer NbVertex() const = 0;
 
   //! Returns the intersection point of range Index.
-  Standard_EXPORT virtual const IntSurf_PntOn2S& Point(const Standard_Integer Index) const = 0;
+  Standard_EXPORT virtual const PointOn2Surfaces& Point(const Standard_Integer Index) const = 0;
 
   //! Returns the vertex of range Index on the line.
   Standard_EXPORT virtual const IntPatch_Point& Vertex(const Standard_Integer Index) const = 0;
@@ -83,7 +83,7 @@ public:
   Standard_EXPORT static Standard_Real CurvatureRadiusOfIntersLine(
     const Handle(Adaptor3d_Surface)& theS1,
     const Handle(Adaptor3d_Surface)& theS2,
-    const IntSurf_PntOn2S&           theUVPoint);
+    const PointOn2Surfaces&           theUVPoint);
 
   DEFINE_STANDARD_RTTIEXT(IntPatch_PointLine, IntPatch_Line)
 

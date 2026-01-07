@@ -56,9 +56,9 @@ Standard_Real IntPolyh_Triangle::ComputeDeflection(const Handle(Adaptor3d_Surfac
 {
   myDeflection = 0.;
   //
-  const IntPolyh_Point& P1 = TPoints[myPoints[0]];
-  const IntPolyh_Point& P2 = TPoints[myPoints[1]];
-  const IntPolyh_Point& P3 = TPoints[myPoints[2]];
+  const Point3& P1 = TPoints[myPoints[0]];
+  const Point3& P2 = TPoints[myPoints[1]];
+  const Point3& P3 = TPoints[myPoints[2]];
   //
   {
     // check if the triangle is not degenerated - no more than one point
@@ -73,7 +73,7 @@ Standard_Real IntPolyh_Triangle::ComputeDeflection(const Handle(Adaptor3d_Surfac
   }
   //
   // Plane of the triangle
-  IntPolyh_Point NormaleTri;
+  Point3 NormaleTri;
   NormaleTri.Cross(P2 - P1, P3 - P1);
   Standard_Real SqNorm = NormaleTri.SquareModulus();
   if (SqNorm < SquareMyConfusionPrecision)
@@ -88,7 +88,7 @@ Standard_Real IntPolyh_Triangle::ComputeDeflection(const Handle(Adaptor3d_Surfac
   Standard_Real Gv    = (P1.V() + P2.V() + P3.V()) / 3.0;
   Point3d        PtXYZ = theSurface->Value(Gu, Gv);
   // Point on the surface
-  IntPolyh_Point BarycentreReel(PtXYZ.X(), PtXYZ.Y(), PtXYZ.Z(), Gu, Gv);
+  Point3 BarycentreReel(PtXYZ.X(), PtXYZ.Y(), PtXYZ.Z(), Gu, Gv);
   // compute distance to plane
   NormaleTri   = NormaleTri / sqrt(SqNorm);
   myDeflection = Abs(NormaleTri.Dot(BarycentreReel - P1));
@@ -107,7 +107,7 @@ Standard_Integer IntPolyh_Triangle::GetNextTriangle(const Standard_Integer      
     return aNextTriangle;
   }
   //
-  const IntPolyh_Edge& anEdge = TEdges[myEdges[theEdgeNum - 1]];
+  const Edge& anEdge = TEdges[myEdges[theEdgeNum - 1]];
   aNextTriangle =
     ((anEdge.FirstTriangle() == theTriangle) ? anEdge.SecondTriangle() : anEdge.FirstTriangle());
   return aNextTriangle;
@@ -274,9 +274,9 @@ void IntPolyh_Triangle::MiddleRefinement(const Standard_Integer           NumTri
   Standard_Integer numP2 = SecondPoint();
   Standard_Integer numP3 = ThirdPoint();
 
-  const IntPolyh_Point& P1 = TPoints[numP1];
-  const IntPolyh_Point& P2 = TPoints[numP2];
-  const IntPolyh_Point& P3 = TPoints[numP3];
+  const Point3& P1 = TPoints[numP1];
+  const Point3& P2 = TPoints[numP2];
+  const Point3& P3 = TPoints[numP3];
 
   // compute the largest dimension
   Standard_Real L12 = P1.SquareDistance(P2);
@@ -593,7 +593,7 @@ void IntPolyh_Triangle::MultipleMiddleRefinement(const Standard_Real    theRefin
 
 //=================================================================================================
 
-void IntPolyh_Triangle::SetEdgeAndOrientation(const IntPolyh_Edge&   theEdge,
+void IntPolyh_Triangle::SetEdgeAndOrientation(const Edge&   theEdge,
                                               const Standard_Integer theEdgeIndex)
 {
   // Points on the edge - pe1, pe2
@@ -637,9 +637,9 @@ const Bnd_Box& IntPolyh_Triangle::BoundingBox(const IntPolyh_ArrayOfPoints& theP
 {
   if (myBox.IsVoid())
   {
-    const IntPolyh_Point& aP1 = thePoints[myPoints[0]];
-    const IntPolyh_Point& aP2 = thePoints[myPoints[1]];
-    const IntPolyh_Point& aP3 = thePoints[myPoints[2]];
+    const Point3& aP1 = thePoints[myPoints[0]];
+    const Point3& aP2 = thePoints[myPoints[1]];
+    const Point3& aP3 = thePoints[myPoints[2]];
     myBox.Add(Point3d(aP1.X(), aP1.Y(), aP1.Z()));
     myBox.Add(Point3d(aP2.X(), aP2.Y(), aP2.Z()));
     myBox.Add(Point3d(aP3.X(), aP3.Y(), aP3.Z()));

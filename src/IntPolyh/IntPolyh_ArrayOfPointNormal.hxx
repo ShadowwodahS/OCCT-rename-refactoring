@@ -21,12 +21,12 @@
 
 //! Auxiliary structure to represent pair of point and
 //! normal vector in this point on the surface.
-struct IntPolyh_PointNormal
+struct PointNormal
 {
   Point3d Point;
   Vector3d Normal;
 };
 
-typedef IntPolyh_Array<IntPolyh_PointNormal> IntPolyh_ArrayOfPointNormal;
+typedef IntPolyh_Array<PointNormal> IntPolyh_ArrayOfPointNormal;
 
 #endif

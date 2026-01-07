@@ -27,6 +27,6 @@
 #define ThePolygon_hxx <IntCurveSurface_ThePolygonOfHInter.hxx>
 #define TheBoundingBox Bnd_Box
 #define TheBoundingBox_hxx <Bnd_Box.hxx>
-#define IntCurveSurface_PolygonTool IntCurveSurface_ThePolygonToolOfHInter
+#define IntCurveSurface_PolygonTool PolygonToolHInter
 #define IntCurveSurface_PolygonTool_hxx <IntCurveSurface_ThePolygonToolOfHInter.hxx>
 #include "../IntCurveSurface/IntCurveSurface_PolygonTool.gxx"

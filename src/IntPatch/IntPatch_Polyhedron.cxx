@@ -34,7 +34,7 @@ static Standard_Integer NbPOnU(const Handle(Adaptor3d_Surface)& S)
 {
   const Standard_Real    u0   = S->FirstUParameter();
   const Standard_Real    u1   = S->LastUParameter();
-  const Standard_Integer nbpu = IntPatch_HInterTool::NbSamplesU(S, u0, u1);
+  const Standard_Integer nbpu = HInterTool::NbSamplesU(S, u0, u1);
   return (nbpu > NBMAXUV ? NBMAXUV : nbpu);
 }
 
@@ -43,7 +43,7 @@ static Standard_Integer NbPOnV(const Handle(Adaptor3d_Surface)& S)
 {
   const Standard_Real    v0   = S->FirstVParameter();
   const Standard_Real    v1   = S->LastVParameter();
-  const Standard_Integer nbpv = IntPatch_HInterTool::NbSamplesV(S, v0, v1);
+  const Standard_Integer nbpv = HInterTool::NbSamplesV(S, v0, v1);
   return (nbpv > NBMAXUV ? NBMAXUV : nbpv);
 }
 
@@ -72,10 +72,10 @@ IntPatch_Polyhedron::IntPatch_Polyhedron(const Handle(Adaptor3d_Surface)& Surfac
       C_MyPnts(NULL),
       C_MyU(NULL),
       C_MyV(NULL),
-      UMinSingular(IntPatch_HInterTool::SingularOnVMin(Surface)),
-      UMaxSingular(IntPatch_HInterTool::SingularOnVMin(Surface)),
-      VMinSingular(IntPatch_HInterTool::SingularOnVMin(Surface)),
-      VMaxSingular(IntPatch_HInterTool::SingularOnVMin(Surface))
+      UMinSingular(HInterTool::SingularOnVMin(Surface)),
+      UMaxSingular(HInterTool::SingularOnVMin(Surface)),
+      VMinSingular(HInterTool::SingularOnVMin(Surface)),
+      VMaxSingular(HInterTool::SingularOnVMin(Surface))
 {
   const Standard_Integer t       = (nbdeltaU + 1) * (nbdeltaV + 1) + 1;
   Point3d*                CMyPnts = new Point3d[t];
@@ -135,10 +135,10 @@ IntPatch_Polyhedron::IntPatch_Polyhedron(const Handle(Adaptor3d_Surface)& Surfac
       C_MyPnts(NULL),
       C_MyU(NULL),
       C_MyV(NULL),
-      UMinSingular(IntPatch_HInterTool::SingularOnVMin(Surface)),
-      UMaxSingular(IntPatch_HInterTool::SingularOnVMin(Surface)),
-      VMinSingular(IntPatch_HInterTool::SingularOnVMin(Surface)),
-      VMaxSingular(IntPatch_HInterTool::SingularOnVMin(Surface))
+      UMinSingular(HInterTool::SingularOnVMin(Surface)),
+      UMaxSingular(HInterTool::SingularOnVMin(Surface)),
+      VMinSingular(HInterTool::SingularOnVMin(Surface)),
+      VMaxSingular(HInterTool::SingularOnVMin(Surface))
 {
   const Standard_Integer t       = (nbdeltaU + 1) * (nbdeltaV + 1) + 1;
   Point3d*                CMyPnts = new Point3d[t];

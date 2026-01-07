@@ -21,13 +21,13 @@
 #include <TColgp_Array1OfPnt2d.hxx>
 #include <TColgp_Array1OfVec2d.hxx>
 
-GeomFill_LocFunction::GeomFill_LocFunction(const Handle(GeomFill_LocationLaw)& Law)
+GeomFill_LocFunction::GeomFill_LocFunction(const Handle(GeomFill_LocationLaw)& Law1)
     : V(1, 4),
       DV(1, 4),
       D2V(1, 4)
 
 {
-  myLaw = Law;
+  myLaw = Law1;
 }
 
 Standard_Boolean GeomFill_LocFunction::D0(const Standard_Real Param,

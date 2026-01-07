@@ -24,7 +24,7 @@
 class IntPatch_Point;
 class IntPatch_WLine;
 
-class GeomInt_LineTool
+class LineTool2
 {
 public:
   DEFINE_STANDARD_ALLOC

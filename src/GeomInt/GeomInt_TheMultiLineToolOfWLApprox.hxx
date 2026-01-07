@@ -26,7 +26,7 @@
 class GeomInt_TheMultiLineOfWLApprox;
 class SurfaceSurfaces;
 
-class GeomInt_TheMultiLineToolOfWLApprox
+class MultiLineToolWLApprox
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -128,7 +128,7 @@ private:
 #define TheMultiLine_hxx <GeomInt_TheMultiLineOfWLApprox.hxx>
 #define TheMultiMPoint SurfaceSurfaces
 #define TheMultiMPoint_hxx <ApproxInt_SvSurfaces.hxx>
-#define ApproxInt_MultiLineTool GeomInt_TheMultiLineToolOfWLApprox
+#define ApproxInt_MultiLineTool MultiLineToolWLApprox
 #define ApproxInt_MultiLineTool_hxx <GeomInt_TheMultiLineToolOfWLApprox.hxx>
 
 #include <ApproxInt_MultiLineTool.lxx>

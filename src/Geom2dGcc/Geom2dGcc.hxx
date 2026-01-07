@@ -24,9 +24,9 @@
 class Geom2dGcc_QualifiedCurve;
 class Geom2dAdaptor_Curve;
 
-//! The Geom2dGcc package describes qualified 2D
+//! The Geom2dGcc1 package describes qualified 2D
 //! curves used in the construction of constrained geometric
-//! objects by an algorithm provided by the Geom2dGcc package.
+//! objects by an algorithm provided by the Geom2dGcc1 package.
 //! A qualified 2D curve is a curve with a qualifier which
 //! specifies whether the solution of a construction
 //! algorithm using the qualified curve (as an argument):
@@ -37,7 +37,7 @@ class Geom2dAdaptor_Curve;
 //! These package methods provide simpler functions to construct a qualified curve.
 //! Note: the interior of a curve is defined as the left-hand
 //! side of the curve in relation to its orientation.
-class Geom2dGcc
+class Geom2dGcc1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -57,7 +57,7 @@ public:
   //! ;
   //! The qualified curve is then constructed with this object:
   //! Geom2dGcc_QualifiedCurve
-  //! myQCurve = Geom2dGcc::Unqualified(Obj);
+  //! myQCurve = Geom2dGcc1::Unqualified(Obj);
   Standard_EXPORT static Geom2dGcc_QualifiedCurve Unqualified(const Geom2dAdaptor_Curve& Obj);
 
   //! Constructs such a qualified curve that the solution
@@ -74,7 +74,7 @@ public:
   //! ;
   //! The qualified curve is then constructed with this object:
   //! Geom2dGcc_QualifiedCurve
-  //! myQCurve = Geom2dGcc::Enclosing(Obj);
+  //! myQCurve = Geom2dGcc1::Enclosing(Obj);
   Standard_EXPORT static Geom2dGcc_QualifiedCurve Enclosing(const Geom2dAdaptor_Curve& Obj);
 
   //! Constructs such a qualified curve that the solution
@@ -91,7 +91,7 @@ public:
   //! ;
   //! The qualified curve is then constructed with this object:
   //! Geom2dGcc_QualifiedCurve
-  //! myQCurve = Geom2dGcc::Enclosed(Obj);
+  //! myQCurve = Geom2dGcc1::Enclosed(Obj);
   Standard_EXPORT static Geom2dGcc_QualifiedCurve Enclosed(const Geom2dAdaptor_Curve& Obj);
 
   //! Constructs such a qualified curve that the solution
@@ -108,7 +108,7 @@ public:
   //! ;
   //! The qualified curve is then constructed with this object:
   //! Geom2dGcc_QualifiedCurve
-  //! myQCurve = Geom2dGcc::Outside(Obj);
+  //! myQCurve = Geom2dGcc1::Outside(Obj);
   Standard_EXPORT static Geom2dGcc_QualifiedCurve Outside(const Geom2dAdaptor_Curve& Obj);
 };
 

@@ -103,7 +103,7 @@ public:
 
   //! calculate the first point of a line of intersection
   Standard_EXPORT Standard_Boolean PerformFirstPoint(const TColStd_Array1OfReal& ParDep,
-                                                     IntSurf_PntOn2S&            FirstPoint);
+                                                     PointOn2Surfaces&            FirstPoint);
 
   //! Returns true if the calculus was successful.
   Standard_Boolean IsDone() const;
@@ -115,7 +115,7 @@ public:
   //! Returns the point of range Index on the polyline.
   //! An exception is raised if IsDone returns False.
   //! An exception is raised if Index<=0 or Index>NbPoints.
-  const IntSurf_PntOn2S& Value(const Standard_Integer Index) const;
+  const PointOn2Surfaces& Value(const Standard_Integer Index) const;
 
   const Handle(IntSurf_LineOn2S)& Line() const;
 
@@ -147,7 +147,7 @@ public:
                                          Standard_Boolean&          Arrive);
 
   //! Inserts thePOn2S in the end of line
-  void AddAPoint(const IntSurf_PntOn2S& thePOn2S);
+  void AddAPoint(const PointOn2Surfaces& thePOn2S);
 
   //! Removes point with index theIndex from line.
   //! If theIndex is greater than the number of points in line
@@ -279,7 +279,7 @@ private:
   Standard_Real             ResoV2;
   Standard_Integer          sensCheminement;
   IntImp_ConstIsoparametric choixIsoSav;
-  IntSurf_PntOn2S           previousPoint;
+  PointOn2Surfaces           previousPoint;
   Standard_Boolean          previoustg;
   Dir3d                    previousd;
   gp_Dir2d                  previousd1;

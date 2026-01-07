@@ -37,7 +37,7 @@ inline void IntPatch_Point::SetValue(const Point3d& Pt)
 ////function : SetValue
 // purpose  :
 //=======================================================================
-inline void IntPatch_Point::SetValue(const IntSurf_PntOn2S& thePOn2S)
+inline void IntPatch_Point::SetValue(const PointOn2Surfaces& thePOn2S)
 {
   pt = thePOn2S;
 }
@@ -128,7 +128,7 @@ inline const Handle(Adaptor2d_Curve2d)& IntPatch_Point::ArcOnS1() const
   return arcS1;
 }
 
-inline const IntSurf_Transition& IntPatch_Point::TransitionLineArc1() const
+inline const Transition2& IntPatch_Point::TransitionLineArc1() const
 {
   if (!onS1)
   {
@@ -137,7 +137,7 @@ inline const IntSurf_Transition& IntPatch_Point::TransitionLineArc1() const
   return traline1;
 }
 
-inline const IntSurf_Transition& IntPatch_Point::TransitionOnS1() const
+inline const Transition2& IntPatch_Point::TransitionOnS1() const
 {
   if (!onS1)
   {
@@ -183,7 +183,7 @@ inline const Handle(Adaptor2d_Curve2d)& IntPatch_Point::ArcOnS2() const
   return arcS2;
 }
 
-inline const IntSurf_Transition& IntPatch_Point::TransitionLineArc2() const
+inline const Transition2& IntPatch_Point::TransitionLineArc2() const
 {
   if (!onS2)
   {
@@ -192,7 +192,7 @@ inline const IntSurf_Transition& IntPatch_Point::TransitionLineArc2() const
   return traline2;
 }
 
-inline const IntSurf_Transition& IntPatch_Point::TransitionOnS2() const
+inline const Transition2& IntPatch_Point::TransitionOnS2() const
 {
   if (!onS2)
   {
@@ -210,7 +210,7 @@ inline Standard_Real IntPatch_Point::ParameterOnArc2() const
   return prm2;
 }
 
-inline const IntSurf_PntOn2S& IntPatch_Point::PntOn2S() const
+inline const PointOn2Surfaces& IntPatch_Point::PntOn2S() const
 {
   return pt;
 }

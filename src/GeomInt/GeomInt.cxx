@@ -18,7 +18,7 @@
 
 //=================================================================================================
 
-Standard_Boolean GeomInt::AdjustPeriodic(const Standard_Real thePar,
+Standard_Boolean GeomInt1::AdjustPeriodic(const Standard_Real thePar,
                                          const Standard_Real theParMin,
                                          const Standard_Real theParMax,
                                          const Standard_Real thePeriod,

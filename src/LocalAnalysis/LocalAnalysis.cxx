@@ -20,7 +20,7 @@
 
 /*********************************************************************************/
 /*********************************************************************************/
-void LocalAnalysis::Dump(const LocalAnalysis_SurfaceContinuity& surfconti, Standard_OStream& o)
+void LocalAnalysis1::Dump(const SurfaceContinuity& surfconti, Standard_OStream& o)
 {
   if (!surfconti.IsDone())
   {
@@ -131,7 +131,7 @@ void LocalAnalysis::Dump(const LocalAnalysis_SurfaceContinuity& surfconti, Stand
 
 /*********************************************************************************/
 
-void LocalAnalysis::Dump(const LocalAnalysis_CurveContinuity& curvconti, Standard_OStream& o)
+void LocalAnalysis1::Dump(const CurveContinuity& curvconti, Standard_OStream& o)
 {
   if (!curvconti.IsDone())
   {

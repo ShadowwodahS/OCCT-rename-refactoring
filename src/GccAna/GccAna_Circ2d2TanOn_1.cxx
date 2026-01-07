@@ -44,8 +44,8 @@
 //  us points among which we'll choose the solutions.                     +
 //  The choices are made basing on Qualifiers of C1 and L2.               +
 //=========================================================================
-Circle2dTwoTangentOn::Circle2dTwoTangentOn(const GccEnt_QualifiedCirc& Qualified1,
-                                         const GccEnt_QualifiedLin&  Qualified2,
+Circle2dTwoTangentOn::Circle2dTwoTangentOn(const QualifiedCircle& Qualified1,
+                                         const QualifiedLine&  Qualified2,
                                          const gp_Lin2d&             OnLine,
                                          const Standard_Real         Tolerance)
     : cirsol(1, 4),

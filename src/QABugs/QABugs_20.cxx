@@ -2515,7 +2515,7 @@ static Standard_Integer OCC27357(DrawInterpreter& theDI, Standard_Integer, const
       double                        g1 = projPc1.LowerDistanceParameter();
       Geom2dAPI_ProjectPointOnCurve projPc3(aP1, normalLine);
       double                        g3 = projPc3.LowerDistanceParameter();
-      Geom2dGcc_Circ2d2TanOn
+      Circ2d2TanOn1
         aCircleBuilder(qualifiedC1, qualifiedC2, Geom2dAdaptor_Curve(normalLine), 1e-9, g1, g1, g3);
       aDuumyList.Append(aCircleBuilder.NbSolutions());
     }
@@ -3108,7 +3108,7 @@ static Standard_Integer OCC28131(DrawInterpreter&,
 
     gp_Pln pln(gp_Ax3(Point3d(), Dir3d(1, 0, 0), Dir3d(0, -1, 0)));
 
-    Handle(BSplineCurve3d) c3d = Handle(BSplineCurve3d)::DownCast(GeomAPI::To3d(c, pln));
+    Handle(BSplineCurve3d) c3d = Handle(BSplineCurve3d)::DownCast(GeomAPI1::To3d(c, pln));
     curve1                        = c3d;
   }
 
@@ -3124,7 +3124,7 @@ static Standard_Integer OCC28131(DrawInterpreter&,
 
     Handle(Geom2d_BSplineCurve) c = anInterpolation.Curve();
     gp_Pln                      pln(gp_Ax3(Point3d(), Dir3d(0, -1, 0), Dir3d(-1, 0, 0)));
-    Handle(BSplineCurve3d)   c3d = Handle(BSplineCurve3d)::DownCast(GeomAPI::To3d(c, pln));
+    Handle(BSplineCurve3d)   c3d = Handle(BSplineCurve3d)::DownCast(GeomAPI1::To3d(c, pln));
     curve2                          = c3d;
   }
 
@@ -3583,7 +3583,7 @@ static Standard_Integer OCC29807(DrawInterpreter& theDI,
     return 1;
   }
 
-  IntSurf_PntOn2S aPOn2S;
+  PointOn2Surfaces aPOn2S;
   aPOn2S.SetValue(0.5 * (aP1.XYZ() + aP2.XYZ()), aU1, aV1, aU2, aV2);
 
   const Standard_Real aCurvatureRadius =

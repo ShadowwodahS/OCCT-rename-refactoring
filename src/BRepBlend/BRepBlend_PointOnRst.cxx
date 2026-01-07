@@ -24,8 +24,8 @@ BRepBlend_PointOnRst::BRepBlend_PointOnRst()
 
 BRepBlend_PointOnRst::BRepBlend_PointOnRst(const Handle(Adaptor2d_Curve2d)& A,
                                            const Standard_Real              Param,
-                                           const IntSurf_Transition&        TLine,
-                                           const IntSurf_Transition&        TArc)
+                                           const Transition2&        TLine,
+                                           const Transition2&        TArc)
     :
 
       arc(A),
@@ -37,8 +37,8 @@ BRepBlend_PointOnRst::BRepBlend_PointOnRst(const Handle(Adaptor2d_Curve2d)& A,
 
 void BRepBlend_PointOnRst::SetArc(const Handle(Adaptor2d_Curve2d)& A,
                                   const Standard_Real              Param,
-                                  const IntSurf_Transition&        TLine,
-                                  const IntSurf_Transition&        TArc)
+                                  const Transition2&        TLine,
+                                  const Transition2&        TArc)
 {
   arc     = A;
   prm     = Param;

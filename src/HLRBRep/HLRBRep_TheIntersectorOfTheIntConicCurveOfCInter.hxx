@@ -24,14 +24,14 @@
 #include <Standard_Integer.hxx>
 #include <TColStd_Array1OfReal.hxx>
 class Standard_ConstructionError;
-class IntCurve_IConicTool;
+class ConicTool;
 class HLRBRep_CurveTool;
 class HLRBRep_TheProjPCurOfCInter;
 class HLRBRep_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfCInter;
-class IntRes2d_Domain;
+class Domain2;
 class gp_Pnt2d;
 
-class HLRBRep_TheIntersectorOfTheIntConicCurveOfCInter : public IntRes2d_Intersection
+class HLRBRep_TheIntersectorOfTheIntConicCurveOfCInter : public Intersection2
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -44,10 +44,10 @@ public:
   //! The exception ConstructionError is raised if the domain
   //! of the parametrised curve does not verify HasFirstPoint
   //! and HasLastPoint return True.
-  Standard_EXPORT HLRBRep_TheIntersectorOfTheIntConicCurveOfCInter(const IntCurve_IConicTool& ITool,
-                                                                   const IntRes2d_Domain&     Dom1,
+  Standard_EXPORT HLRBRep_TheIntersectorOfTheIntConicCurveOfCInter(const ConicTool& ITool,
+                                                                   const Domain2&     Dom1,
                                                                    const Standard_Address& PCurve,
-                                                                   const IntRes2d_Domain&  Dom2,
+                                                                   const Domain2&  Dom2,
                                                                    const Standard_Real     TolConf,
                                                                    const Standard_Real     Tol);
 
@@ -56,31 +56,31 @@ public:
   //! The exception ConstructionError is raised if the domain
   //! of the parametrised curve does not verify HasFirstPoint
   //! and HasLastPoint return True.
-  Standard_EXPORT void Perform(const IntCurve_IConicTool& ITool,
-                               const IntRes2d_Domain&     Dom1,
+  Standard_EXPORT void Perform(const ConicTool& ITool,
+                               const Domain2&     Dom1,
                                const Standard_Address&    PCurve,
-                               const IntRes2d_Domain&     Dom2,
+                               const Domain2&     Dom2,
                                const Standard_Real        TolConf,
                                const Standard_Real        Tol);
 
   Standard_EXPORT Standard_Real FindU(const Standard_Real        parameter,
                                       gp_Pnt2d&                  point,
                                       const Standard_Address&    TheParCurev,
-                                      const IntCurve_IConicTool& TheImpTool) const;
+                                      const ConicTool& TheImpTool) const;
 
   Standard_EXPORT Standard_Real FindV(const Standard_Real        parameter,
                                       gp_Pnt2d&                  point,
-                                      const IntCurve_IConicTool& TheImpTool,
+                                      const ConicTool& TheImpTool,
                                       const Standard_Address&    ParCurve,
-                                      const IntRes2d_Domain&     TheParCurveDomain,
+                                      const Domain2&     TheParCurveDomain,
                                       const Standard_Real        V0,
                                       const Standard_Real        V1,
                                       const Standard_Real        Tolerance) const;
 
-  Standard_EXPORT void And_Domaine_Objet1_Intersections(const IntCurve_IConicTool& TheImpTool,
+  Standard_EXPORT void And_Domaine_Objet1_Intersections(const ConicTool& TheImpTool,
                                                         const Standard_Address&    TheParCurve,
-                                                        const IntRes2d_Domain& TheImpCurveDomain,
-                                                        const IntRes2d_Domain& TheParCurveDomain,
+                                                        const Domain2& TheImpCurveDomain,
+                                                        const Domain2& TheParCurveDomain,
                                                         Standard_Integer&      NbResultats,
                                                         TColStd_Array1OfReal&  Inter2_And_Domain2,
                                                         TColStd_Array1OfReal&  Inter1,

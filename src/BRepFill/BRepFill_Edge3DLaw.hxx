@@ -27,13 +27,13 @@ class GeomFill_LocationLaw;
 class BRepFill_Edge3DLaw;
 DEFINE_STANDARD_HANDLE(BRepFill_Edge3DLaw, BRepFill_LocationLaw)
 
-//! Build Location Law, with a  Wire.
+//! Build Location Law1, with a  Wire.
 class BRepFill_Edge3DLaw : public BRepFill_LocationLaw
 {
 
 public:
   Standard_EXPORT BRepFill_Edge3DLaw(const TopoWire&                  Path,
-                                     const Handle(GeomFill_LocationLaw)& Law);
+                                     const Handle(GeomFill_LocationLaw)& Law1);
 
   DEFINE_STANDARD_RTTIEXT(BRepFill_Edge3DLaw, BRepFill_LocationLaw)
 

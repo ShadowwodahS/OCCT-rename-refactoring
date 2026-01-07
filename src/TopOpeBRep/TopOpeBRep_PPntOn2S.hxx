@@ -17,7 +17,7 @@
 #ifndef _TopOpeBRep_PPntOn2S_HeaderFile
 #define _TopOpeBRep_PPntOn2S_HeaderFile
 
-class IntSurf_PntOn2S;
-typedef IntSurf_PntOn2S* TopOpeBRep_PPntOn2S;
+class PointOn2Surfaces;
+typedef PointOn2Surfaces* TopOpeBRep_PPntOn2S;
 
 #endif // _TopOpeBRep_PPntOn2S_HeaderFile

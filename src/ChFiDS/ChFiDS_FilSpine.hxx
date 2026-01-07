@@ -87,7 +87,7 @@ public:
 
   Standard_EXPORT virtual void AppendElSpine(const Handle(ChFiDS_ElSpine)& Els) Standard_OVERRIDE;
 
-  Standard_EXPORT Handle(Law_Composite) Law(const Handle(ChFiDS_ElSpine)& Els) const;
+  Standard_EXPORT Handle(Law_Composite) Law1(const Handle(ChFiDS_ElSpine)& Els) const;
 
   //! returns the elementary law
   Standard_EXPORT Handle(Law_Function)& ChangeLaw(const TopoEdge& E);

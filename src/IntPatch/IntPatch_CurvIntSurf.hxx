@@ -20,7 +20,7 @@
 #include <IntPatch_CSFunction.hxx>
 
 class HSurfaceTool;
-class IntPatch_HCurve2dTool;
+class HCurve2dTool1;
 class math_FunctionSetRoot;
 
 class IntPatch_CurvIntSurf

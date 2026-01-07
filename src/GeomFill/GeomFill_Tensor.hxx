@@ -26,12 +26,12 @@
 class math_Matrix;
 
 //! used to store the "gradient of gradient"
-class GeomFill_Tensor
+class Tensor1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT GeomFill_Tensor(const Standard_Integer NbRow,
+  Standard_EXPORT Tensor1(const Standard_Integer NbRow,
                                   const Standard_Integer NbCol,
                                   const Standard_Integer NbMat);
 

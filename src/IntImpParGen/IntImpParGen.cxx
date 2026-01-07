@@ -25,8 +25,8 @@
 #define DERIVEE_PREMIERE_NULLE 0.000000000001
 
 //----------------------------------------------------------------------
-Standard_Real IntImpParGen::NormalizeOnDomain(Standard_Real&         Param,
-                                              const IntRes2d_Domain& TheDomain)
+Standard_Real IntImpParGen1::NormalizeOnDomain(Standard_Real&         Param,
+                                              const Domain2& TheDomain)
 {
   Standard_Real modParam = Param;
   if (TheDomain.IsClosed())
@@ -47,8 +47,8 @@ Standard_Real IntImpParGen::NormalizeOnDomain(Standard_Real&         Param,
 }
 
 //----------------------------------------------------------------------
-void IntImpParGen::DeterminePosition(IntRes2d_Position&     Pos1,
-                                     const IntRes2d_Domain& TheDomain,
+void IntImpParGen1::DeterminePosition(IntRes2d_Position&     Pos1,
+                                     const Domain2& TheDomain,
                                      const gp_Pnt2d&        Pnt1,
                                      const Standard_Real    Param1)
 {
@@ -81,14 +81,14 @@ void IntImpParGen::DeterminePosition(IntRes2d_Position&     Pos1,
 }
 
 //----------------------------------------------------------------------
-void IntImpParGen::DetermineTransition(const IntRes2d_Position Pos1,
+void IntImpParGen1::DetermineTransition(const IntRes2d_Position Pos1,
                                        gp_Vec2d&               Tan1,
                                        const gp_Vec2d&         Norm1,
-                                       IntRes2d_Transition&    T1,
+                                       Transition3&    T1,
                                        const IntRes2d_Position Pos2,
                                        gp_Vec2d&               Tan2,
                                        const gp_Vec2d&         Norm2,
-                                       IntRes2d_Transition&    T2,
+                                       Transition3&    T2,
                                        const Standard_Real)
 {
 
@@ -204,12 +204,12 @@ void IntImpParGen::DetermineTransition(const IntRes2d_Position Pos1,
 }
 
 //----------------------------------------------------------------------
-Standard_Boolean IntImpParGen::DetermineTransition(const IntRes2d_Position Pos1,
+Standard_Boolean IntImpParGen1::DetermineTransition(const IntRes2d_Position Pos1,
                                                    gp_Vec2d&               Tan1,
-                                                   IntRes2d_Transition&    T1,
+                                                   Transition3&    T1,
                                                    const IntRes2d_Position Pos2,
                                                    gp_Vec2d&               Tan2,
-                                                   IntRes2d_Transition&    T2,
+                                                   Transition3&    T2,
                                                    const Standard_Real)
 {
 

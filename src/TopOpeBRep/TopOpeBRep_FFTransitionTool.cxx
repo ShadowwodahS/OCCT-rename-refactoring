@@ -32,7 +32,7 @@
 // purpose  : static
 //-----------------------------------------------------------------------
 
-static Standard_Boolean TransitionToOrientation(const IntSurf_Transition& T, TopAbs_Orientation& O)
+static Standard_Boolean TransitionToOrientation(const Transition2& T, TopAbs_Orientation& O)
 {
   Standard_Boolean   Odefined = Standard_True;
   TopAbs_Orientation result   = TopAbs_FORWARD;
@@ -98,7 +98,7 @@ StateTransition FaceFaceTransitionTool::ProcessLineTransition(
   {
     TopAbs_Orientation O;
 
-    IntSurf_Transition T;
+    Transition2 T;
     {
       switch (Index)
       {
@@ -178,7 +178,7 @@ StateTransition FaceFaceTransitionTool::ProcessEdgeTransition(
   }
   else
   {
-    IntSurf_Transition T;
+    Transition2 T;
     if (Index == 1)
       T = P.TransitionOnS1();
     else if (Index == 2)

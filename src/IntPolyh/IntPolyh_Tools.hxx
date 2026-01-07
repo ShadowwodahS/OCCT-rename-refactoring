@@ -20,7 +20,7 @@
 #include <IntPolyh_ArrayOfPointNormal.hxx>
 
 //! The class provides tools for surface sampling.
-class IntPolyh_Tools
+class Tools4
 {
 public:
   //! Checks if the surface can be enlarged in U or V direction.

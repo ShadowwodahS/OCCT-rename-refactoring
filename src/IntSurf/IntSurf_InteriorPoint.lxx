@@ -12,37 +12,37 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-inline const Point3d& IntSurf_InteriorPoint::Value() const
+inline const Point3d& InteriorPoint::Value() const
 {
 
   return point;
 }
 
-inline void IntSurf_InteriorPoint::Parameters(Standard_Real& U, Standard_Real& V) const
+inline void InteriorPoint::Parameters(Standard_Real& U, Standard_Real& V) const
 {
   U = paramu;
   V = paramv;
 }
 
-inline Standard_Real IntSurf_InteriorPoint::UParameter() const
+inline Standard_Real InteriorPoint::UParameter() const
 {
 
   return paramu;
 }
 
-inline Standard_Real IntSurf_InteriorPoint::VParameter() const
+inline Standard_Real InteriorPoint::VParameter() const
 {
 
   return paramv;
 }
 
-inline const Vector3d& IntSurf_InteriorPoint::Direction() const
+inline const Vector3d& InteriorPoint::Direction() const
 {
 
   return direc;
 }
 
-inline const gp_Vec2d& IntSurf_InteriorPoint::Direction2d() const
+inline const gp_Vec2d& InteriorPoint::Direction2d() const
 {
 
   return direc2d;

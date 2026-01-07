@@ -166,7 +166,7 @@ public:
 
   //! Returns an "intervalled" value from a starting real <val> :
   //! i.e. a value which is rounded on an interval limit
-  //! Interval limits are defined to be in a coarsely "geometric"
+  //! Interval1 limits are defined to be in a coarsely "geometric"
   //! progression (two successive intervals are inside a limit ratio)
   //!
   //! <order> gives the count of desired intervals in a range <1-10>

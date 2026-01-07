@@ -1841,7 +1841,7 @@ void ShapeConstruct_ProjectCurveOnSurface::CorrectExtremity(const Handle(GeomCur
 
   gp_Dir2d        aDir = (theIsUiso) ? gp::DY2d() : gp::DX2d();
   gp_Lin2d        anIsoLine(EndPoint, aDir);
-  IntRes2d_Domain Dom1, Dom2;
+  Domain2 Dom1, Dom2;
 
   Standard_Boolean IsPeriodic =
     (theIsUiso) ? mySurf->Surface()->IsVPeriodic() : mySurf->Surface()->IsUPeriodic();

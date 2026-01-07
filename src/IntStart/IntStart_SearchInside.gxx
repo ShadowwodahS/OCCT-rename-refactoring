@@ -180,7 +180,7 @@ void IntStart_SearchInside::Perform (TheFunction& Func,
 	    testpnt = (j <= nbpt);
 	    
 	    while (testpnt) {
-	      const IntSurf_InteriorPoint&  IPj = list(j);
+	      const InteriorPoint&  IPj = list(j);
 	      const Point3d& Pj = IPj.Value();
 	      if (   (Abs(Pj.X()-psol.X()) <= Epsilon)
 		  && (Abs(Pj.Y()-psol.Y()) <= Epsilon)
@@ -199,7 +199,7 @@ void IntStart_SearchInside::Perform (TheFunction& Func,
 	      situ = T->Classify(gp_Pnt2d(UVap(1),UVap(2)),
 				 Maxtoler1toler2,Standard_False);   //-- ,Standard_False pour ne pas recadrer on Periodic
 	      if (situ == TopAbs_IN) {
-		list.Append(IntSurf_InteriorPoint(psol,UVap(1),UVap(2),
+		list.Append(InteriorPoint(psol,UVap(1),UVap(2),
 						  Func.Direction3d(),
 						  Func.Direction2d()));
 	      }
@@ -251,7 +251,7 @@ void IntStart_SearchInside::Perform (TheFunction& Func,
       if (Abs(valf) <= tol && !Func.IsTangent()) {
 	const Point3d& psol = Func.Point();
 	Rsnld.Root(UVap);
-	IntSurf_InteriorPoint intp (psol,UVap(1),UVap(2),
+	InteriorPoint intp (psol,UVap(1),UVap(2),
 				    Func.Direction3d(),Func.Direction2d());
 	list.Append(intp);
       }

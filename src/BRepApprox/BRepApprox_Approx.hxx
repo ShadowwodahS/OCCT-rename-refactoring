@@ -32,8 +32,8 @@ class Standard_OutOfRange;
 class StdFail_NotDone;
 class BRepAdaptor_Surface;
 class BRepApprox_SurfaceTool;
-class IntSurf_Quadric;
-class IntSurf_QuadricTool;
+class Quadric1;
+class QuadricTool;
 class BRepApprox_ApproxLine;
 class BRepApprox_ThePrmPrmSvSurfacesOfApprox;
 class BRepApprox_TheInt2SOfThePrmPrmSvSurfacesOfApprox;
@@ -51,9 +51,9 @@ class AppParCurves_MultiBSpCurve;
 class BRepApprox_Approx
 {
 private:
-  struct Approx_Data
+  struct Approx_Data1
   {
-    Approx_Data()
+    Approx_Data1()
         : myBezierApprox(Standard_True),
           Xo(0.0),
           Yo(0.0),
@@ -130,7 +130,7 @@ public:
 
 protected:
 private:
-  Standard_EXPORT void Perform(const IntSurf_Quadric&               Surf1,
+  Standard_EXPORT void Perform(const Quadric1&               Surf1,
                                const BRepAdaptor_Surface&           Surf2,
                                const Handle(BRepApprox_ApproxLine)& aLine,
                                const Standard_Boolean               ApproxXYZ,
@@ -171,7 +171,7 @@ private:
   Standard_Integer                        myNbIterMax;
   Standard_Real                           myTolReached3d;
   Standard_Real                           myTolReached2d;
-  Approx_Data                             myData;
+  Approx_Data1                             myData;
   NCollection_Vector<Standard_Integer>    myKnots;
 };
 

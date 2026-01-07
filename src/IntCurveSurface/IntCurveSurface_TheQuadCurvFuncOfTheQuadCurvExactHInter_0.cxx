@@ -20,11 +20,11 @@
 #include <IntSurf_Quadric.hxx>
 #include <IntCurveSurface_TheHCurveTool.hxx>
 
-#define TheQuadric IntSurf_Quadric
+#define TheQuadric Quadric1
 #define TheQuadric_hxx <IntSurf_Quadric.hxx>
 #define TheCurve Handle(Adaptor3d_Curve)
 #define TheCurve_hxx <Adaptor3d_Curve.hxx>
-#define TheCurveTool IntCurveSurface_TheHCurveTool
+#define TheCurveTool HCurveTool2
 #define TheCurveTool_hxx <IntCurveSurface_TheHCurveTool.hxx>
 #define IntCurveSurface_QuadricCurveFunc IntCurveSurface_TheQuadCurvFuncOfTheQuadCurvExactHInter
 #define IntCurveSurface_QuadricCurveFunc_hxx                                                       \

@@ -229,16 +229,16 @@ static Standard_Boolean IsPointOnSurface(const Handle(Adaptor3d_Surface)& theSur
 // purpose  : theQSurf is the surface possibly containing special point,
 //            thePSurf is another surface to intersect.
 //=======================================================================
-Standard_Boolean IntPatch_SpecialPoints::AddCrossUVIsoPoint(
+Standard_Boolean SpecialPoints::AddCrossUVIsoPoint(
   const Handle(Adaptor3d_Surface)& theQSurf,
   const Handle(Adaptor3d_Surface)& thePSurf,
-  const IntSurf_PntOn2S&           theRefPt,
+  const PointOn2Surfaces&           theRefPt,
   const Standard_Real              theTol,
-  IntSurf_PntOn2S&                 theAddedPoint,
+  PointOn2Surfaces&                 theAddedPoint,
   const Standard_Boolean           theIsReversed)
 {
   Standard_Real anArrOfPeriod[4] = {0.0, 0.0, 0.0, 0.0};
-  IntSurf::SetPeriod(theIsReversed ? thePSurf : theQSurf,
+  IntSurf1::SetPeriod(theIsReversed ? thePSurf : theQSurf,
                      theIsReversed ? theQSurf : thePSurf,
                      anArrOfPeriod);
 
@@ -287,21 +287,21 @@ Standard_Boolean IntPatch_SpecialPoints::AddCrossUVIsoPoint(
 // purpose  : theQSurf is the surface possibly containing special point,
 //            thePSurf is another surface to intersect.
 //=======================================================================
-Standard_Boolean IntPatch_SpecialPoints::AddPointOnUorVIso(
+Standard_Boolean SpecialPoints::AddPointOnUorVIso(
   const Handle(Adaptor3d_Surface)& theQSurf,
   const Handle(Adaptor3d_Surface)& thePSurf,
-  const IntSurf_PntOn2S&           theRefPt,
+  const PointOn2Surfaces&           theRefPt,
   const Standard_Boolean           theIsU,
   const Standard_Real              theIsoParameter,
   const math_Vector&               theToler,
   const math_Vector&               theInitPoint,
   const math_Vector&               theInfBound,
   const math_Vector&               theSupBound,
-  IntSurf_PntOn2S&                 theAddedPoint,
+  PointOn2Surfaces&                 theAddedPoint,
   const Standard_Boolean           theIsReversed)
 {
   Standard_Real anArrOfPeriod[4] = {0.0, 0.0, 0.0, 0.0};
-  IntSurf::SetPeriod(theIsReversed ? thePSurf : theQSurf,
+  IntSurf1::SetPeriod(theIsReversed ? thePSurf : theQSurf,
                      theIsReversed ? theQSurf : thePSurf,
                      anArrOfPeriod);
 
@@ -420,7 +420,7 @@ Cases, when @ \frac{\partial S_{z}}{\partial U_{s}} =
 The reason is written below.
 */
 //=======================================================================
-Standard_Boolean IntPatch_SpecialPoints::ProcessSphere(const IntSurf_PntOn2S& thePtIso,
+Standard_Boolean SpecialPoints::ProcessSphere(const PointOn2Surfaces& thePtIso,
                                                        const Vector3d&          theDUofPSurf,
                                                        const Vector3d&          theDVofPSurf,
                                                        const Standard_Boolean theIsReversed,
@@ -565,7 +565,7 @@ This tangent will be directed along the cone generatrix obtained by intersection
 of the cone with a plane tangent to 2nd (intersected) surface.
 */
 //=======================================================================
-Standard_Boolean IntPatch_SpecialPoints::ProcessCone(const IntSurf_PntOn2S& thePtIso,
+Standard_Boolean SpecialPoints::ProcessCone(const PointOn2Surfaces& thePtIso,
                                                      const Vector3d&          theDUofPSurf,
                                                      const Vector3d&          theDVofPSurf,
                                                      const gp_Cone&         theCone,
@@ -714,7 +714,7 @@ we will obtain a quadratic equation
 aA*w^2 + 2*aB*w + aC = 0.
 */
 //=======================================================================
-Standard_Integer IntPatch_SpecialPoints::GetTangentToIntLineForCone(
+Standard_Integer SpecialPoints::GetTangentToIntLineForCone(
   const Standard_Real theConeSemiAngle,
   const gp_XYZ&       thePlnNormal,
   gp_XYZ              theResult[2])
@@ -772,11 +772,11 @@ Standard_Integer IntPatch_SpecialPoints::GetTangentToIntLineForCone(
 //            thePSurf is another surface to intersect.
 //           Returns TRUE, if the pole is an intersection point.
 //=======================================================================
-Standard_Boolean IntPatch_SpecialPoints::AddSingularPole(const Handle(Adaptor3d_Surface)& theQSurf,
+Standard_Boolean SpecialPoints::AddSingularPole(const Handle(Adaptor3d_Surface)& theQSurf,
                                                          const Handle(Adaptor3d_Surface)& thePSurf,
-                                                         const IntSurf_PntOn2S&           thePtIso,
+                                                         const PointOn2Surfaces&           thePtIso,
                                                          IntPatch_Point&                  theVertex,
-                                                         IntSurf_PntOn2S&       theAddedPoint,
+                                                         PointOn2Surfaces&       theAddedPoint,
                                                          const Standard_Boolean theIsReversed,
                                                          const Standard_Boolean theIsReqRefCheck)
 {
@@ -805,7 +805,7 @@ Standard_Boolean IntPatch_SpecialPoints::AddSingularPole(const Handle(Adaptor3d_
   }
   else
   {
-    throw Standard_TypeMismatch("IntPatch_SpecialPoints::AddSingularPole(),"
+    throw Standard_TypeMismatch("SpecialPoints::AddSingularPole(),"
                                 "Unsupported quadric with Pole");
   }
 
@@ -898,11 +898,11 @@ Standard_Boolean IntPatch_SpecialPoints::AddSingularPole(const Handle(Adaptor3d_
     Standard_Real anArrOfPeriod[4];
     if (theIsReversed)
     {
-      IntSurf::SetPeriod(thePSurf, theQSurf, anArrOfPeriod);
+      IntSurf1::SetPeriod(thePSurf, theQSurf, anArrOfPeriod);
     }
     else
     {
-      IntSurf::SetPeriod(theQSurf, thePSurf, anArrOfPeriod);
+      IntSurf1::SetPeriod(theQSurf, thePSurf, anArrOfPeriod);
     }
 
     AdjustPointAndVertex(theVertex.PntOn2S(), anArrOfPeriod, theAddedPoint);
@@ -944,13 +944,13 @@ b) Another line (as inters. result of cone + plane) will tangent
 to the inters. curve. In this case @U_{q}@ must be recomputed.
 */
 //=======================================================================
-Standard_Boolean IntPatch_SpecialPoints::ContinueAfterSpecialPoint(
+Standard_Boolean SpecialPoints::ContinueAfterSpecialPoint(
   const Handle(Adaptor3d_Surface)& theQSurf,
   const Handle(Adaptor3d_Surface)& thePSurf,
-  const IntSurf_PntOn2S&           theRefPt,
+  const PointOn2Surfaces&           theRefPt,
   const IntPatch_SpecPntType       theSPType,
   const Standard_Real              theTol2D,
-  IntSurf_PntOn2S&                 theNewPoint,
+  PointOn2Surfaces&                 theNewPoint,
   const Standard_Boolean           theIsReversed)
 {
   if (theSPType == IntPatch_SPntNone)
@@ -965,7 +965,7 @@ Standard_Boolean IntPatch_SpecialPoints::ContinueAfterSpecialPoint(
   {
     // Check if the condition b) is satisfied.
     // Repeat the same steps as in
-    // IntPatch_SpecialPoints::AddSingularPole(...) method.
+    // SpecialPoints::AddSingularPole(...) method.
 
     // On parametric
     Standard_Real aU0 = 0.0, aV0 = 0.0;
@@ -1030,9 +1030,9 @@ Standard_Boolean IntPatch_SpecialPoints::ContinueAfterSpecialPoint(
 
 //=================================================================================================
 
-void IntPatch_SpecialPoints::AdjustPointAndVertex(const IntSurf_PntOn2S& theRefPoint,
+void SpecialPoints::AdjustPointAndVertex(const PointOn2Surfaces& theRefPoint,
                                                   const Standard_Real    theArrPeriods[4],
-                                                  IntSurf_PntOn2S&       theNewPoint,
+                                                  PointOn2Surfaces&       theNewPoint,
                                                   IntPatch_Point* const  theVertex)
 {
   Standard_Real aRefPar[2] = {0.0, 0.0};

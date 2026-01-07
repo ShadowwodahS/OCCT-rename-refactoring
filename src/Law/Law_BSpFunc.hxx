@@ -29,8 +29,8 @@ class Law_BSpline;
 class Law_BSpFunc;
 DEFINE_STANDARD_HANDLE(Law_BSpFunc, Law_Function)
 
-//! Law Function based on a BSpline curve 1d.  Package
-//! methods and classes are implemented in package Law
+//! Law1 Function based on a BSpline curve 1d.  Package
+//! methods and classes are implemented in package Law1
 //! to    construct  the  basis    curve with  several
 //! constraints.
 class Law_BSpFunc : public Law_Function
@@ -71,7 +71,7 @@ public:
   //! test for 3d points confusion.
   //! It is usfule to determines the derivatives
   //! in these values <First> and <Last> if
-  //! the Law is not Cn.
+  //! the Law1 is not Cn.
   Standard_EXPORT Handle(Law_Function) Trim(const Standard_Real PFirst,
                                             const Standard_Real PLast,
                                             const Standard_Real Tol) const Standard_OVERRIDE;

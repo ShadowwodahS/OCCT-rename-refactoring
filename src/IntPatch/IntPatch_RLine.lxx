@@ -136,7 +136,7 @@ inline Standard_Integer IntPatch_RLine::NbPnts() const
   return curv->NbPoints();
 }
 
-inline const IntSurf_PntOn2S& IntPatch_RLine::Point(const Standard_Integer Index) const
+inline const PointOn2Surfaces& IntPatch_RLine::Point(const Standard_Integer Index) const
 {
   if (curv.IsNull())
   {

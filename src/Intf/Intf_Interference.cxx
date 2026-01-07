@@ -47,7 +47,7 @@ void Intf_Interference::SelfInterference(const Standard_Boolean Self)
 // purpose  : Insert a tangent zone in the list of the interference
 //=======================================================================
 
-Standard_Boolean Intf_Interference::Insert(const Intf_TangentZone& LaZone)
+Standard_Boolean Intf_Interference::Insert(const TangentZone& LaZone)
 {
   if (myTZones.Length() <= 0)
     return Standard_False;
@@ -150,7 +150,7 @@ Standard_Boolean Intf_Interference::Insert(const Intf_TangentZone& LaZone)
 
   if (Inserted)
   {
-    Intf_TangentZone theNew = myTZones(lzin);
+    TangentZone theNew = myTZones(lzin);
     myTZones.Remove(lzin);
     if (!Insert(theNew))
       myTZones.Append(theNew);
@@ -160,17 +160,17 @@ Standard_Boolean Intf_Interference::Insert(const Intf_TangentZone& LaZone)
 
 //=================================================================================================
 
-void Intf_Interference::Insert(const Intf_SectionPoint& pdeb, const Intf_SectionPoint& pfin)
+void Intf_Interference::Insert(const SectionPoint& pdeb, const SectionPoint& pfin)
 {
   Standard_Boolean  Inserted = Standard_False;
   Standard_Integer  TheLS    = 0;
   Standard_Boolean  Begin    = Standard_False;
-  Intf_SectionPoint TheBout(pfin);
+  SectionPoint TheBout(pfin);
   Standard_Integer  ils, nd, nf;
 
   for (ils = 1; ils <= mySLines.Length(); ils++)
   {
-    Intf_SectionLine& SL = mySLines(ils);
+    SectionLine1& SL = mySLines(ils);
     nd                   = SL.IsEnd(pdeb);
     nf                   = SL.IsEnd(pfin);
     if (nd == 1)
@@ -211,7 +211,7 @@ void Intf_Interference::Insert(const Intf_SectionPoint& pdeb, const Intf_Section
 
   if (!Inserted)
   {
-    Intf_SectionLine LaLS;
+    SectionLine1 LaLS;
     LaLS.Append(pdeb);
     LaLS.Append(pfin);
     mySLines.Append(LaLS);
@@ -261,7 +261,7 @@ void Intf_Interference::Insert(const Intf_SectionPoint& pdeb, const Intf_Section
 //----------------------------------------------------
 //
 //----------------------------------------------------
-Standard_Boolean Intf_Interference::Contains(const Intf_SectionPoint& LePnt) const
+Standard_Boolean Intf_Interference::Contains(const SectionPoint& LePnt) const
 {
   //-- LePnt.Dump(0);
   for (Standard_Integer l = 1; l <= mySLines.Length(); l++)

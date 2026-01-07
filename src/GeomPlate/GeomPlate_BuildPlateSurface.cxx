@@ -799,7 +799,7 @@ void GeomPlate_BuildPlateSurface::EcartContraintesMil(const Standard_Integer    
       break;
     case 2:
       Handle(GeomSurface)            Splate(myGeomPlateSurface);
-      LocalAnalysis_SurfaceContinuity CG2;
+      SurfaceContinuity CG2;
       for (i = 1; i < NbPt; i++)
       {
         U = (myParCont->Value(c).Value(i) + myParCont->Value(c).Value(i + 1)) / 2;
@@ -2619,7 +2619,7 @@ void GeomPlate_BuildPlateSurface::VerifPoints(Standard_Real& Dist,
         break;
       case 2:
         Handle(GeomSurface)            Splate(myGeomPlateSurface);
-        LocalAnalysis_SurfaceContinuity CG2;
+        SurfaceContinuity CG2;
         P2d = PntCont->Pnt2dOnSurf();
         GeomLProp_SLProps Prop(Splate, P2d.Coord(1), P2d.Coord(2), 2, 0.001);
         CG2.ComputeAnalysis(Prop, PntCont->LPropSurf(), GeomAbs_G2);

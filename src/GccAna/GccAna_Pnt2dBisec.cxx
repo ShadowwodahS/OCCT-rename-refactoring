@@ -27,7 +27,7 @@
 #include <StdFail_NotDone.hxx>
 
 //=========================================================================
-GccAna_Pnt2dBisec::GccAna_Pnt2dBisec(const gp_Pnt2d& Point1, const gp_Pnt2d& Point2)
+Point2dBisector::Point2dBisector(const gp_Pnt2d& Point1, const gp_Pnt2d& Point2)
 {
 
   WellDone = Standard_False;
@@ -53,17 +53,17 @@ GccAna_Pnt2dBisec::GccAna_Pnt2dBisec(const gp_Pnt2d& Point1, const gp_Pnt2d& Poi
 
 //=========================================================================
 
-Standard_Boolean GccAna_Pnt2dBisec::IsDone() const
+Standard_Boolean Point2dBisector::IsDone() const
 {
   return WellDone;
 }
 
-Standard_Boolean GccAna_Pnt2dBisec::HasSolution() const
+Standard_Boolean Point2dBisector::HasSolution() const
 {
   return HasSol;
 }
 
-gp_Lin2d GccAna_Pnt2dBisec::ThisSolution() const
+gp_Lin2d Point2dBisector::ThisSolution() const
 {
   if (!WellDone)
   {

@@ -28,21 +28,21 @@ class Adaptor3d_TopolTool;
 
 //! This class provides a generic algorithm to intersect
 //! 2 surfaces.
-class IntPatch_Intersection
+class Intersection1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT IntPatch_Intersection();
+  Standard_EXPORT Intersection1();
 
-  Standard_EXPORT IntPatch_Intersection(const Handle(Adaptor3d_Surface)&   S1,
+  Standard_EXPORT Intersection1(const Handle(Adaptor3d_Surface)&   S1,
                                         const Handle(Adaptor3d_TopolTool)& D1,
                                         const Handle(Adaptor3d_Surface)&   S2,
                                         const Handle(Adaptor3d_TopolTool)& D2,
                                         const Standard_Real                TolArc,
                                         const Standard_Real                TolTang);
 
-  Standard_EXPORT IntPatch_Intersection(const Handle(Adaptor3d_Surface)&   S1,
+  Standard_EXPORT Intersection1(const Handle(Adaptor3d_Surface)&   S1,
                                         const Handle(Adaptor3d_TopolTool)& D1,
                                         const Standard_Real                TolArc,
                                         const Standard_Real                TolTang);

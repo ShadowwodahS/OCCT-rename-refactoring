@@ -50,7 +50,7 @@ IntPatch_PointLine::IntPatch_PointLine(const Standard_Boolean Tang)
 Standard_Real IntPatch_PointLine::CurvatureRadiusOfIntersLine(
   const Handle(Adaptor3d_Surface)& theS1,
   const Handle(Adaptor3d_Surface)& theS2,
-  const IntSurf_PntOn2S&           theUVPoint)
+  const PointOn2Surfaces&           theUVPoint)
 {
   constexpr Standard_Real aSmallValue   = 1.0 / Precision::Infinite();
   constexpr Standard_Real aSqSmallValue = aSmallValue * aSmallValue;

@@ -20,7 +20,7 @@
 #include <IntSurf_PntOn2S.hxx>
 #include <NCollection_List.hxx>
 
-typedef NCollection_List<IntSurf_PntOn2S>           IntSurf_ListOfPntOn2S;
-typedef NCollection_List<IntSurf_PntOn2S>::Iterator IntSurf_ListIteratorOfListOfPntOn2S;
+typedef NCollection_List<PointOn2Surfaces>           IntSurf_ListOfPntOn2S;
+typedef NCollection_List<PointOn2Surfaces>::Iterator IntSurf_ListIteratorOfListOfPntOn2S;
 
 #endif

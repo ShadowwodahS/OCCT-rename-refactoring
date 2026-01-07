@@ -353,7 +353,7 @@ Handle(GeomCurve3d) GeomFill_EvolvedSection::ConstantSection() const
 {
   Standard_Real Err, scale;
   if (!IsConstant(Err))
-    throw StdFail_NotDone("The Law is not Constant!");
+    throw StdFail_NotDone("The Law1 is not Constant!");
   Transform3d T;
   Point3d  P(0, 0, 0);
   scale = myLaw->Value(First) + myLaw->Value((First + Last) / 2) + myLaw->Value(Last);

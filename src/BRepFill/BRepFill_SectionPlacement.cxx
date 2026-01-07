@@ -44,31 +44,31 @@
 static Standard_Boolean myDebug = Standard_False;
 #endif
 
-static Standard_Real SearchParam(const Handle(BRepFill_LocationLaw)& Law,
+static Standard_Real SearchParam(const Handle(BRepFill_LocationLaw)& Law1,
                                  const Standard_Integer              Ind,
                                  const TopoVertex&                TheV)
 {
   Standard_Real t;
   TopoEdge   E;
-  E = Law->Edge(Ind);
+  E = Law1->Edge(Ind);
   t = BRepInspector::Parameter(TheV, E);
   if (E.Orientation() == TopAbs_REVERSED)
   {
     Standard_Real      f, l, Lf, Ll;
     Handle(GeomCurve3d) C;
     C  = BRepInspector::Curve(E, f, l);
-    Lf = Law->Law(Ind)->GetCurve()->FirstParameter();
-    Ll = Law->Law(Ind)->GetCurve()->LastParameter();
+    Lf = Law1->Law1(Ind)->GetCurve()->FirstParameter();
+    Ll = Law1->Law1(Ind)->GetCurve()->LastParameter();
     t  = Ll - (t - f) * (Ll - Lf) / (l - f);
   }
   return t;
 }
 
-BRepFill_SectionPlacement::BRepFill_SectionPlacement(const Handle(BRepFill_LocationLaw)& Law,
+BRepFill_SectionPlacement::BRepFill_SectionPlacement(const Handle(BRepFill_LocationLaw)& Law1,
                                                      const TopoShape&                 Section,
                                                      const Standard_Boolean WithContact,
                                                      const Standard_Boolean WithCorrection)
-    : myLaw(Law),
+    : myLaw(Law1),
       mySection(Section)
 {
   TopoVertex VNull;
@@ -76,12 +76,12 @@ BRepFill_SectionPlacement::BRepFill_SectionPlacement(const Handle(BRepFill_Locat
   Perform(WithContact, WithCorrection, VNull);
 }
 
-BRepFill_SectionPlacement::BRepFill_SectionPlacement(const Handle(BRepFill_LocationLaw)& Law,
+BRepFill_SectionPlacement::BRepFill_SectionPlacement(const Handle(BRepFill_LocationLaw)& Law1,
                                                      const TopoShape&                 Section,
                                                      const TopoShape&                 Vertex,
                                                      const Standard_Boolean WithContact,
                                                      const Standard_Boolean WithCorrection)
-    : myLaw(Law),
+    : myLaw(Law1),
       mySection(Section)
 {
   Perform(WithContact, WithCorrection, Vertex);
@@ -282,7 +282,7 @@ void BRepFill_SectionPlacement::Perform(const Standard_Boolean WithContact,
     theSection              = new Geom_CartesianPoint(thePoint);
   }
 
-  GeomFill_SectionPlacement Place(myLaw->Law(1), theSection);
+  GeomFill_SectionPlacement Place(myLaw->Law1(1), theSection);
 
   // In the general case : Localisation via concatenation of the spine
   TColStd_Array1OfReal SuperKnot(1, myLaw->NbLaw() + 1);
@@ -323,7 +323,7 @@ void BRepFill_SectionPlacement::Perform(const Standard_Boolean WithContact,
   }
 
   if (Bof)
-    throw Standard_ConstructionError("Interval non trouve !!");
+    throw Standard_ConstructionError("Interval1 non trouve !!");
   // Search of the <Ind1> by vertex <TheV>
   if (!TheV.IsNull())
     for (Ind1 = 1; Ind1 <= myLaw->NbLaw(); Ind1++)
@@ -338,7 +338,7 @@ void BRepFill_SectionPlacement::Perform(const Standard_Boolean WithContact,
 
   // Positioning on the localized edge (or 2 Edges)
   Standard_Real Angle;
-  Place.SetLocation(myLaw->Law(Ind1));
+  Place.SetLocation(myLaw->Law1(Ind1));
   if (TheV.IsNull())
     Place.Perform(Precision::Confusion());
   else
@@ -353,7 +353,7 @@ void BRepFill_SectionPlacement::Perform(const Standard_Boolean WithContact,
 
   if (Ind2)
   {
-    Place.SetLocation(myLaw->Law(Ind2));
+    Place.SetLocation(myLaw->Law1(Ind2));
     if (TheV.IsNull())
       Place.Perform(Precision::Confusion());
     else

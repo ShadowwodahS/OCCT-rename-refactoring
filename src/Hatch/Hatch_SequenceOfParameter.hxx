@@ -20,6 +20,6 @@
 #include <Hatch_Parameter.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<Hatch_Parameter> Hatch_SequenceOfParameter;
+typedef NCollection_Sequence<HatchParameter> Hatch_SequenceOfParameter;
 
 #endif

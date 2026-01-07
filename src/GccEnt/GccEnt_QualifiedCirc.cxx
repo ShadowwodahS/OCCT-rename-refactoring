@@ -15,17 +15,17 @@
 #include <GccEnt_QualifiedCirc.hxx>
 #include <gp_Circ2d.hxx>
 
-gp_Circ2d GccEnt_QualifiedCirc::Qualified() const
+gp_Circ2d QualifiedCircle::Qualified() const
 {
   return TheQualified;
 }
 
-GccEnt_Position GccEnt_QualifiedCirc::Qualifier() const
+GccEnt_Position QualifiedCircle::Qualifier() const
 {
   return TheQualifier;
 }
 
-Standard_Boolean GccEnt_QualifiedCirc::IsUnqualified() const
+Standard_Boolean QualifiedCircle::IsUnqualified() const
 {
   if (TheQualifier == GccEnt_unqualified)
   {
@@ -37,7 +37,7 @@ Standard_Boolean GccEnt_QualifiedCirc::IsUnqualified() const
   }
 }
 
-Standard_Boolean GccEnt_QualifiedCirc::IsEnclosing() const
+Standard_Boolean QualifiedCircle::IsEnclosing() const
 {
   if (TheQualifier == GccEnt_enclosing)
   {
@@ -49,7 +49,7 @@ Standard_Boolean GccEnt_QualifiedCirc::IsEnclosing() const
   }
 }
 
-Standard_Boolean GccEnt_QualifiedCirc::IsEnclosed() const
+Standard_Boolean QualifiedCircle::IsEnclosed() const
 {
   if (TheQualifier == GccEnt_enclosed)
   {
@@ -61,7 +61,7 @@ Standard_Boolean GccEnt_QualifiedCirc::IsEnclosed() const
   }
 }
 
-Standard_Boolean GccEnt_QualifiedCirc::IsOutside() const
+Standard_Boolean QualifiedCircle::IsOutside() const
 {
   if (TheQualifier == GccEnt_outside)
   {
@@ -73,7 +73,7 @@ Standard_Boolean GccEnt_QualifiedCirc::IsOutside() const
   }
 }
 
-GccEnt_QualifiedCirc::GccEnt_QualifiedCirc(const gp_Circ2d&      theQualified,
+QualifiedCircle::QualifiedCircle(const gp_Circ2d&      theQualified,
                                            const GccEnt_Position theQualifier)
     : TheQualified(theQualified),
       TheQualifier(theQualifier)

@@ -27,7 +27,7 @@
 #include <Standard_Real.hxx>
 class IntRes2d_IntersectionPoint;
 
-class HatchGen_PointOnElement : public HatchGen_IntersectionPoint
+class HatchGen_PointOnElement : public IntersectionPoint2
 {
 public:
   DEFINE_STANDARD_ALLOC

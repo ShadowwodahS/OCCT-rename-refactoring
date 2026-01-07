@@ -104,8 +104,8 @@ void IntPolyh_Intersection::GetLinePoint(const Standard_Integer Indexl,
                                          Standard_Real&         v2,
                                          Standard_Real&         incidence) const
 {
-  const IntPolyh_SectionLine& msl = mySectionLines[Indexl - 1];
-  const IntPolyh_StartPoint&  sp  = msl[Indexp - 1];
+  const SectionLine& msl = mySectionLines[Indexl - 1];
+  const StartPoint&  sp  = msl[Indexp - 1];
   x                               = sp.X();
   y                               = sp.Y();
   z                               = sp.Z();
@@ -128,7 +128,7 @@ void IntPolyh_Intersection::GetTangentZonePoint(const Standard_Integer Indexz,
                                                 Standard_Real& u2,
                                                 Standard_Real& v2) const
 {
-  const IntPolyh_StartPoint& sp = myTangentZones[Indexz - 1];
+  const StartPoint& sp = myTangentZones[Indexz - 1];
   x                             = sp.X();
   y                             = sp.Y();
   z                             = sp.Z();
@@ -144,8 +144,8 @@ void IntPolyh_Intersection::Perform()
 {
   // Prepare the sampling of the surfaces - UV parameters of the triangulation nodes
   TColStd_Array1OfReal UPars1, VPars1, UPars2, VPars2;
-  IntPolyh_Tools::MakeSampling(mySurf1, myNbSU1, myNbSV1, Standard_False, UPars1, VPars1);
-  IntPolyh_Tools::MakeSampling(mySurf2, myNbSU2, myNbSV2, Standard_False, UPars2, VPars2);
+  Tools4::MakeSampling(mySurf1, myNbSU1, myNbSV1, Standard_False, UPars1, VPars1);
+  Tools4::MakeSampling(mySurf2, myNbSU2, myNbSV2, Standard_False, UPars2, VPars2);
 
   // Perform intersection
   Perform(UPars1, VPars1, UPars2, VPars2);
@@ -161,8 +161,8 @@ void IntPolyh_Intersection::Perform(const TColStd_Array1OfReal& theUPars1,
   myIsDone = Standard_True;
 
   // Compute the deflection of the given sampling if it is not set
-  Standard_Real aDeflTol1 = IntPolyh_Tools::ComputeDeflection(mySurf1, theUPars1, theVPars1);
-  Standard_Real aDeflTol2 = IntPolyh_Tools::ComputeDeflection(mySurf2, theUPars2, theVPars2);
+  Standard_Real aDeflTol1 = Tools4::ComputeDeflection(mySurf1, theUPars1, theVPars1);
+  Standard_Real aDeflTol2 = Tools4::ComputeDeflection(mySurf2, theUPars2, theVPars2);
 
   // Perform standard intersection
   IntPolyh_PMaillageAffinage pMaillageStd = 0;
@@ -281,8 +281,8 @@ Standard_Boolean IntPolyh_Intersection::PerformAdv(const TColStd_Array1OfReal& t
 {
   // Compute the points on the surface and normal directions in these points
   IntPolyh_ArrayOfPointNormal aPoints1, aPoints2;
-  IntPolyh_Tools::FillArrayOfPointNormal(mySurf1, theUPars1, theVPars1, aPoints1);
-  IntPolyh_Tools::FillArrayOfPointNormal(mySurf2, theUPars2, theVPars2, aPoints2);
+  Tools4::FillArrayOfPointNormal(mySurf1, theUPars1, theVPars1, aPoints1);
+  Tools4::FillArrayOfPointNormal(mySurf2, theUPars2, theVPars2, aPoints2);
 
   // Perform intersection with the different shifts of the triangles
   Standard_Boolean isDone = PerformMaillage(theUPars1,
@@ -376,8 +376,8 @@ Standard_Boolean IntPolyh_Intersection::PerformMaillage(const TColStd_Array1OfRe
   {
     // Check if enlarge for the surfaces is possible
     Standard_Boolean isEnlargeU1, isEnlargeV1, isEnlargeU2, isEnlargeV2;
-    IntPolyh_Tools::IsEnlargePossible(mySurf1, isEnlargeU1, isEnlargeV1);
-    IntPolyh_Tools::IsEnlargePossible(mySurf2, isEnlargeU2, isEnlargeV2);
+    Tools4::IsEnlargePossible(mySurf1, isEnlargeU1, isEnlargeV1);
+    Tools4::IsEnlargePossible(mySurf2, isEnlargeU2, isEnlargeV2);
 
     if (isEnlargeU1 || isEnlargeV1 || isEnlargeU2 || isEnlargeV2)
     {
@@ -440,7 +440,7 @@ void IntPolyh_Intersection::MergeCouples(IntPolyh_ListOfCouples& anArrayFF,
                                          IntPolyh_ListOfCouples& anArrayRR) const
 {
   // Fence map to remove from the lists the duplicating elements.
-  NCollection_Map<IntPolyh_Couple> aFenceMap;
+  NCollection_Map<Couple> aFenceMap;
   //
   IntPolyh_ListOfCouples* pLists[4] = {&anArrayFF, &anArrayFR, &anArrayRF, &anArrayRR};
   for (Standard_Integer i = 0; i < 4; ++i)

@@ -1037,7 +1037,7 @@ Standard_Boolean RefineAngle2D(const TopoVertex&            aV,
   Handle(Geom2d_Line)  aLi;
   Geom2dAdaptor_Curve  aGAC1, aGAC2;
   Geom2dInt_GInter     aGInter;
-  IntRes2d_Domain      aDomain1, aDomain2;
+  Domain2      aDomain1, aDomain2;
   //
   bRet    = Standard_True;
   aCf     = 0.01;

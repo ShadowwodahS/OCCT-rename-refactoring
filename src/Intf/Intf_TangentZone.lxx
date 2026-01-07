@@ -21,7 +21,7 @@
 // purpose  : Return the points number of the tangent zone.
 //=======================================================================
 
-inline Standard_Integer Intf_TangentZone::NumberOfPoints() const
+inline Standard_Integer TangentZone::NumberOfPoints() const
 {
   return Result.Length();
 }
@@ -31,7 +31,7 @@ inline Standard_Integer Intf_TangentZone::NumberOfPoints() const
 // purpose  :
 //=======================================================================
 
-inline void Intf_TangentZone::ParamOnFirst(Standard_Real& paraMin, Standard_Real& paraMax) const
+inline void TangentZone::ParamOnFirst(Standard_Real& paraMin, Standard_Real& paraMax) const
 {
   paraMin = ParamOnFirstMin;
   paraMax = ParamOnFirstMax;
@@ -42,7 +42,7 @@ inline void Intf_TangentZone::ParamOnFirst(Standard_Real& paraMin, Standard_Real
 // purpose  :
 //=======================================================================
 
-inline void Intf_TangentZone::ParamOnSecond(Standard_Real& paraMin, Standard_Real& paraMax) const
+inline void TangentZone::ParamOnSecond(Standard_Real& paraMin, Standard_Real& paraMax) const
 {
   paraMin = ParamOnSecondMin;
   paraMax = ParamOnSecondMax;

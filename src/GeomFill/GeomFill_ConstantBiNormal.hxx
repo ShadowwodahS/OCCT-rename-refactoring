@@ -31,7 +31,7 @@ class Dir3d;
 class GeomFill_ConstantBiNormal;
 DEFINE_STANDARD_HANDLE(GeomFill_ConstantBiNormal, GeomFill_TrihedronLaw)
 
-//! Defined an Trihedron Law  where the BiNormal, is fixed
+//! Defined an Trihedron Law1  where the BiNormal, is fixed
 class GeomFill_ConstantBiNormal : public GeomFill_TrihedronLaw
 {
 

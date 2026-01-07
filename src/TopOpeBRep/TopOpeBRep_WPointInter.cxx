@@ -24,9 +24,9 @@ WPointIntersection::WPointIntersection() {}
 
 //=================================================================================================
 
-void WPointIntersection::Set(const IntSurf_PntOn2S& P)
+void WPointIntersection::Set(const PointOn2Surfaces& P)
 {
-  myPP2S = (IntSurf_PntOn2S*)&P;
+  myPP2S = (PointOn2Surfaces*)&P;
 }
 
 //=================================================================================================

@@ -25,7 +25,7 @@
 #include <Standard_Boolean.hxx>
 #include <math_Vector.hxx>
 class Adaptor2d_Curve2d;
-class Geom2dInt_Geom2dCurveTool;
+class Geom2dCurveTool;
 class math_Matrix;
 
 class Geom2dInt_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfGInter

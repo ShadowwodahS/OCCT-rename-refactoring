@@ -77,7 +77,7 @@ void GeomAPI_IntCS::Parameters(const Standard_Integer Index,
                                Standard_Real&         V,
                                Standard_Real&         W) const
 {
-  const IntCurveSurface_IntersectionPoint& ThePoint = myIntCS.Point(Index);
+  const IntersectionPoint1& ThePoint = myIntCS.Point(Index);
 
   U = ThePoint.U();
   V = ThePoint.V();
@@ -95,9 +95,9 @@ Standard_Integer GeomAPI_IntCS::NbSegments() const
 
 Handle(GeomCurve3d) GeomAPI_IntCS::Segment(const Standard_Integer Index) const
 {
-  const IntCurveSurface_IntersectionPoint& FirstPoint = myIntCS.Segment(Index).FirstPoint();
+  const IntersectionPoint1& FirstPoint = myIntCS.Segment(Index).FirstPoint();
 
-  const IntCurveSurface_IntersectionPoint& LastPoint = myIntCS.Segment(Index).SecondPoint();
+  const IntersectionPoint1& LastPoint = myIntCS.Segment(Index).SecondPoint();
 
   Handle(Geom_TrimmedCurve) TheCurve =
     new Geom_TrimmedCurve(myCurve, FirstPoint.W(), LastPoint.W());
@@ -113,9 +113,9 @@ void GeomAPI_IntCS::Parameters(const Standard_Integer Index,
                                Standard_Real&         U2,
                                Standard_Real&         V2) const
 {
-  const IntCurveSurface_IntersectionPoint& FirstPoint = myIntCS.Segment(Index).FirstPoint();
+  const IntersectionPoint1& FirstPoint = myIntCS.Segment(Index).FirstPoint();
 
-  const IntCurveSurface_IntersectionPoint& LastPoint = myIntCS.Segment(Index).SecondPoint();
+  const IntersectionPoint1& LastPoint = myIntCS.Segment(Index).SecondPoint();
 
   U1 = FirstPoint.U();
   V1 = FirstPoint.V();

@@ -34,7 +34,7 @@ class BlendTool;
 class BRepBlend_PointOnRst;
 class BRepBlend_Extremity;
 class Blend_CSFunction;
-class IntSurf_Transition;
+class Transition2;
 class Point3d;
 class gp_Pnt2d;
 class Vector3d;
@@ -72,8 +72,8 @@ private:
 
   Standard_EXPORT void Transition(const Handle(Adaptor2d_Curve2d)& A,
                                   const Standard_Real              Param,
-                                  IntSurf_Transition&              TLine,
-                                  IntSurf_Transition&              TArc);
+                                  Transition2&              TLine,
+                                  Transition2&              TArc);
 
   Standard_EXPORT void MakeExtremity(BRepBlend_Extremity&             Extrem,
                                      const Standard_Integer           Index,

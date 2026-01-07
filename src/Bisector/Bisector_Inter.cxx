@@ -53,9 +53,9 @@ Bisector_Inter::Bisector_Inter() {}
 //=================================================================================================
 
 Bisector_Inter::Bisector_Inter(const Bisector_Bisec&  C1,
-                               const IntRes2d_Domain& D1,
+                               const Domain2& D1,
                                const Bisector_Bisec&  C2,
-                               const IntRes2d_Domain& D2,
+                               const Domain2& D2,
                                const Standard_Real    TolConf,
                                const Standard_Real    Tol,
                                const Standard_Boolean ComunElement)
@@ -80,9 +80,9 @@ static Handle(Geom2d_Line) ConstructSegment(const gp_Pnt2d&     PMin,
 //=================================================================================================
 
 void Bisector_Inter::Perform(const Bisector_Bisec&  C1,
-                             const IntRes2d_Domain& D1,
+                             const Domain2& D1,
                              const Bisector_Bisec&  C2,
-                             const IntRes2d_Domain& D2,
+                             const Domain2& D2,
                              const Standard_Real    TolConf,
                              const Standard_Real    Tol,
                              const Standard_Boolean ComunElement)
@@ -92,8 +92,8 @@ void Bisector_Inter::Perform(const Bisector_Bisec&  C1,
 
   Handle(GeomCurve2d)* SBis1 = new Handle(GeomCurve2d)[Bis1->NbIntervals() + 1];
   Handle(GeomCurve2d)* SBis2 = new Handle(GeomCurve2d)[Bis2->NbIntervals() + 1];
-  IntRes2d_Domain*      SD1   = new IntRes2d_Domain[Bis1->NbIntervals() + 1];
-  IntRes2d_Domain*      SD2   = new IntRes2d_Domain[Bis2->NbIntervals() + 1];
+  Domain2*      SD1   = new Domain2[Bis1->NbIntervals() + 1];
+  Domain2*      SD2   = new Domain2[Bis2->NbIntervals() + 1];
 
   Standard_Integer NB1 = 0;
   Standard_Integer NB2 = 0;
@@ -230,9 +230,9 @@ void Bisector_Inter::Perform(const Bisector_Bisec&  C1,
 //=================================================================================================
 
 void Bisector_Inter::SinglePerform(const Handle(GeomCurve2d)& CBis1,
-                                   const IntRes2d_Domain&      D1,
+                                   const Domain2&      D1,
                                    const Handle(GeomCurve2d)& CBis2,
-                                   const IntRes2d_Domain&      D2,
+                                   const Domain2&      D2,
                                    const Standard_Real         TolConf,
                                    const Standard_Real         Tol,
                                    const Standard_Boolean      ComunElement)
@@ -360,9 +360,9 @@ void Bisector_Inter::SinglePerform(const Handle(GeomCurve2d)& CBis1,
 //            Parameter U0 for which D1(U0)-D2(U0) = 0 is found.
 //===================================================================================
 void Bisector_Inter::NeighbourPerform(const Handle(Bisector_BisecCC)& Bis1,
-                                      const IntRes2d_Domain&          D1,
+                                      const Domain2&          D1,
                                       const Handle(Bisector_BisecCC)& Bis2,
-                                      const IntRes2d_Domain&          D2,
+                                      const Domain2&          D2,
                                       const Standard_Real             Tol)
 {
   Standard_Real           USol, U1, U2, Dist;
@@ -407,7 +407,7 @@ void Bisector_Inter::NeighbourPerform(const Handle(Bisector_BisecCC)& Bis1,
 
   PSol = BisTemp->ValueAndDist(USol, U1, U2, Dist);
 
-  IntRes2d_Transition        Trans1, Trans2;
+  Transition3        Trans1, Trans2;
   IntRes2d_IntersectionPoint PointInterSol(PSol, USol, U2, Trans1, Trans2, Standard_False);
   Append(PointInterSol);
 }
@@ -417,13 +417,13 @@ void Bisector_Inter::NeighbourPerform(const Handle(Bisector_BisecCC)& Bis1,
 // purpose  : Test if the extremities of Bis2 are on the segment corresponding to Bis1.
 //=====================================================================================
 void Bisector_Inter::TestBound(const Handle(Geom2d_Line)&  Bis1,
-                               const IntRes2d_Domain&      D1,
+                               const Domain2&      D1,
                                const Handle(GeomCurve2d)& Bis2,
-                               const IntRes2d_Domain&      D2,
+                               const Domain2&      D2,
                                const Standard_Real         TolConf,
                                const Standard_Boolean      Reverse)
 {
-  IntRes2d_Transition        Trans1, Trans2;
+  Transition3        Trans1, Trans2;
   IntRes2d_IntersectionPoint PointInterSol;
 
   gp_Lin2d L1 = Bis1->Lin2d();

@@ -31,7 +31,7 @@
 
 #define myMinPnts 5
 
-Standard_Integer IntCurveSurface_TheHCurveTool::NbSamples(const Handle(Adaptor3d_Curve)& C,
+Standard_Integer HCurveTool2::NbSamples(const Handle(Adaptor3d_Curve)& C,
                                                           const Standard_Real            U0,
                                                           const Standard_Real            U1)
 {
@@ -57,7 +57,7 @@ Standard_Integer IntCurveSurface_TheHCurveTool::NbSamples(const Handle(Adaptor3d
   return ((Standard_Integer)nbs);
 }
 
-void IntCurveSurface_TheHCurveTool::SamplePars(const Handle(Adaptor3d_Curve)& C,
+void HCurveTool2::SamplePars(const Handle(Adaptor3d_Curve)& C,
                                                const Standard_Real            U0,
                                                const Standard_Real            U1,
                                                const Standard_Real            Defl,

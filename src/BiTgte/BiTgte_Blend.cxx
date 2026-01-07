@@ -359,7 +359,7 @@ static void KPartCurve3d(const TopoEdge&   Edge,
   }
   else
   { // Case Plane
-    Handle(GeomCurve3d) C3d = GeomAPI::To3d(Curve, S.Plane());
+    Handle(GeomCurve3d) C3d = GeomAPI1::To3d(Curve, S.Plane());
     TheBuilder.UpdateEdge(Edge, C3d, Loc, Tol);
   }
 }

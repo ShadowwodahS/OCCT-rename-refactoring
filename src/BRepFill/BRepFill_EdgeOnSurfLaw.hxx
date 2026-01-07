@@ -26,7 +26,7 @@ class TopoShape;
 class BRepFill_EdgeOnSurfLaw;
 DEFINE_STANDARD_HANDLE(BRepFill_EdgeOnSurfLaw, BRepFill_LocationLaw)
 
-//! Build Location Law, with a Wire and a  Surface.
+//! Build Location Law1, with a Wire and a  Surface.
 class BRepFill_EdgeOnSurfLaw : public BRepFill_LocationLaw
 {
 

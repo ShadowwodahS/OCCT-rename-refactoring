@@ -28,9 +28,9 @@ class HLRBRep_TheProjPCurOfCInter;
 class HLRBRep_ThePolygon2dOfTheIntPCurvePCurveOfCInter;
 class HLRBRep_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfCInter;
 class HLRBRep_ExactIntersectionPointOfTheIntPCurvePCurveOfCInter;
-class IntRes2d_Domain;
+class Domain2;
 
-class HLRBRep_TheIntPCurvePCurveOfCInter : public IntRes2d_Intersection
+class HLRBRep_TheIntPCurvePCurveOfCInter : public Intersection2
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -38,14 +38,14 @@ public:
   Standard_EXPORT HLRBRep_TheIntPCurvePCurveOfCInter();
 
   Standard_EXPORT void Perform(const Standard_Address& Curve1,
-                               const IntRes2d_Domain&  Domain1,
+                               const Domain2&  Domain1,
                                const Standard_Address& Curve2,
-                               const IntRes2d_Domain&  Domain2,
+                               const Domain2&  Domain2,
                                const Standard_Real     TolConf,
                                const Standard_Real     Tol);
 
   Standard_EXPORT void Perform(const Standard_Address& Curve1,
-                               const IntRes2d_Domain&  Domain1,
+                               const Domain2&  Domain1,
                                const Standard_Real     TolConf,
                                const Standard_Real     Tol);
 
@@ -55,9 +55,9 @@ public:
 
 protected:
   Standard_EXPORT void Perform(const Standard_Address& Curve1,
-                               const IntRes2d_Domain&  Domain1,
+                               const Domain2&  Domain1,
                                const Standard_Address& Curve2,
-                               const IntRes2d_Domain&  Domain2,
+                               const Domain2&  Domain2,
                                const Standard_Real     TolConf,
                                const Standard_Real     Tol,
                                const Standard_Integer  NbIter,
@@ -65,7 +65,7 @@ protected:
                                const Standard_Real     DeltaV);
 
   Standard_EXPORT void Perform(const Standard_Address& Curve1,
-                               const IntRes2d_Domain&  Domain1,
+                               const Domain2&  Domain1,
                                const Standard_Real     TolConf,
                                const Standard_Real     Tol,
                                const Standard_Integer  NbIter,
@@ -80,9 +80,9 @@ private:
   //! : during prelimanary search for line (case of bad parameterization of Bspline for example).
   Standard_EXPORT Standard_Boolean
     findIntersect(const Standard_Address&                                 Curve1,
-                  const IntRes2d_Domain&                                  Domain1,
+                  const Domain2&                                  Domain1,
                   const Standard_Address&                                 Curve2,
-                  const IntRes2d_Domain&                                  Domain2,
+                  const Domain2&                                  Domain2,
                   const Standard_Real                                     TolConf,
                   const Standard_Real                                     Tol,
                   const Standard_Integer                                  NbIter,
@@ -92,8 +92,8 @@ private:
                   const HLRBRep_ThePolygon2dOfTheIntPCurvePCurveOfCInter& thePoly2,
                   const Standard_Boolean                                  isFullRepresentation);
 
-  IntRes2d_Domain DomainOnCurve1;
-  IntRes2d_Domain DomainOnCurve2;
+  Domain2 DomainOnCurve1;
+  Domain2 DomainOnCurve2;
 
   //! Minimal number of sample points
   Standard_Integer myMinPntNb;

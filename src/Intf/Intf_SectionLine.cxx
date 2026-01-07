@@ -19,14 +19,14 @@
 
 //=================================================================================================
 
-Intf_SectionLine::Intf_SectionLine()
+SectionLine1::SectionLine1()
     : closed(Standard_False)
 {
 }
 
 //=================================================================================================
 
-Intf_SectionLine::Intf_SectionLine(const Intf_SectionLine& Other)
+SectionLine1::SectionLine1(const SectionLine1& Other)
     : closed(Standard_False)
 {
   myPoints = Other.myPoints;
@@ -34,56 +34,56 @@ Intf_SectionLine::Intf_SectionLine(const Intf_SectionLine& Other)
 
 //=================================================================================================
 
-void Intf_SectionLine::Append(const Intf_SectionPoint& Pi)
+void SectionLine1::Append(const SectionPoint& Pi)
 {
   myPoints.Append(Pi);
 }
 
 //=================================================================================================
 
-void Intf_SectionLine::Append(Intf_SectionLine& LS)
+void SectionLine1::Append(SectionLine1& LS)
 {
   myPoints.Append(LS.myPoints);
 }
 
 //=================================================================================================
 
-void Intf_SectionLine::Prepend(const Intf_SectionPoint& Pi)
+void SectionLine1::Prepend(const SectionPoint& Pi)
 {
   myPoints.Prepend(Pi);
 }
 
 //=================================================================================================
 
-void Intf_SectionLine::Prepend(Intf_SectionLine& LS)
+void SectionLine1::Prepend(SectionLine1& LS)
 {
   myPoints.Prepend(LS.myPoints);
 }
 
 //=================================================================================================
 
-void Intf_SectionLine::Reverse()
+void SectionLine1::Reverse()
 {
   myPoints.Reverse();
 }
 
 //=================================================================================================
 
-void Intf_SectionLine::Close()
+void SectionLine1::Close()
 {
   closed = Standard_True;
 }
 
 //=================================================================================================
 
-const Intf_SectionPoint& Intf_SectionLine::GetPoint(const Standard_Integer index) const
+const SectionPoint& SectionLine1::GetPoint(const Standard_Integer index) const
 {
   return myPoints.Value(index);
 }
 
 //=================================================================================================
 
-Standard_Boolean Intf_SectionLine::IsClosed() const
+Standard_Boolean SectionLine1::IsClosed() const
 {
   // return closed;
   //  On ne peut fermer une ligne de section inseree dans une liste car
@@ -96,7 +96,7 @@ Standard_Boolean Intf_SectionLine::IsClosed() const
 
 //=================================================================================================
 
-Standard_Boolean Intf_SectionLine::Contains(const Intf_SectionPoint& ThePI) const
+Standard_Boolean SectionLine1::Contains(const SectionPoint& ThePI) const
 {
   for (Standard_Integer i = 1; i <= myPoints.Length(); i++)
     if (ThePI.IsEqual(myPoints(i)))
@@ -106,7 +106,7 @@ Standard_Boolean Intf_SectionLine::Contains(const Intf_SectionPoint& ThePI) cons
 
 //=================================================================================================
 
-Standard_Integer Intf_SectionLine::IsEnd(const Intf_SectionPoint& ThePI) const
+Standard_Integer SectionLine1::IsEnd(const SectionPoint& ThePI) const
 {
   if (myPoints.First().IsEqual(ThePI))
     return 1;
@@ -117,7 +117,7 @@ Standard_Integer Intf_SectionLine::IsEnd(const Intf_SectionPoint& ThePI) const
 
 //=================================================================================================
 
-Standard_Boolean Intf_SectionLine::IsEqual(const Intf_SectionLine& Other) const
+Standard_Boolean SectionLine1::IsEqual(const SectionLine1& Other) const
 {
   if (myPoints.Length() != Other.myPoints.Length())
     return Standard_False;
@@ -129,7 +129,7 @@ Standard_Boolean Intf_SectionLine::IsEqual(const Intf_SectionLine& Other) const
 
 //=================================================================================================
 
-void Intf_SectionLine::Dump(const Standard_Integer Indent) const
+void SectionLine1::Dump(const Standard_Integer Indent) const
 {
   for (Standard_Integer id = 0; id < Indent; id++)
     std::cout << " ";

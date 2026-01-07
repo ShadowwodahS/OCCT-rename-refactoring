@@ -200,7 +200,7 @@ private:
   Standard_Boolean        myKeepPoints;
   Standard_Boolean        myKeepSegments;
   Standard_Integer        myNbElements;
-  Geom2dHatch_Elements    myElements;
+  HatchElements    myElements;
   Standard_Integer        myNbHatchings;
   Geom2dHatch_Hatchings   myHatchings;
 };

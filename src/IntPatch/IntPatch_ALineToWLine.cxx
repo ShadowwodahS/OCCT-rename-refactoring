@@ -29,7 +29,7 @@
 
 static inline void AddPointIntoLine(Handle(IntSurf_LineOn2S)&  theLine,
                                     const Standard_Real* const theArrPeriods,
-                                    IntSurf_PntOn2S&           thePoint,
+                                    PointOn2Surfaces&           thePoint,
                                     IntPatch_Point*            theVertex = 0)
 {
   if (theLine->NbPoints() > 0)
@@ -37,7 +37,7 @@ static inline void AddPointIntoLine(Handle(IntSurf_LineOn2S)&  theLine,
     if (thePoint.IsSame(theLine->Value(theLine->NbPoints()), Precision::Confusion()))
       return;
 
-    IntPatch_SpecialPoints::AdjustPointAndVertex(theLine->Value(theLine->NbPoints()),
+    SpecialPoints::AdjustPointAndVertex(theLine->Value(theLine->NbPoints()),
                                                  theArrPeriods,
                                                  thePoint,
                                                  theVertex);
@@ -48,13 +48,13 @@ static inline void AddPointIntoLine(Handle(IntSurf_LineOn2S)&  theLine,
 
 //=======================================================================
 // function : AddVertexPoint
-// purpose  : Extracts IntSurf_PntOn2S from theVertex and adds result in theLine.
+// purpose  : Extracts PointOn2Surfaces from theVertex and adds result in theLine.
 //=======================================================================
 static void AddVertexPoint(Handle(IntSurf_LineOn2S)&  theLine,
                            IntPatch_Point&            theVertex,
                            const Standard_Real* const theArrPeriods)
 {
-  IntSurf_PntOn2S anApexPoint = theVertex.PntOn2S();
+  PointOn2Surfaces anApexPoint = theVertex.PntOn2S();
   AddPointIntoLine(theLine, theArrPeriods, anApexPoint, &theVertex);
 }
 
@@ -69,7 +69,7 @@ static void AddVertexPoint(Handle(IntSurf_LineOn2S)&  theLine,
 //=======================================================================
 static IntPatch_SpecPntType IsPoleOrSeam(const Handle(Adaptor3d_Surface)& theS1,
                                          const Handle(Adaptor3d_Surface)& theS2,
-                                         const IntSurf_PntOn2S&           thePIsoRef,
+                                         const PointOn2Surfaces&           thePIsoRef,
                                          Handle(IntSurf_LineOn2S)&        theLine,
                                          IntPatch_Point&                  theVertex,
                                          const Standard_Real              theArrPeriods[4],
@@ -84,13 +84,13 @@ static IntPatch_SpecPntType IsPoleOrSeam(const Handle(Adaptor3d_Surface)& theS1,
     const GeomAbs_SurfaceType aType      = isReversed ? theS2->GetType() : theS1->GetType();
 
     IntPatch_SpecPntType anAddedPType = IntPatch_SPntNone;
-    IntSurf_PntOn2S      anApexPoint;
+    PointOn2Surfaces      anApexPoint;
 
     switch (aType)
     {
       case GeomAbs_Sphere:
       case GeomAbs_Cone: {
-        if (IntPatch_SpecialPoints::AddSingularPole((isReversed ? theS2 : theS1),
+        if (SpecialPoints::AddSingularPole((isReversed ? theS2 : theS1),
                                                     (isReversed ? theS1 : theS2),
                                                     thePIsoRef,
                                                     theVertex,
@@ -106,7 +106,7 @@ static IntPatch_SpecPntType IsPoleOrSeam(const Handle(Adaptor3d_Surface)& theS1,
       case GeomAbs_Torus:
         if (aType == GeomAbs_Torus)
         {
-          if (IntPatch_SpecialPoints::AddCrossUVIsoPoint((isReversed ? theS2 : theS1),
+          if (SpecialPoints::AddCrossUVIsoPoint((isReversed ? theS2 : theS1),
                                                          (isReversed ? theS1 : theS2),
                                                          thePIsoRef,
                                                          theTol3d,
@@ -267,13 +267,13 @@ void IntPatch_ALineToWLine::CorrectEndPoint(Handle(IntSurf_LineOn2S)& theLine,
     anIndFirst  = theIndex - 2;
     anIndSecond = theIndex - 1;
   }
-  IntSurf_PntOn2S aPntOn2S = theLine->Value(theIndex);
+  PointOn2Surfaces aPntOn2S = theLine->Value(theIndex);
 
   for (Standard_Integer ii = 1; ii <= 2; ii++)
   {
     Standard_Boolean anIsOnFirst = (ii == 1);
 
-    const IntSurf_Quadric& aQuad = (ii == 1) ? myQuad1 : myQuad2;
+    const Quadric1& aQuad = (ii == 1) ? myQuad1 : myQuad2;
     if (aQuad.TypeQuadric() == GeomAbs_Cone)
     {
       const gp_Cone aCone  = aQuad.Cone();
@@ -314,7 +314,7 @@ Standard_Real IntPatch_ALineToWLine::GetSectionRadius(const Point3d& thePnt3d) c
   Standard_Real aRetVal = RealLast();
   for (Standard_Integer i = 0; i < 2; i++)
   {
-    const IntSurf_Quadric& aQuad = i ? myQuad2 : myQuad1;
+    const Quadric1& aQuad = i ? myQuad2 : myQuad1;
     if (aQuad.TypeQuadric() == GeomAbs_Cone)
     {
       const gp_Cone aCone = aQuad.Cone();
@@ -432,12 +432,12 @@ void IntPatch_ALineToWLine::MakeWLine(const Handle(IntPatch_ALine)& theALine,
   for (Standard_Integer i = 1; i < aNbVert; i++)
   {
     IntPatch_Point&        aCurVert  = theALine->ChangeVertex(i);
-    const IntSurf_PntOn2S& aCurrPt   = aCurVert.PntOn2S();
+    const PointOn2Surfaces& aCurrPt   = aCurVert.PntOn2S();
     const Standard_Real    aCurToler = aCurVert.Tolerance();
     for (Standard_Integer j = i + 1; j <= aNbVert; j++)
     {
       IntPatch_Point&        aVert  = theALine->ChangeVertex(j);
-      const IntSurf_PntOn2S& aNewPt = aVert.PntOn2S();
+      const PointOn2Surfaces& aNewPt = aVert.PntOn2S();
       const Standard_Real    aToler = aVert.Tolerance();
 
       const Standard_Real aSumTol = aCurToler + aToler;
@@ -477,9 +477,9 @@ void IntPatch_ALineToWLine::MakeWLine(const Handle(IntPatch_ALine)& theALine,
                                          0.0,  // U2
                                          0.0}; // V2
 
-  IntSurf::SetPeriod(myS1, myS2, anArrPeriods);
+  IntSurf1::SetPeriod(myS1, myS2, anArrPeriods);
 
-  IntSurf_PntOn2S aPrevLPoint;
+  PointOn2Surfaces aPrevLPoint;
 
   while (aParameter < theLPar)
   {
@@ -518,7 +518,7 @@ void IntPatch_ALineToWLine::MakeWLine(const Handle(IntPatch_ALine)& theALine,
     Standard_Real    aPrevParam = aParameter;
     for (; !isLast; aParameter += aStep)
     {
-      IntSurf_PntOn2S aPOn2S;
+      PointOn2Surfaces aPOn2S;
 
       if (theLPar <= aParameter)
       {
@@ -571,7 +571,7 @@ void IntPatch_ALineToWLine::MakeWLine(const Handle(IntPatch_ALine)& theALine,
                                      : (aPrePointExist == IntPatch_SPntSeamUV) ? Max(aURes, aVRes)
                                                                                : aURes;
 
-        IntSurf_PntOn2S aRPT = aPOn2S;
+        PointOn2Surfaces aRPT = aPOn2S;
 
         if (aPrePointExist == IntPatch_SPntPole)
         {
@@ -620,7 +620,7 @@ void IntPatch_ALineToWLine::MakeWLine(const Handle(IntPatch_ALine)& theALine,
           }
         }
 
-        if (IntPatch_SpecialPoints::ContinueAfterSpecialPoint(myS1,
+        if (SpecialPoints::ContinueAfterSpecialPoint(myS1,
                                                               myS2,
                                                               aRPT,
                                                               aPrePointExist,
@@ -643,7 +643,7 @@ void IntPatch_ALineToWLine::MakeWLine(const Handle(IntPatch_ALine)& theALine,
           Standard_Real anU1 = 0.0, aV1 = 0.0, anU2 = 0.0, aV2 = 0.0;
           myQuad1.Parameters(aPnt3dNext, anU1, aV1);
           myQuad2.Parameters(aPnt3dNext, anU2, aV2);
-          IntSurf_PntOn2S aPOn2SNext;
+          PointOn2Surfaces aPOn2SNext;
           aPOn2SNext.SetValue(aPnt3dNext, anU1, aV1, anU2, aV2);
 
           if (aPOn2SNext.ValueOnSurface(0).SquareDistance(aRPT.ValueOnSurface(0)) > M_PI * M_PI
@@ -738,7 +738,7 @@ void IntPatch_ALineToWLine::MakeWLine(const Handle(IntPatch_ALine)& theALine,
       // Find a point for reference parameter. It will be used
       // if real parameter value cannot be precise (see comment to
       // IsPoleOrSeam(...) function).
-      IntSurf_PntOn2S aPrefIso = aVtx.PntOn2S();
+      PointOn2Surfaces aPrefIso = aVtx.PntOn2S();
       if (aLinOn2S->NbPoints() < 1)
       {
         for (Standard_Integer i = aVertexNumber + 1; i <= aVertexParams.Upper(); i++)
@@ -808,7 +808,7 @@ void IntPatch_ALineToWLine::MakeWLine(const Handle(IntPatch_ALine)& theALine,
         Standard_Boolean       isFound = Standard_False;
         const Standard_Real    aSqTol  = aTol * aTol;
         const Point3d           aP1(theALine->Value(aCurVertParam));
-        const IntSurf_PntOn2S& aVertP2S   = aVtx.PntOn2S();
+        const PointOn2Surfaces& aVertP2S   = aVtx.PntOn2S();
         const Standard_Real    aVertToler = aVtx.Tolerance();
 
         for (Standard_Integer i = aVertexParams.Lower(); i <= aVertexParams.Upper(); i++)
@@ -987,7 +987,7 @@ Standard_Integer IntPatch_ALineToWLine::CheckDeflection(const gp_XYZ&       theM
 //=================================================================================================
 
 Standard_Boolean IntPatch_ALineToWLine::StepComputing(const Handle(IntPatch_ALine)& theALine,
-                                                      const IntSurf_PntOn2S&        thePOn2S,
+                                                      const PointOn2Surfaces&        thePOn2S,
                                                       const Standard_Real theLastParOfAline,
                                                       const Standard_Real theCurParam,
                                                       const Standard_Real theTgMagnitude,

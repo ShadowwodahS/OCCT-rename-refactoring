@@ -604,10 +604,10 @@ Standard_Boolean Geom2dHatch_Hatcher::Trim(const Standard_Integer IndH, const St
       const IntRes2d_IntersectionPoint& Pnt1 = Seg.FirstPoint();
       const IntRes2d_IntersectionPoint& Pnt2 = Seg.LastPoint();
 
-      const IntRes2d_Transition& TrsPnt1H = Pnt1.TransitionOfFirst();
-      const IntRes2d_Transition& TrsPnt1E = Pnt1.TransitionOfSecond();
-      const IntRes2d_Transition& TrsPnt2H = Pnt2.TransitionOfFirst();
-      const IntRes2d_Transition& TrsPnt2E = Pnt2.TransitionOfSecond();
+      const Transition3& TrsPnt1H = Pnt1.TransitionOfFirst();
+      const Transition3& TrsPnt1E = Pnt1.TransitionOfSecond();
+      const Transition3& TrsPnt2H = Pnt2.TransitionOfFirst();
+      const Transition3& TrsPnt2E = Pnt2.TransitionOfSecond();
 
       IntRes2d_TypeTrans TypePnt1H = TrsPnt1H.TransitionType();
       IntRes2d_TypeTrans TypePnt1E = TrsPnt1E.TransitionType();

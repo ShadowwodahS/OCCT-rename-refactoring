@@ -243,7 +243,7 @@ void StdPrs_WFDeflectionRestrictedFace::Add(const Handle(Prs3d_Presentation)&  a
   aHatchingTol = Min(1.e-5, aHatchingTol);
 
   // load the isos
-  Hatch_Hatcher    isobuild(aHatchingTol, ToolRst.IsOriented());
+  Hatcher    isobuild(aHatchingTol, ToolRst.IsOriented());
   Standard_Boolean isUClosed = aFace->IsUClosed();
   Standard_Boolean isVClosed = aFace->IsVClosed();
   if (!isUClosed)
@@ -432,7 +432,7 @@ Standard_Boolean StdPrs_WFDeflectionRestrictedFace::Match(const Standard_Real X,
   }
 
   // load the isos
-  Hatch_Hatcher    isobuild(1.e-5, ToolRst.IsOriented());
+  Hatcher    isobuild(1.e-5, ToolRst.IsOriented());
   Standard_Boolean UClosed = aFace->IsUClosed();
   Standard_Boolean VClosed = aFace->IsVClosed();
 

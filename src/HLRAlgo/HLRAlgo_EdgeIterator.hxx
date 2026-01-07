@@ -39,7 +39,7 @@ public:
   Standard_EXPORT void NextHidden();
 
   //! Returns the bounds and the tolerances
-  //! of the current Hidden Interval
+  //! of the current Hidden Interval1
   void Hidden(Standard_Real&      Start,
               Standard_ShortReal& TolStart,
               Standard_Real&      End,
@@ -52,7 +52,7 @@ public:
   void NextVisible();
 
   //! Returns the bounds and the tolerances
-  //! of the current Visible Interval
+  //! of the current Visible Interval1
   void Visible(Standard_Real&      Start,
                Standard_ShortReal& TolStart,
                Standard_Real&      End,

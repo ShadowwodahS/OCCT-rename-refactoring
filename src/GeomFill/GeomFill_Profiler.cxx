@@ -113,7 +113,7 @@ static void UnifyBySettingMiddleKnots(TColGeom_SequenceOfCurve& theCurves)
 
 //=================================================================================================
 
-GeomFill_Profiler::GeomFill_Profiler()
+Profiler::Profiler()
 {
   myIsDone     = Standard_False;
   myIsPeriodic = Standard_True;
@@ -121,11 +121,11 @@ GeomFill_Profiler::GeomFill_Profiler()
 
 //=======================================================================
 
-GeomFill_Profiler::~GeomFill_Profiler() {}
+Profiler::~Profiler() {}
 
 //=================================================================================================
 
-void GeomFill_Profiler::AddCurve(const Handle(GeomCurve3d)& Curve)
+void Profiler::AddCurve(const Handle(GeomCurve3d)& Curve)
 {
   Handle(GeomCurve3d) C;
   //// modified by jgv, 19.01.05 for OCC7354 ////
@@ -158,7 +158,7 @@ void GeomFill_Profiler::AddCurve(const Handle(GeomCurve3d)& Curve)
 
 //=================================================================================================
 
-void GeomFill_Profiler::Perform(const Standard_Real PTol)
+void Profiler::Perform(const Standard_Real PTol)
 {
   Standard_Integer i;
   //  Standard_Integer myDegree = 0, myNbPoles = 0;
@@ -235,10 +235,10 @@ void GeomFill_Profiler::Perform(const Standard_Real PTol)
 
 //=================================================================================================
 
-Standard_Integer GeomFill_Profiler::Degree() const
+Standard_Integer Profiler::Degree() const
 {
   if (!myIsDone)
-    throw StdFail_NotDone("GeomFill_Profiler::Degree");
+    throw StdFail_NotDone("Profiler::Degree");
 
   Handle(BSplineCurve3d) C = Handle(BSplineCurve3d)::DownCast(mySequence(1));
   return C->Degree();
@@ -246,10 +246,10 @@ Standard_Integer GeomFill_Profiler::Degree() const
 
 //=================================================================================================
 
-Standard_Integer GeomFill_Profiler::NbPoles() const
+Standard_Integer Profiler::NbPoles() const
 {
   if (!myIsDone)
-    throw StdFail_NotDone("GeomFill_Profiler::Degree");
+    throw StdFail_NotDone("Profiler::Degree");
 
   Handle(BSplineCurve3d) C = Handle(BSplineCurve3d)::DownCast(mySequence(1));
   return C->NbPoles();
@@ -257,14 +257,14 @@ Standard_Integer GeomFill_Profiler::NbPoles() const
 
 //=================================================================================================
 
-void GeomFill_Profiler::Poles(const Standard_Integer Index, TColgp_Array1OfPnt& Poles) const
+void Profiler::Poles(const Standard_Integer Index, TColgp_Array1OfPnt& Poles) const
 {
   if (!myIsDone)
-    throw StdFail_NotDone("GeomFill_Profiler::Degree");
+    throw StdFail_NotDone("Profiler::Degree");
 
-  Standard_DomainError_Raise_if(Poles.Length() != NbPoles(), "GeomFill_Profiler::Poles");
+  Standard_DomainError_Raise_if(Poles.Length() != NbPoles(), "Profiler::Poles");
   Standard_DomainError_Raise_if(Index < 1 || Index > mySequence.Length(),
-                                "GeomFill_Profiler::Poles");
+                                "Profiler::Poles");
 
   Handle(BSplineCurve3d) C = Handle(BSplineCurve3d)::DownCast(mySequence(Index));
 
@@ -273,14 +273,14 @@ void GeomFill_Profiler::Poles(const Standard_Integer Index, TColgp_Array1OfPnt& 
 
 //=================================================================================================
 
-void GeomFill_Profiler::Weights(const Standard_Integer Index, TColStd_Array1OfReal& Weights) const
+void Profiler::Weights(const Standard_Integer Index, TColStd_Array1OfReal& Weights) const
 {
   if (!myIsDone)
-    throw StdFail_NotDone("GeomFill_Profiler::Degree");
+    throw StdFail_NotDone("Profiler::Degree");
 
-  Standard_DomainError_Raise_if(Weights.Length() != NbPoles(), "GeomFill_Profiler::Weights");
+  Standard_DomainError_Raise_if(Weights.Length() != NbPoles(), "Profiler::Weights");
   Standard_DomainError_Raise_if(Index < 1 || Index > mySequence.Length(),
-                                "GeomFill_Profiler::Weights");
+                                "Profiler::Weights");
 
   Handle(BSplineCurve3d) C = Handle(BSplineCurve3d)::DownCast(mySequence(Index));
 
@@ -289,10 +289,10 @@ void GeomFill_Profiler::Weights(const Standard_Integer Index, TColStd_Array1OfRe
 
 //=================================================================================================
 
-Standard_Integer GeomFill_Profiler::NbKnots() const
+Standard_Integer Profiler::NbKnots() const
 {
   if (!myIsDone)
-    throw StdFail_NotDone("GeomFill_Profiler::Degree");
+    throw StdFail_NotDone("Profiler::Degree");
 
   Handle(BSplineCurve3d) C = Handle(BSplineCurve3d)::DownCast(mySequence(1));
 
@@ -301,17 +301,17 @@ Standard_Integer GeomFill_Profiler::NbKnots() const
 
 //=================================================================================================
 
-void GeomFill_Profiler::KnotsAndMults(TColStd_Array1OfReal&    Knots,
+void Profiler::KnotsAndMults(TColStd_Array1OfReal&    Knots,
                                       TColStd_Array1OfInteger& Mults) const
 {
   if (!myIsDone)
-    throw StdFail_NotDone("GeomFill_Profiler::Degree");
+    throw StdFail_NotDone("Profiler::Degree");
 
 #ifndef No_Exception
   Standard_Integer n = NbKnots();
 #endif
   Standard_DomainError_Raise_if(Knots.Length() != n || Mults.Length() != n,
-                                "GeomFill_Profiler::KnotsAndMults");
+                                "Profiler::KnotsAndMults");
 
   Handle(BSplineCurve3d) C = Handle(BSplineCurve3d)::DownCast(mySequence(1));
 

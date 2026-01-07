@@ -40,28 +40,28 @@ void Geom2dGcc_FunctionTanCuCuCu::InitDerivative(const math_Vector& X,
   {
     case Geom2dGcc_CiCuCu: {
       ElCLib::D2(X(1), Circ1, Point1, Tan1, D21);
-      Geom2dGcc_CurveTool::D2(Curv2, X(2), Point2, Tan2, D22);
-      Geom2dGcc_CurveTool::D2(Curv3, X(3), Point3, Tan3, D23);
+      CurveTool3::D2(Curv2, X(2), Point2, Tan2, D22);
+      CurveTool3::D2(Curv3, X(3), Point3, Tan3, D23);
     }
     break;
     case Geom2dGcc_CiCiCu: {
       ElCLib::D2(X(1), Circ1, Point1, Tan1, D21);
       ElCLib::D2(X(2), Circ2, Point2, Tan2, D22);
-      Geom2dGcc_CurveTool::D2(Curv3, X(3), Point3, Tan3, D23);
+      CurveTool3::D2(Curv3, X(3), Point3, Tan3, D23);
     }
     break;
     case Geom2dGcc_CiLiCu: {
       ElCLib::D2(X(1), Circ1, Point1, Tan1, D21);
       ElCLib::D1(X(2), Lin2, Point2, Tan2);
       D22 = gp_Vec2d(0., 0.);
-      Geom2dGcc_CurveTool::D2(Curv3, X(3), Point3, Tan3, D23);
+      CurveTool3::D2(Curv3, X(3), Point3, Tan3, D23);
     }
     break;
     case Geom2dGcc_LiCuCu: {
       ElCLib::D1(X(1), Lin1, Point1, Tan1);
       D21 = gp_Vec2d(0., 0.);
-      Geom2dGcc_CurveTool::D2(Curv2, X(2), Point2, Tan2, D22);
-      Geom2dGcc_CurveTool::D2(Curv3, X(3), Point3, Tan3, D23);
+      CurveTool3::D2(Curv2, X(2), Point2, Tan2, D22);
+      CurveTool3::D2(Curv3, X(3), Point3, Tan3, D23);
     }
     break;
     case Geom2dGcc_LiLiCu: {
@@ -69,13 +69,13 @@ void Geom2dGcc_FunctionTanCuCuCu::InitDerivative(const math_Vector& X,
       D21 = gp_Vec2d(0., 0.);
       ElCLib::D1(X(2), Lin2, Point2, Tan2);
       D22 = gp_Vec2d(0., 0.);
-      Geom2dGcc_CurveTool::D2(Curv3, X(3), Point3, Tan3, D23);
+      CurveTool3::D2(Curv3, X(3), Point3, Tan3, D23);
     }
     break;
     case Geom2dGcc_CuCuCu: {
-      Geom2dGcc_CurveTool::D2(Curv1, X(1), Point1, Tan1, D21);
-      Geom2dGcc_CurveTool::D2(Curv2, X(2), Point2, Tan2, D22);
-      Geom2dGcc_CurveTool::D2(Curv3, X(3), Point3, Tan3, D23);
+      CurveTool3::D2(Curv1, X(1), Point1, Tan1, D21);
+      CurveTool3::D2(Curv2, X(2), Point2, Tan2, D22);
+      CurveTool3::D2(Curv3, X(3), Point3, Tan3, D23);
     }
     break;
     default: {

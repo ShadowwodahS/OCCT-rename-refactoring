@@ -219,7 +219,7 @@ static Standard_Integer BUC60792(DrawInterpreter& di, Standard_Integer /*argc*/,
   gp_Circ              circ(anAx2, 50.0);
   Handle(GeomCircle)  gcir  = new GeomCircle(circ);
   Handle(GeomPlane)   pln   = new GeomPlane(gp_Ax3(Point3d(0, 0, 0), Dir3d(1, 0, 0)));
-  Handle(GeomCurve2d) gcir1 = GeomAPI::To2d(gcir, pln->Pln());
+  Handle(GeomCurve2d) gcir1 = GeomAPI1::To2d(gcir, pln->Pln());
   TopoShape         sh1   = EdgeMaker(gcir1, pln).Shape();
   Handle(VisualShape)    ais1  = new VisualShape(sh1);
   aContext->SetColor(ais1, Quantity_NOC_INDIANRED, Standard_False);
@@ -231,7 +231,7 @@ static Standard_Integer BUC60792(DrawInterpreter& di, Standard_Integer /*argc*/,
   Handle(Geom2d_CartesianPoint) ThePoint = new Geom2d_CartesianPoint(thepoint);
   Geom2dAdaptor_Curve           acur1(gcir1);
   Geom2dGcc_QualifiedCurve      qcur1(acur1, GccEnt_outside);
-  Geom2dGcc_Circ2d2TanRad       cirtanrad(qcur1, ThePoint, 200.0, 0.0001);
+  Circ2d2TanRad1       cirtanrad(qcur1, ThePoint, 200.0, 0.0001);
   printf("\n No. of solutions = %d\n", cirtanrad.NbSolutions());
   Handle(Geom2d_Circle) gccc;
   if (cirtanrad.NbSolutions())

@@ -95,7 +95,7 @@ void IntersectionRoot::SetInterval(const Standard_Real t1,
 
 //=================================================================================================
 
-void IntersectionRoot::Interval(Standard_Real& t1,
+void IntersectionRoot::Interval1(Standard_Real& t1,
                              Standard_Real& t2,
                              Standard_Real& f1,
                              Standard_Real& f2) const

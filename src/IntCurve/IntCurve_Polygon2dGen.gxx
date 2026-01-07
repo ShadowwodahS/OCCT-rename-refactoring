@@ -36,7 +36,7 @@
 //  Modified by Sergey KHROMOV - Mon Mar 24 12:02:43 2003 Begin
 IntCurve_Polygon2dGen::IntCurve_Polygon2dGen(const TheCurve&        C,
 					     const Standard_Integer tNbPts,
-					     const IntRes2d_Domain& D,
+					     const Domain2& D,
 					     const Standard_Real    Tol):
 //  Modified by Sergey KHROMOV - Mon Mar 24 12:02:45 2003 End
        ThePnts(1,(tNbPts<3)? 6 : (tNbPts+tNbPts)),

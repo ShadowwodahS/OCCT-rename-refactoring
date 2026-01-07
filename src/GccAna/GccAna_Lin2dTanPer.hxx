@@ -29,7 +29,7 @@
 class gp_Pnt2d;
 class gp_Lin2d;
 class gp_Circ2d;
-class GccEnt_QualifiedCirc;
+class QualifiedCircle;
 
 //! This class implements the algorithms used to
 //! create 2d lines tangent to a circle or a point and
@@ -42,7 +42,7 @@ class GccEnt_QualifiedCirc;
 //! -   defining the construction of 2D line(s),
 //! -   implementing the construction algorithm, and
 //! -   consulting the result(s).
-class GccAna_Lin2dTanPer
+class Line2dTangentPerpendicular
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -50,23 +50,23 @@ public:
   //! This method implements the algorithms used to
   //! create 2d lines passing through a point and
   //! perpendicular to a line.
-  Standard_EXPORT GccAna_Lin2dTanPer(const gp_Pnt2d& ThePnt, const gp_Lin2d& TheLin);
+  Standard_EXPORT Line2dTangentPerpendicular(const gp_Pnt2d& ThePnt, const gp_Lin2d& TheLin);
 
   //! This method implements the algorithms used to
   //! create 2d lines passing through a point and
   //! perpendicular to a circle.
-  Standard_EXPORT GccAna_Lin2dTanPer(const gp_Pnt2d& ThePnt, const gp_Circ2d& TheCircle);
+  Standard_EXPORT Line2dTangentPerpendicular(const gp_Pnt2d& ThePnt, const gp_Circ2d& TheCircle);
 
   //! This method implements the algorithms used to
   //! create 2d lines tangent to a circle and
   //! perpendicular to a line.
-  Standard_EXPORT GccAna_Lin2dTanPer(const GccEnt_QualifiedCirc& Qualified1,
+  Standard_EXPORT Line2dTangentPerpendicular(const QualifiedCircle& Qualified1,
                                      const gp_Lin2d&             TheLin);
 
   //! This method implements the algorithms used to
   //! create 2d lines tangent to a circle and
   //! perpendicular to a circle.
-  Standard_EXPORT GccAna_Lin2dTanPer(const GccEnt_QualifiedCirc& Qualified1,
+  Standard_EXPORT Line2dTangentPerpendicular(const QualifiedCircle& Qualified1,
                                      const gp_Circ2d&            TheCircle);
 
   //! Returns True if the algorithm succeeded.

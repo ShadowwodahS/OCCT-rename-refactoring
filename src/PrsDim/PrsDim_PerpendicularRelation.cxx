@@ -222,9 +222,9 @@ void PrsDim_PerpendicularRelation::ComputeTwoEdgesPerpendicular(
   BRepAdaptor_Surface     adp(makeface.Face());
 
   // 2d lines => projection of 3d on current plane
-  Handle(GeomCurve2d) aGeom2dCurve = GeomAPI::To2d(geom_lin1, myPlane->Pln());
+  Handle(GeomCurve2d) aGeom2dCurve = GeomAPI1::To2d(geom_lin1, myPlane->Pln());
   Handle(Geom2d_Line)  lin1_2d      = Handle(Geom2d_Line)::DownCast(aGeom2dCurve);
-  aGeom2dCurve                      = GeomAPI::To2d(geom_lin2, myPlane->Pln());
+  aGeom2dCurve                      = GeomAPI1::To2d(geom_lin2, myPlane->Pln());
   Handle(Geom2d_Line)      lin2_2d  = Handle(Geom2d_Line)::DownCast(aGeom2dCurve);
   IntAna2d_AnaIntersection inter(lin1_2d->Lin2d(), lin2_2d->Lin2d());
   if (!inter.IsDone())

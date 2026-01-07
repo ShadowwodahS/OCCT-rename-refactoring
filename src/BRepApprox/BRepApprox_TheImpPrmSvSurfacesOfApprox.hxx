@@ -30,8 +30,8 @@
 #include <ApproxInt_SvSurfaces.hxx>
 class BRepAdaptor_Surface;
 class BRepApprox_SurfaceTool;
-class IntSurf_Quadric;
-class IntSurf_QuadricTool;
+class Quadric1;
+class QuadricTool;
 class BRepApprox_ApproxLine;
 class BRepApprox_TheZerImpFuncOfTheImpPrmSvSurfacesOfApprox;
 class Point3d;
@@ -44,9 +44,9 @@ public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT BRepApprox_TheImpPrmSvSurfacesOfApprox(const BRepAdaptor_Surface& Surf1,
-                                                         const IntSurf_Quadric&     Surf2);
+                                                         const Quadric1&     Surf2);
 
-  Standard_EXPORT BRepApprox_TheImpPrmSvSurfacesOfApprox(const IntSurf_Quadric&     Surf1,
+  Standard_EXPORT BRepApprox_TheImpPrmSvSurfacesOfApprox(const Quadric1&     Surf1,
                                                          const BRepAdaptor_Surface& Surf2);
 
   //! returns True if Tg,Tguv1 Tguv2 can be computed.
@@ -69,7 +69,7 @@ public:
                                              const Standard_Real v1,
                                              const Standard_Real u2,
                                              const Standard_Real v2,
-                                             IntSurf_PntOn2S&    Point);
+                                             PointOn2Surfaces&    Point);
 
   Standard_EXPORT Standard_Boolean Tangency(const Standard_Real u1,
                                             const Standard_Real v1,

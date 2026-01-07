@@ -115,7 +115,7 @@ static Handle(Law_Linear) mklin(const Handle(Law_Function)& func)
 static void sortbounds(const Standard_Integer     nb,
                        Handle(GeomFill_Boundary)* bound,
                        Standard_Boolean*          rev,
-                       GeomFill_CornerState*      stat)
+                       CornerState*      stat)
 {
   // trier les bords (facon bourinos),
   // flaguer ceux a renverser,
@@ -207,7 +207,7 @@ static void sortbounds(const Standard_Integer     nb,
 static void coonscnd(const Standard_Integer     nb,
                      Handle(GeomFill_Boundary)* bound,
                      Standard_Boolean*          rev,
-                     GeomFill_CornerState*      stat,
+                     CornerState*      stat,
                      //		     Handle(GeomFill_TgtField)* tga,
                      Handle(GeomFill_TgtField)*,
                      Standard_Real* mintg)
@@ -271,7 +271,7 @@ static void killcorners(const Standard_Integer     nb,
                         Handle(GeomFill_Boundary)* bound,
                         Standard_Boolean*          rev,
                         Standard_Boolean*          nrev,
-                        GeomFill_CornerState*      stat,
+                        CornerState*      stat,
                         Handle(GeomFill_TgtField)* tga)
 {
   Standard_Integer i;
@@ -303,7 +303,7 @@ static void killcorners(const Standard_Integer     nb,
 #endif
       if (bound[i]->HasNormals() && tga[i]->IsScalable())
       {
-        Handle(Law_BSpline) bs = Law::ScaleCub(0., 1., fnul, lnul, fscal, lscal);
+        Handle(Law_BSpline) bs = Law1::ScaleCub(0., 1., fnul, lnul, fscal, lscal);
         tga[i]->Scale(bs);
 #ifdef DRAW
         if (dodraw)
@@ -451,8 +451,8 @@ void GeomFill_ConstrainedFilling::Init(const Handle(GeomFill_Boundary)& B1,
       {
         Handle(Law_Function) fu1, fu2;
         ptch->Func(fu1, fu2);
-        fu1 = Law::MixBnd(Handle(Law_Linear)::DownCast(fu1));
-        fu2 = Law::MixBnd(Handle(Law_Linear)::DownCast(fu2));
+        fu1 = Law1::MixBnd(Handle(Law_Linear)::DownCast(fu1));
+        fu2 = Law1::MixBnd(Handle(Law_Linear)::DownCast(fu2));
         ptch->Func(fu1, fu2);
         break;
       }
@@ -540,8 +540,8 @@ void GeomFill_ConstrainedFilling::Init(const Handle(GeomFill_Boundary)& B1,
       {
         Handle(Law_Function) fu1, fu2;
         ptch->Func(fu1, fu2);
-        Handle(Law_Function) ffu1 = Law::MixBnd(Handle(Law_Linear)::DownCast(fu1));
-        Handle(Law_Function) ffu2 = Law::MixBnd(Handle(Law_Linear)::DownCast(fu2));
+        Handle(Law_Function) ffu1 = Law1::MixBnd(Handle(Law_Linear)::DownCast(fu1));
+        Handle(Law_Function) ffu2 = Law1::MixBnd(Handle(Law_Linear)::DownCast(fu2));
         ptch->SetFunc(ffu1, ffu2);
         break;
       }
@@ -958,9 +958,9 @@ void GeomFill_ConstrainedFilling::MatchKnots()
     }
   }
   Handle(Law_Linear) fu = mklin(ptch->Func(0));
-  ab[0]                 = Law::MixBnd(degree[1], nk[1]->Array1(), nm[1]->Array1(), fu);
+  ab[0]                 = Law1::MixBnd(degree[1], nk[1]->Array1(), nm[1]->Array1(), fu);
   fu                    = mklin(ptch->Func(1));
-  ab[1]                 = Law::MixBnd(degree[0], nk[0]->Array1(), nm[0]->Array1(), fu);
+  ab[1]                 = Law1::MixBnd(degree[0], nk[0]->Array1(), nm[0]->Array1(), fu);
 
   for (i = 0; i < 2; i++)
   {
@@ -971,11 +971,11 @@ void GeomFill_ConstrainedFilling::MatchKnots()
       ab[i + 2]->SetValue(j, 1. - ab[i]->Value(j));
     }
   }
-  pq[0] = Law::MixTgt(degree[1], nk[1]->Array1(), nm[1]->Array1(), 1, ind[0]);
-  pq[2] = Law::MixTgt(degree[1], nk[1]->Array1(), nm[1]->Array1(), 0, ind[2]);
+  pq[0] = Law1::MixTgt(degree[1], nk[1]->Array1(), nm[1]->Array1(), 1, ind[0]);
+  pq[2] = Law1::MixTgt(degree[1], nk[1]->Array1(), nm[1]->Array1(), 0, ind[2]);
 
-  pq[1] = Law::MixTgt(degree[0], nk[0]->Array1(), nm[0]->Array1(), 0, ind[1]);
-  pq[3] = Law::MixTgt(degree[0], nk[0]->Array1(), nm[0]->Array1(), 1, ind[3]);
+  pq[1] = Law1::MixTgt(degree[0], nk[0]->Array1(), nm[0]->Array1(), 0, ind[1]);
+  pq[3] = Law1::MixTgt(degree[0], nk[0]->Array1(), nm[0]->Array1(), 1, ind[3]);
 
 #ifdef DRAW
   if (dodraw)

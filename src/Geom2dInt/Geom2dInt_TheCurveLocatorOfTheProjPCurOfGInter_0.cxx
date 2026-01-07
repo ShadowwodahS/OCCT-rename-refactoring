@@ -23,16 +23,16 @@
 
 #define Curve1 Adaptor2d_Curve2d
 #define Curve1_hxx <Adaptor2d_Curve2d.hxx>
-#define Tool1 Geom2dInt_Geom2dCurveTool
+#define Tool1 Geom2dCurveTool
 #define Tool1_hxx <Geom2dInt_Geom2dCurveTool.hxx>
 #define Curve2 Adaptor2d_Curve2d
 #define Curve2_hxx <Adaptor2d_Curve2d.hxx>
-#define Tool2 Geom2dInt_Geom2dCurveTool
+#define Tool2 Geom2dCurveTool
 #define Tool2_hxx <Geom2dInt_Geom2dCurveTool.hxx>
 #define POnC Extrema_POnCurv2d
 #define POnC_hxx <Extrema_POnCurv2d.hxx>
 #define Pnt gp_Pnt2d
 #define Pnt_hxx <gp_Pnt2d.hxx>
-#define Extrema_CurveLocator Geom2dInt_TheCurveLocatorOfTheProjPCurOfGInter
+#define Extrema_CurveLocator Geom2dIntProjPCurCurveLocator
 #define Extrema_CurveLocator_hxx <Geom2dInt_TheCurveLocatorOfTheProjPCurOfGInter.hxx>
 #include "../Extrema/Extrema_CurveLocator.gxx"

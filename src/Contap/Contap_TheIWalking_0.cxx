@@ -31,13 +31,13 @@
 
 #define ThePointOfPath IntSurf_PathPoint
 #define ThePointOfPath_hxx <IntSurf_PathPoint.hxx>
-#define ThePointOfPathTool IntSurf_PathPointTool
+#define ThePointOfPathTool PathPointTool
 #define ThePointOfPathTool_hxx <IntSurf_PathPointTool.hxx>
 #define ThePOPIterator IntSurf_SequenceOfPathPoint
 #define ThePOPIterator_hxx <IntSurf_SequenceOfPathPoint.hxx>
-#define ThePointOfLoop IntSurf_InteriorPoint
+#define ThePointOfLoop InteriorPoint
 #define ThePointOfLoop_hxx <IntSurf_InteriorPoint.hxx>
-#define ThePointOfLoopTool IntSurf_InteriorPointTool
+#define ThePointOfLoopTool InteriorPointTool
 #define ThePointOfLoopTool_hxx <IntSurf_InteriorPointTool.hxx>
 #define ThePOLIterator IntSurf_SequenceOfInteriorPoint
 #define ThePOLIterator_hxx <IntSurf_SequenceOfInteriorPoint.hxx>

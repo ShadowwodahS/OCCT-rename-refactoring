@@ -240,7 +240,7 @@ void IntCurvesFace_Intersector::InternalCall(const IntCurveSurface_HInter& HICS,
     Handle(BRepTopAdaptor_TopolTool) anAdditionalTool;
     for (Standard_Integer index = HICS.NbPoints(); index >= 1; index--)
     {
-      const IntCurveSurface_IntersectionPoint& HICSPointindex = HICS.Point(index);
+      const IntersectionPoint1& HICSPointindex = HICS.Point(index);
       gp_Pnt2d                                 Puv(HICSPointindex.U(), HICSPointindex.V());
 
       // TopAbs_State currentstate = myTopolTool->Classify(Puv,Tol);
@@ -299,7 +299,7 @@ void IntCurvesFace_Intersector::InternalCall(const IntCurveSurface_HInter& HICS,
           //----- Insertion du point
           if (nbpnt == 0)
           {
-            IntCurveSurface_IntersectionPoint PPP(pnt, U, V, W, transition);
+            IntersectionPoint1 PPP(pnt, U, V, W, transition);
             SeqPnt.Append(PPP);
             //  Modified by skv - Wed Sep  3 16:14:10 2003 OCC578 Begin
             mySeqState.Append(anIntState);
@@ -311,7 +311,7 @@ void IntCurvesFace_Intersector::InternalCall(const IntCurveSurface_HInter& HICS,
             Standard_Integer b = nbpnt + 1;
             while (i <= nbpnt)
             {
-              const IntCurveSurface_IntersectionPoint& Pnti = SeqPnt.Value(i);
+              const IntersectionPoint1& Pnti = SeqPnt.Value(i);
               Standard_Real                            wi   = Pnti.W();
               if (wi >= W)
               {
@@ -320,7 +320,7 @@ void IntCurvesFace_Intersector::InternalCall(const IntCurveSurface_HInter& HICS,
               }
               i++;
             }
-            IntCurveSurface_IntersectionPoint PPP(pnt, U, V, W, transition);
+            IntersectionPoint1 PPP(pnt, U, V, W, transition);
             //  Modified by skv - Wed Sep  3 16:14:10 2003 OCC578 Begin
             // 	    if(b>nbpnt)          { SeqPnt.Append(PPP); }
             // 	    else if(b>0)             { SeqPnt.InsertBefore(b,PPP); }
@@ -377,7 +377,7 @@ void IntCurvesFace_Intersector::Perform(const gp_Lin&       L,
   }
   else
   {
-    Intf_Tool bndTool;
+    Tool1 bndTool;
     Bnd_Box   boxLine;
     bndTool.LinBox(L, myPolyhedron->Bounding(), boxLine);
     if (bndTool.NbSegments() == 0)
@@ -427,8 +427,8 @@ void IntCurvesFace_Intersector::Perform(const gp_Lin&       L,
     {
       myBndBounding.reset(new Bnd_BoundSortBox());
       myBndBounding->Initialize(
-        IntCurveSurface_ThePolyhedronToolOfHInter::Bounding(*myPolyhedron),
-        IntCurveSurface_ThePolyhedronToolOfHInter::ComponentsBounding(*myPolyhedron));
+        PolyhedronToolHInter::Bounding(*myPolyhedron),
+        PolyhedronToolHInter::ComponentsBounding(*myPolyhedron));
     }
     HICS.Perform(HLL, polygon, Hsurface, *myPolyhedron, *myBndBounding);
 #else
@@ -468,8 +468,8 @@ void IntCurvesFace_Intersector::Perform(const Handle(Adaptor3d_Curve)& HCu,
   }
   else
   {
-    parinf = IntCurveSurface_TheHCurveTool::FirstParameter(HCu);
-    parsup = IntCurveSurface_TheHCurveTool::LastParameter(HCu);
+    parinf = HCurveTool2::FirstParameter(HCu);
+    parsup = HCurveTool2::LastParameter(HCu);
     if (parinf < ParMin)
       parinf = ParMin;
     if (parsup > ParMax)
@@ -477,7 +477,7 @@ void IntCurvesFace_Intersector::Perform(const Handle(Adaptor3d_Curve)& HCu,
     if (parinf > (parsup - 1e-9))
       return;
     Standard_Integer nbs;
-    nbs = IntCurveSurface_TheHCurveTool::NbSamples(HCu, parinf, parsup);
+    nbs = HCurveTool2::NbSamples(HCu, parinf, parsup);
 
     IntCurveSurface_ThePolygonOfHInter polygon(HCu, parinf, parsup, nbs);
 #if OPTIMISATION
@@ -485,8 +485,8 @@ void IntCurvesFace_Intersector::Perform(const Handle(Adaptor3d_Curve)& HCu,
     {
       myBndBounding.reset(new Bnd_BoundSortBox());
       myBndBounding->Initialize(
-        IntCurveSurface_ThePolyhedronToolOfHInter::Bounding(*myPolyhedron),
-        IntCurveSurface_ThePolyhedronToolOfHInter::ComponentsBounding(*myPolyhedron));
+        PolyhedronToolHInter::Bounding(*myPolyhedron),
+        PolyhedronToolHInter::ComponentsBounding(*myPolyhedron));
     }
     HICS.Perform(HCu, polygon, Hsurface, *myPolyhedron, *myBndBounding);
 #else

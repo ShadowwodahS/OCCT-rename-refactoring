@@ -27,7 +27,7 @@
 #include <TColStd_HArray1OfBoolean.hxx>
 #include <TColStd_HArray1OfReal.hxx>
 
-Handle(Law_BSpFunc) Law::MixBnd(const Handle(Law_Linear)& Lin)
+Handle(Law_BSpFunc) Law1::MixBnd(const Handle(Law_Linear)& Lin)
 {
   Standard_Real f, l;
   Lin->Bounds(f, l);
@@ -39,14 +39,14 @@ Handle(Law_BSpFunc) Law::MixBnd(const Handle(Law_Linear)& Lin)
   Knots(3) = 0.25 * f + 0.75 * l;
   Mults(1) = Mults(4) = 4;
   Mults(2) = Mults(3)               = 1;
-  Handle(TColStd_HArray1OfReal) pol = Law::MixBnd(3, Knots, Mults, Lin);
+  Handle(TColStd_HArray1OfReal) pol = Law1::MixBnd(3, Knots, Mults, Lin);
   Handle(Law_BSpline)           bs  = new Law_BSpline(pol->Array1(), Knots, Mults, 3);
   Handle(Law_BSpFunc)           bsf = new Law_BSpFunc();
   bsf->SetCurve(bs);
   return bsf;
 }
 
-Handle(TColStd_HArray1OfReal) Law::MixBnd(const Standard_Integer         Degree,
+Handle(TColStd_HArray1OfReal) Law1::MixBnd(const Standard_Integer         Degree,
                                           const TColStd_Array1OfReal&    Knots,
                                           const TColStd_Array1OfInteger& Mults,
                                           const Handle(Law_Linear)&      Lin)
@@ -118,7 +118,7 @@ static Standard_Real eval1(const Standard_Real    p,
   }
 }
 
-Handle(TColStd_HArray1OfReal) Law::MixTgt(const Standard_Integer         Degree,
+Handle(TColStd_HArray1OfReal) Law1::MixTgt(const Standard_Integer         Degree,
                                           const TColStd_Array1OfReal&    Knots,
                                           const TColStd_Array1OfInteger& Mults,
                                           const Standard_Boolean         NulOnTheRight,
@@ -155,7 +155,7 @@ Handle(TColStd_HArray1OfReal) Law::MixTgt(const Standard_Integer         Degree,
   return res;
 }
 
-Handle(Law_BSpline) Law::Reparametrize(const Adaptor3d_Curve& Curve,
+Handle(Law_BSpline) Law1::Reparametrize(const Adaptor3d_Curve& Curve,
                                        const Standard_Real    First,
                                        const Standard_Real    Last,
                                        const Standard_Boolean HasDF,
@@ -250,7 +250,7 @@ Handle(Law_BSpline) Law::Reparametrize(const Adaptor3d_Curve& Curve,
   }
   inter.Perform();
   if (!inter.IsDone())
-    throw ExceptionBase("Law::Reparametrize echec interpolation");
+    throw ExceptionBase("Law1::Reparametrize echec interpolation");
   Handle(Law_BSpline) bs = inter.Curve();
   return bs;
 }
@@ -274,7 +274,7 @@ static Standard_Real eval2(const Standard_Real p,
     return 1.;
 }
 
-Handle(Law_BSpline) Law::Scale(const Standard_Real    First,
+Handle(Law_BSpline) Law1::Scale(const Standard_Real    First,
                                const Standard_Real    Last,
                                const Standard_Boolean HasF,
                                const Standard_Boolean HasL,
@@ -332,7 +332,7 @@ Handle(Law_BSpline) Law::Scale(const Standard_Real    First,
   return bs1;
 }
 
-Handle(Law_BSpline) Law::ScaleCub(const Standard_Real    First,
+Handle(Law_BSpline) Law1::ScaleCub(const Standard_Real    First,
                                   const Standard_Real    Last,
                                   const Standard_Boolean HasF,
                                   const Standard_Boolean HasL,

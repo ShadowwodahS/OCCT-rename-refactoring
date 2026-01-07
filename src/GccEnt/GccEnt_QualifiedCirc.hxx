@@ -33,7 +33,7 @@
 //! -   is enclosed by the circle, or
 //! -   is built so that both the circle and it are external to   one another, or
 //! -   is undefined (all solutions apply).
-class GccEnt_QualifiedCirc
+class QualifiedCircle
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -47,7 +47,7 @@ public:
   //! -   GccEnt_outside if both the solution and the circle
   //! are external to one another, or
   //! -   GccEnt_unqualified if all solutions apply.
-  Standard_EXPORT GccEnt_QualifiedCirc(const gp_Circ2d& Qualified, const GccEnt_Position Qualifier);
+  Standard_EXPORT QualifiedCircle(const gp_Circ2d& Qualified, const GccEnt_Position Qualifier);
 
   //! Returns a 2D circle to which the qualifier is assigned.
   Standard_EXPORT gp_Circ2d Qualified() const;

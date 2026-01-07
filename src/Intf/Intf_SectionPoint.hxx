@@ -27,7 +27,7 @@ class gp_Pnt2d;
 
 //! Describes an intersection  point between  polygons  and
 //! polyedra.
-class Intf_SectionPoint
+class SectionPoint
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -77,20 +77,20 @@ public:
 
   //! Returns True if the two SectionPoint have the  same logical
   //! information.
-  Standard_Boolean IsEqual(const Intf_SectionPoint& Other) const;
+  Standard_Boolean IsEqual(const SectionPoint& Other) const;
 
-  Standard_Boolean operator==(const Intf_SectionPoint& Other) const { return IsEqual(Other); }
+  Standard_Boolean operator==(const SectionPoint& Other) const { return IsEqual(Other); }
 
   //! Returns True if the two SectionPoints are  on the  same edge
   //! of the first or the second element.
-  Standard_EXPORT Standard_Boolean IsOnSameEdge(const Intf_SectionPoint& Other) const;
+  Standard_EXPORT Standard_Boolean IsOnSameEdge(const SectionPoint& Other) const;
 
-  Standard_EXPORT Intf_SectionPoint();
+  Standard_EXPORT SectionPoint();
 
   //! Builds  a  SectionPoint    with the  respective  dimensions
   //! (vertex edge or face)  of the concerned arguments and their
   //! addresses in the Topological structure.
-  Standard_EXPORT Intf_SectionPoint(const Point3d&          Where,
+  Standard_EXPORT SectionPoint(const Point3d&          Where,
                                     const Intf_PIType      DimeO,
                                     const Standard_Integer AddrO1,
                                     const Standard_Integer AddrO2,
@@ -104,7 +104,7 @@ public:
   //! Builds  a  SectionPoint 2d   with the respective dimensions
   //! (vertex or  edge)  of  the concerned arguments   and  their
   //! addresses in the Topological structure.
-  Standard_EXPORT Intf_SectionPoint(const gp_Pnt2d&        Where,
+  Standard_EXPORT SectionPoint(const gp_Pnt2d&        Where,
                                     const Intf_PIType      DimeO,
                                     const Standard_Integer AddrO1,
                                     const Standard_Real    ParamO,
@@ -114,7 +114,7 @@ public:
                                     const Standard_Real    Incid);
 
   //! Merges two SectionPoints.
-  Standard_EXPORT void Merge(Intf_SectionPoint& Other);
+  Standard_EXPORT void Merge(SectionPoint& Other);
 
   Standard_EXPORT void Dump(const Standard_Integer Indent) const;
 

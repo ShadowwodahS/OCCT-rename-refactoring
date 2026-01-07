@@ -113,7 +113,7 @@ private:
   //! (called by ShapeTolerances())
   Standard_EXPORT Standard_Real ToleranceMax(const TopoShape& S, const TopAbs_ShapeEnum T) const;
 
-  IntPatch_Intersection                 myIntersector;
+  Intersection1                 myIntersector;
   Standard_Boolean                      myIntersectionDone;
   Standard_Real                         myTol1;
   Standard_Real                         myTol2;

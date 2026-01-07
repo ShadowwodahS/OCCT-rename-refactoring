@@ -58,7 +58,7 @@ Standard_Integer BRepApprox_ApproxLine::NbPnts() const
 
 //=================================================================================================
 
-IntSurf_PntOn2S BRepApprox_ApproxLine::Point(const Standard_Integer Index)
+PointOn2Surfaces BRepApprox_ApproxLine::Point(const Standard_Integer Index)
 {
   if (!myLineOn2S.IsNull())
   {
@@ -76,7 +76,7 @@ IntSurf_PntOn2S BRepApprox_ApproxLine::Point(const Standard_Integer Index)
   if (!myCurveUV2.IsNull())
     P2 = myCurveUV2->Pole(Index);
 
-  IntSurf_PntOn2S aPntOn2S;
+  PointOn2Surfaces aPntOn2S;
   aPntOn2S.SetValue(P, P1.X(), P1.Y(), P2.X(), P2.Y());
 
   return aPntOn2S;

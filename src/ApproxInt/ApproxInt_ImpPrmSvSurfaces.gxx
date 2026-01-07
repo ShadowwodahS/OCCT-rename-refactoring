@@ -442,7 +442,7 @@ Standard_Boolean ApproxInt_ImpPrmSvSurfaces::Compute(Standard_Real& u1,
                                                      gp_Vec2d&      Tguv1,
                                                      gp_Vec2d&      Tguv2)
 {
-  const IntSurf_Quadric& aQSurf  = MyZerImpFunc.ISurface();
+  const Quadric1& aQSurf  = MyZerImpFunc.ISurface();
   const ThePSurface&     aPSurf  = MyZerImpFunc.PSurface();
   gp_Vec2d&              aQuadTg = MyImplicitFirst ? Tguv1 : Tguv2;
   gp_Vec2d&              aPrmTg  = MyImplicitFirst ? Tguv2 : Tguv1;
@@ -777,12 +777,12 @@ Standard_Boolean ApproxInt_ImpPrmSvSurfaces::SeekPoint(const Standard_Real u1,
                                                        const Standard_Real v1,
                                                        const Standard_Real u2,
                                                        const Standard_Real v2,
-                                                       IntSurf_PntOn2S&    Point)
+                                                       PointOn2Surfaces&    Point)
 {
   Point3d                 aP;
   Vector3d                 aT;
   gp_Vec2d               aTS1, aTS2;
-  const IntSurf_Quadric& aQSurf = MyZerImpFunc.ISurface();
+  const Quadric1& aQSurf = MyZerImpFunc.ISurface();
   const ThePSurface&     aPSurf = MyZerImpFunc.PSurface();
 
   math_Vector X(1, 2);

@@ -33,7 +33,7 @@ class Law_BSpline;
 class Adaptor3d_Curve;
 
 //! Multiple services concerning 1d functions.
-class Law
+class Law1
 {
 public:
   DEFINE_STANDARD_ALLOC

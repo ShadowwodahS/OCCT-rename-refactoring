@@ -26,7 +26,7 @@
 
 //! Provides intersections on between two surfaces of Geom.
 //! The result are curves from Geom.
-class GeomInt
+class GeomInt1
 {
 public:
   DEFINE_STANDARD_ALLOC

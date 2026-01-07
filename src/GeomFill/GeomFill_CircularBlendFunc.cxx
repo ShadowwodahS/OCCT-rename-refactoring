@@ -140,7 +140,7 @@ GeomFill_CircularBlendFunc::GeomFill_CircularBlendFunc(const Handle(Adaptor3d_Cu
   // car c'est le plus performant
 
   // On en deduit la structure
-  GeomFill::GetShape(maxang, myNbPoles, myNbKnots, myDegree, myTConv);
+  GeomFill1::GetShape(maxang, myNbPoles, myNbKnots, myDegree, myTConv);
 }
 
 void GeomFill_CircularBlendFunc::Discret()
@@ -291,7 +291,7 @@ Standard_Boolean GeomFill_CircularBlendFunc::D0(const Standard_Real Param,
   Center.ChangeCoord() = 0.5 * temp;
 
   // Section
-  GeomFill::GetCircle(myTConv, ns1, ns2, nplan, P1, P2, myRadius, Center, Poles, Weigths);
+  GeomFill1::GetCircle(myTConv, ns1, ns2, nplan, P1, P2, myRadius, Center, Poles, Weigths);
 
 #ifdef DRAW
 //  Handle(BSplineCurve3d) BS =
@@ -372,7 +372,7 @@ Standard_Boolean GeomFill_CircularBlendFunc::D1(
   dnplan.SetLinearForm(-dnplan.Dot(nplan), nplan, dnplan);
   dnplan *= invnormp;
 
-  GeomFill::GetCircle(myTConv,
+  GeomFill1::GetCircle(myTConv,
                       ns1,
                       ns2,
                       Dns1,
@@ -495,7 +495,7 @@ Standard_Boolean GeomFill_CircularBlendFunc::D2(
   dnplan *= invnormp;
   d2nplan *= invnormp;
 
-  GeomFill::GetCircle(myTConv,
+  GeomFill1::GetCircle(myTConv,
                       ns1,
                       ns2,
                       Dns1,
@@ -542,12 +542,12 @@ void GeomFill_CircularBlendFunc::SectionShape(Standard_Integer& NbPoles,
 
 void GeomFill_CircularBlendFunc::Knots(TColStd_Array1OfReal& TKnots) const
 {
-  GeomFill::Knots(myTConv, TKnots);
+  GeomFill1::Knots(myTConv, TKnots);
 }
 
 void GeomFill_CircularBlendFunc::Mults(TColStd_Array1OfInteger& TMults) const
 {
-  GeomFill::Mults(myTConv, TMults);
+  GeomFill1::Mults(myTConv, TMults);
 }
 
 Standard_Boolean GeomFill_CircularBlendFunc::IsRational() const
@@ -639,7 +639,7 @@ void GeomFill_CircularBlendFunc::GetTolerance(const Standard_Real   BoundTol,
   Standard_Integer low = Tol3d.Lower(), up = Tol3d.Upper();
   Standard_Real    Tol;
 
-  Tol = GeomFill::GetTolerance(myTConv, minang, myRadius, AngleTol, SurfTol);
+  Tol = GeomFill1::GetTolerance(myTConv, minang, myRadius, AngleTol, SurfTol);
   Tol3d.Init(SurfTol);
   Tol3d(low + 1) = Tol3d(up - 1) = Min(Tol, SurfTol);
   Tol3d(low) = Tol3d(up) = Min(Tol, BoundTol);
@@ -662,5 +662,5 @@ Standard_Real GeomFill_CircularBlendFunc::MaximalSection() const
 
 void GeomFill_CircularBlendFunc::GetMinimalWeight(TColStd_Array1OfReal& Weigths) const
 {
-  GeomFill::GetMinimalWeights(myTConv, minang, maxang, Weigths);
+  GeomFill1::GetMinimalWeights(myTConv, minang, maxang, Weigths);
 }

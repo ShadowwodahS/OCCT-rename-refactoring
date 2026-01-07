@@ -14,7 +14,7 @@
 
 #include <IntSurf_PntOn2S.hxx>
 
-IntSurf_PntOn2S::IntSurf_PntOn2S()
+PointOn2Surfaces::PointOn2Surfaces()
     : pt(0, 0, 0),
       u1(0),
       v1(0),
@@ -23,7 +23,7 @@ IntSurf_PntOn2S::IntSurf_PntOn2S()
 {
 }
 
-void IntSurf_PntOn2S::SetValue(const Point3d&          Pt,
+void PointOn2Surfaces::SetValue(const Point3d&          Pt,
                                const Standard_Boolean OnFirst,
                                const Standard_Real    U,
                                const Standard_Real    V)
@@ -42,7 +42,7 @@ void IntSurf_PntOn2S::SetValue(const Point3d&          Pt,
   }
 }
 
-void IntSurf_PntOn2S::SetValue(const Standard_Boolean OnFirst,
+void PointOn2Surfaces::SetValue(const Standard_Boolean OnFirst,
                                const Standard_Real    U,
                                const Standard_Real    V)
 {
@@ -59,7 +59,7 @@ void IntSurf_PntOn2S::SetValue(const Standard_Boolean OnFirst,
   }
 }
 
-gp_Pnt2d IntSurf_PntOn2S::ValueOnSurface(const Standard_Boolean OnFirst) const
+gp_Pnt2d PointOn2Surfaces::ValueOnSurface(const Standard_Boolean OnFirst) const
 {
   gp_Pnt2d PointOnSurf;
   if (OnFirst)
@@ -69,7 +69,7 @@ gp_Pnt2d IntSurf_PntOn2S::ValueOnSurface(const Standard_Boolean OnFirst) const
   return PointOnSurf;
 }
 
-void IntSurf_PntOn2S::ParametersOnSurface(const Standard_Boolean OnFirst,
+void PointOn2Surfaces::ParametersOnSurface(const Standard_Boolean OnFirst,
                                           Standard_Real&         U,
                                           Standard_Real&         V) const
 {
@@ -85,7 +85,7 @@ void IntSurf_PntOn2S::ParametersOnSurface(const Standard_Boolean OnFirst,
   }
 }
 
-Standard_Boolean IntSurf_PntOn2S::IsSame(const IntSurf_PntOn2S& theOterPoint,
+Standard_Boolean PointOn2Surfaces::IsSame(const PointOn2Surfaces& theOterPoint,
                                          const Standard_Real    theTol3D,
                                          const Standard_Real    theTol2D) const
 {

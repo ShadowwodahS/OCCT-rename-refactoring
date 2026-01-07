@@ -172,8 +172,8 @@ private:
   GeomAbs_SurfaceType                    mySurfaceType2;
   Standard_Boolean                       mySurfacesSameOriented;
   Standard_Boolean                       myFacesSameOriented;
-  IntRes2d_Domain                        myDomain1;
-  IntRes2d_Domain                        myDomain2;
+  Domain2                        myDomain1;
+  Domain2                        myDomain2;
   TopoEdge                            myEdge1;
   TopoEdge                            myEdge2;
   Geom2dAdaptor_Curve                    myCurve1;

@@ -28,11 +28,11 @@
 #define TheSurfaceTool_hxx <Adaptor3d_HSurfaceTool.hxx>
 #define TheCurve Handle(Adaptor3d_Curve)
 #define TheCurve_hxx <Adaptor3d_Curve.hxx>
-#define TheCurveTool IntCurveSurface_TheHCurveTool
+#define TheCurveTool HCurveTool2
 #define TheCurveTool_hxx <IntCurveSurface_TheHCurveTool.hxx>
 #define IntCurveSurface_TheQuadCurvFunc IntCurveSurface_TheQuadCurvFuncOfTheQuadCurvExactHInter
 #define IntCurveSurface_TheQuadCurvFunc_hxx                                                        \
   <IntCurveSurface_TheQuadCurvFuncOfTheQuadCurvExactHInter.hxx>
-#define IntCurveSurface_QuadricCurveExactInter IntCurveSurface_TheQuadCurvExactHInter
+#define IntCurveSurface_QuadricCurveExactInter QuadCurvExactHInter
 #define IntCurveSurface_QuadricCurveExactInter_hxx <IntCurveSurface_TheQuadCurvExactHInter.hxx>
 #include "../IntCurveSurface/IntCurveSurface_QuadricCurveExactInter.gxx"

@@ -555,13 +555,13 @@ static Standard_Real IntersectCurves2d(
   Standard_Real aMaxDist = 0.;
   Standard_Real aTol2d   = 1.e-10;
   //
-  IntRes2d_Domain aDom1(theEData1.GAdaptor.Value(aT11),
+  Domain2 aDom1(theEData1.GAdaptor.Value(aT11),
                         aT11,
                         aTol2d,
                         theEData1.GAdaptor.Value(aT12),
                         aT12,
                         aTol2d);
-  IntRes2d_Domain aDom2(theEData2.GAdaptor.Value(aT21),
+  Domain2 aDom2(theEData2.GAdaptor.Value(aT21),
                         aT21,
                         aTol2d,
                         theEData2.GAdaptor.Value(aT22),

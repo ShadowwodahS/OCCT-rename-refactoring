@@ -24,7 +24,7 @@ class HSurfaceTool;
 class Adaptor3d_TopolTool;
 class Contap_HContTool;
 class Contap_SurfFunction;
-class IntSurf_InteriorPoint;
+class InteriorPoint;
 
 class Contap_TheSearchInside
 {
@@ -60,7 +60,7 @@ public:
   //! returns False.
   //! The exception OutOfRange if raised if
   //! Index <= 0 or Index > NbPoints.
-  const IntSurf_InteriorPoint& Value(const Standard_Integer Index) const;
+  const InteriorPoint& Value(const Standard_Integer Index) const;
 
 protected:
 private:

@@ -40,9 +40,9 @@
 #define ThePSurface_hxx <Adaptor3d_Surface.hxx>
 #define ThePSurfaceTool HSurfaceTool
 #define ThePSurfaceTool_hxx <Adaptor3d_HSurfaceTool.hxx>
-#define TheISurface IntSurf_Quadric
+#define TheISurface Quadric1
 #define TheISurface_hxx <IntSurf_Quadric.hxx>
-#define TheISurfaceTool IntSurf_QuadricTool
+#define TheISurfaceTool QuadricTool
 #define TheISurfaceTool_hxx <IntSurf_QuadricTool.hxx>
 #define Handle_TheWLine Handle(IntPatch_WLine)
 #define TheWLine IntPatch_WLine
@@ -67,7 +67,7 @@
   <GeomInt_TheZerImpFuncOfTheImpPrmSvSurfacesOfWLApprox.hxx>
 #define ApproxInt_TheMultiLine GeomInt_TheMultiLineOfWLApprox
 #define ApproxInt_TheMultiLine_hxx <GeomInt_TheMultiLineOfWLApprox.hxx>
-#define ApproxInt_TheMultiLineTool GeomInt_TheMultiLineToolOfWLApprox
+#define ApproxInt_TheMultiLineTool MultiLineToolWLApprox
 #define ApproxInt_TheMultiLineTool_hxx <GeomInt_TheMultiLineToolOfWLApprox.hxx>
 #define ApproxInt_TheComputeLine GeomInt_TheComputeLineOfWLApprox
 #define ApproxInt_TheComputeLine_hxx <GeomInt_TheComputeLineOfWLApprox.hxx>
@@ -93,6 +93,6 @@
   GeomInt_MyGradientOfTheComputeLineBezierOfWLApprox
 #define ApproxInt_MyGradientOfTheComputeLineBezier_hxx                                             \
   <GeomInt_MyGradientOfTheComputeLineBezierOfWLApprox.hxx>
-#define ApproxInt_Approx GeomInt_WLApprox
+#define ApproxInt_Approx WireLineApproximation
 #define ApproxInt_Approx_hxx <GeomInt_WLApprox.hxx>
 #include "../ApproxInt/ApproxInt_Approx.gxx"

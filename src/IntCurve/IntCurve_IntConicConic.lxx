@@ -21,9 +21,9 @@ inline CONSTRUCTOR() {}
 
 //----------------------------------------------------------------------  L  P
 inline CONSTRUCTOR(const gp_Lin2d&        L,
-                   const IntRes2d_Domain& DL,
+                   const Domain2& DL,
                    const gp_Parab2d&      P,
-                   const IntRes2d_Domain& DP,
+                   const Domain2& DP,
                    const Standard_Real    TolConf,
                    const Standard_Real    Tol)
 {
@@ -32,9 +32,9 @@ inline CONSTRUCTOR(const gp_Lin2d&        L,
 
 //----------------------------------------------------------------------  L  E
 inline CONSTRUCTOR(const gp_Lin2d&        L,
-                   const IntRes2d_Domain& DL,
+                   const Domain2& DL,
                    const gp_Elips2d&      E,
-                   const IntRes2d_Domain& DE,
+                   const Domain2& DE,
                    const Standard_Real    TolConf,
                    const Standard_Real    Tol)
 {
@@ -44,9 +44,9 @@ inline CONSTRUCTOR(const gp_Lin2d&        L,
 
 //----------------------------------------------------------------------  L H
 inline CONSTRUCTOR(const gp_Lin2d&        L,
-                   const IntRes2d_Domain& DL,
+                   const Domain2& DL,
                    const gp_Hypr2d&       H,
-                   const IntRes2d_Domain& DH,
+                   const Domain2& DH,
                    const Standard_Real    TolConf,
                    const Standard_Real    Tol)
 {
@@ -56,9 +56,9 @@ inline CONSTRUCTOR(const gp_Lin2d&        L,
 
 //---------------------------------------------------------------------- C P
 inline CONSTRUCTOR(const gp_Circ2d&       C,
-                   const IntRes2d_Domain& DC,
+                   const Domain2& DC,
                    const gp_Parab2d&      P,
-                   const IntRes2d_Domain& DP,
+                   const Domain2& DP,
                    const Standard_Real    TolConf,
                    const Standard_Real    Tol)
 {
@@ -68,9 +68,9 @@ inline CONSTRUCTOR(const gp_Circ2d&       C,
 
 //----------------------------------------------------------------------  C E
 inline CONSTRUCTOR(const gp_Circ2d&       C,
-                   const IntRes2d_Domain& DC,
+                   const Domain2& DC,
                    const gp_Elips2d&      E,
-                   const IntRes2d_Domain& DE,
+                   const Domain2& DE,
                    const Standard_Real    TolConf,
                    const Standard_Real    Tol)
 {
@@ -80,9 +80,9 @@ inline CONSTRUCTOR(const gp_Circ2d&       C,
 
 //---------------------------------------------------------------------- C H
 inline CONSTRUCTOR(const gp_Circ2d&       C,
-                   const IntRes2d_Domain& DC,
+                   const Domain2& DC,
                    const gp_Hypr2d&       H,
-                   const IntRes2d_Domain& DH,
+                   const Domain2& DH,
                    const Standard_Real    TolConf,
                    const Standard_Real    Tol)
 {
@@ -92,9 +92,9 @@ inline CONSTRUCTOR(const gp_Circ2d&       C,
 
 //---------------------------------------------------------------------- P P
 inline CONSTRUCTOR(const gp_Parab2d&      P1,
-                   const IntRes2d_Domain& D1,
+                   const Domain2& D1,
                    const gp_Parab2d&      P2,
-                   const IntRes2d_Domain& D2,
+                   const Domain2& D2,
                    const Standard_Real    TolConf,
                    const Standard_Real    Tol)
 {
@@ -104,9 +104,9 @@ inline CONSTRUCTOR(const gp_Parab2d&      P1,
 
 //---------------------------------------------------------------------- E P
 inline CONSTRUCTOR(const gp_Elips2d&      E,
-                   const IntRes2d_Domain& DE,
+                   const Domain2& DE,
                    const gp_Parab2d&      P,
-                   const IntRes2d_Domain& DP,
+                   const Domain2& DP,
                    const Standard_Real    TolConf,
                    const Standard_Real    Tol)
 {
@@ -115,9 +115,9 @@ inline CONSTRUCTOR(const gp_Elips2d&      E,
 
 //---------------------------------------------------------------------- P H
 inline CONSTRUCTOR(const gp_Parab2d&      P,
-                   const IntRes2d_Domain& DP,
+                   const Domain2& DP,
                    const gp_Hypr2d&       H,
-                   const IntRes2d_Domain& DH,
+                   const Domain2& DH,
                    const Standard_Real    TolConf,
                    const Standard_Real    Tol)
 {
@@ -127,9 +127,9 @@ inline CONSTRUCTOR(const gp_Parab2d&      P,
 
 //---------------------------------------------------------------------- E E
 inline CONSTRUCTOR(const gp_Elips2d&      E1,
-                   const IntRes2d_Domain& D1,
+                   const Domain2& D1,
                    const gp_Elips2d&      E2,
-                   const IntRes2d_Domain& D2,
+                   const Domain2& D2,
                    const Standard_Real    TolConf,
                    const Standard_Real    Tol)
 {
@@ -139,9 +139,9 @@ inline CONSTRUCTOR(const gp_Elips2d&      E1,
 
 //----------------------------------------------------------------------  E H
 inline CONSTRUCTOR(const gp_Elips2d&      E,
-                   const IntRes2d_Domain& DE,
+                   const Domain2& DE,
                    const gp_Hypr2d&       H,
-                   const IntRes2d_Domain& DH,
+                   const Domain2& DH,
                    const Standard_Real    TolConf,
                    const Standard_Real    Tol)
 {
@@ -151,9 +151,9 @@ inline CONSTRUCTOR(const gp_Elips2d&      E,
 
 //---------------------------------------------------------------------- H H
 inline CONSTRUCTOR(const gp_Hypr2d&       H1,
-                   const IntRes2d_Domain& DH1,
+                   const Domain2& DH1,
                    const gp_Hypr2d&       H2,
-                   const IntRes2d_Domain& DH2,
+                   const Domain2& DH2,
                    const Standard_Real    TolConf,
                    const Standard_Real    Tol)
 {
@@ -163,9 +163,9 @@ inline CONSTRUCTOR(const gp_Hypr2d&       H1,
 
 //---------------------------------------------------------------------- L L
 inline CONSTRUCTOR(const gp_Lin2d&        L1,
-                   const IntRes2d_Domain& D1,
+                   const Domain2& D1,
                    const gp_Lin2d&        L2,
-                   const IntRes2d_Domain& D2,
+                   const Domain2& D2,
                    const Standard_Real    TolConf,
                    const Standard_Real    Tol)
 {
@@ -174,9 +174,9 @@ inline CONSTRUCTOR(const gp_Lin2d&        L1,
 
 //---------------------------------------------------------------------- L C
 inline CONSTRUCTOR(const gp_Lin2d&        L1,
-                   const IntRes2d_Domain& D1,
+                   const Domain2& D1,
                    const gp_Circ2d&       C2,
-                   const IntRes2d_Domain& D2,
+                   const Domain2& D2,
                    const Standard_Real    TolConf,
                    const Standard_Real    Tol)
 {
@@ -187,9 +187,9 @@ inline CONSTRUCTOR(const gp_Lin2d&        L1,
 //---------------------------------------------------------------------- C C
 
 inline CONSTRUCTOR(const gp_Circ2d&       C1,
-                   const IntRes2d_Domain& D1,
+                   const Domain2& D1,
                    const gp_Circ2d&       C2,
-                   const IntRes2d_Domain& D2,
+                   const Domain2& D2,
                    const Standard_Real    TolConf,
                    const Standard_Real    Tol)
 {

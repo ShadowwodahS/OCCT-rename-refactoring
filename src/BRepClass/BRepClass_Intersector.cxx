@@ -60,7 +60,7 @@ static void CheckSkip(Geom2dInt_GInter&           theInter,
                       const gp_Lin2d&             theL,
                       const BRepClass_Edge&       theE,
                       const Handle(GeomCurve2d)& theC2D,
-                      const IntRes2d_Domain&      theDL,
+                      const Domain2&      theDL,
                       Geom2dAdaptor_Curve&        theCur,
                       const Geom2dAdaptor_Curve&  theCGA,
                       Standard_Real&              theFin,
@@ -176,7 +176,7 @@ Standard_Boolean CheckOn(IntRes2d_IntersectionPoint& thePntInter,
     //
     if (aMinDist <= theTolZ)
     {
-      IntRes2d_Transition aTrOnLin(IntRes2d_Head);
+      Transition3 aTrOnLin(IntRes2d_Head);
       IntRes2d_Position   aPosOnCurve = IntRes2d_Middle;
       if ((Abs(aPar - theDeb) <= Precision::Confusion()) || (aPar < theDeb))
       {
@@ -187,7 +187,7 @@ Standard_Boolean CheckOn(IntRes2d_IntersectionPoint& thePntInter,
         aPosOnCurve = IntRes2d_End;
       }
       //
-      IntRes2d_Transition aTrOnCurve(aPosOnCurve);
+      Transition3 aTrOnCurve(aPosOnCurve);
       thePntInter =
         IntRes2d_IntersectionPoint(aPntExact, 0., aPar, aTrOnLin, aTrOnCurve, Standard_False);
       //
@@ -203,7 +203,7 @@ void CheckSkip(Geom2dInt_GInter&           theInter,
                const gp_Lin2d&             theL,
                const BRepClass_Edge&       theE,
                const Handle(GeomCurve2d)& theC2D,
-               const IntRes2d_Domain&      theDL,
+               const Domain2&      theDL,
                Geom2dAdaptor_Curve&        theCur,
                const Geom2dAdaptor_Curve&  theCGA,
                Standard_Real&              theFin,
@@ -307,7 +307,7 @@ void CheckSkip(Geom2dInt_GInter&           theInter,
     theCur.D0(theDeb, thePdeb);
     theCur.D0(theFin, thePfin);
 
-    IntRes2d_Domain aDE(thePdeb, theDeb, atoldeb, thePfin, theFin, atolfin);
+    Domain2 aDE(thePdeb, theDeb, atoldeb, thePfin, theFin, atolfin);
     // temporary periodic domain
     if (theCur.Curve()->IsPeriodic())
     {
@@ -401,7 +401,7 @@ void BRepClass_Intersector::Perform(const gp_Lin2d&       L,
   C.D0(fin, pfin);
   Standard_Real toldeb = 1.e-5, tolfin = 1.e-5;
 
-  IntRes2d_Domain DL;
+  Domain2 DL;
   //
   if (P != RealLast())
   {
@@ -417,7 +417,7 @@ void BRepClass_Intersector::Perform(const gp_Lin2d&       L,
     DL.SetValues(L.Location(), 0., Precision::PConfusion(), Standard_True);
   }
 
-  IntRes2d_Domain DE(pdeb, deb, toldeb, pfin, fin, tolfin);
+  Domain2 DE(pdeb, deb, toldeb, pfin, fin, tolfin);
   // temporary periodic domain
   if (C.Curve()->IsPeriodic())
   {

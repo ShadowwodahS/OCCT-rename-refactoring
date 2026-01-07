@@ -38,7 +38,7 @@ public:
 
   Standard_EXPORT virtual Handle(GeomFill_TrihedronLaw) Copy() const = 0;
 
-  //! Give a status to the Law
+  //! Give a status to the Law1
   //! Returns PipeOk (default implementation)
   Standard_EXPORT virtual GeomFill_PipeError ErrorStatus() const;
 

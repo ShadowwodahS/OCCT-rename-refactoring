@@ -36,7 +36,7 @@ class gp_Vec2d;
 
 //! This class provides a Geom2dCurveTool as < Geom2dCurveTool from IntCurve >
 //! from a Tool as < Geom2dCurveTool from Adaptor3d > .
-class Geom2dInt_Geom2dCurveTool
+class Geom2dCurveTool
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -29,13 +29,13 @@
 #include <gp_Parab2d.hxx>
 #include <gp_Hypr2d.hxx>
 
-#define TheImpTool IntCurve_IConicTool
+#define TheImpTool ConicTool
 #define TheImpTool_hxx <IntCurve_IConicTool.hxx>
 #define ThePCurve Adaptor2d_Curve2d
 #define ThePCurve_hxx <Adaptor2d_Curve2d.hxx>
-#define ThePCurveTool Geom2dInt_Geom2dCurveTool
+#define ThePCurveTool Geom2dCurveTool
 #define ThePCurveTool_hxx <Geom2dInt_Geom2dCurveTool.hxx>
-#define TheProjPCur Geom2dInt_TheProjPCurOfGInter
+#define TheProjPCur ProjPCurOfGInter
 #define TheProjPCur_hxx <Geom2dInt_TheProjPCurOfGInter.hxx>
 #define IntCurve_TheIntersector Geom2dInt_TheIntersectorOfTheIntConicCurveOfGInter
 #define IntCurve_TheIntersector_hxx <Geom2dInt_TheIntersectorOfTheIntConicCurveOfGInter.hxx>

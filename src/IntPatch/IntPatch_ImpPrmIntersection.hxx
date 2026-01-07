@@ -82,8 +82,8 @@ private:
   Standard_Boolean         empt;
   IntPatch_SequenceOfPoint spnt;
   IntPatch_SequenceOfLine  slin;
-  IntPatch_TheSOnBounds    solrst;
-  IntPatch_TheSearchInside solins;
+  SOnBounds    solrst;
+  SearchInside solins;
   Standard_Boolean         myIsStartPnt;
   Standard_Real            myUStart;
   Standard_Real            myVStart;

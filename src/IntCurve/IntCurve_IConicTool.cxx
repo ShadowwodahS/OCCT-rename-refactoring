@@ -51,7 +51,7 @@
 #define Parab_2p prm2
 
 //======================================================================
-IntCurve_IConicTool::IntCurve_IConicTool(void)
+ConicTool::ConicTool(void)
     : prm1(0.0),
       prm2(0.0),
       prm3(0.0),
@@ -60,7 +60,7 @@ IntCurve_IConicTool::IntCurve_IConicTool(void)
   // ###### PLACER LE TYPE NON DEFINI ######
 }
 
-IntCurve_IConicTool::IntCurve_IConicTool(const IntCurve_IConicTool& ITool)
+ConicTool::ConicTool(const ConicTool& ITool)
 {
   prm1          = ITool.prm1;
   prm2          = ITool.prm2;
@@ -72,7 +72,7 @@ IntCurve_IConicTool::IntCurve_IConicTool(const IntCurve_IConicTool& ITool)
 
 //======================================================================
 //======================================================================
-IntCurve_IConicTool::IntCurve_IConicTool(const gp_Lin2d& Line)
+ConicTool::ConicTool(const gp_Lin2d& Line)
     : prm1(0.0),
       prm2(0.0),
       prm3(0.0)
@@ -83,7 +83,7 @@ IntCurve_IConicTool::IntCurve_IConicTool(const gp_Lin2d& Line)
 }
 
 //======================================================================
-IntCurve_IConicTool::IntCurve_IConicTool(const gp_Elips2d& Elips)
+ConicTool::ConicTool(const gp_Elips2d& Elips)
     : prm1(0.0),
       prm2(0.0),
       prm3(0.0)
@@ -97,7 +97,7 @@ IntCurve_IConicTool::IntCurve_IConicTool(const gp_Elips2d& Elips)
 }
 
 //======================================================================
-IntCurve_IConicTool::IntCurve_IConicTool(const gp_Circ2d& C)
+ConicTool::ConicTool(const gp_Circ2d& C)
     : prm1(0.0),
       prm2(0.0),
       prm3(0.0)
@@ -111,7 +111,7 @@ IntCurve_IConicTool::IntCurve_IConicTool(const gp_Circ2d& C)
 }
 
 //======================================================================
-IntCurve_IConicTool::IntCurve_IConicTool(const gp_Parab2d& P)
+ConicTool::ConicTool(const gp_Parab2d& P)
     : prm1(0.0),
       prm2(0.0),
       prm3(0.0)
@@ -124,7 +124,7 @@ IntCurve_IConicTool::IntCurve_IConicTool(const gp_Parab2d& P)
 }
 
 //======================================================================
-IntCurve_IConicTool::IntCurve_IConicTool(const gp_Hypr2d& H)
+ConicTool::ConicTool(const gp_Hypr2d& H)
     : prm1(0.0),
       prm2(0.0),
       prm3(0.0)
@@ -137,7 +137,7 @@ IntCurve_IConicTool::IntCurve_IConicTool(const gp_Hypr2d& H)
 }
 
 //----------------------------------------------------------------------
-gp_Pnt2d IntCurve_IConicTool::Value(const Standard_Real X) const
+gp_Pnt2d ConicTool::Value(const Standard_Real X) const
 {
   switch (type)
   {
@@ -159,7 +159,7 @@ gp_Pnt2d IntCurve_IConicTool::Value(const Standard_Real X) const
 }
 
 //----------------------------------------------------------------------
-void IntCurve_IConicTool::D1(const Standard_Real X, gp_Pnt2d& Pt, gp_Vec2d& Tan) const
+void ConicTool::D1(const Standard_Real X, gp_Pnt2d& Pt, gp_Vec2d& Tan) const
 {
 
   switch (type)
@@ -186,7 +186,7 @@ void IntCurve_IConicTool::D1(const Standard_Real X, gp_Pnt2d& Pt, gp_Vec2d& Tan)
 }
 
 //----------------------------------------------------------------------
-void IntCurve_IConicTool::D2(const Standard_Real X,
+void ConicTool::D2(const Standard_Real X,
                              gp_Pnt2d&           Pt,
                              gp_Vec2d&           Tan,
                              gp_Vec2d&           Norm) const
@@ -220,7 +220,7 @@ void IntCurve_IConicTool::D2(const Standard_Real X,
 #define AN_ELIPS 0
 
 //----------------------------------------------------------------------
-Standard_Real IntCurve_IConicTool::Distance(const gp_Pnt2d& ThePoint) const
+Standard_Real ConicTool::Distance(const gp_Pnt2d& ThePoint) const
 {
 
   switch (type)
@@ -277,7 +277,7 @@ Standard_Real IntCurve_IConicTool::Distance(const gp_Pnt2d& ThePoint) const
   }
 }
 
-gp_Vec2d IntCurve_IConicTool::GradDistance(const gp_Pnt2d& ThePoint) const
+gp_Vec2d ConicTool::GradDistance(const gp_Pnt2d& ThePoint) const
 {
 
   switch (type)
@@ -368,7 +368,7 @@ gp_Vec2d IntCurve_IConicTool::GradDistance(const gp_Pnt2d& ThePoint) const
   }
 }
 
-Standard_Real IntCurve_IConicTool::FindParameter(const gp_Pnt2d& P) const
+Standard_Real ConicTool::FindParameter(const gp_Pnt2d& P) const
 {
 
   Standard_Real Param = 0;

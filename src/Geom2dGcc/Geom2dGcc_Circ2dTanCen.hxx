@@ -50,7 +50,7 @@ class gp_Pnt2d;
 //! outside C1.
 //! With Tolerance we will give a solution if the distance
 //! between C1 and Pcenter is lower than or equal Tolerance/2.
-class Geom2dGcc_Circ2dTanCen
+class Circ2dTanCen1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -68,7 +68,7 @@ public:
   //! Exceptions
   //! GccEnt_BadQualifier if a qualifier is inconsistent with
   //! the argument it qualifies (for example, enclosing for a line).
-  Standard_EXPORT Geom2dGcc_Circ2dTanCen(const Geom2dGcc_QualifiedCurve& Qualified1,
+  Standard_EXPORT Circ2dTanCen1(const Geom2dGcc_QualifiedCurve& Qualified1,
                                          const Handle(Geom2d_Point)&     Pcenter,
                                          const Standard_Real             Tolerance);
 

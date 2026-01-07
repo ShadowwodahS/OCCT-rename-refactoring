@@ -20,14 +20,14 @@
 
 //=================================================================================================
 
-Hatch_Line::Hatch_Line()
+HatchLine::HatchLine()
     : myForm(Hatch_ANYLINE)
 {
 }
 
 //=================================================================================================
 
-Hatch_Line::Hatch_Line(const gp_Lin2d& L, const Hatch_LineForm T)
+HatchLine::HatchLine(const gp_Lin2d& L, const Hatch_LineForm T)
     : myLin(L),
       myForm(T)
 {
@@ -35,13 +35,13 @@ Hatch_Line::Hatch_Line(const gp_Lin2d& L, const Hatch_LineForm T)
 
 //=================================================================================================
 
-void Hatch_Line::AddIntersection(const Standard_Real    Par1,
+void HatchLine::AddIntersection(const Standard_Real    Par1,
                                  const Standard_Boolean Start,
                                  const Standard_Integer Index,
                                  const Standard_Real    Par2,
                                  const Standard_Real    theToler)
 {
-  Hatch_Parameter  P(Par1, Start, Index, Par2);
+  HatchParameter  P(Par1, Start, Index, Par2);
   Standard_Integer i;
   for (i = 1; i <= myInters.Length(); i++)
   {

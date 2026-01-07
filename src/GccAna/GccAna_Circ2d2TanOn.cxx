@@ -42,8 +42,8 @@
 //  bissectrices with straight line which gives us  + points among which we are going to find
 //  solutions.   + The choices are made basing on Qualifiers of C1 and C2.  +
 //=========================================================================
-Circle2dTwoTangentOn::Circle2dTwoTangentOn(const GccEnt_QualifiedCirc& Qualified1,
-                                         const GccEnt_QualifiedCirc& Qualified2,
+Circle2dTwoTangentOn::Circle2dTwoTangentOn(const QualifiedCircle& Qualified1,
+                                         const QualifiedCircle& Qualified2,
                                          const gp_Lin2d&             OnLine,
                                          const Standard_Real         Tolerance)
     : cirsol(1, 4),

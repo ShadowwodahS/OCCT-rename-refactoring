@@ -22,17 +22,17 @@
 #include <TColStd_SequenceOfReal.hxx>
 
 class HSurfaceTool;
-class IntCurveSurface_TheHCurveTool;
+class HCurveTool2;
 class IntCurveSurface_TheQuadCurvFuncOfTheQuadCurvExactHInter;
 
-class IntCurveSurface_TheQuadCurvExactHInter
+class QuadCurvExactHInter
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Provides the signed distance function : Q(w)
   //! and its first derivative dQ(w)/dw
-  Standard_EXPORT IntCurveSurface_TheQuadCurvExactHInter(const Handle(Adaptor3d_Surface)& S,
+  Standard_EXPORT QuadCurvExactHInter(const Handle(Adaptor3d_Surface)& S,
                                                          const Handle(Adaptor3d_Curve)&   C);
 
   Standard_EXPORT Standard_Boolean IsDone() const;

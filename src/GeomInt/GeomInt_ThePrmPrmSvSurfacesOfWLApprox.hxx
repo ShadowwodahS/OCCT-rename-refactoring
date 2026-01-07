@@ -58,7 +58,7 @@ public:
                                              const Standard_Real v1,
                                              const Standard_Real u2,
                                              const Standard_Real v2,
-                                             IntSurf_PntOn2S&    Point);
+                                             PointOn2Surfaces&    Point);
 
   Standard_EXPORT Standard_Boolean Tangency(const Standard_Real u1,
                                             const Standard_Real v1,

@@ -23,7 +23,7 @@
 #include <IntCurve_IntImpConicParConic.hxx>
 #include <IntRes2d_Intersection.hxx>
 class gp_Lin2d;
-class IntRes2d_Domain;
+class Domain2;
 class gp_Circ2d;
 class gp_Elips2d;
 class gp_Parab2d;
@@ -36,7 +36,7 @@ class gp_Hypr2d;
 //! an Ellipse (i-e Elips2d from  gp) do not have a closed
 //! domain (use the  SetEquivalentParameters method for a domain
 //! on a circle or an ellipse).
-class IntCurve_IntConicConic : public IntRes2d_Intersection
+class IntCurve_IntConicConic : public Intersection2
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -46,17 +46,17 @@ public:
 
   //! Intersection between 2 lines from gp.
   IntCurve_IntConicConic(const gp_Lin2d&        L1,
-                         const IntRes2d_Domain& D1,
+                         const Domain2& D1,
                          const gp_Lin2d&        L2,
-                         const IntRes2d_Domain& D2,
+                         const Domain2& D2,
                          const Standard_Real    TolConf,
                          const Standard_Real    Tol);
 
   //! Intersection between 2 lines from gp.
   Standard_EXPORT void Perform(const gp_Lin2d&        L1,
-                               const IntRes2d_Domain& D1,
+                               const Domain2& D1,
                                const gp_Lin2d&        L2,
-                               const IntRes2d_Domain& D2,
+                               const Domain2& D2,
                                const Standard_Real    TolConf,
                                const Standard_Real    Tol);
 
@@ -64,9 +64,9 @@ public:
   //! The exception ConstructionError is raised if the method
   //! IsClosed of the domain of the circle returns False.
   IntCurve_IntConicConic(const gp_Lin2d&        L,
-                         const IntRes2d_Domain& DL,
+                         const Domain2& DL,
                          const gp_Circ2d&       C,
-                         const IntRes2d_Domain& DC,
+                         const Domain2& DC,
                          const Standard_Real    TolConf,
                          const Standard_Real    Tol);
 
@@ -74,9 +74,9 @@ public:
   //! The exception ConstructionError is raised if the method
   //! IsClosed of the domain of the circle returns False.
   Standard_EXPORT void Perform(const gp_Lin2d&        L,
-                               const IntRes2d_Domain& DL,
+                               const Domain2& DL,
                                const gp_Circ2d&       C,
-                               const IntRes2d_Domain& DC,
+                               const Domain2& DC,
                                const Standard_Real    TolConf,
                                const Standard_Real    Tol);
 
@@ -84,9 +84,9 @@ public:
   //! The exception ConstructionError is raised if the method
   //! IsClosed of the domain of the ellipse returns False.
   IntCurve_IntConicConic(const gp_Lin2d&        L,
-                         const IntRes2d_Domain& DL,
+                         const Domain2& DL,
                          const gp_Elips2d&      E,
-                         const IntRes2d_Domain& DE,
+                         const Domain2& DE,
                          const Standard_Real    TolConf,
                          const Standard_Real    Tol);
 
@@ -94,41 +94,41 @@ public:
   //! The exception ConstructionError is raised if the method
   //! IsClosed of the domain of the ellipse returns False.
   Standard_EXPORT void Perform(const gp_Lin2d&        L,
-                               const IntRes2d_Domain& DL,
+                               const Domain2& DL,
                                const gp_Elips2d&      E,
-                               const IntRes2d_Domain& DE,
+                               const Domain2& DE,
                                const Standard_Real    TolConf,
                                const Standard_Real    Tol);
 
   //! Intersection between a line and a parabola from gp.
   IntCurve_IntConicConic(const gp_Lin2d&        L,
-                         const IntRes2d_Domain& DL,
+                         const Domain2& DL,
                          const gp_Parab2d&      P,
-                         const IntRes2d_Domain& DP,
+                         const Domain2& DP,
                          const Standard_Real    TolConf,
                          const Standard_Real    Tol);
 
   //! Intersection between a line and a parabola from gp.
   Standard_EXPORT void Perform(const gp_Lin2d&        L,
-                               const IntRes2d_Domain& DL,
+                               const Domain2& DL,
                                const gp_Parab2d&      P,
-                               const IntRes2d_Domain& DP,
+                               const Domain2& DP,
                                const Standard_Real    TolConf,
                                const Standard_Real    Tol);
 
   //! Intersection between a line and an hyperbola.
   IntCurve_IntConicConic(const gp_Lin2d&        L,
-                         const IntRes2d_Domain& DL,
+                         const Domain2& DL,
                          const gp_Hypr2d&       H,
-                         const IntRes2d_Domain& DH,
+                         const Domain2& DH,
                          const Standard_Real    TolConf,
                          const Standard_Real    Tol);
 
   //! Intersection between a line and an hyperbola.
   Standard_EXPORT void Perform(const gp_Lin2d&        L,
-                               const IntRes2d_Domain& DL,
+                               const Domain2& DL,
                                const gp_Hypr2d&       H,
-                               const IntRes2d_Domain& DH,
+                               const Domain2& DH,
                                const Standard_Real    TolConf,
                                const Standard_Real    Tol);
 
@@ -136,9 +136,9 @@ public:
   //! The exception ConstructionError is raised if the method
   //! IsClosed of one of the domain returns False.
   IntCurve_IntConicConic(const gp_Circ2d&       C1,
-                         const IntRes2d_Domain& D1,
+                         const Domain2& D1,
                          const gp_Circ2d&       C2,
-                         const IntRes2d_Domain& D2,
+                         const Domain2& D2,
                          const Standard_Real    TolConf,
                          const Standard_Real    Tol);
 
@@ -146,9 +146,9 @@ public:
   //! The exception ConstructionError is raised if the method
   //! IsClosed of the domain of one of the circle returns False.
   Standard_EXPORT void Perform(const gp_Circ2d&       C1,
-                               const IntRes2d_Domain& D1,
+                               const Domain2& D1,
                                const gp_Circ2d&       C2,
-                               const IntRes2d_Domain& D2,
+                               const Domain2& D2,
                                const Standard_Real    TolConf,
                                const Standard_Real    Tol);
 
@@ -156,9 +156,9 @@ public:
   //! The exception ConstructionError is raised if the method
   //! IsClosed of one the domain returns False.
   IntCurve_IntConicConic(const gp_Circ2d&       C,
-                         const IntRes2d_Domain& DC,
+                         const Domain2& DC,
                          const gp_Elips2d&      E,
-                         const IntRes2d_Domain& DE,
+                         const Domain2& DE,
                          const Standard_Real    TolConf,
                          const Standard_Real    Tol);
 
@@ -166,9 +166,9 @@ public:
   //! The exception ConstructionError is raised if the method
   //! IsClosed of one the domain returns False.
   Standard_EXPORT void Perform(const gp_Circ2d&       C,
-                               const IntRes2d_Domain& DC,
+                               const Domain2& DC,
                                const gp_Elips2d&      E,
-                               const IntRes2d_Domain& DE,
+                               const Domain2& DE,
                                const Standard_Real    TolConf,
                                const Standard_Real    Tol);
 
@@ -176,9 +176,9 @@ public:
   //! The exception ConstructionError is raised if the method
   //! IsClosed of the domain of the circle returns False.
   IntCurve_IntConicConic(const gp_Circ2d&       C,
-                         const IntRes2d_Domain& DC,
+                         const Domain2& DC,
                          const gp_Parab2d&      P,
-                         const IntRes2d_Domain& DP,
+                         const Domain2& DP,
                          const Standard_Real    TolConf,
                          const Standard_Real    Tol);
 
@@ -186,9 +186,9 @@ public:
   //! The exception ConstructionError is raised if the method
   //! IsClosed of the domain of the circle returns False.
   Standard_EXPORT void Perform(const gp_Circ2d&       C,
-                               const IntRes2d_Domain& DC,
+                               const Domain2& DC,
                                const gp_Parab2d&      P,
-                               const IntRes2d_Domain& DP,
+                               const Domain2& DP,
                                const Standard_Real    TolConf,
                                const Standard_Real    Tol);
 
@@ -196,9 +196,9 @@ public:
   //! The exception ConstructionError is raised if the method
   //! IsClosed of the domain of the circle returns False.
   IntCurve_IntConicConic(const gp_Circ2d&       C,
-                         const IntRes2d_Domain& DC,
+                         const Domain2& DC,
                          const gp_Hypr2d&       H,
-                         const IntRes2d_Domain& DH,
+                         const Domain2& DH,
                          const Standard_Real    TolConf,
                          const Standard_Real    Tol);
 
@@ -206,9 +206,9 @@ public:
   //! The exception ConstructionError is raised if the method
   //! IsClosed of the domain of the circle returns False.
   Standard_EXPORT void Perform(const gp_Circ2d&       C,
-                               const IntRes2d_Domain& DC,
+                               const Domain2& DC,
                                const gp_Hypr2d&       H,
-                               const IntRes2d_Domain& DH,
+                               const Domain2& DH,
                                const Standard_Real    TolConf,
                                const Standard_Real    Tol);
 
@@ -216,9 +216,9 @@ public:
   //! The exception ConstructionError is raised if the method
   //! IsClosed of one of the domain returns False.
   IntCurve_IntConicConic(const gp_Elips2d&      E1,
-                         const IntRes2d_Domain& D1,
+                         const Domain2& D1,
                          const gp_Elips2d&      E2,
-                         const IntRes2d_Domain& D2,
+                         const Domain2& D2,
                          const Standard_Real    TolConf,
                          const Standard_Real    Tol);
 
@@ -226,9 +226,9 @@ public:
   //! The exception ConstructionError is raised if the method
   //! IsClosed of one of the domain returns False.
   Standard_EXPORT void Perform(const gp_Elips2d&      E1,
-                               const IntRes2d_Domain& D1,
+                               const Domain2& D1,
                                const gp_Elips2d&      E2,
-                               const IntRes2d_Domain& D2,
+                               const Domain2& D2,
                                const Standard_Real    TolConf,
                                const Standard_Real    Tol);
 
@@ -236,9 +236,9 @@ public:
   //! The exception ConstructionError is raised if the method
   //! IsClosed of the domain of the ellipse returns False.
   IntCurve_IntConicConic(const gp_Elips2d&      E,
-                         const IntRes2d_Domain& DE,
+                         const Domain2& DE,
                          const gp_Parab2d&      P,
-                         const IntRes2d_Domain& DP,
+                         const Domain2& DP,
                          const Standard_Real    TolConf,
                          const Standard_Real    Tol);
 
@@ -246,9 +246,9 @@ public:
   //! The exception ConstructionError is raised if the method
   //! IsClosed of the domain of the ellipse returns False.
   Standard_EXPORT void Perform(const gp_Elips2d&      E,
-                               const IntRes2d_Domain& DE,
+                               const Domain2& DE,
                                const gp_Parab2d&      P,
-                               const IntRes2d_Domain& DP,
+                               const Domain2& DP,
                                const Standard_Real    TolConf,
                                const Standard_Real    Tol);
 
@@ -256,9 +256,9 @@ public:
   //! The exception ConstructionError is raised if the method
   //! IsClosed of the domain of the ellipse returns False.
   IntCurve_IntConicConic(const gp_Elips2d&      E,
-                         const IntRes2d_Domain& DE,
+                         const Domain2& DE,
                          const gp_Hypr2d&       H,
-                         const IntRes2d_Domain& DH,
+                         const Domain2& DH,
                          const Standard_Real    TolConf,
                          const Standard_Real    Tol);
 
@@ -266,57 +266,57 @@ public:
   //! The exception ConstructionError is raised if the method
   //! IsClosed of the domain of the ellipse returns False.
   Standard_EXPORT void Perform(const gp_Elips2d&      E,
-                               const IntRes2d_Domain& DE,
+                               const Domain2& DE,
                                const gp_Hypr2d&       H,
-                               const IntRes2d_Domain& DH,
+                               const Domain2& DH,
                                const Standard_Real    TolConf,
                                const Standard_Real    Tol);
 
   //! Intersection between 2 parabolas.
   IntCurve_IntConicConic(const gp_Parab2d&      P1,
-                         const IntRes2d_Domain& D1,
+                         const Domain2& D1,
                          const gp_Parab2d&      P2,
-                         const IntRes2d_Domain& D2,
+                         const Domain2& D2,
                          const Standard_Real    TolConf,
                          const Standard_Real    Tol);
 
   //! Intersection between 2 parabolas.
   Standard_EXPORT void Perform(const gp_Parab2d&      P1,
-                               const IntRes2d_Domain& D1,
+                               const Domain2& D1,
                                const gp_Parab2d&      P2,
-                               const IntRes2d_Domain& D2,
+                               const Domain2& D2,
                                const Standard_Real    TolConf,
                                const Standard_Real    Tol);
 
   //! Intersection between a parabola and an hyperbola.
   IntCurve_IntConicConic(const gp_Parab2d&      P,
-                         const IntRes2d_Domain& DP,
+                         const Domain2& DP,
                          const gp_Hypr2d&       H,
-                         const IntRes2d_Domain& DH,
+                         const Domain2& DH,
                          const Standard_Real    TolConf,
                          const Standard_Real    Tol);
 
   //! Intersection between a parabola and an hyperbola.
   Standard_EXPORT void Perform(const gp_Parab2d&      P,
-                               const IntRes2d_Domain& DP,
+                               const Domain2& DP,
                                const gp_Hypr2d&       H,
-                               const IntRes2d_Domain& DH,
+                               const Domain2& DH,
                                const Standard_Real    TolConf,
                                const Standard_Real    Tol);
 
   //! Intersection between 2 hyperbolas.
   IntCurve_IntConicConic(const gp_Hypr2d&       H1,
-                         const IntRes2d_Domain& D1,
+                         const Domain2& D1,
                          const gp_Hypr2d&       H2,
-                         const IntRes2d_Domain& D2,
+                         const Domain2& D2,
                          const Standard_Real    TolConf,
                          const Standard_Real    Tol);
 
   //! Intersection between 2 hyperbolas.
   Standard_EXPORT void Perform(const gp_Hypr2d&       H1,
-                               const IntRes2d_Domain& D1,
+                               const Domain2& D1,
                                const gp_Hypr2d&       H2,
-                               const IntRes2d_Domain& D2,
+                               const Domain2& D2,
                                const Standard_Real    TolConf,
                                const Standard_Real    Tol);
 

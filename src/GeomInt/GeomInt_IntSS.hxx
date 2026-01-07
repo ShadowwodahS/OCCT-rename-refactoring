@@ -191,7 +191,7 @@ protected:
                                  const Standard_Boolean             Approx2);
 
 private:
-  IntPatch_Intersection       myIntersector;
+  Intersection1       myIntersector;
   GeomInt_LineConstructor     myLConstruct;
   Handle(GeomAdaptor_Surface) myHS1;
   Handle(GeomAdaptor_Surface) myHS2;

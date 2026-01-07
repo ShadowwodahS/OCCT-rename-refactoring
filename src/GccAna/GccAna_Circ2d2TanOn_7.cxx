@@ -32,8 +32,8 @@
 #include <IntAna2d_IntPoint.hxx>
 #include <TColStd_Array1OfReal.hxx>
 
-Circle2dTwoTangentOn::Circle2dTwoTangentOn(const GccEnt_QualifiedCirc& Qualified1,
-                                         const GccEnt_QualifiedLin&  Qualified2,
+Circle2dTwoTangentOn::Circle2dTwoTangentOn(const QualifiedCircle& Qualified1,
+                                         const QualifiedLine&  Qualified2,
                                          const gp_Circ2d&            OnCirc,
                                          const Standard_Real         Tolerance)
     : cirsol(1, 4),

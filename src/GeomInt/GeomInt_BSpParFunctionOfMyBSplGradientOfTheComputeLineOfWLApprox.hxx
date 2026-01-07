@@ -33,7 +33,7 @@
 #include <math_IntegerVector.hxx>
 #include <AppParCurves_Constraint.hxx>
 class GeomInt_TheMultiLineOfWLApprox;
-class GeomInt_TheMultiLineToolOfWLApprox;
+class MultiLineToolWLApprox;
 class GeomInt_BSpParLeastSquareOfMyBSplGradientOfTheComputeLineOfWLApprox;
 class AppParCurves_MultiBSpCurve;
 class math_Matrix;

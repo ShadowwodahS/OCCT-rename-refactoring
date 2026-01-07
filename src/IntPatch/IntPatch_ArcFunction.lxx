@@ -31,13 +31,13 @@ inline void IntPatch_ArcFunction::Set(const Handle(Adaptor3d_Surface)& S)
   seqpt.Clear();
 }
 
-inline void IntPatch_ArcFunction::SetQuadric(const IntSurf_Quadric& Q)
+inline void IntPatch_ArcFunction::SetQuadric(const Quadric1& Q)
 {
   myQuad = Q;
   seqpt.Clear();
 }
 
-inline const IntSurf_Quadric& IntPatch_ArcFunction::Quadric() const
+inline const Quadric1& IntPatch_ArcFunction::Quadric() const
 {
   return (myQuad);
 }

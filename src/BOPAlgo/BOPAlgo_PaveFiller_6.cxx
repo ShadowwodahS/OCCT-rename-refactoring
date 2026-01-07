@@ -174,7 +174,7 @@ public:
         // so no need to transform anything.
         // for (IntSurf_ListOfPntOn2S::Iterator it (myListOfPnts); it.More(); it.Next())
         //{
-        //  IntSurf_PntOn2S& aP2S = it.ChangeValue();
+        //  PointOn2Surfaces& aP2S = it.ChangeValue();
         //  aP2S.SetValue (aP2S.Value().Transformed (aTrsf));
         //}
 
@@ -2458,7 +2458,7 @@ void BooleanPaveFiller::GetEFPnts(const Standard_Integer nF1,
         //
         Point3d aPoint;
         aCurve->D0(aPar, aPoint);
-        IntSurf_PntOn2S aPnt;
+        PointOn2Surfaces aPnt;
         if (!aPCurve.IsNull())
         {
           gp_Pnt2d aP2d = aPCurve->Value(aPar);

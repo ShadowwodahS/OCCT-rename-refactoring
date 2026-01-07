@@ -102,7 +102,7 @@ void IntWalk_IWalking::Clear()
 {
   wd1.clear();
   wd2.clear();
-  IntWalk_WalkingData aDummy;
+  WalkingData aDummy;
   aDummy.etat   = -10;
   aDummy.ustart = aDummy.vstart = 0.;
   wd1.push_back(aDummy);
@@ -179,7 +179,7 @@ void IntWalk_IWalking::Perform(const ThePOPIterator&  Pnts1,
   for (I = 1; I <= nbPnts1 + decal; I++)
   {
     const ThePointOfPath& PathPnt = Pnts1.Value(I - decal);
-    IntWalk_WalkingData   aWD1;
+    WalkingData   aWD1;
     aWD1.etat = 1;
     if (!ThePointOfPathTool::IsPassingPnt(PathPnt))
       aWD1.etat = 11;
@@ -210,9 +210,9 @@ void IntWalk_IWalking::Perform(const ThePOPIterator&  Pnts1,
   wd2.reserve(nbPnts2);
   for (I = 1; I <= nbPnts2; I++)
   {
-    IntWalk_WalkingData aWD2;
+    WalkingData aWD2;
     aWD2.etat                         = 1;
-    const IntSurf_InteriorPoint& anIP = Pnts2.Value(I);
+    const InteriorPoint& anIP = Pnts2.Value(I);
     ThePointOfLoopTool::Value2d(anIP, aWD2.ustart, aWD2.vstart);
     mySRangeU.Add(aWD2.ustart);
     mySRangeV.Add(aWD2.vstart);
@@ -266,7 +266,7 @@ void IntWalk_IWalking::Perform(const ThePOPIterator&  Pnts1,
       TColStd_SequenceOfInteger       CopySeqAlone = seqAlone;
       FillPntsInHoles(Func, CopySeqAlone, PntsInHoles);
       wd2.clear();
-      IntWalk_WalkingData aDummy;
+      WalkingData aDummy;
       aDummy.etat   = -10;
       aDummy.ustart = aDummy.vstart = 0.;
       wd2.push_back(aDummy);
@@ -274,9 +274,9 @@ void IntWalk_IWalking::Perform(const ThePOPIterator&  Pnts1,
       wd2.reserve(nbHoles);
       for (I = 1; I <= nbHoles; I++)
       {
-        IntWalk_WalkingData aWD2;
+        WalkingData aWD2;
         aWD2.etat                         = 13;
-        const IntSurf_InteriorPoint& anIP = PntsInHoles.Value(I);
+        const InteriorPoint& anIP = PntsInHoles.Value(I);
         ThePointOfLoopTool::Value2d(anIP, aWD2.ustart, aWD2.vstart);
         wd2.push_back(aWD2);
       }
@@ -318,7 +318,7 @@ void IntWalk_IWalking::Perform(const ThePOPIterator&  Pnts1,
   for (I = 1; I <= nbPnts1; I++)
   {
     const ThePointOfPath& PathPnt = Pnts1.Value(I);
-    IntWalk_WalkingData   aWD1;
+    WalkingData   aWD1;
     aWD1.etat = 1;
     if (!ThePointOfPathTool::IsPassingPnt(PathPnt))
       aWD1.etat = 11;
@@ -941,7 +941,7 @@ Standard_Boolean IntWalk_IWalking::TestArretPassage(const TColStd_SequenceOfReal
 Standard_Boolean IntWalk_IWalking::TestArretAjout(TheIWFunction&    sp,
                                                   math_Vector&      UV,
                                                   Standard_Integer& Irang,
-                                                  IntSurf_PntOn2S&  Psol)
+                                                  PointOn2Surfaces&  Psol)
 
 // test of stop on added points
 // these are the points on the natural biorder that were not given at input
@@ -1025,7 +1025,7 @@ void IntWalk_IWalking::FillPntsInHoles(TheIWFunction&                   sp,
     if (Irang1 == 0)
       continue;
     Standard_Boolean                 ToRemove = Standard_False;
-    IntSurf_PntOn2S                  PointAlone1, PointAlone2;
+    PointOn2Surfaces                  PointAlone1, PointAlone2;
     const Handle(IntWalk_TheIWLine)& Line1 = lines.Value(Abs(Irang1));
     if (Irang1 > 0)
       PointAlone1 = Line1->Value(Line1->NbPoints());
@@ -1111,7 +1111,7 @@ void IntWalk_IWalking::FillPntsInHoles(TheIWFunction&                   sp,
         }
         if (IsPmidValid)
         {
-          IntSurf_InteriorPoint aPoint(sp.Point(), UV(1), UV(2), sp.Direction3d(), sp.Direction2d());
+          InteriorPoint aPoint(sp.Point(), UV(1), UV(2), sp.Direction3d(), sp.Direction2d());
           PntsInHoles.Append(aPoint);
           TColStd_ListOfInteger LineLine;
           LineLine.Append(Irang1);
@@ -1415,7 +1415,7 @@ void IntWalk_IWalking::ComputeOpenLine(const TColStd_SequenceOfReal& Umult,
   Standard_Boolean          Arrive     = false; // shows if the line ends
   Standard_Boolean          Cadre      = false; // shows if one is on border of the domain
   Standard_Boolean          ArretAjout = false; //shows if one is on added point
-  IntSurf_PntOn2S           Psol;
+  PointOn2Surfaces           Psol;
   Handle(IntWalk_TheIWLine) CurrentLine; // line under construction
   Standard_Boolean          Tgtend = false;
 
@@ -1814,7 +1814,7 @@ void IntWalk_IWalking::ComputeOpenLine(const TColStd_SequenceOfReal& Umult,
             Standard_Real          Uav = wd1[av].ustart;
             Standard_Real          Vav = wd1[av].vstart;
             Standard_Real          Uavp, Vavp;
-            const IntSurf_PntOn2S& avP = CurrentLine->Value(CurrentLine->NbPoints());
+            const PointOn2Surfaces& avP = CurrentLine->Value(CurrentLine->NbPoints());
             if (!reversed)
             {
               avP.ParametersOnS2(Uavp, Vavp);
@@ -1845,7 +1845,7 @@ void IntWalk_IWalking::ComputeOpenLine(const TColStd_SequenceOfReal& Umult,
               //-- cout<<"\n Debug ? lbr ds IntWalk_IWalking_3.gxx"<<endl;
             }
 
-            const IntSurf_PntOn2S& avPP = CurrentLine->Value(1);
+            const PointOn2Surfaces& avPP = CurrentLine->Value(1);
             if (!reversed)
             {
               avPP.ParametersOnS2(Uavp, Vavp);
@@ -1997,7 +1997,7 @@ void IntWalk_IWalking::ComputeCloseLine(const TColStd_SequenceOfReal& Umult,
   Standard_Boolean          Arrive     = false; // show if line ends
   Standard_Boolean          Cadre      = false; // show if on border of the  domains
   Standard_Boolean          ArretAjout = false; // show if on the added point
-  IntSurf_PntOn2S           Psol;
+  PointOn2Surfaces           Psol;
   Handle(IntWalk_TheIWLine) CurrentLine; //line under construction
   ThePointOfPath            PathPnt;
   ThePointOfLoop            LoopPnt;
@@ -2476,7 +2476,7 @@ void IntWalk_IWalking::ComputeCloseLine(const TColStd_SequenceOfReal& Umult,
                 else
                 {
                   CurrentLine->AddStatusLast(Standard_False);
-                  IntSurf_PntOn2S newP;
+                  PointOn2Surfaces newP;
                   newP.SetValue(Func.Point(), reversed, Uvap(1), Uvap(2));
                   CurrentLine->AddPoint(newP);
                   Rajout = Standard_True;
@@ -2866,7 +2866,7 @@ void IntWalk_IWalking::AddPointInCurrentLine(const Standard_Integer           N,
                                              const ThePointOfPath&            PathPnt,
                                              const Handle(IntWalk_TheIWLine)& CurrentLine) const
 {
-  IntSurf_PntOn2S Psol;
+  PointOn2Surfaces Psol;
   Psol.SetValue(ThePointOfPathTool::Value3d(PathPnt), reversed, wd1[N].ustart, wd1[N].vstart);
   CurrentLine->AddPoint(Psol);
 }
@@ -2875,7 +2875,7 @@ void IntWalk_IWalking::MakeWalkingPoint(const Standard_Integer Case,
                                         const Standard_Real    U,
                                         const Standard_Real    V,
                                         TheIWFunction&         sp,
-                                        IntSurf_PntOn2S&       Psol)
+                                        PointOn2Surfaces&       Psol)
 
 {
   // Case == 1      : make a WalkinkPoint.
@@ -2907,7 +2907,7 @@ void IntWalk_IWalking::MakeWalkingPoint(const Standard_Integer Case,
 }
 
 void IntWalk_IWalking::OpenLine(const Standard_Integer           N,
-                                const IntSurf_PntOn2S&           Psol,
+                                const PointOn2Surfaces&           Psol,
                                 const ThePOPIterator&            Pnts1,
                                 TheIWFunction&                   sp,
                                 const Handle(IntWalk_TheIWLine)& Line)
@@ -3011,7 +3011,7 @@ Standard_Boolean IntWalk_IWalking::IsPointOnLine(const gp_Pnt2d& theP2d, const S
 //            in the line.
 //           Every already computed line is checked.
 //==================================================================================
-Standard_Boolean IntWalk_IWalking::IsPointOnLine(const IntSurf_PntOn2S& thePOn2S,
+Standard_Boolean IntWalk_IWalking::IsPointOnLine(const PointOn2Surfaces& thePOn2S,
                                                  const math_Vector&     theInfBounds,
                                                  const math_Vector&     theSupBounds,
                                                  math_FunctionSetRoot&  theSolver,

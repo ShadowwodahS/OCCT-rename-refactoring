@@ -26,8 +26,8 @@
 #include <ApproxInt_SvSurfaces.hxx>
 
 class HSurfaceTool;
-class IntSurf_Quadric;
-class IntSurf_QuadricTool;
+class Quadric1;
+class QuadricTool;
 class IntPatch_WLine;
 class GeomInt_TheZerImpFuncOfTheImpPrmSvSurfacesOfWLApprox;
 
@@ -37,9 +37,9 @@ public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT GeomInt_TheImpPrmSvSurfacesOfWLApprox(const Handle(Adaptor3d_Surface)& Surf1,
-                                                        const IntSurf_Quadric&           Surf2);
+                                                        const Quadric1&           Surf2);
 
-  Standard_EXPORT GeomInt_TheImpPrmSvSurfacesOfWLApprox(const IntSurf_Quadric&           Surf1,
+  Standard_EXPORT GeomInt_TheImpPrmSvSurfacesOfWLApprox(const Quadric1&           Surf1,
                                                         const Handle(Adaptor3d_Surface)& Surf2);
 
   //! returns True if Tg,Tguv1 Tguv2 can be computed.
@@ -62,7 +62,7 @@ public:
                                              const Standard_Real v1,
                                              const Standard_Real u2,
                                              const Standard_Real v2,
-                                             IntSurf_PntOn2S&    Point);
+                                             PointOn2Surfaces&    Point);
 
   Standard_EXPORT Standard_Boolean Tangency(const Standard_Real u1,
                                             const Standard_Real v1,

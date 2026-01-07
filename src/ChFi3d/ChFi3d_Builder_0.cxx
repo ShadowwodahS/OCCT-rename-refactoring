@@ -718,7 +718,7 @@ void ChFi3d_ExtrSpineCarac(const TopOpeBRepDS_DataStructure& DStr,
       }
       else
       {
-        R = fsp->Law(hels)->Value(p);
+        R = fsp->Law1(hels)->Value(p);
       }
       hels->D1(p, Pbid, V);
     }
@@ -3613,7 +3613,7 @@ Standard_Boolean ChFi3d_ComputeCurves(const Handle(Adaptor3d_Surface)& S1,
   }
   else
   {
-    // here GeomInt is approached.
+    // here GeomInt1 is approached.
     Handle(Adaptor3d_TopolTool) dom1, dom2;
     Handle(GeomSurface)        gs1 = trsfsurf(S1, dom1);
     Handle(GeomSurface)        gs2 = trsfsurf(S2, dom2);
@@ -3644,7 +3644,7 @@ Standard_Boolean ChFi3d_ComputeCurves(const Handle(Adaptor3d_Surface)& S1,
             return Standard_False;
           nbl = inter.NbLines();
 
-          //  if GeomInt does not make the intersection the solution of adjustment
+          //  if GeomInt1 does not make the intersection the solution of adjustment
           //  is not attempted
           if (nbl == 0)
             return Standard_False;
@@ -3790,7 +3790,7 @@ Standard_Boolean ChFi3d_ComputeCurves(const Handle(Adaptor3d_Surface)& S1,
     // one tries to find the start point at the
     // middle to avoid obstacles on the path.
     Standard_Boolean     depok = Standard_False;
-    IntSurf_PntOn2S      pintdep;
+    PointOn2Surfaces      pintdep;
     TColStd_Array1OfReal depart(1, 4);
     for (Standard_Integer ipdep = 2; ipdep <= 7 && !depok; ipdep++)
     {
@@ -3881,8 +3881,8 @@ Standard_Boolean ChFi3d_ComputeCurves(const Handle(Adaptor3d_Surface)& S1,
       // are too far and if pardeb and parfin are good.
       if (ddeb >= tol3d && bondeb)
       {
-        IntSurf_PntOn2S p1 = L2S->Value(1);
-        IntSurf_PntOn2S p2 = L2S->Value(2);
+        PointOn2Surfaces p1 = L2S->Value(1);
+        PointOn2Surfaces p2 = L2S->Value(2);
 
         Vector3d v1(pntd, p1.Value());
         Vector3d v2(p1.Value(), p2.Value());
@@ -3910,8 +3910,8 @@ Standard_Boolean ChFi3d_ComputeCurves(const Handle(Adaptor3d_Surface)& S1,
       }
       if (dfin >= tol3d && bonfin)
       {
-        IntSurf_PntOn2S p1 = L2S->Value(nbp);
-        IntSurf_PntOn2S p2 = L2S->Value(nbp - 1);
+        PointOn2Surfaces p1 = L2S->Value(nbp);
+        PointOn2Surfaces p2 = L2S->Value(nbp - 1);
         Vector3d          v1(pntf, p1.Value());
         Vector3d          v2(p1.Value(), p2.Value());
         Vector3d          v3(pntf, p2.Value());
@@ -3943,7 +3943,7 @@ Standard_Boolean ChFi3d_ComputeCurves(const Handle(Adaptor3d_Surface)& S1,
       // WL->Dump(0);
 #endif
 
-      GeomInt_WLApprox approx;
+      WireLineApproximation approx;
       approx.SetParameters(tolap, tol2d, 4, 8, 0, 30, Standard_True);
       // manage here the approximations that are not useful on planes!
       approx.Perform(S1, S2, WL, Standard_True, Standard_True, Standard_True, 1, nbp);
@@ -4007,7 +4007,7 @@ Standard_Boolean ChFi3d_IntCS(const Handle(Adaptor3d_Surface)& S,
   Standard_Real                     uf = C->FirstParameter(), ul = C->LastParameter();
   Standard_Real                     u1 = S->FirstUParameter(), u2 = S->LastUParameter();
   Standard_Real                     v1 = S->FirstVParameter(), v2 = S->LastVParameter();
-  IntCurveSurface_IntersectionPoint pint;
+  IntersectionPoint1 pint;
   Intersection.Perform(C, S);
   Standard_Boolean keepfirst = (wc < -1.e100), keeplast = (wc > 1.e100);
   Standard_Real    temp = 0.;

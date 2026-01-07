@@ -35,12 +35,12 @@ class Point3d;
 class GeomFill_UniformSection;
 DEFINE_STANDARD_HANDLE(GeomFill_UniformSection, GeomFill_SectionLaw)
 
-//! Define an Constant Section Law
+//! Define an Constant Section Law1
 class GeomFill_UniformSection : public GeomFill_SectionLaw
 {
 
 public:
-  //! Make an constant Law with C.
+  //! Make an constant Law1 with C.
   //! [First, Last] define law definition domain
   Standard_EXPORT GeomFill_UniformSection(const Handle(GeomCurve3d)& C,
                                           const Standard_Real       FirstParameter = 0.0,

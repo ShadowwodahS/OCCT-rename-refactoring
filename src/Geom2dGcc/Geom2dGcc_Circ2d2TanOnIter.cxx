@@ -41,7 +41,7 @@
 #include <math_FunctionSetRoot.hxx>
 #include <StdFail_NotDone.hxx>
 
-Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const GccEnt_QualifiedLin& Qualified1,
+Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const QualifiedLine& Qualified1,
                                                        const Geom2dGcc_QCurve&    Qualified2,
                                                        const gp_Lin2d&            OnLine,
                                                        const Standard_Real        Param1,
@@ -77,22 +77,22 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const GccEnt_QualifiedLin
   math_Vector         Ufirst(1, 4);
   math_Vector         tol(1, 4);
   Umin(1)         = RealFirst();
-  Umin(2)         = Geom2dGcc_CurveTool::FirstParameter(Cu2);
+  Umin(2)         = CurveTool3::FirstParameter(Cu2);
   Umin(3)         = RealFirst();
   Umin(4)         = 0.;
   Umax(1)         = RealLast();
-  Umax(2)         = Geom2dGcc_CurveTool::LastParameter(Cu2);
+  Umax(2)         = CurveTool3::LastParameter(Cu2);
   Umax(3)         = RealLast();
   Umax(4)         = RealLast();
   Ufirst(1)       = Param1;
   Ufirst(2)       = Param2;
   Ufirst(3)       = Param3;
   tol(1)          = 1.e-15;
-  tol(2)          = Geom2dGcc_CurveTool::EpsX(Cu2, Tolang);
+  tol(2)          = CurveTool3::EpsX(Cu2, Tolang);
   tol(3)          = tol(1);
   tol(4)          = tol(1);
   gp_Pnt2d point1 = ElCLib::Value(Param1, L1);
-  gp_Pnt2d point2 = Geom2dGcc_CurveTool::Value(Cu2, Param2);
+  gp_Pnt2d point2 = CurveTool3::Value(Cu2, Param2);
   gp_Pnt2d point3 = ElCLib::Value(Param3, OnLine);
   Ufirst(4)       = (point3.Distance(point2) + point3.Distance(point1)) / 2.;
   Geom2dGcc_FunctionTanCuCuOnCu Func(L1, Cu2, OnLine, Max(Ufirst(4), Tol));
@@ -105,7 +105,7 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const GccEnt_QualifiedLin
     //     gp_Vec2d Tan1,Tan2,Nor1,Nor2;
     gp_Vec2d Tan1, Tan2;
     ElCLib::D1(Ufirst(1), L1, point1, Tan1);
-    Geom2dGcc_CurveTool::D1(Cu2, Ufirst(2), point2, Tan2);
+    CurveTool3::D1(Cu2, Ufirst(2), point2, Tan2);
     gp_Vec2d      Tan3(OnLine.Direction().XY());
     gp_Pnt2d      point3new(OnLine.Location().XY() + Ufirst(3) * Tan3.XY());
     Standard_Real dist1 = point3new.Distance(point1);
@@ -150,7 +150,7 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const GccEnt_QualifiedLin
   }
 }
 
-Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const Geom2dGcc_QCurve& Qualified1,
+Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const Geom2dGcc_QCurve& Qualified1,
                                                        const Geom2dGcc_QCurve& Qualified2,
                                                        const gp_Lin2d&         OnLine,
                                                        const Standard_Real     Param1,
@@ -185,23 +185,23 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const Geom2dGcc_QCurve& Q
   math_Vector         Umax(1, 4);
   math_Vector         Ufirst(1, 4);
   math_Vector         tol(1, 4);
-  Umin(1)         = Geom2dGcc_CurveTool::FirstParameter(Cu1);
-  Umin(2)         = Geom2dGcc_CurveTool::FirstParameter(Cu2);
+  Umin(1)         = CurveTool3::FirstParameter(Cu1);
+  Umin(2)         = CurveTool3::FirstParameter(Cu2);
   Umin(3)         = RealFirst();
   Umin(4)         = 0.;
-  Umax(1)         = Geom2dGcc_CurveTool::LastParameter(Cu1);
-  Umax(2)         = Geom2dGcc_CurveTool::LastParameter(Cu2);
+  Umax(1)         = CurveTool3::LastParameter(Cu1);
+  Umax(2)         = CurveTool3::LastParameter(Cu2);
   Umax(3)         = RealLast();
   Umax(4)         = RealLast();
   Ufirst(1)       = Param1;
   Ufirst(2)       = Param2;
   Ufirst(3)       = Param3;
-  tol(1)          = Geom2dGcc_CurveTool::EpsX(Cu1, Abs(Tolerance));
-  tol(2)          = Geom2dGcc_CurveTool::EpsX(Cu2, Abs(Tolerance));
+  tol(1)          = CurveTool3::EpsX(Cu1, Abs(Tolerance));
+  tol(2)          = CurveTool3::EpsX(Cu2, Abs(Tolerance));
   tol(3)          = 1.e-15;
   tol(4)          = Tol / 10.;
-  gp_Pnt2d point1 = Geom2dGcc_CurveTool::Value(Cu1, Param1);
-  gp_Pnt2d point2 = Geom2dGcc_CurveTool::Value(Cu2, Param2);
+  gp_Pnt2d point1 = CurveTool3::Value(Cu1, Param1);
+  gp_Pnt2d point2 = CurveTool3::Value(Cu2, Param2);
   gp_Pnt2d point3 = ElCLib::Value(Param3, OnLine);
   Ufirst(4)       = (point3.Distance(point2) + point3.Distance(point1)) / 2.;
   Geom2dGcc_FunctionTanCuCuOnCu Func(Cu1, Cu2, OnLine, Max(Ufirst(4), Tol));
@@ -212,8 +212,8 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const Geom2dGcc_QCurve& Q
   {
     Root.Root(Ufirst);
     gp_Vec2d Tan1, Tan2;
-    Geom2dGcc_CurveTool::D1(Cu1, Ufirst(1), point1, Tan1);
-    Geom2dGcc_CurveTool::D1(Cu2, Ufirst(2), point2, Tan2);
+    CurveTool3::D1(Cu1, Ufirst(1), point1, Tan1);
+    CurveTool3::D1(Cu2, Ufirst(2), point2, Tan2);
     gp_Vec2d      Tan3(OnLine.Direction().XY());
     gp_Pnt2d      point3new(OnLine.Location().XY() + Ufirst(3) * Tan3.XY());
     Standard_Real dist1 = point3new.Distance(point1);
@@ -271,7 +271,7 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const Geom2dGcc_QCurve& Q
   }
 }
 
-Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const Geom2dGcc_QCurve& Qualified1,
+Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const Geom2dGcc_QCurve& Qualified1,
                                                        const gp_Pnt2d&         Point2,
                                                        const gp_Lin2d&         OnLine,
                                                        const Standard_Real     Param1,
@@ -302,18 +302,18 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const Geom2dGcc_QCurve& Q
   math_Vector         Umax(1, 3);
   math_Vector         Ufirst(1, 3);
   math_Vector         tol(1, 3);
-  Umin(1)         = Geom2dGcc_CurveTool::FirstParameter(Cu1);
+  Umin(1)         = CurveTool3::FirstParameter(Cu1);
   Umin(2)         = RealFirst();
   Umin(3)         = 0.;
-  Umax(1)         = Geom2dGcc_CurveTool::LastParameter(Cu1);
+  Umax(1)         = CurveTool3::LastParameter(Cu1);
   Umax(2)         = RealLast();
   Umax(3)         = RealLast();
   Ufirst(1)       = Param1;
   Ufirst(2)       = Param2;
-  tol(1)          = Geom2dGcc_CurveTool::EpsX(Cu1, Abs(Tolerance));
+  tol(1)          = CurveTool3::EpsX(Cu1, Abs(Tolerance));
   tol(2)          = 1.e-15;
   tol(3)          = Tol / 10.;
-  gp_Pnt2d point1 = Geom2dGcc_CurveTool::Value(Cu1, Param1);
+  gp_Pnt2d point1 = CurveTool3::Value(Cu1, Param1);
   gp_Pnt2d point3 = ElCLib::Value(Param2, OnLine);
   Ufirst(3)       = (point3.Distance(Point2) + point3.Distance(point1)) / 2.;
   Geom2dGcc_FunctionTanCuCuOnCu Func(Cu1, Point2, OnLine, Max(Ufirst(3), Tol));
@@ -325,7 +325,7 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const Geom2dGcc_QCurve& Q
     Root.Root(Ufirst);
     gp_Pnt2d point1new, point3new;
     gp_Vec2d Tan1, Tan3;
-    Geom2dGcc_CurveTool::D1(Cu1, Ufirst(1), point1new, Tan1);
+    CurveTool3::D1(Cu1, Ufirst(1), point1new, Tan1);
     ElCLib::D1(Ufirst(2), OnLine, point3new, Tan3);
     Standard_Real dist1 = point3new.Distance(point1new);
     Standard_Real dist2 = point3new.Distance(Point2);
@@ -363,7 +363,7 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const Geom2dGcc_QCurve& Q
   }
 }
 
-Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const GccEnt_QualifiedCirc& Qualified1,
+Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const QualifiedCircle& Qualified1,
                                                        const Geom2dGcc_QCurve&     Qualified2,
                                                        const gp_Lin2d&             OnLine,
                                                        const Standard_Real         Param1,
@@ -400,22 +400,22 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const GccEnt_QualifiedCir
   math_Vector         Ufirst(1, 4);
   math_Vector         tol(1, 4);
   Umin(1)         = RealFirst();
-  Umin(2)         = Geom2dGcc_CurveTool::FirstParameter(Cu2);
+  Umin(2)         = CurveTool3::FirstParameter(Cu2);
   Umin(3)         = RealFirst();
   Umin(4)         = 0.;
   Umax(1)         = RealLast();
-  Umax(2)         = Geom2dGcc_CurveTool::LastParameter(Cu2);
+  Umax(2)         = CurveTool3::LastParameter(Cu2);
   Umax(3)         = RealLast();
   Umax(4)         = RealLast();
   Ufirst(1)       = Param1;
   Ufirst(2)       = Param2;
   Ufirst(3)       = Param3;
   tol(1)          = 2.e-15 * M_PI;
-  tol(2)          = Geom2dGcc_CurveTool::EpsX(Cu2, Abs(Tolerance));
+  tol(2)          = CurveTool3::EpsX(Cu2, Abs(Tolerance));
   tol(3)          = 1.e-15;
   tol(4)          = Tol / 10.;
   gp_Pnt2d point1 = ElCLib::Value(Param1, C1);
-  gp_Pnt2d point2 = Geom2dGcc_CurveTool::Value(Cu2, Param2);
+  gp_Pnt2d point2 = CurveTool3::Value(Cu2, Param2);
   gp_Pnt2d point3 = ElCLib::Value(Param3, OnLine);
   Ufirst(4)       = (point3.Distance(point2) + point3.Distance(point1)) / 2.;
   Geom2dGcc_FunctionTanCuCuOnCu Func(C1, Cu2, OnLine, Max(Ufirst(4), Tol));
@@ -428,7 +428,7 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const GccEnt_QualifiedCir
     //     gp_Vec2d Tan1,Tan2,Nor1,Nor2;
     gp_Vec2d Tan1, Tan2, Nor2;
     ElCLib::D2(Ufirst(1), C1, point1, Tan1, Nor2);
-    Geom2dGcc_CurveTool::D1(Cu2, Ufirst(2), point2, Tan2);
+    CurveTool3::D1(Cu2, Ufirst(2), point2, Tan2);
 #ifdef OCCT_DEBUG
     gp_Vec2d Tan3(OnLine.Direction().XY());
 #else
@@ -479,7 +479,7 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const GccEnt_QualifiedCir
   }
 }
 
-Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const GccEnt_QualifiedCirc& Qualified1,
+Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const QualifiedCircle& Qualified1,
                                                        const Geom2dGcc_QCurve&     Qualified2,
                                                        const gp_Circ2d&            OnCirc,
                                                        const Standard_Real         Param1,
@@ -516,22 +516,22 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const GccEnt_QualifiedCir
   math_Vector         Ufirst(1, 4);
   math_Vector         tol(1, 4);
   Umin(1)         = RealFirst();
-  Umin(2)         = Geom2dGcc_CurveTool::FirstParameter(Cu2);
+  Umin(2)         = CurveTool3::FirstParameter(Cu2);
   Umin(3)         = RealFirst();
   Umin(4)         = 0.;
   Umax(1)         = RealLast();
-  Umax(2)         = Geom2dGcc_CurveTool::LastParameter(Cu2);
+  Umax(2)         = CurveTool3::LastParameter(Cu2);
   Umax(3)         = RealLast();
   Umax(4)         = RealLast();
   Ufirst(1)       = Param1;
   Ufirst(2)       = Param2;
   Ufirst(3)       = Param3;
   tol(1)          = 2.e-15 * M_PI;
-  tol(2)          = Geom2dGcc_CurveTool::EpsX(Cu2, Abs(Tolerance));
+  tol(2)          = CurveTool3::EpsX(Cu2, Abs(Tolerance));
   tol(3)          = 2.e-15 * M_PI;
   tol(4)          = Tol / 10.;
   gp_Pnt2d point1 = ElCLib::Value(Param1, C1);
-  gp_Pnt2d point2 = Geom2dGcc_CurveTool::Value(Cu2, Param2);
+  gp_Pnt2d point2 = CurveTool3::Value(Cu2, Param2);
   gp_Pnt2d point3 = ElCLib::Value(Param3, OnCirc);
   Ufirst(4)       = (point3.Distance(point2) + point3.Distance(point1)) / 2.;
   Geom2dGcc_FunctionTanCuCuOnCu Func(C1, Cu2, OnCirc, Max(Ufirst(4), Tol));
@@ -544,7 +544,7 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const GccEnt_QualifiedCir
     //     gp_Vec2d Tan1,Tan2,Nor1;
     gp_Vec2d Tan1, Tan2;
     ElCLib::D1(Ufirst(1), C1, point1, Tan1);
-    Geom2dGcc_CurveTool::D1(Cu2, Ufirst(2), point2, Tan2);
+    CurveTool3::D1(Cu2, Ufirst(2), point2, Tan2);
 #ifdef OCCT_DEBUG
     gp_Vec2d Tan3(-Sin(Ufirst(3)), Cos(Ufirst(3)));
 #endif
@@ -593,7 +593,7 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const GccEnt_QualifiedCir
   }
 }
 
-Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const GccEnt_QualifiedLin& Qualified1,
+Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const QualifiedLine& Qualified1,
                                                        const Geom2dGcc_QCurve&    Qualified2,
                                                        const gp_Circ2d&           OnCirc,
                                                        const Standard_Real        Param1,
@@ -628,22 +628,22 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const GccEnt_QualifiedLin
   math_Vector         Ufirst(1, 4);
   math_Vector         tol(1, 4);
   Umin(1)         = RealFirst();
-  Umin(2)         = Geom2dGcc_CurveTool::FirstParameter(Cu2);
+  Umin(2)         = CurveTool3::FirstParameter(Cu2);
   Umin(3)         = RealFirst();
   Umin(4)         = 0.;
   Umax(1)         = RealLast();
-  Umax(2)         = Geom2dGcc_CurveTool::LastParameter(Cu2);
+  Umax(2)         = CurveTool3::LastParameter(Cu2);
   Umax(3)         = RealLast();
   Umax(4)         = RealLast();
   Ufirst(1)       = Param1;
   Ufirst(2)       = Param2;
   Ufirst(3)       = Param3;
   tol(1)          = 1.e-15;
-  tol(2)          = Geom2dGcc_CurveTool::EpsX(Cu2, Abs(Tolerance));
+  tol(2)          = CurveTool3::EpsX(Cu2, Abs(Tolerance));
   tol(3)          = 2.e-15 * M_PI;
   tol(4)          = Tol / 10.;
   gp_Pnt2d point1 = ElCLib::Value(Param1, L1);
-  gp_Pnt2d point2 = Geom2dGcc_CurveTool::Value(Cu2, Param2);
+  gp_Pnt2d point2 = CurveTool3::Value(Cu2, Param2);
   gp_Pnt2d point3 = ElCLib::Value(Param3, OnCirc);
   Ufirst(4)       = (point3.Distance(point2) + point3.Distance(point1)) / 2.;
   Geom2dGcc_FunctionTanCuCuOnCu Func(L1, Cu2, OnCirc, Max(Ufirst(4), Tol));
@@ -656,7 +656,7 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const GccEnt_QualifiedLin
     gp_Pnt2d point1new, point2new;
     gp_Vec2d Tan1, Tan2;
     ElCLib::D1(Ufirst(1), L1, point1new, Tan1);
-    Geom2dGcc_CurveTool::D1(Cu2, Ufirst(2), point2new, Tan2);
+    CurveTool3::D1(Cu2, Ufirst(2), point2new, Tan2);
 #ifdef OCCT_DEBUG
     gp_Vec2d Tan3(-Sin(Ufirst(3)), Cos(Ufirst(3)));
 #endif
@@ -703,7 +703,7 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const GccEnt_QualifiedLin
   }
 }
 
-Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const Geom2dGcc_QCurve& Qualified1,
+Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const Geom2dGcc_QCurve& Qualified1,
                                                        const Geom2dGcc_QCurve& Qualified2,
                                                        const gp_Circ2d&        OnCirc,
                                                        const Standard_Real     Param1,
@@ -738,23 +738,23 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const Geom2dGcc_QCurve& Q
   math_Vector         Umax(1, 4);
   math_Vector         Ufirst(1, 4);
   math_Vector         tol(1, 4);
-  Umin(1)              = Geom2dGcc_CurveTool::FirstParameter(Cu1);
-  Umin(2)              = Geom2dGcc_CurveTool::FirstParameter(Cu2);
+  Umin(1)              = CurveTool3::FirstParameter(Cu1);
+  Umin(2)              = CurveTool3::FirstParameter(Cu2);
   Umin(3)              = RealFirst();
   Umin(4)              = 0.;
-  Umax(1)              = Geom2dGcc_CurveTool::LastParameter(Cu1);
-  Umax(2)              = Geom2dGcc_CurveTool::LastParameter(Cu2);
+  Umax(1)              = CurveTool3::LastParameter(Cu1);
+  Umax(2)              = CurveTool3::LastParameter(Cu2);
   Umax(3)              = RealLast();
   Umax(4)              = RealLast();
   Ufirst(1)            = Param1;
   Ufirst(2)            = Param2;
   Ufirst(3)            = Param3;
-  tol(1)               = Geom2dGcc_CurveTool::EpsX(Cu1, Abs(Tolerance));
-  tol(2)               = Geom2dGcc_CurveTool::EpsX(Cu2, Abs(Tolerance));
+  tol(1)               = CurveTool3::EpsX(Cu1, Abs(Tolerance));
+  tol(2)               = CurveTool3::EpsX(Cu2, Abs(Tolerance));
   tol(3)               = 2.e-15 * M_PI;
   tol(4)               = Tol / 10.;
-  gp_Pnt2d      point1 = Geom2dGcc_CurveTool::Value(Cu1, Param1);
-  gp_Pnt2d      point2 = Geom2dGcc_CurveTool::Value(Cu2, Param2);
+  gp_Pnt2d      point1 = CurveTool3::Value(Cu1, Param1);
+  gp_Pnt2d      point2 = CurveTool3::Value(Cu2, Param2);
   Standard_Real R1     = OnCirc.Radius();
   gp_Pnt2d      point3(OnCirc.Location().XY() + R1 * Coords2d(Cos(Param3), Sin(Param3)));
   Ufirst(4) = (point3.Distance(point2) + point3.Distance(point1)) / 2.;
@@ -767,8 +767,8 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const Geom2dGcc_QCurve& Q
     Root.Root(Ufirst);
     //     gp_Vec2d Tan1,Tan2,Nor1;
     gp_Vec2d Tan1, Tan2;
-    Geom2dGcc_CurveTool::D1(Cu1, Ufirst(1), point1, Tan1);
-    Geom2dGcc_CurveTool::D1(Cu2, Ufirst(2), point2, Tan2);
+    CurveTool3::D1(Cu1, Ufirst(1), point1, Tan1);
+    CurveTool3::D1(Cu2, Ufirst(2), point2, Tan2);
 #ifdef OCCT_DEBUG
     gp_Vec2d Tan3(-Sin(Ufirst(3)), Cos(Ufirst(3)));
 #endif
@@ -824,7 +824,7 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const Geom2dGcc_QCurve& Q
   }
 }
 
-Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const Geom2dGcc_QCurve& Qualified1,
+Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const Geom2dGcc_QCurve& Qualified1,
                                                        const gp_Pnt2d&         Point2,
                                                        const gp_Circ2d&        OnCirc,
                                                        const Standard_Real     Param1,
@@ -855,18 +855,18 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const Geom2dGcc_QCurve& Q
   math_Vector         Umax(1, 3);
   math_Vector         Ufirst(1, 3);
   math_Vector         tol(1, 3);
-  Umin(1)         = Geom2dGcc_CurveTool::FirstParameter(Cu1);
+  Umin(1)         = CurveTool3::FirstParameter(Cu1);
   Umin(2)         = RealFirst();
   Umin(3)         = 0.;
-  Umax(1)         = Geom2dGcc_CurveTool::LastParameter(Cu1);
+  Umax(1)         = CurveTool3::LastParameter(Cu1);
   Umax(2)         = RealLast();
   Umax(3)         = RealLast();
   Ufirst(1)       = Param1;
   Ufirst(2)       = Param2;
-  tol(1)          = Geom2dGcc_CurveTool::EpsX(Cu1, Abs(Tolerance));
+  tol(1)          = CurveTool3::EpsX(Cu1, Abs(Tolerance));
   tol(2)          = 2.e-15 * M_PI;
   tol(3)          = Tol / 10.;
-  gp_Pnt2d point1 = Geom2dGcc_CurveTool::Value(Cu1, Param1);
+  gp_Pnt2d point1 = CurveTool3::Value(Cu1, Param1);
   gp_Pnt2d point3 = ElCLib::Value(Param2, OnCirc);
   Ufirst(3)       = (point3.Distance(Point2) + point3.Distance(point1)) / 2.;
   Geom2dGcc_FunctionTanCuCuOnCu Func(Cu1, Point2, OnCirc, Max(Ufirst(3), Tol));
@@ -878,7 +878,7 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const Geom2dGcc_QCurve& Q
     Root.Root(Ufirst);
     gp_Pnt2d point1new, point3new;
     gp_Vec2d Tan1, Tan3;
-    Geom2dGcc_CurveTool::D1(Cu1, Ufirst(1), point1new, Tan1);
+    CurveTool3::D1(Cu1, Ufirst(1), point1new, Tan1);
     ElCLib::D1(Ufirst(2), OnCirc, point3new, Tan3);
     Standard_Real dist1 = point3new.Distance(point1new);
     Standard_Real dist2 = point3new.Distance(Point2);
@@ -916,7 +916,7 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const Geom2dGcc_QCurve& Q
   }
 }
 
-Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const Geom2dGcc_QCurve&    Qualified1,
+Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const Geom2dGcc_QCurve&    Qualified1,
                                                        const Geom2dGcc_QCurve&    Qualified2,
                                                        const Geom2dAdaptor_Curve& OnCurv,
                                                        const Standard_Real        Param1,
@@ -951,24 +951,24 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const Geom2dGcc_QCurve&  
   math_Vector         Umax(1, 4);
   math_Vector         Ufirst(1, 4);
   math_Vector         tol(1, 4);
-  Umin(1)         = Geom2dGcc_CurveTool::FirstParameter(Cu1);
-  Umin(2)         = Geom2dGcc_CurveTool::FirstParameter(Cu2);
-  Umin(3)         = Geom2dGcc_CurveTool::FirstParameter(OnCurv);
+  Umin(1)         = CurveTool3::FirstParameter(Cu1);
+  Umin(2)         = CurveTool3::FirstParameter(Cu2);
+  Umin(3)         = CurveTool3::FirstParameter(OnCurv);
   Umin(4)         = 0.;
-  Umax(1)         = Geom2dGcc_CurveTool::LastParameter(Cu1);
-  Umax(2)         = Geom2dGcc_CurveTool::LastParameter(Cu2);
-  Umax(3)         = Geom2dGcc_CurveTool::LastParameter(OnCurv);
+  Umax(1)         = CurveTool3::LastParameter(Cu1);
+  Umax(2)         = CurveTool3::LastParameter(Cu2);
+  Umax(3)         = CurveTool3::LastParameter(OnCurv);
   Umax(4)         = RealLast();
   Ufirst(1)       = Param1;
   Ufirst(2)       = Param2;
   Ufirst(3)       = Param3;
-  tol(1)          = Geom2dGcc_CurveTool::EpsX(Cu1, Abs(Tolerance));
-  tol(2)          = Geom2dGcc_CurveTool::EpsX(Cu2, Abs(Tolerance));
-  tol(3)          = Geom2dGcc_CurveTool::EpsX(OnCurv, Abs(Tolerance));
+  tol(1)          = CurveTool3::EpsX(Cu1, Abs(Tolerance));
+  tol(2)          = CurveTool3::EpsX(Cu2, Abs(Tolerance));
+  tol(3)          = CurveTool3::EpsX(OnCurv, Abs(Tolerance));
   tol(4)          = Tol / 10.;
-  gp_Pnt2d point1 = Geom2dGcc_CurveTool::Value(Cu1, Param1);
-  gp_Pnt2d point2 = Geom2dGcc_CurveTool::Value(Cu2, Param2);
-  gp_Pnt2d point3 = Geom2dGcc_CurveTool::Value(OnCurv, Param3);
+  gp_Pnt2d point1 = CurveTool3::Value(Cu1, Param1);
+  gp_Pnt2d point2 = CurveTool3::Value(Cu2, Param2);
+  gp_Pnt2d point3 = CurveTool3::Value(OnCurv, Param3);
   Ufirst(4)       = (point3.Distance(point2) + point3.Distance(point1)) / 2.;
   Geom2dGcc_FunctionTanCuCuOnCu Func(Cu1, Cu2, OnCurv, Max(Ufirst(4), Tol));
   math_FunctionSetRoot          Root(Func, tol);
@@ -978,9 +978,9 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const Geom2dGcc_QCurve&  
   {
     Root.Root(Ufirst);
     gp_Vec2d Tan1, Tan2, Tan3;
-    Geom2dGcc_CurveTool::D1(Cu1, Ufirst(1), point1, Tan1);
-    Geom2dGcc_CurveTool::D1(Cu2, Ufirst(2), point2, Tan2);
-    Geom2dGcc_CurveTool::D1(OnCurv, Ufirst(3), point3, Tan3);
+    CurveTool3::D1(Cu1, Ufirst(1), point1, Tan1);
+    CurveTool3::D1(Cu2, Ufirst(2), point2, Tan2);
+    CurveTool3::D1(OnCurv, Ufirst(3), point3, Tan3);
     Standard_Real dist1 = point3.Distance(point1);
     Standard_Real dist2 = point3.Distance(point2);
     if (Abs(dist1 - dist2) / 2. <= Tol)
@@ -1032,7 +1032,7 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const Geom2dGcc_QCurve&  
   }
 }
 
-Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const GccEnt_QualifiedCirc& Qualified1,
+Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const QualifiedCircle& Qualified1,
                                                        const Geom2dGcc_QCurve&     Qualified2,
                                                        const Geom2dAdaptor_Curve&  OnCurv,
                                                        const Standard_Real         Param1,
@@ -1069,23 +1069,23 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const GccEnt_QualifiedCir
   math_Vector         Ufirst(1, 4);
   math_Vector         tol(1, 4);
   Umin(1)         = RealFirst();
-  Umin(2)         = Geom2dGcc_CurveTool::FirstParameter(Cu2);
-  Umin(3)         = Geom2dGcc_CurveTool::FirstParameter(OnCurv);
+  Umin(2)         = CurveTool3::FirstParameter(Cu2);
+  Umin(3)         = CurveTool3::FirstParameter(OnCurv);
   Umin(4)         = 0.;
   Umax(1)         = RealLast();
-  Umax(2)         = Geom2dGcc_CurveTool::LastParameter(Cu2);
-  Umax(3)         = Geom2dGcc_CurveTool::LastParameter(OnCurv);
+  Umax(2)         = CurveTool3::LastParameter(Cu2);
+  Umax(3)         = CurveTool3::LastParameter(OnCurv);
   Umax(4)         = RealLast();
   Ufirst(1)       = Param1;
   Ufirst(2)       = Param2;
   Ufirst(3)       = ParamOn;
   tol(1)          = 2.e-15 * M_PI;
-  tol(2)          = Geom2dGcc_CurveTool::EpsX(Cu2, Abs(Tolerance));
-  tol(3)          = Geom2dGcc_CurveTool::EpsX(OnCurv, Abs(Tolerance));
+  tol(2)          = CurveTool3::EpsX(Cu2, Abs(Tolerance));
+  tol(3)          = CurveTool3::EpsX(OnCurv, Abs(Tolerance));
   tol(4)          = Tol / 10.;
   gp_Pnt2d point1 = ElCLib::Value(Param1, C1);
-  gp_Pnt2d point2 = Geom2dGcc_CurveTool::Value(Cu2, Param2);
-  gp_Pnt2d point3 = Geom2dGcc_CurveTool::Value(OnCurv, ParamOn);
+  gp_Pnt2d point2 = CurveTool3::Value(Cu2, Param2);
+  gp_Pnt2d point3 = CurveTool3::Value(OnCurv, ParamOn);
   Ufirst(4)       = (point3.Distance(point2) + point3.Distance(point1)) / 2.;
   Geom2dGcc_FunctionTanCuCuOnCu Func(C1, Cu2, OnCurv, Max(Ufirst(4), Tol));
   math_FunctionSetRoot          Root(Func, tol);
@@ -1095,8 +1095,8 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const GccEnt_QualifiedCir
   {
     Root.Root(Ufirst);
     gp_Vec2d Tan1, Tan2, Tan3;
-    Geom2dGcc_CurveTool::D1(Cu2, Ufirst(2), point2, Tan2);
-    Geom2dGcc_CurveTool::D1(OnCurv, Ufirst(3), point3, Tan3);
+    CurveTool3::D1(Cu2, Ufirst(2), point2, Tan2);
+    CurveTool3::D1(OnCurv, Ufirst(3), point3, Tan3);
     ElCLib::D1(Ufirst(1), C1, point1, Tan1);
     Standard_Real dist1 = point3.Distance(point1);
     Standard_Real dist2 = point3.Distance(point2);
@@ -1143,7 +1143,7 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const GccEnt_QualifiedCir
   }
 }
 
-Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const GccEnt_QualifiedLin& Qualified1,
+Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const QualifiedLine& Qualified1,
                                                        const Geom2dGcc_QCurve&    Qualified2,
                                                        const Geom2dAdaptor_Curve& OnCurv,
                                                        const Standard_Real        Param1,
@@ -1178,23 +1178,23 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const GccEnt_QualifiedLin
   math_Vector         Ufirst(1, 4);
   math_Vector         tol(1, 4);
   Umin(1)         = RealFirst();
-  Umin(2)         = Geom2dGcc_CurveTool::FirstParameter(Cu2);
-  Umin(3)         = Geom2dGcc_CurveTool::FirstParameter(OnCurv);
+  Umin(2)         = CurveTool3::FirstParameter(Cu2);
+  Umin(3)         = CurveTool3::FirstParameter(OnCurv);
   Umin(4)         = 0.;
   Umax(1)         = RealLast();
-  Umax(2)         = Geom2dGcc_CurveTool::LastParameter(Cu2);
-  Umax(3)         = Geom2dGcc_CurveTool::LastParameter(OnCurv);
+  Umax(2)         = CurveTool3::LastParameter(Cu2);
+  Umax(3)         = CurveTool3::LastParameter(OnCurv);
   Umax(4)         = RealLast();
   Ufirst(1)       = Param1;
   Ufirst(2)       = Param2;
   Ufirst(3)       = ParamOn;
   tol(1)          = 1.e-15;
-  tol(2)          = Geom2dGcc_CurveTool::EpsX(Cu2, Abs(Tolerance));
-  tol(3)          = Geom2dGcc_CurveTool::EpsX(OnCurv, Abs(Tolerance));
+  tol(2)          = CurveTool3::EpsX(Cu2, Abs(Tolerance));
+  tol(3)          = CurveTool3::EpsX(OnCurv, Abs(Tolerance));
   tol(4)          = Tol / 10.;
   gp_Pnt2d point1 = ElCLib::Value(Param1, L1);
-  gp_Pnt2d point2 = Geom2dGcc_CurveTool::Value(Cu2, Param2);
-  gp_Pnt2d point3 = Geom2dGcc_CurveTool::Value(OnCurv, ParamOn);
+  gp_Pnt2d point2 = CurveTool3::Value(Cu2, Param2);
+  gp_Pnt2d point3 = CurveTool3::Value(OnCurv, ParamOn);
   Ufirst(4)       = (point3.Distance(point2) + point3.Distance(point1)) / 2.;
   Geom2dGcc_FunctionTanCuCuOnCu Func(L1, Cu2, OnCurv, Max(Ufirst(4), Tol));
   math_FunctionSetRoot          Root(Func, tol);
@@ -1205,8 +1205,8 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const GccEnt_QualifiedLin
     Root.Root(Ufirst);
     gp_Vec2d Tan1, Tan2, Tan3;
     ElCLib::D1(Ufirst(1), L1, point1, Tan1);
-    Geom2dGcc_CurveTool::D1(Cu2, Ufirst(2), point2, Tan2);
-    Geom2dGcc_CurveTool::D1(OnCurv, Ufirst(3), point3, Tan3);
+    CurveTool3::D1(Cu2, Ufirst(2), point2, Tan2);
+    CurveTool3::D1(OnCurv, Ufirst(3), point3, Tan3);
     Standard_Real dist1 = point3.Distance(point1);
     Standard_Real dist2 = point3.Distance(point2);
     if (Abs(dist1 - dist2) / 2. <= Tol)
@@ -1249,7 +1249,7 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const GccEnt_QualifiedLin
   }
 }
 
-Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const Geom2dGcc_QCurve&    Qualified1,
+Circle2dTwoTangentOnIter::Circle2dTwoTangentOnIter(const Geom2dGcc_QCurve&    Qualified1,
                                                        const gp_Pnt2d&            Point2,
                                                        const Geom2dAdaptor_Curve& OnCurv,
                                                        const Standard_Real        Param1,
@@ -1280,19 +1280,19 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const Geom2dGcc_QCurve&  
   math_Vector         Umax(1, 3);
   math_Vector         Ufirst(1, 3);
   math_Vector         tol(1, 3);
-  Umin(1)         = Geom2dGcc_CurveTool::FirstParameter(Cu1);
+  Umin(1)         = CurveTool3::FirstParameter(Cu1);
   Umin(2)         = RealFirst();
-  Umin(3)         = Geom2dGcc_CurveTool::FirstParameter(OnCurv);
-  Umax(1)         = Geom2dGcc_CurveTool::LastParameter(Cu1);
+  Umin(3)         = CurveTool3::FirstParameter(OnCurv);
+  Umax(1)         = CurveTool3::LastParameter(Cu1);
   Umax(2)         = RealLast();
-  Umax(3)         = Geom2dGcc_CurveTool::LastParameter(OnCurv);
+  Umax(3)         = CurveTool3::LastParameter(OnCurv);
   Ufirst(1)       = Param1;
   Ufirst(2)       = ParamOn;
-  tol(1)          = Geom2dGcc_CurveTool::EpsX(Cu1, Abs(Tolerance));
-  tol(2)          = Geom2dGcc_CurveTool::EpsX(OnCurv, Abs(Tolerance));
+  tol(1)          = CurveTool3::EpsX(Cu1, Abs(Tolerance));
+  tol(2)          = CurveTool3::EpsX(OnCurv, Abs(Tolerance));
   tol(3)          = Tol / 10.;
-  gp_Pnt2d point1 = Geom2dGcc_CurveTool::Value(Cu1, Param1);
-  gp_Pnt2d point3 = Geom2dGcc_CurveTool::Value(OnCurv, ParamOn);
+  gp_Pnt2d point1 = CurveTool3::Value(Cu1, Param1);
+  gp_Pnt2d point3 = CurveTool3::Value(OnCurv, ParamOn);
   Ufirst(3)       = (point3.Distance(Point2) + point3.Distance(point1)) / 2.;
   Geom2dGcc_FunctionTanCuCuOnCu Func(Cu1, Point2, OnCurv, Max(Ufirst(3), Tol));
   math_FunctionSetRoot          Root(Func, tol);
@@ -1303,8 +1303,8 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const Geom2dGcc_QCurve&  
     Root.Root(Ufirst);
     //    gp_Vec2d Tan1,Tan2,Tan3;
     gp_Vec2d Tan1, Tan3;
-    Geom2dGcc_CurveTool::D1(Cu1, Ufirst(1), point1, Tan1);
-    Geom2dGcc_CurveTool::D1(OnCurv, Ufirst(3), point3, Tan3);
+    CurveTool3::D1(Cu1, Ufirst(1), point1, Tan1);
+    CurveTool3::D1(OnCurv, Ufirst(3), point3, Tan3);
     Standard_Real dist1 = point3.Distance(point1);
     Standard_Real dist2 = point3.Distance(Point2);
     if (Abs(dist1 - dist2) / 2. <= Tol)
@@ -1341,17 +1341,17 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const Geom2dGcc_QCurve&  
   }
 }
 
-Standard_Boolean Geom2dGcc_Circ2d2TanOnIter::IsDone() const
+Standard_Boolean Circle2dTwoTangentOnIter::IsDone() const
 {
   return WellDone;
 }
 
-gp_Circ2d Geom2dGcc_Circ2d2TanOnIter::ThisSolution() const
+gp_Circ2d Circle2dTwoTangentOnIter::ThisSolution() const
 {
   return cirsol;
 }
 
-void Geom2dGcc_Circ2d2TanOnIter::WhichQualifier(GccEnt_Position& Qualif1,
+void Circle2dTwoTangentOnIter::WhichQualifier(GccEnt_Position& Qualif1,
                                                 GccEnt_Position& Qualif2) const
 {
   if (!WellDone)
@@ -1365,7 +1365,7 @@ void Geom2dGcc_Circ2d2TanOnIter::WhichQualifier(GccEnt_Position& Qualif1,
   }
 }
 
-void Geom2dGcc_Circ2d2TanOnIter::Tangency1(Standard_Real& ParSol,
+void Circle2dTwoTangentOnIter::Tangency1(Standard_Real& ParSol,
                                            Standard_Real& ParArg,
                                            gp_Pnt2d&      PntSol) const
 {
@@ -1388,7 +1388,7 @@ void Geom2dGcc_Circ2d2TanOnIter::Tangency1(Standard_Real& ParSol,
   }
 }
 
-void Geom2dGcc_Circ2d2TanOnIter::Tangency2(Standard_Real& ParSol,
+void Circle2dTwoTangentOnIter::Tangency2(Standard_Real& ParSol,
                                            Standard_Real& ParArg,
                                            gp_Pnt2d&      PntSol) const
 {
@@ -1404,7 +1404,7 @@ void Geom2dGcc_Circ2d2TanOnIter::Tangency2(Standard_Real& ParSol,
   }
 }
 
-void Geom2dGcc_Circ2d2TanOnIter::CenterOn3(Standard_Real& ParArg, gp_Pnt2d& PntSol) const
+void Circle2dTwoTangentOnIter::CenterOn3(Standard_Real& ParArg, gp_Pnt2d& PntSol) const
 {
   if (!WellDone)
   {
@@ -1417,7 +1417,7 @@ void Geom2dGcc_Circ2d2TanOnIter::CenterOn3(Standard_Real& ParArg, gp_Pnt2d& PntS
   }
 }
 
-Standard_Boolean Geom2dGcc_Circ2d2TanOnIter::IsTheSame1() const
+Standard_Boolean Circle2dTwoTangentOnIter::IsTheSame1() const
 {
   if (!WellDone)
     throw StdFail_NotDone();
@@ -1427,7 +1427,7 @@ Standard_Boolean Geom2dGcc_Circ2d2TanOnIter::IsTheSame1() const
   return Standard_True;
 }
 
-Standard_Boolean Geom2dGcc_Circ2d2TanOnIter::IsTheSame2() const
+Standard_Boolean Circle2dTwoTangentOnIter::IsTheSame2() const
 {
   if (!WellDone)
     throw StdFail_NotDone();

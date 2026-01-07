@@ -25,7 +25,7 @@
 #include <IntRes2d_Position.hxx>
 #include <TopAbs_State.hxx>
 class Standard_DomainError;
-class Geom2dHatch_Elements;
+class HatchElements;
 class Geom2dAdaptor_Curve;
 class Geom2dHatch_Intersector;
 class Geom2dHatch_FClass2dOfClassifier;
@@ -41,13 +41,13 @@ public:
 
   //! Creates an algorithm to classify the Point  P with
   //! Tolerance <T> on the face described by <F>.
-  Standard_EXPORT Geom2dHatch_Classifier(Geom2dHatch_Elements& F,
+  Standard_EXPORT Geom2dHatch_Classifier(HatchElements& F,
                                          const gp_Pnt2d&       P,
                                          const Standard_Real   Tol);
 
   //! Classify  the Point  P  with  Tolerance <T> on the
   //! face described by <F>.
-  Standard_EXPORT void Perform(Geom2dHatch_Elements& F, const gp_Pnt2d& P, const Standard_Real Tol);
+  Standard_EXPORT void Perform(HatchElements& F, const gp_Pnt2d& P, const Standard_Real Tol);
 
   //! Returns the result of the classification.
   Standard_EXPORT TopAbs_State State() const;
@@ -84,7 +84,7 @@ protected:
 private:
 };
 
-#define TheFaceExplorer Geom2dHatch_Elements
+#define TheFaceExplorer HatchElements
 #define TheFaceExplorer_hxx <Geom2dHatch_Elements.hxx>
 #define TheEdge Geom2dAdaptor_Curve
 #define TheEdge_hxx <Geom2dAdaptor_Curve.hxx>

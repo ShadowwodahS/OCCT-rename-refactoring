@@ -169,7 +169,7 @@ void ApproxInt_MultiLine::Value(const Standard_Integer  Index,
 void ApproxInt_MultiLine::Value(const Standard_Integer Index,
                                 TColgp_Array1OfPnt2d&  TabPnt2d) const 
 {
-  IntSurf_PntOn2S POn2S(myLine->Point(Index));
+  PointOn2Surfaces POn2S(myLine->Point(Index));
   Standard_Real u1 = 0.0, u2 = 0.0, v1 = 0.0, v2 = 0.0;
   POn2S.Parameters(u1, v1, u2, v2);
   if(nbp2d==1)
@@ -215,7 +215,7 @@ Standard_Boolean ApproxInt_MultiLine::Tangency( const Standard_Integer Index,
   if(PtrOnmySvSurfaces==NULL) 
     return Standard_False;
 
-  const IntSurf_PntOn2S& POn2S = myLine->Point(Index);
+  const PointOn2Surfaces& POn2S = myLine->Point(Index);
   Standard_Real u1 = 0.0, u2 = 0.0, v1 = 0.0, v2 = 0.0;
   POn2S.Parameters(u1,v1,u2,v2);
 
@@ -239,7 +239,7 @@ Standard_Boolean ApproxInt_MultiLine::Tangency( const Standard_Integer Index,
   if(PtrOnmySvSurfaces==NULL) 
     return Standard_False;
 
-  const IntSurf_PntOn2S& POn2S = myLine->Point(Index);
+  const PointOn2Surfaces& POn2S = myLine->Point(Index);
   Standard_Real u1 = 0.0, u2 = 0.0, v1 = 0.0, v2 = 0.0;
   POn2S.Parameters(u1,v1,u2,v2);
 
@@ -393,7 +393,7 @@ ApproxInt_MultiLine
   
   Handle(IntSurf_LineOn2S) ResultPntOn2SLine = new IntSurf_LineOn2S();
   
-  IntSurf_PntOn2S StartPOn2S;  
+  PointOn2Surfaces StartPOn2S;  
   TColStd_Array1OfReal StartParams(1,4);  
   
   ds = AC(High) / (NbPnts-1);
@@ -641,7 +641,7 @@ Standard_Boolean
   vmid1 = (vprev1 + vcur1)/2;
   umid2 = (uprev2 + ucur2)/2;
   vmid2 = (vprev2 + vcur2)/2;
-  IntSurf_PntOn2S MidPoint;
+  PointOn2Surfaces MidPoint;
   Standard_Boolean IsNewPointInvalid = Standard_False;
   IsNewPointInvalid =
     myApproxU1V1 &&
@@ -706,7 +706,7 @@ Standard_Boolean
   Standard_Boolean onfirst = Standard_True;
   for (Standard_Integer i = 1; i <= ResultPntOn2SLine->NbPoints(); i++)
   {
-    const IntSurf_PntOn2S& thePoint = ResultPntOn2SLine->Value(i);
+    const PointOn2Surfaces& thePoint = ResultPntOn2SLine->Value(i);
     Point3d curPnt = thePoint.Value();
     sprintf(name, "p%d_%d", indc, i);
     DrawTrSurf1::Set(name, curPnt);

@@ -180,11 +180,11 @@ static Standard_Integer surfaceCcontinuity(DrawInterpreter& di, Standard_Integer
       return 1;
   }
 
-  LocalAnalysis_SurfaceContinuity
+  SurfaceContinuity
     RES(surf1, U1, V1, surf2, U2, V2, TypeCont, epsnl, epsC0, epsC1, epsC2, epsG1, perce, maxlen);
-  // LocalAnalysis::Dump(RES,std::cout);
+  // LocalAnalysis1::Dump(RES,std::cout);
   Standard_SStream aSStream;
-  LocalAnalysis::Dump(RES, aSStream);
+  LocalAnalysis1::Dump(RES, aSStream);
   di << aSStream;
   return 0;
 }
@@ -288,11 +288,11 @@ static Standard_Integer surfaceGcontinuity(DrawInterpreter& di, Standard_Integer
       return 1;
   }
 
-  LocalAnalysis_SurfaceContinuity
+  SurfaceContinuity
     RES(surf1, U1, V1, surf2, U2, V2, TypeCont, epsnl, epsC0, epsC1, epsC2, epsG1, perce, maxlen);
-  // LocalAnalysis::Dump(RES,std::cout);
+  // LocalAnalysis1::Dump(RES,std::cout);
   Standard_SStream aSStream;
-  LocalAnalysis::Dump(RES, aSStream);
+  LocalAnalysis1::Dump(RES, aSStream);
   di << aSStream;
   return 0;
 }
@@ -395,11 +395,11 @@ static Standard_Integer curveGcontinuity(DrawInterpreter& di, Standard_Integer n
       return 1;
   }
 
-  LocalAnalysis_CurveContinuity
+  CurveContinuity
     RES(curv1, U1, curv2, U2, TypeCont, epsnl, epsC0, epsC1, epsC2, epsG1, epsG2, percent, maxlen);
-  // LocalAnalysis::Dump(RES,std::cout);
+  // LocalAnalysis1::Dump(RES,std::cout);
   Standard_SStream aSStream;
-  LocalAnalysis::Dump(RES, aSStream);
+  LocalAnalysis1::Dump(RES, aSStream);
   di << aSStream;
   return 0;
 }
@@ -516,11 +516,11 @@ static Standard_Integer curveCcontinuity(DrawInterpreter& di, Standard_Integer n
       return 1;
   }
 
-  LocalAnalysis_CurveContinuity
+  CurveContinuity
     RES(curv1, U1, curv2, U2, TypeCont, epsnl, epsC0, epsC1, epsC2, epsG1, epsG2, percent, maxlen);
-  // LocalAnalysis::Dump(RES,std::cout);
+  // LocalAnalysis1::Dump(RES,std::cout);
   Standard_SStream aSStream;
-  LocalAnalysis::Dump(RES, aSStream);
+  LocalAnalysis1::Dump(RES, aSStream);
   di << aSStream;
   return 0;
 }

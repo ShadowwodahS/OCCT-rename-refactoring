@@ -45,7 +45,7 @@ Standard_Boolean Geom2dGcc_FunctionTanCuPnt::Value(const Standard_Real X, Standa
 {
   gp_Pnt2d Point;
   gp_Vec2d Vect;
-  Geom2dGcc_CurveTool::D1(TheCurv, X, Point, Vect);
+  CurveTool3::D1(TheCurv, X, Point, Vect);
   Standard_Real NormeD1 = Vect.Magnitude();
   gp_Vec2d      TheDirection(ThePoint, Point);
   Standard_Real NormeDir = TheDirection.Magnitude();
@@ -58,7 +58,7 @@ Standard_Boolean Geom2dGcc_FunctionTanCuPnt::Derivative(const Standard_Real X, S
   gp_Pnt2d Point;
   gp_Vec2d Vec1;
   gp_Vec2d Vec2;
-  Geom2dGcc_CurveTool::D2(TheCurv, X, Point, Vec1, Vec2);
+  CurveTool3::D2(TheCurv, X, Point, Vec1, Vec2);
   gp_Vec2d      TheDirection(ThePoint.XY(), Coords2d(Point.XY()));
   Standard_Real NormeD1  = Vec1.Magnitude();
   Standard_Real NormeDir = TheDirection.Magnitude();
@@ -76,7 +76,7 @@ Standard_Boolean Geom2dGcc_FunctionTanCuPnt::Values(const Standard_Real X,
   gp_Pnt2d Point;
   gp_Vec2d Vec1;
   gp_Vec2d Vec2;
-  Geom2dGcc_CurveTool::D2(TheCurv, X, Point, Vec1, Vec2);
+  CurveTool3::D2(TheCurv, X, Point, Vec1, Vec2);
   gp_Vec2d      TheDirection(ThePoint.XY(), Coords2d(Point.XY()));
   Standard_Real NormeD1  = Vec1.Magnitude();
   Standard_Real NormeDir = TheDirection.Magnitude();

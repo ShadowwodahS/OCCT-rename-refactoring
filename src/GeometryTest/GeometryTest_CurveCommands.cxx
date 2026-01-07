@@ -180,7 +180,7 @@ static Standard_Integer to2d(DrawInterpreter&, Standard_Integer n, const char** 
   Handle(GeomPlane) P = Handle(GeomPlane)::DownCast(S);
   if (P.IsNull())
     return 1;
-  Handle(GeomCurve2d) r = GeomAPI::To2d(C, P->Pln());
+  Handle(GeomCurve2d) r = GeomAPI1::To2d(C, P->Pln());
   DrawTrSurf1::Set(a[1], r);
   return 0;
 }
@@ -209,7 +209,7 @@ static Standard_Integer to3d(DrawInterpreter&, Standard_Integer n, const char** 
   Handle(GeomPlane) P = Handle(GeomPlane)::DownCast(S);
   if (P.IsNull())
     return 1;
-  Handle(GeomCurve3d) r = GeomAPI::To3d(C, P->Pln());
+  Handle(GeomCurve3d) r = GeomAPI1::To3d(C, P->Pln());
 
   DrawTrSurf1::Set(a[1], r);
   return 0;
@@ -728,7 +728,7 @@ static Standard_Integer bisec(DrawInterpreter& di, Standard_Integer n, const cha
     }
     else if (ip2)
     {
-      GccAna_Pnt2dBisec Bis(P1, P2);
+      Point2dBisector Bis(P1, P2);
       if (Bis.HasSolution())
       {
         NbSol = 1;

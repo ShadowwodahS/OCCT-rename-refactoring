@@ -198,7 +198,7 @@ void TopOpeBRep_FaceEdgeIntersector::NextPoint()
 
 Point3d TopOpeBRep_FaceEdgeIntersector::Value() const
 {
-  const IntCurveSurface_IntersectionPoint& IP = mySequenceOfPnt(myPointIndex);
+  const IntersectionPoint1& IP = mySequenceOfPnt(myPointIndex);
   const Point3d&                            P  = IP.Pnt();
   return P;
 }
@@ -207,7 +207,7 @@ Point3d TopOpeBRep_FaceEdgeIntersector::Value() const
 
 Standard_Real TopOpeBRep_FaceEdgeIntersector::Parameter() const
 {
-  const IntCurveSurface_IntersectionPoint& IP = mySequenceOfPnt(myPointIndex);
+  const IntersectionPoint1& IP = mySequenceOfPnt(myPointIndex);
   Standard_Real                            p  = IP.W();
   return p;
 }
@@ -216,7 +216,7 @@ Standard_Real TopOpeBRep_FaceEdgeIntersector::Parameter() const
 
 void TopOpeBRep_FaceEdgeIntersector::UVPoint(gp_Pnt2d& P2d) const
 {
-  const IntCurveSurface_IntersectionPoint& IP = mySequenceOfPnt(myPointIndex);
+  const IntersectionPoint1& IP = mySequenceOfPnt(myPointIndex);
   Standard_Real                            u  = IP.U();
   Standard_Real                            v  = IP.V();
   P2d.SetCoord(u, v);
@@ -247,7 +247,7 @@ StateTransition TopOpeBRep_FaceEdgeIntersector::Transition(
 
   TopAbs_State stB, stA;
 
-  const IntCurveSurface_IntersectionPoint& IP = mySequenceOfPnt(myPointIndex);
+  const IntersectionPoint1& IP = mySequenceOfPnt(myPointIndex);
 
   if (Index == 2)
   { //--   Edge In <=>   Rentre ds la matiere face

@@ -764,7 +764,7 @@ Approx_ParametrizationType KnotTools::DefineParType(const Handle(IntPatch_WLine)
   const Standard_Real        aCritParRat = 100.;
   math_Vector                aPars(theFpar, theLpar);
   Approx_ParametrizationType aParType = Approx_ChordLength;
-  GeomInt_WLApprox::Parameters(aTestLine, theFpar, theLpar, aParType, aPars);
+  WireLineApproximation::Parameters(aTestLine, theFpar, theLpar, aParType, aPars);
   TColStd_Array1OfReal aCurv(aPars.Lower(), aPars.Upper());
   Standard_Real        aMaxCurv = 0.;
   BuildCurvature(aCoords, aDim, aPars, aCurv, aMaxCurv);

@@ -29,7 +29,7 @@ class GeomSurface;
 //! passing  by   all  the  curves  described  in  the
 //! generator. The VDegree of the resulting surface is
 //! 1.
-class GeomFill_Generator : public GeomFill_Profiler
+class GeomFill_Generator : public Profiler
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -63,16 +63,16 @@ static void ComputeTrsf2d(const Handle(TheWLine)& theline,
   Standard_Real          aUmin = RealLast(), aVmin = RealLast();
 
   // pointer to a member-function
-  void (IntSurf_PntOn2S::*pfunc)(Standard_Real&, Standard_Real&) const;
+  void (PointOn2Surfaces::*pfunc)(Standard_Real&, Standard_Real&) const;
 
   if (onFirst)
-    pfunc = &IntSurf_PntOn2S::ParametersOnS1;
+    pfunc = &PointOn2Surfaces::ParametersOnS1;
   else
-    pfunc = &IntSurf_PntOn2S::ParametersOnS2;
+    pfunc = &PointOn2Surfaces::ParametersOnS2;
 
   for (Standard_Integer i = 1; i <= aNbPnts; i++)
   {
-    const IntSurf_PntOn2S POn2S = theline->Point(i);
+    const PointOn2Surfaces POn2S = theline->Point(i);
     Standard_Real         U, V;
     (POn2S.*pfunc)(U, V);
     aUmin = Min(U, aUmin);
@@ -246,7 +246,7 @@ void ApproxInt_Approx::Perform(const ThePSurface&      Surf1,
 
   if (isQuadric)
   {
-    IntSurf_Quadric  Quad;
+    Quadric1  Quad;
     Standard_Boolean SecondIsImplicit = Standard_False;
     switch (typeS1)
     {

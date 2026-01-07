@@ -362,7 +362,7 @@ void IntTools_FaceFace::Perform(const TopoFace&     aF1,
       aItP2S.Initialize(myListOfPnts);
       for (; aItP2S.More(); aItP2S.Next())
       {
-        IntSurf_PntOn2S& aP2S = aItP2S.ChangeValue();
+        PointOn2Surfaces& aP2S = aItP2S.ChangeValue();
         aP2S.Parameters(aU1, aV1, aU2, aV2);
         aP2S.SetValue(aU2, aV2, aU1, aV1);
       }
@@ -479,7 +479,7 @@ void IntTools_FaceFace::Perform(const TopoFace&     aF1,
 
   {
     const Standard_Real UVMaxStep =
-      IntPatch_Intersection::DefineUVMaxStep(myHS1, dom1, myHS2, dom2);
+      Intersection1::DefineUVMaxStep(myHS1, dom1, myHS2, dom2);
     Standard_Real Deflection = 0.1;
     if (aType1 == GeomAbs_BSplineSurface && aType2 == GeomAbs_BSplineSurface)
     {
@@ -507,7 +507,7 @@ void IntTools_FaceFace::Perform(const TopoFace&     aF1,
     IntSurf_ListIteratorOfListOfPntOn2S IterLOP1(myListOfPnts);
     for (; IterLOP1.More(); IterLOP1.Next())
     {
-      const IntSurf_PntOn2S& aPt = IterLOP1.Value();
+      const PointOn2Surfaces& aPt = IterLOP1.Value();
       Standard_Real          u1, v1, u2, v2;
       aPt.Parameters(u1, v1, u2, v2);
 
@@ -566,7 +566,7 @@ void IntTools_FaceFace::Perform(const TopoFace&     aF1,
     const Standard_Integer aNbPnts = myIntersector.NbPnts();
     for (Standard_Integer i = 1; i <= aNbPnts; ++i)
     {
-      const IntSurf_PntOn2S& aISPnt = myIntersector.Point(i).PntOn2S();
+      const PointOn2Surfaces& aISPnt = myIntersector.Point(i).PntOn2S();
       const Point3d&          aPnt   = aISPnt.Value();
       aISPnt.Parameters(U1, V1, U2, V2);
       //
@@ -726,8 +726,8 @@ reapprox:;
     L = aWLine;
 
     Standard_Integer       nbp = aWLine->NbPnts();
-    const IntSurf_PntOn2S& p1  = aWLine->Point(1);
-    const IntSurf_PntOn2S& p2  = aWLine->Point(nbp);
+    const PointOn2Surfaces& p1  = aWLine->Point(1);
+    const PointOn2Surfaces& p2  = aWLine->Point(nbp);
 
     const Point3d& P1 = p1.Value();
     const Point3d& P2 = p2.Value();
@@ -1153,7 +1153,7 @@ reapprox:;
     break;
 
     case IntPatch_Analytic:
-      // This case was processed earlier (in IntPatch_Intersection)
+      // This case was processed earlier (in Intersection1)
       break;
 
     case IntPatch_Walking: {
@@ -1212,7 +1212,7 @@ reapprox:;
         Standard_Integer           nbiter, aNbSeqOfL;
         Standard_Real              tol2d, aTolApproxImp;
         IntPatch_SequenceOfLine    aSeqOfL;
-        GeomInt_WLApprox           theapp3d;
+        WireLineApproximation           theapp3d;
         Approx_ParametrizationType aParType = Approx_ChordLength;
         //
         Standard_Boolean anApprox1 = myApprox1;
@@ -1830,7 +1830,7 @@ void Parameters(const Handle(GeomAdaptor_Surface)& HS1,
                 Standard_Real&                     V2)
 {
 
-  IntSurf_Quadric     quad1, quad2;
+  Quadric1     quad1, quad2;
   GeomAbs_SurfaceType typs = HS1->GetType();
 
   switch (typs)
@@ -2264,7 +2264,7 @@ Standard_Boolean IsCurveValid(const Handle(GeomCurve2d)& thePCurve)
 
   Standard_Real       tolint = 1.e-10;
   Geom2dAdaptor_Curve PCA;
-  IntRes2d_Domain     PCD;
+  Domain2     PCD;
   Geom2dInt_GInter    PCI;
 
   Standard_Real pf = 0., pl = 0.;

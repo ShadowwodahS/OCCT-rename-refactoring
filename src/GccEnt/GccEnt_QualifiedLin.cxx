@@ -15,17 +15,17 @@
 #include <GccEnt_QualifiedLin.hxx>
 #include <gp_Lin2d.hxx>
 
-gp_Lin2d GccEnt_QualifiedLin::Qualified() const
+gp_Lin2d QualifiedLine::Qualified() const
 {
   return TheQualified;
 }
 
-GccEnt_Position GccEnt_QualifiedLin::Qualifier() const
+GccEnt_Position QualifiedLine::Qualifier() const
 {
   return TheQualifier;
 }
 
-Standard_Boolean GccEnt_QualifiedLin::IsUnqualified() const
+Standard_Boolean QualifiedLine::IsUnqualified() const
 {
   if (TheQualifier == GccEnt_unqualified)
   {
@@ -37,12 +37,12 @@ Standard_Boolean GccEnt_QualifiedLin::IsUnqualified() const
   }
 }
 
-Standard_Boolean GccEnt_QualifiedLin::IsEnclosed() const
+Standard_Boolean QualifiedLine::IsEnclosed() const
 {
   return (TheQualifier == GccEnt_enclosed);
 }
 
-Standard_Boolean GccEnt_QualifiedLin::IsOutside() const
+Standard_Boolean QualifiedLine::IsOutside() const
 {
   if (TheQualifier == GccEnt_outside)
   {
@@ -54,7 +54,7 @@ Standard_Boolean GccEnt_QualifiedLin::IsOutside() const
   }
 }
 
-GccEnt_QualifiedLin::GccEnt_QualifiedLin(const gp_Lin2d& Qualified, const GccEnt_Position Qualifier)
+QualifiedLine::QualifiedLine(const gp_Lin2d& Qualified, const GccEnt_Position Qualifier)
 {
   TheQualified = Qualified;
   TheQualifier = Qualifier;

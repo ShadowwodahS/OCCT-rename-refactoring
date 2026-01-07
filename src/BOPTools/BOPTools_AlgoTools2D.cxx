@@ -294,7 +294,7 @@ void AlgoTools2D::AdjustPCurveOnSurf(const BRepAdaptor_Surface&  aBAS,
       u2 = UMin + aUPeriod;
     }
     // b. compute du again using clarified value of u2
-    GeomInt::AdjustPeriodic(u2, UMin, UMax, aUPeriod, u2, du, 0.);
+    GeomInt1::AdjustPeriodic(u2, UMin, UMax, aUPeriod, u2, du, 0.);
     //
     if (du == 0.)
     {

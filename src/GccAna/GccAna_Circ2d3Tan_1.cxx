@@ -33,9 +33,9 @@
 //=========================================================================
 //   Creation of a circle tangent to two circles and a straight line.     +
 //=========================================================================
-Circle2dThreeTangent::Circle2dThreeTangent(const GccEnt_QualifiedCirc& Qualified1,
-                                     const GccEnt_QualifiedCirc& Qualified2,
-                                     const GccEnt_QualifiedLin&  Qualified3,
+Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedCircle& Qualified1,
+                                     const QualifiedCircle& Qualified2,
+                                     const QualifiedLine&  Qualified3,
                                      const Standard_Real         Tolerance)
     :
 

@@ -24,7 +24,7 @@
 #include <math_Vector.hxx>
 
 class HSurfaceTool;
-class IntCurveSurface_TheHCurveTool;
+class HCurveTool2;
 class math_Matrix;
 
 class IntCurveSurface_TheCSFunctionOfHInter : public math_FunctionSetWithDerivatives

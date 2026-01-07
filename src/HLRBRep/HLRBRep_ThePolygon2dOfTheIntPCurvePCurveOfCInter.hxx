@@ -28,7 +28,7 @@
 #include <Intf_Polygon2d.hxx>
 class Standard_OutOfRange;
 class HLRBRep_CurveTool;
-class IntRes2d_Domain;
+class Domain2;
 class Bnd_Box2d;
 class gp_Pnt2d;
 
@@ -40,7 +40,7 @@ public:
   //! Compute a polygon on the domain of the curve.
   Standard_EXPORT HLRBRep_ThePolygon2dOfTheIntPCurvePCurveOfCInter(const Standard_Address& Curve,
                                                                    const Standard_Integer  NbPnt,
-                                                                   const IntRes2d_Domain&  Domain,
+                                                                   const Domain2&  Domain,
                                                                    const Standard_Real     Tol);
 
   //! The current polygon is modified if most

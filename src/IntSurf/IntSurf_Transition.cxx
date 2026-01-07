@@ -15,7 +15,7 @@
 #include <IntSurf_Transition.hxx>
 #include <Standard_DomainError.hxx>
 
-IntSurf_Transition::IntSurf_Transition(const Standard_Boolean Tangent, const IntSurf_TypeTrans Type)
+Transition2::Transition2(const Standard_Boolean Tangent, const IntSurf_TypeTrans Type)
     : tangent(Tangent),
       typetra(Type),
       situat(IntSurf_Unknown),
@@ -24,7 +24,7 @@ IntSurf_Transition::IntSurf_Transition(const Standard_Boolean Tangent, const Int
 {
 }
 
-IntSurf_Transition::IntSurf_Transition(const Standard_Boolean  Tangent,
+Transition2::Transition2(const Standard_Boolean  Tangent,
                                        const IntSurf_Situation Situ,
                                        const Standard_Boolean  Oppos)
     : tangent(Tangent),
@@ -34,7 +34,7 @@ IntSurf_Transition::IntSurf_Transition(const Standard_Boolean  Tangent,
 {
 }
 
-IntSurf_Transition::IntSurf_Transition()
+Transition2::Transition2()
     : tangent(Standard_False),
       typetra(IntSurf_Undecided),
       situat(IntSurf_Unknown),

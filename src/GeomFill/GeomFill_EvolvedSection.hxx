@@ -36,12 +36,12 @@ class Point3d;
 class GeomFill_EvolvedSection;
 DEFINE_STANDARD_HANDLE(GeomFill_EvolvedSection, GeomFill_SectionLaw)
 
-//! Define an Constant Section Law
+//! Define an Constant Section Law1
 class GeomFill_EvolvedSection : public GeomFill_SectionLaw
 {
 
 public:
-  //! Make an SectionLaw with a Curve and a real  Law.
+  //! Make an SectionLaw with a Curve and a real  Law1.
   Standard_EXPORT GeomFill_EvolvedSection(const Handle(GeomCurve3d)&   C,
                                           const Handle(Law_Function)& L);
 
@@ -157,7 +157,7 @@ public:
   Standard_EXPORT virtual void GetMinimalWeight(TColStd_Array1OfReal& Weigths) const
     Standard_OVERRIDE;
 
-  //! return True If the Law isConstant
+  //! return True If the Law1 isConstant
   Standard_EXPORT virtual Standard_Boolean IsConstant(Standard_Real& Error) const Standard_OVERRIDE;
 
   //! Return the constant Section if <me>  IsConstant.

@@ -23,7 +23,7 @@
 #include <IntSurf_LineOn2S.hxx>
 
 class IntPatch_ALine;
-class IntSurf_PntOn2S;
+class PointOn2Surfaces;
 
 class IntPatch_ALineToWLine
 {
@@ -68,7 +68,7 @@ protected:
   //! Returns FALSE if the step cannot be computed. In this case, its value
   //! will not be changed.
   Standard_EXPORT Standard_Boolean StepComputing(const Handle(IntPatch_ALine)& theALine,
-                                                 const IntSurf_PntOn2S&        thePOn2S,
+                                                 const PointOn2Surfaces&        thePOn2S,
                                                  const Standard_Real           theLastParOfAline,
                                                  const Standard_Real           theCurParam,
                                                  const Standard_Real           theTgMagnitude,
@@ -100,8 +100,8 @@ protected:
 private:
   Handle(Adaptor3d_Surface) myS1;
   Handle(Adaptor3d_Surface) myS2;
-  IntSurf_Quadric           myQuad1;
-  IntSurf_Quadric           myQuad2;
+  Quadric1           myQuad1;
+  Quadric1           myQuad2;
 
   //! Approximate number of points in resulting
   //! WLine (precise number of points is computed

@@ -33,13 +33,13 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Automatic placement
-  Standard_EXPORT BRepFill_SectionPlacement(const Handle(BRepFill_LocationLaw)& Law,
+  Standard_EXPORT BRepFill_SectionPlacement(const Handle(BRepFill_LocationLaw)& Law1,
                                             const TopoShape&                 Section,
                                             const Standard_Boolean WithContact    = Standard_False,
                                             const Standard_Boolean WithCorrection = Standard_False);
 
   //! Placement on vertex
-  Standard_EXPORT BRepFill_SectionPlacement(const Handle(BRepFill_LocationLaw)& Law,
+  Standard_EXPORT BRepFill_SectionPlacement(const Handle(BRepFill_LocationLaw)& Law1,
                                             const TopoShape&                 Section,
                                             const TopoShape&                 Vertex,
                                             const Standard_Boolean WithContact    = Standard_False,

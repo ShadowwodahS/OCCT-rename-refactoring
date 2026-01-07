@@ -16,7 +16,7 @@
 
 #include <IntPatch_PrmPrmIntersection_T3Bits.hxx>
 
-IntPatch_PrmPrmIntersection_T3Bits::IntPatch_PrmPrmIntersection_T3Bits(const Standard_Integer size)
+T3Bits::T3Bits(const Standard_Integer size)
 {
   //-- ex: size=4  -> 4**3 = 64 bits -> 2 mots 32bits
   Standard_Integer nb = (size * size * size) >> 5;
@@ -28,7 +28,7 @@ IntPatch_PrmPrmIntersection_T3Bits::IntPatch_PrmPrmIntersection_T3Bits(const Sta
   } while (nb);
 }
 
-IntPatch_PrmPrmIntersection_T3Bits::~IntPatch_PrmPrmIntersection_T3Bits()
+T3Bits::~T3Bits()
 {
   if (p)
   {
@@ -37,12 +37,12 @@ IntPatch_PrmPrmIntersection_T3Bits::~IntPatch_PrmPrmIntersection_T3Bits()
   }
 }
 
-void IntPatch_PrmPrmIntersection_T3Bits::ResetAnd()
+void T3Bits::ResetAnd()
 {
   // ind = 0;
 }
 
-Standard_Integer IntPatch_PrmPrmIntersection_T3Bits::And(IntPatch_PrmPrmIntersection_T3Bits& Oth,
+Standard_Integer T3Bits::And(T3Bits& Oth,
                                                          Standard_Integer&                   indice)
 {
   int k = indice >> 5;

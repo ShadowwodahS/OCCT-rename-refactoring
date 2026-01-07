@@ -32,10 +32,10 @@
 #define Handle_TheTopolTool Handle(Adaptor3d_TopolTool)
 #define TheTopolTool Adaptor3d_TopolTool
 #define TheTopolTool_hxx <Adaptor3d_TopolTool.hxx>
-#define TheSITool IntPatch_HInterTool
+#define TheSITool HInterTool
 #define TheSITool_hxx <IntPatch_HInterTool.hxx>
 #define TheFunction IntPatch_TheSurfFunction
 #define TheFunction_hxx <IntPatch_TheSurfFunction.hxx>
-#define IntStart_SearchInside IntPatch_TheSearchInside
+#define IntStart_SearchInside SearchInside
 #define IntStart_SearchInside_hxx <IntPatch_TheSearchInside.hxx>
 #include "../IntStart/IntStart_SearchInside.gxx"

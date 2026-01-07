@@ -741,7 +741,7 @@ Standard_Real BRepFill_NSections::VertexTol(const Standard_Integer Index,
 
 Handle(GeomFill_SectionLaw) BRepFill_NSections::ConcatenedLaw() const
 {
-  Handle(GeomFill_SectionLaw) Law;
+  Handle(GeomFill_SectionLaw) Law1;
   if (myLaws->Length() == 1)
     return myLaws->Value(1);
   else
@@ -754,10 +754,10 @@ Handle(GeomFill_SectionLaw) BRepFill_NSections::ConcatenedLaw() const
     {
       NCompo.Append(mySurface->VIso(myParams(jj)));
     }
-    Law =
+    Law1 =
       new (GeomFill_NSections)(NCompo, myTrsfs, myParams, Ufirst, Ulast, Vfirst, Vlast, mySurface);
   }
-  return Law;
+  return Law1;
 }
 
 //=================================================================================================

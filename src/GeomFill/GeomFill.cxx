@@ -39,7 +39,7 @@
 
 //=================================================================================================
 
-Handle(GeomSurface) GeomFill::Surface(const Handle(GeomCurve3d)& Curve1,
+Handle(GeomSurface) GeomFill1::Surface(const Handle(GeomCurve3d)& Curve1,
                                        const Handle(GeomCurve3d)& Curve2)
 
 {
@@ -183,7 +183,7 @@ Handle(GeomSurface) GeomFill::Surface(const Handle(GeomCurve3d)& Curve1,
 
 //=================================================================================================
 
-void GeomFill::GetShape(const Standard_Real           MaxAng,
+void GeomFill1::GetShape(const Standard_Real           MaxAng,
                         Standard_Integer&             NbPoles,
                         Standard_Integer&             NbKnots,
                         Standard_Integer&             Degree,
@@ -230,7 +230,7 @@ void GeomFill::GetShape(const Standard_Real           MaxAng,
 //           extremums d'angles (A verifier eventuelement pour Quasi-Angular)
 //=======================================================================
 
-void GeomFill::GetMinimalWeights(const Convert_ParameterisationType TConv,
+void GeomFill1::GetMinimalWeights(const Convert_ParameterisationType TConv,
                                  const Standard_Real                MinAng,
                                  const Standard_Real                MaxAng,
                                  TColStd_Array1OfReal&              Weights)
@@ -265,7 +265,7 @@ void GeomFill::GetMinimalWeights(const Convert_ParameterisationType TConv,
 
 //=================================================================================================
 
-void GeomFill::Knots(const Convert_ParameterisationType TConv, TColStd_Array1OfReal& TKnots)
+void GeomFill1::Knots(const Convert_ParameterisationType TConv, TColStd_Array1OfReal& TKnots)
 {
   if ((TConv != Convert_QuasiAngular) && (TConv != Convert_Polynomial))
   {
@@ -286,7 +286,7 @@ void GeomFill::Knots(const Convert_ParameterisationType TConv, TColStd_Array1OfR
 
 //=================================================================================================
 
-void GeomFill::Mults(const Convert_ParameterisationType TConv, TColStd_Array1OfInteger& TMults)
+void GeomFill1::Mults(const Convert_ParameterisationType TConv, TColStd_Array1OfInteger& TMults)
 {
   switch (TConv)
   {
@@ -320,7 +320,7 @@ void GeomFill::Mults(const Convert_ParameterisationType TConv, TColStd_Array1OfI
 //           de continuite G1.
 //=======================================================================
 
-Standard_Real GeomFill::GetTolerance(const Convert_ParameterisationType TConv,
+Standard_Real GeomFill1::GetTolerance(const Convert_ParameterisationType TConv,
                                      const Standard_Real                AngleMin,
                                      const Standard_Real                Radius,
                                      const Standard_Real                AngularTol,
@@ -346,7 +346,7 @@ Standard_Real GeomFill::GetTolerance(const Convert_ParameterisationType TConv,
 //  1) Des problemes de performances.
 //  2) Assurer la coherance entre cette methode est celle qui donne la derive
 //============================================================================
-void GeomFill::GetCircle(const Convert_ParameterisationType TConv,
+void GeomFill1::GetCircle(const Convert_ParameterisationType TConv,
                          const Vector3d&         ns1,   // Normal rentrente au premier point
                          const Vector3d&         ns2,   // Normal rentrente au second point
                          const Vector3d&         nplan, // Normal au plan
@@ -391,13 +391,13 @@ void GeomFill::GetCircle(const Convert_ParameterisationType TConv,
   switch (TConv)
   {
     case Convert_QuasiAngular: {
-      GeomFill_QuasiAngularConvertor QConvertor;
+      QuasiAngularConverter QConvertor;
       QConvertor.Init();
       QConvertor.Section(pts1, Center, nplan, Angle, Poles, Weights);
       break;
     }
     case Convert_Polynomial: {
-      GeomFill_PolynomialConvertor PConvertor;
+      PolynomialConverter PConvertor;
       PConvertor.Init();
       PConvertor.Section(pts1, Center, nplan, Angle, Poles);
       Weights.Init(1);
@@ -439,7 +439,7 @@ void GeomFill::GetCircle(const Convert_ParameterisationType TConv,
   }
 }
 
-Standard_Boolean GeomFill::GetCircle(const Convert_ParameterisationType TConv,
+Standard_Boolean GeomFill1::GetCircle(const Convert_ParameterisationType TConv,
                                      const Vector3d&                      ns1,
                                      const Vector3d&                      ns2,
                                      const Vector3d&                      dn1w,
@@ -513,7 +513,7 @@ Standard_Boolean GeomFill::GetCircle(const Convert_ParameterisationType TConv,
   switch (TConv)
   {
     case Convert_QuasiAngular: {
-      GeomFill_QuasiAngularConvertor QConvertor;
+      QuasiAngularConverter QConvertor;
       QConvertor.Init();
       QConvertor.Section(pts1,
                          tang1,
@@ -530,7 +530,7 @@ Standard_Boolean GeomFill::GetCircle(const Convert_ParameterisationType TConv,
       return Standard_True;
     }
     case Convert_Polynomial: {
-      GeomFill_PolynomialConvertor PConvertor;
+      PolynomialConverter PConvertor;
       PConvertor.Init();
       PConvertor.Section(pts1, tang1, Center, DCenter, nplan, dnplan, Angle, DAngle, Poles, DPoles);
       Weights.Init(1);
@@ -593,7 +593,7 @@ Standard_Boolean GeomFill::GetCircle(const Convert_ParameterisationType TConv,
   //  return Standard_False;
 }
 
-Standard_Boolean GeomFill::GetCircle(const Convert_ParameterisationType TConv,
+Standard_Boolean GeomFill1::GetCircle(const Convert_ParameterisationType TConv,
                                      const Vector3d&                      ns1,
                                      const Vector3d&                      ns2,
                                      const Vector3d&                      dn1w,
@@ -693,7 +693,7 @@ Standard_Boolean GeomFill::GetCircle(const Convert_ParameterisationType TConv,
   switch (TConv)
   {
     case Convert_QuasiAngular: {
-      GeomFill_QuasiAngularConvertor QConvertor;
+      QuasiAngularConverter QConvertor;
       QConvertor.Init();
       QConvertor.Section(pts1,
                          tang1,
@@ -716,7 +716,7 @@ Standard_Boolean GeomFill::GetCircle(const Convert_ParameterisationType TConv,
       return Standard_True;
     }
     case Convert_Polynomial: {
-      GeomFill_PolynomialConvertor PConvertor;
+      PolynomialConverter PConvertor;
       PConvertor.Init();
       PConvertor.Section(pts1,
                          tang1,

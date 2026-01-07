@@ -30,18 +30,18 @@ class gp_Pnt2d;
 class gp_Lin2d;
 class Geom2dAdaptor_Curve;
 
-class Geom2dHatch_Elements
+class HatchElements
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Geom2dHatch_Elements();
+  Standard_EXPORT HatchElements();
 
-  Standard_EXPORT Geom2dHatch_Elements(const Geom2dHatch_Elements& Other);
+  Standard_EXPORT HatchElements(const HatchElements& Other);
 
   Standard_EXPORT void Clear();
 
-  ~Geom2dHatch_Elements() { Clear(); }
+  ~HatchElements() { Clear(); }
 
   Standard_EXPORT Standard_Boolean Bind(const Standard_Integer K, const Geom2dHatch_Element& I);
 

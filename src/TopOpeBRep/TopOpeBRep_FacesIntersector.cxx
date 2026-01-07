@@ -76,7 +76,7 @@ Standard_EXPORT TOPKRO KRO_DSFILLER_INTFF("intersection face/face");
 #endif
 
 // NYI
-// NYI : IntPatch_Intersection : TolArc,TolTang exact definition
+// NYI : Intersection1 : TolArc,TolTang exact definition
 // NYI
 
 // modified by NIZHNY-MKK  Mon Apr  2 12:14:32 2001.BEGIN
@@ -402,11 +402,11 @@ void TopOpeBRep_FacesIntersector::PrepareLines()
 
     Standard_Integer i;
     //    Standard_Integer nbl=0;
-    IntPatch_LineConstructor** Ptr =
-      (IntPatch_LineConstructor**)malloc(n * sizeof(IntPatch_LineConstructor*));
+    LineConstructor** Ptr =
+      (LineConstructor**)malloc(n * sizeof(LineConstructor*));
     for (i = 1; i <= n; i++)
     {
-      Ptr[i - 1] = new IntPatch_LineConstructor(2);
+      Ptr[i - 1] = new LineConstructor(2);
       Ptr[i - 1]->Perform(myIntersector.SequenceOfLine(),
                           myIntersector.Line(i),
                           mySurface1,
@@ -646,7 +646,7 @@ static Standard_Boolean TestWLineAlongRestriction(const Handle(IntPatch_WLine)& 
 
   for (Standard_Integer i = 1; i <= NbPnts; i++)
   {
-    const IntSurf_PntOn2S& Pmid = theWLine->Point(i);
+    const PointOn2Surfaces& Pmid = theWLine->Point(i);
     Standard_Real          u = 0., v = 0.;
     if (theRank == 1)
       Pmid.ParametersOnS1(u, v);
@@ -707,7 +707,7 @@ static Handle(IntPatch_RLine) BuildRLineBasedOnWLine(const Handle(IntPatch_WLine
   }
 
   aPOnLine           = gp_Pnt2d(u, v);
-  Standard_Real par1 = Geom2dInt_TheProjPCurOfGInter::FindParameter(*theArc, aPOnLine, 1.e-7);
+  Standard_Real par1 = ProjPCurOfGInter::FindParameter(*theArc, aPOnLine, 1.e-7);
 
   if (theRank == 1)
   {
@@ -718,7 +718,7 @@ static Handle(IntPatch_RLine) BuildRLineBasedOnWLine(const Handle(IntPatch_WLine
     Vtx2.ParametersOnS2(u, v);
   }
   aPOnLine           = gp_Pnt2d(u, v);
-  Standard_Real par2 = Geom2dInt_TheProjPCurOfGInter::FindParameter(*theArc, aPOnLine, 1.e-7);
+  Standard_Real par2 = ProjPCurOfGInter::FindParameter(*theArc, aPOnLine, 1.e-7);
 
   Standard_Real tol = (Vtx1.Tolerance() > Vtx2.Tolerance()) ? Vtx1.Tolerance() : Vtx2.Tolerance();
 
@@ -729,7 +729,7 @@ static Handle(IntPatch_RLine) BuildRLineBasedOnWLine(const Handle(IntPatch_WLine
 
   Handle(IntSurf_LineOn2S)        aLineOn2S = new IntSurf_LineOn2S();
   const Handle(IntSurf_LineOn2S)& Lori      = theWLine->Curve();
-  IntSurf_Transition              TransitionUndecided;
+  Transition2              TransitionUndecided;
 
   anRLine =
     new IntPatch_RLine(Standard_False, theWLine->TransitionOnS1(), theWLine->TransitionOnS2());
@@ -774,7 +774,7 @@ static Handle(IntPatch_RLine) BuildRLineBasedOnWLine(const Handle(IntPatch_WLine
         Vtx.ParametersOnS2(u, v);
       }
       gp_Pnt2d      atmpPoint(u, v);
-      Standard_Real apar = Geom2dInt_TheProjPCurOfGInter::FindParameter(*theArc, atmpPoint, 1.e-7);
+      Standard_Real apar = ProjPCurOfGInter::FindParameter(*theArc, atmpPoint, 1.e-7);
       Vtx.SetParameter(apar);
       anRLine->AddVertex(Vtx);
     }
@@ -822,7 +822,7 @@ static Handle(IntPatch_RLine) BuildRLineBasedOnWLine(const Handle(IntPatch_WLine
         Vtx.ParametersOnS2(u, v);
       }
       gp_Pnt2d      atmpPoint(u, v);
-      Standard_Real apar = Geom2dInt_TheProjPCurOfGInter::FindParameter(*theArc, atmpPoint, 1.e-7);
+      Standard_Real apar = ProjPCurOfGInter::FindParameter(*theArc, atmpPoint, 1.e-7);
       Vtx.SetParameter(apar);
       anRLine->AddVertex(Vtx);
     }
@@ -898,7 +898,7 @@ static Handle(IntPatch_RLine) BuildRLine(const IntPatch_SequenceOfLine&     theS
         else
         {
           Standard_Real          u = RealLast(), v = RealLast();
-          const IntSurf_PntOn2S& POn2S = aWLine->Point(indexpnt);
+          const PointOn2Surfaces& POn2S = aWLine->Point(indexpnt);
           if (theRank == 1)
           {
             POn2S.ParametersOnS1(u, v);
@@ -909,7 +909,7 @@ static Handle(IntPatch_RLine) BuildRLine(const IntPatch_SequenceOfLine&     theS
           }
           gp_Pnt2d      aPOnArc, aPOnLine(u, v);
           Standard_Real par =
-            Geom2dInt_TheProjPCurOfGInter::FindParameter(*theDomain->Value(), aPOnLine, 1e-7);
+            ProjPCurOfGInter::FindParameter(*theDomain->Value(), aPOnLine, 1e-7);
           aPOnArc = theDomain->Value()->Value(par);
           Point3d        ap;
           Vector3d        ad1u, ad1v;
@@ -1354,8 +1354,8 @@ static Standard_Integer GetArc(IntPatch_SequenceOfLine&           theSlin,
       const Handle(IntPatch_WLine)& aWLine = *((Handle(IntPatch_WLine)*)&(theSlin.Value(i)));
 
       Standard_Integer       nbpnts  = aWLine->NbPnts();
-      const IntSurf_PntOn2S& POn2S_F = aWLine->Point(1);
-      const IntSurf_PntOn2S& POn2S_L = aWLine->Point(nbpnts);
+      const PointOn2Surfaces& POn2S_F = aWLine->Point(1);
+      const PointOn2Surfaces& POn2S_L = aWLine->Point(nbpnts);
 
       Standard_Real Upf = 0., Vpf = 0., Upl = 0., Vpl = 0.;
 
@@ -1373,8 +1373,8 @@ static Standard_Integer GetArc(IntPatch_SequenceOfLine&           theSlin,
       gp_Pnt2d aPOnLine_F(Upf, Vpf);
       gp_Pnt2d aPOnLine_L(Upl, Vpl);
 
-      Standard_Real par_F = Geom2dInt_TheProjPCurOfGInter::FindParameter(*arc, aPOnLine_F, tol);
-      Standard_Real par_L = Geom2dInt_TheProjPCurOfGInter::FindParameter(*arc, aPOnLine_L, tol);
+      Standard_Real par_F = ProjPCurOfGInter::FindParameter(*arc, aPOnLine_F, tol);
+      Standard_Real par_L = ProjPCurOfGInter::FindParameter(*arc, aPOnLine_L, tol);
 
       WLVertexParameters.Append(par_F);
       WLVertexParameters.Append(par_L);
@@ -1488,7 +1488,7 @@ static Standard_Integer GetArc(IntPatch_SequenceOfLine&           theSlin,
       Standard_Real u1 = 0., v1 = 0., u2 = 0., v2 = 0.;
       pOnS1.Parameter(u1, v1);
       pOnS2.Parameter(u2, v2);
-      IntSurf_PntOn2S pOn2S;
+      PointOn2Surfaces pOn2S;
       pOn2S.SetValue(arcpoint, u1, v1, u2, v2);
       theLineOn2S->Add(pOn2S);
     }

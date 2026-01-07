@@ -512,8 +512,8 @@ Standard_Boolean GeomPlate_BuildAveragePlane::HalfSpace(const TColgp_SequenceOfV
       return Standard_False;
 
     Cross.Normalize();
-    Bset.Append(GeomPlate_Aij(1, 2, Cross));
-    Bset.Append(GeomPlate_Aij(2, 1, -Cross));
+    Bset.Append(AijMatrix(1, 2, Cross));
+    Bset.Append(AijMatrix(2, 1, -Cross));
     Normals.Append(NewNormals(1));
     Normals.Append(NewNormals(2));
     i = 3;
@@ -585,7 +585,7 @@ Standard_Boolean GeomPlate_BuildAveragePlane::HalfSpace(const TColgp_SequenceOfV
           break;
         }
       if (isNew)
-        B1set.Append(GeomPlate_Aij(ii, j, Cross));
+        B1set.Append(AijMatrix(ii, j, Cross));
 
       Cross.Reverse();
       isNew = Standard_True;
@@ -632,7 +632,7 @@ Standard_Boolean GeomPlate_BuildAveragePlane::HalfSpace(const TColgp_SequenceOfV
           break;
         }
       if (isNew)
-        B1set.Append(GeomPlate_Aij(ii, j, Cross));
+        B1set.Append(AijMatrix(ii, j, Cross));
     }
 
     // 5

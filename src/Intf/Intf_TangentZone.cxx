@@ -19,11 +19,11 @@
 #define DEBUG_TANGENTZONE 0
 
 //=======================================================================
-// function : Intf_TangentZone
+// function : TangentZone
 // purpose  : Constructor of an empty tangent zone.
 //=======================================================================
 
-Intf_TangentZone::Intf_TangentZone()
+TangentZone::TangentZone()
 {
   ParamOnFirstMin = ParamOnSecondMin = RealLast();
   ParamOnFirstMax = ParamOnSecondMax = RealFirst();
@@ -34,7 +34,7 @@ Intf_TangentZone::Intf_TangentZone()
 // purpose  : Append the section point to the tangent zone.
 //=======================================================================
 
-void Intf_TangentZone::Append(const Intf_SectionPoint& Pi)
+void TangentZone::Append(const SectionPoint& Pi)
 {
   Result.Append(Pi);
   if (ParamOnFirstMin > Pi.ParamOnFirst())
@@ -53,7 +53,7 @@ void Intf_TangentZone::Append(const Intf_SectionPoint& Pi)
 // purpose  : Merge the TangentZone to the tangent zone.
 //=======================================================================
 
-void Intf_TangentZone::Append(const Intf_TangentZone& Tzi)
+void TangentZone::Append(const TangentZone& Tzi)
 {
   Standard_Integer Tzi_NumberOfPoints = Tzi.NumberOfPoints();
   for (Standard_Integer ipi = 1; ipi <= Tzi_NumberOfPoints; ipi++)
@@ -67,11 +67,11 @@ void Intf_TangentZone::Append(const Intf_TangentZone& Tzi)
 // purpose  : Insert the section point at his place in the tangent zone.
 //=======================================================================
 
-// Standard_Boolean Intf_TangentZone::Insert (const Intf_SectionPoint& Pi)
-Standard_Boolean Intf_TangentZone::Insert(const Intf_SectionPoint&)
+// Standard_Boolean TangentZone::Insert (const SectionPoint& Pi)
+Standard_Boolean TangentZone::Insert(const SectionPoint&)
 {
 #if DEBUG_TANGENTZONE
-  std::cout << " Standard_Boolean Intf_TangentZone::Insert (const Intf_SectionPoint& Pi) ???? "
+  std::cout << " Standard_Boolean TangentZone::Insert (const SectionPoint& Pi) ???? "
             << std::endl;
 #endif
   Standard_Boolean Inserted = Standard_False;
@@ -116,7 +116,7 @@ Standard_Boolean Intf_TangentZone::Insert(const Intf_SectionPoint&)
 // purpose  : Insert the point at his place in the polygonal tangent zone.
 //=======================================================================
 
-void Intf_TangentZone::PolygonInsert(const Intf_SectionPoint& Pi)
+void TangentZone::PolygonInsert(const SectionPoint& Pi)
 {
   //  Standard_Boolean  Inserted=Standard_False;
   Standard_Integer nbpTz = NumberOfPoints();
@@ -140,7 +140,7 @@ void Intf_TangentZone::PolygonInsert(const Intf_SectionPoint& Pi)
         Standard_Real PiParamOnFirst  = Pi.ParamOnFirst();
         Standard_Real PiParamOnSecond = Pi.ParamOnSecond();
         for (lpi=1; lpi<=nbpTz; lpi++) {
-          const Intf_SectionPoint& Resultlpi = Result(lpi);
+          const SectionPoint& Resultlpi = Result(lpi);
           if (PiParamOnFirst<Resultlpi.ParamOnFirst()) {
         InsertBefore(lpi, Pi);
         Inserted=Standard_True;
@@ -165,7 +165,7 @@ void Intf_TangentZone::PolygonInsert(const Intf_SectionPoint& Pi)
 
 //=================================================================================================
 
-void Intf_TangentZone::InsertAfter(const Standard_Integer Index, const Intf_SectionPoint& Pi)
+void TangentZone::InsertAfter(const Standard_Integer Index, const SectionPoint& Pi)
 {
   Result.InsertAfter(Index, Pi);
   if (ParamOnFirstMin > Pi.ParamOnFirst())
@@ -181,7 +181,7 @@ void Intf_TangentZone::InsertAfter(const Standard_Integer Index, const Intf_Sect
 
 //=================================================================================================
 
-void Intf_TangentZone::InsertBefore(const Standard_Integer Index, const Intf_SectionPoint& Pi)
+void TangentZone::InsertBefore(const Standard_Integer Index, const SectionPoint& Pi)
 {
   Result.InsertBefore(Index, Pi);
   if (ParamOnFirstMin > Pi.ParamOnFirst())
@@ -200,7 +200,7 @@ void Intf_TangentZone::InsertBefore(const Standard_Integer Index, const Intf_Sec
 // purpose  : Return the section point of range index in the tangent zone.
 //=======================================================================
 
-const Intf_SectionPoint& Intf_TangentZone::GetPoint(const Standard_Integer Index) const
+const SectionPoint& TangentZone::GetPoint(const Standard_Integer Index) const
 {
   return Result(Index);
 }
@@ -210,7 +210,7 @@ const Intf_SectionPoint& Intf_TangentZone::GetPoint(const Standard_Integer Index
 // purpose  : Compare two tangent zone.
 //=======================================================================
 
-Standard_Boolean Intf_TangentZone::IsEqual(const Intf_TangentZone& Other) const
+Standard_Boolean TangentZone::IsEqual(const TangentZone& Other) const
 {
   if (Result.Length() != Other.Result.Length())
     return Standard_False;
@@ -225,7 +225,7 @@ Standard_Boolean Intf_TangentZone::IsEqual(const Intf_TangentZone& Other) const
 
 //=================================================================================================
 
-Standard_Boolean Intf_TangentZone::Contains(const Intf_SectionPoint& ThePI) const
+Standard_Boolean TangentZone::Contains(const SectionPoint& ThePI) const
 {
   Standard_Integer i;
   for (i = 1; i <= Result.Length(); i++)
@@ -236,7 +236,7 @@ Standard_Boolean Intf_TangentZone::Contains(const Intf_SectionPoint& ThePI) cons
 
 //=================================================================================================
 
-void Intf_TangentZone::InfoFirst(Standard_Integer& segMin,
+void TangentZone::InfoFirst(Standard_Integer& segMin,
                                  Standard_Real&    paraMin,
                                  Standard_Integer& segMax,
                                  Standard_Real&    paraMax) const
@@ -250,7 +250,7 @@ void Intf_TangentZone::InfoFirst(Standard_Integer& segMin,
 
 //=================================================================================================
 
-void Intf_TangentZone::InfoSecond(Standard_Integer& segMin,
+void TangentZone::InfoSecond(Standard_Integer& segMin,
                                   Standard_Real&    paraMin,
                                   Standard_Integer& segMax,
                                   Standard_Real&    paraMax) const
@@ -264,7 +264,7 @@ void Intf_TangentZone::InfoSecond(Standard_Integer& segMin,
 
 //=================================================================================================
 
-Standard_Boolean Intf_TangentZone::RangeContains(const Intf_SectionPoint& ThePI) const
+Standard_Boolean TangentZone::RangeContains(const SectionPoint& ThePI) const
 {
   Standard_Real a, b, c, d;
   ParamOnFirst(a, b);
@@ -277,7 +277,7 @@ Standard_Boolean Intf_TangentZone::RangeContains(const Intf_SectionPoint& ThePI)
 
 //=================================================================================================
 
-Standard_Boolean Intf_TangentZone::HasCommonRange(const Intf_TangentZone& Other) const
+Standard_Boolean TangentZone::HasCommonRange(const TangentZone& Other) const
 {
   Standard_Real a1, b1, c1, d1;
   Standard_Real a2, b2, c2, d2;
@@ -297,7 +297,7 @@ Standard_Boolean Intf_TangentZone::HasCommonRange(const Intf_TangentZone& Other)
 // purpose  : Dump the TangentZone.
 //=======================================================================
 
-void Intf_TangentZone::Dump(const Standard_Integer /*Indent*/) const
+void TangentZone::Dump(const Standard_Integer /*Indent*/) const
 {
 #if DEBUG_TANGENTZONE
   for (Standard_Integer id = 0; id < Indent; id++)

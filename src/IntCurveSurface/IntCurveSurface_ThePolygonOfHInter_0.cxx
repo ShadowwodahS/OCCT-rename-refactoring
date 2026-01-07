@@ -24,7 +24,7 @@
 
 #define TheCurve Handle(Adaptor3d_Curve)
 #define TheCurve_hxx <Adaptor3d_Curve.hxx>
-#define TheCurveTool IntCurveSurface_TheHCurveTool
+#define TheCurveTool HCurveTool2
 #define TheCurveTool_hxx <IntCurveSurface_TheHCurveTool.hxx>
 #define IntCurveSurface_Polygon IntCurveSurface_ThePolygonOfHInter
 #define IntCurveSurface_Polygon_hxx <IntCurveSurface_ThePolygonOfHInter.hxx>

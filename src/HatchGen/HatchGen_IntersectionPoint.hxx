@@ -26,7 +26,7 @@
 #include <TopAbs_State.hxx>
 #include <Standard_Boolean.hxx>
 
-class HatchGen_IntersectionPoint
+class IntersectionPoint2
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -78,10 +78,10 @@ public:
 
 protected:
   //! Creates an empty intersection point.
-  Standard_EXPORT HatchGen_IntersectionPoint();
+  Standard_EXPORT IntersectionPoint2();
 
   //! Destructor is protected for safer inheritance
-  ~HatchGen_IntersectionPoint() {}
+  ~IntersectionPoint2() {}
 
 protected:
   Standard_Integer   myIndex;

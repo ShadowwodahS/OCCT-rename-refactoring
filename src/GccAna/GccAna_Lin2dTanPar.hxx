@@ -28,7 +28,7 @@
 #include <GccEnt_Position.hxx>
 class gp_Pnt2d;
 class gp_Lin2d;
-class GccEnt_QualifiedCirc;
+class QualifiedCircle;
 
 //! This class implements the algorithms used to create 2d
 //! line tangent to a circle or a point and parallel to
@@ -57,7 +57,7 @@ public:
   //! Exceptions
   //! GccEnt_BadQualifier if a qualifier is inconsistent with
   //! the argument it qualifies (for example, enclosed for a circle).
-  Standard_EXPORT Line2dTangentParallel(const GccEnt_QualifiedCirc& Qualified1, const gp_Lin2d& Lin1);
+  Standard_EXPORT Line2dTangentParallel(const QualifiedCircle& Qualified1, const gp_Lin2d& Lin1);
 
   //! Returns True if the algorithm succeeded.
   Standard_EXPORT Standard_Boolean IsDone() const;

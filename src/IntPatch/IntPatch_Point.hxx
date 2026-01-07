@@ -50,7 +50,7 @@ public:
   void SetValue(const Point3d& Pt);
 
   //! Sets the value of <pt> member
-  void SetValue(const IntSurf_PntOn2S& thePOn2S);
+  void SetValue(const PointOn2Surfaces& thePOn2S);
 
   void SetTolerance(const Standard_Real Tol);
 
@@ -81,8 +81,8 @@ public:
   Standard_EXPORT void SetArc(const Standard_Boolean           OnFirst,
                               const Handle(Adaptor2d_Curve2d)& A,
                               const Standard_Real              Param,
-                              const IntSurf_Transition&        TLine,
-                              const IntSurf_Transition&        TArc);
+                              const Transition2&        TLine,
+                              const Transition2&        TArc);
 
   //! Sets (or unsets) the point as a point on several
   //! intersection line.
@@ -140,14 +140,14 @@ public:
   //! intersection line with the arc on S1.
   //! The exception DomainError is raised if IsOnDomS1
   //! returns False.
-  const IntSurf_Transition& TransitionLineArc1() const;
+  const Transition2& TransitionLineArc1() const;
 
   //! Returns the transition between the intersection line
   //! returned by the method Line and the arc on S1 returned
   //! by ArcOnS1().
   //! The exception DomainError is raised if
   //! IsOnDomS1 returns False.
-  const IntSurf_Transition& TransitionOnS1() const;
+  const Transition2& TransitionOnS1() const;
 
   //! Returns the parameter of the point on the
   //! arc returned by the method ArcOnS2.
@@ -179,14 +179,14 @@ public:
   //! intersection line with the arc on S2.
   //! The exception DomainError is raised if IsOnDomS2
   //! returns False.
-  const IntSurf_Transition& TransitionLineArc2() const;
+  const Transition2& TransitionLineArc2() const;
 
   //! Returns the transition between the intersection line
   //! returned by the method Line and the arc on S2 returned
   //! by ArcOnS2.
   //! The exception DomainError is raised if
   //! IsOnDomS2 returns False.
-  const IntSurf_Transition& TransitionOnS2() const;
+  const Transition2& TransitionOnS2() const;
 
   //! Returns the parameter of the point on the
   //! arc returned by the method ArcOnS2.
@@ -196,7 +196,7 @@ public:
 
   //! Returns the PntOn2S
   //! (geometric Point and the parameters)
-  const IntSurf_PntOn2S& PntOn2S() const;
+  const PointOn2Surfaces& PntOn2S() const;
 
   //! Returns the parameters on the first and on the
   //! second surface of the point.
@@ -208,7 +208,7 @@ public:
 
 protected:
 private:
-  IntSurf_PntOn2S  pt;
+  PointOn2Surfaces  pt;
   Standard_Real    para;
   Standard_Real    tol;
   Standard_Boolean tgt;
@@ -220,15 +220,15 @@ private:
   Standard_Boolean          vtxonS1;
   Handle(Adaptor3d_HVertex) vS1;
   Handle(Adaptor2d_Curve2d) arcS1;
-  IntSurf_Transition        traline1;
-  IntSurf_Transition        tra1;
+  Transition2        traline1;
+  Transition2        tra1;
   Standard_Real             prm1;
   Standard_Boolean          onS2;
   Standard_Boolean          vtxonS2;
   Handle(Adaptor3d_HVertex) vS2;
   Handle(Adaptor2d_Curve2d) arcS2;
-  IntSurf_Transition        traline2;
-  IntSurf_Transition        tra2;
+  Transition2        traline2;
+  Transition2        tra2;
   Standard_Real             prm2;
 };
 

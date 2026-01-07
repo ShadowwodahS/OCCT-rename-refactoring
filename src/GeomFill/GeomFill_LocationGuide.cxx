@@ -69,7 +69,7 @@ static Standard_Integer Affich = 0;
 #ifdef OCCT_DEBUG
 static void TraceRevol(const Standard_Real                        t,
                        const Standard_Real                        s,
-                       const Handle(GeomFill_TrihedronWithGuide)& Law,
+                       const Handle(GeomFill_TrihedronWithGuide)& Law1,
                        const Handle(GeomFill_SectionLaw)&         Section,
                        const Handle(Adaptor3d_Curve)&             Curve,
                        const gp_Mat&                              Trans)
@@ -80,7 +80,7 @@ static void TraceRevol(const Standard_Real                        t,
   gp_Ax3 Rep(gp::Origin(), gp::DZ(), gp::DX());
 
   Curve->D0(t, P);
-  Law->D0(t, T, N, B);
+  Law1->D0(t, T, N, B);
 
   gp_Mat M(N.XYZ(), B.XYZ(), T.XYZ());
   M *= Trans;
@@ -224,7 +224,7 @@ void GeomFill_LocationGuide::SetRotation(const Standard_Real PrecAngle, Standard
   Handle(Geom_SurfaceOfRevolution)  Revol; // surface de revolution
   Handle(GeomAdaptor_Surface)       Pl;    // = Revol
   Handle(Geom_TrimmedCurve)         S;
-  IntCurveSurface_IntersectionPoint PInt; // intersection guide/Revol
+  IntersectionPoint1 PInt; // intersection guide/Revol
   Handle(TColStd_HArray1OfInteger)  Mult;
   Handle(TColStd_HArray1OfReal)     Knots, Weights;
   Handle(TColgp_HArray1OfPnt)       Poles;
@@ -987,7 +987,7 @@ Standard_Boolean GeomFill_LocationGuide::D2(
           else std::cout <<"LocationGuide::D2 : No Result dans la derivee premiere"<<std::endl;
 
           // deuxieme derivee
-          GeomFill_Tensor D2EDX2(3,3,3);
+          Tensor1 D2EDX2(3,3,3);
           E.Deriv2X(R, D2EDX2); // d2E/dx2
 
           math_Vector D2EDT2(1,3,0);

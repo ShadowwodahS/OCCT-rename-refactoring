@@ -21,7 +21,7 @@
 #include <IntCurve_PConicTool.hxx>
 
 //----------------------------------------------------------------------
-gp_Pnt2d IntCurve_PConicTool::Value(const IntCurve_PConic& PConic, const Standard_Real X)
+gp_Pnt2d ParametricConicTool::Value(const ParametricConic& PConic, const Standard_Real X)
 {
   switch (PConic.TypeCurve())
   {
@@ -44,7 +44,7 @@ gp_Pnt2d IntCurve_PConicTool::Value(const IntCurve_PConic& PConic, const Standar
 }
 
 //----------------------------------------------------------------------
-void IntCurve_PConicTool::D1(const IntCurve_PConic& PConic,
+void ParametricConicTool::D1(const ParametricConic& PConic,
                              const Standard_Real    U,
                              gp_Pnt2d&              Pt,
                              gp_Vec2d&              Tan)
@@ -78,7 +78,7 @@ void IntCurve_PConicTool::D1(const IntCurve_PConic& PConic,
 }
 
 //----------------------------------------------------------------------
-void IntCurve_PConicTool::D2(const IntCurve_PConic& PConic,
+void ParametricConicTool::D2(const ParametricConic& PConic,
                              const Standard_Real    U,
                              gp_Pnt2d&              Pt,
                              gp_Vec2d&              Tan,
@@ -113,19 +113,19 @@ void IntCurve_PConicTool::D2(const IntCurve_PConic& PConic,
   }
 }
 
-Standard_Real IntCurve_PConicTool::EpsX(const IntCurve_PConic& PConic)
+Standard_Real ParametricConicTool::EpsX(const ParametricConic& PConic)
 {
   return (PConic.EpsX());
 }
 
-Standard_Integer IntCurve_PConicTool::NbSamples(const IntCurve_PConic& PConic)
+Standard_Integer ParametricConicTool::NbSamples(const ParametricConic& PConic)
 {
   return (PConic.Accuracy());
 }
 
-// Standard_Integer IntCurve_PConicTool::NbSamples(const IntCurve_PConic& PConic,const Standard_Real
+// Standard_Integer ParametricConicTool::NbSamples(const ParametricConic& PConic,const Standard_Real
 // U0,const Standard_Real U1) {
-Standard_Integer IntCurve_PConicTool::NbSamples(const IntCurve_PConic& PConic,
+Standard_Integer ParametricConicTool::NbSamples(const ParametricConic& PConic,
                                                 const Standard_Real,
                                                 const Standard_Real)
 {

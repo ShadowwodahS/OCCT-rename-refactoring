@@ -35,7 +35,7 @@
 //! Note: the interior of a line is defined as the left-hand
 //! side of the line in relation to its orientation (i.e. when
 //! moving from the start to the end of the curve).
-class GccEnt_QualifiedLin
+class QualifiedLine
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -48,7 +48,7 @@ public:
   //! -   GccEnt_unqualified if all solutions apply.
   //! Note : the interior of a line is defined as the left-hand
   //! side of the line in relation to its orientation.
-  Standard_EXPORT GccEnt_QualifiedLin(const gp_Lin2d& Qualified, const GccEnt_Position Qualifier);
+  Standard_EXPORT QualifiedLine(const gp_Lin2d& Qualified, const GccEnt_Position Qualifier);
 
   //! Returns a 2D line to which the qualifier is assigned.
   Standard_EXPORT gp_Lin2d Qualified() const;

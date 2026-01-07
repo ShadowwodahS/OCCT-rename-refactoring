@@ -28,20 +28,20 @@ class StdFail_NotDone;
 class Standard_OutOfRange;
 class Standard_ConstructionError;
 class Adaptor3d_HVertex;
-class IntPatch_HCurve2dTool;
-class IntPatch_HInterTool;
+class HCurve2dTool1;
+class HInterTool;
 class Adaptor3d_TopolTool;
 class IntPatch_ArcFunction;
 class IntPatch_ThePathPointOfTheSOnBounds;
 class IntPatch_TheSegmentOfTheSOnBounds;
 
-class IntPatch_TheSOnBounds
+class SOnBounds
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty constructor.
-  Standard_EXPORT IntPatch_TheSOnBounds();
+  Standard_EXPORT SOnBounds();
 
   //! Algorithm to find the points and parts of curves of Domain
   //! (domain of of restriction of a surface) which verify
@@ -96,9 +96,9 @@ private:
 #define TheVertex_hxx <Adaptor3d_HVertex.hxx>
 #define TheArc Handle(Adaptor2d_Curve2d)
 #define TheArc_hxx <Adaptor2d_Curve2d.hxx>
-#define TheArcTool IntPatch_HCurve2dTool
+#define TheArcTool HCurve2dTool1
 #define TheArcTool_hxx <IntPatch_HCurve2dTool.hxx>
-#define TheSOBTool IntPatch_HInterTool
+#define TheSOBTool HInterTool
 #define TheSOBTool_hxx <IntPatch_HInterTool.hxx>
 #define Handle_TheTopolTool Handle(Adaptor3d_TopolTool)
 #define TheTopolTool Adaptor3d_TopolTool
@@ -113,7 +113,7 @@ private:
 #define IntStart_TheSegment_hxx <IntPatch_TheSegmentOfTheSOnBounds.hxx>
 #define IntStart_SequenceOfSegment IntPatch_SequenceOfSegmentOfTheSOnBounds
 #define IntStart_SequenceOfSegment_hxx <IntPatch_SequenceOfSegmentOfTheSOnBounds.hxx>
-#define IntStart_SearchOnBoundaries IntPatch_TheSOnBounds
+#define IntStart_SearchOnBoundaries SOnBounds
 #define IntStart_SearchOnBoundaries_hxx <IntPatch_TheSOnBounds.hxx>
 
 #include <IntStart_SearchOnBoundaries.lxx>

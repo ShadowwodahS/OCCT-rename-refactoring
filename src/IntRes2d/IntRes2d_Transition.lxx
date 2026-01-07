@@ -16,9 +16,9 @@
 
 #include <Standard_DomainError.hxx>
 
-std::ostream& operator<<(std::ostream&, IntRes2d_Transition&);
+std::ostream& operator<<(std::ostream&, Transition3&);
 
-inline IntRes2d_Transition::IntRes2d_Transition(const Standard_Boolean   Tangent,
+inline Transition3::Transition3(const Standard_Boolean   Tangent,
                                                 const IntRes2d_Position  Pos,
                                                 const IntRes2d_TypeTrans Type)
     :
@@ -32,7 +32,7 @@ inline IntRes2d_Transition::IntRes2d_Transition(const Standard_Boolean   Tangent
 {
 }
 
-inline IntRes2d_Transition::IntRes2d_Transition(const Standard_Boolean   Tangent,
+inline Transition3::Transition3(const Standard_Boolean   Tangent,
                                                 const IntRes2d_Position  Pos,
                                                 const IntRes2d_Situation Situ,
                                                 const Standard_Boolean   Oppos)
@@ -44,7 +44,7 @@ inline IntRes2d_Transition::IntRes2d_Transition(const Standard_Boolean   Tangent
 {
 }
 
-inline IntRes2d_Transition::IntRes2d_Transition(const IntRes2d_Position Pos)
+inline Transition3::Transition3(const IntRes2d_Position Pos)
     :
 
       tangent(Standard_True),
@@ -55,7 +55,7 @@ inline IntRes2d_Transition::IntRes2d_Transition(const IntRes2d_Position Pos)
 {
 }
 
-inline void IntRes2d_Transition::SetValue(const Standard_Boolean   Tangent,
+inline void Transition3::SetValue(const Standard_Boolean   Tangent,
                                           const IntRes2d_Position  Pos,
                                           const IntRes2d_TypeTrans Type)
 {
@@ -65,7 +65,7 @@ inline void IntRes2d_Transition::SetValue(const Standard_Boolean   Tangent,
   typetra = Type;
 }
 
-inline void IntRes2d_Transition::SetValue(const Standard_Boolean   Tangent,
+inline void Transition3::SetValue(const Standard_Boolean   Tangent,
                                           const IntRes2d_Position  Pos,
                                           const IntRes2d_Situation Situ,
                                           const Standard_Boolean   Oppos)
@@ -78,32 +78,32 @@ inline void IntRes2d_Transition::SetValue(const Standard_Boolean   Tangent,
   oppos   = Oppos;
 }
 
-inline void IntRes2d_Transition::SetValue(const IntRes2d_Position Pos)
+inline void Transition3::SetValue(const IntRes2d_Position Pos)
 {
 
   posit   = Pos;
   typetra = IntRes2d_Undecided;
 }
 
-inline void IntRes2d_Transition::SetPosition(const IntRes2d_Position Pos)
+inline void Transition3::SetPosition(const IntRes2d_Position Pos)
 {
 
   posit = Pos;
 }
 
-inline IntRes2d_Position IntRes2d_Transition::PositionOnCurve() const
+inline IntRes2d_Position Transition3::PositionOnCurve() const
 {
 
   return posit;
 }
 
-inline IntRes2d_TypeTrans IntRes2d_Transition::TransitionType() const
+inline IntRes2d_TypeTrans Transition3::TransitionType() const
 {
 
   return typetra;
 }
 
-inline Standard_Boolean IntRes2d_Transition::IsTangent() const
+inline Standard_Boolean Transition3::IsTangent() const
 {
 
   if (typetra == IntRes2d_Undecided)
@@ -113,7 +113,7 @@ inline Standard_Boolean IntRes2d_Transition::IsTangent() const
   return tangent;
 }
 
-inline IntRes2d_Situation IntRes2d_Transition::Situation() const
+inline IntRes2d_Situation Transition3::Situation() const
 {
 
   if (typetra != IntRes2d_Touch)
@@ -123,7 +123,7 @@ inline IntRes2d_Situation IntRes2d_Transition::Situation() const
   return situat;
 }
 
-inline Standard_Boolean IntRes2d_Transition::IsOpposite() const
+inline Standard_Boolean Transition3::IsOpposite() const
 {
 
   if (typetra != IntRes2d_Touch)

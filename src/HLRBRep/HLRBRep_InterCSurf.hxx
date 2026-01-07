@@ -43,7 +43,7 @@ class gp_Hypr;
 class IntAna_IntConicQuad;
 class Bnd_Box;
 
-class HLRBRep_InterCSurf : public IntCurveSurface_Intersection
+class HLRBRep_InterCSurf : public CurveSurfaceIntersection1
 {
 public:
   DEFINE_STANDARD_ALLOC

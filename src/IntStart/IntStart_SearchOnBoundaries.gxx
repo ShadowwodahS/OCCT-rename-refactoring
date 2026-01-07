@@ -69,7 +69,7 @@
 
 
 static Standard_Boolean IsDegenerated(const Handle(Adaptor3d_CurveOnSurface)& theCurve);
-static Standard_Boolean IsDegenerated(const IntSurf_Quadric& theQuadric);
+static Standard_Boolean IsDegenerated(const Quadric1& theQuadric);
 
 static void FindVertex (const TheArc&,
                         const Handle(TheTopolTool)&,
@@ -100,7 +100,7 @@ static void PointProcess (const Point3d&,
 
 static Standard_Integer TreatLC (const TheArc& A,
                                  const Handle(TheTopolTool)& aDomain,
-                                 const IntSurf_Quadric& aQuadric,
+                                 const Quadric1& aQuadric,
                                  const Standard_Real TolBoundary,
                                  IntStart_SequenceOfPathPoint& pnt);
 
@@ -185,7 +185,7 @@ Standard_Boolean IsDegenerated(const Handle(Adaptor3d_CurveOnSurface)& theCurve)
   return Standard_False;
 }
 
-Standard_Boolean IsDegenerated(const IntSurf_Quadric& theQuadric)
+Standard_Boolean IsDegenerated(const Quadric1& theQuadric)
 {
   GeomAbs_SurfaceType TypeQuad = theQuadric.TypeQuadric();
   if (TypeQuad == GeomAbs_Cone)
@@ -352,7 +352,7 @@ void BoundedArc (const TheArc& A,
 
   if(Rejection==Standard_False)
   {
-    const IntSurf_Quadric& aQuadric = Func.Quadric();
+    const Quadric1& aQuadric = Func.Quadric();
     GeomAbs_SurfaceType TypeQuad = aQuadric.TypeQuadric();
     GeomAbs_CurveType TypeConS = GeomAbs_OtherCurve;
     
@@ -620,7 +620,7 @@ void BoundedArc (const TheArc& A,
               aTang = aTang && Abs(yf) < maxdist && Abs(yl) < maxdist;
             }
             if (aTang && IsIntCSdone && TypeConS == GeomAbs_Line) {
-              //Interval is got by exact intersection
+              //Interval1 is got by exact intersection
               //Line can be tangent if all points are on the same side of surface
               //it means that signs of all distances are the same
               Standard_Real sf = Sign(1., yf), sl = Sign(1., yl);
@@ -755,8 +755,8 @@ void BoundedArc (const TheArc& A,
       if (IsIntCSdone)
       {
         IntCurveSurface_IntersectionSegment IntSeg = IntCS.Segment(i);
-        IntCurveSurface_IntersectionPoint End1 = IntSeg.FirstPoint();
-        IntCurveSurface_IntersectionPoint End2 = IntSeg.SecondPoint();
+        IntersectionPoint1 End1 = IntSeg.FirstPoint();
+        IntersectionPoint1 End2 = IntSeg.SecondPoint();
         pardeb = End1.W();
         parfin = End2.W();
         ptdeb  = End1.Pnt();
@@ -997,7 +997,7 @@ Standard_Boolean IsRegularity(const TheArc& /*A*/,
 //=======================================================================
 Standard_Integer TreatLC (const TheArc& A,
                           const Handle(TheTopolTool)& aDomain,
-                          const IntSurf_Quadric& aQuadric,
+                          const Quadric1& aQuadric,
                           const Standard_Real TolBoundary,
                           IntStart_SequenceOfPathPoint& pnt)
 {

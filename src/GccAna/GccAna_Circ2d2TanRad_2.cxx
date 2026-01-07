@@ -39,7 +39,7 @@
 // Create the solution that will be added to already found solutions.         +
 // Fill the fields.                                                +
 //========================================================================
-Circle2dTwoTangentRadius::Circle2dTwoTangentRadius(const GccEnt_QualifiedCirc& Qualified1,
+Circle2dTwoTangentRadius::Circle2dTwoTangentRadius(const QualifiedCircle& Qualified1,
                                            const gp_Pnt2d&             Point2,
                                            const Standard_Real         Radius,
                                            const Standard_Real         Tolerance)

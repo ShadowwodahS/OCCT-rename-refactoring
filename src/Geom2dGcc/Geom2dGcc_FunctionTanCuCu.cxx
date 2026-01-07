@@ -33,13 +33,13 @@ void Geom2dGcc_FunctionTanCuCu::InitDerivative(const math_Vector& X,
   switch (TheType)
   {
     case Geom2dGcc_CuCu: {
-      Geom2dGcc_CurveTool::D2(TheCurve1, X(1), Point1, Tan1, D21);
-      Geom2dGcc_CurveTool::D2(TheCurve2, X(2), Point2, Tan2, D22);
+      CurveTool3::D2(TheCurve1, X(1), Point1, Tan1, D21);
+      CurveTool3::D2(TheCurve2, X(2), Point2, Tan2, D22);
     }
     break;
     case Geom2dGcc_CiCu: {
       ElCLib::D2(X(1), TheCirc1, Point1, Tan1, D21);
-      Geom2dGcc_CurveTool::D2(TheCurve2, X(2), Point2, Tan2, D22);
+      CurveTool3::D2(TheCurve2, X(2), Point2, Tan2, D22);
     }
     break;
     default: {

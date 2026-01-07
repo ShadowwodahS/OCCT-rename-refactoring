@@ -32,7 +32,7 @@
 //=========================================================================
 //   Creation of a circle tangent to a straight line and two points.      +
 //=========================================================================
-Circle2dThreeTangent::Circle2dThreeTangent(const GccEnt_QualifiedLin& Qualified1,
+Circle2dThreeTangent::Circle2dThreeTangent(const QualifiedLine& Qualified1,
                                      const gp_Pnt2d&            Point2,
                                      const gp_Pnt2d&            Point3,
                                      const Standard_Real        Tolerance)
@@ -81,7 +81,7 @@ Circle2dThreeTangent::Circle2dThreeTangent(const GccEnt_QualifiedLin& Qualified1
     return;
   }
 
-  GccAna_Pnt2dBisec    Bis1(Point2, Point3);
+  Point2dBisector    Bis1(Point2, Point3);
   GccAna_LinPnt2dBisec Bis2(L1, Point2);
   if (Bis1.IsDone() && Bis2.IsDone())
   {

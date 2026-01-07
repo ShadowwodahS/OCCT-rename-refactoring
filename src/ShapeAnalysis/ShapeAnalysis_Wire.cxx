@@ -1139,7 +1139,7 @@ Standard_Boolean ShapeAnalysis_Wire::CheckSelfIntersectingEdge(
 
   Standard_Real tolint = 1.0e-10;
   // szv#4:S4163:12Mar99 warning
-  IntRes2d_Domain     domain(Crv->Value(a), a, tolint, Crv->Value(b), b, tolint);
+  Domain2     domain(Crv->Value(a), a, tolint, Crv->Value(b), b, tolint);
   Geom2dAdaptor_Curve AC(Crv);
   Geom2dInt_GInter    Inter(AC, domain, tolint, tolint);
 
@@ -1162,8 +1162,8 @@ Standard_Boolean ShapeAnalysis_Wire::CheckSelfIntersectingEdge(
   for (Standard_Integer i = 1; i <= Inter.NbPoints(); i++)
   {
     const IntRes2d_IntersectionPoint& IP  = Inter.Point(i);
-    const IntRes2d_Transition&        Tr1 = IP.TransitionOfFirst();
-    const IntRes2d_Transition&        Tr2 = IP.TransitionOfSecond();
+    const Transition3&        Tr1 = IP.TransitionOfFirst();
+    const Transition3&        Tr2 = IP.TransitionOfSecond();
     if (Tr1.PositionOnCurve() != IntRes2d_Middle && Tr2.PositionOnCurve() != IntRes2d_Middle)
       continue;
     Point3d        pint   = GetPointOnEdge(edge, mySurf, AC, IP.ParamOnFirst());
@@ -1263,8 +1263,8 @@ Standard_Boolean ShapeAnalysis_Wire::CheckIntersectingEdges(
 
   // szv#4:S4163:12Mar99 warning
   Geom2dAdaptor_Curve C1(Crv1), C2(Crv2);
-  IntRes2d_Domain     d1(C1.Value(a1), a1, tolint, C1.Value(b1), b1, tolint);
-  IntRes2d_Domain     d2(C2.Value(a2), a2, tolint, C2.Value(b2), b2, tolint);
+  Domain2     d1(C1.Value(a1), a1, tolint, C1.Value(b1), b1, tolint);
+  Domain2     d2(C2.Value(a2), a2, tolint, C2.Value(b2), b2, tolint);
 
   //: 64 abv 25 Dec 97: Attention!
   // Since Intersection algorithm is not symmetrical, for consistency with BRepCheck
@@ -1294,7 +1294,7 @@ Standard_Boolean ShapeAnalysis_Wire::CheckIntersectingEdges(
   for (Standard_Integer i = 1; i <= NbPoints + NbSegments; i++)
   {
     IntRes2d_IntersectionPoint IP;
-    IntRes2d_Transition        Tr1, Tr2;
+    Transition3        Tr1, Tr2;
     if (i <= NbPoints)
       IP = Inter.Point(i);
     else
@@ -1425,8 +1425,8 @@ Standard_Boolean ShapeAnalysis_Wire::CheckIntersectingEdges(
 
   Standard_Real tolint = 1.0e-10;
 
-  IntRes2d_Domain     d1(Crv1->Value(a1), a1, tolint, Crv1->Value(b1), b1, tolint);
-  IntRes2d_Domain     d2(Crv2->Value(a2), a2, tolint, Crv2->Value(b2), b2, tolint);
+  Domain2     d1(Crv1->Value(a1), a1, tolint, Crv1->Value(b1), b1, tolint);
+  Domain2     d2(Crv2->Value(a2), a2, tolint, Crv2->Value(b2), b2, tolint);
   Geom2dAdaptor_Curve C1(Crv1), C2(Crv2);
 
   Geom2dInt_GInter Inter;
@@ -1440,7 +1440,7 @@ Standard_Boolean ShapeAnalysis_Wire::CheckIntersectingEdges(
   for (Standard_Integer i = 1; i <= NbPoints + NbSegments; i++)
   {
     IntRes2d_IntersectionPoint IP;
-    IntRes2d_Transition        Tr1, Tr2;
+    Transition3        Tr1, Tr2;
     if (i <= NbPoints)
       IP = Inter.Point(i);
     else

@@ -16,7 +16,7 @@
 
 // 09/09/1996 PMN Ajout des methodes GetCircle et GetTolerance.
 // 30/12/1996 PMN Ajout de GetMinimalWeight
-// 23/09/1997 PMN Supprimme GetCircle et GetTol (passe dans GeomFill)
+// 23/09/1997 PMN Supprimme GetCircle et GetTol (passe dans GeomFill1)
 
 #include <BlendFunc.hxx>
 

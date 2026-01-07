@@ -811,8 +811,8 @@ static Bnd_Box2d CreateBoxes2d(const Handle(ShapeExtend_WireData)& sewd,
 
 static void SelectIntPnt(const Geom2dInt_GInter&     Inter,
                          IntRes2d_IntersectionPoint& IP,
-                         IntRes2d_Transition&        Tr1,
-                         IntRes2d_Transition&        Tr2)
+                         Transition3&        Tr1,
+                         Transition3&        Tr2)
 {
   IP  = Inter.Point(1);
   Tr1 = IP.TransitionOfFirst();
@@ -826,7 +826,7 @@ static void SelectIntPnt(const Geom2dInt_GInter&     Inter,
     if (Tr2.PositionOnCurve() == IntRes2d_Middle)
       status1 += 2;
     IntRes2d_IntersectionPoint IP2;
-    IntRes2d_Transition        Tr12, Tr22;
+    Transition3        Tr12, Tr22;
     IP2  = Inter.Point(2);
     Tr12 = IP2.TransitionOfFirst();
     Tr22 = IP2.TransitionOfSecond();
@@ -969,8 +969,8 @@ Standard_Boolean ShapeFix_IntersectionTool::FixSelfIntersectWire(Handle(ShapeExt
           return Standard_False;
         Standard_Real       tolint = 1.0e-10;
         Geom2dAdaptor_Curve C1(Crv1), C2(Crv2);
-        IntRes2d_Domain     d1(C1.Value(a1), a1, tolint, C1.Value(b1), b1, tolint);
-        IntRes2d_Domain     d2(C2.Value(a2), a2, tolint, C2.Value(b2), b2, tolint);
+        Domain2     d1(C1.Value(a1), a1, tolint, C1.Value(b1), b1, tolint);
+        Domain2     d2(C2.Value(a2), a2, tolint, C2.Value(b2), b2, tolint);
         Geom2dInt_GInter    Inter;
         Inter.Perform(C1, d1, C2, d2, tolint, tolint);
         if (!Inter.IsDone())
@@ -979,7 +979,7 @@ Standard_Boolean ShapeFix_IntersectionTool::FixSelfIntersectWire(Handle(ShapeExt
         if (Inter.NbPoints() > 0 && Inter.NbPoints() < 3)
         {
           IntRes2d_IntersectionPoint IP;
-          IntRes2d_Transition        Tr1, Tr2;
+          Transition3        Tr1, Tr2;
           SelectIntPnt(Inter, IP, Tr1, Tr2);
           if (Tr1.PositionOnCurve() == IntRes2d_Middle && Tr2.PositionOnCurve() == IntRes2d_Middle)
           {
@@ -1733,8 +1733,8 @@ Standard_Boolean ShapeFix_IntersectionTool::FixIntersectingWires(TopoFace& face)
               continue; // return Standard_False;gka 06.09.04
             Standard_Real       tolint = 1.0e-10;
             Geom2dAdaptor_Curve C1(Crv1), C2(Crv2);
-            IntRes2d_Domain     d1(C1.Value(a1), a1, tolint, C1.Value(b1), b1, tolint);
-            IntRes2d_Domain     d2(C2.Value(a2), a2, tolint, C2.Value(b2), b2, tolint);
+            Domain2     d1(C1.Value(a1), a1, tolint, C1.Value(b1), b1, tolint);
+            Domain2     d2(C2.Value(a2), a2, tolint, C2.Value(b2), b2, tolint);
             Geom2dInt_GInter    Inter;
             Inter.Perform(C1, d1, C2, d2, tolint, tolint);
             if (!Inter.IsDone())
@@ -1743,7 +1743,7 @@ Standard_Boolean ShapeFix_IntersectionTool::FixIntersectingWires(TopoFace& face)
             if (Inter.NbPoints() > 0 && Inter.NbPoints() < 3)
             {
               IntRes2d_IntersectionPoint IP;
-              IntRes2d_Transition        Tr1, Tr2;
+              Transition3        Tr1, Tr2;
               SelectIntPnt(Inter, IP, Tr1, Tr2);
               if (Tr1.PositionOnCurve() == IntRes2d_Middle
                   && Tr2.PositionOnCurve() == IntRes2d_Middle)

@@ -54,16 +54,16 @@ Geom2dGcc_FunctionTanCirCu::Geom2dGcc_FunctionTanCirCu(const gp_Circ2d&         
   TheCirc = Circ;
 
   //  Modified by Sergey KHROMOV - Thu Apr  5 09:51:21 2001 Begin
-  Standard_Integer aNbSamp = Geom2dGcc_CurveTool::NbSamples(Curve);
-  Standard_Real    aFirst  = Geom2dGcc_CurveTool::FirstParameter(Curve);
-  Standard_Real    aLast   = Geom2dGcc_CurveTool::LastParameter(Curve);
+  Standard_Integer aNbSamp = CurveTool3::NbSamples(Curve);
+  Standard_Real    aFirst  = CurveTool3::FirstParameter(Curve);
+  Standard_Real    aLast   = CurveTool3::LastParameter(Curve);
   Standard_Real    aStep   = (aLast - aFirst) / aNbSamp;
   Standard_Real    anX     = aFirst + aStep / 2.;
   Coords2d            aLoc(0., 0.);
 
   while (anX <= aLast)
   {
-    aLoc += (Geom2dGcc_CurveTool::Value(Curve, anX)).XY();
+    aLoc += (CurveTool3::Value(Curve, anX)).XY();
     anX += aStep;
   }
   myWeight = Max((aLoc - TheCirc.Location().XY()).SquareModulus(), TheCirc.Radius());
@@ -74,7 +74,7 @@ Standard_Boolean Geom2dGcc_FunctionTanCirCu::Value(const Standard_Real X, Standa
 {
   gp_Pnt2d Point;
   gp_Vec2d Vect1;
-  Geom2dGcc_CurveTool::D1(Curve, X, Point, Vect1);
+  CurveTool3::D1(Curve, X, Point, Vect1);
   Standard_Real NormeD1 = Vect1.Magnitude();
   gp_Vec2d      TheDirection(TheCirc.Location(), Point);
   Standard_Real squaredir = TheDirection.Dot(TheDirection);
@@ -91,7 +91,7 @@ Standard_Boolean Geom2dGcc_FunctionTanCirCu::Derivative(const Standard_Real X, S
 {
   gp_Pnt2d Point;
   gp_Vec2d Vect1, Vect2;
-  Geom2dGcc_CurveTool::D2(Curve, X, Point, Vect1, Vect2);
+  CurveTool3::D2(Curve, X, Point, Vect1, Vect2);
   Standard_Real NormeD1 = Vect1.SquareMagnitude();
   gp_Vec2d      TheDirection(TheCirc.Location(), Point);
   Standard_Real cp1dott = TheDirection.Dot(Vect1);
@@ -109,7 +109,7 @@ Standard_Boolean Geom2dGcc_FunctionTanCirCu::Values(const Standard_Real X,
 {
   gp_Pnt2d Point;
   gp_Vec2d Vect1, Vect2;
-  Geom2dGcc_CurveTool::D2(Curve, X, Point, Vect1, Vect2);
+  CurveTool3::D2(Curve, X, Point, Vect1, Vect2);
   Standard_Real NormeD1 = Vect1.SquareMagnitude();
   gp_Vec2d      TheDirection(TheCirc.Location(), Point);
   Standard_Real squaredir = TheDirection.SquareMagnitude();

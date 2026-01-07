@@ -21,14 +21,14 @@
 
 class IntPolyh_Triangle;
 
-class IntPolyh_StartPoint
+class StartPoint
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT IntPolyh_StartPoint();
+  Standard_EXPORT StartPoint();
 
-  Standard_EXPORT IntPolyh_StartPoint(const Standard_Real    xx,
+  Standard_EXPORT StartPoint(const Standard_Real    xx,
                                       const Standard_Real    yy,
                                       const Standard_Real    zz,
                                       const Standard_Real    uu1,
@@ -100,7 +100,7 @@ public:
 
   Standard_EXPORT void SetChainList(const Standard_Integer ChList);
 
-  Standard_EXPORT Standard_Integer CheckSameSP(const IntPolyh_StartPoint& SP) const;
+  Standard_EXPORT Standard_Integer CheckSameSP(const StartPoint& SP) const;
 
   Standard_EXPORT void Dump() const;
 

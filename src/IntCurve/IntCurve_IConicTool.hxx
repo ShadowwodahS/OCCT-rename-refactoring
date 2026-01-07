@@ -31,26 +31,26 @@ class gp_Hypr2d;
 class gp_Pnt2d;
 class gp_Vec2d;
 
-//! Implementation of the ImpTool from IntImpParGen
+//! Implementation of the ImpTool from IntImpParGen1
 //! for conics of gp.
-class IntCurve_IConicTool
+class ConicTool
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT IntCurve_IConicTool();
+  Standard_EXPORT ConicTool();
 
-  Standard_EXPORT IntCurve_IConicTool(const IntCurve_IConicTool& IT);
+  Standard_EXPORT ConicTool(const ConicTool& IT);
 
-  Standard_EXPORT IntCurve_IConicTool(const gp_Elips2d& E);
+  Standard_EXPORT ConicTool(const gp_Elips2d& E);
 
-  Standard_EXPORT IntCurve_IConicTool(const gp_Lin2d& L);
+  Standard_EXPORT ConicTool(const gp_Lin2d& L);
 
-  Standard_EXPORT IntCurve_IConicTool(const gp_Circ2d& C);
+  Standard_EXPORT ConicTool(const gp_Circ2d& C);
 
-  Standard_EXPORT IntCurve_IConicTool(const gp_Parab2d& P);
+  Standard_EXPORT ConicTool(const gp_Parab2d& P);
 
-  Standard_EXPORT IntCurve_IConicTool(const gp_Hypr2d& H);
+  Standard_EXPORT ConicTool(const gp_Hypr2d& H);
 
   Standard_EXPORT gp_Pnt2d Value(const Standard_Real X) const;
 

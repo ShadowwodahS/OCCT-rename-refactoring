@@ -595,7 +595,7 @@ Standard_Integer bopcurves(DrawInterpreter& di, Standard_Integer n, const char**
     }
     else if (!strcasecmp(a[i], "-p"))
     {
-      IntSurf_PntOn2S     aPt;
+      PointOn2Surfaces     aPt;
       const Standard_Real aU1 = Draw1::Atof(a[++i]);
       const Standard_Real aV1 = Draw1::Atof(a[++i]);
       const Standard_Real aU2 = Draw1::Atof(a[++i]);

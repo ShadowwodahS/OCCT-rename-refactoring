@@ -55,8 +55,8 @@ void IntPatch_Point::SetVertex(const Standard_Boolean OnFirst, const Handle(Adap
 void IntPatch_Point::SetArc(const Standard_Boolean           OnFirst,
                             const Handle(Adaptor2d_Curve2d)& A,
                             const Standard_Real              Param,
-                            const IntSurf_Transition&        TLine,
-                            const IntSurf_Transition&        TArc)
+                            const Transition2&        TLine,
+                            const Transition2&        TArc)
 {
   if (OnFirst)
   {
@@ -80,7 +80,7 @@ void IntPatch_Point::ReverseTransition()
 {
   if (onS1)
   {
-    IntSurf_Transition TLine;
+    Transition2 TLine;
     switch (traline1.TransitionType())
     {
       case IntSurf_In:
@@ -93,7 +93,7 @@ void IntPatch_Point::ReverseTransition()
         break;
     }
     traline1 = TLine;
-    IntSurf_Transition TArc;
+    Transition2 TArc;
     switch (tra1.TransitionType())
     {
       case IntSurf_In:
@@ -109,7 +109,7 @@ void IntPatch_Point::ReverseTransition()
   }
   if (onS2)
   {
-    IntSurf_Transition TLine;
+    Transition2 TLine;
     switch (traline2.TransitionType())
     {
       case IntSurf_In:
@@ -122,7 +122,7 @@ void IntPatch_Point::ReverseTransition()
         break;
     }
     traline2 = TLine;
-    IntSurf_Transition TArc;
+    Transition2 TArc;
     switch (tra2.TransitionType())
     {
       case IntSurf_In:
@@ -141,7 +141,7 @@ void IntPatch_Point::ReverseTransition()
 #include <IntSurf_Situation.hxx>
 #include <IntSurf_TypeTrans.hxx>
 
-static void DumpTransition(const IntSurf_Transition& T)
+static void DumpTransition(const Transition2& T)
 {
   IntSurf_TypeTrans typetrans = T.TransitionType();
   if (typetrans == IntSurf_In)

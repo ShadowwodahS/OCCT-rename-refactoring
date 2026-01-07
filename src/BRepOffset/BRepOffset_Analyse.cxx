@@ -228,7 +228,7 @@ Standard_Boolean CheckMixedContinuity(const TopoEdge&  theEdge,
     if (i == aNbSamples)
       aPar = aLast;
 
-    LocalAnalysis_SurfaceContinuity aCont(aC2d1,
+    SurfaceContinuity aCont(aC2d1,
                                           aC2d2,
                                           aPar,
                                           aSurf1,
@@ -257,7 +257,7 @@ Standard_Boolean CheckMixedContinuity(const TopoEdge&  theEdge,
     if (i == aNbSamples)
       aPar = aLast;
 
-    LocalAnalysis_SurfaceContinuity aCont(aC2d1,
+    SurfaceContinuity aCont(aC2d1,
                                           aC2d2,
                                           aPar,
                                           aSurf1,

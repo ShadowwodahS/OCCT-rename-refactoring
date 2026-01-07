@@ -22,13 +22,13 @@
 #include <StdFail_NotDone.hxx>
 
 /***********************************************************************/
-void LocalAnalysis_CurveContinuity::CurvC0(GeomLProp_CLProps& Curv1, GeomLProp_CLProps& Curv2)
+void CurveContinuity::CurvC0(GeomLProp_CLProps& Curv1, GeomLProp_CLProps& Curv2)
 {
   myContC0 = (Curv1.Value()).Distance(Curv2.Value());
 }
 
 /****************************************************************************/
-void LocalAnalysis_CurveContinuity::CurvC1(GeomLProp_CLProps& Curv1, GeomLProp_CLProps& Curv2)
+void CurveContinuity::CurvC1(GeomLProp_CLProps& Curv1, GeomLProp_CLProps& Curv2)
 {
   Vector3d        V1, V2;
   Standard_Real ang;
@@ -63,7 +63,7 @@ void LocalAnalysis_CurveContinuity::CurvC1(GeomLProp_CLProps& Curv1, GeomLProp_C
 
 /*********************************************************************************/
 
-void LocalAnalysis_CurveContinuity::CurvC2(GeomLProp_CLProps& Curv1, GeomLProp_CLProps& Curv2)
+void CurveContinuity::CurvC2(GeomLProp_CLProps& Curv1, GeomLProp_CLProps& Curv2)
 {
   Vector3d V1, V2, V12, V22;
   //  Dir3d D1, D2;
@@ -115,7 +115,7 @@ void LocalAnalysis_CurveContinuity::CurvC2(GeomLProp_CLProps& Curv1, GeomLProp_C
 
 /*********************************************************************************/
 
-void LocalAnalysis_CurveContinuity::CurvG1(GeomLProp_CLProps& Curv1, GeomLProp_CLProps& Curv2)
+void CurveContinuity::CurvG1(GeomLProp_CLProps& Curv1, GeomLProp_CLProps& Curv2)
 {
   Dir3d        Tang1, Tang2;
   Standard_Real ang;
@@ -138,7 +138,7 @@ void LocalAnalysis_CurveContinuity::CurvG1(GeomLProp_CLProps& Curv1, GeomLProp_C
 
 /*********************************************************************************/
 
-void LocalAnalysis_CurveContinuity::CurvG2(GeomLProp_CLProps& Curv1, GeomLProp_CLProps& Curv2)
+void CurveContinuity::CurvG2(GeomLProp_CLProps& Curv1, GeomLProp_CLProps& Curv2)
 {
   Vector3d        V1, V2;
   Dir3d        D1, D2;
@@ -179,7 +179,7 @@ void LocalAnalysis_CurveContinuity::CurvG2(GeomLProp_CLProps& Curv1, GeomLProp_C
 
 /*********************************************************************************/
 
-LocalAnalysis_CurveContinuity::LocalAnalysis_CurveContinuity(const Handle(GeomCurve3d)& Curv1,
+CurveContinuity::CurveContinuity(const Handle(GeomCurve3d)& Curv1,
                                                              const Standard_Real       u1,
                                                              const Handle(GeomCurve3d)& Curv2,
                                                              const Standard_Real       u2,
@@ -262,7 +262,7 @@ LocalAnalysis_CurveContinuity::LocalAnalysis_CurveContinuity(const Handle(GeomCu
 
 /*********************************************************************************/
 
-Standard_Boolean LocalAnalysis_CurveContinuity::IsC0() const
+Standard_Boolean CurveContinuity::IsC0() const
 {
   if (!myIsDone)
   {
@@ -276,7 +276,7 @@ Standard_Boolean LocalAnalysis_CurveContinuity::IsC0() const
 
 /*********************************************************************************/
 
-Standard_Boolean LocalAnalysis_CurveContinuity::IsC1() const
+Standard_Boolean CurveContinuity::IsC1() const
 {
   if (!myIsDone)
   {
@@ -290,7 +290,7 @@ Standard_Boolean LocalAnalysis_CurveContinuity::IsC1() const
 
 /*********************************************************************************/
 
-Standard_Boolean LocalAnalysis_CurveContinuity::IsC2() const
+Standard_Boolean CurveContinuity::IsC2() const
 {
   Standard_Real epsil1, epsil2;
 
@@ -315,7 +315,7 @@ Standard_Boolean LocalAnalysis_CurveContinuity::IsC2() const
 
 /*********************************************************************************/
 
-Standard_Boolean LocalAnalysis_CurveContinuity::IsG1() const
+Standard_Boolean CurveContinuity::IsG1() const
 {
   if (!myIsDone)
   {
@@ -329,7 +329,7 @@ Standard_Boolean LocalAnalysis_CurveContinuity::IsG1() const
 
 /*********************************************************************************/
 
-Standard_Boolean LocalAnalysis_CurveContinuity::IsG2() const
+Standard_Boolean CurveContinuity::IsG2() const
 {
   Standard_Real    CRBINF, CRBNUL;
   Standard_Integer IETA1, IETA2;
@@ -385,7 +385,7 @@ Standard_Boolean LocalAnalysis_CurveContinuity::IsG2() const
 
 /*********************************************************************************/
 
-Standard_Real LocalAnalysis_CurveContinuity::C0Value() const
+Standard_Real CurveContinuity::C0Value() const
 {
   if (!myIsDone)
   {
@@ -396,7 +396,7 @@ Standard_Real LocalAnalysis_CurveContinuity::C0Value() const
 
 /*********************************************************************************/
 
-Standard_Real LocalAnalysis_CurveContinuity::C1Angle() const
+Standard_Real CurveContinuity::C1Angle() const
 {
   if (!myIsDone)
   {
@@ -407,7 +407,7 @@ Standard_Real LocalAnalysis_CurveContinuity::C1Angle() const
 
 /*********************************************************************************/
 
-Standard_Real LocalAnalysis_CurveContinuity::C2Angle() const
+Standard_Real CurveContinuity::C2Angle() const
 {
   if (!myIsDone)
   {
@@ -418,7 +418,7 @@ Standard_Real LocalAnalysis_CurveContinuity::C2Angle() const
 
 /*********************************************************************************/
 
-Standard_Real LocalAnalysis_CurveContinuity::G1Angle() const
+Standard_Real CurveContinuity::G1Angle() const
 {
   if (!myIsDone)
   {
@@ -429,7 +429,7 @@ Standard_Real LocalAnalysis_CurveContinuity::G1Angle() const
 
 /*********************************************************************************/
 
-Standard_Real LocalAnalysis_CurveContinuity::G2Angle() const
+Standard_Real CurveContinuity::G2Angle() const
 {
   if (!myIsDone)
   {
@@ -440,7 +440,7 @@ Standard_Real LocalAnalysis_CurveContinuity::G2Angle() const
 
 /*********************************************************************************/
 
-Standard_Real LocalAnalysis_CurveContinuity::C1Ratio() const
+Standard_Real CurveContinuity::C1Ratio() const
 {
   if (!myIsDone)
   {
@@ -451,7 +451,7 @@ Standard_Real LocalAnalysis_CurveContinuity::C1Ratio() const
 
 /*********************************************************************************/
 
-Standard_Real LocalAnalysis_CurveContinuity::C2Ratio() const
+Standard_Real CurveContinuity::C2Ratio() const
 {
   if (!myIsDone)
   {
@@ -461,7 +461,7 @@ Standard_Real LocalAnalysis_CurveContinuity::C2Ratio() const
 }
 
 /********************************************************************************/
-Standard_Real LocalAnalysis_CurveContinuity::G2CurvatureVariation() const
+Standard_Real CurveContinuity::G2CurvatureVariation() const
 {
   if (!myIsDone)
   {
@@ -472,20 +472,20 @@ Standard_Real LocalAnalysis_CurveContinuity::G2CurvatureVariation() const
 
 /********************************************************************************/
 
-Standard_Boolean LocalAnalysis_CurveContinuity::IsDone() const
+Standard_Boolean CurveContinuity::IsDone() const
 {
   return (myIsDone);
 }
 
 /*********************************************************************************/
 
-LocalAnalysis_StatusErrorType LocalAnalysis_CurveContinuity::StatusError() const
+LocalAnalysis_StatusErrorType CurveContinuity::StatusError() const
 {
   return myErrorStatus;
 }
 
 /*************************************************************************/
-GeomAbs_Shape LocalAnalysis_CurveContinuity::ContinuityStatus() const
+GeomAbs_Shape CurveContinuity::ContinuityStatus() const
 {
   if (!myIsDone)
   {

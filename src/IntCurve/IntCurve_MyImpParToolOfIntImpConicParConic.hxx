@@ -24,9 +24,9 @@
 #include <IntCurve_IConicTool.hxx>
 #include <math_FunctionWithDerivative.hxx>
 #include <Standard_Boolean.hxx>
-class IntCurve_IConicTool;
-class IntCurve_PConic;
-class IntCurve_PConicTool;
+class ConicTool;
+class ParametricConic;
+class ParametricConicTool;
 
 class IntCurve_MyImpParToolOfIntImpConicParConic : public math_FunctionWithDerivative
 {
@@ -34,8 +34,8 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Constructor of the class.
-  Standard_EXPORT IntCurve_MyImpParToolOfIntImpConicParConic(const IntCurve_IConicTool& IT,
-                                                             const IntCurve_PConic&     PC);
+  Standard_EXPORT IntCurve_MyImpParToolOfIntImpConicParConic(const ConicTool& IT,
+                                                             const ParametricConic&     PC);
 
   //! Computes the value of the signed distance between
   //! the implicit curve and the point at parameter Param
@@ -56,7 +56,7 @@ public:
 protected:
 private:
   Standard_Address    TheParCurve;
-  IntCurve_IConicTool TheImpTool;
+  ConicTool TheImpTool;
 };
 
 #endif // _IntCurve_MyImpParToolOfIntImpConicParConic_HeaderFile

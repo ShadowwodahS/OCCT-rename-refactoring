@@ -39,7 +39,7 @@
 //! -   the starting point for parameterization is that of the "X
 //! Axis" of the local coordinate system (i.e. the "X Axis" of the circle).
 //! See Also
-//! GccAna and Geom2dGcc packages which provide
+//! GccAna and Geom2dGcc1 packages which provide
 //! functions for constructing circles defined by geometric constraints
 //! gce_MakeCirc2d which provides functions for more
 //! complex circle constructions

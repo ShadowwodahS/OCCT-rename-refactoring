@@ -29,11 +29,11 @@
 #include <AppParCurves_HArray1OfConstraintCouple.hxx>
 class Standard_OutOfRange;
 class GeomInt_TheMultiLineOfWLApprox;
-class GeomInt_TheMultiLineToolOfWLApprox;
+class MultiLineToolWLApprox;
 class AppParCurves_MultiCurve;
 class math_Matrix;
 
-class GeomInt_ResConstraintOfMyGradientbisOfTheComputeLineOfWLApprox
+class ResConstraintGradientbisLine
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -48,7 +48,7 @@ public:
   //! and DA is the derivative bernstein matrix.(They can come
   //! from an approximation with ParLeastSquare.)
   //! The MultiCurve is modified. New MultiPoles are given.
-  Standard_EXPORT GeomInt_ResConstraintOfMyGradientbisOfTheComputeLineOfWLApprox(
+  Standard_EXPORT ResConstraintGradientbisLine(
     const GeomInt_TheMultiLineOfWLApprox&                 SSP,
     AppParCurves_MultiCurve&                              SCurv,
     const Standard_Integer                                FirstPoint,

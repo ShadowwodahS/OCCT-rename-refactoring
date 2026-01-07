@@ -25,7 +25,7 @@
 class BSplineCurve3d;
 class Geom2d_BSplineCurve;
 class IntSurf_LineOn2S;
-class IntSurf_PntOn2S;
+class PointOn2Surfaces;
 
 class BRepApprox_ApproxLine;
 DEFINE_STANDARD_HANDLE(BRepApprox_ApproxLine, RefObject)
@@ -45,7 +45,7 @@ public:
 
   Standard_EXPORT Standard_Integer NbPnts() const;
 
-  Standard_EXPORT IntSurf_PntOn2S Point(const Standard_Integer Index);
+  Standard_EXPORT PointOn2Surfaces Point(const Standard_Integer Index);
 
   DEFINE_STANDARD_RTTIEXT(BRepApprox_ApproxLine, RefObject)
 

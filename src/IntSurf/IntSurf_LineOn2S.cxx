@@ -40,7 +40,7 @@ Handle(IntSurf_LineOn2S) IntSurf_LineOn2S::Split(const Standard_Integer Index)
   return NS;
 }
 
-void IntSurf_LineOn2S::InsertBefore(const Standard_Integer index, const IntSurf_PntOn2S& P)
+void IntSurf_LineOn2S::InsertBefore(const Standard_Integer index, const PointOn2Surfaces& P)
 {
   if (index > mySeq.Length())
   {
@@ -176,7 +176,7 @@ Standard_Boolean IntSurf_LineOn2S::IsOutSurf2Box(const gp_Pnt2d& P2uv)
 
 //=================================================================================================
 
-void IntSurf_LineOn2S::Add(const IntSurf_PntOn2S& P)
+void IntSurf_LineOn2S::Add(const PointOn2Surfaces& P)
 {
   mySeq.Append(P);
   if (!myBxyz.IsWhole())

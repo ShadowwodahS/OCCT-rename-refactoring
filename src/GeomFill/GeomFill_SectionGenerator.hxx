@@ -34,7 +34,7 @@
 //! gives  the  functions  needed  for  instantiation from
 //! AppSurf in AppBlend.   Allow  to  evaluate  a  surface
 //! passing by all the curves if the Profiler.
-class GeomFill_SectionGenerator : public GeomFill_Profiler
+class GeomFill_SectionGenerator : public Profiler
 {
 public:
   DEFINE_STANDARD_ALLOC

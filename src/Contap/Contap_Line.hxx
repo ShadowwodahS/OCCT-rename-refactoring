@@ -28,7 +28,7 @@
 #include <Standard_Integer.hxx>
 
 class IntSurf_LineOn2S;
-class IntSurf_PntOn2S;
+class PointOn2Surfaces;
 class gp_Lin;
 class gp_Circ;
 class Contap_Point;
@@ -48,7 +48,7 @@ public:
 
   Standard_EXPORT void ResetSeqOfVertex();
 
-  void Add(const IntSurf_PntOn2S& P);
+  void Add(const PointOn2Surfaces& P);
 
   Standard_EXPORT void SetValue(const gp_Lin& L);
 
@@ -69,7 +69,7 @@ public:
 
   Standard_Integer NbPnts() const;
 
-  const IntSurf_PntOn2S& Point(const Standard_Integer Index) const;
+  const PointOn2Surfaces& Point(const Standard_Integer Index) const;
 
   gp_Lin Line() const;
 

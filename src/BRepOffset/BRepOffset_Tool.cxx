@@ -2072,7 +2072,7 @@ static void ExtentEdge(const TopoFace& F,
   Tang = tmin * Tang;
   gp_Pnt2d PL2d(P.X() + Tang.X(), P.Y() + Tang.Y());
 
-  Handle(GeomCurve3d) CC = GeomAPI::To3d(C2d, gp_Pln(gp::XOY()));
+  Handle(GeomCurve3d) CC = GeomAPI1::To3d(C2d, gp_Pln(gp::XOY()));
   Point3d             PF(PF2d.X(), PF2d.Y(), 0.);
   Point3d             PL(PL2d.X(), PL2d.Y(), 0.);
 
@@ -2083,7 +2083,7 @@ static void ExtentEdge(const TopoFace& F,
   GeomLib::ExtendCurveToPoint(ExtC, PF, 1, 0);
   GeomLib::ExtendCurveToPoint(ExtC, PL, 1, 1);
 
-  Handle(GeomCurve2d) CNE2d = GeomAPI::To2d(ExtC, gp_Pln(gp::XOY()));
+  Handle(GeomCurve2d) CNE2d = GeomAPI1::To2d(ExtC, gp_Pln(gp::XOY()));
 
   // Construction de la nouvelle arrete;
   ShapeBuilder B;

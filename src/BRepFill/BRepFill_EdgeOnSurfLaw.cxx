@@ -56,7 +56,7 @@ BRepFill_EdgeOnSurfLaw::BRepFill_EdgeOnSurfLaw(const TopoWire& Path, const TopoS
   Handle(BRepAdaptor_Surface)        AS;
   Standard_Real                      First = 0., Last = 0.;
   Handle(GeomFill_Darboux)           TLaw = new (GeomFill_Darboux)();
-  Handle(GeomFill_CurveAndTrihedron) Law  = new (GeomFill_CurveAndTrihedron)(TLaw);
+  Handle(GeomFill_CurveAndTrihedron) Law1  = new (GeomFill_CurveAndTrihedron)(TLaw);
 
   for (ipath = 0, wexp.Init(myPath); wexp.More(); wexp.Next())
   {
@@ -95,7 +95,7 @@ BRepFill_EdgeOnSurfLaw::BRepFill_EdgeOnSurfLaw(const TopoWire& Path, const TopoS
 
       AC2d = new (Geom2dAdaptor_Curve)(C, First, Last);
       AC   = new (Adaptor3d_CurveOnSurface)(Adaptor3d_CurveOnSurface(AC2d, AS));
-      myLaws->SetValue(ipath, Law->Copy());
+      myLaws->SetValue(ipath, Law1->Copy());
       myLaws->ChangeValue(ipath)->SetCurve(AC);
     }
   }

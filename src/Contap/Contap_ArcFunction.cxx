@@ -204,7 +204,7 @@ Standard_Integer Contap_ArcFunction::NbSamples() const
 // function : Quadric
 // purpose  : returns empty Quadric
 //=======================================================================
-const IntSurf_Quadric& Contap_ArcFunction::Quadric() const
+const Quadric1& Contap_ArcFunction::Quadric() const
 {
   return (myQuad);
 }

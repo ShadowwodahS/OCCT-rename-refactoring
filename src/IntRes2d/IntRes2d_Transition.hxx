@@ -34,27 +34,27 @@
 //! transition" which means that the  first curve does not
 //! cross  the  other one,  or an  "undecided" transition,
 //! which means that the curves are superposed.
-class IntRes2d_Transition
+class Transition3
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty constructor.
-  Standard_EXPORT IntRes2d_Transition();
+  Standard_EXPORT Transition3();
 
   //! Creates an IN or OUT transition.
-  IntRes2d_Transition(const Standard_Boolean   Tangent,
+  Transition3(const Standard_Boolean   Tangent,
                       const IntRes2d_Position  Pos,
                       const IntRes2d_TypeTrans Type);
 
   //! Creates a TOUCH transition.
-  IntRes2d_Transition(const Standard_Boolean   Tangent,
+  Transition3(const Standard_Boolean   Tangent,
                       const IntRes2d_Position  Pos,
                       const IntRes2d_Situation Situ,
                       const Standard_Boolean   Oppos);
 
   //! Creates an UNDECIDED transition.
-  IntRes2d_Transition(const IntRes2d_Position Pos);
+  Transition3(const IntRes2d_Position Pos);
 
   //! Sets the values of an IN or OUT transition.
   void SetValue(const Standard_Boolean   Tangent,

@@ -24,7 +24,7 @@
 #include <GccEnt_Position.hxx>
 #include <gp_Pnt2d.hxx>
 class Geom2dGcc_QCurve;
-class GccEnt_QualifiedCirc;
+class QualifiedCircle;
 
 //! This class implements the algorithms used to
 //! create 2d lines tangent to 2 other elements which
@@ -35,7 +35,7 @@ class GccEnt_QualifiedCirc;
 //! and raise BadQualifier Error in case of incorrect couple (qualifier,
 //! curv).
 //! For example: "EnclosedCirc".
-class Geom2dGcc_Lin2d2TanIter
+class Line2dTwoTangentIter
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -45,7 +45,7 @@ public:
   //! Tolang is used to determine the tolerance for the
   //! tangency points.
   //! Param2 is used for the initial guess on the curve.
-  Standard_EXPORT Geom2dGcc_Lin2d2TanIter(const Geom2dGcc_QCurve& Qualified1,
+  Standard_EXPORT Line2dTwoTangentIter(const Geom2dGcc_QCurve& Qualified1,
                                           const gp_Pnt2d&         ThePoint,
                                           const Standard_Real     Param1,
                                           const Standard_Real     Tolang);
@@ -57,7 +57,7 @@ public:
   //! Param2 is used for the initial guess on the curve.
   //! Exception BadQualifier is raised in the case of
   //! EnclosedCirc
-  Standard_EXPORT Geom2dGcc_Lin2d2TanIter(const GccEnt_QualifiedCirc& Qualified1,
+  Standard_EXPORT Line2dTwoTangentIter(const QualifiedCircle& Qualified1,
                                           const Geom2dGcc_QCurve&     Qualified2,
                                           const Standard_Real         Param2,
                                           const Standard_Real         Tolang);
@@ -68,7 +68,7 @@ public:
   //! tangency points.
   //! Param1 is used for the initial guess on the first curve.
   //! Param2 is used for the initial guess on the second curve.
-  Standard_EXPORT Geom2dGcc_Lin2d2TanIter(const Geom2dGcc_QCurve& Qualified1,
+  Standard_EXPORT Line2dTwoTangentIter(const Geom2dGcc_QCurve& Qualified1,
                                           const Geom2dGcc_QCurve& Qualified2,
                                           const Standard_Real     Param1,
                                           const Standard_Real     Param2,

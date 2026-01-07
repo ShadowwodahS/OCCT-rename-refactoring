@@ -25,12 +25,12 @@ inline void IntSurf_LineOn2S::Reverse()
   mySeq.Reverse();
 }
 
-inline const IntSurf_PntOn2S& IntSurf_LineOn2S::Value(const Standard_Integer Index) const
+inline const PointOn2Surfaces& IntSurf_LineOn2S::Value(const Standard_Integer Index) const
 {
   return mySeq(Index);
 }
 
-inline void IntSurf_LineOn2S::Value(const Standard_Integer Index, const IntSurf_PntOn2S& P)
+inline void IntSurf_LineOn2S::Value(const Standard_Integer Index, const PointOn2Surfaces& P)
 {
   mySeq(Index) = P;
 }

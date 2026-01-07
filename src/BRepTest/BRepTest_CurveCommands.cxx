@@ -963,7 +963,7 @@ static Standard_Integer profile(DrawInterpreter& di, Standard_Integer n, const c
         }
         Handle(Geom2d_Line) l = new Geom2d_Line(gp_Pnt2d(x, y), gp_Dir2d(dx, dy));
         if (isplanar)
-          MW.Add(EdgeMaker(GeomAPI::To3d(l, P), 0, length));
+          MW.Add(EdgeMaker(GeomAPI1::To3d(l, P), 0, length));
         else
           MW.Add(EdgeMaker(l, Surface, 0, length));
         x += length * dx;
@@ -988,7 +988,7 @@ static Standard_Integer profile(DrawInterpreter& di, Standard_Integer n, const c
         }
         Handle(Geom2d_Circle) c = new Geom2d_Circle(ax, radius, sense);
         if (isplanar)
-          MW.Add(EdgeMaker(GeomAPI::To3d(c, P), 0, angle));
+          MW.Add(EdgeMaker(GeomAPI1::To3d(c, P), 0, angle));
         else
           MW.Add(EdgeMaker(c, Surface, 0, angle));
         gp_Pnt2d p;
@@ -1205,7 +1205,7 @@ static Standard_Integer bsplineprof(DrawInterpreter& di, Standard_Integer n, con
       if (a2dInterpolator.IsDone())
       {
         C           = a2dInterpolator.Curve();
-        curve3d_ptr = GeomAPI::To3d(C, P);
+        curve3d_ptr = GeomAPI1::To3d(C, P);
         DrawTrSurf1::Set(a[1], curve3d_ptr);
         dout.RepaintView(id);
       }
@@ -1225,7 +1225,7 @@ static Standard_Integer bsplineprof(DrawInterpreter& di, Standard_Integer n, con
         Handle(Geom2d_Line) l = new Geom2d_Line(gp_Pnt2d(x, y), gp_Dir2d(dx, dy));
         if (isplanar)
         {
-          MW.Add(EdgeMaker(GeomAPI::To3d(l, P), 0, length));
+          MW.Add(EdgeMaker(GeomAPI1::To3d(l, P), 0, length));
         }
         else
         {
@@ -1270,7 +1270,7 @@ static Standard_Integer bsplineprof(DrawInterpreter& di, Standard_Integer n, con
     length                = a_vector.Magnitude();
     Handle(Geom2d_Line) l = new Geom2d_Line(gp_Pnt2d(x, y), gp_Dir2d(dx, dy));
     if (isplanar)
-      MW.Add(EdgeMaker(GeomAPI::To3d(l, P), 0, length));
+      MW.Add(EdgeMaker(GeomAPI1::To3d(l, P), 0, length));
     else
       MW.Add(EdgeMaker(l, Surface, 0, length));
   }

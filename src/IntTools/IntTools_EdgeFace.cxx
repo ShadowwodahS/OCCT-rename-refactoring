@@ -418,7 +418,7 @@ Standard_Boolean IntTools_EdgeFace::CheckTouch(const IntTools_CommonPrt& aCP, St
         {
           for (Standard_Integer i = 1; i <= anExactIntersector.NbPoints(); i++)
           {
-            const IntCurveSurface_IntersectionPoint& aPoint = anExactIntersector.Point(i);
+            const IntersectionPoint1& aPoint = anExactIntersector.Point(i);
 
             if ((aPoint.W() >= aTF) && (aPoint.W() <= aTL))
             {

@@ -17,45 +17,45 @@
 #include <gp_Pnt.hxx>
 #include <gp_Dir2d.hxx>
 
-inline Point3d IntSurf_PathPointTool::Value3d(const IntSurf_PathPoint& PStart)
+inline Point3d PathPointTool::Value3d(const IntSurf_PathPoint& PStart)
 {
   return PStart.Value();
 }
 
-inline void IntSurf_PathPointTool::Value2d(const IntSurf_PathPoint& PStart,
+inline void PathPointTool::Value2d(const IntSurf_PathPoint& PStart,
                                            Standard_Real&           U,
                                            Standard_Real&           V)
 {
   PStart.Value2d(U, V);
 }
 
-inline Standard_Boolean IntSurf_PathPointTool::IsPassingPnt(const IntSurf_PathPoint& PStart)
+inline Standard_Boolean PathPointTool::IsPassingPnt(const IntSurf_PathPoint& PStart)
 {
 
   return PStart.IsPassingPnt();
 }
 
-inline Standard_Boolean IntSurf_PathPointTool::IsTangent(const IntSurf_PathPoint& PStart)
+inline Standard_Boolean PathPointTool::IsTangent(const IntSurf_PathPoint& PStart)
 {
   return PStart.IsTangent();
 }
 
-inline Vector3d IntSurf_PathPointTool::Direction3d(const IntSurf_PathPoint& PStart)
+inline Vector3d PathPointTool::Direction3d(const IntSurf_PathPoint& PStart)
 {
   return PStart.Direction3d();
 }
 
-inline gp_Dir2d IntSurf_PathPointTool::Direction2d(const IntSurf_PathPoint& PStart)
+inline gp_Dir2d PathPointTool::Direction2d(const IntSurf_PathPoint& PStart)
 {
   return PStart.Direction2d();
 }
 
-inline Standard_Integer IntSurf_PathPointTool::Multiplicity(const IntSurf_PathPoint& PStart)
+inline Standard_Integer PathPointTool::Multiplicity(const IntSurf_PathPoint& PStart)
 {
   return PStart.Multiplicity();
 }
 
-inline void IntSurf_PathPointTool::Parameters(const IntSurf_PathPoint& PStart,
+inline void PathPointTool::Parameters(const IntSurf_PathPoint& PStart,
                                               const Standard_Integer   Mult,
                                               Standard_Real&           U,
                                               Standard_Real&           V)

@@ -23,7 +23,7 @@ inline void IntWalk_IWLine::Cut(const Standard_Integer Index)
   Handle(IntSurf_LineOn2S) lost = line->Split(Index);
 }
 
-inline void IntWalk_IWLine::AddPoint(const IntSurf_PntOn2S& P)
+inline void IntWalk_IWLine::AddPoint(const PointOn2Surfaces& P)
 {
   line->Add(P);
 }
@@ -72,7 +72,7 @@ inline void IntWalk_IWLine::AddStatusFirstLast(const Standard_Boolean Closed,
 inline void IntWalk_IWLine::AddIndexPassing(const Standard_Integer Index)
 
 {
-  couple.Append(IntSurf_Couple(line->NbPoints() + 1, Index));
+  couple.Append(Couple1(line->NbPoints() + 1, Index));
 }
 
 inline Standard_Integer IntWalk_IWLine::NbPoints() const
@@ -80,7 +80,7 @@ inline Standard_Integer IntWalk_IWLine::NbPoints() const
   return line->NbPoints();
 }
 
-inline const IntSurf_PntOn2S& IntWalk_IWLine::Value(const Standard_Integer Index) const
+inline const PointOn2Surfaces& IntWalk_IWLine::Value(const Standard_Integer Index) const
 {
   return line->Value(Index);
 }

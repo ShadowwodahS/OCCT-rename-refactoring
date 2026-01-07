@@ -36,7 +36,7 @@ class Law_Constant : public Law_Function
 public:
   Standard_EXPORT Law_Constant();
 
-  //! Set the radius and the range of the constant Law.
+  //! Set the radius and the range of the constant Law1.
   Standard_EXPORT void Set(const Standard_Real Radius,
                            const Standard_Real PFirst,
                            const Standard_Real PLast);

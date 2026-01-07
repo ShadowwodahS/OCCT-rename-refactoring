@@ -60,14 +60,14 @@ static void PutPointsOnLine(const Handle(Adaptor3d_Surface)& S1,
                             const IntPatch_SequenceOfLine&,
                             const Standard_Boolean,
                             const Handle(Adaptor3d_TopolTool)&,
-                            const IntSurf_Quadric&,
-                            const IntSurf_Quadric&,
+                            const Quadric1&,
+                            const Quadric1&,
                             const Standard_Boolean,
                             const Standard_Real);
 
 static Standard_Boolean MultiplePoint(const IntPatch_SequenceOfPathPointOfTheSOnBounds& listpnt,
                                       const Handle(Adaptor3d_TopolTool)&                Domain,
-                                      const IntSurf_Quadric&                            QuadSurf,
+                                      const Quadric1&                            QuadSurf,
                                       const Vector3d&                                     Normale,
                                       const IntPatch_SequenceOfLine&                    slin,
                                       TColStd_Array1OfInteger&                          Done,
@@ -78,7 +78,7 @@ static Standard_Boolean MultiplePoint(const IntPatch_SequenceOfPathPointOfTheSOn
 
 static Standard_Boolean PointOnSecondDom(const IntPatch_SequenceOfPathPointOfTheSOnBounds& listpnt,
                                          const Handle(Adaptor3d_TopolTool)&                Domain,
-                                         const IntSurf_Quadric&                            QuadSurf,
+                                         const Quadric1&                            QuadSurf,
                                          const Vector3d&                                     Normale,
                                          const Vector3d&                                     Vtgint,
                                          const Handle(IntPatch_Line)&                      lin,
@@ -102,20 +102,20 @@ static Standard_Boolean FindLine(Point3d&                          Psurf,
                                  const Handle(Adaptor2d_Curve2d)& thearc,
                                  Standard_Real&                   theparameteronarc,
                                  Point3d&                          thepointonarc,
-                                 const IntSurf_Quadric&           QuadSurf1,
-                                 const IntSurf_Quadric&           QuadSurf2,
+                                 const Quadric1&           QuadSurf1,
+                                 const Quadric1&           QuadSurf2,
                                  Standard_Real&                   theOutputToler);
 
 static void ProcessSegments(const IntPatch_SequenceOfSegmentOfTheSOnBounds&,
                             IntPatch_SequenceOfLine&,
-                            const IntSurf_Quadric&,
-                            const IntSurf_Quadric&,
+                            const Quadric1&,
+                            const Quadric1&,
                             const Standard_Boolean,
                             const Standard_Real);
 
 static void ProcessRLine(IntPatch_SequenceOfLine&,
-                         const IntSurf_Quadric&,
-                         const IntSurf_Quadric&,
+                         const Quadric1&,
+                         const Quadric1&,
                          const Standard_Real,
                          const Standard_Boolean theIsReqToKeepRLine);
 
@@ -126,7 +126,7 @@ Standard_Boolean IntersectionWithAnArc(Point3d&                          PSurf,
                                        const Handle(Adaptor2d_Curve2d)& thearc,
                                        Standard_Real&                   _theparameteronarc,
                                        Point3d&                          thepointonarc,
-                                       const IntSurf_Quadric&           QuadSurf,
+                                       const Quadric1&           QuadSurf,
                                        const Standard_Real              u0alin,
                                        const Standard_Real              u1alin)
 {
@@ -428,8 +428,8 @@ void PutPointsOnLine(const Handle(Adaptor3d_Surface)&                  S1,
                      const IntPatch_SequenceOfLine&                    slin,
                      const Standard_Boolean                            OnFirst,
                      const Handle(Adaptor3d_TopolTool)&                Domain,
-                     const IntSurf_Quadric&                            QuadSurf,
-                     const IntSurf_Quadric&                            OtherQuad,
+                     const Quadric1&                            QuadSurf,
+                     const Quadric1&                            OtherQuad,
                      const Standard_Boolean                            multpoint,
                      const Standard_Real                               Tolarc)
 {
@@ -457,7 +457,7 @@ void PutPointsOnLine(const Handle(Adaptor3d_Surface)&                  S1,
   gp_Pnt2d p2d;
   gp_Vec2d d2d;
 
-  IntSurf_Transition Transline, Transarc;
+  Transition2 Transline, Transarc;
 
   Handle(Adaptor2d_Curve2d) currentarc;
   Handle(Adaptor3d_HVertex) vtx, vtxbis;
@@ -628,7 +628,7 @@ void PutPointsOnLine(const Handle(Adaptor3d_Surface)&                  S1,
               }
               else
               {
-                IntSurf::MakeTransition(Vtgint, Vtgrst, Normale, Transline, Transarc);
+                IntSurf1::MakeTransition(Vtgint, Vtgrst, Normale, Transline, Transarc);
               }
               solpnt.SetArc(OnFirst, currentarc, currentparameter, Transline, Transarc);
 
@@ -677,7 +677,7 @@ void PutPointsOnLine(const Handle(Adaptor3d_Surface)&                  S1,
                         }
                         else
                         {
-                          IntSurf::MakeTransition(Vtgint, Vtgrst, Normale, Transline, Transarc);
+                          IntSurf1::MakeTransition(Vtgint, Vtgrst, Normale, Transline, Transarc);
                         }
                         solpnt.SetArc(OnFirst, currentarc, currentparameter, Transline, Transarc);
                         if (TheType == IntPatch_Analytic)
@@ -709,7 +709,7 @@ void PutPointsOnLine(const Handle(Adaptor3d_Surface)&                  S1,
 
 Standard_Boolean MultiplePoint(const IntPatch_SequenceOfPathPointOfTheSOnBounds& listpnt,
                                const Handle(Adaptor3d_TopolTool)&                Domain,
-                               const IntSurf_Quadric&                            QuadSurf,
+                               const Quadric1&                            QuadSurf,
                                const Vector3d&                                     Normale,
                                const IntPatch_SequenceOfLine&                    slin,
                                TColStd_Array1OfInteger&                          Done,
@@ -724,7 +724,7 @@ Standard_Boolean MultiplePoint(const IntPatch_SequenceOfPathPointOfTheSOnBounds&
   Standard_Integer nblin = slin.Length();
   IntPatch_IType   TheType;
 
-  IntSurf_Transition Transline, Transarc;
+  Transition2 Transline, Transarc;
 
   IntPatch_Point            intpt;
   Handle(Adaptor2d_Curve2d) currentarc;
@@ -813,7 +813,7 @@ Standard_Boolean MultiplePoint(const IntPatch_SequenceOfPathPointOfTheSOnBounds&
           }
           else
           {
-            IntSurf::MakeTransition(Vtgint, Vtgrst, Normale, Transline, Transarc);
+            IntSurf1::MakeTransition(Vtgint, Vtgrst, Normale, Transline, Transarc);
           }
 
           //-- Avant, on ne mettait pas ce point (17 nov 97)
@@ -858,7 +858,7 @@ Standard_Boolean MultiplePoint(const IntPatch_SequenceOfPathPointOfTheSOnBounds&
                     }
                     else
                     {
-                      IntSurf::MakeTransition(Vtgint, Vtgrst, Normale, Transline, Transarc);
+                      IntSurf1::MakeTransition(Vtgint, Vtgrst, Normale, Transline, Transarc);
                     }
                     intpt.SetArc(OnFirst, currentarc, currentparameter, Transline, Transarc);
                     intpt.SetTolerance(theToler);
@@ -901,7 +901,7 @@ Standard_Boolean MultiplePoint(const IntPatch_SequenceOfPathPointOfTheSOnBounds&
 
 Standard_Boolean PointOnSecondDom(const IntPatch_SequenceOfPathPointOfTheSOnBounds& listpnt,
                                   const Handle(Adaptor3d_TopolTool)&                Domain,
-                                  const IntSurf_Quadric&                            QuadSurf,
+                                  const Quadric1&                            QuadSurf,
                                   const Vector3d&                                     Normale,
                                   const Vector3d&                                     Vtgint,
                                   const Handle(IntPatch_Line)&                      lin,
@@ -916,7 +916,7 @@ Standard_Boolean PointOnSecondDom(const IntPatch_SequenceOfPathPointOfTheSOnBoun
   Standard_Integer k, jj, nbvtx;
   IntPatch_IType   TheType;
 
-  IntSurf_Transition        Transline, Transarc;
+  Transition2        Transline, Transarc;
   IntPatch_Point            intpt;
   Handle(Adaptor2d_Curve2d) currentarc;
   Handle(Adaptor3d_HVertex) vtx, vtxbis;
@@ -981,7 +981,7 @@ Standard_Boolean PointOnSecondDom(const IntPatch_SequenceOfPathPointOfTheSOnBoun
         }
         else
         {
-          IntSurf::MakeTransition(Vtgint, Vtgrst, Normale, Transline, Transarc);
+          IntSurf1::MakeTransition(Vtgint, Vtgrst, Normale, Transline, Transarc);
         }
         intpt.SetArc(Standard_False, currentarc, currentparameter, Transline, Transarc);
         intpt.SetTolerance(theToler);
@@ -1020,7 +1020,7 @@ Standard_Boolean PointOnSecondDom(const IntPatch_SequenceOfPathPointOfTheSOnBoun
                   }
                   else
                   {
-                    IntSurf::MakeTransition(Vtgint, Vtgrst, Normale, Transline, Transarc);
+                    IntSurf1::MakeTransition(Vtgint, Vtgrst, Normale, Transline, Transarc);
                   }
                   intpt.SetArc(Standard_False, currentarc, currentparameter, Transline, Transarc);
                   intpt.SetTolerance(theToler);
@@ -1072,8 +1072,8 @@ Standard_Boolean FindLine(Point3d&                          Psurf,
                           const Handle(Adaptor2d_Curve2d)& thearc,
                           Standard_Real&                   theparameteronarc,
                           Point3d&                          thepointonarc,
-                          const IntSurf_Quadric&           QuadSurf1,
-                          const IntSurf_Quadric&           QuadSurf2,
+                          const Quadric1&           QuadSurf1,
+                          const Quadric1&           QuadSurf2,
                           Standard_Real&                   theOutputToler)
 {
   if ((QuadSurf1.Distance(Psurf) > Tol) || (QuadSurf2.Distance(Psurf) > Tol))
@@ -1366,7 +1366,7 @@ Standard_Boolean FindLine(Point3d&                          Psurf,
         // Previously (before the fix #29807) this code tried to process case
         // when Handle(IntPatch_ALine)::D1(...) method returns FALSE and
         // computed Vtgtint input argument value. Currently, any singularities
-        // must be processed by high-level algorithms (IntPatch_SpecialPoints class).
+        // must be processed by high-level algorithms (SpecialPoints class).
         // Therefore this code has been deleted as deprecated.
 
         Vtgtint.SetCoord(0.0, 0.0, 0.0);
@@ -1440,7 +1440,7 @@ Standard_Boolean SingleLine(const Point3d&                Psurf,
           // Previously (before the fix #29807) this code tried to process case
           // when Handle(IntPatch_ALine)::D1(...) method returns FALSE and
           // computed Vtgtint input argument value. Currently, any singularities
-          // must be processed by high-level algorithms (IntPatch_SpecialPoints class).
+          // must be processed by high-level algorithms (SpecialPoints class).
           // Therefore this code has been deleted as deprecated.
 
           tgint.SetCoord(0.0, 0.0, 0.0);
@@ -1477,8 +1477,8 @@ Standard_Boolean SingleLine(const Point3d&                Psurf,
 
 void ProcessSegments(const IntPatch_SequenceOfSegmentOfTheSOnBounds& listedg,
                      IntPatch_SequenceOfLine&                        slin,
-                     const IntSurf_Quadric&                          Quad1,
-                     const IntSurf_Quadric&                          Quad2,
+                     const Quadric1&                          Quad1,
+                     const Quadric1&                          Quad2,
                      const Standard_Boolean                          OnFirst,
                      const Standard_Real                             TolArc)
 {
@@ -1499,7 +1499,7 @@ void ProcessSegments(const IntPatch_SequenceOfSegmentOfTheSOnBounds& listedg,
 
   IntPatch_IType     typ;
   IntSurf_TypeTrans  trans1, trans2;
-  IntSurf_Transition TRest, TArc;
+  Transition2 TRest, TArc;
   Vector3d             tgline, norm1, norm2, tgarc;
   Point3d             valpt;
 
@@ -1709,7 +1709,7 @@ void ProcessSegments(const IntPatch_SequenceOfSegmentOfTheSOnBounds& listedg,
                 }
                 else
                 {
-                  IntSurf::MakeTransition(tgline, tgarc, norm1, TRest, TArc);
+                  IntSurf1::MakeTransition(tgline, tgarc, norm1, TRest, TArc);
                 }
                 newptvtx.SetArc(Standard_True, thearc, ptvtx.ParameterOnArc1(), TRest, TArc);
               }
@@ -1727,7 +1727,7 @@ void ProcessSegments(const IntPatch_SequenceOfSegmentOfTheSOnBounds& listedg,
                 }
                 else
                 {
-                  IntSurf::MakeTransition(tgline, tgarc, norm2, TRest, TArc);
+                  IntSurf1::MakeTransition(tgline, tgarc, norm2, TRest, TArc);
                 }
                 newptvtx.SetArc(Standard_False, thearc, ptvtx.ParameterOnArc2(), TRest, TArc);
               }
@@ -1787,7 +1787,7 @@ void ProcessSegments(const IntPatch_SequenceOfSegmentOfTheSOnBounds& listedg,
                 }
                 else
                 {
-                  IntSurf::MakeTransition(tgline, tgarc, norm1, TRest, TArc);
+                  IntSurf1::MakeTransition(tgline, tgarc, norm1, TRest, TArc);
                 }
                 newptvtx.SetArc(Standard_True, thearc, ptvtx.ParameterOnArc1(), TRest, TArc);
               }
@@ -1805,7 +1805,7 @@ void ProcessSegments(const IntPatch_SequenceOfSegmentOfTheSOnBounds& listedg,
                 }
                 else
                 {
-                  IntSurf::MakeTransition(tgline, tgarc, norm2, TRest, TArc);
+                  IntSurf1::MakeTransition(tgline, tgarc, norm2, TRest, TArc);
                 }
                 newptvtx.SetArc(Standard_False, thearc, ptvtx.ParameterOnArc2(), TRest, TArc);
               }
@@ -1844,8 +1844,8 @@ void ProcessSegments(const IntPatch_SequenceOfSegmentOfTheSOnBounds& listedg,
       ptvtx.SetParameter(paramf);
       if (!PStartf.IsNew())
       {
-        IntSurf_Transition Transline;
-        IntSurf_Transition Transarc;
+        Transition2 Transline;
+        Transition2 Transarc;
         ptvtx.SetVertex(OnFirst, PStartf.Vertex());
         ptvtx.SetArc(OnFirst, PStartf.Arc(), PStartf.Parameter(), Transline, Transarc);
       }
@@ -1862,8 +1862,8 @@ void ProcessSegments(const IntPatch_SequenceOfSegmentOfTheSOnBounds& listedg,
       ptvtx.SetParameter(paraml);
       if (!PStartl.IsNew())
       {
-        IntSurf_Transition Transline;
-        IntSurf_Transition Transarc;
+        Transition2 Transline;
+        Transition2 Transarc;
 
         ptvtx.SetVertex(OnFirst, PStartl.Vertex());
         ptvtx.SetArc(OnFirst, PStartl.Arc(), PStartl.Parameter(), Transline, Transarc);
@@ -1924,8 +1924,8 @@ static Standard_Real SquareDistance(const Handle(IntPatch_GLine)& theGLine,
   return aSQDist;
 }
 
-static Standard_Boolean IsRLineGood(const IntSurf_Quadric&       Quad1,
-                                    const IntSurf_Quadric&       Quad2,
+static Standard_Boolean IsRLineGood(const Quadric1&       Quad1,
+                                    const Quadric1&       Quad2,
                                     const Handle(IntPatch_GLine) theGLine,
                                     const Handle(IntPatch_RLine) theRLine,
                                     const Standard_Real          theTol)
@@ -2013,8 +2013,8 @@ static Standard_Boolean IsRLineGood(const IntSurf_Quadric&       Quad1,
 void ProcessRLine(IntPatch_SequenceOfLine& slin,
                   //		   const Handle(Adaptor3d_Surface)& Surf1,
                   //		   const Handle(Adaptor3d_Surface)& Surf2,
-                  const IntSurf_Quadric& Quad1,
-                  const IntSurf_Quadric& Quad2,
+                  const Quadric1& Quad1,
+                  const Quadric1& Quad2,
                   const Standard_Real    _TolArc,
                   const Standard_Boolean theIsReqToKeepRLine)
 {
@@ -2043,7 +2043,7 @@ void ProcessRLine(IntPatch_SequenceOfLine& slin,
   gp_Pnt2d           p2d;
   gp_Vec2d           d2d;
   Vector3d             d1u, d1v, tgrest, tgarc, norm;
-  IntSurf_Transition TRest, TArc;
+  Transition2 TRest, TArc;
 #ifndef OCCT_DEBUG
   Standard_Real U = 0., V = 0.;
 #else
@@ -2171,7 +2171,7 @@ void ProcessRLine(IntPatch_SequenceOfLine& slin,
                   Ptvtx.ParametersOnS2(U, V);
                 }
 
-                project = IntPatch_HInterTool::Project(arcref, gp_Pnt2d(U, V), paramproj, p2d);
+                project = HInterTool::Project(arcref, gp_Pnt2d(U, V), paramproj, p2d);
 
                 if (project)
                 {
@@ -2263,7 +2263,7 @@ void ProcessRLine(IntPatch_SequenceOfLine& slin,
                     }
                     else
                     {
-                      IntSurf::MakeTransition(tgrest, tgarc, norm, TRest, TArc);
+                      IntSurf1::MakeTransition(tgrest, tgarc, norm, TRest, TArc);
                     }
                     newptvtx.SetArc(Standard_False, thearc, Ptvtx.ParameterOnArc2(), TRest, TArc);
                   }
@@ -2284,7 +2284,7 @@ void ProcessRLine(IntPatch_SequenceOfLine& slin,
                     }
                     else
                     {
-                      IntSurf::MakeTransition(tgrest, tgarc, norm, TRest, TArc);
+                      IntSurf1::MakeTransition(tgrest, tgarc, norm, TRest, TArc);
                     }
                     newptvtx.SetArc(Standard_True, thearc, Ptvtx.ParameterOnArc1(), TRest, TArc);
                   }
@@ -2325,15 +2325,15 @@ void ProcessRLine(IntPatch_SequenceOfLine& slin,
   } //-- for (i=1; i<=Nblin; i++)
 }
 
-static Standard_Boolean IntPP(const IntSurf_Quadric&,
-                              const IntSurf_Quadric&,
+static Standard_Boolean IntPP(const Quadric1&,
+                              const Quadric1&,
                               const Standard_Real,
                               const Standard_Real,
                               Standard_Boolean&,
                               IntPatch_SequenceOfLine&);
 
-static Standard_Boolean IntPCy(const IntSurf_Quadric&,
-                               const IntSurf_Quadric&,
+static Standard_Boolean IntPCy(const Quadric1&,
+                               const Quadric1&,
                                const Standard_Real,
                                const Standard_Real,
                                const Standard_Boolean,
@@ -2341,8 +2341,8 @@ static Standard_Boolean IntPCy(const IntSurf_Quadric&,
                                IntPatch_SequenceOfLine&,
                                const Standard_Real H = 0.);
 
-static Standard_Boolean IntPSp(const IntSurf_Quadric&,
-                               const IntSurf_Quadric&,
+static Standard_Boolean IntPSp(const Quadric1&,
+                               const Quadric1&,
                                // modified by NIZNHY-PKV Tue Sep 20 08:59:56 2011t
                                const Standard_Real,
                                // modified by NIZNHY-PKV Tue Sep 20 08:59:52 2011t
@@ -2352,8 +2352,8 @@ static Standard_Boolean IntPSp(const IntSurf_Quadric&,
                                IntPatch_SequenceOfLine&,
                                IntPatch_SequenceOfPoint&);
 
-static Standard_Boolean IntPCo(const IntSurf_Quadric&,
-                               const IntSurf_Quadric&,
+static Standard_Boolean IntPCo(const Quadric1&,
+                               const Quadric1&,
                                const Standard_Real,
                                const Standard_Real,
                                const Standard_Boolean,
@@ -2364,8 +2364,8 @@ static Standard_Boolean IntPCo(const IntSurf_Quadric&,
 
 static void ProcessBounds(const Handle(IntPatch_ALine)&,
                           const IntPatch_SequenceOfLine&,
-                          const IntSurf_Quadric&,
-                          const IntSurf_Quadric&,
+                          const Quadric1&,
+                          const Quadric1&,
                           Standard_Boolean&,
                           const Point3d&,
                           const Standard_Real,
@@ -2375,8 +2375,8 @@ static void ProcessBounds(const Handle(IntPatch_ALine)&,
                           Standard_Boolean&,
                           const Standard_Real);
 
-static IntPatch_ImpImpIntersection::IntStatus IntCyCy(const IntSurf_Quadric&    theQuad1,
-                                                      const IntSurf_Quadric&    theQuad2,
+static IntPatch_ImpImpIntersection::IntStatus IntCyCy(const Quadric1&    theQuad1,
+                                                      const Quadric1&    theQuad2,
                                                       const Standard_Real       theTol3D,
                                                       const Standard_Real       theTol2D,
                                                       const Bnd_Box2d&          theUVSurf1,
@@ -2387,8 +2387,8 @@ static IntPatch_ImpImpIntersection::IntStatus IntCyCy(const IntSurf_Quadric&    
                                                       IntPatch_SequenceOfLine&  theSlin,
                                                       IntPatch_SequenceOfPoint& theSPnt);
 
-static Standard_Boolean IntCySp(const IntSurf_Quadric&,
-                                const IntSurf_Quadric&,
+static Standard_Boolean IntCySp(const Quadric1&,
+                                const Quadric1&,
                                 const Standard_Real,
                                 const Standard_Boolean,
                                 Standard_Boolean&,
@@ -2396,8 +2396,8 @@ static Standard_Boolean IntCySp(const IntSurf_Quadric&,
                                 IntPatch_SequenceOfLine&,
                                 IntPatch_SequenceOfPoint&);
 
-static Standard_Boolean IntCyCo(const IntSurf_Quadric&,
-                                const IntSurf_Quadric&,
+static Standard_Boolean IntCyCo(const Quadric1&,
+                                const Quadric1&,
                                 const Standard_Real,
                                 const Standard_Boolean,
                                 Standard_Boolean&,
@@ -2405,16 +2405,16 @@ static Standard_Boolean IntCyCo(const IntSurf_Quadric&,
                                 IntPatch_SequenceOfLine&,
                                 IntPatch_SequenceOfPoint&);
 
-static Standard_Boolean IntSpSp(const IntSurf_Quadric&,
-                                const IntSurf_Quadric&,
+static Standard_Boolean IntSpSp(const Quadric1&,
+                                const Quadric1&,
                                 const Standard_Real,
                                 Standard_Boolean&,
                                 Standard_Boolean&,
                                 IntPatch_SequenceOfLine&,
                                 IntPatch_SequenceOfPoint&);
 
-static Standard_Boolean IntCoSp(const IntSurf_Quadric&,
-                                const IntSurf_Quadric&,
+static Standard_Boolean IntCoSp(const Quadric1&,
+                                const Quadric1&,
                                 const Standard_Real,
                                 const Standard_Boolean,
                                 Standard_Boolean&,
@@ -2422,8 +2422,8 @@ static Standard_Boolean IntCoSp(const IntSurf_Quadric&,
                                 IntPatch_SequenceOfLine&,
                                 IntPatch_SequenceOfPoint&);
 
-static Standard_Boolean IntCoCo(const IntSurf_Quadric&,
-                                const IntSurf_Quadric&,
+static Standard_Boolean IntCoCo(const Quadric1&,
+                                const Quadric1&,
                                 const Standard_Real,
                                 Standard_Boolean&,
                                 Standard_Boolean&,
@@ -2432,36 +2432,36 @@ static Standard_Boolean IntCoCo(const IntSurf_Quadric&,
                                 IntPatch_SequenceOfPoint&);
 
 // torus
-static Standard_Boolean IntPTo(const IntSurf_Quadric&,
-                               const IntSurf_Quadric&,
+static Standard_Boolean IntPTo(const Quadric1&,
+                               const Quadric1&,
                                const Standard_Real,
                                const Standard_Boolean,
                                Standard_Boolean&,
                                IntPatch_SequenceOfLine&);
 
-static Standard_Boolean IntCyTo(const IntSurf_Quadric&,
-                                const IntSurf_Quadric&,
+static Standard_Boolean IntCyTo(const Quadric1&,
+                                const Quadric1&,
                                 const Standard_Real,
                                 const Standard_Boolean,
                                 Standard_Boolean&,
                                 IntPatch_SequenceOfLine&);
 
-static Standard_Boolean IntCoTo(const IntSurf_Quadric&,
-                                const IntSurf_Quadric&,
+static Standard_Boolean IntCoTo(const Quadric1&,
+                                const Quadric1&,
                                 const Standard_Real,
                                 const Standard_Boolean,
                                 Standard_Boolean&,
                                 IntPatch_SequenceOfLine&);
 
-static Standard_Boolean IntSpTo(const IntSurf_Quadric&,
-                                const IntSurf_Quadric&,
+static Standard_Boolean IntSpTo(const Quadric1&,
+                                const Quadric1&,
                                 const Standard_Real,
                                 const Standard_Boolean,
                                 Standard_Boolean&,
                                 IntPatch_SequenceOfLine&);
 
-static Standard_Boolean IntToTo(const IntSurf_Quadric&,
-                                const IntSurf_Quadric&,
+static Standard_Boolean IntToTo(const Quadric1&,
+                                const Quadric1&,
                                 const Standard_Real,
                                 Standard_Boolean&,
                                 Standard_Boolean&,
@@ -2469,7 +2469,7 @@ static Standard_Boolean IntToTo(const IntSurf_Quadric&,
 
 static Standard_Integer SetQuad(const Handle(Adaptor3d_Surface)& theS,
                                 GeomAbs_SurfaceType&             theTS,
-                                IntSurf_Quadric&                 theQuad);
+                                Quadric1&                 theQuad);
 
 //=================================================================================================
 
@@ -2528,7 +2528,7 @@ void IntPatch_ImpImpIntersection::Perform(const Handle(Adaptor3d_Surface)&   S1,
   IntPatch_SequenceOfPathPointOfTheSOnBounds pnt1, pnt2;
   //
   // On commence par intersecter les supports des surfaces
-  IntSurf_Quadric      quad1, quad2;
+  Quadric1      quad1, quad2;
   IntPatch_ArcFunction AFunc;
   const Standard_Real  Tolang = 1.e-8;
   GeomAbs_SurfaceType  typs1, typs2;
@@ -3033,7 +3033,7 @@ void IntPatch_ImpImpIntersection::Perform(const Handle(Adaptor3d_Surface)&   S1,
 
 Standard_Integer SetQuad(const Handle(Adaptor3d_Surface)& theS,
                          GeomAbs_SurfaceType&             theTS,
-                         IntSurf_Quadric&                 theQuad)
+                         Quadric1&                 theQuad)
 {
   theTS                 = theS->GetType();
   Standard_Integer iRet = 0;
@@ -3079,8 +3079,8 @@ static void AdjustToSeam(const gp_Torus& aQuad, gp_Circ& aCirc);
 // purpose  :
 // Traitement du cas Plan/Plan
 //=======================================================================
-Standard_Boolean IntPP(const IntSurf_Quadric&   Quad1,
-                       const IntSurf_Quadric&   Quad2,
+Standard_Boolean IntPP(const Quadric1&   Quad1,
+                       const Quadric1&   Quad2,
                        const Standard_Real      Tolang,
                        const Standard_Real      TolTang,
                        Standard_Boolean&        Same,
@@ -3130,8 +3130,8 @@ Standard_Boolean IntPP(const IntSurf_Quadric&   Quad1,
 // purpose  :
 // Traitement du cas Plan/Cylindre et reciproquement
 //=======================================================================
-Standard_Boolean IntPCy(const IntSurf_Quadric&   Quad1,
-                        const IntSurf_Quadric&   Quad2,
+Standard_Boolean IntPCy(const Quadric1&   Quad1,
+                        const Quadric1&   Quad2,
                         const Standard_Real      Tolang,
                         const Standard_Real      TolTang,
                         const Standard_Boolean   Reversed,
@@ -3325,8 +3325,8 @@ Standard_Boolean IntPCy(const IntSurf_Quadric&   Quad1,
 // purpose  :
 // Traitement du cas Plan/Sphere et reciproquement
 //=======================================================================
-Standard_Boolean IntPSp(const IntSurf_Quadric& Quad1,
-                        const IntSurf_Quadric& Quad2,
+Standard_Boolean IntPSp(const Quadric1& Quad1,
+                        const Quadric1& Quad2,
                         // modified by NIZNHY-PKV Tue Sep 20 08:59:36 2011f
                         const Standard_Real Tolang,
                         // modified by NIZNHY-PKV Tue Sep 20 08:59:39 2011t
@@ -3419,8 +3419,8 @@ Standard_Boolean IntPSp(const IntSurf_Quadric& Quad1,
 // purpose  :
 // Traitement du cas Plan/Cone et reciproquement
 //=======================================================================
-Standard_Boolean IntPCo(const IntSurf_Quadric&    Quad1,
-                        const IntSurf_Quadric&    Quad2,
+Standard_Boolean IntPCo(const Quadric1&    Quad1,
+                        const Quadric1&    Quad2,
                         const Standard_Real       Tolang,
                         const Standard_Real       TolTang,
                         const Standard_Boolean    Reversed,
@@ -3763,8 +3763,8 @@ Standard_Boolean IntPCo(const IntSurf_Quadric&    Quad1,
 
 //=================================================================================================
 
-Standard_Boolean IntPTo(const IntSurf_Quadric&   theQuad1,
-                        const IntSurf_Quadric&   theQuad2,
+Standard_Boolean IntPTo(const Quadric1&   theQuad1,
+                        const Quadric1&   theQuad2,
                         const Standard_Real      theTolTang,
                         const Standard_Boolean   bReversed,
                         Standard_Boolean&        bEmpty,
@@ -4261,8 +4261,8 @@ public:
     bool operator==(const StPInfo& theOther) const { return myU1 == theOther.myU1; }
   };
 
-  WorkWithBoundaries(const IntSurf_Quadric&                   theQuad1,
-                     const IntSurf_Quadric&                   theQuad2,
+  WorkWithBoundaries(const Quadric1&                   theQuad1,
+                     const Quadric1&                   theQuad2,
                      const ComputationMethods::stCoeffsValue& theCoeffs,
                      const Bnd_Box2d&                         theUVSurf1,
                      const Bnd_Box2d&                         theUVSurf2,
@@ -4287,7 +4287,7 @@ public:
   const ComputationMethods::stCoeffsValue& SICoeffs() const { return myCoeffs; }
 
   // Returns quadric correspond to the index theIdx.
-  const IntSurf_Quadric& GetQSurface(const Standard_Integer theIdx) const
+  const Quadric1& GetQSurface(const Standard_Integer theIdx) const
   {
     if (theIdx <= 1)
       return myQuad1;
@@ -4349,8 +4349,8 @@ protected:
 private:
   friend class ComputationMethods;
 
-  const IntSurf_Quadric&                   myQuad1;
-  const IntSurf_Quadric&                   myQuad2;
+  const Quadric1&                   myQuad1;
+  const Quadric1&                   myQuad2;
   const ComputationMethods::stCoeffsValue& myCoeffs;
   const Bnd_Box2d&                         myUVSurf1;
   const Bnd_Box2d&                         myUVSurf2;
@@ -4361,8 +4361,8 @@ private:
   const Standard_Boolean                   myIsReverse;
 };
 
-static void SeekAdditionalPoints(const IntSurf_Quadric&                   theQuad1,
-                                 const IntSurf_Quadric&                   theQuad2,
+static void SeekAdditionalPoints(const Quadric1&                   theQuad1,
+                                 const Quadric1&                   theQuad2,
                                  const Handle(IntSurf_LineOn2S)&          theLine,
                                  const ComputationMethods::stCoeffsValue& theCoeffs,
                                  const Standard_Integer                   theWLIndex,
@@ -4650,8 +4650,8 @@ static Standard_Boolean StepComputing(const math_Matrix& theMatr,
 
 void ProcessBounds(const Handle(IntPatch_ALine)&  alig, //-- ligne courante
                    const IntPatch_SequenceOfLine& slin,
-                   const IntSurf_Quadric&         Quad1,
-                   const IntSurf_Quadric&         Quad2,
+                   const Quadric1&         Quad1,
+                   const Quadric1&         Quad2,
                    Standard_Boolean&              procf,
                    const Point3d&                  ptf,   //-- Debut Ligne Courante
                    const Standard_Real            first, //-- Paramf
@@ -4810,8 +4810,8 @@ void ProcessBounds(const Handle(IntPatch_ALine)&  alig, //-- ligne courante
 // purpose  : Checks if intersection curve is analytical (line, circle, ellipse)
 //            and returns these curves.
 //=======================================================================
-Standard_Boolean CyCyAnalyticalIntersect(const IntSurf_Quadric&    Quad1,
-                                         const IntSurf_Quadric&    Quad2,
+Standard_Boolean CyCyAnalyticalIntersect(const Quadric1&    Quad1,
+                                         const Quadric1&    Quad2,
                                          const IntAna_QuadQuadGeo& theInter,
                                          const Standard_Real       Tol,
                                          Standard_Boolean&         Empty,
@@ -5687,8 +5687,8 @@ static Standard_Boolean ExcludeNearElements(Standard_Real          theArr[],
 //           always increased; therefore, this situation is abnormal).
 //           If theOnlyCheck==TRUE then no point will be added to theLine.
 //=======================================================================
-static Standard_Boolean AddPointIntoWL(const IntSurf_Quadric&                   theQuad1,
-                                       const IntSurf_Quadric&                   theQuad2,
+static Standard_Boolean AddPointIntoWL(const Quadric1&                   theQuad1,
+                                       const Quadric1&                   theQuad2,
                                        const ComputationMethods::stCoeffsValue& theCoeffs,
                                        const Standard_Boolean                   isTheReverse,
                                        const Standard_Boolean                   isThePrecise,
@@ -5765,7 +5765,7 @@ static Standard_Boolean AddPointIntoWL(const IntSurf_Quadric&                   
     return Standard_False;
 
   // Get intersection point and add it in the WL
-  IntSurf_PntOn2S aPnt;
+  PointOn2Surfaces aPnt;
 
   if (isTheReverse)
   {
@@ -5780,7 +5780,7 @@ static Standard_Boolean AddPointIntoWL(const IntSurf_Quadric&                   
   if (aNbPnts > 0)
   {
     Standard_Real         aUl = 0.0, aVl = 0.0;
-    const IntSurf_PntOn2S aPlast = theLine->Value(aNbPnts);
+    const PointOn2Surfaces aPlast = theLine->Value(aNbPnts);
     if (isTheReverse)
       aPlast.ParametersOnS2(aUl, aVl);
     else
@@ -6016,8 +6016,8 @@ void WorkWithBoundaries::AddBoundaryPoint(const Handle(IntPatch_WLine)& theWL,
 //          new point is inserted in middle of every interval.
 //            The process will be finished if NbPoints >= theMinNbPoints.
 //=======================================================================
-static void SeekAdditionalPoints(const IntSurf_Quadric&                   theQuad1,
-                                 const IntSurf_Quadric&                   theQuad2,
+static void SeekAdditionalPoints(const Quadric1&                   theQuad1,
+                                 const Quadric1&                   theQuad2,
                                  const Handle(IntSurf_LineOn2S)&          theLine,
                                  const ComputationMethods::stCoeffsValue& theCoeffs,
                                  const Standard_Integer                   theWLIndex,
@@ -6118,7 +6118,7 @@ static void SeekAdditionalPoints(const IntSurf_Quadric&                   theQua
                 << "; |P2Pi| = " << aP2.SquareDistance(aPInt) << std::endl;
 #endif
 
-      IntSurf_PntOn2S anIP;
+      PointOn2Surfaces anIP;
       if (isTheReverse)
       {
         anIP.SetValue(aPInt, U2prec, V2prec, U1prec, V1prec);
@@ -6607,8 +6607,8 @@ static IntPatch_ImpImpIntersection::IntStatus CyCyNoGeometric(
   }
   //
   const ComputationMethods::stCoeffsValue& anEquationCoeffs = theBW.SICoeffs();
-  const IntSurf_Quadric&                   aQuad1           = theBW.GetQSurface(1);
-  const IntSurf_Quadric&                   aQuad2           = theBW.GetQSurface(2);
+  const Quadric1&                   aQuad1           = theBW.GetQSurface(1);
+  const Quadric1&                   aQuad2           = theBW.GetQSurface(2);
   const Standard_Boolean                   isReversed       = theBW.IsReversed();
   const Standard_Real                      aTol2D           = theBW.Get2dTolerance();
   const Standard_Real                      aTol3D           = theBW.Get3dTolerance();
@@ -7389,8 +7389,8 @@ static IntPatch_ImpImpIntersection::IntStatus CyCyNoGeometric(
 
           if (aWLine[i]->NbPnts() == 2)
           {
-            const IntSurf_PntOn2S& aPf = aWLine[i]->Point(1);
-            const IntSurf_PntOn2S& aPl = aWLine[i]->Point(2);
+            const PointOn2Surfaces& aPf = aWLine[i]->Point(1);
+            const PointOn2Surfaces& aPl = aWLine[i]->Point(2);
 
             if (aPf.IsSame(aPl, Precision::Confusion()))
               isGood = Standard_False;
@@ -7528,10 +7528,10 @@ static IntPatch_ImpImpIntersection::IntStatus CyCyNoGeometric(
     {
       Handle(IntPatch_WLine) aWLine1(Handle(IntPatch_WLine)::DownCast(theSlin.Value(aNbLin)));
 
-      const IntSurf_PntOn2S& aPntFWL1 = aWLine1->Point(1);
-      const IntSurf_PntOn2S& aPntLWL1 = aWLine1->Point(aWLine1->NbPnts());
+      const PointOn2Surfaces& aPntFWL1 = aWLine1->Point(1);
+      const PointOn2Surfaces& aPntLWL1 = aWLine1->Point(aWLine1->NbPnts());
 
-      const IntSurf_PntOn2S aPntCur = theSPnt.Value(aNbPnt).PntOn2S();
+      const PointOn2Surfaces aPntCur = theSPnt.Value(aNbPnt).PntOn2S();
       if (aPntCur.IsSame(aPntFWL1, aTol3D) || aPntCur.IsSame(aPntLWL1, aTol3D))
       {
         theSPnt.Remove(aNbPnt);
@@ -7753,8 +7753,8 @@ static IntPatch_ImpImpIntersection::IntStatus CyCyNoGeometric(
 
 //=================================================================================================
 
-IntPatch_ImpImpIntersection::IntStatus IntCyCy(const IntSurf_Quadric&    theQuad1,
-                                               const IntSurf_Quadric&    theQuad2,
+IntPatch_ImpImpIntersection::IntStatus IntCyCy(const Quadric1&    theQuad1,
+                                               const Quadric1&    theQuad2,
                                                const Standard_Real       theTol3D,
                                                const Standard_Real       theTol2D,
                                                const Bnd_Box2d&          theUVSurf1,
@@ -7964,8 +7964,8 @@ IntPatch_ImpImpIntersection::IntStatus IntCyCy(const IntSurf_Quadric&    theQuad
 
 //=================================================================================================
 
-Standard_Boolean IntCySp(const IntSurf_Quadric&    Quad1,
-                         const IntSurf_Quadric&    Quad2,
+Standard_Boolean IntCySp(const Quadric1&    Quad1,
+                         const Quadric1&    Quad2,
                          const Standard_Real       Tol,
                          const Standard_Boolean    Reversed,
                          Standard_Boolean&         Empty,
@@ -8231,8 +8231,8 @@ Standard_Boolean IntCySp(const IntSurf_Quadric&    Quad1,
 
 //=================================================================================================
 
-Standard_Boolean IntCyCo(const IntSurf_Quadric&    Quad1,
-                         const IntSurf_Quadric&    Quad2,
+Standard_Boolean IntCyCo(const Quadric1&    Quad1,
+                         const Quadric1&    Quad2,
                          const Standard_Real       Tol,
                          const Standard_Boolean    Reversed,
                          Standard_Boolean&         Empty,
@@ -8532,8 +8532,8 @@ Standard_Boolean ExploreCurve(const gp_Cone&      theCo,
 
 //=================================================================================================
 
-Standard_Boolean IntCoCo(const IntSurf_Quadric&    Quad1,
-                         const IntSurf_Quadric&    Quad2,
+Standard_Boolean IntCoCo(const Quadric1&    Quad1,
+                         const Quadric1&    Quad2,
                          const Standard_Real       Tol,
                          Standard_Boolean&         Empty,
                          Standard_Boolean&         Same,
@@ -9032,8 +9032,8 @@ Standard_Boolean IntCoCo(const IntSurf_Quadric&    Quad1,
 
 //=================================================================================================
 
-Standard_Boolean IntCoSp(const IntSurf_Quadric&    Quad1,
-                         const IntSurf_Quadric&    Quad2,
+Standard_Boolean IntCoSp(const Quadric1&    Quad1,
+                         const Quadric1&    Quad2,
                          const Standard_Real       Tol,
                          const Standard_Boolean    Reversed,
                          Standard_Boolean&         Empty,
@@ -9326,8 +9326,8 @@ Standard_Boolean IntCoSp(const IntSurf_Quadric&    Quad1,
 }
 //=================================================================================================
 
-Standard_Boolean IntSpSp(const IntSurf_Quadric&    Quad1,
-                         const IntSurf_Quadric&    Quad2,
+Standard_Boolean IntSpSp(const Quadric1&    Quad1,
+                         const Quadric1&    Quad2,
                          const Standard_Real       Tol,
                          Standard_Boolean&         Empty,
                          Standard_Boolean&         Same,
@@ -9409,16 +9409,16 @@ Standard_Boolean IntSpSp(const IntSurf_Quadric&    Quad1,
   return Standard_True;
 }
 
-static Standard_Boolean TreatResultTorus(const IntSurf_Quadric&    theQuad1,
-                                         const IntSurf_Quadric&    theQuad2,
+static Standard_Boolean TreatResultTorus(const Quadric1&    theQuad1,
+                                         const Quadric1&    theQuad2,
                                          const IntAna_QuadQuadGeo& anInt,
                                          Standard_Boolean&         bEmpty,
                                          IntPatch_SequenceOfLine&  theSeqLin);
 
 //=================================================================================================
 
-Standard_Boolean IntCyTo(const IntSurf_Quadric&   theQuad1,
-                         const IntSurf_Quadric&   theQuad2,
+Standard_Boolean IntCyTo(const Quadric1&   theQuad1,
+                         const Quadric1&   theQuad2,
                          const Standard_Real      theTolTang,
                          const Standard_Boolean   bReversed,
                          Standard_Boolean&        bEmpty,
@@ -9435,8 +9435,8 @@ Standard_Boolean IntCyTo(const IntSurf_Quadric&   theQuad1,
 
 //=================================================================================================
 
-Standard_Boolean IntCoTo(const IntSurf_Quadric&   theQuad1,
-                         const IntSurf_Quadric&   theQuad2,
+Standard_Boolean IntCoTo(const Quadric1&   theQuad1,
+                         const Quadric1&   theQuad2,
                          const Standard_Real      theTolTang,
                          const Standard_Boolean   bReversed,
                          Standard_Boolean&        bEmpty,
@@ -9453,8 +9453,8 @@ Standard_Boolean IntCoTo(const IntSurf_Quadric&   theQuad1,
 
 //=================================================================================================
 
-Standard_Boolean IntSpTo(const IntSurf_Quadric&   theQuad1,
-                         const IntSurf_Quadric&   theQuad2,
+Standard_Boolean IntSpTo(const Quadric1&   theQuad1,
+                         const Quadric1&   theQuad2,
                          const Standard_Real      theTolTang,
                          const Standard_Boolean   bReversed,
                          Standard_Boolean&        bEmpty,
@@ -9471,8 +9471,8 @@ Standard_Boolean IntSpTo(const IntSurf_Quadric&   theQuad1,
 
 //=================================================================================================
 
-Standard_Boolean IntToTo(const IntSurf_Quadric&   theQuad1,
-                         const IntSurf_Quadric&   theQuad2,
+Standard_Boolean IntToTo(const Quadric1&   theQuad1,
+                         const Quadric1&   theQuad2,
                          const Standard_Real      theTolTang,
                          Standard_Boolean&        bSameSurf,
                          Standard_Boolean&        bEmpty,
@@ -9501,8 +9501,8 @@ Standard_Boolean IntToTo(const IntSurf_Quadric&   theQuad1,
 
 //=================================================================================================
 
-static Standard_Boolean TreatResultTorus(const IntSurf_Quadric&    theQuad1,
-                                         const IntSurf_Quadric&    theQuad2,
+static Standard_Boolean TreatResultTorus(const Quadric1&    theQuad1,
+                                         const Quadric1&    theQuad2,
                                          const IntAna_QuadQuadGeo& anInt,
                                          Standard_Boolean&         bEmpty,
                                          IntPatch_SequenceOfLine&  theSeqLin)

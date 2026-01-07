@@ -36,8 +36,8 @@ static void ToG0(const gp_Mat& M1, const gp_Mat& M2, gp_Mat& T)
 }
 
 BRepFill_DraftLaw::BRepFill_DraftLaw(const TopoWire&                    Path,
-                                     const Handle(GeomFill_LocationDraft)& Law)
-    : BRepFill_Edge3DLaw(Path, Law)
+                                     const Handle(GeomFill_LocationDraft)& Law1)
+    : BRepFill_Edge3DLaw(Path, Law1)
 {
 }
 

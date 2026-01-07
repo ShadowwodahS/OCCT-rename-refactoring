@@ -27,7 +27,7 @@
 class IntRes2d_IntersectionPoint;
 class HatchGen_PointOnElement;
 
-class HatchGen_PointOnHatching : public HatchGen_IntersectionPoint
+class HatchGen_PointOnHatching : public IntersectionPoint2
 {
 public:
   DEFINE_STANDARD_ALLOC

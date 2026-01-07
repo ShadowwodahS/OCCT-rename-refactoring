@@ -28,7 +28,7 @@
 #include <IntPolyh_ArrayOfSectionLines.hxx>
 #include <IntPolyh_ArrayOfTangentZones.hxx>
 
-class IntPolyh_StartPoint;
+class StartPoint;
 
 //! Low-level algorithm to compute intersection of the surfaces
 //! by computing the intersection of their triangulations.
@@ -142,46 +142,46 @@ public:
 
   //! This function checks if two triangles are in contact or not,
   //! return 1 if yes, return 0 if not.
-  Standard_EXPORT Standard_Integer TriContact(const IntPolyh_Point& P1,
-                                              const IntPolyh_Point& P2,
-                                              const IntPolyh_Point& P3,
-                                              const IntPolyh_Point& Q1,
-                                              const IntPolyh_Point& Q2,
-                                              const IntPolyh_Point& Q3,
+  Standard_EXPORT Standard_Integer TriContact(const Point3& P1,
+                                              const Point3& P2,
+                                              const Point3& P3,
+                                              const Point3& Q1,
+                                              const Point3& Q2,
+                                              const Point3& Q3,
                                               Standard_Real&        Angle) const;
 
   Standard_EXPORT Standard_Integer TriangleEdgeContact(const Standard_Integer   TriSurfID,
                                                        const Standard_Integer   EdgeIndice,
                                                        const IntPolyh_Triangle& Tri1,
                                                        const IntPolyh_Triangle& Tri2,
-                                                       const IntPolyh_Point&    P1,
-                                                       const IntPolyh_Point&    P2,
-                                                       const IntPolyh_Point&    P3,
-                                                       const IntPolyh_Point&    C1,
-                                                       const IntPolyh_Point&    C2,
-                                                       const IntPolyh_Point&    C3,
-                                                       const IntPolyh_Point&    Pe1,
-                                                       const IntPolyh_Point&    Pe2,
-                                                       const IntPolyh_Point&    E,
-                                                       const IntPolyh_Point&    N,
-                                                       IntPolyh_StartPoint&     SP1,
-                                                       IntPolyh_StartPoint&     SP2) const;
+                                                       const Point3&    P1,
+                                                       const Point3&    P2,
+                                                       const Point3&    P3,
+                                                       const Point3&    C1,
+                                                       const Point3&    C2,
+                                                       const Point3&    C3,
+                                                       const Point3&    Pe1,
+                                                       const Point3&    Pe2,
+                                                       const Point3&    E,
+                                                       const Point3&    N,
+                                                       StartPoint&     SP1,
+                                                       StartPoint&     SP2) const;
 
   //! From two triangles compute intersection points.
   //! If we found more than two intersection points
   //! that means that those triangles are coplanar
   Standard_EXPORT Standard_Integer StartingPointsResearch(const Standard_Integer T1,
                                                           const Standard_Integer T2,
-                                                          IntPolyh_StartPoint&   SP1,
-                                                          IntPolyh_StartPoint&   SP2) const;
+                                                          StartPoint&   SP1,
+                                                          StartPoint&   SP2) const;
 
   //! from two triangles and an intersection point I
   //! search the other point (if it exists).
   //! This function is used by StartPointChain
   Standard_EXPORT Standard_Integer NextStartingPointsResearch(const Standard_Integer     T1,
                                                               const Standard_Integer     T2,
-                                                              const IntPolyh_StartPoint& SPInit,
-                                                              IntPolyh_StartPoint& SPNext) const;
+                                                              const StartPoint& SPInit,
+                                                              StartPoint& SPNext) const;
 
   //! Analyse each couple of triangles from the two -- array of triangles,
   //! to see if they are in contact, and compute the incidence.
@@ -198,9 +198,9 @@ public:
   //! Mainly  used  by StartPointsChain(), this function
   //! try to compute the next StartPoint.
   Standard_EXPORT Standard_Integer
-    GetNextChainStartPoint(const IntPolyh_StartPoint&    SPInit,
-                           IntPolyh_StartPoint&          SPNext,
-                           IntPolyh_SectionLine&         MySectionLine,
+    GetNextChainStartPoint(const StartPoint&    SPInit,
+                           StartPoint&          SPNext,
+                           SectionLine&         MySectionLine,
                            IntPolyh_ArrayOfTangentZones& TTangentZones,
                            const Standard_Boolean        Prepend = Standard_False);
 

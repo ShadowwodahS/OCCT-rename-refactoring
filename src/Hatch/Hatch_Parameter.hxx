@@ -27,20 +27,20 @@
 //! * A Real parameter.
 //!
 //! * A flag True when the parameter starts an interval.
-class Hatch_Parameter
+class HatchParameter
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Hatch_Parameter();
+  Standard_EXPORT HatchParameter();
 
-  Standard_EXPORT Hatch_Parameter(const Standard_Real    Par1,
+  Standard_EXPORT HatchParameter(const Standard_Real    Par1,
                                   const Standard_Boolean Start,
                                   const Standard_Integer Index = 0,
                                   const Standard_Real    Par2  = 0);
 
-  friend class Hatch_Line;
-  friend class Hatch_Hatcher;
+  friend class HatchLine;
+  friend class Hatcher;
 
 protected:
 private:

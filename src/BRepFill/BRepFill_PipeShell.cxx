@@ -467,7 +467,7 @@ void BRepFill_PipeShell::Add(const TopoShape&    Profile,
     ResetLoc();
 
     Handle(GeomFill_LocationGuide) Loc =
-      Handle(GeomFill_LocationGuide)::DownCast(myLocation->Law(1));
+      Handle(GeomFill_LocationGuide)::DownCast(myLocation->Law1(1));
     Handle(TColgp_HArray1OfPnt2d) ParAndRad;
     Loc->ComputeAutomaticLaw(ParAndRad);
 
@@ -545,7 +545,7 @@ void BRepFill_PipeShell::SetLaw(const TopoShape&         Profile,
 
 //=======================================================================
 // function : SetLaw
-// purpose  :  Section + Law of homothety
+// purpose  :  Section + Law1 of homothety
 //=======================================================================
 void BRepFill_PipeShell::SetLaw(const TopoShape&         Profile,
                                 const Handle(Law_Function)& L,
@@ -641,7 +641,7 @@ void BRepFill_PipeShell::Simulate(const Standard_Integer N, ShapeList& List)
   TopoShape     W;
 
   // Calculate the parameters of digitalization
-  mySection->Law(1)->GetDomain(FirstS, Last);
+  mySection->Law1(1)->GetDomain(FirstS, Last);
   DeltaS = Last - FirstS;
   myLocation->CurvilinearBounds(NbL, First, Length);
   Delta = Length;
@@ -694,7 +694,7 @@ Standard_Boolean BRepFill_PipeShell::Build()
   }
 
   // 2) Calculate myFirst and myLast
-  mySection->Law(1)->GetDomain(FirstS, LastS);
+  mySection->Law1(1)->GetDomain(FirstS, LastS);
   mySection->D0(FirstS, myFirst);
   myLocation->D0(0, myFirst);
   if (mySection->IsVClosed() && myLocation->IsClosed())
@@ -1166,7 +1166,7 @@ void BRepFill_PipeShell::Prepare()
     for (Standard_Integer ipath = 1; ipath <= myLocation->NbLaw(); ipath++)
     {
       myLocation->CurvilinearBounds(ipath, f, l);
-      Loc = Handle(GeomFill_LocationGuide)::DownCast(myLocation->Law(ipath));
+      Loc = Handle(GeomFill_LocationGuide)::DownCast(myLocation->Law1(ipath));
       Loc->Set(Sec,
                Standard_True,
                fs + f * Delta,
@@ -1217,7 +1217,7 @@ void BRepFill_PipeShell::ResetLoc()
     Handle(GeomFill_LocationGuide) Loc;
     for (Standard_Integer isec = 1; isec <= myLocation->NbLaw(); isec++)
     {
-      Loc = Handle(GeomFill_LocationGuide)::DownCast(myLocation->Law(isec));
+      Loc = Handle(GeomFill_LocationGuide)::DownCast(myLocation->Law1(isec));
       Loc->EraseRotation(); // remove the rotation
     }
   }

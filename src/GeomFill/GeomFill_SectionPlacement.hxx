@@ -41,7 +41,7 @@ public:
   Standard_EXPORT GeomFill_SectionPlacement(const Handle(GeomFill_LocationLaw)& L,
                                             const Handle(Geom_Geometry)&        Section);
 
-  //! To change the section Law
+  //! To change the section Law1
   Standard_EXPORT void SetLocation(const Handle(GeomFill_LocationLaw)& L);
 
   Standard_EXPORT void Perform(const Standard_Real Tol);
@@ -65,15 +65,15 @@ public:
                    const Standard_Boolean WithCorrection = Standard_False) const;
 
   //! Compute the Section, in the coordinate system given by
-  //! the Location Law.
+  //! the Location Law1.
   //! If <WithTranslation> contact between
   //! <Section> and <Path> is forced.
   Standard_EXPORT Handle(GeomCurve3d) Section(const Standard_Boolean WithTranslation) const;
 
   //! Compute the Section, in the coordinate system given by
-  //! the Location Law.
+  //! the Location Law1.
   //! To have the Normal to section equal to the Location
-  //! Law Normal.  If <WithTranslation> contact between
+  //! Law1 Normal.  If <WithTranslation> contact between
   //! <Section> and <Path> is forced.
   Standard_EXPORT Handle(GeomCurve3d) ModifiedSection(const Standard_Boolean WithTranslation) const;
 

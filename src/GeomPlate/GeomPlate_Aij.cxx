@@ -18,13 +18,13 @@
 #include <GeomPlate_BuildAveragePlane.hxx>
 #include <gp_Vec.hxx>
 
-GeomPlate_Aij::GeomPlate_Aij()
+AijMatrix::AijMatrix()
     : Ind1(0),
       Ind2(0)
 {
 }
 
-GeomPlate_Aij::GeomPlate_Aij(const Standard_Integer anInd1,
+AijMatrix::AijMatrix(const Standard_Integer anInd1,
                              const Standard_Integer anInd2,
                              const Vector3d&          aVec)
 {

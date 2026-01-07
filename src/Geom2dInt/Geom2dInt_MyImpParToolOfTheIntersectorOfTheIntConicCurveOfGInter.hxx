@@ -24,9 +24,9 @@
 #include <IntCurve_IConicTool.hxx>
 #include <math_FunctionWithDerivative.hxx>
 #include <Standard_Boolean.hxx>
-class IntCurve_IConicTool;
+class ConicTool;
 class Adaptor2d_Curve2d;
-class Geom2dInt_Geom2dCurveTool;
+class Geom2dCurveTool;
 
 class Geom2dInt_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfGInter
     : public math_FunctionWithDerivative
@@ -36,7 +36,7 @@ public:
 
   //! Constructor of the class.
   Standard_EXPORT Geom2dInt_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfGInter(
-    const IntCurve_IConicTool& IT,
+    const ConicTool& IT,
     const Adaptor2d_Curve2d&   PC);
 
   //! Computes the value of the signed distance between
@@ -58,7 +58,7 @@ public:
 protected:
 private:
   Standard_Address    TheParCurve;
-  IntCurve_IConicTool TheImpTool;
+  ConicTool TheImpTool;
 };
 
 #endif // _Geom2dInt_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfGInter_HeaderFile
