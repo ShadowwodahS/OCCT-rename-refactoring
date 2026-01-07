@@ -45,7 +45,8 @@ REFACTOR_SCRIPT_PATH = r"..\my_scripts\content_refactor_batch.py"
 CSV_PATH = r"..\my_docs\occt_renaming_map.csv"
 
 # 3. 编译命令
-CMD_BUILD = ["msbuild", r"..\..\OCCTBUILD\OCCT.sln", "/t:Build", "/p:Configuration=Release", "/maxCpuCount"]
+CMD_BUILD = ["msbuild", r"..\..\OCCTBUILD\OCCT.sln", "/t:Build", "/p:Configuration=Release", "/maxCpuCount",
+    "/p:StopOnFirstFailure=true"]
 
 # 4. 日志文件路径
 BAD_ROWS_LOG = "bad_renames.txt"
